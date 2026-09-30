@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78E53EEAD7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D4E3EFFC3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750381; cv=none; b=L+3N826u9BrdPmWfWrVKzEkCotfdvfBGunUz098FF6X7paKVbkM1NU5e77rnO4WV7R7c0Mwq6ATBp4i0lkEn/M7MO2Gr6eEp+D3/1ShpnPs87uZ3AN5vQg/ok302UiCglrFHb6Mt0psuBUJwghMDCHXZcdCw0LslWyzalbNKaRM=
+	t=1790750391; cv=none; b=TAls85l1gk8wP1KD+54t7yr+vml4Ew6iiDkT7YQsPW6UxAGpVNyfzAGQ1++g6cWCRpJ6ac6zzH/eXNgI94baWMYmzdo1XS6zVYId8r4S/qrE3PPdt15N7O1V9yJnE2LoiJVt6J+D6J2+CNHk6hPRtqqIj/6irRgrhn55rvnNcAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750381; c=relaxed/simple;
-	bh=xKnX/euCiK/QqaeXOzIScsgk8T7xfOv9BUYMjvYiHjg=;
+	s=arc-20240116; t=1790750391; c=relaxed/simple;
+	bh=SXG3KQkHqWDCzYlucQtCn5BlTDP1qGP1sPjRBJwQ23E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DIClA7wl48XwFjCEolZpB3IUXPydFm1SXIoJgKAkhYpo4BkiVvnvMu9LOibKxmTVC+4DXjL/acXeXbR3jKDXAGzQZiIMtCNKUF8C5nsBFN0nZeSQID2lK3jmhCsWdsaIFRAs8GbngzpLr4Nu64+cg6/0KZhqDe1cvbq0EZN5GkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DU6cKpdr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nl9GLaMq; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=EGszfP7EWXUTL+LdNfC1a5X9gP0SZ3m/MP1c8eZavGDbARnkbc9TrPio1/r7mCunkMQjDFb/vxTwLQ1f7pCoDT+NMpEQ/OcCkvf6BGosDmPYerJGSbik6hyiEb3lK8io+uIUAc/cUxGrfUkizCRL0jgdGX5zwRQPI+AU5J2wXTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FuOPjh3x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YccAylti; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DU6cKpdr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nl9GLaMq"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U6F9ja1592835
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:37 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FuOPjh3x";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YccAylti"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U1ANDL1264007
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=5ZZaESGLKRG
-	RLOjYU42IQLznpJTnyGsm5Bd30n0iDFk=; b=DU6cKpdr9JziYA+f/jMU6sxrjNr
-	G+Zn1PF8FFEJYjeog0vm5jW/Pw6vh3UIO5Oc9OKjUzIYw/7U18E3F3MdPtxifPwP
-	wiKiORPmUoyZ3BPJYyURQGd8tDFAcZI0JbTpB1zOnRln0JqqH23GfoAVphGxZTKZ
-	Z7MqSDk7odbAC1/OQBpN1GU25b/JOflPjQYMu5Xp2F4BpD1RpM3BhNJEF1diXjqr
-	MelEXljKSFk7DLOqfsO9HT9U39Mvu3Slyw2HtbRWXEI0N+x/KdhayFSiXTvaIuVf
-	MJCD0lrWLtxKcXgpuwv/xib9cnd+Hwr3/CaWzPn5tDrgwHGwpSCYHUMsBLg==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=psYL54jmN9y
+	cKhx2nDLaiBlGWatC/van2qwJIYKlQKQ=; b=FuOPjh3xNxFutzUopAcP299xbR4
+	8/1FNHNEp22sspN0N2/Vlq44e0P4Bdlwt6zZ6JWz88mmoav4BEotJ6u52Iu8SMhK
+	gu/3ihPgHQOret7hiIoWkme9e0/UEuJ+LrZsKswNXz8m3Cm6sPu4W5JMK0fuf/MU
+	O2pv4zRGbXKHRcpO15KsvqK5ewqLYmCPTGu/4OJhxCQvAClnZWY//sa7D2bSzNeY
+	rN8Dnxia5mZdFmw7AobVjeQpvyGIiXHM+DlfiAqe6cQpDPLK4r0gsBRtZsXsXi7o
+	MqCQs/lefKrHwOht9Pcp0CRkyw7GAn2P96okgJRBlStT9+qTbUDl2BrNgDg==
 Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0hsh2u45-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0rheh8y2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:37 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34d18eee3dfso322497eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:39:37 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:39:47 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34316295d86so8831100eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790750376; x=1791355176; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790750386; x=1791355186; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5ZZaESGLKRGRLOjYU42IQLznpJTnyGsm5Bd30n0iDFk=;
-        b=Nl9GLaMqsov5gouqEmkQjfFUW+rp5P8V2BdRKZs8kei2dNGSfQXR7McdBHF4+CWA6D
-         tycbrlnAEqgMjh1ev6J82CzeZhYYk/2hhlq9cAdHqRH9WqixyNXwIhdDX5FXAeb+VeB7
-         1DB/H0vjt5LlUhZDGxgdAaZ8imPhlFbJJelP3xqO0XLaZ+ILhPGA1v1L/GB6QdGiAHoN
-         78JWrZaAZ1Oeiu7GFKEubdfHCckNzQST20IZDxKzQ6N+DnG1wOwIFz8WthknBo5LzSLh
-         sdYPLmBpAqlbmIb1fkNy4r3YuaWbpnXY7TCIWB1VedSar4qLf9cjFEfgbyMmRtvHND8J
-         a+XA==
+        bh=psYL54jmN9ycKhx2nDLaiBlGWatC/van2qwJIYKlQKQ=;
+        b=YccAyltiD++J/tsZyI8fafvmnk6OB1Nip1QWe8MbZH9po1RmIWQv5BEVpmOxldXT/U
+         N/QN50hbj4qA2S5/lKr+PiDy+coCShsuCoxQKL7s0HutgPdDNKOuXiN4kBqmRcvxo04H
+         x/BOebbJu+UfWG/PqhN+BaRja/77NUbGsqQ61Rs0sx+8APGRDAx9t6rgc6H3A9gCZe8y
+         j31SQgs/SkOwh3BP33/4hHZbUPjQfVcvRjcXQQOJ01WV7JR7bYtDoXgmFtHvQB7fBBhE
+         YHeqchHMNSl8ce7IsXAYiCuV45ZgCs5Q7bzzJ3KSXhT1UcJER/Icix5Xy7FgvRLisOsk
+         EBpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790750376; x=1791355176;
+        d=1e100.net; s=20260707; t=1790750386; x=1791355186;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5ZZaESGLKRGRLOjYU42IQLznpJTnyGsm5Bd30n0iDFk=;
-        b=DKvMMRHZeOjHRYd8WsXq2DMXkl8+AK7NeiiMkJ9hGd1/fIGYAkeQXAZxeCOdXW9Zdt
-         oG36tTnJ3xWKYXBKtqW9jdSb2b00XgHOE4qVyyBm2DHhyTrqOHfkbka1YqvTQz69IXEq
-         6iinj0LYWI6eyV3kWdx0678UXzTxg6lgifAHl3Mi8BTlOZRbZcrkSv6MvNyvYc1fJ/bk
-         KP5xsPgnz1nogA70IX/7fsKR/gArrbomsbLAUOyPjzjlncVZNrZdlIlmkeSvMvxTwUS5
-         TNkZTGyqj2GmV9HWYk43uyXDZNHuoBFUxXhuForuJraOFZ/jfuXoDXIIkLP+iepXo9e+
-         oVdA==
-X-Gm-Message-State: AFuF++nwaCKT2qsML0+7zmLfoUPdfH4BzjI8jrcGOUnE2yg9lRnd4xo9
-	Kvhm1fE1P/mlTEmOXUSBdOZt7o3h9yTZQnWoLV/IIFkm5J6zFgtf8gg/fyolN5fCQtcbjs0Qo1V
-	PSklpswKB2r1hBixh3iUQWk+xKMAQLVeYwy1+0o3j9vWoFDAULclSo6m7sTKWh7rzPWvpEPzhIk
-	4=
-X-Gm-Gg: AYBFou3SXOlOtWzlYORkL8C1510Lh+kEVlRmdXEkYluwRKteuqpqwxMpdZdFYVniVug
-	2D13M2pzBw7uRZV4W+uDYT02lhegDosl42KdhI/OCM5q8FsGbMP6mriJg25erGUNhlWN7xN0vk+
-	xbfhaGTkObPOnR9wGhdHl9X6C4COJPnHbj7bsMz/MhcINNbnZ5bjSHJXcRJwcbSNNFTJLLM0SKr
-	nZD8LTS1XqGQDavQUH9/g+sSmk7XOZKz8lN0PRJNzTXJVHun8BK6ZLscccgGFSwLeJYNUnvDRqP
-	cs5BEdNo6+a0QDdleMQ72ry0jpy9fnsiMR0ke/hohQCaYhewpkvyw/1/gEejRA+1TfVJiTRzhaW
-	xCXwlum2PSAGJoMo0ViLvJ9fJD8bUcKsXXGCJXXH0TQ0LplFzeUIGeh8vsvr3Z8s7m0JQRmEc/0
-	GD3ZJHZGh3DUmvGHJP/9MGiK8l
-X-Received: by 2002:a05:7022:ed02:b0:145:7a:7765 with SMTP id a92af1059eb24-14d331a6544mr230620c88.36.1790750375675;
-        Tue, 29 Sep 2026 23:39:35 -0700 (PDT)
-X-Received: by 2002:a05:7022:ed02:b0:145:7a:7765 with SMTP id a92af1059eb24-14d331a6544mr230562c88.36.1790750374688;
-        Tue, 29 Sep 2026 23:39:34 -0700 (PDT)
+        bh=psYL54jmN9ycKhx2nDLaiBlGWatC/van2qwJIYKlQKQ=;
+        b=zNZXUpsRfx3lzWPZzc/2bApf/RMqDWCbroTXD06NOIM+JbsDFF8TNF5ek6NDuNYzry
+         h2isITzzTBTIzU91Mrm5uUJD/15kn/vRopdgshOxgX1Qcbft6KdvcdGCq2UW8O1nr/eh
+         9AwxvJqXejnSGu7sTIZAuMtGgGh+qAtajR6h3Q03GlV2VQCBZb4EuG4zDIojaYi6aHdm
+         /FEA74A4xcKy351zgfSC+1Kf7Iy3VLclR83zN+xEIgZuRjORULcO/mu1/1sTuae51ptP
+         3lVMPGgMu919Kx4FQIyQ2A6X8LIymAqJxVYqfZmzioHoINuSFidotalbAUO8azYWiREu
+         CY8Q==
+X-Gm-Message-State: AFuF++lpkdldxUE8CywCFt4G4J9rFW6uJKXtaQhAfWodry1xZ75HTfez
+	moEWCGTCfzI7FBeTcH2yO63WturX+CtMAMQZFdcychMkZ0RvqtTy1oagRqpNVTOimHn+Go6E6PL
+	RhO/Dmywr7C0OseI2QjwV/emi7ldyWTn97MKyfpgrsr2IoaK0th5rxQMnaWET4zt5YgRnB5EGfw
+	8=
+X-Gm-Gg: AYBFou2bWGTxQNLELTjmH+rwUJ+WUjMZU7dBaTAoQfLjFQdu9GybO0xQjsnXeBPg9e0
+	FgWcSQOv0H1zRMqvrL9Gp8cyfEd3D+emDbhIEoUHYY2JYrytTOrTSk7PVDbBQHZm1yTGtDmdjPp
+	8Pej1m9HEkhaaUErHOF8bR3kE+HZFUJfBDYLITqtgHtOOv5RAh7plBz+UfvGVu8p/EtQWtS+Ijq
+	M/Cd4Q34cxMgbtDlx2nJUA0dUmyFwhvngFdH6SaVEoBaZltkQ3Xy80JUaU5Klz1jgu7SikZUmUw
+	TmdsjupWKSuHVHtk0HbUpBWpIZ1J2ztMCaKmObnd+W+rFSl/eII+/nLAIidGg2JA7VFuO3+pA21
+	TIGrlbBNH2FTVdOm/NRZ1lV8GoORmuBQVko+b6v5vpxQcLk7P0zrTuSPmDzyFUrBdWCHDXcXqOU
+	yBp0/I5ANdLurMad/jYSpjV9hq
+X-Received: by 2002:a05:701b:2906:b0:143:298c:924e with SMTP id a92af1059eb24-14d359570f3mr254913c88.45.1790750385937;
+        Tue, 29 Sep 2026 23:39:45 -0700 (PDT)
+X-Received: by 2002:a05:701b:2906:b0:143:298c:924e with SMTP id a92af1059eb24-14d359570f3mr254865c88.45.1790750385147;
+        Tue, 29 Sep 2026 23:39:45 -0700 (PDT)
 Received: from hu-himchau-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d08fb50f1sm2711531c88.13.2026.09.29.23.39.29
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14d08fb50f1sm2711531c88.13.2026.09.29.23.39.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 23:39:34 -0700 (PDT)
+        Tue, 29 Sep 2026 23:39:44 -0700 (PDT)
 From: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
 To: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
         linux-perf-users@vger.kernel.org
@@ -86,9 +86,9 @@ Cc: peterz@infradead.org, mingo@redhat.com, alex@ghiti.fr,
         pjw@kernel.org, qingfang.deng@linux.dev, shuah@kernel.org,
         thecharlesjenkins@gmail.com, cp0613@linux.alibaba.com,
         Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Subject: [PATCH v7 1/8] riscv: Introduce support for hardware break/watchpoints
-Date: Wed, 30 Sep 2026 12:09:12 +0530
-Message-ID: <20260930063919.608911-2-himanshu.chauhan@oss.qualcomm.com>
+Subject: [PATCH v7 3/8] riscv: ptrace support for hardware break/watchpoints
+Date: Wed, 30 Sep 2026 12:09:14 +0530
+Message-ID: <20260930063919.608911-4-himanshu.chauhan@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com>
 References: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com>
@@ -99,1179 +99,847 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfXxEvrqmb18/R/
- PVxH052UWQeXu6TCKpXrDyZ6WN6clqrCwc2ytWY7Hkov8dr8V8umQW1nrCmPVZosmm321fvfeQJ
- VRhKF68T4cKS7McUzJvYgbChpXqfIs5zf/4AenBTkXwa/sUkbrpeX6udr1TCu1EqsPQtTGi6Ekj
- sWzY/p3YLJHDziswe8fmMpZ1Selhou94fJAmVtZCjlS7C22Z2NtitPuzYlBP1YN1X6QdaGfQ2tA
- jepZBS7u284tN9jZU1h/HJsBFIjrfb7IW+6Ax3VvkJH0lcluQfgAKD4UKuxlKeIMMpZjclJNV2N
- wTV+a5BS8f2Np+qTaoCy2szaTOwuoTColLOVtLRSy7Ni3WGK39ewgFDUqT5jS6l6HMWE0Ph6I4K
- zTPoybZ2aHpcPwBahRGTzKAQBeeaWLO3J9h32JUsaxlEvLC5xxmJD1m76Pm3pvvPx2adpxlFU/y
- Kh18NgA074Ivc8x+MMQ==
-X-Proofpoint-GUID: nYsrqFcipXQsU7WLekaVYkyETR5VIc-M
-X-Proofpoint-ORIG-GUID: nYsrqFcipXQsU7WLekaVYkyETR5VIc-M
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX25vDWbs7iFM2
- BGZFDqrfneO5khn2Rb7smp2XXm9s8TehJaC7peGhWuECeASCaJzvQNxnNPvqRXyLH/v3xAGz/HH
- C16sG2vSQ2p/ZjEsYODKjr3mOTqAqJE=
-X-Authority-Analysis: v=2.4 cv=cZZHPXDM c=1 sm=1 tr=0 ts=6abcaea9 cx=c_pps
+X-Proofpoint-GUID: I7hEDmcI8HBDWW_5fmI45wRQvnsurspx
+X-Proofpoint-ORIG-GUID: I7hEDmcI8HBDWW_5fmI45wRQvnsurspx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfXzP02f6FvHO7O
+ CPeQ7tv4hmUTScg1s+KCRwtz3yO6CMIoEsKKEqWpDPbvB6smDC1VLH6zdrYRnK8xQVniAI3Ef5Q
+ tmBSm6Wh1eqMQTKMt/Jf+kWiGd2uD/FQmbusrh4cRfeBuI7JuL018qKVJxb33LqRnIUfr3EsYWr
+ LTjnnFDB06S7QgizQz9KOJGHCrqDaTRe8YEaewdPKV3DRW4YF983LIBvk7rjeXkqTl6Z2eB7UIZ
+ 1ADv6rMQsg+Mcm4y4QDetefuVfIHq+vCYyIiW4bE4Qw4Wd4n4sTOl8uQM7jtdgKQmAPaFAHhmwl
+ tgsAHjcwF8ZDnG1I11ry2sO9Wxd7vr4lrrTFr3tkkU6qWar0aOXvopBDOX97EFmkDXufrdl7H6U
+ ICvG3jPTCsJYQO3hajTukj+T9CT5wPraX4r2zJ+tbreDqAKocqJVuUlf3viQNBornZLeiZS2eG9
+ 6zs1G6T6ps5s8ezaMTw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX7/+hgp6LpAc3
+ jcXzrF21b8CznCFgBQEQVkwyMiecZYgp9WMHWClpyomRp138qZsBIhAGRD/i866ZPm/JCuCdbw8
+ 5vD7eXxSsQaUYw0KRbKnolvT8dakJbw=
+X-Authority-Analysis: v=2.4 cv=Tu1zFzXh c=1 sm=1 tr=0 ts=6abcaeb3 cx=c_pps
  a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=oxkvXMDg2opwoU6JHakA:9 a=bBxd6f-gb0O0v-kibOvt:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=QnrZwGvzMrCbM2MBBQkA:9 a=bBxd6f-gb0O0v-kibOvt:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 phishscore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300026
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300026
 
-RISC-V hardware breakpoint framework is built on top of perf subsystem
-and uses SBI debug trigger extension to install/uninstall/update/enable/disable
-hardware triggers as specified in Sdtrig ISA extension.
+Add ptrace support for hardware breakpoints and watchpoints on
+RISC-V. Debuggers can now set and query hardware debug triggers
+through the standard PTRACE_GETREGSET/SETREGSET interface using new
+NT_RISCV_HW_BREAK/WATCH note types, backed by
+register_user_hw_breakpoint()/modify_user_hw_breakpoint() and
+delivering SIGTRAP/TRAP_HWBKPT to the tracee when a trigger fires.
 
-While handling breakpoints, trust the hardware record, (hit[0-1]) bits, when deciding
-if a trigger fired, and by clearing it once it's been read.
+For convenience, also add a simpler PTRACE_GETHBPREGS/SETHBPREGS
+request pair that lets a tracer read or write a single breakpoint or
+watchpoint directly, without going through the regset machinery.
+These request numbers live in the arch-specific ptrace range
+(0x4210/0x4211) so they don't collide with the generic
+PTRACE_PEEKDATA/PTRACE_PEEKUSR codes.
+
+Breakpoints and watchpoints share the same trigger pool on this
+architecture, so select HAVE_MIXED_BREAKPOINTS_REGS. Hook up
+thread flush/copy so per-task breakpoints are cleaned up and cleared
+across fork/exec.
 
 Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
 ---
- arch/riscv/Kconfig                     |   2 +
- arch/riscv/include/asm/hw_breakpoint.h | 312 +++++++++++
- arch/riscv/include/asm/kdebug.h        |   3 +-
- arch/riscv/kernel/Makefile             |   1 +
- arch/riscv/kernel/hw_breakpoint.c      | 746 +++++++++++++++++++++++++
- arch/riscv/kernel/traps.c              |   6 +
- 6 files changed, 1069 insertions(+), 1 deletion(-)
- create mode 100644 arch/riscv/include/asm/hw_breakpoint.h
- create mode 100644 arch/riscv/kernel/hw_breakpoint.c
+ arch/riscv/Kconfig                     |   1 +
+ arch/riscv/include/asm/hw_breakpoint.h |  10 +
+ arch/riscv/include/asm/processor.h     |  18 +
+ arch/riscv/include/uapi/asm/ptrace.h   |  50 +++
+ arch/riscv/kernel/hw_breakpoint.c      |   1 -
+ arch/riscv/kernel/process.c            |   5 +
+ arch/riscv/kernel/ptrace.c             | 507 +++++++++++++++++++++++++
+ include/uapi/linux/elf.h               |   4 +
+ tools/include/uapi/linux/elf.h         |   2 +
+ 9 files changed, 597 insertions(+), 1 deletion(-)
 
 diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index d6c2dbf8455c..17fa7d4f9729 100644
+index 17fa7d4f9729..d382f5d7b6a7 100644
 --- a/arch/riscv/Kconfig
 +++ b/arch/riscv/Kconfig
-@@ -174,6 +174,8 @@ config RISCV
- 	select HAVE_FUNCTION_ARG_ACCESS_API
- 	select HAVE_FUNCTION_ERROR_INJECTION
+@@ -176,6 +176,7 @@ config RISCV
  	select HAVE_GCC_PLUGINS
-+	select HAVE_GENERIC_VDSO if MMU
-+	select HAVE_HW_BREAKPOINT if PERF_EVENTS
+ 	select HAVE_GENERIC_VDSO if MMU
+ 	select HAVE_HW_BREAKPOINT if PERF_EVENTS
++	select HAVE_MIXED_BREAKPOINTS_REGS if PERF_EVENTS
  	select HAVE_IRQ_TIME_ACCOUNTING
  	select HAVE_KERNEL_BZIP2 if !EFI_ZBOOT
  	select HAVE_KERNEL_GZIP if !EFI_ZBOOT
 diff --git a/arch/riscv/include/asm/hw_breakpoint.h b/arch/riscv/include/asm/hw_breakpoint.h
-new file mode 100644
-index 000000000000..a165bb9636de
---- /dev/null
+index a165bb9636de..ca2ef93c020c 100644
+--- a/arch/riscv/include/asm/hw_breakpoint.h
 +++ b/arch/riscv/include/asm/hw_breakpoint.h
-@@ -0,0 +1,312 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2026 Qualcomm Technologies, Inc.
-+ */
+@@ -14,6 +14,7 @@ struct task_struct;
+ 
+ /* Maximum number of hardware breakpoints supported */
+ #define RISCV_HW_BP_NUM_MAX 32
++#define RISCV_MAX_BP		16
+ 
+ #if __riscv_xlen == 64
+ #define cpu_to_le cpu_to_le64
+@@ -279,6 +280,10 @@ struct arch_hw_breakpoint {
+ 	unsigned long address;
+ 	unsigned long len;
+ 	unsigned int type;
++	unsigned int match;
++	unsigned int chain;
++	unsigned int select;
++	unsigned int time;
+ 
+ 	/* Trigger configuration data */
+ 	unsigned long tdata1;
+@@ -305,8 +310,13 @@ void arch_disable_hw_breakpoint(struct perf_event *bp);
+ int arch_install_hw_breakpoint(struct perf_event *bp);
+ void arch_uninstall_hw_breakpoint(struct perf_event *bp);
+ void hw_breakpoint_pmu_read(struct perf_event *bp);
++void clear_ptrace_hw_breakpoint(struct task_struct *tsk);
++void flush_ptrace_hw_breakpoint(struct task_struct *tsk);
++void ptrace_hw_copy_thread(struct task_struct *task);
+ 
+ #else
+ 
++static inline void ptrace_hw_copy_thread(struct task_struct *task) { }
 +
-+#ifndef __RISCV_HW_BREAKPOINT_H
-+#define __RISCV_HW_BREAKPOINT_H
-+
-+struct task_struct;
-+
+ #endif /* CONFIG_HAVE_HW_BREAKPOINT */
+ #endif /* __RISCV_HW_BREAKPOINT_H */
+diff --git a/arch/riscv/include/asm/processor.h b/arch/riscv/include/asm/processor.h
+index 815715c67f94..6f6186b9663e 100644
+--- a/arch/riscv/include/asm/processor.h
++++ b/arch/riscv/include/asm/processor.h
+@@ -15,6 +15,7 @@
+ #include <asm/ptrace.h>
+ #include <asm/insn-def.h>
+ #include <asm/alternative-macros.h>
++#include <asm/hw_breakpoint.h>
+ #include <asm/hwcap.h>
+ #include <asm/usercfi.h>
+ 
+@@ -110,6 +111,19 @@ struct pt_regs;
+ #define RISCV_PREEMPT_V_NEED_RESTORE	0x40000000
+ #define RISCV_PREEMPT_V_IN_SCHEDULE	0x20000000
+ 
++struct debug_info {
 +#ifdef CONFIG_HAVE_HW_BREAKPOINT
-+
-+#include <uapi/linux/hw_breakpoint.h>
-+
-+/* Maximum number of hardware breakpoints supported */
-+#define RISCV_HW_BP_NUM_MAX 32
-+
-+#if __riscv_xlen == 64
-+#define cpu_to_le cpu_to_le64
-+#define le_to_cpu le64_to_cpu
-+#elif __riscv_xlen == 32
-+#define cpu_to_le cpu_to_le32
-+#define le_to_cpu le32_to_cpu
-+#else
-+#error "Unexpected __riscv_xlen"
++	/* Have we suspended stepping by a debugger? */
++	int			suspended_step;
++	/* Allow breakpoints and watchpoints to be disabled for this thread. */
++	int			bp_disabled;
++	int			wp_disabled;
++	/* Hardware breakpoints pinned to this task. */
++	struct perf_event	*hbp_break[RISCV_MAX_BP];
++	struct perf_event	*hbp_watch[RISCV_MAX_BP];
 +#endif
-+
-+#define CLEAR_DBTR_BIT(_target, _bit)	((_target) &= ~BIT(_bit))
-+#define SET_DBTR_BIT(_target, _bit)	((_target) |= BIT(_bit))
-+
-+#define RISCV_DBTR_EXEC		BIT(0)
-+#define RISCV_DBTR_LOAD		BIT(1)
-+#define RISCV_DBTR_STORE	BIT(2)
-+#define RISCV_DBTR_LDST		(RISCV_DBTR_LOAD | RISCV_DBTR_STORE)
-+
-+enum {
-+	RISCV_DBTR_TRIG_NONE = 0,
-+	RISCV_DBTR_TRIG_LEGACY,
-+	RISCV_DBTR_TRIG_MCONTROL,
-+	RISCV_DBTR_TRIG_ICOUNT,
-+	RISCV_DBTR_TRIG_ITRIGGER,
-+	RISCV_DBTR_TRIG_ETRIGGER,
-+	RISCV_DBTR_TRIG_MCONTROL6,
 +};
 +
-+/* Trigger Data 1 */
-+#define RISCV_DBTR_TDATA1_DATA_BIT	0
-+#if __riscv_xlen == 64
-+#define RISCV_DBTR_TDATA1_DMODE_BIT	59
-+#define RISCV_DBTR_TDATA1_TYPE_BIT	60
-+#elif __riscv_xlen == 32
-+#define RISCV_DBTR_TDATA1_DMODE_BIT	27
-+#define RISCV_DBTR_TDATA1_TYPE_BIT	28
-+#else
-+#error "Unknown __riscv_xlen"
+ /* CPU-specific state of a task */
+ struct thread_struct {
+ 	/* Callee-saved registers */
+@@ -133,6 +147,10 @@ struct thread_struct {
+ #endif
+ #ifdef CONFIG_RISCV_ISA_SSQOSID
+ 	u32 srmcfg;
 +#endif
-+
-+#if __riscv_xlen == 64
-+#define RISCV_DBTR_TDATA1_DATA_BIT_MASK		GENMASK(58, RISCV_DBTR_TDATA1_DATA_BIT)
-+#elif __riscv_xlen == 32
-+#define RISCV_DBTR_TDATA1_DATA_BIT_MASK		GENMASK(26, RISCV_DBTR_TDATA1_DATA_BIT)
-+#else
-+#error "Unknown __riscv_xlen"
-+#endif
-+#define RISCV_DBTR_TDATA1_DMODE_BIT_MASK	BIT(RISCV_DBTR_TDATA1_DMODE_BIT)
-+#define RISCV_DBTR_TDATA1_TYPE_BIT_MASK		\
-+	GENMASK(RISCV_DBTR_TDATA1_TYPE_BIT + 3, RISCV_DBTR_TDATA1_TYPE_BIT)
-+
-+/* MC - Match Control Type Register */
-+#define RISCV_DBTR_MC_LOAD_BIT		0
-+#define RISCV_DBTR_MC_STORE_BIT		1
-+#define RISCV_DBTR_MC_EXEC_BIT		2
-+#define RISCV_DBTR_MC_U_BIT		3
-+#define RISCV_DBTR_MC_S_BIT		4
-+#define RISCV_DBTR_MC_RES2_BIT		5
-+#define RISCV_DBTR_MC_M_BIT		6
-+#define RISCV_DBTR_MC_MATCH_BIT		7
-+#define RISCV_DBTR_MC_CHAIN_BIT		11
-+#define RISCV_DBTR_MC_ACTION_BIT	12
-+#define RISCV_DBTR_MC_SIZELO_BIT	16
-+#define RISCV_DBTR_MC_TIMING_BIT	18
-+#define RISCV_DBTR_MC_SELECT_BIT	19
-+#define RISCV_DBTR_MC_HIT_BIT		20
-+#if __riscv_xlen >= 64
-+#define RISCV_DBTR_MC_SIZEHI_BIT	21
-+#endif
-+#if __riscv_xlen == 64
-+#define RISCV_DBTR_MC_MASKMAX_BIT	53
-+#define RISCV_DBTR_MC_DMODE_BIT		59
-+#define RISCV_DBTR_MC_TYPE_BIT		60
-+#elif __riscv_xlen == 32
-+#define RISCV_DBTR_MC_MASKMAX_BIT	21
-+#define RISCV_DBTR_MC_DMODE_BIT		27
-+#define RISCV_DBTR_MC_TYPE_BIT		28
-+#else
-+#error "Unknown riscv xlen"
-+#endif
-+
-+#define RISCV_DBTR_MC_LOAD_BIT_MASK	BIT(RISCV_DBTR_MC_LOAD_BIT)
-+#define RISCV_DBTR_MC_STORE_BIT_MASK	BIT(RISCV_DBTR_MC_STORE_BIT)
-+#define RISCV_DBTR_MC_EXEC_BIT_MASK	BIT(RISCV_DBTR_MC_EXEC_BIT)
-+#define RISCV_DBTR_MC_U_BIT_MASK	BIT(RISCV_DBTR_MC_U_BIT)
-+#define RISCV_DBTR_MC_S_BIT_MASK	BIT(RISCV_DBTR_MC_S_BIT)
-+#define RISCV_DBTR_MC_RES2_BIT_MASK	BIT(RISCV_DBTR_MC_RES2_BIT)
-+#define RISCV_DBTR_MC_M_BIT_MASK	BIT(RISCV_DBTR_MC_M_BIT)
-+#define RISCV_DBTR_MC_MATCH_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC_MATCH_BIT + 3, RISCV_DBTR_MC_MATCH_BIT)
-+#define RISCV_DBTR_MC_CHAIN_BIT_MASK	BIT(RISCV_DBTR_MC_CHAIN_BIT)
-+#define RISCV_DBTR_MC_ACTION_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC_ACTION_BIT + 3, RISCV_DBTR_MC_ACTION_BIT)
-+#define RISCV_DBTR_MC_SIZELO_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC_SIZELO_BIT + 1, RISCV_DBTR_MC_SIZELO_BIT)
-+#define RISCV_DBTR_MC_TIMING_BIT_MASK	BIT(RISCV_DBTR_MC_TIMING_BIT)
-+#define RISCV_DBTR_MC_SELECT_BIT_MASK	BIT(RISCV_DBTR_MC_SELECT_BIT)
-+#define RISCV_DBTR_MC_HIT_BIT_MASK	BIT(RISCV_DBTR_MC_HIT_BIT)
-+#if __riscv_xlen >= 64
-+#define RISCV_DBTR_MC_SIZEHI_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC_SIZEHI_BIT + 1, RISCV_DBTR_MC_SIZEHI_BIT)
-+#endif
-+#define RISCV_DBTR_MC_MASKMAX_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC_MASKMAX_BIT + 5, RISCV_DBTR_MC_MASKMAX_BIT)
-+#define RISCV_DBTR_MC_DMODE_BIT_MASK	BIT(RISCV_DBTR_MC_DMODE_BIT)
-+#define RISCV_DBTR_MC_TYPE_BIT_MASK	GENMASK(RISCV_DBTR_MC_TYPE_BIT + 3, RISCV_DBTR_MC_TYPE_BIT)
-+
-+/* MC6 - Match Control 6 Type Register */
-+#define RISCV_DBTR_MC6_LOAD_BIT		0
-+#define RISCV_DBTR_MC6_STORE_BIT	1
-+#define RISCV_DBTR_MC6_EXEC_BIT		2
-+#define RISCV_DBTR_MC6_U_BIT		3
-+#define RISCV_DBTR_MC6_S_BIT		4
-+#define RISCV_DBTR_MC6_RES2_BIT		5
-+#define RISCV_DBTR_MC6_M_BIT		6
-+#define RISCV_DBTR_MC6_MATCH_BIT	7
-+#define RISCV_DBTR_MC6_CHAIN_BIT	11
-+#define RISCV_DBTR_MC6_ACTION_BIT	12
-+#define RISCV_DBTR_MC6_SIZE_BIT		16
-+#define RISCV_DBTR_MC6_TIMING_BIT	20
-+#define RISCV_DBTR_MC6_SELECT_BIT	21
-+#define RISCV_DBTR_MC6_HIT_BIT		22
-+#define RISCV_DBTR_MC6_VU_BIT		23
-+#define RISCV_DBTR_MC6_VS_BIT		24
-+#if __riscv_xlen == 64
-+#define RISCV_DBTR_MC6_DMODE_BIT	59
-+#define RISCV_DBTR_MC6_TYPE_BIT		60
-+#elif __riscv_xlen == 32
-+#define RISCV_DBTR_MC6_DMODE_BIT	27
-+#define RISCV_DBTR_MC6_TYPE_BIT		28
-+#else
-+#error "Unknown riscv xlen"
-+#endif
-+
-+#define RISCV_DBTR_MC6_LOAD_BIT_MASK	BIT(RISCV_DBTR_MC6_LOAD_BIT)
-+#define RISCV_DBTR_MC6_STORE_BIT_MASK	BIT(RISCV_DBTR_MC6_STORE_BIT)
-+#define RISCV_DBTR_MC6_EXEC_BIT_MASK	BIT(RISCV_DBTR_MC6_EXEC_BIT)
-+#define RISCV_DBTR_MC6_U_BIT_MASK	BIT(RISCV_DBTR_MC6_U_BIT)
-+#define RISCV_DBTR_MC6_S_BIT_MASK	BIT(RISCV_DBTR_MC6_S_BIT)
-+#define RISCV_DBTR_MC6_RES2_BIT_MASK	BIT(RISCV_DBTR_MC6_RES2_BIT)
-+#define RISCV_DBTR_MC6_M_BIT_MASK	BIT(RISCV_DBTR_MC6_M_BIT)
-+#define RISCV_DBTR_MC6_MATCH_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC6_MATCH_BIT + 3, RISCV_DBTR_MC6_MATCH_BIT)
-+#define RISCV_DBTR_MC6_CHAIN_BIT_MASK	BIT(RISCV_DBTR_MC6_CHAIN_BIT)
-+#define RISCV_DBTR_MC6_ACTION_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC6_ACTION_BIT + 3, RISCV_DBTR_MC6_ACTION_BIT)
-+#define RISCV_DBTR_MC6_SIZE_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC6_SIZE_BIT + 3, RISCV_DBTR_MC6_SIZE_BIT)
-+#define RISCV_DBTR_MC6_TIMING_BIT_MASK	BIT(RISCV_DBTR_MC6_TIMING_BIT)
-+#define RISCV_DBTR_MC6_SELECT_BIT_MASK	BIT(RISCV_DBTR_MC6_SELECT_BIT)
-+#define RISCV_DBTR_MC6_HIT_BIT_MASK	BIT(RISCV_DBTR_MC6_HIT_BIT)
-+#define RISCV_DBTR_MC6_VU_BIT_MASK	BIT(RISCV_DBTR_MC6_VU_BIT)
-+#define RISCV_DBTR_MC6_VS_BIT_MASK	BIT(RISCV_DBTR_MC6_VS_BIT)
-+#define RISCV_DBTR_MC6_DMODE_BIT_MASK	BIT(RISCV_DBTR_MC6_DMODE_BIT)
-+#define RISCV_DBTR_MC6_TYPE_BIT_MASK	\
-+	GENMASK(RISCV_DBTR_MC6_TYPE_BIT + 3, RISCV_DBTR_MC6_TYPE_BIT)
-+
-+/*
-+ * mcontrol6 hit1:hit0 (ratified Debug spec v1.0). RISCV_DBTR_MC6_HIT_BIT
-+ * above is hit0 (bit 22); hit1 (bit 25) is not adjacent to it but combines
-+ * with it into a single 2-bit field, hit1 as MSB.
-+ */
-+#define RISCV_DBTR_MC6_HIT1_BIT		25
-+#define RISCV_DBTR_MC6_HIT1_BIT_MASK		BIT(RISCV_DBTR_MC6_HIT1_BIT)
-+
-+#define RISCV_DBTR_MC6_HIT_FALSE	0	/* trigger did not fire */
-+#define RISCV_DBTR_MC6_HIT_BEFORE	1	/* fired before the instruction */
-+#define RISCV_DBTR_MC6_HIT_AFTER	2	/* fired after, epc has moved past */
-+#define RISCV_DBTR_MC6_HIT_IMM_AFTER	3	/* fired immediately after */
-+
-+#define RISCV_DBTR_MC6_GET_HIT(_t1)					\
-+	({								\
-+		typeof(_t1) __t1 = (_t1);				\
-+		(((__t1) & RISCV_DBTR_MC6_HIT1_BIT_MASK) ? 2 : 0) |	\
-+			(((__t1) & RISCV_DBTR_MC6_HIT_BIT_MASK) ? 1 : 0); \
-+	})
-+
-+#define RISCV_DBTR_MC6_CLEAR_HIT(_t1)					\
-+	((_t1) &= ~(RISCV_DBTR_MC6_HIT1_BIT_MASK | RISCV_DBTR_MC6_HIT_BIT_MASK))
-+
-+#define RISCV_DBTR_SET_TDATA1_TYPE(_t1, _type)				\
-+	({								\
-+		typeof(_t1) (td1t1) = (_t1);				\
-+		(td1t1) &= ~RISCV_DBTR_TDATA1_TYPE_BIT_MASK;		\
-+		(td1t1) |= (((unsigned long)(_type)			\
-+			     << RISCV_DBTR_TDATA1_TYPE_BIT)		\
-+			    & RISCV_DBTR_TDATA1_TYPE_BIT_MASK);		\
-+		(td1t1);						\
-+	})
-+
-+#define RISCV_DBTR_SET_MC_TYPE(_t1, _type)				\
-+	({								\
-+		typeof(_t1) (mct1) = (_t1);				\
-+		(mct1) &= ~RISCV_DBTR_MC_TYPE_BIT_MASK;			\
-+		(mct1) |= (((unsigned long)(_type)			\
-+			    << RISCV_DBTR_MC_TYPE_BIT)			\
-+			   & RISCV_DBTR_MC_TYPE_BIT_MASK);		\
-+		(mct1);							\
-+	})
-+
-+#define RISCV_DBTR_SET_MC6_TYPE(_t1, _type)				\
-+	({								\
-+		typeof(_t1) (mc6t1) = (_t1);				\
-+		(mc6t1) &= ~RISCV_DBTR_MC6_TYPE_BIT_MASK;		\
-+		(mc6t1) |= (((unsigned long)(_type)			\
-+			     << RISCV_DBTR_MC6_TYPE_BIT)		\
-+			    & RISCV_DBTR_MC6_TYPE_BIT_MASK);		\
-+		(mc6t1);						\
-+	})
-+
-+#define RISCV_DBTR_SET_MC_EXEC_BIT(_t1)			\
-+	SET_DBTR_BIT(_t1, RISCV_DBTR_MC_EXEC_BIT)
-+
-+#define RISCV_DBTR_SET_MC_LOAD_BIT(_t1)			\
-+	SET_DBTR_BIT(_t1, RISCV_DBTR_MC_LOAD_BIT)
-+
-+#define RISCV_DBTR_SET_MC_STORE_BIT(_t1)		\
-+	SET_DBTR_BIT(_t1, RISCV_DBTR_MC_STORE_BIT)
-+
-+#define RISCV_DBTR_SET_MC_SIZELO(_t1, _val)				\
-+	({								\
-+		typeof(_t1) (mcslt1) = (_t1);				\
-+		mcslt1 &= ~RISCV_DBTR_MC_SIZELO_BIT_MASK;		\
-+		mcslt1 |= (((_val) << RISCV_DBTR_MC_SIZELO_BIT)		\
-+			   & RISCV_DBTR_MC_SIZELO_BIT_MASK);		\
-+		(mcslt1);						\
-+	})
-+
-+#if __riscv_xlen >= 64
-+#define RISCV_DBTR_SET_MC_SIZEHI(_t1, _val)				\
-+	({								\
-+		typeof(_t1) (mcsht1) = (_t1);				\
-+		mcsht1 &= ~RISCV_DBTR_MC_SIZEHI_BIT_MASK;		\
-+		mcsht1 |= (((_val) << RISCV_DBTR_MC_SIZEHI_BIT)		\
-+			   & RISCV_DBTR_MC_SIZEHI_BIT_MASK);		\
-+		(mcsht1);						\
-+	})
-+#else
-+/* SIZEHI does not exist in the rv32 mcontrol layout; nothing to set. */
-+#define RISCV_DBTR_SET_MC_SIZEHI(_t1, _val) ((void)(_val), (_t1))
-+#endif
-+
-+#define RISCV_DBTR_SET_MC6_EXEC_BIT(_t1)		\
-+	SET_DBTR_BIT(_t1, RISCV_DBTR_MC6_EXEC_BIT)
-+
-+#define RISCV_DBTR_SET_MC6_LOAD_BIT(_t1)		\
-+	SET_DBTR_BIT(_t1, RISCV_DBTR_MC6_LOAD_BIT)
-+
-+#define RISCV_DBTR_SET_MC6_STORE_BIT(_t1)		\
-+	SET_DBTR_BIT(_t1, RISCV_DBTR_MC6_STORE_BIT)
-+
-+#define RISCV_DBTR_SET_MC6_SIZE(_t1, _val)				\
-+	({								\
-+		typeof(_t1) (mc6szt1) = (_t1);				\
-+		(mc6szt1) &= ~RISCV_DBTR_MC6_SIZE_BIT_MASK;		\
-+		(mc6szt1) |= (((_val) << RISCV_DBTR_MC6_SIZE_BIT)	\
-+			      & RISCV_DBTR_MC6_SIZE_BIT_MASK);		\
-+		(mc6szt1);						\
-+	})
-+
-+struct arch_hw_breakpoint {
-+	unsigned long address;
-+	unsigned long len;
-+	unsigned int type;
-+
-+	/* Trigger configuration data */
-+	unsigned long tdata1;
-+	unsigned long tdata2;
-+	unsigned long tdata3;
-+};
-+
-+struct perf_event_attr;
-+struct notifier_block;
-+struct perf_event;
-+struct pt_regs;
-+
-+int hw_breakpoint_slots(int type);
-+int arch_check_bp_in_kernelspace(struct arch_hw_breakpoint *hw);
-+int hw_breakpoint_arch_parse(struct perf_event *bp,
-+			     const struct perf_event_attr *attr,
-+			     struct arch_hw_breakpoint *hw);
-+int hw_breakpoint_exceptions_notify(struct notifier_block *unused,
-+				    unsigned long val, void *data);
-+
-+void arch_enable_hw_breakpoint(struct perf_event *bp);
-+void arch_update_hw_breakpoint(struct perf_event *bp);
-+void arch_disable_hw_breakpoint(struct perf_event *bp);
-+int arch_install_hw_breakpoint(struct perf_event *bp);
-+void arch_uninstall_hw_breakpoint(struct perf_event *bp);
-+void hw_breakpoint_pmu_read(struct perf_event *bp);
-+
-+#else
-+
-+#endif /* CONFIG_HAVE_HW_BREAKPOINT */
-+#endif /* __RISCV_HW_BREAKPOINT_H */
-diff --git a/arch/riscv/include/asm/kdebug.h b/arch/riscv/include/asm/kdebug.h
-index 85ac00411f6e..53e989781aa1 100644
---- a/arch/riscv/include/asm/kdebug.h
-+++ b/arch/riscv/include/asm/kdebug.h
-@@ -6,7 +6,8 @@
- enum die_val {
- 	DIE_UNUSED,
- 	DIE_TRAP,
--	DIE_OOPS
-+	DIE_OOPS,
-+	DIE_DEBUG
++	struct debug_info debug;
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
++	struct perf_event	*ptrace_bps[RISCV_HW_BP_NUM_MAX];
+ #endif
  };
  
- #endif
-diff --git a/arch/riscv/kernel/Makefile b/arch/riscv/kernel/Makefile
-index ebe1c3588177..a4197c3c36e8 100644
---- a/arch/riscv/kernel/Makefile
-+++ b/arch/riscv/kernel/Makefile
-@@ -100,6 +100,7 @@ obj-$(CONFIG_DYNAMIC_FTRACE)	+= mcount-dyn.o
+diff --git a/arch/riscv/include/uapi/asm/ptrace.h b/arch/riscv/include/uapi/asm/ptrace.h
+index 3de2b7124aff..83e073dbbf6d 100644
+--- a/arch/riscv/include/uapi/asm/ptrace.h
++++ b/arch/riscv/include/uapi/asm/ptrace.h
+@@ -10,11 +10,14 @@
  
- obj-$(CONFIG_PERF_EVENTS)	+= perf_callchain.o
- obj-$(CONFIG_HAVE_PERF_REGS)	+= perf_regs.o
-+obj-$(CONFIG_HAVE_HW_BREAKPOINT)	+= hw_breakpoint.o
- obj-$(CONFIG_RISCV_SBI)		+= sbi.o sbi_ecall.o
- ifeq ($(CONFIG_RISCV_SBI), y)
- obj-$(CONFIG_SMP)		+= sbi-ipi.o
+ #include <linux/types.h>
+ #include <linux/const.h>
++#include <linux/bits.h>
+ 
+ #define PTRACE_GETFDPIC		33
+ 
+ #define PTRACE_GETFDPIC_EXEC	0
+ #define PTRACE_GETFDPIC_INTERP	1
++#define PTRACE_GETHBPREGS	0x4210
++#define PTRACE_SETHBPREGS	0x4211
+ 
+ /*
+  * User-mode register state for core dumps, ptrace, sigcontext
+@@ -164,6 +167,53 @@ struct user_cfi_state {
+ 	__u64 shstk_ptr;
+ };
+ 
++/*
++ * bit[3:0]        Match
++ * bit[8:4]        Size
++ * bit[11:9]       When
++ * bit[12]         Select
++ * bit[13]         Chain
++ * bit[16:14]      Type
++ * bit[XLEN-1:17]  Reserved
++ */
++#define HWDEBUG_MATCH_MASK	__GENMASK(3, 0)
++#define HWDEBUG_SIZE_MASK	__GENMASK(8, 4)
++#define HWDEBUG_WHEN_MASK	__GENMASK(11, 9)
++#define HWDEBUG_SELECT_MASK	_BITUL(12)
++#define HWDEBUG_CHAIN_MASK	_BITUL(13)
++#define HWDEBUG_TYPE_MASK	__GENMASK(16, 14)
++
++#define HWDEBUG_MATCH(_ctrl)	(((_ctrl) & HWDEBUG_MATCH_MASK) >> 0)
++#define HWDEBUG_SIZE(_ctrl)	(((_ctrl) & HWDEBUG_SIZE_MASK) >> 4)
++#define HWDEBUG_WHEN(_ctrl)	(((_ctrl) & HWDEBUG_WHEN_MASK) >> 9)
++#define HWDEBUG_SELECT(_ctrl)	(((_ctrl) & HWDEBUG_SELECT_MASK) >> 12)
++#define HWDEBUG_CHAIN(_ctrl)	(((_ctrl) & HWDEBUG_CHAIN_MASK) >> 13)
++#define HWDEBUG_TYPE(_ctrl)	(((_ctrl) & HWDEBUG_TYPE_MASK) >> 14)
++
++#define HWDEBUG_MK_MATCH(_match)	((_match << 0) & HWDEBUG_MATCH_MASK)
++#define HWDEBUG_MK_SIZE(_sz)		((_sz << 4) & HWDEBUG_SIZE_MASK)
++#define HWDEBUG_MK_WHEN(_when)		((_when << 9) & HWDEBUG_WHEN_MASK)
++#define HWDEBUG_MK_SELECT(_sel)		((_sel << 12) & HWDEBUG_SELECT_MASK)
++#define HWDEBUG_MK_CHAIN(_chain)	((_chain << 13) & HWDEBUG_CHAIN_MASK)
++#define HWDEBUG_MK_TYPE(_type)		((_type << 14) & HWDEBUG_TYPE_MASK)
++
++struct user_hwdebug_state {
++	__u32 info;
++	__u32 pad;
++	struct {
++		__u64 addr;
++		__u32 control;
++		__u32 pad;
++	} dbg_regs[16];
++};
++
++struct __riscv_hwdebug_state {
++	__u64 addr;
++	__u64 type;
++	__u64 len;
++	__u64 ctrl;
++};
++
+ #endif /* __ASSEMBLER__ */
+ 
+ #endif /* _UAPI_ASM_RISCV_PTRACE_H */
 diff --git a/arch/riscv/kernel/hw_breakpoint.c b/arch/riscv/kernel/hw_breakpoint.c
-new file mode 100644
-index 000000000000..c2ab5e6008e7
---- /dev/null
+index c2ab5e6008e7..dd6f63953969 100644
+--- a/arch/riscv/kernel/hw_breakpoint.c
 +++ b/arch/riscv/kernel/hw_breakpoint.c
-@@ -0,0 +1,746 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Qualcomm Technologies, Inc.
-+ */
-+
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+
+@@ -698,7 +698,6 @@ EXPORT_SYMBOL_GPL(arch_disable_hw_breakpoint);
+ 
+ void hw_breakpoint_pmu_read(struct perf_event *bp) { }
+ 
+-void flush_ptrace_hw_breakpoint(struct task_struct *tsk) { }
+ 
+ static int __init arch_hw_breakpoint_init(void)
+ {
+diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
+index 7cc5a6a5c020..bdcb0386cd0d 100644
+--- a/arch/riscv/kernel/process.c
++++ b/arch/riscv/kernel/process.c
+@@ -204,6 +204,7 @@ void flush_thread(void)
+ 	if (riscv_has_extension_unlikely(RISCV_ISA_EXT_SUPM))
+ 		envcfg_update_bits(current, ENVCFG_PMM, ENVCFG_PMM_PMLEN_0);
+ #endif
++	flush_ptrace_hw_breakpoint(current);
+ }
+ 
+ void arch_release_task_struct(struct task_struct *tsk)
+@@ -283,6 +284,10 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+ 	p->thread.riscv_v_flags = 0;
+ 	if (has_vector() || has_xtheadvector())
+ 		riscv_v_thread_alloc(p);
++	ptrace_hw_copy_thread(p);
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
++	memset(p->thread.ptrace_bps, 0, sizeof(p->thread.ptrace_bps));
++#endif
+ 	p->thread.sp = (unsigned long)childregs; /* kernel sp */
+ 	return 0;
+ }
+diff --git a/arch/riscv/kernel/ptrace.c b/arch/riscv/kernel/ptrace.c
+index f336a183667e..2d4ee51e6859 100644
+--- a/arch/riscv/kernel/ptrace.c
++++ b/arch/riscv/kernel/ptrace.c
+@@ -18,8 +18,10 @@
+ #include <linux/elf.h>
+ #include <linux/regset.h>
+ #include <linux/sched.h>
++#include <linux/sched/signal.h>
+ #include <linux/sched/task_stack.h>
+ #include <asm/usercfi.h>
 +#include <linux/hw_breakpoint.h>
-+#include <linux/perf_event.h>
-+#include <linux/spinlock.h>
-+#include <linux/percpu.h>
-+#include <linux/kdebug.h>
-+#include <linux/bitops.h>
-+#include <linux/cpu.h>
-+#include <linux/cpuhotplug.h>
-+
-+#include <asm/sbi.h>
-+
-+/* Registered per-cpu bp/wp */
-+static DEFINE_PER_CPU(struct perf_event *, pcpu_hw_bp_events[RISCV_HW_BP_NUM_MAX]);
-+static DEFINE_PER_CPU(unsigned long, ecall_lock_flags);
-+static DEFINE_PER_CPU(raw_spinlock_t, ecall_lock);
-+
-+/* Per-cpu shared memory between S and M mode */
-+static union sbi_dbtr_shmem_entry __percpu *sbi_dbtr_shmem;
-+
-+/* number of debug triggers on this cpu . */
-+static int dbtr_total_num __ro_after_init;
-+static int dbtr_type __ro_after_init;
-+static int dbtr_init __ro_after_init;
-+
-+#define MEM_HI(_m)		(0UL)
-+#define MEM_LO(_m)		((unsigned long)(_m))
-+
-+static int arch_smp_setup_sbi_shmem(unsigned int cpu)
-+{
-+	union sbi_dbtr_shmem_entry *dbtr_shmem;
-+	phys_addr_t shmem_pa;
-+	struct sbiret ret;
-+
-+	dbtr_shmem = per_cpu_ptr(sbi_dbtr_shmem, cpu);
-+
-+	shmem_pa = per_cpu_ptr_to_phys(dbtr_shmem);
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_SETUP_SHMEM,
-+			MEM_LO(shmem_pa), MEM_HI(shmem_pa), 0, 0, 0, 0);
-+
-+	if (ret.error) {
-+		pr_warn("%s: failed to setup shared memory. error: %ld\n",
-+			__func__, ret.error);
-+		return sbi_err_map_linux_errno(ret.error);
-+	}
-+
-+	pr_info("CPU %d: HW Breakpoint shared memory registered.\n", cpu);
-+
-+	return 0;
-+}
-+
-+static int arch_smp_teardown_sbi_shmem(unsigned int cpu)
-+{
-+	struct sbiret ret;
-+
-+	/* Disable shared memory */
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_SETUP_SHMEM,
-+			SBI_SHMEM_DISABLE, SBI_SHMEM_DISABLE, 0, 0, 0, 0);
-+
-+	if (ret.error)
-+		pr_warn("%s: failed to disable shared memory. error: %ld\n",
-+			__func__, ret.error);
-+	else
-+		pr_info("CPU %d: HW Breakpoint shared memory disabled.\n", cpu);
-+
-+	return 0;
-+}
-+
-+static void init_sbi_dbtr(void)
-+{
-+	unsigned long tdata1;
-+	struct sbiret ret;
-+
-+	if (sbi_probe_extension(SBI_EXT_DBTR) <= 0) {
-+		pr_warn("SBI_EXT_DBTR is not supported\n");
-+		dbtr_total_num = 0;
-+		goto done;
-+	}
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_NUM_TRIGGERS,
-+			0, 0, 0, 0, 0, 0);
-+	if (ret.error) {
-+		pr_warn("Failed to detect triggers\n");
-+		dbtr_total_num = 0;
-+		goto done;
-+	}
-+
-+	tdata1 = 0;
-+	tdata1 = RISCV_DBTR_SET_TDATA1_TYPE(tdata1, RISCV_DBTR_TRIG_MCONTROL6);
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_NUM_TRIGGERS,
-+			tdata1, 0, 0, 0, 0, 0);
-+	if (ret.error) {
-+		pr_warn("Failed to detect mcontrol6 triggers\n");
-+	} else if (!ret.value) {
-+		pr_warn("Type 6 triggers not available\n");
-+	} else {
-+		dbtr_total_num = min_t(unsigned long, ret.value,
-+				       RISCV_HW_BP_NUM_MAX);
-+		dbtr_type = RISCV_DBTR_TRIG_MCONTROL6;
-+		pr_warn("Mcontrol6 trigger available.\n");
-+		goto done;
-+	}
-+
-+	/* fallback to type 2 triggers if type 6 is not available */
-+
-+	tdata1 = 0;
-+	tdata1 = RISCV_DBTR_SET_TDATA1_TYPE(tdata1, RISCV_DBTR_TRIG_MCONTROL);
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_NUM_TRIGGERS,
-+			tdata1, 0, 0, 0, 0, 0);
-+	if (ret.error) {
-+		pr_warn("Failed to detect mcontrol triggers\n");
-+	} else if (!ret.value) {
-+		pr_warn("Type 2 triggers not available\n");
-+	} else {
-+		dbtr_total_num = min_t(unsigned long, ret.value,
-+				       RISCV_HW_BP_NUM_MAX);
-+		dbtr_type = RISCV_DBTR_TRIG_MCONTROL;
-+		goto done;
-+	}
-+
-+done:
-+	dbtr_init = 1;
-+}
-+
-+int hw_breakpoint_slots(int type)
-+{
-+	/*
-+	 * We can be called early, so don't rely on
-+	 * static variables being initialised.
-+	 */
-+
-+	if (!dbtr_init)
-+		init_sbi_dbtr();
-+
-+	return dbtr_total_num;
-+}
-+
-+int arch_check_bp_in_kernelspace(struct arch_hw_breakpoint *hw)
-+{
-+	unsigned int len;
-+	unsigned long va;
-+
-+	va = hw->address;
-+	len = hw->len;
-+
-+	return (va >= TASK_SIZE) && ((va + len - 1) >= TASK_SIZE);
-+}
-+
-+static int rv_init_mcontrol_trigger(const struct perf_event_attr *attr,
-+				    struct arch_hw_breakpoint *hw)
-+{
-+	switch (attr->bp_type) {
-+	case HW_BREAKPOINT_X:
-+		hw->type = RISCV_DBTR_EXEC;
-+		RISCV_DBTR_SET_MC_EXEC_BIT(hw->tdata1);
-+		break;
-+	case HW_BREAKPOINT_R:
-+		hw->type = RISCV_DBTR_LOAD;
-+		RISCV_DBTR_SET_MC_LOAD_BIT(hw->tdata1);
-+		break;
-+	case HW_BREAKPOINT_W:
-+		hw->type = RISCV_DBTR_STORE;
-+		RISCV_DBTR_SET_MC_STORE_BIT(hw->tdata1);
-+		break;
-+	case HW_BREAKPOINT_RW:
-+		hw->type = RISCV_DBTR_LDST;
-+		RISCV_DBTR_SET_MC_LOAD_BIT(hw->tdata1);
-+		RISCV_DBTR_SET_MC_STORE_BIT(hw->tdata1);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (attr->bp_type == HW_BREAKPOINT_X) {
-+		/*
-+		 * Userspace debuggers can request execute breakpoints with
-+		 * bp_len == 2 for compressed/non-aligned instruction
-+		 * addresses. Program execute triggers with "match any size"
-+		 * to avoid missing valid instruction fetches.
-+		 */
-+		hw->len = 0;
-+		hw->tdata1 = RISCV_DBTR_SET_MC_SIZELO(hw->tdata1, 0);
-+		hw->tdata1 = RISCV_DBTR_SET_MC_SIZEHI(hw->tdata1, 0);
-+	} else {
-+		switch (attr->bp_len) {
-+		case HW_BREAKPOINT_LEN_1:
-+			hw->len = 1;
-+			hw->tdata1 = RISCV_DBTR_SET_MC_SIZELO(hw->tdata1, 1);
-+			break;
-+		case HW_BREAKPOINT_LEN_2:
-+			hw->len = 2;
-+			hw->tdata1 = RISCV_DBTR_SET_MC_SIZELO(hw->tdata1, 2);
-+			break;
-+		case HW_BREAKPOINT_LEN_4:
-+			hw->len = 4;
-+			hw->tdata1 = RISCV_DBTR_SET_MC_SIZELO(hw->tdata1, 3);
-+			break;
-+#if __riscv_xlen >= 64
-+		case HW_BREAKPOINT_LEN_8:
-+			hw->len = 8;
-+			hw->tdata1 = RISCV_DBTR_SET_MC_SIZELO(hw->tdata1, 1);
-+			hw->tdata1 = RISCV_DBTR_SET_MC_SIZEHI(hw->tdata1, 1);
-+			break;
+ 
+ enum riscv_regset {
+ 	REGSET_X,
+@@ -35,6 +37,10 @@ enum riscv_regset {
+ #ifdef CONFIG_RISCV_USER_CFI
+ 	REGSET_CFI,
+ #endif
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
++	REGSET_RISCV_HW_BREAK,
++	REGSET_RISCV_HW_WATCH,
 +#endif
-+		/* Set to match any size */
-+		default:
-+			hw->len = 0;
-+			hw->tdata1 = RISCV_DBTR_SET_MC_SIZELO(hw->tdata1, 0);
-+			hw->tdata1 = RISCV_DBTR_SET_MC_SIZEHI(hw->tdata1, 0);
-+			break;
-+		}
-+	}
-+
-+	hw->tdata1 = RISCV_DBTR_SET_MC_TYPE(hw->tdata1, RISCV_DBTR_TRIG_MCONTROL);
-+
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_DMODE_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_TIMING_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_SELECT_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_ACTION_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_CHAIN_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_MATCH_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_M_BIT);
-+
-+	/*
-+	 * Match only the trigger's actual privilege-mode target. Setting
-+	 * both bits makes the kernel's own S-mode uaccess (e.g. SUM-enabled
-+	 * loads in strncpy_from_user()) spuriously fire a user-space watch.
-+	 */
-+	if (arch_check_bp_in_kernelspace(hw))
-+		SET_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_S_BIT);
-+	else
-+		SET_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC_U_BIT);
-+
-+	return 0;
-+}
-+
-+static int rv_init_mcontrol6_trigger(const struct perf_event_attr *attr,
-+				     struct arch_hw_breakpoint *hw)
+ };
+ 
+ static int riscv_gpr_get(struct task_struct *target,
+@@ -372,6 +378,397 @@ static int riscv_cfi_set(struct task_struct *target,
+ }
+ #endif
+ 
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
++/*
++ * Handle hitting a HW-breakpoint.
++ */
++static void riscv_ptrace_hbptriggered(struct perf_event *bp,
++				struct perf_sample_data *data,
++				struct pt_regs *regs)
 +{
-+	switch (attr->bp_type) {
-+	case HW_BREAKPOINT_X:
-+		hw->type = RISCV_DBTR_EXEC;
-+		RISCV_DBTR_SET_MC6_EXEC_BIT(hw->tdata1);
-+		break;
-+	case HW_BREAKPOINT_R:
-+		hw->type = RISCV_DBTR_LOAD;
-+		RISCV_DBTR_SET_MC6_LOAD_BIT(hw->tdata1);
-+		break;
-+	case HW_BREAKPOINT_W:
-+		hw->type = RISCV_DBTR_STORE;
-+		RISCV_DBTR_SET_MC6_STORE_BIT(hw->tdata1);
-+		break;
-+	case HW_BREAKPOINT_RW:
-+		hw->type = RISCV_DBTR_LDST;
-+		RISCV_DBTR_SET_MC6_STORE_BIT(hw->tdata1);
-+		RISCV_DBTR_SET_MC6_LOAD_BIT(hw->tdata1);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
++	struct arch_hw_breakpoint *bkpt = counter_arch_bp(bp);
 +
-+	if (attr->bp_type == HW_BREAKPOINT_X) {
-+		/* See rv_init_mcontrol_trigger() for rationale. */
-+		hw->len = 0;
-+		hw->tdata1 = RISCV_DBTR_SET_MC6_SIZE(hw->tdata1, 0);
-+	} else {
-+		switch (attr->bp_len) {
-+		case HW_BREAKPOINT_LEN_1:
-+			hw->len = 1;
-+			hw->tdata1 = RISCV_DBTR_SET_MC6_SIZE(hw->tdata1, 1);
-+			break;
-+		case HW_BREAKPOINT_LEN_2:
-+			hw->len = 2;
-+			hw->tdata1 = RISCV_DBTR_SET_MC6_SIZE(hw->tdata1, 2);
-+			break;
-+		case HW_BREAKPOINT_LEN_4:
-+			hw->len = 4;
-+			hw->tdata1 = RISCV_DBTR_SET_MC6_SIZE(hw->tdata1, 3);
-+			break;
-+#if __riscv_xlen >= 64
-+		case HW_BREAKPOINT_LEN_8:
-+			hw->len = 8;
-+			hw->tdata1 = RISCV_DBTR_SET_MC6_SIZE(hw->tdata1, 5);
-+			break;
-+#endif
-+		/* Set to match any size */
-+		default:
-+			hw->len = 0;
-+			hw->tdata1 = RISCV_DBTR_SET_MC6_SIZE(hw->tdata1, 0);
-+		}
-+	}
-+
-+	hw->tdata1 = RISCV_DBTR_SET_MC6_TYPE(hw->tdata1, RISCV_DBTR_TRIG_MCONTROL6);
-+
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_DMODE_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_TIMING_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_SELECT_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_ACTION_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_CHAIN_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_MATCH_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_M_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_VS_BIT);
-+	CLEAR_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_VU_BIT);
-+
-+	/* See rv_init_mcontrol_trigger() for rationale. */
-+	if (arch_check_bp_in_kernelspace(hw))
-+		SET_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_S_BIT);
-+	else
-+		SET_DBTR_BIT(hw->tdata1, RISCV_DBTR_MC6_U_BIT);
-+
-+	return 0;
-+}
-+
-+int hw_breakpoint_arch_parse(struct perf_event *bp,
-+			     const struct perf_event_attr *attr,
-+			     struct arch_hw_breakpoint *hw)
-+{
-+	int ret;
-+
-+	/* Breakpoint address */
-+	hw->address = attr->bp_addr;
-+	hw->tdata2 = attr->bp_addr;
-+	hw->tdata3 = 0x0;
-+
-+	switch (dbtr_type) {
-+	case RISCV_DBTR_TRIG_MCONTROL:
-+		ret = rv_init_mcontrol_trigger(attr, hw);
-+		break;
-+	case RISCV_DBTR_TRIG_MCONTROL6:
-+		ret = rv_init_mcontrol6_trigger(attr, hw);
-+		break;
-+	default:
-+		pr_warn("Unsupported trigger type\n");
-+		ret = -EOPNOTSUPP;
-+		break;
-+	}
-+
-+	return ret;
++	force_sig_fault(SIGTRAP, TRAP_HWBKPT, (void __user *)bkpt->address);
 +}
 +
 +/*
-+ * Read mcontrol6's hit1:hit0 field for trigger @idx. If either bit is set,
-+ * clear it in hardware (the Debug spec requires the trigger user to do
-+ * this; hardware only ever sets it). Returns the RISCV_DBTR_MC6_HIT_*
-+ * value read (RISCV_DBTR_MC6_HIT_FALSE if unimplemented or unfired).
++ * Unregister breakpoints from this task and reset the pointers in
++ * the thread_struct.
 + */
-+static unsigned int mc6_read_and_clear_hit(int idx)
++void flush_ptrace_hw_breakpoint(struct task_struct *tsk)
 +{
-+	union sbi_dbtr_shmem_entry *shmem = this_cpu_ptr(sbi_dbtr_shmem);
-+	struct sbi_dbtr_data_msg *xmit;
-+	unsigned long tdata1, tdata2, tdata3;
-+	struct sbiret ret;
-+	unsigned int hit;
++	int i;
++	struct thread_struct *t = &tsk->thread;
 +
-+	raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
-+			      *this_cpu_ptr(&ecall_lock_flags));
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_READ, idx, 1, 0, 0, 0, 0);
-+	if (ret.error) {
-+		pr_warn("Failed to read trigger %d. error: %ld\n", idx, ret.error);
-+		hit = RISCV_DBTR_MC6_HIT_FALSE;
-+		goto out;
++	for (i = 0; i < RISCV_MAX_BP; i++) {
++		if (t->debug.hbp_break[i]) {
++			unregister_hw_breakpoint(t->debug.hbp_break[i]);
++			t->debug.hbp_break[i] = NULL;
++		}
 +	}
 +
-+	tdata1 = le_to_cpu(shmem->data.tdata1);
-+	hit = RISCV_DBTR_MC6_GET_HIT(tdata1);
-+	if (hit == RISCV_DBTR_MC6_HIT_FALSE)
-+		goto out;
++	for (i = 0; i < RISCV_MAX_BP; i++) {
++		if (t->debug.hbp_watch[i]) {
++			unregister_hw_breakpoint(t->debug.hbp_watch[i]);
++			t->debug.hbp_watch[i] = NULL;
++		}
++	}
++}
 +
-+	tdata2 = le_to_cpu(shmem->data.tdata2);
-+	tdata3 = le_to_cpu(shmem->data.tdata3);
-+	RISCV_DBTR_MC6_CLEAR_HIT(tdata1);
++void ptrace_hw_copy_thread(struct task_struct *tsk)
++{
++	memset(&tsk->thread.debug, 0, sizeof(struct debug_info));
++}
 +
-+	xmit = &shmem->data;
-+	xmit->tdata1 = cpu_to_le(tdata1);
-+	xmit->tdata2 = cpu_to_le(tdata2);
-+	xmit->tdata3 = cpu_to_le(tdata3);
++static struct perf_event *ptrace_hbp_get_event(unsigned int note_type,
++					       struct task_struct *tsk,
++					       unsigned long idx)
++{
++	struct perf_event *bp = ERR_PTR(-EINVAL);
 +
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_UPDATE, idx, 1, 0, 0, 0, 0);
-+	if (ret.error)
-+		pr_warn("Failed to clear hit bits on trigger %d. error: %ld\n",
-+			idx, ret.error);
++	switch (note_type) {
++	case NT_RISCV_HW_BREAK:
++		if (idx >= RISCV_MAX_BP)
++			goto out;
++		idx = array_index_nospec(idx, RISCV_MAX_BP);
++		bp = tsk->thread.debug.hbp_break[idx];
++		break;
++	case NT_RISCV_HW_WATCH:
++		if (idx >= RISCV_MAX_BP)
++			goto out;
++		idx = array_index_nospec(idx, RISCV_MAX_BP);
++		bp = tsk->thread.debug.hbp_watch[idx];
++		break;
++	}
 +
 +out:
-+	raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
-+				   *this_cpu_ptr(&ecall_lock_flags));
-+	return hit;
++	return bp;
 +}
 +
-+/*
-+ * HW Breakpoint/watchpoint handler
-+ */
-+static int hw_breakpoint_handler(struct die_args *args)
++static int ptrace_hbp_set_event(unsigned int note_type,
++				struct task_struct *tsk,
++				unsigned long idx,
++				struct perf_event *bp)
 +{
-+	int ret = NOTIFY_DONE;
-+	struct arch_hw_breakpoint *bp;
-+	struct perf_event *event;
-+	int i;
++	int err = -EINVAL;
 +
-+	for (i = 0; i < dbtr_total_num; i++) {
-+		event = this_cpu_read(pcpu_hw_bp_events[i]);
-+		if (!event)
-+			continue;
-+
-+		bp = counter_arch_bp(event);
-+		switch (bp->type) {
-+		/* Breakpoint */
-+		case HW_BREAKPOINT_X:
-+		{
-+			bool hit = bp->address == args->regs->epc;
-+
-+			if (!hit && dbtr_type == RISCV_DBTR_TRIG_MCONTROL6)
-+				hit = mc6_read_and_clear_hit(i) != RISCV_DBTR_MC6_HIT_FALSE;
-+
-+			if (hit) {
-+				perf_bp_event(event, args->regs);
-+				ret = NOTIFY_STOP;
-+			}
-+			break;
-+		}
-+
-+		/* Watchpoint */
-+		case HW_BREAKPOINT_W:
-+		case HW_BREAKPOINT_R:
-+		case HW_BREAKPOINT_RW:
-+		{
-+			unsigned long stval = args->regs->badaddr;
-+			unsigned long bp_start = bp->address;
-+			unsigned long bp_len = bp->len ?: 1;
-+			unsigned long bp_end = bp_start + bp_len - 1;
-+			unsigned long stval_end = stval + sizeof(long) - 1;
-+			bool hit = false;
-+
-+			if (bp_end < bp_start)
-+				bp_end = ~0UL;
-+			if (stval_end < stval)
-+				stval_end = ~0UL;
-+
-+			/*
-+			 * Prefer tdata1.hit from SBI trigger readout whenever
-+			 * possible. Fall back to address-based matching if HIT
-+			 * isn't observed/supported.
-+			 */
-+			if (dbtr_type == RISCV_DBTR_TRIG_MCONTROL) {
-+				unsigned long tdata1;
-+				struct sbiret sret;
-+				union sbi_dbtr_shmem_entry *shmem;
-+
-+				raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
-+						      *this_cpu_ptr(&ecall_lock_flags));
-+				shmem = this_cpu_ptr(sbi_dbtr_shmem);
-+				sret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_READ,
-+						 i, 1, 0, 0, 0, 0);
-+				if (!sret.error) {
-+					tdata1 = le_to_cpu(shmem->data.tdata1);
-+					hit = !!(tdata1 & RISCV_DBTR_MC_HIT_BIT_MASK);
-+				}
-+				raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
-+							   *this_cpu_ptr(&ecall_lock_flags));
-+			} else if (dbtr_type == RISCV_DBTR_TRIG_MCONTROL6) {
-+				hit = mc6_read_and_clear_hit(i) != RISCV_DBTR_MC6_HIT_FALSE;
-+			}
-+
-+			/*
-+			 * Sdtrig may report STVAL as the lowest accessed
-+			 * address while the watchpoint can match a higher byte
-+			 * in the same access.
-+			 */
-+			if (hit ||
-+			    (stval >= bp_start && stval <= bp_end) ||
-+			    (bp_start >= stval && bp_start <= stval_end)) {
-+				perf_bp_event(event, args->regs);
-+				ret = NOTIFY_STOP;
-+			}
-+			break;
-+		}
-+
-+		default:
-+			pr_warn("Unknown type: %u\n", bp->type);
-+			break;
-+		}
++	switch (note_type) {
++	case NT_RISCV_HW_BREAK:
++		if (idx >= RISCV_MAX_BP)
++			goto out;
++		idx = array_index_nospec(idx, RISCV_MAX_BP);
++		tsk->thread.debug.hbp_break[idx] = bp;
++		err = 0;
++		break;
++	case NT_RISCV_HW_WATCH:
++		if (idx >= RISCV_MAX_BP)
++			goto out;
++		idx = array_index_nospec(idx, RISCV_MAX_BP);
++		tsk->thread.debug.hbp_watch[idx] = bp;
++		err = 0;
++		break;
 +	}
 +
-+	return ret;
-+}
-+
-+int hw_breakpoint_exceptions_notify(struct notifier_block *unused,
-+				    unsigned long val, void *data)
-+{
-+	if (val != DIE_DEBUG)
-+		return NOTIFY_DONE;
-+
-+	return hw_breakpoint_handler(data);
-+}
-+
-+/* atomic: counter->ctx->lock is held */
-+int arch_install_hw_breakpoint(struct perf_event *event)
-+{
-+	struct arch_hw_breakpoint *bp = counter_arch_bp(event);
-+	union sbi_dbtr_shmem_entry *shmem = this_cpu_ptr(sbi_dbtr_shmem);
-+	struct sbi_dbtr_data_msg *xmit;
-+	struct sbi_dbtr_id_msg *recv;
-+	struct perf_event **slot;
-+	unsigned long idx;
-+	struct sbiret ret;
-+	int err = 0;
-+
-+	raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
-+			      *this_cpu_ptr(&ecall_lock_flags));
-+
-+	xmit = &shmem->data;
-+	recv = &shmem->id;
-+	xmit->tdata1 = cpu_to_le(bp->tdata1);
-+	xmit->tdata2 = cpu_to_le(bp->tdata2);
-+	xmit->tdata3 = cpu_to_le(bp->tdata3);
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_INSTALL,
-+			1, 0, 0, 0, 0, 0);
-+
-+	if (ret.error) {
-+		pr_warn("Failed to install trigger\n");
-+		err = sbi_err_map_linux_errno(ret.error);
-+		goto done;
-+	}
-+
-+	idx = le_to_cpu(recv->idx);
-+	if (idx >= dbtr_total_num) {
-+		pr_warn("Invalid trigger index %lu\n", idx);
-+		err = -EINVAL;
-+		goto done;
-+	}
-+
-+	slot = this_cpu_ptr(&pcpu_hw_bp_events[idx]);
-+	if (*slot) {
-+		pr_warn("Slot %lu is in use\n", idx);
-+		err = -EBUSY;
-+		goto done;
-+	}
-+
-+	/* Save the event - to be looked up in handler */
-+	*slot = event;
-+
-+done:
-+	raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
-+				   *this_cpu_ptr(&ecall_lock_flags));
++out:
 +	return err;
 +}
 +
-+/* atomic: counter->ctx->lock is held */
-+void arch_uninstall_hw_breakpoint(struct perf_event *event)
++static struct perf_event *ptrace_hbp_create(unsigned int note_type,
++					    struct task_struct *tsk,
++					    unsigned long idx)
 +{
-+	struct sbiret ret;
-+	int i;
++	struct perf_event *bp;
++	struct perf_event_attr attr;
++	int err, type;
 +
-+	raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
-+			      *this_cpu_ptr(&ecall_lock_flags));
++	switch (note_type) {
++	case NT_RISCV_HW_BREAK:
++		type = HW_BREAKPOINT_X;
++		break;
++	case NT_RISCV_HW_WATCH:
++		type = HW_BREAKPOINT_RW;
++		break;
++	default:
++		return ERR_PTR(-EINVAL);
++	}
 +
-+	for (i = 0; i < dbtr_total_num; i++) {
-+		struct perf_event **slot = this_cpu_ptr(&pcpu_hw_bp_events[i]);
++	ptrace_breakpoint_init(&attr);
 +
-+		if (*slot == event) {
-+			*slot = NULL;
++	/*
++	 * Initialise fields to sane defaults
++	 * (i.e. values that will pass validation).
++	 */
++	attr.bp_addr	= 0;
++	attr.bp_len	= HW_BREAKPOINT_LEN_4;
++	attr.bp_type	= type;
++	attr.disabled	= 1;
++
++	bp = register_user_hw_breakpoint(&attr, riscv_ptrace_hbptriggered, NULL, tsk);
++	if (IS_ERR(bp))
++		return bp;
++
++	err = ptrace_hbp_set_event(note_type, tsk, idx, bp);
++	if (err)
++		return ERR_PTR(err);
++
++	return bp;
++}
++
++static int ptrace_hbp_fill_attr_ctrl(unsigned int note_type,
++				     struct arch_hw_breakpoint *bpctrl,
++				     struct perf_event_attr *attr)
++{
++	int len, type;
++
++	attr->disabled = 0;
++	type = bpctrl->type;
++	len = bpctrl->len;
++
++	switch (note_type) {
++	case NT_RISCV_HW_BREAK:
++		if ((type & HW_BREAKPOINT_X) != type)
++			return -EINVAL;
++		break;
++	case NT_RISCV_HW_WATCH:
++		if ((type & HW_BREAKPOINT_RW) != type)
++			return -EINVAL;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	attr->bp_len	= len;
++	attr->bp_type	= type;
++	attr->bp_addr	= bpctrl->address;
++
++	return 0;
++}
++
++static int ptrace_hbp_get_resource_info(unsigned int note_type, u32 *info)
++{
++	u8 num;
++
++	switch (note_type) {
++	case NT_RISCV_HW_BREAK:
++		num = hw_breakpoint_slots(TYPE_INST);
++		break;
++	case NT_RISCV_HW_WATCH:
++		num = hw_breakpoint_slots(TYPE_DATA);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	*info = num;
++
++	return 0;
++}
++
++static u32 encode_ctrl_reg(struct perf_event *bp)
++{
++	struct arch_hw_breakpoint *bpctrl = counter_arch_bp(bp);
++	u32 ctrl = 0;
++
++	/* Expose the generic UAPI bp_type values in ptrace control bits. */
++	ctrl |= HWDEBUG_MK_TYPE(bp->attr.bp_type);
++	ctrl |= HWDEBUG_MK_MATCH(bpctrl->match);
++	ctrl |= HWDEBUG_MK_SELECT(bpctrl->select);
++	ctrl |= HWDEBUG_MK_WHEN(bpctrl->time);
++	ctrl |= HWDEBUG_MK_SIZE(bp->attr.bp_len);
++	ctrl |= HWDEBUG_MK_CHAIN(bpctrl->chain);
++
++	return ctrl;
++}
++
++static int ptrace_hbp_get_ctrl(unsigned int note_type,
++			       struct task_struct *tsk,
++			       unsigned long idx,
++			       u32 *ctrl)
++{
++	struct perf_event *bp = ptrace_hbp_get_event(note_type, tsk, idx);
++
++	if (IS_ERR(bp))
++		return PTR_ERR(bp);
++
++	*ctrl = bp ? encode_ctrl_reg(bp) : 0;
++	return 0;
++}
++
++static int ptrace_hbp_get_addr(unsigned int note_type,
++			       struct task_struct *tsk,
++			       unsigned long idx,
++			       u64 *addr)
++{
++	struct perf_event *bp = ptrace_hbp_get_event(note_type, tsk, idx);
++
++	if (IS_ERR(bp))
++		return PTR_ERR(bp);
++
++	*addr = bp ? counter_arch_bp(bp)->address : 0;
++	return 0;
++}
++
++static struct perf_event *ptrace_hbp_get_initialised_bp(unsigned int note_type,
++							struct task_struct *tsk,
++							unsigned long idx)
++{
++	struct perf_event *bp = ptrace_hbp_get_event(note_type, tsk, idx);
++
++	if (!bp)
++		bp = ptrace_hbp_create(note_type, tsk, idx);
++
++	return bp;
++}
++
++static void decode_ctrl_reg(u32 uctrl, struct arch_hw_breakpoint *bpctrl)
++{
++	bpctrl->type = HWDEBUG_TYPE(uctrl);
++	bpctrl->match = HWDEBUG_MATCH(uctrl);
++	bpctrl->select = HWDEBUG_SELECT(uctrl);
++	bpctrl->time = HWDEBUG_WHEN(uctrl);
++	bpctrl->len = HWDEBUG_SIZE(uctrl);
++	bpctrl->chain = HWDEBUG_CHAIN(uctrl);
++}
++
++static int ptrace_hbp_set_ctrl(unsigned int note_type,
++			       struct task_struct *tsk,
++			       unsigned long idx,
++			       u32 uctrl)
++{
++	int err;
++	struct perf_event *bp;
++	struct perf_event_attr attr;
++	struct arch_hw_breakpoint bpctrl;
++
++	bp = ptrace_hbp_get_initialised_bp(note_type, tsk, idx);
++	if (IS_ERR(bp)) {
++		err = PTR_ERR(bp);
++		return err;
++	}
++
++	attr = bp->attr;
++	decode_ctrl_reg(uctrl, &bpctrl);
++	bpctrl.address = attr.bp_addr;
++	err = ptrace_hbp_fill_attr_ctrl(note_type, &bpctrl, &attr);
++	if (err)
++		return err;
++
++	return modify_user_hw_breakpoint(bp, &attr);
++}
++
++static int ptrace_hbp_set_addr(unsigned int note_type,
++			       struct task_struct *tsk,
++			       unsigned long idx,
++			       u64 addr)
++{
++	int err;
++	struct perf_event *bp;
++	struct perf_event_attr attr;
++
++	bp = ptrace_hbp_get_initialised_bp(note_type, tsk, idx);
++	if (IS_ERR(bp)) {
++		err = PTR_ERR(bp);
++		return err;
++	}
++
++	attr = bp->attr;
++	attr.bp_addr = addr;
++	err = modify_user_hw_breakpoint(bp, &attr);
++	return err;
++}
++
++#define PTRACE_HBP_ADDR_SZ	sizeof(u64)
++#define PTRACE_HBP_CTRL_SZ	sizeof(u32)
++#define PTRACE_HBP_PAD_SZ	sizeof(u32)
++
++static int riscv_hw_break_get(struct task_struct *target,
++			const struct user_regset *regset,
++			struct membuf to)
++{
++	unsigned int note_type = regset->core_note_type;
++	int ret, idx, num_slots;
++	u32 info, ctrl;
++	u64 addr;
++
++	/* Resource info: number of available slots */
++	ret = ptrace_hbp_get_resource_info(note_type, &info);
++	if (ret)
++		return ret;
++
++	membuf_write(&to, &info, sizeof(info));
++	membuf_zero(&to, sizeof(u32));
++
++	/* Emit one (address, ctrl, pad) entry per available slot */
++	num_slots = (int)info;
++	for (idx = 0; idx < num_slots; idx++) {
++		ret = ptrace_hbp_get_addr(note_type, target, idx, &addr);
++		if (ret)
++			return ret;
++		ret = ptrace_hbp_get_ctrl(note_type, target, idx, &ctrl);
++		if (ret)
++			return ret;
++		membuf_store(&to, addr);
++		membuf_store(&to, ctrl);
++		membuf_zero(&to, sizeof(u32));
++	}
++	return 0;
++}
++
++static int riscv_hw_break_set(struct task_struct *target,
++			const struct user_regset *regset,
++			unsigned int pos, unsigned int count,
++			const void *kbuf, const void __user *ubuf)
++{
++	unsigned int note_type = regset->core_note_type;
++	int ret, idx = 0, offset, limit;
++	u32 ctrl;
++	u64 addr;
++
++	/* Resource info and pad */
++	offset = offsetof(struct user_hwdebug_state, dbg_regs);
++	user_regset_copyin_ignore(&pos, &count, &kbuf, &ubuf, 0, offset);
++
++	/* (address, ctrl) registers */
++	limit = regset->n * regset->size;
++	while (count && offset < limit) {
++		if (count < PTRACE_HBP_ADDR_SZ)
++			return -EINVAL;
++
++		ret = user_regset_copyin(&pos, &count, &kbuf, &ubuf, &addr,
++					 offset, offset + PTRACE_HBP_ADDR_SZ);
++		if (ret)
++			return ret;
++
++		ret = ptrace_hbp_set_addr(note_type, target, idx, addr);
++		if (ret)
++			return ret;
++
++		offset += PTRACE_HBP_ADDR_SZ;
++
++		if (!count)
 +			break;
-+		}
++
++		ret = user_regset_copyin(&pos, &count, &kbuf, &ubuf, &ctrl,
++					 offset, offset + PTRACE_HBP_CTRL_SZ);
++		if (ret)
++			return ret;
++
++		ret = ptrace_hbp_set_ctrl(note_type, target, idx, ctrl);
++		if (ret)
++			return ret;
++
++		offset += PTRACE_HBP_CTRL_SZ;
++
++		user_regset_copyin_ignore(&pos, &count, &kbuf, &ubuf,
++					  offset, offset + PTRACE_HBP_PAD_SZ);
++		offset += PTRACE_HBP_PAD_SZ;
++		idx++;
 +	}
 +
-+	if (i == dbtr_total_num) {
-+		pr_warn("Breakpoint not installed.\n");
-+		goto out;
-+	}
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_UNINSTALL,
-+			i, 1, 0, 0, 0, 0);
-+
-+	if (ret.error) {
-+		pr_warn("Failed to uninstall trigger %d.\n", i);
-+		goto out;
-+	}
-+
-+ out:
-+	raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
-+				   *this_cpu_ptr(&ecall_lock_flags));
++	return 0;
 +}
++#endif	/* CONFIG_HAVE_HW_BREAKPOINT */
 +
-+void arch_enable_hw_breakpoint(struct perf_event *event)
-+{
-+	struct sbiret ret;
-+	int i;
-+	struct perf_event **slot;
-+
-+	raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
-+			      *this_cpu_ptr(&ecall_lock_flags));
-+
-+	for (i = 0; i < dbtr_total_num; i++) {
-+		slot = this_cpu_ptr(&pcpu_hw_bp_events[i]);
-+
-+		if (*slot == event)
-+			break;
-+	}
-+
-+	if (i == dbtr_total_num) {
-+		pr_warn("Breakpoint not installed.\n");
-+		goto out;
-+	}
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_ENABLE,
-+			i, 1, 0, 0, 0, 0);
-+
-+	if (ret.error) {
-+		pr_warn("Failed to install trigger %d\n", i);
-+		goto out;
-+	}
-+
-+ out:
-+	raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
-+				   *this_cpu_ptr(&ecall_lock_flags));
-+}
-+EXPORT_SYMBOL_GPL(arch_enable_hw_breakpoint);
-+
-+void arch_update_hw_breakpoint(struct perf_event *event)
-+{
-+	struct arch_hw_breakpoint *bp = counter_arch_bp(event);
-+	union sbi_dbtr_shmem_entry *shmem = this_cpu_ptr(sbi_dbtr_shmem);
-+	struct sbi_dbtr_data_msg *xmit;
-+	struct sbi_dbtr_id_msg *id;
-+	struct perf_event **slot;
-+	struct sbiret ret;
-+	int i;
-+
-+	for (i = 0; i < dbtr_total_num; i++) {
-+		slot = this_cpu_ptr(&pcpu_hw_bp_events[i]);
-+
-+		if (*slot == event)
-+			break;
-+	}
-+
-+	if (i == dbtr_total_num) {
-+		pr_warn("Breakpoint not installed.\n");
-+		return;
-+	}
-+
-+	raw_spin_lock_irqsave(this_cpu_ptr(&ecall_lock),
-+			      *this_cpu_ptr(&ecall_lock_flags));
-+
-+	id = &shmem->id;
-+	xmit = &shmem->data;
-+	id->idx = cpu_to_le(i);
-+	xmit->tdata1 = cpu_to_le(bp->tdata1);
-+	xmit->tdata2 = cpu_to_le(bp->tdata2);
-+	xmit->tdata3 = cpu_to_le(bp->tdata3);
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_UPDATE,
-+			1, 0, 0, 0, 0, 0);
-+	if (ret.error)
-+		pr_warn("Failed to update trigger %d.\n", i);
-+
-+	raw_spin_unlock_irqrestore(this_cpu_ptr(&ecall_lock),
-+				   *this_cpu_ptr(&ecall_lock_flags));
-+}
-+EXPORT_SYMBOL_GPL(arch_update_hw_breakpoint);
-+
-+void arch_disable_hw_breakpoint(struct perf_event *event)
-+{
-+	struct perf_event **slot;
-+	struct sbiret ret;
-+	int i;
-+
-+	for (i = 0; i < dbtr_total_num; i++) {
-+		slot = this_cpu_ptr(&pcpu_hw_bp_events[i]);
-+
-+		if (*slot == event)
-+			break;
-+	}
-+
-+	if (i == dbtr_total_num) {
-+		pr_warn("Breakpoint not installed.\n");
-+		return;
-+	}
-+
-+	ret = sbi_ecall(SBI_EXT_DBTR, SBI_EXT_DBTR_TRIG_DISABLE,
-+			i, 1, 0, 0, 0, 0);
-+
-+	if (ret.error) {
-+		pr_warn("Failed to uninstall trigger %d.\n", i);
-+		return;
-+	}
-+}
-+EXPORT_SYMBOL_GPL(arch_disable_hw_breakpoint);
-+
-+void hw_breakpoint_pmu_read(struct perf_event *bp) { }
-+
-+void flush_ptrace_hw_breakpoint(struct task_struct *tsk) { }
-+
-+static int __init arch_hw_breakpoint_init(void)
-+{
-+	unsigned int cpu;
-+	int rc = 0;
-+
-+	for_each_possible_cpu(cpu)
-+		raw_spin_lock_init(&per_cpu(ecall_lock, cpu));
-+
-+	if (!dbtr_init)
-+		init_sbi_dbtr();
-+
-+	if (dbtr_total_num) {
-+		pr_info("Total number of type %d triggers: %u\n",
-+			dbtr_type, dbtr_total_num);
-+	} else {
-+		pr_info("No hardware triggers available\n");
-+		goto out;
-+	}
-+
-+	/* Allocate per-cpu shared memory */
-+	sbi_dbtr_shmem = __alloc_percpu(sizeof(*sbi_dbtr_shmem) * dbtr_total_num,
-+					PAGE_SIZE);
-+
-+	if (!sbi_dbtr_shmem) {
-+		pr_warn("Failed to allocate shared memory.\n");
-+		rc = -ENOMEM;
-+		goto out;
-+	}
-+
-+	/* Hotplug handler to register/unregister shared memory with SBI */
-+	rc = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-+			       "riscv/hw_breakpoint:prepare",
-+			       arch_smp_setup_sbi_shmem,
-+			       arch_smp_teardown_sbi_shmem);
-+
-+	if (rc < 0) {
-+		pr_warn("Failed to setup CPU hotplug state\n");
-+		free_percpu(sbi_dbtr_shmem);
-+		return rc;
-+	}
-+ out:
-+	return rc;
-+}
-+arch_initcall(arch_hw_breakpoint_init);
-diff --git a/arch/riscv/kernel/traps.c b/arch/riscv/kernel/traps.c
-index f8292adda099..1b9ccc0b6b8d 100644
---- a/arch/riscv/kernel/traps.c
-+++ b/arch/riscv/kernel/traps.c
-@@ -287,6 +287,12 @@ void handle_break(struct pt_regs *regs)
- 	if (probe_breakpoint_handler(regs))
- 		return;
+ static struct user_regset riscv_user_regset[] __ro_after_init = {
+ 	[REGSET_X] = {
+ 		USER_REGSET_NOTE_TYPE(PRSTATUS),
+@@ -421,6 +818,24 @@ static struct user_regset riscv_user_regset[] __ro_after_init = {
+ 		.set = riscv_cfi_set,
+ 	},
+ #endif
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
++	[REGSET_RISCV_HW_BREAK] = {
++		USER_REGSET_NOTE_TYPE(RISCV_HW_BREAK),
++		.n = sizeof(struct user_hwdebug_state) / sizeof(u32),
++		.size = sizeof(u32),
++		.align = sizeof(u32),
++		.regset_get = riscv_hw_break_get,
++		.set = riscv_hw_break_set,
++	},
++	[REGSET_RISCV_HW_WATCH] = {
++		USER_REGSET_NOTE_TYPE(RISCV_HW_WATCH),
++		.n = sizeof(struct user_hwdebug_state) / sizeof(u32),
++		.size = sizeof(u32),
++		.align = sizeof(u32),
++		.regset_get = riscv_hw_break_get,
++		.set = riscv_hw_break_set,
++	},
++#endif
+ };
+ 
+ static const struct user_regset_view riscv_user_native_view = {
+@@ -541,12 +956,104 @@ void ptrace_disable(struct task_struct *child)
+ {
+ }
  
 +#ifdef CONFIG_HAVE_HW_BREAKPOINT
-+	if (notify_die(DIE_DEBUG, "EBREAK", regs, 0, regs->cause, SIGTRAP)
-+	    == NOTIFY_STOP)
-+		return;
-+#endif
++static int riscv_ptrace_bp_get(struct task_struct *child, unsigned long idx,
++			  struct __riscv_hwdebug_state *state)
++{
++	struct perf_event *bp;
 +
- 	current->thread.bad_cause = regs->cause;
++	if (idx >= RISCV_HW_BP_NUM_MAX)
++		return -EINVAL;
++
++	bp = child->thread.ptrace_bps[idx];
++	if (!bp)
++		return -ENOENT;
++
++	state->addr = bp->attr.bp_addr;
++	state->len  = bp->attr.bp_len;
++	state->type = bp->attr.bp_type;
++	state->ctrl = bp->attr.disabled == 1;
++
++	return 0;
++}
++
++static int riscv_ptrace_bp_set(struct task_struct *child, unsigned long idx,
++			  struct __riscv_hwdebug_state *state)
++{
++	struct perf_event *bp;
++	struct perf_event_attr attr;
++
++	if (idx >= RISCV_HW_BP_NUM_MAX)
++		return -EINVAL;
++
++	bp = child->thread.ptrace_bps[idx];
++	if (bp)
++		attr = bp->attr;
++	else
++		ptrace_breakpoint_init(&attr);
++
++	attr.bp_addr = state->addr;
++	attr.bp_len  = state->len;
++	attr.bp_type = state->type;
++	/* Always register disabled; enable below if requested */
++	attr.disabled = 1;
++
++	if (!bp) {
++		bp = register_user_hw_breakpoint(&attr, riscv_ptrace_hbptriggered, NULL, child);
++		if (IS_ERR(bp))
++			return PTR_ERR(bp);
++		child->thread.ptrace_bps[idx] = bp;
++	}
++
++	/* Enable or disable as requested by ctrl (0 = enabled, 1 = disabled) */
++	attr.disabled = state->ctrl == 1;
++	return modify_user_hw_breakpoint(bp, &attr);
++}
++
++static long riscv_ptrace_gethbpregs(struct task_struct *child, unsigned long idx,
++			      unsigned long __user *datap)
++{
++	struct __riscv_hwdebug_state state;
++	long ret;
++
++	ret = riscv_ptrace_bp_get(child, idx, &state);
++	if (ret)
++		return ret;
++	if (copy_to_user(datap, &state, sizeof(state)))
++		return -EFAULT;
++
++	return 0;
++}
++
++static long riscv_ptrace_sethbpregs(struct task_struct *child, unsigned long idx,
++			      unsigned long __user *datap)
++{
++	struct __riscv_hwdebug_state state;
++
++	if (copy_from_user(&state, datap, sizeof(state)))
++		return -EFAULT;
++
++	return riscv_ptrace_bp_set(child, idx, &state);
++}
++#endif /* CONFIG_HAVE_HW_BREAKPOINT */
++
+ long arch_ptrace(struct task_struct *child, long request,
+ 		 unsigned long addr, unsigned long data)
+ {
+ 	long ret = -EIO;
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
++	unsigned long __user *datap = (unsigned long __user *)data;
++#endif
  
- 	if (user_mode(regs))
+ 	switch (request) {
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
++	case PTRACE_GETHBPREGS:
++		ret = riscv_ptrace_gethbpregs(child, addr, datap);
++		break;
++	case PTRACE_SETHBPREGS:
++		ret = riscv_ptrace_sethbpregs(child, addr, datap);
++		break;
++#endif
+ 	default:
+ 		ret = ptrace_request(child, request, addr, data);
+ 		break;
+diff --git a/include/uapi/linux/elf.h b/include/uapi/linux/elf.h
+index ee30dcd80901..1315ac35157c 100644
+--- a/include/uapi/linux/elf.h
++++ b/include/uapi/linux/elf.h
+@@ -547,6 +547,10 @@ typedef struct elf64_shdr {
+ #define NT_RISCV_TAGGED_ADDR_CTRL 0x902	/* RISC-V tagged address control (prctl()) */
+ #define NN_RISCV_USER_CFI	"LINUX"
+ #define NT_RISCV_USER_CFI	0x903		/* RISC-V shadow stack state */
++#define NN_RISCV_HW_BREAK	"LINUX"
++#define NT_RISCV_HW_BREAK	0x904		/* RISC-V hardware breakpoint registers */
++#define NN_RISCV_HW_WATCH	"LINUX"
++#define NT_RISCV_HW_WATCH	0x905		/* RISCV-V hardware watchpoint registers */
+ #define NN_LOONGARCH_CPUCFG	"LINUX"
+ #define NT_LOONGARCH_CPUCFG	0xa00	/* LoongArch CPU config registers */
+ #define NN_LOONGARCH_CSR	"LINUX"
+diff --git a/tools/include/uapi/linux/elf.h b/tools/include/uapi/linux/elf.h
+index 5834b83d7f9a..21f225502051 100644
+--- a/tools/include/uapi/linux/elf.h
++++ b/tools/include/uapi/linux/elf.h
+@@ -460,6 +460,8 @@ typedef struct elf64_shdr {
+ #define NT_RISCV_CSR	0x900		/* RISC-V Control and Status Registers */
+ #define NT_RISCV_VECTOR	0x901		/* RISC-V vector registers */
+ #define NT_RISCV_TAGGED_ADDR_CTRL 0x902	/* RISC-V tagged address control (prctl()) */
++#define NT_RISCV_HW_BREAK	0x904
++#define NT_RISCV_HW_WATCH	0x905
+ #define NT_LOONGARCH_CPUCFG	0xa00	/* LoongArch CPU config registers */
+ #define NT_LOONGARCH_CSR	0xa01	/* LoongArch control and status registers */
+ #define NT_LOONGARCH_LSX	0xa02	/* LoongArch Loongson SIMD Extension registers */
 -- 
 2.43.0
 
