@@ -1,143 +1,160 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320FF3AFD06
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769449; cv=pass; b=hQVevpntJW4ivAlj0de8SvfD7GK/gv/kPN4J+cUKlezz1kC0rw1HwZU0M9rei50wE4QEeLbP4q6CK5A3NB5CyaRFHF8j6R4nDoYFpWB9R3SjYQaPuEb3TRTvuYrgh5aWcM2EG7hTfWR8mlDcUoUAqPUaOlC/CB35j3M8u8QbYng=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769449; c=relaxed/simple;
-	bh=UoFaUknaPGAot9LI650Qdfi+g+WeShPBf70M25SuqEA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uxGejWc3CRIfliPArM/L0cWagjSi7yOI342e5dmJmOr2HctkIGg4460zdOLNX17FwxQjfnwRhN9AAZKFnpFZ4wsLZRXZyfB6hNiKLbFoJOC9vngLaVYKOdlK0ZgR3qpZIJ7jwkVe0InzGZgcvvPXMAM3acZZ4mCsDNzUQpFkheo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OQAr9S1U; arc=pass smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81F34C4F54;
+	Wed, 30 Sep 2026 11:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790769498; cv=none; b=H/hYSJd1l6ZNCfdSKFlOGkE/d02jY3cfYCh4cDbhFAc8c3AoDoBTRMtPgOow18S50TsxL6YazGcjhB9/lqmwE0XjrfOIX2AIBOngye3S2AG0m8jRp/Wlt1BEP2CBLn5GUAWAjuYxMcLHRLPbFLegqXKb1ImsjLJ9XQzIhLnyvMo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790769498; c=relaxed/simple;
+	bh=/GYVlqh/BLtFSwB+Na9jnR44kecPNLhhfZc2OHI3UfA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=APgAk7uzQIDa9Z52OXVCBsHFlyicSgw7udzdw4is8KDet9obWQg4nesNQc0dnjJNjQMC7OBaTXH0+EiMZiRYDbzvFXRH5bhThw/CiXP4BWlypH2z9hXEjLSkYiH2mYPmupMn+VI9T4t0imOPWEsf/bY2TSaJcMTu4OvSZEnkCrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=MBb/LkPT; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OQAr9S1U"
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672ce86b21aso5715569d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:57:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790769446; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DOdQiipgM7TS8Z+uUm/tqTYA/KrsJOEz6tPM6aolYixI1CPELaZNDqQWTa+rtYrbOd
-         byoZ/XIYAwrXNQj/n5Rs/PgKu5YxA0FsmU4CzwG0wjY2dfa5vFTrytr3X6ux2HQY7z3Q
-         zcl3ie0JLU3PTJGmms648qtbJ0OW+MdA6YLCjjlS8ei7wxOfahEDUV7GdgNK3BRa3+zY
-         8ES5CjaSRnrJib7bnVVxYh6wrSvSMOCuYrv98ePK2yTesrlspnVTzW2IfnDKtYCiJyIP
-         TDAdxYpzm+1jWHHUH02vJ8RwljdIKuc4g8mw0/OO3qgaYlctH732ph/EFsC3mlsKJdwC
-         4BoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ba7AhExhkiMVWJNfe1v9ZUOyiNk92H/JjgkQAe6kipg=;
-        fh=7F7GXOeNpFe7KTnMkAqQMx+xifr8XrCcVyiTyoGGalc=;
-        b=d8ufeJrfjqbT6C2EiYmZM/FliWe7bQZhuN603zwArmU4RblMQrIIJrxdFjitTrej7F
-         BtQvirKys25oyQLY0Y/Rk9TlTqccPk8v3RT02mvY/ozTFQhyptwpKWMskYboAt80Fr+M
-         4xlKEgn9h+R+T5qcLKz8V9NR0RMMCgVFy7xqlVKpQ9ArZ881XRWeUeZtwB3HTrlwE0sG
-         sPM9by9R5gYYiu6sNDAA75cRKsV09FBTPIQXl63HG2gkDdeBUyIKC4nvyi3IlX/AYe08
-         GFuTYxmgWJzC44xL8wKO86lLPZ1tBTFj0XQRe9WuVUGSMshqmM4XddULfnuEjxftypkV
-         VGcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790769446; x=1791374246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ba7AhExhkiMVWJNfe1v9ZUOyiNk92H/JjgkQAe6kipg=;
-        b=OQAr9S1U79AheepEFc3eW+PvLQCQHbuErQhBRpCurfXkkhNAbkqlLqs5mVgVPTmT31
-         JhVvAIxcFlb4AJQNHU+X0rRjpW5dtb6ogahQWFHlWB2tIXUgbQFuzkvg8gueKxhiwP3o
-         kFPwBIohlqJ/6ZsPcnwpn9fI4xP5Ek8PaC5pejaC+8UmZ4lhpTdyMRTQB8D55E/cLUWn
-         3tASZDXqcmX4Fn6qEaZkD6d/r2rx2O1MMLxo1fg5CYUP3xJcCyMYlXaojpNUtNUtQioX
-         xlZ33/cdSd3Lnh4qusFiLd1PyuBdFMfdtDMkVcuUKo7OYKT4vba5c+dCw1nDE+vX3ozq
-         ZfTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790769446; x=1791374246;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ba7AhExhkiMVWJNfe1v9ZUOyiNk92H/JjgkQAe6kipg=;
-        b=tb2kpT+Bx5gHFE6FD8kP1f+weF5sjkEcOnP9RFZxNiDXtruyRytWIXWrirU37vcFpF
-         jMjVVpjkG2r9CDI9TLR4IxkMbVT7CFMF+uU12a2Y2cgUHd79dgGJgXJBjzLr8uiEwO+8
-         hM+HUnrBe1AidAn8z34/l1wdbZhNS0g/qc7aoVKixB65HSlGnP/mhaGT/SXPWC31HhOG
-         KxOIVKNzK4YGQoqkEmFlF/B0VzFm/UOjPReu2qs1JyK8lSnRvZ/g65i5/xcfqlPRQntf
-         9FKMbXkpbholbX3gJBzWWcC13DZt2wSGwK7uCNBST0YUJYC0Bj2eU+MfY3yAL7d7EXlX
-         GLDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxUwgE/TRwkd4CiQ1kh2S60kFbHFscvD9d5DtUcJMievC8kfdSBG+LvxbVZqsgNayCJo4LCZnio3mCpZes=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFM4f2FZdccag4dsVMzIxlZif8K6Kglk7zVfv6oZZxruxVD2f6
-	znWZ/d5J3d24mHWDEAVEfIr391gLC8aIISD4PPiZZFhHdsxMrqWmZW5oJP5Hn6yyVw4uyMa4xa6
-	U06OuTybfyZjce615Fn/pimrpeD2t58w=
-X-Gm-Gg: AYBFou2rRymHjCVnR6ZTkSpHvlZqRsy42suCcXv8zTsQ07VhgslsbYQTzxc7mPAMoG7
-	W5NZb2O+FtiH2mzZio36BKO7+/d33Ms55KAnbLEjy9CVj1gnv876LmvJBpZKjbDnY8z3RZQa84K
-	7d9Sq3EKj6vYM45h4AQBPtxsQ4YILrJafmqhkqyFI1MXt9G3pmfp4N3dLpvCPX79elWdDcw49za
-	8K9C+cd08YRmj8OPxrm5mT4m5MM3436bocb8wNrHPYQqEaehsjAjhyAlH5E/RJUS+43BUycvfj1
-	c6ICPqp+DU+ZYFV90m1ypkrBDOr7UyDrt9mRTsy9NYVq9x/HTGeF1s4=
-X-Received: by 2002:a05:690e:b87:b0:673:572:449c with SMTP id
- 956f58d0204a3-67683494064mr311881d50.97.1790769445863; Wed, 30 Sep 2026
- 04:57:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="MBb/LkPT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=AaETdzOchPFTc9odpS3treoP+eVUfbz1VlctESvybfE=; b=MBb/LkPTMkOECQoJh33EuX61Cd
+	EZzfuS3L9e7jtSjPy5BR2nIIU4dwRL+e3pCnGXoI+bQM72ad+bTtwV5PtlAqtbKNxq9xM6p4Avqpg
+	MukLYLoWgz3QyI27GEQkgXPUmUHoxzm9hQL1oki8ArSmwRG719iA9ecLiLt92U6vxNFu9MRh97dd7
+	MuQ0NuM7recJ5DLbKHih11HdUEhwRKGCzpmsDGH+AB42GwS9wZPkjoP+jNf6paIDPGOOwZzf6mocq
+	/sjYbRkoswnBCSEv/vM9dEt5EOKYkYgEHoogTdKNTHbLBvqUBJE4U+t/8r8kpdm+ExU9fBWO4G3kF
+	ODW5+EGw==;
+Received: from [151.115.150.205] (port=60644 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xBswt-000000022KL-0gMj;
+	Wed, 30 Sep 2026 13:58:08 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Jon Maloy <jmaloy@redhat.com>,
+	Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net] tipc: protect received keys from concurrent flush
+Date: Wed, 30 Sep 2026 11:57:09 +0000
+Message-ID: <20260930115708.349540-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929194434.29937-1-ginger.jzllee@gmail.com>
- <20260930071916.35722-1-ginger.jzllee@gmail.com> <0593ff86-c6ab-4c64-88a3-e500ed335760@web.de>
- <CAGp+u1aTQvE_o=nObMb0LvuwmdFukG9qBeKGDvwcf5-ckG9xyg@mail.gmail.com> <cb64813e-0a11-4c14-9bea-45f8dceff115@web.de>
-In-Reply-To: <cb64813e-0a11-4c14-9bea-45f8dceff115@web.de>
-From: Ginger <ginger.jzllee@gmail.com>
-Date: Wed, 30 Sep 2026 13:57:11 +0200
-X-Gm-Features: AclHuK9c85XY0-0FVl9whcFZZRCVWc-3bABsjYrbvCeX-F_yjm-EuhyLPQ-257A
-Message-ID: <CAGp+u1Yw24hRsZfnD7sePs4C=xp-VLe1=OitaVRUrvE9tyNiiQ@mail.gmail.com>
-Subject: Re: [v3] dmaengine: tegra186-gpc-dma: Read channel state under the lock
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: dmaengine@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
-	Vinod Koul <vkoul@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Sep 30, 2026 at 9:46=E2=80=AFAM Markus Elfring <Markus.Elfring@web.=
-de> wrote:
->
-> >> Under which circumstances will additional background information becom=
-e available?
-> >
-> > The static analyzer is a research-based one, built upon the LLVM IR.
-> > The analysis is founded
-> > on a symbolic model (not an ML model) for concurrency bugs.
->
-> Thanks for such a hint.
->
->
-> >                                                             And due to
-> > the anonymity
-> > requirements, I am afraid I cannot reveal further information.
->
-> How does this feedback fit to other known guidance?
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/D=
-ocumentation/process/researcher-guidelines.rst?h=3Dv7.3-rc5#n5
->
+tipc_crypto_key_synch() can queue the RX worker again while it is still
+using rx->skey. If tipc_crypto_key_flush() cancels that queued work, it
+frees the key without waiting for the running worker. The worker can
+then read freed memory or free the key a second time. Racing key
+exchange with key flush triggers KASAN:
 
-I can update more information about the static analyzer (i.e., it is
-experimental and its reported log) in the patch.
-I believe this aligns with the known guidance, but I cannot provide
-the source code links.
+  [   12.986077] BUG: KASAN: double-free in tipc_crypto_key_flush+0x401/0x530
+  [   12.987937] Free of addr ff11000002268080 by task peer/112
+  ...
+  [   12.991938]  kfree+0x163/0x430
+  ...
+  [   12.991983]  tipc_crypto_key_flush+0x401/0x530
+  ...
+  [   12.992152]  tipc_nl_node_flush_key+0x174/0x210
 
->
-> >>> Were any more of your contributions supported by advanced source code=
- analysis tools?
-> >
-> > If you meant AI tools, then at this stage, no. For this patch, I have
-> > used AI tools to help phrase
-> > the patch better, but I did not use them for code analysis.
-> Will this information trigger further collateral evolution?
->
+Mark the key as in use under rx->lock and make flush skip it while the
+worker is using it. Clear the flag under the same lock when the worker
+frees the key or leaves it for retry. Keep rx->skey set so the receive
+path cannot replace it during AEAD setup.
 
-The collateral evolution will only affect the experimental analyzer.
-It does not affect the submitted patch.
+Fixes: 1ef6f7c9390f ("tipc: add automatic session key exchange")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/tipc/crypto.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-Sincerely,
-Ginger
+diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c
+index 16f1ed1f6b1b..6eb9de458902 100644
+--- a/net/tipc/crypto.c
++++ b/net/tipc/crypto.c
+@@ -184,6 +184,7 @@ struct tipc_crypto_stats {
+  * @key: the key states
+  * @skey_mode: session key's mode
+  * @skey: received session key
++ * @skey_in_use: received session key is owned by the RX worker
+  * @wq: common workqueue on TX crypto
+  * @work: delayed work sched for TX/RX
+  * @key_distr: key distributing state
+@@ -208,6 +209,7 @@ struct tipc_crypto {
+ 	u16 key_gen;
+ 	struct tipc_key key;
+ 	u8 skey_mode;
++	bool skey_in_use;
+ 	struct tipc_aead_key *skey;
+ 	struct workqueue_struct *wq;
+ 	struct delayed_work work;
+@@ -1219,8 +1221,11 @@ void tipc_crypto_key_flush(struct tipc_crypto *c)
+ 		rx = c;
+ 		tx = tipc_net(rx->net)->crypto_tx;
+ 		if (cancel_delayed_work(&rx->work)) {
+-			kfree_sensitive(rx->skey);
+-			rx->skey = NULL;
++			/* A previous invocation may still be using the key. */
++			if (!rx->skey_in_use) {
++				kfree_sensitive(rx->skey);
++				rx->skey = NULL;
++			}
+ 			atomic_xchg(&rx->key_distr, 0);
+ 			tipc_node_put(rx->node);
+ 		}
+@@ -2381,7 +2386,10 @@ static void tipc_crypto_work_rx(struct work_struct *work)
+ 	}
+ 
+ 	/* Case 2: Attach a pending received session key from peer if any */
++	spin_lock_bh(&rx->lock);
+ 	if (rx->skey) {
++		rx->skey_in_use = true;
++		spin_unlock_bh(&rx->lock);
+ 		rc = tipc_crypto_key_init(rx, rx->skey, rx->skey_mode, false);
+ 		if (unlikely(rc < 0))
+ 			pr_warn("%s: unable to attach received skey, err %d\n",
+@@ -2391,14 +2399,18 @@ static void tipc_crypto_work_rx(struct work_struct *work)
+ 		case -ENOMEM:
+ 			/* Resched the key attaching */
+ 			resched = true;
++			spin_lock_bh(&rx->lock);
+ 			break;
+ 		default:
+ 			synchronize_rcu();
++			spin_lock_bh(&rx->lock);
+ 			kfree_sensitive(rx->skey);
+ 			rx->skey = NULL;
+ 			break;
+ 		}
++		rx->skey_in_use = false;
+ 	}
++	spin_unlock_bh(&rx->lock);
+ 
+ 	if (resched && queue_delayed_work(tx->wq, &rx->work, delay))
+ 		return;
+-- 
+2.47.3
+
