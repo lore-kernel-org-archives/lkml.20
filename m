@@ -1,448 +1,276 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010067.outbound.protection.outlook.com [52.101.61.67])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011001.outbound.protection.outlook.com [52.101.62.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787612D1F77;
-	Wed, 30 Sep 2026 10:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8753384CE5;
+	Wed, 30 Sep 2026 10:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.1
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763847; cv=fail; b=BX9EbH+JYkKsei3JxYTQZIKjpLXr+bHYn+SNQuYA3nq3v6xPtOMNda2cDBQ4aMADfhRx4X5DlU3/9pVqx4U6qGqGVfMR1Q4LPoZ0tdD666wAvkq/2QL4TTXmsv7TVPZNODKcaf7p9+/gdWGnJ9TONlb2aeYqJb2Kt+NrIsdP1Vg=
+	t=1790763888; cv=fail; b=oXucWywrAZF982R1MpMPg2U+eBUAXn8bdGgmWlVfJ3tyF2HISSiyNrvctZsT97Yxuh/ajEWTp0j7BISwRTZIcB3bKcf6taja3u96K+tr7i5dQuDGqWyfZtNGPxXuaDsaHEh8xl5pezPryCGc9ouvTm/bjhGCiuxisBhvsQVlr+g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763847; c=relaxed/simple;
-	bh=+5tf3oZTGbGwfxDTLLoP7lP/89qvlef8oRm7HWtNhmI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mrvpC/PW1lj7xCDA4c9+iz14hwaRk/QvfUCg7leqldPHD5aGgUMx5/OUqpdlIStEqhOWvd5TLl7KffI67PKphGdaZuVeE1zGGyocLjCaQeY03eHHmxrH4dHwMvlrSI4sNg5Z9k0QtM4yHWcj3MLHL/6lMLTC6NwzuX1fwvCSgJ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=USQpwutI; arc=fail smtp.client-ip=52.101.61.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790763888; c=relaxed/simple;
+	bh=WVW7SyqQZnBndZpXqJrILC0GSq1UBO17Ud7ZMoQynmo=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=eTDQPoAtC7mFJ7Kz97qg++ctPZcNYYJYFJMDLZJwO3kPpqO8JU0ZBcQhG+e/PJD1W2f1RGptqdHvcZ/E+yuSD8IdmDGIiR8KttdK/viqLo/wUTVcQGxiv2arlWt8+HYSiYCnCncv+H+UdXtoWK2T5i6mJbVTaQafKW8NPyojy8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=XhjKPYWA; arc=fail smtp.client-ip=52.101.62.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="USQpwutI"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="XhjKPYWA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JxbTSP4Px24qJqhZX8e95lQh8EEleeDQL0NXfW9bQirZ23FffVI9E3aH+cvB6tt1jLkNO2Hhnm4/6fPY/MfYCIyDhKYPRVgxcRfz09F3IJ4HgXdUNl42ChBC7+K+q8PaQU7aBPzjrhXfEwWLPg8QNKNtojzdmeMh0D9zmBGk30X9YjvjBys3qDw2CpdyCPy2ycDnF6ZZQFopOJw67BIrCtvqiRcplTARq6rgbwfFRIywhW9/SYpkkF4FkH4JxXEb+So3ChCw1+06ZlFnKZ4LocIagV1HTcZnVSjeeM4r/jvsZSalMQX7fXOrQNtYFSFgnOp99a//RKfApHagk62y2A==
+ b=AZFwSoG9SYn0zAqkQrp7+7H6s8YiF9mL0wk7lkw1m0469TITqFRZoM/XLyIaRcEreD6aVdDfVWZCnrnns9YmykF6pdoCI76tCmxqHkuve5qAaD5bjUyl5eZcz41ZUstf95nZwN9GQ/a3gc9WEsG3LmT2EPGIH5ovEbQGl5zcYVtRlHAQ0wPoIs6fBwyk5MD0S3BT4hIK1pm3qasZciM9dzLx7oETl0w5daIdvxGsVHQiiikIpGiu3JswsLAxS9HxKSCY9R3dmt3Taf4K2MlNr7fX8kJHEgckrIdTC/9csmILW6BPVNkYkj4B4roHEfyECQCSqflwK3M9B4bX6ruIOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/mQhWkhIxYl5tAqc5KYXhodaL8r6D7bI6qNUp36s1Sc=;
- b=iPKC5IW+GJuOgfE4BmmcfdKxA0AN2Xk0FtJvSD5OXZf9XgpET1R9IaaaOn0Q56Dpqm7IykmeC6swEeA4p8BzP4G43XqRT9ch2uN15sIC/YtLnJetbODZyGr8C6mBM2pAU1WmQ8IFV7wvDZc1bsj0aCLyKtE8amqqeNZo2kFv3notsL9AvooTWfcaKu6HCfmtkPmcS0w8MOxE5EK0eWQhKEYge43Wbi9o7y4WmMrzG0LuMybyoGYbstheeguvzPuIaPJdCKHYf6NbGNewH0WNc0jwcCRzvkJWReUszT7MYw2nIoG46H3Th9SfrMew+BMKbeDxhOjlxHIUw1UIXvfQmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ bh=Vlp+5QeHtGhU6OtMa/ZMbfShUsCqAswU0sjOsoZw+ro=;
+ b=jh2blFaXCODQx4Zxfs/QmnW+7s/nZbo5FfzvO0SX3OwJq9Tm8MTUHGSHxqQcczexVHd805I6JmCynPFwDJa/eXm0v2OIJNwEydCeDWf2ULM+won3KtU71cty7W/GTXsAmlIm2+PC7NLZxxaU8zYoShPBPSnI4QXcnBgWpA/koChb3mu54CIC8qo1EjngKvHPJZgF2fFEr0uVGWrRdztBtfjB9ozyZ3aBSunVSCiYh2j3TGHQqoNIr+vWO2f+pXOiWToB0iozic82zDBdfsupO/76F+j61SpHBKevVh9E31OMFVh5WfGUjI0ErZo+hKvO6Zsf8pBCMWuBAXi4pl9Dig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/mQhWkhIxYl5tAqc5KYXhodaL8r6D7bI6qNUp36s1Sc=;
- b=USQpwutIJWGgpaam25B5x/R17Qy0SfP9Jj4ZWcIW61y4qk76lEaDaMsf0IjkzfccQUHEEO21CAzq1XLLfxRos5JOI6CnZraCCpN7EyIDxQ/ib/QLcnj1IXk/tqmaY6BI4PSekV3b/89F5eOTfXWpo4MkgL07hQIgYtTk9WAx7PvdQYUUG7zLnmot/H/TRHwouoM/SUFHtbD4hLAhGFyEaGzyanRtqpTIXmbnArmWNOY4yw5TKoqYqZKW6MAbxOPiRANq/rtX28/0GWj/Iufz4Ei9XMGHa3KHXc7yDneF+ManNxl+eynM06mI0YWkDHeaK5L97Sa5IfNzLSSy6H9lIA==
-Received: from SJ0P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::34)
- by MW4PR12MB6975.namprd12.prod.outlook.com (2603:10b6:303:20a::9) with
+ bh=Vlp+5QeHtGhU6OtMa/ZMbfShUsCqAswU0sjOsoZw+ro=;
+ b=XhjKPYWAys2aGjPRbOdsy2E01pgpmr0c7d5C0YMFBMZgmjZpNDeTy8QATMRM/XVmLSzlgjl2An5z4TXR1uTGS9T9v8JrO5NGT0QgSioJLb3MhhAEEw2BAlnn5sPMF92l1ohMfTJ2kclKAWdBuggBcZ9n6GBGAn7rcdCWwuMleI4W9f08K3tfr6FXbrEuOJsOwVkpJBjF+JTsz5Mlb/52QsweYHiESCtd52wzKqGgGrGeQWj/kWXgq+yt5wYYG5QmMSy2A+ra71mxkg033Bo5rVUAErYoWylyxO7hkL1F0f1n/gTBTvJI7QFgMfZtOWubKa/QCUhAca0MhjletpUusQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by IA3PR03MB7667.namprd03.prod.outlook.com (2603:10b6:208:503::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Wed, 30 Sep
- 2026 10:23:53 +0000
-Received: from SJ1PEPF000023D6.namprd21.prod.outlook.com
- (2603:10b6:a03:41b:cafe::9e) by SJ0P220CA0003.outlook.office365.com
- (2603:10b6:a03:41b::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 10:23:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SJ1PEPF000023D6.mail.protection.outlook.com (10.167.244.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Wed, 30 Sep 2026 10:23:53 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 03:23:36 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 03:23:36 -0700
-Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Wed, 30
- Sep 2026 03:23:29 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <dakr@kernel.org>, <aliceryhl@google.com>, <bhelgaas@google.com>,
-	<kwilczynski@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
-	<gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
-	<a.hindborg@kernel.org>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <ankita@nvidia.com>,
-	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<kjaju@nvidia.com>, <alkumar@nvidia.com>, <acourbot@nvidia.com>,
-	<jhubbard@nvidia.com>, <zhiwang@kernel.org>, <jgg@nvidia.com>,
-	<alex@shazbot.org>, Zhi Wang <zhiw@nvidia.com>, Peter Colberg
-	<peter@colberg.org>
-Subject: [PATCH v3 10/10] samples: rust: add Rust SR-IOV VF driver sample
-Date: Wed, 30 Sep 2026 13:18:51 +0300
-Message-ID: <a50d3eba8fca1ecf094da263a749fa012a512b7f.1790759932.git.zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790705494.git.zhiw@nvidia.com>
-References: <cover.1790705494.git.zhiw@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 10:24:20 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 10:24:20 +0000
+Message-ID: <de0c63de-952e-482d-81f9-405453275da5@altera.com>
+Date: Wed, 30 Sep 2026 18:24:12 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] mmc: sdhci-cadence6: program PHONY_DQS_TIMING for
+ extended-read DDR
+To: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <cover.1790074790.git.tze.yee.ng@altera.com>
+ <d89d11767f8f3ea073bd54b01ffbb9e700e7808e.1790074790.git.tze.yee.ng@altera.com>
+ <5c11f8eb-567b-4c1c-98ad-6704659e3fe5@altera.com>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <5c11f8eb-567b-4c1c-98ad-6704659e3fe5@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY1P220CA0019.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5c3::15) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D6:EE_|MW4PR12MB6975:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c6e07c3-22ea-44fa-bb58-08df1edced78
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|IA3PR03MB7667:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1692b9f-460e-4977-06c0-08df1edcfbea
+X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|23010399003|1800799024|10067099003|56012099006|11063799006|5023799004|18002099003|22082099003|6133799003|13003099007;
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|56012099006|4143699003|921020|3023799007|11063799006|18002099003|55112099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	szk2eAbhWQNuN4gdekAO1yMOOg8BRIsX62Fszb9nUiknVHOyR4dC0P0vKpNX1TIiXOWxSgMoLeyRhpxerRCW0l/ZuynOHhYWtekY6zKDt04lG+/sHGJWlbEmffidPH25h0B2yQLKBJkyp4wzss/M+Z3VpuijQmry604VESMVTB+DMwFlYRgr03GT0TMfbqZXTFWeCryCmqiJhsm8KbfYaZxMc9kd9LRB5e26VEeWKYMc9CkmZmsCQwKY5IHYiVsqooDpF5s5Ohe5XHE2uLj9IONHgwlPLLXKILmyGgsaamMwMYOy9wm6uvpsKSwHKKt16q2idGkfCkPYQmm7HGQE81nKdFI9Mtp81Z3Jcn0XvVpBatU46fN5oRVZY1aqWF0tqWomJVWi686RwXfQKz9RolViEYFbTNBVRG0BpiQ0cOeFG+BcwzLSUkoFyTIUWzqEGr28R08Wauwklo3KITK5m+DFvn7JtgGPjBcsb46c7qLYykrO6cfDrQkMcEPIWO/T4sdNlspeolAjtNXUv6E9N9J6+NgWmAQGknC6wGItbmCNngS1q2vrc9Cfczo9C+XzkoxiSbvOXClEB+6ZJ2ogPrRsuHcuShXMcQq/wM0w9PYeOgKs9hNvWYZGvPyzWqJ/EmdlK678p6sRNSplVPUuy/xtlksrpNRdEcvUEaxcC+oiDATEh/QvHgg3KQcR6eC3D98ZDx5XdEHJMtuLIsLXdg==
+	JTZ3TG1FKYa92j825wuoOlsuiw+f35n1UdCfrxoLpynXZXu/Gx3/9XeFnmd91tuE/QiTbQV/jjv/u6l2M7ZLwAvV3JO99RodB/mdVfhCy8PcPIKBNQQbH4pc7x1VunW2/s5qBuInRHa++dL48u0j6ThjrHVpngiTNmBRv2+ZWTUzMY1UuTJLf6uSCq18AxhxQON2VyJPjMHq8/isGCMtll/vCZN16wGGmztQmY+M+JzmKKWjLzBc8cOFYAXVmISDDVoQVw1gdEmsfD+8LAOjg19kI/Oz+FoNDfCMnA8vs+QL5f4dy+l9aeUJtnil630Af5reyUqfdm6e+R3XR2O/jEYYgxidiLrAUFaxrfdERcPttYXgnS1DsemzNMgoeTZNqi/mpr/QdNYO1jp622bAU4MwnExtjwXoQ+pF6k6jxarQM7U5/S3kcFod/ictHENGnyyFd10d0mfBJmT+0Jy8ThnJfGGJg3FWy1F4QObv62gcFE2X+NMTA0oKnN8/xasxzuHkEJozMLrp6ztsOeVE8qkaV3qOVfXrE2g3PoTatUU5QylBo/YC09Izw+Iq3ZPGhSQfaBuJF0zXQXrp/gbybpvtabcS1/gzeIuWT4n+jYR+hbkdu6Opy94dPXAMaJh3zvFcJXDn/JUjSBgXXGsJn0feh8r2O/ixnAYVBRZHSTA1nimMMMpFJop6hn/08uN3P2cujq6NmYDYYG+LlgZc1w==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(5023799004)(18002099003)(22082099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(4143699003)(921020)(3023799007)(11063799006)(18002099003)(55112099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	PYa4Y/IYjoFzy1AwfgJTYi6ex273d8Tn91yyJHB+XMNqPhN7lIt1TQhhvKGuSvl5r2i/olFNErsyfyJfuwjQ7KVeqbpTNTMmS1Pkc2wzSZP5MstJ0w/FNk+uQ1lqlhMLc0XinVwpW7TI+8RTCTUlX35gVte9nB4ER5rrOJSiQRaAfxOGHxKMVhkavugsv7BoS+tX7rgGG8ROB0K99NCorOhR/gLmn9RNl+O2ZKVHsDRhz6BAA4e7M+CN93ZgefZbU7N7yKSlIO7SrYXiACB2foq7NxSp1niilqYZWpLl0XJbJLAeLzRRobTT4Hv7EtHi/+Dp1pt+joYp0MPYbRQSK8EllEC3QHdD+W9Yv0a5hgDoM+5yA4VMOIfKBi8VwAW/Cgd9/jQmjRZQY0ek59OGVN6vKZ5YgKDRkvnsJYJ/cF0fSAzTuVv5DNcnPW06Zzy+
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 10:23:53.5376
+	=?utf-8?B?WGVBUmx6U1BJVE5SN0ZkVzRpNGtqdGJGK0ZMZXVkamR6MkdidW9lMDNMd3lP?=
+ =?utf-8?B?TXpLZWRXc3lJbkpCZkZVZmpFUFhvai9WTElXYW8rVWFXQ3I4bm5NaGxuWFBE?=
+ =?utf-8?B?eFVQRTllZG5vTUJxcExKWWprVjNUSy8zOEtSYVdRT0ZTNUQvSGtldWhHZHpr?=
+ =?utf-8?B?UWVudzY4NEVwYjI2WDRrSFp4Y0JWdnU0SFVuWmhSMEo5N2tWVUoxTkhYdFZm?=
+ =?utf-8?B?M3JKYVczYnpWZ1FHU0JpRlYrRVlXbUx1WWkwV0dzVWRZSHZBc0FqSmZrT1B4?=
+ =?utf-8?B?V2c0V2dMWllGZVNyNW53dkQ4K2ZsS0hoTFYxalNkUVhvSzVoVFNTREYyeUp0?=
+ =?utf-8?B?UzhxcE5wY0tPSEtWa2Zta1MrUkwrMlVaZjBsOGZDenBWNnl1RHVNVDN1M2h4?=
+ =?utf-8?B?bWpHZTBmRDZaMytFQkhwZnc1MXVxejA3MWVEbEh6MmxYODVjczdmeGlDUXUr?=
+ =?utf-8?B?Z0lUTnpiTDZwU0s0SHJvMFBya25Id3ExUEVWenZiR3hDRFNDYjA0U3ZOaE1j?=
+ =?utf-8?B?RllMVm1RRDBYSFlrbDVnQTBKWnpKc1htRFdiYVp6UzRBYUdCTnY0NzdpYlVD?=
+ =?utf-8?B?TWFvcWJDUXpvUjJsV2I4ZUlUdVF4Y2NSOUlsRzRMM1RIbEc2WUtydUMzMW01?=
+ =?utf-8?B?Z3BUNU1CejNVQjVoV1cyUnVvWWhPUjBPK3UwZG51WUN2d1NROHdDcUxuUUpr?=
+ =?utf-8?B?bGcySXMzMktyQVVtUkxWSXA0bCtGVERtVE5BYjBWbjBrN09tUUFMN0hISFQw?=
+ =?utf-8?B?MVFYeUxWc2VMWEFGTjFydkVXQzBkMGV4Q1k2OVc4TGlFamRLRW5GVldjejlG?=
+ =?utf-8?B?cGtYY3RFelNYN09ObUdaUEtqQmhndndJc0Q1VmZBVlBiM1FwVmlUMXZyaXh5?=
+ =?utf-8?B?Y1IrYlR0OTUxSlJWQWl4TFM3emRJNThKVGZ0dlRHcVltYkxXakJWekovTmRY?=
+ =?utf-8?B?dTduRzYrRGM0dVNmK25yZmY4L2R2WnBYWjBUaHc3TXFSRUMxL0piRTVLZ3Q1?=
+ =?utf-8?B?YVJvQ2p4cTRpK0NYZnlMeUZEVkFBdXJONGZaWTZFVWNZYnlYN2ZyMEF6bnVj?=
+ =?utf-8?B?RTBnb3RYRmJlSUpLNXlFVk11N3hPd2orSE1TYnBad3M0YmppdHJhNjVSYlYz?=
+ =?utf-8?B?T1pMZ3l0eEJzeEg3d2VhOFNhSHlXdW1MQUVGeGZvMjFFRGpBOCtyVWMxdlNY?=
+ =?utf-8?B?TmJOR3lCOE9zcHpvMC9YQWEzNGNGSmUycUtHYTRvYm1XaEd2ekt2MVF1RWF1?=
+ =?utf-8?B?TlFZZ2srWVRIRndHWTVQUUpXUUxjaTRFNkJMeHhMaVhiMnFEQ0hEVU1VZ0li?=
+ =?utf-8?B?RVBSR1QzSUwycEtTK0Y1YXVzVHRkMXQ1c2t0L3RjS2tyRzFaVFFJV08veWlB?=
+ =?utf-8?B?WjllZFE3SlgwZ05saUoyWjhzeG9YZElvdk9BdlRidi94enczYXFNbzdqSXhZ?=
+ =?utf-8?B?VG9ib2R3b21mdGZaVkVYZ05mUVgySDRTUzh0b1lqRVVxL0ZTV0VwMXRiY3Zs?=
+ =?utf-8?B?SkRkWFdkZVd5emcvdjRLbXBubVBQb0l1Y29OQzBuellpRXVRYzF6OXd2S2sz?=
+ =?utf-8?B?eXRTTHNnN0F0L1RIUXZoNXMwWDdYamZPK2pMWE45WmRXdG9QczF0aDVlS3dL?=
+ =?utf-8?B?bHZrN0FkWFlhTWVKMFV2aGtBazA0VDE5eklzMm0vTFBMdFlic3R6WVdldk44?=
+ =?utf-8?B?UnhhNU5nVnBFd3E0K2U3QTd5WUthaEFiVmg5amFRcUUweWFTQzZ3dEhkSCtT?=
+ =?utf-8?B?WEVEaWVzQVQzanB5YklFdHNyQXRlMFBXek5YS0lhRzFQSVltTFVsbmtBb3dC?=
+ =?utf-8?B?aVpjQUl0NUJGQkpoQTJvSS9QUTZRL1B0WEh1Z25jajJDWTFiWVpiMmxpRkZw?=
+ =?utf-8?B?b1ZmQzVlQ3VDY1N3c3VKN01rMUd4ODNVNFUxdzU4dXVIdjlRcEVuNGYwYzZ4?=
+ =?utf-8?B?Ky9mMnNjK1MyaUNjNTZzNkp3bTR6WGhBNTAxd0l1cDBqMUNvRGpVNzJxcXZv?=
+ =?utf-8?B?NnFLeFdEbmJ6NU5MSDVMK1RwUHI0dW5JM29UQUxzOHlvNmdZcnZxcXhuNWZL?=
+ =?utf-8?B?akkxL2czbEZEQWk5djZpaWlYSXUyN0FYZTZDZXdyRFFmbmNKUVBtUC9uNmxG?=
+ =?utf-8?B?dzV3Y2dTRUhFK1FkOXVielFRSi83aVhGWkFPR2VmdUtEdWRJZ1YzL2xaV1Ax?=
+ =?utf-8?B?U0lpblF3ZzNxYlU3dlAxM012ajFlcHpQWUYyYUtxKzdEd01haWJlYlo4QTNy?=
+ =?utf-8?B?Nlh0QkxxMXM3bG5YblEwNDY0Qnlnb0JlUzMvTUdzNDZhTTNXSVI0NlJaTnVQ?=
+ =?utf-8?B?cWpUMS9IaDA2amkzc082c0Q5amo1SDR3T0NrTFpZRnFSZzI1VVpNZz09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1692b9f-460e-4977-06c0-08df1edcfbea
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 10:24:20.0579
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c6e07c3-22ea-44fa-bb58-08df1edced78
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023D6.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6975
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MQcV+6SIgnuDOF41epgfywDngfa37EXDeFC6Z/Q1rsuNAQh/sh0dtlRgJq0VFU0DY/30sJ48PqVk4rd4sAMrAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR03MB7667
 
-From: Peter Colberg <peter@colberg.org>
 
-Add a new SR-IOV driver sample that demonstrates how to enable and
-disable the Single Root I/O Virtualization capability for a PCI device.
 
-The sample may be exercised using QEMU's 82576 (igb) emulation.
+On 26/9/2026 6:45 pm, Kathpalia, Tanmay wrote:
+> 
+> On 22-09-2026 16:42, tze.yee.ng@altera.com wrote:
+>> From: Tze Yee Ng<tze.yee.ng@altera.com>
+>>
+>> The SD6HC PHY left PHONY_DQS_TIMING (phy_ctrl_reg[9:4]) at 0 in all
+>> modes. Per the Cadence DLL PHY documentation it must be the rebar (RE#)
+>> pulse width in clk_phy cycles minus 1 in extended read mode, and 0
+>> otherwise. Leaving it 0 in extended-read DDR duplicates one DDR edge
+>> (the silent odd/even edge-capture defect).
+>>
+>> This controller's rebar pulse is a fixed 2 clk_phy cycles, so extended-
+>> read DDR needs 1; confirmed on DDR50 hardware (1 captures both beats, 2
+> 
+> The code also applies this value to eMMC DDR52. Was the same behavior 
+> verified in
+> DDR52? If so, please mention both modes; otherwise, please test DDR52 as 
+> well.
+> 
 
-Implement the PF and VF as ordinary PCI drivers. Publish pinned PF data
-with a mutex-protected counter inline in the PF driver data, then borrow
-and invoke it explicitly from VF probe. Register the VF driver first so
-it is ready before the PF can enable VFs.
+Yes. The final setting (phony_dqs_timing=1, use_lpbk_dqs=0, 
+read_dqs_delay=96) was validated on Agilex5 eMMC DDR52 as well as 
+Agilex5 SD UHS-I DDR50, in both U-Boot SPL and Linux, read + write with 
+byte-exact read-back. I will reword the commit message to name both modes.
+> Also, please provide a reference showing that the SD6HC REBAR pulse is 
+> fixed at
+> two clk_phy cycles. The PHY guide defines the formula, but not the two- 
+> cycle
+> pulse width.
+> 
+> 
 
-Link: https://www.qemu.org/docs/master/system/devices/igb.html
-Signed-off-by: Peter Colberg <peter@colberg.org>
-Co-developed-by: Zhi Wang <zhiw@nvidia.com>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
----
- MAINTAINERS                       |   1 +
- samples/rust/Kconfig              |  11 ++
- samples/rust/Makefile             |   1 +
- samples/rust/rust_driver_sriov.rs | 249 ++++++++++++++++++++++++++++++
- 4 files changed, 262 insertions(+)
- create mode 100644 samples/rust/rust_driver_sriov.rs
+You are right. The formula (value = rebar pulse width - 1 while extended 
+read is active) is from the Cadence DLL PHY guide. The "2 clk_phy 
+cycles" is this controller integration's pulse. I don't have an IP-level 
+document stating it generically. It is bracketed empirically:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f7a513c4ba24..da6c34bc3dcd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21129,6 +21129,7 @@ F:	rust/helpers/pci.c
- F:	rust/kernel/pci.rs
- F:	rust/kernel/pci/
- F:	samples/rust/rust_driver_pci.rs
-+F:	samples/rust/rust_driver_sriov.rs
- 
- PCIE BANDWIDTH CONTROLLER
- M:	Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index 31d62533ef25..737670fd68f8 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -128,6 +128,17 @@ config SAMPLE_RUST_DRIVER_PLATFORM
- 
- 	  If unsure, say N.
- 
-+config SAMPLE_RUST_DRIVER_SRIOV
-+	tristate "SR-IOV Driver"
-+	depends on PCI_IOV
-+	help
-+	  This option builds the Rust SR-IOV driver sample.
-+
-+	  To compile this as a module, choose M here:
-+	  the module will be called rust_driver_sriov.
-+
-+	  If unsure, say N.
-+
- config SAMPLE_RUST_DRIVER_USB
- 	tristate "USB Driver"
- 	depends on USB = y
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index b986b681cde5..238a11d5ec39 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -11,6 +11,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_I2C)		+= rust_driver_i2c.o
- obj-$(CONFIG_SAMPLE_RUST_I2C_CLIENT)		+= rust_i2c_client.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PCI)		+= rust_driver_pci.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
-+obj-$(CONFIG_SAMPLE_RUST_DRIVER_SRIOV)		+= rust_driver_sriov.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
-diff --git a/samples/rust/rust_driver_sriov.rs b/samples/rust/rust_driver_sriov.rs
-new file mode 100644
-index 000000000000..3f1809d7bc7b
---- /dev/null
-+++ b/samples/rust/rust_driver_sriov.rs
-@@ -0,0 +1,249 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Rust SR-IOV driver sample based on QEMU's 82576 ([igb]) emulation.
-+//!
-+//! To make this driver probe, QEMU must be run with `-device igb`.
-+//!
-+//! Further, enable [vIOMMU] with interrupt remapping using, e.g.,
-+//!
-+//! `-M q35,accel=kvm,kernel-irqchip=split -device intel-iommu,intremap=on,caching-mode=on`
-+//!
-+//! and append `intel_iommu=on` to the guest kernel arguments.
-+//!
-+//! [igb]: https://www.qemu.org/docs/master/system/devices/igb.html
-+//! [vIOMMU]: https://wiki.qemu.org/Features/VT-d
-+
-+use kernel::{
-+    device::{
-+        Bound,
-+        Core, //
-+    },
-+    driver,
-+    new_mutex,
-+    pci,
-+    prelude::*,
-+    sync::{
-+        aref::ARef,
-+        Mutex, //
-+    },
-+    types::CovariantForLt,
-+    InPlaceModule, //
-+};
-+
-+const PF_DRIVER_NAME: &CStr = c"rust_driver_sriov_pf";
-+const VF_DRIVER_NAME: &CStr = c"rust_driver_sriov_vf";
-+
-+struct SamplePfDriver;
-+struct SampleVfDriver;
-+
-+#[pin_data]
-+struct PfApi<'bound> {
-+    pdev: &'bound pci::Device<Bound>,
-+    #[pin]
-+    requests: Mutex<u64>,
-+}
-+
-+type PfApiForLt = CovariantForLt!(PfApi<'_>);
-+
-+impl PfApi<'_> {
-+    fn submit(self: Pin<&Self>, vf: &pci::Device<Bound>) -> Result<u64> {
-+        let mut requests = self.requests.lock();
-+        let request = (*requests).checked_add(1).ok_or(EOVERFLOW)?;
-+        *requests = request;
-+        drop(requests);
-+
-+        dev_info!(
-+            self.pdev,
-+            "Handle PF request {} from VF devfn {:#x}.\n",
-+            request,
-+            vf.dev_id()
-+        );
-+
-+        Ok(request)
-+    }
-+}
-+
-+#[pin_data(PinnedDrop)]
-+struct PfDriverData<'bound> {
-+    // Keep the device alive until the registration stops exposing `PfApi::pdev`.
-+    #[pin]
-+    _registration: pci::VfRegistration<'bound, PfApiForLt>,
-+    pdev: ARef<pci::Device>,
-+}
-+
-+#[pin_data(PinnedDrop)]
-+struct VfDriverData {
-+    pdev: ARef<pci::Device>,
-+}
-+
-+kernel::pci_device_table!(
-+    PF_TABLE,
-+    <SamplePfDriver as pci::Driver>::IdInfo,
-+    [(
-+        // E1000_DEV_ID_82576
-+        pci::DeviceId::from_id(pci::Vendor::INTEL, 0x10c9),
-+        ()
-+    )]
-+);
-+
-+kernel::pci_device_table!(
-+    VF_TABLE,
-+    <SampleVfDriver as pci::Driver>::IdInfo,
-+    [(
-+        // E1000_DEV_ID_82576_VF
-+        pci::DeviceId::from_id(pci::Vendor::INTEL, 0x10ca),
-+        ()
-+    )]
-+);
-+
-+#[vtable]
-+impl pci::Driver for SamplePfDriver {
-+    type IdInfo = ();
-+    type Data<'bound> = PfDriverData<'bound>;
-+
-+    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PF_TABLE;
-+
-+    fn probe<'bound>(
-+        pdev: &'bound pci::Device<Core<'_>>,
-+        _info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        pin_init::pin_init_scope(move || {
-+            dev_info!(
-+                pdev,
-+                "Probe Rust SR-IOV PF sample (PCI ID: {}, 0x{:x}).\n",
-+                pdev.vendor_id(),
-+                pdev.device_id()
-+            );
-+
-+            pdev.enable_device_mem()?;
-+            pdev.set_master();
-+
-+            Ok(try_pin_init!(PfDriverData {
-+                // SAFETY:
-+                // - probe has exclusive access to this PF before SR-IOV is enabled;
-+                // - the registration is pinned in the PF driver data and dropped before `pdev`;
-+                // - no other registration is created for this PF; and
-+                // - VFs are enabled only after probe by `sriov_enable`.
-+                _registration <- unsafe {
-+                    pci::VfRegistration::new(
-+                        pdev,
-+                        try_pin_init!(PfApi {
-+                            pdev,
-+                            requests <- new_mutex!(0),
-+                        }),
-+                    )
-+                },
-+                pdev: pdev.into(),
-+            }))
-+        })
-+    }
-+
-+    fn sriov_enable<'bound, 'callback>(
-+        dev: &'bound pci::Device<Core<'_>>,
-+        this: Pin<&Self::Data<'bound>>,
-+        token: pci::SriovEnable<'callback>,
-+    ) -> Result<pci::SriovEnabled<'callback>> {
-+        dev_info!(
-+            this.pdev,
-+            "Enable SR-IOV (PCI ID: {}, 0x{:x}).\n",
-+            this.pdev.vendor_id(),
-+            this.pdev.device_id()
-+        );
-+
-+        let num_vfs = token.num_vfs();
-+        let enabled = token.enable(num_vfs)?;
-+        assert_eq!(dev.num_vf() as u32, num_vfs);
-+        Ok(enabled)
-+    }
-+
-+    fn sriov_disable<'bound>(
-+        dev: &'bound pci::Device<Core<'_>>,
-+        this: Pin<&Self::Data<'bound>>,
-+        token: pci::SriovDisable<'_>,
-+    ) -> Result {
-+        dev_info!(
-+            this.pdev,
-+            "Disable SR-IOV (PCI ID: {}, 0x{:x}).\n",
-+            this.pdev.vendor_id(),
-+            this.pdev.device_id()
-+        );
-+
-+        token.disable();
-+        assert_eq!(dev.num_vf(), 0);
-+        Ok(())
-+    }
-+}
-+
-+#[vtable]
-+impl pci::Driver for SampleVfDriver {
-+    type IdInfo = ();
-+    type Data<'bound> = VfDriverData;
-+
-+    const ID_TABLE: pci::IdTable<Self::IdInfo> = &VF_TABLE;
-+
-+    fn probe<'bound>(
-+        pdev: &'bound pci::Device<Core<'_>>,
-+        _info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        pin_init::pin_init_scope(move || {
-+            dev_info!(
-+                pdev,
-+                "Probe Rust SR-IOV VF sample (PCI ID: {}, 0x{:x}).\n",
-+                pdev.vendor_id(),
-+                pdev.device_id()
-+            );
-+
-+            let pdev_bound: &'bound pci::Device<Bound> = pdev;
-+            let pf_api = pdev_bound.vf_registration_data::<PfApiForLt>()?;
-+
-+            pdev.enable_device_mem()?;
-+            pdev.set_master();
-+
-+            let request = pf_api.submit(pdev)?;
-+            dev_info!(pdev, "Submitted request {} through PF data.\n", request);
-+
-+            Ok(try_pin_init!(VfDriverData { pdev: pdev.into() }))
-+        })
-+    }
-+}
-+
-+#[pinned_drop]
-+impl PinnedDrop for PfDriverData<'_> {
-+    fn drop(self: Pin<&mut Self>) {
-+        dev_info!(self.pdev, "Remove Rust SR-IOV PF sample.\n");
-+    }
-+}
-+
-+#[pinned_drop]
-+impl PinnedDrop for VfDriverData {
-+    fn drop(self: Pin<&mut Self>) {
-+        dev_info!(self.pdev, "Remove Rust SR-IOV VF sample.\n");
-+    }
-+}
-+
-+#[pin_data]
-+struct SampleModule {
-+    // Keep the VF driver registered while PF removal tears down its VFs.
-+    #[pin]
-+    _pf: driver::Registration<pci::Adapter<SamplePfDriver>>,
-+    #[pin]
-+    _vf: driver::Registration<pci::Adapter<SampleVfDriver>>,
-+}
-+
-+impl InPlaceModule for SampleModule {
-+    fn init(module: &'static ThisModule) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            // The VF driver must be ready before the PF can enable VFs.
-+            _vf <- driver::Registration::new(VF_DRIVER_NAME, module),
-+            _pf <- driver::Registration::new(PF_DRIVER_NAME, module),
-+        })
-+    }
-+}
-+
-+module! {
-+    type: SampleModule,
-+    name: "rust_driver_sriov",
-+    authors: ["Peter Colberg"],
-+    description: "Rust SR-IOV driver",
-+    license: "GPL v2",
-+}
--- 
-2.53.0
+- phony_dqs_timing=0 produces a silent odd/even read duplication (every 
+odd byte replaced by a copy of the preceding even byte, zero controller CRC)
+
+- phony_dqs_timing=1 captures both DDR beats cleanly on every card/board
+
+- phony_dqs_timing=2 shifts the strobe a full clk_phy cycle and 
+re-corrupts.
+
+So the pulse is 2 and the correct value is 1. I will drop "generic to 
+any SD6HC-PHY SoC" and describe it as this integration's value - it is 
+not even SoC-generic, as the same SoC's modular SoM variant needs 0 due 
+to its longer SD flight time (handled by a follow-up device-tree override).
+
+>> corrupts reads). Derive it from the extended-read-mode state and apply
+>> it only in DDR modes, since SDR extended-read samples a single edge and
+>> is unaffected.
+> 
+> The driver sets sdhc_extended_rd_mode whenever t_sdclk != t_sdmclk, so 
+> extended
+> read is also on for divided SDR modes. Sampling only one edge may 
+> explain why the
+> corruption was observed in DDR, but it does not establish that zero is the
+> correct value for extended-read SDR.
+> 
+> 
+
+Agreed the single-edge argument alone is not proof. Empirically, the
+divided-SDR extended-read modes pass with the field left at 0: on this
+hardware only DDR50 ever exhibited the defect (SDR12/25/50/104 and HS 
+all pass). So 0 is the verified-good value for the extended-read SDR 
+modes, and I scope the non-zero value to DDR to avoid moving modes that 
+already pass onto an untested value. I can switch to the simpler
+`if (extended_rd_mode) ... else 0` form if you prefer, but that would 
+put the SDR modes on an unvalidated setting. I would rather keep the DDR 
+gate unless you feel strongly.
+
+>> This is generic to any SD6HC-PHY SoC, so it is kept
+>> separate from the per-SoC read-path tuning.
+> 
+> Also, "this controller" and "generic to any SD6HC-PHY SoC" are not the same
+> claim. The PHY guide's example is a 4-cycle RE# pulse, programmed as 3. 
+> I do not
+> see a statement that this pulse is fixed at 2 clk_phy cycles. Please 
+> cite where 2
+> comes from, and whether that width is SD6HC IP behavior or specific to this
+> integration.
+> 
+>>
+>> Signed-off-by: Tze Yee Ng<tze.yee.ng@altera.com>
+>> ---
+>>   drivers/mmc/host/sdhci-cadence-phy-v6.c | 15 +++++++++++++++
+>>   1 file changed, 15 insertions(+)
+>>
+>> diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/ 
+>> host/sdhci-cadence-phy-v6.c
+>> index 35f35ef9c710..84592ae42762 100644
+>> --- a/drivers/mmc/host/sdhci-cadence-phy-v6.c
+>> +++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
+>> @@ -90,6 +90,9 @@
+>>   #define SDHCI_CDNS6_PHY_CTRL_REG            0x2080
+>>   #define   SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING            
+>> GENMASK(9, 4)
+>> +/* Width of this controller's rebar (RE#) pulse in clk_phy cycles. */
+>> +#define SDHCI_CDNS6_PHY_REBAR_PULSE_CYCLES    2
+>> +
+> 
+> Same question as above. Please cite the source of 2, and make the 
+> comment match
+> whether this is SD6HC-generic or SoC-specific.
+> 
+>>   /* Default PHY settings */
+>>   #define SDHCI_CDNS6_PHY_DEFAULT_IOCELL_DELAY        2500
+>>   #define SDHCI_CDNS6_PHY_DEFAULT_DELAY_ELEMENT        24
+>> @@ -143,6 +146,9 @@ struct sdhci_cdns6_phy {
+>>       bool cp_use_phony_dqs;        /* bit [20] */
+>>       bool cp_use_phony_dqs_cmd;    /* bit [19] */
+>> +    /* PHY_CTRL register fields */
+>> +    u32 cp_phony_dqs_timing;
+>> +
+>>       /* HRS07 register - IO delay Information */
+>>       u8 sdhc_rw_compensate;        /* bits [20:16] */
+>>       u8 sdhc_idelay_val;        /* bits [4:0] */
+>> @@ -517,6 +523,13 @@ static void sdhci_cdns6_phy_calc_dat_in(struct 
+>> sdhci_cdns6_phy *phy)
+>>       if (phy->mode == MMC_TIMING_MMC_HS200)
+>>           phy->cp_read_dqs_delay = phy->hs200_tune_val;
+>> +    if (phy->sdhc_extended_rd_mode &&
+>> +        (phy->mode == MMC_TIMING_UHS_DDR50 ||
+>> +         phy->mode == MMC_TIMING_MMC_DDR52))
+>> +        phy->cp_phony_dqs_timing = SDHCI_CDNS6_PHY_REBAR_PULSE_CYCLES 
+>> - 1;
+>> +    else
+>> +        phy->cp_phony_dqs_timing = 0;
+>> +
+> 
+> Based on the register description, I would expect:
+> if (phy->sdhc_extended_rd_mode)
+>      phy->cp_phony_dqs_timing = SDHCI_CDNS6_PHY_REBAR_PULSE_CYCLES - 1;
+> else
+>      phy->cp_phony_dqs_timing = 0;
 
