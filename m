@@ -1,397 +1,265 @@
-Received: from mail-10697.protonmail.ch (mail-10697.protonmail.ch [79.135.106.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79515187E2
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.97
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784618; cv=none; b=QQaHI9cvjWm/dceXVGJ2FcjpFyC0VS9hbMu4PzK50J7pQv524LdZIC+NPbNrw6xMQTopvc4U7yGLxQZlwZX3YlVAADv34H5d8M1EQxH3JhcyPHKaoXgaHdMRI17jtu3OrhUKWEv+v47xXYwcZC5hX67OzYu4j+jYc2BjSlihrN8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784618; c=relaxed/simple;
-	bh=44x0vc05fEEipUkoER2yfkQH9PTXtH1xYMxbAigXRng=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g2ewtxSyNDN4M3gG7isPZ5rgn3/U6cVKXGg3rhh+GchiCd4Mzh0KT128GAYCULKnx3UgFs+uTrlCK+iOLqqdpNZfdgnvefri8z0lPNQHtmp54xAg+PLqs+yY5GqzxE3bTjtpWw7DNfI89mR05afj1ZjYD5hjpCtX1p85fwxAjgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=n6cyZjtL; arc=none smtp.client-ip=79.135.106.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FBB516164
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790784633; cv=pass; b=ue3cMgFM/M59Z9p0TF+VkentAILWfPaEdmg8iOrgIKpoExDsrDlvxfTKXdJ+fQTPFukDODkPLlvAuGxufGjJ3OSxUtrqT5o9/KSutkzt4ViLk+NAFE1B06hAU4nqhYi9xP/XzTUN6IQyFud0uxhqZyQUsSfCDF69/RmXabdG7Sg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790784633; c=relaxed/simple;
+	bh=qbmBOUyTIkFn97xlWxW8cCn16CXOpuvU6kguW+yai08=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PN25+LT3pgIbSXhe3IN430q2qU3v1ybf4F7sS6YQKwPRwVet54oOQoW4VqSN4lS47HFuMHPwfmKrlqrfpFRlfR5RGz+5ZQ5Z4gqpVw1xAi28TD8U8kbgMC+cbT/vwv5qLx3w8fqyyiTMJqU1sYVr6bx8nLrgsvhC++uJtVo+SnE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VT2+JgWL; arc=pass smtp.client-ip=74.125.224.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="n6cyZjtL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1790784600; x=1791043800;
-	bh=9rFh90dknIuSBO769D/rbzTAOVPzotKr75kv5W1ObT8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=n6cyZjtLVA/TqYe3eVNPfSRrtAiQL+R0EGCWCqFB8J2vNOAxEfhgO3TzThrAsXo8v
-	 kBgtiI/v0t7XcHdAI5FBIzVG4R7B/AX0aduhk1x4Zx2Vs6lp6/1lVqCSTItaF/ACM0
-	 5z39bjbaUGOqvhK+mTugXxXSmrJO0z680e6aL8Q0lTZMQAc+4lH8MlW4GguPz1v3kc
-	 nhBAB7zxkgUXUJASbj+WvilexiJXA2jnQwKay5lqqo/gLA1gzFaBDLMYNyWtrj80wo
-	 hRwgAgqWeoGG26tHkOsMYn4Ey8Kjee8RIGx7Tul70zhfnePxZ7u3mvOsrfWZrHCoRx
-	 JqhfxtKCTst2Q==
-Date: Wed, 30 Sep 2026 16:09:54 +0000
-To: Takashi Iwai <tiwai@suse.de>
-From: dchristensen8 <dchristensen8@proton.me>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>, "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RGB LED strip support
-Message-ID: <0zWxXXeew_rreqULhlodJWrfM8Ew1UwF-6S7mK25YzO6_w574QYRYOlTNbInKVbIWGVZ0ZnVPhyXchVsbgQnh6dOmle--tPNROUu6MAuhHk=@proton.me>
-In-Reply-To: <87jyo24zu5.wl-tiwai@suse.de>
-References: <eFYfxKMV2ei__fURd-elssegCIVmOuRDne6lj9PMaM2bEgnYkz7Tzf6JLrgEaPZtvrUC_wHnmnwaUZAOdg0uh24nt73FQqi6T65qvJebHJA=@proton.me> <87fqys19vt.wl-tiwai@suse.de> <0UViNKefxgxrLggTEzDgzIe9-kh2EqU2Pnip6zuyJl1sthZtgJ-OIai3KBgkltft587c-ryvum1IqQZt-awOQTdrohMWKh79F3X8u6JOjuo=@proton.me> <87jyo24zu5.wl-tiwai@suse.de>
-Feedback-ID: 45895322:user:proton
-X-Pm-Message-ID: 7c3db3011cc83011880a56339bc288dd63d7d745
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VT2+JgWL"
+Received: by mail-yx2-f38.google.com with SMTP id 00721157ae682-8ac4deda6d5so10021927b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:10:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790784626; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LifkXfqPcT1fxoKMu9GjJl7jtfjF+qkcoDiyfSDVr3U1sRR0hulx/bXrSq4OPewokV
+         FKwwf0PfxuG7MncYmdFksTt1sR4SjnRgac/uphHX+YXXLSo1qFgOqDtU4xa4GnVtFeSZ
+         XopA0VKPFyIHQtiDTCgVmK1GB/kgpcTUVUGRm4FtmT9Mq5stEZ8fsfPamJbJlgPqNQwL
+         m4PY3igDeWbiig8050OOTwqS8O0QRo5behiGVfzUUtAixk/q8fKUHrzkpJAw7eTDLYVZ
+         55V2ZZuDVS640OHMkU/zfYL0CaSAl2gjXtobeNe2Ic/yCfQzqLCXq8Lj75FPIjZ3/jN+
+         dUsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iRehZjrfjWyoiGL/7MRfV3/j/MJLZDIiqHOFJW1M59A=;
+        fh=L2vHCGiO4r+pluFxUNQ3DhZbAqdQdmAaqog4BIvW03w=;
+        b=Y73MDbsZvuihn8MmzmyWX0fmyVKGr3JK0eRH8f3SwJkumhOZ3tFFCtjPSSDB+jBgEy
+         PJhfg6AwVsq4CBDledtHUFyAIjKsj4tglFMxG6umqOxiZ+7pQp81Nqmsncwr7T+YvE6A
+         ddl+Fg3mw3HqRz+dTdmW42dzUYyMz1hyzMXaCUxXnBBLsmYje+J1wSONDYQ9PLZC/Esw
+         BnwqqsLs6lWPQp7gcMVvBNk+ifjmU73Vk27U7hmpRCk8KN9d8lkPrgDKIx62kBeJGohd
+         8RDv5Os2Url3d8FapYFb4ICiA2iK3ipVVVmkJsoEn4Tek7i/EnnMGXNlgACG04v1nIA0
+         adrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790784626; x=1791389426; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iRehZjrfjWyoiGL/7MRfV3/j/MJLZDIiqHOFJW1M59A=;
+        b=VT2+JgWLgimcuMJsTbAcqj0ioTRNLareIGmaozCqNVC/jj+Sm8DfX2W/RuBeE22Ki8
+         TpsiXYdbPC8i3C8muD0LMynycVRlY8NElDv8GidVCJM4tWeqoU5QEMP/nNbyzb8iK4SS
+         c0FJnZjUMjPcuX+FenQIiZhGmEZXy066wd20ml4jLzqe+kkBVUbZeniAl9FArxGO81j/
+         Uz2aedKkz9NFm/dXamRQ61+M5a2MY43CeexQIDONT5br9STXSicPMSOMBUyhXE2KzgzT
+         2Llyi2PWaJKL3c+oCseUh8VCscSD238SM/eAMxtWS9oLqZ8iikAK3q6KkEMSi6nqdXoP
+         QfbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790784626; x=1791389426;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iRehZjrfjWyoiGL/7MRfV3/j/MJLZDIiqHOFJW1M59A=;
+        b=rqlaS5700e1tUEDH6hhwlmcu1fLcFSmGZbP7lbH1yWKbNtjnoebTUR1T6eci0CjQ6J
+         Uzxkkj30glMZ+09h0cwa+vZkY4KKYVbFLh5HcTvFe5/3nIW+7HYMxiNuKSckxCDyJtbW
+         CoKX/CnNjE/O32UlmGSAHjwcUv3WRd6cL7T7ydDJ5XHI0DspDnQb7xqpupCtcTziEOpz
+         /MN5bZO5CQ0qlwMvZj4T2O1uMmgkIuH0YGFWOLKIN8EvNBBh8oSyA6kEG6Tqtcn8u+kB
+         XIwHBlayqw82MuT+iOLFuA1zne2M3xJK8VynCyPc27mRQQwJdZ0sohmxgYYjHezOn9cI
+         5How==
+X-Forwarded-Encrypted: i=1; AKwUvBxDftobwaL4s8KBC8/JJefN19SowYRhkwSK0DrwgMcQ9NASd7YLU5L36t6wluaH7S/crx9dpa2EsjwDRw0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNQ+wO+fcRul3i8ETwsZAEJUNCcZG8SFbtRQ1QVJvO2IsDrrAD
+	YlgyCxzdppLSOvfT1Zd+x4zg5IfDg2KRR1GM19W2lD05UYcLjzHBkmQoeY3gvup2SfCvFQ/5LRW
+	PLQXQ9atY5Th5pA8SRU9fLoFYpGpRIUdfq/H/cMRouw==
+X-Gm-Gg: AYBFou1Hf5lHhCaggY3CyuUuXsH40wsEv+DRC0ocRNustvDCARXO6SPpp7QpeoDA9nP
+	eCa+ULAMOI4UAN/T2xyenyPoyrqBMc3IKm+WDBa+S+cNzze4NIpbm1PmJxl7NwpSqkXGpUKpLqe
+	mjkJ0WzT9WoC5wjDQI8fAAQxCYKPSFUgOKqRefscIbiCjPnFvvQWt7HsPUmmd8bmUESQTC15U/a
+	9uUKaVMWs9buYvon0yWAg8593ipRPN3V3ZjJqcvtutyf+xlf7Hvw4ERjUkMrlpGLsXoAQq6YpKL
+	a9QXxdkhYENRasD8Y7LxK/KsFJE/Ctzw/L9TYhu32VMXlXfYaDotASoapi3RWWdH
+X-Received: by 2002:a05:690c:89:b0:8a9:e801:231c with SMTP id
+ 00721157ae682-8ac9331841amr6405827b3.20.1790784625575; Wed, 30 Sep 2026
+ 09:10:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="b1=_pHACuXhbZxRGOpQJRjrzvvpVz2yOpF7UjjHpzVYSFE8"
-
---b1=_pHACuXhbZxRGOpQJRjrzvvpVz2yOpF7UjjHpzVYSFE8
-Content-Type: text/plain; charset=utf-8
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org> <jwlmzhhgpvbi47lt4biwn4razrvbf2rfi5uyyvfhjomzo7uqyh@ahf4ubqvegst>
+In-Reply-To: <jwlmzhhgpvbi47lt4biwn4razrvbf2rfi5uyyvfhjomzo7uqyh@ahf4ubqvegst>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Thu, 1 Oct 2026 00:10:13 +0800
+X-Gm-Features: AclHuK-jey2UN0A8sWN4rkcybsqPqgekH6oh4yBkzdH-hTkcWanw8jO2ZFUX2MU
+Message-ID: <CABymUCP7DMOqN9j2ZWEtDxWpZSbNWbrYzdJ57crsR03hys67mg@mail.gmail.com>
+Subject: Re: [PATCH v5 4/6] drm/msm/dsi: Support dual panel use case with
+ single CRTC
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Thats genius. I reworked it with an ALSA byte control instead of sysfs and =
-rolled in all your code cleanups for v2.
-
-I set up two controls using IFACE_CARD and volatile:
--AE-5 LED Strip": 300 bytes of RGB
--AE-5 LED Strip Count: integer for setting the active strip length
-
-Attached the v2 patch file. If you'd prefer anything named or laid out diff=
-erently, just let me know.
-
-Thanks,
-Devin
-
-
-
-
-
-On Wednesday, September 30th, 2026 at 9:46 AM, Takashi Iwai <tiwai@suse.de>=
- wrote:
-
-> On Tue, 29 Sep 2026 16:22:07 +0200,
-> dchristensen8 wrote:
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+9=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:20=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Mon, Jul 27, 2026 at 04:08:43PM +0800, Jun Nie wrote:
+> > Support a hardware configuration where two independent DSI panels are
+> > driven by a single, synchronous CRTC. This configuration uses a bonded
+> > DSI link to provide a unified vblank for both displays.
 > >
-> > Thanks for the quick review!
+> > This allows application software to treat the two displays as a single,
+> > wide framebuffer with a synchronized refresh cycle, simplifying renderi=
+ng
+> > logic for side-by-side panel arrangements.
 > >
-> >     I went with sysfs mainly because of the streaming nature of WS2812 =
-strips (using an atomic DMA frame):
-> >
-> >     -The LED subsystem has no strip or pixel-buffer concept, individual=
- led_classdevs would hit sysfs with thousands of writes/sec at 30-60 FPS (a=
-nd leds-class.rst advises against it for addressable arrays anyway).
-> >     -An ALSA kcontrol could hold raw bytes, but pushing frames at 60 Hz=
- spams control change events to PipeWire/PulseAudio.
-> >
-> >     I initially went with text attributes  (ae5_strip_leds/ae5_strip_nu=
-m_leds) so basic shell scripts could just echo colors into it, but I know c=
-omma-separated lists bend the "one value per file" rule. Would you prefer a=
- bin_attribute for raw RGB bytes instead? or keeping both?
-> >
-> >     All your code points make total sense too. I have no objections.
-> >
-> > Let me know your thoughts on the sysfs format.
->=20
-> On the second though, why not simply to use an ALSA control element
-> with bytes data?  It can hold up to 512 bytes, so 100 of 24bit RGB
-> strips can fit.
-> You can declare the element as volatile (and with IFACE_CARD), so that
-> pipewire or alsactl won't be bothered by the changes.
->=20
->=20
-> thanks,
->=20
-> Takashi
-> 
---b1=_pHACuXhbZxRGOpQJRjrzvvpVz2yOpF7UjjHpzVYSFE8
-Content-Type: text/x-patch; name=v2-0001-ALSA-hda-ca0132-Add-Sound-BlasterX-AE-5-external-.patch
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=v2-0001-ALSA-hda-ca0132-Add-Sound-BlasterX-AE-5-external-.patch
+> > At the DSI host level, the frame width for each link must be that of an
+> > individual panel. The driver therefore halves the CRTC's horizontal
+> > resolution before configuring the DSI host and any DSC encoders, ensuri=
+ng
+> > each panel receives the correct half of the framebuffer.
+>
+> I guess, the flag from the previous patch should be coming from the DT
+> node of the DSI host. The DSI should then get the mode from a single
+> panel and then set the adjusted_mode for the CRTC (note sure how this
+> will work for the compositors though).
 
-RnJvbSA2OWFlYzVlODgzNmY4ODc0ZTE2NjYzY2QzNjRhYzU4ODdhZDg1NjQ1IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBEZXZpbiBDaHJpc3RlbnNlbiA8ZGNocmlzdGVuc2VuOEBwcm90
-b24ubWU+CkRhdGU6IFdlZCwgMzAgU2VwIDIwMjYgMTA6MDk6MTcgLTA0MDAKU3ViamVjdDogW1BB
-VENIIHYyXSBBTFNBOiBoZGEvY2EwMTMyOiBBZGQgU291bmQgQmxhc3RlclggQUUtNSBleHRlcm5h
-bCBSR0IgTEVECiBzdHJpcCBzdXBwb3J0CgpUaGUgU291bmQgQmxhc3RlclggQUUtNSBhbmQgQUUt
-NSBQbHVzIGV4cG9zZSBhIDMtcGluIDVWIGFkZHJlc3NhYmxlIFJHQgpoZWFkZXIgZHJpdmVuIGRp
-cmVjdGx5IGJ5IHRoZSBDQTAxMTMgUENJZS10by1IRC1BdWRpbyBicmlkZ2UuIFJhdGhlcgp0aGFu
-IHVzaW5nIHRoZSBDQTAxMzIgRFNQIG9yIE1NSU8gR1BJTywgdGhlIENBMDExMyBjb250YWlucyBh
-bgphdXRvbm9tb3VzIEhEQSBsaW5rIHNuaWZmZXIgdGhhdCBzbm9vcHMgYSBkZXNpZ25hdGVkIEhE
-QSBETUEgcGxheWJhY2sKc3RyZWFtLCBleHRyYWN0cyB0aGUgMjQtYml0IEdSQiBjb2xvciBwYXls
-b2FkLCBhbmQgc2VyaWFsaXplcyBpdCBhcwo4MDAga0h6IHNpbmdsZS13aXJlIE5SWiBwdWxzZXMg
-dG8gdGhlIHN0cmlwIChXUzI4MTJCIHByb3RvY29sKS4KCkV4cG9zZSB0aGUgc3RyaXAgdGhyb3Vn
-aCB2b2xhdGlsZSBjYXJkIGNvbnRyb2wgZWxlbWVudHM6CgogICJBRS01IExFRCBTdHJpcCIgICAg
-ICAgIChSVywgQllURVMpOiAzMDAtYnl0ZSBSR0IgcGF5bG9hZCByZXByZXNlbnRpbmcKICAgICAg
-ICAgICAgICAgICAgICAgICAgICB1cCB0byAxMDAgYWRkcmVzc2FibGUgTEVEcyAoMyBieXRlcyBw
-ZXIgTEVEKS4KICAiQUUtNSBMRUQgU3RyaXAgQ291bnQiICAoUlcsIElOVEVHRVIpOiBBY3RpdmUg
-TEVEIGNvdW50ICgxLi4xMDApLgoKVGhlIGNvbnRyb2xzIGFyZSBtYXJrZWQgd2l0aCBJRkFDRV9D
-QVJEIGFuZCBTTkRSVl9DVExfRUxFTV9BQ0NFU1NfVk9MQVRJTEUKc28gY2hhbmdlcyBkbyBub3Qg
-dHJpZ2dlciB1bm5lY2Vzc2FyeSBhdWRpbyBkYWVtb24gd2FrZXVwcyBvciBzdGF0ZQpyZXN0b3Jh
-dGlvbiBieSBhbHNhY3RsLgoKV3JpdGVzIGFsbG9jYXRlIGFuIGlkbGUgSERBIHBsYXliYWNrIHN0
-cmVhbSwgZm9ybWF0IGEgMzIgS0IgRE1BIGJ1ZmZlcgpwb3B1bGF0ZWQgd2l0aCByZXBlYXRpbmcg
-V1MyODEyIGZyYW1lcyAocHJlYW1ibGUsIGF1ZGlvIHdvcmRzIHBlciBMRUQsCmFuZCByZXNldCBn
-YXApLCBjb25maWd1cmUgdGhlIENBMDExMyBCQVIyIHNlcmlhbGl6ZXJzIGFuZCBzdHJlYW0tdGFn
-CnBpbiBtdXgsIGFuZCBwdWxzZSB0aGUgc3RyZWFtIGxvbmcgZW5vdWdoIGZvciB0aGUgcmVzZXQg
-bGF0Y2ggdG8gZmlyZS4KQWNjZXNzIGlzIHNlcmlhbGl6ZWQgd2l0aCBhIHBlci1zcGVjIG11dGV4
-LCBhbmQgdGhlIGNvbnRyb2xzIGFyZSBvbmx5CnJlZ2lzdGVyZWQgb24gUVVJUktfQUU1IGRldmlj
-ZXMuCgpTaWduZWQtb2ZmLWJ5OiBEZXZpbiBDaHJpc3RlbnNlbiA8ZGNocmlzdGVuc2VuOEBwcm90
-b24ubWU+Ci0tLQp2MSAtPiB2MjoKIC0gUmVwbGFjZWQgc3lzZnMgYXR0cmlidXRlcyB3aXRoIEFM
-U0EgY29udHJvbCBlbGVtZW50cyBhcyBzdWdnZXN0ZWQgYnkgVGFrYXNoaToKICAgKiAiQUUtNSBM
-RUQgU3RyaXAiICgzMDAtYnl0ZSBSVyBCWVRFUyBjb250cm9sIGZvciB1cCB0byAxMDAgUkdCIExF
-RHMpCiAgICogIkFFLTUgTEVEIFN0cmlwIENvdW50IiAoUlcgSU5URUdFUiBjb250cm9sIGZvciBh
-Y3RpdmUgc3RyaXAgbGVuZ3RoIDEuLjEwMCkKICAgKiBNYXJrZWQgd2l0aCBJRkFDRV9DQVJEIGFu
-ZCBTTkRSVl9DVExfRUxFTV9BQ0NFU1NfVk9MQVRJTEUgdG8gcHJldmVudAogICAgIHNwdXJpb3Vz
-IHdha2V1cHMgaW4gUGlwZVdpcmUvUHVsc2VBdWRpbyBhbmQgYXZvaWQgc3RhdGUgcmVzdG9yYXRp
-b24gaW4gYWxzYWN0bC4KICAgKiBEcm9wcGVkIHN5c2ZzIGF0dHJpYnV0ZXMgYW5kIERvY3VtZW50
-YXRpb24vQUJJIGZpbGUuCiAtIENsZWFuZWQgdXAgYWU1X3N0cmlwX2VuY29kZV8yNCgpIHVzaW5n
-IEJJVCgpIG1hY3JvIGxvZ2ljLgogLSBDb252ZXJ0ZWQgYWU1X3N0cmlwX2ZpbmRfc3RyZWFtKCkg
-dG8gZ3VhcmQoc3BpbmxvY2tfaXJxc2F2ZSkoJmJ1cy0+cmVnX2xvY2spLgogLSBBZGRlZCBsb2Nr
-ZGVwX2Fzc2VydF9oZWxkKCZzcGVjLT5hZTVfc3RyaXBfbXV0ZXgpIGluIGFlNV9zdHJpcF9zZW5k
-X2ZyYW1lKCkuCiAtIFJlcGxhY2VkIG1hZ2ljIG51bWJlcnMgd2l0aCBuYW1lZCBjb25zdGFudHMg
-KEFFNV9TVFJJUF9ETUFfU0laRSwgZXRjLikuCiAtIENvbGxhcHNlZCB0aGUgNC1jaGFubmVsIENB
-MDExMyBCQVIyIHNlcmlhbGl6ZXIgcmVnaXN0ZXIgd3JpdGVzIGludG8gbG9vcHMKICAgd2l0aCBz
-dHJpZGUgMHg0MC4KCiBzb3VuZC9oZGEvY29kZWNzL2NhMDEzMi5jIHwgMzczICsrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgMzcyIGluc2VydGlv
-bnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9zb3VuZC9oZGEvY29kZWNzL2NhMDEz
-Mi5jIGIvc291bmQvaGRhL2NvZGVjcy9jYTAxMzIuYwppbmRleCAwZjhmYjYyZjAuLmM2ZWFlZjVk
-NSAxMDA2NDQKLS0tIGEvc291bmQvaGRhL2NvZGVjcy9jYTAxMzIuYworKysgYi9zb3VuZC9oZGEv
-Y29kZWNzL2NhMDEzMi5jCkBAIC0zNSw2ICszNSw4IEBACiAjaW5jbHVkZSA8c291bmQvdGx2Lmg+
-CiAjZW5kaWYKIAorI2luY2x1ZGUgPGxpbnV4L2RtYS1tYXBwaW5nLmg+CisKICNkZWZpbmUgRkxP
-QVRfWkVSTwkweDAwMDAwMDAwCiAjZGVmaW5lIEZMT0FUX09ORQkweDNmODAwMDAwCiAjZGVmaW5l
-IEZMT0FUX1RXTwkweDQwMDAwMDAwCkBAIC0xMDYwLDYgKzEwNjIsOCBAQCBlbnVtIGRzcF9kb3du
-bG9hZF9zdGF0ZSB7CiAgKiBDQTAxMzIgc3BlY2lmaWMKICAqLwogCisjZGVmaW5lIEFFNV9TVFJJ
-UF9NQVhfTEVEUyAxMDAKKwogc3RydWN0IGNhMDEzMl9zcGVjIHsKIAlzdHJ1Y3QgaGRhX2dlbl9z
-cGVjIGdlbjsKIApAQCAtMTE2Miw2ICsxMTY2LDExIEBAIHN0cnVjdCBjYTAxMzJfc3BlYyB7CiAJ
-ICogUmVuYW1lcyBQbGF5RW5oYW5jZW1lbnQgYW5kIENyeXN0YWxWb2ljZSB0b28uCiAJICovCiAJ
-Ym9vbCB1c2VfYWx0X2NvbnRyb2xzOworCisJLyogQUUtNSBXUzI4MTIgc3RyaXAgY29udHJvbCAq
-LworCXN0cnVjdCBtdXRleCBhZTVfc3RyaXBfbXV0ZXg7CisJdTMyIGFlNV9zdHJpcF9jdXJfY29s
-b3JzW0FFNV9TVFJJUF9NQVhfTEVEU107CisJaW50IGFlNV9zdHJpcF9jdXJfbnVtX2xlZHM7CiB9
-OwogCiAvKgpAQCAtNjg0Niw2ICs2ODU1LDggQEAgc3RhdGljIGludCBjYTAxMzJfYWx0X2FkZF9t
-aWNfYm9vc3RfZW51bShzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAogfQogCitzdGF0aWMgaW50
-IGFlNV9hZGRfc3RyaXBfY29udHJvbHMoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpOworCiAvKgog
-ICogQWRkIGhlYWRwaG9uZSBnYWluIGVudW1lcmF0ZWQgY29udHJvbCBmb3IgdGhlIEFFLTUuIFRo
-aXMgc3dpdGNoZXMgYmV0d2VlbgogICogdGhyZWUgbW9kZXMsIGxvdywgbWVkaXVtLCBhbmQgaGln
-aC4gV2hlbiBub24taGVhZHBob25lIG91dHB1dHMgYXJlIHNlbGVjdGVkLApAQCAtNzE0OSw2ICs3
-MTYwLDEwIEBAIHN0YXRpYyBpbnQgY2EwMTMyX2J1aWxkX2NvbnRyb2xzKHN0cnVjdCBoZGFfY29k
-ZWMgKmNvZGVjKQogCiAJc3dpdGNoIChjYTAxMzJfcXVpcmsoc3BlYykpIHsKIAljYXNlIFFVSVJL
-X0FFNToKKwkJZXJyID0gYWU1X2FkZF9zdHJpcF9jb250cm9scyhjb2RlYyk7CisJCWlmIChlcnIg
-PCAwKQorCQkJcmV0dXJuIGVycjsKKwkJZmFsbHRocm91Z2g7CiAJY2FzZSBRVUlSS19BRTc6CiAJ
-CWVyciA9IGFlNV9hZGRfaGVhZHBob25lX2dhaW5fZW51bShjb2RlYyk7CiAJCWlmIChlcnIgPCAw
-KQpAQCAtODMxNiw4ICs4MzMxLDM2MSBAQCBzdGF0aWMgdm9pZCBzYnpfc2V0dXBfZGVmYXVsdHMo
-c3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiB9CiAKIC8qCi0gKiBTZXR1cCBkZWZhdWx0IHBhcmFt
-ZXRlcnMgZm9yIHRoZSBTb3VuZCBCbGFzdGVyWCBBRS01IERTUC4KKyAqIFNvdW5kIEJsYXN0ZXJY
-IEFFLTUgRXh0ZXJuYWwgV1MyODEyQiBSR0IgTEVEIFN0cmlwIFRyYW5zcG9ydAogICovCisjZGVm
-aW5lIEFFNV9TVFJJUF9ETUFfU0laRQkJMHg4MDAwCisjZGVmaW5lIEFFNV9TVFJJUF9UT1RBTF9X
-T1JEUwkJKEFFNV9TVFJJUF9ETUFfU0laRSAvIHNpemVvZih1MzIpKQorI2RlZmluZSBBRTVfU1RS
-SVBfUFJFQU1CTEVfV09SRFMJNQorI2RlZmluZSBBRTVfU1RSSVBfV09SRFNfUEVSX0xFRAkJNAor
-I2RlZmluZSBBRTVfU1RSSVBfUkVTRVRfR0FQX1dPUkRTCTgzCisKKyNkZWZpbmUgQ0EwMTEzX1NF
-UklBTElaRVJfQkFTRShzcGVjLCBjaCkJKChzcGVjKS0+bWVtX2Jhc2UgKyAweDQyYyArIChjaCkg
-KiAweDQwKQorI2RlZmluZSBDQTAxMTNfU0VSSUFMSVpFUl9DTEsoc3BlYywgY2gpCQkoKHNwZWMp
-LT5tZW1fYmFzZSArIDB4NDNjICsgKGNoKSAqIDB4NDApCisjZGVmaW5lIENBMDExM19TRVJJQUxJ
-WkVSX09VVChzcGVjLCBjaCkJCSgoc3BlYyktPm1lbV9iYXNlICsgMHg0NTQgKyAoY2gpICogMHg0
-MCkKKworc3RhdGljIHZvaWQgYWU1X3N0cmlwX2VuY29kZV8yNCh1MzIgdSwgdTMyICp3b3JkcykK
-K3sKKwkvKgorCSAqIDI0LWJpdCBwaXhlbCAtPiA0IHggMzItYml0IGF1ZGlvIHdvcmRzICg2IGJp
-dHMgcGVyIHdvcmQpLgorCSAqIEhhcmR3YXJlIGF1ZGlvIHNlcmlhbGl6ZXIgdHJhbnNtaXRzIE1T
-QiBmaXJzdCAoYml0cyAzMSBkb3duIHRvIDApLgorCSAqIEZvciB3b3JkIGkgKGk4ID0gMjMsIDE3
-LCAxMSwgNSksIGJpdF9pZHggMC4uNSAoTVNCIHRvIExTQiB3aXRoaW4gdGhlIHdvcmQpCisJICog
-aXMgcGxhY2VkIGF0IG4gPSAyOSAtIGJpdF9pZHggKiA0OgorCSAqICAgQml0IDAgLT4gMGIxMDAg
-PDwgbiAoMzc1bnMgaGlnaCwgMTA0Mm5zIGxvdyk6IEJJVChuICsgMikKKwkgKiAgIEJpdCAxIC0+
-IDBiMTExIDw8IG4gKDEwODNucyBoaWdoLCAzMzNucyBsb3cpOiBCSVQobiArIDIpIHwgQklUKG4g
-KyAxKSB8IEJJVChuKQorCSAqLworCWludCBpOCA9IDIzOworCWludCBpLCBiaXRfaWR4OworCisJ
-Zm9yIChpID0gMDsgaSA8IDQ7IGkrKykgeworCQl1MzIgb3V0ID0gMDsKKworCQlmb3IgKGJpdF9p
-ZHggPSAwOyBiaXRfaWR4IDwgNjsgYml0X2lkeCsrKSB7CisJCQlpbnQgYml0ID0gKHUgPj4gKGk4
-IC0gYml0X2lkeCkpICYgMTsKKwkJCWludCBuID0gMjkgLSBiaXRfaWR4ICogNDsKKworCQkJb3V0
-IHw9IChiaXQgPyAoQklUKDIpIHwgQklUKDEpIHwgQklUKDApKSA6IEJJVCgyKSkgPDwgbjsKKwkJ
-fQorCQl3b3Jkc1tpXSA9IG91dDsKKwkJaTggLT0gNjsKKwl9Cit9CisKK3N0YXRpYyBzdHJ1Y3Qg
-aGRhY19zdHJlYW0gKmFlNV9zdHJpcF9maW5kX3N0cmVhbShzdHJ1Y3QgaGRhX2NvZGVjICpjb2Rl
-YykKK3sKKwlzdHJ1Y3QgY2EwMTMyX3NwZWMgKnNwZWMgPSBjb2RlYy0+c3BlYzsKKwlzdHJ1Y3Qg
-aGRhY19idXMgKmJ1cyA9ICZjb2RlYy0+YnVzLT5jb3JlOworCXN0cnVjdCBoZGFjX3N0cmVhbSAq
-cywgKmRzcCA9IE5VTEwsICpmaXJzdCA9IE5VTEw7CisKKwlndWFyZChzcGlubG9ja19pcnFzYXZl
-KSgmYnVzLT5yZWdfbG9jayk7CisJbGlzdF9mb3JfZWFjaF9lbnRyeShzLCAmYnVzLT5zdHJlYW1f
-bGlzdCwgbGlzdCkgeworCQlpZiAocy0+ZGlyZWN0aW9uICE9IFNORFJWX1BDTV9TVFJFQU1fUExB
-WUJBQ0spCisJCQljb250aW51ZTsKKwkJaWYgKHMtPnJ1bm5pbmcgfHwgcy0+bG9ja2VkKQorCQkJ
-Y29udGludWU7CisJCWlmICghZmlyc3QpCisJCQlmaXJzdCA9IHM7CisJCS8qIFRoZSBEU1AgRE1B
-IGNvbnN1bWVzIHRoZSBEU1AtbG9hZGVyIHN0cmVhbSAodGFnIGluIGRzcF9zdHJlYW1faWQpLiAq
-LworCQlpZiAoc3BlYy0+ZHNwX3N0cmVhbV9pZCAmJiBzLT5zdHJlYW1fdGFnID09IHNwZWMtPmRz
-cF9zdHJlYW1faWQpCisJCQlkc3AgPSBzOworCX0KKworCXJldHVybiBkc3AgPyBkc3AgOiBmaXJz
-dDsKK30KKworLyoKKyAqIENhbGxlciBtdXN0IGhvbGQgc3BlYy0+YWU1X3N0cmlwX211dGV4Lgor
-ICovCitzdGF0aWMgaW50IGFlNV9zdHJpcF9zZW5kX2ZyYW1lKHN0cnVjdCBoZGFfY29kZWMgKmNv
-ZGVjLCBjb25zdCB1MzIgKmdyYl9jb2xvcnMsIGludCBudW1fbGVkcykKK3sKKwlzdHJ1Y3QgY2Ew
-MTMyX3NwZWMgKnNwZWMgPSBjb2RlYy0+c3BlYzsKKwlzdHJ1Y3Qgc25kX2RtYV9idWZmZXIgZG1h
-YjsKKwlzdHJ1Y3QgaGRhY19zdHJlYW0gKmhzdHIgPSBOVUxMOworCXVuc2lnbmVkIGludCBmb3Jt
-YXQsIHN0cmVhbV90YWc7CisJdTMyIGVuY193b3Jkc1s0XTsKKwl1MzIgKmRzdDsKKwlpbnQgd29y
-ZF9pZHggPSAwOworCWludCBmcmFtZV93b3JkczsKKwlpbnQgbGVkLCB3LCBpOworCWludCByZXRy
-aWVzID0gMjA7IC8qIH4xMDBtcyBtYXggKi8KKwl1OCBvcmlnX3NkX2N0bCA9IDA7CisKKwlpZiAo
-IXNwZWMgfHwgIXNwZWMtPm1lbV9iYXNlKQorCQlyZXR1cm4gLUVOT0RFVjsKKwlpZiAobnVtX2xl
-ZHMgPD0gMCB8fCBudW1fbGVkcyA+IEFFNV9TVFJJUF9NQVhfTEVEUykKKwkJcmV0dXJuIC1FSU5W
-QUw7CisKKwlsb2NrZGVwX2Fzc2VydF9oZWxkKCZzcGVjLT5hZTVfc3RyaXBfbXV0ZXgpOworCisJ
-c25kX2hkYV9wb3dlcl91cChjb2RlYyk7CisKKwkvKgorCSAqIDQ0LjFrSHosIDI0LWJpdCwgMi1j
-aGFubmVsIGZvcm1hdCAoMHg0MDMxKSBtYXRjaGVzIFdpbmRvd3MgQ3R4SGRhCisJICogSERBVURJ
-T19TVFJFQU1fRk9STUFULgorCSAqLworCWZvcm1hdCA9IHNuZF9oZGFjX3N0cmVhbV9mb3JtYXQo
-MiwgMjQsIDQ0MTAwKTsKKworCWZvciAoOzspIHsKKwkJaHN0ciA9IGFlNV9zdHJpcF9maW5kX3N0
-cmVhbShjb2RlYyk7CisJCWlmICghaHN0cikgeworCQkJaWYgKC0tcmV0cmllcyA8PSAwKSB7CisJ
-CQkJY29kZWNfd2Fybihjb2RlYywgIkFFNSBzdHJpcDogbm8gZnJlZSBhenggc3RyZWFtIGFmdGVy
-IHJldHJpZXNcbiIpOworCQkJCXNuZF9oZGFfcG93ZXJfZG93bihjb2RlYyk7CisJCQkJcmV0dXJu
-IC1FQlVTWTsKKwkJCX0KKwkJCXVzbGVlcF9yYW5nZSg1MDAwLCAxMDAwMCk7CisJCQljb250aW51
-ZTsKKwkJfQorCisJCXN0cmVhbV90YWcgPSBzbmRfaGRhY19kc3BfcHJlcGFyZShoc3RyLCBmb3Jt
-YXQsIEFFNV9TVFJJUF9ETUFfU0laRSwgJmRtYWIpOworCQlpZiAoKGludClzdHJlYW1fdGFnID4g
-MCkKKwkJCWJyZWFrOworCisJCS8qIFByZXBhcmUgZmFpbGVkIChlLmcuIC1FQlVTWSBkdWUgdG8g
-cmFjZSB3aXRoIHBsYXliYWNrIHN0YXJ0aW5nKTsgcmV0cnkgKi8KKwkJaWYgKC0tcmV0cmllcyA8
-PSAwKSB7CisJCQljb2RlY193YXJuKGNvZGVjLCAiQUU1IHN0cmlwOiBzbmRfaGRhY19kc3BfcHJl
-cGFyZSBmYWlsZWQgJWRcbiIsCisJCQkJICAgKGludClzdHJlYW1fdGFnKTsKKwkJCXNuZF9oZGFf
-cG93ZXJfZG93bihjb2RlYyk7CisJCQlyZXR1cm4gKGludClzdHJlYW1fdGFnOworCQl9CisJCXVz
-bGVlcF9yYW5nZSg1MDAwLCAxMDAwMCk7CisJfQorCisJLyogUHJldmVudCBpbnRlcnJ1cHQgc3Rv
-cm1zIGR1cmluZyBmcmVlLXJ1bm5pbmcgTEVEIHN0cmVhbSwgc2F2aW5nIG9yaWdpbmFsIGNvbnRy
-b2wgYml0cyAqLworCWlmIChoc3RyLT5zZF9hZGRyKSB7CisJCW9yaWdfc2RfY3RsID0gcmVhZGIo
-aHN0ci0+c2RfYWRkcik7CisJCXdyaXRlYihvcmlnX3NkX2N0bCAmIH4weDFjLCBoc3RyLT5zZF9h
-ZGRyKTsgLyogQ2xlYXIgSU9DRSwgRkVJRSwgREVJRSAqLworCX0KKworCS8qIDEuIFBvcHVsYXRl
-IHRoZSAzMktCIERNQSBidWZmZXIgd2l0aCByZXBlYXRpbmcgV1MyODEyIGZyYW1lcyArIHJlc2V0
-IGdhcHMgKi8KKwltZW1zZXQoZG1hYi5hcmVhLCAwLCBBRTVfU1RSSVBfRE1BX1NJWkUpOworCWRz
-dCA9ICh1MzIgKilkbWFiLmFyZWE7CisKKwkvKiBXb3JkcyBwZXIgZnJhbWU6IHByZWFtYmxlICsg
-KG51bV9sZWRzICogd29yZHNfcGVyX2xlZCkgKyByZXNldCBnYXAgKi8KKwlmcmFtZV93b3JkcyA9
-IEFFNV9TVFJJUF9QUkVBTUJMRV9XT1JEUyArIChudW1fbGVkcyAqIEFFNV9TVFJJUF9XT1JEU19Q
-RVJfTEVEKSArCisJCSAgICAgIEFFNV9TVFJJUF9SRVNFVF9HQVBfV09SRFM7CisKKwl3aGlsZSAo
-d29yZF9pZHggKyBmcmFtZV93b3JkcyA8PSBBRTVfU1RSSVBfVE9UQUxfV09SRFMpIHsKKwkJLyog
-UHJlYW1ibGUgcGVyIFdpbmRvd3MgQ3R4SGRhIEZVTl8wMDA0Mjk0NCAqLworCQlmb3IgKHcgPSAw
-OyB3IDwgQUU1X1NUUklQX1BSRUFNQkxFX1dPUkRTOyB3KyspIHsKKwkJCSpkc3QrKyA9IDA7CisJ
-CQl3b3JkX2lkeCsrOworCQl9CisJCS8qIExFRHMgKi8KKwkJZm9yIChsZWQgPSAwOyBsZWQgPCBu
-dW1fbGVkczsgbGVkKyspIHsKKwkJCWFlNV9zdHJpcF9lbmNvZGVfMjQoZ3JiX2NvbG9yc1tsZWRd
-LCBlbmNfd29yZHMpOworCQkJZm9yICh3ID0gMDsgdyA8IEFFNV9TVFJJUF9XT1JEU19QRVJfTEVE
-OyB3KyspIHsKKwkJCQkqZHN0KysgPSBlbmNfd29yZHNbd107CisJCQkJd29yZF9pZHgrKzsKKwkJ
-CX0KKwkJfQorCQkvKiBaZXJvIHJlc2V0IGdhcCAoPiAxLjggbXM7IFdTMjgxMiByZXF1aXJlcyA+
-IDUwIHVzIGxvdykgKi8KKwkJZm9yICh3ID0gMDsgdyA8IEFFNV9TVFJJUF9SRVNFVF9HQVBfV09S
-RFM7IHcrKykgeworCQkJKmRzdCsrID0gMDsKKwkJCXdvcmRfaWR4Kys7CisJCX0KKwl9CisJd2hp
-bGUgKHdvcmRfaWR4IDwgQUU1X1NUUklQX1RPVEFMX1dPUkRTKSB7CisJCSpkc3QrKyA9IDA7CisJ
-CXdvcmRfaWR4Kys7CisJfQorCS8qIEVuc3VyZSBETUEgYnVmZmVyIHdyaXRlcyBhcmUgY29tbWl0
-dGVkIGJlZm9yZSB0cmlnZ2VyaW5nIHRoZSBIREEgc3RyZWFtICovCisJd21iKCk7CisKKwkvKiAy
-LiBDb25maWd1cmUgQ0EwMTEzIEJBUjIgaGFyZHdhcmUgcmVnaXN0ZXJzICovCisJLyogUG93ZXIg
-dXAgY2xvY2tzIChDdHhIZGIgMHgxNDFiNyAvIDB4MTQyMTApICovCisJd3JpdGVsKHJlYWRsKHNw
-ZWMtPm1lbV9iYXNlICsgMHhjMDQpIHwgMHg3LCBzcGVjLT5tZW1fYmFzZSArIDB4YzA0KTsKKwor
-CS8qIEJhc2Ugc2VyaWFsaXplciBpbml0aWFsaXphdGlvbiAoQ3R4SGRiIDB4MTRiYTQpICovCisJ
-d3JpdGVsKHJlYWRsKHNwZWMtPm1lbV9iYXNlICsgMHg0MDApIHwgMSwgc3BlYy0+bWVtX2Jhc2Ug
-KyAweDQwMCk7CisJZm9yIChpID0gMDsgaSA8IDQ7IGkrKykgeworCQl3cml0ZWwocmVhZGwoQ0Ew
-MTEzX1NFUklBTElaRVJfQkFTRShzcGVjLCBpKSkgJiB+MSwKKwkJICAgICAgIENBMDExM19TRVJJ
-QUxJWkVSX0JBU0Uoc3BlYywgaSkpOworCQl3cml0ZWwoMCwgQ0EwMTEzX1NFUklBTElaRVJfQ0xL
-KHNwZWMsIGkpKTsKKwl9CisJd3JpdGVsKHJlYWRsKHNwZWMtPm1lbV9iYXNlICsgMHg0MDgpIHwg
-MSwgc3BlYy0+bWVtX2Jhc2UgKyAweDQwOCk7CisJd3JpdGVsKHJlYWRsKHNwZWMtPm1lbV9iYXNl
-ICsgMHg0MGMpIHwgMSwgc3BlYy0+bWVtX2Jhc2UgKyAweDQwYyk7CisJd3JpdGVsKChyZWFkbChz
-cGVjLT5tZW1fYmFzZSArIDB4NDEwKSAmIH4weGIpIHwgMHgxNCwgc3BlYy0+bWVtX2Jhc2UgKyAw
-eDQxMCk7CisKKwkvKiBDb25maWd1cmUgc2VyaWFsaXplcnMgMC4uMyBjbG9ja2luZyAoQ3R4SGRi
-IDB4MTRhNmMpICovCisJZm9yIChpID0gMDsgaSA8IDQ7IGkrKykKKwkJd3JpdGVsKHJlYWRsKENB
-MDExM19TRVJJQUxJWkVSX0NMSyhzcGVjLCBpKSkgfCAweDMzLAorCQkgICAgICAgQ0EwMTEzX1NF
-UklBTElaRVJfQ0xLKHNwZWMsIGkpKTsKKworCS8qIEJBUjIgKyAweDEwMCBmb3JtYXQgJiBjaGFu
-bmVsIGVuYWJsZXM6CisJICogLSBiYXNlIDB4NzBmCisJICogLSBiaXQgMjggPSAxICgyNC1iaXQg
-YXVkaW8gZm9ybWF0IHZpYSBDdHhIZGIgMHgxNGY1OCkKKwkgKiAtIGJpdHMgMjkuLjMxID0gMSAo
-NDQuMSBrSHogc2FtcGxlIHJhdGUgdmlhIEN0eEhkYiAweDE0ZmE0KQorCSAqIC0gYml0cyA0Li43
-ID0gMHhmIChzdGFnZSAxIGVuYWJsZXMpCisJICogLSBiaXRzIDEyLi4xNSA9IDB4ZiAoc3RhZ2Ug
-MiBlbmFibGVzKQorCSAqID0+IDB4MzAwMGZmOGYKKwkgKi8KKwl3cml0ZWwoKHJlYWRsKHNwZWMt
-Pm1lbV9iYXNlICsgMHgxMDApICYgfjB4ZTAwMGZmZmYpIHwgMHgzMDAwZmY4Ziwgc3BlYy0+bWVt
-X2Jhc2UgKyAweDEwMCk7CisKKwkvKiBFbmFibGUgc2VyaWFsaXplciBvdXRwdXQgZHJpdmVycyBm
-b3IgcGlucyAwLi4zIChDdHhIZGIgMHgxNGU5NCkgKi8KKwlmb3IgKGkgPSAwOyBpIDwgNDsgaSsr
-KQorCQl3cml0ZWwocmVhZGwoQ0EwMTEzX1NFUklBTElaRVJfT1VUKHNwZWMsIGkpKSB8IDEsCisJ
-CSAgICAgICBDQTAxMTNfU0VSSUFMSVpFUl9PVVQoc3BlYywgaSkpOworCisJLyogUm91dGUgYWxs
-IGNoYW5uZWxzIDAuLjMgdG8gc3RyZWFtX3RhZyAoQ3R4SGRiIDB4MTUwMmMpICovCisJd3JpdGVs
-KChzdHJlYW1fdGFnIDw8IDI4KSB8IChzdHJlYW1fdGFnIDw8IDIwKSB8IChzdHJlYW1fdGFnIDw8
-IDEyKSB8IChzdHJlYW1fdGFnIDw8IDQpLAorCSAgICAgICBzcGVjLT5tZW1fYmFzZSArIDB4MTA0
-KTsKKworCS8qIEVuYWJsZSBDQTAxMTMgTU1JTyBHUElPIDAgJiAxICovCisJY2EwMTEzX21taW9f
-Z3Bpb19zZXQoY29kZWMsIDAsIHRydWUpOworCWNhMDExM19tbWlvX2dwaW9fc2V0KGNvZGVjLCAx
-LCB0cnVlKTsKKworCWNvZGVjX2RiZyhjb2RlYywgIkFFNSBzdHJpcDogc2VuZF9mcmFtZTogbnVt
-X2xlZHM9JWQgc3RyZWFtX3RhZz0ldSAoMHglMDh4KVxuIiwKKwkJICBudW1fbGVkcywgc3RyZWFt
-X3RhZywgcmVhZGwoc3BlYy0+bWVtX2Jhc2UgKyAweDEwNCkpOworCisJLyogMy4gVHJpZ2dlciBz
-dHJlYW0gdHJhbnNtaXNzaW9uIG9uIEhEQSBsaW5rICovCisJc25kX2hkYWNfZHNwX3RyaWdnZXIo
-aHN0ciwgdHJ1ZSk7CisJLyoKKwkgKiBXUzI4MTIgbGF0Y2hlcyBvbiB0aGUgPjUwdXMgcmVzZXQg
-Z2FwIGFmdGVyIG9uZSBmcmFtZS4gVGhlIDMyS0IgYnVmZmVyIGhvbGRzIH42NAorCSAqIHJlcGVh
-dGluZyBmcmFtZStyZXNldCBjeWNsZXM7IGF0IH4xLjRtcy9mcmFtZSBhIDE1bXMgcnVuIHRyYW5z
-bWl0cyB+MTAgY29tcGxldGUKKwkgKiBjeWNsZXMgLSBtb3JlIHRoYW4gZW5vdWdoIHRvIGxhdGNo
-IHJlbGlhYmx5LiBLZWVwIGl0IHNob3J0IHNvIHJhcGlkIHN5c2ZzIHdyaXRlcworCSAqIChPcGVu
-UkdCIGVmZmVjdHMvdGhlbWUgY2hhbmdlcykgYXJlIG5vdCBzZXJpYWxpemVkIGJlaGluZCBhIDFz
-IGJsb2NraW5nIHNsZWVwLgorCSAqLworCXVzbGVlcF9yYW5nZSgxNTAwMCwgMjAwMDApOworCXNu
-ZF9oZGFjX2RzcF90cmlnZ2VyKGhzdHIsIGZhbHNlKTsKKwljb2RlY19kYmcoY29kZWMsICJBRTUg
-c3RyaXA6IHRyaWdnZXIgY29tcGxldGVcbiIpOworCisJLyogVGVhcmRvd246IGNsZWFyIDB4MTA0
-IHBpbiBtdXggYmFjayB0byAwICovCisJd3JpdGVsKDB4MDAwMDAwMDAsIHNwZWMtPm1lbV9iYXNl
-ICsgMHgxMDQpOworCisJLyogUmVzdG9yZSBkZXNjcmlwdG9yIGNvbnRyb2wgcmVnaXN0ZXIgKi8K
-KwlpZiAoaHN0ci0+c2RfYWRkcikKKwkJd3JpdGViKG9yaWdfc2RfY3RsLCBoc3RyLT5zZF9hZGRy
-KTsKKworCXNuZF9oZGFjX2RzcF9jbGVhbnVwKGhzdHIsICZkbWFiKTsKKwlzbmRfaGRhX3Bvd2Vy
-X2Rvd24oY29kZWMpOworCisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBpbnQgYWU1X3N0cmlwX2N0
-bF9pbmZvKHN0cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLAorCQkJICAgICAgc3RydWN0IHNu
-ZF9jdGxfZWxlbV9pbmZvICp1aW5mbykKK3sKKwl1aW5mby0+dHlwZSA9IFNORFJWX0NUTF9FTEVN
-X1RZUEVfQllURVM7CisJdWluZm8tPmNvdW50ID0gQUU1X1NUUklQX01BWF9MRURTICogMzsKKwly
-ZXR1cm4gMDsKK30KKworc3RhdGljIGludCBhZTVfc3RyaXBfY3RsX2dldChzdHJ1Y3Qgc25kX2tj
-b250cm9sICprY29udHJvbCwKKwkJCSAgICAgc3RydWN0IHNuZF9jdGxfZWxlbV92YWx1ZSAqdWNv
-bnRyb2wpCit7CisJc3RydWN0IGhkYV9jb2RlYyAqY29kZWMgPSBzbmRfa2NvbnRyb2xfY2hpcChr
-Y29udHJvbCk7CisJc3RydWN0IGNhMDEzMl9zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7CisJaW50
-IGk7CisKKwlndWFyZChtdXRleCkoJnNwZWMtPmFlNV9zdHJpcF9tdXRleCk7CisJZm9yIChpID0g
-MDsgaSA8IHNwZWMtPmFlNV9zdHJpcF9jdXJfbnVtX2xlZHM7IGkrKykgeworCQl1MzIgZ3JiID0g
-c3BlYy0+YWU1X3N0cmlwX2N1cl9jb2xvcnNbaV07CisKKwkJdWNvbnRyb2wtPnZhbHVlLmJ5dGVz
-LmRhdGFbaSAqIDMgKyAwXSA9IChncmIgPj4gOCkgJiAweGZmOworCQl1Y29udHJvbC0+dmFsdWUu
-Ynl0ZXMuZGF0YVtpICogMyArIDFdID0gKGdyYiA+PiAxNikgJiAweGZmOworCQl1Y29udHJvbC0+
-dmFsdWUuYnl0ZXMuZGF0YVtpICogMyArIDJdID0gZ3JiICYgMHhmZjsKKwl9CisJaWYgKHNwZWMt
-PmFlNV9zdHJpcF9jdXJfbnVtX2xlZHMgPCBBRTVfU1RSSVBfTUFYX0xFRFMpCisJCW1lbXNldCgm
-dWNvbnRyb2wtPnZhbHVlLmJ5dGVzLmRhdGFbc3BlYy0+YWU1X3N0cmlwX2N1cl9udW1fbGVkcyAq
-IDNdLCAwLAorCQkgICAgICAgKEFFNV9TVFJJUF9NQVhfTEVEUyAtIHNwZWMtPmFlNV9zdHJpcF9j
-dXJfbnVtX2xlZHMpICogMyk7CisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBpbnQgYWU1X3N0cmlw
-X2N0bF9wdXQoc3RydWN0IHNuZF9rY29udHJvbCAqa2NvbnRyb2wsCisJCQkgICAgIHN0cnVjdCBz
-bmRfY3RsX2VsZW1fdmFsdWUgKnVjb250cm9sKQoreworCXN0cnVjdCBoZGFfY29kZWMgKmNvZGVj
-ID0gc25kX2tjb250cm9sX2NoaXAoa2NvbnRyb2wpOworCXN0cnVjdCBjYTAxMzJfc3BlYyAqc3Bl
-YyA9IGNvZGVjLT5zcGVjOworCXUzMiBjb2xvcnNbQUU1X1NUUklQX01BWF9MRURTXTsKKwlpbnQg
-aSwgbnVtX2xlZHM7CisKKwlndWFyZChtdXRleCkoJnNwZWMtPmFlNV9zdHJpcF9tdXRleCk7CisJ
-bnVtX2xlZHMgPSBzcGVjLT5hZTVfc3RyaXBfY3VyX251bV9sZWRzOworCWZvciAoaSA9IDA7IGkg
-PCBudW1fbGVkczsgaSsrKSB7CisJCXU4IHIgPSB1Y29udHJvbC0+dmFsdWUuYnl0ZXMuZGF0YVtp
-ICogMyArIDBdOworCQl1OCBnID0gdWNvbnRyb2wtPnZhbHVlLmJ5dGVzLmRhdGFbaSAqIDMgKyAx
-XTsKKwkJdTggYiA9IHVjb250cm9sLT52YWx1ZS5ieXRlcy5kYXRhW2kgKiAzICsgMl07CisKKwkJ
-Y29sb3JzW2ldID0gKCh1MzIpZyA8PCAxNikgfCAoKHUzMilyIDw8IDgpIHwgKHUzMiliOworCX0K
-KwltZW1jcHkoc3BlYy0+YWU1X3N0cmlwX2N1cl9jb2xvcnMsIGNvbG9ycywgc2l6ZW9mKHUzMikg
-KiBudW1fbGVkcyk7CisJYWU1X3N0cmlwX3NlbmRfZnJhbWUoY29kZWMsIGNvbG9ycywgbnVtX2xl
-ZHMpOworCXJldHVybiAwOworfQorCitzdGF0aWMgaW50IGFlNV9zdHJpcF9udW1fbGVkc19pbmZv
-KHN0cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLAorCQkJCSAgIHN0cnVjdCBzbmRfY3RsX2Vs
-ZW1faW5mbyAqdWluZm8pCit7CisJdWluZm8tPnR5cGUgPSBTTkRSVl9DVExfRUxFTV9UWVBFX0lO
-VEVHRVI7CisJdWluZm8tPmNvdW50ID0gMTsKKwl1aW5mby0+dmFsdWUuaW50ZWdlci5taW4gPSAx
-OworCXVpbmZvLT52YWx1ZS5pbnRlZ2VyLm1heCA9IEFFNV9TVFJJUF9NQVhfTEVEUzsKKwlyZXR1
-cm4gMDsKK30KKworc3RhdGljIGludCBhZTVfc3RyaXBfbnVtX2xlZHNfZ2V0KHN0cnVjdCBzbmRf
-a2NvbnRyb2wgKmtjb250cm9sLAorCQkJCSAgc3RydWN0IHNuZF9jdGxfZWxlbV92YWx1ZSAqdWNv
-bnRyb2wpCit7CisJc3RydWN0IGhkYV9jb2RlYyAqY29kZWMgPSBzbmRfa2NvbnRyb2xfY2hpcChr
-Y29udHJvbCk7CisJc3RydWN0IGNhMDEzMl9zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7CisKKwln
-dWFyZChtdXRleCkoJnNwZWMtPmFlNV9zdHJpcF9tdXRleCk7CisJdWNvbnRyb2wtPnZhbHVlLmlu
-dGVnZXIudmFsdWVbMF0gPSBzcGVjLT5hZTVfc3RyaXBfY3VyX251bV9sZWRzOworCXJldHVybiAw
-OworfQorCitzdGF0aWMgaW50IGFlNV9zdHJpcF9udW1fbGVkc19wdXQoc3RydWN0IHNuZF9rY29u
-dHJvbCAqa2NvbnRyb2wsCisJCQkJICBzdHJ1Y3Qgc25kX2N0bF9lbGVtX3ZhbHVlICp1Y29udHJv
-bCkKK3sKKwlzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYyA9IHNuZF9rY29udHJvbF9jaGlwKGtjb250
-cm9sKTsKKwlzdHJ1Y3QgY2EwMTMyX3NwZWMgKnNwZWMgPSBjb2RlYy0+c3BlYzsKKwlpbnQgdmFs
-ID0gdWNvbnRyb2wtPnZhbHVlLmludGVnZXIudmFsdWVbMF07CisKKwlpZiAodmFsIDwgMSB8fCB2
-YWwgPiBBRTVfU1RSSVBfTUFYX0xFRFMpCisJCXJldHVybiAtRUlOVkFMOworCisJZ3VhcmQobXV0
-ZXgpKCZzcGVjLT5hZTVfc3RyaXBfbXV0ZXgpOworCWlmIChzcGVjLT5hZTVfc3RyaXBfY3VyX251
-bV9sZWRzID09IHZhbCkKKwkJcmV0dXJuIDA7CisJc3BlYy0+YWU1X3N0cmlwX2N1cl9udW1fbGVk
-cyA9IHZhbDsKKwlhZTVfc3RyaXBfc2VuZF9mcmFtZShjb2RlYywgc3BlYy0+YWU1X3N0cmlwX2N1
-cl9jb2xvcnMsIHZhbCk7CisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25k
-X2tjb250cm9sX25ldyBhZTVfc3RyaXBfY3Rsc1tdID0geworCXsKKwkJLmlmYWNlID0gU05EUlZf
-Q1RMX0VMRU1fSUZBQ0VfQ0FSRCwKKwkJLm5hbWUgPSAiQUUtNSBMRUQgU3RyaXAiLAorCQkuYWNj
-ZXNzID0gU05EUlZfQ1RMX0VMRU1fQUNDRVNTX1JFQURXUklURSB8CisJCQkgIFNORFJWX0NUTF9F
-TEVNX0FDQ0VTU19WT0xBVElMRSwKKwkJLmluZm8gPSBhZTVfc3RyaXBfY3RsX2luZm8sCisJCS5n
-ZXQgPSBhZTVfc3RyaXBfY3RsX2dldCwKKwkJLnB1dCA9IGFlNV9zdHJpcF9jdGxfcHV0LAorCX0s
-CisJeworCQkuaWZhY2UgPSBTTkRSVl9DVExfRUxFTV9JRkFDRV9DQVJELAorCQkubmFtZSA9ICJB
-RS01IExFRCBTdHJpcCBDb3VudCIsCisJCS5hY2Nlc3MgPSBTTkRSVl9DVExfRUxFTV9BQ0NFU1Nf
-UkVBRFdSSVRFIHwKKwkJCSAgU05EUlZfQ1RMX0VMRU1fQUNDRVNTX1ZPTEFUSUxFLAorCQkuaW5m
-byA9IGFlNV9zdHJpcF9udW1fbGVkc19pbmZvLAorCQkuZ2V0ID0gYWU1X3N0cmlwX251bV9sZWRz
-X2dldCwKKwkJLnB1dCA9IGFlNV9zdHJpcF9udW1fbGVkc19wdXQsCisJfSwKK307CisKK3N0YXRp
-YyBpbnQgYWU1X2FkZF9zdHJpcF9jb250cm9scyhzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKK3sK
-KwlpbnQgaSwgZXJyOworCisJZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUoYWU1X3N0cmlwX2N0
-bHMpOyBpKyspIHsKKwkJZXJyID0gc25kX2hkYV9jdGxfYWRkKGNvZGVjLCAwLAorCQkJCSAgICAg
-IHNuZF9jdGxfbmV3MSgmYWU1X3N0cmlwX2N0bHNbaV0sIGNvZGVjKSk7CisJCWlmIChlcnIgPCAw
-KQorCQkJcmV0dXJuIGVycjsKKwl9CisJcmV0dXJuIDA7Cit9CisKIHN0YXRpYyB2b2lkIGFlNV9z
-ZXR1cF9kZWZhdWx0cyhzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIHsKIAlzdHJ1Y3QgY2EwMTMy
-X3NwZWMgKnNwZWMgPSBjb2RlYy0+c3BlYzsKQEAgLTg3NDEsNiArOTEwOSw4IEBAIHN0YXRpYyB2
-b2lkIGNhMDEzMl9pbml0X2NoaXAoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiAJdW5zaWduZWQg
-aW50IG9uOwogCiAJbXV0ZXhfaW5pdCgmc3BlYy0+Y2hpcGlvX211dGV4KTsKKwltdXRleF9pbml0
-KCZzcGVjLT5hZTVfc3RyaXBfbXV0ZXgpOworCXNwZWMtPmFlNV9zdHJpcF9jdXJfbnVtX2xlZHMg
-PSAxMDsKIAogCS8qCiAJICogVGhlIFdpbmRvd3MgZHJpdmVyIGFsd2F5cyBkb2VzIHRoaXMgdXBv
-biBzdGFydHVwLCB3aGljaCBzZWVtcyB0bwpAQCAtOTYyNyw2ICs5OTk3LDcgQEAgc3RhdGljIHZv
-aWQgY2EwMTMyX2ZyZWUoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiAJaWYgKHNwZWMtPm1lbV9i
-YXNlKQogCQlwY2lfaW91bm1hcChjb2RlYy0+YnVzLT5wY2ksIHNwZWMtPm1lbV9iYXNlKTsKICNl
-bmRpZgorCW11dGV4X2Rlc3Ryb3koJnNwZWMtPmFlNV9zdHJpcF9tdXRleCk7CiAJa2ZyZWUoc3Bl
-Yy0+c3BlY19pbml0X3ZlcmJzKTsKIAlrZnJlZShjb2RlYy0+c3BlYyk7CiAJY29kZWMtPnNwZWMg
-PSBOVUxMOwotLSAKMi41NS4wCgo=
+The original information comes from the panel. Panel driver exposes
+the flag to dsi host. Because the panel driver hides all dual physical
+panels stuff and exposes a single panel to DRM framework, so it exposes
+the doubled mode to DRM framework level too. This simplifies the
+handling of 2 physical panels in DRM level and compositors level.
+>
+>
+> Also please note that the are other possible configurations. For
+> example, for some time I've had a setup using two Raspberry panels
+> attached to two DSI hosts for exactly the same purpose (please check, I
+> think Neil might still have it, or maybe somebody else from the team).
+> Each channel is an I2C-controlled DSI-to-DPI bridge + a DPI panel. I
+> understand that it's not your target, but it's something to keep in
+> mind. I'd say, the bare minimum would be to resolve a second bridge (be
+> it a full bridge or a panel bridge), possibly create a second bridge
+> chain (remember, bridges don't support branching, so you are a bit on
+> your own here) and at least manually call the callbacks. This would
+> ensure that the second panel (or a second bridge) is properly controlled
+> (and thus would get rid of the second reset GPIO from your patches).
 
---b1=_pHACuXhbZxRGOpQJRjrzvvpVz2yOpF7UjjHpzVYSFE8--
+I asked Neil but he has no idea on this. Per your description, you have 2
+DRM connectors/bridges for 2 physical panels. I guess you have topology:
+1 CRTC + 2*(encoder / connector / bridge). The handling of 2 physical
+panels falls into DRM level, not inside panel driver as this patch set.
+This 2 methodology does not conflict in theory. Do you see and conflict in
+implementation?
+>
+> > The pic_width is used to calculated DSC parameter for DPU DSC controlle=
+r
+> >  together with panel's parameter. While panel driver that support dual
+> > panel shall provide slice_width parameter of single panel. This patch
+> > only impact DSC configuration, so crtc is not aware of it and not impac=
+ted
+> > by it.
+> >
+> > While the DSI panel driver should manage two panels togehter.
+> > 1. During probe, the driver finds the sibling dsi host via device tree
+> > phandle and register the 2nd panel to get another mipi_dsi_device.
+> > 2. Set dual_panel flag on both mipi_dsi_device.
+> > 3. Prepare DSC data per requirement from single panel.
+> > 4. All DSI commands should be send on every DSI link.
+>
+> broadcasting of DSI commands is controlled by the DT flag.
 
+Do you mean the property, qcom,sync-dual-dsi? It is QCOM specific
+feature to send DSI commands twice in host driver. It can be done
+in panel side as well. The bonus to do in panel side is that the
+panel driver is more generic and can work with other SoC in theory.
+And the DSI commands can be handled together with regulators
+etc for 2 physical panels in a centric way. The panel driver is
+more self-contained, minimizing dependency on the dsi host.
+
+>
+> > 5. Handle power supply for 2 panels in one shot, the same is true to
+> >    brightness.
+> > 6. From the CRTC's perspective, the two panels appear as one wide displ=
+ay.
+> >    The driver exposes a DRM mode where the horizontal timings (hdisplay=
+,
+> >    hsync_start, etc.) are doubled, while the vertical timings remain th=
+ose
+> >    of a single panel. Because 2 panels are expected to be mounted in
+> >    left/right position.
+> >
+> > To maintain synchronization, both DSI links are configured to share a
+> > single clock source, with the DSI1 controller using the clock provided
+> > to DSI0 as below.
+> >
+> > &mdss_dsi1 {
+> >    assigned-clocks =3D <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
+> >                    <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
+> >    assigned-clock-parents =3D <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
+> > }
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
+si/dsi_host.c
+> > index e39938fb0f502..a3c56c3dc7904 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > @@ -186,6 +186,7 @@ struct msm_dsi_host {
+> >       bool registered;
+> >       bool power_on;
+> >       bool enabled;
+> > +     bool is_dual_panel;
+> >       int irq;
+> >  };
+> >
+> > @@ -1024,7 +1025,10 @@ static void dsi_timing_setup(struct msm_dsi_host=
+ *msm_host, bool is_bonded_dsi)
+> >                       return;
+> >               }
+> >
+> > -             dsc->pic_width =3D mode->hdisplay;
+> > +             if (msm_host->is_dual_panel)
+> > +                     dsc->pic_width =3D hdisplay;
+> > +             else
+> > +                     dsc->pic_width =3D mode->hdisplay;
+> >               dsc->pic_height =3D mode->vdisplay;
+> >               DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+> >
+> > @@ -1705,6 +1709,7 @@ static int dsi_host_attach(struct mipi_dsi_host *=
+host,
+> >       if (dsi->lanes > msm_host->num_data_lanes)
+> >               return -EINVAL;
+> >
+> > +     msm_host->is_dual_panel =3D dsi->dual_panel;
+> >       msm_host->channel =3D dsi->channel;
+> >       msm_host->lanes =3D dsi->lanes;
+> >       msm_host->format =3D dsi->format;
+> > @@ -2600,6 +2605,9 @@ enum drm_mode_status msm_dsi_host_check_dsc(struc=
+t mipi_dsi_host *host,
+> >       if (!msm_host->dsc)
+> >               return MODE_OK;
+> >
+> > +     if (msm_host->is_dual_panel)
+> > +             pic_width =3D mode->hdisplay / 2;
+> > +
+> >       if (pic_width % dsc->slice_width) {
+> >               pr_err("DSI: pic_width %d has to be multiple of slice %d\=
+n",
+> >                      pic_width, dsc->slice_width);
+> >
+> > --
+> > 2.43.0
+> >
+>
+> --
+> With best wishes
+> Dmitry
