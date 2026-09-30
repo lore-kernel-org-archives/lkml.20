@@ -1,228 +1,203 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395902F7EFE
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F0D390CB8;
+	Wed, 30 Sep 2026 03:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790740134; cv=none; b=oIAQYu9RKAQpTMhTcsLYwQWJ5dXVJAi4XlGRoHrmHOF5D/ZUeJBLbzKJgqO76qeLrMwMyAIGYA/5J2J5KUaf0BpdE7EfuvO2aYTBs/SL5/Wp0vq3PoLuglU90LEzcG3CrSGREChtMOID8DR+heuTeyYcvZdmGb0MDqcfIoNd1Rw=
+	t=1790740140; cv=none; b=kV/J6LLT7fgb3pP6tvfd5lpUARNI2J8PNyR8V73K0AWTiIJSv1mGiAfW+T8NXyKIqY6ecTS1CUHPqhZd62DECJOth6irBYCjOjd5re1u7tUhknwScDDBmd8QitNUD32VKTgInkCyNEjk8XW8d4OLHb4WSdZlHdlRt8CitS22fuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790740134; c=relaxed/simple;
-	bh=WYmTryAaQ/trZZhmLAWBl5OpMn+WWDyNXRxH9foDQnI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pz9qtJQ4Bckm/EcrbcwgRRwrehD4xEAUU/dxU6tS5r0jAmO4IFvPTR8+GHXlh5wCiZDD8v6gjRlMB8gSBcHaA9+6vMUY7cwoSJlP4MbPE8fTGSnjOQNr8vRRpEHnG91w+WBzO7f3XVWILlRC+Cg/Y9L6ZAu+CuVwEnJLQ297COo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNEtfSGy; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790740140; c=relaxed/simple;
+	bh=Bi6SzUITqsWI5D+9gZMq4RgRtXzfVHUdW5uFZc0YkoY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YRt5wpggpMjpmWLNqZFwyUMhhSQoV5cTSAtFgU9EI5JCJyjxVrX9jwqVp+ePpfVgs7gVNNsR+UtVLIXV+UFFLL02YJJ1/NIXFsgVd5r5b+YktgEvvO/vxKUpNyYHw6oKoZrcpJpuDHLFfUYRew6fbrhcv84zlTrEgbqaHeXC2to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlgIWLOr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNEtfSGy"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db1ca069c8so22708615ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:48:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790740131; x=1791344931; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hRt/tj2cSACQMtmTLMhEnniCAGYtbcz7VW2FXaU1+ms=;
-        b=oNEtfSGyJZ0uiOHL3JMj3YxCCPnGVbiHVb8sG/uRJjD4JoSGJhwZIVj9V3SKylpang
-         HZ9rfmbQowQjICYW497GJkBSRZXYieWLNZWRDdSfd22YJ34xPJH6L2DldQWqwPlAe3TU
-         ccLeK6wCxPAsDqBXLOsaid2eBYjN3RwQYo99nqejDEiXNeLr54vDgzZf7J9EvkO2jiF+
-         aj2WN6D/Fp8lfniaCIAnLLySd7SJYUCQEFMHsim4m4HpXXZfv9Tl09oS/Hexx5dDM5hb
-         44nTkrb8ai7RX799a0VcZ68893Z0APubuGoVVrn5okxuCaW+hOo4MSyDeCRapLDxFx6N
-         VY6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790740131; x=1791344931;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hRt/tj2cSACQMtmTLMhEnniCAGYtbcz7VW2FXaU1+ms=;
-        b=Ul/mlsqFd4/MObCgUH9PC+KdExGuuO0FiayXgWdXDTJJDxrlCw9Rc01l3wHpVciB9k
-         cjOZLrVj5A8RtBi1dWC2dZLunBdkpEewn9srGz0U3OOG7YOGBPj9pHQ8WOzjlYINbCfl
-         xawrt6C8mFcd+ChSa4/DXgokV1g3JuE0Rk1DrKgc7nyOLhTic+v0HcHcTXAgfVeqa8BV
-         k6fo9TaKwp7XJanNxB6595xWmjTUzKPXubPwRTLczh3CVPUgqHjMsvvSipzWv6H7giuQ
-         0EQOLUDWxMNFMNompbNixPHIsoYZ1tMvkd87nzcPwoIcI07pR+zvQyFNXIKzFxslq1dh
-         OZiA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCMPOv38cXHlmOGOvPUoaazmSgAiWigLgQ66dQRE3agbV5QmZ9Ulmn+8sA9NWwPRMPUvwH+b/4JAEBi+o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpI/V6sFBRRzb36EbtMLmOrj9yWVzdRLmHo6JmivdBYK4lCphb
-	v7aicacDQkzT+a+52vynCBXG+dTVnbwo9TqjYqGcNj1MAmHJGKmIZ7bs
-X-Gm-Gg: AYBFou0vbF0Wcgufk1e7Zx+/k+5k5RnzXNltQkBZeGPoQrisif5LRI1rH9m28RF//n4
-	Ky05U/a0NzY80SRQUTB+u3HXHgexigZXga3st/UJ2Q20TBAdR2EkxyXi5w+Df2D+nRWE7dbVzfZ
-	D868RABb/BGGuwGtAEmtpIMKJKqnNMqIJkgNf5nCPlneyr7eiPGbHQfn7jrtG/ckgSzEitaaKux
-	fz30I8/XqoTV7cdZ4JlSFu37Dd+xNKgZckAmuCSEyMzte7KG2FrijLvdA9TpoelUQZPT7qEKyZt
-	kz/N2vu+CfUfy5Nkjuo2nuxFUZYQPXWGWKXewSvOSfOXTOcGnsRPE51Zq0bGgS7qReoMg4calnb
-	8M3LQ8Lcu8CAIc7W0CEyKb56waWlQUpMoirLU1zJxd+smbTKGVR8Ok2SAsUnPLcZu61HlK4y0rI
-	j20ltBas7LyiZ6g/YlQjJJnXwUFZiCmwuRITwSytOhKU8IrW4xyzyqP94BM+03pW/8nyWq62B4U
-	c0hQHz3UYuSUrd5LhF1LMQDA8IMJoD65MZg8KfqJ5w5as7eyWUQ6as/TTa5p2SkQfhxTvqy2ncJ
-	5eqHyAHouGegKp4HK6uo+wq7DpO3fqANcr+c47L6yZ4Ko8CpVx0D6Pb7mi8=
-X-Received: by 2002:a17:903:1211:b0:2dd:ad74:6d19 with SMTP id d9443c01a7336-2e2e4b32296mr1470375ad.31.1790740131383;
-        Tue, 29 Sep 2026 20:48:51 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2dd86f3ddsm3760005ad.68.2026.09.29.20.48.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 20:48:50 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: Baolin Liu <liubaolin12138@163.com>,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 6/6] ntfs: reject non-resident attributes whose sizes exceed their allocation
-Date: Wed, 30 Sep 2026 11:48:35 +0800
-Message-ID: <0d9fadd7e8146bf2ea4c78e71ed41cd01588b545.1790684177.git.matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790684177.git.matthias.goergens@gmail.com>
-References: <cover.1790684177.git.matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlgIWLOr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF7A1F00898;
+	Wed, 30 Sep 2026 03:48:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790740135;
+	bh=4dq8t7Q8QvbHbJbu7xUVJxUkYlM267SUwA5lU7qHTTk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=QlgIWLOr9zVTI0AXvEiO3C7UIvkRWzhOvEMTjBaGlLQx36N9OOLrhTGYn9GfPmn9D
+	 OxJ2l9B1VN4R7PRASGc6TJMynIp4Gb57S1aY/Ex/tktl86BKdrTtgvsm+arijbLXGQ
+	 jbO4FI/nHFkKqny6yhMzVHtNz4YI+FUKHuMO4u6DAF8s/7w9M6bdJBIaa6HzJKypji
+	 gqJ/vnnxVtJO/noxn/0dnQpRvMPWErk6+V+rdXNBsfF+hdOWiOryxMn2Ikd5idEELE
+	 zsVImqk7Xx5Oxr9Gp7NOzp99O56R3eoy7G9ENzM/jB7U2JFiQqgoLLscQI3EHcqtVg
+	 4/bXTIxKFmvlw==
+Subject: Re: [PATCH net-next v18 6/6] net: dsa: mxl862xx: document devlink
+ flash and info support
+From: netdev-bot+sashiko@kernel.org
+To: daniel@makrotopia.org
+Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
+ rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+Date: Wed, 30 Sep 2026 03:48:54 +0000
+Message-ID: <179074013437.434549.6936491828121414928@kernel.org>
+In-Reply-To: =?utf-8?q?=3Cc555c5507ffce3827917d9fb629b19cf928894cc=2E1790426?=
+ =?utf-8?q?599=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+References: =?utf-8?q?=3Cc555c5507ffce3827917d9fb629b19cf928894cc=2E17904265?=
+ =?utf-8?q?99=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ntfs_read_locked_inode(), ntfs_read_locked_attr_inode() and
-ntfs_read_locked_index_inode() take a non-resident attribute's data_size
-and initialized_size from disk without checking them against its
-allocated_size.  The runlist ends at allocated_size and the read path
-maps what lies beyond it as a hole, so a data_size larger than the
-allocation makes reads return zeros that are not on disk, with no error.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On a crafted volume with 4 KiB clusters where a 6144000-byte file claims
-a data_size and initialized_size 64 KiB beyond its allocation, reading
-the file returns 16 clusters of such zeros.  A sparse file behaves the
-same.  A compressed file instead fails with -EIO after a burst of "Still
-have pages left!" errors from ntfs_read_compressed_block().
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Require 0 <= initialized_size <= data_size <= allocated_size, with
-allocated_size a multiple of the cluster size, when the inode is read,
-as fs/ntfs3 does in mi_enum_attr(), and fail with -EIO otherwise, which
-marks the inode bad and the volume as having errors.  initialized_size
-above data_size is rejected too because an extending write zeroes the
-gap it opens only from initialized_size onwards.  An unaligned
-allocated_size ends inside a cluster that the read path treats as past
-the end: a crafted 66440-byte file with 4 KiB clusters reads its last
-904 bytes as zeros.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Sparse and compressed attributes need no exception.  Every non-resident
-attribute has a cluster-aligned allocated_size >= data_size, holes
-included, on eight public test volumes (seven written by Windows, with
-LZNT1-compressed files, a sparse $UsnJrnl:$J and a OneDrive placeholder
-whose unnamed $DATA is one hole, and one by mkntfs), on a volume written
-by ntfs-3g and on one written by this driver, and the patched driver
-reads every file on them as before.  fs/ntfs3 has enforced the same
-checks since v6.6, also without exceptions.  The layout.h comment saying
-that data_size can exceed allocated_size for compressed and sparse
-attributes is corrected.
+- [Medium] The new Documentation/networking/devlink/mxl862xx.rst (lines
+  82-87) gives different remedies for different rescue-recovery failures.
+- [Low] In the fw row of Documentation/networking/devlink/mxl862xx.rst
+  (lines 47-49), the sentence "Use ``devlink dev flash`` to tell a…
 
-This also covers a non-resident attribute list, which
-load_attribute_list() reads through ntfs_attr_iget(), and $MFT, whose
-inode goes through ntfs_read_locked_inode() after the previous patch's
-check.  $MFT's own non-resident attribute list goes through neither:
-ntfs_read_inode_mount() loads it with load_attribute_list_mount() and
-ntfs_read_locked_inode() skips it for $MFT, so the check is added there
-too.  The check was already missing in the classic driver; the Fixes
-tag names the commit that brought that code back.
+--
 
-Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
- fs/ntfs/inode.c  | 27 +++++++++++++++++++++++++++
- fs/ntfs/layout.h | 13 ++++++++-----
- 2 files changed, 35 insertions(+), 5 deletions(-)
+net: dsa: mxl862xx: document devlink flash and info support
 
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 9c97fc3f9e5ff..7e475d339e920 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -651,6 +651,25 @@ void ntfs_set_vfs_operations(struct inode *inode, mode_t mode, dev_t dev)
- 	}
- }
- 
-+static bool ntfs_non_resident_sizes_inconsistent(struct inode *vi,
-+						 const struct attr_record *a)
-+{
-+	s64 allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-+	s64 data_size = le64_to_cpu(a->data.non_resident.data_size);
-+	s64 initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
-+
-+	if (initialized_size >= 0 && initialized_size <= data_size &&
-+	    data_size <= allocated_size &&
-+	    !ntfs_bytes_to_cluster_off(NTFS_I(vi)->vol, allocated_size))
-+		return false;
-+
-+	ntfs_error(vi->i_sb,
-+		   "Attribute 0x%x of inode 0x%llx is corrupt (initialized size %lld, data size %lld, allocated size %lld).",
-+		   le32_to_cpu(a->type), NTFS_I(vi)->mft_no, initialized_size,
-+		   data_size, allocated_size);
-+	return true;
-+}
-+
- /*
-  * ntfs_read_locked_inode - read an inode from its device
-  * @vi:		inode to read
-@@ -1184,6 +1203,8 @@ static int ntfs_read_locked_inode(struct inode *vi)
- 					"First extent of $DATA attribute has non zero lowest_vcn.");
- 				goto unm_err_out;
- 			}
-+			if (ntfs_non_resident_sizes_inconsistent(vi, a))
-+				goto unm_err_out;
- 			vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
- 			ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
- 			ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-@@ -1446,6 +1467,8 @@ static int ntfs_read_locked_attr_inode(struct inode *base_vi, struct inode *vi)
- 			ntfs_error(vi->i_sb, "First extent of attribute has non-zero lowest_vcn.");
- 			goto unm_err_out;
- 		}
-+		if (ntfs_non_resident_sizes_inconsistent(vi, a))
-+			goto unm_err_out;
- 		vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
- 		ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
- 		ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-@@ -1675,6 +1698,8 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
- 			"First extent of $INDEX_ALLOCATION attribute has non zero lowest_vcn.");
- 		goto unm_err_out;
- 	}
-+	if (ntfs_non_resident_sizes_inconsistent(vi, a))
-+		goto unm_err_out;
- 	vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
- 	ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
- 	ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-@@ -2008,6 +2033,8 @@ int ntfs_read_inode_mount(struct inode *vi)
- 					"Attribute list has non zero lowest_vcn. $MFT is corrupt. You should run chkdsk.");
- 				goto put_err_out;
- 			}
-+			if (ntfs_non_resident_sizes_inconsistent(vi, a))
-+				goto put_err_out;
- 
- 			rl = ntfs_mapping_pairs_decompress(vol, a, NULL, &new_rl_count);
- 			if (IS_ERR(rl)) {
-diff --git a/fs/ntfs/layout.h b/fs/ntfs/layout.h
-index 8f5792139d719..2de83d4ca40b9 100644
---- a/fs/ntfs/layout.h
-+++ b/fs/ntfs/layout.h
-@@ -811,14 +811,17 @@ enum {
-  *                                  on XP SP2+.
-  * @data.non_resident.reserved:     5 bytes for 8-byte alignment.
-  * @data.non_resident.allocated_size:
-- *                                  Allocated disk space in bytes.
-- *                                  For compressed: logical allocated size.
-+ *                                  Allocated size in bytes, a multiple of
-+ *                                  the cluster size.  For compressed and
-+ *                                  sparse attributes holes count as
-+ *                                  allocated; the clusters actually in use
-+ *                                  are in compressed_size.
-  * @data.non_resident.data_size:    Logical attribute value size in bytes.
-- *                                  Can be larger than allocated_size if
-- *                                  compressed/sparse.
-+ *                                  Never larger than allocated_size, also
-+ *                                  when compressed/sparse.
-  * @data.non_resident.initialized_size:
-  *                                  Initialized portion size in bytes.
-- *                                  Usually equals data_size.
-+ *                                  Usually equals data_size, never larger.
-  * @data.non_resident.compressed_size:
-  *                                  Compressed on-disk size in bytes.
-  *                                  Only present when compressed or sparse.
+This commit adds Documentation/networking/devlink/mxl862xx.rst. The file
+describes the mxl862xx devlink info versions and the flash update
+behaviour, including MCUboot rescue mode recovery. It also links the file
+from the devlink index and adds it to the driver's MAINTAINERS entry.
+
+> diff --git a/Documentation/networking/devlink/mxl862xx.rst b/Documentation/networking/devlink/mxl862xx.rst
+> new file mode 100644
+> index 0000000000000..c2dfc72ef9a40
+> --- /dev/null
+> +++ b/Documentation/networking/devlink/mxl862xx.rst
+
+[ ... ]
+
+> +   * - ``fw``
+> +     - running, stored
+> +     - 1.0.70
+> +     - Version of the firmware running on the switch, reported as both
+> +       running and stored since the switch boots it from its own flash.
+
+[ ... ]
+
+> +       running only, since the driver cannot tell what the flash holds
+> +       while the loader runs. Use ``devlink dev
+> +       flash`` to tell a recovering switch from a ready one, see below;
+> +       a missing version on its own does not say why.
+
+[Severity: Low]
+
+Is this the right pair of states? mxl862xx_devlink_info_get() already
+shows whether a rescue-mode switch is ready, without changing anything:
+
+	if (READ_ONCE(priv->rescue_mode)) {
+		if (!READ_ONCE(priv->rescue_ready))
+			return 0;
+		...
+		return devlink_info_version_running_put(req,
+				DEVLINK_INFO_VERSION_GENERIC_FW, buf);
+	}
+
+On a ready switch, devlink dev flash does not report a state. It closes
+the ports and flashes the image.
+
+Two states omit the version: a switch that is still recovering, and one
+whose recovery failed. Those are the two that flash tells apart, with
+-EBUSY "switch is recovering an interrupted download" and -EIO "loader
+cannot accept a download".
+
+Also, mxl862xx_devlink_flash_update() validates the image before either
+of those checks:
+
+	ret = mxl862xx_flash_validate(priv, params->fw, &payload_size);
+	if (ret) {
+		NL_SET_ERR_MSG_MOD(extack, "firmware image validation failed");
+		return ret;
+	}
+
+	/* Refuse to flash while the background self-heal is still draining, and
+	 * for good once it has given up on the loader.
+	 */
+	if (READ_ONCE(priv->rescue_failed)) {
+	...
+	if (READ_ONCE(priv->rescue_mode) && !READ_ONCE(priv->rescue_ready)) {
+
+So the documented -EBUSY and -EIO only appear when a valid signed image is
+supplied. A placeholder file gets the validation error instead. Could the
+document mention that?
+
+[ ... ]
+
+> +If the driver gives up on the recovery, ``devlink dev flash`` returns
+> +``-EIO`` and says so in its extack message. The drain runs once and is
+> +never resumed, so a failed MDIO transaction ends it as well. A loader
+> +that stops answering the drain needs a power cycle; a completed drain
+> +whose reprobe could not be scheduled, and a drain a bus error cut
+> +short, need only a driver rebind. The driver re-examines the switch
+
+[Severity: Medium]
+
+How can a user tell these cases apart? Take the case of a completed drain
+whose reprobe could not be scheduled. mxl862xx_rescue_heal_work_fn() only
+sets the flag and logs nothing:
+
+	if (device_schedule_reprobe(dev, MXL862XX_FW_REPROBE_DELAY_MS))
+		WRITE_ONCE(priv->rescue_failed, true);
+
+The drain error path just above it logs "flash: download recovery failed:
+%pe". The flash path's own reprobe failure in
+mxl862xx_devlink_flash_update() also logs a message:
+
+	err = device_schedule_reprobe(ds->dev, MXL862XX_FW_REPROBE_DELAY_MS);
+	if (err)
+		dev_err(ds->dev,
+			"flash: re-probe could not be scheduled (%pe); unbind and rebind to reinitialise\n",
+			ERR_PTR(err));
+
+The heal path seems to be the only one that says nothing.
+
+After that, mxl862xx_devlink_flash_update() returns the same -EIO and
+extack for every rescue_failed cause:
+
+	if (READ_ONCE(priv->rescue_failed)) {
+		NL_SET_ERR_MSG_MOD(extack, "loader cannot accept a download");
+		return -EIO;
+	}
+
+In the completed-drain case the extack is also wrong. The drain finished,
+so the loader is at READY or a firmware has booted.
+
+The v18 changelog says "a re-probe that cannot be scheduled is logged on
+every path". That doesn't seem to hold for the heal path.
+
+The errno and extack are the same and the log is empty. Is there a way
+for a user to choose between the rebind and the power cycle described
+here? The @rescue_failed kernel-doc in mxl862xx.h also sends readers to
+this document, saying "the remedy depends on the cause".
+
+The list of causes also leaves out two drain failures from
+mxl862xx_rescue_drain() and mxl862xx_rescue_drain_finish(): -ETIMEDOUT
+"did not drain after %u chunks" and -EIO "loader still busy after the
+erase window". Which remedy applies to those?
+
+> +when it binds and at no other time, so a power cycle on a board where
+> +the switch can be cycled on its own still has to be followed by an
+> +unbind and rebind for the recovered switch to be recognised.
+
+[ ... ]
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1790426599.git.daniel%40makrotopia.org
