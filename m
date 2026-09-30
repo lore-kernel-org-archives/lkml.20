@@ -1,166 +1,201 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023129.outbound.protection.outlook.com [40.107.159.129])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A4F3C0A17;
-	Wed, 30 Sep 2026 06:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E02E3BD24A;
+	Wed, 30 Sep 2026 06:51:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751012; cv=fail; b=XWqdvPke7M1Ae1uJ1PjPK+BEvWKPv/R8uMUiogXN06DQ9o6frzn1zm61fI4vJVtl+s0dN0wZ3OgI84zd88b3E0zQ23/qSb+1iod2QPWJ43AsbnUwIhSLsBiy77FywNiiRUstQst+niGihCRA9tD6DMpPZOVy3bupwokAMn32/1U=
+	t=1790751075; cv=fail; b=mD70S81eYb9NDE/E4/zHtgezPe5JhRs+ccSQpzSmSUnKT8PzdH1i861avcQTVgN4xIxzI+2tpj+7IjKHNFwhvXRMalNsaUfSMmLIy1ntwDokquqHxcsdsmLZq3XUy0d5nCGwfuJy8d841QpIaCJzoDm1A9c3BgiceTINWvB0ENw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751012; c=relaxed/simple;
-	bh=v/92JdiyQ5prlckpVPYqsHJOjG8appvbq5BGHkLPbWE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WIUd56xHtewhNxYxmH2Lgr20jon1PHTkjNFPCGUjLm/xTlYDt9a2bRemQwE/wVTAvIyeRt0Bbc3JXe0K5ZYbG9zj7q4VD6yxyG8sCmDzmdk39gGNzHim0ebcyxOj9jhBqi4GWP+BrEFMclenBbTvhpR2IjJtt560ICZtp/desBs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de; spf=pass smtp.mailfrom=ziehl-abegg.de; dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b=S9ufgTDf; arc=fail smtp.client-ip=40.107.159.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziehl-abegg.de
+	s=arc-20240116; t=1790751075; c=relaxed/simple;
+	bh=C8dxjJr7oe7O2LxRT7oRP3KPItvYQGzCtOLVWQiTjnI=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=TUMQHXCpwpLqAmpufjh5Ck2e9s1kWiOPIkaj4QvrXdV05DFHXcq64oPlkZiMZZSQSFwXHAFVUwcO0gqC8DzTU/CvWs7youWqVy2dZBWyQWe3axLujZ9AKIJjq8tV+NKK1kNmt59BAjkU/ScVcVjhDisLqD8lftVgfltj8q2IW4g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MMht/9Qz; arc=fail smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b="S9ufgTDf"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MMht/9Qz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790751069; x=1822287069;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=C8dxjJr7oe7O2LxRT7oRP3KPItvYQGzCtOLVWQiTjnI=;
+  b=MMht/9Qz3HbJCISvPjlQHFcgOHU1x8Yl9QQGP6tTtB7n+VSxnRPhZ0Ue
+   AVzX7HAzLfzRnr5gVi0IqQMXHfEfxswEbGjzQ+Qmt3ZhyubBmDALAdgZ4
+   9j09QKBn0aITATPyeO5vxapeq8a/NNPqcFKZnsuW2mIL/wHRwEFQ8r5bK
+   vkWkeag1gkXA904vxLBknri7OSmDsOsTy83XjT7jJE2HUubekcN/0RR+1
+   0IDU/rfc/t56FdPaj2My6JJOzcrptI+7FVuMiUglf1CqL/8eGpzyf+Otc
+   TRlEPOs/83okosvXz2tTouwFDAnC8/UCVLKAdGz4THbVDvlmylmWpYlzH
+   w==;
+X-CSE-ConnectionGUID: gfxcbiKXRnq3FmP/7ECvbQ==
+X-CSE-MsgGUID: RU/yovyeQvqA5W0oYx25kQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90245886"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90245886"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 23:51:05 -0700
+X-CSE-ConnectionGUID: i8SQXmO0SW2U7Wx3xL+Z6Q==
+X-CSE-MsgGUID: edBcROdzRMq7JfXcTJlI5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="278948870"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 23:51:05 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 29 Sep 2026 23:51:04 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 29 Sep 2026 23:51:04 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.65) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 23:51:04 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XQPqv6PRL80NRvt5Hh4P4joylOzlhkw5mF6/R4sQzCwPnrrBN/sdHhKkZne7inDmLEkrfr0njTgYF3aDRNQTedBiwDi7gRfCGKR6TR1aX4S50JJQeVPgEgtSa6yhM6rE0tVZI7gfRiAl5HxTR06yWDU2rcbXC3ZJnf0bhXhIajYZiLKQ3A5W9u42X+6ShypdGrBgXhfg1amKxQROYckI+1L/PUKrg2Nmt64VQqg1XIamk+eJbK7BnUTBr0We8bMxNtfS3DcVH82pA4TFZV57Sx/Q48WNdOhEvVxWyHbip817lXv2M2sYpmNiJX67wL6kz6ZrxkC3Me3tmQ1z6HRCnA==
+ b=YfHimMBolqQO55AEhpIdGAuaXYQM40PAMpKrVbv7jqK5CblRS+k4nZHa1mtNpjZjFraV+4vFO2+QDdrJ0oE/RRSK2AYJPF7yoNxn7yK1WHrkkk61+jNPModG1Y4Shc2ZzSh3C1Ep/Q4uqQ32vJWSV0EqUbJpI+SI09Ntn4NDH3ZlbgJoJ7Q7VarVFkpf3+YF94h37aBn7B9VhmS9yT9PeD4KF1zAaIwUGI9hol18myCr2EkVpf9awEcf/hQexXEo2j6bIhw9rRUlNHFOUpMIqzbbp9Op+gxF6WPTwNZmflooKBZ4wfJTrb78p8bmF1PJK2jTFGFNN0eqVs0DIaVzJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v/92JdiyQ5prlckpVPYqsHJOjG8appvbq5BGHkLPbWE=;
- b=yLXHQZKjgpDv/oHMIy25DujPSsjxh5JfSfD/yJEMaJaBzMPdpXwhio/AOpySK6A5AlSGRamC8G4TOoFjPsACz+as2JPf2pUrOOabdCxO6w8xvsHDXassZf2IAXHljpOWjkBVHOBUY0lhVAQ/4gANcf+9vqu53aOweRiur2zL9OJH7Og04HEYm3wXP/+kvnn5JvI7yxBOJBxaX5aeYpXXN8q/4KhfYyKUoYQ0/zUXrew1jzeSCX2iId7U8tP5QjSlj+XlgK/ogDFnEw0uuADSsyyh0GXmLKA8RX5Pq9yH5GR2nGCkPPCj05AKnoZz52qRcDkU5jAfms4Gu3Dpd9ejzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 13.74.137.176) smtp.rcpttodomain=hugovil.com smtp.mailfrom=ziehl-abegg.de;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=ziehl-abegg.de; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziehl-abegg.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v/92JdiyQ5prlckpVPYqsHJOjG8appvbq5BGHkLPbWE=;
- b=S9ufgTDfNNw5sOnWZpye6DO8Yyi1tpskuTYo4s3iE//iOj41UoGPPIztI/34ufh/rcEpKW7K5DIWuIOUbw8UZuRzHZXfZbaj91Tjw8gfVg0XYehnA66NWURKLsKW4PUEAx7aoeR1WLDyO633Jadae458rkU4BdRHE16v9LOaygI=
-Received: from AM8P251CA0009.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:21b::14)
- by PR3PR02MB6491.eurprd02.prod.outlook.com (2603:10a6:102:78::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 06:49:54 +0000
-Received: from AM7PEPF00000056.EURPRD83.prod.outlook.com
- (2603:10a6:20b:21b:cafe::8e) by AM8P251CA0009.outlook.office365.com
- (2603:10a6:20b:21b::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 06:49:54 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 13.74.137.176) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
- signed) header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
-Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
- designates 13.74.137.176 as permitted sender)
- receiver=protection.outlook.com; client-ip=13.74.137.176;
- helo=eu21-emailsignatures-cloud.codetwo.com; pr=C
-Received: from eu21-emailsignatures-cloud.codetwo.com (13.74.137.176) by
- AM7PEPF00000056.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ bh=1mVm29waTdS8Kzx5T//OCdDMQh4unFu63KZTNL6rbl0=;
+ b=NQsYuxKRNPAEtWvYFBLRButrkzIlHSKxATfHzHapIpA4CU4uxJadPkf+RfkX+Q8msUbYEwSTa7ZH1BFae/m5w5Ieb/mmGkPeA40ZBNgA65I3Sso4Aszg4G2AoY4rwa2damDr7u7mhohCXPTO7CMA11y9D0hD3orXoDVqM+Rh5LKj75avUwdwrtEg5rQ11WKMqFT3hUNZ90UjPve0MSm95Xkx/Dc0gW9Up958wmPJ3P4njzIkGqaEf013dmVg1/RJKrg0X3EeHEaUbzlkjPPQmUsGTFeXl2Sk7U53A9LhpXPD3FJZFmotDh8so/vQKSxo5ptN871VAuRQXIcn+bq44A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
+ DS0PR11MB7557.namprd11.prod.outlook.com (2603:10b6:8:14d::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Wed, 30 Sep 2026 06:49:53 +0000
-Received: from DB6PR07CU003.outbound.protection.outlook.com (40.93.64.95) by eu21-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Wed, 30 Sep 2026 06:49:52 +0000
-Received: from DB8PR04CA0020.eurprd04.prod.outlook.com (2603:10a6:10:110::30)
- by DU4PR02MB11649.eurprd02.prod.outlook.com (2603:10a6:10:643::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 06:49:49 +0000
-Received: from DU2PEPF00028CFD.eurprd03.prod.outlook.com
- (2603:10a6:10:110:cafe::ae) by DB8PR04CA0020.outlook.office365.com
- (2603:10a6:10:110::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
- 30 Sep 2026 06:49:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 91.26.242.194) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
- signed) header.d=none;dmarc=fail action=quarantine
- header.from=ziehl-abegg.de;
-Received-SPF: Fail (protection.outlook.com: domain of ziehl-abegg.de does not
- designate 91.26.242.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=91.26.242.194; helo=mail.za.ziehl-abegg.de;
-Received: from mail.za.ziehl-abegg.de (91.26.242.194) by
- DU2PEPF00028CFD.mail.protection.outlook.com (10.167.242.181) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 06:49:49 +0000
-Received: from localhost (10.1.201.87) by vEX02.za.ziehl-abegg.de
- (10.1.201.106) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Wed, 30 Sep
- 2026 08:49:48 +0200
-From: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
-To: <hugo@hugovil.com>
-CC: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>,
-	<linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<tobias.gannert@ziehl-abegg.de>, <joachim.knorr@ziehl-abegg.de>,
-	<david.laight.linux@gmail.com>, <Maarten.Brock@sttls.nl>,
-	<crescentcy.hsieh@moxa.com>
-Subject: Re: [PATCH v2 RESEND] serial: sc16is7xx: fix TX gap caused by kfifo circular buffer wrap-around
-Date: Wed, 30 Sep 2026 08:49:38 +0200
-Message-ID: <20260930064938.116227-1-paultyson.mbewe@ziehl-abegg.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928094733.09482cd6d6565588e2ecd267@hugovil.com>
-References: <20260928094733.09482cd6d6565588e2ecd267@hugovil.com>
+ 15.21.451.26; Wed, 30 Sep 2026 06:50:56 +0000
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
+ 06:50:55 +0000
+Message-ID: <e3cba491-9fdb-4907-9843-c427c96c3237@intel.com>
+Date: Tue, 29 Sep 2026 23:50:53 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
+To: Guixiong Wei <weiguixiong@bytedance.com>, <x86@kernel.org>
+CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H
+ . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260929151013.81562-2-weiguixiong@bytedance.com>
+Content-Language: en-US
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+In-Reply-To: <20260929151013.81562-2-weiguixiong@bytedance.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0143.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c::28) To DS0PR11MB7925.namprd11.prod.outlook.com
+ (2603:10b6:8:f8::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: vEX03.za.ziehl-abegg.de (10.1.201.107) To
- vEX02.za.ziehl-abegg.de (10.1.201.106)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30228.004
-X-TM-AS-Result: No-10--6.797400-8.000000
-X-TMASE-MatchedRID: pBwXUM+nCwvrj1ICXYEoPPMcSueAbPVJjdkfepRWNj7IEVw/tNyThP5I
-	KVIIaDOfvp04AHmPPpDDhNyfqjdIBEmAKa+it75/eWsf9OQoKxGjg0lrtKMWygtbihVN8itTen7
-	9HuuKXBSPmA6rOmUXiznxJqun3snzF+p38MndnJrusRtB/Z90ThflOKKp20mp31qrgoURCz3OYY
-	Jz5uO7hDsgfHO7P/GnBZEWfpJYBiE=
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--6.797400-8.000000
-X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30228.004
-X-TM-SNTS-SMTP: 432DA2DD621A62F31D9AC0CB22D442775294AA2826933C66133AE65BD23F12542000:8
-X-EOPAttributedMessage: 1
-X-MS-TrafficTypeDiagnostic:
-	DU2PEPF00028CFD:EE_|DU4PR02MB11649:EE_|AM7PEPF00000056:EE_|PR3PR02MB6491:EE_
-X-MS-Office365-Filtering-Correlation-Id: e64094cb-b639-4664-3dfa-08df1ebf082c
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|DS0PR11MB7557:EE_
+X-MS-Office365-Filtering-Correlation-Id: d91a2c5e-6605-4398-f591-08df1ebf2cca
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- H3hISL/sgtZ7nJOExlt8xNkPBkVpOjg2cCmw2TB19BiLs07VDMVdrKbzjy0PSEIjTLiV9d2euJZ4W3QJMaZ0oAgWf4Y8GVnwWLkiBOhGZM7Ie+vS1OoDz5yLEJzM4GvyRI9wMpzlQoGHjsZMIpSZcaKW++n5Z0DRqsUK2Rj28Lv5QuadxxaCTbfsju1kwa188d0qUUBlX6ZgIPDOlaLVeWQx5CE1dr+IaFfxRpVbtIaodqDrFIqXvnRhIHz6wUwWclAFc8gOAem63ImALkG4mm6dQdfIWfe+zj2btZCqv22pfDV34CbinujEfza0a5r96gwvbUFxdZOt1uDiiEJfJVejis32yJ4EP58mtIAp0xeuGpSU4IsnI+WooCLw4qDsI6zTLFXbYuza0aaz2EE2HyTHoLtG4Z5RZG03U8Wp6RHGO+tyrAV9uLY5WaPH4N4FppciMt4Rihl2SiPVbDBSBVyKYL6bbDgCM03Ok7t4IaDm0UN4DCmYH1MGRroBfo8qarEH7ey3NIZJquz/Z2WDc4hdgfBFA7vMx7erCeh9TFwhtu+4oDfik9xUXShVHRtcIJ4uTFQ31EQlIchjleZOHUDRbswKBLs7STY4xRbgQ2O5dwqMN8PFkgpaPMB3iddmPD2BY2OPTOZqwHKymjqPkohWndXicRWjQCpTXoVr56IeXldjvJudD6PuSc7q7b9fIzJbz27eS0HQhAF4ukNgIw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:91.26.242.194;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.za.ziehl-abegg.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked: Wy6zhPhjL0fzyo8OGK1Yg9BqlYpaQfoeHSXZFfRUKPkh1lgnYvdUOyq4uWGvATZ4QrrHQ2rlWnPa0kLtuWbZL3mj8wtT1h+QyfTz8EWTCZQgjhSgnX/NAru1TbbNI4A7KFnzQvZfG/OIU0fFyzXgaBK+8coxQ0/9MDhuhBq7qBrPS0mQvQ2bvT0sO4AXWiqObW886YLm3mFGjOqQyQjhsDSg4yZkKJG+0xTnBt0bu54CXktIXe8M1zgVSatameLyLP0dGS2CVDAj5OEe1qPWrw1ob+2ugLcu6V7bhtYIx5j2XZuB1El8GIYYKuyRgYDrthUD2gozfhVnytbAbEYr9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR02MB11649
-X-CodeTwo-MessageID: 9971c87d-28ec-48e1-9c5e-797a95663814.20260930064952@eu21-emailsignatures-cloud.codetwo.com
-X-CodeTwoProcessed: true
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7PEPF00000056.EURPRD83.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	dfea15f0-61df-41fc-0074-08df1ebf05af
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|1800799024|36860700016|376014|82310400026|35042699022|23010399003|11063799006|10067099003|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	wrwBoAPvuGdA2Sj5PO1otMaVD9qFFpS0QKbfuGjQDKMukOU1XQVtsdk6jAA4DMpZubDWVZiWLNblFHNza58ofSFuRx5/9+wrfZ299geC6nZ+m1H+V7FxXhIHk2XUfP0JoFaaLBDsxeaGQdv5Vw52vB/ssJl0nlYi7tvnPg9ps0o1hysL1w28670tvEzxbDRF7LDG0KAyv0ok1J2dhJqhfvDeIayYNzUXbXqEDNfmbxPBAntSqo4gIRk/vSg/0rsmn/DLH8SPUDmhMXvsq++ax9IfpkGYiiporPuB+yZy81GWBKDmfgakZ7I3eW4IgSGlK+7/pQ77+Lc+AXNoVUA4baph6i2697O8zmLhoM8obL5Io+5ejQzuKLyYQkFW9n41t677K4roJOUe2MRkk1BWpepu0kflbQVrj39K515a/AzkXuCI2kez0LJcCQKUJGrPZY6+IhR2+IPxJekPX6tg6T6aPjqWdfR6wBYoJQ3kYkTPkmd+jin03IewQHAt2LkBrw755cpHdql4kp0JhLJNN7eawgqUc/CgAkq/MGjw7YzRYUpIpcLmGkLa3Wxq7SHXqaWxox66vXtt9BD2hs9o3bAoQivSoTL+IJSD9pUIZ39ZQ6O1Jh6stWjPJ6TU0H4gR4l/mNxvMsInX/pUZLyl+rGeSVydR1KXZfqYjnPEBUwoStEetzZma724YZCmDfTLHl2PFbl8QtHlrtSymEcuMg==
-X-Forefront-Antispam-Report:
-	CIP:13.74.137.176;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eu21-emailsignatures-cloud.codetwo.com;PTR:eu21-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(14060799003)(1800799024)(36860700016)(376014)(82310400026)(35042699022)(23010399003)(11063799006)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|5023799004|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: TsIUvJrXRXQ4V33+D5rntLPzGbwGEfEKLzBqmZYb7f5tzilnj9lz/uySSqRNhUXMitfaS7o6tb3JAv4rND2/clzq5boSovu3LJKvt0ViYqNCMZvLaw8KYFPkDX1/3WUc1Ng8VapI3ruyuDetmYFjdh0c7qOFEpt9hDnK/1zilwMjOeyD20TKdINHzN7sRqBpqnJEYB+YnnEMiOV/fGUfiRlh4RTRyhR7/rihAE1kSEastKf9Hbr052kb6i36lSR2arEAglBgTvDiG0sXb6DUe2gfvhJknqj2E/rK5d/Yz5H5X29KutC1dCa1hL4q/JVXWoGpTSWcKoP5dGkWq2FH+OuHq5hv4rDtNgTNBabHEXK9fD0KBt6kXOpGOxspRgqzp8WMXvVch9ypqVJda9iYb9/20qWZRVERzIdkZVuO6W3Wx9EIPWTXAJ4L9PIwrg2XfGnIM+Lbz9hERJm8X5IX+F/9rG+J9GRXyEcznbiqUSYMzhN20kD7nm2UPI9HuxfCrAPDWTXAxhtqaUOBsuWKKkYsdiwMHB3D+La42c/JUdHfEesjrQWaWifurMjeogcAHythKjhfuI9Wrro6umcx2B4rnpMcryjwTaPApeCLiYgdiHh0BgdHq8gW/S8LevVKuYw4NJ+Lzmg1Ev8+fk+YJKLBT0Ea3IkPMlnqHyenlIs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(5023799004)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lPvtdbYPihvgLiXq0O2RxIpHIK/87CyL8VBQ8zY+XQGEa0yN4KGcFcC4QNkSB6a/BnUhAQxiTICM7zY47G5HuE2jzVewBiECljzUCRwIzJSxmQtQsdAeI5FPRO4moPQ6Lun+ckzEzMZFGjxqsz+gnuRdYObTsIgYhrMQoK6iegd7miNVEa3XBG6wCk2hrpUX1RCaLr1G03hjYzI3LlQ9xFN1bhIUaO4ur7yFL3f4b4MRa2dqLxQjq+nMvZWdxdZsV7AdCb7K2wEdH1C5D13kozYqc8KuikWjCEnVA0wqxnAHUlGK1AFbITgTE2vPQ3eDzyhma73sCu74JD38y8T2YOBAWzMGKDH+6rdvvPWORc4XZEXb/RZG2oGA8U+/iJBe4V5mBVsxGNBu4/NevMB86Gttw99+FsxTVaq4deZt7VT+31ouxPx9Pa5e5AzWBHNN
-X-OriginatorOrg: ziehl-abegg.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:49:53.2506
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a3lEbElXUnNMUHBPdUovUExHa21EZWR6d2g3cGM0ZWJpRDlWRXlEbE4xSU51?=
+ =?utf-8?B?c1J0d2hQbE8yaWFPMDJPY04wRHo4SmJNaS8vbk5iMkZIdDQ2ZHJVd08vQWl5?=
+ =?utf-8?B?alUyQ0FUUlVsU2pNNTRoSmNkWkJUSjJxUFpwOVE4WFR3UlFYQnZvdU1QaGgx?=
+ =?utf-8?B?Y3h6TUpXNURpMVlsRzRIcFZmODZicWxHRC9OSCtYQUVySGlVdTYvNUZyRFNM?=
+ =?utf-8?B?b0YwaWVwNUVmOWRzWDFNeHpNaUtYSzVmM0EvT0F3aTNyTFBvTVZzVTIzWmZS?=
+ =?utf-8?B?Mm9Wd2tIWWR3cDBwOTVJQkF0bEpNUERLQ2QwSGFzVCtSVlhBQTU4bDFPaXlu?=
+ =?utf-8?B?Yi9RbzY0eno2U29uV1ZDbWR2OXErUkdGUC9qRnhkWmRVVzcwNUx2dzVhaFVi?=
+ =?utf-8?B?Sk0rR01ueDhZU01GNWtUL0xhVHo1WHpUMGtxK0R1RWw1WjFoeUZ6U0tXWkhv?=
+ =?utf-8?B?bWxxS1NaN2dNVmFQTjl0TUhDRkJ3R2hnbHdkL2EvOWRMOFdNSUhMWlZmWUZB?=
+ =?utf-8?B?eUYyZkNXcjU5QUFsZ1hSUStzTVFVM29xdXJERU5kdDRaV254ZTBXcDJpTjRv?=
+ =?utf-8?B?UUdmWDBKdm9oUzNjL1JSTUVnZEpUWUE3ckxhVmF0VzZUWlQ0ZjBTa1A5a1Fh?=
+ =?utf-8?B?aVlrWllrQmdvendSRG40ZjA5U2cxZndLVVZMcVl6dG82N3pPdW12YnhtbkVF?=
+ =?utf-8?B?Z1IzZW0rODFrNnlxcWFmVGtlRm0yU1BPeVpYMFVOZVBHTVM3WGJMZGlrWUpa?=
+ =?utf-8?B?bm1obGJHNTVPdTVObkhMaUFWQmNUNXhZbnh1Q1ZUU3AyZ2h0WUNIQitJZ0Vs?=
+ =?utf-8?B?eXRFYkNsUUEvaXh6V3dEdjkwd0VDSUtUSnlxbDZVR1dOT3pGUmt1VGp4WERx?=
+ =?utf-8?B?bzhxVVJvQ29CR0xaZDZCMWxVL01VOWJOWTdIVEVKYVZWcDJRNTNwZ2MzR2c0?=
+ =?utf-8?B?cktoZHJvMnNMZ1p3ZjJFK2V6dnRQdHFCUndHM2xRWW9wMHU0MGpYUlpSMnNa?=
+ =?utf-8?B?MDZ0WWxDSDVOUVhrK3RBdDBBRkJaNjdsWDRMSVlXdlNjZzBCdEV3bmlsbDhV?=
+ =?utf-8?B?SWtzZ2w5Z29pbEVOYSsvclYrWVJ6UzkveC9UUG5kRXFoWTNaR3ZVdGZ6d2ZU?=
+ =?utf-8?B?NnVhay9oQUpQazlLR0xVaXBuN1Jmb1lBTDRMSTN1RGNRWDBleFlVNmFxaEVm?=
+ =?utf-8?B?UStZT0VZdFFyVXg2bzgzMjl0cG5ady9aQUFiYlZNYjlsSCtMZ0tYS1FidWF6?=
+ =?utf-8?B?eGFRc2lVR2dQYklHMzNzT2IxbHJyaUUwNElTamlDb013K1A3RmtFaTNpcUI2?=
+ =?utf-8?B?Zjl1eVg4amMrUDcraDlHRDE0VEc1bCt6M29LSHhxSnRId2JNSVp1UkpGRlV1?=
+ =?utf-8?B?Y3k2ZkdFelp4RHpKd0E4ZFE5alpsWDgxekcxbmtOQjJTeXhQTkFQbXdVcHFS?=
+ =?utf-8?B?SjBOcGhNcW5RWTFnbnVOd2VOeTBlVEk4cHJzRXNvdEdFNmN4RDdOMkRtRWVz?=
+ =?utf-8?B?OWhJcnJaL0Z0cXZRQmwyZWYyY2k5TllxMjA2YmNBL1pQV0UyUFdRbDZsUzhQ?=
+ =?utf-8?B?ZjhrZUhxSGJ0ZVNCVzZHazRCeTNuQWZmTTc5YklMYUhmWVpWTnV4cG9jaVpj?=
+ =?utf-8?B?cy9rZCtUS09McU00cWhiYXEyR3VQNEVPSWpSWG4zU2pSN3NBRUpPQzUrWnor?=
+ =?utf-8?B?S2pmNmNZb0RrMFk5WG1JbjZkUGlpaFZhbFVNblBzUUJGd0F0RkdBUVFpdTRY?=
+ =?utf-8?B?WGhsdThUMlg3akgzRnMxU0xSRTRpQ2xSMG9aa0Y4VHg5eW00SlhKOWV4eC90?=
+ =?utf-8?B?WUcrOXZab0NOZk52b1BRZit4L0V5WUZ3QXZ4RzYwcyswaHNONzhRdlVQK25D?=
+ =?utf-8?B?MHd2bnNzeWh6UVZZajRBRk1KL3RJYWMyOEdkcVBJdFRidzBpRWVVU3ZLNWNz?=
+ =?utf-8?B?UFc0bjZvYTN6ZXc5Y0pXSlljU0hrSklNUTBIODVYUG1ET3FrUmM2dk1PaWJZ?=
+ =?utf-8?B?cURaVUsvdTFtdE5NdjBVMTVYTndKNHBPeVRqY3JlMmpaWXpCTXcwcXJIWWJo?=
+ =?utf-8?B?dWhEczNpcHZNRUlOeDF2L1poL0IyYmlQSjhybjFRUlJGdkVRb0xhWm9HTXlm?=
+ =?utf-8?B?RXQyUEorVkZLK3k2RjVuUVBDTzh2VWNkencreitZbGIyL1Fybk44U1dqVTFp?=
+ =?utf-8?B?MmJheDdqaGMzU2VpbFhLdWhRbnNpUzFIRDl1RkM5ZGwxYklyUlI5cEhPaHBh?=
+ =?utf-8?B?YnNhUElHeU01N09SVEI3ZjJXbk5TUm1sOW8rcTdaME0rR2R0dlB2NmVja3ox?=
+ =?utf-8?B?Q2FsNjcydU5iTFExRHF2VWNIN0EwR21DVG8ycXNIOUJjMmFNald3QT09?=
+X-Exchange-RoutingPolicyChecked: olijRAFXqnEBiiaiCD1SI+oa+PM6eQp7YRmuDIbw3LuTW2NNeJDcxsjbhReDjtROtB1CNVL6nub8lnE/S9LPcP/xXKMppJQCOAZ9nvCxBY5jh64LolKMyVGaba2mMaCNYySVh5k8vQQcTTgdOIcf87tmRPKBjhwcg6SiIn2XU+J6KFbTggIPHDL567rVn6m+pku1Cv7t5qtN9TEpY5BWjAPI6MitvWl5jpLJI7eRrFK7/Y2FClDeMse8cLaNwZhDVwtzap4+dnvoRsL9VrMHNGOnS76HWZyPX0kRx4C6q50qLeY8caEfhmR6l9QD+BiI1U0KAZVQIakOcJ/lcbySoQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d91a2c5e-6605-4398-f591-08df1ebf2cca
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:50:55.1446
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e64094cb-b639-4664-3dfa-08df1ebf082c
-X-MS-Exchange-CrossTenant-Id: 11a5c065-3ef5-41f0-92f9-a77cbf208c03
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=11a5c065-3ef5-41f0-92f9-a77cbf208c03;Ip=[13.74.137.176];Helo=[eu21-emailsignatures-cloud.codetwo.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7PEPF00000056.EURPRD83.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR02MB6491
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XkmUzEeOpLZYY6oauTNCSHzO8MQijDyN/xpwsdxnqLr+O+HYkKeGakNG2TYBlKvKjTY5F/fcbmylfv6e1dl9VO8n8e92uCzOy0tC8A1t59g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7557
+X-OriginatorOrg: intel.com
 
-Hi Hugo,
+On 9/29/2026 8:10 AM, Guixiong Wei wrote:
+> The fpstate embedded in struct fpu only accommodates the default
+> xfeatures. When a task first uses a dynamically enabled xfeature,
+> fpstate_realloc() installs a larger fpstate allocated with vzalloc().
+> 
+> fpu_flush_thread() resets fpu->fpstate to the embedded fpstate on exec()
+> without freeing the dynamically allocated one. Once the pointer is
+> overwritten, arch_release_task_struct() cannot free the allocation when
+> the task exits.
 
-Sorry about the signature. The mail configuration has been
-updated for your address and the reviewers CC'd on the patch.
+Thanks for the finding and fixing this. I see Dave has given good 
+suggestions. I think you can follow those into a revision.
 
-Could you confirm whether this reply reached you without it?
+...
 
-Thanks
-Paul
+> On an AMX-capable system, 1000 iterations of requesting XTILEDATA
+> permission, executing TILEZERO and calling execve() on the same image
+> left 1000 16 KiB allocations attributed to __xfd_enable_feature() in
+> /proc/vmallocinfo. None remained after this change.
+
+I would be interested in turning this into a selftest if possible. It 
+would be great if you could.
+
+Otherwise, I wrote a case (using XRSTOR instead) and then saw that 
+amount from fpstate_relloac() in vmallocinfo:
+
+   Caller/Module                            Difference
+   ---------------------------------------------------
+   fpstate_realloc.constprop.0 (pages=3)    +16384000
+   ...
+
+BTW, just curious if it happens with real-world applications. The 
+permission is revoked on exec(), that is a very edge of the TMUL use if 
+so. Is it a case running another application right after matrix 
+multiplications?
+
+Thanks,
+Chang
