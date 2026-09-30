@@ -1,169 +1,263 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8A2476681
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769383; cv=none; b=a3IuMD0PplYgjXHQfwGTYgnfUKd2e1P++TjH1i2/re1XT+aIaA+Y40On7AHUbh3GMicc3bNsgAw73X90qVIbDm3yqBJsEUMbP2eanIySx5CW5mic/ve5WjATRW3uQTXdUCvaKBMV3/WAIrJcr9QwdZJHyGwWYBFkNOZaAjcFdF8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769383; c=relaxed/simple;
-	bh=WUjzBXyNP2FBcQWN4nnGoAcIDOaDJLOVTRfV4ctliNQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fDdb4+vvMeVqb6fGV92p4YI36M3+38zUcjCUdwZk96ZsgLE8sAwHhaImzaLIzWTSFVWeidYGdvDZ1BUZ2gbzKEfEtqtfNb8AbP98qcqgf46vUBqzdLBiTxt9Wi5x4THb+c2L3AJjBN7dOIXneX1gHamXlLf+2YiMTpWSUhMOg/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QowI8aTV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fVvDJ96h; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DED4CCDD3
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790769401; cv=pass; b=Hyk5w2jacM2q2RM+GTCRtoW/yrBED8GWo06BS7s66ivLZXOyUh7hSR7/RrN6EpbmL89ZqRwl4ziiYQkPmYaxGg9BUDGmNsBmAOWWq4qtaer6OOs/V0ioThtAUmjCRJCF8KuZy1JY52vQE5ZBkVcU7O+ymgkuyo3X5q4fp0zFNh4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790769401; c=relaxed/simple;
+	bh=rv+dzbO6L5HwhMD3iGr/BBvwxIAcXGr9izjWAdufBwk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=doBfU+G6lckigKpOtosrUph6eponXcF4c4jTUIFqisjCuybZJCQP2BFscSflpauOp8KhCWN6gKQp4fTBlKVxFFGCu4120bWKuLgA83gzVlLTnr5HSfBws1lMMpD3i+Ni7JgPoYKk5CZ5qKZEqGdZtT7BnHtF6I7c/JtMiE3da/0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GoTATub7; arc=pass smtp.client-ip=74.125.229.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QowI8aTV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fVvDJ96h"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UB7bZQ3135733
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:56:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tLq83jBWXJ2WD+MHRxEd8SsRPqwrpOkDjgIpsc5DSJU=; b=QowI8aTVnk1aH9Og
-	OcIY0+Owo6cvjriOsy2g++O+ewuS3tT0qnNstt11aR+UuJErd8idc8G8H5PWBLvo
-	g9HrrH7K2K+Wpzo1oCws8kO7b1MzX9If9WV83wmqc3plGhN7X3fG1GFJhFxJMyId
-	mbOrF304uKSvoL0bzcc5yGDc0d/yQCVX8GxuoG97eAZc3SyOYwL6nSQvQDaUDlcQ
-	811kUcQssrEKJ1t9R7RVCS033z3GDX8NjSj7D6WeUY7DlKNbmjJj86MGvbMXhyRB
-	Y57rIfdEPicC964pEVN5re+dhbtK7GErubGCkDGCvFuNVjr5Il99zETb1yvdizgR
-	4INVlw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x27h6wp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:56:20 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90520763ceaso7852196d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:56:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GoTATub7"
+Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-14d7cc24630so23533c88.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:56:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790769398; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FyGFLd8oYrlf8AawwojAdESGbYkiteB4RLukBopwH5KkD4fnQqlLLfGRgirnsyLktU
+         tZuocmydpKg40Xa6Hn+raIH5d5Y8ydAoJ8K984PHxaG1L9+AlmNrJC+Tt1aLF4pVQp1x
+         X69kyVwDR/NN10uqB17jmgseKDo4C0WscdCrwthLxahbVSHlYTud35n125befJu9Sl5y
+         Q0CvzMrnMzEB5csXpRVwy+t2ka+Uqz1DaclIYJb0OF1b+YQrn9RPQMt6kO7iAl3JRY2x
+         3HRAFIZNTgRkQ+/oL5OwdQorfDYn3LGuPr4ojAQTRmXwiLTDnRjngw0M31wBObWYBwLi
+         TMUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yOi1xGJqgS9LzwvMIA8Rqod0f0w6LITZ2YMI6SsIEdk=;
+        fh=u5hhdwk6j2QwrIXDN8yPKFm8JooRvHUYy3M2+wxu2Ps=;
+        b=a3A1fUlKHIXgl7Be2syyVoPs7uCTmZDj6/NbuVxur0qNzRhZXv2OnPoKRgtQIpjkYE
+         HfRCXctqmR9T3o79CqQeHP8UDqZ59bxPIMXWx+TgWDf770w3fuHuder3GjDmGCb0v0+u
+         MNs7AueCATpXQtmRK8ImLSvMYTyBNDYmK4ta6aocBS6kAF1ZTU3EZu20MQiPu8UlAume
+         uyd75pUiaFRwfUc/hFUU7wg5T4RVE1cpmgkpaYSx0+ul8ANd+Gb99hT7Mc0+54DwPy0h
+         rpmnrkOJltXLRXuQobC7ihCsY0MoVqA4IQpajJ8mRdaZREkcezjY6ZpewJTPHIJyFbuu
+         aeng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790769379; x=1791374179; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tLq83jBWXJ2WD+MHRxEd8SsRPqwrpOkDjgIpsc5DSJU=;
-        b=fVvDJ96h0l7zlC3SfdwRsNDBF1dZZ+dZ7qs1n320Oo0lLq+das9ZtKpUsTMqlY/b8s
-         qIS8hX22+ieTyLJddM5QPaQuZf3d4Yso4vFlj3Ct2p6MlqdEW3ObM/Bo0Jc22UcGEXQM
-         quyPQ8yiGrOawQm8C67WARhKY9pcnRBu0Og1IQDetCZB1kAygseNXQLjfvnZXH/HI61e
-         9ot5yAA9zQ+CjgrY15LBd5VvZjFAl1dVvidkJeMBjR3yNtys3yHSL/60o1s0kGaNmSSI
-         DNjxzmUd+CwkrQC8HAqNuuyMjYECrLaBYk9XbMfUn7V8M1smco1iYVc4fv3jPC7QjffL
-         nn1w==
+        d=gmail.com; s=20251104; t=1790769398; x=1791374198; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yOi1xGJqgS9LzwvMIA8Rqod0f0w6LITZ2YMI6SsIEdk=;
+        b=GoTATub7KfzRD+oJxrsUE7XrIaAGmGWj6f6+2CEteteYcO+MJrOUVrynM5wFCTQ7Vy
+         bl2FlHiz7u2jZMiMjtXejRGM5Z6ROCcdixLrHJTmJZhzwPdcmtsS2nraItegsRfJhyE/
+         5+a+xGja3DPnGZKLP0zH2UnYFkmHkrjZsfc0SVYv90yQpmPEZNZwZSvW3WgnAqCj1pMn
+         I2Pd5QsKfgvTitUysQFM8G9N4ntdSsOx7+MhHHLheuF4+HT47rL6lFaSRZlsu+i8m7sm
+         UmdlI33/ZZeFuiBMea8RHJRHm+XHLbS/UV4SJhKnYUhESKltFQJapV+YXQBrVE1UdOO3
+         8mjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790769379; x=1791374179;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tLq83jBWXJ2WD+MHRxEd8SsRPqwrpOkDjgIpsc5DSJU=;
-        b=DOU4syqztdI5dKA1SOOrfPvMHnJa6bh5HR1DcjmjmAg4MzHtM5vU2UbsgaZtc/Xk1Y
-         Ue83BEz9+YN8bQk90LpV4CJE4bdot4S2oA0hEnCNBOVA1V7Ct9g8D/FWF1gFl6KidmPt
-         Quaj0UQHgpIe+Acwv006PrP/vlMwnmyt2DgfkJJ4Qk+4DcWpdX1WtRE4xr6vh1FQ+7gh
-         hBpf0W/NfpfnoivEvsAQJpzAdJBArsKvApkFA4BEfpqwYnYAfShe86RpRsiiwXgWU/Zt
-         Gwtttv3M7cO8lAIoiL22KrbdL2R/Ubd3LKKBGhoy7r2xfzVovYCwcBpjVManXI52goG9
-         cKfA==
-X-Forwarded-Encrypted: i=1; AKwUvBw23V+qdOUIS98IBeLlKYAdk/79Gees2S3ycw3ymiNOu+96rE0bbZ2rdZ6vvjOebbR0FNW1wbKSpLBFwFY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcBSpK8H9PitI29VqMsSUAAV85jTJz1vj+qY3yLV5/0BKeK9TR
-	PIf/FrfNdH7T/ghJRsS+SBs4Yb998YRO2i3seE3R8abD23AMKa0/8ojZZ3yNcZGNfVsCy/kvsAs
-	Ek8NvPTVRxlkrdDLHx6HeC0eWDsr1LmCrHaZZiiDrSvdlFFzUfjUh+RhT13TEmmaXkck=
-X-Gm-Gg: AYBFou1V2IKHKZSGD5VmmrD+GKHPTPd6HX8JlCoMHTaWpdLUBcpMrwajF900ABVOw8g
-	eA96YIdfH9IsyRYircknTGErlW6ultZTvmqpga9PT9LOtynv6CqhU/ReUvaea4c8tDUSWvB/hVZ
-	lIFCVsWM4SkUPixRJX+ymNpJU1B9eHj4BqT2fLUSJjQqVzvlq+HFrFvs5Wwp94RioVZ9yH9/PI0
-	EYb/FBVZ3wle15xZcqKR0BjgEJv6pegGM4VeFFLJcTL1vrjlkGMKB+m08nzhGOnYvzDyZL3eFVK
-	iG1NWYfxTbcQpnanFIVMw0wP9nFAXE4UP2K8QcoIYBxKXOMjdBJgS9GRIpVzXYQYZtKvc6dxyO6
-	t+5WgpkjtRx8nMSzcpk1WhQ==
-X-Received: by 2002:a05:620a:19a3:b0:93c:80d8:5802 with SMTP id af79cd13be357-93ca96ff8d2mr167965685a.4.1790769379393;
-        Wed, 30 Sep 2026 04:56:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:19a3:b0:93c:80d8:5802 with SMTP id af79cd13be357-93ca96ff8d2mr167961785a.4.1790769378891;
-        Wed, 30 Sep 2026 04:56:18 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae158989f1sm675333a12.34.2026.09.30.04.56.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 04:56:18 -0700 (PDT)
-Message-ID: <3217e1a7-f463-4e7b-b213-91e59100dad7@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 13:56:15 +0200
+        d=1e100.net; s=20260707; t=1790769398; x=1791374198;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yOi1xGJqgS9LzwvMIA8Rqod0f0w6LITZ2YMI6SsIEdk=;
+        b=y7F5Z9k4Udh7oS6s9Gwj8aDQnBWBf+kmmSspSPIBkBAC6MhYbcEmGfK5/pejmygbFJ
+         jC5s10HwMLmdcOYtrqkZiplVk4XPUFZURvb6F0uee1Edpj5Trm86yIXTY3Vz+Pz/BJpl
+         +hIbtDmSSZQPKW6NtSLP8zf1cjyy+NDrkXvmQknfdynD/DFwIv7V0bCeff7aMD+eHX8u
+         nWMeIYYnnP3OsxUoiDAA4+nTdTd/r5Cc5DsuWEtYlpaPdWkK8KLQnwHeuQQnjJ3YVoFd
+         agC7Vv/gpEojs1Utw5jDz5ZloqMv9FRzYF6DUjZSAW2Y30znsrLHZhcAF3EfEkUO1AFf
+         Jwgg==
+X-Forwarded-Encrypted: i=1; AKwUvByGZhiCG/wLbAeEi4tGxHuwES+AVQclEvEWJn3xmAN0rjfQYAflZLdHiVZuW3J7IFhWwJr+dRTT0GZeREo=@vger.kernel.org
+X-Gm-Message-State: AFuF++ly/9ud9Ms59olSDmQgLfy6DyazCluQh810Zm3z1fsnL8LQBrs/
+	W8hFCsTLmV4fbyqfZqeqS04QXyC5EixxVnSDGNsb3T4dKY/suWttAsM7C1LjYCfxQgtn95LOa3b
+	lGngFcVVxhAlEMyQPSUIVP+7Gt2BBH68=
+X-Gm-Gg: AYBFou0VwuvtJiMOWbcUsYl0y/0hFnhEUNdGfkKloRO1h+RlMH2xcq878cfn2O1xU3C
+	0qEvbdJ8TnIpwOHkwV6HDYY+aYV4cwsjuXkw+/glU8CYy6hEndWzzBopdK53Z0lWKekuuQFVGr9
+	eLJK5wumhaIbBWmoIbavnPJaB47JCcgesxl2WbiOoCsifSGBbqyMIwEPH1gt4NC5WXOQTbIpLFW
+	2EM8pojcFjDBcM6GRNAq3iuaqHQFMTc1XHaH9XeOqdv1HawCX9qI6WCOukFKUZpVlD1umEvh4aM
+	KWWcKNmw4u6tDyhw6ElULRRD70yMTTTGF/2rFCpGYsbDq8PROyU2NMCUX4h+xDdh+zpjrnjGkE+
+	Q7oIc/mJFygke
+X-Received: by 2002:a05:701b:2611:b0:144:d792:8be5 with SMTP id
+ a92af1059eb24-14d33680cc3mr1029225c88.42.1790769397896; Wed, 30 Sep 2026
+ 04:56:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] clk: qcom: Add lpass clock controller driver for
- Glymur
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260925084635.112399-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260925084635.112399-5-srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260925084635.112399-5-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NyBTYWx0ZWRfX43jXsnqeFivk
- XZls/Qq1mVzkSX8hLNyAiVE5IOAsID4/2Qupw9KMTBFONLzywTJzTgCT+WAL28h3E9Odc62uZIY
- FxXHlLC9OQa4YzYZPZmRsfZ6q06RRQA=
-X-Proofpoint-GUID: SgBnty9FwuvXZkYrETRuDx3R-8RgIsck
-X-Authority-Analysis: v=2.4 cv=W9GtxhWk c=1 sm=1 tr=0 ts=6abcf8e4 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=H9QmddT51QaNM9ltfMQA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NyBTYWx0ZWRfX1ODDfEfAv+cW
- dLtpP0RlMEsvqLC2PgTm7Y+esj2/SBJIxlXirVmoMlTu7EwXAs4xQ1jk4rzHeEtxQ36HXOhKvN9
- RzsmA/UggdEUL9UxGgKrXGh2Vh9OM8KrQCGoe2aV74aS6F4H1BQRtlm49gvGQjU55tUDsE2QqSo
- 4gYSK5C0nHJ1UvLGwaYylrLUzXRfShLad3myMPakb9ruUCFq+IfGcxgYb7hUwMg4iA3swE7BK0L
- 4d9KKZjHJU4zm8kCFTsvZt8GEcjJN1OMkSRWpOw7NA02rVxtrkGn7qZQCkELSpTBTk91lClC5Kb
- bmxqO+vyJrWryslT1jecl4pncL3klccwRyXTxYpCvJtW9IR984GlLzMUqMVfALqCE9wuZ3Ii6zD
- sN1kz9NCAEheuoJnjALzhtgw8Q34c2APY90avmqUfcMSNZzlnC6S+32bhXr9y2dAckUxqfc4TRo
- KrcDfMDfQg6mXVT9g3g==
-X-Proofpoint-ORIG-GUID: SgBnty9FwuvXZkYrETRuDx3R-8RgIsck
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300047
+References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-4-clamor95@gmail.com>
+ <UJZ22UtaS1GSRPlyAst1og@nvidia.com> <CAPVz0n2F8LBqFs2bJERmgvdNYgtt1OEVtK3++CP9y0gxW7gCGA@mail.gmail.com>
+ <arzn-TNbOlqXqQgd@orome> <CAPVz0n33c_uwfhsSguEfFfJ3FV=26SPtNTEpHes9f5RjnPDA_w@mail.gmail.com>
+ <arz1wzEI_7e7ruKi@orome>
+In-Reply-To: <arz1wzEI_7e7ruKi@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 30 Sep 2026 14:56:26 +0300
+X-Gm-Features: AclHuK-jagRAWDSvA026O_Jnox8tuvSOQdVM_QI0nIj8TPkLU1ik19zpdv3Pldc
+Message-ID: <CAPVz0n12oiuc=5wjeNCuNtJpe-M7Ys=rHn0TOExc0qkweVQnuA@mail.gmail.com>
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/25/26 10:46 AM, Srinivas Kandagatla wrote:
-> Add support for the lpass clock controller found on Glymur based devices.
-> This would allow lpass peripheral loader drivers to control the clocks and
-> bring the subsystems out of reset.
-> 
-> Currently this patch only supports resets as the Q6DSP is in control of
-> LPASS IP which manages most of the clocks via Q6PRM service on GPR rpmsg
-> channel.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  drivers/clk/qcom/lpasscc-glymur.c | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/drivers/clk/qcom/lpasscc-glymur.c b/drivers/clk/qcom/lpasscc-glymur.c
-> index 356625dce99e..eda13686850c 100644
-> --- a/drivers/clk/qcom/lpasscc-glymur.c
-> +++ b/drivers/clk/qcom/lpasscc-glymur.c
-> @@ -37,10 +37,31 @@ static const struct qcom_cc_desc lpass_audiocc_glymur_reset_desc = {
->  	.num_resets = ARRAY_SIZE(lpass_audiocc_glymur_resets),
->  };
->  
-> +static const struct qcom_reset_map lpasscc_glymur_resets[] = {
-> +	[LPASS_AUDIO_SWR_TX_CGCR] = { 0xa028, 1 },
+=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 14:46 Thie=
+rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Sep 30, 2026 at 01:56:40PM +0300, Svyatoslav Ryhel wrote:
+> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:50 =
+Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Wed, Sep 30, 2026 at 12:52:18PM +0300, Svyatoslav Ryhel wrote:
+> > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12=
+:19 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > >
+> > > > > On Wednesday, September 30, 2026 4:05=E2=80=AFPM Svyatoslav Ryhel=
+ wrote:
+> > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided =
+by
+> > > > > > Tegra20/30 SoCs display controller.
+> > > > > >
+> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > ---
+> > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++=
+++++++++
+> > > > > >  1 file changed, 138 insertions(+)
+> > > > > >  create mode 100644 Documentation/devicetree/bindings/display/t=
+egra/nvidia,tegra-8bit-cpu.yaml
+> > > > > >
+> > > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nv=
+idia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/=
+nvidia,tegra-8bit-cpu.yaml
+> > > > > > new file mode 100644
+> > > > > > index 0000000000000..f0dab608b2936
+> > > > > > --- /dev/null
+> > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,te=
+gra-8bit-cpu.yaml
+> > > > > > @@ -0,0 +1,138 @@
+> > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > +%YAML 1.2
+> > > > > > +---
+> > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-=
+8bit-cpu.yaml#
+> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > +
+> > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > > > > +
+> > > > > > +maintainers:
+> > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > +
+> > > > > > +description: The display controller in Tegra20/30 SoCs feature=
+s an
+> > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI Type=
+ B
+> > > > > > +  protocol and is referred to as '8-bit CPU'. Each display con=
+troller
+> > > > > > +  provides two such interfaces, which can be used to send MIPI=
+ DCS
+> > > > > > +  commands to initialize and control the panel while image dat=
+a is
+> > > > > > +  transmitted via 16/18/24-line RGB.
+> > > > > > +
+> > > > > > +properties:
+> > > > > > +  compatible:
+> > > > > > +    const: nvidia,tegra-8bit-cpu
+> > > > > > +
+> > > > > > +  dc-gpios:
+> > > > > > +    description: Data/command selection pin.
+> > > > > > +    maxItems: 1
+> > > > > > +
+> > > > > > +  rw-gpios:
+> > > > > > +    description: Read/write pin.
+> > > > > > +    maxItems: 1
+> > > > > > +
+> > > > > > +  cs-gpios:
+> > > > > > +    description: Chip select pin.
+> > > > > > +    maxItems: 1
+> > > > > > +
+> > > > > > +  data-gpios:
+> > > > > > +    description: Specifies a set of 8 gpio pins used to transf=
+er data.
+> > > > > > +    minItems: 8
+> > > > > > +    maxItems: 8
+> > > > >
+> > > > > Based on my admittedly brief research, according to the TRM the d=
+isplay
+> > > > > controller can drive all of these pins - of which there are two f=
+ixed
+> > > > > sets as you mention - directly. So we'd need to describe which in=
+terface
+> > > > > the display is connected to in DT, but not any GPIOs (which they =
+really
+> > > > > aren't).
+> > > > >
+> > > >
+> > > > I am perfectly fine to not expose any gpios in the binding, if this=
+ is
+> > > > preferred. Only question, which method of interface checking would =
+be
+> > > > preferred. I assume if primary then nothing, if secondary - boolean
+> > > > prop "nvidia,secondary"? Feel free to share your vision.
+> > >
+> > > The driver currently uses the GPIOs to program DBI commands, so I
+> > > suspect we do need some way of controlling those pins. Or is there a =
+way
+> > > to have the display controller program the pins and send commands? Th=
+at
+> > > would be much preferred because it would more accurately reflect the =
+HW
+> > > design and possibly also simplify the driver because it doesn't need =
+to
+> > > parse the GPIOs and then also not use the GPIO API to set the values.
+> > >
+> >
+> > From what I know, GPIOs must be used and freed after use. Sets of
+> > GPIOs are defined and remain fixed for primary and secondary
+> > interface.
+>
+> So you're saying that we need the GPIO handling in the RGB/DBI driver to
+> prevent anyone else from using these GPIOs and potentially messing with
+> the DBI communication?
+>
 
-GPT says this register doesn't exist
+No, gpios are used for dbi communcation while their sfio versions are
+used to transfer RGB data. So there is no risk in external
+intereference.
 
-Konrad
+> It feels like there should be a better mechanism for that than requiring
+> the DC driver to request all the GPIOs. Maybe these should be excluded
+> from the range of valid GPIOs?
+>
+
+NO! These gpios can be used for random purposes on devices with non-RGB set=
+ups.
+
+> We can make sure that device tree isn't going to use these on a given
+> platform, but there's still the risk of users grabbing them via sysfs or
+> the chardev API.
+>
+
+Well, defining them in the schema as it is now and adding a note that
+gpios specified in the binding cannot be re-used/shared may be a
+solution. But overall it is impossible to reuse gpios dedicated for
+dbi by hw design. They cannot be shared or used for other purposes if
+dbi is used.
+
+> > > As for selecting the interface to use, it could probably be just a
+> > > simple, single-cell value with two valid values. That's a bit clearer
+> > > than a boolean, because with a boolean you need to explicitly documen=
+t
+> > > what happens when it is absent.
+> > >
+> >
+> > I can describe boolean too, but if you want set it like "nvidia,head".
+> > Fine by me.
+>
+> Yeah, I'd prefer it to be explicit which mode of operation is selected.
+>
+> Thierry
