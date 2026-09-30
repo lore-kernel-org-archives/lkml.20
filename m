@@ -1,210 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011068.outbound.protection.outlook.com [52.101.62.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1E750B8A1
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:03:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798622; cv=none; b=uyqyTSath7PuooisomXABF9LH9FJB6gS2sslYgJ1RXzXtNkwesHMCk6pglUC9FIqjTiw/bECASg8ePg6vbWFk7EahZIZ0eAymXsOnqBbMTwuDeR2AAliYvKgbfPBmca1rZb/ih2OrMHdw3Fk+2kRhsAzD8YHz/hcURS+BPKfOME=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798622; c=relaxed/simple;
-	bh=eNs7J7QVZeMz7CRY7JBc/41cENuy7PTlFY65xb5RJPE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Czm1ktTMcKNGvij82KW2qVsBV/QV6o/m/GTrvH5ZX+o9oHLatIkihLd/lSeYeidEd8lrLqpjwP0nB36M52d4l+pJX3sySyzMeCbhO2PV1S6spuhxGhQ39QNn9VWRF9lOZqdMIGUnov14Fuy0mBvETmmqoc4MEiO2p+KzAfm5swk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ccB2M2y6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6264446EB;
+	Wed, 30 Sep 2026 20:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790798661; cv=fail; b=U7rFlMu/DGfHWK3oT6Hs7i02v++KSztGgZGBou9aQpmCZ/R0I9i251g+kMzM06+1b+PoLIH1D66EoNChlB+kC6mWv9OiuoanPtCQ/opxMS1fo5LODNRwmr0EtY6HeN65wjdsKPvdKj+0f9ucV2+RHuk+OpMibWaTj+ZL8IelgH8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790798661; c=relaxed/simple;
+	bh=au00MrzB3sVmI1X76JcUpaOUucgKqZhrT4OgPHJku8U=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jDqXuE2WKyM/HnWcrwXeU59eb5KbjPpCQ1Q4GUjTVNwKrxakG+EAAieGdEiEwwn6NsU001wxLrOFw49mVYeRS3mbmgwr+wbCjXrnyTHcEr6xX9ntIOjNsYExWM9ka92J7SVytA8cntVrNABZsxLv7RfsNYmik4DGsFk9cl+Z2Y4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GfhqWhI0; arc=fail smtp.client-ip=52.101.62.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ccB2M2y6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CACA1F00A00
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:03:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790798620;
-	bh=OapGlJY1wYDmw+Y0TtKR8EKrOr0XHXHejx9VYzSAsew=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ccB2M2y6VD9vQ0mxCk5bKfAYhKS2Od/YOO6eFlH+k4qkCYjrlgMPQbWPFIUjm0o2A
-	 O/XYaDudEzEwgqxousKfpjwxOUiJP44WQ8e77xw2YSaczeEsXnt3fdpWcKWrGa3qIe
-	 GqsA223hjSMjmeFHSSfPgZ1bLE/t2e+kVvk3Q8S2J+UE5dywQ5XWKlzPzzsGAPCyL2
-	 I3ZJU9jY1wEKKENs6OCHLSEySWTIa5XaEH0au3kdmiNSQVoCB7lSngi4gZ42nA8WGm
-	 u8Yg2DPYtQ9FfLcDBjDIgJFglCUe0ALMfmCUi5FYgqyqLLadqovRmEnkoNmlZPdDHp
-	 Ucp46HQ78exAw==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a776fd3b88so8002791fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:03:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy8hsaUiWid6fS0yAGM9mtH5aj2hqkjjGu/5ACm5nAg9tWjrh9KZ9RHPagQsXoOEBAr8mtJ+Gg+vaZKBzc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcULW5WMQ7mzevxZQzz72AfmHuH1bwRX0+bz643kUYGeLi0mgy
-	s73LFUw7CRWNvSrt6gCAAWu/AyN5JcQ3Ek/tYnDNLAJ1o98tT/mM4koTIPCETxxTZZKiig6ri43
-	A4m9ugnu8sQWmoIC6vHJPlWsejOqH0vY=
-X-Received: by 2002:a05:651c:4182:b0:3a3:7681:6d66 with SMTP id
- 38308e7fff4ca-3a779269585mr6413091fa.15.1790798618340; Wed, 30 Sep 2026
- 13:03:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GfhqWhI0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k/BwawnNeNMEgEggYT/Cx2J2N3mRCoGbr9AP6nVPUC3bLckBsTaWzUE2hnBiE79izV/asb5yLW7k1zC7hYVBOsQ1ncdcA9ZDmltr5znwh0oQQg/jrABQcCjojAC96tw0X2G/2B802t4yBIJC28MLnooyr3ndpeFvXamndxm/FJl6s/V6gJcXp09EyDFcWHerSEB4Fh+hkb2WK+oJk1OiiBe4UP9LhMD3XGxYLmggQ0VQ7G1Nn/NvOyPfWWIVz0Rd9Gu1cu0DJL0FKafTJ5DC1dclO6bv6/M0qpNtbRgs8uzJGNAspbMUVIdYGGp9Ag2Lwv0p8GQTOigOhObOTI1hbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x1fXreIrfN8siXyfkpyX4T38TTZRf8uBsvEgxKyiuEk=;
+ b=dVfBKGdz07pX0p2jyQ1o9WJ4i+f3kKtzePVm9ip02iJyeJ+oBoWwCL8AEY+pO66GmF3WDsiVsvn4Z0HHnfyELsPlbMpImCagSfudzYDIwtCL00q1Jmqx01yopwCiUnWzHT0hy5q0nPFPYg8jSnp+SMXCxUz5NllXDMJODsT9jn26aBezMOLKhaNmIJtlJKr9MO2objtCWt1+ONG1PNSVWVQDkBPUk4D8yDbSO8cP3kp+JRX9fuiQu92PVBP3XwyTuKBJtODMHLRMHyva/qWAW/KtH/H3Jo5V2VXzdkapK4CKN6xB1gDC+d0PRcaii7CtwFOjU8efYjJ64QIrTybJrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x1fXreIrfN8siXyfkpyX4T38TTZRf8uBsvEgxKyiuEk=;
+ b=GfhqWhI0HIJ9iqS0a4lOSOn6tL2tiFQkULlMJBsEgbD3H/5J3tVa8kb1UAADxsoWeCBsKuyArGIAl6bZD9nOKnmlZoWmHkNebS57sPshjX+U2AmnghnO9OEY7+QFEFl/wJMnHx47PiSTMZYZIEJqkDan/iz9w3AGM0TlQXkbINvncVpsOIAyxmtt4wDyF8loZeL4Xy1n4JD46qMWp4ijuczyH7i3Ajzcd1glDRtuPht4Ce96D5a7D50XkdX4jKwuX2XxBDG467Zt8mYrzlZj5V8bTiLK181zS3mJfOkGNie5GR1yG6OM4699Pa0YnM0nQOPeKIr++isx1SJ4B5QzMQ==
+Received: from MN0PR02CA0026.namprd02.prod.outlook.com (2603:10b6:208:530::7)
+ by SA1PR12MB9515.namprd12.prod.outlook.com (2603:10b6:806:45a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 20:04:02 +0000
+Received: from BN3PEPF00022BCC.namprd03.prod.outlook.com
+ (2603:10b6:208:530:cafe::62) by MN0PR02CA0026.outlook.office365.com
+ (2603:10b6:208:530::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 20:04:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN3PEPF00022BCC.mail.protection.outlook.com (10.167.248.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 20:04:00 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 13:03:27 -0700
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 13:03:27 -0700
+Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.129.68.8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 30 Sep 2026 13:03:25 -0700
+Date: Wed, 30 Sep 2026 13:03:23 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Pranjal Shrivastava <praan@google.com>
+CC: <iommu@lists.linux.dev>, Will Deacon <will@kernel.org>, Joerg Roedel
+	<joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe
+	<jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Daniel Mentz
+	<danielmentz@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
+	<linux-arm-kernel@lists.infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>, Bjorn Helgaas <bhelgaas@google.com>,
+	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, <rafael@kernel.org>, "Danilo
+ Krummrich" <dakr@kernel.org>, <driver-core@lists.linux.dev>
+Subject: Re: [PATCH v11 12/16] iommu/tegra241-cmdqv: Add a helper to quiesce
+ VCMDQs
+Message-ID: <ar1rCw5k+tvlsJXV@nvidia.com>
+References: <20260929034510.2023173-1-praan@google.com>
+ <20260929034510.2023173-13-praan@google.com>
+ <ar1cxFvuzIc2dpmi@nvidia.com>
+ <ar1pmNRMKDDJCIkz@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805070900.3390978-1-matthias.goergens@gmail.com> <20260926052117.3613637-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260926052117.3613637-1-matthias.goergens@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 30 Sep 2026 22:01:52 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hzrTjgrteh6JwuiaJdXLXbHpKbD7Qdz=5TinZ934vmKg@mail.gmail.com>
-X-Gm-Features: AclHuK9cxMLeqKTvasUuTJx35wURz83sx4X-kdaW8aAo_1NHUJMN1pBDUOQ5Uzk
-Message-ID: <CAJZ5v0hzrTjgrteh6JwuiaJdXLXbHpKbD7Qdz=5TinZ934vmKg@mail.gmail.com>
-Subject: Re: [PATCH v2] x86/hibernate: Ignore page-zero RAM in E820 checksum
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, pavel@kernel.org, 
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, 
-	x86@kernel.org, hpa@zytor.com, yu.c.chen@intel.com, jlee@suse.com, 
-	baoquan.he@linux.dev, dyoung@redhat.com, io@r-ricci.it, scardracs@disroot.org, 
-	moravec@ukf.sk, kexec@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <ar1pmNRMKDDJCIkz@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCC:EE_|SA1PR12MB9515:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4aa70a6c-6335-4843-fbde-08df1f2df82a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|7416014|23010399003|1800799024|10067099003|4143699003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	vubHjt2ZMqn28fguWpHff8RscAsg4RxGrFmUt/7PQCs9HKtoY2kUgQnlt/znp8R+Yruv2iAQ8v5PIXKBmFGqMvnIYnJVbU1ndBSNB9JiVFahKCNp0ckG/Cc+wobnCNVrmV4N6BnfKZ5JIwdN8IxIbOZOUJ4SmBt37RoaXgZKETeo0T6JSWeQ3c40cTzG+BLwK4tteiOEFw3+o6xIxGmjvrzsSyzQWMaDnXlxg9V5MzjEFWwSkt8ALtdrRnEJLYuJJrBK78zvndxk8nzdHEOQJa85iaSF71Gww7OzgXjJhf2ZVQGuySv8yuQcLC0KQ9BU1DhrVE0WRxdOnL/fVlnVB/a1K0y2mDU3FeQXYYDTYEXZmI9oZy3IdqH4HDShs/9rSBCV1/Ul8vMHjKeapGn77ivUXYtXeAdC/TxYmidkRzBr1xEV52m3tKwzwmtIzPV0XWWsy5sBa+iwNU4jWkjJp69hZAoA298ZiH1lojHE0ce6JOuPZhHM26rJiSW1PAxH7BE/QGEa83w00vrBgCv9mqLugFCXRlxrpxuZGJeTY8slynwbTPaG4RLpNzjzUvClmYygbM2DzOsTBXdjoA4LLw4cmZOwakXC0EzjovL8DGo+yVO9LDc/IUcYc6qsm6rdJHKp1HmPrLCrDTyvJs1XSxpQS6a1NDi2IlTEgvmj/Jt8k/sh+3qXFKpogR8c655jwLIOF4Q3geOEhiV0+YxA6g==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(7416014)(23010399003)(1800799024)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TBXQaHaBS/RnquBLYm/Sb9Lvj5DYwBpR4k1nVHr8OdF6EQorX/Swd/8n7EH4ngo6BdgtXIho3v+KQ8ofoYKq0pbwxJ+jRCgMssLhdbA6vpVnEi01xQ0TJ9gr03uLK+bGO810o8G66ofPWFLc+lc6TCryJVF27yO5SyFBQJ4LSFz2Uc//mTr2r6kNd2RwYL+2CA0pEFEHXQrYS4ShME7MRQ5x6Bt9IYHNoz03r552SHqP7CKvoSLQyi+xQxeHlVxVumKV+5CMyx3fLlZwnCm/23iij1/5EuqeScC8Ml+P0ektVAMpdZeUSCWxUsj7SXV15dFX+O4idi3qkX1R2A9OK0zq2FqsIHO/VP2ygRPZPiNky8q3nTpdotCH+LR7P6pO+hmA16d6R/MIrh1oqjp2gAtcsePo02ZHKTBDmNZgpdWEsftnQzOxiDhrFwxtbDYw
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:04:00.5393
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4aa70a6c-6335-4843-fbde-08df1f2df82a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BCC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9515
 
-On Sat, Sep 26, 2026 at 7:21=E2=80=AFAM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> The legacy kexec_load path reconstructs the E820 map exported through
-> sysfs.  kexec-tools leaves the first 1 KiB unavailable for the real-mode
-> transition, so a kernel entered through kexec_load can see conventional
-> RAM starting at 0x400.  A subsequent firmware boot reports the same RAM
-> range starting at zero.
->
-> The hibernation E820 checksum compares those byte representations and
-> rejects the image, even though the maps agree from page one onwards.
-> A QEMU guest showed this transition:
->
->   firmware:     RAM [0-0x9fbff]
->   kexec_load:   gap [0-0x3ff], RAM [0x400-0x9fbff]
->   firmware:     RAM [0-0x9fbff]
->
-> The checksum covers e820_table_firmware, which trim_bios_range() leaves
-> alone.  The nosave regions come from e820_table instead, where
-> trim_bios_range() has already turned conventional RAM in page zero into
-> reserved memory, so page zero never occurs in the image, whatever the
-> firmware map says about it.
->
-> Canonicalise only the conventional-RAM portion below PAGE_SIZE before
-> calculating the checksum.  Preserve RESERVED, ACPI, NVS, UNUSABLE, PMEM
-> and all other E820 types so that changes to exceptional mappings remain
-> detectable.
->
-> This is deliberately narrower than Marco Scardovi's June proposal to
-> checksum only RAM and its opt-in relaxed_memmap successor.  Rafael
-> noted that ignoring non-RAM changes could hide moved ACPI or UEFI
-> regions still used by the resumed kernel.  This patch preserves every
-> non-RAM entry and ignores only RAM within page zero, which common setup
-> already reserves and excludes from the image.
->
-> Bump RESTORE_MAGIC, since the checksum semantics change, so that an
-> image written by a kernel without this change is refused by the magic
-> check instead of being compared under different rules.
->
-> In the same guest, with the page-zero difference kept, hibernation and
-> resume now work after both a direct boot and a kexec_load boot.  An
-> image written by an unpatched kernel is refused at resume with
-> "Unrecognized hibernate image header format!", and the firmware-booted
-> kernel carries on.
->
-> Fixes: 62a03defeabd ("PM / hibernate: Verify the consistent of e820 memor=
-y map by md5 digest")
-> Reported-by: Roberto Ricci <io@r-ricci.it>
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> Link: https://lore.kernel.org/all/Z-hYWc9LtBU1Yhtg@desktop0a/
-> Link: https://lists.openwall.net/linux-kernel/2025/04/04/1372
-> Link: https://lore.kernel.org/all/CAJZ5v0jmOj0WBtMTvbnaD+2b0bTFowA=3DJWrq=
-RzaaCYpHpai1Nw@mail.gmail.com/
-> Link: https://lore.kernel.org/all/20260623165724.10753-1-scardracs@disroo=
-t.org/
-> ---
-> Changes in v2:
-> - Bump RESTORE_MAGIC, as Rafael asked:
->   https://lore.kernel.org/all/CAJZ5v0izV3g1mSKJtKMcc=3DTfeUjJofSXCX92y4XX=
-55Lam28qOg@mail.gmail.com/
-> - Say which E820 table the checksum covers and why page zero still
->   cannot be in the image; drop the paragraph on cross-version images,
->   which the magic now covers, and report that such an image is refused.
-> - Rebased on 6812ce4e4379 ("Merge tag 'drm-fixes-2026-09-26' of
->   https://gitlab.freedesktop.org/drm/kernel").
->
->  arch/x86/power/hibernate.c | 51 +++++++++++++++++++++++++++++++++-----
->  1 file changed, 45 insertions(+), 6 deletions(-)
->
-> diff --git a/arch/x86/power/hibernate.c b/arch/x86/power/hibernate.c
-> index a2294c1649f6..dbb340fb24ad 100644
-> --- a/arch/x86/power/hibernate.c
-> +++ b/arch/x86/power/hibernate.c
-> @@ -63,6 +63,25 @@ struct restore_data_record {
->         unsigned long e820_checksum;
->  };
->
-> +static bool trim_e820_page_zero_ram(struct e820_entry *entry)
-> +{
-> +       u64 lowmem_size;
-> +
-> +       /*
-> +        * Page zero is BIOS-owned and registered as nosave.  Boot loader=
-s may
-> +        * therefore omit part of its conventional RAM entry without chan=
-ging
-> +        * any memory available to the image.  Preserve all other E820 ty=
-pes.
-> +        */
-> +       if (entry->type !=3D E820_TYPE_RAM || entry->addr >=3D PAGE_SIZE)
-> +               return true;
-> +
-> +       lowmem_size =3D min_t(u64, entry->size, PAGE_SIZE - entry->addr);
-> +       entry->addr +=3D lowmem_size;
-> +       entry->size -=3D lowmem_size;
-> +
-> +       return entry->size;
-> +}
-> +
->  /**
->   * compute_e820_crc32 - calculate crc32 of a given e820 table
->   *
-> @@ -70,18 +89,38 @@ struct restore_data_record {
->   *
->   * Return: the resulting checksum
->   */
-> -static inline u32 compute_e820_crc32(struct e820_table *table)
-> +static u32 compute_e820_crc32(struct e820_table *table)
->  {
-> -       int size =3D offsetof(struct e820_table, entries) +
-> -               sizeof(struct e820_entry) * table->nr_entries;
-> +       struct e820_entry entry;
-> +       u32 crc =3D ~0;
-> +       u32 nr_entries =3D 0;
-> +       u32 i;
-> +
-> +       for (i =3D 0; i < table->nr_entries; i++) {
-> +               entry =3D table->entries[i];
-> +               if (trim_e820_page_zero_ram(&entry))
-> +                       nr_entries++;
-> +       }
-> +
-> +       crc =3D crc32_le(crc, (unsigned char const *)&nr_entries,
-> +                      sizeof(nr_entries));
-> +
-> +       for (i =3D 0; i < table->nr_entries; i++) {
-> +               entry =3D table->entries[i];
-> +               if (!trim_e820_page_zero_ram(&entry))
-> +                       continue;
-> +
-> +               crc =3D crc32_le(crc, (unsigned char const *)&entry,
-> +                              sizeof(entry));
-> +       }
->
-> -       return ~crc32_le(~0, (unsigned char const *)table, size);
-> +       return ~crc;
->  }
->
->  #ifdef CONFIG_X86_64
-> -#define RESTORE_MAGIC  0x23456789ABCDEF02UL
-> +#define RESTORE_MAGIC  0x23456789ABCDEF03UL
->  #else
-> -#define RESTORE_MAGIC  0x12345679UL
-> +#define RESTORE_MAGIC  0x1234567AUL
->  #endif
->
->  /**
->
+On Wed, Sep 30, 2026 at 07:57:12PM +0000, Pranjal Shrivastava wrote:
+> I'm planning to add an impl->suspend op now.. that will cover this, and
+> also the late breaking IRQ changes you're referring to in the other
+> thread. Roughly:
+>  - set STOP_FLAG on all lvcmdqs
+>  - wait for owners & drain all lvcmdqs
+>  - handle any pending CMDQV errors
+>  - tegra241_vintf_hw_deinit(vintf0)
+> 
+> I'll call it from arm_smmu_runtime_suspend() before gating the main
+> CMDQ, so the CMD_SYNC in tegra241_vcmdq_hw_flush_timeout() still goes
+> through and any late cmd simply falls back to smmu->cmdq.
 
-Applied as 7.4 material, thanks!
+That sounds good to me.
+
+Nicolin
