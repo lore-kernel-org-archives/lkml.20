@@ -1,213 +1,262 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023125.outbound.protection.outlook.com [40.107.162.125])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010042.outbound.protection.outlook.com [52.101.56.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737E246D2DC;
-	Wed, 30 Sep 2026 08:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E06E3F9A13;
+	Wed, 30 Sep 2026 08:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757323; cv=fail; b=MLv7n/LRucNWk4L0cBuDeKoaDJQEmsUOCimXAAMIUQQ8SixrSLdFBKSYIEtrp5S7v/fsI+Kfq7YpI/kaEeKq3JDGWnU35MJ0gsE9zFwRYcYTG9qAJuUcHV1zxIJ5zfBJpKWd2vhHFtrka9VL7eVh1MI3Kdavpm0j9Db1KzuvDSk=
+	t=1790757325; cv=fail; b=a9/yBPe4o505DVwOPuZ21Cu4t0NOikc+AcV/yFg6Yj/lz2LoPlShTr4E9Nat/3INDbHiM4zUEfGtqEFOS2ZdF3XjHSMSI4Y2c+3RmHfrOow8XemStVp/JRAFPJE/Ek5Xn+VjHWKmoKX6C2K71ODClwsSOLBFNqjrDvdakcLDFqY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757323; c=relaxed/simple;
-	bh=XpBRyLvnem3iuC43+JyqxPnF2A6CPqRNOsAjERTOu1c=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=sfh4qLg/p/RBMKEqaTabncQvyPI+npY8bs+fxJVChuzZOtkBz3ZJ0gfXgI3G9QXdk75j+pEnrk7xHU9loczR0aCptBgk15mRqYIrML0fYcgPdT3dBxtV4eiA3SSV0SWUEjgqNIXjW5JtqCSk0h5wXVtD7DVghkei4QpVv3c+RKg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it; spf=pass smtp.mailfrom=studio.unibo.it; dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b=uHlo52SE; arc=fail smtp.client-ip=40.107.162.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=studio.unibo.it
+	s=arc-20240116; t=1790757325; c=relaxed/simple;
+	bh=tFDAfiLj6ZvUJ6EBTMoFgDtstpJX44EfQDFfN3aF/Ko=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=tgDUgPufxaAsikrGrjDtL8pxoacmF5usaYQ280lnBpc/O34S+xO6FvTqtPxNbGog7YKl5VEHEtjvO7WbQvDQFbbyYdtZAvRkv013GMI3i+hTbUM/WKINjDbFWnwxvOYKQX4j3DqCkxkQvQHLg965lOvwpOhcMKTO0Pb4mZ9nGpc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ngRyevEm; arc=fail smtp.client-ip=52.101.56.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b="uHlo52SE"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ngRyevEm"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gJYOjmhWe5O555w5aaRfF8CDXTsImcppEQgA/mN9fHTcvvvlG0aZBTl7W1IwbSFNCupVL+yK8YxzeUf5fqfG8zUWrDtOVxueB8HrVNIASPXn/CfVaebMGes89qzeXnsHL173H5xhwPrGiwHGOMPyFxeZulVWTlujh+bZgjHD+XYE6r1XNWyfcK2gaRRSqJb0K39PAZ7ZF6BgydicRDl4XVtKX+DrFRAd/gScXGXlgoJM3NyaPHd7n3x9x62NXvZ/ktyDJya35qFSqhaAu/foKGwr89o522f0Vpzyw9PiU3dhZGEGIpxI31mHCxSH63Gk/40BZrqCwGbdhh6FasBZAw==
+ b=l72/qqpBAf2Nv4bgHa7Xu0coNedKBzvWntb/Qt1n85lTMnsO4E3Z3W9gCGkBNaH5mg+Et8MJOcUVY98lkCNJ5RCdUNBVvKv476AJxI7MiDXRSKSwBb//hdd0BSrUI/ubUO+GRy7hMqnsENVJRLj9kKn6mXh0Y1dP+k6VvestNSmN1jFEGuEs2a8mtDtnTGXDY5jJH8ls7OqODDeROOBlG2BisHTm8sX1c9aetQaBD1Z4yO57vlYsMRLef71/g7xWN6qug7S1srS5ydD6q96T5RJbYml0vOX8Hb/wzkD2qUJRSqMVvInypYK6lZ4T/tzyExOsfapIFSFdAlvnS+dR7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sGEcwubc9oUIawFyvRvmp7UNskxlHLPD0xDmr0NgoPM=;
- b=qUMB375nc5slAjIRb4QwKu6lPjXAS7pK/Q8p4+0Zj7ljBrXhnxIDLJZB07k2es+wN9vhIK4COmtIF9PmyQCpYNCAODmSDr4oA7LNcY96uinfBldqncNx5ZNzqeqlDm7gpHqv+Ijwhgel2H0ilItuhvA3IIUz3kV+DwdcZ1UN6ws9slCiNhAd7HM//yNF/kkehT5dUipod91pgBZR2QiTxYl0K5zzmy4wq5OK8h9wEXcJioI18eYLTG6MPYeBqID+yalIkekhSsOKevRa7Fq43THCX/r4URVB+Kxv4DB41VfDXc+xcg49xs59IaCAWSP4ExasU0zgafStSUpalb9HsA==
+ bh=Yok2iiMapsZLVqqdOeheofsvqokA/lRENlccVX8xceM=;
+ b=LNjL6PTSKuK3EK0ai4rWX24v+lkL5YF1s0YkFg1aAeQrOwxn4tXv2HukK1IlZpxQsJWuS2igot5gpCoy02laRdER9ECr3Li4zdD7lY3qYT0bPXFeToNbbLKIWGBW5Et6DTM4S1ftrcF+Gc7mer1kMMW5NHHgCPQOZO/iSLL5xQKLsDsEir6m0SLq3PUBEA9NJHK74pPK7o7rCYw7GmCxsK2sgCke3JtAKk2F6KQXONh3W7NYJh3dZwDrJYvqY7FywkqOiHrbyxj3ZrxhsY53J52ixYsAL4I8xvj8yJliJcyHDRaUAxuPy34hDZoTkA344RZ6qQmdYMY5k2syqrZY0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=studio.unibo.it; dmarc=pass action=none
- header.from=studio.unibo.it; dkim=pass header.d=studio.unibo.it; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=studio.unibo.it;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sGEcwubc9oUIawFyvRvmp7UNskxlHLPD0xDmr0NgoPM=;
- b=uHlo52SEIBLXZgQ67aPetamfBPmXNWIk/hI6HLiIOhhPj2PYbNRYvcnHDPR9twDu24e3viQsctdWAK5vFjqDfEqom1nuc+4JDHhWhKpc4ta/LIK3eqMct9gVL1jIxrQ5AERw9rk8d/kyutpzqA+BGS7Vaehwih8n4Uu6Nh9QBimfohiFp8rWmTqG4+Lz1/HriNqtbMfM+kuYnWIkwrhOwjnw7LymmnsvGexlSIizSZ2sMKTFyWYYlJXDKIQ2yG1UnBtDqymRaRVWuF0bZoCHP5cRWpeNb6QiMl8NG0doSRC6fBQrZ6iddT9Y1ZGGNbS6mhxCoCC9fGoEj6kCqa3zMw==
-Received: from AM6PR01MB5686.eurprd01.prod.exchangelabs.com
- (2603:10a6:20b:da::18) by AM7PPF0EA683B0D.eurprd01.prod.exchangelabs.com
- (2603:10a6:20f:fff1::787) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Wed, 30 Sep
+ bh=Yok2iiMapsZLVqqdOeheofsvqokA/lRENlccVX8xceM=;
+ b=ngRyevEmpXvq/NfwqNenAPhYJvA9VhMQ6m6r3wJECvWFhL6g3JodBbm+QbF112bmDu7sHU0vzSlXSJeiGfNrqOViyZaxYjOwP97O1W4cZHo1+hMxHdwGdB1B+kTlaAe0pD02x0NyqVXZ15E+oTn26bEsP4g3v4pYZojktoROaCM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM6PR12MB4154.namprd12.prod.outlook.com (2603:10b6:5:21d::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
  2026 08:35:11 +0000
-Received: from AM6PR01MB5686.eurprd01.prod.exchangelabs.com
- ([fe80::d9de:826:e4be:1934]) by AM6PR01MB5686.eurprd01.prod.exchangelabs.com
- ([fe80::d9de:826:e4be:1934%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 08:35:10 +0000
-From: =?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2E?=
- =?iso-8859-1?Q?it?= <nicolo.giuliani6@studio.unibo.it>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Gregory
- Clement <gregory.clement@bootlin.com>, Sebastian Hesselbarth
-	<sebastian.hesselbarth@gmail.com>,
-	=?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2E?=
- =?iso-8859-1?Q?it?= <nicolo.giuliani6@studio.unibo.it>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Subject: R: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
-Thread-Topic: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
-Thread-Index: AQHdSV/jd/qJfdsvO0CzFfYtjZ7vC7bm2jMY
-Date: Wed, 30 Sep 2026 08:35:10 +0000
-Message-ID:
- <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
-References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-Accept-Language: it-IT, en-US
-Content-Language: it-IT
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=studio.unibo.it;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM6PR01MB5686:EE_|AM7PPF0EA683B0D:EE_
-x-ms-office365-filtering-correlation-id: 5fa59722-4f78-47a8-8a7c-08df1ecdbdb0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|786006|366016|38070700021|10067099003|11063799006|56012099006|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info:
- S2r2DtgQK33czi65EmY7J3DZ3lci7ycwLVCXsxdc5Gy63x3c4xZKquxztY+hE8Tj/naDpyZMlrdl7uJAbihj/pF3nIvKzhAoZ+My+svJS1kpjM/bVA5AvkF2ltduBPUEdAxVPmR06vYycsnJbUM3rpvv5IFpVH8kQbWhgExHpa0j5xdX7eI01PkX1RRDd9qs5yyvMOT+r+BP+ngTikMXUJGIT+8w13+pTidvoKP2xS+SIiDW88/Wkr+iheZZa/JevU4tElxNWdbzZNM2l/+uoUzLacQQzgYbfu87MtsRgS8LYzcRF/KLvKesU39XVhKm/Y/LXWnRvTlkKEhlVF14YhDsMziDD1VK+9xJRsjf9EyIJr56HC/Mznw51ZPh1HzIuB1+5lTWyruXmmQEYQa2+iB9n88sbO0t4n930P6kgk+FVpMDubhlJPA4gZrtGeVQYpPiSrqUWFTR/2WLkSGpBtjxYNqQlnSShfNIoBxRrhUN2xUFiN9ZKfWIMcjZDJpZnmziIT5LQVUQ6P6Me/V+jhygJuboLs4hgwdAD2Q1k4DB38lspEDG50hRw+DnEgkJH9GYe/zlX0RRIXkNA0YOFT0C2lujq6G4F6arF10kUsErF+aIYmmyhdy6ZpoQMvFSNXmfzp3efJNoAa7y66XoSKPR7czzwACaFAxu6oA997k=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR01MB5686.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(786006)(366016)(38070700021)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?MDIKjs0OWjdeIxCB8USfz1CHk8KT3mTFhg5308iNhBa3QOU7fAUjWIgex5?=
- =?iso-8859-1?Q?kG4xPlEWYdfeQaHaJ8+mqDKVPLECR33QoPoH6Vg4tBRUDWqvUrIQQoqr3B?=
- =?iso-8859-1?Q?+pkKP6oeTc6LqZNPyCKzq+wytNc79nqEIRHRtvNE9+V0u5nX0Rdb+Lvvre?=
- =?iso-8859-1?Q?PiyKoBYkao3V4C9hSM8ATLhMLQQtEdzM/xpTLA999o93vPnCvbC8lwaBqB?=
- =?iso-8859-1?Q?wNfJ13nFOnKM0AJB432TOvNYyTXUTRg6xp69ffQLtZ9UJuuMgcr31QF4Va?=
- =?iso-8859-1?Q?fKGLyoPaRoUh7yfw/E8OLM6YzRaL1I+LB8wU8dWLfC14Rzt1gHt7C1vDOq?=
- =?iso-8859-1?Q?MKavjDtkRgXAO4FSIEg8lhwGaZeVEHl5aX7pD/IF5JT/BVp5vkjmsXqBAW?=
- =?iso-8859-1?Q?edfYg7/5puN9r1rVb4s65OcG/CbeavfOEgsZtGbYJU+wi19x2eBYPjaXfu?=
- =?iso-8859-1?Q?F1J2sGDeb7VUZJb8/Vxtpr0kZ+e56N+kKjFmuatFXMDYP6RkIZ6/WduOmz?=
- =?iso-8859-1?Q?EMT8EpKFr7v6VVKJYXZRH4uOXk2/ZP5l3+cIkq8uK/2ST4mOPgOUsEW9Uz?=
- =?iso-8859-1?Q?fYwo6GA8yW7AfeMzTKSiTUdP3tmPGZXQsQLzTLjvJ3W4IqgC244tzvXoD8?=
- =?iso-8859-1?Q?lpwYuB19xRwmBynATZg3hqqmMxfxCyWjeNM2wXRdnvb1tWSZI8rOpv1UCH?=
- =?iso-8859-1?Q?CvraQT0ybAPhP8yP2huIKft+o/OFRiX1Bhj27/Ssw0UcJ0QzTLnHtjfuy8?=
- =?iso-8859-1?Q?m4CvE6r/RSjYafnH36Bz4/8DYd+ZYa+u4fDJS1E8eABa6DyxkGIWvwhsY2?=
- =?iso-8859-1?Q?S3rWE/fHbKU/PwpVuLVxFtlRq4VAhjtRFZoZ0b3K53yB8VHfflFHvvHJUH?=
- =?iso-8859-1?Q?pLA5AbQ25qjqISYxhee6QY93iryUWvlKnoasb22pCUpcrnuyNGqM0vhg7y?=
- =?iso-8859-1?Q?jDBHZGMHuNG0ecRd4wUQwMvS/ZsxVJNEh/PKxfATDUQSkMi+U9tZOpR+cO?=
- =?iso-8859-1?Q?30Dr0J4CKT/PSVsexAjf+/bdk8wYzdp6QGzq9wmKYUdxXtXOpEaDKTXsAW?=
- =?iso-8859-1?Q?sbi/HmDPOovr/FUeTlCey759osDTOTtYIkQzc3BQ59ipwceFvpZPCUDxjk?=
- =?iso-8859-1?Q?ngEvw7lN2EGHxHjoaqy+vXLF87IHrQmgLr79Mhefy/FvUQmk6kwFCjL50/?=
- =?iso-8859-1?Q?BLZjtED84YPdWCdWuBTXum6fHR8jBnaRTO2TPO75JoNKp3FL335JWKSTlu?=
- =?iso-8859-1?Q?wUu+U/fZa9YCxnobvi5YoL0GiLV4TsbC/14UAL4DzPuCoUrRfFfCF3qZX3?=
- =?iso-8859-1?Q?Pa0AwrLmW18RFnWK4zHCbCfpRYsn5lqD6TMKOWipbxVagtErp5XQ6sVJEK?=
- =?iso-8859-1?Q?q4n9sX2U4qmxayOdIbj70ReI5WYLxWVYUEAucKi8kVcdxkhFLA7V6eeg8V?=
- =?iso-8859-1?Q?cgRjQQwYOXJfsqBGGt4/GfwcPDou5IfKxF9FihkY1Oa4he82yE40gGCWG8?=
- =?iso-8859-1?Q?IzT8PdgD4GBd3im5gZyjYPsN7P1z94pH4VeQRAmVOMxGP+V56rC4rPU5e1?=
- =?iso-8859-1?Q?1J8IQqyn9D01+fHWB5lh6bO8BXIQKFefUWBu+2Ii8ROSWNUpe3ze3dQHkE?=
- =?iso-8859-1?Q?Wp9HhAoHEhF+WjjbAKTzhzIPh4pYOxltgjnpIM1OW4A+gYMT6RB+JjxFKf?=
- =?iso-8859-1?Q?AxgZV0XF4B0V1BjyOVMXW5E3tCVyHlcm6JAnqdEkXopPJSCJMPXTmLPR95?=
- =?iso-8859-1?Q?y6CTU8uLGOxu1j4nNcA7eAtrxYX43z2L7kawbVXF6Oopc/rtxSYSyqM9hl?=
- =?iso-8859-1?Q?nusFXmx7iJuv8E8s8OWQxlv/NCf5z30=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 08:35:05 +0000
+Message-ID: <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
+Date: Wed, 30 Sep 2026 10:34:56 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
+ <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Sumit Semwal <sumit.semwal@linaro.org>
+References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+ <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
+ <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+ <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260930081832.GA3401365@unreal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0420.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::35) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: studio.unibo.it
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4154:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a48fb07-a420-4818-b503-08df1ecdb9de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|4143699003|10067099003|56012099006|6133799003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	wv1NI5qv0hDFXcq9bKAJUOQSrMmtWA72aJPad5QFeTMDOYaSwrWeTysa8qGVZvEIyUYid3YNp1pCysGGnE3mymDPQQo409mln8uyBQ3WiK1b+f4igKpRPVMss+qKZBcAqErmOF3VxNhhpBZykUVvkc/V94hmDurY0rKF7Kzb4ObS8eDa0Mm6Z+czZvun9gnLLTSmq8m7czewZsS0TPw9+G2LwvLKqUlLe924H9XOB1ha3kJecEKGe4trRfP63Mie7/060dJxW99JmtybcRNcJ9qqsJjJgX5AI/gAgo+Vv6fzCjcKRLVzc882ZENHz8CV7zRYYi2u5/jFwFxRUEiN/gvmWP9YzbH99N0NCipyL2WhBQ00y/XkjfIMxImasZRZI2/0imivpl0mVe/41xzzJ3bKBMes4D3Wl247AXuIUNdEFCjhk9+K+jiiX3RLMuumxPEizrQMDDJQ3MOi7S2TUwKyu0qgGnLU0plt8kw4/xIAbnMux82neCTs6bU4uHO4HcIBXyjV6qRQzXWIrsycUrpQwUPJMEDatLA70KSeGVN1oKFdHipMJvbT9SWZGUFMgN6zOHmY1lns3AQZhBDmLXO6XNT6GVbz1KiGkjEaVeOMCTh8wUMSg+CVRMaZdCmp
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(4143699003)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QVd5S0hhcjNYR1JSbjRmQis3TytmRDk2dS9OZHFoamZBTk8xZWFPQXVtOWtr?=
+ =?utf-8?B?bDd1NXRVdU4xSzJXd3hNTDRQc0w5enpOZFBqSkhNQUFvcm1DNTkzOHBrbUhF?=
+ =?utf-8?B?YnlUdGxmMzdoZzlyQU9lQm1GK3lsV2owa3czV2JFdGtSU2xtTms0SmlLSWhR?=
+ =?utf-8?B?RiszYk1iYldhZzU5R0RGTXVuZGJwdTdLU1QwMnc1ZE14NVlWcHRsRzBVc1F2?=
+ =?utf-8?B?S3VBQUtVVEtaTXFSYWo2RDVtYTdRU2kzZTVtbGtPS0ZPTXpPaWtnWFRnTlBW?=
+ =?utf-8?B?SDBDT282akM3eklWQXJqUGpnM0FXUzczcnh4U0RjTXBYOW1zRTViZ0dGOU9I?=
+ =?utf-8?B?TGVIWjNRNEJIVno0c0d4V2dEUDlPUnUxSkUrL2hMb3ZtdVJBaGFlUi8wbGFJ?=
+ =?utf-8?B?Vzg3Y3ZVMTNBMUJHdWhybUtVanNoTEZRRWg1NlBBQTZqV1hINnJZbCtKQU5U?=
+ =?utf-8?B?b1VrbWNaT0VxanZaVTA3N0lQUVpOY25sN05NWThJVnNJUStXeWtFQVdQTkZK?=
+ =?utf-8?B?VVliSjNGbEhFQnJZYmF6UnUvMzZjQU1WN3ExVkpQV3J5MmRCb2d3bUxTN0pC?=
+ =?utf-8?B?SkFOSCtONFI1VGY0ZFhUZm5RSWlBbDVNZG12QTVsdEhCNkJhV04xTUxOZDFM?=
+ =?utf-8?B?UWJKNG1YMzRRNkt2a1RqeVRKbGpuNnpzRmNwZFpYUk1pVm54dFJTZk5PUmVP?=
+ =?utf-8?B?Rzg0T25pM2lBb2sxV3NtQ0JlaWhXMCsrRDFGaGxlNjlDekEvbit5WU5ybXB4?=
+ =?utf-8?B?dS9RUy9UeFM3Z0ZEeDFDQ2p6QkJVZTVFdjFYMnFrbXZBc1lqSWpjd3dSKzdS?=
+ =?utf-8?B?V2hmbGRUUmk4U3ZvU2FvRE9rWVZ5RTR5aCtaWEMwRE9rMG1BWERncW40OU5R?=
+ =?utf-8?B?V1ptcnhEVlY2WUk3N0VoMHV1SDlrN1dYODllM3dLUllxKzBvdG1MQU0rak1H?=
+ =?utf-8?B?ZmJoRUQwTER4SEFpLzBnNzVBYjNMOXlvQkR6UmhIY3NLMWhGRVdXbnhuL09D?=
+ =?utf-8?B?YmtNTnRLY2JDU01oNzBaRlBTbjd1T0pHQS84T3JUTERFaXE4d1U4bUsvaXRl?=
+ =?utf-8?B?a2UzSThseDViSmNGSTlrK1JwdzJVeGF3UUMvVE5zOGNCd3ZLZUR5MlROVEkz?=
+ =?utf-8?B?OVVKQndrdVZXQWpvVGcyMy83YTUybGRPNS83elZBVGE5ZTBxQ0gzNjBUYVBM?=
+ =?utf-8?B?c1hlWHpBa0lKV2F1QS9RWTRKMGxHL2lHZXhqR1c1aFFVVlhrNmp2NE4ycm5Y?=
+ =?utf-8?B?WnQ2Q1FwN2UzZzBPem1xb29tWFY0VzVzWGo2UE5IaDRKVXdsSWRheVAvRjEv?=
+ =?utf-8?B?ZnJvZ3V4bFJMaUNpM2MzR3NWUHRITWNPWllwVEgzU3l6THVNSlBQY3g1c1RC?=
+ =?utf-8?B?RVZ0eUovWnJUSXF0S3NkWWlUQ2wwUm12ellGbmpCVWYxUnc1K3VYT2pDTXpl?=
+ =?utf-8?B?OEd0VmdBMnZ1TUlvUG1NQUFPL1BMY2RaQ3dkcm5uaElXb1RyWWxHVUxXdm51?=
+ =?utf-8?B?bFJ0QjZ2akI5SGM2Vnh0RXZMR0lLVmdRN09aKzArcU0zNjZiYmVjVE9Jc3FZ?=
+ =?utf-8?B?WC9yT0FDdVd0blcvVXBhTXYrcTY1RUUyUkI1QnFsaG9TTnN6U2tKMHNYZ0g0?=
+ =?utf-8?B?ZXY0eHpRazNlQ3FDb013T3RESndPM1BPYWd5U1g0R0ZYOXZsWG03cDd1TTQr?=
+ =?utf-8?B?bHg5UklzUmhOMTIvMjF0d0wrZnV3WEs0SXEycThoeHR1S01PVkNmekhVNU51?=
+ =?utf-8?B?Rzk4Ny9RSTE3YnByYjlJSXNIcG50MUJTNUZCRnh2cGp2VjdtQks4cXMxZGJv?=
+ =?utf-8?B?L1VablFuUTRZRU5LcmJkUUd1Rk1IRmVBK3lFM2x1Q283M0FVVWM4N1gzRkVr?=
+ =?utf-8?B?SjFtLzVaaHRsQmlpRHlrNFBLOXZHMERJdUlHNlljeG9DMzh3dHNPQ1ZRaXJt?=
+ =?utf-8?B?VDRpR3BvWlBNb3dlckgyM3hKbGlwei9JdVZ0RWVTRlI3SEEwTTNoc3NGdjIx?=
+ =?utf-8?B?TTRqa3c3ZGIyTkNuSnIrdDFLYWJWOE1kMlB0SE1SaHk5VTNXQjRKbUJ1aHhT?=
+ =?utf-8?B?SnJCSFdsanV4NWFZWmNFSUdLbzNQSHBwektFdFhEV1VmbzQzcVdTYlAwR0xC?=
+ =?utf-8?B?MWxVRVZYUDlxWDdXQUxjV09FWkxiWnM2QTU1OHZ1MmVqOXRhSHZwRW1WcGhj?=
+ =?utf-8?B?allNMVhvM0xpQVp3YTA2UE1HZWl4SVNjZ0pnU1ZKY05yVEV5ZjZTdUNDaFI0?=
+ =?utf-8?B?Q0F0dnVhVEFjemlsSFpUc0JLU2ZWeEVaWVNuTzdRZldqSDZwTkljcTFEMXFz?=
+ =?utf-8?Q?K/GDx71/VLJA8G+MBZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a48fb07-a420-4818-b503-08df1ecdb9de
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR01MB5686.eurprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fa59722-4f78-47a8-8a7c-08df1ecdbdb0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 08:35:10.8939
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 08:35:04.7312
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: e99647dc-1b08-454a-bf8c-699181b389ab
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JhcoOVqrPBpEWkN788sSREpn4FT+a79aIURS8lDgTYVEbCJd1lj/K/bN70IVoNfC4SlnebzOi+vztseWpNJ5McTXFOJepplMqVPzdv4Fg+Pys/byLEALUEoz0j+w4bvp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PPF0EA683B0D
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N/eu4A24mF/etHqDjdR5G/WkTRxZP/iKz2TRGtq5GM/xfT+KiFEeIRHAIOS0uBQp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4154
 
+On 9/30/26 10:18, Leon Romanovsky wrote:
+> On Wed, Sep 30, 2026 at 09:00:57AM +0200, Christian König wrote:
+>> On 9/29/26 19:57, Leon Romanovsky wrote:
+>>> On Tue, Sep 29, 2026 at 03:39:42PM +0200, Christian König wrote:
+>>>> On 9/29/26 15:23, Leon Romanovsky wrote:
+>>>>> On Tue, Sep 29, 2026 at 11:34:05AM +0200, Christian König wrote:
+>>>>>> On 9/28/26 13:19, Leon Romanovsky wrote:
+>>>> ...>>
+>>>>>>> +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+>>>>>>
+>>>>>> This function call here *must* be in the exporter and not the DMA-buf framework.
+>>>>>>
+>>>>>> So clear NAK to putting that here.
+>>>>>
+>>>>> "Look, it is easy to complain you don't like how it looks, but this
+>>>>> stuff is hard there are lots of competing concerns, if you have a
+>>>>> better idea now is a good time to present it."
+>>>>> https://lore.kernel.org/all/20260921130858.GO11599@ziepe.ca/#t
+>>>>>
+>>>>> Do you have a viable solution?
+>>>>
+>>>> Ok, that sounds like you haven't understood why I'm rejecting this.
+>>>>
+>>>> By moving the calls to pci_p2pdma functions into DMA-buf you bypass the NAK to expose those functions to drivers from the DMA maintainers.
+>>>
+>>> No, you have misunderstood Hellwig's position. His request was to ensure that only
+>>> subsystems deal with P2P internals. He was perfectly fine with bringing P2P
+>>> complexity into dma-buf, since it is the agreed-upon mechanism for sharing DMA
+>>> regions between devices.
+>>
+>> Thanks for clearing that up, I indeed didn't realized that.
+>>
+>> But that is pretty much against my standpoint that I don't want any P2P complexity in DMA-buf.
+>>
+>>>
+>>> So this is not a NAK bypass; it is a correct implementation of his request.
+>>> He handled P2P-related complexity in the block layer.
+>>>
+>>> Let's add Christoph to the thread so he can correct me if I'm wrong.
+>>>
+>>>>
+>>>> I unfortunately didn't understood that when the dma-buf-mapping.c code was added and just assumed that you just needed a place to put some common code.
+>>>
+>>> That is not correct. Devices A and B share a DMA region via the dma-buf
+>>> mechanism. Where do you expect the code common to dma-buf to be placed?
+>>
+>> In the DMA layer!
+>>
+>>>>
+>>>> So as long as that NAK from the DMA maintainers to expose the pci_p2p functions to drivers stand I will push hard to get that stuff removed again from DMA-buf as well.
+>>>
+>>> Are you seriously suggesting that every dma-buf driver in the world should
+>>> have to reimplement this mess?
+>>
+>> Well I completely agree that this should probably not be replicated into each exporter, but that is the job of the DMA layer and not DMA-buf.
+>>
+>> The purpose of DMA-buf is to exchange DMA addresses between an exporter and one or more importers and handle things like lifetime and synchronization of accesses. 
+>>
+>> What the framework should do is to transport the capabilities of the importer to the exporter, e.g. what physical connections we have etc..
+>>
+>> What the framework can also do is to have additional information from the exporter to the importer regarding addresses and mappings, for example if they are bus, IOVA or some special internal DMA addresses or how to stitch together your PCIe TLP or whatever.
+> 
+> At a minimum, exporters need to pass `p2pdma_provider`.
 
-Hi Gregory, Andrew, Sebastian,
+No, exactly that is a no-go. The neither the framework nor the importer should see the p2pdma_provider.
 
-This series has Acked-by from Krzysztof on 1/3 and 2/3, and Reviewed-by fro=
-m Andrew on 3/3. Is there anything else needed before it can be applied, or=
- should I wait for the next merge window?
+Only fully translated addresses where the DMA access should happen.
 
-Thanks,
-Nicolo Giuliani
+> 
+> If I keep the “dma-buf: Let exporters hand out the P2PDMA provider behind a
+> buffer” patch, I can move the P2P TLP types back into `p2pdma.c` and export
+> only the function that indicates whether ATS is required.
+> 
+> Is it ok?
 
-________________________________________
-Da: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@=
-kernel.org>
-Inviato: luned=EC 21 settembre 2026 02:26
-A: Rob Herring; Krzysztof Kozlowski; Conor Dooley; Andrew Lunn; Gregory Cle=
-ment; Sebastian Hesselbarth
-Cc: devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-ker=
-nel@lists.infradead.org; Nicol=F2 Giuliani - nicolo.giuliani6@studio.unibo.=
-it; Krzysztof Kozlowski
-Oggetto: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
+What you can do is to forward declare enum pci_p2pdma_map_type and than pass that 1 to 1 from the exporter to the importer.
 
-The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
-separate network processing unit (NPU): a Marvell Armada CN9130 SoC with
-its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports and
-the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which is
-connected to the SoC by a 10GBASE-R link, and reaches the x86 host over
-PCIe.
+Regards,
+Christian.
 
-This series adds the Sophos vendor prefix, the compatible string of the
-NPU board and a device tree that describes the NPU as a standalone system:
-UART console, eMMC, SPI NOR flash, the SFP cage and the switch with its
-ports. The port LEDs, the USB ports and the PCIe link to the x86 host (the
-CN9130 acts as a PCIe endpoint towards it, which needs endpoint support
-that is not part of this series) are not described.
-
-Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
-access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
-its eight user ports, and 936 Mbit/s through a front port. The SFP cage
-is untested.
-
-dt_binding_check passes for vendor-prefixes.yaml and armada-7k-8k.yaml,
-and CHECK_DTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no warning
-specific to this board.
-
-Based on the mvebu/dt branch of the mvebu tree (008e9faade).
-
-Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
----
-Changes in v2:
-- Patch 1: drop the second sentence of the commit message, add Acked-by
-- Patch 2: move the entry before the SolidRun ones and list only
-  marvell,cn9130 after the board compatible, as the other CN9130 boards do
-- Patch 3: use the compatible list of patch 2; pass the switch reset as
-  reset-gpios and drop the boot loader workaround; remove the LED
-  expander node and the SFP address comment
-- Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a74ef3@s=
-tudio.unibo.it
-
----
-Nicolo Giuliani (3):
-      dt-bindings: vendor-prefixes: Add Sophos
-      dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
-      arm64: dts: marvell: Add Sophos XGS 107w NPU board
-
- .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- arch/arm64/boot/dts/marvell/Makefile               |   1 +
- .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++++++++=
-++++
- 4 files changed, 198 insertions(+)
----
-base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
-change-id: 20260919-send-dt-6bbd08a470d2
-
-Best regards,
---
-Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-
+> 
+> Thanks
+> 
+> 
+>>
+>> As long as both the exporter and importer agree on what those values mean I have no problem at all with that.
+>>
+>> But how those DMA addresses come to be should *absolutely not* be part of DMA-buf! The complexity of that is seriously not something we should have here.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Thanks
+>>>
+>>>>
+>>>> What you try to do here is seriously not ok and I will push back hard on that in the future.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> Thanks
+>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>
+>>>>
+>>
 
