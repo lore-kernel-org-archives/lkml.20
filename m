@@ -1,120 +1,119 @@
-Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A840F31B83B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234EF194C96
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759067; cv=none; b=WXZcZNF/Fuoq/LYQrY+5e7lfWhWwScOj8Pn7W478Hszp8YDmxF8Whs1e6PzgVIu7SnTpfXzGM//Qyj/RXjdX8wzYKbItvPFbUOVbSgJmgb4M3XjRE7UXlgKVTZJ+pI8QYQimTa0pKRmp3GQoch4FWNMb2lBqlon8Pl9qBJTWMIY=
+	t=1790759077; cv=none; b=a5ZAFw6ZRvr4A5sC44uH+mq5R0aCNsO6ks32mkIdb74LbTP4MFrxG9qqkRjHyj7PJV7ghU92nQHaStGYc7SIfP80dd49o5vO28MqTWtLkErIgCgCLg5cQfExUgbxmvhhM9LqJ5cdZqPJLYv2UBO3NkyIF/ctDzj5gstbf+GxKhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759067; c=relaxed/simple;
-	bh=08fAsy4zPjOdtc3IMRELiqLuA+/N8WQHkDAGHu35Lsc=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=OsV8ZmrKHTUSQ+ve6o7dk6krEE/M8XbkUl5sB8rx0kteCohhYErYm4i5PwqFaOyiQSvxfkQ7tlNtsGS9hQECiNoNF/+JpfE40JSzMS4ZuRFH277SFWzkhkc93sd7iP324lHAaaaiw80fN9pNiXfvy6LU0dwJE+a57TIRbJAlsfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu; spf=pass smtp.mailfrom=bitvisir.nu; dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b=Cj5Qq2QZ; arc=none smtp.client-ip=194.63.252.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitvisir.nu
+	s=arc-20240116; t=1790759077; c=relaxed/simple;
+	bh=crc9UaVmLql8ukSezMFN93JJ24pHEzgBFMr4z+eHLXM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ogCs/4znLkmstdbJeUVGuJzDErVzUg0jJ2PCR0qqcRrs3ZitJVsImwgN2xTtI+VsIPkly+GP2SeREN5o8ykPbwjMbmjd8NE/8HHqZ+OlXHHL/Mc7jYlE41I+YOHn2M8uIRpqil/Ujx6LaC8E+GWKGJSRRc6NX4KPpfM0uR9xCiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m0lM46SY; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b="Cj5Qq2QZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitvisir.nu
-	; s=ds202607; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References
-	:To:From:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=s73SLSzT+ERRBr4R1aJsOrjiXFN0V3hzdOz5R8zjBCs=; b=Cj5Qq2QZ56F7cP/eMXDTBpLDMX
-	lqDpH+02eEROpB/c5YGwDN06WFCkHqQhkKNvZZN5V1jXUJIrtXGsZS4kW+sJPVht+hENAY2sxYxxL
-	2bX0IyIm3Rj0uxUmy3Mtho3+1Az6rws1962vgrVKt6Y2vzOyW76X0I0UXieYLr0VEYm1uzKK3VLMS
-	pQzF53f0r9ULacEdw2NxnI2mguh46YyKkxoenacqzLQz6vfGMC2ZpeyJHj6TyhqwPJAXRbvgsjuoY
-	mTyqeL2vnXAjvXXxmRo9h+3Op9BxKL0m/wms+38IdzzwZ18pMrbRD+mGIGgCYsJFh/IS2roBIPSZZ
-	8XSmA/nw==;
-Received: from smtp
-	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.95)
-	id 1xBqEh-006mIE-H8
-	for linux-kernel@vger.kernel.org;
-	Wed, 30 Sep 2026 11:04:23 +0200
-Message-ID: <3780cde9-9d76-4db1-8330-52391943d60a@bitvisir.nu>
-Date: Wed, 30 Sep 2026 11:04:22 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m0lM46SY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790759076; x=1822295076;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=crc9UaVmLql8ukSezMFN93JJ24pHEzgBFMr4z+eHLXM=;
+  b=m0lM46SYDwq83KEof+HxwOiwMd5QGSNhI1UxoFbykNa2Bz3ByvUa90SA
+   lnfBzzTUXlpBOfMqnIkgM68sdLL61bkhtHtvhKMchEeIy6UiwAYpVQsr3
+   FMZaH7Ss2my0SBEwqOhkbTIMtreGgGRA7V5MxJFV3wUCKkWpFQm2DZdaR
+   Ua1PuhXkYhAjDfWBX51C//HQFEMb1FooOyBXP61j5yxNzaW+1kOLngd7X
+   yoP5jslMgNmGXBLxCP+CnhOguME8/P00pWd1yz6BUkybH4jE9rDYqSNoc
+   t7R39dfm3xFQiDjbjrYbY3ZrHuPtxFK3E1Z37qZZ5kr6j6B4IZWB7eW2b
+   w==;
+X-CSE-ConnectionGUID: Epr6E+0rRvaV2APbrqpMdQ==
+X-CSE-MsgGUID: v0mqHeSEQ7y0fCSb6vsZ0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90621822"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90621822"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:04:35 -0700
+X-CSE-ConnectionGUID: c5r9PKDGT4KpNOk6SxQpWQ==
+X-CSE-MsgGUID: KeIQ6OgtRrCSxu5OAVwIZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="275188634"
+Received: from vtg-bdc-vm10.iil.intel.com ([143.185.124.149])
+  by fmviesa007.fm.intel.com with ESMTP; 30 Sep 2026 02:04:33 -0700
+From: Divyamani Tripathi <divyamani.tripathi@intel.com>
+To: linux-kernel@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	antti.laakso@linux.intel.com,
+	sarang.sapre@intel.com,
+	manik.bajpai@intel.com,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>
+Subject: [PATCH 1/7] media: ipu6: update ipu7 InSys ABI to 1.2.1.20251215_224531
+Date: Wed, 30 Sep 2026 12:01:42 +0300
+Message-ID: <20260930090148.3980652-2-divyamani.tripathi@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930090148.3980652-1-divyamani.tripathi@intel.com>
+References: <20260930090148.3980652-1-divyamani.tripathi@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Visir FIR as IIR Filter = No GFX Card or DSP Card Needed
- (Supporting Fair Pay Philosophy and Low Jitter)
-From: =?UTF-8?Q?Ywe_C=C3=A6rlyn?= <yn@bitvisir.nu>
-To: linux-kernel@vger.kernel.org
-References: <584eb9dc-0582-4e60-8eda-b01e362f9bd3@bitvisir.nu>
- <07b34ea8-6eea-494e-80c0-338ccf9b8bea@bitvisir.nu>
- <4f248225-f188-49ec-af80-5eb6c4c684af@bitvisir.nu>
- <fb7abacd-6893-4beb-a6dd-3feb301e81e1@bitvisir.nu>
-In-Reply-To: <fb7abacd-6893-4beb-a6dd-3feb301e81e1@bitvisir.nu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Example:
+Drop the retired IPU_INSYS_RESP_TYPE_PWM_IRQ response type and add the
+mipi_fn field the firmware now reports in its place, matching staging
+ipu7's ABI bump. The boot-ABI and psys message changes from that
+commit don't apply here: this driver has no equivalents to touch.
 
-Visir FIR as IIR filter (fast):
+Signed-off-by: Divyamani Tripathi <divyamani.tripathi@intel.com>
+---
+ drivers/media/pci/intel/ipu6/ipu7-fw-isys.h | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-- Anisotropic (Can be run via Cache, for GFX Card alleviation)
-   6 point, lod bias included, optimized for retina and fair pay politics.
-- RMS (Can be run via Cache, for DSP Card alleviation)
-- Constant-Q 24 dB Analog (Can be run via Cache, for DSP Card alleviation)
-- Resampling (Can be run via Cache, for DSP Card alleviation)
-   24 point, optimized for ear and fair pay politics.
-
-buf1 = buf1 + ( - (buf01 * cut));
-buf2 = buf2 + ( - (buf02 * (cut / 1.3)));
-buf3 = buf3 + ( - (buf03 * ((cut / 1.3)/1.3))));
-
-double fil = buf1 - buf2 + buf3;
-
-..negative "pole" gives a zero.
-
-Serenity.
-https://bitvisir.nu/
-
-
-Den 30.09.2026 10:39, skrev Ywe Cærlyn:
-> IIR version (fastest) can also be modified for impulse response decay 
-> optimized for zoom.
-> 
->  >>> mid pole negative in sum (making a zero).
-> 
-> Den 30.09.2026 10:36, skrev Ywe Cærlyn:
->> 6 point anisotropy I think, lod bias in it. Perfect for Retina, 4k w/ 
->> rYb pixel, 72,7 minimal psychovisual noise refresh rate.
->>
->> Serenity.
->>
->> Den 29.09.2026 05:42, skrev Ywe Cærlyn:
->>> Here is some graphics on that one aswell: https://bitvisir.nu/ 
->>> Visir_3- Bit_D_A.png
->>>
->>> Den 29.09.2026 03:52, skrev Ywe Cærlyn:
->>>> Visir 24dB -
->>>> constitutes RMS, Constant-Q, Anisotropic in one filter.
->>>> 3 poles, 1.3 cut down pr pole
->>>> last pole negative in sum
->>>> IIR typically for Constant-Q (minphase analog) FIR other.
->>>>
->>>> Used via Cache, should abolish the use of GFX Card, and DSP card.
->>>>
->>>> This is part of supporting my work with Fair Pay Philosophy Unity 
->>>> and Low Jitter, for ITS.
->>>>
->>>> Serenity!
->>>> https://bitvisir.nu/
->>>>
->>>>
->>>>
->>>>
->>>>
->>>
->>
-> 
+diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.h b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.h
+index d5289f6add8c..6b72560b0a15 100644
+--- a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.h
+@@ -4,6 +4,8 @@
+ #ifndef IPU7_FW_ISYS_H
+ #define IPU7_FW_ISYS_H
+ 
++#include <linux/limits.h>
++
+ #define IPU7_FWLOG_MAX_LOGGER_SOURCES		(64U)
+ #define IPU7_INSYS_MAX_OUTPUT_QUEUES		3U
+ #define IPU7_INSYS_STREAM_ID_MAX		16U
+@@ -24,6 +26,9 @@
+ #define IPU7_ISYS_NUM_RECV_QUEUE		1U
+ #define IPU7_INSYS_SEND_QUEUE_TOKEN_FLAG_NONE	0U
+ 
++/* Value of mipi_fn below when firmware ABI < 1.2.1 does not report it. */
++#define IPU7_INSYS_MIPI_FRAME_NUMBER_DONT_CARE	U16_MAX
++
+ #define IPU7_LOGGER_CFG_CHANNEL_ENABLE_SYSCOM	BIT(1)
+ 
+ #define IPU7_ISYS_MAX_STREAMS	16U
+@@ -107,7 +112,6 @@ enum ipu7_insys_resp_type {
+ 	IPU7_INSYS_RESP_TYPE_FRAME_EOF = 8,
+ 	IPU7_INSYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE = 9,
+ 	IPU7_INSYS_RESP_TYPE_STREAM_CAPTURE_DONE = 10,
+-	IPU7_INSYS_RESP_TYPE_PWM_IRQ = 11,
+ 	N_IPU7_INSYS_RESP_TYPE
+ };
+ 
+@@ -198,7 +202,7 @@ struct ipu7_insys_resp {
+ 	u8 pin_id;
+ 	u8 frame_id;
+ 	u8 skip_frame;
+-	u8 pad[2];
++	u16 mipi_fn;
+ };
+ 
+ struct ipu7_insys_resp_queue_token {
+-- 
+2.43.0
 
