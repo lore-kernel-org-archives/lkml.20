@@ -1,110 +1,175 @@
-Received: from outbound.pv.icloud.com (pv-2005h-snip4-3.eps.apple.com [57.103.66.244])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2138.outbound.protection.partner.outlook.cn [139.219.17.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E240745DF41
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.66.244
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752558; cv=none; b=DIn2ZR7BXahJXziEfJhVmEnTU1FEKiD+jLTAGV/1aCCTGFfVWuYUSCMboSILFfU78pYlvVHCb4hi36Qt6CD9xmgAegZmNBXHyJl/eBkF1nDQqJdR26eL57B3egeHDxAEAJO9cUbSNDfLkZ7xGEirfepch+2bUezukGcfqi5yrIk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752558; c=relaxed/simple;
-	bh=UPRqCQv2d8eX1E0F1TdKfOZWnR7IlEtgBd+6XWRqJU8=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=HQmnXHFKwVKl6X1R14gcNJTcL2TVshn0TVAGXN1VNTv/ut8Nd2NdayAeSDp4xJMA5f+NmDejJkiHDBGikDi8dShphr5cHiglwjRnQghjOOiRyWDo2UjS/nm4bBcSUIymV9cmp6FIeG13xrUCrAan82Tfgg4Ys4w9HXJSJVr22R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=FqPDRdPR; arc=none smtp.client-ip=57.103.66.244
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="FqPDRdPR"
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-4 (Postfix) with ESMTPS id F28AB1800118;
-	Wed, 30 Sep 2026 07:15:48 +0000 (UTC)
-X-ICL-RepId: 01a0f12b-6844-7da0-8f20-3edc180459e8
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQhABkMAWBxBDkkdXwZZEhVdRVUIRRlTHhccRgxFGVswVB0dDlgGEhZdRV4IGQhdHRkKUFAGWRIYXBRcUFgeRhJWDV0JGRtEXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVl8VFxtcABcGWxQERABeVFtQQwsdHlwGDlBdDR0ACBoJUEUAVVZeA1IASAAbB1QPCXIdXFZQAlpVEgRACFZQXgheH0wc
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1790752551; x=1793344551; bh=qDJVc1Lg8Bgj3WjJ0lWn1/mZZ1/8Z5D+nRcBDaR1BD0=; h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type:x-icloud-hme; b=FqPDRdPRDxkDXlfJlALix1k4dtWFhna31BSdbYqgGu83qHCq85rKfxIYZb/uQoq6KvD73pDLFQcAqEvaW2Jvc2TbFM0WoQ5/x7dFy4XfPWJzQsdbrVMt4Kvaj66RREOCoKZWYKZyWZ+m2JKOnQaWELzwecGbHyK2naXJQzm0p0Pw2/9y+4jp1KqVwPIjS5hAdQOU7CdmUJwo7RsD7UHWJFIFvSdG6PEYnWIKBhV1gpbLRioxezNqHTiZj3z3JimMebcvnLlm7mXe8aLGc2CA+14MS2IhxENVw73Lt2L9CDsfsTPbipqYDAON5Xf7LX5RTF+l9eQWL3bMnGFC/fwtaQ==
-Received: from [192.168.50.153] (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-4 (Postfix) with ESMTPSA id F1C6418002E4;
-	Wed, 30 Sep 2026 07:15:45 +0000 (UTC)
-Message-ID: <33c0b32e-11eb-4e3e-bb59-e349289c498b@me.com>
-Date: Wed, 30 Sep 2026 09:15:42 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82A24657D7;
+	Wed, 30 Sep 2026 07:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790752562; cv=fail; b=cJ6v40q/eN8A/RzBesvV/DpElX8uf6A53WjuX8dQ/XZL1TSwTW/2nT01cHhzwprS71cc20QEUfQX+3uv+VsdMci+B4CPYYbYzjPqd8BUxYlyvzpfv++gfp1Hy4l3EbLsudamRpGRayB/cJZqlEZIRWBrj5PBF8lhP7FVbocxRY4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790752562; c=relaxed/simple;
+	bh=FlzqjsoL1/HF+E9xlH4JPQ3EOZJsqRSmpLUERqZyw58=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=j7LVbryxJVPwINpIjSWTb4Gsg9ZU33w81thuf4SNNgg1LFvEkqr4R+V5YMPwZw4k4n1MwKKFtfx5ihbn5ddOh+K9mIw9G9FOAegaoNWMbL9SgrykdSdCqigWxEgicpAhE2U2kEDwmNNag3E/WtXAyF56iJA37dxsBEZpoRARtIw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TwVK1S4uZnpaBj6G7JF0cUvvk4sErZNAFQiA7aCJTOosX4MdHXO/+8EMM9R4Tn1/RtGvvCqAt4eRHbmmAC5xlMrbENNfZm/nalrnWK103kud5gWCFwLHnCK/CTk6qDYeuUN6ymirCAUERPyq0GdyArG2Of82YOteqZ+Q5djqgxGhnga2PcAtpDCUYey68HqGE24Ffdb9cWB+BfsouUVwYeS0XFwivELWMCmudYOhUaUXDgHJZ/M45QpxPFmeFugF+T00c8f3+BS8z0I6a0bgYARdioNWzo8VFUuBGIXHoAWDaS6YufjDlWsHup0xztmG4A3moHrYBU/nswQnNFzCJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fl7PsDKJTzx3MuYf1l/Gf9oMEh75ChUgX2MYVB5zavU=;
+ b=CrEEeNBzMxjgsKNKab1nld5K1bc7WtwrdDWhVbLniNQYyn7EJj6OsNHBNq8u5AFhPSxQ/A/eGHVLZ0z7h1GKWs8/ZhBu5ixo8qLahFIfhPkwZLvMKDMPnRTYGp3r2DdYwY0yyMrcl8BynqC9g41YEEvoZwC14HighFIeeT9daM1MuPmp7BqANF0Spiz6Cj+LvXnWtvzNnbLwtEo7X93OnziC6m7pzVBz5gxvoDSYuQdUgzV6MrDGt+lGW1hHl2WqVm1oHcfW2CoSdWTwZEO9JNWmOXQ2L26em7oOnNoGmLr6oCGxE3ORm8aiNokvDwiPxTai7/hScl064gawKKDzTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1201.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 07:15:46 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.026; Wed, 30 Sep 2026 07:15:46 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Serge Semin <fancer.lancer@gmail.com>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 1/3] spi: dw: Convert the Tx done delay from SCK cycles to time
+Date: Wed, 30 Sep 2026 00:15:33 -0700
+Message-Id: <20260930071535.7947-2-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260930071535.7947-1-changhuang.liang@starfivetech.com>
+References: <20260930071535.7947-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0025.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::7) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ferran <ferran.duarri@me.com>
-Subject: [RFC PATCH] x86/PCI: Use the only online node for root buses with no
- _PXM
-To: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-pci@vger.kernel.org
-Cc: Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyOCBTYWx0ZWRfX63SyPsQNUiJi
- xM/A1gIVS3nNd9+NmeK3PWEhc5rrH5No3brwNp1JNd7Nd0rItuuqXB3yMA72QRNc3ndMrJnGFOB
- ctNtgcGjDLpbADfpUnp5UlhvHKyBlPxleQWzCqIH9afHax5vGwgigK5eNxJNSa7b6II7RZqEBPW
- 4ELumai7KD+4OxVlKASj+bTp4QMmRQV594+/fqUf5CjPn4wxJ/Xe0LFnLTlI5fsm6U1Nq886WPM
- wz3IlbNPG2fVsuNSHZ4zvAyHyOziiG109C8st3DioKDeG1w4m1OyK4UngSX+WBw/+vniJ6aVRz9
- d9LEvPOxkmO8jHTxJ0tJjCOhMqvhYeoMEXJQEd2MLuLvasDUUzNR/XQqEpURwM=
-X-Proofpoint-ORIG-GUID: xlRNljvrJlzC0zx51W92tHpyig2x_syA
-X-Proofpoint-GUID: xlRNljvrJlzC0zx51W92tHpyig2x_syA
-X-Authority-Info-Out: v=2.4 cv=TembdBQh c=1 sm=1 tr=0 ts=6abcb725
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=B9nqV3Rn1-QA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=HHGDD-5mAAAA:8 a=9H8p8Dz5MySjVPkIhQgA:9 a=QEXdDO2ut3YA:10
-X-JNJ: AAAAAAAB/+A0FRISZACh1db7ezWr6GoVKzuMpzleNTFimwtxl4SJKXP6hSzgwz0aMKLfszu5ujPqkod259doy3zWE17usgwfR/LgNyWPrSuGjTBAMgMFHzrQnhkRQMdqT0KrTqmnzTHX3sx+G8WaiM5puDUpBOXllPyvFvLpd168NJ2X1B3brQYDTRlYcIpXTqou+u0/nx/O9XJMdYeI02oVGLImFlPie7YReNk2VgrdAau9F9MTRWa+RJw9MUq+49rEoQJgq2FAprIlGQ4ggjM7BgFGOV8Ib0VoEa+bemM7nWkMDoZwdcNMIIROUBs9G08k7gjhvw430Ars1+6+2xxWNOBSO/BGwlhDDZTSOn8mpx6kyu7PBb/SaRge92ahQXY0F7r59u+3/jALMjYJ6q4hLlhvI2Dumgo/XBAnT8ae8bxuOvEMqN+0icBwOpjhB7D4sWv7qSalJKyhrpuYen5JNo1/4RSy+PzBjK4uOZ/Mj1O1bUFSL3bBkHkqJtO1cQ8v0AV5ooC3AOQezqxDDUsowVAmHfpC8obBoryHQOMDoHm16Rl8PFkwhJgM+clBHrQYOvcEcqIAN2/iXdywpQp/nAkSuHhhVI5+gdzK5CheczYThyS8g4iXaTIYl1gLF68urSsFM7vVUg5L5VFNvo7VchdWka5T+nxEVLBEIKlu5cn6YAiZvAxW1l0EXWxZ3Nh5qntCt5dCxNiJnlNf0pl2L7q5DApRPVrj1EsLzheeWDzxV1hrOJbTvb44g6OL5K0f1dIA9etp9c1tm9mtau2IYHfBTb7SYOei2uT5+aeDHGh4+kpycuRj5QNNHtZige96fEFvAQQEOSC05nkl1dvroNon1GrtWSn+0XxhEq/aMeEzPl+ou8G1VrRrN8dNk+fKyzzsiyRsXvTm14cljBppMgGmaw5JrWqR6fAHKSwS07Ync44LkAboyprGYxLiXroZxB1Dy0j9Cq9MY7x2gvuqxzu+q4h
- mWvt9Km/BH/ymBagw2FCdZb/Az10Q+1FWeitvR7m+I0Ery66Q3lSfn+6mXNEXGNsBxZ8V/JscztheZo+Z6vlO5W3a/qrg+B4lhyLkMMICu1sFETQDEEBuSjMoz1gTES/Dw8EgRK8rnDzr0B3OCAhsFO3vFUJQrGnfqB3lIlzNFHkxtXXScUWU/gyWZhG+F/vRXyXjbmKKIlAZwq3BDw/+XOSJGH/JyxOefcyQi4qfC83hdS6/vAbn9AxwAPAr/eXDY2Eu6rC4u81zWkD6dWWWGNQIzkrDv3P0sz8ZUIVarKIQefaUpcDaZP9rwaeYdnmCzr4VMg==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1201:EE_
+X-MS-Office365-Filtering-Correlation-Id: 306b1137-a321-40a8-be7e-08df1ec2a5cf
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|366016|376014|23010399003|1800799024|10067099003|56012099006|22082099003|18002099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	dUpk3VmKOEBesN9U4LLxymO6WZLoXB/zLpBZ/d25lQ2SjlgFQSj3Bqub7neFJKeZpMQag4lcz0DQMKOHsiMSDPxChU0x6HFd6sWyP67gPy5bDAyoODYevQjlYqWz0dkO3LT8FYq3ZbTfw2gCXaum5pLJAzHuYH7Qs9zccEK8Zwu1+XGZRBLSkMAf7tTMUz8vJrmxLRNil8Zb/HP7x9ZU4BeoDJSL1GxJDgkJUfk+21zO0ki7rZzAhZMHc2fE5kSBXwpJF5jPbNI9Ptb48+YY5ld++G6l+DRuzIX8ZcmQA3/HOs/xrDsw/WE1iMiQUNYp3maN7r/3KOSv/4vX/cZlvFKr+Qa+dI6KcvqIYI/ceEVUtVyUY8aJ3wV1tpII7AF4ayQTG1MTuKerMO6Yq4iTnMfSKSOTqkBmHANCCpmYom3EJwv7Ui/lL3eYaeg2Mv64LNPAzN/UyibhzbRlgL++iK5hmrEs6XRN6Gp6sgtFdQcNkT+K1HqOSpBz7bpitEzDd7zUUqcRM7Ah5noyAmnyJo9qpsXAEE1/vzLwPPV6Ngw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(366016)(376014)(23010399003)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DFyDf8B/F3mgc2dMz1l9fLXXj4AiGd5olrn39XpfOR6VeRCUtV4Y2lA126nP?=
+ =?us-ascii?Q?ojSnvZ0V1hrw+FaLwblGwDqc4srMe6kWuTqBQCnjn+11uiAt8fZlp1PRXNP5?=
+ =?us-ascii?Q?XZoFeMBYdtHXC0f0f4R6AxSsh6VGiXn1p1+/Gmomkx+F1teAi1gEHdnKMKiZ?=
+ =?us-ascii?Q?+qr5SR1THOgJHD17AjGPVhxuz93l3wxb5vEYrCbI0Ll4bhuCpJz4jQ96ULSl?=
+ =?us-ascii?Q?jcoLZY6pIVh5JYMtBoxM2cmNE92N1paAO5a8ywbv4gC94JwSpTS2tK7F4Imp?=
+ =?us-ascii?Q?e+qUvixDRLNN9MX+i5gO6dmMvM1rG+lw+43LE1F6j71f1FnRlOLhxfkXYPtn?=
+ =?us-ascii?Q?Ep/eeoFBHeTlXy205oyX0Kd5Rtzj4OuN2w6bnR83G3Ly8Qp0OivKs8p64dCf?=
+ =?us-ascii?Q?bddEVQb3qASvvah7BCkWq6Cbq/p8CRRu9C+qUZQwXI7TPRj32C1cepoZ9jyY?=
+ =?us-ascii?Q?YMrx67l3wk2DmXiCsRomqeIsN3Em8D4IoK9wGody2yFLM4f6YHZjPho3Kj/k?=
+ =?us-ascii?Q?phzGmDx7hx1ulW07eoxGm+S73AdSjTZiwwlafwASrsWBvYk4U/i0C6gbBUe1?=
+ =?us-ascii?Q?Q0a0Dq9VizE6zr3voH0mNPlqc7Zr7MuM2DJoctRlQWc3Ydc8VtErDYk3yOXz?=
+ =?us-ascii?Q?DvnJMet+c5SF3uvrbpvLvVZQlR00ZLJ/Jy7cHtkEcdUXx7zfUnjE0t9T7W9U?=
+ =?us-ascii?Q?BR0BD2iJd8GDYhCrGaWE/Sv+Yeg7xMfUbxBHeew6Ie2Q/3OKvP0ymO9/MH/6?=
+ =?us-ascii?Q?cYFgx5EvycXXVwwYZWlmBlU5Edl15WY3A9h+u4LkIprQkuxqXqFlCoCW2JY8?=
+ =?us-ascii?Q?R8tXosQJD6zfT7QlCRM73kFI7DATcyj/AUyu7YEJ7QUHQnGaVgPKMKXzEwO6?=
+ =?us-ascii?Q?63n7MMHoZUM32KRQK1e2tjuMx/V9so2IF1gSOFc/93/xEaxF3978Ac7Rr1W0?=
+ =?us-ascii?Q?vEhorfWLdKksVBbyH8iR8kidBq+3Ed6fMQnZ0WCbmT5bWMyeobY5QaxP+Voj?=
+ =?us-ascii?Q?Hq43cVMfZVAHEXc5urchU51uTVJaeFdvbC40/qz8rGqek6nakfQHvKlWYUyr?=
+ =?us-ascii?Q?1QE4fBrlVhk+w77GgeNSqPONmKOpachanRqmxwrdFo9RG6OSXg/1wyAc1dca?=
+ =?us-ascii?Q?qZOXsJlwZBkXeDbFp27YTtt+CSF3MyLnPO3r6ciZs+pLKb8+2+ase1xS9H/x?=
+ =?us-ascii?Q?AYUChmqUbMgWahuml0ckzPbrWgbXrpoVP5BlwBpjNQWIz5tO0fB8sQCadh1m?=
+ =?us-ascii?Q?8pBuOfK7vRdLTjgAuOyxBbceZxJ/21TCyf3UTHlCV99JjKBisgi/TZF75v12?=
+ =?us-ascii?Q?eS/PtGo1DMQvzcnH1ifEB92L0dPzD6xMyoLVm8u1XM/D75yvE199IBB8hKbf?=
+ =?us-ascii?Q?vKR6haccWYt/GhhtcbaPhHhK5XgA54Qjpjm+rMXGY+oCwgCnU6XcuzdBNK9v?=
+ =?us-ascii?Q?YAM3OlG2QGr+b+Eosb4fW5NZyPRzNJGMsMNjNBLpnNPmbfdQ3nzwpAm7kXve?=
+ =?us-ascii?Q?HVLvNo2rAQuifX/hwFlGCnvpGWqJziqSeo2sByd6RVIz2hpb8eVu/v+9IF8/?=
+ =?us-ascii?Q?i2INFCbTVbD6tSQ9aYJjQAO7/lR+EHgd4NffxI20+f+s2/poX7GNaceFv2M1?=
+ =?us-ascii?Q?8BJZvslanGnFCrKg+oSWSYJR+q0pTJ92s5r3IQdWGPiqitKH4L3rGjbXOEhS?=
+ =?us-ascii?Q?+oYsHLHVQja9WXOQxblPtyJENg/UhhUR3PnanVKuo2+FB5XxdFsKk2cegg2G?=
+ =?us-ascii?Q?dn4uUIE6mtJN5DnlNzQi8SbM8zI2iRMtMBz5e3TrXa9K4r0lxM3s?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 306b1137-a321-40a8-be7e-08df1ec2a5cf
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:15:46.5273
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xZ+P0JS6EbAZy0od3ZYZTuKYzyJu7pKDGxsfBtLyfR1hSQvbNsAhuPq1rGs/lNrtaOf2jtWrltSOSYT4rf8cfd2OzMGnuN7HOx+kGiaW8E7MgpjT2Y2ko1kNautSJCxi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1201
 
-When a host bridge has no _PXM and the Northbridge fallback finds
-nothing either, pci_acpi_root_get_node() leaves every root bus at
-NUMA_NO_NODE. With exactly one node online that isn't really unknown,
-there's only one possible answer.
+Currently the delay in dw_spi_dma_wait_tx_done() is expressed in SCK
+cycles, which requires passing a valid struct spi_transfer pointer.
+This does not work for enhanced SPI memory operations, which are not
+described by a spi_transfer. Compute the delay in ns or us based on an
+explicit bus speed instead, so that the helper can also be used for
+those transfers.
 
-Seen on an ASRock B760M-ITX/D4 (i9-14900KF). nvidia-fs calls
-pcibus_to_node() directly and warns "error retrieving numa node" four
-times per boot, once for the GPU and once per NVMe. Rewriting the
-per-device numa_node attribute from udev doesn't help, since
-pcibus_to_node() reads the bus value set at enumeration.
-
-Fall back to first_online_node when num_online_nodes() == 1. Systems
-with more than one node are unaffected.
-
-With this applied the warnings are gone over four boots. I didn't
-observe pcibus_to_node() itself at the call site, there's no sysfs
-file for it.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Ferran Duarri <ferran.duarri@me.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 ---
-Only user I've got is the out-of-tree nvidia-fs, hence the RFC. The
-single-node condition is the same reasoning as Bjorn's 2019 "PCI: Warn
-about host bridge device when its numa node is NO_NODE" change. Fine to
-drop this if callers are expected to cope with NUMA_NO_NODE.
+ drivers/spi/spi-dw-dma.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
- arch/x86/pci/acpi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/arch/x86/pci/acpi.c b/arch/x86/pci/acpi.c
-index 7cd5388ed..2ae31c3e7 100644
---- a/arch/x86/pci/acpi.c
-+++ b/arch/x86/pci/acpi.c
-@@ -463,6 +463,13 @@ static int pci_acpi_root_get_node(struct acpi_pci_root *root)
- 	if (node != NUMA_NO_NODE && !node_online(node))
- 		node = NUMA_NO_NODE;
- 
-+	/*
-+	 * One online node means there's only one possible answer, so don't
-+	 * leave the bus at NUMA_NO_NODE just because firmware didn't say.
-+	 */
-+	if (node == NUMA_NO_NODE && num_online_nodes() == 1)
-+		node = first_online_node;
-+
- 	return node;
+diff --git a/drivers/spi/spi-dw-dma.c b/drivers/spi/spi-dw-dma.c
+index f7d848fec9ab..d0b1a03682e6 100644
+--- a/drivers/spi/spi-dw-dma.c
++++ b/drivers/spi/spi-dw-dma.c
+@@ -286,19 +286,27 @@ static inline bool dw_spi_dma_tx_busy(struct dw_spi *dws)
+ 		(DW_SPI_SR_BUSY | DW_SPI_SR_TF_EMPT)) != DW_SPI_SR_TF_EMPT;
  }
  
+-static int dw_spi_dma_wait_tx_done(struct dw_spi *dws,
+-				   struct spi_transfer *xfer)
++static int dw_spi_dma_wait_tx_done(struct dw_spi *dws, u32 speed_hz)
+ {
+ 	int retry = DW_SPI_WAIT_RETRIES;
+ 	struct spi_delay delay;
++	unsigned long ns, us;
+ 	u32 nents;
+ 
+ 	nents = dw_readl(dws, DW_SPI_TXFLR);
+-	delay.unit = SPI_DELAY_UNIT_SCK;
+-	delay.value = nents * dws->n_bytes * BITS_PER_BYTE;
++	ns = DIV_ROUND_UP(NSEC_PER_SEC, speed_hz) * nents *
++	     dws->n_bytes * BITS_PER_BYTE;
++	if (ns <= NSEC_PER_USEC) {
++		delay.unit = SPI_DELAY_UNIT_NSECS;
++		delay.value = ns;
++	} else {
++		us = DIV_ROUND_UP(ns, NSEC_PER_USEC);
++		delay.unit = SPI_DELAY_UNIT_USECS;
++		delay.value = clamp_val(us, 0, USHRT_MAX);
++	}
+ 
+ 	while (dw_spi_dma_tx_busy(dws) && retry--)
+-		spi_delay_exec(&delay, xfer);
++		spi_delay_exec(&delay, NULL);
+ 
+ 	if (retry < 0) {
+ 		dev_err(&dws->ctlr->dev, "Tx hanged up\n");
+@@ -659,7 +667,7 @@ static int dw_spi_dma_transfer(struct dw_spi *dws, struct spi_transfer *xfer)
+ 		return ret;
+ 
+ 	if (dws->ctlr->cur_msg->status == -EINPROGRESS) {
+-		ret = dw_spi_dma_wait_tx_done(dws, xfer);
++		ret = dw_spi_dma_wait_tx_done(dws, xfer->effective_speed_hz);
+ 		if (ret)
+ 			return ret;
+ 	}
+-- 
+2.25.1
+
