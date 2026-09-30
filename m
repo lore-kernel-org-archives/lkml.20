@@ -1,65 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADACE3BF660;
-	Wed, 30 Sep 2026 10:15:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4115531F98E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:16:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763355; cv=none; b=l4sW7hwNCpJxiOQyR73avaOkq5yqAJI9G7mGSPvL3Z/C85S0CE/tXV4u0gSGTn31I5jk5iZOg2Ci7XZhiGPtg5QKA8bxQ4Bwg+Tq/OcrSfwHllxsiJ5KF4Cjr2gnHBT0J42+RYJeJsxrwCoK5r7eMF42Lr2vXLJU62HJlU3lZFk=
+	t=1790763404; cv=none; b=gLOEZheNSd2KYP3zk+s4fIj5P254iYuhkNCbG0EyUfSpQTLBkNW21jvCmldWemDLdL93HPn+fQKcdXNTxLpJ1oeDe7aB3B1CHj7cF8HCGnf6sYprF/ui/2qXbVj267S/ayYjFJBTb9MtxyXRLZ6hZ1R4mezpMnqGBvbzbq+eoOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763355; c=relaxed/simple;
-	bh=JqSfPSgjF5PyGS2VuxjAFZemmABS/4Ly7VYBibSekds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qMe49XLXYUkFFkuPtE/z8I/+KTqxij/95eeUGw4ibh4fYOvjcIO0ZOLzaFXAWwrWvfW4xghJtTbeivrfJGLEcXh86Z65FsuYBLgOeNg1+g2kFeOrj+GIKjfM+mvPAhNnX+vzhNOXcfKhiaUMdyrzAy2owixIA6qmgkIdGnDcDi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VG5b7MNd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790763404; c=relaxed/simple;
+	bh=A8CHchd/DQeuob/IKvMzAA6PQSaRBESgnbDq2V+pDLo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=djXHoXx7wa3vDXeyzbR7cSoR1N8HDiH2nEzst0Tc/nu7Lki2JykkH4TxtVnQupJlVj55vnOc1NA93NwiPhP6hWJLcfXY0U9FJLYji4b6m0mJ5qvf3/cCtD2GnMKP0uHreTkqJuWbkmaf+nCOLo34ihbyBNBWH5RnJncSOL1luYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XAhNCoFS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VG5b7MNd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4308E1F000FF;
-	Wed, 30 Sep 2026 10:15:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XAhNCoFS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 015F61F0089E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:16:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790763354;
-	bh=2+v9UdC3WeSsimkvLm7OPSPWh0Nm4kcvIj5kzanuUhQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VG5b7MNdnIeobZc1HIBo3JFB5v7phc+A+upIBve5/3mfft29cZxXSeioIEpmjv4Pk
-	 vm3eMEmYkvkFHLo+jA03GHay8fXFo2kvNZh6iYHaKiuV//8eeKcfFQow6HvHj+7mU0
-	 R9J36+qboE9T/a7SX7Lm6rEgzZ2gdhSt6R0BDtG8cBH6YGwxet7Xh0aUHvCb3+jp7F
-	 47XG7b6x6nFzgJfdTQJeuqgDfzvkNjkbF/lTe+MX41yRG1pv5Q1UIT5zozera6RTtF
-	 ikKakkXa3EJM4q+4wLpPB9ro2ErkBb+dECGpvkTDvUKoZn9LW33D+SKiv/uBqJVLEi
-	 n22RAXP7/6BRA==
-Date: Wed, 30 Sep 2026 12:15:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, Ulf Hansson <ulfh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v2 08/11] dt-bindings: mmc: sun4i-a10-mmc: add Allwinner
- B288
-Message-ID: <20260930-elk-of-strongest-reverence-da4495@quoll>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
- <20260927151016.186493-9-pmazzini@gmail.com>
+	s=k20260515; t=1790763402;
+	bh=uHXOnZ9BNFSIN05Dg+T7/oEbdZnSWmLY544tdTXPE1w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XAhNCoFSBa9mzkhUTRZ6s+LjfcUdKjtSgaumrDU0uiiH6xucs0AWf1M4JDMQ3A2Ga
+	 K+MDK301g/xKlb4j0RmHffj9fNL9sY0U0ymQ53BK35xgSLHsdfJ42VnxyzDzm9GIi7
+	 tq5atbM76nBQI4c6+e7AugGId9H1SydojzkAXzJspexuxdSApgWv8rd9ZxdeGOJnsL
+	 Ad9tcdO6Ph0iqzFzEFCWaUUwHiG3I61e6QCni38RnlE5rvdVKiBRWO5sM5dYuuhDGW
+	 kGtsZDhR/eT/mTzTkvk9s0unqe8vL01U0YQ/ZJSqRfINck8+6imoGNvq+VQta6cyqL
+	 Dcv7dAQ/jwzfQ==
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2b4138d3deso579699266b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:16:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzkVCmgAOGM0RlsCbytESwCd9lrgnjy3Cqccm/XgSTydoapUOU6nwhS+3V1ZYLT7/1Tlc1Y9nRjQ7UByTs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpzvY5GR9Pt6pODy5oga6ICn1Xb/MZzwpLRovIjcgRseOj6+Z7
+	2OZRj3amzJFxLFgVDU9F+l8wsWlz16j7RjRDyaUYKCI7sIncCHiJ5OquRfdYSNdK21YUTsaxlQt
+	0fussi6YDwRth5w3QZl6h8YIbgsVR3ok=
+X-Received: by 2002:a17:907:6095:b0:c2a:50a7:d052 with SMTP id
+ a640c23a62f3a-c2e2374b5afmr70014666b.7.1790763400537; Wed, 30 Sep 2026
+ 03:16:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260927151016.186493-9-pmazzini@gmail.com>
+References: <cover.1790684177.git.matthias.goergens@gmail.com>
+In-Reply-To: <cover.1790684177.git.matthias.goergens@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 30 Sep 2026 19:16:28 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_XDTTB2upyHxzgYfwODuaYpG-WXcuQ0Tjn3PtHoXr30Q@mail.gmail.com>
+X-Gm-Features: AclHuK8-cC67NvzR-eTpsX__xkhD08L02GRBoaCQQaJYTSWwsBL-yfX3afqU48E
+Message-ID: <CAKYAXd_XDTTB2upyHxzgYfwODuaYpG-WXcuQ0Tjn3PtHoXr30Q@mail.gmail.com>
+Subject: Re: [PATCH v3 0/6] ntfs: fix the $MFT bootstrap hang and reads of
+ unmapped runlist ranges
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, Baolin Liu <liubaolin12138@163.com>, ntfs@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 27, 2026 at 04:10:13PM +0100, Pablo Mazzini wrote:
-> Add the MMC and eMMC compatibles.
-> 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> ---
->  .../devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml        | 2 ++
->  1 file changed, 2 insertions(+)
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+On Wed, Sep 30, 2026 at 12:48=E2=80=AFPM Matthias Goergens
+<matthias.goergens@gmail.com> wrote:
+>
+> Hi Hyunchul,
+>
+> This is v3, with your review of v2 and Baolin's applied:
+>
+> - Patch 1: a failed retry for a vcn at or beyond allocated_size returns
+>   the runlist end again, as in ntfs-next; only lookups below it fail
+>   with -EIO.  On its own, v2's patch 1 also failed lookups past EOF,
+>   for instance when reading a file's last folio with 512-byte clusters
+>   (Baolin).  Baolin suggested moving patch 4's allocated_size check
+>   before the retry instead, but that skips a retry ntfs-next makes: on
+>   a corrupt volume whose allocated_size is cut to where a file's last
+>   extent record starts, the rest of the file was then read as zeros,
+>   where ntfs-next and v3's patch 1 read the data (with the whole series,
+>   patch 6 rejects that file).
+> - Patch 4: the if statement you asked me to merge is gone, as the
+>   allocated_size check now sits in patch 1, and in
+>   ntfs_attr_vcn_to_rl() patch 4 only extends patch 1's -EIO to
+>   LCN_ENOENT.  The expansion rollback restores allocated_size under
+>   size_lock.
+> - Patch 6: the comment is gone, and $MFT's own non-resident attribute
+>   list is checked too (Baolin); a volume where that list claims more
+>   data than its allocation used to mount and now fails to.
+>
+> Patches 2, 3 and 5 are unchanged.
+>
+> The series fixes a hang at mount when $MFT needs its own extent records
+> (patch 3, which needs patch 1).  Patches 1 and 2 fix reads and writes
+> of a runlist range held in an extent record that cannot be read, which
+> returned zeros with no error or silently lost buffered writes, and
+> patch 4 does the same for a runlist that ends before allocated_size.
+> Patches 5 and 6 check the sizes of $MFT's data and of every non-resident
+> attribute against their allocation, as fs/ntfs3 does.
+>
+> Tested under qemu with KASAN and the hung-task detector on ntfs-next,
+> with and without the series.  Nine crafted images that hang or crash
+> the mount without it fail to mount with it, and six that read zeros
+> that are not on disk return errors instead.  Eighteen images that mount
+> without the series, among them eight public test volumes written by
+> Windows or mkntfs, read every file the same with it, and six small
+> mkntfs images still mount.  v3 gives the same results as v2 on all of
+> them.  The images and the scripts that generate them are at
+>
+>   https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-26-nt=
+fs-mft-runlist
+>
+> and, for the ordinary file of patch 4, the unaligned allocated_size of
+> patch 6 and three of the eighteen volumes that mount, at
+>
+>   https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-26-nt=
+fs-v2-extra
+>
+> and, for v3's changes, at
+>
+>   https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-30-nt=
+fs-v3
+>
+> v2: https://lore.kernel.org/all/cover.1790417653.git.matthias.goergens@gm=
+ail.com/
+> v1: https://lore.kernel.org/all/20260922153931.1976405-1-matthias.goergen=
+s@gmail.com/
+>
+> Thanks,
+> Matthias
+>
+> Matthias Goergens (6):
+>   ntfs: do not map an unmappable runlist fragment as a hole
+>   ntfs: do not turn an unmappable runlist fragment into delalloc on
+>     write
+>   ntfs: fail the mount when $MFT needs its own extent records
+>   ntfs: do not map a vcn as a hole when its runlist lookup failed
+>   ntfs: fail the mount when $MFT's data size exceeds its allocation
+>   ntfs: reject non-resident attributes whose sizes exceed their
+>     allocation
+Applied them to #ntfs-next.
+Thanks!
