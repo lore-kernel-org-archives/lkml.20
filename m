@@ -1,93 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CE034F27B;
-	Wed, 30 Sep 2026 04:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC0B35C68E;
+	Wed, 30 Sep 2026 04:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790740967; cv=none; b=pMO9pdWBXX7twxHBI9ostNkG2YmQnKcrGOGcOZerwOSUP6wbOrJu2t98nDDOJmI8JNaDEX3Rkp8hMf1haLY6UWLb1HfCcxhYRqtfP3jwfgC2j+0WTKzl4Y3HjJQ/pmmCb72pbBppc6AAcYMW2G3ceijksAxOCMz4kmoXrGGOcXY=
+	t=1790741239; cv=none; b=SRxkc8z6lxdmrluOvw2YaZMQltWWvHFWaY5AoCqeS2djI//EIdXKjepF1p6B16Gub9gk+NVxEspRH8tuzRsqtSZ57uG9SjzsgMkJ2CDLDfxFBdVdO/WHYxXo+Qfr5WideS9MQ/5h5R0YER0B6gKmElfO34nOhTZjKv0jymn2X+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790740967; c=relaxed/simple;
-	bh=1Q7l9P+mwBxjDPYZS00viz31btmtmTyUZYwSao8wJkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a3/SQ3Db6ufJIH28mw2JW1Rgk2/JDdPLCheRweEkVHL+ixpe1t5M2XODiediwdPtsYzOWsh68iUVNWnO7e8vYJbwTbVgz/GSciBg4ITPvNlzMZV5CNvzDlniA0fVLNZiob61npjVKCuIc80H6yUR5KaBaIJz3/RJ5TDKSNhhxFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HD69uOlR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790741239; c=relaxed/simple;
+	bh=Lu8ZQPi2OxEIWypUkHNymgoSd6aOra+NkH6mwVXbKzg=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=n+xY6806gMh27ghjxRzlTu7AgmueBF9/1E9NO4x0kOnv28bVByyCSxWVqZFT0YSsRvYJx0NjXZ6P7SOocnxdjBuOfnbCfy684LX7K/RFrWjF0ojD915UCSp+sidvs/jDqkO6PNtWCMQWHXH+5DSd88j0Cj82WOcsKQdreVQR0aE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=PifqFxZ9; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=6FBWHyM+; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HD69uOlR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8776A1F000FF;
-	Wed, 30 Sep 2026 04:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790740966;
-	bh=fCNNrgHeF3TH0JxabxCWSQevJB+6mov4VDtLXvGgrsI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HD69uOlRbB78U5Kr6K/BU0J4R0qXQ38JIOhZBlN3YXsflMCzQn62OGc9PDVofAvYx
-	 RlR7ULMKM7kSZ+svXMQntZ++x5bFMeh0bjr+hgIEmVeg7uC2TF7OPOewOfIdlNQcCf
-	 HVdHPMLccXZEBhdunmaKK1y0xewF2b2Kwl3feBWKB3/QqdA80mF4M84TVJD95Jr4Ho
-	 JwBGbZYr45qEjKqX5O10gt6BNJb4pjyi1UC0L6jL2RUCl6lcQD6ah6baNObDyjfyYm
-	 Bs3NP/rKGKHxbi8YFeLHmJbr2qzRxQXCr4KBqTkwQGASDl4+oTir3jqGYCo3QJhZVV
-	 ps/Ax5qaxmbHg==
-Date: Tue, 29 Sep 2026 21:02:44 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 02/26] perf trace: Include the augmented arg header in
- nanosleep's payload length
-Message-ID: <aryJ5BrbOnVU9y49@google.com>
-References: <cover.1790145937.git.irogers@google.com>
- <20260928182605.3649015-1-irogers@google.com>
- <20260928182605.3649015-3-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="PifqFxZ9";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="6FBWHyM+"
+Date: Wed, 30 Sep 2026 04:07:14 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790741236;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CUykl832QLZ17HbYE8mmT+kS0hKWuIqwgxU7/wvfCuw=;
+	b=PifqFxZ9DeTqxz7VZphtruWoeWyrtj6T0RbehcoAwX4dS31KAaIZpFbg4LC2jEpQlbvmg/
+	jAd/L4eA4ToxMPBfUCzQmkfMYmLXaxEPeoKMN7hM5ZyG/ARMTNYHYUyBc7J6AI9Eah2e2U
+	C3DESsFe4EhcgN4NDFA5bnwcsteB+q8jZk7x2uCM5ee8YJnyOc0fZgk6yT1sjzP0OFubIO
+	P+mNv8V6dwCN/0uJ6wyrsIkEEtExmEbRQnkPgQY0+D6u3aSiZKeS4eU3Wz7HXHucwl+hdA
+	cuEj1rau7BnzghhG+Cj+nKoRSiRehHUhnEAZOFeISkuVU8CwzEMYIvkTuvgz/Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790741236;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CUykl832QLZ17HbYE8mmT+kS0hKWuIqwgxU7/wvfCuw=;
+	b=6FBWHyM+yRnIkkxQDH3byfvzpFyD3QvF4e/gtGZETvNE6ObNGrK8EVHrUb2BD44q3aJ8xA
+	5GSYecOxRUGNzTBg==
+From: "tip-bot2 for Ethan Nelson-Moore" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/cleanups] x86/um: Remove unused <asm/required-features.h> header
+Cc: "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260918031807.449816-1-enelsonmoore@gmail.com>
+References: <20260918031807.449816-1-enelsonmoore@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928182605.3649015-3-irogers@google.com>
+Message-ID: <179074123423.3910103.1285160358219471163.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 28, 2026 at 11:25:41AM -0700, Ian Rogers wrote:
-> Unlike the other augmenters, sys_enter_nanosleep() leaves the struct
-> augmented_arg size and err fields out of the record length, so the
-> output stops 8 bytes short of the end of the timespec payload. Count
-> the header.
-> 
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
+The following commit has been merged into the x86/cleanups branch of tip:
 
-It's a bit confusing to use sizeof(u64) for the two fields, but that's
-what others do.. :(
+Commit-ID:     2c6a75adb15f8fbeb7a8cc6b1f35beb21db20762
+Gitweb:        https://git.kernel.org/tip/2c6a75adb15f8fbeb7a8cc6b1f35beb21db=
+20762
+Author:        Ethan Nelson-Moore <enelsonmoore@gmail.com>
+AuthorDate:    Thu, 17 Sep 2026 20:18:01 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Tue, 29 Sep 2026 20:48:21 -07:00
 
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+x86/um: Remove unused <asm/required-features.h> header
 
-Thanks,
-Namhyung
+arch/x86/um/asm/required-features.h only existed to satisfy dependencies on
+the non-UML x86 header of the same name, which was removed in
 
-> ---
->  tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> index f7c9eb49648f..cc70861a23d6 100644
-> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> @@ -419,7 +419,8 @@ int sys_enter_nanosleep(struct syscall_enter_args *args)
->  {
->  	struct augmented_args_payload *augmented_args = augmented_args_payload();
->  	const void *req_arg = (const void *)args->args[0];
-> -	unsigned int len = sizeof(augmented_args->args);
-> +	/* the size + err in all 'augmented_arg' structs */
-> +	unsigned int len = sizeof(u64) + sizeof(augmented_args->args);
->  	__u32 size = sizeof(struct timespec64);
->  	int err;
->  
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
-> 
+  8f97566c8a81 ("x86/cpufeatures: Remove {disabled,required}-features.h").
+
+Remove it.
+
+Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://patch.msgid.link/20260918031807.449816-1-enelsonmoore@gmail.com
+---
+ arch/x86/um/asm/required-features.h |  9 ---------
+ 1 file changed, 9 deletions(-)
+ delete mode 100644 arch/x86/um/asm/required-features.h
+
+diff --git a/arch/x86/um/asm/required-features.h b/arch/x86/um/asm/required-f=
+eatures.h
+deleted file mode 100644
+index dfb967b..0000000
+--- a/arch/x86/um/asm/required-features.h
++++ /dev/null
+@@ -1,9 +0,0 @@
+-#ifndef __UM_REQUIRED_FEATURES_H
+-#define __UM_REQUIRED_FEATURES_H
+-
+-/*
+- * Nothing to see, just need something for the i386 and x86_64 asm
+- * headers to include.
+- */
+-
+-#endif
