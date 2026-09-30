@@ -1,180 +1,202 @@
-Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66CD4915B9
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.230
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767314; cv=pass; b=Bjp8mvtNFfLGH13oSOoDsDruaMv8vNkkCVPNVVC8TEnGM1dYqxOMVX+eS/e6J5fV6E3djQZD9PsSqWCdoyGRUGuLyCmTlU+VtaUlkdbVqL2zQyWR0cr2Ljjx6RJ6K4VIoG/pfALCI9fIRpww42f+5CNpGwiwf16BhAZsh/UqSzw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767314; c=relaxed/simple;
-	bh=nDG4cmfEbSlkfCKB3UpP5C6IJQLVyHZ+Tm6WTD0xZDU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qsDBda37aMCCdU4zqu1UAQSmpgQz7w3HKDEFggh1odIPVwH2VH1JhwzeaQPrhrwJe/9odIVdxr+jT33qpZ9EDAGci8b11zfkQMAmYg+DxoUyT4bTZn3RajYMHw75LybsAkYlicGsmu7GYjO12NSOmck8xfXoELEG5rqPU8N2nqY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wb6SqNIN; arc=pass smtp.client-ip=74.125.230.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58559364EA4
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790767324; cv=none; b=LIMQlfO5tY63qBvqlldd/LnFNHyfh0ui7W8NOOhJL73q5xQgdcfuJ9Ks7Wyk8yoVJEU7FkU2CUL/9plbrVQseZkWA8rt8D0McyCAqjGfVZsODPbFZ+9AjC1Xc+X9HYi4okSE1+LlvboNY6Oiiaaqe7JlB6ea3ut7D/VO0guBYVE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790767324; c=relaxed/simple;
+	bh=GP04wFEchLmfrYDL/C0c+zXwBLN/HNB1boGh4IWvbHU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VWXbAkZn89wOeD9Ec9kmhLQiLk4m2qGkma1DQSNA5xwAS2FS5/e5vnmHItYflTLoJHWTzj1jJd/qeIIb+DMlmmuhb9KWiepNLPp8Y4Fs1cUtuuRgYKtYF9QZIcSy+snFAxAvENXcTXH204VaydXYJtsLVMtKbqvaLdCtPCYMb18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=onRF7fW9; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wb6SqNIN"
-Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-5333729ca3dso37771991cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:21:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790767311; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VmIlo41wd8w8T4S9UvPnlhAr4gJqQfA+VCzOTz1jkonCSOtON2OWY/8oaA2BjSPr9e
-         MLqlCj171Z4vMPnESVA+ZOJx5Bu5HzwnqbLf+2OfPZO4cs1RPgoxf1GDimOr9b8q/QHt
-         xurQd/jncnmQ8RW/mIocCUEeAxV1cyeOzk2UIoueBA3Ep7I/ehYrj30EVKWYcggNKrUP
-         bn0UyDxHOMDCw6vjkH1LVVD+AKCSeV5hqm3X4zT0seVincSd2LO5O0PbBmJYdgVqkBwh
-         J1MV94EpDvnRmkn1nKX1MZ+UUJoKSmodns/X39UpPVyci+9+6TlKQD9xNkAnQFTqdRK6
-         n5iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZfpGJXYUt+pqZqeEvkxMBx7LIO0yq5hTEhvmFChh8bc=;
-        fh=rDd+dpcOIY7ANvddZsg8u82zk0LJ4wKI0EtB/upU+ps=;
-        b=iDLMR9fqJHKw1L8MvEEP1gYeFjzTqkicrytiYJfELKoIVrtnbR+m7GO4svPrR2q7OX
-         zQh/U0FKqatDHkR350Pv4d+5YiPJVvkEhExGzZCEmjOz0iQl0Eq5Ha0O0z6YX4qDYew/
-         XyxDY6B8b84KpZThxRPYyPZCzybe0hijRKn0HxKtFfF6EEUnn1KHtZOHWzBX8qW43P2Y
-         PIjAp1p6fzQTzyEET6boOZduVk3vdyP37G3BZBiBzWnN932GfEr0XTkoHULfFNJW364L
-         Vf0xuqJR+Gn4jMO20hju1+xxqhL5RioKo144s84WYthBSqjc2hGBPtpwsMhRQQ/PmiIX
-         P21g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790767311; x=1791372111; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZfpGJXYUt+pqZqeEvkxMBx7LIO0yq5hTEhvmFChh8bc=;
-        b=Wb6SqNINtqLZ8SBCO1EFhtCGRmjq83Qqs4k4VOB/55N3pFqah9bOxrYRMwnImUmskG
-         KCpE2vzmcduVXdZ6wkmPQ/c/32fA+/lZe8fmJc8uER1Djf4VoFwbB5j4b+ycnBEWdTC1
-         nsofptYgx/RQsbjpD/Qm6JK/8hPU/2RmdjvUSuVwottldGc4lY4hJLbCSKWkNyfob2W8
-         JuEABsXW/B34D5LvcWFzTEUCVXAORe44vgF/i+IV4EnPQtAUTN9wsYQj2CAFOcxsdMHa
-         lwcpK1z6ymXpapgDBeGVADrtEwQ9xr/3rQm8JMV2XmS572xVfq5NMz705lZVdKNba7uQ
-         OABQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767311; x=1791372111;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZfpGJXYUt+pqZqeEvkxMBx7LIO0yq5hTEhvmFChh8bc=;
-        b=yRBMo9NQ47BdJSj5xRd48PfFfm8zx+gbMJtOEA6zJTAO5TW0WND/z+U7A5jpl8hQCN
-         9h2MX63rhoEHUsO5xUMNEpL7c/fJLN5gLz1PQ+kwtDgTBuzrywS/zIXbwwuOvM0FySR1
-         Bv4Cn4zyjF1ausZipXFC2cXrkJ3Zb9M3y2sW9KaxVLu0Tvo+r9jyGBCKmQMGJwAM1rHe
-         r4l3wIj1IFa+FUbD+TWtv4N0VFqHFZb6m+93amIvz3lO2bIg5ksXvkt1neEL9AArNhZB
-         9ynFMfZXCWmKSF6xi6mLoYydfckFI5TogoY+eqx6ltL/dGZL9NY/s+9EPe6blUMnykdz
-         eiCw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/Pj6LU5GJ14ii7/1tGg8kyylEibWPLeOz9i3XphMV4oJoW0XOk/TY+P7ac4LdtNYWu5VIaivGzGy+XBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++keLWmOdbMiD//N/i4wMIHWdlcUCqM8OI4u+UwnxCKji1/UzTie
-	v89BH67S/wGP+m/dhySV3GdiRBn7CzMr4nFruUkUyfYR+UdmSsCkNVhg7VUkO/QmSyQviKn+jim
-	cfPF/ggDae74HZ6zC2HFOI343gBw1SVFjbcm2Mlxn
-X-Gm-Gg: AYBFou3htyu0BYLgGBAy64qKsqxdBejAu3MvRwr1yEsQS7akgt/yWb2hM3io53nsRYb
-	ZTCgX3DdDfoqSwBuqiDxWT89SIdLG31TBOPxIFQMlpE4QHNiyznbW5m74G/as9zI8TkK1sIZfZT
-	nuuzW2i2OfQCYTGmFpa4Y4ikN/jSjkfUVFkVTQ1x7tupoMaTcn3HAVSVdEMAYRLXGjJvMm3hKqH
-	Q4V/j/Z6COLL7ZRGwDpfUjibz4xTm4KlpGtzctyG0rLSZWmxwYdrfXLUbT72xwliP64R0X5QNPo
-	p8KUgL1jyhldyWc50QoWUsOs1Ki6WtKrQ3ovNYd/tsBt+0YeX95sfQ1YJd/5ghTC6gpMfCfLyWa
-	77NnB7f9Fm5EQb9e2xs1415zE43lDNWjxsGMKo1v4G2rg4eQi0zUrKjyKhK0CvKJj9STK
-X-Received: by 2002:a05:622a:1443:b0:533:4b39:4e28 with SMTP id
- d75a77b69052e-53374d85b1emr19082141cf.33.1790767310634; Wed, 30 Sep 2026
- 04:21:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="onRF7fW9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=dFzh1GAH8MFFpYIQbt45n9YCZuObHt+GgYmf+X1M1Jk=; b=onRF7fW9jpnq5jB9QuGhLyxvEc
+	qbEU2fUC3UpnLTPoe4Y4MOi1Nfi4cGWEmyG2JHjqKAlNQ86LM+9KpZfg+1B+C0AO6CdR1AnClln0I
+	Gu3XzkQmOXKs90vegdNrdV11Md1Ulaa9zeyDKaYNAcDb2MQnZ6VqnJZojH5zUVVchCyROf29oRs2k
+	3TPOfQonffD3ilZDKXBzCvwXMn1OtnnDXA6mTzbtWmqZPbMC6XpFjQ8uxqeetkfHGl0YRVKqcVHcI
+	osAAD09aLVwoedY5A54LkfgTYIg1VbbVcajIby3B7snDoHwqbDoYbrMJXG3L4rYBj7Vf8HjQif7h/
+	4DMr29CQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xBsNq-00000003i6w-0SRG;
+	Wed, 30 Sep 2026 11:21:58 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id ED9DC300583; Wed, 30 Sep 2026 13:21:56 +0200 (CEST)
+Date: Wed, 30 Sep 2026 13:21:56 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Chris Mason <mason@kernel.org>, tglx@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] futex: sample poll cookie after publishing new hash
+Message-ID: <20260930112156.GL88198@noisy.programming.kicks-ass.net>
+References: <20260818011036.1138213-1-mason@kernel.org>
+ <20260818011036.1138213-2-mason@kernel.org>
+ <20260820104015.GE687043@noisy.programming.kicks-ass.net>
+ <DLOLBXAIDH5J.2H6LPY4E4Q2RA@kernel.org>
+ <5b6fab2a-90e9-42c2-8142-0b0f094559f4@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930100937.206377-1-jiayuan.chen@linux.dev> <20260930100937.206377-4-jiayuan.chen@linux.dev>
-In-Reply-To: <20260930100937.206377-4-jiayuan.chen@linux.dev>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 30 Sep 2026 13:21:39 +0200
-X-Gm-Features: AclHuK8zNCR_V-ToSw-vF65D2n_UEp7o3edqp2vCKW91KoxifKRbepto8X6oeW4
-Message-ID: <CANn89iLwivMvNWC0oDgmQgTcKjrj_Ar8deh7Bc2jqyRXwv52tQ@mail.gmail.com>
-Subject: Re: [PATCH net-next 3/3] tcp_cubic: fix divide by zero and endless
- loop on bad module params
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Stephen Hemminger <stephen@networkplumber.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5b6fab2a-90e9-42c2-8142-0b0f094559f4@paulmck-laptop>
 
-On Wed, Sep 30, 2026 at 12:10=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.d=
-ev> wrote:
->
-> beta_scale and cube_factor are computed once at module init, and they
-> need 1024 - beta and bic_scale * 10 to be positive: beta =3D=3D 1024 or
-> bic_scale =3D=3D 0 crash right there, beta > 1024 or a negative bic_scale
-> gives garbage or wraps to 0. Negative beta can also make beta_scale 0.
-> Reject them.
->
-> A small beta also gives a small beta_scale, and (cwnd * scale) >> 3
-> truncates to 0 for a tiny cwnd (e.g. 2), so the TCP friendliness loop
-> never ends. Clamp delta to 1.
->
-> Fixes: df3271f3361b ("[TCP] BIC: CUBIC window growth (2.0)")
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
-> Target net-next since it is not a big problem.
-> ---
->  net/ipv4/tcp_cubic.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/net/ipv4/tcp_cubic.c b/net/ipv4/tcp_cubic.c
-> index 119bf8cbb007c..2f04dca5be095 100644
-> --- a/net/ipv4/tcp_cubic.c
-> +++ b/net/ipv4/tcp_cubic.c
-> @@ -298,7 +298,7 @@ static inline void bictcp_update(struct bictcp *ca, u=
-32 cwnd, u32 acked)
->         if (tcp_friendliness) {
->                 u32 scale =3D beta_scale;
->
-> -               delta =3D (cwnd * scale) >> 3;
+On Tue, Sep 29, 2026 at 02:12:53PM -0700, Paul E. McKenney wrote:
+> On Fri, Sep 25, 2026 at 05:58:13PM +0000, Chris Mason wrote:
+> > On Thu Aug 20, 2026 at 10:40 AM UTC, Peter Zijlstra wrote:
+> > > On Mon, Aug 17, 2026 at 06:01:42PM -0700, Chris Mason wrote:
+> > >> futex_ref_drop() may only skip its grace period when one has already
+> > >> elapsed since the current private hash was published:
+> > >>
+> > >>     kernel/futex/core.c:futex_ref_drop
+> > >>         if (poll_state_synchronize_rcu(mm->futex.phash.batches)) {
+> > >>                 /*
+> > >>                  * There was a grace-period, we can begin now.
+> > >>                  */
+> > >>                 __futex_ref_atomic_begin(fph);
+> > >>                 return;
+> > >>         }
+> > >>
+> > >> The cookie it polls is sampled one statement before that publication:
+> > >>
+> > >>     kernel/futex/core.c:__futex_pivot_hash
+> > >>         new->state = FR_PERCPU;
+> > >>         scoped_guard(rcu) {
+> > >>                 mmph->batches = get_state_synchronize_rcu();
+> > >>                 rcu_assign_pointer(mmph->hash, new);
+> > >>         }
+> > >>         kvfree_rcu(fph, rcu);
+> > >>
+> > >> get_state_synchronize_rcu() anchors its guarantee at the snapshot, so
+> > >> the cookie is cleared by the first grace period that starts from there
+> > >> on, including one starting between the two stores which never waited
+> > >> for a reader that loaded the old hash after it began.
+> > >>
+> > >>     CPU 0 (resize)                    CPU 1 (futex_hash)
+> > >>     ==============                    ==================
+> > >>     __futex_pivot_hash()
+> > >>       batches = get_state_...()
+> > >>                                       grace period starts
+> > >>                                       guard(rcu)
+> > >>                                       fph = old hash
+> > >>       rcu_assign_pointer(hash, new)
+> > >>       kvfree_rcu(old hash)
+> > >>     futex_hash_allocate()
+> > >>       futex_ref_drop(new hash)
+> > >>         poll_state_...() -> true
+> > >>         __futex_ref_atomic_begin()
+> > >>           atomic = LONG_MAX
+> > >>                                       futex_ref_get(old hash) -> true
+> > >>                                       spin_lock(&fph->queues[i].lock)
+> > >>
+> > >> The reference count lives in the mm and has just been biased for the
+> > >> new generation, so the stalled reader pins and then locks the retired
+> > >> hash that is already queued for free, and its later put is charged
+> > >> against the live generation.
+> > >>
+> > >> Fix by sampling the cookie after rcu_assign_pointer() publishes the
+> > >> new hash. Drop the surrounding scoped_guard(rcu) while at it: it only
+> > >> delayed completion of the prematurely anchored grace-period and serves
+> > >> no purpose once the cookie is sampled after publication. The writer
+> > >> side is serialized by mm->futex.phash.lock and neither
+> > >> rcu_assign_pointer() nor kvfree_rcu() requires a read-side section.
+> > >
+> > > God, how I hate reading AI output :-(
+> > >
+> > > Anyway, the thinking was that by holding rcu_read_lock(), the current
+> > > RCU-GP cannot change and the cookie and assignment are effectively
+> > > 'atomic'.
+> > 
+> > >From what I can tell there are a few ways for new grace periods to start
+> > while we're holding rcu_read_lock(), synchronize_rcu_expedited() if no
+> > GP is currently in flight being the easiest?
+> > 
+> > Anyway, this BUG_ON() fires for me:
+> > 
+> > diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+> > index a061f54b6..18d51c145 100644
+> > --- a/kernel/futex/core.c
+> > +++ b/kernel/futex/core.c
+> > @@ -215,6 +215,14 @@ static bool __futex_pivot_hash(struct mm_struct *mm, struct futex_private_hash *
+> >  	new->state = FR_PERCPU;
+> >  	scoped_guard(rcu) {
+> >  		mmph->batches = get_state_synchronize_rcu();
+> > +		/*
+> > +		 * Fires only if a grace period started after the cookie
+> > +		 * above was taken, although rcu_read_lock() is held. That
+> > +		 * grace period then satisfies the stored cookie, yet it began
+> > +		 * before the new hash is published below.
+> > +		 */
+> > +		BUG_ON(!same_state_synchronize_rcu(mmph->batches,
+> > +						   get_state_synchronize_rcu()));
+> >  		rcu_assign_pointer(mmph->hash, new);
+> >  	}
+> >  	kvfree_rcu(fph, rcu);
+> > 
+> > -chris
+> 
+> This matches my understanding of RCU.  Although rcu_read_lock() will
+> prevent a *new* RCU grace period from ending, it will not prevent an *old*
+> one from ending or a new one from starting.
 
-I would prefer not adding a test in the fast path to work around
-silly module parameters.
+So, let us consider the dual counter RCU.
 
-beta_scale is computed once at module init, we can make sure it is >=3D 8
-there. tcp_snd_cwnd() is >=3D 1, so delta would be >=3D 1.
+The RCU state is:
 
-With the integer divisions, beta_scale >=3D 8 iff beta >=3D 512,
-so the default beta (717 -> beta_scale =3D 15) is not affected.
+  counter[2];
+  index;
+
+rcu_read_lock() would increment counter[index & 1], rcu_read_unlock() would
+decrement whatever counter it incremented (say rcu_read_lock() returns
+the index, like SRCU does).
+
+GP progression can either be sample or rcu_read_unlock() driven. Either
+way, when 'counter[!(index & 1)] == 0' is observed, there are no more
+observers of the old state (and callbacks can be ran).
+
+At this point we can flip the counter and start anew: index++;
+
+So index changes while counter[index & 1] != 0, which is somewhat
+fundamental to how the whole thing works.
+
+Now, suppose get_state_synchronize_rcu() is simply returning a snapshot
+of 'index', then same_state_synchronize_rcu() can indeed trigger. The
+index can get advanced.
+
+But that does not mean poll_state_synchronize_rcu() would return true;
+in the above scheme poll_state_synchronize_rcu() would be something
+like:
+
+  if (index - snapshot < 2)
+    return counter[snapshot & 1] == 0;
+
+  return true;
+
+That is, not only does index need to advance, but also the counter needs
+to drain in order for it to report the GP is complete.
+
+And this is where I went wrong, when we hold rcu_read_lock() we pin the
+counter and thus the GP cannot complete.  But as I now see, that is not
+sufficient, because there can be observers of the old state in the next
+GP too.
+
+So yes, the code is wrong and the patch is correct.
 
 
-> +               delta =3D max((cwnd * scale) >> 3, 1U);
->                 while (ca->ack_cnt > delta) {           /* update tcp cwn=
-d */
->                         ca->ack_cnt -=3D delta;
->                         ca->tcp_cwnd++;
-> @@ -504,6 +504,11 @@ static int __init cubictcp_register(void)
->
->         BUILD_BUG_ON(sizeof(struct bictcp) > ICSK_CA_PRIV_SIZE);
->
-> +       if (beta < 0 || beta >=3D BICTCP_BETA_SCALE || bic_scale <=3D 0) =
-{
 
-bic_scale * 10 can overflow if bic_scale > INT_MAX / 10
 
-> +               pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n", be=
-ta, bic_scale);
-> +               return -EINVAL;
-> +       }
-> +
 
-Something like this (untested) :
 
-if (beta < 0 || beta >=3D BICTCP_BETA_SCALE ||
-   bic_scale <=3D 0 || bic_scale > INT_MAX / 10) {
-    pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n",
-      beta, bic_scale);
-    return -EINVAL;
-}
-/* Precompute a bunch of the scaling factors that are used per-packet
-* based on SRTT of 100ms
-*/
-beta_scale =3D 8*(BICTCP_BETA_SCALE+beta) / 3
-/ (BICTCP_BETA_SCALE - beta);
-/* bictcp_update() needs (cwnd * beta_scale) >> 3 to be >=3D 1 */
-beta_scale =3D max(beta_scale, 8U);
-
-Thanks.
