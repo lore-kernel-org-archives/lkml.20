@@ -1,258 +1,232 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B422F4E3245
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742DA4FD294
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777226; cv=none; b=sgZZD6D3EDtD0MnjEC3HNhW/aBKXqlGR8Vma3iQgBH3Qy42NUK4P2eM9vV2YNabOf/931xlBjys45pyDEfaRVh2NrEm5tsHFxKU4/c3cDsvBWQx01gCeSS9TnTTcR5/WVk+9s589JLb9vlJJNQHPDq26auuSSzu485XA1Kjj24g=
+	t=1790777249; cv=none; b=WmcsGllOh5cEDmL8XGnswGYOz7csHTPA57j/dy5pVlQf7+4MBEghdV56l+Y146qn5pAo4u77lxrZA71/zm6DEmwZnabitl+QZijYCMS/RgGhykAVJOemJp6SGlNJYB7BJW9dkxOxr2GfHWlTeTqiHi7hIXXAQNsLSjzNmCZnrXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777226; c=relaxed/simple;
-	bh=50T+JAlL6z3Wrn6dCykboyTKkez7ZOAT5v3pv1z/NBg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KSbjKFVYzUyHPmw7e9ey1L1zhoa/fTnrzby+w8QOleqs0rXHZl747L9dWLsaLdTgVy6m0HSqXPqO8BHOldaNkAVd/W0NVsgmhm79VgGfVMSIHd/rTWhEd0cgAvf/6WNXAsCMFDEbkqF0MMUjnZUwk8W1MQ3FFXovuoQHx15NL/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=LAqXN0F6; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1790777249; c=relaxed/simple;
+	bh=JqsrAkHQEIBMR08n54LWem3vmCgMbeK92e+dIom+JxU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rhLXNSGwKcwQRzPIzuNYGQiDdAq8yg1AyWzyeAklw5AouJJf+TKZ6jd9wcIfILtbwMo94n4DGyUyqwHjJ3OVFBMblmjOgUsAL5RuHEl1ARSDKEW10U0rxBebPzE3vv4KalOkKCeImLUnv76McHWqF28HtI5uDAUYo+0eyUW0AgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Sd5jz8bx; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="LAqXN0F6"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910ad20d4so622922285a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:06:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Sd5jz8bx"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e5eso2626955a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:07:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790777205; x=1791382005; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w7/ZyRNe756x2qIILuqRWig+Ez86Z+PdUS4umWMDN+k=;
-        b=LAqXN0F6Syg2SfKbIR6Ve+BbBGcWojLkcX+tnrbWOUfSUMaFj3Rn43onzCEBqGSOEg
-         aRQ6ou3PX/OJExLHHcGaPxsLFG3kGVQQoEfsBw4cwd5sdDCAb4OtZ/dgD4PbyQytrwSk
-         NEPhvL4cINzOF0cIxK8+Px1z3xMWo2jFH3sBWsCpkZsROGy15/T0La3pDgSFgvHQ/aPk
-         kUWILozL++wMIfeaMDcYg787S98R0igfcW0g58H7Iowsg1Po8Vi4d96QjgmPGzFXvntn
-         25Fqf3xepM+3oUGqg0PiJ309q4x1Emz49OoIqIjHjwo8LAjQGXmpwxOhbLMQ35HdkzfN
-         GFpQ==
+        d=bytedance.com; s=google; t=1790777235; x=1791382035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6e1W9oGdmTQ/Tr5KCupwBGHorLPAMWe6GyMMJhNYhVc=;
+        b=Sd5jz8bxUQZNXryETWM3H7R3WUEjm3Rb6hzobm5Ta6RycyaVCZ8g4CpkTYl0j9wR4S
+         JVHDTJOr+nkWW0DLRGPmXkB6ByDgfoKvOZn6iisfZUi97OKKAsg141yel/5NAqQp42aF
+         7td35IvlqUoqB5lsMB317bNrf2QKiAVyA/2q1CGyFn1S2fbI5Iu3iBDRqgfs5bzW2Zds
+         247XBdPkFBryeSMJFm/XfZXoOT3dFPHLwxFHe68bkNZMRanX23n2pYJhFxrFyTAg3B/q
+         Qmrqq/kbDXTHy1y6/RPdykwlJkHudU+SVv7n9GeyhI/pKv+5Tlv/Zur5xWJiDM/dWVAV
+         pcfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790777205; x=1791382005;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w7/ZyRNe756x2qIILuqRWig+Ez86Z+PdUS4umWMDN+k=;
-        b=opARKoJZkJiFD9k8WhfTj/ufFjj1kjXriCz5XVw4WetnsM44bNCg9C1tXtBkojZ6V3
-         BKFl50cv7h7/QQRmGFpScFM+6hmUbkNiN0IJ6iqr/+4l6rWauX6Vx1DpjZk5t6+c1TTl
-         HG6tqRVD8sT2mR5j/fBpQTqjEjQQ+xyKEY1S/SpzSKN2HjZdZbCqIdz33K4AwyryklOq
-         fESf6mMurbYFMnqheMHCQ+TLwGTKEMavdX2cfLnpYNxu+l3hJ/fs2yDoHf9HUGzRjRr7
-         s0yO8yHKOoRjMho23ZnIsJSi9MtGjiV+NNy5hBv4MLSnRfs4BuYtCpe4C+KtogI3I2lW
-         Up4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwcAi8jRJUZ+fa8cyrTQ0MJ+yjYG1ZRN5n6xLAfJz80WSMH4nrfgSoewVzqprPRAKveF5RVY+SlJk7q4Qs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mALhx6hCUIymfv1m9HcZwQTI/GAP0QVz2+Rux0jwQ+WkPTaUER
-	kKbBMPnL739hn2MROBAaC5w9x4kGHhNNdDiOaY2VmjTC+BV8jnfNKxzyv9q5wqhV7M4=
-X-Gm-Gg: AYBFou2jqY08SDDMR1/gVeZ7CN7Yi8EDT9LIOtE/UbZeA7sT8QhfnvyK7sAH2ALfuFe
-	Cd6XB7D/N2zgnqJsP9omKrDtP6WlCz/5rQr+1ZP6sgTKLydaJfQ5/hZv18FdexdWElI7pZiPG18
-	BFCyhAR/41JBD++NjC3I+3tXJ7DQgrbKjCHfQWw5X7GqCIFzzhcH+OcZ2R5x/CpcYJMeTofrNVD
-	xzrLBs2hFEUzJDUwOzAo9R+EkeUtKyapLzioUP0Y6j3Bg8RTihKmQAjywX6e0nN4FMfGx3QEgKj
-	gQpekD37bnz4tzaiuHA0WENexnEbV18hqoPOioKiXOIc9yoZw1Eix602vRreks8wPnLLZbg+wXX
-	P4aW/+DbubpS6pSjrbvEdfDJ31mIz5AO0U9WGaupMkQSMDeBDMdNFV+PxU8EaT3sPrFa1OrkcAs
-	1iHOpB3UHjZo9AWrzTa2JrakV2hY/yj8d0rU02iWhOo2oFW3GX3LGdqco+b6ETtB9pDq/ARkUHy
-	v2tqUM=
-X-Received: by 2002:a05:620a:1a20:b0:939:f89:3688 with SMTP id af79cd13be357-93ca973661dmr258616985a.42.1790777203446;
-        Wed, 30 Sep 2026 07:06:43 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ca83283besm122303285a.40.2026.09.30.07.06.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:06:42 -0700 (PDT)
-Date: Wed, 30 Sep 2026 10:06:38 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Harry Yoo <harry@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+        d=1e100.net; s=20260707; t=1790777235; x=1791382035;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6e1W9oGdmTQ/Tr5KCupwBGHorLPAMWe6GyMMJhNYhVc=;
+        b=UoaFuKXeQPjaGX2XXng7WEoHDDh8TWUWWWtOAgRGLXdDMwGyNwBI2+PyCONnrhVCt6
+         997H7t9VdV1RP19ylORSybTWLokWhbgvZx8MRllmOWd1+riMC84yr1wzI3jKd1OwrQPV
+         iLwE6jWfyU8leBnjgk6Ve5u/m5bDW3mUnSHXHPEFHt6HI4FS50PR8JUY+RNEB0YDzrYn
+         eAqvn6oJIPiBGOvDqGCmTziJTDzt6JAwyi+dMWtsyWhTK8rrZn5wqF6A+FkwFlxfBJ8g
+         Q1RM9XLErDL7KfWQ9r6noOIirOUeujBGI81FiXeJa1ptZVMBFrsNrTZ9dHW6dohxJEAX
+         rtDg==
+X-Forwarded-Encrypted: i=1; AKwUvBysuRby2ynoYonv04eh26JrNIkDh9F0c0VM5665JzchJ26FHvFja3Whsd6qTqIZLPe6agmBIgppg4DrPkc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJU+2unFfURtRGk9qGNW5u95OnmQT8S0Jxw44hF0hue2klinf2
+	8FJeiGBm4cmmQC9rIcfWwqBLyMJeJ7RyyoJLz+GC1hyJZ7xiXO0pxY/mcaD45fG9+5U=
+X-Gm-Gg: AYBFou2DvDTZ9lKOR74iQRNc2WJ96Qv9JqumYTohyDZMm9b/RdCYWxnrYf6llzhlcWU
+	k0dvpwoO16OtrE+WoPcJ0cgZB1GV/qEZe9bOs2BPDyBnf7L02reQ35KpQYtpEy2378NVmVltwYR
+	lj2yIIMZaco+1eN1GiNwX+KK0JyqWjRuUo+bMBUSnJsnJOHltNx9K5015SEcTcDMbc8BbeGf9/t
+	ivZalwj3t35wg8fBqA5qspLSuAhXnagsErng4i+wtQa2OPbx2aHlMhadJkoUnLXprAJApE6FgXm
+	vWt/xMRuAUMnhaIe3L7E7UfZ6597XVvobVyyhTnbj5dwTifDmAl96TXIo91BOTSt3LuJBw9/v7b
+	T5WYil6IWxUb/uo/CtZ6Jw4P0+1Jo3bC7+IZrOdhUTRtMZ5/EmSlk+OWBnkw1A6pZugu6VwJ5jj
+	9JBnXVj99zDNZR14scTGmH3SGKaq+lt1GyvwxtAddoHLAMKqqtW+EpaEeuykRIMxenrR5zSR+n/
+	WgOCxxsWvat0w==
+X-Received: by 2002:a17:90b:2684:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-3a4d151ef73mr1140780a91.18.1790777235209;
+        Wed, 30 Sep 2026 07:07:15 -0700 (PDT)
+Received: from G6L4RL2QG9 ([139.177.225.238])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4e60ea12csm639509a91.1.2026.09.30.07.07.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 07:07:14 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <ar0Xbs9mEu-vUHvc@cmpxchg.org>
-References: <20260929174553.175333-1-kirill@shutemov.name>
- <arv8J7ysrdazJmfY@thinkstation>
- <ar0NRMxps8UErXaQ@thinkstation>
+	Oscar Salvador <osalvador@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-doc@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Muchun Song <songmuchun@bytedance.com>,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH v6 00/12] mm: Switch device DAX to section-based vmemmap optimization
+Date: Wed, 30 Sep 2026 22:06:15 +0800
+Message-ID: <20260930140627.57431-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar0NRMxps8UErXaQ@thinkstation>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 02:32:12PM +0100, Kiryl Shutsemau wrote:
-> On Tue, Sep 29, 2026 at 07:39:41PM +0100, Harry Yoo wrote:
-> > On Tue, Sep 29, 2026 at 06:45:51PM +0100, Kiryl Shutsemau wrote:
-> > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > > 
-> > > Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim
-> > > storm in defrag_mode"), direct reclaim and compaction for non-movable
-> > > requests under defrag_mode run at pageblock_order, to produce the whole
-> > > blocks that ALLOC_NOFRAGMENT needs.
-> > 
-> > > The retry decisions that follow still use the request order.
-> > 
-> > Indeed, good catch!
-> > 
-> > > An order-0 request can therefore retry
-> > > indefinitely without ever reaching the ALLOC_NOFRAGMENT fallback:
-> > > 
-> > > - Reclaim at pageblock_order gives up after one pass as soon as a zone
-> > >   looks compaction_ready(), and do_try_to_free_pages() then returns 1
-> > >   even though nothing was reclaimed. It returns before the retry that
-> > >   would reclaim memory.low-protected cgroups, so when most memory is
-> > >   protected, the pass that did run finds next to nothing.
-> > >
-> > > - Compaction at pageblock_order fails or is deferred.
-> > > 
-> > > - should_reclaim_retry() takes the reported progress as progress for
-> > >   the order-0 request and resets no_progress_loops. The request
-> > >   retries.
-> > 
-> > Makes sense to me.
-> > 
-> > > Order 1-3 requests loop the same way, and should_compact_retry() also
-> > > checks their pageblock_order compaction result against the request
-> > > order.
-> > > 
-> > > On a production host (64G, defrag_mode, memory.low covering most of the
-> > > workload), 95% of direct reclaim runs were order-9 runs that returned 1
-> > > with nothing reclaimed, at up to 60k runs per second. Across ~200M
-> > > should_reclaim_retry() calls in a day, no_progress_loops never left 0.
-> > > The spinning allocations were SLUB slab refills for inode and dentry
-> > > caches. The time spent registers as memory pressure, and pressure-based
-> > > OOM killing takes down both workloads and system services.
-> > > 
-> > > Treat promoted requests like costly orders:
-> > > 
-> > > - Reclaim progress does not reset no_progress_loops for them.
-> > > 
-> > > - should_compact_retry() checks the compaction result at the promoted
-> > >   order. It does not retry COMPACT_SKIPPED, since the request can fall
-> > >   back, and it does not escalate compaction to COMPACT_PRIO_SYNC_FULL.
-> > > 
-> > > When the fallback is taken, reset the retry counters, so that the
-> > > fallback attempt gets a full retry budget before the OOM killer is
-> > > considered.
-> > > 
-> > > In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
-> > > 
-> > >                                         before    after
-> > >     should_reclaim_retry() calls           63M     293k
-> > >     peak memory pressure (PSI some avg10)  99%      12%
-> > > 
-> > > File creation runs 5.7x faster.
-> > > 
-> > > Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
+This version is based on mm-new commit a878c908dc92.
 
-Thanks for fixing this. Ironically, the same workload blowing up again
-that I tested the old fix again for 3 weeks :(
+This series is split out from the earlier, larger series "mm: Generalize
+HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+vmemmap optimization across HugeTLB and device DAX, this subset addresses
+a single, self-contained step: switching device DAX to the section-based
+sparse-vmemmap optimization infrastructure introduced for HugeTLB.
 
-Back then, the problem was: allocating thread is spinning on a goal it
-doesn't help accomplish.
+After the HugeTLB conversion, optimized vmemmap state is described by
+the memory section and the sparse-vmemmap population path can allocate or
+reuse shared tail vmemmap pages based on that metadata. Device DAX still
+uses the older DAX-specific population model, including a separate tail
+vmemmap page reservation and architecture-specific logic to locate or
+populate reusable tail pages.
 
-Now the problem is: allocating thread spinning and helping, but goal
-is not achievable.
+This series makes device DAX use the same section-based model. Device DAX
+records the compound page order from pgmap->vmemmap_shift in section
+metadata before vmemmap population, uses the common per-zone shared tail
+vmemmap page, and drops the extra reserved tail page. The powerpc radix
+path is updated to use the same shared tail-page helper, so the generic
+and powerpc DAX paths follow the same reservation model.
 
-> > > Cc: <stable@vger.kernel.org>
-> > > Assisted-by: LLM
-> > > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > > ---
-> > >  mm/page_alloc.c | 85 ++++++++++++++++++++++++++++++++-----------------
-> > >  1 file changed, 56 insertions(+), 29 deletions(-)
-> > > 
-> > > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> > > index 12fac9084c48..608487672d93 100644
-> > > --- a/mm/page_alloc.c
-> > > +++ b/mm/page_alloc.c
-> > > @@ -4127,6 +4127,31 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
-> > >  	return page;
-> > >  }
-> > >  
-> > > +/*
-> > > + * If fallbacks are not permitted (defrag_mode), we either need to
-> > > + * reclaim space in a block of matching type, or clear out an entire
-> > > + * block to allow __rmqueue_claim() to convert.
-> > > + *
-> > > + * Reclaim by itself is primarily freeing space in movable blocks,
-> > > + * since that's where the LRU pages live. So this works for movable
-> > > + * requests, but not for others.
-> > > + *
-> > > + * For those, promote the order of reclaim and compaction to help make
-> > > + * blocks, instead of spinning in reclaim alone unproductively. Retry
-> > > + * decisions based on the outcome of that work - reclaim progress and
-> > > + * compaction results - must account for the promotion as well, see
-> > > + * should_reclaim_retry() and should_compact_retry().
-> > > + */
-> > > +static inline unsigned int nofrag_promote_order(unsigned int order,
-> > > +						unsigned int alloc_flags,
-> > > +						const struct alloc_context *ac)
-> > > +{
-> > > +	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-> > > +		return max(order, pageblock_order);
-> > > +
-> > > +	return order;
-> > > +}
-> > 
-> > I think we should start distinguishing order and compact/reclaim_order
-> > in __alloc_pages_slowpath(). Silently overriding it makes it harder to
-> > follow and easy to make a mistake.
-> 
-> Agreed, four callers recomputing the same thing is asking for a
-> mismatch.
-> 
-> I would rather not grow this patch, it has to go to stable.
-> 
-> I will look into a cleanup on top: __alloc_pages_slowpath() computes the
-> promoted order once per iteration and passes it to direct
-> reclaim/compaction and the two retry helpers next to the request order,
-> so the helpers stop knowing about defrag_mode.
+The first patches prepare the shared infrastructure by factoring out
+shared tail-page allocation, allocating the per-zone shared tail-page
+array dynamically, and introducing a generic
+CONFIG_VMEMMAP_OPTIMIZATION symbol.
 
-+1
+The middle patches move device DAX onto that infrastructure by recording
+the device DAX compound page order in memory-section metadata, using that
+metadata to back generic device DAX mappings with the common per-zone
+shared tail page, exposing the shared helpers so the powerpc radix path
+can use the same model, and dropping the extra DAX-only tail page
+reservation and the now-unused section accounting arguments.
 
-All they really need to know is the split into requested order vs
-production order (reclaim_order, compaction_order).
+The final patch updates the documentation for the new DAX layout.
 
-> > > @@ -4299,7 +4316,7 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
-> > >  	/*
-> > >  	 * Compaction failed. Retry with increasing priority.
-> > >  	 */
-> > > -	min_priority = (order > PAGE_ALLOC_COSTLY_ORDER) ?
-> > > +	min_priority = (compact_order > PAGE_ALLOC_COSTLY_ORDER) ?
-> > >  			MIN_COMPACT_COSTLY_PRIORITY : MIN_COMPACT_PRIORITY;
-> > 
-> > This would change how hard we try to compact with defrag_mode in direct
-> > compaction as it won't try compaction with MIN_COMPACT_PRIORITY anymore.
-> > 
-> > It doesn't make much sense to change that as part of this fix?
-> 
-> It is a choice between compacting harder and falling back, which
-> fragments a block.
-> 
-> It is a judgement call on what defrag_mode means.
-> 
-> It would also mean that order-0 allocation request promoted to pageblock
-> can trigger SYNC_FULL compaction. I cannot say I understand the
-> implications. Will give it a try with the reproducer.
-> 
-> Johannes, Vlastimil, any comments here?
+This is intended to be the third smaller step toward the broader HVO
+generalization. The wider HVO consolidation between HugeTLB and device
+DAX is left for follow-up series.
 
-I would leave this one with requested order unless the reproducer
-disagrees.
+[1] https://lore.kernel.org/20260513130542.35604-1-songmuchun@bytedance.com/
 
-There is a risk of defrag_mode self defeating over time by raising the
-bar for fallbacks but not high enough. Every fallback we let through
-will make it harder down the line to compact towards that higher bar.
+v6:
+- Use try_get_page() to prevent the shared device DAX tail-page
+  reference count from overflowing (suggested by Andrew Morton,
+  reported by Sashiko)
+- Move constant declarations to the top of their functions and fold
+  the shared tail-page array lookup into vmemmap_tails() (suggested by
+  David Hildenbrand)
+- Clarify the DAX population flag description and why optimized tail
+  pages must not be poisoned (suggested by David Hildenbrand)
+- Collect Acked-by tags from David Hildenbrand
+- Rebase onto mm/mm-new
 
-There is also a non-zero risk of connecting order-0 request contexts
-to SYNC compaction which they haven't done before 7e8756d7ad22. But
-you traced the problem to retrying, not sync compaction itself.
+v5: https://lore.kernel.org/20260927025441.741633-1-songmuchun@bytedance.com/
+- Move the shared tail-page factoring before introducing
+  CONFIG_VMEMMAP_OPTIMIZATION
+- Add a new patch to allocate the per-zone shared tail-page array
+  dynamically and fix the RISC-V build failure reported by the kernel
+  test robot
+- Select VMEMMAP_OPTIMIZATION from ZONE_DEVICE instead of DEV_DAX so
+  MSHV_VTL cannot set vmemmap_shift while leaving the optimization
+  disabled (reported by Sashiko)
+- Move the vmemmap optimization macros and MAX_FOLIO_VMEMMAP_ALIGN from
+  mmzone.h to vmemmap-optimization.h
+
+v4: https://lore.kernel.org/20260916064341.1825793-1-songmuchun@bytedance.com/
+- Rename CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION to
+  CONFIG_VMEMMAP_OPTIMIZATION (suggested by Mike Rapoport)
+- Collect Acked-by tags from Mike Rapoport
+
+v3: https://lore.kernel.org/20260911050228.58884-1-songmuchun@bytedance.com/
+- Use EOPNOTSUPP for partial additions to sections that already use
+  optimized vmemmap mappings
+- Move device_zone() after NODE_DATA() to fix non-NUMA builds
+- Collect Acked-by tags from David Hildenbrand and Qi Zheng
+- Rebase onto mm/mm-new
+
+v2: https://lore.kernel.org/20260908030335.96549-1-songmuchun@bytedance.com/
+- Add a missing SPARSEMEM_VMEMMAP dependency (suggested by Qi Zheng,
+  reported by Sashiko)
+- Add an explicit ZONE_DEVICE dependency for DEV_DAX
+- Add missing dependencies to the new public header
+- Explain why optimized and ordinary layouts cannot share a section
+  (suggested by Qi Zheng)
+- Explain why sharing tail vmemmap pages is safe for DEV-DAX (suggested
+  by Qi Zheng)
+- Clarify the removal of duplicated 4K PUD calculations from the docs
+  (reported by Sashiko)
+- Collect Acked-by tags from Qi Zheng
+
+v1: https://lore.kernel.org/20260831075342.57563-1-songmuchun@bytedance.com/
+
+Muchun Song (12):
+  mm/sparse-vmemmap: factor out shared vmemmap tail page allocation
+  mm/sparse-vmemmap: allocate shared tail page array dynamically
+  mm/sparse-vmemmap: introduce CONFIG_VMEMMAP_OPTIMIZATION
+  mm/sparse-vmemmap: open-code init_compound_tail()
+  mm/sparse-vmemmap: prepare DAX vmemmap population for compound page
+    orders
+  mm/sparse-vmemmap: set compound page order for device DAX
+  mm/sparse-vmemmap: switch device DAX to shared tail vmemmap pages
+  mm/sparse-vmemmap: move vmemmap optimization helpers to a public
+    header
+  powerpc/mm: switch device DAX to shared tail vmemmap pages
+  mm/sparse-vmemmap: drop the extra tail page from device DAX
+    reservation
+  mm/sparse-vmemmap: drop unused section_nr_vmemmap_pages() arguments
+  Documentation/mm: update DAX vmemmap deduplication docs
+
+ Documentation/arch/powerpc/vmemmap_dedup.rst  |  90 ++-----
+ Documentation/mm/vmemmap_dedup.rst            |  32 +--
+ MAINTAINERS                                   |   1 +
+ arch/loongarch/include/asm/pgtable.h          |   1 +
+ arch/powerpc/mm/book3s64/radix_pgtable.c      | 124 +---------
+ arch/riscv/mm/init.c                          |   1 +
+ arch/x86/entry/vdso/vdso32/fake_32bit_build.h |   2 +-
+ fs/Kconfig                                    |   1 +
+ include/linux/mm.h                            |   7 +-
+ include/linux/mmzone.h                        |  38 +--
+ include/linux/page-flags.h                    |   5 +-
+ include/linux/vmemmap-optimization.h          | 115 +++++++++
+ mm/Kconfig                                    |   5 +
+ mm/hugetlb.c                                  |   2 +-
+ mm/hugetlb_vmemmap.c                          |  31 +--
+ mm/internal.h                                 |   9 -
+ mm/memory_hotplug.c                           |   6 +-
+ mm/mm_init.c                                  |  17 +-
+ mm/sparse-vmemmap.c                           | 227 +++++++++---------
+ mm/sparse.c                                   |   3 +-
+ mm/sparse.h                                   |  81 +------
+ 21 files changed, 313 insertions(+), 485 deletions(-)
+ create mode 100644 include/linux/vmemmap-optimization.h
+
+
+base-commit: a878c908dc928cfe8b3be0f33d3e60d1af437cb9
+-- 
+2.54.0
+
