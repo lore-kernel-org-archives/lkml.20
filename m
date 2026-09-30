@@ -1,65 +1,92 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5724E322D
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCF65187F2
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777336; cv=none; b=CZMvt52QsANY552CA030dupJs2dGjNKg6jhRrUstTJnNZpK6C3dDWFDChvChjXkEvuDp7qmhzCPD7tgZUrb0WHlD5bMO5rODqldLrMphGor3FWaATAOKCZq2C5jiCDs++3EfgGL9WZDMTywPXWfH0haLoRpmiqy0K7QEBabkn0I=
+	t=1790777338; cv=none; b=Rfz4rJ207x2vmPEMWOgNwLZ6El+jFYVlksvOQNwGreeDc5AcKuMyQz4feIXBDqGEwcKpjDWEY0Y4xlgbLyJOlNibltly6mfU9c/gFxUF+CBVrRDBX50nL8KgGWMbx6e0yvSHocB7b+x3YjzqdFePbxHcwtTWSq/uup6VsNTOihU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777336; c=relaxed/simple;
-	bh=u/sYFJ0IFoVAn4mTeL9RLHFvHzVSFq6mlMEPEuqFX/c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ofC/NMAp5gesZJOlLWGszc1rYuCTZSyuHd8YvxrD36QdjjFb+ggi9H31/HwcfChQ8dkazKHFgsLFrCzCwvNkjs4L498tyglPVHbxttTB6RmT+N+dH0Orlpd6WP5ZoX0lvqKszIk2XKS6789yPKExVvDug0VPA9o+kMa7PIz/4q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IAbSFRNh; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790777338; c=relaxed/simple;
+	bh=pGdUlZbkjqE4EsdUFIr/tq7VJ9PE4G9s3zixRCrKT7M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pv6dIsmHclqHEf4y8WXKkmMkG5b6MOvJi2mCfCy7HUbWhcXGA5eQKnlAcalfzGE08jQkXBFyrMlxOHc6Hyng8FB1NYc/Hg/VPS16EkCiQYdKsiTbfAs7Qd3etm6E8Iz3/zEgDk+422o3J/5aPWrCsibocSGZIV8nLoGePUBxP24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=GIWqvm68; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IAbSFRNh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790777330;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=kog7asmMh6wog1adNQUGIn243OW/BEgANRMVLg38o7k=;
-	b=IAbSFRNhMw/L7ssIDZ1bVoQrH7s2hKL3EiSh1eAQ/S0v+Z0N1uHz9/9vWTO3iUNp0JJrQH
-	LnOGsYLx/54foh94u2jb+ix3p0WQHKPCyYzPLQvDoSKX13cbYLgjuXuZUfmOzLsKJXTYVO
-	XbMf/0ksNSuUnfpIw1+fO2BhOZb4T+g=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-195-ukPi9VarMwyl1rb-JwJdFw-1; Wed,
- 30 Sep 2026 10:08:44 -0400
-X-MC-Unique: ukPi9VarMwyl1rb-JwJdFw-1
-X-Mimecast-MFC-AGG-ID: ukPi9VarMwyl1rb-JwJdFw_1790777321
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB63A1955F19;
-	Wed, 30 Sep 2026 14:08:39 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B95001956044;
-	Wed, 30 Sep 2026 14:08:34 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: bhelgaas@google.com,
-	alex@shazbot.org,
-	jjohnson@kernel.org
-Cc: johannes@sipsolutions.net,
-	mani@kernel.org,
-	jgg@ziepe.ca,
-	yishaih@nvidia.com,
-	skolothumtho@nvidia.com,
-	kevin.tian@intel.com,
-	linux-pci@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
-Date: Wed, 30 Sep 2026 16:08:26 +0200
-Message-ID: <20260930140833.576941-1-jtornosm@redhat.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="GIWqvm68"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4c6bfce73so540745a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:08:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1790777328; x=1791382128; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xa6t5Ld51NH0IkEH0Cbkiyr6aGf7JfNQsVmQ3uezLic=;
+        b=GIWqvm68aUKCgUX8DjlcgsPIEZ6w3GZb3Kdpb1v7Bx9LZOSMcywDK30Eh3Vxa22eup
+         7tZCzxu2SxbWEgzE8ElWUy/q1NrIqdJc4lnIqnVEg66IAKc2LoeQDfTdqhHUjYg+4P+n
+         D/zriZUKMdCWhHXoiq4E3CmYJkRmxNaSU3a5ol5VLZ7dQRgh981B5EfvdxQSf5lVdkXB
+         IExK6QL5lDxCOqCiisnRE622BmmUeVzrjcU3auJl7dxTi7ubEVqsnX0POXMbMKfGrFXI
+         5TE7cOenMIiiatXVVztjfe9e2diBA952mXrH+pyTvfrDlxVVpITcoWS/1U1Bm4fT60F6
+         nyvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790777328; x=1791382128;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xa6t5Ld51NH0IkEH0Cbkiyr6aGf7JfNQsVmQ3uezLic=;
+        b=dSrjj4dvC5QfdywXRmqh/dq15wl6BxJnDwTMtiazr4Y5Fc0Ax2an7JySu1tGjr6W7Y
+         WEi2FTBPzvYV89T4z/UEXIGYFBpjpkx+n4mM66i5xR7gYq3uY70W9THmgZ51bofgnqEb
+         tCwDgM1MCkixcumRrK+ZIfv1/QYsYmthsfH6OiM2ewu1QNjFwDMPp3PKoPFChnuEhY1P
+         PIhiR+rT/eqVmQrhaCtXSQTjjvqpzHfYUHNMy35Yp1czsAx4IPTvlQdwAXiRys/9Us+p
+         ZPgSVzygvaV7SmJMXspoE6bOToV1nJaBcNz1LdNusiZ9y9i4FGkYd9NESRCjOztGtxQF
+         f/rA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTCb/pbbLW3Ywy1zX7li93IeeNl+iqmHTsPqd/OXITqQ9RHBC867H0SsUKfFpUFv7pC7bEOHmISI+S2uE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFLNDJ+sQW3kdmmnJavxMwHgyqLbaQGq3mAmbx3UrEuFyUx2AF
+	K/BFdcsBeMgQN6lvs6Cpw9raqM+Uc5nIhPWpFOsvw0vLTDjUkxNu1ozZw7O8FVRJL8c=
+X-Gm-Gg: AYBFou1pIErdHQUvsaryBQWoe2k6A7TdJ0rIGBRH6f4q8ZWKGCrGNZLvuOydJtpKVNY
+	/l5EN9jtxurDDaM+5L0yZ9VLDLyKZDYjOd0dsqcMNY872AOalQ7a+SipkO79VWhG5hLWHGCupQ3
+	QGrMgdjJhe0uz5jLbhDXBnfo5km4YA0tcIOMEPCA+XoyG2vL4n9dFTYQt1L2XFoz2GBhcTesz51
+	eHKg8CpJW3MtNd/ePYA/nkaMDQRsfXWwH7IAUCXfccN+HJ1ALR1dJyKEzvEPX0xuOE2/jRVZ/RQ
+	WRuObbBLmzdOOHryaRmWB2ul/1P8JBLfLudA3cua5M2lEpKiSkcac0liKm9cbB78cqvuI/JKyFR
+	fR5/8z23TnE+rkbH1rKMm9lpuOvisteLEPhDX++qUnigdCUAzGG7WPzpugBcsJwJPiC/v7RofC1
+	XEXwwR/OqIMgCjXp4jhVjKn0vfGI67bvhrRakfmHe982+Nn8su48awn33MjT+M7QiT57/YsyIzv
+	hGLobwsE6t3XYM8S0MPkmxE
+X-Received: by 2002:a17:90b:5404:b0:3a0:b959:4479 with SMTP id 98e67ed59e1d1-3a4d18a28a5mr1270065a91.38.1790777328422;
+        Wed, 30 Sep 2026 07:08:48 -0700 (PDT)
+Received: from G6L4RL2QG9 ([139.177.225.238])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4e60ea12csm639509a91.1.2026.09.30.07.08.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 07:08:47 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-doc@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Muchun Song <songmuchun@bytedance.com>,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH v6 11/12] mm/sparse-vmemmap: drop unused section_nr_vmemmap_pages() arguments
+Date: Wed, 30 Sep 2026 22:06:26 +0800
+Message-ID: <20260930140627.57431-12-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260930140627.57431-1-songmuchun@bytedance.com>
+References: <20260930140627.57431-1-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,65 +94,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-This series enables Qualcomm ath11k/ath12k WiFi devices to work in VM
-passthrough scenarios, addressing a long-standing issue where these
-devices fail to initialize when passed through to VMs via VFIO.
+section_nr_vmemmap_pages() no longer uses the altmap or pgmap
+arguments, so drop them from the helper and its callers.
 
-Qualcomm ath11k/ath12k WiFi devices have been broken in VM passthrough
-since they were introduced. The devices use an embedded interrupt
-controller that requires physical host MSI addresses programmed to
-device registers, but in VMs the driver only sees virtualized guest
-addresses. This causes firmware initialization to fail with errors like
-"BHI offset: 0xffffffff is out of range".
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+v6:
+- Collect Acked-by from David Hildenbrand
 
-Multiple attempts have been made to solve this over the past 2 years:
+v3:
+- Collect Acked-by from Qi Zheng
+---
+ mm/sparse-vmemmap.c | 10 ++++------
+ mm/sparse.c         |  3 +--
+ mm/sparse.h         |  6 ++----
+ 3 files changed, 7 insertions(+), 12 deletions(-)
 
-March 2024: Workaround using module parameters [1]
-  - Required manually copying MSI values from host to VM
-  - Rejected by Johannes Berg as too manual, suggested VMM solution
-
-August 2024: QEMU + kernel solution by Alex Williamson [2]
-  - Kernel disables MSI virtualization, QEMU intercepts config writes
-  - Uses brute force pattern matching to infer MSI data writes
-  - Stuck as RFC - no progress in 8+ months
-
-No action from Qualcomm: Despite multiple reports, no vendor solution
-
-The solution in this series provides a clean, kernel-only solution that
-addresses the previous concerns.
-
-Architecture:
-1. qcom-vfio-pci variant driver caches physical host MSI values and
-   exposes them via extended config space with magic signature "QMSI"
-   In this way, device-specific hardware quirks belong only in kernel
-   drivers, not userspace, independent of the tools used.
-   This follows the established VFIO variant driver pattern used by
-   other drivers like mlx5-vfio-pci (netdev tree) and nvgrace-gpu (platform
-   tree).
-2. VM drivers (ath11k/ath12k) automatically discover and use cached values
-3. PCIe link recovery handles VM timing variations
-
-Thoroughly tested: 3 VMs across 2 WiFi generations, all devices successfully
-initialized and are ready for use.
-- VM1: ath11k (WCN6855)
-- VM2: ath11k (WCN6855)
-- VM3: ath12k (WCN7850)
-
-[1] https://lore.kernel.org/all/20240322104912.94811-1-jtornosm@redhat.com/
-[2] https://lore.kernel.org/kvm/20240812170014.1583783-1-alex.williamson@redhat.com/
-[3] Original problem report:
-    https://lore.kernel.org/all/fc6bd06f-d52b-4dee-ab1b-4bb845cc0b95@quicinc.com/
-
-Jose Ignacio Tornos Martinez (7):
-  PCI: Add pci_find_free_ext_cap_offset() helper
-  vfio: Add qcom_vfio.h header for MSI cache protocol
-  vfio/pci: Add qcom-vfio-pci variant driver
-  ath11k: Add PCIe link recovery retry for VMs
-  ath11k: Use VFIO MSI cache when available
-  ath12k: Add PCIe link recovery retry for VMs
-  ath12k: Use VFIO MSI cache when available
---
-2.53.0
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index 4cea94126cf6..4be85e194c78 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -131,8 +131,7 @@ void __meminit vmemmap_verify(pte_t *pte, int node,
+ 			start, end - 1);
+ }
+ 
+-int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages,
+-		struct vmem_altmap *altmap, struct dev_pagemap *pgmap)
++int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages)
+ {
+ 	const struct mem_section *ms = __pfn_to_section(pfn);
+ 	const int order = section_compound_order(ms);
+@@ -674,7 +673,7 @@ static struct page * __meminit populate_section_memmap(unsigned long pfn,
+ 	struct page *page = __populate_section_memmap(pfn, nr_pages, nid, altmap,
+ 						      pgmap);
+ 
+-	memmap_pages_add(section_nr_vmemmap_pages(pfn, nr_pages, altmap, pgmap));
++	memmap_pages_add(section_nr_vmemmap_pages(pfn, nr_pages));
+ 
+ 	return page;
+ }
+@@ -685,7 +684,7 @@ static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
+ 	unsigned long start = (unsigned long) pfn_to_page(pfn);
+ 	unsigned long end = start + nr_pages * sizeof(struct page);
+ 
+-	memmap_pages_add(-section_nr_vmemmap_pages(pfn, nr_pages, altmap, pgmap));
++	memmap_pages_add(-section_nr_vmemmap_pages(pfn, nr_pages));
+ 	vmemmap_free(start, end, altmap);
+ }
+ 
+@@ -695,8 +694,7 @@ static void free_map_bootmem(struct page *memmap)
+ 	unsigned long end = (unsigned long)(memmap + PAGES_PER_SECTION);
+ 	unsigned long pfn = page_to_pfn(memmap);
+ 
+-	memmap_boot_pages_add(-section_nr_vmemmap_pages(pfn, PAGES_PER_SECTION,
+-							NULL, NULL));
++	memmap_boot_pages_add(-section_nr_vmemmap_pages(pfn, PAGES_PER_SECTION));
+ 	vmemmap_free(start, end, NULL);
+ }
+ 
+diff --git a/mm/sparse.c b/mm/sparse.c
+index cc28bb41fdb1..b75921c622ed 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -250,8 +250,7 @@ static void __init sparse_init_nid(int nid, unsigned long pnum_begin,
+ 						nid, NULL, NULL);
+ 		if (!map)
+ 			panic("Failed to allocate memmap for section %lu\n", pnum);
+-		memmap_boot_pages_add(section_nr_vmemmap_pages(pfn, PAGES_PER_SECTION,
+-							       NULL, NULL));
++		memmap_boot_pages_add(section_nr_vmemmap_pages(pfn, PAGES_PER_SECTION));
+ 		sparse_init_one_section(__nr_to_section(pnum), pnum, map, usage,
+ 					SECTION_IS_EARLY);
+ 		usage = (void *)usage + mem_section_usage_size();
+diff --git a/mm/sparse.h b/mm/sparse.h
+index a5111087ee3a..530692cdd516 100644
+--- a/mm/sparse.h
++++ b/mm/sparse.h
+@@ -70,12 +70,10 @@ static inline void sparse_sections_init(void) {}
+  */
+ #ifdef CONFIG_SPARSEMEM_VMEMMAP
+ void sparse_init_subsection_map(void);
+-int section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages,
+-		struct vmem_altmap *altmap, struct dev_pagemap *pgmap);
++int section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages);
+ #else
+ static inline void sparse_init_subsection_map(void) {}
+-static inline int section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages,
+-		struct vmem_altmap *altmap, struct dev_pagemap *pgmap)
++static inline int section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages)
+ {
+ 	return DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE);
+ }
+-- 
+2.54.0
 
