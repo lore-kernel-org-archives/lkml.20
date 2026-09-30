@@ -1,90 +1,99 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C3139E17C;
-	Wed, 30 Sep 2026 09:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBB530DD1B;
+	Wed, 30 Sep 2026 09:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760499; cv=none; b=r5IwekKBQlbT0iRkQPi4OgaNLNld7Kl557EnbKkqv2TyKcgtGak61eT4RK/DKt6F/4xFyWwDG6FB4lL9ve1cwO1Ra9xu96KbyQOmp7OEllaACmyxXmdP4FEq0w0JgbtUw8E5HAkmo78ZUhGIQ65ikL2tzFnkhVNdefR3M0YnVR4=
+	t=1790760508; cv=none; b=h02mpB+Jbj91oJ7NxJH8r2SR7NhCrEMnEAdXslgYl0M7hx2xZqVCKh+HPQfID7RLmVewqgaxdXUNzIBF/2Uux14aLdsZ+qacnPDC9QDItNZvL9TVU7Sps7tw5vfBItilIMNAX98JkRf0HIBLmWPAunDSfKMDprUQklkZQrqtQEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760499; c=relaxed/simple;
-	bh=Mzb59GhMFFnHJhKBKEpRat/tDE7AWzFkNb5M7FjWO9E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WOROD39L87Heoh2V7Y8YXb1UwZqJet4e/kJCnLMR/X39PrF9f1lP6WImIv1Ns/WuJC8buVYl8HkcQYYNRQmI1sbpq7zfZZwYqiWqFPD8ZdBqQS5Tvv6Xsgt8gpftoZ6uVC2eYb+qxrc2SHz+DQK9TlIHXADCdGo+HaQTW2axvHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Mpxx/oXI; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790760508; c=relaxed/simple;
+	bh=2sVhLXEz5arjedlrDjdVeFteZRtyWTF64QrSqVTZ5ko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e1BqhIutBQwltMUsllmnFPCFIWtmB5Y/UhgTOi1efuVxDu5DXWTRnYzrs2z69/0+7Sr0gZ5spATyY5ObJ0vSy3ERcGnsmdEZhOtPXBt5VznfCyJAL9SkDwAuQY3kNoVFikbbPHMGSniT4BleIL/uMFSqxxjuKU1kArc1Br00Ra8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BaPk+Cpa; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Mpxx/oXI"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4fa1ab3a0;
-	Wed, 30 Sep 2026 17:28:12 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jeffrey Huang <huangjw@broadcom.com>,
-	Eddie Wai <eddie.wai@broadcom.com>,
-	Prashant Sreedharan <prashant@broadcom.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BaPk+Cpa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790760507; x=1822296507;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2sVhLXEz5arjedlrDjdVeFteZRtyWTF64QrSqVTZ5ko=;
+  b=BaPk+CpaqbiJkJBIjU2WWy/hV6nKvw0DBv4Img6cRpzY2PACpRSD7Xn8
+   CXs2AC/CJAOdyNC59b6akF+vB8Knd7ufYxfaax+KyLt7a5YacXRv//8C1
+   7smkauJgbUWyI9mKhM0Kbhfn0kgo/f3jJ0qppr+o7R3WKk+WdF7CZWs+8
+   hgyqOhMAEonkZoD18FpxWSrzwP0uy1huyuCS8ZIEXNwJkRIyn9ubapZj5
+   IgMW8yipVZVEvJ+cdUPk84AxJZXdfgHNoIrtjopq0I3TERSOSaFmXy0ld
+   eq2gqM9hcukILzpMuEam+ZUu7ZNWfuT8zYGkAIDYApHzXjnMV0bTpEF/N
+   Q==;
+X-CSE-ConnectionGUID: 3XUXLoIjS/OZ+I4wNvsdwA==
+X-CSE-MsgGUID: u2d2di39STee4IJG97nxPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="79060542"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="79060542"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:28:24 -0700
+X-CSE-ConnectionGUID: kNSOxO7LRpS/D74JgsvEDQ==
+X-CSE-MsgGUID: IZvfOd80ShS2WB4o6QrsiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="313577291"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:28:20 -0700
+Date: Wed, 30 Sep 2026 12:28:17 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] bnxt: prevent timer rearming during teardown
-Date: Wed, 30 Sep 2026 17:28:06 +0800
-Message-Id: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 7/8] iio: adc: rzt2h: Use scan type for ADC scale
+Message-ID: <arzWMViKacekCSdS@ashevche-desk.local>
+References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929124248.237032-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0f1a49f2303a1kunmdba71fac27677d
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQxhIVk4ZHhhLT05NTU5LGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Mpxx/oXITWkmTM2fTQ00ZWhonJdrc7OgEoKT32YGvHdU0mTXtVcAMaOYdxUY94Zi+eh3PHoT1zgKDF9x1GHJOilMeM/DBxEraKMRrm7e400hAxrp4idB3nK/QHc9mdqktG1EylZyN82FiJ2nvX640+z2hawd3OPFUlyd8x/VFVM=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=eVdOK0WzdLj4gAVVLttL2pagUYIRqRXoU9ctPHbEkRo=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929124248.237032-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-bnxt_timer() checks the interface state before processing timer work, but
-the final mod_timer() at bnxt_restart_timer is unconditional. If teardown
-clears BNXT_STATE_OPEN while the callback is running, the callback can
-rearm the timer after __bnxt_close_nic() has started deleting it.
+On Tue, Sep 29, 2026 at 01:42:47PM +0100, Prabhakar wrote:
 
-Check BNXT_STATE_OPEN again before rearming so teardown prevents a callback
-already in progress from starting another timer period.
+> Prepare the driver for RZ/V2H(P) support, where the ADC supports both
+> 12-bit and 8-bit conversion resolutions.
+> 
+> Use the current IIO scan type to determine the ADC resolution when
+> reporting the scale instead of assuming a fixed 12-bit resolution.
 
-Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+...
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index d59bcca73..8a2e9e200 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -14484,7 +14484,8 @@ static void bnxt_timer(struct timer_list *t)
- 		bnxt_queue_sp_work(bp, BNXT_RING_COAL_NOW_SP_EVENT);
- 
- bnxt_restart_timer:
--	mod_timer(&bp->timer, jiffies + bp->current_interval);
-+	if (test_bit(BNXT_STATE_OPEN, &bp->state))
-+		mod_timer(&bp->timer, jiffies + bp->current_interval);
- }
- 
- static void bnxt_lock_sp(struct bnxt *bp)
+> +#define RZT2H_ADC_VREF_MV		1800
+
+_mV (yes, as it's called officially for millivolts).
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
+
