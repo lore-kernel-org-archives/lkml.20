@@ -1,164 +1,237 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C2B48594B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B4D483BD4;
+	Wed, 30 Sep 2026 10:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764422; cv=none; b=gmg8FjDI1Kb/soUvONahmfmaE/NFSjhYzjO7bq+ZTI/gUHDMRuwPcybNwO6KGEURcrw1gLdIMT/kL4OF2gnJi19ztjQ54szVeJU3tGRKU2Q6/hWsqd0pDKE/dZjmdAVLjXaAOTf/TCUrcHCOOf6JNk5G6O2b/HbQwbCr4Zi7wRw=
+	t=1790764441; cv=none; b=evuSuLCCSWGS+3nVj0ysV4E/BRyrHKIrXEOhsOys9dfXRsCFJuONn8XY0xcxJUoiJ7BVP/9vyRGlXQUCtMqn9sfk9EOQPbe9a2wLABoH4Im8leC5Z0sDuw5vypPqSH4rTzJu4/UwWPBQhO12nvaVBST/IeLr7WhxcCf1M/1Q8Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764422; c=relaxed/simple;
-	bh=7R77TQqIMmdGoS2eO0kXm9TNz0zOrN2y4HHSkA/2YWE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pUh9P/FPZb1FoacCEw9ynepNkFYH8rwogiWx9v4w4iOVkB9eScuH1WFleZtWs1lq9S9Uc04jnZXe3MwqEeDsAOScs/Yc9WzVdGzKDScHldqnfmSeDara37C57Du/MvSLRiE+gGkOp26qPSIp3dOON/fZxBRDHVdYY//07w+h408=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XI1nt06I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KPatqYKL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790764441; c=relaxed/simple;
+	bh=pclhcS+oEXz9qoaU/+oVeWBo0CBH4Q75MxhmcaMjh0U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qJUI2hRkahsQdZUg0jm9GrmjjpSjs8m7H8bKzzxOkmwDxEusz19Bnaxoh7EPksmRdSc/Ra4Nwg0xQYz7bgcOLDIBypZmaGXBm6v1FnJsUUySd0ztduKCqOf/BeId3knnG3z7zPZggYHpEJhbknsBr2G5IbDbTaB8B600ev6RZNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=CulZebVr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=VHg20LeL; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZAAB23WA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=A+Wendfd; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XI1nt06I";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KPatqYKL"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dgoK2820144
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oGZvKGq2A3pM90buZ2VNpRfUMGSk6SlqzeIIAOV+V2w=; b=XI1nt06IC4Gfyq9B
-	JaF7mWhGVLDxYdGSxYjijvlM8YeKzgINZOmi8J67i8aHtGJWksB1hEPIV4ig8K9Y
-	7sp7uM28bWnzm8YEbZG+EabfsxVJ5gmmuwl8NQPz9WDmbJ0zje11WAEEJyAkBHVJ
-	GBnhrWjuTBdj+8llu4FsgTfPySBU0+56wp9sTVcxWv5epg02/kQzbDiyKTKtWENb
-	4neqAvUEjWOvc5nxH2sZnbcqnfMiqX8dYXTNJz/PYEf9XewTJlmpt1ZbxDTlJv5c
-	ewy6wCextAHBTubv1xxsUA9LSABrAESqb2b1F0Fff3uh8ug/Au7ScgXVwICz539D
-	8V2UlA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0rj2t93m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:40 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cac495d99so4179585a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:33:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790764420; x=1791369220; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oGZvKGq2A3pM90buZ2VNpRfUMGSk6SlqzeIIAOV+V2w=;
-        b=KPatqYKLTa41CEXSlNOr+4zirS1jeOzOrIvsT8dAbYQJjDACdlKzsFDU3kvpa4okVZ
-         3deEjRQc1O094UB3uuuyfJr17RWobZLchQnb+UTt8jipfBTy2yOK6Khtqghpj8LlUwre
-         hBXXTWaNDsqTPMV3+zDmzEvtvSf+XlrLdJyIRExORHBeXBi+Oygtt26BejwW3A8QjfIa
-         727Lek7HlK2uC7AcxATow0DjDw1yt5t0yeksYGU5ZezGHZI/kMAalcnjIKc4CbPgEN4D
-         A+hsesHIt39/tih3aDuA5pIp79Q5Ek+inTad8fKH0acxme1/w1ELcEDjVCgbF9aqE4LI
-         jMog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790764420; x=1791369220;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oGZvKGq2A3pM90buZ2VNpRfUMGSk6SlqzeIIAOV+V2w=;
-        b=De4SxN1pQ7Poxw+pThdGD9jKdbJOFCUtNJyrXcaAh7Jiy8vkdmXVCky8P80q9pzxSu
-         /MjlD03Tn4ULmJpdFgM1NHEpsA9uSbUoVkYrEViEW/OP9gi9ZYBsjPt4MVLU5LzaCWhA
-         d0BAqDYMWvuzGA02HQcVUlsXaoSg2/56CvaAi9tuJQGVAzT/6eEQ2SD6xy2yVDhn/pEZ
-         c4qvUS34S/uwLmj7zesv41b5gfPDo8OQO1B+CvXZk9MtjFcNhOr3Z/n8IApZ3D70heJ3
-         NKmE2cEcQahmCv2XMMYY6Ct6lGOCGtSWA6bI5vYs435w9daG29gbEfGxFByR77B1Kx0z
-         7C5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzrYyoU0Efu1gYlYVUzFwJdV77zab85bYRZeP+OtCOXk9E7aXEZfVcEZTQhsE62owtvRQ4Oc320I1mJpkU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyzfuTQBycYLfOo2eMdSe2A4/oQABHlwsOiCfSXqM6mFxnhPan
-	jI+0oike7xDX8myiZMaKNb/MnAnplaWLNaqoDh3JCVbkEABrI18LudOp4JvJQNji71bSNIo+Itv
-	ZpAc3srog3z/nsS3qWG+J+PLD+q9TQlDmKB4+d9lAaLVCq2umfgA1a565ZCHzWljiW7w=
-X-Gm-Gg: AYBFou3McodxsdVuLjQVQ3p70WCovj+3KaGqufmQzUhZuGeNcXJ2qbLd/GIjKOAFRbP
-	t6KBTj0EeSNRKZmr5BL9C2WxanmWtgfPdGX+CFyCockPP9N9bnrzq+BHrsbIvD8T2UFii3gtbnj
-	uuVVUBf6pCa5zThynsKNjn0Wmkzl0Dp+ZXJPqppfgZLo0Uf7G80eBgD44gSHaM7zEOG6UYDz+3L
-	VxsbH9ofNH9PrzBvpX7EUnVUs4A+yGmJ3t40uPGwwJLGPELjGIPMmKDl//pmQCeGMeU855Nvwin
-	fpKy3f9sNwfRVKL3NDQchbm10bGjV7ZIBrLjX3nVkJrnquzpWoF6daNW97DrjGYiAgZ1Rpi2Ioz
-	AqBr+7gVVAx9VDBu7Hxwobw==
-X-Received: by 2002:a05:620a:3195:b0:93c:5bda:9711 with SMTP id af79cd13be357-93ca980894fmr145338685a.6.1790764419687;
-        Wed, 30 Sep 2026 03:33:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:3195:b0:93c:5bda:9711 with SMTP id af79cd13be357-93ca980894fmr145334485a.6.1790764419199;
-        Wed, 30 Sep 2026 03:33:39 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae047e9a39sm671766a12.1.2026.09.30.03.33.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 03:33:38 -0700 (PDT)
-Message-ID: <255658f9-cd6b-418e-989e-60daa36ca498@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 12:33:35 +0200
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="CulZebVr";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VHg20LeL";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZAAB23WA";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="A+Wendfd"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 05E231F8AE;
+	Wed, 30 Sep 2026 10:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790764433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lN9tulOi+NuRWY1qCkdMWYOrA9uda5VmNH5BOCw+PB4=;
+	b=CulZebVrrTl1YsuN7cEMDCPiHbQlwVbR1HYODMR/JWMCPKxWU86Kte39SrsewNhG74JE9S
+	atUKz6BVSrM3QLlGfvQW3+H+IJDSAAv5w1fUsFl1O56KBULXVwoBYHmdwLiGbE9vpLnWc6
+	suPzzThcwmN9jSVMp4NfW41Vr0ozwiI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790764433;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lN9tulOi+NuRWY1qCkdMWYOrA9uda5VmNH5BOCw+PB4=;
+	b=VHg20LeLlM/qGOkWXG/NaYwzaPWLdWlY6MZzKtJRXPFn0Pm0nC+I6DnoozkWymJtlV48kz
+	fXdkLYCLswAVGIDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790764429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lN9tulOi+NuRWY1qCkdMWYOrA9uda5VmNH5BOCw+PB4=;
+	b=ZAAB23WAoHoYSQAhvqr+4uXvAJ5h7N8QyAfUpC/IqwmXZY6GE/okZKPf7ytM2GK6r0IEBL
+	1SZrSb3uLpOTHshE2u1fdNfzsfl3lzQrBFWj9y29XME3VAveZ3Q8eHoAj5UVF/KcYdEj7/
+	0a+noo3Ugm0eC/BKbUTic4Te1wXm3Ik=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790764429;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lN9tulOi+NuRWY1qCkdMWYOrA9uda5VmNH5BOCw+PB4=;
+	b=A+Wendfd/kAFQul3cQJuQsWmJ2l+V14XXkw/g7gfX9G6pAAq5HbHT7NavQacGO8O4w8/8e
+	wcO9SeCCBxOklMBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF6DA13722;
+	Wed, 30 Sep 2026 10:33:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1WepJIzlvGrAfgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 10:33:48 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 4A34AA13AD; Wed, 30 Sep 2026 12:33:48 +0200 (CEST)
+Date: Wed, 30 Sep 2026 12:33:48 +0200
+From: Jan Kara <jack@suse.cz>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Hui Peng <benquike@gmail.com>, 
+	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] isofs: bound empty directory blocks in
+ isofs_read_level3_size()
+Message-ID: <xr6nxaat4f4zlmnk6dcn6fyiih336io2qaxm6lytxyb23oznw6@xcd4rjwpg4di>
+References: <20260919222553.3792320-1-benquike@gmail.com>
+ <20260923175215.1577791-1-matthias.goergens@gmail.com>
+ <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf>
+ <20260924151356.3287733-1-matthias.goergens@gmail.com>
+ <20260925043804.2091174-1-matthias.goergens@gmail.com>
+ <cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n>
+ <20260926083517.556576-1-matthias.goergens@gmail.com>
+ <cm3n7vjwbdnafttuz5ftkzz5wdbalgews4dfs5zlwvkyuzotuq@jo2nhsplhstc>
+ <20260930033940.175021-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/13] arm64: dts: qcom: sm8750: Add Iris context bank
- subnodes
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-13-0322ca5dc10c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-13-0322ca5dc10c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: NBAz2f9hJnEBab9AmtKjwzBS7jKcGsAj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0MSBTYWx0ZWRfX+TsU/hTLqM/h
- T9UDg8DvWdzpgVhpoH5rON5bWlyYbXrdyKwgy+sEN3nuovVoXHDqT7LDpRX/Nx+WfsSYsDuDAKM
- R0FHRjlUBfuTuRovWh1YQhLa//rPq5zt2oT0zRp4EPT5EOrIOjW/eaeOdxOcecM0r4dLW/h7CLf
- vqnk0OwglBDAZ2wJ5/9sdMpJ67RxYGhpKsWCB6FNS0oW0ouDjFh7ycGMkawcuuOSvXtagtylLLF
- 38MVYeYqfMK0Kv1sR6nUgfAZa6riMtPugYO0NzZomkBHLDw2fPXSkuAZ9BVnkRmwc0kp5t97a17
- k/aEZkhb3uwUBLqj7EWeSUao9X4zuEFeJsHLYJMrAFR+WGPK6uPJ2H4L1Ut+HxSKKFXoCLxRhdK
- H4ydk2w/6C/M2MPgHMM/b6PlbOcoFQWOU9VN5o5nA10hg/MTJyQTB8cBIL/keS63eR2a9brLqxq
- U/cyz9Cl48v/NERC1vA==
-X-Proofpoint-GUID: NBAz2f9hJnEBab9AmtKjwzBS7jKcGsAj
-X-Authority-Analysis: v=2.4 cv=Ypya1IYX c=1 sm=1 tr=0 ts=6abce584 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=4BULcDCo1EIeXDFKsSoA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0MSBTYWx0ZWRfX1DWa/ldxtwjW
- snKg1bxA7JXU5DEHmx8SIDx24qcm6xoSXng3GWC2SB3e6dFLbqcJk7mWt3jP4K/WBcAkpFC87+A
- v7+NuvOcI4ZQREbZRbEivBkF6xg8ja4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
- adultscore=0 impostorscore=0 spamscore=0 bulkscore=0 phishscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300041
+Content-Type: multipart/mixed; boundary="467kcs2hjto4mpid"
+Content-Disposition: inline
+In-Reply-To: <20260930033940.175021-1-matthias.goergens@gmail.com>
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+,1:+,2:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,kernel.org,zeniv.linux.org.uk,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	HAS_ATTACHMENT(0.00)[]
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 9/26/26 8:34 AM, Vikash Garodia wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+--467kcs2hjto4mpid
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Konrad
+On Wed 30-09-26 11:39:40, Matthias Goergens wrote:
+> Hi Honza,
+> 
+> > Any reason why don't you do just "++i > 100" here and completely
+> > remove the empty_blocks variable?
+> 
+> Yes: i has one other use.  The "if (i == 1)" further down records
+> where the second section starts (i_next_section_block/offset).
+> Counting empty blocks in i would move i past 1 before the second
+> record is read when an empty block sits between the first two
+> records, so the next-section link stays 0 and isofs_get_blocks()
+> reads past the first extent into whatever follows it on disk.  I
+> tried your variant on a two-section image with one empty block
+> between the records: v1 reads the file correctly, the variant returns
+> different bytes.
+> 
+> I'm happy to send a v2 that adds a comment saying why the count stays
+> out of i, if you'd like one.
+
+Right, that needs a bit more care but still, something like the attached
+patch should work?
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
+
+--467kcs2hjto4mpid
+Content-Type: text/x-patch; charset=us-ascii
+Content-Disposition: attachment;
+	filename="0001-isofs-Simplify-isofs_read_level3_size.patch"
+
+From 8474b0d97f2c136f9870b85852e5b76bd4e4103e Mon Sep 17 00:00:00 2001
+From: Jan Kara <jack@suse.cz>
+Date: Wed, 30 Sep 2026 12:28:56 +0200
+Subject: [PATCH] isofs: Simplify isofs_read_level3_size()
+
+After recent changes it is possible to further simplify
+isofs_read_level3_size() by reorganizing the loop a bit and removing
+empty_blocks, block_saved, offset_saved variables.
+
+Signed-off-by: Jan Kara <jack@suse.cz>
+---
+ fs/isofs/inode.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
+
+diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
+index e884618c0c53..c8f0f8803a7b 100644
+--- a/fs/isofs/inode.c
++++ b/fs/isofs/inode.c
+@@ -1173,9 +1173,8 @@ static int isofs_read_level3_size(struct inode *inode)
+ 	unsigned long bufsize = ISOFS_BUFFER_SIZE(inode);
+ 	int high_sierra = ISOFS_SB(inode->i_sb)->s_high_sierra;
+ 	struct buffer_head *bh = NULL;
+-	unsigned long block, offset, block_saved, offset_saved;
++	unsigned long block, offset;
+ 	int i = 0;
+-	int empty_blocks = 0;
+ 	int more_entries = 0;
+ 	struct iso_inode_info *ei = ISOFS_I(inode);
+ 
+@@ -1209,7 +1208,7 @@ static int isofs_read_level3_size(struct inode *inode)
+ 		 * chain of empty blocks could be walked without bound.
+ 		 */
+ 		if (offset >= bufsize || de->length[0] == 0) {
+-			if (offset == 0 && ++empty_blocks + i > 100)
++			if (offset == 0 && ++i > 100)
+ 				goto out_toomany;
+ 			brelse(bh);
+ 			bh = NULL;
+@@ -1225,21 +1224,17 @@ static int isofs_read_level3_size(struct inode *inode)
+ 			return -EIO;
+ 		}
+ 
++		/* Save the first continuation directory entry in the inode */
++		if (more_entries && !ei->i_next_section_block) {
++			ei->i_next_section_block = block;
++			ei->i_next_section_offset = offset;
++		}
+ 		de_len = de->length[0];
+-		block_saved = block;
+-		offset_saved = offset;
+ 		offset += de_len;
+-
+ 		inode->i_size += isonum_733(de->size);
+-		if (i == 1) {
+-			ei->i_next_section_block = block_saved;
+-			ei->i_next_section_offset = offset_saved;
+-		}
+-
+ 		more_entries = de->flags[-high_sierra] & 0x80;
+ 
+-		i++;
+-		if (i + empty_blocks > 100)
++		if (++i > 100)
+ 			goto out_toomany;
+ 	} while (more_entries);
+ out:
+-- 
+2.51.0
+
+
+--467kcs2hjto4mpid--
