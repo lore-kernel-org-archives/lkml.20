@@ -1,113 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F2330DD2F;
-	Wed, 30 Sep 2026 01:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C3F24293C;
+	Wed, 30 Sep 2026 01:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790731989; cv=none; b=cOXiKVjRx7/fKGWB8NafYSEri+cEy0aaIFh+4Z5EITUSyZ5E02z7Tepl8MYXmY4gqIvttU9VPyHpvE+DH/PpwduiRQbscFSUcqYOSkoamQZ7+r3fyhtm5fmCfpu7hKmqPGvYs5APYgKVaLpk6Wajd5hPx06oDw3jPm+H68r8T78=
+	t=1790732042; cv=none; b=ADpexkeEZA26wAQ8AyoPPvl/p+WmNeR4KYK9DDzMliLMRmJTAR0UIblcjbBP+yE7/wMc/MgQ51LTkakHdGniV1ARehF8Qx56v3DMb6CEbX549A3nmmfJEDHI95AXOQJlwC0QJbkVw5B9zdQKSRRXajlEbPK46CKb2YiKJsHaDDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790731989; c=relaxed/simple;
-	bh=mEVczxqhoWIHjtJRVnlraq1vd7L61iBUG1ngt/aikAY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g1eqNz8T66Ndsm0OLoImTwPhPjHnaF50NLZoWpwguwWlFvvCZzMdO9urF38bGeRAk/7vuD3VmRu+67rnrcHZ/03zLaVGNg/P0ITclK27EDPEdA67RyucZwkYJcGYjtHtFRD4LTHjMyRuDVKWjTWzIkL5WnCBNqSdgYPJR4x0jUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JM+sYz85; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JM+sYz85"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9C71F000FF;
-	Wed, 30 Sep 2026 01:33:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790731987;
-	bh=E9LFBu3yJsDQ69TLBDzRvOENcK1uacHJ+6beUmMVpe8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JM+sYz85EuQ1Pc/ToqHwjyyrWQ5qhidcHK9+vHBv+X7ngHQWkQZRKjoh+Wr8soW/w
-	 NTuJWuYafs2kVosOh4Y7o39wnniNajmM8M74eKQQHwVLyCPiFGZj+O88KRg8n0Qd4L
-	 LZM3KNyJcsj772lBhwVM54vOk1DJZtO46jwJQhnHNApkEQY6PtqjiphyIkaGpcibbE
-	 3193lTulW2YDMNQfbygaldH06RuZOju+p92y7soxpbWLHiI+u+/ePHRVnThchZuYm4
-	 lD4kvzzptU1HIMytqiANY1luTHfm0qLMV0qI2KH5aLz4Vb2ueJIFwny9NW18+N0TdH
-	 mZoHF4G4UzYxA==
-Date: Tue, 29 Sep 2026 18:33:06 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Demian Shulhan <demyansh@gmail.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
- <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Eric Biggers
- <ebiggers@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Marco
- Elver <elver@google.com>, Ard Biesheuvel <ardb@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, David Gow <davidgow@google.com>, Brendan Higgins
- <brendan.higgins@linux.dev>, Nathan Chancellor <nathan@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kunit-dev@googlegroups.com, netdev@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH 0/2] arm64: csum: Add fused copy and Internet checksum
-Message-ID: <20260929183306.24a26c74@kernel.org>
-In-Reply-To: <20260927131838.6774-1-demyansh@gmail.com>
-References: <20260927131838.6774-1-demyansh@gmail.com>
+	s=arc-20240116; t=1790732042; c=relaxed/simple;
+	bh=WzAJoXByfb/43keDF84D/KoQoJqBQqvgNlQotgpNEvs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CudfzdLxjuBSW/s+B36DSLTAKcTKFo212Z1CFrAE+pCsDAKy6vFAffKLXSiBkbDjBE++UywQzWPAIPUD9SMAcW3QMGoN5qgD+Ofu2KUmafgeFbeb04QZfeggAz2gUhMTeEFvAXvDeqeilDEcFerBQd0nqWKiAAOY3nEmuKbSS8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: fd6e79cebc6e11f19a56ed5b684f684d-20260930
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e4cfc11f-6381-4532-8cfe-b714fead1edb,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:5d51a313428181ed0221b01c248a505e,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
+	:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: fd6e79cebc6e11f19a56ed5b684f684d-20260930
+X-User: lijiayi@kylinos.cn
+Received: from thinksys.tail1c7620.ts.net [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lijiayi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1348360087; Wed, 30 Sep 2026 09:33:50 +0800
+From: Jiayi Li <lijiayi@kylinos.cn>
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] usb: uas: quiesce SCSI before stopping endpoints on unbind
+Date: Wed, 30 Sep 2026 09:33:32 +0800
+Message-Id: <20260930013332.829717-1-lijiayi@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <d3639d68-0213-4b70-a771-aa5dc3ec9767@suse.com>
+References: <d3639d68-0213-4b70-a771-aa5dc3ec9767@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 27 Sep 2026 15:17:56 +0200 Demian Shulhan wrote:
-> arm64 currently uses the generic csum_partial_copy_nocheck(), which
-> performs memcpy() followed by a second pass for csum_partial(). This
-> double pass exerts unnecessary pressure on the L1 cache.
-> 
-> Replace it with a single-pass implementation. The new implementation
-> provides a general-purpose register path for short buffers and atomic
-> contexts, and a kernel-mode NEON path for lengths >= 1024 bytes.
-> 
-> Measured in-kernel on an Ampere Altra (Neoverse-N1):
-> - Scalar path: 1.2x-1.6x faster for lengths < 1024 bytes.
-> - NEON path: 1.2x faster at 1024 bytes, scaling up to 1.6x-1.8x at
->   4096 bytes.
-> On Apple M-series cores, gains are 1.3-1.7x below 1024 bytes and
-> 1.6-2.4x above. No length or alignment regresses on either
-> microarchitecture.
-> 
-> Patch 1 implements the fused routines and the dispatcher.
-> Patch 2 adds KUnit test coverage for the new API and internal paths.
-> 
-> Tested: in-kernel benchmark module on Neoverse-N1 with both
-> implementations cross-checked (0 mismatches); KUnit suite under QEMU
-> (with/without KASAN, with PREEMPT_RT), exhaustive and random userspace
-> testing of both routines against a naive reference with PROT_NONE guard
-> pages, gcc 13 and clang 18 W=1 builds, checkpatch --strict.
-> 
-NIPA CI flagged a regression from this patch: the new "checksum" KUnit
-suite fails on the x86-64 test kernel (ARCH=x86_64, qemu). Specifically:
+Hi Oliver,
 
-  test_csum_copy_small_all_alignments  (len=0, src_off=0, dst_off=0)
-  test_csum_copy_patterns              (len=1, src_off=0, dst_off=0)
-  test_csum_copy_zero_len
+> Acked-by: Oliver Neukum <oneukum@suse.com>
 
-All three failures involve a zero-length (or very short) copy. Digging
-into it, x86-64's csum_partial_copy_generic() (arch/x86/lib/csum-copy_64.S)
-seeds its accumulator with -1 (0xffffffff) rather than 0:
+Thank you for the Acked-by. Subsequent testing found a regression in
+v2: physically unplugging the device with UAS commands in flight can
+cause an approximately 30-second SCSI timeout. I described the failure
+in my reply to the Sashiko review:
 
-    movl  $-1, %eax
-    ...
-    cmpl  $8, %ecx
-    jb    .Lshort
+https://lore.kernel.org/linux-scsi/20260922100542.164047-1-lijiayi@kylinos.cn/
 
-For len == 0 (and other very short lengths that never execute an
-add/adc against the seed) it returns that -1 unmodified, which folds to
-0. The naive reference used by the new tests, and csum_partial()'s own
-convention for an empty input, instead treat the "empty checksum" as raw
-sum 0, which folds to 0xffff. So the new tests' expectations don't match
-the pre-existing x86-64 assembly implementation for these edge cases.
+I have a local candidate that keeps the unified teardown order.
+When URB submission or completion returns -ENODEV or -ESHUTDOWN,
+it marks the transport dead, stops further submissions, clears
+COMMAND_INFLIGHT and sets DID_NO_CONNECT for pending commands.
+It drains the remaining URBs in work context, allowing the commands
+to complete through uas_try_complete().
 
-It looks like the tests were validated against the new arm64
-implementation and against memcpy()+csum_partial() under QEMU on arm64,
-but not run against x86-64's existing csum_partial_copy_nocheck()
-implementation, which is what our CI kunit runner builds by default.
+Does this approach seem reasonable, or would you suggest a simpler
+way to handle the physical-disconnect case?
 
-Could you take a look at either:
-  - adjusting the zero/short-length expectations in the new test to
-    match the existing (documented?) x86-64 behavior, or
-  - treating this as a real x86-64 bug and fixing
-    csum_partial_copy_generic()'s handling of very short lengths,
-
-whichever is judged correct? Happy to share the full kunit log if useful.
+Thanks,
+Jiayi
