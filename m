@@ -1,139 +1,225 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012005.outbound.protection.outlook.com [40.107.200.5])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2454B3515DC;
-	Wed, 30 Sep 2026 18:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793312; cv=fail; b=qPWb1/rpbcj4b7aW2sVNX34hG/1qW9pCWHQuXBUTjyjLfciKfHsisQwOJmUgF0ya5xkYDfnMPf4/8c3imh07ljAZMkqQItT9BQUY8gEiVtrvD6sONJ9GCzKUHlSFp2vifTyKsNCc57kcK/Oe5am3Kj1orKjuxn38VzgQ9aen0dI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793312; c=relaxed/simple;
-	bh=3FELcXpAOQAQG5WqRAseygPwAnkxbHAYd2ba7GX9EEI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h52iRAQA05wllsncuP2ujrHZLbRTMUBmJR54IAZ4wY0R1chJGeQJIyfOKf2d1lNeLjMCrmVV6+YHBmO2Ju1p7yCWy06zH+apEPF6aWXkOQhgf+vtSv3loR3PpOSWa49vKpjkRhCTLfXJV4ePiBnaaCNZRGrm9ut+lPRt0ybfGcQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IJSsegQ/; arc=fail smtp.client-ip=40.107.200.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF9151D50F
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790793347; cv=none; b=iCggQRJw+aXrAwep1WkPMF4+FTnVk/avHCskEt+o0eDRGr4D3WIzBXSDLlE0bvZiamrY6/H8tK55B3+MHRBRjn90bpLfAxAooZtMCYUoK97mCDdMzo1qLGrFaib8rJJQiLdguMoMjMdh5ntPWvD5bQiP9BPWgOGy1KVhsW4sPU4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790793347; c=relaxed/simple;
+	bh=Wez9srevnIfC8Rd+n2hLAGeZbyMP2VL+aHaODO0xoeo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qjEoOQlBBgtuBAik/0/BE7XqeSGpQNxXbaRZqAWUZta/CGjy45xt1IKYhRXU+4NXt6wdzKGMarzDXyuX+Vqk8SHseETwCx1T6Qs7cIJ5KyzvDgXeuJGE4QYFBiwsnpoY8UxVdokLFNvVSjwP0iwlPM5TB3Ouo/MxXT0t6O0T1nQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cljvbv1m; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IJSsegQ/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tn7PxAo1Wlno+9w+dRsQRCGPbiIcPvEmcWRDGddg+yQdz3ksm4CUbZkiR5tCBqnSM6dBO4CLCnHV82XJQFZI6O5v/1LEZJUKBa1YTniZ0iOJq7XIJ7kMhP78wRyUKzlsuGDLNj8AZmUS7iM9F81zJT8NCxGv45GYHHwYH1NaqegcnyXpLsT0O0bHIY48yBoo/Fh9UxT63eSPyktYUyrKkt7EY1nAtrua7PixjR5bKyzzqSjg0tvCBYMh2vkNdYKtBgpcpmjGUTovkTcCkudLWtqYf6sEuXBP1ELTBR7F8LhduMjohkzVJuDhEOjidPQvhTcPW4NYVqdeXouCJ5d7Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SlRd1Bcy9vxTTkb5QgIwUNkzFq17T19uqVQCG9qaZYU=;
- b=WBXBtsW+1XTi+JMi/Ln0nMhtgUI1y6g85GUyzOb7qsAwxkpoJDfbgJ2RCW0Y5UeRPJ2CKYscGkawXKjsWZmygeZPGHhjoz7qTX0E60iyrI6KjiqdV7yQGX0TkWU3Gh52dbg4nT5l4n9e2vqWJxu1am/FKxh9gYJHT18rQ3T7/WEw6KDgzoNCmzqbkMUPjtLbolJQb/6lVgnqWYo5BNicqscnHpOSM/SOW7EEkklitRvFPFDwjWKp0qXswmo29gY5nAph7DLV3JIm6ziA+n1lyggDAXeJoun6UWbOwb36Bz/CSX6Jp4VfAndml9bIZdvIwlgRJey64lAnAMy8GiPTdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SlRd1Bcy9vxTTkb5QgIwUNkzFq17T19uqVQCG9qaZYU=;
- b=IJSsegQ/ESrp8WGVq0aU78n89n4TAIsybZMkEa6igvuiXUtKq4rRU5Qqsmt67ugpiW7d+7ldlLO48teuXzOrt5N2tMy9zGkHDopHzZaiqI1WrzGQ1Sz0MpZ5yHclgMSmbT84G3nDB2QA+ZUBsyZ+mZL1vT3IzBQGBrYicfGX+oi1/cS7p/Uyq7v6/HBImZ5Kgxm7mxXzpSfSgrzbTbwrR8MsrSvNvVrC3aM999y5IOgP0ANyAG2KqGUacYfntFpUUndalj+KvCSQu8twEKC8HhpjkEKjs+iNCV9r+dWQ3mXNkkWu48SdFc7YHTTmMKVDR+COPjJM2NoZja83R9GwGA==
-Received: from SA9P223CA0011.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::16)
- by PH0PR12MB5646.namprd12.prod.outlook.com (2603:10b6:510:143::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 18:35:06 +0000
-Received: from SA2PEPF00003F62.namprd04.prod.outlook.com
- (2603:10b6:806:26:cafe::32) by SA9P223CA0011.outlook.office365.com
- (2603:10b6:806:26::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Wed,
- 30 Sep 2026 18:35:06 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SA2PEPF00003F62.mail.protection.outlook.com (10.167.248.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 18:35:06 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 11:34:45 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 30 Sep 2026 11:34:45 -0700
-Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.126.190.182)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 11:34:43 -0700
-Date: Wed, 30 Sep 2026 11:34:40 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Pranjal Shrivastava <praan@google.com>
-CC: <iommu@lists.linux.dev>, Will Deacon <will@kernel.org>, Joerg Roedel
-	<joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe
-	<jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Daniel Mentz
-	<danielmentz@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
-	<linux-arm-kernel@lists.infradead.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>, Bjorn Helgaas <bhelgaas@google.com>,
-	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, <rafael@kernel.org>, "Danilo
- Krummrich" <dakr@kernel.org>, <driver-core@lists.linux.dev>, Jason Gunthorpe
-	<jgg@nvidia.com>
-Subject: Re: [PATCH v11 10/16] iommu/arm-smmu-v3: Factor out
- arm_smmu_handle_gerror()
-Message-ID: <ar1WQCud+B3nAWX6@nvidia.com>
-References: <20260929034510.2023173-1-praan@google.com>
- <20260929034510.2023173-11-praan@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cljvbv1m"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C3FF21A107A;
+	Wed, 30 Sep 2026 18:35:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 95E7960749;
+	Wed, 30 Sep 2026 18:35:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B6995103286B1;
+	Wed, 30 Sep 2026 20:35:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790793341; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=gpYfjJVVvP/BO4iGCfqY670W67tEKCw8EcdA/x14eN4=;
+	b=cljvbv1mvSw8lBQBLKnUAA1p/aLGR9Fs3to25dWU657BqG7yqPHBOcDXTmHF7Pi2/VlCMS
+	opNpJa1WJCMfz+7jB38TM+5M9ylNGPK7d6hab3OaOSDP/aQI8jnAmLoyl43iq50DGqhQ9a
+	/x2bUqslZhMADAh+nxOWKMhQ4bd4qCYXmuitWl5zKqyHpY4ex7OHkm4EhHb/QXPrA9VOH0
+	yuDAdNfhgrOcVDFhzjPwRf7HcOVoDFzx1txmqfGZGKmXln0CYkyMJHdoEoSIZQLadazwBf
+	HaFxHYA6JKUhRoVHIYhtaA+e8BbwJkRSUzLfYFwLtPQcblZe7g2ktdPrl08kMQ==
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Date: Wed, 30 Sep 2026 20:35:36 +0200
+Subject: [PATCH net-next] net: macb: move printk() calls out of bp->lock
+ critical section
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260929034510.2023173-11-praan@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F62:EE_|PH0PR12MB5646:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3fd57bb-6391-4b26-3000-08df1f218ccc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|7416014|36860700016|22082099003|56012099006|6133799003|10067099003|4143699003|5023799004|11063799006|260925021911599003|260925022911599003|260925021311599003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	fMfsAwTidc4ri2g30F2yb/pn1osjVuwj2HZMhcjdI6Fxs+z143u8rT7JE55GjC/QwTkIVE6KpQGlP9cTcuHn9sszj2/6kiUvYMGugOSE+RmVC3xIzgS+VhBSXNb0SGigap/tlP784yAog3JGqJGE8Aqn1dJMJNNczlEZatd50GaHkAxLtWUX5sXRDkvGDnW4nCY8Rlr7688Om2Faqh2knwcayLW0g95TC2KS2MctWFNAbzb9NIWJe1mPMp71fYIYvRrU33x46+QVRArSjO+NUX9OOtxHondbJbg/zU5uNjCQmGdjhhAMdsbKS6wvLRikjRVvpyEXpW5Z8nRUqiGPzPnrfNEC1T3IbEJvuooWCooFZQvxrrAFNpooYpK+KTfBhQQ1+5+meU3inmispeGqx756xka/VUxFLtBp8EEF8UeqkBHdiXqrOS3e1FCzQr3CDh7oeFQZCJxU9rnurlEMKUYVEjyYehAn6ItdWC/YIWNTJr9ZgCyJ/yeStuxjgGbZwnEAwfvwvj1/edPIhfrJxubrAOnUVkHC1pdACgmywB8Ngn1fB/UfFlphl+nFMb8Tp7bhga22l/6RjaoGrqEFXda+lr+T9/VAaHoH0aBsTA9Sm7ZWOXfbQG+dj43MRRw566kg5Q3G7AoQwQI2OmDZM5HRxNdeNBqgSibIvgfZi2xImN1z/Lq9URhKSi0ZaW3wg/DgMC57AdPnC3XNMX4WuQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(7416014)(36860700016)(22082099003)(56012099006)(6133799003)(10067099003)(4143699003)(5023799004)(11063799006)(260925021911599003)(260925022911599003)(260925021311599003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Tzlcnke9GIpEFY+P46rE/H1JhJClGmvbOCrClNDfdbT+Z2+LabV7PtV6s1hXuqcZbi2uk30Fs9xyD7OaDa1qaJZz4njd6kzPCcMTZ2yGpmd0C3fFdItskicZTM3tpDvYQpzlGX04QKyii1Z3edLl/KJXBEkUzcbrsy4/WavAgw8nzh9W8ksFkqGW9yr1o0S/8bazpJDcOmF91o1PPymNHnRQ4N1uWBugZyNhBYbgke7t7rxBNZVLW29tMXjNqyDC8zJUCNcsZZwB8EkztDm3tFxlGxQE9FcrvxDdOiBIPehbYYUIDxbbdfmB2nujo4c+aOisLcECoa28cj3I8p/DsfGzWPNmy5Cyho7JbD4KzPepuEXtcNfbj0TbaAaeMF0iTcyPK3Ss/0GKuTxCD/VVpIvnWo7Myy0JbwBn2LSaTf5D2hol9M+KIPkjwt3RDI+3
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 18:35:06.5044
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3fd57bb-6391-4b26-3000-08df1f218ccc
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F62.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5646
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260930-macb-irq-v1-1-8994a4c8f3bb@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAHdWvWoC/yWMQQ6CMBQFr0Le2p+UgoBehbho61c/CVXaSkhI7
+ 27V5WQmsyNyEI44VzsCrxLl6QvUhwruYfydSa6FoZXu1KlRNBtnScJCZui7Y1MP2rQ9Sv4KfJP
+ ttxrhOZHnLeHyN/FtJ3bpe0LOH3cBcZl2AAAA
+X-Change-ID: 20260930-macb-irq-a87653182a47
+To: Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: b4 0.15-dev
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 29, 2026 at 03:45:04AM +0000, Pranjal Shrivastava wrote:
-> The GERROR register's state might be lost when the SMMU is powered down
-> during runtime suspend, requiring the suspend sequence to handle any
-> pending errors before the hardware state is lost.
-> 
-> Refactor the gerror handling logic into a helper function. Subsequent
-> patches will invoke it from the runtime suspend callback after disabling
-> the SMMU, ensuring that any late-breaking gerrors are logged and ack'ed
-> before the hardware state is lost.
+printk() call while bp->lock is acquired might be a bad idea:
 
-CMDQV has a separate IRQ, so I think it likely needs a counterpart.
+ - It grows the spinlock atomic section.
 
-I have a similar patch in one of my series:
-https://lore.kernel.org/linux-iommu/16ae24cc2a002802b990afa1a69fe4ceab1e0da2.1790188510.git.nicolinc@nvidia.com/
+ - If netconsole is active on the same interface (and we run on the
+   queue's CPU), we risk a deadlock because macb_poll_controller()
+   calls macb_interrupt() which grab bp->lock if an IRQ is pending.
 
-Mine only handles CMDQ error though..
+Three messages are changed:
 
-Nicolin
+ - In macb_tx_error_task(), defer netdev_err("halt tx timed out") call
+   to after the critical section. Update the message to highlight it
+   occurred in the past. Inherit the buffer exhaustion boolean variable
+   name from the old code comment.
+
+ - In macb_tx_error_task(), defer the netdev_err("TX buffers exhausted
+   mid-frame") call out of the loop. This also means it goes from
+   1-per-error to 1-per-task-invocation.
+
+ - In IRQ handling, move HRESP error printing out of
+   macb_interrupt_misc() into macb_interrupt(). Again, it means we
+   dedup error reporting if status is read multiple times in a row with
+   HRESP bit set. This is fine as from past instances I've seen, this
+   message spams our log if it occurs.
+
+Notice we *ignore* debug printks; if you are debugging MACB maybe don't
+use netconsole...
+
+The netconsole deadlock is theoretical & never reproduced.
+
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+---
+This patch used to be part of context swapping V9.
+It got moved out as there aren't any dependency or relationship.
+
+Technically it is a fix, in practice I'm happy for it to go through
+net-next/main for more testing and it is a theoretical bugfix (as usual
+nowadays). Decided after seeing Jakub taking a similar patch into
+net-next this morning:
+
+> Since Linus is pushing back on our number of Fixes let's go for
+> net-next with similar fixes until the merge window
+https://lore.kernel.org/netdev/20260929184531.36ac3dc3@kernel.org/
+
+Changes since context swapping v9:
+- Rebase onto latest net-next/main (47a144672573).
+- Send patch standalone.
+- Simplify the commit message (it was a long and partially wrong
+  rambling before). Also mention that it is a theoretical bugfix.
+- Link to v9: https://patch.msgid.link/20260812-macb-context-v9-0-7ddbf5f715e0@bootlin.com
+---
+ drivers/net/ethernet/cadence/macb_main.c | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 20fe30789834..6725f8ac7606 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1282,6 +1282,7 @@ static void macb_tx_error_task(struct work_struct *work)
+ 	struct macb_tx_skb *tx_skb;
+ 	struct macb_dma_desc *desc;
+ 	bool halt_timeout = false;
++	bool buggy_driver = false;
+ 	struct sk_buff *skb;
+ 	unsigned long flags;
+ 	unsigned int tail;
+@@ -1308,7 +1309,6 @@ static void macb_tx_error_task(struct work_struct *work)
+ 	 * macb/gem must be halted to write TBQP register
+ 	 */
+ 	if (macb_halt_tx(bp)) {
+-		netdev_err(bp->netdev, "BUG: halt tx timed out\n");
+ 		macb_writel(bp, NCR, macb_readl(bp, NCR) & (~MACB_BIT(TE)));
+ 		halt_timeout = true;
+ 	}
+@@ -1353,8 +1353,7 @@ static void macb_tx_error_task(struct work_struct *work)
+ 			 * those. Statistics are updated by hardware.
+ 			 */
+ 			if (ctrl & MACB_BIT(TX_BUF_EXHAUSTED))
+-				netdev_err(bp->netdev,
+-					   "BUG: TX buffers exhausted mid-frame\n");
++				buggy_driver = true;
+ 
+ 			desc->ctrl = ctrl | MACB_BIT(TX_USED);
+ 		}
+@@ -1391,7 +1390,14 @@ static void macb_tx_error_task(struct work_struct *work)
+ 	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
+ 
+ 	spin_unlock_irqrestore(&bp->lock, flags);
++
+ 	napi_enable(&queue->napi_tx);
++
++	if (halt_timeout)
++		netdev_err(bp->netdev, "BUG: halt tx timed out, we ignored it\n");
++
++	if (buggy_driver)
++		netdev_err(bp->netdev, "BUG: TX buffers exhausted mid-frame\n");
+ }
+ 
+ static bool ptp_one_step_sync(struct sk_buff *skb)
+@@ -2143,11 +2149,8 @@ static void gem_wol_interrupt(struct macb_queue *queue, u32 status)
+ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+ {
+ 	struct macb *bp = queue->bp;
+-	struct net_device *netdev;
+ 	u32 ctrl;
+ 
+-	netdev = bp->netdev;
+-
+ 	if (unlikely(status & (MACB_TX_ERR_FLAGS))) {
+ 		queue_writel(queue, IDR, MACB_TX_INT_FLAGS);
+ 		schedule_work(&queue->tx_error_task);
+@@ -2187,7 +2190,6 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+ 
+ 	if (status & MACB_BIT(HRESP)) {
+ 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+-		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+ 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+ 	}
+ 
+@@ -2207,6 +2209,7 @@ static irqreturn_t macb_interrupt(int irq, void *dev_id)
+ 	struct macb_queue *queue = dev_id;
+ 	struct macb *bp = queue->bp;
+ 	struct net_device *netdev = bp->netdev;
++	bool hresp_err = false;
+ 	u32 status;
+ 
+ 	status = queue_readl(queue, ISR);
+@@ -2253,15 +2256,22 @@ static irqreturn_t macb_interrupt(int irq, void *dev_id)
+ 			napi_schedule_irqoff(&queue->napi_tx);
+ 		}
+ 
+-		if (unlikely(status & MACB_INT_MISC_FLAGS))
++		if (unlikely(status & MACB_INT_MISC_FLAGS)) {
+ 			if (macb_interrupt_misc(queue, status))
+ 				break;
+ 
++			if (status & MACB_BIT(HRESP))
++				hresp_err = true;
++		}
++
+ 		status = queue_readl(queue, ISR);
+ 	}
+ 
+ 	spin_unlock(&bp->lock);
+ 
++	if (hresp_err)
++		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
++
+ 	return IRQ_HANDLED;
+ }
+ 
+
+---
+base-commit: 068b5854d6cf588826bd876172652e7c1469d4e6
+change-id: 20260930-macb-irq-a87653182a47
+
+Best regards,
+--  
+Théo Lebrun <theo.lebrun@bootlin.com>
+
