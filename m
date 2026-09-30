@@ -1,105 +1,191 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D0B4B486E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005E44BA9E1;
+	Wed, 30 Sep 2026 10:58:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765897; cv=none; b=KdSyyckw3SJW9lLlwwzYfgubhWthVFAad/22v8rWXnKdKxWJNnkYSlnGrZXgrG4e4JsSas5D1GWHMYldPO/JhSCbpy6/18TOTgIV4OO7iB6QkGpp3Wp3Kg0czhYh05JTmY7ILHdC2sT3szwnZrJsT+HUlZWVja1vu5nQnqGXZ7E=
+	t=1790765922; cv=none; b=sAy0nOqbnknLNhTHwzKrxFmWky6wNfob54z4GYj3S9UwDvaDjnEMJ3iDKqky9Xco8ukHj0nx7+N5qDRzuzck63YDcwCwVUEfkjCw7OVsP6nYyzyHIAzqroOuA66bOvjmHy6y7+N0PCdMbIK/r12TPXlXjwUtIizgnJKH6b/UYZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765897; c=relaxed/simple;
-	bh=HeKGdzLU69O+ht9kbtWpEwDIRN8ghLkwCH+cdsIjxI4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AoxLcKWQaMor0cPabwfTkKm0uuZnQNvxHTw0QMHoauYxnaePxA7RiH6d2c+PTqN6s6U0EQa5rIqFPjSCh+fD7NJBvdzcZv62kZHxexwl2eZPyWQhetzMcb8k9VYEit2+cTwZ13UzSsisNaB155tq/cj7Snb49IDk2WhhmW97wus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHHWv3/e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790765922; c=relaxed/simple;
+	bh=JLsh9ctEJAIlq3fH54goXvPm3ESwMmQCY00+a5e5rZo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jVtaMHEAj4trr6nGdwDdwt00dk6wp6uwUkOh0Ye/tk8ANnrThqYE66O0lS3Ehf2gy8pvwfwNV/ZSVhsYZBMNCoa8BAE922CT9n2OHKt6CC0+eQ4Qqqc77iaitES6aID7lCG/9SVNIZOeSftZtMbmUvR447epfsZHY80V8wqv0Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRK1yGoH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHHWv3/e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC091F0089B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:58:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRK1yGoH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A931F000FF;
+	Wed, 30 Sep 2026 10:58:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790765891;
-	bh=HeKGdzLU69O+ht9kbtWpEwDIRN8ghLkwCH+cdsIjxI4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aHHWv3/e178Jqr0rII6QPV0nGBLTsgtyaBUunqajL5gZ701UOmTost9HSZ1zPVgHK
-	 ss9UxAoBdmnNCjo+57n4x2ebsj7fFvxlFrZvLyGd7YeePDT6L8sdfA6SJQu7kMkI6g
-	 5z1UVduBF9bHnoa4qclG2DpQNGikwFtdVNXSzlut0QZBtUofnPk4wtt/vy5TB6JHGJ
-	 guAKSblDm4O1kmdgYDR2p9kN44ivlt4S1fiCykde9jD5ds7Az4UCwfQysxUExzfChV
-	 2uB+E1JBbryZPPnrWuykoEB0KKJZdfPst+nuZ0V1UkM1Du9lLQ8hRM5aGFLD5VKQjR
-	 mFD7H5hFpsjmw==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a64b06fc66so36431391fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:58:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx+JHabGIdrOO5SL4X392cOVQMjRQ+jEPcyuXD3CZhd1RJKFnEfvJ848uyisOd2IQdPes/4piE0DHzPn9w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ3wzRITYoJfL+xOdBlpwZpKeivxzwLuIddADB0OryI5Oj21Vi
-	gid8THaAZSqdMPpptgl7NkDb7LezUKyZCFwcXON4t91o5SM45wu2NVBzoL2qhIiamXSgxSnNzqP
-	aUZ1PqtojMZ4ZWpi0J/u9Gr2JjACwIbc=
-X-Received: by 2002:a05:651c:a383:10b0:3a3:74b7:fc03 with SMTP id
- 38308e7fff4ca-3a77920847emr2626851fa.15.1790765890554; Wed, 30 Sep 2026
- 03:58:10 -0700 (PDT)
+	s=k20260515; t=1790765910;
+	bh=pxhYZCRtMlW/teM6HS7EhHEc9imdgRYDA4FlDdsFq3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jRK1yGoHLg8mo0+XWEf7WOjjtFpxaRMreP9qMX3pg+2Y7ZiFtQSJz+CWqWeheH7U/
+	 97X6LWY/xoBvS447MoVh2DB9HePtTAwjh73etUcythKMcDkYAQloqbWVS8sEhRPm5W
+	 wNSlDpU24jgbrbDa8xwhUwBMc/1D9+EqMqS0BDE6/BjQIwlAIwTGYJMqIefBlVhe8j
+	 ML5zzV848TfX/F+Xu5yM2qzB5iw2pyAv52+B/AUj+xUK9imEFdRlF1S2s5ZVYLPfXN
+	 pCFmXcki3V8IPuTB31cByzs36LY3ujdDf9W/8Sg8xUSLVOT/g6jGIEP+MBhrgkCwie
+	 sqpPTKyzDzevQ==
+Date: Wed, 30 Sep 2026 12:58:28 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
+ LH400WV3-SD04 MIPI DBI panel driver
+Message-ID: <arzqcM1Qn40gO9qY@orome>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-7-clamor95@gmail.com>
+ <arzNgbx465QIKYdX@orome>
+ <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
+ <arzilGz4akKvRF1K@orome>
+ <CAPVz0n0-baCzHOXjWLOCLjv8fb5GbE9a2v=8tBYr3RgHkEu+qg@mail.gmail.com>
+ <arznE4HKl9r_mPX2@orome>
+ <CAPVz0n2A8oU_yRFQ_u_YkXSa5x7PtK8sYZ_p2P+GNcphq-bP-w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
-In-Reply-To: <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 12:57:58 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
-X-Gm-Features: AclHuK-sa81U-5SW9SmnkIIIMk800EhJv2_agNorbcDVKJfOoCfwnayZ96qbERY
-Message-ID: <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
-Subject: Re: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
-To: filipp.dunsky@gmail.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pxzrbd7z7tsl5fzj"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n2A8oU_yRFQ_u_YkXSa5x7PtK8sYZ_p2P+GNcphq-bP-w@mail.gmail.com>
+
+
+--pxzrbd7z7tsl5fzj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
+ LH400WV3-SD04 MIPI DBI panel driver
+MIME-Version: 1.0
 
-Hi Filipp,
+On Wed, Sep 30, 2026 at 01:48:02PM +0300, Svyatoslav Ryhel wrote:
+> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:43 Th=
+ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Wed, Sep 30, 2026 at 01:34:19PM +0300, Svyatoslav Ryhel wrote:
+> > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:2=
+3 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > >
+> > > > On Wed, Sep 30, 2026 at 12:08:41PM +0300, Svyatoslav Ryhel wrote:
+> > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE =
+12:02 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > > > On Wed, Sep 30, 2026 at 10:05:35AM +0300, Svyatoslav Ryhel wrot=
+e:
+> > > > [...]
+> > > > > > > +static const struct of_device_id panel_dbi_of_match[] =3D {
+> > > > > > > +     { .compatible =3D "hit,tx10d07vm0baa", .data =3D (void =
+*)PANEL_DBI_TX10D07VM0BAA },
+> > > > > > > +     { .compatible =3D "lg,lh400wv3-sd04", .data =3D (void *=
+)PANEL_DBI_LH400WV3 },
+> > > > > >
+> > > > > > Why the detour through that PANEL_DB_* enum? You could just pas=
+s the
+> > > > > > panel funcs pointers directly via .data here.
+> > > > > >
+> > > > >
+> > > > > Passing API/OPS via .data is discouraged.
+> > > >
+> > > > No it's not. We do it all the time.
+> > > >
+> > >
+> > > I have had some controversial experience with MFD, with passing cell
+> > > composition. If DRM subsystem allows this, I am more then happy to
+> > > pass panel ops directly.
+> > >
+> > > > > > Also, looking at the enable/disable sequences these are in fact=
+ two
+> > > > > > different drivers, with the only commonality being that they ha=
+ppen to
+> > > > > > be used in the same device. Rolling them both into one driver s=
+eems a
+> > > > > > bit odd.
+> > > > >
+> > > > > I did this to simplify maintainance. Both panels are used in the =
+LG
+> > > > > Optimus 2X. My assumption is that LG switched one to another at s=
+ome
+> > > > > point, hence they share same timings, controls and supplies, but
+> > > > > differ in en/disable sequence. Additionally, these are the the on=
+ly
+> > > > > DBI Type B-only panels in the kernel, from what I can see.
+> > > >
+> > > > That's just one more reason to put them into more of a generic driv=
+er,
+> > > > which would allow people to find it and extend/improve it as needed.
+> > > >
+> > >
+> > > This driver cannot be "generic". Both panels don't fall into any
+> > > category of being "generic". They are grouped solely cause they share
+> > > same timings, controls and supplies (only these 2 panels, other will
+> > > definitely differ) and are used in the same device. I have no problems
+> > > in splitting them into 2 distinct drivers.
+> >
+> > The driver can still be mostly generic. And I suspect that the panels
+> > might have different names for the supplies and controls as well, they
+> > just happen to match in schematics or sources that you used as reference
+> > because they are for the same device.
+> >
+> > My point is, you can keep a lot of boilerplate in a generic DBI driver
+> > and then parameterize the things that aren't the same across them. That
+> > gives you the best of both worlds.
+> >
+> > The reason why I objected is that you have a very specific name for the
+> > driver file and the second panel doesn't match that at all, so it's
+> > confusing.
+> >
+>=20
+> Noted. I will split them to remove confusion. I assume that schema can
+> remain common.
 
-thanks for your patch!
+Works for me.
 
-On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
-<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
+> IMHO creating a generic DBI Type B panel driver does not wort it,
+> especially since these panels are more like non-simple DSI panels and
+> always require a dedicated en/disable sequence.
 
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->
-> Add a driver for the UARTs of the Cortina Systems CS75xx (Goldengate G2)
-> SoCs. The block has transmit and receive FIFOs with full/empty status,
-> a 24-bit baud rate divider clocked from the peripheral (APB) clock, a
-> receive sampling point register and one interrupt line per port with
-> per-cause enable and write-one-to-clear status registers.
->
-> The driver is a rewrite of the vendor driver shipped with the Linux
-> 2.6.36 and 4.9 based vendor kernels, using the current serial core API
-> (uart_port_tx(), port lock helpers, deferred sysrq handling) and devm
-> resource management. It supports the system console and earlycon.
-> Hardware flow control is not supported.
->
-> The ports are named ttyCS so that the driver can coexist with the 8250
-> driver in multiplatform kernels, and PORT_GENERIC is used rather than
-> allocating a new port type.
->
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+But that's not a great reason. Note that you can have a generic driver
+that describes radically different panels. It's all a matter of
+parameterization. You can have very different *-supply property names
+and enable/disable sequences, all in the same driver. What matters at
+the driver level is the general structure (i.e. you're device has a
+backlight, one or more power supplies, a DBI command sequence, a reset
+GPIO, ...).
 
-Look at this in your Linux tree:
-git log -p b61c8bf4694b5115766849378dcb8787ff54e65e
+You managed to make them work in one driver, whether that's called
+panel-dbi.c or panel-hitachi-tx10d07vm0baa.c doesn't matter. If there's
+ever a DBI driver that doesn't match the structure of whatever you
+introduce, we can improve or add another driver.
 
-This is essentially a resurrection of that driver. It was deleted again
-because it was merged prematurely. Cortina never came back to revise
-the driver. (People run out of steam. Such things happen.)
+Thierry
 
-Anyways, clearly this driver is not just for CS75xx so name it
-cortina-uart.c simply, and update symbols accordingly. Kconfig
-should be SERIAL_CORTINA etc.
+--pxzrbd7z7tsl5fzj
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Maybe
-even the DT compatible should be something more generic.
+-----BEGIN PGP SIGNATURE-----
 
-Yours,
-Linus Walleij
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq861QACgkQ3SOs138+
+s6H/kRAAm1vAxXljWgcYmOQOkbUgCiwXkFNb46Q54mWK1nQzXYXWFZlcyYbr4/sL
+Qnlfcyg63GeL1vedgz72NvA3IW92mZzNo0eNFAqI5hGNj2xJnZw6rNatONFRnLUa
+6LpqhL4TY4mel8zBczNh2JHGUYGCufpDMYAcJSY45po5pGJqtTDwfEf6oiZC3jdt
+jHje5mFoCmeGak5W43VQQ060/ZI2Q1MchRKU0D3siG8GGUcYFlbecrJqQ6XS+0NX
+iAXEH5mXB8VzS+yAVmWFIpYVGGtp1YzCtfn176NkzHj1VH0JUFjTE/flQAbsTdCl
+fZCqw2HPfz7TOvZ0EnNEPtwAPmpIff/GXiiatmtKuRSdc42mexLR8bg/0Dy7PQUd
+m+g6UuHYsWXsTHIEXpPNloA7I+tPESuGMf6+7FZOfTcyIzYK2uICQl3qaaPeGQF+
+Opx+Xeac9OesckawREYpVjasI8tnWE+xkow3tnQyAtH0eKY+8a5D0byicJmISJek
+c2ViwFSEzgo9c/M683yL9o8YbwADJr0EJZTGGU7iF6Kou0vgiaKECHH7pEAlc25l
+O74WlMpnD48S5i8i5sD6Gnvn2SBS9HpzDarh6B5YhkUlifwWZnTSyZJ42rcCAzQA
+A7Yb+1bCFegREaFz1KGQjHqR/j6vHMdKud6biUFdaJzK1IXW0gY=
+=FFOm
+-----END PGP SIGNATURE-----
+
+--pxzrbd7z7tsl5fzj--
