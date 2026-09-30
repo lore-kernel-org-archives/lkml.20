@@ -1,118 +1,180 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012044.outbound.protection.outlook.com [52.101.53.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD26C4C9E02
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:43:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768639; cv=none; b=ewDwa9T1BW4A/7yyj9NE4sjgb0pOu/NeJI0z3i3F3TDG5hj4nW2XiUTIPbwL01YtnvUHS/6q1ti3Q+OaE8pg7vqYfUkgFfdAJ1gMVmXgUHcB/1JBPWVLgysAqEjU8Ao6VrGuqMQG4iPzadgbZJTVwh1R7QXZ6YpM1CvBETz72v4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768639; c=relaxed/simple;
-	bh=WmynuyHJU8N1Sba7vOKf17LXlfDtQutbPwLTql25A8s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Pz9GpYLHWZ7rsDzjvRL2p9zLJxXPz0J0TZFQH1rzntePRddcPrbFCV0brdl8i1B9qdr2Sxa7ZymVuta9e3CckiEopfp4ivIn9xFVsZR0xv9txR0BSq5roR6JLm0k2L2kDvUyMCfH++ussnGhVzTz3xty4bJlfmAuMaFfMc7LC6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J0xr9EMI; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65EC4C9DE1;
+	Wed, 30 Sep 2026 11:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790768638; cv=fail; b=UK2/xu94TsgfRDk4Tjej6LHeZfYW/TjV/yeHYoT60lqtqAD4zDumkE5ZNhyC/C7otkLF7p89hzxnWa3PLiU6bFdBX9U0B6GONOhWut4tO0k5tVqwxrhp4S6Fqwd+HLr2XTN816DTQ8aEhRV8e94HLKEDsLucsLAQcwQdc+e49qo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790768638; c=relaxed/simple;
+	bh=UynRZJFWUm9rjppcchAduLjIXAEXqlWDoBIl6JRDr/A=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gNxGR8Us+Ffpum5jnLe7ycmCQtt9Bm1k3EKfn/Df5RL35ftWI2bbWXytLMwXsfRM6ZZYz0l1UEg7YHaugsck6FNexcFRQvAXCQKKMG820APGlRXWQIMNYj7IkqmEaCojbbF+FOCwZssIi13lU/H4XUJHnA8Vs/bP8m3IdKSb9es=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=boCIrIbA; arc=fail smtp.client-ip=52.101.53.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J0xr9EMI"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so3301741f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:43:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790768635; x=1791373435; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WmynuyHJU8N1Sba7vOKf17LXlfDtQutbPwLTql25A8s=;
-        b=J0xr9EMIfzbHfnN4mWrWc69XfBZ+MB3Xy/I9zajTpNP3eOID7+WYIwfsDXw55tvcFd
-         zrhgpXbSXTLq1nl5ZMzPd+fNlwYNQteR6FSYIT9Y3zbWci+hV6yCePiSLs1+WCqwqgbB
-         xYjbuRpukQ8TNWQ7lzCRCdo5m+4DRkSzQpUd4n/iuSOxFBg4MErRBpQ80R/sc7ebUei3
-         Ng7WqhHdWtS2M6GfZ2TnLv/0uphVTgM4eO/vtO9dgcWko9K8fS9giASHDevrSBVV21sL
-         FVE1DVHj0dnU2DTtJFxDsgXQI3jUpie9OlBZuGRt5VAmePyd6oQOnzGQVFjlFW26Z3FV
-         3QiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790768635; x=1791373435;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WmynuyHJU8N1Sba7vOKf17LXlfDtQutbPwLTql25A8s=;
-        b=Idtl0NXXsXWDI6SXPW8z9gFRzIIP3pyBbGPHOWl4e7Q3vhi3GIh78rsxEP9gk5aSFX
-         m+/Urb3HjxjcYmzNK+pFTNaibeb9sxWvT3DC0cL7xwW99qCI77SehV6FvYHoNyrSc937
-         /rI5uqseSluVzVMk179Ozram2e2v9SkysuPv3qC4cr/qWxSU0fJgyKHooOxAO6NoizqW
-         6hioBPU3MoVjU21YtyJCqfqJvzvbb4Z0a/8y0267Gq6XZ442mhCPLmBGVmgNt6P7PG35
-         rSAxeQv4phnDhCjz0QAGMASmp23H5C+wc4PKrx8pH5jDWpIzaU0CSBYajRhfa1b135bj
-         TEAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw1wf8/kz6qW9xt9WRsQPzZzmPml3Xa5uWiLcf5NIXqoKP1CDYyViXRxO4PPw95GU94lSYTgpkbsAkK3Qg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBYOKRRNRqmue6WRk31Gun8qU1j4sxgVz/lrTvJ22mZaAQslso
-	E8M2ybIpQmFcKD65P64dJchr7CPINCVgKIZcM37vMYobohQy8lvRl12W
-X-Gm-Gg: AYBFou0IY0bT8AP3MX99ZIH8F9TRC4FbhcwibUfnBWet7cIXVtOtSV/+L+MeAvXkIIW
-	knhMoUXaq96nJc94rV3R6fVukPTfJiAbOyJyMnwP2RQW6fwHoHeSPnTh3yvaAa2YUXCH+8P8pM9
-	gWyAAVIIRQS7t4tN5p3lkX4ftLvLWD+8CO/wWynZhYepmkfDNLdBEOEjjmjMk5f3MV1qXruzrRu
-	qwrU0xWLkDwJe6KEl0jhSyhGMc0O5ND8EHmrsBpUn1x6jm8dnCS0tBBoBDYQJ8KBagWldyr7JD2
-	zPxS5+pk3ZqtcOpDx96mczmd8A3Ag/6YYXiYG6JPCVws5pbR7crAy9NiJip3OmD73D05SltDEz6
-	FkRv3MvhdzEWtHII09bBtRYH6MwyzFYlskIj+1pItz2G+CqgMB7RplCq6mjsuYKNs0NSyTLQ2Lu
-	Rn7NsWMXddLwXQxNmwcPbkzIV3tSGRWMejSq/NYehScvjXJBzuEpfnrI2rfeUN0cdDbb8lLmuUL
-	TxPGBB646eBe1rlxGHosToJnICucCtK36vdd/ojZ4I=
-X-Received: by 2002:adf:e00d:0:20b0:48b:2bb:aee9 with SMTP id ffacd0b85a97d-48b02bbb14bmr1650336f8f.11.1790768635262;
-        Wed, 30 Sep 2026 04:43:55 -0700 (PDT)
-Received: from [127.0.1.1] ([92.241.26.38])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02949cf1sm3005415f8f.5.2026.09.30.04.43.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:43:54 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Jason Li <jason.li@cortina-access.com>
-Subject:
- Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
-In-Reply-To: <d97a806f-a5a3-476e-8910-30027a6f568d@app.fastmail.com>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
- <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
- <179076583795.3054628.14443934429806440798@gmail.com>
- <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
- <d97a806f-a5a3-476e-8910-30027a6f568d@app.fastmail.com>
-Date: Wed, 30 Sep 2026 14:43:52 +0300
-Message-ID: <179076863241.3327419.16233537387530771884@gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="boCIrIbA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DXZNRMHlQsAV3K8AqzSbAn7ackrj+bYUGZxnECC2DRE8sZfjqe460eyKdryQTxsAutbxwZwb+sPJsE7H5Vfy4IJUgPtoC3+MP9qSxiMrdxr9dchDlVBKWNOPU7crk5L4NFdLSWCekf7qzWIGVl/QVNWQsGg5xWYrK3Da/+Eh47biyKqK2OA/G5/uVX/XbkLIsnO7EeFzy4aWcIPpTWsfXcipBL8YC2HevcxWK072TnUnK2P5rAxVMa6VIVNAItUMrC8OJTrCi+vYCgacHlwzjDy3AN9Z4brwyyOFJw+1aSW3TvoxIhHEsBMQCkzO9RsMEBHQXpx6D1l7g9L6QzqzQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7Y9PGfmu1eK0XBWYgAqOdrOUgR/iEcZBXznn90aKfJk=;
+ b=KLunf0kffJ22/AobtydPXD7i7s6wXZh8fRjbUOcvv+UGuiDhQUP4rKoy7l072OPrLW1Dz6nF17MlyyM/sCZ8x/YOIN0vXc+Zq4nKJoXbFmAl4dSiKcWtxMPbTxeF+QVsIhIZJ5PWZDpzzXFDNSUwAPHUnlwm4bRYcUfClxjXU9THkj8snm8YWZh+vugHqKRGAprtAyxgqBgRjPDn2cnTKLs9XebtrIhFc8Q86qVbIU8OWw3wQkZJsi1P5Sul587hFqMrPNqImu3QQz9BZeec45sTJ0Y+0DAoXE+Telcsmn0Aoq5iA9O64LNjFs3hXQ4mh0HQphs58tuQs2OU5vf7gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Y9PGfmu1eK0XBWYgAqOdrOUgR/iEcZBXznn90aKfJk=;
+ b=boCIrIbAZ2V3gmA/NZA2V6x1vD3WnlBPmGm72r5o8OgpFo69rxA+Nd8vgFfaYuJrwHqXx8I7XjtvjJ3rArQ8bf3S52FauczJYZ2cCQ/iGM5xZaTzwvZ/9QcWc2scUQqh8blOTaNpcNQSKlzj2TWLtw+DtJSyUyk8ZYtfgLT9B9Sf+ivVRunA9vfAP/NV1GRGcLv4Ugaoo6Jh7QRC5oma5K5SUBXxjEOMiZRsOF3EFvgyK2gSoXJpFvPWWkIHxBh76h37aPipVI0gYhh/hfqnHhfxHc7H5C96NrCnrvqHRwEzQQh2+fK4l0FQ7YOqFRuso+WMhWPIr5mUKnp3HMRYNg==
+Received: from CH5P222CA0021.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::10)
+ by MN6PR12MB8491.namprd12.prod.outlook.com (2603:10b6:208:46f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Wed, 30 Sep
+ 2026 11:43:48 +0000
+Received: from CH1PEPF0000AD80.namprd04.prod.outlook.com
+ (2603:10b6:610:1ee:cafe::10) by CH5P222CA0021.outlook.office365.com
+ (2603:10b6:610:1ee::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 11:43:47 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH1PEPF0000AD80.mail.protection.outlook.com (10.167.244.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 11:43:47 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 04:43:34 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 04:43:34 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Wed, 30
+ Sep 2026 04:43:30 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>, <linux-rdma@vger.kernel.org>, "Mark
+ Bloch" <mbloch@nvidia.com>, <netdev@vger.kernel.org>, Saeed Mahameed
+	<saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, Cosmin Ratiu <cratiu@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>, Dragos Tatulea
+	<dtatulea@nvidia.com>, Eric Dumazet <edumazet@google.com>, Gal Pressman
+	<gal@nvidia.com>, Jakub Kicinski <kuba@kernel.org>, Jason Gunthorpe
+	<jgg@ziepe.ca>, Leon Romanovsky <leonro@nvidia.com>, open list
+	<linux-kernel@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH mlx5-next V2 02/10] RDMA/mlx5: Add mlx5_data_direct_supported() helper
+Date: Wed, 30 Sep 2026 14:42:19 +0300
+Message-ID: <20260930114227.139274-3-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20260930114227.139274-1-tariqt@nvidia.com>
+References: <20260930114227.139274-1-tariqt@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD80:EE_|MN6PR12MB8491:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e899938-e93e-4910-3c1e-08df1ee81719
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|82310400026|1800799024|376014|36860700016|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	V9Z+v8jOm9Btu4JoLZ7r2/N4ZoL+dvKO2JkxV5DNo6Xa2WHPgIBEr7zEUSLkaifs0upParXwe3v8cGiugrz0nQYwOOVgSxxG2vs0+a0AWnExm1o0ZuC3mk4ib7gAKcTQ1apykgDm8lBXkgnjpftyEc6sdJ13uMYdRC4KqhvPLT2sQtQQve6DBN4Zf3f4XzLdcJZfooTssvQLO+/sqQKAaLnHBDu+flFS1M//V8REtcXHGobM73qkyE+hjYFec/HZohfxEKuCjVyfutCBnhkhHbwSSjvO1uoK0H8FtMZ5QuW/Bb55J+ls05gDKCOssWqBfGUWnVVV5BIEKrtVrdKcwtqFt9jEeHvY80MzdEWXyfUK6SGH3tAv4axOm2jM/3dhdkFTk55AmyEGM3qL5XiLIEj5btfOHgzwNgntlek1Gjfvh0oeIIGXhUD3IGbrbFwaHZfvSxHQ159LfE57TccVAoo/ZPUWP/4drLzvF308kzS+OASM7EOlb8E7X3sXADI2ukCugy0vhj5WDrhMk16LWg9kp/wUkZKnS3mS3QiXcK0SNzCjrXcjEiMlIjdSmqCBr5v/CpcUy7gHYqNRR4lANsgobd36rQkEMO6gjp9rVtbFv4eByfYOqUxvOo3R17LMNYu96rv3seJjs8GF26ZMZysO/NoznF6wNCQy1hyFsXbp0bQEVkl0E1K2MxUd37El/LsbgCMGri6PenJsvo2FAg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(82310400026)(1800799024)(376014)(36860700016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	y9MU7TTatUu85ooHd7huTimzJeujl6HPHQbnHgP97v627o7/lV6OBUt559MDZOKw0d91vZX8bUVMCH9kOrOeVld5yflPUl+6ORYBVfpZB0kzD6H+XssSwy/H44eQlNN3mMo89ZV7v7Vxo7+dfhT5AsEJ7ZUAczajYigFWbHcrvvQ6IoHBDaJz8X5GUGLIUnbigfvNLFVLA9z4Y/dX5vVAsM6K/AZmjGce7LoDCEQfcA/Nqe4S9UI7B0lbKBnNqGcp/gvLAhBRFqwU89rtTevWNqlB1o/eVona/ujeJmLnnJ/OKR0hDVwrSl+5WDzMFcCXccbUAEUwAeW1e2ILgYI2Ms4xWW3B+J/eU1t6Jl/N4uTQPKdfkALiqrL0cEvHEJ+hBsqL1j3KdNn5iXmc1UMDt2NpC4BY7sUqwk+xUr6o6Z8mXwpfxDxYoDAmP7speTP
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 11:43:47.7174
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e899938-e93e-4910-3c1e-08df1ee81719
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD80.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8491
 
-On Wed, Sep 30, 2026 at 01:36:32PM +0200, Arnd Bergmann wrote:
-> How about making this one ARCH_CORTINA_ACCESS to match the 64-bit port
-> (saturn, venus) that Jason posted at
-> https://lore.kernel.org/linux-arm-kernel/20260610112821.3030099-5-jason.li@cortina-access.com/
->
-> I think this would be consistent with how we deal with other
-> acquisitions (storm->cortina, freescale->nxp, ...). I would
-> leave Gemini as-is because changing the name only causes problems,
-> but for the new platform I would use the current name of the company
-> that last sold them.
+From: Dragos Tatulea <dtatulea@nvidia.com>
 
-Thanks for digging out the history, that makes sense. I will use
-ARCH_CORTINA_ACCESS for v2 and keep arch/arm/mach-goldengate as the
-directory name, as Linus suggested.
+The data direct capability FW checks are duplicated inline in
+mlx5_ib_data_direct_init() and mlx5_ib_data_direct_cleanup().
 
-Should the DT side follow as well? That would mean a "cortina-access,"
-vendor prefix (added by this series, as Jason's has not landed yet),
-"cortina-access,cs7542" and "cortina-access,cs7542-uart" instead of
-"cortina,...", and arch/arm/boot/dts/cortina-access/ for the dts. I
-have no preference, I would just like to change it only once.
+Wrap it in a mlx5_data_direct_supported() helper and use it in both
+places, in preparation for moving the data direct matching code to
+mlx5_core. For the same reason put it in driver.h instead of
+data_direct.h.
 
-Thanks,
-Fil
+No functional change.
+
+Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+---
+ drivers/infiniband/hw/mlx5/main.c | 6 ++----
+ include/linux/mlx5/driver.h       | 6 ++++++
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
+index 547275dfa40e..0c57cb39ae7e 100644
+--- a/drivers/infiniband/hw/mlx5/main.c
++++ b/drivers/infiniband/hw/mlx5/main.c
+@@ -4036,8 +4036,7 @@ static int mlx5_ib_data_direct_init(struct mlx5_ib_dev *dev)
+ 	char vuid[MLX5_ST_SZ_BYTES(array1024_auto) + 1] = {};
+ 	int ret;
+ 
+-	if (!MLX5_CAP_GEN(dev->mdev, data_direct) ||
+-	    !MLX5_CAP_GEN_2(dev->mdev, query_vuid))
++	if (!mlx5_data_direct_supported(dev->mdev))
+ 		return 0;
+ 
+ 	ret = mlx5_cmd_query_vuid(dev->mdev, true, vuid);
+@@ -4059,8 +4058,7 @@ static int mlx5_ib_data_direct_init(struct mlx5_ib_dev *dev)
+ 
+ static void mlx5_ib_data_direct_cleanup(struct mlx5_ib_dev *dev)
+ {
+-	if (!MLX5_CAP_GEN(dev->mdev, data_direct) ||
+-	    !MLX5_CAP_GEN_2(dev->mdev, query_vuid))
++	if (!mlx5_data_direct_supported(dev->mdev))
+ 		return;
+ 
+ 	mlx5_data_direct_ib_unreg(dev, &dev->data_direct_nb);
+diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
+index b1871c0821d0..ee29f95ead18 100644
+--- a/include/linux/mlx5/driver.h
++++ b/include/linux/mlx5/driver.h
+@@ -1395,4 +1395,10 @@ static inline struct net *mlx5_core_net(struct mlx5_core_dev *dev)
+ 
+ #define MLX5_SW_IMAGE_GUID_MAX_BYTES 9
+ 
++static inline bool mlx5_data_direct_supported(struct mlx5_core_dev *mdev)
++{
++	return MLX5_CAP_GEN(mdev, data_direct) &&
++	       MLX5_CAP_GEN_2(mdev, query_vuid);
++}
++
+ #endif /* MLX5_DRIVER_H */
+-- 
+2.44.0
 
