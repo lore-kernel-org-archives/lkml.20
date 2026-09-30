@@ -1,593 +1,257 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A9F4C226F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768852; cv=none; b=MMRdeynxCkMCh20kuCVU9FIIVFd/HuxIuRlgWXWYP9yJSSko2NnI6V2jGCQxwZ1cLtnxGMggwvMi1JTovAicJQ235vQB3R4ZKGALu9vQs57uXd4yvV0ZvB3jSyldP1OZ/Y1/nm9RCglHpcTWXFhXPU5WR6EoSbVkh7KcRNydECw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768852; c=relaxed/simple;
-	bh=1lCMpdVbhhFMkz8/73emLNGu0dXMYnSiVduT5MaB1N0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eB2GZ+PZVS0MEwKerLMwh95UnfQXhWGojF+VCYbzzuUOmeL9ogdTrIxgdtC+1OdfJcKjlfvZDotmCNmmMUi3p10nQ1Ff82bJCBRzyOWf1HCUhxB42J2jDo+84tyuQEewb+eKyTOaCKcB4e+NVGwfsQ0POBVkDzLZIa29BgOWMtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FkSpzoNU; arc=none smtp.client-ip=209.85.128.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF81B4CCDEB
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790768857; cv=pass; b=jtVogxwE5D+TfMUp1+qESsJaeOCApzTgRMSZAMe3TWjT0XmXzx/cmBqc41tbJQXAsUmPjNXQ8KJ8Re0jAGhHKGHdGO/QPVKVGkR7n6AeuwhkS93DkJmwYWclNEYSmdbh3sOYW3syeDEVjQoMAAdWzUDOlg86CbzcnZR33QdGTDA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790768857; c=relaxed/simple;
+	bh=tCnxQKaF5n24ux0FqNmPiHkkdScPtGclpUr1AEGXTyk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=maECERcoXxSktM5GtJ1gC8MrWe/CpjwZYtG1UJQPhBqEat/zwVD1qt7EjwPcZUhKwnWIyNQKjU0fNXIPuaswK/GfVQ8g4BPExgUxb+88ZZgzGNFswcf+nCm2Q1Lj1Ly4MqpTKr9QJ51hEs6rAH3NFimykx9mVV/T7ycsfHakWAw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bdQ8H+ml; arc=pass smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FkSpzoNU"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a013ea30c0so7969075e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:47:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bdQ8H+ml"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342773d94a7so3250645eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:47:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790768854; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YWaYwjJs8iPC7HfWGDdcP8ZrOuebNrRUELqOgm7UVimnGnfm09bOSrQn/f/9l97LGm
+         +lG3r7DPwPP70yFYo4Rem4b+rRRQ1qdpJYP5FyUTtfFbdOC4T6hnBGH1VN3+p4/Whon+
+         cnWvqU0EuKVOuqy+mU7s5SF6saEyI+5lkMNgwrbJXclMd0wcujlCdpAyrlvkXorKQx5R
+         oFwk1/CHADnt5TI4E7hsWzueb0KoyqqJ2KWm7SCuY9I6YGnyBMVY2UghP4UT5t5NinyP
+         QjNdXdJFhek77RuBC0MbHqyeM1vUn0kmhrUh9PNCBeatnOKuJtiIwmEXQZCdF8KKvoUo
+         MH1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CU1MX58mqxg2gi+eZkq0TdZ36IM664l7Pic4XLSnu5s=;
+        fh=uY3VaLT2pdWKhX1vmboZ047EoeMheYv3pbsB6pyhfkE=;
+        b=XI5QD+oV8yam15tjP5KEsJOK/Funsk7SV6HN3cpuKz0DTN7Mdwu9/lyzqyvinRtMTk
+         Yjv1SXHKFOE0lhA9i32X3+rb77MyuH3T/3v86L/pX34bdnl4W053qtJCj5dEh7/sQhZZ
+         i+k3pkEnQL5DmgFIlJpj95027AEDkDWA1j2m04/HiL3KZMe9X/WGC7Wweo6+34c19tZz
+         VrmJIr0lVioUo7S5aYtwXerHCSybk0APOTq0/9qWBVvN8yWdFqmKUVbctNrEYEeScFQn
+         NnmIDkV9XnKDyjYnbohff175bK2+46/dXM+LlLm/bn4T6Cjj0mqt5gYL74kvcdufY32R
+         XyfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790768848; x=1791373648; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bAWIKfukzaeNGvOmI8DxKa3twzwxWV2LFW8U4DwENrQ=;
-        b=FkSpzoNUP7shvMJ15nh9VYrH9UG6+/SXUfD44rxMK+7agp+wZoVxZm1ZjtUxLCM6a3
-         N2zvxM4X4Uy6B9MmXjaZDlQXa+MbOwO6EB6DXZoIV/Exd1aQS67bdIPtlTDmMeitpDdo
-         huYElhjc9DQx6R7YRbMV9gThBIQBkKCGBeddFq10y8hR6vi+VJ2H806LJBW9rcHO7L24
-         pSdmEMTU1u56D+W8wnCYtDyfP2anC/xIPAOqrt1rrPn+SZmRX5pBtxUyskt1fcUT53Jb
-         ma4T3sNNEfgUKVevhIorRe1pZ9tP+ckNBx5fO3SHcH7+9P7qkCvpu7ou3zl/YM2AznNu
-         D/wg==
+        d=gmail.com; s=20251104; t=1790768854; x=1791373654; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CU1MX58mqxg2gi+eZkq0TdZ36IM664l7Pic4XLSnu5s=;
+        b=bdQ8H+mli6OECyMRBFOBx36NS7W/muNtXD+vOdjl/9B65WwU6Ogf2fWmYKFIn7d3Ww
+         oDrpOCjhb0SrETHWTdOoNMcuHsM1LBq8bHw705YZ2YBdumiuO4UtM31adsiDOaeqtUpY
+         X0RH2QRGyzpwKdP8u+5BLXSvmy2bHLS/KAReeR5zdzIve/gEP81zpjNXgXpe76WA4U6B
+         MViCKdDsF9Z/mjyYWa77vspcPYAii5KJ85jwvUwZWzAINFHbYUU2SgLtp8iIIj5Kkfja
+         HzCM/g/xKcP2u4/TTPO2vXllMC042CKqaZmUOICfBa3ZinfPKk6ResP7Tevue3J7jAf0
+         wQng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790768848; x=1791373648;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bAWIKfukzaeNGvOmI8DxKa3twzwxWV2LFW8U4DwENrQ=;
-        b=ksfGyUwVJmbSHH/V4J45QrqgBWnv2LMFLpFviLsrO0pq3OluFg7yMgYxdEj8Y2+zc/
-         Pf5iNGuRIjwOGGCvMe/nc8N41ig4tinRtt091pi8LEx4EkHM8WuYSeIeoj6BUipnp/HB
-         LG/MEWsZhixwBj5Yizn0sgsPJp3gMDPWg5loHxc2uOrnpugUVtKpySd6TybfE4cB6BPD
-         3bNyvyQrGp06p6T1tZKEws2oRUtrrETY1I5qt4/vashSwrA3Tc6a3UtpdGJFRZcq7eve
-         Q9EG897nQmO6UDSXqaKud/5oFM9Pk3kASNBDT9twFmFw2vkFEFJ/GhKggzvCYIC7MSUY
-         UPAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzDmwEU2/CGMDSRKNRls1N0ReU1c5JR/U3ESh7QAD/aqr8ZW3oqjEFcFiUH/Q0enmmdI45RAvBj20MUSa8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEAPS42YWuGqukH44hsWpuLuvv2LxET/9NLjPYL0vX5IPBIv7R
-	UgJJp+hVgCsicWETqvtd900/6eVDs9NxS935feQ2c8KTS9Yki2GGMSuYVWaCy8vsEKv1F4rBFRI
-	JBOjFKlgfBQdkXA==
-X-Received: from wmpu38.prod.google.com ([2002:a05:600c:4d26:b0:4a0:1e1:5dde])
- (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1c11:b0:49f:bd0d:59f5 with SMTP id 5b1f17b1804b1-4a01afff3dbmr24479315e9.18.1790768847902;
- Wed, 30 Sep 2026 04:47:27 -0700 (PDT)
-Date: Wed, 30 Sep 2026 11:47:23 +0000
-In-Reply-To: <20260930114725.331370-1-jpiecuch@google.com>
+        d=1e100.net; s=20260707; t=1790768854; x=1791373654;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CU1MX58mqxg2gi+eZkq0TdZ36IM664l7Pic4XLSnu5s=;
+        b=0E4cAZtLVEdZZ39pbgb7rXwypq2hYjMI5kW7rL3UrmPei+67RxnNx2rFWuFkHsdSD8
+         0anIviSLhg+GEJoAp1N44+5+Rlo515RpyJtWwfaIkiGLcTPP/hOq+FZgszGMKzJceZQA
+         Kg9RW+pYGMlWk0xBrwNxN3za60dQZFpdQSfOvIiD/bPIH6TIjTjd9yk4A0+TTsM0d2nK
+         LssIYAeNMd0MOk0ZN1P4uZWSp5vPLA8+T7u1que83RpB+PRQ+J0wcqnsI2wAtkwuettl
+         tNm8aBZbpNs0gFKCe6/VVVDWcqoBqYB3xcFCQb6TV63qarNiLSR9W3BchrIXICuAfWkk
+         yPdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFq/ibN3dRcYZkipKxlTEpomXgmpvU2Xb1AdcA970R4ZHi435OwggCIHUP7/vcV/nrwzhgdhmgB8D4bKs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGjx0s+fCQ/RYCfgL6r/HfLs937BnmenQOzjVkE8DUAtn7wdrC
+	nit1/C5c2G0R63GHvcqm5w2D97XPe7enkmjUv0nSa9T23QL0J4qmUD7dT2IW6FJB5SCm+V4V1vG
+	h5hS/hEUBMdkiQKaVCjsxYoq28+mchdM=
+X-Gm-Gg: AYBFou1A4j37Xn5A0WGsZankOaQz488TdZPWY7aKUJqTQ4o0mNiU+c9KJ3IBG45L15Z
+	gSXFLyEvMbEQkZEgN0zLerAM2WjSM4noQdxW2ZADOo4cIXJJMsh+JzkRa3gF/NVKqH5pNupnKG1
+	ALMOt/NJ95WOsz7KLgbROSiBAxmH7CY5FyufiZ55hn5t09DxSbZTNUx0Bysc1RVQcI4FfnmCFrp
+	VU+c/uGNUQNh6eqnXwp0kDfD5yVBwvzEs7GLmELV1GcKsJDM2Y4vQGR+SCrIn9jP55iau2cVIMW
+	wltRxLoY/3avybNmrwV41wuar0k+vNHnvQANk90+cI/2rAtYduwZnrCFS+u3L07EGbn4619o+w5
+	Nk7vLBbx3JLi52b+gL8tyuKo=
+X-Received: by 2002:a05:7301:9e08:b0:34b:6d45:de57 with SMTP id
+ 5a478bee46e88-34cdb5f5697mr1375712eec.9.1790768853829; Wed, 30 Sep 2026
+ 04:47:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260930114725.331370-1-jpiecuch@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930114725.331370-3-jpiecuch@google.com>
-Subject: [PATCH v2 2/2] selftests/sched_ext: Add a test for ops.dequeue() on
- remote local DSQ moves
-From: Kuba Piecuch <jpiecuch@google.com>
-To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-	Changwoo Min <changwoo@igalia.com>
-Cc: Kuba Piecuch <jpiecuch@google.com>, Emil Tsalapatis <emil@etsalapatis.com>, sched-ext@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-4-clamor95@gmail.com>
+ <arzMF0wjcF_SVxpE@orome> <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
+ <arzlR8mCg9d_z62L@orome> <CAPVz0n0jnitNemUyhi9C2SgbRbJA9CinY1DrR-r7gnN=CaYGiQ@mail.gmail.com>
+ <arzpluDc-Ib7q-K7@orome> <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
+ <arz1BYJT30VTosYj@orome>
+In-Reply-To: <arz1BYJT30VTosYj@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 30 Sep 2026 14:47:21 +0300
+X-Gm-Features: AclHuK9Y2nKRAcoyGWBo0XedUHUJ0UGBHVCSLavApiAyymEH-DqiDv0t1HCafQI
+Message-ID: <CAPVz0n18Y0oAREzJvm3utM3XohQXyoRWGBm=7uRvzVRTSK9CDw@mail.gmail.com>
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a dequeue_remote test that makes moves of tasks in the BPF
-scheduler's custody to another CPU's local DSQ the common case, both via
-SCX_DSQ_LOCAL_ON dispatch and via scx_bpf_dsq_move_to_local(). The BPF
-scheduler tracks each task's custody state and triggers scx_bpf_error()
-if a custody period doesn't end with exactly one ops.dequeue() before
-the task runs, or if it ends with an SCX_DEQ_CORE_SCHED_EXEC dequeue of
-a task without a core cookie.
+=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 14:41 Thie=
+rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Sep 30, 2026 at 02:10:15PM +0300, Svyatoslav Ryhel wrote:
+> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:54 =
+Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Wed, Sep 30, 2026 at 01:42:17PM +0300, Svyatoslav Ryhel wrote:
+> > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13=
+:34 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > >
+> > > > > On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
+> > > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=
+=BE 11:47 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=
+=B5:
+> > > > > > >
+> > > > > > > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wr=
+ote:
+> > > > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provi=
+ded by
+> > > > > > > > Tegra20/30 SoCs display controller.
+> > > > > > > >
+> > > > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > > > ---
+> > > > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++=
+++++++++++++
+> > > > > > > >  1 file changed, 138 insertions(+)
+> > > > > > > >  create mode 100644 Documentation/devicetree/bindings/displ=
+ay/tegra/nvidia,tegra-8bit-cpu.yaml
+> > > > > > > >
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/display/tegr=
+a/nvidia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/te=
+gra/nvidia,tegra-8bit-cpu.yaml
+> > > > > > > > new file mode 100644
+> > > > > > > > index 0000000000000..f0dab608b2936
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidi=
+a,tegra-8bit-cpu.yaml
+> > > > > > > > @@ -0,0 +1,138 @@
+> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > > > +%YAML 1.2
+> > > > > > > > +---
+> > > > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,te=
+gra-8bit-cpu.yaml#
+> > > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > > > +
+> > > > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > > > > > > +
+> > > > > > > > +maintainers:
+> > > > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > > > +
+> > > > > > > > +description: The display controller in Tegra20/30 SoCs fea=
+tures an
+> > > > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI =
+Type B
+> > > > > > > > +  protocol and is referred to as '8-bit CPU'. Each display=
+ controller
+> > > > > > > > +  provides two such interfaces, which can be used to send =
+MIPI DCS
+> > > > > > > > +  commands to initialize and control the panel while image=
+ data is
+> > > > > > > > +  transmitted via 16/18/24-line RGB.
+> > > > > > > > +
+> > > > > > > > +properties:
+> > > > > > > > +  compatible:
+> > > > > > > > +    const: nvidia,tegra-8bit-cpu
+> > > > > > >
+> > > > > > > The description says that this is a feature of the display co=
+ntroller,
+> > > > > > > so adding a new binding and compatible string for this is not=
+ the right
+> > > > > > > move. This is all covered by the "nvidia,tegra{20,30}-dc" alr=
+eady, just
+> > > > > > > need to extend that with whatever is new.
+> > > > > > >
+> > > > > >
+> > > > > > How would you model it? I have tried to model 8bit-cpu as a bri=
+dge, similar
+> > > > > > to how DSI bridges are modeled. This reflects interface used to=
+ link RGB and
+> > > > > > panel, without inflating existing DC binding. If you have any i=
+deas in modelling
+> > > > > > this, I am open to any suggestions.
+> > > > >
+> > > > > My suggestion is to integrate this into the existing "rgb" node, =
+or, if
+> > > >
+> > > > Not an option since it is not clean RGB and there will be no way to
+> > > > distinguish RGB from 8bit-CPU.
+> > > >
+> > > > > that becomes too convoluted, a separate "lcd" node (or "dbi", wha=
+tever).
+> > > >
+> > > > This is fine by me but nesting nodes without compatible feels weird=
+. Oh well.
+> > > >
+> > > > dc {
+> > > >   compatible =3D "...";
+> > > >   rgb {
+> > > >     dbi {
+> > > >       ...
+> > > >     };
+> > > >   };
+> > > > };
+> > >
+> > > That's one option, but there's also many other ways you could
+> > > differentiate between RGB and DBI. Could be a simple "nvidia,interfac=
+e"
+> > > property in the "rgb" node (that defaults to RGB if absent). It could
+> > > also be a node that is a sibling to "rgb" (rather than a child). Or t=
+he
+> > > child could work, too.
+> > >
+> > > Ultimately we're still describing aspects of the display controller h=
+ere
+> > > since this is all registers within the display controller's MMIO regi=
+on.
+> > > Nested nodes are purely for adding some logical structure for the
+> > > description that makes sense.
+> > >
+> >
+> > From my understanding data is sent basically as RGB, at least RGB
+> > configuration is still used in downstream. Panel commands are sent via
+> > DBI
+> >
+> > dc {
+> >    compatible =3D "...";
+> >
+> >    rgb {
+> >     port...
+> >    };
+> >
+> >    dbi {
+> >       ...
+> >    };
+> > };
+> >
+> > This would work nicely if DBI is modeled using bridge framework. I
+> > would strongly insist on keeping it as a stand-alone configuration
+> > separated from RGB and DC.
+>
+> Okay, maybe give that a try then. But to clarify: this should all be
+> part of the Tegra DC driver and not need an extra compatible string or
+> separate driver. The DC itself should be able to function as a bridge.
 
-Without the previous patch, the test fails with:
+Noted, I will not add compatible string to the dbi node.
 
-  sched_ext: dequeue_remote: dequeue_remote.bpf.c:141: 15 (rcu_preempt): late ops.dequeue() with SCX_DEQ_CORE_SCHED_EXEC (enq_cpu=3 cpu=2 seq=1)
-     ...
-     ops_dequeue+0x114/0x170
-     set_next_task_scx+0x104/0x1e0
-     __pick_next_task+0xc7/0x180
-     __schedule+0x154/0x1870
-
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
----
- tools/testing/selftests/sched_ext/Makefile    |   1 +
- .../selftests/sched_ext/dequeue_remote.bpf.c  | 265 ++++++++++++++++++
- .../selftests/sched_ext/dequeue_remote.c      | 202 +++++++++++++
- 3 files changed, 468 insertions(+)
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_remote.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_remote.c
-
-diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
-index 4e06d0baaeec..af919a56a4f4 100644
---- a/tools/testing/selftests/sched_ext/Makefile
-+++ b/tools/testing/selftests/sched_ext/Makefile
-@@ -165,6 +165,7 @@ auto-test-targets :=			\
- 	create_dsq			\
- 	dequeue				\
- 	dequeue_iter			\
-+	dequeue_remote			\
- 	enq_last_no_enq_fails		\
- 	ddsp_bogus_dsq_fail		\
- 	ddsp_vtimelocal_fail		\
-diff --git a/tools/testing/selftests/sched_ext/dequeue_remote.bpf.c b/tools/testing/selftests/sched_ext/dequeue_remote.bpf.c
-new file mode 100644
-index 000000000000..55fc77a0de0b
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/dequeue_remote.bpf.c
-@@ -0,0 +1,265 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Verify that ops.dequeue() is called when a task leaves the BPF scheduler's
-+ * custody by being moved to the local DSQ of a CPU other than the one whose
-+ * rq it's on (move_remote_task_to_local_dsq()).
-+ *
-+ * ops.enqueue() puts every task into custody and ops.dispatch() moves it to
-+ * the dispatching CPU's local DSQ, so most moves cross CPUs. With
-+ * @test_use_move_to_local, tasks are queued on a user DSQ and consumed with
-+ * scx_bpf_dsq_move_to_local(). Otherwise, they are queued in a BPF queue and
-+ * dispatched with SCX_DSQ_LOCAL_ON.
-+ *
-+ * Copyright (c) 2026 Google LLC.
-+ */
-+
-+#include <scx/common.bpf.h>
-+
-+#define SHARED_DSQ		0
-+#define MAX_DISPATCH_POPS	8
-+
-+char _license[] SEC("license") = "GPL";
-+
-+UEI_DEFINE(uei);
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_QUEUE);
-+	__uint(max_entries, 32768);
-+	__type(value, s32);
-+} global_queue SEC(".maps");
-+
-+enum task_state {
-+	TASK_NONE = 0,
-+	TASK_ENQUEUED,		/* in BPF custody, waiting for ops.dequeue() */
-+	TASK_DISPATCHED,	/* left custody */
-+};
-+
-+struct task_ctx {
-+	enum task_state state;
-+	s32 enq_cpu;		/* scx_bpf_task_cpu() at ops.enqueue() */
-+	u64 enqueue_seq;
-+};
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_TASK_STORAGE);
-+	__uint(map_flags, BPF_F_NO_PREALLOC);
-+	__type(key, int);
-+	__type(value, struct task_ctx);
-+} task_ctx_stor SEC(".maps");
-+
-+/* core_cookie only exists with CONFIG_SCHED_CORE */
-+struct task_struct___core_sched {
-+	unsigned long core_cookie;
-+} __attribute__((preserve_access_index));
-+
-+bool test_use_move_to_local;
-+
-+u64 enqueue_cnt, dequeue_cnt, dispatch_dequeue_cnt, change_dequeue_cnt;
-+u64 remote_dispatch_cnt, remote_running_cnt, missed_dequeue_cnt;
-+u64 core_sched_exec_dequeue_cnt;
-+
-+static struct task_ctx *lookup_task_ctx(struct task_struct *p)
-+{
-+	return bpf_task_storage_get(&task_ctx_stor, p, 0, 0);
-+}
-+
-+static bool task_has_core_cookie(struct task_struct *p)
-+{
-+	struct task_struct___core_sched *t = (void *)p;
-+
-+	if (!bpf_core_field_exists(t->core_cookie))
-+		return false;
-+	return BPF_CORE_READ(t, core_cookie);
-+}
-+
-+s32 BPF_STRUCT_OPS(dequeue_remote_select_cpu, struct task_struct *p,
-+		   s32 prev_cpu, u64 wake_flags)
-+{
-+	/* no direct dispatch, always go through ops.enqueue() */
-+	return prev_cpu;
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_remote_enqueue, struct task_struct *p, u64 enq_flags)
-+{
-+	struct task_ctx *tctx;
-+	s32 pid = p->pid;
-+
-+	tctx = lookup_task_ctx(p);
-+	if (!tctx) {
-+		scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, enq_flags);
-+		return;
-+	}
-+
-+	/* the previous custody period must have ended with ops.dequeue() */
-+	if (tctx->state == TASK_ENQUEUED)
-+		scx_bpf_error("%d (%s): enqueue while in ENQUEUED state seq=%llu",
-+			      p->pid, p->comm, tctx->enqueue_seq);
-+
-+	/*
-+	 * Mark @p as enqueued before making it visible to ops.dispatch() on
-+	 * other CPUs, which skips queue entries of tasks not in ENQUEUED
-+	 * state as stale.
-+	 */
-+	tctx->state = TASK_ENQUEUED;
-+	tctx->enq_cpu = scx_bpf_task_cpu(p);
-+	tctx->enqueue_seq++;
-+
-+	if (test_use_move_to_local) {
-+		scx_bpf_dsq_insert(p, SHARED_DSQ, SCX_SLICE_DFL, enq_flags);
-+	} else if (bpf_map_push_elem(&global_queue, &pid, 0)) {
-+		scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, enq_flags);
-+		tctx->state = TASK_DISPATCHED;
-+		tctx->enq_cpu = -1;
-+		goto out;
-+	}
-+
-+	__sync_fetch_and_add(&enqueue_cnt, 1);
-+out:
-+	scx_bpf_kick_cpu(scx_bpf_task_cpu(p), SCX_KICK_IDLE);
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_remote_dequeue, struct task_struct *p, u64 deq_flags)
-+{
-+	struct task_ctx *tctx;
-+
-+	__sync_fetch_and_add(&dequeue_cnt, 1);
-+
-+	tctx = lookup_task_ctx(p);
-+	if (!tctx)
-+		return;
-+
-+	/*
-+	 * Only core scheduling can pick a task straight out of custody, and
-+	 * only if the task has a core cookie. Otherwise, the custody exit was
-+	 * missed when @p was inserted into a local DSQ and got deferred until
-+	 * @p was picked.
-+	 */
-+	if ((deq_flags & SCX_DEQ_CORE_SCHED_EXEC) && !task_has_core_cookie(p)) {
-+		__sync_fetch_and_add(&core_sched_exec_dequeue_cnt, 1);
-+		scx_bpf_error("%d (%s): late ops.dequeue() with SCX_DEQ_CORE_SCHED_EXEC (enq_cpu=%d cpu=%d seq=%llu)",
-+			      p->pid, p->comm, tctx->enq_cpu,
-+			      scx_bpf_task_cpu(p), tctx->enqueue_seq);
-+	}
-+
-+	/* ops.dequeue() ends the custody period started by ops.enqueue() */
-+	if (tctx->state != TASK_ENQUEUED)
-+		scx_bpf_error("%d (%s): dequeue outside custody deq_flags=0x%llx state=%d seq=%llu",
-+			      p->pid, p->comm, deq_flags, tctx->state,
-+			      tctx->enqueue_seq);
-+
-+	if (deq_flags & SCX_DEQ_SCHED_CHANGE) {
-+		__sync_fetch_and_add(&change_dequeue_cnt, 1);
-+		tctx->state = TASK_NONE;
-+	} else {
-+		__sync_fetch_and_add(&dispatch_dequeue_cnt, 1);
-+		tctx->state = TASK_DISPATCHED;
-+	}
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_remote_dispatch, s32 cpu, struct task_struct *prev)
-+{
-+	struct task_ctx *tctx;
-+	struct task_struct *p;
-+	s32 pid;
-+	int i;
-+
-+	if (test_use_move_to_local) {
-+		scx_bpf_dsq_move_to_local(SHARED_DSQ, 0);
-+		return;
-+	}
-+
-+	/* pop past stale entries so that they don't leave this CPU idle */
-+	bpf_for(i, 0, MAX_DISPATCH_POPS) {
-+		if (bpf_map_pop_elem(&global_queue, &pid))
-+			return;
-+
-+		p = bpf_task_from_pid(pid);
-+		if (!p)
-+			continue;
-+
-+		/*
-+		 * Entries are stale if @p left custody through a property
-+		 * change dequeue or was dispatched from a duplicate entry.
-+		 */
-+		tctx = lookup_task_ctx(p);
-+		if (!tctx || tctx->state != TASK_ENQUEUED) {
-+			bpf_task_release(p);
-+			continue;
-+		}
-+
-+		if (bpf_cpumask_test_cpu(cpu, p->cpus_ptr)) {
-+			if (scx_bpf_task_cpu(p) != cpu)
-+				__sync_fetch_and_add(&remote_dispatch_cnt, 1);
-+			scx_bpf_dsq_insert(p, SCX_DSQ_LOCAL_ON | cpu,
-+					   SCX_SLICE_DFL, 0);
-+		} else {
-+			scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, 0);
-+		}
-+
-+		bpf_task_release(p);
-+		return;
-+	}
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_remote_running, struct task_struct *p)
-+{
-+	struct task_ctx *tctx;
-+
-+	tctx = lookup_task_ctx(p);
-+	if (!tctx)
-+		return;
-+
-+	/* tasks can only run from a local DSQ, i.e. after leaving custody */
-+	if (tctx->state == TASK_ENQUEUED) {
-+		__sync_fetch_and_add(&missed_dequeue_cnt, 1);
-+		scx_bpf_error("%d (%s): running without ops.dequeue() (enq_cpu=%d cpu=%d seq=%llu)",
-+			      p->pid, p->comm, tctx->enq_cpu,
-+			      scx_bpf_task_cpu(p), tctx->enqueue_seq);
-+		return;
-+	}
-+
-+	if (tctx->enq_cpu >= 0 && tctx->enq_cpu != scx_bpf_task_cpu(p))
-+		__sync_fetch_and_add(&remote_running_cnt, 1);
-+	tctx->enq_cpu = -1;
-+}
-+
-+s32 BPF_STRUCT_OPS(dequeue_remote_init_task, struct task_struct *p,
-+		   struct scx_init_task_args *args)
-+{
-+	struct task_ctx *tctx;
-+
-+	tctx = bpf_task_storage_get(&task_ctx_stor, p, 0,
-+				    BPF_LOCAL_STORAGE_GET_F_CREATE);
-+	if (!tctx)
-+		return -ENOMEM;
-+
-+	/* task storage persists across attachments, start from scratch */
-+	tctx->state = TASK_NONE;
-+	tctx->enq_cpu = -1;
-+
-+	return 0;
-+}
-+
-+s32 BPF_STRUCT_OPS_SLEEPABLE(dequeue_remote_init)
-+{
-+	return scx_bpf_create_dsq(SHARED_DSQ, -1);
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_remote_exit, struct scx_exit_info *ei)
-+{
-+	UEI_RECORD(uei, ei);
-+}
-+
-+SEC(".struct_ops.link")
-+struct sched_ext_ops dequeue_remote_ops = {
-+	.select_cpu		= (void *)dequeue_remote_select_cpu,
-+	.enqueue		= (void *)dequeue_remote_enqueue,
-+	.dequeue		= (void *)dequeue_remote_dequeue,
-+	.dispatch		= (void *)dequeue_remote_dispatch,
-+	.running		= (void *)dequeue_remote_running,
-+	.init_task		= (void *)dequeue_remote_init_task,
-+	.init			= (void *)dequeue_remote_init,
-+	.exit			= (void *)dequeue_remote_exit,
-+	.flags			= SCX_OPS_ENQ_LAST,
-+	.name			= "dequeue_remote",
-+};
-diff --git a/tools/testing/selftests/sched_ext/dequeue_remote.c b/tools/testing/selftests/sched_ext/dequeue_remote.c
-new file mode 100644
-index 000000000000..0f03044a5bc6
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/dequeue_remote.c
-@@ -0,0 +1,202 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Verify that ops.dequeue() is called for tasks leaving BPF custody through
-+ * an SCX-internal cross-CPU migration (move_remote_task_to_local_dsq()).
-+ *
-+ * Copyright (c) 2026 Google LLC.
-+ */
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+#include <signal.h>
-+#include <time.h>
-+#include <sched.h>
-+#include <bpf/bpf.h>
-+#include <scx/common.h>
-+#include <sys/wait.h>
-+#include "scx_test.h"
-+#include "dequeue_remote.bpf.skel.h"
-+
-+#define MAX_WORKERS	64
-+#define RUN_MS		2000
-+
-+static int nr_cpus;
-+
-+static long long now_ms(void)
-+{
-+	struct timespec ts;
-+
-+	clock_gettime(CLOCK_MONOTONIC, &ts);
-+	return ts.tv_sec * 1000LL + ts.tv_nsec / 1000000;
-+}
-+
-+/* mix of short bursts and sleeps to generate lots of enqueues and wakeups */
-+static void worker_fn(int id)
-+{
-+	long long end = now_ms() + RUN_MS;
-+	volatile unsigned long sum = 0;
-+
-+	while (now_ms() < end) {
-+		unsigned long j;
-+
-+		for (j = 0; j < 20000 + id * 1000; j++)
-+			sum += j;
-+		if (id & 1)
-+			usleep(100);
-+		else
-+			sched_yield();
-+	}
-+
-+	exit(0);
-+}
-+
-+static enum scx_test_status run_scenario(struct dequeue_remote *skel,
-+					 bool use_move_to_local,
-+					 const char *name)
-+{
-+	enum scx_test_status ret = SCX_TEST_PASS;
-+	struct bpf_link *link;
-+	pid_t pids[MAX_WORKERS];
-+	int nr_workers, nr_forked, i;
-+
-+	nr_workers = 2 * nr_cpus;
-+	if (nr_workers < 4)
-+		nr_workers = 4;
-+	if (nr_workers > MAX_WORKERS)
-+		nr_workers = MAX_WORKERS;
-+
-+	skel->bss->test_use_move_to_local = use_move_to_local;
-+	skel->bss->enqueue_cnt = 0;
-+	skel->bss->dequeue_cnt = 0;
-+	skel->bss->dispatch_dequeue_cnt = 0;
-+	skel->bss->change_dequeue_cnt = 0;
-+	skel->bss->remote_dispatch_cnt = 0;
-+	skel->bss->remote_running_cnt = 0;
-+	skel->bss->missed_dequeue_cnt = 0;
-+	skel->bss->core_sched_exec_dequeue_cnt = 0;
-+
-+	link = bpf_map__attach_struct_ops(skel->maps.dequeue_remote_ops);
-+	SCX_FAIL_IF(!link, "Failed to attach struct_ops for %s", name);
-+
-+	fflush(stdout);
-+	fflush(stderr);
-+
-+	for (nr_forked = 0; nr_forked < nr_workers; nr_forked++) {
-+		pid_t pid = fork();
-+
-+		if (pid < 0) {
-+			SCX_ERR("Failed to fork worker %d", nr_forked);
-+			ret = SCX_TEST_FAIL;
-+			break;
-+		}
-+		if (pid == 0)
-+			worker_fn(nr_forked);
-+		pids[nr_forked] = pid;
-+	}
-+
-+	/* on failure, kill the remaining workers but still reap them */
-+	for (i = 0; i < nr_forked; i++) {
-+		int status;
-+
-+		if (ret != SCX_TEST_PASS)
-+			kill(pids[i], SIGKILL);
-+
-+		if (waitpid(pids[i], &status, 0) != pids[i]) {
-+			SCX_ERR("Failed to wait for worker %d", i);
-+			ret = SCX_TEST_FAIL;
-+		} else if (ret == SCX_TEST_PASS && status != 0) {
-+			SCX_ERR("Worker %d exited with status %d", i, status);
-+			ret = SCX_TEST_FAIL;
-+		}
-+	}
-+
-+	bpf_link__destroy(link);
-+
-+	if (ret != SCX_TEST_PASS)
-+		return ret;
-+
-+	printf("%s:\n", name);
-+	printf("  workers: %d\n", nr_workers);
-+	printf("  enqueues: %lu\n", (unsigned long)skel->bss->enqueue_cnt);
-+	printf("  dequeues: %lu (dispatch: %lu, property_change: %lu)\n",
-+	       (unsigned long)skel->bss->dequeue_cnt,
-+	       (unsigned long)skel->bss->dispatch_dequeue_cnt,
-+	       (unsigned long)skel->bss->change_dequeue_cnt);
-+	if (!use_move_to_local)
-+		printf("  remote SCX_DSQ_LOCAL_ON dispatches: %lu\n",
-+		       (unsigned long)skel->bss->remote_dispatch_cnt);
-+	printf("  ran on a CPU other than the enqueue CPU: %lu\n",
-+	       (unsigned long)skel->bss->remote_running_cnt);
-+	printf("  ran without ops.dequeue(): %lu\n",
-+	       (unsigned long)skel->bss->missed_dequeue_cnt);
-+	printf("  late SCX_DEQ_CORE_SCHED_EXEC dequeues: %lu\n",
-+	       (unsigned long)skel->bss->core_sched_exec_dequeue_cnt);
-+
-+	if (skel->data->uei.kind != EXIT_KIND(SCX_EXIT_UNREG))
-+		SCX_ERR("Scheduler exited with kind=%lld: %s",
-+			(long long)skel->data->uei.kind, skel->data->uei.msg);
-+	SCX_EQ(skel->data->uei.kind, EXIT_KIND(SCX_EXIT_UNREG));
-+
-+	/* the test is meaningless if no task was moved across CPUs */
-+	SCX_GT(skel->bss->remote_running_cnt, 0);
-+	SCX_EQ(skel->bss->enqueue_cnt, skel->bss->dequeue_cnt);
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+static enum scx_test_status setup(void **ctx)
-+{
-+	struct dequeue_remote *skel;
-+	cpu_set_t cpus;
-+
-+	SCX_FAIL_IF(sched_getaffinity(0, sizeof(cpus), &cpus),
-+		    "Failed to get CPU affinity");
-+	nr_cpus = CPU_COUNT(&cpus);
-+	if (nr_cpus < 2) {
-+		fprintf(stderr, "Skipping: requires at least 2 usable CPUs\n");
-+		return SCX_TEST_SKIP;
-+	}
-+
-+	skel = SCX_OPS_OPEN(dequeue_remote_ops, dequeue_remote);
-+	SCX_OPS_LOAD(skel, dequeue_remote_ops, dequeue_remote, uei);
-+
-+	*ctx = skel;
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+static enum scx_test_status run(void *ctx)
-+{
-+	struct dequeue_remote *skel = ctx;
-+	enum scx_test_status status;
-+
-+	status = run_scenario(skel, false,
-+			      "BPF queue -> SCX_DSQ_LOCAL_ON | cpu");
-+	if (status != SCX_TEST_PASS)
-+		return status;
-+
-+	status = run_scenario(skel, true,
-+			      "user DSQ -> scx_bpf_dsq_move_to_local()");
-+	if (status != SCX_TEST_PASS)
-+		return status;
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+static void cleanup(void *ctx)
-+{
-+	struct dequeue_remote *skel = ctx;
-+
-+	dequeue_remote__destroy(skel);
-+}
-+
-+struct scx_test dequeue_remote_test = {
-+	.name = "dequeue_remote",
-+	.description = "Verify ops.dequeue() on SCX-internal cross-CPU migrations",
-+	.setup = setup,
-+	.run = run,
-+	.cleanup = cleanup,
-+};
-+
-+REGISTER_SCX_TEST(&dequeue_remote_test)
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+>
+> Thierry
