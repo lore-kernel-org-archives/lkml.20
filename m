@@ -1,78 +1,78 @@
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6584FB9AF;
-	Wed, 30 Sep 2026 13:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936264F68CB;
+	Wed, 30 Sep 2026 13:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776516; cv=none; b=A7+EcbFBxBVpWvNkXLzTf0BHg5X0R+QF/1atnMN4GYrtkl6WeOcmixRxhKTdfTZfY618fyn/FTl0OOAI6WTWhGe66lZv/dL0pbAP4tzrVCMV2HyVIMQ8KCZ5rICGBrtLNn1F+0ydl30eKjCqCGJOeaFNXgpXChjEyggPst5RC3c=
+	t=1790776520; cv=none; b=PbrUV8b4XkZirhimddYNNaAmzeXW6FufW1Vo+5E/7UyVEM6/ficmBQiSKOxsMW32/aFOz/aGKNid2iHlfMv0vq5/zyLJssfQuZxzSOOn1nscmtqNzFvbRaxgoMH0FJ1YeW5gwuYXRNWR56HevuuEF7XL2GTokfDcasX6qsZ8epw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776516; c=relaxed/simple;
-	bh=C78ZJCDay44Y1mcIjKzi7uV4gfTSvPlWq7Nu7pl3vio=;
+	s=arc-20240116; t=1790776520; c=relaxed/simple;
+	bh=khIoAs17NPuqov3hZ1I5P4D7APCOwpU8h83sk72MxLQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jkEB5CKaBH3Oh1az/C+Vq/eBgsCMXzklG7371bEush9RTnhl+LPBoVacRSLQsSwEk1q/yXTgtHSkDHPlz6R8En23O+vekk/ubpKcDSNxUmb9eIVBRZIjsxiPUAN9cBf+ov9OwRsqfLwRx8i/vJu3aW77gMw/V7Vw5TCR8GiUA7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PoR6S9PN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zI84EbZe; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MHO+Cm94; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=w9TlBg29; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=q+bRuQkhGeEhWNn0YUUS/euoeni/ckJiW0VFz7VnWdhu3sSdIRAFLPXuekz/RpnXRYhsNGqy+L3u4IaTRjmjD9vvn5s4yERVy8cY5SwryAE4D3LVaYWW5OWyBqWzN/U3m3hbmMfnvwxSJCibjPt3F2aHyozxsB3Jd1iMtvd5Q/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=O0TddSI2; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EkpqSW5t; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=B2h8kmRl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=APeTw1Fh; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PoR6S9PN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zI84EbZe";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MHO+Cm94";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="w9TlBg29"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="O0TddSI2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EkpqSW5t";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="B2h8kmRl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="APeTw1Fh"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7D3F721E6D;
-	Wed, 30 Sep 2026 13:54:45 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5A1C721E93;
+	Wed, 30 Sep 2026 13:54:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790776489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1790776492; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0mWjLFQLODU1IvdgCAApYjei1qDVLuiRY3G8VyvqOO4=;
-	b=PoR6S9PN7ZCM41uuxv32lp6L06FVgLUNaNdu9NnqOrSP/O9egeYSvPJyVOfA73eRnS2M+b
-	00m3Tn67CZK+3c2aF/EeAssuv0yBjcqnYv1QPgvKfbAhIBr9LXyEUz6EHCTDBeRo1oIdhD
-	JoHVZktzR56IaOThAtWPmtnXjeaQi+4=
+	bh=rBD2fm7jkBI8ZbufJ/IEgu6LDxjnVtU1SSntyNb6WUc=;
+	b=O0TddSI20SYRS6+DiLMtdIJrfyzB/bDfTCzPKwa0OzT4fxclmMgoyJVWI1Gt/R57djV16w
+	6/lg4hzLuFLUnzoKt0W6cELDRnuf/Nv2Ef3ilnFX90v07jnrLo9qdwLhO6GW9y/ahIHzuA
+	B2NOecMCfZGN3WKZBZof/KtgqJjInhk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790776489;
+	s=susede2_ed25519; t=1790776492;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0mWjLFQLODU1IvdgCAApYjei1qDVLuiRY3G8VyvqOO4=;
-	b=zI84EbZeFhB2Co38LcW9KG2CDHrZxlThVH3rCh5Y8516tnfx5vzA5x/YhKU1qPVrf3A13k
-	c6l8uPMEmpgZ+ACA==
+	bh=rBD2fm7jkBI8ZbufJ/IEgu6LDxjnVtU1SSntyNb6WUc=;
+	b=EkpqSW5ttNdK9yHOf3Fi99WyQsSuNvQP7AN0g2B5BVuEUxKykBWYRlWq3j00Jpk13z8gaE
+	ZtcCAu1bSrUWOvAA==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790776485; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1790776488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0mWjLFQLODU1IvdgCAApYjei1qDVLuiRY3G8VyvqOO4=;
-	b=MHO+Cm94vCS584WUzOWtKIKC9ic0jqKsXoH3coBPFzT0ZTbXgMoZSvfbbFjQ7yRlT8uVld
-	FwxTZtlG75EYh53+b0a2J26mQnjkx8/TXDGJtlz9voPzKBqDDyTEJrnyj8nbrHYZ+M2c7k
-	Ilx7u3+D/RQYdF/6YlcvitGEEy5jbV4=
+	bh=rBD2fm7jkBI8ZbufJ/IEgu6LDxjnVtU1SSntyNb6WUc=;
+	b=B2h8kmRl7KHSFOg+d5kyTA6qtoTMBEc4e914ZtjPKFSfzuxdHiatdrIEk1aSFDeEnyL6+z
+	AFiDLsbmGEMYtb0+P82pymZPVUm7hkIuGaVcViedm0oK9fwUG545kEbRKDMVXDfxpnOG36
+	5Rjz0qOsTo+6rI+s0jfDlrBBn9U2o+0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790776485;
+	s=susede2_ed25519; t=1790776488;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0mWjLFQLODU1IvdgCAApYjei1qDVLuiRY3G8VyvqOO4=;
-	b=w9TlBg297zIjl45UDvq7rvLgE7+w1H7audNZH3UeVqGE0TpoB5nwc64v1MabgS1qkM+YzY
-	WAtlODd7IyTBIGCQ==
+	bh=rBD2fm7jkBI8ZbufJ/IEgu6LDxjnVtU1SSntyNb6WUc=;
+	b=APeTw1FhkxeVd2eDPl58UWWoWD/lBgU53fGIfzQUV8ag/0qiWg3fT7Vh/J1LVkSNRy3I58
+	7xE1uAjj5zqbbDAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8E25513722;
-	Wed, 30 Sep 2026 13:54:44 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9FEAE13AC2;
+	Wed, 30 Sep 2026 13:54:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fJXpHGIUvWqUTwAAD6G6ig:T13
-	(envelope-from <fmancera@suse.de>); Wed, 30 Sep 2026 13:54:44 +0000
+	id fJXpHGIUvWqUTwAAD6G6ig:T15
+	(envelope-from <fmancera@suse.de>); Wed, 30 Sep 2026 13:54:47 +0000
 From: Fernando Fernandez Mancera <fmancera@suse.de>
 To: netdev@vger.kernel.org
 Cc: horms@kernel.org,
@@ -81,16 +81,12 @@ Cc: horms@kernel.org,
 	edumazet@kernel.org,
 	davem@davemloft.net,
 	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Eric Dumazet <edumazet@google.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 12/16 net-next v3] netfilter: ipv4: guard ip_route_me_harder() with CONFIG_IPV4
-Date: Wed, 30 Sep 2026 15:52:55 +0200
-Message-ID: <20260930135334.4739-13-fmancera@suse.de>
+Subject: [PATCH 14/16 net-next v3] wifi: mac80211: replace CONFIG_INET with CONFIG_IPV4 guards
+Date: Wed, 30 Sep 2026 15:52:57 +0200
+Message-ID: <20260930135334.4739-15-fmancera@suse.de>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260930135334.4739-1-fmancera@suse.de>
 References: <20260930135334.4739-1-fmancera@suse.de>
@@ -103,53 +99,90 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-6.76 / 50.00];
 	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
+	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.16)[-0.811];
+	NEURAL_HAM_SHORT(-0.16)[-0.822];
 	MIME_GOOD(-0.10)[text/plain];
 	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_TLS_ALL(0.00)[]
 X-Spam-Score: -6.76
 X-Spam-Level: 
 X-Spam-Flag: NO
 
-To enable compiling the network stack without IPv4, IPv4 specific packet
-rerouting logic inside netfilter must be bypassed. Therefore, guard
-ip_route_me_harder() with IS_ENABLED(CONFIG_IPV4) so it returns
--EPROTONOSUPPORT when IPv4 is disabled.
+Historically, the mac80211 subsystem used CONFIG_INET to guard IPv4-specific
+address notifiers, assuming that if IP networking was enabled, IPv4 was
+guaranteed to be present. As part of the effort to make CONFIG_IPV4 optional,
+this assumption is no longer valid.
+
+Update the conditional compilation guards around the IPv4 address change
+notifier and its associated registration routines to explicitly check
+for IS_ENABLED(CONFIG_IPV4). This ensures the mac80211 subsystem
+compiles successfully without undefined references when building an
+IPv6-only kernel.
 
 Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
 ---
- net/ipv4/netfilter.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/mac80211/main.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/net/ipv4/netfilter.c b/net/ipv4/netfilter.c
-index ce9e1bfa4259..f2d9e0110b77 100644
---- a/net/ipv4/netfilter.c
-+++ b/net/ipv4/netfilter.c
-@@ -30,6 +30,9 @@ int ip_route_me_harder(struct net *net, struct sock *sk, struct sk_buff *skb, un
- 	struct flow_keys flkeys;
- 	unsigned int hh_len;
+diff --git a/net/mac80211/main.c b/net/mac80211/main.c
+index 7816395681fa..1a0fa55db861 100644
+--- a/net/mac80211/main.c
++++ b/net/mac80211/main.c
+@@ -558,7 +558,7 @@ void ieee80211_restart_hw(struct ieee80211_hw *hw)
+ }
+ EXPORT_SYMBOL(ieee80211_restart_hw);
  
-+	if (!IS_ENABLED(CONFIG_IPV4))
-+		return -EPROTONOSUPPORT;
-+
- 	sk = sk_to_full_sk(sk);
- 	flags = sk ? inet_sk_flowi_flags(sk) : 0;
+-#ifdef CONFIG_INET
++#if IS_ENABLED(CONFIG_IPV4)
+ static int ieee80211_ifa_changed(struct notifier_block *nb,
+ 				 unsigned long data, void *arg)
+ {
+@@ -1655,7 +1655,7 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
+ 	wiphy_unlock(hw->wiphy);
+ 	rtnl_unlock();
  
+-#ifdef CONFIG_INET
++#if IS_ENABLED(CONFIG_IPV4)
+ 	local->ifa_notifier.notifier_call = ieee80211_ifa_changed;
+ 	result = register_inetaddr_notifier(&local->ifa_notifier);
+ 	if (result)
+@@ -1673,11 +1673,11 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
+ 
+ #if IS_ENABLED(CONFIG_IPV6)
+  fail_ifa6:
+-#ifdef CONFIG_INET
++#if IS_ENABLED(CONFIG_IPV4)
+ 	unregister_inetaddr_notifier(&local->ifa_notifier);
+ #endif
+ #endif
+-#if defined(CONFIG_INET) || defined(CONFIG_IPV6)
++#if IS_ENABLED(CONFIG_IPV4)
+  fail_ifa:
+ #endif
+ 	wiphy_unregister(local->hw.wiphy);
+@@ -1705,7 +1705,7 @@ void ieee80211_unregister_hw(struct ieee80211_hw *hw)
+ 	tasklet_kill(&local->tx_pending_tasklet);
+ 	tasklet_kill(&local->tasklet);
+ 
+-#ifdef CONFIG_INET
++#if IS_ENABLED(CONFIG_IPV4)
+ 	unregister_inetaddr_notifier(&local->ifa_notifier);
+ #endif
+ #if IS_ENABLED(CONFIG_IPV6)
 -- 
 2.55.0
 
