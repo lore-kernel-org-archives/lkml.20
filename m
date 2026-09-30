@@ -1,111 +1,138 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E2751AEEE
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BE350E580
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777359; cv=none; b=FsHB1yqZVb6j1/cCDKLe50U3Z9lhon6dk2E1eNYJ839JkH1MJY+DDj/oVis2tN4Kyc2g/9larvgzASFIerXDlWxMurmQPj9HVpEwXOXLkEUZVRldHxScPYss44C5cyIKipcKgFFqCnUo4xch9z2k6D1L0ILbzOEoNQMeINC3Pd4=
+	t=1790777360; cv=none; b=rwVYdEN27x5pEr6pEB1gTZ7WtvEsOrhv7/I1nvh94UdU4mNLqjzp198XJQVyp8u1pfC/dSzOHt1YOTMC1xRxHUG3k9ifBqGXMCiBLpF2s8fsMMnQQFjnrfKrRGyrLP7jmtxlEUM5DR0pPsNj+GAxMqt9iM3jgmD1scMH6b5o9Bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777359; c=relaxed/simple;
-	bh=BN8qNZrn5KUe47KrPph76MRZuWYXHDzUb9aSvc4F6Tw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WKaSV846iRQjTqLyhPj4BBmRdUSs6KP0o3JCOmXYejtmD377k4sgca9CD2kcCa5Fsded6rmSe9W2dk9dkfojLfg1Kaedjl4XCGRX2ZTNyGfTXkTX9SUtQ5cV4CfrTA0u1+KSBTm+GmRFdSX0c1gmumJE12z0wuaJpOO6XLHhgg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=BusD2SQM; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+	s=arc-20240116; t=1790777360; c=relaxed/simple;
+	bh=M/g6FVmoluV0YgJhBvvxHD6eJs5pCZwq49bi2wzAou4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y0v3x+T3R2rmfXsTCknim5bnSanWW4qF95eBgzJHXgesb44KGH5aSG5smirmUGMEAWILHrLdafS8ryEWxR7gzIx5lRCHeEvHFhVZITelDBlb/5U2ZYXUN9mASuwqIQ4YDJquoMH4e5Hi1j8F/YHkRCr9wv34kAXrPf4CBTiIeOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=etEMq0SQ; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="BusD2SQM"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48879b94823so652558f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:09:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="etEMq0SQ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso40109295e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:09:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=6wind.com; s=google; t=1790777339; x=1791382139; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tdG34iKbPg/dwz5nj8mIvaNch6v4ZkxNF8npErR5dgw=;
-        b=BusD2SQMeNc9qIwPavPHiOm5OZWZJV90oDDI/3iC5w1Nd0OUfddlgAhdKoB/0O3aHL
-         geVMedIw7bU58L8CMt54+jF7iW8pqbUcmTxvrXDrGMFBb16mEGtxG4teFELoOapcFfLp
-         bMxVW2Mg8N/M+t2vcQybJEhlIqus9xRCQKJVr0bu9qgZPY0uc+5ZQ8jO2h4AWGVDUPE7
-         8iBVT/CCxZ9Th8+YeiFUZJufc27/PvZR6oq51kmJl5f3ez0lnDor1UmOlPsh4hHW2Ly5
-         IhZ127CjZqiUc5xhm8xHrN2nvS4bmyoy8RO+C0HNRBXuxim08CVrZ8nunlzddNnGbfxH
-         jYSw==
+        d=gmail.com; s=20251104; t=1790777341; x=1791382141; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8pJuSm/1HrjdOBptJ26UHxOB3/Tz6mdZxePy3K7M22Y=;
+        b=etEMq0SQG2LSMV8M8PyW3yciTz/dIET5k523QQLI/CmsiUQMxtG+8S7hXdDyiERLYL
+         ULRCqxdr1WoFPIxkruEYD4TYjmI5Y/MoQUljUay7zYtkqISLXJ9TwPgRecHWSRnbvx4i
+         M8opc8XyjW2CyIckEU4BcQp9TOJswTazPF2MarGdLaMa9ncdJxT6yg5Lt3tNmxF1mn1F
+         +b5BIieWbUj1R6Lna/mH+ynj/mTUgJ4E4OLQEMj7kW8zEbmLH8xzUALsqiEe+XU1awMh
+         Ns1hx+kwL57+y33MqgiDWIhsTTCMUEoG654I/unBqyXXNyf9Rx6R/2A1adqBCZA8CH6k
+         IN4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790777339; x=1791382139;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tdG34iKbPg/dwz5nj8mIvaNch6v4ZkxNF8npErR5dgw=;
-        b=yjYdRu6rSh8Ufsu29/sivtj+WCCUU2xGgvaePavOwWgcFs9Gkv2az0bBqQZTxaLAgr
-         S82G7l5QiKcDiL23LKeXcxqYOKh2wCNJ4uKVgPt16FViEqr2B21HAiS2zvJ8RylyXh2F
-         5WgI3eSKWk4obgr8P9KW/Nvex9BO+0EO8Ak7lxku4/9c0vNwqaL766ak2pzjfE92Fjma
-         igC4kE3oC879oDs4VY/c6YJRDd0e/IrUa+tD5bkFVoiPuPfCK7GuaKc4DY1VTYZCST/p
-         gCu50E1PaNliXd7EPo3/bBaPlzJeSVJmbOb2cw3U+B2PuVO1HtuVcVBP3Igw9QqcN8O2
-         jVWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKK4apcqQwfXFfNRo8EULKh00ZETihB71S6TYmMOFxkKtB8Yiqp0sb78qDa7nMxG+coCUONPXaMKjVrt4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPCFT3gbh/yrjpsMYP3RKl28nLKVMvhExQSFeDMtM0eEHmRCKB
-	plaYSy2z43Dtv5IB/b+JHKbmHHa+LkRi35s+fRaPxwOdMWCZqNieaeHLg9YFSOnCzI8=
-X-Gm-Gg: AYBFou3k2vBwTwnwiiFq4T5Rc8t5ix3uhvIImtgOy22wiW7ZfBUgfX2FpsCLXx+ZDZz
-	61RTPinwDyLat+5jMFoEoG9QwIVFPMkJCdPbzFfBgtVuAQVk3tZvxFKye6zyQWnXGkBty7CDWgo
-	tHj9WkbN+2vfvbzhZulfTZ/LInZ5mO/bgee/0/FYOFfgn/wVj3ImUiSOLmEn67I/1R7SMBFS9+f
-	nNn8zEbxyPIZh+gA7lkXIW4vfWfmSzojM8MLzI+Yv9yzbXF1EUyaUkpY/hNNeG1IMGq+4SlQ8QE
-	1HsvX01/Pog9oZSHCfPtVZuAp5lngfm1X+vD8yNZEvl7xfJjl7a0HqyjlknPM0PR5Q9likM5Y9D
-	01nQttFp6AzUJJxDKjLAU3vb/F61bnkitMFWMVIBGmqT5SVDmgl7iEVzXtpznIx+wqJIxGgAOIX
-	gqbgu7FeUPS+7RPGSR/4ygWtPkLsvSYtlPFrcOK64S9SfKqaTQp8KrMuVmlsA/iNmeslPLZks4+
-	cw962nlmV4hMyzZg2RXzgmO1oK1NzBiCJ6hE60bSFsYvGHC0aI=
-X-Received: by 2002:a05:600c:628b:b0:49e:6683:d227 with SMTP id 5b1f17b1804b1-4a01ab4dde1mr25863645e9.0.1790777339323;
+        d=1e100.net; s=20260707; t=1790777341; x=1791382141;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8pJuSm/1HrjdOBptJ26UHxOB3/Tz6mdZxePy3K7M22Y=;
+        b=Cq45/kHpP4kzXXejz6zAMy1fv8tkgsTT3tqlNX1y/gAEioXYdAWoLg2QqEe/XOyfNd
+         wazb8YnNIJYgHeypjwCgnbUcZba8wxJD1sELUIR1M1OZty4u8p1oqGqsr6XinjNdYpxp
+         o8y3fhH9Wx0YRbhnryQHV9WlHuUcVYdsEiN4RsPbGLeRmywVqzBu5uPjMCHezg5Dm6gP
+         xJveZhAmFA1BsLE+7fMHsBNvYTnj90WYVjxV79+TeDkO0alQfVCSm8vcGefElWiMDXgr
+         0VsgVM2Df/Dzij2MLqd4E2faiGdeGs/srQrq3zZEbonwvdnbKAm+i9L74aNWbjmqmzFh
+         TRKg==
+X-Forwarded-Encrypted: i=1; AKwUvByw2tltBFCzXdifCdwFrcaqsNPbz1ewMNSvp1pI/V6x7eAV4LxOPPjFv80ctEBX6K33k9szHUmzyIVXfOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mk65vCJHbJo81zrphDj3NK5H3FXgnE3dtr2rQum8lMV9LnqKe7
+	wttjetJTK5NXNN5JJs56BDQ7nDGkA7di4PZSKdLTWvBxVCkMYE91rL+0
+X-Gm-Gg: AYBFou2sXcdbFrSL1oX0JDndioAUpdH44MZgBiE3mB9Juy1TWPC5Yybvy3fwddvdV6j
+	lnLI+Evnm355kIDwwFCU1ra+5ycJQF1yd+u/PHJczLUl4xscneGbqtVCozOnPgcsMgH53XJeC/B
+	TEY/DDHz0eoC+ES17manYjjSPxK5CzaBMF1YUzlkRfKvm1gQdVf/Wi8hK/xZpeHQTnlASHsNfpl
+	DR/SckZtPQ86mZRSefwO7SqKH1KFgAXmdwLizO8JXL3XSA8QfNaN/veG6v3h8KODl/hUzxOC+EO
+	Wns2kGjezzlO5FP7bRjQOW0boXHYyrckf4fdphVz2QX16xqIFLN0vK9FUdLnNszWdlPLIbXgOIe
+	Qu0/oNzNnK9KeBdqiqepx1X8fiZh2VeFkxr/ym53SfpPdsg8POzcyurPzVVy8OBVXZgAIsuhXEO
+	uX/xIOoVl7eYMHoYLxfTj/wzcQAIuO8p5SVq5CbT3YRPQrLNQjRCpi7Lp/8tLf812VcfIWTk6WS
+	i5UpNDv9UCdWk3RlIo9c0eVixo8CCu4Cwa+V0GHR2xv
+X-Received: by 2002:a05:600c:4e41:b0:4a0:1723:2d90 with SMTP id 5b1f17b1804b1-4a01ad7d018mr22575335e9.4.1790777341205;
+        Wed, 30 Sep 2026 07:09:01 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.116.68])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01e63e10csm2352115e9.2.2026.09.30.07.08.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 30 Sep 2026 07:08:59 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01e64c322sm2327035e9.4.2026.09.30.07.08.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 07:08:58 -0700 (PDT)
-Message-ID: <7d8f1378-d5a6-4a87-82cd-98eb794f85f2@6wind.com>
-Date: Wed, 30 Sep 2026 16:08:57 +0200
+From: Andrea Parri <parri.andrea@gmail.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Bojan Smojver <bojan@rexursive.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PM: hibernate: Wait for in-flight reads before freeing the read-ahead ring
+Date: Wed, 30 Sep 2026 16:08:49 +0200
+Message-ID: <20260930140850.4864-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: nicolas.dichtel@6wind.com
-Subject: Re: [PATCH net-next v9 2/6] net: change netdev_hw_addr_list count
- through helpers
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Ajay Singh <ajay.kathat@microchip.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
- Kees Cook <kees@kernel.org>, Kory Maincent <kory.maincent@bootlin.com>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
- Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
- <20260930112842.21323-3-sigefriedhyy@gmail.com>
- <235a33c2-7138-4815-820d-793568757d95@6wind.com>
- <CA+7S2v+VaVYksOpuUKzo+DoWZ97M_XKvnMr8cCcgwTkrOxsvEw@mail.gmail.com>
-From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Content-Language: en-US
-Organization: 6WIND
-In-Reply-To: <CA+7S2v+VaVYksOpuUKzo+DoWZ97M_XKvnMr8cCcgwTkrOxsvEw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Le 30/09/2026 à 15:43, Yuyang Huang a écrit :
->> If you respin a version, you can use netdev_hw_addr_list_count() in
->> __hw_addr_list_snapshot() also.
-> 
-> Thanks, will do if there is a v10.
-Thanks. FYI, please don't top post:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst#n336
+load_compressed_image() reads the image ahead into a ring of pages with
+asynchronous bios, and waits for them only when fewer than CMP_PAGES
+pages are buffered. From the second loop pass on, reads into the rest of
+the ring are thus in flight while buffered data is parsed and
+decompressed.
+
+The exits taken on an invalid compressed length, a failed decompression,
+an invalid uncompressed length or a snapshot_write_next() error jump to
+out_finish without waiting for those reads. The function then frees the
+ring pages and returns, releasing the hib_bio_batch on its stack, while
+the outstanding bios still write into the freed pages and hib_end_io()
+still updates and wakes the stale batch.
+
+A corrupted image is what fails these checks, as the CRC32 is only
+compared once the whole image has been loaded. With such an image, the
+resume fails with "Failed to load image, recovering." and the boot
+continues on top of the resulting memory corruption.
+
+Wait for the batch at out_finish, as save_compressed_image() and
+load_image() already do before releasing their buffers. hib_wait_io()
+returns at once when no reads are outstanding, so exits without
+read-ahead in flight are unaffected.
+
+This was found by code inspection. It has only been build-tested; no
+reproducer was run.
+
+Fixes: 081a9d043c98 ("PM / Hibernate: Improve performance of LZO/plain hibernation, checksum image")
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+ kernel/power/swap.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/kernel/power/swap.c b/kernel/power/swap.c
+index c78f1593600bb..49b3da89b49d4 100644
+--- a/kernel/power/swap.c
++++ b/kernel/power/swap.c
+@@ -1198,6 +1198,7 @@ static int load_compressed_image(struct swap_map_handle *handle,
+ {
+ 	unsigned int m;
+ 	int ret = 0;
++	int err2;
+ 	int eof = 0;
+ 	struct hib_bio_batch hb;
+ 	ktime_t start;
+@@ -1478,6 +1479,10 @@ static int load_compressed_image(struct swap_map_handle *handle,
+ 	}
+ 
+ out_finish:
++	/* Error exits may leave reads in flight into page[]. */
++	err2 = hib_wait_io(&hb);
++	if (!ret)
++		ret = err2;
+ 	if (crc->run_threads) {
+ 		wait_event(crc->done, atomic_read_acquire(&crc->stop));
+ 		atomic_set(&crc->stop, 0);
+-- 
+2.53.0
+
