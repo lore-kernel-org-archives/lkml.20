@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05D051EE01;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBE551EDFD;
 	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792618; cv=none; b=BmYnCtPfoqjmTlp94Bozq/43+gY828AUL2VsizDCR9TgSXkopEQXRIfCZfvXnYjLVA0U7Mk6pSMIeT+E3Sf+bPodExvA3D6+N0FlA8h7gpwYQJr0n2U1fJLH/ZNU6+3nrIxTcfTpNmTiwhlfS4kD0bC96IbJSbtXqTGty47af74=
+	t=1790792617; cv=none; b=D2/sKSEHWxTfsp9VNhvcO9it/WwsF407AuD0TwaFEerNrMHzg6orYd4oOPcWtIYcNcKlLyeN3NgAwrxXUQ3Jhry3y6ceeU0mNEUgzaSqSt/BRyOpj7yQuiw7lUrwIstZg2Eyk8nhqwsAjH5E9O3evu//KeE8WwM5OwFH0hQeJIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792618; c=relaxed/simple;
-	bh=e6XWkBfg5BhM4o5qxLb67lvLZLbQ2+u2g0HpSb4lEmA=;
+	s=arc-20240116; t=1790792617; c=relaxed/simple;
+	bh=3dR3bQhbVFD6CaK4nkwyg+M1MY6kVwlo9U5P9pkztfE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JxwVQAJMaKuNy6bkGF/NfY6rxIhLWhTKxt9nGpxzkgSeiozYNwoarEjduIN2g25KZ/qEO1CAEX86X+mFDc6W7TPiudpplgWrnXr+X3f5U63qR4s3xXwyeSgLauVHD2piEN4aDJQsI/O1vkga61w6/fMSI9Co78c1ozyzIsen/lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFSUtFRc; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Q6LK3HA7UEJDAmGpksDzlBUEEiuZ77MlcLFY0QOmbu9Q7O8RKjkiySoFzXXim7D/0i64jj0w/ACd5gvpIm+qCJlhRNS6OmihhU5S5kdxGwOSVCau2LdXo189isKwwVHfjfEvaPR7njIbVvPrQWp3DYjFHw+KwsJQZSEvHyGy9FU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWJWvEso; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFSUtFRc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D425C4AF48;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWJWvEso"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 99DEFC4AF1A;
 	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790792617;
-	bh=e6XWkBfg5BhM4o5qxLb67lvLZLbQ2+u2g0HpSb4lEmA=;
+	bh=3dR3bQhbVFD6CaK4nkwyg+M1MY6kVwlo9U5P9pkztfE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mFSUtFRcGlhlH3mGfVAUK6C1Kks6MCZCBxDEI0GlVwq2IddJGCdN2aA4BuVav75VN
-	 bSck/xfmFyPOzxOxEp7mHru4PP3Z+CH9vh9nSJRKY195J/X5sQlzthdzvdpLXYYs7z
-	 b7QR916KyHwMGvtVdl/4wEEOBtyjX++1Alhd521UlJiKvdOSUPYotdKUfUz/1pTiBz
-	 Evj7IazNU7JIN338ii5/FSLtigNd6qm/Heewj2PtAk0lNtvJbOUwEdjhLCQBrrgqly
-	 3pHHdoOi+PnTkYOIxK2Qo2TckvfayJ1lpf3nGOzzQesY0q3AP3fzbuGbJ80AzotMXS
-	 xLUWqs+eIymow==
+	b=eWJWvEsoaZBYW0Le70dA+8IiQr4vhJCB9rfPy5m4OriO8AgOCVNBbwq7U1QK7rfDF
+	 MzSkoexxiiJwz7Ew1MwIA0MPiQFUPtl8mRMHOa9sIDmQV7G/xNo+yN/HJ6PE1Wx3kc
+	 BC2OkKTywSK978ZX2fOScdNIdWQLstBtOElBJ2eYxX+AzuMChoW4WfhMv1qjT4sNU7
+	 vE39Gljk3MFzOgaeOYJ3cP5PvNFj7B3pOtEJP6344jfTNHmS+pdHoL/pEItpOZtXmd
+	 MjfR9V1nOzRBYbt4VPtqYN/t7Gz+h+KiWpteLwG3SavEyQ7YWhciEAwd1SKj8YqjZm
+	 k9fAR9LZuWVcQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7801FCA5FD4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86BF6CA5FCC;
 	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
 From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
-Date: Wed, 30 Sep 2026 13:23:33 -0500
-Subject: [PATCH v12 05/11] scsi: ibmvfc: add NOOP command support
+Date: Wed, 30 Sep 2026 13:23:34 -0500
+Subject: [PATCH v12 06/11] scsi: ibmvfc: add FPIN extended flag and async
+ sub-CRQ queue handle
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-ibmvfc-fpin-support-v12-5-53a3fff7d77b@linux.ibm.com>
+Message-Id: <20260930-ibmvfc-fpin-support-v12-6-53a3fff7d77b@linux.ibm.com>
 References: <20260930-ibmvfc-fpin-support-v12-0-53a3fff7d77b@linux.ibm.com>
 In-Reply-To: <20260930-ibmvfc-fpin-support-v12-0-53a3fff7d77b@linux.ibm.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
@@ -52,11 +53,11 @@ Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, Tyrel Datwyler <tyreld@linux.ibm.com>, 
  Dave Marquardt <davemarq@linux.ibm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790792616; l=2959;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790792616; l=1878;
  i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
- bh=iAIK18UFb8ApDkpe+BUELjNPyYPOvu0XYo9BmrNytxc=;
- b=D4ZHKXpv7A7/+JqHDjST5jQ2PpmQa0108NGClNyTIAaLNebC056oMTqechzYplCVM6g/BAOJP
- wyrStszZULeDO2x5R595TeBcIj+NJcxAXg8T0Oy92iOCxvgAtq0ZtjN
+ bh=4tDRYGPOdalcjrcQxoWbj2Q6l6Bvzp5u1GG4s8VoVCQ=;
+ b=aKDjAR6jHaXPJ/2bcjqZrZTUX5N7QzpkQG8MSRe7wgaJENRff9fVYsVQwPVF5Cu53xaZhssSp
+ Ik5tW3UU6+ZBnocweq6BTYpzAJR329ZlemdPUciLA8toKQeMc4hOd/Z
 X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
  pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
 X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
@@ -66,79 +67,60 @@ Reply-To: davemarq@linux.ibm.com
 
 From: Dave Marquardt <davemarq@linux.ibm.com>
 
-Add support for handling IBMVFC_NOOP format CRQ messages from the
-VIOS partner.
+Add IBMVFC_ASYNC_IS_FPIN_EXT flag bit (0x02) to ibmvfc_async_sub_crq.flags
+to distinguish extended FPIN events from standard ones.
 
-Advertise the client's ability to handle NOOP commands by setting the
-IBMVFC_CAN_USE_NOOP_CMD capability in ibmvfc_set_login_info().
+Add async_scrqs field of type ibmvfc_channels to ibmvfc_host to hold the
+channel set for the asynchronous sub-CRQ, alongside the existing scsi_scrqs
+and nvme_scrqs channels. This uses the same ibmvfc_channels infrastructure
+as the SCSI and NVMe channel queues.
 
-Handle and ignore IBMVFC_NOOP format messages in both ibmvfc_handle_crq()
-and ibmvfc_handle_scrq(). In both handlers, log a rate-limited error if a
-NOOP is received while in the IBMVFC_ACTIVE state without the partner
-having advertised IBMVFC_SUPPORT_NOOP_CMD.
-
-In ibmvfc_handle_scrq(), also fix a typo ("Got and invalid" -> "Got an
-invalid"), add a missing return on invalid message types, and guard
-against null event pointers before processing CRQ responses.
+Add IBMVFC_ASYNC_SUB_CRQ_FMT to enum ibmvfc_msg_fmt and a corresponding
+async_scrq pointer to union ibmvfc_msgs to support the new async sub-CRQ
+message format.
 
 Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
-Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
+Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
 ---
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+ drivers/scsi/ibmvscsi/ibmvfc.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index e0fa9b547cbf..ebe4b5538b98 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -1578,7 +1578,9 @@ static void ibmvfc_set_login_info(struct ibmvfc_host *vhost)
- 		login_info->flags |= cpu_to_be16(IBMVFC_CLIENT_MIGRATED);
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc.h b/drivers/scsi/ibmvscsi/ibmvfc.h
+index d7a30e7a4a28..df2f312fd7b9 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc.h
++++ b/drivers/scsi/ibmvscsi/ibmvfc.h
+@@ -773,6 +773,7 @@ struct ibmvfc_async_sub_crq {
+ 	volatile u8 valid;
+ 	u8 flags;
+ #define IBMVFC_ASYNC_ID_IS_ASSOC_ID	0x01
++#define IBMVFC_ASYNC_IS_FPIN_EXT	0x02
+ 	u8 link_state;
+ 	u8 fpin_status;
+ 	__be16 event;
+@@ -893,6 +894,7 @@ enum ibmvfc_msg_fmt {
+ 	IBMVFC_CRQ_FMT = 0,
+ 	IBMVFC_ASYNC_FMT,
+ 	IBMVFC_SUB_CRQ_FMT,
++	IBMVFC_ASYNC_SUB_CRQ_FMT,
+ };
  
- 	login_info->max_cmds = cpu_to_be32(max_cmds);
--	login_info->capabilities = cpu_to_be64(IBMVFC_CAN_MIGRATE | IBMVFC_CAN_SEND_VF_WWPN);
-+	login_info->capabilities =
-+		cpu_to_be64(IBMVFC_CAN_MIGRATE | IBMVFC_CAN_SEND_VF_WWPN |
-+			    IBMVFC_CAN_USE_NOOP_CMD);
+ union ibmvfc_msgs {
+@@ -900,6 +902,7 @@ union ibmvfc_msgs {
+ 	struct ibmvfc_crq *crq;
+ 	struct ibmvfc_async_crq *async;
+ 	struct ibmvfc_sub_crq *scrq;
++	struct ibmvfc_async_sub_crq *async_scrq;
+ };
  
- 	if (vhost->mq_enabled || vhost->using_channels) {
- 		login_info->capabilities |= cpu_to_be64(IBMVFC_CAN_USE_CHANNELS);
-@@ -3695,6 +3697,14 @@ static void ibmvfc_handle_crq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost,
- 	if (crq->format == IBMVFC_ASYNC_EVENT)
- 		return;
- 
-+	if (crq->format == IBMVFC_NOOP) {
-+		if (vhost->state == IBMVFC_ACTIVE &&
-+		    !ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_NOOP_CMD))
-+			dev_err_ratelimited(vhost->dev,
-+					    "Received unexpected NOOP command from partner\n");
-+		return;
-+	}
-+
- 	/* The only kind of payload CRQs we should get are responses to
- 	 * things we send. Make sure this response is to something we
- 	 * actually sent
-@@ -4225,7 +4235,20 @@ static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost
- 	case IBMVFC_CRQ_XPORT_EVENT:
- 		return;
- 	default:
--		dev_err(vhost->dev, "Got and invalid message type 0x%02x\n", crq->valid);
-+		dev_err(vhost->dev, "Got an invalid message type 0x%02x\n", crq->valid);
-+		return;
-+	}
-+
-+	if (crq->format == IBMVFC_NOOP) {
-+		if (vhost->state == IBMVFC_ACTIVE &&
-+		    !ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_NOOP_CMD))
-+			dev_err_ratelimited(vhost->dev,
-+					    "Received unexpected NOOP command from partner\n");
-+		return;
-+	}
-+
-+	if (unlikely(!evt)) {
-+		dev_err(vhost->dev, "Received null event\n");
- 		return;
- 	}
- 
+ struct ibmvfc_queue {
+@@ -992,6 +995,7 @@ struct ibmvfc_host {
+ 	struct ibmvfc_queue async_crq;
+ 	struct ibmvfc_channels scsi_scrqs;
+ 	struct ibmvfc_channels nvme_scrqs;
++	struct ibmvfc_channels async_scrqs;
+ 	struct ibmvfc_npiv_login login_info;
+ 	union ibmvfc_npiv_login_data *login_buf;
+ 	dma_addr_t login_buf_dma;
 
 -- 
 2.55.0
