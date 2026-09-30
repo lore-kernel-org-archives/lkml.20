@@ -1,114 +1,194 @@
-Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com [74.125.227.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C7E415F29
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:12:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609063C4577
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752350; cv=none; b=LwRVsWJiHwle0x5CDraokN58eSVhNJ+bzqDtugdTKTjecDTyYmGg8/tlVM0XQx0/L8qpNDfDD9r+m3bvSTkj+e4/Dqjx9z6EPzfc/fWaoSKWI9gygrehAwiIRCyZ7ktt2QTmjjCoklfiZ50IvfM4t7DdpUhnIv2XLX0nVgzUMms=
+	t=1790752388; cv=none; b=CITd5hsTc1xufmQpZVPkKfpXlqQmgW0l5DEsLcb87rHAwJPs9DVPqC7Qa+G3WO4ahdhK0v97QODbJVlnzR95/FU6o+BjL3MX+PQX1iTUmfdlV1McEs/qzpjvmUGBPKLxbp/6a2tzvtXTdeMdBsY7+RshLIG0LdBTHAjfo4ZvTbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752350; c=relaxed/simple;
-	bh=8IWokZ72tDwDWq2sw9b629Rjub6j3ctTrOYI2iTwHJU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZtMW3TQVjOO6oIfb4N1gxLCdY9ih9IQyH+Mjo9dj2x29rS5mG2RwOv3KUG8FseRXUHrIdUQwIbT9w8H+XMqUtMD7dBzhq43Bnv2VVgQzVXsd0aBWzscFWU6vYz+WkH3NhAjrxmpXfC287OTgpAISVKNBrV6Q63WNCaudbKc5aKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5cca96ec1feso1423259e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:12:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790752347; x=1791357147;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ndpnvvggs5Yyo8MyrvMBjpbgjCxaohPqITqE/XVX+nc=;
-        b=GrAZFHoLCMOfYV3eUhccgM+0yek7h78qZWzbJXvF7ZtR0/b3i94K6egEfTl0YILCrb
-         q4sg1mUVAvG8TUCVI3172KgOKa3ebvb3K8AcvTdZy+rS7U37QKzlT5Hg6uGdrwdwgbNP
-         RvSn1asaCUgPSjMAPI90pEHVzFvK18Y2jrnjMlwrxoYVruz4eMMnkHL9mX32f1C/9Xem
-         zzMLNYTprJnJbWwzEPtq3lD2246aVWpPPs0rS7x4SstShe/Vk25U6GlXmb6HrVUHA2Fo
-         FYq6+AZ5F+XQL6Q8mjGmbviyYjM1rF3xZWyClo9nXnvp9VtwsZcQ4QPzZ4AczO7ThodL
-         /h+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxOKPP60Dv3mrugt37D13MdZvp4g6m2HQRXE6UIN9hIbym0yrg+d7TFdQrcIagDVOraKRCy+ND4pkBAzqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDJKjGH+5c6Eeb0aXLXgOeh0FT1e2rSdB8uj07CQB9kO2KPBdE
-	pfWz93kDmt7wrwohtzoX2zCbYYcNIMYXAmlA9b/ETptDrmJ+pwKJGj7ilp2KSqP2
-X-Gm-Gg: AYBFou08oeyxqv1CmKBt5D+ihzBvvL9ckk3HUdKAIYlmVQ02uE/GUjoaWMnti2Pkw1V
-	Q/NnccnnjQbM6kQoq4hFIdHWFVzTR/DMZTVJQF/jh3eqOoUp5Th6rdhRyslwlgoZO7UfMJRjAa4
-	WxwGQiXuaXw+khmGzNjQHzdwTSgv3VjaUnop58OLx89qXbRLLI1rXhG9UAL78nbbClwZokl0FLU
-	0ieif+TRPPajt1bc99rcURSjwPhsr9yEpnoIRyxPyMPuwPgWfwetl5ezjVfRTHf5N9rPsdJaMuZ
-	/GNJNQcGxz7z5R6rTqeuXLWk0fL1WdtQ0oyN5yvSN+N9r2cRD6QMGcXvPx+QLUxOwjBh3E+E16E
-	7YQRKxTF9x7vG8oGRPN/p+7bePfN9GS0+k7ogYRmVDSXJSr9IZPsjQaevx6oGFpFEPmz/QpgciO
-	x53jLXyiXVfaUDc+pwt+23t7xhThyig9oOofm4DNNlQM8ZZ5muVG6l2y6BreDxUlZ58BHoBwiMk
-	ea/V72vCoc4c1yY9+0EMmlNqlr/ymRbeFSo
-X-Received: by 2002:a05:6122:3307:b0:5c9:a610:cecf with SMTP id 71dfb90a1353d-5d67d9463bfmr66651e0c.22.1790752347445;
-        Wed, 30 Sep 2026 00:12:27 -0700 (PDT)
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com. [74.125.227.43])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d60dfb6b36sm829447e0c.2.2026.09.30.00.12.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 00:12:27 -0700 (PDT)
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7beb81b2834so15425137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:12:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzsLk58QFai02Bbq8Q34Zt7VajLUcyphUTIb4PwZVLOekU3UAIoBLkdUcoPNT9lyKFUe0qHIFNiXHAU4fw=@vger.kernel.org
-X-Received: by 2002:a05:6102:689a:b0:7a1:f9df:e35a with SMTP id
- ada2fe7eead31-7be73c8805emr49649137.33.1790752346870; Wed, 30 Sep 2026
- 00:12:26 -0700 (PDT)
+	s=arc-20240116; t=1790752388; c=relaxed/simple;
+	bh=HLOZg3L0n10H0eGigNQRtaAD1h/EWelC8+/M6PfnVDE=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=p9jS5rIJSBKPrb47uKEoVfjjI9zMruftvuMeAcOKziB4wwddSPFh6Fb/r4Yh38mwFzlTPMe9su+i1klfkDACbbFRaxjnYq0xNZGRRedTWFb0gCpyz4kxIKmOU+GszDDSdZxoF5tO0sfXd7DVMFz6pW3YW/FMqX/kNYBl9aon7KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=m7LFE1yz; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="m7LFE1yz"
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260930071302epoutp01fc5cc970d5bef907951e1640fc6d1e57~aB83vy1j71393213932epoutp01S
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:13:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260930071302epoutp01fc5cc970d5bef907951e1640fc6d1e57~aB83vy1j71393213932epoutp01S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790752382;
+	bh=ZLA6s7QEu9kYEiGuIzydl2CnpkqdhoP+6dCmYCdSKBc=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=m7LFE1yzXUeDJpWm74lh/ZRXKxJC1xDX9AIyjB1NU4NOZ1jb4FzqINKaBecFrG2Es
+	 RstGe8z4avH0MMsdFLectUbdq1CTCUnzqiqroUP1RGEtAaMiFQ53Xu2rUST6ENEA35
+	 OJ4T5SLvzGd/+2EQ9sf0QFeTx+QAplaTVb0DWuZc=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260930071301epcas2p472356ae3e2aee4182bb9081689647da3~aB820rY6f2311323113epcas2p4W;
+	Wed, 30 Sep 2026 07:13:01 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hvmTn6CJ2z3hhTH; Wed, 30 Sep
+	2026 07:13:01 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <arp2hp7wRlcK_4D8@sirena.org.uk> <CAMuHMdUYNwi_MZtKGxnLLpUKDVAgRK8zT+2eaOcHAqcecx_LcA@mail.gmail.com>
- <3fa086ea-2868-4cac-a34b-2389355c31b0@sirena.org.uk>
-In-Reply-To: <3fa086ea-2868-4cac-a34b-2389355c31b0@sirena.org.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 30 Sep 2026 09:12:15 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVZpKLzvmRyJ9=jhnT8OhXtTRsHYOAir4S07mzrEa4mkA@mail.gmail.com>
-X-Gm-Features: AclHuK_W0Im8-5f3DLK8-gnVMzw5yRpsmUbP03nV_v3dMuQ6NkoOBdVKvbTWp5g
-Message-ID: <CAMuHMdVZpKLzvmRyJ9=jhnT8OhXtTRsHYOAir4S07mzrEa4mkA@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the scsi-mkp tree with the scsi tree
-To: Mark Brown <broonie@kernel.org>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>, 
-	Chandrakanth Patil <chandrakanth.patil@broadcom.com>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Ranjan Kumar <ranjan.kumar@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Subject: [PATCH v2 1/2] scsi: ufs: Add the aggregated read query opcode and
+ its reply format
+Reply-To: hyenc.jeong@samsung.com
+Sender: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
+From: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
+To: "James.Bottomley@HansenPartnership.com"
+	<James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>,
+	"avri.altman@sandisk.com" <avri.altman@sandisk.com>, "bvanassche@acm.org"
+	<bvanassche@acm.org>, "peter.wang@mediatek.com" <peter.wang@mediatek.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>
+CC: Jinyoung Choi <j-young.choi@samsung.com>, Alim Akhtar
+	<alim.akhtar@samsung.com>, "beanhuo@micron.com" <beanhuo@micron.com>,
+	"can.guo@oss.qualcomm.com" <can.guo@oss.qualcomm.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p1>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <1860250540.01790752381858.JavaMail.epsvc@epcpadp2new>
+Date: Wed, 30 Sep 2026 14:15:48 +0900
+X-CMS-MailID: 20260930051548epcms2p7298e1d5cab9df1af17f6b7ff9dc8b6af
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20260930050201epcms2p13ab67182445b0555acc8d27b927cda86
+References: <20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p1>
+	<CGME20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p7>
 
-Hi Mark,
+UFS 5.0 adds the AGGREGATED READ query opcode (0x9): a single QUERY
+RESPONSE UPIU returns many descriptors, attributes and flags as a chain
+of typed groups (JESD220H 10.7.9.14).
 
-On Tue, 29 Sept 2026 at 13:07, Mark Brown <broonie@kernel.org> wrote:
-> On Tue, Sep 29, 2026 at 10:48:09AM +0200, Geert Uytterhoeven wrote:
-> > On Mon, 28 Sept 2026 at 16:23, Mark Brown <broonie@kernel.org> wrote:
->
-> > >         }
-> > >  -      if (tgtdev)
-> > >  -              mpi3mr_tgtdev_put(tgtdev);
-> > >         kfree(mr_sas_port);
-> > >         return NULL;
-> > >   }
->
-> > Are you sure this is correct?
-> > Martin's conflict resolution in 0b5b2fb484f3b kept the
->
-> >        if (tgtdev)
-> >                mpi3mr_tgtdev_put(tgtdev);
->
-> > part.
->
-> Dunno.  There was another put came in further up the function.
+Add the AGGREGATION TYPE mask, the group types and the group header, and
+let ufshcd_copy_query_response() copy the reply's data segment like a
+descriptor read, recording its length in struct ufs_query_res.
 
-Right. So Martin's resolution looks incorrect, too, as it calls
-mpi3mr_tgtdev_put(tgtdev) twice.
+Signed-off-by: Hyeoncheol Jeong <hyenc.jeong@samsung.com>
+---
+ drivers/ufs/core/ufshcd.c |  7 +++++--
+ include/ufs/ufs.h         | 44 +++++++++++++++++++++++++++++++++++++++
+ include/ufs/ufshcd.h      |  2 ++
+ 3 files changed, 51 insertions(+), 2 deletions(-)
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 54f4e7d7de02..d07834fc4646 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -2473,10 +2473,13 @@ int ufshcd_copy_query_response(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+ 	struct ufs_query_res *query_res = &hba->dev_cmd.query.response;
+ 
+ 	memcpy(&query_res->upiu_res, &lrbp->ucd_rsp_ptr->qr, QUERY_OSF_SIZE);
++	query_res->data_segment_length =
++		be16_to_cpu(lrbp->ucd_rsp_ptr->header.data_segment_length);
+ 
+-	/* Get the descriptor */
++	/* Get the descriptor or aggregated data packet */
+ 	if (hba->dev_cmd.query.descriptor &&
+-	    lrbp->ucd_rsp_ptr->qr.opcode == UPIU_QUERY_OPCODE_READ_DESC) {
++	    (lrbp->ucd_rsp_ptr->qr.opcode == UPIU_QUERY_OPCODE_READ_DESC ||
++	     lrbp->ucd_rsp_ptr->qr.opcode == UPIU_QUERY_OPCODE_AGGREGATED_READ)) {
+ 		u8 *descp = (u8 *)lrbp->ucd_rsp_ptr +
+ 				GENERAL_UPIU_REQUEST_SIZE;
+ 		u16 resp_len;
+diff --git a/include/ufs/ufs.h b/include/ufs/ufs.h
+index afbb32654fab..1e6ea87a5dc7 100644
+--- a/include/ufs/ufs.h
++++ b/include/ufs/ufs.h
+@@ -30,6 +30,7 @@ static_assert(sizeof(struct utp_upiu_query) == 20);
+  * (ALIGNED_DEVMAN_RSP_SIZE) minus the fixed UPIU header it follows.
+  */
+ #define QUERY_AGGREGATED_MAX_SIZE (4096 - GENERAL_UPIU_REQUEST_SIZE)
++#define QUERY_AGG_GROUP_HDR_SIZE  4
+ #define QUERY_DESC_MIN_SIZE       2
+ #define QUERY_DESC_HDR_SIZE       2
+ #define QUERY_OSF_SIZE            (GENERAL_UPIU_REQUEST_SIZE - \
+@@ -569,6 +570,49 @@ enum ufs_dev_pwr_mode {
+ 
+ #define UFS_WB_BUF_REMAIN_PERCENT(val) ((val) / 10)
+ 
++/* AGGREGATION TYPE field of an AGGREGATED READ query request */
++enum ufs_agg_type {
++	UFS_AGG_TYPE_ALL_FLAGS			= BIT(0),
++	UFS_AGG_TYPE_ALL_ATTRS			= BIT(1),
++	UFS_AGG_TYPE_DEVICE_DESC		= BIT(2),
++	/* Unit descriptors and the RPMB unit descriptor */
++	UFS_AGG_TYPE_UNIT_RPMB_DESC		= BIT(3),
++	UFS_AGG_TYPE_INTERCONNECT_DESC	= BIT(4),
++	UFS_AGG_TYPE_STRING_DESC		= BIT(5),
++	/* Geometry descriptor and power descriptor */
++	UFS_AGG_TYPE_GEOMETRY_POWER_DESC	= BIT(6),
++	UFS_AGG_TYPE_HEALTH_DESC		= BIT(7),
++};
++
++/* Group Type field of an aggregated data packet group header. */
++enum ufs_agg_group_type {
++	UFS_AGG_GROUP_RESERVED		= 0x00,
++	UFS_AGG_GROUP_FLAGS		= 0x01,
++	UFS_AGG_GROUP_ATTRS		= 0x02,
++	/* Any descriptor with a unique IDN, i.e. all but the string ones */
++	UFS_AGG_GROUP_DESCS		= 0x03,
++	UFS_AGG_GROUP_MANUFACTURER_STR	= 0x04,
++	UFS_AGG_GROUP_PRODUCT_NAME_STR	= 0x05,
++	UFS_AGG_GROUP_OEM_ID_STR	= 0x06,
++	UFS_AGG_GROUP_SERIAL_NUMBER_STR	= 0x07,
++	UFS_AGG_GROUP_PRODUCT_REV_STR	= 0x08,
++};
++
++/**
++ * struct utp_agg_group_header - aggregated data packet group header
++ * @group_type: type of the data carried by this group, see ufs_agg_group_type
++ * @reserved: reserved
++ * @next_group_offset: byte offset from the start of the packet to the next
++ *	group; zero ends the chain
++ */
++struct utp_agg_group_header {
++	u8 group_type;
++	u8 reserved;
++	__be16 next_group_offset;
++};
++
++static_assert(sizeof(struct utp_agg_group_header) == QUERY_AGG_GROUP_HDR_SIZE);
++
+ /**
+  * struct utp_cmd_rsp - RESPONSE UPIU structure
+  * @residual_transfer_count: Residual transfer count DW-3
+diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+index dfd302f2dc7c..1a5e181ff9e3 100644
+--- a/include/ufs/ufshcd.h
++++ b/include/ufs/ufshcd.h
+@@ -213,9 +213,11 @@ struct ufs_query_req {
+ /**
+  * struct ufs_query_res - UPIU QUERY
+  * @upiu_res: query response data
++ * @data_segment_length: response data segment length
+  */
+ struct ufs_query_res {
+ 	struct utp_upiu_query upiu_res;
++	u16 data_segment_length;
+ };
+ 
+ /**
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.25.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
