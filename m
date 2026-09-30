@@ -1,185 +1,171 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011011.outbound.protection.outlook.com [52.101.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731B6389104;
-	Wed, 30 Sep 2026 15:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783166; cv=fail; b=rQ/UY1/9ZnIh7UqLn+YfjvK4wZkkl9MPpj2IICggM3KiuGuD3jcY6B9Z1FXgwxV/nB/xvm7NYWHKjjPowSTJDp3r6OBqR5qvoXqKzbIGDWJp3VDyPsdyMtsALwEOnIsbNEXKYh8gFOOk3+CQRa+c72kdgsPte6WaNthtGWEXuvA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783166; c=relaxed/simple;
-	bh=nsWDq+AV4VRK+wCT5oYmmKpDzFHIv9pE1HGtoIMSHVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=p5gzo1ZhfGNu5QBTGColV6GulCv9J3e9ctkujQQcy76iPzUJaoQKgqw1FibX5P+k8Kak5AvM3VPPg/dw88IanoIUwH0pDP+uRq1aNAXZv4AtlUx3rMTEedrwqFdyxWPEH0xLDllw+ij2JogTrYjQL4fZD2FANwYzp5idTbbVpns=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vpG8BtUH; arc=fail smtp.client-ip=52.101.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E000349AA24;
+	Wed, 30 Sep 2026 15:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790783262; cv=none; b=FZ99+ThlczXfY+veqRb6FLfflVwFZUg6j1cK5ShDvBFNLhnzMXGITQYi3JLeTuxqumqVg2xHSPb2D/BUP/uTHfIavVjmdkRnoG+pzqtEueIv5vtalHJPWgQqd8ZsNFL5EGBmAS+P5Qq0YJ1wMEG9R7K7k9tk1lRhBr7ju/rpvWk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790783262; c=relaxed/simple;
+	bh=QoFbyEjCsfTHVESMmjnO/0li1L1bptVdC8MzWR3qMXY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OCfTtYwjtlVZA4YFEjgbBHlzJEkdWnStd38LYH9QMxAfwcVSHHkgo2BPfXvznXFpXYtRYBze5gGgrlDNAuUeVPnng/9SY1Myn0f6Ejbg/LWtBJCxcmbeIeceFAFJOOI1wsC6Mix30z/yrr7ZRw+Ig4yUapfMsqLKCSSRStGaB8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kbnbRj+I; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=iezzI9hD; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hU2ovLJx; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=6O7KPyP1; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vpG8BtUH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XXVRVYnXnt6/mEvX8Wciyo9HYpo8qTyoNTz/3mSZXV7etTzvBaWJ5i16a+hmzMVJQwQM9cZcGiBXqWLXROB0XIdVrX4SmtnyaBeJKavKyaOyq/l5RH9m9IwFhQUZDd4x2bP9HMb0BYIBk3Jwj63n0LmCRMiM7bO7vQ/6ZOeklNHPByTBwqQa0RaWF9IU/FonuZuQ1jtHZludKkRXdBE6VJvTKSA9SPr8e0Iydfhf2tz7yQDBC/ZRaekpiBbWF/pq3/HqGbu5tvzNOPId3PD2gl0GoDhvtko6Sjo6rLok9g0FFgnupZiRj6fHCCArPli21qM++KLUREgkrba+E8OG3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9gpCAGup6Nz06OzvBIAYkaGYuNmKaB3JdvYXrCJt2w0=;
- b=MmFKQi8wd2s6iuQ+fbSJQdtBqSjuRGU5z5DkhpJ3PjYfnomfKX/RIXdeiAmjJA0yvpm98fqX5DR9idNrygMXWVLwNeJ1/QBUibkZNunTb2PLoREHHTzt05MbutUvQZYP1Iy58GKcaWiJtcUYYIQ+IaTpGEFfXchrutoo2mD/N8IAx15WbOLmtGJefbCw8+TOqC5R4cyiXflglzjAiHmqgTM6XSHg3ANJ0oC45mc+XnXRnMGvzPSdH8nQeZ1T+H5+QNjvPF3SwKhfWYPfGH7MRN+cV11bVeivNyJLGtvaxvx2QUreeQ4GUbMR35/t1sZWTVOL51ZkZkEzXg3k/J7c3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9gpCAGup6Nz06OzvBIAYkaGYuNmKaB3JdvYXrCJt2w0=;
- b=vpG8BtUH4L2KNjG+5gILzDp9z+6rETDU3CFOrrb38qPKoEDe5da+DNVcOzWe3Vllr6yITniivj9bWqpLVsgGuDSHSIy/si6ALF3IPmwFdE9Yqwsy+CwMV2qOCooq0Cb57FMhzCrlnnMVNFgNChb1B3PpX4P2v0c6WMMa2lIYKoXUfVxCJ5LtzElJj0uczhq9vE/6pL6f0IlvoLmAQmd/tfAK7kAynf+88Yegx1gPt57OwbjeqEptP+O3wPD+Pe9zF8TZXK5HDFTLjyKBEZmCpzqualXz9laKXgA1rrDaxlmvp0V3IySK4v7CXYi/HGhS03nk4UxOCbTxI9VQdh96iQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB10848.eurprd04.prod.outlook.com (2603:10a6:150:20f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 15:45:54 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 15:45:54 +0000
-From: Frank.Li@oss.nxp.com
-To: Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>
-Subject: Re: (subset) [PATCH v5 0/4] drm: mxsfb: Support LCDIF interface bus width
-Date: Wed, 30 Sep 2026 11:45:46 -0400
-Message-ID: <179078313436.598059.17936202871523895836.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917140042.118181-1-francesco@dolcini.it>
-References: <20260917140042.118181-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P220CA0101.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32d::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kbnbRj+I";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="iezzI9hD";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hU2ovLJx";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="6O7KPyP1"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 95ADD21D7D;
+	Wed, 30 Sep 2026 15:47:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790783251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HWEmQKmmPhReb7fwoW/7UfQQaFElZ3XtfNvTjXF41Xg=;
+	b=kbnbRj+IixvFQRj5EbeHLkwt0DIzrLadWWg2fQURXb9XsCxuJtMMIE1cSeNJyjKFIhJ7LJ
+	hlYp83Gr12g6RUHz2UC0QbpqJiNkOwr76yiWJK/qS8LNWXDu6+nf9CIOBpb+OVT6u0Nevi
+	SnRYELKASvbSUYGFBkV6g4AmIB2tmCM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790783251;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HWEmQKmmPhReb7fwoW/7UfQQaFElZ3XtfNvTjXF41Xg=;
+	b=iezzI9hDHDK+9JKCZCutemhDTh9upiXYLoJVnBQb5eqTLU/4IQDD3SA0x7fICDlV70BWwe
+	wPXuJdS+DoqgmUBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hU2ovLJx;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=6O7KPyP1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790783247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HWEmQKmmPhReb7fwoW/7UfQQaFElZ3XtfNvTjXF41Xg=;
+	b=hU2ovLJxWFHhvaqHNLrf2Wpc9ib1CK87oDAEREZ1HBxWlOo48uMhpjr0F+H63IRjZRvWLM
+	3dshQ7T+dQtdr8GXIqybiubeCKBE3uOVgBrHhvpgTV/03LKIb3sRPuRv/ld74C0KjaPJ2b
+	iZSsnKvDEdBZu2R+7ET3ZcAL1DyO6hM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790783247;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HWEmQKmmPhReb7fwoW/7UfQQaFElZ3XtfNvTjXF41Xg=;
+	b=6O7KPyP16ybWmUhZROefAnyOZbGtbjGI5pDyZUGdtfOc41DjBd9+/B+KFPCo9wggqyhrrW
+	rTLFYjkyOwzdOYAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 455F713722;
+	Wed, 30 Sep 2026 15:47:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id XJhHBg8vvWrFTQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 15:47:27 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id B33E5A13AD; Wed, 30 Sep 2026 17:47:22 +0200 (CEST)
+Date: Wed, 30 Sep 2026 17:47:22 +0200
+From: Jan Kara <jack@suse.cz>
+To: Tejun Heo <tj@kernel.org>
+Cc: Liz Fong-Jones <lizf@honeycomb.io>, Jan Kara <jack@suse.cz>, 
+	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>, linux-fsdevel@vger.kernel.org, 
+	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ian@honeycomb.io
+Subject: Re: [PATCH v3 0/2] writeback: let foreign flushes reach dying cgwbs
+Message-ID: <7pajqtogz2c4hhedorbcb6ts4yr7pxevzwt2rubxsbwidiqs4t@u7lfwce5b3bf>
+References: <20260928-wb-dying-cgwb-flush-v3-0-e35374884667@honeycomb.io>
+ <ffbfecce332d7f3a59f6533b6daa7f0c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10848:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa17baf4-a925-41c7-dc21-08df1f09e96e
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|376014|7416014|22082099003|18002099003|921020|3023799007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	WuCPeGkcPrBOxbqRbm31TZ2KSfiOiRfStn5jSsYAJU9d9r0i4a+JZEz+8rgAGOg7j5i719yxPvsC07si7xnsJPQDTInyIKmh32SjtBehp/I5omjBkowkq/mbxa0/NN+3yQAPic9uhrLn0X6vjclebR93Uk85JtgU8u3iiOACVxk7dyKkwo3Wpt3/Rw6D0jKD2x0+wzoVNOtxmmiFLGAXA81pCxj7ZTiWwHkYar1FPJkHyXA46zl94TUSgZavGS6qJUsLufbZZroeuC24Pro1MPoLbjysOXsOziEUem2rxgai3wRregfybjOkxZpKpIbeuKnWgvSM7dxwqn5fono8XZN3EV1tfRHB5MmKhqmHFXh5atbU3SyzmRYxLXdwE+5RBuLJdbFPieKoBmEzrdbdZsP0Tw/Ngrxv5qU5U7ao7YsDx35L5Z68E+yYCCwfCbIeFlV0KS5PLhChdkRJ/rZDZ0JBkxTTor9oSmM/6rMQT2soJzU6/k+Og2di2lIlWFSLQ6HU1EEnPn9gBg8WvDnxLX8a8zkxp93HmDO1Q0V85XbJtXF9UuCOggBONcH8EPQFkk/Nu4JJllUyAWWwzcBbTnW3gRFf2FFeId1MnMYSCD/ntz5x4fNO+aZTw49BaXCEMrDaHMpCdwBtgr1XSGqmTVmLZ0Dtblu6XHDITpXKxlJPqGqn5NjIMYx9zo/MocQRtmN9wOUtKDYiPNg6EJqCpw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(376014)(7416014)(22082099003)(18002099003)(921020)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QlZ5ODFBZFBMRVVVMHM1czR3alFlVlVoTEUvRGxIWVVMTGxrbWVxZFAzc1ZD?=
- =?utf-8?B?R1VMV0NGcFdvemNaOUJSR0VaS1IreXBNWURnWHp2T0tUZ2JrVHJaSVdkOExm?=
- =?utf-8?B?R0dKL3hNclFSdGdPUExiVUZxbExYTy85cnUxSmZKRHZVdXpIdGJqdWNJS1hx?=
- =?utf-8?B?M3J5TVYwUzJmckYzWXV2RTdSVk9USTZ4M3JBRk9qUmhsWVdrRmZld3pmMzIy?=
- =?utf-8?B?T1V3Y3lVMFZBanVreWV2RWtkWkNCWEZtZ3dCZXpsZEw2UlZwTzZSemY5KzlJ?=
- =?utf-8?B?eVhzM2VxVklXWFcxQ0htUndTTE5YRXdoQi9rM1gwdm1wRnc4YWwyTVdyQ0Jk?=
- =?utf-8?B?WlRoa1plZ000TVFqeUg0TWl4NUtpV01ob2hCd3VoMGhHZFBneVBIZWhDLzdl?=
- =?utf-8?B?YzYyTFE1QWMrZ3A0K1ExdHoyZXV1S3VrWUdMT1g4b25naE9vTG5jMStUdVFU?=
- =?utf-8?B?T0xyR2Y5amZkWU1rU2M5a0NDRFZ5WE9Bb2ZudkhSNDRTTWhSdFg3MG41T2gr?=
- =?utf-8?B?OXNpbHJidDhBVHY5ZW81VXlvaWlBOEhpQTJ3MVZ0cjY2S1lCdUwyTVIvK2pL?=
- =?utf-8?B?bnh1WGg4RlF5bnFwS1JCWTEyUXVIbFR3ek4xV1p3aUxRY2NJU0xLYm9iOXlw?=
- =?utf-8?B?SWVaYzMzUTdTbnhianp1VFRRK0dra1pmZ0FCWHJGbS9aK0t3MlJtMzdRR0FO?=
- =?utf-8?B?R0dKdkxsQWw4aTBBMHc1dEVVSXpFTnAzdnlNV1F3MExEZ0JWeFhuKzNKL1U0?=
- =?utf-8?B?MG1PaXIzL0c0SVV1RGlEenBLUjd3dW1nRDkyNWl0eUxhUWhiWWVIU2xlZWxG?=
- =?utf-8?B?UWo1VXFVOFE3Q2diUUJrOStZZUxkME5zeEd3cmdsRXlJdExWRDZCNk5rWEJz?=
- =?utf-8?B?cFJ1LzIrNDR6dXloek1RMngvSnBhR2wrYnBQZUx2bktGRFZZNVpKR204MzVL?=
- =?utf-8?B?cld4TUNkeUJVZmJVZG1YOG5rU3htNjdReGdzTWc1UWkzMzNkNWpTQ25ZeFpM?=
- =?utf-8?B?UXVpL09HTG0zK2RIQjhNNkgvUEN0WVY0VHJRZnRiV2xXOU41eE9mY3Z3U3BW?=
- =?utf-8?B?Z0JqZG1lZ0R3amk2WFZoTnN4d0lRWnNGNHBndXAyVWthc3JIT3RvSHZQU0s1?=
- =?utf-8?B?VENSbWhOTGgzUUtjcXpkM2xmbCs4RkVUMHVqb3BwakNEMWFJT29hb3cvWS9I?=
- =?utf-8?B?SUhXL1drZjIrREtzRW10b0NRZHFWc2h2WWp2dWl0MDdwSWNBbURnSWR0Sjk4?=
- =?utf-8?B?MTFVcWJ2alpXcW93Rk1OUGp1eEdPQmttTjhhRFQwU1htdldObXBra25WWDJ0?=
- =?utf-8?B?cklKSkJXbitkcVR3VlJJakNzaTZpUXRpeTgyWitUTjgzVS9OR3EwbjBycWdR?=
- =?utf-8?B?aU5lZW0rSyswYXg4d0x1bFk3UnNxOEY3cEFCR3BsT3dMMmMrSnJGSU1QZkNk?=
- =?utf-8?B?WE1YdVNnV09EZkVJU0pHRGhlbVVyZ1ZNOW1UODdwdVN3TjZlWFcvWnErSS84?=
- =?utf-8?B?U3lYNm9Idy9vRjc0cWVGWmVEaU95ZG13WmRnSzAxbUZPN3pNWnJ6VFllYjM1?=
- =?utf-8?B?b2NKUy9VdlRmVldPTkg3eThuallaMHlPTENKTTVMNlVGSm5COFdkTzJvNXhH?=
- =?utf-8?B?aTBONmwxaW9qSW5oamNzNFZOeWM1VVBVb1Z0UVFENjhZVTlVSmlwTk5KdXNX?=
- =?utf-8?B?WnRXZDhyNWg3MkJ6MkM4Q3lvN1E2L1BSa09pdmhqcmZ1cmQ2T3FmRHBPUEFR?=
- =?utf-8?B?T2ZUdEhiUVR2SEVaSmRVc2RacVlKdkpFNXRTYzl6aVJDaEIzRFBUREZCL1dR?=
- =?utf-8?B?KzZEYlZlbUMxNXdCa2dnWU9oZGpub1hINnBGR1Q1YzRPMVgvVVlsdlVybDJH?=
- =?utf-8?B?c2k3LzlqTEtLajkzUFpEYzc1T2h1OXN0L1liYzN3YVZKN3g0ZkxhOWwzQUNK?=
- =?utf-8?B?di9sZG9uQ3dwTFdRMC82OGQ0VmNXN1dxaDNiczl2elVuR3h2c1lkc2FtTUJp?=
- =?utf-8?B?WmpBU1g2QVcrTGJDd3BUdDRCT08zcXRuYzdwaEJxZkFrWGNac0JsZG4xTXd3?=
- =?utf-8?B?aitGWjM5c3Z4Wk0zdmF6MVoya2M3R2FRZDRKbm45R2FVR1Q4ZSsxU1RKaTV2?=
- =?utf-8?B?VFcyK3dBNklsdEc1OTk2M3RGcklQUms4R1BoSm55MmJCZHkzVXR4N3JlaTJQ?=
- =?utf-8?B?N3RnaEsyeHFHVFEyMzJHQ21nNVVSaEdrVFFpcHAxY3V2QTN6emVpaDJ3djNR?=
- =?utf-8?B?KzJVZ2J3bkRvU25ORnozeWF0dkZHWi92bHorVVBZNndEMDZURDJEMlE4SjVn?=
- =?utf-8?B?T2t4TkR1cGVRdExYdThaODM1bWh5OHlvdWVjTFN0dkZzTnhCRmEwa2NLMmdI?=
- =?utf-8?Q?VaHehtBh16j/bI1aGonXnuageNJ3KKWhPMi+Y?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa17baf4-a925-41c7-dc21-08df1f09e96e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:45:54.4396
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U4ids3Z3nrGP/sZ5xTyy1nvEr0ZZIAijBqNIo7HZXFsJj5OffbbboDlJ4vd1R0gzvurJzA377aq7i8z90E77kNicl1zJBQ/u8vEBLkD11eDRwG81JYtwZn7aZvO/VpAC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10848
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ffbfecce332d7f3a59f6533b6daa7f0c@kernel.org>
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 95ADD21D7D
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
+X-Spam-Level: 
 
-From: Frank Li <Frank.Li@nxp.com>
+Hello!
 
-
-On Thu, 17 Sep 2026 16:00:35 +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Tue 29-09-26 09:32:01, Tejun Heo wrote:
+> On Tue, Sep 29, 2026 at 01:40:49AM +0000, Liz Fong-Jones wrote:
+> > 1.5s and 19.5s with it), because writing back the old wb's backlog took
+> > up to 27s and the sibling's foreign flushes reached the new wb in the
+> > meantime. Should foreign flushes also reach a replaced wb until it is
+> > clean, or is that not worth it for this case?
 > 
-> The width of the physical LCDIF output bus can differ from the input bus
-> format advertised by the downstream panel or bridge.
+> I don't think the old wb needs to stay reachable if the new wb takes
+> over its inodes. Instead of kicking writeback, can the takeover queue a
+> work item which switches all of the old wb's inodes to the new wb, like
+> cleanup_offline_cgwb() does for b_attached and b_dirty_time? The switch
+> carries the dirty and writeback page counts, so foreign flushes reach
+> the inodes through the new wb and nothing needs to be flushed right
+> away.
 > 
-> Such a distinction is required when the LCDIF bus width does not match the
-> width of the downstream display interface. For example, an 18-bit or
-> 16-bit LCDIF bus can drive a 24-bit display by wiring the available color
-> bits to the appropriate display inputs. Configuring LCDIF solely from the
-> display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
-> mode, changing the color-bit assignment on the LCD_DATA pins and resulting
-> in incorrect colors.
-> 
-> [...]
+> That would also mean switching inodes on b_dirty, b_io and b_more_io
+> while the flusher may be working on the old wb, which I'm not sure is
+> safe. Jan, would that be okay?
 
-Applied, thanks!
+The catch with these things is always to make sure that things like sync(2)
+or sync_fs(2) don't miss inodes that are being switched because workers on
+different wbs work independently. But these days we have wb_switch_rwsem
+so switching of cgwb should be safe against racing sync_inodes_sb(). 
 
-[3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus width
-      commit: b1818c5bc05407c6c0ce39898e76f609b4c94199
-[4/4] ARM: dts: imx7-colibri: Set LCDIF bus width
-      commit: bc7c81213293966faaef1e41a624a9092ae89429
+Another possible concern is that writeback workers assume they are the sole
+party responsible for changing to which wb list inode is added, at least as
+long as I_SYNC_QUEUED flag is set. But again AFAICS
+process_inode_switch_wbs() takes care of all the locking properly and even
+currently, switches could happen while writeback is in progress when the
+inode's owner wb changes. So this should be fine.
 
-Best regards,
+Finally, I'd be concerned about the performance of inode_do_switch_wbs()
+when we are switching many inodes with potentially many dirty folios. It's
+going to be a lot of stat item updates... With this I'm not sure how much
+it will matter in practice but since we'll burn those CPU cycles when doing
+writeback as well, probably it won't be too bad.
+
+								Honza
 -- 
-Frank Li <Frank.Li@nxp.com>
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
