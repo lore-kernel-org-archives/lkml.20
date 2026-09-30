@@ -1,123 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76B14D7D4C
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D694B8287;
+	Wed, 30 Sep 2026 13:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775955; cv=none; b=Lk5wJX2G41BH63dufpFcDCsZURL6EqVkLXonfnPAWd3/bSUh50RMiU0H8epOf19nxGi7EdoC8XzaLX1SfKdu3Cpg0qzlRmamK8tJE1T0hWVQCWpwrJJWvFREyoIkSYBPkgrliCSb8hkpjnxhkYlH+5DYdL/Ju89i06BMcKFFo9U=
+	t=1790775974; cv=none; b=bz0QScbwkRK+3CnGNQeX9ssFQjszDJNmCkaUE1h5X1lhCwxmAlT1WIzz3IoW+oTanyKkTrnQF7xwqvkjyqKaUr3acFP2T/3W5Lbt/2dIDROWf1oNiKta1xurOx2j78Gmw5WTpSBQ1Z/DLwZ7lIU3GgvOpoLRX43hzuF68yZbrIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775955; c=relaxed/simple;
-	bh=hcWjM85x8CPd7ME0/JQ+76R/DqIP+XLtBSXnzE/2Ocg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=M+tnHsEdow6uyt/NfvEvz15koyd2tXRFVg4PM9BYwKoCbYqydaYzNORMphO1ZZkYwljyR5PjlcFBCVZjKi7GcRkFaUAfA9G+tTkQl+wmhse15XGXB927H0S3ExCdeKHGNfGGXaiNZU5V7z2t/hg5/+uxmKmkOBzwQ6iMc9IVFl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dp/TBzHn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790775974; c=relaxed/simple;
+	bh=+SA6ddJyH8MJ8wcd+8JjbY0ONor9rBjsMIiYkscBaLQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WS1uRFUkO5PxiD5TrBf47IsXtqJ8TVKtpuDyxWTjq2sUl8BI9l3Lm5HwC7v6KM5XNm8B0Qbml9BQZP9xboF+IcdP5lWZ10H9EtarhJoOErkdMLbWWQ2Q2qziYL+7sj3ttSU8kY8ibjKP8hsRYyhi9E4RXVnFHbmZGiwQdkTkslo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NP1PutO1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xvje+KtG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=d/7wqu5A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=VHml9fZX; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dp/TBzHn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390F91F00893;
-	Wed, 30 Sep 2026 13:45:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790775944;
-	bh=a53uR9AnILgC/n4mpY9Whmn3IblyUXb8/5JxQvKO4t0=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=dp/TBzHn3FNMu0E+91vLuvusux4IpUd5M+b10+x9Qm9O5R9w9dZ9vNtjy8oPntKHi
-	 JltEY2j2zGZ3YfbC2hDCFdA7ArorQwKx7BQc/r0F18evITRPG0+lnrrZjJcarBL4zk
-	 MRjLkSSV+pODttQAt6SX2Mbb489UDGN1JMM63wtlPmXOZW33Prc6uYn0fHF0cdUbuf
-	 5RUoKvLbqPd7t07ynJPwibMJI9A0j75USe2i7aQ+e3tchnY+S0Kvd84lB7nackUK4X
-	 B7oX2N9QSQ61fzPq/juP6+MuSiqOxcBn6guTddjUTtvEjdv2TBtzd0E5zoH7A9bCMO
-	 ZlwruWtUz+VMg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 61B7AF40068;
-	Wed, 30 Sep 2026 09:45:43 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Wed, 30 Sep 2026 09:45:43 -0400
-X-ME-Sender: <xms:hxK9aoh5PhwyqRhDB812w0r9VRFMBeNd_349LAbf490EvqpgzkBUmw>
-    <xme:hxK9ar3CuPx_zIu5ENYbEVLLEKwljG2mLDYRH_9FU5fUU5MlLj39_WzI248yrbu9-
-    55hFtUhJA8zatkXBwPoyefGm2gl65_4Gd8Mf7Svq17Lw96ZCIjqoaTd>
-X-ME-Proxy-Cause: dmFkZTE8usJ4un66rRQn0aBQATQkD0km4he4e7n0YUe+34BC8X4IO8333xHOiLZwdn7+nw
-    7wrXYVwTgMiIfR5JPjtw2z7EwZKV8Vb93TCaRGzBOgC6wnfk+zfF2A6oHJIrsMqS6nT6wT
-    MZW2/MWK/tidN7qGXWGlHLyht3t/N7UQ3Y0VF3hqwIjgEeDqgWh7BgU3eKDl8SQUN4Igib
-    8UXnrKLXW8IpZyqMpGpjStKaHbxmFpnsV/wme/CZ+cHXumLl/4o2guN6z+Taq7qGTLVWuM
-    SRjAUphFpjq1BWs6SEA+dVygW4L1GPfyf1IRRumW8m4wtHJMgcLEhfAu6gEUspZELlYQs8
-    tk9hE0i6ABqEzeks0nAO7cghJVsJCpvVKUQTxNR3fHMsBMLAz8KHaikdNmjEirJBcVUQyC
-    RiUa2sCLh3bM10XI565HKkUVWpG+RmxN/5azO1JlSEPKQVHCWnV9aCRIYHNF0FzMXc5q6h
-    uLw+z8j8681YJNYACoSKI48rZSUXL9GKfYlm29Wn7TUV3AViOOmIXMXTiMbZRzOmDqhYqF
-    mmSw2WnGNmKKg2Rqdm9FxwxjQCe4XDOso5SpJ4usqAe3LbObjzu0+zmCKyDecHVfH3x08T
-    uuWN13FBYkjcPdubl8Ic6ck045ItZeluCBGwC19gxATQtvzv/d8bZR3wbg3A
-X-ME-Proxy: <xmx:hxK9amGnYD1OBN2B2l0j99RX7qpWnDFLwWdwfP6-ZmEJrHOXZ9wJrg>
-    <xmx:hxK9ajM92VpUVoHnJhhuxb3PPEmVfRSA5hxtn7WZAQM4hkdh1AF3Pg>
-    <xmx:hxK9atL7SVB9D7h7zoqNEwQ5plb6vDNA57oPTopJziO36euBYbk7zw>
-    <xmx:hxK9ak9PiKZ3INyvag6IHHJKhQNxvkL5waQcgxUw40AqM80SO3e6JQ>
-    <xmx:hxK9ahH4b8ZJmCCM-dTL5q_alQxuOyjMdy5kdanmYZmYzwQuN7p3aD_G>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 3C264780070; Wed, 30 Sep 2026 09:45:43 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NP1PutO1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xvje+KtG";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="d/7wqu5A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VHml9fZX"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0E1581F816;
+	Wed, 30 Sep 2026 13:45:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790775959; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ndgGPmhdy9D5k4C4xPBki2Pt7tdr8qIjehOZfPsDVAg=;
+	b=NP1PutO1AlbEDDBzRPrwv5USQmNkeJ03MsYNCLpJJuTw4ZIb3aL0lkDlOtISNxeRa7e9VM
+	ZfWrlFvs1SZZmdKlKrXgS+l7tOcvVXG4u4W3DpGEvjrM4QwM3TZLzvXuVTdCX4U+D+p2QP
+	DLn6/vT5KIEcFfo+AmU2r66D/4NaEoU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790775959;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ndgGPmhdy9D5k4C4xPBki2Pt7tdr8qIjehOZfPsDVAg=;
+	b=xvje+KtGXq4gPJwyKT7c8Nbr5P5hXlzNxNRETTxmTRCpt4f08Qfbo/9cS1doWwok3oJSsI
+	DaqlnMuic+x7SNAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790775955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ndgGPmhdy9D5k4C4xPBki2Pt7tdr8qIjehOZfPsDVAg=;
+	b=d/7wqu5AvXtvRSviKdqzDvaWAGv7RHtWNkzEWO4cjndsybGfEeb2bDx6HYo8NxFy28sGuW
+	M+dGlu6XHCWdfGkWcpI6APYPDJ3NtB2XdF/OSTGrkqGai4/CJD45lCCWk75LMEpeK30f1i
+	/dhegvKvQVRTBJC+zzNpThGnK61cUlg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790775955;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ndgGPmhdy9D5k4C4xPBki2Pt7tdr8qIjehOZfPsDVAg=;
+	b=VHml9fZXMct3yrZDMEEp68GtTYMgmgENEIFtLdFHIbNGs54ftwSC+OKY59PYJ1VIpzf/g8
+	cygcjThi1A4OtTDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B294513722;
+	Wed, 30 Sep 2026 13:45:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ZwBVIpISvWpiSAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 30 Sep 2026 13:45:54 +0000
+Date: Wed, 30 Sep 2026 15:45:54 +0200
+Message-ID: <87jyo24zu5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: dchristensen8 <dchristensen8@proton.me>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RGB LED strip support
+In-Reply-To: <0UViNKefxgxrLggTEzDgzIe9-kh2EqU2Pnip6zuyJl1sthZtgJ-OIai3KBgkltft587c-ryvum1IqQZt-awOQTdrohMWKh79F3X8u6JOjuo=@proton.me>
+References: <eFYfxKMV2ei__fURd-elssegCIVmOuRDne6lj9PMaM2bEgnYkz7Tzf6JLrgEaPZtvrUC_wHnmnwaUZAOdg0uh24nt73FQqi6T65qvJebHJA=@proton.me>
+	<87fqys19vt.wl-tiwai@suse.de>
+	<0UViNKefxgxrLggTEzDgzIe9-kh2EqU2Pnip6zuyJl1sthZtgJ-OIai3KBgkltft587c-ryvum1IqQZt-awOQTdrohMWKh79F3X8u6JOjuo=@proton.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: ARQcub8KHhRJ
-Date: Wed, 30 Sep 2026 06:45:23 -0700
-From: "Chuck Lever" <cel@kernel.org>
-To: "Sabrina Dubroca" <sd@queasysnail.net>,
- "Qingfang Deng" <qingfang.deng@linux.dev>
-Cc: "John Fastabend" <john.fastabend@gmail.com>,
- "Jakub Kicinski" <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Paolo Abeni" <pabeni@redhat.com>,
- "Simon Horman" <horms@kernel.org>, "Dave Watson" <davejwatson@fb.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <415fb6f4-7ecd-4d04-a3c2-56c186a5628b@app.fastmail.com>
-In-Reply-To: <arzawlad0OQ9pnBQ@krikkit>
-References: <20260930052636.166007-1-qingfang.deng@linux.dev>
- <arzStIrdizPp_vbI@krikkit> <465aa0d9-b1b2-4c85-9cbf-e6ed296b7b12@linux.dev>
- <arzawlad0OQ9pnBQ@krikkit>
-Subject: Re: [PATCH net] tls: skip empty data records in tls_sw_splice_read()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.25 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.15)[-0.747];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Score: -3.25
+X-Spam-Level: 
+X-Spam-Flag: NO
+
+On Tue, 29 Sep 2026 16:22:07 +0200,
+dchristensen8 wrote:
+> 
+> Thanks for the quick review!
+>   
+>     I went with sysfs mainly because of the streaming nature of WS2812 strips (using an atomic DMA frame):         
+>   
+>     -The LED subsystem has no strip or pixel-buffer concept, individual led_classdevs would hit sysfs with thousands of writes/sec at 30-60 FPS (and leds-class.rst advises against it for addressable arrays anyway).
+>     -An ALSA kcontrol could hold raw bytes, but pushing frames at 60 Hz spams control change events to PipeWire/PulseAudio.
+>   
+>     I initially went with text attributes  (ae5_strip_leds/ae5_strip_num_leds) so basic shell scripts could just echo colors into it, but I know comma-separated lists bend the "one value per file" rule. Would you prefer a bin_attribute for raw RGB bytes instead? or keeping both?              
+>   
+>     All your code points make total sense too. I have no objections.
+>   
+> Let me know your thoughts on the sysfs format.
+
+On the second though, why not simply to use an ALSA control element
+with bytes data?  It can hold up to 512 bytes, so 100 of 24bit RGB
+strips can fit.
+You can declare the element as volatile (and with IFACE_CARD), so that
+pipewire or alsactl won't be bothered by the changes.
 
 
+thanks,
 
-On Wed, Sep 30, 2026, at 2:47 AM, Sabrina Dubroca wrote:
-> 2026-09-30, 17:24:18 +0800, Qingfang Deng wrote:
->> On 2026/9/30 17:13, Sabrina Dubroca wrote:
->> > 2026-09-30, 13:26:36 +0800, Qingfang Deng wrote:
->> > > tls_sw_splice_read() returns 0 after receiving an empty application
->> > > record. This looks like EOF for splice(), even though the connection
->> > > remains open and more data may be available.
->> > > 
->> > > Consume empty application records and retry the receive path instead,
->> > > following the approach used in tls_sw_read_sock() since commit
->> > > 3be28e2c9cd0 ("net/tls: Consume empty data records in tls_sw_read_sock()").
->> > This is similar to what Chuck proposed in July:
->> > https://lore.kernel.org/all/20260726-tls-follow-on-v1-2-99bf4cc1c729@kernel.org
->> > 
->> > but Chuck's patch had some extra bits (handling of the "released" flag
->> > and of signal_pending).
->> > 
->> > His series also had a selftest which should be included too
->> > https://lore.kernel.org/all/20260726-tls-follow-on-v1-6-99bf4cc1c729@kernel.org/
->> 
->> Thanks for the information. I prefer his series.
->
-> Let's see if he has the time/interest to continue work on this (since
-> he didn't send a v2, I'm guessing not).
->
-> Chuck, do you want to pick up that TLS fixes series again, or would
-> you rather let Qingfang finish off the "splice vs empty record"
-> patch+selftest based on what you had sent?
-
-History: I stopped working on that since Jakub seemed to think the
-fixes were not worth the trouble, and my objective is to get kTLS
-and its kernel consumers in shape to support KeyUpdate.
-
-If you think cleaning up and reposting an old series would be
-received well, I can take it up again. (And forgive me, but can
-you send along a lore URL so I'm sure I'm working on the correct
-one?)
-
-
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Takashi
