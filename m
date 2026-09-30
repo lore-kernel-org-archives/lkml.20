@@ -1,106 +1,112 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE233A3816;
-	Wed, 30 Sep 2026 07:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCDF38C2A0;
+	Wed, 30 Sep 2026 07:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754034; cv=none; b=FHVa+OvYV4y0MiueQ+BJWRaqEgbea95A8pFrKsdXscgH3n71g1I1M2i89eYm9xY/Yi9s14vaZqiZc5CEq9TJmeKndPrbTfo/ya59FPI23UNGTepLcwBujCo2pvpEDvD60MyaOBAQ6zssFiV6+dy8ujHhtUQdHA0Vq2Z8VJoKSX8=
+	t=1790754055; cv=none; b=O0/FKGUiDzvA+YgbQTtTY3e4vIaF6vTZxFy+11arwbB8CfHmv/3zbwrrUlMLbjmE3Qb+0aXCvEAbUEOtnXYpSSWQIhQZNcL6YQQCE8TGwDH1KGWaLg+b0fsHDg+h69p/4qLptnt1v0wwwYakDvyE3V3S0bte6Nxft03iONdibmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754034; c=relaxed/simple;
-	bh=oyOiJYkJ/EWDLviWCX2is2ruTUp3N3AD7lWOUAhaWxs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eGSB4SPAJrFDmz7Ghcb5WlGTfoURbmQHqu0YQPs4EqrqjmaoTXh17uf3j/EXocENHn1Pf5Ug8Y1XUIV1iAU9BhTehmtCpZDEH0LKMPisq2DztXFmvWl+PdtUqQYD/9p3KDLO7iEI9SlleIhowIfFePJqbemmBVu7gnMovf7w1fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=iMdulFhA; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790754055; c=relaxed/simple;
+	bh=B4AtKkIc05Ww+ASuXgI/2gLWEVeT0HzPUFs3gF2J52w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VlV/3Xs+4xIofb+SPSGFOlUFqwixPorzOdsfpuw5jgClTW3KuYhEY4rhpIHq3+jYo67sUfXj7XrztIkn8zUMsNQpF3v97N7rQdCJV1EpOhYXzQvlR2bilQjUnz2q/EvL6VmiLVJyJvgJ3cJqs/bODfIQI/qCTG3tIQYnygHFZSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGapFXny; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="iMdulFhA"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9ce8847;
-	Wed, 30 Sep 2026 15:40:28 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Sukhdeep Singh <sukhdeeps@marvell.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] net: atlantic: only free the PTP IRQ after a successful request
-Date: Wed, 30 Sep 2026 15:40:23 +0800
-Message-Id: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGapFXny"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145B01F000FF;
+	Wed, 30 Sep 2026 07:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754053;
+	bh=B4AtKkIc05Ww+ASuXgI/2gLWEVeT0HzPUFs3gF2J52w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nGapFXnyPQIyt/CzNo5tzdLuwmntlIQP6zAF1SQvsTDVkEHvHJnsGMlcUsn9wj4rm
+	 PeII+TSoBabiw9OfgFMWD/+matVrhOThQJgQRSOKI2zU/m3hS5WsAMjiQfs66IdiHQ
+	 /3+fqIMLVmcrAMNv9GTNDZdOVxBmK8rTJVcL6zA/zYryKHhPhlNQmdcRLTeXmLPJEB
+	 5NwKZKbQGZbkBdW+Xo1Adv4qUIQrVVKB5EVPi0UAE5+MSKk9CgRKJKT9GDkes0gADr
+	 QIfcr2a+C/X99VjersGXWsJ2JDz23x6Es7IM4pWVsfMFaNAvD6bo6VG7XEI7scudpG
+	 Cc61SZzXHxYZg==
+Date: Wed, 30 Sep 2026 09:40:51 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
+Message-ID: <ary71zC1e-bySLFW@orome>
+References: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0f141fa7203a1kunm04033f5326fc01
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSENMVkIdGRhCGR5LQ0oaSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=iMdulFhAPcFv61U4S39ZIKHC5ARAgnEswSnxxbN79anvfTgznj+yaZeVSdeXjIrNubOZtfKiKhWbtQNFfE9qTLqTbE0zlUtQtitKc4/YjKjpIRe18PYhnKBMgTOhKcKIVhG7zZb0bYzxfuMYl/70ZXq9W6228iiijR6QCtdo0DQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=R5W59/fVYd+hNmXhpZXRzCWCoXxUcslCvKKG1I34EC8=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hjctq36rj64msexj"
+Content-Disposition: inline
+In-Reply-To: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
 
-aq_nic_start() requests the PTP IRQ before it finishes the rest of the NIC
-startup sequence. A later startup failure reaches aq_nic_stop(), which
-calls aq_ptp_irq_free() even when aq_ptp_irq_alloc() skipped request_irq()
-or when request_irq() failed.
 
-Track whether the PTP IRQ request succeeded. Only call free_irq() after a
-matching request_irq().
+--hjctq36rj64msexj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
+MIME-Version: 1.0
 
-Fixes: 04a1839950d9 ("net: aquantia: implement data PTP datapath")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/ethernet/aquantia/atlantic/aq_ptp.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+On Wed, Sep 30, 2026 at 01:54:55PM +0900, Mikko Perttunen wrote:
+> The DSI driver ignores the reset line if a power domain is configured.
+> This was originally added to support Tegra210, where the power domain
+> provider has to control the reset line -- at that time, older SoCs
+> didn't have a power domain for DSI. Now, however, they do with the core
+> power domain.
+>=20
+> This happens to work on most systems due to DSI already being out of
+> reset when booting the kernel, but on Tegra114 Dalmore, this is not the
+> case and causes the system to hang during boot.
+>=20
+> Ownership of the reset line is no longer a problem with reset
+> acquire/release semantics, so control the DSI reset unconditionally
+> from the DSI driver (possibly in addition to the power domain driver).
+> The device tree bindings already require the reset and it is present
+> on all platforms, so this is safe to do.
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c b/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
-index 558ac9237..a5b69f1c7 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
-@@ -84,6 +84,7 @@ struct aq_ptp_s {
- 	struct ptp_tx_timeout ptp_tx_timeout;
- 
- 	unsigned int idx_ptp_vector;
-+	bool irq_allocated;
- 	struct napi_struct napi;
- 
- 	struct aq_ring_s ptp_tx;
-@@ -1033,6 +1034,8 @@ int aq_ptp_irq_alloc(struct aq_nic_s *aq_nic)
- 	if (pdev->msix_enabled || pdev->msi_enabled) {
- 		err = request_irq(pci_irq_vector(pdev, aq_ptp->idx_ptp_vector),
- 				  aq_ptp_isr, 0, aq_nic->ndev->name, aq_ptp);
-+		if (!err)
-+			aq_ptp->irq_allocated = true;
- 	} else {
- 		err = -EINVAL;
- 		goto err_exit;
-@@ -1050,7 +1053,11 @@ void aq_ptp_irq_free(struct aq_nic_s *aq_nic)
- 	if (!aq_ptp)
- 		return;
- 
-+	if (!aq_ptp->irq_allocated)
-+		return;
-+
- 	free_irq(pci_irq_vector(pdev, aq_ptp->idx_ptp_vector), aq_ptp);
-+	aq_ptp->irq_allocated = false;
- }
- 
- int aq_ptp_ring_init(struct aq_nic_s *aq_nic)
--- 
-2.34.1
+That seems backwards to me. The whole point of doing this via power
+domains was because it's explicitly not safe to toggle that reset line
+outside of the powergate switching sequence.
+
+Also, the power domain code paths are supposed to work regardless of
+whether the DSI was already out of reset or not. If that's not working
+right now, I think that would qualify as a bug in the power domain code
+rather than the DSI driver.
+
+Shouldn't this be fixed at the powergate level? My recollection is that
+DSI is tightly coupled to the display powergates, though it's been a
+long time. Do we maybe need to reflect that in DT? There's a TODO in
+tegra114.dtsi that seems to indicate that we're missing DIS and DISB
+powergate implementations, so maybe that's where we should start to try
+and resolve this.
+
+Thierry
+
+--hjctq36rj64msexj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8vQMACgkQ3SOs138+
+s6Hytw//RAQCgUFcgePzgSQiJkY2Q4//OYubpMTfdBZi6y4iNI2KUXVXbjgVxux2
+0H2Vrvs/+WhIZQovHTR+HxyfUk/hTuSzTYhvK/wSOa7PWVMkhqCK7rIlpQvJGncx
+U9NEH6nwx5waayDjGXIkEkqsyYkjeRl+OYcod65TzWTC1x7J8U8ZBT6scH9HOS1W
+0Fc3OiaHT9RjHiKRgLjRd0Vx+lJWm0fiPDF4K/wFOf9H+hjaj3PnatzAKZ9oQBC7
+luQwY+2MeIEhTHkgBUkcg+sv1ooRPMb1mdLUIhYvSDcLA7woOf9Wru+1S9S710Ke
+MAPERehibPQCHmSM2oah2TZ8Av+N9hfKqRIhO/XTwqydPoHpERZ8V+ioMQ8POxiN
+Lb4Mcq5wd+MGGwaKKuYoLsghSk+IAAx0L8Sc36kvvRsw06DOrOqX8X4culvByRff
+yBJd5Os8imMQs/rRjwGsGJnuj0Hd2McV8q2KE3SZ2nN4mZMChGYkvutuYqr6AcXu
+ORKzWQXvvsO7VnQ4ZlY5PgfCuzoVpp1yBHZrlCNnHlaIUAg2FzZ+zC7aSMwG+HUP
+tCjOlYkFQLmO+B9QYmFMrn3cg7/sOmEHMjDNJvHV8xYs1RGrA4dFro3lnRCGDjec
+e0TQP4YIahagZIHfF4oyiUFH/H/JEykDk8onjTEWc51CwS4BRw8=
+=9FPw
+-----END PGP SIGNATURE-----
+
+--hjctq36rj64msexj--
