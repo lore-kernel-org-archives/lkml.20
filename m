@@ -1,139 +1,104 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF133AC0C1;
-	Wed, 30 Sep 2026 07:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A383B8958;
+	Wed, 30 Sep 2026 07:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753563; cv=none; b=KLpW475RBr9IgWw39ANZ/GFvwgujMzQhTfJNTlJjq/rlHOZYkBNT3zJn4GjQUSL3WLaGp7wdGEllBYXAEwHyuDXfiMjDcYo6rWvq1qs+5D6fCXz7zQt3DXSsR/BDaD65gppqBrj4GrFeQB6x7GEeVMDMB9zND4SeEcJg2PdS4eI=
+	t=1790753569; cv=none; b=YNKFX5GKv/HXWCjG0/kkY+wV4xMoRo8e6HTMdFAFppdM6E6y0qEEduLzlSeIEEeJ4mUA+nO48Fq0b1s3fngeIVOyjVnQvWKrPjlcdZjFhzWKwE72ocot2FAaH0NEs1dLO2I6l/8Vnz6fpVD3srt7LPTLL/+DMNNH1P1cMtuV6eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753563; c=relaxed/simple;
-	bh=XgZM57SLWF6tNhqiua/wmbRdox2xmPSiYXlMd7aq/Cs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RBs+J2CAQJKy5nWScmrerdNiPvObhiSxjseozzcsWBNDItEIoh/2VA3sfVJLLM1HSvvZvXuF+jBaw7L+6h4/ENq3FiHP0tw8D3ey7WOooo6DxSCV0JGkM+y4Ez8vxskPG3Uw8Vw0L/CZGeEzo+WJpr2Vse6Nf9yAW7TGgvkT/ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=tp3o3wI/; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790753569; c=relaxed/simple;
+	bh=gOLCtVRmaBN+1rWxqGAsnpdL2Fs9Tw1hwDh3KmQQ/SM=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Hl8UA0XeDiwLeWSwZP//ctgWuz3VEtD0qqnES4N3FKsT4u5H6wzYMvyT5RaGWFY0zI0tTgy9QMPCMryUUIM6oYGKaZ6XK/zBo87uK4YhzCEtuXvWpurQZNWEVMh4H71YydXiAd1winG+u/E1Vkcz2rczn3Rj2Tyev8Fb1CBjwvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=r236zFUl; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="tp3o3wI/"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=iwOmrtb0OIOXZyVquKTR9hTqNjDTiyWg6esvAcvSlvA=;
-	b=tp3o3wI/EHwCgzTqVMWLrYQUL6wr0VLhJzq62th4hx2aiyESgl47osIoI3liEtJ/JG6/HMuKi
-	hABnTFoxnedelcC0z1fY4u9BcZT8pywWV1DPbRus7U1BCN1N7m4NTzRt3jmo56/efodQgspHk9Q
-	6CB5VFGCw9WyEnV4vAdsqf8=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hvmfs68j1zcb46;
-	Wed, 30 Sep 2026 15:20:53 +0800 (CST)
-Received: from whupemp100012.china.huawei.com (unknown [7.152.185.135])
-	by mail.maildlp.com (Postfix) with ESMTPS id BC816203D1;
-	Wed, 30 Sep 2026 15:32:30 +0800 (CST)
-Received: from huawei.com (10.67.174.121) by whupemp100012.china.huawei.com
- (7.152.185.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 15:32:29 +0800
-From: Yao Yiqi <yaoyiqi3@huawei.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	<linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3] misc: fastrpc: Fix double free and races in fastrpc_req_mmap() error path
-Date: Wed, 30 Sep 2026 07:13:40 +0000
-Message-ID: <20260930071340.2969948-1-yaoyiqi3@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="r236zFUl"
+X-UUID: 1f3082d2bca111f1b1788b6acf885367-20260930
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=gOLCtVRmaBN+1rWxqGAsnpdL2Fs9Tw1hwDh3KmQQ/SM=;
+	b=r236zFUlEO4225puLzKYQgyz9zRnO4NoXe/pZ68UK8gj177oyDHvQXlSdQGfAQJLHGLGDvJd2mUdgJccM73FmeJJSbGV/wTp+xhk+kVB3AcehzL6KsDoDH9+jVQKIPooN8F0JGaydkNp+MFVu9vkGErfeubOCk/py6t83fIiJg0=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:f1a4caf9-d1ae-4811-8409-80426c9f9105,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:49267775-a994-4a3a-ab0d-b7638be1f94c,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
+	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
+	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1f3082d2bca111f1b1788b6acf885367-20260930
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw01.mediatek.com
+	(envelope-from <peter.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 217409389; Wed, 30 Sep 2026 15:32:42 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 30 Sep 2026 15:32:41 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Wed, 30 Sep 2026 15:32:41 +0800
+Message-ID: <c7ce0c71efb432696a40a1ee8b4d403822c8cbec.camel@mediatek.com>
+Subject: Re: [PATCH v3 2/2] scsi: ufs: core: Decouple CQ sweep from request
+ iterator in MCQ
+From: Peter Wang <peter.wang@mediatek.com>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+	<martin.petersen@oracle.com>, Bean Huo <beanhuo@micron.com>, "Bart Van
+ Assche" <bvanassche@acm.org>
+CC: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, Manivannan
+ Sadhasivam <mani@kernel.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Date: Wed, 30 Sep 2026 15:32:41 +0800
+In-Reply-To: <20260928035816.1294326-3-stanleyjhu@google.com>
+References: <20260928035816.1294326-1-stanleyjhu@google.com>
+	 <20260928035816.1294326-3-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemp100012.china.huawei.com (7.152.185.135)
+X-MTK: N
 
-fastrpc_req_mmap() links the newly allocated buffer into fl->mmaps before
-copying the response back to userspace. If copy_to_user() fails, the
-err_assign path calls fastrpc_req_munmap_impl() to unmap the buffer from
-the DSP and, on success, to free it.
+On Mon, 2026-09-28 at 11:58 +0800, Stanley Jhu wrote:
+> In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
+> blk_mq_tagset_busy_iter() to iterate over busy requests during error
+> recovery and host reset. However, both iterator callbacks perform
+> whole-queue operations redundantly for each visited request:
+>=20
+> - force_compl =3D=3D true: ufshcd_mcq_force_compl_one() calls
+> =C2=A0 ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping
+> the
+> =C2=A0 entire completion ring (hwq->max_entries slots) once per active
+> =C2=A0 request under spin_lock_irqsave even though the first sweep alread=
+y
+> =C2=A0 cleared all completion entries.
+> - force_compl =3D=3D false: ufshcd_mcq_compl_one() acquires cq_lock and
+> =C2=A0 polls CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every bus=
+y
+> =C2=A0 request without doing any per-request work.
+>=20
+> Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
+> ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
+> blk_mq_tagset_busy_iter() afterward to complete residual in-flight
+> requests with DID_REQUEUE, and remove the now-unused
+> ufshcd_mcq_compl_one() callback.
+>=20
+> Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ
+> mode")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 
-Since commit 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior
-to unmap operation"), fastrpc_req_munmap_impl() no longer removes the
-buffer from fl->mmaps, as that is now the responsibility of the caller.
-fastrpc_req_mmap() was not updated accordingly, so the buffer is freed
-while still linked in the list. The fl->mmaps cleanup in
-fastrpc_user_free() then calls list_del() and fastrpc_buf_free() on the
-already freed buffer, resulting in a use-after-free and a double free.
-
-Publishing the buffer before copy_to_user() returns is also racy:
-another thread of the same process can read the DSP address from the
-partially written user buffer (or via userfaultfd) and issue
-FASTRPC_IOCTL_MUNMAP, which unlinks and frees the buffer while
-fastrpc_req_mmap() is still using it.
-
-Fix this by adding the buffer to fl->mmaps only after copy_to_user() has
-succeeded, so the buffer is not visible to a concurrent unmap while the
-response is still being copied. If unmapping the buffer fails on the
-error path, fastrpc_buf_free() is not called, so re-add the buffer to
-fl->mmaps to keep it tracked and let fastrpc_user_free() reclaim it on
-release instead of leaking the DMA allocation.
-
-Fixes: 6102ceb4eab8 ("misc: fastrpc: Remove buffer from list prior to unmap operation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
-Changes in v3:
- - Re-add the buffer to fl->mmaps if unmapping it on the error path
-   fails, since fastrpc_buf_free() is not called in that case and the
-   DMA allocation would otherwise be leaked.
-
-Changes in v2:
- - Link the buffer into fl->mmaps only after copy_to_user() succeeds.
-   Besides fixing the double free, this also closes the concurrent
-   FASTRPC_IOCTL_MUNMAP race, where a partially written user buffer let
-   another thread unmap and free the buffer while fastrpc_req_mmap() was
-   still using it.
-
- drivers/misc/fastrpc.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d4fac2caca86..917a5dfe3774 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2153,22 +2153,26 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
- 		}
- 	}
- 
--	spin_lock(&fl->lock);
--	list_add_tail(&buf->node, &fl->mmaps);
--	spin_unlock(&fl->lock);
--
- 	if (copy_to_user((void __user *)argp, &req, sizeof(req))) {
- 		err = -EFAULT;
- 		goto err_assign;
- 	}
- 
-+	spin_lock(&fl->lock);
-+	list_add_tail(&buf->node, &fl->mmaps);
-+	spin_unlock(&fl->lock);
-+
- 	dev_dbg(dev, "mmap\t\tpt 0x%09lx OK [len 0x%08llx]\n",
- 		buf->raddr, buf->size);
- 
- 	return 0;
- 
- err_assign:
--	fastrpc_req_munmap_impl(fl, buf);
-+	if (fastrpc_req_munmap_impl(fl, buf)) {
-+		spin_lock(&fl->lock);
-+		list_add_tail(&buf->node, &fl->mmaps);
-+		spin_unlock(&fl->lock);
-+	}
- 
- 	return err;
- }
--- 
-2.34.1
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
 
