@@ -1,52 +1,42 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D93A4D956E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BA74FDA5D;
+	Wed, 30 Sep 2026 13:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776693; cv=none; b=bKSPgLFoZr57Sh/XpcVaWrVnxM2rWuhIXOaCtfUVejIWWFizVx0GcrNN6DKxH/8OlkcOq06PZSu5ZEOCFHb+PCy8/gWnXpJlhVjZJHNoCU8x2HIhKsMuIMRo40SpNOmHFa9mgZFHWtfkWRgQIbJP/kMU/dYzQL+CaiFroXzm8Jg=
+	t=1790776741; cv=none; b=q7mOMbapiFZQKUlq5QVLYj2TE5pTEYRbS9JZdFGVtg9K0uwthyBvQFaP+gfCPOhHs0suFTKrEOZG0LdlknUzs6uTkH6QwLoj40hbua5FdQyVZXZCqJ4SjR1YHRq9Io41ftqPAMjhyPQxtbtIAlS7SGINz6LyoSJxHick4DFJxGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776693; c=relaxed/simple;
-	bh=ql6jljx7EIXvNLsO+PA8rs+SAQq6guMdJk7jjxYMXvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 References; b=QJJ73CI5yy5w1BI5fWxwUV9nSj2gl1hxqwyhtnaKh3qFDoRKEaShB3mQ9wzGuTBfBVWI5KjZbh7hcXur6BSv5Ke+8kIPLYp6SyO6Nq0rIkwJ/59y1f0K/G/qXDeV/L4PYSHVoz2zYe1a1m4FjvBMl932XszFtN/rqmqst4tkTJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RYn0wow4; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790776741; c=relaxed/simple;
+	bh=YCAjMq1wt3EXRNLLSqBWsOJtODUWSPdj/jcr4TV4+TM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fCnU/5zMZL50PbcFJDulvhLG6YGVdBXnZYSXzX7S5sH0TlWzD4tw6C8JjcLGyH5G8ho6BnymjBDP0t7KgibKFPeWMQZk49ouJ8jafDWfr9XWHaxpEZpO9dA3mTp0rcfQNd6xV16skuO7w+vLst19fr3VkX6kBkD7QdTX4vm9pCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DxPGF+VT; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RYn0wow4"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260930135751euoutp0159ea2a2c60b83e4df32913ef8e6a006b~aHeUSwg9F2471724717euoutp01y
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:57:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260930135751euoutp0159ea2a2c60b83e4df32913ef8e6a006b~aHeUSwg9F2471724717euoutp01y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790776671;
-	bh=d5uhQBfMA9Bzna2lrXnXP49LmGR65Hwnuf+fvI59R6I=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=RYn0wow4k+GSnYkmQCsYEXlyTUhg7UQOTv8JtUMd+qJifKSJ8G5Fs636vRmxanzgS
-	 gql6GS829w9bQ1pnaZq1n+Vqz9GTqx9aw7PXynk7nAkbgtktq1lJOJWPAxNGazyIRH
-	 a2NCFQiL69OheRnqS31kchts8KdsS6jWpJPhnkHQ=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4~aHeUAc8mI1283412834eucas1p1t;
-	Wed, 30 Sep 2026 13:57:51 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260930135750eusmtip2515e5cd38c347fe5f4bced4f58a9f9df~aHeTk2AOZ0736807368eusmtip27;
-	Wed, 30 Sep 2026 13:57:50 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, "Aneesh Kumar K . V"
-	<aneesh.kumar@kernel.org>, Russell King <linux@armlinux.org.uk>, "Claude
- Opus 5 . 5" <noreply@anthropic.com>
-Subject: [PATCH] dma-direct: Restore arch_dma_alloc() for the
- DMA_ATTR_NO_KERNEL_MAPPING case
-Date: Wed, 30 Sep 2026 15:57:32 +0200
-Message-ID: <20260930135734.1013905-1-m.szyprowski@samsung.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DxPGF+VT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=P8
+	A75U40mVYQbmik0K/SOrfwWHyw7oZi4DEJJBDnfy4=; b=DxPGF+VT/YdIJ2DhNC
+	BF3RoK6MbhD2Pbcf9eHZarXOhvCksfMGNi9tm8aj8AKFXd/u70jWmlt8eQrUxmKc
+	qKoJARSZ4RC4zqrKfyOMQh4jSQNiO+7OuveIO4IYFOUNtHjhAKfzxppvKGT0mSqQ
+	ka1SxkaUvAejajGZaOZ9VKae0=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCHZtWDFb1q4iXxCA--.54955S2;
+	Wed, 30 Sep 2026 21:58:27 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: dsterba@suse.com
+Cc: linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>,
+	Qu Wenruo <quwenruo.btrfs@gmx.com>
+Subject: [PATCH v2] btrfs: wait for a grace period before freeing a new device
+Date: Wed, 30 Sep 2026 21:58:24 +0800
+Message-ID: <20260930135824.400222-1-18983559317@163.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <66eaba4a-9b3a-4a65-bab5-8c336477faa2@gmx.com>
+References: <66eaba4a-9b3a-4a65-bab5-8c336477faa2@gmx.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,83 +44,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4
-X-EPHeader: CA
-X-CMS-RootMailID: 20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4
-References: <CGME20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4@eucas1p1.samsung.com>
+X-CM-TRANSID:PigvCgCHZtWDFb1q4iXxCA--.54955S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4kGw13KF45ZrW5ZF4fKrg_yoW5AF4kpr
+	9Igas8JFWDJr1kCF4xCw429r1rX39Y9ayFkr93Gr4I9a4fJ34Yvr92k34Duas8CrZ5JFy8
+	Za4DJwn5JwsFyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uw2-5UUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4ARwVGq9FYQddwAA3s
 
-Commit 849facea92fa ("dma-direct: simplify the DMA_ATTR_NO_KERNEL_MAPPING
-handling") moved the DMA_ATTR_NO_KERNEL_MAPPING shortcut in
-dma_direct_alloc() in front of the arch_dma_alloc() call. Architectures
-providing their own DMA coherent allocator (CONFIG_ARCH_HAS_DMA_ALLOC)
-therefore no longer see such requests. ARM 32bit is one of such. Lack of
-the call to arch_dma_alloc() results in the lack of proper cache
-management on HighMem pages.
+KASAN reports a slab-use-after-free in btrfs_statfs() walking
+fs_devices->devices. btrfs_init_new_device() publishes the new device
+with list_add_rcu() and can fail afterwards, for example with -ENOSPC
+in init_first_rw_device() when a user with CAP_SYS_ADMIN adds a device
+that is too small to a seeding filesystem mounted read-only. The error
+path removes the entry with list_del_rcu() and frees the object in
+btrfs_free_device() without waiting for a grace period, while
+btrfs_calc_avail_data_space() and btrfs_ioctl_fs_info() keep reading
+the device list under rcu_read_lock().
 
-Take the dma-direct shortcut only for coherent devices or when the
-architecture doesn't provide arch_dma_alloc(). While touching this,
-move that check into separate function to avoid duplication in alloc
-and free paths.
+BUG: KASAN: slab-use-after-free in btrfs_statfs+0x11af/0x14a0
+Read of size 8 at addr ffff8880096be858 by task poc/252
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x53/0x70
+ print_report+0xd0/0x630
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? filename_lookup+0x1a9/0x540
+ ? btrfs_statfs+0x11af/0x14a0
+ kasan_report+0xce/0x100
+ ? btrfs_statfs+0x11af/0x14a0
+ btrfs_statfs+0x11af/0x14a0
+ statfs_by_dentry+0x117/0x1e0
+ user_statfs+0xac/0x130
+ ? __pfx_user_statfs+0x10/0x10
+ __do_sys_statfs+0x80/0xe0
+ ? __pfx___do_sys_statfs+0x10/0x10
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Fixes: 849facea92fa ("dma-direct: simplify the DMA_ATTR_NO_KERNEL_MAPPING handling")
-Reported-by: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-Closes: https://lore.kernel.org/all/yq5ams2akznl.fsf@kernel.org/
-Assisted-by: Claude Opus 5.5 <noreply@anthropic.com>
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Allocated by task 256:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ __kasan_kmalloc+0x8f/0xa0
+ __kmalloc_cache_noprof+0x158/0x370
+ btrfs_alloc_device+0xad/0x3e0
+ btrfs_init_new_device+0x3e8/0x36e0
+ btrfs_ioctl+0x150d/0x6c20
+ __x64_sys_ioctl+0x134/0x1c0
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 256:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x43/0x70
+ kfree+0x121/0x380
+ btrfs_init_new_device+0x4a0/0x36e0
+ btrfs_ioctl+0x150d/0x6c20
+ __x64_sys_ioctl+0x134/0x1c0
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fix by waiting for an RCU grace period after the device is removed
+from the list and before it is freed.
+
+Suggested-by: Qu Wenruo<quwenruo.btrfs@gmx.com>
+Fixes: 1f78160ce1b1 ("Btrfs: using rcu lock in the reader side of devices list")
+Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
- kernel/dma/direct.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+Changes in v2:
 
-diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-index da665ca22d5c..a31bd3129f3f 100644
---- a/kernel/dma/direct.c
-+++ b/kernel/dma/direct.c
-@@ -179,6 +179,22 @@ static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
- 	return page;
- }
- 
-+/*
-+ * Check if the allocation can skip the kernel mapping and return the page
-+ * pointer as the cookie.
-+ */
-+static bool dma_direct_use_no_mapping(struct device *dev, unsigned long attrs)
-+{
-+	if ((attrs & (DMA_ATTR_NO_KERNEL_MAPPING | __DMA_ATTR_ALLOC_CC_SHARED)) !=
-+	    DMA_ATTR_NO_KERNEL_MAPPING)
-+		return false;
-+	if (is_swiotlb_for_alloc(dev))
-+		return false;
-+	if (IS_ENABLED(CONFIG_ARCH_HAS_DMA_ALLOC) && !dev_is_dma_coherent(dev))
-+		return false;
-+	return true;
-+}
-+
- static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
- 		dma_addr_t *dma_handle, gfp_t gfp)
- {
-@@ -226,8 +242,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 	if (attrs & DMA_ATTR_NO_WARN)
- 		gfp |= __GFP_NOWARN;
- 
--	if (((attrs & (DMA_ATTR_NO_KERNEL_MAPPING | __DMA_ATTR_ALLOC_CC_SHARED)) ==
--	     DMA_ATTR_NO_KERNEL_MAPPING) && !is_swiotlb_for_alloc(dev))
-+	if (dma_direct_use_no_mapping(dev, attrs))
- 		return dma_direct_alloc_no_mapping(dev, size, dma_handle, gfp);
- 
- 	if (!dev_is_dma_coherent(dev)) {
-@@ -374,8 +389,7 @@ void dma_direct_free(struct device *dev, size_t size,
- 	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
- 		mark_mem_encrypted = true;
- 
--	if (((attrs & (DMA_ATTR_NO_KERNEL_MAPPING | __DMA_ATTR_ALLOC_CC_SHARED)) ==
--	     DMA_ATTR_NO_KERNEL_MAPPING) && !is_swiotlb_for_alloc(dev)) {
-+	if (dma_direct_use_no_mapping(dev, attrs)) {
- 		/* cpu_addr is a struct page cookie, not a kernel address */
- 		dma_free_contiguous(dev, cpu_addr, size);
- 		return;
+- Move synchronize_rcu() just before btrfs_free_device(), following the
+  other call sites in volumes.c, as suggested by the reviewer.
+ fs/btrfs/volumes.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 85ea9c5d4536..ec89dc3dc4cd 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -3174,6 +3174,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
+ error_free_zone:
+ 	btrfs_destroy_dev_zone_info(device);
+ error_free_device:
++	synchronize_rcu();
+ 	btrfs_free_device(device);
+ error:
+ 	btrfs_release_device_allow_freeze(bdev_file);
 -- 
 2.43.0
 
