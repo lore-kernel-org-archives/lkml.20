@@ -1,139 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBEE45D91B;
-	Wed, 30 Sep 2026 10:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAD4481640
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:30:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764186; cv=none; b=EJs8lLm5Mgb59yDzeKhTaVzdjf5l7VCZNj8bt39Htb7judQiO7E9FaR0N651eVrKwQKp3iELt3B0o7wELhJ5J1Hi7XqxBf/uBbecxdTiThfBS/iRwVX2/UAcc14+I7KtUlhWB3m+ncu2SbCPwxv5w2VCl+O+B0PqvjGzRB25RHg=
+	t=1790764244; cv=none; b=h0F9/csWYiO3wQmMWY1hoZt6av5yZYQbDjsY/UuPSkIkZRzLFI4GEeMMxspAL1jG75BN9KFVQrCo1nZt3pn4QntfUs3FpVcwlkw12MtAUot0wPssq6ix/yY3k45HbcU+DhCD5Zx6QUjE3+cx5++I9B8Bz5bE+T0LUPwvTZ877X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764186; c=relaxed/simple;
-	bh=XypHvjK5uPib3gTzLMK3ROmEL2JUJgny3XWTGHw5q7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m5v/DTg2gKtx6QecgoctSW+FIv0CUpgSpljwsCywegU3BVEivtXe9WiTs5/QF48w5/EbOreO8n+SAc6d58a/Qdoros98dIBdpgI03+hdoSXI4S5M7inhIuF/U59nR56vs/S81Hol3xHIAVcP+Oiigm7FbLmvpBMa3OMNLyMQsW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FAAUlSno; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790764244; c=relaxed/simple;
+	bh=LvyR5aGpyQZdCZNpTx7fGAilDs3BJHm6Q/QEFgtp4uc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ojLMkDhVtU4oSgXgps4SfVERaJZJ0dAH6teIAmKwiWhXr/FXi+/lsiWHdvpXIcGkULKSZmUeXg9mWSYjp06Kd1QLWnz3jZRS0yMR3TU6TzplhRKERVCpXfqbaH0YWbSs7xDrU4hnqFOkhKR5z324J6veeGXz0QAzsm8ssgJocGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eTbEdnKZ; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FAAUlSno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0451F000FF;
-	Wed, 30 Sep 2026 10:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790764184;
-	bh=XypHvjK5uPib3gTzLMK3ROmEL2JUJgny3XWTGHw5q7U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FAAUlSnoYYurnCYex91tc1QBD3i/oUzFFyh2x73vvFgF4jP7xNvXO938l7CgsuQlg
-	 lGm5ZLeV21M9u/s6zEzBlvvXNONH9/QAxi4S0nvMJWNwFoLABFtUWwqKn0KxDkRAuT
-	 Y+1rr6fSdAZx4PfwALwUlkOoG4OoWFYzgQrY7+wjKFE54EqLYVFrIRWyZFqBTew79q
-	 ieZ4eSnDosiIY3ODS1QWftgZYFKIaZLphV9B7mUL8AK8vm5NV95clVDR45euA96ltT
-	 1paIxCfqSrTzEu7+9iT0HyWzuDHzZ0b2GgwqVucgVteKh8sbdkei/2kNe7xEbsvSgP
-	 iNRO7X1uLWFkw==
-Date: Wed, 30 Sep 2026 12:29:42 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"Ola Chr. Vaage" <ola.christoffer.vage@scoutdi.com>
-Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
-Message-ID: <arzjXtZj0hIf5iZU@orome>
-References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
- <b72b16cf704aa662a1b49805db284379d4fa4050.1789741839.git.u.kleine-koenig@baylibre.com>
- <arEAjOHU4rH5aGqb@orome>
- <arE932ZcHGB8RAN6@monoceros>
- <arJTSEfkILPQmqNV@orome>
- <arzcE4nVRTAK9C-X@monoceros>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eTbEdnKZ"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49e6862e924so42193245e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:30:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790764240; x=1791369040; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1+PuJJ3wOS6tvZ0KUVb7bT/lnQfHxZnC8edrNXWJcYA=;
+        b=eTbEdnKZjpZN3yKYkTA9kM0B+OmM4Uq2YO/ETfFg+FOW1xDCpdkeD2Tytw15oSBfm0
+         burlbD0At5eIOey/Jb0AHx8XooGRK//7a7bfQAdWpCNwM67683F6x4o1af5ceUaKxq5E
+         odILRVm0toT/7MMIkxS7Q+5ccRkTL9pErVGSPkIjWuZnJ1qHVDk0nEpnK2F7vEWKyIAE
+         3I/LplNo7n6/Iqnp0XkCFmIhBG7AnvTwoIJrs0lHknTPxDPM9HyajIEgg8H1s9p+5VKK
+         Hq2dN9BAKM7ciXPTYl0+q3j+XFGwimyYHZGW7fufQ74MyF4TTzisEEz1hp+GHwErx+4f
+         dvoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790764240; x=1791369040;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1+PuJJ3wOS6tvZ0KUVb7bT/lnQfHxZnC8edrNXWJcYA=;
+        b=s3nZvsFiyuucwwvtHerzuzgS5HtdmTKCwDAxZm14aAIbDLWKbzYzIS7YrqPK8PbAuU
+         q2RMA+mpWandjNHd8g2eifQiEdYjLbMbjNaixGCOGrnQiKQmdQCsjgy987/b5uVJM9qp
+         1iwWzRmu+6wk40PSqkKaDIhwTY/SLBCGTePLCBPOg7vnJGtROkuAOwvMN8WEAFYZVG/J
+         7k4LOEp5xo4oxxlwVLekgZbOKa1epw/Uj+OYaO3opGz1LUEsps+MDg203tdRL83dInDY
+         cAqsSDsR02nQHjOdUOEcf+NFYQiBFbUEbxd0/hG6KL5OXfS6I3u3P0BTw7WHs8PC4A2+
+         5kww==
+X-Gm-Message-State: AFuF++kd8VWRWHZ6KppbcEHaUOaY/cdoLcWFnCkliy5e0pkag9U8N7Vr
+	B37hDPq4viBRBYsLmkuE/TrQbTJEB2OgcC7H4G10fzLbnsPfOqOBoj64m7DkuhnVwlofSPMrNQ=
+	=
+X-Received: from wmpo20.prod.google.com ([2002:a05:600c:3394:b0:49f:fc29:a959])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:c162:b0:49e:7a00:b9a5
+ with SMTP id 5b1f17b1804b1-4a01ad907efmr16095195e9.4.1790764240209; Wed, 30
+ Sep 2026 03:30:40 -0700 (PDT)
+Date: Wed, 30 Sep 2026 12:30:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x65eqfhbbjg6hmbn"
-Content-Disposition: inline
-In-Reply-To: <arzcE4nVRTAK9C-X@monoceros>
-
-
---x65eqfhbbjg6hmbn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260930103036.248989-4-ardb+git@google.com>
+Subject: [PATCH v3 0/2] PCI: Allow non-prefetchable BARs in prefetchable windows
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, 
+	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
-MIME-Version: 1.0
 
-On Wed, Sep 30, 2026 at 11:54:03AM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> Hello Thierry,
->=20
-> On Tue, Sep 22, 2026 at 12:07:26PM +0200, Thierry Reding wrote:
-> > On Mon, Sep 21, 2026 at 04:26:03PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > > On Mon, Sep 21, 2026 at 12:18:16PM +0200, Thierry Reding wrote:
-> > > > It feels like this has too many assumptions built-in. That's mostly=
- a
-> > > > predefined issue, but I think if we want to get accurate hardware r=
-ead-
-> > > > out, we need to address this.
-> > > >=20
-> > > > According to the register documentation, the PWM depth is 16 bits w=
-ide
-> > > > (on generations where it can be programmed). The value defaults to =
-255
-> > > > (which is n - 1 encoded, hence TEGRA_PWM_DEPTH), but it can technic=
-ally
-> > > > be reprogrammed to any 16-bit value, as far as I can tell.
-> > > >=20
-> > > > So I think for this to be correct we'd need to read out the actual =
-value
-> > > > before overwriting with TEGRA_PWM_CSR_0 contents above. At that poi=
-nt I
-> > > > think we'd need to either adjust the mask to be (2 * depth) - 1, or
-> > > > maybe better yet, avoid masking it out arbitrarily based on the dep=
-th
-> > > > and instead cap it at depth so we never exceed the 1:1 ratio for du=
-ty
-> > > > cycle vs. period.
-> > >=20
-> > > As long as .apply() also hardcodes TEGRA_PWM_DEPTH, it's IMO fine that
-> > > .get_state() does so, too.
-> >=20
-> > Okay, fair enough.
->=20
-> Is that an Ack then?
+From: Ard Biesheuvel <ardb@kernel.org>
 
-I've been thinking about this some more and I don't know if it really
-makes sense to keep hard-coding TEGRA_PWM_DEPTH. If only .apply() uses
-it, then it's mostly fine, I suppose, because we don't care what the
-current (or initial) state is/was. So we either don't use the device or
-we overwrite it with a custom set of values.
+(v2 never made it to linux-pci@ - please disregard it if you did get it)
 
-Once we add .get_state() into the mix, now we kind of have to care about
-the initial state, because we might end up using those values. If we did
-not care, what would be the point, right? Which means that if we read
-out wrong values, we, well, get wrong values. Which then may mean that
-we overwrite values that we shouldn't, etc.
+The non-prefetchable window of a PCI-to-PCI bridge can only decode
+32-bit addresses, and so even 64-bit non-prefetchable BARs of devices
+below a bridge compete for the scarce MMIO space below 4 GB.
 
-I suppose this would be okay if we reject any depth values other than
-the default as errors. But then we also significantly reduce the
-usefulness of this patch.
+The PCIe spec notes that marking such a BAR prefetchable still permits
+correct operation as long as the entire path from the host to the device
+is PCIe (PCIe r7.0, sec 7.5.1.2.1). The same applies when the OS places
+a non-prefetchable BAR in a prefetchable bridge window, and so this
+series permits that unless there is a bridge on the path to the root bus
+that is not a PCIe Root Port or Switch Port, allowing 64-bit
+non-prefetchable BARs to be placed above 4 GB.
 
-Thierry
+So add a new bus flag PCI_BUS_FLAGS_NO_NP_BARS_IN_P_WINDOWS, and wire it
+up so that it is only set on buses where this relaxed placement is not
+permitted. Then, use the flag to to decide whether to treat 64-bit NP
+BARs as prefetchable only for the purpose of resource allocation (but
+not for mapping the MMIO region or other reporting its properties)
 
---x65eqfhbbjg6hmbn
-Content-Type: application/pgp-signature; name="signature.asc"
+Patch #1 is a preparatory refactor of pci_bus_alloc_resource() with no
+functional change, and patch #2 implements the relaxation.
 
------BEGIN PGP SIGNATURE-----
+(based on v7.3-rc4)
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq85JYACgkQ3SOs138+
-s6GMSg/8CShCqOv5o6ZDmB+VHSaIQFFGttOeoXgmzAA2smnA4YfobLPobkLnCycp
-Jt9Nl1ks+s7Y7XilTXZxPjeg6a7vlKlNB1MPZZVfS7Me83rdJaw84jj92pVtl6Ar
-8nxcah0tE/jcbS+RS2A419cch5o9sS8RtaCqR84vyQwxiht/EqHLDjTXr1ysW1Yk
-2zcPgErdivSMfe9dipW9ZkmLSeZTVDHT9YMnC6/51C9wPfcSBqToiFXKRxpgMlw2
-SgRwmUWEp3m6CfumD5bQWJ2uPCkrIJu5PNy+MNcL9qQgtxslworz7FgeSpFCgCtr
-2JYyllAYKzHgrktKfMS3BYyRonfWzxTZ26JxZKgxRZKx6nKpDpqB/n4fp9cHf01i
-8m7M0gd6BKtSYcZ/jJcvhJTnyNS3hMbxjx4YVzwzZ+V4AJg6NJATFn6Z5R/Ov4bb
-/HKdZdajsmI2Rlr0JpX/z0gSInNnl/1bjB5u56dMdx0YE2VZqM92dNPqdIo1j4CW
-1Ar/kXTdJmeEnhI7teoaB1VAucD8H0masAOfLNmrxAnMMvLUU0HxA9+sQmrYeQq5
-SkImXEY2a3AjnVADJv9TVLtb84F6idEb7MumGTyasgwApf81ASPj85CAGxSL/oEl
-JFg1o7zJFEkvTfLtfB41fME8Wajus2WokswqmEh/2jkHNCO5ybo=
-=AW50
------END PGP SIGNATURE-----
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Link: https://lore.kernel.org/linux-pci/20260910143440.3865663-2-ardb+git@g=
+oogle.com/
 
---x65eqfhbbjg6hmbn--
+Ard Biesheuvel (2):
+  PCI: Add __pci_bus_alloc_resource() to allocate with explicit flags
+  PCI: Allow 64-bit non-prefetchable BARs in prefetchable windows
+
+ drivers/pci/bus.c       | 70 ++++++++++++++------
+ drivers/pci/pci.c       | 43 +++++++++++-
+ drivers/pci/pci.h       |  7 ++
+ drivers/pci/probe.c     | 35 ++++++++++
+ drivers/pci/setup-bus.c | 23 +++++--
+ drivers/pci/setup-res.c | 30 ++++++---
+ include/linux/pci.h     |  1 +
+ 7 files changed, 169 insertions(+), 40 deletions(-)
+
+--=20
+2.56.0.rc1.315.gc6ed9934b7-goog
+
