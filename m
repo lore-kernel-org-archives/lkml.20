@@ -1,124 +1,70 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B7148124F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2104756B8;
+	Wed, 30 Sep 2026 22:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790808871; cv=none; b=Xl1uPsnF6cP7qmPe9iKiYB80+ubAK0/ePVtusb90QVdtrNYA5YTF74Hq6+TrPYF4vJZZwxEcZGdU1XBBjPCJumjd4OGH3UBqMBrZ57BJv6DaAxHl/J0VtlffOUyfQeDDBZ/wzWv37HGN1o9f8wE2ov4Kq47AF8FXAxqi9yv4078=
+	t=1790808887; cv=none; b=bXEbUiRt3742E9clnWxyrPkVMnm+igfz6acyQdhV5NVf8LsiegPEn8dUDLm1a/JxcMao9u/+yJhy9s7ahgbhydZMxKhIyAu0fBdo/wDjwvayGtlvOorAgB3xboglxxaj/DEOFqsyUUy+5Eg4GDRkyrdC7WmXDP4XccEh0iAH3Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790808871; c=relaxed/simple;
-	bh=Pa7q5dbLTitCHiy1Q1hdZvYOASdG0sKeH1yu1l+oOiE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=p0wCiuRfMHq/6JtOVo8vScG4ukRpSNLXJDU2Rd/pecFpGVGEKF7xDNnF7aUCNzIvXHIivCGhO5g5eBqgq277fRNxfnHBPyvFjnoMeHQFSHXw5BMJIxGxUygG6iYSSrSFie9cGSKO1YQVuEmH/1Yug45X50YXuSJ20chy0TIvNgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WHDFziIT; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790808887; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jDmiLhZ8fMJ1xD40zu2Z6WD6gkRsWfx5igoe0mwR4xrUiuoPU/aQ8LmCYlXzmS8H9z5+YdNIqYcgmoc8Jkt8D9dUvsY1isUHab1/cdLo/EDh7nvloM8LhFVO3Hd1JRbVmHvBdoxiLTzIA6BmmG6YEOx7wcxvfn8BNlpmbOMrqhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRqyAjak; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WHDFziIT"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B36294E410DF;
-	Wed, 30 Sep 2026 22:54:21 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8809E60749;
-	Wed, 30 Sep 2026 22:54:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0374D1032A65A;
-	Thu,  1 Oct 2026 00:54:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790808856; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=f7pD9PjCcBFYCKRyplLMTcZQuHOpWI4bNICLIyVr35E=;
-	b=WHDFziITb+e1Djc8ZxB6RhgWc+IRTRvJxwfjeJ0YRHB/J45SfusvT7YCuhktHlP+CBlmvE
-	zuYmSzsAwEHjn/WS7erCUVuOWNHAT1Bm3lizA7WVeCAnpGSP0+4KDc8H8fcMmQ/KWTtLks
-	qgLUjlHPbRlsJjmjRmJCz9GSIPfpsxUPeTPwNU4ugq6abEplK1WQx+pMt5qSNzMUvJExD4
-	lxdQ5rnnNRaWp+yuyTawn7QeBTCacRkZ4SRer/rkWIBYGJQddPFBfkb+0/dDQNzQ3jvfGm
-	i0n6n00uii/A4r+oax4DBjcBUlcJb2pDOyD+ZmX0oZIfpK9+tPmeoZUWMEst5w==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Thu, 01 Oct 2026 00:53:52 +0200
-Subject: [PATCH net-next v10 8/8] net: macb: use context swapping in
- .ndo_change_mtu()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRqyAjak"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2B91F000FF;
+	Wed, 30 Sep 2026 22:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790808884;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aRqyAjakbYoiMdqHFBSaLx9IAeSoeUCZ6CWcwaOnwjqgRVW62yjo0dcDXi4iysSgI
+	 9YexgTzZ0wj/57nluOZkPXgwQwq0N44kRbtRKHU4wrGgQApBzAj5YnksoLlVzWDtiU
+	 kMocGl4njiXwR5HzUn2TtwsB638A1awsABVsq0ir5tnaGGVkF49wfg8tf1owjjx5F0
+	 QOXrJlV0loOJFZMAAR5UbfK+HhBhPtq3AGVCI+ukTLKf+lgxQsenDOkaqOF/JXDxC1
+	 7oJUj7b1hNnDaZN8CNUTHa+NakNTrwD+kMuAEL4Xe5Ox9fgS2HE51FuxpdOFvOPgHj
+	 XdSJM8QhqpR1A==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?=C3=96mer?= Mete Kaya <omermetekaya0@gmail.com>
+Cc: oe-linux-nfc@lists.linux.dev, david@ixit.cz, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] nfc: nci: fix out-of-bounds read in
+ nci_core_reset_rsp_packet()
+Date: Wed, 30 Sep 2026 22:54:43 +0000
+Message-ID: <179080888379.31693.9678596349950606516@kernel.org>
+In-Reply-To: <20260930224940.725976-1-omermetekaya0@gmail.com>
+References: <20260930224940.725976-1-omermetekaya0@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261001-macb-context-v10-8-beb541bbb7df@bootlin.com>
-References: <20261001-macb-context-v10-0-beb541bbb7df@bootlin.com>
-In-Reply-To: <20261001-macb-context-v10-0-beb541bbb7df@bootlin.com>
-To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paolo Valerio <pvalerio@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 
-Use newly introduced context buffer management to implement
-.ndo_change_mtu() as a context swap: allocate new context ->
-reconfigure HW -> free old context.
+Hi!
 
-This resists memory pressure well by failing without closing the
-interface and it is much faster by avoiding PHY reinit.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-AT91 EMAC is handled differently as their buffer management is separate
-and they don't do NAPI. They cannot land in macb_change_mtu as they use
-a different ndo struct. We still defensively protect against it in code.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 93049b399d78..4b03f8a51372 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -3624,11 +3624,29 @@ static int macb_close(struct net_device *netdev)
- 
- static int macb_change_mtu(struct net_device *netdev, int new_mtu)
- {
--	if (netif_running(netdev))
--		return -EBUSY;
-+	struct macb *bp = netdev_priv(netdev);
-+	bool running = netif_running(netdev);
-+	struct macb_context *new_ctx;
-+
-+	if (running) {
-+		/* Context swapping is not supported for AT91. */
-+		if (bp->caps & MACB_CAPS_MACB_IS_EMAC)
-+			return -EBUSY;
-+
-+		new_ctx = macb_context_alloc(bp, new_mtu,
-+					     bp->configured_rx_ring_size,
-+					     bp->configured_tx_ring_size);
-+		if (IS_ERR(new_ctx))
-+			return PTR_ERR(new_ctx);
-+
-+		macb_context_swap_start(bp);
-+	}
- 
- 	WRITE_ONCE(netdev->mtu, new_mtu);
- 
-+	if (running)
-+		macb_context_swap_end(bp, new_ctx);
-+
- 	return 0;
- }
- 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
--- 
-2.55.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
