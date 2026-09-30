@@ -1,160 +1,176 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVAP278CU002.outbound.protection.outlook.com (mail-switzerlandwestazon11010064.outbound.protection.outlook.com [52.101.188.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFC651CF45
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.96
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790803467; cv=none; b=IDu4jl64Vpm3pytPpuvJDQpbx06dD6AYE9QBRA6D5b++wSk4+jx9GTdqedBIpwezFAjPUMiOX4lpb9IopApXMu3LBgxGeGmOtFpP+n39KVZGayQ9hBUaFqRorsH4zNZATtwpK3uETccW63TzzTDczGg27pS0kFbsZ4qi2vmyKbU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790803467; c=relaxed/simple;
-	bh=Ek5IOI6044bBPYcfeIf2BvSBxolhZzEABxqC8yBnwIs=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C1D3F5BFC;
+	Wed, 30 Sep 2026 21:24:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.188.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790803479; cv=fail; b=PxYGRxF59UM6J/9r2E5GzOUyY/JXs1kBRmcgYCqCCCxeddwu8tCnjKcC/rjl/Xxf++SYSSlH/m8Opu8JJtiv+171R0f8d9QYGqPJLqYHb4JMmzKb5UgFp/MQUKkPSRWN7P5oGFo85ZFt91mEKd5DmF/lMJmRIX3t8JaKEO7JWL8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790803479; c=relaxed/simple;
+	bh=2q/z+rPOw1Sti2xkTwMOlVqpkvAzyotTv8AAi28z6Nw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O/7zSmHOp7RUaApkLzsxsBA8QX9pGB9IQBLArVUt/eGQiEoeR3aqUn8ehryq5iH6UiTQYCMevypYwSEiA4rerUfLIM/lgu8rT/h1OTBxpQFhbk7O/ZSVF2jPTrNXKEUkVr4We9SUwixABqBlNbYk9LaW7GJV2+1sbJ2HzJTJ7S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=haIieiBo; arc=none smtp.client-ip=74.125.228.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=S+nXH7NxgInjEupXD6i9vV/GRNO3CvW+fqo1OHG9GhS2URbHsk5jaOYpcBX49w6n4uyRWbvAsanccToJSCUwXw1BUr7wCpFojlE79msFA6M5t88oV3ep7WeDDbIViYn0YBT+YFZrk8lgDA9hxhS0d44VsSIz5DGAHJHYhHdiQt0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch; spf=pass smtp.mailfrom=cern.ch; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=nZKMP8IE; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=nZKMP8IE; arc=fail smtp.client-ip=52.101.188.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cern.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="haIieiBo"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6ad186afdf4so2741608a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:24:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790803464; x=1791408264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9PR8LkwW+JzP2em42e4m1kyqysrkviKYFFCZC7Wjp3g=;
-        b=haIieiBoGEHfHxxx2JaVobYg9SrToJ801j6yLERQLXmS0vEX35TQbmvga12g7kLblT
-         c9ipqJdFaHrxQmCOMHgyDXP9h6GhueFn24mI8ITzFebUyhsmHPsOgEKNxoKXJcz4rjtq
-         fFZsUhsbRu0iRxapmtFrPXJXbpxeVBjd/ADmCEU+qDuZ8K/k+tECTKdwaeKWp+N0Kgei
-         1tjLf65uRg50w6fKSHT8A3bb1GifKaEZyNE5ra5xtWO0tWamYd6Vgu8X7MLdoAffGUO7
-         i4VpcbIL1H7Ha8nBhNK3ogmcuX9fChzabg5fLZY+PAk3ZkYLCHzlqHxbRwa3cEw4ier/
-         eEDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790803464; x=1791408264;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9PR8LkwW+JzP2em42e4m1kyqysrkviKYFFCZC7Wjp3g=;
-        b=WcqDd0P1mNQkdkXCzvsUsYj1jO68wrBkey63Hq/gs5QesX0edUPJThG1wRIeX9r+WT
-         79MUTH1cVJVvpnvALqzlCg0VrEHsOnLOLglD5CkVjOwO4ew356qNIO25f5Q14XFlg8Wc
-         ZQ0m2yGPGX6hr21D5lH2na4ytKYsQip5LpHLP502fxOl8OCeXfJ0H9lyTxGmOEbGb/mv
-         WWIGR/sBKOFQ8BQcOuMrWmklibcKU3kIJNp+GTWrQwk+tyrx9BKeezpVhkSvj/RfmnvT
-         jIS3Wfbn+tNdX6BbxratxzmbvuB+wEtdCV759A4hizgMvQgYnaQz4Abectt2GjsSwKG7
-         LJdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmNCR+OC6X8/Wee+O379hCrSZNCxkoPfKPbV1MZW+ISo1Ee9Kuz/jI6ovRZ9hwX2DKGu0MPX4+JwOFCgU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7kVLQZwhMYIk7TtC1RtSISgcDYIOSUVwmEFIo59hnAYF6uYtf
-	DG3JXy9q25xwOFxfpDkZ8bVRHDWiX6gcuWVVkdNNbTIxhJQevjbVKjpI
-X-Gm-Gg: AYBFou0OTx9x2RvENJ6kzk7RSqgK3BX4TeCMpeEdYYrPIj7+dv/fdiOa1gg0mU72YPw
-	G5aLg3UaEbR6o01QkvfD80G/9YucOsbI9ytk8JtLKBySXsuDZ9hifmpPxdi53JgRJuSNFlI+IkH
-	szd3pW73sj+1k+0HZE7hKOb4az8A5q4UFmtZ3XO+65Oo5P0eCIXKofYk8y1PcbsKnMEUVTfKFUK
-	m1vc7as1pCSsRUtOcHtVV2jLEvMZoRlvAZAjuiGS3fS1l+QkM8wqHSjU5+3sWkr/t7yNHikt10V
-	MUXfD5ZrZ9pI3SrVap7EQwLkhKWWt/3cOKF8XSTR47A7fe5fU2iaIb/O/a0W/7IRw9v9vI1acjv
-	ksOmA8JsN65OOiNnjp90JP04eCYtydyr0O+3pC48nZ9LC0JQ/LG6dIWM8JUBj+1Ajpj3aTZmK0k
-	QBKlNKrdV7WJA/rkrSeTjOYNmDeokQP25XxXTZauGB/gzc0mAsgOl1G6ZpTC5zTCTJk29kZIvcV
-	Rdi35QvGMhZkVBmbkvKEgCXFT2lNivHXbptHWCd8AUTODIBWrxkun6pGDo/m0z2tpwHJxwapfDD
-	3tCOlmjqe+S3oUlmZEGK
-X-Received: by 2002:a17:907:6e94:b0:c2d:bf0a:190 with SMTP id a640c23a62f3a-c2e23caab18mr223464866b.15.1790803464383;
-        Wed, 30 Sep 2026 14:24:24 -0700 (PDT)
-Received: from localhost.localdomain (83-233-221-82.cust.bredband2.com. [83.233.221.82])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31a35d61sm57600366b.10.2026.09.30.14.24.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 14:24:24 -0700 (PDT)
-From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: netdev@vger.kernel.org,
-	Ziyang Huang <hzyitc@outlook.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 3/3] net: dsa: qca8k: support QCA8337 internal PHY CPU links
-Date: Wed, 30 Sep 2026 23:24:12 +0200
-Message-ID: <20260930212412.1973-1-yongzhao.derek@gmail.com>
-X-Mailer: git-send-email 2.45.2.windows.1
-In-Reply-To: <6abb54ff.332d3c56.21546b.7fef@mx.google.com>
-References: <20260928220811.1880-1-yongzhao.derek@gmail.com> <20260928220811.1880-4-yongzhao.derek@gmail.com> <6abb54ff.332d3c56.21546b.7fef@mx.google.com>
+	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="nZKMP8IE";
+	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="nZKMP8IE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oLAZPPn/ciIhQl5N1OmJovs6J2lkrYwYOFO5H81T/bGozngHSCw92VcOi9Kos67MfmsxYUMopyDyEiDwAnJIK/7xLhwL5z6WAugkdgOCHrRO7NSpE92rpSGg1GvmeYQ3W91vaalWer8/vMwmhLpcy58xhObH1BbszqArlUDfdkofKSowBQFNd2UWesXm+1dfM9D33ihoEF3nsWtXc22dSAixbN4zE70O/68TCzRMYAZ60oEjx+TaCMuIEhoacqv/hhMZgi7fPbcgwSzh1ndjXpXSXyA7eRBnNJVjeB+vA93ioRoWEvU5NheLE/SFlclJ4+H2kbZAXcYAzej2XMY9eQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5U7vHCSklMIe+qooQWw2Jmkc23yS+HsiJc4ksNSEVNQ=;
+ b=umU3w5rGrihG2+d43pWIXk6tBBJt570puLFu2rNrYovw8bvgvkhbqhPKW3x4q5FxFpoop3LAlY4RtIe9DJcwrxdMdak+qIDNdxB5bkJMGtQHXH3YjodTzDdInS7T4+9wary0Dx8b0TBHW3piiI6yrqMEoCnqJcoj7SbCl0WWN5ncRBHTXBErk643sNWCUSF27VppnjL5hChOBj51ZGibVKrA5ow3u8BjKKaun+WbM16lmujhusX6vXN+J4uEapH63uGIKpFGk5Y9xpG05WuM2ryIrIjwm4zCWlzIVFOAnmSWhhp8AGew0fmTG/w0cDMnsIX+xkMHA/ia3iTvPobAUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 51.107.2.244) smtp.rcpttodomain=gmail.com smtp.mailfrom=cern.ch; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=cern.ch; dkim=pass
+ (signature was verified) header.d=cern.ch; arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5U7vHCSklMIe+qooQWw2Jmkc23yS+HsiJc4ksNSEVNQ=;
+ b=nZKMP8IEAN7LvkID8AUy9o6+2+kLw27XUgz7iGdIeZK9ycvhusnOMb6KPQSGgwXrv75MJ26YQtTF4Lp93IXZLRLA8rVbfyIUXxuH+mSsbAkCuO9oYPB8zxF2oqHKOi9NKi74Pgs6uLYkz6u1cNmHERnPXW54LhxmnD0bJgWuZoo=
+Received: from AM9P193CA0008.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::13)
+ by ZR1P278MB2245.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:be::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 21:24:31 +0000
+Received: from AM7PEPF00000050.EURPRD83.prod.outlook.com
+ (2603:10a6:20b:21e:cafe::8b) by AM9P193CA0008.outlook.office365.com
+ (2603:10a6:20b:21e::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
+ 30 Sep 2026 21:24:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 51.107.2.244) smtp.mailfrom=cern.ch; dkim=pass (signature was verified)
+ header.d=cern.ch;dmarc=pass action=none header.from=cern.ch;
+Received-SPF: Pass (protection.outlook.com: domain of cern.ch designates
+ 51.107.2.244 as permitted sender) receiver=protection.outlook.com;
+ client-ip=51.107.2.244; helo=mx2.crn.activeguard.cloud; pr=C
+Received: from mx2.crn.activeguard.cloud (51.107.2.244) by
+ AM7PEPF00000050.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.3
+ via Frontend Transport; Wed, 30 Sep 2026 21:24:31 +0000
+Authentication-Results-Original: auth.opendkim.xorlab.com;	dkim=pass (1024-bit
+ key; unprotected) header.d=cern.ch header.i=@cern.ch header.a=rsa-sha256
+ header.s=selector1 header.b=nZKMP8IE
+Received: from ZRZP278CU001.outbound.protection.outlook.com (mail-switzerlandnorthazlp17011027.outbound.protection.outlook.com [40.93.85.27])
+	by mx2.crn.activeguard.cloud (Postfix) with ESMTPS id 95C477F37B;
+	Wed, 30 Sep 2026 23:24:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5U7vHCSklMIe+qooQWw2Jmkc23yS+HsiJc4ksNSEVNQ=;
+ b=nZKMP8IEAN7LvkID8AUy9o6+2+kLw27XUgz7iGdIeZK9ycvhusnOMb6KPQSGgwXrv75MJ26YQtTF4Lp93IXZLRLA8rVbfyIUXxuH+mSsbAkCuO9oYPB8zxF2oqHKOi9NKi74Pgs6uLYkz6u1cNmHERnPXW54LhxmnD0bJgWuZoo=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=cern.ch;
+Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:5d::11)
+ by ZR5P278MB2072.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:ae::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 21:24:28 +0000
+Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::79ac:8d79:4b56:709c]) by ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::79ac:8d79:4b56:709c%5]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 21:24:28 +0000
+From: Maxim Storetvedt <mstoretv@cern.ch>
+To: andersson@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: kapenekakis@gmail.com,
+	marcus@nazgul.ch,
+	marijn.suijten@somainline.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	abel.vesa@oss.qualcomm.com,
+	johan@kernel.org,
+	konradybcio@kernel.org,
+	kirill@korins.ky
+Subject: [PATCH v8 1/3] dt-bindings: arm: Add Samsung Galaxy Book4 Edge
+Date: Wed, 30 Sep 2026 23:24:02 +0200
+Message-ID: <20260930212421.4810-2-mstoretv@cern.ch>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930212421.4810-1-mstoretv@cern.ch>
+References: <20260930212421.4810-1-mstoretv@cern.ch>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZR0P278CA0214.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:6a::9) To ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:5d::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-MS-TrafficTypeDiagnostic:
+	ZR2P278MB1053:EE_|ZR5P278MB2072:EE_|AM7PEPF00000050:EE_|ZR1P278MB2245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80d9b1b7-4bb8-4896-3929-08df1f39377f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|786006|366016|19092799006|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ sBQQuWWWjxUYF/csfNKMoqBYjqaBoxkZ7jMRxOMh+nl0Ve2lJfFBlM362ywaa6rvP+WfK5JjgFBd/QpMWGAd7jOde1NqIjnqEBU67ADtYq22hDw1HJoY+hmGKzDJZmRLKwbWEtCMjnfxPusEMBMclgySMQ9/Xr59KI02vtveaOhUDIBwVvq4x4PZ+fRMcneKAYxJtINprM0XjgNZq01At6fbDuaY7CzbufVTXVaxSY0JkMcTRji1p0rkS3AXBx+GX+xMJsS1rydkWGEp1fiMih0EUlepmaNPDyRKrP/uXu0ZC8ghyueYlcs5hFEXnTggbowggouHtBcZvwFw8ENq7CYwpWZHohOs6YRzp5Uft0nc/p+a0AZQU8Jav8JTnYr0PAl5qPnh8wtByNjIZKBQ1xMnOWKS1igwmCoobBDAeEgxx3xlvJ7MTMlvKdK06zpbXiYJnZCQGSlf0MNWpILzePJpMVc/nIXRzc3u+rxcHvgW9gIO4+vqRdahhSAsUbi/rqmxmJtYgTumCdIRMpFR1S199ul9NtWEIG4KZzl6RW80IbKsGr/imOdnqIxGEN9H5vJ419UFR1fu6+N4kkTYCLeFiCZ6hvOshEIpm3A93Xs/RmTTiBvkNMYWw5vcMIXWMX+9xda0b7dmfXXwxNqMCQBxSadBAyidPeEzl6Edpsg=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(786006)(366016)(19092799006)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ pZ5Xc3P58DsY+1XxxSVf99DLtZt6djWHF3DKzHcjFb1KOtzBHacJW3VUZdXG8nk4074WVg57U5PePMSnPa8/DIPzsRSpk65yJQTin7bCaD2tY5jB8Y+MiWo/ygbQsWzFVt/aBRyy3vjZZZp7fOqEIDpzDP+Rzq90B4NLxxXrnwkXP7785VR4ic3tBYx4WksL0yFZArSitPAA0WuUEtw2uRnZ0CqR47//MomvmdX9+4SMsDChb6BVfRTF6Ksm7kt9G/Cy4SXR5yINmL1NTq13/XgkpYdI+oHxQKPzpMavt4zaAvcZ/QcJ9gUdCpXMQLFFUJbhdgLTve8GrxsLeW6lCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR5P278MB2072
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7PEPF00000050.EURPRD83.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	9bc79436-babf-4ee2-c741-08df1f39357d
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|35042699022|19092799006|1800799024|82310400026|23010399003|30052699003|376014|786006|7416014|36860700016|14060799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	sOpsYRh58qTqwbGDBfSe9zrqX9laaGMuIFewb7tV2YcwZ++ztVnnvnxcto8cEDqDbn/xyZUdtGOIOzAmfccm+laHd5ZQo6lz4bU6R4Eq4G6Qhd7O34NMs1OrM/Mwf1uiiUghIXu2ixVEm/pOarx+B2deUUT2z2ex9QbUf0Dmk4uhuiqJHqdL8caK4mXOiOCcHsasEHWO92hXEDPFZFoopIuVqkO5Lmp5x19ojWhZE1OgmNQZkQ6KcXkXvG7ncTV3MKimlI1CIO4a0AQg5wtUqPyMtY3GgSq/4ugEV2BG0DxUHedjjaP9Mg3fOAqH87jF4nF0i1a9FQiqjAyU2QXkgfruTOBwXvlI7exUo+ffsOIzGNCJIISIFOjIrd/TiRAn6riC+EBQT25Gwb05fAeVfd6yZBzc2bsSRRQhYEjy8UhdHIzt5AGUBIjx6qrk68fWiySWpF0+uH6OQgk3H/fyAdOcp1oNnU2n7LTUVSKwSK1nHTOoQZYP9CDCfsY1HlY8cHD6VL7ak+Li8+GAvvOWaPdiXC3ouNu5hm56APmWvoRR9iooZdAqcoQhZDNDnLEpAoNInxD1KNllwQKP6kCteY0sQ+W5YaRHM/r9v8D2qArPLdgV+SPtCTnlL8syfMeYfTHVUUHwLgwu5IwPcWIqPWEu/AbyBc/cn86s2UvtcjA0MhqhF1plhL/4VBc1PulQ28ScOJGsgl9vGxGKtjoRew==
+X-Forefront-Antispam-Report:
+	CIP:51.107.2.244;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:mx2.crn.activeguard.cloud;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(19092799006)(1800799024)(82310400026)(23010399003)(30052699003)(376014)(786006)(7416014)(36860700016)(14060799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	v8X7IJDilT5qxz11h/sDCyzAGuk6xUh1EgiByJT7ZpHqtA/Y5u6MJF7Hp8EpdHUy1CqJX+yKhgDOZpwuXNAa/+cvrwdPsieH1pe2lZo1ofhLs8bniGLkp7tDwGE1q38VfA0DrsHMErTIvmQGUU95w/4wLI/TsWdLwqpYDuds+2hY96owTee4q5c2DR02S+Vlr7eix3tPQPCsRhsT4B/9dXJ5Gtk3XqaB6SzgXXfFIeAYQZw54DhUNokSzSVyTz38u5RtL4p+r1ov3NvZRcXqXT7gK4MHYWcdAgiMrRfkXV8sPswikISm+J4zIYk0tQYf8o3mAgO0et2AgcijhVas0d3a9jidfXTwA0hpf5R8wXv8jEN1CSngmI/qVcBndnbqe+VOnA1Q9VuIPMbJRIMyEvKjXN8RORWW3HAO/evYp8MIDY7tiFE+KytR8JhShYNu
+X-OriginatorOrg: cern.ch
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 21:24:31.3750
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80d9b1b7-4bb8-4896-3929-08df1f39377f
+X-MS-Exchange-CrossTenant-Id: c80d3499-4a40-4a8c-986e-abce017d6b19
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c80d3499-4a40-4a8c-986e-abce017d6b19;Ip=[51.107.2.244];Helo=[mx2.crn.activeguard.cloud]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7PEPF00000050.EURPRD83.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR1P278MB2245
 
-Hi Christian,=0D
-=0D
-Thanks for the review.=0D
-=0D
-> Can you put an example DT for this? Also no additional register are neede=
-d=0D
-> to this special mode?=0D
-=0D
-Here is an example using the switch's internal MDIO bus, with the other=0D
-user ports omitted. The SoC MAC has its own PHY at the other end of the=0D
-PHY-to-PHY connection; its phy-mode must follow that MAC's binding. The=0D
-full example passed dtc and the qca8k binding check.=0D
-=0D
-    switch@10 {=0D
-        compatible =3D "qca,qca8337";=0D
-        reg =3D <0x10>;=0D
-=0D
-        ports {=0D
-            #address-cells =3D <1>;=0D
-            #size-cells =3D <0>;=0D
-=0D
-            port@1 {=0D
-                reg =3D <1>;=0D
-                label =3D "lan1";=0D
-                phy-mode =3D "internal";=0D
-                phy-handle =3D <&switch_phy0>;=0D
-            };=0D
-=0D
-            port@5 {=0D
-                reg =3D <5>;=0D
-                ethernet =3D <&soc_mac>;=0D
-                phy-mode =3D "internal";=0D
-                phy-handle =3D <&switch_phy4>;=0D
-            };=0D
-        };=0D
-=0D
-        mdio {=0D
-            #address-cells =3D <1>;=0D
-            #size-cells =3D <0>;=0D
-            switch_phy0: ethernet-phy@0 { reg =3D <0>; };=0D
-            switch_phy4: ethernet-phy@4 { reg =3D <4>; };=0D
-        };=0D
-    };=0D
-=0D
-I did not add any register writes for this mode: qca8k_setup() already=0D
-programs header mode for the CPU port, the four GLOBAL_FW_CTRL1=0D
-destination masks, and the CPU/user membership masks using the selected=0D
-port. CPU_PORT_EN remains set by the existing setup code; I have not=0D
-tested clearing it.=0D
-=0D
-I tested port 5 as the only CPU port on a Redmi AX5400 (RA74) with an=0D
-OpenWrt Linux 6.18.52 backport. Readback showed header mode only on=0D
-port 5 and all four destination masks selecting port 5. BPDU, LLDP,=0D
-EAPOL-Start and broadcast ARP frames arrived intact in both directions,=0D
-and unknown unicast/multicast flooding toward the CPU, DHCP, MTU=0D
-changes, renegotiation and ping also passed.=0D
-=0D
-That test used the external MDIO bus with wireless disabled, and needed=0D
-two workarounds that are not in the posted series: a dummy phy-handle on=0D
-port 6 (a fixed-link user port) for MDIO classification, and a NULL-PHY=0D
-guard in qca8k_port_enable(). So it does not validate the internal-MDIO=0D
-example above on hardware. I will reword the commit message in the next=0D
-revision to claim only what was tested.=0D
-=0D
-Would you prefer the fixed-link NULL-PHY handling to be addressed in a=0D
-separate prerequisite patch? The guard skips phy_support_asym_pause()=0D
-when phy is NULL, as it is for a fixed-link user port. For port 5, are=0D
-there other CPU-port registers or traffic paths you would want checked,=0D
-or is testing the internal-MDIO configuration on hardware the main gap?=0D
-=0D
-Thanks,=0D
-Yongzhao Chen=0D
+Add the Samsung Galaxy Book4 Edge compatibility bindings
+
+Signed-off-by: Maxim Storetvedt <mstoretv@cern.ch>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index cf9d940f7..439ae9778 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1226,6 +1226,13 @@ properties:
+               - qcom,x1e80100-qcp
+           - const: qcom,x1e80100
+ 
++      - items:
++          - enum:
++              - samsung,galaxy-book4-edge-14
++              - samsung,galaxy-book4-edge-16
++          - const: samsung,galaxy-book4-edge
++          - const: qcom,x1e80100
++
+       - items:
+           - enum:
+               - qcom,hamoa-iot-evk
+-- 
+2.43.0
+
