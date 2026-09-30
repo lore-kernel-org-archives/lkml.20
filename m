@@ -1,177 +1,138 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011000.outbound.protection.outlook.com [52.101.57.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C6B509F07;
-	Wed, 30 Sep 2026 14:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777028; cv=fail; b=fWo1F2gpNPOxCNO0Y4nFpE4q84SG0pZqbInQGqK54m2qknDQz/JP7dFgYWt4oYAsUncifUQotm6q6+eUEctqOmXuAz1sEmo5cz3vYUr5Q/BZ2SkYxD7mAIQbw4J0+yItGmTfdNhkhTHI+psjA1oJLPezPrYUJG18cqHOTYOm9/I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777028; c=relaxed/simple;
-	bh=of0K9Sp66YnM8vLKm/mpKBW+wNx+zQU7debAQdssNAo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=FFaLRa6gzdtiAncjtRCLGaChc/F34TFeqYkHqWvaECG7lDOgHEev+4HGAsKzx8Cncn2Tb+bxVGMmfUOJdlCZO0LJGwooo1NIHfVAbjyFalZDR64hq/HZTMjMzqZHGQ9s8LzM09OOWhjJ1bTFy66GUftOeakkGpwlZu5ubxS+aOw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BpkqHvMr; arc=fail smtp.client-ip=52.101.57.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151E74E4322
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790777056; cv=none; b=kK8/vdP0aqo1BpaM+gwxbNT7eIMHCSOqQ6JYzG1mf7rrBFj/rBWm0JpBCoABVzu325onRyhKGdUHeKKyrD8INu56VQcTh+EpAIAj5UC4gbVnwcS38Jej+z7fExNpLd5tNfqndEeAZoHhDDkTLF0uRfxaNG7gdFHd1eLkdqFfEvQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790777056; c=relaxed/simple;
+	bh=bTlzFUOoLsXskjH0l1jHEaOdwVBHaDbBueIFIf22uqg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ACZrvkyAFvby6KvKCAe8solXMZqZ4V6Axzo6nA0LDeHypBWVrIbB/iSlKJl7/KyQkGoqZ7MUIm7BRl2XM0+jfRzvV54fjE262J97VXWUYIDAZONCY3X/MMG/SaYEkFgbOipjXJGxCiWLPE7SISDfgdXa9InTL8/33E6GJX7DjDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kt3ZlhYD; arc=none smtp.client-ip=95.215.58.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BpkqHvMr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bTdjZ+XlC3sTF599vsKNpPXI70K+MkMEcQ9q0mkdkAmzOSQYrw3DlvKqd2Kperp1c4Cza9fxHXBs50wsh8N4nYFJetmbG3xBuBIXWwoKcS/hsGKzBZHCiP8k4MpNs0obcF4l+M1a1N12+g3n+JdPijZHth6ik3O3WZplZvSRtcSxjDAvp7plOLXJN1O6J2dJsoIMiunn2W4HxdlKhBFqxDsURhAHqY9kb8L1QcSXEIHUSQKfDTQpI/P0O2sH6r9EQwBIvC6ZFCf3/WIzqKx1GLUU8TR4/3/5p7A9Vf6tieX+Aje22Um8pk8kP06E3bjy9vYMoQMLfVFeVbngcpD61Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q2swNwAELyy2Xq9mFNl5vN82MfCQPLGzBdoH1uH/cY0=;
- b=kUIgsp2VnGCmiRb/dNA2zw4QJUiruAW+XiKNQhAbo2e8sq4hM1MPyexunT1MynQL1PxO9+8b6uCeBiA1ni/9cDWvbKJTC+psHTVHd/7amFlcwF5ppDkx+BJB+PvqXM3HUWsl07o+GftAvOYMxkUuIW2+RFuQv44ImtedzOj2DkULhmhv0Ofrtoxc2gJ4My5biXM3knt3VRqTv2WwDT9ni4Bra6Y//TP9i3GnxeOVc4cOnB4o/rETPB4Y7rwsGcT7nhOjmOr+CAdg8PfLfe0r7WM2Ad3cB6KBNO04v5hF/kH1q1pRDzZtOwRMhXKNrLEkchvtfCVTBQUbFR2pdsI2+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q2swNwAELyy2Xq9mFNl5vN82MfCQPLGzBdoH1uH/cY0=;
- b=BpkqHvMri2O/hliQIvmnjZILWHxo756k8Yg+ubn+pi/hQgCYoaRSA93RWUzq7ACFyq/U16si7VTdosy98yaLzRq454kaD7JQhp4p9Hx+VQwsueOoMiGw6a7/GbtgnnRQ0z93QISe9rqeVDVe5VTlA4wvkMJRzpTImZfiMuAH5ubYPLOMrKTO9+1W5wKbxLbiDcEdqxQWvs9hUQoG0/C0IAUAxEJrAPDu1uwUnh+Ac8rbrsvSrqiDPRyCCWKweep6xSYKR5RfFRKqlLafBGT03+rcGAh7zcO/LBqcELA40lowxaurMWTwUmFQ+i0OYeNzsjzX2Di4Vwp/yBHK62vZ4Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by LV3PR12MB9257.namprd12.prod.outlook.com
- (2603:10b6:408:1b7::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 14:03:28 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
- 14:03:25 +0000
-Date: Wed, 30 Sep 2026 11:03:23 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Vasant Hegde <vasant.hegde@amd.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 09/11] iommufd: Add the vdevice TSM request ioctl
-Message-ID: <20260930140323.GS1616761@nvidia.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-10-aneesh.kumar@kernel.org>
- <179027891417.104879.282447770434616733.b4-review@b4>
- <yq5a7bk3upx6.fsf@kernel.org>
- <012d7ccd-ecc0-4105-b386-d83508ebf891@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <012d7ccd-ecc0-4105-b386-d83508ebf891@amd.com>
-X-ClientProxiedBy: SJ0PR13CA0231.namprd13.prod.outlook.com
- (2603:10b6:a03:2c1::26) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kt3ZlhYD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bTlzFUOoLsXskjH0l1jHEaOdwVBHaDbBueIFIf22uqg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790777042; v=1; x=1791381842;
+ b=kt3ZlhYDbiBp1+8MjFMG62wi1BVrBBYwAdMHmp99uCKocZv7lacqBOosU+vhykhUQEbMXU9B
+ 2gSJSRxKhZ449PraubHr0G0JfgNu2/3jHfvT3Yv4anpQX0/AxoVe2PKwxFoTNbr0sOFExOcS2j1
+ VZtElxttunQWG6QFAQKkbECA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4463098d89d469e3;
+	Wed, 30 Sep 2026 14:04:02 +0000
+X-Mizu-Trace-ID: 4463098d89d469e3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <79fda08f-46e5-4f98-8051-92dbebb1de73@linux.dev>
+Date: Wed, 30 Sep 2026 22:03:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LV3PR12MB9257:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a88bcf6-68b0-4418-2822-08df1efb988d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|11063799006|4143699003|6133799003|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Y8UY8IE48CskpK+HfYwZuVkVDSNtRPHGQ0/tflb/b/Zv9leOvVT3Xwf3pv3a2Vw5qvjjqZK32tIYhbVun0k0kvnpXsj+2cQxtXK8IeANpb+Wf2ElBaWm3YWLWPjyf+WkFhsnFBPCkPoICwLlzq1Ndet14iSsfFEx5f6TGpIO8EkBV29VCApv8UA3LobOnBoBYXdJ0tX+QjjgGOOwJpTg4VoGjZRze+bZvxJzQo7VH810Q5AE1Jpw9ITXWX3/x/JK7CFC/PUJ9IxZt1onEoA5p83llj6seQckcJB3tI0ddpM4f41TP224trqCtPOR75q0mZQAfxOIDATMVo6Nnz3iYpguUuL+tqvBj6JeGKGdjIv8j6HXcGdM4GsRS+WE7ZLZRBn6IXAGBlaokeUKY3LfZ0GwJJ5eyjHRev1DikCNoZ9de9E+XfFV2nTXg0Qx+lj1uLPbb2+uDp54+oEmVi+0r1CAvn/J4SaqDXWCy4faZC69wom4hTVAMQ7zE8vzRZRt05WRpe7jJxL9Axl/5ohcdibdbGRctVBdmNF/DMJbqJ1PDhjBUy2Rcvgzn2tTbF5QifEGUKSks2+RViWvAjIptNYaePBiigiQuZUQYxIx+dsbO21v7I8UhrePmQ/HLJxLepy4PnmZq2GJ1lc2uSAHhy9coqsChVmUUnzWEAAmx7U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(11063799006)(4143699003)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?pjF9AWxN3Uln3ht8OYMHXoESl/zU30TVdRlLOkRaf5r1xYges9UngOPhoQ6c?=
- =?us-ascii?Q?vDreN60Do3+Pkj8L+b3jrUMQV1Jjbwf8ZYnc0eknPBxnOSdM8vl3AZJa7RXf?=
- =?us-ascii?Q?PoPPKj5MID5lUQJlm2SdgBQc/bCeaWvZvLDGXXTI8Eft8SbudZ236UYgICgt?=
- =?us-ascii?Q?bzp6ohVRnqwi+WaxFED8RVyrHlZEvqxq0aHkIMgiTLX4Rk5Dro3uPGnPiVHO?=
- =?us-ascii?Q?/QYLYOm+UiNYpD8PswjhXMmGLMB+gnnOBZhSI4HSht5Y04ttfV1ZXakO/8F9?=
- =?us-ascii?Q?alry+vqAo4fgpnN/2JPcwZC07RPkCKKq2Jvoi9uLjP+cEd/n8Fb3JDtzg9kn?=
- =?us-ascii?Q?YVCAzbgC0Pcuz1TDqK7z+9p3M3kGPfdXExVdfEOLztwTHGnL2tVJMfQ4SmVD?=
- =?us-ascii?Q?sy2hzmAcsDrAwzmRglxfEkzztpINFLbvSYW9EpU92aQl1dcovzK9qmI6nFZ3?=
- =?us-ascii?Q?62ZUNk4ErlyNvTGY7nH4wua03hFLZ9vbW7rEnE1bc70QWQx8L1OQFlx4AlIC?=
- =?us-ascii?Q?yrcoXQ5uri5/Co/tpkj1Xo7PVG0xWm4zqYzJ95bYZ88gS/1SP2YzuWZ8emsx?=
- =?us-ascii?Q?VqOXKC2xOhiYaoIA9nkn0XgG07nd8YIqT2+QGwpjLkr0TiB+mJnbTme2naBx?=
- =?us-ascii?Q?BNxFnz80GQpGoVbQ5h2oOgIkzr5cnuHLjelv679mDVMoFS7OVDO2pHw2qCf8?=
- =?us-ascii?Q?0uuy5jE8/haxZVnfsSBT1fn0pR28G7gSp8+HESy+Vq0s84jRf6famg1kOMDQ?=
- =?us-ascii?Q?nzeF5rBZYuYfnYOXKsyKt/h5F6g/KX7zPgyYUXj0mt5zctsZCrojG51xEUqa?=
- =?us-ascii?Q?XxXyxCkYKyYMyEIPm7qgQb+o0XUo1d4G+tC8gT85ouAJzazHGAQT15QbSRjK?=
- =?us-ascii?Q?UINV6m5fBqqsi67qrRR/ef0UZiQm7ipToCeDEBb88hlT2Op2ZQRg4mq9jwGD?=
- =?us-ascii?Q?f7HhE7P+8lkG/1pqGJuNNvIhnTOpFY8GfH+YRQmiOKhg4q2TgB2QXkXAWSTm?=
- =?us-ascii?Q?HzqjJU+dqsFPud1K84l6/3qzPIHS1L55tp4KnrJVdlUu5NhEotjP4l8bxlM9?=
- =?us-ascii?Q?l4b+IPnJPtXD3KHEfqwT4EGq1x9kuNiFHcJjoKlxl5oovQWKmKyYKWR+aQTY?=
- =?us-ascii?Q?+akXvTyB5jNNLfBD+Ohx3n96JzSSCln5otPNHxFgwJuYmgd84JlCltOpelKU?=
- =?us-ascii?Q?iJOXmY1YlBm4lOKBh2OgENMcHEgFsnSGDbk1v4hiGGgWtvEvOUSAec6GJ6Y8?=
- =?us-ascii?Q?6hpwtHNh7gHRZ3c9cFEUBrwujevcc5Fzjh7tadaxklL/fT4q45zU1rCe0k21?=
- =?us-ascii?Q?ArH4MJJvLEX7zkOLGbYhLRBdHbvB9mKe0kNYnPHCHucc+hXbvPirwsVj2uRU?=
- =?us-ascii?Q?Jkw9LjtI/KjWRBI6QkAUw5/uXZKXuSPOWX1m9TTRbPDwsKmSis1HyJqEQicK?=
- =?us-ascii?Q?Q81Y+38vCgRz/4PI+e9zgXsJIuyu3ISIUw/ScoaEqxAjLQ43+S3r+jI8usbu?=
- =?us-ascii?Q?VJwzlI63qYisl82NYfRjn4W29clwYj5/YhU8aZ0g/FDNEUMJ0g3zIl5/GqzR?=
- =?us-ascii?Q?MRaNwyc4wsDo5Hp2maY5jHuzMDB1JIkcU5GHZO5m0dULO4Vo8rgoOMNnR/cc?=
- =?us-ascii?Q?dgFdvh7FT0cajkkcCp4z0H7UF/E2NFV3RiYwts3Ika4eNtaTL/a2bG0qmhsb?=
- =?us-ascii?Q?k/MBMahi5NM+U+m/nyQfYth0wQxKe6FM7rkDBNlTyEbnZEED?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a88bcf6-68b0-4418-2822-08df1efb988d
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:03:25.5933
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4yvI2w8gIPiRi689AVQnmTMn7H4sB/FKAkorriVTu1BKrk0bGUPutr8MozOtH0mx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9257
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 3/3] tcp_cubic: fix divide by zero and endless
+ loop on bad module params
+To: Eric Dumazet <edumazet@google.com>
+Cc: netdev@vger.kernel.org, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Stephen Hemminger <stephen@networkplumber.org>, linux-kernel@vger.kernel.org
+References: <20260930100937.206377-1-jiayuan.chen@linux.dev>
+ <20260930100937.206377-4-jiayuan.chen@linux.dev>
+ <CANn89iLwivMvNWC0oDgmQgTcKjrj_Ar8deh7Bc2jqyRXwv52tQ@mail.gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <CANn89iLwivMvNWC0oDgmQgTcKjrj_Ar8deh7Bc2jqyRXwv52tQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 06:56:03PM +0530, Vasant Hegde wrote:
-> >>> [ ... 34 lines skipped ... ]
-> >>> +/**
-> >>> + * enum iommu_vdevice_tsm_guest_req_op - operation for guest TSM requests
-> >>> + * @TSM_REQ_VALIDATE_MMIO: Validate MMIO for the TDI
-> >>> + * @TSM_REQ_SET_TDI_STATE: Set TDI state
-> >>> + * @TSM_REQ_SEV_ENABLE_DMA: Enable SEV DMA
-> >>
-> >> That seems wrong.. The hypervisor should not have control over T=1
-> >> DMA.
-> >>
-> 
-> (Still catching up with entire thread)
-> 
-> In case of AMD IOMMU, before allowing DMA from secure guest, we have to update
-> IOMMU host (nested) page table entry size to match the RMP table.
 
-Okay, but that is not "Enable SEV DMA" that is "something something
-RMP"
+On 9/30/26 7:21 PM, Eric Dumazet wrote:
+> On Wed, Sep 30, 2026 at 12:10 PM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+>> beta_scale and cube_factor are computed once at module init, and they
+>> need 1024 - beta and bic_scale * 10 to be positive: beta == 1024 or
+>> bic_scale == 0 crash right there, beta > 1024 or a negative bic_scale
+>> gives garbage or wraps to 0. Negative beta can also make beta_scale 0.
+>> Reject them.
+>>
+>> A small beta also gives a small beta_scale, and (cwnd * scale) >> 3
+>> truncates to 0 for a tiny cwnd (e.g. 2), so the TCP friendliness loop
+>> never ends. Clamp delta to 1.
+>>
+>> Fixes: df3271f3361b ("[TCP] BIC: CUBIC window growth (2.0)")
+>> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+>> ---
+>> Target net-next since it is not a big problem.
+>> ---
+>>   net/ipv4/tcp_cubic.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/net/ipv4/tcp_cubic.c b/net/ipv4/tcp_cubic.c
+>> index 119bf8cbb007c..2f04dca5be095 100644
+>> --- a/net/ipv4/tcp_cubic.c
+>> +++ b/net/ipv4/tcp_cubic.c
+>> @@ -298,7 +298,7 @@ static inline void bictcp_update(struct bictcp *ca, u32 cwnd, u32 acked)
+>>          if (tcp_friendliness) {
+>>                  u32 scale = beta_scale;
+>>
+>> -               delta = (cwnd * scale) >> 3;
+> I would prefer not adding a test in the fast path to work around
+> silly module parameters.
+>
+> beta_scale is computed once at module init, we can make sure it is >= 8
+> there. tcp_snd_cwnd() is >= 1, so delta would be >= 1.
 
-I do not like these obfuscated names that are still architecture
-specific behaviors but obscure what the actual spec defined underlying
-action is.
 
-If AMD needs some RMP maintinance then have a clearly named RMP
-maintainence op that links back to the specification documentation.
+Agreed. beta_scale is 8 / alpha_cubic, so >= 8 just caps alpha_cubic
+at 1
 
-I've never liked this approach since I saw the first iommufd patches.
 
-iommufd, philisophically, is about providing truely general APIs that
-can work for everyone, and very device specific APIs that directly
-work the device's interface in the natural device specific way
-according to their specs.
+>
+> With the integer divisions, beta_scale >= 8 iff beta >= 512,
+> so the default beta (717 -> beta_scale = 15) is not affected.
+>
+>
+>> +               delta = max((cwnd * scale) >> 3, 1U);
+>>                  while (ca->ack_cnt > delta) {           /* update tcp cwnd */
+>>                          ca->ack_cnt -= delta;
+>>                          ca->tcp_cwnd++;
+>> @@ -504,6 +504,11 @@ static int __init cubictcp_register(void)
+>>
+>>          BUILD_BUG_ON(sizeof(struct bictcp) > ICSK_CA_PRIV_SIZE);
+>>
+>> +       if (beta < 0 || beta >= BICTCP_BETA_SCALE || bic_scale <= 0) {
+> bic_scale * 10 can overflow if bic_scale > INT_MAX / 10
 
-So I would hope to see some general APIs for the SPDM related stuff, I
-think everyone has that and it should work in exactly the same way? Or
-not?
 
-Everything else should point down to arch specific stuff. Like if we
-need to do some RMI_VDEV_XX then it should be called that here, not
-obfuscated.
+Right, will add it.
 
-Jason
+
+>> +               pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n", beta, bic_scale);
+>> +               return -EINVAL;
+>> +       }
+>> +
+> Something like this (untested) :
+>
+> if (beta < 0 || beta >= BICTCP_BETA_SCALE ||
+>     bic_scale <= 0 || bic_scale > INT_MAX / 10) {
+>      pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n",
+>        beta, bic_scale);
+>      return -EINVAL;
+> }
+> /* Precompute a bunch of the scaling factors that are used per-packet
+> * based on SRTT of 100ms
+> */
+> beta_scale = 8*(BICTCP_BETA_SCALE+beta) / 3
+> / (BICTCP_BETA_SCALE - beta);
+> /* bictcp_update() needs (cwnd * beta_scale) >> 3 to be >= 1 */
+> beta_scale = max(beta_scale, 8U);
+>
+> Thanks.
