@@ -1,71 +1,46 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBB530DD1B;
-	Wed, 30 Sep 2026 09:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFF13939C2;
+	Wed, 30 Sep 2026 09:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760508; cv=none; b=h02mpB+Jbj91oJ7NxJH8r2SR7NhCrEMnEAdXslgYl0M7hx2xZqVCKh+HPQfID7RLmVewqgaxdXUNzIBF/2Uux14aLdsZ+qacnPDC9QDItNZvL9TVU7Sps7tw5vfBItilIMNAX98JkRf0HIBLmWPAunDSfKMDprUQklkZQrqtQEY=
+	t=1790760530; cv=none; b=ht1hhHloDHkMl0G1HN6WQVkX5r9ZweQFynRSJf3uA8SwsobV2xApeuOXNSHCaS4vve0Gdot/wnfwg6PXc+8/Rb9sAP1RRtzaovcD8n8W317H8p1ImzXgXeXcXRJ4+zAWshWrGsgRDePC74r67tnco8Wo/Dw5DZ74SUzZZiCwU10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760508; c=relaxed/simple;
-	bh=2sVhLXEz5arjedlrDjdVeFteZRtyWTF64QrSqVTZ5ko=;
+	s=arc-20240116; t=1790760530; c=relaxed/simple;
+	bh=XrAQsPqi9pVk+zpJjBQqrYjfZ7MnRsHSmYcJOCzLQzw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e1BqhIutBQwltMUsllmnFPCFIWtmB5Y/UhgTOi1efuVxDu5DXWTRnYzrs2z69/0+7Sr0gZ5spATyY5ObJ0vSy3ERcGnsmdEZhOtPXBt5VznfCyJAL9SkDwAuQY3kNoVFikbbPHMGSniT4BleIL/uMFSqxxjuKU1kArc1Br00Ra8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BaPk+Cpa; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=d9I+FgjM27D6BV/tSYkcBnFLvL/aRkTfxBgtNV2tjtnbNEbfHA5j8wsL1w/RWdoskpIy2i8QBZurgllidWs0pJWUhhTZXK/bF2vzylIFiiw0nekBIFbFWvGEAwCA5oK3to9BbmP10D67A5YTiCmeFXvkY6Q+fVxorc+l8xvQAd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EzVdckd2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BaPk+Cpa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790760507; x=1822296507;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2sVhLXEz5arjedlrDjdVeFteZRtyWTF64QrSqVTZ5ko=;
-  b=BaPk+CpaqbiJkJBIjU2WWy/hV6nKvw0DBv4Img6cRpzY2PACpRSD7Xn8
-   CXs2AC/CJAOdyNC59b6akF+vB8Knd7ufYxfaax+KyLt7a5YacXRv//8C1
-   7smkauJgbUWyI9mKhM0Kbhfn0kgo/f3jJ0qppr+o7R3WKk+WdF7CZWs+8
-   hgyqOhMAEonkZoD18FpxWSrzwP0uy1huyuCS8ZIEXNwJkRIyn9ubapZj5
-   IgMW8yipVZVEvJ+cdUPk84AxJZXdfgHNoIrtjopq0I3TERSOSaFmXy0ld
-   eq2gqM9hcukILzpMuEam+ZUu7ZNWfuT8zYGkAIDYApHzXjnMV0bTpEF/N
-   Q==;
-X-CSE-ConnectionGUID: 3XUXLoIjS/OZ+I4wNvsdwA==
-X-CSE-MsgGUID: u2d2di39STee4IJG97nxPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="79060542"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="79060542"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:28:24 -0700
-X-CSE-ConnectionGUID: kNSOxO7LRpS/D74JgsvEDQ==
-X-CSE-MsgGUID: IZvfOd80ShS2WB4o6QrsiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="313577291"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:28:20 -0700
-Date: Wed, 30 Sep 2026 12:28:17 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 7/8] iio: adc: rzt2h: Use scan type for ADC scale
-Message-ID: <arzWMViKacekCSdS@ashevche-desk.local>
-References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260929124248.237032-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EzVdckd2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9891F000FF;
+	Wed, 30 Sep 2026 09:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790760528;
+	bh=WqEtnUHXagCUT2Ek53+GJZXdG8329czXCPbszLGnvqE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EzVdckd2PZUA5vOcHYr+UWtP4L7F+Pp91DJB13VJvkh8SjTX7wDOB7AdIOZUCyvyB
+	 LRw7Di31lL6B5CzbFRwZweiK2N2GFeGMDIsDEy3x0wfJ3fUk4MPs/6Sbxb0y4y+SL0
+	 Xn+Hjmh/bazoDPq4DY/B4DLJ9qarIEuV2Di7s16rxSjggwS7FJO53oUDXf6p0zLnZc
+	 XrzqsOGybQ0izIlguJMWdBtJNFTwnPH0/Q7kf+/u7UUKOMKGVl5N9oZFOMFzJ3a8PM
+	 iyq36XwGfitOR7tNdBIXXds7gkWwndemhBhEHyWxd7LnfvtNHaF3YeIK972nDbyG42
+	 JWTE7NA9qElFg==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xBqcI-00000007Cva-1UvX;
+	Wed, 30 Sep 2026 11:28:46 +0200
+Date: Wed, 30 Sep 2026 11:28:46 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: David Lin <dtwlin@gmail.com>, Alex Elder <elder@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>, linux-usb@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] tty: fix saved termios reset race
+Message-ID: <arzWTv2cslkhyt6V@hovoldconsulting.com>
+References: <20260930091938.1715754-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,26 +49,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929124248.237032-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260930091938.1715754-1-johan@kernel.org>
 
-On Tue, Sep 29, 2026 at 01:42:47PM +0100, Prabhakar wrote:
-
-> Prepare the driver for RZ/V2H(P) support, where the ADC supports both
-> 12-bit and 8-bit conversion resolutions.
+On Wed, Sep 30, 2026 at 11:19:38AM +0200, Johan Hovold wrote:
+> Resetting saved termios state on device registration is needed where a
+> minor number can be reused for an entirely different device and where
+> the old settings may prevent the port from even being opened (e.g. when
+> CLOCAL is not set).
 > 
-> Use the current IIO scan type to determine the ADC resolution when
-> reporting the scale instead of assuming a fixed 12-bit resolution.
+> Not all TTY drivers guarantee that the minor number is no longer in use
+> when registering devices however, something which can lead to a
+> use-after-free when closing a TTY (and saving its termios) races with
+> re-registration.
+> 
+> Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
+> termios state is reset on registration and only set it for drivers that
+> make sure that the minor number is no longer in use.
+> 
+> Fixes: 93857edd9829 ("tty: reset termios state on device registration")
+> Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
+> Cc: stable@vger.kernel.org	# 4.12
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+ 
+>  	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
+> -		/*
+> -		 * Free any saved termios data so that the termios state is
+> -		 * reset when reusing a minor number.
+> -		 */
+> -		tp = driver->termios[index];
+> -		if (tp) {
+> -			driver->termios[index] = NULL;
+> -			kfree(tp);
+> +		if (driver->flags && TTY_DRIVER_RESET_SAVED_TERMIOS) {
 
-...
+This was of course meant to be a bitwise & as Sashiko noted.
 
-> +#define RZT2H_ADC_VREF_MV		1800
+I'll wait a bit before sending a v2.
 
-_mV (yes, as it's called officially for millivolts).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Johan
