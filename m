@@ -1,258 +1,226 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A4424676D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F8937C900
 	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744196; cv=pass; b=G05HogBopj4kbaC2ZjPBoTCzSBJJsYlHeDMybb85DscO2vEhpKh6vyTBEjaswEPfi2+yR25K8VxKS0hvNfikpLryLOOcnWjGE1MOYHT+JBKh5rCjFHkimzAgnSc1/uwPTE0ZUoD9T7CRIUkxxJd41LBxH9QRm3cW15smeqgNg9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744196; c=relaxed/simple;
-	bh=aijIq6MG49th3NxWEi1RYjXRzGo8e6tnPdyVZG7VoU0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KN/57g3HiGbivaU53T5NreYV5MH5W52sUN56BiOxniCkW6njkhf4/Dz8xyIbaNdfU5MrTR7z+uBgK0WHuA+03Ka4awb5yCUWFxFzbX6ZvaXC4NESrOptG4Oxt+eHVdmoXYOGDfA2yf+FhS5zFLELDkSTO6FIaYcNhyUXDmtT1FU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsPfNluM; arc=pass smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790744199; cv=none; b=N9brrWLyfBknY5uH6I5LvUOzNv9sCaG+YTNQeAqDk2OBD1d4AdXBq/cTYR02jP+7WFtFWQ6KG2IIjsopTHC8gLGYy8RZOuqQylnWkLUlmgiXIuvP6VREm7ybb+LwAMYPTTDDVatLBWyxEkniiZbGEbpoVHIy7MJgKk+xml5UKtA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790744199; c=relaxed/simple;
+	bh=1LzUJWyVpEJ6t0FLAllTJUVlsjTLhKqKyXpXO76wJIg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cyvDXZLR3t5/IcVogDiRigJ0V90e2THCPv9C4HhZfLO4GcgedEwE5y+PKfzL1nL/j35zmaK3lxvULhTIGtjDghQPl2233Wdt36Lww8hXpQ6N4bl9Jk6MW6w3Y2qYBxaaDiYMD0Sl1Kp/6yG3ZUgulyeVC20TQXdkW1yhSW7qa4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=ZJMvIwby; arc=none smtp.client-ip=49.212.243.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsPfNluM"
-Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-675bcac8ceeso729014d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:56:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790744193; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GNGOxr2C5yeern1DsRKjjOVv7Qf1i/6k85RHRKyhVLJ34SLLfwFKSxI0c8TzH8AueE
-         OqYputKpOoefsrprGhxdO/v4eXiWrNl+TGtHAmOSXNB60xzu7k+VPtd92MlQlQ5NRF/r
-         GBi76brDxZcwJDIs/q78eoPyw5EDKZzgdENuOHp2Sbo0hoXuDig7rFc5SwHzY8BxsKZQ
-         nlGGHbMYFgw3UZFFQME5yf4P6hhrGY6cHbHbIDKIVdKJpTaCNZ+Os9Cuhm8iagj+6oHO
-         IE5W10yhoTZ7cYRk6fiK+aRYaIAlXoUNGhahWPBBvVH2vvgt7bN5kdNmmkSeNOPFRdq1
-         sKGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
-        fh=aBCjy/VM06h1uEydOqyEEbJ3pqdx/rPianqAAE2n8LI=;
-        b=dBhokjVzDiRYzx1Nm/4DP7iwpOGZmA6It4NEa5nbQnzrqwlkLm5nrGuNXepISu9ixJ
-         oXtN7lz10sGz/bp+UjhvaatG3KLmf4V69wLdIzBPowtzrBo+K84tZbwsMxwK6/O2e9A9
-         eevJR7DK5Rk55oJWg4e0ksP3igzmGkxWuwTNMZ1EVJdP2w0WN04YoJUjhR0RXXQ+FhLn
-         U+33cf8yP9GX83qdNtfWSxCg0LD6adxoLL8ECVSO2JKi+oAlq6uBFZn/Hc1IvUaMv4zK
-         GT6h0iE6pyUMnqCB6JSdOzyJqoLCw16DcgMqM1xRWHWQIXN7KP1hjZqHLBsO30zR3K3a
-         D7lQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790744193; x=1791348993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
-        b=BsPfNluMyV7VnbDx8bcRuJLa4SEFo0DgwXPjaEIuDdc0oWXf3kKnzF62jQE6biHBCH
-         ATxkbkB8adjFF3aqLYM3jJd7zMMyOCn/2gbDlAw9qpHgcbPKC0yCOtT/xh0fyZpKCLyB
-         hE7Jtmswmb0ySZxaORv2IoJb3Eax9+geI2nCpQrPxIzSdNLcdJFmRlgx2q+PtQxkDgbu
-         RdqY8j7SKp4Bgnvf0I1rLEHWHb1rxZbTOF8+Vk1ynsN6OQVzQCiSrL5jIYF0F5Dbk+iR
-         0cRkU66G08rWsPN5ECNwGrsR27YzbhwD+5HWxCOG7azhtfU15ApGqMOvTXE+cNPz/GIB
-         JWbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790744193; x=1791348993;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
-        b=EqkWbsurLWBNhC64FiVMqYqfVTiC1zfOJJjazGat/VsqB521kJuN+uaiiilaoKKCJA
-         KvwZmBUGWXGQHxctJFm/DJP4llO/gsvTMn6Mx17UJaLBhuNAvoi/841Ga6t4dTAkZ+Bw
-         WSjS23zGIvcYGj8buERH1AwGSws7/oD/klLMFCCCNYglySduhhxBkguQ8SGmFpw99lYE
-         AppLeS3cDztnYmKenGEEjJM8R3bA+XHUnjSXvYHCsXfoa6mDSwixnJIxSFPtab6hGkH1
-         EWkVSTz7HkBy4UZ03DszHWpGQsd/6RN3IWpqy2B2dR1Q82QfmydLdk9GUZQtZ4NLNHZf
-         uRKA==
-X-Forwarded-Encrypted: i=1; AKwUvByf/3l6/yx89og+C+5JVZ+uvDWOD4oD+8u7+yfYAEPU2A0Tfqi/AITIaGFTYoD0gu9f2BSLUTxF5ppLpDQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRkGGNLGi6drmbQGOvabAmqNGYfeL+xDlIQcrzMh7xqQJsibw/
-	0+WKTpnepUAkUeg3EtKWWkh6Xf2XlI1ZSmUTi5VfsNJ9G8uPidpmt5+nHmevzj1wsR7QlkvOGdM
-	J6Wun387PUQB2/NvOyUTGsMPdOjIYmBQ=
-X-Gm-Gg: AYBFou0bqcY550gpacXPVUH1buz+5RoysNXaRqnmNHV0UoEThUpHhQFBhRxbiFIx/IK
-	CnFPR6yJ+Ke7oTC5xmq1uQhHgd+KB/p5Ut7/aletFh4SPaj3y6NFRGASss2OEY3SHSht2KiRY9f
-	/3fESI51E8EArvmNT6yAC2ghIHtxwJ0U4Ta98Ktoabi5XI5QeMsvpZmESxsCbvaHFdRRJmk1DK2
-	N0OVdq5FlNdIWHs2mf3FU/Eyzupfj+tVpZAZN3I01hFmXC9FtNDdtH5/Ad6Uwb7qoRi3H9XXtRJ
-	6oT8SkB29OCQHBh4/fAe2K2K2T/nyRx9QYOIAfGJXIMy727rx7XVrSfwilAgTNCfnlo=
-X-Received: by 2002:a05:690e:4197:b0:675:39f6:9bca with SMTP id
- 956f58d0204a3-676834a58f0mr102811d50.58.1790744193227; Tue, 29 Sep 2026
- 21:56:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="ZJMvIwby"
+Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
+	(authenticated bits=0)
+	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68U4uQrb098371
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Wed, 30 Sep 2026 13:56:26 +0900 (JST)
+	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=Il6Pn8W1NJX9qhwbRcpycT2Saqf/wh2/BgvOLGH6lG4=;
+        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+        h=From:Message-ID:To:Subject:Date;
+        s=rs20250326; t=1790744186; v=1;
+        b=ZJMvIwbyT8HsLngGKDH8Dxl0o6DaQol1ktghTGr8gxAPjovpuDN1bQfkJcXPUJfp
+         VTTNJ22GMW1PslrLxc5OsAR0JsKbo2suAjU0opJkeP9Ive4PqU3sq7Bczbw6wEPl
+         5590um/csXpYGEFb+W0ZkIUy6U6k80/YZgshn2v4rZShf7OJjcaUvRxJZErJFiSB
+         3qA3GqNktTXgv4ChUSK54faOGV209MrbZ/nt+r3vLIocCzAwhMrXedGZtohA/3jC
+         BQDp7FbMNoHyyD6tiMRLLqnALtGhGXfxQTJ2wG6ODOp5pAzsGkthx/tOjcUs9X5T
+         ReqciSAod4gJPVdAE60hcw==
+Message-ID: <dce3d9ed-87a7-43fe-b7d8-c7281514f7d1@rsg.ci.i.u-tokyo.ac.jp>
+Date: Wed, 30 Sep 2026 13:56:26 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920055519.3778269-1-lgs201920130244@gmail.com>
- <CAKfKVtGZH8OaXp0WtJSD7AAQb8BSWg=xo+x9jj1sbjSxjEanGg@mail.gmail.com> <CANUHTR_yAgnZN05PBLae3DSk3xo0haLRRgHyKxswSYDE2tHgFQ@mail.gmail.com>
-In-Reply-To: <CANUHTR_yAgnZN05PBLae3DSk3xo0haLRRgHyKxswSYDE2tHgFQ@mail.gmail.com>
-From: Shubhrajyoti Datta <shubhrajyoti.datta@gmail.com>
-Date: Wed, 30 Sep 2026 10:26:20 +0530
-X-Gm-Features: AclHuK_5dLBTDCM2a4gpvqnnswpJIWECN6q0YsymVQT1CjxevikTIfBgbHvWtBg
-Message-ID: <CAKfKVtFkZ-T==D2-3OJeWUsRAzCE7_YP9kW1dDA0d3kjVWfBFg@mail.gmail.com>
-Subject: Re: [PATCH] EDAC/versalnet: fix memory leak on device registration failure
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, Borislav Petkov <bp@alien8.de>, 
-	Tony Luck <tony.luck@intel.com>, linux-edac@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: "Huang, Honglei" <honghuan@amd.com>, dmitry.osipenko@collabora.com,
+        airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+        dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+        linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+        amd-gfx@lists.freedesktop.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+ <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+ <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+ <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 7:45=E2=80=AFPM Guangshuo Li <lgs201920130244@gmail=
-.com> wrote:
->
-> Hi Shubhrajyoti,
->
-> Thanks for pointing that out.
->
-> On Wed, 23 Sept 2026 at 23:03, Shubhrajyoti Datta
-> <shubhrajyoti.datta@gmail.com> wrote:
-> >
-> > On Sun, Sep 20, 2026 at 11:25=E2=80=AFAM Guangshuo Li <lgs201920130244@=
-gmail.com> wrote:
-> > >
-> > > init_one_mc() allocates dev with kzalloc() and registers it with
-> > > device_register(). If device_register() fails, the device has already
-> > > been initialized and holds its initial device reference.
-> > >
-> > > The current error path eventually frees dev directly with kfree().
-> > > This bypasses the device release path and can leak driver-core
-> > > resources associated with the initialized device. The existing
-> > > versal_edac_release() callback is responsible for freeing dev once th=
-e
-> > > device reference reaches zero.
-> > >
-> > > Call put_device() when device_register() fails so the initialized
-> > > device reference is dropped and versal_edac_release() performs the
-> > > proper cleanup. Return after freeing mci to avoid falling through to
-> > > the direct kfree() path, which remains necessary for failures that
-> > > occur before device_register() is called.
-> > >
-> > > The issue was identified by a static analysis tool I developed and
-> > > confirmed by manual review.
-> > >
-> > > Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR c=
-ontroller")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > > ---
-> > >  drivers/edac/versalnet_edac.c | 6 ++++--
-> > >  1 file changed, 4 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_e=
-dac.c
-> > > index 3a06b41c1d84..db3bf5a1345b 100644
-> > > --- a/drivers/edac/versalnet_edac.c
-> > > +++ b/drivers/edac/versalnet_edac.c
-> > > @@ -829,8 +829,10 @@ static int init_one_mc(struct mc_priv *priv, str=
-uct platform_device *pdev, int i
-> > >         dev->release =3D versal_edac_release;
-> > >
-> > >         rc =3D device_register(dev);
-> > > -       if (rc)
-> > > +       if (rc) {
-> > > +               put_device(dev);
-> > >                 goto err_mc_free;
-> > > +       }
-> >
-> > There was a comment earlier from sashiko
-> >  failure path calls put_device() with dev->init_name still pointing at =
-a stack
-> > buffer before device_add() copies it. That's unsafe in
-> > principle (dev_name() would follow init_name)
-> > >
-> > >         mci->pdev =3D dev;
-> > >         mc_init(mci, dev);
-> > > @@ -852,9 +854,9 @@ static int init_one_mc(struct mc_priv *priv, stru=
-ct platform_device *pdev, int i
-> > >         device_unregister(mci->pdev);
-> > >  err_mc_free:
-> > >         edac_mc_free(mci);
-> > > +       return rc;
-> > >  err_dev_free:
-> > >         kfree(dev);
-> > > -
-> > >         return rc;
-> > >  }
-> > >
-> > > --
-> > > 2.43.0
-> > >
-> > >
->
-> Would splitting device_register() into device_initialize(), dev_set_name(=
-),
-> and device_add() be a reasonable way to handle this? For example:
->
-> diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.=
-c
-> --- a/drivers/edac/versalnet_edac.c
-> +++ b/drivers/edac/versalnet_edac.c
-> @@ -64,7 +64,6 @@
->  #define XDDR5_BUS_WIDTH_64 0
->  #define XDDR5_BUS_WIDTH_32 1
->  #define XDDR5_BUS_WIDTH_16 2
-> -#define MC_NAME_LEN 32
->
->  static int init_one_mc(struct mc_priv *priv, struct platform_device
-> *pdev, int i)
->  {
-> @@ -730,7 +729,6 @@ static int init_one_mc(struct mc_priv *priv,
-> struct platform_device *pdev, int i)
->   u32 num_chans, rank, dwidth, config;
->   struct edac_mc_layer layers[2];
->   struct mem_ctl_info *mci;
-> - char name[MC_NAME_LEN];
->   struct device *dev;
->   enum dev_type dt;
->   int rc;
-> @@ -773,13 +771,17 @@ static int init_one_mc(struct mc_priv *priv,
-> struct platform_device *pdev, int i)
->   goto err_dev_free;
->   }
->
-> - sprintf(name, "versal-net-ddrmc5-edac-%d", i);
-> -
-> - dev->init_name =3D name;
-> + device_initialize(dev);
->   dev->release =3D versal_edac_release;
->
-> - rc =3D device_register(dev);
-> + rc =3D dev_set_name(dev, "versal-net-ddrmc5-edac-%d", i);
-> + if (rc)
-> + goto err_mc_free;
-> +
-> + rc =3D device_add(dev);
->   if (rc)
->   goto err_mc_free;
->
-> @@ -800,10 +802,13 @@ static int init_one_mc(struct mc_priv *priv,
-> struct platform_device *pdev, int i)
->
->  err_unreg:
->   device_unregister(mci->pdev);
-> + edac_mc_free(mci);
-> + return rc;
->  err_mc_free:
->   edac_mc_free(mci);
-> + put_device(dev);
-> + return rc;
->  err_dev_free:
->   kfree(dev);
->
->   return rc;
->  }
->
-> This avoids keeping dev->init_name pointing at stack storage and uses
-> put_device() only after the device has been initialized. Would this look
-> reasonable to you? If this looks good to you, I=E2=80=99ll send v2 with t=
-his approach.
+On 2026/09/29 11:22, Huang, Honglei wrote:
+> 
+> 
+> On 9/29/2026 1:25 AM, Akihiko Odaki wrote:
+>> On 2026/09/29 1:22, Huang, Honglei wrote:
+>>>
+>>>
+>>> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+>>>> On 2026/09/24 18:55, Honglei Huang wrote:
+>>>>> Add userptr blob objects so the guest kernel can pin an existing
+>>>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>>>>
+>>>>> - New virtio_gpu_object_userptr type for userptr resources
+>>>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>>>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>>>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>>>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>>>>> - Mark writable pages dirty when unpinning
+>>>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>>>>    cleanup_object() on the unref response or on create failure
+>>>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>>>>> - Reject unaligned or overflowing userptr ranges at create time
+>>>>> - Disallow PRIME export of userptr objects
+>>>>> - Save CREATE_BLOB params and restore userptr resources after
+>>>>>    hibernation without using the shmem restore path
+>>>>>
+>>>>> The hibernation restore path maps with the same attrs and direction
+>>>>> used at create time, as documented next to the call. Like shmem
+>>>>> blobs, the DMA API can still bounce through a buffer there. This
+>>>>> design only avoids a second guest side shmem allocation and memcpy,
+>>>>> nothing more.
+>>>>
+>>>> I don't see the restore path is documented though this says 
+>>>> "documented next to the call".
+>>>
+>>> Will fix in next version
+>>>
+>>>>
+>>>>>
+>>> ...
+>>>>> +        goto err_cleanup;
+>>>>> +    }
+>>>>> +
+>>>>> +    userptr->sgt = sgt;
+>>>>> +
+>>>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>>>>> +        enum dma_data_direction dir =
+>>>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>>>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>>>>> +
+>>>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>>>>> +                      dir, 0);
+>>>>
+>>>> I checked the ROCm code and documentation, and I do not see how this 
+>>>> mapping satisfies the HIP coherence contract when bounce buffers or 
+>>>> explicit DMA cache maintenance are required.
+>>>>
+>>>> HIP distinguishes two coherence models:
+>>>>
+>>>>  > Coarse-grained coherence: The memory is considered up-to-date only
+>>>>  > after synchronization performed using hipDeviceSynchronize(),
+>>>>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>>>>  > null stream such as hipMemcpy(). To avoid the cache from being
+>>>>  > accessed by a part of the system while simultaneously being 
+>>>> written by
+>>>>  > another, the memory is made visible only after the caches have been
+>>>>  > flushed.
+>>>>  >
+>>>>  > Fine-grained coherence: The memory is coherent even while being
+>>>>  > modified by a part of the system. Fine-grained coherence ensures 
+>>>> that
+>>>>  > up-to-date data is visible to others regardless of kernel 
+>>>> boundaries.
+>>>>  > This can be useful if both host and device operate on the same data.
+>>>>
+>>>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+>>>> hip_runtime_api/memory_management/coherence_control.html
+>>>>
+>>>> Fine-grained access requires coherence throughout execution; copying
+>>>> between the original pages and a bounce buffer only at kernel 
+>>>> boundaries
+>>>> would not suffice. Coarse-grained access could support such copies, but
+>>>> they must occur at the required synchronization points. I found no code
+>>>> that synchronizes this DMA mapping at those points.
+>>>>
+>>>
+>>> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
+>>> SWIOTLB behind the device, not by we request. attrs=0 here just 
+>>> matches the existing shmem blob path, and is exactly what native 
+>>> (non- virtualized) ROCm's own userptr support does too:
+>>>
+>>> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+>>> kfd_mem_dmamap_userptr()
+>>> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+>>>
+>>> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+>>> property, it is a GPU VM/cache thing. In upstream KFD it's 
+>>> implemented as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the 
+>>> SNOOPED bit), set by whichever driver programs the real GPU's page 
+>>> tables for this memory:
+>>>
+>>> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+>>> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+>>> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+>>>
+>>> I really want to disable the bounce buffers in DMA, but it is a 
+>>> platform behaviour, can not disable it in this layer. And in XEN, the 
+>>> dmapping for it is another form of iovector/simple sgtable. And if 
+>>> use the virtio-iommu or somthing else, the efficiency and the 
+>>> complexity of driver integration are both lower than using iovector/ 
+>>> sgtable directly.
+>>> And for how to handle the DMA thing for userptr, since we have so 
+>>> many concern about it, maybe we can drop this part in next version. 
+>>> But we may have the AI review warn/error.
+>>
+>> Documentation/core-api/dma-attributes.rst says:
+>>
+>>  > DMA_ATTR_REQUIRE_COHERENT
+>>  > -------------------------
+>>  >
+>>  > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
+>>  > system where SWIOTLB or cache management is required. This should only
+>>  > be used to support uAPI designs that require continuous HW DMA
+>>  > coherence with userspace processes, for example RDMA and DRM. At a
+>>  > minimum the memory being mapped must be userspace memory from
+>>  > pin_user_pages() or similar.
+>>  >
+>>  > Drivers should consider using dma_mmap_pages() instead of this
+>>  > interface when building their uAPIs, when possible.
+>>  >
+>>  > It must never be used in an in-kernel driver that only works with
+>>  > kernel memory.
+>>
+>> This is exactly our use case. Although the platform decides whether a
+>> mapping requires bouncing or cache maintenance, 
+>> DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
+>> meet this requirement.
+>>
+>> The shmem path serves a different use case, but amdkfd is a relevant 
+>> comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
+>> configuration and the DMA mapping established by the kernel driver. 
+>> GPU page table attributes alone cannot make a bounce buffer coherent 
+>> with the original userspace pages.
+>>
+>> The amdkfd mapping you cited therefore warrants discussion with its
+>> developers as well. I have CCed the maintainer.
+> 
+> 
+> Will add DMA_ATTR_REQUIRE_COHERENT in virtio GPU userptr in next version.
+> And are there some places else need to be modified?
 
-This is already addressed in the ongoing patch series:
+I don't have anything else to add right now. As a QEMU developer, I've 
+only reviewed the more obvious aspects of this patch, so others may have 
+deeper kernel-specific feedback.
 
-https://lore.kernel.org/all/20260724171945.2812749-5-shubhrajyoti.datta@amd=
-.com/
+At this stage, my main priority is seeing how the current feedback is 
+resolved. Before we dig deeper into the low-level details, I’d also like 
+to review the virtio specification changes alongside the 
+QEMU/virglrenderer implementation so I can better evaluate the overall 
+design.
 
-Please have a look and let me know if you have any concerns.
->
-> Thanks,
-> Guangshuo
+Regards,
+Akihiko Odaki
