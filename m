@@ -1,299 +1,344 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013063.outbound.protection.outlook.com [40.107.162.63])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD1833DEDF;
-	Wed, 30 Sep 2026 20:19:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790799583; cv=fail; b=RsxbMnMZEWDkOf98xrGCZKEH6r6k1+nsLEs1omDHM6vy0oAUDZWVO+EnGNb63dsKbAAn6pxsY2MPsFPnmEkuV91Y2sOk8BGignzPmgVucMWFpPQj+dV/gioJtBbNnZKt2ItmI95W3N0OsFjOArDgVsfzf9BqE4w4tAXJuQqF0P8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790799583; c=relaxed/simple;
-	bh=CM0MDIB6ps0rHqyMUyJJo2Dun2LipGOw0B8IAZ3RuFI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AZB9eFSK1njH1usgGl2IJT/8mnt3QvGqCCuUITXQ3CiN/WeIdZxPCPBUofSlQFnPDHboXC8KI1lkbr1+T0DrL7wq/scgdZ3/ybZY8UcQy300oxkA5mfJGkZ2uHjABH/AZ9RoCNI48dt9wM9WsOzY4x2Ssi8CxA3I/vVvwV4gVCY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=e/CsBvNN; arc=fail smtp.client-ip=40.107.162.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FFE4EC671;
+	Wed, 30 Sep 2026 20:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790799587; cv=none; b=Ym99xoa1Uy98acyhHVaab1DLOid4ifV3ivbZWFA+mv+0OSx2xZiXw0JG0nUdB/90DEGKfKOkH5SLns2ObE2Scz2huq+Ke3Pw9faQ/4TFKPyM6P/3LOucAn1GAudw5YS0rgV4uy2ZBmSwzkBde9nDnnxWjl83U6UOd+blHnb9R6Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790799587; c=relaxed/simple;
+	bh=iH868cJXqfJ0POxX06K8vT+UTj8vPEczaTNj+haBY1c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SnkdJRgyB7HZzmX0jVpeFYUFke+W4NnncFp6Ad1zzWE4qvaZupph+iE5+cgU/5yEYVxsM18Cf2Eg4HX0j8STlGJv0UB4Tf39DujXF60Df/xZntBxDJxH5NxD/tiC0Ug6o+VS3ncse/Jy0pJk2F/ZbgtR51K+HT8TgQ55gojobpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gy9WfES6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="e/CsBvNN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jeRll0wiAJDmDkfij3y2WWNEilsiQKYJhQN/ezc4o0QPUdnPD5xeBt/c27+/vSw2vA9v++n5l8aEOe4+0DxihnoXRWj/EUZ5BSvm877EYMn9Y8rBJuImArH2+zm3PAcKOxMJQadNV54mskFpSIjE3GEahmDmdpBkISyipO8AZtDTdNnK0cHOibk/cXzSN7Z8MmdgcILTNkE+Pvo820HMb1LF+8dgKhELF44PUzsl+hNsrQhAOjCSm2n5ORX4P/lwbckquFbKr5V2DllYltpffdU0b1A5z6n0NIQWj6C3QFu6W4ke58kPutQIfYM7fV2GLJcBAmyLDk8wsjbE69A0uA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FyjLy732LoXSLY/3YjFdGuIybnf569ynjAUnNPiqDhg=;
- b=PM75JxWfklGdnPufcwEwhCmvV3E0I2p/prlkmQf5JBs3QCG6zPx99kxCT8fIpiTV4U66Wr6XzSCpoeA3a8pPxT2mpOEsHy3IZUB7hRq/HwwyFf7iAfqH6IaXZEZaHLl+R9gSnB+Trf9HmIhFeTGELJzyEAXyTSedJnU0a1oLL8Xyk9WtW1w7V2j1baehegUQXmOK4tC3TBZD7Kb0+ndkfm1wJWvh8ml/ideFO2aZorwKskoVN2o7WM2zRR53a/vf+VQOhpOAEHphZ/9choPO8/LXUhAcvmM3ipqH24T2BCQbLkIufh/f8PLAwDjuYxC03Ky3nt+f64hMHT7doMiLtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FyjLy732LoXSLY/3YjFdGuIybnf569ynjAUnNPiqDhg=;
- b=e/CsBvNNLWK09hAFRQfmoz88t4/t4q6eSgbInkjDrGHi3UANm77jBOrmDciVxhR1rxOzQl6Jgoz3ampzxM9oIVNWUNgwNnSUjD+DPHbkSSbJ+bJXiflQOiDs4o/n4EOt5Ly0DDZSobEZzE9LEgSFSGZnmywUOT/Xb2CkBN3vdpexdgqmVOQ24gRK40Ep21JK17QUo0abI6sjK+1924vejD004XFe7TsfX3/HRfb3/HCDjo7CGJI/PzcGAK0g1zprDsKqFWAwqqE6YHDB3gLyuiVgwIbWG9a9wg/gGsJpvCKRC+RaEWLQK32HPywPQU0Hbe1WEw9AirN/Jchb1kJOKQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MRWPR04MB12096.eurprd04.prod.outlook.com (2603:10a6:501:98::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Wed, 30 Sep
- 2026 20:19:38 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 20:19:38 +0000
-Date: Wed, 30 Sep 2026 16:19:31 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:FREESCALE SOC DRIVERS" <linuxppc-dev@lists.ozlabs.org>,
-	"moderated list:FREESCALE SOC DRIVERS" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCHv4] dmaengine: bestcomm: use platform machinery to get irq
-Message-ID: <ar1u0wRov8d_Rxle@lizhi-Precision-Tower-5810>
-References: <20260919001931.723402-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919001931.723402-1-rosenp@gmail.com>
-X-ClientProxiedBy: CYZPR12CA0002.namprd12.prod.outlook.com
- (2603:10b6:930:8b::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gy9WfES6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082641F000FF;
+	Wed, 30 Sep 2026 20:19:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790799585;
+	bh=JhYrQoYA+3DQZw3ZMJsSkxfqSx3HxBtyUlcUCS5Db5g=;
+	h=From:To:Cc:Subject:Date;
+	b=gy9WfES66pcBMDiEpcsRgLvq6B79jjFBZi4o/+69rayGg0Cfc5hInCJAt+fpcPd03
+	 bJtdoP8Kqz7K+/ptNR9KOgoVw1ylm0oCSHm0Y3fUMN3RRqyQ42vn0XEGX0mUQQv/zk
+	 S/iyKSZ7itZlbqF4ItuVJBW2/GQ0gRTr8l4Rl7ivGQPHqKHRdxvXpsz4aGyQhNEaZI
+	 vZJISo5Gw/GdXJ82aX0L/StwMJ9KClZiu/zaaw1TNABYYScDI1PkI1KuMvUrbwvuVW
+	 Bt3FG8GAiVD/1AGqaOwcqPCLZnJQCI/EpqKYpeaQgOfhofO8rlF9cNsBZaCHkRelux
+	 XsfsfYh42CxWw==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2] dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
+Date: Wed, 30 Sep 2026 15:19:19 -0500
+Message-ID: <20260930201919.76465-2-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MRWPR04MB12096:EE_
-X-MS-Office365-Filtering-Correlation-Id: 851913d8-2dd2-43ab-4198-08df1f302705
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|19092799006|376014|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	5qu/hXYfFP/a113frSmwkk3lyZetF98PCazgFEZA2s8VteUohbu2E7q2Q1DdA0mlVX1nb9kqzmykGi0tiFu1k881aeh52x39vFVF9U/h5drIzTpS57Jej/l0zBp96xXpbrymWnzKOkXh+IgIi9oiOLM2izRECv15OZ9gZQV0e3eQJOXYnXHuA3Gl6YP0GOVxGRfNIt9cyouFppZwuToBVL1Fc92Y2Dd7mvxWKIYRTjSDdPSq3XeCS0NoiHJR6CACghtTnz69kM4jvaxjvLbg45FxLERk9AxOhSpzSSNxb8qDgiihnaJWhqT7+0SwnRYMj6ppy4LMeXOttluIZbaSMGgcat6Fmo74/XjEymsmlm+jRKrAb7RmLJQCPatFtGwKsWrk0eBTdjNpaImi8NLCBwOPZ+vi99bJC7kE3h18rupsZRX/tKdj3QZsxaoSnek75DKBA0xdI8F3lOAZGtr00YH4Xo9t8MHrYLYT9BsSnI4T5JIffzC2HoqI9bOeGn4p2FFV6RQU2PQNt9JHkNDjJ2g8u4Gu39zepN9RfrniXSmwStsw2SYqWnHuh/1tYtd/TlR0Ox5FO2ETC49PS+8+pD2ix82GvijWXD46w/9/bN6O9NcFNbzHgVJEVsLp7vpbER3TYvHk3FAmizFH/llvj4cS4Ch1Sj5S0akLB/KCKW0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rXiAfXcYqMDGYdCfdWLIK/2v1Dv9L+smLZcX+9dPsbSfKgw2bCueh0TPlinY?=
- =?us-ascii?Q?Dmv2m0Wdw8S18mHC8bcFh4ktB+YvTxvX9mytH6tzeDoxUFxUIFvC5jA4sSvy?=
- =?us-ascii?Q?cQQxpNH3G3e2sknoE7OhZ4XJNIW+lqfo0I841PuxvoaM0Y9Sio+qec9qWOrv?=
- =?us-ascii?Q?oFBjrMPiGhrVzqI01MX+7JVLfkhGrN3VEhjKei5EJpguXzuGgjSN7fLFjvxy?=
- =?us-ascii?Q?x/nduX0wGM6nvX50RG1+CHu6mj9QNmCOakxwEDRn36Wj0tNyYHbksiJkPP7e?=
- =?us-ascii?Q?JFDuE76/AikGluoljy0Y8tV8BSwISqUPviC2nxVSQm8zd78jLM/KYVBsKEZ+?=
- =?us-ascii?Q?JqBITVxR+l/P3Yh7nJwJkf4JCX+wvoX+jlPcpi7k7KYhsV3vfwAzR/1SovU/?=
- =?us-ascii?Q?oJj1ugD5MtToeNJdjqJ9feizCLkQgVPByMqCp49kEdTTrLrhNWwZzDSy7Q4A?=
- =?us-ascii?Q?fMVWq8H0vKZiT6TGk+nqrE1CdPfj2UM4DCNIA6sn06ricCKBBSZuPX5BLmgE?=
- =?us-ascii?Q?ZAnGNTmhW2exVTB9JVGFmHcoAV+2VMoFvtwTYT4RRzHx4AkbzjYm463v7VHa?=
- =?us-ascii?Q?R8/jEwTnXtgmtx9qoOMj8Twi8ufdN6XJ1WxFjbnk5yH67dCAEB2lerNdKV2n?=
- =?us-ascii?Q?Uy3biSGSMVhTG0+BZfbp4G8liLJNjKWA1WFTX62w10RipIseoWsy5uohzDaE?=
- =?us-ascii?Q?XkA9/cZf2IFxIX90H+DsqF4u1bYmPO8XUaKb+Og38CKh6U0ZphZXtu/TZFwa?=
- =?us-ascii?Q?LC8XYFCryR/MvbKGMB/mWkESkFm5xUPidrSrzU06ZqHF/1Xp8qvexeyQl+VP?=
- =?us-ascii?Q?eqWNME9MiIVRsHAbYN5P62HsFmsb/OdytIiylhNjLLniV6lVzqhgZ6u0fPzv?=
- =?us-ascii?Q?swaw5JdFP/s8FQnHRxO1+mRlLl4jBPfRh5Ejl39Y1ar+YDow3RKDhW472lM3?=
- =?us-ascii?Q?q4CEmE1rNoWOCEQCPE5pFhmoS1uTU8I3GnXjJ3gmCqT6vxUTHJDyAFTuwIB7?=
- =?us-ascii?Q?EQHfrqBHcVvABziBqG4wOAFCukwX504eZn1HCCdaX7KneSb7xL8lMC0QPLsS?=
- =?us-ascii?Q?Qp+1dmmqnaNA/89t9WmfyFnOlhqhRq1gfzkkGYf0gxL/gSaZ4BUZGFoOl4WF?=
- =?us-ascii?Q?M+uk2EPPP8ZzPy6CpEQcnanOTIYop/442bNCjkcXsankUpCG2cZfASh+oVzj?=
- =?us-ascii?Q?VliXOW0RM9crOlgD/6LD+YzPasLSN0coxbVWA5/VUclpEpN/+CKopKLFzJUY?=
- =?us-ascii?Q?h/eBKiK2xGmToR6NpEM4wd5iEoJ3PtvLXIxhtG49M08xqMtid5bZcl6HxC/l?=
- =?us-ascii?Q?THMBVYBJnP/XTjIbpupUTfT8rw6rgjRljfES25uKD3oMExxn4yx0f0HzhmKJ?=
- =?us-ascii?Q?yGNM86exTROn4uRA+BOuNmaUhA/OwzsuM4XU3o/RhVG+9G2TCueZf71zAQY3?=
- =?us-ascii?Q?casEPKxunmtlLOLFIIzmEImz1pHZrlwjwbjBRxxpp1h8nO4vTcL2BnhLAnPq?=
- =?us-ascii?Q?uaEkQW89OfLGvhePoL2XhYw1ZJICPTlmNg7pOgN2YIQuNc3dFY9kuTJOdoNB?=
- =?us-ascii?Q?RGtRl+ZVs92+iU3h5MjJKsTKrhag/GAt0HS8E65RqdW965VWPx4bglNyCOB4?=
- =?us-ascii?Q?xCzi5h/qloLyBmU6OTsDI/l6ZiaOaDLr2L1mM0flLJkh2Ser9QbOBWnj1iNk?=
- =?us-ascii?Q?Wmr1NJFCgseb+TvUY1ybBllwNJGu0utljGvffkmnGAuT3b3Ap1AUibEhoFsT?=
- =?us-ascii?Q?hJUu8gx4dLI2hbhDpOY7+Tr7BnTYHZuhEGDJCnkPavhB/+q3HZwJ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 851913d8-2dd2-43ab-4198-08df1f302705
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:19:38.5323
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4/ifknOMVEOmwDA3/K7+VSFP6V7sxKTucsdSr7PCincg4HiXXQ2O6Ina3tTq4zfy1tOdHrHumYgX2AQbYDf6YAdN47jgwqJ4SEaSjeEJMTm0Q8n1rNaKD81vuCrthRGV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12096
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 05:19:31PM -0700, Rosen Penev wrote:
-> platform_get_irq() avoids having to explicitly map and dispose of an irq
-> by having the platform_device machinery take care of it.
->
-> This requires replacing the device_node with a platform_device in the
-> bcom_eng struct so that platform_get_irq() can use it.
->
-> Conveniently, this also allows getting rid of of_node_get and
-> of_node_put as the platform_device machinery also handles that.
->
-> Adjust the goto labels in bcom_task_alloc to match what is being freed.
->
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+Convert the HiSilicon hns-dsaf binding to DT schema format.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Drop 'phy-handle' at top level as there are no users. Add undocumented
+'media-type' property.
 
->  v4: drop whitespace change
->  v3: drop stale description
->  v2: resend
->  drivers/dma/bestcomm/bestcomm.c            | 46 ++++++++--------------
->  include/linux/fsl/bestcomm/bestcomm_priv.h |  2 +-
->  2 files changed, 18 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
-> index 241a91936fe8..310792ccd748 100644
-> --- a/drivers/dma/bestcomm/bestcomm.c
-> +++ b/drivers/dma/bestcomm/bestcomm.c
-> @@ -47,6 +47,7 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
->  {
->  	int i, tasknum = -1;
->  	struct bcom_task *tsk;
-> +	int irq;
->
->  	/* Don't try to do anything if bestcomm init failed */
->  	if (!bcom_eng)
-> @@ -67,30 +68,32 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
->  	if (tasknum < 0)
->  		return NULL;
->
-> +	irq = platform_get_irq(bcom_eng->pdev, tasknum);
-> +	if (irq < 0)
-> +		goto err1;
-> +
->  	/* Allocate our structure */
->  	tsk = kzalloc(sizeof(struct bcom_task) + priv_size, GFP_KERNEL);
->  	if (!tsk)
-> -		goto error;
-> +		goto err1;
->
->  	tsk->tasknum = tasknum;
->  	if (priv_size)
->  		tsk->priv = (void*)tsk + sizeof(struct bcom_task);
->
->  	/* Get IRQ of that task */
-> -	tsk->irq = irq_of_parse_and_map(bcom_eng->ofnode, tsk->tasknum);
-> -	if (!tsk->irq)
-> -		goto error;
-> +	tsk->irq = irq;
->
->  	/* Init the BDs, if needed */
->  	if (bd_count) {
->  		tsk->cookie = kmalloc_array(bd_count, sizeof(void *),
->  					    GFP_KERNEL);
->  		if (!tsk->cookie)
-> -			goto error;
-> +			goto err2;
->
->  		tsk->bd = bcom_sram_alloc(bd_count * bd_size, 4, &tsk->bd_pa);
->  		if (!tsk->bd)
-> -			goto error;
-> +			goto err3;
->  		memset_io(tsk->bd, 0x00, bd_count * bd_size);
->
->  		tsk->num_bd = bd_count;
-> @@ -99,15 +102,11 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
->
->  	return tsk;
->
-> -error:
-> -	if (tsk) {
-> -		if (tsk->irq)
-> -			irq_dispose_mapping(tsk->irq);
-> -		bcom_sram_free(tsk->bd);
-> -		kfree(tsk->cookie);
-> -		kfree(tsk);
-> -	}
-> -
-> +err3:
-> +	kfree(tsk->cookie);
-> +err2:
-> +	kfree(tsk);
-> +err1:
->  	bcom_eng->tdt[tasknum].stop = 0;
->
->  	return NULL;
-> @@ -125,7 +124,6 @@ bcom_task_free(struct bcom_task *tsk)
->  	bcom_eng->tdt[tsk->tasknum].stop  = 0;
->
->  	/* Free everything */
-> -	irq_dispose_mapping(tsk->irq);
->  	bcom_sram_free(tsk->bd);
->  	kfree(tsk->cookie);
->  	kfree(tsk);
-> @@ -377,16 +375,12 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->  	if (IS_ERR(regs))
->  		return PTR_ERR(regs);
->
-> -	/* Get the bestcomm node */
-> -	of_node_get(op->dev.of_node);
-> -
->  	/* Prepare SRAM */
->  	ofn_sram = of_find_matching_node(NULL, mpc52xx_sram_ids);
->  	if (!ofn_sram) {
->  		printk(KERN_ERR DRIVER_NAME ": "
->  			"No SRAM found in device tree\n");
-> -		rv = -ENODEV;
-> -		goto error_ofput;
-> +		return -ENODEV;
->  	}
->  	rv = bcom_sram_init(ofn_sram, DRIVER_NAME);
->  	of_node_put(ofn_sram);
-> @@ -394,7 +388,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->  	if (rv) {
->  		printk(KERN_ERR DRIVER_NAME ": "
->  			"Error in SRAM init\n");
-> -		goto error_ofput;
-> +		return rv;
->  	}
->
->  	/* Get a clean struct */
-> @@ -405,8 +399,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->  	}
->
->  	/* Save the node */
-> -	bcom_eng->ofnode = op->dev.of_node;
-> -
-> +	bcom_eng->pdev = op;
->  	bcom_eng->regs = regs;
->  	bcom_eng->regs_base = res_bcom->start;
->
-> @@ -426,8 +419,6 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->  	kfree(bcom_eng);
->  	bcom_eng = NULL;
->  	bcom_sram_cleanup();
-> -error_ofput:
-> -	of_node_put(op->dev.of_node);
->
->  	printk(KERN_ERR "DMA: MPC52xx BestComm init failed !\n");
->
-> @@ -443,9 +434,6 @@ static void mpc52xx_bcom_remove(struct platform_device *op)
->  	/* Cleanup SRAM */
->  	bcom_sram_cleanup();
->
-> -	/* Release the node */
-> -	of_node_put(bcom_eng->ofnode);
-> -
->  	/* Release memory */
->  	kfree(bcom_eng);
->  	bcom_eng = NULL;
-> diff --git a/include/linux/fsl/bestcomm/bestcomm_priv.h b/include/linux/fsl/bestcomm/bestcomm_priv.h
-> index 3b52f3ffbdf8..cddde7c74cb5 100644
-> --- a/include/linux/fsl/bestcomm/bestcomm_priv.h
-> +++ b/include/linux/fsl/bestcomm/bestcomm_priv.h
-> @@ -66,7 +66,7 @@ struct bcom_tdt {
->   * This holds all info needed globaly to handle the engine
->   */
->  struct bcom_engine {
-> -	struct device_node		*ofnode;
-> +	struct platform_device		*pdev;
->  	struct mpc52xx_sdma __iomem     *regs;
->  	phys_addr_t                      regs_base;
->
-> --
-> 2.55.0
->
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+v2:
+ - Add constraints for buf-size and desc-num
+ - Drop erroneous 1st 2 'reg' entries
+ - Fix example 'reg' cell sizes
+ - Add 'backplane' to 'media-type' property
+---
+ .../bindings/net/hisilicon,hns-dsaf-v1.yaml   | 167 ++++++++++++++++++
+ .../bindings/net/hisilicon-hns-dsaf.txt       |  90 ----------
+ 2 files changed, 167 insertions(+), 90 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+
+diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+new file mode 100644
+index 000000000000..36251b45abeb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+@@ -0,0 +1,167 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025 Hisilicon Ltd.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/hisilicon,hns-dsaf-v1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Hisilicon DSA Fabric device controller
++
++maintainers:
++  - Jian Shen <shenjian15@huawei.com>
++  - Jijie Shao <shaojijie@huawei.com>
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - hisilicon,hns-dsaf-v1
++          - hisilicon,hns-dsaf-v2
++
++  reg:
++    minItems: 1
++    items:
++      - description:
++          PPE register base and size
++      - description:
++          DSA Fabric base register and size (not required for single-port mode)
++
++  reg-names:
++    minItems: 1
++    items:
++      - const: ppe-base
++      - const: dsaf-base
++
++  interrupts:
++    minItems: 1
++    maxItems: 409
++
++  dma-coherent: true
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  mode:
++    description: DSA Fabric mode string
++    $ref: /schemas/types.yaml#/definitions/string
++    enum:
++      - 2port-64vf
++      - 6port-16rss
++      - 6port-16vf
++      - single-port
++
++  subctrl-syscon:
++    description: syscon handle for external interface control register
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++  reset-field-offset:
++    description: offset of reset field in the control register
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  buf-size:
++    description: RX buffer size (bytes)
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [512, 1024, 2048, 4096]
++
++  desc-num:
++    description: number of descriptors in TX and RX queue
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 16
++    maximum: 1024
++
++patternProperties:
++  "^port@[0-5]$":
++    description: DSA Fabric port node
++    $ref: ethernet-switch-port.yaml#
++    additionalProperties: false
++
++    properties:
++      reg:
++        maximum: 5
++
++      phy-handle: true
++
++      serdes-syscon:
++        description: syscon handle for SerDes register
++        $ref: /schemas/types.yaml#/definitions/phandle
++
++      cpld-syscon:
++        description: syscon handle plus register offset for CPLD register
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        items:
++          - items:
++              - description: CPLD phandle
++              - description: offset
++
++      port-rst-offset:
++        description: reset field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      port-mode-offset:
++        description: port mode field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      mc-mac-mask:
++        description: multicast MAC address mask
++        $ref: /schemas/types.yaml#/definitions/uint8-array
++        maxItems: 6
++
++      media-type:
++        $ref: /schemas/types.yaml#/definitions/string
++        enum:
++          - backplane
++          - copper
++          - fiber
++
++    required:
++      - reg
++      - serdes-syscon
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - mode
++
++additionalProperties: false
++
++examples:
++  - |
++    dsa@c5000000 {
++        compatible = "hisilicon,hns-dsaf-v1";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        mode = "6port-16rss";
++        reg = <0xc5000000 0x890000
++               0xc7000000 0x60000>;
++        reg-names = "ppe-base", "dsaf-base";
++        subctrl-syscon = <&subctrl>;
++        reset-field-offset = <0>;
++        interrupts = <131 4>, <132 4>, <133 4>, <134 4>,
++                     <135 4>, <136 4>, <137 4>, <138 4>,
++                     <139 4>, <140 4>, <141 4>, <142 4>,
++                     <143 4>, <144 4>, <145 4>, <146 4>,
++                     <147 4>, <148 4>, <384 1>, <385 1>,
++                     <386 1>, <387 1>, <388 1>, <389 1>,
++                     <390 1>, <391 1>;
++        buf-size = <4096>;
++        desc-num = <1024>;
++        dma-coherent;
++
++        port@0 {
++            reg = <0>;
++            phy-handle = <&phy0>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
++
++        port@1 {
++            reg = <1>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt b/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+deleted file mode 100644
+index 8ee4b1cedae8..000000000000
+--- a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
++++ /dev/null
+@@ -1,90 +0,0 @@
+-Hisilicon DSA Fabric device controller
+-
+-Required properties:
+-- compatible: should be "hisilicon,hns-dsaf-v1" or "hisilicon,hns-dsaf-v2".
+-  "hisilicon,hns-dsaf-v1" is for hip05.
+-  "hisilicon,hns-dsaf-v2" is for Hi1610 and Hi1612.
+-- mode: dsa fabric mode string. only support one of dsaf modes like these:
+-		"2port-64vf",
+-		"6port-16rss",
+-		"6port-16vf",
+-		"single-port".
+-- interrupts: should contain the DSA Fabric and rcb interrupt.
+-- reg: specifies base physical address(es) and size of the device registers.
+-  The first region is external interface control register base and size(optional,
+-  only used when subctrl-syscon does not exist). It is recommended using
+-  subctrl-syscon rather than this address.
+-  The second region is SerDes base register and size(optional, only used when
+-  serdes-syscon in port node does not exist). It is recommended using
+-  serdes-syscon rather than this address.
+-  The third region is the PPE register base and size.
+-  The fourth region is dsa fabric base register and size. It is not required for
+-  single-port mode.
+-- reg-names: may be ppe-base and(or) dsaf-base. It is used to find the
+-  corresponding reg's index.
+-
+-- phy-handle: phy handle of physical port, 0 if not any phy device. It is optional
+-  attribute. If port node exists, phy-handle in each port node will be used.
+-  see ethernet.txt [1].
+-- subctrl-syscon: is syscon handle for external interface control register.
+-- reset-field-offset: is offset of reset field. Its value depends on the hardware
+-  user manual.
+-- buf-size: rx buffer size, should be 16-1024.
+-- desc-num: number of description in TX and RX queue, should be 512, 1024, 2048 or 4096.
+-
+-- port: subnodes of dsaf. A dsaf node may contain several port nodes(Depending
+-  on mode of dsaf). Port node contain some attributes listed below:
+-- reg: is physical port index in one dsaf.
+-- phy-handle: phy handle of physical port. It is not required if there isn't
+-  phy device. see ethernet.txt [1].
+-- serdes-syscon: is syscon handle for SerDes register.
+-- cpld-syscon: is syscon handle + register offset pair for cpld register. It is
+-  not required if there isn't cpld device.
+-- port-rst-offset: is offset of reset field for each port in dsaf. Its value
+-  depends on the hardware user manual.
+-- port-mode-offset: is offset of port mode field for each port in dsaf. Its
+-  value depends on the hardware user manual.
+-- mc-mac-mask: mask of multicast address, determines bit in multicast address
+-  to set:
+-  1 stands for this bit will be precisely matched, TCAM will check this bit of
+-    MAC address.
+-  0 stands for this bit will be fuzzy matched, TCAM won't care about this bit
+-    of MAC address.
+-
+-[1] Documentation/devicetree/bindings/net/phy.txt
+-
+-Example:
+-
+-dsaf0: dsa@c7000000 {
+-	compatible = "hisilicon,hns-dsaf-v1";
+-	mode = "6port-16rss";
+-	interrupt-parent = <&mbigen_dsa>;
+-	reg = <0x0 0xc5000000 0x0 0x890000
+-	       0x0 0xc7000000 0x0 0x60000>;
+-	reg-names = "ppe-base", "dsaf-base";
+-	subctrl-syscon = <&subctrl>;
+-	reset-field-offset = 0;
+-	interrupts = <131 4>,<132 4>, <133 4>,<134 4>,
+-		     <135 4>,<136 4>, <137 4>,<138 4>,
+-		     <139 4>,<140 4>, <141 4>,<142 4>,
+-		     <143 4>,<144 4>, <145 4>,<146 4>,
+-		     <147 4>,<148 4>, <384 1>,<385 1>,
+-		     <386 1>,<387 1>, <388 1>,<389 1>,
+-		     <390 1>,<391 1>,
+-	buf-size = <4096>;
+-	desc-num = <1024>;
+-	dma-coherent;
+-
+-	port@0 {
+-		reg = 0;
+-		phy-handle = <&phy0>;
+-		serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-	};
+-
+-	port@1 {
+-                reg = 1;
+-                serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-        };
+-};
+-- 
+2.53.0
+
