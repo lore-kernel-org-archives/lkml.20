@@ -1,190 +1,163 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011026.outbound.protection.outlook.com [40.93.194.26])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169BA38AC78;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1581380FF2;
 	Wed, 30 Sep 2026 02:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790736278; cv=fail; b=cPDs5ZBVMcryqs7/DjTylUKG37LW/KZWY9qG3E0E4GpL9fLwlLd+GzfYZ2fnyb29xJPkd0RXf1o4XcEu0D0MZTx7uwMKNfUaxGwuYEA89Ub8HR6r+4X4IcR6KMuivBUdvI8UlFYR9DfOsnS0SMZlBvY3bj8oRlssMzTsBtfKs0o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790736278; c=relaxed/simple;
-	bh=iQkWCOSN2gxZQWKYq723kmQYL0kT94VZy6+8FCYvB2w=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=qd/4Rk5LYOzALXxZyFmcnlGGbfbv0R5tOVsqWk3IiVOrRd0gh9jXXck5BkVK+4UYwQTm3q3JRffOHuUk6X4MOAfyzipgz20/xz6m5bA7QPHnWox3SYggHuF5gYNr6Gu+nCmPHKxQAWt7JyIDzg8VIjjvstnUU3NUzRjDnMc5gRg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dsGkYBir; arc=fail smtp.client-ip=40.93.194.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790736280; cv=none; b=hacqpxa+DzspUuxb3RaZP1eqmm4SVhkBdiW6vmDIK3KI0+arzsZVP7Cq+LZwlntfFX5CoVQzX0adGu8Rfqe4w/MBt3JpXAWnrpYPRDdeFZ19rZ+rbefWs0TuYQxwix+9wBfTt7CgsjvjD1/1c9VhFbzyLGzG7P6/i6XuAd0TTlk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790736280; c=relaxed/simple;
+	bh=Udv85l8OgC1W16Wl/3Z22cE260FFgJNFTdbeKkuyDBM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=TS6ERvMtPs17T/bW4+z+caRVSd/bQNF0+TglwMLDTSnqKwHfRHKuoQBg/jxVA1WS25SK9hiDP195PamdPItuQ1wyCZUGRuGJmbj04DpDpdgwIGM8eRaVmyX7dqaIcp+S3mkvRh+/7CAU4oEPkgJRIueBcURjLcztt5UgHRhmkZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=0YbAQnMD; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dsGkYBir"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T5+TWBrQS9V3tkeTv6zArA9LKKGt2BlWjE7mFfj1cHjBXTAA8xOhHbSQRRHWForyB0Rn7qOq4nrSnq51PrJMnfsuZL43ByPHLoiICwc6yae7VRHCNxMMsQHlVLbdSUuHoE1fVtFX7lr+amr5+Hlw1UNVkiWT0gzA3cFKUxnuRP3P17RVlazni5zaRddqgLuRvfyqAQQ2eJXuTk68ybpmVw6khlY3Mlqvg6Beke6NLg+qkEWOpTxNTk2eu4CwOHNfoG7e+r75AOWQGrAkK/8812W5mEv2GpChCMXMv1FsytUseYrO03yqb41Of2tZF86/7iBs249wT1okVs6WF/niAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GFemma4DnXXdAkSxbWD1HFwqppeufdb4HtQRLODouPg=;
- b=Ezr36JTllYjxHGx8qOglmwMRY7QtERS4scvflcObIYWG5PppaxijQW6xRHKDSRlV7hEMXKJW8zYN1nq1npFa6tW++JOD+ievDbkGQn9IuyUKdLRzn/aGy7BUYC508HJjbLVyxGanxpGXtYsSxhajscoAV3qTjLPYvcFXep6FUsppj6Gl2aIbu6eypOMRYlYlLM7A9qB3OvEQstpHssynQXiVKZBl4SnSegeGKt/N3HtrSmiRIr+s9ExFyC6VRZqa+h/w/aFyEM5jHmCvrvlM6y0fKD4VBWeDps45v5G0qodKGLlR8HMF/I3br96fUtvMYP10ytgDXXGlPkeqIRDr+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GFemma4DnXXdAkSxbWD1HFwqppeufdb4HtQRLODouPg=;
- b=dsGkYBiratSPaXg53wmbcBnNcFjMMyEzys4BftWhwb/rDQ6S2oWewLCqxQWe6a0A+hI9CyN0hco6y5H8HrqGi5t25tGg1XT8c9gpDGIXPBCFno8CiW+OGCPqeg8bvjt/M79gBKZwxWJwgmF2LdB7IjEk2pJeniTT2QLVjz67ojt6bFLJA/egQ+YqYHpTD6XBlsqSrWLTaDFNEnM8JD5RQQ26jUfzNYP0deCwrp+x+rwMnu3JSQFfK6BpLYSxfSZmdF7WyDMcICPD93LRLtGxcQ9gLF1VSulviLiB+gboX/+Hv6NiR4flLkqlzLa41LU7FHVugBnF0uheZ3O1ZKwfOg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- BL3PR12MB6523.namprd12.prod.outlook.com (2603:10b6:208:3bf::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 02:44:32 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 02:44:32 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 30 Sep 2026 11:42:52 +0900
-Subject: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
-In-Reply-To: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
-To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0208.jpnprd01.prod.outlook.com
- (2603:1096:405:7a::16) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="0YbAQnMD"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=nu5ZaCtb+a/PsIAKfQUdrIHwtBUiHyWKKOnEg6MdREo=;
+	b=0YbAQnMDvcVwdnz1Vzs/oN4/O2AuEgf1TO/pgmAKKlZo1i/+XGY5g4ohRwYZldoufBNmVHDCy
+	MlRY3pcYWYxSiOTokrxTozKa+Qr3C9Qcy0ZloP5cglfmKJb2N5Q+SCMX7lSU363DLSBcdDePqTo
+	/8/oPEr4RsXwkaOjrop2rS4=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hvfFs1p3dz1prLV;
+	Wed, 30 Sep 2026 10:32:17 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6EA5B40538;
+	Wed, 30 Sep 2026 10:44:28 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 30 Sep 2026 10:44:27 +0800
+Message-ID: <8ca88576-651a-4b7f-91ff-2cb2359aa79e@huawei.com>
+Date: Wed, 30 Sep 2026 10:44:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL3PR12MB6523:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3f6929a-2c85-492c-5038-08df1e9cc151
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|7416014|376014|1800799024|366016|10067099003|56012099006|921020|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	tPsMFrDk1IuGNvAb2V/XyMxoM9T93jU07dxPTOwkK34AdyGNsSGhJbKDwEu/fDatpBZNT61KWLEfGkqIvNTdd1im+8RKB9YfE5FaaI8HeyfgXrq29HH75WPLXyvt2pVYXEHnsXlUyIqq2vzF/DC18JyjMQ7aBz3fh/DZzRGBWZliw0N3uL37BxPhr/Mz+kKUJHzX22974xZ5f9Tx/sVmrXuaRaN76hp1nUNTxvWx103dcZkKSBSSWeI2WGd3NRfBoYSG79PtZpZfoOy2XOBu55+B58QQsD+huX80KuDyDaAcGKa1EZnwIkX7nP0DLCfphEy6g6AwnnqMqlmCZp4Cpyq162oz06cH+e3RR9Ha49ZVtCH39dojNeUrCRbLAwwdl8k8G6JUjidq/0vEEYFwmHJFEb/mQImyBrvpYf18JZaBWdT8RY/4Ust9JWrQY5msq2PUYMDlIgHs2/foLVufThwkAUZWbM0dDf9r/6k+uBhIu5XGJAkWNDdq6FYfC9BoRe/ECAE1aKf13RBJ1iAVrqxgdWS3NvM3djy5s/hMfk6vR3MRyqI0ExqmUIowJ75jnL3jTX/j3R0hFC+LU68njOdgeXipoBEV3OC6DQjTMTXoO0E/cocGVFyWddxo4qG4f7MFIsoGJrXqen+lVatX9HXDvv1D7dCvRWAoWwTx5Z9dqlXqbGU0afLuSbumexqd2kuuPW7FEY1nMy41Y40o3Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(921020)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UnFnSkFGMHlEVnZMWHNkZkJZRmJlcDB6d1pjZy9kYXd1cyt1LzR2UGczZTFF?=
- =?utf-8?B?UjNKeGlnZzdBZjV0VmZVSFR5Y1QrejhXVkhoWWowTkNxb1RsY0xHODVzWnNk?=
- =?utf-8?B?WnBob0FWS2V2bTFPbHBTd21RRndPUlZGK2p0V0JiSENUT3l6K0NpV29HVWt2?=
- =?utf-8?B?VXhwQXcrT01kWWZycTlHbFlhYVJCVVBUakw5aU0zNG5GTDRjQ2dzakd3eEd0?=
- =?utf-8?B?Tk5XRm11L3hFbSs5RFdmRis2RThZSzNCVFVrc2lvVVhiUlZVU254b0hOU0E4?=
- =?utf-8?B?K3A0L284ZGsxUENKbExEZzdmSUhuZjVTRzlsQ05KWDNwdi9JM21ZTm5RLy9q?=
- =?utf-8?B?OGQxcEV6RlhhbzY5dk8wQVRaVXY3VkNDTHZXSTlCN1FGdmxENDFvRkVuWnhJ?=
- =?utf-8?B?TGdsS3Q5ZEVrOERqRDc5R1FMTWRhY0pHNHB5c1plWGkzOWtTMURwd3VSSytE?=
- =?utf-8?B?OTBBVVpLTlJJOFBtcm5uTFd2WG54blhSdFVlaTg0dU1uajVtZUIvSXBhZE9D?=
- =?utf-8?B?dnJHWGs1MnhJVlhVNDZxK3lKd3MrS0Z0eVZiK1Jzd1kyeU9SQndVU1ZRMk1o?=
- =?utf-8?B?aE5ieEROWklSSkZvaXJFRDcwNy9tTU81b1JhVlVXRmdodFVydDhDOExLbkJC?=
- =?utf-8?B?QkNEc3RrTkluWWoxb29zWlN4c21GRWhRMEVCSWNFdzl5ZEZRU0JOQm5KTENY?=
- =?utf-8?B?NmJLSWsrWXBNWS9RWXVkSnJoamZtV1FUYlJmQndpRUVKZ0pNeDZlQWNXeVdT?=
- =?utf-8?B?RGp6TVRKemxpcy96cEtCQUdubGhERlIwRkNJQXBEREJhb052MUp2b2ZBUXVJ?=
- =?utf-8?B?V0oxWHEwY1M1YUxOeXh3VUtSVXh1OUZndlZZOGdsY3d0LzBCdnVHZnlSSUJk?=
- =?utf-8?B?UTlDdEx5VFNMSmNhTjZPMytXRDZyTStFcGhtQ24zd0IvZ1BseTZCOG15MnBP?=
- =?utf-8?B?VGZ6MDAvR2xaTFg1ekxvajdxSkNKeDhxL09xMVBFNWZvekZJQ3hzTUpZblV3?=
- =?utf-8?B?L3NVTW5iNGhIY1paYlAwbll1STdIOUZNYmhXM3VsNUZtZHppYm5iSHMyYlFH?=
- =?utf-8?B?dUYvM1V5eE1kL3FCYWR0aklHYTNDN3NEMjVIeDRZSkt4L2tXbndwUEpEQ1lt?=
- =?utf-8?B?TFpWNDMwQWZLV2RjWUw1alJjVFVIUjRPWVVBWjNHMDJuOFdlSTMvU2xHUitt?=
- =?utf-8?B?bVJrTm5HQlZla3duK2ZRYStWdVZZdTg4S1F1SldSTGsxcTRoeitmSWtCQlhx?=
- =?utf-8?B?UHRwbkZwb283bGFsWGZ0Wkp1bUxhMTFqUlJUQkZvVlZRZWJYeXhuTUxndXUr?=
- =?utf-8?B?ZXdHWjhUeEw3c081bW04Y3dOd001Qk12NncyYlNkcjUyVHp6NDVqOTMwaFVu?=
- =?utf-8?B?WGRtRW1wZjJwazJhTWhFdnZibC9UZnJBbnhnZ1dYb2w2clBkS2hkQnRyYWRN?=
- =?utf-8?B?OHNqZkptbUJLTnFCMzdGVi83MU5WUUVibU1IaGZtbjIybGc5dWkrWElvR2JX?=
- =?utf-8?B?Z3FqQnRhTTBWd1lralRmNDA1OXNmbWVvMHNmY0JvNVJYUmc3RWt4aURIRitv?=
- =?utf-8?B?YVdMT25SRDQ4ang1UllqY3QxVExCZmh5ZUtVV25heWZnemh0SzNpWk4rY0F2?=
- =?utf-8?B?ay9uMW9hREFxUit4NWoyeXREL3ZPakVUMnVmMU43c3k5eUx5dHdxWWcwd3ha?=
- =?utf-8?B?OFYvSmVFOUNQaWNBelc2UEdkbUpMTHZGWUs3aitVM2dUVGIvRkZDa1FVVDFt?=
- =?utf-8?B?bzQzbmNPZkFCV0N6WlY0TUlEY3ZQd2ZGUDBvWEQ5LzFSYUQ0UW1UdVRVQm1l?=
- =?utf-8?B?cGloVXVJN3AzUm53akg1QlJLc25yWWdzdXc5bmRUZEVEbWR3MUdpNzZ2d2VT?=
- =?utf-8?B?Q004b1ZnUTNYRnNjSUZtNFdjZXQwTkJydFlBM1RDUHhNeHMwMmFuemVVWTRI?=
- =?utf-8?B?MnFZRWl4Uy9qRkxnYTdLa0xBTVdRSzRua2piN3JIUTdYZm90ckVVT1lYV2t0?=
- =?utf-8?B?UmxCbXkyeThMSkFUWGl5ZnRUZTA4Nk9CZHJjVTViMU81RzZnSnVWa25lNVlL?=
- =?utf-8?B?SFRTWnBxd3F3VnBJYVNXUlVxUThsVW14ZWVkVEJSbUlkb3lURlc3eW1hK1Ns?=
- =?utf-8?B?YmpSZW42TUE2ejdjdklDd2o5SXM1MVRnWFA2RmtEbjJMZ2NCbUtCUFJ1TTN0?=
- =?utf-8?B?VGlRQjNMTTBXR0JGVE8raDJWa1hYN1BFTGwvWnNwczB6U0lKQlN3d2RZT3JD?=
- =?utf-8?B?QWViNUZibUxhMzh1R2tlbTFkdGszZVMvUUVNcnBTblhlbEdDK3YzMTJuVGZH?=
- =?utf-8?B?MGtsR0x2VUlKek5Obm5aVnRMdlQ3eTlrUlR5eW05TDRrMXRqaDdRbTZXYXlm?=
- =?utf-8?Q?L3kfUbmOOT1MqoV6ulM13rfjZgoAFeVKB1rFblJNOy314?=
-X-MS-Exchange-AntiSpam-MessageData-1: a8sp8+1zEiywGw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3f6929a-2c85-492c-5038-08df1e9cc151
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 02:44:31.9188
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /d0L2K3Vdlhfry9zRc/Vx+iIDRUvLOAUerhcImxo7PFjhGRad+bgTf4ZdMLyaQZb1QMEvLzNsC8MtGe2UHt1Tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6523
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/15] KVM: arm64: pgtables: Change write bit from
+ S2AP_W to DBM
+To: Oliver Upton <oupton@kernel.org>
+CC: <maz@kernel.org>, <catalin.marinas@arm.com>, <will@kernel.org>,
+	<corbet@lwn.net>, <pbonzini@redhat.com>, <leo.bras@arm.com>,
+	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
+	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
+	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
+	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
+	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
+	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
+References: <20260929103655.85107-1-zhengtian10@huawei.com>
+ <20260929103655.85107-2-zhengtian10@huawei.com> <arxW4PUY3qqRkogl@kernel.org>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <arxW4PUY3qqRkogl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-Add some more size constants, mirroring include/linux/sizes.h. This is
-useful for making `Alignment` implement `SizeConstants` in a following
-patch, because these are more common alignment values.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- rust/kernel/sizes.rs | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
 
-diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
-index 521b2b38bfe7..7d03361eae3d 100644
---- a/rust/kernel/sizes.rs
-+++ b/rust/kernel/sizes.rs
-@@ -35,6 +35,26 @@
- macro_rules! define_sizes {
-     ($($type:ty),* $(,)?) => {
-         define_sizes!(@internal [$($type),*]
-+            /// `0x0000_0001`.
-+            SZ_1,
-+            /// `0x0000_0002`.
-+            SZ_2,
-+            /// `0x0000_0004`.
-+            SZ_4,
-+            /// `0x0000_0008`.
-+            SZ_8,
-+            /// `0x0000_0010`.
-+            SZ_16,
-+            /// `0x0000_0020`.
-+            SZ_32,
-+            /// `0x0000_0040`.
-+            SZ_64,
-+            /// `0x0000_0080`.
-+            SZ_128,
-+            /// `0x0000_0100`.
-+            SZ_256,
-+            /// `0x0000_0200`.
-+            SZ_512,
-             /// `0x0000_0400`.
-             SZ_1K,
-             /// `0x0000_0800`.
+On 9/30/2026 8:25 AM, Oliver Upton wrote:
+> Hi Tian,
+> 
+> On Tue, Sep 29, 2026 at 06:36:41PM +0800, Tian Zheng wrote:
+>> From: Leonardo Bras <leo.bras@arm.com>
+>>
+>> As a first step of changing the encoding for the Stage2 PTE descriptor,
+>> introduce the DBM bit, and adapt every usage of writable to use the DBM
+>> bit (51) instead of S2AP[1]/Dirty bit (7).
+>>
+>> With DBM as the write permission bit and S2AP[1] as the dirty state,
+>> the encoding follows the FEAT_S2PIE principle of managing permissions
+>> and dirty state independently.
+>>
+>> For this step, we convert usages of RW(Dirty) -> WD(DBM|Dirty): every
+>> writable mapping sets both bits, read-only mappings clear both, and no
+>> behaviour changes.
+>>
+>> Link: https://lore.kernel.org/all/20260901171558.2674031-2-leo.bras@arm.com/
+>> Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+>> [zhengtian: keep the nested walker reading writability from S2AP[1]
+>> alone, document why, and reword the commit message]
+>> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+>> ---
+>>   arch/arm64/include/asm/kvm_pgtable.h | 3 +++
+>>   arch/arm64/kvm/hyp/pgtable.c         | 7 ++++---
+>>   arch/arm64/kvm/nested.c              | 5 +++++
+>>   arch/arm64/kvm/ptdump.c              | 4 ++--
+>>   4 files changed, 14 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+>> index 41a8687938eb..37baa86d6fd8 100644
+>> --- a/arch/arm64/include/asm/kvm_pgtable.h
+>> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+>> @@ -93,10 +93,13 @@ typedef u64 kvm_pte_t;
+>>
+>>   #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
+>>
+>> +#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
+>> +
+>>   #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
+>>
+>>   #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
+>>   					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
+>> +					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
+>>   					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
+>>
+>>   /* pKVM invalid pte encodings */
+>> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+>> index b74dd5ce1efd..50f4d3a74f77 100644
+>> --- a/arch/arm64/kvm/hyp/pgtable.c
+>> +++ b/arch/arm64/kvm/hyp/pgtable.c
+>> @@ -732,7 +732,7 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+>>   		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+>>
+>>   	if (prot & KVM_PGTABLE_PROT_W)
+>> -		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+>> +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> 
+> Hmm... I'd actually like to see this structured where the "write" bit
+> could either be S2AP_W or DBM depending on if the system supports
+> FEAT_HAFDBS. Look at how HVHE is handled for selecting the right AP
+> encoding for the hyp stage-1 page tables.
+> 
 
--- 
-2.55.0
+Hi Oliver,
+
+Thanks for the suggestion. I missed the case where FEAT_HAFDBS is not
+supported. Systems without the feature should keep the original
+encoding, with S2AP[1] as the write permission bit. I'll follow the HVHE
+pattern to select between the two encodings in the next version.
+
+Thanks!
+Tian
+
+>> diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
+>> index 69899797dbad..b0cb8d84a9e9 100644
+>> --- a/arch/arm64/kvm/ptdump.c
+>> +++ b/arch/arm64/kvm/ptdump.c
+>> @@ -40,8 +40,8 @@ static const struct ptdump_prot_bits stage2_pte_bits[] = {
+>>   		.clear	= " ",
+>>   	},
+>>   	{
+>> -		.mask	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+>> -		.val	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+>> +		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_DBM,
+>> +		.val	= KVM_PTE_LEAF_ATTR_HI_S2_DBM,
+>>   		.set	= "W",
+>>   		.clear	= " ",
+>>   	},
+>> --
+>> 2.43.0
+>>
 
