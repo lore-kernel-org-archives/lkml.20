@@ -1,84 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B87313543;
-	Wed, 30 Sep 2026 09:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1A62E7369
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760608; cv=none; b=WWhP0so7fJkoAHe1+V/8Mkg5iE3rP89YE9hNUaIyXG55pJb3tlvouPioS5k3djjFxdg1xEAu3hK38LLwe6kpcWwoKPmpXIj6pwSKPRbYbxbHNwGD9Ht+NI4DaRKmAkYAevaYY7EhE0r3J9nAIeaPeLZOQXIC66lHq7lEZIj6ums=
+	t=1790760637; cv=none; b=RXCaEUZgiAUlOVCdZOyqDF4eGJBe3g2RSQezOEkm6A2pQpeYSQ6vDy1ntW9El4Cmq4wWeHj93asueF1xJ/5Ac56PfNr3FxEdz+n+ELQ9DndogWo8XHjdjAsErkT/3AOTztzXsvEf+HZtSkddswGc9rD3hSK6KQy2ZzklgipVrcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760608; c=relaxed/simple;
-	bh=SiOnEoFLz4AagjEf0QJa5q11C4ugufBzekm96HEA+V8=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=cg59Vs7aSh2OqD0/5LXxohJXkaKroWgcL+50p1vIXEMBsuuP0aggih0KQfIdAvCaDgdRYy0/ijLlRZ5E9J4F3AhnE10O+P7d261E93PIBX9MT6o6+p2xhUwji/EnLezs8B+an6w/hvV+jfjZLiGdzhe75HaZpD8iwq4XVyGfJUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MfiuQkLM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790760637; c=relaxed/simple;
+	bh=g1Q/SRrVTtz6AMBI1bvGBzBewZqe2gXa75U3T+sIgKM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=E7p9IEDk3P0Cz4jz0pfWx53neXSC2j2WXFXmtGSpfiXKIWt+y9/issQs/UNs9pSGlL78TT/tC35muSXTOn4Z9bKxY6L4+uu0A2AjEm0aMobJYqWjzQsZSaBUPvSvlTgWY1O6yd29PeKXqT03wAfNnjuCnkflL+tbGPrTfpXBasE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmhTyLWz; arc=none smtp.client-ip=74.125.228.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MfiuQkLM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093EC1F000FF;
-	Wed, 30 Sep 2026 09:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790760606;
-	bh=sjcvPJp7qyZH0h3JFK+CWWKeG5u1wLGWfMiMgytCi04=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=MfiuQkLMXkOGZdjhSEbkKgTPxjYzwXeHltydpcOEmEDR4aAIMnmP85nbzuzRzzIg/
-	 JxNuVOmHcOz1c1szwrKa7SaqVYhnX/eR6etlI1O+kdK5ZoHN4mVv8ZjUrWbg/XpPKa
-	 RtnVIftgurHWBkaciOqj2MPLhjbW03y5UZnQMgGHPmrThlOWbGv9MG4fqhfIzsYEVy
-	 ZRdXRG1W+LlO6LIQE+bQ4u9IoSZFafd2fBB2aVst5Qf7zFwrlktIrCOiwqB1RjMqUB
-	 V7sdRYb4kn/Plj3kd6RmXQBzkKeo5rCgMvq3LD7/ppUR/hVXTGa6X1ROw+4wdu8/OE
-	 uTprwJW2Fv1Og==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F154A39E8A7B;
-	Wed, 30 Sep 2026 09:30:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmhTyLWz"
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ab0d9260baso5491514a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:30:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790760634; x=1791365434; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LPe34vRyIa6dML1EQo1KfXSPOK1WXOU9iwUTkrF5Ta0=;
+        b=OmhTyLWzh5YiHhOxlDB6dSTIxw7l4othBi0ZPo7qZZCvbuL6fRK1oxqBGYzhUeTZP0
+         XI/HL72c8AeqAW/I+INZbRZeTP/EOGZeWe/PAksoPgEu4XTj6PYkB9/ZOf51jJxKAnyR
+         VTu6e/Rwe/KBT3UZHAAfADwC8bJgUWKgDtohflh+o0WcNFpDzuViupaya0QE73hiHZuR
+         yP+cjCqZBJmYThfFQrqA6k1CXf+b+NFWLnDoFltBXc6PkLp48EKnDad6T80vukwIeC3t
+         cF+Fw5xURxaEsAaiiRXuWZLIrP+uGUU7WSxIFVPrt7IElXu4OXrFS691M5zzTYs48Qe1
+         vK4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790760634; x=1791365434;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LPe34vRyIa6dML1EQo1KfXSPOK1WXOU9iwUTkrF5Ta0=;
+        b=miViicx8yiJXkkVOK1Gnlm0s8UJromGxwgziTT48f5JYWaMzsuKmLnZdiSqAoZsa1E
+         WBc7m4OCSlSfydlLRKifthag9eniloADdJBHyj6x1iHGwom98nojFjhjgh5l48ZZzfSI
+         I7fF6BpOfQ79tWdNlZEIRTM811YzidZJwCjKIDYXt65C+PA9m6BLNK/LihO3ddIXTQg4
+         dRuMJjZZZ47QFP0zferOjwu/Kv4IhWsq3wqo6fOPydG23YJLA01FIQhNxSHYmIiv8H/v
+         4uUXz+Kgms9YFkVLMVJwKEngc4O7zyXA5P333oNQk01c8ZyP/kp/Muk2kzuLm0270LPv
+         3v1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxwGiAY30jXMZ3brjhkJ+bXsVjHngOUXIAHAOZnrXDPbKoqXOWA/rXdacQVq/O1wL6zFhXctJhFuktOOf4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAz/OyTy8QpHGy9HXNJX1j5+9xS9zA05H/CAVGLnVyz08Ggl3a
+	YOWBp7Dxms8Dl62ghVClyMQbibAuV9CZa5pwhTwC7+xNwTukif5HyI5ANq7s2w==
+X-Gm-Gg: AYBFou1GMtHmcs5kRU2HkDsFumbEpdYDC4wkVa6RFL1nv6gxRuPvPT3t3aY1yqldpX+
+	EbHKhKPhN0f/6exs7MYeiBXGx0/EMSkoUjAwP57iePG4yDSqiw2Q2wQXcgubT/t7T0SerVOthH6
+	BJavu40Ysv21VKKC17H0tl0RASnjztnyySYmzOaledHmd1P0wZQ++O2/SY4O43oeHli7rrR41uy
+	zTTg0wmZ0fWPfVKr4fKcvUirr5rO3qiUDbAgwqr6uiGygQfl/43zE9Trrayv62iadBXce57uEcW
+	05YSmp4IhoyP3LsrBAZeD4jqeShtL0N+QfpMivMnT9JEBNyKQ242gb0UTQIbAjrIBtOA/tXhCw0
+	GsKQEPq7Ig+2oVEnu5S1px6c9yaJ35+sFKEUG7cPBGSGXeJ3bqP7quTwzsBkgxYSkaeD21bQRx1
+	WAafQz1sv6j5494d6at2fkvETQLTTgeqG8E4OtaH8s6uJI2PmRCZ4HuwhmDQ3Dx3wRfolAtXi3h
+	oLBqZt0PHRo
+X-Received: by 2002:a05:6402:52d3:b0:6ac:c851:a0d7 with SMTP id 4fb4d7f45d1cf-6ae1990e181mr453683a12.23.1790760634236;
+        Wed, 30 Sep 2026 02:30:34 -0700 (PDT)
+Received: from localhost.localdomain ([193.107.16.39])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1568e8b2sm485221a12.19.2026.09.30.02.30.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 02:30:33 -0700 (PDT)
+From: Dmitry Yashin <dmt.yashin@gmail.com>
+Subject: [PATCH 0/4] arm64: dts: rockchip: add Forlinx OK3568-C
+Date: Wed, 30 Sep 2026 14:29:03 +0500
+Message-Id: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: microchip: vcap: stop scanning after deleting key
- field
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179076060478.1357769.13599525229018760574.git-patchwork-notify@kernel.org>
-Date: Wed, 30 Sep 2026 09:30:04 +0000
-References: <20260925063937.963430-1-harshit.m.mogalapalli@oracle.com>
-In-Reply-To: <20260925063937.963430-1-harshit.m.mogalapalli@oracle.com>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- error27@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGDWvGoC/yXMXQtAMBTG8a+ic221l7bMV5EL5uBQaENq+e6Gy
+ 1/9nydCQE8YoMwieDwp0LokiDwDNzbLgIy6ZJBcGm4VZ+ustCmYY45bbaVuBUoDKd889nR9V1X
+ 9OxzthG5/93DfDyu5dl9sAAAA
+X-Change-ID: 20260930-ok3568-c-c095925b1e26
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Dmitry Yashin <dmt.yashin@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790760632; l=1327;
+ i=dmt.yashin@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=g1Q/SRrVTtz6AMBI1bvGBzBewZqe2gXa75U3T+sIgKM=;
+ b=0nGmsba4SEGFbfPrANmHlsF/U0MMw4A4GIhmRhgAN5sBwJg/zkO2KE0q8f+UPO2nAyb/oCkNk
+ R5Rjiq0j7B1CG3MTMVTYUy3TWgiQpmMnhm6Sngvey6AjwmXmZZFcwcJ
+X-Developer-Key: i=dmt.yashin@gmail.com; a=ed25519;
+ pk=vBe9jaaOEH5bQEvfzb1tWOlz3AMIcXCu/GL/CdlwJco=
 
-Hello:
+This series add support for Forlinx OK3568-C board based on FET3568-C SoM
+(rk3568). Patches 1-3 add .dtsi for FET3568-C and .dts for OK3568-C.
+Patch 4 adds .dtso for FIT-PCIE-SATA adapter that allows to connect
+SATA drives to the board.
 
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
+Note: tested on v1.1 board. On v1.2 RTL8211F phys use dedicated
+crystal oscillator instead of 25 MHz reference clock from SoC. Patch
+should be compatible with both revisions, as in [1] solution.
 
-On Thu, 24 Sep 2026 23:39:36 -0700 you wrote:
-> The only call outside the KUnit tests is in
-> sparx5_tc_add_rule_copy(), which passes a fixed key list with no
-> duplicate entries. Therefore, the potential double-free is not
-> currently reachable in tree.
-> 
-> However, vcap_filter_rule_keys() is exported and does not require its
-> key list entries to be unique. If a future or external caller supplies
-> the same key at another position that the inner loop visits, it calls
-> list_del() and kfree() a second time on the freed field, leading to a
-> potential double-free.
-> 
-> [...]
+[1] https://lore.kernel.org/all/20250704-rk3576-rock4d-phy-handling-fixes-v1-1-1d64130c4139@kernel.org/
 
-Here is the summary with links:
-  - net: microchip: vcap: stop scanning after deleting key field
-    https://git.kernel.org/netdev/net/c/99b43ede9e35
+---
+Dmitry Yashin (4):
+      dt-bindings: arm: rockchip: add Forlinx FET3568-C
+      arm64: dts: rockchip: add Forlinx FET3568-C
+      arm64: dts: rockchip: add Forlinx OK3568-C
+      arm64: dts: rockchip: add FIT-PCIE-SATA overlay
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+ .../devicetree/bindings/arm/rockchip.yaml          |   7 +
+ arch/arm64/boot/dts/rockchip/Makefile              |   6 +
+ arch/arm64/boot/dts/rockchip/rk3568-fet3568-c.dtsi | 331 ++++++++++++
+ .../rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso    |  16 +
+ arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts   | 574 +++++++++++++++++++++
+ 5 files changed, 934 insertions(+)
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260930-ok3568-c-c095925b1e26
 
+Best regards,
+--  
+Dmitry Yashin <dmt.yashin@gmail.com>
 
