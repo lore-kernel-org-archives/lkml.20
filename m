@@ -1,619 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D0E51EE04;
-	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1BE51DAE7;
+	Wed, 30 Sep 2026 18:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792618; cv=none; b=TPWJzIfBDO0lc+4ORLVvuhedUFoyVF4v3LrVKZPQYKMhZphG1nn3RRJT+z9D4EeTsG3E3hhLGqOQwpxQwrHTT4YDr6xLzdCckOt3TKHR+2QPNQbNn2/Ed0NLEpiL8z7PhXwNys/EbT1Az3+c8k5m+QSCbZ4ozeT+uAxNSQgQRQI=
+	t=1790792650; cv=none; b=HnGx0VdPqgbtL+0NxgrgLoiaQVqXs3+Yvj66wcEERj1J451LjpVGbURcCGJAVe6quourfNKQGOAnxlr+cU9z3RKTDLlhTpyqxg1PG3kLfDxMjcquJ9s5gknXOlTSKGw6tCWRlWiNOJpI1z2Nxg9XJ8uxpRZfaHQXzqsDB0GPbQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792618; c=relaxed/simple;
-	bh=oVelWIoZQ7mrPh5VRU6ZTkDRb2BRb4AhezDMKTMUGYw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LgvNdmv57/R/EZcg/ItgzTAOpOghmLZn+4xAL/gDb2fA8IwWxL9UewVVlgDwoy4TztmnmKRv+GvMWF1OYZ7DeRXLrvKwRUns2g6iJJdH572qvNTPMludoz3vQTVndP3+bP6DaZJPqoUX6m0jNNhiJbW8vFwjQgmCIQ9LVcFhaLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vm3IP3/E; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790792650; c=relaxed/simple;
+	bh=QAvOi4cchjKNlSCrsX1D95liAuQ9dq5OUbprIpUaeX8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nbQ8kNCXo0LB4jKq0ibjzceMOJaKAWukOPTiztVGjhgD9b6OcrhFLxISOKj0vdhZb1PgvL9f7DzraYA/++a153+jqS9bHfmUbhuDBZyvauK63vs4J+gvnIE5k3CcAZX5sEnCqiMmcfbzNAh0qHdmfBZIbUv+i4wGx2Pv8g98SiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3nm1bqH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vm3IP3/E"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AA226C4AF19;
-	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790792617;
-	bh=oVelWIoZQ7mrPh5VRU6ZTkDRb2BRb4AhezDMKTMUGYw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Vm3IP3/ECXLzrW2yHXvDco163L5mH5uOSfuS/lwVgZD6KsStSnBQ5Clg+ev05BST5
-	 Cdkq+ah6+7wUB/jPP+YY91tsqaK14ScB9JlQFRlNybS+nKQagrgp8C7Vj4KSE0trc+
-	 Diy3JPK6BqQWOZNQzskuZwU9wnmhd4JS1uwqAhQ3P+quKvH1ystDDnwx8lB+bW8jlk
-	 PryOZyF1C02/AQY/lWmlvrEsNW7WrtxODKztHyl/oRo3f72ktNWnoLqeDu9+tY/zFI
-	 2JnyhEfFrX0WfSQd/90enZhjGfv50t4BtSB3/Xz6LSrRAYhw/XFU/bnmlyVRr8UzIE
-	 9FCRWq0Z+ikTw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9781ECA5FCF;
-	Wed, 30 Sep 2026 18:23:37 +0000 (UTC)
-From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
-Date: Wed, 30 Sep 2026 13:23:35 -0500
-Subject: [PATCH v12 07/11] scsi: ibmvfc: extend async event handlers for
- async sub-CRQ events
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3nm1bqH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D042B1F000FF;
+	Wed, 30 Sep 2026 18:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790792648;
+	bh=FunQvZwAH5B4DZ2KKVAQe9PaR1db9gvR3K0YtXguIiE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q3nm1bqH7nevKq8YHNKNgJQTY046xcAqz7j8pKgxJCIcdNu5xd2F2b5ykJmycc5O/
+	 S4E0uPuPPAktCNmGa5JSzh2CgENEA10vJxxPdkXHO2CYbn8/N8bGwsFzxWiXeHhvsN
+	 Nk4iNlqQdWQtwRXAwHnbnm7ybo1RpyY4Pim9O/yYQAAjBsQ5+kH6ROevSTYcr7r5Hw
+	 7X3P+jQQrVPzgEvaGf3rk7cLgOH+uFawmA399Q24yZjAJsx5dKQVqJ7YjW5nDh5ZFs
+	 t3NPtngodXZtww1yXE/ZRMF3BH0FQcRZcFTYgs1OodcerpISIAb7nSMESXm2sJ/DcC
+	 sSQhCu0TlrhbA==
+Date: Wed, 30 Sep 2026 19:24:03 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
+Message-ID: <ar1TdGugvi9_RwG9@gremlin>
+References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
+ <ux7od2uydetgsu3dpy6mmilhqm5phhnk2ioxn54w3nb3feohxf@2jqovoqzfs4n>
+ <ar0y2odPFkCLMKk6@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-ibmvfc-fpin-support-v12-7-53a3fff7d77b@linux.ibm.com>
-References: <20260930-ibmvfc-fpin-support-v12-0-53a3fff7d77b@linux.ibm.com>
-In-Reply-To: <20260930-ibmvfc-fpin-support-v12-0-53a3fff7d77b@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, Tyrel Datwyler <tyreld@linux.ibm.com>, 
- Dave Marquardt <davemarq@linux.ibm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790792616; l=21489;
- i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
- bh=IlR36hxEQJVQ7gKCwmNomyjBwV5aPMFs9OkFt6eeuMQ=;
- b=O3PSJKIK0xjLOxNd24nJOayYKBqTktADK+JSF+tY2qqClft7HN81gD2u4Thq6xq+LVq+892P1
- Uvja2zGfRsHCVr9Csqm9EOcwTNsdTm6ZqADa6E3cVJZ5/mRkXEL7NMf
-X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
- pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
-X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
- auth_id=689
-X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
-Reply-To: davemarq@linux.ibm.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar0y2odPFkCLMKk6@gremlin>
 
-From: Dave Marquardt <davemarq@linux.ibm.com>
+On Wed, Sep 30, 2026 at 05:04:38PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Sep 30, 2026 at 10:59:50AM -0500, Anirudh Srinivasan wrote:
+> > On Sun, Sep 20, 2026 at 03:13:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+>
+> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > > ---
+> > > Lorenzo Stoakes (ARM) (2):
+> > >       mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+> > >       mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
+> >
+> > Hello,
+> >
+> > Apologies for the double mail. I did not hit reply all first time.
+> >
+> > I am seeing some failures in the proc_maps_race kselftests after
+> > this patch was added to linux-next. The failures are in
+> > test_maps_tearing_from_remap and test_maps_tearing_from_resize. I have
+> > attached some logs below
+>
+> Ack thanks for the report. I'll dig into this and get back to you!
+>
+> Instinctively I suspect the tests are making assumptions they shouldn't be,
+> given this series has the MREMAP_DONTUNMAP case split in advance.
 
-Refactor async event handling to support both traditional async CRQs and
-new asynchronous sub-queue CRQs.
+OK, the tests seem fairly sensitive to change, but the correct solution here
+overall I think is to only split if the VMA is mlock()'d, so I'll do that and
+send a respin + cc you on that which you can check!
 
-Introduce struct ibmvfc_async_crq_event, a tagged union that wraps
-either an ibmvfc_async_crq (main CRQ) or an ibmvfc_async_sub_crq
-(async sub-CRQ), with an enum ibmvfc_async_crq_type discriminator.
-Replace the ibmvfc_async_work bare union and is_subq bool with a
-single event field of this type.
+That should fix the tests and avoids unnecessary splits also.
 
-Modify ibmvfc_handle_async() to accept a struct ibmvfc_async_crq_event *
-instead of a void * plus a bool flag. Update ibmvfc_process_async_work()
-to dispatch based on event.type.
+Thanks again for the report! :)
 
-Add ibmvfc_full_fpin_to_desc() to convert full FPIN messages from async
-sub-queue format to fc_els_fpin structures. Update FPIN processing logic
-to extract WWPN, node_name, and scsi_id from the appropriate union member
-based on event type.
+>
+> --
+> Cheers, Lorenzo
 
-Update KUnit tests to use struct ibmvfc_async_crq_event arrays at call
-sites.
-
-Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
-Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
----
- drivers/scsi/ibmvscsi/ibmvfc-core.c  | 163 ++++++++++++++++++++++++++--------
- drivers/scsi/ibmvscsi/ibmvfc.h       |  18 +++-
- drivers/scsi/ibmvscsi/ibmvfc_kunit.c | 165 +++++++++++++++++++++++++++++++----
- 3 files changed, 289 insertions(+), 57 deletions(-)
-
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index ebe4b5538b98..88941ad85e86 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -3426,6 +3426,45 @@ ibmvfc_basic_fpin_to_desc(struct ibmvfc_async_crq *crq, u64 wwpn)
- 					  cpu_to_be32(1));
- }
- 
-+/**
-+ * ibmvfc_full_fpin_to_desc(): allocate and populate a struct fc_els_fpin struct
-+ * containing a descriptor.
-+ * @ibmvfc_fpin: Pointer to async subq FPIN data
-+ *
-+ * Allocate a struct fc_els_fpin containing a descriptor and populate
-+ * based on data from *ibmvfc_fpin.
-+ *
-+ * Return:
-+ * NULL     - unable to allocate structure
-+ * non-NULL - pointer to populated struct fc_els_fpin
-+ */
-+static struct fc_els_fpin *
-+ibmvfc_full_fpin_to_desc(struct ibmvfc_async_sub_crq *ibmvfc_fpin, u64 wwpn)
-+{
-+	__be16 type;
-+
-+	switch (ibmvfc_fpin->fpin_status) {
-+	case IBMVFC_AE_FPIN_LINK_CONGESTED:
-+	case IBMVFC_AE_FPIN_PORT_CONGESTED:
-+		type = cpu_to_be16(FPIN_CONGN_DEVICE_SPEC);
-+		break;
-+	case IBMVFC_AE_FPIN_PORT_CLEARED:
-+	case IBMVFC_AE_FPIN_CONGESTION_CLEARED:
-+		type = cpu_to_be16(FPIN_CONGN_CLEAR);
-+		break;
-+	case IBMVFC_AE_FPIN_PORT_DEGRADED:
-+		type = cpu_to_be16(FPIN_LI_UNKNOWN);
-+		break;
-+	default:
-+		return NULL;
-+	}
-+
-+	return ibmvfc_common_fpin_to_desc(ibmvfc_fpin->fpin_status, cpu_to_be64(wwpn),
-+					  type, cpu_to_be16(0),
-+					  cpu_to_be32(IBMVFC_FPIN_DEFAULT_EVENT_THRESHOLD),
-+					  cpu_to_be32(1));
-+}
-+
- /**
-  * ibmvfc_find_target - Search for a target in a target list
-  * @target_list: list head of targets to search
-@@ -3463,28 +3502,40 @@ static struct ibmvfc_target *ibmvfc_find_target(struct list_head *target_list,
-  */
- static void ibmvfc_process_async_work(struct work_struct *work)
- {
-+	struct ibmvfc_async_sub_crq *subq = NULL;
- 	struct ibmvfc_async_work *aw;
--	struct ibmvfc_async_crq *crq;
-+	struct ibmvfc_async_crq *crq = NULL;
- 	struct ibmvfc_target *tgt;
- 	struct ibmvfc_host *vhost;
--	struct fc_els_fpin *fpin;
-+	struct fc_els_fpin *fpin = NULL;
- 	unsigned long flags;
-+	__be64 node_name;
-+	__be64 scsi_id;
-+	__be64 wwpn;
- 
- 	aw = container_of_const(work, struct ibmvfc_async_work, async_work_s);
- 	vhost = aw->vhost;
--	crq = &aw->crq;
-+	if (aw->event.type == IBMVFC_ASYNC_CRQ_SUB) {
-+		subq = &aw->event.subq;
-+		scsi_id = 0;
-+		wwpn = subq->wwpn;
-+		node_name = (subq->flags & IBMVFC_ASYNC_ID_IS_ASSOC_ID) ? 0 : subq->id.node_name;
-+	} else {
-+		crq = &aw->event.async_crq;
-+		scsi_id = crq->scsi_id;
-+		wwpn = crq->wwpn;
-+		node_name = crq->node_name;
-+	}
- 
--	if (!crq->scsi_id && !crq->wwpn && !crq->node_name)
-+	if (!scsi_id && !wwpn && !node_name)
- 		goto free;
- 
- 	spin_lock_irqsave(vhost->host->host_lock, flags);
--	tgt = ibmvfc_find_target(&vhost->scsi_scrqs.targets, crq->scsi_id,
--				 crq->wwpn, crq->node_name);
-+	tgt = ibmvfc_find_target(&vhost->scsi_scrqs.targets, scsi_id, wwpn, node_name);
-+
- 	if (!tgt) {
- 		/* Target not found in scsi_scrqs, search nvme_scrqs */
--		tgt = ibmvfc_find_target(&vhost->nvme_scrqs.targets,
--					 crq->scsi_id, crq->wwpn,
--					 crq->node_name);
-+		tgt = ibmvfc_find_target(&vhost->nvme_scrqs.targets, scsi_id, wwpn, node_name);
- 	}
- 
- 	if (tgt) {
-@@ -3496,7 +3547,11 @@ static void ibmvfc_process_async_work(struct work_struct *work)
- 		goto free;
- 	}
- 
--	fpin = ibmvfc_basic_fpin_to_desc(crq, tgt->wwpn);
-+	if (crq)
-+		fpin = ibmvfc_basic_fpin_to_desc(crq, tgt->wwpn);
-+	else
-+		fpin = ibmvfc_full_fpin_to_desc(subq, tgt->wwpn);
-+
- 	if (fpin) {
- 		fc_host_fpin_rcv(tgt->vhost->host,
- 				 sizeof(*fpin) + be32_to_cpu(fpin->desc_len),
-@@ -3512,25 +3567,51 @@ static void ibmvfc_process_async_work(struct work_struct *work)
- 
- /**
-  * ibmvfc_handle_async - Handle an async event from the adapter
-- * @crq:	crq to process
-+ * @ae:		tagged union wrapping either an ibmvfc_async_crq (main CRQ) or an
-+ *		ibmvfc_async_sub_crq (async sub-CRQ); the type field identifies which
-  * @vhost:	ibmvfc host struct
-  *
-  **/
--VISIBLE_IF_KUNIT void ibmvfc_handle_async(struct ibmvfc_async_crq *crq,
-+VISIBLE_IF_KUNIT void ibmvfc_handle_async(struct ibmvfc_async_crq_event *ae,
- 					  struct ibmvfc_host *vhost)
- {
--	const struct ibmvfc_async_desc *desc = ibmvfc_get_ae_desc(be64_to_cpu(crq->event));
-+	struct ibmvfc_async_crq *async_crq = NULL;
-+	struct ibmvfc_async_sub_crq *subq = NULL;
-+	const struct ibmvfc_async_desc *desc;
- 	struct ibmvfc_async_work *aw;
- 	struct ibmvfc_target *tgt;
--
--	ibmvfc_log(vhost, desc->log_level, "%s event received. scsi_id: %llx, wwpn: %llx,"
--		   " node_name: %llx%s\n", desc->desc, be64_to_cpu(crq->scsi_id),
--		   be64_to_cpu(crq->wwpn), be64_to_cpu(crq->node_name),
--		   ibmvfc_get_link_state(crq->link_state));
--
--	switch (be64_to_cpu(crq->event)) {
-+	__be64 node_name;
-+	__be64 scsi_id;
-+	u8 link_state;
-+	__be64 wwpn;
-+	u64 event;
-+
-+	if (ae->type == IBMVFC_ASYNC_CRQ_SUB) {
-+		subq = &ae->subq;
-+		event = be16_to_cpu(subq->event);
-+		link_state = subq->link_state;
-+		scsi_id = 0;
-+		wwpn = subq->wwpn;
-+		node_name = subq->flags & IBMVFC_ASYNC_ID_IS_ASSOC_ID ? 0 : subq->id.node_name;
-+	} else {
-+		async_crq = &ae->async_crq;
-+		event = be64_to_cpu(async_crq->event);
-+		link_state = async_crq->link_state;
-+		scsi_id = async_crq->scsi_id;
-+		wwpn = async_crq->wwpn;
-+		node_name = async_crq->node_name;
-+	}
-+
-+	desc = ibmvfc_get_ae_desc(event);
-+	ibmvfc_log(vhost, desc->log_level,
-+		   "%s event received. scsi_id: %llx, wwpn: %llx, node_name: %llx, event %llx%s\n",
-+		   desc->desc, be64_to_cpu(scsi_id),
-+		   be64_to_cpu(wwpn), be64_to_cpu(node_name), event,
-+		   ibmvfc_get_link_state(link_state));
-+
-+	switch (event) {
- 	case IBMVFC_AE_RESUME:
--		switch (crq->link_state) {
-+		switch (link_state) {
- 		case IBMVFC_AE_LS_LINK_DOWN:
- 			ibmvfc_link_down(vhost, IBMVFC_LINK_DOWN);
- 			break;
-@@ -3569,33 +3650,33 @@ VISIBLE_IF_KUNIT void ibmvfc_handle_async(struct ibmvfc_async_crq *crq,
- 	case IBMVFC_AE_ELS_PRLO:
- 	case IBMVFC_AE_ELS_PLOGI:
- 		list_for_each_entry(tgt, &vhost->scsi_scrqs.targets, queue) {
--			if (!crq->scsi_id && !crq->wwpn && !crq->node_name)
-+			if (!scsi_id && !wwpn && !node_name)
- 				break;
--			if (crq->scsi_id && cpu_to_be64(tgt->scsi_id) != crq->scsi_id)
-+			if (scsi_id && cpu_to_be64(tgt->scsi_id) != scsi_id)
- 				continue;
--			if (crq->wwpn && cpu_to_be64(tgt->ids.port_name) != crq->wwpn)
-+			if (wwpn && cpu_to_be64(tgt->ids.port_name) != wwpn)
- 				continue;
--			if (crq->node_name && cpu_to_be64(tgt->ids.node_name) != crq->node_name)
-+			if (node_name && cpu_to_be64(tgt->ids.node_name) != node_name)
- 				continue;
--			if (tgt->need_login && be64_to_cpu(crq->event) == IBMVFC_AE_ELS_LOGO)
-+			if (tgt->need_login && event == IBMVFC_AE_ELS_LOGO)
- 				tgt->logo_rcvd = 1;
--			if (!tgt->need_login || be64_to_cpu(crq->event) == IBMVFC_AE_ELS_PLOGI) {
-+			if (!tgt->need_login || event == IBMVFC_AE_ELS_PLOGI) {
- 				ibmvfc_del_tgt(tgt);
- 				ibmvfc_reinit_host(vhost);
- 			}
- 		}
- 		list_for_each_entry(tgt, &vhost->nvme_scrqs.targets, queue) {
--			if (!crq->scsi_id && !crq->wwpn && !crq->node_name)
-+			if (!scsi_id && !wwpn && !node_name)
- 				break;
--			if (crq->scsi_id && cpu_to_be64(tgt->scsi_id) != crq->scsi_id)
-+			if (scsi_id && cpu_to_be64(tgt->scsi_id) != scsi_id)
- 				continue;
--			if (crq->wwpn && cpu_to_be64(tgt->ids.port_name) != crq->wwpn)
-+			if (wwpn && cpu_to_be64(tgt->ids.port_name) != wwpn)
- 				continue;
--			if (crq->node_name && cpu_to_be64(tgt->ids.node_name) != crq->node_name)
-+			if (node_name && cpu_to_be64(tgt->ids.node_name) != node_name)
- 				continue;
--			if (tgt->need_login && be64_to_cpu(crq->event) == IBMVFC_AE_ELS_LOGO)
-+			if (tgt->need_login && event == IBMVFC_AE_ELS_LOGO)
- 				tgt->logo_rcvd = 1;
--			if (!tgt->need_login || be64_to_cpu(crq->event) == IBMVFC_AE_ELS_PLOGI) {
-+			if (!tgt->need_login || event == IBMVFC_AE_ELS_PLOGI) {
- 				ibmvfc_del_tgt(tgt);
- 				ibmvfc_reinit_host(vhost);
- 			}
-@@ -3618,14 +3699,14 @@ VISIBLE_IF_KUNIT void ibmvfc_handle_async(struct ibmvfc_async_crq *crq,
- 		if (aw) {
- 			INIT_WORK(&aw->async_work_s, ibmvfc_process_async_work);
- 			aw->vhost = vhost;
--			aw->crq = *crq;
-+			aw->event = *ae;
- 			queue_work(vhost->fpin_workq, &aw->async_work_s);
- 		} else
- 			dev_err_ratelimited(vhost->dev,
- 					    "can't offload async CRQ to work queue\n");
- 		break;
- 	default:
--		dev_err(vhost->dev, "Unknown async event received: %lld\n", crq->event);
-+		dev_err(vhost->dev, "Unknown async event received: %llu\n", event);
- 		break;
- 	}
- }
-@@ -4166,7 +4247,11 @@ static void ibmvfc_tasklet(void *data)
- 	while (!done) {
- 		/* Pull all the valid messages off the async CRQ */
- 		while ((async = ibmvfc_next_async_crq(vhost)) != NULL) {
--			ibmvfc_handle_async(async, vhost);
-+			struct ibmvfc_async_crq_event ae = {
-+				.type = IBMVFC_ASYNC_CRQ_MAIN,
-+				.async_crq = *async,
-+			};
-+			ibmvfc_handle_async(&ae, vhost);
- 			async->valid = 0;
- 			wmb();
- 		}
-@@ -4180,8 +4265,12 @@ static void ibmvfc_tasklet(void *data)
- 
- 		vio_enable_interrupts(vdev);
- 		if ((async = ibmvfc_next_async_crq(vhost)) != NULL) {
-+			struct ibmvfc_async_crq_event ae = {
-+				.type = IBMVFC_ASYNC_CRQ_MAIN,
-+				.async_crq = *async,
-+			};
- 			vio_disable_interrupts(vdev);
--			ibmvfc_handle_async(async, vhost);
-+			ibmvfc_handle_async(&ae, vhost);
- 			async->valid = 0;
- 			wmb();
- 		} else if ((crq = ibmvfc_next_crq(vhost)) != NULL) {
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc.h b/drivers/scsi/ibmvscsi/ibmvfc.h
-index df2f312fd7b9..ebbcb911f639 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc.h
-+++ b/drivers/scsi/ibmvscsi/ibmvfc.h
-@@ -786,9 +786,22 @@ struct ibmvfc_async_sub_crq {
- 	} id;
- } __packed __aligned(8);
- 
-+enum ibmvfc_async_crq_type {
-+	IBMVFC_ASYNC_CRQ_MAIN = 0,
-+	IBMVFC_ASYNC_CRQ_SUB,
-+};
-+
-+struct ibmvfc_async_crq_event {
-+	enum ibmvfc_async_crq_type type;
-+	union {
-+		struct ibmvfc_async_crq async_crq;
-+		struct ibmvfc_async_sub_crq subq;
-+	};
-+};
-+
- struct ibmvfc_async_work {
- 	struct ibmvfc_host *vhost;
--	struct ibmvfc_async_crq crq;
-+	struct ibmvfc_async_crq_event event;
- 	struct work_struct async_work_s;
- };
- 
-@@ -1105,7 +1118,8 @@ static inline struct ibmvfc_host *ibmvfc_channels_to_vhost(struct ibmvfc_channel
- 
- #if IS_ENABLED(CONFIG_KUNIT)
- #include <kunit/visibility.h>
--VISIBLE_IF_KUNIT void ibmvfc_handle_async(struct ibmvfc_async_crq *crq, struct ibmvfc_host *vhost);
-+VISIBLE_IF_KUNIT void ibmvfc_handle_async(struct ibmvfc_async_crq_event *event,
-+					  struct ibmvfc_host *vhost);
- VISIBLE_IF_KUNIT struct ibmvfc_host *ibmvfc_get_first_vhost(void);
- #endif
- 
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc_kunit.c b/drivers/scsi/ibmvscsi/ibmvfc_kunit.c
-index 7cc9d423d4a7..84f23544c0af 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc_kunit.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc_kunit.c
-@@ -3,7 +3,6 @@
- #include <kunit/visibility.h>
- #include <scsi/scsi_device.h>
- #include <scsi/scsi_transport_fc.h>
--#include <scsi/fc/fc_els.h>
- #include <linux/list.h>
- #include <linux/delay.h>
- #include "ibmvfc.h"
-@@ -25,7 +24,9 @@ static void ibmvfc_async_fpin_test(struct kunit *test)
- {
- 	u64 post[IBMVFC_AE_FPIN_CONGESTION_CLEARED + 1];
- 	u64 pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED + 1];
--	struct ibmvfc_async_crq ae[IBMVFC_AE_FPIN_CONGESTION_CLEARED + 1];
-+	struct ibmvfc_async_crq_event ae[IBMVFC_AE_FPIN_CONGESTION_CLEARED + 1] = {
-+		[0 ... IBMVFC_AE_FPIN_CONGESTION_CLEARED] = { .type = IBMVFC_ASYNC_CRQ_MAIN },
-+	};
- 	enum ibmvfc_ae_fpin_status fs;
- 	struct fc_host_attrs *fc_host;
- 	struct ibmvfc_target *tgt;
-@@ -63,17 +64,17 @@ static void ibmvfc_async_fpin_test(struct kunit *test)
- 	pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED] = READ_ONCE(fc_host->fpin_stats.cn_clear);
- 
- 	for (fs = IBMVFC_AE_FPIN_LINK_CONGESTED; fs <= IBMVFC_AE_FPIN_CONGESTION_CLEARED; fs++) {
--		ae[fs].valid = 0x80;
--		ae[fs].link_state = IBMVFC_AE_LS_LINK_UP;
--		ae[fs].fpin_status = fs;
--		ae[fs].event = cpu_to_be64(IBMVFC_AE_FPIN);
--		ae[fs].scsi_id = cpu_to_be64(tgt->scsi_id);
--		ae[fs].wwpn = cpu_to_be64(tgt->wwpn);
--		ae[fs].node_name = cpu_to_be64(tgt->ids.node_name);
-+		ae[fs].async_crq.valid = 0x80;
-+		ae[fs].async_crq.link_state = IBMVFC_AE_LS_LINK_UP;
-+		ae[fs].async_crq.fpin_status = fs;
-+		ae[fs].async_crq.event = cpu_to_be64(IBMVFC_AE_FPIN);
-+		ae[fs].async_crq.scsi_id = cpu_to_be64(tgt->scsi_id);
-+		ae[fs].async_crq.wwpn = cpu_to_be64(tgt->wwpn);
-+		ae[fs].async_crq.node_name = cpu_to_be64(tgt->ids.node_name);
- 		spin_lock_irqsave(vhost->host->host_lock, flags);
- 		ibmvfc_handle_async(&ae[fs], vhost);
- 		spin_unlock_irqrestore(vhost->host->host_lock, flags);
--		ae[fs].valid = 0;
-+		ae[fs].async_crq.valid = 0;
- 		wmb(); /* ensure valid bit clear is visible before checking stats */
- 	}
- 	flush_workqueue(vhost->fpin_workq);
-@@ -102,17 +103,17 @@ static void ibmvfc_async_fpin_test(struct kunit *test)
- 	pre[IBMVFC_AE_FPIN_PORT_DEGRADED] = READ_ONCE(rport->fpin_stats.li_failure_unknown);
- 	pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED] = READ_ONCE(fc_host->fpin_stats.cn_clear);
- 
--	ae[0].valid = 0x80;
--	ae[0].link_state = IBMVFC_AE_LS_LINK_UP;
--	ae[0].fpin_status = 0; /* bad value */
--	ae[0].event = cpu_to_be64(IBMVFC_AE_FPIN);
--	ae[0].scsi_id = cpu_to_be64(tgt->scsi_id);
--	ae[0].wwpn = cpu_to_be64(tgt->wwpn);
--	ae[0].node_name = cpu_to_be64(tgt->ids.node_name);
-+	ae[0].async_crq.valid = 0x80;
-+	ae[0].async_crq.link_state = IBMVFC_AE_LS_LINK_UP;
-+	ae[0].async_crq.fpin_status = 0; /* bad value */
-+	ae[0].async_crq.event = cpu_to_be64(IBMVFC_AE_FPIN);
-+	ae[0].async_crq.scsi_id = cpu_to_be64(tgt->scsi_id);
-+	ae[0].async_crq.wwpn = cpu_to_be64(tgt->wwpn);
-+	ae[0].async_crq.node_name = cpu_to_be64(tgt->ids.node_name);
- 	spin_lock_irqsave(vhost->host->host_lock, flags);
- 	ibmvfc_handle_async(&ae[0], vhost);
- 	spin_unlock_irqrestore(vhost->host->host_lock, flags);
--	ae[0].valid = 0;
-+	ae[0].async_crq.valid = 0;
- 	wmb(); /* ensure valid bit clear is visible before checking stats */
- 	flush_workqueue(vhost->fpin_workq);
- 
-@@ -138,8 +139,136 @@ static void ibmvfc_async_fpin_test(struct kunit *test)
- 	scsi_host_put(vhost->host);
- }
- 
-+/**
-+ * ibmvfc_full_fpin_test - unit test for IBMVFC_AE_FPIN parts of ibmvfc_handle_async
-+ * @test: pointer to kunit structure
-+ *
-+ * Tests
-+ * - error returns from ibmvfc_handle_async
-+ * - statistics updates
-+ *
-+ * Return: void
-+ */
-+static void ibmvfc_full_fpin_test(struct kunit *test)
-+{
-+	u64 post[IBMVFC_AE_FPIN_CONGESTION_CLEARED + 1];
-+	u64 pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED + 1];
-+	struct ibmvfc_async_crq_event ae[IBMVFC_AE_FPIN_CONGESTION_CLEARED + 1] = {
-+		[0 ... IBMVFC_AE_FPIN_CONGESTION_CLEARED] = { .type = IBMVFC_ASYNC_CRQ_SUB },
-+	};
-+	enum ibmvfc_ae_fpin_status fs;
-+	struct fc_host_attrs *fc_host;
-+	struct ibmvfc_target *tgt;
-+	struct ibmvfc_host *vhost;
-+	struct fc_rport *rport;
-+	unsigned long flags;
-+
-+	vhost = ibmvfc_get_first_vhost();
-+	if (!vhost)
-+		kunit_skip(test, "No ibmvfc devices available");
-+
-+	spin_lock_irqsave(vhost->host->host_lock, flags);
-+	if (vhost->scsi_scrqs.num_targets < 1) {
-+		spin_unlock_irqrestore(vhost->host->host_lock, flags);
-+		scsi_host_put(vhost->host);
-+		kunit_skip(test, "No targets");
-+	}
-+	tgt = list_first_entry(&vhost->scsi_scrqs.targets, struct ibmvfc_target, queue);
-+	if (!tgt->rport) {
-+		spin_unlock_irqrestore(vhost->host->host_lock, flags);
-+		scsi_host_put(vhost->host);
-+		kunit_skip(test, "No rport");
-+	}
-+	rport = tgt->rport;
-+	get_device(&rport->dev);
-+	kref_get(&tgt->kref);
-+	spin_unlock_irqrestore(vhost->host->host_lock, flags);
-+
-+	fc_host = shost_to_fc_host(vhost->host);
-+
-+	pre[IBMVFC_AE_FPIN_LINK_CONGESTED] = READ_ONCE(fc_host->fpin_stats.cn_device_specific);
-+	pre[IBMVFC_AE_FPIN_PORT_CONGESTED] = READ_ONCE(rport->fpin_stats.cn_device_specific);
-+	pre[IBMVFC_AE_FPIN_PORT_CLEARED] = READ_ONCE(rport->fpin_stats.cn_clear);
-+	pre[IBMVFC_AE_FPIN_PORT_DEGRADED] = READ_ONCE(rport->fpin_stats.li_failure_unknown);
-+	pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED] = READ_ONCE(fc_host->fpin_stats.cn_clear);
-+
-+	for (fs = IBMVFC_AE_FPIN_LINK_CONGESTED; fs <= IBMVFC_AE_FPIN_CONGESTION_CLEARED; fs++) {
-+		ae[fs].subq.valid = 0x80;
-+		ae[fs].subq.link_state = IBMVFC_AE_LS_LINK_UP;
-+		ae[fs].subq.fpin_status = fs;
-+		ae[fs].subq.event = cpu_to_be16(IBMVFC_AE_FPIN);
-+		ae[fs].subq.wwpn = cpu_to_be64(tgt->wwpn);
-+		ae[fs].subq.id.node_name = cpu_to_be64(tgt->ids.node_name);
-+		spin_lock_irqsave(vhost->host->host_lock, flags);
-+		ibmvfc_handle_async(&ae[fs], vhost);
-+		spin_unlock_irqrestore(vhost->host->host_lock, flags);
-+		ae[fs].subq.valid = 0;
-+		wmb(); /* ensure valid bit clear is visible before checking stats */
-+	}
-+	flush_workqueue(vhost->fpin_workq);
-+
-+	post[IBMVFC_AE_FPIN_LINK_CONGESTED] = READ_ONCE(fc_host->fpin_stats.cn_device_specific);
-+	post[IBMVFC_AE_FPIN_PORT_CONGESTED] = READ_ONCE(rport->fpin_stats.cn_device_specific);
-+	post[IBMVFC_AE_FPIN_PORT_CLEARED] = READ_ONCE(rport->fpin_stats.cn_clear);
-+	post[IBMVFC_AE_FPIN_PORT_DEGRADED] = READ_ONCE(rport->fpin_stats.li_failure_unknown);
-+	post[IBMVFC_AE_FPIN_CONGESTION_CLEARED] = READ_ONCE(fc_host->fpin_stats.cn_clear);
-+
-+	KUNIT_EXPECT_GE(test, post[IBMVFC_AE_FPIN_LINK_CONGESTED],
-+			pre[IBMVFC_AE_FPIN_LINK_CONGESTED]+1);
-+	KUNIT_EXPECT_GE(test, post[IBMVFC_AE_FPIN_PORT_CONGESTED],
-+			pre[IBMVFC_AE_FPIN_PORT_CONGESTED]+1);
-+	KUNIT_EXPECT_GE(test, post[IBMVFC_AE_FPIN_PORT_CLEARED],
-+			pre[IBMVFC_AE_FPIN_PORT_CLEARED]+1);
-+	KUNIT_EXPECT_GE(test, post[IBMVFC_AE_FPIN_PORT_DEGRADED],
-+			pre[IBMVFC_AE_FPIN_PORT_DEGRADED]+1);
-+	KUNIT_EXPECT_GE(test, post[IBMVFC_AE_FPIN_CONGESTION_CLEARED],
-+			pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED]+1);
-+
-+	/* bad path */
-+	pre[IBMVFC_AE_FPIN_LINK_CONGESTED] = READ_ONCE(fc_host->fpin_stats.cn_device_specific);
-+	pre[IBMVFC_AE_FPIN_PORT_CONGESTED] = READ_ONCE(rport->fpin_stats.cn_device_specific);
-+	pre[IBMVFC_AE_FPIN_PORT_CLEARED] = READ_ONCE(rport->fpin_stats.cn_clear);
-+	pre[IBMVFC_AE_FPIN_PORT_DEGRADED] = READ_ONCE(rport->fpin_stats.li_failure_unknown);
-+	pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED] = READ_ONCE(fc_host->fpin_stats.cn_clear);
-+
-+	ae[0].subq.valid = 0x80;
-+	ae[0].subq.link_state = IBMVFC_AE_LS_LINK_UP;
-+	ae[0].subq.fpin_status = 0; /* bad value */
-+	ae[0].subq.event = cpu_to_be16(IBMVFC_AE_FPIN);
-+	ae[0].subq.wwpn = cpu_to_be64(tgt->wwpn);
-+	ae[0].subq.id.node_name = cpu_to_be64(tgt->ids.node_name);
-+	spin_lock_irqsave(vhost->host->host_lock, flags);
-+	ibmvfc_handle_async(&ae[0], vhost);
-+	spin_unlock_irqrestore(vhost->host->host_lock, flags);
-+	ae[0].subq.valid = 0;
-+	wmb(); /* ensure valid bit clear is visible before checking stats */
-+	flush_workqueue(vhost->fpin_workq);
-+
-+	post[IBMVFC_AE_FPIN_LINK_CONGESTED] = READ_ONCE(fc_host->fpin_stats.cn_device_specific);
-+	post[IBMVFC_AE_FPIN_PORT_CONGESTED] = READ_ONCE(rport->fpin_stats.cn_device_specific);
-+	post[IBMVFC_AE_FPIN_PORT_CLEARED] = READ_ONCE(rport->fpin_stats.cn_clear);
-+	post[IBMVFC_AE_FPIN_PORT_DEGRADED] = READ_ONCE(rport->fpin_stats.li_failure_unknown);
-+	post[IBMVFC_AE_FPIN_CONGESTION_CLEARED] = READ_ONCE(fc_host->fpin_stats.cn_clear);
-+
-+	KUNIT_EXPECT_EQ(test, pre[IBMVFC_AE_FPIN_LINK_CONGESTED],
-+			post[IBMVFC_AE_FPIN_LINK_CONGESTED]);
-+	KUNIT_EXPECT_EQ(test, pre[IBMVFC_AE_FPIN_PORT_CONGESTED],
-+			post[IBMVFC_AE_FPIN_PORT_CONGESTED]);
-+	KUNIT_EXPECT_EQ(test, pre[IBMVFC_AE_FPIN_PORT_CLEARED],
-+			post[IBMVFC_AE_FPIN_PORT_CLEARED]);
-+	KUNIT_EXPECT_EQ(test, pre[IBMVFC_AE_FPIN_PORT_DEGRADED],
-+			post[IBMVFC_AE_FPIN_PORT_DEGRADED]);
-+	KUNIT_EXPECT_EQ(test, pre[IBMVFC_AE_FPIN_CONGESTION_CLEARED],
-+			post[IBMVFC_AE_FPIN_CONGESTION_CLEARED]);
-+
-+	put_device(&rport->dev);
-+	kref_put(&tgt->kref, ibmvfc_release_tgt);
-+	scsi_host_put(vhost->host);
-+}
-+
- static struct kunit_case ibmvfc_fpin_test_cases[] = {
- 	KUNIT_CASE(ibmvfc_async_fpin_test),
-+	KUNIT_CASE(ibmvfc_full_fpin_test),
- 	{},
- };
- 
-
--- 
-2.55.0
-
-
+--
+Cheers, Lorenzo
