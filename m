@@ -1,164 +1,182 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07A33E022B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0B750B437;
 	Wed, 30 Sep 2026 20:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800474; cv=fail; b=sgE6rGhBAmpuaVfJ0AHqb3nuJ3EY5nQbtOUoPyCDYkYnn4JwwNm2HGBD/QYqPIXV4eLBxObCAwp5Y6IfI3xJ6bBby/SQKZ//cbc4TGxq2NQH78zbYU/EDsQTwV7aCeTPb3l5Ccmk8JbUVDuM4ovEDw83PsnCcVUG897RLIv11Ug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800474; c=relaxed/simple;
-	bh=jk8XugXDYzSrd10EOAvp8w7nIx83+WuMYdIMRvN9VRk=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mhhDJoFDASxtFncWMqb8FrBPY1y6+aaeaFC6ID0SLk3O+BNRZoE7nSDs4JUknNOy2Iu8KoZSnzByTagVFLxbHj50h+zmoCNAz1p8KHfIg+W6qLCZ8WSAkkTNVl+3hk9ZYy26dx8JfjMhGbXA6+WOV3kqrL6eZOWc9yXN9kVnSCE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ooG39dLR; arc=fail smtp.client-ip=52.101.57.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790800475; cv=none; b=ZBjLLkMl2C0NAjjfM4O8dATQz4cZAyEPxsHIM/Ilrw20WJsRxMr9xDZcuBnEG6B0jKz5TztYquY3s5juqFFjqPpO7cNim4x1J7ILcPiRDyg9skrYLLZKlpXqO/OOFXT647db8I7GCP8YAtmBDO58nNzXTYMs4pH+WcfhEXaxRnk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790800475; c=relaxed/simple;
+	bh=C7y5OtHbGwWwmj2uRXLub5VAFwozpHuhH91uJdCYLtQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=UpGcnhqwmulz5YFmXLNmJPxajMQuOozEbiKXWE1gjvU+9KEPc60w1e7T8q7m5YhtYSyml8zQg4maA1csaPknLOJPwrQAb0gjTwvJF/ge89Sol7rGbIqskRfZSPbrNlBNyN3hw3JbhgiYc+FaRlCRCjzPk8hIUbe1espSv3jM6a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=SIMWi99V; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=thh9x4fE; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ooG39dLR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BFrpbJPmqkQptH0U7azF+TMC7eEskbZrUz8PYYFLq3C1N8hEzG9nJpLlvCXQ4hdGQkY1IsuQNa0l/qupQJvEfopxyGrOmh/aenpzvQun+5ieNiV42uKkjewVTn1BPE2A+H5YhuweC/uS5YEKergAxvTK48zhxLolFBUJbnsLN8oxJO9x0Pz3SstfqG1VCBDOJOjGa8ozVgyvOgBa7NLQmGPdIb2eEx82qk1gf1x55QA0KczpDXt3x2JtpsT/2FLmILME3xKK5Ic+HrRpHl8cxfeRSibB+6mwLulFdQiNXknWh3WQcksohrXHd+zKDoMPEu+veqMLgSRv6qj58FMoHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FUB+XiiXEW1USjTKzvjBma7tdra06QPEuPQYuHebLnU=;
- b=OBNiyK6cigOea9JkFzbHS9LsyYmz5CaEORyEVCTKNK1pLLVch9fEXg2rwc1nYAIFqSnziVRlaNajtU/Klm0S8tN0JK/owE+Un6rqKdMT463/6BxoplEQBjzBMX7FJR4xqDhCo+23wah/QplzFm5Mmt6VsQf6RTVYAbNanKPtVChCzXX9oRpIB6QthkWP3DmRCSB/Db6qykS5Tfcr6TwAWooNXBRuRbds0k4ApT6avrs6l7UUgRLDrYI7Ckua1KduQTZx8j1CviuwLj+aJj7mfHncL8sbNSlYClCWvjdsO8nO1LNdJ1gUSAof0kgENQDzHGg6itQvpkJpZkoB0k4DzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FUB+XiiXEW1USjTKzvjBma7tdra06QPEuPQYuHebLnU=;
- b=ooG39dLR/bEXqVoH63+qzc78QI/J2W4a0pmIcEddf7cMt7iY+kLbvZUFZ+2qkFVS5O60iizjR0oGZb7+EROeJgQ4Pu+0VrOrIyx4o+rcxKDwGZiscFdw9MUD2eGK+xHmlHB7CK/OLyOGT5GFP0CKD1o2bISnpM7S01GnkIdUWhwoQs/Z2/wPJvAEBKc4Poyq2FX0wApuJEjU301Ev31TU+mUeg5CdYFbAQWvoT6hQSfhFhVMeFW6W4ZSI0AsB7H0DmeeNSVvtaZjXDXcypH4p+4oSi6HHmQAVyHYm5tRJ4wM/cV6XZRjjYMAnuCVbdRbSkm5eXhbR3YSdwkZ7vU2ew==
-Received: from BN0PR02CA0059.namprd02.prod.outlook.com (2603:10b6:408:e5::34)
- by IA0PR12MB8088.namprd12.prod.outlook.com (2603:10b6:208:409::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 20:34:28 +0000
-Received: from BL02EPF0002992B.namprd02.prod.outlook.com
- (2603:10b6:408:e5:cafe::9) by BN0PR02CA0059.outlook.office365.com
- (2603:10b6:408:e5::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 20:34:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 20:34:28 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 13:34:02 -0700
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 13:34:02 -0700
-Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.129.68.8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 13:34:00 -0700
-Date: Wed, 30 Sep 2026 13:33:58 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Pranjal Shrivastava <praan@google.com>
-CC: <iommu@lists.linux.dev>, Will Deacon <will@kernel.org>, Joerg Roedel
-	<joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe
-	<jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Daniel Mentz
-	<danielmentz@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
-	<linux-arm-kernel@lists.infradead.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>, Bjorn Helgaas <bhelgaas@google.com>,
-	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, <rafael@kernel.org>, "Danilo
- Krummrich" <dakr@kernel.org>, <driver-core@lists.linux.dev>
-Subject: Re: [PATCH v11 11/16] iommu/arm-smmu-v3: Add CMDQ_PROD_STOP_FLAG to
- gate CMDQ submissions
-Message-ID: <ar1yNtr7Kp2OTcDd@nvidia.com>
-References: <20260929034510.2023173-1-praan@google.com>
- <20260929034510.2023173-12-praan@google.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="SIMWi99V";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="thh9x4fE"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790800451; bh=ryPpT3XG51E8OKO6oqRYAPa
+	qc2mnjZBJT7psFp8t0Jo=; b=SIMWi99Vus6VgGS1RG5YdJgS1xEcTzi134G0KFV5lFRiTTABgf
+	w0VB7M6jDxloY6luA3hzdwpMUqIAggGrKUjM5d5E3rVIF8PUBdA35OebfPy6H2pLKCFSmXilSRU
+	93rONWo6nlSqJOnIC3aJlhriwO49lQJDkrRU1dauy8TmeTcC3kwhefQawKdFQV6DErTELQkyUw+
+	qDQIoL/X4LGtAgYpLbDwvFlGttttrBs0rQcXd+XoLsV67AuzXZcufEJ+t5VwWU4/kMPA23vPCR4
+	c0LwV+4WYs8tyJZkVtPLXvbe416f/Cfa/Nj9QYwUGbPq0bOw+3TNTWUkUEPd3OVqoXA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790800451; bh=ryPpT3XG51E8OKO6oqRYAPa
+	qc2mnjZBJT7psFp8t0Jo=; b=thh9x4fEn7/o50JwsPmnXs7Yo88sxlBWotgRtffXNka1DlTN2h
+	DK31av8lGStiP9AFGv1xbNSvoOmxuoXeChDw==;
+Date: Wed, 30 Sep 2026 21:34:10 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
+ syzbot <syzbot@kernel.org>
+CC: syzkaller-bugs@googlegroups.com, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Josh Triplett <josh@joshtriplett.org>, rcu@vger.kernel.org,
+ =?ISO-8859-1?Q?Onur_=D6zkan?= <work@onurozkan.dev>,
+ Zqiang <qiang.zhang@linux.dev>, linux-kernel@vger.kernel.org,
+ mathieu.desnoyers@efficios.com, rostedt@goodmis.org, syzbot@lists.linux.dev,
+ Sunho Park <shpark061104@gmail.com>
+Subject: Re: [PATCH] srcu: Drop spurious WARN_ON() in cleanup_srcu_struct()
+In-Reply-To: <e95cac05-59f0-473a-bc42-1fc69c10976e@paulmck-laptop>
+References: <428f095d-02a5-433a-ae71-632f682e05af@mail.kernel.org> <e95cac05-59f0-473a-bc42-1fc69c10976e@paulmck-laptop>
+Message-ID: <6BEDE45A-F8B7-4F8C-BC5C-E4091A56F6E7@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260929034510.2023173-12-praan@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|IA0PR12MB8088:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86b60a45-7e8a-45bc-4108-08df1f323978
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|7416014|10067099003|56012099006|4143699003|6133799003|3023799007|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ler7HQ+GTFMtmTmIris6AxGrYi2U8q3u7J0jkSkAa4Tf65PwxDkD42k1t55htTACfedXYQikO5uBSPDSG5Hj05a4AIalvLb/4Xc2aHfqMABQhDcp7J+VJUROTopg7YoeL0VAZ6EWKnzwKiRbloUkgR1t5g0VEn8WoVMCONTFmwgAZf2wEpqlRpUOB6WoXPu4CA4Hs2U7rtPQYXnvEFCqMxDkekxqqyW35tsSjjG5kVu6Y3E9URCFvgOR2St1sIciIgmX4hoyLv09z9HbRI77/Ht0LPAAxUDuudLd8pWEz6pcAmhuFLrRZp0r2VknfIw9Bgm6MK9ugih2UtHbQ/droxaxbygah3DV4N/3nu9u3sPOdgyeege4ceHhmR49CWE1WTSnKRyadHK+Q+CPuqawDM0FDhs2VX28P+BYKVOtVVQvA6TzOFYYT7yznpqF0LR2sLjAR2OZ6Hv7F2K7ALwGBP4gwtLgowahoXKoks7SU5H8/UHAhhB+r3M8Q6hI9nuzkKVmPHjES9avYfgK56RR9IRQuLlVe8ADacJ3Xv7EbdbK81NNQyw9maBVnIUWEgVzSdnDbawmKO/xIlhVbXYFXKGwLL+VwYdJwXrj2F5fW/rQAqW3wghKhM5qFjPUU+Fqy+xD2xRZkuVi1DQ31hcOqAwBW2509l++9moVFq7Tj3455hzlvs8MiRqdjf+l5Syi6FDwlHhwsjylH7Ut59CRwQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(7416014)(10067099003)(56012099006)(4143699003)(6133799003)(3023799007)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xZ76xcwU+inpz4G/xHQdo3USWplLCsPcxXY1+azViTidbEqkQQ+IKMsSzZTyqeJymdMuGOnxAbkEKmVsqdD1L8p9R2hab/4jlCJ6jgDCYZj8tajz6Rzqnxv059pEWSCvhI9lMYDdUU8JPqtD+YLdI/UF3joS4ajf7kvpfTDnQ0Omfu+lENykwzHYl35pmoGvl79v0ckeUdmycH8GViRX/YUUS3mC2yZIMVdteYnoajaI9dx+/qPmTranraaPejqsOXMsVZAVZU5+ReuNKfNWV/0FNtlHKeOPRa83471Z9xy9C72tnni6fSVSQBOf48iAY2ei5nAyFue+deiyMtne3ttNIZSwkYd/FUh1tCQ9Cm8R3hVpZo4nXMvmvb828PIfF33PQ8cC7qnQdGu8Sw/8/mKm02hWVEW+NT8su4vOggtL4l9ioWreiuxr8UwX1Gaz
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:34:28.1127
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86b60a45-7e8a-45bc-4108-08df1f323978
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0002992B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8088
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 03:45:05AM +0000, Pranjal Shrivastava wrote:
-> @@ -726,13 +727,42 @@ int __arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
->  	do {
->  		u64 old;
->  
-> +		/*
-> +		 * If the SMMU is suspended/suspending, any new CMDs are elided.
-> +		 * This loop is the Point of Commitment. If we haven't cmpxchg'd
-> +		 * our new indices yet, we can safely bail. Once the indices are
-> +		 * committed, we MUST write valid commands to those slots to
-> +		 * avoid indefinite polling in the drain function.
-> +		 */
-> +		if (Q_STOP(llq.prod)) {
-> +			local_irq_restore(flags);
-> +			return 0;
-> +		}
+On 30 September 2026 21:29:51 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>Adding Sunho Park on CC for his fix:
+>
+>b7e310c3e43e ("srcu: Fix WARN_ON() for rcu_segcblist_n_cbs() in
+>cleanup_srcu_struct()")
 
-Sashiko pointed out this:
-"
-Can this early return cause memory corruption by silently dropping ATC
-invalidations?
+Already done? Aw no
 
-When the SMMU suspends, Q_STOP(llq.prod) becomes true. If a driver or
-background thread then calls dma_unmap() to free a buffer while a PCIe
-endpoint (with ATS enabled) is suspended to a state like D0, the SMMU
-driver will observe the stop flag here in __arm_smmu_cmdq_issue_cmdlist().
+>
+>On Wed, Sep 30, 2026 at 06:45:09PM +0000, syzbot wrote:
+>> From: Bradley Morgan <brads@mainlining.org>
+>> 
+>> In cleanup_srcu_struct(), commit 78a38cbf6f20 ("srcu: Queue sdp->work
+>when
+>> the delay timer is successfully deleted") added logic to queue sdp->work
+>if
+>> timer_delete_sync(&sdp->delay_work) successfully canceled a pending
+>timer
+>> while callbacks remained pending on sdp->srcu_cblist. However, it
+>wrapped
+>> this check in a WARN_ON() under the assumption that callers invoking
+>> srcu_barrier() prior to cleanup_srcu_struct() would prevent the warning
+>> from triggering.
+>> 
+>> This warning can be spuriously triggered during valid teardown paths
+>where
+>> srcu_barrier() is properly invoked before cleanup_srcu_struct(), such as
+>> when releasing blk-mq tag sets:
+>> 
+>> WARNING: kernel/rcu/srcutree.c:707 at cleanup_srcu_struct+0x3d6/0x8b0
+>> kernel/rcu/srcutree.c:706
+>> Call Trace:
+>>  <TASK>
+>>  blk_mq_free_tag_set+0x617/0x790 block/blk-mq.c:4976
+>>  scsi_mq_free_tags+0x16/0x30 drivers/scsi/scsi_lib.c:2167
+>>  scsi_remove_host+0x243/0x730 drivers/scsi/hosts.c:193
+>>  uas_disconnect+0x135/0x3e0 drivers/usb/storage/uas.c:1236
+>>  usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
+>>  device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+>>  bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+>>  device_del+0x524/0x8f0 drivers/base/core.c:3965
+>>  usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
+>>  hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
+>>  process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+>>  worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+>>  kthread+0x38b/0x480 kernel/kthread.c:436
+>>  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+>>  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>>  </TASK>
+>> 
+>> This false positive occurs due to a race between callback invocation and
+>> the teardown thread. First, sdp->delay_work can legitimately remain
+>armed:
+>> when an SRCU grace period completes, srcu_gp_end() arms sdp->delay_work
+>> with a delay, and if callbacks are later scheduled with zero delay via
+>> srcu_schedule_cbs_sdp(sdp, 0), queue_work_on() queues sdp->work directly
+>> without deleting sdp->delay_work. Second, in srcu_invoke_callbacks(),
+>> callbacks (including the one queued by srcu_barrier()) are extracted
+>into a
+>> local list and executed, but sdp->srcu_cblist length is only decremented
+>> via rcu_segcblist_add_len(&sdp->srcu_cblist, -len) after all callbacks
+>> finish executing. When srcu_barrier_cb() executes, it wakes the waiting
+>> srcu_barrier() thread, which proceeds immediately to
+>cleanup_srcu_struct().
+>> At that point, the worker thread is still executing callbacks and has
+>not
+>> yet decremented the callback count, so
+>timer_delete_sync(&sdp->delay_work)
+>> returns 1 and rcu_segcblist_n_cbs(&sdp->srcu_cblist) is non-zero, firing
+>> the WARN_ON(). Immediately thereafter, flush_work(&sdp->work) waits for
+>the
+>> worker to finish, and the subsequent check on rcu_segcblist_n_cbs()
+>> correctly sees no remaining callbacks.
+>> 
+>> Because WARN_ON() must not be used for conditions that can legitimately
+>> happen, and pr_err() should be used instead if an actual error needs to
+>be
+>> reported (which is not applicable here as this is normal recovery
+>> behavior), remove the WARN_ON() check and its accompanying comment. Keep
+>> the queue_work_on() recovery logic so that flush_work() properly waits
+>for
+>> remaining callbacks to complete. Genuine callback leaks remain caught by
+>> the subsequent authoritative
+>> WARN_ON(rcu_segcblist_n_cbs(&sdp->srcu_cblist)) check performed after
+>work
+>> has been flushed.
+>> 
+>> Fixes: 78a38cbf6f20 ("srcu: Queue sdp->work when the delay timer is
+>successfully deleted")
+>> Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview
+>syzbot
+>> Reported-by: syzbot+02b37e31e64ea5cb6d29@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=02b37e31e64ea5cb6d29
+>> Link:
+>https://syzkaller.appspot.com/ai_job?id=5a402d0b-b407-49a6-b0f3-b06197c1398f
+>> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>> 
+>> ---
+>> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+>> index ed204b3f4..7f30a5587 100644
+>> --- a/kernel/rcu/srcutree.c
+>> +++ b/kernel/rcu/srcutree.c
+>> @@ -701,10 +701,8 @@ void cleanup_srcu_struct(struct srcu_struct *ssp)
+>>  	for_each_possible_cpu(cpu) {
+>>  		struct srcu_data *sdp = per_cpu_ptr(ssp->sda, cpu);
+>>  
+>> -		// Call srcu_barrier() before this cleanup_srcu_struct()
+>> -		// to avoid triggering this WARN_ON().
+>> -		if (WARN_ON(timer_delete_sync(&sdp->delay_work) &&
+>> -			    rcu_segcblist_n_cbs(&sdp->srcu_cblist)) &&
+>> +		if (timer_delete_sync(&sdp->delay_work) &&
+>> +		    rcu_segcblist_n_cbs(&sdp->srcu_cblist) &&
+>>  		    rcu_cpu_beenfullyonline(sdp->cpu))
+>>  			queue_work_on(sdp->cpu, rcu_gp_wq, &sdp->work);
+>>  		flush_work(&sdp->work);
+>> 
+>> 
+>> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+>> -- 
+>> See https://goo.gle/syzbot-ai-patches for information about AI-generated
+>patches.
+>> The person who has signed off on the patch is responsible for
+>> addressing comments.
+>> syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-By bailing out and returning 0 (success) without actually submitting the
-CMDQ_OP_ATC_INV command to the hardware, the IOMMU core is misled into
-freeing the memory while the PCIe endpoint's Address Translation Cache
-(ATC) retains the stale translation. When the PCI device resumes, or if
-it issues a TLP while in D0, it could use the stale ATC entry to access
-the now-freed memory, bypassing IOMMU protections.
-
-Are we assuming endpoint drivers clear their own ATC or that a hardware
-reset handles it? Client endpoint drivers typically lack an API to
-manually clear the ATC, and SMMU hardware resets do not broadcast ATC
-invalidations to endpoints.
-"
-
-We may get away from the TLB maintenance. But ATC can be the case
-broken by the stop flag?
-
-Nicolin
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
