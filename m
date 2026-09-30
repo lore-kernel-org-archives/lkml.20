@@ -1,320 +1,218 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF1536E48B;
-	Wed, 30 Sep 2026 15:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6779D377EA7;
+	Wed, 30 Sep 2026 15:07:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780817; cv=none; b=IKcKALrhkdJtvV/kAKgqSw5GBpNxnNzDaoPKAH1yZdQ/T/Biciz5B0H4q3ejQv2E2pS4ToV7nWs1i2NSnqz+5FW11gG3NuZfh0wJ/C8J+MFNMDEC6OjwaZ3GlxoRzKW4mk5h2hRcRUOLR0I10SgTHe/SkDhIGjoPEpNVIhjIdqI=
+	t=1790780836; cv=none; b=qRuDBnqWdjNqVWUVOJPkULebryDguqW1h4aLIwdNAk8g8Vl2Tzz3/aPtSi4hG4+pzilsk2tfrEZEv6NB6mlBX8QjaP0zTGxTB6uhO6DvFn4mDRG30wjYL01qZbqXrdWWgFY8Ollv31FhnVcDWSXKpn1RkGq7qj53qVrnSs9X+uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780817; c=relaxed/simple;
-	bh=EDP8zN6bSiMPGl5DLcamQmvJXb+Q646G7fC9Y+W99Fc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dale0Iogn8ZqelPMfpCcnSZ4PTdaVltSN1s0WMiTRWRqPuMaGLAvf/vjamADbUbNnv8uAJr1aaYIIqnYIz3x0sP31ecdik5CE7ZIZql6u5NVXedWVVPFPnR6GvqcW+qqSOqgWiB4xmSPs6K6aqEZIiFDd5c3Es4Y+qtJ559Yl6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=npri/rJM; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1790780836; c=relaxed/simple;
+	bh=4RYQtrTyByMaLR/K3iG427DVCQsrqdlhcPpcha2V1oI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h3B5djCqMq3xEuMN7Smyfthal2gJTRri4tXIVa91YjDjvpL2fjgFHUxlVJ6oFMtHLGv7zN1mmB1i+J6ac9I4IR+p55vysiLZZgg6ENAWTZiwVkkVEciFT8yawTDGmRTnlIWNoG41ZgPNpph0oSsqz88RRalsvg1eizrQ5zFYcuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=GgHG7ulH; arc=none smtp.client-ip=188.68.63.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="npri/rJM"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE0CZ83283843;
-	Wed, 30 Sep 2026 15:06:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=FHZfms6o5nC
-	KnfQH/x39bm+Ap7XWn4YKrMCndSdE08s=; b=npri/rJMSA5BeZ/lg1Y7QXZ74TR
-	Ey56YIEXNj9ghTtp3gZkiQMQHtX4qv+C1SG3bmA3E4a2bFWm1fWjC9Tomyu5Obrx
-	uxs5pS8OCjBSTmWPHZo2tbL78RK/CRBk6hy8sPm9RgpkGeu62McTQyFQRxr4Oa8G
-	N1crSTfTxwuCJIIrFcjw/mP8AyiM0LZw2wS/oMlTOlbAIfRJqLv2FHzavzZ6ZIul
-	QVNc7tEyvSdEtEMiBwjm8mzSfDAPXn6EDyTKBZ+yeO84eW4XRiIWuNUpnIPNFpK+
-	YlexRN2ODl99hzSOkc59A9mEUBkulRfHi6pt8MpUdB3F7f3zqlfb3aWUYWw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0tkn2w5e-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 15:06:23 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UF2K3K1902881;
-	Wed, 30 Sep 2026 15:02:20 GMT
-Received: from hu-devc-blr-u24-a.qualcomm.com (hu-anuppate-blr.qualcomm.com [10.131.36.165])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68UF2JRI1902839
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 15:02:20 +0000 (GMT)
-Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 486687)
-	id 4D027248ED; Wed, 30 Sep 2026 20:32:19 +0530 (+0530)
-From: Anup Patel <anup.patel@oss.qualcomm.com>
-To: Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-        Rahul Pathak <rahul@summations.net>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-        Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Himanshu Chauhan <hchauhan@ventanamicro.com>,
-        Atish Patra <atish.patra@linux.dev>, Anup Patel <anup@brainfault.org>,
-        Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-clk@vger.kernel.org, Anup Patel <anup.patel@oss.qualcomm.com>
-Subject: [PATCH 3/4] mailbox: add direct synchronous send support
-Date: Wed, 30 Sep 2026 20:32:12 +0530
-Message-ID: <20260930150213.799245-4-anup.patel@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930150213.799245-1-anup.patel@oss.qualcomm.com>
-References: <20260930150213.799245-1-anup.patel@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="GgHG7ulH"
+Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hvz0Z5ht1z6MjV;
+	Wed, 30 Sep 2026 17:06:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1790780814;
+	bh=4RYQtrTyByMaLR/K3iG427DVCQsrqdlhcPpcha2V1oI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GgHG7ulHvl5J8HNonh10bszOE9InC60PyWxVf4//Y+al4FCSbShmjBxsSu6nPZH9X
+	 nP4Yudlwn7h6FPVRXsrlL8+tPNqn2YR+P/l/5+PpdSpHddPPOp9Ygqf+c5bBCchhIK
+	 5yT7PS/9MOYVVmcTI/qBxYFv5gi7QaEGcLNZv8gjpNLve/Mv02XR7fSq6HOhGV3Xib
+	 yhwHhEZdfrmoYlk/dEiXZd4NnP2+h9KhsICGN2pgM9BmRPhY5IAudbPPc701PLRO8w
+	 5gxAvnoy3kOc6f1Ml1KnN1ctbIeHTGglVyBI4VuwZskko1w5UALff4IwpJy6w31ew6
+	 EFrxbu7saLJ4w==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hvz0Z4wLLz4yjD;
+	Wed, 30 Sep 2026 17:06:54 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hvz0W2n2Dz8tgC;
+	Wed, 30 Sep 2026 17:06:51 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id BEBF15F8BB;
+	Wed, 30 Sep 2026 17:06:41 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <d1381ed8-eab8-4fd7-8b15-1e94876d7099@leemhuis.info>
+Date: Wed, 30 Sep 2026 17:06:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=CKy/zhrD c=1 sm=1 tr=0 ts=6abd2570 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=Rc0M7loQF3ww-NHgSoYA:9
-X-Proofpoint-ORIG-GUID: pqFsxjs7q-Ca9wbLkrfJn2eH_Fz0prZw
-X-Proofpoint-GUID: As7QxTdF35noUa5xdaTGgZW6pe1ybkB-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2MCBTYWx0ZWRfX1doe7+rRA/BW
- R538p1R9wgU13ZfTOSCPVdKDliF5UqgI670BRW2qBzIF3x9fTvN4Mj7k+AmyFU+FfXUvWkW6yw0
- RBMVMzEcNDxMc+DNk1vvhVOKCpWtJhJqReC3qX1RuDqFx6jPmdhYtwCNgkMPNW7L7r8et0jcXZ7
- q+W4G7w3Rgz2Q3+/EWEGPVmphnrcz6qxZTZCHm3CfRbRyvegEae5smgr/5mxWpcTi8+FOjjXkHB
- OnxopsUs/jysf6hpez5ZW1uPLoZG/Ilv9SMpNmzUW8xmkdER+h+NNqo55uZfmG510hEfbJTt0u7
- +W7qEE8EtWNX++yABGcQhqDQ7uQrgvWml2hHrpnl6yi5pdy3VgBXdb0Lftr7WmKkCQfjtrQfbeh
- VGIhVUAmyj+jZt1R/z0wQyf+s+uINXpjXVkJd/vO0/WwdhpB7xN9FK0JhX7MCbrytAWIwgx3HUD
- IGHHANqNzOAa2T82f2w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2MCBTYWx0ZWRfX6AiKgGO2ieWP
- 9dd5wabScbNmNkKJWaojWTVlSqYWLI5OyqpsPPTqrpk/WdrNJUfGfxTSgIQkmpzMZkom5oDVMNv
- sRh91oQO9aCUgECD35VshIinqgkbe+s=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
- phishscore=0 spamscore=0 malwarescore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300060
+User-Agent: Mozilla Thunderbird
+Subject: Re: [GIT PULL PATCH 0/9] Rust changes for v7.4-rc1
+To: Jens Axboe <axboe@kernel.dk>, Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-block@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>,
+ stable@vger.kernel.org, Priya Bala Govindasamy <pgovind2@uci.edu>,
+ Dylan Zueck <dzueck@uci.edu>, Yuan Tan <ytan089@ucr.edu>,
+ Sophon Z <aiqubits@hotmail.com>, Qingxiao Xu <qingxiao@tamu.edu>,
+ Malte Wechter <maltewechter@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20260929-rust-block-for-v7-4-rc1-b4-v1-0-642a4c1aebd7@kernel.org>
+ <179068244058.1205226.1765319338142659278.b4-ty@b4>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <179068244058.1205226.1765319338142659278.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179078080275.1056943.224935166895197584@mxe9fb.netcup.net>
+X-NC-CID: kbBO8J0k4cD0MZBqNVVuRQit6Wi9e3jYf30p7DpF3SVolywOZEA=
 
-From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+On 9/29/26 13:47, Jens Axboe wrote:
+> On Tue, 29 Sep 2026 11:33:58 +0200, Andreas Hindborg wrote:
+>> I have a number of Rust block layer patches I would ask you to pick for
+>> v7.4. I have collected them into a patch series as well as a pull request
+>> so you can use whatever is easier.
+>>
+>> The changes cover
+>>
+>>  - Style and formatting changes.
+>>  - Documentation fixes.
+>>  - Fixes for missing trait bounds that can cause API unsoundness.
+>>  - A change to set the owner of the file operations vtable in `GenDisk`.
+>>  - Two bug fixes for the rnull driver.
+>>
+>> [...]
+> 
+> Applied, thanks!
+>  [...]
 
-Some mailbox controllers can complete a transaction entirely within
-the calling context, without going through the queued TX state
-machine or a TX-done interrupt. Add a synchronous send path so their
-clients can request one and wait for the result directly.
+This series showed up in next today and broke the build for me on
+various Fedora releases for aarch64 and x86_64; reverting this series
+fixed that from a quick build test limited to drivers/block/rnull/
 
-Controllers advertise support via the new send_data_sync() op and
-clients opt in by setting tx_sync when requesting the channel.
+The full error msg is quote long, find the top of it below. Full log:
+https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-rawhide-aarch64/11055137-next-next-all/builder-live.log.gz
 
-Channels bound this way must not call mbox_chan_txdone() or
-mbox_client_txdone(), and mbox_send_message() and mbox_flush() now
-reject them, since only mbox_send_message_sync() is a valid
-transmit path. The client remains responsible for serializing calls
-to mbox_send_message_sync() against mbox_free_channel().
+Ciao, Thorsten
 
-Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
----
- drivers/mailbox/mailbox.c          | 72 +++++++++++++++++++++++++++++-
- include/linux/mailbox_client.h     |  3 ++
- include/linux/mailbox_controller.h | 10 +++++
- 3 files changed, 83 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mailbox/mailbox.c b/drivers/mailbox/mailbox.c
-index efacd24a085d..c640b19de608 100644
---- a/drivers/mailbox/mailbox.c
-+++ b/drivers/mailbox/mailbox.c
-@@ -166,6 +166,12 @@ EXPORT_SYMBOL_GPL(mbox_chan_received_data);
-  */
- void mbox_chan_txdone(struct mbox_chan *chan, int r)
- {
-+	if (unlikely(chan->txdone_method & MBOX_TXDONE_BY_RETURN)) {
-+		dev_err(chan->mbox->dev,
-+			"TX-done notification on direct synchronous channel\n");
-+		return;
-+	}
-+
- 	if (unlikely(!(chan->txdone_method & MBOX_TXDONE_BY_IRQ))) {
- 		dev_err(chan->mbox->dev,
- 		       "Controller can't run the TX ticker\n");
-@@ -187,6 +193,12 @@ EXPORT_SYMBOL_GPL(mbox_chan_txdone);
-  */
- void mbox_client_txdone(struct mbox_chan *chan, int r)
- {
-+	if (unlikely(chan->txdone_method & MBOX_TXDONE_BY_RETURN)) {
-+		dev_err(chan->mbox->dev,
-+			"TX-done notification on direct synchronous channel\n");
-+		return;
-+	}
-+
- 	if (unlikely(!(chan->txdone_method & MBOX_TXDONE_BY_ACK))) {
- 		dev_err(chan->mbox->dev, "Client can't run the TX ticker\n");
- 		return;
-@@ -278,6 +290,9 @@ int mbox_send_message(struct mbox_chan *chan, void *mssg)
- 	if (!chan || !chan->cl || mssg == MBOX_NO_MSG)
- 		return -EINVAL;
- 
-+	if (chan->txdone_method & MBOX_TXDONE_BY_RETURN)
-+		return -EOPNOTSUPP;
-+
- 	t = add_to_rbuf(chan, mssg);
- 	if (t < 0) {
- 		dev_err(chan->mbox->dev, "Try increasing MBOX_TX_QUEUE_LEN\n");
-@@ -308,6 +323,43 @@ int mbox_send_message(struct mbox_chan *chan, void *mssg)
- }
- EXPORT_SYMBOL_GPL(mbox_send_message);
- 
-+/**
-+ * mbox_send_message_sync - Send data and wait for transaction completion
-+ * @chan: Mailbox channel assigned to this client
-+ * @mssg: Client specific message typecasted
-+ *
-+ * For a channel bound with tx_sync, ask the controller to transmit @mssg and
-+ * only return on completion. This function may sleep and must not be called
-+ * from atomic context. @mssg must remain valid until this function returns.
-+ *
-+ * The direct synchronous path does not queue @mssg, does not use active_req,
-+ * and does not use a TX-done notification. The client must serialize this
-+ * function against mbox_free_channel().
-+ *
-+ * Return: 0 on success or a negative error code.
-+ */
-+int mbox_send_message_sync(struct mbox_chan *chan, void *mssg)
-+{
-+	int ret;
-+
-+	if (!chan || !chan->cl || mssg == MBOX_NO_MSG)
-+		return -EINVAL;
-+
-+	if (!(chan->txdone_method & MBOX_TXDONE_BY_RETURN))
-+		return -EOPNOTSUPP;
-+
-+	if (chan->cl->tx_prepare)
-+		chan->cl->tx_prepare(chan->cl, mssg);
-+	/* Try to submit a message to the MBOX controller synchonously */
-+	ret = chan->mbox->ops->send_data_sync(chan, mssg);
-+
-+	if (chan->cl->tx_done)
-+		chan->cl->tx_done(chan->cl, mssg, ret);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(mbox_send_message_sync);
-+
- /**
-  * mbox_flush - flush a mailbox channel
-  * @chan: mailbox channel to flush
-@@ -326,8 +378,11 @@ int mbox_flush(struct mbox_chan *chan, unsigned long timeout)
- {
- 	int ret;
- 
-+	if (chan->txdone_method & MBOX_TXDONE_BY_RETURN)
-+		return -EOPNOTSUPP;
-+
- 	if (!chan->mbox->ops->flush)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	ret = chan->mbox->ops->flush(chan, timeout);
- 	if (ret < 0)
-@@ -343,7 +398,9 @@ static void mbox_clean_and_put_channel(struct mbox_chan *chan)
- 	scoped_guard(spinlock_irqsave, &chan->lock) {
- 		chan->cl = NULL;
- 		chan->active_req = MBOX_NO_MSG;
--		if (chan->txdone_method == MBOX_TXDONE_BY_ACK)
-+		if (chan->txdone_method & MBOX_TXDONE_BY_RETURN)
-+			chan->txdone_method &= ~MBOX_TXDONE_BY_RETURN;
-+		else if (chan->txdone_method == MBOX_TXDONE_BY_ACK)
- 			chan->txdone_method = MBOX_TXDONE_BY_POLL;
- 	}
- 
-@@ -355,6 +412,14 @@ static int __mbox_bind_client(struct mbox_chan *chan, struct mbox_client *cl)
- 	struct device *dev = cl->dev;
- 	int ret;
- 
-+	if (cl->tx_sync) {
-+		if (!chan->mbox->ops->send_data_sync)
-+			return -EOPNOTSUPP;
-+
-+		if (cl->tx_block || cl->tx_tout || cl->knows_txdone)
-+			return -EINVAL;
-+	}
-+
- 	if (chan->cl || !try_module_get(chan->mbox->dev->driver->owner)) {
- 		dev_err(dev, "%s: mailbox not free\n", __func__);
- 		return -EBUSY;
-@@ -380,6 +445,9 @@ static int __mbox_bind_client(struct mbox_chan *chan, struct mbox_client *cl)
- 		}
- 	}
- 
-+	if (cl->tx_sync)
-+		chan->txdone_method |= MBOX_TXDONE_BY_RETURN;
-+
- 	return 0;
- }
- 
-diff --git a/include/linux/mailbox_client.h b/include/linux/mailbox_client.h
-index e5997120f45c..32b1d5ad3bfa 100644
---- a/include/linux/mailbox_client.h
-+++ b/include/linux/mailbox_client.h
-@@ -21,6 +21,7 @@ struct mbox_chan;
-  * @knows_txdone:	If the client could run the TX state machine. Usually
-  *			if the client receives some ACK packet for transmission.
-  *			Unused if the controller already has TX_Done/RTR IRQ.
-+ * @tx_sync:		Bind the channel for mbox_send_message_sync().
-  * @rx_callback:	Atomic callback to provide client the data received
-  * @tx_prepare: 	Atomic callback to ask client to prepare the payload
-  *			before initiating the transmission if required.
-@@ -31,6 +32,7 @@ struct mbox_client {
- 	bool tx_block;
- 	unsigned long tx_tout;
- 	bool knows_txdone;
-+	bool tx_sync;
- 
- 	void (*rx_callback)(struct mbox_client *cl, void *mssg);
- 	void (*tx_prepare)(struct mbox_client *cl, void *mssg);
-@@ -42,6 +44,7 @@ struct mbox_chan *mbox_request_channel_byname(struct mbox_client *cl,
- 					      const char *name);
- struct mbox_chan *mbox_request_channel(struct mbox_client *cl, int index);
- int mbox_send_message(struct mbox_chan *chan, void *mssg);
-+int mbox_send_message_sync(struct mbox_chan *chan, void *mssg);
- int mbox_flush(struct mbox_chan *chan, unsigned long timeout);
- void mbox_client_txdone(struct mbox_chan *chan, int r); /* atomic */
- bool mbox_client_peek_data(struct mbox_chan *chan); /* atomic */
-diff --git a/include/linux/mailbox_controller.h b/include/linux/mailbox_controller.h
-index 26a238a6f941..c7dc098324ef 100644
---- a/include/linux/mailbox_controller.h
-+++ b/include/linux/mailbox_controller.h
-@@ -18,6 +18,7 @@ struct mbox_chan;
- #define MBOX_TXDONE_BY_IRQ	BIT(0) /* controller has remote RTR irq */
- #define MBOX_TXDONE_BY_POLL	BIT(1) /* controller can read status of last TX */
- #define MBOX_TXDONE_BY_ACK	BIT(2) /* S/W ACK received by Client ticks the TX */
-+#define MBOX_TXDONE_BY_RETURN	BIT(3) /* TX completes by function return */
- 
- /**
-  * struct mbox_chan_ops - methods to control mailbox channels
-@@ -28,6 +29,14 @@ struct mbox_chan;
-  *		transmission of data is reported by the controller via
-  *		mbox_chan_txdone (if it has some TX ACK irq). It must not
-  *		sleep.
-+ * @send_data_sync: The API asks the MBOX controller driver, in non-atomic
-+ *		context, to transmit a message on the bus and wait for the
-+ *		transaction to complete. It returns 0 if the transaction
-+ *		completed successfully or a negative error code otherwise.
-+ *		The controller must not call mbox_chan_txdone() or
-+ *		mbox_client_txdone() for this operation. Concurrent calls for one
-+ *		controller must support them, serialize them internally, or
-+ *		return -EBUSY for a conflicting transaction.
-  * @flush:	Called when a client requests transmissions to be blocking but
-  *		the context doesn't allow sleeping. Typically the controller
-  *		will implement a busy loop waiting for the data to flush out.
-@@ -53,6 +62,7 @@ struct mbox_chan;
-  */
- struct mbox_chan_ops {
- 	int (*send_data)(struct mbox_chan *chan, void *data);
-+	int (*send_data_sync)(struct mbox_chan *chan, void *data);
- 	int (*flush)(struct mbox_chan *chan, unsigned long timeout);
- 	int (*startup)(struct mbox_chan *chan);
- 	void (*shutdown)(struct mbox_chan *chan);
--- 
-2.43.0
-
+"""
+> error[E0277]: `UnsafeCell<MaybeUninit<blk_mq_tag_set>>` cannot be shared between threads safely
+>    --> drivers/block/rnull/configfs.rs:57:18
+>     |
+>  57 |     type Child = DeviceConfig;
+>     |                  ^^^^^^^^^^^^ `UnsafeCell<MaybeUninit<blk_mq_tag_set>>` cannot be shared between threads safely
+>     |
+>     = help: within `TagSet<NullBlkDevice>`, the trait `Sync` is not implemented for `UnsafeCell<MaybeUninit<blk_mq_tag_set>>`
+> note: required because it appears within the type `Opaque<blk_mq_tag_set>`
+>    --> rust/kernel/types.rs:332:12
+>     |
+> 332 | pub struct Opaque<T> {
+>     |            ^^^^^^
+> note: required because it appears within the type `TagSet<NullBlkDevice>`
+>    --> rust/kernel/block/mq/tag_set.rs:32:12
+>     |
+>  32 | pub struct TagSet<T: Operations> {
+>     |            ^^^^^^
+>     = note: required for `Arc<TagSet<NullBlkDevice>>` to implement `Send`
+>     = note: 1 redundant requirement hidden
+>     = note: required for `GenDisk<NullBlkDevice>` to implement `Send`
+> note: required because it appears within the type `Option<GenDisk<NullBlkDevice>>`
+>    --> /usr/lib/rustlib/src/rust/library/core/src/option.rs:598:10
+>     |
+> 598 | pub enum Option<T> {
+>     |          ^^^^^^
+> note: required because it appears within the type `DeviceConfigInner`
+>    --> drivers/block/rnull/configfs.rs:130:8
+>     |
+> 130 | struct DeviceConfigInner {
+>     |        ^^^^^^^^^^^^^^^^^
+>     = note: required for `Lock<DeviceConfigInner, MutexBackend>` to implement `Send`
+> note: required because it appears within the type `DeviceConfig`
+>    --> drivers/block/rnull/configfs.rs:124:19
+>     |
+> 124 | pub(crate) struct DeviceConfig {
+>     |                   ^^^^^^^^^^^^
+> note: required by a bound in `kernel::configfs::GroupOperations::Child`
+>    --> rust/kernel/configfs.rs:518:27
+>     |
+> 518 |     type Child: 'static + Send;
+>     |                           ^^^^ required by this bound in `GroupOperations::Child`
+> 
+> error[E0277]: `*const blk_mq_ops` cannot be sent between threads safely
+>       --> drivers/block/rnull/configfs.rs:57:18
+>        |
+>     57 |     type Child = DeviceConfig;
+>        |                  ^^^^^^^^^^^^ `*const blk_mq_ops` cannot be sent between threads safely
+>        |
+>        = help: within `TagSet<NullBlkDevice>`, the trait `Send` is not implemented for `*const blk_mq_ops`
+> note: required because it appears within the type `blk_mq_tag_set`
+>       --> /builddir/build/BUILD/kernel-7.3.0-build/kernel-next-20260930/linux-7.3.0-0.0.next.20260930.545.vanilla.fc46.aarch64/rust/bindings/bindings_generated.rs:105198:12
+>        |
+> 105198 | pub struct blk_mq_tag_set {
+>        |            ^^^^^^^^^^^^^^
+> note: required because it appears within the type `MaybeDangling<blk_mq_tag_set>`
+>       --> /usr/lib/rustlib/src/rust/library/core/src/mem/maybe_dangling.rs:73:12
+>        |
+>     73 | pub struct MaybeDangling<P: ?Sized>(P);
+> [...]"""
