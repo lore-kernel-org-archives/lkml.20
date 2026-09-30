@@ -1,85 +1,105 @@
-Received: from outbound.ci.icloud.com (ci-2006h-snip4-1.eps.apple.com [57.103.90.202])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822053DA7D7
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.90.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB41746D2C8
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798342; cv=none; b=hZEE5v2H874WZRuAWShKkhLe7RFyrFH2ZbHGSXAK1pGtaDwtH1KWkhgopBORTS9khZAlHZCPtZvMzLzptM1nUB2Hq5dey8sQks4efEbR4s/n09nW3lcHH57k72ZcokJhIQZRSCD5ZspjQgCfJCrr29J9ErwdmrPRRvehvBYSwA8=
+	t=1790798347; cv=none; b=g0wOuT1c88jZRgOV2KqiRs6lXagLGQTMoZ1IzbkmipHpnpPZBmVzwWRLPU+Z2BOXUfsXuFHtK74sUeJMiRCO7cA+CXu5vKNC6aWfjpqMyvt9KMLlE1pkgx37VaiWMtJomxEPZuidBmfTVs2NMWMGg7CwrIXLEatlMinwKhuyhiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798342; c=relaxed/simple;
-	bh=RGsx7d8YxrSJ957myMpLdIcSFy/GszTr01KBM3l5WF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KkTEGkPwjCl7kURBB3j5D+HHSdC0gy5e1IZvgefISIf6eloDib/hp9Uob7t1Qkvhb5F83oz+FtReth818cUcxhCphtUggXoFJgbq8J1FdIINIaVOIDKTCxqf1e3VygrB1fz5uo5CD4qxlNMT/coCkTiZkQIEQP4Sw7LY4di5pyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=eTDyJp6c; arc=none smtp.client-ip=57.103.90.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
+	s=arc-20240116; t=1790798347; c=relaxed/simple;
+	bh=D/tJ8XO5I/d4e+Rte4uhp801DYYIQLeDeH32x1bw40c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fyf/TVRHIM7QaKYPHaaG/7X+EoVnO1Me2AA+bjN/M/sauahrCyte2xKyULAxvGqfi0jZNNSd1BSLiC2y0Xd1z65v2cpRMVGYSPvM2ln65gdejFgJiX6dIcSzUjxsoK1I4HvGVLvZHP2rIMwGCgvVCO1LTfdH0fXEbqa81ndWL3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n470vNXa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="eTDyJp6c"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-3 (Postfix) with ESMTPS id AA41E18000DB;
-	Wed, 30 Sep 2026 19:58:59 +0000 (UTC)
-X-ICL-RepId: 01a0f3e6-1e41-72ce-b032-cd2c2001953b
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQFLHV8HWBxHD1YKTVIPDxYKFkFcWytfFRcbXAAXDVZNVB0dDlgGEgJaRQtNXw5eHwQXRhlVBEceXVZQBBkCURxWDVdDVARfUEkMQVBsWgBHF0gdXRlZb1BdHA4AUkVRH1RYXgRTVg5CCUoFXQ5YAkEATQtYBUUBQQlJClkARgNdX0tdHwYHch1cVlACWlUSBEAIVlBeCF4fTBw=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1790798340; x=1793390340; bh=zJcTaZYxavhBdn1eQQ/e1H1+1iNILcKE8DTRtC1gIuI=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=eTDyJp6czbidF800GPLXRt5fF6Zy1cQA8G25ox5aoPriprmXxrCW0lZ/Hj93RhFbrsAwbAf18UwL90YUbkJ2jj0Pw84UHMUK0DQ3TzshJN5QGkkLGTVo5YhUVsryxW0hKWXx2+xk3ZkZZQ+fq0/Aw1nTrtt0DmAcjBxjJDoA3UInFovIePnr4zlGjDtseGZSWyE13p5DWE/8Ev1747yiNHq8gFeXMp6I3bp6xekztCqlac8fzPXdfkWwyohcgIS6kQnOd0HRFz2xwxUCvrWP6C0Zwo0yMSq/NzXailau9DK7w1CHDePXQDmi9ljyOnLy9Yn8BHPSlFa/7W/uJwhW5A==
-Received: from fedora.vpn.altanet.fr (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-3 (Postfix) with ESMTPSA id D8F151800162;
-	Wed, 30 Sep 2026 19:58:57 +0000 (UTC)
-From: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>
-To: Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>
-Cc: =?UTF-8?q?Ren=C3=A9=20Onier?= <f3nr1l@me.com>,
-	Ivan Gorinov <linux-kernel@altimeter.info>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>
-Subject: Re: [PATCH 0/2] HID: winwing: two teardown fixes
-Date: Wed, 30 Sep 2026 15:58:52 -0400
-Message-ID: <20260930195852.3101947-1-f3nr1l@me.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790795726.git.f3nr1l@me.com>
-References: <cover.1790795726.git.f3nr1l@me.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n470vNXa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DADE1F008A5
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790798345;
+	bh=D/tJ8XO5I/d4e+Rte4uhp801DYYIQLeDeH32x1bw40c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=n470vNXaLCPDVYGZ/r3nlV6tajokuBHd+PHbSK0cEQ+vv2GulqzwQiy66EZ4VBmjT
+	 69NLtDKBO86cNARwGsnk+cRv+A5DyBlFf9vpdDurovVZsaw0DdczKUbMZuq6rewqkH
+	 PiEyze6nTwpI/c223FfDLgyeJYdNjW28PcWxK0XTTsRlRNlSgsVyApfojdQD+QFsu/
+	 87OHFEi8nbeiHUG0DXEd7/4Kqyv+7nxGOda9dvd7YSPTrbso+XKqepnLjJTLUjnBAY
+	 jOzdTna7aVE0e3RJ33nvCEiST8pBalurkjU8EHpBy7/aGuCl6klNJJXd4wv6pV+n8/
+	 oszjDqjdABKxg==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a612404718so54843161fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:59:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz1eMwAuz8RiNnPTYbwwe9GnaXnwxmN12IwFP+4DkTDX+fIO5BX3jL+4bKtBGz5aTdN6d8A8qES56ceRbY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAyO2WgzftEoudXyHJm3V4A1wEMfQkeUw8C/V1EotE1erwfMar
+	s7NhWPpq4CJh/k0fVRRNE/b9o2bXTvJq/kkGqOLKOE6SXKNpAAdpeE3BH1TEqGdyNtwQX1NH0P5
+	jHMcIdUbIp34t/uNThTEFl22aqvYciC4=
+X-Received: by 2002:a05:651c:2107:b0:3a6:70bf:622e with SMTP id
+ 38308e7fff4ca-3a7791d1688mr7596131fa.4.1790798344186; Wed, 30 Sep 2026
+ 12:59:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Bh_Ef1kIElePAbo-NHAvQvHPZQRE7Y79
-X-Proofpoint-GUID: Bh_Ef1kIElePAbo-NHAvQvHPZQRE7Y79
-X-Authority-Info-Out: v=2.4 cv=T4+BjvKQ c=1 sm=1 tr=0 ts=6abd6a04
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=M51BFTxLslgA:10 a=x7bEGLp0ZPQA:10 a=tnT-KND3AOYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=hCq73as0fieUF7sB1GUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MSBTYWx0ZWRfX5pur28cfAAkw
- 8Qqh+OfMIqTpzgpWNOwTd+aB8cGdvmp3S8B1+ZRwW2diMptqln6/M4gooMS/6PM6/16uDYu5RLT
- 7Y5djVX21ipR6aW+MTViF0vrfbReihkAs8Sjgblep5T/fjuTFFShn0atChTNMYzt5dI2B35NSbJ
- RdxKG9gVjp/k2lkq4ZkrHGZhV1cjjStRTX1ChRLLUwX44jnaC+EnpmSVe9IFBZaw1ISisPgixqt
- i/QwDw7zFzJeI4UulUyKzKpjHeYbIRtPEl6qjaE3J0bfjjgJ6sDLcEXo3fbd+eKhbrjyqZoLVHy
- 3pR2FJN8rKDaTbIrnEMcZcBFX1m/yhoxqXuLZuXCSfwn3rGbxYQuauwsEhyC7U=
-X-JNJ: AAAAAAABBghs0Svo0th2mMm2+QWCc0Gqce4mw2bWDqV0eU0rY6uCvczqTw5lQqa97r2XQEHKT/+NSrCaNdoylCom0mXL76LKBv+FhCD4IE18ZpOsTcufmjtbKUWUwYIJvjO0Bx7cpKkiMqSlSJcEgdTzumgV3aRdWNZs1Yadc/0bHoYavSKr4OKBo93syxzKHN56Y3cGs3UErf6QlfvvlzrTVb/CM8JlNcXMVtgzm8jBEgSrzBpfp4LyyYr0lXb42SFJDQEXDwfora7tGJmXnmmYphj4t5mNF5DzlZ6Q1DQrtLoXu6PQB2c3yVAuaUB1acFyFtJ7HfIqdpXxUeEaMkJUm/400fzwR+Qt0Ttv91mDck7vdZcWfehy1Naml/A5KmON31yPHgK7OS7ScqTEfuj1cZhyP/fLhtNzoslNTmZdWD1OJPzA/2f2yrxQn4tMY1PvgrfPBv1ADTcoSFDFTPYXUIvrpxeDNHYtJqRgAcVEhVI3wTeFvFbmbdXLCGq7D66oYwKtivbTsABVCpXMQNx/IDs4N9vPitdxOc2hDP1gC4c86Urlvnr65JaOcAQrYPY0qdnIWBehivEafJprycd93w6sXmmk2+ey1G+f+sVW3DfHYncioOINLz/+DZK3C25VVQ+wcwsQjqegqjESufjXQmwmZZBc1hWa1A1jIUjbpoLo4U+mBL07dH5pxAB7QurUrvpfg0eaGsB8nGgOU9A6uXA6PAVFTuwvW8CVrKLn23Ep5RzDZD5htAh3BHHMI6CY/zOuA+KddyyYz7i3xc/DTh4jKI57IfAK7mlzsZuqO92EDwLy8sq5VSrnQV0khaH1DlzhojNtk+tSNpzH052EHrH+28NgxI8NKjYhhAij8W9IU82O06iPLAKN4AVICmafzlLagQFpJ5unkWZlhh8ugB6Sm9SGgU7Fnc2iamEp2X3q1gDF5qS5VjGzIAWrPevIuCnL1FHwkA5IJ4Lwzyl+solGXfR
- di8RDl/03hXWHwHM7ZbdD62g3bxuz+MoNo8D45WZakz4ioJtKBQBMFCP8gUtR/VBje9vE3D4pngs1LHa3bNh/9AsaLYEO9oepDq+LND8uT87CRBQ2usZupOiOz90Vk6u31vOqb2SUy/LHwr9x+WarXXyJa3IhQE+qamrxLXO8zNxcFyj/qH7oXQ4pHo2L+RrscNC4272mPSJU0zeB5E+NLT+HUmRCZrVGy0ed2kyBq9MQpcvZcz7dFgup2PkH4mj/pu+Qf1ar9cCXa7PjLPdiIoXabPkVXLfdvRo=
-X-Apple-Category-Label: MjczODQ1OTkzOiRjYXRlZ29yeSRfUGVyc29uYWws
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll> <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org> <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+ <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+In-Reply-To: <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 21:58:51 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=EZ5o=tAQZCTp9N7fKLJcxs7d0mg02dK04y_TNYtCZHQ@mail.gmail.com>
+X-Gm-Features: AclHuK9gg0cHcaEM-2OSIkVk8KJVeFTXpszMdFCa2oeVci2UZbbhBGtCUcsPNPs
+Message-ID: <CAD++jL=EZ5o=tAQZCTp9N7fKLJcxs7d0mg02dK04y_TNYtCZHQ@mail.gmail.com>
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel support
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Jun Nie <jun.nie@linaro.org>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A note for whoever picks this up: patch 1 touches the same lines of
-winwing_remove() as Guangshuo Li's "HID: winwing: remove unpaired
-hid_hw_close()", posted on 13 September:
-https://lore.kernel.org/linux-input/20260913143909.1589019-1-lgs201920130244@gmail.com/
+On Wed, Sep 30, 2026 at 6:43=E2=80=AFPM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+> On 9/30/26 09:44, Linus Walleij wrote:
+> > On Tue, Sep 29, 2026 at 3:35=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
 
-The two changes are compatible. With both applied, the end of
-winwing_remove() becomes:
+> > The current binding does not reflect the physical topology of the
+> > actual device, and the bindings need improvements. I have a feeling
+> > there is one display controller with two physical panels.
+>
+> No there's really 2 controller and 2 separate panels, but they are not
+> classic panel, they are a pair of panels+lens which are in front of
+> the eyes which forms a single "image" for the brain, so they are
+> technically a single display and requires to be hard synchronized.
 
-	hid_hw_stop(hdev);
+OK
 
-	/* ...comment from patch 1... */
-	if (data)
-		cancel_work_sync(&data->rumble_work);
+> See it like a single physical panel with 2 controllers which
+> shouldn't be used separately.
 
-Whichever goes in first, I am happy to rebase mine on top of it.
+If you have one reset line to them each, and as proven
+by the driver in this series also grab and assert both, they
+are by definition *already* used separately.
 
-René
+DT needs to describe the hardware.
+
+Defining two nodes below the main node for the two
+controllers and adding a reset line to each describes the
+hardware perfectly fine?
+
+It's not like I don't understand that this will complicate things
+on the drivers side, of course it does. But a binding is a binding
+is a binding. It needs to describe the hardware.
+
+Yours,
+Linus Walleij
