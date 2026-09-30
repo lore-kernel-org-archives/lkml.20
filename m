@@ -1,131 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3E7446BE0;
-	Wed, 30 Sep 2026 08:05:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6303A446BE0
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:05:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755541; cv=none; b=NGlRiH7OcpfitkO3Y7U+6fxdUdEVol8tWmw6D7N/rVtWYEL2M6KxSfU7YOev+ne9yikp4+bSl4aRQVJ3qIJvMaWfyCnJwyoj+W3PPjGJthXP1CzwuIBJNShkb/gK3/9LVZlgILq3FQHzMQTBWULWUlOvkYuTa3ITa6FJcgdEP3Y=
+	t=1790755547; cv=none; b=aj/X/VZgP94JKi9HZoVv761MNbja6r86xg/cL6ZWHDFgcI3BrEDD21EawBxCOWN2AQOmAzasdKDZi09vGxvLpqRAA6gSSa3uW7+7v/l5fpwHwufAkbThH0x0CBqh2jkn48Kane75zL/OSMd289Mr9olJewsxGg0d71yfMnQSIYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755541; c=relaxed/simple;
-	bh=bA5RGmVi8QPO47pRoIpnyvShczznrPxAsOYKaVmvejE=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=BU/jaglc+AYmWPWYAdDcy8fvZT9hTW3sL4hUawWCbnxjOI+PE37f5tAI8EYLcvO1ENK7PKF89AcEhf09YfQ3jgr86kE5zckM1B9H+6yODaZ9FhzywiE//p8xiWj/ROAF5Cz2VM2IWz26bWkTod3a4irNCW9NksF25RaoHVnQge0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3vod8ec; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790755547; c=relaxed/simple;
+	bh=DAA66x896W/BAcaHnM/Bw62XIqM9SguOpxhZxTjRhiE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=daOEwhCgif8leeuOlj69QQt5V/vs6rvBbznP9XHVNACvw8AKkkHtqoyGKIr3RZRh+K/VhF51d8M4sgZTNAy3lo1sWQEGgqzPcVYgHZSrbd5b+7UAuKvh1M7dotcta6cgepmGi9XTGaFetok4v+CTH34rGrP8sYCxOjRGUhaJ4R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R9fH1TTK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3vod8ec"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FBA01F00898;
-	Wed, 30 Sep 2026 08:05:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R9fH1TTK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6AF1F00893
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:05:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790755540;
-	bh=oHu8TD0gBwvICgVAe5FHk53wpXDvt9OKTi0hPQxVrpo=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=e3vod8ecaON3MlO8JKRjVWhHj1yMfcW4yx5O+pJ2Qae8Wy+hSVsrwCyLtSBV3RFYm
-	 wmXodDi4gBJIGdMiJI+kRZyP5duK2oe1mw3e7nCXKZCT9iBSqy9fR2BUJvisEABpzo
-	 V8YDI81f7GYT7EQNF4qc3OwyMqwxbNjMhdzikyqCyxByk5mDb1PpUHpqLSzJZxhH+v
-	 jd9nc0DqJCQXH2oqq/wWOYOZTWMOAQ7fSciZ7gIbScr/Fn5e4TlrcQqX0B5ULvnCfQ
-	 2hN/27hdioI0MC2cYekVnfsP2zUx7CGXlxTZOKlI/uQHkiRLUrtlqayogBWrprR/Ti
-	 mzNKqmaoj6jyQ==
-Message-ID: <48b7f6ef-e5f9-445e-820d-fdfd1458452b@kernel.org>
-Date: Wed, 30 Sep 2026 10:05:37 +0200
+	s=k20260515; t=1790755546;
+	bh=sVSy03xtWMDYRQ1TrBvKXaQv5pYck87L4jhpygpVIDg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=R9fH1TTKpLUrNQOJ9fccoN7kkSCVs2XlDjQklNwF7WqXvC1AHG0s7ZvNk4Zc7FZVn
+	 1KBwWevOmzOuu5QvJxAj54Ya5pViItnVBoxL9sJw7JGnJElsqMoVQk/9u1+3r1pfrk
+	 9PsOd3XnI1w+PEMUrbJkSbjzNA98mStpPHcssjAbxlRPVleeOdDoqrYnJ+4RQv57jN
+	 eVVCJVBTrwx8aITnOODHEqdPjTox/Qg+Lm9/+Guu072NBpWDLuKvYLbJv3mDa9pxJK
+	 DG7HznaIythzL/UyCrTSew62L9yuJCffPBYaDtLq8hH7ZKeXjUdi2EFExFfByfARjI
+	 Z+xcfIeacnnyA==
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccde2ad8so3136822fac.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:05:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz/2jjjOckG8SM1uWvb2aSFQWTGrPDP7ihM90ucV/0wtjN14yGtZCzTMybgpFKjBD0yHpmPV/2DnTQktZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvFcLurR57YKvN3gk4s6tCPQav0PPxY3A0shGJTtDVgTwP8cEY
+	kJyUdGcjT3Jl/pYG/bX17fg8E+c/eAUxdw3luNycVlsVio85msbU3t8cWU0/g1YhUrUdTOPs6F9
+	9VuqC580tAKpKxt2DpkSvEYP+esfo0j8=
+X-Received: by 2002:a05:6871:3a2c:b0:491:86d7:4ccf with SMTP id
+ 586e51a60fabf-49ddd50ffdbmr781137fac.15.1790755545415; Wed, 30 Sep 2026
+ 01:05:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v1 2/2] Input: sur40 - keep device state alive until the
- video node is released
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- dmitry.torokhov@gmail.com
-Cc: floe@butterbrot.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+eb4706daf505f9c4b547@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20260920113949.12726-1-ngocthang2710.1999@gmail.com>
- <20260920113949.12726-3-ngocthang2710.1999@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260920113949.12726-3-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260930075320.760328-1-4ncienth@gmail.com>
+In-Reply-To: <20260930075320.760328-1-4ncienth@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Wed, 30 Sep 2026 10:05:34 +0200
+X-Gmail-Original-Message-ID: <CAL4WiioHAjQkZHj30NBcsHsN2omELZn7desAdhL73n0KFw409Q@mail.gmail.com>
+X-Gm-Features: AclHuK9eeOK43SrQI75VP0VZ1e1glwUL6o7gcuabNm6CvosLRXGGFHv9BAYcGyY
+Message-ID: <CAL4WiioHAjQkZHj30NBcsHsN2omELZn7desAdhL73n0KFw409Q@mail.gmail.com>
+Subject: Re: [PATCH net] ip6_gre: validate ERSPAN skb dst before PMTU update
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, William Tu <u9012063@gmail.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 20/09/2026 13:39, Nguyen Ngoc Thang wrote:
-> sur40_disconnect() frees the sur40_state, which embeds the video_device,
-> the v4l2_device and the vb2_queue, while a video node may still be open.
-> Closing that file afterwards touches freed memory:
-> 
->   BUG: KASAN: slab-use-after-free in vb2_core_queue_release+0x12d/0x150
->   Read of size 4 at addr ffff888066fa8aa8 by task v4l_id/28733
->    vb2_core_queue_release+0x12d/0x150
->    vb2_fop_release+0x16e/0x200
->    v4l2_release+0x22c/0x350
->    __fput+0x418/0xa50
->   Freed by task 16811:
->    kfree+0x1c5/0x650
->    sur40_disconnect+0xaf/0x140
-> 
-> Give the v4l2_device a release callback that frees the bulk buffer and
-> the state, and drop the disconnect path's own reference with
-> v4l2_device_put(). The last closer of the node then does the freeing.
-> The probe error paths never open the node and keep freeing directly.
-> 
-> Reported-by: syzbot+eb4706daf505f9c4b547@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=eb4706daf505f9c4b547
-> Fixes: e831cd251fb9 ("[media] add raw video stream support for Samsung SUR40")
+On Wed, Sep 30, 2026 at 9:53=E2=80=AFAM Daehyeon Ko <4ncienth@gmail.com> wr=
+ote:
+>
+> A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
+> and mirred preserves it when redirecting the skb to a native ip6erspan
+> device. ip6erspan_tunnel_xmit() treats any non-NULL dst as a route for
+> PMTU updates. A metadata dst has no output device, so
+> dst_dev(dst)->mtu dereferences NULL.
+>
+> On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0
+> created user and network namespaces, used namespace-local CAP_NET_ADMIN,
+> and triggered:
+>
+>   KASAN: null-ptr-deref
+>   RIP: 0010:ip6erspan_tunnel_xmit+0x10fc/0x2cc0
+>   Kernel panic - not syncing: Fatal exception in interrupt
+>
+> The collect-metadata path already skips this block because its metadata
+> describes the outer tunnel. Native mode must still propagate PMTU updates
+> for real route destinations. Use skb_valid_dst(), matching IPv4 tunnel
+> PMTU handling, to exclude DST_METADATA without suppressing valid routes.
+>
+> With this change, the same trigger processed three packets without a
+> sanitizer report, oops, or panic.
+>
+> Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+SGTM, thanks.
 
-Regards,
-
-	Hans
-
-> ---
->  drivers/input/touchscreen/sur40.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-> index 7020bcf9b81a..efd4fe557cef 100644
-> --- a/drivers/input/touchscreen/sur40.c
-> +++ b/drivers/input/touchscreen/sur40.c
-> @@ -648,6 +648,15 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
->  }
->  
->  /* Check candidate USB interface. */
-> +/* Runs once the last video node reference is gone. */
-> +static void sur40_release(struct v4l2_device *v4l2)
-> +{
-> +	struct sur40_state *sur40 = container_of(v4l2, struct sur40_state, v4l2);
-> +
-> +	kfree(sur40->bulk_in_buffer);
-> +	kfree(sur40);
-> +}
-> +
->  static int sur40_probe(struct usb_interface *interface,
->  		       const struct usb_device_id *id)
->  {
-> @@ -733,6 +742,7 @@ static int sur40_probe(struct usb_interface *interface,
->  			"Unable to register video master device.");
->  		goto err_free_buffer;
->  	}
-> +	sur40->v4l2.release = sur40_release;
->  
->  	/* initialize the lock and subdevice */
->  	sur40->queue = sur40_queue;
-> @@ -831,11 +841,10 @@ static void sur40_disconnect(struct usb_interface *interface)
->  	video_unregister_device(&sur40->vdev);
->  	v4l2_device_unregister(&sur40->v4l2);
->  
-> -	kfree(sur40->bulk_in_buffer);
-> -	kfree(sur40);
-> -
->  	usb_set_intfdata(interface, NULL);
->  	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
-> +
-> +	v4l2_device_put(&sur40->v4l2);
->  }
->  
->  /*
-
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
