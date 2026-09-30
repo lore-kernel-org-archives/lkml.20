@@ -1,214 +1,227 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04BF52123F;
-	Wed, 30 Sep 2026 17:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07F85221C3;
+	Wed, 30 Sep 2026 17:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789713; cv=none; b=i1S1fKKii1uAcOLWLJB9BZvH5mPOaIXOtEbA9bkEH+SZpjHDBjFSWTw3g0rchoef6IUlHcVaxBMvIEWwhxRjho1X7nqKr1be0WBiONytU3OOXQStv2lerKuxM6vJKwGBx2veh/dnepQOHB9JBN4bpqOhrAfEcdgy5bj1hmmzer8=
+	t=1790789714; cv=none; b=fKrLlqqfigJGymfmO+8xIBdTDZ8gx6s2byDY+Aq2zs4rYfpp6RY6Z/ZszI8b08w2MY3wncFWUKY/NwEVXLf0aopcxlWvHN10dJ435lspyJeBTF4X0FazQXGH2NXm4F/K54OONfHDRL4Zh3IqAjIxbQgU43z/am+oSBhpnqwpRHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789713; c=relaxed/simple;
-	bh=16sQc8An7ndpiHw3dVyQt5lF9lOeatT0/Vj6hH11dR8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oGotYXPrjflO9t3yZpzMbmWV7Y3qvzGM5L/6/YwZWDx1U9dVqLflhNAcycFDhjjcCxJs4ZSVqbA0MPf1X/MgeHu9Y6tfccFu6wjfs1WIkwqa3UV3QkH5sHBjR/59CtRsaBe/TrVlgDb1gpBe0ITsQg3n1gnMLa5gpTPXYeA0hYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DsaHkNVA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=QHdqSX/3; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OrPZM/Rn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=9SmtVJw3; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790789714; c=relaxed/simple;
+	bh=VJLvBmoGaiO2DPEj5Ki5mtnYK7RD0RLOEtV1h9jvYcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F9HTex+F420A12xqpBBleI0QA28EeSzSIM89DWHvX+QiDZGSn5Nxw1Q58MrzipbO2ARh8wHdgIQf9A2Kpipde5x85R0qqifkFz9MOoCNusT2j0F5knBu7e/T2Ah3gWU1lbMnwmRyfD2LOXV84XT2+tdbFMuwIOZ5HsDDBme4hZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ICHO1pKj; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DsaHkNVA";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="QHdqSX/3";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OrPZM/Rn";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="9SmtVJw3"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 464CD21BF5;
-	Wed, 30 Sep 2026 17:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790789705; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uuTxKw22Zck+5WC25ZqUnaFztqHPYWW795D3wfeM7is=;
-	b=DsaHkNVAeskAw0sHIC+ulll1jy83ZulrOXAN2EodCqKaiI8cMzzOFwcnCGs2MqIpRIcN3K
-	ORSKTbYtltYKnsADTH9ITwRKzK1AD/ztJRsJY5HDLxFxun1ZkE3qvybbBPY1WKlen6S9t5
-	gZlDxKKvm6lrIGqvos7ZP5h1GQX44XI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790789705;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uuTxKw22Zck+5WC25ZqUnaFztqHPYWW795D3wfeM7is=;
-	b=QHdqSX/3EQqJ2WTZPaHIARjmRrPk4G/xE5ef1p2/6Ndh9tuQdelrU8wSUu9tN+jDfA4P2i
-	QQUiiTIGxjVbx4Cw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="OrPZM/Rn";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=9SmtVJw3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790789701; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uuTxKw22Zck+5WC25ZqUnaFztqHPYWW795D3wfeM7is=;
-	b=OrPZM/Rn+zTrF266iL9sBXj9a25b+2mInq7OBxTiy6Q7a6yQREK0x0rf7Th8o/ovEJhrlA
-	52LjTQ6POaq8zF0m6BDPCOm4o+9Xu8VWUMOsjzmTYcK3o//odn29WdPbYDxR4M8LL+MCYU
-	mx5H/DijRJhZ1iXk7zYyCJwiTDRRX34=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790789701;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uuTxKw22Zck+5WC25ZqUnaFztqHPYWW795D3wfeM7is=;
-	b=9SmtVJw3kT+19qLB+hXGSZ4EEQgwyFzfvDImx9HXkzfQdUZ0xRZPdO6v1qIyEDJ+XusmOY
-	bvNU1a4fDEXYb2Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E03A13AF5;
-	Wed, 30 Sep 2026 17:35:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3lR0OkRIvWqOQAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 17:35:01 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 9B39DA13AD; Wed, 30 Sep 2026 19:34:45 +0200 (CEST)
-Date: Wed, 30 Sep 2026 19:34:45 +0200
-From: Jan Kara <jack@suse.cz>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] ext4: remove unused locked_ei parameter from
- __es_shrink()
-Message-ID: <alyagfu73mpjvxqhjttnujjaklsd37ja4xtj56xjuxousrexhc@vdp37slj424b>
-References: <20260930-fix-ext4-es-scan-nr-scanned-v3-0-9aef0be87d21@gmail.com>
- <20260930-fix-ext4-es-scan-nr-scanned-v3-2-9aef0be87d21@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ICHO1pKj"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE5vIw3167177;
+	Wed, 30 Sep 2026 17:34:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=ihC3cLkRFCy3VMN0Y
+	OVT+1xOka210qaHcOn3v4ow/tc=; b=ICHO1pKjJC7gEdxraLGcR14qNoGmbs5oA
+	DwluL+z/wFUJa3QkOnAFA4f6sVAHOBmz3Tcpw4Nuzh+4j5NVzJ25MwllZI4OyXJe
+	692nc4/LQNy3HZGWZOChsKIIkw9CN/2bC9qAY0gNvWC7ZYEmz/ThR28Bj2CZveAO
+	/69n7uJKEzJ7+eGvgZmIUGBugJcaURea01R8Shqy/kns4Frkp9rDjP6MsaMlCeFn
+	d1s1jfnfZzW9EJ81SgsFowwJkgBXntIFw63z64uwtUIqPSnepJOaM0Tyq5aRnRv6
+	3mr/J5BYG/A6ldkUoPItEh4kC78HoWIM7FmeyqIOxaUsEDeJ5ZIYw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5ptdj60-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 17:34:48 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UEHwJ73569222;
+	Wed, 30 Sep 2026 17:34:48 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0xcsa66e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 17:34:48 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UHYiFq15991178
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 30 Sep 2026 17:34:44 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3869A20049;
+	Wed, 30 Sep 2026 17:34:44 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D8A492005A;
+	Wed, 30 Sep 2026 17:34:43 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 30 Sep 2026 17:34:43 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: [PATCH v9 06/24] arm64: sysreg: Convert SPSR_ELx to automatic register generation
+Date: Wed, 30 Sep 2026 19:34:21 +0200
+Message-ID: <20260930173441.66762-7-seiden@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930173441.66762-1-seiden@linux.ibm.com>
+References: <20260930173441.66762-1-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-fix-ext4-es-scan-nr-scanned-v3-2-9aef0be87d21@gmail.com>
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 464CD21BF5
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
-X-Spam-Level: 
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: k9F2T8FcywoYCR2wRgMveNwcjR4TRNJ-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2OCBTYWx0ZWRfXzIgZteHUORgK
+ b1DldQwfDAYANapQ1Jtvp3MYKSZaoyzORBVlvxbkBuXNNzYoJgROvc1Cr+HKtub/JXjcZq7brbG
+ r36LaD92sLuE7p5z9pGN83KBI7P4yTjKyspy3K7DM7N04uwc1c6LRFCxPnhX4myq1XynYiXqOPF
+ b2tTffBB1un3q/Pt+EXMB96yxJWl/YhuWvoMmwS7y9ioZ8n/XU7dMmexP3qdascGDJJTpbbaNOn
+ eZtNcQNsynS7eoKDDaE5o/vMgQn4/QsciFLfCTuPWcX8YY5G1GMSnid2FboFc9tMvazPSDqUmNI
+ IW6VAYgi4RPq1mrJZXWALqOezgGwOTu595DSLAfXYs+tEJO/Q9Vm36uuAqmg4UJxIThE0+vTmb4
+ h0kma3gclBmtpe5TGZKcRlweObFAEjAB058rt7uJjUIWmYmzs3CLQmFUULMWklWnDDIBJQZdMsO
+ QRQzZoR+rga8pLhLnjw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2OCBTYWx0ZWRfX+BHDjJirDX3X
+ j63YcmboUMzt2lMnSfv2XwZVR/EiJQHGXtat5Q3/qsuMzZv7sBbKwcM12/YpXsSMrnJ+soivHgS
+ BiDSFTwee4yBEUgdsSc+IelH6mtClQY=
+X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6abd4839 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=7CQSdrXTAAAA:8 a=VnNF1IyMAAAA:8
+ a=qAnUzrOnmDNqMeXR4cMA:9 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: B5fYK2fGV5ZYFD3BwqrcJpPxiHE4avfw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300068
 
-On Wed 30-09-26 15:11:38, Qiliang Yuan wrote:
-> __es_shrink()'s locked_ei parameter exists to let a caller pass in an
-> inode it already holds i_es_lock on, so the shrinker walk can skip
-> that inode instead of deadlocking on write_trylock(), and fall back
-> to reclaiming from it directly if nothing else could be freed. Its
-> only caller, ext4_es_scan(), always passes NULL.
-> 
-> Drop the parameter along with the two code paths that exist solely to
-> support it: the ei == locked_ei skip check, and the trailing
-> es_reclaim_extents(locked_ei, ...) fallback, neither of which can ever
-> run while locked_ei is always NULL.
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Convert SPSR_EL{1, 2, 12} to automatic register generation as per
+DDI0601.
 
-Looks good. Feel free to add:
+No functional change.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+ arch/arm64/include/asm/sysreg.h |  3 --
+ arch/arm64/tools/sysreg         | 51 +++++++++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+), 3 deletions(-)
 
-								Honza
-
-> ---
->  fs/ext4/extents_status.c | 13 ++++---------
->  1 file changed, 4 insertions(+), 9 deletions(-)
-> 
-> diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-> index d88af807d36e7..efbccb29d5fd1 100644
-> --- a/fs/ext4/extents_status.c
-> +++ b/fs/ext4/extents_status.c
-> @@ -183,8 +183,7 @@ static int __es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
->  			      int *reserved, struct extent_status *res,
->  			      struct extent_status *prealloc);
->  static int es_reclaim_extents(struct ext4_inode_info *ei, int *nr_to_scan);
-> -static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
-> -		       struct ext4_inode_info *locked_ei);
-> +static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan);
->  static int __revise_pending(struct inode *inode, ext4_lblk_t lblk,
->  			    ext4_lblk_t len,
->  			    struct pending_reservation **prealloc);
-> @@ -1669,8 +1668,7 @@ void ext4_es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
->  	ext4_da_release_space(inode, reserved);
->  }
->  
-> -static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
-> -		       struct ext4_inode_info *locked_ei)
-> +static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan)
->  {
->  	struct ext4_inode_info *ei;
->  	struct ext4_es_stats *es_stats;
-> @@ -1706,7 +1704,7 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
->  			continue;
->  		}
->  
-> -		if (ei == locked_ei || !write_trylock(&ei->i_es_lock)) {
-> +		if (!write_trylock(&ei->i_es_lock)) {
->  			nr_skipped++;
->  			continue;
->  		}
-> @@ -1734,9 +1732,6 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
->  		goto retry;
->  	}
->  
-> -	if (locked_ei && nr_shrunk == 0)
-> -		nr_shrunk = es_reclaim_extents(locked_ei, &nr_to_scan);
-> -
->  out:
->  	scan_time = ktime_to_ns(ktime_sub(ktime_get(), start_time));
->  	if (likely(es_stats->es_stats_scan_time))
-> @@ -1779,7 +1774,7 @@ static unsigned long ext4_es_scan(struct shrinker *shrink,
->  	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
->  	trace_ext4_es_shrink_scan_enter(sbi->s_sb, nr_to_scan, ret);
->  
-> -	nr_shrunk = __es_shrink(sbi, nr_to_scan, NULL);
-> +	nr_shrunk = __es_shrink(sbi, nr_to_scan);
->  
->  	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
->  	trace_ext4_es_shrink_scan_exit(sbi->s_sb, nr_shrunk, ret);
-> 
-> -- 
-> 2.43.0
-> 
+diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+index 4bfdac9401bd..1aa601c95188 100644
+--- a/arch/arm64/include/asm/sysreg.h
++++ b/arch/arm64/include/asm/sysreg.h
+@@ -295,7 +295,6 @@
+ #define SYS_APGAKEYLO_EL1		sys_reg(3, 0, 2, 3, 0)
+ #define SYS_APGAKEYHI_EL1		sys_reg(3, 0, 2, 3, 1)
+ 
+-#define SYS_SPSR_EL1			sys_reg(3, 0, 4, 0, 0)
+ #define SYS_ELR_EL1			sys_reg(3, 0, 4, 0, 1)
+ 
+ #define SYS_ICC_PMR_EL1			sys_reg(3, 0, 4, 6, 0)
+@@ -518,7 +517,6 @@
+ #define SYS_VTTBR_EL2			sys_reg(3, 4, 2, 1, 0)
+ 
+ #define SYS_HAFGRTR_EL2			sys_reg(3, 4, 3, 1, 6)
+-#define SYS_SPSR_EL2			sys_reg(3, 4, 4, 0, 0)
+ #define SYS_ELR_EL2			sys_reg(3, 4, 4, 0, 1)
+ #define SYS_SP_EL1			sys_reg(3, 4, 4, 1, 0)
+ #define SYS_SPSR_irq			sys_reg(3, 4, 4, 3, 0)
+@@ -604,7 +602,6 @@
+ #define SYS_BRBCR_EL12			sys_reg(2, 5, 9, 0, 0)
+ #define SYS_TTBR0_EL12			sys_reg(3, 5, 2, 0, 0)
+ #define SYS_TTBR1_EL12			sys_reg(3, 5, 2, 0, 1)
+-#define SYS_SPSR_EL12			sys_reg(3, 5, 4, 0, 0)
+ #define SYS_ELR_EL12			sys_reg(3, 5, 4, 0, 1)
+ #define SYS_AFSR0_EL12			sys_reg(3, 5, 5, 1, 0)
+ #define SYS_AFSR1_EL12			sys_reg(3, 5, 5, 1, 1)
+diff --git a/arch/arm64/tools/sysreg b/arch/arm64/tools/sysreg
+index e2d37ee221b8..893b5f9df575 100644
+--- a/arch/arm64/tools/sysreg
++++ b/arch/arm64/tools/sysreg
+@@ -401,6 +401,57 @@ Res0	3:1
+ Field	0	SO
+ EndSysreg
+ 
++SysregFields	SPSR_ELx
++Res0	63:37
++Field	36	UINJ
++Field	35	PACM
++Field	34	EXLOCK
++Res0	33
++Field	32	PM
++Field	31	N
++Field	30	Z
++Field	29	C
++Field	28	V
++Res0	27:26
++Field	25	TCO
++Field	24	DIT
++Field	23	UAO
++Field	22	PAN
++Field	21	SS
++Field	20	IL
++Res0	19:14
++Field	13	ALLINT
++Field	12	SSBS
++Field	11:10	BTYPE
++Field	9	D
++Field	8	A
++Field	7	I
++Field	6	F
++Res0	5
++Field	4	M4
++Enum	3:0	M
++	0b0000	EL0
++	0b0100	EL1t
++	0b0101	EL1h
++	0b1000	EL2t
++	0b1001	EL2h
++	0b1100	EL3t
++	0b1101	EL3h
++EndEnum
++EndSysregFields
++
++Sysreg	SPSR_EL1	3	0	4	0	0
++Fields	SPSR_ELx
++EndSysreg
++
++Sysreg	SPSR_EL2	3	4	4	0	0
++Fields	SPSR_ELx
++EndSysreg
++
++Sysreg	SPSR_EL12	3	5	4	0	0
++Mapping	SPSR_EL1
++EndSysreg
++
+ Sysreg ID_PFR0_EL1	3	0	0	1	0
+ Res0	63:32
+ UnsignedEnum	31:28	RAS
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
