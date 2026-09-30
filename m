@@ -1,238 +1,226 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCF94EF143
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775371; cv=pass; b=EEnKRLWq2YRffCv14PGT01zcrZtOV82cmvPIQyF0bRFaHGdRuFAC3EwOwjGLuY5m07+SCLmq57ph/UGxb/pELqLGViOJ/699FjszuFmMPGZSZxPnBvcJKgH9+ZCh665XcZafnQQr6aENVZdUrr+mZEjxfkWEGXpuKn4MfbJnmUQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775371; c=relaxed/simple;
-	bh=SXhpmvBhQ+TXtxniHLWeCSa452bmcr1rqYYurbJuz+I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ed+dy/tWpReQfdiVfJxzILQgWaW+di0SVfjzMQi0Jy+DLZVUsyMNb5F5rA5DBi02+0ir3ixJfcjJc4BYe5vyX08yLtll096TpfEupyG/QJSoGuVXWBGDNneHY5+WnfaUeLy5mMTYNkgGsRZRdwTJeo1cDBl5SkCJWBlRfa4QT+U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evutIW/P; arc=pass smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFDAC359A99;
+	Wed, 30 Sep 2026 13:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790775387; cv=none; b=mgY2/erO9+M1e+B7CdIO3FQASwEW3DWPXTl9SGK4baGFYzsXI1aExXqP9LpZeRhJpFYndImAzzYmUkGxJbhuyt9U7ffyXOKcR8V2H3HL6vjVoam4ZXhOlTTqnWASqpz05kOFBewGoX2aEPTLM+J5MsbGAOpgcL5ij2IR3JWPtFE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790775387; c=relaxed/simple;
+	bh=MWCvg4sjK/uErDxiJSNTuEfe/fE6ubDEaPpL4yLsOJU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gN6lNVxBmlj+S87rF8LG+W4aINGotnTasxohfajw2ztq6/G4oc4Ep6q0oX08Jx9dleQNsmOvaQqCNEr2jun80MdK9LB7pdSIsBTCkOhtcYm6TEkZxD+r/5IieGd5Ql5x2WKfKKklrMESaH1fdDSIwzh+QXkcLXTvulzdKtF2ibQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DWAFlDVz; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evutIW/P"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c20ce3c118aso291644766b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:36:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790775357; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UDpeg62CqvvSJIUQaEE89hVtcOtmxStPx9R9XATXH8tQa8oydv0IDYgum6hjJ5IftB
-         GYF4TYqgrgBGPKALrZ4Y3vLxJkmzYaa29R7n1UiZlDEzhZvPe7su5//b30PhWSQ+bJwE
-         eQFo/26cilswOazhtFrMwD2FH01lk0z6KSumL5eSQ2Lg1zElR32V7ZDRoZJ7mAYfp4y0
-         Mu9lNHM5K5KwAE3ODn6sg9F1ZzZVYuTQ/jdI1r2LeEnVOcTgfqQVKRGgWllhezPmwq9H
-         6PFnmujdeqCjfgm95AupQ6qC5vZhEf5mgm5uwVCf63NFcWrQ5Q20z1zDyjq3VH9yvPBr
-         X2mQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4QchkhwI1w5bSASLXqcxUjuWuiosjQacZxJlQZryO/o=;
-        fh=WpXljA+42N5sJWhO9DAV9Ce9QPVmd3CHuuv5SfoF2aw=;
-        b=UyrkfINMIy2ysQgMAk9O7PxxoQV+7s0EiqW41WsiDcWZwFneNgT1TleOkgrNGmYHlr
-         h5XxxNZqUR1QmihgBSqifSb5WYEWBO9Cp9yPuXYwxHPidFPuLgkRkmIoN4+yk8O6xVMm
-         4XEXQp4DZXS37H2HR2unjt0RrO2bWBS1WzrWU08pmBASClJk1H13oRPOUxHWN32S0ewr
-         aZql3SOs4sUgFtpHSggppc6kyKfQvKUWSHmn4zzN50S5SII/rc+OECiBC0xOKfM4ljn+
-         QjNP+hDaSQOLOhu2CKMYg4cSR9pQVN027KlvaHawLqZC8EQxOb+ymB7X2Rn2Qqisz5Rc
-         QUrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790775357; x=1791380157; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4QchkhwI1w5bSASLXqcxUjuWuiosjQacZxJlQZryO/o=;
-        b=evutIW/PczIr77lL6OkJRMbForrjcor9PZ2o3hdDZRiEKRhK23mwBgAZwekT7qYfZi
-         uNb5iE02N4k+EHRQYemqbPk6OxiLD4JWoTOxI+X9sZG6X09iq35KZKzDuBA5VN4EWor+
-         R02FWb9NbrEaQ7wxNRFw3G7jHpv5iVUyOUYY6sUVzVmJMwY1R61zOgLllebu+kDoX3dd
-         uQaMpgaDzn9dL0uJidEjF9TsLLg75irnMkLP41dJfAtAtLJXPaZDsFak8YsFehEUXcC+
-         iX6sr2QR5wuPzKhF8SicP1fSJCGHGZgvylrU6v97f0h3xVult1azYrPjsCnr4UUKwhfI
-         +AWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790775357; x=1791380157;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4QchkhwI1w5bSASLXqcxUjuWuiosjQacZxJlQZryO/o=;
-        b=PBGyrXQTKF54AwBJAPiEH9SN7PFrzKKxT/mXZxqyr1EaIwKbqPF/LzHIzJCA5JvwpA
-         TMKuTraAZIwkT8XbK2jojihvLS10fROkl7SUXgpT11tolqOSSDXC1QaT945gVF1ZFWEN
-         XK0WyRcnbEWNYvrRx4+DMXRlR+MmU1zcCkWYqhnZbo62Jf+dffeOCLf4ZqSn8IRgzCdx
-         tB1mW843GdYjZ4Lv1O2ELz4otXUyRMXvIXQgHmqmVfZY72xP/O7UgJBuogqUCJApcQWm
-         lvJ0UAKuF0JyzOVEVVBuBDenu0FkD6Jvp7lHQ0MEaq1BGu7rY78k2hoAox4RZZzG/SNL
-         V0lg==
-X-Forwarded-Encrypted: i=1; AKwUvBwvuKIYHKF1luEFGQ8jKMZqUYrv4zf5/oqJI6wAli/7suzHsJH3Mf90FzGlW+Xvm3k/qBdLsTI/6LMSEwY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLq8tI1LS7SdQbCE+83OuLBnASXRFK7QPFEzXByxFB+es/xV21
-	KGrQuEfbdzuJbnOOEdDEdxXo4V6cFhcTp8pT7WzqnFimmHckzXPXVPFuxpaNAE1twnE8CUbXSkm
-	0lCThsHdAmvv4z5OMtGUF2ptTOGQB6Ss=
-X-Gm-Gg: AYBFou27wWZTRxsw0ztFAw5VS+Et+PgM5Ux9tX7UqVwj9FHvwwBbzylZDl1y2fKak04
-	DK4m2LeNZKj0eQEHnkcUj13l2anIU2km9HpsGN9pH6SwZttW/shpEaXu8tnk3nnf9Zc5TOxcJej
-	iqpym8uYinAA/DqiEIcqp2Z8EpWgnCVGscPc2CvTKwShnbG+or6zwqD+eFBNyIxnZHSC0FEutQC
-	92WSTRtr+i3oEtVI33+FLJ6Yx2H218J4zd+nxF94FH97hJQ99Rav2mnXrdGEVvmKFLPb8TGdFG4
-	y7CkPXNsLccqt88aU8crgAXGf8UHjh5JP7+WvMjAVjOGNweYglM9Xt7xixbG2i7+KidG
-X-Received: by 2002:a17:906:6a05:b0:c2d:b9b4:f4de with SMTP id
- a640c23a62f3a-c2e23d9207amr125564266b.18.1790775356627; Wed, 30 Sep 2026
- 06:35:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DWAFlDVz"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78BF1497;
+	Wed, 30 Sep 2026 06:36:12 -0700 (PDT)
+Received: from [10.57.85.29] (unknown [10.57.85.29])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C98E03F86F;
+	Wed, 30 Sep 2026 06:36:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790775375; bh=MWCvg4sjK/uErDxiJSNTuEfe/fE6ubDEaPpL4yLsOJU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DWAFlDVzKXIRcL9optFIbIIh9On6QwWlHn3t84awWXg+fiddvTAT19gXAPZkFhTZ/
+	 G+sFhjcmcySLQfhWIa7n2J032I4Cvi3G+qVeRbWTEqRAFmwsa1/HkWnVxu/BWoDSwt
+	 ts25+5YXwzXpQL8kvczPNYSr+bWaaEkvGMWBwIMU=
+Message-ID: <b782f893-e3ab-40f7-a7c5-ce19660be2c1@arm.com>
+Date: Wed, 30 Sep 2026 14:36:06 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929034158.1455429-1-neilb@ownmail.net> <20260929034158.1455429-8-neilb@ownmail.net>
-In-Reply-To: <20260929034158.1455429-8-neilb@ownmail.net>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 30 Sep 2026 15:35:45 +0200
-X-Gm-Features: AclHuK-7IYZDCVZREHuHZMSP_wgME-NMrM9tsJnpybGevda7U-xOXfVzEqygZdo
-Message-ID: <CAOQ4uxjv3Ziqy+CjbCO7noAPse+a0066UO7pkFhStnnW9FFSPg@mail.gmail.com>
-Subject: Re: [PATCH 7/7] ovl: stop using lookup_one() in ovl_iterate().
-To: NeilBrown <neil@brown.name>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Kees Cook <kees@kernel.org>, 
-	Joel Granados <joel.granados@kernel.org>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Breno Leitao <leitao@debian.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Jan Harkes <jaharkes@cs.cmu.edu>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Hyunchul Lee <hyc.lee@gmail.com>, Carlos Maiolino <cem@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-um@lists.infradead.org, 
-	codalist@coda.cs.cmu.edu, coda@cs.cmu.edu, linux-mm@kvack.org, 
-	ntfs@lists.linux.dev, linux-xfs@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/arm-cmn: Allow userspace to select the PMU's CPU
+To: Haris Okanovic <harisokn@amazon.com>, mark.rutland@arm.com,
+ will@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260929223244.2411400-1-harisokn@amazon.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260929223244.2411400-1-harisokn@amazon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 5:43=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote=
-:
->
-> From: NeilBrown <neil@brown.name>
->
-> lookup_one() is expected to be removed as it does not fit well with
-> proposed changes to directory locking.
-> Specifically d_alloc_parallel() will be ordered outside of i_rwsem
-> and as iterate_shared() is called with i_rwsem held it is not safe
-> to call d_alloc_parallel().
->
-> We can instead call d_alloc_trylock() and then call the ->lookup, but
-> that can fail if there is a lookup attempt concurrent with the
-> readdir().
->
-> ovl cannot afford for the lookup to fail as that could produce incorrect
-> results, and it cannot safely drop i_rwsem temporarily as that could
-> introduce races with handling of the directory cache.
->
-> Instead we rely on the fact that ovl_iterate() has an exclusive lock on
-> the directory, so any concurrent lookup will wait for the ovl_iterate()
-> call to complete.  We allocate a separate dentry and if the lookup is
-> successful, it is hashed with the result.
+On 2026-09-29 11:32 pm, Haris Okanovic wrote:
+> arm_cmn_probe() picks the CPU that owns the PMU with
+> 
+> 	cmn->cpu = cpumask_local_spread(0, dev_to_node(cmn->dev));
+> 
+> and arm_cmn_event_init() then binds every event to it unconditionally.
+> That choice is only revisited by the CPU hotplug callbacks, so in
+> practice the PMU stays on the first CPU local to the interconnect's NUMA
+> node, which is usually CPU 0.
+> 
+> All of the PMU's recurring work therefore lands on one CPU. This is
+> problematic on systems which reserve particular CPUs for latency
+> sensitive work or confine background activity to a chosen set of
+> housekeeping CPUs.
+> 
+> There is no way to set it explicitly. perf_event_open() and 'perf stat
+> -C' have no effect because arm_cmn_event_init() overwrites event->cpu;
+> /proc/irq/*/smp_affinity is refused for the DTC interrupts, which are
+> requested with IRQF_NOBALANCING because their affinity has to follow the
+> owning CPU.
 
-Please document this assumption with:
+All system PMU drivers have the same concern in this regard - why should 
+arm-cmn be special?
 
-rwsem_assert_held_write(&dir->d_inode->i_rwsem);
-
-and comment in the code. Having it in the git commit message is not
-enough for future code reviewers.
-
-Other than that, I have no further comments, but I would like
-to have a review from Miklos before this patch lands, because
-I don't remember him reviewing any of the revisions and this is subtle.
-I am a bit concerned that we have no test coverage for this subtle code.
-
->
-> When the concurrent lookup gets i_rwsem it mustn't do its own lookup -
-> it must use the existing dentry.  This is found, if it exists, using
-> try_lookup_noperm().
->
-> Signed-off-by: NeilBrown <neil@brown.name>
+> Make the existing 'cpumask' attribute writable. It already reports the
+> CPU which owns the PMU; writing a CPU number now migrates the PMU there
+> via the existing arm_cmn_migrate(), which moves the perf contexts and
+> the DTC interrupt affinity together. Since the PMU has a single owning
+> CPU, anything other than one CPU number is rejected.
+> 
+> The attribute expresses a preference rather than a guarantee. The
+> hotplug callbacks may still move the PMU, for example when the chosen
+> CPU is offlined.
+> 
+> Signed-off-by: Haris Okanovic <harisokn@amazon.com>
 > ---
->  fs/overlayfs/namei.c   | 12 ++++++++++++
->  fs/overlayfs/readdir.c | 26 ++++++++++++++++++++++++--
->  2 files changed, 36 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-> index ca899fdfaafd..f56e33fd4d6b 100644
-> --- a/fs/overlayfs/namei.c
-> +++ b/fs/overlayfs/namei.c
-> @@ -1385,6 +1385,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct=
- dentry *dentry,
->         struct ovl_fs *ofs =3D OVL_FS(dentry->d_sb);
->         struct ovl_entry *poe =3D OVL_E(dentry->d_parent);
->         bool check_redirect =3D (ovl_redirect_follow(ofs) || ofs->numdata=
-layer);
-> +       struct dentry *alias;
->         int err;
->         struct ovl_lookup_ctx ctx =3D {
->                 .dentry =3D dentry,
-> @@ -1399,6 +1400,17 @@ struct dentry *ovl_lookup(struct inode *dir, struc=
-t dentry *dentry,
->         if (dentry->d_name.len > ofs->namelen)
->                 return ERR_PTR(-ENAMETOOLONG);
->
-> +       /*
-> +        * The existence of this in-lookup dentry might have forced
-> +        * readdir to do the lookup with a new dentry.  If so we must
-> +        * return that one.
-> +        */
-> +       alias =3D try_lookup_noperm(&QSTR_LEN(dentry->d_name.name,
-> +                                           dentry->d_name.len),
-> +                                 dentry->d_parent);
-> +       if (alias && !IS_ERR(alias))
-> +               return alias;
-> +
->         with_ovl_creds(dentry->d_sb)
->                 err =3D ovl_lookup_layers(&ctx, &d);
->
-> diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-> index e7fe29cb6028..bc41da4bace8 100644
-> --- a/fs/overlayfs/readdir.c
-> +++ b/fs/overlayfs/readdir.c
-> @@ -574,8 +574,30 @@ static int ovl_cache_update(const struct path *path,=
- struct ovl_cache_entry *p,
->                 }
->         }
->         /* This checks also for xwhiteouts */
-> -       this =3D lookup_one(mnt_idmap(path->mnt), &QSTR_LEN(p->name, p->l=
-en), dir);
-> -       if (IS_ERR_OR_NULL(this) || !this->d_inode) {
-> +       this =3D d_alloc_trylock(dir, &QSTR_LEN(p->name, p->len));
-> +       if (this =3D=3D ERR_PTR(-EWOULDBLOCK)) {
-> +               /*
-> +                * Some other thread is looking up this name and will
-> +                * block on i_rwsem before it can complete the lookup.
-> +                * We will do the lookup in a new dentry and when that
-> +                * lookup gets a turn it will find and return this
-> +                * dentry.
-> +                */
-> +               this =3D d_alloc_name(dir, p->name);
-> +               if (!this)
-> +                       this =3D ERR_PTR(-ENOMEM);
-> +       }
-> +       if (!IS_ERR(this) && d_unhashed(this)) {
-> +               /* Either we got an in-lookup or we made our own unhashed=
- */
-> +               struct dentry *alias =3D ovl_lookup(dir->d_inode, this, 0=
-);
-> +
-> +               d_lookup_done(this);
-> +               if (alias) {
-> +                       dput(this);
-> +                       this =3D alias;
-> +               }
-> +       }
-> +       if (IS_ERR(this) || !this->d_inode) {
->                 /* Mark a stale entry */
->                 p->is_whiteout =3D true;
->                 if (IS_ERR(this)) {
+> I made the existing 'cpumask' attribute writable rather than
+> adding a new one. Every other implementation of that file is read-only,
+> so I am happy to switch to a separate attribute if you would prefer to
+> keep 'cpumask' uniformly read-only across PMUs.
+> 
+> Tested on two platforms with CONFIG_PROVE_LOCKING=y:
+> 
+>    AWS m9g.metal-48xl CMN S3,  one mesh,   192 CPUs
+>    AWS m8g.metal-48xl CMN-700, two meshes, 192 CPUs
+> 
+>    - Multiplexing occurs on the configured CPU.
+>    - Offlining the owning CPU migrates the PMU and updates the attribute.
+>    - Writes racing CPU offline/online produced no lockdep reports.
 
-How do you test your patch set? Do you have tests that exercise
-parallel create/lookup/readdir?
+Lockdep isn't going to do much anyway, since the whole point is that 
+perf mostly depends on CPU affinity and IRQ masking for mutual exclusion 
+and serialisation, rather than explicit locking. What prevents 
+perf_event_open racing against this update such that the new event->cpu 
+still ends up with the old value, and thus will no longer be correctly 
+synchronised against other scheduling calls/overflow interrupts/etc.?
 
-It would be irresponsible to merge code without showing that the `alias`
-branches have been exercised. Do you have an idea how to do that?
+Now yes, I think technically that race might already exist in a tiny 
+window due to the order of hotplug callbacks (yet another reason why I'd 
+like to clean up hotplug handling...), but at worst it's still 
+relatively benign if the old CPU is actually going offline, since it 
+will very soon reach a state where that misconfigured new event just 
+won't work - since trying to schedule or read it depends on 
+cross-calling a CPU that's now gone - but at least it's then not capable 
+of corrupting _other_ events.
 
 Thanks,
-Amir.
+Robin.
+
+> ---
+>   Documentation/admin-guide/perf/arm-cmn.rst | 18 ++++++++++
+>   drivers/perf/arm-cmn.c                     | 40 +++++++++++++++++++++-
+>   2 files changed, 57 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/admin-guide/perf/arm-cmn.rst b/Documentation/admin-guide/perf/arm-cmn.rst
+> index 796e25b7027b2..bf75b686cef76 100644
+> --- a/Documentation/admin-guide/perf/arm-cmn.rst
+> +++ b/Documentation/admin-guide/perf/arm-cmn.rst
+> @@ -44,6 +44,24 @@ given type. To target a specific node, "bynodeid" must be set to 1 and
+>   "nodeid" to the appropriate value derived from the CMN configuration
+>   (as defined in the "Node ID Mapping" section of the TRM).
+>   
+> +CPU affinity
+> +------------
+> +
+> +The driver also provides a "cpumask" sysfs attribute, which contains a
+> +single CPU ID, of the processor which will be used to handle all the CMN
+> +PMU events.
+> +
+> +The attribute is writable, and accepts a single CPU ID to move the PMU
+> +to that processor, for instance to keep counter reads, interrupt handling
+> +and event rotation away from CPUs reserved for latency sensitive work::
+> +
+> +  $# echo 5 > /sys/bus/event_source/devices/arm_cmn_0/cpumask
+> +
+> +This expresses a preference rather than a guarantee. In case of the
+> +chosen processor being offlined, or a processor local to the
+> +interconnect's NUMA node coming online while the chosen one is not, the
+> +events and interrupts are migrated and the attribute is updated.
+> +
+>   Watchpoints
+>   -----------
+>   
+> diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
+> index 5378fba916cf5..4f82d667d8828 100644
+> --- a/drivers/perf/arm-cmn.c
+> +++ b/drivers/perf/arm-cmn.c
+> @@ -5,6 +5,7 @@
+>   #include <linux/acpi.h>
+>   #include <linux/bitfield.h>
+>   #include <linux/bitops.h>
+> +#include <linux/cpu.h>
+>   #include <linux/debugfs.h>
+>   #include <linux/interrupt.h>
+>   #include <linux/io.h>
+> @@ -12,6 +13,7 @@
+>   #include <linux/kernel.h>
+>   #include <linux/list.h>
+>   #include <linux/module.h>
+> +#include <linux/mutex.h>
+>   #include <linux/of.h>
+>   #include <linux/perf_event.h>
+>   #include <linux/platform_device.h>
+> @@ -404,6 +406,8 @@ struct arm_cmn_nodeid {
+>   	u8 dev;
+>   };
+>   
+> +static void arm_cmn_migrate(struct arm_cmn *cmn, unsigned int cpu);
+> +
+>   static int arm_cmn_xyidbits(const struct arm_cmn *cmn)
+>   {
+>   	return fls((cmn->mesh_x - 1) | (cmn->mesh_y - 1));
+> @@ -1519,8 +1523,42 @@ static ssize_t arm_cmn_cpumask_show(struct device *dev,
+>   	return sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpumask_of(cmn->cpu)));
+>   }
+>   
+> +static ssize_t arm_cmn_cpumask_store(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     const char *buf, size_t count)
+> +{
+> +	static DEFINE_MUTEX(cpumask_mutex);
+> +
+> +	struct arm_cmn *cmn = to_cmn(dev_get_drvdata(dev));
+> +	unsigned int cpu;
+> +	int err;
+> +
+> +	err = kstrtouint(buf, 0, &cpu);
+> +	if (err)
+> +		return err;
+> +
+> +	if (cpu >= nr_cpu_ids)
+> +		return -EINVAL;
+> +
+> +	/* Serialises multiple writers against each other */
+> +	mutex_lock(&cpumask_mutex);
+> +	/* Blocks hotplug during write */
+> +	cpus_read_lock();
+> +
+> +	if (!cpu_online(cpu))
+> +		err = -EINVAL;
+> +	else if (cpu != cmn->cpu)
+> +		arm_cmn_migrate(cmn, cpu);
+> +
+> +	cpus_read_unlock();
+> +	mutex_unlock(&cpumask_mutex);
+> +
+> +	return err ?: count;
+> +}
+> +
+>   static struct device_attribute arm_cmn_cpumask_attr =
+> -		__ATTR(cpumask, 0444, arm_cmn_cpumask_show, NULL);
+> +		__ATTR(cpumask, 0644, arm_cmn_cpumask_show,
+> +		       arm_cmn_cpumask_store);
+>   
+>   static ssize_t arm_cmn_identifier_show(struct device *dev,
+>   				       struct device_attribute *attr, char *buf)
+
