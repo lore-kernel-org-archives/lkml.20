@@ -1,165 +1,161 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010056.outbound.protection.outlook.com [52.101.193.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0966141F7EA
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:00:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D5D391E77;
+	Wed, 30 Sep 2026 09:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758836; cv=pass; b=IrdC9QiR399un8T1rWbaUx/pYiRE6kxbfhBTltuGMkESmddZo6q7xqKrR/LuOrdWyX2D9onWt7N/B50ofGB7hM+lUuCIQXpSuRKw54jQ7Qxz+LE9XPZE09UWN8Xdv3ANa826vMqDybyimzFV+jAxOjY40F0seky2rpj9jsiGbWk=
+	t=1790758872; cv=fail; b=R7IprHaecwr2z9RvzsQC5/MGqo1akd7xvCLpVa9mGuiZY7D+7kzomw8a/i0X5yLCqqSQdXKgV7Et4w5eHUR76o4yIisUtVzD9Kl8YxDIvWpGyKxugk5OKcJlgSO3k9eyNEVDNpzLNruXe1JnZlI1THC5r6O0o33yA5lWs/r8UEo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758836; c=relaxed/simple;
-	bh=2ptQLVKYeJjEOvJHdG809i6XfpxS5ynDbXh7OBZc7Ac=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uO3WP4p28ac+ObI7e0D+uSweYWdFuschOMgZsOeIPvTdRaL6uZGqHexX3ue0vTHrTz9lOHag1IbAbNOUL4ZU833CwMb8bir8Vszzr0vWZJWSE63T4KBkXd5UgN18SRgD5EVMSjolYuCzWhm3pWxV6bDePADk2aaY+uMbSe8QLbY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q36lqAQL; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790758872; c=relaxed/simple;
+	bh=l06CtcCxLkwUVbVSbhQAITex466XgBUAUmgla9ivPC4=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=dxIaK01yYsY8c7Fg/FpVXPp3ZpfExFo4S9+4ME5S4vd5SjufBGbf4LBgecQfcY0151KUU/6ZdtHy/JDYHW8bQ3DVOTLgcTB7cnD3eB9YhXI5z0LgEOzpO59LiTBAINoFom1d36DaUkVG11vSWBf+kSgRWovz6u8H+hfA8f+UcQY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=caoAqgF+; arc=fail smtp.client-ip=52.101.193.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q36lqAQL"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b4f2d90c4so1381963eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:00:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790758834; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V0uB1ptvLcDEy7oS7eskW2ipj261U/YOPJVUETUmfsNftuV2ZS6M4zi/N2Zre2ITDh
-         YDG+E4Pe4DRopCdAyFs9LY3rBQ9+msPYsobbJwZ7GEkZctA871rtopU6OSWeTyGXsJ2/
-         msJJddRsdeV0JN38qIrvg1ik3w47Ivkcfl2hlTcigS+ZY5ih3wAyTUvBytEetbScJ76m
-         eXUGk1ucNjhXOOxRzeGran7W3ocHzohlp8+4U7on+fZtnWfcUfjuqz3O3F2jQrkF/3B+
-         0o3WK1HKvkWiSOAlY3MuhXARmtMzR/AAGPmNSKQKMxH9YnLfKFgNtTw/dFOTifjx1X0E
-         55Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jmnQsQ2nLUzstSMrsKXf5By3v5J3tmrAtywKsYCssgg=;
-        fh=6VJ1uqErO2TDXs4IND/VUIWjj9vVuiN4u0t/O3gORYc=;
-        b=fvFtwZtepzvBnYmB+0AWhPDibM9lqt6GAn8dPrFD/320SBmPRf5RozuNO9Idu1WKhb
-         6plas0nLB5Shg23l4oaoso6wv8Dbdmc6laai9XmJ+P9R2Eu9GqJJuHYGV04r9lPSFPq6
-         AwSiqQBAIPkh69pApNhZOS9scKTP+BTBbC+nysB1I0oP5hFUGspek0mt0WFYSGh+Z7e8
-         iW6GHwodrEEkyUm7LU1Kt/Re4mCNz5Q34ZtUjQ+pWZc1A8n9xBcbNEO+ZlwdJtqtf5YV
-         e1rPtEZ+TR9RxDQyja/jxg4E4AwalsE+FYm7OV6bdCzhQN0imNi95LjVpW7mFHRyj7Xe
-         qlKw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790758834; x=1791363634; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jmnQsQ2nLUzstSMrsKXf5By3v5J3tmrAtywKsYCssgg=;
-        b=q36lqAQL0rX1j50QXQ4g49CYGMhYwKHCsJrYBLkFisCdAjHYrVK5zggtRjJx4pb+aC
-         TWQZIYeYSVckcySzdbNxihiPbPpBKFkpWE9xzF6MfLJ2Sh9NYTMmeMBdvHR78H60BohC
-         k5EgxQxavKZibsXmfUzCSuJC8x7UUXXeBc6/d494nPTBRe8D4+lR/yyutPxccyhx0+sI
-         vnCFfGkyWdqlE5v38OXIOdW0nqoH6IiXSBrQoREUITfvhOjpfs+Bu2Jj3KUFbtHezRDk
-         LvkMTNsvJoqZ/aOfnWOOP/91M5KYp8IGbOsY3GwADVgmpR0ouIU9sP7PxOLzyGhiQ+ZH
-         J4dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790758834; x=1791363634;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jmnQsQ2nLUzstSMrsKXf5By3v5J3tmrAtywKsYCssgg=;
-        b=NJy8t/Lv75H+hejmSQTgGp74YXXTs/0zQQempLDPGZaQMl82wt1txLDDxBceMuNsy3
-         MqYVF2ad/gqrf3o7ZitbiP3c39dh39jBMRtJzZSUyEsoMJl+iewwXotJeP4bsao/QG7v
-         Nsvitus/kHR8gZ40cP6lOqYxSm5WokUZtJdnA/H4ts8zKs0IRR7JGuPXLABeIclqTGnr
-         Y8M+nCGga38xVc8iD/L0v5HlpdjRa+Z1lTYSxJTx+uYq+JwWV4HJ+WW9dCgOesC7PsK1
-         KneRkHEyNZVF6kHihEdTfLfj5XYmIQxYSGSPOBDhSdD1T+HjUI+T0IeKpgw9hBAwGXnU
-         mokw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRkFggp62u6g+vjoHE1klPw/S+O7Q0k0112k7BnXetAvZVlCREtXlF4N2z4p9AqwsK11Ym09oqLD4ZuGM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8OkzFR1N3oo8xJRJVssWtoX4Oaj5xRHd60lY7ArUq+hqLphJu
-	1B764QV3z4Z5fMtIEIItZiRtzG4xNnVC8wsKTu6gx4DoR/ODICyy7TVgIohfEh01xjPxF/Yrc+e
-	Rvm57WGofmzBwXDyI+XGa5nEKcJ7QzQ0=
-X-Gm-Gg: AYBFou0vNRFdSymwsTpmBjmoBw9PXMbA0ANJ8T1zglOZE0z8xxjud/H1dJxJdizeJhX
-	zfrIWbBmkmYt0ZZqXgh9aLD+wtE+nCBDk98fpoLAZxbLhjZQxdwHOO8E02FDGUvM7BNnSCcR3eg
-	gBoFRuJ4+BRWyxW5wo42KRP315dOi6o/10MlM6GzRBZSyGO4D1Ddt3Zo0X30gqTYV0TgaWHOht1
-	bAGQPaQNFOjbD3x3UHlFqXPqIajoVzhhZms/K29GRWgNy1r5S2HQM7ap82/mmrCOtO84g66lo/P
-	KSt6dFQqQCjrMAUmYzyQFgJjk1C5Qkz/eIVzYP+MEMIBvQhqmNFVZGVJaVITbylpAkp4w/6inhb
-	9azJuYkSbQY4r
-X-Received: by 2002:a05:693c:6392:10b0:332:8b9b:bdc4 with SMTP id
- 5a478bee46e88-34cdc3caaaamr1126682eec.20.1790758833695; Wed, 30 Sep 2026
- 02:00:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="caoAqgF+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YmSJbyaUUvga54Dqq+cq43F+ZiNzaqYAR7ehFWQMfl0P5/W8zJBTcCjFyNdKK/TaxzZD03Bng+0LQJopqd5i+0PKanFkZxQoduD93pZm1SufZ8uTsz6nTP5x/fu6WcF6VAaRjEYdxxHOA/ktoJXhVCqU6LNWYkIIX3+VcvxVkyTqPYcwddERwNlSFryJAzzT6aormCF+74ofenhK8WAAlQm+vSDlkz5u8WsEurYKnOtc0m1w61rVwake0vwwC8BrVNHC/En/V8Z6diqfT1Ou+aIe903ChyvDvtfQUuqktojuw4pT6G0c/oDRDtjC7omDQHwD+eywzaZmdUHHzL2HYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0V72Bq4P6JLfiadUPwP0mp/wp/RFat7psPiYP0RC16g=;
+ b=l/IUjbcGBVvv+5fMLFFlpl1xp4Rge5PF2kpVXGVfKOQOzCj1Sb0dpEBiG9wIyxlOVimQDv/e0UO02myfGXWI/b2XF3CF8YH/Mz7tsjbpk2TwvzvqRZkDHgyydDn6Vdo/dMIThZenUVrr66E4NSkPVB7sUT6Kj3iXopLRNsrQhU52KOGXVms+aZ9iQMXG8bC02B64jmjUYlPvVdgldMI0M47RqeWjJTxmnNzTBEdIkrJ+DEFwlqG43NffqdrHTBkjfppNvGh9RZXuY/IrqG4dZkyfLjN7xxZamIMdnrc8y61T3qsmMawG1mJc/yDPHbosJ2c+mYQqT1j0wrLGhjKWYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0V72Bq4P6JLfiadUPwP0mp/wp/RFat7psPiYP0RC16g=;
+ b=caoAqgF+OpnIkEAn/fDQs7f0Ho7N3ok19j0Gh+2VrXSKk/Wp+0s1fnWAakWeHB80y75rcZL8Dpo0OG1fdchyX8Typ7+6F0wOozA+oULbAaNRQqBm8XmVmYjJ1oKt5EKgjIMfS1rIr43OJbF5zXj/sYr2o1BtBYWUY+0QhJAORHBaU7Ho1r4S3zcNqiTSmrX+Q2T5UFr/TPJLG6GcCkbkrHMgTrnllK0Npfztgi33UGmoeMzH+ScytxhtRuZLYIxxzADtk/KiMmn5VJUdReoQ2qHUGT58OF8SSk0IW4nWhn+rYJ5NekLtRR8Y8v6dxMNA2cSuDV+53U/qJxJH4C3jNA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by PH7PR12MB7817.namprd12.prod.outlook.com (2603:10b6:510:279::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Wed, 30 Sep
+ 2026 09:01:07 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 09:01:06 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Waiman Long <longman@redhat.com>,
+	Michal Koutny <mkoutny@suse.com>,
+	sched-ext@lists.linux.dev,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCHSET v2 sched_ext/for-7.4] sched_ext: Add scx_bpf_cgroup_nr_cpus()
+Date: Wed, 30 Sep 2026 11:00:17 +0200
+Message-ID: <20260930090049.1035813-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: GV0P278CA0063.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:710:2a::14) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-4-clamor95@gmail.com>
- <arzMF0wjcF_SVxpE@orome>
-In-Reply-To: <arzMF0wjcF_SVxpE@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 30 Sep 2026 12:00:21 +0300
-X-Gm-Features: AclHuK-TlqGnIU7ukp8yYWTozjs2IS2nCNkcdYeOW3HWE0VGgW8HyLwmVml-FCw
-Message-ID: <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|PH7PR12MB7817:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd11823f-8705-4fb2-6ad4-08df1ed15c86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|6133799003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	t3uQAIeXOz9uHTAfr5wBDGe7dDVx3cl9hCdTxcYQT69b3WNSBvMi59fFPzvpvDdc2FEoXjNMEq6KI1u80mCXQe7BAz9UFlT5djmx0a+gOf5ORtlTFEEZscSMIx+aFMrDct97WDEQ1H7s3vnolTa7GbeSYXbhUu9CjUe8FQruACbhJilc5QTqnRSqd7g7LMZLsq+ugSwCwwp2opbx8Z/N45hzzWr+M+OwPKz3Z4LvYGvO75dqjJuXLfUfeBHCpFgShV9yQuS+JBacTA44/5jtfV9/JahPwZjllpIgCes38dZhCDmn+wwtA4GCo8aN+jXTqYtVcgOLd6CmtTQtZm6q640n326hsi3m8VQNBNzmLaza0YJEtWFWYfFB+5JY+BWmXYt8GespSVYqrcnUooiHYIxeuwfIBJFgBeamyHKuINCfbo3Gxm+E1OUxmm0viyNyiy5GHF/hj3bNDZTByXoVGvQjXmmjzFEqj9+r/6AZQvt1vJ6wr6T8zAjzjFlPq7rKPvQih2LPqZBiWDUElPGMy7ygWzV0j75+Tigk5AQ4ORlnrarQWX4q896mO8wYX4YoOZyGn9AhANK/3Ljqw3B8eq9XLvB6/zrUi4+sJodd7Jan9zGtsPIej9fuXVoqEK6EPCq45E06pfK37Oc4OTYgfif5X27MVAySNz/3vXKr9kM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(6133799003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?JvKk3R+RGJ3TkKiediGx2dQuSjeDQ8Nr556lP/g3gQnoDyRLJGIXN1PlHHDx?=
+ =?us-ascii?Q?N5Kz6gfLEJHmuyfALqtZJX4/uzEf/segYyM4eFRTMZjaflaxQk2TI4qqbU5Q?=
+ =?us-ascii?Q?3MbxLQVTW7uUk2+oVJOe3u+Ix1gizL6iHFWhXKL4Tu/COc2vp1Vs5ZkPVT0e?=
+ =?us-ascii?Q?B9t8Nz+FnOugg0dd8dXS7muSQQLZhSxldD2ees/hDti+F+SRhGI5UgDKhAG+?=
+ =?us-ascii?Q?DP4MosVcb60XUxQ41Z2UNVV/BB6D+/DqM7nhNQAHYo2A1rGmXdnwJdJsnrsI?=
+ =?us-ascii?Q?sGgKoFGOzLoRcDZelgBKrbXejVZT3+FtPRoap+k5531evFsuOLv3abbfm6WX?=
+ =?us-ascii?Q?C5y/JPI89qhDnln4pWn9j3+G+41IwQLMO3prZc2ZJ+bgs0brzhUZgQ6Dzt5L?=
+ =?us-ascii?Q?RnZGfPYVeOoNf6VB52XfToEK97rlCTZFy0envV0y1ZtvQjf2E/4Xnp6IMIS+?=
+ =?us-ascii?Q?2iW3MeUU9a/V7wTpyzk8cexTlGFBPnymbujQzoqG/w94pVVYGNRuMo7Jam1G?=
+ =?us-ascii?Q?NB3w20Blpan+QiLVfKqNpKjY4WspUWsvTpTMLOtZRvXoS04AuvDh9BCemqx5?=
+ =?us-ascii?Q?5w8L9Xfhlt3iOfpXmPjU+CTUUuPD88yozblhTxQAh/ThjDvqGGfcEumHKj+d?=
+ =?us-ascii?Q?YA4oQt3HfD2XQwNfDbtsG6KFFULxCdkgsubg1DRs9iYh+DRLyhlL1QTThsEt?=
+ =?us-ascii?Q?dHLYzKR3Nh33/nThUxhhqNnMzfnLonLNqEvMkKGgzo2SgWK/9op+IUwMbmqV?=
+ =?us-ascii?Q?uStmEVd3R5wPwsaKtzmKPSAsKXfg7jcpzcwhl0FkuINWT45yEE6/0OH2N6Xq?=
+ =?us-ascii?Q?RD8eyvZsuoq0MdeOeIWibPdWesI4U8iJBEV4bThXMmp6sUEJXfBXAAeLhMjf?=
+ =?us-ascii?Q?K0t4TISE23TdVH0IbM4SHy52IDd110yGKH9TxN2CoFD1ynsdk/ROqdOMFnZS?=
+ =?us-ascii?Q?EjHV4iUsFnCY/7G/Ed4uC/hIdVkax72QKhYyPtXkTTJIArIRRI8Kkyqq8UJl?=
+ =?us-ascii?Q?3m77qs4wFeCutGIZvATYheRq0eY5dmNugMKx85FqQkg/gBgEgnAohmEolYty?=
+ =?us-ascii?Q?kUo6E8qFusz1NySJynzSZjYFqb3X2Xzkh4XRTCVYmCHnwNVrQzPz8dRFZegP?=
+ =?us-ascii?Q?F0zw/Nk7ETdIiOmbbZO9CfKhKw4drTVFfdk0jIMMvHzLg8Zj0nG1e0kW9EL1?=
+ =?us-ascii?Q?iFKNAlKHt+2btRG577Ds0prn2eebBcD+BLovnRJa3AIz6xRe4ZVtBx77PkCd?=
+ =?us-ascii?Q?Er/E2GSThtkXlaHdGJsAsMt1ZoYfFlTAUwltoiW0sp37FC9jScLokIasDzUe?=
+ =?us-ascii?Q?WVa3hYB8a94XQv7zT14QNzhMIvIEAqvtZtk7JCl8zwsicBDm2uqjJnXiPP/T?=
+ =?us-ascii?Q?/5okPEkDAzUDx+BwW4L36AaEZTIaymBl2kgjyWCGIATNVkbYQboEkSs7ekh5?=
+ =?us-ascii?Q?GxfRbx6tR4zw5FEYPUrxQZ64eoBqo0ozWyykLNy9u/bNQ/MgT+bbQTn0+r6K?=
+ =?us-ascii?Q?IsizXr1YUXsTpZtSxMhjO4OPVhnxEKMAVq9RGmM0O5VDgKdek6i6wLIcRiFl?=
+ =?us-ascii?Q?7RY7wi5+ajksWZRGS8p+xhePPTcbw6Pb7oLlc436T2Z6JULUmIllLhGc1rje?=
+ =?us-ascii?Q?ybPqjKxLwE0S13G0DvFzrXA4cvCNG1ujErt8x6Gp5UmmJhpYw5lDaZS5xRZD?=
+ =?us-ascii?Q?vWLMQ2H0yo1WmlEQA/RUoY8V27zyE1Ow0pQjldUNc0niXj9jzMxxl//ubbRY?=
+ =?us-ascii?Q?dU+osoP9Xg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd11823f-8705-4fb2-6ad4-08df1ed15c86
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:01:06.1539
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +Q9IVPdEzWJvWuP0AcX9IOTAczQL6NayWhbOhQd1cvbdc5rINkjpQHuVbKg5QA8Qc7oMgPg/vcjlxWxD6IXVjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7817
 
-=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11:47 Thie=
-rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrote:
-> > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > Tegra20/30 SoCs display controller.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++++
-> >  1 file changed, 138 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvi=
-dia,tegra-8bit-cpu.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,teg=
-ra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,t=
-egra-8bit-cpu.yaml
-> > new file mode 100644
-> > index 0000000000000..f0dab608b2936
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit=
--cpu.yaml
-> > @@ -0,0 +1,138 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-cpu=
-.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > +
-> > +maintainers:
-> > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > +
-> > +description: The display controller in Tegra20/30 SoCs features an
-> > +  8-bit SPI interface that closely resembles the MIPI DBI Type B
-> > +  protocol and is referred to as '8-bit CPU'. Each display controller
-> > +  provides two such interfaces, which can be used to send MIPI DCS
-> > +  commands to initialize and control the panel while image data is
-> > +  transmitted via 16/18/24-line RGB.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: nvidia,tegra-8bit-cpu
->
-> The description says that this is a feature of the display controller,
-> so adding a new binding and compatible string for this is not the right
-> move. This is all covered by the "nvidia,tegra{20,30}-dc" already, just
-> need to extend that with whatever is new.
->
+Hierarchical BPF schedulers need to know how many CPUs a cgroup can run
+on when distributing group-wide weights. For example, fair's group share
+calculation scales a group's weight by the smaller of its estimated
+runnable task count and the number of CPUs in its effective cpuset.
+Without that count, a BPF scheduler can only use the machine-wide CPU
+count and may give a group confined to a few CPUs excessive shares.
 
-How would you model it? I have tried to model 8bit-cpu as a bridge, similar
-to how DSI bridges are modeled. This reflects interface used to link RGB an=
-d
-panel, without inflating existing DC binding. If you have any ideas in mode=
-lling
-this, I am open to any suggestions.
+This series adds scx_bpf_cgroup_nr_cpus(), a kfunc that returns the same
+count fair uses. This allows scx_eevdf to compute per-cgroup shares for
+groups confined to a subset of CPUs through cpuset. A selftest covers
+effective and inherited cpusets, changes to the allowed CPUs, and calls
+with and without a scheduler attached.
 
-> Thierry
+This series requires Waiman Long's cpuset fix to avoid a potential
+use-after-free in a rare cgroup filesystem rebind race:
+https://lore.kernel.org/r/20260930031833.660267-1-longman@redhat.com
+
+Changes in v2:
+ - Drop the cpuset RCU guard patch
+ - Link to v1:
+   https://lore.kernel.org/r/20260929084124.626693-1-arighi@nvidia.com
+
+Andrea Righi (2):
+  sched_ext: Introduce scx_bpf_cgroup_nr_cpus()
+  selftests/sched_ext: Test scx_bpf_cgroup_nr_cpus()
+
+ kernel/sched/ext/ext.c                        |  18 +
+ tools/sched_ext/include/scx/common.bpf.h      |   1 +
+ tools/sched_ext/include/scx/compat.bpf.h      |   7 +
+ tools/testing/selftests/sched_ext/Makefile    |   6 +-
+ .../selftests/sched_ext/cgroup_nr_cpus.bpf.c  |  60 +++
+ .../selftests/sched_ext/cgroup_nr_cpus.c      | 419 ++++++++++++++++++
+ tools/testing/selftests/sched_ext/config      |   1 +
+ 7 files changed, 510 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/sched_ext/cgroup_nr_cpus.bpf.c
+ create mode 100644 tools/testing/selftests/sched_ext/cgroup_nr_cpus.c
+
+-- 
+2.55.0
