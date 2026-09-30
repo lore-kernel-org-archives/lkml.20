@@ -1,98 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D039E47127E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5746851CF71
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804856; cv=none; b=BKJn2zvO1LAgVJtz4cZbbhcDFvVGxWXuaTyYDE4+gGHXV7bN5n3ne6db1BQnKmuFYgk8aOXgIz1o9cWpjNvKevNaIdr1ZvQLbOFPW+tI97KXsC/8+7Io037Yx1t+YK3LjmCyA21ng+f7ILkQ8VqkOoivErpIrLD7oFH2pErr4AQ=
+	t=1790804859; cv=none; b=pa5CJG0V4uwf1h7WInHxzXsxb5n6B97Vv58BdpanzI5mInUbOKvgbBjfDB7eCtJrMh7XnLnJo+2LpYUfisZQPJ/tSupHngtQoSUdhk6TSgCnICCAItxU6XfsNxWwMj9QLFV44VXXi7OSjvgee/N81IYZZFCCgrfS1L8D8ohgyoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804856; c=relaxed/simple;
-	bh=m+T593NoH9LHM4nyge2qVy8iIDHmmBHMv1mbnGq3CSE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=l2pDBK77KcrG8uXlglJWWrh7cFUbtTc21gMSPCK+GAfqYCa4I6YBpSaUlMq4fbRRCuIBBSaDYugxGeqiRT+u/TIDJpvuisu+XPMVZk//eq/c8yjm4Qmz8lTgj6R7sR+mvHrAZLQ/2l5PFFw2JHWl1UOlGgv1wEKGv+W/+GjJhZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UioBh4V9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790804859; c=relaxed/simple;
+	bh=6ydAku9BAiQpEXGfpckD0JO/GBQObyMhMjDB+2Kpxsg=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=GYXg/SRtmQkdjkoU+oIBMh40E6RgwOQzRVtZxquHaykG5msqZxM80CzO2k62eC3JziTskiGJFhSaTdCAGaXfhZz186i8o7fvbOmDB9k5PYAHfSI6RkQg86lnNpS0bXY77ZsI67hRS+7bjPThNoGjZADxeDng75PA4KzjK9S5JoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dGtyZUOh; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UioBh4V9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A279C1F000FF
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:47:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790804854;
-	bh=MfzXiat9H5DF2PiTWs4O9ojHJwLpSTSb+XBwmSF47uA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UioBh4V9PQcDGpw9Unc/Da5NbMY7NE901fFzRagTGXiAlkHHTtMmv1OqBE/22sWOa
-	 ngwmBVUj4zgjk9SlH7sYU4Nv1ZzJIwb4Zq1x40gAI9cvvsjpikYfYtDp+lgEnyYGXg
-	 qScvN3edrMuJeR6BOwCCpC2Y+KnFw+L6rdq7ow0vWuIZqo0zXRVILaeDOaFVSQKNw8
-	 LmaJ9GFc2x/aAm8iXx244y0PS3EdDOee0MNGKX7OzSxfi32rRN9FAnQh4Kp9dMnp4I
-	 7p/6JJ3P9u0fBzDoVhvRo4kvrX0Rx95HHSgX7GHkA4gtPhA21ZGGayF7McLMZ5BG+m
-	 Q5MEMnDNsf5Qw==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff148dfdso47798081fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:47:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwVXDxiPIII9113y6SeT3KaE7fdRYvz/Hhl56lrpBooQGQvJBY4+TVUe2LS9RRZoWAfXVUUEHCiDkSSxAo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7g10cQnGCxcCOH6TYmEm8OJ1mTQY00tL7VhtV+XHL1Ro7ThbF
-	7uT23h6/miE6PLl5XRmAzheeQQ3TgG/c3NYiJf+74cL3nqUul2VCou8b0RQ2rfk8fAP76wf9ryf
-	zk0EIZSpJtlLyxLVREy3ES8n6sBiUIys=
-X-Received: by 2002:a05:651c:1990:b0:3a7:7ddb:aab3 with SMTP id
- 38308e7fff4ca-3a77ddbad7emr6934201fa.16.1790804853193; Wed, 30 Sep 2026
- 14:47:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dGtyZUOh"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86b4048367cso6531454b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 14:47:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790804858; x=1791409658; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mpS4Ij6gaLgbG+enJW/FVoPzOHJGjU08ieLP+6pYjbI=;
+        b=dGtyZUOhO+v4cZ2pIa93A6i4yebZruNbqVef8Z/Z5sOz9vgj8nfghtCexDh3iGMSQ1
+         h9EK+upRaw/BQYFvNAThvVzZVk6cmOFlXRunftphplkQC0FnksY8E5b2YnLp+xPoqQls
+         o6UYco9+qjDD5/BTKhTBQutNTLfLI02G6YkuQHGXk0V7RM3qdsLMuWPjx0vlOU0whrwf
+         25CesYxUyoFftnEAt0qxGQFQ1em0hQYllQ0r2pot/tmKk4XCra7U2JTVhpZuaQ/ZpnrM
+         cOaOT9Fv0f16CeGdP2LCMZYZxZV57ceeWCcw2Kpk5pQqFlJRlrssjZPb6EgXf+7/b3Cr
+         tSow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790804858; x=1791409658;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mpS4Ij6gaLgbG+enJW/FVoPzOHJGjU08ieLP+6pYjbI=;
+        b=k+U0A62g9TFLr6gU584MWjdPZLV9eXzHqv/7il+m8TCA6fwIF7p+uubvipqSrI/0fp
+         SF+WdOKHGROizg7S5U6Q48jgbiLfcmvJa8CxrZmDo1xb618uUY/vByM2rAPZfSVUBpNh
+         MbMKjP/pn2szcIGmSHfkD5xiMtGfTLRdIj9yafSmsFd/tn7uSJVc7xAur8jmjCIbjT3M
+         +6dP6k6VovB9+f4Tux4HgpcGIyNhqWcSn+89UVgLbkejORfayXnMuMwQEZL4ro9ywtRv
+         pHWlHlkGU59gi54btDHInle5eJ0CFG75S89yTYn9EyXgUS21kEnoeU92F4dSP8dqpqzo
+         Gogw==
+X-Forwarded-Encrypted: i=1; AKwUvBwV134V+/i4Lh2GNeF2yWMcR2jSlSYL2b7hayVcLVNIPue55l3WSZPXn2qrAV117N/3AXIfLzRCDfEef6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3OHrryj6RluBmSrnV6c5olqDirPhifcsHjjfZFWN4QsxpqB0+
+	QusQasVB7ynMCYs3ICneb1gJ9LDz+eC9brw4rc2w9MdxkeSnFDsahbyM84f674p79G+k9FlVNH5
+	TH8HCg0SCvjV+1Q==
+X-Received: from pfbmu12.prod.google.com ([2002:a05:6a00:6e8c:b0:886:8875:ed09])
+ (user=joshwash job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:9084:b0:878:34d7:697b with SMTP id d2e1a72fcca58-8874cebda9fmr1853968b3a.41.1790804857384;
+ Wed, 30 Sep 2026 14:47:37 -0700 (PDT)
+Date: Wed, 30 Sep 2026 14:47:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
- <20260918-contrib-pg-pixel10-initial-dts-v4-2-745eaca28b1a@linaro.org>
-In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v4-2-745eaca28b1a@linaro.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 23:47:20 +0200
-X-Gmail-Original-Message-ID: <CAD++jLntPtJVosWrmO4Hh_kuAPyC2G8MRB9BAwwR0wx1OUzLiw@mail.gmail.com>
-X-Gm-Features: AclHuK9JASmZ3mAuwTzXMDc2vQ_yXfdUx9hC2uGUMFRzKST4nRDXC-j2uJr4VPc
-Message-ID: <CAD++jLntPtJVosWrmO4Hh_kuAPyC2G8MRB9BAwwR0wx1OUzLiw@mail.gmail.com>
-Subject: Re: [PATCH v4 2/4] arm64: dts: google: Add dts directory for
- Google-designed silicon
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev, 
-	Douglas Anderson <dianders@chromium.org>, Juan Yescas <jyescas@google.com>, 
-	RD Babiera <rdbabiera@google.com>, Brian Norris <briannorris@google.com>, 
-	William McVicker <willmcvicker@google.com>, kernel-team@android.com, 
-	linux-serial@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Brian Norris <briannorris@chromium.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260930214735.3288780-1-joshwash@google.com>
+Subject: [PATCH net v3 0/3] gve: various XDP fixes
+From: Joshua Washington <joshwash@google.com>
+To: netdev@vger.kernel.org
+Cc: Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Ankit Garg <nktgrg@google.com>, Tim Hostetler <thostet@google.com>, 
+	Jeroen de Borst <jeroendb@google.com>, Praveen Kaligineedi <pkaligineedi@google.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 9:05=E2=80=AFPM Peter Griffin <peter.griffin@linaro=
-.org> wrote:
+This patch series consists of a number of small XDP-related fixes.
 
-> From: Douglas Anderson <dianders@chromium.org>
->
-> The first four Google Tensor SoCs were offshoots of Samsung Exynos
-> SoCs and their device trees were organized under the "exynos/google"
-> directory. Starting with the Google Tensor G5 SoC in Pixel 10 phones,
-> Google Tensor SoCs are now of Google's own design. Add a location in
-> the tree to store these device tree files.
->
-> Changes by Peter Griffin
->  * update config symbol help with at least 4 lines to avoid checkpatch
->    warning
->
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Tested-by: Brian Norris <briannorris@chromium.org>
-> Reviewed-by: Brian Norris <briannorris@chromium.org>
-> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+These changes are split off from
+https://lore.kernel.org/netdev/20260922194533.631387-1-joshwash@google.com/
+in an effort to prevent blocking relatively simple fixes on more complex
+fixes that will need more feedback to merge.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+A summary of the changes:
+1) fix an issue where XSK buffers that have not been processed are
+   leaked when disabling XSK pools
+2) fix an XSK buffer leak when an RX error descriptor comes back from
+   the hardware
+3) fix a deadlock introduced by attempting to acquire the netdev lock
+   after it has already been acquired
 
-Yours,
-Linus Walleij
+---
+v3:
+- Remove the more controversial fixes so that simpler fixes, (the
+  deadlock fix in particular), are not blocked.
+- v2: https://lore.kernel.org/netdev/20260922194533.631387-1-joshwash@google.com/
+
+v2:
+- introduce 3 new patches (7, 8, 9) based on Sashiko feedback
+- corrected stat counting for packets according work_done behavioral
+  change (patch 1)
+- v1: https://lore.kernel.org/netdev/20260814234845.773189-1-joshwash@google.com/
+
+Joshua Washington (3):
+  gve: fix XSK buffer leak when rings are stopped
+  gve: fix XSK buffer leak on error descriptor
+  gve: fix napi_disable deadlock when attempting to disable XSK pools
+
+ drivers/net/ethernet/google/gve/gve_main.c   |  8 ++++----
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c | 13 ++++++++++++-
+ 2 files changed, 16 insertions(+), 5 deletions(-)
+
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
