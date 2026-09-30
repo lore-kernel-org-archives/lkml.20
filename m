@@ -1,62 +1,66 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5782846D2DC;
-	Wed, 30 Sep 2026 10:28:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E0C3DA7E3;
+	Wed, 30 Sep 2026 10:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764090; cv=none; b=MZG6tBk04qS9sWh4hnEVJIPaACNKeKk+HqXnGPZAvMuD18CnKBVcKUmqGje6K3uYzOU6l3+h8TPCuGY6RLm0CiTOjOHkM4KWpUrkArj4VIgzhkQNXSfhR4TFnaP0QaBy5A0EZA7+4HBsxh7O2KdycR4tY7dghigV9TkEPJ+Pm/I=
+	t=1790764119; cv=none; b=i7IOOSSKp+M/YfknkGsBBPPP6TNic2jFCQB6Ua79iS9+jjTlEdH154aJ2CI23DO6A2seAXauqKYHTM0IIdMEZjQiZnKtgvwo47Z/iO7damUWI0lE9YYA4EqrLUqmgK8zwIuMKr0E0M831s2phFsf+cdI3IRUlFCEjd8E9UcRHfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764090; c=relaxed/simple;
-	bh=QzBr22SqRA5DDIJSL0NN84Cg7nw4qqZbNDCKHoG1P6c=;
+	s=arc-20240116; t=1790764119; c=relaxed/simple;
+	bh=+YKSvw+J+7jyR16aky17JL7uQiLkoDOGI6/Tgsb5LPs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GDoDcmA7xNBwZ92gZB30HBOhHinZYtXqFCggGWBlaooQU+TYtuSK51dWT60apwZlUPN8WIBBtCQc/d6vFyXBFGoqoln0t2XVsB/EXZDJNt3WnOQGKQqmQbvW+5qOk/pjznY0aLqDMzftE71pGjM0ExND8GA4+MBAKFMyv6o/SuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DXBnNtLo; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LMoYdC5yeQpoZvgXpSHDSxPlZCF9p2WECSXhBJIFWVS25cK+ZIFuTOUijdaYa+6qnkvGnMvPzctWC/Zv1Jgna7u4AGnah68RWIdk9XkUPFTaYuKXo8iT4IoMeXJvqAuESiCLwxCoJl0e5y9uOvn0YNkX2D/VCWSnSumF6XAlp8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gb7zXE9I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DXBnNtLo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790764086; x=1822300086;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QzBr22SqRA5DDIJSL0NN84Cg7nw4qqZbNDCKHoG1P6c=;
-  b=DXBnNtLoqSL7jmmjec5BTAFrZuJa18FZKrIZEL+5I4VWFQOF+FIYUS7+
-   GRl59gP8bPSsKVaNEO2QMWueUTuZXxZu8s8ZmEkTSOAq4LGKzRW5s/rBj
-   59jJor8dD2a9b94jSkPygCKnwqUumKQUOC4+z+NBoZS4Ho3oFQcMg7qK9
-   FWYLnDZ6sz5beIH0OUdaNgj9tUHmYXL6/jZ1DV7+TcpAmtW0A1s8PEf6W
-   Oc3Z0hO+Ho4+8yWg+pNa4FdIiBD4cQ/ZLaZ09KMHaXifZ3600ICHXtFeA
-   U1op3Oce10Uni+kP4dY7YWQN8VcGiX9RSIr1gMs1SPFzE38RMiq6VeSRY
-   w==;
-X-CSE-ConnectionGUID: UT8xwwRbSqq+ee0x3bM7tA==
-X-CSE-MsgGUID: rtdH78HkTR+Rrt/j7dKj1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102069339"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="102069339"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 03:28:04 -0700
-X-CSE-ConnectionGUID: se4Cym3uTve6cN36bclJ9w==
-X-CSE-MsgGUID: u7aexdifRp2OySrLcw3GVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="274846216"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 03:28:01 -0700
-Date: Wed, 30 Sep 2026 13:27:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: pressure: dps310: fix overflow in pressure
- compensation
-Message-ID: <arzkLlzYkZ3Q6fah@ashevche-desk.local>
-References: <20260930085819.886339-1-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gb7zXE9I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6EE1F000FF;
+	Wed, 30 Sep 2026 10:28:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790764118;
+	bh=3AlfBCTmpruVCLkNFQRzrD/em+eWOpqKpyOiivU3oII=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gb7zXE9IoZs6cbj6Ja6aHJwZtGMS/ICAce6EWUxPoyYZD+wWn4JQB36ydNcIHy81P
+	 Ix6KhornLVyu7QjQImjuYJQ6q3ut/Fpfea/s1Pxc6E9B/gYaAfai4tv658RbGEJV5w
+	 c2FUbn7dDgVRndYi4OQH6cCcxSIYm4BWxmElD3MZlIFl78mR1DXuYpzw7KolJxBXXf
+	 DG/sXJIz9HZBpHeGv5t+Hbz1DPI/xqH0NEWgu8GtDXVqzAS+LWJi2HH6uipj3+6Kyb
+	 ynwz5InOjqSt/H9stD7inw5OssG4dusyaNgA1GOGAjyR7JwM8ARquCvuPpAC+nmpew
+	 Jb/Z6N0cSvjjg==
+Date: Wed, 30 Sep 2026 15:55:34 +0530
+From: Naveen N Rao <naveen@kernel.org>
+To: Michael Roth <michael.roth@amd.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Ackerley Tng <ackerleytng@google.com>, aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, oupton@kernel.org, pankaj.gupta@amd.com, 
+	qperret@google.com, rick.p.edgecombe@intel.com, rientjes@google.com, 
+	shivankg@amd.com, steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, suzuki.poulose@arm.com, 
+	aneesh.kumar@kernel.org, liam@infradead.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	Vishal Annapurve <vannapurve@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-mm@kvack.org, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v11 15/46] KVM: guest_memfd: Call arch make_shared
+ callback for to-shared conversion
+Message-ID: <arzjFT1Fqzcuw9QM@blrnaveerao1>
+References: <20260826-gmem-inplace-conversion-v11-0-0a15d8a799aa@google.com>
+ <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
+ <ao9CKMXAX-hScRSa@google.com>
+ <art6ARechyK0iytK@blrnaveerao1>
+ <gqybhgtzeufmbohckesirsbu3ftn4s4i3uhjhaestphuppvth5@zx7lqsldosbc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,30 +69,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930085819.886339-1-zoone.rupert@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <gqybhgtzeufmbohckesirsbu3ftn4s4i3uhjhaestphuppvth5@zx7lqsldosbc>
 
-On Wed, Sep 30, 2026 at 11:58:19AM +0300, Rupesh Majhi wrote:
-> p^3 * c30 and t * p^2 * c21 overflow s64 at most oversampling ratios,
-> and pressure comes out about 150 Pa low on a DPS310 here.
+On Tue, Sep 29, 2026 at 08:01:45AM -0500, Michael Roth wrote:
+> On Tue, Sep 29, 2026 at 03:10:41PM +0530, Naveen N Rao wrote:
+> > On Wed, Aug 26, 2026 at 12:44:40PM -0700, Sean Christopherson wrote:
+> > > On Wed, Aug 26, 2026, Ackerley Tng wrote:
+> > 
+> > Can this be a problem with gmem hugepages? Not sure how that is going to 
+> > look like, so this may be covered in other ways.
+> > 
+> > But, as it exists today, if the guest converts part of a 2M page to 
+> > shared, then this skips zapping the SPTEs from the call in 
+> > kvm_gmem_invalidate_start(). sev_gmem_make_shared() then issues PSMASH 
+> > to convert RMP entry to 4k entries and we end up with 2M NPT+4K RMP. If 
+> > the guest then writes to any private page in that range, 
+> > page_fault_can_be_fast() returns true, fast_page_fault() only checks 
+> > permissions with spte_permission_fault() and does not do anything.  
+> > sev_handle_rmp_fault() also does not issue a zap since it finds that the 
+> > RMP entry is already 4k, and we end up in a loop.
 > 
-> Use Horner form, dividing by scale factor at each step. Overflow then
-> needs a raw value far outside sensor range and returns -ERANGE.
+> In Ackerley's hugetlb series, gmem will split the underlying folio to 4K in
+> that case. I assume, if we end up adopting Sean's proposed optimization, we'd
+> update the attr_filter to force a zap if there's a demotion, similarly to how
+> kvm_gmem_punch_hole() handles it in this series.
+
+Ah, nice - that would be better.
+
 > 
-> Checked against datasheet formula at all eight ratios.
+> I think as a general rule of thumb though we'd decided that guessing
+> too hard at what hugepages will need is best left to hugepage series
+> itself (TDX prep work aside), because it always ends up different than
+> expected :)
 
-...
+Got it, that makes sense. Will consider adding WARN_ON_ONCE() so the 
+dependency is clear.
 
-> -	*val = (int)min_t(s64, pressure, INT_MAX);
-> +	*val = min(pressure, INT_MAX);
 
-So, in the original form the new one doesn't seem to change behaviour.
-With this being said, I think this part should be split to a separate
-(non-fix) change.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Thanks,
+Naveen
 
