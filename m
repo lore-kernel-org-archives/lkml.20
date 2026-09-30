@@ -1,156 +1,169 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1F4334692
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0472D59E8;
+	Wed, 30 Sep 2026 08:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757256; cv=none; b=fM7DMLAftIWwcNk855LhY4aoqTNd+v2XaeYnNHG0uiWAgJECi28MHumm0lqcaT90h99eAfA00XjjW89Xf69BF10wmfwLOsvxuNTwGZln4rN4FlWS5z/RTIcakxKhjXLdzYj3faUt7I+TC9tRmqW+I3VrKl6U+ypRz4F97cJoJZM=
+	t=1790757308; cv=none; b=IChb34eBL6wB1KuXJpojuWOuYERNPlLvNo7pY1uP6xJAnMR5YT5Eq6NuKJgSLXDgmkplhb8RkXr1bAOY8uuimsI62cWAEIkLn21a7YzVHrWbkkOOkpc9JXZw63lG52AuLG4Gh2oZmdHZuxt/e8ws0vYB5VJIJ6yPQrVUVTtMUsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757256; c=relaxed/simple;
-	bh=pmdUtLHiDBYPwdKz6lOBEihhJVlCk8853EgW8s9fCWc=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JRjwJIuJxYxCqHnDgvFBDw+5OHraYIPI60bEsxab7vZjLKfhqEUlrxjyVJkDrEenpI2120Ep2NmiZbi9/4Lfycr6OkbanDZhN4cGHEkjXAlG41oJe/wdiPsGauaoo9fsQGmtTy7F+SbPG6Nt3gnDSamWpCScir9Tz2AR0oE07kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i7KGKPAX; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790757308; c=relaxed/simple;
+	bh=jDpjBQ4Fv0vizTH/R2w52lNHv7zi8LnZQZCiWr9dGSQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WKfsqfRmEu4taUWVRVJbI7UlEkdKsTTEoG0NmJZ4i4MtYWGAmgeZHNvt7v83/AFSDPamyZuYKz+7vzkp1rmeQfBwk3dxWEor/MktNN3eX3olF/sGCKj0848QajStnvy9xsVerRTx6FkfDak0/jRIqLYD0HFHkX3KeSruoNGxgVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YOWdOO1O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i7KGKPAX"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af3701927so768689666b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:34:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790757247; x=1791362047; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uQBLg1lOxnEKgr89MFlKuWhU+DKGispKKqyorNYQTaM=;
-        b=i7KGKPAXmt+ZuptqaIzfIC3G6alJDnPdCO+Iy+N9tGHabaik0MKSu9XENv3X6z9nbi
-         hthoqZ5J9eZi/sXH42cZsOpzE0tpcaxB6Q2aZwm2nsmWn0lTA9Am6Z7NtBO7mTRI0tBh
-         A1Q8yqlOyK0YbpcsEl/3jiASAWVRVj2fdqAriZE9lmoUMbbrTqAFb3hF5F19j+NqYMiM
-         sxZ+pCLJnoa/q39n4UefNPrsqjao3vwl2ori7MIUzj2vUpCJbSyKoxZuM8aQMocKimqF
-         0H15Umgwf51PcgyWyroXUUlVCJjba6ERy50K2CvQ9I7vFE6U/f88AAZIqZIo3RGgCbh7
-         ewUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790757247; x=1791362047;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uQBLg1lOxnEKgr89MFlKuWhU+DKGispKKqyorNYQTaM=;
-        b=JkC9oFpWcAdR4+i57c/M9gsgV4E6EE6NhxN43YXyU7eb8iLkuaKMba218rM8DK0Wa3
-         tf03OLsgsRcZcBFQQUR3FB9kw57IpdQXoeWK8c0wpf4pjymJM4fLl7Vu1yIby3n+FZGG
-         biPqzdNTqEBjy3f1uEwSJyfGTFnQXa4SYasKlDKaoeHjFXsu5Q4WWy4fswGrA5D6kz56
-         o1srCahqfnoPLXk9MkuZjjQnqVsIVbtxx3F3DFErdc9vGYw7I8jUcC28ulaaTciOiiH+
-         uWRY1m+HS1P7xBEemPh72X1N+kAznnWyAJr9T8+347fMxRzQ3Le+cnDFRv1FwA+o78Kv
-         FrlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6+Jqb5RQFHH+JyA0b/KW3PePb2SHhWxXl8eq2U7f8qKq0IaHifg+0+25OBBMnk2VDJs5JNTOuN1gUd2Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9EO6yCAIQCTRT6n5qaOfGj164VKIXB4pAC5OyaDGZZdGq/7cQ
-	lzqNDz8pT3E/j1md6S7sj+VN6mj1Zt14lnLqrLDRYa3XamUf8QFPCWFF
-X-Gm-Gg: AYBFou2ftnoHYs1fJGDeliyW0rHtlUiXyzPFpZbvCMR48phyYHWibVkslWRFEaYqXxq
-	qHcyIsD9Fd0lGK5XqiVlJAhkk8tuz3wGff2B7z4NTGSlITe0Dn5fM/3UqlAJpFvrXJttdwFq7Zd
-	8SmNOsouqtoB3AM1PCcXnZYRtJ1xOJ8NXf+ImflnwDlU8vNXbildjSKng/YJsc6xcnDkmIgRL4y
-	DVbLQLHgaoO4VqHkexn1OwxcSpRi8TXtcsP351hVh84Vfymh3I6pyENnXJyx4sVVEXxg2dZjPdw
-	JzuSzL4nYrdi8/42HTNQd+UXO8s61YbVMnXDPN84FiK9M/PNgMXnr/jgLU1ynX2alGGpuelnT43
-	DK5k39WKfafJpPYnY+lX1/SbIi9HLXJBFMhgVynFT65IztAKUHAQ/5uLuJ/CGlUQCtloMQi52iO
-	XgPw2285FqG8cUU96dJkMdT+e+viBfTdKghcK9
-X-Received: by 2002:a17:907:3f18:b0:c2d:d89d:346a with SMTP id a640c23a62f3a-c2e23663b74mr51705266b.3.1790757246934;
-        Wed, 30 Sep 2026 01:34:06 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22fa41e8sm27570366b.55.2026.09.30.01.34.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:34:06 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Wed, 30 Sep 2026 10:34:03 +0200
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-modules@vger.kernel.org,
-	kasan-dev@googlegroups.com
-Subject: Re: [PATCH v11 0/7] alloc_tag and module codetag section fixes
-Message-ID: <arzJez4VNWEVnXiF@milan>
-References: <20260929082014.160587-1-hao.ge@linux.dev>
- <20260929134401.a1a385ff4369661f879b5d2f@linux-foundation.org>
- <CAJuCfpFRW3uNUW_VrjpOfLwS1LBHqGEpqK3yBTPSpGOORY5jiQ@mail.gmail.com>
- <fc4f3d08-393f-43ed-934b-e7e1ba6d0137@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YOWdOO1O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A281F000FF;
+	Wed, 30 Sep 2026 08:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790757300;
+	bh=HmmuXY1dhET9hXohl3geSgtGl1ur+YkaIpC1O3vWiSg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YOWdOO1OmdzlKOayaKWfTLJfhShKZq7oZOxhbrhqWeUWZq9OVGrVvh5CZ3GZhq2Kn
+	 lG0Gy4RuB+WAFtkJAjGIXicvap3bVB/chNozf41O3Z9eyYW5tl1Ozzyd3kYk/ZvrSh
+	 hnvmbFMENtGBtTJVZJfd5YZy6v1JPiU90Yj1HzgEVSkA/g1za2/uCqakigHBYvhzq/
+	 L7Xp4X480mUn/NZPFdEpnQuMudgUrFbJf+8XMIu+PoSO6y7+sY6KQqnCv7eBh7ojlM
+	 Yu3IeHhFduCBjhDmaRFLaT+pBCHyD2WUlB8acfZNYwhVtzhFAUhMbWc3ESQdfzOmR3
+	 d9In/lRM2sbyg==
+Date: Wed, 30 Sep 2026 10:34:58 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+Message-ID: <arzI6PXbGAgXs9Uh@orome>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-2-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6xcfjcqu5qqwldk2"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fc4f3d08-393f-43ed-934b-e7e1ba6d0137@linux.dev>
+In-Reply-To: <20260930070535.47130-2-clamor95@gmail.com>
 
-On Wed, Sep 30, 2026 at 11:26:41AM +0800, Hao Ge wrote:
-> Hi Suren and Andrew
-> 
-> 
-> On 2026/9/30 10:39, Suren Baghdasaryan wrote:
-> > On Tue, Sep 29, 2026 at 8:44 PM Andrew Morton <akpm@linux-foundation.org> wrote:
-> >>
-> >> On Tue, 29 Sep 2026 16:20:07 +0800 Hao Ge <hao.ge@linux.dev> wrote:
-> >>
-> >>> With profiling toggled off, the overflow check in
-> >>> reserve_module_tags() did not run, a module could load with more
-> >>> tags than the page flags can address, and re-enabling profiling
-> >>> then silently corrupted /proc/allocinfo. On overflow the fix shuts
-> >>> profiling down, releases the reservation and returns -EAGAIN, and
-> >>> the codetag section lands as regular module data in the same load,
-> >>> so the module loads without profiling.
-> >>>
-> >>> Review of the earlier series by Sashiko turned up more problems.
-> >>>
-> >>> One is a race. layout_sections() and move_module() both asked
-> >>> codetag_needs_module_section() where a codetag section goes, and
-> >>> mem_profiling_support can change between the two calls, for instance
-> >>> when another module load overflows the tag index and shuts profiling
-> >>> down. move_module() then copied the codetag section to offset 0 of
-> >>> its regular destination and clobbered the first section placed in
-> >>> that region.
-> >>>
-> >>> v7 reworks where codetag sections are allocated, on a prototype by
-> >>> Petr Pavlu [1]. The allocation runs before layout_sections() and the
-> >>> placement is decided in one step, so nothing re-asks the question
-> >>> and the race is gone. The retry is gone too, on -EAGAIN the section
-> >>> is laid out as regular module data right in the same load.
-> >>
-> >> Thanks.
-> >>
-> >> Seven patches, all cc:stable.  Why is a backport proposed?
-> >> Documentation/process/stable-kernel-rules.rst gives guidelines - does
-> >> this series meet them?  Does Suren have thoughts?
-> 
-> Thanks, I've just gone through this carefully.
-> 
-> > 
-> > I think vmalloc fix in patch#2 should be posted separately and clearly
-> > quialifies for backporting as if fixes issues Hao found at [1].
-> 
-> Agreed. Patch #2 was added to this patch series because vm_module_tags_populate
-> suffers from the same issue. If we want to be more conservative, I'd prefer to keep
-> vm_module_tags_populate as it was in V10:
-> https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/
-> 
-> Then we can submit a fix for __GFP_NOFAIL retry loop in __vmalloc_area_node() as a hotfix together
-> with our new patch #2. While at it, we can also check if there are any unnecessary calls to
-> vunmap_range family functions that can be cleaned up now that patch #2 is applied.
-> 
-Yep, this should be a separate fix for vmalloc.
 
---
-Uladzislau Rezki
+--6xcfjcqu5qqwldk2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+MIME-Version: 1.0
+
+On Wed, Sep 30, 2026 at 10:05:30AM +0300, Svyatoslav Ryhel wrote:
+> Expand existing DC register definitions with additional fields in
+> preparation for adding the 8-bit CPU interface.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/dc.c |  3 ++-
+>  drivers/gpu/drm/tegra/dc.h | 54 ++++++++++++++++++++++++++++++++++----
+>  2 files changed, 51 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> index b0bfa946e6979..5c67928bcabfa 100644
+> --- a/drivers/gpu/drm/tegra/dc.c
+> +++ b/drivers/gpu/drm/tegra/dc.c
+> @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crt=
+c *crtc,
+> =20
+>  	if (dc->rgb) {
+>  		/* XXX: parameterize? */
+> -		value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> +		value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+>  		tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+>  	}
+> =20
+> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> index 0cb0515968b35..5679e1ca0c2a5 100644
+> --- a/drivers/gpu/drm/tegra/dc.h
+> +++ b/drivers/gpu/drm/tegra/dc.h
+> @@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define DC_COM_CRC_CHECKSUM			0x301
+>  #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+>  #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> +#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
+>  #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+>  #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> +#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
+> +#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
+>  #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+>  #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+>  #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> @@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+> =20
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+> -#define H_PULSE0_ENABLE (1 <<  8)
+> -#define H_PULSE1_ENABLE (1 << 10)
+> -#define H_PULSE2_ENABLE (1 << 12)
+> +#define H_PULSE0_ENABLE				BIT(8)
+> +#define H_PULSE1_ENABLE				BIT(10)
+> +#define H_PULSE2_ENABLE				BIT(12)
+> +#define V_PULSE0_ENABLE				BIT(16)
+> +#define V_PULSE1_ENABLE				BIT(18)
+> +#define V_PULSE2_ENABLE				BIT(19)
+> +#define V_PULSE3_ENABLE				BIT(20)
+> +#define M0_ENABLE				BIT(24)
+> +#define M1_ENABLE				BIT(26)
+> =20
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
+> =20
+> @@ -451,11 +460,30 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define BASE_COLOR_SIZE_888    (  8 << 0)
+>  #define BASE_COLOR_SIZE_101010 ( 10 << 0)
+>  #define BASE_COLOR_SIZE_121212 ( 12 << 0)
+> +#define DISP_COLOR_SWAP_BGR	BIT(16)
+>  #define CMU_ENABLE_ENABLE      (1 << 20)
+> =20
+>  #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+> -#define  SC1_H_QUALIFIER_NONE	(1 << 16)
+> -#define  SC0_H_QUALIFIER_NONE	(1 <<  0)
+> +#define SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
+> +#define SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
+> +enum {
+> +	SC_H_QUALIFIER_DISABLE,
+> +	SC_H_QUALIFIER_NONE,
+> +	SC_H_QUALIFIER_HACTIVE,
+> +	SC_H_QUALIFIER_EXT_HACTIVE,
+> +	SC_H_QUALIFIER_HPULSE,
+> +	SC_H_QUALIFIER_EXT_HPULSE,
+> +};
+
+Let's stick with regular defines for this, there's really no advantage
+in using enums for this and the other enums introduced by this patch.
+
+Thierry
+
+--6xcfjcqu5qqwldk2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8ybEACgkQ3SOs138+
+s6HtwxAAiaxDlHnN4aptkVD4LviQS+58GCUsQFpauwktU417bgBtaEY2IR5bhnfB
+v1aTOT50EqEBPvh7/gQp60S9oc9tFNhwlVmLU/KYRlmcoPkusRlQVbI9Y+akKeti
+NGLkDd+dx/2+rBtMTC+dkfRcD+pakl1LHkmgyGkI6+JgFp/MpnaV0f5QwrgmuP0x
+rFC2I15ojWSnkDRGi4BG/n1LrdIXSnU2+y6LOuEkRpyIiFXDiHHfkLavBS4UkdTX
+C41Xra+HkTVy0auwYYkoWMPPpQXls82+OyXmBiK/eeLmv5ECrJUjIEJaR+6R4frG
+6DA7OgJGsUne483UmmNe62lTxvK2BlPX7aRSS+3yyhEUW2HUdgghnFx0VLJlwhAG
+nO1iOpc4/8KwrJsiCpAyc1bsW+G8whJ1XJBQhdylkGRjulciBSBoRU+EO8g1flKa
+u4kpC19nVL6RY66YlVVxhrOrjSUc2MKkUOz5A7rJxAbJenvlEQKgnsY8nRvm2iQ+
+LqXc/3/nlivdMrY323Q3GmABGf+9LI7ZK4nSkzLWhjkh2kMAL3yeXskRoShIZ3BB
+xyHhjrG8hSfNBYz2E7rl+N9iXfCndvqtCJ/CBGSqJdwOAyYSfLht/zblkgn75GdJ
+lH8hBcIBf/4FrCdbbjiuOsj4yHW8jhaZZrit5BXeQgRbib1M2B0=
+=fYMI
+-----END PGP SIGNATURE-----
+
+--6xcfjcqu5qqwldk2--
