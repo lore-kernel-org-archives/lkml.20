@@ -1,64 +1,68 @@
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312814C6517
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1374BF923
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768849; cv=none; b=qlhrSWVu63EGS5g2Srmb1GdqtW2siXh85P+nrAV+lJuIlJ6jsbgHufCa9XJOm+QfA238GoSLXfqN57BSXxxSvGRLvfPWDM6TUGOohl5qG3tyhegFp5mXDSjPE78hW5QNzxbpZWQtx8LF3bhcDJwpCYeDcrt5J/aCDlejJf2i9hA=
+	t=1790768850; cv=none; b=ZokUKg8MYM70DxkyVCUU+JtV9hv+Y0uEHKcK69jTTBpaHr9yqaAycvnxnEIVJtNbCBkPpzrPotRjgWoXv3F+HxjULpxE60KFmeXoD1/gEuY0vCsuu02gLTPiGqwm0wmO0aqwc0en9DQN+40WUHy4jGL6uX2M2cDtXi9p+8yzFaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768849; c=relaxed/simple;
-	bh=jOj0nGq+c6ouATA66MO2woS1Ki0X2pxS3NB4B+62yd4=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=psQOabaDCCIjRlWLEs37Zh3RKOfyCE5UFy7WYtQzzBtrkCFpbVgMVijSHCU8uxKfI4Nm0m8BHpbH3TLgsguer7HxdVlxfCmkwy/S5rGT2WbJfcD+0BCIUQ4jT2t7/i16gT2r/1NeaJGOKL7xP2rZ8z1UdEVI/QrzP12/4JKbFc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZVs8fCuO; arc=none smtp.client-ip=209.85.221.70
+	s=arc-20240116; t=1790768850; c=relaxed/simple;
+	bh=S2IteDg8BCUYq9MzemfP7PtVXLKBwoY3Str6Zy5rFOM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=UjGMa5wZVUIhxykBfaw5IexOoXYCughsMxhmVLenoQA0bI7p1uy58ccNfUQWoV6hLluGU255iJJtXH4Ianr6h+MBSjQMYTjWaL/6Vpl6qOkJZ4fvZPR1m4yvqnt8ibWLvytk9BGK6OL8yoiGeuTjxuZ4MWqvcbvS2zt0KJnR9LE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NNCaBPo1; arc=none smtp.client-ip=209.85.128.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZVs8fCuO"
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-486f9d150c3so3086285f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:47:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NNCaBPo1"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e735659b7so39250515e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:47:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790768846; x=1791373646; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=owMC9khuhP+e3QmjJLE7NHWx2GpchftIweYKj9nwbcI=;
-        b=ZVs8fCuONj7v27+aidGjVkC5Mhk0V38ZuV4agClGuXzyriv89pXUsMFMd/d3JxN0qU
-         Xq0OWtrOxwrB1t/SHP2rmthvNtT0NsmWFItihzpBYlQ68kXDIMjwJnC4JzoxBLuaWnG7
-         cL6wvSmFCvUPtNO/EN1D7VYTkueG9auOCyZs0AYyezCY14lgnx+VDSZHlYp7Bg5A3rpD
-         d3gU5XNIqRzDa0UrWn8jAkR2+Z0OO2qU/pkJj7RyszSwpX7Wv2hyi6O3WY4XtZqANt2V
-         9Uvehyb6A+rA1NAgb0+cnG86GerypAILBLyuSUguynTVzfbNMqrQF4IlQ1ZP6owSHUhJ
-         ay8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790768846; x=1791373646;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790768847; x=1791373647; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=owMC9khuhP+e3QmjJLE7NHWx2GpchftIweYKj9nwbcI=;
-        b=uDLxSSBRsEyrtxWJ0mERJJqeg1ZA91xgPCkkKhMWngmcf35R/0RUuxi6XFLbkCp4TO
-         /UfwFDIj/WyyGhOPgN5e4Qnnro5r4AhUtkUVRx1E5IqOlzEhrYOxFRqRQA4VQD6mKI3h
-         j3jnyrvVOjASTUmjEkZXVElNmBQMUxLTmA6TReB6ohTmpSx0B8GY/flL6pV23pIttjII
-         UhjMq/NuiLniDMSNuuswMyOF0u8xhI3m+H75u6Ytl2Wb9gXA0Hfq1RDolaulgbom7HUx
-         FfCJvTcyQ10jpwhoChLmx5OtVWAk1WEY36YAtZlQkTIrjX7aCIJ6SIS+eJHb92BrWvXx
-         icWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzpTd5G5RApg7mq8lrt+iSuj7AETXU0CKJCVrU6UfLia6dJdGDYievenHgpaJk8vntfLEufko/m8Zxjfnw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lla6cwC3G2ypWdfxJba0unitw5M/BkMZmvjXIK3lj9GcK8FZ7H
-	Hjez5vsPeyTNMleFr3ypPWnyTLNiTyJxP/B/UDOoKD8qpf/h8GLsg6xCEtfVnvDMdleFWOSQ81F
-	6/D+KM6Lqm4hAjg==
-X-Received: from wmpo20.prod.google.com ([2002:a05:600c:3394:b0:4a0:23b:31a7])
+        bh=XEJmFxHtcGebW5hV+i8YWLS/cd2PKjrOjbCuo6aJ0BI=;
+        b=NNCaBPo1LtFpi/elvc2szZRldCHO/9yv3imzh8GmkQKlCqPJ7kvamLyZROhBzdSnkS
+         4+mWK6P+0wISq6gZo46pfFCcbQsovmvs0rwjlEWEALSI50ZpRT0ZUm1cG34OfwDrTt0t
+         URo4fl43FZKlJc7XCZMi+othFCTPP0HI1yPJLAFT17AUuofr56l2Qofpj7Z5BON/+Rlc
+         H0qpj9Tcdh86i+7kHV0+4nqEDDeXsKXFsUhxIRbp04WoXYLA7P9IWD0uQzbrr7DHlHoJ
+         3A/UqvCRgqz/eeU+qRMp1ySzontHFCcx/SX/uKCiXwZsLg3YpptH0lI8pM/9Ts5WiZEH
+         2V4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790768847; x=1791373647;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XEJmFxHtcGebW5hV+i8YWLS/cd2PKjrOjbCuo6aJ0BI=;
+        b=rXIjZhqEUPF22g3uScST6hyBa4U1oc0em4DOMU93OM/Gec2inGs2UxkMS+t6LTawMU
+         7kCG+OFtREMPbZ5DtTbko7EC6TM8ABdxtPfTS/i6khtWyzkZu7Sp6UrDcRaoZ9CDIhNm
+         wj1x8Z8J/UHHn0+wZFc7qniMyVmRSW7eHUPdfemO7sKO0b3+45Loaubyy6PpGLMRL1HE
+         6cv/l6obOsse65AOdQ5OfzL8i8Zd4PtYJGZg8wGo0DCOzA1UrCecgnBHrmUb61dXQiXv
+         GHG4s0RbZkWYCMiPeNy+vwB0vASLRhSPQwdvJXkom/PsMzWdFRnl1FL+k+zQa6hNB+iQ
+         t6xA==
+X-Forwarded-Encrypted: i=1; AKwUvBybfrJfWlpQK7zd7UcXc55MuKiiRGl1SeF1EayhdPHkKO1Jf1Yv1tOoIKgLkNn4FZBvwJnlk0rY+Iq/tYU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuBns+MAcqhJeAmHkzt3koLOm7wXpXRaI6eewF1qbupkHmC1Xk
+	d1CvdecmurQ4CGpvqM4aBxWYixbyZHee/axCz6bzWgPCFQYAY6zEmdxDdvP1gKQOJD6iywQyC55
+	DE+jl3OMnnNkbtQ==
+X-Received: from wmdv19.prod.google.com ([2002:a05:600c:12d3:b0:4a0:1046:34c4])
  (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:45d3:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a01aff9b3dmr16789185e9.12.1790768845892;
- Wed, 30 Sep 2026 04:47:25 -0700 (PDT)
-Date: Wed, 30 Sep 2026 11:47:21 +0000
+ 2002:a05:600c:45d3:b0:49f:cac3:c68a with SMTP id 5b1f17b1804b1-4a01affeca0mr17228185e9.31.1790768846990;
+ Wed, 30 Sep 2026 04:47:26 -0700 (PDT)
+Date: Wed, 30 Sep 2026 11:47:22 +0000
+In-Reply-To: <20260930114725.331370-1-jpiecuch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260930114725.331370-1-jpiecuch@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260930114725.331370-1-jpiecuch@google.com>
-Subject: [PATCHSET v2 sched_ext/for-7.3-fixes] sched_ext: Fix missing
- ops.dequeue() on remote local DSQ moves
+Message-ID: <20260930114725.331370-2-jpiecuch@google.com>
+Subject: [PATCH v2 1/2] sched_ext: Call ops.dequeue() when a task arrives on a
+ remote local DSQ
 From: Kuba Piecuch <jpiecuch@google.com>
 To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
 	Changwoo Min <changwoo@igalia.com>
@@ -66,82 +70,61 @@ Cc: Kuba Piecuch <jpiecuch@google.com>, Emil Tsalapatis <emil@etsalapatis.com>, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi,
-
 When a task in the BPF scheduler's custody is moved to another CPU's
-local DSQ, ops.dequeue() is deferred until the task is picked and then
-reported with SCX_DEQ_CORE_SCHED_EXEC, instead of being called without
-flags when the task is inserted into the destination DSQ. Patch 1 fixes
-this by reverting the enqueue side of b75aaea24c9f ("sched_ext: Properly
-mark SCX-internal migrations via sticky_cpu"). Patch 2 adds a selftest.
+local DSQ, ops.dequeue() is only called once the task is picked for
+execution, from set_next_task_scx() with SCX_DEQ_CORE_SCHED_EXEC, even
+though no core-sched pick took place. It should instead be called
+without flags when the task is inserted into the destination DSQ, as it
+is for same-rq dispatches.
 
-For 7.1.y, patch 1 also needs 18d62044cda7 ("sched_ext: Preserve rq
-tracking across local DSQ dispatch"), as noted in its stable tags.
+move_remote_task_to_local_dsq() sets p->scx.sticky_cpu across the
+migration so that deactivate_task() on the source rq doesn't end custody.
+Since commit b75aaea24c9f ("sched_ext: Properly mark SCX-internal
+migrations via sticky_cpu"), enqueue_task_scx() only clears it after
+inserting the task, so task_leave_custody() still sees the migration in
+progress and skips the custody exit.
 
-This is based on sched_ext/for-7.3-fixes (d35a535d3e3e). Merging it into
-sched_ext/for-next gives a trivial conflict in the selftests Makefile,
-where enq_blocked was added next to dequeue_remote; keep both.
+Clear p->scx.sticky_cpu as soon as enqueue_task_scx() has read it, as
+was done before that commit. The source side is unaffected.
 
-Testing was done on x86_64 in virtme-ng with 4 vCPUs in an SMT topology
-(2 cores x 2 threads) and CONFIG_SCHED_CORE=y. Without patch 1,
-dequeue_remote fails in every run (30/30), e.g.:
-
-  sched_ext: dequeue_remote: dequeue_remote.bpf.c:141: 15 (rcu_preempt): late ops.dequeue() with SCX_DEQ_CORE_SCHED_EXEC (enq_cpu=3 cpu=2 seq=1)
-     ...
-     ops_dequeue+0x114/0x170
-     set_next_task_scx+0x104/0x1e0
-     __pick_next_task+0xc7/0x180
-     __schedule+0x154/0x1870
-
-and the full sched_ext selftest suite reports 31 passed, 1 skipped
-(nohz_tick), 1 failed (dequeue_remote).
-
-With patch 1, dequeue_remote passes in every run (30/30), with ~140k
-custody enqueues per run, ~90k of them followed by the task running on
-another CPU. The full suite reports 32 passed, 1 skipped (nohz_tick),
-0 failed. dequeue_remote also passes 10/10 with the runner and its
-workers sharing a core cookie, where legitimate core-sched picks out of
-custody do happen.
-
-v2:
- - Reordered to put the fix first and folded the Makefile entry into the
-   test patch (Tejun, Andrea).
- - Fix: clear p->scx.sticky_cpu right after reading it, making the fix a
-   revert of the enqueue side of b75aaea24c9f (Andrea). Reworded the
-   comment and shortened the description (Tejun). Noted 18d62044cda7 as
-   a 7.1.y prerequisite (Tejun, Andrea). Added Andrea's Reviewed-by.
- - Test: check p->core_cookie on SCX_DEQ_CORE_SCHED_EXEC instead of
-   skipping when core scheduling is in use (Tejun).
- - Test: count CPUs with sched_getaffinity() (Tejun), pop past stale queue
-   entries in ops.dispatch(), reset and print all counters per scenario
-   (Tejun), destroy the struct_ops link and reap workers on error paths
-   (Sashiko).
- - Test: deduplicated the descriptions and lowercased single-line
-   comments (Tejun).
-
-v1: https://lore.kernel.org/r/20260929161730.185271-1-jpiecuch@google.com
-
-Thanks,
-Kuba
-
+Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
+Cc: stable@vger.kernel.org # 7.1.x: 18d62044cda7: sched_ext: Preserve rq tracking across local DSQ dispatch
+Cc: stable@vger.kernel.org # 7.1.x
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 Assisted-by: Claude:claude-opus-5.5
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+---
+ kernel/sched/ext/ext.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-Kuba Piecuch (2):
-  sched_ext: Call ops.dequeue() when a task arrives on a remote local
-    DSQ
-  selftests/sched_ext: Add a test for ops.dequeue() on remote local DSQ
-    moves
-
- kernel/sched/ext/ext.c                        |  10 +-
- tools/testing/selftests/sched_ext/Makefile    |   1 +
- .../selftests/sched_ext/dequeue_remote.bpf.c  | 265 ++++++++++++++++++
- .../selftests/sched_ext/dequeue_remote.c      | 202 +++++++++++++
- 4 files changed, 475 insertions(+), 3 deletions(-)
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_remote.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_remote.c
-
-
-base-commit: d35a535d3e3e71f92a051d94e415f43612c4edfc
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 493b7aac7087..5209510d6a5e 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2152,6 +2152,13 @@ static void enqueue_task_scx(struct rq *rq, struct task_struct *p, int core_enq_
+ 	int sticky_cpu = p->scx.sticky_cpu;
+ 	u64 enq_flags = core_enq_flags | rq->scx.remote_activate_enq_flags;
+ 
++	/*
++	 * An SCX-internal migration ends on arrival. Clear sticky_cpu so @p can
++	 * leave custody when inserted into the destination DSQ.
++	 */
++	if (sticky_cpu >= 0)
++		p->scx.sticky_cpu = -1;
++
+ 	/*
+ 	 * SCX_RQ_IN_WAKEUP promises a task_woken_scx() call once this enqueue
+ 	 * returns. Only the core's wakeup path delivers one. The flags stashed
+@@ -2190,9 +2197,6 @@ static void enqueue_task_scx(struct rq *rq, struct task_struct *p, int core_enq_
+ 		dl_server_start(&rq->ext_server);
+ 
+ 	scx_do_enqueue_task(rq, p, enq_flags, sticky_cpu);
+-
+-	if (sticky_cpu >= 0)
+-		p->scx.sticky_cpu = -1;
+ out:
+ 	rq->scx.flags &= ~SCX_RQ_IN_WAKEUP;
+ 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
