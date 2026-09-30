@@ -1,170 +1,252 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 283CC47A874
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760454; cv=none; b=GLtZBRFC84hYBndx/3MC3E5dMpnaKhqlXC5++ujMJVlgOYW9Ar02rlyIrjppS2OBPQxM5cPxPjJQjwcn2xXu1Qfd++CMH0Gc2dR5PGuttKHX8/K8ybLzs1kezMDSKEmjKfu5oXB61LQErjmnmB9WgoN1venzS68LuhUX/YWGyEU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760454; c=relaxed/simple;
-	bh=zEiJnBSX2N316eOkzQul+PbIDHZfjDAS8ydt82bDmkw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G5jsCiTkd+vLgGZepogsLw0hNKQgvO36wbPFYbelb1lGf/zhTg20ztYLtJpE0vZWRTeAURn0z9cgswoh489jBKHgIB/p4gIaV8ZBrW1GKJHk5RdlinKSkhn6u+jL3gDJ7vingZ4axYLkWLl90uxplQputHhA0QnpVrVi4sTklDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qMKDLF4r; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC02351C11
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790760464; cv=pass; b=IaIq/Y+lyyfEs8itVVgm1jTKzE3LoxfNct5WweHgQ7hdzBQMhb6RGTTvEtYnmzJJMMhNt8MYE7yFOT3s0LKGuIsxezhAw7loGmpwUHvv7J0UprDlDFTUZngm/LVTFnIo6iLhZE5vOi8zSYEij2KVvlqGwX44Omiosth+kcFQDgI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790760464; c=relaxed/simple;
+	bh=xvB8CtGkLAMcNbtsL8XIugW8QxxO9PWbIr6GZS0uzbY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lKxBexBtt1E4NYkGTnj1zSLHacywZ2RevxMUMs420CGcJsCTBjLOQBs06wyNulFrlcBy/yn/ZcrYefDEr8qft/01R8ERrtY5wxsfDznucspMRTQJZlMuDBmpSotXygQ+j1zqNBhst+g1XfppX6P2llP2yXfL4/PDYz3FzWGMKIc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hxZcIdBn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cLOVDXnF; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qMKDLF4r"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1C6BA497;
-	Wed, 30 Sep 2026 02:27:28 -0700 (PDT)
-Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 77C703F86F;
-	Wed, 30 Sep 2026 02:27:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790760451; bh=zEiJnBSX2N316eOkzQul+PbIDHZfjDAS8ydt82bDmkw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qMKDLF4ryvlTnLG8B5XNoqRLtYiGwYldUYZyfkgCXMnB0R+fNGTUfWP/beQCBFKtU
-	 AQFw5aSQ1TEjJGhuAdQu7bPj5wz3muLoNr2IMQc/omUFLhRheGxBfOomnBZ3bRkhHt
-	 myMS5hcAF7kgootl2RjAhKJ6bMS8HSiwgkktMBFs=
-Message-ID: <d0a20ba6-2d1f-4169-9188-15b954c377b4@arm.com>
-Date: Wed, 30 Sep 2026 10:27:27 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hxZcIdBn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cLOVDXnF"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dRp12666858
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:27:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	aas5dFpRUJyHYCp7dUKEi7p5PXcPa3N+KVeAt5vuJzo=; b=hxZcIdBnBZT671Aa
+	Tn1fS6wYB5ZiDEO49xdsMfjoZpM+E7lzUVYEZtMxuFbKxuKgdNP6O8Qn5QIKjBsm
+	wJCgzaG2/lFpvx9XDJrCtUe+qxbguo1S2b4CbRIKQDtVt79e0JShciJJwepw/1LY
+	SzHPFthHkJIf/fOcCV8JEOcZW9y2+2RlTk5Ks1JmcQeEN2JQQA8yNbCIyEKWOQv1
+	UUo/RsGo7TAejIXnwANrQ2EkUY+4nJ3YOhQP+mOfBj1wzMQT5pBXr3sQDDHresQd
+	K/0Qy2c8Uf8vQBu3FOdkrtBniQeWTx12E63t7VTq2LOLXsypmtxyGBe+6P+MPfgB
+	Ht21bw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x27ghvr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:27:42 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so5162413a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:27:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790760461; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CrnucXBQNB8fojPtxVfMGJa6MH5Dqbps2KzPaKv8mWQIhteLWcUO2c27yqk6lGHN+2
+         OvFN3Nbw7w2xW1xsShM30pIpwTdsuHn6KC1mKLS443z8e5y21avx+t8JMNkdGjf7vIze
+         hQvyuU3nA0nRBOI4UKxSPD3mmKz8OapLFhJSWt6jCRy30NyS8X6byypZl16i7AQYNBbE
+         nD4wPNMHFcj85BAwqsL9JgivnLqJmWzme96VYl9rOJXSGoa72sw3TQVwP3dhnfqT7Ie3
+         Qq4HmF7Nzv4eU7C5FAtsJh4b6wkIEOaAb7SEjLHMVg/5znBtgiLw5QrtulLVCrYfnv3A
+         TL7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aas5dFpRUJyHYCp7dUKEi7p5PXcPa3N+KVeAt5vuJzo=;
+        fh=ToAR0S2RJk2LU40+Cq7h7OXyue7a60YKLI6F5BUE4zw=;
+        b=UXr9OsPGRNEA/RXGx09cd1i2SJa15VRIa/vDYX9y5je8JTTyLNa+eOzoqvk/qVvs21
+         sJoTTSo6pH1nrOZFlX5aY71ufxbR9G0L/6CNi+tvVpb+4UDFnSkhhRsnkmcy6Sh+1Y6s
+         dw6Bb75+u1fI91UdvxHmYADL02sCvmZHEexsPpNOajLEMD9n8QuSz+yn3s1uXK1j6UDq
+         JSVhnshjNwbuaPszRBPbSuESoUv7of8+Z/15N53tt4PE8kJXpo3/qFaAs6zO5ccvDvOr
+         swzpQ7Tb2x7rGn2fI1mCYCV362pNOBILOH/o0wFz+EqQs7CY5zo4nS86ZTQQxpPxF4X/
+         Ycig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790760461; x=1791365261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aas5dFpRUJyHYCp7dUKEi7p5PXcPa3N+KVeAt5vuJzo=;
+        b=cLOVDXnF4vBCpF/muOy1Kdd06Jfe66DmlT7ZYHSf81U47O0br5oikzHVret/qvgh1v
+         fo4LlOU+2rayWRmVbI3Me47/yf6BAwxaUeMBLpKIVyG0G61yiamOjjuGT+7RymkkZb4r
+         2cTzTFTvjqnOCl088Q4bOUno4cdAs6kjLuVZqoNTeONfOdWa4/I7gTLj04p6Gyx3rdVS
+         fuTP6MmCqmGMVCr+NCyyxsY0loCvz8BZ3dF1CysRDxpZUCsxplGYYhaSmga1btpJVSA/
+         a4DedbubQk8v4WkdieQUVLTOQlJz+8LePCIE7YvAUQT86Y5pKeLC3YTCioweGIjSrcY9
+         jiAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790760461; x=1791365261;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aas5dFpRUJyHYCp7dUKEi7p5PXcPa3N+KVeAt5vuJzo=;
+        b=KMDjBq69RF8snsz28RaCh1mInttTx0R/TLduiui74mzEDM1k7x+lOmZVp0GCsUucJq
+         o/SUsHkR7r0LzrMKE2cfNlxeryCbgIneKMSpGxo0S6SXOzFcoYA1HOx6dCpYT7C9VIsd
+         tA84PxF6KBZA4ktAEJUesSVzrUTakmfzcoAUpQmU3mqTGslCXjv1vrJRCckVzt2MZttD
+         ZEaYPeswoWqpUAj/7u5cJdqnG5TNLeZ/IlRaxMVQ28tA7D3OdGT8kqiSsc8Vcm0ADqUl
+         QyDItewrNSZe4LvzWFoIGTXvnmO17UVjUHrEn9jj1cb1akYA2n7M/q1MXICJBhOwcBFc
+         S+kw==
+X-Forwarded-Encrypted: i=1; AKwUvBxiHjMX2DAd1uCwORG72/fcbDd7F165r5yMATh0O3xqPAEbbF7oF2PL2TKGCyjLBPpvjavs/1frtoJ0E4w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPAWxTLQdV6tL+CbQvEwTWYIG1jurfl3oTD+xVDA5abS7seJQm
+	dYr9ZrOMqnMOPohJaRGJAxCSGLbyakY/ZwN1JC/zb2kMgNyrRE4NDp8HuA4YnnwVA+XOKIwJlKz
+	7HRaxdfDEIYh5vRVBGUglsofOUgAZL2R+CJ8wzDY9zqC8uTrVROQPlTEbUsp5czCsSL/Rvs7/Ow
+	HuI4OCRIQYY+3br3cdJ0FRr7b+eIRMvQb+vqWJozwYWg==
+X-Gm-Gg: AYBFou3N/utdUhnRa1gCrbkJhoAOkyCfLqXog7TUHKn6XPZ1MF1cTm1cPb0Gwo1se3I
+	kQ/APa3IcBeORf9FFsi+tEtWQy9TuDthqTgTrmg1Mfpgy3ThS2kv8TloIwhJ21VtTaVI0gahHCH
+	mjTIasqBvb0MJMP9qW0QkzHNcm+HerNLcZjEdfLGeHbGHt+mWCBPfcCvn5cA==
+X-Received: by 2002:a17:90b:4e87:b0:3a4:b2f5:d01f with SMTP id 98e67ed59e1d1-3a4d1787217mr660555a91.40.1790760461476;
+        Wed, 30 Sep 2026 02:27:41 -0700 (PDT)
+X-Received: by 2002:a17:90b:4e87:b0:3a4:b2f5:d01f with SMTP id
+ 98e67ed59e1d1-3a4d1787217mr660485a91.40.1790760459446; Wed, 30 Sep 2026
+ 02:27:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: errata: Add Cortex-A725 erratum 3821522
- workaround
-To: Beata Michalska <beata.michalska@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
- James.Morse@arm.com, xuewen.yan94@gmail.com, seanwang1@lenovo.com,
- linux-kernel@vger.kernel.org
-References: <20260929154325.3416271-1-beata.michalska@arm.com>
- <20260929154325.3416271-3-beata.michalska@arm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20260929154325.3416271-3-beata.michalska@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260921191326.2146363-1-sanderson@brivo.com> <CAPx+jO8g-y+uc4YXUeZ3yOH6s44WFpytNu3-f6iLSjtHAVPd+A@mail.gmail.com>
+ <e5a5dccc-46c4-497c-ab8b-b3f7fe5e316d@brivo.com>
+In-Reply-To: <e5a5dccc-46c4-497c-ab8b-b3f7fe5e316d@brivo.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 11:27:27 +0200
+X-Gm-Features: AclHuK-S1WmRfbn9a5BeauI3-UXbHdXkwq45V-fosa7Wt5Ing9N0Y4xLuBNhtzM
+Message-ID: <CAPx+jO8QfkO42HnzU5BEQsGzqb6_pUFeT38E4EBpSA1kEpTexg@mail.gmail.com>
+Subject: Re: [PATCH] mmc: meson-gx: Convert host->lock to raw spinlock
+To: Sean Anderson <sanderson@brivo.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Kevin Hilman <khilman@baylibre.com>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        linux-arm-kernel@lists.infradead.org,
+        Jerome Brunet <jbrunet@baylibre.com>, linux-kernel@vger.kernel.org,
+        linux-amlogic@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAzNyBTYWx0ZWRfXwjJLW/GJHx7z
+ mQoRcgieTsuO96uaz7ebM0tlJSxLgytuCakyYPo1qnx9bJBijn+7sv8ohQFuwoXzpfrmdMgN3ht
+ rfHYBmJ0sB70yGFFtDpSvcgxawr4heQ=
+X-Proofpoint-GUID: Rv2-nYkOl4DxJOyhGDYy8Xq-KRb_skLn
+X-Authority-Analysis: v=2.4 cv=W9GtxhWk c=1 sm=1 tr=0 ts=6abcd60e cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8 a=GX7wjADfAAAA:8
+ a=LhH22EzeW9Yl2Fhwn_IA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAzNyBTYWx0ZWRfX8O/fyKwR9Z3N
+ 0C3F0eeGCXvlbg1ikJLCDAj9zga9RU70FNLYsnM012hrWzJ3OIASFzbYRTf9w7Xeu7EenQTKo67
+ 4ifz3ryaHn4r2A2X9uJRIy4h6vIHIO4ob6FzPx9zug33PFWGRLQje1Li2jY0v5FOAjCWSd72zJp
+ P88WJmLQQFfjeDqSWPnIUwzLU4jE9dKWTFGWAXpqWAb9WBpakGKCt42gQ3Hqp15I43BPJqXxx5w
+ 7B9GnEJmNRCOXhu2ZsOrRCRIs6jRvwjYja8/VlsGzkTTBeBVi+hNKl9q9CTgDMS2wPH8j/Tm049
+ 5DGdXjgdDiB44aXK1nTKTcqfb1HHp7vYrDxUXh5nvGU5ATEqsJCf/u4TJtQpUzQJLWU1L4HQhLl
+ VmEj8zkZt4CpyaHDpjMiVFosjNxqTkrPlNcP/pe+pd/cMEugusUWEcw5PvDgVUjRJn2+wspMShh
+ STRXJaf/35K/uimUS4g==
+X-Proofpoint-ORIG-GUID: Rv2-nYkOl4DxJOyhGDYy8Xq-KRb_skLn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300037
 
-Hi Beata,
+On Mon, Sep 28, 2026 at 6:22=E2=80=AFPM Sean Anderson <sanderson@brivo.com>=
+ wrote:
+>
+>
+>
+> On 9/28/26 12:17 PM, Ulf Hansson wrote:
+> > On Mon, Sep 21, 2026 at 9:14=E2=80=AFPM Sean Anderson <sanderson@brivo.=
+com> wrote:
+> >>
+> >> The primary handler for IRQF_ONESHOT interrupts is always run without
+> >> threading, even on PREEMPT_RT. Therefore, we must use a raw spinlock,
+> >> which will never sleep (even on PREEMPT_RT).
+> >
+> > Sorry, but I don't quite understand the above. Are you saying that
+> > IRQF_ONESHOT only works with raw spinlocks?
+>
+> The primary handler of an IRQF_ONESHOT handler must use raw spinlocks.
+>
+> https://www.kernel.org/doc/html/latest/core-api/real-time/differences.htm=
+l#interrupt-handling
 
-On 9/29/26 16:42, Beata Michalska wrote:
-> Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-> incur a significant increment error when a CPU enters and subsequently
-> exits WFE or WFI, and may no longer track the system counter
-> frequency.
-> 
-> The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-> frequency invariance and CPPC FFH feedback counters. Wire the affected
-> Cortex-A725 range into the shared broken AMU constant-counter capability
-> so the affected counter is treated as unavailable by returning zero in
-> the AMU counter paths. This prevents the broken counter from being used
-> as a reference source.
-> 
-> The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-> but this workaround intentionally does not change PMU event handling.
-> Hiding or rejecting the PMU event from the erratum code would change
-> the perf-visible PMU event interface, including raw event selection,
-> and would need a separate PMU-specific approach rather than being
-> folded into the AMU reference-counter workaround.
-> 
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> ---
->  Documentation/arch/arm64/silicon-errata.rst |  2 ++
->  arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
->  arch/arm64/kernel/cpu_errata.c              |  6 ++++++
->  arch/arm64/kernel/topology.c                |  9 +++++----
->  4 files changed, 35 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-> index ac3248b9f2f3b..99a1eb4b833dd 100644
-> --- a/Documentation/arch/arm64/silicon-errata.rst
-> +++ b/Documentation/arch/arm64/silicon-errata.rst
-> @@ -174,6 +174,8 @@ stable kernels.
->  +----------------+-----------------+-----------------+-----------------------------+
->  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
->  +----------------+-----------------+-----------------+-----------------------------+
-> +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-> ++----------------+-----------------+-----------------+-----------------------------+
->  | ARM            | Cortex-X1       | #1502854        | N/A                         |
->  +----------------+-----------------+-----------------+-----------------------------+
->  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index 3b6c052d46a18..cab741a695f52 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -1081,6 +1081,28 @@ config ARM64_ERRATUM_2645198
->  
->  	  If unsure, say Y.
->  
-> +config ARM64_ERRATUM_3821522
-> +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-> +	depends on ARM64_AMU_EXTN
-> +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> +	default y
-> +	help
-> +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-> +
-> +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-> +	  increment error when entering and subsequently exiting WFx.
-> +	  As a result, the CNT_CYCLES may diverge from the system counter
-> +	  frequency at which it is expected to increment.
-> +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-> +	  being unreliable and unsuitable for use.
-> +
-> +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-> +	  counter return 0 in the relevant paths. This causes users of the counter
-> +	  to treat it as unavailable and is functionally equivalent to firmware
-> +	  disabling the affected counter.
-> +
-> +	  If unsure, say Y.
-> +
->  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
->  	bool
->  
-> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-> index f18683e56184b..42a6fff8c3f44 100644
-> --- a/arch/arm64/kernel/cpu_errata.c
-> +++ b/arch/arm64/kernel/cpu_errata.c
-> @@ -388,6 +388,12 @@ static const struct arm64_cpu_capabilities arm64_repeat_amu_constcnt_list[] = {
->  		/* Cortex-A510 r0p0-r1p1 */
->  		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
->  	},
-> +#endif
-> +#ifdef CONFIG_ARM64_ERRATUM_3821522
-> +	{
-> +		/* Cortex-A725 r0p0 - r0p2 */
-> +		CAP_MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2)
-> +	},
->  #endif
->  	{}
->  };
-> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> index 64588554e7f76..fc5d3abd12905 100644
-> --- a/arch/arm64/kernel/topology.c
-> +++ b/arch/arm64/kernel/topology.c
-> @@ -397,10 +397,11 @@ static void cpu_read_corecnt(void *val)
->  static void cpu_read_constcnt(void *val)
->  {
->  	/*
-> -	 * Return 0 if the current CPU is affected by erratum 2457168. A value
-> -	 * of 0 is also returned if the current CPU does not support AMUs or if
-> -	 * the counter is disabled. A return value of 0 at counter read is
-> -	 * properly handled as an error case by the users of the counter.
-> +	 * Return 0 if the current CPU is affected by either erratum 2457168
-> +	 * or erratum 3821522. A value of 0 is also returned if the current
+Right, thanks for sharing!
 
-Perhaps wording it generically like:
+Rather than moving to use a raw spinlock, I think a better option
+would be to convert the driver into using only a threaded irq handler,
+unless there are specific reasons why this can't work.
 
-  Return 0 if the current CPU is affected by a HW erratum.
+>
+> >
+> >>
+> >> Fixes: 066ecde6d826 ("mmc: meson-gx: add SDIO interrupt support")
+> >> Signed-off-by: Sean Anderson <sanderson@brivo.com>
 
-would save us from having to change the comment next time we encounter a broken AMU :)
+Kind regards
+Uffe
 
-Thanks
-Vladimir
 
+> >> ---
+> >>
+> >>   drivers/mmc/host/meson-gx-mmc.c | 12 ++++++------
+> >>   1 file changed, 6 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-=
+gx-mmc.c
+> >> index 694bb443d5f3f..d5365c0404cb9 100644
+> >> --- a/drivers/mmc/host/meson-gx-mmc.c
+> >> +++ b/drivers/mmc/host/meson-gx-mmc.c
+> >> @@ -176,7 +176,7 @@ struct meson_host {
+> >>
+> >>          bool needs_pre_post_req;
+> >>
+> >> -       spinlock_t lock;
+> >> +       raw_spinlock_t lock;
+> >>   };
+> >>
+> >>   #define CMD_CFG_LENGTH_MASK GENMASK(8, 0)
+> >> @@ -953,10 +953,10 @@ static irqreturn_t meson_mmc_irq(int irq, void *=
+dev_id)
+> >>          cmd =3D host->cmd;
+> >>
+> >>          if (status & IRQ_SDIO) {
+> >> -               spin_lock(&host->lock);
+> >> +               raw_spin_lock(&host->lock);
+> >>                  __meson_mmc_enable_sdio_irq(host->mmc, 0);
+> >>                  sdio_signal_irq(host->mmc);
+> >> -               spin_unlock(&host->lock);
+> >> +               raw_spin_unlock(&host->lock);
+> >>                  status &=3D ~IRQ_SDIO;
+> >>                  if (!status)
+> >>                          return IRQ_HANDLED;
+> >> @@ -1112,9 +1112,9 @@ static void meson_mmc_enable_sdio_irq(struct mmc=
+_host *mmc, int enable)
+> >>          struct meson_host *host =3D mmc_priv(mmc);
+> >>          unsigned long flags;
+> >>
+> >> -       spin_lock_irqsave(&host->lock, flags);
+> >> +       raw_spin_lock_irqsave(&host->lock, flags);
+> >>          __meson_mmc_enable_sdio_irq(mmc, enable);
+> >> -       spin_unlock_irqrestore(&host->lock, flags);
+> >> +       raw_spin_unlock_irqrestore(&host->lock, flags);
+> >>   }
+> >>
+> >>   static void meson_mmc_ack_sdio_irq(struct mmc_host *mmc)
+> >> @@ -1225,7 +1225,7 @@ static int meson_mmc_probe(struct platform_devic=
+e *pdev)
+> >>          if (ret)
+> >>                  goto err_init_clk;
+> >>
+> >> -       spin_lock_init(&host->lock);
+> >> +       raw_spin_lock_init(&host->lock);
+> >>
+> >>          if (host->dram_access_quirk) {
+> >>                  /* Limit segments to 1 due to low available sram memo=
+ry */
+> >> ---
+> >> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+> >> branch: meson_mmc_raw
+> >>
+> >> --
+> >> 2.53.0
+> >>
+>
