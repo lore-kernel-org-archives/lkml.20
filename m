@@ -1,168 +1,309 @@
-Received: from mout.web.de (mout.web.de [212.227.17.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945A24229D0;
-	Wed, 30 Sep 2026 07:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5863F4DD9
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 07:18:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752706; cv=none; b=GnRiOVDKoTp//T47Sg36oQHg0DpcCV1U8aRnmHq+hdMQUdFZaoUy2Duvtf/4to4cluFFWI1uLIdkISPz5PP12px/N0pHfWM9k3q8RhOJu3zLgL1JTh4WfJj2LIYamKlIGHyPK4aUyYbEAIEfubnxKPo6PLik0JD/m7UDpFuvBxM=
+	t=1790752706; cv=none; b=Qpq84lgKJ2+jAeoyOvlRmJdMysrFO0bNvAQJCyovT2fXlY9rwxcAkrrG0DW8Zsqqti5BII6rgveF3QFNMF0dgZn6mcLpSaX4ABQmR41FnzS6ryurIlZcVl/PBGYyXJ/+CtmdSQUJWpj6SsChyJ03gU//RnWhUG/mYllKoAan4RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790752706; c=relaxed/simple;
-	bh=rY0i2zxpQkZwnUprfA8bsV6W6HHOB52H7fiiswNJY78=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xn6qb44zBa+WpQIepEklIfk9HF4GQfhcpaO93Rwrx39S0PxpunoPd3eBYH+CvfmEihwqNWPsqsK1AT/xJswi3L7G+vVz2hDzuPi9I7j0efgbN3+TKNhCnBD2KTfzRcE9RrBIPZGbe4YRfC1v2hUeYX+1FXjFQEo7mHDfsEvLEho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=qyZpq06B; arc=none smtp.client-ip=212.227.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	bh=6wjP423QTF9B3utI0N0aSYizdz2qap+h7XWABKQTx3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g9Nk6GUP6ziaAJrY3y2SwmpY3erd7VhfS0tsfZMSTJp6jHaV+clVq1ZehwKMl1WGtSLkvUYeH2J2XibSSqAuV25f3JsRhKSxmDfyR/E80OrSHR058l7+Sroo7dO+5wF8tm9WLsUrz+3vSi/rDa8RcFMR58AYDcKLwKysk7xM2z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MH4kvZ6f; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="qyZpq06B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1790752695; x=1791357495; i=markus.elfring@web.de;
-	bh=3pW3oftf21jP4/xu+55VZHiQS7PUuOjm5S6qFMXqisQ=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=qyZpq06BL+mf8FP24Xu8eUGTpfWjAcfCfELnHRphTI9y5CcEuW5rx3BLQsnthWMJ
-	 TBVb2/kZZXdncBfmzIh6qguY/K2w3cgxbntGsWTUEC51IIvCDwQircguh7utfDTCl
-	 C4+h7xTLOQ83Uew3ta5ixBA4xvNyiC7H1Dp0o8VR2modHTNuQJxnkt5u0iCgWqA9d
-	 5A7w3+VagjHMuPHQg2WwXGtMCI9ijKJr2DSVmLMQ9nJCOm836PEA0f6APwSTrw17Z
-	 AdmILmT5DeiA3ICTpA8BFT7IxDEAq4TkAfsuexBEPW/VH2kMIrXEEVxg7HSMPx7ZY
-	 Qgb4jfMc+OTz+8M7IQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N9cHX-1wg48I04G5-010RyY; Wed, 30
- Sep 2026 09:18:15 +0200
-Message-ID: <7edd63b2-f2a4-4b41-b698-4120beb3f891@web.de>
-Date: Wed, 30 Sep 2026 09:18:13 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MH4kvZ6f"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2e2bfc2540cso9073905ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:18:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790752704; x=1791357504; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L3CtCQSONkR2hFJ8XJZJB+FK0JQRnLp3oIZztRHfCoQ=;
+        b=MH4kvZ6fKDpXJbmniGUwwcWDxu4zzxsADMREMdbFdvm+dFsGZrc2kNyjXtBtPgf3FK
+         tsX3ZfcENh2lP4aF1NSgzciBqN2PYsmnB+6eHaIYMxKzjJNPrjf8jP112svCcqo9+igE
+         S1C7B56TQ/XKFltVPSQT3NpVyizTP+v1KCY9yOExabtUtVgOXwl1sQkPpWkbVJRz6vpp
+         iYVuaQq73pGHrDQcBzpA2zBNBmnd/LXwBvJC5NMIKuqgGlnrrtPBYgpEBLqY0PYo16wL
+         7b0o4AyWzDvcIQfkgAy4vgP6aWmV3V083wkAcjOrjyWSMTg5t6QiWO/Y4cDKFtCDsIHs
+         B8mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790752704; x=1791357504;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L3CtCQSONkR2hFJ8XJZJB+FK0JQRnLp3oIZztRHfCoQ=;
+        b=TNjrdrPShR1ImY/3Fv6GdD9v6S0y394YqJjseAON9hdzyozt2bypT4C4CYyeU+rmIv
+         AvGW/G2GMUyiK4X97HLBkow/AMHIUlf9LQFgjKs3BuCYvEOwa8ru6VRGvSp+F8b7b/38
+         w1PoPGlrE9jzbmjwj5QSZ8unSHaQ8DjGfzh+wFkxKfr6i2ECaxONrD0bd1+H15VwXpRg
+         gTEXofWSKaL1nAxnG57UBZieQxOiom7M/W+1uXeCU8Ou00BlvoTYVavQ5CL5AHS73Mm5
+         Ci5rg48AZvVez5D2/x4wco0pXEOFNngULUxelz6YplfH8qEy9TXL9esPpIRjSKlYQhKg
+         3l+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxdu6+n+HYuEt75Qsz60h+Pnh9o36e/DVTlzYRkH9G1zfnHbx946olDYR0wL9+0w5L2Y5HUheSIwMDu5Es=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOTW5f6PdtnomwAYcvKNnjm/GZikURuQl73qfMO64VgY+6v+0A
+	5TrkcyMfEkbNuwpmZQS8EDIlE53HLV1bHJ4w6+jwmogVt9h2vByJz0wcBmLeMU7k
+X-Gm-Gg: AYBFou37yXSomI4/R4Az66Kyl3oULPbic95rf51Q/5owHzvnIKxf/GvbqhU+4uf7KzB
+	4ra4dGUsHlC0EpK+jgMTU36vovinFoXAbPKx4y3Q3jgTClh6tFC6j6us9jyy5+d6st3YWCExF3M
+	Sy8/dEXoghiU3WQSAxxliD347NK+ON/QYvwOugMl8j2LzRH9ly+5cVanhh1AnDtMM5TuiyEyu6g
+	vw/N0ujyNxGUGE9GNpWNPJ18vRwX2+j+/HgN2MjNnX+D2I6d46fVFINExJW32WjwbnHRfCFcidk
+	ofy1uCTE2IL+7EyWLOsg+QLASyhX1DBIp94tzKkGP4khsL6Yx9LGkakWYKkrr49BAWT32f5194B
+	bet5xhkNUZIpw46vKlOUdy738NaQ3i0ruryfh8nJ7L96j6ZRFlD3kNyqvESSBQHguREz4QdkK3B
+	p4LrNRZ6jPs5rw0K+BA+/piMFSF56aNJT81Aa36PLIrFxBqM9QwlUKJ9359tLiW1Qr1oO4S5pui
+	mYcNGI9zln7evoNFA==
+X-Received: by 2002:a17:903:2b06:b0:2e2:b624:54b7 with SMTP id d9443c01a7336-2e2e4b5afe6mr4769285ad.17.1790752703950;
+        Wed, 30 Sep 2026 00:18:23 -0700 (PDT)
+Received: from embedsky001.tail6d6b2f.ts.net ([183.12.106.39])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5c38be1sm2384395ad.77.2026.09.30.00.18.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 00:18:23 -0700 (PDT)
+Date: Wed, 30 Sep 2026 15:18:19 +0800
+From: Yonghao Zhang <hyz3367@gmail.com>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: core: Fetch the auto-boot firmware only once
+Message-ID: <20260930071819.vse5i32snb744ay7@embedsky001.tail6d6b2f.ts.net>
+References: <20260923025855.2523147-1-hyz3367@gmail.com>
+ <arqlFtvlN2LI6cT2@p14s>
+ <20260929044312.kkqnizsdtg2axg7c@embedsky001.tail6d6b2f.ts.net>
+ <CANLsYkx5VVWsmhaYfMe=gj7nO-8YpOknMvM7gKZ-xFEbGg=zMg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v2] dmaengine: tegra186-gpc-dma: Read channel state under the
- lock
-To: Ginger <ginger.jzllee@gmail.com>, dmaengine@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Laxman Dewangan <ldewangan@nvidia.com>, Vinod Koul <vkoul@kernel.org>
-References: <20260922072233.19592-1-ginger.jzllee@gmail.com>
- <20260929194434.29937-1-ginger.jzllee@gmail.com>
- <4f327a8d-48aa-42fa-b580-3b01315f65b2@web.de>
- <CAGp+u1bger=5W8eNyAME+3JppL2bhYiYYThQY_R3NcrJC+d_CQ@mail.gmail.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <CAGp+u1bger=5W8eNyAME+3JppL2bhYiYYThQY_R3NcrJC+d_CQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:exAQ/bxhDMIq5n3OZ2jkaUnAqLj9sLq5Gkd+1seMS6pw63beCUN
- pI+fz7CzvnnQk37cFIIfVZSXZCYBV+5twVGSNIB2rEPEyXV5dNjclY2Km68tohlVuiEO9h0
- l6I3ySR8jrEbXC5z+ZXnUx1iUBuWAoJwxPd7qVtzhNds3Mu2g3HXpsLdZvaG5lLu0mkIv6V
- F5KW3jGZhMIX0wmjOcWYw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:XDC13k2ASdk=;uMhKil3up2r/D0Ma1JGyCEdl19I
- Qz9ZonJmdSX76sYc4JgdOazwZ/lQJRJsVDCnpCB4zIc7A3ExtIEq0a5lPGxGMUya6gFnS2MZX
- XIQ89ZXz6KoDBB990aOPBUNET9LKqCS34WbRQzF38tSVHfpRN+WnOzTbe7rmLguDCWnRW3QdF
- jPaZtXPp3NZvxzxeOkKIa2SlkAgySxSwFzsptkovcPqcWOrsx4N69wB/7VhMl0ZiUfhXZtUxg
- 1beFFTgXFcfxoe/nh3B4EDqPjSJvyzh0L4BBoRLizHG7LcsC35cPhFZoSPt3eSNO6SYk9HQJj
- iA6VQ8mRjfZJ/IFsjPqa3g1J3jOVf0F6YkKrDq8QSlrurxqhInJIYVeQHzjZ700MAnPAtdStu
- 50PyaP1F/e1tBV0aJFkFJcL3hzyWEbAxrZ7Y9d9BhEj6nGCdMbG+BW/8HQ5HrYtxOynsMrub2
- kIncdtqOmK0ZpVfovPddltvnY7WjZl+rPcia7ycJbaH1Lr4wnrLyuMUFWmRIMj4Vy2TPbLpMR
- NsN4o0Dy0+Hy5TEfIj9wTJRYzo+Vi+thEGqjWECw36MCcGcd8gLs5jvWpFZWTqWEkmMuAMKyb
- gedPiR7m475vBLdprJJSn5P32FGc7RLfuqwDyg6sFGFUEtoRzyGwTBdoC4R8T0n8mGsRSNuEv
- 7BuHfPbne7tOHg58CKO2b6++GLca8MEIeJ40VLKV+V4IlLgRwFtnSbGXrn27Vk8INRP1SYp6O
- 0Mzw3euYI2J0KH6/3CxaNcRsgMPkjH4LpnlOuJzEUpugsT1+eBLNzY7FFTlg/9k99gaK4yk2q
- qYl8wTXHjI8A+ZxpOL1tuk1OW1RPks7QMl0+XgARnMblhFn39GsjF+lcaI5nRGtypsuAD0H52
- 6QLE63Pyn3IDifCrpsQrKzx/Wy20sHkLHlRE9EY+4SKVBVwZAkzAJIrLUd7RJJFzWj7RrPSYW
- XVUr6sJI+BqAGM9JLf8pptjGmIlULwiOFjmpu2jbzrkNYj2awKibMGVmCG9Z8bZLCaORe/Ikp
- ed/aO9p09YCTlWNV/BjLEiynSKehrGg0JI4x7gmO2Ay4oGMj0+JGSQx2d9VRIjPA+pVrBlyBf
- WzgkI2CZxjkEWDOcCwlZ/4prLlWD4EyX20AG9i2YROn/L/XIU/a9F8koJXABW0PeU02V7x5qg
- GOodYsz/dL61659GGIX4js/JbVE2QZ7QI74eCLGcXy87wPrG5qoiLW1jtD6xo4XU2pM4kazbB
- u6WZ0eXQk7td/j11OAV/JdFOVIa2RP/ol+Khf+6tx2iDOozhfIgkMYH2cQYe2g2vf20fXImHJ
- P9QaCp4qCAP4yAM+4dDB/tH1ks2KSTGQHEmBI35hoHcdJ3SrRKb8rtIRBnAjJk9F1uTPTuHlk
- +2XNex+NdQimQOcT5L25ecwIXWLrMChUiHGKTazKP3VQR2zTYGgwdMIHNc1U+cD3g3HGF+E2R
- bTc4b+WtB5DXslLBC/IZv+N/7yXbIedQbT2/bGcxoMplOoTZwpqh4waTQG/k7fAT65SuI5IE4
- xrPhmQq3wEAhMoidu6RBcPKga94RTr92Ydt1qg4r7Xyry4riw/O70luEahJ0VcOudlBJe70CF
- YpvMAm9xvs8QRHEz14p95YHfWf6l9pStGU02ydyqhJvy7nBurDL/xqEJf4N7//zz7LIYRtKLp
- lYKp25scqe1ef5k4AJk3T/83nWJgYcmUHRdoGf4wVdOqoAN26PFkLThoyBKVQbJNKg7+liDJF
- UCr3QE1vESduIdDacdAauQeXVj5O4pAdZNJRfWsvBsPHcf00h2lcJe/1dHYn6PrejNuoI9jiZ
- PduwMR84A/D36xm3biiquXi4TFVX7LdJY6g1PCUZjAzEnwSQ/tWXvtrhotQg0Q3dfMi50CoKY
- scxXFVQQKEaU9kq+paQdAjkojaMCFm7DCyqP1UbiCKeAoguWKa2LamIBwvhBnZVfXbklKZBL+
- AS8n9anY86Dlo6Epa6Vj/FM54OztHcofg17Dmze9ljenaq0ba7qF2JLcWJ8tZiqC2foN0ixmj
- BaoYyzZcbvkJ9Gm/KDQtm4QRP5Ecdm3evcCSZgsKZK435znXMrWlgoMq/2NLYvQCm5XMU8XrG
- JD98whV4E4yOt+gCeQB+F0Bjbt2CQsZsCiCdF9ngY6AluAaDv8jgiUATk80A03AmHYu+lU529
- rD0uXHvO7UZqF0qM8wytIyS0oQ003Z9VQQL/SpmE6V5afyIr4G5qOhWMVXaY3T0ELUZnCVLnU
- XjQZTv1EWJZV3Qfgr4Tmrtcw4/N35F5bxv8gBtXotfi9sbo7KJafONgWI6ZIb02MuV1C5yJsh
- ZlXc5BXEcjuColXcNef+R0aHRJjysKC6z+TG8XCxQFHIw2suyMQv0nSVMk8sSLjD57PMeAuRq
- 0J7/tTxglxKRczEAI19YW9BGhtErld5ZTQy35SjLcwEQ70iLM3qD/3YnBuhFKWg7lqRyQ0Kzs
- 9et5LrQKtRV7aXHnCoiiSmVXwMkW6OgQUs8fvqdXnHAoNIYUNSiV4Nwk+8NlPLeGjnor3+HfS
- OW10ZNS4aj8KvdzENsAA2Aa2sGwu6B9G7FeJu4AcLJgjkNKAP3meF7jEtJy4I09HuBqhFsLfn
- uixJMGUchvY3UuOdjlOXR7346hdffHw4ClqUssxueb9wdI1U/JnipphYbiYeUTY40NMcy412d
- uXBSgogYPz/Bs5g6VJLo2UFo3RK7CNRMTpu1Ed5AAag4iPRQSycF7Z6M0UIm9YYJgEVfGx+dN
- HJX9Sep66ICiD/c+/tsgokFnLv6TYZDRCppTI3lu1LUWxyWz4uz6xm77OUswbDudzmtQ0B2Ne
- mvZo5ObEXGqRpRD1RQ1SWhr/5GMwNi4mG2HLxxe6uU1gjWBIyYAwQNcz5x8V0jcvOlv4fHALj
- 59ZkvcXPgfer29EKKsGlj/NFYBsw6oALD9TP4ls1oT8+8gaDBAPClfiWWvq/7qE/oXORt3+nB
- cw5heCoPwOWXvBeerfBbxRumn6waaBdZMMTVyxHAfy6LjBdJmnAsiYXGajsUBn3FTWqClphiR
- PUFGaP7Y1u45YEDeedjb+EyBkzDA5U0r1SkhCeYP0mMg0QsZQi0UT91SfE9hjh7hhOilRHa1v
- 1Q3WK2QXhDuLwtGHZgwQgbImBsYhIc4hS9HMNDMYT0W9x6mWBXKab4Cgok46AzYCMOl3DKZUd
- 918WKM8EmRppn943cVB5GegFJ8W9++Tz3MkdxnaLwjxewn/maAbjXCDa6uyG+Gb5938XeKEOP
- ag0N46pcPTNdVw1nkKvtznHqSHV9kFFNDvxou5mzNt5gtbmbT0HWf1bh4PIx4i7meu7sVggjn
- 3CWdkBtPxXENsU2Ec8hoMuyITBoAQu1dd7xFenbMg1ba+f8ZHzSdDCx0bIaFKvyMUSmrPn9IM
- EPVO9lAzEGZG6UBfswbvbeZ4gJzsSf2z2au4kGdn3WjRVenff3HlwpfYTRQ5FcixOAUYQPUbE
- YiD4U6raZchAJfyTkaDgMGgiAsnpXBMCZjRhAGLH0GXx6jeBJEaS0CxWyPjHMQ84AKvcxb4J/
- 1oD61yeRIZfJ9NbfInUFA97NvZXtZSPqh951FdCkvm1pFKzTxBWOhxi6cxq6S6L0hhOn8Y/ij
- 3fndreUchIEHInrKI/A9ANj9miss+bI58Wgcr0userkSIboi8C9BrX1XPQRIaXv5ehFlhEOrG
- eQCj+pnzhvuvOttMUbxH7f16BHKG7nAE4bqFKxiUlzKalBKIjUiyrc0APszr1hUeKY9VUtT4r
- mIm/12e/baB9m4af2XRwABJqCrYq7ldJbs3WqMvdZvV8+tnzBtYiLg6NEoJSEuxcP8WQXJvSg
- unQPe7w5k2pIGN6gEa2Sek2WwoT4XuXJEGB6c31L50lBWRz23jAi2v4Ck37mcOfu7pERlV/8R
- A4x4U2rXrdSsXeThiytOmH64TCHNXzO0M3fNQT0bpr+WgCzMRseHlX7CK0clUPEV1hLA+n0J+
- jXQKZYUuwLe1PnBS8ZtcBs+2+yLT6epKJVtDQtcXO4JZzT3xKY1Gvl3DQHnKCt69Bzb5uY3zD
- ZLv9upPb9jJ5wRAv2LWwoKchJbVvH9J/a919b8xW35xRMECxRMdgHw+SRf3Uav3EjZ/rWTdnp
- lX7Nx4AMRrW7coQnhEE9EVcVRHA1bwBvbIn8GT9lGfbd/LK1AAgjlJ+SjcNc4uRjZtSVjXGeB
- hfXYg/OQz1d5/JNZLIOEq5VOBQCJxx+HYQM9o1HYWdaWrft09NQ8OytQypS5XdwIKwfbS8nDG
- 9Y/kfpWNra6M78xP6trZP0AjwZDdDRhatRyaYxXShh8cRyhpDXY3z2lMfWxmLHKuCtlFyhtgh
- Jvn+mm6swOpfopLybIaNZ+HO3En2RRtkKWODdxwWBfHpZEJPl+tJn0WcghTvPIrLZ7ql5fIiV
- uWM3uAJTisW9FV6HYbXuG31iThfUTOQFJP6uDQgaxhPgGJ+lgG6aoiF/i7d1d6MOYoaUyiQxk
- 6nn6C9EniW0tviCPoP2CxW36IT6rOEZSkrGHyZzlBhJrk8Yqe9t1Ih8yeLoEJx+XNLMvr09GW
- fh6htwIiYtrzn1fhe4U7zAFadn82xYtz2dSzE/WzkwaaRCmJ7cgRtxh/cz5fX0ucNZ0VHHF+Y
- dsVZ8sG72SdBy1QSIacvbgBUyafCGvxGLPgf6y5FtGJIpycklw7BO9V6cL10t9NvtDBs0CN8+
- CQzPefeA65gejq6hY1+lMkkKDfyaPMYdrZrESEJmCGm6nyueieUIN1n6wPaKT5bT4T8wreFhy
- 7/aAbR0TkiTLFZdi+P972dAaoUFYJJzkk5cnnicqxPnE2AosbASn+Abu5S+cfA7NyKbLk1yN2
- TlRYq94Ii5sjIy79Aq2Al3+E+/dDqO7P0DQehjP9TsfG3CySXsAoZXIP+tBg+j0WIfl/VrF4b
- 92R0konEXACmg1lCGOGgxRV04JQUZBsKVm9i0Tgq1c5k+opFlFhF3Dwy3WFgFS7MOm/LXKZBd
- fvyD7TMo4ic87NdCV8zcudEfQS84ABvR4ybOIpS1Ja3iTSdtXxOhqgOsSgUQLLAmCRPCK9b+O
- r7iLVAChwiMEUxW1ChivnvAEXCY51cjmWP0/4KKDywV0GPJ6FNcAxvSYe/XprDz91y476aZcW
- oiDO1Poj2+2NBx/w9Qa+LBnUdiaPb76Qsfm+ztz3aqUftF1Zilvk5HAm+IujLI15meqsSMBf/
- YctlPrMySjXYYI5YC58oq89LmX87+4hpNajgTbRwU0zg/HTqVWASX9jVx64uci09/Vh7vOPVe
- g7ZUh6jGsQRXlFcR44zF6If45jSVz/PM+qpVtSdToTj4eo+vHjSLtPh1euB+aNBrgTe3hJNqB
- efEbyq2YaFdUEFErSS23aHkb7luqXZDe+lLE5WmbE2/+ksoNhUVjyexa+ojlYSbboUyA/NaYF
- Jph6BSyokoupDqIsIy1+wiyUOJ00QYgHaoqefitim1luYmhhWcMbVE7jRqNsrfUF2AAxKwntX
- hNdC4zbHzqgN7PxzhbKw++AF99u5gQEu0Qm0OJZA7Oun6WBfWLuT8cMiIPqdEhv8T6XxUln8b
- +WcZY4uZVBCX43VqmnhZK6XdnrAXtS1JG59krat/Ot1RFz61g24eBTKRn+/jgP+WJdownOwTp
- SgxHutac13hv+mNwK4cBgs/YYOR8U+xEKjgKF6alNEeZyQ+tMjTNP3h5LexxC+P1hhq27mhn4
- ZFozacm0a7JHU2BMpfgmNJ8nYBE+jn/suCP6HpS6XrvsCftebMGbnFrkCnUkH2uPMlAeRG6u0
- m7zSFG2SrLSKB8r1tvJd1Hz5CaGDHLuYR0cpjyTrTqXLu3h7JkyeUwkUZecy3/jAKh3WQPcd2
- XYBXdoIH7eoyB2vd0umQt6UlayTZZUEXfVWNyMiECaA/rhuhWNeNF2nYeqMNYfl8ZWjmc7nlx
- Il6nVMAS//dyh694JsFhcrxYSFWEBDf4oi+PALyz3ng9xz/WrLiL7z6L3ThLpeRjkY732BUGl
- 5E9JBpXSt8rO1PaVk3DH8zefPXbKfNDNDAwHz8igfm4IkiiQeOrVBtGCF5Cth4KSs2i8y+uW2
- A/EtOXv0i3JuR2gY6CSbEOMJHAUKT1z5cqcwrr2C9mzjfprrh4GZTuo7vgQ5OwJtnaRlKX1d6
- dI4G0Vj0MxRVxDcjddMXkeEgjKbsDs25SEnJ9sE4VbUF2psMMN4t5K9EFjmQE8Rlhk2ISpC+2
- ORlDD2dE6cFkIY4cgkhmmPLndmnNDhauY5l3dl+4tzG4B6AMZchbB7UwXQdlWIe1DMrlmwIsV
- SwZ+r7xyyiHxGPOh1pKlgbYwPjQRVUfHoALm9tAJ45gq9GWrMApGJ69wNnQRvnRjQ=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANLsYkx5VVWsmhaYfMe=gj7nO-8YpOknMvM7gKZ-xFEbGg=zMg@mail.gmail.com>
 
-> Yes, it was detected by a static analyzer that I built.
+On Tue, Sep 29, 2026 at 09:06:35AM -0600, Mathieu Poirier wrote:
+> On Mon, 28 Sept 2026 at 22:43, Yonghao Zhang <hyz3367@gmail.com> wrote:
+> >
+> > Hi Mathieu,
+> >
+> > Thanks for the review.
+> >
+> > On Mon, Sep 28, 2026 at 11:34:14AM -0600, Mathieu Poirier wrote:
+> > > Good day,
+> > >
+> > > On Wed, Sep 23, 2026 at 10:58:55AM +0800, Yonghao Zhang wrote:
+> > > > Auto-boot for an always-on remote processor registers an asynchronous
+> > > > request_firmware_nowait() whose callback discards the fetched image
+> > >
+> > > The callback function is rproc_auto_boot_callback() but I don't see where the
+> > > image fetched by request_firmware_nowait() is discarded.
+> >
+> > It is the release_firmware(fw) called at the end of this callback.
+> 
+> Right, this is happening at the _end_ of the callback, but the
+> changelog says the firmware is discarded and then rproc_boot() called.
+> This is not accurate and needs to be fixed.
+>
 
-Would you like to share further background information for such a development tool?
+The [PATCH v2] I sent earlier today carries a wrong In-Reply-To and
+won't show up in this thread on lore.  It is available here:
 
+	https://lore.kernel.org/linux-remoteproc/20260930064144.645211-1-hyz3367@gmail.com/T/#u
 
->                                                         I will update
-> the patch to reflect that.
+Thanks,
+Yonghao
 
-Were any more of your contributions supported by advanced source code analysis tools?
-
-Regards,
-Markus
+> > The image fetched by request_firmware_nowait() is never consumed:
+> > rproc_boot() doesn't take it as an argument and fetches it's own copy
+> > with a synchronous request_firmware(). It is that second copy which
+> > rproc_fw_boot() parses and which is release at the end of rproc_boot().
+> > The asynchronous copy is only ever touched by the final
+> > release_firmware(fw) -- fetched, never read, freed.
+> >
+> > "Discarded" in the commit message refers to exactly that. I can send
+> > a v2 that names this release_firmware() explicitly in the first
+> > paragraph if you want the message to be verifiable at a glance.
+> >
+> > Thanks,
+> > Yonghao
+> >
+> > >
+> > > Otherwise I agree with this patch.
+> > >
+> > > Thanks,
+> > > Mathieu
+> > >
+> > > > and calls rproc_boot().  rproc_boot() then fetches the very same image
+> > > > again with a synchronous request_firmware(), so every auto-boot reads
+> > > > the firmware image twice and allocates the buffer twice; on kernels
+> > > > with the sysfs fallback enabled, the uevent round-trip is repeated
+> > > > as well.
+> > > >
+> > > > The asynchronous request exists only so that rproc_add() does not
+> > > > block on the filesystem read; the image it fetches is never used.
+> > > > The core already defers rproc_boot() to a worker for detached
+> > > > processors (attach_work).  Reuse that worker for offline processors
+> > > > too and drop the asynchronous firmware request: rproc_boot() fetches
+> > > > the image exactly once and dispatches between a firmware boot and
+> > > > an attach based on the proccessor state.  The work is renamed to
+> > > > boot_work to match its widened role.
+> > > >
+> > > > commit 400e64df6b23 ("remoteproc: add framework for controlling remote
+> > > > processors") noted back in 2011 that "we must wait until it completes
+> > > > before we try to unregister the device".  rproc_del() now does exactly
+> > > > that: it waits for the boot work with cancel_work_sync(), which also
+> > > > closes the theoretical window in which a pending attach work could
+> > > > outlive the rproc instance.
+> > > >
+> > > > The changed fallback behaviour only matters for legacy
+> > > > configurations.  udev dropped its userspace firmware loader back in
+> > > > 2014, as recorded in
+> > > > Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
+> > > > kernel has documented since commit 02c399306826 ("firmware_loader:
+> > > > enhance Kconfig documentation over FW_LOADER") that "Linux no longer
+> > > > relies on or uses a fallback mechanism in userspace".  Auto-boot now
+> > > > uses the same synchronous fallback semantics as every other explicit
+> > > > boot source (sysfs, cdev).
+> > > >
+> > > > Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+> > > > ---
+> > > >  drivers/remoteproc/remoteproc_core.c | 65 ++++++++--------------------
+> > > >  include/linux/remoteproc.h           |  4 +-
+> > > >  2 files changed, 21 insertions(+), 48 deletions(-)
+> > > >
+> > > > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> > > > index 263e12f022ea..f329dc478170 100644
+> > > > --- a/drivers/remoteproc/remoteproc_core.c
+> > > > +++ b/drivers/remoteproc/remoteproc_core.c
+> > > > @@ -1662,49 +1662,26 @@ static int rproc_attach(struct rproc *rproc)
+> > > >  }
+> > > >
+> > > >  /*
+> > > > - * take a firmware and boot it up.
+> > > > - *
+> > > > - * Note: this function is called asynchronously upon registration of the
+> > > > - * remote processor (so we must wait until it completes before we try
+> > > > - * to unregister the device. one other option is just to use kref here,
+> > > > - * that might be cleaner).
+> > > > + * Boot or attach the remote processor in the background, on behalf of
+> > > > + * rproc_trigger_auto_boot(): rproc_add() runs in probe context and must
+> > > > + * not block while the firmware image is read from storage.  rproc_boot()
+> > > > + * dispatches on the processor state, so this covers both a firmware boot
+> > > > + * and an attach to a processor started by another entity.
+> > > > + *
+> > > > + * Note: rproc_del() waits for this work to complete with
+> > > > + * cancel_work_sync(), so the rproc instance remains valid for the
+> > > > + * entire lifetime of this function.
+> > > >   */
+> > > > -static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
+> > > > +static void rproc_boot_work(struct work_struct *work)
+> > > >  {
+> > > > -   struct rproc *rproc = context;
+> > > > +   struct rproc *rproc = container_of(work, struct rproc, boot_work);
+> > > >
+> > > >     rproc_boot(rproc);
+> > > > -
+> > > > -   release_firmware(fw);
+> > > >  }
+> > > >
+> > > > -static void rproc_attach_work(struct work_struct *work)
+> > > > +static void rproc_trigger_auto_boot(struct rproc *rproc)
+> > > >  {
+> > > > -   struct rproc *rproc = container_of(work, struct rproc, attach_work);
+> > > > -
+> > > > -   rproc_boot(rproc);
+> > > > -}
+> > > > -
+> > > > -static int rproc_trigger_auto_boot(struct rproc *rproc)
+> > > > -{
+> > > > -   int ret;
+> > > > -
+> > > > -   if (rproc->state == RPROC_DETACHED) {
+> > > > -           schedule_work(&rproc->attach_work);
+> > > > -           return 0;
+> > > > -   }
+> > > > -
+> > > > -   /*
+> > > > -    * We're initiating an asynchronous firmware loading, so we can
+> > > > -    * be built-in kernel code, without hanging the boot process.
+> > > > -    */
+> > > > -   ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
+> > > > -                                 rproc->firmware, &rproc->dev, GFP_KERNEL,
+> > > > -                                 rproc, rproc_auto_boot_callback);
+> > > > -   if (ret < 0)
+> > > > -           dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
+> > > > -
+> > > > -   return ret;
+> > > > +   schedule_work(&rproc->boot_work);
+> > > >  }
+> > > >
+> > > >  static int rproc_stop(struct rproc *rproc, bool crashed)
+> > > > @@ -2348,11 +2325,8 @@ int rproc_add(struct rproc *rproc)
+> > > >     rproc_create_debug_dir(rproc);
+> > > >
+> > > >     /* if rproc is marked always-on, request it to boot */
+> > > > -   if (rproc->auto_boot) {
+> > > > -           ret = rproc_trigger_auto_boot(rproc);
+> > > > -           if (ret < 0)
+> > > > -                   goto rproc_remove_dev;
+> > > > -   }
+> > > > +   if (rproc->auto_boot)
+> > > > +           rproc_trigger_auto_boot(rproc);
+> > > >
+> > > >     /* expose to rproc_get_by_phandle users */
+> > > >     mutex_lock(&rproc_list_mutex);
+> > > > @@ -2361,10 +2335,6 @@ int rproc_add(struct rproc *rproc)
+> > > >
+> > > >     return 0;
+> > > >
+> > > > -rproc_remove_dev:
+> > > > -   cancel_work_sync(&rproc->crash_handler);
+> > > > -   rproc_delete_debug_dir(rproc);
+> > > > -   device_del(dev);
+> > > >  rproc_remove_cdev:
+> > > >     rproc_char_device_remove(rproc);
+> > > >     return ret;
+> > > > @@ -2552,7 +2522,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+> > > >     INIT_LIST_HEAD(&rproc->subdevs);
+> > > >     INIT_LIST_HEAD(&rproc->dump_segments);
+> > > >
+> > > > -   INIT_WORK(&rproc->attach_work, rproc_attach_work);
+> > > > +   INIT_WORK(&rproc->boot_work, rproc_boot_work);
+> > > >     INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
+> > > >     spin_lock_init(&rproc->crash_handler_lock);
+> > > >
+> > > > @@ -2630,6 +2600,9 @@ int rproc_del(struct rproc *rproc)
+> > > >     if (cancel_work_sync(&rproc->crash_handler))
+> > > >             pm_relax(rproc->dev.parent);
+> > > >
+> > > > +   /* auto-boot may still be fetching firmware: wait for it here */
+> > > > +   cancel_work_sync(&rproc->boot_work);
+> > > > +
+> > > >     __rproc_shutdown(rproc, true);
+> > > >
+> > > >     rproc_delete_debug_dir(rproc);
+> > > > diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> > > > index a44368737b39..d77e24539133 100644
+> > > > --- a/include/linux/remoteproc.h
+> > > > +++ b/include/linux/remoteproc.h
+> > > > @@ -231,7 +231,7 @@ enum rproc_features {
+> > > >   * @subdevs: list of subdevices, to following the running state
+> > > >   * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
+> > > >   * @index: index of this rproc device
+> > > > - * @attach_work: workqueue for attaching rproc
+> > > > + * @boot_work: workqueue for booting rproc
+> > > >   * @crash_handler: workqueue for handling a crash
+> > > >   * @crash_handler_lock: serializes crash handler queueing and deletion
+> > > >   * @deleting: remoteproc deletion has begun
+> > > > @@ -277,7 +277,7 @@ struct rproc {
+> > > >     struct list_head subdevs;
+> > > >     struct idr notifyids;
+> > > >     int index;
+> > > > -   struct work_struct attach_work;
+> > > > +   struct work_struct boot_work;
+> > > >     struct work_struct crash_handler;
+> > > >     spinlock_t crash_handler_lock;
+> > > >     bool deleting;
+> > > > --
+> > > > 2.34.1
+> > > >
