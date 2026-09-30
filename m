@@ -1,269 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774134CDDF7;
-	Wed, 30 Sep 2026 12:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772100; cv=none; b=srrNnC17b11viYNH/ve/QSYSnStvEzaycQgr8kfKx0Oe66qhhNpujpc70WOdIun2zErQbnaC2foQSMtqL6oTQDoyg4cnPChlgU8r8WZYI4nB0TaKET9SBEEwejdrF4FveP6zh6wxMCHlgvNAl4PLZMYcPe+w4yYBi9/d14aFQFw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772100; c=relaxed/simple;
-	bh=k+lehJlgZXDm5nvJBuPudtL1MPJkRKdBLWcRikTh4vc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ICMXQZr9gXXEaydPD/wsZIiibspRjzTblncY1AGSAXb6FDTJZOC8pd6KGEQlCr8YavQOeWejZ3c8fMr/d46dvv2UwZY6daitiNInqBNNaMWsGmjP1C5oAcZs+UtFuJkRGStq4m5e6KaiqLA9BnJXAP4gvpAgkAQi9i4LwT97rvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gm8ZpEZg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2494CEE7D
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790772125; cv=pass; b=SxDT5SEuY3gMepsrK5M/k8OGgt4n6ADQ2xbn7bwo4fEDB/FTl/r7SlZ+iZ6R15L+1/r7iVeDckQioE4owaoTUVIpQyewHCkv80+RmHP/9vYaoXQ92HCasroCpd9cMvR1r5gBTFjw3k9BaJL6wte/b34nr+/ogY/dZ7y/fpb+BX4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790772125; c=relaxed/simple;
+	bh=lpwNY4ItQsPakLJK9TLOtGMCwGHdO/fJFXSgDZpfELQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HTMceOV/8hmvAtXjVaS9WHYlaxaB/DilzCLukRdIuKObUu24J1lloXvcsUoSI/kjbW8Hf0dsOFGwBYYJehNuqAEPzAfWwqgrjFTZHAHUoLVdTaialQOb3nE4jUL17pKK0MQGnKT4qU/MTagt+urTVm51IC/mXlfeiT02z2sk1kU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U426iPhc; arc=pass smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gm8ZpEZg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC201F00893;
-	Wed, 30 Sep 2026 12:41:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790772086;
-	bh=G1aZhAHLF777IHLvmfY+59k0+hTqKq0+JtRJe/439FU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Gm8ZpEZgMfl7E1NyAp/L5E9RjFVkPfjrZZ/yJlVmC9p0IM2fCIdkChSsdKaN/NiYN
-	 /1PjLo9uCr4Y+hLtPYS2uI9j9ulEY9ewA2pxW0G32ADA+CHPrZ9M7ZryOcZaYyvtnL
-	 h77Lv7tIn/Ia8CdO28mlINH33ehBzB3uFG4V7pVc8w+mE9EC0N0EHufDGV3Zhk8LtG
-	 9N4miAZ5CTFirpO/7OjfToyHI70TuSzpgVfs3CUuF3I8xbYnmARGK6o0whf6TBEke+
-	 oHm39sfkb6cHOWws9Td1KE7qSvQyx0Bf8gEXDue6YQIY8/PLEPtufnRgcS0GihF1f1
-	 XxCxqThFMEfew==
-Subject:
- Re: [PATCH net] fsl/fman: validate the port id in fman_set_port_params()
-From: netdev-bot+sashiko@kernel.org
-To: geoffreyhe2@gmail.com
-Cc: madalin.bucur@nxp.com, sean.anderson@linux.dev, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 30 Sep 2026 12:41:25 +0000
-Message-ID: <179077208577.434549.16592553336504519866@kernel.org>
-In-Reply-To: <20260926053957.1628730-1-geoffreyhe2@gmail.com>
-References: <20260926053957.1628730-1-geoffreyhe2@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U426iPhc"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bc6ff6cadso749992eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:41:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790772110; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C7+A99AVzau/ZytZNTkALl2SXrKhznsaDDNcfef1rJY2Xa8CEZ+qZVHYv6+JbuUnPw
+         NEZ9heeZOVAKs2A9v4WaZzeFZQ6roAq65hQRHL8HbTY4ekq2Jjik1yth5zJ7WH2CSDKZ
+         q0M8tETGdPQa1aWIAc8iO7FVw9oc16sVxMXPWWwAG+Hy5qc2iLeMrNhGXa1I8Tmn169P
+         q18OsDHHGjPjT14jR+zW38xQ/g8Niw/Bzi6b1XPLfOAhDQYVHw9WrynRKM4pFCn+smm4
+         0+nPYEdtY29l4/s2LGjiEEEeQD9DHY+Q8UrseNheSLGwNiG9ljfN362saYDirPSkr27v
+         8HmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4VQhR2B4f6Hpo8/6oGqxTMWg9JuHEuKmXAqVeCtqT38=;
+        fh=USocxvy97HdjrCsP4dv7VAUth9wvC7kBgIjS6exrtto=;
+        b=rMYnHoyl4dunkRqMgjumBK0eJq8suZIynydAfA4Vswe7dkXVKqskklD2T4fBifNKIX
+         TKECYvm1Nw+dOBFf+NK9aemIqRkkSpBbk/KH8Fr1DxkdPkM4XsLwZBqylAtT6yk+hNT1
+         Z5LXNDTegSSovQV6FYkK4EbLb8GfTLo8mniIAAdoRR9y0xdAZeuxFLTSvDN+CV0Ik8HR
+         A9sYJMdBeBhKj8KJOjOZd0npSoa6LUQNVMwPn5X6Ug4kcpb0ai/O7P10wlM8HmWm9nDi
+         J7A4jmCWvC00QDk7usGEYLOPD4j/khdQvPGMhs9PHem583ODvwj8n/wxdnYCr4oud2LM
+         c9xg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790772110; x=1791376910; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4VQhR2B4f6Hpo8/6oGqxTMWg9JuHEuKmXAqVeCtqT38=;
+        b=U426iPhcrN2XT1iN7BsoNyu+aGBD0sZo1H+pg8OYc+nhwGxGr7jmbqtieRrifXxNIS
+         vuTGjWOI5Ixp1Hp1uGpTndWFJC/eN/NT669OTevWDi8J7JmY+8Z36FNuNdaUuuV8owC3
+         pxqXbZtVADbYqiIZreosGKDQ5tUSO0LSEaQdYitiw1TOrhv8UjwRkp3S+e2Uix6dcbFm
+         Sc94XC5w2Ka0SO/oeVqs/F0VAMa0cv3ZrL75c7K7fNwG4WAWZ2BQUHxpGkLaArKHXLhn
+         AnMmpIcAnrEtoUqStbSoM8uev5oLpR2rzRL24WezD0pK/LIcbRPCcoJaFCg8IUrSgdPE
+         PKpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790772110; x=1791376910;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4VQhR2B4f6Hpo8/6oGqxTMWg9JuHEuKmXAqVeCtqT38=;
+        b=P48QqQfItc5PdRmUq0cXZUUbQqjjM6iFuNL/egGv849A0DLD8pYaBbJiZ9tYIyfOgA
+         AHg/OpnA9HYUUSmo8wQZaelPJvZOEgSV3uB8KHZ1lbEKkOaOFWux9EPu7/gtlvuH5Gln
+         oz0eSolHsoevOmPO9PP77hHQ3f7vHI/wduNVmQla8iB1JpcuKmtOlcfmRhaV7T9Fdf3E
+         ygpxfKGmVUsyAYphLMY4uI1GsVDMdhWGHytMElSmqKAgh9uRDZgHQPC6G7lhKHkrYpeL
+         57w/JRa9cYKBok2oLbrYcf8YWlJc6FSgL8mjAEnqMhAUHaLQcfY4xVmy48LkhRfoBiPd
+         tW8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzup3DORYaF8XuM9Vlkewna/FXib5DTjESYi0xBUbJMeJ1cDYbMEQ4ulg8dR36r6+iO7pJCwc+hkZccEoE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+mPTjuRx86heVTZ2WTm1LzHfb0G6t4wowVEF4CoHcnvRaqrGg
+	TyZ7T02JG85RtZdg6h3+crz2FE3/ErsNC3ncd6FQyqmqquPgSTPpT3Q5BG7wGSzG+T384UFPr9v
+	0WgLB18aknwxbvSd4R9mZy9AHLvE+7HqAMnF1
+X-Gm-Gg: AYBFou0cPwZ7lI0rPhGxdQ+gttNtkaXYEAsR9EIhuAw2n/9BBawiIQNge1KPsIijjGD
+	gclXz+Cl3Z334aEQq/y8jY+Va0zwwBUKyzJjIRx4vZxtJiwJciw0fEzgpsGEf02u2XlXEC5otkF
+	8DFLiATJ6RhmhahxFpHpslyx0UYMtiMMPJbS7mYaXVHfTMFHBcBBJjmZ6pexBfSS7VJesCr58lM
+	Eobkmpwqg4E0I5NyrjoWpoOtaNm+bNrsSw+/2PzvCbCZduFpAz/J19pS/WMIIqqg3VMTUDureV1
+	l4G4aeTm/7oqYm97KAEuYKYqW5rC2nT4+Lsi+CUJ2yTMDxjMLgpF2eRXcgRT7YJNJIMgOg6rZVM
+	9xUQMXbQuMaaWfqteD7SyWDFY0nbxQuMtDruqRAe9J8hw3lzaiLUWuAZ/+C8/BZODfkFUeIsJnW
+	ZT6nb5jwJjtQRFFtKp4NycfmlMvXvUL9TItynOSzgdoHZZ9iVakSw=
+X-Received: by 2002:a05:7301:1503:b0:340:f698:fd56 with SMTP id
+ 5a478bee46e88-34cdbecb18fmr2552081eec.2.1790772109954; Wed, 30 Sep 2026
+ 05:41:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260113192949.689834-1-lorenzo.stoakes@oracle.com> <CANiq72nHOinPTuJ7NLP=X5tLN76uxzz0k5t4tTcU+pz_JOCPHw@mail.gmail.com>
+In-Reply-To: <CANiq72nHOinPTuJ7NLP=X5tLN76uxzz0k5t4tTcU+pz_JOCPHw@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 14:41:36 +0200
+X-Gm-Features: AclHuK_6PgeLG6BwdoZVcsa0OSKE70B150iJ6uNX8SMscLbiFAZtE32a1FCHYWM
+Message-ID: <CANiq72=bTO5qsQWqfpgm29eJ8vufBrBg=uU0vV+fpunNsVk7mA@mail.gmail.com>
+Subject: Re: [PATCH] rust: fix typo in bindings
+To: Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, rust-for-linux@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Wed, Sep 30, 2026 at 2:39=E2=80=AFPM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+>
+> On Tue, Jan 13, 2026 at 8:30=E2=80=AFPM Lorenzo Stoakes
+> <lorenzo.stoakes@oracle.com> wrote:
+> >
+> > Commit 2b6a3f061f11 ("mm: declare VMA flags by bit") added a number of
+> > overrides to the rust bindings helper as the change performed in the co=
+mmit
+> > caused the rust binder to not be able to automatically determine values=
+ of
+> > VMA flags.
+> >
+> > However a typo was introduced leaving VM_MAYSHARE to be incorrectly
+> > interpreted as VM_MAYEXEC in rust code. This patch fixes the typo.
+> >
+> > Fixes: 2b6a3f061f11 ("mm: declare VMA flags by bit")
+> > Reported-by: Chris Mason <clm@meta.com>
+> > Closes: https://lore.kernel.org/all/20260113185142.254821-1-clm@meta.co=
+m/
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+>
+> Applied to `rust-next` since it doesn't seem urgent, thanks.
+>
+>     [ Reworded to improve title and to fix typo. - Miguel ]
+>
+> We also have a similar typo in the `bindgen` flags -- just sent a
+> patch to go on top of this one:
+>
+>   https://lore.kernel.org/rust-for-linux/20260930123645.302318-1-ojeda@ke=
+rnel.org/
 
-Critical: 0 · High: 1 · Medium: 1 (1) · Low: 0 (2)
+Cc'ing the new (kernel.org) addresses of Chris and Lorenzo since I got a bo=
+unce.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix leaves the bug class it claims to close reachable.
-- [Medium] The new comment and the commit message say the check rejects
-  port ids "that do not map to a MAC", but it does not.
-
-Pre-existing issues:
-- [Medium] Failure paths in fman_set_port_params() leave shared FMan
-  resources committed to a port that never comes up.
-- [Low] fman_port_probe() truncates the uint32 cell-index to u8 (`port_id
-  = (u8)val;`, fman_port.c:1792) before any validation.
-- [Low] When fman_port_init() fails, including through the new -EINVAL
-  port-id rejection, it returns without freeing port->cfg.
-
---
-
-fsl/fman: validate the port id in fman_set_port_params()
-
-This patch adds a check at the top of fman_set_port_params(). The check
-rejects a port id of 0, a port id at or above FMAN_LIODN_TBL, and a port
-id whose mapped MAC index is at or above MAX_NUM_OF_MACS. The mac_id
-calculation now happens before the spinlock is taken, so the check runs
-before any state or register is changed.
-
-> diff --git a/drivers/net/ethernet/freescale/fman/fman.c b/drivers/net/ethernet/freescale/fman/fman.c
-> index 46cc28895e565..e25050189b1f3 100644
-> --- a/drivers/net/ethernet/freescale/fman/fman.c
-> +++ b/drivers/net/ethernet/freescale/fman/fman.c
-> @@ -2103,6 +2103,18 @@ int fman_set_port_params(struct fman *fman,
->  	unsigned long flags;
->  	u8 port_id = port_params->port_id, mac_id;
->  
-> +	/*
-> +	 * port_id comes from the device tree: reject ids outside the LIODN
-> +	 * table and ids that do not map to a MAC.
-> +	 */
-> +	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
-> +	if (port_id == 0 || port_id >= FMAN_LIODN_TBL ||
-> +	    mac_id >= MAX_NUM_OF_MACS) {
-
-[Severity: High]
-For TX ports, does this check run too late to stop the out-of-bounds
-read that the commit message describes?
-
-For every TX port, fman_port_probe() calls fman_get_qman_channel_id()
-with the truncated cell-index. This happens before
-fman_port_init()->fman_set_port_params() is reached:
-
-drivers/net/ethernet/freescale/fman/fman_port.c:fman_port_probe() {
-    ...
-	port_id = (u8)val;
-    ...
-	if (port_type == FMAN_PORT_TYPE_TX) {
-		u32 qman_channel_id;
-
-		qman_channel_id = fman_get_qman_channel_id(fman, port_id);
-    ...
-}
-
-On FMan rev >= 6, fman_get_qman_channel_id() walks a 14-entry table.
-The loop limit is num_of_qman_channels, not the size of the table:
-
-drivers/net/ethernet/freescale/fman/fman.c:fman_get_qman_channel_id() {
-	if (fman->state->rev_info.major >= 6) {
-		static const u32 port_ids[] = {
-			0x30, 0x31, 0x28, 0x29, 0x2a, 0x2b,
-			0x2c, 0x2d, 0x2, 0x3, 0x4, 0x5, 0x7, 0x7
-		};
-
-		for (i = 0; i < fman->state->num_of_qman_channels; i++) {
-			if (port_ids[i] == port_id)
-				break;
-		}
-    ...
-}
-
-read_dts_node() takes num_of_qman_channels from fsl,qman-channel-range
-without checking it. The in-tree FMan v3 dtsi files set it to 0x10.
-
-So a TX cell-index that is not in the table reads port_ids[14] and
-port_ids[15], past the end of the array. The 0x3f example from the
-commit message is one such id. Probe then fails before this new check
-is reached. The stray rodata values are also compared against port_id,
-so an invalid id could match one of them.
-
-The commit message also says:
-
-  fman_port_probe() truncates the property to a u8 and does not
-  otherwise check it
-
-Is that accurate for TX ports? The lookup above already allow-lists
-them. Every id in those tables maps to mac_id <= 9, so the new check
-never fires for TX. The only new protection seems to be for RX ports
-with id 0 or id >= 0x12.
-
-Would it close the remaining path to validate the raw cell-index in
-fman_port_probe() and bound the fman_get_qman_channel_id() loop by
-ARRAY_SIZE(port_ids)?
-
-[Severity: Medium]
-The comment says this rejects "ids that do not map to a MAC". Does it
-catch ids 0x01-0x07?
-
-hw_port_id_to_sw_port_id() returns 0 for every id below BASE_RX_PORTID:
-
-	if (hw_port_id >= BASE_TX_PORTID)
-		sw_port_id = hw_port_id - BASE_TX_PORTID;
-	else if (hw_port_id >= BASE_RX_PORTID)
-		sw_port_id = hw_port_id - BASE_RX_PORTID;
-	else
-		sw_port_id = 0;
-
-Ids 0x01-0x07 are the Offline/Host range, for example fman0_oh_0x1 in
-qoriq-fman-0.dtsi. They have no MAC, but they get mac_id 0 and pass the
-mac_id >= MAX_NUM_OF_MACS test.
-
-fman_port_probe() takes the port type only from the compatible string.
-An fsl,fman-v[23]-port-rx node with cell-index 1-7 gets no id check at
-all. A TX node with 0x2-0x7 (or 0x1 on v2) passes the
-fman_get_qman_channel_id() lookup, because those O/H ids are in the
-table.
-
-Such a port then reaches this code later in the function:
-
-	fman->state->port_mfl[mac_id] = port_params->max_frame_length;
-
-This overwrites port_mfl[0], the slot for the real MAC 0.
-fman_set_mac_max_frame() compares against that slot later.
-
-For RX/TX ports, should port_id < BASE_RX_PORTID be rejected
-explicitly here? Or should the helper return a distinct invalid value?
-
-[Severity: Low]
-This is a pre-existing issue that this patch did not introduce, and the
-commit message already mentions it. fman_port_probe() does
-port_id = (u8)val before any validation, so this check only sees the
-truncated value.
-
-A cell-index such as 0x108 or 0x128 is accepted and programs the
-BMI/LIODN registers of port 0x08 or 0x28. The binding in
-fsl,fman-port.yaml defines cell-index as a uint32 that selects one of
-63 port pages.
-
-The aliased id is always in range, so there is no out-of-bounds access.
-Would it be better to check the raw value in fman_port_probe()?
-
-> +		dev_err(fman->dev, "%s: invalid port id %u\n", __func__,
-> +			port_id);
-> +		return -EINVAL;
-> +	}
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but this new -EINVAL return
-is one more way to reach an existing leak in fman_port_init():
-
-drivers/net/ethernet/freescale/fman/fman_port.c:fman_port_init() {
-    ...
-	err = fman_set_port_params(port->fm, &params);
-	if (err)
-		return err;
-    ...
-	kfree(port->cfg);
-	port->cfg = NULL;
-
-	return 0;
-}
-
-fman_port_config() allocates port->cfg, and only the success path
-above frees it. Does every error return in fman_port_init() leak
-port->cfg? A later fman_port_config() call would also overwrite
-port->cfg without freeing the old one.
-
-[ ... ]
-
-> @@ -2170,8 +2182,6 @@ int fman_set_port_params(struct fman *fman,
->  	if (fman->state->rev_info.major < 6)
->  		set_port_order_restoration(fman->fpm_regs, port_id);
->  
-> -	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
-> -
->  	if (port_params->max_frame_length >= fman->state->mac_mfl[mac_id]) {
->  		fman->state->port_mfl[mac_id] = port_params->max_frame_length;
->  	} else {
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch. The new
-port-id check runs before any state is changed, so it avoids the
-problem.
-
-When this max_frame_length check fails, or when set_size_of_fifo() or
-set_num_of_open_dmas() fail, return_err only drops the spinlock.
-
-Depending on where it fails, set_num_of_tasks() has already done:
-
-	fman->state->accumulated_num_of_tasks += tasks;
-
-and set_size_of_fifo() may already have done:
-
-	fman->state->accumulated_fifo_size += fifo;
-
-The TX path has also raised accumulated_num_of_deq_tnums and may have
-rewritten fmqm_gc. By the time of the max_frame_length check, fmbm_pp,
-the LIODN registers and the order restoration register are programmed
-as well.
-
-Nothing in fman.c ever decrements the accumulated_* counters. Can a
-port that fails here leave the task, FIFO and DMA budgets charged, so
-that later ports are refused with -EAGAIN?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926053957.1628730-1-geoffreyhe2%40gmail.com
+Cheers,
+Miguel
