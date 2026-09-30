@@ -1,295 +1,130 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862203CE49E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762534; cv=none; b=nUhLr0n9++MG88m/014TRN2qS/FuZ39CE8XHcChZYd/wvUyCokY3aUHTEb6ZZemXbKriMPQTojqzwRMSn6m/9FNzfSzaI/tcSv7KbRvLnZfxaeEtIr1ucyyLKp0Mv5yW560yY+7r92F59rCNf8d3OJt0gv05Yunvl1L/pCaarTo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762534; c=relaxed/simple;
-	bh=1rFZsg+Z5sWsSqhdGi/mlZV+y/+IRKzY2Itze28hDCY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IhKTDgAA63MJPhPoZ1IUKXpnk3JDWV0LaXoM8n1aZ9Q0DsjN0UuzUl1/wuy80J5S7JO6zv4aKCpbHc14DtQ+Zzra7mo9pKVpOl8AwW5UsUnkMaWbqkj0/45Ct2lhSvjlHEY4xQSktm05N516ZzGXAPB23eP9o7TD+I782lILAJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndzOvIeV; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0802B3E49C7;
+	Wed, 30 Sep 2026 10:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.221
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790762536; cv=pass; b=ApWyGnm/qAJCZMrDGn3RwsyLAlLGR28PItFiv/6DZoZNOekZxzAHLqzZcIPuQbsgxnAQWaVH/zEwGmig20ibpLoQCDwOCxcq0CIoHLoHDXoT3pZMiTecGKoAEaEyu5bkscKwalCfAHaQa9AmuJ1nzRhKjvIUir9zsESd/zbScGU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790762536; c=relaxed/simple;
+	bh=qDuIsvcfjXL/ppJaOyaRy08u7dIA37WyysBpw6JixQk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yxb0YWcBpuV/u/OJeEAwqOQ9z9cmhBtD56luvIYu7tZFjPkQe2m+bUHmgAdMn94WaqmBjvzBKRdT4gtNfX0Sa9bbLQ0RbCZkWpNuNt24VGU5fOTrMQtfqKie42xDGQx+x/oBQiNJB4hs2WJK2JTnQMb3/Hx/GNn9LpIviAMr9PU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=H2VOYf4m; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=xlDKrGfy; arc=pass smtp.client-ip=81.169.146.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndzOvIeV"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8ea203e5bso4369806e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:02:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790762528; x=1791367328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zQXVYE5SQMyZN1p+2/OR0/p0MeYTZXXNgWFF5Z/oQKc=;
-        b=ndzOvIeVft5DDCmnTQ/PcDueKUj2EDYpOZXUqXmXvo++QLNBmmLrxj0p6FjLkq7jt/
-         NZj1TdRypObANNd+LJLjSQoMT5dbxake7qW5WZyAH9hfJzjztOepK5L4eZ0622NZaV5X
-         wwneKWRxd7DSj0Er0n5kBkZPd1pXh8vJYUf7PbvRwj5dvHVD4fx2/EtqYqMXZC+Z0hc8
-         1/kCMxeAD4tELrtCBJKh2ps6OSJHlbpp7mizxStc4HhLAArCtoP4PFIMI9RPCzZs4cp3
-         Y4yYlB9aEpuFPLGwWO7FFu98tY8Ct6nNMoEL1iGYQuRonh9xifdVnqmc5eHyskh0U5yS
-         5vxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790762528; x=1791367328;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zQXVYE5SQMyZN1p+2/OR0/p0MeYTZXXNgWFF5Z/oQKc=;
-        b=g0cHNNkU0eeSs0T91G8qLmM1iYZWQL4RVx5/X7Wtn+n/YVkyDAOpx7saglcn2MkGq9
-         Ozpi3V2QZ/0/oUx2cW0iMIcz1m8kJS+T3fsUnHz2cZUiEaXWv2vpluuLsn72lIjX4pls
-         d2zgv19BTSsRMGheUiQTOIbrAMoah1TkrorfYpQrJvn/OXUhqu/HzEcCrXl1BmpSgH/5
-         Gwb4qHFbD7PdPXWJOLkaC8qcoVna501lCOPYkC8gbpiE7Vpntc05aetSTzZXPxZ+NdxC
-         7WpDQehvnflrf+JenTHrl63s9vughb0ijOPRwe3LPECaWJpI4HT+E4eMkrU8y55qi4qD
-         HTcw==
-X-Forwarded-Encrypted: i=1; AKwUvBxrrHQXv9A5fervrMNvjP7lzPkBFbUx5N1QSx5eq0PPWzskDyOxfQI5589kDoWhC5xFCMxoheb7c4tvLAY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+kTyMzPUpKQ2VFp05pNri+O6eq9xaAcvfYCf5464oiW7gEz9Q
-	4oaMOC7uZ+Qk53P335m3CyEwM2N7kFAf0eBTeLQpGNS71Pnlc2VEACnf
-X-Gm-Gg: AYBFou35j2Kks0WjBHRMUaVaS/eWfmb7ldc0cHFwKUFkYw18SExhdhARBVp+6hJCiVG
-	cvAUnhRdgPk4nIpeCvaSNSrQ2rexlPK1egoiwxen4z9EOTseYd4LcdUncfFJ2/UtadakWmZ3jqp
-	Cx7e3tOmSg7Z2bXOMk92EogIiM8E1sIberqrWKv5atBXtc4aYiR8h8OI7I1fupI/L2KS111GOI/
-	9Hu2GbC3whlxhTSD0gFhYy+qGyt9VKqkOzRALBD2tE/NaDeh2gD11Gg8Bw5zj6bJXpWp8K/eefh
-	xHDazDvz59aaf2FXTTjOtiiW3/LUiyy4sKFL13MfJTOmau79OStmq8j3L/1HAaa8//2/sHx4f/y
-	sk7XvmqjDF2ArsBE7+TKz1zaO/JHY+/6JKFqsq1E3HaHcvnMMwVhaq2ow6RcCKtAvDdzCdJHV2g
-	u2kx5pZcBN8+bIUI9hJVYX+PkqMfwky1ksl7TttIeXstN3mGhCPj/KYYOPjfp69t2PndIpiwB6V
-	Jr6iiQSNPP9UWkUQMsGzsZZX4Wuyw2PJtgonnsrNTDEcNQe46t4pF/udKt42PMZz4qUIA==
-X-Received: by 2002:a05:6512:292:b0:5b6:1a7c:fd83 with SMTP id 2adb3069b0e04-5ba40602483mr257747e87.41.1790762528177;
-        Wed, 30 Sep 2026 03:02:08 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3fbe6c06sm240422e87.22.2026.09.30.03.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 03:02:07 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: [PATCH v10 4/4] iio: pressure: dps310: assert the lock at runtime too
-Date: Wed, 30 Sep 2026 13:01:58 +0300
-Message-ID: <20260930100158.957977-5-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930100158.957977-1-zoone.rupert@gmail.com>
-References: <20260930100158.957977-1-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="H2VOYf4m";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="xlDKrGfy"
+ARC-Seal: i=1; a=rsa-sha256; t=1790762348; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=gqY6meJEnrSBBPiwxT3RoIZVfA4DqUxrUwgop+8eOnxPqDXH6rUnYm63O9NrGbC6Pk
+    KPgNY4yBWUGfsI2+1Q+MNMxGQbEaFEHmg/VXHD4eLn78vtBXJH7sCRGcu3gcYvU0woBk
+    ACFxZec6OeJEfDrb+B84LB4lqHILf1d/2nHvk2h1JPK87tGWYsS2bI/oD54oZSb1djQK
+    hrEL6YPpwhofHrAWvPQaS7Wr5HFP05vck0xNnQ7M1BVwd3BELUPo8lQzw/3kebQJGjJs
+    NGw/xVG9il/Fq1nxYvbKPvuY103zRJv4uttjhqjMGk3B8YGpyTBHmrgE4dl6v7u0Ytuq
+    AEEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790762348;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=5cFU2nUSuRqGiQ8h3Z9dgpOAsAYy/l12qVYH/0VgQ6Y=;
+    b=NxOj3iP/Z/0HWHf4v5AT2Zh95/FGc/Aj4o1A8OiPeUpx+VI9RCL/Oc9u8kaZ8yKsZY
+    NV6u+FNAj2VVInDJtpNozhvi2wxJgnGjjG1lqsIS4WNwqvS0SVIpbu25QFQSH9dwsvZl
+    eBQFWvv19FuuYiCmKCAALBj7IP9DgeJKBzqJCobGXJbeOjg5IzLBYZaSEHe88bDI45PX
+    GohqdxBqSsUdnB7o9TTaCq6KtLpRGfnjYNkXAxImebSF6K/gbEOrLqMQNiYHOIW18Sai
+    SyMEmHOF+9eXC72jYjjSfSzzZfw5RhGGy8Bxy+cgOcMuHIu8mc+RZTEuN53GLHKLtzVC
+    enKw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790762348;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=5cFU2nUSuRqGiQ8h3Z9dgpOAsAYy/l12qVYH/0VgQ6Y=;
+    b=H2VOYf4mwl/hPXIotw4miqzIQ/KUFI53phbKrJrd0W4ay/cIctGo6ISf4WZpfAiosJ
+    7x33hflVi85paBderllV+Jcj6Ayay2nJuA+zWh2iOs32GI3LIhuEBl11ksqOTaFIuRj4
+    OZc82N6yK2Dqc70OOHflMzqnA2/i30NXEADe5SgQvE9zsnlUrlSrOBowkyP/EDUypCwP
+    pg+dPOzKMdxM2Ircvorrl8XMykIkiVn5jhMAL8cwP23cEToOYXH9mGeb2ehf+zCwNT5R
+    cQFkMZEZ8JmQQFgAfM99lL661r489XRd2gn05buclDtfGxgQPAlc5KswIpJSNWPJRqJh
+    vC6g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790762348;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=5cFU2nUSuRqGiQ8h3Z9dgpOAsAYy/l12qVYH/0VgQ6Y=;
+    b=xlDKrGfyoBxk/L3iXUQeC1Gxk1sfHSJ54PO0KLp8JJ/3dflZjGTuUAQuebRkCGlEs6
+    PZYvxULlidpWECctd3Dw==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id K04b9a28U9x8Y8s
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 30 Sep 2026 11:59:08 +0200 (CEST)
+Message-ID: <f265f6ce-5a3d-499f-aece-09aa16970487@hartkopp.net>
+Date: Wed, 30 Sep 2026 11:59:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: can-next - Re: [PATCH v3] can: peak_usb: Add bus error reporting for
+ the PCAN-USB FD family
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, =?UTF-8?Q?St=C3=A9phane_Grosjean?=
+ <s.grosjean@peak-system.fr>, =?UTF-8?Q?St=C3=A9phane_Grosjean?=
+ <stephane.grosjean@free.fr>
+References: <20260930-peak_usb-canfd-berr-v3-1-0506dfba9fb4@peak-system.fr>
+ <20260930-wondrous-unbeatable-guan-f7b2e1-mkl@pengutronix.de>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <20260930-wondrous-unbeatable-guan-f7b2e1-mkl@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-__must_hold() is clang only and does nothing in GCC builds. Add
-lockdep_assert_held() next to each, so lockdep catches a missing lock
-too.
+Hi Marc,
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Assisted-by: LLM
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
----
- drivers/iio/pressure/dps310.c | 41 +++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+On 30.09.26 11:10, Marc Kleine-Budde wrote:
+> On 30.09.2026 10:44:33, Stéphane Grosjean wrote:
+>> From: Stéphane Grosjean <s.grosjean@peak-system.fr>
+>>
+>> CAN bus error reporting is currently missing for all PEAK-System
+>> USB-to-CAN FD devices. Add support for reporting bus errors by enabling
+>> bus error notifications in the firmware for each CAN channel. Parsing of
+>> the entire URB is aborted if the firmware reports an invalid channel.
+>>
+>> Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
+> 
+> Good work. Applied to linux-can-next.
 
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index 01fca139433a..791ff22b0304 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -12,6 +12,7 @@
- #include <linux/cleanup.h>
- #include <linux/i2c.h>
- #include <linux/limits.h>
-+#include <linux/lockdep.h>
- #include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/regmap.h>
-@@ -358,6 +359,8 @@ static int dps310_set_pres_precision(struct dps310_data *data, int val)
- 	int rc;
- 	u8 shift_en;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	if (val < 0 || val > 128)
- 		return -EINVAL;
- 
-@@ -377,6 +380,8 @@ static int dps310_set_temp_precision(struct dps310_data *data, int val)
- 	int rc;
- 	u8 shift_en;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	if (val < 0 || val > 128)
- 		return -EINVAL;
- 
-@@ -395,6 +400,8 @@ static int dps310_set_pres_samp_freq(struct dps310_data *data, int freq)
- {
- 	u8 val;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	if (freq < 0 || freq > 128)
- 		return -EINVAL;
- 
-@@ -409,6 +416,8 @@ static int dps310_set_temp_samp_freq(struct dps310_data *data, int freq)
- {
- 	u8 val;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	if (freq < 0 || freq > 128)
- 		return -EINVAL;
- 
-@@ -508,6 +517,8 @@ static int dps310_ready(struct dps310_data *data, int ready_bit, int timeout)
- {
- 	int rc;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	rc = dps310_ready_status(data, ready_bit, timeout);
- 	if (rc) {
- 		if (rc == -ETIMEDOUT && !data->timeout_recovery_failed) {
-@@ -538,6 +549,8 @@ static int dps310_read_pres_raw_locked(struct dps310_data *data)
- 	int timeout;
- 	u8 val[3];
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	rc = dps310_get_pres_samp_freq(data, &rate);
- 	if (rc)
- 		return rc;
-@@ -564,6 +577,8 @@ static int dps310_read_temp_ready(struct dps310_data *data)
- 	int rc;
- 	u8 val[3];
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	rc = regmap_bulk_read(data->regmap, DPS310_TMP_BASE, val, sizeof(val));
- 	if (rc < 0)
- 		return rc;
-@@ -580,6 +595,8 @@ static int dps310_read_temp_raw_locked(struct dps310_data *data)
- 	int rate;
- 	int timeout;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	rc = dps310_get_temp_samp_freq(data, &rate);
- 	if (rc)
- 		return rc;
-@@ -601,6 +618,8 @@ static void dps310_refresh_temp_locked(struct dps310_data *data)
- 	int rc;
- 	int t_ready;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	rc = regmap_read(data->regmap, DPS310_MEAS_CFG, &t_ready);
- 	if (rc)
- 		return;
-@@ -706,6 +725,8 @@ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
- 	s64 kp;
- 	s64 kt;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	rc = dps310_get_pres_k(data, &kpi);
- 	if (rc)
- 		return rc;
-@@ -831,6 +852,8 @@ static int dps310_calculate_temp(struct dps310_data *data, int *val)
- 	s64 t;
- 	int kt, rc;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	rc = dps310_get_temp_k(data, &kt);
- 	if (rc)
- 		return rc;
-@@ -939,6 +962,8 @@ static int dps310_fill_channels(struct dps310_data *data,
- 	unsigned int i;
- 	int rc;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	/* Compensation needs a temperature, so it is sampled either way */
- 	rc = dps310_read_temp_raw_locked(data);
- 	if (rc)
-@@ -969,12 +994,16 @@ static int dps310_fill_channels(struct dps310_data *data,
- static int dps310_fifo_hw_flush(struct dps310_data *data)
- 	__must_hold(&data->lock)
- {
-+	lockdep_assert_held(&data->lock);
-+
- 	return regmap_write(data->regmap, DPS310_RESET, DPS310_FIFO_FLUSH);
- }
- 
- static int dps310_fifo_set_enable(struct dps310_data *data, bool enable)
- 	__must_hold(&data->lock)
- {
-+	lockdep_assert_held(&data->lock);
-+
- 	return regmap_assign_bits(data->regmap, DPS310_CFG_REG, DPS310_FIFO_EN,
- 				  enable);
- }
-@@ -1015,6 +1044,8 @@ static int dps310_fifo_read_entry(struct dps310_data *data, s32 *value)
- 	s32 raw;
- 	int rc;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	/* Entries come out of the pressure registers whichever made them */
- 	rc = regmap_bulk_read(data->regmap, DPS310_PRS_BASE, val, sizeof(val));
- 	if (rc < 0)
-@@ -1039,6 +1070,8 @@ static int dps310_fifo_push_scan(struct dps310_data *data, s32 temp_raw,
- 	unsigned int i;
- 	int rc;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	/* Direct-mode claim keeps sysfs reads off these */
- 	data->temp_raw = temp_raw;
- 	data->pressure_raw = pressure_raw;
-@@ -1065,6 +1098,8 @@ static int dps310_fifo_push_scan(struct dps310_data *data, s32 temp_raw,
- static void dps310_fifo_hold(struct dps310_data *data, s32 pressure_raw)
- 	__must_hold(&data->lock)
- {
-+	lockdep_assert_held(&data->lock);
-+
- 	if (data->fifo_held < data->fifo_hold_max)
- 		data->fifo_hold[data->fifo_held++] = pressure_raw;
- }
-@@ -1076,6 +1111,8 @@ static unsigned int dps310_fifo_push_held(struct dps310_data *data)
- 	unsigned int pushed = 0;
- 	unsigned int i;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	for (i = 0; i < data->fifo_held; i++) {
- 		if (!dps310_fifo_push_scan(data, data->fifo_temp_raw,
- 					   data->fifo_hold[i]))
-@@ -1109,6 +1146,8 @@ static int dps310_fifo_drain(struct dps310_data *data, unsigned int max_scans)
- 	bool is_pressure;
- 	int rc;
- 
-+	lockdep_assert_held(&data->lock);
-+
- 	for (cnt = 0; cnt < DPS310_FIFO_DEPTH; cnt++) {
- 		if (max_scans && scans >= max_scans)
- 			break;
-@@ -1180,6 +1219,8 @@ static int dps310_fifo_hold_alloc(struct dps310_data *data, int prs_rate,
- 				  int tmp_rate)
- 	__must_hold(&data->lock)
- {
-+	lockdep_assert_held(&data->lock);
-+
- 	data->fifo_temp_valid = false;
- 	data->fifo_held = 0;
- 	data->fifo_hold = NULL;
--- 
-2.43.0
+There's nothing to see from your patches - neither in
+
+https://git.kernel.org/pub/scm/linux/kernel/git/mkl/linux-can-next.git/
+
+nor in
+
+https://git.kernel.org/pub/scm/linux/kernel/git/mkl/linux-can.git/
+
+where you sent the PRs to the netdev team yesterday.
+
+Btw do you have those can-next patches still on your radar?
+
+[can-next v2] can: proc: remove pointers from CAN specific proc output
+https://lore.kernel.org/linux-can/20260815103400.117175-1-socketcan@hartkopp.net/
+
+[can-next] can: remove Softing CANcard driver
+https://lore.kernel.org/linux-can/20260815103428.117201-1-socketcan@hartkopp.net/
+
+[PATCH can-next] can: raw: remove redundant NULL check before netdev_hold()
+https://lore.kernel.org/linux-can/20260831052031.902699-1-ekffu200098@gmail.com/
+
+Best regards,
+Oliver
 
