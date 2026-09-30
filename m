@@ -1,96 +1,119 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5054F55C4;
-	Wed, 30 Sep 2026 13:02:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB7E4EC66C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773366; cv=none; b=VPoPsDi1dSLqto+U2i3MWjc8+7u6a7cs1ppssXG7IdrnPyIWfrIyMBsuyTsWr3vVT586JCLW4Fi5Y3+38/Zcxik9dyjutV3H3m8OAmaF+eLsdYfMWQiN3Dv0M2R6SHYcngi0RDeLtki/C+6yO7frAItTYjm5JdDSfZVF6NJY2xE=
+	t=1790773370; cv=none; b=pTjlHIGQLTDaJKTB+ZpsRkjSGQCf/bTw6bJWFDTgJFuchZxCL9MsSR7bDx1B9/nM5xgBRIqbSaCQJa5X3gpDFTFJGhaUXizcEAlNiXprDSFx6z0up1a0TTAZLBKEey3KyPlUxvlzJ3bJ0ONLDxmCxnnHrZlS7n73P45eefJ5gLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773366; c=relaxed/simple;
-	bh=r66RUjuVcIaDoxK766ozvbgI9SlqHhZNfg3qpPjbv+g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u0TrwrbsXGeiI5KcgQ7cPaoL9Vg8syna4bnO8luXcNvMFQwNM9cy1oRjPgSQYyBEJnGwt8a10rqSfzGAqjADqVR5hbGE0q7wcessOv76cmnBiHf1WvQtnZmaLmTKWn2U5xty7E93ym3lR5NZiSDQO2P334QVnoBCNaOExH30dFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rXgekqfM; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790773370; c=relaxed/simple;
+	bh=4vHh8MmN5f2Z9XIEwQh0PcQ24VZUdkZZXQMWG9k82N0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UHecKl0jWOXW7K9x7oSj5iNT8XAHMLJwUD19ZgrVZKbYWUDhGOxFG6jcYkvDrU7BaQSWZj/T22cyAetHcL26VaIjMbL1c0sYYO5mWg40VqpEZ0WUbG1V/g+kN3PMSjFHrYtUX4i5Ob2rYBVMUqaHYALUISPF9T3+2Gl6KRWlU5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=FFjCu1pS; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rXgekqfM"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B11BC1A1074;
-	Wed, 30 Sep 2026 13:02:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 819BB60749;
-	Wed, 30 Sep 2026 13:02:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 29EC1103296D3;
-	Wed, 30 Sep 2026 15:02:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790773351; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=iRFYrMLclr7JRNfJikJcaPbxBlFtEulP6hvn4CGejvo=;
-	b=rXgekqfMf4XBKEbXD9pjdGMiqMNX356WJ9E2GlX1gPrD1QJAwPO+IbYtVi7FY8ClaJUTu0
-	f6dC/AD0+97BsMYqgBjfgEQy0EEQfiZIaYyBvDVjYaDhPwF66BomQIIhyqWnwrwmVB2pI4
-	5Febhq7M/6/1auj4YoSKFH+d/YYF5ZyxyvZOKWcbP/zA34IKDQ7Qsi4SbzQO4XCXRP2z4A
-	xKzepyRNoPg0wNBcw/h68KYmz3szyTADR4J0GEXDO2ivsKa5GCRGj+ta4n2ElkVN+IhQT7
-	dvnulXJB/HPGoM1He1u9ZlDnwEa/YCZ21rAWIQF8K/YIRjladqHXwRNkc7t1Ng==
-Message-ID: <4c205c02-9f9e-49be-8e8f-6fcff1ac523f@bootlin.com>
-Date: Wed, 30 Sep 2026 15:02:16 +0200
+	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="FFjCu1pS"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so1398994a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:02:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=embeddedlinux.blog; s=google; t=1790773357; x=1791378157; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4vHh8MmN5f2Z9XIEwQh0PcQ24VZUdkZZXQMWG9k82N0=;
+        b=FFjCu1pS5KghVbeqHLhwRGNL80kvHmLAsLE8uL0wfFNMxIt7b2CpoAXhMpAn7nmIqG
+         Adnr0tsm8JsHaHcJXTOz3o5J55xZ7DsVCLsbWqgndDkxx+d8Xl0xltlWSkwrZQaFe2vM
+         zcArLaNq0KaXkK3LMn8HlIhdJJ+CETLHsBafcFqd0a09xjNkU1cnnvXsPHN7bD++uwL6
+         GvfrtsP+LRLsaaRve9dVFS5iOt1uL/h9spYBFTxSZhJK7G6FRHjkHXqTznDkm4D1HLMx
+         krpJo+pcyffFOmm68m6RVk15EV7b8t4J41wSjUWM/TTQjBesVtsIJcDlc/K4ebd6EUzi
+         B75Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790773357; x=1791378157;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4vHh8MmN5f2Z9XIEwQh0PcQ24VZUdkZZXQMWG9k82N0=;
+        b=SNSn8Rs7EUPmkCrveYLrwTYdPFt66vckvFteuRGac0bCZXsh0yNV8DKstF325hiD72
+         /Y4iIx+KkhwLzXAABlwvpVkAOMUM87jN/uUhiBMeaspqklZUwMrMiyTmkoCfAzxNaT+V
+         Mqtqn3R9lzZ9V9VKNy02ufUuOJBJ3/HDek5cnjQbQJ9nAlSFHWp5r+LC3pj3qP7+XVA9
+         rHd17jHOXU83XpaTHkDsKdDStbMfDkIFPULxdkyjZIpUy7VwUR9x5aZV2XtNbd7qt8AJ
+         FOLpWul58oWml61mqPqFORWw0W9BeDYj0f5u1voLCXsqaoroEIbmML65ZKQYkMzvvUlc
+         rmaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoOF8l0BROd/rNEuhcfCJwgw6lozersJJ3QzqaZZUtIaAQucqyLy1+GS648OBoFtsBjrPPipZaftteXZM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUAlIOzdoU7pdO5+Oyv7dQFwtBGYTIX04ZYwytPsZGV3/F3DLz
+	U5ENSFs25jRjy3bT5PCopuTNCDJziCcOhpyosalKdYcups1/VDbOAG8t+Q5wgdibsWt6
+X-Gm-Gg: AYBFou1dxEaS6hWj/CBn0bGoucrpUwd0cvcRW0UBRxVap2ekaqGQZMLUgmf0LD6y29k
+	4yvP8zyXIZvf7r6jM6jxol5jPSsXOXqiyR2XjLg6emw0VwWGjLvwIh1+dIe/YhZHxuBh+zxCNDU
+	0O46iz3LBS3ItQvIZpWSfrZcJcMtMs5XZtaxLHRNJQfoXkELyL9WzivTS5a0imgh1/5ma5RrZpD
+	1fDSHRro1D9r7bChNY0MDfYkfEaYpQF1u7kOztzP3q85PqXDkMyQZOXEb+RB6zcvuFBK+/Ujn2S
+	cgzrzRjrnoNU98Scp9Py1qWAMwBZivWnPuW7YUjaGWqkX/SN6ggUQ1WSOFs/0e2i4TyAaQQ5ENW
+	ZHZUj9PveCuqAmFN90ZNCBx3wqlfYuZ7Wl4lcTTubTPSSqNuvDT+IlcOg6pV/9YCMpbe+Ucm7g2
+	4mCjT/FQ+BfPjE/MRyo6n2hQhaVvHwevQdY4/jrk7aAz0vGhIz9YsqhYMvs6Zf+K6b5bHfJkBMD
+	QBh6vw7
+X-Received: by 2002:a17:90b:5343:b0:3a0:25f0:d89f with SMTP id 98e67ed59e1d1-3a4d18e3b8dmr775583a91.54.1790773356655;
+        Wed, 30 Sep 2026 06:02:36 -0700 (PDT)
+Received: from ltu.. ([171.245.4.151])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab424e8sm853583a12.32.2026.09.30.06.02.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 06:02:34 -0700 (PDT)
+From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+To: Wilken Gottwalt <wilken.gottwalt@posteo.net>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Bastian Germann <bage@debian.org>,
+	linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware spinlock
+Date: Wed, 30 Sep 2026 20:02:21 +0700
+Message-Id: <20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260927132707.5f484946@posteo.net>
+References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog> <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog> <20260927132707.5f484946@posteo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v18 02/10] net: phy: phy_link_topology: Track
- ports in phy_link_topology
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- hkallweit1@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
- herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
- kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
- nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
- romain.gantois@bootlin.com, daniel@makrotopia.org,
- dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it,
- f@lex.la
-References: <20260927133619.955236-3-maxime.chevallier@bootlin.com>
- <179064231143.3145.13494941094645193325@kernel.org>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <179064231143.3145.13494941094645193325@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+Hi Wilken,
 
+> Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspinlock" line to
+> the driver in the sun6i_hwspinlock_ids struct, drop
+> "allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and update the yaml
+> file accordingly?
 
-On 9/29/26 02:38, netdev-bot+sashiko@kernel.org wrote:
+Thanks for looking at it. Bjorn hasn't replied yet, so I looked a bit
+more at the naming. I'd like to keep the A31 fallback: it's the usual
+pattern, other blocks in this dtsi do the same (timer, I2S, LED
+controller), and Conor already acked the binding in 2/3. If Bjorn
+prefers a driver entry instead, I'm fine to change it.
 
-> A second path involves MAC drivers that connect the PHY in ndo_open and
-> disconnect it in ndo_stop (for example mvpp2 or mvneta via phylink). With
-> a module PHY present, taking the link down runs phy_detach_internal(P) ->
-> phy_link_topo_del_phy(dev, P), which removes only P's own ports.
-> 
-> When the module is then unplugged, sfp_sm_phy_detach() -> sfp_remove_phy()
-> -> phy_sfp_disconnect_phy() sees P->attached_dev == NULL and skips
-> phy_link_topo_del_phy(dev, M). phy_device_remove(M) -> phy_remove() ->
-> phy_cleanup_ports() then frees M's ports without erasing them.
-> 
-> xa_destroy() doesn't dereference the entries, so this commit alone won't
-> crash. However, a later patch in this series, "net: ethtool: Introduce
-> ethtool command to list ports", adds an ETHTOOL_MSG_PORT_GET dump with no
-> admin permission flag. That dump walks xa_for_each(&dev->link_topo->ports).
-> Its port_prepare_data() copies port->supported and port->interfaces and
-> dereferences port->upstream_port.
-> 
-> Wouldn't that dump read freed memory? phy_del_port(),
-> phy_sfp_disconnect_phy() and phy_link_topo_del_phy() are unchanged at the
-> end of the series.
-Hmm I just tested and no, the port is correctly cleared...
+> Oh, and I may be able to test it against the D1, I own a Sipeed Nezha.
 
-The phylink_stop() triggers the phy_stop() machinery that takes care
-of clearing the ports up
+That would be great. You don't need FreeRTOS for it: I tested with a
+small Linux module that takes each lock and checks the status
+register. I can clean it up for the single-core D1 and send it.
 
-Maxime
+Thanks,
+Tien
