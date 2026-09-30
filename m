@@ -1,155 +1,129 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7916A3CBE6E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757442; cv=pass; b=cVwwsin5uPTeb6rxYQxwBiySMLvWXVO0Uf9cfZnETchZmXFwfA5hLaIRiUhPKqX48LqzJnQDHq7N+dVeaCFV5a1BOvDVNzxYU8AqIjy5s5YGRjwbpTImdhe9AZQy9w2GGe5Zqgm8z8hheV0c+FSaTWpR5dBG4959Qva0X22L41w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757442; c=relaxed/simple;
-	bh=bR8m88aGaXrfrsJOpMkJ/BBxQtrF3+thka+XnxLV90A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UsHwvF30PT6m1PX0Mwj8uaW0X73lUJGX+lz6CTRmUv9xjkfMv0LBipMjZ/HN3r6xyuqNxX8S7PToX2z9zcyeKoOFmhjYv3DlF23oUgroXhV0MVWI0sCehtgX2WQ1OdZSbKHh0yPXaONg6sv+MRRGbTJSYzzPoByFePEHqxx1uxQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3jXfUfC; arc=pass smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F7B30C372;
+	Wed, 30 Sep 2026 08:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790757529; cv=none; b=K4+YVOvgMjBm/T/RXBuGBwWgLcMTAW847hqsvEDdckQIXfD2ka55BJslNY/AiumCbeaHwuulJW01tI+mQv5/oOfhQXGK2FnEh3fhZAHQNZgOm6ybpdtGUO2mhtSb9BDyR7bbCyubx/tToBf+Vj8c9LCnVbdYR93chPQstpeSDEk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790757529; c=relaxed/simple;
+	bh=X6cwC2768R8GYJGuNzoGDEZmYz9zrKHDA/Pb+h+aaRs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=PYNPiHWx2peu9BHq9XEcMRt3KtIQBlLWyFyrXurbcNYBTlIO1P1ugnHKHLQcgq7b99mHYOkI/+X9LcdaB4NMClXELVfwoG7oO8f3TA7rMbm9oq7GG/Mf/JjfoSsCgSVxHhXSAwNMSdDoCYrT18rh0uJenR6AtLreaVB5facP6pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7lTXtTt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3jXfUfC"
-Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-675bcac8ceeso856735d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:37:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790757440; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QmnhJCQ43+0sJBfdmcYq7yzte/DwrOD7xpGSOz4G2ZztFaIE5lyaFuALSUnkLkC0T8
-         esvitwGYT+f/6tjBDm8y/ORSjh/cEqTHQ3gAgSLx8vKxaq8So3FoOMuKIuiWIGqYcccj
-         fAVSICVHh6ihpIioiD4vMGblQIRTYxXM5YiHt1IUAwvybE2oKBQzewr57oOCU9GC4IJY
-         6K1ncM7PzYI3lwbauzy7DAjFOsrC/j42UZHLIQD6hafO3H2fuVF2TE877Hfr6lshMnOp
-         dKBfb+bZB9fKE0nEs+kGxqp0LbrwfnvPpUIvqcuAJompYiYOtyfcP2RKxueSg1bvoR2H
-         f9Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bZbsdIhFdw4lA6lXthA22D9X4FQUwOvCtO8TfQT1itQ=;
-        fh=Ie1IU2otabGescnkU1NeD/I/sMFK1Yy4Zs67iPdtNLY=;
-        b=kzGE5dThauM1rVvCiwxkn8kgFvCpjxcKDSmhXUjJZZDujq5Hi7/zJbNsP0nD0fxzFu
-         UP4RLzzIy4jY39d2Cpa+h6Fk6jF/8mR16AZRN8qJqDKVRH7qH84AKWD/eYUzermTDgpr
-         zLrurK6yQCthEEIJ14O5yN6LE+nxXLYjkMuuDEKM41P7/eFrjSmFb7pCZ3mJhLt/xHk5
-         BA3JdzrxPb9hN5U7R6of5uhhgCQhkKhtZswLz55tzI/CfutxuvecV6+9ivZdjywuMULD
-         tOzpz6orblZsJ1ehWd1pCL3+zOQ7dnOYSPfu98RppJqA+V7dNKbCVZXDHvLw6dKkpCcz
-         yTqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790757440; x=1791362240; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bZbsdIhFdw4lA6lXthA22D9X4FQUwOvCtO8TfQT1itQ=;
-        b=q3jXfUfCskLmgnN1nFKDmV9khZIazXLOiGbrss2zOKA8yUQEO6sA0JJ+feqj/6W91M
-         GWKSzCYAwTjS/xvP41P/8LHXs/uth90A/Qca2opQpTg19IWSlLOX07LVU+ul7dxQCTu3
-         ouqk8xh7QpN+Yqq3UUR/k7+ZjQHGa2W3D+G7+aDCijqqpX+zuf0E+WGbjNVpKzGohjWb
-         WMbw26OvaJjjhVzHDgXxwwjYe73fwQSI07FDyIEWG5NxkEYCXywxl/O/irO3WCund4VB
-         K1K9BfJ9bSy9wPE9FnBBdFyyc58/CTw8Ys5BNwPoAPlj0wbvs39dhyoIRwSmt/YEI/UG
-         jDVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790757440; x=1791362240;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bZbsdIhFdw4lA6lXthA22D9X4FQUwOvCtO8TfQT1itQ=;
-        b=A71iD4+XHLk9bf9v4uBCRqcF2srPgvTEHW5l6X/d9f8zBmBKMtPy8p0DDbpqNGpTli
-         cpwkuS4JFcNvjQfQda2aDrMUt9JDi1XPmCPaBnKv3Maz9D6y3AzxRAFpZfThl03I9e7c
-         rbhjWNaIpxH8zBjbNzpkkGD42DRYgVWzAZhhgU5w98kdfRUHOhU5r87zQB/SPlzzfu2z
-         c2WXIcqrbLkvdViR+0EP4xpF+5tXuq0JTI6dlwhjOF0PsrvtqylRF0ZhcGw8YbyTvHaY
-         3vAiaBKywJd/rCnInsqdCKe6xXe2yzc1sIrfNnflq3Hk/uRorijxgpx9UODhdJfzlyEs
-         3ZWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwafFeVNP5EQr0/xZYyXDHD2KLkMLfpOq9hbLHm8dUjNhWZ5KY82QWxTFQHJ/QTICdb6G8eKGVad/iuwq4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kifJZFkfibjHF5XkuYa74Q6fdrlIfR2EEPtx4C4Cca/NJJ68Eq
-	cCqMylQI6nHHgB9DfQJLsCnhG+b5BYRN25vmq0k5ON3PtZGTwNWyr2V0YAwDwvOKSZCR4FFVZ9c
-	Ll8Scq8oeK3Ez/xnuIcuf2vtlT3bNOYM=
-X-Gm-Gg: AYBFou1LVkCgPJbf1sxeKm8is4EFRLKH11F4L06I0MTLJ2amx+Ktt8PGZEyiKsXN4Yq
-	2nslveWa+yMObz20TIi2BJhSgngbsKpHjpzqrDqGNVVX06BhNCOyC+KPSzyJwnt+yQmy1wQw8X5
-	ezGp9VAlhoeuDSepW9g2Afe+NyKKlHfryPM5V4n1yjVIYXHn75Xxr3t89QP+5QDOoSnLRSuwVdq
-	CD6NpPJHs3a+nJTVwSYV98xDifOC3WkbJW2d8sBJaL1yGWTSG/XB1/DyGBPnrkULRaS9opnSus9
-	y0rD5j/xATkrkNfqN5Mp8Ntr3IND+eEwUFFdyWgsA8u5BD6eTObANhUs6+qizlEH/eBDbWzYKXa
-	XFFd92dJV2GtEutGWTlNiYZ1iqRog9QX8FFpYXcVWMar5
-X-Received: by 2002:a05:690e:144f:b0:676:858d:35e3 with SMTP id
- 956f58d0204a3-676858d42a7mr151082d50.44.1790757440382; Wed, 30 Sep 2026
- 01:37:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7lTXtTt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CA51F000FF;
+	Wed, 30 Sep 2026 08:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790757528;
+	bh=HM0D/IFbXngbw/hJ7nNr3KZZh5bVISdKNKvas5WtV/0=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=F7lTXtTtqQlw3yxli0dz+G4nbnfkygOkq/zwMfdhCEIu2LUgnBSa4bpTPmR9lF0sQ
+	 Go+vS/8j6oBp3HuU4Xz6oMWyG7dF3xxvTUQMwmo9YXdOkemO8BcMZAVtxdQ+A6/Hdc
+	 9z2lQcetyu1A9XvrXeU2O9LgZRtLtgtRnLUHiq26fbAMvtuJCV//Cq686HQKHLK92O
+	 2jjyE53uQnhlLXRqGkuMpK003IZbIeGnP3cHXOWftyPoHAKZDVCuVPuWffkOyBgDNL
+	 SyTUbEfKMLIr610WRE38KIWzKv2iV5doD1BO9qUCSDrUtcgP+4hcBEatRn6BZ2nI97
+	 /mvTxeD4Z434w==
+Message-ID: <e28e00ff-0e66-493a-88fb-71b05b253c44@kernel.org>
+Date: Wed, 30 Sep 2026 10:38:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928121230.35359-1-kartikey406@gmail.com> <CADhLXY434wAdf9s-_3xh4WZj5A26yaP7LPj1JqvNaPaVJWQqyw@mail.gmail.com>
- <arpcrKbhue-aRud9@extorris.mess.org>
-In-Reply-To: <arpcrKbhue-aRud9@extorris.mess.org>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Wed, 30 Sep 2026 14:07:08 +0530
-X-Gm-Features: AclHuK_hL4sEK6mtF_ZzNd7F71VC1zJspJZfhjhXLVWvSJpVrusATxRquQk8KbY
-Message-ID: <CADhLXY5Qtz=_6oHsHyZUVv4-rrbh+AmXaR-E5to6tOyep_A31g@mail.gmail.com>
-Subject: Re: [PATCH v2] media: imon: fix use-after-free in display_close via dev_dbg
-To: Sean Young <sean@mess.org>
-Cc: mchehab@kernel.org, jarod@redhat.com, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: hverkuil+cisco@kernel.org
+Subject: Re: [PATCH] media: usbtv: fix use-after-free and lockdep panic on
+ unbind
+To: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>, mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ johan@kernel.org, lgs201920130244@gmail.com, kees@kernel.org,
+ fsimonce@redhat.com, lkundrak@v3.sk,
+ syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+References: <20260927180745.2721-1-nsvatoslav515@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260927180745.2721-1-nsvatoslav515@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 5:55=E2=80=AFPM Sean Young <sean@mess.org> wrote:
->
-> On Mon, Sep 28, 2026 at 05:48:26PM +0530, Deepanshu Kartikey wrote:
-> > On Mon, Sep 28, 2026 at 5:42=E2=80=AFPM Deepanshu Kartikey
-> > <kartikey406@gmail.com> wrote:
-> > >
-> > > ictx->dev is a raw pointer to the usb_interface's embedded device,
-> > > cached in imon_init_intf0() without taking a reference. On
-> > > disconnect, usb_disconnect() can drop the last reference on the
-> > > interface and free it while a userspace fd for /dev/lcd0 is still
-> > > open. When that fd is later closed, display_close() dereferences
-> > > the now-freed ictx->dev via dev_dbg(), causing a use-after-free.
-> > >
-> > > Fix by pinning the device with get_device() when ictx->dev is
-> > > assigned, and releasing it with put_device() when ictx is freed.
-> > >
-> > > Also drop the dev_dbg() in free_imon_context(), which only printed
-> > > a debug message and is no longer needed.
-> > >
-> > > Fixes: 21677cfc562a ("V4L/DVB: ir-core: add imon driver")
-> > > Reported-by: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-> > > Closes: https://syzkaller.appspot.com/bug?extid=3D9bfac891bdd42eb708f=
-c
-> > > Link: http://lore.kernel.org/all/20260918054851.26083-1-kartikey406@g=
-mail.com/T/ [v1]
-> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> > > ---
-> > > v2:
-> > > - Remove the dev_dbg() in free_imon_context(), as suggested by
-> > >   Sean Young.
-> > > ---
-> > >  drivers/media/rc/imon.c | 5 +++--
-> > >  1 file changed, 3 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-> > > index 049a73b5f882..562a70186db4 100644
-> > > --- a/drivers/media/rc/imon.c
-> > > +++ b/drivers/media/rc/imon.c
-> > > @@ -501,7 +501,7 @@ static void free_imon_context(struct imon_context=
- *ictx)
-> > >         usb_free_urb(ictx->rx_urb_intf1);
-> > >         kfree_rcu(ictx, rcu);
-> > >
-> > > -       dev_dbg(dev, "%s: iMON context freed\n", __func__);
-> > > +       put_device(dev);
->
-> Why do you need put_device()?
->
+On 27/09/2026 20:07, Svyatoslav Nikolenko wrote:
+> When a usbtv device is unplugged or unbound, a lockdep panic and
+> use-after-free occurs in the driver core.
+> 
+> The sequence of events leading to the crash is:
+> 1. device_release_driver_internal() acquires dev->mutex.
+> 2. usbtv_disconnect() is called, which in turn calls usbtv_video_free().
+> 3. usbtv_video_free() prematurely calls v4l2_device_disconnect() and
+>    v4l2_device_put().
+> 4. This drops the final reference on the parent USB device (intf->dev),
+>    triggering synchronous device deletion while the USB core is still
+>    holding dev->mutex.
+> 5. When the core attempts to unlock dev->mutex, it operates on freed
+>    memory, causing a lockdep panic.
+> 
+> Furthermore, usbtv_disconnect() continues to access usbtv->udev after
+> usbtv_video_free() returns, leading to a direct use-after-free.
+> 
+> Fix this by removing the manual v4l2_device_disconnect() and
+> v4l2_device_put() calls from usbtv_video_free(). This allows
+> usbtv_video_free() to safely unregister the video node without destroying
+> the underlying structures. The final v4l2_device_put() at the end of
+> usbtv_disconnect() will now correctly trigger usbtv_release()
+> asynchronously, safely dropping the parent device reference only after all
+> system locks are released.
+> 
+> As a result of this cleanup, the dummy v4l2_device_get() previously used
+> to prevent premature deletion in the usbtv_probe() error path is no longer
+> needed and has been removed.
+> 
+> Fixes: a3550ea665ac ("[media] usbtv: split core and video implementation")
+> Reported-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
+> Tested-by: syzbot+ed3ed4f52d1fb6a7367d@syzkaller.appspotmail.com
+> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
 
+Can you rebase on top of https://gitlab.freedesktop.org/linux-media/media-committers, 'next'
+branch?
 
-yes it is of no use. So, I have removed it and send patch v3.
+I wonder if the previous patch cb705f75d03e ("media: usbtv: fix null-pointer
+dereference on disconnect") didn't already fix this.
 
-Thanks
+Regards,
 
-Deepanshu
+	Hans
+
+> ---
+>  drivers/media/usb/usbtv/usbtv-core.c  | 3 ---
+>  drivers/media/usb/usbtv/usbtv-video.c | 3 ---
+>  2 files changed, 6 deletions(-)
+> 
+> diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
+> index 4f10f6613bc4..8a68bc0aa884 100644
+> --- a/drivers/media/usb/usbtv/usbtv-core.c
+> +++ b/drivers/media/usb/usbtv/usbtv-core.c
+> @@ -112,9 +112,6 @@ static int usbtv_probe(struct usb_interface *intf,
+>  	return 0;
+>  
+>  usbtv_audio_fail:
+> -	/* we must not free at this point */
+> -	v4l2_device_get(&usbtv->v4l2_dev);
+> -	/* this will undo the v4l2_device_get() */
+>  	usbtv_video_free(usbtv);
+>  
+>  usbtv_video_fail:
+> diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
+> index 92bc7a2509c3..9e02038c3ff7 100644
+> --- a/drivers/media/usb/usbtv/usbtv-video.c
+> +++ b/drivers/media/usb/usbtv/usbtv-video.c
+> @@ -964,7 +964,4 @@ int usbtv_video_init(struct usbtv *usbtv)
+>  void usbtv_video_free(struct usbtv *usbtv)
+>  {
+>  	vb2_video_unregister_device(&usbtv->vdev);
+> -	v4l2_device_disconnect(&usbtv->v4l2_dev);
+> -
+> -	v4l2_device_put(&usbtv->v4l2_dev);
+>  }
+
