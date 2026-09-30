@@ -1,207 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB673BB113;
-	Wed, 30 Sep 2026 06:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91B535B125;
+	Wed, 30 Sep 2026 06:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790749373; cv=none; b=bH0rbZghmIkKbEPsCvPzsv/6HLSDLALnMtzmK1rNcmMfvMAjzZbhU3svvue8ghIm4Io51q4A6Q2Rs3id1WdOrt8eWNmMyxKsI07KVeu08GWANJeVMUHdFzMWj85u841F+JLimNggx1f/lBQCAwYabRYtn+Tx8IhjtCMCm+Oi7M0=
+	t=1790749478; cv=none; b=l69eaOZ6GYooq1kTtq1KMByhINYgjwKGlpOMx1ZLF+n+ugCyjf7yEntJSFvFY10AtTo8pR24vZ9pgsvFoaBsK7k3oxQ1KGRm6qCJzc4rpDPKQRh63zBn46mBObmZiwqsskaCW9qywhaEEr8V45S+xdzSGCpvd5xNmrRNjMDtEa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790749373; c=relaxed/simple;
-	bh=rtNUZwDU+3thMLtaT2oI+T5OiKsS3YLtKp2NBRhe4uQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Fh4eeBr5XWv1Q6wbhROY7iUtJTLAA16LF6sZkxzLcQnLsvdFxQKJurq/ObkK8aznoZvMFryWhes2Df2samTmh7ioTlwU6R+g0mHQg4z9ttgAmVTO2ehg9b1NvYH2XBzuI4wDbG4S5SY5KHRtiiRUPWiq+usWgJmg4GPCPcmyu7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGeH0kKD; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGeH0kKD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A0924C2BCF4;
-	Wed, 30 Sep 2026 06:22:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790749372;
-	bh=rtNUZwDU+3thMLtaT2oI+T5OiKsS3YLtKp2NBRhe4uQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=bGeH0kKDlTtTTuLXt3hLKT0R5IZOUQapWAtWvPPGsECfw+k2or+CYOQEfjrJgQ7Jx
-	 0XPzagQVBujJFD/ysBjLKziheXirJhz71OQSOMa24XmIr4vVCVxukT+/yDT4xeCPhp
-	 IaFZNb9lHywEE+hshdwF1V7bLz1Hef+yzHaEK/N5Y0nLo6vFkmJ4yLVZtslYpt3SM2
-	 sOZT2zroUYh4n3rSdOclufgvj2p7qqrscImzW037fB126diNwIUvgYNrhUHXlkIXF4
-	 rsqOxznVsIiDdc1suIjo8BZUUE+K0nXnpvTjnjCnb1f+HfKBO4yCta6YiOoz03r/hI
-	 AtikSsURca8sQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E90FCA5FB1;
-	Wed, 30 Sep 2026 06:22:52 +0000 (UTC)
-From: Waqar Gulzar via B4 Relay <devnull+iamwaqargulzar.gmail.com@kernel.org>
-Date: Wed, 30 Sep 2026 11:22:49 +0500
-Subject: [PATCH] HID: i2c-hid-acpi: restore touchscreen IRQ routing on HP
- OmniBook X Flip 16
+	s=arc-20240116; t=1790749478; c=relaxed/simple;
+	bh=MBsl6ZrxMqZohP7TBwRcTnbcbZtA8oZGrHuyoFYIXCE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ihxpPX5RTy16A6HP616HsKGg883tI5u+aekGQEeM88zrAMPe3DMXeWlZAQy2UTtK/RDlVf/+yxphs4EXbOCLE9pym8fZzurZX/KiMJpHGxZoh2UqubZWOc/yvTY5rtyP7gN0yGiwT2g2qKnPhF+ko7jea3jnGk7nqP6XE0WJ6uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hvlPF2McjzYQttb;
+	Wed, 30 Sep 2026 14:24:01 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id CABC74056D;
+	Wed, 30 Sep 2026 14:24:29 +0800 (CST)
+Received: from [10.67.110.68] (unknown [10.67.110.68])
+	by APP1 (Coremail) with UTF8SMTPA id cCh0CgDHP_ocq7xq2+WwCA--.12019S2;
+	Wed, 30 Sep 2026 14:24:29 +0800 (CST)
+Message-ID: <52daee54-9127-445c-b924-64623ca2e125@huaweicloud.com>
+Date: Wed, 30 Sep 2026 14:24:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next 3/5] selftests/bpf: Use /tmp for temporary file
+ in d_path
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, bpf@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Cc: Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Puranjay Mohan
+ <puranjay@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
+ Pu Lehui <pulehui@huawei.com>
+References: <20260929083924.1851840-1-pulehui@huaweicloud.com>
+ <20260929083924.1851840-4-pulehui@huaweicloud.com>
+ <DLRXY2AQRPYP.1YQ75SL3XHQHN@gmail.com>
+Content-Language: en-US
+From: Pu Lehui <pulehui@huaweicloud.com>
+In-Reply-To: <DLRXY2AQRPYP.1YQ75SL3XHQHN@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-b4-elan2514-irq-route-v1-1-44671bf01d05@gmail.com>
-X-B4-Tracking: v=1; b=H4sIALiqvGoC/yXMQQqDMBBA0avIrDsQY7TaqxQXJk7siEQ7URHEu
- zdtl2/x/wmRhCnCIztBaOfIc0jIbxm4VxcGQu6TQStdqaZQaA3S1AVd5gZZ3ijzthL2tb4b73y
- tSgupXYQ8H7/vs/07bnYkt35ncF0fk1cS8nkAAAA=
-X-Change-ID: 20260930-b4-elan2514-irq-route-d8274fcf805b
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-acpi@vger.kernel.org, stable@vger.kernel.org, 
- Waqar Gulzar <iamwaqargulzar@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790749371; l=5531;
- i=iamwaqargulzar@gmail.com; s=20260930; h=from:subject:message-id;
- bh=i/kcWiyvC9sOaZJ1/0neMN3dO4OBwcexqs5ODF8WpnE=;
- b=587x1mpxQN0x62TTKWKXtPdtKnrhddDQKiq2/8MFrl7x+g6GrAgLnUMYhz2h4sdOnNmRDDYel
- 8PYX7GrgiGMDHCTLbK1KdvQrU2RjE1InqS+UeAijEHn1IxH/SdGfWKW
-X-Developer-Key: i=iamwaqargulzar@gmail.com; a=ed25519;
- pk=SaQhB3EnN6qioo4wuu0rBv6REy1Nx9hz3QOh3Qp9xtk=
-X-Endpoint-Received: by B4 Relay for iamwaqargulzar@gmail.com/20260930 with
- auth_id=1083
-X-Original-From: Waqar Gulzar <iamwaqargulzar@gmail.com>
-Reply-To: iamwaqargulzar@gmail.com
+X-CM-TRANSID:cCh0CgDHP_ocq7xq2+WwCA--.12019S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZr4rJr48XF13Ar15CFW5trb_yoWDXFb_Cw
+	4YkF93Jw1Dta1jqa109r4UZr18ur4vvF18KasYgry7Zas3Zr98WF4kCr9Y9Fs2va4Iva45
+	Xr13u3y3tr47CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbx8YFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E6xAIw20E
+	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwV
+	A0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x02
+	67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
+	j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
+	kEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AK
+	xVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_Wryl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jIks
+	gUUUUU=
+X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
-From: Waqar Gulzar <iamwaqargulzar@gmail.com>
 
-On the HP OmniBook X Flip 16 the ELAN2514 touchscreen interrupt is a
-GPIO pad (GPP_E_18) routed directly to the IO-APIC. The firmware's
-touchscreen power resource does
+On 2026/9/30 0:29, Alexei Starovoitov wrote:
+> On Tue, Sep 29, 2026 at 08:39 AM Pu Lehui <pulehui@huaweicloud.com> wrote:
+>> The failure occurs because the rootfs created by libbpf/ci [0] does not
+>> mount /dev/shm, causing temporary file creation under /dev/shm to fail.
+>>
+>> Let's switch to using /tmp instead to fix this issue.
+> 
+> This will break BPF CI.
+> The test was using /tmp up to v4 and was moved to /dev/shm in v5,
+> since /tmp is on 9p in BPF CI and 9p doesn't support fallocate. See
+> https://lore.kernel.org/all/20251206141210.3148-1-electronlsr@gmail.com/
+> vmtest's init mounts tmpfs at /dev/shm, /run and /mnt, but not at /tmp.
+> So fallocate() will return EOPNOTSUPP and d_path/check_mem_access
+> will fail on x86, arm64 and s390.
+> 
+> Mount tmpfs at /dev/shm in mkrootfs_tweak.sh like you did for /tmp in [1]
+> and drop this patch.
+> 
+> pw-bot: cr
 
-    PTPL._ON:  \_SB.SGRA (TPI2, TPIP)        // TPIP = T0IP = 0
-    PTPL._OFF: \_SB.SGRA (TPI2, TPIP ^ 1)
+Hi Alexei and Ihor,
 
-while the device's _INI enables routing with SGRA (GPLI, T0IP ^ 1).
-So _ON clears PADCFG0.GPIROUTIOXAPIC and disconnects the pad from the
-IO-APIC. Linux evaluates _ON at probe and on every D3->D0 transition
-(Windows apparently does not while _STA already reports the resource
-on), after which the level-triggered IRQ never deasserts:
+I have been make a pr for mount tmpfs at /dev/shm, pls take a look.
 
-  - ~630 interrupts/s while idle, nearly every read returns 0xffff
-  - frames shifted by a leading 0xff, "incomplete report (67/7167)"
-  - stylus reports arrive at ~25 Hz instead of the native ~268 Hz
-  - touch stalls and false stylus proximity
-
-Re-enable the routing through the firmware's own \_SB.SGRA helper from
-the power_up hook, which runs at probe and on resume before the HID
-reset.
-
-Tested on board 8DA1 (BIOS F.20): idle interrupts drop from ~630/s to
-0 after boot and after s2idle resume, and pen and touch behave as on
-Windows. Board 8DA0 is the other board ID of this model and is reported
-to have the same firmware code, so it is included, but it has not been
-tested because I do not have access to one.
-
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142384
-Link: https://github.com/testyfishy/hp-omnibook-flip16-touchscreen-fix
-Link: https://github.com/iamwaqargulzar/hp-omnibook-x-flip-16-linux-touchscreen-pen-fix
-Cc: stable@vger.kernel.org
-Signed-off-by: Waqar Gulzar <iamwaqargulzar@gmail.com>
----
-The HP OmniBook X Flip 16 firmware disconnects the ELAN2514 touchscreen
-interrupt from the IO-APIC in its power resource _ON method, which Linux
-runs at probe and resume. This patch re-enables the routing through the
-firmware's own helper from i2c-hid-acpi's power_up hook.
-
-Tested on board 8DA1 with BIOS F.20 on Linux 7.2.8, including s2idle
-resume. The 8DA0 entry is untested (I do not have that board).
-
-Full analysis, ACPI excerpts, and Windows/Linux traces:
-https://github.com/iamwaqargulzar/hp-omnibook-x-flip-16-linux-touchscreen-pen-fix
----
- drivers/hid/i2c-hid/i2c-hid-acpi.c | 58 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
-
-diff --git a/drivers/hid/i2c-hid/i2c-hid-acpi.c b/drivers/hid/i2c-hid/i2c-hid-acpi.c
-index 9371db200..b6348ee3d 100644
---- a/drivers/hid/i2c-hid/i2c-hid-acpi.c
-+++ b/drivers/hid/i2c-hid/i2c-hid-acpi.c
-@@ -21,6 +21,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/device.h>
-+#include <linux/dmi.h>
- #include <linux/i2c.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -55,6 +56,60 @@ static void i2c_hid_acpi_restore_sequence(struct i2chid_ops *ops)
- 	i2c_hid_acpi_get_descriptor(ihid_acpi->adev);
- }
- 
-+/*
-+ * HP OmniBook X Flip 16 (boards 8DA0/8DA1): the touchscreen power resource
-+ * \_SB.PC00.I2C4.PTPL._ON writes the wrong value to the GPIROUTIOXAPIC bit
-+ * of the touchscreen interrupt pad, disconnecting it from the IO-APIC. The
-+ * level-triggered interrupt then never deasserts, the controller is read
-+ * continuously (~630 reads/s while idle) and it cannot deliver pen reports
-+ * at its native rate. Windows does not run _ON while the resource already
-+ * reports on, so it is not affected. Linux runs _ON at probe and on every
-+ * resume, so re-enable the routing with the firmware's own helper before
-+ * the HID reset.
-+ */
-+static const struct dmi_system_id i2c_hid_acpi_irq_route_dmi[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "8DA0"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "8DA1"),
-+		},
-+	},
-+	{ }
-+};
-+
-+static int i2c_hid_acpi_restore_irq_route(struct i2chid_ops *ops)
-+{
-+	struct i2c_hid_acpi *ihid_acpi = container_of(ops, struct i2c_hid_acpi, ops);
-+	union acpi_object args[2];
-+	struct acpi_object_list arg_list = { ARRAY_SIZE(args), args };
-+	unsigned long long pad;
-+	acpi_status status;
-+
-+	status = acpi_evaluate_integer(NULL, "\\GPLI", NULL, &pad);
-+	if (ACPI_FAILURE(status))
-+		return 0;
-+
-+	args[0].type = ACPI_TYPE_INTEGER;
-+	args[0].integer.value = pad;
-+	args[1].type = ACPI_TYPE_INTEGER;
-+	args[1].integer.value = 1;
-+
-+	status = acpi_evaluate_object(NULL, "\\_SB.SGRA", &arg_list, NULL);
-+	if (ACPI_FAILURE(status))
-+		acpi_handle_warn(acpi_device_handle(ihid_acpi->adev),
-+				 "failed to restore interrupt routing: %s\n",
-+				 acpi_format_exception(status));
-+
-+	/* Never fail probe or resume because of this workaround */
-+	return 0;
-+}
-+
- static void i2c_hid_acpi_shutdown_tail(struct i2chid_ops *ops)
- {
- 	struct i2c_hid_acpi *ihid_acpi = container_of(ops, struct i2c_hid_acpi, ops);
-@@ -85,6 +140,9 @@ static int i2c_hid_acpi_probe(struct i2c_client *client)
- 	ihid_acpi->adev = adev;
- 	ihid_acpi->ops.shutdown_tail = i2c_hid_acpi_shutdown_tail;
- 	ihid_acpi->ops.restore_sequence = i2c_hid_acpi_restore_sequence;
-+	if (acpi_dev_hid_uid_match(ihid_acpi->adev, "ELAN2514", NULL) &&
-+	    dmi_check_system(i2c_hid_acpi_irq_route_dmi))
-+		ihid_acpi->ops.power_up = i2c_hid_acpi_restore_irq_route;
- 
- 	acpi_device_fix_up_power(adev);
- 
-
----
-base-commit: 145c2b2e9a5c0f794fb4009bcb072ab19f8ccfcd
-change-id: 20260930-b4-elan2514-irq-route-d8274fcf805b
-
-Best regards,
---  
-Waqar Gulzar <iamwaqargulzar@gmail.com>
-
+https://github.com/libbpf/ci/pull/239
 
