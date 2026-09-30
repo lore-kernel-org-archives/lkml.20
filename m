@@ -1,37 +1,37 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6011E4E4C41;
-	Wed, 30 Sep 2026 13:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AFA4E324C;
+	Wed, 30 Sep 2026 13:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776515; cv=none; b=QtixsE060kZPqcSUu0wIS0x9uAtTe2PNyxeUoCu2olUORofQd4frvbSjqufUqQGHgr+p1AMMbtKTElM1hcQAPdbR5SGH0dbio9TlBtlvsv5XZknpFYoadonuMa6+0B9qaoSsFlEywtsVlyLunLpvxzlJJrikd2fCB7GZ7KF5qc0=
+	t=1790776512; cv=none; b=LC77pibJ2Q/lrEKsMbIN/CgXCJZ5hu9m0K5CGIcbVuIHfewMrGVsCzXLaVVTXrjlsH5lwK8rkTCL0ItuvhgTp67OrQp3Tq47VR2BQqb5Fs04f+YzvqliNdRNz5n83hksBWplQAyM9wsKJXBKx1RnL18f+bDVoG/2YykLSlgeAb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776515; c=relaxed/simple;
-	bh=wzzdE8B/7kFDE9nUu6NDUEGidOqeqgIi5+ZBPKZcdC0=;
+	s=arc-20240116; t=1790776512; c=relaxed/simple;
+	bh=kfb1dRu7liQpWDiuQJLPakDul54tIvSkuwQTdOq9Ld4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SHMrMoeNsdHAhXBBETUzwIbcIf/xOlM45CND9IeUyQjLvtiiXHBboYP40PgVsLSY/rVHiR0tsYIKHEAHqT8qi4OD9lGBITtWCzDUnZcr8YuOJ2JpyE8Uj0TG/XevlI+zqo0zgpgaYCBFUN9eA4/fZ1CW9TDH1C4yKYfc9cBS6ME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=d9nIhTJ0CxbLB8fWJ1ChuO65EN6Ifs+FsPN7od+ebyibrG7c4t0LGDbEYSgMMntaJvfeias6vGPz8jey2Zxeong4FTF1ahhrYOF2xFV8tK205PnPZjBaZt/KCDvDG88HPVkcLDjCHErTtJaOMD+RZC2y6l5RWCHOuydZ0BqnTU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 204CC21E24;
-	Wed, 30 Sep 2026 13:54:54 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D5F461F8D4;
+	Wed, 30 Sep 2026 13:54:42 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A4C913ABC;
-	Wed, 30 Sep 2026 13:54:53 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E678613722;
+	Wed, 30 Sep 2026 13:54:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fJXpHGIUvWqUTwAAD6G6ig:T17
-	(envelope-from <fmancera@suse.de>); Wed, 30 Sep 2026 13:54:53 +0000
+	id fJXpHGIUvWqUTwAAD6G6ig:T12
+	(envelope-from <fmancera@suse.de>); Wed, 30 Sep 2026 13:54:41 +0000
 From: Fernando Fernandez Mancera <fmancera@suse.de>
 To: netdev@vger.kernel.org
 Cc: horms@kernel.org,
@@ -41,13 +41,15 @@ Cc: horms@kernel.org,
 	davem@davemloft.net,
 	Fernando Fernandez Mancera <fmancera@suse.de>,
 	Eric Dumazet <edumazet@google.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 16/16 net-next v3] ipv4: make CONFIG_IPV4 boolean
-Date: Wed, 30 Sep 2026 15:52:59 +0200
-Message-ID: <20260930135334.4739-17-fmancera@suse.de>
+Subject: [PATCH 11/16 net-next v3] ipv4: disable IPv4-only sysctls when CONFIG_IPV4=n
+Date: Wed, 30 Sep 2026 15:52:54 +0200
+Message-ID: <20260930135334.4739-12-fmancera@suse.de>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260930135334.4739-1-fmancera@suse.de>
 References: <20260930135334.4739-1-fmancera@suse.de>
@@ -64,7 +66,7 @@ X-Rspamd-Pre-Result: action=no action;
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 204CC21E24
+X-Rspamd-Queue-Id: D5F461F8D4
 X-Rspamd-Action: no action
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
@@ -73,41 +75,538 @@ X-Spam-Flag: NO
 X-Spam-Score: -4.00
 X-Spam-Level: 
 
-Change CONFIG_IPV4 from hidden 'def_bool y' into an exposed boolean.
-This allows users to explicitly disable IPv4 via Kconfig to build
-IPv6-only. The default is kept at 'INET' to prevent breaking existing
-configurations.
+To avoid noise and unexpected problems, let's hide all the sysctls that
+are related to IPv4 only when the kernel is compiled without IPv4
+support.
 
 Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
 ---
-Sashiko: the point of this is to provide a minimal build. There plenty
-of features that do not work without IPv4 for now. Follow-up patches
-will be sent to fix that in the future.
----
- net/ipv4/Kconfig | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ net/ipv4/sysctl_net_ipv4.c | 407 +++++++++++++++++++------------------
+ 1 file changed, 205 insertions(+), 202 deletions(-)
 
-diff --git a/net/ipv4/Kconfig b/net/ipv4/Kconfig
-index 51bf05d9770c..c7d36cfa4a1d 100644
---- a/net/ipv4/Kconfig
-+++ b/net/ipv4/Kconfig
-@@ -3,7 +3,15 @@
- # IP configuration
- #
- config IPV4
--	def_bool y
-+	bool "The IPv4 protocol" if IPV6
-+	default INET
-+	help
-+	  Support for IP version 4 (IPv4).
-+
-+	  Disabling this option compiles the kernel networking stack without
-+	  IPv4 support, resulting in a IPv6-only system.
-+
-+	  If unsure, say Y.
+diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+index 0e7fef5973db..6096e9e4d82d 100644
+--- a/net/ipv4/sysctl_net_ipv4.c
++++ b/net/ipv4/sysctl_net_ipv4.c
+@@ -31,8 +31,8 @@ static int tcp_min_snd_mss_max = 65535;
+ static int tcp_rto_max_max = TCP_RTO_MAX_SEC * MSEC_PER_SEC;
+ static int ip_privileged_port_min;
+ static int ip_privileged_port_max = 65535;
+-static int ip_ttl_min = 1;
+-static int ip_ttl_max = 255;
++static int ip_ttl_min __maybe_unused = 1;
++static int ip_ttl_max __maybe_unused = 255;
+ static int tcp_syn_retries_min = 1;
+ static int tcp_syn_retries_max = MAX_TCP_SYNCNT;
+ static int tcp_syn_linear_timeouts_max = MAX_TCP_SYNCNT;
+@@ -48,7 +48,7 @@ static int tcp_plb_max_rounds = 31;
+ static int tcp_plb_max_cong_thresh = 256;
+ static unsigned int tcp_tw_reuse_delay_max = TCP_PAWS_MSL * MSEC_PER_SEC;
+ static int tcp_ecn_mode_max = 5;
+-static u32 icmp_errors_extension_mask_all =
++static u32 icmp_errors_extension_mask_all __maybe_unused =
+ 	GENMASK_U8(ICMP_ERR_EXT_COUNT - 1, 0);
  
- config IP_MULTICAST
- 	bool "IP: multicasting"
+ static int tcp_min_rcvbuf = 4096;
+@@ -201,8 +201,9 @@ static int ipv4_ping_group_range(const struct ctl_table *table, int write,
+ 	return ret;
+ }
+ 
+-static int ipv4_fwd_update_priority(const struct ctl_table *table, int write,
+-				    void *buffer, size_t *lenp, loff_t *ppos)
++static int __maybe_unused
++ipv4_fwd_update_priority(const struct ctl_table *table, int write,
++			 void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	struct net *net;
+ 	int ret;
+@@ -441,9 +442,9 @@ static int proc_udp_hash_entries(const struct ctl_table *table, int write,
+ }
+ 
+ #ifdef CONFIG_IP_ROUTE_MULTIPATH
+-static int proc_fib_multipath_hash_policy(const struct ctl_table *table, int write,
+-					  void *buffer, size_t *lenp,
+-					  loff_t *ppos)
++static int __maybe_unused
++proc_fib_multipath_hash_policy(const struct ctl_table *table, int write,
++			       void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	struct net *net = container_of(table->data, struct net,
+ 	    ipv4.sysctl_fib_multipath_hash_policy);
+@@ -456,9 +457,9 @@ static int proc_fib_multipath_hash_policy(const struct ctl_table *table, int wri
+ 	return ret;
+ }
+ 
+-static int proc_fib_multipath_hash_fields(const struct ctl_table *table, int write,
+-					  void *buffer, size_t *lenp,
+-					  loff_t *ppos)
++static int __maybe_unused
++proc_fib_multipath_hash_fields(const struct ctl_table *table, int write,
++			       void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	struct net *net;
+ 	int ret;
+@@ -492,9 +493,9 @@ static void proc_fib_multipath_hash_set_seed(struct net *net, u32 user_seed)
+ 	WRITE_ONCE(net->ipv4.sysctl_fib_multipath_hash_seed.mp_seed, new.mp_seed);
+ }
+ 
+-static int proc_fib_multipath_hash_seed(const struct ctl_table *table, int write,
+-					void *buffer, size_t *lenp,
+-					loff_t *ppos)
++static int __maybe_unused
++proc_fib_multipath_hash_seed(const struct ctl_table *table, int write,
++			     void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	struct sysctl_fib_multipath_hash_seed *mphs;
+ 	struct net *net = table->data;
+@@ -636,15 +637,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dointvec
+ 	},
+-	{
+-		.procname	= "icmp_echo_ignore_all",
+-		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_all,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE
+-	},
+ 	{
+ 		.procname	= "icmp_echo_enable_probe",
+ 		.data		= &init_net.ipv4.sysctl_icmp_echo_enable_probe,
+@@ -654,56 +646,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.extra1		= SYSCTL_ZERO,
+ 		.extra2		= SYSCTL_ONE
+ 	},
+-	{
+-		.procname	= "icmp_echo_ignore_broadcasts",
+-		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_broadcasts,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE
+-	},
+-	{
+-		.procname	= "icmp_ignore_bogus_error_responses",
+-		.data		= &init_net.ipv4.sysctl_icmp_ignore_bogus_error_responses,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE
+-	},
+-	{
+-		.procname	= "icmp_errors_use_inbound_ifaddr",
+-		.data		= &init_net.ipv4.sysctl_icmp_errors_use_inbound_ifaddr,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE
+-	},
+-	{
+-		.procname	= "icmp_errors_extension_mask",
+-		.data		= &init_net.ipv4.sysctl_icmp_errors_extension_mask,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= &icmp_errors_extension_mask_all,
+-	},
+-	{
+-		.procname	= "icmp_ratelimit",
+-		.data		= &init_net.ipv4.sysctl_icmp_ratelimit,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_ms_jiffies,
+-	},
+-	{
+-		.procname	= "icmp_ratemask",
+-		.data		= &init_net.ipv4.sysctl_icmp_ratemask,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec
+-	},
+ 	{
+ 		.procname	= "icmp_msgs_per_sec",
+ 		.data		= &init_net.ipv4.sysctl_icmp_msgs_per_sec,
+@@ -774,13 +716,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.extra1		= SYSCTL_ZERO,
+ 		.extra2		= SYSCTL_ONE,
+ 	},
+-	{
+-		.procname	= "ip_dynaddr",
+-		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-	},
+ 	{
+ 		.procname	= "ip_early_demux",
+ 		.data		= &init_net.ipv4.sysctl_ip_early_demux,
+@@ -811,15 +746,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.extra1		= SYSCTL_ZERO,
+ 		.extra2		= SYSCTL_ONE,
+ 	},
+-	{
+-		.procname	= "ip_default_ttl",
+-		.data		= &init_net.ipv4.sysctl_ip_default_ttl,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= &ip_ttl_min,
+-		.extra2		= &ip_ttl_max,
+-	},
+ 	{
+ 		.procname	= "ip_local_port_range",
+ 		.maxlen		= 0,
+@@ -841,36 +767,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_do_large_bitmap,
+ 	},
+-	{
+-		.procname	= "ip_no_pmtu_disc",
+-		.data		= &init_net.ipv4.sysctl_ip_no_pmtu_disc,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-	},
+-	{
+-		.procname	= "ip_forward_use_pmtu",
+-		.data		= &init_net.ipv4.sysctl_ip_fwd_use_pmtu,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-	},
+-	{
+-		.procname	= "ip_forward_update_priority",
+-		.data		= &init_net.ipv4.sysctl_ip_fwd_update_priority,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler   = ipv4_fwd_update_priority,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE,
+-	},
+-	{
+-		.procname	= "ip_nonlocal_bind",
+-		.data		= &init_net.ipv4.sysctl_ip_nonlocal_bind,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-	},
+ 	{
+ 		.procname	= "ip_autobind_reuse",
+ 		.data		= &init_net.ipv4.sysctl_ip_autobind_reuse,
+@@ -880,13 +776,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.extra1         = SYSCTL_ZERO,
+ 		.extra2         = SYSCTL_ONE,
+ 	},
+-	{
+-		.procname	= "fwmark_reflect",
+-		.data		= &init_net.ipv4.sysctl_fwmark_reflect,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-	},
+ 	{
+ 		.procname	= "tcp_fwmark_accept",
+ 		.data		= &init_net.ipv4.sysctl_tcp_fwmark_accept,
+@@ -952,37 +841,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.proc_handler	= proc_douintvec_minmax,
+ 		.extra2		= &u32_max_div_HZ,
+ 	},
+-	{
+-		.procname	= "igmp_link_local_mcast_reports",
+-		.data		= &init_net.ipv4.sysctl_igmp_llm_reports,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-	},
+-	{
+-		.procname	= "igmp_max_memberships",
+-		.data		= &init_net.ipv4.sysctl_igmp_max_memberships,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec
+-	},
+-	{
+-		.procname	= "igmp_max_msf",
+-		.data		= &init_net.ipv4.sysctl_igmp_max_msf,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec
+-	},
+-#ifdef CONFIG_IP_MULTICAST
+-	{
+-		.procname	= "igmp_qrv",
+-		.data		= &init_net.ipv4.sysctl_igmp_qrv,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_minmax,
+-		.extra1		= SYSCTL_ONE
+-	},
+-#endif
+ 	{
+ 		.procname	= "tcp_congestion_control",
+ 		.data		= &init_net.ipv4.tcp_congestion_control,
+@@ -1154,42 +1012,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.proc_handler	= proc_tfo_blackhole_detect_timeout,
+ 		.extra1		= SYSCTL_ZERO,
+ 	},
+-#ifdef CONFIG_IP_ROUTE_MULTIPATH
+-	{
+-		.procname	= "fib_multipath_use_neigh",
+-		.data		= &init_net.ipv4.sysctl_fib_multipath_use_neigh,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE,
+-	},
+-	{
+-		.procname	= "fib_multipath_hash_policy",
+-		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_policy,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_fib_multipath_hash_policy,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_THREE,
+-	},
+-	{
+-		.procname	= "fib_multipath_hash_fields",
+-		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_fields,
+-		.maxlen		= sizeof(u32),
+-		.mode		= 0644,
+-		.proc_handler	= proc_fib_multipath_hash_fields,
+-		.extra1		= SYSCTL_ONE,
+-		.extra2		= &fib_multipath_hash_fields_all_mask,
+-	},
+-	{
+-		.procname	= "fib_multipath_hash_seed",
+-		.data		= &init_net,
+-		.maxlen		= sizeof(u32),
+-		.mode		= 0644,
+-		.proc_handler	= proc_fib_multipath_hash_seed,
+-	},
+-#endif
+ 	{
+ 		.procname	= "ip_unprivileged_port_start",
+ 		.maxlen		= sizeof(int),
+@@ -1563,15 +1385,6 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.proc_handler	= proc_dointvec_minmax,
+ 		.extra1		= SYSCTL_ONE
+ 	},
+-	{
+-		.procname	= "fib_notify_on_flag_change",
+-		.data		= &init_net.ipv4.sysctl_fib_notify_on_flag_change,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_TWO,
+-	},
+ 	{
+ 		.procname       = "tcp_plb_enabled",
+ 		.data           = &init_net.ipv4.sysctl_tcp_plb_enabled,
+@@ -1656,6 +1469,196 @@ static const struct ctl_table ipv4_net_table[] = {
+ 		.extra1		= SYSCTL_ONE_THOUSAND,
+ 		.extra2		= &tcp_rto_max_max,
+ 	},
++#if IS_ENABLED(CONFIG_IPV4)
++	{
++		.procname	= "icmp_echo_ignore_all",
++		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_all,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE
++	},
++	{
++		.procname	= "icmp_echo_ignore_broadcasts",
++		.data		= &init_net.ipv4.sysctl_icmp_echo_ignore_broadcasts,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE
++	},
++	{
++		.procname	= "icmp_ignore_bogus_error_responses",
++		.data		= &init_net.ipv4.sysctl_icmp_ignore_bogus_error_responses,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE
++	},
++	{
++		.procname	= "icmp_errors_use_inbound_ifaddr",
++		.data		= &init_net.ipv4.sysctl_icmp_errors_use_inbound_ifaddr,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE
++	},
++	{
++		.procname	= "icmp_errors_extension_mask",
++		.data		= &init_net.ipv4.sysctl_icmp_errors_extension_mask,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= &icmp_errors_extension_mask_all,
++	},
++	{
++		.procname	= "icmp_ratelimit",
++		.data		= &init_net.ipv4.sysctl_icmp_ratelimit,
++		.maxlen		= sizeof(int),
++		.mode		= 0644,
++		.proc_handler	= proc_dointvec_ms_jiffies,
++	},
++	{
++		.procname	= "icmp_ratemask",
++		.data		= &init_net.ipv4.sysctl_icmp_ratemask,
++		.maxlen		= sizeof(int),
++		.mode		= 0644,
++		.proc_handler	= proc_dointvec
++	},
++	{
++		.procname	= "ip_dynaddr",
++		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++	},
++	{
++		.procname	= "ip_default_ttl",
++		.data		= &init_net.ipv4.sysctl_ip_default_ttl,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= &ip_ttl_min,
++		.extra2		= &ip_ttl_max,
++	},
++	{
++		.procname	= "ip_no_pmtu_disc",
++		.data		= &init_net.ipv4.sysctl_ip_no_pmtu_disc,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++	},
++	{
++		.procname	= "ip_forward_use_pmtu",
++		.data		= &init_net.ipv4.sysctl_ip_fwd_use_pmtu,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++	},
++	{
++		.procname	= "ip_forward_update_priority",
++		.data		= &init_net.ipv4.sysctl_ip_fwd_update_priority,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler   = ipv4_fwd_update_priority,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE,
++	},
++	{
++		.procname	= "ip_nonlocal_bind",
++		.data		= &init_net.ipv4.sysctl_ip_nonlocal_bind,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++	},
++	{
++		.procname	= "fwmark_reflect",
++		.data		= &init_net.ipv4.sysctl_fwmark_reflect,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++	},
++	{
++		.procname	= "igmp_link_local_mcast_reports",
++		.data		= &init_net.ipv4.sysctl_igmp_llm_reports,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++	},
++	{
++		.procname	= "igmp_max_memberships",
++		.data		= &init_net.ipv4.sysctl_igmp_max_memberships,
++		.maxlen		= sizeof(int),
++		.mode		= 0644,
++		.proc_handler	= proc_dointvec
++	},
++	{
++		.procname	= "igmp_max_msf",
++		.data		= &init_net.ipv4.sysctl_igmp_max_msf,
++		.maxlen		= sizeof(int),
++		.mode		= 0644,
++		.proc_handler	= proc_dointvec
++	},
++#ifdef CONFIG_IP_MULTICAST
++	{
++		.procname	= "igmp_qrv",
++		.data		= &init_net.ipv4.sysctl_igmp_qrv,
++		.maxlen		= sizeof(int),
++		.mode		= 0644,
++		.proc_handler	= proc_dointvec_minmax,
++		.extra1		= SYSCTL_ONE
++	},
++#endif
++#ifdef CONFIG_IP_ROUTE_MULTIPATH
++	{
++		.procname	= "fib_multipath_use_neigh",
++		.data		= &init_net.ipv4.sysctl_fib_multipath_use_neigh,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE,
++	},
++	{
++		.procname	= "fib_multipath_hash_policy",
++		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_policy,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_fib_multipath_hash_policy,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_THREE,
++	},
++	{
++		.procname	= "fib_multipath_hash_fields",
++		.data		= &init_net.ipv4.sysctl_fib_multipath_hash_fields,
++		.maxlen		= sizeof(u32),
++		.mode		= 0644,
++		.proc_handler	= proc_fib_multipath_hash_fields,
++		.extra1		= SYSCTL_ONE,
++		.extra2		= &fib_multipath_hash_fields_all_mask,
++	},
++	{
++		.procname	= "fib_multipath_hash_seed",
++		.data		= &init_net,
++		.maxlen		= sizeof(u32),
++		.mode		= 0644,
++		.proc_handler	= proc_fib_multipath_hash_seed,
++	},
++#endif
++	{
++		.procname	= "fib_notify_on_flag_change",
++		.data		= &init_net.ipv4.sysctl_fib_notify_on_flag_change,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= proc_dou8vec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_TWO,
++	},
++#endif
+ };
+ 
+ static const struct ctl_table *ipv4_net_table_dup(struct net *net)
 -- 
 2.55.0
 
