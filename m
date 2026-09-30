@@ -1,38 +1,38 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A6D3D4127;
-	Wed, 30 Sep 2026 06:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2ACF3E0C4C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750097; cv=none; b=avlp/Lzflt8F7zPm0WVrJ2iR2sNVtYtG6UcM9Vv2PJs7BP2gy9PcPsuZV4tx1POn+NbO+yxNBXoaVimysIWt9rDesfOOarNRGGIgbsymeW7FQICncGNWTp6PkGYoDBYNhk6NlYFnWNj0hAdEXmPut3zDOeRh/o9Pq51obXGBuU4=
+	t=1790750131; cv=none; b=p8EHNe5VFz/q4x9F09zZO3LywDzdrOVYHyNR014fI4x3b77RG38GW0s9BXMF6jUXiciU+/N6x3YtmXV8SFIPSV/P6nZ20QX4Tie1p9zbCeKqvd70ZirJfeNRNU0nzUDDNj+sazkdywqz0PvAQCQgxAmOx2OXSJbHhRB/RjDGw7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750097; c=relaxed/simple;
-	bh=jcgc1tsOVcBHYxcYpnXt2SObciquRADcGFKCJMT6i5M=;
+	s=arc-20240116; t=1790750131; c=relaxed/simple;
+	bh=yn50OV6Wn0IT80wyTb61x3WU5rc8p6JlDLW4leNVHuY=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=JixHzXcOVPiNiirx1JfLb8/K4MP+dVmnexe/pL/KefQDSz56l7OjU7NvFGGobji68LDa1RcVE2HREhSDG6G3Uj5akKGSU6oUVHaYZgOpqsr1CvfvpK23+2asMn3L9q0GEeFrzAn6VTIn+Tez8ZsoxFrqgX4To6zSuXZ98b/VkK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zJbJ7M+X; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=rlP7lNIYgLPX3JgNgu4EcJuIWm+QwlY60KBvnwekQVvvccNNH8pxII3XET9qM5ZHF9JEkFGxhiY+8X0w2XZ3sl/otVd80H0C3TtJb6DZy7s/igFebmQAxlS9SOc7LAq0KKwyYfb+hrFAE6xpdzRKjnE0BbCCpDav6A/y5fZeZco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0AC3zil6; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zJbJ7M+X"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0AC3zil6"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DEBBD1A104B;
-	Wed, 30 Sep 2026 06:34:47 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 21BE64E410D2;
+	Wed, 30 Sep 2026 06:35:24 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B244760749;
-	Wed, 30 Sep 2026 06:34:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6E6BD103297F7;
-	Wed, 30 Sep 2026 08:34:43 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EAA6B60749;
+	Wed, 30 Sep 2026 06:35:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3520A103297F7;
+	Wed, 30 Sep 2026 08:35:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790750086; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790750123; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=FJJ9SrQwpuXWcRwz3yjNOMuLRuftyz1Ef6SkpejQHYo=;
-	b=zJbJ7M+XPdz6b7Q7TAOCZC9GbFLS9/imghm00KF1PCVoCubPo+DEBfw3ezU0ca5eOHkciT
-	XSDs8z1Zu24yj4uxh9Iw5iCCgKl4k8U6GdsHQKC9o0PaAOVPPERAHKA6wmJ7robeIDayGX
-	Rh+Vs6QzyxVFm4fPvoUYbb6lRC0afGzo/qcuay2WkeYqVZ+tt1qArjIgcsiq9N0P3z+nhg
-	qKurDL+yiZZrSvVvlDjlPUZsMYxlxwJBrMcVhZR+zbGwyE80eoou8SXKjOT4uhfMIO5zDg
-	v//WLqffHFHtx3JEBsm3Tixw1lb3KVsIDw7SZOIawCUJxQqSQ+BOytlkKYx5JA==
+	bh=vYGXsQAb2CSsGFfXHxA+1+PGfASQDHqZzJGFLVn2lCY=;
+	b=0AC3zil6hrxy9fwTlBlblTWbA2nfDWy5d6a03+jUcpqXKHqyvTz30Ep+k6QPSBdLyxGNvD
+	iHotmlJQ1jMQLPAkO0CdANJ73jwW/8i5+Atwg7FKvTLCEZ+XdPyfigq4iDL7PWMxkZJMon
+	KD3hGyQnGFMZpKCRhQBpC0gQgi1u5OkeWBfPXYOAxB+LGTUIuadFclCL8mw2s87j6eTEvQ
+	X6F9kiCpcPSGPY2eLdiRv3AjmnnSFFxrCanVPS8PbsTABgCe7nvPvEM38oKfRLnw5itC95
+	/sXbuFVK+1yCinycoeBBc5YxE5C5ghPpjkVxdCLzSTooyZg3vfa/J0dRf3Lgbw==
 From: Gregory CLEMENT <gregory.clement@bootlin.com>
 To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
@@ -41,11 +41,11 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
  <conor+dt@kernel.org>, "moderated list:ARM/Marvell Kirkwood and Armada
  370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, open list
  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ARM: dts: helios4: use national,lm75 compatible
-In-Reply-To: <20260831233607.13729-1-rosenp@gmail.com>
-References: <20260831233607.13729-1-rosenp@gmail.com>
-Date: Wed, 30 Sep 2026 08:34:42 +0200
-Message-ID: <87ik3n8cxp.fsf@BLaptop.bootlin.com>
+Subject: Re: [PATCH] ARM: dts: helios4: add #phy-cells to USB nop phys
+In-Reply-To: <20260831233626.13947-1-rosenp@gmail.com>
+References: <20260831233626.13947-1-rosenp@gmail.com>
+Date: Wed, 30 Sep 2026 08:35:20 +0200
+Message-ID: <87fqyr8cwn.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,15 +58,13 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 Rosen Penev <rosenp@gmail.com> writes:
 
-> The temp@4c node uses "ti,lm75", which no binding covers and which
-> dtbs_check rejects:
+> The usb-nop-xceiv binding requires a #phy-cells property; without it
+> dtbs_check reports:
 >
->   temp@4c: failed to match any schema with compatible: ['ti,lm75']
+>   usb2-phy: '#phy-cells' is a required property (usb-nop-xceiv)
+>   usb3-phy: '#phy-cells' is a required property (usb-nop-xceiv)
 >
-> The LM75 was originally a National Semiconductor part (now owned by
-> TI) and the lm75 driver binds it via the matching "national,lm75"
-> entry. Use the documented compatible; no functional change. The i2c name
-> fallback ends up binding it.
+> Add #phy-cells =3D <0> to both nodes. No functional change.
 >
 > Assisted-by: opencode:big-pickle
 > Signed-off-by: Rosen Penev <rosenp@gmail.com>
@@ -77,23 +75,27 @@ Thanks,
 
 Gregory
 > ---
->  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 ++
+>  1 file changed, 2 insertions(+)
 >
 > diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
 boot/dts/marvell/armada-388-helios4.dts
-> index 548fb92ca811..39b2d4fa742c 100644
+> index e63b8b5e632d..548fb92ca811 100644
 > --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
 > +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> @@ -200,7 +200,7 @@ usb3-ilimit-hog {
->  				};
+> @@ -141,10 +141,12 @@ fan2: j17-pwm {
+>  	usb2_phy: usb2-phy {
+>  		compatible =3D "usb-nop-xceiv";
+>  		vbus-supply =3D <&reg_5p0v_usb>;
+> +		#phy-cells =3D <0>;
+>  	};
 >=20=20
->  				temp_sensor: temp@4c {
-> -					compatible =3D "ti,lm75";
-> +					compatible =3D "national,lm75";
->  					reg =3D <0x4c>;
->  					vs-supply =3D <&reg_3p3v>;
->  				};
+>  	usb3_phy: usb3-phy {
+>  		compatible =3D "usb-nop-xceiv";
+> +		#phy-cells =3D <0>;
+>  	};
+>=20=20
+>  	soc {
 > --=20
 > 2.55.0
 >
