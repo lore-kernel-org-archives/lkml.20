@@ -1,141 +1,160 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6D04F473B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 13:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775824; cv=pass; b=WRsv1NHZulJgTZOHHS7CNPrFY5kSLyTvlXM2t/BtoDebGUSO54rAaJ4/yVf1k0YEogX9WR8Yur2t3HuH8MRb+b0mMJsDKZe3hdnX/X3KCDFgyid7BE6qmc8S4353W9YRTmYtGkgUOP8EWkmOqHaEPEc3k28E14VjA743HFa/L/8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775824; c=relaxed/simple;
-	bh=cCtGCKJIdKETCLLrblWPIJiV47ko5Aowu8J0xSZcZvA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xbagyv1Tz+Lx6Lki67Aliy2v3COQzfHwh0AWbBS3mNYrf4picEXkHcrFSV6oxOlWSEEoBlTtloqQz8vRBUWQmF9yF4/KeBYyTJ2DbV/XkMo+GsAnRmTAAnN0ibSYnHBKFaXj1WBxKpTacxaBFDNgpBfHM444TUIw7VMclxbUpks=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Abwb83fs; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8BAE4E4C4A;
+	Wed, 30 Sep 2026 13:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790775867; cv=none; b=bhVtIceTL3jPzzb2FmPEE7BfM4mgPzZHjn4ZNBZcP7gs4U2HtOm9v69WJwanqjx43wNiKe62XeQoPA+RsjZ4vxCbMziMf/1KS20UXRtnohH2z9XBVzgoIZJjAEOZzivYK+JMuY9c6b5dp0k0QzlShcd3S+RN6laeZYeMNBgYoGc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790775867; c=relaxed/simple;
+	bh=50jIGHRovgulaRzsZdJ+9hsmELKM5EQY8FD4RXGMLmM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JN8LeXVpVeoYQrhfFta8mUIvBKx3b0NklBkuiVAUFU7lzQsd4oZQsNfz/ajYptEvx26DD4T37OcZxpfi1z6sVNlCRnmkwsqtRG1nm/ZKWL2ETq3cYuiNTYfbuDfFRVznUdD3CSnYcKjCZbywdXjfFF4tKzTBFJYbxz514tGZ6vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UdifEflo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Abwb83fs"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba3fc22439so530578e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:43:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790775811; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GmPSZ/AlC0wk9zOIrZv1Zphx5HgHZB+puxDvyYeeDOGClduB74otTZKh89NGJM9M/f
-         UAf4Q07HvNuQHMBOaRqGWGfpmVli9PZdgFXy/iJL2iEDRTROX0VOTn32jvwq7vEzL7uH
-         dKM37kTLWObGuOw3+heLzDLLCijthJcef4A0lSJynj00zRrPizIa1x4UI6d+sOI4+Dmt
-         4QDE8MFPMxzTNcCXrYebyuMhYsi8vMXRuWyTivB63rxrtcmEC/NbIKbog2haSmCTHSOh
-         kA4Dzp9I6I7kHFGKcj7wj9toBBW8If3tbbTMRcoC3et8NK5gygrdNdVkwhNvBaxpTDpe
-         aMPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cCtGCKJIdKETCLLrblWPIJiV47ko5Aowu8J0xSZcZvA=;
-        fh=RWBpeg6CguMsFz7M0T5TbkBhhZBunLkFxMHcRnFaY60=;
-        b=morV+OVaghZOMdZwnyzQKyIyMH5mzyXON/UhrgjTVwh12Esx/QKpEv7MOWQvHf4oJe
-         qQqn/MFq8UFg/2GVBCJCT4lowVJIuiYe5DXqNpm3n2QtaF3z8rWW1N8LnB7juT3MmBq+
-         /Pz4p3kYJ3Ftcc/AucYTJwuLKnI+2AidQYfcShE+gT9pEUamC7WBRB4rJelwJlatgEKj
-         9pWWBl5XvS+mR5Imzu3gnnnhQka7IR0R9ftcyq9YGMWr3dkdDBFvKnCmpHZOOXYQWDRj
-         vZdIu/vnFa4XQet7ffRIo3Qe6a2KOZ5+TtC6ZvbPz+u2Cjazrvl6rjlu2naq1AfimOTp
-         uq3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790775811; x=1791380611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cCtGCKJIdKETCLLrblWPIJiV47ko5Aowu8J0xSZcZvA=;
-        b=Abwb83fsHbVpFom07AyBbpD8lFlxcGjmykARrOKp1fEkZ5oFgOMcOil6oA+XBjIA4u
-         VpHxhpr99eY0XrjQ0fH6vQj2WGP4SaUUkQbPZkV6eL0+Eh2K7xGmReydj100JWDeaA2m
-         Ejoy0YYjPwnLLA8Qva95dPsyhbZy/LE7x2OPGuRAf8bSsFJfjKIMEzixk/DfeL/Fv3RF
-         4QI1Yh3RBlRp2YPpWQI0aph0AsUN5ZcrBCMzRRZkvqgau45sRl92pAOYYeW6f+yjnCHQ
-         sWuLaMYhVV1MBs8lB3BGRT3u97pMMllnj4pmMtDtq19bRWSxI1U8dgz459H0yoRTlXuq
-         Tpug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790775811; x=1791380611;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cCtGCKJIdKETCLLrblWPIJiV47ko5Aowu8J0xSZcZvA=;
-        b=WGA7/R26Hq+kfTJ93MUesZHUNQq/KjA+xPV5R22GxhmqGgs2h/mrrjurd7a8kGi/SH
-         juUWs54cBiIi5fNehiRKP8ZoesHLDR9awb80Mw0Gdy1Dzqj/4WaKBVJM8fAxG2a9ylJq
-         zlaUW/hxIs/BOyEvDj39ZlGtXSFSoY+LznFHTLKePe2iHFW1nAmtYHH7IgPreTzt8Rw8
-         52KBXgI7z4oD+sdlZNn3+eAHE7FEJ8tnxtaamv7JN0v1Sm4TP6pUWCV9QzWe1gBY6Mx+
-         fEAMrLWxMX9Cmb9in/U3nE/MvE2H2kpFH8VFgCAVX+FDBLZO3W32sbwUfeK/Npxy/bQ7
-         ckiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBykWRRtFRfGo8o7nuT4ReeobO7bPebIxfoQonC/q7JIFfI6s0dMaOoXEDnEfZn2pjoV+5UCrroh/iqZcfM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjS+WOdcadDf0omNwXH6mK7o5RZk1vPZBVxLzqkasa5pKPz446
-	5XQgUou8qnD6Ddb51otxwt+tw6/sBTRMdmRk3JHjdv8U2+HQuoeMhNRAqZrNXsy3J68kboRA1Em
-	JESp+bq78BiucBd3tyfs9AvFeQuvVFIE=
-X-Gm-Gg: AYBFou0YW5sS0mbH6DH6+sTTXcChiWpAjZGVpahj7+bu2Ik7RZubHkM2CxpOdh+nbhe
-	UpR/5xwzqhAjnh2ixNOgAwYA5ciitJLjP7ZuBM63HLNoYknEepSBa/+qlbJlmWQO78wMZOzH1Od
-	Q6kvbfhzvQtLPrXS3MKTLgm4eVGm512X7H9jiS3KCv79ZoFrtnRjDLpzab7zf8jm5mdRi2OqwgG
-	9M9eRwv6G6uNV8dGxWWn1kJzKAW7kM6G54ajClw+yl87bUl9Jb1HT+7TITm39hkvBjNVbeUwgtU
-	ymVsBaekT5CpB9J7MU5Rne7TdU34N00MIDw8Bw4AuK5hoTr2onmhRo7p5HgrQj/DPXUZswhP6+n
-	JWZeusSaE17CfmVYh3bjfONJu4T4dg1C9jtEjpmK2fwt9
-X-Received: by 2002:a05:6512:3ca2:b0:5b8:f83b:30bf with SMTP id
- 2adb3069b0e04-5ba405f9b82mr609416e87.65.1790775810584; Wed, 30 Sep 2026
- 06:43:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UdifEflo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A297C143D;
+	Wed, 30 Sep 2026 06:44:14 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2CE623F86F;
+	Wed, 30 Sep 2026 06:44:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790775858; bh=50jIGHRovgulaRzsZdJ+9hsmELKM5EQY8FD4RXGMLmM=;
+	h=From:Subject:Date:To:Cc:From;
+	b=UdifEflorOYp62Nqvk4tFhdyMXy9j8gS6jmQhun8yH8M++ipjsPz4Nu9ycK7RROvu
+	 wCDP3DMvzc5ZFTfIxACNNtfFYZ4pOfYojMKVjCyCiHTnCkaxCyJuRoOacws36jTTdy
+	 atAk+TDQDTGOg9rAdAKX9b4COnHkuv4RuURGMmMo=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH RFC 0/3] security: ima: support TSM measurement registers
+Date: Wed, 30 Sep 2026 14:43:58 +0100
+Message-Id: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
- <20260930112842.21323-3-sigefriedhyy@gmail.com> <235a33c2-7138-4815-820d-793568757d95@6wind.com>
-In-Reply-To: <235a33c2-7138-4815-820d-793568757d95@6wind.com>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-Date: Wed, 30 Sep 2026 22:43:26 +0900
-X-Gm-Features: AclHuK-5JDzwUkEH5VWEa1bCvpw7pms_UcYcspNYWPTwaPuJPPDlw6Pn3dQKWJk
-Message-ID: <CA+7S2v+VaVYksOpuUKzo+DoWZ97M_XKvnMr8cCcgwTkrOxsvEw@mail.gmail.com>
-Subject: Re: [PATCH net-next v9 2/6] net: change netdev_hw_addr_list count
- through helpers
-To: nicolas.dichtel@6wind.com
-Cc: Ajay Singh <ajay.kathat@microchip.com>, 
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, "David S. Miller" <davem@davemloft.net>, 
-	David Ahern <dsahern@kernel.org>, Donald Hunter <donald.hunter@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>, 
-	Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Johannes Berg <johannes@sipsolutions.net>, Kees Cook <kees@kernel.org>, 
-	Kory Maincent <kory.maincent@bootlin.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>, 
-	Stanislav Fomichev <sdf.kernel@gmail.com>, Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
-	Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB4SvWoC/4VNSwrCMBC9Spm1kSRWJa4EwQO4lRLSOLazSCqTE
+ Cqldzf0AvJW779AQiZMcGkWYCyUaIqVqF0DfnRxQEGvykFLfZJGG0HB2TzMlmLGgV2ueVu0UP7
+ YOkRXgVDLH8Y3zdvwEx73G3RVHCnlib/bWVGb9W+3KCFFb+ThrLFXsm2vjsPeTwG6dV1/fGhx5
+ b8AAAA=
+To: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Eric Snowberg <eric.snowberg@oracle.com>, linux-integrity@vger.kernel.org, 
+ linux-security-module@vger.kernel.org
+Cc: Dan Williams <djbw@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Suzuki Poulose <suzuki.poulose@arm.com>, 
+ Steven Price <steven.price@arm.com>, Sami Mujawar <sami.mujawar@arm.com>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Jiri Pirko <jiri@resnulli.us>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4233; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=50jIGHRovgulaRzsZdJ+9hsmELKM5EQY8FD4RXGMLmM=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqvRItDKXo1GJ0JydGpbq9sQNylyJhoC3dgOo3z
+ EgWR8tQ0q+JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCar0SLQAKCRBt1cPRWsUx
+ M+J+DADJZth8WYIotyPlMv7pmFYbJAqKoBBkJXDbEMO+1GzlV6KGweVkMuOPsaxoFc8MG9YqBu/
+ PRnIJnYFbeXAI15UTJ3/YqioPd1pOwAngZwNKhEhpKqBI1FYIEktxqvz/A/fn5iA3vHvy3xXFRE
+ LMqYuohG/NxZgEvhXSoZ8OGCWYLoj5t+v6dd2ib562yX2L3iFQeA9CJhu7HmM/Jw9a0+dgl/ikT
+ uB/OfV1E9QBkOL8SppLY5TUN2tA76avr4T+X9TyOMYWgXv6arHKpekU6hjo2DKpnYchfKLslaPf
+ f5yo5aM0otTRrz/645ZsLf2aS9xVesY1cmT8dKN6n2tX+NIFGLq6ZJK0ipqZ3dHEG2vHy2cBKgi
+ H4BJXflgzb5aa97zmZia/mIMFAmHwcPVc45/PepBB8OcEh2jyNn0+K405o36FByrMpj6wpiBXU3
+ c9UP6zHhaH/lZmmmeBT/NwO+UuvjfhgjUplWoZE6ckWClGsEDPa0B5I/LU3wHlYaG9+p8=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-> If you respin a version, you can use netdev_hw_addr_list_count() in
-> __hw_addr_list_snapshot() also.
+Confidential computing guests without a TPM can use TSM measurement
+registers to record IMA measurement digests instead of TPM PCRs.
 
-Thanks, will do if there is a v10.
+This series introduces in-kernel interfaces for accessing TSM
+measurement registers, abstracts IMA's measurement-register operations,
+and adds a TSM backend for Intel TDX and Arm CCA.
 
-On Wed, Sep 30, 2026 at 10:03=E2=80=AFPM Nicolas Dichtel
-<nicolas.dichtel@6wind.com> wrote:
->
-> Le 30/09/2026 =C3=A0 13:28, Yuyang Huang a =C3=A9crit :
-> > The count of a netdev_hw_addr_list is changed in several places of
-> > dev_addr_lists.c and a few drivers read it directly. The next patch
-> > needs to account every change of the count of dev->mc.
-> >
-> > Add __hw_addr_count_add(), __hw_addr_count_inc(), __hw_addr_count_dec()
-> > and __hw_addr_count_reset(), use them for every change of the count
-> > and rename the field to _count so that a direct write stands out.
-> > Readers keep using netdev_hw_addr_list_count() and the netdev_uc_count(=
-)
-> > and netdev_mc_count() helpers, the few that read the field directly
-> > are converted. No functional change.
-> >
-> > Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
-> Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
->
-> If you respin a version, you can use netdev_hw_addr_list_count() in
-> __hw_addr_list_snapshot() also.
->
-> Thanks,
-> Nicolas
+The following mappings between TPM PCR indices and TSM measurement
+registers are defined for Intel TDX [0] and proposed for Arm CCA [1]:
+
+  TPM PCR index | Intel TDX register | Arm CCA register
+  --------------+--------------------+-----------------
+  0             | MRTD               | RIM
+  1, 7          | RTMR[0]            | REM[0]
+  2-6           | RTMR[1]            | REM[1]
+  8-15          | RTMR[2]            | REM[2]
+
+These mappings allow IMA to translate PCR indices into the corresponding
+TSM measurement registers.
+
+The TPM backend remains preferred when it is available at IMA
+initialization. Otherwise, IMA falls back to a supported TSM backend.
+Only one backend is selected; IMA measurements are not extended to both
+TPM PCRs and TSM measurement registers.
+
+The attestation proccess for guest with TSM measurement register will
+be done with Confidential Compute Event Log (CCEL) which is exported by
+/sys/firmware/acpi/tables/data/CCEL. Here is brief process in arm64:
+
+  Verifier                 Realm guest              RMM / Platform
+     |                         |                           |
+     |--- Challenge (nonce) -->|                           |
+     |                         |--- Request token -------->|
+     |                         |    with challenge         |
+     |                         |                           |
+     |                         |<-- CCA token T -----------|
+     |<-- CCA token T ---------|                           |
+     |<-- CCEL event log ------|                           |
+     |<-- IMA measurement log -|                           |
+     |                         |                           |
+ Verify token T:               |                           |
+  - signatures                 |                           |
+  - Platform/Realm             |                           |
+    token binding              |                           |
+  - challenge freshness        |                           |
+  - platform/RIM policy        |                           |
+  - verify measurement logs    |                           |
+     |                         |                           |
+     | ----ACCEPT / REJECT---->|                           |
+
+This patch based on arm-cca-mr series [3].
+
+Link: [0] https://uefi.org/specs/UEFI/2.11/38_Confidential_Computing.html#intel-trust-domain-extension
+Link: [1] https://github.com/tianocore/edk2/issues/11383
+Link: [2] https://github.com/tianocore/edk2/issues/11384
+Link: [3] https://lore.kernel.org/all/20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com/
+
+---
+Yeoreum Yun (3):
+      virt: coco: introduce tsm_default_tm() and tsm_mr_read()/write()
+      security: IMA: introduce ima_mr structure
+      security: IMA: use TSM measurement registers
+
+ drivers/virt/coco/guest/tsm-mr.c          | 159 +++++++++++++---
+ include/linux/tsm-mr.h                    |  26 +++
+ security/integrity/ima/Makefile           |   3 +-
+ security/integrity/ima/ima.h              |   7 +-
+ security/integrity/ima/ima_api.c          |   4 +-
+ security/integrity/ima/ima_crypto.c       | 137 +++++---------
+ security/integrity/ima/ima_fs.c           |  16 +-
+ security/integrity/ima/ima_init.c         |   7 +-
+ security/integrity/ima/ima_mr.c           |  48 +++++
+ security/integrity/ima/ima_mr.h           |  76 ++++++++
+ security/integrity/ima/ima_mr_tpm.c       | 155 ++++++++++++++++
+ security/integrity/ima/ima_mr_tsm.c       | 290 ++++++++++++++++++++++++++++++
+ security/integrity/ima/ima_queue.c        |  39 ++--
+ security/integrity/ima/ima_template.c     |   4 +-
+ security/integrity/ima/ima_template_lib.c |   2 +-
+ 15 files changed, 819 insertions(+), 154 deletions(-)
+---
+base-commit: b561246f45174b7472c24b75358ea95bae72b7b8
+change-id: 20260929-ima_tgx_integration_v2-1c54aeeaeaee
+
+Best regards,
+-- 
+Sincerely,
+Yeoreum Yun
+
