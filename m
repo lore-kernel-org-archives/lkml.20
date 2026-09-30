@@ -1,83 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA69233926;
-	Wed, 30 Sep 2026 00:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A1C278156
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727609; cv=none; b=ewkX97izhyEzs7du+aZT954mVaheJpCBgh2RN5MKt+NRHQRmYLmMv9mspA1MwES6QVIMt1x2UWRD+qOPqOZYUZ7SBBL7OfdesttH1KYGjsRMgZQO4YP2NNBAKdhkOVN9l2mPAUHGl0crBGR2JPmcp6UtP+jWLIv97T0ZwdG+gV0=
+	t=1790727637; cv=none; b=NSHIZbJM76ZZLdWS7gCmdmAEz/xG0YsFY3ewRx8bMtT+qZELAdiPAs4J25qoGgUHnQ4xqURiBH1F89yi01RVmlFYbijlGncbZJmPgWpcBNLADAbfW0EAiZgrqDgj1x5uFSn9axLhcIPtjE+5Rtds48HW9Mm86i5egeh7Dml2nJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727609; c=relaxed/simple;
-	bh=gdqff96V0Lqq0noPS8J3tfhaL+MaB4HNGkP61vpubVA=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=EzAw+pCDDBO598s+3PpOAujLadySaT4dUVYxhTvEywgslEEbVhrBjIzVWfeykvOSPo9alefRGyYHRD/K4oEO8bdrnzXcJHxuKkpHgnPy2QE7/tt4ZEsaQxp/EL1oN2yR1UtE7j2XNLHxlD/MJD6MYKQ+sRI4AN74Y1d/7s8wzV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyODSXN/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790727637; c=relaxed/simple;
+	bh=VOFB0XG5n0/qUK+fjFXTn52PBfpRI4Atbn8TzW+pn4A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YYN8uw92H4LotzSTiET96UBlU4acoIsb7HiylHvoHV0YnCCJkVX5RvjoVcRHtDbTrDArQo/FK+CxylyTZOZKRaGliFMUf/1Eqfx3ZmHenMgap8jXXSO8DB47WU9Vu98WNqPjZ0uqSmEZfYtQSqN7id4Epv7E/OBFGAF/HdeVfeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Icv/hFUf; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyODSXN/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064F51F000FF;
-	Wed, 30 Sep 2026 00:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790727608;
-	bh=Rtqmxon+F4y0asMCls4t+EYEy0M7dWEr4lyi913pz/w=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=oyODSXN/hTOO0ekAQfwW15BmSeN2GQ0T0kUjn6x35M0FU1in9rWlgXKrWePEXv9Qt
-	 CLMGRd6D8+Jvm2XB+jc+KsijOu2l2ktdwxyojrKuNxOqMUAIKHUB1w2v3DC6I30hww
-	 RqqwjB3qnUchNvfufS2Nrjxd4vMAwaE2/pD8hi5/vpWOIYv9tcAWGgZIrJj/if+iMP
-	 XDoL5e9HFVDnnuAjTTKTFYapcsdWjqvOTtubaF7geUwizri58L1ZF0vnkPiLB0UleA
-	 /8Ol5LsJLAkM7LYcswrweNNB0vnQ1wTEx9RSeUm1PcXQVYac+zBgM6lxBD8dDiST2f
-	 WDdzAvIzTNMgQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F14F43808209;
-	Wed, 30 Sep 2026 00:20:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Icv/hFUf"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 596C340E01F9;
+	Wed, 30 Sep 2026 00:20:31 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id mursWfUzc6P5; Wed, 30 Sep 2026 00:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790727621; bh=kaPu4dIWNkWh6gjgRdJMdkJTS13q0lH17KIDUyE4rmk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Icv/hFUfjwbw9UrY1t/RWqs9bGPjWcy1iK/M5gar9gsU3Ef5nNuie/4vVwpfb87Se
+	 PfYyyhwelwQhhxWOYwgeEuypKbaUdO1GRY2c722/+uaqWLJgGLK7k+pKRKTat20DMy
+	 7mSyy+CtMf1JitKn9h8shCzkUlDrRd+Rkf4LiLe7PDYCwf+NCiw1byvU1AcyoHxltD
+	 H8zVUXyN0e2GGWmcCltP9ly5QmvdMh37kUt7FRR9XouOcwWryOr3KMUu1/CMEhW+mf
+	 YLpYpccB8oz/bGP3OyU1fQS2v+MKJgonC8BlTVaYMD655b5TWBbg4dgJvb92FpRQr6
+	 1QrBWCIYh4ziW45kcfp/pZvsVyJuj1H9NnVJSOJoSTwpQMMAl+LVV6Aa6u4Cz5c+oZ
+	 ytH63b6dwwohVfjnrz29yZpApfRnuuaq5CsLiwng1UFgX1P9sH7l4BuJiguhI5P21U
+	 MbrgxMZ/PZq1I+d8KC/qnNYCI1+wG1vIwB7m6c6235GoMSlYpqCKiA/xx4p8ca4rSu
+	 6+pOJ1XrJQQ74OB5b84MpxCU8Sze29hFS1XiidVIqUWPaFDsiGsJBIq9E7kEx2PGLE
+	 hQMCG2qTCU0bDfjvwAsNu0DdGS0u7e2H5p7eda2pnpRcrHjkWE2anVSO1fIyQg2vkN
+	 lbbrexexghMte35HGCb6VTMc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E665840E01ED;
+	Wed, 30 Sep 2026 00:20:13 +0000 (UTC)
+Date: Tue, 29 Sep 2026 17:20:10 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
+	mingo@redhat.com, dave.hansen@linux.intel.com, kevin.shu@intel.com
+Subject: Re: [PATCH RFC v1 1/8] cpu/hotplug: Allow architecture-specific
+ primary CPU bringup
+Message-ID: <20260930002010.GDarxVul0JZDam_-bG@fat_crate.local>
+References: <20260912000815.997720-1-chang.seok.bae@intel.com>
+ <20260912000815.997720-2-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 0/2] Fix UDP splice checksum alignment across
- fragments
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179072760680.1177515.1580969654477785710.git-patchwork-notify@kernel.org>
-Date: Wed, 30 Sep 2026 00:20:06 +0000
-References: <20260924-fix-udp-splice-checksum-v1-0-fe61d65447a8@asgari.net>
-In-Reply-To: <20260924-fix-udp-splice-checksum-v1-0-fe61d65447a8@asgari.net>
-To: Alireza Asgari <alireza@asgari.net>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, dhowells@redhat.com, shuah@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260912000815.997720-2-chang.seok.bae@intel.com>
 
-Hello:
-
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 24 Sep 2026 13:00:23 +0000 you wrote:
-> When skb_splice_from_iter() appends several pipe fragments, it updates
-> skb->len only after the loop. The software-checksum helper nevertheless
-> uses that unchanged length as the checksum position for each fragment.
-> An odd number of bytes already appended during the call therefore gives
-> later fragments the wrong checksum alignment.
+On Sat, Sep 12, 2026 at 12:08:07AM +0000, Chang S. Bae wrote:
+> Parallel CPU bringup currently proceeds in two phases: first for the SMT
+> primary threads and then second for the remaining secondary threads. This
+> ordering avoids race conditions, specifically for x86 microcode loading.
 > 
-> A standalone reproducer primes a UDP socket with sendto(MSG_MORE), splices
-> distinct pipe buffers, then uncorks the datagram. The send succeeds, but
-> the receiver drops the packet and increments its checksum-error counter.
+> Upcoming x86 changes expand the microcode loading scope beyond a single
+> core to package scope or even system-wide updates. Introduce architecture
+> hooks that allow customizing which CPUs participate in the first phase:
 > 
-> [...]
+>  * arch_cpuhp_primary_aware() - indicates whether the architecture
+>    provides a custom primary CPU selection scheme, or not.
+> 
+>  * arch_cpuhp_get_primary_cpus() - returns a CPU mask for the first
+>    bringup iteration.
 
-Here is the summary with links:
-  - [net,1/2] net: fix checksum offsets in skb_splice_from_iter()
-    https://git.kernel.org/netdev/net/c/febec6a70764
-  - [net,2/2] selftests: net: cover UDP splice checksum fragment alignment
-    https://git.kernel.org/netdev/net/c/1221246d3bd0
+Why are there two?
 
-You are awesome, thank you!
+Why are there even accessors at all when you can simply use
+cpu_primary_thread_mask whereever you need it and drop all that gunk here and
+in the next patch?
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Regards/Gruss,
+    Boris.
 
-
+https://people.kernel.org/tglx/notes-about-netiquette
