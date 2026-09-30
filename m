@@ -1,48 +1,102 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4163D1A81
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFBC4D0CF7
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 11:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767757; cv=none; b=d7i7tzALo7swNQH868QbfYUaxIZjGkEaCiwcbaZH44B8Tn456QKhmd6kGKjky+YaxKGAdK1jHnIFWrG5g1TF7CUaesE3fDoBHXrzADt8sVTZOmouezGg5hiHhp0sX8lN7u4xpVCN/KI/LVQviP1Biz5OuOoRzYmxC8FQq0nnhVU=
+	t=1790767769; cv=none; b=VlgyrfFn0mQZCAElD6B8bt9FKb7nDfkvPHshnAIbmUiVQcYZA+FY94vlKFkXRcNI09iDaiZQaGA6ETuAT42SnWGMXjds29I9KutrsFGEdKf6+C/74iFvH1RAe+/4s7kBGvgiIMooBTEa9ooDBG2o+4PTfRR6tQIB9vScr72obeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767757; c=relaxed/simple;
-	bh=mnru+liGFTIzyuqUz0727XkBdn5wDZjy0eQau0zEk9M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JW2L1xPYj9dZcdo/8i0qhZMYUwtIrhMc5oXqR5B6hZD7ES2CfG2MGpQQ/M/3Iwl8haKc72x9xLGLru4j9ZScb+U3OEptyu5BfUkCdsGQbACHMZwCCqJrCioLCnlA5ccpJwBeX9xt3Cf7h1FOJizpK4feuIld2Xm+l6Lxyx9nLKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=TGh/LsCb; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+	s=arc-20240116; t=1790767769; c=relaxed/simple;
+	bh=MtRgZIL0ejzkv81A5uoXkUOIGYLKSnfs4/MRbrb/dH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=q0sNcaaY2LGUqrcmt5IE/KYZz2GCIAcW9h/kZpzWz/fmALXWRXlDzjtSVxUZIhJ1MAD+m5EZiwLdtQFsYsMRuXi1L5MQxyQU4kgbQl6zVB6vcAXPZYNILlZOJYdF7Sv12KZmHa+DKM5PyPKWrztQXC8YHbojtYtrRS1BLHJo7Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TNKiX4ki; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="TGh/LsCb"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TNKiX4ki"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4bb1ed012so780030a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 04:29:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1790767752; x=1791026952;
-	bh=YFeNw1+x73LtRbqfSyuUkqKJ0Yks+iO69toGkEwBsQg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=TGh/LsCb87Zxr0W8w1YgoXPzRl7KluXEl/xny+qAG9+oCsSz0ep8PAkC83OLkS3eo
-	 JW2ybj36cnG647XQrI36SI6nsbKKbpnZavM8N/EDmkwexjgt7cWuXxmUtl/EbAuHV+
-	 y6mf2x5gvZnxrrVpbpoyCT/uys/dHVJIH8D0C6UtGo7Ld+Jh5syjdg1yIzSEsDRx1A
-	 n52MEVbKPKDfC/yYeum4TDfHeceRGy/7XFVRPFIW9JQdUQqxl29VgOIYAdWtdl+CpS
-	 8dzv3MiHFq45Zn1pXR942LpSfYR4t/NrUJcb3y2RqYQ9vyxBpNLeoPGWtZxgwlL8f7
-	 LV34f572nsa7g==
-X-Pm-Submission-Id: 4hvt9J3r8kz2ScPL
-From: Natasha Klaus <natalie.klaus@runtimeverification.com>
-To: Christian Brauner <brauner@kernel.org>,
+        d=gmail.com; s=20251104; t=1790767767; x=1791372567; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eDtomUq8zw6nK1KObwDR6CCREpvglQp6A+WXvBo8Gzs=;
+        b=TNKiX4kiUPdsvOWP9SceCTouK6sy9iUYNjo1F8p9Mjxl7+lwcdssD7ZKzSS0/xNJt5
+         uXpVEDEEwiMs13xJSNvz5v5hIoas9TJqjepmu9rU2fJ/zR2OZgiby+dfL1Fjw75rYGC5
+         QLmvrPGdCnVtrJMiyoZUk8qDvZ62TUQujP8MY9ys/usdldL3pDj31Cy6lx/ZumGiYwtN
+         Z5T8oLTuX9zLVZUpQoIGJg8POp4DjP6tvZThArmXEphubZSTQw6nwtz/Ib8SDNj9/KOi
+         d2/VsFm1E0Rdl1jb66V4QHR3THJ2wM6nbdDoxMMc6qUtKY/6jZHFDcOVOZrMydY9b2Zi
+         didg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790767767; x=1791372567;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eDtomUq8zw6nK1KObwDR6CCREpvglQp6A+WXvBo8Gzs=;
+        b=huML9GyWsFSIjezgVhgHnNtAJtiKPu+2TGlhMcV2lRLXHra1TT5lPAPKyIpI6ttTWx
+         TI59LCHBZLZk9bDDvKbFuXZ3ty7qhGLEUAY/QMs8VOos6tNbI4nVv7NZdCRiB1fBMB4d
+         3MR+499i2XvOvXEBu3MF9GanlkN07UsQYw5YamVg81HWzmeOsm9akq1WBLdRln1o3q0N
+         B2OU/oWYV/adM/3OcbATcxRppMW7JMDvCz8feN0YaW7aHziXDyx3QgycFil9h3/X06wD
+         m2JtSgtb3sm8GqnDKcMnB3UYvO9lZNRM+hOf6gcTuNqwDUB1kr0fBwXnbf+wrBoX4u2S
+         S+DA==
+X-Forwarded-Encrypted: i=1; AKwUvBzSRiPHwloH+HjxxDymQ95/hUg/QNlOdbnIRmo0QSN4CIRCxN0bXTOIWFkrcSAoZQpBwiLkKzIgz8KXKz8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbshqJTgrWKwTeW4RLW8THyPJUbc6c8xc+E2u8SEgyVTApdG6/
+	4l2aAhJ1eAYavPsnI1WEarEZ2ETm+LyPsUxLeypxcOpUPLFSSLygP0xE
+X-Gm-Gg: AYBFou1MdT89fwI3yG8xgLZEXyAMIOW8dTYC9gXHn2YxDiudgt8TQjuJI8Qqn0zf7zQ
+	cPMSES5wu/I1rbChBg+0E8GL8TkcWoAWoys51lcHwLieqnPVNfOAkG1jVa1qaKAyIrz89cxR/Je
+	IDatfNP2K1CJiVWyV+XS4yWFEBRS17ce2q5ADOFruzpsw8IXVxeklaVPPV7SchBBfFGjT+0jTiN
+	GkcnKf0byWPPZrC6fGdmUTF6n1X9T+pK/72XCn+zweKK1TFqTPqzuNdjuA3GJ9Q9Vq3xJ137swR
+	426b98om+UNX7ONSfSF9a34gG96ylMADntvVWDtrQxCg/V/DI87k7/8eSz/wKr2RGeLm0kQ13hj
+	Zqt7K8t104jrAzEy5N7YJd9IYWxWlQA+W5qAQIQ0ZaTd5aEAM4GibPet82rueIdzgQ/ZKbpUrnT
+	DVsZzEcDxIpIgeylWPmu3MI9mr5Bz7tUqIOrWayj2AQoBU5N8s2hYo8QSuJoKQjzVv2/Gep/7Uu
+	p534+tvSdpwA+EfSrJ76xf/JLsAlj5qEcJnVkZRUYrE
+X-Received: by 2002:a17:90b:2787:b0:3a0:e76e:ae10 with SMTP id 98e67ed59e1d1-3a4d175ddcamr1003462a91.28.1790767766632;
+        Wed, 30 Sep 2026 04:29:26 -0700 (PDT)
+Received: from m-upc-A520M-HDV.lan ([2400:2410:3f60:500:3fb:270c:7df4:18f])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7dab46db6sm712637a12.31.2026.09.30.04.29.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 04:29:26 -0700 (PDT)
+Sender: Yuyang Huang <uyoko90@gmail.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: Ajay Singh <ajay.kathat@microchip.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Johannes Berg <johannes@sipsolutions.net>,
 	Kees Cook <kees@kernel.org>,
-	"Eric W . Biederman" <ebiederm@xmission.com>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	linux-kselftest@vger.kernel.org,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Nikolaos Gkarlis <nickgarlis@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Willem de Bruijn <willemb@google.com>,
 	linux-kernel@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH v2 1/2] userns: reject uid_map/gid_map values that do not fit in u32
-Date: Wed, 30 Sep 2026 14:28:53 +0300
-Message-Id: <20260930112854.373184-2-natalie.klaus@runtimeverification.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930112854.373184-1-natalie.klaus@runtimeverification.com>
-References: <20260930112854.373184-1-natalie.klaus@runtimeverification.com>
+	linux-kselftest@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next v9 5/6] netlink: specs: rt-addr: document AF_PACKET multicast dumps
+Date: Wed, 30 Sep 2026 20:28:41 +0900
+Message-ID: <20260930112842.21323-6-sigefriedhyy@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930112842.21323-1-sigefriedhyy@gmail.com>
+References: <20260930112842.21323-1-sigefriedhyy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,112 +105,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-map_write() parses each line written to uid_map, gid_map or projid_map
-with simple_strtoul() and stores the results in the u32 fields of
-struct uid_gid_extent. On 64-bit kernels a value above U32_MAX is
-silently truncated modulo 2^32. The coding assistant flagged this
-truncation site while reading map_write(), and I confirmed it by hand
-on a running kernel, where writing to the uid_map of a fresh user
-namespace installs a different mapping than the one requested:
+Add the global flag, list the attributes the AF_PACKET dump uses and
+describe how ifa-family selects IPv4, IPv6 or link-layer output for
+RTM_GETMULTICAST.
 
-  "4294967296 1000 1"  ->  installed as "0 1000 1"
-  "4294967297 1000 1"  ->  installed as "1 1000 1"
-  "4294967301 1000 1"  ->  installed as "5 1000 1"
-
-The same happens to the lower_first and count fields. Only a literal of
-2^64 or more is rejected, and only because simple_strtoul() saturates
-to ULLONG_MAX, which truncates onto the (u32)-1 value map_write()
-already refuses. On 32-bit kernels unsigned long is itself 32 bits
-wide, so the same truncation happens inside simple_strtoul().
-
-The write succeeds, so a runtime that computes ranges and gets one
-wrong ends up with a different map than it asked for and no error to
-tell it so.
-
-Parse each field with kstrtou32() instead. A new helper,
-map_parse_u32(), terminates the field at the next whitespace or NUL,
-parses it and puts the original character back, leaving pos where
-simple_strtoul() used to leave it. The checks after each field, the
-trailing junk check and every later check are unchanged and run in the
-same order. A field that is not a decimal number fitting in u32 now
-fails the write with -EINVAL, like any other malformed line.
-
-Besides the range check, the one visible difference is that kstrtou32()
-accepts a single leading '+', so "+5 1000 1" is now installed as
-"5 1000 1" where it used to be rejected.
-
-This makes the parser more correct; it is not a security fix: the
-truncated values are valid ids and every later check still applies to
-them.
-
-Suggested-by: Eric W. Biederman <ebiederm@xmission.com>
-Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Assisted-by: LLM
+Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 ---
-kbuf is map_write()'s private copy of the user buffer from
-memdup_user_nul(): it is NUL-terminated, nothing else refers to it, and
-map_write() already overwrites each '\n' in it with '\0' and frees it
-on return. So map_parse_u32() can write a '\0' after each field for
-kstrtou32() and put the original character back.
+ Documentation/netlink/specs/rt-addr.yaml | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
- kernel/user_namespace.c | 29 ++++++++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-index 0bed462e9b2a..1e232f78cfd6 100644
---- a/kernel/user_namespace.c
-+++ b/kernel/user_namespace.c
-@@ -929,6 +929,26 @@ static bool verify_root_map(const struct file *file,
- 	return true;
- }
+diff --git a/Documentation/netlink/specs/rt-addr.yaml b/Documentation/netlink/specs/rt-addr.yaml
+index 17ead22034515..1bd1184d1e202 100644
+--- a/Documentation/netlink/specs/rt-addr.yaml
++++ b/Documentation/netlink/specs/rt-addr.yaml
+@@ -77,6 +77,8 @@ definitions:
+         name: mcautojoin
+       -
+         name: stable-privacy
++      -
++        name: global
  
-+/*
-+ * Parse the decimal u32 at *pos, up to the next whitespace or NUL, and
-+ * leave *pos pointing at that character.
-+ */
-+static int map_parse_u32(char **pos, u32 *res)
-+{
-+	char *end = *pos;
-+	char c;
-+	int ret;
-+
-+	while (*end && !isspace(*end))
-+		end++;
-+	c = *end;
-+	*end = '\0';
-+	ret = kstrtou32(*pos, 10, res);
-+	*end = c;
-+	*pos = end;
-+	return ret;
-+}
-+
- static ssize_t map_write(struct file *file, const char __user *buf,
- 			 size_t count, loff_t *ppos,
- 			 int cap_setid,
-@@ -1001,17 +1021,20 @@ static ssize_t map_write(struct file *file, const char __user *buf,
- 		}
- 
- 		pos = skip_spaces(pos);
--		extent.first = simple_strtoul(pos, &pos, 10);
-+		if (map_parse_u32(&pos, &extent.first))
-+			goto out;
- 		if (!isspace(*pos))
- 			goto out;
- 
- 		pos = skip_spaces(pos);
--		extent.lower_first = simple_strtoul(pos, &pos, 10);
-+		if (map_parse_u32(&pos, &extent.lower_first))
-+			goto out;
- 		if (!isspace(*pos))
- 			goto out;
- 
- 		pos = skip_spaces(pos);
--		extent.count = simple_strtoul(pos, &pos, 10);
-+		if (map_parse_u32(&pos, &extent.count))
-+			goto out;
- 		if (*pos && !isspace(*pos))
- 			goto out;
- 
+ attribute-sets:
+   -
+@@ -168,7 +170,16 @@ operations:
+           attributes: *ifaddr-all
+     -
+       name: getmulticast
+-      doc: Get / dump IPv4/IPv6 multicast addresses.
++      doc: |
++        Get / dump multicast addresses. ifa-family must select the address
++        family: AF_INET or AF_INET6 for the IP multicast groups joined on
++        a device, AF_PACKET for the link-layer multicast addresses in the
++        device filter. Link-layer entries added explicitly, e.g. with
++        SIOCADDMULTI or "bridge fdb add ... self", rather than by a
++        protocol join are reported with the global flag set. For AF_PACKET
++        a non-zero ifa-index restricts the dump to that device and
++        ifa-prefixlen, ifa-flags and ifa-scope must be zero, AF_INET and
++        AF_INET6 apply this with NETLINK_GET_STRICT_CHK only.
+       attribute-set: addr-attrs
+       fixed-header: ifaddrmsg
+       do:
+@@ -181,10 +192,13 @@ operations:
+             - multicast
+             - mc-users
+             - cacheinfo
++            - flags
++            - target-netnsid
+       dump:
+         request:
+           value: 58
+-          attributes: []
++          attributes:
++            - target-netnsid
+         reply:
+           value: 58
+           attributes: *mcaddr-attrs
 -- 
-2.34.1
+2.43.0
 
