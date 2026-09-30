@@ -1,140 +1,171 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E87348445
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C06C30C147;
+	Wed, 30 Sep 2026 09:32:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760710; cv=none; b=RrJYn64WtgjItQZefUJFWDVtjyVKr+jam7KzDEyWeRo95so1DKxsDwnTLgUNHpfBuacneAooOlaSsWYBW5nbQoezdxBz2AGz1G36DxLf8ywdASnQUKfusT66Ced9oZ+9qv2pMvw7KpBajtSYJRg25c8AK7D6GkP/hiwefITOQlE=
+	t=1790760761; cv=none; b=Kf9Zr2uNjv45FwLGm/pDi1s5K2fOqWiFNkJULWX0rtrHJR2A2ylYuyTTb6Y6CNrBQsxkHIzSVOLDvh1Wl1jHIMaDPkjhtJGP530xZog4U5RaDZ5MftPSguEzABYKK+nl4CKzV3ZyZm2VikY0kM9frmh5EZYnmgWPqK9zzcQien8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760710; c=relaxed/simple;
-	bh=p0gH6VhX6KjMP+FtjJ8plJhhVTCWn3ruBIwY/HkF3H8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BAgp5S9FTqS4MzA31kn7m8xbwSby3L5mahN5CV2fLJIjpIQ8nRCA3m0E9DRmJg7hV7ypk0nCoQqozXlFG5zv2RjKqMTyLhqaOwG24ayYYQ9YJEUwiUYYIOaQsrfRAZ2lV5k4fd3sV0JdFDl2aqK8RHvIXzz3yp4Ah4IkFZgyuSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security; spf=pass smtp.mailfrom=octane.security; dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b=XaQQUDej; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=octane.security
+	s=arc-20240116; t=1790760761; c=relaxed/simple;
+	bh=TlzHEJQt+34xYjujqXxuq3JcjM0wYp8ZviYUagsVkog=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=garWEN3pTPZ7+NgDU1WHoJtjfajbeOywY3CMAhthbp1Wn6S/ZR7JDL1COPGG16xzzNMad5wxSVwPmmJwNRV0wutckgUP6s9N+LHPXG14nlYHw3+dWd5gAqMX8XpHnmCS89rzNhvWXYrh3iR4CfWqOLZv34HFKanSM5TiA59WRWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/WFPBAH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b="XaQQUDej"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34abf779ac9so1462246eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:31:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=octane.security; s=google; t=1790760707; x=1791365507; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YQCbSgazPMjYU8lcAbB5w+2GY09p0ZB9zD7aYR/EAW4=;
-        b=XaQQUDej1lb+sE7thEnG9sluKhCdjZfOptgMX5Ny70IkfnKsB7XrWBht5YgGyFfE+q
-         6r10++Te31B6JOLogbSU/I9xBepikW8z9nc69tbKcuLt31oUfbfUwL9UlIIuDY9CRFT3
-         gZaJpe3KUHMEZanlS/j5GnMUmhkqbNnGTUo+hgUSrGvK+ev+h8A6S76rogqU4/AqHRRv
-         IAJuR73FbMOB4ZMSkMEYjNwzhIA34YFQ0qLYsgW3V9+p2Nwof14l2f+g58c3YNb49bBW
-         YKh52ccZlO6EhlPHje2VBSfhKeQj0GU63l0oAw4SagaFV8Yfy2pVecX8oNyEElofP54P
-         NsxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790760707; x=1791365507;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YQCbSgazPMjYU8lcAbB5w+2GY09p0ZB9zD7aYR/EAW4=;
-        b=IhqPNPpyrpT6kf6i/al4s7LZBkxE2fjSCbzkcbIj+TYkG+9VvmMORwJIifVJHJh+6a
-         3n+NsYFBtiB8UEJ2r92/X97VUcG/B6CvOVaCDPvoXmJVUf4ssPlOJok3kcL/rko24NaV
-         ydJHErCm0v487Txj//ni5gloTDNOlxNHrKGVQe8dDyXCb6l85pnRXI9mnWQ+0MX9rJQt
-         l9a7UGdxNcPguQ74PDr8Jae3riui47Om7gBA910m8jzw24lsHArxLaX7gHqYPfcHf+QT
-         cJF31KDM5iGnU0w6s2GfVSsjpXBjkk/ZxybB8F6joRinnkumbs7b64ad0m2uEYTPeKjj
-         qtvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBxnT3DoXN1TVPNHhyFa6gVDuOMn7Mv0sEKS0wch+YH7nfVEEJxsPckXWNM2A7ohK3lz+ryAvZjznWKAM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8JPV36tZmeQcq6xAZagX8NkjusWLxdMawIKP9CuTMBRlopbsA
-	c3cSXU/ZqIC/tYnwyPxG0PyplHLume1l1ocaz1MLwzHqGRzMMedLW7rMlrjoADfcwSA=
-X-Gm-Gg: AYBFou0othXvVxfuDd3Glf7LItFsm2LlalaAoqqZgjsj/5S/ILVl8UqoWUNgFdEbBxS
-	9mnmjykitEo/3h4/690+8pXWCTz3V3+OaTD0+NALxAa9xShhzXM1pXpKF3bdsgoyOybWL1BKL7X
-	mzndqIapGWKLviwq03+UdHL5NkkFvHtxIRwqKEPWUk6PabNv0Io/lJjbK9otn9hvWVnWluDFP+G
-	CZ7yEK9e8+DFrmeOFPwZVdPPgSPFFPzkdajSr6/9I2RikTtJyWW58NyiHeyxvbaxN5OE9lkf5Wq
-	+rAzctNBlBw6bkSUxNVsLXuvmsmJl/LUAX9rrDDJvxTmduEFHLeJWVQgjYmXdICAaxB5O1NNKlH
-	LCVrbzUn9LtHwRGRk4lUZ+Pate7a6Glb2LlG/keRZEDsdMFI2VdZNIeK+ptXGc0MJutJqnAJkR3
-	a4u37pp0ufiw2oKzfMcHXXdHaxJvflru2uv4/mlo51SM9Cgv3NmUNhSLIHJmW+0eYMlGcTG+Qfh
-	PUa9q3WRsLmesv2FI8z3ii7QYVRXTXRfsgak8pNzQW8m8Bhq/TH9CFpeWK1FILcE4yjLU90/5nr
-	niF6g0gntsp5Oktu
-X-Received: by 2002:a05:693c:66c2:20b0:34c:7e54:65e6 with SMTP id 5a478bee46e88-34cd91735a2mr1060753eec.5.1790760707160;
-        Wed, 30 Sep 2026 02:31:47 -0700 (PDT)
-Received: from localhost.localdomain ([45.125.62.130])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf4a64113sm3727804eec.8.2026.09.30.02.31.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 02:31:46 -0700 (PDT)
-From: Shubham Antil <shubham@octane.security>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shubham Antil <shubham@octane.security>,
-	Giovanni Vignone <gio@octane.security>
-Subject: [PATCH] xfrm: zero-initialise km_event in replay-notify to stop stack disclosure
-Date: Wed, 30 Sep 2026 15:01:37 +0530
-Message-ID: <20260930093137.7163-1-shubham@octane.security>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/WFPBAH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD21A1F000FF;
+	Wed, 30 Sep 2026 09:32:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790760760;
+	bh=GUhUebTYwdNTDsFDAgKX2XUga1p/xniYtUmuBOcAkD0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A/WFPBAH7Qma+9hcX287RuSKWlORpntiWFjFLaPigU8Y75ISxg3KEjLTfteawEyBe
+	 2g/cYh4OEqr71nkWwJpVQnorMprUQRkz1eix+QLOCr/CPst8lLD0ChCfFd8YGM4jfy
+	 Fksx04sLagSxxR88vp09QnJZCikrL8s15UEcYtyj8cHuNrsfav7blbRqRE5dyxX7SB
+	 IKNdTpYGGoAU9JjY6jjqMsEYQfRaLoK1HI3j102H2WUj2d2AjX7kJd1tm0yEuZtXim
+	 rxv3PmM3a58m4CHKDbt2tmNwqyH0M2+G0zuIAT/AqLpxmsAoL5566Xt1IaKFXihiLq
+	 k8Bhh/EDc3Mrg==
+Date: Wed, 30 Sep 2026 10:32:09 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Doug Gilbert <dgilbert@interlog.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 34/40] mm: eliminate VMA_SPECIAL_FLAGS usage when
+ hugetlb explicitly tested
+Message-ID: <arzXDWOaouPMGtxL@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-34-4583d8a23bca@kernel.org>
+ <DLSAZ4ZQY8Q3.3OKOCCOQAFVCC@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLSAZ4ZQY8Q3.3OKOCCOQAFVCC@nvidia.com>
 
-xfrm_replay_notify(), xfrm_replay_notify_bmp() and
-xfrm_replay_notify_esn() declare a struct km_event on the stack and
-initialise only its .event and .data.aevent fields, leaving .seq and
-.portid uninitialised. build_aevent() copies those two fields into the
-XFRM_MSG_NEWAE netlink message header via
-nlmsg_put(skb, c->portid, c->seq, ...), and the message is multicast to
-the XFRMNLGRP_AEVENTS group, so two dwords of uninitialised kernel stack
-are sent to group listeners on each replay event.
+On Tue, Sep 29, 2026 at 10:42:00PM -0400, Zi Yan wrote:
+> On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> > It is now an invariant that VMA_IO_BIT is not set except by kernel-owned
+> > mappings, so each existing VMA_SPECIAL_FLAGS test need only test for
+> > VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT.
+> >
+> > This is precisely a test for a kernel-owned or fixed mapping.
+> >
+> > Update a number of callsites which already explicitly handle hugetlb
+> > mappings.
+> >
+> > vma_supports_mlock() and ksm_compatible() also explicitly bail on droppable
+> > mappings - detecting kernel-owned, fixed or droppable mappings is handled
+> > by vma_is_persistent(), so in these cases use this predicate.
+> >
+> > should_skip_vma() tests for locked, kernel-owned or fixed memory (having
+> > already excluded hugetlb mappings) so simply test for those there.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/internal.h | 4 +---
+> >  mm/ksm.c      | 4 +---
+> >  mm/vmscan.c   | 3 ++-
+> >  3 files changed, 4 insertions(+), 7 deletions(-)
+> >
+>
+> <snip>
+>
+> > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > index 12ed3388ee41..09ff20c3df5b 100644
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -3477,7 +3477,8 @@ static int should_skip_vma(unsigned long start, unsigned long end, struct mm_wal
+> >  	if (!vma_has_recency(vma))
+> >  		return true;
+> >
+> > -	if (vma->vm_flags & (VM_LOCKED | VM_SPECIAL))
+> > +	if (vma_test(vma, VMA_LOCKED_BIT) || vma_is_kernel_owned(vma) ||
+>
+> At this point, mmap_lock is held, there is no mlock WIP, so
+> VMA_LOCKED_BIT is enough.
 
-The request-driven paths set these header fields from the requester
-(xfrm_get_ae() / xfrm_new_ae()); only the kernel-originated replay path
-leaves them uninitialised. Zero-initialise the event so the header
-fields are sent as 0, the correct value for a kernel-originated
-notification.
+Yes indeed :)
 
-Reported-by: Giovanni Vignone <gio@octane.security>
-Assisted-by: LLM
-Signed-off-by: Shubham Antil <shubham@octane.security>
----
- net/xfrm/xfrm_replay.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> > +	    vma_is_fixed_mapping(vma))
+> >  		return true;
+> >
+> >  	if (vma == get_gate_vma(vma->vm_mm))
+>
+> LGTM.
+>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-diff --git a/net/xfrm/xfrm_replay.c b/net/xfrm/xfrm_replay.c
-index dbdf8a39df..9394953247 100644
---- a/net/xfrm/xfrm_replay.c
-+++ b/net/xfrm/xfrm_replay.c
-@@ -40,7 +40,7 @@ static void xfrm_replay_notify_esn(struct xfrm_state *x, int event);
- 
- void xfrm_replay_notify(struct xfrm_state *x, int event)
- {
--	struct km_event c;
-+	struct km_event c = {};
- 	/* we send notify messages in case
- 	 *  1. we updated on of the sequence numbers, and the seqno difference
- 	 *     is at least x->replay_maxdiff, in this case we also update the
-@@ -304,7 +304,7 @@ static void xfrm_replay_advance_bmp(struct xfrm_state *x, __be32 net_seq)
- 
- static void xfrm_replay_notify_bmp(struct xfrm_state *x, int event)
- {
--	struct km_event c;
-+	struct km_event c = {};
- 	struct xfrm_replay_state_esn *replay_esn = x->replay_esn;
- 	struct xfrm_replay_state_esn *preplay_esn = x->preplay_esn;
- 
-@@ -356,7 +356,7 @@ static void xfrm_replay_notify_bmp(struct xfrm_state *x, int event)
- static void xfrm_replay_notify_esn(struct xfrm_state *x, int event)
- {
- 	u32 seq_diff, oseq_diff;
--	struct km_event c;
-+	struct km_event c = {};
- 	struct xfrm_replay_state_esn *replay_esn = x->replay_esn;
- 	struct xfrm_replay_state_esn *preplay_esn = x->preplay_esn;
- 
--- 
-2.43.0
+Thanks!
 
+>
+>
+> --
+> Best Regards,
+> Yan, Zi
+>
+
+--
+Cheers, Lorenzo
