@@ -1,198 +1,205 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012000.outbound.protection.outlook.com [40.107.209.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54F62F8EA3;
-	Wed, 30 Sep 2026 15:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781046; cv=fail; b=dRmlsTkCkjlw8O8xOF1da9YAVWCkSHAbJ3oDkBhsJ21aB4Hf3pzzprCNxoXaA0EHb8vCesKwVdN9icSS/4OCuima6k/d1wu2OnuYjV2BbK5azn5SgZ4FQqkHOpXDbwJE72j4C9u6QqlB5nxF+BkARzw1hoxeIqblpKBdl+OfmOc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781046; c=relaxed/simple;
-	bh=8+nX33XGcC6xaJ354t8+lO3WBY1CoFJ6aMeNcourCt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QfXRoQ4EMPMzMqxYJuYIA0z9CklrNdHz5TYkf/O41B90hSGFrCz9aYvZ4bFU6COyl3rV5TRoTcjJi6lHWx6kg917tvOFLpVKpzjd6LGPJbbR0cKmKAkkx/lT6XiiKQHslaweHGoUcU/NPHxfTa3goJAyWu7gl0NPu0YnkuVrXzI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rF3LMWFF; arc=fail smtp.client-ip=40.107.209.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BEF4A015E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790781117; cv=none; b=luR11DrXudKwL5X+W8Uojdo8otzPn2fzC1PxuXAyfMJpCJuHKCjefSm2x7UuQYV4xRXpy9buJxdApDIGdqCStrypr5K8awnQxPzeIJw54xSVUg+Q0v4ohk1C/cEnqvFieLdsXa2S4coSSk8KYhmTddSwRgN4xN0rRvbx4cpLlGo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790781117; c=relaxed/simple;
+	bh=aJK56cyRzXZjWpIBAPw5fRHCWxiO1QJ0/pWjo+GWpRQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=s+3gbvhbZs/dDHA5sX2avxh6rrDKSo9UE73yYd1wn2gS6FfertQFBn2iH3dCihSPCcuky8W9WORse0daYrJFT5ap32kkgIL/CXdntVexRMABdo6/Y0MaCyfODpgc6jPC6OxagAT7JuJHUsHV7tjkTOuSEbVuNUOlSC5FvVluIKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wb66/11z; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rF3LMWFF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gLIB8JH3yvTItiBD/G0K5CkvyrflWKpHFG6rdtRwiB7jdRdxuC9Jjn2vWRmukR6oPQI77UTIVmkR24dGEQe6dWIz7dnB7vOWdcK1VXR+BAhW87dGCdqipML+dP1U346IjGixSAT4/iS5GaUUH7li31A6elTd6f7tMNaiuQDeVBRBrgQxJsA2jXHdUG8itUmkfKqwcdUMCQDGz6kp+053U0CTTqjzvex81DansGkf5Ik2SzT1/0XKRKo0qz0wGOMWwflC6eX+1aOjTX8quQsHkQteZlUcgU5+QJUcQjG4qPLAcAj8/E3sDb3aWgASUzS3GVES6IG8mYxhcvX1/GMbbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZIpEnQqeJD67Yt0sOkVklXGfQh7eSPXOnniolBK2wog=;
- b=NFwD6GF4ywwUoSGJwVjKRZi1+kvyvyOtXhHl1hgzeiqM5E8HjqoEmR01mvfBptxB+pH4RYRCI/ChAtQJnFSQ+G+U0CWQ/h7wlIy3ZPnw4dE7roApuvxWCs6jRF6zUVOT/vFXtyok04vl/Sdsb5MWZgtFTl7TRAW+yJe4WSJZjmSaY0FgbiXxWNwyQU0afTN9OMH+MdcTDzob8Hri09XcEo4W7IuyK969C/BwGZbub3HaPCyH6u3D6+1+dpfRRYNy+F9HK3+/sIhOpQO+NNkipixw8vYoyIk/nBQegHGGGwV8vS4WEi/tUyIUlOP3M2zxP5lAxkTCERk9+k4PnjFWnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZIpEnQqeJD67Yt0sOkVklXGfQh7eSPXOnniolBK2wog=;
- b=rF3LMWFFYLaGqtyqSPTkSZSyYgkR0WVIfiMn158Aj6PlPZM+QRLQxMYvKm3URQQ1b+22S1ciDg1Cf09JRw9IjLk/uTqrWyupyCYvUgqQLCimhvHAhV5Lxo84zsbz3ZtWKgOuj7z19/rbXgcruHsPXQnKDk1hqx/n/R12UDqYI9kMxKhng5WfPqJgyffSHRS1kVUuF1r9BO9tQ/z+fYhiAHqH2Fx+kWF69w9bqy3zK7Fuwxhaxf1QBl8Lyraf/Di/q/qFFoAxK87XZcdVbvxcFO2p5fvE1hQgEGV1JgtXji6trH46I7ZqJukclwCDg++9WHrQH8GnRIT8VOWfhkL2qg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SA1PR12MB6824.namprd12.prod.outlook.com (2603:10b6:806:25f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 15:10:21 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 15:10:15 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Gregory Price <gourry@gourry.net>, Li Zhe <lizhe.67@bytedance.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org,
- ljs@kernel.org, liam@infradead.org, rppt@kernel.org, mhocko@suse.com,
- corbet@lwn.net, skhan@linuxfoundation.org, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, linux-mm@kvack.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
- with MPOL_WEIGHTED_INTERLEAVE policy
-Date: Wed, 30 Sep 2026 11:10:13 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com>
-In-Reply-To: <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
-References: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
- <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
- <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0870.namprd03.prod.outlook.com
- (2603:10b6:408:13d::35) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wb66/11z"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d7443e0f0bso74734635ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:11:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790781105; x=1791385905; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tnYEy85T6L9VUgYpvbipzar1+R2ojY5ljHxm3uRhDeA=;
+        b=wb66/11zVVkg1hhGfYFDt4TsYmICBJphhRh3WZnwfW5BR3TaSwYiyMeWa8LP8geMjT
+         OKwbQuJuyuQ67o3fX2jGCpmJcQZo8zNHXSlptJ+J7kyAeco75LPR1zVIagS3J5c6uem5
+         U4xaefzoaa5uqMehWCCKmr/Jpw3mQ6pEEztOYy2JREQ708hJiXGaGcWbIvSn3EMG9aaG
+         FPrpKo4Yt3RD3fkbuzZeTv3p4LlUDbNRqoK84snlyQhWnJcImEWT66a53cCFxk2hT0hr
+         Jb1thsBHuY97g/e/KyNyLFntEYtlDgblW1gyBGDZDAfQWzdC0F0k1nbDJwojWZk7e/Vq
+         0psA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790781105; x=1791385905;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tnYEy85T6L9VUgYpvbipzar1+R2ojY5ljHxm3uRhDeA=;
+        b=llhAX3KEkGn0DqD273WH2x2UVOImzeUXgo3EoD4epTUnANhmTI1v0n0VZEiTynnrnY
+         loumDy+iC/hWmHAZ0Ebuf+kJqHfPAlzvhXeZi/b441oBDocT43FWJFbLgYmBH2vX711F
+         xPMfMh5nGIQhUzcfMPaymFa2nx+yNCtL/ik55TJ43H7t9d7dg5yjx8BE076bIiToK5OP
+         tJmPQ2MkngjimhlEOlIyQlLSFOm3StTNxAPK5rJ1pYsjytYJTalKchK+f2Vl87AN9HuW
+         eDIrgbuX2zfID98YJsb15o3yw9ln/EbfEw57Lyw6XTBpyp9exIRmwtkL0+B/aO8c+62W
+         PDow==
+X-Forwarded-Encrypted: i=1; AKwUvBzGX3R/7GKHqwzq3UJNPOtH7btDSqa8LJGgUNFdcR2TWNnyGX57628HlgJUAzvrHWUzO3K0qolR+ZjAVpM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOSZRUXaIuSCR4TbJrv812kA3xP/Hkwrt0fLcFJ8njuJ/iUxE4
+	ll/2/nPujQJR5wgzgEOJHKuAJoTA/iNX47znmFUmnT+vfwOjvRsUbrAxbJZeKFNam5delbTfpBw
+	4v15s3A==
+X-Received: from plrq18.prod.google.com ([2002:a17:902:b112:b0:2e2:c684:16fc])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:4b46:b0:2e2:e0c6:1689
+ with SMTP id d9443c01a7336-2e2e4bb71d7mr13947915ad.58.1790781104894; Wed, 30
+ Sep 2026 08:11:44 -0700 (PDT)
+Date: Wed, 30 Sep 2026 08:11:44 -0700
+In-Reply-To: <f8d5ab37-7bc5-494f-afec-6bd0cb0c412c@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA1PR12MB6824:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82bb16d7-1086-41b3-54bf-08df1f04ee54
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|18002099003|22082099003|11063799006|4143699003|3023799007|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HKHZAYxG6ZbyjpFSLEAIU/ynIXNb+x3YvFHwJgGgy3oddFitj/PYqYDEq5STEARUrWtSp15i45tMEBF3UVS6bKIan5By3MEm280XQwiFieZP5vpKrl6Y+UxnYhTzTN8dWus8UzquREPdOJQNILcsZI4yuZKNrvtPM5BS3esGekjSFAxc7yV22yxa/LiW3GYDAA6hwf4egl2/19h8oJjfkC/FtFXpZp0hcp5d9qMxTXkk1ZweLlXIsqDMLZfKLwaKcT3dv97UZlneNU1tUXtShgrf2pX7UHgOnEiD5+HftzIdck6uTIPlEDGajv+V1eIzlVHFa5pphLzczr2Z8JWqRfTykiystLAkLUiQ5wo8HuP05TKVA2+aMQcsoGiBAPDdm/xJD0i7kQKZPF/O2hY+UJIH7rN3GN+c7626CP5CdRNwOs8fFR4gjCKenYprDFAdSPYppTGW7SP7Kuwn2ZZDhbQABpyR6zWiHWLxlL0C6oj+wcIAsjGBllxXz1fUpNF4zw6lFDNkiaCEnGkxx5NztWopI88bmqRBRa36H08JlgpI6sn/HEBQHhRfmSz0DP0ymrCMKU/1NpEkx8Ou8Cvwf7q/3gHi+M7XBh1BYxo06fhrmqJxb9EHLdlyqCS5pogY2IjHt3FJetazbhs2qkXvYXhMLqf/yETBGeRDuLpPjA8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(22082099003)(11063799006)(4143699003)(3023799007)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d0xhcnJxQjhZamdEb1BBaU5aTjdwNmI1MmViOTMvcDZZbUhZOHRPSDhsV1hQ?=
- =?utf-8?B?cUEyb3RMMFJYS25mOXVwcFZWbTlaU3B3Nk5XL1UzWGx4bHY1T3o3TmxaN2Vh?=
- =?utf-8?B?ZEhNRG5LakFxT2RGMy8rbDYySFpGYmUwVnJGK1F4TjVhWjZteWcybHJCT0ZP?=
- =?utf-8?B?OXZFZTU2UE14REF4SWhJVy90WDZmMFpXM3Nub1k1UG13S2ZBYmEzcm9mcGFE?=
- =?utf-8?B?Q2pwVDZGOHlPVW0zaC9mMCtnZENnOVczT2ROR0dseWtMdHZ3N2hRQlVjRUpY?=
- =?utf-8?B?YkNzZ2hTaFR1TmJ4ZEZhc2NUWDhBempYMmtHSU1sd3RCayt1YjR6Zm9iNEZx?=
- =?utf-8?B?dVorYThLSzR2VW41Vm1PVDY0R05GVDM5bFRmSkxUQStEMmpmWVhqR2V2M0ZC?=
- =?utf-8?B?VUdCWDNaZHpjRzhZSEpNbUlsU2dsVTV1aUx3eDZLNVdab0lGV2R4Q2tCNnlK?=
- =?utf-8?B?b2FycnBtQm9QVVkwQzdaR3ppelJKckdCVnk1MGdoakFCcXpza08ybHk3bU56?=
- =?utf-8?B?ZUFhSE8xcWI3VVEySmRIUC9YdVU4VDRvUXoxTTZqb2xRdVRwaUpWdWs4djY3?=
- =?utf-8?B?aXBUTjgxK05SejdaNWExTHJUS0U3MzNuMTVIWkl6bnh3dktZS2UybXNieUlQ?=
- =?utf-8?B?Mm5ENmQzdmR4clpPenJka2dDbGU1RjVOOXlaKyt3ZEIwc1hZRWIvWEt3a2Ew?=
- =?utf-8?B?LzRaTitNR0Nwc2JaZlpCc1BnNnVjL2pSRTA4VlBJUkVtUVNyUDFsaTRIMVRX?=
- =?utf-8?B?OWlJaUZOczJvWTdlVThWNGFWL2JLVUlIMmdta21RZXJobHJjWk0ycDlhRDVN?=
- =?utf-8?B?MmI5UnpldlRhZnRzSnNEaSswMzNMWkthZjFIR0xPazA2cEtycHdnRHNRZktq?=
- =?utf-8?B?ejV6QXJtUGRxaVJ6dWZZdjNHVnZ5eVBLd3hValZJYXVkZjg2WUMyMGIzdkl1?=
- =?utf-8?B?U0ZNNmRJZ1ZYcjJLSWlaVkM3L0lOc3RvYnNaQnZTL2JrajhhOVRuUDZQenhI?=
- =?utf-8?B?ZlgrOEJWUmxIZG9tRUZCbHp5cFVwcmkrSXlDK2xnMGt2M2lUbXc5QmFrbzNq?=
- =?utf-8?B?MFN4MkxKQW95UFA3T1dxcmN0aFd6amt4VTdHSjF4RDQ4eEkxSGNxNW9la0lL?=
- =?utf-8?B?ZVcxR3hDMUlySXNId0RGVkVrTjd4SnNFNk1TV2h5ditmM0JHV3ZTMkxCa1FL?=
- =?utf-8?B?dFloMWZhL2dWS0paSHBVZi9hcVhTc003Y0lyUGQrd1IzZWZpcXJDOE1EalFn?=
- =?utf-8?B?b3JydUkrUitlYnI2SnB4ajdaZklub0QrV1kzRkE4M2Zza1JNVm5JRExwaVND?=
- =?utf-8?B?UE4vNmtFL2gyTkZ0MWpoelNKUnhtZzlGbXVwRnJhdTh4WnptODgxcE11QTJF?=
- =?utf-8?B?dkFqTmJ3S054aDBZMTE0Qkd2b0dMZXEwYzRiZ3pIcFNkQ0habWV5Vmt1MjhM?=
- =?utf-8?B?djRLQmFBQmVqdFlhcklnbkJqVk1PcnY2eWs2a0NTYUI1M1NxZjdCQWZxSGF5?=
- =?utf-8?B?dG1kdXdFOEN2bldieno5RkRZdnVtL25JUmkrQkZuT2xsQmptZ0c4dTN5RmdT?=
- =?utf-8?B?ckdCN1FQc09nb2lvTVN2SXkrYXNHd0w3R01FUDRjL0YraXQxTUNPbzVLQkpR?=
- =?utf-8?B?bjRSdjk4RHZzRjNiR0QwSkJuL2pvM3p4ZWdjY1pxRzBkUXdVZ0MvMndQaHo3?=
- =?utf-8?B?c3RIQytPdHloOEp6WXJaQVI4bTZUREZVR3NXSkhMZGJaZ1YxOW5FU0FsckpW?=
- =?utf-8?B?QVFNYnRuMGxuUWVuL3BiNXV6dmw3QStta2k5anBwMFdTVE1Td1lrcXZzN0pq?=
- =?utf-8?B?dkYvbGhuazVJVmQ4SlJUazFaV3F4SlNpclNQajBkKzB1bFVndXVsYzcybGJj?=
- =?utf-8?B?SGdsNVQrUVNNcFMxdG5WeEt4ZGxJcFFpWHhzeWF6azRIdUFwbFRrQWh1WDR1?=
- =?utf-8?B?RjNta1R0WkE0REVZRUtvTjhIL3BVak5JVndxbXZ5TGdLWHRMMHNZc2pQRVlW?=
- =?utf-8?B?dWVjdXZQOG1jcWxrRWtWK0VJeDdpRmZXbXpncWZkU2tJdTRvOGVZT3lHM3V4?=
- =?utf-8?B?THd3QUFFQW1jWm5kWmdoK1dTeDFiaGRlZ1ZZWkwvTkhEL1Jmc3pDbzdDOHVV?=
- =?utf-8?B?SDFPVTUyWmVNUTc2WTN6UkZaOXpOWGVmUVJSOXRPNXlqMVN5VGNvRUF1a0Mz?=
- =?utf-8?B?QVZQWmNKVzQ5RlhuanFlV3ZTZ2ppUStKNm52L1dNall3eno3ZjVxRnU2OWl1?=
- =?utf-8?B?U3JVNGh0M0MwV01mcHBFZHNqYnRYWmhGZkx6NHVQYVV2cHd4ZUhNcWFxTFo1?=
- =?utf-8?Q?RpnfkmSsUxwuTAYROD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82bb16d7-1086-41b3-54bf-08df1f04ee54
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:10:15.0193
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0gzCwtjpwZGTxKGjIjmnIfR18/MFmOlrOprL7uQvWipOwecyze9odJfZHDZ3bkLm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6824
+Mime-Version: 1.0
+References: <ar0KIZ8HQEfIRvVJ@sirena.org.uk> <ar0RN3FICQ-PEqNW@google.com> <f8d5ab37-7bc5-494f-afec-6bd0cb0c412c@sirena.org.uk>
+Message-ID: <ar0msIOhuFY0RpCS@google.com>
+Subject: Re: linux-next: manual merge of the kvm-x86 tree with the kvm-fixes tree
+From: Sean Christopherson <seanjc@google.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: KVM <kvm@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On 30 Sep 2026, at 10:50, Gregory Price wrote:
+On Wed, Sep 30, 2026, Mark Brown wrote:
+> On Wed, Sep 30, 2026 at 06:40:07AM -0700, Sean Christopherson wrote:
+> > On Wed, Sep 30, 2026, Mark Brown wrote:
+> 
+> > > between commits:
+> 
+> > >   b630929bcc4c8 ("KVM: selftests: Extend nested x2APIC test to validate disabling x2APIC virt")
+> > >   b0bc51910f039 ("KVM: selftests: Extend nested x2APIC test to validate using eVMCS for vmcs12")
+> 
+> > > from the kvm-fixes tree and commits:
+> 
+> > >   9b2f8146fcef9 ("KVM: selftests: Extend nested x2APIC test to validate disabling x2APIC virt")
+> > >   a4bab1c12fd52 ("KVM: selftests: Extend nested x2APIC test to validate using eVMCS for vmcs12")
+> 
+> > kvm-fixes got force-pushed, which is what's causing the weird conflict.  In a
+> > tree that hasn't refresh from kvm.git, I see:
+> 
+> Ah, I had thought it was an old version of the patch having landed in
+> kvm-x86.  It looked like different versions of the same patch got into
+> each tree so I went with the main fixes branch version as that's what's
+> heading for Linus.  This sort of cherry pick/duplicate stuff is always
+> hard to follow. :(
+> 
+> >   a4bab1c12fd528ccaafee00360e07463873404a9 (kvm/master, kvm/HEAD) KVM: selftests: Extend nested x2APIC test to validate using eVMCS for vmcs12
+> >   9b2f8146fcef9faa73f9dc1bad9a8d6c585cfec8 KVM: selftests: Extend nested x2APIC test to validate disabling x2APIC virt
+> 
+> > versus the newer version:
+> 
+> >   973ea70393e885e540f714904e51bc6cac80e3d7 (kvm/master, kvm/HEAD) KVM: SEV: Do cache maintenance on the source VM *before* clearing SEV state
+> >   8abbc76120a74bfba1851bd97528099d715e45c6 KVM: SEV: Nullify "have run CPUs" mask pointer when freeing it
+> >   b0bc51910f0391fea09c0a1d32352fec2acb2686 KVM: selftests: Extend nested x2APIC test to validate using eVMCS for vmcs12
+> >   b630929bcc4c867c9abc8cd5a0ebee3bb5ce5dcd KVM: selftests: Extend nested x2APIC test to validate disabling x2APIC virt
+> 
+> IIRC my conflict resolution gitk only showed me the two commits that got
+> duplicated, it is filtered by file though.
+> 
+> > >  -	prepare_for_vmx_operation(vmx);
+> > >  +	GUEST_ASSERT_EQ(prepare_for_vmx_operation(vmx), true);
+> 
+> > This resolution will probably break the final selftests build?  kvm-x86/next
+> > moves these asserts into prepare_for_vmx_operation(), load_evmcs(), load_vmcs()
+> > etc.  I.e. kvm-x86/next should "win".
+> 
+> That's entirely plausible, my kselftest build tests are for arm64 only
+> since that's what's native on the build machine.  Sorry about the mess
+> here.
 
-> On Wed, Sep 30, 2026 at 10:02:23PM +0800, Li Zhe wrote:
->> The use case is closer to the second one, but the main motivation is not
->> only startup-time performance.  The more important point is that each
->> workload has its own DDR/CXL budget assigned by the workload manager.
->>
->
-> mempolicy is the wrong interface to do budget policy, you'd be better
-> off looking at Joshua's memcg tiered node solutions for that.
->
->> MPOL_WEIGHTED_INTERLEAVE is useful because it lets new allocations
->> follow that per-workload budget from the beginning, instead of placing
->> everything on one tier first and correcting the placement later. This is
->> important for workload orchestration because the workload starts from a
->> placement close to its assigned DDR/CXL ratio.
->>
->
-> This however is reasonable to me - you'd prefer to spread out the cost
-> of initial faulting placement explicitly, rather than simply take
-> fallbacks when the top-tier budget becomes pressured.
->
-> i.e. w/o interleave:
->
-> [node 0       ]
-> ^^^^^^^^^^^^^^ alloc until full
->                 vvvvvvvvv fallback
->                 [node 1          ]
->
-> in this scenario you end up with considerable hot memory
-> on the remote node consolidated in time-space (everything
-> allocated after node0 becomes full skews heavily toward
-> node1)
->
-> Tiering then likely takes many faults to rebalance after
-> you've already reached node0 limits.
->
-> w/ interleave
->
-> [node 0                                      ]
->  ^^^vv^^^vv^^^vv^^^vv^^^vv^^^vv....
-> [node 1                                      ]
->
-> In this scenario you do an initial fill distributed by weight
-> and then let tiering figure it out without consolidating all
-> of the pressure to the point where node0 has no space left.
->
-> That said - this seems like mostly an initial-fill problem, after
-> you initially fill your memory, a new allocation largely implies
-> the memory is hot - and you probably prefer that to be local.
+Ha, no need to apologize, it's our mess.
 
-If this is a initial-fill problem, can userspace set weighted interleave
-initially? The program or harness can observe memory usage of the program
-or related NUMA nodes and switch the policy to numa balancing via
-set_mempolicy() or mbind() without MPOL_MF_MOVE after certain threshold
-is met?
+> If you send me a confirmed resolution on top of today's -next I
+> can add the fixup, or I'll try to take look tomorrow?
 
+Here's the fixup.  I'll make sure to push to kvm-x86/next today with the new
+version of kvm/master, so this should disappear in tomorrow's build.
 
-
-Best Regards,
-Yan, Zi
+diff --git a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c b/tools/testing/selftests/kvm/x86/nested_x2apic_test.c
+index 52959287500d..2ae698c9aa1c 100644
+--- a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c
++++ b/tools/testing/selftests/kvm/x86/nested_x2apic_test.c
+@@ -61,57 +61,55 @@ static void l1_vmx_code(struct vmx_pages *vmx, struct hyperv_test_pages *hv_page
+ 		evmcs_enable();
+ 	}
+ 
+-	GUEST_ASSERT_EQ(prepare_for_vmx_operation(vmx), true);
++	prepare_for_vmx_operation(vmx);
+ 
+ 	if (hv_pages) {
+-		GUEST_ASSERT(load_evmcs(hv_pages));
++		load_evmcs(hv_pages);
+ 		current_evmcs->hv_enlightenments_control.msr_bitmap = 1;
+ 	} else {
+-		GUEST_ASSERT(load_vmcs(vmx));
++		load_vmcs(vmx);
+ 	}
+ 
+ 	prepare_vmcs(vmx, NULL);
+ 	vmwrite(GUEST_RIP, (unsigned long)l2_guest_code);
+ 
+-	control = vmreadz(PIN_BASED_VM_EXEC_CONTROL);
++	control = vmread(PIN_BASED_VM_EXEC_CONTROL);
+ 	control |= PIN_BASED_EXT_INTR_MASK;
+ 	vmwrite(PIN_BASED_VM_EXEC_CONTROL, control);
+ 
+-	control = vmreadz(CPU_BASED_VM_EXEC_CONTROL);
++	control = vmread(CPU_BASED_VM_EXEC_CONTROL);
+ 	control |= CPU_BASED_USE_MSR_BITMAPS | CPU_BASED_TPR_SHADOW;
+-	GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);
++	vmwrite(CPU_BASED_VM_EXEC_CONTROL, control);
+ 
+-	control = vmreadz(SECONDARY_VM_EXEC_CONTROL);
++	control = vmread(SECONDARY_VM_EXEC_CONTROL);
+ 	control |= SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |
+ 		   SECONDARY_EXEC_APIC_REGISTER_VIRT |
+ 		   SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY;
+ 	control &= (rdmsr(MSR_IA32_VMX_PROCBASED_CTLS2) >> 32);
+-	GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);
++	vmwrite(SECONDARY_VM_EXEC_CONTROL, control);
+ 
+-	GUEST_ASSERT(!vmlaunch());
+-	GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_CPUID);
+-	GUEST_ASSERT_EQ(vmwrite(GUEST_RIP,
+-			vmreadz(GUEST_RIP) + vmreadz(VM_EXIT_INSTRUCTION_LEN)), 0);
++	vmlaunch();
++	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_CPUID);
++	vmwrite(GUEST_RIP, vmread(GUEST_RIP) + vmread(VM_EXIT_INSTRUCTION_LEN));
+ }
+ 
+ static void l1_vmx_code_part2(void)
+ {
+ 	u64 control;
+ 
+-	control = vmreadz(CPU_BASED_VM_EXEC_CONTROL);
++	control = vmread(CPU_BASED_VM_EXEC_CONTROL);
+ 	control &= ~CPU_BASED_TPR_SHADOW;
+-	GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);
++	vmwrite(CPU_BASED_VM_EXEC_CONTROL, control);
+ 
+-	control = vmreadz(SECONDARY_VM_EXEC_CONTROL);
++	control = vmread(SECONDARY_VM_EXEC_CONTROL);
+ 	control &= ~(SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |
+ 			SECONDARY_EXEC_APIC_REGISTER_VIRT |
+ 			SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY);
+-	GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);
++	vmwrite(SECONDARY_VM_EXEC_CONTROL, control);
+ 
+-	GUEST_ASSERT(!vmresume());
+-	GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_CPUID);
+-	GUEST_ASSERT_EQ(vmwrite(GUEST_RIP,
+-			vmreadz(GUEST_RIP) + vmreadz(VM_EXIT_INSTRUCTION_LEN)), 0);
++	vmresume();
++	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_CPUID);
++	vmwrite(GUEST_RIP, vmread(GUEST_RIP) + vmread(VM_EXIT_INSTRUCTION_LEN));
+ }
+ 
+ static void l1_test_x2apic_intercepts(void)
