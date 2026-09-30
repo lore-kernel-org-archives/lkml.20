@@ -1,84 +1,89 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A3350C28B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DA14F0526;
+	Wed, 30 Sep 2026 17:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789614; cv=none; b=Vkz7/DQ31zjVxxIQ1X/QNt3vKqRl+9xI4WfRRSubs23d6cgotWzKIb41twI+qTGiVmvIj6Lmlxj9Th/X5XA5UYLr/0KqPgO+cYpBxBOhonKSJ5vOG+7oP1HsDUsRUmxSnwbgXqNSr3y6sBmBjjkcHjN8axgUFCwdyjdyl4KCT7k=
+	t=1790789703; cv=none; b=erpIglvBAjMub0gLqPNsS8Icf6FAprI049wQtoCIh4QjB3o7vMe6XtG4MMwAqDRvmt5HG3h8LhOn98Z3QqBU3HYsjMK2zxu+RINcxG3pjP0sAXnymCMRCkME31rYdP2+jGVeWI3Qgo73BIN7ja7U6akD3TsPvSY6I0rnm8Qd9Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789614; c=relaxed/simple;
-	bh=p+ILzIid3gZMKSRINTnt4WslPGttrFKh3IKqGQ6yogE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=m7ab6ygOxIlPjyH2gFhIzdP2n2Sx5GGJrx8Muj7QNT/kYJz/VpXsXR809TidTQOXi3ejRc774lv27wYCVNHWzX0caLL9XvcdQLHHc0Ch2Xx8b0pE693QHb1RFaaQTGtrmKJSeNcwaDSTF8u+lLRW7BJdd4bfQAgmm189MbZzGU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQ3ODerA; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790789703; c=relaxed/simple;
+	bh=+BJO0HRvGd/Ll23CF8oF54E23rDoJ4r/khlbXrdVigA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LsLfu/svT0x7Cjx6xD6kYa2KLmZOI+am3jqfOnjvy6Adw6OD8inpnknN4fny+tTYMb2TQvgdRlZJkdwUVWqvRzz0XNXAGf4G8TrzvmWHYx+jlj7nvC6psYzeBQ4WnDKZ2hF6tIxAN5HuIDt/CzEVGrYGJE6/im1PzOfFy8dTwCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=QZYiw5Sb; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQ3ODerA"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3931so43000455e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:33:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790789611; x=1791394411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p+ILzIid3gZMKSRINTnt4WslPGttrFKh3IKqGQ6yogE=;
-        b=sQ3ODerAJ7F6d3a3rcwmAmBV/9v50J3T8AG/f2b84StjcR8C7ZOY7dZy6H15pFigKp
-         fMA3VumD2cbfUm/oDZo2PJlkDdwJ0r+RvqOWZqiIf1JQJ1aoKImzA1mET0OhIcuCIkp5
-         G68xFT2L+qz1BBp0X1QrG0EGtD+TKcrOIaPNrNDxqsuJ5fM+wFWmuXMlD47wW658brvR
-         PeKiv2QJ4klVOFxL4DeqU71m4MrvV7siNKaU7IbC85THWM0B+kZIK3g3gKHiqlyt2NSd
-         qHDLzhfxSkX3JNRaRnuYaDP+zkhWrrXkF9dIIe/k4bLQ6qg8xMXTsMK/B9/sCmrSVrkD
-         qLGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790789611; x=1791394411;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p+ILzIid3gZMKSRINTnt4WslPGttrFKh3IKqGQ6yogE=;
-        b=yjdQDERR3nWpSBkcEMFGOo6MwsReewZh2AMBToDfVs0HvMlRo5eMQ0xBctHYGeznCb
-         8wDwas2GNpDLpvirCXNWzRmpOzcYI1noYQuB2bfnIzLdvUrhwlvMY6QZYEus7/zZcLSB
-         0EpqB+OnG0/3VBG7FYqHqbkampDuqtHSVHxs8XWP5vLbvnlH9WiHfLqtlnaG6Y3TF90E
-         EgnX/k6oatYkWLSRFE92zHwZjzY6ar5AtXkDpf+IoSpmUbxw7kH97g6t75+wYlzBrBVq
-         tWgYrFf49RhhfDq+D121Lkcf17QnfsRGD67MinIO100H3CZywXDRnXh0W9tXbhyjSeSB
-         jIAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzOFW2Q7dgiUb33unqGHPW1z5CnoAtzQJuqimjUAEcttrz5W1ueMJaI5suvCPxqR98RsXvLvpStgrAgXtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nun3dIo6uVWnpD37cyP9yi1Rokh0iauqaGahNFMqFtOp6aD4c4
-	TSxsuZLdHnYJbzYIZA3Aixmy8quJqNAxEMB6XAuiimg+aH1QTD0Bzcyx
-X-Gm-Gg: AYBFou2vKXOTAYD/2CLPZKTjmCfJjFzmKJPL8/Rs6xYHYVMNWPoTgT16GL45Mv5oK8p
-	nuBZ2/lS5BSwIHsqZReBTIsaNUl2azrqRbjnyJvmHPnfqFQCvEGu6WQ04joURvUt1bEkAeq7GKF
-	82uKf1rSl0zQlUMUJWU6r7kzmJO7evVuwHgCnV9m1UtYKTrSwgvY/eeM0Gy1dSgYD0ChuPdRNOd
-	qqhak+cdhH5PxbFt1fH1fB4Iilw4fovp7Qiy9LR/09qgutqAM5spR9Wn+0xso/nrGNfayDNL4/p
-	q7xM1Qo0fGfbjPPECkGxrbpWHqwRky3ph7Iwsb6t58qbbeSQNtDFWqrLS+a68o7IaunIcX33gPo
-	gyrQpDXenzyxNC4xZaAaOon/sQfs0MecTA1Nc1p+Oj5fH+krJK1yYo1la/pmpadfacaWSPSF6FK
-	cHR0IFvVWem1wVTBJL3O2YdVcJlQdrH9To+nUGm/iDyazj4cBecL+ISvl6zSYYJd+SzGoS3fVbx
-	irmt9FGNGBdPviMThSd7bss2x5OPSdeldSRnXmarI5G+iuLO8NqXWPcfxX9AZsvJD8=
-X-Received: by 2002:a05:600c:a10a:b0:4a0:1c16:d6f6 with SMTP id 5b1f17b1804b1-4a01c16d8bfmr24449495e9.24.1790789610840;
-        Wed, 30 Sep 2026 10:33:30 -0700 (PDT)
-Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0690d284sm492771f8f.17.2026.09.30.10.33.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 10:33:30 -0700 (PDT)
-From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel-mentees@lists.linux.dev,
-	raghunathpalla.0209@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	linux-fsdevel@vger.kernel.org,
-	syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com,
-	kudo3228@gmail.com,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Deepanshu Kartikey <kartikey406@gmail.com>
-Subject: Re: [PATCH RESEND] romfs: reject directory entry chains that do not move forward
-Date: Wed, 30 Sep 2026 18:33:28 +0100
-Message-Id: <20260930173328.79017-1-raghunathpalla.0209@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <34t4huzelgho3zelar7vp332rwerth7nso6e76jrfced4chtrt@7q2cjbeymwov>
-References: <20260918164645.9230-1-raghunathpalla.0209@gmail.com> <34t4huzelgho3zelar7vp332rwerth7nso6e76jrfced4chtrt@7q2cjbeymwov>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="QZYiw5Sb"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE5RHG1932732;
+	Wed, 30 Sep 2026 17:34:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=aPj+gJE+m9/33mikg
+	KRuFOW0wzU7IUN0eD8vymH7cBw=; b=QZYiw5SbIIiPbEBNVgON+ItKcgmu22UFu
+	unOHVoJVP8em5NdsvE1JUH21ShnUuV8DenYmDSyteNIgNwhu+fhL+0vPQkfuXvUx
+	CNBN3AfmOm/v+JAihUqX2CF+00KI+JoA4oHTzqYYLG+2N/pRtU8rVvumc3Q2HkFP
+	uPy/DTv7J0b49B4ywzvVXfYOv4jkuyO1ZIBJJ9xZQg+CqJLvnijZeyGGZssGyqA5
+	z3jFQosj2zeG1cd6yqmVv+0U84wJkw0QEzE19S0C+xtfAf1r0paLu3deG19L7p9P
+	mLpHMsYBZ8WXD7WhNK9P+c0EevH4lwfaMV2Tc9UA9JguQ9yDx6R1g==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fedn41-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 17:34:53 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UEI6sI3569577;
+	Wed, 30 Sep 2026 17:34:53 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0xcsa66y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 30 Sep 2026 17:34:53 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UHYpES16777522
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 30 Sep 2026 17:34:51 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D970420040;
+	Wed, 30 Sep 2026 17:34:50 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7C39B2006C;
+	Wed, 30 Sep 2026 17:34:50 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 30 Sep 2026 17:34:50 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: [PATCH v9 24/24] KVM: s390: arm64: Integrate arm on s390
+Date: Wed, 30 Sep 2026 19:34:39 +0200
+Message-ID: <20260930173441.66762-25-seiden@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930173441.66762-1-seiden@linux.ibm.com>
+References: <20260930173441.66762-1-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,31 +91,222 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abd483d cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=G4QZG555kC8JGPZt_3gA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2OCBTYWx0ZWRfX7uLjfsgjKhH+
+ KCXCEaF0udW8elZWihOCqMXx3Lxi/2AjhgNLKBsQ8kObaNcbhx51u8Lb/8r5tBCH7R5w0rRVoDs
+ xrGqvq0B5kn1jWYVVzFKiaI8yj/e2SQ=
+X-Proofpoint-ORIG-GUID: miET6eAxzx7KT0jHhHd8IVd9PrbkRbBt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2OCBTYWx0ZWRfX5UhdnsAsr5MS
+ flVVHj4tbOGifumMutHiEveC2UTUvtzaMgAz3FzyjY+q9GL9xvmGOflVnGG2JBfZuUXtTzWpSe4
+ 8yieqlY4Ml+Q7oSwq0rOGU0NxVPE4Iwz8zWOWUS5PUKZM4wnHFA4a1Y41jwwv7Fka2VbdJfVqTi
+ /FibdRroJ86j0FSnSmvXOmEFeF7meezHxoA7tf/bZKkEGOO4flOj/x+DedjARpD09/sSFWtx/AM
+ I/Udgz7wJhYvUHMX8mVPqrD2zZmlj2zVW3d0im2xdbp2atYdDw/chjh65FbhRKfs8nUSeD2MEat
+ G/icvM4yllOibdkp6nWqp0zb2Z76Xg9O1Ud6PTv6CjgLyeIqoO3d604IO9UIGCu2me6ZevuGE9Q
+ 9EniSZw4KUBJyRVCFiDTTiFPzI+Yc9w9PBr6zMG29KjaBeK8818kKcTD5QEpt0SWFsuxPAS2kUj
+ d+80QYeGGXuTfEzVqYg==
+X-Proofpoint-GUID: miET6eAxzx7KT0jHhHd8IVd9PrbkRbBt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300068
 
-On Tue, Sep 22, 2026 at 11:58:35AM +0200, Jan Kara wrote:
-> I doubt these bugs have any practical relevance so I wouldn't CC stable.
-> But I guess that's for Christian.
+Add all Kbuild/Makefile configurations to build a second KVM module on
+s390 implementing the arm64 KVM API. The new module is named kvm_arm64.
 
-Fair enough. I'll drop the stable tag if there is a v2.
+Symbol conflicts with kvm_s390 are prevented by localising all internal
+symbols in kvm_arm64 when compiled as built-in (=y): kvm-unnamespaced.o
+holds all constituent objects. objcopy --localize-symbols then produces
+kvm-namespaced.o which is what kvm-arm64.o resolves to. For =m the
+normal module symbol scoping applies and no localisation step is needed.
 
-> The patch looks good, I'm just not sure we are guaranteed ROMFS directories
-> are indeed following monotonically increasing disk offset (although that's
-> the most logical thing to do) - added Dave to CC for that.
+Because the %-arm64.o pattern targets do not match any kvm-arm64-y entry,
+kbuild would derive a wrong KBUILD_MODNAME (e.g. "kvm_main_arm64") and
+a wrong KBUILD_MODFILE for the virt/kvm and gmap copies.
 
-Thanks for the review, Jan.
+Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
+Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+Co-developed-by: Gautam Gala <ggala@linux.ibm.com>
+Signed-off-by: Gautam Gala <ggala@linux.ibm.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+ arch/s390/kvm/Kconfig        |  25 +++++---
+ arch/s390/kvm/Makefile       |   1 +
+ arch/s390/kvm/arm64/Makefile | 110 +++++++++++++++++++++++++++++++++++
+ 3 files changed, 127 insertions(+), 9 deletions(-)
+ create mode 100644 arch/s390/kvm/arm64/Makefile
 
-Documentation/filesystems/romfs.rst doesn't state it, but genromfs
-always lays directories out that way. processdir() hands each entry the
-current offset, which only ever grows, and it places a subdirectory's
-contents straight after the subdirectory's own header, before the next
-sibling. Entries are added to the directory list in that same order,
-and dumpnode() writes each next pointer from that list, so within one
-directory every next pointer points forward. I don't know of any other
-tool that builds romfs images.
+diff --git a/arch/s390/kvm/Kconfig b/arch/s390/kvm/Kconfig
+index 9045ae20fd89..e7b525d04c6d 100644
+--- a/arch/s390/kvm/Kconfig
++++ b/arch/s390/kvm/Kconfig
+@@ -30,15 +30,22 @@ config KVM
+ 	select KVM_MMU_LOCKLESS_AGING
+ 	select KVM_GENERIC_PRE_FAULT_MEMORY
+ 	help
+-	  Support hosting paravirtualized guest machines using the SIE
+-	  virtualization capability on the mainframe. This should work
+-	  on any 64bit machine.
+-
+-	  This module provides access to the hardware capabilities through
+-	  a character device node named /dev/kvm.
+-
+-	  To compile this as a module, choose M here: the module
+-	  will be called kvm.
++	  Enable support for hosting virtualized, hardware-accelerated
++	  virtual machines via two modules: kvm and kvm_arm64.
++
++	  The kvm module provides access to host hardware-accelerated s390
++	  guests using the Start Interpretive Execution (SIE) instruction via a
++	  character device node named /dev/kvm. This requires a 64-bit machine
++	  (hardware model).
++
++	  The kvm_arm64 module provides access to host hardware-accelerated
++	  arm64 guests using the Start ARM Execution (SAE) instruction via a
++	  character device node named /dev/kvm_arm64. This requires hardware
++	  models that support the Arm execution facility (AEF).
++
++	  To compile this driver as a module, choose M here. The module will be
++	  called kvm for the SIE acceleration and kvm_arm64 for the SAE
++	  acceleration.
+ 
+ 	  If unsure, say N.
+ 
+diff --git a/arch/s390/kvm/Makefile b/arch/s390/kvm/Makefile
+index a4e3875b5bdd..380db443a0e9 100644
+--- a/arch/s390/kvm/Makefile
++++ b/arch/s390/kvm/Makefile
+@@ -4,3 +4,4 @@
+ # Copyright IBM Corp. 2008
+ 
+ obj-$(CONFIG_KVM) += s390/
++obj-$(CONFIG_KVM) += arm64/
+diff --git a/arch/s390/kvm/arm64/Makefile b/arch/s390/kvm/arm64/Makefile
+new file mode 100644
+index 000000000000..3f0fe5c9f0a1
+--- /dev/null
++++ b/arch/s390/kvm/arm64/Makefile
+@@ -0,0 +1,110 @@
++# SPDX-License-Identifier: GPL-2.0
++
++KVM := ../../../../virt/kvm
++KVM_DEV_NAME = kvm_arm64
++KVM_DEV_MINOR = MISC_DYNAMIC_MINOR
++include $(srctree)/virt/kvm/Makefile.kvm
++include $(srctree)/arch/$(SRCARCH)/kvm/gmap/Makefile
++include $(src)/Makefile.gen
++
++ccflags-y += -I $(src) -I $(objtree)/$(obj) -I$(srctree)/arch/$(SRCARCH)/kvm/gmap -DKVM_S390_ARM64
++
++kvm-arm64-local := \
++	arm.o \
++	guest.o \
++	handle_exit.o \
++	inject_fault.o \
++	mmio.o \
++	mmu.o \
++	reset.o
++
++kvm-arm64-obj := $(kvm-arm64-local)
++kvm-arm64-obj += $(patsubst %.o,%-arm64.o,$(kvm-y))
++kvm-arm64-obj += $(patsubst %.o,%-arm64.o,$(gmap-y))
++
++targets += $(kvm-arm64-obj)
++
++$(obj)/%-arm64.o: $(src)/%.c FORCE
++	@mkdir -p $(dir $@)
++	$(call if_changed_rule,cc_o_c)
++	$(call cmd,force_checksrc)
++
++# %-arm64.o stems don't match any kvm-arm64-y entry so Kbuild derives wrong
++# KBUILD_MODNAME/KBUILD_MODFILE. Force include a generated header to override.
++KVM_ARM64_MODNAME_H := $(obj)/generated/kvm_arm64_modname.h
++ccflags-y += -include $(KVM_ARM64_MODNAME_H)
++
++$(addprefix $(obj)/,$(kvm-arm64-obj)): $(KVM_ARM64_MODNAME_H)
++$(foreach sfx, i s ll lst, \
++	$(eval $(patsubst %.o,%.$(sfx),$(addprefix $(obj)/,$(kvm-arm64-local))): $(KVM_ARM64_MODNAME_H)))
++
++targets += generated/kvm_arm64_modname.h
++
++define filechk_kvm_arm64_modname
++	echo '#ifndef __KVM_ARM64_MODNAME_H';			\
++	echo '#define __KVM_ARM64_MODNAME_H';			\
++	echo '#undef KBUILD_MODNAME';				\
++	echo '#define KBUILD_MODNAME "$(KVM_DEV_NAME)"';	\
++	echo '#undef __KBUILD_MODNAME';				\
++	echo '#define __KBUILD_MODNAME $(KVM_DEV_NAME)';	\
++	echo '#undef KBUILD_MODFILE';				\
++	echo '#define KBUILD_MODFILE "$(obj)/kvm-arm64"';	\
++	echo '#endif /* __KVM_ARM64_MODNAME_H */'
++endef
++
++$(KVM_ARM64_MODNAME_H): FORCE
++	$(call filechk,kvm_arm64_modname)
++
++# Members are not in real-obj-y. Set part-of-builtin to enable instrumentation.
++$(addprefix $(obj)/,$(kvm-arm64-obj)): private part-of-builtin := y
++
++ifeq ($(CONFIG_KVM),m)
++
++kvm-arm64-y = $(kvm-arm64-obj)
++
++else ifeq ($(CONFIG_KVM),y)
++
++prereq-o-cmd = $(foreach o, $(filter %.o, $^), $(dir $(o)).$(notdir $(o)).cmd)
++cmd_gen_symversions_o = \
++	grep --no-filename "^\#SYMVER" $(prereq-o-cmd) >> $(dot-target).cmd || true
++
++cmd_ld_o_o = $(cmd_ld)
++define rule_ld_o_o
++	$(call cmd_and_savecmd,ld)
++	$(call cmd,gen_symversions_o)
++endef
++
++LDFLAGS_kvm-unnamespaced.o := -r
++$(obj)/kvm-unnamespaced.o: $(addprefix $(obj)/,$(kvm-arm64-obj)) FORCE
++	$(call if_changed_rule,ld_o_o)
++
++quiet_cmd_nm_filter = NMFLTR  $@
++	cmd_nm_filter = $(NM) --defined-only --format=just-symbols $< | sort -u > $@
++
++$(obj)/kvm_symbol_list: $(obj)/kvm-unnamespaced.o FORCE
++	$(call if_changed,nm_filter)
++
++# cmd_oc_o_o carries -DKBUILD_MODFILE so generate_builtin_ranges.awk
++# can attribute kvm-namespaced.o to kvm_arm64 via its .cmd file.
++cmd_oc_o_o = $(cmd_objcopy) -DKBUILD_MODFILE='"$(obj)/kvm-arm64"'
++define rule_oc_o_o
++	$(call cmd,objcopy)
++	@printf '%s\n' 'savedcmd_$@ := $(call make-cmd,oc_o_o)' > $(dot-target).cmd
++	$(call cmd,gen_objtooldep)
++	$(call cmd,gen_symversions_o)
++endef
++
++OBJCOPYFLAGS_kvm-namespaced.o := -O $(LD_BFD) --localize-symbols=$(obj)/kvm_symbol_list
++$(obj)/kvm-namespaced.o: $(obj)/kvm-unnamespaced.o $(obj)/kvm_symbol_list FORCE
++	$(call if_changed_rule,oc_o_o)
++
++kvm-arm64-y = kvm-namespaced.o
++
++targets += kvm-unnamespaced.o kvm_symbol_list kvm-namespaced.o
++
++endif
++
++clean-files += kvm-unnamespaced.o kvm_symbol_list kvm-namespaced.o
++
++obj-$(CONFIG_KVM) += kvm-arm64.o
++
+-- 
+2.53.0
 
-If you'd rather not rely on that, I can bound the walk by the number of
-16-byte header slots in the image instead. That stops a cycle without
-assuming any particular order. Happy to send a v2 either way.
-
-Thanks,
-Palla
