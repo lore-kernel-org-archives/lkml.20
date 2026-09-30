@@ -1,101 +1,55 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E110B30E85B
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784439; cv=fail; b=Vd/5UvVVZFM7zWwQ3+BaKNcRWliE5KORFMMW5KGW5vJQ5lZDENVdrQFTxaN7EGr3zPSbKueIjEgCDk+uCpC1GbKTURiPPK0GS/8WcppyERj6HhTcCuSx/CaoDLB7EUaUOLIqd1sfzeiOq7m5VHA2lZDUKYAdYe9Lrp2pBHJTKQk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784439; c=relaxed/simple;
-	bh=6ZdO6+WRzvLlKJ+e4z3ptmvkN+3osCamttGMWyX4xwQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WfR87Rx/bBoMiN1LioIVgpzFmcW2nsIH2GZsw2ysHe1ECkMrWsBFzG1/xf9FGUD8U3/4zJpRmA4E4c54D2VjhvkkmMY0R4+RWDkwSPdUhNa5zsiK5sSE4E8CbTl/SMjrrKFAKlZVvaxlR0WdoNg6hFzWCZEFPcsmKVoNBeP5e0M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=EUH9a1/I; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=hIGrzBHk; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F4050B41B;
+	Wed, 30 Sep 2026 16:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790784442; cv=none; b=hpIu0qEFrOPrGEhRl4p7Xdr+6dB7pxu6TuK1r61KsU3tY0VaemFX9yyMdE3pqvcSyslKOJoO3Bt1EbZxlNJgQ7SIFPSjI5ZWUgtOrOhhtbmzzGwItsYS9CXwdSPRswkd/IbHgq9LIWLG1SBsragPu2FfVHD4fT4ge86eSXWpksQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790784442; c=relaxed/simple;
+	bh=xK7tamjrNwFBAZwGxvC2tPl1f4cIk4BUdLuOctFvLtE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Qy+htdiJYSE/d5K+aCZF2+1RacxdSPf7oaYhju/tg/gw/oq4qqVKcVNmotx+kg+MOnhtkdqSIsoc3xdCpe9hsqwHlZP65mkWRusuOIqV+98ofc2A+6hZzp63D+j60qhXwGn1XKMvEvAGZZTpK9hnwD+uMgUfCriGVOl4mlc5DNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=RY+5H+Dn; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="EUH9a1/I";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="hIGrzBHk"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE1XXO3555902;
-	Wed, 30 Sep 2026 11:07:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=FxxKICpxB3Pk7/kHBjMKbGIqOqh7KNrvQZENapq9J
-	K8=; b=EUH9a1/Izxl+s8ZwnRY3bqgCHOnxs6wRaBq21Ihp4LJ+zaIW2C8wTY6vv
-	/NNxGGBV1MHjjL8L/fEzpHMNfFX7cvaH9B9cw0gt+k5EC/4mgbfs1g3/vZoUmZ7K
-	2Vqh1+7CIF4klwFAdduTH85jJ+4vaIy9DYucoPY8Gu11d3dB4BXpHbAJ29IvUCfU
-	n83G/Kj0N7R2fQDGcJHmvLxBA0CCtGx/mY/BAN0GWiDrY4dEM3QBrjmOnKYK7pPr
-	wyzjqSvAbl0bpcIwdahIU/KfLwGBcEs/tpP/Wdp9WVoQtvIrPBrH6P5wTeYWlrL8
-	+Ybr35xdknQPFsmM6QjD00iWkPKEA==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010010.outbound.protection.outlook.com [52.101.85.10])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h0ydvacja-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 11:07:05 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J3EJNfbPuM8/HJefsbtm3XgKsjq7UkNVRMuK8W7lGBorzc1wYEJd4PQV207RnYXmLIRxj7AtN9zUSJ97Iw4mPEPoex5+0K+kKIX6vZK9pHjndddKtvGWuV/MxacpN8+H/bP3/iOFnqxTUdugkTxCkoV0FRbxY+0GSCZazMg5vZWRhjxJpXW630WRMggpPh6FCVINz21Cp0zVIfy3PfZt8fK/lw5wGK3/mgXbWZpxOELpZ+Zqq57cLIpCW04qMEuMOvKeHNcuk6fMzC/v7hGe2TJ0oshGHYfeMw5sGV0UhrwUbCg52rm3bqL5EVEyrkQLEXzKlrJ+/q8jHWR3OVDrrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FxxKICpxB3Pk7/kHBjMKbGIqOqh7KNrvQZENapq9JK8=;
- b=MOcgGc6M/baRebElVql6fmzg+wnsAPLR/lTbZ/N2oR5IuToYjz7BeK4eQ2Oxh90t6QBuWsJQ0pFgzzdTyHyt1np1awOf2Qj/k21h84n/ohi7S4BaM5XvrxmGNtYRl1HJcpmvuScnKbni/jvfX5PJ2+XuavmEOFITZHHPphQW6B8R8BfAObyoCps9cNjvgRmxI9NvmZnsX8VAFaq+aPjdtpmZmgujYJIbg1ZVlrP+D9kVWY9IxggEPUNRQdi24rHcO6tBmscsvRX+bj6PyXh9fcoOtGSCTfX9dIEzk/ClTQFK+QhrNo8Gq10Av+Ic+RSr2R5sZ66INvK2fRTy4CkIQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FxxKICpxB3Pk7/kHBjMKbGIqOqh7KNrvQZENapq9JK8=;
- b=hIGrzBHk/Zx/OIDgtxAlUam0CQGfHsBFdCSlYyc9toQw8UHcKY43K/Ej1sxamIi3tTyHTgaLGBlJ7v6yi+oQroeW0GHG2sZI3GOK6IxVWfMI6b5NT4R2HCvD1VjqdKoufUTRR3y0PL5p1YjsZivhbbhMGBa1+SdR+4EPbr116XE=
-Received: from MW4PR04CA0215.namprd04.prod.outlook.com (2603:10b6:303:87::10)
- by IA3PR10MB478310.namprd10.prod.outlook.com (2603:10b6:208:70b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.9; Wed, 30 Sep
- 2026 16:07:02 +0000
-Received: from CO1PEPF000066E6.namprd05.prod.outlook.com
- (2603:10b6:303:87:cafe::6a) by MW4PR04CA0215.outlook.office365.com
- (2603:10b6:303:87::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 16:07:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CO1PEPF000066E6.mail.protection.outlook.com (10.167.249.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 16:07:01 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 11:06:27 -0500
-Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 11:06:26 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 30 Sep 2026 11:06:26 -0500
-Received: from uda0510294.dhcp.ti.com (uda0510294.dhcp.ti.com [10.24.50.162])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UG68W83425232;
-	Wed, 30 Sep 2026 11:06:24 -0500
-From: Beleswar Padhi <b-padhi@ti.com>
-To: <nm@ti.com>, <kristo@kernel.org>, <ssantosh@kernel.org>, <afd@ti.com>,
-        <vigneshr@ti.com>, <u-kumar1@ti.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <b-padhi@ti.com>
-Subject: [PATCH v2 05/22] firmware: ti_sci: Name response variable resp for consistency
-Date: Wed, 30 Sep 2026 21:35:50 +0530
-Message-ID: <20260930160607.2674980-6-b-padhi@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930160607.2674980-1-b-padhi@ti.com>
-References: <20260930160607.2674980-1-b-padhi@ti.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="RY+5H+Dn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
+	:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Reply-To:
+	Content-Type:Content-ID:Content-Description;
+	bh=LYgeF6EE4HK9y1FXGURsNGn2Dslu8jTlzME3jbPfcO8=; b=RY+5H+Dn9k7UAguo5mXsvQYEDF
+	A5fTwAhuFTqU4ZWVhmcCtwiJpRLbLqmzOKudlid0KufnhzZzy4nOm4Ogb/oXG869cquE868TEWxTv
+	4YRf1QBcvUqrL19byRYGzcfJIBI/hg6zfvZBNMeLbKVX/vWRUzgAYWYOPVoKmq2I6chLSnQ/mAlZz
+	8ViPfdUvJ/YaN5JZqgLP5SA5zdBaEScjqSyLyAWjg1EGHGrdH0iTweSiq8Qxso5phW0Zm4s5vvJhP
+	5+LyEp5mIE398vkGDv4OsUrelhnSZhtKWXYjm4bdwpYUwf6fQza81Odft/pZyigJs3BTxqUd25sNP
+	ci+54k0Q==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <fourdollars@debian.org>)
+	id 1xBwpo-009IoV-0j;
+	Wed, 30 Sep 2026 16:07:08 +0000
+From: Shih-Yuan Lee <fourdollars@debian.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Shih-Yuan Lee <fourdollars@debian.org>
+Subject: [PATCH v17 6/6] spi: pxa2xx-pci: disable DMA and runtime autosuspend for Apple MacBook8,1
+Date: Thu,  1 Oct 2026 00:06:29 +0800
+Message-Id: <20260930160629.1822-7-fourdollars@debian.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260930160629.1822-1-fourdollars@debian.org>
+References: <20260930160629.1822-1-fourdollars@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,122 +57,189 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E6:EE_|IA3PR10MB478310:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63b41777-3187-4af5-95ad-08df1f0cdcf8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|56012099006|10067099003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	q4Kghry+tyYohFeaStIVgkrVXHXurJ9JzmETAYvMl2ghOvB+d9VmEg2iaEvNdGLUNOmV1vVq6XGJtb1OZK5TtC2RdjMcC13EYJMiTOKaHzr9jlddZrcO0++nPVL6BBJEN/aDNAb9OSBKCHVTDdvlof/Pv+s/Ztn1SWuUFWTb3ABtJQF1kjbbpwmLab2HFq40mbTXKb/KEdaZlLpSsJ6i/o+q0tF8HlCivBkMzaIR58xuhdI35VtJlsodTBJRzGBBosjptsNfSd7sNGAnkUGmiN3+Lpw+uzFkk0VlL2+KZ/QL5sszLzLBrorMnWJRNq9huUF31kiRGd0a97G5xeo6hj1mW0hgN7Qz/HiuZ4C19IolWFILDCmAc9xnH0RFL8UsnRwNDzogW1z/+On/lagdmmSSKrA0qryUxkPeNc598QHGLBHLB+3tMJ2HWt3og+oHjRTxovpzb+kyf0lhYUYul5jt90zOVVcQKwHS3H14dtDKNsyUr1wsatXAn6G1suayeUkSyyWi2AYta4+/7OZFbmE/FImRDPIjxi+d2bTtLffASg3e8uvztPO/3jxs3yl/8iy/MDasFhWhbJsvyZBtBsGol/1h+9WsGpVIJLSncd9l3GNNuMpvvu8PcO99SepjhZS6DxtqsvGIqjih1SdKIPQkdUkBkcWDRoGusU6XMavCZfS94tVWD+1FdIFwuQwLO1DW0mxEW/IMID2rZ+Yg3A==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OO6SwMYXkLuV+vfXoD9MBKarEW5/Gjdw6/aMXRqL9A3VGhBcXuVfLkY5Lj3f6yNMWAUOq375gJQQZA+ZRpsbymfWt4kXD3DUiyqZ9KB/z4oxcWaU7bSas2ABUhToGNjFlZoSwCMcpkSjSz4eDCclF5gXGEQuWGwCoU1ALmLfGATTPXX7W+PvL9SKsbPBqTxTs7vHoAZhvvOco30qZEtPKMA2NZbbM6Vg01TekgpE2SkOU9bAWFwLg+cd9mJ4m7vRF+op3zSxucG3gxximTJubJXOv/d97Q2bTsraRqQjiNOLjqu/hMiZ/loY8CEWi3/9txD9Qkyw7UMK2WAFtmQDNgbozYcVU9pV75I8dLkLydSJf3zx79FHP86JQrpl9JeAfnWtV6udFzAp9029YCtRVmZZ3Gmo3b1Wi23a+SPd8TeE1IGxNU32Y/xhoXcZ50uJ
-X-Exchange-RoutingPolicyChecked:
-	0+b38tN29mtQT61HJxZzmgvCz15qse/M7GcT7LJXcUOMGAKRqp3AJ89CkQ6t1pfGmWiedCZxRMmJIPMBGRW2NtZrHEuLPAG+Gno/U458Ag1cgnWqlH1Puu1RK5zRe2ysUpxlF+Gu6knzL5u7aV45PkxeieR8FwofiyOzPOs/IGceEhDOCvkNjLWWSwSo9IH7HpZen+/gxiI5+HJ3lbj7kd+CCoHoYV4LWegkkCb3ir+8brU46Ew3b5v4en/1BsnUpEF0qanqR8VHZl5tj0F7Ve+8L5ii7YUIPDQttXppbgyyWEioB/h9Yop7jUgXzPJJdakmoh/uX5Vy9/aAQGpbNA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:07:01.5883
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63b41777-3187-4af5-95ad-08df1f0cdcf8
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000066E6.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR10MB478310
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX4eViJXw0N6du
- ArC5PRK9bJBeFc/fvTBffEDAKpfsiFzdytKHZA4rbIKuljGlRlUpiESOCsGWbluGMMfvwXRrNhD
- /ntocxBYZ053qxNZmXbJnVmROUKmoQU=
-X-Proofpoint-GUID: H-WsUQfvPZS2a48Sl5C1gSmZ-X2WRx1P
-X-Authority-Analysis: v=2.4 cv=TegDJhQh c=1 sm=1 tr=0 ts=6abd33a9 cx=c_pps
- a=wodMs23R9wL6gmOfRTd43Q==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=j3GZ-1RxCUTCYdul9d8A:9
-X-Proofpoint-ORIG-GUID: H-WsUQfvPZS2a48Sl5C1gSmZ-X2WRx1P
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX6F7TUmD/Kc9q
- z3/cJU6weTQfZWeDdSF4pPd1xEejXsXP7IfnxptTSYczdsgtESF6ORL4U5kuGF6WYKt6XeYMifU
- afSpplCPUVkrjeAQXpZpJVkBP6LNPjOmKpFR1pu+6h+ENnvobEPxMXH0efKLTwRjfzBmKNLtti6
- pbWRBEkKigr9a2UAaKi6P4sqa4BDhRhKWRpXatUFHmeOimSlYEd2kgbXZ2/pBYCAdr/P1KYckji
- wJiEw/1fP1tT/Dm/5dWdzGcPjT21cyquK+Sv0WvaD1jBCxWlW0Dq7AZSOyGq1wycEcEN6sXNxHQ
- yjyE5uAeWJ1rIuYUGLNNhfHeh6xwsoLdykFQPLVO/Efb2+/eF9mAIshvoOuNN7M/9c3QFWqP+Pd
- teViCsHnGqeXEhmxRGRtIM2aINlMVFxqGxI/UBKTOMhloxcCueKUz+VVf6OHHQkqsyKcJ88MpEp
- Oo7oMFyO1PcZcgYsMtg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300064
+X-Debian-User: fourdollars
 
-From: Andrew Davis <afd@ti.com>
+On MacBook8,1 (early 2015 12" MacBook), the LPSS SPI controller at
+00:15.4 (PCI ID 8086:9ce6, PCI_DEVICE_ID_INTEL_LPT1_1) registers and
+allocates DMA channels successfully. However, during actual SPI
+transfers, the DMA handshake synchronization fails.
 
-All other TI-SCI call functions call the response variable "resp" except
-ti_sci_cmd_get_revision(), fix this here. Also get assign the response
-variable pointer after the transfer, again for consistency. No functional
-change but does make later cleanups easier.
+This leads to continuous transfer timeouts and locks up the driver
+queue, making the connected keyboard and touchpad completely dead:
 
-Signed-off-by: Andrew Davis <afd@ti.com>
-Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+[ 1582.050494] spi_master spi1: failed to transfer one message from queue
+[ 1582.258387] applespi spi-APP000D:00: SPI transfer timed out
+[ 1582.258498] applespi spi-APP000D:00: Error reading from device: -110
+
+Empirical hardware register inspection reveals that the companion LPSS
+DMA controller at 00:15.0 has its LPSS Private Reset Register (BAR0 +
+0x204) left strictly at 0x00000000 by the EFI firmware. Even after
+deasserting this reset and overriding ACPI _PRT to assign shared IRQ 21,
+the DMA interrupt counter remains strictly at 0, confirming that DMA
+completion interrupts are not delivered on this platform. Furthermore,
+the SPI controller driver at 00:15.4 cannot safely reach across the PCI
+bus to manipulate private registers of the separate DMAC function at
+00:15.0 without violating driver layering.
+
+Reverse engineering of the official OS drivers on the same hardware
+corroborates that DMA is deliberately bypassed:
+
+  1. On macOS (Big Sur), IOKit registry shows that while the LPSS DMAC
+     driver (AppleIntelLpssDmac) is loaded, the allocated channel count
+     (AppleIntelLpssDmacChannel) is 0 when the SPI device driver
+     (AppleHSSPIHIDDriver) is active.
+  2. On Windows 10 (Boot Camp), dynamic MMIO monitoring of BAR1 shows
+     that the LPSS DMA control registers (offset 0x800+) remain
+     inactive (all zeros) during active keyboard and touchpad
+     transactions, and transfers are handled solely via the FIFO data
+     registers at the beginning of BAR1.
+  3. Logic board schematics confirm that a dedicated out-of-band GPIO
+     interrupt line (TPAD_SPI_INT_L) is routed directly to the PCH for
+     input events.
+
+Additionally, when operating in PIO mode servicing high-frequency
+keyboard and touchpad input streams operating at 60-125 Hz, the default
+50 ms autosuspend delay causes the controller to repeatedly transition
+between D0 and D3hot between bursts of user input. These runtime resume
+transitions introduce latency spikes that drop key presses and cause
+erratic touchpad motion.
+
+Implement the forced PIO mode and runtime autosuspend lockout DMI quirk
+in spi-pxa2xx-pci.c (the LPSS host controller PCI glue driver) scoped
+strictly to MacBook8,1:
+1. Include <linux/dmi.h> in alphabetical order for DMI system matching.
+2. Add 'quirks' field in struct pxa2xx_spi_pci_config and define
+   PXA2XX_SPI_QUIRK_NO_AUTOSUSPEND.
+3. Add pxa2xx_spi_pci_dmi_table matching Apple MacBook8,1 and query it
+   once in lpss_spi_setup() scoped to PCI_DEVICE_ID_INTEL_LPT1_1
+   (0x9ce6). When matched, log the system ident with pci_info(), set
+   enable_dma = 0 as a workaround, cache PXA2XX_SPI_QUIRK_NO_AUTOSUSPEND
+   in cfg->quirks, and return immediately to skip unused DMA channel
+   setup.
+4. In pxa2xx_spi_pci_probe(), configure autosuspend with a 50 ms delay
+   for all devices, but conditionally skip pm_runtime_allow() when
+   PXA2XX_SPI_QUIRK_NO_AUTOSUSPEND is set. This keeps the controller in
+   D0 by default (as initialized by PCI core pci_pm_init()) while bound,
+   eliminating D3hot resume latency spikes, while ensuring that if
+   userspace explicitly enables autosuspend via sysfs, the safe 50 ms
+   delay is preserved rather than defaulting to 0. Standard system
+   sleep (S3) remains fully operational via pm_runtime_force_suspend().
+
+Assisted-by: Antigravity:gemini-3.8-flash sparse
+Signed-off-by: Shih-Yuan Lee <fourdollars@debian.org>
 ---
-v2: Changelog:
-1. None to this patch.
+ drivers/spi/spi-pxa2xx-pci.c | 61 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 60 insertions(+), 1 deletion(-)
 
-Link to v1:
-https://lore.kernel.org/all/20260929201746.4078803-6-b-padhi@ti.com/
-
- drivers/firmware/ti_sci.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/firmware/ti_sci.c b/drivers/firmware/ti_sci.c
-index a91db923c8939..9081288bd133c 100644
---- a/drivers/firmware/ti_sci.c
-+++ b/drivers/firmware/ti_sci.c
-@@ -507,27 +507,27 @@ static int ti_sci_cmd_get_revision(struct ti_sci_info *info)
- {
- 	struct ti_sci_handle *handle = &info->handle;
- 	struct ti_sci_version_info *ver = &handle->version;
--	struct ti_sci_msg_resp_version *rev_info;
-+	struct ti_sci_msg_resp_version *resp;
- 	struct ti_sci_xfer *xfer;
- 	int ret;
+diff --git a/drivers/spi/spi-pxa2xx-pci.c b/drivers/spi/spi-pxa2xx-pci.c
+index f8d71362e840..f12a8ef12b17 100644
+--- a/drivers/spi/spi-pxa2xx-pci.c
++++ b/drivers/spi/spi-pxa2xx-pci.c
+@@ -7,6 +7,7 @@
+  */
+ #include <linux/clk-provider.h>
+ #include <linux/device.h>
++#include <linux/dmi.h>
+ #include <linux/err.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+@@ -40,6 +41,8 @@
+ #define LPSS_PRIV_RESETS_IDMA			BIT(2)
+ #define LPSS_PRIV_REG_COUNT			9
  
- 	xfer = ti_sci_get_one_xfer(info, TI_SCI_MSG_VERSION,
- 				   TI_SCI_FLAG_REQ_ACK_ON_PROCESSED,
- 				   sizeof(struct ti_sci_msg_hdr),
--				   sizeof(*rev_info));
-+				   sizeof(*resp));
- 	if (IS_ERR(xfer))
- 		return PTR_ERR(xfer);
- 
--	rev_info = (struct ti_sci_msg_resp_version *)xfer->xfer_buf;
--
- 	ret = ti_sci_do_xfer(info, xfer);
- 	if (ret)
- 		goto fail;
- 
--	ver->abi_major = rev_info->abi_major;
--	ver->abi_minor = rev_info->abi_minor;
--	ver->firmware_revision = rev_info->firmware_revision;
--	strscpy(ver->firmware_description, rev_info->firmware_description,
-+	resp = (struct ti_sci_msg_resp_version *)xfer->xfer_buf;
++#define PXA2XX_SPI_QUIRK_NO_AUTOSUSPEND		BIT(0)
 +
-+	ver->abi_major = resp->abi_major;
-+	ver->abi_minor = resp->abi_minor;
-+	ver->firmware_revision = resp->firmware_revision;
-+	strscpy(ver->firmware_description, resp->firmware_description,
- 		sizeof(ver->firmware_description));
+ struct pxa_spi_info {
+ 	int (*setup)(struct pci_dev *pdev, struct pxa2xx_spi_controller *c);
+ };
+@@ -47,6 +50,7 @@ struct pxa_spi_info {
+ struct pxa2xx_spi_pci_config {
+ 	struct pxa2xx_spi_controller pdata;
+ 	u32 lpss_priv_ctx[LPSS_PRIV_REG_COUNT];
++	u8 quirks;
+ 	bool is_lpt;
+ };
  
- fail:
+@@ -106,8 +110,53 @@ static void lpss_dma_put_device(void *dma_dev)
+ 	pci_dev_put(dma_dev);
+ }
+ 
++/*
++ * Apple MacBook8,1 (early 2015 12" MacBook):
++ *
++ * The LPSS SPI controller at 00:15.4 connects to the internal SPI keyboard
++ * and touchpad (applespi). When DMA mode is enabled, DMA transfers consistently
++ * time out (-110) because DMA completion interrupts are never delivered.
++ *
++ * Empirical hardware inspection and OS analysis show that:
++ * 1. Hardware/firmware configuration: EFI leaves companion LPSS DMA (00:15.0)
++ *    held in reset (LPSS_PRIV_RESETS == 0x0 / BAR0 + 0x204). Even after
++ *    deasserting the reset and overriding ACPI _PRT to assign shared IRQ 21,
++ *    the DMA interrupt counter remains strictly 0, confirming that DMA
++ *    completion interrupts are not delivered on this platform.
++ * 2. Operating system parity: Both macOS (AppleIntelLpssDmac channel count
++ *    is 0) and Windows 10 Boot Camp bypass DMA and handle keyboard/touchpad
++ *    transactions strictly in PIO mode via FIFO registers.
++ * 3. Layering: The SPI controller driver (00:15.4) cannot safely reconfigure
++ *    the private registers of the separate DMAC PCI function (00:15.0).
++ * 4. Runtime autosuspend: In PIO mode servicing 60-125 Hz input events, the
++ *    default 50 ms autosuspend delay introduces D3hot <-> D0 transition
++ *    latency spikes that drop key presses and cause erratic touchpad motion.
++ *
++ * Therefore, as a workaround, disable DMA channel allocation to force PIO mode
++ * and keep the device in D0 without enabling runtime autosuspend.
++ */
++static const struct dmi_system_id pxa2xx_spi_pci_dmi_table[] = {
++	{
++		.ident = "Apple MacBook8,1",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBook8,1"),
++		},
++	},
++	{ }
++};
++
++static const struct dmi_system_id *pxa2xx_spi_pci_get_dmi_id(struct pci_dev *dev)
++{
++	if (dev->device == PCI_DEVICE_ID_INTEL_LPT1_1)
++		return dmi_first_match(pxa2xx_spi_pci_dmi_table);
++
++	return NULL;
++}
++
+ static int lpss_spi_setup(struct pci_dev *dev, struct pxa2xx_spi_controller *c)
+ {
++	const struct dmi_system_id *dmi_id;
+ 	struct pxa2xx_spi_pci_config *cfg = container_of(c, struct pxa2xx_spi_pci_config, pdata);
+ 	struct ssp_device *ssp = &c->ssp;
+ 	struct dw_dma_slave *tx, *rx;
+@@ -165,6 +214,14 @@ static int lpss_spi_setup(struct pci_dev *dev, struct pxa2xx_spi_controller *c)
+ 	if (ret)
+ 		return ret;
+ 
++	dmi_id = pxa2xx_spi_pci_get_dmi_id(dev);
++	if (dmi_id) {
++		pci_info(dev, "%s detected: disabling DMA to force PIO mode\n", dmi_id->ident);
++		c->enable_dma = 0;
++		cfg->quirks |= PXA2XX_SPI_QUIRK_NO_AUTOSUSPEND;
++		return 0;
++	}
++
+ 	dma_dev = pci_get_slot(dev->bus, PCI_DEVFN(PCI_SLOT(dev->devfn), 0));
+ 	ret = devm_add_action_or_reset(&dev->dev, lpss_dma_put_device, dma_dev);
+ 	if (ret)
+@@ -446,7 +503,9 @@ static int pxa2xx_spi_pci_probe(struct pci_dev *dev,
+ 	pm_runtime_set_autosuspend_delay(&dev->dev, 50);
+ 	pm_runtime_use_autosuspend(&dev->dev);
+ 	pm_runtime_put_autosuspend(&dev->dev);
+-	pm_runtime_allow(&dev->dev);
++
++	if (!(cfg->quirks & PXA2XX_SPI_QUIRK_NO_AUTOSUSPEND))
++		pm_runtime_allow(&dev->dev);
+ 
+ 	return 0;
+ }
 -- 
-2.34.1
+2.39.5
 
