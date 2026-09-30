@@ -1,120 +1,350 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B291F3AE715
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F4B3AEF20
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 05:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744616; cv=none; b=VkvwtctkHbHbXMh9moD0yNarLrY2SIgsw9R/hgi3PyjOBXWfUX/JaSyUTQAP6Q5O1ad8P468ir55o6N6A3Qy1OsG1poD+GLicRaL8iP20tSCP35qSUJxTU84DeR6pUk8V8UVzu1XRLfM9Lg0qYe8PNSqxInIQU3S7x2Y40evwJA=
+	t=1790744619; cv=none; b=X02oLDSjIzxxNjydbJJi1ktndKovBL+Kq5WaDTpOcKe4Dw4PlaS1iv9nXyDq+uiZdftfBMFuGxnhpbM/I3PyTR8euek9K8HxPc+C+3TZEi1e3i+l4zWjUd6C3KCJzb56k9rnyL2zqO7k46KgawdSdqS8wwK+oe7rokOpNlPas8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744616; c=relaxed/simple;
-	bh=ZAOkRCY8wOKv81YxWLBl24DeI0DOK+J6kOTG4qojef8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C7SUY5HwCJFYlTszbWfHYzrV9KlHE//RwYl6UF6TiCKlftn8psRwYdlZGtEm+XXDyCl+MjjNkgA4YzVt8BWboYXH/ZRMQ6maQWCZYAHiwwZ0mt+K89KL/a0krdwDAfVH7iFi0U4/ANwec9OvC+RO8qY9vXrg87LMsAk9Kwf/SQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P2VGCKAF; arc=none smtp.client-ip=74.125.229.41
+	s=arc-20240116; t=1790744619; c=relaxed/simple;
+	bh=3Mnwu+sXhtFGtRdUmy7tiXnD6j70etZr5mAabjbPe3Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dnm6hJjeNOUavhZPB6uugua/1cZDEohXmwm5X/oZfp6bfoz7ix32uwITELMKWIud+HDstCvs/BlQjwE1xWmkuF2lOHh5nvnBllbJ8b/0YsfyP3NjJDTwzqmV5vQeQVBHUktqnQ5nr87cTG21wZVNw+RdNKamoSdaFvXbx5ffTQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDmB4Dae; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P2VGCKAF"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b4f2d90c4so1238167eec.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:03:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDmB4Dae"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b48100af4so1147441eec.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:03:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790744614; x=1791349414; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zGAfoAFOLtOrNepRCLXprN9XZyZC5iWH5UnAhvOD2p0=;
-        b=P2VGCKAFCV8yJ0vbi1I/QYKuNdgsegWttnrnUlb3rG7PKtW3M+DKGZ3zoyqyrlCf5a
-         ltEB72yZ3VN+McR1oS1vEc3Lei8it/YEbZiUcE5XsSPEBRY8F8E6rWfClJ7J6ErIMRxX
-         xTJHoGxQlDqcQcS6nh5ufYxct0fhDloAoa96W8eWbdiQupR1IffenEvJzuoheaQDbyFB
-         Pug75kq1bvII81GgnHArtWdIYAEZ7JXcrxZ4uucElub8+b0AS4VnBUBcDw5g6FlWHiP8
-         T6w6/N+ZcGJL6gmmsgLq3HR+uMtLrJOAwILM3sNisor7yFKNpreMbdQFm6G1HeO+LCzr
-         cOdA==
+        d=gmail.com; s=20251104; t=1790744617; x=1791349417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Qm/coeDYCF1I+H9ShbgCFI1m/XnrbNwtw1uuQcdh38=;
+        b=ZDmB4DaeViwm3BleGBjxPolZJmi7PuvETR/peqDAcFddepfOws+79mP5Z9O0JMr14r
+         DOYm8XkMBDQ17+FQjQJZuaRla3cdisHAmhWzC9K0C/uinXidxUKIjYBEA33Fsp6D3JqU
+         AxF2XmCv5GLoWTj79Gfvr3PeS2GpKwpdbqfXXQ4K0f5gRtw+Tbyn33wGApxp7sJb7i+M
+         9wZn9OK1oREKxquGLU1b9V8p6OiLbiXljunTCai7hY94yjHl6Z0/KC0jMletg3rjOQ9w
+         NOPPtcAvrOwr+udumEcigUmgvOWJ6P0DzOywi4V2+KZb/kaq4QHm0ECE7ROUS9PLFsPY
+         1idg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790744614; x=1791349414;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zGAfoAFOLtOrNepRCLXprN9XZyZC5iWH5UnAhvOD2p0=;
-        b=VGHgvk8bjSZOOeIU4qAyWH5qfJK3OXof50WDX8XUauEVXtasEqlE7t9H5PMdvV4/ZG
-         10nvwRI3xoeLlDxpOXYgnpi8pzAk21yfrKsfyU5+jrlOCjNaNlt7O6Aiam4FQOyRWaLk
-         C5Z561GfpoolGzUBk/I9l99kx41rFGU3axXnJCFRQQ3J3yw7JjI6XoJi8t1KIO3lDPJd
-         UFiw2XqFaVVPNVONOO7k3GU95DByi4Is1UP405p6omXurOpC3JkbzjP2M00X7JyRZJZD
-         /9Zx3DmF1S6/KJSXmB8zBpvkvY0akjnT37FG2/U7rgfgrzuRLtfmxj5CK0Rink2kFPiJ
-         uS9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByZ5w4FF4uadiFu/WnTz2aCGg0XgQBJ9EJhU5MOWsk8hwDBIvkqijQ73ZGj89aSD4Xey/yW+2Ai60kbE+o=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0SrOq00jjPXWGck2GyT64Cmh3EWr8bG0On7EFu/Zojax5BE7e
-	+I77nGfA2dArq5r9eBnhwa6bweOcQCsu/dvg5ndnEF6Z+6oF6zPi7b73
-X-Gm-Gg: AYBFou19m2BZl6TL5YgNZUvHfxR26nsGjyIyokvqHLGUklzvlOshd1hJWaWPVkGjiGg
-	IWGSW4tkD3y/72EEg8x+DdIBgyPrb9wZUrDPzMIeo+RyrsnFvS2mxtsEuR5Q/j9Q9Hzw+9wTpPH
-	+GVsSkdPbSyNTAJGfoyoF7aN9FJJgFSPSox90V3h8+zTDvuXWiFEaY0IPFLmYYZzbUBYr5B3WiL
-	j8cB5zjNlDyf0UdnnkhXJWOGxeXXwTZ0hzdJtWlBFLUM/3sgOI5jFP2q1uwY72daPIR5d6C7YGe
-	urU/nToQPac2V/8FdNyh02HnVEam9fugiNu7zSzxI/sPY16UUKWBXmvoBcItohossNoee9gWLWE
-	T+C/Gnpgnmk8UKcFNJfBuU+nDBd1FCXZNf9bdUOIjbDcgphbpO40HESAS3ps93xV8u3gQgMdRqt
-	w4E0XgujmUyyr3s3yfLTaeo26tSSRiKimvmss56Q9+ppvXnaMxXNdD1YwZUAf31XXMU3T0dK03g
-	nw+WMi66mFwl5r/0bzMJzwjPH+CCwdV0I8lCQQy3w==
-X-Received: by 2002:a05:7022:7f05:b0:143:7dea:f6a with SMTP id a92af1059eb24-14d34ad35dfmr39419c88.32.1790744613793;
-        Tue, 29 Sep 2026 22:03:33 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:101a:5ce6:a15e:d8ca])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf4a605c2sm680082eec.7.2026.09.29.22.03.31
+        d=1e100.net; s=20260707; t=1790744617; x=1791349417;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Qm/coeDYCF1I+H9ShbgCFI1m/XnrbNwtw1uuQcdh38=;
+        b=lDayVRKopSra0bhnqgOwzltn9Hcq75k3tRWkmxTsymCgm+qC4EoFDITpvMT2GmccCh
+         YKuT0F8kDLOHP/8bLJiTaSi3bkLEFXtd3YuQwld8k62Q52FjeynryQE02sW1ooaNLD2e
+         m2JhKttVX7KY7zcsaekpiGV/HvNKB8vbNyRrRzpCy9hqRwkRbyXyMK6+mWIAKpPlcvlk
+         wClW5IwJJo/TZM68HUZtL0HlXdKSmDrsuze8H5KEwdXeP6dzaBzuGLq4CB8mHl34ha+s
+         SH9w32Ny/xXsAivYAFoCY6q6SYOBDyIuPHt5yqLvVLesM+N0qkvrz2MKnY2uepQkV62l
+         dFzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzteLLxkasxIivLtSAvueRTiKC92DO+c7Ob80mZJhw2aDu+L02XvIEX/aRQvzhwO1U6GEO/QBGXiegwaFM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3ODe9TTvLp55lBYr/PpqeBPDPlIy0bXnUdotr5YTiL+uyzkVZ
+	y6LrhPNDmZWU0hvigg8FcWOlkKJ8n6JBtZ41M2rZD0JJxgj10m0K2e25
+X-Gm-Gg: AYBFou0tszua3GUA2RRw7FIBnGCI0oVWFC/DU/Aw1AlO6ZZUDLP7E7Y42J7ViA+lj4K
+	ZVdde2nL5V352lkCy2bSCWz+BzXlMOpksWrvpUz0JY+I15ljpaEOoMeSJofN2i5GEauFiZkqPsT
+	URoUaEYwlXdp3ID712k2xfRl//pzuhLAcjj2jwdRwnwce/GbOF3z1igiFwAenq8rrU20qijowQq
+	m7he0yvfE1zM8EiLuBxwoQmU9zXs1HpUI8rm3n11uHUQhDb6sHW9SkXOTQw3N51OKOSHv2YvHQ1
+	F63sZXvhx5V0oYv2GVn0Kw7jOE6Z8wkIllX9NeGS1hC9w2XoRa469j/90mouhydm3bTLm/oMFtW
+	4OJ0V2p2JOK6IDv+TNv4pyFFzL8FoIpHvDyd6Egq7VhqqEswGFupcI9BlCrN+68+ZJVAdansvhT
+	6COrWqz/Zw+IprA6ABmTXBAKzwohIdKUKrtd/8KwYFkGjc6cwFd5MnzZ5NxqOZPw==
+X-Received: by 2002:a05:7300:d210:b0:33b:db21:9877 with SMTP id 5a478bee46e88-34cdbbd12camr563634eec.20.1790744616850;
+        Tue, 29 Sep 2026 22:03:36 -0700 (PDT)
+Received: from fox.. ([43.242.224.196])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf4a63ac9sm772160eec.10.2026.09.29.22.03.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 22:03:32 -0700 (PDT)
-Date: Tue, 29 Sep 2026 22:03:29 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, linux-sh@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] sh: mach-x3proto: convert gpio-keys to software nodes
-Message-ID: <aryX1eOmqUw2x09Z@google.com>
-References: <20260704-sh-x3proto-swnode-v1-0-0c039549dc46@gmail.com>
- <20260704-sh-x3proto-swnode-v1-2-0c039549dc46@gmail.com>
- <d3a2875ba34bf10ddae3626b77da071cd4624348.camel@physik.fu-berlin.de>
- <arn6r3RohRPJrk0_@google.com>
- <61edcd485d5f2704a87f208a5d0eec82576a38ae.camel@physik.fu-berlin.de>
- <945d56acafd1910b7304903b06f974f41a2a018f.camel@physik.fu-berlin.de>
+        Tue, 29 Sep 2026 22:03:35 -0700 (PDT)
+From: Roshan Kumar <roshaen09@gmail.com>
+To: netdev@vger.kernel.org
+Cc: steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	chopps@labn.net,
+	linux-kernel@vger.kernel.org,
+	lilly@aronleigh.au,
+	shubham@octane.security,
+	gio@octane.security,
+	robert@octane.security,
+	paolo@octane.security,
+	Roshan Kumar <roshaen09@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 2/2] xfrm: iptfs: hold a device reference while packets are queued
+Date: Wed, 30 Sep 2026 10:33:07 +0530
+Message-ID: <20260930050307.1978654-3-roshaen09@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930050307.1978654-1-roshaen09@gmail.com>
+References: <20260930050307.1978654-1-roshaen09@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <945d56acafd1910b7304903b06f974f41a2a018f.camel@physik.fu-berlin.de>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 09:31:05AM +0200, John Paul Adrian Glaubitz wrote:
-> Hi,
-> 
-> On Mon, 2026-09-28 at 07:56 +0200, John Paul Adrian Glaubitz wrote:
-> > Hi Dmitry,
-> > 
-> > On Sun, 2026-09-27 at 22:28 -0700, Dmitry Torokhov wrote:
-> > > Hi John,
-> > > 
-> > > On Thu, Sep 17, 2026 at 08:49:15PM +0200, John Paul Adrian Glaubitz wrote:
-> > > > 
-> > > > It took me some time to fully grasp the rewrite, but I think this should work as expected.
-> > > > 
-> > > > Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-> > > 
-> > > Sorry for bothering you but I do not see it in next. Just want to make
-> > > sure this (and others) is not stalled.
-> > 
-> > Don't worry, I'll merge it today. It's already reviewed, so I just
-> > need to merge and push it. Sorry for not doing it right away.
-> 
-> Pushed now: https://git.kernel.org/pub/scm/linux/kernel/git/glaubitz/sh-linux.git/log/?h=for-next
+IP-TFS can retain received skbs after the input call that owns their
+skb->dev reference returns. Out-of-order outer packets are stored in the
+reorder window, and an incomplete inner packet is kept for reassembly.
+Unregistering the ingress device while either skb is queued leaves a stale
+device pointer for later timer or receive-path processing.
 
-Awesome, thank you Adrian!
+Take a device reference when an skb enters the reorder window or becomes
+the in-progress reassembly packet. Transfer ownership of that reference
+with the skb when the reorder window releases it, and put it only after
+ordered processing has finished. In particular, keep the reassembly
+reference through xfrm_input(), which reads skb->dev. Release references
+on all completion, timeout, abort, and state-destruction paths.
 
-I also resent the rsk7203 patches folding the compound literals fixes
-into relevant commits. Hope you will have time to take a look at them as
-well.
+An in-order packet also takes this reference before drop_lock is released,
+even when it was never stored in the window, because device unregistration
+can race with its subsequent ordered processing. Freelist entries are freed
+within the input call and do not own a reference.
 
-Thanks.
+A KASAN kernel reproduces the stale access by queuing an out-of-order
+packet through a TUN device, closing the device, and allowing the drop
+timer to process the packet. With unprivileged user namespaces enabled,
+an unprivileged process can create the required TUN and XFRM state in a
+private user and network namespace and trigger the same KASAN report.
 
+Reported-by: Shubham Antil <shubham@octane.security>
+Link: https://lore.kernel.org/netdev/20260921084743.817859-1-roshaen09@gmail.com/
+Reported-by: Giovanni Vignone <gio@octane.security>
+Link: https://lore.kernel.org/netdev/20260921084743.817859-1-roshaen09@gmail.com/
+Reported-by: Robert van Eijk <robert@octane.security>
+Link: https://lore.kernel.org/netdev/20260921084743.817859-1-roshaen09@gmail.com/
+Reported-by: Paolo Gentry <paolo@octane.security>
+Link: https://lore.kernel.org/netdev/20260921084743.817859-1-roshaen09@gmail.com/
+Link: https://lore.kernel.org/netdev/179023970333.2160803.2776986020964028023@kernel.org/
+Fixes: 6c82d2433671 ("xfrm: iptfs: add basic receive packet (tunnel egress) handling")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
+---
+ net/xfrm/xfrm_iptfs.c | 70 ++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 56 insertions(+), 14 deletions(-)
+
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index e538cc98e257..954d28e7ec2e 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -730,10 +730,16 @@ static void iptfs_reset_drop_timer(struct xfrm_iptfs_data *xtfs)
+ 
+ static void __iptfs_reassem_done(struct xfrm_iptfs_data *xtfs, bool free)
+ {
++	struct sk_buff *skb = xtfs->ra_newskb;
++
+ 	assert_spin_locked(&xtfs->drop_lock);
+ 
+-	if (free)
+-		kfree_skb(xtfs->ra_newskb);
++	if (free && skb) {
++		struct net_device *dev = skb->dev;
++
++		kfree_skb(skb);
++		netdev_put(dev, NULL);
++	}
+ 	xtfs->ra_newskb = NULL;
+ 	xtfs->ra_drop_time = 0;
+ 	iptfs_reset_drop_timer(xtfs);
+@@ -751,10 +757,15 @@ static void iptfs_reassem_abort(struct xfrm_iptfs_data *xtfs)
+ /**
+  * iptfs_reassem_done() - In-progress packet is complete, clear the state.
+  * @xtfs: xtfs state
++ *
++ * Return: device with the reassembly reference still held.
+  */
+-static void iptfs_reassem_done(struct xfrm_iptfs_data *xtfs)
++static struct net_device *iptfs_reassem_done(struct xfrm_iptfs_data *xtfs)
+ {
++	struct net_device *dev = xtfs->ra_newskb->dev;
++
+ 	__iptfs_reassem_done(xtfs, false);
++	return dev;
+ }
+ 
+ /**
+@@ -766,6 +777,7 @@ static void iptfs_reassem_done(struct xfrm_iptfs_data *xtfs)
+  * @data: offset into sequential packet data
+  * @blkoff: packet blkoff value
+  * @list: list of skbs to enqueue completed packet on
++ * @dev_to_put: device reference to release after processing @list
+  *
+  * Process an IPTFS payload that has a non-zero `blkoff` or when we are
+  * expecting the continuation b/c we have a runt or in-progress packet.
+@@ -774,7 +786,8 @@ static void iptfs_reassem_done(struct xfrm_iptfs_data *xtfs)
+  */
+ static u32 iptfs_reassem_cont(struct xfrm_iptfs_data *xtfs, u64 seq,
+ 			      struct skb_seq_state *st, struct sk_buff *skb,
+-			      u32 data, u32 blkoff, struct list_head *list)
++			      u32 data, u32 blkoff, struct list_head *list,
++			      struct net_device **dev_to_put)
+ {
+ 	struct iptfs_skb_frag_walk _fragwalk;
+ 	struct iptfs_skb_frag_walk *fragwalk = NULL;
+@@ -870,6 +883,7 @@ static u32 iptfs_reassem_cont(struct xfrm_iptfs_data *xtfs, u64 seq,
+ 			goto abandon;
+ 		}
+ 		xtfs->ra_newskb = newskb;
++		netdev_hold(newskb->dev, NULL, GFP_ATOMIC);
+ 		xtfs->ra_drop_time = ktime_get_raw_fast_ns() +
+ 				     xtfs->drop_time_ns;
+ 		iptfs_reset_drop_timer(xtfs);
+@@ -957,7 +971,7 @@ static u32 iptfs_reassem_cont(struct xfrm_iptfs_data *xtfs, u64 seq,
+ 		xtfs->ra_wantseq++;
+ 	} else {
+ 		/* We are done with packet reassembly! */
+-		iptfs_reassem_done(xtfs);
++		*dev_to_put = iptfs_reassem_done(xtfs);
+ 		iptfs_complete_inner_skb(xtfs->x, newskb);
+ 		list_add_tail(&newskb->list, list);
+ 	}
+@@ -1189,6 +1203,7 @@ static bool __input_process_payload(struct xfrm_state *x, u32 data,
+ 			spin_lock(&xtfs->drop_lock);
+ 
+ 			xtfs->ra_newskb = skb;
++			netdev_hold(skb->dev, NULL, GFP_ATOMIC);
+ 			xtfs->ra_wantseq = seq + 1;
+ 			xtfs->ra_drop_time = ktime_get_raw_fast_ns() +
+ 					     xtfs->drop_time_ns;
+@@ -1250,6 +1265,7 @@ static bool __input_process_payload(struct xfrm_state *x, u32 data,
+  */
+ static void iptfs_input_ordered(struct xfrm_state *x, struct sk_buff *skb)
+ {
++	struct net_device *dev_to_put = NULL;
+ 	struct ip_iptfs_cc_hdr iptcch;
+ 	struct skb_seq_state skbseq;
+ 	struct list_head sublist; /* rename this it's just a list */
+@@ -1311,7 +1327,8 @@ static void iptfs_input_ordered(struct xfrm_state *x, struct sk_buff *skb)
+ 		/* check again after lock */
+ 		if (blkoff || xtfs->ra_runtlen || xtfs->ra_newskb) {
+ 			data = iptfs_reassem_cont(xtfs, seq, &skbseq, skb, data,
+-						  blkoff, &sublist);
++						  blkoff, &sublist,
++						  &dev_to_put);
+ 		}
+ 
+ 		spin_unlock(&xtfs->drop_lock);
+@@ -1325,6 +1342,8 @@ static void iptfs_input_ordered(struct xfrm_state *x, struct sk_buff *skb)
+ 		skb_abort_seq_read(&skbseq);
+ 		kfree_skb(skb);
+ 	}
++	if (dev_to_put)
++		netdev_put(dev_to_put, NULL);
+ }
+ 
+ /* ------------------------------- */
+@@ -1490,6 +1509,7 @@ static void __reorder_future_fits(struct xfrm_iptfs_data *xtfs,
+ 	}
+ 
+ 	xtfs->w_saved[index].skb = inskb;
++	netdev_hold(inskb->dev, NULL, GFP_ATOMIC);
+ 	xtfs->w_savedlen = max(savedlen, index + 1);
+ 	iptfs_set_window_drop_times(xtfs, index);
+ }
+@@ -1625,6 +1645,7 @@ static void __reorder_future_shifts(struct xfrm_iptfs_data *xtfs,
+ 	/* We've shifted. plug the packet in at the end. */
+ 	xtfs->w_savedlen = nslots - 1;
+ 	xtfs->w_saved[xtfs->w_savedlen - 1].skb = inskb;
++	netdev_hold(inskb->dev, NULL, GFP_ATOMIC);
+ 	iptfs_set_window_drop_times(xtfs, xtfs->w_savedlen - 1);
+ 
+ 	/* if we don't have a slot0 then we must wait for it */
+@@ -1638,7 +1659,8 @@ static void __reorder_future_shifts(struct xfrm_iptfs_data *xtfs,
+ }
+ 
+ /* Receive a new packet into the reorder window. Return a list of ordered
+- * packets from the window.
++ * packets from the window. Packets on @list or in w_saved own a device
++ * reference; packets on @freelist do not.
+  */
+ static void iptfs_input_reorder(struct xfrm_iptfs_data *xtfs,
+ 				struct sk_buff *inskb, struct list_head *list,
+@@ -1656,14 +1678,16 @@ static void iptfs_input_reorder(struct xfrm_iptfs_data *xtfs,
+ 	}
+ 	wantseq = xtfs->w_wantseq;
+ 
+-	if (likely(inseq == wantseq))
++	if (likely(inseq == wantseq)) {
++		netdev_hold(inskb->dev, NULL, GFP_ATOMIC);
+ 		__reorder_this(xtfs, inskb, list);
+-	else if (inseq < wantseq)
++	} else if (inseq < wantseq) {
+ 		__reorder_past(xtfs, inskb, freelist);
+-	else if ((inseq - wantseq) < nslots)
++	} else if ((inseq - wantseq) < nslots) {
+ 		__reorder_future_fits(xtfs, inskb, freelist);
+-	else
++	} else {
+ 		__reorder_future_shifts(xtfs, inskb, list);
++	}
+ }
+ 
+ /**
+@@ -1721,13 +1745,20 @@ static enum hrtimer_restart iptfs_drop_timer(struct hrtimer *me)
+ 
+ 	spin_unlock(&xtfs->drop_lock);
+ 
+-	if (skb)
++	if (skb) {
++		struct net_device *dev = skb->dev;
++
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_FRAG_REASM_TIMEOUT);
++		netdev_put(dev, NULL);
++	}
+ 
+ 	if (count) {
+ 		list_for_each_entry_safe(skb, next, &list, list) {
++			struct net_device *dev = skb->dev;
++
+ 			skb_list_del_init(skb);
+ 			iptfs_input_ordered(x, skb);
++			netdev_put(dev, NULL);
+ 		}
+ 	}
+ 
+@@ -1767,8 +1798,11 @@ static int iptfs_input(struct xfrm_state *x, struct sk_buff *skb)
+ 	spin_unlock(&xtfs->drop_lock);
+ 
+ 	list_for_each_entry_safe(skb, next, &list, list) {
++		struct net_device *dev = skb->dev;
++
+ 		skb_list_del_init(skb);
+ 		iptfs_input_ordered(x, skb);
++		netdev_put(dev, NULL);
+ 	}
+ 
+ 	list_for_each_entry_safe(skb, next, &freelist, list) {
+@@ -2774,12 +2808,20 @@ static void iptfs_destroy_state(struct xfrm_state *x)
+ 
+ 	hrtimer_cancel(&xtfs->drop_timer);
+ 
+-	if (xtfs->ra_newskb)
++	if (xtfs->ra_newskb) {
++		struct net_device *dev = xtfs->ra_newskb->dev;
++
+ 		kfree_skb(xtfs->ra_newskb);
++		netdev_put(dev, NULL);
++	}
+ 
+ 	for (s = xtfs->w_saved, se = s + xtfs->w_savedlen; s < se; s++) {
+-		if (s->skb)
++		if (s->skb) {
++			struct net_device *dev = s->skb->dev;
++
+ 			kfree_skb(s->skb);
++			netdev_put(dev, NULL);
++		}
+ 	}
+ 
+ 	kfree_sensitive(xtfs->w_saved);
 -- 
-Dmitry
+2.43.0
+
