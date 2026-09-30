@@ -1,37 +1,51 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECD63B3BF2
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 06:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A6D3D4127;
+	Wed, 30 Sep 2026 06:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750022; cv=none; b=jCogSq9XqaaQz/nh2lCJgcoQuG8KD+78BNPLU7nTiw6a2/dNDVJlLVQCwG1d7Wf1l0Oh6HVdOs2H+q7dQRQLrCXl59RalP/z2UWoys4NmUbM8qqVbPvURmTCLbtUZRPBnAwPKDIrlFwv4pmZkDFPF7XaNLds6Y9WKPLfjvQYLXc=
+	t=1790750097; cv=none; b=avlp/Lzflt8F7zPm0WVrJ2iR2sNVtYtG6UcM9Vv2PJs7BP2gy9PcPsuZV4tx1POn+NbO+yxNBXoaVimysIWt9rDesfOOarNRGGIgbsymeW7FQICncGNWTp6PkGYoDBYNhk6NlYFnWNj0hAdEXmPut3zDOeRh/o9Pq51obXGBuU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750022; c=relaxed/simple;
-	bh=elQ20eOpdEdO4XcUIyRxsRz7ga6xApYFJYeksfli8MU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Message-Id:Date; b=SBosweTeAu0aitMEvnpdo2AdK8FL80KtHup1S7H97NOK2Yx00vBDSecJ8k/lMFEyCRxZH/pgCBwmET09F7C/z73S4F+ZCfh+fE1nwBz+K1SHw9N6asaTsH+rYP3HDQ9nftXTPYYvFKD3EtSXCfzSKslpXm+nUBJkgXbqtpS0WdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Jwbek1Vc; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790750097; c=relaxed/simple;
+	bh=jcgc1tsOVcBHYxcYpnXt2SObciquRADcGFKCJMT6i5M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JixHzXcOVPiNiirx1JfLb8/K4MP+dVmnexe/pL/KefQDSz56l7OjU7NvFGGobji68LDa1RcVE2HREhSDG6G3Uj5akKGSU6oUVHaYZgOpqsr1CvfvpK23+2asMn3L9q0GEeFrzAn6VTIn+Tez8ZsoxFrqgX4To6zSuXZ98b/VkK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zJbJ7M+X; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Jwbek1Vc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:MIME-Version:Content-Type:
-	Message-Id:Date; bh=elQ20eOpdEdO4XcUIyRxsRz7ga6xApYFJYeksfli8MU=;
-	b=Jwbek1VcaFtiK7tjojvyPCuWaeGwfjUIJPcUtaDCzBamT0WTgivzTpCHw4wy3d
-	rq5La+gVlZHuz3h4tnm9WATcRTrpQwuAd70nkBCEnytaK6JvIgXcQHaxc9awgU4Q
-	ofaZ3RdebhK8hvx3rDih4hyK1KwY4n9JPv/F35/t3XL0Q=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH] sched/proxy: Correct the SCHED_PROXY_EXEC dependency comment
-In-Reply-To: <20260930062554.2AwbY2nX@linutronix.de>
-References: <20260930025824.79296-1-quchaosheng000406@163.com>
- <20260930062554.2AwbY2nX@linutronix.de>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zJbJ7M+X"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DEBBD1A104B;
+	Wed, 30 Sep 2026 06:34:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B244760749;
+	Wed, 30 Sep 2026 06:34:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6E6BD103297F7;
+	Wed, 30 Sep 2026 08:34:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790750086; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FJJ9SrQwpuXWcRwz3yjNOMuLRuftyz1Ef6SkpejQHYo=;
+	b=zJbJ7M+XPdz6b7Q7TAOCZC9GbFLS9/imghm00KF1PCVoCubPo+DEBfw3ezU0ca5eOHkciT
+	XSDs8z1Zu24yj4uxh9Iw5iCCgKl4k8U6GdsHQKC9o0PaAOVPPERAHKA6wmJ7robeIDayGX
+	Rh+Vs6QzyxVFm4fPvoUYbb6lRC0afGzo/qcuay2WkeYqVZ+tt1qArjIgcsiq9N0P3z+nhg
+	qKurDL+yiZZrSvVvlDjlPUZsMYxlxwJBrMcVhZR+zbGwyE80eoou8SXKjOT4uhfMIO5zDg
+	v//WLqffHFHtx3JEBsm3Tixw1lb3KVsIDw7SZOIawCUJxQqSQ+BOytlkKYx5JA==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "moderated list:ARM/Marvell Kirkwood and Armada
+ 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, open list
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ARM: dts: helios4: use national,lm75 compatible
+In-Reply-To: <20260831233607.13729-1-rosenp@gmail.com>
+References: <20260831233607.13729-1-rosenp@gmail.com>
+Date: Wed, 30 Sep 2026 08:34:42 +0200
+Message-ID: <87ik3n8cxp.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,17 +53,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3V4IMrbxqyeFZBw--.51754S2
-Message-Id:<6ABCAD0D.07A826.00008@m16.mail.163.com>
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4RKD7TUUUUU
-Date: Wed, 30 Sep 2026 14:32:45 +0800 (CST)
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4w04rWq8rQ3XHAAA3G
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Understood, and you are right that the existing line reads fine for the
-audience it is written for. I was reading it as a developer note about when
-the dependency can be dropped, which is not what it is there for.
+Rosen Penev <rosenp@gmail.com> writes:
 
-Dropping it, the patch is withdrawn. Sorry for the noise.
+> The temp@4c node uses "ti,lm75", which no binding covers and which
+> dtbs_check rejects:
+>
+>   temp@4c: failed to match any schema with compatible: ['ti,lm75']
+>
+> The LM75 was originally a National Semiconductor part (now owned by
+> TI) and the lm75 driver binds it via the matching "national,lm75"
+> entry. Use the documented compatible; no functional change. The i2c name
+> fallback ends up binding it.
+>
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
+Applied on mvebu/dt
+
+Thanks,
+
+Gregory
+> ---
+>  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
+boot/dts/marvell/armada-388-helios4.dts
+> index 548fb92ca811..39b2d4fa742c 100644
+> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> @@ -200,7 +200,7 @@ usb3-ilimit-hog {
+>  				};
+>=20=20
+>  				temp_sensor: temp@4c {
+> -					compatible =3D "ti,lm75";
+> +					compatible =3D "national,lm75";
+>  					reg =3D <0x4c>;
+>  					vs-supply =3D <&reg_3p3v>;
+>  				};
+> --=20
+> 2.55.0
+>
+
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
