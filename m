@@ -1,132 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEBC31A556;
-	Wed, 30 Sep 2026 08:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F75463B9A
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790756651; cv=none; b=PPoFyuihcUU0afwK0uODv89rw+gU9T62inwfu99lyV172fLzWY7dzyeo/aYaKjCtJewGdBY665Zd6IJfFlHTrpQ250CvIQ1t/uECfs2xIE0GSXNLFYPPuOenZfFpl4oogzuH4dQ2LQ4GNLS1CTSBm21x0+6lJUiIQecVwe71ub4=
+	t=1790756655; cv=none; b=aC6i6Y9Sa171B3Z3V2ZLDVIuSPwsyNg8o9CazGfX1DNN6w5LCobXU77QU80BBLSqgtzaFRxhcSYPzWlR24957QO1eNOSyMHF4dtKxdEDi4sa20d5PPPP0BICAGvTxxwY5/hCQfssYyaAdyCRau97nectNgjS1gemKjX1WySzhys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790756651; c=relaxed/simple;
-	bh=Nq1KK/gkrmyH9eg27Vk4Rc5Pn9C2KHuC2TSuc24nN5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tgNtYVieEXlv2dImqbP58Tfr2FubmC6eHvMB3yYNxFasJp5wUhExlxWpvVUkP4LtgSnZ8fU719jmLIY1kJntChBMIVIbo2JnyM/BcV2tyTxHDRkJ/NxC6kTW8Rjqe6t7fAnDyiJxwKw7SqgFZZi4chxSoGMRNwciwiEZ+lenSV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ym4ArElR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790756655; c=relaxed/simple;
+	bh=ipGQ97f7MUkelnfRrS7W0DNwckkxAJ/D9GjaelK6Pms=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V+ZR4oJzC74xdowiHjaDsTBzcLp6ydI3tKiBpXHGPTQdMIFTpC+JmssQJSL+PR2GogfbcZWv7Ebkm1RXrJo458aGlKSbiykky5Y9R9JuFZQL0sMh0NQ6NdLyUy5rRlf1UYAIKrTgFIrD6b1zUtcRWzABe2pF3lC1L1kWmituYnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRoGKwR5; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ym4ArElR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688A51F000FF;
-	Wed, 30 Sep 2026 08:24:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790756649;
-	bh=piGrZQhEosLer1f4tCmw1AsxMn1klfui0wcCvJ8Apfo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ym4ArElRSLj0tGJSVcq17WZp8pahdWFaYpgfCq8UfagivBEeDAosG3xwOCC8aheFa
-	 glfrILG1Atj42WC+40DPceVZjWDuB+fFhR+bz6zgayMqpY77lXS0fNUXaPGOZV/4OZ
-	 IMEf1mBcuQgassN95A8B41cnXJbVWcXguw3FxCyiV0FZ0qV4BRDI+lMJj/LN1juumw
-	 8tI2tRQtFesI9RNS7SXwcahr1EUBr14YP5T1T9GB2cqzjz838BdqiQJgyxaLNoKrFn
-	 K6s1jgM6XRJOG/FTNxreTB6W4e/9jIONUaxAw5/WWlkj/69K8TTM8CVxSorRKj2PHd
-	 kjq6uBMiUzq0w==
-Date: Wed, 30 Sep 2026 09:24:05 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
- fwnode owner is rejected
-Message-ID: <20260930-swinging-bear-of-diversity-44e4b4@sudeepholla>
-References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
- <20260928-conscious-spectral-manul-19bc10@sudeepholla>
- <arsYvrYaQIr1lwbT@shlinux89>
- <20260929-abstract-accomplished-lynx-3edcbc@sudeepholla>
- <20260929-dazzling-gray-sawfly-cfd671@sudeepholla>
- <ary048HBAkJB4WR9@shlinux89>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRoGKwR5"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so29458095e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:24:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790756651; x=1791361451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O/vpu6nOACLN1GW1gZlQkN6/DVvLR93ljsvBEfccVh4=;
+        b=pRoGKwR55/XDsZT+XJlovQU7LhMuIxeOye+WtxKF5BB/1Y3+p0LU7K/jD+7uQwAH3g
+         conNn+NZiavStVhU4Fhx0BCODGaLoDIEu24YOyOx8+V4e+zP6vAYnWaWP0fwAKXx4s15
+         cMH4Ny//dvocLzYYjIa1WEdAHMD4l/PK8Tp96dOpVPNAJwQxGvxpYWiKI9QkefqUQLpo
+         z/okCCnRpUiuR1PnqQcSWwnkV+c0EdlkZ/DUWWphSSpuHePneG1dPLzBmrmm8U3UisXr
+         NaJgY/k1OyiYVaUOM3euOsIc6EEe71wmXa1XJnBS9Q1VZ1rW+r8xWE0B+I7QD+c5/Hl6
+         FQtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790756651; x=1791361451;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O/vpu6nOACLN1GW1gZlQkN6/DVvLR93ljsvBEfccVh4=;
+        b=Lhkhbw3gFKyGQWDCdRTNpllnH+zhWlvwCuBfu7BbFvobJhOh052TES8kqpQv14CirR
+         WHmBpKeRTKWGOpWWY/eEN4nfQwplwQSHQWQhQjbFi+2y86DJrKHetz9uXfuWQy/t2CWj
+         D3NcAtBK3g2qH5pSkbMJEqyhv24NjDRatiDAavgKE+eO1sUtIJeKI6Koc5d3ph16mfcy
+         nBaWBHKvt0Djf7LiESnnyefuSyo92sCeu5GcGIAkS7TTd0h5SEI51T1UEWyvBsBS+nwT
+         ttl5kjkkX2rDdlk7xGRaLo1llSqB5PTfaKH7JBCFN6wKud958sF+xVO+VqDRELCoxRm0
+         NViA==
+X-Forwarded-Encrypted: i=1; AKwUvByVIzJ7MkNuM8WynBw11xKlocHuVKUrVViqJkqtwedAGePL6+CcDuTX1/XWkDEXKOOAJQTHZ8+Pv6rQI1I=@vger.kernel.org
+X-Gm-Message-State: AFuF++llwMMcr08Kc6pFxsIsU+4F/VPkYT7ggr0VrNFLRgtcygR+4qDr
+	yy73b9EpLvfNOKab8XGwE4TuwaJmvUhhNH98Ct4XBRIMWoFsMjoctmac
+X-Gm-Gg: AYBFou3dRLcae6BOWECQcJKS3ab6bIR/uh38hp5SAvek3ROfwJHmmroqRJxjVp41kz9
+	vfXHjfoRG9NhA2XcmH8I9scBPqF6DzJrVtx9QfLzuj2iYwSWCv1JBPs7nwX4V5CMOHUgtxdGmii
+	PXmESE8IRef6ptSRkIKWYGcH/MwZ5mfEHPrxwQCczh472KZDxHX6Cjb58tkTeZa3MS6K5vVc8zv
+	ImUp6phr56qgw8AVAfynM3K9I9pm4ASxJcO3+OMXWJYdNSNegOlATMeQ4GdC79te2Cw+CBLmGCA
+	q3SHbVkPJ50A3OuByOinJ6/oZ/GO441BLqzcEihV9uwhUd44MBH9VfH6K+yZilC92piQkQiUqJz
+	WFXZlpvfub+dpFc24GAJvl5hW0BJ5fbDlrdPAK/vUT7VEPZXSEZGJ89oYiS2pLemxbRIfYKg37w
+	kgF3w5B1H8nVzy4GTgyxmxxciSUGOMRTPfXeoAWGsDFasjiYelOKHt/u/l0j+j0pv7HRjAjbrKr
+	d6oZWIx+Spgi5LxVu5/08ADP6EvTP/zjveLatzDKZFRw9Pjv6+Zje9nB7ukS5hs8MLa133C27WD
+	pKuunsUOv/+3okOqIAf3TG0y8ykkKmo1mNDuSyghxBYca4J0RY/wgMn8Bqz+v4xf/962s9lEhnZ
+	bzWNYQZXCDSNvW2zrxXjttneA1mYZBcH81HPnX2xVt2tOfmSnHS6DsZW7JDK4P4Q52wxUOX8s5B
+	NhIqSH
+X-Received: by 2002:a05:600c:3b9f:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a01b212757mr10135465e9.23.1790756651411;
+        Wed, 30 Sep 2026 01:24:11 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0174fb909sm40727985e9.12.2026.09.30.01.24.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:24:11 -0700 (PDT)
+Date: Wed, 30 Sep 2026 10:24:09 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, error27@gmail.com,
+ narcisaanamaria12@gmail.com
+Subject: Re: [PATCH 1/3] staging: iio: accel: adis16203: fix inclination
+ naming and remove unsupported Y-axis
+Message-ID: <20260930102409.00003055@gmail.com>
+In-Reply-To: <20260929184900.39515-2-abdelnasserhussein11@gmail.com>
+References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
+	<20260929184900.39515-2-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ary048HBAkJB4WR9@shlinux89>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 30, 2026 at 03:06:11PM +0800, Peng Fan wrote:
-> Hi Sudeep,
-> 
-> On Tue, Sep 29, 2026 at 04:56:24PM +0100, Sudeep Holla wrote:
-> >On Tue, Sep 29, 2026 at 09:35:21AM +0100, Sudeep Holla wrote:
-> ...
-> >> Yes, but this particular device is i.MX specific issue as it should
-> >> have never been there. So I will discard that in any future discussion.
-> >> Use the SCMI pinmux driver and get rid of SCMI pinctrl-imx.
-> >> 
-> >
-> >Anyways, I cooked up a patch that may prevent the issue with pinmux.
-> >See if something like below on top -next helps.
-> >
-> >Regards,
-> >Sudeep
-> >
-> >-->8
-> >diff --git a/drivers/firmware/arm_scmi/bus.c b/drivers/firmware/arm_scmi/bus.c
-> >index 25197197db8e..cee7cc777724 100644
-> >--- a/drivers/firmware/arm_scmi/bus.c
-> >+++ b/drivers/firmware/arm_scmi/bus.c
-> >@@ -60,13 +60,6 @@ static int scmi_protocol_device_request(const struct scmi_device_id *id_table)
-> > 	pr_debug("Requesting SCMI device (%s) for protocol %x\n",
-> > 		 id_table->name, id_table->protocol_id);
-> >
-> >-	if (IS_ENABLED(CONFIG_ARM_SCMI_RAW_MODE_SUPPORT) &&
-> >-	    !IS_ENABLED(CONFIG_ARM_SCMI_RAW_MODE_SUPPORT_COEX)) {
-> >-		pr_warn("SCMI Raw mode active. Rejecting '%s'/0x%02X\n",
-> >-			id_table->name, id_table->protocol_id);
-> >-		return -EINVAL;
-> >-	}
-> >-
-> > 	/*
-> > 	 * Find the matching protocol rdev list and then search of any
-> > 	 * existent equally named device...fails if any duplicate found.
-> >@@ -181,12 +174,35 @@ static void scmi_protocol_device_unrequest(const struct scmi_device_id *id_table
-> > 	}
-> > }
-> >
-> Move static const struct scmi_device_id scmi_std_id_table[] here to avoid
-> build failure.
-> 
+On Tue, 29 Sep 2026 21:48:58 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-Thanks, it shows that I didn't even build test it. Sorry for that.
-
-I may have to split this patch as multiple things are being changed. I will
-post something later in the week or next week and target as fix for v7.4
-
-> >+static bool scmi_device_id_in_std_id_table(const struct scmi_device_id *id)
-> >+{
-> >+	for (int i = 0; scmi_std_id_table[i].name[0]; i++) {
-> >+		if (scmi_std_id_table[i].protocol_id == id->protocol_id &&
-> >+		    !strcmp(scmi_std_id_table[i].name, id->name))
-> >+			return true;
-> >+	}
-> >+
-> >+	return false;
-> >+}
-> >+
+> The ADIS16203 measures inclination around a single axis. As per the
+> datasheet, register 0x0C gives a 360-degree output, and 0x0E gives a
+> +/- 180-degree output of the exact same measurement.
 > 
-> Tested your patch it works well, the pinmux issue gone. A very clean fix.
+> The current driver incorrectly maps 0x0E as a separate Y-axis. This patch
+> removes the phantom Y-axis, updates the naming, and adjusts the timestamp
+> channel index.
 > 
-> If you post a formal patch, feel free to add my
-> Tested-by: Peng Fan <peng.fan@nxp.com>
+> Note: The ADIS_INCLI_CHAN(X, ...) modifier is intentionally kept to
+> preserve the existing userspace ABI (incli_x_raw). Furthermore, removing
+> the phantom Y-axis inherently shifts the scan indexes of subsequent
+> channels down by one, which is expected to correct the hardware
+> representation.
 > 
+> Fixes: 2df79e1bddc4 ("staging: iio: accel: Rename source files and update Makefile")
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
 
-Thanks for testing and glad it worked.
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
 -- 
-Regards,
-Sudeep
+Kind regards,
+Joshua Crofts
