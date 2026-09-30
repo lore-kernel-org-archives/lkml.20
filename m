@@ -1,89 +1,279 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B3E4E324D;
-	Wed, 30 Sep 2026 15:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4904E4D7D5B
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 15:28:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782132; cv=none; b=F0llrosSge0d8aHSDOBvwwM4f31gDjjg8IRbOE/vRC/f9MSAe4nmj2zJl6lp00/GJgyY7JQIufvkijwuj4GcI+ZYzjXqoQmB+eCVL5mUoPJDZVNJ3yGWEzYbhOGxLyqAuaIHm839JkW6mEgRjFL06u4VgDfV/ag7QBxre5njp+g=
+	t=1790782132; cv=none; b=FGVxHTS15dPMtZjm4uho2fFCFr5h1grApKt5IaJdCe1076HtJ/2kqdVl1kExZ8LLZRHCFF7m5TA2UnIQgCTeEXrW25p8rfTrkrdWuRJSeJCS7X2CYVfLthJAdCf2W6Inn0D/0VDEZTV34fP0bdO7FL4t9JJCCME8VdgEf2OMsK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790782132; c=relaxed/simple;
-	bh=Au7j8YdfZM3UZeKzSGB4aaq9QFG5l8bCm0QeW0tzyMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bq5hEu8aRLrGYJU8mp7MpP8A5rJI6bOnmtpcrqhr8MwIxYJiF3Vdc1zmtevtDPcMgYTT8mHagqhV5R7mkD98jm3X3Z0uWEFN4wvchUrErAkbUFKwFhefyEc4UE8K0kJna9AyWKZDV1BERoMPcq7ZW9ZGURhx7vTF2LrXKDk+axo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=gQ5Vmont; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	bh=buw7eilKhVYBpVzHXoFXBKSXA87LBruo6Br9DLlJ1Js=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UZkERJoEL2JrZs5VfmQqiqN+LI2HTnX9TAx7K/B5kcbctm7prv7vLk/kP95PpQYcLRLpiydqqjKCTaqQ+HklNfvCYaU5U8oFKU0460oFBbv0WDrf2mdams5K/plX8mDaxgHoJAmIq0eFjwAHMHU77bmkIacbnZGe0iL7rOrFsRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jsiDjkf/; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gQ5Vmont"
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6CAE1593;
-	Wed, 30 Sep 2026 17:26:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790782008;
-	bh=Au7j8YdfZM3UZeKzSGB4aaq9QFG5l8bCm0QeW0tzyMk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gQ5VmontzbGWHQNX1pN74M1b+wPwqpbLBMePt8iHj8UqwOqWHVdDQ0MeM+tWFcIL/
-	 TkLMaqaHPu5R5KhB/s1hjBCycrgmDi1bbf14XdNWRLcqI7ApvPS+nI957TZUbTQQwy
-	 B1mS81LGG7RNHYqAIeKwaU7TuAgq2g1HGQdpC6xk=
-Date: Wed, 30 Sep 2026 17:28:36 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: linux-media@vger.kernel.org, dan.scally@ideasonboard.com, 
-	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, nayden.kanchev@arm.com, 
-	hverkuil+cisco@kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: mali-c55: Check the parameters buffer address
- before copying
-Message-ID: <ar0pyfRIZDOtZp23@zed>
-References: <20260906092429.50046-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jsiDjkf/"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso9387441a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:28:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790782119; x=1791386919; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GQ41yj00/XNv9YnqFd8MxyPQ2Or7W/eiTKmLpRiCxws=;
+        b=jsiDjkf/cU+nwHRtIWEBcIVKe7nh5e42us7XxZDWebjPwMshfwuiyEc7N5eKph2JJf
+         N4LExnNHmGDgULHQ/Mwtp226DIbaJNO70v9ogT4bqLVSI70GD7puhUqRhYGlLkvP4Lrl
+         Jv3qp88H6yxry5g/BSzv0GC6IdlYTdRrWEgHAQlyw9OmC22Z4WGVjHTVei4FaGEyYxfh
+         kCIv5ij+1fJNqFiH16MJwvvPsK40dIPrCDtv0FDErfR1ekEPmO5UMjba59q9IMuWVni3
+         jRGCbmx8CWfr7h9n/1QxLYO5QSHTkwEIcq5V670r1CAg0o4nK/gzC2EKBaZWE3brQNK1
+         kKxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790782119; x=1791386919;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GQ41yj00/XNv9YnqFd8MxyPQ2Or7W/eiTKmLpRiCxws=;
+        b=kslOdI5Mzxf6VTOppHE2WdgN8xNzXtgMoSab1OfEZGrOYAZh7+RDoCQYtCG9/XrYBY
+         gK4Z3QQOKFwFubTn4wkcqrVekRcDkb6RsYpoSM4FoV1wzdf1LMjC9aYjznIa3Lks9otv
+         zhnx8qIVm1VnTr0ZPBomIS8RRlqZRmaV9VuKdvBUKnqGLC7XieOcJHohawllPTt+T4Xq
+         t7u6niE0n2NN06tbsOkt0yqjqLQoBcP/uIkmdpJZS4bb5thKjVvcZKu4WTIThbPN3wNz
+         m2VAnqgAXnctCQiEDHMfqJFK7Zyw0I5zgkZK8vuLR6rRVvFhpnZlFswjuK1kfLZrZnEf
+         gKTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxf7xbh7Holm7R02UiqUtJBcK7BGRLgOFVpwOxba1JU+niwZPZ9t2gpccv0Ge0DTNKfOryL2bixdijQApM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2Voyq81mxX4EcSuaQzV9kTeAZamCDZMJv1LiXBBnYgUkwR8lv
+	KGqjtkp5WUePHfNybRtUjGtyOkr+MTsgEeoyuhoFgoQ0rinsz3ixOCKD7PNkFHVarhE=
+X-Gm-Gg: AYBFou39yBZx2wYn/XymfCyT3RTpGbyqUeJp0cUgnL65Sd8wAFuOee9ILRo+OzBtoAB
+	VGa6uBMsPlpocrIOtJKEZD4iqa/gIiFiO63A/J3lDCtPPB3hmEmMcxkpften0uMCLh0h/QsEeF6
+	ULLsUhQPzemiyOJJpJOrobs4CqwmlCk9fUAIA3XvARuVyoXROPAc+fryMMOCv6P4dLHWNzB+07d
+	Dv8vIOilyNCRYahA9HterxE59sgBP1AaZcaw0PrqNd7CAdz+mId4+QMK3SabJ0NjEFq8P1Pg47x
+	tuAxHYKuTL7xj2gfWVV/fwC+0VuUQNxz7Zc7ptOx9zjwYeGj6v9ulfAamIShu+Ht7/RVe++hGop
+	uWSQm8hcKNirPz/qyKmSgKWVUUgq90ItXsk0ivIax8nXd1DyNHO58ZabrjZ7lVVbePRIgGN1qZZ
+	xfR060QT3H0S1WEOIRiMskXhAyxN8tzVU56+H+1B18KXQFUi5nKDCRHDKuTcPgqMXbVT88sbl8J
+	gk=
+X-Received: by 2002:a05:6402:4543:b0:6ab:bafd:260e with SMTP id 4fb4d7f45d1cf-6ae199672d1mr1029959a12.44.1790782119271;
+        Wed, 30 Sep 2026 08:28:39 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae156a2082sm1010321a12.30.2026.09.30.08.28.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 08:28:38 -0700 (PDT)
+Message-ID: <f54b9ea6-48b1-4f6c-92cc-b0a9249c2fb0@linaro.org>
+Date: Wed, 30 Sep 2026 16:28:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260906092429.50046-1-devnexen@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 16/22] KVM: arm64: Apply dynamic guest counter
+ reservations
+To: Colton Lewis <coltonlewis@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Oliver Upton <oliver.upton@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+ <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Zide Chen <zide.chen@intel.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Mingwei Zhang <mizhang@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Russell King <linux@armlinux.org.uk>, Shuah Khan <shuah@kernel.org>,
+ linux-perf-users@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+References: <20260924172928.2110956-1-coltonlewis@google.com>
+ <20260924172928.2110956-17-coltonlewis@google.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260924172928.2110956-17-coltonlewis@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi David
 
-On Sun, Sep 06, 2026 at 10:24:24AM +0100, David Carlier wrote:
-> mali_c55_params_buf_prepare() copies the parameters buffer supplied by
-> userspace into the driver's scratch buffer, using the result of
-> vb2_plane_vaddr() as the source without checking it. The queue accepts
-> VB2_DMABUF, and vb2_dc_vaddr() returns NULL for an exporter that cannot
-> be vmapped, so the memcpy() dereferences NULL.
->
-> Reject the buffer at prepare time instead.
->
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-Quite a corner case I would say, but it's anyway good to check.
-
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-
+On 24/09/2026 18:29, Colton Lewis wrote:
+> Reserve and release guest PMU counters dynamically during vCPU load and
+> put rather than statically at VM creation.
+> 
+> Add kvm_pmu_set_guest_counters() in arch/arm64/kvm/pmu-direct.c, called
+> from kvm_pmu_load() and kvm_pmu_put(). When the requested guest counter
+> mask collides with active host events in cpuc->used_mask (or when
+> releasing counters after squeezing a host event), invoke
+> perf_pmu_resched_update() with kvm_pmu_update_mask() to update the
+> per-CPU cpuc->cntr_mask between scheduling host events out and back in;
+> otherwise update cpuc->cntr_mask directly with interrupts disabled.
+> 
+> Signed-off-by: Colton Lewis <coltonlewis@google.com>
 > ---
->  drivers/media/platform/arm/mali-c55/mali-c55-params.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> index 70106276b7e4..16e895e3488e 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> @@ -710,6 +710,9 @@ static int mali_c55_params_buf_prepare(struct vb2_buffer *vb)
->  	struct mali_c55 *mali_c55 = params->mali_c55;
->  	int ret;
->
-> +	if (!config)
-> +		return -EFAULT;
+>   arch/arm64/kvm/pmu-direct.c  | 77 ++++++++++++++++++++++++++++++++++++
+>   include/linux/perf/arm_pmu.h |  1 +
+>   2 files changed, 78 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/pmu-direct.c b/arch/arm64/kvm/pmu-direct.c
+> index a22c9258c2452..31d5afc44f36e 100644
+> --- a/arch/arm64/kvm/pmu-direct.c
+> +++ b/arch/arm64/kvm/pmu-direct.c
+> @@ -115,6 +115,77 @@ u64 kvm_pmu_direct_pmcr_read(struct kvm_vcpu *vcpu)
+>   		ARMV8_PMU_PMCR_N);
+>   }
+>   
+> +/* Callback to update counter mask between perf scheduling */
+> +static void kvm_pmu_update_mask(struct pmu *pmu, void *data)
+> +{
+> +	struct arm_pmu *arm_pmu = to_arm_pmu(pmu);
+> +	struct pmu_hw_events *cpuc = this_cpu_ptr(arm_pmu->hw_events);
+> +	unsigned long *new_mask = data;
 > +
->  	ret = v4l2_isp_params_validate_buffer_size(mali_c55->dev, vb,
->  			v4l2_isp_buffer_size(MALI_C55_PARAMS_MAX_SIZE));
->  	if (ret)
-> --
-> 2.55.0
->
->
+> +	bitmap_copy(cpuc->cntr_mask, new_mask, ARMPMU_MAX_HWEVENTS);
+> +}
+> +
+> +/**
+> + * kvm_pmu_set_guest_counters() - Handle dynamic counter reservations
+> + * @cpu_pmu: struct arm_pmu to potentially modify
+> + * @guest_mask: new guest mask for the pmu
+> + *
+> + * Check if guest counters will interfere with current host events and
+> + * call into perf_pmu_resched_update if a reschedule is required.
+> + */
+> +static void kvm_pmu_set_guest_counters(struct arm_pmu *cpu_pmu, u64 guest_mask)
+> +{
+> +	struct pmu_hw_events *cpuc = this_cpu_ptr(cpu_pmu->hw_events);
+> +	DECLARE_BITMAP(guest_bitmap, ARMPMU_MAX_HWEVENTS);
+> +	DECLARE_BITMAP(new_mask, ARMPMU_MAX_HWEVENTS);
+> +	unsigned long flags;
+> +	bool need_resched = false;
+> +
+> +	bitmap_from_arr64(guest_bitmap, &guest_mask, ARMPMU_MAX_HWEVENTS);
+> +	bitmap_copy(new_mask, cpu_pmu->cntr_mask, ARMPMU_MAX_HWEVENTS);
+> +
+> +	local_irq_save(flags);
+> +	if (guest_mask) {
+> +		/* Subtract guest counters from available host mask */
+> +		bitmap_andnot(new_mask, new_mask, guest_bitmap, ARMPMU_MAX_HWEVENTS);
+> +
+> +		/* Did we collide with an active host event? */
+> +		if (bitmap_intersects(cpuc->used_mask, guest_bitmap, ARMPMU_MAX_HWEVENTS)) {
+> +			int idx;
+> +
+> +			need_resched = true;
+> +			cpuc->host_squeezed = true;
+> +
+> +			/* Look for pinned events that are about to be preempted */
+> +			for_each_set_bit(idx, guest_bitmap, ARMPMU_MAX_HWEVENTS) {
+> +				if (test_bit(idx, cpuc->used_mask) && cpuc->events[idx] &&
+> +				    cpuc->events[idx]->attr.pinned) {
+> +					pr_warn_once("perf: Pinned host event squeezed out by KVM guest PMU partition\n");
+
+If you enable pseudo-NMIs, watchdog_hardlockup_enable() installs the 
+watchdog using a pinned PMU event. If host userspace also has a pinned 
+event on the mandatory 1 PMU counter assigned to the host, then a guest 
+could potentially squeeze out the watchdog.
+
+I'm wondering if we need to prioritise kernel owned events? Or we just 
+treat them the same as any other event, and with PMU partitioning assume 
+they can't be guaranteed to be running? I feel like you would expect a 
+watchdog to be a bit more than best effort though, especially if there 
+was always a guaranteed counter available to put it on.
+
+I didn't follow it through completely, but it also looks like if the 
+event gets squeezed it would enter an error state and then never be 
+re-enabled, even after the guest stops running.
+
+Note, that I think the current ordering means that the watchdog won't 
+actually get squeezed out because it's created first. But I don't think 
+we can rely on the ordering as a strong guarantee, and it might get 
+broken by refactoring in the future.
+
+
+> +					break;
+> +				}
+> +			}
+> +		}
+> +	} else {
+> +		/*
+> +		 * Restoring to full mask.
+> +		 * Only resched if we previously squeezed an event.
+> +		 */
+> +		if (cpuc->host_squeezed) {
+> +			need_resched = true;
+> +			cpuc->host_squeezed = false;
+> +		}
+> +	}
+> +	if (!need_resched)
+> +		/* Host was never using guest counters anyway */
+> +		bitmap_copy(cpuc->cntr_mask, new_mask, ARMPMU_MAX_HWEVENTS);
+> +	local_irq_restore(flags);
+> +
+> +	if (need_resched) {
+> +		/* Collision: run full perf reschedule */
+> +		perf_pmu_resched_update(&cpu_pmu->pmu, kvm_pmu_update_mask, new_mask);
+> +	}
+> +}
+> +
+>   /**
+>    * kvm_pmu_host_counter_mask() - Compute bitmask of host-reserved counters
+>    *
+> @@ -255,6 +326,7 @@ static void kvm_pmu_apply_event_filter(struct kvm_vcpu *vcpu)
+>    */
+>   void kvm_pmu_load(struct kvm_vcpu *vcpu)
+>   {
+> +	struct arm_pmu *pmu;
+>   	unsigned long guest_counters;
+>   	u64 mask;
+>   	u8 i;
+> @@ -269,7 +341,9 @@ void kvm_pmu_load(struct kvm_vcpu *vcpu)
+>   
+>   	preempt_disable();
+>   
+> +	pmu = vcpu->kvm->arch.arm_pmu;
+>   	guest_counters = kvm_vcpu_pmu_guest_counter_mask(vcpu);
+> +	kvm_pmu_set_guest_counters(pmu, guest_counters);
+>   	kvm_pmu_apply_event_filter(vcpu);
+>   
+>   	for_each_set_bit(i, &guest_counters, ARMPMU_MAX_HWEVENTS) {
+> @@ -329,6 +403,7 @@ void kvm_pmu_load(struct kvm_vcpu *vcpu)
+>    */
+>   void kvm_pmu_put(struct kvm_vcpu *vcpu)
+>   {
+> +	struct arm_pmu *pmu;
+>   	unsigned long guest_counters;
+>   	unsigned long flags;
+>   	u64 mask;
+> @@ -345,6 +420,7 @@ void kvm_pmu_put(struct kvm_vcpu *vcpu)
+>   
+>   	preempt_disable();
+>   
+> +	pmu = vcpu->kvm->arch.arm_pmu;
+>   	guest_counters = kvm_vcpu_pmu_guest_counter_mask(vcpu);
+>   	mask = guest_counters;
+>   
+> @@ -395,5 +471,6 @@ void kvm_pmu_put(struct kvm_vcpu *vcpu)
+>   	write_sysreg(val & mask, pmovsclr_el0);
+>   	local_irq_restore(flags);
+>   
+> +	kvm_pmu_set_guest_counters(pmu, 0);
+>   	preempt_enable();
+>   }
+> diff --git a/include/linux/perf/arm_pmu.h b/include/linux/perf/arm_pmu.h
+> index be1e345e99a77..45658273ffa86 100644
+> --- a/include/linux/perf/arm_pmu.h
+> +++ b/include/linux/perf/arm_pmu.h
+> @@ -76,6 +76,7 @@ struct pmu_hw_events {
+>   
+>   	/* Active events requesting branch records */
+>   	unsigned int		branch_users;
+> +	bool host_squeezed;
+>   };
+>   
+>   enum armpmu_attr_groups {
+
