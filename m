@@ -1,109 +1,155 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0503B83F9;
-	Wed, 30 Sep 2026 08:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757437; cv=none; b=QSXt6kYevLXZJBDLX4AgCtNLLTvc3VJYAEyoQF5UwYJ6saGjFgO4XXAx6gJk4isbuqUctXhZ8Zah1VZJb9rrIqGUWYE/qjJEPOfNSMHUgbT7mMFkGqLy3LWIssSrfDw369k2lSJaPXywszGPrTiFZUyk5rh3ZYSHF6ZSrQPD5pk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757437; c=relaxed/simple;
-	bh=D36bru2Y09Tqy8UqJ7Z7t2+mwKz/02jpY1pHkvwm0tY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OrjnwHI8+VLtgR4/fRhzxbV8j0FVeE0FR/MobWUfgufI5tQmSGq9xm1P7lR62tyIWfzaj7SN47ZhEcQIGR7CvSUX+Hxs51ZLAU2EgmiRUjLyuvpv6/2B2lqj3RUrRfY30u+1YSEcv5SC5ZDMVTod6kkypjAQVrEMcUN34TmoMP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ll5Oe3s+; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7916A3CBE6E
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 08:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790757442; cv=pass; b=cVwwsin5uPTeb6rxYQxwBiySMLvWXVO0Uf9cfZnETchZmXFwfA5hLaIRiUhPKqX48LqzJnQDHq7N+dVeaCFV5a1BOvDVNzxYU8AqIjy5s5YGRjwbpTImdhe9AZQy9w2GGe5Zqgm8z8hheV0c+FSaTWpR5dBG4959Qva0X22L41w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790757442; c=relaxed/simple;
+	bh=bR8m88aGaXrfrsJOpMkJ/BBxQtrF3+thka+XnxLV90A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UsHwvF30PT6m1PX0Mwj8uaW0X73lUJGX+lz6CTRmUv9xjkfMv0LBipMjZ/HN3r6xyuqNxX8S7PToX2z9zcyeKoOFmhjYv3DlF23oUgroXhV0MVWI0sCehtgX2WQ1OdZSbKHh0yPXaONg6sv+MRRGbTJSYzzPoByFePEHqxx1uxQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3jXfUfC; arc=pass smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ll5Oe3s+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790757436; x=1822293436;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=D36bru2Y09Tqy8UqJ7Z7t2+mwKz/02jpY1pHkvwm0tY=;
-  b=ll5Oe3s+Vs3+HhNgVrvQ0gYjwn/lzY9YVceoKgLb3uzio3RGtzpdrrjl
-   M1w2xZgQAmIFyrtWWCAYjIJEpJi/3Odrvji0SGNCrCqavwy4AaTpwnP+a
-   PPY6bGvgsqGqeL9/GX9DJoLJPbU8qJrsAY5ENVXTkKmfTWT4SCrfwT3Hb
-   GJRPxt+jUs+LSsW0YHcqItv64y0fMhsmiGreQS8uoDxgigMw+tslJxOLc
-   MjwnWF26BLiAuEPCdgDl2qRUtWjjuQj7kg09ejKOko0p1OKNY2iBVSV7m
-   OdZfodW3Zq/LLuqwDWG9QH2xMNa4Gy0PldPimab+sPlvI182+Ex7Nw4FK
-   A==;
-X-CSE-ConnectionGUID: MhEOUsg+RZKrOWRrXbHXmA==
-X-CSE-MsgGUID: LSIJjc0zTHSMgvdR5bCXQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="79056300"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="79056300"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:37:15 -0700
-X-CSE-ConnectionGUID: 7OH+ofCXR8Svb2TdGvNEcQ==
-X-CSE-MsgGUID: +csRZVPqQ8a858Yv8CI8JQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="275664721"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:37:12 -0700
-Date: Wed, 30 Sep 2026 11:37:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/5] sh: mach-rsk: rsk7203: switch to using static
- device property, drop legacy gpio API
-Message-ID: <arzKNhmoL6yiGrzH@ashevche-desk.local>
-References: <20260929-rsk7203-properties-v3-0-02f84aeb8e47@gmail.com>
- <3a51385d-9649-4bd7-87b3-0caf9e462b2e@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3jXfUfC"
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-675bcac8ceeso856735d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 01:37:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790757440; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QmnhJCQ43+0sJBfdmcYq7yzte/DwrOD7xpGSOz4G2ZztFaIE5lyaFuALSUnkLkC0T8
+         esvitwGYT+f/6tjBDm8y/ORSjh/cEqTHQ3gAgSLx8vKxaq8So3FoOMuKIuiWIGqYcccj
+         fAVSICVHh6ihpIioiD4vMGblQIRTYxXM5YiHt1IUAwvybE2oKBQzewr57oOCU9GC4IJY
+         6K1ncM7PzYI3lwbauzy7DAjFOsrC/j42UZHLIQD6hafO3H2fuVF2TE877Hfr6lshMnOp
+         dKBfb+bZB9fKE0nEs+kGxqp0LbrwfnvPpUIvqcuAJompYiYOtyfcP2RKxueSg1bvoR2H
+         f9Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bZbsdIhFdw4lA6lXthA22D9X4FQUwOvCtO8TfQT1itQ=;
+        fh=Ie1IU2otabGescnkU1NeD/I/sMFK1Yy4Zs67iPdtNLY=;
+        b=kzGE5dThauM1rVvCiwxkn8kgFvCpjxcKDSmhXUjJZZDujq5Hi7/zJbNsP0nD0fxzFu
+         UP4RLzzIy4jY39d2Cpa+h6Fk6jF/8mR16AZRN8qJqDKVRH7qH84AKWD/eYUzermTDgpr
+         zLrurK6yQCthEEIJ14O5yN6LE+nxXLYjkMuuDEKM41P7/eFrjSmFb7pCZ3mJhLt/xHk5
+         BA3JdzrxPb9hN5U7R6of5uhhgCQhkKhtZswLz55tzI/CfutxuvecV6+9ivZdjywuMULD
+         tOzpz6orblZsJ1ehWd1pCL3+zOQ7dnOYSPfu98RppJqA+V7dNKbCVZXDHvLw6dKkpCcz
+         yTqg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790757440; x=1791362240; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bZbsdIhFdw4lA6lXthA22D9X4FQUwOvCtO8TfQT1itQ=;
+        b=q3jXfUfCskLmgnN1nFKDmV9khZIazXLOiGbrss2zOKA8yUQEO6sA0JJ+feqj/6W91M
+         GWKSzCYAwTjS/xvP41P/8LHXs/uth90A/Qca2opQpTg19IWSlLOX07LVU+ul7dxQCTu3
+         ouqk8xh7QpN+Yqq3UUR/k7+ZjQHGa2W3D+G7+aDCijqqpX+zuf0E+WGbjNVpKzGohjWb
+         WMbw26OvaJjjhVzHDgXxwwjYe73fwQSI07FDyIEWG5NxkEYCXywxl/O/irO3WCund4VB
+         K1K9BfJ9bSy9wPE9FnBBdFyyc58/CTw8Ys5BNwPoAPlj0wbvs39dhyoIRwSmt/YEI/UG
+         jDVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790757440; x=1791362240;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bZbsdIhFdw4lA6lXthA22D9X4FQUwOvCtO8TfQT1itQ=;
+        b=A71iD4+XHLk9bf9v4uBCRqcF2srPgvTEHW5l6X/d9f8zBmBKMtPy8p0DDbpqNGpTli
+         cpwkuS4JFcNvjQfQda2aDrMUt9JDi1XPmCPaBnKv3Maz9D6y3AzxRAFpZfThl03I9e7c
+         rbhjWNaIpxH8zBjbNzpkkGD42DRYgVWzAZhhgU5w98kdfRUHOhU5r87zQB/SPlzzfu2z
+         c2WXIcqrbLkvdViR+0EP4xpF+5tXuq0JTI6dlwhjOF0PsrvtqylRF0ZhcGw8YbyTvHaY
+         3vAiaBKywJd/rCnInsqdCKe6xXe2yzc1sIrfNnflq3Hk/uRorijxgpx9UODhdJfzlyEs
+         3ZWg==
+X-Forwarded-Encrypted: i=1; AKwUvBwafFeVNP5EQr0/xZYyXDHD2KLkMLfpOq9hbLHm8dUjNhWZ5KY82QWxTFQHJ/QTICdb6G8eKGVad/iuwq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kifJZFkfibjHF5XkuYa74Q6fdrlIfR2EEPtx4C4Cca/NJJ68Eq
+	cCqMylQI6nHHgB9DfQJLsCnhG+b5BYRN25vmq0k5ON3PtZGTwNWyr2V0YAwDwvOKSZCR4FFVZ9c
+	Ll8Scq8oeK3Ez/xnuIcuf2vtlT3bNOYM=
+X-Gm-Gg: AYBFou1LVkCgPJbf1sxeKm8is4EFRLKH11F4L06I0MTLJ2amx+Ktt8PGZEyiKsXN4Yq
+	2nslveWa+yMObz20TIi2BJhSgngbsKpHjpzqrDqGNVVX06BhNCOyC+KPSzyJwnt+yQmy1wQw8X5
+	ezGp9VAlhoeuDSepW9g2Afe+NyKKlHfryPM5V4n1yjVIYXHn75Xxr3t89QP+5QDOoSnLRSuwVdq
+	CD6NpPJHs3a+nJTVwSYV98xDifOC3WkbJW2d8sBJaL1yGWTSG/XB1/DyGBPnrkULRaS9opnSus9
+	y0rD5j/xATkrkNfqN5Mp8Ntr3IND+eEwUFFdyWgsA8u5BD6eTObANhUs6+qizlEH/eBDbWzYKXa
+	XFFd92dJV2GtEutGWTlNiYZ1iqRog9QX8FFpYXcVWMar5
+X-Received: by 2002:a05:690e:144f:b0:676:858d:35e3 with SMTP id
+ 956f58d0204a3-676858d42a7mr151082d50.44.1790757440382; Wed, 30 Sep 2026
+ 01:37:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3a51385d-9649-4bd7-87b3-0caf9e462b2e@app.fastmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260928121230.35359-1-kartikey406@gmail.com> <CADhLXY434wAdf9s-_3xh4WZj5A26yaP7LPj1JqvNaPaVJWQqyw@mail.gmail.com>
+ <arpcrKbhue-aRud9@extorris.mess.org>
+In-Reply-To: <arpcrKbhue-aRud9@extorris.mess.org>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Wed, 30 Sep 2026 14:07:08 +0530
+X-Gm-Features: AclHuK_hL4sEK6mtF_ZzNd7F71VC1zJspJZfhjhXLVWvSJpVrusATxRquQk8KbY
+Message-ID: <CADhLXY5Qtz=_6oHsHyZUVv4-rrbh+AmXaR-E5to6tOyep_A31g@mail.gmail.com>
+Subject: Re: [PATCH v2] media: imon: fix use-after-free in display_close via dev_dbg
+To: Sean Young <sean@mess.org>
+Cc: mchehab@kernel.org, jarod@redhat.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 09:23:21AM +0200, Arnd Bergmann wrote:
-> On Wed, Sep 30, 2026, at 06:57, Dmitry Torokhov wrote:
-> > This series of patches converts rsk7203 to use static device properties
-> > for its devices, including gpio-keys and gpio-leds, and removing
-> > dependency on legacy gpio API (in favor of gpiod API).
-> 
-> The patches look good to me. I have build-tested this with the snippet
-> below and my series from
-> https://lore.kernel.org/all/20260907090956.2825703-2-arnd@kernel.org/
-> to check that no use of the legacy interfaces remain.
-> You can probably fold my one-liner into your last patch.
-> 
-> There is a trivial conflict between your series and my patch 2/2
-> "gpiolib: remove linux/gpio.h", but if yours gets merged, I can
-> resend mine without that line.
-> 
-> > To configure pin functions the board is switched to use gpio-hogs, as
-> > doing full conversion to pinmux is too challenging without access to
-> > hardware.
-> 
-> I would guess even with access to hardware testing is going to be
-> challenging, I noticed that the defconfig kernel does not fit on the
-> 4MB flash any more (even without rootfs), and the USB support was
-> never added for rsk7203, only for 7264/7269.
+On Mon, Sep 28, 2026 at 5:55=E2=80=AFPM Sean Young <sean@mess.org> wrote:
+>
+> On Mon, Sep 28, 2026 at 05:48:26PM +0530, Deepanshu Kartikey wrote:
+> > On Mon, Sep 28, 2026 at 5:42=E2=80=AFPM Deepanshu Kartikey
+> > <kartikey406@gmail.com> wrote:
+> > >
+> > > ictx->dev is a raw pointer to the usb_interface's embedded device,
+> > > cached in imon_init_intf0() without taking a reference. On
+> > > disconnect, usb_disconnect() can drop the last reference on the
+> > > interface and free it while a userspace fd for /dev/lcd0 is still
+> > > open. When that fd is later closed, display_close() dereferences
+> > > the now-freed ictx->dev via dev_dbg(), causing a use-after-free.
+> > >
+> > > Fix by pinning the device with get_device() when ictx->dev is
+> > > assigned, and releasing it with put_device() when ictx is freed.
+> > >
+> > > Also drop the dev_dbg() in free_imon_context(), which only printed
+> > > a debug message and is no longer needed.
+> > >
+> > > Fixes: 21677cfc562a ("V4L/DVB: ir-core: add imon driver")
+> > > Reported-by: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
+> > > Closes: https://syzkaller.appspot.com/bug?extid=3D9bfac891bdd42eb708f=
+c
+> > > Link: http://lore.kernel.org/all/20260918054851.26083-1-kartikey406@g=
+mail.com/T/ [v1]
+> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > > ---
+> > > v2:
+> > > - Remove the dev_dbg() in free_imon_context(), as suggested by
+> > >   Sean Young.
+> > > ---
+> > >  drivers/media/rc/imon.c | 5 +++--
+> > >  1 file changed, 3 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
+> > > index 049a73b5f882..562a70186db4 100644
+> > > --- a/drivers/media/rc/imon.c
+> > > +++ b/drivers/media/rc/imon.c
+> > > @@ -501,7 +501,7 @@ static void free_imon_context(struct imon_context=
+ *ictx)
+> > >         usb_free_urb(ictx->rx_urb_intf1);
+> > >         kfree_rcu(ictx, rcu);
+> > >
+> > > -       dev_dbg(dev, "%s: iMON context freed\n", __func__);
+> > > +       put_device(dev);
+>
+> Why do you need put_device()?
+>
 
-...which induces a practical question, shouldn't we just drop the whole thing
-for good?
 
--- 
-With Best Regards,
-Andy Shevchenko
+yes it is of no use. So, I have removed it and send patch v3.
 
+Thanks
 
+Deepanshu
