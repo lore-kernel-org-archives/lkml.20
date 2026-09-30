@@ -1,115 +1,127 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FDAE3B3BF2;
-	Wed, 30 Sep 2026 19:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1853C3D1A97;
+	Wed, 30 Sep 2026 19:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795497; cv=none; b=a4v1l63x+aigwDrzhGUUBD9FHC0iDVlEuTijKdUX+lvlYvUpYiiKC7QpKo1+jJCwk/lwr6rRylLa+BWTlqMDFTMRCfJupmlGM05+GWhwzIsDAbIm6ryeXCdT4FRAVnRKHSRPCLKCdmP4HW25A4839JDE/w3Wt5OjO1cmrcju7I4=
+	t=1790795687; cv=none; b=WTbXHIQ0uUTnSeTr7ldg5oQFommcxnWn5MQ0E0wnIvB0nejJsvu+4okG9DiGvLiOXelWWTNXDBF6HpS2PGelduJb4XoCXdl1cn6vxJK2H2dANG21k6/LBnTfK5qF90UngWPS5288fTp8fHBHeMfIl02YFxrpiAZNW5jEgPmBrck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795497; c=relaxed/simple;
-	bh=gb8eQ5i4BC3qVK7yqNs13352HPC6Q22p6a71yUgU0LM=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=nsq5rK+R4V8heyJDTPtl4czaFNTv7oZLUAwFKy+BY0dlRlbLWyHluqk+UH37UiqIJsZpaZgEa+7/iQlbQLHmevYimuO6E2m+b3KqTWjPEY999IuT7wzquAnRClXTihkEqIDNFd++7YR5mQ9WCln1QcM9iL2cqEu3AII4QksgtVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ObDhVDvx; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=10WkqNZu; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790795687; c=relaxed/simple;
+	bh=Bt9C70NQRLI1lLUFR6TJPPnnD3XYBOz5O1BWHzwQ5oQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IcsVYK6O1PR82JzuWwVY9vw4O3sLtRqPhlyxNymKeNFZFMXNC+7Fx1U5jOEemZAGi4D9wbN2YGBjkOR7j9eqEEd5uzbS3Oqc7t8qdjkW8ASA7z/jVmohSIPsqs8gsiaXM0+4ZHyKWNcFZhLZtqY5tHO6J480fI3GbB7JlN8a3oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3HWBzZy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ObDhVDvx";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="10WkqNZu"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790795479; bh=VpZV97Cwjs5goSri4w8L3iV
-	cVdvLrP3PUPbT0IsRN1A=; b=ObDhVDvx7MRGSnb33FXqa4ATiT9Spj1zkKsc5qH7v54nJCY1wP
-	54vZZOySYgoDiEITHKK/Lgtm53SWAPEicKhLQ3+IOzBklqoTnjI0HmiKVCSI++/D3+tGN0jGKuS
-	SV0xafniay5gaDxFQh0snFTEOJCUDx67Zm37m+G9sr3uBxEFIV/AkcAIGhEZvScW59CnTHPjpNx
-	9ZilIb/IOP5uZp4g0o562pB2Wlcij8gxc0OYGzuaZo0LtlrvSd0HQNK8wv2R4H+JT7o46geEHdE
-	Hj+BJzW2oc15wPkPUB+sO64MvQRYeiRJR2HJvoRJ4wceoG5MoKVYB0+2jeSlyJNmM3g==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790795479; bh=VpZV97Cwjs5goSri4w8L3iV
-	cVdvLrP3PUPbT0IsRN1A=; b=10WkqNZuKbJLsSANU3U5j9TXOBMIXBDVdf/sr/x0AWhW1qFwg1
-	4dsET1VrCiUW/7eL9EwDp+BTJClKJVbSnPAQ==;
-Date: Wed, 30 Sep 2026 20:11:18 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>, kernel test robot <lkp@intel.com>
-CC: Josh Law <objecting@objecting.org>, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-mips@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_arch/mips/boot/compressed/decompre?=
- =?US-ASCII?Q?ss=2Ec=3Aundefined_reference_to_=60=5F=5Fashldi3=27?=
-In-Reply-To: <20260930120159.7e4f29a82d461bd8b040454e@linux-foundation.org>
-References: <202609301826.MFaFMsmd-lkp@intel.com> <20260930120159.7e4f29a82d461bd8b040454e@linux-foundation.org>
-Message-ID: <B2E9C8DD-202A-4C86-B349-C0FCCE3AF17B@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3HWBzZy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455141F000FF;
+	Wed, 30 Sep 2026 19:14:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790795685;
+	bh=CPkOd7/2MOCd1481qdelnJoCv5niJgOW5Kl95Ne6ScA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a3HWBzZyPlEt6CTsktmAcOb6wb4STm3Ht4Vj8u97bNB49Zw6B9/4uFpvMy1cKa6U+
+	 SIgyXYnneHb/PalWG2bjeihPf6CjlLsM+Bws/z5LeWdB5fjJ7PFPcjjsGuA5LvkR3q
+	 X7u+L2ZJpdxs/HAG3fE2FN9lhNLbucfH/wBoDAM89amAE9VBMAG4OPzr+3wt/EWjta
+	 EIKkmoLcAmMke2fbLkbbWOort64vStKjyaKFQsOhcXrJ4SOKOu7dqqIQ4aiOCgsfqd
+	 sibhs+cHeEbTGS7pxmexkCgSfoOslzlKobixxG1ENA+KnNtPVdEgOg+RP0Ne8ttz24
+	 slAqlPdqRWXLw==
+Date: Wed, 30 Sep 2026 21:14:42 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Namhyung Kim <namhyung@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
+	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 06/26] perf trace: Copy sockaddr arguments by their
+ length
+Message-ID: <ar1fon_Z4uT3Cd22@x2>
+References: <cover.1790145937.git.irogers@google.com>
+ <20260928182605.3649015-1-irogers@google.com>
+ <20260928182605.3649015-7-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928182605.3649015-7-irogers@google.com>
 
-On 30 September 2026 20:01:59 BST, Andrew Morton
-<akpm@linux-foundation.org> wrote:
->On Wed, 30 Sep 2026 18:36:50 +0200 kernel test robot <lkp@intel.com>
->wrote:
->
->> tree:  
->https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
->> head:   551c722f40809618230001baccf219193e22fc5a
->> commit: d4dba3b9c03a326cfa73833d6b166aeb442f82b5 lib:
->decompress_bunzip2: fix 32-bit shift undefined behavior
->> date:   6 months ago
->> config: mips-randconfig-r2300-20260930
->(https://download.01.org/0day-ci/archive/20260930/202609301826.MFaFMsmd-lkp@intel.com/config)
->> compiler: mips-linux-gcc (GCC) 15.2.0
->> sparse: v0.6.5-rc1
->> reproduce (this is a W=1 build):
->(https://download.01.org/0day-ci/archive/20260930/202609301826.MFaFMsmd-lkp@intel.com/reproduce)
->> 
->> If you fix the issue in a separate patch/commit (i.e. not just a new
->version of
->> the same patch/commit), kindly add following tags
->> | Fixes: d4dba3b9c03a ("lib: decompress_bunzip2: fix 32-bit shift
->undefined behavior")
->> | Reported-by: kernel test robot <lkp@intel.com>
->> | Closes:
->https://lore.kernel.org/oe-kbuild-all/202609301826.MFaFMsmd-lkp@intel.com/
->> 
->> All errors (new ones prefixed by >>):
->> 
->>    mips-linux-ld: arch/mips/boot/compressed/decompress.o: in function
->`get_bits':
->> >> arch/mips/boot/compressed/decompress.c:(.text+0xf4): undefined
->reference to `__ashldi3'
->> >> mips-linux-ld: arch/mips/boot/compressed/decompress.c:(.text+0x168):
->undefined reference to `__ashldi3'
->
->I dunno, I'd be suspecting a toolchain issue here?
->
->--- a/lib/decompress_bunzip2.c
->+++ b/lib/decompress_bunzip2.c
->@@ -135,7 +135,7 @@ static unsigned int INIT get_bits(struct bunzip_data *bd, char bits_wanted)
-> 		}
-> 		/* Avoid 32-bit overflow (dump bit buffer to top of output) */
-> 		if (bd->inbufBitCount >= 24) {
->-			bits = bd->inbufBits&((1 << bd->inbufBitCount)-1);
->+			bits = bd->inbufBits & ((1ULL << bd->inbufBitCount) - 1);
-> 			bits_wanted -= bd->inbufBitCount;
-> 			bits <<= bits_wanted;
-> 			bd->inbufBitCount = 0;
->@@ -146,7 +146,7 @@ static unsigned int INIT get_bits(struct bunzip_data *bd, char bits_wanted)
-> 	}
-> 	/* Calculate result */
-> 	bd->inbufBitCount -= bits_wanted;
->-	bits |= (bd->inbufBits >> bd->inbufBitCount)&((1 << bits_wanted)-1);
->+	bits |= (bd->inbufBits >> bd->inbufBitCount) & ((1ULL << bits_wanted) - 1);
+On Mon, Sep 28, 2026 at 11:25:45AM -0700, Ian Rogers wrote:
+> The BTF augmenter copies sizeof(struct sockaddr), 16 bytes, for the
+> sockaddr arguments of connect, bind and sendto, and runs before the
+> sys_enter_connect and sys_enter_sendto programs that copy their length.
+> An IPv6 address needs 24 or 28 bytes, so the rest was read from past the
+> payload, and now that the printers are bounded only its family is shown.
 > 
-> 	return bits;
-> }
->
->32-bit MIPS should be able to do this?
-May I ask why I got CCed in this..??
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+> Copy them as buffers sized by the length argument after them, up to the
+> 32 bytes augmented buffers are limited to. That holds an IPv6 address
+> and doubles the AF_LOCAL path shown.
+> 
+> Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/builtin-trace.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+> index 85db74965280..f94745a60f4a 100644
+> --- a/tools/perf/builtin-trace.c
+> +++ b/tools/perf/builtin-trace.c
+> @@ -4159,7 +4159,12 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
+>  				continue;
+>  
+>  			bt = sc->arg_fmt[i].type;
+> -			beauty_array[i] = bt->size;
+> +			/* Copy a sockaddr as a buffer sized by the next argument, e.g. addrlen. */
+> +			if (strcmp(name, "sockaddr") == 0 && field->next &&
+> +			    strstr(field->next->name, "len"))
+> +				beauty_array[i] = -((i + 1) + 1);
+> +			else
+> +				beauty_array[i] = bt->size;
+
+
+Humm, I thought that this would be called in BPF handlers like:
+
+SEC("tp/syscalls/sys_enter_connect")
+int sys_enter_connect(struct syscall_enter_args *args)
+{
+        struct augmented_args_payload *augmented_args = augmented_args_payload();
+        const void *sockaddr_arg = (const void *)args->args[1];
+        unsigned int socklen = args->args[2];
+        unsigned int len = sizeof(u64) + sizeof(augmented_args->args); // the size + err in all 'augmented_arg' structs
+
+        if (augmented_args == NULL)
+                return 1; /* Failure: don't filter */
+
+        _Static_assert(is_power_of_2(sizeof(augmented_args->arg.saddr)), "sizeof(augmented_args->arg.saddr) needs to be a power of two");
+        socklen &= sizeof(augmented_args->arg.saddr) - 1;
+
+        bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockaddr_arg);
+        augmented_args->arg.size = socklen;
+        augmented_args->arg.err = 0;
+
+        return augmented__output(args, augmented_args, len + socklen);
+}
+
+And it knows how many bytes to read by looking at socklen
+(args->args[2]), i.e. not use the generic BPF handler that uses this
+beauty_array, because knowing how many bytes to read in this case is
+dynamic, varies with each syscall, according to one of its arguments :-\
+
+What am I missing?
+
+- Arnaldo
+
+
+>  			can_augment = true;
+>  		} else if (field->flags & TEP_FIELD_IS_POINTER && /* string */
+>  			   strcmp(field->type, "const char *") == 0 &&
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
