@@ -1,144 +1,253 @@
-Received: from mail-oa2-f34.google.com (mail-oa2-f34.google.com [74.125.231.98])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B819511E9F
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCC850EC1C
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 16:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786415; cv=none; b=aV/9/arBLWJIlsJXXB7+tAVFZrVyHumSvmYleMx5ZPTPiG1tB1vBoFe2qroVtXKZenYvTxpynAzNClGLi18nY5itIETUSkEkdjap+s7gLbatEmClYkjOhGLKzmqOA9v5bQnBM0oSJrGDg1KWmqWv/ep1Xeu00bcr4tfFCazBkag=
+	t=1790786433; cv=none; b=J2SpykTeE/NHY52894YRXqZXVYK1RxjaqdupgmEDUlt2ZKApwwXZZV6tfSrA18KGp4fryPSf797JJPpwsp4oi6eeQl1ulyuk9xnw34OtDJOXRvMQv8ZkOAjKChXQVPmmMqvk400vVDGU3291AXhSuaNREDdy1GHsiMD1Ic5PjMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786415; c=relaxed/simple;
-	bh=0+haRPFJVrIBg/KxwiST0BnLw4HTvHOw2SUsjkpxatI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VdTuKk4A4eTu7Br7rXpP5Jt/DdhbW9zbRybJjrbdFwSJsRmNRs5oqNUTtRtUF2nqU84nGO3nwlIxwaDstOXBcvzmqZQz8nnfh6+S38LJJ8P/7VtsJL1ScEAhPYA+ND7LYnJD6lvmCyXlgLBhe77K0AIZlQzXNxt9Defh5Qtl32Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kcs1rX9q; arc=none smtp.client-ip=74.125.231.98
+	s=arc-20240116; t=1790786433; c=relaxed/simple;
+	bh=4iSwdRqxeGsKM/7Nr7afgG7Tp0SKnui1kMN3db8IyMo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mMi7g6Ss3lBRj22bbxYYmFwmOs6t7yubfYY3xMf3I5UTyuAT1RNWjfD32t7kkAhs3kdT43O8rMM1GJDDPXnEhpOY8XKPjQ63Hh5IUwT5prW4bghcvuiGbDxD/Lpa9C8r+4fQYn8HRO+kO74B8Qyb8A3jtGZzoNQmROn8A8gTOjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g6Uu6kdi; arc=none smtp.client-ip=74.125.227.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kcs1rX9q"
-Received: by mail-oa2-f34.google.com with SMTP id 586e51a60fabf-49dd095da1aso709636fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:40:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g6Uu6kdi"
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d6fbdc8772so19575255ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:40:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790786412; x=1791391212; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XFw9xlTGc6nwfYyMIGcXU1qXmiqHTAyDTwnu+eltMIw=;
-        b=Kcs1rX9qKBKCm+6gagzO8Lbu9K7Zy4G9PDbcK7BNsB9zcCOPlXZpgU6/Zwox8LSU/a
-         BculvFb5O6BRfAdI++hc4Fep465OVJcm84XaIduMIGwpqx2DElkyymTVGrqPVOa9CUxR
-         FQfZ0NixeTIBZhOVUk6D5pWc0iHbqYcIHDns9BJOvrsRkTdk0Z7sBkQeRmuvik5fD4Vn
-         R8q9P6Bkv7nJ7eoyjptK5YwDYW9ghxndav8tWMDMiD6pv3JGjZB4jvqX+UtuF9QZVMnk
-         Hl49fHGSiMe+We+fwXJQ/awSyB+tsjn68HY0L00QH8ZmcLOUCpQkQkM7x6nSgdm/QA9b
-         LqBQ==
+        d=gmail.com; s=20251104; t=1790786431; x=1791391231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RJOL8eapI7GAaLzLb2iDD1PGi2cMFOi1vId90W3h87g=;
+        b=g6Uu6kdiBZzx7MgBnzyVifPoDRL/NkJMKFpx7dhcHReEEGcwb2j6++Lx6oIVCPFiZD
+         /YiYVGI2NaAH67+oWPnnzicTLRf/TMoBjHh9Nd1a9m1I/xLynobz3/49sxv8Docu/prK
+         St8/nrm2UF8bcg/gtONGsFgrV0K9JAdGMNd1HodWYSRBuuV+pGydazobm6czpmC9bVFB
+         R/vkfUEjNR9bqfO5NhMo0NdmbTSyTxbrXJ17tarN6+5tZv7SVehgqYMo/4lyMQP8VmXf
+         GJJr/dK8ddJGYG0Juzhem2tWvYzQkzyJ0gL0tPZfxocYnrwXbSIwIPQEFOeSHv+b4rZB
+         5+RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790786412; x=1791391212;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XFw9xlTGc6nwfYyMIGcXU1qXmiqHTAyDTwnu+eltMIw=;
-        b=yQtjG5pjNXZ6xpGNF9Xle35g+fL6D5kK7VBNPf2EbiLdG1PX+gR/TOJz3V5jyyqr2R
-         20Z+RCtZZPfWXszmZDQprwSti9hhbP+PfPDTJIWi4KUZJ/ntiN3xDXhLoKSFBXAF6SNP
-         Nqr1lNVEbliZOMlIcaZtZRK7kD54ueXtxg97R10kjmes/WTU55wi3ao522UigWgLQC8F
-         fTKL7mky6pv4hqEMXQzQsWOXYv22V+4ZI41Ma+vIN9YnQq/0CAeSggp8RT7sqBBFpbhH
-         dYIop29ZoAc0/umzzKZMoHcsTlySbuGgYL4oOuSO0CaBrdSCi6N+Boqd30yo5IItZDYG
-         SGdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxeuC4uMIc9tuJFS28Eq7/PN9+NCkGmru21TRYS6GX9/0nK/N5aLgGfYiGnkVTgqC4iRnxeZxpnhzFuw3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcQ1bvGF0At5uRO8m4fJEHakH37gJPxN1XdSK3XooLUt5NWErQ
-	bsy1nA9/17yFrULOmlULc2auBDRqYZUEx4X6RCKzTFIna18xy50x6gdr
-X-Gm-Gg: AYBFou0eqKO853FbtsNbx5M4DK7OMWSsO4kLoA69hvOitH1xBniqKJnPlqhi5gxPc6q
-	QWB9Tx2EgSA1kV6Yg8F/mrew2ajr/MFS52FploUvL7/3wyuOX6JNOgPaAY5de7ZlvguF3RyB006
-	tPWX4X4nDCIJSL4+u5fGd/elbR1exEVME1gGrHrKjWElk+iIR9C2XNuU/IX8MU3UWla8L+YNM3g
-	tVkw01F0JD+a97ClVL80QLF7TugDJ9efw56+zk/5IWsCEIAN1jvKAjqdC/JQn4rK4DoLEOTsF0i
-	7P1dFDYlXOdXmBpCzTGQsybjz8rsM1XhgVjdJJECLmUEBv2OIKAiEX4Zey6KfdzWADd2h8j26pa
-	gJrzn7cculn8nAnxdGfIK4aMIGA2f+z/Pwv1W92fD16aDDR46cgyG1rdUW+ie7NX9O8j05kmW8Y
-	U2mvKIxNUOhkKQTHhKN+2874qRvS2bhOjlZknPyCWJidXCabpVcz8QdFgykGThcMQiQWjOgIHfR
-	JcQ8OfADeqK+gBZ0T7SG3LvUqVkXV/ZCQdWQdK57ylZUrB3uUrwzpVftkfV1M/f4HWyKmW/wpZl
-	1yE=
-X-Received: by 2002:a05:6808:4488:b0:4c3:9892:96e1 with SMTP id 5614622812f47-4f1b84ca716mr1997644b6e.25.1790786412075;
-        Wed, 30 Sep 2026 09:40:12 -0700 (PDT)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f1b43a602csm1272690b6e.6.2026.09.30.09.40.08
+        d=1e100.net; s=20260707; t=1790786431; x=1791391231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RJOL8eapI7GAaLzLb2iDD1PGi2cMFOi1vId90W3h87g=;
+        b=f44DtGaSRFZZXxdZ1bNzrtMGjIgPUqshL1VSe0r5OhJ7rrOye5D9VHRxx3Sp3tfzQO
+         50wNdiqDiRMdwrtMp/WNR1E6PaofSG1A257Z/KVLva5JTfJoJDLIyWGgww1rahIiciGv
+         W3n2wRJpckI+SGU5NYjvGx8dlLjUW9MJ6LHEXRydhIom8jTZVSgKXHEtQJHXVUTPkhDn
+         3GKn+2WeWSduf1ixQ8MW8STyyI10wP+hH3JeUZOXpos5lI5m0T8tajBbmiBI2txcMs/k
+         yRz8zwErH7uzLazuyqFFe/qdGmuEVKzizU6mCec6c5aHpticFPTULAz3RL/TJALZSEA0
+         U7lw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTzUKmtccu0qqKVyFvTGPc66c+6LyNMewB+HAnY3l5Wk8l6sW/K446Kj3oqaSPrOMZN6kBsigd57IEag8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwvgh4CgYkFYcqyqgLLGA7/BlsJCiyYXifA2eLlkvlTtvC+MT6
+	lCijEkOfrYhmG4Al8tdIPI7yXO8TyL/sGGXCpglzftcYVMId8KGbwixG
+X-Gm-Gg: AYBFou0KYCdHMtc2svrvK9lu6wLDWl0jM/DzIB7NW1+lFyLlyoVglINy2RuDoWEJRzp
+	3J5E9gD6W6dbS1zgqbwYfWwhztrDKztMYDTuMYEbXa30nG63kS+5G3BQCMl90SNbvOn99Rw4uFo
+	9nTNUZtB+FkAtUjs1J/8jZw8iNtit5CCPcGLBWDPA75B0B+cS3Ow1smwJnWJCmlHacg5dnGOfay
+	K82uw3I8DgRf/SioNJ1TU+4lsrnDOelO4bR8MyNTjVr/d6L2NRKKNK6PYHdetmKX9k+6bEsF5Ao
+	0HJM8zIZlqBhenl0uTI5paKPoySvK+jtFt3P/erNzR4FACl0bAKFd3HnziryAWNYxwga7B3/K0u
+	Ry76vqVaKjqlmg+y96630ejvZqFuKdHyCBDbmtL/DqoTpagm9jFAJ5L5nRGUeUSMdDUtVbKbhac
+	OiWZXxgXTnacohhgm4BKvKH2dNJOYQOBT2jV8j5AdXj3IzdMCpmILtabvoC3frvm04K4O82+6gd
+	XOKagA7q3fnh7KeYqeohG3gkQ==
+X-Received: by 2002:a05:6a21:4e01:b0:3cd:9dea:2be1 with SMTP id adf61e73a8af0-3de9dbfe945mr1830859637.0.1790786430415;
+        Wed, 30 Sep 2026 09:40:30 -0700 (PDT)
+Received: from J4f-Laptop.localdomain ([120.235.123.90])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e54a4121sm168735a12.20.2026.09.30.09.40.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 09:40:11 -0700 (PDT)
-Date: Wed, 30 Sep 2026 11:40:04 -0500
-From: Ming Lei <tom.leiming@gmail.com>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Jens Axboe <axboe@kernel.dk>,
-	Caleb Sander Mateos <csander@purestorage.com>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 0/9] ublk: fix dispatch to canceled io commands
-Message-ID: <ar07ZKeb-j2ykXxg@fedora-laptop>
-References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
- <arvOwDHOgvpVW86j@fedora-laptop>
- <e15d4e3c39e8ed1860b762cfd8e43c92.josef@toxicpanda.com>
+        Wed, 30 Sep 2026 09:40:29 -0700 (PDT)
+From: Shihuang Liu <shlomojune6@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Shihuang Liu <shlomojune6@gmail.com>
+Subject: [PATCH bpf v3 1/2] bpf: reject incompatible socket assignments
+Date: Thu,  1 Oct 2026 00:40:19 +0800
+Message-ID: <20260930164020.41006-1-shlomojune6@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e15d4e3c39e8ed1860b762cfd8e43c92.josef@toxicpanda.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 02:17:31PM +0000, Josef Bacik wrote:
-> On Tue, Sep 29, 2026 at 09:44:16AM -0500, Ming Lei wrote:
-> > It looks two races: STOP_DEV vs. START_DEV, STOP_DEV vs. FETCH.
-> >
-> > Looks fast io path shouldn't be touched for fixing the races.
-> >
-> > >   2. A partial FETCH round whose task exits, once another task
-> > >      completes the round.
-> > >   3. During recovery, the task of a queue which is ready already
-> > >      exiting before the last queue is ready.
-> >
-> > 2 and 3 could be solved in single simpler patch by making use of the
-> > ub->canceling flag, and it is easier for backport.
-> 
-> Agreed, yours is much simpler, and keeping the flag set for the whole
-> FETCH round is the right model. I ran it on top of for-next (d70609a2f68c)
-> with KASAN and lockdep through my reproducers and the ublk selftests. The
-> oopses for 2 and 3 are gone, and recover_01-04, batch_01-03, generic_17,
-> stress_01/02/05 and 60 batch QUIESCE_DEV/recover cycles pass.
-> 
-> What's left for 2 and 3 is that the device still comes up. For 2,
-> START_DEV returns 0 and the new disk fails every request. For 3,
-> END_USER_RECOVERY returns 0, the device is LIVE, and every read on the
-> queue whose task exited sits requeued forever, since the queue stays
-> canceling and nothing kicks the requeue list. With ub->canceling
-> covering the whole round that's a small check: return -ENODEV from
-> START_DEV and END_USER_RECOVERY when ub->canceling is set, checked under
-> cancel_mutex against publishing ub->ub_disk. The server can't fetch
-> those commands again anyway. Patch 9 of my series did that on the old
-> model, I'll redo it on top of yours.
-> 
-> For 1, your patch alone still oopses in ublk_queue_rq() from the
-> partition scan when START_DEV follows STOP_DEV, same as before. I'll
-> respin my series as just that, on top of your patch and without touching
-> the commit path: STOP_DEV marks the queues canceling and takes the
-> fetched commands under ub->mutex, and FETCH marks its command cancelable
-> before it publishes it, so a cancel from the control path never
-> completes a command io_uring doesn't have on its cancelable list yet.
-> 
-> For your patch:
-> 
-> Tested-by: Josef Bacik <josef@toxicpanda.com>
+bpf_sk_assign() permits TC ingress programs to associate an IPv6 packet
+with an AF_INET socket. The receive path can then interpret IPv6 skb
+control data as IPv4 metadata. When IP_RETOPTS is enabled, this can cause
+__ip_options_echo() to copy beyond its stack buffer.
 
-Thanks for the test!
+Reject incompatible packet and socket families before attaching the socket,
+while preserving IPv4 assignments to dual-stack AF_INET6 sockets. Validate
+request, mapped, and time-wait sockets using their effective family.
 
-For STOP_DEV related races with STOP_DEV, START_DEV and FETCH, one simple
-idea is to add internal device state of UB_STATE_STOPPING, which is set
-in ublk_stop_dev() in case of any pending uring_cmd, and cleared in
-ublk_reset_ch_dev() when the char dev is closed.
+Use the packet's effective protocol for VLAN checks and share the same
+predicate across bpf_sk_assign() and bpf_sk_assign_tcp_reqsk().
 
-Then we can fail STOP_DEV, START_DEV and FETCH if UB_STATE_STOPPING is set.
+Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
+Assisted-by: LLM
+Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+---
+Changes since v2:
+- Use the effective packet protocol for VLAN-aware family validation.
+- Handle IPv4-mapped AF_INET6 sockets, TCP children, and TIME_WAIT sockets.
+- Share the protocol-based check with bpf_sk_assign_tcp_reqsk().
 
-I have written patches towards this direction, so far so good, pass all
-selftests and survive in races of your reports, will post out for review
-further.
+v2:
+https://lore.kernel.org/netdev/20260911172313.64009-1-shlomojune6@gmail.com/
 
+Changes since v1:
+- Move family validation out of the IPv6 receive fast path and into
+  bpf_sk_assign() and bpf_sk_assign_tcp_reqsk().
+- Preserve IPv4 assignments to dual-stack AF_INET6 sockets.
+- Check request sockets using rsk_ops->family.
+- Split the fix into two patches and target the BPF fixes tree.
 
-Thanks,
-Ming
+v1:
+https://lore.kernel.org/netdev/20260823101809.26802-1-shlomojune6@gmail.com/
+---
+ include/uapi/linux/bpf.h       |  4 +++
+ net/core/filter.c              | 63 ++++++++++++++++++++++++++++++++++
+ tools/include/uapi/linux/bpf.h |  4 +++
+ 3 files changed, 71 insertions(+)
+
+diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+index 732b35cc08d1c..5d8f5e2c8db38 100644
+--- a/include/uapi/linux/bpf.h
++++ b/include/uapi/linux/bpf.h
+@@ -4568,6 +4568,10 @@ union bpf_attr {
+  *		**-EOPNOTSUPP** if the operation is not supported, for example
+  *		a call from outside of TC ingress.
+  *
++ *		**-EAFNOSUPPORT** if the socket family is not compatible with
++ *		the network layer of the packet, for example an **AF_INET**
++ *		socket and an IPv6 packet.
++ *
+  * long bpf_sk_assign(struct bpf_sk_lookup *ctx, struct bpf_sock *sk, u64 flags)
+  *	Description
+  *		Helper is overloaded depending on BPF program type. This
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 61940e7535523..5f64065523584 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -3491,6 +3491,64 @@ static int bpf_skb_proto_xlat(struct sk_buff *skb, __be16 to_proto)
+ 	return -ENOTSUPP;
+ }
+ 
++static bool bpf_sk_assign_family_ok_proto(const struct sock *sk, __be16 proto)
++{
++	const struct inet_connection_sock_af_ops *af_ops;
++	unsigned short family;
++
++	switch (proto) {
++	case htons(ETH_P_IP):
++		family = AF_INET;
++		break;
++	case htons(ETH_P_IPV6):
++		family = AF_INET6;
++		break;
++	default:
++		return true;
++	}
++
++	/* Requests inherit the listener family, but have family-specific ops. */
++	if (sk->sk_state == TCP_NEW_SYN_RECV)
++		return inet_reqsk(sk)->rsk_ops->family == family;
++
++	/* A dual-stack listener accepts both packet families. */
++	if (sk->sk_state == TCP_LISTEN && sk->sk_family == AF_INET6)
++		return family == AF_INET6 || !ipv6_only_sock(sk);
++
++#if IS_ENABLED(CONFIG_IPV6)
++	/* IPv4-mapped and pure IPv6 time-wait sockets retain AF_INET6. */
++	if (sk->sk_state == TCP_TIME_WAIT && sk->sk_family == AF_INET6) {
++		const struct inet_timewait_sock *tw = inet_twsk(sk);
++		bool mapped;
++
++		mapped = ipv6_addr_v4mapped(&tw->tw_v6_daddr) &&
++			 ipv6_addr_v4mapped(&tw->tw_v6_rcv_saddr);
++		return family == (mapped ? AF_INET : AF_INET6);
++	}
++#endif
++
++	/* IPv4-mapped and pure IPv6 TCP children keep AF_INET6 in sk_family. */
++	if (sk_fullsock(sk) && sk->sk_family == AF_INET6 && sk_is_tcp(sk)) {
++		af_ops = READ_ONCE(inet_csk(sk)->icsk_af_ops);
++		if ((family == AF_INET6 &&
++		     af_ops->net_header_len == sizeof(struct iphdr)) ||
++		    (family == AF_INET &&
++		     af_ops->net_header_len == sizeof(struct ipv6hdr)))
++			return false;
++	}
++
++	return sk->sk_family == family ||
++	       (family == AF_INET &&
++		sk->sk_family == AF_INET6 &&
++		!ipv6_only_sock(sk));
++}
++
++static bool bpf_sk_assign_family_ok(const struct sk_buff *skb,
++				    const struct sock *sk)
++{
++	return bpf_sk_assign_family_ok_proto(sk, skb_protocol(skb, true));
++}
++
+ BPF_CALL_3(bpf_skb_change_proto, struct sk_buff *, skb, __be16, proto,
+ 	   u64, flags)
+ {
+@@ -7989,6 +8047,8 @@ BPF_CALL_3(bpf_sk_assign, struct sk_buff *, skb, struct sock *, sk, u64, flags)
+ 		return -ENETUNREACH;
+ 	if (sk_unhashed(sk))
+ 		return -EOPNOTSUPP;
++	if (!bpf_sk_assign_family_ok(skb, sk))
++		return -EAFNOSUPPORT;
+ 	if (sk_is_refcounted(sk) &&
+ 	    unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+ 		return -ENOENT;
+@@ -12526,6 +12586,9 @@ __bpf_kfunc int bpf_sk_assign_tcp_reqsk(struct __sk_buff *s, struct sock *sk,
+ 	if (net != sock_net(sk))
+ 		return -ENETUNREACH;
+ 
++	if (!bpf_sk_assign_family_ok(skb, sk))
++		return -EAFNOSUPPORT;
++
+ 	switch (skb->protocol) {
+ 	case htons(ETH_P_IP):
+ 		ops = &tcp_request_sock_ops;
+diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
+index 732b35cc08d1c..5d8f5e2c8db38 100644
+--- a/tools/include/uapi/linux/bpf.h
++++ b/tools/include/uapi/linux/bpf.h
+@@ -4568,6 +4568,10 @@ union bpf_attr {
+  *		**-EOPNOTSUPP** if the operation is not supported, for example
+  *		a call from outside of TC ingress.
+  *
++ *		**-EAFNOSUPPORT** if the socket family is not compatible with
++ *		the network layer of the packet, for example an **AF_INET**
++ *		socket and an IPv6 packet.
++ *
+  * long bpf_sk_assign(struct bpf_sk_lookup *ctx, struct bpf_sock *sk, u64 flags)
+  *	Description
+  *		Helper is overloaded depending on BPF program type. This
+-- 
+2.43.0
