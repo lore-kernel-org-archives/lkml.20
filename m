@@ -1,175 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD4B3E9C05
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4323E2769;
+	Wed, 30 Sep 2026 10:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763111; cv=none; b=oe+q7TKhHm94y4UIGPOxB1cuxs3swXdafvevN2KHyu5uL/3ssgFHg/5M28kadWB1oPEqo5d9pnPy5Ovp5vksh3RjnZupBGvZ+BU0GZYAeltEqN53t5ksq/zYuhPRERFUuiO/SvQ/f+RjUfHNAiwG/prGtNGeafeAzpW49JPnWZ8=
+	t=1790763142; cv=none; b=DOCYy3zUm1qTe2dk30PFUsluiKV7/B3onaYabfFpZRL+M3DmGbXuCf72IJDPRIXzGJ3C44TsV3CnsKgh1IThNTwPD/yiNg1u0XQWFWSJkk3nH3gKGwSLOqbztBHe+humcdOWg59dz+fKGEV6h/WYmQ0c/zzRW20gRivnwVGtlzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763111; c=relaxed/simple;
-	bh=GNoabt0I2kZBL2emhokLb3YHz3HazhDNBNrySbeHM6w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sfDoZDYlhz4+/anT3BHD9UWfrKAkxwLmuRI/MNsjxyVCn/FNfhPcclswYakilhngFjlSV3/+b5+9CCN360kJ1kogU8CxCOBu8t4prdCBVrJ+qfkxyM8b5VU15larzt0bmIygIWCxQ2ZhVIOiuKU6RTNTche1azj7toCc8u5gFsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QDiGOHqI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790763142; c=relaxed/simple;
+	bh=e2EiqEtrZ1QVkcER2vy49AcVi3JCtBleuVlk1SuHSqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u9HjF0L9veRGlGqPOpl0c1UPm9gnRLQQWXVZrR7tWUjmuHtI/WxWpAZ15YgL4ybYjvDYwz5RDl0zi0X0ZvSoJEI4NctJDJCTXjgpFINNIQd9SylI+CQGttqEdtXaA39jznlPF8NxZipZYFtVoMvpiJ/fp1NNVJilXVbwWah7xpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=R7PSEE70; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QDiGOHqI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A591F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 10:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790763103;
-	bh=0EWo6p8KlBWCQx6YVQZFYv1sMvH+inX9WO+NPCJKxgw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QDiGOHqIeaUrLYTVZDjKmEMNIIf+qilOJOuYM92pXLHSlUdEH7PJ4lSPMvtpI4sV6
-	 m70WxyfzwDFMPKqj0+cpHTW0VkkD6GxOs8cG+mTXytaFjFq2LYVu7a9I+4Ai8+S32d
-	 g+LHsPP5FzZwMNK0tyRCcNWuKYf72Dv+tkInP5LgBos+Yi3M56J4uFbjXNLFwT0iSB
-	 GzxXC+x6k0SEvSzBtQlzAXMu6utdA/kbTpUVpL8f5tJ1rzEcF5O8K2IwsHP79f0iPb
-	 HbmM3nYW5KH1t9eZM1fB9xuVQWnZUOWLjVGdu/G1TiJHnOD+exyH1nbR3uJI1EgI1A
-	 +RIdtypVFGDjA==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3ce4795aso838528e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 03:11:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByNaIGGgmyKA9BisxYw19q8kHGj4RWWSP/sTVPNUxu8N+qSg5JCMmhoMTu8gWzi/4fru5yHkHyUkd3paWs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbedkJzPpEAFeACIL97DSf9Gpvj8GKtY7f3xiqFNmkLo28uOi9
-	M7Aqe1cwW4NJRPu9IZk12z9CiBqlkw7rcQaLLRySwLZZEEvQFpi9N576hUpwLW2aBCBXYr1/UHc
-	K4VfSvSHRuLeL30PpUjubrmwEGLSoKEM=
-X-Received: by 2002:a05:6512:1284:b0:5b8:eb27:a009 with SMTP id
- 2adb3069b0e04-5ba403e8c88mr391858e87.17.1790763101738; Wed, 30 Sep 2026
- 03:11:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="R7PSEE70"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=e2EiqEtrZ1QVkcER2vy49AcVi3JCtBleuVlk1SuHSqo=; b=R7PSEE70K/QFTnGHB9WIW4gzJc
+	1ylFt7T+MWYG5qEfkLdhthKgNWTrT0nMsJQ79ejoq6nXfOfR4GVRmY+EeEVUoZvG1iPZ1D17prYHL
+	0RXzRYXPYHt3EtkXtzTzpWKTrW+EMq0gKFLJaDDtzPL/h3RRwNowfSnX7h3l4DVifWlXY6I4uf1A7
+	1JEG90bi/jOCwWqixhWUnR743rng4WyQwfovKgU9x20lDMqrtqCLBCepb23bfEcSa52gqMHn2pLqe
+	mDE2tnd1KVAsFMIOZjOBNjEKl8qxry72aGveQPMyTUdx7bOEmXmUkCryFovVt2jDg8GcmHtQT8jTb
+	liz/qjGQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>
+Subject: Re: [PATCH v5 17/21] phy: Add common Innosilicon HDMI PHY helpers
+Date: Wed, 30 Sep 2026 12:11:50 +0200
+Message-ID: <5147655.PYKUYFuaPT@diego>
+In-Reply-To: <20260929-jh7110-clean-send-v5-17-82b4d8e3c6c7@samsung.com>
+References:
+ <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103241eucas1p27d80c31d14062ea876a2c16ddbd71e3a@eucas1p2.samsung.com>
+ <20260929-jh7110-clean-send-v5-17-82b4d8e3c6c7@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
-In-Reply-To: <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 12:11:29 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
-X-Gm-Features: AclHuK9D1YrrFJkuaJFhntBMU6VT-QvYR-f9D3TnSmauiV2lOTXiqfdERNyux_Y
-Message-ID: <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
-Subject: Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
-To: filipp.dunsky@gmail.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
-<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
+Am Dienstag, 29. September 2026, 12:31:14 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Michal Wilczynski:
+> The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
+> where the PHY register block sits in the register space and in which
+> pixel clocks they support, but the pre-PLL programming sequence and the
+> layout of its registers are the same.
+>=20
+> Add a small library holding that shared part: the pre-PLL configuration
+> table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
+> and the pre-PLL register programming. Callers pass a regmap, a register
+> offset for the PHY block, and their own pixel clock table.
+>=20
+> No driver uses it yet; the users are converted separately.
+>=20
+> Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->
-> The Cortina Systems CS75xx ("Goldengate G2") are network processors
-> with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
-> timers and a PL310 L2 cache controller. The CS7542 is used, among others,
-> in the Securifi Almond+ router.
->
-> The generic DT machine is sufficient for the platform, so only the SMP
-> bring-up needs code: the bootloader parks the secondary core in a WFE
-> loop that polls a global software register, so boot it by writing the
-> physical address of secondary_startup to the register named by the
-> cpu-release-addr property and issuing SEV.
->
-> The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
-> to that revision and can be enabled on a multiplatform kernel. The PL310
-> is r3p2 and needs none of the PL310 workarounds.
->
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-It's a bit weird to have a mach-cortina when mach-gemini is actually
-also a Cortina SoC.
 
-Could we call it mach-goldengate?
-
-> +++ b/arch/arm/mach-cortina/platsmp.c
-> @@ -0,0 +1,71 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * SMP support for the Cortina Systems CS75xx SoCs
-> + *
-> + * The bootloader parks the secondary core in a WFE loop that polls a
-> + * global software register and jumps to the address found there once it
-> + * becomes non-zero. The register is described by the cpu-release-addr
-> + * property of the secondary CPU node.
-> + */
-> +
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/smp.h>
-> +#include <asm/smp_plat.h>
-> +#include <asm/smp_scu.h>
-> +
-> +static int cs75xx_boot_secondary(unsigned int cpu, struct task_struct *i=
-dle)
-> +{
-> +       struct device_node *np;
-> +       void __iomem *release;
-> +       u64 addr;
-> +       int ret;
-> +
-> +       np =3D of_get_cpu_node(cpu, NULL);
-> +       if (!np)
-> +               return -ENODEV;
-> +
-> +       ret =3D of_property_read_u64(np, "cpu-release-addr", &addr);
-> +       of_node_put(np);
-> +       if (ret) {
-> +               pr_err("CPU%u: missing cpu-release-addr\n", cpu);
-> +               return ret;
-> +       }
-> +
-> +       release =3D ioremap(addr, sizeof(u32));
-> +       if (!release)
-> +               return -ENOMEM;
-> +
-> +       writel(__pa_symbol(secondary_startup), release);
-> +       iounmap(release);
-> +
-> +       /* The secondary core waits in WFE, wake it up */
-> +       dsb_sev();
-> +
-> +       return 0;
-> +}
-> +
-> +static void __init cs75xx_smp_prepare_cpus(unsigned int max_cpus)
-> +{
-> +       struct device_node *np;
-> +       void __iomem *scu_base;
-> +
-> +       np =3D of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
-> +       scu_base =3D of_iomap(np, 0);
-> +       of_node_put(np);
-> +       if (!scu_base) {
-> +               pr_err("failed to map SCU\n");
-> +               return;
-> +       }
-> +
-> +       scu_enable(scu_base);
-> +       iounmap(scu_base);
-> +}
-> +
-> +static const struct smp_operations cs75xx_smp_ops __initconst =3D {
-> +       .smp_prepare_cpus       =3D cs75xx_smp_prepare_cpus,
-> +       .smp_boot_secondary     =3D cs75xx_boot_secondary,
-> +};
-> +
-> +CPU_METHOD_OF_DECLARE(cs7542_smp, "cortina,cs7542-smp", &cs75xx_smp_ops)=
-;
-
-I am OK with this because it's not like we will add hundreds of these,
-I just note that ARM64 has abstracted the spin table handling into a single
-driver used by all such systems:
-arch/arm64/kernel/smp_spin_table.c
-
-But implementing it for ARM is probably overzealous and just a waste
-of everyone's time.
-
-Yours,
-Linus Walleij
