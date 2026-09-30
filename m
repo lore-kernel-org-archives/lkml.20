@@ -1,97 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83FB3B3C18
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1A536F905
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797748; cv=none; b=bwoLHtUXYoJzkty4aY9y/wvYFwq5dDPwum4PV0TKCredJPjZbFspMHD+enKqIiwKZAcVSCdo4JowalzP3o3K3ih1IQySnC30SVu8JJqiFdZHV/bZlcwr+yOBLW0vviW/wnCg9WddluMDLdlTfBXhO6rXYHH0+4GbFyx5IPn3CN0=
+	t=1790797753; cv=none; b=Xt+0e2rQEc3vJm2hX8CgZ4hXziTYxz8KIrSCYcqUAMyB5kkwTX09MNrk9tM+lAkLKDdM+ssD/Gb3ClYHIsxYbTQNV9KpvC0UfTpRFcIkkE1BMtqddqprEHN7/Q/tEU2i7ElZICSkvyfLl3WdsIlyE6d3/WQhWvZdfznN7YlqBUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797748; c=relaxed/simple;
-	bh=KBjoGURW6Lp0xuEIrYUnIleO+gefEsMNlz5gVLaCbrA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u4VhNZEzVlWwI6+i+u3pt6MnS8q4UO3PC2g896lZ1h6G7DUpH1Xd4p/lI8AW8qTXlcDIrhmME0iskIth/Y3jXpc4uSIV+0yDTB0uzcVPfrmvhZp2oYiq9uYirH5SETt6SFxK2nYZdUrDiw4noIj2pWlC1y59wMe3I9LXgm8JWL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxagNlyy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790797753; c=relaxed/simple;
+	bh=mHVdQrwbV+oto2b+d7Na3A9jsqY3AE8t2a435+M2sxE=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=miOayJ/vqURElDOgornI6l0w7PrufvgvQhUEJI2uUyi95eOx8qdcpSMGCIBEXMiHilk8A2UPHTmg10vCHuPhEieTb/9vfaLlRr9z1wz0lFLJLdSa78t8P7UeKJXnxMEmx1kWNzjFXTA9lQZkHCojopP+vdxO23/4b8vGStnfHwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=muI2ywLR; arc=none smtp.client-ip=95.215.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxagNlyy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98AF51F0089E
-	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 19:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790797745;
-	bh=KBjoGURW6Lp0xuEIrYUnIleO+gefEsMNlz5gVLaCbrA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dxagNlyy5eOr8Y1m7m/XmQK9pXVnqB8ZIFTzMKunnFGyyZYj4FL+8eSCkFyFXHQuN
-	 QENr9Q1J+n3MUzDaTqJm7qjNeOHORQ/stL8Vz//Rg8n16W9BuFOPMg0wuRV+RLiAN9
-	 mn7SO9OHYIFNbVBIhv/niKGcaa9ZRB8+iuX2cOQSCamPudNHID/gfZJ02O6MfdAVAA
-	 w3sYXzHfPj6gEwS6d3wrcPifWe4i7BUfI4IPXuSBemTYWnzjLBiHvcMymOn3zL4ldO
-	 XfTwobEYq7WqTIN1SKivo2X/kAs4L6+MZcZ8/XcCok4Ue2QFjuEbb/qQFT04NoEKR3
-	 ZEWW6CPaHEDAA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8eacb7c8fso5096906e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 12:49:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwKlY5SahSZ2sxFvyO6us0mhKDI2vpS8uy79NfY1fc3Tj8UnqBrNs5tZhFrarP4hW6z/Re48WCuz+0+uo8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrpLvKbJ2dnJmA62jrFmlKXYbPjfqXrfWkRkMEOM4g6w9zc6rV
-	eGW2zl2Rot/3VV6ywFkFYTJGLm9oaeEes+XxJaRu8oGChJn598h9so50mJqVqYqPUK69TeiAvQw
-	Wn8nn4hUfQgLmqixzFC5wewm8I8NGqx4=
-X-Received: by 2002:a05:6512:33d3:b0:5b8:d8ec:bee5 with SMTP id
- 2adb3069b0e04-5ba405ea03emr1058463e87.24.1790797744086; Wed, 30 Sep 2026
- 12:49:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="muI2ywLR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mHVdQrwbV+oto2b+d7Na3A9jsqY3AE8t2a435+M2sxE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790797746; v=1; x=1791402546;
+ b=muI2ywLRgvpJfKwXSE5SxBrl2JOe1h4KaIwlVhfy39TRmUy+7YCBWzFChSHUPoIjCD4Qu07S
+ 973nlbVIwTLNUCVYhRyZFkcKM+WmE9xirv75JLfPlwqo5FuNFYfd4PIlCIEtnZaRNTAY/faTY9Q
+ ZQyv+5LI6+MNSK4kIhZ4D9r4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ca2a008bd75205b8;
+	Wed, 30 Sep 2026 19:49:05 +0000
+X-Mizu-Trace-ID: ca2a008bd75205b8
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-6-c042266b9eeb@linaro.org>
- <CAD++jLm2dVVKM075MDoStTudO+2hdECS-XucFiMGnM1H-Xk=TA@mail.gmail.com> <CABymUCN1oxuqPi=s1cpBHvMJorHN62uieD8Pf=Y--WBPp-=NHA@mail.gmail.com>
-In-Reply-To: <CABymUCN1oxuqPi=s1cpBHvMJorHN62uieD8Pf=Y--WBPp-=NHA@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 21:48:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnkr+M9Tn_zAL8+owO7H706XYSMosSz-1D20rwbUukQ3A@mail.gmail.com>
-X-Gm-Features: AclHuK8lnxj_P_eEplQvchjcjf4j1lYtGX2m3t6HeEPZ8smFgSi0dE0qiPGPASE
-Message-ID: <CAD++jLnkr+M9Tn_zAL8+owO7H706XYSMosSz-1D20rwbUukQ3A@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] drm/panel: Add driver for Synaptics R63455 DSI panel
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 30 Sep 2026 19:49:05 +0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+From: "Ilya Gladyshev" <ilya.gladyshev@linux.dev>
+Message-ID: <759c1ed3a7733afdc3056de952edc4e776dc8b15@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v1] platform/x86: redmi-wmi: add display-switch key 
+ binding
+To: "=?utf-8?B?0JDQvdGC0L7QvSDQmtCw0YDQsNGB0LXQsg==?="
+ <uselessfire@gmail.com>
+Cc: linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ ilpo.jarvinen@linux.intel.com, hansg@kernel.org, qby140326@gmail.com,
+ W_Armin@gmx.de, vlku.milos.fun@gmail.com
+In-Reply-To: <CAFsq4KDAC05VGx9nK-qTkViR4D2802KnkMC=a8BnwsqHEhSA4Q@mail.gmail.com>
+References: <20260928221417.37875-1-ilya.gladyshev@linux.dev>
+ <CAFsq4KDAC05VGx9nK-qTkViR4D2802KnkMC=a8BnwsqHEhSA4Q@mail.gmail.com>
 
-On Wed, Sep 30, 2026 at 6:31=E2=80=AFPM Jun Nie <jun.nie@linaro.org> wrote:
-> > On Mon, Jul 27, 2026 at 10:09=E2=80=AFAM Jun Nie <jun.nie@linaro.org> w=
-rote:
+On 9/30/26 02:42, =D0=90=D0=BD=D1=82=D0=BE=D0=BD =D0=9A=D0=B0=D1=80=D0=B0=
+=D1=81=D0=B5=D0=B2 wrote:
+> Tested-by: Anton Karasev <uselessfire@gmail.com>
 
-> > If you have a datasheet for this display controller, then please add so=
-me
-> > one-line comments before each command to explain what is being set
-> > up.
+Thanks!
+
+> Tested on the reporting machine (Xiaomi Redmi Book Pro 16 2024, DMI
+> XIAOMI/TM2309, BIOS RMAMT6B0P0B0B), kernel 7.2.7, by building redmi-wmi
+> from mainline with this patch applied and loading it in place of the
+> in-tree module.
+> > Before: pressing the display-switch key gave "Unknown WMI event with
+> payload 257" and no input event at all.
+> > After: the key reports KEY_SWITCHVIDEOMODE. The keymap read back from=
+ the
+> device contains both forms now:
+> >    scancode 0x101 -> 227
+>    scancode 0x10101 -> 227
+> > and the desktop reacts to the key (KDE opens its display-switch menu)=
+.
+> The other hotkeys are unaffected: 0x201 -> KEY_SELECTIVE_SCREENSHOT,
+> 0x1b01 -> KEY_CONFIG, 0x11801/0x11901 -> KEY_ASSISTANT all still work,
+> and nothing new showed up in dmesg.
+> > Two notes that did not fit the fix, in case they are useful:
+> > 1. The merge series "Merge redmi-wmi into bitland-mifs-wmi" (v6,
+>     20260929134503.17249-1-qby140326@gmail.com) drops redmi-wmi, and it=
+s
+>     combined keymap only carries the long form:
+
+Yes, if Mingyou's patch lands first, I will rebase my patch to target the
+bitland-mifs-wmi driver.
+
+>       { KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_1, 1, 0), {
+> KEY_SWITCHVIDEOMODE } },
+> >     With WMI_EVENT_RESERVED_1 =3D 1 and WMI_EVENT_TYPE_HOTKEY =3D 1 t=
+hat expands
+>     to 0x00010101; the short 0x00000101 has no entry there. If that ser=
+ies
+>     lands, this fix is lost again on this model. I am replying to that
+>     thread separately.
 >
-> I hope I had datasheet, but the answer is no. All I have is an init seque=
-nce
-> with the information in the above macro definition. Let just live with it=
- @_@
+> 2. Two payloads are still unhandled here: 0x00000901 and 0x00010901. Th=
+ey
+>     are not key presses -- the EC echoes back the Caps Lock LED state t=
+hat
+>     the host itself has just set (third byte 1 =3D on, 0 =3D off, the s=
+ame
+>     scheme as the Fn Lock events). Verified by switching between window=
+s
+>     with per-window keyboard layouts, which changes the LED without any=
+one
+>     touching the key: the events still arrive, 200-500 ms after the LED
+>     change. On a system where Caps Lock switches the layout this is a
+>     steady stream of dev_dbg lines; KE_IGNORE would silence it.
 
-I would send the message "upward" that you need a proper datasheet
-for this, from whoever wants this to happen.
+IMO, it is better to leave such keycodes unhandled. In practice, dev_dbg(=
+)
+is a no-op (it is a static key call), so there will be no noise in dmesg.
 
-I have seen from the presentation that you will be working on
-compensation for chromatic aberration for this device, and that is only
-going to have a point if the color representation on the display can be
-trusted to begin with. Which means
-gamma correction. (Which we don't yet support in the panels,
-but hey, another opportunity to be first!)
+However, if some future board uses those payloads for something useful,
+dev_dbg() will help extract them (just as in your case).
 
-Gamma is invariably going to be one of these
-"magic commands", at that point of depth you really need the manual
-to see what is going on.
-
-Yours,
-Linus Walleij
+> Details and traces: https://bugzilla.kernel.org/show_bug.cgi?id=3D22206=
+2
+> > Thanks for the quick fix!
+> > Anton
+> > =D0=B2=D1=82, 29 =D1=81=D0=B5=D0=BD=D1=82. 2026=E2=80=AF=D0=B3. =D0=
+=B2 01:14, Ilya Gladyshev <ilya.gladyshev@linux.dev>:
+>>
+>> As reported on the mailing list [1], on the Xiaomi Redmi Book Pro 16
+>> 2024, the display-switch key emits 0x101 as a WMI payload. Add a
+>> mapping for it to the keymap.
+>>
+>> [1]: https://lore.kernel.org/all/CAFsq4KBXCB=3DaK8ENHx__6+RcC-ybT7eKjc=
+gsa3TgcJ54x-PLEg@mail.gmail.com/
+>>
+>> Reported-by: =D0=90=D0=BD=D1=82=D0=BE=D0=BD =D0=9A=D0=B0=D1=80=D0=B0=
+=D1=81=D0=B5=D0=B2 <uselessfire@gmail.com>
+>> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222062
+>> Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+>> ---
+>>
+>> This patch conflicts with the unification of redmi-wmi and
+>> bitland-mifs-wmi [2]. However, that patch appears to be stuck for now,
+>> so updating a single mapping in the old driver seems acceptable.
+>>
+>> Cc its author, Mingyou Chen.
+>>
+>> Also, I can only test that it doesn't break on my hardware, so any
+>> additional testing is highly welcome.
+>>
+>> [2]: https://lore.kernel.org/all/20260816100813.300450-1-qby140326@gma=
+il.com/
+>> ---
+>>   drivers/platform/x86/redmi-wmi.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/platform/x86/redmi-wmi.c b/drivers/platform/x86/r=
+edmi-wmi.c
+>> index cc82ef502002..155777bf90f3 100644
+>> --- a/drivers/platform/x86/redmi-wmi.c
+>> +++ b/drivers/platform/x86/redmi-wmi.c
+>> @@ -22,6 +22,7 @@ static const struct key_entry redmi_wmi_keymap[] =3D=
+ {
+>>          {KE_KEY, 0x00000301,    {KEY_ALL_APPLICATIONS}},
+>>          {KE_KEY, 0x00001b01,    {KEY_CONFIG}},
+>>          {KE_KEY, 0x00011b01,    {KEY_CONFIG}},
+>> +       {KE_KEY, 0x00000101,    {KEY_SWITCHVIDEOMODE}},
+>>          {KE_KEY, 0x00010101,    {KEY_SWITCHVIDEOMODE}},
+>>          {KE_KEY, 0x00001a01,    {KEY_REFRESH_RATE_TOGGLE}},
+>>
+>> --
+>> 2.55.0
+>>
