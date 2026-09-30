@@ -1,119 +1,76 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB3A3F660F;
-	Wed, 30 Sep 2026 09:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7023F58C2
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762293; cv=none; b=RuN+gYMlAfPZtZiJxRiDxmvSD9NIS2d0m0nqZtHqgIkWk2bMtnNP1xLzH2Yj2QYXPnpo47DwpGXDKeu3VpNImPIXtlPAmFgJy5B3PGhu5qK22OUyjPYQYNU1B87vN06tTuUZq4tczduSOCiJBOBKZEZsSrUf5qEOyfeYRxeDqiE=
+	t=1790762299; cv=none; b=lKO9nRwi1gfIgaTFHxDzqEIfcG42eP5aEL14SAcFc4M0j2AWWONNyy6U4WJO6EEH5iWxggBtz6yz2N5UetNDKAjmy8xrx+9YcRT60XGX6ZWo9GVypVxONsAhfYrTRtKKl8bR/LOSzMiLdSLX4D4TpHAH2tihMS9PiNmxrMxDXdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762293; c=relaxed/simple;
-	bh=oKsJDc73Zi+fxkCwnw1HfmEgyMWQ78AWNfJm26oHnWM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H47bzVTr9LQbEMQ+8AWceR53lAtKOxafyUuWvQI40djnJ7VEHJPvURdtVipVePGkwXeGGSJQYO2s9vwuVLtr5eJ814X8ZMYqr45MYK+FvBb/J/f8J4AKunX5VbDc06FK1uhAFrmiYAZQiliL5kNxxL0jxjpatKu/XJrKhnfz+Wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VSMbZaq7; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790762299; c=relaxed/simple;
+	bh=0Sl3VeOxmIWc0/FHhtBrqHO4LTDod/shA0uGQ9sZEHg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jg+hdMnvKfvgTwalaSY0ScKQ3RA2OCRcsPhfCxe+coJAkevziHw72P2cW2//57PFokMvaEyYa+lwgnGsNoBlwY29BN4fawpPVXJV5UbsIFSgQOrPCvlChq1wnnADQRJbuF0QG+EQNKUnzSq6I/buK+cNuPaaOem7VBsDMA0Jy+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUbFv6BY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VSMbZaq7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790762292; x=1822298292;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oKsJDc73Zi+fxkCwnw1HfmEgyMWQ78AWNfJm26oHnWM=;
-  b=VSMbZaq7Wu2oaLMt452FxFx60ef7dCjUl6AWNxmlArwVEiuUER2ks++y
-   p3L+1Z8F4D7rpUX21C3DQCYOGpjcvW/PN3VqSi7LBvY0qxo5Se5s3uG8s
-   NwkqunpEqZREgCEzbqedssMcE5tSMZlWJ5uqOqfTwqoIV9LYrKHCCsk/e
-   GnXH+TlBV39nWSKjv0M4elL56KOa9Jb1JqEALDVABUnQQKnZ4wIYUBkI1
-   qaBzIoCbUodjX/ZwD/4sCwadk9rnzkWEZTeuKtP0yOhdcxTz8jxO4pxQg
-   Z2vCBcolMegAmdfBmHtOSwXppZF1COmRsYe7HVrKXuBdBQ+n6dbMZihFu
-   g==;
-X-CSE-ConnectionGUID: NBgdiB8WRZqh3VjxjBciDw==
-X-CSE-MsgGUID: pcEebxc3RUezInPru/VBOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102067195"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="102067195"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:58:11 -0700
-X-CSE-ConnectionGUID: 4cnboKPaRhmQPjO+qr3xAA==
-X-CSE-MsgGUID: G7eqwfBURripQFb5y7//zQ==
-X-ExtLoop1: 1
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:58:08 -0700
-Date: Wed, 30 Sep 2026 12:58:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Karol Wrona <k.wrona@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] iio: ssp: Serialize watchdog timer state changes
-Message-ID: <arzdLtzXQ4cvObrL@ashevche-desk.local>
-References: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUbFv6BY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B391F000FF
+	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 09:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790762297;
+	bh=0Sl3VeOxmIWc0/FHhtBrqHO4LTDod/shA0uGQ9sZEHg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TUbFv6BYy0BYMPu/2dRG2IrRhyfl3Nmw8iP7m1nV10kOAaPSktEYYPGygLJw5W1XP
+	 OgGNPbzjXf9WccmE7X/e65tRYtaozqybLJQqi92F2G7aULuMwSaggsqoF6VzknLN3v
+	 j/119SKQJkNVyoYXyVi+ZU8t+oSCh0sgipwkVqLv7gmECa/zwIBUzBnRuwSmZUlhSS
+	 2hOWz51MljSyTsLRkEULmI7TSwJgpOYDyzQVYzd/6AYyqBSjLDzMP8sLNgvwwtPOq/
+	 uhKNcavvziezdqSJlcJVlJzw+wUyZfpQ1fDKNtQd3pgr2+ysvKE1r8rErIkAOsM4bp
+	 SZ+wjeZHW+fcA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3add810eso796411e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 02:58:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwyEwKSOtyYpbWLBlX+7pCS8KpHcGHwrOoP4LU6t7lok+c5Yelg3T+TQivIxZI7+uVY9GvnKByLtqLvJus=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFXy8VhpGUmELgWG2068UMUxZJza9tM/vGRpf1BooE4MAJf5JE
+	0cScss6AsJ3xTRjGPnhzm3B9L11ADg0WfJW4TofnC81h6zNFiL4lp1a9FYniqscO+jqiIeWfN7c
+	ajcYSRLVsrsjlsg9ib5lKOR4ShU7UyaQ=
+X-Received: by 2002:a05:6512:124c:b0:5b8:f4d4:8004 with SMTP id
+ 2adb3069b0e04-5ba403e9adcmr391243e87.15.1790762296323; Wed, 30 Sep 2026
+ 02:58:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-1-4617c4463529@gmail.com>
+In-Reply-To: <20260930-b4-cs75xx-v1-1-4617c4463529@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 11:58:04 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnAY5xh-jrCboLBNh95sMD4jo3+eD3r4nmGgOt07uSJwQ@mail.gmail.com>
+X-Gm-Features: AclHuK-sK780whOzNFOmVs_mSNYseiLByWBvfxCT8N9Rk8B9pxQ3jl9L_xIBQyE
+Message-ID: <CAD++jLnAY5xh-jrCboLBNh95sMD4jo3+eD3r4nmGgOt07uSJwQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 01/10] dt-bindings: vendor-prefixes: Add Securifi
+To: filipp.dunsky@gmail.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 03:03:19PM +0800, Runyu Xiao wrote:
-> The SSP watchdog timer rearms itself from its callback, but the driver uses
-> timer_delete_sync() when the last sensor is disabled and during suspend.
-> Those operations do not prevent a concurrent enable or callback from
-> rearming the timer after the deletion has completed.  The final remove path
-> also used timer_delete_sync(), which does not provide the shutdown
-> guarantee needed before releasing the device state.
-> 
-> Protect the watchdog state and enable reference count with a mutex.  The
-> callback checks a state flag before rearming. Reusable stops clear the flag
-> before deleting the timer. Use timer_shutdown_sync() for the final remove
-> path so that any later rearm attempt is rejected permanently.
-> 
-> Cancel watchdog work after releasing wdt_lock because the reset work can
-> wait for the threaded IRQ handler, which may synchronously wait for refresh
-> work that re-enables sensors and takes wdt_lock. Remove the MFD children
-> before destroying the locks because IIO child teardown can disable an
-> active sensor.
+On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-...
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>
+> Securifi Ltd. makes the Almond series of touchscreen Wi-Fi routers.
+> Add a vendor prefix for it.
+>
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
-> struct ssp_data {
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
->  	struct spi_device *spi;
->  	const struct ssp_sensorhub_info *sensorhub_info;
->  	struct timer_list wdt_timer;
-> +	struct mutex wdt_lock; /* protects watchdog timer state */
-> +	bool wdt_enabled;
->  	struct work_struct work_wdt;
->  	struct delayed_work work_refresh;
-
-Does `pahole` agree with the given layout?
-
->  _mod:
-> +	if (READ_ONCE(data->wdt_enabled))
-
-What are we going to do if just after this wdt_enabled becomes false?
-(Is it a possible case?)
-
-> +		mod_timer(&data->wdt_timer,
-> +			  jiffies + msecs_to_jiffies(SSP_WDT_TIME));
-> +}
-
-Same Q to all the below. Hmm... It seems they are all protected by the mutex?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yours,
+Linus Walleij
