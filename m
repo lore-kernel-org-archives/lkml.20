@@ -1,225 +1,247 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A73E51CF78
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D0F4C2242;
+	Thu,  1 Oct 2026 14:28:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864878; cv=none; b=akHTEQyU8p498wUmF+DFAVKZr+5KjtsRBzvps1pVaHhRibvuGC7q1D6ytxHInqtTgZdSnQn1VkhhhRMoikeJV/xQ+aNSV4FoLUyDUy6FfKpJ7c27aJysWZ41JAJ7o00XFOku97qSIGZ8cb1ldxuf2nS7pC2lYQkcHXzJbYTQpSA=
+	t=1790864932; cv=none; b=jEvPsDUZ1RfOTnfluYXb/F5DMAIsMNADlNeECbbyfs9mW71P+FUhqKW79If0z/zvMQDh74MDz/kaGj4cKGrcZHiV+dlDcKGbRUg1PFPWFWKz+YaCfV71iMMxArmCsqa3/kW5+9rySbj0FK045E1VzYhzLF0FsUEd87qgM9HfVpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864878; c=relaxed/simple;
-	bh=lGTWoCUD+NvY/ajA1xzLUt9nWaVl9EgxwLH11fB7VJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=STDIk3mtno97ww+KkeaXnENdLhbyWzwUgRfl98y1kU/snA4IpI2gHRiVsZmuSm59qAsRTFTZK5qxDBGIeatWc3JGbe+AFdfMo8C9bR/jxnR5hA4qFm+Z7M1k9Zhs2YoyHcja3ccTn7YNZAT34KTA86KXSVNaByJCM4JuJ9DNq1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m3z8yCze; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790864932; c=relaxed/simple;
+	bh=KgT5/GcMFeOV6cuEqvJtz8eOhu3e71oZ4nEvra/XQj8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KhNIOVEFSJIiqUSouuFy49r9AQn2vRihEk45DHlhiYq1AefUs/9zCOL2fuvJtBzi8a95o+S0wzmXfFU88gjloV/h+I/Bz6McDmPME7vvqF0GHVahnO7a4p1hj9BOhWu5W7G4QLyR5i7puPWbqK/i9sPp4mAYijZcQsd9BMy/kFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mimhT3YW; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m3z8yCze"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ODK/rwsj1af9g4j9MwU4zS8hN51G2L65QGmzv7iEF9U=; b=m3z8yCze4jfO+FtsTUnybZobhA
-	R3iB8cCA6S+Bbf+la+qrRxjAVi2wG9qjTYSrMCi8AxkuH2h0pJEycV7A5CBW2U3NA41aa756a7JDC
-	t1qHDyT+rHkbm64voMP/f1pNuZz/onTTmXDT463UU2My3CGs9DfjI9WE9/54K/qxaAOMwCRHGO+Rd
-	piJkV7D4ylDiRX5h1VETVpQ3rsol7VSdO18b7YsSN7NH/Sfqa8uUUMZMLsQJ1hQDnOocSMagynWQR
-	o+QF6vGaTJ8whN5nmB8oEraQoP/ZinqTTXZzg68tPUDpP2eH/HntncyCqpwX4YUrxmdfLO54swbTr
-	qCaMU1MA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCHl2-000000081ro-3zPJ;
-	Thu, 01 Oct 2026 14:27:37 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 09E143006FA; Thu, 01 Oct 2026 16:27:36 +0200 (CEST)
-Date: Thu, 1 Oct 2026 16:27:35 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Juri Lelli <juri.lelli@redhat.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mimhT3YW"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AA9811A10B4;
+	Thu,  1 Oct 2026 14:28:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 77C9260341;
+	Thu,  1 Oct 2026 14:28:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 49EE410328176;
+	Thu,  1 Oct 2026 16:28:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790864912; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=0eqwqm97r8LvzbvHE3xbUgKSunwDsVtve2/aUKpdhMc=;
+	b=mimhT3YWBaA5ySxGyum3lrKvn3lF/+zJE9Lq1Yk7j52cfhyWJfq/hdMoIhJPFEt+b0lUIk
+	VCDEufJfaX7z0zeeJWg6yaSYbUko9Ne6rjeEQaKVONbpZUIv+BuDdHwnybk807tgbJvLj7
+	NeK/W+m9NeNMY10NluFIe6Ba3z/MQBCm1TzTVQGCY3Icp3XLL+GeNwtpi613mfkzbt2RMk
+	K0QQF+RT0d5ySWc8Q2Seg94faLpaAR+tq/fB8q3vNW22tDcYS5TZ5PoZFn6xeF+SkX/v8I
+	zCsodWSoJct3rtvqBIPUxHiKLw18wlYRZHdLRB5F/WfhKITfL/0w82igSgkOUQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Richard Cheng <icheng@nvidia.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Lizhi Hou <lizhi.hou@amd.com>
+Cc: driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	David Haufe <dhaufe@simplextrading.com>,
-	Cao Ruichuang <create0818@163.com>,
-	Furkan =?utf-8?B?w4dhbMSxxZ9rYW4=?= <frn1furkan10@gmail.com>
-Subject: Re: [PATCH v2] sched/deadline: Make dl-server nohz full aware
-Message-ID: <20261001142735.GT2009045@noisy.programming.kicks-ass.net>
-References: <20260513-upstream-fix-dlserver-nohzfull-b4-v2-1-d3e9cbe5c845@redhat.com>
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v12 00/10] lan966x pci device: Add support for SFPs, PCI part
+Date: Thu,  1 Oct 2026 16:28:00 +0200
+Message-ID: <20261001142815.277550-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260513-upstream-fix-dlserver-nohzfull-b4-v2-1-d3e9cbe5c845@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, May 13, 2026 at 11:13:03AM +0200, Juri Lelli wrote:
-> The dl_server_timer() originally caused spurious IPIs on nohz_full
-> cores, breaking isolation guarantees. While such IPIs cannot be observed
-> on recent kernels, dl-server timers for tick-stopped isolated CPUs still
-> fire unnecessarily on housekeeping cores.
-> 
-> The problem is that dl-servers are not coordinated with nohz_full tick
-> state. Even when the tick stops on an isolated CPU, its dl-server timer
-> continues to fire on housekeeping, wasting cycles and potentially
-> affecting housekeeping CPU performance.
-> 
-> Fix by managing servers in sched_can_stop_tick():
-> 
-> - When RT tasks run with CFS/SCX tasks, start the appropriate server(s)
->   and keep the tick running
-> - When only RT tasks remain, stop all servers and allow tick to stop
->   (except for >1 RR tasks which need the tick for round-robin)
-> - When only CFS/SCX tasks remain, stop all servers before stopping tick
-> 
-> Introduce dl_servers_stop_all() to reduce duplication and abstract
-> server management from core.c. Unify RT handling into one block that
-> handles both RR and FIFO cases.
-> 
-> Note on SCX: While SCX is incompatible with isolcpus=domain, it does
-> support nohz_full. The ext_server handling in this patch targets
-> nohz_full configurations without domain isolation.
-> 
-> Fixes: 557a6bfc662c ("sched/fair: Add trivial fair server")
-> Reported-by: David Haufe <dhaufe@simplextrading.com>
-> Closes: https://lore.kernel.org/lkml/CAKJHwtOw_G67edzuHVtL1xC5Vyt6StcZzihtDd0yaKudW=rwVw@mail.gmail.com
-> Signed-off-by: Juri Lelli <juri.lelli@redhat.com>
-> ---
+Hi,
 
-I was most confused with this IPI talk, since dl-server are strictly
-per-cpu and was thinking you must be meaning timer interrupts.
+Previously, I sent a big picture series adding support for SFP ports
+available on the LAN966x PCI device [0].
 
-But AFAICT the normal dl timers are ABS_HARD, and !PINNED, so the whole
-NOHZ_FULL muck will move them around for no win. Oh well. Do we want the
-below?
+In this series patches touch several parts and sub-system in the kernel.
+Reviews have be done and it makes sense to split the series and send
+parts separately.
 
-Anyway, yes, I think this is more or less the best we can hope for. In
-the down-thread case where someone is running both FIFO and CFS tasks,
-they get to keep the pieces, since that is violating NOHZ_FULL premise
-anyway.
+This current series is the extraction of patches related to issues in
+the PCI subsystem. It has to be seen as a continuation of the big
+picture series but related to this specific core part.
 
->  kernel/sched/core.c     | 46 +++++++++++++++++++++++++++-------------------
->  kernel/sched/deadline.c | 14 ++++++++++++++
->  kernel/sched/sched.h    |  1 +
->  3 files changed, 42 insertions(+), 19 deletions(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index b905805bbcbe4..6d05ce9b1dfe6 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -1414,30 +1414,40 @@ static inline bool __need_bw_check(struct rq *rq, struct task_struct *p)
->  
->  bool sched_can_stop_tick(struct rq *rq)
->  {
-> -	int fifo_nr_running;
-> -
->  	/* Deadline tasks, even if single, need the tick */
->  	if (rq->dl.dl_nr_running)
->  		return false;
->  
->  	/*
-> -	 * If there are more than one RR tasks, we need the tick to affect the
-> -	 * actual RR behaviour.
-> +	 * If there are RT tasks, we may need the tick (for >1 RR tasks),
-> +	 * but we must also service lower-priority CFS/SCX tasks via dl-servers.
->  	 */
-> -	if (rq->rt.rr_nr_running) {
-> -		if (rq->rt.rr_nr_running == 1)
-> -			return true;
-> -		else
-> +	if (rq->rt.rt_nr_running) {
-> +		bool cfs_or_scx_queued = false;
-> +
-> +		if (rq->cfs.h_nr_queued) {
-> +			dl_server_start(&rq->fair_server);
-> +			cfs_or_scx_queued = true;
-> +		}
-> +#ifdef CONFIG_SCHED_CLASS_EXT
-> +		if (rq->scx.nr_running) {
-> +			dl_server_start(&rq->ext_server);
-> +			cfs_or_scx_queued = true;
-> +		}
-> +#endif
-> +		if (cfs_or_scx_queued)
->  			return false;
-> -	}
->  
-> -	/*
-> -	 * If there's no RR tasks, but FIFO tasks, we can skip the tick, no
-> -	 * forced preemption between FIFO tasks.
-> -	 */
-> -	fifo_nr_running = rq->rt.rt_nr_running - rq->rt.rr_nr_running;
-> -	if (fifo_nr_running)
-> +		/*
-> +		 * Only RT tasks, no CFS/SCX. Stop servers to prevent spurious
-> +		 * wakeups. Tick can stop for single RR or any FIFO, but must
-> +		 * run for multiple RR (round-robin behavior).
-> +		 */
-> +		dl_servers_stop_all(rq);
-> +		if (rq->rt.rr_nr_running > 1)
-> +			return false;
+Patches 1 to 6 introduce and use fw_devlink_set_device() in already
+existing code. No functional change but the introduction of the
+fw_devlink_set_device() wrapper.
 
-I don't see why we would stop the dl-server in the false case. If we
-don't stop the tick, nobody should be caring about those timers anyway.
+Patch 7 avoids a dangling pointer.
 
-It would make more sense to me to have dl_server_stop_all() only in this
-true case.
+Patches 8 and 9 fix fw_devlink issues specific to PCI and the
+device-tree nodes created during enumeration.
 
->  		return true;
-> +	}
->  
->  	/*
->  	 * If there are no DL,RR/FIFO tasks, there must only be CFS or SCX tasks
+Patch 10 avoids the usage of np->data and adds guards to prevent
+incorrect nodes removal.
 
+[0] https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 0663c00c41c0..5388bde93410 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -401,6 +401,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se);
-  */
- static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
- {
-+	enum hrtimer_mode mode = HRTIMER_MODE_REL_HARD;
- 	struct hrtimer *timer = &dl_se->inactive_timer;
- 	struct rq *rq = rq_of_dl_se(dl_se);
- 	struct dl_rq *dl_rq = &rq->dl;
-@@ -459,8 +460,10 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
- 	dl_se->dl_non_contending = 1;
- 	if (!dl_server(dl_se))
- 		get_task_struct(dl_task_of(dl_se));
-+	else
-+		mode |= HRTIMER_MODE_PINNED;
- 
--	hrtimer_start(timer, ns_to_ktime(zerolag_time), HRTIMER_MODE_REL_HARD);
-+	hrtimer_start(timer, ns_to_ktime(zerolag_time), mode);
- }
- 
- static void task_contending(struct sched_dl_entity *dl_se, int flags)
-@@ -1061,6 +1064,7 @@ static inline u64 dl_next_period(struct sched_dl_entity *dl_se)
-  */
- static int start_dl_timer(struct sched_dl_entity *dl_se)
- {
-+	enum hrtimer_mode mode = HRTIMER_MODE_ABS_HARD;
- 	struct hrtimer *timer = &dl_se->dl_timer;
- 	struct dl_rq *dl_rq = dl_rq_of_se(dl_se);
- 	struct rq *rq = rq_of_dl_rq(dl_rq);
-@@ -1112,7 +1116,9 @@ static int start_dl_timer(struct sched_dl_entity *dl_se)
- 	if (!hrtimer_is_queued(timer)) {
- 		if (!dl_server(dl_se))
- 			get_task_struct(dl_task_of(dl_se));
--		hrtimer_start(timer, act, HRTIMER_MODE_ABS_HARD);
-+		else
-+			mode |= HRTIMER_MODE_PINNED;
-+		hrtimer_start(timer, act, mode);
- 	}
- 
- 	return 1;
+Best regards,
+Hervé
+
+Changes:
+
+v11 -> v12
+  v11: https://lore.kernel.org/all/20260909080114.591938-1-herve.codina@bootlin.com/
+
+  - Patches 1 to 7
+    Add 'Reviewed-by: Bartosz Golaszewski'
+
+  - Patches 8 and 9
+    No changes
+
+  - Patch 10
+    Add a NULL check for the retrieved OF node in removal functions to
+    avoid any NULL pointer dereferences.
+    Robustify the guard setting cset to NULL after freeing it.
+    Those issues have been reported by Shashiko:
+    https://lore.kernel.org/all/20260909081755.444E91F00A3A@smtp.kernel.org/
+
+v10 -> v11
+  v10: https://lore.kernel.org/all/20260717145147.823749-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.3-rc1
+
+  - Patches 1 to 5
+    Add 'Reviewed-by: Richard Cheng'
+
+  - Patches 6, 7 and 8
+    Add 'Reviewed-by: Richard Cheng'
+    Add 'Acked-by: Manivannan Sadhasivam'
+
+  - Patch 9
+    Add 'Reviewed-by: Richard Cheng'
+
+  - Patch 10
+    Rework removing np->data usage in the PCI devicetree node creation
+    and removal.
+
+v9 -> v10
+  v9: https://lore.kernel.org/all/20260708100302.517792-1-herve.codina@bootlin.com/
+
+  - Patches 1 to 6
+    No changes
+
+  - Patch 7
+    Clear fwnode->dev also on error path.
+
+  - Patch 8
+    Clear fwnode->dev also on error path.
+
+  - Patch 9
+    No changes
+
+  - Patch 10 (New patch in v10)
+    Guard against node removal with incorrect np->data.
+
+v8 -> v9
+  v8: https://lore.kernel.org/all/20260630102804.413563-1-herve.codina@bootlin.com/
+
+  - Patch 7 (new patch in v9)
+    Clear fwnode->dev during root bridge node removal (avoid a dangling
+    pointer).
+
+  - Patch 8 (patch 7 in v8)
+    Clear fwnode->dev during PCI device node removal.
+
+v7 -> v8
+  v7: https://lore.kernel.org/all/20260511155930.34604-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.2-rc1
+
+  - patches 4 and 5
+    Add 'Reviewed-by: Andy Shevchenko'
+
+  - Other Patches
+    No other changes
+
+v6 -> v7
+
+  Rebase on top of v7.1-rc1
+
+  - Patch 1
+     Add Cc stable. Needed for patches 11 and 12
+
+  - Patches 2 to 5
+    No changes
+
+  - Patch 6
+     Add Cc stable. Needed for patch 13
+     Add 'Acked-by: Bjorn Helgaas'
+
+  - Patch 7
+     Fix a typo in commit log
+     Add Fixes tag + Cc stable
+     Add 'Acked-by: Bjorn Helgaas'
+
+  - Patch 8
+     Add Fixes tag + Cc stable
+     Add 'Acked-by: Bjorn Helgaas'
+Older iterations:
+  Patches 6 to 13 in the big picture series
+  https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
+
+Herve Codina (10):
+  driver core: fw_devlink: Introduce fw_devlink_set_device()
+  drivers: core: Use fw_devlink_set_device()
+  pinctrl: cs42l43: Use fw_devlink_set_device()
+  cxl/test: Use device_set_node()
+  cxl/test: Use fw_devlink_set_device()
+  PCI: of: Use fw_devlink_set_device()
+  PCI: of: Clear fwnode->dev during root bridge node removal and error
+    path
+  PCI: of: Set fwnode device of newly created PCI device nodes
+  PCI: of: Remove fwnode_dev_initialized() call for a PCI root bridge
+    node
+  PCI: of: Avoid np->data usage for the node changeset
+
+ drivers/base/core.c                      |  4 +--
+ drivers/pci/of.c                         | 46 +++++++++++++++---------
+ drivers/pinctrl/cirrus/pinctrl-cs42l43.c |  2 +-
+ include/linux/fwnode.h                   |  6 ++++
+ include/linux/pci.h                      | 11 ++++++
+ tools/testing/cxl/test/cxl.c             |  4 +--
+ 6 files changed, 52 insertions(+), 21 deletions(-)
+
+-- 
+2.55.0
+
