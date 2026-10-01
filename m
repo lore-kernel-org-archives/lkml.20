@@ -1,116 +1,92 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA773C5DA1
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790895013; cv=none; b=GO8l5F0d4OvlZy1cDTR96myd4QjXyegVku6Km/1XoMtZxb9hoJfhX4P64m24rU13ElVcZkhBdhN4/Vfp2bcx/xOo6PBYOi7JGfWVR8UmjY8xulGQZxx6wDjo9TStCGj1u11SlgQ+xU5yorxcP8giwuGS9lJ7Ysxjqb5kflQAn8w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790895013; c=relaxed/simple;
-	bh=+rA467aRY0zNRosxZQfwiY79GSdRVJmJK/qrcl35cdA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=e7s5tumkkb61kkGzyR025Xlvxux8fQp2pimB6Y6qWkZx8Crn9JgRgBcEdQlmAqJ56bssBGwh3HC7+WqHPYnZs/hDJfcf4B8L4FSzMDxVfGzBni3gG63LCChVt3+U6bra9jxtpY3ZmxVeL6SeK8pDGFCsUkQf62pq3Pb+LfS7tPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b38ea4c6acso7309884b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:50:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790895010; x=1791499810;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2cSehKzYzpA4XnJNJdOoJUyJqlLtc/M4HNOQke60+no=;
-        b=goGOMmhVkx9f6bb6eqzMZ4Ql4BCeKixxPd0zwo2zEH30cPRlzAx+yrIVyznJIaA1Y6
-         Qo3OmWseEL6D8BNp7k8PQSfnUdNHD1fB/l3thvlOmNAHExvwxWU19qBsPx8iMUMHmRIY
-         NmfIOyNzN8heXfj35ZJdXHUSfo2r5VHwmOaE96Ipbwa4NPG/SG/Ur6tKn4wmULS+gMKX
-         OE2aA2c9I85IiJ/SqHHlODND/99dRd77XTA8BmZHc+l2iIczyoZhdb5Zlnuo1/pDnmFU
-         mFP6vzbuJ8hFrzg4gwVrwIehoN6o7qR/nH/dVgOfGQxlC3LXvQPznjsE5z78xPfLmf+q
-         KhOg==
-X-Gm-Message-State: AFuF++kfxgJ6THFVijIQ4/Vm3HkGNRoMCb7OqTejgYX0OgoS3ZQj2XD1
-	aUEEF/kedr5lXskoWRpT6ccOpPFvrTqFtinALbPsbmHRY1eVIIEr9TG22j0/VqaoXixSrQCqB9B
-	Z9cfpE7xRERVL1wL8HdXNpj5pa5a5dylqnYDHU8zHMrI8SEk89yu3L5dBFvg=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFDA412BE4
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790895020; cv=pass; b=Yyn8kzAcBtqGz8He4RLARCUD+hfYirjMFCG1Br7BA7mtg7O9weKraGGq1S9sRLhZjVrdnqJxRTHgTA1COsnG8hxx6bymy5+SHmQ70ccetZ+qZkBkMI37Tqc5Ov183843gNYfZGrgeVdSzbqUag48rqzGFIYYmC0fhnBcPHOcZL8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790895020; c=relaxed/simple;
+	bh=7TymCWvJwd9v+SHxzA+YtR78RfJ/Erc64w2qD7+PdYo=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=F8BlbuP0d5p5ixXcWt+fxvuNi6nmBjn4aZ+X6WoHaejD6QVwLDRRqy5myrQsykqOOUDaXKzzqaoLS8nMrZHC1mBTEaNzTScZ9/zSsc1lAiEczktHWkQ3e4NV9tCiSWEsAXIJTESB1mGBn5DbJhuoN6uCcaL05mZsjRV4H8Y+dmY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Jg0Jvi7K; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Jg0Jvi7K"
+ARC-Seal: i=1; a=rsa-sha256; t=1790895000; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=PJQ1h8I+OJjKaWDJ+BKVgUOFoYPFiP/HSsjau++UO9UYEYuRAVaz22RiinxwR6KO9h7KmBRctEsf3G88N7QdvAm28Httb1/dcA9zLmT2JhHZSWmT6RJRJIbzQ1xsCOJin8mN3xLHsqCggJy6QQSTANq6/8xCKX2yc+AbV4Rmp+c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790895000; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qh0Sfnrni8gq0oLliVbgfWQGxqvJniUx/OYBxyw/F6M=; 
+	b=YmJvDcgtmB88j3vXjoWksJI6f4TJuL7zlv1Jajtoq+53aU6jYNJaMPPDKhPs0L/UeLuRLTQwpE7BQhuQenFnTeWEtojWVRPx998E1wcFiZ4ObZVOndgMmT0f4x+5GKe1+jZvzCm2QR1dXiZtOmZz7tHNkdW/PjMGswccYv+iESQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790895000;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
+	bh=qh0Sfnrni8gq0oLliVbgfWQGxqvJniUx/OYBxyw/F6M=;
+	b=Jg0Jvi7KbOP0xLFKJpfLD4UPuZmgO0o7N01LvLLaMhVZcjFR7hL595Szy5D0AuJk
+	qc1dSMqaL74S9TNerq7cnvYj9xwkBuDNSs17HrM7aSBn3X5JsUR6dZ/aJRWF/06Xs2a
+	CxRDvyTVwNf4RJF96xsvBTdtmlyf6Xq1LlsAyBa4=
+Received: by smtp.zohomail.com with SMTPS id 1790894988839735.0728360045733;
+	Thu, 1 Oct 2026 15:49:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14ca:b0:4d6:93e2:5bc8 with SMTP id
- 5614622812f47-4f52a784da5mr668788b6e.68.1790895010555; Thu, 01 Oct 2026
- 15:50:10 -0700 (PDT)
-Date: Thu, 01 Oct 2026 15:50:10 -0700
-In-Reply-To: <6a6972a5.d9e86bb5.297b12.004f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abee3a2.7503fbd6.2d3f6.000f.GAE@google.com>
-Subject: Forwarded: [PATCH] usb: fix UAF in raw_process_io_ep_io
-From: syzbot <syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/5] drm/panthor: Fix partial unmaps, again
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Akash Goel <akash.goel@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
+References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
+Date: Thu, 01 Oct 2026 23:49:40 +0100
+Message-Id: <179089498035.1205040.7457117514529267599.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=616;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=7TymCWvJwd9v+SHxzA+YtR78RfJ/Erc64w2qD7+PdYo=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqvuOIFegZLKBA7Y1GS3D3idCVxFfrPRCJXcRQH
+ o3f+WaAIVqJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCar7jiAAKCRAOJn5M7lND
+ PRznC/9ODJjifoR833I1eLybQJP3iGLdFjsjAE+ZNlb9yoX3nysvvLlOx1SO9zB2C82vtAn6L+u
+ Vx/ROJFFhIoCIGfUZnERXtzObYOIed/FfpsMe3BTCk2ci5ApfXqwuOQ3cUhigtukZ+NcSUQ73PY
+ wC5L5apmme1hLlHGurXS/BR3YKZHapGaE4zsJUW/ojpxvrta4JxjszLXum+61jl236pO7VdBzWc
+ YugWY+M1O2sQE6MJKm2vBA9GIrZFzfslUfqDo/580NBeJbacVCN2ESsOa8q26bk+V0BtIRf9I3+
+ D/lv5FXIRGeV7c8Oy3Uh8sm3L/aIteYT/FKE1veMJR4u/c7v8xRVhz1FY/uP00t4hAqlYz176DT
+ H/30khJsqVNtF+58kFAzgmJTu9EHnKLjvuQvczkmFdgfEJQfomWItH4JuZNBqxXL9OfLJPz5kRP
+ tjso/2f/yxzJcRTDcQZb/k5KfOinYtF8UvU6gwqZoUiYEX23y57eGPt/65o1wrSLtQBuA=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Thu, 24 Sep 2026 13:04:37 +0200, Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> drm/panthor: Fix partial unmaps, again
+> 
+> The first patch is just a theoretical perf improvement to avoid
+> unnecessary unmap+map caused by false positive returned by
+> iova_mapped_as_huge_page(). The second patch is a fix for a real
+> bug when iova_mapped_as_huge_page() is called on an imported BO.
+> The last 2 patches are just consolidating the logic to make things
+> clearer.
+> 
+> [...]
 
-***
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Subject: [PATCH] usb: fix UAF in raw_process_io_ep_io
-Author: drifabdelmalekmohamedsaid@gmail.com
-
-#syz test
-
-diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/legacy/raw_gadget.c
-index 4febf8dac7ca..6d33b99ce9a0 100644
---- a/drivers/usb/gadget/legacy/raw_gadget.c
-+++ b/drivers/usb/gadget/legacy/raw_gadget.c
-@@ -637,11 +637,11 @@ static int raw_ioctl_event_fetch(struct raw_dev *dev, unsigned long value)
- 
- 	event = raw_event_queue_fetch(&dev->queue);
- 	if (PTR_ERR(event) == -EINTR) {
--		dev_dbg(&dev->gadget->dev, "event fetching interrupted\n");
-+		dev_dbg(dev->dev, "event fetching interrupted\n");
- 		return -EINTR;
- 	}
- 	if (IS_ERR(event)) {
--		dev_err(&dev->gadget->dev, "failed to fetch event\n");
-+		dev_err(dev->dev, "failed to fetch event\n");
- 		spin_lock_irqsave(&dev->lock, flags);
- 		dev->state = STATE_DEV_FAILED;
- 		spin_unlock_irqrestore(&dev->lock, flags);
-@@ -727,7 +727,7 @@ static int raw_process_ep0_io(struct raw_dev *dev, struct usb_raw_ep_io *io,
- 
- 	ret = usb_ep_queue(dev->gadget->ep0, dev->req, GFP_KERNEL);
- 	if (ret) {
--		dev_err(&dev->gadget->dev,
-+		dev_err(dev->dev,
- 				"fail, usb_ep_queue returned %d\n", ret);
- 		spin_lock_irqsave(&dev->lock, flags);
- 		goto out_queue_failed;
-@@ -735,7 +735,7 @@ static int raw_process_ep0_io(struct raw_dev *dev, struct usb_raw_ep_io *io,
- 
- 	ret = wait_for_completion_interruptible(&dev->ep0_done);
- 	if (ret) {
--		dev_dbg(&dev->gadget->dev, "wait interrupted\n");
-+		dev_dbg(dev->dev, "wait interrupted\n");
- 		usb_ep_dequeue(dev->gadget->ep0, dev->req);
- 		wait_for_completion(&dev->ep0_done);
- 		spin_lock_irqsave(&dev->lock, flags);
-@@ -1113,7 +1113,7 @@ static int raw_process_ep_io(struct raw_dev *dev, struct usb_raw_ep_io *io,
- 
- 	ret = usb_ep_queue(ep->ep, ep->req, GFP_KERNEL);
- 	if (ret) {
--		dev_err(&dev->gadget->dev,
-+		dev_err(dev->dev,
- 				"fail, usb_ep_queue returned %d\n", ret);
- 		spin_lock_irqsave(&dev->lock, flags);
- 		goto out_queue_failed;
-@@ -1121,7 +1121,7 @@ static int raw_process_ep_io(struct raw_dev *dev, struct usb_raw_ep_io *io,
- 
- 	ret = wait_for_completion_interruptible(&done);
- 	if (ret) {
--		dev_dbg(&dev->gadget->dev, "wait interrupted\n");
-+		dev_dbg(dev->dev, "wait interrupted\n");
- 		usb_ep_dequeue(ep->ep, ep->req);
- 		wait_for_completion(&done);
- 		spin_lock_irqsave(&dev->lock, flags);
+-- 
+Adrián Larumbe <adrian.larumbe@collabora.com>
