@@ -1,393 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11C6377034
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:05:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790859931; cv=none; b=rZFy9zw9pbYgUzQOQssaM2CsNu4I1vd54ENgI9Y1UIAuseZvFIlC29jzrXGG1OAwk10sQAROKqlYwV7kTwh14QtofbC4g8YJwO7G9Eg9/WX+a6SXf+S+3kInEwjO8cy2GZmnOmFiSC+J4dAH73kkIc4nLO/Bp1krNCHtrNPlDPA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790859931; c=relaxed/simple;
-	bh=CSskBqwew3EQoJUcKaJO5arZ2EfjzzwXBE7GzRinMqY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HptOG9fAPFd3E4MBWnL5OGQI+AquFCn49sZlfMLPO2/1Pt/nlGnTOfSCRrQRv2+nXS0s5Zm0RIik90URUV2kjxowjhySfiNZcVpHY3vt/yPwYWtl7N+9qRJ9qmtbDFScISOWWsZDALlRzpzomVc6RfVDWyJmlbAmnV0B24AIDz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XonMWhct; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E191B4A1E1E;
+	Thu,  1 Oct 2026 13:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790859959; cv=fail; b=on/dnB4GttbVMCxKwZPpKYqeduBFA62B1gdutZRINPubXGL6mF3+Mg3mZBhlwgrsrcvxqtk2/xMlC7iFmNhg83o1KU/sAgCOXB5+6d1mNXKPb0CpQoJ7FjMvo2HLRzIJRhi+PaDFV0gNeOHHRctb2BU0o4qMNkb6VBNQK/Az9nM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790859959; c=relaxed/simple;
+	bh=fXoMuOVOZsm1d0tZp5Vgq6AVXEcs90MRkQUastFACxc=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=L4kCQ/R7BWJm2f8CBhLoR5xRpwN7HcJfhYGhs1wQLGYKSeS/q97fX7mLLv2RSflZq0t1TLd4ELTCU9fxfSUGEnDr4D410Sy8fXz9of997rOkqakDXnOFXRQ+GfKmil7Uzl04IF3HEPEUZOyx/5zhNwUAL6cFI7qYT1QgMw3R9wY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LGjpCwqN; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XonMWhct"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 838981F0089E
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790859929;
-	bh=eAgSh9TupYq+o7LWASAVkvuVGJJvlINRnkkTU3i/H7g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XonMWhct2WiuBh8AJ8QvzZuk8CUiFj5XY1GefwURpTypzn2ZeiKMzggawJRfyS6C3
-	 0oVs/LWcfK0n0LM00412IUQJriEzm6o7WkkCZywWkJkeC3jkDN87T7/yW2fncL+kFL
-	 24dL0iB9W7SWrfsTuNmaYHNaIaRW6QYrPaO5S3r0qL41AIKKIAz5Y7MW9nF9deXXuK
-	 UlnzXa0iVnCEJeIjVmZtMfYVlHqEr+06jb9DsQ4SRU+Y0+DTgPRwFaN8NS+q1QPtj8
-	 EAUpRy9mlPvAvWL77ZQm1SPvncNiK3PKrE8ZCQF4qOx63C/cEwLB0i27I+Ufll4Zks
-	 zYN1Lm0LdT6mA==
-Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5d9fd0b5202so36638e0c.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:05:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxcYt7SLejd4sHMI30nTyN+7jf2du78yziVAon5QvHEJ7XCw41vuoh5CxYTICHAxhgowB4qZIE1vOhaBNU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGZfdPcQBYNVL1xZIqGUIh8vy171MTW30LAxLLPFGWwxZy6aO7
-	elYhRicnldqUlj8FdnFPBef14wIXH1ULhPG3U/Rgg4matCw+V0cTV7cS1AQFkaqrhx9LAxdpo6d
-	h5w45V+OnYAcJ3h1yaaWkw5631vMgIWc=
-X-Received: by 2002:a05:6102:5122:b0:7b2:43df:ca4d with SMTP id
- ada2fe7eead31-7be74093788mr1173127137.32.1790859928532; Thu, 01 Oct 2026
- 06:05:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LGjpCwqN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790859958; x=1822395958;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=fXoMuOVOZsm1d0tZp5Vgq6AVXEcs90MRkQUastFACxc=;
+  b=LGjpCwqNjmvXdLqJCqzsIMVOmgN3bZGjggL0qnuH0PGU2nq/8n21YxqH
+   Y+CaMwM0pawTU9cS0yT8QA1E+6QBmv40iR+8hYiiosv8Pm25O/1PjThr4
+   mNrCDJqKAAbFS8jN77hXdoxcVgKh5FqcmtMXsN0wWe2kqTozEI5YQNO9A
+   TbQVFxQjU/ZfPx1aefcBDRMUJrkjUju4PUkFtaJsBhJogaeUNmFpArl8O
+   8JCebkjKr7W4nGoD4/zWePQQjnNoUa91Ow2tjiqOdE9HQamFyaY/GEyv7
+   phnnTDsQuOX7GkffqKm/Uuy2BgX4nyOPn927/PMgEgOZ7H0C89EkmHYO5
+   g==;
+X-CSE-ConnectionGUID: PXHuM8yfReiO2akmfIABCg==
+X-CSE-MsgGUID: YW4g9np4RDmxHn7VkQontQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="94096156"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="94096156"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 06:05:57 -0700
+X-CSE-ConnectionGUID: sAywhZN6SsOlYSK8MUZ8/g==
+X-CSE-MsgGUID: pKl+y6fVQSC6rO+fptL1Bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="273810023"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 06:05:57 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 06:05:56 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 06:05:56 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.8) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 06:05:56 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lDT/9pjvOZY/DN0FyMvY2lU+KyT8Q7aG3egRg/trxof1F3angzdLhqMQkfAR1a+C52GyYN6GicSbDWP+kyDRZY3Wte8TVrSBiVE3ovSlfWSHky0OSHDyXNILhsp2eAMd2jPxcFMPY+vc3bbgQsSRJUNyDyBovEKCoyMuETaVEStTdcWSzuiBufkPhMnKFOpcGpIzrDm6Oof6MW5eisC1dteahOY3wfT1BKSB7NHQtkcPlezXsN1Lakz3pBuiIi8021ke4zYU9WBlyBnlOZ0S3bI6hkFdS5RQ/mh4cML6dXV46IGveVbGYGecMtVg20qPPZXCZaAXJRDaNLI7A+Ur6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PCBNdvziTX+MKkyR+QjLpzfvsX3SFoGGc1FOdAMb8dI=;
+ b=Nqtj3Bz25I9POYVkxnXi6eVBzZSZyOCJ0ywC1YN4Uu0Ib2zQM+HOEA83nasEDXZYYbboUOk809wFjFN4/6r9hD4TP1etXq+9cIe96FzP589iiTYrU+WNEQxltZ/IaoPLDjWJnS9Sfo6X0ymWw2PtiB9Frgkkv+f07JOFPTqDogVgVEg7n4kxthFjdF0TjuZeL2qCr238TEbeEbrf/LUpO5MefQLBGz6FCHHC1No+x+ho1oLwfWs9GS4JbRqEWFGE5LYq6ZMNiEnNKNiIDIOVVgMQhyfHrWH58CpF1w3BMzcnmXjEd1Y33kouzhIN8azCVAAXw4ab9lSHQePM4qDs6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB8380.namprd11.prod.outlook.com (2603:10b6:208:485::21)
+ by CHXPR11MB9674.namprd11.prod.outlook.com (2603:10b6:610:2fc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
+ 2026 13:05:53 +0000
+Received: from IA0PR11MB8380.namprd11.prod.outlook.com
+ ([fe80::ea8e:eec4:f8d3:f95d]) by IA0PR11MB8380.namprd11.prod.outlook.com
+ ([fe80::ea8e:eec4:f8d3:f95d%2]) with mapi id 15.21.0451.026; Thu, 1 Oct 2026
+ 13:05:52 +0000
+Date: Thu, 1 Oct 2026 21:05:37 +0800
+From: Chao Gao <chao.gao@intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "kas@kernel.org" <kas@kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "binbin.wu@linux.intel.com"
+	<binbin.wu@linux.intel.com>, "bp@alien8.de" <bp@alien8.de>,
+	"mingo@redhat.com" <mingo@redhat.com>, "tony.lindgren@linux.intel.com"
+	<tony.lindgren@linux.intel.com>, "tglx@kernel.org" <tglx@kernel.org>,
+	"hpa@zytor.com" <hpa@zytor.com>, "yilun.xu@linux.intel.com"
+	<yilun.xu@linux.intel.com>
+Subject: Re: [PATCH v3 09/10] x86/virt/tdx: Use early returns in
+ get_tdx_sys_info()
+Message-ID: <ar5aoYtcYMtmdFYK@intel.com>
+References: <20260930053901.22528-1-chao.gao@intel.com>
+ <20260930053901.22528-10-chao.gao@intel.com>
+ <e23181da9391a4e07437da8ef5a88420f2a3279a.camel@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e23181da9391a4e07437da8ef5a88420f2a3279a.camel@intel.com>
+X-ClientProxiedBy: TY4P301CA0093.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37a::11) To IA0PR11MB8380.namprd11.prod.outlook.com
+ (2603:10b6:208:485::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001121254.883973-1-vaknins33@gmail.com>
-In-Reply-To: <20261001121254.883973-1-vaknins33@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 1 Oct 2026 15:03:38 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0ibt_N0fuCxxWHnRWc2vR6b0-cRfFksebOwON7Zsex4Ow@mail.gmail.com>
-X-Gm-Features: AclHuK9cpxsMcMQCywe-TwPihu9D_sNEyQab-JV_og18gArH2F1zpaSg3WNR6q0
-Message-ID: <CAJZ5v0ibt_N0fuCxxWHnRWc2vR6b0-cRfFksebOwON7Zsex4Ow@mail.gmail.com>
-Subject: Re: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
-To: Aviv Vaknin <vaknins33@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
-	"Eric W. Biederman" <ebiederm@xmission.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB8380:EE_|CHXPR11MB9674:EE_
+X-MS-Office365-Filtering-Correlation-Id: c74f6870-ce1a-42bf-1f73-08df1fbcb8b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|23010399003|1800799024|366016|376014|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: gV2QC9P+cIv6osmMBc5Ia1p6YTP+0sSug1fBx3TVxnEca4ykZNPws5r+QtrE+8DDiIg6bbidXTpHeguyvUxrgVuhCa5LiZgmRbhppNUg05SVQEGQffhTJFlc+EeRs870eKlIUcpFYRVFo2O09q6+zKDAUKE5Vx8pwh2psN2WfZsl1AsZ6/O1bAFkSnJ6CCh0T9R8AqBFKkXJ2O6/geFBMSPZHkfn78JVgu0z5VKZtah6H+T89LIpoPp4pqVcwJC7VxGjiKTlRZi96xbex2UK89qSSdf8hYT9HaOaITYc+XmHAnCFhmDJa1he8Jb00Dm2OiqRRuDwx0ex+i8E5/QbsToAYIUKTnrUBoPLis7zoxslOjxSdQOzIBtAV9LFOHzpPmxwElswjVMkkHTmgxNltGILXk2wbIUfaUSvko4roJ/NvpFI69HrK4g2pgvu9FE8xZhWfvIEsfWuQ8wSHvz+smNGuNW+FgkFSbEr5FFB7iWsbLjT+s8sH42eteVvU4MSLsg6+mBimJd7AWNkL4XfNQrOg4BbWiFsSycrcpg2jUfHpRUcGXnk3f3jM2nDsfdc9TTkGAtY5cJUJGLNr43ITwGbixThec6zgoYwYfJ6Fl318Nds8VPsKSi899X2czOuPN6C8snAHlFq4xXt940V/gfoX84pZ1nfHX8c3MH7QkA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8380.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(366016)(376014)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?Gv2k2BD75lxlsAEY6K7RZtKxB5gPd6qPyvqM43Vyr7O5Lp/scWUCws0eAx?=
+ =?iso-8859-1?Q?vweD8UEIrVWGfXK9Jqxw/JJ2yqR1EHliJuh6yZBG001KGogje4Gk6imzVW?=
+ =?iso-8859-1?Q?kF6mTu4XpUGeeIFhiCx6TdtHYXQH1czj9xB50p83uzuKmzM9lJDyDzGvXg?=
+ =?iso-8859-1?Q?80p+5OkvD+np+LqPg6k24Oo8+oTtlFMv96dHUYI40qO26Mgt/cwhR6FmAd?=
+ =?iso-8859-1?Q?2zypn6Ru1g6Ujed0oaqSAjjl/YPLsryaX0iJHEVr0GLRIFt9eIXBY8D3Jf?=
+ =?iso-8859-1?Q?YCmXhWxoZS8z0dflqvy3bML5jYu7GsoD4pNj2xXQrNm6AYdCRC+CG2w8bz?=
+ =?iso-8859-1?Q?d0NsLbbFJDQbRBYdYV4huqCVZCZI8m618TxVeU9DBNrJsvYhPYfC5GWx1A?=
+ =?iso-8859-1?Q?p3/OLrqhNs3PnZU1bx6FkEp0UfwLGlOWVKEDqsW8iqoP9AhlU4S4hxXdnf?=
+ =?iso-8859-1?Q?zpNXfjpZhNW54ZePpVbg9HuKljUg65+3qcDkCTbVCv+eSfcvKR+/S6Jdjl?=
+ =?iso-8859-1?Q?l51oLZqP/oyVQvbU7ty4vvIwW0ZiX0N7jOE+yjF4i6mn+zyluJBtNH9y0A?=
+ =?iso-8859-1?Q?c37jYwDwg4I9w/inhq9K+SbQhRiBfiVWqHJRTxiCf2BaLrZv/wgm04spSr?=
+ =?iso-8859-1?Q?0t/PWfKnhT7zElmyUKDiZZxBDXTc/ri4maHpZ0wik7z+J1LUWYftBu7elz?=
+ =?iso-8859-1?Q?fBWZ+b5PM77SHC6hKXyEpyB9yOZBxeLZfh6hqo/8hXIFPUTpzoLucIOIrF?=
+ =?iso-8859-1?Q?35AdujWQkuwWOxBGxh/+7YQpeD+MGuLp3Wpq+L5II6CBQnKSmfhIOKS2Hg?=
+ =?iso-8859-1?Q?YgPo8DafeXvj1hGKSslasBacSMaaMpnDT6vYQqZ4F9fATNKnDYy/Yry3WD?=
+ =?iso-8859-1?Q?zIn5tVexQPxfhofQWTv9wNEw950Rb8k7Ev4H0TVj8brXHHlL+8taS/QwBM?=
+ =?iso-8859-1?Q?QrnbDVydLJUmWH+71w1YS5x6VLNKBavlJw8aoS9tz/5n+/HYM2A7xmhiuN?=
+ =?iso-8859-1?Q?4p/wD1PDaRnZlhNquEbcUTjkf7Tdo5hFgaHppxmjBf9U6APBUsc7MjEBiP?=
+ =?iso-8859-1?Q?/ExBFZnTVg5623Bn4n154ChbIwAOTNI166dK0JQJE19sip6SqgFYfAcCEv?=
+ =?iso-8859-1?Q?LjHkJtEiO1lBd4zANfBB4Ic+hhGDdcQwrHeFze2i6D949xe0oHybiLHW/Y?=
+ =?iso-8859-1?Q?AQwkKlHFjSIFFEOh2ViGcGkRNQ+RcynkdDODZx7gxfaZ160Ou1QOIVo/Go?=
+ =?iso-8859-1?Q?YcGU+pZZ6mZ9uGvEmrY5D1O77IAa2yIuJy090aUEsWGsQj9EhqWb3QqcNx?=
+ =?iso-8859-1?Q?5imR947/gdYbMPexJ0J9hbUCXTpiyukp0HtYzc4ULW31HnporDvu9KAIlj?=
+ =?iso-8859-1?Q?k9ulH5+WJTfahwaLB6ywj6v5No+TNb7jSAaHRt3YOefvBVxpf7JSSTqAUY?=
+ =?iso-8859-1?Q?7Y8mM1eKQWhciSBJQV6GJwlObKkJgXM+HGZLe2glegXs7t3Qo3yOJEbGZT?=
+ =?iso-8859-1?Q?AAQONThyv/x9dxMTDhcV+Yd8xKFjYePeOG0VQJpZYhvTJopDZ/KtcXdpqG?=
+ =?iso-8859-1?Q?06wEP6iIDh/NBsbiCjWjrwR3ZCGBFMT1Ssgxj09dV1gMhEMKrGgWpPm2Um?=
+ =?iso-8859-1?Q?MJhxydJwO1qFat/DqYKPWKti7sS945DiAovu3JL/+sKn+Iis8E/BxThT19?=
+ =?iso-8859-1?Q?N8PsAGIeLFnUNu7eF92l9VSKh7424zFVPfkhu0z46ShdL0ezHfDabXukVZ?=
+ =?iso-8859-1?Q?HYQYNYPztAnAnQP9/0hf573V8tABTvM5d+L3D49c+p1p+d04Adh5BDC6SK?=
+ =?iso-8859-1?Q?OIUa6TOx/w=3D=3D?=
+X-Exchange-RoutingPolicyChecked: FZpY59gg9moZpcNOaz4AIjseXIQJ1hmujad42/9bKg9lpFn9D5pvEbLSF5e/qGkJxDB8QbTlNmA/3oB/ztIcCtHFKkbLN9vagyuPdoejWlKPDI4myWs4ohP/qVSxSvzLK+zgDTRjV11HsD8D46J3WNYlgJ8udpRH8VMDcFXFFSnzdzON16lAkO0y96FsQhSWWoZvApylEfD1A2+l9Qeu2ANyRcNGT/ZKRqCMoOsSycv7uCcSluCVJSFL7pnGcI1hjj0DeLxqzHFS7mizmyHWGbxPgtCyf+DdAijyEZHwX1Jd+cSob9i3tB7FBfIrXB36qp+yk7wDpButCpa14BJkJw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c74f6870-ce1a-42bf-1f73-08df1fbcb8b2
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8380.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 13:05:52.4394
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bfbBmn+6LpilJEFHUjGjXuIb0CXaDxk/++d9dxx4pRWWTWCZ86+87SpzT7XUZ09IlSFD5FEoMFWFB0BvKctzeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR11MB9674
+X-OriginatorOrg: intel.com
 
-On Thu, Oct 1, 2026 at 2:13=E2=80=AFPM Aviv Vaknin <vaknins33@gmail.com> wr=
-ote:
+On Thu, Oct 01, 2026 at 08:30:05AM +0800, Edgecombe, Rick P wrote:
+>On Tue, 2026-09-29 at 22:38 -0700, Chao Gao wrote:
+>> get_tdx_sys_info() was generated by a script. It chains its metadata reads
+>> with:
+>> 
+>>       ret = ret ?: get_tdx_sys_info_foo(...);
+>> 
+>> The function is maintained by hand now. Use conventional early returns
+>> instead.
+>> 
+>> Print the module version only after its metadata has been read
+>> successfully. The "ret ?:" chain had no early exit, so the pr_info()
+>> between the reads ran even when the version read itself failed, printing a
+>> partially read or all-zero version. That isn't considered a big problem,
+>> but early returns make it easy to avoid.
 >
-> When the init of a pid namespace exits, zap_pid_ns_processes() waits
-> until every other pid in the namespace has been freed. That wait has no
-> upper bound: a tracer outside the namespace that doesn't reap its traced
-> zombies keeps their pids allocated (see the comment above the final
-> loop). While a task waits there, every suspend attempt fails:
->
->   Freezing user space processes failed after 20.006 seconds (2 tasks refu=
-sing to freeze, wq_busy=3D0):
->   task:pidns-freeze-re state:S stack:14200 pid:104   tgid:104   ppid:99  =
-   task_flags:0x40014c flags:0x00080000
->   task:pidns-freeze-re state:S stack:14160 pid:109   tgid:105   ppid:104 =
-   task_flags:0x40044c flags:0x00080802
->
-> and keeps failing until the tracer reaps or exits, because neither wait
-> can be frozen:
->
-> - The first loop sleeps in kernel_wait4(). The freezer's fake signal
->   ends that wait with -ERESTARTSYS, then the loop clears TIF_SIGPENDING
->   and waits again without ever calling try_to_freeze().
->
-> - The final loop sleeps in TASK_INTERRUPTIBLE without TASK_FREEZABLE.
->   Worse, nothing clears the TIF_SIGPENDING that the fake signal set, so
->   from the first suspend attempt on schedule() returns at once and the
->   task spins at 100% CPU for as long as the wait lasts.
->
-> Neither loop has ever been freezable. The spin came with
-> commit b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_p=
-rocesses"),
-> which replaced TASK_UNINTERRUPTIBLE to keep such long waits from
-> triggering the hung task detector.
->
-> This happens in practice with Chromium-based browsers, whose renderers
-> are pid namespace inits. If a renderer crashes while the browser shuts
-> down, crashpad (outside the namespace) ptrace-attaches its threads to
-> dump it. When the renderer is SIGKILLed mid-dump, crashpad keeps the
-> dead threads as unreaped traced zombies, and it can then block in
-> waitpid() on the renderer's last thread, which is itself waiting in
-> zap_pid_ns_processes() for those zombies. One such renderer blocks
-> suspend system-wide until crashpad is killed or the machine reboots.
-> The userspace side is being reported to Chromium separately.
->
-> Call try_to_freeze() after kernel_wait4() in the first loop, and sleep
-> in TASK_IDLE | TASK_FREEZABLE in the final loop, as coredump_task_exit()
-> already does on the same exit path. Like TASK_INTERRUPTIBLE, TASK_IDLE
-> keeps the hung task detector quiet and adds no load, but it is not
-> woken by signals, so a pending signal can no longer turn the wait into
-> a busy loop. TASK_FREEZABLE lets the freezer freeze the task in place;
-> a free_pid() wakeup that arrives while it is frozen is kept in
-> ->saved_state and acted on at thaw.
->
-> Tested on v7.3-rc5 in QEMU with PROVE_LOCKING, DEBUG_ATOMIC_SLEEP and
-> DETECT_HUNG_TASK (10 s timeout), using a reproducer in which a tracer
-> PTRACE_SEIZEs two threads of a nested pid namespace init and doesn't
-> reap them (it works unprivileged too, from a user namespace), and using
-> the real browser and crashpad trigger:
->
-> - before: freezing fails after 20 s, and afterwards the final loop
->   spins (500 ticks of system time per 5 s).
-> - after: freezing completes in 0.001 s, the waiting task sits in state
->   I without using CPU, no hung task or lockdep report appears over
->   30-45 s, and the task exits as soon as the zombies are reaped.
->
-> Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's dea=
-th")
-> Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_p=
-rocesses")
-> Cc: stable@vger.kernel.org # 6.1+
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
+>Nit: The reason it is good to change it in this patch is because not doing the
+>early exit looks very obviously wrong now, where it didn't before.
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-
-> ---
-> Based on vfs kernel-7.4.signal (also in next-20260930), on top of
-> 5c0985dd3c32 ("pid_namespace: prevent TIF_NOTIFY_SIGNAL from
-> interrupting the reaper"). That commit keeps TIF_NOTIFY_SIGNAL from
-> waking the reaper; this one is about the freezer, whose fake signal
-> sets TIF_SIGPENDING, which the guard doesn't cover. Retested on this
-> base with the reproducer below (same debug config): freezing completes
-> in 0.000 s, no spin, no warnings. A version for v7.3-rc5 is available
-> if wanted.
->
-> Reproducer (run as root in a VM, then follow its instructions):
->
->   // SPDX-License-Identifier: GPL-2.0
->   /*
->    * pidns-freeze-repro: a task waiting in zap_pid_ns_processes() blocks =
-suspend.
->    *
->    *   main (tracer, root pid ns)
->    *    `- A: pid 1 of pid ns A, single-threaded
->    *       `- B: pid 1 of nested pid ns B, multithreaded
->    *
->    * main PTRACE_SEIZEs non-leader threads of B, then A exits.  zap(A) ki=
-lls B;
->    * the seized threads stay traced zombies until main reaps them, keepin=
-g ns B's
->    * pids allocated.  B's last thread waits in zap's final loop, A in zap=
-'s first
->    * loop (kernel_wait4() for B).  While "stuck" is shown, run as root:
->    *   echo freezer > /sys/power/pm_test; echo mem > /sys/power/state
->    * Unpatched, freezing fails after 20 s ("2 tasks refusing to freeze") =
-and B's
->    * thread then busy-loops in zap.  At the end main reaps, ending the ha=
-ng.
->    *
->    * Build: gcc -O2 -Wall -pthread -o pidns-freeze-repro pidns-freeze-rep=
-ro.c
->    * Usage: ./pidns-freeze-repro [hold_seconds]  (root, in a VM; default:=
- Enter)
->    * With -DUSERNS, A also gets a new user ns, so no privilege is needed.
->    */
->   #define _GNU_SOURCE
->   #include <dirent.h>
->   #include <pthread.h>
->   #include <sched.h>
->   #include <signal.h>
->   #include <stdarg.h>
->   #include <stdio.h>
->   #include <stdlib.h>
->   #include <string.h>
->   #include <sys/ptrace.h>
->   #include <sys/wait.h>
->   #include <unistd.h>
->
->   #ifdef USERNS
->   #define NS_FLAGS (CLONE_NEWUSER | CLONE_NEWPID)
->   #else
->   #define NS_FLAGS CLONE_NEWPID
->   #endif
->   #define NTHREADS 4    /* B's threads besides its leader */
->   #define NSEIZE   2    /* how many of them main seizes */
->
->   static int ready[2], go[2];   /* B -> main: threads are up; main -> A: =
-exit */
->   static char stack_a[256 << 10], stack_b[256 << 10];
->
->   static void *idle_thread(void *arg) { for (;;) pause(); return arg; }
->
->   static int init_b(void *arg)          /* pid 1 of ns B */
->   {
->         pthread_t t;
->
->         for (int i =3D 0; i < NTHREADS; i++)
->                 pthread_create(&t, NULL, idle_thread, arg);
->         if (write(ready[1], "r", 1) !=3D 1)
->                 _exit(1);
->         for (;;) pause();
->   }
->
->   static int init_a(void *arg)          /* pid 1 of ns A */
->   {
->         close(go[1]);                   /* only main may hold the write e=
-nd */
->         if (clone(init_b, stack_b + sizeof(stack_b), CLONE_NEWPID | SIGCH=
-LD, arg) < 0)
->                 _exit(1);
->         while (read(go[0], &arg, 1) > 0)        /* EOF: main has seized *=
-/
->                 ;
->         _exit(0);                       /* -> zap_pid_ns_processes(A) */
->   }
->
->   /* Read a small /proc file into buf ("" if it is gone). */
->   static char *slurp(char *buf, size_t len, const char *fmt, ...)
->   {
->         char path[300];
->         va_list ap;
->         FILE *f;
->
->         va_start(ap, fmt);
->         vsnprintf(path, sizeof(path), fmt, ap);
->         va_end(ap);
->         buf[0] =3D 0;
->         if ((f =3D fopen(path, "r"))) {
->                 buf[fread(buf, 1, len - 1, f)] =3D 0;
->                 fclose(f);
->         }
->         return buf;
->   }
->
->   /* Global pid of A's child B: the process whose PPid is A. */
->   static pid_t child_of(pid_t parent)
->   {
->         DIR *d =3D opendir("/proc");
->         struct dirent *e;
->         char buf[512], *p;
->         int ppid;
->
->         while (d && (e =3D readdir(d))) {
->                 p =3D strrchr(slurp(buf, sizeof(buf), "/proc/%s/stat", e-=
->d_name), ')');
->                 if (p && sscanf(p + 2, "%*c %d", &ppid) =3D=3D 1 && ppid =
-=3D=3D parent)
->                         return atoi(e->d_name); /* (leaks d; fine here) *=
-/
->         }
->         return -1;
->   }
->
->   /* Print a task's state and wchan; return whether it is exiting (PF_EXI=
-TING). */
->   static int show(const char *what, pid_t pid, pid_t tid)
->   {
->         char st[512], wchan[64], *p, c =3D '?';
->         unsigned int flags =3D 0;
->
->         p =3D strrchr(slurp(st, sizeof(st), "/proc/%d/task/%d/stat", pid,=
- tid), ')');
->         if (p)
->                 sscanf(p + 2, "%c %*d %*d %*d %*d %*d %u", &c, &flags);
->         slurp(wchan, sizeof(wchan), "/proc/%d/task/%d/wchan", pid, tid);
->         printf("  %s tid %d: state %c, flags %#x, wchan %s\n", what, tid,=
- c, flags, wchan);
->         return flags & 0x4;
->   }
->
->   int main(int argc, char **argv)
->   {
->         pid_t a, b, tid, seized[NSEIZE];
->         int n =3D 0, status;
->         struct dirent *e;
->         char buf[64];
->         DIR *d;
->
->         if (pipe(ready) || pipe(go))
->                 return perror("pipe"), 1;
->         if ((a =3D clone(init_a, stack_a + sizeof(stack_a), NS_FLAGS | SI=
-GCHLD, NULL)) < 0)
->                 return perror("clone (run as root)"), 1;
->         if (read(ready[0], buf, 1) !=3D 1 || (b =3D child_of(a)) < 0)
->                 return fprintf(stderr, "setup failed\n"), 1;
->
->         /* From outside both namespaces, seize non-leader threads of B. *=
-/
->         snprintf(buf, sizeof(buf), "/proc/%d/task", b);
->         for (d =3D opendir(buf); d && (e =3D readdir(d)) && n < NSEIZE; )
->                 if ((tid =3D atoi(e->d_name)) > 0 && tid !=3D b && !ptrac=
-e(PTRACE_SEIZE, tid, 0, 0))
->                         seized[n++] =3D tid;
->         printf("A=3D%d B=3D%d: seized %d threads of B\n", a, b, n);
->
->         close(go[1]);                           /* A exits now */
->         sleep(2);
->         if (!n || waitpid(a, &status, WNOHANG) !=3D 0 || !show("A", a, a)=
-)
->                 return printf("not reproduced\n"), 1;
->         for (rewinddir(d); (e =3D readdir(d)); )
->                 if ((tid =3D atoi(e->d_name)) > 0)
->                         show("B", b, tid);
->         printf("stuck: A and B can't finish exiting until main reaps its =
-%d traced threads\n", n);
->         printf("now run: echo freezer > /sys/power/pm_test; echo mem > /s=
-ys/power/state\n");
->         fflush(stdout);
->         if (argc > 1)
->                 sleep(atoi(argv[1]));
->         else
->                 getchar();
->
->         /* Reap the traced zombies: ns B empties, then B and A finish exi=
-ting. */
->         for (int i =3D 0, left =3D n; left && i < 500; i++, usleep(10000)=
-)
->                 for (int k =3D 0; k < n; k++)
->                         if (seized[k] && waitpid(seized[k], &status, __WA=
-LL | WNOHANG) =3D=3D seized[k])
->                                 seized[k] =3D 0, left--;
->         for (int i =3D 0; i < 500; i++, usleep(10000))
->                 if (waitpid(a, &status, WNOHANG) =3D=3D a)
->                         return printf("reaped the zombies: hang resolved\=
-n"), 0;
->         printf("still stuck after reaping\n");
->         return 2;
->   }
->
->  kernel/pid_namespace.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
->
-> diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
-> index 8bc9edb40..abdc05462 100644
-> --- a/kernel/pid_namespace.c
-> +++ b/kernel/pid_namespace.c
-> @@ -23,6 +23,7 @@
->  #include <linux/sched/task.h>
->  #include <linux/sched/signal.h>
->  #include <linux/idr.h>
-> +#include <linux/freezer.h>
->  #include <linux/nstree.h>
->  #include <uapi/linux/wait.h>
->  #include "pid_sysctl.h"
-> @@ -243,6 +244,11 @@ void zap_pid_ns_processes(struct pid_namespace *pid_=
-ns)
->         do {
->                 clear_thread_flag(TIF_SIGPENDING);
->                 rc =3D kernel_wait4(-1, NULL, __WALL, NULL);
-> +               /*
-> +                * The freezer's fake signal ends the wait with -ERESTART=
-SYS;
-> +                * freeze here, or one stuck pid namespace blocks suspend=
-.
-> +                */
-> +               try_to_freeze();
->         } while (rc !=3D -ECHILD);
->
->         /*
-> @@ -269,7 +275,13 @@ void zap_pid_ns_processes(struct pid_namespace *pid_=
-ns)
->          * free_pid() will awaken this task.
->          */
->         for (;;) {
-> -               set_current_state(TASK_INTERRUPTIBLE);
-> +               /*
-> +                * TASK_IDLE: no hung task warning or load for a wait tha=
-t can
-> +                * last as long as a tracer keeps a zombie, and a pending=
- signal
-> +                * (e.g. the freezer's fake one) can't turn it into a bus=
-y loop.
-> +                * TASK_FREEZABLE: let the freezer freeze us while we wai=
-t.
-> +                */
-> +               set_current_state(TASK_IDLE | TASK_FREEZABLE);
->                 if (pid_ns->pid_allocated =3D=3D init_pids)
->                         break;
->                 schedule();
->
-> base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
-> --
-> 2.55.0
->
+Good point. I was struggling with how to justify this change, and your
+reasoning is better. I will add it to the changelog.
