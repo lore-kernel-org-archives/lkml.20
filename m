@@ -1,85 +1,104 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFE4237646C;
-	Thu,  1 Oct 2026 13:41:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7E974FECDD
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:41:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862075; cv=none; b=IRedCjzZ6UYbCzjK8En3sxNQNYdo3VkR9Cf+Vz65C03SglWbEP4ew68qUOqatfO9wgOlQDfgAt2MZje2vT5FjMcGF40EebqpBPhLVxn+AHhqSopKhiJU7oXmRFKEJVye6U/UT8vByEkGQuTQT6zmYsXsoRzTHJZ5TdoF01kRUnM=
+	t=1790862079; cv=none; b=KVd4QVId6v4u66uyVALcqhxfSsvBVYPCMUYhuRKuVCgvlqJDr78/0SDdfdQHPWBcF/ZpGhrYDSw3lkJVNMaxgSsIQwUquLPfXVYxh6dTJydYYARnwFGVxpWj1LB/msMeyHnXeo3ZkulvXw9zYdHKwJmYGQKzKQN4Jq3hw6Tnbuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862075; c=relaxed/simple;
-	bh=d7AaXtrsxUp4jy1qMsWbSpDXTjmvvtJXht/l2mnYE44=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BTg0WWi9p9kURMf+B2CrGG/iM0oQuGNE00qRypPj3ywmXJ/A3x1z5nKOiiHpLN2+QyXycvu9IcLqhzn6O9wJGL3PWnAeZC7jTzSgVNV0+PNEJy0Shw8QlAfIK2U7IrnO7y8CsP9uF18iu97l+XHj5MagB0JpG1g+MpLu+oSg7b8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nGYfB0WA; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1790862079; c=relaxed/simple;
+	bh=RlR5vKox3eGtgBQvbDj3VpCxc7RHD2RUsyPyNBD45gY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LGOSYVlOuNfyVEzhfDZbWmpSLh1c4vrJxAgVy4Ftsf+ES44pQZK93StJp/Xg3gPNpcAYfng3IYjM+8+xfbT0L0gBmnauVJUvDmiBfHkd62gdniwuwKVkCB7ZZ7PVyQPZ4n6ug4mqbAWTWZ+ZmOvu1nrhjNB6SICQHiiViRviNoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JwXASKt3; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nGYfB0WA"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JwXASKt3"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED0A0497;
-	Thu,  1 Oct 2026 06:41:09 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBA2F3F86F;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 634A916F3;
 	Thu,  1 Oct 2026 06:41:12 -0700 (PDT)
+Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.165])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B5B143F86F;
+	Thu,  1 Oct 2026 06:41:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790862073; bh=d7AaXtrsxUp4jy1qMsWbSpDXTjmvvtJXht/l2mnYE44=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nGYfB0WAVtfZWvTeCQBWksyS91YtQ74lEIFWQ8sNun2ofaLMUMp8hQ9WNyqVP4h5k
-	 s81P3n4nALu5TwlI41Qnyk0ALTMXhfUoIiJy8VP1f9jQ8FM51EyeDcjXarn7ilnFmj
-	 tkI5lITjC1x2l5boC/2HxI4CGJI/iLTwjpCWAAMA=
-Date: Thu, 1 Oct 2026 14:41:10 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Leo Yan <leo.yan@linux.dev>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: coresight: Allow funnel clocks
-Message-ID: <20261001134110.GM14479@e132581.arm.com>
-References: <20260921232834.3138571-1-robh@kernel.org>
- <20261001100455.GL14479@e132581.arm.com>
- <20261001120444.GA1048975-robh@kernel.org>
+	t=1790862075; bh=RlR5vKox3eGtgBQvbDj3VpCxc7RHD2RUsyPyNBD45gY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JwXASKt3DBEsEdSlSclMWgMxy7GkjOG0lb2pD2nEWWRFUyqOdvI44gXY2WmBZEmXE
+	 d0ltf5M3gAQYDtcd1Pstsa2JTlj6+Vl2z0vlPs9JGCmAMRmidqeMKNWj23rkJftFJF
+	 J/RI8u7Y3LB6JZtRM5kwsn0jwHDOcW9Ut95hrrcc=
+From: Christian Loehle <christian.loehle@arm.com>
+To: linux-kernel@vger.kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	kayracizmeci@gmail.com,
+	kprateek.nayak@amd.com,
+	elif.topuz@arm.com,
+	sh@gentwo.org,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH v2 5/5] sched/eevdf: Update protection after restoring current
+Date: Thu,  1 Oct 2026 14:40:16 +0100
+Message-Id: <20261001134016.3881268-6-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261001134016.3881268-1-christian.loehle@arm.com>
+References: <20261001134016.3881268-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001120444.GA1048975-robh@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 07:04:44AM -0500, Rob Herring wrote:
+A running task changed through the sched_change pattern is restored
+with SNT_NORMAL. Only fresh picks set slice protection, so the restore
+currently leaves vprot unchanged.
 
-[...]
+If sched_setattr() shortens the task slice, the old boundary can remain
+live far beyond the new request. Lower the existing boundary when
+restoring current. If protection remains live, rearm HRTICK because its
+previous expiry may be later than the new boundary. The update can also
+move vprot behind current's vruntime. In that case, request lazy-resched
+when another fair entity is queued instead of letting hrtick_start_fair()
+fall back to the later deadline.
 
-> > The question is that a static funnel does not need to program any
-> > registers, so in theory it should only need atclk as the module's core
-> > clock, but not the APB programming clock (apb_pclk).
-> >
-> > Maybe I did not get this right when I initially enabled the static
-> > funnel in hi3660-coresight.dtsi. We should probably remove pclk from the
-> > static funnel node.
-> 
-> Yes. I suppose in theory it has some clock, but if pclk needed to be 
-> enabled, it is shared with all the other coresight components and 
-> enabled anyways. And there's no atclk defined, so 'clocks' can just 
-> be removed. Can you send a patch to do that, and I'll drop this one.
+Fixes: bcd74b2ffdd0 ("sched/fair: Only set slice protection at pick time")
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ kernel/sched/fair.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-Sure, I will prepare a patch for hi3660-coresight.dtsi.
-
-> zynq7000 is even more of a mess I just noticed...
-
-Agreed. It should bind to "arm,coresight-dynamic-funnel" instead.
-
-However, I'm afraid the "dbg_trc" and "dbg_apb" clocks are never touched
-by either the CoreSight driver or the AMBA driver after switching to the
-dynamic funnel.  These clocks should therefore be removed from all
-CoreSight nodes.
-
-Thanks,
-Leo
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index bffc560bc7b8..59f9c08f968a 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -15571,8 +15571,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
+ 
+ 	if (on_rq) {
+ 		reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+-		if (first)
+-			set_protect_slice(cfs_rq, se, false);
++		set_protect_slice(cfs_rq, se, !first);
+ 	}
+ 
+ 	if (task_on_rq_queued(p)) {
+@@ -15582,8 +15581,15 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
+ 		 */
+ 		list_move(&se->group_node, &rq->cfs_tasks);
+ 	}
+-	if (!first)
++	if (!first) {
++		if (!protect_slice(se)) {
++			if (rq->cfs.h_nr_queued > 1)
++				resched_curr_lazy(rq);
++		} else if (hrtick_enabled_fair(rq)) {
++			hrtick_start_fair(rq, p);
++		}
+ 		return;
++	}
+ 
+ 	WARN_ON_ONCE(se->sched_delayed);
+ 
+-- 
+2.34.1
