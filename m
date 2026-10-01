@@ -1,90 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39554949E0;
-	Thu,  1 Oct 2026 16:53:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646504921B3;
+	Thu,  1 Oct 2026 16:53:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873598; cv=none; b=CKO4xmzmcrWZpTWPidMapJwbnGzctm5Cgr4/zjxKCzq4VhFXJpuJxh9bnIGVTwCuUffiVOTH7x8j09rjJvmpvWNN3rKQCplp/nJ8e54Lp4VrCPJyVY3i38PN7QIYGNMVf/ZcVa5VtbvDrm5uCkBvy6MPWz+XI1ZKnOrzyJALHxY=
+	t=1790873623; cv=none; b=jskIMdlTCpkTHVT9wsJXC0HokhGZgWSCjNcOcUsUPZ66Bx7zYKDoGO91X6/x2cfjtK1IGtNiA9Bqqu1QLr9Nc8MiYhW6sAkc56ZTS5o84BANKfNP1xIoZOXAMAZCMyuntazmfcbfteCsoN/F7Ic1Vv7l+DaRbba44df5GU2F6Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873598; c=relaxed/simple;
-	bh=pldxfBBUJszv2h95WSmrqJHgRj+RN0mpAukKCJ4Us+g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i3RC18Q2/OjGr9ySsipBjjZZa4Ph4qmLTEOS7H0j5zNQq/xJnEinQIwzmf7eHbm3aJ8KxTq61slqjyxVdo81Pkhgw65se54iN58S4aNubv0zgpQNUZeh5e7vm+eWZAKbiHcR5jNeGkfExN8TJq2Q1zVf4AmiocGyDfX3pEQyL9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LvbSVCpa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790873623; c=relaxed/simple;
+	bh=oe3Xy6jZWdxWuutdSaQfH2C+11mQ4msdZfgO5uK4TCU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Q1C/gD5eyNfTdMkc7quHAqvnZuTp+dBSn94Nxy5XUR7gZ321vlZOgS/zddMQYtV6lKasRUFYNOsHLf/eWNFGCQ/Oi9Wg91UwKLSKtUuBjYoTJRx6zgnwYK4CWPu/4in0EXlAkQhZI8dwf4oOh1YNgxD5Cm2lhBB/q4o/X9aJVdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDtGzUTZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LvbSVCpa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204151F000FF;
-	Thu,  1 Oct 2026 16:53:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDtGzUTZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C811F000FF;
+	Thu,  1 Oct 2026 16:53:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790873596;
-	bh=pldxfBBUJszv2h95WSmrqJHgRj+RN0mpAukKCJ4Us+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LvbSVCpaCUVkCAz7so8zugOU3NwB259fPKMks2lna/kHm0w4qsV+s9KRttiSYjuTA
-	 YWqi1beCw/63VRYo0D6E/5KjdiQoKuWAd02GWBKBvUyHv2gNb5OpWIBZgmsUN+JO77
-	 fPkC76O599BnM951u6Mz1XTKKEeAlR3aeV0Pw8AKnIPyIHfQuI6mwgdcokO0RvViPk
-	 RdT41/5KVCI+WaVbKnShZrhW6IiaQJW0alniE3u/M/Mzo96jeQdxwX+5sWe3XE02nT
-	 gHobMG1OESuD/ILEtZBbpiDZA1gbnXyxoe6/X/W0xeRaKXMcPnl4XzBCqJkfx7M4xQ
-	 tOdXdnwJxlghw==
-Date: Thu, 1 Oct 2026 17:53:09 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
-	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 15/15] KVM: selftests: arm64: Add GCS EXLOCK
- exception emulation test
-Message-ID: <ar6PJqq3Ujaz-ibx@gremlin>
-References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
- <20260930-arm64-gcs-v21-15-3556644cd927@kernel.org>
+	s=k20260515; t=1790873621;
+	bh=Q1BrRVRpxb+o78Gze7clFuiW7Y5XKDb66T5or0o279w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=PDtGzUTZQTeHKJd7oxqARknbqqKKXhWq662e0txGET5Fyj9RJNo9FG7ZPGClZM9Mq
+	 74zk/YWGgB/hMHYIf03E3Gc7E3N3lz2YNCTBQEGfQhu0fELla832WI9xg4HtzDUJp9
+	 6O8DooODbFYTOEDcOpdw+W27wLVccv/bWRWbG3w3BgP7qtLekbNfYDbXMOoemoaFT1
+	 K7xPOFOTDpQx++eNIrAz/4oeO/AwcGTNvw6oNPxkBrltNil5eMtbvhdvBJSQjBvzp5
+	 ORMfp5JronFGOifzZBTxUZBBgGvtmIQ5QgYrKa1e/oRFnKR8A8y5fiSDT+5QSeMxD0
+	 f+18X382Cp5/w==
+Date: Thu, 1 Oct 2026 18:52:38 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: John Ogness <john.ogness@linutronix.de>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org, 
+    Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+    Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH] MIPS: SGI-IP27: print the NMI dump on an nbcon console
+In-Reply-To: <87ece98je8.fsf@jogness.linutronix.de>
+Message-ID: <55083820-478c-e6a6-b129-467140f161db@kernel.org>
+References: <20261001155013.1694-1-kaloz@kernel.org> <87ece98je8.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-arm64-gcs-v21-15-3556644cd927@kernel.org>
+Content-Type: text/plain; format=flowed; charset=US-ASCII
 
-On Wed, Sep 30, 2026 at 10:48:25PM +0100, Mark Brown wrote:
-> When running in vEL2 ERET is emulated, this means that we must emulate
-> the behaviour of GCSCR_EL2.EXLOCKEN. Add a test that validates the
-> behaviour.
->
-> As per DDI0487 R_WTXBY PSTATE.EXLOCK is set to the value of
-> GCSCR_ELx.EXLOCKEN when taking an exception to the same exception level.
-> As per DDI0487 R_TYTWB if on exception return to the same EL
-> GCSCR_ELx.EXLOCKEN is 1 and PSTATE.EXLOCK is not 1 then the exception
-> return is illegal.
->
-> We nest handling of two UDFs to allow us to both observe and modify
-> PSTATE.EXLOCK, checking that expected exceptions are generated for ERET.
-> We also repeat the UDF tests having enabled fine grained traps for ERET
-> to try to ensure that the slow paths are taken.
->
-> We also attempt to write to both SPSR_ELx and ELR_ELx, again using a UDF
-> handler to control PSTATE.EXLOCK. We do all this both with and without
-> having enabled EXLOCKEN, though only for code running at EL2 due to
-> framework limitations.
->
-> For completeness we also inject a data abort from EL0 to EL2 with
-> GCSCR_EL2.EXLOCKEN set, ensuring that PSTATE.EXLOCK is not set.
->
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+Hi John,
 
-This all seems reasonable test-wise, but I wonder if the discussion around 8/15
-might alter some of what's tested here?
+On Thu, 1 Oct 2026, John Ogness wrote:
 
-In that - if it's only hardware that's doing the locked check then the SPSR (and
-probably ELR?) bits might only be exercising that rather than KVM stuff?
+> On 2026-10-01, Imre Kaloz <kaloz@kernel.org> wrote:
+>> Since the 8250 console became nbcon, printk() in nmi_dump() only queues
+>> records for the printer thread, which never runs because no CPU leaves
+>> the NMI handler before the hub reset. Print the dump from an emergency
+>> section.
+>
+> Please excuse my ignorance, but could you inform me about the context?
+> When is nmi_dump() called? Does the hardware always reset/reboot/hang
+> from this call?
 
-It might only need a comment update though :)
+nmi_dump() has no caller in Linux. install_cpu_nmi_handler() stores
+its address in the per-CPU NMI vector the PROM keeps in low memory,
+and the PROM jumps to it when the system controller asserts NMI on
+the CPUs: the "nmi" command at the L1 (or the MMSC on an Origin
+2000), typically used to get a dump out of a hung machine.
 
---
-Cheers, Lorenzo
+Every CPU that takes the NMI enters nmi_dump(). The first one to get
+nmi_lock waits until all online CPUs have arrived, prints the saved
+state of every CPU and ends with the NI_PORT_RESET write. The others
+spin on nmi_lock, which is never released. No CPU goes back to the
+interrupted context, so the printer kthread never runs, which is why
+the dump never reaches the 8250 console today.
+
+On the IP35 machines I tested the reset write takes effect and the PROM 
+restarts right after the dump.
+
+<snip>
+
+>> @@ -183,6 +184,12 @@ static void nmi_dump(void)
+>>  	 */
+>>  	arch_spin_lock(&nmi_lock);
+>>
+>> +	/*
+>> +	 * No CPU leaves the NMI handler before the hub reset below, so an
+>> +	 * nbcon console's printer thread would never print the dump.
+>> +	 */
+>> +	nbcon_cpu_emergency_enter();
+>> +
+>>  #ifdef REAL_NMI_SIGNAL
+>>  	/*
+>>  	 * Wait up to 15 seconds for the other cpus to respond to the NMI.
+>
+> The CPU enters an emergency state, but shouldn't it exit the emergency
+> state at some point? Or does the machine always unstoppably
+> reset/reboot/hang after this point?
+
+If the reset write did not take effect, nmi_dump() would return to
+the PROM.
+
+
+Best,
+Imre
+
