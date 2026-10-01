@@ -1,890 +1,617 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7054AD4B5;
-	Thu,  1 Oct 2026 18:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5553D53160D;
+	Thu,  1 Oct 2026 18:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878456; cv=none; b=BNwXiovmlE0wIf0ox3rxeRUOooUk9Is+FYcNPBXJO/IiJOhDAIj30mqW2/1yb5A5jdn0ZU9KX34OtficMjKYX2D1DEqKBXEFvVBcCVAK0z5hV0GNe98rt3jd6JCpPp3cP2Xu8ERK5lX3EcvFoE6XfNqqXNzMEhCk16eDcY/Mzqk=
+	t=1790878466; cv=none; b=Xr/dLO3PJl4ibTtlX/+cafbpsvqZIh3bkcjrRJBXN/GhzpX6hyQtGoGUxTK6SuXDIH3MMaalikBnPovVR7SVL7EjLja0xAi3hQcQEq7qFInTFUnIafalgKB/yqc9sS0co8TPbFYBQTj663Ujys17sJtiOVNO8c71pptK2i/d6EY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878456; c=relaxed/simple;
-	bh=z4NUUQ30JZSoHdWutMipMjnH/4Vj433u8A5LWO8iTz0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WZAB9FRm33nTMdBg9VuVbRtKbIICyg7arEYLvJ3N9PwXFEfNSuCeUWu/dPs7OUxk9IeMwTIUxYZz7wSMPXliyZxWhtoCUWnnnXqv3CnhIuuhQZkaUji/+BkPOQQLHt8QfIb721ZrvG+xf+krPhmM92DD46Sx7nYOrmFfw2XuKUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P6BZAL2p; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790878466; c=relaxed/simple;
+	bh=8l9HWqcsCEEOb4kDKmJhKlKHVbY6rkxoBwHIcudYZaA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gokJ9FarHl13Jkm4uXzndBoPdiwEOvy5YRnXY9mDzSKb8TNQ/YrzBXDMcqqXh3hVedvD7Ng7jI0qq44TI71FigMZrUloLEv2l2Pcf4kFUgsMTqlcLPruPtCaD4Xgj7WzXm6fiEl8LrHVkpyur+3VpRI/Nl4dUAFfAXK8VKWeHLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvdhAB1g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P6BZAL2p"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 81603C4AF17;
-	Thu,  1 Oct 2026 18:14:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790878455;
-	bh=z4NUUQ30JZSoHdWutMipMjnH/4Vj433u8A5LWO8iTz0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=P6BZAL2pCoKp4AF0RKbtmLaL2qlr1z5PIRWmeCR8gypq0a3Wz12aYEQ7Vf18uwIBx
-	 HL0bzWJZbjcFc75X6NBv3uwhB3MxWMG7BYLXSndz8Ryc/sa8uMoLyCCoUsOljRtduw
-	 Vrc4BNkqcNwsxskR2iNuj3b3Yj4drNE+4Yo/ejc/kDlTW7p6X1L66kyEMdWvjIGOCQ
-	 QXLL6BSdGgvGDO+7h0DmW+GtPz9jVkyKb/IcWz/o96nWFiUwKlrn6EuBABePCsMRyd
-	 5UyxsPN4r8sSYBmnhA0pcu2fWQZRVZjOZX5TckrWbHKFdLKtWS2+6Jk6KfpDfrHcWu
-	 5MoLmQQRYc9wQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60D39CA5FCE;
-	Thu,  1 Oct 2026 18:14:15 +0000 (UTC)
-From: Miao Wang via B4 Relay <devnull+shankerwangmiao.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 02:13:21 +0800
-Subject: [PATCH RFC v2 3/4] gpio: loongson-64bit: Add shared interrupt
- support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvdhAB1g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1711F000FF;
+	Thu,  1 Oct 2026 18:14:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790878459;
+	bh=eH3tlN3GiHdfukPIWaIJ7ujP/cUxS0ztGAALMsR/SjA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VvdhAB1ge8hsZ/QOYUP616VWSyh5AA4nlz+I+ndhqI7tkSEuys6MMG64HLyXbaW4W
+	 MIjw8HQxyQFqsyTDsICHhrpycT3TLMVuBnxpLkiSkIk0Q+Nb+1iDqdbqnAqbFMFqda
+	 qjKBCQTMz+Zj4XYjMn/ir2xyscBEfoCxlAJP22PQnEzP2mM71lfqC+v+9z2yT4X1+3
+	 ZWOf9N8EdFDx7B6hYxxwDApvDzWWtpqZ2EwrAVRcJ4SstNk4E7IpvpFpjB533IRqYL
+	 D5MGdIrQBJv8hg92ts/qJAsWmVzFkacR44cMmAQYTtIQbTIpHdpT46IiUL5BCEUjFK
+	 dpEIKoyzlXh1A==
+Subject: Re: [PATCHv9 net-next] tcp: Add TCP ROCCET congestion control module.
+From: netdev-bot+sashiko@kernel.org
+To: t.fuechsel@gmx.de
+Cc: davem@davemloft.net, dsahern@kernel.org, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com,
+ kuniyu@google.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ fmancera@suse.de, ebiggers@kernel.org, bpf@vger.kernel.org,
+ lukas.prause@ikt.uni-hannover.de
+Date: Thu, 01 Oct 2026 18:14:17 +0000
+Message-ID: <179087845776.434549.18417418117404438718@kernel.org>
+In-Reply-To: <arqDuiD4Q4GWOFBc@volt-roccet-vm>
+References: <arqDuiD4Q4GWOFBc@volt-roccet-vm>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-loongsongpio-v2-3-6e3eb150a4ef@gmail.com>
-References: <20261002-loongsongpio-v2-0-6e3eb150a4ef@gmail.com>
-In-Reply-To: <20261002-loongsongpio-v2-0-6e3eb150a4ef@gmail.com>
-To: Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Miao Wang <shankerwangmiao@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=29273;
- i=shankerwangmiao@gmail.com; s=20250715; h=from:subject:message-id;
- bh=2yp98+GN1A0zejLc7RyYMFKAWyKaUhl/ueqYAvy1qYs=;
- b=owEBbQKS/ZANAwAKAbAx48p7/tluAcsmYgBqvqL0T+h75Wx+DWzkZh8pL/08JHxitDYVezoLd
- i4Vdc9vR+aJAjMEAAEKAB0WIQREqPWPgPJBxluezBOwMePKe/7ZbgUCar6i9AAKCRCwMePKe/7Z
- btw3EAC2Ih3jrLHc0icTML5dmb//Qb2AmtTKyEbF3Qq3gtp71liFoAA77/TFhBMOpncezRcCTDU
- fG7iyI9si5qEcfglsv8dPkNChcnCtTIPx3q/R6KtJW/N7NBhHJjRuLPdJ1fcjePNMj88X4oyVa4
- Zt+C76UeECTkXzPlyVtwny2MYc/eemtmEFgitZbwB6INcKBEAyEM84VgyyPsh+/dnsKVLC5jARO
- wTJMYmlwy9OLQBUeyXVHPdOhSIO1yMqhXEx8jhVl94/7XybmKWx26DRxEn/D5IVZ01jIL5qVQyi
- UsennMnRtsTlwqRIfLozSdxhTaCE8yC4uRUKDJmKkuepP72ttV/orn2pEjHIY+pXB2Y/yczFobY
- Dw5iR/0HYTqKS0Sw7jRuHxJCXTGUVT4C2043w/vWcxpoEOQnd7h9/QbIKYVK70Y7ywyLJGSDZwQ
- EpMnSfh3pXIsogxDSNd6jy0NSL815E6AS7zbY3KZnFm2c6L4frvQKqCwU0Mj4Kgn0ejLuPl5BKs
- VOy3pUmfP7ZVgl2S1A1yssnadLyqAm9NnB5LLwwtm2MHRn8EccQTLR/ter5xTVCCgWAe9WQ5484
- oILRu6TbmkIy57adupjVT+lDKGV/oIhkky/YkCWhgzSCmCxwbcOMEx80BzAWTpbuk5SQguhQc4H
- t44vJ4p9nPkGq6Q==
-X-Developer-Key: i=shankerwangmiao@gmail.com; a=openpgp;
- fpr=6FAEFF06B7D212A774C60BFDFA0D166D6632EF4A
-X-Endpoint-Received: by B4 Relay for shankerwangmiao@gmail.com/20250715
- with auth_id=462
-X-Original-From: Miao Wang <shankerwangmiao@gmail.com>
-Reply-To: shankerwangmiao@gmail.com
 
-From: Miao Wang <shankerwangmiao@gmail.com>
+Thank you for your contribution! Sashiko AI review found 12 potential
+issue(s) to consider.
 
-The GPIO controllers found in 2K1000LA, 2K0500, 2K2000 (the first part),
-3A5000, 7A1000, 3A6000 lack a dedicated interrupt controller inside it,
-instead, they route the input signals via an interrupt enable gate,
-controlled by the inten register, to their parent interrupt controller,
-letting the latter do the actual interrupt handling. To make things
-worse, interrupt signals from multiple GPIO lines are combined into
-one interrupt line on the parent interrupt controller, preventing
-implementing such controllers as hierarchical interrupt chips. As a
-result, the GPIO lines sharing the same parent interrupt line can fall
-into the following conditions:
+Critical: 0 · High: 0 · Medium: 8 · Low: 4
 
-  - Only one of the GPIO lines is in edge-triggered mode, while IRQ on
-    other lines cannot be requested.
-  - Only one of the GPIO lines is in level-triggered mode, while IRQ on
-    other lines cannot be requested, if the register controlling the
-    polarity, intpol, is not provided on the GPIO controller, in which
-    case, the polarity is controlled by the parent interrupt controller.
-  - One or more of the GPIO lines is in level-triggered mode, if intpol
-    is provided on the GPIO controller.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Originally gpio_generic_chip.to_irq method was implemented to return the
-irq number of the parent interrupt line corresponding to a given GPIO
-line and the method unconditionally enable the interrupt on the GPIO
-line by writing 1 to the inten register. This approach, however, has
-three limitations. Firstly, there is no guarantee that gpio_to_irq will
-be called first, so there would be no chance to enable the interrupt on
-the GPIO line. Secondly, the sharing of the parent interrupt line among
-multiple GPIO lines is not correctly handled, failing to deny requests
-for conflicting requests on other GPIO lines. Thirdly, when the irq
-requested is released, the interrupt on the GPIO line will never be
-disabled. This was discussed in the v5 version of the patch series
-introducing this driver [1].
+- [Medium] The commit message says only that ROCCET "reacts to packet
+  loss by adapting CUBIC's behavior".
+- [Medium] roccet_acked() keeps CUBIC's early return `if (ca->epoch_start
+  && (s32)(tcp_jiffies32 - ca->epoch_start) < HZ) return;`, and it sits…
+- [Medium] Spurious-RTO undo is partly reversed.
+- [Medium] ROCCET uses .cong_control, so the core skips
+  tcp_cwnd_reduction() (PRR).
+- [Medium] ROCCET's only idle handling is roccet_cwnd_event_tx_start(),
+  copied from CUBIC, which just shifts epoch_start.
+- [Medium] In roccet_orbiter_update(), `sent_more_than_acked = (s32)(sent
+  - received) > div_u64((u64)tcp_snd_cwnd(tp) * (u64)tp->mss_cache,…
+- [Medium] Several places intended to reduce cwnd apply a TCP_INIT_CWND
+  floor, which can raise cwnd instead and also ignores…
+- [Medium] A loss-detecting ACK, or any later ACK during Recovery, can
+  reduce cwnd twice.
+- [Low] Several in-code comments are stale or contradict the code next to
+  them.
+- [Low] Two module parameter descriptions shown by modinfo/sysfs do not
+  match the code.
+- [Low] Every ROCCET 'now' timestamp comes from
+  jiffies_to_usecs(tcp_jiffies32) and is compared with u32 modular…
+- [Low] update_srrtt() does a plain C division of a u64 by a constant:
+  `ca->curr_srrtt = ((100 - ROCCET_ALPHA_TIMES_100) *…
 
-To solve this, this patch implements a cascaded interrupt controller,
-which manages the sharing of the parent interrupt line among multiple
-GPIO lines, denying conflicting requests and properly enabling or
-disabling the interrupt on the GPIO line as needed. To implement this,
-mask/unmask/set_type/shutdown handlers should call the handlers of the
-parent interrupt controller to manage and change the state of the
-interrupts on the parent interrupt line as well.
+--
 
-What remain undecided is the firmware interface that declares platform
-irq numbers for the GPIO controller. If the GPIO controller has N gpio
-lines and M parent interrupt lines, it is to be decided how to list the
-platform irq numbers. The first approach could be to list M unique
-irq numbers corresponding to the M parent interrupt lines, while the
-second approach could be to list N irq numbers corresponding to the N
-gpio lines, which might have duplicate entries. Previously the second
-approach was chosen and it was found that listing duplicate interrupt
-numbers is not restricted by ACPI and platform devices. However,
-actual ACPI tables found in the published firmware chose the first
-approach. I choose to use the first approach as well temporarily in this
-patch, since it would be easier to implement. Thankfully when the driver
-is implemented in the first approach, it can accept the data from the
-second approach as well, due to the mapping used, except for 2K0500 and
-2K1000. I have no sample firmwares for these two platforms and cannot
-verify which approach is used.
+tcp: Add TCP ROCCET congestion control module.
 
-[1]: https://lore.kernel.org/all/CACRpkdbgP9m40t_Ky4H+SQi9TELikomT2M-JpF7+auKmzOxQdg@mail.gmail.com/
-[2]: https://lore.kernel.org/all/allOoYUZXocOfk8F@ashevche-desk.local/
+This adds ROCCET, a new TCP congestion control module based on CUBIC.
+It detects bufferbloat from the relative RTT increase (srRTT), the ACK
+arrival rate and the sent/received bytes. It replaces HyStart with its own
+slow start (LAUNCH), adds periodic min RTT probing, and uses the
+cong_control callback instead of cong_avoid.
 
-Signed-off-by: Miao Wang <shankerwangmiao@gmail.com>
----
- drivers/gpio/gpio-loongson-64bit.c | 648 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 648 insertions(+)
+> diff --git a/net/ipv4/tcp_roccet.c b/net/ipv4/tcp_roccet.c
+> new file mode 100644
+> index 000000000000..cd8c44490117
+> --- /dev/null
+> +++ b/net/ipv4/tcp_roccet.c
+> @@ -0,0 +1,1400 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * TCP ROCCET: An RTT-Oriented CUBIC Congestion Control
+> + * Extension for 5G and Beyond Networks
 
-diff --git a/drivers/gpio/gpio-loongson-64bit.c b/drivers/gpio/gpio-loongson-64bit.c
-index a1b23ba21f64162af2096131520d1dac27798983..40ff845e21db18fa513d2d3b328bcb7ad16baf6a 100644
---- a/drivers/gpio/gpio-loongson-64bit.c
-+++ b/drivers/gpio/gpio-loongson-64bit.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/kernel.h>
- #include <linux/init.h>
-+#include <linux/cleanup.h>
- #include <linux/irq.h>
- #include <linux/irqdesc.h>
- #include <linux/module.h>
-@@ -17,6 +18,7 @@
- #include <linux/platform_device.h>
- #include <linux/bitops.h>
- #include <linux/reset.h>
-+#include <linux/interrupt.h>
- #include <asm/types.h>
- 
- enum loongson_gpio_mode {
-@@ -24,6 +26,8 @@ enum loongson_gpio_mode {
- 	BYTE_CTRL_MODE,
- };
- 
-+struct loongson_gpio_chip;
-+
- struct loongson_gpio_chip_data {
- 	const char		*label;
- 	enum loongson_gpio_mode	mode;
-@@ -39,14 +43,19 @@ struct loongson_gpio_chip_data {
- 	unsigned int		intr_num;
- 	irq_flow_handler_t	irq_handler;
- 	const struct irq_chip	*girqchip;
-+	unsigned int		(*irq_mapping)(struct loongson_gpio_chip *lgpio,
-+					       unsigned int pin);
- 	int			(*irq_init)(struct platform_device *pdev,
- 					    struct loongson_gpio_chip *lgpio);
- };
- 
-+struct loongson_gpio_sirq_data;
-+
- struct loongson_gpio_chip {
- 	struct gpio_generic_chip chip;
- 	spinlock_t		lock;
- 	void __iomem		*reg_base;
-+	struct loongson_gpio_sirq_data *sirq_data;
- 	const struct loongson_gpio_chip_data *chip_data;
- };
- 
-@@ -291,6 +300,607 @@ static int loongson_gpio_init_irqchip(struct platform_device *pdev,
- 	return 0;
- }
- 
-+/*
-+ * About shared IRQs for GPIO pins:
-+ *
-+ * This kind of GPIO controller lacks interrupt status register to identify
-+ * edge-triggered interrupts, and the handling of such interrupts must be
-+ * deligated to the parent IRQ controller.
-+ * This kind of GPIO controller should typically have a inten register to enable
-+ * or disable interrupts for individual GPIO pins, intpol register to configure
-+ * the interrupt polarity. The signal sent to the parent interrupt controller
-+ * is calculated by bit-wise comparing the GPIO line and the intpol register and
-+ * then masking with inten.
-+ * However, The interrput input lines of the parent IRQ controller is not enough
-+ * to 1:1 map to the GPIO pins, necessitating the use of shared IRQs. A mapping
-+ * is statically establised to map multiple GPIO pins to a single parent IRQ
-+ * line. The level of the parent IRQ is determined by or-ing the levels of all
-+ * GPIO pins mapped to it. Suppose gpio pin 0 and gpio pin 8 are mapped to the
-+ * same parent IRQ, the level of the parent IRQ is determined by the following
-+ * expression:
-+ *     (~(gpio[0] ^ intpol[0]) & inten[0]) |
-+ *     (~(gpio[8] ^ intpol[8]) & inten[8])
-+ * When the intpol register is not available, its value is assumed to be 1, and
-+ * the expression becomes:
-+ *     (gpio[0] & inten[0]) | (gpio[8] & inten[8])
-+ *
-+ * According to the hardware design, IRQ can be requested on only one of the
-+ * GPIO pins sharing the same parent IRQ, unless the intpol register is
-+ * available and all the IRQs are level-triggered.
-+ *
-+ * Convention on the usage of shared IRQs for GPIO pins:
-+ * - When a parent IRQ is exclusively used, the parent IRQ should be masked or
-+ *   unmasked accordingly when the irq pin using it is masked or unmasked.
-+ * - When a parent IRQ is shared among multiple GPIO pins, the parent IRQ
-+ *   should always be unmasked and masking or unmasking individual GPIO pins
-+ *   should be done through the GPIO controller's inten register.
-+ */
-+
-+/*
-+ * We assume a maximum of 128 GPIOs for the bitmap, which should be
-+ * sufficient for all the actual hardware controllers defined in this
-+ * driver.
-+ */
-+enum { MAX_GPIO_WITH_IRQ = 128 };
-+
-+struct loongson_gpio_sirq_parent_data {
-+	unsigned int parent_index;
-+	unsigned int parent_irq;
-+	/*
-+	 * The lock of the irq_desc of the parent irq also protects
-+	 * exclusive/usedby below. It must be taken before
-+	 * lgpio->sirq_data->lock.
-+	 */
-+	struct irq_data *parent_irq_data;
-+	struct loongson_gpio_chip *lgpio;
-+
-+	/*
-+	 * exclusive: exclusive usage, only one gpio pin can use this parent irq.
-+	 *   It will happen in two cases:
-+	 *     - The parent irq is used by a gpio pin which is edge triggered, and
-+	 *       thus cannot be used by other gpio pins which are mapped to the same
-+	 *       parent irq.
-+	 *     - The parent irq is used by a gpio pin which is level triggered, and
-+	 *       the gpio chip lacks the polarity control register, and thus the
-+	 *       interrupt polarity is controlled by the parent irq controller, and
-+	 *       thus cannot be used by other gpio pins which are mapped to the
-+	 *       same parent irq.
-+	 *   When set, the request for other gpio pins which are mapped to this
-+	 *   parent irq will be rejected.
-+	 */
-+	bool exclusive : 1;
-+	/*
-+	 * usedby: When exclusive is set, indicates the only gpio pin which
-+	 *   is using this parent irq. When exclusive is cleared, indicates the
-+	 *   number of gpio pins which are using this parent irq.
-+	 * When both exclusive and usedby are 0, it means that the parent irq is not
-+	 * used by any gpio pin.
-+	 */
-+	unsigned int usedby : 31;
-+};
-+
-+struct loongson_gpio_sirq_data {
-+	/*
-+	 * Protects the read/write operations on the irq related registers
-+	 */
-+	raw_spinlock_t lock;
-+	int *irq_in_use;
-+	struct loongson_gpio_sirq_parent_data parent_data[];
-+};
-+
-+static void loongson_gpio_write_register(struct loongson_gpio_chip *lgpio,
-+					 unsigned int reg_offset,
-+					 unsigned int line, u8 value)
-+{
-+	void __iomem *reg = lgpio->reg_base + reg_offset;
-+
-+	if (lgpio->chip_data->mode == BIT_CTRL_MODE) {
-+		u32 bval;
-+
-+		reg += (line / 32) * 4;
-+		bval = readl(reg);
-+
-+		if (value)
-+			bval |= BIT(line % 32);
-+		else
-+			bval &= ~BIT(line % 32);
-+
-+		writel(bval, reg);
-+	} else {
-+		writeb(value, reg + line);
-+	}
-+}
-+
-+static u8 loongson_gpio_read_register(struct loongson_gpio_chip *lgpio,
-+				      unsigned int reg_offset,
-+				      unsigned int line)
-+{
-+	void __iomem *reg = lgpio->reg_base + reg_offset;
-+
-+	if (lgpio->chip_data->mode == BIT_CTRL_MODE) {
-+		u32 bval;
-+
-+		reg += (line / 32) * 4;
-+		bval = readl(reg);
-+
-+		return (bval >> (line % 32)) & 1;
-+	}
-+
-+	return readb(reg + line) & 1;
-+}
-+
-+static void loongson_gpio_shared_mask_locked(struct loongson_gpio_chip *lgpio,
-+					     irq_hw_number_t hwirq,
-+					     struct loongson_gpio_sirq_parent_data *pirqd)
-+{
-+	struct irq_data *parent_irq_data = pirqd->parent_irq_data;
-+
-+	if (pirqd->exclusive)
-+		parent_irq_data->chip->irq_mask(parent_irq_data);
-+
-+	scoped_guard(raw_spinlock_irqsave, &lgpio->sirq_data->lock)
-+		loongson_gpio_write_register(lgpio, lgpio->chip_data->inten_offset,
-+					     hwirq, 0);
-+}
-+
-+static void loongson_gpio_shared_irq_mask(struct irq_data *data)
-+{
-+	struct gpio_chip *chip = irq_data_get_irq_chip_data(data);
-+	struct loongson_gpio_chip *lgpio = to_loongson_gpio_chip(chip);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(data);
-+	unsigned int pirq_idx = lgpio->chip_data->irq_mapping(lgpio, hwirq);
-+	struct loongson_gpio_sirq_parent_data *pirqd =
-+		&lgpio->sirq_data->parent_data[pirq_idx];
-+
-+	/*
-+	 * If irq_in_use is not set, then set_type handler must has not been called
-+	 * and no trigger type has been set for this gpio pin, so we should not
-+	 * proceed and do nothing.
-+	 */
-+	if (!lgpio->sirq_data->irq_in_use[hwirq])
-+		return;
-+
-+	guard(raw_spinlock_irqsave)(&irq_data_to_desc(pirqd->parent_irq_data)->lock);
-+
-+	loongson_gpio_shared_mask_locked(lgpio, hwirq, pirqd);
-+}
-+
-+static void loongson_gpio_shared_irq_unmask(struct irq_data *data)
-+{
-+	struct gpio_chip *chip = irq_data_get_irq_chip_data(data);
-+	struct loongson_gpio_chip *lgpio = to_loongson_gpio_chip(chip);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(data);
-+	unsigned int pirq_idx = lgpio->chip_data->irq_mapping(lgpio, hwirq);
-+	struct loongson_gpio_sirq_parent_data *pirqd =
-+		&lgpio->sirq_data->parent_data[pirq_idx];
-+	struct irq_data *parent_irq_data = pirqd->parent_irq_data;
-+
-+	if (!lgpio->sirq_data->irq_in_use[hwirq])
-+		return;
-+
-+	guard(raw_spinlock_irqsave)(&irq_data_to_desc(pirqd->parent_irq_data)->lock);
-+
-+	if (pirqd->exclusive)
-+		parent_irq_data->chip->irq_mask(parent_irq_data);
-+
-+	scoped_guard(raw_spinlock_irqsave, &lgpio->sirq_data->lock)
-+		loongson_gpio_write_register(lgpio, lgpio->chip_data->inten_offset,
-+					     hwirq, 1);
-+
-+	if (pirqd->exclusive)
-+		parent_irq_data->chip->irq_unmask(parent_irq_data);
-+}
-+
-+static void loongson_gpio_shared_irq_handler(struct irq_desc *desc);
-+
-+static int loongson_gpio_shared_irq_set_type(struct irq_data *data, unsigned int type)
-+{
-+	struct gpio_chip *chip = irq_data_get_irq_chip_data(data);
-+	struct loongson_gpio_chip *lgpio = to_loongson_gpio_chip(chip);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(data);
-+	unsigned int pirq_idx = lgpio->chip_data->irq_mapping(lgpio, hwirq);
-+	struct loongson_gpio_sirq_parent_data *pirqd =
-+		&lgpio->sirq_data->parent_data[pirq_idx];
-+	unsigned int intpol_offset = lgpio->chip_data->intpol_offset;
-+	struct irq_data *parent_irq_data = pirqd->parent_irq_data;
-+	struct irq_chip *parent_irq_chip = parent_irq_data->chip;
-+	int ret = 0;
-+
-+	type &= IRQ_TYPE_SENSE_MASK;
-+
-+	if (type != IRQ_TYPE_EDGE_FALLING && type != IRQ_TYPE_EDGE_RISING &&
-+	    type != IRQ_TYPE_LEVEL_LOW && type != IRQ_TYPE_LEVEL_HIGH)
-+		return -EINVAL;
-+
-+	guard(raw_spinlock_irqsave)(&irq_data_to_desc(pirqd->parent_irq_data)->lock);
-+
-+	if (pirqd->exclusive && hwirq != pirqd->usedby)
-+		return -EBUSY;
-+
-+	/*
-+	 * When the irq is not exclusively used and is currently shared by
-+	 * more than one gpio pin; or is currently used by single gpio pin and
-+	 * the gpio pin is not the one requesting to set the irq type, then the
-+	 * irq type can only be set to level triggered.
-+	 */
-+	if (!pirqd->exclusive &&
-+	    (pirqd->usedby > 1 ||
-+	     (pirqd->usedby == 1 && !lgpio->sirq_data->irq_in_use[hwirq]))) {
-+		if (type != IRQ_TYPE_LEVEL_HIGH && type != IRQ_TYPE_LEVEL_LOW)
-+			return -EBUSY;
-+
-+		/*
-+		 * When exclusive is not set and usedby at least one, the gpio chip must
-+		 * have intpol register to control the interrupt polarity. We will never
-+		 * reach here if the gpio chip lacks intpol register, because in that
-+		 * case, exclusive will be set no matter what trigger type is requested.
-+		 */
-+		BUG_ON(!intpol_offset);
-+		/*
-+		 * Since only level triggered irqs are allowed to be shared, we can
-+		 * safely set the intpol register without first disabling the pin in
-+		 * inten register.
-+		 */
-+		scoped_guard(raw_spinlock_irqsave, &lgpio->sirq_data->lock)
-+			loongson_gpio_write_register(lgpio, intpol_offset, hwirq,
-+						     type == IRQ_TYPE_LEVEL_HIGH);
-+
-+		if (!lgpio->sirq_data->irq_in_use[hwirq])
-+			pirqd->usedby++;
-+
-+		irq_set_handler_locked(data, handle_level_irq);
-+	} else {
-+		parent_irq_chip->irq_mask(parent_irq_data);
-+
-+		if (type == IRQ_TYPE_EDGE_FALLING || type == IRQ_TYPE_EDGE_RISING) {
-+			if (intpol_offset) {
-+				ret = parent_irq_chip->irq_set_type(parent_irq_data,
-+								    IRQ_TYPE_EDGE_RISING);
-+				if (ret < 0)
-+					goto out_restore_handler;
-+
-+				scoped_guard(raw_spinlock_irqsave, &lgpio->sirq_data->lock)
-+					loongson_gpio_write_register(lgpio, intpol_offset,
-+								     hwirq,
-+								     type == IRQ_TYPE_EDGE_RISING);
-+			} else {
-+				ret = parent_irq_chip->irq_set_type(parent_irq_data, type);
-+				if (ret < 0)
-+					goto out_restore_handler;
-+			}
-+
-+			pirqd->exclusive = true;
-+			pirqd->usedby = hwirq;
-+
-+			/*
-+			 * We deliberately set the handler to level_irq even for
-+			 * edge-triggered interrupts because we cannot provide .irq_ack()
-+			 * handler.
-+			 */
-+			irq_set_handler_locked(data, handle_level_irq);
-+		} else {
-+			if (intpol_offset) {
-+				ret = parent_irq_chip->irq_set_type(parent_irq_data,
-+								    IRQ_TYPE_LEVEL_HIGH);
-+				if (ret < 0)
-+					goto out_restore_handler;
-+
-+				scoped_guard(raw_spinlock_irqsave, &lgpio->sirq_data->lock)
-+					loongson_gpio_write_register(lgpio, intpol_offset,
-+								     hwirq,
-+								     type == IRQ_TYPE_LEVEL_HIGH);
-+				pirqd->exclusive = false;
-+				pirqd->usedby = 1;
-+			} else {
-+				ret = parent_irq_chip->irq_set_type(parent_irq_data, type);
-+				if (ret < 0)
-+					goto out_restore_handler;
-+
-+				pirqd->exclusive = true;
-+				pirqd->usedby = hwirq;
-+			}
-+
-+			irq_set_handler_locked(data, handle_level_irq);
-+		}
-+out_restore_handler:
-+		/* ->irq_set_type() would override irq_handler, so restore here */
-+		irq_set_handler_locked(parent_irq_data, loongson_gpio_shared_irq_handler);
-+		if (ret < 0)
-+			goto out;
-+	}
-+
-+	lgpio->sirq_data->irq_in_use[hwirq] = 1;
-+
-+out:
-+	if (pirqd->exclusive) {
-+		u8 inten;
-+
-+		scoped_guard(raw_spinlock_irqsave, &lgpio->sirq_data->lock)
-+			inten = loongson_gpio_read_register(lgpio, lgpio->chip_data->inten_offset,
-+							    hwirq);
-+		if (inten)
-+			parent_irq_chip->irq_unmask(parent_irq_data);
-+	} else
-+		parent_irq_chip->irq_unmask(parent_irq_data);
-+
-+	return ret;
-+}
-+
-+static void loongson_gpio_shared_irq_shutdown(struct irq_data *data)
-+{
-+	struct gpio_chip *chip = irq_data_get_irq_chip_data(data);
-+	struct loongson_gpio_chip *lgpio = to_loongson_gpio_chip(chip);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(data);
-+	unsigned int parent_irq_index = lgpio->chip_data->irq_mapping(lgpio, hwirq);
-+	struct loongson_gpio_sirq_parent_data *pirqd =
-+		&lgpio->sirq_data->parent_data[parent_irq_index];
-+
-+	if (!lgpio->sirq_data->irq_in_use[hwirq])
-+		return;
-+
-+	guard(raw_spinlock_irqsave)(&irq_data_to_desc(pirqd->parent_irq_data)->lock);
-+
-+	loongson_gpio_shared_mask_locked(lgpio, hwirq, pirqd);
-+
-+	if (!pirqd->exclusive) {
-+		if (lgpio->sirq_data->irq_in_use[hwirq]) {
-+			if (!WARN_ON(pirqd->usedby == 0))
-+				pirqd->usedby--;
-+		}
-+	} else {
-+		if (pirqd->usedby == hwirq) {
-+			pirqd->usedby = 0;
-+			pirqd->exclusive = false;
-+		}
-+	}
-+
-+	lgpio->sirq_data->irq_in_use[hwirq] = 0;
-+}
-+
-+static void loongson_gpio_shared_irq_init_valid_mask(struct gpio_chip *gc,
-+						     unsigned long *valid_mask,
-+						     unsigned int ngpios)
-+{
-+	struct loongson_gpio_chip *lgpio = to_loongson_gpio_chip(gc);
-+	struct loongson_gpio_sirq_data *shared_irq_data = lgpio->sirq_data;
-+	const struct loongson_gpio_chip_data *data = lgpio->chip_data;
-+	unsigned int i;
-+
-+	for (i = 0; i < ngpios; i++) {
-+		unsigned int parent_irq_index = data->irq_mapping(lgpio, i);
-+
-+		/*
-+		 * A parent_irq of 0 means the corresponding interrupt line is
-+		 * absent from the device tree or ACPI namespace.
-+		 */
-+		if (i >= MAX_GPIO_WITH_IRQ ||
-+		    parent_irq_index >= data->intr_num ||
-+		    !shared_irq_data->parent_data[parent_irq_index].parent_irq)
-+			clear_bit(i, valid_mask);
-+	}
-+}
-+
-+static int loongson_gpio_shared_irq_init_hw(struct gpio_chip *gc)
-+{
-+	struct loongson_gpio_chip *lgpio = to_loongson_gpio_chip(gc);
-+	const struct loongson_gpio_chip_data *data = lgpio->chip_data;
-+	struct loongson_gpio_sirq_data *sirq_data = lgpio->sirq_data;
-+	int i;
-+
-+	sirq_data->irq_in_use = devm_kcalloc(gc->parent, gc->ngpio,
-+					     sizeof(*sirq_data->irq_in_use),
-+					     GFP_KERNEL);
-+
-+	if (!sirq_data->irq_in_use)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < gc->ngpio; i++)
-+		loongson_gpio_write_register(lgpio, data->inten_offset, i, 0);
-+
-+	return 0;
-+}
-+
-+static int loongson_gpio_init_shared_irqchip(struct platform_device *pdev,
-+					     struct loongson_gpio_chip *lgpio)
-+{
-+	const struct loongson_gpio_chip_data *data = lgpio->chip_data;
-+	struct gpio_chip *chip = &lgpio->chip.gc;
-+	struct loongson_gpio_sirq_data *sirq_data;
-+	int i;
-+	int available_parent_irqs;
-+
-+	chip->irq.default_type = IRQ_TYPE_NONE;
-+	chip->irq.handler = handle_bad_irq;
-+	chip->irq.parent_handler = data->irq_handler;
-+	chip->irq.init_valid_mask = loongson_gpio_shared_irq_init_valid_mask;
-+	chip->irq.init_hw = loongson_gpio_shared_irq_init_hw;
-+
-+	sirq_data = devm_kzalloc(&pdev->dev,
-+				 struct_size(sirq_data, parent_data, data->intr_num),
-+				 GFP_KERNEL);
-+	if (!sirq_data)
-+		return -ENOMEM;
-+
-+	lgpio->sirq_data = sirq_data;
-+	raw_spin_lock_init(&sirq_data->lock);
-+	for (i = 0; i < data->intr_num; i++) {
-+		sirq_data->parent_data[i].parent_index = i;
-+		sirq_data->parent_data[i].lgpio = lgpio;
-+	}
-+
-+	gpio_irq_chip_set_chip(&chip->irq, data->girqchip);
-+
-+	chip->irq.parents = devm_kcalloc(&pdev->dev, data->intr_num,
-+					 sizeof(*chip->irq.parents), GFP_KERNEL);
-+	if (!chip->irq.parents)
-+		return -ENOMEM;
-+
-+	chip->irq.per_parent_data = true;
-+	chip->irq.parent_handler_data_array =
-+		devm_kcalloc(&pdev->dev, data->intr_num,
-+			     sizeof(*chip->irq.parent_handler_data_array),
-+			     GFP_KERNEL);
-+	if (!chip->irq.parent_handler_data_array)
-+		return -ENOMEM;
-+
-+	for (i = 0, available_parent_irqs = 0; i < data->intr_num; i++) {
-+		int ret;
-+		struct irq_data *parent_irq_data;
-+		int dup = 0, j;
-+
-+		ret = platform_get_irq_optional(pdev, i);
-+
-+		if (ret == -ENXIO)
-+			continue;
-+
-+		if (ret < 0)
-+			return dev_err_probe(&pdev->dev, ret,
-+					     "failed to get IRQ %d\n", i);
-+
-+		for (j = 0; j < available_parent_irqs; j++)
-+			if (chip->irq.parents[j] == ret) {
-+				dup = 1;
-+				break;
-+			}
-+		if (dup) {
-+			dev_warn(&pdev->dev,
-+				 FW_BUG "IRQ for parent index %d is duplicated, skipping\n", i);
-+			continue;
-+		}
-+
-+		parent_irq_data = irq_get_irq_data(ret);
-+		if (WARN_ON(!parent_irq_data))
-+			continue;
-+		/* Implementing ->irq_set_type() is required for a parent irqchip */
-+		if (parent_irq_data->chip->irq_set_type == NULL)
-+			continue;
-+
-+		chip->irq.parents[available_parent_irqs] = ret;
-+		chip->irq.parent_handler_data_array[available_parent_irqs] =
-+			&sirq_data->parent_data[i];
-+
-+		sirq_data->parent_data[i].parent_irq = ret;
-+		sirq_data->parent_data[i].parent_irq_data = irq_get_irq_data(ret);
-+
-+		available_parent_irqs++;
-+	}
-+	chip->irq.num_parents = available_parent_irqs;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Determine the GPIO pins which are triggering the parent irq given by
-+ * pirqd, by comparing each mapped pin's line level against its polarity.
-+ */
-+static void loongson_gpio_shared_irq_poll(struct loongson_gpio_chip *lgpio,
-+					  unsigned int parent_index,
-+					  unsigned long *irq_pending_map,
-+					  unsigned int ngpio)
-+{
-+	const struct loongson_gpio_chip_data *data = lgpio->chip_data;
-+	unsigned int i;
-+
-+	for (i = 0; i < ngpio; i++) {
-+		u8 inten, intpol, level;
-+
-+		if (data->irq_mapping(lgpio, i) != parent_index)
-+			continue;
-+
-+		scoped_guard(raw_spinlock_irqsave, &lgpio->sirq_data->lock) {
-+			inten = !!loongson_gpio_read_register(lgpio, data->inten_offset, i);
-+			intpol = !!loongson_gpio_read_register(lgpio, data->intpol_offset, i);
-+			level = !!loongson_gpio_read_register(lgpio, data->in_offset, i);
-+		}
-+
-+		if (inten && intpol == level)
-+			bitmap_set(irq_pending_map, i, 1);
-+	}
-+}
-+
-+static void loongson_gpio_shared_irq_handler(struct irq_desc *desc)
-+{
-+	struct loongson_gpio_sirq_parent_data *pirqd = irq_desc_get_handler_data(desc);
-+	struct loongson_gpio_chip *lgpio = pirqd->lgpio;
-+	struct gpio_chip *chip = &lgpio->chip.gc;
-+	struct irq_chip *girqchip = irq_desc_get_chip(desc);
-+	unsigned int ngpio = chip->ngpio > MAX_GPIO_WITH_IRQ ? MAX_GPIO_WITH_IRQ : chip->ngpio;
-+	unsigned int usedby, i;
-+	bool exclusive;
-+	DECLARE_BITMAP(irq_pending_map, MAX_GPIO_WITH_IRQ);
-+
-+	bitmap_clear(irq_pending_map, 0, ngpio);
-+
-+	chained_irq_enter(girqchip, desc);
-+
-+	/*
-+	 * Release the lock after copying the exclusive and usedby fields.
-+	 * This ensures lock ordering and prevents deadlocks.
-+	 */
-+	scoped_guard(raw_spinlock_irqsave, &desc->lock) {
-+		exclusive = pirqd->exclusive;
-+		usedby = pirqd->usedby;
-+	}
-+	if (exclusive && usedby < ngpio)
-+		bitmap_set(irq_pending_map, usedby, 1);
-+	else if (usedby) {
-+		/*
-+		 * When a parent irq is shared by more than 1 gpio pin,
-+		 * these IRQs must be level-triggered, and the polarity
-+		 * register must be available in the GPIO controller to
-+		 * determine the triggering GPIO line.
-+		 */
-+		loongson_gpio_shared_irq_poll(lgpio, pirqd->parent_index, irq_pending_map, ngpio);
-+	}
-+
-+	if (!bitmap_empty(irq_pending_map, ngpio)) {
-+		for (i = 0; i < ngpio; i++) {
-+			if (test_bit(i, irq_pending_map))
-+				generic_handle_domain_irq(chip->irq.domain, i);
-+		}
-+	}
-+
-+	chained_irq_exit(girqchip, desc);
-+}
-+
-+static const struct irq_chip loongson_gpio_shared_irqchip = {
-+	.irq_mask	= loongson_gpio_shared_irq_mask,
-+	.irq_unmask	= loongson_gpio_shared_irq_unmask,
-+	.irq_set_type	= loongson_gpio_shared_irq_set_type,
-+	.irq_shutdown	= loongson_gpio_shared_irq_shutdown,
-+	.flags		= IRQCHIP_IMMUTABLE | IRQCHIP_SKIP_SET_WAKE,
-+	GPIOCHIP_IRQ_RESOURCE_HELPERS,
-+};
-+
-+static unsigned int loongson_gpio_irq_mapping_mod8(struct loongson_gpio_chip *lgpio,
-+						   unsigned int pin)
-+{
-+	return pin % 8;
-+}
-+
-+static unsigned int loongson_gpio_irq_mapping_cap4(struct loongson_gpio_chip *lgpio,
-+						   unsigned int pin)
-+{
-+	return pin >= 4 ? 4 : pin;
-+}
-+
-+static unsigned int loongson_gpio_irq_mapping_cap4_2(struct loongson_gpio_chip *lgpio,
-+						     unsigned int pin)
-+{
-+	if (pin < 4)
-+		return pin;
-+	else if (pin < 32)
-+		return 4;
-+	else
-+		return 5;
-+}
-+
-+static unsigned int loongson_gpio_irq_mapping_div32(struct loongson_gpio_chip *lgpio,
-+						    unsigned int pin)
-+{
-+	return pin / 32;
-+}
-+
- static int loongson_gpio_init(struct platform_device *pdev, struct loongson_gpio_chip *lgpio,
- 			      void __iomem *reg_base)
- {
-@@ -371,6 +981,11 @@ static const struct loongson_gpio_chip_data loongson_gpio_ls2k_data = {
- 	.in_offset = 0x20,
- 	.out_offset = 0x10,
- 	.inten_offset = 0x30,
-+	.intr_num = 6,
-+	.irq_init = loongson_gpio_init_shared_irqchip,
-+	.irq_handler = loongson_gpio_shared_irq_handler,
-+	.girqchip = &loongson_gpio_shared_irqchip,
-+	.irq_mapping = loongson_gpio_irq_mapping_cap4_2,
- };
- 
- static const struct loongson_gpio_chip_data loongson_gpio_ls2k0300_data = {
-@@ -398,6 +1013,11 @@ static const struct loongson_gpio_chip_data loongson_gpio_ls2k0500_data0 = {
- 	.in_offset = 0x8,
- 	.out_offset = 0x10,
- 	.inten_offset = 0xb0,
-+	.intr_num = 2,
-+	.irq_init = loongson_gpio_init_shared_irqchip,
-+	.irq_handler = loongson_gpio_shared_irq_handler,
-+	.girqchip = &loongson_gpio_shared_irqchip,
-+	.irq_mapping = loongson_gpio_irq_mapping_div32,
- };
- 
- static const struct loongson_gpio_chip_data loongson_gpio_ls2k0500_data1 = {
-@@ -407,6 +1027,11 @@ static const struct loongson_gpio_chip_data loongson_gpio_ls2k0500_data1 = {
- 	.in_offset = 0x8,
- 	.out_offset = 0x10,
- 	.inten_offset = 0x98,
-+	.intr_num = 2,
-+	.irq_init = loongson_gpio_init_shared_irqchip,
-+	.irq_handler = loongson_gpio_shared_irq_handler,
-+	.girqchip = &loongson_gpio_shared_irqchip,
-+	.irq_mapping = loongson_gpio_irq_mapping_div32,
- };
- 
- static const struct loongson_gpio_chip_data loongson_gpio_ls2k2000_data0 = {
-@@ -416,6 +1041,12 @@ static const struct loongson_gpio_chip_data loongson_gpio_ls2k2000_data0 = {
- 	.in_offset = 0xc,
- 	.out_offset = 0x8,
- 	.inten_offset = 0x14,
-+	.intpol_offset = 0x10,
-+	.intr_num = 8,
-+	.irq_init = loongson_gpio_init_shared_irqchip,
-+	.irq_handler = loongson_gpio_shared_irq_handler,
-+	.girqchip = &loongson_gpio_shared_irqchip,
-+	.irq_mapping = loongson_gpio_irq_mapping_mod8,
- };
- 
- static const struct loongson_gpio_chip_data loongson_gpio_ls2k2000_data1 = {
-@@ -450,6 +1081,12 @@ static const struct loongson_gpio_chip_data loongson_gpio_ls3a5000_data = {
- 	.in_offset = 0xc,
- 	.out_offset = 0x8,
- 	.inten_offset = 0x14,
-+	.intpol_offset = 0x10,
-+	.intr_num = 8,
-+	.irq_init = loongson_gpio_init_shared_irqchip,
-+	.irq_handler = loongson_gpio_shared_irq_handler,
-+	.girqchip = &loongson_gpio_shared_irqchip,
-+	.irq_mapping = loongson_gpio_irq_mapping_mod8,
- };
- 
- static const struct loongson_gpio_chip_data loongson_gpio_ls7a_data = {
-@@ -459,6 +1096,11 @@ static const struct loongson_gpio_chip_data loongson_gpio_ls7a_data = {
- 	.in_offset = 0xa00,
- 	.out_offset = 0x900,
- 	.inten_offset = 0xb00,
-+	.intr_num = 5,
-+	.irq_init = loongson_gpio_init_shared_irqchip,
-+	.irq_handler = loongson_gpio_shared_irq_handler,
-+	.girqchip = &loongson_gpio_shared_irqchip,
-+	.irq_mapping = loongson_gpio_irq_mapping_cap4,
- };
- 
- /* LS7A2000 chipset GPIO */
-@@ -496,6 +1138,12 @@ static const struct loongson_gpio_chip_data loongson_gpio_ls3a6000_data = {
- 	.in_offset = 0xc,
- 	.out_offset = 0x8,
- 	.inten_offset = 0x14,
-+	.intpol_offset = 0x10,
-+	.intr_num = 8,
-+	.irq_init = loongson_gpio_init_shared_irqchip,
-+	.irq_handler = loongson_gpio_shared_irq_handler,
-+	.girqchip = &loongson_gpio_shared_irqchip,
-+	.irq_mapping = loongson_gpio_irq_mapping_mod8,
- };
- 
- static const struct of_device_id loongson_gpio_of_match[] = {
+[ ... ]
+
+> + * A peer-reviewed paper on TCP ROCCET will be presented
+> + * at the WONS 2026 conference.
+> + * A draft of the paper is available here:
+> + *		https://arxiv.org/abs/2510.25281
+
+[ ... ]
+
+> + * Unless CUBIC is enabled and congestion window is large
+> + * this behaves the same as the original Reno.
+> + */
+
+[Severity: Low]
+This isn't a bug, but some comments in this file don't match the code.
+
+The header says the paper "will be presented at the WONS 2026
+conference", but the commit message already cites the published WONS 2026
+DOI.
+
+The sentence "Unless CUBIC is enabled and congestion window is large this
+behaves the same as the original Reno" was copied from tcp_cubic.c. It
+doesn't describe ROCCET.
+
+In roccet_handle_state_transitions(), the comment says the LAUNCH
+bookkeeping also happens "Even on LAUNCH to LAUNCH transitions (on RTO)".
+The function returns before it gets there:
+
+	if (ca->state == prev_state)
+		return;
+
+In roccet_init(), the comment says initial_limit_reached and
+is_in_initial_launch are reset "so they only get set during init".
+However, roccet_reset() memsets them again on every TCP_CA_Loss. After an
+RTO, initial_limit_reached is false again. That turns off the
+!tcp_is_cwnd_limited() LAUNCH exit until roccet_control() sets the flag
+again.
+
+In roccet_min_rtt_probe(), the comment refers to "the time_before32
+check", but the code uses time_between32().
+
+The comment above roccet_update_pacing_rate() says the code is similar to
+tcp_cong_control() and paces at 200% in slow start. The logic actually
+follows tcp_update_pacing_rate(), and the slow start ratio comes from
+sysctl_tcp_pacing_ss_ratio.
+
+[ ... ]
+
+> +/* Parameters that are specific to the ROCCET-Algorithm */
+> +static uint sr_rtt_upper_bound __read_mostly = 100;
+> +static int ack_rate_diff_ss __read_mostly = 10;
+> +
+> +module_param(sr_rtt_upper_bound, uint, 0644);
+> +MODULE_PARM_DESC(sr_rtt_upper_bound, "ROCCET's upper bound for srRTT.");
+> +module_param(ack_rate_diff_ss, int, 0644);
+> +MODULE_PARM_DESC(ack_rate_diff_ss,
+> +		 "ROCCET's threshold to exit slow start if ACK-rate differs by given amount of segments.");
+
+[ ... ]
+
+> +module_param_cb(beta, &beta_param_ops, &beta, 0644);
+> +MODULE_PARM_DESC(beta, "beta for multiplicative increase");
+
+[Severity: Low]
+This isn't a bug, but both of these parameter descriptions disagree with
+how the parameters are used.
+
+beta is only used as the multiplicative decrease factor
+(cwnd * beta / BICTCP_BETA_SCALE) in roccet_congestion_event(),
+roccet_recalc_ssthresh() and roccet_handle_recovery(). Should the text say
+"multiplicative decrease"?
+
+For ack_rate_diff_ss, roccet_launch_update() exits LAUNCH when the ACK
+rate increase is at most this value, and only if srRTT is also above
+sr_rtt_upper_bound:
+
+	if ((ca->curr_srrtt > sr_rtt_upper_bound &&
+	     get_ack_rate_diff(ca) <= ack_rate_diff_ss) ||
+
+get_ack_rate_diff() clamps decreases to 0. A negative value written to
+this 0644 int therefore permanently disables the srRTT based LAUNCH exit.
+Should it be bounds checked the same way beta is?
+
+[ ... ]
+
+> +/* Compute srRTT.
+> + */
+> +static void update_srrtt(struct roccettcp *ca)
+> +{
+> +	u64 rrtt;
+
+[ ... ]
+
+> +	rrtt = div_u64(100 * (u64)(ca->curr_rtt - ca->curr_min_rtt),
+> +		       ca->curr_min_rtt);
+> +
+> +	/* (1 - alpha) * srRTT + alpha * rRTT */
+> +	ca->curr_srrtt = ((100 - ROCCET_ALPHA_TIMES_100) * (u64)ca->curr_srrtt +
+> +			  ROCCET_ALPHA_TIMES_100 * rrtt) /
+> +			 100;
+> +}
+
+[Severity: Low]
+Will this link on 32-bit architectures? This divides a u64 by 100 with a
+plain '/'. The compiler turns that into a libgcc call (__udivdi3 on i386,
+__aeabi_uldivmod on arm), and the kernel doesn't provide those. The module
+link would then fail with an undefined reference.
+
+TCP_CONG_ROCCET has no architecture dependency, so 32-bit allmodconfig
+builds will enable it. The rest of the file already uses div_u64() and
+do_div(). Would div_u64(..., 100) work here?
+
+[ ... ]
+
+> +static void roccet_enter_min_rtt_probe(struct sock *sk, u32 now)
+> +{
+
+[ ... ]
+
+> +	if (!tcp_is_cwnd_limited(sk))
+> +		probe_cwnd = max(tcp_snd_cwnd(tp) / 3, TCP_INIT_CWND);
+> +	else
+> +		probe_cwnd = max(tcp_snd_cwnd(tp) / 2, TCP_INIT_CWND);
+> +
+> +	ca->probe_min_rtt_until = now + interval;
+> +	ca->cwnd_before_min_rtt_probe = tcp_snd_cwnd(tp);
+> +
+> +	/* Reduce the cwnd to drain the buffer for probing. */
+> +	tcp_snd_cwnd_set(tp, probe_cwnd);
+
+[Severity: Medium]
+Can this raise cwnd instead of lowering it?
+
+roccet_congestion_event() and roccet_handle_recovery() let cwnd drop as
+low as 2, so a cwnd between 2 and 9 is reachable in ORBITER. With cwnd 4,
+probe_cwnd becomes TCP_INIT_CWND (10). That adds queueing right after
+curr_min_rtt has been reset to U32_MAX, while the new minimum is being
+measured.
+
+The same TCP_INIT_CWND floor is used for the LAUNCH exit in
+roccet_launch_update():
+
+	tcp_snd_cwnd_set(tp, max(tcp_snd_cwnd(tp) / 2,
+				 TCP_INIT_CWND));
+
+and in roccet_state() for TCP_CA_Loss:
+
+	tcp_snd_cwnd_set(tp, TCP_INIT_CWND);
+
+None of these writes applies tp->snd_cwnd_clamp, unlike
+roccet_congestion_event() and tcp_cong_avoid_ai(). A locked route cwnd
+metric can set the clamp below 10 in tcp_init_metrics():
+
+	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+
+BPF can do the same. Is that clamp then exceeded on probe entry, LAUNCH
+exit and RTO?
+
+[ ... ]
+
+> +static void roccet_cwnd_event_tx_start(struct sock *sk)
+> +{
+> +	struct roccettcp *ca = inet_csk_ca(sk);
+> +	u32 now = tcp_jiffies32;
+> +	s32 delta;
+> +
+> +	delta = now - tcp_sk(sk)->lsndtime;
+> +
+> +	/* We were application limited (idle) for a while.
+> +	 * Shift epoch_start to keep cwnd growth to cubic curve.
+> +	 */
+> +	if (ca->epoch_start && delta > 0) {
+> +		ca->epoch_start += delta;
+> +		if (after(ca->epoch_start, now))
+> +			ca->epoch_start = now;
+> +	}
+> +}
+
+[Severity: Medium]
+Is this enough idle handling for a .cong_control module? CUBIC can get
+away with only shifting epoch_start, because the core restarts cwnd after
+idle and applies RFC 7661 validation for it. Both of those core paths are
+skipped when cong_control is set:
+
+include/net/tcp.h:tcp_slow_start_after_idle_check() {
+	if (!READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_slow_start_after_idle) ||
+	    tp->packets_out || ca_ops->cong_control)
+		return;
+	...
+}
+
+net/ipv4/tcp_output.c:tcp_cwnd_validate() {
+	...
+		if (READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_slow_start_after_idle) &&
+		    (s32)(tcp_jiffies32 - tp->snd_cwnd_stamp) >= inet_csk(sk)->icsk_rto &&
+		    !ca_ops->cong_control)
+			tcp_cwnd_application_limited(sk);
+	...
+}
+
+As a result, net.ipv4.tcp_slow_start_after_idle has no effect for ROCCET.
+After an idle period longer than RTO, the connection resumes with its full
+stale cwnd, paced only over the old srtt.
+
+No other ROCCET path lowers cwnd based on idle time. The idle reset in
+update_ack_rate() only clears counters.
+
+[ ... ]
+
+> +static void roccet_orbiter_update(struct sock *sk, u32 acked)
+> +{
+
+[ ... ]
+
+> +	sent = tp->snd_nxt - ca->interval_snd_seq_start;
+> +	received = tp->snd_una - ca->interval_una_seq_start;
+> +
+> +	/* Check sent and received bytes from the previous interval.
+> +	 * Here we use a guard space of 1% of the current cwnd.
+> +	 * We do this to avoid a false positive evaluation due
+> +	 * to delays caused by jitter or scheduling.
+> +	 */
+> +	sent_more_than_acked = (s32)(sent - received) >
+> +			       div_u64((u64)tcp_snd_cwnd(tp) *
+> +			       (u64)tp->mss_cache, 100);
+
+[Severity: Medium]
+Does this comparison do what's intended? (s32)(sent - received) is
+compared with the u64 that div_u64() returns. The usual arithmetic
+conversions turn the s32 into a u64, so any negative difference becomes a
+value near 2^64 and sent_more_than_acked comes out true.
+
+sent - received is the in-flight bytes now minus the in-flight bytes at
+the start of the interval. It goes negative whenever the flight shrinks:
+
+  - after a cwnd reduction (DRAIN lasts only 100ms, but the flight keeps
+    shrinking for about an RTT)
+  - during Recovery, when snd_nxt stalls
+  - when the sender is application limited
+
+In those cases, can the srRTT branch below fire another
+roccet_congestion_event() while the queue is actually draining?
+
+The growth check has the same input:
+
+	if (!tcp_is_cwnd_limited(sk) || sent_more_than_acked ||
+	    tcp_in_cwnd_reduction(sk))
+		return;
+
+Does it then block CUBIC growth right when growth should resume?
+
+[ ... ]
+
+> +	/* The srRTT exceeds the upper bound if bufferbloat happens.
+> +	 * Here, we want to reduce the cwnd and drain the buffer.
+> +	 */
+> +	if (ca->curr_srrtt > roccet_xj && evaluate_srrtt &&
+> +	    sent_more_than_acked) {
+> +		roccet_congestion_event(sk, now);
+> +		return;
+> +	}
+
+[Severity: Medium]
+Can a single ACK reduce cwnd twice when Recovery starts? tcp_ack() runs
+tcp_fastretrans_alert() before tcp_cong_control(). For a flow in ORBITER:
+
+tcp_fastretrans_alert()
+  tcp_enter_recovery()
+    tcp_set_ca_state(sk, TCP_CA_Recovery)
+      roccet_state()
+        roccet_handle_recovery()   /* cwnd = beta * cwnd */
+tcp_cong_control()
+  roccet_control()
+    roccet_orbiter_update()
+      roccet_congestion_event()    /* cwnd = beta * cwnd again */
+
+roccet_state() makes the first cut. tcp_set_ca_state() calls set_state
+before it updates icsk_ca_state, so tcp_in_cwnd_reduction() is still
+false there. The Recovery path doesn't change the ROCCET state, set
+roccet_last_event_time_us, or push out next_srrtt_check_ts.
+
+Suppose the srRTT deadline has passed, curr_srrtt is above roccet_xj, and
+sent_more_than_acked is true. It is often true in Recovery because of the
+signed/unsigned comparison above. Then roccet_congestion_event() runs
+here. The tcp_in_cwnd_reduction() check in roccet_orbiter_update() comes
+after this branch and only guards growth. Later ACKs during Recovery can
+hit the same branch.
+
+With the default beta, cwnd 100 would go to 70 and then to 49. The v9
+changelog item "Avoid double-cwnd-reduction via tcp_in_cwnd_reduction
+check" covers the roccet_state() path, but not this one.
+
+[ ... ]
+
+> +static u32 roccet_recalc_ssthresh(struct sock *sk)
+> +{
+> +	const struct tcp_sock *tp = tcp_sk(sk);
+> +	struct roccettcp *ca = inet_csk_ca(sk);
+> +	u32 cwnd = tcp_snd_cwnd(tp);
+> +
+> +	/* In LAUNCH, we want no reduction on loss/ECN.
+> +	 * On ECN this is set later on in roccet_state()
+> +	 */
+> +	if (ca->state == LAUNCH)
+> +		return cwnd;
+
+[ ... ]
+
+> +static u32 roccet_handle_recovery(struct sock *sk)
+> +{
+
+[ ... ]
+
+> +	/* On loss in LAUNCH, enter ORBITER without a cwnd reduction. */
+> +	if (ca->state == LAUNCH) {
+> +		ca->state = ORBITER;
+> +		return cwnd;
+> +	}
+
+[Severity: Medium]
+On loss, the commit message only says that ROCCET "reacts to packet loss
+by adapting CUBIC's behavior". Is it intended that a loss in LAUNCH never
+reduces cwnd?
+
+When Recovery starts in LAUNCH, roccet_recalc_ssthresh() returns the
+unreduced cwnd. roccet_handle_recovery() then switches to ORBITER and
+keeps the same cwnd. roccet_last_event_time_us isn't set, so no DRAIN
+follows. roccet_orbiter_update() only blocks growth during Recovery, so
+the slow start overshoot window survives the first recovery episode.
+Since .cong_control is set, tcp_cong_control() returns before the core
+reduction runs, so nothing else lowers it either.
+
+On RTO, tcp_enter_loss() sets cwnd to packets_in_flight + 1, normally 1,
+which is the RFC 5681 loss window. roccet_state(TCP_CA_Loss) then
+overwrites it with TCP_INIT_CWND. If the RTO happens in LAUNCH, ssthresh
+also stays at the full overshoot cwnd. roccet_recalc_ssthresh() returned
+cwnd, and roccet_state() only applies max(ssthresh, TCP_INIT_CWND). Does
+the flow then slow start straight back to the window that caused the
+timeout?
+
+These deviations are only described in two places. One is the file
+header ("LAUNCH, where loss is not considered as a congestion event").
+The other is the changelog below the --- line ("Increase cwnd back to
+TCP_CWND_INIT on RTO"), which is dropped when the patch is applied.
+These are departures from RFC 5681 and RFC 9438. Could the commit
+message describe them?
+
+[ ... ]
+
+> +static void roccet_state(struct sock *sk, u8 new_state)
+> +{
+> +	struct roccettcp *ca = inet_csk_ca(sk);
+> +	struct tcp_sock *tp = tcp_sk(sk);
+> +	u32 cwnd;
+> +	u32 now = jiffies_to_usecs(tcp_jiffies32);
+> +	enum roccet_state prev_state = ca->state;
+> +
+> +	if (new_state == TCP_CA_Loss) {
+> +		roccet_reset(sk, ca);
+> +		tcp_snd_cwnd_set(tp, TCP_INIT_CWND);
+> +		WRITE_ONCE(tp->snd_ssthresh, max(tp->snd_ssthresh,
+> +						 TCP_INIT_CWND));
+
+[Severity: Medium]
+What happens here if the RTO turns out to be spurious? roccet_reset()
+puts ROCCET into LAUNCH and clears last_max_cwnd and delay_min. Suppose
+F-RTO later undoes the loss:
+
+tcp_process_loss()
+  tcp_try_undo_loss()
+    tcp_undo_cwnd_reduction()            /* cwnd and ssthresh restored */
+    tcp_set_ca_state(sk, TCP_CA_Open)    /* ignored by roccet_state() */
+
+tcp_reno_undo_cwnd() restores cwnd to max(cwnd, prior_cwnd), and ssthresh
+goes back to prior_ssthresh. In congestion avoidance that leaves
+cwnd >= ssthresh while ROCCET is still in LAUNCH.
+
+On the same ACK, roccet_control()->roccet_launch_update() sees
+!tcp_in_slow_start(tp) and takes the exit branch:
+
+	tcp_snd_cwnd_set(tp, max(tcp_snd_cwnd(tp) -
+				 (tcp_snd_cwnd(tp) / 3),
+				 TCP_INIT_CWND));
+	WRITE_ONCE(tp->snd_ssthresh, tcp_snd_cwnd(tp));
+
+Does this cut the restored window by about a third, and lose the CUBIC
+Wmax and delay history, even though the RTO was spurious?
+
+> +	} else if (tcp_in_cwnd_reduction(sk)) {
+
+[ ... ]
+
+> +	} else if (new_state == TCP_CA_Recovery) {
+> +		/* Directly reduce cwnd and rely on pacing */
+> +		cwnd = roccet_handle_recovery(sk);
+> +		tcp_snd_cwnd_set(tp, cwnd);
+> +	}
+
+[Severity: Medium]
+Because .cong_control is set, the core skips tcp_cwnd_reduction() (PRR).
+That includes the fast retransmit PRR forces when recovery starts.
+tcp_rack_reo_timeout() also leaves this to the module:
+
+	if (!inet_csk(sk)->icsk_ca_ops->cong_control)
+		tcp_cwnd_reduction(sk, 1, tp->lost - lost, 0);
+
+Here cwnd is set straight to about 0.7 * cwnd, with no packet
+conservation step (BBR uses in_flight + acked). roccet_orbiter_update()
+then blocks growth while tcp_in_cwnd_reduction() is true. Can this delay,
+or stall, the first retransmission?
+
+tcp_xmit_retransmit_queue() stops while in_flight >= cwnd:
+
+	segs = tcp_snd_cwnd(tp) - tcp_packets_in_flight(tp);
+	if (segs <= 0)
+		break;
+
+tcp_schedule_loss_probe() only arms TLP in Open or CWR.
+
+With a single loss, the first retransmit waits until SACKs bring
+in_flight below 0.7 * cwnd, roughly 30% of an RTT.
+
+With heavy tail loss that isn't marked lost yet, it stalls completely.
+For example: cwnd 100, packet 10 lost, 11..30 SACKed, 31..100 lost, so
+in_flight == 70 == cwnd. Then no retransmission or probe goes out until
+the RTO, which also resets all ROCCET state. PRR would have sent one
+forced retransmit in this case.
+
+> +
+> +	roccet_handle_state_transitions(sk, prev_state, now);
+> +}
+> +
+> +/* Update RTT samples and min RTT.
+> + */
+> +static void roccet_acked(struct sock *sk, const struct ack_sample *sample)
+> +{
+
+[ ... ]
+
+> +	/* Discard delay samples right after fast recovery */
+> +	if (ca->epoch_start && (s32)(tcp_jiffies32 - ca->epoch_start) < HZ)
+> +		return;
+
+[ ... ]
+
+> +	/* Get valid sample for roccet */
+> +	if (sample->rtt_us > 0) {
+> +		ca->last_rtt = ca->curr_rtt;
+> +		ca->curr_rtt = sample->rtt_us;
+> +	}
+> +}
+
+[Severity: Medium]
+This early return comes from CUBIC, but here it also skips the curr_rtt
+and last_rtt updates below. Is that intended?
+
+bictcp_update() starts a new epoch on the first ORBITER growth after any
+reduction: DRAIN to ORBITER, Recovery, CWR, Loss, or LAUNCH exit.
+roccet_cwnd_event_tx_start() can also clamp epoch_start to now after
+idle. For one second after that, curr_rtt and last_rtt stay frozen.
+
+Meanwhile, roccet_control() keeps calling update_min_rtt() and
+update_srrtt() on every ACK with acked_sacked > 0. The srRTT EWMA and the
+jitter term then converge on RTT data up to a second old. That could
+trigger or suppress srRTT congestion events.
+
+The min RTT probe looks affected too. roccet_enter_min_rtt_probe() resets
+curr_min_rtt to U32_MAX but leaves epoch_start alone. If the probe starts
+less than a second after an epoch start, every probe sample is discarded.
+update_min_rtt() then copies the stale, pre-probe curr_rtt into
+curr_min_rtt. Would the probe record an inflated minimum RTT in that
+case?
+
+[ ... ]
+
+> +static void roccet_control(struct sock *sk, u32 ack, int flag,
+> +			   const struct rate_sample *rs)
+> +{
+> +	struct roccettcp *ca = inet_csk_ca(sk);
+> +
+> +	u32 now = jiffies_to_usecs(tcp_jiffies32);
+
+[Severity: Low]
+Is jiffies_to_usecs(tcp_jiffies32) safe as a wrapping timestamp for
+time_between32() and time_after32()? It is only linear mod 2^32 when HZ
+divides USEC_PER_SEC. For HZ values such as 300, it uses the out-of-line
+version in kernel/time/time.c:
+
+#if BITS_PER_LONG == 32
+	return (HZ_TO_USEC_MUL32 * j) >> HZ_TO_USEC_SHR32;
+#else
+	return (j * HZ_TO_USEC_NUM) / HZ_TO_USEC_DEN;
+#endif
+
+That result is not congruent mod 2^32. tcp_jiffies32 wraps 5 minutes after
+boot (because of INITIAL_JIFFIES) and then every 2^32 jiffies. At each
+wrap, now jumps by about 1.43e9 us.
+
+Wouldn't all of ROCCET's time windows then misfire at once, for every
+socket? That covers the DRAIN exit, the ack rate idle reset, the
+next_min_rtt_probe expiry (a spurious probe that halves cwnd), the
+next_srrtt_check_ts evaluation, the probe and refill timers, and the
+500ms initial limit check.
+
+BBR avoids this by using tp->tcp_mstamp.
+
+[ ... ]
 
 -- 
-2.55.0
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/arqDuiD4Q4GWOFBc%40volt-roccet-vm
