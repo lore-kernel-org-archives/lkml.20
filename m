@@ -1,149 +1,377 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691FD5304A8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9512C52D2BE
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:18:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790867886; cv=none; b=PeVOdYlHj4hg7v0GsC1ZmE28mLxUbOXwPxif/F4nNA+GfGsQzPP+GaIYL5FjScVB5FBY1omXMjVFD2cwiPG7vWg8FMfnamNVPDpmGHlAErMtgtSslKpz/9JZXs8wMkZZipNhUvMOE5ddhaEzBhZSpwBme9FifWrMn6j1ZKe7K8Q=
+	t=1790867888; cv=none; b=rEIpDcDlp+Avi/5158E/FWD1R5t88ANDM73sqkcrJUO0DVM9++SCAOqEY9SsdG/5m8oBIyMQYCMuDproN3XbhBCjO39r/tGcxklZ/nITlUDihu0eA6eMmT5lAwIA49VACc5/ZDnlnUtE8HQ8M4CZEdKvyPX5Wkc3v4ScqsxAdmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790867886; c=relaxed/simple;
-	bh=Q85kZEspfRbBEZSBGOjOQeRPZ7EBf2+4Hi635vpRBZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hO/7lHOxSzQ8aU9+yycjWybSYyg0JB2jM/U8p0zoYYDdYLMFVP0Rw9kWvJAwita6ISf52Pl9RfP+brwS4P7jTSSEyCycAEoEPGk5wpH/KF2XxRNPhoFNe7VX8ib+GQ/9RZWYFr/J+nyo1P4zzIZTB4ER4R+q6LtyfNfnH668cnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Wzr7qjDa; arc=none smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1790867888; c=relaxed/simple;
+	bh=p6rhljcnBp+jXz15wzZQhMoSueg/QNRofByiFqfod3k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ivCDginsePbCgP4PgosG9SGB7+NmW3po4qMDzeE9oTig3+TS9Rzxkia5FoGRkzoPh8BI8l/Y5V6QPVr+V9GMBhudxlttxxfj/hP+jMUGWG9kG//8EFYoNMK7D1hcdJ9vkuBUy9Nkyv9ZAxhonGQ3IcmhonqDSRlaHoLWdrNvyBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SbclvA3Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H43UQlFT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Wzr7qjDa"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-821ff9f018bso366796a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:18:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SbclvA3Z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H43UQlFT"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DjJVL2830103
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 15:18:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7dHXHAeNe23JwpU0+Wwv+s8PNSaEhZzJ11+JoEi3jlM=; b=SbclvA3Zjjpah1F9
+	zioa/ZAk7hQz5nmbb7Rra8eQPBk5eJ+zW77EfhAg0E9rxX+c/7iwktYoPXNAZIYI
+	kEhM0UsXN2ZZvG7kidITCHibVDm+YxJi28RdqEUyBNELTlV702tpvYkTvi2yCDTB
+	7/6NbjMkVO8yVCvHZaq3QyoO2uwRPql5wHo7lpNJtmJpOWc7BFdakaRPd782jWM8
+	uasS9ML7dni6r27N9AQyHIXxF0yOytQ6INaVG3HTTL3X/SelIKifpNvImySSjeP/
+	fMASSWYaDPY+MrRrU6WJRkXP619K+G/yudr8z1mvRsG1v9X7V/IwK7/5Tt9Ub2Ej
+	jEo6Dw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1bh5bnk8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:18:05 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-34bbf2e3c5cso5518029eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:18:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790867883; x=1791472683; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PiIPZwDVa/FTGpS0Ac/pTVSem1bCOOPpbOCOtMlbuUk=;
-        b=Wzr7qjDa4/x4HNkCkGtcqfemfvbGJipDfnbEOi7Xswqv4/CqsiB7619RRhyinHvtn+
-         Y5bp1fXu+1410xACXRsP/di2ssXWovqw4gGAm73gbBD/jmD+naaxnpuNI1F5zhAqiqo/
-         fYuLcTIYkyS3k3rLclnWyn8Uqy+nSIAhwHYokVbvtAmbe/gOOtLqeuQvOH5T+ktpnzqK
-         u/IgTCklKqd6ORi5Wr8cb8Ypjo1ozUa/Rp3Gg4i4SXpqGBlNCUXIe82F5mWWcBK2Got3
-         bIe1ZdI42/PiVSy3hXsKmbTc3gaZ1MWQLNFJc4Y/SRVHbmyQgPsm+2mCDT+tCRfQXyRU
-         g7iw==
+        d=oss.qualcomm.com; s=google; t=1790867885; x=1791472685; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7dHXHAeNe23JwpU0+Wwv+s8PNSaEhZzJ11+JoEi3jlM=;
+        b=H43UQlFTXnv3NhgFdqgcjMzl/nVi28rB5DHSXSSXVIK2pCviQthmdI2Tfmfg7a5g5K
+         z+9aTWIwraeT4J4kBqYw+NRERqNMUJfS37J1KjfaM5vyY2Wv2xL8giZRlvY//P9QXNww
+         K5u+RCAXorbh2ECEOysIOFEV0a6BKpH7XsQEHGaXHGM7dT2EE82ppXsxKdz+VSzGJEKo
+         SZ33pA24jat+aML5JQnbTNHUw83QdbodAi7GFpOtCruTMPlTbTAuBMQXYxLK4RSOXNcP
+         /4gWO10/WuHQ9HDUPKQMBK4LymWcANUaWzCAWQ18rCXGRvrezR3ksyNmOWsyGB2yYpeC
+         wVTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790867883; x=1791472683;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790867885; x=1791472685;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PiIPZwDVa/FTGpS0Ac/pTVSem1bCOOPpbOCOtMlbuUk=;
-        b=MQViFwFsarHopzx1kKITsUqQYp3+d4xXnM+IOFfXSTOW7PuxGKq1SDHZceM3CH66+O
-         3LB+HgflopacQtKKKpeP8Fhf3r0WPeJiq5b2snSBFprrYaUwSoHT3039Y82DC7pKOJco
-         BU3LZW8jGFhuWLuICeksJb+xbFQT2TxVIhGTFUAiQZ6lvS9YW12ctTFyvg0/TVcQ6TQ7
-         WYvkk0WrNl9sS20Dc1261BJD57Gu4dTJ98EfyTCyPoQ2XBtucJSeO8YnswT79k3vwhL1
-         7Er7wY8Jzus+r8QYemaEnZZSONBBI0lVGgyDsGE/sYAGA0ELYjMhmx1kHL5Z//2p+kBP
-         CuIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSQqYWqYYsbVkMBBXGpVcH4IyawO5m4XqBkZOMaVrLo3icm/FI/iFELf8vSCYNZgRFv703NQVL2A1znjs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPd+GuKwnLS+kZQy2hVCPmGfUuSvwytSvNjuiWLMDm2zULrpPu
-	d4kjFsFuKxSf9VFyZz8YEUx71RRUUebX+3Rkk27vCrtLzP4Jq4XepVeaTb2ZyASW7QE=
-X-Gm-Gg: AYBFou3jjM9V2pMdTDIKVXm9rrJdq1hl9/zQzWomwEZXxXb2E+rGMOyWojp+WbTPFwF
-	NUGhWq6iszQZC4lDKUAayDkh/ge8yK4PrFreHZhHE+VyT2bb5/L3p1H9ngaAMkgwNf8nuWPLTmO
-	8R51IU6m4bBKGmS8GVdoFve1kriUb3XewheOaUF1i/tE/Lz/0ix7RaL0MLLgkV+L+3SrTA2ZFpg
-	rS7OfFRNlzJeNla8mrZUyTrTnwTaQ3+9F+BXIJhdSSOIX+EVaJwpRqc6q1J/VkBGAZkDSz/Pj89
-	myXA7QBB/im1Q0PTa9vbQ8QzQnz/PlSQzcf984dPn/BShuOzl2eCgIgxnH3b+QAEgxPLnmhmd86
-	2xsg0PnaUmTx1xfrv7S0w+3D97g82CR3G/tLnxD6Qq0nHOtlzXpkELwVmsUYUH/vGvd8TqzIMfX
-	3DgdnXC/XrOtTjVb0isS8hUn+tCCNT2341D6hgT80Aba+d
-X-Received: by 2002:a05:6830:6d0b:b0:813:baf6:c644 with SMTP id 46e09a7af769-8204b2bd01cmr6068580a34.26.1790867882898;
-        Thu, 01 Oct 2026 08:18:02 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8227a56e124sm18793a34.21.2026.10.01.08.18.02
+        bh=7dHXHAeNe23JwpU0+Wwv+s8PNSaEhZzJ11+JoEi3jlM=;
+        b=plbEKd0KcV5uciljS7mwV99texC0rAyvUDAryO/tQg6EZ9dkp7Dbgd4tW3dA940kKb
+         ydKorQS7fnFFGURRpKP5pQoXaecA3gEbMy+XWBY4agAQ4B5LJORpAMJ9AeFLdx6L+9Iz
+         aeXDD9Cr8UGWzmwphU56KfhF7EyuHWz4omwNGKlTp5SRrXQMumwzQk3riaf0NKfzEjKh
+         Pp5AtPYrCKmFEkv612KF0PsDXH2ycPdi6oNo7RvTpifMxcPiAi4aU4ZxHMVV6q8jbsP6
+         priC4omYfYDZCP/OlbyBshxfCM0dz8G3Uhf3/IMWiL4n+xLyYxZL4VaDEPfeiyi2B1Ef
+         edZA==
+X-Forwarded-Encrypted: i=1; AKwUvByJ2dbpM0PkgLwnHWMshWNdk5zzEa4pSI3YdbcWfmctyp/AS+62fn8aL2PXlUTm5tP6vur0qv1P/6tbL4Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcDgFKqQvEhNwxXI4U0lYzEJwiJas3yeNOOy5WX4RdzvSO4FaH
+	A7yZFQCH5YvT2N0VtNMfqZEfTYrNtypQY/vJpseCr/ZaC6Mh2GqEVS8EW16B2X2b9Ws+8g3RwhP
+	oeFEspL/Z1W4lt3I8V6UQgoYoVPzAbxFDeOp98A4JhBC935eD0fV8DRGskzeFE1ItbmU=
+X-Gm-Gg: AYBFou3kIXIc1FcTWj1+GNbmVTuHUUG1T0h+/2Ert0/JSrH/F6B0NKRk5cYMjX1FscT
+	rslMWNezjLf944SvJtCcKVPFye7iF7Xr/ibyNuqsloHina3tbkYO+tb6Axsgx72AaXzt55tyH1k
+	iPENmDLxl0CADzIhtp2pBzHz8kfwnP0skX0tEmBlH8g9MFH/zpphzQU8FFyqwI1kGfs9Dcb9GEG
+	OnkKxniSNokVTpgsVPf2/wYZcJ4XJU9ZjCjUJBq1UWLKwenknPACKVO0GRMNBNvGBQbv4hGspOM
+	MKxCzQepd6UVKrVPoUGQC6pB2kZMkobPhE0aHQVo2peXFa8ZHwO2stfvFBufEX37xXHI2Pta5jT
+	m/vPD8IEd76rSP9ZlOGwOfZ7A2NXB5fzmNw==
+X-Received: by 2002:a05:7300:2a95:b0:34b:e2cf:43b6 with SMTP id 5a478bee46e88-34cdd0a96f7mr5115532eec.2.1790867884443;
+        Thu, 01 Oct 2026 08:18:04 -0700 (PDT)
+X-Received: by 2002:a05:7300:2a95:b0:34b:e2cf:43b6 with SMTP id 5a478bee46e88-34cdd0a96f7mr5115489eec.2.1790867883658;
+        Thu, 01 Oct 2026 08:18:03 -0700 (PDT)
+Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f246d32d2sm115700c88.1.2026.10.01.08.17.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:18:02 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xCIXp-0000000ENnk-1pv5;
-	Thu, 01 Oct 2026 12:18:01 -0300
-Date: Thu, 1 Oct 2026 12:18:01 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Suzuki Poulose <suzuki.poulose@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sami Mujawar <sami.mujawar@arm.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>, gongruiqi1@huawei.com
-Subject: Re: [PATCH RFC 0/3] security: ima: support TSM measurement registers
-Message-ID: <20261001151801.GC3019323@ziepe.ca>
-References: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
- <ebe68f6463f8ece8a5cd8ce70bba292ec4f64a41.camel@huaweicloud.com>
- <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
+        Thu, 01 Oct 2026 08:18:03 -0700 (PDT)
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Date: Thu, 01 Oct 2026 20:47:24 +0530
+Subject: [PATCH v4 4/6] media: iris: add platform data for kaanapali
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-kaanapali-iris-v4-4-642f9ac5e699@oss.qualcomm.com>
+References: <20261001-kaanapali-iris-v4-0-642f9ac5e699@oss.qualcomm.com>
+In-Reply-To: <20261001-kaanapali-iris-v4-0-642f9ac5e699@oss.qualcomm.com>
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+        devicetree@vger.kernel.org,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790867851; l=8545;
+ i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
+ bh=p6rhljcnBp+jXz15wzZQhMoSueg/QNRofByiFqfod3k=;
+ b=4SC5f6P+PvP4irga9iViCW4zDmymJD+FnIBCMAPf2g5xMOmoUMbJJOAW8S1YYQcBOZW1lc3jP
+ uy58z2N5/sVB1HUAyLA+R1hjcPwldPoXLx2rMsRtCX5RUSPha8xEdce
+X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
+ pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
+X-Proofpoint-GUID: 9FgRL2E7_kTjmkiGNBYS5Pawc_eiONem
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfX8SrGIgl6tTBh
+ Sek+PXO+AwMdTnZ5bTsdRoJjDguqIE15ll3cUbDL2cidnTIruRTCJwdvwBbwh5BaTTYq/S/hb+A
+ L+2+/SVQ7j7mBXFyaiyVfd32P11feew=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfX512uPzXAtWyv
+ rZ1ue65XGjNus41ooSm21gx8BpOA5AjJZa6Q2vZ0gdyEoY2XuMfNckWRVE4OBz/984imtCA8Vap
+ hGGlQ5+Ja6GndLSMRdHxcAJNrP+MbGVFefuauVm7t5g4gOmX7FkQXdroVy8P19sxrMRVSvAeZis
+ ihgYUZn4cMHTK+1J+2w9RcDnEmSmi4pmXfwedcVCAkdPbl2cyZuxAiP0i723NXG3QN1esl8amCE
+ IepRQoQqjbrpOD+I+0//dGY7/9MQLqfP/yKbvai6upAUdrmpFneW9ndUOEJQYJ91PcqsCW1/sMX
+ jvKgt9Szhk3jGd6hTSleARVoGzcSL3U2Tc5wthaGHSmrBU9z/+k4DBpjqgeUMLNrZYJYpx2NSDW
+ ZRIsaD0vozRGcT8w1Y23bHfAiX4M9Pu80eMJMlSOvdk6Aem5Y1FLXdwBg/RZwJeyaoe10KzknhO
+ cFx0plEiRESsy/bwCoA==
+X-Authority-Analysis: v=2.4 cv=NuxE4MdJ c=1 sm=1 tr=0 ts=6abe79ad cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Jh6IeAywF76aN7zT5WMA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: 9FgRL2E7_kTjmkiGNBYS5Pawc_eiONem
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010060
 
-On Thu, Oct 01, 2026 at 01:45:26PM +0200, Roberto Sassu wrote:
-> On Thu, 2026-10-01 at 13:27 +0200, Roberto Sassu wrote:
-> > On Wed, 2026-09-30 at 14:43 +0100, Yeoreum Yun wrote:
-> > > Confidential computing guests without a TPM can use TSM measurement
-> > > registers to record IMA measurement digests instead of TPM PCRs.
-> 
-> + Gong Ruiqi, of course.
+Add support for the kaanapali platform in the iris driver to support
+video functionality on kaanapali platform.
 
-We are working very seriously on this same problem too.
+Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+---
+ drivers/media/platform/qcom/iris/Makefile          |  2 +
+ .../platform/qcom/iris/iris_platform_common.h      |  4 ++
+ .../platform/qcom/iris/iris_platform_kaanapali.c   | 58 +++++++++++++++++++
+ .../platform/qcom/iris/iris_platform_kaanapali.h   | 15 +++++
+ .../media/platform/qcom/iris/iris_platform_vpu4x.c | 66 ++++++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_probe.c      |  4 ++
+ 6 files changed, 149 insertions(+)
 
-For some time we did investigate extending tsm_mr to do more things,
-have a better uAPI, but that eventually evolved into the realization
-that tsm_mr is simply too narrowly focused. It looks like James got to
-this idea before we did. I agree with his remarks in the 2025 thread
-with Gong.
+diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
+index 48e415cbc4390bc596f6239fefa2a2ad2cd3a2bb..65ad965515a3a368c0f4c9115263e101252b7c0a 100644
+--- a/drivers/media/platform/qcom/iris/Makefile
++++ b/drivers/media/platform/qcom/iris/Makefile
+@@ -12,8 +12,10 @@ qcom-iris-objs += iris_buffer.o \
+              iris_hfi_gen2_packet.o \
+              iris_hfi_gen2_response.o \
+              iris_hfi_queue.o \
++             iris_platform_kaanapali.o \
+              iris_platform_vpu2.o \
+              iris_platform_vpu3x.o \
++             iris_platform_vpu4x.o \
+              iris_power.o \
+              iris_probe.o \
+              iris_resources.o \
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+index 9748095091461ba13443c63955a42906fa4f050c..e8ed0e7c769f37443148cb9418d4efafdc21485b 100644
+--- a/drivers/media/platform/qcom/iris/iris_platform_common.h
++++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+@@ -39,6 +39,9 @@ struct iris_inst;
+ #define MAX_HEVC_VBR_LAYER_HP_SLIDING_WINDOW	5
+ #define MAX_HIER_CODING_LAYER_GEN1		6
+ 
++#define VIDEO_REGION_VM0_SECURE_NP_ID		1
++#define VIDEO_REGION_VM0_NONSECURE_NP_ID	5
++
+ enum stage_type {
+ 	STAGE_1 = 1,
+ 	STAGE_2 = 2,
+@@ -54,6 +57,7 @@ extern const struct iris_firmware_data iris_hfi_gen1_data;
+ extern const struct iris_firmware_data iris_hfi_gen2_data;
+ extern const struct iris_firmware_data iris_hfi_milos_data;
+ 
++extern const struct iris_platform_data kaanapali_data;
+ extern const struct iris_platform_data milos_data;
+ extern const struct iris_platform_data qcs8300_data;
+ extern const struct iris_platform_data sc7280_data;
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_kaanapali.c b/drivers/media/platform/qcom/iris/iris_platform_kaanapali.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..cc7529e22d84a0a9bc55ff528686166b2f3c6a87
+--- /dev/null
++++ b/drivers/media/platform/qcom/iris/iris_platform_kaanapali.c
+@@ -0,0 +1,58 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++
++#include "iris_core.h"
++#include "iris_platform_common.h"
++
++const char *const iris_kaanapali_clk_reset_table[] = {
++	"bus0",
++	"bus1",
++	"core",
++	"vcodec0_core",
++};
++
++const char *const iris_kaanapali_pmdomain_table[] = {
++	"venus",
++	"vcodec0",
++	"vpp0",
++	"vpp1",
++	"apv",
++};
++
++const struct platform_clk_data iris_kaanapali_clk_table[] = {
++	{IRIS_AXI_CLK,		"iface"			},
++	{IRIS_CTRL_CLK,		"core"			},
++	{IRIS_HW_CLK,		"vcodec0_core"		},
++	{IRIS_AXI1_CLK,		"iface1"		},
++	{IRIS_CTRL_FREERUN_CLK,	"core_freerun"		},
++	{IRIS_HW_FREERUN_CLK,	"vcodec0_core_freerun"	},
++	{IRIS_BSE_HW_CLK,	"vcodec_bse"		},
++	{IRIS_VPP0_HW_CLK,	"vcodec_vpp0"		},
++	{IRIS_VPP1_HW_CLK,	"vcodec_vpp1"		},
++	{IRIS_APV_HW_CLK,	"vcodec_apv"		},
++};
++
++const char *const iris_kaanapali_opp_clk_table[] = {
++	"vcodec0_core",
++	"vcodec_apv",
++	"vcodec_bse",
++	"core",
++	NULL,
++};
++
++struct tz_cp_config iris_kaanapali_tz_cp_config[] = {
++	{
++		.cp_start = VIDEO_REGION_VM0_SECURE_NP_ID,
++		.cp_size = 0,
++		.cp_nonpixel_start = 0x01000000,
++		.cp_nonpixel_size = 0x24800000,
++	},
++	{
++		.cp_start = VIDEO_REGION_VM0_NONSECURE_NP_ID,
++		.cp_size = 0,
++		.cp_nonpixel_start = 0x25800000,
++		.cp_nonpixel_size = 0xda400000,
++	},
++};
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_kaanapali.h b/drivers/media/platform/qcom/iris/iris_platform_kaanapali.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..33ac3f5aad9149d78d8f4b83a0d6305b7fa09b2d
+--- /dev/null
++++ b/drivers/media/platform/qcom/iris/iris_platform_kaanapali.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++
++#ifndef __IRIS_PLATFORM_KAANAPALI_H__
++#define __IRIS_PLATFORM_KAANAPALI_H__
++
++extern const char *const iris_kaanapali_clk_reset_table[4];
++extern const char *const iris_kaanapali_pmdomain_table[5];
++extern const struct platform_clk_data iris_kaanapali_clk_table[10];
++extern const char *const iris_kaanapali_opp_clk_table[5];
++extern struct tz_cp_config iris_kaanapali_tz_cp_config[2];
++
++#endif /* __IRIS_PLATFORM_KAANAPALI_H__ */
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu4x.c b/drivers/media/platform/qcom/iris/iris_platform_vpu4x.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d515adf331d7f451408826136539e6b6fd4a1af
+--- /dev/null
++++ b/drivers/media/platform/qcom/iris/iris_platform_vpu4x.c
+@@ -0,0 +1,66 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++
++#include "iris_hfi_gen2.h"
++#include "iris_vpu_buffer.h"
++#include "iris_vpu_common.h"
++
++#include "iris_platform_sm8550.h"
++#include "iris_platform_kaanapali.h"
++
++static const struct iris_firmware_desc iris_vpu40_p2_s7_gen2_desc = {
++	.firmware_data = &iris_hfi_gen2_data,
++	.get_vpu_buffer_size = iris_vpu4x_buf_size,
++	.fwname = "qcom/vpu/vpu40_p2_s7.mbn",
++};
++
++static const u32 iris_fmts_vpu4x_dec[] = {
++	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
++	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
++	[IRIS_FMT_VP9] = V4L2_PIX_FMT_VP9,
++};
++
++static const struct icc_info iris_icc_info_vpu4x[] = {
++	{ "cpu-cfg",    1000, 1000     },
++	{ "video-mem",  1000, 15000000 },
++};
++
++static const struct bw_info iris_bw_table_dec_vpu4x[] = {
++	{ ((4096 * 2160) / 256) * 60, 1608000 },
++	{ ((4096 * 2160) / 256) * 30,  826000 },
++	{ ((1920 * 1080) / 256) * 60,  567000 },
++	{ ((1920 * 1080) / 256) * 30,  294000 },
++};
++
++static const char * const iris_opp_pd_table_vpu4x[] = { "mxc", "mmcx" };
++
++const struct iris_platform_data kaanapali_data = {
++	.firmware_desc_gen2 = &iris_vpu40_p2_s7_gen2_desc,
++	.vpu_ops = &iris_vpu4x_ops,
++	.icc_tbl = iris_icc_info_vpu4x,
++	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu4x),
++	.clk_rst_tbl = iris_kaanapali_clk_reset_table,
++	.clk_rst_tbl_size = ARRAY_SIZE(iris_kaanapali_clk_reset_table),
++	.bw_tbl_dec = iris_bw_table_dec_vpu4x,
++	.bw_tbl_dec_size = ARRAY_SIZE(iris_bw_table_dec_vpu4x),
++	.pmdomain_tbl = iris_kaanapali_pmdomain_table,
++	.pmdomain_tbl_size = ARRAY_SIZE(iris_kaanapali_pmdomain_table),
++	.opp_pd_tbl = iris_opp_pd_table_vpu4x,
++	.opp_pd_tbl_size = ARRAY_SIZE(iris_opp_pd_table_vpu4x),
++	.clk_tbl = iris_kaanapali_clk_table,
++	.clk_tbl_size = ARRAY_SIZE(iris_kaanapali_clk_table),
++	.opp_clk_tbl = iris_kaanapali_opp_clk_table,
++	/* Upper bound of DMA address range */
++	.dma_mask = 0xffc00000 - 1,
++	.inst_iris_fmts = iris_fmts_vpu4x_dec,
++	.inst_iris_fmts_size = ARRAY_SIZE(iris_fmts_vpu4x_dec),
++	.inst_caps = &platform_inst_cap_sm8550,
++	.tz_cp_config_data = iris_kaanapali_tz_cp_config,
++	.tz_cp_config_data_size = ARRAY_SIZE(iris_kaanapali_tz_cp_config),
++	.num_vpp_pipe = 2,
++	.max_session_count = 16,
++	.max_core_mbpf = NUM_MBS_8K * 2,
++	.max_core_mbps = ((8192 * 4320) / 256) * 60,
++};
+diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+index 4bdb078d83b5c331869dab2409bc4d10ab302737..be3e799edfbe4e13321ef1ecfe6e558eb7a69e01 100644
+--- a/drivers/media/platform/qcom/iris/iris_probe.c
++++ b/drivers/media/platform/qcom/iris/iris_probe.c
+@@ -427,6 +427,10 @@ static const struct dev_pm_ops iris_pm_ops = {
+ };
+ 
+ static const struct of_device_id iris_dt_match[] = {
++	{
++		.compatible = "qcom,kaanapali-iris",
++		.data = &kaanapali_data,
++	},
+ 	{
+ 		.compatible = "qcom,milos-iris",
+ 		.data = &milos_data,
 
-So we've started work on a new comprehensive "Attestation subsytem"
-that will pull in all forms of ROTs, TPM, CC stuff and SPDM use cases
-to give a consistent user API to work with this class of HW. In many
-ways I view this as a rename of tsm_mr (it will eventually fully
-absorb it), but the name evokes the broader goal and encourages
-everyone to come in, not just CC world.
+-- 
+2.34.1
 
-Our overall goal would be for something like systemd to have a single
-uniform kernel API that allows it interwork with any ROT someone may
-have. A uAPI to do "Extend", "Quote", "Get Log" operations so that the
-existing TPM support in systemd can be improved to work on any ROT
-flexibly without having to hard code specific ROT behaviors into
-systemd.
-
-I've felt the ultimate end goal would be to make all the in-kernel tpm
-users go through the proposed attestation subsystem so they can have
-ROT and "PCR profile" agility. Certainly I've heard enough people
-asking for this.
-
-This is a broader topic than just IMA. For example DRTM also has to
-use the TPM, and other ROTs. It also brings in a global shift of how
-the system wide "PCR Profile" should work as post-DRTM has a different
-TPM locality and access to the protected DRTM-only PCRs that are
-normally blocked.
-
-Jiri posted his current state here:
-  https://lore.kernel.org/r/arzr32ZDComnfmny@FV6GYCPJ69
-
-While we plan to start with SPDM and CC topics as the initial launch
-Jiri has enough detailed plans now for all the main use cases, PCI
-SPDM, TPM, "CC PCRS", CC attestation, and Caliptra that I'm feeling
-confident something like this is the right way forward.
-
-Jason
