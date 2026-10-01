@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72ACB3D47A0;
-	Thu,  1 Oct 2026 16:25:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3483C2796;
+	Thu,  1 Oct 2026 16:25:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871946; cv=none; b=XK6eaQkeVcsWYVh0E9TaHrODTv0frjOuMWuWys0PX6X1rQs/2wLHv6Kw7ZNN6qrLqZE6nd7nfCCQAjDj3i10mWfTFW6zeNI03MpcpV34Mm1teVkFOdu5MS5oAkqnxnLZ23zUCR1vdW/VNIiS5vaBlytUyi7n7KQc+atll/bPYJc=
+	t=1790871948; cv=none; b=qgfLQPNXxfNY8CfO/MqqvYTxJElU02tfGuyRd5v8AseltMbIs/DfLXvG+qW6P6223TZSGS9qZOXX3ZUoW8b1ws62Ee9+KtUql4BmrFZ4KmDzTQkDt/Z3P3IQ6RATB7B2K1wG8P3uQq00gFKpQxrWOjF9vO+AONCYZgLw7h4saeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871946; c=relaxed/simple;
-	bh=875grvOkdBGnvGuOme3BIQ08plA4Mzm8WzGn/8ixbXg=;
+	s=arc-20240116; t=1790871948; c=relaxed/simple;
+	bh=URkmsViudXfOI5qlu1XnpJjvODhZrUCyrYuyKlIHFCQ=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=tGmr4lwqd4CBgXtUxOjxDeRXCm+8nPg4NJ9zUW+FT3uvc6X9QQDzt8AFe7XNbkQ+S/NZftGKlctpPKC/KuDTo1PCXmEZRw9ne6kzIdAZk7PyIHMs0L4uh8UvvtOnWDI79yjmBrjxz1Sx8hszCAuo4zXkfVWAp1mGIE6lb8tHPis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LM39+Epy; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=BkCrLVmrhM+flnmkMfeuFtGmk/XnkGtvXztvu1mNycPTHp1CBqO1rI5tGAQPeuPaRZI38QW9P8VzaLEbKKUBCP1+l8ovS+8jRh1SpMOVoK3RuD4+caJPnv5Ji2fXlFaZpaxCu8HTXM0RztYooL+hEjDg3BAZI+EuA/8D7RIXcdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iazilZgX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LM39+Epy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D37D91F000FF;
-	Thu,  1 Oct 2026 16:25:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iazilZgX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1A21F00898;
+	Thu,  1 Oct 2026 16:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790871945;
-	bh=3SyhMfDJvhnI48fc2ca/hNNMn/uco6vms8m7DHNBqZo=;
+	s=k20260515; t=1790871946;
+	bh=gvOzyJD2QNBAI8MTvajlvVRSSEA1nsS/ookdOR+Q0pY=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=LM39+EpydfTwGmWZMYKdL6rbLKgPhF/Dtz7roU2+Y5nde4/0fn/XLZGTMMtCw+ts7
-	 Qg+fF+wcAnqRZgduMk9HTCKa2bvSkZodEZAP9rzBuzRulFGywfKAJ+WxCD4OvH9Bwz
-	 Iv6nTt6HU/fFi/923CXjiUM6VQWn4/n533y/gUEElrnltg2xgbZlJ4/KIgTcA4qi3r
-	 mV/3lfoAZj2F1ui1RTcSsXifWtj3qDECGLnVb3TODMxxQmk9MRv3Vm3C6xK7DDd2Qo
-	 SRsf2LZMDHJjIFvAo+yN9c1pEWE0dBqd4IQB/V3zFNpx7uNSId+SC/X4kWtGOr83Sc
-	 3cMYbzdZxoNAQ==
-Date: Thu, 01 Oct 2026 11:25:43 -0500
+	b=iazilZgXbg93IEbiVHiZQnJ9nRT+Zh9eSMlD2JWXYu2v+ZtyNmo31Xf2YhBvr/byu
+	 f5I5p6oWxGxq1Xr88MY5D0nr/UGTMEgb/PYvIQ+JjthucS0/s/n41jG3SuTg5xkfer
+	 kK74oAEBrJVFpABjFq43h0d1ax4ka+ERmC4fjzFzeZYT1IvdCWicBNhTHiVxUhDmSP
+	 2Ihx+y9otI7lCab2vKchPp8eSVWctms+vg2vPqSbKFggkkwOehuvCcYuR++FU3m2mD
+	 S4Hi/YTa6os+43pvsyYkMUUVJTbQ1duT1UjmOhEc/IXtNWGWpd/s1Jzl87YEliK8TJ
+	 qWb990rILEdPw==
+Date: Thu, 01 Oct 2026 11:25:45 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,32 +36,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: luka.perkov@sartura.hr, conor+dt@kernel.org, krzk+dt@kernel.org, 
- hkallweit1@gmail.com, lxu@maxlinear.com, devicetree@vger.kernel.org, 
- davem@davemloft.net, andrew+netdev@lunn.ch, michael@walle.cc, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, edumazet@kernel.org, 
- pabeni@redhat.com, kuba@kernel.org
-To: Robert Marko <robert.marko@sartura.hr>
-In-Reply-To: <20260930122305.293686-4-robert.marko@sartura.hr>
-References: <20260930122305.293686-1-robert.marko@sartura.hr>
- <20260930122305.293686-4-robert.marko@sartura.hr>
-Message-Id: <179087149240.849224.16132566481274113887.robh@kernel.org>
-Subject: Re: [PATCH 4/5] dt-bindings: net: maxlinear: add MxL86211C lane
- mapping support
+Cc: Jonathan Cameron <jic23@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Andy Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+In-Reply-To: <20261001145702.2628429-2-olivier.moysan@foss.st.com>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+ <20261001145702.2628429-2-olivier.moysan@foss.st.com>
+Message-Id: <179087149522.849383.5830343342701017040.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
+ filter
 
 
-On Wed, 30 Sep 2026 14:22:16 +0200, Robert Marko wrote:
-> Describe the optional lane-to-ASP mapping for the MxL86211C PHY.
+On Thu, 01 Oct 2026 16:56:45 +0200, Olivier Moysan wrote:
+> Add bindings that describes STM32 MDF settings to support
+> digital filtering for Pulse Density Modulation (PDM) microphones
+> and analog sigma delta modulators.
 > 
-> The mapping accounts for board-level swaps between its physical TPI
-> lanes and analog signal processing lanes.
-> 
-> MxL86211C supports per lane mapping.
-> 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 > ---
->  .../bindings/net/maxlinear,gpy2xx.yaml        | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
+>  .../bindings/iio/adc/st,stm32-mdf-adc.yaml    | 383 ++++++++++++++++++
+>  1 file changed, 383 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -69,12 +70,11 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/net/maxlinear,gpy2xx.example.dtb: ethernet-phy@0 (ethernet-phy-idc133.5400): maxlinear,lane-asp-map: b'\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x03\x00\x00\x00\x02' is not of type 'object', 'integer', 'array', 'boolean', 'null'
-	from schema $id: http://devicetree.org/schemas/dt-core.yaml
+./Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml:363: example 0 [redundant-whitespace] extra whitespace before {
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260930122305.293686-4-robert.marko@sartura.hr
+See https://patchwork.kernel.org/project/devicetree/patch/20261001145702.2628429-2-olivier.moysan@foss.st.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
