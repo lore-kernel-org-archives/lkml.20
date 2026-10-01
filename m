@@ -1,122 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13FF3E315E;
-	Thu,  1 Oct 2026 16:06:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC76448B9B;
+	Thu,  1 Oct 2026 16:06:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870809; cv=none; b=TmjP10kle5MiSqzLHTLnb5nEPsq7AspMOxLcZEU1BY5oveznnlQg33dy2eW+6jS7ui0OfWSqxmass7stIUC6ImxL0WjVz3AfVb/ZlrQlMrEvWVSeR1mZvYvm36XDGVctjpm7iKTLDNkvcZkd4PFl0UonD7qlpu+6bOKHqq8Wl00=
+	t=1790870808; cv=none; b=lWoJvs5Eu2p6FNImGjGrLLP1IisTsaarCUajiGHna22S+PJKhMuzp835ikcHKfdSGYDU5zXOxWHzkU0cBIJm8SufGEZ0SIO0C78fNXDgu5jjIRZjeWTvYRMgjDzsJ/8vZq8BpNrzwWJtuYlWJII9zsxEQAmmc+57vlc4MUdLuQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870809; c=relaxed/simple;
-	bh=F5mU3kl9Q2F5fwusJRX496NOIuwaavSa3cvDRpB5g50=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Okrf/K9b+izoFQfUeFElJCbv5g7LTpM0eWGGwVY+ujTcM9pFAEVx2zlyAxSJynLpzJ34IpZ36fOovQUi1YqcCFwrhg7FgpP7pOVyoJWTY85nCLf9vy4nvMqbBHah5OuVbeAhmRybb72OUkNh61L2+eq7hxuECQFJgZ+f5gUNUo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MO6DDLSQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790870808; c=relaxed/simple;
+	bh=B68Cer7DOS5VhOjaq0WU57dQFZHwLItSc0UvX0jtCrk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CbyGgiusZGGA0Q2cush6KmDY6dh3zUfJNjjsaxtbkqeSmOlkqLEuMXGnfNz8ewvUOl9h8acrV2jJnxxeMHRO1zosmQoXg3By+dphd35hu62CNDGrFuu6Ba/J5dZPzjwHRe2x6TQyX2MREbEVzpPqtmoLJvMjuPrSKqR9v/DTwsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Jm0Jb4qT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MO6DDLSQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD9621F00903;
-	Thu,  1 Oct 2026 16:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790870807;
-	bh=DX02iYzTZaCoemhyaPZuLm9QwmSCRpZhJHz9pgsaGC0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MO6DDLSQ/YRYkWVJ6+5uzywXPBrKgN/8MXy4JOizCJDSrxZAyWFPLsSce8FiIgkRZ
-	 73u8uE+O53h3jw/j8F3QhrfQvEqfV8MNd9ImMGyGZy7JhjtZ5UW5PGN6crprDCnejs
-	 bXnK+uYgHS3IxKW6YnxTJ7bVTHPmX90qR7oMZeksEvXz1WOtvV+H+sBMdxr3LUDFOy
-	 xioUazdp5Xkojfnr4r87pcsqinUMhpvLzbiuzE19ivsUInm4EILj3CDSzfFW2razPa
-	 VRuLIe/oxy6aqYImnka+VFsu/64WKYuIFErXS3Za39SQWfK/RnkWXQXvMCMcnK1jTa
-	 iH/FPf/M9+wPQ==
-Subject: Re: [PATCH net-next v15 4/7] r8169: enable new interrupt mapping
-From: netdev-bot+sashiko@kernel.org
-To: javen_xu@realsil.com.cn
-Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 01 Oct 2026 16:06:46 +0000
-Message-ID: <179087080624.434549.12502317761885183568@kernel.org>
-In-Reply-To: <20260928070423.202-5-javen_xu@realsil.com.cn>
-References: <20260928070423.202-5-javen_xu@realsil.com.cn>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Jm0Jb4qT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BCF1F008BC;
+	Thu,  1 Oct 2026 16:06:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790870805;
+	bh=S+CR/k1bIRO6Ds98SDH7fis+WEl31ClPXh+IdiWRxkw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jm0Jb4qT7GZNqd3wXqZuoFbfN0Kwv3vD91NaTZa/EyTJTtLplGEgxFEXh3p8A+eKg
+	 sSiQe3HQ7yBFviPNWO2oSePSlVI/N3+RDMrToOh09L2yjx3NVKcTDJulKLfFsLqBRS
+	 IDB4wf+1da79wmfeOpUoOIevgEXLOPQd4AINowrs=
+Date: Thu, 1 Oct 2026 18:06:39 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Timo Joannin <timo.joannin@gmail.com>
+Cc: guojy.bj@gmail.com, m.steinmoetzger@gmail.com, atharvmargur@gmail.com,
+	straube.linux@gmail.com, andriy.shevchenko@intel.com,
+	s9430939@naver.com, qstrydom0@gmail.com, dev.lmmrtns@gmail.com,
+	khomenkov@mailbox.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] staging: rtl8723bs: rename phy_status_rpt_8192cd_t to
+ rtl8723bs_phy_status_rpt.
+Message-ID: <2026100155-abiding-immunity-0c8d@gregkh>
+References: <20261001155134.159481-1-timo.joannin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001155134.159481-1-timo.joannin@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Thu, Oct 01, 2026 at 05:51:34PM +0200, Timo Joannin wrote:
+> The struct identifier references the 8192CD chip while being in a
+> rtl8723bs codebase. Additionally, the identifier uses the _t suffix,
+> while being generally reserved for typedef identifiers.
+> 
+> Rename the struct to rtl8723bs_phy_status_rpt
+> across the rtl8723bs codebase to accurately
+> reflect the driver and clean up the naming.
+> 
+> Additionally, propagate the real structure type all the way
+> through the call chain to remove redundant casts to and from u8 *.
+> 
+> Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
+> ---
+> Changes in v3:
+> - Included patch version changelog (missed in v2, sorry).
+> 
+> Changes in v2:
+> - Propagated the real struct type through the call chain to remove u8 * casting.
+> 
+>  drivers/staging/rtl8723bs/hal/odm_HWConfig.c   | 6 +++---
+>  drivers/staging/rtl8723bs/hal/odm_HWConfig.h   | 5 +++--
+>  drivers/staging/rtl8723bs/hal/rtl8723bs_recv.c | 7 ++++---
+>  3 files changed, 10 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/hal/odm_HWConfig.c b/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+> index 34b0369a7936..c85194c8fe67 100644
+> --- a/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+> +++ b/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+> @@ -95,7 +95,7 @@ static s8 odm_cck_rssi(u8 lna_idx, u8 vga_idx)
+>  
+>  static void odm_rx_phy_status_parsing(struct dm_odm_t *dm_odm,
+>  				      struct odm_phy_info *phy_info,
+> -				      u8 *phy_status,
+> +				      struct rtl8723bs_phy_status_rpt *phy_sta_rpt,
+>  				      struct odm_packet_info *pkt_info)
+>  {
+>  	u8 i;
+> @@ -105,7 +105,6 @@ static void odm_rx_phy_status_parsing(struct dm_odm_t *dm_odm,
+>  	bool is_cck_rate = false;
+>  	u8 rf_rx_num = 0;
+>  	u8 lna_idx, vga_idx;
+> -	struct phy_status_rpt_8192cd_t *phy_sta_rpt = (struct phy_status_rpt_8192cd_t *)phy_status;
+>  
+>  	is_cck_rate = pkt_info->data_rate <= DESC_RATE11M;
+>  	phy_info->rx_mimo_signal_quality[RF_PATH_A] = -1;
+> @@ -383,7 +382,8 @@ static void odm_Process_RSSIForDM(
+>  
+>  /*  Endianness before calling this API */
+>  void odm_phy_status_query(struct dm_odm_t *dm_odm, struct odm_phy_info *phy_info,
+> -			  u8 *phy_status, struct odm_packet_info *pkt_info)
+> +			  struct rtl8723bs_phy_status_rpt *phy_status,
+> +			  struct odm_packet_info *pkt_info)
+>  {
+>  
+>  	odm_rx_phy_status_parsing(dm_odm, phy_info, phy_status, pkt_info);
+> diff --git a/drivers/staging/rtl8723bs/hal/odm_HWConfig.h b/drivers/staging/rtl8723bs/hal/odm_HWConfig.h
+> index ca3380328a72..21182a880da3 100644
+> --- a/drivers/staging/rtl8723bs/hal/odm_HWConfig.h
+> +++ b/drivers/staging/rtl8723bs/hal/odm_HWConfig.h
+> @@ -18,7 +18,7 @@ struct phy_rx_agc_info_t {
+>  	#endif
+>  };
+>  
+> -struct phy_status_rpt_8192cd_t {
+> +struct rtl8723bs_phy_status_rpt {
+>  	struct phy_rx_agc_info_t path_agc[2];
+>  	u8 ch_corr[2];
+>  	u8 cck_sig_qual_ofdm_pwdb_all;
+> @@ -57,7 +57,8 @@ struct phy_status_rpt_8192cd_t {
+>  };
+>  
+>  void odm_phy_status_query(struct dm_odm_t *dm_odm, struct odm_phy_info *phy_info,
+> -			  u8 *phy_status, struct odm_packet_info *pkt_info);
+> +			  struct rtl8723bs_phy_status_rpt *phy_status,
+> +			  struct odm_packet_info *pkt_info);
+>  
+>  enum hal_status ODM_ConfigRFWithTxPwrTrackHeaderFile(struct dm_odm_t *pDM_Odm);
+>  
+> diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_recv.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_recv.c
+> index 304fda3a3b5c..a62b845c69f9 100644
+> --- a/drivers/staging/rtl8723bs/hal/rtl8723bs_recv.c
+> +++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_recv.c
+> @@ -73,7 +73,7 @@ static void update_recvframe_attrib(struct adapter *padapter,
+>   *precvframe->u.hdr.rx_data should be ready!
+>   */
+>  static void update_recvframe_phyinfo(union recv_frame *precvframe,
+> -				     struct phy_stat *pphy_status)
+> +				     struct rtl8723bs_phy_status_rpt *pphy_status)
+>  {
+>  	struct adapter *padapter = precvframe->u.hdr.adapter;
+>  	struct rx_pkt_attrib *pattrib = &precvframe->u.hdr.attrib;
+> @@ -125,7 +125,7 @@ static void update_recvframe_phyinfo(union recv_frame *precvframe,
+>  	pkt_info.data_rate = pattrib->data_rate;
+>  
+>  	odm_phy_status_query(&p_hal_data->odmpriv, p_phy_info,
+> -			   (u8 *)pphy_status, &(pkt_info));
+> +			   pphy_status, &(pkt_info));
+>  	if (psta)
+>  		psta->rssi = pattrib->phy_info.RecvSignalPower;
+>  	precvframe->u.hdr.psta = NULL;
+> @@ -317,7 +317,8 @@ static void rtl8723bs_recv_tasklet(struct tasklet_struct *t)
+>  
+>  				if (pattrib->pkt_rpt_type == NORMAL_RX) { /* Normal rx packet */
+>  					if (pattrib->physt)
+> -						update_recvframe_phyinfo(precvframe, (struct phy_stat *)ptr);
+> +						update_recvframe_phyinfo(precvframe,
+> +							(struct rtl8723bs_phy_status_rpt *)ptr);
 
-Low priority / nit picks for your consideration:
+Something is wrong here.  WHy is this "phy_stat" to start with and not
+just struct rtl8723bs_phy_status_rpt?
 
-- [Low] The commit message says the patch "enables new interrupt mapping
-  for RTL8127", but at this commit the new code can never run.
+This should probably be a patch series, first one renames the structure,
+and then the rest unwind the cast mess so that you end up with just one
+structure being used here and not two different ones with different
+fields in them.
 
---
+thanks,
 
-r8169: enable new interrupt mapping
-
-This patch adds a helper that sets INT_CFG0_ENABLE_8125 to turn on the
-new interrupt vector mapping for RTL8127. It also moves the rx error,
-dropped, length, crc and multicast counters from dev->stats into per rx
-ring u64_stats counters, and sums them in rtl8169_get_stats64().
-
-> r8169: enable new interrupt mapping
->
-> This patch enables new interrupt mapping for RTL8127 and add error pkts
-> counter per ring.
-
-> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-> index 4656ae108f9c6..20eb7987f03dc 100644
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-
-[ ... ]
-
-> @@ -4092,6 +4111,9 @@ static void rtl_hw_start_8125_common(struct rtl8169_private *tp)
->  	RTL_W32(tp, RSS_CTRL_8125, 0);
->  	RTL_W16(tp, Q_NUM_CTRL_8125, 0);
->
-> +	if (tp->irq_nvecs > 1)
-> +		rtl8169_hw_enable_vec_mapping(tp);
-> +
-
-[Severity: Low]
-Can this branch be taken at this point in the series?
-
-At this commit, rtl_alloc_irq() still asks for exactly one vector:
-
-rtl_alloc_irq() {
-    ...
-	nvecs = pci_alloc_irq_vectors(pdev, 1, 1, flags);
-    ...
-}
-
-so tp->irq_nvecs is always 1, and rtl8169_hw_enable_vec_mapping() never
-runs.
-
-rtl_setup_rx_params() also still sets:
-
-	tp->num_rx_rings = 1;
-
-so the new per-ring counter loop in rtl8169_get_stats64() only ever
-covers ring 0.
-
-The next patch in the series ("r8169: add support and enable rss") adds
-get_min_irq_nvecs()/get_max_irq_nvecs() and rtl8169_set_rx_ring_num().
-Only after that does the mapping actually get enabled for RTL8127.
-
-This isn't a bug, but could the commit message say that the mapping
-enable stays dormant until a later patch allocates more than one vector,
-rather than saying this patch enables it?
-
->  	/* disable UPS */
->  	r8168_mac_ocp_modify(tp, 0xd40a, 0x0010, 0x0000);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928070423.202-1-javen_xu%40realsil.com.cn
+greg k-h
