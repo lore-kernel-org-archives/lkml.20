@@ -1,102 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C5F486E6A;
-	Thu,  1 Oct 2026 12:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11AF5492E29
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856287; cv=none; b=osI/tiY9jtKTJ7/FmKJYt3pAnnfUhTOqR8ffMsdZcIC8fgvXK7QNh8HiSAPYMA69o1+MhxxZydTvrwUwshaiU6BSegft4oOB8e84vmEbuXx1l1zErpn7QCugQU7SROeYdis19If3RQvZktm4IJXOQGzpWZVMAzYPgUTbDnvYNrY=
+	t=1790856370; cv=none; b=dPtoF+Th20d4jMNIygWDHe+tG3qbYjwALI1fmtLthgeB3p/WfublGiiCrVULY9vGpxol1PhKLjxHvvIBhwRcQh8D63KzMa4hb+HRfLrRwDJ5vqO+W1Z4BIf24RTR2De0thZK1AlLUKs2ZUMDkwaO3KZiBeXeILbUYWFbWomMOX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856287; c=relaxed/simple;
-	bh=z9/U/3C9yrseQMTRZ+gH+lBO0Mnq/RHDd9mMF3Kx0FA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ksYdZruk5/zi+85/ByLvE6em6d6SqK3ULWpYyXFf+emukPVmKFAgNWUavh3p9qAjwBWPWesPbhWv7VlN+cBvC2CaZXWuqQQuDy0nITmHaDY6uCD7MfehrtIuigCXMYrfooBuvnRMEaia0qCVroDWYfExNW93zUgM0T0kmweJGmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPrwRMNe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790856370; c=relaxed/simple;
+	bh=thlMrSAfZjJdaePwpmv4u4sZ/CzX4mYkiYj7X3E0Toc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fF7YHJ4YAo/pNDD+HzTHTt3uP1kSCqz9CMdf0no9KPQWm264GOnxF2hncsUjLiOlEzY1RydnQcmL5Y9V+jzy3m2J7seZ5hi/ADWSTBv3g62RieW55Hd043w1d2XuBfVItL7bIHqkqnNH79ke+85ysG2p1jwqCsaMGSpXTCddD1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NyX5P91v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPrwRMNe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBCCB1F000FF;
-	Thu,  1 Oct 2026 12:04:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NyX5P91v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744291F00898
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:06:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790856286;
-	bh=hgUX0ii0uYxzjf7gvJ6LbuMXqEimXK9XD6l6fEYf20Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RPrwRMNeyziaNxy1CS1ZueSBS6AiEcQ1A+jWl175wRKI5L5gbEJNbGPySgltpn0xA
-	 9mTG1XF1EqUaS/Qyywo/aRjV+x8Ed39TA0d0L2z0YDJan9xAErjESPO4pLLFMtUp7k
-	 HlDETdYjFtMr3Wl3RF2AgpXD3XuMWsSqS9diq1ONUliPQJb8xNwwF7qPsOo7/PgTut
-	 Pi8INglaVY9/afFE7ilJERMc/VUioeJG3JX6AX7+BY0OAWJ619q2BjNH2lKpG0gkJq
-	 XdrgyAQyJj3GDBm9G+bXGQ4WjLJatED4SiNu7dHFhsDRjIriAXPYJ+VnU5BS2SlMmL
-	 6d6iJDp1gfO8A==
-Date: Thu, 1 Oct 2026 07:04:44 -0500
-From: Rob Herring <robh@kernel.org>
-To: Leo Yan <leo.yan@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Leo Yan <leo.yan@linux.dev>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: coresight: Allow funnel clocks
-Message-ID: <20261001120444.GA1048975-robh@kernel.org>
-References: <20260921232834.3138571-1-robh@kernel.org>
- <20261001100455.GL14479@e132581.arm.com>
+	s=k20260515; t=1790856360;
+	bh=oFflTVwPFgB5wC1sBWWWQyP2hcLqKZXoXqnWK6jB09I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NyX5P91vzbFhZN0U9vod7AAB3LWbMk0HZEqkXoUBF5HXDkw5sYemUmd/UbuefNcOq
+	 gCKRb67oKrelFaOIFra81n5va1cR3oPq7hmPFx5OO0YotIiw5P5ZgSkukv73b8uy+j
+	 oP+gTucqufGnSIYUgz/4YzNXHCquafhqk1uPW9ghF7kEcy4yVrqTmtjmNg551p8jgz
+	 GUbE+mxI1I94RMkSzSnNGUSYpcAY+24Qwjh8P3kViddZyWTgLlKyB0duYyuS45Phk5
+	 p6pwpWdq6ieSVtlszgIWoy9qFdLq717gPQcNbweqMVM2ywOeleHmqYNyS5TaWr6RII
+	 xIf/J6vx6jHnQ==
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-4788fe5736eso4390544fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:06:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw1hA/6HEZwvDLIjkbM5qhr8ebsf5NTXAsJHCINAAFCONuQ+i5OpxN9Axll3i9+Ah8jTeMomkqyfoEWPcs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj3Z5OojU+PusOIxUbfnUWl6dZHr1xS72GR26ybLtwB++JcW7x
+	FVHWBd0a5BkxJ6aLO9KgTG2ECZxoYLrwBuxrdZXq4MEN79AT56rBU+PmnsUs5owkzPH6sQAA8FH
+	Qws2AB6svvt1yvNOvWKW6i2fltOJdDrg=
+X-Received: by 2002:a05:6870:3226:b0:448:89e3:4c58 with SMTP id
+ 586e51a60fabf-49ddd47f26fmr4458014fac.18.1790856359785; Thu, 01 Oct 2026
+ 05:05:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001100455.GL14479@e132581.arm.com>
+References: <20260929203634.32998-1-pmazzini@gmail.com>
+In-Reply-To: <20260929203634.32998-1-pmazzini@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 14:05:45 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkJidyettiPkFAh9BNaPVKMxyJzgNnaH8qfMc9=HutaQQ@mail.gmail.com>
+X-Gm-Features: AclHuK_kjtaxNY-Iy7s6smCT08kvmYV1w1aOxLf8dIwxCcC_POGl6GaEEQo_Grk
+Message-ID: <CAD++jLkJidyettiPkFAh9BNaPVKMxyJzgNnaH8qfMc9=HutaQQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: sunxi: dt: number the IRQ banks from the first
+ one that has IRQs
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, linux-gpio@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 11:04:55AM +0100, Leo Yan wrote:
-> Hi Rob,
-> 
-> On Mon, Sep 21, 2026 at 06:28:33PM -0500, Rob Herring (Arm) wrote:
-> > Some static funnel nodes have APB and AT clocks. Allow one or two
-> > clocks and the apb_pclk and atclk clock-names entries.
-> > 
-> > Assisted-by: LLM
-> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> >
-> > ---
-> >  .../bindings/arm/arm,coresight-static-funnel.yaml      | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> > index 9598a3d0a95b..4a3d08f9568c 100644
-> > --- a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> > @@ -30,6 +30,16 @@ properties:
-> >    power-domains:
-> >      maxItems: 1
-> >  
-> > +  clocks:
-> > +    minItems: 1
-> > +    maxItems: 2
-> > +
-> > +  clock-names:
-> > +    minItems: 1
-> > +    items:
-> > +      - const: apb_pclk
-> > +      - const: atclk
-> 
-> The question is that a static funnel does not need to program any
-> registers, so in theory it should only need atclk as the module's core
-> clock, but not the APB programming clock (apb_pclk).
+On Tue, Sep 29, 2026 at 10:37=E2=80=AFPM Pablo Mazzini <pmazzini@gmail.com>=
+ wrote:
+
+> prepare_function_table() assumes the first pin is in bank 0. On the
+> A523, which has no PA pins, every IRQ bank is numbered one too high:
+> the last bank writes past the end of irq_array,
+
+Why don't you add a patch to protect against that?
+
+Something like this (completely untested, not even compiled)
+
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+index 31cd142ce0f7..c0c90d9e3215 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+@@ -1632,9 +1632,10 @@ int sunxi_pinctrl_init_with_flags(struct
+platform_device *pdev,
+        else
+                pctl->pow_mod_sel_offset =3D PIO_POW_MOD_SEL_REG;
+
++       pctl->irqs =3D IRQ_PER_BANK * pctl->desc->irq_banks;
+        pctl->irq_array =3D devm_kcalloc(&pdev->dev,
+-                                      IRQ_PER_BANK * pctl->desc->irq_banks=
+,
+-                                      sizeof(*pctl->irq_array),
++                                      pctl->irqs,
++                                      sizeof(unsigned int),
+                                       GFP_KERNEL);
+        if (!pctl->irq_array)
+                return -ENOMEM;
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+index 8bd00c6ff628..9e0ed9c0c1ee 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+@@ -176,7 +176,8 @@ struct sunxi_pinctrl {
+        struct sunxi_pinctrl_group      *groups;
+        unsigned                        ngroups;
+        int                             *irq;
+-       unsigned                        *irq_array;
++       unsigned                        irq_array[] __counted_by(irqs);
++       unsigned                        irqs;
+        raw_spinlock_t                  lock;
+        /*
+         * Output latch shadow, one word per bank.  Seeded lockless at
+
+
+> and interrupts are
+> looked up at the wrong offsets.
 >
-> Maybe I did not get this right when I initially enabled the static
-> funnel in hi3660-coresight.dtsi. We should probably remove pclk from the
-> static funnel node.
+> Count the IRQ banks from the first bank that has interrupts.
+(...)
+>         irq_bank =3D 0;
+> -       last_bank =3D 0;
+> +       last_bank =3D -1;
+>         for (i =3D 0; i < npins; i++) {
+>                 struct sunxi_desc_pin *pin =3D &pins[i];
+>                 int bank =3D (pin->pin.number - pin_base) / PINS_PER_BANK=
+;
+> @@ -221,16 +221,14 @@ static int prepare_function_table(struct device *de=
+v, struct device_node *pnode,
+>                 func[1].muxval =3D 1;
+>
+>                 if (irq_mux) {
+> -                       if (bank > last_bank)
+> +                       if (last_bank >=3D 0 && bank > last_bank)
+>                                 irq_bank++;
+>                         func[lastfunc].muxval =3D irq_mux;
+>                         func[lastfunc].irqbank =3D irq_bank;
+>                         func[lastfunc].irqnum =3D pin->pin.number % PINS_=
+PER_BANK;
+>                         func[lastfunc].name =3D "irq";
+> -               }
+> -
+> -               if (bank > last_bank)
+>                         last_bank =3D bank;
+> +               }
 
-Yes. I suppose in theory it has some clock, but if pclk needed to be 
-enabled, it is shared with all the other coresight components and 
-enabled anyways. And there's no atclk defined, so 'clocks' can just 
-be removed. Can you send a patch to do that, and I'll drop this one.
+This looks reasonable.
 
-zynq7000 is even more of a mess I just noticed...
-
-Rob
+Yours,
+Linus Walleij
