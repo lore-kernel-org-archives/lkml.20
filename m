@@ -1,105 +1,114 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA973488763
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C583C345D;
+	Thu,  1 Oct 2026 07:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838656; cv=none; b=pWc7efXRya64lYeqOQTcz3QBqbNJKAH1Zmw2LFOeblT1RvSE0+DubIC7lTy5wkr9msP2Au9paJj84wQ7NXJtQLP1AGSqkrx/7coewZKz1fJ5LYiutNnSFAgzE3YNOZX2Z3NeCjIoa8nxYI0XegbYb44aSPJ85iiRpEXDqdZkYBQ=
+	t=1790838656; cv=none; b=P/Uhk2X/JFcNC9jF75C0lRmCdq3NNzW9qzQeUdysR8Sr4rx8ySQER+xfsb9reYJ+NEyq2Pvop1zhO/rTJP7cTncIzB0JV9hvsz5xQ88HrNpWWIjrljC+m3mCA3ewAIlj5PQYKXG6r/oXxJajKcJcIobIk7NrsGsiUmctHc0ugsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790838656; c=relaxed/simple;
-	bh=Iv4M5crlHvDjmW2HZr0hScIJlR7oG5vccxpwEJd6NaI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DGocmzrQVCwh2mLo5sV7om4Q+cZq07Ui8FrggRQHCA4b8IacRc74I7rfCDT5Jt+1c3nlvHNeTBab087eWd/AwQ7+9Rqh/wvHXIpOdYOdhAt19LUfdYsiaHiH7JDxxByFub9W108XOhNP1O71a+Cu80mbibEv/NDdROmCIEg0j1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h4BYTRtG; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=2BkzFXAjmTTbybLib9uPTvSgVl9rmz7HuMDD/0WeqNM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XwJcb6AGElBFEbN4GsVgrL2ln7V+eruFuMIi+yqfWpgSCUE/I07N04JUSVouaO5213xm5I8+OadSRBImHtk7eFNT+kerNfBj0msPuV1VFXTGJdGcqeF+ZEnTCbwsk7rULusFUgg0IVH/zFDG5mC7gwEGYMxelCFXiSkApH4267U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YXtWdp57; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h4BYTRtG"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so4410332f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:10:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790838642; x=1791443442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fR2joc6EXlPj2tJlUEfZeXdkIMyGc6pqdS8NyNfp3tE=;
-        b=h4BYTRtGghkuAo+HBw9s783xPfe4EHSip4IL3Mlj/q5kSgpAlx3/sYtlT+IEizILkY
-         XLVFLPOgrFxMGraD8mZ1f+el0O+Lz1Xy2FtFHOcyrCaOqldaGTOmCtGltMCTIZvlypd4
-         gQ5J0xk68OtbdFVvReF6ni2lSb53kHYthmXiL3JlZt8Gzl7twfdDxX7tizJvhftC41T2
-         VFe6ZEdB9XN0tNPhybxkCXpmLbY28T6t8sItAeZEFsJK+2IH6SIwwf1JX2LalG5nZLul
-         OI9l/ZObqhsHfyx5oPCLIea5LzErs5B/nZwoL+QJrTaXrJQnP8aLbPVLGd8MErc0VBx8
-         9XPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790838642; x=1791443442;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fR2joc6EXlPj2tJlUEfZeXdkIMyGc6pqdS8NyNfp3tE=;
-        b=GLlA2E0r4BJV8UzFlkJ3tpcRBpxPYZBT+vzp/9XjkVxv3x6ez4acf4upyDNko9QjJA
-         YgYa+cz3jbZMfNQui7ozKhuIA8w5We+yoStmkucDyNCI6SNmqKf3RN9BoAl5jaJJgrH9
-         P1zTU7onxSJc38s7buy6cs1w466U33m9S6pTxLamPDZzmuGK3VerkYi9Fzk5cdS1V2FG
-         OwBxDLOX5Tc+rSHSmzCUuic5J88ISdJcmXdICBTKvxEJFdzizUsR1UMvunrBgep8HRxv
-         wY+Oum/cZf/tOTe/VAfFuYXFQhy6M5A3IhJMQRi8eSWumygInLF0pCxwaMmOAzDkajxS
-         15hQ==
-X-Forwarded-Encrypted: i=1; AKwUvByO66HNnlB7lLW591iz/folDTSuNabaPPobHHoDGuvGUBnIiJV/XHa9+2o95zQr/dqj7l3as+Xo08iCLgY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrIXMpXwKYtr2miRCpe3TveH2o0o4wJy7UEJwH2VNkQttseoXY
-	GNRUez2Qg6mOGZf0V+OYQCSLBpsYXk/IOdDZ1qAvQUyfSF/D/+CP7jdW
-X-Gm-Gg: AYBFou1fhBZv4i8jzUy23wEGMbgTLA1X1Gq40waEm+u0utLEXn6nq0E1qFwVVXJXs94
-	oVCDkRBj5nv63yx8V3Fr+veegX79iDyz4oMZBhlHsrJicAC7tC6x/p7Bf48ClieOJaGuh2XG3Zk
-	02ko+vgXOYQINnLsev0XAm4Cq2oZqb4/ojohhtUaW/gMwxcEx+a6dBbQHm4GRzVINCSeUfPkTPa
-	Yj3pCKAlU9Sxva25K4j9oqrJJht2Zx0K2yWIVQlMlkWbTTxAsBJfFV1y6ShqpCO89tRTCWnLfuW
-	Uu221Yg1rdnOqzdMTApjfI0bgH2doSbgX1CoIqt3RCwZSPqTfKGjFnpxAtiLMpJSEHJmkH87CyZ
-	MGmecRmmTs90bYR+hnXqyxxOikR5YAb+tzfGYHshMMdTinWNt/yMPSRZ/i3dvlB88dAmYsc1E8p
-	yyVhW2E4zmpj8DcoQUB3PfW6hqPjdwTse7siQRlBubEoCHI7Vqc8jhl1Kc/FGIMG+PxtyCvnmHU
-	Bh6nWmlOxwwDLqla9GqNdRtEcw9X+f+3BhoAB2erWGoUz4ZEDELMirP9HwpR1RlbXuaTs2IizsB
-	54N1wfdReqaHLtLVy2YD34wwvkOIOv70V0QomWd/3ifBDl8fApKT5awoBKOGjIOhdFtxRDJ3idU
-	6oGxNVSoN2o4v3f8KLmCTiQAz1QwtAOgwkISw5EPsOaZnN6EjNYLekjei7PkE4GsRT/dZ+gcgti
-	KCJamCrc/b4fa2HAY=
-X-Received: by 2002:a05:6000:2890:b0:487:27f6:a4df with SMTP id ffacd0b85a97d-48b02538519mr6466998f8f.47.1790838642433;
-        Thu, 01 Oct 2026 00:10:42 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff6f9sm4954333f8f.7.2026.10.01.00.10.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 00:10:42 -0700 (PDT)
-Date: Thu, 1 Oct 2026 09:10:41 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Archit Anant <architanant5@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
- nuno.sa@analog.com, u.kleine-koenig@baylibre.com,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 05/10] iio: adc: ti-ads1015: use dev_err_probe() for
- error handling
-Message-ID: <20261001091041.00006430@gmail.com>
-In-Reply-To: <20260930171204.12863-6-architanant5@gmail.com>
-References: <20260930171204.12863-1-architanant5@gmail.com>
-	<20260930171204.12863-6-architanant5@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YXtWdp57"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790838651; x=1822374651;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2BkzFXAjmTTbybLib9uPTvSgVl9rmz7HuMDD/0WeqNM=;
+  b=YXtWdp579ktVGVyHN0w97wub7qAFBQcxYfaxcTpJIvRhUeLFi2ZoDoLg
+   P9Xf2sOsdXHcvtuFfHa1ELtOo8hmn3hZmbHZrg6wi9Hs9VUpgO+PImZo9
+   OFeEN71wo1ORX6fhc7dlYezrDdHeGhV2jHLiTIReKpRZ72Qt/T0voRh4b
+   YbuqDTYFSim2MgcYFwqbxi8YxG7Pdnmba2olFrbBhvKIm6+sc7s3espcl
+   DXc3CTCJIkqqkovgQQb8eCjeMlKp+qkGWlsj9DZFPHVZyJVHndMbwu8sM
+   fDz/NW9Ibif/YeVKUd0HOgh4mCI4H4S3P7KywfQoVluR3CamHE63kc+9l
+   A==;
+X-CSE-ConnectionGUID: jdzltQH4QoqA3KK5glCY7g==
+X-CSE-MsgGUID: JEN2OOwmQES0JV83IktVtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="102162293"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="102162293"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:10:45 -0700
+X-CSE-ConnectionGUID: T/b2vH+UQxyCUoaIA7lPDw==
+X-CSE-MsgGUID: qLKlflxmSwSBWcep8u/o+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="275032205"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:10:42 -0700
+Date: Thu, 1 Oct 2026 10:10:40 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Shih-Yuan Lee <fourdollars@debian.org>
+Cc: Mark Brown <broonie@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>, Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v17 1/6] spi: pxa2xx: rename local status variable to ret
+Message-ID: <ar4HcFk_IW7IBAgk@ashevche-desk.local>
+References: <20260930160629.1822-1-fourdollars@debian.org>
+ <20260930160629.1822-2-fourdollars@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930160629.1822-2-fourdollars@debian.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, 30 Sep 2026 22:41:59 +0530
-Archit Anant <architanant5@gmail.com> wrote:
-
-> Simplify the error handling paths in ads1015_probe() and
-> ads1015_client_get_channels_config() by converting dev_err()
-> calls that are immediately followed by a return statement
-> over to the modern dev_err_probe() helper.
+On Thu, Oct 01, 2026 at 12:06:24AM +0800, Shih-Yuan Lee wrote:
+> Rename the return value variable name from 'status' to 'ret' in the
+> pxa2xx_spi_probe(), pxa2xx_spi_suspend(), and pxa2xx_spi_resume()
+> functions to conform to standard Linux kernel coding conventions.
 > 
-> Note: This patch takes advantage of the previously introduced
-> local 'dev' pointer when converting the legacy
-> dev_err(&client->dev, ...) calls, avoiding unnecessary
-> code churn.
+> Assisted-by: Antigravity:gemini-3.8-flash sparse
 
-This paragraph should be removed, no need to mention this.
+Assisted-by: LLM
+
+...
+
+> -	status = request_irq(ssp->irq, ssp_int, IRQF_SHARED, dev_name(dev),
+> +	ret = request_irq(ssp->irq, ssp_int, IRQF_SHARED, dev_name(dev),
+>  			drv_data);
+
+Also fix the indentation of the second line. Actually just join them to become
+a single line.
+
+> -	if (status < 0)
+> -		return dev_err_probe(dev, status, "cannot get IRQ %d\n", ssp->irq);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "cannot get IRQ %d\n", ssp->irq);
+
+...
+
+>  		drv_data->gpiod_ready = devm_gpiod_get_optional(dev,
+>  						"ready", GPIOD_OUT_LOW);
+>  		if (IS_ERR(drv_data->gpiod_ready)) {
+> -			status = PTR_ERR(drv_data->gpiod_ready);
+> +			ret = PTR_ERR(drv_data->gpiod_ready);
+>  			goto out_error_clock_enabled;
+>  		}
+
+Actually this can be redone as
+
+		ret = PTR_ERR_OR_ZERO(drv_data->gpiod_ready);
+		if (ret)
+			goto out_error_clock_enabled;
 
 -- 
-Kind regards,
-Joshua Crofts
+With Best Regards,
+Andy Shevchenko
+
+
