@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3945349C9;
-	Thu,  1 Oct 2026 16:14:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7324535FBA;
+	Thu,  1 Oct 2026 16:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871250; cv=none; b=toNhxjvu7BZQErecuOrWgcdiwEFZfhvwh1lp9IAneqZRWPbajGwZBcMdIxHlrDwZD5ri0AWdOnUeTtx81KcZBwPG8uqWvsDaMgS+0G3gvSh3l6ipcMjmTQDi0hsHJOp+sdPcd9OPXcIDTJ58MpUNSeCw/cAKkhmEw9Zt8dL64Vc=
+	t=1790871255; cv=none; b=rQRT6pXp20jrCAPlMNrx7HfQiH0ENszwU58PPf8rlJi9Pyy9B/z5s6ysSE8qnlLo8DzwFeTeuRMgnVelQnaJ5MeuU2+zwdKND1VpgOd5EwTmnpRmE3J4H1OtNXdBDJqhR4gZ9f3A6J80LifLAbq2YJCe+28PJb825UHgOV2j63M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871250; c=relaxed/simple;
-	bh=VQXS4+i4Mg4D0PiLXH9P56zA5pOuOFVJpHUxM1UEFcQ=;
+	s=arc-20240116; t=1790871255; c=relaxed/simple;
+	bh=azpbzhlaRF3k4SC9X/ZEyt+bmt0azMS6TgJ19+Fvvtc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=clHFFvI9KPPHObXxepWOSHLBBz6qajqiTmrAK4FHAScx8Z5iQrE5kOKz0dEHIXUBAVlj54K56y/7frhEHrxQqc0mIFemZbHhHU8bKe2z6NiLGfVCt7g7kV8pGO+3LyzSaCEXnjQqW75xIl1qEOfQmljxZmeljWna6Od6VhYJ9Os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=glXv0z/M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=a6XMN4XiKQO1+Gy1Lm76v4T5cR/LsCPgC+vgU4GVbvAU1Z6JAGcMvdqWVVjmd/sFDEcSPx6eaw4w+U0Dm51QBFFtqxRvTIsHyf9nM/rl5VLmnh3Wdxzh/Dghq/qyOiD9oAEPXnYsx9VVriD9ycmqi0PYc/vcOCBqlEZWhBzHVLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQjX4pRs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="glXv0z/M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B7471F000FF;
-	Thu,  1 Oct 2026 16:14:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQjX4pRs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1431F000FF;
+	Thu,  1 Oct 2026 16:14:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790871248;
-	bh=ODXZA7pGtjbEYN4/fUySv4jAM+kY1k5++4+TMAJn2yU=;
+	s=k20260515; t=1790871253;
+	bh=gQsEF3Fqrh3Rd+g0OmNfKuFinhNLt7DAnTglaEbixDM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=glXv0z/MyYZ8ZR+tBQo9FTbRFIq9f8pT+n/3EZ2KueZCRWlZdGDQEkDTsF31hOtLt
-	 RCXH96zuVe0kc5s/mhLWqkIUfp5IHUMH6Yt4q5Ed1kMNTBx+Tru3g/vF9pbVRUnq9m
-	 HNmD35vsyzQX6adhvul9g23KXgqS06PKla8wMG0vd8FIKfeyzNn82eo8YXQUOFHVqx
-	 3t2O13gtK+vNWhl2bOMklJ+N6/p/9m0TWZgTWYmRDZt4rDSjSwqscI90EU3emkCB7V
-	 M4AE5PG8I1Rtmo9XBCaXtBDgZJ4cT4X8XcunVi8MJewHdBuLOtltPoMhanTTOgSUOH
-	 xjXIGmpzJKpRQ==
+	b=lQjX4pRssfcuGw+qdsXa5xLev4spF8pnSCrwaNpiPfLwtN7KTbPBh6e1oT8VpiPBp
+	 srrziuHNhfQvGeDDuoh6D7nTYpO7n/mCaCriBpxBe8zoRsP5ROJkv3/mLk1rIc7fTB
+	 SRIbEnVvOpGDNVL8bJwIx1U9qwEEbyq3xXnaseOEUnuU7m2xZzKpYnhoS/Ry6oLC4Q
+	 JSuHR2tj2g4QtVTrYcPOcoMNmVYewKxOMt2qtaVl+SzPBCh8/qjEHVcZKFbwOg15/n
+	 lzLPqNJCrFTGKlxR9Vb+mmauumjCA1CyIn+UKNtXkeN8jprCtiuO/ns/sNMjO7Bwez
+	 vRDmL/NYkCj3g==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-rtc@vger.kernel.org
-Subject: [PATCH 25/38] rtc: m48t35: support the SGI IP35 timekeeper's 1968 year base
-Date: Thu,  1 Oct 2026 18:12:00 +0200
-Message-ID: <7c2b71a1627e49209a8c3311f4283eb92325852c.1790857966.git.kaloz@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 27/38] MIPS: SGI-IP27: dispatch the early console between IOC3 and IOC4
+Date: Thu,  1 Oct 2026 18:12:02 +0200
+Message-ID: <ceaf9a9acdb80a1fd6cb5cf1144d7953c213ce57.1790857966.git.kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790857966.git.kaloz@kernel.org>
 References: <cover.1790857966.git.kaloz@kernel.org>
@@ -46,95 +44,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The M48T35 of SGI IP35-family machines counts its year from 1968. Take
-the epoch from a platform id table, "rtc-m48t35" for IP27 and
-"rtc-m48t35-ip35" for IP35, and bound the year to the part's century: on
-IP27 a year past 2069 now fails to set.
+ip27-console.c casts the console UART to struct ioc3 unconditionally,
+wrong for a Tezro's IOC4, whose UARTs sit at other offsets.
+
+console_t.type reads back 0x0300fafa there, neither chip's PCI id, so on
+IP35 dispatch on uart_base, which both chips populate correctly. A Hub
+keeps the IOC3 path.
 
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- drivers/rtc/rtc-m48t35.c | 29 +++++++++++++++--------------
- 1 file changed, 15 insertions(+), 14 deletions(-)
+ arch/mips/sgi-ip27/ip27-console.c | 47 ++++++++++++++++++++++++++++++-
+ 1 file changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-m48t35.c b/drivers/rtc/rtc-m48t35.c
-index 92f19bf997b2..69c313b4b6e8 100644
---- a/drivers/rtc/rtc-m48t35.c
-+++ b/drivers/rtc/rtc-m48t35.c
-@@ -49,6 +49,7 @@ struct m48t35_priv {
- 	struct m48t35_rtc __iomem *reg;
- 	size_t size;
- 	unsigned long baseaddr;
-+	unsigned int epoch;
- 	spinlock_t lock;
- };
+diff --git a/arch/mips/sgi-ip27/ip27-console.c b/arch/mips/sgi-ip27/ip27-console.c
+index 7737a88c6569..a1bcb4376f66 100644
+--- a/arch/mips/sgi-ip27/ip27-console.c
++++ b/arch/mips/sgi-ip27/ip27-console.c
+@@ -12,6 +12,7 @@
+ #include <asm/sn/agent.h>
+ #include <asm/sn/klconfig.h>
+ #include <asm/sn/ioc3.h>
++#include <asm/sn/ioc4.h>
  
-@@ -86,10 +87,7 @@ static int m48t35_read_time(struct device *dev, struct rtc_time *tm)
- 	 * Account for differences between how the RTC uses the values
- 	 * and how they are defined in a struct rtc_time;
- 	 */
--	tm->tm_year += 70;
--	if (tm->tm_year <= 69)
--		tm->tm_year += 100;
--
-+	tm->tm_year += priv->epoch - 1900;
- 	tm->tm_mon--;
- 	return 0;
- }
-@@ -108,18 +106,10 @@ static int m48t35_set_time(struct device *dev, struct rtc_time *tm)
- 	min = tm->tm_min;
- 	sec = tm->tm_sec;
- 
--	if (yrs < 1970)
--		return -EINVAL;
--
--	yrs -= 1970;
--	if (yrs > 255)    /* They are unsigned */
-+	if (yrs < priv->epoch || yrs >= priv->epoch + 100)
- 		return -EINVAL;
- 
--	if (yrs > 169)
--		return -EINVAL;
--
--	if (yrs >= 100)
--		yrs -= 100;
-+	yrs -= priv->epoch;
- 
- 	sec = bin2bcd(sec);
- 	min = bin2bcd(min);
-@@ -164,6 +154,7 @@ static int m48t35_probe(struct platform_device *pdev)
- 				     pdev->name))
- 		return -EBUSY;
- 
-+	priv->epoch = platform_get_device_id(pdev)->driver_data;
- 	priv->baseaddr = res->start;
- 	priv->reg = devm_ioremap(&pdev->dev, priv->baseaddr, priv->size);
- 	if (!priv->reg)
-@@ -178,11 +169,20 @@ static int m48t35_probe(struct platform_device *pdev)
- 	return PTR_ERR_OR_ZERO(priv->rtc);
+ #include <linux/serial.h>
+ #include <linux/serial_core.h>
+@@ -32,9 +33,53 @@ static inline struct ioc3_uartregs *console_uart(void)
+ 	return &ioc3->sregs.uarta;
  }
  
-+/* The year register on SGI IP35-family machines counts from 1968. */
-+static const struct platform_device_id m48t35_id_table[] = {
-+	{ "rtc-m48t35", 1970 },
-+	{ "rtc-m48t35-ip35", 1968 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, m48t35_id_table);
++/*
++ * On IP35 a Tezro drives its console off IOC4, a Fuel off IOC3.
++ * console_t.type cannot tell them apart -- a Tezro reads it back as
++ * 0x0300fafa, which is neither chip's PCI id -- while uart_base is
++ * populated on both, so dispatch on whether that lands on IOC3's own UART.
++ */
++static inline bool console_is_ioc4(nasid_t nasid)
++{
++	unsigned long uart_base;
 +
- static struct platform_driver m48t35_platform_driver = {
- 	.driver		= {
- 		.name	= "rtc-m48t35",
- 	},
- 	.probe		= m48t35_probe,
-+	.id_table	= m48t35_id_table,
- };
++	if (!system_is_ip35)
++		return false;
++
++	uart_base = KL_CONFIG_CH_CONS_INFO(nasid)->uart_base;
++	if (!uart_base)
++		return false;
++
++	/* NODE_SWIN_ADDR() aliases widget 0 away; the console sits on 0xf. */
++	if (uart_base < RAW_NODE_SWIN_BASE(nasid, 0) ||
++	    uart_base >= RAW_NODE_SWIN_BASE(nasid, SWIN_WIDGET_MASK) +
++			 SWIN_SIZE)
++		return false;
++
++	return uart_base != (unsigned long)console_uart();
++}
++
++static inline struct ioc4_uartregs *console_uart_ioc4(nasid_t nasid)
++{
++	return (struct ioc4_uartregs *)KL_CONFIG_CH_CONS_INFO(nasid)->uart_base;
++}
++
+ void prom_putchar(char c)
+ {
+-	struct ioc3_uartregs *uart = console_uart();
++	struct ioc3_uartregs *uart;
++	nasid_t nasid;
++
++	nasid = (master_nasid == INVALID_NASID) ? get_nasid() : master_nasid;
++	if (console_is_ioc4(nasid)) {
++		struct ioc4_uartregs *ioc4_uart = console_uart_ioc4(nasid);
++
++		while ((readb(&ioc4_uart->i4u_lsr) & 0x20) == 0)
++			;
++		writeb(c, &ioc4_uart->i4u_thr);
++		return;
++	}
++
++	uart = console_uart();
  
- module_platform_driver(m48t35_platform_driver);
-@@ -191,3 +191,4 @@ MODULE_AUTHOR("Thomas Bogendoerfer <tsbogend@alpha.franken.de>");
- MODULE_DESCRIPTION("M48T35 RTC driver");
- MODULE_LICENSE("GPL");
- MODULE_ALIAS("platform:rtc-m48t35");
-+MODULE_ALIAS("platform:rtc-m48t35-ip35");
+ 	while ((readb(&uart->iu_lsr) & 0x20) == 0)
+ 		;
 -- 
 2.47.3
 
