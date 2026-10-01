@@ -1,174 +1,226 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB7047CA74;
-	Thu,  1 Oct 2026 22:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894399; cv=none; b=P6VXrcyPk6iJVd0cf9CvpyeKFOed9P1Sm2S47ZFbKGqTIZIS/xxzP3ECeOGWL/e5MFgQgvkHCkMpGeU8XyiG/P4X52MnMYFun0cVy7s6A1jwBJm7UQTpjs5BFxeHsnvRB1rOmMgqrgjbcT8Qc7+5+0YVqepXkms39BFb8A8+ch8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894399; c=relaxed/simple;
-	bh=TJVSVi18BAutSUcCWkyUR64EpqcdpmJqmOn1EoIdi5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IxypxD75lf12BBfLCYacywPzi8r/xLd4JeXqSHTxW5xsGtT0KQl55PsnsvnoCf9/ooqAtcznd2JNVLvgE/p5qvOCnzMOkBjD+RNPmlCSDpKNGLBkDok3c2Dbov/5EnZTT7Cc4PF4RlObRZr/eCcSzEXvNwrCwbcbf/hjkEyajwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jXhNfWdI; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DC125B0B8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790894432; cv=pass; b=bUQmLkovLW6m/o+hACzOjifTntkCmxSLlUer0OJovYpi98zhQTtt5tewueh9TlHoG5hpcXZyE148kfurwqnxieAnm1Cqx3VnBRxTxHOFLpUG5EvBecD30x7iXoF5r5bRvSoLP6ChZwOpkQpBavAqrbqe2vWL+e+pAxuSXY4pk3A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790894432; c=relaxed/simple;
+	bh=kwu63XcwE+rKZh8dGn9/jKuWbX4079TA9Hh8QjpQ2Lc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=setPOaPK6RGpyZdnT1RSvfPZGrkONmk3pELUKsSzsQT/dhkYJWNza3XynhOR6JIGKM1r8GRdgYTxoFwZCvPYN2ydZ1o9lZtEyLgMilNgKqsi3vYDhNFZwCjDIJOLGhLVJLwKqrvYrCAJ/q4mEFxcQzAHSrZf6up3MUQfdnwH6N8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=A81i6q9+; arc=pass smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jXhNfWdI"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C9571073CF;
-	Fri, 02 Oct 2026 00:39:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790894390; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=z1KtkvhbsHdex4xQM2wbRp8dWV7ggUIOWI5xc9hUyq0=;
-	b=jXhNfWdI1GarFVKRdjy2fpv8YMnHSCwnfuFxzCapJLPK4bM3cqVIF06e2RMnF89lmOL3Zs
-	g52zv4/2O/9cssCb5MOQqyaDspENDcvT0W+eQMoT0vaP3NRB2vrHOSnywgYhkcd7lsorZK
-	CFSCwq+hFSDFjek/5Av5piQUtwGvsS9rvKemO7HhhXmonO4syWz5u9ueUjAaUonWsCpOLw
-	0AOJSaWmKgjbZxGnrgxJ2voJ/XKjjGxXRTnIHQRSQWeyTG8gqih27GVe1b5v78YH4235p5
-	DDcrIcT1mJce7z8rUjNd+uURgZp+fpGdSFr6XVEyslIKMiqREk4nnkZx1Sv4jg==
-From: Marek Vasut <marex@nabladev.com>
-To: netdev@vger.kernel.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Claudiu Manoil <claudiu.manoil@nxp.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Wei Fang <wei.fang@nxp.com>,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [net-next,PATCH] enetc: Set eMDIO MDC rate to 2.5 MHz only on i.MX95
-Date: Fri,  2 Oct 2026 00:38:52 +0200
-Message-ID: <20261001223947.60189-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="A81i6q9+"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e320322edso247411666b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:40:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790894429; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DAT71wMxFeKFH9ObPbTisl3NaTqSGAurU9oaDSIt+h1PUPiMqsLjezwpjhtLE60fpu
+         hyjeytEn2IyqCbrAPGK1G2uMAkE7p2RzeZ3sxzvWam9zbPWbK8EiCk1z67KvF8knznez
+         PD0M/KdwB7OGFhAQ8YSxaqPqoYUlr0SqbvTrt+1u2CS5ZXmFUlCNdQeUsYAYLlfULIQC
+         anyHSjFNgAMNjDjlBHhslfbPjS9YPxq2yuiK+ZwJ4HlgPwJgdvmnnyt/TxH+kmwfu2cp
+         2g+HFgCABQZjqJfiSzYNr+XKPxVUfVhBIY3ab8gI47iCwlt1jqC09gzR6fUulq0nmNIB
+         5mEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=L/vEkgZQw4mtA8c08FHsi2FPZ7REcWS28KGmS8X2+78=;
+        fh=+Z30K7ALOd14zYzpGPQiZoicYmu0AA0E5KXmPMoKB10=;
+        b=lgZf41egahg4GjkWg24fikBet9W84E0iRGN8qbkE8rP7fQc7pHr/2m8svSbqFBX2DX
+         IJxu6x+hlw9jaScBPoLy9xMq/kd8lalljfrp5JjDwWiJbXFrqjt8y+gETgwPdgXs+0ux
+         rLluQGYI0ZAUA9mpjZDwvPkMn/TSnhI5aQSpwpZzpnpejYNPogundU5u9vPT+CIQNPBU
+         tRfL+8Q2nTnZQ6UXGn6feuLCA2RDbEmOWtt8v4TdJVfruXppjgbVzGDL8mjf7cZkhrdB
+         xM76D5uA+SS0fLuDDMVAfnhm2iKxkmEtJUsp7HrKgaXrBCfYNJmvxTs5OZgjNWi8DVt6
+         lqow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790894429; x=1791499229; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L/vEkgZQw4mtA8c08FHsi2FPZ7REcWS28KGmS8X2+78=;
+        b=A81i6q9+cgtloIYIDQowW0s07qoDYulLGK90RS0kivQQmO3u+dGqTQihwcaSv8WQGp
+         TxUhbHvR9Id6qqoLolvCaGV30HIuGYqKEwP8TPcP/Sr1xxVREruoupUdenvSxrbgHCrU
+         NudGsyr71ebGGVbqBeEQe30y/BHRnM58N2mSYYIFXLTAXRgGBNnNj1yUP8iGYoQALpY6
+         R4mVGzeYhdcQSq2GgNWcEy0HXHVYyKxoa31GQm7o+z8yOQz+MHSX5LOSSSzM2nZPQpBb
+         PQYGjeJr0N06mIck1G3PRG4xj2Jg2odtR59eoyv6LLZKjFt8WFeV6gonvvGXUfEt0lLM
+         I0FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790894429; x=1791499229;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L/vEkgZQw4mtA8c08FHsi2FPZ7REcWS28KGmS8X2+78=;
+        b=jU4AtHuM1iTZI6ZmTOVGnXWi4/yL7fYCAWzN0TvvAwnsn0oDFFq47I04V+Ve3NF74V
+         9PBRnvacuNQzpAclCA0dbdVOO0YU9fteFSyI7xQuTX5hVHNEoYCKramW/bEtouFpCIFt
+         gQonRy90gDpYoRwjhPWLsYUR6ILie1DlHINNYivMiarK4MLcRAPUewFu9JvATX1CjP6I
+         BBBJB7ZKQIF7kCNy64mjM7b369sAq1lW+hQKH/v33DCJ84piYQwkTB1rTt9lliQaovhk
+         Tkcy+lj1mH8YzkF0E4W8nmBKnyo2h8WLptKAubHwak+qFudAKJInpdfhfSA94R2cztR2
+         Uq3A==
+X-Forwarded-Encrypted: i=1; AKwUvBxq1yK351PW1pPZteaYGBvvgWSTtdBEq/zEX+FlumENn+X6hhtkQKf93y+xX6WTPy6xcWcoNfK6nhDZUW8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXGDWtxx6AKzznWZ6A3BcloaX4i74t3vPYw/esaMEUpDL+l6mY
+	WIuFLWYhOdLry8lsOXOWReSmkqxwoYtBPHbxUKENDMKF39nxLLo+u8t2O2MwtqTF88J/BEbS3uU
+	AIFE9K8Zt4K0TYLCaBBdKFX1bfJAxtghextSG4flP
+X-Gm-Gg: AYBFou3w2aIxO9poWdmFkNmOSzRVaL7ZcZFqWrjDO+oyMDkuQEF22cJ3UPpzqircwJS
+	vZNJuxl2yIFO4zi0xQQT+tbvDxEbEf9D2O1V7l+LoydkSeKuL3pH2jPyMf533YKn39pTY1ZPRe7
+	/D1WLzE7Ktn1w786wZcUtkgCHCQLVatf+P8NQ08s4gnKNpTmwJ+qEZDHhpq61kOrmYFMdUsIXrt
+	pDOxgTaL5aaL0q/9Jx/Jtb5iOktTgqLg3Jtkx1EvdkAF1fR+L5B4B1fsSdDQGnt+CtTeTSJCXrl
+	aTCMYgCHplLackjsm9Y6XKTWSIWSIIn5R9MJPuewhE7NhWwOMhVHv6xCGy4cBJO9rl0B5sDBzzn
+	4ame10BGgcEODF2YtPEZGjkYnczmR3uCqLj6b3xt2CukQKFiIVHex2wIh7qFVQcRng4vGbTAM8/
+	MBc2dzElM/TNuUNubzjkcwcFnX9q8V
+X-Received: by 2002:a17:907:7208:b0:c29:555e:bf2 with SMTP id
+ a640c23a62f3a-c2e4afe1430mr80322466b.41.1790894428293; Thu, 01 Oct 2026
+ 15:40:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260910023411.514987-1-jthoughton@google.com> <bc3703c3-5798-40a8-88ae-98e1a9ea4bf0@kernel.org>
+In-Reply-To: <bc3703c3-5798-40a8-88ae-98e1a9ea4bf0@kernel.org>
+From: James Houghton <jthoughton@google.com>
+Date: Thu, 1 Oct 2026 15:39:51 -0700
+X-Gm-Features: AclHuK-V5lbUcshWQ3i9rEU5L8kCCMcMjYghSSaynmXUK63HsUMvHSW_bJKLTDw
+Message-ID: <CADrL8HWtO2FLLOFngUgAnkb0qc08VgtNtb_CMhfwqjDUDvumxQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] mm/khugepaged: Never install PMDs in
+ uffd-minor-registered VMAs
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, zokeefe@google.com, 
+	hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The current eMDIO MDC rate is 2.5 MHz on i.MX95 B0. It was pointed
-out by NXP, that the MDC rate is divided down from clock of different
-frequency and using different division ratio on different SoCs. The
-clock which feed the divider do not seem to be available on all SoCs
-and therefore their rate cannot be read out of clock tree. Configure
-the i.MX95 eMDIO MDC rate to 2.5 MHz to match the 802.3 specification
-and reinstate previous divider ratio for all other SoCs. This way the
-other SoCs are unaffected by the i.MX95 specific change.
+On Mon, Sep 21, 2026 at 11:52=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 9/10/26 04:34, James Houghton wrote:
+> > Userfaultfd minor faults provides userspace with the ability to manuall=
+y
+> > install PTEs with UFFDIO_CONTINUE. Right now, MADV_COLLAPSE can map
+> > holes in the VMA when a naturally-aligned THP is present. This is not
+> > true for khugepaged collapse: the PTEs will be retracted, but a PMD wil=
+l
+> > not be installed.
+>
+> You might want to add a breadcrumb here that collapse_file() never return=
+s
+> SCAN_PTE_MAPPED_HUGEPAGE for khugepaged.
 
-Fixes: 587acb86d646 ("enetc: Increase eMDIO MDC rate to 2.5 MHz")
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: Clark Wang <xiaoning.wang@nxp.com>
-Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Wei Fang <wei.fang@nxp.com>
-Cc: imx@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
-Cc: netdev@vger.kernel.org
----
- drivers/net/ethernet/freescale/enetc/enetc_mdio.c    | 12 ++++++------
- .../net/ethernet/freescale/enetc/enetc_pci_mdio.c    |  5 +++--
- include/linux/fsl/enetc_mdio.h                       |  1 +
- 3 files changed, 10 insertions(+), 8 deletions(-)
+collapse_file() does return SCAN_PTE_MAPPED_HUGEPAGE even when called
+by khugepaged though. (right?)
 
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-index a90a04a47befd..7ed9b9120f447 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-@@ -22,9 +22,9 @@
-  /* external MDIO only - driven on neg MDC edge */
- #define MDIO_CFG_NEG		BIT(23)
- 
--#define ENETC_EMDIO_CFG \
-+#define ENETC_EMDIO_CFG(mdc_div) \
- 	(MDIO_CFG_HOLD(2) | \
--	 MDIO_CFG_CLKDIV(66) | \
-+	 MDIO_CFG_CLKDIV(mdc_div) | \
- 	 MDIO_CFG_NEG)
- 
- #define MDIO_CTL_DEV_ADDR(x)	((x) & 0x1f)
-@@ -63,7 +63,7 @@ int enetc_mdio_write_c22(struct mii_bus *bus, int phy_id, int regnum,
- 	u16 dev_addr;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	dev_addr = regnum & 0x1f;
- 	mdio_cfg &= ~MDIO_CFG_ENC45;
- 
-@@ -95,7 +95,7 @@ int enetc_mdio_write_c45(struct mii_bus *bus, int phy_id, int dev_addr,
- 	u32 mdio_ctl, mdio_cfg;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	mdio_cfg |= MDIO_CFG_ENC45;
- 
- 	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
-@@ -133,7 +133,7 @@ int enetc_mdio_read_c22(struct mii_bus *bus, int phy_id, int regnum)
- 	u16 dev_addr, value;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	dev_addr = regnum & 0x1f;
- 	mdio_cfg &= ~MDIO_CFG_ENC45;
- 
-@@ -176,7 +176,7 @@ int enetc_mdio_read_c45(struct mii_bus *bus, int phy_id, int dev_addr,
- 	u16 value;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	mdio_cfg |= MDIO_CFG_ENC45;
- 
- 	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-index e108cac8288d3..6704033067ecc 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-@@ -71,6 +71,7 @@ static int enetc_pci_mdio_probe(struct pci_dev *pdev,
- 	mdio_priv = bus->priv;
- 	mdio_priv->hw = hw;
- 	mdio_priv->mdio_base = ENETC_EMDIO_BASE;
-+	mdio_priv->mdc_div = ent->driver_data;
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
- 
- 	pcie_flr(pdev);
-@@ -125,8 +126,8 @@ static void enetc_pci_mdio_remove(struct pci_dev *pdev)
- }
- 
- static const struct pci_device_id enetc_pci_mdio_id_table[] = {
--	{ PCI_DEVICE(PCI_VENDOR_ID_FREESCALE, ENETC_MDIO_DEV_ID) },
--	{ PCI_DEVICE(NETC_EMDIO_VEN_ID, NETC_EMDIO_DEV_ID) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_FREESCALE, ENETC_MDIO_DEV_ID), 0, 0, 258 },
-+	{ PCI_DEVICE(NETC_EMDIO_VEN_ID, NETC_EMDIO_DEV_ID), 0, 0, 66 },
- 	{ 0, } /* End of table. */
- };
- MODULE_DEVICE_TABLE(pci, enetc_pci_mdio_id_table);
-diff --git a/include/linux/fsl/enetc_mdio.h b/include/linux/fsl/enetc_mdio.h
-index 623ccfcbf39c3..7dfd65622c95d 100644
---- a/include/linux/fsl/enetc_mdio.h
-+++ b/include/linux/fsl/enetc_mdio.h
-@@ -33,6 +33,7 @@ struct enetc_hw;
- struct enetc_mdio_priv {
- 	struct enetc_hw *hw;
- 	int mdio_base;
-+	int mdc_div;
- };
- 
- #if IS_REACHABLE(CONFIG_FSL_ENETC_MDIO)
--- 
-2.53.0
+>
+> The whole thing makes me wonder why that khugepaged check is buried so de=
+ep down
+> in that function. Makes me wonder whether that check can actually get pul=
+led
+> further out (maybe Kiryl's patches do that).
+>
+> try_collapse_pte_mapped_thp(mm, addr, !cc->is_khugepaged);
+>
+> is rather confusing when we never end up there with khugepaged ...
 
+Hmm... it's not confusing to me; khugepaged does in fact call it. It's
+just that, for khugepaged, a PMD is never installed.
+
+Kiryl's series made the "do not install a PMD" choice part of the
+collapse_policy, so I think it's a bit clearer now.
+
+>
+> >
+> > When MADV_COLLAPSE installs a PMD that mapped holes in the VMA,
+> > userspace is likely to expect UFFDIO_CONTINUE to succeed on the
+> > should-be holes. UFFDIO_CONTINUE will fail and return EEXIST.
+> >
+> > This is not inherently a problem, as MADV_COLLAPSE is an explicit
+> > userspace action. But, especially because MADV_COLLAPSE can be invoked
+> > by an external process via process_madvise(), a rogue caller could brea=
+k
+> > a userfaultfd-minor resolver thread. If khugepaged is later updated to
+> > install PMDs for khugepaged collapsing, that would be a genuine problem=
+.
+> >
+> > Userspace cannot generally use MADV_COLLAPSE to resolve userfault minor
+> > faults, as MADV_COLLAPSE will only resolve such faults if a
+> > naturally-aligned THP is present.
+> >
+> > The naturally-aligned THP case is the only case where this quirk exists=
+.
+> > Collapsing otherwise requires all PTEs to be present for
+> > userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+> > correct. This check is essentially bypassed for naturally-aligned THPs.
+> >
+> > Suggested-by: Lance Yang <lance.yang@linux.dev>
+> > Tested-by: Lance Yang <lance.yang@linux.dev>
+> > Signed-off-by: James Houghton <jthoughton@google.com>
+> > ---
+> > v2: https://lore.kernel.org/linux-mm/20260828222640.1638457-1-jthoughto=
+n@google.com/
+> > Changes since v2:
+> >  - Drop cc:stable and update the changelog for the main patch.
+> >    khugepaged doesn't actually install PMDs, so it is impossible for th=
+e
+> >    kernel to silently install mappings that userspace didn't ask for.
+> >    Therefore this patch does not need to be backported.
+> >  - Update the uffd-unit-tests selftest to account for the new behavior
+> >    (new patch). This patched selftest is equivalent to the reproducer I
+> >    provided in v1.
+> >
+> > v1: https://lore.kernel.org/linux-mm/20260828005004.2870750-1-jthoughto=
+n@google.com/
+> > ---
+> >  mm/khugepaged.c | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >
+> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> > index 75639298efc2..e6947fe142ee 100644
+> > --- a/mm/khugepaged.c
+> > +++ b/mm/khugepaged.c
+> > @@ -1894,6 +1894,13 @@ static enum scan_result try_collapse_pte_mapped_=
+thp(struct mm_struct *mm, unsign
+> >       if (userfaultfd_protected(vma))
+> >               return SCAN_PTE_UFFD;
+> >
+> > +     /*
+> > +      * Userfaultfd-minor-registered VMAs should not be collapsed, as
+> > +      * userspace is expecting to explicitly install PTEs.
+> > +      */
+> > +     if (userfaultfd_minor(vma))
+> > +             return SCAN_PTE_UFFD;
+>
+> Can we just combine the two uffd checks to have less uffd noise? :)
+>
+> "Don't collapse if we might have UFFD markers or if userspace fills the p=
+age
+> tables through uffd minor faults".
+
+I've gone with this wording:
+
+        /*
+         * Don't collapse if there might be PTE markers for userfaultfd-bas=
+ed
+         * access protection or if collapsing might bypass userfaultfd mino=
+r
+         * faults.
+         */
+        if (userfaultfd_protected(vma) || userfaultfd_minor(vma))
+                return SCAN_PTE_UFFD;
+
+>
+> Overall LGTM
+
+Thanks David. :) Sorry for the delay. I'll send a new version tomorrow
+(on top of Kiryl's patches / mm-unstable).
