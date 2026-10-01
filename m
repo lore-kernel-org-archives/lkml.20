@@ -1,135 +1,137 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mta0.migadu.com (out-241.mta0.migadu.com [91.218.175.241])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A336486620
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:26:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FD8463B73
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:27:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.241
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790836008; cv=none; b=E3GjzLQ4yHCrNCqQ0lwsjiNYTnTt/pdaLMd8KXQXm51/3ljh0gLSQWSz3JH3wU/Nl5xgcj2eyYpPmrx4EDiseuGlRLJSpmmffm/ZqozOyzowu5XNujwScPqzqJzHLIJWT0q9fN7f6n/mQf0PoxLyIlLZVILjHzrukJRfUDZtdiM=
+	t=1790836027; cv=none; b=YRX/9CjhFAbo+d1baW4Kb735a1q1HGc+lbtbdYknbYoCqXFSdBJTm0i2wZjtYjO6CHYpCotdLPvLdvSh/PutfqM/VcLci/oPpP4cx/kzihdRhGZpN2rMxSIuRdsc3dKH2Rl0H7WZ6Sj+pz8/zTo8YDTL0qG6v/ogo2M70VVtVUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790836008; c=relaxed/simple;
-	bh=Z9jvfY1BROxk+boW+9quXdYMhRw6bTJEZD6pUkJTGL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ga6BAvEf/WaEdjVm/XWUkjXeuBlyErKqE1wlgiL69YKg/2h6PscPBOtEo34gufIeJ7OZYgv/ISo7utTHr8TYvPhdqtgy+Oks6Hes7eac3XhwGG9ygGioZJVWU0iAZXGr44v1f7sfWpIaYzV+82aCmHzOwNSfBOvK6/YaZlJybCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cIDIJLbY; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790836027; c=relaxed/simple;
+	bh=b7R/BWq8BN8iE36KRPryjNAMMMnC47/fFTxU2yAxCr0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QTnB+FMOTDhEXi78OI1/nuUz4Ddnd9eOqMK83SxLt9GgVFJ15WnlbE+J6MH91/IettoqdxvJ4uVeNySMZJ5hKTJf2FWGHhu1n59KRyyor1lWAnOUMwF9m1TpCySs8ywI2rDV0cFMX6iUDCnz2X+Hv2QJ9nwl056AIE9FrAH5yKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CEemQOQ/; arc=none smtp.client-ip=91.218.175.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cIDIJLbY"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34cde269e1bso1013496eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:26:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790836004; x=1791440804; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fYiLKq2bV7ugiw5hQzlAAJbklyqM/fI/bLfHGK84MR4=;
-        b=cIDIJLbYOl6rLNVemifWBibLHlMjS2N78t3PIHy2M5bKPl4GiLlZfgd/DR/SxSif42
-         RWJQEk+CZNsxxjatyI3gCEPOJ1nbEaD97zsbsPrptOHiTkCkZSmvrtwk/MWbuiDsVkHt
-         Bb4lTVUZW5MD/Ek+ef10kKrnQOrLQIIOa71fwx74wloRsTSUVDOTbnb6PSX21GF8V7lO
-         I3H/iYswFK/m/zJ8J7GXUQmw2o2ZuYL7HAD3fN0rYVr4KoNg6Ho4JJVWJwqfWgp2wIWa
-         s60NRsgXRmhV7X/P/dH/HT5PNIO3YQOTv6TiAAoNJsdHewMt/GhOC8Xl2OPGurvO0cM6
-         RHxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790836004; x=1791440804;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fYiLKq2bV7ugiw5hQzlAAJbklyqM/fI/bLfHGK84MR4=;
-        b=Z6mPTJN2ZmRAAGJGu24lf2S/emfTpj38FNSbeumlKx780WSZkvIZtDCPyrTtOzIsCm
-         X8WRqrmTu43jwMUZkt3mJAtk8+4OZNGoNagBQk6azpVoWZPpy69ye/VZb2817c8yY6lH
-         DzuQV/l5gjhoYCMLyGWzb/ji1p06IPICH4dAXYt+gLVQvPpN8eucF514hR15+n40MaRV
-         LFf3Q/TMpn61725jXUkotG2tsjNdZjso/LhSPSTM/heEIkb5k6cMxiaVrONF2+VHUoK9
-         owZ6g+akuTz08nQoGOOnpWrzP+ShqiWOOpJFLAc9Mn0pUUd/C0brF4nlx7KG7AzFe3XT
-         sO1g==
-X-Forwarded-Encrypted: i=1; AKwUvByVrDK8QwDe6sK9WR9fBOAQB+XfsRNb1Z76j8Pm1yl7EqPwnW8RfcqfIzFHqhhXEDYTVYrY2/zQlL5oZgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIgwE3HrJu3q1vmvoMkAjm1xBDZ2s5idUmB5dKyZtUHQFpKsEI
-	E93CsxaNbzR2Lub4dmOBK6o5jZzGsHDk8HuVrCKN348UZbtBjzQOgMpK
-X-Gm-Gg: AYBFou3HuMuDeQEKe9J9jHT0ckaXZWFrYt5KBZwvTnGhDDrNxN2f8TF/Ql5Sdi8WhIb
-	ya7xqsmZ2nwOzlUM4Q5kHD3YGuIVbGRzzHEpxJWhOyOBvg4sKHKfB1u/fAC5EpxEqN79GY9Mqys
-	cP/vxR+uGIvy+ZFSptAq+NcF81R/xG6ngk3EobcBkzGCLfYPLXw2s49lpu0IP63AE4Q2kR4+zCj
-	mzoP5p/o70WOFR2p9FgD3xsPKK/afNrAFDDSlq1/+YSh3UP45YYhongnLS5BSmalGZopS6gg6nt
-	Dmlg5VySnr31JOj2+tB9Na8K+vBYlfzyHGw/aeKiYhgSU0MKIM7eG92QQXLsD04yqpHlySWU7Hm
-	xC9G/gcMbrecTWd2tg34HMt74u0Qe7ji8Azwsd9CLSRNcxfAeV+u5dGkvIm/zr3plBaZBQ7esEY
-	zt5vtxLV92dK8pZ14mlFzsTMstdaF6FLf1DhWxOQXw2/WrxfeSIIPmsKYsGmIGJETeSjN+X5RRA
-	BmVABDWf0qrL9KAcqLl3ZB7fnklgbN4P6+eRrZ3aeGv3FQ0ZCc=
-X-Received: by 2002:a05:693c:20c5:20b0:34b:4b99:24ab with SMTP id 5a478bee46e88-34cdc6bbfb5mr3860417eec.22.1790836003947;
-        Wed, 30 Sep 2026 23:26:43 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:9835:e0ad:476f:74a9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34dae0ad3a8sm4822762eec.0.2026.09.30.23.26.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 23:26:43 -0700 (PDT)
-Date: Wed, 30 Sep 2026 23:26:40 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: Andrew Duggan <aduggan@synaptics.com>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jiri Kosina <jikos@kernel.org>
-Subject: [PATCH] Input: synaptics-rmi4 - fix input device name lifetime with
- hid-rmi
-Message-ID: <ar38b7ToAe8iGU5v@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CEemQOQ/"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=b7R/BWq8BN8iE36KRPryjNAMMMnC47/fFTxU2yAxCr0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790836019; v=1; x=1791440819;
+ b=CEemQOQ/u8pxGSLM9tp0H4G/b6FBscwOghCC0pfFlKddEkWcc0Q0Hq1sj5ESayHYXBRkG4vB
+ Gc9wylnLSniCyAai4bsk+4Q97LC9XXbZFNSxLE+qlEe7QvFINTmF/UZGNjhtiBPIRw8XShIophC
+ AFXvxD2cOPvFHpA00MbSft/Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 686293e332799156;
+	Thu, 01 Oct 2026 06:26:59 +0000
+X-Mizu-Trace-ID: 686293e332799156
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <004b2299-3d7a-42bf-baf0-942715f5c548@linux.dev>
+Date: Thu, 1 Oct 2026 14:26:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-rmi_driver_set_input_name() allocates the input device name string
-using devm_kasprintf(&rmi_dev->dev, ...). When the input device is
-supplied by a transport driver via rmi_dev->xport->input (such as
-hid-rmi), the input device's lifetime is owned by the transport device
-rather than rmi_dev.
-
-When rmi_remove() in hid-rmi calls rmi_unregister_transport_device()
-before hid_hw_stop(), or if rmi_driver_probe() fails after setting the
-name, or if rmi_dev is unbound via sysfs, devres releases the name
-string while the HID input device remains registered, causing a
-use-after-free when input->name is later accessed (for example when
-generating the KOBJ_REMOVE uevent or reading /proc/bus/input/devices).
-
-Allocate the name string on input->dev.parent instead of &rmi_dev->dev:
-- For hid-rmi, input->dev.parent is &hdev->dev, whose driver devres
-  group is released in hid_device_remove() after rmi_remove() and
-  hid_hw_stop() have unregistered the input device.
-- When rmi_driver_probe() allocates the input device itself via
-  devm_input_allocate_device(), input->dev.parent is &rmi_dev->dev, and
-  the subsequent input_register_device() call pushes the unregistration
-  devres action onto &rmi_dev->dev after the name allocation, so the
-  input device is unregistered before the name is freed.
-
-Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/rmi4/rmi_driver.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index a349dfd17519..4ab00b2cf4f0 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -361,7 +361,14 @@ static void rmi_driver_set_input_name(struct rmi_device *rmi_dev,
- 	const char *device_name = rmi_f01_get_product_ID(data->f01_container);
- 	char *name;
- 
--	name = devm_kasprintf(&rmi_dev->dev, GFP_KERNEL,
-+	/*
-+	 * Allocate the name string on the input device's parent rather than
-+	 * rmi_dev->dev so that when the input device is supplied by a
-+	 * transport driver (such as hid-rmi), the name string is not freed
-+	 * when rmi_dev is torn down before the transport unregisters its
-+	 * input device.
-+	 */
-+	name = devm_kasprintf(input->dev.parent, GFP_KERNEL,
- 			      "Synaptics %s", device_name);
- 	if (!name)
- 		return;
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] mm/memory_hotplug: fix missing rollback in
+ __add_pages()
+Content-Language: en-US
+To: Muchun Song <muchun.song@linux.dev>
+Cc: david@kernel.org, osalvador@suse.de, akpm@linux-foundation.org,
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260930160432.5564-1-lance.yang@linux.dev>
+ <D52186EB-026B-4C9D-BBCE-875F259634AB@linux.dev>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <D52186EB-026B-4C9D-BBCE-875F259634AB@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
--- 
-Dmitry
+
+On 2026/10/1 10:05, Muchun Song wrote:
+> 
+> 
+>> On Oct 1, 2026, at 00:04, Lance Yang <lance.yang@linux.dev> wrote:
+>>
+>> __add_pages() returns on a sparse_add_section() failure without removing
+>> the sections already added in the same request.
+>>
+>> For memremap_pages(), the failed range is not counted in pgmap->nr_range,
+>> so memunmap_pages() skips it. The sections already added in that range
+>> retain their vmemmap mappings and subsection bits. Retrying a
+>> section-aligned range can then fail with -EEXIST.
+>>
+>> Save the initial PFN and remove [start_pfn, pfn) on failure. For a vmemmap
+>> population failure, section_activate() already cleans up the current
+>> section, so the rollback excludes it. If the first section fails,
+>> __remove_pages() receives an empty range and does nothing.
+>>
+>> Link: https://lore.kernel.org/all/BAD58999-1EDD-4A37-ABA0-DB1BD8AB3453@linux.dev/
+>> Suggested-by: Muchun Song <muchun.song@linux.dev>
+>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>> ---
+>> No Fixes tag, as I couldn't identify the commit that introduced this issue.
+> 
+> Hi Lance,
+> 
+> LLMs are quite good at tracing this kind of code history, so I used one
+> to go through the relevant commits and identify the correct Fixes tag.
+> 
+> Fixes: ba72b4c8cf60 ("mm/sparsemem: support sub-section hotplug")
+> 
+> Before that commit, __add_pages() ignored -EEXIST and continued with
+> the remaining sections. After a partial failure, a retry could therefore
+> reuse the vmemmap of sections added by the failed attempt and continue
+> with the later sections.
+> 
+> Commit ba72b4c8cf60 made -EEXIST a hard error because
+> sparse_add_section() began using it to report an actual subsection
+> collision. That semantic change was correct, but without rolling back
+> the sections added earlier in the request, stale subsection bits make the
+> retry stop at the first previously added section.
+> 
+> The vmemmap removal infrastructure had already been added by commit
+> 0197518cd367 ("memory-hotplug: remove memmap of sparse-vmemmap").
+> Therefore, ba72b4c8cf60 appears to be the commit that made this bug
+> observable in the way described by this patch.
+
+Thanks, Muchun!
+
+>>
+>> mm/memory_hotplug.c | 6 +++++-
+>> 1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+>> index 796af1028ee2..ca4656698148 100644
+>> --- a/mm/memory_hotplug.c
+>> +++ b/mm/memory_hotplug.c
+>> @@ -380,6 +380,7 @@ EXPORT_SYMBOL_GPL(pfn_to_online_page);
+>> int __add_pages(int nid, unsigned long pfn, unsigned long nr_pages,
+>> struct mhp_params *params)
+>> {
+>> + 	const unsigned long start_pfn = pfn;
+>> 	const unsigned long end_pfn = pfn + nr_pages;
+>> 	unsigned long cur_nr_pages;
+>> int err;
+>> @@ -413,8 +414,11 @@ int __add_pages(int nid, unsigned long pfn, unsigned long nr_pages,
+>>    SECTION_ALIGN_UP(pfn + 1) - pfn);
+>> 		err = sparse_add_section(nid, pfn, cur_nr_pages, altmap,
+>> 					params->pgmap);
+>> - 		if (err)
+>> + 		if (err) {
+>> + 			__remove_pages(start_pfn, pfn - start_pfn, altmap,
+>> +       				params->pgmap);
+>> 			break;
+>> + 		}
+>> 		cond_resched();
+>> 	}
+>> 	vmemmap_populate_print_last();
+> 
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Cheers! Lance
