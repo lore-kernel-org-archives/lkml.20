@@ -1,192 +1,104 @@
-Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com [74.125.231.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E737A4A5C22
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1904306B3D;
+	Thu,  1 Oct 2026 16:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872770; cv=none; b=RNk/AT15PARZwCdaKl+d1zkR9l5bPaXgaKp6u7Ks/tejQtJ+6kw7FmgxnDS63ifvRgbp/fos0LxOHLevj4L5bvTlFLVfif+7yRc+FOa2wEaQW8NkSIeXIjR2WbZBJM8TRCYi/bXwGNyMIP54kX7IqJKyBvjSCZztzIzKBF3wokY=
+	t=1790872787; cv=none; b=UZtvJN5QZEto5TltoKEYxr0ppVAYtXtuOhjZPfh5Hd0Qe+uL6dZdygLvjevcsihmzQ9KxrSwp31ztzl5sFeazjyLoTYeaFH8Py7qOl758uJhZShvdn1i+R14pBHoFucmJCRvIywoFTaPcicOyUw0RYWQ562oDFvu0AcjUjDwaTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872770; c=relaxed/simple;
-	bh=DlHHkzkT8kP0MbAaZs9pk8YyukMa/EI8gOmgUqmb4+g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gWdhLCqspYXSVFj7FyR3XVFibkMmrkzUm9OqT0c/hcAd/P96J5KqGGy5XoFJJKhCrK9BFAdTgK+Nyi4DGSQDDf9OToG9qI4uuTm+enunYz7/FEkS7c48GBAwiae34ktkLekv26VwOY6K3i1qEtLsKyY4amXudlD4+3OiTjOEjPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N0aC0MbA; arc=none smtp.client-ip=74.125.231.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790872787; c=relaxed/simple;
+	bh=CoFIg5zVxdnbRNF+xA6y6DD9CF5IBpGo8K9jZgyNx3w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kaqBlTxaUPITMooQa4fKaJ1pTI21KHooF5ud9IGMJBVhc/nJ9+KBnfKwjvDNDWk/OZlocf0GdzzuwgOO51+x0NtRU40xoIyWTvQDFNESavtP8dRNJJYQsTbnDMRyh364YI770fL2KrpYUk0PxE/xaxC1gutIphgnPUWR+H2BDww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CplMPwRu; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VHCx7DuI; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N0aC0MbA"
-Received: by mail-oo2-f36.google.com with SMTP id 46e09a7af769-82067e86a89so1276300a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:39:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790872766; x=1791477566; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LpX58fE348BUkcVclLgpHI3tc1Fvn/Hskn9ODkkCRlY=;
-        b=N0aC0MbAsXz+igvn3ATmdatq0UYlpF/Tif0FkrbnTAkBCnZwHepGd1/BmxrhARpF73
-         FVAwQ3G51EJviH5y5iGc+WwXpQZTyDO9W1ni/LGwpcn4HTHn2BnNKG6kJM+ClUDZaLRB
-         3/zeAz8bPuT9jcJEwN09yixDTD4fIPL+ZGNSaSNxFN0Q3347wnzIwfjw+n89iwby6K+r
-         7A1EiY7VF1GjRh9n+ANu+BG82iH2QtH6EGc8N805JjTpzK9UPcpkzGxfo85Tt2WRFXif
-         S5HEP8vVl1wZ/oJcZXg0Km2OuQ7MDlvQ72nf+vErI5FtCUizwPmUMJnbt6SIIgnJcH4C
-         bcPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790872766; x=1791477566;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LpX58fE348BUkcVclLgpHI3tc1Fvn/Hskn9ODkkCRlY=;
-        b=Aw6teUtzgLAFE0MF+c0HEn3v/LhC1bzqL4yZMMCXm9OcPx7CT0BI1/nzAu2qmVT/Ch
-         a+XP+H8Np3USAOoFFyqdd9eYRmVPMPTZRhncn9n86pAAGVops5MIeMf6QOI4JMrTp3OU
-         eLZlMdXkcbJJRJ1A5mEsB7Ds+dYXfsW/JAPznhEnQlPGspZX19qHUxYVFfxVLZukwPuh
-         v+8mVqDvd4XL6JCDyMHndNs/sP5RL7BbJx/cFZ6fJqDBtbcdME3dhxxh4oxjhGDpyaVW
-         RuUPFZT1npkV2hWSbgnm5eHPkzVhHs3PTNsV1I584VEuDOQt7SlJtg+9t+hRgxZ5HClK
-         Y+WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0kF2wOj8R8zIBJXjUInTNt2Cw5VmR6fYQ3TVQ2v7wRUI7DVvkgN1ddVnkqTXyApq5kXGY7c/zJ+WAotE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRgUH/QTWIDQaGI+/DybumeoIieW651kNWzi35e7zMd2oI02eW
-	Qq7yX2O7ehfc8etZcX/uAMa+7l5ThgJcHnZotALvp5YhxW9U2BdqsLhN
-X-Gm-Gg: AYBFou3zzJvMNQh7lC7bNmUHJxBMaJUzMcmZrKzyQU6oQlBHZAu0UM59esOkDJSuh8d
-	zTtATf8W3U4V4St1aKRjNe4v96Nu7Nm2cIRreljVcAo0bWosIxpCyU56q7/FZfOK3QjVYoaqf6A
-	npu1UTYh/Js9nypwAVem+ZIzKcN0kfiTqnIJQM0MGdY2+FmikRDkoa7TC9uTFYSOdLCQT3xOfCw
-	djbvcM2cqwpT8H56za0xgi0fxd4IXLubk2WrPp8gkNAClJRGN7QEQazDqhYpAonrA8dzCHKWQ/O
-	HTTU8su1ABX1R895pPyYGEzUdFHRn5RbUwCogDciEGfISd9GINNxZk/5yhiNPGjhn6GeZcZ50OZ
-	kGyOhCgB2FTf7YFLpjqtNvj/N821tVVgIwIIRO508MdwFO/jHLqpyvucb8tJCvxLYNFp3ctnsBT
-	E0Px8PoweKtwEFBEK6HlvtwIOggUu0aNEC7s8SyzrClZLJJkhNOXeJxj1lTJNHDdPj
-X-Received: by 2002:a05:6830:81f1:b0:81f:acdd:bd05 with SMTP id 46e09a7af769-82285a5a05bmr191774a34.21.1790872766015;
-        Thu, 01 Oct 2026 09:39:26 -0700 (PDT)
-Received: from localhost ([2a03:2880:30ff::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82273e27adesm342486a34.0.2026.10.01.09.39.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:39:25 -0700 (PDT)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Thu, 01 Oct 2026 09:39:01 -0700
-Subject: [PATCH net-next 4/4] eth: mpnic: add a NAPI depletion check
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CplMPwRu";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VHCx7DuI"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790872783;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dW+cKpw6NdVRG/EtiOgDyZsg/gwP7QSsUMI8sG6iNmE=;
+	b=CplMPwRudXp//hBgERoFxRn7Fjmt5Pds98oTs2ahHQAsV5AnmZct5dhPqw2fIAzNCpt+jb
+	BYkcvIWsAUP/0DER5dvEeMzYdS4IzM1SOpSd+oQy48E7uQf3z6mjZrTgEuens/cx0DUrH7
+	J4ZjlRHb689GsYpHapad9NaZTZbX4UZ9Yddp5Gb8gDuS+duTw0tdn4JDCGljnlXQYz49fA
+	r95YsBMKWlPTFhRi6uBe6T0rvmi/85N09xZh/om6UO1ZYt758cj6OMwKSMS4qvbGMty1PL
+	yVi0PaKEC+qZ6OpkNrhQr5ix0/QD83w4K9wCyAZVPB7jJGIRYS1DDXHMNGsPEw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790872783;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dW+cKpw6NdVRG/EtiOgDyZsg/gwP7QSsUMI8sG6iNmE=;
+	b=VHCx7DuIamZChKkQRioT97bAfm8uBI3g7ZQ9nSUagzTCKeo6XhP1bL1UWVP3ZkehW2aMYb
+	cHSUPIHM8i/t6/Cg==
+To: Imre Kaloz <kaloz@kernel.org>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, linux-serial@vger.kernel.org, Petr Mladek
+ <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, Sergey
+ Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH] MIPS: SGI-IP27: print the NMI dump on an nbcon console
+In-Reply-To: <20261001155013.1694-1-kaloz@kernel.org>
+References: <20261001155013.1694-1-kaloz@kernel.org>
+Date: Thu, 01 Oct 2026 18:45:43 +0206
+Message-ID: <87ece98je8.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-linux-mpnic-v1-4-6422ee74233a@gmail.com>
-References: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
-In-Reply-To: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
-To: Alexander Duyck <alexanderduyck@fb.com>, 
- Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain
 
-The Rx path can wedge if page pool allocations fail in
-__mpnic_fill_bdq(). The problematic sequence is: page pool allocations
-fail, bdq rings are empty, device receives packet from the network, but
-drops it for lack of buffer space and does not raise interrupt,
-mpnic_poll() does not run, so page pool allocations are not retried.
+On 2026-10-01, Imre Kaloz <kaloz@kernel.org> wrote:
+> Since the 8250 console became nbcon, printk() in nmi_dump() only queues
+> records for the printer thread, which never runs because no CPU leaves
+> the NMI handler before the hub reset. Print the dump from an emergency
+> section.
 
-To break out of this cycle, we can add a depletion check to our service
-task. The depletion check checks if posted buffers are under a low
-watermark, and raises a completion queue interrupt, so that mpnic_poll
-will run on the corresponding napi vector.
+Please excuse my ignorance, but could you inform me about the context?
+When is nmi_dump() called? Does the hardware always reset/reboot/hang
+from this call?
 
-A note about the lock free reads: We don't bother synchronizing the ring
-head and tail reads with mpnic_poll(), because a false positive signal
-would simply raise a spurious interrupt scheduling mpnic_poll(), and a
-false negative signal will result in a retry, where if mpnic_poll() has
-truly not been running, should then report accurately whether or not
-posted Rx buffers are low.
+> Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> ---
+>  arch/mips/sgi-ip27/ip27-nmi.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/arch/mips/sgi-ip27/ip27-nmi.c b/arch/mips/sgi-ip27/ip27-nmi.c
+> index fc2816398d0c..4447c0bec8b4 100644
+> --- a/arch/mips/sgi-ip27/ip27-nmi.c
+> +++ b/arch/mips/sgi-ip27/ip27-nmi.c
+> @@ -1,4 +1,5 @@
+>  // SPDX-License-Identifier: GPL-2.0
+> +#include <linux/console.h>
+>  #include <linux/kernel.h>
+>  #include <linux/mmzone.h>
+>  #include <linux/nodemask.h>
+> @@ -183,6 +184,12 @@ static void nmi_dump(void)
+>  	 */
+>  	arch_spin_lock(&nmi_lock);
+>  
+> +	/*
+> +	 * No CPU leaves the NMI handler before the hub reset below, so an
+> +	 * nbcon console's printer thread would never print the dump.
+> +	 */
+> +	nbcon_cpu_emergency_enter();
+> +
+>  #ifdef REAL_NMI_SIGNAL
+>  	/*
+>  	 * Wait up to 15 seconds for the other cpus to respond to the NMI.
 
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
----
- drivers/net/ethernet/meta/mpnic/mpnic_pci.c  |  4 ++++
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.c | 31 ++++++++++++++++++++++++++++
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.h |  1 +
- 3 files changed, 36 insertions(+)
+The CPU enters an emergency state, but shouldn't it exit the emergency
+state at some point? Or does the machine always unstoppably
+reset/reboot/hang after this point?
 
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-index 17eae5a9ba16..125fb26edf93 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-@@ -11,6 +11,7 @@
- 
- #include "mpnic.h"
- #include "mpnic_netdev.h"
-+#include "mpnic_txrx.h"
- 
- #define PCI_DEVICE_ID_META_MPNIC	0x0014
- 
-@@ -61,6 +62,9 @@ static void mpnic_service_task(struct work_struct *work)
- 
- 	netdev_lock(netdev);
- 
-+	if (netif_carrier_ok(netdev))
-+		mpnic_napi_depletion_check(netdev_priv(netdev));
-+
- 	if (netif_running(netdev))
- 		schedule_delayed_work(&mpd->service_task, HZ);
- 
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-index 49061c7316d5..5495e9a9aa65 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-@@ -55,6 +55,12 @@ static unsigned int mpnic_desc_unused(struct mpnic_ring *ring)
- 	return (ring->head - ring->tail - 1) & ring->size_mask;
- }
- 
-+static unsigned int mpnic_desc_used(struct mpnic_ring *ring)
-+{
-+	return (READ_ONCE(ring->tail) - READ_ONCE(ring->head)) &
-+	       ring->size_mask;
-+}
-+
- static struct netdev_queue *mpnic_txring_txq(const struct net_device *dev,
- 					     const struct mpnic_ring *ring)
- {
-@@ -1393,3 +1399,28 @@ void mpnic_napi_enable(struct mpnic_net *mpn)
- 
- 	mpnic_wrfl(mpn->mpd);
- }
-+
-+void mpnic_napi_depletion_check(struct mpnic_net *mpn)
-+{
-+	int i, j, t;
-+
-+	for (i = 0; i < mpn->num_napi; i++) {
-+		struct mpnic_napi_vector *nv = mpn->napi[i];
-+
-+		for (t = nv->txt_count, j = 0; j < nv->rxt_count; j++, t++) {
-+			/* Check if BDs posted covers a max sized frame
-+			 *  + 1 BD held by RDE as a spare
-+			 *  + 1 BD of extra safety margin
-+			 */
-+			if (mpnic_desc_used(&nv->qt[t].sub0) <
-+			    MPNIC_RX_HPQ_DROP_THRS + 2 ||
-+			    mpnic_desc_used(&nv->qt[t].sub1) <
-+			    MPNIC_RX_PPQ_DROP_THRS + 2) {
-+				mpnic_nv_irq_trigger(nv);
-+				break;
-+			}
-+		}
-+	}
-+
-+	mpnic_wrfl(mpn->mpd);
-+}
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-index 9397010557eb..767d87a36c35 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-@@ -148,6 +148,7 @@ int mpnic_set_netif_queues(struct mpnic_net *mpn);
- void mpnic_reset_netif_queues(struct mpnic_net *mpn);
- void mpnic_napi_enable(struct mpnic_net *mpn);
- void mpnic_napi_disable(struct mpnic_net *mpn);
-+void mpnic_napi_depletion_check(struct mpnic_net *mpn);
- void mpnic_enable(struct mpnic_net *mpn);
- void mpnic_disable(struct mpnic_net *mpn);
- void mpnic_wait_all_queues_idle(struct mpnic_dev *mpd);
-
--- 
-2.52.0
-
+John Ogness
