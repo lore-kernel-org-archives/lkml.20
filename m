@@ -1,160 +1,131 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AAD51AFEF;
-	Thu,  1 Oct 2026 15:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2F351AFEF;
+	Thu,  1 Oct 2026 15:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790867272; cv=none; b=HZpMA/0EAJDci2K55eQaIsS/RJUMN5P2xYZ0tc7UemuEFi0pvraeVmg/OW6tOgk3epVvCAD41KcrVpatTI0tu21R9BwleI2/R2zCoc8G2v75cLyfP5qPeOYKaRMcr9FNFbRXnsTfEG6zoiFmbnqGEwWcd6ICTdy119Ep2Ny4AyM=
+	t=1790867319; cv=none; b=XC2tRylw7HNU8DP58WQSL/QU1slowbnVF5e6fHHSz40MVyDt5s/0h1svqXTZ8R+/P+kUpNr1TV5qWzmR1n11KhAq3gafvldH7fppM15vFtOikmoVOLWTH4IHQE87fp7dpcOWtFKyBJg/N86NP1Nk64MyNTAPFckThKHZrIL3SRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790867272; c=relaxed/simple;
-	bh=Vc43IMWHplUNJtOfUyoZJ8XglsaC8M3vSlsru1SXVc4=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=dBf/rpWZUHEbEpnAS240YQ5/zZYZSYlFyTnNVqklg5NltoHWrUY6PFT+eJSVlYNPivA80kuLg97//J3Cfkw109/6ijWkVLd/+YYKU7Cn9OlGcmTPHS+LK+KFW47iFMKVnegiJ3o2ZDoN9WnTzUFq6YG538rRfSoncXB7U60hSP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=MqZLQaIH; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1790867319; c=relaxed/simple;
+	bh=dx0VsHqSKwvfkdOsDBBxJGk73ABKwkUKE6axkb3Tg6M=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=sAKZPphUok08vmUgDrxqYdHCIrff0WQTCsEss7JHbagqvbQqkHSDIq2LWVIlcN6jc8oNnrjnjFnIC7915ZrWvXBq4aX7FDsjDbfaPZPaFUxG3oShhhXbIJrBBvhGipFq/93y/IRacgNPP9H72NOhGvbZHja/aEtYH0NYQbMYqAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=XNa8Rj9y; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="MqZLQaIH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1790867255; bh=i6buGYmKMdp6JgRwIn6VvXYpH++bJk71QPeQ9y8/2r4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MqZLQaIHAUM0tLyWcuGNovcqOD+7yCuaqxZ58hZF427tIQgYgQbg/ZXkCoQVGzK3/
-	 9Da7MleSdgHLxOV6gDaKeAw0jb4D12aEHNvl/dUJAR1DO7O/Me21ZNvg7xQavDG0EU
-	 xrGoWlKamvhLNClNXrkWvJ8cceZtvj7AR9jDw220=
-Received: from archlinux ([240e:473:7000:116e:7a96:2aa7:e2fe:5e21])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 1921001C; Thu, 01 Oct 2026 23:06:18 +0800
-X-QQ-mid: xmsmtpt1790867178tok77l41k
-Message-ID: <tencent_464A86FF7A38FD3620EBF1C6062745316307@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XX5U8+pnogmbMz5+zOU+dM9NBVRw4DsLhXv8Q/0eW30dj+oEEdQ
-	 Uq4FrU+ktwDejUTuFRJexNU2DDQFSftPMgfQWAGhekzPIdxyL6STUzkP3zZM0eBsRGAlso3kTRD8
-	 5c4oxB3tRr4GunPTdC2jgWhoaZ+wLStzIchFKMFstlTFTDK7o95cEwhafbdjDCTaCGH0kGAj8Yv1
-	 UAFADXgXtcBRBAkgyRxNmeKtdctYJTbwy4JdWH+Fo0FmAt26oITnHAr+cXv81WO22Gom06KiOWD5
-	 l5SKczSe6OcIujoVD2pX78nD2XaShAAo3mYihkxwaQXu/jBlGw/y0KchkfcwUxwWuP/WgbJivegv
-	 o6JCed86yyq6mxsSc/PNZfx9EDxeiP0lsBgnto3kQmzxW8FIisNgq9LWschTFg1OYRl4UqQJQtcU
-	 CcyIxR1j5vSjBL+ZUH6b1JjZm50/C1vxm6FJT6aTIXWMQ/3Oo3nR36Jb9bH0cpmAEquoa3DkuUOa
-	 hO6ViQekebFVrmmgt192lp9nrmjV3M8e9cQ6LyvheqhXB9nQezm3KAT8A0VR6MCWIldQhpv79Nj0
-	 MZUqwF81J9He2562e76yQQLSIOT7j2UfbkMVHZU6yYCqeHDgUYIIQgCFoS8k+p4K5WsP7F9+pVt3
-	 JwqsXbdDVb488DQCREikYZ79VZwyApmtQDiOh8pQOC/Ugc70uorEh4BiCZl4YMqNQgJVpUnrjXtX
-	 gvhhyWDA6mVV/TOQGv1jfCptNHnvBp8hEx8Yz/D75baEtX1qm9M0g+d/qJ91d0/Tj+I3hrN6DMeV
-	 usH1p/FCEIR/jGXDIuP2bqIO2hUj7z7XEtSrjLN3AGy1Et8rfgTIX2npBAAmCrEGT43hW/9zjR3o
-	 5EGXrlQe6yMA3TenLCMe/0fxtiT2n7T8UcLgTKXtK6QyN6cezodUfCyoloUMKnBGSbqiw0I82Cci
-	 OjQSQqMofzkaSd5p1epky8NFwTdemLOZNuBBg/XzuA7g7srwy93oGc+fXdfqE5KuAwftXDEwzzAV
-	 /xwBWFVlNQj9GIZnYLYSJYjdFbGI+pgW4x6oJH4Awn7GXbxUEt9LiLP12ZiBvFLHNWLnTJ+fVOxt
-	 ZoILIbs45N1ycZcjY=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Daijiamu <3058704216@qq.com>
-To: linkinjeon@kernel.org,
-	sergey.senozhatsky@gmail.com,
-	tom@talpey.com
-Cc: chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daijiamu <3058704216@qq.com>
-Subject: [PATCH v2] ksmbd: use clear_and_wake_up_bit() directly
-Date: Thu,  1 Oct 2026 23:06:14 +0800
-X-OQ-MSGID: <20261001150614.5900-1-3058704216@qq.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930183758.32342-1-3058704216@qq.com>
-References: <20260930183758.32342-1-3058704216@qq.com>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="XNa8Rj9y"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=FIXFlLBoXy9rmffDFo5ENEhrptsOAJ3yCww57BZ/IpQ=; b=XNa8Rj9yPqpd8AcTiiCcXWoFQH
+	b+fNypptwau0herwmJVIkN1uv3WJMe3MT5EBNAFglYm8n4O8flaFfsLA/rS0yd3/D07AaVQ1MAvl4
+	F/VQUgod0gzf/Bz+6md39YG8umG0lWS0dipNnLEn71dmAXhNZZrWocGGCV/tWGZcOr7fSY6bCyNcg
+	tgIPOSwXko7Z7M5aD6bwiJIZCkQ7dLAUpPFNzhTYsNBWMfvd2FsoPMKLTJk3qK3eDR3HBMdbEinIU
+	as2ffr4gAc1TnPnuhcVRwJue8OCeL5uDgd3lNBhg9bCwRRL/GsDFLJeiI2lBqTnnqShpdg7CXoxAR
+	w5yTjcdw==;
+Received: from [::1] (port=38004 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xCIOe-0000000DVTt-3NgJ;
+	Thu, 01 Oct 2026 17:08:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Thu, 01 Oct 2026 17:08:29 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet
+ number wrap
+In-Reply-To: <ar4rKxYd7Csm6l2t@krikkit>
+References: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <ar4rKxYd7Csm6l2t@krikkit>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <864ee7d8f719deea74ff3e5aba1bc949@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-clear_and_wake_up_bit() was introduced by commit 8236b0ae31c8 ("bdi:
-wake up concurrent wb_shutdown() callers.") to replace the open-coded
-clear_bit_unlock() + smp_mb__after_atomic() + wake_up_bit() sequence.
+On 2026-10-01 11:43, Sabrina Dubroca wrote:
+> 2026-09-30, 20:33:33 +0000, Jérémy Jean wrote:
+>> When MACsec uses 32-bit packet numbers, 0xffffffff is the last valid
+>> packet number
+> 
+> This makes it sound like it's only a problem for 32b packet numbers,
+> but I think it affects both? Sure it's unlikely with 64b unless we
+> start from a large offset, but a well-behaved userspace should also
+> rekey and switch SAs before we ever wrap to avoid losing packets while
+> the rekey completes (but yes, "losing packets" is not as bad as
+> "breaking crypto").
+> 
+>> and after allocating it, MACsec deactivates the
+>> transmit SA and wraps the next packet number to zero. Packets already
+>> in flight can still be processed after that.
+> 
+> So this is more of a race condition than a full "forever" bug. I think
+> commit messages should be clear about that (and that doesn't mean it's
+> not bad or not worth patching, but it's worth mentioning).
+> 
+> Once TX operations hit macsec_encrypt -> macsec_txsa_get and see
+> !sa->active, packets will be dropped and nonce reuse stops.
+> 
+> 
+>> The first late packet gets packet number zero and is dropped, but
+>> tx_sa_update_pn() has already advanced the stored counter to one 
+>> before
+>> macsec_encrypt() drops it. A second late packet can then be sent with
+>> packet number one again, reusing the AES-GCM nonce from the start of 
+>> the
+>> SA.
+>> 
+>> Keep next_pn at zero after wrap so all late packets are dropped.
+> 
+> "late packet" is defined on the RX side, but it doesn't make sense on
+> the TX path.
+> 
+> The diff looks good to me.
 
-Replace the sequence and drop the now-trivial wake_up_oplock_break()
-wrapper, calling the helper directly at each call site.
+Below is suggestion of a hopefully better description.
 
-Suggested-by: ChenXiaoSong <chenxiaosong@chenxiaosong.com>
-Signed-off-by: Daijiamu <3058704216@qq.com>
 ---
-Changes in v2:
-- Call clear_and_wake_up_bit() directly and remove wake_up_oplock_break(),
-  as suggested by ChenXiaoSong.
-Link: https://lore.kernel.org/linux-cifs/20260930183758.32342-1-3058704216@qq.com/
+
+After allocating the last valid packet number, MACsec wraps next_pn to
+zero and deactivates the transmit SA. This happens for both 32- and
+64-bit types of packet numbers (at values 0xffffffff and
+0xffffffffffffffff, respectively).
+
+TX packets that were still getting processed during deactivation keep
+being processed and then receive packet numbers. The first gets 0 and
+is correctly dropped, but next_pn is incremented to 1, which makes the
+next packet take number 1. It then does not get dropped and may induce
+a reuse of the AES-GCM nonce corresponding to value 1.
+
+This race only affects TX packets that have already passed the SA
+activity check: new packets after deactivation are correctly dropped.
+Keep next_pn at 0 after wrap and return early so that the packets that
+finishes getting processed are dropped.
+
 ---
- fs/smb/server/oplock.c | 20 ++++++--------------
- 1 file changed, 6 insertions(+), 14 deletions(-)
 
-diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
-index 1b8c3482d1e4..25ff8408f0ba 100644
---- a/fs/smb/server/oplock.c
-+++ b/fs/smb/server/oplock.c
-@@ -763,14 +763,6 @@ static bool wait_for_break_ack(struct oplock_info *opinfo)
- 	return false;
- }
- 
--static void wake_up_oplock_break(struct oplock_info *opinfo)
--{
--	clear_bit_unlock(0, &opinfo->pending_break);
--	/* memory barrier is needed for wake_up_bit() */
--	smp_mb__after_atomic();
--	wake_up_bit(&opinfo->pending_break, 0);
--}
--
- static bool oplock_break_set_ack_wait(struct oplock_info *opinfo)
- {
- 	bool ret = false;
-@@ -826,13 +818,13 @@ static int oplock_break_pending(struct oplock_info *opinfo, int req_op_level)
- 
- 	if (opinfo->level <= req_op_level) {
- 		if (opinfo->is_lease == false) {
--			wake_up_oplock_break(opinfo);
-+			clear_and_wake_up_bit(0, &opinfo->pending_break);
- 			return 1;
- 		}
- 		if (opinfo->o_lease->state !=
- 		    (SMB2_LEASE_HANDLE_CACHING_LE |
- 		     SMB2_LEASE_READ_CACHING_LE)) {
--			wake_up_oplock_break(opinfo);
-+			clear_and_wake_up_bit(0, &opinfo->pending_break);
- 			return 1;
- 		}
- 	}
-@@ -1260,7 +1252,7 @@ static int oplock_break(struct oplock_info *brk_opinfo, struct ksmbd_inode *ci,
- 				SMB2_LEASE_HANDLE_CACHING_LE)) {
- 			if (!oplock_break_set_ack_wait(brk_opinfo)) {
- 				atomic_dec_if_positive(&brk_opinfo->breaking_cnt);
--				wake_up_oplock_break(brk_opinfo);
-+				clear_and_wake_up_bit(0, &brk_opinfo->pending_break);
- 				return -ENOENT;
- 			}
- 		} else
-@@ -1309,7 +1301,7 @@ static int oplock_break(struct oplock_info *brk_opinfo, struct ksmbd_inode *ci,
- 		      lease->state != SMB2_LEASE_NONE_LE)))
- 			goto again;
- 
--		wake_up_oplock_break(brk_opinfo);
-+		clear_and_wake_up_bit(0, &brk_opinfo->pending_break);
- 		return err;
- 	} else {
- 		err = oplock_break_pending(brk_opinfo, req_op_level);
-@@ -1319,7 +1311,7 @@ static int oplock_break(struct oplock_info *brk_opinfo, struct ksmbd_inode *ci,
- 		if (brk_opinfo->level == SMB2_OPLOCK_LEVEL_BATCH ||
- 		    brk_opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE) {
- 			if (!oplock_break_set_ack_wait(brk_opinfo)) {
--				wake_up_oplock_break(brk_opinfo);
-+				clear_and_wake_up_bit(0, &brk_opinfo->pending_break);
- 				return -ENOENT;
- 			}
- 		}
-@@ -1342,7 +1334,7 @@ static int oplock_break(struct oplock_info *brk_opinfo, struct ksmbd_inode *ci,
- 	ksmbd_debug(OPLOCK, "oplock granted = %d\n", brk_opinfo->level);
- 	if (brk_opinfo->op_state == OPLOCK_CLOSING)
- 		err = -EAGAIN;
--	wake_up_oplock_break(brk_opinfo);
-+	clear_and_wake_up_bit(0, &brk_opinfo->pending_break);
- 
- 	return err;
- }
--- 
-2.55.0
+I can send a v2 if needed.
 
+Jérémy
