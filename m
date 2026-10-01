@@ -1,269 +1,139 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from flow-a1-smtp.messagingengine.com (flow-a1-smtp.messagingengine.com [103.168.172.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C944D23C39A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6C5341062;
+	Thu,  1 Oct 2026 01:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790818327; cv=none; b=imEnps1Rhc4DNeZLIdVXZblz06Y7WReMGVGeVcB/G+BnFgRrlH+lv4OroasK/vwaJQ4F3wwcnA90S4WDUkDjAWeMfAVD34aCG6PlRRTw5ojDyh8cGT6CcfTfgu0qRHyVZYI1lbms7tkXeFnPgj7L+P26sPyLFoDcknkYhtdKTe0=
+	t=1790818342; cv=none; b=Owghu5SjGH8xFbH/TvT99F2d2xb4sWeMxqn2Hmri+VJ/9gfjnGbdYW2vw/N0uEXmBqB2YDn58sXuUiExmFfC/TbvSBm2SZ3W02/NVO2mjjYIyb/nXX4R3/QBHTtokGWaYfTTn/nbY9Jvf7TM69kRhxDt+HV3b08huw/Ufn4gTUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790818327; c=relaxed/simple;
-	bh=BO+8UQEHKoL/An2fpPxqp5J4YNJabOxW0PqqhaI3EaE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t/Dc22eeVdoeJFzkHAApkKj5LTcBBCXCLgAWetgipBFGa0zriszXxVE5syYJSUQIYPtG8tkDfrqXXrl9jejdSU0BwCYV8c61Zn/bCeDfSyyfI0ikkqDZQ2G3Lpcpbt38iw929xCU6ajp29aZf9KdPD9LrRzRiAwFd4hQFczwZHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=owdQbXbI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XhE0TsZG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790818342; c=relaxed/simple;
+	bh=sLpgQF6H5d75/JTN/4twpvPGiqyIfg6B6/aAguvJD0Y=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
+	 References:Date:Message-id; b=F/TZOA+ybwz0bIOj66blUIJhwP68MIvjpL1OnMrTyLf7TJ4pHsf6efFp13JhWcjUpLU8HYi43EvKRz5Xazdt2oVf+5vJpAPR7U12hK4uzXTp/unDmqVVBP6FAiGwprpeg7ndIr8ktd+F+oYoTMrgvqdGW3lcx/wcauCPkRUW0xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=dU+0WpT9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nykSWi/s; arc=none smtp.client-ip=103.168.172.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="owdQbXbI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XhE0TsZG"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6910jmWt171560
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 01:32:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Z5DJXNvk5Weolt4AKmsTjVt+UqV6Bq165jLKrQEAxU8=; b=owdQbXbIojqiN6Bd
-	GqRk5nxGe4xu0O0WW0RTB6q7qQyjtMtpMp3tS7DbtCoTmDdzqr0tLJtd2L2tyuxm
-	/jqvQYuY3NoIp1xM6eaMf2iJH/9+0z+K/oNxNHhdTy9Pfbka/W7R+s4RHaq6zQvY
-	H6m0H8tGamYM+KcQKQS95KHz2VCPStw3md+0pmQyIBP/l1Sq6OobK13Oje8wZqi+
-	M7ceAOcd4sRM4h75XDaG8wB+xbHUL53PBP4Rpj4U6l0BWaRWao8pUHFlzvPx+k41
-	UluZOkVvhRSnCNzYLQAsbqr1NShvfg9IlJ9EGBsVICrBI/0d37JLuA3HlYwoquHs
-	beVyaw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wcspnt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:32:02 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9308eafb465so1488701785a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790818321; x=1791423121; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z5DJXNvk5Weolt4AKmsTjVt+UqV6Bq165jLKrQEAxU8=;
-        b=XhE0TsZGiVU5ahtjTUheFAc370jj272TLOYrw63a1smu+W/GtLkuYxRYQCyO+F39r2
-         69mTOotiaPIOC2+Rwa4S6RzGNDr2RY4YLWbiGggqjNshvJbnLSf0K9Pm07aBAOlvJfJv
-         Tjgpl9QfFcQ7WMuVjd4iFRi1ZDOeAmU5XoVj5zZSS9dV5yICqVfzL3JsCO3whGeLNeyq
-         GZxbOn25SuK+ob/Df2R/tDJg+NbTYup3Nvi6Z1+eBNokLSS+3WugwhHCb8VQHZc8Whw0
-         yyTQsWid5/1LAwRMFxZnpGHrzoz80nHLzofH6tAhltWeIfcj/aoeHSX+nlvWwlW7MOdR
-         59+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790818321; x=1791423121;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Z5DJXNvk5Weolt4AKmsTjVt+UqV6Bq165jLKrQEAxU8=;
-        b=RaaTriTGSm8qGtQVTcoXMoz3wzYN7nDSq9zc2urb9vt4DYIi1rsE8mee3Qdfdl4vDC
-         FGu8JXx+UlgBs6JxpJxQUP5c6eR+0FwskmAHfBkIs+55KoWeBOq9g+jEANbNcScl4P27
-         ntPP2obP4NmUe3WfIKEQupGqcXt9BqbSuufqt0UcC+P6McYJCWUWKyhgtZtJ4eQwLDJF
-         hx7wSnri/SPJqErqfNrELaP0UjaRezUTRL/0KYaDO8F2vD8n7JEO94ni4CnHfZjtgl/y
-         s5BoisoD7nCfFJj34REOeWSfaGl/pf4Mfydc1Za3UJSSkLuEOTfgiuHZTC0Sm+UqVJOW
-         MVag==
-X-Forwarded-Encrypted: i=1; AKwUvBzhJUP6UHHq9BMuxeQ0snjNWSu1UPNtxvQ3/NoZgM0RoEO3gkXzTFSyMpJ9h3drHZXA9u82DXYKXflNVlA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksZv7pEA3A6AUpJDYlF/i0fvmBk3h2EoZKK02dlivfGzfjL8C0
-	i3pdSquxzo4iKMgNTb/yioV09s4rrQoMvzJITiFiIPzcSVw93m4JX3LQ+ubxYNFhcmpZf36URvp
-	HPMx77614b7THaNpk5WcBic/Z0ws+L/q2fwNoYqlVHNiMc7T4DbRkXAk/LHMIrALTOrA=
-X-Gm-Gg: AYBFou3spLkKSxeswSdx+1TyRgYi6UStr1jIaJOS442StoSH8q8TonMQbdYnOWZ24oE
-	5JogfPp8qhF522rvSlrKkhL0Q2+ngUaIqmCD4QblzNh+CKxVg/DC3/E06QVaQ5jDeV32d8zRurq
-	4cwXWceaNsU+NIMi3HlcUGslnv3J+Tl2t3scBcSnTB7TeH6XxDO/Su41TTjw9KrlVaGI3Rf0dJG
-	Impa4a5juhfRrf6WoLS0FDsweefWKn/3lEP2li3hykF1j8ZSCLSEjAqQEoL+GuPAfkjMTZhhHhG
-	T+j3y1wfHWofCtuRbssPRSFhwOTsCu6xXhVq/wYxOMne6tNtQwZcd9hfVT/LV5qlMy2gMamC2WP
-	fO7xPAYcrshUpM7jcqEFXkW3Hf5wQBUp9+hZfUJUHGHVW3xSFnsgm6jgnyZGFGZ2U7xPx0u6kV/
-	g6kqtIxIHTv/YU
-X-Received: by 2002:a05:620a:4504:b0:93c:6b90:1d18 with SMTP id af79cd13be357-93ca97b9304mr576012185a.62.1790818321525;
-        Wed, 30 Sep 2026 18:32:01 -0700 (PDT)
-X-Received: by 2002:a05:620a:4504:b0:93c:6b90:1d18 with SMTP id af79cd13be357-93ca97b9304mr576009185a.62.1790818320992;
-        Wed, 30 Sep 2026 18:32:00 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a779076c17sm8919831fa.41.2026.09.30.18.31.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 18:31:59 -0700 (PDT)
-Date: Thu, 1 Oct 2026 04:31:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH 03/17] dt-bindings: display/msm: Document Nord MDSS
-Message-ID: <pco56quuwsogsi52cq25e7dumiwigqth3aays4snvwjbntonwn@hjjy6tyqinly>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-3-e25c073cf1b6@oss.qualcomm.com>
- <aqtECDwHPiUUZqTB@QCOM-aGQu4IUr3Y>
- <7d2611bb-532f-4553-9d16-66c4b9c495c9@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="dU+0WpT9";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nykSWi/s"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.phl.internal (Postfix) with ESMTP id B6867138013B;
+	Wed, 30 Sep 2026 21:32:15 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Wed, 30 Sep 2026 21:32:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
+	1790818335; x=1790825535; bh=v6sl/0R+rB68lGY0FGguwPrnWxhGA/6NlVe
+	vSXWfXMc=; b=dU+0WpT9ayrHlXGiw2fE7NtD4nUKlPkDDP3/RGUUox8ZXvJoUQo
+	oINwTLuzSo0Zg9v+dfBIplaHyARav2Mu8lCTqCAOo96G8RZvfBJi0GOymeRhi/dI
+	f7XplgGDzIDMI1NiNvfl0Zh7g8pAGXhSyOM2ZuxW5gpn9bMfnBKntlbG0GmOil2a
+	B91sBRg0ZDavly5kGWDikF89yurM2VpKV4qhOtg+jwnmZhRe5eEarAe582USAxvq
+	3TpRvW/dssTdCeqkSWOs6STZvipHkq3bwiSYuWKRV8gjPh+rQa+uxuUeDyyZW7OI
+	yaHU7NrMF786oNViHGBZb+A/zmB/ZU28Rkg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790818335; x=
+	1790825535; bh=v6sl/0R+rB68lGY0FGguwPrnWxhGA/6NlVevSXWfXMc=; b=n
+	ykSWi/sGd5gvCHPUtRxJkK9qcoysaAZwvGnmOCwOtaQRRj1psP/USs+V1s3CCE8U
+	bGXX2E4xnMQU2eypDh/nQ4BVxOh/jB80ebnekbDY1oAa3240VyEwbSN+2nHiBQg7
+	kQTEDfjMQuCTtO/5lEEZqtGJvdfezRH80tHfoLaAYyvbV1vxa0wXlsMv0CSzAF1W
+	IzJYOjwhvjlayK2Cce3kxXooukECSCZ8CEO+QC2UTlLIWfL00oyTSCyqiKtquJWR
+	WNVkaXGTVvKYZyu/rAoJrUdPgNYilg28OA2T/F7ZfmMU+EBPOcfIPiXJIyMb+g3q
+	Wd07JiigVXT8DStdGxSBA==
+X-ME-Sender: <xms:Hbi9amRCw_kioWSBEhgnA4y0lG82UU2w07EeZKMs03XSK3bOCXF6nA>
+    <xme:Hbi9aus6-sF1IYxOKWGWnSJ7esBELFJJ4RjqP7pbXWzuyw9SfNidEdevmUe2qrpPT
+    6dBXtg9wpG_1KbOWHqWu7HcbCJn4x4SjDV-rfvmQFhNcSZy2pY>
+X-ME-Received: <xmr:Hbi9asCM5t-3GQu68lUW4pPb12EVK7ZfxE5JiCn0jxXqtLlyltpHLJofGBy1_PCWUyE0cOmDB2n7mv8cveU-5a6ZpaCEunk>
+X-ME-Proxy-Cause: dmFkZTG3KGb7tHgt4XbEdgaBbvRJJoXDWpMAFSGKnPa+FGRadeoOBQt63/9dFXh0uDdMHQ
+    4iJ2cIgUNrLNuACkoRhTc5qxpMylSF3jV7QyvProt74YjF+kiQqUTZdmWNsWacBqmWB84K
+    veH6OTbRcmsBVg1Wf2i8FMyZzc1eVaa+pkZCjnSlhdl4PlH1TysaXJbsGByCtBTH+n50BB
+    bcLzTEbkv5u2szZE2cmghDoJokPu68Cm+X2VRhSm6wIj0B+fmNAmOyZWU4zuUgOTHOSYnY
+    8OFG6vhsXQdCgKC6M6ZLdbcYz18tGTjcRhbAFMqiExh5vytioSAFh0IWdadZHBY/Q+YJsA
+    ln/MlFLYMsinjIw+1kmsqp3DVjRD4Hn+KNat7h1gnG7JekPoGkqrnYyrqPZvn6fiBKUpEn
+    0MDVBje7PRDGze3i9HFtvY9bUZlsY71046ZeN38zQq5h9E7XluoSZIuDT7WpQG37GNp+rF
+    E1CpBcw0zc0B9qZwbqQWwlUygDW1onMVM0VOnhrcnxwCQ59RFCVQsv7t2U3/QMSCzEuWaX
+    d8tEmDr4x0aozLp1DyF/IIcp6jGB2ETbZsjzbcpG3jEdtniaAruC9emGU9rvRatKlLHGfb
+    RQr8YBl253XGkX0sH1oOBGWWEx8zXBUrG+J7MHy/si5zIydG76lUiyz2+k1w
+X-ME-Proxy: <xmx:Hbi9ag0SmFUKJA6pqZNzQM73oSQuOS6JxCjWZ0qnhOnwy_oETfCYIA>
+    <xmx:Hbi9auS6xhgyi0kKzqyjeQGXMDAuEAIZaJqH5HhIKYcDW6E6NgAWjg>
+    <xmx:Hbi9avuA45NcxPmR8CruuVNHR7uHKgcEa3khA2ZaZ-H-_VBIq3pJvg>
+    <xmx:Hbi9au6JtIyHmLZ0gH6zRoBQAOTZdhLvdp4YIL2YSwaLGMgSKC6big>
+    <xmx:H7i9aqETvhFQVYysvlbm8o1zdHJwYsBkfqktEGeP4RoZ9q8OaxtXJYbM>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 21:32:05 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7d2611bb-532f-4553-9d16-66c4b9c495c9@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAwNSBTYWx0ZWRfX1sLoAEr0SzYp
- ljwUH2p3pD6XmN13vmR5lhffu5JcwRbGPDAbNuO1q4edV9/W70qEpV1LdC4ZHrz/A0wraDqrCk/
- CD5j8XcthmmGdxmXP65s9yI3QOP1hSz/tASNF0a1rSEX7J+/9KxS9asd4trNCrS4VBC1f2FjLOV
- KUa+k5i8+nLMDOtNzUqC3XYiVKt2M1t6ZkCKfydpnmgZ2inKDEhFYrP8+trTh8f24bcJt8SXa6d
- 90csYW2hwEqUOSCGiKur+rhZ7ETs+ihHeG03QsfWUW5x3t177SOhHP1tPlRmj7WYD906ZSjcvtO
- wXVrNfFezSuutzQXPkD+n/EYch1cd1FugQjGtCgbZUplBraThGUTjeHY+Kxr3HEB79QgaygQ2IW
- ger3/0QEv1SGi1MtxEuJ9SS69G/uIBK7M1oEoD7PV9VMSv/L2B3WaRG4VZUSqsocddvlAyDP4at
- s7WuaAL9E2KGTApHUbg==
-X-Proofpoint-GUID: 3IpTNQ8_MNPoSl7rKtmN20mBtV6MMb7e
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAwNSBTYWx0ZWRfXy9dH8AhAD7Rm
- jsLohSnjGalzsDMrTTk29QG71GyNGBSfvFpRHL9VmNJQtSxsmGKPbC+Ow/1a9ib9v/2BBp1s8ah
- 27zE0ZFRn1vgaDLl0/0dPsPz7TBhC8c=
-X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abdb812 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=ybxY3fLTiW4QoAl5E9EA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: 3IpTNQ8_MNPoSl7rKtmN20mBtV6MMb7e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010005
+From: NeilBrown <neilb@ownmail.net>
+To: "Al Viro" <viro@zeniv.linux.org.uk>
+Cc: "Miklos Szeredi" <miklos@szeredi.hu>,
+ "Amir Goldstein" <amir73il@gmail.com>, "Kees Cook" <kees@kernel.org>,
+ "Joel Granados" <joel.granados@kernel.org>,
+ "Richard Weinberger" <richard@nod.at>,
+ "Anton Ivanov" <anton.ivanov@cambridgegreys.com>,
+ "Johannes Berg" <johannes@sipsolutions.net>,
+ "Breno Leitao" <leitao@debian.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Jan Harkes" <jaharkes@cs.cmu.edu>, "Hugh Dickins" <hughd@google.com>,
+ "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Namjae Jeon" <linkinjeon@kernel.org>, "Hyunchul Lee" <hyc.lee@gmail.com>,
+ "Carlos Maiolino" <cem@kernel.org>, "Christian Brauner" <brauner@kernel.org>,
+ "Jeff Layton" <jlayton@kernel.org>, "Jan Kara" <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-unionfs@vger.kernel.org,
+ linux-um@lists.infradead.org, codalist@coda.cs.cmu.edu, coda@cs.cmu.edu,
+ linux-mm@kvack.org, ntfs@lists.linux.dev, linux-xfs@vger.kernel.org
+Subject:
+ Re: [PATCH 4/7] configfs: remove d_add() calls before configfs_attach_group()
+In-reply-to: <20260929050739.GB3909609@ZenIV>
+References: <20260929034158.1455429-1-neilb@ownmail.net>
+  <20260929034158.1455429-5-neilb@ownmail.net>
+  <20260929050739.GB3909609@ZenIV>
+Date: Thu, 01 Oct 2026 11:32:02 +1000
+Message-id: <179081832202.37859.12981680448323688912@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-On Thu, Sep 17, 2026 at 11:12:38AM +0530, Nabige Aala wrote:
+On Tue, 29 Sep 2026, Al Viro wrote:
+> On Tue, Sep 29, 2026 at 01:36:04PM +1000, NeilBrown wrote:
+> > From: NeilBrown <neil@brown.name>
+> > 
+> > These d_add() calls cannot be necessary.  The inode given is NULL so all
+> > they do is attach the dentry to the hash table.
+> > 
+> > If configfs_attach_group() fails, then d_drop() is called so the dentry
+> > will be detached.
+> > If configfs_attach_group() succeeds, then
+> >  configfs_attach_group -> configfs_attach_item ->configfs_create_dir
+> > must have succeeded, so d_instantiate() will have been called and the
+> > dentry hashed there.
 > 
-> On 9/17/2026 7:06 AM, Shawn Guo wrote:
-> > On Fri, Sep 11, 2026 at 09:06:34PM +0530, Nabige Aala wrote:
-> > > From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> > > 
-> > > Add the binding for the display subsystem (MDSS) found on the Qualcomm
-> > > Nord SoC. Nord is MDSS 12.1, DP-only (no DSI), with two independent DP
-> > > controllers.
-> > > 
-> > > Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> > > Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> > > ---
-> > >   .../bindings/display/msm/qcom,nord-mdss.yaml       | 98 ++++++++++++++++++++++
-> > >   1 file changed, 98 insertions(+)
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
-> > > new file mode 100644
-> > > index 000000000000..0b0cacdca9db
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
-> > > @@ -0,0 +1,98 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/display/msm/qcom,nord-mdss.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Qualcomm Nord display subsystem (MDSS)
-> > > +
-> > > +maintainers:
-> > > +  - Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> > > +
-> > > +description:
-> > > +  Nord display subsystem consists of MDSS (display controller), DPU 1499A
-> > > +  (display processing unit), and display interface controllers (DP only, no DSI).
-> > > +  This is MDSS 12.1, DP-only, with 2 independent DP controllers.
-> > > +
-> > > +$ref: /schemas/display/msm/mdss-common.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: qcom,nord-mdss
-> > > +
-> > > +  clocks:
-> > > +    items:
-> > > +      - description: Display AHB
-> > > +      - description: Display hf AXI
-> > > +      - description: Display core
-> > > +
-> > > +  clock-names:
-> > > +    items:
-> > > +      - const: iface
-> > > +      - const: bus
-> > > +      - const: core
-> > > +
-> > > +  iommus:
-> > > +    maxItems: 1
-> > The DTS in downstream repository doesn't seem to agree. There is two
-> > items for iommus.
-> 
-> I checked the Nord IPCAT. the resulted SID is same for both the SID (i.e. 
-> 0x03e0) in downstream repository.
-> 
-> I think we should update the downstream DT and use a single SID entry.
-> 
-> > > +
-> > > +  interconnects:
-> > > +    items:
-> > > +      - description: Interconnect path from mdp0 port to the data bus
-> > > +      - description: Interconnect path from CPU to the reg bus
-> > > +
-> > > +  interconnect-names:
-> > > +    items:
-> > > +      - const: mdp0-mem
-> > > +      - const: cpu-cfg
-> > > +
-> > > +patternProperties:
-> > > +  "^display-controller@[0-9a-f]+$":
-> > > +    type: object
-> > > +    additionalProperties: true
-> > > +    properties:
-> > > +      compatible:
-> > > +        const: qcom,nord-dpu
-> > > +
-> > > +  "^displayport-controller@[0-9a-f]+$":
-> > > +    type: object
-> > > +    additionalProperties: true
-> > > +    properties:
-> > > +      compatible:
-> > > +        const: qcom,nord-dp
-> > > +
-> > > +  "^phy@[0-9a-f]+$":
-> > > +    type: object
-> > > +    additionalProperties: true
-> > > +    properties:
-> > > +      compatible:
-> > > +        const: qcom,nord-dp-phy
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +
-> > > +unevaluatedProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/clock/qcom,dispcc-nord.h>
-> > Please run dt_binding_check against mainline kernel where the header is
-> > actually qcom,nord-dispcc.h.
-> 
-> Ack, I will update according to mainline kernel.
+> Neither in mainline, nor in -next...
 
-Just drop the header from the bindings and use ephemeral clocks and
-resets.
+I guess you are refering to d_instantiate() not being called here in
+mainline or -next, because it has been replaced with
+d_make_persistent()??  Sorry - old commit message.
 
+> 
+> d_add() _is_ wrong there, but this is not the right solution.  What
+> we really ought to do is build the subtree first, then either dissolve
+> it (without any pathname resolution having ever seen it) or move it
+> in place once we are sure that everything worked.
+> 
 
--- 
-With best wishes
-Dmitry
+I'll just drop this patch for now.  I only want it as part of
+deprecating d_add(), and that can wait.
+
+Thanks,
+NeilBrown
