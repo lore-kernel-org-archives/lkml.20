@@ -1,76 +1,77 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEC63AE71C;
-	Thu,  1 Oct 2026 13:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE264A68B3
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860704; cv=none; b=uyKxoCagAMaqdDBuwcuJamx3BUxgIBxfhab/Y2bTYqHWuFJxOObU52kAhJjihQqqrwgusCN33Nt6x7dKeMma4Hiu8JB8izw3aMNQbPwd4ccX4QseCb6wYjj1fURrQACcUDdCw1G/fmdAeJH6xsyic0j/sl09ncFW2S8ycrRZGyU=
+	t=1790860708; cv=none; b=jp5BB7zyV+T4unV7FJ058mqBwxWAdqMpbc7zcCvN5UxhJh4rW+Fbckp/hDRoaCXTsy1vMFOARc6fCfft6rfMjH4ABD1vJR/s3vdNBJEXbTx+Y3F6E9TfAETEd6XMDkqHJ8xPnfUtX/Q54kwAyR2lwuD3e850ITWDtiP0SoXYFu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860704; c=relaxed/simple;
-	bh=NqxwnCmqUV5q2fm4qS3QMgek2iUIqQ1M6SqGILmj9h8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AhrLc7eZSBwW0OhZsmDtSGBIIIsPhRBZ/cGUlBTJDDluUwAZvUn2cKbjV09rOThAvRMexR03e/uXHWFK/tx+zhPi5FLC4Tpunw9/HhJOyjpwla0yTw3FFrFMdKk25Eq/sFSQ0Xoio0eEb29D6X/Q59SIpDYNfi7e43j+qFKMxoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=j0rZHw+c; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=j9KvMm1U; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XT9VzrNr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6AwuWf2l; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790860708; c=relaxed/simple;
+	bh=pmZrdcERb27zHcixZ21LiE3rczfzndYk3DWBcThGUIE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qeKr/jE6kLb2Ck6yYdK4N03XeqlbqoQDpP9FsLXdofyvbuV5MZCCwSUAwUX0dOC8gUCLfMRF6HDao20Lnql+kw8OEef1jjMiXpZNiD4+L8TlOyX+CgsEWZsgiiOXBZ1eT1tnyRedgNUfaVkD3utb3tLwp/MVXRrOJzoto3/HPj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QZ0cLK5P; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="j0rZHw+c";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="j9KvMm1U";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XT9VzrNr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6AwuWf2l"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6E93C21E46;
-	Thu,  1 Oct 2026 13:18:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790860696; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sFHvDWG2SsMU/PE1kNPbQQApG3pH5skCn6MZaeSImEA=;
-	b=j0rZHw+ctBwiIgL0+LsO6eYgs+AenSqQTRt5SlHRxfwPbuxVQAlwOPtCbxxygxDObS2v1A
-	PHEFhvQPjpA/+z95ye1cieNsajwpe4o7es8fpIn2m3SrmMPzCcavzYoYEF//FCNGFFPedt
-	QsasOxaDhD9jEnW55Fn85qbAopHeWLo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790860696;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sFHvDWG2SsMU/PE1kNPbQQApG3pH5skCn6MZaeSImEA=;
-	b=j9KvMm1UKfFvrmdi2iIGzvrDmTOoxvaWhh8XyoIZVKfqFnPkWKrEyEctOQPuNqQX7iQRfE
-	K3L4wBHQKFE/IoCA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790860692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sFHvDWG2SsMU/PE1kNPbQQApG3pH5skCn6MZaeSImEA=;
-	b=XT9VzrNrIQiNOP9sAC7nanpjjKnnW8zZw16Q09Ee4A7/fF0AajIEr3ZKFtcUtsoUO5VkpF
-	Dmp/RuHydwgkgL5o3HyYHEMQisgFvEMeq3zr+JBFTkOoaMJwUTf7j0uGRdXDK/D9QHNqLH
-	0Z7M+sE/C1KVokJV9refGTVBF4AMFj4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790860692;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sFHvDWG2SsMU/PE1kNPbQQApG3pH5skCn6MZaeSImEA=;
-	b=6AwuWf2lmudTxBaSRtF8mEcdageHQAh5F+j+qGhWKZ1n8NFxm809plvZBTo+ZcZz3P7qz7
-	V+LI2oLQhLiDARAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2CFDF134B3;
-	Thu,  1 Oct 2026 13:18:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ql+2AJRdvmpCJQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 01 Oct 2026 13:18:12 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: core: Make sure to call snd_card_disconnect() at freeing
-Date: Thu,  1 Oct 2026 15:18:09 +0200
-Message-ID: <20261001131810.527650-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QZ0cLK5P"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a4c8262465so1926318a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:18:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790860706; x=1791465506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c/fiBbMlGw0oVqJMPaaFFl/1eV2TqjZPhEUkeKiNefM=;
+        b=QZ0cLK5Pxd0Bp6Uji4wGDxdoe4oa36YJw5PgB+gSRMw0USoHM3p+uDbMxIK7ZdzG/J
+         PmkutyCJQYQ5YqYb3oufN+ITbWx3JEk2DBZHgKS/UXqlmjWNhsHi7fhTiDLooa/+2YpF
+         GowS0YEhDpXrsLfcSZccy7A3CROAsEaUhivjDqZ0nLdyUEYEn8/BsxoHToZIrWPigy6q
+         QakPMY7Tx5A7UMwe9vYeO/mEY8DjoEZqmsHi3jOSrTK20g762Z3hVyKs1DZGvUG66icK
+         R+guLASs+pfMPNGpi/Znmmgh1tQZc2TGp1pMbM/nP77w2DrCFV8DHSPis9Inj7vfq9eS
+         O+rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790860706; x=1791465506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c/fiBbMlGw0oVqJMPaaFFl/1eV2TqjZPhEUkeKiNefM=;
+        b=DUwrviCJu9D1xOtyHtmud8UYgFr6S2pzTxTwnRZxEwbFFvQqAGiXUoXRJlbIDRPHj2
+         IOqHvpzSX7P4MehG4yYL35te8zftiNc770GUE3TqxujqKagS/fZNoKWtEtDASZQsa/+F
+         xr7DpXiMxWKYWNVs5j6VpUlPCHnS/7jqaG4jZtVayjWBdyLhQKuT2EDhzYyRKZmoRoYq
+         f7ofgvAFhoCpPHbO+yzbXB8SI3pfnQjskWTXM8EtvQhIzI4hKqBXpvjJh0DdWY9hkuvW
+         /mT+UaSWYpSHKqd+uvjf2o36qMcHQjNuMFEAlJasoEBvu0u7VzYiCLNkruJyPXKYfAcu
+         eBCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQFgiE8nvskyEnrqFf06/cggiDqiFJABIGBAb8UQ8rN9QUcMI7ogv3aKW7d52PX6iMFQ+qwmM7z37Nl4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvHD7drFs6lGj7DtV4vt26gMtuuGTEmxMBbzpf2uRkkmHz+LFx
+	MR/MxzgYPtBPhzGjmK7iwiIDrz7Tlun31UnbkgniLlu6/9/CX1SFcnMZ
+X-Gm-Gg: AYBFou1hqcv4aosYBZK5blxc9syD1/i/YMgi1pyESORj3lkTZ1UHJ1JtWJyCs6VP95X
+	eSgRTTTzkyDgT4mc7H5nTWzlGjDxM7eEYe9LtcYUxOVQba0ILUGFHPgNawUhYPKbHFQo819plck
+	u/XF/cunhmXKX1z2lHS/SAGyrkxYP6YaFSiA2Wz8qwV9uRbQ1zaOVfs+rf4qJLDPP4bInqe/tzr
+	8FUFHLoMb8rUMxIrIAKQFMZvg+ptFSCFlMKZK+loMsRMxg1QOTgRrVqx5fDiQzcnwd+/HhQAcRO
+	MlonHd4kcOWJmmX05A0h7iZmHdE4hj8KXKXv4rMNQB8WELoRv54jn0kLaTpo/xlC0CAHu6yGjsn
+	+EWabKH61Dha/vzwwN/Ou6x8vdTZ9fZkcgCVWWr8yMFN7H8mXRc6nGZy7rK8INxuhiTeqfP3Ltn
+	ZSHw6NYvlNdbcx4H8yKj+dPiA1RZT3SVzlTUIsvlJ95KBon8TxnLHYiyeY7LAM9Hatz4cfWriQI
+	xXSA864eIupnaRFMSnnswmx6XDXdj9+JqOG9KCZ5lkE5MEwXyyRvaIW9r6C
+X-Received: by 2002:a17:90a:b90:b0:3a4:d5c0:f826 with SMTP id 98e67ed59e1d1-3a4d5c0f852mr2590568a91.65.1790860705807;
+        Thu, 01 Oct 2026 06:18:25 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f46bb550sm5016692a91.5.2026.10.01.06.18.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 06:18:24 -0700 (PDT)
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+To: broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com,
+	cwweng.linux@gmail.com
+Subject: [PATCH v2 0/3] spi: Add Nuvoton MA35D1 SPI controller support
+Date: Thu,  1 Oct 2026 21:18:15 +0800
+Message-Id: <20261001131818.110028-1-cwweng.linux@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,62 +79,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spam-Flag: NO
 
-When a card object gets freed via devres, it might be freed without
-calling snd_card_disconnect(), and it might forget to release some
-resources such as the procfs that gets deleted at the disconnect call.
+From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-Add an explicit call of snd_card_disconnect() at snd_card_do_free()
-for assuring the preparation for cleanup.
+This series adds support for the SPI controller found on the Nuvoton
+MA35D1 SoC.
 
-Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
+The MA35D1 provides separate SPI and QSPI controller IPs. They expose
+the same Devicetree-visible resources and provide up to two native chip
+selects, so the existing MA35D1 QSPI binding is extended to also cover
+the SPI controller.
 
-This patch is required as a prerequisite for the recent cleanup series
-to use auto-cleanup:
-  http://lore.kernel.org/20261001110447.486782-1-tiwai@suse.de
+The SPI driver supports host mode using polling-based PIO transfers,
+SPI modes 0 through 3, 8 to 32 bits per word, LSB-first transfers, native
+chip selects and GPIO chip selects. The PIO path also honors per-word
+delays requested through struct spi_transfer.
 
- sound/core/init.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The existing MA35D1 QSPI driver is updated separately to support GPIO
+chip selects through the SPI core. SPI-mem operations for devices using
+GPIO chip selects fall back to the regular SPI transfer path, while
+native chip selects continue to use the controller's SSCTL register.
 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 0897b3a11617..764d3d1073e7 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -564,6 +564,10 @@ static int snd_card_do_free(struct snd_card *card)
- 	bool managed = card->managed;
- 
- 	card->releasing = true;
-+
-+	/* for case without explicit disconnect call (e.g. via devres) */
-+	snd_card_disconnect(card);
-+
- #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
- 	if (snd_mixer_oss_notify_callback)
- 		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_FREE);
+This series is based on the current broonie/spi.git for-7.4 branch and
+therefore includes the already applied MA35D1 QSPI reset handling and DTR
+follow-up fixes.
+
+Changes in v2:
+- Extend the existing MA35D1 QSPI binding to also cover the SPI
+  controller.
+- Add GPIO chip-select support to the MA35D1 QSPI driver and allow
+  cs-gpios in the shared binding.
+- Remove the unnecessary SSCTL spinlock from the SPI driver.
+- Cache the controller clock rate instead of querying it for every
+  transfer.
+- Rely on the SPI core for transfer defaults and validation.
+- Avoid disabling and re-enabling the controller when the transfer
+  configuration has not changed.
+- Add per-word delay handling to the SPI PIO transfer path.
+- Add system sleep support using the SPI core suspend/resume helpers.
+- Rebase on the current broonie/spi.git for-7.4 branch.
+
+Based on:
+  broonie/spi.git for-7.4
+  93914f171867 ("Add enhance SPI DMA support for JHB100 SFC")
+
+Chi-Wen Weng (3):
+  spi: dt-bindings: nuvoton,ma35d1-qspi: Add MA35D1 SPI controller
+  spi: ma35d1: Add Nuvoton MA35D1 SPI controller support
+  spi: ma35d1-qspi: Add GPIO chip select support
+
+ .../bindings/spi/nuvoton,ma35d1-qspi.yaml     |  41 +-
+ drivers/spi/Kconfig                           |  11 +
+ drivers/spi/Makefile                          |   1 +
+ drivers/spi/spi-ma35d1-qspi.c                 |  39 +-
+ drivers/spi/spi-ma35d1.c                      | 716 ++++++++++++++++++
+ 5 files changed, 799 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/spi/spi-ma35d1.c
+
+
+base-commit: 93914f1718676aec13ccd3787642c8b05e2b8309
 -- 
-2.55.0
+2.25.1
 
