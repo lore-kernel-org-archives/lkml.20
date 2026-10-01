@@ -1,192 +1,153 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010065.outbound.protection.outlook.com [52.101.56.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0138535FBB
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869435; cv=none; b=VQwuA5mnhVneqIQk+R1VuTd7RAtC5h7FvGGP5011fGHdQdaSDcFhgXmD8rYWavmi+xdym065mnNbByGbWfTcTmSSazkhtMEjZ/48GadrmxGUsM9bpzCFvQmMO9XrWvZ7Qu1f+0Dh95keozKQ94t78sGvfiWkDLKSrgmuPiAmOfI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869435; c=relaxed/simple;
-	bh=CL6NT9NPb+SE4cewyKhPXsPbOqTK7Ga2km5UdId3qwQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jxamqov6k2CdCJZ5G5CKK71ACcWqllURqB3/E0X7K6CoWlt/lke4AU/6w+nCCJ7Nhha73gyAOp3/UC973OIfDDENl59H6mtEc76SGxbee0ehoWas4ezTo/nOzkFn3Fj5lZpPdGhRV4xyhCcGaai5DtIk+aANh+jVKGjJR1HUlqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kPrEJPCL; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D2B5304A8;
+	Thu,  1 Oct 2026 15:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790869493; cv=fail; b=a6KjWdbZBa33wizlf5C66qY3LKKOMVEODRvoA3HjGJhvb9FDXtxhrAD1MKYbRfe8oreTfwBysS5kUdhaZpXf2W5L17rlnd0C1ZifCIpzpclwXLYjVEKnYD/sANY7J4ELMAmbvu11X7NTkeGdktlfUchO6vtH/RVVjbJgdg2PLBg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790869493; c=relaxed/simple;
+	bh=eXwvNRoZkneUeEZeim8ntWLFQTOAg2QvsrD4AdBgcko=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=i4oi4G3Rpx5YKB09ORZIBS3bxiol4hfsgGCSQoGTx+Ox1SPEOwCkkwFtlk4z6V03nahvBEVgU/3mvCDPXPmZwqJTX/b0hC6pJg6gIjs47wHbbIzp2umb4c8GUyCif1kiqeAWC0vvQd8EVMQ8aF/m9SxRt1HXUWNYez0kjWF4xGs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jLTDaYOt; arc=fail smtp.client-ip=52.101.56.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kPrEJPCL"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso51270035e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:43:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790869424; x=1791474224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QuSJTIGS2kydrO7lTUFOMV5TPnPEsP1/p4j5H58s+oo=;
-        b=kPrEJPCLSPTzUlEJ25kBXfw+3P8qSq4B+Abl4LKFvTb1nPp4R33uAObgErRRxCVp68
-         m7e05kV8qdNYREkM8mMEXE084t3lNEdlHmRhQjlynpP4IaAz4V0kw8tFSQgX0zCVZLKy
-         jV4yR3Zkzqb4SNWwqDxsHE2DHInGK6Un/R72XvNYm9dJ8RsPjzutEkR0Rp74iTegl4BY
-         C5A446G5oiSn55hb0sh1f1LeiYEnVLpU666hAxSjbSvTW4LviIILQcAF6jHzi/FQhqxr
-         BwxWu6hH/I5f3tertkioSHjbipUVCntLP6gJBGF7nOeS6FOoR6KIutmYUFv3B5Im07Ht
-         edkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790869424; x=1791474224;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QuSJTIGS2kydrO7lTUFOMV5TPnPEsP1/p4j5H58s+oo=;
-        b=a+cmNZ8HVOsjAMZbMVfMRG/+rlhC6P8AYOwbD7DFzgyI70upqSAy4rPkp7NqCjQgjY
-         h7833NJFpoyOquL64kFfa75e0X9Q8LqZFLjh6WY8raG6jECrx8NIhMhY0Z/UqCpATmJm
-         n0KFIm6uTzM4V01Y+8K+iQ202Ztf81JXxsmjBxRkUSk8j6XrK8fqBcJkROeNxh25CbRQ
-         0LUjKPLnvqC3qM6lI5tjekN0Yo+tw8Q4FrZDPi6NGthtkHZMTqsSCLlsiU01OmsZW02Y
-         2G8A4HYnj7X3ENKbcTrjnlHnP77IdomCFOxAvwcDO8sJUMu+m/7Ww5+UGxiisTkS/Tvc
-         omsg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnKfGebbNrj7pn8HZ/L3OIuOH1fQI9EFks1fls5YDIaY2P5APxPfwCU+/zUcaozp3SzHEAEuR2K81nwM0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1tb2Hm2JpIkh1LUDtnE8/lWLRKEriZVR9Ccc48VRvo1W3hidI
-	OiAjBJRH3LPDv0jtl61YxPsginHRKOi2r5KcZr09VG8z33KyjBxqa0gT
-X-Gm-Gg: AYBFou3ldhrvRpOfMN/0PwmyEFvLOaRWR/dTUMucWPdcBQKQI8LwbXUzoZgFOewhut7
-	Zd2k1LjGPH0I9ugdMLJ8iEaFLuNXBkj+rQ196XvJHA/Ou2sCa7O8vsPxS7Cqy77q97hKXcjgEYk
-	yahtE/uX7UoMvSVeKJLZLgQ5/Vevlxk5Ffm5T4Wfarq396FMLfLsjI986xD59bJ+5bhTPixuNrV
-	cDm7EopnTU5/e09juJp3iVYLvwkQAXhAGwH9YrvfTU2RrWDk2z9516+CDUhZU89UcKLsqbV9QG2
-	QVup7tNWEKmsryPdXN0jsbqApR8FqS3/wk10Ef8vaWp1sXnzBUqpf/2VhhDrMfmsiCQHwrGQWyV
-	w6GBmlcYGzutC+EqahCumFua2rXbiySfaDmZQoSP3o7DUhLfa1V5sveH+qt4lnm1g7OSwG0rZ9l
-	ialz3iCCWTaSNbJrIv+f9IK5TXwelxcJkhn+X/EAHchLERevGr92D2c8/k7lVkvmTPZAourMwar
-	pEJcAhZ4LIK4BpjhTd/vuY/Adeza7EftVVWtByZY2KKhogncXz5iRsFx2FCrgSdTCrXVvZBFlDS
-	corwe5ig
-X-Received: by 2002:a05:600c:1909:b0:4a0:1e9f:6516 with SMTP id 5b1f17b1804b1-4a02751b008mr763815e9.1.1790869424097;
-        Thu, 01 Oct 2026 08:43:44 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:1be5:ad57:d5e0:f854])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f6db98fsm65195615e9.0.2026.10.01.08.43.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:43:43 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@bootlin.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH net-next v2 10/12] net: dsa: rzn1-a5psw: Add fixed frame length workaround for management port
-Date: Thu,  1 Oct 2026 16:43:23 +0100
-Message-ID: <20261001154326.754314-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001154326.754314-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261001154326.754314-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jLTDaYOt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QK6aAeD5OAO3qm9huOYz2q+BWq6Hg7uWlcm24xs6588vS7TXY+ihDkGAAt4nCXmaHQqvDBUH1CF1aEKxxSLzKS7u2FF/UjaeKALLdNeJJ169vbEwWGhIAkG0W3SbGnkP4SnUDq18ekOdPP4LPt/oaqucJoNsoS9Lx0SjySqK+E3dUOWN8vglZ6WrfJCVRh40K6qQzM24Tu+S0inc8jpz0M+hEtrI/NUk/JwiuzCGGcBTDrnJOsHyF0lGQKwQGgK3zqnXIRiureREBmn6D2lWH/9Cs78qiQYS/ER5tqdwgf/BBJB8d2fzaGq0OGVWBFICR0Rrl+lUi6NZHRobyBD7eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CQ3LJyV3x6sYJkTipLRH5eePBZKCMORpJ9YDbLNAH54=;
+ b=LJPGLt7ojW5AFT4HoI1kVxegr3AhijZdB1xblEnK9qSehGCr6Q3eVoCPcW7hN2XlzGIPe3tpzq2VFQwxl1ijeTnnfPiaQILjVQZzD6UTsMgI7ju5lGyYHD77ZoBNbZvFcYpX8iuvPzHXNqLmpSVx1flSuT3Wy03yRELf87cz8/2njoOlc+uHCSov9SaVxpUrQVFrqpDb8qCEr/V/gu6sky1+UBJbGlVnov+CeRzI+3CzgCIkWxbpamq0BSr0OSxivxFU3VP7Gi/ZITte2Lb2eshuZZY90YveIGvffZfWNPAr0qL8b+RiRl5/Wy6wuOHjv2yrR6x2Xbbfo+h5QhwVnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CQ3LJyV3x6sYJkTipLRH5eePBZKCMORpJ9YDbLNAH54=;
+ b=jLTDaYOtzE/j0n3wIVYIKDYVgCqN5yHDZ6a1kYKMEwUToYDlz/vDLvU5870yxF3177l/Wj18AmcgHeyfTp/XKwBLNCfbgZIGuc04FTulhD9ATvT3cbShNItOAOyTwFwSx+S/unu7oAg38c6kPt1C/yXH+ktYBmagRl6tY06EQaU=
+Received: from MW4PR04CA0302.namprd04.prod.outlook.com (2603:10b6:303:82::7)
+ by IA1PR12MB7735.namprd12.prod.outlook.com (2603:10b6:208:421::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 15:44:45 +0000
+Received: from MWH0EPF000C6195.namprd02.prod.outlook.com (2603:10b6:303:82::4)
+ by MW4PR04CA0302.outlook.office365.com (2603:10b6:303:82::7) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17
+ via Frontend Transport; Thu, 1 Oct 2026 15:44:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C6195.mail.protection.outlook.com (10.167.249.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 15:44:45 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
+ 2026 10:44:44 -0500
+Received: from [192.168.0.226] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 1 Oct 2026 10:44:42 -0500
+Message-ID: <b673fe38-eb8c-47c0-83c3-732c9b122234@amd.com>
+Date: Thu, 1 Oct 2026 21:14:41 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq/amd-pstate: Fix TOCTOU when changing driver mode
+ via sysfs
+To: Mario Limonciello <mario.limonciello@amd.com>
+CC: Perry Yuan <perry.yuan@amd.com>, "open list:X86 ARCHITECTURE (32-BIT AND
+ 64-BIT)" <linux-kernel@vger.kernel.org>, "open list:CPU FREQUENCY SCALING
+ FRAMEWORK" <linux-pm@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>
+References: <20260922022347.1270746-1-mario.limonciello@amd.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260922022347.1270746-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6195:EE_|IA1PR12MB7735:EE_
+X-MS-Office365-Filtering-Correlation-Id: 640ab08f-7744-475a-20eb-08df1fd2eae6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|13003099007|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	9zVGr3ux6HXMnVA4XpXYrrU26EDGhvjIdqkT77KbtD2J6HBbgSXK/HtI6cRfADNAvhi/rv5/TSQNeq+Hr6sj+fiWnhjOoDiEGZqm1gsyA2TGw8jSUyxBzbNFWiSvmrB4Iu8NiYAnmAE9pso1LJLKBeDX1OFMiOzAPWgksLhlM6ey4nPX4c9e7gEJxl5wVMRYs4q/xAWW8UyN7Bt9HixX2pprxe1kVjFzPZI3EzHXF3sryM2mdljeTnT37UL7JF8qBsHf5Cz8sasyuJv1YJQUMY6otBvS3POjyejBtMXjX9qM4SLST6LTsPYkyl+xw0DuNYLzZTmgZ0EpGjeGxFOTOZLAJ+rviC8wbwrExD8g5U2ASkgsv82u8M5aGg1Hhoocsa7nTUmePy19Zy52lhiIe7y/1Ab/bjdpAMbIbMg99ibMP3lM5vzj4cw5k9ONeZ2Q6qgzFS7W25GytxtvsLIsgu8vcNkMmsP5EIB4/6OvGqsFrVP3w5jqG5XuYYSAbw86fj2W9Fj9UYDegctUbe4HrhPKSwLSUH/Nixkd66pBpZgcPYgaKCZPkyap3i5on1UrRZMKRDzrw9UHyj64XkM9//PTbUcuMGNrgKdEsN7fGzGJLLvv1CvFTuxmOSqu2BZRI8cTXoSACTFxACoIyswT+A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(13003099007)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Fs6FHjJuPMF/EA8si7P2gTl9j/kEMshj//f+eo1x51Zc2Ca7AQyt66xqKODiGl9utXM/usbjBcpk4eSOYknqIo+DSGmRxfmkmdg1hgpZ8/HG+HoQg0wO4U8MgG/BsFZjiwb8szDwYZdGGtJpwbpNlLx1PdSwVqfqayzMFpDVetONCOgZoy/nOVFrUiwVQtX1BtwsJRS7Tn54NVdgCrrZidjH5r3UinwE2Vm5d3fEaJJ4ji9/qLuzB7I1xEM2+SfxE9TJAjrFvxNWG5FJbR2gGVJA5GqtznMJLJW+Z9/4DAycvKbZbhMiRAQ4g6NmhtPUCIPSclncG6tyxE7ChoqOzWarVnqG8yOKocMIFwWVzmd2RkZvkUp84AGIcbAcq0b03/B0dUPOvUZwjhqHsUdaseQkgs2SFENv2fzxMdbqNW8orDvvRQHqyysHf8FA2ynm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:44:45.3108
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 640ab08f-7744-475a-20eb-08df1fd2eae6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6195.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7735
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Hello Mario
 
-The ETHSW IP used in SoCs such as RZ/T2H and RZ/N2H has a hardware issue
-where the internal mgmt_tag_vld signal is asserted as a level instead of
-a single-cycle pulse. This causes the frame length counter on the
-management (CPU) port to over-increment, so valid frames are falsely
-detected as oversized and dropped.
+On 9/22/2026 7:53 AM, Mario Limonciello wrote:
+> amd_pstate_update_status() evaluates mode_state_machine[cppc_state]
+> [mode_idx] before taking amd_pstate_driver_lock, and then re-evaluates it
+> again once the lock is held.  cppc_state is global and only stable under
+> the lock, so concurrent sysfs writes race:
+> 
+>   CPU 0                               CPU 1
+>   -----                               -----
+>   // cppc_state == A, mode == B
+>   if (mode_state_machine[A][B])       // sees non-NULL
+>                                       if (mode_state_machine[A][B])
+>                                         guard(&amd_pstate_driver_lock);
+>                                         mode_state_machine[A][B](B);
+>                                           cppc_state = B;
+>     guard(&amd_pstate_driver_lock);
+>     // cppc_state is now B
+>     mode_state_machine[B][B](B);      // NULL -> NULL deref
 
-The recommended workaround is to program the maximum frame length
-register (FRM_LENGTH) of the management port with a fixed, large value.
+Oof! Very interesting race that.
 
-Add a management_port_fixed_frame_len member to struct a5psw_of_data to
-hold the SoC-specific value. When it is set, program A5PSW_FRM_LENGTH
-for the CPU port with this value in a5psw_setup(), and skip updating
-FRM_LENGTH for the CPU port in a5psw_port_change_mtu() so that MTU
-changes do not override the workaround.
+> 
+> The re-read under the lock can resolve to a self-transition (NULL
+> pointer, immediate NULL deref) or to an unexpected transition that
+> redundantly runs amd_pstate_driver_cleanup(), double-freeing
+> current_pstate_driver->attr.
+> 
+> Take the lock first, then read cppc_state and resolve the transition
+> function exactly once into a local before calling it, so the check and
+> the call observe the same state.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-f86ff3a6-55df-4eef-8e4d-62ac270dba25
+> Fixes: 6f0b13f16f7a ("cpufreq/amd-pstate: Overhaul locking")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-No functional change for existing SoCs, which leave the value unset.
+Feel free to include:
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-v1->v2:
-- Added info about the IP issue and the workaround.
-- Updated commit message
----
- drivers/net/dsa/rzn1_a5psw.c | 18 +++++++++++++++++-
- drivers/net/dsa/rzn1_a5psw.h |  3 +++
- 2 files changed, 20 insertions(+), 1 deletion(-)
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
 
-diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-index 0b0b4055e615..ce931442d49f 100644
---- a/drivers/net/dsa/rzn1_a5psw.c
-+++ b/drivers/net/dsa/rzn1_a5psw.c
-@@ -209,8 +209,13 @@ static int a5psw_port_enable(struct dsa_switch *ds, int port,
- static int a5psw_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
- {
- 	struct a5psw *a5psw = ds->priv;
-+	struct a5psw_of_data *of_data = a5psw->of_data;
-+
-+	if (dsa_is_cpu_port(ds, port) && of_data->management_port_fixed_frame_len)
-+		return 0;
- 
- 	new_mtu += ETH_HLEN + A5PSW_EXTRA_MTU_LEN + ETH_FCS_LEN;
-+
- 	a5psw_reg_writel(a5psw, A5PSW_FRM_LENGTH(port), new_mtu);
- 
- 	return 0;
-@@ -990,8 +995,19 @@ static int a5psw_setup(struct dsa_switch *ds)
- 		if (dsa_port_is_unused(dp))
- 			continue;
- 
--		/* Enable egress flooding and learning for CPU port */
- 		if (dsa_port_is_cpu(dp)) {
-+			/*
-+			 * Workaround for ETHSW IP issue, mgmt_tag_vld is asserted as a level
-+			 * instead of a single-cycle pulse, causing the frame length counter
-+			 * to over-increment and trigger false oversize frame drops.
-+			 * The recommended workaround is to set the maximum frame
-+			 * length on the management port.
-+			 */
-+			if (a5psw->of_data->management_port_fixed_frame_len)
-+				a5psw_reg_writel(a5psw, A5PSW_FRM_LENGTH(port),
-+						 a5psw->of_data->management_port_fixed_frame_len);
-+
-+			/* Enable egress flooding and learning for CPU port */
- 			a5psw_flooding_set_resolution(a5psw, port, true);
- 			a5psw_port_learning_set(a5psw, port, true);
- 		}
-diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
-index e952afd95dca..5bec33b23079 100644
---- a/drivers/net/dsa/rzn1_a5psw.h
-+++ b/drivers/net/dsa/rzn1_a5psw.h
-@@ -237,12 +237,15 @@ union lk_data {
-  * @npcs: Number of PCS connected to the switch
-  * @cpu_port: CPU port number
-  * @tag_proto: DSA tag protocol used by the switch
-+ * @management_port_fixed_frame_len: Fixed frame length for the management
-+ *   port to account for the HW issue.
-  */
- struct a5psw_of_data {
- 	unsigned int nports;
- 	unsigned int npcs;
- 	unsigned int cpu_port;
- 	enum dsa_tag_protocol tag_proto;
-+	unsigned int management_port_fixed_frame_len;
- };
- 
- /**
 -- 
-2.55.0
+Thanks and Regards,
+Prateek
 
