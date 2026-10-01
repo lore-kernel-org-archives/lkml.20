@@ -1,211 +1,507 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFD437DAA3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6CF443C14;
+	Thu,  1 Oct 2026 07:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839125; cv=none; b=iHW3Jimq2hRMhPUMwCYAH4xdguIfcLQrARnZiUVVmtoKwfMswndR4jzN05fhMOY/DtcLXoOe1/1E8TEAx9s/gebks9WOW4vjgmd6KJnmuS8469uDRvkVmgGSW9W48xE89AD9cXtOoikbM41ZIwLWzWi5rOXexlu9EpmOkye1F3E=
+	t=1790839141; cv=none; b=LhANfQVOg/u2XkN035ku2V2YR3oA7Aw+IDFG++34ehH+stluljiWT8uGkT1vrw73p0vNm9fbJJRHUoM1gk4LtX8vkCYx7e9H4Euqs1EiotbbOGv5THvKuCG54n9sEGMmAS2XYp/dVy6i2w+weHHZKJzfupjvYaOChl+C6gN6ugw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839125; c=relaxed/simple;
-	bh=H5QqzO340Mgc1wxZ90zMB6SaYLaXTP9IfgD6kxUa5bE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=lilRC//YoHrT5Nj6+9K+aJ0Fpx9Qi2P7AY4mhu2a9DAUkFOTbHF4NBxuchVA3ZGY0X3vuNCJFSiacBp1z568A2NEVE47GYX+FwGo7a9J+Wo2uKWTM8baoxouXrbkTqBUXet/RTsAwMg/YsIdEUJWRLTgQN2A1Q8FzqSDlGqM7Mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f4612a1a5cso99947b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:18:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790839120; x=1791443920;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=H1NeBZs/BiIvSB3dUF6FDhWNaXOlWaehl+IwOREtHm8=;
-        b=HQAswu2/PVX016jSDvfHKoSC/2Qyt08pbpfg8VrmKLdkQNugE/Su+KceEPvTaTtE1O
-         aGiwE4me8m0ywaN+S81B41gRRS3KpjKM0VG8R79uX5UYoHMHbhDuUvFjQ0DhViu/hNFB
-         ZyZDg1uIvrcrOW/zRxp10D9Y04ogzAIJykblNnQkpj1jDSZJxerOg4qqMZkxIKPtlZ6f
-         hRmKFhK0DPsm6oOGJE0cM5zgjwqVyYc3lcIxC+/Gdg+nj3msL6NOi+h1T4N1g67fQZgN
-         wfxc4PV5wC0nccuxBf/JRThYlSMt1SzIGhFrwRyqIE3a8ossavz68l+a6jdwz5RMuNnV
-         Cbow==
-X-Forwarded-Encrypted: i=1; AKwUvByWXJeP9Y07HE8kjrP22RxMf/ifiht36ZKouhZjmFGTXNRtsDX305v3DJnOdtR+K1IAkUY0GmDAXIylVYE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkLa6RK3pK5StI7Jz+G5t4Mq5Lo5dvmaxpXkx3K+l63KMBJfqa
-	T2xbhXmu6YKuiRBDGS8V6AsK3LUIJkvvzIIhWxpLANVnhY2mBlaZU0eVQ10mXpTqTBtrZnRTAVq
-	euDSlbzFCgjQrIVMSQhDGvJSV7BTMNhbkAbweCh7/DjlbZghwRtty6k0zpgI=
+	s=arc-20240116; t=1790839141; c=relaxed/simple;
+	bh=IhzhHTLsBlOxRamTH+55tvBCeK1HfuMHtgtAewER2q8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J4OEawxQynJ4VkOZQ1B5iNQJ03dZnU4Qzzils8pQvdbWMA8PUWTEfCKqVGSfciGkS+swZNooqM8KQusHY9iV70RouAeCO+wWPLmW92SporhNJCy74ZReW0w93Pr/cnzaaw5WHKaOeE5iz+Wt33PVsbsGp79eKZl7+N+gUStuAko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jw1jJueI; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jw1jJueI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049641F000FF;
+	Thu,  1 Oct 2026 07:18:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790839137;
+	bh=td4PwlxUA4cQL+wgROECagmNFxUMif0p53eQWJ+N7gg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jw1jJueIT+g0WBAN9fgwhVusygPw6xwis5OQAO/MQbUBZCtrPLXRIE+QjLsl2c2rs
+	 m9NplEoP7J08Rg7JoTgPpBBfPXXYkD+x0ZW2xxbW5aqRHpQ+KC3WfBn2P5fwOZPgZy
+	 cVRem7oJTcIJUTLMZXyu73oecGbPRCZjMaSQ0gOLMSfkPYPbODDwGUxs+B0V4xxpWR
+	 dFA3yHr1bGl+BKEkAmdcGxz5aYxgSOUjt1tmmdC3Zqwh+n0hFn7DTwEcsNEoPyPcni
+	 P2HxRygjyzrvqq4MgSrmCw6GdzN7wKiZOuvdK08G0bRVqtrZ8/8cz5tcua5XAhefYp
+	 TVffooipFxrLQ==
+Date: Thu, 1 Oct 2026 00:18:55 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH v6 1/5] perf config: Move perf_config__set_variable() to
+ util/config.c
+Message-ID: <ar4JX79-r_4gCNfG@z2>
+References: <20260930213716.2633750-1-acme@kernel.org>
+ <20260930213716.2633750-2-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6403:b0:4d6:9133:cfe4 with SMTP id
- 5614622812f47-4f30baf2638mr2331816b6e.41.1790839120106; Thu, 01 Oct 2026
- 00:18:40 -0700 (PDT)
-Date: Thu, 01 Oct 2026 00:18:40 -0700
-In-Reply-To: <6a6e98c8.6ce73036.24301b.001a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abe0950.9b478af7.e8d7a.0001.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in uvcg_extension_drop
-From: syzbot <syzbot+f093afc4e90b1908abdc@syzkaller.appspotmail.com>
-To: bolewara@gmail.com, devnull@kernel.org, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930213716.2633750-2-acme@kernel.org>
 
-syzbot has found a reproducer for the following issue on:
+On Wed, Sep 30, 2026 at 11:37:12PM +0200, Arnaldo Carvalho de Melo wrote:
+> From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> 
+> Move perf_config__set_variable() out of the 'perf config' builtin so
+> that opt-in features can persist their choice from outside it, e.g.
+> util/debuginfo.c writing core.debuginfod=false when the user disables
+> debuginfod for the rest of the session.  The
+> set_config() body becomes perf_config_set__write(), with the
+> system_config choice as an argument, as the builtin's
+> use_system_config/use_user_config statics are not available outside it.
+> 
+> All config file access shares the static parser state and can now run
+> on more than one thread, with a feature writing the config while perf
+> top's display thread reads it, so serialize parsing and
+> rewriting with a mutex, and the whole read-modify-write of
+> perf_config__set_variable() against itself.
+> 
+> perf_config_set__write() checked fopen() but none of the fprintf()s or
+> fclose(), so a write failure after truncating the file was reported as
+> success.  Harmless for the interactive 'perf config' this came from,
+> but this makes it an entry point a background feature can call with no
+> other feedback, so propagate those errors too.
+> 
+> perf_etc_perfconfig() caches what system_path() returns, and that
+> allocates, so on failure every caller dereferenced NULL, the
+> pre-existing ones in perf_config_from_file() and in the daemon
+> included.  Pre-existing, not introduced here, but this rewrites the
+> accessor anyway, so make it total: the unresolved path is the same
+> string for the usual absolute ETC_PERFCONFIG.
 
-HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=163d6b15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=f093afc4e90b1908abdc
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17d333f5580000
+I think this patch does many things.  Can we split them? 
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f093afc4e90b1908abdc@syzkaller.appspotmail.com
+> 
+> Assisted-by: LLM
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> ---
+>  tools/perf/builtin-config.c |  70 +-----------
+>  tools/perf/util/config.c    | 219 ++++++++++++++++++++++++++++++++----
+>  tools/perf/util/config.h    |   2 +
+>  3 files changed, 201 insertions(+), 90 deletions(-)
+> 
+> diff --git a/tools/perf/builtin-config.c b/tools/perf/builtin-config.c
+> index cefd042e4f853466..3b074aca8d344539 100644
+> --- a/tools/perf/builtin-config.c
+> +++ b/tools/perf/builtin-config.c
+> @@ -41,37 +41,7 @@ static struct option config_options[] = {
+>  
+>  static int set_config(struct perf_config_set *set, const char *file_name)
+>  {
+> -	struct perf_config_section *section = NULL;
+> -	struct perf_config_item *item = NULL;
+> -	const char *first_line = "# this file is auto-generated.";
+> -	FILE *fp;
+> -
+> -	if (set == NULL)
+> -		return -1;
+> -
+> -	fp = fopen(file_name, "w");
+> -	if (!fp)
+> -		return -1;
+> -
+> -	fprintf(fp, "%s\n", first_line);
+> -
+> -	/* overwrite configvariables */
+> -	perf_config_items__for_each_entry(&set->sections, section) {
+> -		if (!use_system_config && section->from_system_config)
+> -			continue;
+> -		fprintf(fp, "[%s]\n", section->name);
+> -
+> -		perf_config_items__for_each_entry(&section->items, item) {
+> -			if (!use_system_config && item->from_system_config)
+> -				continue;
+> -			if (item->value)
+> -				fprintf(fp, "\t%s = %s\n",
+> -					item->name, item->value);
+> -		}
+> -	}
+> -	fclose(fp);
+> -
+> -	return 0;
+> +	return perf_config_set__write(set, file_name, use_system_config);
+>  }
+>  
+>  static int show_spec_config(struct perf_config_set *set, const char *var)
+> @@ -158,44 +128,6 @@ static int parse_config_arg(char *arg, char **var, char **value)
+>  	return 0;
+>  }
+>  
+> -int perf_config__set_variable(const char *var, const char *value)
+> -{
+> -	char path[PATH_MAX];
+> -	char *user_config = mkpath(path, sizeof(path), "%s/.perfconfig", getenv("HOME"));
+> -	const char *config_filename;
+> -	struct perf_config_set *set;
+> -	int ret = -1;
+> -
+> -	if (use_system_config)
+> -		config_exclusive_filename = perf_etc_perfconfig();
+> -	else if (use_user_config)
+> -		config_exclusive_filename = user_config;
+> -
+> -	if (!config_exclusive_filename)
+> -		config_filename = user_config;
+> -	else
+> -		config_filename = config_exclusive_filename;
+> -
+> -	set = perf_config_set__new();
+> -	if (!set)
+> -		goto out_err;
+> -
+> -	if (perf_config_set__collect(set, config_filename, var, value) < 0) {
+> -		pr_err("Failed to add '%s=%s'\n", var, value);
+> -		goto out_err;
+> -	}
+> -
+> -	if (set_config(set, config_filename) < 0) {
+> -		pr_err("Failed to set the configs on %s\n", config_filename);
+> -		goto out_err;
+> -	}
+> -
+> -	ret = 0;
+> -out_err:
+> -	perf_config_set__delete(set);
+> -	return ret;
+> -}
+> -
+>  int cmd_config(int argc, const char **argv)
+>  {
+>  	int i, ret = -1;
+> diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
+> index 8fe43b032e9af88a..3b6a45569ae3d2eb 100644
+> --- a/tools/perf/util/config.c
+> +++ b/tools/perf/util/config.c
+> @@ -12,6 +12,8 @@
+>  #include "config.h"
+>  
+>  #include <errno.h>
+> +#include <limits.h>
+> +#include <pthread.h>
+>  #include <stdbool.h>
+>  #include <stdio.h>
+>  #include <stdlib.h>
+> @@ -370,10 +372,15 @@ static int perf_parse_long(const char *value, long *ret)
+>  
+>  static void bad_config(const char *name)
+>  {
+> -	if (config_file_name)
+> -		pr_warning("bad config value for '%s' in %s, ignoring...\n", name, config_file_name);
+> -	else
+> -		pr_warning("bad config value for '%s', ignoring...\n", name);
+> +	/*
+> +	 * No file name here: config_file_name is set and cleared by
+> +	 * whichever thread has a config file in flight, under config_mutex,
+> +	 * while this runs on the thread dispatching the collected values.
+> +	 * Reading it would race with that thread: NULL between the check
+> +	 * and the use, or the file it is parsing, not the one the bad value
+> +	 * came from.
+> +	 */
+> +	pr_warning("bad config value for '%s', ignoring...\n", name);
+>  }
+>  
+>  int perf_config_u64(u64 *dest, const char *name, const char *value)
+> @@ -549,11 +556,26 @@ int perf_default_config(const char *var, const char *value,
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Serialize config file access: parsing and rewriting share the static
+> + * parser state and can run on more than one thread, the debuginfod
+> + * fetch writing core.debuginfod=false while perf top reads it.
+> + */
+> +static pthread_mutex_t config_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffddb96a9a8
-R13: 0000000000000002 R14: 00007f778c218cc0 R15: 0000000000000002
- </TASK>
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x18a/0x1d0 lib/list_debug.c:49
-Read of size 8 at addr ffff88802274e158 by task syz-executor227/5999
+Nit: perf has its own mutex type and helper functions.  But I suspect it
+doesn't have the static initializer yet.
 
-CPU: 3 UID: 0 PID: 5999 Comm: syz-executor227 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- __list_del_entry_valid_or_report+0x18a/0x1d0 lib/list_debug.c:49
- __list_del_entry_valid include/linux/list.h:140 [inline]
- __list_del_entry include/linux/list.h:261 [inline]
- list_del include/linux/list.h:275 [inline]
- uvcg_extension_drop+0x88/0x290 drivers/usb/gadget/function/uvc_configfs.c:1260
- client_drop_item+0xa6/0x100 fs/configfs/dir.c:979
- configfs_mkdir+0x70b/0xd40 fs/configfs/dir.c:1452
- vfs_mkdir+0x364/0x850 fs/namei.c:5410
- filename_mkdirat+0x48b/0x5e0 fs/namei.c:5443
- __do_sys_mkdir fs/namei.c:5470 [inline]
- __se_sys_mkdir fs/namei.c:5467 [inline]
- __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5467
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f778c194d07
-Code: 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 53 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffddb96a878 EFLAGS: 00000202 ORIG_RAX: 0000000000000053
-RAX: ffffffffffffffda RBX: 0000000000002710 RCX: 00007f778c194d07
-RDX: 0000000000000000 RSI: 00000000000001ff RDI: 00007f778c1f0488
-RBP: 00007f778c1f0488 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffddb96a9a8
-R13: 0000000000000002 R14: 00007f778c218cc0 R15: 0000000000000002
- </TASK>
-
-Allocated by task 5999:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- uvcg_extension_make+0x98/0x4e0 drivers/usb/gadget/function/uvc_configfs.c:1276
- configfs_mkdir+0x7ef/0xd40 fs/configfs/dir.c:1378
- vfs_mkdir+0x364/0x850 fs/namei.c:5410
- filename_mkdirat+0x48b/0x5e0 fs/namei.c:5443
- __do_sys_mkdir fs/namei.c:5470 [inline]
- __se_sys_mkdir fs/namei.c:5467 [inline]
- __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5467
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 5999:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6801
- config_item_cleanup+0x146/0x240 fs/configfs/item.c:128
- config_item_release fs/configfs/item.c:137 [inline]
- kref_put include/linux/kref.h:65 [inline]
- config_item_put fs/configfs/item.c:149 [inline]
- config_item_put+0x93/0xb0 fs/configfs/item.c:146
- uvcg_extension_drop+0x80/0x290 drivers/usb/gadget/function/uvc_configfs.c:1259
- client_drop_item+0xa6/0x100 fs/configfs/dir.c:979
- configfs_mkdir+0x70b/0xd40 fs/configfs/dir.c:1452
- vfs_mkdir+0x364/0x850 fs/namei.c:5410
- filename_mkdirat+0x48b/0x5e0 fs/namei.c:5443
- __do_sys_mkdir fs/namei.c:5470 [inline]
- __se_sys_mkdir fs/namei.c:5467 [inline]
- __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5467
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802274e100
- which belongs to the cache kmalloc-192 of size 192
-The buggy address is located 88 bytes inside of
- freed 192-byte region [ffff88802274e100, ffff88802274e1c0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2274e
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000000 ffff88801c0423c0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 8964019714
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- __usb_create_hcd+0x7b6/0xac0 drivers/usb/core/hcd.c:2577
- dummy_hcd_probe+0x130/0x2fa drivers/usb/gadget/udc/dummy_hcd.c:2717
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88802274e000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88802274e080: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->ffff88802274e100: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                    ^
- ffff88802274e180: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
- ffff88802274e200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+Thanks,
+Namhyung
 
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> +
+> +/*
+> + * perf_config__set_variable() is a read-modify-write of a config file,
+> + * and config_mutex serializes just each of its steps: take it for the
+> + * whole update so callers can't write over each other's changes.
+> + */
+> +static pthread_mutex_t config_update_mutex = PTHREAD_MUTEX_INITIALIZER;
+> +
+>  static int perf_config_from_file(config_fn_t fn, const char *filename, void *data)
+>  {
+>  	int ret;
+>  	FILE *f = fopen(filename, "r");
+>  
+> +	pthread_mutex_lock(&config_mutex);
+>  	ret = -1;
+>  	if (f) {
+>  		config_file = f;
+> @@ -564,15 +586,34 @@ static int perf_config_from_file(config_fn_t fn, const char *filename, void *dat
+>  		fclose(f);
+>  		config_file_name = NULL;
+>  	}
+> +	pthread_mutex_unlock(&config_mutex);
+>  	return ret;
+>  }
+>  
+> +/*
+> + * Computed once: system_path() allocates, a lazy init racing on two
+> + * threads would leak all but one of the strings.
+> + */
+> +static const char *etc_perfconfig;
+> +
+> +static void perf_etc_perfconfig__init(void)
+> +{
+> +	etc_perfconfig = system_path(ETC_PERFCONFIG);
+> +	/*
+> +	 * None of the callers check for NULL, so an allocation failure
+> +	 * here leaves all of them dereferencing it.  The unresolved path
+> +	 * is the same string when ETC_PERFCONFIG is absolute anyway.
+> +	 */
+> +	if (!etc_perfconfig)
+> +		etc_perfconfig = ETC_PERFCONFIG;
+> +}
+> +
+>  const char *perf_etc_perfconfig(void)
+>  {
+> -	static const char *system_wide;
+> -	if (!system_wide)
+> -		system_wide = system_path(ETC_PERFCONFIG);
+> -	return system_wide;
+> +	static pthread_once_t once = PTHREAD_ONCE_INIT;
+> +
+> +	pthread_once(&once, perf_etc_perfconfig__init);
+> +	return etc_perfconfig;
+>  }
+>  
+>  static int perf_env_bool(const char *k, int def)
+> @@ -630,19 +671,25 @@ static char *home_perfconfig(void)
+>  	return NULL;
+>  }
+>  
+> -const char *perf_home_perfconfig(void)
+> -{
+> -	static const char *config;
+> -	static bool failed;
+> +/*
+> + * Computed once for the same reason as perf_etc_perfconfig() above:
+> + * home_perfconfig() allocates, a lazy init racing on two threads would
+> + * leak all but one of the strings, and the warnings it may print would
+> + * come out more than once.
+> + */
+> +static const char *home_config;
+>  
+> -	if (failed || config)
+> -		return config;
+> +static void perf_home_perfconfig__init(void)
+> +{
+> +	home_config = home_perfconfig();
+> +}
+>  
+> -	config = home_perfconfig();
+> -	if (!config)
+> -		failed = true;
+> +const char *perf_home_perfconfig(void)
+> +{
+> +	static pthread_once_t once = PTHREAD_ONCE_INIT;
+>  
+> -	return config;
+> +	pthread_once(&once, perf_home_perfconfig__init);
+> +	return home_config;
+>  }
+>  
+>  static struct perf_config_section *find_section(struct list_head *sections,
+> @@ -783,8 +830,18 @@ static int collect_config(const char *var, const char *value,
+>  int perf_config_set__collect(struct perf_config_set *set, const char *file_name,
+>  			     const char *var, const char *value)
+>  {
+> +	int ret;
+> +
+> +	pthread_mutex_lock(&config_mutex);
+>  	config_file_name = file_name;
+> -	return collect_config(var, value, set);
+> +	ret = collect_config(var, value, set);
+> +	/*
+> +	 * Don't leave the static parser state pointing at the caller's
+> +	 * buffer.
+> +	 */
+> +	config_file_name = NULL;
+> +	pthread_mutex_unlock(&config_mutex);
+> +	return ret;
+>  }
+>  
+>  static int perf_config_set__init(struct perf_config_set *set)
+> @@ -831,6 +888,16 @@ struct perf_config_set *perf_config_set__load_file(const char *file)
+>  	return set;
+>  }
+>  
+> +/*
+> + * The global config_set is built lazily: two threads in perf_config() at
+> + * once would both build one and leak all but the last, and config_set must
+> + * not be read while another thread swaps it, so take it one at a time.  Not
+> + * with config_mutex: building the set parses the config files, which takes
+> + * that one.
+> + */
+> +static pthread_mutex_t config_set_mutex = PTHREAD_MUTEX_INITIALIZER;
+> +
+> +/* Called with config_set_mutex held. */
+>  static int perf_config__init(void)
+>  {
+>  	if (config_set == NULL)
+> @@ -871,16 +938,126 @@ int perf_config_set(struct perf_config_set *set,
+>  
+>  int perf_config(config_fn_t fn, void *data)
+>  {
+> -	if (config_set == NULL && perf_config__init())
+> +	struct perf_config_set *set;
+> +
+> +	/*
+> +	 * The mutex is taken just for the lazy init and for the pointer:
+> +	 * the dispatch below only reads the set, so a callback that called
+> +	 * perf_config() again would find it unlocked, and only
+> +	 * perf_config__exit() replaces the set.
+> +	 */
+> +	pthread_mutex_lock(&config_set_mutex);
+> +	if (perf_config__init()) {
+> +		pthread_mutex_unlock(&config_set_mutex);
+>  		return -1;
+> +	}
+> +	set = config_set;
+> +	pthread_mutex_unlock(&config_set_mutex);
+>  
+> -	return perf_config_set(config_set, fn, data);
+> +	return perf_config_set(set, fn, data);
+>  }
+>  
+>  void perf_config__exit(void)
+>  {
+> +	pthread_mutex_lock(&config_set_mutex);
+>  	perf_config_set__delete(config_set);
+>  	config_set = NULL;
+> +	pthread_mutex_unlock(&config_set_mutex);
+> +}
+> +
+> +int perf_config_set__write(struct perf_config_set *set,
+> +			   const char *file_name, bool system_config)
+> +{
+> +	struct perf_config_section *section = NULL;
+> +	struct perf_config_item *item = NULL;
+> +	int ret = 0;
+> +	FILE *fp;
+> +
+> +	pthread_mutex_lock(&config_mutex);
+> +	fp = fopen(file_name, "w");
+> +	if (!fp) {
+> +		pthread_mutex_unlock(&config_mutex);
+> +		return -1;
+> +	}
+> +
+> +	if (fprintf(fp, "# this file is auto-generated.\n") < 0)
+> +		ret = -1;
+> +
+> +	/* overwrite configvariables */
+> +	perf_config_sections__for_each_entry(&set->sections, section) {
+> +		if (!system_config && section->from_system_config)
+> +			continue;
+> +		if (fprintf(fp, "[%s]\n", section->name) < 0)
+> +			ret = -1;
+> +
+> +		perf_config_items__for_each_entry(&section->items, item) {
+> +			if (!system_config && item->from_system_config)
+> +				continue;
+> +			if (item->value &&
+> +			    fprintf(fp, "\t%s = %s\n", item->name, item->value) < 0)
+> +				ret = -1;
+> +		}
+> +	}
+> +	if (fclose(fp) != 0)
+> +		ret = -1;
+> +	pthread_mutex_unlock(&config_mutex);
+> +
+> +	return ret;
+> +}
+> +
+> +/*
+> + * Set @var=@value in the configuration file perf is using: ~/.perfconfig
+> + * or the file named by PERF_CONFIG, which makes perf read only that
+> + * file.  The rewrite is the same 'perf config' does, comments are not
+> + * preserved.
+> + */
+> +int perf_config__set_variable(const char *var, const char *value)
+> +{
+> +	const char *config_filename;
+> +	bool system_config;
+> +	struct perf_config_set *set = NULL;
+> +	int ret = -1;
+> +
+> +	pthread_mutex_lock(&config_update_mutex);
+> +
+> +	/*
+> +	 * Not on the stack: the parser publishes this buffer as
+> +	 * config_file_name, which another thread may still be reading.  It is
+> +	 * shared by every caller, so it is formatted under the lock above.
+> +	 */
+> +	{
+> +		static char path[PATH_MAX];
+> +		char *user_config = mkpath(path, sizeof(path), "%s/.perfconfig", getenv("HOME"));
+> +
+> +		config_filename = config_exclusive_filename ?: user_config;
+> +	}
+> +
+> +	/*
+> +	 * When rewriting the system wide file all entries are marked as coming
+> +	 * from it and must be kept, or it would be truncated down to its
+> +	 * header.
+> +	 */
+> +	system_config = strcmp(config_filename, perf_etc_perfconfig()) == 0;
+> +
+> +	set = perf_config_set__new();
+> +	if (!set)
+> +		goto out_err;
+> +
+> +	if (perf_config_set__collect(set, config_filename, var, value) < 0) {
+> +		pr_err("Failed to add '%s=%s'\n", var, value);
+> +		goto out_err;
+> +	}
+> +
+> +	if (perf_config_set__write(set, config_filename, system_config) < 0) {
+> +		pr_err("Failed to set the configs on %s\n", config_filename);
+> +		goto out_err;
+> +	}
+> +
+> +	ret = 0;
+> +out_err:
+> +	perf_config_set__delete(set);
+> +	pthread_mutex_unlock(&config_update_mutex);
+> +	return ret;
+>  }
+>  
+>  static void perf_config_item__delete(struct perf_config_item *item)
+> diff --git a/tools/perf/util/config.h b/tools/perf/util/config.h
+> index 987b47cf54c350ba..9098f8a045850c97 100644
+> --- a/tools/perf/util/config.h
+> +++ b/tools/perf/util/config.h
+> @@ -33,6 +33,8 @@ int perf_config_scan(const char *name, const char *fmt, ...) __scanf(2, 3);
+>  const char *perf_config_get(const char *name);
+>  int perf_config_set(struct perf_config_set *set,
+>  		    config_fn_t fn, void *data);
+> +int perf_config_set__write(struct perf_config_set *set,
+> +			   const char *file_name, bool system_config);
+>  int perf_config_int(int *dest, const char *, const char *);
+>  int perf_config_u8(u8 *dest, const char *name, const char *value);
+>  int perf_config_u64(u64 *dest, const char *, const char *);
+> -- 
+> 2.55.0
+> 
