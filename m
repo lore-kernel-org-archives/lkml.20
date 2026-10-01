@@ -1,134 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7403282F0E;
-	Fri,  2 Oct 2026 00:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F23B2C3768;
+	Fri,  2 Oct 2026 00:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790900852; cv=none; b=UCp+WbYRK7LThEZnLarIqyjxy9Mjp1jQuJ1/vOEzi9DcGh2ss5FO6Z+U4f1s5q4oho/Y+ZimJ6KXZGm9na6ezbwCELy/Seca2BuyKRNtpXQ++X5cSgRTszGRvTBMXQURnmUPxe/jpjSd+Ng+lBBFoVJmdtjP4lHDQxRLlTTlv2g=
+	t=1790900998; cv=none; b=VHMfbGNb1oT3Ueb6sp+t75R4M8Su0/FHC/W0CRw/OGMD0rEd6yup3/6+fFDEAjfa9qh2cK6nwhJQQu53FgNWa0MKg4HtNRPd2CXXcCokKxpXHCrarLY2HFGUao/hKaL78maOg9RObCkHTEVE5ugjMrNk4BfOi8SsKSIwS6LWt6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790900852; c=relaxed/simple;
-	bh=CUvgWm+5OdfHevZXgVZ4keCnXCiw9wK6OxBzCd/STEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P7njQ0FxGNiXfjPWJ7l2JZl3FFVdoeru6WV7ZGAW1MZKr9OYzrKyqrGlQKgoh2ECW7BUWi/KJv74jnXSpfc96hwGS7x2VB6bJn3cgu0/qGjtXW0hho3aXRkHHxfmliLgSbF65qsVSz2Au7HGHsrV87YGffSOwjlvWKc70uEKLhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/wAG9O9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790900998; c=relaxed/simple;
+	bh=rKCAgp2TZE07lWEEJcWOKWsYHKIMqeKHJec2jV6ttFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GjLJuQTcli91TVz9G7c8hRi9B8nrk7BVnuBkfBlFr8RHAGz9T5s4NlPm2CbVBNsbnNt7wyJ823ODDr/3YRv8wKLcp2ma3f5jxcKgUlq8Xf2mhmW9YEvcYUiVhWlrHKGO0Y2V33eh1h1UUCGL76fr2Jg4VvCqjxGdEkpyWJD8I14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=dvZ9wRI7; arc=none smtp.client-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/wAG9O9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 787E11F000FF;
-	Fri,  2 Oct 2026 00:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790900850;
-	bh=vGD/xJmN3jRQ/9mFwT49vqqR3wAzJIrIOp0UoriNDDU=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=a/wAG9O9FvdYtF7pkvgcYxq+s6iu2l5Wd14cNT77QelSdZou6MVwWtwRt/xCmeRSq
-	 DNpRBNnxQrmc+TBYRzyEo2idhij0VGyi2a/XFDmOSd1cxiSyFLzZL7cCqVIpcxtibv
-	 grMpx6YHnzxHVunr+Ar7M0r+Q31P9fmVgORKwUZ8iufurLlC8+AXyyFPCLQFr0N7/v
-	 1MS+E/XFoh9ZTLuW8zmzfEK3z7J6DLHOFbA5HG/F1W9rILBBz9dZEu8X6mBIBL3i+7
-	 H6gB9Kp6qVBLncNyap7euf39NYhoqmX/FlOpskZ+FCDZLi7Y10fqKkw99lxkVK64RU
-	 bWTsc394TlwRw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 3BB95CE0AE4; Thu,  1 Oct 2026 17:27:30 -0700 (PDT)
-Date: Thu, 1 Oct 2026 17:27:30 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	rostedt@goodmis.org, Sunho Park <shpark061104@gmail.com>,
-	syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com,
-	Zqiang <qiang.zhang@linux.dev>
-Subject: Re: [PATCH 09/19] srcu: Fix WARN_ON() for rcu_segcblist_n_cbs() in
- cleanup_srcu_struct()
-Message-ID: <01ada958-6f12-4c56-9559-7c21501c0b54@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
- <20260919003521.3134552-9-paulmck@kernel.org>
- <ar2o5yyB-o12pAos@google.com>
- <a79c83e1-a7ae-407b-8b11-0a031be2faf1@paulmck-laptop>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="dvZ9wRI7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=dvZ9wRI725Rdttus2j54+qGIFkOp5vu/PxcLgTsT8KaNjfKXhM70JwDTc0Lb901ontKcxr/iH7Q7J
+	 cfz2t6wnYil4CEoIL+SKGws8JT1oBv5kbqzP6vyzMx+X4G0koUIwo/59iyaExbfYl4xXvX4J1G2kmF
+	 xPm804WKYJcY3eG8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26abefaf829b-d028e;
+	Fri, 02 Oct 2026 08:29:45 +0800 (CST)
+X-RM-TRANSID:2ee26abefaf829b-d028e
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[112.22.250.209])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66abefae08d1-31f43;
+	Fri, 02 Oct 2026 08:29:45 +0800 (CST)
+X-RM-TRANSID:2ee66abefae08d1-31f43
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+Subject: [PATCH net] devlink: fix devlink_rel reference leak when notify work is pending
+Date: Thu,  1 Oct 2026 12:22:32 +0800
+Message-ID: <20261001042232.222987-1-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a79c83e1-a7ae-407b-8b11-0a031be2faf1@paulmck-laptop>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 05:57:21PM -0700, Paul E. McKenney wrote:
-> On Wed, Sep 30, 2026 at 05:27:19PM -0700, Sean Christopherson wrote:
-> > On Fri, Sep 18, 2026, Paul E. McKenney wrote:
-> > > From: Sunho Park <shpark061104@gmail.com>
-> > > 
-> > > The WARN_ON() added by commit 78a38cbf6f20 ("srcu: Queue sdp->work
-> > > when the delay timer is successfully deleted") uses rcu_segcblist_n_cbs()
-> > > to detect callbacks that srcu_barrier() failed to wait for. However, the
-> > > ->len counter is decremented only at the end of srcu_invoke_callbacks(),
-> > > after the invoking loop has finished. Since srcu_barrier() can return
-> > > right after the barrier callback is invoked, cleanup_srcu_struct() can see
-> > > a non-zero n_cbs even though the cblist is already physically empty,
-> > > falsely triggering the WARN_ON() together with a still-pending delay_work
-> > > timer.
-> > > 
-> > > This can be triggered as follows, as seen in the syzbot report against
-> > > kvm_destroy_vm() -> cleanup_srcu_struct(&kvm->srcu):
-> > > 
-> > > 1. call_srcu(&kvm->srcu, &bus->rcu, __free_bus) starts SRCU grace
-> > >    period GP1.
-> > > 
-> > > 2. GP1 ends: a delay timer is armed and sdp->work is queued, but
-> > >    sdp->work has not run yet.
-> > > 
-> > > 3. Another call_srcu(&kvm->srcu, &bus->rcu, __free_bus) call invokes
-> > >    srcu_segcblist_advance(), which moves the GP1 callback to
-> > >    RCU_DONE_TAIL, and starts SRCU grace period GP2.
-> > > 
-> > > 4. srcu_barrier() is called. It queues its barrier callback after the
-> > >    GP2 callback and waits for srcu_invoke_callbacks() to invoke it.
-> > > 
-> > > 5. GP2 ends: another delay timer is armed, and the sdp->work queued in
-> > >    step 2 begins to run. Its srcu_invoke_callbacks() call invokes
-> > >    srcu_segcblist_advance() again, moving the GP2 and barrier callbacks
-> > >    to RCU_DONE_TAIL as well, and then invokes all of them. However,
-> > >    rcu_segcblist_add_len(), which updates srcu_cblist's ->len, has not
-> > >    run yet at this point.
-> > > 
-> > > 6. srcu_barrier() returns once its callback has been invoked, and
-> > >    cleanup_srcu_struct() starts running. It finds the delay timer
-> > >    armed in step 5 still pending and srcu_cblist's ->len still
-> > >    non-zero (because step 5 has not reached rcu_segcblist_add_len()
-> > >    yet), and WARN_ON() fires even though every callback has actually
-> > >    been invoked.
-> > > 
-> > > Use rcu_segcblist_empty(), which checks the actual head of the cblist,
-> > > instead of rcu_segcblist_n_cbs(), which checks the racy ->len counter.
-> > > Callbacks that have genuinely not been invoked yet still leave the list
-> > > non-empty, so the WARN_ON() still catches callers that skip srcu_barrier()
-> > > or queue callbacks after it.
-> > > 
-> > > Link: https://lore.kernel.org/rcu/e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev/T/#t
-> > > Reported-by: syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
-> > > Closes: https://syzkaller.appspot.com/bug?extid=d4faf7db59e11f6fd1ab
-> > > Fixes: 78a38cbf6f20 ("srcu: Queue sdp->work when the delay timer is successfully deleted")
-> > > Suggested-by: Zqiang <qiang.zhang@linux.dev>
-> > > Signed-off-by: Sunho Park <shpark061104@gmail.com>
-> > > Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-> > > ---
-> > 
-> > Is this going to be grabbed for 7.3?  It shows up relatively frequently in KVM.
-> > Not so much that it's truly problematic/alarming, but enough that it definitely
-> > stands out.
-> > 
-> > Tested-by: Sean Christopherson <seanjc@google.com>
-> 
-> I wasn't thinking in terms of doing so, figuring that the almost-here
-> merge window would be good enough.  But it does seem to apply cleanly.
-> Any other votes for pushing it into 7.3?  If I do so, it must be soon.
+devlink_rel_nested_in_notify_work_schedule() takes a reference on the
+devlink_rel for the notify work and then queues the work, ignoring the
+return value of schedule_delayed_work(). If the work is already pending,
+nothing new is queued, the work runs only once and drops only one
+reference, so the extra one is leaked together with the devlink_rel and
+its index in devlink_rels.
 
-I take it back.  Unless there are objections to my pushing this into v7.3
-(instead of waiting until the v7.4 merge window), I will push it tomorrow
-(Friday October 2), Pacific Time.
+This is easy to hit. devl_register() of a nested instance queues the
+work, and if the instance is unregistered before the work has run,
+devlink_rel_put() queues it again while it is still pending. The work
+also keeps rescheduling itself for as long as the parent devlink lock
+cannot be taken, which widens the window. Registering and unregistering
+a nested devlink instance 100 times while holding the parent lock leaks
+all 100 devlink_rel objects.
 
-> Either way, I will of course apply your Tested-by.
+The reschedule path in devlink_rel_nested_in_notify_work() has the same
+problem: if the work was queued again while it was running, the
+reference it holds is never dropped.
 
-And done!
+Drop the reference in both places when the work was already pending.
+The pending work holds its own reference, so this can not be the last
+one.
 
-							Thanx, Paul
+Fixes: c137743bce02 ("devlink: introduce object and nested devlink relationship infra")
+Assisted-by: LLM
+Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+---
+ net/devlink/core.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/devlink/core.c b/net/devlink/core.c
+index c53a42e17a58..bddbbbf000fe 100644
+--- a/net/devlink/core.c
++++ b/net/devlink/core.c
+@@ -112,13 +112,19 @@ static void devlink_rel_nested_in_notify_work(struct work_struct *work)
+ 	return;
+ 
+ reschedule_work:
+-	schedule_delayed_work(&rel->nested_in.notify_work, 1);
++	/* The work may have been queued again meanwhile, which took its own
++	 * reference. Drop ours in that case.
++	 */
++	if (!schedule_delayed_work(&rel->nested_in.notify_work, 1))
++		__devlink_rel_put(rel);
+ }
+ 
+ static void devlink_rel_nested_in_notify_work_schedule(struct devlink_rel *rel)
+ {
+ 	__devlink_rel_get(rel);
+-	schedule_delayed_work(&rel->nested_in.notify_work, 0);
++	/* The pending work holds a reference already, drop the new one. */
++	if (!schedule_delayed_work(&rel->nested_in.notify_work, 0))
++		__devlink_rel_put(rel);
+ }
+ 
+ static struct devlink_rel *devlink_rel_alloc(void)
+-- 
+2.43.0
+
+
+
