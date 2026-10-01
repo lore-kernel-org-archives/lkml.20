@@ -1,99 +1,116 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D3A3D9020;
-	Thu,  1 Oct 2026 14:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEFB369D66;
+	Thu,  1 Oct 2026 14:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866091; cv=none; b=SFeCeT9CMUWPVrLaIm53SXaLvnmYmy3hLPIZGpfoq2RrzU3NJp5jbsLKHZc1vBdla3JmqMLlohwAwPvsbSDxVN8dXwEajMJbArmRTAihyJs+8AunIrz1e8zSiCsEzGMYyHJnDSw0rNTAH3yY+BQlgx5M7hSo4ichqB6iFqIsbhE=
+	t=1790866095; cv=none; b=Q0D0DvpXJe3BmS97Q9JD2E4EJ2B5LK2iNktB6RpLyPJCKWvCfR2QawmnuFTp1ag0BDh//wJC3dJg2dKGh0rCAtW7WreHdQxtxhhqGnS5MHLoEfeyGwIh3wbrq4nd9UQNTiJMa+4w+V5Nv6wmus1EQP4M4+pGD7LL/tYl906t6Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866091; c=relaxed/simple;
-	bh=nBoTjTKUwo9FEje/Uo8ieqr0BBHnpwexPSuOt8wrpwY=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Cg1ERNRP8KlrHgwsrXtt2uuZzw3w0aL3r+ZTvMypPtr7EON88P5/q0/AL10GuvZx2orgvNgQRfyGlAe39CFrK6fUrzGUAMEu91dq+A8PZWN9+OiebrKSwZ4jrifUgzgaGRq+bnFyZsTpiJeIAoxMNgcGdLtY76GC3vydNARgiV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=WA4MCbjA; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=uiTZNyRK; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790866095; c=relaxed/simple;
+	bh=lQVGaTUbKX3vZNKbfXHrVv0k2dyG9x0SfA0zdkw58/k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=foiUw+nRcz1p9RLhyvn2U4i+HJ4A7A3XkfBFrS5vyTK9s/XGG7ia8kV2P8B+/mbOYWgZeepznCBWO4aMv3L1XdVxR2wSCS+bf5XOtWCfepUsXdqWC8xA9li/MgMIWGNfM5LOWd13WYbkc5OULzV7kWaYEBjuJpsTzHSMC5OBITM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsCQneNN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="WA4MCbjA";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="uiTZNyRK"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790866080; bh=eYcrqBdFH3goT7upcHl6vqR
-	PqlYEaFv4BxPBigH58zU=; b=WA4MCbjAmDelAYP/U+GyVZcmVxom7ppZSxhK6AnCiAEHsQAm4+
-	K8l+79kD7fg3tfk+rnlNXUuSXG7dV+4DuQMSsMn6YmqBwWoP+wrZTGUFW3Uqe/xMXI+vvpvmJ5f
-	Sab6fOHsJ+LNcG1f9yvLuMyZAvySQoLotjDoPHt/S/9o0XOh6K2xUUW/U+/kro1CHb3lPCy5Fg/
-	E/LIEXVdPpD7NZtYYqRCWbDhmNSreAu9IlrDOab7ZeDioQpZsAFFhEj3YYBTgjFC5VeWcuAPc+x
-	zmurJebkSBFd1v3gfvEYqYbmjvq614UwJ1kwlGHqqMUxaavfCi93Dfp2A+w6bc1b81Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790866080; bh=eYcrqBdFH3goT7upcHl6vqR
-	PqlYEaFv4BxPBigH58zU=; b=uiTZNyRKtHErHvQAwvdaAtF+9l1LbhEsezhRtP/Hh8mAXxdk95
-	wJkfy/nHoNcuf7YnCc0KeI4r0XE2eVhM7IAw==;
-Date: Thu, 01 Oct 2026 15:48:01 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Joel Granados <joel.granados@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>
-CC: Kees Cook <kees@kernel.org>, Zhan Xusheng <zhanxusheng@xiaomi.com>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] sysctl fixes for v7.3-rc6
-In-Reply-To: <zcnee7kd4z7ncgccbh4cpmwoj4pbdvrscjl4chey7c4oczzgwg@fy3tb5yzdkii>
-References: <zcnee7kd4z7ncgccbh4cpmwoj4pbdvrscjl4chey7c4oczzgwg@fy3tb5yzdkii>
-Message-ID: <64BB0700-D4FC-4797-A451-987D1D875570@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsCQneNN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CA61F000FF;
+	Thu,  1 Oct 2026 14:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790866092;
+	bh=5EVX07OiZ7f9Gz2BmfxtwvOPv3wrI169p7Uv2M27k5c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VsCQneNNQ8tMAPM3ls8Xc4lyu6eg0daaZV0aIMijOCZqBu09vCNYkrpuSN+COgTuR
+	 xz7AhH7OEjeSw8L8TbEtfSWy6uyyr7uGi5yexBfowepmh5+F6VNo6Bjfy24IIpmuDC
+	 7LOmxc26/BTEC3vUQGJW9eoreQ3JCliDQInxCnWMrqHeEa0rmqJZK5fhSi41lDOz3g
+	 9+JfmMyyZG3FtxhLS5/RcSz6plBbfLBvTzqIAcOb78tXZ6CfZGY8JK5reLsSlmTToS
+	 KnYJNVGxSADH/vslc/UEi0+UuKT/2UcuxcmG6CV3oNRvqQ3fVOYC94WvraeMMo9Uyg
+	 hVIZVaNMpoQtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] ARM, ARM64, LONGARCH, XTENSA: Delay HW BP
+ notification to task_work()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
+Cc: linux-perf-users@vger.kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261001143516.Ew8C97WS@linutronix.de>
+References: <20261001143516.Ew8C97WS@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 14:48:12 +0000
+Message-Id: <20261001144812.66CA61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
 
-On 1 October 2026 12:38:46 BST, Joel Granados <joel.granados@kernel.org>
-wrote:
->Linus:
->
->Missed this in the tag: tested with sysctl selftests on x86_64 as well
->as linux-next (for a week).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] events: delayed or lost SIGTRAP for hardware watchpoints hit in =
+blocking syscalls
+--
 
-Also all tested on my PowerPC host, with the tests. :))))
+commit f836aefea872e6050b4535461bc8040c46ae9a47
+Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
->
->Best
->
->The following changes since commit
->72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
->
->  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
->
->are available in the Git repository at:
->
->  git://git.kernel.org/pub/scm/linux/kernel/git/sysctl/sysctl.git tags/sysctl-7.03-fixes-rc6
->
->for you to fetch changes up to fdd6553e1e53b0421d89c7469c8a36d2eadb1115:
->
->  time/jiffies: Saturate in mult_hz() instead of wrapping (2026-09-29 10:00:40 +0200)
->
->----------------------------------------------------------------
->Summary
->
->* Fix sysctl jiffies conversions errors introduced in 2dc164a48e6f
->("sysctl:
->  Create converter functions with two new macros")
->
->  - Ensure that mult_hz does *not* wrap
->  - Ensure we pass just the magnitude for the negative branch in
->    proc_int_k2u_conv_kop
->
->----------------------------------------------------------------
->Zhan Xusheng (2):
->      sysctl: Negate before converting in the int read path
->      time/jiffies: Saturate in mult_hz() instead of wrapping
->
-> kernel/sysctl.c       | 2 +-
-> kernel/time/jiffies.c | 2 ++
-> 2 files changed, 3 insertions(+), 1 deletion(-)
->
->
+ARM, ARM64, LONGARCH, XTENSA: Delay HW BP notification to task_work()
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+This commit addresses sleeping while atomic warnings on PREEMPT_RT caused by
+hardware breakpoints on ARM64. It delays the hardware event callback
+execution until the return to userland by queueing it via task_work_add().
+The same pattern is also adopted for ARM, LongARCH, and Xtensa.
+
+Closes: https://lore.kernel.org/all/aho0eqjMESuHxECr@redhat.com/
+
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index db7b76d6b68aa..b95e4d3a4f7c9 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+[ ... ]
+> @@ -13374,6 +13374,28 @@ static void account_event(struct perf_event *eve=
+nt)
+>  	account_pmu_sb_event(event);
+>  }
+> =20
+> +#ifdef ARCH_NEED_PERF_HW_NOTIF
+> +static void perf_arch_hwbp_send_sig(struct callback_head *head)
+> +{
+> +	struct perf_event *bp;
+> +
+> +	bp =3D container_of(head, struct perf_event, hw.arch_hw_notif);
+> +	arch_hwbp_send_sig(bp);
+> +	xchg_relaxed(&bp->hw.arch_hw_notif_busy, 0);
+> +	put_event(bp);
+> +}
+> +
+> +void perf_arch_hwbp_notify(struct perf_event *bp, struct perf_sample_dat=
+a *data,
+> +			   struct pt_regs *regs)
+> +{
+> +	if (WARN_ON_ONCE(!atomic_long_inc_not_zero(&bp->refcount)))
+> +		return;
+> +	if (xchg_relaxed(&bp->hw.arch_hw_notif_busy, 1) ||
+> +	    WARN_ON_ONCE(task_work_add(current, &bp->hw.arch_hw_notif, TWA_RESU=
+ME)))
+
+[Severity: Medium]
+Could queuing the task work with TWA_RESUME instead of TWA_SIGNAL cause
+delayed or lost SIGTRAP deliveries for hardware watchpoints?
+
+If a tracee hits a hardware watchpoint while in a blocking syscall (for
+example, when the syscall accesses memory via get_user or put_user),
+using TWA_RESUME will only set TIF_NOTIFY_RESUME.=20
+
+Because it does not set TIF_SIGPENDING or TIF_NOTIFY_SIGNAL, the syscall
+will not be interrupted. Does this allow the tracee to hang indefinitely in
+the blocking syscall instead of aborting the syscall to deliver the
+synchronous SIGTRAP?
+
+> +		put_event(bp);
+> +}
+> +#endif
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001143516.Ew8C=
+97WS@linutronix.de?part=3D1
