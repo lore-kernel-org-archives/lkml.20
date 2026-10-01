@@ -1,282 +1,101 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493F14A68BF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B73D492E30;
+	Thu,  1 Oct 2026 12:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856100; cv=none; b=HUUTE8RA5//z8HLs/05JXuNOcYXn1G90v0t4ZEpEFmKEkzw95vpXl6SMifu8OI5vWLp9/n9V83sp0jPs0rtLSEqIZkHUHz5arYqyavkaD4v6XJO9+vF7hoCaIEHM3jU6KJCG4Yo0I8GNDPqe7eArtf6rr3dj0LwVEKS5lFicAUQ=
+	t=1790856109; cv=none; b=KU7U1cyve0gU/9OBDENhbanbyN8n59AFX+tXqyDFpHS1MAPAc9gWhNY9kx4LrO2IUZITz3knecxsdA9gv+xqiHyzaSdgsC4zAsZ8AnDy9NhYm5G/bNhTvbCKEGPpCEp6u3pl0pGz2Ad3x2icT+2mYPEQWIHIyoUsc7adZgVHphM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856100; c=relaxed/simple;
-	bh=oadv2PoCoCr6Yw+lNdg8hGXm6C2bTN2gb1khZEANmEY=;
+	s=arc-20240116; t=1790856109; c=relaxed/simple;
+	bh=QH58pptm2vo6sm9BMiv50pbTTzjRmT7G88Qy8myJwTk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E//lu35NADI83e+g8i644ZlcVov84nzvaII7WfyCAlbVf5T1tNOkYjNlweNDpuhiW9jVONJfFrlqGD/+LLK8/0CeYj9/yXi2IeWK+rwRxYtRzgE410bIF1YqW4RuhTyRwHobNFxgHxrq9bMs8pg2m+w9kRbWm5DoLnLw+GhoCtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=R5RTL6B+; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=iZVIbUR5Qf/dnFmaANf/iAWVZYV2mzd5Uznf6Y4k0v3k2/RwwJrgX08oChD5UPc8Mcp/rZDH3HjGYlCRiTTk39LxjnVamu8DU7dlsyFULMG/N1yg1FpHvRqRfi6jC1MR8iPjYgRBC4zE8H6wpU6iH+I4O354tFROe4DFrr/l9K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=AK04FKc/; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="R5RTL6B+"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a024e16179so1694685e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:01:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790856095; x=1791460895; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Qyf4I107j47S4IbTlOua/eHiQIvNfJl9DXP+9jIXXs=;
-        b=R5RTL6B+bb4TUpnVPSbUAGbTA6FzcGsHMkhKhA10q07j1k2gyAXNzzrlvWnetCzhT5
-         Pv7DK+8gsKeRoa6oTxBDP4hV6Sx6fkP7xRubuKpmz46peyM1N+AnG19vH45a2HE03SVJ
-         oIPamhU04QAiq2/v8DBgEZsPtKTWGMI/mCjps2fzlW7tKTnax5DgkeMQVdyQoVh1eUmW
-         ekhHVTxSJ6LI7IyhhBck7l7De7xk/2vgJG3BgI3UUPSjkVn7dP7M0H/cON3FJUepny+v
-         1bRZayZdGKyBUTUz/jDW/D0FIjtLuckufqUVVKjnuVjHF11u4SjlBzfDU6EibSr5mo8H
-         unkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790856095; x=1791460895;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Qyf4I107j47S4IbTlOua/eHiQIvNfJl9DXP+9jIXXs=;
-        b=KVE3XP3/fqkK/upnP33tXoetGRy8Q+Tq3worcBCYo+ylIDR0LSMNgQVThbWXV04H8j
-         MBxHjYnD9OyyUGn9QNw+bUUGpGiyp4eVjnrVacwRtk/jitxF8F90hgZF0TcfW2K9OhS6
-         QkWrCUodw8BZ1uuYzCqqbvVQm+rLLKfIiLXwrFoCjVlVsScURml4Jw6PE2pze/E8wqn8
-         FdZtAtgUx6CCqJBe65b/PlfmCANl6iOjjoZ5EsNTvAUJd0beAFQkI4pyIFnNinBqWJp5
-         UGqpVxP5RQK0STM0LPJcoIrimwe9To+aNDzxR7FdvW6g8m1RDwDLy43EvX+Qy11KGI7H
-         4HGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzOYAmN5NFTnEOx6XBoGo3CMJZn6QUQt6ZsyHB42w4/W2RkgnAFaqiW52Mrj6Spji1Y/35OdMAFEvSB2yA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwiTDhuKJKpj3wFd0XklWQYuTx/7Bhd3+2pkqXOKn9MGWFSpuv
-	nYbMsHYDmqLRYpYRuQZq6EgzYy/5I8fBPnOi6mWk/2xg7Ga5qBwrL4kylH7q8JpytGo=
-X-Gm-Gg: AYBFou2KQJR2GR02Yc7CqIAp5NOIPu44fcIBVEuHGYv/iwzqfWei48BsWuen5wR9LuC
-	jkSft+TAA8+yhSSt8Gr41gF4kbASnSOJxdJGiI/vrqd+U6o8lKYDt6ahi3qu3grwl4Kx+RUjNGM
-	/8XhuMJ0ExR5bbsuef8DpYD6fGV+jmy5s9hC/MwmO23ZY0+NUB4QmuJGKFB9nVST0EgBYxcRDJN
-	aY8sFYQhZvahsvxOnr5KJV6ra1WPs6BId7Yc9lw4dNu57gV2VXoVo4QVAIan26rCdA4D5SJPPji
-	boMgH5Pm857putNw8lScuCuBaGHGyKxtCngx04rYZWYMz1E2lAGHrm57jFYO7OmhKc9xCV64JNF
-	oCsj6wjiHxKe3y97PT7a1jDltThh/DZK7RurRnnOvTE/zUUzmhny9TrCn7Shw8P2bN61aHc7/qo
-	GcLoD+Z7P7A1iatiSnysroDoEEZPZdAIhxgJsYZcF3yCwY3+mYxTUAxwvGrVhBCjFRnbgzs2QM6
-	YuPB77tLuE=
-X-Received: by 2002:a05:600c:4fcb:b0:49e:645e:2616 with SMTP id 5b1f17b1804b1-4a01aff2554mr79526715e9.5.1790856094523;
-        Thu, 01 Oct 2026 05:01:34 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f97a0aesm58427345e9.3.2026.10.01.05.01.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 05:01:33 -0700 (PDT)
-Date: Thu, 1 Oct 2026 14:01:31 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
-	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
-	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/1] braille: nbcon: Allow to use a serial console
- with NBCON API as Braille console
-Message-ID: <ar5Lm3ZimvIghvFB@pathway.suse.cz>
-References: <20261001093946.112999-1-pmladek@suse.com>
- <20261001093946.112999-2-pmladek@suse.com>
- <87jyo18zne.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="AK04FKc/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=+1BCVWIwlmaUGWsBfIoqleqHXdDsbUwGvLwxVqUvoB4=; b=AK
+	04FKc/MyG4PWRy4Y68c5NK8ujkCeGVZGME3PH5TrXVxBU7WlKncC2ir6X/dIamMcJV5m/yQzoJ4iU
+	Q7HbwLMJZ8agJfL2V47C44gAty7jWINLzQFHi6/Zfl7gEeX3zT13jOXQNzBTeYXzDWzjKci2tRZA0
+	dNgA2vGr7vXCLRg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xCFTc-008N2J-NS; Thu, 01 Oct 2026 14:01:28 +0200
+Date: Thu, 1 Oct 2026 14:01:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Xiangqian Zhang <zhangxiangqian@kylinos.cn>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: mii: Fix unknown speed after link up
+Message-ID: <2527117b-cb67-4325-9717-fbed352360d4@lunn.ch>
+References: <20260930113842.2640928-1-lilinmao@kylinos.cn>
+ <e31a9b2c-2f65-4767-b66a-85676d5a0d5c@lunn.ch>
+ <0f0a9d6c-2a3d-4414-b5d8-c960085f0b3c@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <87jyo18zne.fsf@jogness.linutronix.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0f0a9d6c-2a3d-4414-b5d8-c960085f0b3c@kylinos.cn>
 
-On Thu 2026-10-01 12:54:37, John Ogness wrote:
-> On 2026-10-01, Petr Mladek <pmladek@suse.com> wrote:
-> > The Braille console is not registered in console_list. Instead, it is
-> > integrated with the virtual terminal (VT) and shows what is displayed
-> > on the terminal. It writes the data using con->write*() callback
-> > of the associated serial console driver.
-> >
-> > --- a/drivers/accessibility/braille/braille_console.c
-> > +++ b/drivers/accessibility/braille/braille_console.c
-> > @@ -62,14 +62,45 @@ static void braille_write(u16 *buf)
-> >  {
-> >  	static u16 lastwrite[WIDTH];
-> >  	unsigned char data[1 + 1 + 2*WIDTH + 2 + 1], csum = 0, *c;
-> > +	struct nbcon_write_context wctxt = { };
-> > +	unsigned long flags;
-> > +	bool locked;
+On Thu, Oct 01, 2026 at 10:09:00AM +0800, Linmao Li wrote:
 > 
-> There is no need for @locked because on failure, the function returns.
-
-Great catch! I rewrote the the code many times and decided to send
-it at some point...
-
-> >  	u16 out;
-> >  	int i;
-> >  
-> >  	if (!braille_co)
-> >  		return;
-> >  
-> > +	/*
-> > +	 * Braille console is not registered in console_list. Instead, it
-> > +	 * is integrated with VT and shows what appears on the graphical
-> > +	 * console under console_lock(). From this POV it is a legacy
-> > +	 * console. But is calls serial console driver which might be
+> 在 2026/10/1 5:47, Andrew Lunn 写道:
+> > On Wed, Sep 30, 2026 at 07:38:42PM +0800, Linmao Li wrote:
+> > > mii_ethtool_get_link_ksettings() reads BMSR only once. Since
+> > > BMSR_LSTATUS is latched low, the first query after link up can
+> > > report SPEED_UNKNOWN even though the link is already up.
+> > > 
+> > > This is seen with r8152, which detects carrier using a MAC register
+> > > without clearing the BMSR latch. NetworkManager can then keep
+> > > reporting 0 Mb/s until the next carrier change.
+> > > 
+> > > Read BMSR twice to obtain the current link status, as mii_link_ok()
+> > > already does.
+> > There is a reason for this latch behaviour, so you should not ignore
+> > it. It ensures a link down is reported, even if it is for a short
+> > period.
+> > 
+> > I suggest you change the code to detect link based on BMSR, not a MAC
+> > register. Better still, throw away all the mii code and port it to
+> > phylink. A lot of code will go away because phylink/phylib and PHY
+> > drivers will implement it.
+> Hi Andrew,
 > 
->                      it ^^
+> Thanks for the review.
 > 
-> > +	 * converted to the NBCON API. It is similar to
-> > +	 * nbcon_legacy_emit_next_record() except that we should try
-> > +	 * harder to get the lock. Othewise, the Braille device won't show
+> The existing read in mii_ethtool_get_link_ksettings() already clears
+> the latch, but I understand your concern about preserving short
+> link-down events.
 > 
->                          Otherwise ^^^^^^^^
-
-My muscle memory is clearly wrong for this word.
-
-> > +	 * everything what is displayed on the terminal.
-> > +	 *
-> > +	 * In short, simulate the original locking using NBCON API.
-> > +	 */
-> > +	if (braille_co->flags & CON_NBCON) {
-> > +		if (panic_on_this_cpu()) {
+> For a focused r8152 fix, would it be acceptable to read BMSR once
+> before netif_carrier_on(), only when set_carrier() is transitioning
+> from carrier off to on? This would retain the existing MAC-based
+> carrier detection and clear the latched status before announcing
+> link up.
 > 
-> How about adding here:
-> 
-> 			if (!braille_co->write_atomic)
-> 				return;
->
-> I see no reason to forbid Braille device usage just because it cannot
-> show panics.
+> Or would you prefer changing carrier detection itself to use BMSR?
+> Could a phylink conversion be handled separately?
 
-Fair enough. I am going to add the following in v4:
+I would prefer the carrier detection be based on BMSR. However, the
+current code is based on interrupt URBs, and it is not clear if you
+will get two interrupts. You need to test that first.
 
-			/*
-			 * This should be good enough in practice. Most/all
-			 * serial console drivers have the atomic callback.
-			 */
-			if (!braille_co->write_atomic)
-				return;
+A phylink conversion can be separate.
 
-> > +			local_irq_save(flags);
-> > +			locked = nbcon_braille_try_acquire(braille_co, &wctxt);
-> > +			/* NBCON API strictly requires the ownership. */
-> > +			if (!locked) {
-> > +				local_irq_restore(flags);
-> > +				return;
-> > +			}
-> > +		} else {
-> > +			braille_co->device_lock(braille_co, &flags);
-> > +			while (!nbcon_braille_try_acquire(braille_co, &wctxt))
-> > +				cpu_relax();
-> > +		}
-> > +	}
-> > +
-> >  	if (!memcmp(lastwrite, buf, WIDTH * sizeof(*buf)))
-> > -		return;
-> > +		goto unlock_nbcon;
-> >  	memcpy(lastwrite, buf, WIDTH * sizeof(*buf));
-> >  
-> >  #define SOH 1
-> > @@ -102,7 +133,27 @@ static void braille_write(u16 *buf)
-> >  	*c++ = csum;
-> >  	*c++ = ETX;
-> >  
-> > -	braille_co->write(braille_co, data, c - data);
-> > +	if (braille_co->flags & CON_NBCON) {
-> > +		nbcon_write_context_set_buf(&wctxt, (char *)data, c - data);
-> > +		if (panic_on_this_cpu())
-> > +			braille_co->write_atomic(braille_co, &wctxt);
-> > +		else
-> > +			braille_co->write_thread(braille_co, &wctxt);
-> > +	} else {
-> > +		braille_co->write(braille_co, data, c - data);
-> > +	}
-> > +
-> > +unlock_nbcon:
-> > +	if (braille_co->flags & CON_NBCON) {
-> > +		if (panic_on_this_cpu()) {
-> > +			if (locked)
-> > +				nbcon_braille_release(&wctxt);
-> 
-> There will never be a locked=false scenario here. We already returned.
-
-Right!
-
-> > +			local_irq_restore(flags);
-> > +		} else {
-> > +			nbcon_braille_release(&wctxt);
-> > +			braille_co->device_unlock(braille_co, flags);
-> > +		}
-> > +	}
-> >  }
-> >  
-> >  /* Follow the VC cursor*/
-> > @@ -353,13 +404,22 @@ int braille_register_console(struct console *console, int index,
-> >  	if (!console_options)
-> >  		/* Only support VisioBraille for now */
-> >  		console_options = "57600o8";
-> > +
-> >  	if (braille_co)
-> >  		return -ENODEV;
-> > +
-> > +	if (console->flags & CON_NBCON &&
-> > +	    (!console->write_atomic || console->flags & CON_NBCON_ATOMIC_UNSAFE)) {
-> > +		pr_err("Braille console requires a safe braille_co->write_atomic callback\n");
-> 
-> IMO it is not necessary to restrict to !CON_NBCON_ATOMIC_UNSAFE consoles
-> because if the acquire fails, an unsafe acquire is tried anyway. But as
-> I suggested earlier, I think even NBCON consoles without
-> ->write_atomic() should be allowed. Just no panic message for them.
-
-I agree. I did not revisit this after I enabled the unsafe takeover
-in panic(). I'll remove it in v4.
-
-> > +		return -EINVAL;
-> > +	}
-> > +
-> >  	if (console->setup) {
-> >  		ret = console->setup(console, console_options);
-> >  		if (ret != 0)
-> >  			return ret;
-> >  	}
-> > +
-> >  	console->flags |= CON_ENABLED;
-> >  	console->index = index;
-> >  	braille_co = console;
-> > --- a/kernel/printk/nbcon.c
-> > +++ b/kernel/printk/nbcon.c
-> > @@ -2002,3 +2003,80 @@ void nbcon_kdb_release(struct nbcon_write_context *wctxt)
-> >  	 */
-> >  	__nbcon_atomic_flush_pending_con(ctxt->console, prb_next_reserve_seq(prb));
-> >  }
-> > +
-> > +/**
-> > + * nbcon_is_braille - Checks whether the nbcon write context is using Braille console
-> > + *
-> > + * @wctxt:	checked nbcon write context
-> > + *
-> > + * Return: True when the write context is associated with a Braille console.
-> > + *	   Othrewise, return false.
-> > + *
-> > + * Context: Can be called in any context but only when Braille console is
-> > + *	registered and the struct console could not disappear.
-> > + */
-> > +bool nbcon_write_context_is_braille(struct nbcon_write_context *wctxt)
-> > +{
-> > +	struct nbcon_context *ctxt = &ACCESS_PRIVATE(wctxt, ctxt);
-> > +	struct console *con = ctxt->console;
-> > +
-> > +	return con && con->flags & CON_BRL;
-> 
-> I suggest parenthesis around "con->flags & CON_BRL".
-
-Will do in v4.
-
-> > +}
-> > +
-
-Thanks a lot for the quick review and catching so many details.
-
-Best Regards,
-Petr
+  Andrew
