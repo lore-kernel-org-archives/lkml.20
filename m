@@ -1,159 +1,115 @@
-Received: from mail-oa2-f21.google.com (mail-oa2-f21.google.com [74.125.231.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D610247ACE8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.85
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 572B948165E;
+	Thu,  1 Oct 2026 16:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872766; cv=none; b=Xhnsgdc5Q5QbpgifT7ULVbN+Z1ILaowuZDlGVi3YA3DAA9kUVnyBadmJw3MwMvwAYAztanLpE07BVFabSc9EVjzmx41f07WsUvScvqLnYgs4nXu0el1/aqndukeBtsCoy2YfBxSjJKpZtfctrHV6TMZxfNKhhe8ZLSYbvcwvLRE=
+	t=1790872770; cv=none; b=fMcdLP+7BQVd9y7LjsaEtDHwGInFYHhqG4Sqri6Ibc8YiUCq2dE6JsuEi3dFnqlHPD5W3gBbA8fffuxnxDqogvDW5GJEzP8qNXnP0iNtxAcS0SoLDeXfTt5mrQMyYbRrPhD3IFhzP4zmgSGP85vfakJqQQ+4MV6UbKc1cj3Lvuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872766; c=relaxed/simple;
-	bh=iJKqaHq0Hyi1dwRzicToNHsSN2TXdceoWQwgAEZjUtc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BKd+Y0AW/QRW2U0kearVzX+q3UfX3dszwHvnTI+qWAFHqWqwmYhchxioXYC7NdF2mrbCdh62w+zgq/nE2RanGMyrBUkydX0mZImyMEC5A2xUxPvpGEwV68hD2xwKEPovUB/8mteFxs+EcKs3ymFWqHJhhCM1mjjDl0FX9JDjKsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ofWREvZZ; arc=none smtp.client-ip=74.125.231.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790872770; c=relaxed/simple;
+	bh=q4SvOgTXIsNqlpMUOj2ef8MMWb7VA7YCONSmXTiArQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SiCTTtZ0GxFj6df8kdSDWN8Cz3KFfuKIjc/lHSOfrKz6xgYQIOfGATxe1eMvZvAOJThfT+3NZWH1XuaZ5jjYfriC0r2IRTFWOjGlEybMdpSUiIHaJ9m/JERyu1eE2h1qcz2owWNLV43T3CbcaE/Ep+cqcsXyLfLtmldi/JBdMto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=thPgHjGq; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ofWREvZZ"
-Received: by mail-oa2-f21.google.com with SMTP id 586e51a60fabf-466ccbd4773so2100756fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:39:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790872764; x=1791477564; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rgo5FwnDqxd8ZjCJLuyh6GkRISOMT279GXhU4H/zTL0=;
-        b=ofWREvZZr6Mj0sQXes1W7DNxtp6UG+sfCFmh18az0ZniGP7+q2fkyt8cf+0bkAMT/E
-         RYCCX3AiFwguq3sDZ5aptXpUI4XjrYllAoq+OD0g+sKJllXBivuiDlynFxrjwI4Z8ut2
-         NYko238h0/rh3X2oBoDKvm1YkUNohW3Opkm+1meHDB3EcdOifKOB37i15M0THZkg5qoD
-         0Cj6QMqIKyhLReUhBaFHwiRunqRxBz2qnKNLSJadgs2UikFVQN/klU03+1ZllSTmI74C
-         NTYx5Y+XggWvIuE5eKgWqpaodaohvgN5jTrXW4XolqBMAyXwF67xGzPyEhi5csbROn3z
-         2s3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790872764; x=1791477564;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rgo5FwnDqxd8ZjCJLuyh6GkRISOMT279GXhU4H/zTL0=;
-        b=sjii3NOiwesMPiUWXzAB4UHGt2NnSkKaCErt12bd9ndqiCNxr+9+WfWs4t9TlqJ+P4
-         6mpN+cVQ6xfzYSBFpaZXfGa+BWHNN6wgGaZR27RFRWei+bapBd5/wk++WYbgZZ+SWPlC
-         ackCDhFpEkZKRY7v0r3umU2Kl5IgiEGcVwXwVQgrxifmkKj1zeEh9EWLXMmXXHJpthHh
-         uTCQn5bViyQGluRSMrjyyuSWYmc3CLHX5+l3q0PDuQTbF+ZtDV32jnu2oLWbwINRwZ4r
-         fxYNZ/lYVmCiCLk/4CS0IzXseiS+VW5QvrM9oizT37/BswEopwEF4XSyIp1gfpKTo/ru
-         5pZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJDdNv5s1FN9LqCGcLQ6kILcEWbkzmB9DI7bFq8mIBXDfaG4nA5b7oULCcgSJHyu2jT1PlWMpY2LRhC/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDmlhHSS/f8bvYdJIwQOaPTr2buYWvb1lx5Ex0IKBH0UTAdE2x
-	P2/Nv/suVCPwveX+eDeDJDC/H9TLC5Uiy5fAf+cqA7bFkAYNFRDqQFDW
-X-Gm-Gg: AYBFou0IuoMDn0G/B55UeKUDkon9pah8AurJ/LmOyDqM4dxMM1deY/1y4Tl+NPmC8NS
-	0AQncVxeIGcWenPaQKPcmRaCJ61X9S1uIpBtRGhx1JIWHlfFahSjnAHgkwGvoiFogfhsn1IP6+t
-	cVfnW/BGWvPjixVpOm1raWAk6GtaSQpVAENSFOJrJlTGCvYfwlbZ/gHRTwp9d+BKXRU7YC2Rtsq
-	7WaRTlDb5NdWGv+L0QX8wu7CAsfaNs/Aod7qJiWXEvG0YWVIwGaiiHrfyjEfMoJFq+svAu00byQ
-	XrG/xkcDlKkPQ2s1Fep53236tcxGyl1bjBvRzSdn1FjgHow1a0zIzFCWpIA94oScbssLKMzIc5f
-	ABPPKBi5LSK+1hwF+Ib6HEvkOBER/JukRbS5JJ73iKZXUlZeeVa/bVTML6UT05OfBZmJwIpb1IC
-	n6ONKaBugrZxIr81ZZcdIFwGvhSjt/PNfJ0llsQEmI7VwnK9+oPDvtQ9V42NeNe2fsZb0=
-X-Received: by 2002:a05:6808:13c2:b0:4f5:98d:d1ae with SMTP id 5614622812f47-4f5099d178bmr60184b6e.55.1790872763618;
-        Thu, 01 Oct 2026 09:39:23 -0700 (PDT)
-Received: from localhost ([2a03:2880:30ff:3::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f34d0859bcsm2822362b6e.16.2026.10.01.09.39.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:39:22 -0700 (PDT)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Thu, 01 Oct 2026 09:39:00 -0700
-Subject: [PATCH net-next 3/4] eth: mpnic: set Rx buffer minimums using page
- size and mtu
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="thPgHjGq"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE5E9497;
+	Thu,  1 Oct 2026 09:39:22 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E2E613F85F;
+	Thu,  1 Oct 2026 09:39:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790872766; bh=q4SvOgTXIsNqlpMUOj2ef8MMWb7VA7YCONSmXTiArQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=thPgHjGq4KLCxFCMOxTNwhO46NGyh+WVwgUMuprlxt+Nen4cbvbV1B/AetnyZ63cI
+	 qjGPOelzghxSe5sU3NpQYJCnPiPTWokp39L+895qwgszRoFOfxxUCOOwc2wmQus0+8
+	 blikHLD31ZKL4WOfKOE2CFaiphHnqEPP7yfAwj2U=
+Date: Thu, 1 Oct 2026 17:39:20 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, gongruiqi1@huawei.com
+Subject: Re: [PATCH RFC 0/3] security: ima: support TSM measurement registers
+Message-ID: <ar6MuKSDQc9J8o-6@e129823.arm.com>
+References: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
+ <ebe68f6463f8ece8a5cd8ce70bba292ec4f64a41.camel@huaweicloud.com>
+ <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
+ <20261001151801.GC3019323@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-linux-mpnic-v1-3-6422ee74233a@gmail.com>
-References: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
-In-Reply-To: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
-To: Alexander Duyck <alexanderduyck@fb.com>, 
- Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001151801.GC3019323@ziepe.ca>
 
-Set buffer based drop thresholds in the Rx path based on page size and
-the max MTU supported. The device will drop packets if it does not have
-at least the minimum number of completely unused buffer descriptors
-available.
+Hi Jason,
 
-These thresholds are currently set to 17 BDs for both HPQ and PPQ. These
-are overly conservative. With our current max MTU of 9742B, the settings
-we should target are:
+> On Thu, Oct 01, 2026 at 01:45:26PM +0200, Roberto Sassu wrote:
+> > On Thu, 2026-10-01 at 13:27 +0200, Roberto Sassu wrote:
+> > > On Wed, 2026-09-30 at 14:43 +0100, Yeoreum Yun wrote:
+> > > > Confidential computing guests without a TPM can use TSM measurement
+> > > > registers to record IMA measurement digests instead of TPM PCRs.
+> > 
+> > + Gong Ruiqi, of course.
+> 
+> We are working very seriously on this same problem too.
+> 
+> For some time we did investigate extending tsm_mr to do more things,
+> have a better uAPI, but that eventually evolved into the realization
+> that tsm_mr is simply too narrowly focused. It looks like James got to
+> this idea before we did. I agree with his remarks in the 2025 thread
+> with Gong.
+> 
+> So we've started work on a new comprehensive "Attestation subsytem"
+> that will pull in all forms of ROTs, TPM, CC stuff and SPDM use cases
+> to give a consistent user API to work with this class of HW. In many
+> ways I view this as a rename of tsm_mr (it will eventually fully
+> absorb it), but the name evokes the broader goal and encourages
+> everyone to come in, not just CC world.
+> 
+> Our overall goal would be for something like systemd to have a single
+> uniform kernel API that allows it interwork with any ROT someone may
+> have. A uAPI to do "Extend", "Quote", "Get Log" operations so that the
+> existing TPM support in systemd can be improved to work on any ROT
+> flexibly without having to hard code specific ROT behaviors into
+> systemd.
+> 
+> I've felt the ultimate end goal would be to make all the in-kernel tpm
+> users go through the proposed attestation subsystem so they can have
+> ROT and "PCR profile" agility. Certainly I've heard enough people
+> asking for this.
+> 
+> This is a broader topic than just IMA. For example DRTM also has to
+> use the TPM, and other ROTs. It also brings in a global shift of how
+> the system wide "PCR Profile" should work as post-DRTM has a different
+> TPM locality and access to the protected DRTM-only PCRs that are
+> normally blocked.
+> 
+> Jiri posted his current state here:
+>   https://lore.kernel.org/r/arzr32ZDComnfmny@FV6GYCPJ69
 
-4KiB page size: 1 HPQ, 3 PPQ
-64KiB page size: 1 HPQ, 1 PPQ
-
-The HPQ and PPQ rings are always given PAGE_SIZE sized buffers.
-
-The RDE_CTL register encodes the thresholds as one less than the number
-of BDs needed.
-
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
----
- drivers/net/ethernet/meta/mpnic/mpnic_init.c | 13 +++++++++----
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.h |  6 ++++++
- 2 files changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_init.c b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-index 2daed458f5fc..ace4124158fb 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-@@ -10,6 +10,7 @@
- #include <linux/sizes.h>
- 
- #include "mpnic.h"
-+#include "mpnic_txrx.h"
- 
- #define MPNIC_MEM_INIT_POLL_US		500
- #define MPNIC_MEM_INIT_TO_US		5000
-@@ -272,10 +273,14 @@ static void mpnic_rxglb_init(struct mpnic_dev *mpd)
- 	 * the per-queue prefetch FIFO.
- 	 */
- 	mpnic_wr64(mpd, MPNIC_RDE_CTL,
--		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_DROP_THRESHOLD, 16) |
--		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_DROP_THRESHOLD, 16) |
--		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_LOCAL_DROP_THRESHOLD, 16) |
--		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_LOCAL_DROP_THRESHOLD, 16));
-+		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_DROP_THRESHOLD,
-+			      MPNIC_RX_HPQ_DROP_THRS - 1) |
-+		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_DROP_THRESHOLD,
-+			      MPNIC_RX_PPQ_DROP_THRS - 1) |
-+		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_LOCAL_DROP_THRESHOLD,
-+			      MPNIC_RX_HPQ_DROP_THRS - 1) |
-+		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_LOCAL_DROP_THRESHOLD,
-+			      MPNIC_RX_PPQ_DROP_THRS - 1));
- 
- 	/* Receive side coalescing is not supported yet */
- 	mpnic_wr64(mpd, MPNIC_RSC_GLOBAL_CONF,
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-index 834eb9bfffd1..9397010557eb 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-@@ -58,6 +58,12 @@ struct mpnic_net;
- 
- #define MPNIC_MAX_JUMBO_FRAME_SIZE	9742
- 
-+#define MPNIC_RX_HPQ_DROP_THRS \
-+	DIV_ROUND_UP(MPNIC_RX_HROOM + MPNIC_RX_MAX_HDR + MPNIC_RX_TROOM, \
-+		     PAGE_SIZE)
-+#define MPNIC_RX_PPQ_DROP_THRS \
-+	DIV_ROUND_UP(MPNIC_MAX_JUMBO_FRAME_SIZE, PAGE_SIZE)
-+
- /* The page a buffer descriptor queue is currently handing out. Records
-  * how many of the references taken on it are still unused.
-  */
+Thanks to let me know. I'll take a look for this.
 
 -- 
-2.52.0
-
+Sincerely,
+Yeoreum Yun
