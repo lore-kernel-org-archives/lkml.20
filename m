@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5584078E9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81862418340;
 	Thu,  1 Oct 2026 03:39:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790826001; cv=none; b=MSrGHz+Y+Eqi95H4PBkNbToGpXIPtFkmcfyd3G0scyv3MsVlD0QfOWX0pW2dFSXPatyn2no8aD9Yncq8IJwqBuVILrywHLQxFIF7csFy/I4tGW4uwafMG1uHmSdCdGbp9paF5fGWI9QYyNVuiokLkJJvNv7PEtONjEL3fvPOJF4=
+	t=1790826006; cv=none; b=EBMD0LZYTEKWT8wdh/jR2y23zJHx+cOxx6uUrXfyIwXfO5I0mIalbFQih8cCw95Q7oK/L01W0gGYI0uFAyW0Htpcs4JAOo4fKfoBlSiKH0/8l44++0Lhvyv5riNbHQ6UC6jYILIpf6BW2xwZRlW3VY+foGVPyvEqMmQ4HjxL8q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790826001; c=relaxed/simple;
-	bh=01+4fmSwjiHfTcnuakU+4vU7kUPpjwIVsnsddCnDyZ8=;
+	s=arc-20240116; t=1790826006; c=relaxed/simple;
+	bh=C81l+ZldJyuxoaxDB7qf5qOQb/sW2lZBjDwfI7P3Gws=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PdMXX0PPcHmFTS+1QKVA5nhF9j3Bm4tR5rYUei/bPddJe8tzw46nfVE1y5kYDyyi4fN9zVVqycbQ+PBCBBKSEv9gDu2YjYicf6RqgYVL7ttic/7RLE+lyY0WnPYmyotwpz1WA6WUsEPqgXNMShLK1L3IA2M0jY+dSD9hTUmmuhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5f3U1QA; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=fFnEz1Lk+0CQzPfPIr4puzV5j/a9zWt20SAv7LWozQtBaoE8BeZgkJnX3Gggg+kuAjk+AAhSOTSVPLbo9tlUfgWLI+vi1aLHoeOSeXgxlueVqNWUKcRUX+PZory3dQvvfizGWMrWI8FDD7R8/D+pVhljGqcLbEgpstxwZcmRm9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOw6B3oi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5f3U1QA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD4A1F0089B;
-	Thu,  1 Oct 2026 03:39:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOw6B3oi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26C821F0089A;
+	Thu,  1 Oct 2026 03:39:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790825991;
-	bh=55hUHVyQxrMBSQaFXCQSTL1MQe0g0OYwGbHfTVS754E=;
+	s=k20260515; t=1790825990;
+	bh=b+xmzdMuRxuEsQgE+wnQt7S7eRYbYqHz6e/Q5CMj6AI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=l5f3U1QAviegITJecYEx13Ggx3Ic57Lo6/zYmjD/fEtbgsUtv5090/CEUH70vFVnL
-	 5RfP/un0vRuIoYizliEOr2hHqy+oJAGtVIw7dgGiG14XIe8WnM/3PstvAlhnUY7TQG
-	 1sL4rq5PcvJXEM4nNetvMgULji27+/FsMAwJkF9hVxDq9v8WzImam6wGE3VHZlgb92
-	 tkWlG2qdrf+RvAzmERcZGjsJ6QEfcAr5OroSbM+aqbGyRHCQLp6uMLRwm9ozuxtPkr
-	 0gOyd8sd33VcnD7c9a9cs4i0EyGmar9Q60kEfs8OdyIZlPJQ/QZ6KjYS4vJLdJaGDY
-	 ZBsEjIBd1AzWw==
-Subject:
- Re: [PATCH net-next v14 5/5] net: rnpgbe: Add link status handling support
+	b=JOw6B3oi0y2NvIqK78bnVvpoYbTtOlX9CvMREstH1qBkiKC8unJYjM+IXAgFYVVCV
+	 a4Q6+4ar0TwhqI+EBRTi1LJrZGGlaBUtn81lbcO487zBeQ0BJYsWMouydNQWxMpfvv
+	 rcLMCvIrp6PBKs4tyCLRxQC0/yvlznzk7tBnij6u7eTTwyETYhiwE81tmDsRNlH1vJ
+	 PcnkfBG5L8WXGLzdK174n4QV28zKsKEKV3aKUTz+WZ/uaKy9EGA1bGlOhe8SGW931O
+	 lVo6rDqs7OG7krPnSU4PkX9OwPb021hHKdB0XTRW6QT8pPHuTHXHZ4wnBSJHOCsEYE
+	 ypp5zPCGH9lWw==
+Subject: Re: [PATCH net-next v14 4/5] net: rnpgbe: Add receive mode support
 From: netdev-bot+sashiko@kernel.org
 To: dong100@mucse.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, vadim.fedorenko@linux.dev,
  u.kleine-koenig@baylibre.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, yaojun@mucse.com
-Date: Thu, 01 Oct 2026 03:39:50 +0000
-Message-ID: <179082599095.434549.1820595149953223551@kernel.org>
-In-Reply-To: <FCCBC00DC4182F5F+20260928033910.1033461-1-dong100@mucse.com>
-References: <FCCBC00DC4182F5F+20260928033910.1033461-1-dong100@mucse.com>
+Date: Thu, 01 Oct 2026 03:39:49 +0000
+Message-ID: <179082598968.434549.661297948869820884@kernel.org>
+In-Reply-To: <6E780505C6AAB4EB+20260928033859.1033428-1-dong100@mucse.com>
+References: <6E780505C6AAB4EB+20260928033859.1033428-1-dong100@mucse.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -59,170 +58,146 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch sets a mailbox protocol: a pending firmware event
-  holds the shared FW<->PF window until the PF acks it.
-- [Low] rnpgbe_down() calls rnpgbe_set_link(hw, false) when no link event
-  is being handled.
+- [Medium] Every call to `rnpgbe_set_rx_mode()` in
+  `drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c` briefly disables the…
+- [Low] This new driver adds its receive filtering on `.ndo_set_rx_mode`,
+  which the in-tree API docs mark as deprecated.
 
 --
 
-net: rnpgbe: Add link status handling support
+net: rnpgbe: Add receive mode support
 
-This commit adds link status handling to the rnpgbe driver. Firmware link
-change events arrive over the mailbox, and a service task updates the
-carrier state from them. Firmware is also notified of port up/down and
-link report enable/disable, and the default link is set up at probe.
+This adds chip-level receive filtering for rnpgbe through ndo_set_rx_mode.
+Unicast addresses go into RAR entries and multicast addresses into a
+4096-bit hash table. IFF_UNICAST_FLT is advertised, with a fallback to
+accept-all unicast when the RAR table is full, and IFF_PROMISC and
+IFF_ALLMULTI are handled through the filter control register.
 
-> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
-> index 7beec27991d35..6f7bf4ca5b927 100644
-> --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
-> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
-
-[ ... ]
-
-> @@ -1448,22 +1470,77 @@ void rnpgbe_down(struct mucse *mucse)
->  	rnpgbe_stop_all_rx_rings(mucse);
->  	rnpgbe_cancel_rx_retry_timers(mucse);
->  	rnpgbe_clean_all_tx_rings(mucse);
-> +
-> +	err = rnpgbe_send_notify(hw, false, mucse_fw_link_report_en);
-> +	if (err) {
-> +		dev_warn(&hw->pdev->dev, "Send link report to hw failed %d\n",
-> +			 err);
-> +		dev_warn(&hw->pdev->dev, "Fw will still report link event\n");
-> +	}
-> +
-> +	err = rnpgbe_send_notify(hw, false, mucse_fw_portup);
-> +	if (err) {
-> +		dev_warn(&hw->pdev->dev, "Send port down to hw failed %d\n",
-> +			 err);
-> +		dev_warn(&hw->pdev->dev, "Port is not truly down\n");
-> +	}
-> +	/* Disable the receiver after RX DMA is quiesced and firmware
-> +	 * has handled port-down, but before releasing the RX buffers.
-> +	 */
-> +	spin_lock_irqsave(&mucse->link_lock, flags);
-> +	rnpgbe_set_link(hw, false);
-> +	spin_unlock_irqrestore(&mucse->link_lock, flags);
-
-[Severity: Low]
-Is the read-modify-write of GMAC_CONTROL in rnpgbe_set_link() safe
-against firmware at this call site?
-
-The kernel-doc for rnpgbe_set_link() in rnpgbe_chip.c gives this reason
-for why the RMW is safe:
-
-    Firmware updates the speed and duplex fields before posting a link event
-    and waits for the PF acknowledgment, so event handling completes this
-    read-modify-write before firmware accesses GMAC_CONTROL again.
-
-That reasoning covers the call from mucse_mbx_fw_req_handler(), which runs
-before mucse_mbx_event_end() acks the event.
-
-In rnpgbe_down(), however, LINK_REPORT_EN=0 and SET_PHY_UP(0) have
-already been acked, or they failed and only produced a warning. So no
-LINK_CHANGE_EVT is outstanding here, and firmware is not waiting for the
-PF. link_lock is a driver-only spinlock, so it cannot order the host
-against firmware.
-
-Taking the PHY down is the kind of link change on which firmware writes
-speed/duplex into GMAC_CONTROL. Could an interleaving like this happen?
-
-driver                            firmware
-value = rd32(GMAC_CONTROL) (RE=1)
-                                  reads GMAC_CONTROL
-wr32(GMAC_CONTROL, RE=0)
-                                  writes speed/duplex back (RE=1)
-
-That would leave the receiver enabled after ifdown. In the opposite
-order, the driver's stale write-back would drop firmware's speed/duplex
-update.
-
-rnpgbe_stop_all_rx_rings() has already stopped RX DMA at this point, and
-the next ifup sets RE again through the event handler. So the effect seems
-limited to wrong GMAC state while the interface is down. The driver code
-alone doesn't show whether firmware writes GMAC_CONTROL after acking
-port-down with reporting disabled.
-
-Should the kernel-doc be updated for this call site, or does some other
-handshake cover it?
-
->  	rnpgbe_clean_all_rx_rings(mucse);
+> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
+> index 291e77d573fe6..4e2835b71f322 100644
+> --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
+> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
+> @@ -149,3 +149,78 @@ int rnpgbe_init_hw(struct mucse_hw *hw, int board_type)
+>  
+>  	return 0;
 >  }
+> +
+> +static void rnpgbe_set_rar(struct mucse_hw *hw, u32 index, const u8 *addr)
+> +{
+> +	u32 rar_low, rar_high;
+> +
+> +	/* The RAR stores the Ethernet address in reverse byte order. */
+> +	rar_low = (u32)addr[5] | ((u32)addr[4] << 8) |
+> +		  ((u32)addr[3] << 16) | ((u32)addr[2] << 24);
+> +	rar_high = (u32)addr[1] | ((u32)addr[0] << 8) |
+> +		   RNPGBE_RX_RAR_VALID;
+> +	mucse_hw_wr32(hw, RNPGBE_RX_RAR_HIGH(index),
+> +		      rar_high & ~RNPGBE_RX_RAR_VALID);
+> +	mucse_hw_wr32(hw, RNPGBE_RX_RAR_LOW(index), rar_low);
+> +	mucse_hw_wr32(hw, RNPGBE_RX_RAR_HIGH(index), rar_high);
+> +}
 
 [ ... ]
 
-> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-> index e28f3193aa854..683e0ea741136 100644
-> --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-
-[ ... ]
-
-> +int mucse_mbx_set_link(struct mucse_hw *hw, u32 advertising, bool autoneg,
-> +		       u32 speed, u32 duplex, u32 mdix_ctrl)
+> +void rnpgbe_set_rx_mode(struct net_device *netdev)
 > +{
 
 [ ... ]
 
-> +	int len, err;
-> +
-> +	len = le16_to_cpu(req.r.datalen);
-> +	mutex_lock(&hw->mbx.lock);
-> +	err = mucse_write_and_wait_ack_mbx(hw, req.dwords, len);
+> +	/* RAR 0 always holds the interface's primary unicast address. */
+> +	rnpgbe_set_rar(hw, 0, netdev->dev_addr);
 
 [Severity: Medium]
-Should this use mucse_write_mbx_coalesce_event(), as mucse_mbx_phyup()
-and mucse_mbx_link_report() do?
+Can this drop unicast frames sent to the station's own MAC on every
+rx_mode update?
 
-The kernel-doc for mucse_mbx_event_begin() in this patch describes the
-mailbox protocol:
+rnpgbe_set_rx_mode() always calls rnpgbe_set_rar() for RAR 0, and
+rnpgbe_set_rar() writes RAR_HIGH with RNPGBE_RX_RAR_VALID cleared before it
+rewrites the entry. RNPGBE_RX_UCAST_TABLE_EN is set in mcast_ctrl, and
+filter_ctrl normally does not have RNPGBE_RX_FILTER_UCAST_ALL. So a frame
+that is filtered while RAR 0 is invalid would not match. The same applies
+to each secondary unicast entry in the netdev_for_each_uc_addr() loop.
 
-    Firmware releases the hardware mailbox lock before raising the event
-    interrupt and does not access the shared window again until the PF
-    acknowledges the event.
+This runs for every rx_mode change, including multicast join and leave,
+which don't change the unicast table. IP_ADD_MEMBERSHIP and
+IP_DROP_MEMBERSHIP need no capability and get here through:
 
-The patch also adds mucse_ack_pending_event(), so that a PF command acks
-any pending event before it writes the shared window.
+  dev_mc_add() / dev_mc_del()
+    -> __dev_set_rx_mode()
+      -> rnpgbe_set_rx_mode()
+        -> rnpgbe_set_rar(hw, 0, ...)
 
-PHY_LINK_SET does not do this. It goes through
-mucse_write_and_wait_ack_mbx()->mucse_write_mbx_pf(), which writes
-MUCSE_MBX_FWPF_SHM directly and never checks for a pending event.
+So an unprivileged user can open this window over and over. Could entries
+whose contents have not changed be skipped, or updated without clearing the
+valid bit first?
 
-Firmware link reporting can still be enabled at probe. rnpgbe_down() only
-warns "Fw will still report link event" when LINK_REPORT_EN=0 fails. A
-crashed or kdump'd previous kernel never runs close() at all.
+There also seems to be a similar window when the device enters
+IFF_ALLMULTI or IFF_PROMISC. The end of the function does:
 
-Suppose firmware posts a LINK_CHANGE_EVT after mucse_mbx_reset() has
-taken its fw_req snapshot, for example because RESET_HW bounced the link.
-Would PHY_LINK_SET then overwrite the unacked event?
+	for (i = 0; i < RNPGBE_RX_MCAST_HASH_ENTRIES; i++)
+		mucse_hw_wr32(hw, RNPGBE_RX_MCAST_HASH(i), mcast_hash[i]);
 
-Under the protocol above, firmware would not process the command, and
-mucse_poll_for_ack() would time out. Probe now treats that as fatal:
+	mucse_hw_wr32(hw, RNPGBE_RX_MCAST_CTRL, mcast_ctrl);
+	mucse_hw_wr32(hw, RNPGBE_RX_FILTER_CTRL, filter_ctrl);
 
-rnpgbe_add_adapter()
-    err = rnpgbe_setup_default_link(hw);
-    if (err) {
-        dev_err(&pdev->dev, "Setup link failed %d\n", err);
-        goto err_powerdown;
-    }
+All 128 hash words are zeroed, and RNPGBE_RX_MCAST_HASH_EN is cleared,
+before FILTER_CTRL gets RNPGBE_RX_FILTER_MCAST_ALL. Can traffic for
+multicast groups that are already subscribed be dropped during those
+writes? Writing FILTER_CTRL first for this transition might avoid that.
 
-If firmware does ack the command, the stale FW2PF count would seem to make
-the following GET_MAC_ADDRESS in mucse_fw_send_cmd_wait_resp() read the
-window straight away. It would then recover only through the opcode retry
-loop.
+[ ... ]
 
-The existing mucse_mbx_powerup() uses the same non-coalescing path. It
-runs on remove/shutdown after close, where a failed LINK_REPORT_EN=0 could
-leave an event pending.
-
-The driver code doesn't show whether firmware keeps link_report_en set
-across RESET_HW or a driver reload.
-
-> +	mutex_unlock(&hw->mbx.lock);
+> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+> index 21fa78c59e5b0..73ee81f8b516b 100644
+> --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+> @@ -43,6 +43,10 @@ static int rnpgbe_configure(struct mucse *mucse)
+>  	if (err)
+>  		return err;
+>  
+> +	netif_addr_lock_bh(mucse->netdev);
+> +	rnpgbe_set_rx_mode(mucse->netdev);
+> +	netif_addr_unlock_bh(mucse->netdev);
 > +
-> +	return err;
-> +}
+>  	return rnpgbe_configure_rx(mucse);
+>  }
+>  
+> @@ -140,9 +144,10 @@ static netdev_tx_t rnpgbe_xmit_frame(struct sk_buff *skb,
+>  }
+>  
+>  static const struct net_device_ops rnpgbe_netdev_ops = {
+> -	.ndo_open       = rnpgbe_open,
+> -	.ndo_stop       = rnpgbe_close,
+> -	.ndo_start_xmit = rnpgbe_xmit_frame,
+> +	.ndo_open        = rnpgbe_open,
+> +	.ndo_stop        = rnpgbe_close,
+> +	.ndo_start_xmit  = rnpgbe_xmit_frame,
+> +	.ndo_set_rx_mode = rnpgbe_set_rx_mode,
+
+[Severity: Low]
+This isn't a bug, but the ndo_set_rx_mode documentation in
+include/linux/netdevice.h marks this callback as deprecated:
+
+ *	Cannot sleep, called with netif_addr_lock_bh held.
+ *	Deprecated in favor of ndo_set_rx_mode_async.
+
+Should a new driver use ndo_set_rx_mode_async instead? Several drivers
+already use it, for example bnxt, mlx5, fbnic and iavf.
+
+Nothing breaks today. rnpgbe is not ops-locked, so __dev_set_rx_mode()
+still takes the legacy path, and the check in register_netdevice() for
+ops-locked drivers that lack ndo_set_rx_mode_async does not warn.
+
+Converting later would take more than a one-line change, though (for
+example, if request_ops_lock or queue_mgmt_ops is added):
+
+- rnpgbe_set_rx_mode() returns void and walks the live dev->uc and dev->mc
+  lists instead of the lists passed to the async callback.
+- rnpgbe_configure() calls it directly under netif_addr_lock_bh().
+
+The commit message only says it adds "the ndo_set_rx_mode callback" and
+does not mention the deprecation. The later patch in this series, "net:
+rnpgbe: Add link status handling support", keeps this design.
 
 [ ... ]
 
