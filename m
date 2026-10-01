@@ -1,120 +1,119 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA60D3B27DE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ECC2D238F;
+	Thu,  1 Oct 2026 16:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872094; cv=none; b=nt6+ckFIGae4tR5UvgYwrMXIlzvVIJQa9yM8UokHGIdLtiRiumjpeE+NTWzfVS/jOl1SXdD3pexMchQVC0DzNMoTLdUyIdyuwIyssfe+TVnd5MeBV70Oqxj0IGHFFY9YPcKtZE2QlU5frzJNfpMEIQ6lGtFS11mmUWlgLR7iumA=
+	t=1790872172; cv=none; b=OrFJCq+g1+FYnoiDZa+UM5iOQm5mzSo2ECjcsm2g4Qg9Ffl30qYTTSDm43uWGt/sBktCVW4z1DfP0qm/ivZTfcGL7pawe2RxLzUWjcc6atCeyPmFnfKnAx9GfodvI59oy9wV2/wHQeAfsdpHKzhJpRCSDKXwQ20eh9JDYUUh6aE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872094; c=relaxed/simple;
-	bh=tG1TLUxM50Fc6ERYAstbHPygf9Ktpow2w1vRm5VRnjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gP7+YZYRGJoARt7pmiwoJgmh7PSuGEMojFD0JUM12TVUw8vNsc52Bua7JhZOi96r0HRkC/aeXoIS49Tc9c1/eoO1mrvLoXWMu4PaDmV+6og0ZGhE6pe87y7pR1PqHneeKJedBfNdl9coDCJLDVUWiuMpivKnoM4dzmH5qDgKNPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IVLc/A8l; arc=none smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790872172; c=relaxed/simple;
+	bh=7AIf8lTnSPZzMKd0ZIklYylTiiYQOR4tFoz57vWUuLw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l3AVxO1r1fjZ8fXDWhCqu+s8wuaTEcnV4t0Xb7xdhSklgSDvtGcPIQyW9F57UUSyZaGac5SxGq/xp8O6BcV0ejjnsTPZxP0uIbjInm8sofI7Q355+woN4fXV4DIyZl/RJxkHxDeImOig18RnpyK+hTR/481dSbkp/VRioBHeYoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwIgQsS4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IVLc/A8l"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-821ff9f018bso427290a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:28:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790872091; x=1791476891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z1upg+k8spX2bUmtfIe5RHFhSTkILh8SV8rlR73FFnE=;
-        b=IVLc/A8lK3ySaC6uPovNxZij1bNWLENAae5KATWvvDiv3cranpqOY7HiiuI/0Y232s
-         weeKL9F5Jr61dqVsShwMOPtbn61rzdg9g3CPlAINDi+7coEXlJs04sKqPUcSTJzOrIKQ
-         UK6oj1xFLtX0zn9VV7OsgwWiXlo46YoVIvrtL94xQZ6kxZPKtJl9TvY+TYY/nilg3Pti
-         qhrjwUb2p2lL2uN/MMymIvwnGvoG+WLh2C8EXrdHRnKAX2Yue6E5Jz5cTVLMh1yuVODJ
-         591giDvO5VO6DjACVmrCWaOK7jdEqpflTpJa5lkalRejrutBxHC+KwyqRCJGP1HCYQk5
-         TSdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790872091; x=1791476891;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z1upg+k8spX2bUmtfIe5RHFhSTkILh8SV8rlR73FFnE=;
-        b=QFgxhNY08LJp4HVTvvAC8xUYhYLs6YDyGWMkRuFlq2AnVS7wVZkRYe+mxbkOXlAZ3j
-         D5jlbUzULG0rry7tJlIjebDfRpGqr4efBLIF7MpEZ3fhW5Ohu3QctdcZ+sCtq9q4FZnj
-         DqlWVMSWr51JiCqLEVJw227/E3dFLMXkWnohcqD6chr9+FGquFGCPbsutqQHwYP5beok
-         4ay5FNMfBgxRP8EMnD14qWipiZSeKggFsHSI+Iq4e3wjxtUXKDAqKZgp70NCKJfPtzhE
-         U4/XkXVN9oYQfasn3Nlcy0YwvP7ZVZ8xrhS6h/ZgS4FMKOcTaOx9y28SsJW2LvXy+mjG
-         pbPA==
-X-Forwarded-Encrypted: i=1; AKwUvBylwpRpdB2Uw8ZV7wl9YXCy12GuZfplCBdVzqdRb+iY6AcGMAR244PyO4nUDSNNQH1VeyCMM14fvejLPMU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/NdHh1m7COAPF+WxveW3CEt97X6CONx1QHxZRBzMWW+XlHtUs
-	4bHSy/x5GT777sydM6Gt7e5Bb3onSIpftfAv59uKx9pe/42xBhZMg5hs
-X-Gm-Gg: AYBFou3o0i0fCIdk7S27FP1OkhEF6uRpWcFCCyf/7JM9NMkUMstwJc90DUjNu/21wh2
-	MHwhJhVgbsVJv6DXgGv/qEdhnvjQrgR+ry4qG5UPzG3C1q3B3GDPG9zcN6paiQV2o59ysfQHbFy
-	pEOOo6/F8CxmG2C0T3TIvZCic/4mC+l5MqBfSiuKiBSx0XRTTEpyPjfERjU9j0md3MnTMdOwoip
-	TJYaqr8W3RRpQJqwhUukloeZTb2x3FCwlDzQ0otj4MGXr4FqanAW1/G7b0PHLcz0G/o4rhrF6eM
-	W6LCGjg8yLTs9O/H5IeRxHfotQn0sMaR6Z0VveQpl6BBucVkhbY1vdAeV0smaWy7Y38lQZLAQ2P
-	KFp3dflp62CzTvzrKSsPQhyR6fk3Uu0IevYC26wTot6ujagSNkg3uW6sBZd0j0lOPFCItW3GlAJ
-	D+3Ig79hS5tJQKuYe7Ehm9x51Z2icBAJYA1GZP8A8p6z2SjwrxGIEgTGoatLxE10O5Y0DPRvhYI
-	EKh0QbWKXLNSGaHTp/GOxSpXLsU0c4NwUAMYZnWBsB4YAV56y2oQzlCt5ab1+jCnAEV5lGk+g==
-X-Received: by 2002:a05:6830:270e:b0:80c:6371:21fb with SMTP id 46e09a7af769-82282a72582mr154136a34.16.1790872091352;
-        Thu, 01 Oct 2026 09:28:11 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:a4cd:e25d:fdef:4a3b])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8227a66c6dfsm219239a34.23.2026.10.01.09.28.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 01 Oct 2026 09:28:10 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Nishanth Menon <nm@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH] pmdomain: ti: fix device node leak in probe
-Date: Thu,  1 Oct 2026 21:57:40 +0530
-Message-ID: <20261001162755.50666-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwIgQsS4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1013C1F000FF;
+	Thu,  1 Oct 2026 16:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790872171;
+	bh=BuUbaFBNSrrB8IgOuIPv+TnQNAwEe+8kiRexfQtDWws=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FwIgQsS42B0bEij1RkBtFxKf/q9IqBVPCfs5ZSeyrhmmPKCQ0E8t1btz3XQ9NY9qi
+	 iREcH6z61mzhKSaAQ1B1aysUfFlK80C0ReRx4J/IxrVeFA7EA2jhe8UrJIR9KUKjYa
+	 s2drbqjpR/7OD9iYXYIvUv8oBuTWTfSjxlYcX2hchs2k49dj6Ra1Ta7syj5tB0eGOA
+	 RY6pGWVxQlbSfaPVLvVLIYXnsab0A1LBxeyQqkCbpV8e0wR1w814h7/1W4p2to03mg
+	 nFDEnCHe6sb1gflLnbbXBl2uDBhvrOvjetdUlRF5RzY2pWmsSspFSYkEkOj1ftZHba
+	 lMrNHquOnVThA==
+Date: Thu, 1 Oct 2026 17:29:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 09/15] KVM: arm64: Allow GCS to be enabled for guests
+Message-ID: <ar6J_q6wc7a54rII@gremlin>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+ <20260930-arm64-gcs-v21-9-3556644cd927@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-arm64-gcs-v21-9-3556644cd927@kernel.org>
 
-for_each_node_with_property() takes a reference on np each iteration
-and drops it on the next one. The two allocation failure paths return
-from inside the loop, so np is leaked.
+On Wed, Sep 30, 2026 at 10:48:19PM +0100, Mark Brown wrote:
+> Now that required functionality for GCS is in place expose
+> ID_AA64PFR1_EL1.GCS, allowing guests to be given the feature.
+>
+> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
-Put np before returning fixes it.
+This looks straightforward and sensible so:
 
-Fixes: efa5c01cd7ee ("soc: ti: ti_sci_pm_domains: switch to use multiple genpds instead of one")
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
----
- drivers/pmdomain/ti/ti_sci_pm_domains.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-diff --git a/drivers/pmdomain/ti/ti_sci_pm_domains.c b/drivers/pmdomain/ti/ti_sci_pm_domains.c
-index 949e4115f..9cb6133fd 100644
---- a/drivers/pmdomain/ti/ti_sci_pm_domains.c
-+++ b/drivers/pmdomain/ti/ti_sci_pm_domains.c
-@@ -262,14 +262,18 @@ static int ti_sci_pm_domain_probe(struct platform_device *pdev)
- 				}
- 
- 				pd = devm_kzalloc(dev, sizeof(*pd), GFP_KERNEL);
--				if (!pd)
-+				if (!pd) {
-+					of_node_put(np);
- 					return -ENOMEM;
-+				}
- 
- 				pd->pd.name = devm_kasprintf(dev, GFP_KERNEL,
- 							     "pd:%d",
- 							     args.args[0]);
--				if (!pd->pd.name)
-+				if (!pd->pd.name) {
-+					of_node_put(np);
- 					return -ENOMEM;
-+				}
- 
- 				pd->pd.power_off = ti_sci_pd_power_off;
- 				pd->pd.power_on = ti_sci_pd_power_on;
--- 
-2.46.0
+> ---
+>  arch/arm64/kvm/nested.c   | 3 +--
+>  arch/arm64/kvm/sys_regs.c | 5 +++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index 3c4fc566eafc..f62d9ab7f31c 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -1702,11 +1702,10 @@ u64 limit_nv_id_reg(struct kvm *kvm, u32 reg, u64 val)
+>  		break;
+>
+>  	case SYS_ID_AA64PFR1_EL1:
+> -		/* Only support BTI, SSBS, CSV2_frac */
+> +		/* Only support GCS, BTI, SSBS, CSV2_frac */
+>  		val &= ~(ID_AA64PFR1_EL1_PFAR		|
+>  			 ID_AA64PFR1_EL1_MTEX		|
+>  			 ID_AA64PFR1_EL1_THE		|
+> -			 ID_AA64PFR1_EL1_GCS		|
+>  			 ID_AA64PFR1_EL1_MTE_frac	|
+>  			 ID_AA64PFR1_EL1_NMI		|
+>  			 ID_AA64PFR1_EL1_SME		|
+> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+> index faecf4657ec5..5de4ba1bef6b 100644
+> --- a/arch/arm64/kvm/sys_regs.c
+> +++ b/arch/arm64/kvm/sys_regs.c
+> @@ -2193,10 +2193,12 @@ static u64 sanitise_id_aa64pfr1_el1(const struct kvm_vcpu *vcpu, u64 val)
+>  	      SYS_FIELD_GET(ID_AA64PFR0_EL1, RAS, pfr0) == ID_AA64PFR0_EL1_RAS_IMP))
+>  		val &= ~ID_AA64PFR1_EL1_RAS_frac;
+>
+> +	if (!system_supports_gcs())
+> +		val &= ~ID_AA64PFR1_EL1_GCS;
+> +
+>  	val &= ~ID_AA64PFR1_EL1_SME;
+>  	val &= ~ID_AA64PFR1_EL1_RNDR_trap;
+>  	val &= ~ID_AA64PFR1_EL1_NMI;
+> -	val &= ~ID_AA64PFR1_EL1_GCS;
+>  	val &= ~ID_AA64PFR1_EL1_THE;
+>  	val &= ~ID_AA64PFR1_EL1_MTEX;
+>  	val &= ~ID_AA64PFR1_EL1_PFAR;
+> @@ -3444,7 +3446,6 @@ static const struct sys_reg_desc sys_reg_descs[] = {
+>  				     ~(ID_AA64PFR1_EL1_PFAR |
+>  				       ID_AA64PFR1_EL1_MTEX |
+>  				       ID_AA64PFR1_EL1_THE |
+> -				       ID_AA64PFR1_EL1_GCS |
+>  				       ID_AA64PFR1_EL1_MTE_frac |
+>  				       ID_AA64PFR1_EL1_NMI |
+>  				       ID_AA64PFR1_EL1_RNDR_trap |
+>
+> --
+> 2.47.3
+>
+>
 
+--
+Cheers, Lorenzo
