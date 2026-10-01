@@ -1,106 +1,131 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD70B3AE718;
-	Thu,  1 Oct 2026 22:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922AA3164C7
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894444; cv=none; b=IzCI+3XFnVyg/0uyhhW43AOEj5rTyQX//3Umgu4t1P2PDjnLn2AlofkJRKlJ9jX2C205WnYdP36YyPrWDxcUKrSfon4jpH8mze/vkPdk/YLRNn+AWmRD+dfqVntRtTl0nUHYMfcK+GXTxnCEAEkvfebn4jSjA/jNPdL/wApAWpU=
+	t=1790894463; cv=none; b=ANXAS6u0CwUmOz6ycWD2vipeJp12bedFD37sE/kYu1gXJLjXvjLoqldG8mHnXd+g2KpNq0obTM5yW0K9zWl9rQcdwXiGmA6mkReVEKHnkJtr9TSfk8Uc2y66cYmf9D/KcV+zKxSFvjjHjTYalfkBRQtX31XhccHKc1XQG2Tn4Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894444; c=relaxed/simple;
-	bh=ZN8RoTZg6K01nxxeJFAZR4JgG9STIYMvAUqfTbJwn8s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UqfeUASsDC/WkUvw2g/er4GkirJG2LHfEC+7yRfSbt9YSSuJwOY27kWGpVvADAxCvqOljIVJ87SQvR8Mkct7BSMBBULvlb0tJpZtRVSz3pjZj/dnN084I+PXDxWSzVn2+1dOSD5CGiRebq6QifVF8b7At6iwVYkmyVdSMHWpGZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Np16BhZh; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790894463; c=relaxed/simple;
+	bh=fjDLJXf1aBRrmidaC6jhH7WSJg2DvCL/+cPSF0ggzWc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=LrVsNk6lLNm8jdJLJQ+8ulkTVJ25KhOCS1H9B8BTRKFuCsimT+6TR33mb/YWBKQgZrorHwN/QCUo0mMA76RK7w/37bWpfbCGjYcswDt0nAYcS+g59VNDNSGxbXi2BLPuf3bbrHAF2sgXv5n+eCoiv3g7Q8cX6JPPvBossnVYBcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WtVw6cwf; arc=none smtp.client-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Np16BhZh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790894442; x=1822430442;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ZN8RoTZg6K01nxxeJFAZR4JgG9STIYMvAUqfTbJwn8s=;
-  b=Np16BhZhS83a9XWPvRctkirsskTeuyQYcxhDtn9zC41DGZMqeJDQbKYT
-   T4fH8w/RzcU+TL7Lv9sGD3mCzjoRSDyN0zNQIyFx5JAvviBGA/C70dJjM
-   1q7t5JYWUcvW8LYRHFy8LHyVwyZGCxMPntgMGfRnt/F2s3OIg6+ACsURO
-   3v2xQRHwCLRVfzm6g9+ncbivCV+hOfm1A0Rk+jMBM54ERH+CWlAX/dkux
-   ykamoPeLA4kcPr6xz3bMHnhSKPmOss3IkkXsSsNNJEhmSdnt7s+UyMYAo
-   K7UkNoAwxpJI4TDxq6kdR/ET9Su8jAjjU/EmFQZ/6EFn2XZACHAr8+3Qj
-   A==;
-X-CSE-ConnectionGUID: d8RrBAVSQrC/OU7bJ3QC1w==
-X-CSE-MsgGUID: mdYo8rowRhKcgfF3ahD1tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94377769"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="94377769"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:40:42 -0700
-X-CSE-ConnectionGUID: kozJbeGQQH+NeUjkJc8c2A==
-X-CSE-MsgGUID: h0sh4h/4T+q+qW5t0OJ2AA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="273934360"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.244.120]) ([10.245.244.120])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:40:39 -0700
-Message-ID: <b43b9d21-4134-4e4c-89d8-f867207b125e@linux.intel.com>
-Date: Fri, 2 Oct 2026 01:40:37 +0300
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WtVw6cwf"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso5464180eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:41:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790894460; x=1791499260; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9IdYN9g8a9lzzHIhtoJFBJ2axTedpkyHbETAT+gfXfQ=;
+        b=WtVw6cwfE/NJY0c742R84MAG/+OZxR0GVUPV9BIEUTfLtdT4jZHV7Ai5+3I+BNKcAe
+         CpCLWLNG8369PsoUfDap5C2N0tQu6Za/WvM+itMioycF2y6Pf7H5nO43YzVPQdJmVwYD
+         Ycf7YCsKAMjqc9f/rOuRoJfrrz/LBOJ7bgjNHUOXDmj7gS+2c4wIweR+XjazUFKWyS/Z
+         qrKswlcMOeG+RbgnwdCyKqg8W0j5FRg+i4fFmIB2a3iqRf4s9ZzmubxMpsSvUYT1t6kv
+         /7Ev5Dcmq0KN/wWG7muMVHsSFGnzZTbhTAS4HqgbRECYM/bqok9QG8g7oLn8uxiGVcIA
+         619g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790894460; x=1791499260;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9IdYN9g8a9lzzHIhtoJFBJ2axTedpkyHbETAT+gfXfQ=;
+        b=A2A8sGkXKxGWXxG7teJQkaDprxY329CL8vCjVvSzt1kE31eBz15rHoZ/mHO/npx1Hi
+         ab3qQQ91jVevJz9jxdIOPt5x9zpyDEEDhr/gNoYhWjq3p/X6vDm0jfr2bHnjdbM5ewxD
+         c93XCXB+4qeH6Q4ZJwmXPF2iHsUKKn/zLjmEsihmOSLxrP2X5uM5kTx6URiyuVfhwuNH
+         Yg4wgaoO+EjoTv7TEOpYn2eqEm/pHQhPyD+9nnqw0rQ12ZGMZaYR9A4VCQZqXV0INAjW
+         DtGdcS5VdyNXW252qy4rnu4jTp5QRq63uV8ITPxGEce9fIfad332wbd7ov138yVPAXAh
+         7JsA==
+X-Forwarded-Encrypted: i=1; AKwUvBztb8IVUpGj7NqezAI4x+h7Bz0CxiJcdtqDhSEcteuzl1FJKHvw0y8+nfE1C1ybkPwc3L5Ax2JejriBAjI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmpM8vPVVlsIIBvOgFZyd8MsVkYk+lqdGp8aP6OBrPWEk2pMaR
+	1LnslchxFIlFx2FlMPgFDCewv4ZSdqThoknnyQomnpCfwp9LsM7ne9WY69q4IWKOSCO9cfglgaK
+	j9aJGckjI3BdY8Q==
+X-Received: from dlev27.prod.google.com ([2002:a05:701b:465b:b0:14f:4bfa:b7da])
+ (user=kaifengw job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7023:88d:b0:144:e246:a0b2 with SMTP id a92af1059eb24-14f5d6b6427mr805233c88.44.1790894459517;
+ Thu, 01 Oct 2026 15:40:59 -0700 (PDT)
+Date: Thu,  1 Oct 2026 22:40:54 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
-To: wenxiong@linux.ibm.com, mathias.nyman@intel.com,
- gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, wenxiong@us.ibm.com,
- Brian King <brking@linux.vnet.ibm.com>,
- Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>
-References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261001224054.1525365-1-kaifengw@google.com>
+Subject: [PATCH net-next v2] net: devmem: use page_pool_put_netmem_bulk
+From: Kaifeng Wang <kaifengw@google.com>
+To: netdev@vger.kernel.org
+Cc: almasrymina@google.com, edumazet@google.com, kuniyu@google.com, 
+	pabeni@redhat.com, willemb@google.com, davem@davemloft.net, kuba@kernel.org, 
+	horms@kernel.org, sdf@fomichev.me, linux-kernel@vger.kernel.org, 
+	Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi
+Instead of looping over napi_pp_put_page() and repeatedly acquiring the
+page_pool producer lock in sock_devmem_dontneed(), use
+page_pool_put_netmem_bulk() to return the netmem references in batches.
 
-On 10/2/26 01:25, wenxiong@linux.ibm.com wrote:
-> From: Wen Xiong <wenxiong@linux.ibm.com>
-> 
-> Fixes kexec boot. Without a hard reset, some USB chips will fail to
-> initialize in a kexec booted kernel.
-> 
-> Signed-off-by: Brian King <brking@linux.vnet.ibm.com>
-> Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> Signed-off-by: Wen Xiong <wenxiong@linux.ibm.com>
-> ---
->   drivers/usb/host/xhci.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index a9e47e178c28..364bd61a4bd7 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -781,6 +781,9 @@ void xhci_shutdown(struct usb_hcd *hcd)
->   	xhci_dbg_trace(xhci, trace_xhci_dbg_init,
->   			"xhci_shutdown completed - status = %x",
->   			readl(&xhci->op_regs->status));
-> +
-> +	/* TI XHCI controllers do not come back after kexec without this hack */
-> +	pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
->   }
->   EXPORT_SYMBOL_GPL(xhci_shutdown);
->   
+This reduces the number of lock acquisitions on the page pool ring
+producer lock when releasing user tokens.
 
-Should be added to xhci-pci.c: xhci_pci_shutdown() instead.
+Reviewed-by: Mina Almasry <almasrymina@google.com>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Signed-off-by: Kaifeng Wang <kaifengw@google.com>
+---
+v1 -> v2:
+- Rebased on net-next after commit bdea4980182e ("net: page_pool: fix
+  use-after-free in page_pool_recycle_ring_bulk()") was merged.
+- Collected Acked-by: Stanislav Fomichev.
 
-Probably also limited to that specific TI xHC controller
+ net/core/sock.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-Thanks
-Mathias
+diff --git a/net/core/sock.c b/net/core/sock.c
+index 972c72c5bcc6..157759e7e362 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -129,6 +129,7 @@
+ #include <net/request_sock.h>
+ #include <net/sock.h>
+ #include <net/proto_memory.h>
++#include <net/page_pool/types.h>
+ #include <linux/net_tstamp.h>
+ #include <net/xfrm.h>
+ #include <linux/ipsec.h>
+@@ -1086,7 +1087,7 @@ static int sock_reserve_memory(struct sock *sk, int bytes)
+ static noinline_for_stack int
+ sock_devmem_dontneed(struct sock *sk, sockptr_t optval, unsigned int optlen)
+ {
+-	unsigned int num_tokens, i, j, k, netmem_num = 0;
++	unsigned int num_tokens, i, j, netmem_num = 0;
+ 	struct dmabuf_token *tokens;
+ 	int ret = 0, num_frags = 0;
+ 	netmem_ref netmems[16];
+@@ -1123,8 +1124,7 @@ sock_devmem_dontneed(struct sock *sk, sockptr_t optval, unsigned int optlen)
+ 			netmems[netmem_num++] = netmem;
+ 			if (netmem_num == ARRAY_SIZE(netmems)) {
+ 				xa_unlock_bh(&sk->sk_user_frags);
+-				for (k = 0; k < netmem_num; k++)
+-					WARN_ON_ONCE(!napi_pp_put_page(netmems[k]));
++				page_pool_put_netmem_bulk(netmems, ARRAY_SIZE(netmems));
+ 				netmem_num = 0;
+ 				xa_lock_bh(&sk->sk_user_frags);
+ 			}
+@@ -1134,8 +1134,7 @@ sock_devmem_dontneed(struct sock *sk, sockptr_t optval, unsigned int optlen)
+ 
+ frag_limit_reached:
+ 	xa_unlock_bh(&sk->sk_user_frags);
+-	for (k = 0; k < netmem_num; k++)
+-		WARN_ON_ONCE(!napi_pp_put_page(netmems[k]));
++	page_pool_put_netmem_bulk(netmems, netmem_num);
+ 
+ 	kvfree(tokens);
+ 	return ret;
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
