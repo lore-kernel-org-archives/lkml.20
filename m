@@ -1,187 +1,260 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2396B316905;
-	Thu,  1 Oct 2026 06:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E647E47FAFB;
+	Thu,  1 Oct 2026 06:38:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790836673; cv=none; b=uSkV+1QeI4ea9fIZyxjIN5jLL7DAp/CjOLKH7s2s6CuyM4vOxsf5ukmeiUf9cBw6d/SjdAK7jbYpTuy8ILMx42kawa/7S3eac91K/F8i0SHUOnLbH8wOAzQbTyhNc6966tITykPJFuXWoIWZ+PzQdMeUfgd9AsN4Qx+j5U2ZYdk=
+	t=1790836699; cv=none; b=frU9CJvKraL503pQ6qcpLdO9ZYvHX5f0RPRV0Or8WI+mGGYC3eSD9CJeQsNVFo3wJYgW0Q47pbCzZcBoHfR6F9tqUkFqrgy1ycSUJEDyMSzL1HR6eMFx0kyuihL2sd8HG2QJZnSNMOct8P5o1si8Qt6OkmIbIyqNUvLPynXDQd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790836673; c=relaxed/simple;
-	bh=VCT1N6hI2ooF+CmtCByw4GpH0V8pynMdUmROqI71U1Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fj0srJHERSbxGz7lA3OyAQGj4cOw19vFnzC7/gAgZvknGOWivYZcGRdAAu01UEA9wWLcGjZQuBG0lhNxD2RKQ7qUxzkH6rDqxZ8pF/V8alll0DQhkIbxyf2tijisvGEyypmH190dJ/oB66v9VYuvANAdwbptzRMEK7D82HPKNio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMj51tOD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790836699; c=relaxed/simple;
+	bh=it1Q8+wGCNISD1AYVXRYsw/ODs6wuZ6R4xTYxMCcC2Y=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZJLm9ID/34gth5Wp6gRwWzdBCyFEfogbWY2W5d4ZHoTqVJStx+NUsmwfQ0oRSGPT/aukqPtyJ6WzCDIKncwnoAKaoje8DfeA0257pexE7J76aDLT31UOTsHUCelKcN/UaVGLJj/bGQm6si/qMjnODO19LP9esEW5BhUEC+GyGt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b=ptCpGcKK; arc=none smtp.client-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMj51tOD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFA41F000FF;
-	Thu,  1 Oct 2026 06:37:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790836671;
-	bh=X2yG9C10oNzGkh3Q87HvKsn9L3yVCds4Sm/K2JQM8aM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EMj51tODtUfKbgPh4IO5i7MmvgaToTcylrTMg0RILrRDsivA3MJdxfofL4/hF3JhN
-	 LPRGbF6J0rhnXmajfYlkAaf3IfaFyCM9JLycu6mbYtTqlbDkCOjCH9BMAGdxzgKFic
-	 3JAbeh529NFx5rbISpZvuPqTO5mrujoixRvIB2jzSFz4bmzHQaWXq/oga+T8bqIIMa
-	 fls5ZFM8A59T+zDE1f73qjU5FENioHEd12uHY+ggnOU03mm9N4kaqWYlbdev7BFFua
-	 mK9PZMO45uCurwd1tqcPjFAnfEnFtsGa/dIcLcZJYwJqdye860qW3ldcHI/khTHRn7
-	 Lq6iv0ZeBTTKA==
-Date: Thu, 1 Oct 2026 09:37:47 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-Message-ID: <20261001063747.GK3401365@unreal>
-References: <20260929132305.GJ563127@unreal>
- <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
- <20260929175737.GK563127@unreal>
- <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
- <20260930081832.GA3401365@unreal>
- <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
- <20260930114356.GC3401365@unreal>
- <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
- <20260930143237.GI3401365@unreal>
- <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b="ptCpGcKK"
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913wJsv3327496;
+	Wed, 30 Sep 2026 23:37:48 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=CdYaVkVbziQPmxeqybnZRX+/EP726hOAAuxZX
+	zaJPtg=; b=ptCpGcKKPmXYvNItJ/ikCd0eLYJfmtpW5NCUk+y4yEMvY6G/E746q
+	KJEhc53nqhg7myIhh4Pn2lKCsuDRMi5f+NwSiRYaYwLq3+jlfPnl5f+lzpQ7qtvr
+	KkH/t+fjtl1ZkcgFpTwfC5X48ZdR2ytpgfOfZUL1tT2UvImnF1SwDvnGrCDQmJYA
+	t9nm/4lVy/7/8f1whu8J9wRGDZESUdRafj2jcQVUsD1UNDruvMH8ayaUX1vwdMnY
+	YXEsOVhUk0KaKVR0A5wl9fUor2H89Cnf0vlFEHgBOqlq9JejeFbwPLRGr2p+5qfq
+	dP0CzVG5m5GxOtnROBrd/gBDroSWRVS5Q==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4h1dpe1r7s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Wed, 30 Sep 2026 23:37:47 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.49; Thu, 1 Oct
+ 2026 06:37:46 +0000
+From: Amir Ayupov <aaupov@fb.com>
+To: James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+        Suzuki K
+ Poulose <suzuki.poulose@arm.com>,
+        Mike Leach <mike.leach@arm.com>,
+        Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>
+CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, <coresight@lists.linaro.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-doc@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH 2/2] coresight: Add pmu_pulse/extout_pulse
+Date: Wed, 30 Sep 2026 23:37:44 -0700
+Message-ID: <20261001063744.2143819-2-aaupov@fb.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261001063744.2143819-1-aaupov@fb.com>
+References: <20261001063744.2143819-1-aaupov@fb.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
+Content-Type: text/plain
+X-Authority-Analysis: v=2.4 cv=D47SufRj c=1 sm=1 tr=0 ts=6abdffbc cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=03ozwUkBphtHgyqjj1sw:22 a=FOH2dFAWAAAA:8 a=7zQ8FAL6pVqGlCbRy-AA:9
+X-Proofpoint-ORIG-GUID: WXjDZuJqAgYmGpzdcYpF4xPUZiitT28S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyNSBTYWx0ZWRfX/cPYGBgFP45z
+ ryPTrSCbakrOVSZ8fGoDQgtJx1vmNPYwXpimL+a1wXH7c3J7celGYV99yqqAvmjGAg+LC+NeGEr
+ afTLZdG0lGgdVfmtcpd0Fd5PW020w+WLLPSiWs9y9SfiY6OuhDdi88LBxT0BYGCGQ05ghDnTxfa
+ frvRNGoM/c2oIMdJzZoq5R96xb+HXzHPSQZBv0SQNumFUQd9gWDVTm0Y+N0yRj3UTcbJR//wujO
+ IhTm8L3rKVyXO3kOfpDTVfJroatc2dNAIbfwMebdX9BSiwm6r7WJgpoKjcf+0McxVJlMZzrxiQR
+ tSojcm4UjnEvUAGw+oNV9cKXf+1V6udP4wILk+jR/ByVQfhzm5KU8dJB+wrmjt7HRsrjGyiRtO3
+ 1x4+n4nQ+l1xD8f/8Hy5KlN6yjoo4I7gFkW+TzzSyQZoSgb/t5/z1D0VZpbCKuioLMPJfSdwRwv
+ 6obWczRhYOsfWQF4o2A==
+X-Proofpoint-GUID: WXjDZuJqAgYmGpzdcYpF4xPUZiitT28S
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyNSBTYWx0ZWRfX+y11nNHnt/Gx
+ w3WOZt0QtGUylfgYaQyWZiuU+w2TuxwNgWTYLVNabfg00W10uQGx4zaHDXTCVijgLb1ie+PXuHb
+ dbplI6fUFTba8mnfZ614ufMXrwCt0+o=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
 
-On Wed, Sep 30, 2026 at 04:57:04PM +0200, Thomas Hellström wrote:
-> On Wed, 2026-09-30 at 17:32 +0300, Leon Romanovsky wrote:
-> > On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian König wrote:
-> > > On 9/30/26 13:43, Leon Romanovsky wrote:
-> > > > On Wed, Sep 30, 2026 at 10:34:56AM +0200, Christian König wrote:
-> > > > > On 9/30/26 10:18, Leon Romanovsky wrote:
-> > > ...
-> > > > > > 
-> > > > > > At a minimum, exporters need to pass `p2pdma_provider`.
-> > > > > 
-> > > > > No, exactly that is a no-go. The neither the framework nor the
-> > > > > importer should see the p2pdma_provider.
-> > > > > 
-> > > > > Only fully translated addresses where the DMA access should
-> > > > > happen.
-> > > > > 
-> > > > > > 
-> > > > > > If I keep the “dma-buf: Let exporters hand out the P2PDMA
-> > > > > > provider behind a
-> > > > > > buffer” patch, I can move the P2P TLP types back into
-> > > > > > `p2pdma.c` and export
-> > > > > > only the function that indicates whether ATS is required.
-> > > > > > 
-> > > > > > Is it ok?
-> > > > > 
-> > > > > What you can do is to forward declare enum pci_p2pdma_map_type
-> > > > > and than pass that 1 to 1 from the exporter to the importer.
-> > > > 
-> > > > Unfortunately, neither suggestion applies to RDMA NICs. They need
-> > > > to know,
-> > > > before mapping addresses, whether to create the memory region
-> > > > with ATS
-> > > > enabled.
-> > > 
-> > > The design principle here is that the final location and access
-> > > path of the data isn't determined when the buffer is created.
-> > > 
-> > > The importer first need to attach before it can query such
-> > > information from the exporter.
-> > 
-> > In attach yes, this is why importer digs in dma_buf ops to get
-> > p2pdma_provide, however it is before addresses are known.
-> > 
-> > > > The importer needs a way to obtain device information from the
-> > > > exporter so
-> > > > that it can configure itself correctly.
-> > > 
-> > > That won't work with DMA-buf then, the exporter is completely
-> > > opaque to the importer and that is for really good reasons.
-> > > 
-> > > Why in the world does the importer needs to know the information
-> > > from the exporter before the mapping is created?
-> > > 
-> > > It is the exporter who decides how data is accessed by the importer
-> > > and not the other way around.
-> > 
-> > There are several reasons:
-> > 
-> > 1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely on
-> > the ODP
-> >    mechanism, which requires an MKEY to be created first. See commit
-> >    90da7dc8206a (“RDMA/mlx5: Support dma-buf based userspace memory
-> > region”).
-> > 2. P2P routing is a property of devices, not memory. It is known and
-> > remains
-> >    stable.
-> > 3. See the VFIO TPH ST discussion, where the requirement to obtain
-> > the
-> >    exporter’s P2P information in the importer was raised again.
-> > 
-> > Thanks
-> 
-> 
-> Returning again to Jason's series. Let's say we'd add just the mapping
-> type infrastructure, converted users of pcie_p2pdma only to use that
-> and then we'd have access to per-mapping-type data. This could actually
-> be done as a prereq for this series and merged separately. It's a
-> couple of patches only.
+Add ETMv4 configuration 'pmu_pulse' with 'extout_pulse' feature which
+requires CS_CFG_MATCH_CAP_PMU_EXTOUT1: event 1 selects the always-true
+resource and drives TRCEXTOUT1 PMU event which pulses on every cycle
+while the trace unit is enabled.
 
-I afraid that you over optimistic about the amount of work.
+The intended use is for CSSPGO profiling: a fixed-length ETM strobing
+window that ends at a PMU event. The window is decoded into branch
+stack, PMU event is carrying callchains. pmu_pulse allows specifying the
+window in ETM cycles.
 
-> 
-> Jason's match() and finish() callbacks could compute the interesting
-> routes at attach time,  perhaps even condesed to whether IOVA is used
-> and whether ATS translated packages have a direct route (which is what
-> mlx5 care about AFAICT). This information is kept outside core dma-buf
-> and would be specific to the pcie_p2p mapping type (interconnect) only
-> rather than having functions and callbacks bloating the core dma-buf
-> structures.
-> 
-> Then exactly where the cross-subsystem match() and finish()
-> implementations should live I figure remain up for discussion and
-> guidance by Christoph?
+Assisted-by: Devmate:Opus-5.5
+Signed-off-by: Amir Ayupov <aaupov@fb.com>
+---
+ .../trace/coresight/coresight-config.rst      |  5 ++
+ .../trace/coresight/coresight-perf.rst        | 19 +++++++
+ drivers/hwtracing/coresight/Makefile          |  1 +
+ .../coresight/coresight-cfg-pmu-pulse.c       | 55 +++++++++++++++++++
+ .../coresight/coresight-cfg-preload.c         |  2 +
+ .../coresight/coresight-cfg-preload.h         |  2 +
+ 6 files changed, 84 insertions(+)
+ create mode 100644 drivers/hwtracing/coresight/coresight-cfg-pmu-pulse.c
 
-Maybe I'm wrong, and everything will work out. However, given Christian's
-feedback to determine the mapping type when the mapping is established, this
-approach won't work for an RDMA exporter.
+diff --git a/Documentation/trace/coresight/coresight-config.rst b/Documentation/trace/coresight/coresight-config.rst
+index 6d5ffa6f73471..3eed728bf0de1 100644
+--- a/Documentation/trace/coresight/coresight-config.rst
++++ b/Documentation/trace/coresight/coresight-config.rst
+@@ -129,6 +129,11 @@ The following steps take place in the operation of a configuration.
+ 
+ 5) At the end of the perf session, the configuration will be disabled.
+ 
++The built-in 'pmu_pulse' configuration pulses ETM external output 1 for a PMU
++event to count. It only pulses while the ETM is enabled, so combined with AUX
++pause and resume the PMU event can time each trace window (see
++coresight-perf.rst).
++
+ 
+ Viewing Configurations and Features
+ ===================================
+diff --git a/Documentation/trace/coresight/coresight-perf.rst b/Documentation/trace/coresight/coresight-perf.rst
+index 0a77741a431ef..b5c0c0acbe1de 100644
+--- a/Documentation/trace/coresight/coresight-perf.rst
++++ b/Documentation/trace/coresight/coresight-perf.rst
+@@ -109,6 +109,25 @@ Example for triggering AUX pause and resume with PMU event::
+         -e cycles/aux-action=pause,period=10000000/ \
+         -e cycles/aux-action=resume,period=1050000/ -- sleep 1
+ 
++ETM-timed pause events
++~~~~~~~~~~~~~~~~~~~~~~
++
++The built-in ``pmu_pulse`` configuration pulses ETM external output 1 on every
++cycle of allowed trace, and a PMU event counting that output pauses trace after
++``N`` pulses, here 1000 cycles::
++
++  perf record -T \
++    -e cs_etm/pmu_pulse,aux-action=start-paused,timestamp/u \
++    -e armv8_pmuv3_0/cpu_cycles,aux-action=resume,period=1050031/u \
++    -e armv8_pmuv3_0/trcextout1,aux-action=pause,period=1000,call-graph=fp/u \
++    -- ./workload
++
++Each window is about ``N`` traced cycles plus the pause interrupt latency, so
++windows are never empty and a callchain on the pause event is taken where
++trace ends. The configuration only loads where the PMU counts ETM external
++output 1 (Cortex-A520, Cortex-X925, Neoverse N2, N3, V2 and V3); elsewhere a
++session selecting it fails to start.
++
+ Perf test - Verify kernel and userspace perf CoreSight work
+ -----------------------------------------------------------
+ 
+diff --git a/drivers/hwtracing/coresight/Makefile b/drivers/hwtracing/coresight/Makefile
+index ab16d06783a57..568e797ac5a17 100644
+--- a/drivers/hwtracing/coresight/Makefile
++++ b/drivers/hwtracing/coresight/Makefile
+@@ -28,6 +28,7 @@ obj-$(CONFIG_CORESIGHT) += coresight.o
+ coresight-y := coresight-core.o  coresight-etm-perf.o coresight-platform.o \
+ 		coresight-sysfs.o coresight-syscfg.o coresight-config.o \
+ 		coresight-cfg-preload.o coresight-cfg-afdo.o coresight-cfg-pstop.o \
++		coresight-cfg-pmu-pulse.o \
+ 		coresight-syscfg-configfs.o coresight-trace-id.o
+ obj-$(CONFIG_CORESIGHT_LINK_AND_SINK_TMC) += coresight-tmc.o
+ coresight-tmc-y := coresight-tmc-core.o coresight-tmc-etf.o \
+diff --git a/drivers/hwtracing/coresight/coresight-cfg-pmu-pulse.c b/drivers/hwtracing/coresight/coresight-cfg-pmu-pulse.c
+new file mode 100644
+index 0000000000000..643c9a12018d8
+--- /dev/null
++++ b/drivers/hwtracing/coresight/coresight-cfg-pmu-pulse.c
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Pulse ETM external output 1 on every traced cycle for a PMU event to count.
++ * Based on coresight-cfg-afdo.c
++ */
++
++#include "coresight-config.h"
++
++/* ETMv4 includes and features */
++#if IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM4X)
++#include "coresight-etm4x-cfg.h"
++
++/*
++ * extout_pulse feature: event 1 selects the always-true resource, so ETM
++ * external output 1 pulses on every cycle while the trace unit is enabled. A
++ * PMU event counting that output (TRCEXTOUT1), for example with
++ * aux-action=pause, then fires after as many traced cycles as its sample
++ * period. Event 0 is avoided because it is the trace unit trigger, and the
++ * TRBE driver treats a detected trigger as fatal.
++ */
++static struct cscfg_regval_desc extout_pulse_regs[] = {
++	/* event 1: resource selector 1 (always true), drives external output 1 */
++	{
++		.type = CS_CFG_REG_TYPE_STD | CS_CFG_REG_TYPE_VAL_MASK,
++		.offset = TRCEVENTCTL0R,
++		.val32 = 0x0100,
++		.mask32 = 0xff00,
++	},
++	/* end of regs */
++};
++
++struct cscfg_feature_desc extout_pulse_etm4x = {
++	.name = "extout_pulse",
++	.description = "Pulse external output 1 on every traced cycle.\n",
++	.match_flags = CS_CFG_MATCH_CAP_PMU_EXTOUT1,
++	.nr_regs = ARRAY_SIZE(extout_pulse_regs),
++	.regs_desc = extout_pulse_regs,
++};
++
++/* create a pmu_pulse configuration */
++
++static const char * const pmu_pulse_ref_names[] = {
++	"extout_pulse",
++};
++
++struct cscfg_config_desc pmu_pulse_etm4x = {
++	.name = "pmu_pulse",
++	.description = "Pulse ETM external output 1 on every traced cycle for the PMU\n"
++	"to count as TRCEXTOUT1\n",
++	.nr_feat_refs = ARRAY_SIZE(pmu_pulse_ref_names),
++	.feat_ref_names = pmu_pulse_ref_names,
++};
++
++/* end of ETM4x configurations */
++#endif	/* IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM4X) */
+diff --git a/drivers/hwtracing/coresight/coresight-cfg-preload.c b/drivers/hwtracing/coresight/coresight-cfg-preload.c
+index 4980e68483c5b..a9a60a1c40845 100644
+--- a/drivers/hwtracing/coresight/coresight-cfg-preload.c
++++ b/drivers/hwtracing/coresight/coresight-cfg-preload.c
+@@ -14,6 +14,7 @@ static struct cscfg_feature_desc *preload_feats[] = {
+ #if IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM4X)
+ 	&strobe_etm4x,
+ 	&gen_etrig_etm4x,
++	&extout_pulse_etm4x,
+ #endif
+ 	NULL
+ };
+@@ -22,6 +23,7 @@ static struct cscfg_config_desc *preload_cfgs[] = {
+ #if IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM4X)
+ 	&afdo_etm4x,
+ 	&pstop_etm4x,
++	&pmu_pulse_etm4x,
+ #endif
+ 	NULL
+ };
+diff --git a/drivers/hwtracing/coresight/coresight-cfg-preload.h b/drivers/hwtracing/coresight/coresight-cfg-preload.h
+index 291ba530a6a52..0058627f65ae5 100644
+--- a/drivers/hwtracing/coresight/coresight-cfg-preload.h
++++ b/drivers/hwtracing/coresight/coresight-cfg-preload.h
+@@ -12,4 +12,6 @@ extern struct cscfg_feature_desc strobe_etm4x;
+ extern struct cscfg_config_desc afdo_etm4x;
+ extern struct cscfg_feature_desc gen_etrig_etm4x;
+ extern struct cscfg_config_desc pstop_etm4x;
++extern struct cscfg_feature_desc extout_pulse_etm4x;
++extern struct cscfg_config_desc pmu_pulse_etm4x;
+ #endif
+-- 
+2.52.0
 
-As I mentioned, mlx5 uses on-demand paging (ODP), creating mappings in
-response to page faults. To handle these faults with reasonable performance,
-mlx5 must create a memory region (MR), with or without ATS, and it is
-needed to be created before first page fault.
-
-I'm afraid we're going in circles, so I'll drop the dma-buf patches for now
-and focus on fixing only the PCI ATS flow.
-
-Thanks
-
-> 
-> Thanks,
-> Thomas
-> 
-> 
-> 
