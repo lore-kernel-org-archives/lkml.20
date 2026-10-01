@@ -1,115 +1,162 @@
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E4C4E36F3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:06:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11474D6C4A;
+	Thu,  1 Oct 2026 10:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849205; cv=none; b=ugWtsjt4pNN2UlicrEGfJmO+kDVJvGdSZwWylrH+ibCM92iwxgHakYsUgJAdjrWhZQQ3ggM3Jl6xBmgctiwsW2atpdiu2IVWEzCd/sE0IsnMQQ+tuGyqJilAUvmRN6QnjpFojcaaoXHApwmNmb2TjuEkN8hh/m3V8DXT/orJq3M=
+	t=1790849251; cv=none; b=C1UPayifUbRsB64ZGugS40H260C/Q05t4vZ7G5CYlW5b1dk44F77MYmoDpscAr0oK0RazpLH7MeDiouSu/5v+xIAYVzSlRCotNBulN8qcZPwGD7TdQtkTqVSwe7xMf+FogmKK4bRC/tDb82AFqS43uvvqwT+2OxvI06BOAOzACI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849205; c=relaxed/simple;
-	bh=ZK9TttDiNF4YjKf0cgn7ppTK9O9oj8za/sQdUKR0nLY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RzMl6aK/1yeWj0u/fmE8X1FIc9hCA+gVByh8/ue0sXISzfcIzlbGFKVmO+po3Xut3D3QKWqF0XOMTzmaqlGVyYtgHD/dRU2qYztQkYMKnycCCAu3OlWhZTQwuD7Nu/a1FSmp5cFKquP+YusPknq2pFAQ3pPgicqh0ruNzas7wHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=a9UpO6M+; arc=none smtp.client-ip=35.89.44.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1790849251; c=relaxed/simple;
+	bh=CBFSA9BeY4t6/i9+jFeJRK4DM5K/GyNwSJwe+3JRIxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W9hqfRPZqrTkk3Gn/WRJyAZtv22pHhXs/eEDgCVv2yE37MefzWo4C1Iy16ClCru+ROPiTr0M6B8dxXmQ35PvXbYhm78AqzmM4QtZYWay7qFReV+JA5s+VA2n0KnBzYzpQ+2bTEXT6Rs4nDzsifTunLeyQ/VFdBHrjna8wipEhHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tlMWDHl6; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="a9UpO6M+"
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id C0N6x45neaC0UCDgTxF2KO; Thu, 01 Oct 2026 10:06:37 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id CDgSxYXrsirxPCDgSxgzri; Thu, 01 Oct 2026 10:06:36 +0000
-X-Authority-Analysis: v=2.4 cv=FqoF/3rq c=1 sm=1 tr=0 ts=6abe30ac
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=cQwE5TCehGVgXj1d63kA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=zPQhjhK1+Ka07Rrc5WFMGDvPTt9n4eaqJNvBRAVMQ8k=; b=a9UpO6M+h7C3JTunQYs3EK2tKk
-	5vZgLLyJvunp3gSgUT/0N40oUJNZW7XzQ+GP8vM5bO7uU6aMm5tb7aw8XXdgubP/gwwXD/G9Q7CWa
-	s0aiQuYksmPvP0nQD264czlW4bRLWpLzo64oEhC+4eNeaEsajfrGpRkjHtVKg12nvmXWVU99KH3F0
-	Z4FLr0da/YkeOmIh7ik1PSmescADfI+PGn31wVFt+zJ9xaETVNv6n7MxY3Yrv46i4ce4M5STHne/g
-	eh16TRZmNmHgJTdkhtcl06qdiirip1yP3o283B5EgEzmib/ICj74pflP5UfxQ9IE9/tsNlsnmM5GL
-	TwB7tQAw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33908 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xCDgR-000000022HJ-2srk;
-	Thu, 01 Oct 2026 04:06:35 -0600
-Message-ID: <90ecfd23-33c8-405d-9ebb-05ac019d28c1@w6rz.net>
-Date: Thu, 1 Oct 2026 03:06:34 -0700
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tlMWDHl6"
+Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9B484593;
+	Thu,  1 Oct 2026 12:05:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790849126;
+	bh=CBFSA9BeY4t6/i9+jFeJRK4DM5K/GyNwSJwe+3JRIxA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tlMWDHl64vujWZeEzx2c+11pprDphiIHT1/qMUDnEHDfOUdKHdSdgXKHv7e6d0FMu
+	 6YXoWh3f4J1ApDGReTSbpwoiIkUTdEVV+RZ0u+hB+up5N8xUzFn01kSCoc2ELh9qOF
+	 Pu1lt31Rn4Hfw8waTVftuooSHeAVcOi76atTt8hU=
+Date: Thu, 1 Oct 2026 12:07:16 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ar4ve6qfiOVQc1Kd@zed>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
+ <ar4BsDNOkcusy4Qz@kekkonen.localdomain>
+ <ar4IKQHYzprZ3CPv@zed>
+ <ar4RQ2OnP20BOhC7@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/877] 6.12.112-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152414.738996857@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xCDgR-000000022HJ-2srk
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33908
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 37
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfDP7AMgoxdSLdKLEV18M9XkqWBkn4NI4DoYISCmL9t/p4bKqNcof28gTn/ZvL5Y33wLtH70hJcMUss9AVnRL96D5qZ6NzmDwPBUCbLszJodLMmjKwt4z
- /hZS0NqhqpppnFl4Pi0UJcHO24376HHWQ8jEefn6wGxVAsDl0W8Wk8mNamzG5DT5hUP6ZoFRGs/9KdZan8W9sez6IY53oQtyd6Y=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ar4RQ2OnP20BOhC7@kekkonen.localdomain>
 
-On 9/30/26 08:15, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.112 release.
-> There are 877 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, Oct 01, 2026 at 10:52:35AM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
 >
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
+> On Thu, Oct 01, 2026 at 09:19:02AM +0200, Jacopo Mondi wrote:
+> > Hi Sakari
+> >
+> > On Thu, Oct 01, 2026 at 09:46:08AM +0300, Sakari Ailus wrote:
+> > > Hi Jacopo,
+> > >
+> > > On Wed, Sep 30, 2026 at 12:51:20PM +0200, Jacopo Mondi wrote:
+> > > > Add driver for the ams OSRAM Mira016 sensor.
+> > > >
+> > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> > > > +{
+> > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
+> > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> > > > +	};
+> > > > +	int ret;
+> > > > +
+> > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > > > +	if (!endpoint)
+> > > > +		return -ENODEV;
+> > > > +
+> > > > +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg);
+> > > > +	if (ret)
+> > > > +		return ret;
+> > > > +
+> > > > +	/*
+> > > > +	 * Link frequencies: the driver supports a single link frequency,
+> > > > +	 * no need to check bitmap after this call.
+> > > > +	 */
+> > > > +	ret = v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
+> > > > +				       ep_cfg.nr_of_link_frequencies,
+> > > > +				       mira016_link_freqs,
+> > > > +				       ARRAY_SIZE(mira016_link_freqs),
+> > > > +				       &mira016->link_freq_bitmap);
+> > > > +	if (ret) {
+> > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > >
+> > > I recall commenting about this at in least three occasions earlier.
+> >
+> > And, again, I have replied twice to your comment without receiving a
+> > response: https://lore.kernel.org/linux-media/arPJ_-yKVMXE-Gav@zed/
+> >
+> > I'll repeat here anyway: do not mix cleanups and gotos. In this case
+> > it's harmless, but why contradict the usage notes to avoid typing out
+> > v4l2_fwnode_endpoint_free() 2 times ?
 >
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.112-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
+> It's not about typing but correct error handling. It's much easier to miss
+> unwinding whatever needs to be unwound in multiple places when you're not
+> using goto's.
 >
-> thanks,
+> In other words, the pattern you're following is bad, please stop using it.
 >
-> greg k-h
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+You seem to be missing my main point, and if you think it's not
+correct please tell me why instead of keep repeating the same thing
+over and over.
 
-Tested-by: Ron Economos <re@w6rz.net>
+This routine uses cleanups because of
 
+	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+
+functions using cleanups shall not use gotos
+
+from cleanup.h
+
+ * Lastly, given that the benefit of cleanup helpers is removal of
+ * "goto", and that the "goto" statement can jump between scopes, the
+ * expectation is that usage of "goto" and cleanup helpers is never
+ * mixed in the same function. I.e. for a given routine, convert all
+ * resources that need a "goto" cleanup to scope-based cleanup, or
+ * convert none of them.
+
+As said, in this case is harmless, but given that this function might
+be extended I wouldn't introduce a goto now to later having to care if
+it gets in the way of the cleanup path or not.
+
+
+
+> >
+> > >
+> > > Also applies to the other driver.
+> > >
+> > > > +		return ret;
+> > > > +	}
+> > > > +
+> > > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
+> > > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
+> > > > +		dev_err(dev, "Continuous clock is not supported\n");
+> > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > +		return -EINVAL;
+> > > > +	}
+> > > > +
+> > > > +	mira016->bus_config = ep_cfg.bus.mipi_csi2.flags;
+> > > > +
+> > > > +	v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > >
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
