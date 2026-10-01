@@ -1,171 +1,172 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44007364E96;
-	Thu,  1 Oct 2026 19:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F5A36A03F;
+	Thu,  1 Oct 2026 19:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790882958; cv=none; b=EnuSKFZIge6e+GVjbPnNUdFmFb+O3tedFYUACXrMZfuChDXym68BwOAQJmc7V0HljejACte2BGe/wFvlafwuQDd4KZ46TKK/FSqwq42Qnp6rbdC2Cnu5LjQVVH0bNmBOW2+85bgtPYC8Q2riI+p6hosMTQv42O3Zv8x9uVwHdrg=
+	t=1790882972; cv=none; b=cWlHUfeX81DICTGcgeVtdHT3Sr5GuC0WhtdQMcyeLP+Tu4FEvSvCkKIA8FUmghR3PG6kTdm95P/aBO9a85N/Bpc+gkquT0dyNg7whkhgbOi22S4yqINVFOq8Tsbt02xYamzoJCS7s5mmt5mxJsrPEG8b4auUmVxqlPZpkF7j3Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790882958; c=relaxed/simple;
-	bh=OMtNdUkPoAP8kd989gtFmsnffCAA1xtaNZg/DQMqjqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uBn7Zjoh4pq96OCSKJSinRXn3uLjMMdWV8LLHIod0I/CVqVv/7J5mu9T2NwWalyR/QNhe31Q8uag0lg1iL/acCDiLrrlJYrbmt68tK1+YUNMLpwCkzBYWn0lQM0OGHiPKhIiBkW7BLyGmze1qYFc991lqeQ8XnzB5zcFYaDMFgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eYzkbHhz; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790882972; c=relaxed/simple;
+	bh=guOW+/08gRNSqfTaEYCyx+gyJOlrtAaIaRO6zclFIGw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=VxKG7qqskOyAxEA0Ueqwwko2dQ1qpMAY94zJdcb/9s2mAvxhVFE7nlg1xFGtQvlVrddgdiUlZYKghV7djnOMJTEGCzpLFfYIsXY5bLoQXfEYrmaB2SzBLsbBge0BevYUBPq/rlPAhmGn5ve1Rru/Sj+TYmdywYpqmf44F7tKeDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etqvOpLP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eYzkbHhz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790882957; x=1822418957;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OMtNdUkPoAP8kd989gtFmsnffCAA1xtaNZg/DQMqjqc=;
-  b=eYzkbHhzwoia3oeEcp0XYEH1UVXlwMVACXOD/tOrbi94+XzS5fxC4wr6
-   RCDd3usZi6dtUey2a/9tLL8xnKdmr55Ef4ZtebUlVLBm4IRPSc95dCo3R
-   nqZaOPGA+tVI/EawU2788afEpPkYNexSK4y/GCJIXUQ8OBYygwHwBV9PF
-   QdsIJEreItwAkW6nfg8fhU1qNEayOYPtww8Bvlh6bRWffzBOyyM4xaGBU
-   sBS+4nlWoy39+6P13mKboEF+XkKpOfkmcH+ph8k0iZ9Ucl53p060wik7q
-   2k9nsn7GDMrMBzYPSm1oZkGm1IjdxiSw+KG1OdpvOb+/Y3NrfURR4F9/L
-   A==;
-X-CSE-ConnectionGUID: q4KOq0I2Qdq/Ii9r9wWHFA==
-X-CSE-MsgGUID: GhVyR9XXRReD2w/iZBZJ3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="100986779"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="100986779"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 12:29:16 -0700
-X-CSE-ConnectionGUID: EFZBs3KCQOu/zUxnOMdfmg==
-X-CSE-MsgGUID: DV5BFFn4TWWtVdnYsSAlUw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="274701182"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 12:29:13 -0700
-Date: Thu, 1 Oct 2026 22:29:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH RFC 3/3] iio: core: use kstrtodec64() to parse
- fixed-point values
-Message-ID: <ar60h2px1C8hM4-O@ashevche-desk.local>
-References: <20261001-e-notation-v1-0-75187bf06c10@analog.com>
- <20261001-e-notation-v1-3-75187bf06c10@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etqvOpLP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4451F000FF;
+	Thu,  1 Oct 2026 19:29:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790882970;
+	bh=0sWDayJOkxAeOGqqB0NIGD2EYTzPiQHVomT9o9M6NJE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=etqvOpLPcimxHlPPMuhIKLv01U67MpgFnDZ8Y3ieFvsD8dguldGMoBRIjHNML1ell
+	 /8euWeMtkYpB9iJGTyOwz8+RAkiDppmh9yWUQcFOI2sOjC3e2WNyBqlsIxfRf8zDnt
+	 R/J0upFjOe+7FopiiAKnmP6Cbuu6z80pGh+Pc8DNd6Yi2ahDp7+uD5qo//nb7UJCMf
+	 ioWsMQhp3n/Nu/IoWKDMUDgt2IhQ3TSO+dhOgYSafmwCNScW6lgts5VXrMnxktHs1A
+	 yx/jLmuL2oWfB87JG/PEpa2blPrsHTwr/DwrAV4ZReaq3ryymkqKAduTRudHXmry60
+	 7sXWdTzVZzCcw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Han / =?utf-8?B?7ZWc7IOB7JqwU2FuZ3dvbw==?= <sangwoo.han@nearthlab.com>,
+ Bjorn Helgaas
+ <helgaas@kernel.org>
+Cc: jim2101024@gmail.com, florian.fainelli@broadcom.com,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ bhelgaas@google.com, bcm-kernel-feedback-list@broadcom.com,
+ robh@kernel.org, linux-pci@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Inochi
+ Amaoto <inochiama@gmail.com>
+Subject: Re: [PATCH] PCI: brcmstb: Reserve only the MSI vectors that are
+ handed out
+In-Reply-To: <CAFg7d9bJJjR7JEMXanttGVcGisa4x3uLYPR43Te4+JKMzHBkfQ@mail.gmail.com>
+References: <87cxuo3fl9.ffs@fw13> <20260916231029.GA988000@bhelgaas>
+ <CAFg7d9bJJjR7JEMXanttGVcGisa4x3uLYPR43Te4+JKMzHBkfQ@mail.gmail.com>
+Date: Thu, 01 Oct 2026 21:29:27 +0200
+Message-ID: <871pa9gqy0.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-e-notation-v1-3-75187bf06c10@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 12:34:58PM -0300, Rodrigo Alencar via B4 Relay wrote:
+On Mon, Sep 21 2026 at 18:05, Han / =ED=95=9C=EC=83=81=EC=9A=B0Sangwoo wrot=
+e:
+> I tested Thomas's patch on the same hardware setup with the 5-vector
+> MSI endpoint. The patch was applied as posted on top of 6.12.93
+> (rpi-6.12.y).
+>
+> With the patch applied:
+>
+> - The MSI base hwirq remained at 0x8 across 200 driver reload cycles.
+> - The driver got all 5 requested vectors on every cycle, with no
+> single-MSI fallback. Multiple Message Enable remained at 8.
+> - The brcmstb inner-domain mapping returned to baseline after each
+> unload/reload, with 12 mapped while the driver was loaded and 4 after
+> unload.
+> - A kprobe showed one allocation of 8 vectors followed by eight
+> single-vector frees, with nothing left over.
 
-> Replace the open-coded __iio_str_to_fixpoint() parser with
-> kstrtodec64(), so sysfs writes of fixed-point values also accept E
-> notation. The scale passed to kstrtodec64() comes from fract_mult, which
-> is a power of ten, 10^n, so ffs(10^n) = n + 1. The fractional part only
-> keeps the sign when the integer part is zero, as before.
-> 
-> The dB suffix for scale attributes is now handled by a separate
-> iio_str_to_fixpoint_units() helper. It strips an optional trailing
-> newline and the "dB" or " dB" suffix before parsing.
-> 
-> When there is no fractional part (fract_mult == 0, or dec_scale == 0 for
-> 64-bit values), try base-autodetecting kstrtoll() first so hexadecimal
-> and octal input keeps its meaning ("010" is still 8). Fall back to
-> kstrtodec64() on -EINVAL to accept E notation.
-> 
-> As a side effect, inputs that used to be rejected for integer-only
-> attributes are now accepted. An invalid octal number such as "08" is
-> parsed as decimal 8, and a fractional value such as "1.5" is truncated
-> to 1, matching how kstrtodec64() drops digits beyond the requested
-> scale.
+8 single vector frees?
 
-...
+Seems I got something wrong there verus the bulk free. Updated patch
+below.
 
-> +	/* fract_mult = 10^n, so ffs(10^n) = ffs(2^n * 5^n) = n + 1 */
-> +	unsigned int scale = ffs(fract_mult);
-> +	s64 dec64;
-> +	int ret;
-> +
-> +	ret = -EINVAL;
-> +	if (!fract_mult) /* keep hex/octal support for integers */
-> +		ret = kstrtoll(str, 0, &dec64);
-> +	if (ret == -EINVAL)
-> +		ret = kstrtodec64(str, scale, &dec64);
-> +	if (ret)
-> +		return ret;
+> The MSI vector exhaustion issue I originally observed no longer
+> reproduces with the patch.
 
-Wouldn't be better to write as
+Good. Can you please retest with the updated patch?
 
-	if (fract_mult) {
-		ret = kstrtodec64(str, scale, &dec64);
-	} else {
-		/* keep hex/octal support for integers */
-		ret = kstrtoll(str, 0, &dec64);
-		if (ret == -EINVAL)
-			ret = kstrtodec64(str, scale, &dec64);
-	}
-	if (ret)
-		return ret;
+> I also observed a KASAN report with managed affinity. Using a small
+> out-of-tree test module bound to the same endpoint and requesting 1..3
+> vectors with PCI_IRQ_MSI | PCI_IRQ_AFFINITY, a request for 3 vectors
+> resulted in:
+>
+> BUG: KASAN: slab-out-of-bounds in __irq_alloc_descs+0x158/0x460
+>
+> Requests for 5 and 7 vectors were capped to 4 on this 4-CPU system and
+> did not trigger the report. I have not checked this against the
+> unpatched kernel yet, so I cannot tell whether it is related to the
+> patch.
 
-> +	if (fract_mult > 0)
-> +		dec64 = div_s64_rem(dec64, fract_mult * 10, fract);
-> +	else
-> +		*fract = 0;
-> +
-> +	if (dec64 > INT_MAX || dec64 < INT_MIN)
-> +		return -ERANGE;
-> +
-> +	*integer = (int)dec64;
-> +	/* only carry the sign in the fractional part if the integer is zero */
-> +	if (*integer)
-> +		*fract = abs(*fract);
-> +
+Any updates on that? Also please provide the source for that test.
 
-...
+Thanks,
 
-> +static int iio_str_to_fixpoint_units(const char *str, const char *units,
-> +				     int fract_mult, int *integer, int *fract)
-> +{
-> +	size_t units_len = strlen(units);
-> +	size_t num_len = strlen(str);
-> +	const char *dec_str = str;
-> +	char buf[64];
-> +
-> +	if (num_len && str[num_len - 1] == '\n')
-> +		num_len--;
-> +
-> +	if (num_len > units_len &&
-> +	    !strncmp(str + num_len - units_len, units, units_len)) {
-> +		num_len -= units_len;
-> +		if (str[num_len - 1] == ' ')
-> +			num_len--;
-> +		if (num_len >= sizeof(buf))
-> +			return -EINVAL;
-> +		memcpy(buf, str, num_len);
-> +		buf[num_len] = '\0';
-> +		dec_str = buf;
-> +	}
-> +
-> +	return iio_str_to_fixpoint(dec_str, fract_mult, integer, fract);
-> +}
-
-This won't support cases when we have too many leading 0:s.
-All these functions should also strip leading and unneeded 0:s.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+        tglx
+---
+--- a/kernel/irq/irqdomain.c
++++ b/kernel/irq/irqdomain.c
+@@ -1610,6 +1610,17 @@ static void irq_domain_free_irqs_hierarc
+ 	if (!domain->ops->free)
+ 		return;
+=20
++	/*
++	 * MSI device domains are capable of bulk free.
++	 *
++	 * CHECKME: Are all MSI parent domains capable?
++	 */
++	if (domain->flags & (IRQ_DOMAIN_FLAG_MSI_DEVICE | IRQ_DOMAIN_FLAG_MSI_PAR=
+ENT)) {
++		if (irq_domain_get_irq_data(domain, irq_base))
++			domain->ops->free(domain, irq_base, nr_irqs);
++		return;
++	}
++
+ 	for (i =3D 0; i < nr_irqs; i++) {
+ 		if (irq_domain_get_irq_data(domain, irq_base + i))
+ 			domain->ops->free(domain, irq_base + i, 1);
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -1333,20 +1333,28 @@ static int __msi_domain_alloc_irqs(struc
+=20
+ 		ops->set_desc(&arg, desc);
+=20
+-		virq =3D __irq_domain_alloc_irqs(domain, -1, desc->nvec_used,
++		/* Make sure a MULTI-MSI allocation is power of two */
++		unsigned int nvec_aligned =3D roundup_pow_of_two(desc->nvec_used);
++
++		virq =3D __irq_domain_alloc_irqs(domain, -1, nvec_aligned,
+ 					       dev_to_node(dev), &arg, false,
+ 					       desc->affinity);
+ 		if (virq < 0)
+ 			return msi_handle_pci_fail(domain, desc, allocated);
+=20
+-		for (i =3D 0; i < desc->nvec_used; i++) {
++		for (i =3D 0; i < nvec_aligned; i++) {
+ 			irq_set_msi_desc_off(virq, i, desc);
+ 			irq_debugfs_copy_devname(virq + i, dev);
+ 			ret =3D msi_init_virq(domain, virq + i, vflags);
+ 			if (ret)
+ 				return ret;
+ 		}
++
+ 		if (info->flags & MSI_FLAG_DEV_SYSFS) {
++			/*
++			 * This only exposes desc->nvec_used and ignores the
++			 * overallocated MULTI-MSI ones.
++			 */
+ 			ret =3D msi_sysfs_populate_desc(dev, desc);
+ 			if (ret)
+ 				return ret;
+@@ -1610,13 +1618,15 @@ static void __msi_domain_free_irqs(struc
+ 			continue;
+=20
+ 		/* Make sure all interrupts are deactivated */
+-		for (i =3D 0; i < desc->nvec_used; i++) {
++		unsigned int nvec_aligned =3D roundup_pow_of_two(desc->nvec_used);
++
++		for (i =3D 0; i < nvec_aligned; i++) {
+ 			irqd =3D irq_domain_get_irq_data(domain, desc->irq + i);
+ 			if (irqd && irqd_is_activated(irqd))
+ 				irq_domain_deactivate_irq(irqd);
+ 		}
+=20
+-		irq_domain_free_irqs(desc->irq, desc->nvec_used);
++		irq_domain_free_irqs(desc->irq, nvec_aligned);
+ 		if (info->flags & MSI_FLAG_DEV_SYSFS)
+ 			msi_sysfs_remove_desc(dev, desc);
+ 		desc->irq =3D 0;
