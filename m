@@ -1,89 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086EA5237B4;
-	Thu,  1 Oct 2026 19:27:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A861364E96
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790882857; cv=none; b=Bglk6oiWGNyjrQR8XXkNzuGK+G8GTXfJhZGvtQtmcz85/CDqa5FynKWgAiE997Lsg8zoqh4+sIGxUX+my0qqogzeVwVdVeDVYV/GHmjUhE6tTfcGFiE7vEp7G/sCHLjhv1t/JdPhAcrJCfX9OV4L+rKE9CGg7BQC2Oh9/IPUZF8=
+	t=1790882932; cv=none; b=J/LM/s07Zw3ybB0U8P1qef/6c5/YFbFdWawZTlm7BPJj3eu3NsFdH4+GorucOXKDx6MV5tcyPiHtW6gY6/uYFAYn+DvmRpcts+XRs5WISLSKc4mKUN8q6aKV3ZktRSSpHSiI3P8ZPjunrkKY3T5kIsSXrk+RTBaqC7fpFvaib0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790882857; c=relaxed/simple;
-	bh=vn+qqaYk4z6YgEZ+TlE7YA/j53pxar7/x8Q1Br6M+co=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FqfHgeX3rwaZ3f7MLw6RkPfEv5dBA5GnGtO51EH9RtK1MIk+5D8Br2fitDTpYqW/Ox2Kf2eIWHigtGyT8av1jYK6xHYtJVpybwtn1yBS3yLzT41CUvbeo5wSkxQ406ArYctLFt78aS6QNxgq9efOv8qlSOnv4vTr+mDiR1/cUJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZ9uKnA6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790882932; c=relaxed/simple;
+	bh=m11GMEyvhzjd9E6+wwt5uc3aFkOwju9CszSHqjpI5h0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QwMk0bIeUx8OrpfQuZBvOKyqXQGZnuY6Py1DobKbQMzwKTxsNAbAbsLaoOYxDJyJt+iO/iGK9FtwAXF42w+2k6+9KpV1mXr/QHD/i7Mn3x9jKsB+IDuTW2XxnLwFWtaVYNZvlcOa2XkYDN5jrmcbcjpJEZPRjQRCvu0SOAMe4io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpHF0yEP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZ9uKnA6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B631F000FF;
-	Thu,  1 Oct 2026 19:27:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpHF0yEP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A80C1F00899
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:28:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790882855;
-	bh=dBN4zbJr8oauLEWEDSbcgR2yKMHy1f9xUTNa1sHzSiQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NZ9uKnA61nmgFbFwNY0AtIsUMAQ0qLBkNzcfUAZLrzHFVUNCBMZAoJPzVKSma/LjY
-	 yfedkCTpFx//jr8DW0MWHPiRlNkarfB11cm201pe1GvHHaAg88ubATab0fGInMkcjg
-	 6rmFf/X5TN9fKs2UwdVk6TaiaestHKHZPhFBFQ+gHohxHiC/BFLm/wIGmiqGayu1/b
-	 8APi1BnXiWV0ckZ/RSbKRexRFuHmYF9Wg9NsirExO88xQeCayYnLPD0jJzH1IxESxW
-	 LNGLQl6oI620uZyzovHmt08Gmwqsi5JqOHuRCYRRvkWxR3259bLhkKJykhjQlxIeiJ
-	 iep9Vq5tqAqhg==
-Date: Thu, 1 Oct 2026 21:27:31 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
-	KBuild Mailing List <linux-kbuild@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Subject: Re: linux-next: manual merge of the random tree with the kbuild tree
-Message-ID: <20261001192731.GA713751@ax162>
-References: <ar5-4Yq3wtmXTWnD@sirena.org.uk>
+	s=k20260515; t=1790882931;
+	bh=m11GMEyvhzjd9E6+wwt5uc3aFkOwju9CszSHqjpI5h0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XpHF0yEP2CAfUBo0dIKOgho+y53PMw4J0ynCzZzK3Bv5ke5J4Pt+TGBpaXZB/E7aQ
+	 i+Li3h43sorfblLs2LronkcGQC8G1KB25jrahgfSUW7fLmOKWSmYKsa2/Yy9llZ24Z
+	 Ycc1PTALVDSG1UpjJikuEf+C7j5qe8PDy7urlXiq1YiraQttIRFz5oKyajZNRT83i3
+	 6WH5iuJkNOzLtB/Y19CwJ8Vt6Vt9lkRMS5+xi+p1R3ovbrDx3E7FdIBthcj0EoT/Q9
+	 8z/iYPaxNfzr7d1UAWPyol5b93IXmPXhLO6evqUfTx8ar2kVNuMJQSTDp9HivFa/z6
+	 0Kq4GSyWtTyng==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3e27d525so1890013e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:28:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwXOCZqRC3g3ZA11ReQ7ifLJEI08XHvqwzu4Odge0p0ppos49n9fEDIY0iWgqD5q6hWfUoCU5YTumv80Xs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJq9ED2ffV/D+KF7zqPv598YFRDrvlLGDAIIoj/Jl7w1Hzak5i7
+	kUR6XBoNbiziZ4/+RsQU06uhQBLWemzSLMhDH20mWIj38iBv1uBnowdLgrY8UJLrv8UMVXcXKZy
+	uJCQlrSF4BsEBIpqpsK3rcW/bnrGfpAQ=
+X-Received: by 2002:a05:6512:3b91:b0:5b6:4ae:8c02 with SMTP id
+ 2adb3069b0e04-5bb9bc3a38amr67418e87.29.1790882929875; Thu, 01 Oct 2026
+ 12:28:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar5-4Yq3wtmXTWnD@sirena.org.uk>
+References: <20260929203634.32998-1-pmazzini@gmail.com> <a15d179f-8a43-4b4a-8bd5-fc0afecad6e0@arm.com>
+ <CAD++jL=wEKZ5nRofe09heO8uUa4Cd12SYz3+XPhsStioQ5XTXQ@mail.gmail.com> <d9e249b7-baf9-4ad3-a3ae-b9765feca5d8@arm.com>
+In-Reply-To: <d9e249b7-baf9-4ad3-a3ae-b9765feca5d8@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 21:28:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=bhQ8Pj12wgCi8RaRTEUcrXzhHm+EYA67dBEvn8P_rCw@mail.gmail.com>
+X-Gm-Features: AclHuK_wLU1qzQeRdKRPBZrb-Hz7ltUFota33qajxnsq0Ifw9pLY5cjoFByXrTo
+Message-ID: <CAD++jL=bhQ8Pj12wgCi8RaRTEUcrXzhHm+EYA67dBEvn8P_rCw@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: sunxi: dt: number the IRQ banks from the first
+ one that has IRQs
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Mark,
+On Thu, Oct 1, 2026 at 2:31=E2=80=AFPM Andre Przywara <andre.przywara@arm.c=
+om> wrote:
 
-On Thu, Oct 01, 2026 at 04:40:17PM +0100, Mark Brown wrote:
-> Today's linux-next merge of the random tree got a conflict in:
-> 
->   init/Kconfig
-> 
-> between commit:
-> 
->   f85147b291e35 ("kbuild: move the toolchain checks into scripts/Kconfig.toolchain")
-> 
-> from the kbuild tree and commit:
-> 
->   56ff95ee85715 ("random: vDSO: avoid call to memset() when zeroing reserved parameter")
-> 
-> from the random tree.
+> So we could revert the DT patch, and take Pablo's code patch, with a
+> Fixes: tag, but that would create some broken combinations meanwhile.
 
-Thanks, I knew this was coming and the resolution almost looks correct
-but...
+I see it like this was a bug in the DTS file, so this if fine as-is.
 
-> diff --cc init/Kconfig
-> index ecd71b38fc560,98d8d7fa64c5c..0000000000000
-> --- a/init/Kconfig
-> +++ b/init/Kconfig
-> @@@ -1,7 -1,207 +1,5 @@@
-...
->  -config PAHOLE_VERSION
->  -	int
->  -	default "$(PAHOLE_VERSION)"
->   
-> - source "scripts/Kconfig.toolchain"
-> - 
+> And in any case we should add a word to the binding document, to pin
+> down what's expected here.
 
-You appear to have dropped this source line, which I believe is the root
-cause of https://lore.kernel.org/ar5-8C-j_JT5OYQm@sirena.org.uk/.
-Restore it and the resolution should be correct with no build errors.
+Can we enforce it with YAML constraints or is it too open-ended?
 
--- 
-Cheers,
-Nathan
+Yours,
+Linus Walleij
