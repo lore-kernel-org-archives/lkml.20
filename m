@@ -1,127 +1,107 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39093EF66B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD6C48F03F;
+	Thu,  1 Oct 2026 12:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858447; cv=none; b=OYNFw9gSsJqnw24rji+bbVrhaR9cFBhVGTwPxpiQFeG8cOoxNX5d9ZNG2j961WJPYJ5n+kgGKbW7+jY1QztldZnJ/Vxe3dDwl2UjoNmFFTXCrPzxvYUP2xXqGT5Q4/7AcjKza1LotncB87GycymE3aMziSyEmXOZgMjMCwbiTGs=
+	t=1790858460; cv=none; b=uYekDc0HkyuR0Hxt2HySqXDe7sulzRF80VSuLpo5k5LLMZrVG/6yN0QZv1AfN8FW7TbD4cATY2CdHofNAa7HCmXyDfI2yOohJLm8MFIGn6PIYOfUQ6NwODTPiyXu7Lq9glon5tFRQUnZbuiV91vGgGjhsPqw4fJMvdJzNMc0Q/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858447; c=relaxed/simple;
-	bh=i/cKfZ50vNgGTATLuK2eCJ789uoCgVbuV5TIGIHKDD8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bgIGd5NDxGYwPuhKuENXg8YUyQYKDLE1BB3C9Lo64w/SaUmfZNf+CnDw3yDOb+HTAFTsv20JJrNpLRa9xWNf4rRmRJRrUR2hc75z/WRchBFva/If+9DJobFfQi0OXaR6rcrwL8eOAkBhDf35Hze7XXU4yMK7+dkx9nfGcv7VmoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dXQAZNih; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790858460; c=relaxed/simple;
+	bh=n2PC5Ygmm3kKQRsnARaZvzzaiZN9N9d+mwOfSpacRzw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dDer88XPWAJ9YItu+RyGnYk5radMeqU0rtxDcK0w8VUM68J3XQdb3/uORtMsgmMfAW1i4v3Qav+CN7mkUnxkd86HGKO9pkReQmT90PUDlsWZt4DRtKiFiXq70fAWHET3eGFNsNG5J/qrULhoxTeMM+pxqHLt0bjkbJJgKwHF22I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=axY04V11; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dXQAZNih"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790858444; x=1822394444;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=i/cKfZ50vNgGTATLuK2eCJ789uoCgVbuV5TIGIHKDD8=;
-  b=dXQAZNihq4HsrKxH/IJFH1j5Y9e21rCf47L6oLf4Ec7erM8GIbMUmZvE
-   9Ih/2nYGOz3R+l3yg2GLeNLRpYIgpCyagADCN6mo5QZl/FHEx8dvE/iIj
-   ArMmW7W7/MlDeDtMIpaiR7qMDl/ZwFaCGOqtFBwrsuCRmlAtyzxwpZgKY
-   Ju9sqJvUacLcVIZq1mHB2uI6PW7zTkSAxmZL8PyciYKnKGhWZreg/UwOh
-   8mvkP3xNMSAg4kNZjM4N/YVK+9OYNl18c/mgo7ZJo00gvbXI1M9mFLG5I
-   GLA/GpB32GyO3wwv0/r1vvzcsyVtXBkS7p4IcU1bGDFP2evMskxEO6d7N
-   Q==;
-X-CSE-ConnectionGUID: iEieWzqdRiCoJm4Mc5JZCA==
-X-CSE-MsgGUID: C1M63R+gRU+d8WXxdGU4eQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90668585"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="90668585"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 05:40:44 -0700
-X-CSE-ConnectionGUID: lCHhsoJiRbiAAHLbFPeYGg==
-X-CSE-MsgGUID: glVacqwTQkmjZLy9qoP1og==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="49356"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa011.fm.intel.com with ESMTP; 01 Oct 2026 05:40:39 -0700
-Date: Thu, 1 Oct 2026 20:38:26 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Peter Fang <peter.fang@intel.com>
-Cc: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
-	bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
-	aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
-	pbonzini@redhat.com, chao.gao@intel.com, vishal.l.verma@intel.com,
-	xiaoyao.li@intel.com, kevin.tian@intel.com, chao.p.peng@intel.com
-Subject: Re: [RFC PATCH 01/15] x86/tdx: Export tdg_vm_rd() for tdx-guest
- module
-Message-ID: <ar5UQg/Q4zePFSzb@yilunxu-OptiPlex-7050>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-2-zhenzhong.duan@intel.com>
- <ar2JlI0ApPCb_C2G@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axY04V11"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5BD0BC4AF0B;
+	Thu,  1 Oct 2026 12:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790858460;
+	bh=n2PC5Ygmm3kKQRsnARaZvzzaiZN9N9d+mwOfSpacRzw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=axY04V11caQs/FYp1d84t6qg1LHcYssPcunhfV9pReaT2QaxnrMtZlSneObNRLWrU
+	 Ww3xnhphs5gaskfmqSLgttlpYmjtJIIi0XQj4fYkNvJKad4DQH86ZKq0ZjXusI2yUu
+	 QmuemBWEqEtNZtyCLDCx6gE0sqFfPYekpb9PI8tEXpZovQ46nyM4C1X6ovoTkxhvLs
+	 KOzuFTmI9G1L1p/P1B7Godbdp6tPwdQ0lhA+9TB3ku7wUVk8TyqNIle/tnjZ22KKtG
+	 jyayhQI8f6MBR7i+wXzZCFSt+aPOIRdg3MOjo/Dx88djWSsTklDvMJAcZVCJeFTs7N
+	 5cDE2KP9ejifA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36595CA5FD2;
+	Thu,  1 Oct 2026 12:41:00 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Thu, 01 Oct 2026 20:40:51 +0800
+Subject: [PATCH v9 02/15] dt-bindings: mfd: syscon: add Ambarella CV75
+ secure scratchpad
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar2JlI0ApPCb_C2G@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-cv75-v5-v9-2-486cc289a4b8@ambarella.com>
+References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+In-Reply-To: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Michael Walle <mwalle@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790858457; l=934;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=sWEDtsH7Lmq1R/x+RLJKvlPiYjtNzkc/ykiOxa9OBkU=;
+ b=Ur7au6+duy42kHSViIdX8c/1puUmSrN25+m7krt+Is2WpDy85zhJCbuesB+VUyB23ny0NBpmF
+ ACpeHUNY0jkAIMSwtxcqEphsZd4KJRYy/tDOgpIdZflOFXsRPKy2F9T
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
-On Wed, Sep 30, 2026 at 03:13:40PM -0700, Peter Fang wrote:
-> On Thu, Sep 24, 2026 at 12:10:18PM +0800, Zhenzhong Duan wrote:
-> > Export tdg_vm_rd() to allow the tdx-guest driver module to directly
-> > read TD-scoped metadata fields from the Trust Domain Control Structure
-> > (TDCS) via TDG.VM.RD TDCALL.
-> > 
-> > Since tdg_vm_rd() is read-only and cannot cause harm, exporting it
-> > directly is simpler and more flexible. This allows the tdx-guest driver
-> > to read any TDCS field it needs.
-> > 
-> > In a following patch, the tdx-guest driver will use tdg_vm_rd() to read
-> > TDCS_CONFIG_FLAGS field directly.
-> 
-> Can this be a separate helper? I'm adding another helper for
-> TDCS_QUOTE_MAX_SIZE [1]. I think maybe their patterns should stay consistent.
-> 
-> Yilun, any thoughts on this?
+From: Long Zhao <longzhao@ambarella.com>
 
-There was a helper in the series before this public RFC, but was then
-dropped, something like:
+Allow ambarella,cv75-sec-scratchpad as a syscon for the shared secure
+scratchpad registers on CV75.
 
-int tdx_get_config_flags(u64 *flags)
-{
-	u64 sret;
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-	sret = tdg_vm_rd(TDCS_CONFIG_FLAGS, flags);
-	if (sret)
-		return -EIO;
+diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+index fe882d3f828b..9ebf702c06f1 100644
+--- a/Documentation/devicetree/bindings/mfd/syscon.yaml
++++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+@@ -32,6 +32,7 @@ properties:
+               - allwinner,sun50i-a64-system-controller
+               - altr,l3regs
+               - altr,sdr-ctl
++              - ambarella,cv75-sec-scratchpad
+               - amd,pensando-elba-syscon
+               - amlogic,meson-mx-assist
+               - amlogic,meson-mx-bootrom
 
-	return 0;
-}
-EXPORT_SYMBOL_FOR_MODULES(tdx_get_config_flags, "tdx-guest");
+-- 
+2.34.1
 
-The concern is how risky is the tdg_vm_rd() export, and how it impacts
-the existing tdg_vm_rd() usage, and the tdh_mng_rd() export which reads
-the same data set on host.
 
-My initial concern about the cons of tdg_vm_rd() export are, the
-SEAMCALL reads any TDCS fields, some of them are writable by tdg_vm_wr()
-and there is no synchronization between them, so seems not a good kAPI.
-Reducing the scope to read-only fields (e.g. TDCS_CONFIG_FLAGS) may be a
-good start.
-
-Now there are 2 cases in flight: tdx_get_max_quote_size() helper in DICE
-and tdg_vm_rd() export here. Maybe we need more cases to see which is
-better but anyway I agree we'd better stay consistent now.
-
-> 
-> Thanks,
-> Peter
-> 
-> [1] https://lore.kernel.org/kvm/20260930103739.2851980-6-peter.fang@intel.com/
-> 
-> > 
-> > Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
