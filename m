@@ -1,33 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EC437E5EE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790851568; cv=none; b=G3lo872C7aaPATbNWwdHJH2HARq86F2MK8VCMIj2xLAJmi7xzTE7c7anNJ+aUC5+QoROv1BiZ1ifxVRaogAlPgkcfrEyxcO/YjBfNicATX6KiwzfN8lALOqVMmlWXoMJ8KVNKpB7+c+GDzfVFou9thl1VRekvm245N4+VDE12XA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790851568; c=relaxed/simple;
-	bh=RY+LCxqQL/9ZfyV8jWqz5Q03EgaclLrPp/PfXPWLaZg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8093437E5EE
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790851590; cv=pass; b=oWZslTvwd7QWYIolfOTAw+0HtLeul1paOP/aWj73buuiCGSZ81jwHvFqMxozWwWWK+fETrQb0yxMnnH4aAGW6nv3rcU1URgXzFhh3Y7cZpEvahp3y070BgQ04tfqxtia+6pVUs9Yi3BPm3zhyi938KFg7wteW5non8LHA+WZidw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790851590; c=relaxed/simple;
+	bh=xHheWCZqxhb77Fa7IJS/W05TvCOOUP/VZ4rMa+wK/Ts=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m+QGJBMJ2lO3gFl8fwR2h9d71xGzZKIFSs8Dkk5xkt4iA3xuuD7R42AroEgJZAjzu0SX9PXqQ/TZS7OCxTJevc5KepD2XmWOErzBBIRgvwJFFM1GBoUXrpPUayfne8Ju9Iw7rAC6QbVAg+ZXKlMlfHAA22n5uzxidpBioOSBcTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VqH35c14; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=SZ2uKUpbRRQsb+hloyIivT5XB7LFa/sZVgP0fLKOwa4IowR6syLUnBo7hq7Ef55iiVOKRrrL9FXb5f7ytcR+YNfCrhEq7UkVJOECIiS9NFxfLru1oVDrAWT5mvLLx6VTDQdqlHoF+0hXzkBi5cfWxeFecZMBtUni4AIFJvHlSjo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=F0U1KVhC; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VqH35c14"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A85B41F000FF;
-	Thu,  1 Oct 2026 10:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790851566;
-	bh=2BR3qjzOL/B8brr80lOm9esyzvVoYxCmAhj9OkzWhEQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VqH35c14ovL8IJGd5/WwWVjA7l4NKoUsItEhIHqB0YXU4ep8K/XOKm5wXVO8NM2fs
-	 +4WHMc5yy3+3/4o/Yz98MDbud32Pq1hEBkpUQEu7NXzGQjTHUkgbYd58hWSEpxGt8E
-	 QawgvkJ1doULaIOGg5hq45wwWHsR+9HsY5yQJb9da93xEuRsmMbWp4BNa3XBP9W5t3
-	 RdwZipRLsHWAi2OC+KDUTefq/gN9SpCvKYD48eWL+fnLQfjj19VlFn42FAk6GMqNLr
-	 aICqGdrbGi69k1GKcZgr/npbR07PgnxsvKhief4wBPFqYN0N/ErKNJdpVZk65A+MnB
-	 icTal2n9XS47Q==
-Message-ID: <2d57ce00-1791-45f2-86f5-dff29bac3d03@kernel.org>
-Date: Thu, 1 Oct 2026 12:45:54 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="F0U1KVhC"
+ARC-Seal: i=1; a=rsa-sha256; t=1790851578; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=h0X+2Z8FTOuZxR4NaFKUOo4BEeNPSS6M/zba4h8v827HnHaFgAJtCF7pVY44Oplvv9DuppvdAD49QoOJMFE6+9Ai/AkfJNF+9NasfyaSAqjmMIDYlxaZjltl6Vm2bCgTNNEVSYEMoDZzmpkxwjTGbGhu5R0SyT1/AOSGIcUnUMk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790851578; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=2HzGCzDfJRSxURSFLUp5EFwzSKrik2fgPy8B4HnFxCE=; 
+	b=XQYX9XxneS9roREzfIftliV0HLRFMBp+0v1Atk+rOTmyUd9L8XUJErwQIQ1BfBDECU1oNW5lg2qDXLn7PjVk0iwoD2wZ2vVZKD6rT/2BPvMW90q4kSMil2XhGB6HTbAO4F+1vloqZWlnNu56Ruhqr46drJGBMofNYWM1tHLM95s=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790851578;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=2HzGCzDfJRSxURSFLUp5EFwzSKrik2fgPy8B4HnFxCE=;
+	b=F0U1KVhCyjzzZ7tGAijotnDY4dtGPmcI7HEANAqbpPKxp3V4LtsUeTO07XzJS1sk
+	APFm7IHS2cV+LWZDn0RVzakRHfK+IfeXHPMk1q5fFQ9+CE2H3yzf3IKiKFbeuN6Tuow
+	I9w+Gmr7rWCu30FS3BZzGEv3VtR+g1GIh6Bq3XXA=
+Received: by smtp.zohomail.com with SMTPS id 1790851576827524.4943374976424;
+	Thu, 1 Oct 2026 03:46:16 -0700 (PDT)
+Message-ID: <b8064104-99dd-472d-883d-56b362d60371@collabora.com>
+Date: Thu, 1 Oct 2026 13:46:11 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,91 +45,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 7/7] mm: use VMA flag helpers in NUMA balancing
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- ying.huang@linux.alibaba.com, matthew.brost@intel.com, byungchul@sk.com,
- apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
- shy828301@gmail.com, osalvador@suse.de, raghavendra.kt@amd.com
-References: <20260930112206.205083-1-gourry@gourry.net>
- <20260930112206.205083-8-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] drm/virtio: add ARGB8888 support for primary planes
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Dorinda Bassey <dbassey@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev
+Cc: kraxel@redhat.com, airlied@redhat.com, slp@redhat.com, mhrica@redhat.com,
+ gurchetansingh@chromium.org, mripard@kernel.org, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+References: <20260930132707.500748-1-dbassey@redhat.com>
+ <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260930112206.205083-8-gourry@gourry.net>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 9/30/26 13:22, Gregory Price wrote:
-> From: "Gregory Price (Meta)" <gourry@gourry.net>
+On 9/30/26 18:03, Thomas Zimmermann wrote:
+> Hi
 > 
-> Use vma_test() instead of accessing vm_flags directly in the NUMA
-> balancing code touched by the preceding fixes. Keep the existing flag
-> predicates unchanged.
+> Am 30.09.26 um 15:27 schrieb Dorinda Bassey:
+>> Add DRM_FORMAT_HOST_ARGB8888 to the list of supported formats for
+>> virtio-gpu primary planes. Without this, glmark2-drm fails at
+>> startup because it selects ARGB visual configs by default, which
+>> don't match the XRGB-only plane capabilities. This causes
+>> drmModeSetCrtc to fail with EINVAL.
 > 
-> No functional change intended.
+> But does the host also support ARGB on the primary plane? We usually
+> don't export formats that are not available in (virtual) hardware.
 > 
-> Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
-> Link: https://lore.kernel.org/r/aq1FDhy00epXXtgd@gremlin
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
+> Best regards
+> Thomas
+> 
+>>
+>> The virtio_gpu_translate_format() function already handles
+>> ARGB8888 translation to VIRTIO_GPU_FORMAT_B8G8R8A8_UNORM,
+>> so this just exposes the existing capability to userspace.
+>>
+>> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
+>> ---
+>>   drivers/gpu/drm/virtio/virtgpu_plane.c | 1 +
+>>   1 file changed, 1 insertion(+)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+For primary plane, alpha channel often doesn't matter as primary has
+fixed z=0 order and a usual alpha blending mode would account only
+overlay's alpha channel. Many real hw drivers expose alpha-channel
+formats for primary plane for compatibility with userspace, even though
+for them the alpha has no meaning for the primary plane.
+
+QEMU is most popular VMM using virtio-gpu, but there are others. For a
+stricter compatibility we can translate B8G8R8A8 to X8R8G8B8 for the
+primary plane in the driver code, but I assume in practice it's very
+unlike this will be necessary and we can always do it later on if will
+be needed.
+
+The change looks okay, will apply after testing.
 
 -- 
-Cheers,
-
-David
+Best regards,
+Dmitry
