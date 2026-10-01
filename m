@@ -1,56 +1,56 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047385383FA
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F3053A3B8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790883540; cv=none; b=dH3UJSkdc/FWyyYF3JJLt42js4ibq3bLL9/aRrBYFKIJs4V3xS9fITEGbh5pBvvS0d/HOlBnckT5gC8z/kIj30FwcmY5wRFtLp/I7mbjLftxphwytB+JSn1kcmtF7v4tgSDis1XyUxiK4P3r3d+C2Oee6LO08TjXYTkO4FVQogs=
+	t=1790883542; cv=none; b=B68RclrRz25AeZeFIf15JmktyOHWUP/gZ3vtz4SLDRMJGH9/AsTdF0BeuUlTbmNjnpyah2tNzfofu45txBkiVLsb94h4/aWoMHV6RbLwt43XCy+G3KLBSbjkLvl9NCuSCY+WNMrXdXQs3nqXVnhOKpwn+XytoTka5XHyvXJnuYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790883540; c=relaxed/simple;
-	bh=70yzso9mTpjtAZvDQw6MEGUzLnCLrVD066F6p3Zhl2A=;
+	s=arc-20240116; t=1790883542; c=relaxed/simple;
+	bh=llNcDEvG5ONSzD4dGt4NNNxutqgk+Vh63Ml8CuMiltM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=D5AEK7TwC+DnwN6vyaqY2flnb8rIr+l3r8Or8PSYQpRdI2iNo+ZWlt9JdNEwak50RHGClMIbUO9LACXbxSKkODneA5vLTrtdd8qDkcHCvwjqkOZkn0PTzouq0E8N3SR2dAASNrfJwSzAQF1PL0vXtle0GPYMWXhr9uCLDbYmMVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y2TbK0n4; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=dlqR7KJuPvudbon42owui5JhAyO+H49bPzsqwZEdsOGNsxOpKV+amDalhIKB/xbbXzY1FFTtenk+bH875GrKyrvBIIYZ+DgivzassjNzn7L9r8nxzknTcfCrVKszhUOoEhSFMGfbPlf3s6yE3kPwR6fTf+7B7Cshy/TVO2ndvQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZBvWq0gR; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y2TbK0n4"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a4a0017549so4890850a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:38:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZBvWq0gR"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d55d8cd938so103330065ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:39:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790883535; x=1791488335; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790883539; x=1791488339; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=A4TZAQ6Bf7T7xY4lGMxLLjKedsMydQ7E/lyehw+8438=;
-        b=Y2TbK0n45DVOPvHYGOY2hubox3jAuBv4sXHsAIctUycY7fE5vWnISLob9OkpYVlNN/
-         pSbKPQsxK9XoMS9KHIyjSVIu3JEfSVkE7dLPcgrFikmS1J/9e4bk3dtiB5GDeIu+Lycx
-         6rJky+blnRa3XuExYq+4DxtGOoIh0135zpM/lHg6FaO/z4QE1E3KFyL+xokrjDGPXhlv
-         Isqx4i2/fKfJ27NNXk3Mgt4UpjMdLjwV/VnGmG6P4qAHoo3IM4hBrmcMly5chYbd2B4+
-         mMkWUM1AIbZEUmokpgAsnqQcRA7WxzqBueY8DrtbgUWD9I3q3fqt03AQhXkV0OMZ06q3
-         tb8g==
+        bh=CTS9MVYDjyZn0FMdpJO1jd26R6doN//zdf6O3PVKEHc=;
+        b=ZBvWq0gRVCBRynx0RDBwizkk6kzKOxyxUG2DEPVdYL7NRACJbpoNByBoc9n2I5Ukhp
+         qMbnY+sjC6kiRggWO1jTh83pBiCxhnnzMllSmALltsnGuzjPgt2+McbaWFHUcrnLbZ5d
+         pbxInQJwjOOXekLyr9sAvDgwkeaD1fBkqTPg3RCwjFNr6GYepqZ6ZcMLadnd+dX82HLh
+         R0RDm/7z8ST53lug9qohSaR8Oa8mo/Zsc3C1v1lxWtx9dC7SzpyVZWRlavtEQ0xSlWdm
+         uUgivDQ2DTomG7vQoSRb24ABa7wVyIikryBTJpwUgGcRGrdlCeTOVrIoNHdtDpVX+stT
+         UOHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790883535; x=1791488335;
+        d=1e100.net; s=20260707; t=1790883539; x=1791488339;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=A4TZAQ6Bf7T7xY4lGMxLLjKedsMydQ7E/lyehw+8438=;
-        b=MaxxavyO+Fw1tZcLTy5zhVTvftaJ74eKVV/YyJVMfAHyDw2TkCEYE+PdA5pV10R+bL
-         uos4/nM5PzBeQq+Tbc9GUnrEW4HSN0kKSfQZ/AKdgWO6Q8A+fKoofGxQ4/sB83enLv2Z
-         mXUldcT2ThtK+GztbFnq9DgtLmJfUtOR5+KAVVFy4PA+YBeA5vFkUZsZ3HvZf+03S5NL
-         WdDwI7g2PnOGJE+p33PPOyCTAKS2uBG8w5B5PlJCEi6U6mTuHSquPKAvTSQgExlLTTIy
-         7WrGinZQ3eVCPuVKVmTe9yV00O+FO6DPIi9eDimR560juFFroTv17ikIpRq5aSou1MgX
-         JvNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKMsNecFBJEataFShFGt+hQFKTFxL2//HrtzVmm2r6u1Ny8xw52HEzt2oKmNccdhIARzuZXVZR9Mb6YCc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8YDuWI02vTSowmKI+2IIzxsTr5h0yJReoP6hCmtIvOgNo5iAf
-	FOLL7qrQGeV5nmTDjaopCq76Gu0lQl5FX5ef24X48LjKsRCPO0k1qivoYcEuT4yG4srgns+jiyu
-	fvUnX3w==
-X-Received: from pjbic4.prod.google.com ([2002:a17:90b:4144:b0:3a4:ddaf:87c4])
- (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1642:b0:3a4:a1f1:fea4
- with SMTP id 98e67ed59e1d1-3a6ce761d36mr503563a91.26.1790883535257; Thu, 01
- Oct 2026 12:38:55 -0700 (PDT)
-Date: Thu, 01 Oct 2026 19:37:42 +0000
+        bh=CTS9MVYDjyZn0FMdpJO1jd26R6doN//zdf6O3PVKEHc=;
+        b=mI9YcNzlegdggk1/SoiVUjaFsioLKAGqe1a3bAXP7Rlt229uIsRCPZX9vqiiWtft/C
+         3MFdIprdfr/9drybC+/R/9OEoVrYFePWTBQwfdAsaym0xqhTy8rF2a0fC2H/IFOfSBU2
+         rS0V8h5hfEZawh/h7oYKK0af5FBnCwkJyyAVSIv5QMFtR7JfynEQ1LDK8XhJMdbd7Siz
+         aWTFxERDlW+TTzh+by3dLGXWXSvxtxcqgZ6aamhFDCDZ+yAabor40o9dXnV6B5VF367F
+         ZkLElg74WPRGMLAUnti1PJ83tVYBu530a5DqSPBPNTIDLxqE4iWdDEKheJE/dZLngC71
+         YScQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwqMjkXGDC4a/kSNhRLyA0VKH5pitYqz/Ni34Z5bMpfooUn+ahhyNP5MWyBC87dArjeTod4SGWrXvoV36Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvQE2F3q+V+B4gfNKb3QHBxfC4cuT/FD4uk1NJ5/AehG8Ky4ic
+	YPf8JdVjSITXeSgYhlKKQmnyR+n0gh6kfXmJuQeLCj4/PY8vzmS+tWVXm1uzPsyuSTSaBD3t2Oq
+	naVVgyg==
+X-Received: from pgvi18.prod.google.com ([2002:a65:61b2:0:b0:cc7:d53a:a250])
+ (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7346:b0:3dd:a196:69da
+ with SMTP id adf61e73a8af0-3e0bcffdc3bmr382730637.53.1790883538817; Thu, 01
+ Oct 2026 12:38:58 -0700 (PDT)
+Date: Thu, 01 Oct 2026 19:37:46 +0000
 In-Reply-To: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,14 +60,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
 X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790883521; l=4160;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790883521; l=1475;
  i=wyihan@google.com; s=20260319; h=from:subject:message-id;
- bh=6uzrO/K0PGoda6MU5XX7QhxZsSju3qRYklqNZ/DxwCk=; b=RMhvLxjHiZg/NAnzEV+4iZSvnKzg391Z6Rf12P7z3bBg4BZXIhza2N6BA9uH87y5RlaEPFRD8
- nBU9vUy2uxmDkD2JzzqsG8amoq78F2lsZMMiIV6WErqijh6SmMz4Rv0
+ bh=dHazRHKBQXLPWxA291EnS2jS18PMgn3EB4oA4YyhfRw=; b=tgwt8HjwGicHZ76GFPLwalGPdHjLjBULDiEbZpWVQMS4MtToLYJAFVZZBQaYYAekz7/9dcVOU
+ 3qCled8xn9NCQz41bKF0lqBRmeb7alSlvI8zr5o0D8rThRu3XAiEemS
 X-Mailer: b4 0.14.3
-Message-ID: <20261001-tdx-selftests-v15-15-7c62a5d8a992@google.com>
-Subject: [PATCH v15 15/23] KVM: selftests: Call KVM_TDX_INIT_VCPU when
- creating a new TDX vcpu
+Message-ID: <20261001-tdx-selftests-v15-19-7c62a5d8a992@google.com>
+Subject: [PATCH v15 19/23] KVM: selftests: Finalize TDX VM in kvm_arch_vm_finalize_vcpus()
 From: Lisa Wang <wyihan@google.com>
 To: Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>, 
 	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
@@ -81,124 +80,48 @@ To: Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com
 	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
 	Oliver Upton <oupton@kernel.org>
 Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org, Lisa Wang <wyihan@google.com>
+	linux-kernel@vger.kernel.org, x86@kernel.org, Lisa Wang <wyihan@google.com>, 
+	Ira Weiny <iweiny@kernel.org>
 Content-Type: text/plain; charset="utf-8"
 
 From: Sagi Shahar <sagis@google.com>
 
-TDX VMs need to issue the KVM_TDX_INIT_VCPU ioctl for each vcpu after
-vcpu creation.
+Finalize TDX VM after VM and VCPU creation and memory initialization.
 
-KVM_TDX_INIT_VCPU has a strict prerequisite for the CPUID state. To
-satisfy this requirement, call KVM_TDX_GET_CPUID and KVM_SET_CPUID2 to
-pull the CPUID configuration from the TDCS and commit it into KVM,
-allowing KVM_TDX_INIT_VCPU to succeed.
+To integrate TDX VM finalization seamlessly, the finalization is hooked
+into kvm_arch_vm_finalize_vcpus(). This approach avoids the need for
+every TDX selftest to manually finalize the VM. While it does prevent
+TDX selftests from customizing memory before it is locked, no current
+selftests require this.
 
-Additionally, unlike tdx_vm_ioctl(), tdx_vcpu_ioctl() doesn't check
-hw_error. KVM's vCPU-scoped TDX ioctl handlers don't propagate SEAMCALL
-errors into hw_error: the error is handled in the kernel and only an
-errno is returned. Checking the ioctl's return value and errno is
-therefore sufficient.
+In TDX, finalization is a mandatory step to make the TD runnable. It
+also finalizes the MRTD of the VM's initial memory and state, locking
+them in for future attestation and preventing any further modifications.
 
 Signed-off-by: Sagi Shahar <sagis@google.com>
 Signed-off-by: Lisa Wang <wyihan@google.com>
+Reviewed-by: Ira Weiny <ira.weiny@intel.com>
 ---
- .../selftests/kvm/include/x86/tdx/tdx_util.h       | 20 +++++++++
- tools/testing/selftests/kvm/lib/x86/processor.c    | 48 ++++++++++++++++++----
- 2 files changed, 60 insertions(+), 8 deletions(-)
+ tools/testing/selftests/kvm/lib/x86/processor.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-index e529c587aeae..f5b2f32f2118 100644
---- a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-+++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-@@ -46,6 +46,26 @@ static inline bool is_tdx_vm(struct kvm_vm *vm)
- 		    (unsigned long long)hw_error);			\
- })
- 
-+#define __tdx_vcpu_ioctl(vcpu, cmd, _flags, arg)			\
-+({									\
-+	union {								\
-+		struct kvm_tdx_cmd c;					\
-+		unsigned long raw;					\
-+	} tdx_cmd = { .c = {						\
-+		.id = (cmd),						\
-+		.flags = (u32)(_flags),					\
-+		.data = (u64)(arg),					\
-+	} };								\
-+									\
-+	__vcpu_ioctl(vcpu, KVM_MEMORY_ENCRYPT_OP, &tdx_cmd.raw);	\
-+})
-+
-+#define tdx_vcpu_ioctl(vcpu, cmd, flags, arg)				\
-+({									\
-+	int ret = __tdx_vcpu_ioctl(vcpu, cmd, flags, arg);		\
-+	TEST_ASSERT(!ret, "%s failed, errno: %d (%s)",			\
-+		     #cmd, errno, strerror(errno));			\
-+})
- void tdx_init_vm(struct kvm_vm *vm);
- void tdx_vm_setup_boot_code_region(struct kvm_vm *vm);
- void tdx_vm_setup_boot_parameters_region(struct kvm_vm *vm, u32 nr_runnable_vcpus);
 diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
-index 4a753fb43007..4af9cbf3fabb 100644
+index b4b76dc505ae..e1d0fd5ed1f6 100644
 --- a/tools/testing/selftests/kvm/lib/x86/processor.c
 +++ b/tools/testing/selftests/kvm/lib/x86/processor.c
-@@ -876,16 +876,48 @@ gva_t kvm_allocate_vcpu_stack(struct kvm_vm *vm)
- 		    "__vm_alloc() did not provide a page-aligned address");
- 	stack_gva -= 8;
+@@ -1536,6 +1536,12 @@ bool kvm_arch_has_default_irqchip(void)
+ 	return true;
+ }
  
-+	return stack_gva;
++void kvm_arch_vm_finalize_vcpus(struct kvm_vm *vm)
++{
++	if (is_tdx_vm(vm))
++		tdx_vm_finalize(vm);
 +}
 +
-+static void tdx_vcpu_init(struct kvm_vm *vm, struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_cpuid2 *cpuid;
-+
-+	cpuid = allocate_kvm_cpuid2(MAX_NR_CPUID_ENTRIES);
-+	tdx_vcpu_ioctl(vcpu, KVM_TDX_GET_CPUID, 0, cpuid);
-+	vcpu_init_cpuid(vcpu, cpuid);
-+	free(cpuid);
-+	tdx_vcpu_ioctl(vcpu, KVM_TDX_INIT_VCPU, 0, NULL);
-+}
-+
-+struct kvm_vcpu *vm_arch_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
-+{
-+	struct kvm_mp_state mp_state;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_regs regs;
-+
- 	vcpu = __vm_vcpu_add(vm, vcpu_id);
--	vcpu_init_cpuid(vcpu, kvm_get_supported_cpuid());
--	vcpu_init_sregs(vm, vcpu);
--	vcpu_init_xcrs(vm, vcpu);
- 
--	/* Setup guest general purpose registers */
--	vcpu_regs_get(vcpu, &regs);
--	regs.rflags = regs.rflags | 0x2;
--	regs.rsp = kvm_allocate_vcpu_stack(vm);
--	vcpu_regs_set(vcpu, &regs);
-+	/*
-+	 * Both kvm_get_supported_cpuid() (for legacy VMs) and KVM_TDX_GET_CPUID
-+	 * (for TDX VMs) return VM-scoped CPUID. e.g. the APIC ID isn't
-+	 * populated per vCPU. This is fine because KVM selftests don't
-+	 * currently test CPUID topology enumeration.
-+	 */
-+	if (is_tdx_vm(vm)) {
-+		tdx_vcpu_init(vm, vcpu);
-+	} else {
-+		vcpu_init_cpuid(vcpu, kvm_get_supported_cpuid());
-+
-+		vcpu_init_sregs(vm, vcpu);
-+		vcpu_init_xcrs(vm, vcpu);
-+
-+		/* Setup guest general purpose registers */
-+		vcpu_regs_get(vcpu, &regs);
-+		regs.rflags = regs.rflags | 0x2;
-+		regs.rsp = kvm_allocate_vcpu_stack(vm);
-+		vcpu_regs_set(vcpu, &regs);
-+	}
- 
- 	/* Setup the MP state */
- 	mp_state.mp_state = 0;
+ void setup_smram(struct kvm_vm *vm, struct kvm_vcpu *vcpu, u64 smram_gpa,
+ 		 const void *smi_handler, size_t handler_size)
+ {
 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
