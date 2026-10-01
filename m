@@ -1,70 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E640282F1B;
-	Thu,  1 Oct 2026 00:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBAA27AC57;
+	Thu,  1 Oct 2026 00:21:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790814062; cv=none; b=J5Ag5XBzLA887aWmZKVCtGwWsa1WudeeYS8RPguPge9JUyv/JhBZMPzfPhP1szlg4gv+Bid+D5Xt5ctkj2d7eIjnWPBKST4voXJBJpnNdYXfZ3tstRwoE7LlSEYMyhuFCZJMCCZBNB7JeVWlr7yk3Yt6YDVkp9Za7jxu4NTT/6s=
+	t=1790814080; cv=none; b=eUA3bfSWuTAMrABMBKfX0paMOOoBFc/K1wnrkXWaKD4P0BUTDWIGtLNEDbeeaFRLdq0+Hx7ItLly96bI7qDhJS5+GM4mBubRbsVmHoKTFb5bXKRcqLj9XBTVYAYRoRr9JwAZITn1ofYTnXtS8sjuKMsu3TOtpIgXtB2nmnKxgpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790814062; c=relaxed/simple;
-	bh=zeHVgwVQCOpZGPbuV62NoIgPlJtExvO0see6x6+V+ec=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=mmF8kauLNSP877v143hYGcrMHJBGvvqYft2H5cL1fzWCFB8nq4w2jV3haU4NFjU2z7NOtPWfWeIX73V3s0PrMTF7sJDfIAmr10Oac9FynIRbPXOtV/y17/vkf3c/PgD3qf17M37/Liv7nLPO9fGAKUW/yx2eKKzvJuZMf/zqMpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A1qlvmsR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790814080; c=relaxed/simple;
+	bh=NQQ5IbTdZBVNpT2YqGfBp3ufEZkur+LN5szGAWpoJto=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rLqOB2E8KjHTLp1mnY4WYSeX430c7masj7FZz6YmxuD7NaA+8lht4tJLiLrddfPYtHBCaR06VQl2ZjyiPi4j9AhEJQlSB58qJOpNUX3zUcdpMbHMfHrMOmjr6+HnYNeZXDFrAm3fIFnFWvFskNWs9mGq01nUq3SDPysEhcMvICo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khpMXBnG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A1qlvmsR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5E41F000FF;
-	Thu,  1 Oct 2026 00:21:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khpMXBnG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D05F1F000FF;
+	Thu,  1 Oct 2026 00:21:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790814060;
-	bh=MewAlD5aSkZUtyyg83a3AwFjqYwD/VRSwZs4SdrxEIc=;
+	s=k20260515; t=1790814078;
+	bh=NQQ5IbTdZBVNpT2YqGfBp3ufEZkur+LN5szGAWpoJto=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=A1qlvmsRclnrJENovY2lSglSpAReArBZURRYsuf4IzM2ie8lBU4QaR9U2gTdTDk00
-	 Py74PGm/smkybm+uisQp0IV8VAz+kho6nxbfxumWCTAwbNFVLge6nNt6TZIsueX8bN
-	 VM6zN6NnSQLLaIVkTKO0jYiZiJQO8c2AA5bX3D9uqHeshq31NsR42dJC0ZQ7CDrw8B
-	 MFFCvEsqLHONsYb2e71Vd+oh2SHTgJnOR9ygMTByMGMY+nUfTxHhB9PBg1bLVkuRYE
-	 R8kfElHV8KJ4rQ6t+Xi5qMSut+ZpcfdEL7RI/tnZNl3N8WgRlw0N47ametf57apq3r
-	 kbS0joADhj0Eg==
-Date: Wed, 30 Sep 2026 14:20:59 -1000
-Message-ID: <95edaf582303f1a9404c989f9f0e6501@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: josef@toxicopanda.com, axboe@kernel.dk, cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com,
-	ast@kernel.org, daniel@iogearbox.net, linux-kselftest@vger.kernel.org,
-	Tao Cui <cuitao@kylinos.cn>, ameryhung@gmail.com,
-	alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v8 4/4] docs: cgroup-v2: document the iocost BPF cost
- model attachment
-In-Reply-To: <20260930075154.189958-5-cui.tao@linux.dev>
-References: <20260930075154.189958-1-cui.tao@linux.dev>
-	<20260930075154.189958-5-cui.tao@linux.dev>
+	b=khpMXBnG5aBEcB8PzWMBs4Zvg626IAiZJObAq0Oar709KBClEGSGnjvu4fa+LEqQb
+	 TaNGoL8ijY4vOfODBHHj82t6NBmtRLT6Ysf+LlERnIRrB2l/KsYTbQinf1aalFCWuG
+	 Gis8AY2/zwUX/yqUtPHZJQ3/TXlYYDiRgfRnkbEsZLEKGEthWCPUH5wplVPpE+cMhj
+	 IyQaka54FNvH0l9i5Wi037TWCCl6flEwBvlDTY+K3T+UqT8JwWZ/Dme9kz008vXSWU
+	 /S+WbJ0aSP25bZOfj7BvxfqboZrgfDvV7BS6COMhzjiJiuNzwVY/HiUuauMS+vMi5g
+	 CPtWpcVe0rJFg==
+Date: Wed, 30 Sep 2026 17:21:16 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: edumazet@kernel.org
+Cc: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>,
+ quanyeyang@proton.me, Eric Dumazet <edumazet@google.com>, Neal Cardwell
+ <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S.
+ Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Simon
+ Horman <horms@kernel.org>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+ Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 1/2] tcp: annotate lockless access to
+ sk->sk_err
+Message-ID: <20260930172116.42e1ec0f@kernel.org>
+In-Reply-To: <20260925-mptcp-sk-err-net-v5-1-0cac04d6ea48@proton.me>
+References: <20260925-mptcp-sk-err-net-v5-0-0cac04d6ea48@proton.me>
+	<20260925-mptcp-sk-err-net-v5-1-0cac04d6ea48@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello, Tao.
+On Fri, 25 Sep 2026 05:47:56 -0700 Quanye Yang via B4 Relay wrote:
+> Subject: [PATCH net-next v5 1/2] tcp: annotate lockless access to sk->sk_err
 
-The following is a Claude-generated review.
-
-On Wed, 30 Sep 2026 15:51:54 +0800, Tao Cui wrote:
-> +	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, a BPF cost model
-> +	can be attached to a device by loading an "iocost_model_ops"
-> +	struct_ops with the whole disk's major:minor in its "dev" member
-...
-> +	switches back to the builtin model, and neither detaches the
-> +	struct_ops; only detaching removes the model, after which
-> +	"model=bpf" fails.  "ctrl" keeps describing the builtin
-
-Attaching, not loading, binds the model. The test loads a second model
-fine and only its attach fails. Device removal also removes the model,
-and the user still has to tear down the struct_ops link afterwards. Can
-you mention that too?
-
-Thanks.
-
---
-tejun
+Updating Eric's email just in case this isn't ignored intentionally :)
+https://lore.kernel.org/all/20260925-mptcp-sk-err-net-v5-1-0cac04d6ea48@proton.me/
