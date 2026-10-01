@@ -1,113 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08273FE359;
-	Thu,  1 Oct 2026 08:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843417; cv=none; b=kz7vqumEAmlMlrpyUmO25WtPhBBlqg4/rucfDN0MajMRpBOIxpbmfQBLvmGZISqIwi83+386hwi7PbgkpuHHb/YQRqe5hKB4KkQ9/KbLG4JVGL0eW6gLESBthNDqbq/vqcLUMZcC4vLeGGz/Pa6CsjbDXJ3knEp7t6uIhVdr+80=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843417; c=relaxed/simple;
-	bh=w0QSNKMPvMNwWEzZGS6hCPEc+nmrywKd7ktFYHv8O2w=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Ww3ubnZtuQfflmbul103H0qZbiUX/y+YuT/gF4aGNDJYEBg949Uhb8C4EaOUoqWmR49fvA+atRwv+PB87OPxlhd4eFu2VLVPuqmq+q+96qDdqaEjGkJH6XwydeLsYR/GyxbHN/31dpQmaniDPxclClaqIJgk7WkC5we18wh04l8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=byDw1osX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647973C988B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790843439; cv=pass; b=ExuC3pMhEPZYa4S9Nso0f7DNzi0Pvx4OOSWg+VjqYw1u9fdmncB/mNTdvnmoIn+kTgkiZQy5RoP8VfhlB9r+Rmmm8vR+70ixJFHA8OQ5C0lNCmtKvqsopv4/beukf+O1caw9aby4VKGE2NdeUa09VD6lrOBWB+Ga8/Ez9wokiZg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790843439; c=relaxed/simple;
+	bh=f/QYvaCRJtIDNV62Q+0YxWNu5SfxT8Rcvr9ifUxU690=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XcZNmoQnQ09z5S5Ff1ldN46TyrWwxReBspQfEHN/yAUl+OKaWGwSvgL1suoFcNOfaNYrWXwNmCxyBytIkPS+CqjL1dIIpBcWsO98BtSin3T5mZQcxLjdYPWu5m1h+Rk44S63foj89ClmRFqpSC3UZPTHqR0JrPF7akKzRb2w8GM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L39CP0Wl; arc=pass smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="byDw1osX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4638B1F000FF;
-	Thu,  1 Oct 2026 08:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843408;
-	bh=dymhJU7LE7PbeKqUDP3nU7/VgxqoggQ+VbnMCZhERnY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=byDw1osXZ+/H1VZ2eU89EzCA9n5Hf21vLbCdMw7CZvXGXGBLjvzkFMk31w/CVrmKP
-	 pP0P9AcKc+sxvoGGgRosCzgCLIWoir5W6JhKjRvliE7rWmtjUCYSFOLdw4Ju7iUPD2
-	 pTZsBUcDcYj1lpkmAquO7bbdDopMnb6Lg4eISZOSQLc2oRdGmrfgDbMDxZIvGvuCTh
-	 Q610AWOmTgW0kLNXD9jD8/moHLWfYiBA9Mc1NtMfTamVIKbLgVGNM7BvDzaTkH7kAA
-	 8sRMZUUr5Ih+ZNUkGEwM4Z28ugjoESwcNdrJL9Zmc3ncndZc25merovSeQGIhPURM1
-	 LI0+eJwQ8YlTg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A457380CFF9;
-	Thu,  1 Oct 2026 08:30:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L39CP0Wl"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488811c9ebaso3209848f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:30:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790843436; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YomclvEKbWf3cTK1mO/B7MV36EMqpfBqvuw/rQH03lFADcsMQ3DxYDEB/WOtmhX971
+         c0ai/DQn+vGR3KJ2E/ZIwSpn8BP1RiDDE//MyJmFlOnm997DPzhrQcifZcax/gwkbPl3
+         SW1dKpdAOgv0/B+8MLYvG/hAnsHm3keMe8VEHhueoBZbQR+sQv53KPSTA57lEqbLvMlT
+         YI2fOjh08MUm0mUT34nPAdBjZB+h/IouOa6zg2SJ7fmJPYfVTl7EjjMnxl0qsdNzIaPk
+         XHvmFba1H5pZ02Hu3rPh9MAFLGjHiKxsHNc6szFhrhoL0Gq9UOB7ImFcjRlAsKoAFdr2
+         2xgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5ZYv6il2HdcwUZ9E5tG2pbf5ctdWL/nyovqOfI473uU=;
+        fh=+PyfCfQc5qPvWQKb7hbmx8R9MLGJJ3YW990vCLJBOTM=;
+        b=CwFmVw1h9fpa9NlpBE2M0HWF56g5QLblGMIHrGsArzleopLtN/NjshUAVddwYFID7U
+         /MzoWgH7FmRtccMcCpCKvrAH/g199OO5ZfURowo1LeHRynm8mO+B82Uqima4pV493sRG
+         4JtEd7mbRofF07tCNZEaQTQ+v6zx7WGH+7od2d/G34bUU/u33wvLKLQAhXHthqzTdT4H
+         XM/YLKgick31Eu/Rfj78+HupW2quIzz+RCnf/rdfj8g7G9+deif9c/MPBeYzPDFUc+FZ
+         jHYw7Qbf8pqTbTh07ZF7lAPtPV4q9rsk6Prf5UnbRuWs1HDW98wstwT5a22THgJBm+Rs
+         tXpQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790843436; x=1791448236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5ZYv6il2HdcwUZ9E5tG2pbf5ctdWL/nyovqOfI473uU=;
+        b=L39CP0WlJt+t6U4yIe3NBaTqin78ceeTKeG2aYqsUhTYCsxjZ5GxdN6TdDgQXz45LJ
+         6cibJhJ5Dy9VCa9eeAiO1hdTOryN3wayq8GzUUCtQQ/60D/VROP9geH7vnwNZ2P0WxOv
+         D4C1XAAGgIu/nKVoBtaPOXpfn+MiUPV8xk3sOg6WDydYp+02plP3mEFc/VL2TcX6NpYP
+         +l83cZIaf0naK1GCo0mHIxjbbQcMM1aogGkEwS1h1dg81FfNuP+hDsLrybtjO48ppTCq
+         0n3qv1Yr5iZQq7KUwXzG/RUV3KkeBmJY0350OT8rOIEdaT5jhsdWJ56tmUiUD3xvvtDE
+         nm+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790843436; x=1791448236;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5ZYv6il2HdcwUZ9E5tG2pbf5ctdWL/nyovqOfI473uU=;
+        b=WOgm7TMWx3zfqBB/s0BF/yJ2nGvLnY3xiQf39oKaIKrbgJNxNr09knOiQaE1Mvxc75
+         OfNJnsnZpSqyZb5vRc8iQcLeCXulhpRoBpssycENcVjTRJgUlcuAcB7GjUj2seP0FfhD
+         jtwxRpAEN4ao8rihW6KvplBoaN27n/rZAckWuV8S5YCmw+USmL+aV8mgXFwWx7uPnbzR
+         xCV/xdRW6kWMIHXd0PFOjYgYJSWpiWrW5Yq/4vM/Z9VLnih3sCSH0iF7oshX5Dp1m/Tv
+         iP5oF+FqiT6dmdoroVC2JAGlCx4DTndMchemIJvnXwoCkQgXcmsxZB3iAJnwG+RkJArQ
+         u/+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwietoLrBNBQhdgwBAa085Hcnw2qcKSsgiETvZ22HhpOehu8cqo1GNs4iNYVgjziwew0NJ2vhMlujKNT98=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImj0uDW92hA3I/Auh3ppEf5t4j93cXGjxFHn5gyTZSrnes52Pk
+	VzEvOvZUfQNGoXpSNfcFGxTo41V2RjR5hqKzP6NhhYSzwisx2JHF4yjVLpqsXcyZafmChgBx1PW
+	cO+IdWSGEiDDFXsmq8tFTXPu20r4YikptAyVfwAw=
+X-Gm-Gg: AYBFou2uCdlcP/56IKHlB6rEGj27CNB95G2J5QTwM27a+nDbyT1NHwreEnr0KR8eQHv
+	1L2e4rDpKkuXviT8MT1bLnLwW24Vs2jSwTctFAi7QaumT/MP9nw6+NVUet24Gallo0ws75SuNUK
+	4It6BRuGahj7FOBMmYOoDZEinoCPKuUPpAWOOcV25mQk5f2H6P+1CpFEp5oGoBry7gOegfEFlCC
+	hUcZOzyBbptA20jQ9kvoBkhcL1QIpQQMdCR68DtEpLy6dIz/pcXnOS2yC8I71Hnhi/IhFqxACxe
+	sQxcysZC7Rn2I2fw5Ir1E/xhgS7kp4S0Op9eoCw2DesK9YsHTowJbtmmkLQ7GFMJ/gJQ053YErF
+	+mWNTe0fWZw4l44s6tbNZfVQS4Kj2Ij1/FPLF+VSprW18JpYBVSjf
+X-Received: by 2002:adf:e18f:0:b0:488:7b80:f2d0 with SMTP id
+ ffacd0b85a97d-48b0254cb62mr6486309f8f.52.1790843435449; Thu, 01 Oct 2026
+ 01:30:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v15 0/9] net: stmmac: qcom-ethqos: add support
- for
- SCMI power domains
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179084340677.2325520.95323259899491825.git-patchwork-notify@kernel.org>
-Date: Thu, 01 Oct 2026 08:30:06 +0000
-References: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
-In-Reply-To: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, vkoul@kernel.org,
- peppe.cavallaro@st.com, wens@kernel.org, jernej.skrabec@gmail.com,
- neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
- shawnguo@kernel.org, festevam@gmail.com, jan.petrous@oss.nxp.com,
- s32@nxp.com, mohd.anwar@oss.qualcomm.com, romain.gantois@bootlin.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, mripard@kernel.org,
- christophe.roullier@foss.st.com, brgl@kernel.org, radu@rendec.net,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, dfustini@tenstorrent.com,
- linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-mips@vger.kernel.org, imx@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
- bartosz.golaszewski@linaro.org, stable@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com, martin.blumenstingl@googlemail.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com
+References: <6ab7dca9.80e1c6cc.1e8e5f.0046.GAE@google.com> <6ab8cfe8.dc2998a4.2261f5.0062.GAE@google.com>
+ <CAJnrk1Y8+P5W-6ETYuVDb2xk=GkP5o0XoDyDtvEPw+sC3GA-fQ@mail.gmail.com>
+In-Reply-To: <CAJnrk1Y8+P5W-6ETYuVDb2xk=GkP5o0XoDyDtvEPw+sC3GA-fQ@mail.gmail.com>
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Thu, 1 Oct 2026 09:30:22 +0100
+X-Gm-Features: AclHuK83_ifVqqKZGZgWksTmrstL8fLSiCbSWwvwncfkRTOgE6x5W7i6vQNHWDY
+Message-ID: <CAJnrk1YFKdQfKC6YCsFF17ydjSP076r2K2PYPQiqkceJtn6Yew@mail.gmail.com>
+Subject: Re: [syzbot] [fuse?] WARNING in fuse_iomap_writeback_range
+To: syzbot <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com>
+Cc: fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, miklos@szeredi.hu, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Wed, Sep 30, 2026 at 2:01=E2=80=AFPM Joanne Koong <joannelkoong@gmail.co=
+m> wrote:
+>
+> On Sun, Sep 27, 2026 at 9:15=E2=80=AFAM syzbot
+> <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com> wrote:
+> >
+> > syzbot has found a reproducer for the following issue on:
+> >
+> > HEAD commit:    fd179f8a05be Merge tag 'ata-7.3-rc5' of git://git.kerne=
+l.o..
+> > git tree:       upstream
+> > console+strace: https://syzkaller.appspot.com/x/log.txt?x=3D13490605580=
+000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=3D9d4242cb1c5=
+4cdf7
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=3De8200299b0556=
+976e13c
+> > compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e=
+255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D1523f2c95=
+80000
+> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D14385315580=
+000
+> >
+> > Downloadable assets:
+> > disk image: https://storage.googleapis.com/syzbot-assets/c4cebd01ff3c/d=
+isk-fd179f8a.raw.xz
+> > vmlinux: https://storage.googleapis.com/syzbot-assets/9fd8641fa35c/vmli=
+nux-fd179f8a.xz
+> > kernel image: https://storage.googleapis.com/syzbot-assets/c6e8e6332600=
+/bzImage-fd179f8a.xz
+> >
+> > IMPORTANT: if you fix the issue, please add the following tag to the co=
+mmit:
+> > Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+> >
+> > ------------[ cut here ]------------
+> > !ff
+> > WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043=
+ [inline], CPU#0: syz-executor122/5774
+> > WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0=
+ fs/fuse/file.c:2227, CPU#0: syz-executor122/5774
+> > Modules linked in:
+> > CPU: 0 UID: 0 PID: 5774 Comm: syz-executor122 Not tainted syzkaller #0 =
+PREEMPT(full)
+> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS=
+ Google 07/24/2026
+> > RIP: 0010:fuse_write_file_get fs/fuse/file.c:2043 [inline]
+> > RIP: 0010:fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
+> > Code: fe 48 83 3b 00 74 5b e8 e6 f0 6c fe 4c 8b 3c 24 e9 08 0b 00 00 e8=
+ d8 f0 6c fe eb 5c e8 d1 f0 6c fe 4c 89 f7 e8 39 63 8e 08 90 <0f> 0b 90 48 =
+b8 00 00 00 00 00 fc ff df 48 8b 4c 24 58 80 3c 01 00
+> > RSP: 0018:ffffc90003e172b8 EFLAGS: 00010286
+> > RAX: 8000000000000000 RBX: ffff88806e4ea880 RCX: ffffffff9a9ec501
+> > RDX: 0000000000000001 RSI: 0000000000000004 RDI: 00000000ffffffff
+> > RBP: 0000000000001000 R08: ffff88806e4eae63 R09: 1ffff1100dc9d5cc
+> > R10: dffffc0000000000 R11: ffffed100dc9d5cd R12: ffff88806e4ead08
+> > R13: 0000000000001000 R14: ffff88806e4eae60 R15: ffff88806e4ead08
+> > FS:  00007f6a3f53e6c0(0000) GS:ffff888124cc8000(0000) knlGS:00000000000=
+00000
+> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 000020000000b000 CR3: 0000000078090000 CR4: 00000000003526f0
+> > Call Trace:
+> >  <TASK>
+> >  iomap_writeback_range fs/iomap/buffered-io.c:1896 [inline]
+> >  iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
+> >  fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
+> >  folio_launder mm/truncate.c:612 [inline]
+> >  folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
+> >  invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
+> >  fuse_open+0x5a6/0x770 fs/fuse/file.c:297
+> >  do_dentry_open+0x816/0x1380 fs/open.c:996
+> >  vfs_open+0x3b/0x340 fs/open.c:1101
+> >  do_open fs/namei.c:4837 [inline]
+> >  path_openat+0x1443/0x1d60 fs/namei.c:5000
+> >  do_file_open+0x23e/0x4a0 fs/namei.c:5029
+> >  do_sys_openat2+0x115/0x200 fs/open.c:1417
+> >  do_sys_open fs/open.c:1423 [inline]
+> >  __do_sys_openat fs/open.c:1439 [inline]
+> >  __se_sys_openat fs/open.c:1434 [inline]
+> >  __x64_sys_openat+0x138/0x170 fs/open.c:1434
+> >  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+> >  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> > RIP: 0033:0x7f6a3f58fae9
+> > Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89=
+ f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 =
+ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
+> > RSP: 002b:00007f6a3f53e1d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+> > RAX: ffffffffffffffda RBX: 00007f6a3f644b98 RCX: 00007f6a3f58fae9
+> > RDX: 0000000000000040 RSI: 000020000000c380 RDI: 00000000ffffff9c
+> > RBP: 00007f6a3f644b90 R08: 31203a6b63617473 R09: 31203a6b63617473
+> > R10: 0000000000000000 R11: 0000000000000246 R12: 00007f6a3f6117f4
+> > R13: 000020000000e3c0 R14: 00002000000062c0 R15: 00007ffe0b2d2af8
+> >  </TASK>
+> >
+> >
+> > ---
+> > If you want syzbot to run the reproducer, reply with:
+> > #syz test: git://repo/address.git branch-or-commit-hash
+> > If you attach or paste a git patch, syzbot will apply it before testing=
+.
+> >
+>
+> diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+> index 6d707f2b3bff..0ef46f6e0267 100644
+> --- a/fs/fuse/file.c
+> +++ b/fs/fuse/file.c
+> @@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
+>                 .wb_ctx =3D &data,
+>         };
+>
+> +       if (fuse_is_bad(wpc.inode))
+> +               return -EIO;
+> +
+>         if (folio_clear_dirty_for_io(folio)) {
+>                 err =3D iomap_writeback_folio(&wpc, folio);
+>                 err =3D fuse_iomap_writeback_submit(&wpc, err);
 
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse.git
+for-next
 
-On Wed, 23 Sep 2026 17:14:34 +0200 you wrote:
-> This iteration addresses several issues raised by Sashiko. Some are not
-> addressed as they were false positives (nothing in the PHY driver ever
-> calls phy_runtime_get() on the parent device) or I decided they make no
-> sense - like the suggestion to remove the power-domain-names property
-> because there's only one power domain.
-> 
-> --
-> 
-> [...]
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 6d707f2b3bff..0ef46f6e0267 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
+                .wb_ctx =3D &data,
+        };
 
-Here is the summary with links:
-  - [net-next,v15,1/9] net: phy: aquantia: fix system interface type not updated in forced mode
-    https://git.kernel.org/netdev/net/c/6e0022b5ae3d
-  - [net-next,v15,2/9] dt-bindings: phy: document the serdes PHY on sa8255p
-    (no matching commit)
-  - [net-next,v15,3/9] phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
-    (no matching commit)
-  - [net-next,v15,4/9] dt-bindings: net: qcom: document the ethqos device for SCMI-based systems
-    (no matching commit)
-  - [net-next,v15,5/9] net: stmmac: qcom-ethqos: set serdes mode before powerup
-    (no matching commit)
-  - [net-next,v15,6/9] net: stmmac: qcom-ethqos: update phy_mode to the resolved interface in mac_finish()
-    (no matching commit)
-  - [net-next,v15,7/9] net: stmmac: qcom-ethqos: reuse the address of ethqos_emac_driver_data
-    (no matching commit)
-  - [net-next,v15,8/9] net: stmmac: qcom-ethqos: factor out linux-level setup into a separate function
-    (no matching commit)
-  - [net-next,v15,9/9] net: stmmac: qcom-ethqos: add support for sa8255p
-    (no matching commit)
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
++       if (fuse_is_bad(wpc.inode))
++               return -EIO;
++
+        if (folio_clear_dirty_for_io(folio)) {
+                err =3D iomap_writeback_folio(&wpc, folio);
+                err =3D fuse_iomap_writeback_submit(&wpc, err);
