@@ -1,30 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CD53655F0;
-	Thu,  1 Oct 2026 23:05:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0359381C4;
+	Thu,  1 Oct 2026 23:05:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790895945; cv=none; b=TRwhrFoAgnOc4SWHWDljDXGw5x0yLVuF8pEDr5PI4ice7tuxHrUxQvFmOjYo0OexK50s/XDPSiY47YaGOlE4uobVuzja0k//Em8rbNed9vyWZS/WXSGm0xELJSnG8nsDJPO5OcjShIRPLX8PH4fOD0aoI89+J743JrYLB91jCV0=
+	t=1790895952; cv=none; b=VNOGgoHt5efq4LcNWI2YekAqMfqVHRzwoVD0u+kNCMq3g/vGS952sJU0PAeIUVWcrsjEPpW+fWxtWhog9U2fY4Kc/KRF737VtrFMMU2Gu0QKRa1R7Tna5qC9XSH7uAEeIUBCxmhOw0PrrYGHH/B8lqDYAERpRKJslDkKcLi0fi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790895945; c=relaxed/simple;
-	bh=niq8tgZUbII6rGxbysHA/H3IwKXrmAsFRp+X2EYwJ+c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H/4snUfTm7qYc0J7PjbfehofWmdQCZ2axJlU1EFUuFa7UlAa98qI5xGkvwAQXEqmDnje16HcdH3KVr8g5Q1RCgKriFwW0B6cNnbjkr/QOemabmrDixvvrBV0dpP1Tq+mA9ON1p/kQL/1N3eAq0RNztmT7f6fYMHlL/6fCvtLJb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GEELnY5Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790895952; c=relaxed/simple;
+	bh=uYaat273uNePPk3KqoAUS2LpVYQon3YxtaTOOAuB3lQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LfNwaKTbi0yiC4xv8uFKUhhbAmwG7fIrPkZr9cCwJ84mupUynFCIVsdfNtnYjp/D1U5kDBdKBoB0XN4VZNxA0PPO1v4LkYQLXDM4ykB463A8ZfoHKAL4slYKRgnuf88VfiMGQ+I0dEeQSI4BPjFmq7sWp19r+En25hnSgofSR38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBf9WxTL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GEELnY5Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25881F000FF;
-	Thu,  1 Oct 2026 23:05:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBf9WxTL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A951F000FF;
+	Thu,  1 Oct 2026 23:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790895943;
-	bh=I9bUbhFVQZJg6kGoX2Bb3yNAiNd/pFBIENXUoOTNEQQ=;
+	s=k20260515; t=1790895950;
+	bh=jrrZDVwpsiVTk2VhMpsaqDimIYibs8O5wPtcS+90ojw=;
 	h=From:To:Cc:Subject:Date;
-	b=GEELnY5YKAkVNl38QFeEUq2NOKGLOxoDxdixXEB2EXIyfi+S0N3EJ9MTpYBs76iRQ
-	 R5k11c8CgzaOizwURO9CFWSW+zeL7uAkZ1Tbg2UYP1f56yilWe9MxbN7w6llDuyTwn
-	 8FHctB4mT/7Tku0Z1mLeRejaWLQCIexAmg7D+abU7ZYtCnt5HQN1oMZnjUkTy6czSX
-	 xoWcuE38ubiVBOfmBg1InfaizdHD8cDMn7ST6NHkvbG6cHe4Ipp8AW6jMq2/SKWweq
-	 s3zaNPL3v0i5bMKmfvMmogJFoK4t4Dijui+EmPzsfJwDJe1VJFSYV0rduM17369+PG
-	 uW5umHTB5w5IA==
+	b=CBf9WxTLvzEh/iBUjSm7D3z8ZDt55Ig3JUnmLtsEsWpU1fBIZRZX7jaf2GMTGqi1S
+	 BGaIi7XHzNE1FhU23ki3TEbJtWfz5GOrnP3ZcjWjz+fx6pVkVy+ngJeJmGK/7aEgAV
+	 lYhjojZHRuXiY1tX1MRzGyXhHsQjROBx/UPxhgDuOuxl8IKknqs+MwFWqcALEnpAJy
+	 XDDqhLxJPDixU69YlTWsUzENPQ6sC7UfNUoRjt1GtxUtG/hMyW2Ug+OoSuGlEATRfG
+	 CVhvhKv4X+DaQ5AvqPvn9FFkZ4sjHE5XlChpgHKgYUu+/obHsbXNDQijffTrdof0OO
+	 G0TTzsFfiZWYg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Jassi Brar <jassisinghbrar@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -32,9 +32,9 @@ To: Jassi Brar <jassisinghbrar@gmail.com>,
 	Wei Xu <xuwei5@hisilicon.com>
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH] dt-bindings: mailbox: Convert hisilicon,hi3660-mbox to DT schema
-Date: Thu,  1 Oct 2026 18:05:37 -0500
-Message-ID: <20261001230538.2751621-1-robh@kernel.org>
+Subject: [PATCH] dt-bindings: mailbox: Convert hisilicon,hi6220-mbox to DT schema
+Date: Thu,  1 Oct 2026 18:05:46 -0500
+Message-ID: <20261001230547.2752114-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -44,124 +44,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the hisilicon,hi3660-mbox binding to DT schema format. The
-binding and driver give no clue about what the 2 interrupts are, so more
-details can't be added.
+Convert the hisilicon,hi6220-mbox binding to DT schema format. It's a
+straight forward conversion.
 
 Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../mailbox/hisilicon,hi3660-mailbox.txt      | 51 -----------------
- .../mailbox/hisilicon,hi3660-mbox.yaml        | 57 +++++++++++++++++++
- 2 files changed, 57 insertions(+), 51 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mailbox.txt
- create mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mbox.yaml
+ .../mailbox/hisilicon,hi6220-mailbox.txt      | 74 -------------------
+ .../mailbox/hisilicon,hi6220-mbox.yaml        | 63 ++++++++++++++++
+ 2 files changed, 63 insertions(+), 74 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mailbox.txt
+ create mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mbox.yaml
 
-diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mailbox.txt b/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mailbox.txt
+diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mailbox.txt b/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mailbox.txt
 deleted file mode 100644
-index ec2da5c9e647..000000000000
---- a/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mailbox.txt
+index de9fbf722bee..000000000000
+--- a/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mailbox.txt
 +++ /dev/null
-@@ -1,51 +0,0 @@
--Hisilicon Hi3660 Mailbox Controller
+@@ -1,74 +0,0 @@
+-Hisilicon Hi6220 Mailbox Driver
+-===============================
 -
--Hisilicon Hi3660 mailbox controller supports up to 32 channels.  Messages
--are passed between processors, including application & communication
--processors, MCU, HIFI, etc.  Each channel is unidirectional and accessed
--by using MMIO registers; it supports maximum to 8 words message.
+-Hisilicon Hi6220 mailbox supports up to 32 channels. Each channel
+-is unidirectional with a maximum message size of 8 words. I/O is
+-performed using register access (there is no DMA) and the cell
+-raises an interrupt when messages are received.
 -
--Controller
------------
--
--Required properties:
--- compatible:		: Shall be "hisilicon,hi3660-mbox"
--- reg:			: Offset and length of the device's register set
--- #mbox-cells:		: Must be 3
--			  <&phandle channel dst_irq ack_irq>
--			    phandle	: Label name of controller
--			    channel	: Channel number
--			    dst_irq	: Remote interrupt vector
--			    ack_irq	: Local interrupt vector
--
--- interrupts:		: Contains the two IRQ lines for mailbox.
--
--Example:
--
--mailbox: mailbox@e896b000 {
--	compatible = "hisilicon,hi3660-mbox";
--	reg = <0x0 0xe896b000 0x0 0x1000>;
--	interrupts = <0x0 0xc0 0x4>,
--		     <0x0 0xc1 0x4>;
--	#mbox-cells = <3>;
--};
--
--Client
--------
+-Mailbox Device Node:
+-====================
 -
 -Required properties:
--- compatible		: See the client docs
--- mboxes		: Standard property to specify a Mailbox
--			  Cells must match 'mbox-cells' (See Controller docs above)
+---------------------
+-- compatible:		Shall be "hisilicon,hi6220-mbox"
+-- reg:			Contains the mailbox register address range (base
+-			address and length); the first item is for IPC
+-			registers, the second item is shared buffer for
+-			slots.
+-- #mbox-cells:		Common mailbox binding property to identify the number
+-			of cells required for the mailbox specifier. Must be 3.
+-			<&phandle slot_id dst_irq ack_irq>
+-			  phandle: Label name of mailbox controller
+-			  slot_id: Slot id used either for TX or RX
+-			  dst_irq: IRQ identifier index number which used by MCU
+-			  ack_irq: IRQ identifier index number with generating a
+-			           TX/RX interrupt to application processor,
+-				   mailbox driver uses it to acknowledge interrupt
+-- interrupts:		Contains the interrupt information for the mailbox
+-			device. The format is dependent on which interrupt
+-			controller the SoCs use.
 -
--Optional properties
--- mbox-names		: Name given to channels seen in the 'mboxes' property.
+-Optional Properties:
+---------------------
+-- hi6220,mbox-tx-noirq: Property of MCU firmware's feature, so mailbox driver
+-			use this flag to ask MCU to enable "automatic idle
+-			flag" mode or IRQ generated mode to acknowledge a TX
+-			completion.
 -
 -Example:
+---------
 -
--stub_clock: stub_clock@e896b500 {
--	compatible = "hisilicon,hi3660-stub-clk";
--	reg = <0x0 0xe896b500 0x0 0x0100>;
--	#clock-cells = <1>;
--	mboxes = <&mailbox 13 3 0>;
--};
-diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mbox.yaml b/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mbox.yaml
+-	mailbox: mailbox@f7510000 {
+-		compatible = "hisilicon,hi6220-mbox";
+-		reg = <0x0 0xf7510000 0x0 0x1000>, /* IPC_S */
+-		      <0x0 0x06dff800 0x0 0x0800>; /* Mailbox */
+-		interrupt-parent = <&gic>;
+-		interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
+-		#mbox-cells = <3>;
+-	};
+-
+-
+-Mailbox client
+-===============
+-
+-Required properties:
+---------------------
+-- compatible:		Many (See the client docs).
+-- mboxes:		Standard property to specify a Mailbox
+-			Cells must match 'mbox-cells' (See Mailbox Device Node above).
+-
+-Optional Properties:
+---------------------
+-- mbox-names:		Name given to channels seen in the 'mboxes' property.
+-
+-Example:
+---------
+-
+-	stub_clock: stub_clock {
+-		compatible = "hisilicon,hi6220-stub-clk";
+-		hisilicon,hi6220-clk-sram = <&sram>;
+-		#clock-cells = <1>;
+-		mbox-names = "mbox-tx", "mbox-rx";
+-		mboxes = <&mailbox 1 0 11>, <&mailbox 0 1 10>;
+-	};
+diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mbox.yaml b/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mbox.yaml
 new file mode 100644
-index 000000000000..c42ce576a029
+index 000000000000..f4c8f1f29baa
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mbox.yaml
-@@ -0,0 +1,57 @@
++++ b/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mbox.yaml
+@@ -0,0 +1,63 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/hisilicon,hi3660-mbox.yaml#
++$id: http://devicetree.org/schemas/mailbox/hisilicon,hi6220-mbox.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Hisilicon Hi3660 Mailbox Controller
++title: Hisilicon Hi6220 Mailbox Controller
 +
 +maintainers:
 +  - Wei Xu <xuwei5@hisilicon.com>
 +
 +description:
-+  Hisilicon Hi3660 mailbox controller supports up to 32 channels.  Messages
-+  are passed between processors, including application & communication
-+  processors, MCU, HIFI, etc.  Each channel is unidirectional and accessed
-+  by using MMIO registers; it supports maximum to 8 words message.
++  Hisilicon Hi6220 mailbox supports up to 32 channels. Each channel is
++  unidirectional with a maximum message size of 8 words. I/O is performed using
++  register access (there is no DMA) and the cell raises an interrupt when
++  messages are received.
 +
 +properties:
 +  compatible:
-+    items:
-+      - const: hisilicon,hi3660-mbox
++    const: hisilicon,hi6220-mbox
 +
 +  reg:
-+    maxItems: 1
++    items:
++      - description: IPC registers
++      - description: Shared buffer for mailbox slots
 +
 +  interrupts:
-+    description: Mailbox interrupt vectors for message processing
-+    maxItems: 2
++    maxItems: 1
 +
-+  '#mbox-cells':
++  "#mbox-cells":
++    const: 3
 +    description: >
 +      The cells content are as follows:
-+        - Channel number
++        - Slot number
 +        - Remote destination interrupt vector
 +        - Local ack interrupt vector
-+    const: 3
++
++  hi6220,mbox-tx-noirq:
++    description:
++      Flag to request MCU to enable automatic idle flag mode instead of IRQ for
++      TX completion.
++    type: boolean
 +
 +required:
 +  - compatible
 +  - reg
 +  - interrupts
-+  - '#mbox-cells'
++  - "#mbox-cells"
 +
 +additionalProperties: false
 +
@@ -170,11 +198,11 @@ index 000000000000..c42ce576a029
 +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 +    #include <dt-bindings/interrupt-controller/irq.h>
 +
-+    mailbox@e896b000 {
-+        compatible = "hisilicon,hi3660-mbox";
-+        reg = <0xe896b000 0x1000>;
-+        interrupts = <GIC_SPI 0xc0 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 0xc1 IRQ_TYPE_LEVEL_HIGH>;
++    mailbox@f7510000 {
++        compatible = "hisilicon,hi6220-mbox";
++        reg = <0xf7510000 0x1000>,
++              <0x06dff800 0x0800>;
++        interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
 +        #mbox-cells = <3>;
 +    };
 -- 
