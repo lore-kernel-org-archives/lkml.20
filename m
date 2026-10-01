@@ -1,160 +1,150 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00BB48F006
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:45:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873136; cv=pass; b=tPMcWZn59iCufbKBrbSzMQY5i7+4PdHcPyODttwRj1LG165jGQfHwP5nqdFTZ1LM3Hc4GOXX2SpmWBwBJT1jqbfZ7ksJJ/9PgON3xgudqXMWYkfubE2M21YzA92yYcIH+KsG93rLce6z/BIcMZng/Ii7Ck/DeCXG9TxdEiQkqn0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873136; c=relaxed/simple;
-	bh=skO6HOeEOlSoI8HYXQ1xBxBxbaOcIwy1hi5C/W8lSm4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L7/sefnap5K/wWAjgLReCJsslB/Yu74w4uQ8mpzKX8My3/9BHHlN68v2CoMIIcu/HxHB8dXNtq0ba7HBIlgxSuTWoXlmFseK9qRZK8eVj43Rcn4i99p53KPxQuxWPP74g/HsHikqpJrNxpR2ghJ26ZZBzUzdpc1nmP2VhjxRc3I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dSHQvlV3; arc=pass smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B3740682A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790873170; cv=none; b=FlPwoqgG0hLSk6DGce8yc9huHRtLEitIicksuZqAzEqeKJknsw0Rv2j8G7V4FDvLg81XeldaB+PhWl5kPOmcQ7Iu7A4WdzhYvpjU4f6KMSGeC//4JDR5raSsVDVoW7YmKWgPEjq73nNTQY6nW4gF0MVhAfpOFfeJP+9hwvYBGgE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790873170; c=relaxed/simple;
+	bh=UtM9rL4f9uuVv6cnGzLcfPBFoiU8UUCjOzGe6OIHUDs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DcBV+a55owJe9GJiSNJzj4zE0oe2jCMnBKJQYX9rfgAz3k4NizRjlPrjdeM3opZzKKgrqcwjw5RA16ug2yfnLlbD7CH/7UwZ1PHK/x3sbuvPZTeY1W7uAGY68jXXHcdjP2U9RpLNPE1Cb2nxIGrrRBM2lAP4jgvyGgAtzDISKHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=h13bTYPO; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dSHQvlV3"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5337c7b9937so1001cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:45:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790873133; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fvcv1RAGFjS3GqJ2G+VTZvhlQ60Dwyclx85PoOWkMnC2E5tYaKOXbyVtyIIrbCeCFF
-         8Fns9WPwFV43IDWHtf/TPblXmpam1b37FyQEDvnGq516nLRszNiTSuH7HDcKgagTT1+F
-         7g3XegDZTlhJ6cy4uHMaENPiZgmhXYTrWukgy0Th/ocKcFhHSl/zfCQ6kToe0mWVugbu
-         KWUzUwW5XxpGs3NW4KyC4Vp839v+ry8/eodnXE6aAB2XgI6KORmCfdYUgvPn5y2kt2aD
-         chuyGT4XQK//h5CX6F9t4xbB/sRot7/0LHqYToWki4+3lwY12FeoryUP0GHsmYprHHay
-         Ej8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XRgW/0sJOag/ZnUMEgbSJgdYp6WyDMPTuDfsAauk39E=;
-        fh=IKpleL5o9WCd3tuO/sOB3CuRb2Hjfu3bQ+JjIoSYvSM=;
-        b=BA0hk/x3FsT5PHKPkPW5Nt32yr9cr5DONulbBE1te7VWjZ5q0nrRAe1GdRzcXKgYva
-         N22UYuD0rvPQ+rITAt+i+XUFOR2L3VIDKO6i8ALGCs2vuEcQOLVvdQjQEW6rDBM1ozUi
-         oBdERuV8gM/xxIriXEbRVunQn6PekhKRVb++7m2AqpeOVoiF2pUbfjMuNk062GAZP8Rq
-         SgEjlABKdAcFSKMZ4E8VXawZU8wUkJiisjltSBI1czLAVomgyhIy0Gg68n+JN7mLXfeC
-         hWPCBM4g2VNvOjzznrBW6fbwtSkGU1mNumNNS8Rcux7evpH+Tz4wC3ukpZjRwcQl8ynV
-         Zkcg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790873133; x=1791477933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XRgW/0sJOag/ZnUMEgbSJgdYp6WyDMPTuDfsAauk39E=;
-        b=dSHQvlV3ttXf+p0UrKNvkc+mwmTE521P+vXOYLKzyAFQ7uoAytn8r+U1gLRKQ5iyBt
-         Gjretepz+PLrjFNLaNi9m/aNN2dfHPwCeNxI+sPGsbyY5xmyBUkyalmsoZzzWOQZTGi3
-         vzIo96mKt+QGBeyJxX2juiUd1AJZujGhWGxro0WYQG4gmF4/lcJoed/1a5KjkY4ly8SM
-         A61aUTGBspAU+wK0M/GpQRhHs4Lk4rFehX/PlJJAqgCJXUR/PuzYT0Yodf928IYWRTUv
-         wbmhVrzViTLgEteqKxdBbCSg+l6yj9TrSNj0bl9F4IpsiZSwC/tFQ3LKKDNiaLcM2vd9
-         73Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873133; x=1791477933;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XRgW/0sJOag/ZnUMEgbSJgdYp6WyDMPTuDfsAauk39E=;
-        b=2QZnAqBgaDGvHYC0pe/AqQRUcKgIXB8Ink1TQHpwWYP8vru6zidUHmuFR+gooPWmWT
-         jp+uCIOQ06Me9iU7VAvREDWnyzqiBxXNbSHU0HXbouBq+p/kQC5WqOKShvkcWoHdOwdP
-         w0D+zf9TNzq0r8XLGLVUgiBgSl4XYApYjjzhkb6xlEIygCIEI8NJjHbPTbGc41hlINEQ
-         cFXr1UHV3W7G1reJyihbMnDlNbcHXKiGbPit4/b2dwblpFP9QXPSBe7WbgqyeSA38iEz
-         N1H2EZC/yzQCh3HItQCpM1fBXhcHZm2oOICpR7LcvWphn4UU+L9ZzL38DmGTNl0qNkqC
-         eV+g==
-X-Forwarded-Encrypted: i=1; AKwUvBxsN2IeK4hevmAqCp/TC2VE5IRmgD+f4nvn7cyQjeFZNetvq5H884XthMUkQAiT+MzSs4SlO1G+AHElls8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGyxX85nnlc4fALLDsxPNlLq3yAvDPLQFNxJDuuMWZ56ZwAogh
-	g2F7B3pmd5l4qW4Lh5IUFe0p6n1w6t24sX8Ekf/J/ctmEc0Xy8ofk23A9ugcuglQo+nUbhN9qbf
-	ghemfbW4xyhlOD3EHxJ601XfjukC3GmTwgtJo9ofi
-X-Gm-Gg: AYBFou14vglaurJV/1ytXKKPHHrhiKcRsfDKJbb2PJ+gfq5/VXwsKPgDiTAOIWtTq/Q
-	wJhhndAYQQGykN0OGtVb+Coul/7K7DiMG0jl7Z0qiMuRWdUTVeYhxqeRFyYNRtcApf/bX7EwjEi
-	5a0HeoBYTYn0DsMgwSk7wMuA7nOx3ewMMl5myN4c4cx6mUql42y8qHBfwPMazn+l+/stK4+JhEp
-	byd713kvcQD6aVwG5wl8mj1Z+HH2sq6UE+JdKaQpHy6pLCRw71mwsBkNcZs+UaImICR9dGL/zxV
-	RasWLAVnIOhDD+YfM/VTtB+aOls+SSnifQ+ZnE5LaUDt170+HR6R7DjyKjwNAON0
-X-Received: by 2002:ac8:5cd4:0:b0:532:858d:e791 with SMTP id
- d75a77b69052e-53389203f68mr14532881cf.8.1790873132647; Thu, 01 Oct 2026
- 09:45:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="h13bTYPO"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E267E1A18B7;
+	Thu,  1 Oct 2026 16:46:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AB7466035C;
+	Thu,  1 Oct 2026 16:46:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 70CDA10328310;
+	Thu,  1 Oct 2026 18:46:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790873164; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=J7VcLCjkbB4GWjPQlRT2rs76W4soWPFSlS5ezEneZuM=;
+	b=h13bTYPOlfHQSJabahSgiuduOM9pkVDavbHx4FySMH1Qi8eO4JHu6ELopsWC2w0fQU6WSJ
+	pyGI36KGNMkywQCagCNeN/19OmXxhS1KOxTYRmcA2PRR5N5d1ANpDfjsQWtjaJ74IM4IXO
+	7zIOVYXZpuPAUywGiOkcokQ1qm4bLP+xHdnObH72HRF77aFJRVuHoNtt5ul+a/FQRvs+I+
+	dRz17U+zpoV39NtpZoV/xzIrWDFGdEG4IBgFSgb0cAvFkjDE2505tACP602V9TCFxjfHzF
+	pINUA57JWo8iGd6jLxY2LIgF1SVRjQiZTlSpKcJeIOxmVM1ZQqsgLyfMlRyLfQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Thu, 01 Oct 2026 18:45:57 +0200
+Subject: [PATCH v2] spi: cadence-qspi: Prevent SPI NAND continuous reads
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929182108.794434-1-irogers@google.com> <20260929222332.973435-1-irogers@google.com>
- <20261001070755.GQ88198@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261001070755.GQ88198@noisy.programming.kicks-ass.net>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 1 Oct 2026 09:45:21 -0700
-X-Gm-Features: AclHuK_uPGIN6Z6xFRRwa7F-fBv3kGJch6oICz0HkXG7IE_sZqEVpHGVInH4o1Y
-Message-ID: <CAP-5=fXCL7bd08B_i676eVwwvQ7XJua2XTvck2Nu3_ujBD=uGQ@mail.gmail.com>
-Subject: Re: [PATCH v1] perf/core: Replace perf_event_header__init_id with
- full header init
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: acme@kernel.org, adrian.hunter@intel.com, 
-	alexander.shishkin@linux.intel.com, ast@kernel.org, bpf@vger.kernel.org, 
-	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mark.rutland@arm.com, mingo@redhat.com, 
-	namhyung@kernel.org, song@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-winbond-v7-0-rc1-cadence-cont-read-v2-1-703e040b2d07@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Oyw7CIBREf6Vh7TWASqsr/8N0wePW3kRBKaKm6
+ b+L1cStyzOTzJmRDRgJB7arRhYx00DBF5CLitle+yMCucJMcqn4SjRwJ2+Cd5Br4BCtAKsdeot
+ gg08QUTswneaulptmvVWsDF0idvSYJYf2wxGvt+JKv7CnIYX4nI9k8U6/Tqn+cWZRKu6UVChcZ
+ 6TZmxDSifzShjNrp2l6AezWrU7rAAAA
+X-Change-ID: 20260318-winbond-v7-0-rc1-cadence-cont-read-bfa0d7258496
+To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, Santhosh Kumar K <s-k6@ti.com>, 
+ linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 1, 2026 at 12:07=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
-g> wrote:
->
-> On Tue, Sep 29, 2026 at 03:23:32PM -0700, Ian Rogers wrote:
->
-> > Rather than splitting header initialization between callers and output
-> > callbacks and saving/restoring mutated header fields, replace
-> > perf_event_header__init_id() with
-> > perf_event_header__init_header_and_id(), which initializes header->type=
-,
-> > header->misc, and header->size alongside the sample_id fields on each
-> > invocation.
->
-> > diff --git a/kernel/events/core.c b/kernel/events/core.c
-> > index 33210aff3ee6..c1b2d0c9b2af 100644
-> > --- a/kernel/events/core.c
-> > +++ b/kernel/events/core.c
-> > @@ -8119,13 +8119,18 @@ static void __perf_event_header__init_id(struct=
- perf_sample_data *data,
-> >       }
-> >  }
-> >
-> > -void perf_event_header__init_id(struct perf_event_header *header,
-> > -                             struct perf_sample_data *data,
-> > -                             struct perf_event *event)
-> > +void perf_event_header__init_header_and_id(struct perf_event_header *h=
-eader,
-> > +                                        struct perf_sample_data *data,
-> > +                                        u32 type, u16 misc, u16 size,
-> > +                                        struct perf_event *event)
-> >  {
-> > +     header->type =3D type;
-> > +     header->misc =3D misc;
-> >       if (event->attr.sample_id_all) {
-> > -             header->size +=3D event->id_header_size;
-> > +             header->size =3D size + event->id_header_size;
-> >               __perf_event_header__init_id(data, event, event->attr.sam=
-ple_type);
-> > +     } else {
-> > +             header->size =3D size;
-> >       }
-> >  }
->
-> I've renamed the thing to perf_event_header__init(). Also, I've done:
->
->         header->size =3D size;
->
-> and restored the:
->
->                 header->size +=3D event->id_header_size;
->
-> and lost the else :-)
->
-> But yes, this is better. Thanks!
+TI AM62Ax errata i2351, entitled "OSPI: Direct Access Controller (DAC)
+does not support Continuous Read mode with NAND Flash", explains that
+the CS can be deasserted almost at any time during a transfer (basically
+there is an interconnect arbitration every 1023 byte). This is an
+expected internal behaviour of the controller, but this leads to
+spurious CS deasserts. These are totally forbidden during SPI NAND
+continuous read transfers, because they indicate an end of transfer and
+the continuous read is then stopped on the flash side.
 
-That makes sense, thanks Peter!
+I initially tried to query the flash type and geometry to decide whether
+to apply a spi message size limit (there is a spi helper for that) but
+we cannot reliably get up to the MTD structure to discriminate if it is
+a NOR or a NAND we are playing with (it is not relevant to limit SPI NOR
+transfers, they are not affected). If we actually take this path, what
+limitation shall we enforce? The errata mentions 1023B, this is super
+low, less than a typical page size (about 2k or 4k, for most of them),
+so this is not usable. On my side, I only observed this problem on a
+2-page read in octal DTR mode with more than 12 dummy cycles. The
+writesize summed with the oobsize could be a relevant boundary, but it
+is still quite arbitrary. Hence, I opted for implementing a controller
+capability flag, which then is used to decide whether the SPI NAND
+continuous read feature can be enabled.
 
-Ian
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+TI errata i2351 explains there is a problem with CS handling, SPI NOR
+are immune to the problem, but the CS being deasserted spuriously when
+there is DMA arbitration on long accesses (every 1023 bytes), SPI NAND
+continuous reads cannot be leveraged.
+
+Link: https://www.ti.com/lit/er/sprz544c/sprz544c.pdf
+
+I created a 2-page read setup for testing all variants available on a
+W35N chip wired to this controller. I reliably observed all variants to
+always (in my tests) report correct data, except the 8D-8D-8D
+variant *when setting an extended number of dummy cycles* (>= 12, so 24
+dummy bytes). In this case, I got the first 6144 bytes correct (over
+8192), the rest being full of ones (0xFF), indicating the CS has likely
+been deasserted there. This is not exactly 6 x 1023 bytes (?), but
+close.
+---
+Changes in v2:
+- Rebased on top of spi/for-next.
+- Link to v1: https://lore.kernel.org/r/20260326-winbond-v7-0-rc1-cadence-cont-read-v1-0-0d626e1dfb2b@bootlin.com
+---
+I do not know if all flavours of this controller have the same
+limitation, or whether it is integration specific. As I only found
+mention of this errata for the AM62 processor, I opted for limiting the
+flag to a single compatible.
+---
+ drivers/spi/spi-cadence-quadspi.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
+index fe5b094f0b6b..fc0f2d52455e 100644
+--- a/drivers/spi/spi-cadence-quadspi.c
++++ b/drivers/spi/spi-cadence-quadspi.c
+@@ -1742,6 +1742,12 @@ static const struct spi_controller_mem_caps cqspi_mem_caps = {
+ 	.per_op_freq = true,
+ };
+ 
++static const struct spi_controller_mem_caps cqspi_am654_mem_caps = {
++	.dtr = true,
++	.per_op_freq = true,
++	.no_cs_assertion = true,
++};
++
+ static int cqspi_setup_flash(struct cqspi_st *cqspi)
+ {
+ 	struct platform_device *pdev = cqspi->pdev;
+@@ -1799,6 +1805,8 @@ static int cqspi_probe(struct platform_device *pdev)
+ 	host->mode_bits = SPI_RX_QUAD | SPI_RX_DUAL;
+ 	host->mem_ops = &cqspi_mem_ops;
+ 	host->mem_caps = &cqspi_mem_caps;
++	if (of_device_is_compatible(pdev->dev.of_node, "ti,am654-ospi"))
++		host->mem_caps = &cqspi_am654_mem_caps;
+ 
+ 	cqspi = spi_controller_get_devdata(host);
+ 	if (of_device_is_compatible(pdev->dev.of_node, "starfive,jh7110-qspi"))
+
+---
+base-commit: 1518c0d3f67e728674194fb43911d6bd0ad3773a
+change-id: 20260318-winbond-v7-0-rc1-cadence-cont-read-bfa0d7258496
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
