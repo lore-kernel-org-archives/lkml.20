@@ -1,215 +1,217 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433724BE43D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE503FE35F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847400; cv=none; b=s2gMVBtASAHj9dKtdT4tvZ6TNZohXpBDdYhZCZMoYWRdiU+e8cnE1hUsI2LKu5R1YPh+04RCWM1glyg/jpiajqx7CeQf/9TNKHURBevN/FYa4YEg09IbqLDJLqydQlLEM/i6rOemz9OqFj41t7ckGAssb+okHUQQhxklcasKAiQ=
+	t=1790847506; cv=none; b=cKJsJVJ7xA33wzMFd/fuOZ5J0rrCXJFREzUDiru4qceDi3ZHP6xNmRSdzZu9Egnmq9hH6woM3B5SePST3HKkWCjDwkRq2Qb+jEqhE2rFvBGuM5ctQYUHkQcRck4o4WGlsK1vTB3PBDKsinRPo+gpfvn4B9uVWJt7IHjaQHXvfJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847400; c=relaxed/simple;
-	bh=nDsPrs6hnGx0JcUP1jewvJFplt1q3U/HxABhh4zREmU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=uz2F6paihLYtQLwqs2WxLPyuuGkOVgf8yd5rI5YaxH0VrSzd5xPF6CjNDyJ5xAQUgBsEDvlazv1qjNByrahA52pPUwE/Xpfl/nF64/evVWZ+j1YufNdJ3DIdbkEQH8dfuOXVl0v0gbGd8mc8xsadSbaXJ+WtNtVytJCJ3vIprls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oHDqxbGL; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790847506; c=relaxed/simple;
+	bh=DWooC2VkfML8g4xa8rXJoaau/r5oJ8SbUeOK0UZy3kY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eA3rzEpte/F0yFOOCbaQVVSuUM+cKpgaHPqMODItL1RfqgZM5ygWdmfzgxG0Bqg3d7XyjVAohWCJLLt4dMgQ89gyRc51Zo/V4ZWwt2zfEBgZPTQy6WoVUn9nUIJNXrq6umr5d2FErYQfMKEFN0bBly2cq9ZTEAKhVrUNkGzTb0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HGROtd8G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IXHvr3ZG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oHDqxbGL"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a022e9cbebso2583655e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:36:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HGROtd8G";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IXHvr3ZG"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xOhh2887712
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 09:38:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=EvKMpWanvpqCgtKVhF42kRfvWBmd+tcqJ8h
+	5PSGSviU=; b=HGROtd8Ggx13AFN2h+NozbAX5FHkzOwO8bADKuZ/4Po9GS9wp3o
+	E4PsdniWPSr6lacy9Zw4wE0RtovN9e5w+Umm94IJX81bE+cqaiO/DeCh9KpQErQ9
+	vUD2UHVwnaBz0zbDJGMLvJlxhrZDbcx7nECJzA7V1TPM/zuULk0D1O9WCKebd2is
+	+/wP7Ebnit8YxPbFw+8GP0AgnqdrQ+Q+nvL53m31dQj+4MEEDGJHSlDZ8SrpSmv8
+	kyTePAcF0ikt0f3zum/s3XZraRWz+EKF/qZbu89b6r+Yv8p6NuDIHk7USeg3mQ51
+	q8ZLua2SdrKE53aRwnm60eRWC2IwX4WSngg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h136tmg8h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:38:24 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93c444b438aso1358402785a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:38:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790847395; x=1791452195; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
-        b=oHDqxbGLSUaXFAVTykGDD+ISX63gQAxTVihQbowAtrZ81s2hlMxspqY0mwWQa/aHPo
-         fRaY+supR8nOFw5tbFHUlglUjIFHb5CNSshs/5vXyV4yO5ZLIvA7RiVUzEAaln7DuEnt
-         M06WOBi6CDUyb03rLelAJqWYzLJj6xwXXsd31mKP6q50WH8tGDUs2TBNNkxKxuRAIJNZ
-         znowzwmrW4ywmg3v16KDV694kVJ47lawwVRs9SWjtpVLjWMnIwr+tDKeyyd3yP/5nfGA
-         nmZHfJt/aNvolMMg/9q9pkAzzPxGLZpvjQ3tDWT/AsZ3I1pJTh7AnIa+LYrlzYrtv5bj
-         4Vag==
+        d=oss.qualcomm.com; s=google; t=1790847503; x=1791452303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EvKMpWanvpqCgtKVhF42kRfvWBmd+tcqJ8h5PSGSviU=;
+        b=IXHvr3ZGFRJXa4SUzHfszxQHQy6bCdFV4lULoFErtmkUpySwpsqOkpp0L3pomNmSgs
+         nAXPbByhhBE8eqnHHFsNdlkIYq8UTYOZqMHVk9S0pDDKDQSPvWTAwnnnWDRQVU1q/nH+
+         9C8fqrbWupciEMw45z7nzsEB3jr24OITjq385mdbGoeyqnqyVVIozjdsMyI84wQILCxq
+         GJA2B/1XzmgLi+/1jNrX/A13wlB+2d5cHwHsIr2Yb4SOGFu+FqssHLyd6uruTKLjA3BB
+         xZuYzGeo5VItoGcsd+Rn4TVJAbtButAQsaa2A6Oco1XQEStmByIJsXbteurTsIxu2TWW
+         Vl+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790847395; x=1791452195;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
-        b=NI2fXLLuPFuOb5gvcAeecgM/1mbECsuN70ux1/7m99v+bJGeDwrLZItT/tqyy7kZGE
-         nsgenBpZcPmIA/X5UXPHcx0N5YnUq5Q6Sg68rpZLeAfWR3DaabeSxWwfCfW8BMzXmPG6
-         t0oFeReoRBhwgxczvefQOq4cCiTu1m2TTNK+b09np93xe4sft7hFqEIKASh9A1LuF/ei
-         H6YbRMgnK7vD6o+Tgfk+adIjDDUkiRANIXe/FoovfS7LEPUD9fOsuDAsLZLQ5xLHYFDS
-         fVbEboLdELwue84QuF05EDihfdy/YyRsJHEhnXDSU8mlSwqxO7im03dTyWrrtKkTPo3S
-         n44Q==
-X-Forwarded-Encrypted: i=1; AKwUvByiupEmC+6e2KCdWZ4Jiftld+tFyKL/Lq9dBUD73ZVdoIcwxAtP5tzW9d3YbOCcTi1uvdRAljYo1nthdt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFDNcl59d1A+oqDqFxbQK/KED25xMvsWGS8WkbzUd0Eqyd4izP
-	9SfoS4HSaRz8Vgf8eClLBZrYFQem2eqz7UZqad8iYKot71JhDF1dqRU+NTyQugEvqCM=
-X-Gm-Gg: AYBFou3n2LL29OJTDNZxCn6oHzPAtwAgNQIsho3jxxA0oUBNF6qqzrLPL3EdS5e/938
-	0JVR2JsbRwcF1K5lLBsQPtY4SF/Mk+2RAqphiD5qjhatceZP8f7PnCfAuXK6/YZadc83Eyk1J7j
-	9G6lt1tz4AoOA0QrLXcQAu1fUdpNF/qFBShHijcadaDuix5rsU1FhWMAskOz7uL2U6rio/sIUH6
-	JxgU8uxAY9nvQCwH0DShOE3dPpXaTD5135yvzOVU9HtT8UuEiK7AODc+FXvn2ZpV8wcYuhm6nZ4
-	VtsIDD9whYDLxAoWwTY+YYfsFQiKhH5yEUvrnKyi75h6YmzwO7/Sc9c9+oeXVvmY8DtIAY9ELqH
-	M3O0tWWGWY1rgB0Pj/WpAgRkt1katm0c6dQ0iEODY8qLp2SPpqAZZrMt7P8XGu+m3CpDqlHSNz7
-	o4E5kN+7jAJO2W2UwusZhMqM856ZJRi+iAi9knFj3w3vR8vF12tl0mWy9/kYQTZpHfEkMAuKOrW
-	u7qfEgxGy7E0XYNtpXM3yd/K5RF
-X-Received: by 2002:a05:600c:3144:b0:4a0:1c0e:b2a8 with SMTP id 5b1f17b1804b1-4a01c0ecb6fmr59256415e9.28.1790847395168;
-        Thu, 01 Oct 2026 02:36:35 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f220sm57243775e9.5.2026.10.01.02.36.34
+        d=1e100.net; s=20260707; t=1790847503; x=1791452303;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EvKMpWanvpqCgtKVhF42kRfvWBmd+tcqJ8h5PSGSviU=;
+        b=P1BzVOUiyHUdgEoNog3WVwklefq7iumzzBG89qerARToap0Q93OKHQD2aWRP+zOCQo
+         3gpBR/y4e2MIqSyzYIHvSuY0e+O61dwBQ58xShiRzOLrTRPWDJIuQrVsa01cT7nqAOXO
+         jOebPsnXsnB4wAZVFwDn1HfvBFCvUhnd6NuVxilWTKfvcHxeJ7We28AbC5T6TQZAvN5J
+         aAS37zbYj9jA5eG41BXmZ8vNgIQWkuK5CAJfD5DW1pTrx1Jw99xYqokNcnBYHc6CGZAe
+         zH14NHDPwfS0arWxVUwa7I+snGF158uORV3WL0UmDyZ4hUhIgQ6dasGZKcOEgU2tBihf
+         PpHA==
+X-Forwarded-Encrypted: i=1; AKwUvBxReMw7NUH0k4ySBa8qlFHPpBJMLBJRlqRc8qvpBrvPWTNotRQ3VIjdy/v35o0aEq26megZcbyyO3oQ8Ns=@vger.kernel.org
+X-Gm-Message-State: AFuF++njEVeWgtg2Jin06ppf97l36azZd2DZdbNSlbEl12mkEn0iBZCc
+	Dnp1JMV20nXVuacCS1CcVwT5sfbK2sm758BwsmWnQl/t9KNEQGRm5ldB0x9ZfdSOxts5laRRICg
+	EEEEGix6Fx9X1PgEvYmS5xnpdfKjo2NPuKrthbn0RN3UxgY13aL785wST4XYgmOsLa+E=
+X-Gm-Gg: AYBFou3ruGcrX1AFOROEQJxEfW5c1Xhv2WmVP77gxvNBdhJcxZJPGJ3zT7MRXTn+oXP
+	3tZbDGPKB+fiYz2nvkyQ/MC5+VB9+Ol3CHK3zWdCnB/rT2Z1/3dmSVAPsiLFnCQKMm15hSjuUIU
+	XSifxayog1396dPnRdtAJ2m6QRBNDVMLyF/WnJsPiJtRfq+Phj8UudawNCvtKH82ebVZhdglqMj
+	tYBk4ldZHXpXQPrIlx5SCflTjE9ZxW0WSF61XQWItjs/PW2Jvu4F5MOLQbeD9ntk+c3xqhk+uvX
+	flLlKqpUFA2mQSyAf37QyE1y2rP8DvkXmamSlJH/6sc2JrF5p0N2sZCse5eYcKb/HkCaKreKVOk
+	OgJWEqR9qToxL
+X-Received: by 2002:a05:620a:46a1:b0:93b:eb3b:dac1 with SMTP id af79cd13be357-93ca9743652mr730818585a.18.1790847502978;
+        Thu, 01 Oct 2026 02:38:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:46a1:b0:93b:eb3b:dac1 with SMTP id af79cd13be357-93ca9743652mr730813785a.18.1790847502273;
+        Thu, 01 Oct 2026 02:38:22 -0700 (PDT)
+Received: from debian ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0692b5d7sm5231750f8f.28.2026.10.01.02.38.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:36:34 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin
- <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
- Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, Miquel Raynal
- <miquel.raynal@bootlin.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
-In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
-References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
- <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
-Date: Thu, 01 Oct 2026 11:36:33 +0200
-Message-ID: <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
+        Thu, 01 Oct 2026 02:38:21 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+To: robh@kernel.org, vkoul@kernel.org
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
+        yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+        prasad.kumpatla@oss.qualcomm.com, jingyi.wang@oss.qualcomm.com,
+        sibi.sankar@oss.qualcomm.com, quic_srivasam@quicinc.com,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] soundwire: qcom: add multi-master support
+Date: Thu,  1 Oct 2026 10:38:02 +0100
+Message-ID: <20261001093806.634862-1-srinivas.kandagatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfX1zyETSokCkMs
+ bzWrwR++f6Ht8jGSqEwxj42ua09pccARIgbDvM+20Maudvr5Qp7CcMZMRU3TKdmZrrFHqiRVzOn
+ 7OdHh1WheuRR8j9t1k6uVysF1JPAtdU=
+X-Authority-Analysis: v=2.4 cv=aPFlOr9m c=1 sm=1 tr=0 ts=6abe2a10 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=owqDj3WxTxIMLBZ9Q5AA:9 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: 6cC39ZGwzgsdSd1OnKFGdUsKDHuWWAsX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfX04MZNdkCNURM
+ OaDULsJ5VwXaU2vWokHe9lXL/27YZRLKeRnAvg90aC4bkPJ3dmURkPBI/U/QEh8amT8FDDwCLsZ
+ JmNqjlJyQcqKRrPnzqt6VwUHnAmKmQrgHNfzAbFKxOimLXJT/Ja5yEMngNTG5SpWK8p1N9jJLyH
+ d++MlrTreA84Y1CdF0Jzv6SzqrQD9X2QbhMHVuFoVOdX29OS5CSRDDxvMuDHPC/iZIYQtRaDp2I
+ 00EqgzPc5FZrNhj7QkRffxdg+rfUjRMP0TBtKEFCEni3RkBBZGrVG07689WOc73N2YtawgdkVGd
+ lUEfKN79qTc6RcmHfGgOmvVqrHwMLhSfi+qqFO53K9nmzsuOU6BXWZJd9aop2fnmRu0xN9Hu+KP
+ M75lHCQ8drWYJPNPzFzmPg4rC6i+kfrDywV45p38tTM/SURIW/CEG6RYqw6Kb/lMUCHaJaulInX
+ TiVWAWhF0oJlKnvGOJQ==
+X-Proofpoint-GUID: 6cC39ZGwzgsdSd1OnKFGdUsKDHuWWAsX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 adultscore=0 phishscore=0 spamscore=0
+ malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010038
 
-On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
+This patch series adds support to the multi-master in existing soundwire
+controller driver.
 
-> HXT and LXT are crystal oscillator inputs of the clock controller, they
-> are described in the DT, so retrieve them, in order, and store them in
-> their respective HXT/LXT hw table entries.
->
-> Since old DTs reference the HXT fixed-clock without naming it and do not
-> describe LXT at all, we assume that HXT must be present, and fallback to
-> creating a fixed clock for LXT if it is not described (for backward
-> compatibility purposes).
->
-> The downstream gate clocks can directly use the hw clocks as parents,
-> instead of relying on string matching.
->
-> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> ---
->  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++--------
->  1 file changed, 35 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-> index ceebcbd8c18b..d955d79abdd2 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -4,6 +4,7 @@
->   * Author: Chi-Fang Li <cfli0@nuvoton.com>
->   */
->  
-> +#include <linux/clk.h>
->  #include <linux/clk-provider.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
-> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
->  				    reg, shift, 0, &ma35d1_lock);
->  }
->  
-> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const char *name,
-> +					     struct clk_hw *parent,
-> +					     void __iomem *reg, u8 shift)
-> +{
-> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
-> +						   CLK_SET_RATE_PARENT,
-> +						   reg, shift, 0, &ma35d1_lock);
-> +}
-> +
->  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
->  {
->  	const char *of_str;
-> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
->  	struct device_node *clk_node = pdev->dev.of_node;
-> +	struct clk_bulk_data *clks;
->  	void __iomem *clk_base;
->  	static struct clk_hw **hws;
->  	static struct clk_hw_onecell_data *ma35d1_hw_data;
->  	u32 pllmode[PLL_MAX_NUM];
-> +	int num_clks;
->  	int ret;
->  
->  	ma35d1_hw_data = devm_kzalloc(dev,
-> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  		return -EINVAL;
->  	}
->  
-> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
-> -	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
-> -					clk_base + REG_CLK_PWRCTL, 0);
-> -	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-> -	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
-> -					clk_base + REG_CLK_PWRCTL, 1);
-> +	num_clks = devm_clk_bulk_get_all(dev, &clks);
-> +	if (num_clks < 0)
-> +		return num_clks;
-> +
-> +	if (!num_clks) {
-> +		dev_err(dev, "missing crystal input clocks\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	hws[HXT] = __clk_get_hw(clks[0].clk);
+On Qualcomm Glymur SoC, both TX and RX soundwire controllers are wired
+up in multi master mode connecting to an SDCA compliant Tambora codec.
 
-Don't open code it. use .fw_name
+One of the two controllers (tx,rx) act as primary controller in this
+instance its tx which provides clock and control and some data lines and
+other controller instance in this case rx act as dependent controller
+providing extra data lanes to primary controller. This is called multi
+master mode in Qualcomm Soundwire controller.
 
-> +
-> +	if (num_clks > 1)
-> +		hws[LXT] = __clk_get_hw(clks[1].clk);
-> +	else
-> +		/* Old DTs do not describe the low-speed crystal */
-> +		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+Multi Master mode allows synchronous transport across two independent
+soundwire masters. This includes synchronized clock-stop, clock-resume,
+clock scaling and bank switch between both masters, the Primary master
+will ensure that.
 
-I'd give it another name so you can clearly see the difference between the
-DT one and the manually registered one.
+From the slave's point of view there is still one SoundWire bus with
+one clock and one control lane; the extra DATA lanes just come from
+a different pad on the SoC.
 
-> +
+Currently the bindings are added in a way that its possible to add more
+than one dependent, however to keep things simple the driver only
+supports single dependent for now.
 
-Don't need to open code this either.
-provide both .fw_name and .name - CCF will fallback to the name.
+Topology (2+2 lane example):
 
-When you want to conditionally register the fixed is up to you.
+     Primary IP                          Dependent IP
+     +-----------------+                 +-----------------+
+     |  MM_SYNC  <=====+=================+=====>  MM_SYNC  |
+     |                 |                 |                 |
+     |  SWR_CLK  ---+  |                 |                 |
+     |  CTRL     ---+  |                 |                 |
+     |  DATA0    ---+  |                 |  DATA0  ---+    |
+     |  DATA1    ---+  |                 |  DATA1  ---+    |
+     +--------------|--+                 +------------|----+
+                    |                                 |
+                    v                                 v
+        +-----------+-----------+           +---------+---------+
+        |  SWR_CLK, CTRL,       |           |  bus DATA2,       |
+        |  bus DATA0, DATA1     |           |      DATA3        |
+        +-----------+-----------+           +---------+---------+
+                    |                                 |
+                    +----------------+----------------+
+                                     |
+                                     v
+                              +--------------+
+                              |    Slave     |
+                              +--------------+
 
-> +	hws[HXT_GATE] = ma35d1_clk_gate_parent(dev, "hxt_gate", hws[HXT],
-> +					       clk_base + REG_CLK_PWRCTL, 0);
-> +	hws[LXT_GATE] = ma35d1_clk_gate_parent(dev, "lxt_gate", hws[LXT],
-> +					       clk_base + REG_CLK_PWRCTL, 1);
->  	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
->  	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
->  					 clk_base + REG_CLK_PWRCTL, 2);
-> @@ -632,8 +659,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  	hws[UART16_GATE] = ma35d1_clk_gate(dev, "uart16_gate", "uart16_div",
->  					   clk_base + REG_CLK_APBCLK0, 28);
->  
-> -	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt",
-> -					clk_base + REG_CLK_APBCLK0, 29);
-> +	hws[RTC_GATE] = ma35d1_clk_gate_parent(dev, "rtc_gate", hws[LXT],
-> +					       clk_base + REG_CLK_APBCLK0, 29);
->  	hws[DDR_GATE] = ma35d1_clk_gate(dev, "ddr_gate", "ddrpll",
->  					clk_base + REG_CLK_APBCLK0, 30);
->  
->
-> -- 
-> 2.55.0
->
+Patch 1 adds two new DT properties qcom,multi-master-mode and
+qcom,multi-master-peer for describing the pair.
+
+Patch 2 wires up the primary and dependent roles in the driver.
+
+Patch 3 programs SWRM_V3_MM_SYNC_CONFIG on both sides so their frame
+generators lock to a single SWR_CLK.
+
+Tested on Glymur (SC8480XP) CRD with WCD9378 in compute mode. HPH
+playback and mic capture both work.
+
+Changes in v2:
+  - Dependent-side safety: skip ctrl->intr_mask and CPU_EN writes on
+    the dependent
+  - Probe init order: run qcom_swrm_init() on the primary first, then
+    on the peer. The dependent's frame-gen poll cannot complete until
+    the primary (sole SWR_CLK provider in MM mode) has started the
+    clock.
+  - Peer teardown on probe failure and remove: disable peer SWRM
+    COMP_CFG + mask peer CPU IRQs so the peer releases the shared
+    SWR_CLK and devres can free the primary without a dangling
+    back-pointer.
+  - wake_irq request failure now routes to err_clk (was err_init,
+    which skipped the peer cross-link teardown and leaked hclk).
+  - qcom_swrm_remove deletes the sdw bus before clearing peer_ctrl;
+    in-flight bus ops dereference it.
+  - Re-program the dependent's MM_SYNC from the primary's
+    runtime_resume (dependent has no PM-runtime of its own).
+
+v1: https://lore.kernel.org/all/cover.1789114385.git.srinivas.kandagatla@oss.qualcomm.com
+
+Srinivas Kandagatla (3):
+  dt-bindings: soundwire: qcom: describe multi-master
+  soundwire: qcom: add multi-master support
+  soundwire: qcom: program MM_SYNC for multi-master
+
+ .../bindings/soundwire/qcom,soundwire.yaml    | 108 +++++++-
+ drivers/soundwire/qcom.c                      | 261 ++++++++++++++++--
+ 2 files changed, 341 insertions(+), 28 deletions(-)
 
 -- 
-Jerome
+2.53.0
+
