@@ -1,180 +1,166 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E355221C1
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0BE1D5CC9
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868332; cv=none; b=gOSqDNDlf8Bx7Yod7++/HFeiHVqZbSSDYmZmvASIeBxWxJbd/tC19rPSWm2DQ4h5NWL7ia6tOQIE+2Sd8dlEPMQ55fouJNA1Qut5AyQsmywaycPdk5hP11AOjl3NLkUu9WLBhYCANgGnEVi/A+nH8oEzlWSA1bBGnr+Qo0hKgTA=
+	t=1790868368; cv=none; b=G5XPfrtbb7FgR96kDQOISUCx1meSL3HMNiwtdeWq31k4FbhWFRtpvpCxmAoedw37jsrJITTsZPVZPcI7AUZXoyU/2m3W4cUxfktR3LHE6Q6cO2hohd+fkholBywFSmxqCZXuggg6UpvxViBAYyotRT0g2QTIbxV4E/C8PXgiuaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868332; c=relaxed/simple;
-	bh=V6L14a1igr1FcXKQQJFwz1tBGISdVzNp8vgZBOT6NY0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EzEPIyjfcE7rGwJtmGI1+u/akQ6i8CtEuVSMLWPVti8eWiqm28YvVBZw3AJh29PzybQopRuKzftJp6y0YAdE/Y5O+7iPmHd24n2h05WpSlgu2SXCgOaI1sd1r9IJK6xQA8z3tXz464cyb+XJ/Q3n7I40S9fepC42jCNP2JXiZkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aG5y/wl/; arc=none smtp.client-ip=74.125.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790868368; c=relaxed/simple;
+	bh=yrWtzD+Y2zzA6pAxlCWnuQ/FCEsiB+jx4CfpSLCYsxE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D3hy39cE417MChpvxT6ywWSCXjuKM9U9nc8W67/5bIPtPqQiaQFMX9/e9BY6WFDS2mqD/hUM8K22/BiSq+icy1ZnkzkX4yr2wb477H6sFZISpT1SQoH5vjbN2IohIN6AqaNJ6BXxUdcfpsXWknwXxaAF90JKkzlFIQk6cnd4s1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gsgfYX6o; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=mAjWzKDi; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aG5y/wl/"
-Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-88826f3ff80so480810b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:25:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gsgfYX6o";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="mAjWzKDi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790868366;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=w/hpqVflB8WfsdWh8gig5XZXFQD9BLKhn5uQalNXGDg=;
+	b=gsgfYX6oV5z8UYSUQxkAWoBu6TcK+Ja7SxrxzYDGXRs/SqheIVxwUMy0oSF+/h+4MJX80O
+	0B4pYIUhfWkK8oUsv7z9uC1aa1Xj+7FoG6zZdwbgZhLW41DP/uzDaQKKn3e2WUsabsLbU2
+	phLIEkZaraEHuPuCbcqPpGikYfSmMwo=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-290-6CZqSI6gNy-otiWgoE4DeQ-1; Thu, 01 Oct 2026 11:26:04 -0400
+X-MC-Unique: 6CZqSI6gNy-otiWgoE4DeQ-1
+X-Mimecast-MFC-AGG-ID: 6CZqSI6gNy-otiWgoE4DeQ_1790868364
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f6e8b5996so6095333f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:26:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790868330; x=1791473130; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ow6P9ENaq/P6weMozIYjsY54hMuiHWrHxdkamgEMjQ=;
-        b=aG5y/wl/rqJwe9C1K5KRQS2iG9cp/0DG67JgucPa2RYlaesa9NYR6H/Fwrc4OSyDc7
-         9BIZeqo89tepqMtsbdzGD3YDbL0XX1t4GVKRpeXki0nMKRxM6p+wb0eHBI5Sm50BLgvY
-         aOl0idzuW6ziCFeJjfWAe3zkV33fN30gFjPnP6KmTCWDwg25Q3YLkOKshfjL1LkNkqYS
-         mbkgTVc15H1+SFJ471cxBa0APvW/G/dHbcZ0399GmII31uNdw/2o1W/O51OgAZNK4YKy
-         epokPO7BMdS4rb78HVkEmygE4b1wVUzMOPmF7X60B71GGDn843Rh7RHq/0KwQGj96ERh
-         4CDw==
+        d=redhat.com; s=google; t=1790868364; x=1791473164; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w/hpqVflB8WfsdWh8gig5XZXFQD9BLKhn5uQalNXGDg=;
+        b=mAjWzKDixh9avB+f+7r0kfoDIcLuqmTpNYP2TuJHgk/jWdjDiRcZ3qGaQwtX0UeLzQ
+         7O6mSMt7RtDd94YVYPhzkUlHTKSYpjVX5EfGGccupjbOzpry9VgNdVa71oQjccas688e
+         8fVPqIjflRJ50Oep6cz1bzAVyrm4LRkZY+rQNZJLkD42l4dzhvDr1CATFv6WQBbHM0hS
+         YXPpF0aeZtbRD7hFyORQOHafbyhuwu5k6ue7ag7Ny+HOMZ12zXUDo9pGwR6EWQWmriom
+         zMhbvJWNk60Om/frzwwTIjWIOZ2G8/4F/Paq/NkatT9JeYO5RlKhdK3iCTUGW8GKPY/M
+         fMRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790868330; x=1791473130;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ow6P9ENaq/P6weMozIYjsY54hMuiHWrHxdkamgEMjQ=;
-        b=vC7CRZnNgrRdVAhdsN5HbZhpr2/+YS4eQPrSmXRnK0bmbuyawdpJS2VeY8gi9GJJCL
-         6g4d4V6GKteeSdGR9/CX4l9nehiQ+fy4O6J3kVJjGE+tyCAfzYbDt8xrYEvUlUqo5khm
-         KDqnueK5J+5gGjTRa+XeFc3mIKEkBVZ90T9Pw+6splDmcSky7wodJEf6JP69xedfgCyv
-         TCuRCec4h0BE5cIO77RrqjKPkdv3ryM/FPJMQVZLvNUaIUpn0RjMtUtkuGXb5c+8dO5u
-         /yOIaQMTu0RGy9v/qt80R4aUIJ/dJxOpKw0JDMwA+dop98ob3R/LuLhthOYBxD+99Tj+
-         8GBg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjsI7ag8Zy8VDS0l1GK47LePsJCLo90HrY5/Gu7BA61fGRvoGCRBx9jXE1pS/nFmvLRUQinpapq/o0zKU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjNmaN/wL/mBH0HoF+bPM0o8gl3BfojkUffLt+XLgo8DdX5HmG
-	D4AdMoRMoKwv2WdWkHXgidyxilKGuj92LxO5yZgjQzsxuaKMtTpWO/Mt
-X-Gm-Gg: AYBFou209NyVYcY+V3Zz5qBGHHxENfIsITvPhh5WyAHhpbnP/05IVoeMb5mTupfgOJo
-	GP5MbS6F25PMLHcUj9VYBm5O0RRQ4GnaZooZw71PwPNh2YnGgFA8PvXusXPsIyTQAhIkQvC/Yp+
-	60zdAg4RQ9w6LGKfADmf73/P8/J9U7oeM1j9I8e4ZVPf3UI2YSRbGCMGymyBLTfVynEcU5St8KJ
-	stOoBs9gnSVm9VKp+JvQdh/GKhtxfphAZr5uE3KnDJoGgbRbzWbZ0WDNo2nmlP6+b65U9phx+b+
-	0+0XTqy481gFVYHnl5qrj0q2E1KJDJ/e6ZykqA2LPbf/QeHusy6beqMDV4BZCLwMCH1DUKFHmLZ
-	ag2l9W8Bywg4sF9KqnSy8pBcQ4Y0dadqioEQvNh57LsbKbkJw5TkRZWVdcX7oNi9r9Q0XGMsHK0
-	ad38EYPUWc5pe+stLATY83QS4rnRkSuxAzndKaPQeOQJmVdSxCE8FT1qrxlGJ6+0pOyauTRQCjw
-	RL42U46zsK4
-X-Received: by 2002:a05:6a00:21cb:b0:886:458a:42e9 with SMTP id d2e1a72fcca58-8874c9d1ce6mr4160705b3a.49.1790868328827;
-        Thu, 01 Oct 2026 08:25:28 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d457:2e1e::498:2b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88815996973sm1320468b3a.6.2026.10.01.08.25.25
+        d=1e100.net; s=20260707; t=1790868364; x=1791473164;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w/hpqVflB8WfsdWh8gig5XZXFQD9BLKhn5uQalNXGDg=;
+        b=LL5dlFORlWZvxljQ4YRKo7iJov0A9MHGNWDptC8TdPuHKv72GbrCOUZgimMu6n5IT5
+         bWVqrtQLgR2FrJsj9geiUk165cpQfxjMYiyWgW79qFY+nTCouoL+lNIohUMtUtDSx5n7
+         H6xK+ZJGH538CCrFAsMEsY0c554VRQxz1FCTijC/eA3bnNZJN4iW0txrJfGRvYWWynGy
+         Kfg9EJppeE3TO3jvJj6ZlJMIoFFnpsUpf56vpYNLNTH5wRzpQDxpR6N6XxSLvK0Hipi5
+         y8dkjIlYJqIk1Az64tQAJIq/6NS+dLICOlSZKZQgoaFx4CR3N9AKT9CfZDr8uZNQ3wE3
+         CQxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzmuC8PoB+bVyIxsewpFdOo2tYRLjtTA5zxT3lyo2da/RGu66fUpxxL8SnwXTP2+HP6OHXzTB2ODXb44D0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOFyX+uqBsgh/zNz/Y8Y065LOjucQyXUG0rmtoFdCuTfQ9nc6G
+	MLeRJdbOkujDwbwfGTPL8Nvqksve9zCC/VIufSIKZjQI4rlyWnBjLJFOq8tybqdvBzm8lWu06sp
+	xOg56++uMAI4+l3fVAgf6pMIfo1tbrPF2m2IZJ+ZDPM6HP/9a0NChvpEGKFs86+hdPA==
+X-Gm-Gg: AYBFou3NE3zf2C/CDLLCJYSkzaalGlzLbPF+bOWcpPLjj1dqOZtoFdx4hlWkaq+apuW
+	vLRjK3a87us5vIPamqQ/aAy44DOsQonR9bW/d1qQFgDrWrmBMH2VCXNhPuW3Kk8XypID58ZGZCt
+	eJDKSqxdoSab8p80gzVC4VMQOzeeCbzhbbr6ooR9aJSDBJn6e1Y7LfNX/iYIQwGEUp3oqYihSY6
+	lyqDPsFpXqFRsZnh+IleT+ML3XEUg0SG199NA6YYkFi41q5fG32xuzc3ci4ZJHeyZrIa/OaTxRB
+	xgVkaRvk3PTOgFNJ7ahvdlNf1THTAo8Ba3rlQMRNaT469P24hM8qo0cHrIovfvGBx89j44KYbFs
+	3FiybkUtbvXAi/oeOcs9qyb+/SQCa
+X-Received: by 2002:a05:6000:2613:b0:48a:f509:c22a with SMTP id ffacd0b85a97d-48b1256b860mr5933f8f.0.1790868363520;
+        Thu, 01 Oct 2026 08:26:03 -0700 (PDT)
+X-Received: by 2002:a05:6000:2613:b0:48a:f509:c22a with SMTP id ffacd0b85a97d-48b1256b860mr5866f8f.0.1790868362985;
+        Thu, 01 Oct 2026 08:26:02 -0700 (PDT)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.14.6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0690e721sm7077992f8f.20.2026.10.01.08.26.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:25:28 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	peterx@redhat.com,
-	dave.hansen@linux.intel.com,
-	linux-mm@kvack.org,
+        Thu, 01 Oct 2026 08:26:01 -0700 (PDT)
+Date: Thu, 1 Oct 2026 17:25:59 +0200
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
-Subject: [PATCH] mm: don't ioremap COWed anon pages in generic_access_phys()
-Date: Thu,  1 Oct 2026 22:25:24 +0700
-Message-ID: <20261001152524.171115-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <699ae98c.050a0220.340abe.0d31.GAE@google.com>
-References: <699ae98c.050a0220.340abe.0d31.GAE@google.com>
+	David Haufe <dhaufe@simplextrading.com>,
+	Cao Ruichuang <create0818@163.com>,
+	Furkan =?utf-8?B?w4dhbMSxxZ9rYW4=?= <frn1furkan10@gmail.com>,
+	ionut.nechita@windriver.com
+Subject: Re: [PATCH v2] sched/deadline: Make dl-server nohz full aware
+Message-ID: <ar57h-DsEVtuZnVw@jlelli-thinkpadt14gen4.remote.csb>
+References: <20260513-upstream-fix-dlserver-nohzfull-b4-v2-1-d3e9cbe5c845@redhat.com>
+ <20261001142735.GT2009045@noisy.programming.kicks-ass.net>
+ <20261001143314.GK4121620@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001143314.GK4121620@noisy.programming.kicks-ass.net>
 
-A MAP_PRIVATE mapping of iomem (e.g. a PCI sysfs resourceN file) is a
-COW pfnmap: a write fault replaces the pfn with an anonymous page, which
-remap_pfn_range() allows by keeping vm_pgoff equal to the base pfn.
+On 01/10/26 16:33, Peter Zijlstra wrote:
+> On Thu, Oct 01, 2026 at 04:27:36PM +0200, Peter Zijlstra wrote:
+> 
+> > >  bool sched_can_stop_tick(struct rq *rq)
+> > >  {
+> > >  	/* Deadline tasks, even if single, need the tick */
+> > >  	if (rq->dl.dl_nr_running)
+> > >  		return false;
+> > >  
+> > >  	/*
+> > > +	 * If there are RT tasks, we may need the tick (for >1 RR tasks),
+> > > +	 * but we must also service lower-priority CFS/SCX tasks via dl-servers.
+> > >  	 */
+> > > +	if (rq->rt.rt_nr_running) {
+> > > +		bool cfs_or_scx_queued = false;
+> > > +
+> > > +		if (rq->cfs.h_nr_queued) {
+> > > +			dl_server_start(&rq->fair_server);
+> > > +			cfs_or_scx_queued = true;
+> > > +		}
+> > > +#ifdef CONFIG_SCHED_CLASS_EXT
+> > > +		if (rq->scx.nr_running) {
+> > > +			dl_server_start(&rq->ext_server);
+> > > +			cfs_or_scx_queued = true;
+> > > +		}
+> > > +#endif
+> > > +		if (cfs_or_scx_queued)
+> > >  			return false;
+> 
+> What the purpose of this boolean, both true assignments above can simply
+> be return false, no?
 
-generic_access_phys() does not tell those COWed pages apart from the
-original pfns and ioremaps whatever the PTE points to. Reading such an
-address via /proc/pid/mem or ptrace then ioremaps RAM:
+But we won't start the ext_server, even if EXT tasks are present, if we
+return false in case CFS tasks are present.
 
-  ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
-  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
-  Call Trace:
-   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
-   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
-   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
-   mem_rw+0x2a1/0x670 fs/proc/base.c:912
+> 
+> > >  
+> > > +		/*
+> > > +		 * Only RT tasks, no CFS/SCX. Stop servers to prevent spurious
+> 
+> No DL either, you've filtered those out above.
 
-Reject COWed pages using the same linearity rule vm_normal_page() uses.
-All generic_access_phys() users set up the mapping with a full-vma
-(io_)remap_pfn_range(), so the rule holds for them. The access already
-fails on x86 and arm64, whose ioremap refuses RAM; elsewhere it no longer
-reads the anon page through a device-memory alias.
+Right.
 
-Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
-Reported-by: syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-This answers Dave's question on the syzbot thread of how a PCI BAR can
-point at RAM: it doesn't. The repro mmap()s resource1 MAP_PRIVATE with
-PROT_WRITE at address 0, then (via syz_ublk_add_dev() with NULL args)
-writes to address 0. That write COWs the BAR page into an anonymous
-page, and the later /proc/self/mem read hands its pfn to ioremap.
-
-Forbidding MAP_PRIVATE on BARs would not cover /dev/mem, uio, cdx or
-dfl-afu, which share this ->access hook, and private pfnmap COW is
-deliberately supported (see get_remap_pgoff()).
-
-Tested in QEMU (q35, virtio-net at 00:03.0) with a small program that
-maps resource1 shared and private, COWs the private page and reads both
-via pread(/proc/self/mem):
-
-                  before              after
-  shared          4, 0xfee01000       4, 0xfee01000
-  private         4, 0xfee01000       4, 0xfee01000
-  private-cowed   -1 EIO + WARN       -1 EIO, no WARN
-
-(pread() sees EIO either way; internally generic_access_phys() went from
-ioremap WARN + -ENOMEM to -EINVAL.)
-
-plus 4 x 500 parallel runs on the patched kernel, no warnings.
-
-Note: the syzbot report also groups an unrelated signature under the
-same title (pcibios_device_add() -> memremap() of setup_data on PCI
-rescan); this patch does not address that one.
-
- mm/memory.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index 8b0c2c735d3d..8551b144028d 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7141,6 +7141,14 @@ void follow_pfnmap_end(struct follow_pfnmap_args *args)
- EXPORT_SYMBOL_GPL(follow_pfnmap_end);
- 
- #ifdef CONFIG_HAVE_IOREMAP_PROT
-+/* A write fault on a private pfnmap replaces the pfn with an anon page. */
-+static bool pfnmap_pfn_is_cowed(struct vm_area_struct *vma, unsigned long addr,
-+				unsigned long pfn)
-+{
-+	return (vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma) &&
-+	       pfn != linear_page_index(vma, addr);
-+}
-+
- /**
-  * generic_access_phys - generic implementation for iomem mmap access
-  * @vma: the vma to access
-@@ -7175,6 +7183,9 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	if ((write & FOLL_WRITE) && !writable)
- 		return -EINVAL;
- 
-+	if (pfnmap_pfn_is_cowed(vma, addr, phys_addr >> PAGE_SHIFT))
-+		return -EINVAL;
-+
- 	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
- 	if (!maddr)
- 		return -ENOMEM;
--- 
-2.43.0
+> 
+> > > +		 * wakeups. Tick can stop for single RR or any FIFO, but must
+> > > +		 * run for multiple RR (round-robin behavior).
+> > > +		 */
+> > > +		dl_servers_stop_all(rq);
+> > > +		if (rq->rt.rr_nr_running > 1)
+> > > +			return false;
+> > >  		return true;
+> > > +	}
+> 
 
