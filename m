@@ -1,156 +1,72 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7592F8E91;
-	Thu,  1 Oct 2026 04:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A9C3BBA0A;
+	Thu,  1 Oct 2026 04:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790828303; cv=none; b=dHU+bgMfKokE9JlGlS+xUr4ujQL7zE4AI2l9ha2ed/IUm4apJQMMVGPjvy4IXx46335bhDZD8gkgVeiCTSun+FkvmOfkbPg3Nvk8qNP7ZC0pQBnNRI8aK6QIKm32eOyb+jHCjRy0hbG15m54XIGvXiHpT5LMsIkl0PC2BnjqFlQ=
+	t=1790828324; cv=none; b=l9WqPyOuTu5xzX3U7xjBKajqKkc0of+kQOOY7lREGAXATGYKWMep/+w0GfkZRcOL5WpLqyrc3RajfOrPe/er2p3dToNIK09h+cygkWL8SffiYahA3XlMlLUvA+67wZB7sV9TUzgvu6jTPEpruYo5ONa3D6V25CqJGTgPC6BM984=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790828303; c=relaxed/simple;
-	bh=3T/XbK0sORjRcK4KDS3mtMaj1DYHlmoE+9+I7bX1+ts=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pKdiloQnJBenTgwpRmzKLrzRZd0YgaiFRwEYZkrWXS9fMgyhTgSuBFiPQKUjN7nLFr3ScJ84TEZaBctpOMSY9/o1QJ8t6EVuRpSbMODJi6dceS0Nlx1TFx8umm9SUdaxmA9h0NgWsOeaK03spBHf1imug/I1cPK/jEnzgxiq6tE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tBc87Fs5; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790828324; c=relaxed/simple;
+	bh=pWpjYwESBgghhbi17h9NHGq8BY4+lAFwr9TqvjkzoBU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qOKC8hCqm5BN8+c0iGOh+3WXzNG0JyD9n0hzGUDgffKMU0N/oOjFeCMcLr4xF6MuBA2WB5vu4rlZ9M4vtAhsdy4xIW1otOW3l/UfpnrWLjxgguVGPsk36dn7zQGpYX09oBbH4it34BxYd8g6FujzUFrRM0lQJMFucHDLb0pl9Vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=fogj3nX1; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tBc87Fs5"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69145PG6756232;
-	Thu, 1 Oct 2026 04:18:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=FdL7tD
-	G7uCk24aByg41uFFGTsoB8/++risqRDX1I7Hg=; b=tBc87Fs5YPyOoeXWJzZUth
-	4gqupaIEq3yzhdGP8ji31leotjoLupP/0gWmUsu4tY/xNJRJVLa8Vf5mwpGyly5p
-	3vw4iS2DO8ZB37axFILtJUyZjpal3TM5w1ApN30pAOP5s8htnkhFtU92YiiucQDP
-	yY3Z9qr0RjYj1Gzw+T7xWNW1Fa3Nr3O3XW9IN1Gpd82JScUmzOvDKztk7CLI722r
-	p5f6p/N/qFicwyD+p+7FkUxWzRhYf37ZIdMEEM0dsz0KV/Sd0dT4BwapHAwQwxca
-	XXCUjOIYNpjswlVvim/Qi119W5OUDjTiVJRImH2B5fXke5houiSLILgmzY+XVxFg
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j5h6y0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 04:18:05 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6913lURJ306122;
-	Thu, 1 Oct 2026 04:18:04 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpf2fd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 04:18:04 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6914I3GM9372168
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 04:18:04 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C042758043;
-	Thu,  1 Oct 2026 04:18:03 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B7EB658059;
-	Thu,  1 Oct 2026 04:17:58 +0000 (GMT)
-Received: from [9.123.8.83] (unknown [9.123.8.83])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 04:17:58 +0000 (GMT)
-Message-ID: <9af9f47d-b99e-46d4-bb6c-06d28b037a34@linux.ibm.com>
-Date: Thu, 1 Oct 2026 09:47:56 +0530
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="fogj3nX1"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hwJZ03KgqzKp6C;
+	Thu, 01 Oct 2026 06:18:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790828312;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eKzGji1tT8nPOQX1BL8JA0tHdv3towUd9zeEqKtmteA=;
+	b=fogj3nX1kKXpRc8svllEuG2iPpStghbtQliaZ/uO3ZCQ//87JgfVxQGBSpTnQw5Wf16Anv
+	7W1BBOOLh6TsBymcFLrHISYixQxsE/O0M6hCQUi6Xn1Vu+tAvOBNlqqiR2fhvtTW2xNsSH
+	3n6TPAGhxD62Rrq+siFleJSEga2r7sqR4zUh4cea59IVP6XtVeFJk+jmk2PVZxQ6zN0TO0
+	IjdbKWs+NOyiXeQx2cgPbeJXFrUA9+/Jgnguygz+CvPNsDVXiqJSMsYPo5BsObD7U+qgkb
+	/iM/qTxSflMkEpsHL0MJXMxCckrUP6MbMp37rbhV1MQ9Qg16mAD3Woyq7+fR0g==
+Date: Thu, 1 Oct 2026 08:18:01 +0200
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
+Message-ID: <ar12c_ste3iiTfOb@bb-82jq>
+References: <20260930152346.024115587@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/11] powerpc/papr_scm: Return the string length from
- the sysfs show functions
-To: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-        linuxppc-dev@lists.ozlabs.org, Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Shivaprasad G Bhat
- <sbhat@linux.ibm.com>,
-        Thorsten Blum <blum@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Steven Rostedt <rostedt@goodmis.org>, nikitash.mariiaw@gmail.com,
-        Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org
-References: <20260930235231.out.387-kees@kernel.org>
- <20260930235247.157921-9-kees@kernel.org>
-Content-Language: en-US
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-In-Reply-To: <20260930235247.157921-9-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxNiBTYWx0ZWRfX6FsMoRD4CcsF
- 6vSCZe6HpN3lttd6FWuf1EcxP+QvtROnkvjBgKTgHeqagH5md1URabZGny8amSX5YgqOUTWHskt
- y6D4Ulhs2QbhMvPIX15+pFG41szuWbg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxNiBTYWx0ZWRfX1rZ+6AhcJBIv
- GmZZtmcZl1Pgw6hyxMC7cxo7/5MWt0MFg6n1EN0YXuKhHzZYy1ioyjUjoDnu5/tNZYbibffvUoc
- u6r/dTofzrlKdpk2494mLCwvA/AMkUdHCHRbJLHWlGaKa6ZSRnjsY2WTUGwrfbYbnjdgyPPOCvl
- RMavMUWmKAxXjFsCCBQTmEpR3CRMZ5nGHI1gCpIf3EpEbqGcx4z69TkbmC+4nXIlxjvZJ+DjcvK
- k0mUIBjXEAMRo3msDFPbgqt9P71V2tHXTGm28hfjbjftuYmhWlYR9nUy2NR54ErtOrpy06dkzGa
- kknctgD5BsYZVi2DJqILw7bgiE0iNmQY6QAlawLuRkplpVK+/i07QSoJJ7g00JziGBF0w8BmPro
- dPbAY0vhnPafYeEbvReGp4cdZE61F63J0x3vWhdwW2U9M3R6lTp0AA/cawzykmVL8DEayHOl7y8
- pP8gS2uBQU5HnOfqhNQ==
-X-Proofpoint-GUID: VGbzrGZZBKGE2sx6cZHjFeLt9an1RaHv
-X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abddefe cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=QyXUC8HyAAAA:8
- a=VwQbUJbxAAAA:8 a=_Rns151wsaknvw-dtMgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: ukRtnVfRL8ufVcKHebXtglGLxoRaJDZh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010016
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
+X-MBO-RS-META: epr14s1fxky9wisxy59imfqr5o5ufza8
+X-MBO-RS-ID: 44d6f00fe22a6576cb4
 
+On Wed, Sep 30, 2026 at 05:21:45PM +0200, Greg Kroah-Hartman wrote:
 
-On 10/1/26 5:22 AM, Kees Cook wrote:
-> perf_stats_show() and flags_show() build their output with a seq_buf
-> and return seq_buf_used(), which may include the trailing NUL byte
-> when the seq_buf has overflowed. Use seq_buf_strlen() instead.
->
-> Build tested ARCH=powerpc ppc64_defconfig with GCC powerpc64-linux-gnu
-> 16.1.0:
-> arch/powerpc/platforms/pseries/papr_scm.o
->
-> Assisted-by: LLM
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
->   arch/powerpc/platforms/pseries/papr_scm.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/pseries/papr_scm.c b/arch/powerpc/platforms/pseries/papr_scm.c
-> index 75da96c08cdd..b03cfd8528f5 100644
-> --- a/arch/powerpc/platforms/pseries/papr_scm.c
-> +++ b/arch/powerpc/platforms/pseries/papr_scm.c
-> @@ -1108,7 +1108,7 @@ static ssize_t perf_stats_show(struct device *dev,
->   
->   free_stats:
->   	kfree(stats);
-> -	return rc ? rc : (ssize_t)seq_buf_used(&s);
-> +	return rc ?: (ssize_t)seq_buf_strlen(&s);
->   }
->   static DEVICE_ATTR_ADMIN_RO(perf_stats);
->   
-> @@ -1150,7 +1150,7 @@ static ssize_t flags_show(struct device *dev,
->   	if (seq_buf_used(&s))
+>This is the start of the stable review cycle for the 7.2.9 release.
+>There are 457 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
 
-this can also be seq_buf_strlen instead
+Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
+across multiple configurations, and boots on AMD Ryzen 7 5800H.
+No regressions observed.
 
->   		seq_buf_printf(&s, "\n");
->   
-> -	return seq_buf_used(&s);
-> +	return seq_buf_strlen(&s);
->   }
->   DEVICE_ATTR_RO(flags);
->   
+Tested-by: Benjamin Boortz <bennib@mailbox.org>
+
