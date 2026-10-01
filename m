@@ -1,342 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79813E451B;
-	Thu,  1 Oct 2026 21:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E4F3F7AA8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889663; cv=none; b=hBby24zJ0lduty+xte6Wxv1qEBJQRkIz3NOsBlqFzQ2Iud4RHyxlqsrWI2UdIw7z7qpHs+SCEO4CUnmuN2/v/JDWzsqRH1ErSFzzXlMjwmrhYWAc7jZTwW569jgXfzwmyPgFwNu19vExLeDkg95mfCB5rQsH4JMjS83FZgng8S8=
+	t=1790889665; cv=none; b=CG15Gg0/CUJQgvEFlnQp1mR9KqqGnrrFgn+WaLMcHR9g7jjqboruo2CBh87Yg/qMuWiz4NmaKxt5mpdzhBIgC5xclb3QuAKc63CsgNsABimBcHZBrruclr2xXNz8st29ZpQPcGitGtB37PBmhHnifQ78dJIqjdFU9MVdHftgvXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889663; c=relaxed/simple;
-	bh=OlkcKFowBLB7vnMX5V46bf3kVa5tLb565KzuaTKZNx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jl3hFqNkiRS9G0v2OVVmU5z5xBmumjZLkHMdzCYpwQM3txvSyAc/Hk+meNriwPrCHOsIw0GbPjiH6Rbvoa0VaYdNN4FX+/lk2Cr/YOiV7c3CCU/ci+HHPbrbgrBHhkvHjXiTM/1A5OrAjR50NGaASKBozBiEzLK8k9nphPsmWpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWba7niO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790889665; c=relaxed/simple;
+	bh=SbI9zuwpLoviGTLgjhQIkxJ0mcfP+lQtKKioVT52hTM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=UcD88l8/pfrAmNpIVqhNgyfsJonP544Gz9Ty/vprzqTArrpEkuTrTviDu0qsqPGEwGP2qPKsSDVfpqOw1LRIA732RGNCKa0UsPV1Kv93hkPt4tCo05QCXELJwkXyOJ6X58vsdXXSOFKUjj1nAxh4wcL7TTcibtwKOm228shDl+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rhTvoUaz; arc=none smtp.client-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWba7niO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EEA21F000FF;
-	Thu,  1 Oct 2026 21:20:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790889658;
-	bh=i7sc5NB8AwtcMUY2eJtVo6YG1Q7MR1DbeZ7ei1cxYbQ=;
-	h=From:To:Cc:Subject:Date;
-	b=AWba7niOfPZFHKEXdnwPzm41s/+lLSRW5EYVqyAx95iVd6wowcEH/3A51FmAEWEM8
-	 PlG1Y05k/iflPrlpsWAWiWvg2a9uspJ6ECXlrHfRJSgy8PR8Bjgdh2EyB5pF2KJRxb
-	 hkMreUOH00U2N6dguBIv3SWbwv0Ws6NmTmIjiYfDxBMOojyTTs+oo8hcqwN+8Sspew
-	 t3zPDv3qT3BEGWa7gJr8qytWI1TnbFSGN4NienHffRX2RkPZQH+KysK1TPY3Fueffy
-	 QkY3bEYiOYoz55e0utai6jMUwfV9JJX2cPhIO9fxz141NG0QMPWP9gBrWGNBvBEXTM
-	 uvm2kbrIGwObQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>
-Cc: linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: clock: Convert HiSilicon clocks to DT schema
-Date: Thu,  1 Oct 2026 16:20:48 -0500
-Message-ID: <20261001212051.2227941-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rhTvoUaz"
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-448d51840c4so6738985fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:21:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790889661; x=1791494461; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dIr4K7N8tWlFElP154T0gDhZmtv6PLeTBLURDyjAzjU=;
+        b=rhTvoUaz+E+iJsTSARzZw8S6lz4ltoU2dJ9G0gCdDREV7lICxZkfGfK/b+aB80D9QS
+         XQTJSJ10OBersaohxgAAMSwWY8s1ftI7rkEnws4UXcNLgqpaYb1ArpqmACTo3mLaAsmG
+         gdjIaJG3Nbf9Eol4x2BgozJnwNsch3T7oEFcGc48bmP9J1q+GLRS6gjlKTKfYByfCcjT
+         Chw2MPCkNsar6/F3BqrASOUSkacre+/lK4J5YD4K3w75c72KcJ9mASpk7N+rDJBRLBxY
+         8fR/elkj36oUuTVal+aJ4i/Ha3VPaK7w8kADd6oXxGcNiDI/MJxUTJtsRHCJlzHrFoDN
+         o2/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790889661; x=1791494461;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dIr4K7N8tWlFElP154T0gDhZmtv6PLeTBLURDyjAzjU=;
+        b=e9zhfJVyinUembukzM9kwTa2BG4yuaxkGZJt7s9gfib4NFYbywhQGchPKQfwReRRJ2
+         Ym0HBab5OymsG2kkdf8N0zyRPyg7x816TOaaxYWRNCC64B5Nzob+jLHFUjCuynLgLc0U
+         FUmODk/tj2ljQbEtJ/ZS4qCu1V59hiPhrugGLYGMmfLb8xufWSxVHu3hlvrkX/5lMJBg
+         8670GP2I8wnqRlnDlxd2SEusGrA0esVNcekBDetdFZ/9JnhuoAComSHq9AJiLQTUOxhy
+         nNstik75lPk6IqV+tz/yuR/ITzA9MUapcx9N8lZZ//jOb0ZTzxdRCLPm2moz0VGCtL1w
+         wLJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwR7n0Mi87ITRkNWk/Ne1fgR/ezZkD/YGTHz1XSa/hRjOYHdxrBtLBHXyCajHFH+898s4MP3nwhH7dTlvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUeHzssDgo8xwZ2+bWgCdFg+I9C0Zh/j4XmOxq3uHqymLKKp8D
+	1xJ2+fYqbx95hTYSuW0sebNdwKzSnQmrx4D4kpG25kcVxAjkVhH4tU/Dhfy9OkyhBKCMJaV+KwA
+	7VPJO80vv3AKJrsMb8+OLxFuoWg==
+X-Received: from iobir24.prod.google.com ([2002:a05:6602:7158:b0:9c3:8b15:2c82])
+ (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:6905:b0:4c3:a091:52f9 with SMTP id 5614622812f47-4f526747d3fmr385353b6e.2.1790889660625;
+ Thu, 01 Oct 2026 14:21:00 -0700 (PDT)
+Date: Thu,  1 Oct 2026 21:21:00 +0000
+In-Reply-To: <56d86280-fcea-4d2d-b6b9-b47449f3408d@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260924172928.2110956-1-coltonlewis@google.com>
+ <20260924172928.2110956-21-coltonlewis@google.com> <56d86280-fcea-4d2d-b6b9-b47449f3408d@linaro.org>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261001212100.2035442-1-coltonlewis@google.com>
+Subject: Re: [PATCH v9 20/22] KVM: arm64: Add vCPU device attr to partition
+ the PMU
+From: Colton Lewis <coltonlewis@google.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Colton Lewis <coltonlewis@google.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Zide Chen <zide.chen@intel.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, 
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Mingwei Zhang <mizhang@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Russell King <linux@armlinux.org.uk>, Shuah Khan <shuah@kernel.org>, 
+	linux-perf-users@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Convert the HiSilicon Hi6220/Hi3660/Hi3670 clock bindings to DT schema
-format. Rearrange the binding documents splitting out the stub clock
-binding from everything else.
+Hi James,
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/clock/hi3660-clock.txt           | 47 -----------------
- .../bindings/clock/hi3670-clock.txt           | 43 ---------------
- .../bindings/clock/hi6220-clock.txt           | 52 -------------------
- .../bindings/clock/hisilicon,clocks.yaml      | 51 ++++++++++++++++++
- .../clock/hisilicon,hi6220-stub-clk.yaml      | 49 +++++++++++++++++
- 5 files changed, 100 insertions(+), 142 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/clock/hi3660-clock.txt
- delete mode 100644 Documentation/devicetree/bindings/clock/hi3670-clock.txt
- delete mode 100644 Documentation/devicetree/bindings/clock/hi6220-clock.txt
- create mode 100644 Documentation/devicetree/bindings/clock/hisilicon,clocks.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/hisilicon,hi6220-stub-clk.yaml
+On Wed, Sep 30, 2026 at 04:27:27PM +0100, James Clark wrote:
+> > @@ -77,7 +80,9 @@ Parameters: in:imaan address of a u32 value (N)
+> >   Returns:
+> >   	 =======  ====================================================
+> >   	 -EBUSY   PMUv3 already initialized, or a vCPU has already run
+> > -	 -EINVAL  No PMUv3 explicitly selected, or value of N out of range
+> > +	 -EINVAL  No PMUv3 explicitly selected, or value of N out of
+> > +		  range (>= max_counters when partitioning is
+> > +		  enabled)
+>
+> "No PMUv3 explicitly selected, or value of N > max_counters, or N >
+> max_counters - 1 when partitioning is enabled".
+>
+> That might be clearer, otherwise it seems like max_counters being relevant
+> to "out of range" only applies to when partitioning is enabled, not that
+> it's max_counters all the time but one is -1.
 
-diff --git a/Documentation/devicetree/bindings/clock/hi3660-clock.txt b/Documentation/devicetree/bindings/clock/hi3660-clock.txt
-deleted file mode 100644
-index 946da7cee54f..000000000000
---- a/Documentation/devicetree/bindings/clock/hi3660-clock.txt
-+++ /dev/null
-@@ -1,47 +0,0 @@
--* Hisilicon Hi3660 Clock Controller
--
--The Hi3660 clock controller generates and supplies clock to various
--controllers within the Hi3660 SoC.
--
--Required Properties:
--
--- compatible: the compatible should be one of the following strings to
--	indicate the clock controller functionality.
--
--	- "hisilicon,hi3660-crgctrl"
--	- "hisilicon,hi3660-pctrl"
--	- "hisilicon,hi3660-pmuctrl"
--	- "hisilicon,hi3660-sctrl"
--	- "hisilicon,hi3660-iomcu"
--	- "hisilicon,hi3660-stub-clk"
--
--- reg: physical base address of the controller and length of memory mapped
--  region.
--
--- #clock-cells: should be 1.
--
--Optional Properties:
--
--- mboxes: Phandle to the mailbox for sending message to MCU.
--            (See: ../mailbox/hisilicon,hi3660-mailbox.txt for more info)
--
--Each clock is assigned an identifier and client nodes use this identifier
--to specify the clock which they consume.
--
--All these identifier could be found in <dt-bindings/clock/hi3660-clock.h>.
--
--Examples:
--	crg_ctrl: clock-controller@fff35000 {
--		compatible = "hisilicon,hi3660-crgctrl", "syscon";
--		reg = <0x0 0xfff35000 0x0 0x1000>;
--		#clock-cells = <1>;
--	};
--
--	uart0: serial@fdf02000 {
--		compatible = "arm,pl011", "arm,primecell";
--		reg = <0x0 0xfdf02000 0x0 0x1000>;
--		interrupts = <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
--		clocks = <&crg_ctrl HI3660_CLK_MUX_UART0>,
--			 <&crg_ctrl HI3660_PCLK>;
--		clock-names = "uartclk", "apb_pclk";
--	};
-diff --git a/Documentation/devicetree/bindings/clock/hi3670-clock.txt b/Documentation/devicetree/bindings/clock/hi3670-clock.txt
-deleted file mode 100644
-index 66f3697eca78..000000000000
---- a/Documentation/devicetree/bindings/clock/hi3670-clock.txt
-+++ /dev/null
-@@ -1,43 +0,0 @@
--* Hisilicon Hi3670 Clock Controller
--
--The Hi3670 clock controller generates and supplies clock to various
--controllers within the Hi3670 SoC.
--
--Required Properties:
--
--- compatible: the compatible should be one of the following strings to
--	indicate the clock controller functionality.
--
--	- "hisilicon,hi3670-crgctrl"
--	- "hisilicon,hi3670-pctrl"
--	- "hisilicon,hi3670-pmuctrl"
--	- "hisilicon,hi3670-sctrl"
--	- "hisilicon,hi3670-iomcu"
--	- "hisilicon,hi3670-media1-crg"
--	- "hisilicon,hi3670-media2-crg"
--
--- reg: physical base address of the controller and length of memory mapped
--  region.
--
--- #clock-cells: should be 1.
--
--Each clock is assigned an identifier and client nodes use this identifier
--to specify the clock which they consume.
--
--All these identifier could be found in <dt-bindings/clock/hi3670-clock.h>.
--
--Examples:
--	crg_ctrl: clock-controller@fff35000 {
--		compatible = "hisilicon,hi3670-crgctrl", "syscon";
--		reg = <0x0 0xfff35000 0x0 0x1000>;
--		#clock-cells = <1>;
--	};
--
--	uart0: serial@fdf02000 {
--		compatible = "arm,pl011", "arm,primecell";
--		reg = <0x0 0xfdf02000 0x0 0x1000>;
--		interrupts = <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
--		clocks = <&crg_ctrl HI3670_CLK_GATE_UART0>,
--			 <&crg_ctrl HI3670_PCLK>;
--		clock-names = "uartclk", "apb_pclk";
--	};
-diff --git a/Documentation/devicetree/bindings/clock/hi6220-clock.txt b/Documentation/devicetree/bindings/clock/hi6220-clock.txt
-deleted file mode 100644
-index 17ac4a3dd26a..000000000000
---- a/Documentation/devicetree/bindings/clock/hi6220-clock.txt
-+++ /dev/null
-@@ -1,52 +0,0 @@
--* Hisilicon Hi6220 Clock Controller
--
--Clock control registers reside in different Hi6220 system controllers,
--please refer the following document to know more about the binding rules
--for these system controllers:
--
--Documentation/devicetree/bindings/arm/hisilicon/hisilicon.yaml
--
--Required Properties:
--
--- compatible: the compatible should be one of the following strings to
--	indicate the clock controller functionality.
--
--	- "hisilicon,hi6220-acpu-sctrl"
--	- "hisilicon,hi6220-aoctrl"
--	- "hisilicon,hi6220-sysctrl"
--	- "hisilicon,hi6220-mediactrl"
--	- "hisilicon,hi6220-pmctrl"
--	- "hisilicon,hi6220-stub-clk"
--
--- reg: physical base address of the controller and length of memory mapped
--  region.
--
--- #clock-cells: should be 1.
--
--Optional Properties:
--
--- hisilicon,hi6220-clk-sram: phandle to the syscon managing the SoC internal sram;
--  the driver need use the sram to pass parameters for frequency change.
--
--- mboxes: use the label reference for the mailbox as the first parameter, the
--  second parameter is the channel number.
--
--Example 1:
--	sys_ctrl: sys_ctrl@f7030000 {
--		compatible = "hisilicon,hi6220-sysctrl", "syscon";
--		reg = <0x0 0xf7030000 0x0 0x2000>;
--		#clock-cells = <1>;
--	};
--
--Example 2:
--	stub_clock: stub_clock {
--		compatible = "hisilicon,hi6220-stub-clk";
--		hisilicon,hi6220-clk-sram = <&sram>;
--		#clock-cells = <1>;
--		mboxes = <&mailbox 1>;
--	};
--
--Each clock is assigned an identifier and client nodes use this identifier
--to specify the clock which they consume.
--
--All these identifier could be found in <dt-bindings/clock/hi6220-clock.h>.
-diff --git a/Documentation/devicetree/bindings/clock/hisilicon,clocks.yaml b/Documentation/devicetree/bindings/clock/hisilicon,clocks.yaml
-new file mode 100644
-index 000000000000..345c6d0e7a13
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/hisilicon,clocks.yaml
-@@ -0,0 +1,51 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/hisilicon,clocks.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Hisilicon Hi6220/Hi3660/Hi3670 Clock Controllers
-+
-+maintainers:
-+  - Wei Xu <xuwei5@hisilicon.com>
-+
-+description: >
-+  The Hi3670 clock controller generates and supplies clock to various
-+  controllers within the Hi3670 SoC.
-+
-+  All these identifiers can be found in:
-+    dt-bindings/clock/hi3660-clock.h.
-+    dt-bindings/clock/hi3670-clock.h.
-+    dt-bindings/clock/hi6220-clock.h.
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - hisilicon,hi3660-crgctrl
-+          - hisilicon,hi3660-pctrl
-+          - hisilicon,hi3660-pmuctrl
-+          - hisilicon,hi3660-sctrl
-+          - hisilicon,hi3660-iomcu
-+          - hisilicon,hi3670-crgctrl
-+          - hisilicon,hi3670-pctrl
-+          - hisilicon,hi3670-pmuctrl
-+          - hisilicon,hi3670-sctrl
-+          - hisilicon,hi3670-iomcu
-+          - hisilicon,hi3670-media1-crg
-+          - hisilicon,hi3670-media2-crg
-+          - hisilicon,hi6220-acpu-sctrl
-+      - const: syscon
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#clock-cells':
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#clock-cells'
-+
-+additionalProperties: false
-diff --git a/Documentation/devicetree/bindings/clock/hisilicon,hi6220-stub-clk.yaml b/Documentation/devicetree/bindings/clock/hisilicon,hi6220-stub-clk.yaml
-new file mode 100644
-index 000000000000..4dd6a01bfd9d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/hisilicon,hi6220-stub-clk.yaml
-@@ -0,0 +1,49 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/hisilicon,hi6220-stub-clk.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Hisilicon Stub Clock Controller
-+
-+maintainers:
-+  - Wei Xu <xuwei5@hisilicon.com>
-+
-+description: >
-+  Each clock is assigned an identifier and client nodes use this identifier
-+  to specify the clock which they consume.
-+
-+  All these identifiers can be found in:
-+    dt-bindings/clock/hi3660-clock.h.
-+    dt-bindings/clock/hi6220-clock.h.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - hisilicon,hi3660-stub-clk
-+      - hisilicon,hi6220-stub-clk
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#clock-cells':
-+    const: 1
-+
-+  hisilicon,hi6220-clk-sram:
-+    description:
-+      syscon managing the SoC internal SRAM; driver needs the SRAM to pass
-+      parameters for frequency change.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  mboxes:
-+    maxItems: 1
-+
-+  mbox-names:
-+    const: mbox-tx
-+
-+required:
-+  - compatible
-+  - '#clock-cells'
-+  - mboxes
-+
-+additionalProperties: false
--- 
-2.53.0
+Agreed, that reads much better. I will update it to your phrasing in
+v10.
 
+Thanks,
+Colton
