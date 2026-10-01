@@ -1,156 +1,243 @@
-Received: from mail-wr2-f29.google.com (mail-wr2-f29.google.com [74.125.225.93])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4173C0600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE79D3BFAED
 	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.93
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869701; cv=none; b=qEqy1mNjb7a2/l1SnY9SU8HdK0HSeiX7TVrEHQ5AQb+5fe29lln7u0Dg0y7g3LEhq+sWbrWkNbY+OGuJrJ4ETOpIKs1ZcGnlWahYL8zvkb4CFXx1a+XtgfNWw3CIlZLk6WziWv0MSIeTnsQYwKNWThY/GRiWj4L25jkFwEGZMIc=
+	t=1790869701; cv=none; b=izMEC+76bkwe49MtHSb5RDw9U/MznBtAUEIhL79GXrp+E19rc8M+6oKGNQufwkA+cQSg+bC6lQeLoLmfQ93TipQCL+OzMpv1bS8OyQ0xY5ivsxRfEFDiFDO2+T4GACbpoZEPMlb9TPGtsuxjGwXTojRZeAV76uF6TORVz+lxBDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790869701; c=relaxed/simple;
-	bh=59iH1F5Vy/056HDKnHHLy/flOtWGquaR/K7OywQ7VtU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uIuUMTKTB5IB0vnz5IbjelLuq9oRauy8X07xnTiOR/g0Vr666L7Gr+6YARbtMvBnyx1wRU90eVWV0RY41m6MZvyge1y2Xa/6gtoLTVTCuJ6cXvzgbPYxxCdB5sAy/wEBuVXLXsPJYavkKWn3Jae5co79X1fKwnZ9hvGN+W5XWzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q4lxFpE/; arc=none smtp.client-ip=74.125.225.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	bh=EDmGxkrIz1zl4b6PYaAgr/KW3mD7e7xXhwPBUF4b6+o=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dI6wb9lL5oqY/2iPkQWQVHy/vCgvK8RyHceRHXxinGp09qBEB7kIaEyiScbvw21TV0yCLjB7anSXlol4LvGhhV91jV/CrsET7N9wBi+TcHo3dYx5zKSCxdwivhnrjBO3laVsZgpepWptC6RMHL/ZS+xb2LRgRMb5P0THcK0GntI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nATOhURN; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q4lxFpE/"
-Received: by mail-wr2-f29.google.com with SMTP id ffacd0b85a97d-48aef5d66c1so1926287f8f.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nATOhURN"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a605c198fdso10587551a12.2
         for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:48:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790869698; x=1791474498; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WL1Ngs5P1NZipTs1d2xbqdAnfg1+txQ9m6WSod45AOs=;
-        b=Q4lxFpE/aEjp0ou0LTuBSx8M6eO+92MIhgT70HFT8t5eXa0ioIn+JpMANFr6relxLg
-         6eyWYTrTCgzlDEnF5DEgn1BI525mCkAEa1uXptD69OeleFY9wzOTWgZqCiByPWSubju1
-         RVdbT7aDhkKmHZo+NuapfZoB4CCQsyzcI1n/nsSTG1WbioeuDNNgg2TgNPj1xlmsnPBo
-         X7CgT5T0s2FmMa0jhwUsE0g8ym2bNkeetxzAH+jZGIDxr8p4SfL8jdHAtxxrCt7mH+2B
-         1DNOwCwxYAtkKH06CIRRMRv0cCzBBRffqJT77vcTPYP6lKJh1gVEVjhvR4HZJ7oYE/T9
-         Wk5w==
+        d=gmail.com; s=20251104; t=1790869698; x=1791474498; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1YG6o6wTRxoEQtd5iQEcu4HXOz2uoJ4yfyWYLykx9lM=;
+        b=nATOhURNgJNhvAAHpdEgUQ2jAXh7VRacNQSibWGV6AXm7TNkayg2gmDCThPSFOQ5V2
+         L20PjBwElyrMcPJrnSZpkoSYN7KrNiqcWIKNqTbJ0xxventExLu/IVMMwlpIQ7kPfvpe
+         AktMMrc130ucl4uVk4luINhgANVchXFnGTticwoPv+MENvO96zrp1Jln6h8R6X7xtIPn
+         8WMwlJ+2KW2ArvsUzabM59/1ArGg0f1Kvh7WMw58lgY69O98YBzK/kjPclB4cOa7aU3r
+         H5xFL6psQG7fGiX7NM+CbKXjfbm7JYyXzLHrdlng0cRwALGWawjXdc8V/xeNubscuw1z
+         BU8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790869698; x=1791474498;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=WL1Ngs5P1NZipTs1d2xbqdAnfg1+txQ9m6WSod45AOs=;
-        b=ecStfMYL7/aFf0lIykKNaf+ixbnPSyVfRONWzsqMEeYvIPzJSnZoO/uw2+tZDW1w5r
-         ACKO+yLrttu4cRFzTs/COogR6fThMMbXZXIraU3kQf2n6XVTJlIaOkr+WlIUuuQrUr+r
-         RB/xDADs4Str3peGjztECVlZJmp+tEdUarApEm6XGkjTfuNCuNVgosR8ZM/BA2D4Xep7
-         MDZTOfoWXK24J4sP3i4VgSRuMxz/VEgpOrR8YOZ9t3HfZG/+w0EB868ARRXyaHTCuCpN
-         VdtUAMXWIG0l18Qb88CBi1yJxisBmlELxtLqhyfc/lJujxsDgUXqZhQW9Wpt8Lr3aQE2
-         iw8A==
-X-Forwarded-Encrypted: i=1; AKwUvByX8PCWO/uMD7CjwwCg0tFeGfair3KZ9Jhmg6sOT92op4nPa8Z9XAvvr0uGcYnTehZTnVUJn2vG+1rNf9w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIxFe8Bkuohe1bBPWTmfmJ4yA2lAcd23ZfGadcDZEoijQCHBd7
-	I510KvJ+iXQ/dzhMsnNh7rxls588iR545IGTfll9b96o6XKa24Um19Iq+5Srni8Qb/V1uRM6B0Q
-	NgTnStz0=
-X-Gm-Gg: AYBFou2CZFAhf3iue8QNr0oZsGGoZeOxdo4XVrp9bE8VuqnTj4mZ9ThaoPLopCD6t0p
-	RrfCqQawryxjBv6MtNEvIGzP+IM1iWRaR/FMMsXZsreS9GepUjUWz21/m8Nguwvx6ZmoVCpU8fB
-	Ik5ZlNKlfd31yJy0JL9Zr4tfOJEaNOQSDvNlROtnkKwuU/Z69dnXSOe9u7ue/XKR9PpSeMyQmX2
-	pAgqqkRJhJxFZ0qSQgI/44jvID7xcQqtblSOl5wk3IMjyuPE97/zZvr56r/k1fhvhnWCl+XJvvU
-	Z7qhfSZW3Q9fZoftzo/lIGkuK3CwguaMxGjn4jJT7AFO81v5H+O2XQd2s4EoYbySMwGcq3OZVWd
-	spcnmr5dnGY+eJFYiLNxsKcfRHBA/Zkfim/ChD20mnN3kgQLLmDD3P7ZJqwvi/LGOjmtkc40yEp
-	LRUWfSMNtNqX0EMkB1Dd5A06CHlziKGaJzylOT2qTMF1H24z2f3UDN6PPcvnzIlVvm+5Y+aWw5Z
-	Q==
-X-Received: by 2002:a05:6000:4556:b0:48a:fdde:523e with SMTP id ffacd0b85a97d-48b126bdbd1mr52828f8f.8.1790869697968;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1YG6o6wTRxoEQtd5iQEcu4HXOz2uoJ4yfyWYLykx9lM=;
+        b=Vj5zqcg9qbmWuP38NlgiUzc/sdBB0qJbWGu4zpzRyGDVImr1ANTujxiJ32B2ebUBE/
+         UDBFBqzN645+9Y5IkKZhsrLKvzz2KSQS6UiNL4nT+9stjCIjnosspjwS2FQ1OpbYTsp4
+         jYrDu7zE8P8I6VSZwwKHkC9Pu4vljtfN10q4QawhTVizDS+ReRoha4jXHf80k11QI8tT
+         tFls8LJ5no0pgCpgQpM24K0cHAowulAlw5sXL2HEZjKsoESHUA676A65YJeZYKYMSXLq
+         xWjCMpd/dqmwH61ZjiKcZr3VtwHDyF8N2yq6ICTWS/iLtQaC8WhICjEDrJHf3EGoCLdl
+         uyXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5C7bl8q2GRYPHBCMciEf2qMvVNejwjpnkIxDFmKQizFh8rc9avhonY71Xrhr8+0+CwgohNB3V96otVZ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfKhRIeb4tYDguyWGwCEbsi/NckQNzCeglIwhlns406pB5ogXv
+	NZMOK9MTtt1474D8nQ9v7aLlu3Loh/8H2aZjmDILmqMeSa1ZYcBnbJ7Q
+X-Gm-Gg: AYBFou2mIBCYq6ELKo9hbg9SHenPZbHAjm04EDYSLDf8ceJ/Sx74W2sO3m8RRAsuaAS
+	hf6ExVWMFXSOnLBbClWCo4/IjA9NwfWXB1fVIDDK0IhxNQ6z4uCRwwnBRnEAxSIYWvSSnklqoCF
+	pbI8elhConq37eRaCVNsJfCev3t9S8orcvawrBIB70Ok0VPatEJ321MMhnyjsfiE9C0df9YQ7dy
+	DqEoRgo/zG1r4ov/hBsbFxh3CG/sBgbyo5DZnDpEDEpaqzDpdzREfmzOaNgmfTCfzwjsYifK41K
+	Vhee/GiTYZXK53rNc9corUGUzETmoyG3WZdThZMz7zl+JUgTMDErZ4YqUNK0YENLbqdjyN8q7kT
+	FrH1JuR6bZhTgkk4FXeFPGXs431Y01OYSv9SYkz2Nck02RpRw3GqyjzzFD/q8lqhN7joLiN5Glv
+	iDieUSau00VV+2ehWI2842iPbmH76Q0an7xUI=
+X-Received: by 2002:a17:907:3f87:b0:c2e:856:2a08 with SMTP id a640c23a62f3a-c2e4a9b37a6mr2297866b.1.1790869697837;
         Thu, 01 Oct 2026 08:48:17 -0700 (PDT)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0691d681sm6214047f8f.23.2026.10.01.08.48.17
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31d87bdfsm180664666b.57.2026.10.01.08.48.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:48:17 -0700 (PDT)
-From: James Clark <james.clark@linaro.org>
-Date: Thu, 01 Oct 2026 16:48:10 +0100
-Subject: [PATCH] perf python: Track linked libraries as extension
- dependencies
+        Thu, 01 Oct 2026 08:48:05 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Thu, 1 Oct 2026 17:48:00 +0200
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>, akpm@linux-foundation.org,
+	catalin.marinas@arm.com, linux-mm@kvack.org, will@kernel.org,
+	Xueyuan.chen21@gmail.com, ajd@linux.ibm.com,
+	anshuman.khandual@arm.com, baohua@kernel.org, chleroy@kernel.org,
+	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com,
+	leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+	rppt@kernel.org, ryan.roberts@arm.com
+Subject: Re: [PATCH v9 09/10] mm/vmalloc: map contiguous pages in batches for
+ vmap() if possible
+Message-ID: <ar6AsIvAviFFQjEh@milan>
+References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
+ <20260923062832.479455-10-jiangwen6@xiaomi.com>
+ <ar0lMkKxugZV7xyw@milan>
+ <CAHKocdEqnCCyW1TgmiRotFO0hQdHt7pXP1sdqzZ7Up6wc+-Bsw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-james-perf-stale-python-build-v1-1-dd3b14644606@linaro.org>
-X-B4-Tracking: v=1; b=H4sIALmAvmoC/yXMwQrCMAwA0F8ZORtoKkzwV8RDu6YuY3al6YYy9
- u9WPb7L20G5CCtcux0Kb6KypAY6dTCMLj0YJTSDNbYnYwgn92TFzCWiVjcz5ncdl4R+lTlg6D1
- dgrPRngnakQtHef3+2/1vXf3EQ/2mcBwfShAv3oEAAAA=
-X-Change-ID: 20261001-james-perf-stale-python-build-d6b17da2f231
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, Leo Yan <leo.yan@arm.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHKocdEqnCCyW1TgmiRotFO0hQdHt7pXP1sdqzZ7Up6wc+-Bsw@mail.gmail.com>
 
-Since the Python extension switched to linking perf libraries, setup.py
-only lists util/python.c as a source. The libraries are supplied through
-LDFLAGS, which setuptools does not consider when deciding whether the
-extension needs to be rebuilt.
+On Thu, Oct 01, 2026 at 04:09:24PM +0800, Wen Jiang wrote:
+> On Wed, 30 Sept 2026 at 23:05, Uladzislau Rezki <urezki@gmail.com> wrote:
+> >
+> > On Wed, Sep 23, 2026 at 02:28:31PM +0800, Wen Jiang wrote:
+> > > From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+> > >
+> > > In many cases, the pages passed to vmap() may include high-order
+> > > pages. For example, the systemheap often allocates pages in descending
+> > > order: order 8, then 4, then 0. Currently, vmap() iterates over every
+> > > page individually—even pages inside a high-order block are handled
+> > > one by one.
+> > >
+> > > This patch detects physically contiguous pages (regardless of whether
+> > > they are compound or non-compound) by scanning with
+> > > num_pages_contiguous(), and maps them as a single contiguous block
+> > > whenever possible. The mapping order is determined by taking the
+> > > minimum of the contiguous page count and the pfn alignment, allowing
+> > > graceful degradation when pfn alignment is less than the contiguous
+> > > range.
+> > >
+> > > Pages with the same page_shift are coalesced and mapped via
+> > > vmap_pages_range_noflush_walk() to avoid page table rewalk.
+> > >
+> > > As users typically allocate memory in descending orders (e.g.
+> > > 8 → 4 → 0), once an order-0 page is encountered, we stop scanning
+> > > for contiguous pages since subsequent pages are likely order-0 as well.
+> > >
+> > > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> > > Co-developed-by: Dev Jain <dev.jain@arm.com>
+> > > Signed-off-by: Dev Jain <dev.jain@arm.com>
+> > > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> > > Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> > > Tested-by: Leo Yan <leo.yan@arm.com>
+> > > ---
+> > >  mm/vmalloc.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++--
+> > >  1 file changed, 80 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> > > index a43965016eb4d..37cddb7f45a4f 100644
+> > > --- a/mm/vmalloc.c
+> > > +++ b/mm/vmalloc.c
+> > > @@ -3576,6 +3576,85 @@ static inline unsigned int vm_shift(pgprot_t prot, unsigned long size)
+> > >       return arch_vmap_pte_supported_shift(size);
+> > >  }
+> > >
+> > > +static inline int get_vmap_batch_order(struct page **pages,
+> > > +             pgprot_t prot, unsigned int nr_pages)
+> > >
+> > get_vmap_mapping_order()?
+> >
+> 
+> Agreed, that's a clearer name.
+> 
+> > > +{
+> > > +     unsigned long pfn;
+> > > +     unsigned int nr_contig;
+> > > +     int order;
+> > > +
+> > > +     if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMAP))
+> > > +             return 0;
+> > > +
+> > > +     /* Limit nr_pages by pfn alignment */
+> > > +     pfn = page_to_pfn(*pages);
+> > > +     if (pfn > 0)
+> > > +             nr_pages = min_t(size_t, nr_pages, 1UL << __ffs(pfn));
+> > > +
+> > > +     nr_contig = num_pages_contiguous(pages, nr_pages);
+> > > +     if (nr_contig < 2)
+> > > +             return 0;
+> > > +
+> > > +     order = ilog2(nr_contig);
+> > > +
+> > > +     if (vm_shift(prot, PAGE_SIZE << order) == PAGE_SHIFT)
+> > > +             return 0;
+> > > +
+> > > +     return order;
+> > > +}
+> > > +
+> > > +static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
+> > > +             pgprot_t prot, struct page **pages)
+> > > +{
+> > > +     const unsigned int nr_pages = (end - addr) >> PAGE_SHIFT;
+> > > +     unsigned int prev_shift = 0, batch_idx = 0;
+> > > +     unsigned long batch_start = addr, batch_end = addr;
+> > > +     int err;
+> > > +
+> > > +     err = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
+> > > +                                          PAGE_SHIFT, GFP_KERNEL);
+> > > +
+> > > +     if (err)
+> > > +             goto out;
+> > > +
+> > > +     for (unsigned int i = 0; i < nr_pages; ) {
+> > > +             unsigned int shift = PAGE_SHIFT +
+> > > +                     get_vmap_batch_order(pages + i, prot, nr_pages - i);
+> > > +
+> > > +             if (!i)
+> > > +                     prev_shift = shift;
+> > > +
+> > > +             if (shift != prev_shift) {
+> > > +                     err = vmap_pages_range_noflush_walk(batch_start, batch_end,
+> > > +                                     prot, pages + batch_idx, prev_shift);
+> > > +                     if (err)
+> > > +                             goto out;
+> > > +                     prev_shift = shift;
+> > > +                     batch_start = batch_end;
+> > > +                     batch_idx = i;
+> > > +             }
+> > > +
+> > > +             /*
+> > > +              * Once we fail to batch pages, we expect to fail batching
+> > > +              * for all remaining pages, so just give up.
+> > > +              */
+> > > +             if (shift == PAGE_SHIFT)
+> > > +                     break;
+> > > +
+> > > +             batch_end += 1UL << shift;
+> > > +             i += 1U << (shift - PAGE_SHIFT);
+> > > +     }
+> > > +
+> > > +     /* Remaining */
+> > > +     if (batch_start < end)
+> > > +             err = vmap_pages_range_noflush_walk(batch_start, end, prot,
+> > > +                             pages + batch_idx, prev_shift);
+> > > +
+> > > +out:
+> > > +     flush_cache_vmap(addr, end);
+> > > +     return err;
+> > >
+> > On error, if kmsan_vmap_pages_range_noflush() succeed you do not do a
+> > proper cleanup?
+> >
+> > i.e. to cleanup KMSAN metadata: kmsan_vunmap_range_noflush(addr, end);
+> >
+> 
+> The KMSAN metadata is cleaned up by the caller: on error vmap calls
+> vunmap(area->addr), which reaches kmsan_vunmap_range_noflush() through
+> remove_vm_area() -> free_unmap_vmap_area() -> vunmap_range_noflush().
+> That is the same contract as the pre-existing vmap_pages_range() path,
+> which likewise relied on the caller's vunmap() to clean up. So there
+> is no behavioral
+> change here.
+> 
+Right. With better naming:
 
-When a library changes, make invokes setup.py, but setuptools can skip
-the build and the recipe copies the stale cached extension back into
-python/. This leaves perf and its Python module running different
-versions of the same code.
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 
-Pass the linked library paths to setup.py and declare them as Extension
-dependencies so that library changes trigger a rebuild. Include
-EXTRA_PERFLIBS in the shared library list so that both make and
-setuptools track those inputs as well, preserving the existing linker
-order.
+--
+Uladzislau Rezki
 
-Fixes: 9dabf4003423 ("perf python: Switch module to linking libraries from building source")
-Assisted-by: Codex:GPT-6-Astra
-Signed-off-by: James Clark <james.clark@linaro.org>
----
- tools/perf/Makefile.perf | 5 +++--
- tools/perf/util/setup.py | 1 +
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index 7ceefc1da774..dbf7cceaa005 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -526,8 +526,8 @@ endif
- EXTLIBS := $(call filter-out,$(EXCLUDE_EXTLIBS),$(EXTLIBS))
- LIBS = -Wl,--whole-archive $(PERFLIBS) $(EXTRA_PERFLIBS) -Wl,--no-whole-archive -Wl,--start-group $(EXTLIBS) -Wl,--end-group
- 
--PERFLIBS_PY := $(call filter-out,$(LIBPERF_BENCH) $(LIBPERF_TEST),$(PERFLIBS))
--LIBS_PY = -Wl,--whole-archive $(PERFLIBS_PY) $(EXTRA_PERFLIBS) -Wl,--no-whole-archive -Wl,--start-group $(EXTLIBS) -Wl,--end-group
-+PERFLIBS_PY := $(call filter-out,$(LIBPERF_BENCH) $(LIBPERF_TEST),$(PERFLIBS)) $(EXTRA_PERFLIBS)
-+LIBS_PY = -Wl,--whole-archive $(PERFLIBS_PY) -Wl,--no-whole-archive -Wl,--start-group $(EXTLIBS) -Wl,--end-group
- 
- export INSTALL SHELL_PATH
- 
-@@ -559,6 +559,7 @@ $(shell [ -d '$(OUTPUT)python' ] || mkdir -p '$(OUTPUT)python')
- $(OUTPUT)python/perf$(PYTHON_EXTENSION_SUFFIX): util/python.c util/setup.py python/perf.pyi $(PERFLIBS_PY)
- 	$(QUIET_GEN)LDSHARED="$(CC) -pthread -shared" \
-         CFLAGS='$(CFLAGS)' LDFLAGS='$(LDFLAGS) $(LIBS_PY)' \
-+	  PYTHON_EXT_DEPS='$(PERFLIBS_PY)' \
- 	  $(PYTHON_WORD) util/setup.py \
- 	  $(python_setup_quiet) build_ext; \
- 	cp $(PYTHON_EXTBUILD_LIB)perf*.so $(OUTPUT)python/; \
-diff --git a/tools/perf/util/setup.py b/tools/perf/util/setup.py
-index 8380980ade4c..3b6a59f66944 100644
---- a/tools/perf/util/setup.py
-+++ b/tools/perf/util/setup.py
-@@ -173,6 +173,7 @@ def main() -> None:
-     perf = Extension(
-         'perf',
-         sources=[os.path.join(src_perf, 'util/python.c')],
-+        depends=shlex.split(os.getenv('PYTHON_EXT_DEPS', '')),
-         include_dirs=['util/include'],
-         extra_compile_args=cflags,
-     )
-
----
-base-commit: 705da5b15ab89ba97b11eedbe507c2fd83d31cb9
-change-id: 20261001-james-perf-stale-python-build-d6b17da2f231
-
-Best regards,
---  
-James Clark <james.clark@linaro.org>
 
