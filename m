@@ -1,78 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6783F3C9898
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DC538A718
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790886748; cv=none; b=IV+1Q9cBkUXEeYR+vJ2d/mu/92Xs0WbGcMiHQF41GHvufsDA1wtlvbRN7dKUIjNvZKlHhPtEPX+C5h3iT2l9owlVhno/q0qt0ASSKP7PbO02EUjokGEs/WAfl4U8tunNZKteqwYrdxUMWiOoHt7atS7q5TFcHvhPzMSaoSWbz0o=
+	t=1790886879; cv=none; b=VDxXB+NdWp0FUmyIN705GxZLa1pqL8VPAKX+O4TEoUq/Drz1QtSptifUXLThUe7Zd0rfWy6j2oWdv2b+qsbDWySsGW7iM8YXrKZOrDb8lMAlyPoHbbkTBhroBV4m8H5EYIYTVxV6WObgPdrmNzpcuLx7tyw0droWQhap/8zDDYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790886748; c=relaxed/simple;
-	bh=qcLz5VIqrPLxxts4VNciRIChNErXev7IuXl2T9sRc74=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Eb3dwJCemkm6kBdxZR2DuBQq1y/C4gsXUBzPseYJE8rMYntvUAwvP8mNUgvz3cSg08azcA3zkYjMdL0DmyUsSF96JvenLY0DVy/Q3Syy26ScLe529oHszcOGoHvWAW+5gU4Fq2HSJ3JccQMqKk1Moz5zD1rSEgbZ4rG0AWIRLE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JtAcjmb4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JtAcjmb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16D821F00898
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790886747;
-	bh=qcLz5VIqrPLxxts4VNciRIChNErXev7IuXl2T9sRc74=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JtAcjmb49+9CVJKKEKK72AUjiANdqcGzX2MyKefsSjb3idsWueBWake18fQhfv+Ai
-	 7/HGaw6z/l17lppNHZUzLHNDaVA0Le7pliiWzs6eID4bzAUrk693H3muNWG2nSuwxE
-	 8gUDAvtEC8QiyQ8rKVrT8T0st+ZtH5ccJ5hXwJi1XLqTpjaXaB4LD17BFIIoy/JM25
-	 9n9unR3EOj8sIhaqx1ql7NLYBRl/K+Vy2gUDti0x5zcdPdbit/gOezlSf44Qn0hlWF
-	 58UspUPrIgJqol0cvVs8KoLKL7Fiswt9akIMA1ydEays924kiPFib7sLx/qEhcSvmT
-	 3kF8NnRtWu4zg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba42939bfeso1632593e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:32:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz8Kr77Zg2kYCKeqNEuptlT5Ciy/Jfe8mLku3xewJhRjHSMyAAJjPb6xIMlGXCcUaGZN3JVpw3+rY5P5qs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLymbyEdZZxM8PHsRJuwCcOUARYE1YldfS+SVAn9fNvR9wiFZ3n
-	tX5463KkCzS0rBYxv0r9+7her8PSoRdqk2i3dKPtBCPANVxKuB/P240N3O5w8Y4wTkR+pwqCw5X
-	zTkTHhwdhSZTobaG1YObjrkDGF3B8TdY=
-X-Received: by 2002:a05:6512:3052:b0:5b8:edbd:60a4 with SMTP id
- 2adb3069b0e04-5bb9bb145c3mr112291e87.43.1790886745879; Thu, 01 Oct 2026
- 13:32:25 -0700 (PDT)
+	s=arc-20240116; t=1790886879; c=relaxed/simple;
+	bh=OBkSe83teLUEbgksa9UnX78gpVqP2lUS8kbyKuITI9A=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Qg+K6yziksmz69zHU4f34Jgf4qnAUlPXt3xGqDdiRWoVqFN7I0NInizPYDhOoS2b1ZTBIh+KFIxePriteEr90AQdHJrdEGZnOBdwSrBtplUqqG7Z+w+Db7e76+IkP3zGeZGCxpG1euIp+t5vDxXTpsxP4heqqjQmlCSNklkt05o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c467e19391so13287552b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:34:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790886877; x=1791491677;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aiwnh+A/HPIJPqD4wFC0v7RAEM4ZQs/nnCwgu096AmE=;
+        b=H0/HtxOD7tftgIfoXeWJwOj54M0qByqxnwy7r7Zyin/+ZIg+1D8KCTp9YogbtjV7AL
+         +lldoI6sGa569dCeB7709i4DkH2t/6U/m9Z0/NCQXmaDtypWSwoUm/BAKVxtrEZcj2Dz
+         p/4orswUdR/2g022nk43y5ui5hsHzJPQFCPIt38prCUW1bM1wXR4uKbVvSjvKLdMY0yg
+         NawBvJXEcTzjkNboSuOdpd6+zQN2aMbNKjxl6vG+iClSj9VrIXNFOaEFhwOv0z0EixJ1
+         4pEgFKHvcGaxToEqlb/o550WMSDLQcEpMfORnM0gKHxcjRnjlQ0qBw8rFGJBLl2GSwpg
+         w1Kw==
+X-Gm-Message-State: AFuF++mnzwP3wMQFCTs0DYgdKOsre0zJVPpKbxFjFTFHaWSeb3bRt+pR
+	Pr55UMTcBIrLPAUxCcYdZSWGDBtJKay+Gf9yk2ErMdzhSrzbYFHrFz1P74argtRdTAg1/uI1Dok
+	9G4rQrg+I76g8BltQggyva2wSyxw2iA2P/ZI1fU5pnPZB96Z2TFDwj+Jwkx8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929194035.496244-1-marex@nabladev.com> <20260929194035.496244-3-marex@nabladev.com>
-In-Reply-To: <20260929194035.496244-3-marex@nabladev.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 22:32:11 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkCT=hHQnrxqX8K1_d-ige-LTR2SeCa1ETqE=2gr602zw@mail.gmail.com>
-X-Gm-Features: AclHuK_BwtELP-F-5UZURmutq3weQqdSW_tv9x3rIhlaIFQbzeU0e-SvQ-dDFrs
-Message-ID: <CAD++jLkCT=hHQnrxqX8K1_d-ige-LTR2SeCa1ETqE=2gr602zw@mail.gmail.com>
-Subject: Re: [PATCH 3/5] arm64: dts: st: Reuse sdmmc1_*_pins_a pinmux
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	devicetree@vger.kernel.org, kernel@dh-electronics.com, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com
+X-Received: by 2002:a05:6808:1993:b0:4c5:4eed:b447 with SMTP id
+ 5614622812f47-4f526644462mr279882b6e.1.1790886877218; Thu, 01 Oct 2026
+ 13:34:37 -0700 (PDT)
+Date: Thu, 01 Oct 2026 13:34:37 -0700
+In-Reply-To: <6abae226.69bd487b.a6f8c.000a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abec3dd.7503fbd6.2d3f6.000a.GAE@google.com>
+Subject: Forwarded: [PATCH] ext4: don't trust on-disk rec_len in dx_move_dirents()
+From: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 9:41=E2=80=AFPM Marek Vasut <marex@nabladev.com> wr=
-ote:
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-> It is perfectly possible to use sdmmc1_*_pins_a on the DH electronics
-> STM32MP23xx/STM32MP25xx DHCOS SoM, the only difference is the slew rate.
-> Reuse sdmmc1_*_pins_a with updated slew rate on board level.
->
-> Fixes: 9b584c92f94f ("arm64: dts: st: Add support for DH electronics STM3=
-2MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and DHSBC")
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+***
 
-That's neat.
+Subject: [PATCH] ext4: don't trust on-disk rec_len in dx_move_dirents()
+Author: adrianox@gmail.com
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+#syz test: upstream master
+---
+ fs/ext4/namei.c | 38 ++++++++++++++++++++++++++++++--------
+ 1 file changed, 30 insertions(+), 8 deletions(-)
 
-Yours,
-Linus Walleij
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index a6386c1d237f..83e4564f9f44 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1840,30 +1840,46 @@ struct dentry *ext4_get_parent(struct dentry *child)
+ 
+ /*
+  * Move count entries from end of map between two memory locations.
+- * Returns pointer to last entry moved.
++ * Returns pointer to last entry moved or an ERR_PTR on a corrupt entry.
+  */
+ static struct ext4_dir_entry_2 *
+ dx_move_dirents(struct inode *dir, char *from, char *to,
+ 		struct dx_map_entry *map, int count,
+ 		unsigned blocksize)
+ {
++	char *to_start = to;
+ 	unsigned rec_len = 0;
+ 
+ 	while (count--) {
+-		struct ext4_dir_entry_2 *de = (struct ext4_dir_entry_2 *)
+-						(from + (map->offs<<2));
++		unsigned int off = map->offs << 2;
++		struct ext4_dir_entry_2 *de;
++
++		/*
++		 * The map is built from on-disk dirents, but a corrupted or
++		 * concurrently reused leaf block can still make an entry point
++		 * outside the block.  Never dereference such an entry.
++		 */
++		if (off > blocksize - sizeof(struct ext4_dir_entry_2))
++			return ERR_PTR(-EFSCORRUPTED);
++		de = (struct ext4_dir_entry_2 *)(from + off);
+ 		rec_len = ext4_dir_rec_len(de->name_len, dir);
++		if (off + rec_len > blocksize ||
++		    to + rec_len > to_start + blocksize)
++			return ERR_PTR(-EFSCORRUPTED);
+ 
+ 		memcpy (to, de, rec_len);
+ 		((struct ext4_dir_entry_2 *) to)->rec_len =
+ 				ext4_rec_len_to_disk(rec_len, blocksize);
+ 
+-		/* wipe dir_entry excluding the rec_len field */
++		/*
++		 * Wipe dir_entry excluding the rec_len field.  Use the entry's
++		 * own (minimal) length instead of the untrusted on-disk rec_len,
++		 * which on a corrupt block decodes to an arbitrary huge value
++		 * and turns this into an out-of-bounds memset().
++		 */
+ 		de->inode = 0;
+-		memset(&de->name_len, 0, ext4_rec_len_from_disk(de->rec_len,
+-								blocksize) -
+-					 offsetof(struct ext4_dir_entry_2,
+-								name_len));
++		memset(&de->name_len, 0, rec_len -
++		       offsetof(struct ext4_dir_entry_2, name_len));
+ 
+ 		map++;
+ 		to += rec_len;
+@@ -1992,6 +2008,12 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 	/* Fancy dance to stay within two buffers */
+ 	de2 = dx_move_dirents(dir, data1, data2, map + split, count - split,
+ 			      blocksize);
++	if (IS_ERR(de2)) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, 0,
++				       "bad indexed directory entry");
++		err = PTR_ERR(de2);
++		goto out;
++	}
+ 	de = dx_pack_dirents(dir, data1, blocksize);
+ 	de->rec_len = ext4_rec_len_to_disk(data1 + (blocksize - csum_size) -
+ 					   (char *) de,
+-- 
+2.51.0
+
