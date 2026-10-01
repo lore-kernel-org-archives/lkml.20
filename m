@@ -1,117 +1,104 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6B8485CF5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:57:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744C83DA7C0;
+	Thu,  1 Oct 2026 16:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873833; cv=none; b=mTW4XqoxYnYy1Oav2tCBf2ikETHGPwBL98plvolLsioB8PoySysVnUVXqF/DWUDE8Ks81rh0cdrOHxZwXraS8nfm7/yKHoiZj63qdlSENiZ8XL4Yv6M2VnIP7K+XM8nw0BFTBkLlzvG5Ud9xIWspK9JU3In4DeqsnknAOP6+/I4=
+	t=1790873877; cv=none; b=flHmdREomaMCC5S+W87UqUSrGUJ+Keo20+P6Y4u6lsx28MZsk2TrrZIqqBGKj1QE+3LVr5poLVIkDfuk5NYI1S9LjI872ikZAmwA6HyI+FIK+Ufsi2rIf9SArPJKdiNGVeT+WporCI/ZPx8wmqdxggiXo78PZOej9Oqq0prlc8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873833; c=relaxed/simple;
-	bh=T0sTwhNjA7urD/dDmrUooY66jFkiBVRt4kMtyxZutVM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YXjGYMu2ZLEhfhswWsGW8xYQyxcegOneNt7OO8pFfpv2WCwD4qT83foMD4ZVNpHOQNZoe7tBiIXgs5D9r8qkryHU51jMduEyR6RnRlrPs6NdIHEEfC3gQfQwh8T52ha1MQ8DambYSRrx+P9ZcQ6S0kJhN9FmJQjHEJIUGM9cipk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dgJmCbKn; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790873877; c=relaxed/simple;
+	bh=MXgbgDAnI7rn5IrqTIFBqB/PlytVXVC9XEiWg2PwmB4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RVabOe4Cjqf5sF33yoALPBml6clVn6ArUa9mVisuRf1L0EgEZoZPhbuaKsAPA1m85xT0XrjgGZNY9HV5GyGHTtto+0QKxfjJ4wmsIovdBEba0kB1O763aq2LSpFB7D31mvy0DigB4Yjq1DJsW/zFkQwvwhvCvIWJi0k2vUczB5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=RJn3CHHK; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dgJmCbKn"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so40412555e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:57:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790873830; x=1791478630; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AYoMqQ8ZvtqawNNIbF0bmVuGXHmouMQegpP9uov8hrk=;
-        b=dgJmCbKn2J7tFK5YLxXRPxlTlkCXKnApq2d/sXYXbESRjlJRVpYK1eKy788j5HiuKh
-         YOZHLzntfMb0sKROQBfdpFcFROEtARvKP2TqpPhq1bsTfJck1YED8afDqHQ/roumwg0W
-         c4neKJYG7x1acgUn988kapZMHOAyrAJ5iOhMHOnma8PFOmFeLOf5vUPhdcxTWeP4KEZH
-         NpcRgQsNpo7kHuTziFs6IcLplTc1VTynAOHUXK0hO2TdXHnkTYj4baUbGa2yNbyjH8kg
-         Je6p67hgIMYV1AGF1cMdQk4Zpmpsq7QLIw+XHUzuvzRuumHf3icp0rnxdz5v/x6zWgdr
-         RWSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873830; x=1791478630;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AYoMqQ8ZvtqawNNIbF0bmVuGXHmouMQegpP9uov8hrk=;
-        b=TrxXmLOBXTuvfgX4TVb59hSXZw8C9soq1GyHftaXV1msXJor3lFBRGL+jkCrhX62Xg
-         KxQ3/2O1tBX5br3Oc/f2dj/4QBlHnqJxcoQP7je2jE/BkJJHVYWKseLyijCragmtHZNK
-         yYO7Kd/EAkqkZ8G/HHQy1/FE8SvveQ/RJCsONOtE3s7ldzs0Q2tutXz3GPXS0e673m6V
-         sfAUsGH86rEd4sZnsbI38ITndBb9Q3v2gv9AvubKa1J8v0ay7w8Kpeo3M0eUZkcFglbv
-         kv4UvQ80RHC74RHNGH0j8MSYrD71oAAAd1PjyJ7YIw8B564y7PeslKmxkd5LDD75jOXQ
-         fcvw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+pQxbSv0smd7ijQ3FZr/MI2GuwCQAIR24hrNWgS19V69p1gXajNtsl0jgs+4KU2S/suV0F2bBA5t+w68=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPTpmyCXyW8LmWY1m14eUHfA2NbbGEnaM6rCKgPtxn5AFlLFTa
-	yHSlxcsNShtqye+7r5cmZ/6rNXg40KzzXdFaJBf8TiJV27uLrMUOeQPr
-X-Gm-Gg: AYBFou2ORI1C1e3YNnXa7ji3Sn4APF83zj8R+Dc3qmwtfeMZJxy9kCs5qP6yCqCwD+e
-	JeCSyGqsbfPcaXsRErJ1uMNyZ8ozkv89/MDizDwonhkCEMioBO/perjar8D3mntUArv5m5IXs3B
-	n572S6YqVDxLFU1y7E63yFrndQtee945TsIKBIb9na77jYsAGLb39xvOCFK5B+nUoe3Lr7pTYwj
-	hXXJu6jCviS8P6CAbNHR/JwWsmlnWrqQ+Exx7/GjOvktBJV+6ESSByk1/skA3FsB71A9r7fQWUi
-	cJodEEAfmU0mnFLmqiczJn1bZSM0z8x84IzI/QckZyH6jh6ZPKHfn03g4jyYBvd2BAx1GjVhZ//
-	SBGX68KiDx+RtO+kVI2ynS27j5rb+NKsyzkk/C8jEvMZK4rTy+6JFMkyZV1NKWlQFY07RDF4ujC
-	bh8fVolYy5UWgW4hYh2Odi6Hxw94SiACnRMf0U64/96I02Uv5QLhhXf3MpnQOtI1bS1nVM6H8=
-X-Received: by 2002:a05:600c:6995:b0:4a0:159b:d283 with SMTP id 5b1f17b1804b1-4a0275857a7mr3761895e9.30.1790873830150;
-        Thu, 01 Oct 2026 09:57:10 -0700 (PDT)
-Received: from [10.2.0.2] ([159.26.109.51])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027906a11sm2044415e9.12.2026.10.01.09.57.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 09:57:09 -0700 (PDT)
-Message-ID: <e5f84c5e-e281-45af-8d25-62bbf585c94e@gmail.com>
-Date: Thu, 1 Oct 2026 18:57:08 +0200
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="RJn3CHHK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Content-Type:MIME-Version:Message-Id:Date:Subject
+	:From; bh=WBoL8+/IDop5lYVP15uq4BUaOWGMQHONcZqDwkj6tpw=; b=RJn3CHHKEivSJecBbhw
+	E8es6OuMFrMyTFmrYgzUM2vffZGLnbU8xHmNnt7GzyUgDkYRvYY6cG6GCA3tJse0MYOoCt9naEb37
+	kXpG+8fCKtf4Zv/ehzXeQGCbmDHsHqs+z6gBRX2VgLUfvF2Rw2TZgAVKyOUwSXrWV+brGPSxxxhpY
+	uAKv8Hc98omOYD8ZTpz4HmTtJfKv5tZMh9TVJMLeeyl2akPPAN0pV+ERbYZHO5YjBlydGM6TgqCFT
+	VDo7Z6ZqE752Cn29g7nBSQj5oxOC3lMmzdQYuVcSB1AK9yhlMPiJZlL7NNj7ydX6V4n8iUWsaRMTq
+	olSohxKHlYsSDiw==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xCK3A-001W2F-35;
+	Thu, 01 Oct 2026 18:57:39 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Subject: [PATCH 0/2] kbuild: GCOV cleanups following the prefer-atomic fix
+Date: Thu, 01 Oct 2026 18:57:10 +0200
+Message-Id: <20261001-b4-prep-gcov-v1-0-794792e06f24@virtuozzo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: sophgo: cv1800b-milkv-duo: enable ethernet
-To: Hiago De Franco <hfranco@baylibre.com>
-Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>,
- Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>
-References: <20260930-milkv-duo-ethernet-v1-1-428ff137f5d3@baylibre.com>
- <20261001151447.12076-1-andrey.lalaev@gmail.com> <ar6E4bQAKonCW3st@hiagonb>
-Content-Language: en-GB
-From: Andrei Lalaev <andrey.lalaev@gmail.com>
-In-Reply-To: <ar6E4bQAKonCW3st@hiagonb>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOaQvmoC/yXMywqAIBCF4VeJWTegEt1eJVqkjjYtKrQiiN49q
+ +XH4fwXRApMEdrsgkAHR17mBJlnYMZh9oRsk0EJVUohJOoC10ArerMcWCuytiJnS91AuqTF8fn
+ luv533PVEZnsbcN8P1XG8MHAAAAA=
+X-Change-ID: 20261001-b4-prep-gcov-82edd7efd6b9
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Peter Oberparleiter <oberpar@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Masahiro Yamada <masahiroy@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Mikhail Zaslonko <zaslonko@linux.ibm.com>, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1212;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=MXgbgDAnI7rn5IrqTIFBqB/PlytVXVC9XEiWg2PwmB4=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqvpEEN92lo+Vl8tlA7nen/0ZYw0Ngo4fuKhIad
+ aq/CA615ECJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCar6RBAAKCRBRlgpH+WFc
+ KgN6EACz8cNeGBAFdEqMbE3XysK49HT0AQRk7mxILnAfXFUzHko0jkqwvj/Q59qplg2T65vz5rp
+ hHBPlVtJHuHX6uZb4rr57APuvj7KkOwoSSZyUVJrUkBJfx7mXHWTYxVxqBKGWlM8OmIGwa6cucu
+ 0YN/GOKZmwaZlcSPvu6yiRKdSH+dcFJDkJRy8RaH+e3q4BgYMVbucOmZu8iptHQ//GyWS0npdjU
+ r8rzTODtUmmc25DH35S79PDABvDVn7LIHDDVow3tX3y8zLWF/Y5UTIE2uGfvCU32pPugTHw85ab
+ NCaOFKCHV2hz98j1BY3ZwlNxkEI9+6kgQXJeFmyeX0qBURJm6ww/1/rZ+NF8EAV49tbrUyuGn9/
+ 6kmy7F9yE6gOaedxcI/z/v50kmIOb5FmQ948cF7obqQeK0j8pcld9/SeaKQrsGw+adNF1pfLC4B
+ 7pr3YiFozJ4aI8fhr4a+9F32thFvUoK31BJEAxAYYqbRj0jffBhzAKTOW/QsrZWOerGqgz1g6KK
+ wHMLMoUX5nKY36vh0cnOhRFCkR7RmFnwqds6gCQIwBS6uPFiioa3HNun107ormQAXTxO2N/V2BM
+ aXK9MlBvZGMXumvzrO7/chKDCRPCrj5caPnLEfe2HtHqyc681Kv6gvQKlTDM9e0irwJ9PcnVgZE
+ tCvzjPa3+ArZNBQ==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-Hi Hiago,
+Two cleanups Peter Oberparleiter suggested while reviewing
+commit 56cb9b7d96b2 ("gcov: use atomic counter updates to fix
+concurrent access crashes"):
 
-On 01.10.26 18:08, Hiago De Franco wrote:
-> Hi Andrei,
-> 
-> On Thu, Oct 01, 2026 at 05:14:47PM +0200, Andrei Lalaev wrote:
->> Hi Hiago,
->>
->> Please take a look at the patch [1] and the discussion.
-> 
-> Thanks for letting me know, I missed this patch. Do you happen to know
-> if any overlay was sent? I was not able to find one.
+https://lore.kernel.org/e1b6e768-51af-468b-a729-0ed3fceef2f1@linux.ibm.com
 
-I haven't seen it, so I guess no.
+Patch 1 makes the prefer-atomic try-run test reuse $(CFLAGS_GCOV)
+instead of spelling the flags out again, so the test compiles with the
+exact GCOV flags, -fno-tree-loop-im included.
 
-> If none was sent, I am happy to send one. Sorry for all the noise here.
->>>> Thank you!
->>
->> 1 - https://lore.kernel.org/sophgo/20260803163323.74414-1-chenyou910331@gmail.com/
->>
->> Best regards,
->> Andrei Lalaev
-> 
-> Best regards,
+Patch 2 moves the CFLAGS_GCOV block into scripts/Makefile.gcov,
+included via include-$(CONFIG_GCOV_KERNEL) like the other
+instrumentation makefiles. The try-run also stops running on builds
+without GCOV.
 
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+Konstantin Khorenko (2):
+      kbuild: use $(CFLAGS_GCOV) in the prefer-atomic try-run test
+      kbuild: move GCOV flags to scripts/Makefile.gcov
 
--- 
+ MAINTAINERS           |  1 +
+ Makefile              | 22 +---------------------
+ scripts/Makefile.gcov | 21 +++++++++++++++++++++
+ 3 files changed, 23 insertions(+), 21 deletions(-)
+---
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+change-id: 20261001-b4-prep-gcov-82edd7efd6b9
+
 Best regards,
-Andrei Lalaev
+--  
+Konstantin Khorenko <khorenko@virtuozzo.com>
+
