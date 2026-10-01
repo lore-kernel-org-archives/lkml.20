@@ -1,228 +1,609 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B6B4AB1BB;
-	Thu,  1 Oct 2026 08:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E544CCDC1;
+	Thu,  1 Oct 2026 08:22:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842974; cv=none; b=DAhj2phcObYux8J73d1JjHbBm6R+N1iLS84/UO3KzeWuX4b3aQ7H678OnnLsNWgl9ss+XYeaj7TRr3FEu76VGZzwUsJ512+GTT4phC3XxjDk4nIytsBJ3aZAj8jKipIDoeGMuFkbGplS6EOQdxJ7Kl/P9staPutAegfjQ5gHSCQ=
+	t=1790842976; cv=none; b=Z5wste5RetIxE3viPaWGpnEZ4/filXNodr8H3AEn9uhBPaM2NoY5EChxjAgBtA9eBIYr8pSJ2SLmOm6zoREiwtld1xRLY93ewX8M1AKeM158EPQaPxsO5ww4mVFMXgtrATrQPQKBDw2NEfy6hcUCgX8t1pilfskvWuZkTI/N4K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842974; c=relaxed/simple;
-	bh=dssCCR8+SfXy1LqmvrukStNfjE8hHWa/j5bJ9Ck8GDg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O4eJmKjLJoVT4pAFhIPLfnnMVVSpJ7LveW4DR30xg9hGE+Crtn9qQjZI2dZZ3A40hApR+6gdFkMl5Pat8uHGtZbZzDKt/VEZ3xjvS6lYpKqk0re2O16tXVlOck2fFfVuMXXvaDb6eT3+vNh/o68ngVch1mgcYZWik+h9sKajaWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=n1Pcd1Mu; arc=none smtp.client-ip=52.13.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
+	s=arc-20240116; t=1790842976; c=relaxed/simple;
+	bh=HM3388iY+SpNWgt5J+o1tam2PEu1g2CvhdsJ3jQYz34=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=skAwAqklNq8q+FzBt8LXVNujb0EZOFXB0pKtV/cXhLE1encmXvA7o8EJk3Nz2/3DWng7bcLnNQf6DVPfB/unAtg4rLCHRsXbjUm0kwjzRsMPeqUFFyzEnRCATeKnytQ11Jx1xh/RFZt/PzMiFy5/tCTTIoYf5pAL/+TGw3ifBjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ok7N0Ghj; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="n1Pcd1Mu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
-  t=1790842955; x=1822378955;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=pMNM3ezMCf72JOW7w9gZHwjUf5zgBeoBXpZHv9GCuqo=;
-  b=n1Pcd1MuahMe2XJoDfvyq56CzTiJttDAHXvU9vxl/9A/uqhl9fVzrBpS
-   JkRhPP2ruNTI9q+Jz3KTc54gwzYuCrIebJDcEVKBqf2mvzvl7TprjAQ8B
-   JmmoQS4ufZk3MeYS2tqTeOMteFXmV9MPM3+lAX6pbuERrGFfOyo6Ywyu6
-   Ppgmqh+BXt/6bzofMClPMGMjcFylC/85wRkCjA8Lj3f4jWCznXIfq9Oij
-   PGK9zFgfTZQo02EWxgPJKQRrEzIFEsKHXWTA6asnZRZ28nku2prdVVSWO
-   WEq29U02AujdncqJpC6GR/hWTVlKkPYZeVezGR4HvIFdsiMBvSQP4XV2x
-   g==;
-X-CSE-ConnectionGUID: tST3wUViQXKbYg0FlT4gLg==
-X-CSE-MsgGUID: CeFmmwQxQA+xgUJufVb77Q==
-X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
-   d="scan'208";a="30088223"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:22:24 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:9288]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.21.22:2525] with esmtp (Farcaster)
- id d7332f4c-b57b-4f23-8dac-76fc3c82d408; Thu, 1 Oct 2026 08:22:24 +0000 (UTC)
-X-Farcaster-Flow-ID: d7332f4c-b57b-4f23-8dac-76fc3c82d408
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 08:22:23 +0000
-Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
- (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Thu, 1 Oct 2026
- 08:22:20 +0000
-From: Salvatore Dipietro <dipiets@amazon.it>
-To: <linux-kernel@vger.kernel.org>
-CC: <hch@infradead.org>, <abuehaze@amazon.com>, <akpm@linux-foundation.org>,
-	<alisaidi@amazon.com>, <blakgeof@amazon.com>, <brauner@kernel.org>,
-	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
-	<djwong@kernel.org>, <hannes@cmpxchg.org>, <jackmanb@google.com>,
-	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
-	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
-	<vbabka@kernel.org>, <willy@infradead.org>, <ziy@nvidia.com>, "David
- Hildenbrand" <david@redhat.com>, Christoph Hellwig <hch@lst.de>, "Dmitry
- Ilvokhin" <d@ilvokhin.com>, Brendan Jackman <brendan.jackman@linux.dev>
-Subject: [PATCH v6] mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY allocations
-Date: Thu, 1 Oct 2026 08:21:51 +0000
-Message-ID: <20261001082152.2879289-1-dipiets@amazon.it>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ok7N0Ghj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BD1911A10A0;
+	Thu,  1 Oct 2026 08:22:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 90D6D60341;
+	Thu,  1 Oct 2026 08:22:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F1818103290E8;
+	Thu,  1 Oct 2026 10:22:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790842957; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rufoLanWh5pvVPVjQbYWZX2UPDxfzK+qSmP4yAqyvLw=;
+	b=Ok7N0GhjltfKiUFIkt/jXvzgwPicuBepIR2Z+zJiGp8GUAFjcebhpIQKPnc/p6mG0icAsB
+	9l1uhGQoPE05LXw/CZn+Q8BRdVV2xZrYWGlv6Oo6YXTcI7gBNu0m6Uc8V7gojs73risp8K
+	lojxN2SyRMphJO+g2KSSZBBhTPuR04Z7L9pu0wZ7PzoGZNQdvtadP70zsZjgnuTWhwXtyi
+	FOcHqlIMgkAEKzl7ZPjZTEh2AvUPNJQyd8a0/yndGcE+8tUtnZMm5g5wqnLmL0+rPPu2fH
+	wgJy3v/yD34PaRQZ2PDRxTd6KiDCVflg0CGMdoaPVhMvYZWPpKGSgtqZ9Xl46g==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v7 2/4] clocksource/drivers: Add support for the Renesas RZ/N1 timers
+Date: Thu,  1 Oct 2026 10:22:22 +0200
+Message-ID: <20261001082225.125956-3-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001082225.125956-1-herve.codina@bootlin.com>
+References: <20261001082225.125956-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-introduced high-order folio allocations in the iomap buffered write
-path.  When memory is fragmented, each failed costly-order allocation
-enters __alloc_pages_slowpath() which runs direct reclaim, direct
-compaction and drain_all_pages(), causing a 0.38x throughput drop on
-PostgreSQL pgbench (simple-update) with 1024 clients on a 96-vCPU arm64
-system.
+The Renesas RZ/N1 timer block controller is the controller in charge of
+timers available in the Renesas RZ/N1 SoCs family.
 
-The root issue is that direct reclaim and direct compaction are too
-expensive for hot allocation paths that have fallbacks to smaller
-allocations.  __filemap_get_folio_mpol() already marks higher-order
-allocations with __GFP_NORETRY | __GFP_NOWARN, signalling that the
-caller can handle failure.  However, the page allocator still enters the
-full blocking slowpath for costly orders with __GFP_NORETRY, which is
-unnecessarily aggressive when the caller will simply retry at a lower
-order.
+This controller handles 8 timers:
+  - 6 16-bit timers
+  - 2 32-bit timers
 
-For costly-order allocations with __GFP_NORETRY, clear
-__GFP_DIRECT_RECLAIM at the very start of the slowpath, before
-can_direct_reclaim, can_compact and the nofail checks are evaluated.
-This makes the entire slowpath treat the request as non-blocking: no
-direct reclaim, no direct compaction and no drain_all_pages() IPI
-across every CPU.  Reclaim and compaction move to the background
-instead: kswapd is still woken for reclaim, and it wakes kcompactd for
-defragmentation.  The system keeps its long-term health while the
-latency-critical direct allocation path no longer stalls.
+Each timer has its own interrupt, its own prescaler that can be used to
+divide the clock by 25 and all of them can work in either one-shot or
+periodic mode.
 
-Allocations that also request __GFP_THISNODE are exempted.  That flag
-pairing identifies the local-node-first THP attempt issued by
-alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
-form transparent huge pages.
-
-Clearing __GFP_DIRECT_RECLAIM makes these allocations reach the
-!can_direct_reclaim bailout, which since commit 4c0ed883e051
-("mm/page_alloc: fix defrag_mode for non-reclaimable allocations") drops
-ALLOC_NOFRAGMENT and retries instead of failing when defrag_mode is on.
-With vm.defrag_mode=1 a __GFP_NORETRY allocation could therefore succeed
-by fragmenting another migratetype's pageblock.  That is the wrong trade
-for a caller that has already communicated it can handle failure and has
-a cheap lower-order fallback, so exclude __GFP_NORETRY from the
-relaxation.  The exclusion is not restricted to costly orders: any
-__GFP_NORETRY caller has said it can cope with failure, so failing is
-preferable to fragmenting for all of them.
-
-Test environment:
-  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
-             12x 1TB IO2 32000 IOPS RAID0 XFS
-  OS:        AL2023
-  Kernel:    v7.3-rc1
-  Database:  PostgreSQL 18.4
-  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
-
-Results (average of 3 runs, TPS):
-
-  Config                                       Avg TPS   % vs baseline
-  v7.3-rc1 baseline (vm.defrag_mode=0)          58,602               -
-  v7.3-rc1 + this patch (vm.defrag_mode=0)     157,246         +168.3%
-  v7.3-rc1 baseline (vm.defrag_mode=1)         109,012               -
-  v7.3-rc1 + this patch (vm.defrag_mode=1)     157,778          +44.7%
-
-Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
-Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
-Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
-Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
-Link: https://lore.kernel.org/all/20260911142102.2294202-1-dipiets@amazon.it/T/#u [v5]
-Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-Cc: stable@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org
-Cc: linux-xfs@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
+Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
- mm/page_alloc.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/clocksource/Kconfig      |  11 +
+ drivers/clocksource/Makefile     |   1 +
+ drivers/clocksource/timer-rzn1.c | 483 +++++++++++++++++++++++++++++++
+ 3 files changed, 495 insertions(+)
+ create mode 100644 drivers/clocksource/timer-rzn1.c
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..64d09964ca77 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4784,10 +4784,10 @@ static inline struct page *
- __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 						struct alloc_context *ac)
- {
--	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
--	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
--	bool nofail = gfp_mask & __GFP_NOFAIL;
- 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
-+	bool can_direct_reclaim;
-+	bool can_compact;
-+	bool nofail;
- 	struct page *page = NULL;
- 	unsigned int alloc_flags;
- 	unsigned long did_some_progress;
-@@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	bool can_retry_reserves = true;
- 	unsigned long alloc_start_time = jiffies;
+diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+index d9c76dd443f8..da83483296d5 100644
+--- a/drivers/clocksource/Kconfig
++++ b/drivers/clocksource/Kconfig
+@@ -152,6 +152,17 @@ config REALTEK_OTTO_TIMER
+ 	  RT8391, RTL8392, RTL8393 and RTL8396 and chips of the RTL930x series
+ 	  such as RTL9301, RTL9302 or RTL9303.
  
++config RZN1_TIMER
++	bool "Renesas RZ/N1 Timer"
++	depends on HAS_IOMEM && COMMON_CLK
++	depends on ARCH_RZN1 || COMPILE_TEST
++	help
++	  Enables support for RZ/N1 SoC timers.
++	  A timers block in RZ/N1 SoCs is composed of 8 timers
++	    - 6 16-bit timers
++	    - 2 32-bit timers
++	  Two timers blocks are available in RZ/N1 SoCs.
++
+ config SUN4I_TIMER
+ 	bool "Sun4i timer driver" if COMPILE_TEST
+ 	depends on HAS_IOMEM
+diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
+index b46376af6b49..464ec6690ab6 100644
+--- a/drivers/clocksource/Makefile
++++ b/drivers/clocksource/Makefile
+@@ -96,3 +96,4 @@ obj-$(CONFIG_EP93XX_TIMER)		+= timer-ep93xx.o
+ obj-$(CONFIG_RALINK_TIMER)		+= timer-ralink.o
+ obj-$(CONFIG_NXP_STM_TIMER)		+= timer-nxp-stm.o
+ obj-$(CONFIG_RTK_SYSTIMER)		+= timer-realtek.o
++obj-$(CONFIG_RZN1_TIMER)		+= timer-rzn1.o
+diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer-rzn1.c
+new file mode 100644
+index 000000000000..25ebebff3c63
+--- /dev/null
++++ b/drivers/clocksource/timer-rzn1.c
+@@ -0,0 +1,483 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * RZ/N1 timers driver
++ *
++ * Copyright (C) 2026 Schneider-Electric
++ *
++ * Author: Herve Codina <herve.codina@bootlin.com>
++ */
++
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/clockchips.h>
++#include <linux/clocksource.h>
++#include <linux/cpuhotplug.h>
++#include <linux/interrupt.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/sched_clock.h>
++
++/* Per-timer register offsets */
++#define RZN1_TIMER_LOAD_COUNT_REG	0x00
++#define RZN1_TIMER_CURRENT_COUNT_REG	0x04
++#define RZN1_TIMER_CONTROL_REG		0x08
++#define   RZN1_TIMER_CONTROL_INT_UNMASK		BIT(3)
++#define   RZN1_TIMER_CONTROL_ENABLE		BIT(2)
++#define   RZN1_TIMER_CONTROL_AUTORELOAD		BIT(1)
++#define   RZN1_TIMER_CONTROL_PRESCALER_DIV25	BIT(0)
++#define RZN1_TIMER_CLEAR_INT_REG	0x0c
++#define RZN1_TIMER_STATUS_INT0_REG	0x10
++#define RZN1_TIMER_STATUS_INT1_REG	0x14
++
++/*
++ * 8 timers are available. Among those 8 timers, the first 6 timers are 16-bit
++ * timers and the last two ones are 32-bit timers.
++ */
++#define RZN1_TIMER_BASE_INDEX_16BIT_TIMERS	0
++#define RZN1_TIMER_NB_16BIT_TIMERS		6
++#define RZN1_TIMER_LAST_INDEX_16BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_16BIT_TIMERS + \
++						 RZN1_TIMER_NB_16BIT_TIMERS - 1)
++
++#define RZN1_TIMER_BASE_INDEX_32BIT_TIMERS	6
++#define RZN1_TIMER_NB_32BIT_TIMERS		2
++#define RZN1_TIMER_LAST_INDEX_32BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_32BIT_TIMERS + \
++						 RZN1_TIMER_NB_32BIT_TIMERS - 1)
++
++#define RZN1_TIMER_IS_16BIT_TIMER(_i) ((_i) < RZN1_TIMER_BASE_INDEX_32BIT_TIMERS)
++
++/* Total numbers of timers */
++#define RZN1_TIMER_NB_TIMERS	(RZN1_TIMER_NB_16BIT_TIMERS + \
++				 RZN1_TIMER_NB_32BIT_TIMERS)
++
++/* Offset of registers related to the timer number _i in the timers regs area */
++#define RZN1_TIMER_REGS_OFFSET(_i) (0x20 * (_i))
++
++struct rzn1_timer {
++	void __iomem *base;
++	unsigned int width;
++	unsigned long rate;
++	unsigned long hz_period;
++	struct clock_event_device ced;
++};
++
++static int rzn1_timer_config(struct rzn1_timer *timer, u32 period, bool is_periodic)
++{
++	u32 ctrl;
++
++	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
++
++	/* Disable the timer */
++	writel(ctrl & ~RZN1_TIMER_CONTROL_ENABLE,
++	       timer->base + RZN1_TIMER_CONTROL_REG);
++
++	/* Set the new period */
++	writel(period, timer->base + RZN1_TIMER_LOAD_COUNT_REG);
++
++	/* Prepare the timer mode */
++	if (is_periodic)
++		ctrl |= RZN1_TIMER_CONTROL_AUTORELOAD;
++	else
++		ctrl &= ~RZN1_TIMER_CONTROL_AUTORELOAD;
++
 +	/*
-+	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
-+	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
++	 * Enable the timer.
++	 *
++	 * This automatically resets the CURRENT_COUNT register.
 +	 */
-+	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
-+	    !(gfp_mask & __GFP_THISNODE))
-+		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++	ctrl |= RZN1_TIMER_CONTROL_ENABLE;
++	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
 +
-+	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-+	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
-+	nofail = gfp_mask & __GFP_NOFAIL;
++	return 0;
++}
 +
- 	if (unlikely(nofail)) {
- 		/*
- 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
-@@ -4918,8 +4930,11 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 		 * Reclaim/compaction cannot run, so defrag_mode's strategy
- 		 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
- 		 * fallbacks rather than failing the allocation outright.
-+		 * Not for __GFP_NORETRY: those have a cheap lower order
-+		 * fallback, so failing beats fragmenting.
- 		 */
- 		if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
-+		    !(gfp_mask & __GFP_NORETRY) &&
- 		    (gfp_mask & __GFP_KSWAPD_RECLAIM)) {
- 			alloc_flags &= ~ALLOC_NOFRAGMENT;
- 			goto retry;
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
++static void rzn1_timer_disable(struct rzn1_timer *timer)
++{
++	u32 ctrl;
++
++	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
++	ctrl &= ~RZN1_TIMER_CONTROL_ENABLE;
++	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
++}
++
++static void rzn1_timer_int_enable(struct rzn1_timer *timer)
++{
++	u32 ctrl;
++
++	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
++	ctrl |= RZN1_TIMER_CONTROL_INT_UNMASK;
++	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
++}
++
++static irqreturn_t rzn1_timer_interrupt(int irq, void *dev_id)
++{
++	struct rzn1_timer *timer = dev_id;
++
++	/* Ack the interrupt */
++	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
++
++	if (timer->ced.event_handler)
++		timer->ced.event_handler(&timer->ced);
++
++	return IRQ_HANDLED;
++}
++
++static int rzn1_clkevt_set_next_event(unsigned long cycles,
++				      struct clock_event_device *evt)
++{
++	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
++
++	return rzn1_timer_config(timer, cycles, false);
++}
++
++static int rzn1_clkevt_shutdown(struct clock_event_device *evt)
++{
++	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
++
++	rzn1_timer_disable(timer);
++	return 0;
++}
++
++static int rzn1_clkevt_set_periodic(struct clock_event_device *evt)
++{
++	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
++
++	rzn1_timer_config(timer, timer->hz_period, true);
++	return 0;
++}
++
++/*
++ * This global lock is used to prevent race conditions during global timers
++ * test and set operation in case the driver is using the async probe option.
++ */
++static DEFINE_MUTEX(rzn1_global_timers_lock);
++
++static int rzn1_timer_instance;
++
++/* scheduler and clocksource */
++static struct rzn1_timer *rzn1_sched_clock;
++
++static u64 notrace rzn1_sched_read(void)
++{
++	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
++}
++
++static u64 rzn1_clksrc_read(struct clocksource *cs)
++{
++	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
++}
++
++static struct clocksource rzn1_clocksource = {
++	.name = "rzn1_timer_clocksource",
++	.rating = 200,
++	.flags = CLOCK_SOURCE_IS_CONTINUOUS,
++	.read = rzn1_clksrc_read,
++};
++
++/* Timers table where 16-bit timers will be assigned per-cpu */
++static struct rzn1_timer *rzn1_tab_timers;
++
++static int rzn1_local_timer_starting_cpu(unsigned int cpu)
++{
++	struct rzn1_timer *timer;
++
++	/* We assign the first and second 16-bit timer as per-cpu timers. */
++	if (cpu >= 2)
++		return 0;
++
++	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
++
++	timer->ced.cpumask = cpumask_of(cpu);
++	irq_force_affinity(timer->ced.irq, cpumask_of(cpu));
++
++	clockevents_config_and_register(&timer->ced, timer->rate, 1,
++					GENMASK(timer->width - 1, 0));
++	/*
++	 * Time to enable the interrupt even if no interrupt can be fired yet.
++	 * Indeed, the timer is still globally disabled.
++	 * It will be enabled when rzn1_timer_config() is called
++	 */
++	enable_irq(timer->ced.irq);
++	return 0;
++}
++
++static int rzn1_local_timer_dying_cpu(unsigned int cpu)
++{
++	struct rzn1_timer *timer;
++
++	if (cpu >= 2)
++		return 0;
++
++	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
++
++	rzn1_timer_disable(timer);
++	disable_irq_nosync(timer->ced.irq);
++	return 0;
++}
++
++static void rzn1_timer_init(struct rzn1_timer *timer, unsigned int index,
++			    void __iomem *timers_base, unsigned long clock_rate)
++{
++	timer->base = timers_base + RZN1_TIMER_REGS_OFFSET(index);
++
++	/* Disable the timer */
++	writel(0, timer->base + RZN1_TIMER_CONTROL_REG);
++
++	/* Clear potential interrupts */
++	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
++
++	if (RZN1_TIMER_IS_16BIT_TIMER(index)) {
++		timer->width = 16;
++		/*
++		 * Enable pre-scaler for 16-bit timers.
++		 *
++		 * Timers are fed by a 25MHz clock. With this pre-scaler (1/25)
++		 * enabled, the 16-bit timers resolution is 1 microsecond.
++		 */
++		writel(RZN1_TIMER_CONTROL_PRESCALER_DIV25,
++		       timer->base + RZN1_TIMER_CONTROL_REG);
++		timer->rate = clock_rate / 25;
++	} else {
++		timer->width = 32;
++		timer->rate = clock_rate;
++	}
++	timer->hz_period = DIV_ROUND_UP(timer->rate, HZ);
++}
++
++static void rzn1_timer_clkevt_init_ced(struct rzn1_timer *timer, const char *name,
++				       int irq)
++{
++	timer->ced.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
++	timer->ced.set_next_event = rzn1_clkevt_set_next_event;
++	timer->ced.set_state_shutdown = rzn1_clkevt_shutdown;
++	timer->ced.set_state_periodic = rzn1_clkevt_set_periodic;
++	timer->ced.cpumask = cpu_possible_mask;
++
++	/*
++	 * 32-bit timers are fed with a 25 MHz clock directly derived from the
++	 * main PLL (1 GHz). The arch timer, ARMv7 CP15 in RZ/N1 SoCs, is fed
++	 * with to a 6.25 MHz clock.
++	 *
++	 * The clock of the RZ/N1 timers block is a stable one and the RZ/N1
++	 * timers have a higher resolution than the ARM CP15 one.
++	 *
++	 * Use a high rating for the 32-bit RZ/N1 timers.
++	 */
++	timer->ced.rating = timer->width == 16 ? 200 : 460;
++	timer->ced.owner = THIS_MODULE;
++	timer->ced.name = name;
++	timer->ced.irq = irq;
++}
++
++static int rzn1_timer_setup_timers(struct platform_device *pdev,
++				   struct rzn1_timer *tab_timers,
++				   unsigned int first_timer_index,
++				   unsigned int last_timer_index,
++				   void __iomem *base, unsigned long clock_rate)
++{
++	struct device *dev = &pdev->dev;
++	struct rzn1_timer *timer;
++	unsigned int i;
++	char *name;
++	int irq;
++	int ret;
++
++	for (i = first_timer_index; i <= last_timer_index; i++) {
++		timer = &tab_timers[i];
++
++		rzn1_timer_init(timer, i, base, clock_rate);
++
++		irq = platform_get_irq(pdev, i);
++		if (irq < 0)
++			return irq;
++
++		name = devm_kasprintf(dev, GFP_KERNEL, "%s-%u", dev_name(dev), i);
++		if (!name)
++			return -ENOMEM;
++
++		rzn1_timer_clkevt_init_ced(timer, name, irq);
++
++		ret = devm_request_irq(dev, timer->ced.irq, rzn1_timer_interrupt,
++				       IRQF_TIMER | IRQF_NO_AUTOEN,
++				       timer->ced.name, timer);
++		if (ret < 0)
++			return dev_err_probe(dev, ret, "timer%u: Failed to request IRQ\n", i);
++
++		rzn1_timer_int_enable(timer);
++	}
++	return 0;
++}
++
++static void rzn1_timer_register_clkevt(struct rzn1_timer *tab_timers,
++				       unsigned int first_timer_index,
++				       unsigned int last_timer_index)
++{
++	struct rzn1_timer *timer;
++	unsigned int i;
++
++	for (i = first_timer_index; i <= last_timer_index; i++) {
++		timer = &tab_timers[i];
++		clockevents_config_and_register(&timer->ced, timer->rate,
++						1, GENMASK(timer->width - 1, 0));
++		/*
++		 * Time to enable the interrupt even if no interrupt can be
++		 * fired yet. Indeed, the timer is still globally disabled.
++		 * It will be enabled when rzn1_timer_config() is called
++		 */
++		enable_irq(timer->ced.irq);
++	}
++}
++
++static int rzn1_timer_probe_first(struct platform_device *pdev,
++				  struct rzn1_timer *tab_timers,
++				  void __iomem *base, unsigned long clock_rate)
++{
++	struct device *dev = &pdev->dev;
++	struct rzn1_timer *timer;
++	int ret;
++
++	/*
++	 * Each timer instance has 6 x 16-bit timers and 2 x 32-bit timers.
++	 *
++	 * Probe the first instance. In that case, timers are assigned as
++	 * follow:
++	 *   - First and second 16-bit timers: clock events per CPU
++	 *   - Last (second one) 32-bit timer: clocksource and sched_clock
++	 *   - Other timers: clock events for all possible CPUs
++	 *
++	 * First step, perform all operation that could fail without calling
++	 * clockevents_config_and_register(), sched_clock_register() nor
++	 * cpuhp_setup_state(). Those operation don't have unregister nor
++	 * teardown counterparts and so, once called, we cannot remove the
++	 * related resource.
++	 */
++
++	/* First step for 16-bit timers and the first 32-bit timers. */
++	ret = rzn1_timer_setup_timers(pdev, tab_timers,
++				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
++				      RZN1_TIMER_BASE_INDEX_32BIT_TIMERS,
++				      base, clock_rate);
++	if (ret)
++		return ret;
++
++	/*
++	 * Second step, almost all operations that can fail have been called.
++	 * Timers are ready to work. Start with the last operation that can fail,
++	 * installing and invoking hotplug callbacks
++	 */
++	rzn1_tab_timers = tab_timers;
++	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
++				"clockevents/rzn1/global_timer:starting",
++				rzn1_local_timer_starting_cpu,
++				rzn1_local_timer_dying_cpu);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Setup CPU hotplug state failed\n");
++
++	/*
++	 * At this point, no more operations can fail. Perform remaining
++	 * operations. Starting by handling the last (second one) 32-bit timer
++	 */
++	timer = &tab_timers[RZN1_TIMER_LAST_INDEX_32BIT_TIMERS];
++
++	rzn1_timer_init(timer, RZN1_TIMER_LAST_INDEX_32BIT_TIMERS, base, clock_rate);
++	rzn1_timer_config(timer, GENMASK(timer->width - 1, 0), true);
++
++	rzn1_sched_clock = timer;
++
++	sched_clock_register(rzn1_sched_read, rzn1_sched_clock->width, rzn1_sched_clock->rate);
++
++	rzn1_clocksource.mask = CLOCKSOURCE_MASK(rzn1_sched_clock->width);
++	clocksource_register_hz(&rzn1_clocksource, rzn1_sched_clock->rate);
++
++	/*
++	 * Register clockevents for 16-bit timers (except the first and second
++	 * ones) and for the first 32-bit timer. The first and second 16-bit
++	 * timers clockevents are registered by CPU hotplug startup function set
++	 * previously by the cpuhp_setup_state() call.
++	 */
++	rzn1_timer_register_clkevt(tab_timers,
++				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS + 2,
++				   RZN1_TIMER_BASE_INDEX_32BIT_TIMERS);
++
++	return 0;
++}
++
++static int rzn1_timer_probe_other(struct platform_device *pdev,
++				  struct rzn1_timer *tab_timers,
++				  void __iomem *base, unsigned long clock_rate)
++{
++	int ret;
++
++	/*
++	 * Probe other instance(s), i.e. not the first one. In that case,
++	 * all timers are used as clock events and available for all possible
++	 * CPUs
++	 *
++	 * First step, perform all operation that could fail without calling
++	 * clockevents_config_and_register(). Unregister counterpart does not
++	 * exist and so, once called, we cannot remove the related resource.
++	 */
++	ret = rzn1_timer_setup_timers(pdev, tab_timers,
++				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
++				      RZN1_TIMER_LAST_INDEX_32BIT_TIMERS,
++				      base, clock_rate);
++	if (ret)
++		return ret;
++
++	/*
++	 * Second step, all operation that can fail have been called. We can
++	 * register our timers.
++	 */
++	rzn1_timer_register_clkevt(tab_timers,
++				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
++				   RZN1_TIMER_LAST_INDEX_32BIT_TIMERS);
++	return 0;
++}
++
++static int rzn1_timer_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct rzn1_timer *tab_timers;
++	unsigned long clock_rate;
++	void __iomem *base;
++	struct clk *clk;
++	int ret;
++
++	tab_timers = devm_kcalloc(dev, RZN1_TIMER_NB_TIMERS, sizeof(*tab_timers),
++				  GFP_KERNEL);
++	if (!tab_timers)
++		return -ENOMEM;
++
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	clk = devm_clk_get_enabled(dev, "pclk");
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get pclk\n");
++
++	clock_rate = clk_get_rate(clk);
++
++	scoped_guard(mutex, &rzn1_global_timers_lock) {
++		ret = !rzn1_timer_instance ?
++			rzn1_timer_probe_first(pdev, tab_timers, base, clock_rate) :
++			rzn1_timer_probe_other(pdev, tab_timers, base, clock_rate);
++		if (!ret)
++			rzn1_timer_instance++;
++	}
++
++	return ret;
++}
++
++static const struct of_device_id rzn1_timer_of_match[] = {
++	{ .compatible = "renesas,rzn1-timer", },
++	{ /* sentinel */ }
++};
++
++static struct platform_driver rzn1_timer_driver = {
++	.driver = {
++		.name = "rzn1_timer",
++		.of_match_table = rzn1_timer_of_match,
++		.suppress_bind_attrs = true,
++	},
++};
++builtin_platform_driver_probe(rzn1_timer_driver, rzn1_timer_probe);
 -- 
-2.50.1
-
-
-
-
-AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-
-
+2.55.0
 
