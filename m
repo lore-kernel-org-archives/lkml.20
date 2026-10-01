@@ -1,73 +1,115 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D8D478E20
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6184F31283E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861106; cv=none; b=D4WUZ9sI250c2h1DNTjYycc6KtVeQy31YiLE9eYFOWob0kxa21CyReY7ml9gIevSPdJm3vR70vU1QjuZVXzVTxJDUSv5RC/ziveke6qlZ99ttaXPMV0hkB8T8aAk7t78qYJpHFYcKpXvW29aXtOrra8+Qy//apx29V/yLONcZIA=
+	t=1790861170; cv=none; b=lqHuiymxTwX90ZkBpPI0aBMVZqXoZYDXq0XMq/GJp86z5/GvhulvM/gT5xbvFngPXSAROYyeYAMoSGNrn2GJOlw5FthsFK4+jSQPQOQfP4hobwKvRqyMOpjrQ5CrpektLWegMbfI3vIpk7NRnxtoMO9fSQ8cLwndqJkVETnBaL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861106; c=relaxed/simple;
-	bh=Hjq7y5xwF/o3OITGh831QTeK4BuPW2gVe2ffDx8V0XY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=DvErVBRNZgK5hRdBliSyhvNi+y6rsDaHrfDl7vRlEKLaZAwO5JTmeS2voFl7ZcwuF5OV7pEuRbPc9sUD29ayzbj/InStoFDi4JH2pm0fPZV9Y0FnVT1XcoTtHzEQZ27GgQvngWeryBpRwNms87wJzptJjrRTZJIyFc4aet/BcnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b26d8d2498so10054972b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:25:03 -0700 (PDT)
+	s=arc-20240116; t=1790861170; c=relaxed/simple;
+	bh=ASd1S1qQ49fEQp8HALzVs+yB7/ulU5Tcnt2/SJGQYMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JW9K16LmTkDWjHg2+EHnY1HPRbO5OLpdusg3HIxZeNKMvAKo52PUsfawfHDQtlVTMviasbXBOmsTQZQOdqJgWVH67BW4/XxO96mmaulWzzGk+2FYr6l3EU3LiDt9wergcXwkjQw+9Rb2d8xhEy9tGEaqT1hijLQhueozBBudS3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LM4yJuLo; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LM4yJuLo"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887840c529so2264699f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:26:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1790861166; x=1791465966; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1U7rCP2J1UR7XvChQyXqCJWaXLGRfuecEUSlZ8WyOlk=;
+        b=LM4yJuLoNL6+u5IzkUooUlEr1vzWbopo0MxKOnmOoLle2O53r3hPVkGx0mEHOtkBzj
+         +ypb7pZNIe/rTQTPYwmlSueAfykkmiW643NXszTqwcDEfLnEgNeSx+C+mpeWYWTWNnn7
+         0r5y6Ku1VDFEpK1u7WAJIdyrR3n76v8w8vHIB2eZ4xrDcUKlf8VqpVxKZyNibTszNICL
+         vkxJtT7PgKWFP7xPdbi7kVjuT69PG8NX0FgN+x6mI+9yhadzmJl5Mj49h2OMs46s8YzX
+         l1ja4Dmemy03+Xc4Y0W4TZETspPcuyqlWNmbKtJppagFCfZw3zduoRvYRpx7C1n2D0Z5
+         i2AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790861102; x=1791465902;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zGC8eoo7sqBg/OF81st5hi1IyHpdEbJJnULEgfNzl9o=;
-        b=C2s1ct2tSmn3EM5yQ0DDm+hlDn6ycBQMmhx9MCiYdOu22Eaulqef6zUfNl2jEmvf+C
-         jSIOCFWIF/b0x63r5vSXSu67+OmwMnlGSDX1+Zojr/xufir6Jlep7T4pU7ws6liWPQPp
-         ZymmGMBV51wwcFmUEerCRMk6n/D+kBLXV2acvkw1u+/zmGTFXSi46m4NfV/rPh9QLMHj
-         UamZ9PXtRD6x6KfVT1Ehx00TU5dCMwhYlP/6wzxGxgWtnslDkReWn91w++sH0BoMZ5L/
-         40NgWeLmnCkLPmVqdW2NJC4Hv9kSadEdYjDqg0+cy8omNmTnBdZdoKx8+P4pDEGDSi73
-         jJaA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2oEXm96oQlIW/lnyfEQ86iZi3rwiKqk2EakrV+aP4kajdNlgZ3HaZPCbiSyCX2EXvJ2hjzDDEls0Bets=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA/sE70IEOnAHdllkL6sZGhu6vrOM5XSUnVxMRa1Xze5LoiKyB
-	znuNF/l2T5duQNEInFgekKGs5qvasDOrXMklNTtu+GJCU/uks+GcD+QmOsoflIFdkvqRWjwmBS/
-	mx/1r+sz/KBgUPdBDoRykk1qoB5Aj59LMPdbak6/qlJ44LAOxpAsrUIi2TDM=
+        d=1e100.net; s=20260707; t=1790861166; x=1791465966;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1U7rCP2J1UR7XvChQyXqCJWaXLGRfuecEUSlZ8WyOlk=;
+        b=XW0cCEW5Fce+uD9VCtcwyR1OraEmFUa2ABEWezGMIuMK5k3wooNe4VDS7B7yV8ymgA
+         3WOQdoMRBQyrlChuR5Gc2LJ2dsOQ8tTnO3kAOdqETaKCfDAcfJwucA4wVFZi8hNDMl1L
+         eyEFhgBvYCmAfp98pYrVayV+3has3sEPaNSd9NpEjUtoHqcZjErbYY1nDM1P7KTuh/wX
+         NvAWSz02Noo8Ep+uy2H1z/M7Znj3lTD3Sidq/DtkH0dA4HUhOeprq59YuNiKc6/XbZr3
+         xnIEWC3AtNzxSGA/jH0bXDyZiOoD9e0WLYcs/y80/5tPIZxNGabYzCXyqu5GxWnP/Oir
+         6bbA==
+X-Forwarded-Encrypted: i=1; AKwUvBycn9jzRp1b7FSOdSbopjzqBRTNtsTvhM0cwhHijsJ0HRYocqyUURYcD8ea+qo+/vOHGcA6IT8ZES4UUq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lht3RSviTNd1ekepjVzWclDIP5XA7fZh7Qkvp3HmAguLm689k+
+	jZP8Rcs0/I4Sq2aAUdxQPiy0gYJqYdO/08jJYs2YQ3GLJU927T/NgwI5pQ1fPW00Szs=
+X-Gm-Gg: AYBFou19yPVvMx7CkLt1lwA/GyiRUiOILTh2iEraMSqsnDKlimwfV73vJRyeYaJH/NQ
+	jhoKHk0E+1gbepKmZgcNDp9td0UdgEOm218JTw2cowuE7wMio6p/Bg7m5FKcnr6F8imZzD9nCa1
+	jXSOTfZa6T71bZlTyu40qOztMaGqy9fnvAvgjX6dQhdXySQ6h0lASM0/7wPfh2rwnetgIV5ywcj
+	Xq0puwQYYUnX1dRouuDtH7Th/lp0MCZq262TSPKFHSAGrkroMZcz2vLV4fvrmMeMXxDrsi2mlNR
+	DDB6mlV3IwSFYAVZqkDVaMnoXmKi1/YY04YcUj9fS/2RxbUkTa6iw8F1ioiNyYAjEw3Szgd/JfV
+	Wb/Pg05U0Hw/JM7Z6ZR3YsWgublkSF2yQHNaVUWGDc9+/cxNsMvl9O/lCyxIFiYWpcQE+qtWLVV
+	eO0/ecQnfxmqO6H1fitn8IGi1fMNJfn482zFCdrLM0wZ7nAA3hJbIkXQCmJS/3Sq9Kvyd9qE8Mj
+	has6w==
+X-Received: by 2002:a05:600c:a107:b0:4a0:1ef1:b62b with SMTP id 5b1f17b1804b1-4a01ef1b7ebmr36180515e9.10.1790861166322;
+        Thu, 01 Oct 2026 06:26:06 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F ([2620:10d:c092:500::6:7dd1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f93ad0bsm47435175e9.4.2026.10.01.06.26.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 06:26:05 -0700 (PDT)
+Date: Thu, 1 Oct 2026 09:26:03 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Li Zhe <lizhe.67@bytedance.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, 
+	rppt@kernel.org, mhocko@suse.com, corbet@lwn.net, skhan@linuxfoundation.org, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, linux-mm@kvack.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
+ with MPOL_WEIGHTED_INTERLEAVE policy
+Message-ID: <ar5eC22VfSFlMw3W@gourry-fedora-PF4VCD3F>
+References: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
+ <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
+ <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
+ <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com>
+ <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fd2:b0:4e8:bce4:993d with SMTP id
- 5614622812f47-4f1b724c7ffmr5141948b6e.11.1790861102334; Thu, 01 Oct 2026
- 06:25:02 -0700 (PDT)
-Date: Thu, 01 Oct 2026 06:25:02 -0700
-In-Reply-To: <CAJnrk1Ze8s8EGJqy62_mLbgvzW5fVVWMdeq3zSH0mWu_HRfpcQ@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abe5f2e.f32479dd.202a09.0003.GAE@google.com>
-Subject: Re: [syzbot] [fuse?] WARNING in fuse_iomap_writeback_range
-From: syzbot <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com>
-To: fuse-devel@lists.linux.dev, joannelkoong@gmail.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	miklos@szeredi.hu, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org>
 
-Hello,
+On Thu, Oct 01, 2026 at 12:54:22PM +0200, David Hildenbrand (Arm) wrote:
+> > If this is a initial-fill problem, can userspace set weighted interleave
+> > initially? The program or harness can observe memory usage of the program
+> > or related NUMA nodes and switch the policy to numa balancing via
+> > set_mempolicy() or mbind() without MPOL_MF_MOVE after certain threshold
+> > is met?
+> 
+> You mean: use the weighted policy initially and then switch to a NUMA-balancing
+> one which doesn't involve the weights anymore?
+> 
+> That makes more sense to me. Although I struggle to see why an effectively
+> "let's put random memory on slow and others at hot" is a good starting point to
+> later let if be fixed up by actual balancing/tiering.
+> 
+> It all sounds a bit hackish. :)
+>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+It is a bit of a non-combo (Nonbo).  You're using weighted interleave
+with the intent of spreading out the bandwidth utilization (and maybe to
+offset some reclaim behavior? *shrug*) but then undo all the placement
+with tiering.
 
-Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+But, in defense of the hackery - I have seen strategies like this work
+to optimize startup times and then let tiering optimize runtime.  Phased
+execution gets funky like that.
 
-Tested on:
-
-commit:         fd179f8a Merge tag 'ata-7.3-rc5' of git://git.kernel.o..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1036c035580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1483a6c9580000
-
-Note: testing is done by a robot and is best-effort only.
+~Gregory
