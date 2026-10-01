@@ -1,168 +1,424 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C003B8BBF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2014E472531;
+	Thu,  1 Oct 2026 09:57:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790848561; cv=none; b=L2xJCB7gfZtHWYLpdnetDgiCza8mKIQw++2LrmgkIX1HM6MgIpqbRd6sJVs168rr6o7yB/B3F4t6HahzG7MoH5CNg6knrfQ4URZBCRl8MGpLw3HT8VJrb9xBvyXlalVlJWZRn5U2YUONNJAVJt4BnTGD3thTG/lTFSpT1aYkZAE=
+	t=1790848662; cv=none; b=d4vpIyRbHwlGkrQMGdHA/uNQ7NpF0KaHvlLQA76AeYY9nAoIfFHAuROirTl06hiT3icougRNC9Nr5mrDFAyOVnooG8CZSbrLQ/DMUx57fB1W7yDs0acZTulSmXZn01xQ9V1IZcUlvapoY+8Q/FK/SACV0KG2FB15RKhkutVzdI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790848561; c=relaxed/simple;
-	bh=wdCmTU8p62hPrCu7nvMz3ehGADNp+2kO8cXkIPggcsY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ASl8EAzoc7k9Tlzf3I0+kP5WvpxWYfNGYzehALEB/ostKSQYTMMAstHBvgpYnehDpAlXU2cbMB+xckcf709Ls0gI5GBzkojlrAIQOd4496oevof16I35s86kXPWjY9Qx7p7UIb7Lea9movlO3KRBlanxY6JgKOP1nzG7AQ1qbx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RNDOguyE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DNz1s9gT; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790848662; c=relaxed/simple;
+	bh=EOfi+HY/I3WQGblEEur6uvnizEyEsPz9kNUWUC/OcPI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=H/RarfBO9N86JUkvk9He9VMbd9j1Q9jSRgLqIZh7io7efXMF3HUNhnuEMLDq4ccZppHq3+WZTlfS/hhkHChnrVAfer3wdvt+RSLCZKpe0Rx4nsWyh3CajniiD7ng7SaqcQr23Bjiw2NEkMcup1MuHwWMEGYnoqd1FQc3BsexHjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GZOnftTJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RNDOguyE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DNz1s9gT"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xnlL396304
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 09:55:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=OmdWzDgQaJhw28/RsHEB8YAe
-	ng3ivItati6H6co2/Pk=; b=RNDOguyEAiXYC0PxI/DoQfl0KQvRqFpSBIKN80Jd
-	kwdlj6p3VhX1JHLBtw82NWqKvTzlVSk6EXtTAShw1Yy+CMB2Ufq1ccYLIJJyCGju
-	ryonpVEPCeSKlKvrFEbcEJTf2/JrLSwfKNH43ZvyZIHjhhVuejMKtgJGi2FHnqU2
-	DRQMBXVYVKt0pB6fR4BKpu/F7F77v/lyWK9zMRPw7598L/0KFKJI5gr+1t3ZdMBl
-	1J5h+UKIQfRO36Whe1vx3imJmH7TgjAvEeiusx2+zf32xTrs4kFFI8bUtI9mO/T0
-	8SuN2ishHHm82MrDgz/MAiVbtMgmT9hXDq2mfOCprWJjxA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1bh5a7rf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:55:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb98809caso96419685a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:55:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790848558; x=1791453358; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OmdWzDgQaJhw28/RsHEB8YAeng3ivItati6H6co2/Pk=;
-        b=DNz1s9gT7HnOtFlXXazGa/0jjnApzscB8zaPbKLEyWkOJHZsCliDhV/1GB6co49R1X
-         1cFu6gGnl5mfBcQWjxpE5rsG0tPQW0xhr0YzKuiu4L9FLrDivbBbP0wXtn8Ng+fa57vQ
-         is1dRloCf2wuUErW5zxY74edjqg05UlTIzsECvn+dwf1mO9PwjAZzQ9yhKtbWnWXUrdO
-         njXOSERES9AYa2F4Z49P80uRqCUdm7Ovl7TwfBuaHGUwIc/PotJddwwWKkCWK1Qj2Q6i
-         e2HErcqCiWhtnt4w6J/KansrRRu4puPi2Cjb3B3tUDihf1PYSWosCUHZy588X/S6eiNp
-         G1sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790848558; x=1791453358;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OmdWzDgQaJhw28/RsHEB8YAeng3ivItati6H6co2/Pk=;
-        b=Bz5jmR8toIGH+h0rSSSkcLRDhUQ066AWfFKCKdsKRdk8vTWwKL0qjvHAE49jYz+jcI
-         xX2EhrlHQR30uRcPYyzbraiN8VhSZeWajSYXFiD8Tn/QLZjnXs+snfdwvhSq/395142w
-         bPrxwSTQaEAA7ZXSXUIw9dRBR28pAGJa2jylrzfcxc5AmnPsn6QWBvyM8aLhGeQqhQKb
-         pxj+/bf9Muv3l8c8EzwqwvOcMAWNcoDFWvfBpwit5rTAHvoYQsKbW01MZRVvgxY5Aac/
-         VFnwHH2uIMgU6BRWCmdxF1G4ug4JiylhuhLqsAcyMGw1z/sbyH0TbEViwDuufUBzRl+D
-         e+uw==
-X-Forwarded-Encrypted: i=1; AKwUvByjCeouCYWEOGp8taUys2qCJmOeUZCoXjpHlsQfDEF5P8UYuDhjJOhXs/EnYYkOr06K896F+ER/RXrYkJY=@vger.kernel.org
-X-Gm-Message-State: AFuF++npcM7xqjQq5GidD+ZclhsAxwoiqOqiI+MnYRK5S2Yjemu/tvqo
-	25330T20SfkrAM1sdIV23rkYMADrZKJjzdKMTUeS8n2Q/Ty7KrnYQYGZXPuqOfE+TrmFSbe1XgM
-	wmOurLPCY0tlzKCc5sTYauAjfqJZ84eHQtoA0uEVIVsyBQAv+qFIdQ2tCc5AvY7QN8F9wqorAzm
-	4=
-X-Gm-Gg: AYBFou2kSWB5snm9RE5nTvDdj0ijJrswuor9vw33FBqMr0v8tvzd6DFbURc5oNONTEq
-	+xHy3lY6vQwYceUiRpIOiVMLOK+NBay02qPv0AGySjxOM4r9qyb6IhlsAEDz/US/brAkDZ5vAPw
-	1885i8vWO1jIzelUsk5O6j5ySYwVEP11pJk8Xwwf8jcvYZYmmeKVtnLwzPxBJlxmEu1PNQYveI5
-	7SZqqwY84KVtVi1YuYhDncphPQa1t6VVXas+HPZptSLJJWE1JSX/wKFlA1zEMLsxT9+VhguivG/
-	eE3AN522ct7sfww9lxrfFKDry5HnvZwCDhRdUETtOARy0KONt2vsEdONM54+Tyu6GJtynWvKwJT
-	hWrT0SmXh1gsUs2KUXiOppKvP3hAFa5BJ7DH7cdYQfo5uaSQiSxjFl+9tRxVTjkCSuzBDG9LMbO
-	CBFkV5KpSM+bNu
-X-Received: by 2002:a05:620a:370a:b0:93c:b47b:26f with SMTP id af79cd13be357-93cb47b0cd1mr495779485a.49.1790848557927;
-        Thu, 01 Oct 2026 02:55:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:370a:b0:93c:b47b:26f with SMTP id af79cd13be357-93cb47b0cd1mr495776285a.49.1790848557435;
-        Thu, 01 Oct 2026 02:55:57 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbb999sm603556e87.62.2026.10.01.02.55.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:55:56 -0700 (PDT)
-Date: Thu, 1 Oct 2026 12:55:53 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Arpit Saini <arpit.saini@oss.qualcomm.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
-Message-ID: <cebrka4ya7u32ntiya42yx4txa3uryf5k2di234zm4enz3a6vy@xhily6qqmevo>
-References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
- <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
- <20261001-private-wooden-chachalaca-51aa57@quoll>
- <997cefa0-384c-466f-b318-077939946768@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GZOnftTJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6CC11F000FF;
+	Thu,  1 Oct 2026 09:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790848660;
+	bh=UhpsLeycjK0VgnF8MAHhIKQDQjwWcqvckbnNrIcB6Sg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GZOnftTJVNp6O0WxyvRdjRvXc20ru8txxJRstXJNwEy2JBPlORgN7MCwzpV4wwzMr
+	 418vBlX1pbScqN6K6VHjXK6KyR36+Fgtr3ejfzjGEFrY3MoK0CamQs8dzqCIgL7ABo
+	 V7+QN33ovFNxMHjyqAPEj0CHpj9rIpngti5ewFSq7Dio4Jjj2vkz7QqHKTRGS+WFwi
+	 +nSNZD4I/rXHAw60pBKsIUp1j2xoeC3LPAUJ98beOmE8Z1O72sonZZ+xbnRujYFp8Q
+	 blHEJvj4MHGymnri/HXgl8pTm+YCK5IPqZUisiiGGBpsuBs2a2onThH+jrJTIogy2L
+	 /68KNYmhbWSUA==
+Subject: Re: [PATCH net v3] octeontx2-af: Fix BPID leak in nix_bp_enable()
+From: netdev-bot+sashiko@kernel.org
+To: nshettyj@marvell.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rkudurumalla@marvell.com, sgoutham@marvell.com, rkannoth@marvell.com,
+ gakula@marvell.com, sbhatta@marvell.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org
+Date: Thu, 01 Oct 2026 09:57:39 +0000
+Message-ID: <179084865947.434549.9597991757798875277@kernel.org>
+In-Reply-To: <20260928065718.3378580-1-nshettyj@marvell.com>
+References: <20260928065718.3378580-1-nshettyj@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <997cefa0-384c-466f-b318-077939946768@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzOSBTYWx0ZWRfX0u0j5qPT+W6J
- PsJdeN0csiMvNr0RmJmZg/btc4LS6DAaFOzk8Z5QBgq4P8Bq5BVVhbXJcmNcFg52Go17ZM6JiQF
- wAMPfj+k42tZ0AyWNpzqJpmJ++K4u/16A2PZx0lLU/ywqFCD3eIdluWEj8Ohy/lptkbG/2OP8SR
- lNgxYxAE4YizF8V7wRAyozraham3k0BpF+eXn+A/iJ8myd8YK8v50XapKu0uyxA3sIeI/0tHLzf
- b3/beZgNGCs3Gvdwo6eLwgHU5nu5yNmkBZ399YPtHlGqPZK80ARWh/zCvQ0LPoQ3YWJIMG84zXi
- 3Yo4a1rXg2c9jwHULNAqxF6M/eL57MdXVCHuoGcPNJgX7GmJKD+xtIf3d1H/hZBnQmmv9qKACss
- 8UW6EgLLgREEx6ErZCo+UUgsDLYW/t+Ilx7Qdz9EmPlkQAJLANCdqdJLMrhC1Q8LGHeOxQM9S7Q
- /IOSYNygO0nOFdEqfLA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzOSBTYWx0ZWRfXyZHeeKFCpWgL
- lcC1NMtr3jeGu1Xo8n+DrRLtk8+ZcWop4r4rLRtyCB2zSdqGGje0OObzTRK1SjdJVpZJlEIX0lB
- Yi9AQ/7JZZe5MG8FXeJkkvBNGiXDJS0=
-X-Proofpoint-ORIG-GUID: _2VmWea-eXzKJUo-BLlcLPbQwTXm60Ol
-X-Proofpoint-GUID: _2VmWea-eXzKJUo-BLlcLPbQwTXm60Ol
-X-Authority-Analysis: v=2.4 cv=NrJE4MdJ c=1 sm=1 tr=0 ts=6abe2e2f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=rj3IgQrshAo4T4ftDsUA:9
- a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 bulkscore=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010039
 
-On Thu, Oct 01, 2026 at 08:57:52AM +0200, Krzysztof Kozlowski wrote:
-> On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
-> > On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
-> >> Some boards drive the ILI7807S panel's backlight from an external
-> >> WLED driver whose enable input is wired to a GPIO, typically modeled
-> >> as a fixed regulator (e.g. vreg_wled).
-> > 
-> > You describe something else. What's fixed regulator should not matter
-> > here. Which pin is it in ILI7807S?
-> > 
-> > It seems you just want to represent GPIO with a regulator. This is just
-> > confusing and typical downstream workaround.
-> 
-> What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
-> just sneak the same stuff 3 months after like the review never happened.
-> 
-> NAK
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-After discussing this offline with Krzysztof. It's not a supply (my
-fault), it's an LCD driver. So, the best way to handle your displaycard
-seems to add a gpio-backlight, reference it from the panel and then in
-the driver check for the backlight's max_brightness level. If it's 1,
-then you have to send extra DCS commands to control PWM. If it's
-higher, use normal backlight class controls.
+Critical: 0 · High: 3 (1) · Medium: 3 (3) · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] BPIDs can still leak permanently after this patch, so the fix is
+  incomplete.
+- [High] After a BPID is freed, NIX_AF_RX_CHANX_CFG still holds it, so a
+  later disable can free it a second time.
+- [High] A malformed LBK request can now hang the AF mailbox worker
+  forever in the new nix_bp_enable_unwind().
+- [Medium] The commit message leaves out the most important fix in the
+  patch, plus two behaviour changes.
+- [Medium] nix_bp_enable_unwind() works out which BPIDs to release by
+  reading NIX_AF_RX_CHANX_CFG outside rvu->rsrc_lock, instead of…
+- [Medium] When an enable fails partway, the new nix_bp_enable_unwind()
+  turns backpressure off on channels that already had it before the…
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is serious.
+- [Medium] For LBK, rvu_nix_get_bpid() allocates a new BPID from the free
+  pool on every call and ignores req->bpid_per_chan.
+- [Medium] The response encoding in nix_bp_enable() loses the top channel
+  bit.
+- [Medium] nix_bp_disable() frees the BPID found in the target channel's
+  CFG register without checking bp->fn_map[bpid - free_pool_base] ==…
+
+--
+
+octeontx2-af: Fix BPID leak in nix_bp_enable()
+
+This patch moves the LBK BPID allocation in nix_bp_enable() into the
+per-channel loop, so no extra BPID is allocated after the last channel. It
+also rejects requests with chan_cnt == 0. It adds a range check before
+freeing in nix_bp_disable(), a new nix_bp_enable_unwind() helper for
+mid-loop failures, and reports each channel's programmed BPID in the
+mailbox response.
+
+> Move the allocation into the loop body so it runs exactly once per
+> channel actually programmed, and reject req->chan_cnt == 0 upfront.
+
+[Severity: Medium]
+The commit message only covers the extra rvu_nix_get_bpid() call and the
+chan_cnt == 0 check. Should it also describe the other three changes?
+
+The first is the new range check in nix_bp_disable(). Before this patch, a
+bpid below free_pool_base passed a negative id to rvu_free_rsrc(), and
+__clear_bit() wrote before the start of bp->bpids.bmap. On silicon with
+cpt_links this looks reachable on every open of an LBK VF. The never-armed
+CPT channel has a BPID field below free_pool_base, and the open path always
+sends the CPT disable:
+
+otx2_init_hw_resources()
+    otx2_nix_cpt_config_bp(pf, false);
+
+The second is the new nix_bp_enable_unwind() rollback helper.
+
+The third is the change in what rsp->chan_bpid[] reports for LBK. Each
+channel now gets its own BPID instead of bpid_base.
+
+These changes appear only in the v3 changelog below the --- line, which is
+dropped when the patch is applied. The subject and the Fixes: tag say
+nothing about the out-of-bounds write. Could the commit message describe
+that fix so stable backporters can see it?
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> index 153eb57bad06..1ef505009c3a 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+> @@ -631,6 +631,15 @@ static int nix_bp_disable(struct rvu *rvu,
+>  
+>  		if (type == NIX_INTF_TYPE_LBK) {
+>  			bpid = cfg & GENMASK(8, 0);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the channel loop around this
+code never checks req->chan_base or req->chan_cnt against the caller's
+pfvf->rx_chan_cnt:
+
+nix_bp_disable() {
+    ...
+	chan_base = pfvf->rx_chan_base + req->chan_base;
+	for (chan = chan_base; chan < (chan_base + req->chan_cnt); chan++) {
+		chan_v = nix_get_channel(chan, cpt_link);
+		cfg = rvu_read64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v));
+		rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v),
+			    cfg & ~BIT_ULL(16));
+    ...
+}
+
+req->chan_base comes from the VF, which leads to three problems.
+
+NIX_AF_RX_CHANX_CFG(a) is (0x1A30 | (a) << 15), and rvu_write64() uses
+(block << 28) | offset. For channels >= 8192 the offset reaches bit 28.
+Can the read-modify-write then land in NIX1, NPC or block 7 register
+space?
+
+A caller can also disarm or reprogram channels that belong to other
+functions.
+
+chan is a u16, but chan_base + req->chan_cnt is an int. If the sum is above
+0xFFFF, chan wraps, and nothing in this loop can fail. Could a single
+NIX_BP_DISABLE or NIX_CPT_BP_DISABLE from a CGX-mapped PF/VF or an LBK VF
+spin the AF mailbox worker forever?
+
+The LBK path in nix_bp_enable() has the same gap. Unlike the CGX and SDP
+cases, the LBK case in rvu_nix_get_bpid() checks no range. This patch
+already changes both loops. Could it add channel range validation too?
+
+> +			/* Ignore channels that were never armed with an LBK
+> +			 * free-pool bpid (e.g. never enabled, or belonging
+> +			 * to a CGX/SDP range) - bpid - free_pool_base would
+> +			 * underflow and corrupt an unrelated bitmap word.
+> +			 */
+> +			if (bpid < bp->free_pool_base ||
+> +			    bpid >= bp->free_pool_base + bp->bpids.max)
+> +				continue;
+
+[Severity: High]
+The comment says this skips channels that were never armed. The check only
+tests the BPID range, though, and ignores BIT(16) and fn_map. Can a stale
+BPID that is still in range get freed a second time here?
+
+nix_bp_disable() and the new nix_bp_enable_unwind() both clear only
+BIT(16). CFG[8:0] still holds the BPID they just returned to the pool:
+
+	rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v),
+		    cfg & ~BIT_ULL(16));
+
+rvu_nix_flr_free_bpids() frees BPIDs without touching NIX_AF_RX_CHANX_CFG
+at all.
+
+This sequence looks possible:
+
+  VF A armed with BPID X
+  VF A disabled, unwound or FLRed, X returned to the pool
+  VF B allocates X
+  VF A sends NIX_BP_DISABLE or NIX_CPT_BP_DISABLE
+    (otx2_init_hw_resources() sends the CPT one on every open)
+  nix_bp_disable() reads stale X from A's channel, passes the range
+    check, and frees B's BPID
+  VF C allocates X
+
+B and C then share one hardware BPID, and B's fn_map/ref_cnt no longer
+match the bitmap. Clearing CFG[8:0] on release, or checking BIT(16) and
+fn_map ownership before freeing, would avoid this. Would either approach
+work here?
+
+> +
+>  			mutex_lock(&rvu->rsrc_lock);
+>  			rvu_free_rsrc(&bp->bpids, bpid - bp->free_pool_base);
+
+[Severity: Medium]
+This is a pre-existing issue, but nix_bp_disable() frees whatever BPID it
+finds in the target channel's CFG register. It never checks that
+bp->fn_map[bpid - bp->free_pool_base] == pcifunc.
+
+req->chan_base isn't validated, so could a VF name another function's
+channels, free that function's LBK BPID and clear its BP_ENA bit?
+
+The fn_map loop that follows clears only entries the caller owns. The
+victim's fn_map/ref_cnt stay set while its bitmap bit is cleared, and the
+next rvu_alloc_rsrc() hands the BPID out again. The new range check keeps
+the index in bounds, but it does not check ownership.
+
+[ ... ]
+
+> @@ -738,6 +747,35 @@ static int rvu_nix_get_bpid(struct rvu *rvu, struct nix_bp_cfg_req *req,
+>  	return bpid;
+>  }
+>  
+> +static void nix_bp_enable_unwind(struct rvu *rvu, struct nix_bp *bp,
+> +				 int blkaddr, u16 chan_base, int chan_cnt,
+> +				 int type, bool cpt_link)
+> +{
+> +	u16 chan, chan_v, bpid;
+> +	u64 cfg;
+> +
+> +	for (chan = chan_base; chan < chan_base + chan_cnt; chan++) {
+
+[Severity: High]
+Can this loop run forever? chan is a u16, but chan_base + chan_cnt is an
+int. When chan_base + chan_cnt >= 0x10000, chan wraps to 0 before it
+reaches the limit.
+
+For LBK, rvu_nix_get_bpid() never checks req->chan_base or req->chan_cnt.
+A VF can therefore pick req->chan_base so that the u16 chan_base in
+nix_bp_enable() is 0xFFFF, and send chan_cnt >= 2. Then:
+
+nix_bp_enable()
+    for (chan = chan_base; ...) wraps chan past 0xFFFF
+        rvu_nix_get_bpid() allocates an LBK BPID on each pass
+    rvu_nix_get_bpid() fails once the pool is empty
+    nix_bp_enable_unwind(rvu, bp, blkaddr, chan_base, chan_id, ...)
+        chan <= 0xFFFF < 0xFFFF + chan_id, so the loop never exits
+
+Each pass does an MMIO read-modify-write on NIX_AF_RX_CHANX_CFG(chan_v),
+including addresses outside the NIX block. It also takes rsrc_lock, and
+there is no cond_resched(). Before this patch the same request returned
+-EINVAL.
+
+There is a related concern about the new response write in
+nix_bp_enable():
+
+	rsp->chan_bpid[chan_id] = ...
+
+chan_id is now bounded only by the number of successful allocations. The
+old response loop was bounded by req->chan_cnt. If bp->bpids.max is larger
+than NIX_MAX_BPID_CHAN, could the wrapping loop write past the end of
+rsp->chan_bpid[]?
+
+> +		chan_v = nix_get_channel(chan, cpt_link);
+> +		cfg = rvu_read64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v));
+> +		rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v),
+> +			    cfg & ~BIT_ULL(16));
+
+[Severity: Medium]
+Does this turn off backpressure on channels that were already armed before
+the request? nix_bp_enable() doesn't check whether a channel already has
+BIT(16) set, and it doesn't save the original NIX_AF_RX_CHANX_CFG value. It
+simply overwrites CFG[8:0] with a new BPID.
+
+Suppose an LBK VF re-sends NIX_BP_ENABLE for channels that are already
+armed, and a later iteration fails. One example is a 2-channel request when
+only one BPID is free. The unwind then clears BIT(16) on every channel
+programmed so far.
+
+A channel that had working backpressure with BPID P ends up with
+backpressure off and a freed BPID in CFG. P stays allocated, and nothing
+refers to it.
+
+Before this patch, the same failure left the channel armed.
+
+> +
+> +		if (type != NIX_INTF_TYPE_LBK)
+> +			continue;
+> +
+> +		bpid = cfg & GENMASK_ULL(8, 0);
+> +		if (bpid < bp->free_pool_base ||
+> +		    bpid >= bp->free_pool_base + bp->bpids.max)
+> +			continue;
+> +
+> +		mutex_lock(&rvu->rsrc_lock);
+> +		rvu_free_rsrc(&bp->bpids, bpid - bp->free_pool_base);
+> +		bp->fn_map[bpid - bp->free_pool_base] = 0;
+> +		bp->ref_cnt[bpid - bp->free_pool_base] = 0;
+> +		mutex_unlock(&rvu->rsrc_lock);
+
+[Severity: Medium]
+The unwind reads NIX_AF_RX_CHANX_CFG outside rsrc_lock to decide which
+BPIDs to release. It then frees each one and zeroes fn_map/ref_cnt without
+checking that fn_map[idx] == pcifunc. Can this race with an FLR of the
+same VF?
+
+__rvu_flr_handler() takes only rvu->flr_lock before it calls
+rvu_nix_flr_free_bpids(). rvu_afvf_mbox_handler() takes no lock at all, so
+the two can run at the same time:
+
+  VF A: nix_bp_enable() iteration 0 allocates X and programs it
+  FLR of A: rvu_nix_flr_free_bpids() frees X, register still holds X
+  VF B: allocates X
+  VF A: iteration 1 fails, nix_bp_enable_unwind() reads X from A's
+        channel, frees it and zeroes fn_map[X]/ref_cnt[X]
+
+B's live BPID is back in the pool, and the next allocation gives it to a
+third function. Could the unwind free only the BPIDs this call allocated,
+instead of reading them back from hardware?
+
+nix_bp_disable() has the same pattern. It frees based only on the register
+value and the range check.
+
+> +	}
+> +}
+
+[ ... ]
+
+> @@ -764,16 +805,27 @@ static int nix_bp_enable(struct rvu *rvu,
+
+[ ... ]
+
+>  	for (chan = chan_base; chan < (chan_base + req->chan_cnt); chan++) {
+> +		bpid = rvu_nix_get_bpid(rvu, req, type, chan_id);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but for LBK, rvu_nix_get_bpid()
+allocates a new BPID from the free pool on every call and ignores
+req->bpid_per_chan. mbox.h documents:
+
+	/* bpid_per_chan = 0 assigns single bp id for range of channels */
+
+With bpid_per_chan = 0 and chan_cnt > 1, shouldn't all the channels share
+one BPID? In non-PFC mode the NIC side uses only pfvf->bpid[0] for CQ/aura
+BPIDs. The BPIDs programmed on channels 1..n would then never be asserted,
+and they still use up pool entries.
+
+This patch keeps the allocation on every iteration and only changes the
+response to report the per-channel BPIDs. In-tree LBK VFs skip
+NIX_BP_ENABLE, so only other mailbox clients are affected.
+
+[ ... ]
+
+> @@ -783,16 +835,17 @@ static int nix_bp_enable(struct rvu *rvu,
+>  		cfg &= ~GENMASK_ULL(8, 0);
+>  		rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v),
+>  			    cfg | (bpid & GENMASK_ULL(8, 0)) | BIT_ULL(16));
+
+[Severity: High]
+Can BPIDs still leak permanently after this patch? For LBK, every enable
+allocates a fresh BPID and overwrites CFG[8:0], without checking whether
+the channel already holds one.
+
+nix_bp_disable() then frees only the BPID it reads from each channel's
+register. However, it clears ownership for every free-pool entry this
+pcifunc owns:
+
+nix_bp_disable() {
+    ...
+	rvu_free_rsrc(&bp->bpids, bpid - bp->free_pool_base);
+	for (bpid = 0; bpid < bp->bpids.max; bpid++) {
+		if (bp->fn_map[bpid] == pcifunc) {
+			bp->fn_map[bpid] = 0;
+			bp->ref_cnt[bpid] = 0;
+    ...
+}
+
+rvu_nix_flr_free_bpids() only reclaims entries where fn_map[idx] ==
+pcifunc. Any other BPID the function still holds keeps its bitmap bit set
+with fn_map == 0, and nothing ever frees it.
+
+Two sequences seem to hit this:
+
+  An LBK VF sends NIX_BP_ENABLE, NIX_BP_ENABLE, then NIX_BP_DISABLE. The
+  second enable overwrites the first BPID in CFG. The disable frees only
+  the second BPID but wipes fn_map for both, so the first BPID is lost
+  until the AF reloads.
+
+  A VF enables RX BP (BPID A) and CPT BP (BPID B), disables RX BP, and
+  then goes through FLR. The disable already wiped fn_map[B], so the FLR
+  skips B.
+
+Each round leaks one BPID from the shared LBK pool. Once the pool is
+empty, NIX_BP_ENABLE fails with NIX_AF_ERR_INVALID_BPID for every LBK VF.
+
+The new comment in nix_bp_enable() says "don't leak until an FLR". Doesn't
+this path prevent the FLR from reclaiming them?
+
+[ ... ]
+
+> +		rsp->chan_bpid[chan_id] = ((req->chan_base + chan_id) & 0x7F) << 10 |
+> +					  (bpid & 0x3FF);
+> +		chan_id++;
+
+[Severity: Medium]
+This is a pre-existing issue, but the rewritten line keeps the old encoding,
+which doesn't fit in a u16 chan_bpid[] element. 0x7F << 10 is 0x1FC00,
+which needs 17 bits, so bit 6 of the channel index is lost.
+
+mbox_handler_nix_bp_enable() on the NIC side decodes a 7-bit channel index:
+
+	chan_id = ((rsp->chan_bpid[chan] >> 10) & 0x7F);
+
+Won't channel indices >= 64 then alias onto lower pfvf->bpid[] entries?
+struct nix_bp_cfg_rsp is sized for NIX_MAX_BPID_CHAN (256) channels, which
+this encoding cannot represent. In-tree CGX requests stay well below 64
+channels, so only SDP or LBK requests with more than 64 channels hit this.
 
 -- 
-With best wishes
-Dmitry
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928065718.3378580-1-nshettyj%40marvell.com
