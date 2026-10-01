@@ -1,102 +1,126 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874B14AD4D6
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:52:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192CB3E3DAB
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844768; cv=none; b=cF/ZLQlm7sxhPayMQBGRlDf+nC+zQbB0DjzSo7QYn8eqWk5Ju5ZZkYAO+AvHNCT51G56H5khmrDI86FBLrlaTMKFZ6+sR3CACgsfCPfu9nA9eiTNDFkKri3X3yQdN3FRZk79BNzJytPf0n1jdLTjLw0Pr9UDGA0wyvtdwqddGF0=
+	t=1790844758; cv=none; b=Ns+j+wM4Vh8U9gJcberpLuOs+tuEKH1JQn5qyjfXZJ8yaOhQow0gDWNsMV2bNhc2rhu5S24uZCEpfNaSItDg+wvJqNi09+C1Xk1HfR4Alt/7+SDh6rW5psJfheNNF1iJ3Ln6NlW7I5JyFG++HTF+5C4Z5ungfBl0VLviF8XM3D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844768; c=relaxed/simple;
-	bh=aoLzZOMCzAOCOPkrrQLBypjhe2aLbOL5ucc0aOFIkUA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NpDfripbkyatL6QVEVVFjwSkse3nqVsQQgmSxty+7kmXw9QT/50vqZqNrJYJ2HflSCUpV+ylr6ZoLA4QAow942OC8X/8/ysmkjAkyuHXbQUNNLDp+XnA9OFDMU60I08BjHe3DUmg1oA4SShzzoKIV0ZsnQ9fsOKt1imHzr8879M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=EX7/kNkQ; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790844758; c=relaxed/simple;
+	bh=nmF2VGSeyFyu/xPgi2xOG62Zmzti/5jSYKINhvSPvGY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Uh5Bp3jldv1XM29dUJKGzq2W5BoGaxg+Ga0SKNi5PPxFl56zW82+sxoabsv/LJTkROqHJC24alLsh/CpE9gkZLK/HpLjdjHz8L0i62UzDMwY53BOoZQzuGhmNQSdWI0PTrhm6KcJS1mtHYxh9xWdJ6jQHhMhLhlxHRzwWyFE9uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=ew3gH/qh; arc=none smtp.client-ip=185.136.64.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="EX7/kNkQ"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so36951165e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:52:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790844763; x=1791449563; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XI99x6iXcwFo3VPCWbeND/NaXUPvhkaFwC0UtW3R7XY=;
-        b=EX7/kNkQRXbZobGz8ZWRft9yY/Z44bS1q7BKlfoOQ2KFX8hSt1j1IO8DB6Y7QHfhG7
-         mbzwJptHG54u5PnNFkWRnXuXO+aYm61q1x/JFsvcXwXjt/jP2UHxaD2PIhpghx/qE198
-         S8WCA8kyWWtX5rL4jIZmhXpAwKO5E3mNqRSxznYZknPmSpHUw+MJ9EpP9fKftoqmAh0c
-         qrXm7/68u5f2jpgbXJAHOBdmhYJGE/ncXvKtBz4EJn/rRu4c5B1fA93+WdahDPceZeu7
-         lC+Q47Uki99bseTHVNozmk5hG4n1p2RPbBhLG2xZnbQmWGPz19vvZYXQ6v+ZThv4iCcI
-         POrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790844763; x=1791449563;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XI99x6iXcwFo3VPCWbeND/NaXUPvhkaFwC0UtW3R7XY=;
-        b=KoH/9W8wVpwBunx0hh9vCQ48Obat6ncBEVTzzRxiR82Z2C4W69607WxbqUkT/7/D20
-         KNaitqAcoDRNnLR7qY9zKhyE8D4g+4dKR7IFLAZ4kKKel/VmZduTSbHMqXubaRFib05z
-         q+n2+IWANkYoiTYfqUPjkMbTkHKvWRjyYPhf7VcrfWAYOieW3X9X2zmzIKDJ6du9oP2i
-         b0QRzVeIgLjfD9rDCIt73vVH7ZBF0uaoyj066xRK6EvOJmLXhYnTYYmhcguqolggjLSK
-         RoIVI93F0LlEieFAb81I7kKW1zMu9Uxx+h1PoS1bh4GSThAgniHSuk/phFhjnS2c10kH
-         /sgw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2iR7WIHU0li0r7AOCCSuRa6TaZpu6VdyB00S05cB5zvMvezqz3FwtJVypn32NBC3Ie3FlCgBq1kH7kR4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmGvfe0Lei2JYAAMYqNgw2Q29lzUqTnhgkFthYkSQMV0oS7EX4
-	ttQfZmQ+rI3HslHu04BX93qcUJOo61shBbO+wzgfZDqYJI14Vcu6YzkkkiPpDWAnD0U=
-X-Gm-Gg: AYBFou2YxAPWWfNJE8B+ddvksziMOB5YT3Zxf/B+EjmrMpa4HQcVqyviv+WNvXOBRIG
-	KHdro+qcowvLGF/Kqin5znkrRU8CLoRNpnlu8ZNlDYwt5z+BSVkfi8nhKX6SFEvtKI1uEa9QJAT
-	uS753f725mzFyg2+L17YNMilSrGY+VXGXu2eA7mIXORA/CyV3XrQ0DNlizzi1Zv7lnsHdRA/1I6
-	ru5LylRMJOpZio5vstSNncuSssigyfzsTOhpy0nQpC7/XIP7lSjGwtg7bmfLM2aI4M6XPfcYVJz
-	TxIIzDf08Ellt/6TySiht3XDrRYYxDSvzlNm7R+6AUUFbbaCL7y6rsLPAQS6hXyMrlavAj2BvdF
-	Um5Nv3YLb2LHSgwLij/2HCJ+7PugEbHerJ50g+W6dG50gPmdObx/LUsNKHsDd28LCpSxQsNWR5v
-	jQxAvGFm2CM4XnI4irM5mNi8LFdXSFXL8YA5VChwrapiEpvfR8JJSHI9XPhgTMPzpim/8Z804Ls
-	PI/fkLBRq1aenVmcg==
-X-Received: by 2002:a05:600c:46cf:b0:4a0:1f9e:5f7d with SMTP id 5b1f17b1804b1-4a01f9e631bmr29144715e9.7.1790844763564;
-        Thu, 01 Oct 2026 01:52:43 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a2d732sm4569062f8f.33.2026.10.01.01.52.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 01:52:43 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Francesco Dolcini <francesco@dolcini.it>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Heiko Stuebner <heiko@sntech.de>
-In-Reply-To: <20260930114907.153690-1-francesco@dolcini.it>
-References: <20260930114907.153690-1-francesco@dolcini.it>
-Subject: Re: [PATCH] clk: clk-gpio: do not blame the DT property on probe
- deferral
-Message-Id: <179084474931.13445.4177948830664076778.b4-ty@b4>
-Date: Thu, 01 Oct 2026 10:52:29 +0200
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="ew3gH/qh"
+Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 2026100108522029f7b2089f000207e8
+        for <linux-kernel@vger.kernel.org>;
+        Thu, 01 Oct 2026 10:52:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=w6L3QaVhgFzYQ29lWW6OlEsvKNadnP7rsB1TYXpG4yQ=;
+ b=ew3gH/qhLinU97JQEobLwagqDv4Cj726XeVfMqSZJsZ6MxfhgNZwyzPldU0xy39l2l2uzK
+ JbOrlmYbME7Kl7maJcGCJYcBfDbBqiOvf/NyYOijEqsU2raZ1CkKhCoI0ODLCFJlyfpe4pOt
+ e9ISAi9GIExZGGvEBMoDAdRi7/lSwbGQ08PS1Ne8WsOuasAE64ANXyjVLxZoOY5uouCDJaqw
+ JJL7xLOIsIsEMlr/EO+y27fIvgh/eUP0h+4e13wKNLwsYPDMOEiW5m+nNGuM9huw2TcPzZqp
+ KL52xEi/NU8Mta8fLGBz2GCVge49jzpWRXLGLWtzmnzonF+/v6IY4BXQ==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-gpio@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Haojian Zhuang <haojian.zhuang@linaro.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Lokesh Vutla <lokeshvutla@ti.com>,
+	Nishanth Menon <nm@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] pinctrl: single: don't leak group/function tables on consumer re-probe
+Date: Thu,  1 Oct 2026 10:52:10 +0200
+Message-ID: <20261001085217.1778645-2-alexander.sverdlin@siemens.com>
+In-Reply-To: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
+References: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=202; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=aoLzZOMCzAOCOPkrrQLBypjhe2aLbOL5ucc0aOFIkUA=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFn75KPulQkmTVsq57DSbLvz7Mmxb/Y3dGs4n7zjdvuyV
- otzUMzBjlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenAEyEOZvhn9lDJrV7Uu83Vufs
- Vi33fqS36fmik8UnCkW4Gz7O9J7l/IuR4VHt0z2/rGyLk5eaZNg9LD7VGH96z+Wfjx6GxgkVWTC
- 8ZQcA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-Applied to clk/linux.git (clk-pile), thanks!
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-[1/1] clk: clk-gpio: do not blame the DT property on probe deferral
-      commit: d7e7f791c1997f500ad8a9b1f7e0855d61011fd0
+For every mapping pcs_parse_{one,bits}_in_pinctrl_entry() builds a
+pcs_function, a value table, a pin array and a pingroup-name array and
+registers them via pcs_add_function()/pinctrl_generic_add_group(). The
+core deduplicates groups and functions by name and keeps the first
+instance for the controller's lifetime, so the tables built for any later
+mapping of the same node - e.g. each consumer re-probe - are dropped by
+the core and leaked.
 
-Best regards,
---
-Jerome
+Free the redundant copies once the function turns out to be a duplicate;
+the group is deduplicated together with it. Don't remove the deduplicated
+instance from the core: its selector is a plain counter (num_groups /
+num_functions), so removing any but the last entry corrupts the selector
+space.
+
+kmemleak stays silent because the leaked tables remain reachable from the
+controller's devres list.
+
+Fixes: 8b8b091bf07f ("pinctrl: Add one-register-per-pin type device tree based pinctrl driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ drivers/pinctrl/pinctrl-single.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
+index e0eb7240a9859..e75e32723100d 100644
+--- a/drivers/pinctrl/pinctrl-single.c
++++ b/drivers/pinctrl/pinctrl-single.c
+@@ -1097,6 +1097,19 @@ static int pcs_parse_one_pinctrl_entry(struct pcs_device *pcs,
+ 	} else {
+ 		*num_maps = 1;
+ 	}
++
++	/*
++	 * The core deduplicates groups/functions by name and keeps the first
++	 * for the controller's lifetime; drop our now-redundant copies when the
++	 * node is mapped again (consumer re-probe). The group is deduplicated
++	 * together with the function, so testing the latter is enough.
++	 */
++	if (pinmux_generic_get_function(pcs->pctl, fsel)->data != function) {
++		devm_kfree(pcs->dev, pins);
++		devm_kfree(pcs->dev, vals);
++		devm_kfree(pcs->dev, function);
++		devm_kfree(pcs->dev, pgnames);
++	}
+ 	mutex_unlock(&pcs->mutex);
+ 
+ 	return 0;
+@@ -1235,6 +1248,14 @@ static int pcs_parse_bits_in_pinctrl_entry(struct pcs_device *pcs,
+ 	(*map)->data.mux.function = np->name;
+ 
+ 	*num_maps = 1;
++
++	/* See pcs_parse_one_pinctrl_entry() for the deduplication rationale. */
++	if (pinmux_generic_get_function(pcs->pctl, fsel)->data != function) {
++		devm_kfree(pcs->dev, pins);
++		devm_kfree(pcs->dev, vals);
++		devm_kfree(pcs->dev, function);
++		devm_kfree(pcs->dev, pgnames);
++	}
+ 	mutex_unlock(&pcs->mutex);
+ 
+ 	return 0;
+-- 
+2.55.0
 
