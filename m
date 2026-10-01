@@ -1,101 +1,273 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAEB33F8A3;
-	Thu,  1 Oct 2026 00:20:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACB6282F1B;
+	Thu,  1 Oct 2026 00:20:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790814012; cv=none; b=SdxGrQxpPihl6ORWFA9Kn4pzfl/tw2IOUiCvnpZYLj+Hdrj/1gc78RyWmuxipKlYcR0d6Aub1cygQfwLy67U0sAVEw16zNMs9bzAgsE56rIP/ZqCQ5wNPXvYeQ2f5fCUMeNq3owSkuCQQb4L/6dcv8XYoOnJ+mI3gdLwhoneg4c=
+	t=1790814039; cv=none; b=W1A9TBddwXSeEvZ1UiKjeggy4EnVyLEbfsXBImkLpUtP2Zbeum8+7UDksE5jU0bdxNwmuBHuhDrsV2ishkk7zyd/kpFyDfXSxNqOF40IEWS9cFxtZokoKBqYqdqsUtVIUsA/2k845+HCKgXy9YvFl2q33Dj53m7x/MW8PP0ZJmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790814012; c=relaxed/simple;
-	bh=wUzDw4Gmoz61tOPnjGlHYqKabnpzEoNZ6zhxWoCGcD8=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=t9P0IN917ZJ3Egg+soMOZ1CJA1YNIxz/277NfmH2bLqeaBMVEgtl+WQ1+wjQY8LI9JoYkhy868PR4us+ubquTcP3QK2N/SFueKTO3lTEcWBMm12DSLDVE93MFXHSYAYMsSarOz86wzFsKYHpNtIlT7V/AzDq52aZ+LaPv/aDCJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bMEMHuDT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790814039; c=relaxed/simple;
+	bh=5Hvk4XLGOwLuU8uqdTaJZYxBVG2ZeEuhv6EGbDeiJYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hzcvZsfibvsz9/pdHePLZclw7LHLR9mbzWU+rQo//4Nf4wIRmCKvAw2MSYt6jn2K/ov4TVbvu7/mIAG97XvXSLXWQgX9IXLHbbRwbrYntFaqmxRtVHRPErvpfEmWFO4zjdeLXSsSgqEaQL/jYOlrhjImO0P0pHIYP8p1A12WlUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OG8UYunf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bMEMHuDT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444581F000FF;
-	Thu,  1 Oct 2026 00:20:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OG8UYunf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9EC1F000FF;
+	Thu,  1 Oct 2026 00:20:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790814010;
-	bh=YGnqpqpo3QzBxu5OJwYRpWOXn23kehLy4lHrmA7+bjs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=bMEMHuDThCL+Z4iDlvucefPopJB3GIKA5nvEBprlf8pGUVAa3JKPpmP6eSx0Sxu9m
-	 EodCYXjUxL/hTs7SPVZ5bF04nwr+r8etXVQSu6ZJKXPqHmjXVQQ0krpiLhFG0GZ6pN
-	 8LC8ZzmwRm0uj5dYZzuQruzAWCKVU1RFSjl4NnL5kIS0UWO0kywtThQMqSPQAfWhPH
-	 1FbBhxzEhIaClasRj9H9g7kXO69ljYj1MNV8UKhn3j2JSVgdyxxntIVY7a84/piU/k
-	 f20WZD36fpyb+W4X3bgK1PgOYkZyNsPWnz1cJ7+2EcmgEnIDj+/oQeh4kb3abjrQkp
-	 xTAzNrE5wtEQg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A31B3AA6A61;
-	Thu,  1 Oct 2026 00:20:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790814037;
+	bh=nvDkk7KAzeKLGpwf+aZU4NHqfAjJib2nahVIAwKSaI0=;
+	h=From:To:Cc:Subject:Date;
+	b=OG8UYunfY1IEU4lR5Hh9s7ga1Pc/J1NiPAmri6YrecIezcaO5fn9eiJXLc+P9Zkp+
+	 q9inJqWEhkI2LSQVWVmg5LIwTf5y3pmtJWnS0PYhKi9l7yBzyyYhdugSMrCvJP0DFy
+	 8IlbuWvrw2bQXODXq4hwYMo7453sHCnKvkTVVEl+m+38qByDagHXAqySOwhKV96ica
+	 EdQY1f9+ByweiOTIG6vZc0oYE4hosv5Mpyzznh4bkI52QNAc49GeyYrKSi58rwqAS9
+	 1pZdSLT8MLNK2x2M4hPb0mns1ormSvqmHKoGbLLGULtJl+iV4j2vYYVXpWXzXZ93gb
+	 TN82nJ/R2RLaw==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: Boqun Feng <boqun@kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	rcu@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Andrea Parri <parri.andrea@gmail.com>
+Subject: [PATCH v4 0/1] kprobes: Make optprobe optimizer multi-generational and asynchronous
+Date: Thu,  1 Oct 2026 09:20:31 +0900
+Message-ID: <179081403098.474106.12959530220684805449.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v4 00/11] net: dsa: microchip: add periodic
- output
- support for the KSZ8463
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179081400903.2186961.15882174017132197950.git-patchwork-notify@kernel.org>
-Date: Thu, 01 Oct 2026 00:20:09 +0000
-References: <20260925-ksz-perout-v4-0-d675bd21ce49@bootlin.com>
-In-Reply-To: <20260925-ksz-perout-v4-0-d675bd21ce49@bootlin.com>
-To: Bastien Curutchet <bastien.curutchet@bootlin.com>
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, richardcochran@gmail.com, pascal.eberhard@se.com,
- miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+Hi,
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Here is the 4th version of the patch for making the optprobe optimizer
+multi-generational and asynchronous.
 
-On Fri, 25 Sep 2026 13:38:46 +0200 you wrote:
-> This series aims to add periodic output support for the KSZ8463. The
-> way the KSZ8463 handles periodic output differs from that of the other
-> KSZ switches. It therefore needs its own set of perout callbacks
-> (configure, start, reset, enable, restart).
-> 
-> Patch 1 saves the full request to be able to retrieve all its
-> information in case of restart
-> 
-> [...]
+The previous version is here:
 
-Here is the summary with links:
-  - [net-next,v4,01/11] net: dsa: microchip: fully save the periodic output request
-    https://git.kernel.org/netdev/net-next/c/1fadd469b628
-  - [net-next,v4,02/11] net: dsa: microchip: add the number of pins to chip infos
-    https://git.kernel.org/netdev/net-next/c/1599393bf3ff
-  - [net-next,v4,03/11] net: dsa: microchip: add the number of periodic signals to chip infos
-    https://git.kernel.org/netdev/net-next/c/7242c96652e3
-  - [net-next,v4,04/11] net: dsa: microchip: use dynamic mask to check pulse width validity
-    https://git.kernel.org/netdev/net-next/c/3336fa200718
-  - [net-next,v4,05/11] net: dsa: microchip: extract PTP callbacks configuration from PTP registration
-    https://git.kernel.org/netdev/net-next/c/cfd0011cb5c2
-  - [net-next,v4,06/11] net: dsa: microchip: extract ptp_get_pin
-    https://git.kernel.org/netdev/net-next/c/5b2bb536a341
-  - [net-next,v4,07/11] net: dsa: microchip: extract compute_width
-    https://git.kernel.org/netdev/net-next/c/8885b5406a58
-  - [net-next,v4,08/11] net: dsa: microchip: extract prepare reset
-    https://git.kernel.org/netdev/net-next/c/ff327ef4488d
-  - [net-next,v4,09/11] net: dsa: microchip: extract time update
-    https://git.kernel.org/netdev/net-next/c/7273205d31db
-  - [net-next,v4,10/11] net: dsa: microchip: extract time adjustment
-    https://git.kernel.org/netdev/net-next/c/a7cc3395d17e
-  - [net-next,v4,11/11] net: dsa: microchip: add periodic output support for the KSZ8463
-    https://git.kernel.org/netdev/net-next/c/64854d9aab3a
+  https://lore.kernel.org/all/179077194409.424772.11709189894572687187.stgit@devnote2/
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+In this version:
+- Fix double hlist_del_rcu() / LIST_POISON2 dereference on cooling probes
+  (reported by Sashiko AI review[1]):
+  - In optprobe_finalize_generation(), do not unhash unused probes before
+    moving them to cur_gen's freeing list; defer unhashing to
+    do_unoptimize_kprobes() when cur_gen is dispatched.
+  - In do_unoptimize_kprobes(), use hlist_del_init_rcu() instead of
+    hlist_del_rcu() for idempotent and safe unhashing.
+
+[1] https://lore.kernel.org/all/20260930130018.997401F000FF@smtp.kernel.org/
+
+=== How the Asynchronous Multi-Generational Optimizer Works ===
+
+1. Background & Motivation
+--------------------------
+Previously, kprobe_optimizer() executed synchronously:
+- It acquired kprobe_mutex, text_mutex, and cpus_read_lock().
+- It then called synchronize_rcu_tasks() while holding all three locks.
+- Under PREEMPT_LAZY / PREEMPT kernels and CPU-heavy server workloads,
+  synchronize_rcu_tasks() can stall for seconds to minutes waiting for
+  voluntary context switches on all online CPUs.
+- Holding text_mutex and cpus_read_lock() throughout this wait blocked
+  CPU hotplug, module loading/unloading, static keys, and all subsequent
+  kprobe registrations, frequently triggering hung-task watchdogs.
+
+The actual instruction modification (text-patching) takes only
+microseconds. The new optimizer completely decouples instruction patching
+from the Tasks RCU grace period wait using call_rcu_tasks(), dropping all
+locks during the wait.
+
+2. Architecture: Fixed Generational Ring
+----------------------------------------
+To ensure jump optimization never fails with -ENOMEM during tracing,
+a fixed ring of generation slots is used:
+
+  static struct optprobe_generation optprobe_gens[OPTPROBE_GEN_MAX];
+  (OPTPROBE_GEN_MAX = 2)
+
+Each generation struct contains 4 probe lists and tracking state:
+- optimizing_list:
+    Probes waiting to be optimized (jump installed). Text-patching is
+    deferred until after the generation's Tasks RCU grace period.
+- unoptimizing_list:
+    Probes waiting to be unoptimized (jump replaced with breakpoint)
+    prior to entering the grace period.
+- cooling_list:
+    In-use probes whose jumps were unoptimized, cooling down during the
+    Tasks RCU grace period. Holding them on this list keeps
+    list_empty(&op->list) false, preventing concurrent unregister_kprobes()
+    from prematurely freeing the aggregator or detour buffer before
+    preempted tasks exit.
+- freeing_list:
+    Cleaned/unused aggregator probes whose detour slots and memory
+    will be reclaimed after the Tasks RCU grace period completes.
+- rcu:
+    The rcu_head passed to call_rcu_tasks().
+- in_flight / ready:
+    State flags indicating if the generation is currently waiting on
+    Tasks RCU, or if the callback has fired and finalization is pending.
+
+3. The "Waiting Room" Invariant
+-------------------------------
+optprobe_cur_gen points to the current active ingress generation.
+All new optimization, unoptimization, and forced-cleanup requests from
+register_kprobe(), unregister_kprobe(), and kill_optimized_kprobe() are
+queued into optprobe_gens[optprobe_cur_gen].
+
+To ensure an idle generation slot is always available to absorb incoming
+requests without dynamic allocation, the last available generation slot
+is never dispatched while an earlier generation is still in flight
+(optprobe_can_fire() checks active_gens < OPTPROBE_GEN_MAX - 1).
+It acts as a non-blocking "waiting room".
+
+4. Execution Flow of the Optimizer Thread
+-----------------------------------------
+The dedicated optimizer kthread sleeps on kprobe_optimizer_wait and wakes
+when kicked, when a flush is requested, or when an RCU callback completes.
+
+                [ Probes Queued in cur_gen ]
+                            |
+               kprobe_optimizer_thread()
+                            |
+            (batching delay: OPTIMIZE_DELAY)
+                            |
+             kprobe_optimizer() [holds kprobe_mutex]
+             +------------------------------+
+             |                              |
+             v                              v
+   [ Step 1: Finalize ]           [ Step 2: Dispatch ]
+   (for ready generations)        (for cur_gen if can_fire)
+             |                              |
+   - Hold text_mutex & cpus_lock  - Hold text_mutex & cpus_lock
+   - arch_optimize_kprobes()      - arch_unoptimize_kprobes()
+   - do_free_cleaned_kprobes()    - Move in-use to cooling_list
+   - Drain cooling_list           - Advance cur_gen
+   - Drop text_mutex & cpus_lock  - Drop text_mutex & cpus_lock
+   - gen->in_flight = false       - call_rcu_tasks(&gen->rcu)
+             +------------------------------+
+                            |
+                            v
+                  [ Step 3: Notify ]
+                  - If progress:
+                      optimizer_passes++
+                      wake_up_var_locked(optimizer_passes)
+                  - Self-kick if more probes queued
+
+Step 1: Finalize Ready Generations (optprobe_finalize_generation)
+  Runs for any generation where the Tasks RCU callback marked ready = true:
+  1. Briefly acquires text_mutex and cpus_read_lock().
+  2. Calls arch_optimize_kprobes(&gen->optimizing_list) to patch the
+     relative jump into target instructions.
+  3. Releases text_mutex and cpus_read_lock().
+  4. Calls do_free_cleaned_kprobes(&gen->freeing_list) to release detour
+     buffers and free unused aggregator probes.
+  5. Drains gen->cooling_list:
+     - Probes unregistered while in flight (kprobe_unused()) are moved
+       to cur_gen's freeing_list for the next pass.
+     - Probes still in use have their disarming finalized via
+       list_del_init(&op->list), and are queued for re-optimization if
+       still enabled.
+  6. Clears in_flight = false and ready = false, returning the slot to
+     the idle pool.
+
+Step 2: Dispatch the Waiting Room (optprobe_dispatch_generation)
+  If the waiting room has queued probes and active_gens < OPTPROBE_GEN_MAX - 1:
+  1. Briefly acquires text_mutex and cpus_read_lock().
+  2. Calls do_unoptimize_kprobes(): executes arch_unoptimize_kprobes() to
+     replace relative jumps with breakpoints.
+  3. Probes that are unused are moved to gen->freeing_list and removed
+     from the kprobe hash table (hlist_del_rcu).
+  4. Probes still in use are moved to gen->cooling_list.
+  5. Releases text_mutex and cpus_read_lock().
+  6. Advances optprobe_cur_gen to the next generation slot.
+  7. Marks gen->in_flight = true, gen->ready = false.
+  8. Calls call_rcu_tasks(&gen->rcu, optprobe_generation_rcu_cb) and
+     immediately returns. kprobe_mutex is completely released while
+     Tasks RCU runs asynchronously in the background.
+
+Step 3: Pass Completion & Flusher Notification
+  1. If any generation was finalized or dispatched (progress was made),
+     increments optimizer_passes and wakes waiters sleeping on
+     wait_for_kprobe_optimizer().
+  2. If the waiting room still has queued probes and another generation
+     can fire immediately (e.g. sibling probes retrying optimization),
+     it kicks itself for another pass.
+
+5. Concurrency & Preemption Safety (The cooling_list)
+-----------------------------------------------------
+Under CONFIG_PREEMPTION=y, a task can be preempted inside an optprobe detour
+buffer (or the detour template). When a probe is disabled, its jump is
+reverted to an int3 breakpoint, but the detour buffer cannot be freed until
+all preempted tasks have executed a voluntary context switch (Tasks RCU).
+
+Because kprobe_mutex is dropped during the grace period, concurrent
+unregister_kprobes() could run. Previously, unregister_kprobes() checked
+kprobe_disarmed(ap), which evaluates:
+  kprobe_disabled(p) && list_empty(&op->list)
+
+If unoptimized in-use probes were simply detached (list_del_init),
+kprobe_disarmed() would become true prematurely, allowing
+free_aggr_kprobe() to free the detour buffer and kfree(op) while a
+preempted task was still inside the detour buffer.
+
+By placing unoptimized in-use probes onto gen->cooling_list:
+- They are kept off unoptimizing_list so arch_unoptimize_kprobes() will
+  never be called twice on them.
+- list_empty(&op->list) remains false throughout the Tasks RCU grace period.
+- unregister_kprobes() sees !kprobe_disarmed() and defers deleting the
+  aggregator.
+- When optprobe_finalize_generation() runs after the grace period, it
+  safely reclaims or disarms them without any use-after-free window.
+
+6. Flush Synchronization (Andrea Parri's Wait Queue Fix)
+--------------------------------------------------------
+When wait_for_kprobe_optimizer() flushes the optimizer:
+- It checks optprobe_optimizer_busy():
+    optprobe_has_queued_probes() || (optprobe_active_gens_count() > 0)
+- Instead of using a completion (which suffered from concurrent-waiter
+  init_completion() clobber races), it monitors the monotonic counter
+  optimizer_passes.
+- If work can be dispatched or a generation is ready, it wakes the
+  optimizer thread. Otherwise, if a generation is merely in flight, it
+  avoids redundant wakeups.
+- It sleeps via wait_var_event_mutex(&optimizer_passes, ..., &kprobe_mutex).
+  This cleanly releases kprobe_mutex while sleeping and wakes only when
+  actual progress is made, preventing CPU-bound spinloops until all
+  in-flight and queued generations drain.
 
 
+Thank you,
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+
+Masami Hiramatsu (Google) (1):
+      kprobes: Make optprobe optimizer multi-generational and asynchronous
+
+
+ kernel/kprobes.c |  421 +++++++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 319 insertions(+), 102 deletions(-)
+
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
