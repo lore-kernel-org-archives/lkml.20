@@ -1,141 +1,94 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39444EA368;
-	Thu,  1 Oct 2026 10:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8596C4E01E8;
+	Thu,  1 Oct 2026 10:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850800; cv=none; b=LnpDdHUHtXxdpmQ6wJKRGgLBeahcoy4XgkmPrd3E90jEBqUHCV8Sj9IgMdIJPfp2O/YVElqEcl/iI9H5xlgOipzKxhmpTE0dcDL/LGpSx3dAC8QZvcOOJormDEmC8Dhcs8ynk0JmZhYrTOqdlGL+IALXsiWniHzwlAg/CE0ecd8=
+	t=1790850860; cv=none; b=be783qNRQ7s3VpZiyzp4ox5tdxkcUY3sgDHx/V9EBwVjvK4e+1yvT5B95ITGc4hgrjF6JDARQ55vp+u04ZgpLE5YOSpBMhZPbsY5lRJvXrOq9dGTxJAj25+H5OvyZMzte8VKyi9M+rfwKS0TcYhLwkclePMIcOReN2bZ0ClxwaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850800; c=relaxed/simple;
-	bh=ZURKAAerR8c57sQMUhVsE6/fAAttema5uSsEE66OPu0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CcLhKWJbEY49rOrFIuRYnhDT+Nps+fwtpGwg6i0dydNQkAKbTWQ8phnnLgX1OC4YqsZOQxBYl43o6BQOyFh0yNK0wZMQ7mekUGzZf1X0wu5eZXxXgg4aN7gSJDZV+55KGlUODCn+jHhuUonFHKBt+lncPk6av3jyFznkU8aJ+JA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FzrPNk9r; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790850860; c=relaxed/simple;
+	bh=xjVMW3aXX1KCF37mr2VmMH/GPb4/XV4kex/2mMgZ8vg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t3vG5NMFu2CMpX3RVXHDE3GBzOF39ci8E/OpA2en7pyfKjj3jF/SolCIawl4B2OCQ8o6npgcnN2LSyzwj7FIId4qw0QgcnRADqPO8nywLDy8kVkvWiaY8TiwxpUm+ZYbQOtppgQF41hA8PfcaIYU9frNz3RBfF0Oya9rVVdEl8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mRIe2UAT; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FzrPNk9r"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175UfU4040699;
-	Thu, 1 Oct 2026 10:32:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=Nzgplunf1xAzj3+M4
-	mLwVzHMUIVt0lyrH5V/Zs/k+ms=; b=FzrPNk9r5GBLlOM+jAt2LKvSnu+LKEexP
-	wTk/ybt9F5NPqzHEi8jVGH0TgFbrhzjyrUgFET9bQdXDJCukB4mLrDDdePxBfgSh
-	LluJ2LCIgR5rKonb5b7tmlkBijR6Cq+wqnWbAkCCYNXEV/EM/OjsEvyih696kCYG
-	wSHVMu1QgMeNAmQ9ZUTghtghgeJCJVURdPbwO2a1sb/EvLjZVERHjUg1AEN80dEU
-	74iOphA5zbaRaSiiS6E3yPMdfsoFs+rKdS8NoTyT8MPMTFv2ielQ75Mw/J8RNq8v
-	UcZyrsVI/TXiL5ne+WH66OVmtruzOvZqazqUHsMqBpsaDQncZhjvg==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fehfnd-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 10:32:58 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69172bfA589720;
-	Thu, 1 Oct 2026 10:32:58 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h1aa7tf58-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 10:32:58 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691AWsGC51183886
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 10:32:54 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2326220040;
-	Thu,  1 Oct 2026 10:32:54 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D1A0E20043;
-	Thu,  1 Oct 2026 10:32:53 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 10:32:53 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Niklas Schnelle <schnelle@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Vineeth Vijayan <vneethv@linux.ibm.com>,
-        Peter Oberparleiter <oberpar@linux.ibm.com>,
-        Harald Freudenberger <freude@linux.ibm.com>,
-        Holger Dengler <dengler@linux.ibm.com>,
-        Stefan Haberland <sth@linux.ibm.com>,
-        Jan Hoeppner <hoeppner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH 21/32] s390/fpu: Convert inline assembly to EX_TABLE_INSN
-Date: Thu,  1 Oct 2026 12:32:36 +0200
-Message-ID: <20261001103247.1989111-22-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001103247.1989111-1-hca@linux.ibm.com>
-References: <20261001103247.1989111-1-hca@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mRIe2UAT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790850856; x=1822386856;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=xjVMW3aXX1KCF37mr2VmMH/GPb4/XV4kex/2mMgZ8vg=;
+  b=mRIe2UATDSdZaLmFvFN6OGLwz+5EIW0R/B+IYI79mYBa+/QlPOJNyjIQ
+   sTUCVRidPTXscavljCMnHbchDOfmdTrYuujAWVHxV/ixh2R1ExCC4DsEQ
+   EykxqelgOhSXggU+HSaIfd97ee0Eki/vupzllvVgSwWZ7LqfRVb15ZzFk
+   eJ0wjlvE3TCDIuBhpOIjanrXxyB46fRrGWOPEtMWKBkn3pSjrGHfRUTxh
+   FT89Pbs+UdOn/yXhvyyc5DGzpzFbUSEfriQLVz6OlEGp/hWsMjRDXCp/Q
+   Wm3hY4nxS+mD2Mc0FpQlR1dGFVH4FT9nMuJAQwWO5TwAKKSmvLdWBymxk
+   A==;
+X-CSE-ConnectionGUID: H11a5I/DQie8aIBLQSsMSA==
+X-CSE-MsgGUID: Yy8gKO7+QnG9F8Jgk+eJKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="113390217"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="113390217"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:34:10 -0700
+X-CSE-ConnectionGUID: 7S1VmvmGRveXsMyrE3BPbA==
+X-CSE-MsgGUID: Guu9ITM9RUmISY1TW2anfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="274044840"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:34:07 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B52BD121BA0;
+	Thu, 01 Oct 2026 13:34:03 +0300 (EEST)
+Date: Thu, 1 Oct 2026 13:34:03 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Cc: Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
+Message-ID: <ar43Gx4cm_bKLC0b@kekkonen.localdomain>
+References: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abe36da cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=xkwLvO81_lu8KS_w7AYA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfX+TUDiYrP6rgl
- 5yU9NgJCszVRpS1U9lRz7bciLBSW6pd9EwzwMKZEyr2bWa5ik8g5DiaFNJC4Qfv17BtAmGYnSOh
- HypbUXS2mggmPWIzdBFyoCDXZU3XGro=
-X-Proofpoint-ORIG-GUID: QmF1GZbOQW9RShx8_resS4q5UISLxfdi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfX6JOtpWPyKrxG
- iHq4KvPHWNOT+mX273u3eGbrHM4DlD4C26a/XjzQeP9IhJpnpfsq4ei3KE0tOrgukml1hpefBzF
- t8NT6HX0wOMZhd6hY8yOF4rwN4I0r5u2ZLxoMlSWau7gBwExUhzeA1zgYfDna/9nCruJ5FmyIv/
- VvIyGH343VV4wyLTvqxcfqRBsiEsCS5qcpkMJsM4q6qzTiXtRbyAXwlFXVSEKdUWKB8ESTYR+dW
- caxMkZMlPBvcsQSbQ9Mco1Z4bFMhuX8ckID4+ntSUX0HN7SbN6XLTkVUvfil0oUhHcb79sW6ClD
- dheifh58km7jk4KMlZu9kQ/ly8TsiNRs891LKH8yPGnB+wLx/ZMSh0uffQCsuZmtEUznDLmks0l
- MqA80t3xaCsnBGAyAwCZ9WhYrU6P2obeCHkSEb4Wk2sHVHEOkkT2jB7m9F5Z2YkafgAm2cZq2xN
- BR95y/aUOkbRd48MKdg==
-X-Proofpoint-GUID: QmF1GZbOQW9RShx8_resS4q5UISLxfdi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010040
+In-Reply-To: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
 
-Convert the fpu_lfpc_safe exception table entry to use EX_TABLE_INSN.
-With EX_TABLE_INSN entries always point to the faulting instruction,
-so nopr padding is no longer needed and removed.
+Hi Barnabás,
 
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
----
- arch/s390/include/asm/fpu-insn.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+On Thu, Oct 01, 2026 at 10:51:30AM +0200, Barnabás Pőcze wrote:
+> `risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
+> step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
+> to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
+> 
+> So move these constants into macros to avoid the repetition, and with that,
+> use 4 as the step size everywhere.
+> 
+> Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
+> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-diff --git a/arch/s390/include/asm/fpu-insn.h b/arch/s390/include/asm/fpu-insn.h
-index ae8b7033cfd2..eeb0a233d5c7 100644
---- a/arch/s390/include/asm/fpu-insn.h
-+++ b/arch/s390/include/asm/fpu-insn.h
-@@ -104,9 +104,9 @@ static inline void fpu_lfpc_safe(unsigned int *fpc)
- {
- 	instrument_read(fpc, sizeof(*fpc));
- 	asm_inline volatile(
--		"	lfpc	%[fpc]\n"
--		"0:	nopr	%%r7\n"
--		EX_TABLE_FPC(0b, 0b)
-+		"0:	lfpc	%[fpc]\n"
-+		"1:\n"
-+		EX_TABLE_INSN_FPC(0b, 1b)
- 		:
- 		: [fpc] "Q" (*fpc)
- 		: "memory");
+I already have v1 in my tree and I don't think there's a need to fix that
+tiny typo just for the typo itself.
+
 -- 
-2.53.0
+Regards,
 
+Sakari Ailus
