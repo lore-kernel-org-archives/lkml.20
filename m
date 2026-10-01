@@ -1,151 +1,297 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9623B37D11A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FEA4A64CF
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845365; cv=none; b=XjFyTC0271pqeV5BRHdpTj40WH14kCtErkS4yNoEZP1TQy67XBqJRVYaviwg4T2Btkk4+drxJ7mF3SRPct8M2jmLy6xVWWp1JGgvGD8d03ufhlugI1UBkcEXDhb44F4t25SVpmgEe/Mz1Xu4JR4p+wkYEQB5dBJayTw3J/+xhYE=
+	t=1790845380; cv=none; b=tON94+2/PQdkzqK13i4YFhwoTH2+wCWUWNLFLsQ3ZrpX/SJjHCPZJpXQ0bqPkLRr6Iq1+C0hfgwakZ2xFQaugHjjt4zOusENnnbmFQWYUP5J925zlqreUAS1/3E/yQ0mElrkmkcFUxlpHIDVMDM93OByAjFs2Wx563FtjBj1zm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845365; c=relaxed/simple;
-	bh=5cmWKzSSAcuDnCz4P29b0L8VSxjUUzHLXDvEWuOR9K0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mu2KFC4JSpkXPc3OMhkL/p5RB9VsxW12JT014wOsDL3u8RPP2vBXFi1aet4XIRVApU6tfzC7gQjQLeEr8a9oFzroS7ujS18xG4upqmS+T+KlCQtBL6IqU+Bprm+Yy0U29M1XY2z5951GjwB73CYuC7xkvgtNQztJOMqvK0lw/mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=R9gQUOxB; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790845380; c=relaxed/simple;
+	bh=GdwEpgAXRzdLPGLowuS38MRQbJCymEeH0/+Qr91J4hc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RdkY1ns60qUl6HavQowenPHuEBssZPwXmgc2sRf/PH2bDnjNXDIYO2DUxGEC28Zo4rTRVZgOqFyTuxb6aAAMWMWMmdfQK+Qfnrovy+UG4jeNlJTSmkDDtZkzN7Fs4JOxW9oK6hfwv68TX9yp4nh0mlMroYJ++wAvlJruU6iIQwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SRrbyHHY; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="R9gQUOxB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 10CAF4E410E6;
-	Thu,  1 Oct 2026 09:02:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D726160341;
-	Thu,  1 Oct 2026 09:02:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E8218103297EB;
-	Thu,  1 Oct 2026 11:02:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790845359; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=fmmywyAPks95sZtEVx0Myfsm2V1g8WhOEOmkPzK/9+U=;
-	b=R9gQUOxBkOy7kRVNS0EoQ+E5Ijc10tPbvnI2QIqJCXSDuoTz54EjalIwxsLBDjZNFhztSW
-	eQarkZnPyN7Kq50VxJa3D8ueei4X0spovokV6GBbz+7NPapPEV6bhghXOt+bt5YgiB/P5C
-	I0DKSgL70HVvoFzzl+fY+0gEqyhFoDLqLtaq4zac62a2boQ3pT/E+hnaEJPLHaj6hXON33
-	+N5IsDjx2gqhO6kUxf/KEU3g/ol+rYxItIj5KFtczBLoBhHPurfeCAbp6FXCwv2ZdBJsEB
-	E70KOmFt4fyDmPjQH+yBU7+wgkLOLGfyoP4+Zvfs/9CoTmIOS1B7DVHKC5J/mw==
-Message-ID: <a2ae9e54b60a6f11572ed85d1d92c866e143a283.camel@bootlin.com>
-Subject: Re: [PATCH v2 6/7] drm/vc4: dsi: stop using deprecated
- drmm_of_get_bridge()
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
- <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
-	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Thu, 01 Oct 2026 11:02:27 +0200
-In-Reply-To: <d247a15360eb3254ed1ae1f9bad859c3bb0b5c77.camel@bootlin.com>
-References: 
-	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
-		 <20260929-drm-fix-of_get_bridge-build-regression-v2-6-6da431d8f180@bootlin.com>
-	 <d247a15360eb3254ed1ae1f9bad859c3bb0b5c77.camel@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SRrbyHHY"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so5509808c88.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:02:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790845377; x=1791450177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mvGXiPiHpimUTJd3v9MQIw2AZILZ1+jCLyBE+b25BWk=;
+        b=SRrbyHHYbNUH4trURoQ5tTR6CtFKshAH9WfwsNlny0L3gt+iXM8i3wtvXuMffy99eS
+         Fg2gowljmiQqXON/ni1FesKLjk5cQAg9evadJkT4cb1DOvLlcdQE67XddaZpaOv0mGNd
+         ui3SSO0cSkruQA9BTCDVYhQqY7T6IfAQabKQqM6bxezYMruShY/8kZYAac/M9Zc6OknV
+         kYN+YtVgDG3Fipc06Br7+mZOQn5ao0PqGvntE3V4d+B6GeQjx8A1SJxmIcuEkUAlMymb
+         9oRymK7GLGaynxYVqlkKen9gfuSLjXVsqLqlkWFv/Grf7CHGsgs4uFHMVFj+EyTNvhb3
+         OGuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790845377; x=1791450177;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mvGXiPiHpimUTJd3v9MQIw2AZILZ1+jCLyBE+b25BWk=;
+        b=RVzwVIyjevCJ0H58bplciu3PXbcVTA+KcqtKdrbk9QceUp/OuyLeNGDES2G/8SlHMZ
+         RzKpF/A1ZLS41bXJn/oIKwvP76n2d+gjPbN6AKrb3P8KwE3qjrlJFqgJhF6oaHy2d0ro
+         hj9UBPllyZgCqxklyBo+V4ETAMCegJVNwkwE+JnwSzUPNBmrq2vbzALh5Kqtsv3wbUC9
+         MHUiYJCf7PzHePzDApXWh6QvmeGkmwPHZGUJjLFOK+Ra3DdRSaTc4ZnQqs9hYfDFGsfd
+         MzTlLu43XO9Oc/TBKYPG3pm9h2E3qb5iPl8RorhJWIjL3nDsZxyDL2zu27Oe0+cRGWyP
+         0AnQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAYp26bPhW1wEgjB59X3Pu93KwbmAgOk/6MwGWEeJ9Ya74mdsuCpjh2uQVrsST4UwM3saBusOE89LZl9U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mn4h3O/vzKTomxf/jTSlbgLB5Rii77s3p1eaNP24wprSx8bwZk
+	i07fst6xY28FljGV/DLtpL91X/KX2doLzJQcB1OR5m/0k6cDIex5TFXo
+X-Gm-Gg: AYBFou0E6wmgz6dJ2dQT7DgtDnLHqpZYqTk9p7ejZjMOXXwZOScq7vB/gpdO1GHHK77
+	szDgNrBlBBRzv5dW7jmqdOYYjkMDtqbY/dABlk4Qd5b+eHjAfSBzSBEE8RHZBxg6Q6Bnle7O5vZ
+	cdAHmnQDdASHz8bzz7watqnvFyGQ/B6uf8iiiPeBVBLMm/SuI8hEYEAVI45Vqz6NFjZ84gruEzB
+	1bUYw91F4LLj3Y7NBlMStf0gAurmSNnvGCt9moSs5WCyrh/xF87RiKAePE7ioA3VY7f5Uyj5HBR
+	PDxhrwY1C+8e52x1UHV9C6FGwMYDCpBzbbEUqbTb1KegNk7jjyvEh9PXsIuuB1Dkx9RrWhGbvu6
+	LwWVzV5nTZ0U918qtITUtG2Uyt6vctWRwUer9JOgxGEtIjN7t7OW9CvypqNIWiSmp4AavCReI2P
+	xs2sGTHGF13WfL+DEyXohs3WO28Avetv7olXOJ7xatehf16gbkghNkc/faDc3lepn8jiAYPzRWF
+	Z6fgISK2rLFag+aV/unVB/hs8G+K002KEviEZviSO8YKmeCOXgZrukjy6hmYA8i+PPOAxIfc8VK
+	zYuEMfSDnLOu8pMB7/Z12AYYV3iamy7L4d9nSZTSh1M=
+X-Received: by 2002:a05:701b:2810:b0:14e:9cd7:9324 with SMTP id a92af1059eb24-14e9cd796c3mr543230c88.9.1790845377305;
+        Thu, 01 Oct 2026 02:02:57 -0700 (PDT)
+Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14df40e8d49sm4659068c88.13.2026.10.01.02.02.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 02:02:56 -0700 (PDT)
+From: Anil Kaushik <anilkaushikwireless@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Harald Welte <laforge@gnumonks.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	osmocom-net-gprs@lists.osmocom.org,
+	linux-kernel@vger.kernel.org,
+	Anil Kaushik <anilkaushikwireless@gmail.com>
+Subject: [RFC net-next] netlink: specs: add genetlink-legacy spec for GTP
+Date: Thu,  1 Oct 2026 09:02:50 +0000
+Message-Id: <20261001090250.3395779-1-anilkaushikwireless@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Le jeudi 01 octobre 2026 =C3=A0 10:56 +0200, Paul Cercueil a =C3=A9crit=C2=
-=A0:
-> Hi Luca,
->=20
-> Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
-=C2=A0:
-> > drmm_of_get_bridge() is deprecated, switch to
-> > of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() ret=
-urns
-> > a refcounted bridge, ensure it is put by using bridge.next_bridge.
-> >=20
-> > drm_panel.h becomes unused, drop the include.
-> >=20
-> > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/vc4/vc4_dsi.c | 10 ++++------
-> > =C2=A01 file changed, 4 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_ds=
-i.c
-> > index 0148f2befed1..30598738cfcf 100644
-> > --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> > +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> > @@ -35,7 +35,6 @@
-> > =C2=A0#include <drm/drm_edid.h>
-> > =C2=A0#include <drm/drm_mipi_dsi.h>
-> > =C2=A0#include <drm/drm_of.h>
-> > -#include <drm/drm_panel.h>
-> > =C2=A0#include <drm/drm_print.h>
-> > =C2=A0#include <drm/drm_probe_helper.h>
-> > =C2=A0#include <drm/drm_simple_kms_helper.h>
-> > @@ -555,7 +554,6 @@ struct vc4_dsi {
-> > =C2=A0
-> > =C2=A0	struct platform_device *pdev;
-> > =C2=A0
-> > -	struct drm_bridge *out_bridge;
-> > =C2=A0	struct drm_bridge bridge;
-> > =C2=A0
-> > =C2=A0	void __iomem *regs;
-> > @@ -1165,7 +1163,7 @@ static int vc4_dsi_bridge_attach(struct drm_bridg=
-e
-> > *bridge,
-> > =C2=A0	struct vc4_dsi *dsi =3D bridge_to_vc4_dsi(bridge);
-> > =C2=A0
-> > =C2=A0	/* Attach the panel or bridge to the dsi bridge */
-> > -	return drm_bridge_attach(encoder, dsi->out_bridge,
-> > +	return drm_bridge_attach(encoder, dsi->bridge.next_bridge,
-> > =C2=A0				 &dsi->bridge, flags);
-> > =C2=A0}
-> > =C2=A0
-> > @@ -1749,9 +1747,9 @@ static int vc4_dsi_bind(struct device *dev, struc=
-t
-> > device *master, void *data)
-> > =C2=A0		return ret;
-> > =C2=A0	}
-> > =C2=A0
-> > -	dsi->out_bridge =3D drmm_of_get_bridge(drm, dev->of_node, 0, 0);
-> > -	if (IS_ERR(dsi->out_bridge))
-> > -		return PTR_ERR(dsi->out_bridge);
-> > +	dsi->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev-
-> > >of_node,
-> > 0, 0);
-> > +	if (IS_ERR(dsi->bridge.next_bridge))
-> > +		return PTR_ERR(dsi->bridge.next_bridge);
->=20
-> I had to double-check that it is fine to leave the .next_bridge field as =
-a
-> pointer-encoded error. It works because drm_bridge_put() handles this cas=
-e.
->=20
-> Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+The GTP (GPRS Tunnelling Protocol, user plane) generic netlink family
+has no YAML specification under Documentation/netlink/specs/, so it
+cannot be consumed by the ynl tooling used for user-space clients,
+documentation and selftests.
 
-Actually scrap that - I missed Sashiko's review which found an issue I had
-totally missed.
+Add a genetlink-legacy spec describing the existing family: the PDP
+context management commands (NEWPDP, DELPDP, GETPDP) and the GTP-U echo
+request (ECHOREQ), the GTPA_* attribute set, and the "gtp" multicast
+group. The spec is derived directly from include/uapi/linux/gtp.h and
+the gtp_genl_policy / gtp_genl_ops tables in drivers/net/gtp.c; command
+and attribute values match the existing uapi one-to-one.
 
--Paul
+This only adds the description; there is no kernel code or uapi change.
+
+Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
+---
+ Documentation/netlink/specs/gtp.yaml | 170 +++++++++++++++++++++++++++
+ MAINTAINERS                          |   1 +
+ 2 files changed, 171 insertions(+)
+ create mode 100644 Documentation/netlink/specs/gtp.yaml
+
+diff --git a/Documentation/netlink/specs/gtp.yaml b/Documentation/netlink/specs/gtp.yaml
+new file mode 100644
+index 000000000..7193f5e53
+--- /dev/null
++++ b/Documentation/netlink/specs/gtp.yaml
+@@ -0,0 +1,170 @@
++# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
++---
++name: gtp
++
++protocol: genetlink-legacy
++
++doc: |
++  GPRS Tunnelling Protocol, user plane (GTP-U).
++
++  The gtp netdevice encapsulates and decapsulates user plane packets in
++  GTP-U tunnels (GTPv0 and GTPv1-U, see 3GPP TS 29.060 and TS 29.281).
++  This family manages the PDP contexts that describe the tunnels and
++  triggers GTP-U echo requests. It is driven by user space control planes
++  such as those built on libgtpnl.
++
++kernel-policy: global
++
++attribute-sets:
++  -
++    name: gtp
++    name-prefix: gtpa-
++    attributes:
++      -
++        name: link
++        type: u32
++        doc: ifindex of the gtp netdevice the context is attached to.
++      -
++        name: version
++        type: u32
++        doc: GTP version of the context, 0 for GTPv0 or 1 for GTPv1-U.
++      -
++        name: tid
++        type: u64
++        doc: Tunnel identifier, GTPv0 only.
++      -
++        name: peer-address
++        type: u32
++        byte-order: big-endian
++        display-hint: ipv4
++        doc: |
++          IPv4 address of the remote GSN peer (GGSN or SGSN). Also known
++          as GTPA_SGSN_ADDRESS, kept for legacy user space.
++      -
++        name: ms-address
++        type: u32
++        byte-order: big-endian
++        display-hint: ipv4
++        doc: IPv4 address of the mobile subscriber served by the context.
++      -
++        name: flow
++        type: u16
++        doc: Flow label, GTPv0 only.
++      -
++        name: net-ns-fd
++        type: u32
++        doc: File descriptor of the network namespace of the gtp netdevice.
++      -
++        name: i-tei
++        type: u32
++        doc: Ingress Tunnel Endpoint Identifier, GTPv1-U only.
++      -
++        name: o-tei
++        type: u32
++        doc: Egress Tunnel Endpoint Identifier, GTPv1-U only.
++      -
++        name: pad
++        type: pad
++      -
++        name: peer-addr6
++        type: binary
++        checks:
++          exact-len: 16
++        byte-order: big-endian
++        display-hint: ipv6
++        doc: IPv6 address of the remote GSN peer (GGSN or SGSN).
++      -
++        name: ms-addr6
++        type: binary
++        checks:
++          exact-len: 16
++        byte-order: big-endian
++        display-hint: ipv6
++        doc: IPv6 address of the mobile subscriber served by the context.
++      -
++        name: family
++        type: u8
++        doc: Address family (AF_INET or AF_INET6) of the context addresses.
++
++operations:
++  list:
++    -
++      name: newpdp
++      doc: Create or update a PDP context.
++      attribute-set: gtp
++      value: 0
++      dont-validate: [strict, dump]
++      flags: [admin-perm]
++      do:
++        request: &pdp-attrs
++          attributes:
++            - link
++            - version
++            - tid
++            - peer-address
++            - peer-addr6
++            - ms-address
++            - ms-addr6
++            - flow
++            - i-tei
++            - o-tei
++            - family
++            - net-ns-fd
++    -
++      name: delpdp
++      doc: Delete a PDP context.
++      attribute-set: gtp
++      dont-validate: [strict, dump]
++      flags: [admin-perm]
++      do:
++        request: *pdp-attrs
++    -
++      name: getpdp
++      doc: Get or dump one or more PDP contexts.
++      attribute-set: gtp
++      dont-validate: [strict, dump]
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - link
++            - version
++            - tid
++            - ms-address
++            - ms-addr6
++            - i-tei
++            - family
++            - net-ns-fd
++        reply: &pdp-reply
++          attributes:
++            - version
++            - tid
++            - peer-address
++            - peer-addr6
++            - ms-address
++            - ms-addr6
++            - flow
++            - i-tei
++            - o-tei
++            - family
++      dump:
++        reply: *pdp-reply
++    -
++      name: echoreq
++      doc: Send a GTP-U echo request to a peer.
++      attribute-set: gtp
++      dont-validate: [strict, dump]
++      flags: [admin-perm]
++      do:
++        request:
++          attributes:
++            - link
++            - version
++            - peer-address
++            - peer-addr6
++            - family
++
++mcast-groups:
++  list:
++    -
++      name: gtp
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 51873349b..a6e43995e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11421,6 +11421,7 @@ M:	Harald Welte <laforge@gnumonks.org>
+ L:	osmocom-net-gprs@lists.osmocom.org
+ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pablo/gtp.git
++F:	Documentation/netlink/specs/gtp.yaml
+ F:	drivers/net/gtp.c
+ 
+ GUID PARTITION TABLE (GPT)
+-- 
+2.25.1
+
