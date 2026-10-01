@@ -1,102 +1,92 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FD648664F
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B93F3E4C7F;
+	Thu,  1 Oct 2026 06:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837104; cv=none; b=VrFd8p417m/7aOHmxd3oAcjY3Wu8rBMjAw7fUO8TK4lIj82w0ZD0nuiyZqdPo1zxItcLZaZ/rZ0MAGL3ybpfowHxkPraVRGuK8pNQ9kL/deaJtzsWR7kuXLjPKsgKQmk/UMJEkdpkWPkYgdnAfX3ei21kEm1tl2eDl6RgkGVUm4=
+	t=1790837132; cv=none; b=Ii2KtdhP/mS4usVfoM7VTTHF+gu0XKCPpLWveSMapr418/GIZ0tZ9VoDhsuMmnQTiaYtbSuPp/SPL6MstJIWUxRZ+oOrSjs51aP+QRdf8tNQMZDJBACXkJ5Pe3izRg/VsdRKhgbi7wk9meRAqnvqkFUKEK4r02OP8h5cuBcIRLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837104; c=relaxed/simple;
-	bh=votCEGmz1dBqut4kLOHSiZQ1DnWpjQ6Ww8QiJ9avmvI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=KaMX2zolKXe+Ngp3hfbfPmLHuhGe4qOsBXuGajyH243nWIUmu9EOwxRDQQ9Lp9CSVIs/MQwbgXNHQOfh0HXQiEqbVx4k7JhuGjp2/2U+q4AH0HSsrUT3MjVYHmW9eGvN34QYsEhFPkNSS37Tv8zl9QvnrAF18+8fgryjyitym50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HJmJel3W; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790837132; c=relaxed/simple;
+	bh=b8SsPNCMf2P/rDCw8LMLQ920RO5dT0DnJ5JXyQUF93s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bxduvlkFPlm8dD0tG2+pm9zuGDgDSinfPWIl8m2OvVpBMLz66Y8h40awBTIZIB73iKCJMIYWdRKe8Zd4pwhd7j2Yt6ekcCai6ywaU8H8mP8aOxXPVuqKIoRPrN6cW3er04CVYfQPc3P4TM7luOMCql01hpm2Ua12H0MAcQHh82w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tOuix7vT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HJmJel3W"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so12185585e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:45:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790837100; x=1791441900; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D/97GcaHqO60C3xOpYaJJL73vz2EyjukQ0UgEJCJAEY=;
-        b=HJmJel3WoK5OchmHOkR2yPOuzl2NiK7u32P+PTnbyc2BHWZ5XpvTeyKlZY1U6aiJkl
-         +ggLcU+TWlIyIHc3PHxIONXfG5wnGBUI9dABIZAus3+ivJX1S7Lw9Qyr1XTb3XZlyvgJ
-         G5YYsADwey4VxLgTGVNtAwRxZygYNay7gD5Q7Q3vR2OBkSmqsvGDr30Rq4qjBppgARmh
-         1Oc9vdEoMCPyvT8gmHOVzfY307OjsC/HImvdWdh1DtYev7qmr58UpkPAEoXAW4RkQ2Sa
-         cTObtL3KghgU+Aj1HSz9m1eiOTQjUYklNIgOW+Fxxd+0ySxE6DJqe4H/fDD4+H85SWQL
-         p+cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790837100; x=1791441900;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D/97GcaHqO60C3xOpYaJJL73vz2EyjukQ0UgEJCJAEY=;
-        b=Hy1b8iliSqFNgfQAVj5nbuEyxnCeqLBlqYkMyurM/yH0V6t8NFT1jIvqk08+CnKfGE
-         xck4o8CdclLgUT8dXRTC09NURiEyUcXRy9w2XapHk5fcDk7quoltZs/juBMUwEBt3JGi
-         AOtwHX/ciHoSw2qeLtRQZbT+iYFCfAm4LYPQ5Yc1TmaUTX6A0E5miVTWbbYbbtgCGP8B
-         TwS6EKgijDWLLhmLJP/3BmhG8+NxrXAuqhXEuuovBfvJL2kbA92MDtY/u7dbIWZwPx1J
-         G42/hAnI8qvUjkL9XDShb0VyLG/SMH+2FQIukBnOan656Hgysw3WGdEMQ9QAdGtp41yy
-         aZxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfHz9WO0cQjydIy4Wgf0FK/C3iHW1QyM6Q4AX2qortuZ+Enb9fSTmD3+BUjdXbolGaOQzQOnjQGQVivP0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2TPtKCzQFjleN9JBQHs2v/kLbmQj/XjJGIg3cpe9XfjjV0s6H
-	faeiKqkUvrnQ/FLO//oYc5H58/RziMFWvFHrSeQYA9AzvMDmDSyZiH1p
-X-Gm-Gg: AYBFou02O9l49x4XGEpm3CKQKvealwTfSKAiItQczO/Hm8eH1r01M8OfwxyOKggAxFW
-	tGI/MQ16JoQnnAyT7jIgYZXMS04NgyrItIzB+GZuh8hNX9V/ld8Vu+1Z5+xjSm2qrG2qDLKVdYC
-	w/i3+EtJlZ+e6GUFcVfhU0BgP8U80AcL0maJRESbr1Bc7J/q3omFA8duSLveR6e1KyMeacmhTUv
-	sb7sISkZ4tS7yTo5RajSD1ODx2IDsv5b9AwKLAHtboGpBvoo02W862vOBXY5LYt4ryewpcClO4M
-	Vut6kT4qNyNSTGf3G0J5N9wYxbvfFMEjyI1SJ9z5emctEM4hHu7pqf6Un81k1f3w5gxEwZqmd7a
-	1tEP8J/v8siNn+a5cV0CplBF+Rw2SbOCbBly8FCXHbxDDo59EXIlKl6eBKSbHXBUabUmXyO0RKh
-	udG287nte3KtnW2OFi/UUhen1U+Gim4xgQhSbwSN96oviMIQK+eJ8NQ0kqrYQD+YEDIOTz
-X-Received: by 2002:a05:600d:864a:20b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a01eaafdb4mr22604095e9.0.1790837099925;
-        Wed, 30 Sep 2026 23:44:59 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f99a332sm86476875e9.12.2026.09.30.23.44.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 23:44:59 -0700 (PDT)
-Date: Thu, 1 Oct 2026 09:44:55 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Alexander Aring <aahringo@redhat.com>
-Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH] dlm: clean up a type in waiters_read()
-Message-ID: <ar4BZ26gjQEjZgIa@stanley.mountain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tOuix7vT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 15CBEC2BCC7;
+	Thu,  1 Oct 2026 06:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790837132;
+	bh=b8SsPNCMf2P/rDCw8LMLQ920RO5dT0DnJ5JXyQUF93s=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=tOuix7vTkez/ygZOiuvvstV+9lwyEQ7zqxJkeQypyUoU9UhZNsPTx9vcISAFWY4fJ
+	 RFfA/5QoaB7gR/Y/Q5+Rbkwfi9s/RT4fV9z0h2Vm7sc0P3pBo9hr64piTstPQzRS4z
+	 7qVlcTEbzuK/aAEetbk0cdioGNlgteHgYSokmT4xXTdaAMr9+w7mxP6aDc7eoo3Vmv
+	 FZixf5zy5Va8ILaBv9uzDQzmzHnKj3N2w2JAj/j1mISVqWxZgOTFwH82fNJnS/ykub
+	 RlKajVnNz4QJOkGthsf2z+TLFkXLsaluRSta+fG7ma1+ev2ReC++qO31Ogzj89tMs+
+	 pMes3NR2QaUsQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1277CA5FC5;
+	Thu,  1 Oct 2026 06:45:31 +0000 (UTC)
+From: Wayne Ho via B4 Relay <devnull+wayneho219.gmail.com@kernel.org>
+Subject: [PATCH 0/2] Documentation: ABI: leds: document shared trigger
+ attributes
+Date: Thu, 01 Oct 2026 14:45:10 +0800
+Message-Id: <20261001-docs-leds-abi-trigger-attrs-v1-0-54f0529bf0f6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMAyA4VeRnBdoe5Dpq4wdahO7DNGRdCKI7
+ 27njt9/+HcwVmGDvtlBeRWTZa7wtwbSK86ZUagaggutd84jLclwYjKMg2BRyZkVYylaS3BMXdv
+ dPRHUw0d5lO26P55/23d4cyq/JRzHCaHdwIp/AAAA
+X-Change-ID: 20261001-docs-leds-abi-trigger-attrs-a20ed96981dd
+To: Pavel Machek <pavel@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790837130; l=1201;
+ i=wayneho219@gmail.com; s=20261001; h=from:subject:message-id;
+ bh=b8SsPNCMf2P/rDCw8LMLQ920RO5dT0DnJ5JXyQUF93s=;
+ b=F+x7/1B3ov1YqCJCzfEEzKMhgItTkQNGQ0b/IDpf9DkVqSKxhvucxbt8ic3WNvVR8e8gf4N5G
+ BA/7qNrz+G8AH+MxOa+qs8xE9bobh5FfM7+Qd/AAKPY/1uThVCBoZH+
+X-Developer-Key: i=wayneho219@gmail.com; a=ed25519;
+ pk=j25LRSikYRlv0PpovZSgSrCQwsy7WDzIYum/mydUa3A=
+X-Endpoint-Received: by B4 Relay for wayneho219@gmail.com/20261001 with
+ auth_id=1093
+X-Original-From: Wayne Ho <wayneho219@gmail.com>
+Reply-To: wayneho219@gmail.com
 
-This doesn't affect runtime but "rv" stores error codes and so
-declare it as ssize_t instead of size_t.
+The delay_on, delay_off and invert attributes are created by several
+LED triggers, but only the oneshot variants are documented. Adding a
+separate ABI file per trigger would make get_abi.py report the same
+sysfs path as defined more than once, so patch 2 moves these entries
+to sysfs-class-led and describes each trigger's behaviour there.
 
-Signed-off-by: Dan Carpenter <error27@gmail.com>
+Patch 1 is a small preparatory fix: the existing inverted entry still
+mentions the gpio trigger, which no longer creates that attribute.
+
+Checked with tools/docs/get_abi.py validate (no new warnings) and
+scripts/checkpatch.pl (clean).
+
+Signed-off-by: Wayne Ho <wayneho219@gmail.com>
 ---
- fs/dlm/debug_fs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Wayne Ho (2):
+      Documentation: ABI: leds: inverted is specific to the backlight trigger
+      Documentation: ABI: leds: document timer, heartbeat and activity attributes
 
-diff --git a/fs/dlm/debug_fs.c b/fs/dlm/debug_fs.c
-index 700a0cbb2f14..f52a51b1382a 100644
---- a/fs/dlm/debug_fs.c
-+++ b/fs/dlm/debug_fs.c
-@@ -596,7 +596,8 @@ static ssize_t waiters_read(struct file *file, char __user *userbuf,
- {
- 	struct dlm_ls *ls = file->private_data;
- 	struct dlm_lkb *lkb;
--	size_t len = DLM_DEBUG_BUF_LEN, pos = 0, ret, rv;
-+	size_t len = DLM_DEBUG_BUF_LEN, pos = 0, ret;
-+	ssize_t rv;
- 
- 	mutex_lock(&debug_buf_lock);
- 	ret = dlm_lock_recovery_try(ls);
--- 
-2.53.0
+ Documentation/ABI/testing/sysfs-class-led          | 73 +++++++++++++++++++++-
+ .../ABI/testing/sysfs-class-led-trigger-oneshot    | 29 ---------
+ 2 files changed, 70 insertions(+), 32 deletions(-)
+---
+base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+change-id: 20261001-docs-leds-abi-trigger-attrs-a20ed96981dd
+
+Best regards,
+--  
+Wayne Ho <wayneho219@gmail.com>
+
 
