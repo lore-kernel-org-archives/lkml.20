@@ -1,36 +1,33 @@
-Received: from mta0.migadu.com (out-149.mta0.migadu.com [91.218.175.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED2441611D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE653FF1A9;
+	Thu,  1 Oct 2026 10:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852058; cv=none; b=YpTd3xW8vWlqvjkg8ZF1l7Fru85Oy8nLrBc9QLSgMttCtSWEf3rJamk+S87ueGM/nNQsIC04as1FuWuLkaMSNSkkrGs2lJztxjskhwyh939CR2fqcwDlEOF2ydwCb3TBKU0WrBg2FZGnWtJDTqWdp61qZeI+WTbZJ21zYOP7bdo=
+	t=1790852072; cv=none; b=qX5g7q7Rc9f9ViNhCv7haV+lei+3E3fv37ZcKoPG6QAc7oIybrpjLdbtTNF37oK96zsFyR9AwQT5/sLKTpMMFamiCNPS6iHSxCTScwi3YiW+FMUFnxw8ODNKby+oVp71tiijcK80mzbncE2MNtJjVJOy02XW4jNaVvMhwWVaCFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852058; c=relaxed/simple;
-	bh=PdIdCaC9+u6xQjIon2IGfrMBc8e7uESlYGA7i1+zusA=;
+	s=arc-20240116; t=1790852072; c=relaxed/simple;
+	bh=bh6K6HDciC6POiG/no12b5OcCPyjonPt6pds/xyzlZY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lr/j35UOeOBU8/tw5Wv5KQSeE9QT3doiZi7QXZZ6mSBDBAUOHVhGTsze1XMR5lxUu2fV/esqZ7ZsWOnV7J44GxYKpdNcG6lDu4JUe8GNZqEJgNYDFIOjJCP/TTnTMGo/tmoYA98xhG82UbW5PBQq6kGN7r+F25U2HHL90b73AxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z/JaLTVr; arc=none smtp.client-ip=91.218.175.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=EbLKTnm+qN2MrDWLajLUy5Momw29kbeZ+opUgLGjVZz5cnYqcHUaK07S6CUmBtH+LqhYfKSlM8daB02OFUegFMDIFTIY+IJCIh6OWzeOAF1lJ7mlumdcuK9vOZev6IRPbM8eQlJLUW0dVvkfPOZaXFxSZMd985WFhl+qCcfRsno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+oM44gq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z/JaLTVr"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PdIdCaC9+u6xQjIon2IGfrMBc8e7uESlYGA7i1+zusA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790852054; v=1; x=1791456854;
- b=Z/JaLTVr5PHin13JPNCSwXnL+7f/38OCSQ0r8BVDFDZbNN5ZGroKaliR+nByF9hGVhjVrGrc
- XgK1N5XamYPdEr3bym/O+6QP6DMNDL6y4WiyvAbo5qAVDIZs+aDNrozqVZ7HgOHCkImd+TOheZ1
- GjlAIL2DEz0w9rW0TQzIOcRw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0d1059f48ad0f9d0;
-	Thu, 01 Oct 2026 10:54:14 +0000
-X-Mizu-Trace-ID: 0d1059f48ad0f9d0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0ca6ee6a-020a-4705-8323-d524a813d3b5@linux.dev>
-Date: Thu, 1 Oct 2026 12:53:07 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+oM44gq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F131F000FF;
+	Thu,  1 Oct 2026 10:54:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790852070;
+	bh=aA5+KUvXhlWCHJtSM04hRod0BwqPg5dVCGPChHmxQ64=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=A+oM44gqAYtQIxMXkPx3vuoESBuPYWQv90ZRpAAmF/k2fw72YwnvZU9sAwYzrF5ol
+	 rkZeB2mLMSbAIHg0MmKlEMev7WicLbHN2AXJ6HnRVnWJRG5s9copv4G1it0PkygtXR
+	 sqdevmRv6fDk8KcOXg1ckPYQhxld0P7g85MtBWlb76ldKs6pG7jlrb7SrdQnTl4I2Z
+	 EjFWA5oxsTwuJ5bsIBsJR+jQlLup3RVP7CGfqgwF4ieRFcf9zAFPJCMF5RgiO7JBeJ
+	 naCFF4fS4WBY4K+8rGVdxnw9btIGppzKqrDIK8rCBFdCSuTMpQj0ssddunds7v1PRj
+	 vnqKMlJhVjF+w==
+Message-ID: <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org>
+Date: Thu, 1 Oct 2026 12:54:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,55 +35,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] soundwire: qcom: add multi-master support
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- robh@kernel.org, vkoul@kernel.org
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
- yung-chuan.liao@linux.intel.com, prasad.kumpatla@oss.qualcomm.com,
- jingyi.wang@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
- quic_srivasam@quicinc.com, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <20261001093806.634862-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261001093806.634862-3-srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
+ with MPOL_WEIGHTED_INTERLEAVE policy
+To: Zi Yan <ziy@nvidia.com>, Gregory Price <gourry@gourry.net>,
+ Li Zhe <lizhe.67@bytedance.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ rppt@kernel.org, mhocko@suse.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ ying.huang@linux.alibaba.com, apopple@nvidia.com, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
+ <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
+ <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
+ <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20261001093806.634862-3-srinivas.kandagatla@oss.qualcomm.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On 9/30/26 17:10, Zi Yan wrote:
+> On 30 Sep 2026, at 10:50, Gregory Price wrote:
+> 
+>> On Wed, Sep 30, 2026 at 10:02:23PM +0800, Li Zhe wrote:
+>>> The use case is closer to the second one, but the main motivation is not
+>>> only startup-time performance.  The more important point is that each
+>>> workload has its own DDR/CXL budget assigned by the workload manager.
+>>>
+>>
+>> mempolicy is the wrong interface to do budget policy, you'd be better
+>> off looking at Joshua's memcg tiered node solutions for that.
+>>
+>>> MPOL_WEIGHTED_INTERLEAVE is useful because it lets new allocations
+>>> follow that per-workload budget from the beginning, instead of placing
+>>> everything on one tier first and correcting the placement later. This is
+>>> important for workload orchestration because the workload starts from a
+>>> placement close to its assigned DDR/CXL ratio.
+>>>
+>>
+>> This however is reasonable to me - you'd prefer to spread out the cost
+>> of initial faulting placement explicitly, rather than simply take
+>> fallbacks when the top-tier budget becomes pressured.
+>>
+>> i.e. w/o interleave:
+>>
+>> [node 0       ]
+>> ^^^^^^^^^^^^^^ alloc until full
+>>                 vvvvvvvvv fallback
+>>                 [node 1          ]
+>>
+>> in this scenario you end up with considerable hot memory
+>> on the remote node consolidated in time-space (everything
+>> allocated after node0 becomes full skews heavily toward
+>> node1)
+>>
+>> Tiering then likely takes many faults to rebalance after
+>> you've already reached node0 limits.
+>>
+>> w/ interleave
+>>
+>> [node 0                                      ]
+>>  ^^^vv^^^vv^^^vv^^^vv^^^vv^^^vv....
+>> [node 1                                      ]
+>>
+>> In this scenario you do an initial fill distributed by weight
+>> and then let tiering figure it out without consolidating all
+>> of the pressure to the point where node0 has no space left.
+>>
+>> That said - this seems like mostly an initial-fill problem, after
+>> you initially fill your memory, a new allocation largely implies
+>> the memory is hot - and you probably prefer that to be local.
+> 
+> If this is a initial-fill problem, can userspace set weighted interleave
+> initially? The program or harness can observe memory usage of the program
+> or related NUMA nodes and switch the policy to numa balancing via
+> set_mempolicy() or mbind() without MPOL_MF_MOVE after certain threshold
+> is met?
 
-> @@ -192,6 +194,13 @@ struct qcom_swrm_ctrl {
->  	const unsigned int *reg_layout;
->  	void __iomem *mmio;
->  	struct reset_control *audio_cgcr;
-> +	u8 num_lanes;
-> +	bool is_dependent;
-> +	struct qcom_swrm_ctrl *peer_ctrl;
-> +	u8 peer_first_lane;
-> +	u8 num_peer_lanes;
-> +	bool is_primary;
-> +	u32 peer_dpn_offset;
+You mean: use the weighted policy initially and then switch to a NUMA-balancing
+one which doesn't involve the weights anymore?
 
-nit-pick: do you need both is_dependent and is_primary? One would think
-that a single variable would be enough, no?
+That makes more sense to me. Although I struggle to see why an effectively
+"let's put random memory on slow and others at hot" is a good starting point to
+later let if be fixed up by actual balancing/tiering.
 
-also without context it's hard to understand if lanes are independent in
-terms of transport or not, not sure what 'peer' means in a multi-master
-setup with a primary controller and N dependent ones? Code like this
-function below is a bit cryptic...
+It all sounds a bit hackish. :)
 
-> +static struct qcom_swrm_ctrl *
-> +qcom_swrm_port_target(struct qcom_swrm_ctrl *ctrl, u8 port_num, u32 *reg)
-> +{
-> +	u8 lane = ctrl->pconfig[port_num].lane_control;
-> +
-> +	if (ctrl->peer_ctrl && lane >= ctrl->peer_first_lane &&
-> +	    lane < ctrl->peer_first_lane + ctrl->num_peer_lanes) {
-> +		*reg -= ctrl->peer_dpn_offset;
-> +		return ctrl->peer_ctrl;
-> +	}
-> +	return ctrl;
-> +}
+-- 
+Cheers,
 
-
+David
