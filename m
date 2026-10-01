@@ -1,128 +1,145 @@
-Received: from mail-pj2-f37.google.com (mail-pj2-f37.google.com [74.125.227.165])
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EA83EEAE5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5AD4071E2
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873425; cv=none; b=Kn0vUg6zafohM+fEMKmzUxvY0CAxKfBeec5Lafaocf654gk9m6A6R7Gj/vx9ZQKzpUbGTtE5J07ez95usSwh+yxfHkT902hKConj813RfVIQbP8ohd9oT4Eqq326vjM/f4YhM74F/8UQR95dXabCbda03Zf1n12dih0GKpUfaek=
+	t=1790873432; cv=none; b=YkMqh9J9zX+AWIdnKSLgTqQay3WTnnrQtcln/Ow3TExSIcmYpQmvJwaecHTECgiWCN8lh0JdEL1WTm5FNUWl1GQujMDPP3Y7rIKURbr3Pi5clDjs8S8Svk54DYbqROwAuT82byyyWNS44TxpoEtlp1aGix52IEzOy1zuvEYeb5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873425; c=relaxed/simple;
-	bh=QSJ24e+pWCyCXE2eunfAAcOCjCU6zm7GnfTg2Wfuq/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kdVRMWMXOqMvrqGgMvza6v31sDrkAPyILwYuD6GtJHX985266wYFDg581oA5OnvbBIlOoLY64msqppu6K2tYdtepMOVmk+lsf4R6c5CKLc+FVrYkMe/oJP/4jCReGHS7o4zWwbmUVfJCX2vn6kzdm9RAHavakIv445k+lBZCBtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UmKwXGLg; arc=none smtp.client-ip=74.125.227.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790873432; c=relaxed/simple;
+	bh=IAbinRZ4M2KzXcg7hPHU5CD2uG7geyCSf3b1AVvQO/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tll1S/MgEP+xp9kgG3U+UdgUaaLsm8KGezEVfXxBa620SdVajkFbhF2ClyvLPqIZ9x7R6Jh/khUsfJox9axu4z2LdGuofrp3kU9DnpCwpvqAAWmBidhCGw7AI7Ytdf/jv2+1NDgEsXe6jQCceZw5h9XL5AvIeJP/MIAq6ZzgF/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NyevcLBS; arc=none smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UmKwXGLg"
-Received: by mail-pj2-f37.google.com with SMTP id d9443c01a7336-2e300fa474aso6963515ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NyevcLBS"
+Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8ac8c533385so17999497b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790873423; x=1791478223; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tgVV1+ohgrdPmnn55ueLtzmq5w92i8+bjyV4Zdoclo4=;
-        b=UmKwXGLgw/ksufPxGB9bMgTzjFg8nUQgvbj0iFRgila75MA1lGxQyTHetAqE1JjK5X
-         Zp6e7zn1NQk2lTPcIiRfqdI4sSp+fPGsbeFTnMH0Kdsxlu/1Mao8OQEQHF1AJqn/ENhD
-         aMX3QGYdgYIpZrLlZEaQNRQxLxaXXYJSNQD/Rz78BN5HN+xAIkLCWviIbS+QbVptzftE
-         lcpaIUE1Im5m9yKsE9UgILGKIsPMcf3xXVw9cllVvv8MB4NVROXJsXgf81F1qdE1sWnO
-         XHGLzteYpkvz0l1OTkZpYW8/YRcMDPbZhXbSjJZTxi4z1MmIcEbm38WIh9Z3wsYtiPqD
-         fePA==
+        d=gmail.com; s=20251104; t=1790873428; x=1791478228; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bcyczTOyFmQGlJUwuQpp24xK4T1DNmb0t8/SWaJX2jM=;
+        b=NyevcLBS5Zj3NXNbDbXJkmgK09XwefSCsO1W7TUbAqa+sDazvTB+87DUAcK9uIDKUA
+         o+0gQ9oljn/miwmrcDLBoAI1E3CQsipfqK9fpgFfqt5q1ZX0h2kt4SeI460RUZHAn5JX
+         J0yBLOOsVJdNDj1qOT+8Eo2M4FII5ud/Bb8OtIDtN2iYxY8nyR6Ghr9PUu9DiQNq67qc
+         VOUoZ42cHrTo68IMg/RVhnbGyOmy5kbpl/DkO43ZXTdWR7ZoBCsCKEjCzNqfryQnQh4O
+         N8KYDsY8dQXobXmXaCrv8ovqFkKn/I7VlFXxZ3A3vEggCua7tGvKLNqJ6M+K4Xuii5hY
+         Xa2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873423; x=1791478223;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tgVV1+ohgrdPmnn55ueLtzmq5w92i8+bjyV4Zdoclo4=;
-        b=KK13W5Mmz2mSi5UH8QZsAYliRA2jdBQ9hqICTQAFKjbtqW5rhH541094ewFfAKoqJy
-         wHdmOO+230g8bBZ608kDLjufIFzIsVaB/+wWo1R9ItYb64v0aZ+R275U/jd5xz1aiWx5
-         omh3dDI88TSrCSgj9b2KIMzA/qH35Boj+7krzYPVolZYIMAiQb3NLkdaXI3jJxfYFT6a
-         xqxV6ba/8UXlvAeCpwEIp4xd6/W7IEsuusKXPYYpejnFv6nI1YQyUx67J0mPNlpm2b5i
-         7iNzRNqXXqM6Tk5i9+ELa9qKAQrf1KeYo/nVtmR4WPS89jpypMbdzuOXidzggTZDvo/I
-         a8xQ==
-X-Forwarded-Encrypted: i=1; AKwUvByI0fRy5+uwLvMcbntvoO3XNOusaJO095mKolYCMqPPvsUoRNM9zoF5dRajokgZd3zkUoTM7pDl2IRavNk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWkMaCKLFNxyjO8R9rvVudaN8CRbrLtvk48ueool0Q/eAIsPNY
-	4h8R1BiX0k6GwpqPHACpCk4XZ43ILV111vb1jgde+/g3UtgG4lRuzHvCUgOAv8fUaMc=
-X-Gm-Gg: AYBFou3vuAzu2v1pQqzW9fiQ+FeMieaEI6E9ua1JnIO6lt+RCes+ILwR8qE1wY/QsNf
-	kN5smOvG/HwvONRM/bfnGtWp+pH6HRG7P5LvlCfPGJTVNWOsPO0cUI7Nxp39llZAQscSc6TMd+I
-	D02fgQeAJkWVFOLibg3Qkmbgb7W+7PXnEs2jEOFts7KckMQJBeNaFIUqi3c9bINpL0vgq++p4l8
-	n+dQcxFHhXpMo6+jftLUAgdbYwS/tgXGWJeCW7NXwzGqzIg5QbArFBX0i1ld5LEpy+n2fTn7RI0
-	G3rHOs0dqwKD2w8hoozU7Covw4D7T0+RhxVjm7YpLZ2pB10x+gwk73oNNxho1nJr/TIz2btpPEQ
-	kWOJfFccWTNLQ+iyROTVjP1QQlZlF6MBc1xAhvMcx2tw7hYe0vZW3cx+ZYR8k1CYpFkUUIiE8/c
-	6TDye3ai6gzb4J9hYZlAF127Q1eDpiVELHR21BssHPkvqevJj26RG11xBu0EuI0FfduxOwAP7q6
-	Q==
-X-Received: by 2002:a17:902:da91:b0:2df:83ce:724f with SMTP id d9443c01a7336-2e49b615cf2mr386185ad.30.1790873422943;
-        Thu, 01 Oct 2026 09:50:22 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:75d2:ead5:9c07:75b9])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e30099a3e5sm13724245ad.24.2026.10.01.09.50.21
+        d=1e100.net; s=20260707; t=1790873428; x=1791478228;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bcyczTOyFmQGlJUwuQpp24xK4T1DNmb0t8/SWaJX2jM=;
+        b=S9hM/8sNtFwx5Nx0eH5TQBaeZ4t2M/N31xdhmj+2IW71hCA16D5pDrbdBJqd/pOjUS
+         jm7pyG8AJevbpZEXrkEcCS85Mf8HsqNyNerKOW+8T18aYR7zdif65R2aTZg8BF/0Cnbw
+         ZIjnwpVCMTijK6D50YVTOFuQe4CAdYk1CtXMEsw6jgB6Vepx8GZ0A1JwVijgeWT3fJai
+         2h5tSOAPicboSb+wqCXKA3N/utQKWnlqnPWlbwomzCDGSJ/zhmmDzzdb9qWcUZUVt2L1
+         V7bXWCz1iinukv9bIdYVNj8tWewq5THSrBrVy+gdpM3Si8P848H06/Cl0Ie6GssegtIZ
+         +xyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwGH3joCcEWYBMIFsVdP9t1Xkyne4a0rbHHhdwFH3G8BbnZOkUI1vAFA1sPculhaSFNKk/xlPHsXi+wttI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmdHyTH6cWy6lSW+hlWyy1lgt94m3sy0DswY4+B4O7avbRI6P5
+	rGNavbNmuS+cIv9rcXK/0KXYlShHi5BBTJW/KaKVT/6rTo2+nRrLhfgC
+X-Gm-Gg: AYBFou3ccZWurkmg8WtiAHREB0bkaubDlk5uL9JyM+3GnocliMTbCPdsx78YdWx6gtE
+	t2P+ZpJwOib4xOzNgyGudOXFniXJ1B9gC+ehLFjzZABEqk28WUAmX0fAdRsEV8saPzrbu1F2VRe
+	IR+mTCipIRCtPEHQuMcekY677RaFTz9NV6bZkdFznPNRclPzRzspdyfj0x31FSI1BT7jLYmPEWt
+	p++5WWRrD9dpHZktXAkKSMQBvvQCMm0tRWZvvGXW5OPEjKF+lKkWPTP6Lj5YxmjtaYq7ZngiGpR
+	79SWhY4GzPNeDC+b/cVitgUSG5HKm0qKaYe1iBzggyXJ18sp0ICpSjrA3cnUWq1Qoogau0xQejA
+	3cB3wASMP2R22LXlsy/+vogSbU2+ohvbcc2BCjtIgeMHTRBi+ew7jwlINWmg2R8QafQle49L1Le
+	k3R75eEe0OvNiqAZJV2tDHk0PnYKjtelfKr3WIdAweuB7fx+D/tEnYAEmiiE1Yn5AJF8w+vb4=
+X-Received: by 2002:a05:690c:dc8:b0:8a9:97ba:26b9 with SMTP id 00721157ae682-8ac93df5251mr32081527b3.41.1790873428224;
+        Thu, 01 Oct 2026 09:50:28 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdad6d810sm13893127b3.40.2026.10.01.09.50.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:50:22 -0700 (PDT)
-Date: Thu, 1 Oct 2026 10:50:20 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Francesco Valla <francesco@valla.it>
-Cc: Tanmay Shah <tanmay.shah@amd.com>, andersson@kernel.org,
-	ohad@wizery.com, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: remoteproc_virtio: reset vdev before
- removing it
-Message-ID: <ar6PTLS194v3YJPU@p14s>
-References: <20260924205901.2505186-2-tanmay.shah@amd.com>
- <arjZvftSMlG3OMHP@bywater>
+        Thu, 01 Oct 2026 09:50:26 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+To: linux-alpha@vger.kernel.org
+Cc: Magnus Lindholm <linmag7@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 1/4] alpha: replace dead links in Kconfig help text
+Date: Thu,  1 Oct 2026 12:50:15 -0400
+Message-ID: <20261001165018.415526-1-mattst88@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arjZvftSMlG3OMHP@bywater>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 10:55:59AM +0200, Francesco Valla wrote:
-> Hi Tanmay,
-> 
-> On Thu, Sep 24, 2026 at 01:59:02PM -0700, Tanmay Shah wrote:
-> > The virtio device is removed when the remoteproc device is removed. The
-> > driver should issue reset on the virtio device so the remote can do
-> > corresponding cleanup.
-> > 
-> 
-> Shouldn't be the driver, and not the transport, the one that calls
-> virtio_reset_device()?
+The Linux/Alpha FAQ, the unix-ag LX164 overview, the Rawhide install
+HOWTO and the Ruffian FAQ are all gone. Point the "Alpha system type"
+help at the system and motherboard lists on the alphalinux.org wiki
+instead, give LX164 a one-line description in place of its link, and
+drop the others.
 
-Function rproc_remove_virtio_dev() calls unregister_virtio_device(), which calls
-device_unregister(), which should end up calling virtio_bus.remove(), in this
-case virtio_dev_remove().  virtio_dev_remove() calls drv->remove().  If we take
-the RPMSG driver, rpmsg_remove() calls virtio_reset_device(), so explicitly
-resetting devices as part of rproc_remove_virtio_dev() is not needed.  
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+ arch/alpha/Kconfig | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-Tanmay, have you observed a scenario where the above isn't working?
+diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
+index 92cc7bb8d29a..7c1cc676ddfe 100644
+--- ./arch/alpha/Kconfig
++++ ./arch/alpha/Kconfig
+@@ -127,9 +127,10 @@ choice
+ 	  run on any supported Alpha system. However, if you configure a
+ 	  kernel for your specific system, it will be faster and smaller.
+ 
+-	  To find out what type of Alpha system you have, you may want to
+-	  check out the Linux/Alpha FAQ, accessible on the WWW from
+-	  <http://www.alphalinux.org/>. In summary:
++	  To find out what type of Alpha system you have, see the system and
++	  motherboard lists at
++	  <https://alphalinux.org/wiki/hardware:systems> and
++	  <https://alphalinux.org/wiki/hardware:motherboards>. In summary:
+ 
+ 	  Alcor/Alpha-XLT     AS 600, AS 500, XL-300, XL-366
+ 	  DP264               DP264 / DS20 / ES40 / DS10 / DS10L
+@@ -184,8 +185,8 @@ config ALPHA_EIGER
+ config ALPHA_LX164
+ 	bool "LX164"
+ 	help
+-	  A technical overview of this board is available at
+-	  <http://www.unix-ag.org/Linux-Alpha/Architectures/LX164.html>.
++	  AlphaPC164-LX, a 21164A-based single-board computer using the
++	  Pyxis chipset.
+ 
+ config ALPHA_MARVEL
+ 	bool "Marvel"
+@@ -224,14 +225,11 @@ config ALPHA_RAWHIDE
+ 	select HAVE_EISA
+ 	help
+ 	  AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machines.
+-	  See HOWTO at
+-	  <http://www.alphalinux.org/docs/rawhide/4100_install.shtml>.
+ 
+ config ALPHA_RUFFIAN
+ 	bool "Ruffian"
+ 	help
+-	  Samsung APC164UX.  There is a page on known problems and workarounds
+-	  at <http://www.alphalinux.org/faq/FAQ-11.html>.
++	  Samsung APC164UX.
+ 
+ config ALPHA_RX164
+ 	bool "RX164"
+@@ -372,9 +370,7 @@ config ALPHA_SRM
+ 	help
+ 	  There are two different types of booting firmware on Alphas: SRM,
+ 	  which is command line driven, and ARC, which uses menus and arrow
+-	  keys. Details about the Linux/Alpha booting process are contained in
+-	  the Linux/Alpha FAQ, accessible on the WWW from
+-	  <http://www.alphalinux.org/>.
++	  keys.
+ 
+ 	  The usual way to load Linux on an Alpha machine is to use MILO
+ 	  (a bootloader that lets you pass command line parameters to the
+-- 
+2.54.0
 
-> 
-> > Fixes: 7a186941626d ("remoteproc: remove the single rpmsg vdev limitation")
-> > Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
-> > ---
-> >  drivers/remoteproc/remoteproc_virtio.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> > index d5e9ff045a28..1cb0ee0ea656 100644
-> > --- a/drivers/remoteproc/remoteproc_virtio.c
-> > +++ b/drivers/remoteproc/remoteproc_virtio.c
-> > @@ -469,6 +469,8 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
-> >  {
-> >  	struct virtio_device *vdev = dev_to_virtio(dev);
-> >  
-> > +	virtio_reset_device(vdev);
-> > +
-> >  	unregister_virtio_device(vdev);
-> >  	return 0;
-> >  }
-> > 
-> > base-commit: 5f639b3018c0026a5341949724b4b921cf3a3d5d
-> > -- 
-> > 2.43.0
-> > 
