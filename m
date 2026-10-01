@@ -1,80 +1,118 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444E448A8C6
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA243EFFC0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790886315; cv=none; b=WI0d2iSgZuAW2smuFR3Ib9C1eLX4dMkl5Ln2jLUhi1RCf7D0BePt0/kRVCwSTogQ22jXgFTEUUksF8tiyYRZCSYOFYZcP389FFb4YLEJ14prAbHM8zCLWB8WlhwAJ4HyUgS9j4pLruXetbA0LEvkM19s2POVkYp6t2k/ChAyh5c=
+	t=1790886404; cv=none; b=TVGUZYPo4yn4LeF7DHYKME8MSlxgnNmK55wSf4UerTUsQSptZkZ7kfEHTuTgVwOSU2qbpjmCspD3jQ5cCOFUdBwCxn7UF2OeHGCCosWTyh1VrxCV+IE3w9D549ygsjhz/b38YLzbeqvCysoXZojBWPhsP56aBUj1v9eCxx4vTog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790886315; c=relaxed/simple;
-	bh=izI7nlDu/GgmKYM8STf1Z2KFNima1MkBB3BxOuizcA8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LeN74sXtyDn7+kJTZ1gepzzj456YktY+6RDVwiuHAIE01rpNSSHftYTK0JRCezOX4bGGf9yVfqdxz5QVoQ7q1vWTJRCLhfts+pPZS6aVTWRwdPPiDqrZFBr0iZEFel0J1D7aZXCC862wRFCbIkA1W1hKVkxyhdIDCTyWCGEcyls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from wasted (91.79.16.162) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Thu, 1 Oct 2026
- 23:25:01 +0300
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker
-	<frederic@kernel.org>, Ingo Molnar <mingo@kernel.org>, Thomas Gleixner
-	<tglx@kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-Subject: [PATCH] tick/sched: make kernel parameter skew_tick boolean
-Date: Thu, 1 Oct 2026 23:24:09 +0300
-Message-ID: <20261001202417.73273-1-s.shtylyov@auroraos.dev>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790886404; c=relaxed/simple;
+	bh=TDzyHBnvN6Az74PoI0viABsOFItZGrFL39Cl60uyHr8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XVRT37HgVxBQbG46BPgXW/XfEFMfX+HfbU+imbm48Zd12bmD+HA0ANWzhbS+BY0nlSay7hpFUeX8HRQJpfUYJfGFpX4M84vp1Al+aJE8eXpgHbM7ax5F/BZUry5Hw778E+jg2EIWU3a5jrGpyXZXAO7nCKfJqwRJ2TDhQkVYVlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSQa0Q1T; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSQa0Q1T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A8F1F008A6
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:26:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790886402;
+	bh=cuZLwo8L/Pz3tHEl/pgaDbc4NC6C8bTc4OVbV4XoCzU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lSQa0Q1Tmp6AnEKgZnzPKAv/nZxq4L0eN0mmIfFPzFE5VKiKhEGw64PZ7Kest0yXV
+	 RzLDkDkLeYWVXbGEQfwzqJqjYVVNGGYhRgrR4HUFdg4s+OAustLvpWFzE92VIwrb0/
+	 9ZvmBbLQfjnX+M7swxzFDVVEoTPUkJDTYRC8dlpLkW7wTbrvs35hfgqRrt1jOTyFJd
+	 oyENsUwCm/haQNacO7s9VBgPOEqYf5dFgNjh3hFEAW74RIKj7XbxuV330RPHQVL+El
+	 +Ngt2IDbG2nLQoLI4gAr4xzgufiAHYXlwgqjBnar7jYmCiPqHE3X/YbOX++L6davvF
+	 fiRa2L2zsx+rQ==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a771ad2a9aso16089841fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:26:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByoGW1DgXWCF5HV8YTM1gp2fJqwzCM51pnuqpoWcXY4V/t151FUfwHAQnxzrQiRAd3RH0L4SQ36AGbN7ig=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxkeBFe5ivc6xIePuN2pKXUPwiYxo/M8jgQ1UA7mYzBUyTMuJ2
+	y3rn7lVp4zeeJViNA/AWiQgTyra3hNvsHVBmp/2zrjfDCNq17F6SR6Wb+hztcRvat8UKyLGBiWm
+	6k1NZ2WA1TdNySYAC4/h8OPyXJRIXsGI=
+X-Received: by 2002:a05:651c:982:b0:3a7:83fb:a2f4 with SMTP id
+ 38308e7fff4ca-3a783fba4b6mr9981301fa.15.1790886401618; Thu, 01 Oct 2026
+ 13:26:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
+ <20260918-contrib-pg-pixel10-initial-dts-v4-3-745eaca28b1a@linaro.org>
+In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v4-3-745eaca28b1a@linaro.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 22:26:27 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkCXt2jPps1+X3gmT-+o_ST59GOT1Huhqx70NK1RDCExQ@mail.gmail.com>
+X-Gm-Features: AclHuK-u9udZl77wTM7_r_7heAhhugb-sGNthmiZZXg0N5M_CZnxPf-YeiEWQxc
+Message-ID: <CAD++jLkCXt2jPps1+X3gmT-+o_ST59GOT1Huhqx70NK1RDCExQ@mail.gmail.com>
+Subject: Re: [PATCH v4 3/4] arm64: dts: google: Add initial dts for frankel/blazer/mustang
+To: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev, 
+	Douglas Anderson <dianders@chromium.org>, Juan Yescas <jyescas@google.com>, 
+	RD Babiera <rdbabiera@google.com>, Brian Norris <briannorris@google.com>, 
+	William McVicker <willmcvicker@google.com>, kernel-team@android.com, 
+	linux-serial@vger.kernel.org, Brian Norris <briannorris@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The kernel parameter skew_tick requires an integer value, despite being
-boolean in nature. Convert the static variable sched_skew_tick to *bool*
-(while at it, annotate it as __ro_after_init) and thus use kstrtobool()
-to parse the parameter's value (the values 0 and 1 should keep working
-as before); also stop ignoring the value parsing errors as it happened
-before (when skew_tick() always returned 0)...
+On Fri, Sep 18, 2026 at 9:05=E2=80=AFPM Peter Griffin <peter.griffin@linaro=
+.org> wrote:
 
-Found by Linux Verification Center (linuxtesting.org) with the Svace
-static analysis tool.
+> From: Douglas Anderson <dianders@chromium.org>
+>
+> Add initial device trees for frankel (Pixel 10), blazer (Pixel 10
+> Pro) and mustang (Pixel 10 Pro XL). These device trees are enough to
+> boot to a serial prompt using an initramfs.
+>
+> Currently only Laguna B0 silicon found in mass production phones is
+> officially supported. Further revisions such as A0 silicon and EVT
+> devices maybe added in the future if they are useful. As of today,
+> these device trees boot fine on EVT devices with A0 silicon.
+>
+> A few things can be noted about these device trees:
+>
+> 1. They purposely choose to use the full 64-bit address and size cells
+>    for the root node and the `soc@0` node. Although I haven't tested
+>    the need for this, I presume the arguments made in
+>    commit bede7d2dc8f3 ("arm64: dts: qcom: sdm845: Increase address
+>    and size cells for soc") would apply here.
+> 2. Though it looks as if the UART is never enabled, the bootloader
+>    knows to enable the UART when the console is turned on. Baud rate
+>    is configurable in the bootloader so is never hardcoded in the
+>    device tree.
+>
+> Changes by Peter Griffin:
+>  - Remove dtbo overlay approach and add individual board dts
+>  - Update to lga-pixel-common naming like gs101-pixel-common
+>  - Reorder nodes alpha-numerically by the node name
+>  - Add ramoops reserved-memory (tested with console=3Dpstore)
+>  - Add reserved-memory for bootloader & gsa logs
+>  - Add reserved-memory for Android BootLoader ABL (used on Watchdog
+>    reset to extract boolotader logs / parse breadcrumbs / ramdump etc).
+>  - Add osc 38.4Mhz fixed-clock
+>
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> Co-developed-by: Peter Griffin <peter.griffin@linaro.org>
+> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+> Tested-by: Brian Norris <briannorris@chromium.org>
+> Reviewed-by: Brian Norris <briannorris@chromium.org>
 
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+I think I reviewed an older version of this yesterday or
+this morning.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
----
-The patch is against the timers/nohz branch of the tip.git repo.
-
- kernel/time/tick-sched.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index a7893a079a83..1083eede34fc 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -1475,13 +1475,11 @@ void tick_irq_enter(void)
- 	tick_nohz_irq_enter();
- }
- 
--static int sched_skew_tick;
-+static bool sched_skew_tick __ro_after_init;
- 
- static int __init skew_tick(char *str)
- {
--	get_option(&str, &sched_skew_tick);
--
--	return 0;
-+	return kstrtobool(str, &sched_skew_tick);
- }
- early_param("skew_tick", skew_tick);
- 
--- 
-2.55.0
+Yours,
+Linus Walleij
