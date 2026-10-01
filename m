@@ -1,380 +1,320 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010037.outbound.protection.outlook.com [52.101.46.37])
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986CF3D0BEC;
-	Thu,  1 Oct 2026 16:52:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873540; cv=fail; b=TjWNEMJOoBUw5/and7R3/qEOVwZ+UUN7bizcu0tAnQ9ixGk2wblj86BY+hmJxIDPU+/z8tFOkIzsYiiW5OQyJCizMO4EGldrHtdqbS2fBEv9Ye9L2cBWPhbrAYj3x58rtR2R3W6mYjxKXk+yhaT7s3BHe4pPY2v3Ecjdmr3dOdA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873540; c=relaxed/simple;
-	bh=BXMCinyiRic5dDgYluGenLaZ69dP0l0oJ+2hFPRvl4c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=DBLrZsV6GXnYN7A6jni+12RtuoOl4kzWjZ0LfS/1tF2yisNLom5jixw5P7q86TdGl3ABkVjbT9/yhSLQtkStSqXKJ4wVo145nIHDWc6WL2365DsXEb6gjsNKeT+hq+9zV/hz3SRVngsNmO3EhHTp7/z7cKFcEIgZXb3fx6cTBd8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3LKNtHGS; arc=fail smtp.client-ip=52.101.46.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF6447ACE8;
+	Thu,  1 Oct 2026 16:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790873552; cv=none; b=OuKMLjio+TZW24Y6EN42fwiqvuRJdJRml80J7AI8uyfZLqIkxZD8YWC0yVeZ87j1jL6OCb7xQLFaWsN/lcRAT2kUi03MsYdHmxxndCiwxvkfZNd2fiG1lZYNMgGeTwJwIHyk1AJvDhJ1xswstaaui99U2MHZDL/Vq8eEbj2oMI8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790873552; c=relaxed/simple;
+	bh=8FLyCC91b1rsFUOeCnyR+8v2XdvK3oZAihcOcV8pvu0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X22KDYC17l3FeSd88yBJwcfHpVropZcWhk5YMA2pGfORJDhk4/YkxPqx3Cqz391sIxuRP39d4ckDcNcMFxiHDRDQyej879wux6+MVgBtR/Du5/al2SJF8wlvu4MtZk5NqCqtf8xPqJwTCqhegMC2HwCoI2d5Sr4ZRT6P+OL3RAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=oJ/6RCuM; arc=none smtp.client-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3LKNtHGS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ThICoG92p9FKI8TDWBgpz99czdQLEF6niV5AWFl9xs/LiRGVQ7m/YTXM3CJqV7ZZ3QznNt3hSLruCe31N1Xfvlwawc+agGo7dYzHbiZ0SbcHvbg7mx7LosD1zDl8kQ9b2qqp7+xYMVfo/a2z+adnhfOOwJMoYykVP3UQ+jImc+FJM00pl8sQxpYt47tN//7rlc4qheeuLD8ceZh9y9DxfnjmiBRYHQi6KYEoqlljK9F+wcs1Ggofv+ZQ8MEeDXTme2/m3k5PvuaG0qMoZfqcIQTSobgOcla5rl0Q2YMtt7OV6DvJMcCfm03pSeXJRzewIfX6yZ0PZtFHiyN9VeUQTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nxqh6RnqDZyaLmH1JU4Pp+hfICIkIlQwQjXnrLVFeck=;
- b=yHHdlFpjpHJsNq4fNDE+uGLbrVqGLWAPLGRS7QFKLFrOHpDQ9v3OKcrwpyqqXcIDEf5Zo4QwC1wXnyDObTPCuWO+HZ/L4Mla8f0r+SFS3rExTQdVZkomdpqHjlcd/bWhUvjAWAYtNaZ4KLKws4a6Yfr+obLY5DIObYp47c7pCSTYIfdgliRrSpVBJkdILzPZajzvPMYr3CcfVvyx/xNlvg+J/AVG1bUEjrdow+5/nFtwm7jghT6+bA94lzWBN9mshitCnWmHXWpoTapPAGqwJ9snA+q53Ou7i8B2hNNwMeDlE5d5Eku4vEJPEni1MyVUmttZJZUbsKt2ow4BiRUT9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nxqh6RnqDZyaLmH1JU4Pp+hfICIkIlQwQjXnrLVFeck=;
- b=3LKNtHGSs29qedi+g1gQZZHkMT6zkoDljJYIR9sU59sggxDg0tKalIL5TT8cDEx3f8vgctwMknjHuLhaF9zDcYfCJxhlSOBJyoYWtavOUJt1QgUbuGA0BR2pAS07fkI+iwZU4L6tly0BInlSPZeEdG7Z41k6fy9STHcuPnqejIM=
-Received: from PH8PR05CA0006.namprd05.prod.outlook.com (2603:10b6:510:2cc::6)
- by PH7PR12MB8108.namprd12.prod.outlook.com (2603:10b6:510:2bc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Thu, 1 Oct
- 2026 16:52:09 +0000
-Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
- (2603:10b6:510:2cc:cafe::65) by PH8PR05CA0006.outlook.office365.com
- (2603:10b6:510:2cc::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Thu, 1
- Oct 2026 16:52:09 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 16:52:09 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
- 2026 11:52:03 -0500
-Received: from [192.168.0.226] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 1 Oct 2026 11:52:02 -0500
-Message-ID: <b3ed027f-8c7b-4ac5-aac6-95d47ac0c41d@amd.com>
-Date: Thu, 1 Oct 2026 22:22:00 +0530
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="oJ/6RCuM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1790873550; x=1822409550;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=oJADvi9bQbjeZEkz1664pvHvx+Q0QnfSBeRW4PklGcI=;
+  b=oJ/6RCuMF+rno8XxAK/l9Gv4qb3oKqbwpdfjpKrhBXe5/sW1RoMc6hOg
+   ydq19CP/JEbI8juamLLeeMRQLHL48b+S4XeyyDpjYJ7oanH2JQZtrTPW1
+   IcTJxW5RLnuKJDH2RCixDfQF0cdQTTrT+0W3p5NJYBCB1HgNc70iRjcak
+   b6BATFiVPbhVsT6mAmoXgk739JVJr65Yup3SRhsQ2Rl+10zq9s/gOnDR7
+   mnBCRMbRt2YSPpZbCQTBt+QTB52P+X56r4wNKCkqNI6wnolvnnxWA9qL0
+   hCJnuYj0OgL/MXDnqUXruWwBxCQuCDJjNspmf/J6HOPLa/fhtZW3d1T3x
+   w==;
+X-CSE-ConnectionGUID: xP9HTyvaSE2yifRvAZ5m8A==
+X-CSE-MsgGUID: V2B4enN5TWmoMx/6Jm80CA==
+X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
+   d="scan'208";a="29935166"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 16:52:28 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:3110]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.113:2525] with esmtp (Farcaster)
+ id 1fcb3460-3f26-4047-b0d8-50afc37e1ac3; Thu, 1 Oct 2026 16:52:28 +0000 (UTC)
+X-Farcaster-Flow-ID: 1fcb3460-3f26-4047-b0d8-50afc37e1ac3
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 1 Oct 2026 16:52:27 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 1 Oct 2026 16:52:26 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>
+CC: Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Shuah Khan <shuah@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, "Bjoern
+ Doebel" <doebel@amazon.de>, <stable@vger.kernel.org>
+Subject: [PATCH v2] selftests/x86: Skip fsgsbase segment setup when int $0x80 is unavailable
+Date: Thu, 1 Oct 2026 16:52:12 +0000
+Message-ID: <20261001165212.1938867-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260923201409.2187200-1-doebel@amazon.de>
+References: <20260923201409.2187200-1-doebel@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] cpufreq: amd-pstate-ut: Tolerate aliased EPP
- preferences in the EPP test
-To: Mario Limonciello <mario.limonciello@amd.com>
-CC: Perry Yuan <perry.yuan@amd.com>, "open list:X86 ARCHITECTURE (32-BIT AND
- 64-BIT)" <linux-kernel@vger.kernel.org>, "open list:CPU FREQUENCY SCALING
- FRAMEWORK" <linux-pm@vger.kernel.org>
-References: <20260921190235.3651688-1-mario.limonciello@amd.com>
- <20260921190235.3651688-3-mario.limonciello@amd.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260921190235.3651688-3-mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|PH7PR12MB8108:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd1e37d2-956a-4aa0-fe26-08df1fdc555e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|22082099003|4143699003|18002099003|6133799003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	tgsM69Noe2Tsr9iGkcFcqvHjXMSPX1erWFC80YuaeK7yikObV9USfBxTdrD96P36rVkxGe0BcOYXso0eRnJP4ce3qds2rI1tDNKsWArPJvYTHWcTWrsYIn3o81Z4GyPNN3y4GSDj+edst1bzN5Ajxe5uiZTpz3ojmy0pA//8fG3W79C0LZ2mkon9U8TC/Xjjvks3rXzc32tr5tiXxii7NMREEF0q5zfrt5S2Knq0NN2x7NnT781ebn+WVLYst+WWFJeDhFeOkXVThNyPGoR70/Ot549czb8fS7j+1Fy4HH0RUwSC/N0QJpyiHLQKz+z3hYIKrnZPREYfwGj8BrPooSZqCbAXAPmI8/7bY3Xx4KeSGU3KklNsAaiilhCm79CebWNe3bmZ3wBYwgn5GvNxh78nWh55wfzqHw2u4UEWdhTNLLLdtGyJNl8vMpWTciHPrPE3moLxrRHc5DdhY1hwnIVSi7O8hjqJl0PvVSZ9b6cCSiEGDb+DUL59hgdeoZBdzihGNWrIs/RnRczByzb2lC0o4OF/Bq2nBL1fZ5wMAxTv2ANt/0EVMp19987Dlj8CuyOR+pju3MMtUFCDYrckH0N6mXajYh8gMg+KWd/kja2EXkYc18jAX0vnCQdi9sy0qooaRzbMuKlzsIw+Dof8GqWM61S91smCQB1ZVx192zNtNbTTwyCcMuREnNPSc935eQIRtvHtpV2gMzRCd9GPKg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(22082099003)(4143699003)(18002099003)(6133799003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kMhwgOTHcp64dSJsOlUSLDIu8WNs0+xTpDVb6mwaHgoS6bBlr+4Tkeyh7vFnMNWAOhtmggeKA1/rFKcG/hvRJp103mnRNZ6GDyaPo5m+Ff0aQjdTk6h3qWXc+S3Pekake9209o33btY7Gkt31SjjX7PDQN1O9+NwmryTdq/oNZiVq0HXC56Pa/xi0yOp9XgWel5/pXOlS2HmDxiW6SZqtd1LEI/o4jtAP1nBgFCiTitiY+89oaW+q05O+9qDnxK66QSDoQ1jZNdvAI1IIfzNrnfvVrBbQGu4SmiWOipP+u9Q8xdhJN2T+ikTCqpR1qnNvQS1eLFspteWch7obZwaqf7I2k0tXeruDlToAa4dE+t3cNxs487j1kZ+JiCdwBis87jwLBOOTP9MUHpmvOAyijH/0ARvnP3+oqbiWn0+GITeFmJPst/EDwO7SSHkiSMN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 16:52:09.4819
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd1e37d2-956a-4aa0-fe26-08df1fdc555e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8108
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D035UWA002.ant.amazon.com (10.13.139.60) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hello Mario,
+The fsgsbase{_restore} tests' load_gs() helper needs a nonzero-based
+FS/GS segment, i.e. a selector whose hidden base differs from the
+kernel's saved thread base, to exercise the selector/base state
+tracking. 64-bit userspace can only create such a segment via
+modify_ldt() or, failing that, via the 32-bit set_thread_area syscall
+over int $0x80.
 
-On 9/22/2026 12:32 AM, Mario Limonciello wrote:
-> @@ -385,12 +388,27 @@ static int amd_pstate_ut_epp(u32 index)
->  		strreplace(buf, '\n', '\0');
->  		/*
->  		 * "dynamic" mode reports the EPP as "dynamic(profile:X)"
-> -		 * Trim at "(" and just compare tie the epp string.
-> +		 * Trim at "(" and just keep the preference name.
->  		 */
->  		strreplace(buf, '(', '\0');
->  
-> -		if (strcmp(buf, epp_strings[i])) {
-> -			pr_err("String EPP value mismatch: %s != %s\n", buf, epp_strings[i]);
-> +		/*
-> +		 * The preference read back may legitimately differ from the one
-> +		 * written: some platforms (e.g. Zen6) program the same raw EPP
-> +		 * value for more than one named preference, so show() reports the
-> +		 * first name that matches that value. Rather than compare the
-> +		 * strings, re-write whatever name was reported and confirm it
-> +		 * programs the same raw EPP value. This verifies the show()/store()
-> +		 * mapping stays consistent while tolerating such aliasing.
-> +		 */
-> +		ret = store_energy_performance_preference(policy, buf, strlen(buf));
-> +		if (ret < 0)
-> +			goto out;
-> +		got_epp = FIELD_GET(AMD_CPPC_EPP_PERF_MASK, cpudata->cppc_req_cached);
-> +
-> +		if (want_epp != got_epp) {
+On kernels built with CONFIG_MODIFY_LDT_SYSCALL=n, modify_ldt() fails
+and the test falls back to int $0x80. If the kernel is also built
+with CONFIG_IA32_EMULATION=n, no IDT gate is installed for vector
+0x80, so executing int $0x80 raises a #GP fault and the test dies
+with SIGSEGV instead of reporting results:
 
+  traps: fsgsbase_64[5460] general protection fault ip:4012a1
+  sp:7f38eb124de0 error:402 in fsgsbase_64[12a1,400000+2000]
 
-So this feels a bit hacky since it may be possible an epp
-may be programmed incorrectly in hardware and as a result
-it aliases with a different string.
+With both options disabled, pure 64-bit userspace cannot install a
+nonzero-based FS/GS segment at all, so this scenario is untestable.
+Probe for a working int $0x80 at startup and skip the affected
+subtests when neither mechanism is available instead of crashing.
 
-Can we use amd_pstate_cpu_epp_values() as a source of truth
-to double verify?
+While at it, replace the magic syscall numbers in the int $0x80
+inline asm with named __NR_ia32_getpid / __NR_ia32_set_thread_area
+constants. These deliberately use the ia32 syscall table numbering,
+which differs from the x86-64 numbering exported by <sys/syscall.h>
+on 64-bit builds.
 
-Something like below:
+Fixes: 0051202f6ad5f ("selftests/x86: Test the FSBASE/GSBASE API and context switching")
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+Assisted-by: opencode:kimi-k3
+Cc: stable@vger.kernel.org
+---
+v2
+- fsgsbase_restore needs that segment treatment as well
+---
+ tools/testing/selftests/x86/fsgsbase.c        | 51 ++++++++++++-
+ .../testing/selftests/x86/fsgsbase_restore.c  | 72 ++++++++++++++++++-
+ 2 files changed, 119 insertions(+), 4 deletions(-)
 
-  (Only build tested on bleeding-edge with this patch reverted)
-
-diff --git a/drivers/cpufreq/amd-pstate-ut.c b/drivers/cpufreq/amd-pstate-ut.c
-index be10ab90b820..506d7bb2e660 100644
---- a/drivers/cpufreq/amd-pstate-ut.c
-+++ b/drivers/cpufreq/amd-pstate-ut.c
-@@ -304,12 +304,12 @@ static int amd_pstate_set_mode(enum amd_pstate_mode mode)
+diff --git a/tools/testing/selftests/x86/fsgsbase.c b/tools/testing/selftests/x86/fsgsbase.c
+index 0a75252d31b6a..8538ceb6c5785 100644
+--- a/tools/testing/selftests/x86/fsgsbase.c
++++ b/tools/testing/selftests/x86/fsgsbase.c
+@@ -218,6 +218,40 @@ static void do_remote_base()
  
- static int amd_pstate_ut_epp(u32 index)
- {
--	static const char * const epp_strings[] = {
--		"dynamic",
--		"power",
--		"balance_power",
--		"balance_performance",
--		"performance",
-+	enum energy_perf_value_index epp_modes[] = {
-+		EPP_INDEX_DYNAMIC,
-+		EPP_INDEX_POWERSAVE,
-+		EPP_INDEX_BALANCE_POWERSAVE,
-+		EPP_INDEX_BALANCE_PERFORMANCE,
-+		EPP_INDEX_PERFORMANCE,
- 	};
- 	char *buf __free(cleanup_page) = NULL;
- 	struct cpufreq_policy *policy = NULL;
-@@ -378,9 +378,9 @@ static int amd_pstate_ut_epp(u32 index)
- 		}
- 	}
- 
--	for (i = 0; i < ARRAY_SIZE(epp_strings); i++) {
-+	for (i = 0; i < ARRAY_SIZE(epp_modes); i++) {
- 		memset(buf, 0, PAGE_SIZE);
--		snprintf(buf, PAGE_SIZE, "%s", epp_strings[i]);
-+		snprintf(buf, PAGE_SIZE, "%s", energy_perf_strings[epp_modes[i]]);
- 		ret = store_energy_performance_preference(policy, buf, strlen(buf));
- 		if (ret < 0)
- 			goto out;
-@@ -396,8 +396,24 @@ static int amd_pstate_ut_epp(u32 index)
- 		 */
- 		strreplace(buf, '(', '\0');
- 
--		if (strcmp(buf, epp_strings[i])) {
--			pr_err("String EPP value mismatch: %s != %s\n", buf, epp_strings[i]);
-+		if (strcmp(buf, energy_perf_strings[epp_modes[i]])) {
-+			u8 epp = FIELD_GET(AMD_CPPC_EPP_PERF_MASK, cpudata->cppc_req_cached);
-+
-+			/*
-+			 * The preference read back may legitimately differ from the one
-+			 * written: some platforms (e.g. Zen6) program the same raw EPP
-+			 * value for more than one named preference, so show() reports the
-+			 * first name that matches that value.
-+			 *
-+			 * If strings mismatch, confirm the CPU is programmed with the correct
-+			 * EPP value for the mode. This verifies hardware programming while
-+			 * tolerating such aliasing in driver.
-+			 */
-+			if (epp == amd_pstate_cpu_epp_values(cpudata->cpu_type)[epp_modes[i]])
-+				continue;
-+
-+			pr_err("String EPP value mismatch: %s != %s\n",
-+			       buf, energy_perf_strings[epp_modes[i]]);
- 			ret = -EINVAL;
- 			goto out;
- 		}
-@@ -413,11 +429,12 @@ static int amd_pstate_ut_epp(u32 index)
- 		 * restore it here before dropping policy reference.
- 		 */
- 		if (orig_dynamic_epp) {
-+			const char * const dynamic_string = energy_perf_strings[epp_modes[0]];
- 			int ret2;
- 
- 			ret2 = store_energy_performance_preference(policy,
--								  epp_strings[0],
--								  strlen(epp_strings[0]));
-+								  dynamic_string,
-+								  strlen(dynamic_string));
- 			if (!ret && (ret2 < 0))
- 				ret = ret2;
- 		}
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index f27676e8e9ef..89f911d378ae 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -44,7 +44,6 @@
- #include <acpi/cppc_acpi.h>
- 
- #include <asm/msr.h>
--#include <asm/processor.h>
- #include <asm/cpufeature.h>
- #include <asm/cpu_device_id.h>
- 
-@@ -89,46 +88,6 @@ static int cppc_state = AMD_PSTATE_UNDEFINED;
- static bool amd_pstate_prefcore = true;
- static struct quirk_entry *quirks;
- 
--/*
-- * AMD Energy Preference Performance (EPP)
-- * The EPP is used in the CCLK DPM controller to drive
-- * the frequency that a core is going to operate during
-- * short periods of activity. EPP values will be utilized for
-- * different OS profiles (balanced, performance, power savings)
-- * display strings corresponding to EPP index in the
-- * energy_perf_strings[]
-- *	index		String
-- *-------------------------------------
-- *	0		default
-- *	1		performance
-- *	2		balance_performance
-- *	3		balance_power
-- *	4		power
-- *	5		custom (for raw EPP values)
-- *	6		dynamic (platform profile driven selection)
-- */
--enum energy_perf_value_index {
--	EPP_INDEX_DEFAULT = 0,
--	EPP_INDEX_PERFORMANCE,
--	EPP_INDEX_BALANCE_PERFORMANCE,
--	EPP_INDEX_BALANCE_POWERSAVE,
--	EPP_INDEX_POWERSAVE,
--	EPP_INDEX_CUSTOM,
--	EPP_INDEX_DYNAMIC,
--	EPP_INDEX_MAX,
--};
--
--static const char * const energy_perf_strings[] = {
--	[EPP_INDEX_DEFAULT] = "default",
--	[EPP_INDEX_PERFORMANCE] = "performance",
--	[EPP_INDEX_BALANCE_PERFORMANCE] = "balance_performance",
--	[EPP_INDEX_BALANCE_POWERSAVE] = "balance_power",
--	[EPP_INDEX_POWERSAVE] = "power",
--	[EPP_INDEX_CUSTOM] = "custom",
--	[EPP_INDEX_DYNAMIC] = "dynamic",
--};
--static_assert(ARRAY_SIZE(energy_perf_strings) == EPP_INDEX_MAX);
--
- /*
-  * The numeric EPP value programmed for each named preference. First dimension
-  * is CPU type (TOPO_CPU_TYPE_ANY for non-hybrid, TOPO_CPU_TYPE_PERFORMANCE/
-@@ -159,7 +118,7 @@ static_assert(ARRAY_SIZE(epp_values) == TOPO_CPU_TYPE_LOW_POWER + 1,
-  * Non-hybrid systems use TOPO_CPU_TYPE_ANY; hybrid systems use the CPU's
-  * actual type (PERFORMANCE/EFFICIENCY/LOW_POWER).
-  */
--static inline u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type)
-+u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type)
- {
- 	switch (cpu_type) {
- 	case TOPO_CPU_TYPE_PERFORMANCE:
-@@ -170,6 +129,7 @@ static inline u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type)
- 		return epp_values[TOPO_CPU_TYPE_ANY];
- 	}
- }
-+EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_cpu_epp_values);
- 
- /**
-  * struct amd_pstate_epp_values - EPP values for the four named preferences
-diff --git a/drivers/cpufreq/amd-pstate.h b/drivers/cpufreq/amd-pstate.h
-index c7189d177b81..422188c639b1 100644
---- a/drivers/cpufreq/amd-pstate.h
-+++ b/drivers/cpufreq/amd-pstate.h
-@@ -11,6 +11,8 @@
- #include <linux/pm_qos.h>
- #include <linux/platform_profile.h>
- 
-+#include <asm/processor.h>
-+
- #if IS_MODULE(CONFIG_X86_AMD_PSTATE_UT)
- #define EXPORT_SYMBOL_FOR_PSTATE_UT(symbol) \
- 	EXPORT_SYMBOL_FOR_MODULES(symbol, "amd-pstate-ut")
-@@ -162,6 +164,48 @@ enum amd_pstate_mode {
- 	AMD_PSTATE_MAX,
- };
+ static __thread int set_thread_area_entry_number = -1;
  
 +/*
-+ * AMD Energy Preference Performance (EPP)
-+ * The EPP is used in the CCLK DPM controller to drive
-+ * the frequency that a core is going to operate during
-+ * short periods of activity. EPP values will be utilized for
-+ * different OS profiles (balanced, performance, power savings)
-+ * display strings corresponding to EPP index in the
-+ * energy_perf_strings[]
-+ *	index		String
-+ *-------------------------------------
-+ *	0		default
-+ *	1		performance
-+ *	2		balance_performance
-+ *	3		balance_power
-+ *	4		power
-+ *	5		custom (for raw EPP values)
-+ *	6		dynamic (platform profile driven selection)
++ * int $0x80 dispatches through the ia32 syscall table, whose numbers
++ * differ from the x86-64 table exposed by <sys/syscall.h> on an
++ * x86_64 build. Define the ia32 numbers we need explicitly.
 + */
-+enum energy_perf_value_index {
-+	EPP_INDEX_DEFAULT = 0,
-+	EPP_INDEX_PERFORMANCE,
-+	EPP_INDEX_BALANCE_PERFORMANCE,
-+	EPP_INDEX_BALANCE_POWERSAVE,
-+	EPP_INDEX_POWERSAVE,
-+	EPP_INDEX_CUSTOM,
-+	EPP_INDEX_DYNAMIC,
-+	EPP_INDEX_MAX,
-+};
++#define __NR_ia32_getpid		20
++#define __NR_ia32_set_thread_area	243
 +
-+static const char * const energy_perf_strings[] = {
-+	[EPP_INDEX_DEFAULT] = "default",
-+	[EPP_INDEX_PERFORMANCE] = "performance",
-+	[EPP_INDEX_BALANCE_PERFORMANCE] = "balance_performance",
-+	[EPP_INDEX_BALANCE_POWERSAVE] = "balance_power",
-+	[EPP_INDEX_POWERSAVE] = "power",
-+	[EPP_INDEX_CUSTOM] = "custom",
-+	[EPP_INDEX_DYNAMIC] = "dynamic",
-+};
-+static_assert(ARRAY_SIZE(energy_perf_strings) == EPP_INDEX_MAX);
++static bool have_int80;
 +
-+u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type);
++static void sigsegv_int80(int sig, siginfo_t *si, void *ctx_void)
++{
++	siglongjmp(jmpbuf, 1);
++}
 +
- static inline u8 freq_to_perf(union perf_cached perf, u32 nominal_freq, unsigned int freq_val)
++static bool probe_int80(void)
++{
++	/*
++	 * Check whether int $0x80 is available.  Kernels built without
++	 * CONFIG_IA32_EMULATION do not install an IDT entry for vector
++	 * 0x80, so executing int $0x80 causes a #GP fault.
++	 */
++	sethandler(SIGSEGV, sigsegv_int80, 0);
++	if (sigsetjmp(jmpbuf, 1) == 0) {
++		long ret;
++		/* getpid -- harmless if it works */
++		asm volatile ("int $0x80" : "=a" (ret) : "a" (__NR_ia32_getpid));
++		clearhandler(SIGSEGV);
++		return true;
++	}
++	clearhandler(SIGSEGV);
++	return false;
++}
++
+ static unsigned short load_gs(void)
  {
- 	u32 perf_val = DIV_ROUND_UP_ULL((u64)freq_val * perf.nominal_perf, nominal_freq);
----
-
-Thoughts?
-
-> +			pr_err("EPP mapping inconsistent: %s programmed %u but %s programmed %u\n",
-> +			       epp_strings[i], want_epp, buf, got_epp);
->  			ret = -EINVAL;
->  			goto out;
->  		}
-
+ 	/*
+@@ -245,7 +279,7 @@ static unsigned short load_gs(void)
+ 		printf("\tusing LDT slot 0\n");
+ 		asm volatile ("mov %0, %%gs" : : "rm" ((unsigned short)0x7));
+ 		return 0x7;
+-	} else {
++	} else if (have_int80) {
+ 		/* No modify_ldt for us (configured out, perhaps) */
+ 
+ 		struct user_desc *low_desc = mmap(
+@@ -260,7 +294,7 @@ static unsigned short load_gs(void)
+ 		long ret;
+ 		asm volatile ("int $0x80"
+ 			      : "=a" (ret), "+m" (*low_desc)
+-			      : "a" (243), "b" (low_desc)
++			      : "a" (__NR_ia32_set_thread_area), "b" (low_desc)
+ 			      : "r8", "r9", "r10", "r11");
+ 		memcpy(&desc, low_desc, sizeof(desc));
+ 		munmap(low_desc, sizeof(desc));
+@@ -275,6 +309,9 @@ static unsigned short load_gs(void)
+ 		unsigned short gs = (unsigned short)((desc.entry_number << 3) | 0x3);
+ 		asm volatile ("mov %0, %%gs" : : "rm" (gs));
+ 		return gs;
++	} else {
++		printf("[NOTE]\tno way to create a nonzero-based segment\n");
++		return 0;
+ 	}
+ }
+ 
+@@ -516,6 +553,11 @@ static void test_ptrace_write_gsbase(void)
+ 
+ 		gs = ptrace(PTRACE_PEEKUSER, child, gs_offset, NULL);
+ 
++		if (*shared_scratch == 0) {
++			printf("[SKIP]\tCould not create a nonzero GS selector\n");
++			goto END;
++		}
++
+ 		if (gs != *shared_scratch) {
+ 			nerrs++;
+ 			printf("[FAIL]\tGS is not prepared with nonzero\n");
+@@ -587,6 +629,11 @@ int main()
+ 	}
+ 	clearhandler(SIGILL);
+ 
++	/* Probe int $0x80 (32-bit syscall entry) */
++	have_int80 = probe_int80();
++	if (!have_int80)
++		printf("\tint $0x80 is unavailable (CONFIG_IA32_EMULATION=n?)\n");
++
+ 	sethandler(SIGSEGV, sigsegv, 0);
+ 
+ 	check_gs_value(0);
+diff --git a/tools/testing/selftests/x86/fsgsbase_restore.c b/tools/testing/selftests/x86/fsgsbase_restore.c
+index 224058c1e4b2e..bc2c1a2ceaf85 100644
+--- a/tools/testing/selftests/x86/fsgsbase_restore.c
++++ b/tools/testing/selftests/x86/fsgsbase_restore.c
+@@ -30,9 +30,68 @@
+ #include <sys/ptrace.h>
+ #include <sys/wait.h>
+ #include <stdint.h>
++#include <setjmp.h>
++#include <signal.h>
+ 
+ #define EXPECTED_VALUE 0x1337f00d
+ 
++/*
++ * int $0x80 dispatches through the ia32 syscall table, whose numbers
++ * differ from the x86-64 table exposed by <sys/syscall.h> on an
++ * x86_64 build. Define the ia32 numbers we need explicitly.
++ */
++#define __NR_ia32_getpid		20
++#define __NR_ia32_set_thread_area	243
++
++static sigjmp_buf jmpbuf;
++
++static void sigsegv_int80(int sig, siginfo_t *si, void *ctx_void)
++{
++	siglongjmp(jmpbuf, 1);
++}
++
++static void sethandler_int80(int sig, void (*handler)(int, siginfo_t *, void *))
++{
++	struct sigaction sa;
++
++	memset(&sa, 0, sizeof(sa));
++	sa.sa_sigaction = handler;
++	sa.sa_flags = SA_SIGINFO;
++	sigemptyset(&sa.sa_mask);
++	if (sigaction(sig, &sa, 0))
++		err(1, "sigaction");
++}
++
++static void clearhandler_int80(int sig)
++{
++	struct sigaction sa;
++
++	memset(&sa, 0, sizeof(sa));
++	sa.sa_handler = SIG_DFL;
++	sigemptyset(&sa.sa_mask);
++	if (sigaction(sig, &sa, 0))
++		err(1, "sigaction");
++}
++
++static bool probe_int80(void)
++{
++	/*
++	 * Check whether int $0x80 is available.  Kernels built without
++	 * CONFIG_IA32_EMULATION do not install an IDT entry for vector
++	 * 0x80, so executing int $0x80 causes a #GP fault.
++	 */
++	sethandler_int80(SIGSEGV, sigsegv_int80);
++	if (sigsetjmp(jmpbuf, 1) == 0) {
++		long ret;
++		/* getpid -- harmless if it works */
++		asm volatile ("int $0x80" : "=a" (ret) : "a" (__NR_ia32_getpid));
++		clearhandler_int80(SIGSEGV);
++		return true;
++	}
++	clearhandler_int80(SIGSEGV);
++	return false;
++}
++
+ #ifdef __x86_64__
+ # define SEG "%gs"
+ #else
+@@ -72,7 +131,7 @@ static void init_seg(void)
+ 	if (syscall(SYS_modify_ldt, 1, &desc, sizeof(desc)) == 0) {
+ 		printf("\tusing LDT slot 0\n");
+ 		asm volatile ("mov %0, %" SEG :: "rm" ((unsigned short)0x7));
+-	} else {
++	} else if (probe_int80()) {
+ 		/* No modify_ldt for us (configured out, perhaps) */
+ 
+ 		struct user_desc *low_desc = mmap(
+@@ -87,7 +146,7 @@ static void init_seg(void)
+ 		long ret;
+ 		asm volatile ("int $0x80"
+ 			      : "=a" (ret), "+m" (*low_desc)
+-			      : "a" (243), "b" (low_desc)
++			      : "a" (__NR_ia32_set_thread_area), "b" (low_desc)
+ #ifdef __x86_64__
+ 			      : "r8", "r9", "r10", "r11"
+ #endif
+@@ -103,6 +162,15 @@ static void init_seg(void)
+ 
+ 		unsigned short sel = (unsigned short)((desc.entry_number << 3) | 0x3);
+ 		asm volatile ("mov %0, %" SEG :: "rm" (sel));
++	} else {
++		/*
++		 * Neither modify_ldt() (CONFIG_MODIFY_LDT_SYSCALL=n) nor
++		 * int $0x80 (CONFIG_IA32_EMULATION=n) is available, so a
++		 * nonzero-based segment cannot be created at all.  There is
++		 * nothing to test; skip instead of crashing on int $0x80.
++		 */
++		printf("[NOTE]\tno way to create a nonzero-based segment -- can't test anything\n");
++		exit(0);
+ 	}
+ }
+ 
 -- 
-Thanks and Regards,
-Prateek
+2.50.1
 
