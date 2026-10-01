@@ -1,35 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E5B2165EA;
-	Thu,  1 Oct 2026 05:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B013BCD1E;
+	Thu,  1 Oct 2026 05:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832748; cv=none; b=MjBpb6oSe5SRume0xtSxXt6hYzn8IfYUcJWuiPRLrmCB4fpJRZnQTB/13NQ3yz+DsnerIqC1Q81WlBs4kHehOjiejTkhLx9Cgvm3tKAK/ziYTw9F6ZiHnCAqeU5DglQjcoBdbVhTj2BPmy/JNq5qFLwVYTssVXUq74GABbjYsqI=
+	t=1790832774; cv=none; b=DM2PzaJqwgr9zQYMJGn9BhBinyoAuUOsLHTEumN73T7C4XliLS55lBLf+FwygIw8wdI+YFq0sgHacoX0rGL+rthpm9xK539NdSQupqJN+PIMKC0yM2MjP5whKlmjvUC1/QRZKnqp2TNVOK2s4sQdq1xcAtt1bzoGMRg0kIzEvr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832748; c=relaxed/simple;
-	bh=i0xJqkI15ZYPJ/Ndx5kdcWF/iV5bU3r00HoIodJCxng=;
+	s=arc-20240116; t=1790832774; c=relaxed/simple;
+	bh=pXOwUKgfA+g6pYVZGoo90h2R4VolWAoRB5awDH/zDdo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a+/LfZ6sAt4QOPBV+2kGOKM9EWQJlAYVDdgxuo8FSfQusCHPKLro5/F8DtyIF/iN7raHq8Que/4/jIjNP/snuBXhz0rPUa/CwBQJLoSCwMTo5r+LNsE+YYQl7OvZcnGpZlku7lMJUGqxngT+s8YCDHLghksZ88vA2tw/k63rx+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OqbQfh4h; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XtzBjwjVUmBTQRPvUNU1mb/B7PK6uVQSuhygMtR4xLulWHmoil+mAVSwwixqVtsGhjUBPKkuKbAPIXecEe27AbYqJxyVCUcxWaDZf4xGGUA65DINN9ViZ0rePbC2HOkp0Qmmy7wJTWEWkmNIo3LkRfU/LrAE93kgsbnTrTrRt0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V+KbCVN2; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OqbQfh4h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B3F1F00898;
-	Thu,  1 Oct 2026 05:32:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790832746;
-	bh=7RnO2tto6gzGmnwdjn29tV6/jpks6S6zWwGZDI70hqQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OqbQfh4haj69ohQXAJwWm9EEfPJeCxCKeThuKgl/AGIDog8L4mg6OSEKJ+kD9xRPp
-	 ielN53yOFfrVkxF0BIVWAD4fhQuzeM2+AoDSmE26E4/+VlqyZ3P1EKlMikhytm/yDK
-	 TpCYYIxoSBv0MSWWvsh4L4SenadnRbzUth43jfpk=
-Date: Thu, 1 Oct 2026 07:32:20 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: AJ39210 <predescuciprian99@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: rtl8723bs: cleanup and style fixes
-Message-ID: <2026100157-gaming-earflap-3f7d@gregkh>
-References: <20260908191033.13798-1-predescuciprian99@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V+KbCVN2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790832772; x=1822368772;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pXOwUKgfA+g6pYVZGoo90h2R4VolWAoRB5awDH/zDdo=;
+  b=V+KbCVN2s+JbtrVxOy+5lkvT6R+yIW5TejFV9cWzUMrmVFJb/cNInfcl
+   YWzX+7YVMBLqIg8fM2SqmdqAWUPWaUVGXQ//vJMtCCjP5KT6i5T/EL1XS
+   j7iopK/k/+w6dS6KDB2RGGUFmVf9+GXMRvImTsKvyTmO6l+K10jiqMiWy
+   nePWxuEQGGUNB6SX+N0jnZ4sSvhGLa50jkm0xzVGjI/FEA2wLoeXxcjPR
+   3bAS0MRLD2HlEUvEamS6NVQW4l7AA9vaOs+0ZOm84TIyrm+jcLpJ3T4mD
+   8UdIGYCPjjRH+NMtnBN0PHdkdynFjGB16M9cpytvDB6eeZlktNZz1vDYd
+   g==;
+X-CSE-ConnectionGUID: JpD1ZtoKSK6X3lbzwMQ6sA==
+X-CSE-MsgGUID: 7MQQCM7ZR/WyMFCi74m98g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91597051"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="91597051"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 22:32:51 -0700
+X-CSE-ConnectionGUID: lz3jggK1QLunXUN+mif59Q==
+X-CSE-MsgGUID: ipFmr+7JS6i5IysKjc8AFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="275444781"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.251])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 22:32:47 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id CCB79121B93;
+	Thu, 01 Oct 2026 08:32:51 +0300 (EEST)
+Date: Thu, 1 Oct 2026 08:32:51 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Thierry Chatard <tchatard@gmail.com>, lee@kernel.org,
+	andriy.shevchenko@intel.com
+Cc: linux-kernel@vger.kernel.org, hansg@kernel.org,
+	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com, dan.scally@ideasonboard.com,
+	linux-media@vger.kernel.org, mchehab@kernel.org,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	v.vitovt@gmail.com, dmanresa@gmail.com
+Subject: Re: [PATCH v11 1/9] mfd: intel-lpss: add resource conflict quirk for
+ Dell Latitude 5285
+Message-ID: <ar3wg-Q3rRjlFPlG@kekkonen.localdomain>
+References: <20260930214321.600863-1-tchatard@gmail.com>
+ <20260930214321.600863-2-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,69 +70,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908191033.13798-1-predescuciprian99@gmail.com>
+In-Reply-To: <20260930214321.600863-2-tchatard@gmail.com>
 
-On Tue, Sep 08, 2026 at 10:10:31PM +0300, AJ39210 wrote:
-> ---
->  drivers/staging/rtl8723bs/TODO                | 27 ++++++++++-----
->  .../staging/rtl8723bs/core/rtw_ieee80211.c    |  4 +--
->  .../staging/rtl8723bs/hal/HalPhyRf_8723B.c    | 16 ++++-----
->  drivers/staging/rtl8723bs/hal/odm_HWConfig.c  |  2 +-
->  drivers/staging/rtl8723bs/hal/odm_HWConfig.h  |  2 +-
->  .../staging/rtl8723bs/hal/rtl8723b_hal_init.c | 34 +++++++------------
->  drivers/staging/rtl8723bs/include/hal_phy.h   |  5 ---
->  drivers/staging/rtl8723bs/include/ieee80211.h |  2 +-
->  .../staging/rtl8723bs/include/rtl8192c_recv.h | 33 ------------------
->  .../staging/rtl8723bs/include/rtl8723b_recv.h | 16 ++++++++-
->  drivers/staging/rtl8723bs/include/rtw_ht.h    |  1 -
->  .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 19 +++++++----
->  12 files changed, 70 insertions(+), 91 deletions(-)
->  delete mode 100644 drivers/staging/rtl8723bs/include/rtl8192c_recv.h
+Hi Andy, Lee,
+
+Are you ok with merging this and the following patch via the media tree?
+
+I guess there's no direct dependency, so I could take only patches from 3
+onwards via the media tree as well. In that case:
+
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+
+On Wed, Sep 30, 2026 at 02:43:13PM -0700, Thierry Chatard wrote:
+> The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
+> and the I2C4 controller (INT3446) both claim the same MMIO region via the
+> shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
+> with -EBUSY, preventing the front camera (OV5670) sensor from being
+> registered.
 > 
+> Match the affected machine by DMI and the affected device by ACPI ID,
+> carrying QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data and
+> applying it to the per-device info in probe. This follows the quirk
+> organisation used by the PCI counterpart.
+> 
+> Assisted-by: Claude Code:claude-opus-4-8
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Thierry Chatard <tchatard@gmail.com>
 
-Hi,
+-- 
+Kind regards,
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- Your patch does not have a Signed-off-by: line.  Please read the
-  kernel file, Documentation/process/submitting-patches.rst and resend
-  it after adding that line.  Note, the line needs to be in the body of
-  the email, before the patch, not at the bottom of the patch or in the
-  email signature.
-
-- You did not specify a description of why the patch is needed, or
-  possibly, any description at all, in the email body.  Please read the
-  section entitled "The canonical patch format" in the kernel file,
-  Documentation/process/submitting-patches.rst for what is needed in
-  order to properly describe the change.
-
-- You did not write a descriptive Subject: for the patch, allowing Greg,
-  and everyone else, to know what this patch is all about.  Please read
-  the section entitled "The canonical patch format" in the kernel file,
-  Documentation/process/submitting-patches.rst for what a proper
-  Subject: line should look like.
-
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
-
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+Sakari Ailus
