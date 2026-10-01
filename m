@@ -1,228 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C64E3CBE6E;
-	Thu,  1 Oct 2026 10:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE23C1081
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850070; cv=none; b=DnFc7mHTvMf6AknRqTmvs3dSts4Ap2B75Tw1xkN8bRpP+u4t4atiby+MDaBN/TONDqKVVyHvjrAdk9cWEWkXxXrUS5/C5oTjuzPoHNmtKlWdCu6RtH0YGboMhJaKvoK6+x/ICtSI4o7buVPBQFqyBltBjHw0/WJmpZPzLdRY/7k=
+	t=1790850092; cv=none; b=GfLDsWx2t0RWPYOkPusOojAsmCLgrS1ulpt27JhHRozdI/mxykNtx9oDfdV7yDQ4m/FVTyxwaRIOWvnv4saRm9Bxz5N8IBaTjzrCfZk1rpZ3OAvTapGC5du7ilKQWtCnUP3gjmNtKFBD/+xNn7bSvR1N6mKOmSb9ryxvb9oOKBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850070; c=relaxed/simple;
-	bh=K+D5HzOOw2YhoSzRO9tZqkH7/wgeF2+vlFSBovWaLvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hF2lnRL3vseyFp+UjbZpHR188TRBLxbTQKrBGgythA2+OEd4xpJ6M/zFuUnRRK3/yqGtU65Rh+synXxomba7TWV20gfL02RZ4LabNRDqPyp57UcZcGx9av62/+DYoMDTduuDW4wVnqj3y7NZ45j0wBYTPCKmHuZzYfFZSBLAm1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ef/WVD5V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790850092; c=relaxed/simple;
+	bh=OI+AYVRzzUsdH6nYeYUtW8oevvh7wVTGPG+D88nYqZI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a5E5lglUIJUjHaxfopsBsFlnsevSFZ5ZQenHysmA+7veGCdm1GQFbPf+8U6mUly8JJzg60ZFTLEwkMn8SP6dIhIXUMIWSeWcTgvJymj/hm+UOtnsIncHeZhnUUX0EHUdOMAzOFhVydKRft+5x77utcZg8ZJHJnLUwro8AENut30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mO+DyMEW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yalp7Ywl; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ef/WVD5V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA3D1F000FF;
-	Thu,  1 Oct 2026 10:21:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790850069;
-	bh=feMna+qdEPtnp8EkIUrCw+ISbx/ENY0YCIQ2BzjjZgQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ef/WVD5V5FLSfjP0aPt2vTcQCgBycsH1fGDxVj0zqLYEMo56HuAugy4F7OXA1KAzn
-	 Ngu9N4pO+SM+wz9Hlc5A8O4MJHjhppK3lcGZWU4ZX6UEDhXBT4BmkiebfebiOFmEYx
-	 1ndtaCP6h4jaEC/aRDHJhiH6ZHOpnX76b/ullqnOCzDCEwHs2iT6GgUccGM8tpsepX
-	 U7OcGDKmoaI+mj9yl/B2gba/Usb2JXb+rPMQEsy9issnW2WJiHUWhorNKgfql0HiPA
-	 cb17rzDBoviEFtKfmKPdTDSp46kziRdc/CrASS04RlOpexlN4ZLTvT+Sj2k/7axGKv
-	 fuG0s7AX5WLiQ==
-Date: Thu, 1 Oct 2026 12:20:59 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-Message-ID: <20261001102059.GA4176271@ax162>
-References: <9d1c338b-368f-4ea2-a12e-c28d49adff5e@kernel.org>
- <are6s5e6On3hpD3M@zx2c4.com>
- <CAKwvOd=BrMfFT88jsvBPhh383qqk5G+J07CsofNu0MVkziyhCg@mail.gmail.com>
- <20260930133813.GA3142230@ax162>
- <ar0a4b9CjL2YHCkY@zx2c4.com>
- <ar0gTS71qxnx9AkW@zx2c4.com>
- <20260930151337.GD3142230@ax162>
- <CAHmME9pA+AntJ6hWoFYpTVjh-NUSd0ZGXp5XiUuhQcq3HjQT3g@mail.gmail.com>
- <ede392d7-3104-4a0f-9fa1-99b22552dcd6@kernel.org>
- <ar4nD8aRH7wEvTMt@zx2c4.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mO+DyMEW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yalp7Ywl"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xePG2337383
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 10:21:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IPn5s17QpSTwtWTx8tytTx3YPZ6V1k7TqNVOGS+iPXU=; b=mO+DyMEWwR0UTrF0
+	VSw3QdWqOTatQvpQc/csQWho46MdyNMBbTzpG23UQkhcNHgKUMC71UbKEAb7Thhc
+	OZoL9hmrtqhFJTJXP45BpFJy349FUsl6tEFRU2/jF990Owb8NjeMGBEorgfEAX/M
+	wFoUjJ+p6mSxPzIkGe9Y0h6Ovyw8Hcv7qarJLsRsTQ2ds9j3cI2Pr6TScaWR2Kj+
+	CLUPasLy1A7Y6krC4dXcoOIAiheVvp2w6VyAiSQsMA8Gl8kA+FeolZYJHHiFHdHD
+	JtHdAgaJt9miVlhjFHe6wNsudLmZK6eyUgT1gt3m2dS8S4oDJ46JhnKFmeRspUy6
+	jrlLvg==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h14n24byc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:21:28 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8883dcc671eso581290b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:21:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790850088; x=1791454888; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IPn5s17QpSTwtWTx8tytTx3YPZ6V1k7TqNVOGS+iPXU=;
+        b=Yalp7YwlBjMkqB8tWK7dfgvbtzBs9QPxIDRCYtDsV/1R6Dao8OntTPNW930YajMKnl
+         lGQ0zIsWvVRecD7h6eZw8JdS/rc9UskHiKousYkFoHa9Jt/Sv9ztsOZdNkLGwglvPW2D
+         DmC+jboWAQq7GgDwryF6YOHQ38ZeSXd3zscPf/ZgUsP2W7dg6xTpTyO4lSLuqBN9mmmR
+         +UwMEI9s4fxsKFKuLTXffRtzQWCbyMlUzdwu/t1Gs/MrrGMdrkxczJecZ95SsgG4vhjN
+         cfppyaX2UjOXPbe03wNmuePa0HCuoPFbKxvQdaVn5GpTuw6MpCLHmzMda71aV/1M6We6
+         81TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790850088; x=1791454888;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IPn5s17QpSTwtWTx8tytTx3YPZ6V1k7TqNVOGS+iPXU=;
+        b=G4Tz0wViSJc0ju/MDyXHjX4GgHkqXF7tlxHDSozVoZql2/jo2AKLhvumD/X+C5HaMO
+         3nEJ6UVumjCO+pJxTkFZU1q0lxFLMvMbjTsknKynUi3eaMJDexDhEXUk9pZFpZzy5qSW
+         LyeYmcsFRm/HBbHFUDFZhzk/OWXIRGVNpI8sNtK266W19wMc2xnABDVjNhqmBRaL+Qnl
+         qm5PcA6luSGwrwqw+JsWMS2NTZBGN6DQyhzb9JOuCrL4rPyVHzbkrUK8rxwN0eR59Zyr
+         jFBJDX7s4s3T1ox87Gn/kg2jVkdINgnijP4nj4yD5Dd6WELpIMV2JR/WPteIzfmQJleE
+         4THw==
+X-Forwarded-Encrypted: i=1; AKwUvByVJ7+DNi/4BNuuSOlVGYiPYNiW8k+Iiv2SeHAtdl0bwMI/UUdh2z0xgIZWYoC72Y2IgYE1uUbQCY/b+Rc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nccLcWz4jnMkFwKIx+p67AUp2PukXa9UlYc/VmUBHJqb7i2Hn8
+	oQMweKMWeERksd45+tAsDO18iEKTUVCPdB0YizIUfSvHCpY1YA67EmBookUT1uRv1AG+fQY46Tl
+	pBo8TjJ9mFMhJAC2rKhiIYV8c8I+P5UzZ47YjXEp2GlAyX6GCZDs4L1IqUjfoa62sskU=
+X-Gm-Gg: AYBFou3zPEqROr4GWEWXW4rI8lCNcnL3xlsLSHAs8bBDvJCY01Ift+7KUoobWrl9Cz7
+	qxQVrRPSoZcAogCGh3JG5F4lg5mDEMDzOsgn+DZUIwvLmNIAhMMfrh8AVdPIfFi5/QwM0KpwjEB
+	CeRJfKdS8G3+SdzY1J8cWg71TTkueyNpSChNNSANcePKnNTpi9e+kAEYCDH2dxqQla7Rpz0Zv2B
+	U27Ah2yoxR6Eftc9eNLHmIepRSVNErfUMEad0Q/aiAnjKeMdRb+zR0gGAbETdlYJljOsQVxwphA
+	WuX+9o1NYOgsLijvaYeAo5m6GDj31Iz5NR5HJSQ7ypqxiVDm21YQxmn8Y1N3mSpQ2g0Y4Q5Yqxl
+	+ftv/yBFIqToCqhZ9DFh3NizLJ39tcg==
+X-Received: by 2002:a05:6a00:1d93:b0:87c:9094:b72d with SMTP id d2e1a72fcca58-8874980140dmr2986589b3a.6.1790850087551;
+        Thu, 01 Oct 2026 03:21:27 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1d93:b0:87c:9094:b72d with SMTP id d2e1a72fcca58-8874980140dmr2986570b3a.6.1790850086707;
+        Thu, 01 Oct 2026 03:21:26 -0700 (PDT)
+Received: from [10.218.6.76] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8881871a46bsm824442b3a.9.2026.10.01.03.21.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 03:21:26 -0700 (PDT)
+Message-ID: <9b1c7c22-bd0e-438f-8af8-33b47a19d193@oss.qualcomm.com>
+Date: Thu, 1 Oct 2026 15:51:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar4nD8aRH7wEvTMt@zx2c4.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: qcom: qcom_stats: Add support for NSP subsystem
+ stats
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260908-nord_stats-v1-1-a55adb083d65@oss.qualcomm.com>
+ <4f518cb0-ed7b-4c2c-9a79-8d1549b26428@oss.qualcomm.com>
+ <208b9e11-d36e-4376-9836-ce9ed3c81486@oss.qualcomm.com>
+ <e66bb3f1-5dbd-4857-863c-99c22367bfe3@oss.qualcomm.com>
+ <2cfbbff5-fd79-42f1-bd7e-a72067f54fbe@oss.qualcomm.com>
+Content-Language: en-US
+From: Navya Malempati <navya.malempati@oss.qualcomm.com>
+In-Reply-To: <2cfbbff5-fd79-42f1-bd7e-a72067f54fbe@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Gr3XaU1C c=1 sm=1 tr=0 ts=6abe3428 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ePNLKXxWUt379338LPAA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MSBTYWx0ZWRfXy7Zov1kxzOeQ
+ jyeId3Z5V9el5zL9ftwFW72ZDZFDy8PocuDu48twYlw3Lt9rLThQfrR2G5VgWW0M72x4uz6gMV/
+ bnF1utE9p0XQt7GbxRTMY/+yGSeKxyk=
+X-Proofpoint-GUID: LHyzwA_OsUIfSA11ORzPCBRD-MN3sxS0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MSBTYWx0ZWRfXzw3RybLlQZ5c
+ V1eSIlyhPziVUQ0xb2lhRYykxY89dYjFyXf+RYJ66NWtJMyGjXE5EGunMr4UFCv0Y4LBSQS8wuH
+ 36zqZlGK+11TWNjF5Vci5mQLDTzPVKxKf3dCiNoNaj5KmU2Pc3kTeWGLQxkxR3e7rCLS/57UsU1
+ eHPh5aBcSULyLrCw8nzTnQWrFPh+gIAT6gkIy/zdNnwPJegvtAFmKkDpewxviwMYKV0JaNYoGui
+ K5iqyIWu9Joh1DnvjhxhUaP3enCwaNIZpT/cKgYzox+One39lQm55L9HByW/3sj8+I3OyzKisNO
+ mxJaWCM/h9o/lTHRyMweRUIcSokXsGARuxQndgHwciY0uD6LUFrlAeJS65mou7tTVoK+G3Ju6//
+ lDkbXkLzgZCgGS3pu4Yr/B8GRTBsw3XOQHuPX7uzQdcvDJMgHNhwEAR/cAavEu6yPRXuAS6YcGa
+ nm/zIcq5lwHyXeZVMyA==
+X-Proofpoint-ORIG-GUID: LHyzwA_OsUIfSA11ORzPCBRD-MN3sxS0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ spamscore=0 suspectscore=0 impostorscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010041
 
-On Thu, Oct 01, 2026 at 11:25:35AM +0200, Jason A. Donenfeld wrote:
-> Darn. Yea. The naive memset kills optimizations.
+
+
+On 9/21/2026 8:57 PM, Pankaj Patil wrote:
+> On 9/18/2026 2:04 PM, Konrad Dybcio wrote:
+>> On 9/15/26 6:09 AM, Navya Malempati wrote:
+>>>
+>>>
+>>> On 9/8/2026 3:33 PM, Pankaj Patil wrote:
+>>>> On 9/8/2026 1:43 PM, Navya Malempati wrote:
+>>>>> Add SMEM items for four NSP subsystems stats which are present in Nord
+>>>>> SoC. Rename CDSP stats as CDSP_NSP as both use same PID and SMEM item
+>>>>> id. Add new entries for NSP1/2/3.
+>>>>
+>>>> For other targets as well is the same applicable? NSP and CDSP are interchangeable?
+>>>>
+>>>  From the stats point of view, they are the same, we used the name NSP in downstream, it looks like Nord SoC remoteproc is using the name CDSP [1]
+>>>
+>>> [1] https://lore.kernel.org/linux-arm-msm/20260904081619.593602-2-shengchao.guo@oss.qualcomm.com/
+>>>
 > 
-> Okay, new strategy:
+> Downstream conventions can't be added upstream, if upstream dt entries
+> are not named the same way. Please revert this
 > 
-> - on clang, pass `-mllvm -max-store-memset=4294967295`
-> - on gcc, pass `-finline-stringops=memset`
+
+This is upstream convention only. You can find that the name NSP was 
+used in upstream as well. The name NSP is in fact used in the CDSP nodes 
+in the same link [1] shared earlier. You can find one such snippet below:
+
++&remoteproc_cdsp0 {
++	clocks = <&rpmhcc RPMH_CXO_CLK>;
++	clock-names = "xo";
++	interconnects = <&nsp_data_noc_0 MASTER_NSP0_PROC QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++	power-domains = <&rpmhpd RPMHPD_CX>,
++			<&rpmhpd RPMHPD_NMXC>,
++			<&rpmhpd RPMHPD_NSP0>;
++	power-domain-names = "cx",
++			     "mx",
++			     "nsp";
++};
+
+[1] 
+https://lore.kernel.org/linux-arm-msm/20260904081619.593602-2-shengchao.guo@oss.qualcomm.com/
+
+>>>>>
+>>>>> Signed-off-by: Navya Malempati <navya.malempati@oss.qualcomm.com>
+>>>>> ---
+>>>>>    drivers/soc/qcom/qcom_stats.c | 5 ++++-
+>>>>>    1 file changed, 4 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/soc/qcom/qcom_stats.c b/drivers/soc/qcom/qcom_stats.c
+>>>>> index 06923408bfce..91f2d1293124 100644
+>>>>> --- a/drivers/soc/qcom/qcom_stats.c
+>>>>> +++ b/drivers/soc/qcom/qcom_stats.c
+>>>>> @@ -43,8 +43,11 @@ static const struct subsystem_data subsystems[] = {
+>>>>>        { "modem", 605, 1 },
+>>>>>        { "wpss", 605, 13 },
+>>>>>        { "adsp", 606, 2 },
+>>>>> -    { "cdsp", 607, 5 },
+>>>>> +    { "cdsp_nsp", 607, 5 },
+>>>>>        { "cdsp1", 607, 12 },
+>>>>
+>>>> Is cdsp1 not the same as nsp1?
+>>>
+>>> No, cdsp1 is not the same as nsp1.
 > 
-> And keep the same code. (Or, better, see if those options generate good
-> code with b7bad082e113640fc81200ff869e5c2d7a9c29a2 reverted; I would
-> prefer that simpler initializer.)
+> Please explain if the dt entries are named as remoteproc_cdspx then what
+> does cdsp_nspx correspond to? Subsystems are common across all soc's
+>
 
-Reverting b7bad082e113640fc81200ff869e5c2d7a9c29a2 would break GCC < 14
-though, right (since no '-finline-stringops=memset')?
+Subsystems are not common across all SoCs. Few SoCs have only CDSP, 
+while few use NSP. From the stats driver perspective it has to read the 
+SMEM items using the processor ID which matches for both cdsp and nsp 
+subsystems.
 
-> Nathan, do these work?
-
-I would really prefer not to use an internal LLVM flag here. While there
-are some instances of internal LLVM flags in the kernel tree already,
-LLVM generally only provides them for debugging and not end user
-control. The change that introduced -max-store-memset only did it to
-"allow fine-tuning of the inlining threshold for performance analysis
-and optimization". If they decide to remove it for whatever reason,
-we're back to square one.
-
-  https://github.com/llvm/llvm-project/commit/b28eeb28bea39148738dc375e8a97072a1907e64
-
-I know something like below would be uglier due to the ifdef but it
-would avoid changing anything for GCC while clearing up the issue at
-hand for clang in a guaranteed stable and succinct manner.
-
-diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
-index 2851afa9154f..f495d2111ee3 100644
---- a/lib/vdso/getrandom.c
-+++ b/lib/vdso/getrandom.c
-@@ -83,8 +83,12 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rng_info, void *buffer, size_
- 		params->size_of_opaque_state = sizeof(*state);
- 		params->mmap_prot = PROT_READ | PROT_WRITE;
- 		params->mmap_flags = MAP_DROPPABLE | MAP_ANONYMOUS;
-+#if __has_builtin(__builtin_memset_inline)
-+		__builtin_memset_inline(params->reserved, 0, sizeof(params->reserved));
-+#else
- 		for (size_t i = 0; i < ARRAY_SIZE(params->reserved); ++i)
- 			params->reserved[i] = 0;
-+#endif
- 		return 0;
- 	}
- 
---
-
-If that is not acceptable, something like the following does appear to
-work for me.
-
-diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
-index 7dec05dd33b7..f6619e1cb2ce 100644
---- a/arch/arm64/kernel/vdso/Makefile
-+++ b/arch/arm64/kernel/vdso/Makefile
-@@ -41,7 +41,7 @@ CC_FLAGS_REMOVE_VDSO := $(CC_FLAGS_FTRACE) -Os $(CC_FLAGS_SCS) \
- 			$(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
- 			-Wmissing-prototypes -Wmissing-declarations
- 
--CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables
-+CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables $(CONFIG_CC_OPT_INLINE_MEMSET)
- 
- CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_REMOVE_VDSO)
- CFLAGS_REMOVE_vgetrandom.o = $(CC_FLAGS_REMOVE_VDSO)
-diff --git a/arch/loongarch/vdso/Makefile b/arch/loongarch/vdso/Makefile
-index 9c9181bb4071..0b84892d084b 100644
---- a/arch/loongarch/vdso/Makefile
-+++ b/arch/loongarch/vdso/Makefile
-@@ -16,6 +16,7 @@ ccflags-vdso := \
- 	$(filter -m64,$(KBUILD_CFLAGS)) \
- 	$(filter -march=%,$(KBUILD_CFLAGS)) \
- 	$(filter -m%-float,$(KBUILD_CFLAGS)) \
-+	$(CONFIG_CC_OPT_INLINE_MEMSET) \
- 	$(CLANG_FLAGS) \
- 	-D__VDSO__
- 
-diff --git a/arch/powerpc/kernel/vdso/Makefile b/arch/powerpc/kernel/vdso/Makefile
-index 368759f81708..0d1a49529885 100644
---- a/arch/powerpc/kernel/vdso/Makefile
-+++ b/arch/powerpc/kernel/vdso/Makefile
-@@ -43,6 +43,7 @@ ccflags-y := -fno-common -fno-builtin -DBUILD_VDSO
- ccflags-y += $(DISABLE_LATENT_ENTROPY_PLUGIN)
- ccflags-y += $(call cc-option, -fno-stack-protector)
- ccflags-y += -DDISABLE_BRANCH_PROFILING
-+ccflags-y += $(CONFIG_CC_OPT_INLINE_MEMSET)
- ccflags-y += -ffreestanding -fasynchronous-unwind-tables
- ccflags-remove-y := $(CC_FLAGS_FTRACE)
- ldflags-y := -Wl,--hash-style=both -nostdlib -shared -z noexecstack $(CLANG_FLAGS)
-diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
-index 8dbf2532a573..c023046a3fd7 100644
---- a/arch/riscv/kernel/vdso/Makefile
-+++ b/arch/riscv/kernel/vdso/Makefile
-@@ -36,6 +36,7 @@ endif
- ccflags-y := -fno-stack-protector
- ccflags-y += -DDISABLE_BRANCH_PROFILING
- ccflags-y += -fno-builtin
-+ccflags-y += $(CONFIG_CC_OPT_INLINE_MEMSET)
- ccflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
- ccflags-y += $(CFI_FULL)
- asflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
-diff --git a/arch/s390/kernel/vdso/Makefile b/arch/s390/kernel/vdso/Makefile
-index 35c834b895ec..54bcf2984ca1 100644
---- a/arch/s390/kernel/vdso/Makefile
-+++ b/arch/s390/kernel/vdso/Makefile
-@@ -29,6 +29,7 @@ KBUILD_CFLAGS_VDSO := $(filter-out -munaligned-symbols,$(KBUILD_CFLAGS_VDSO))
- KBUILD_CFLAGS_VDSO := $(filter-out -fno-asynchronous-unwind-tables,$(KBUILD_CFLAGS_VDSO))
- KBUILD_CFLAGS_VDSO += -fPIC -fno-common -fno-builtin -fasynchronous-unwind-tables
- KBUILD_CFLAGS_VDSO += -fno-stack-protector $(DISABLE_KSTACK_ERASE)
-+KBUILD_CFLAGS_VDSO += $(CONFIG_CC_OPT_INLINE_MEMSET)
- ldflags-y := -shared -soname=linux-vdso.so.1 \
- 	     --hash-style=both --build-id=sha1 \
- 	     $(call ld-option, --eh-frame-hdr) -T
-diff --git a/arch/x86/entry/vdso/vdso64/Makefile b/arch/x86/entry/vdso/vdso64/Makefile
-index 7c0790065b5e..c2353a065279 100644
---- a/arch/x86/entry/vdso/vdso64/Makefile
-+++ b/arch/x86/entry/vdso/vdso64/Makefile
-@@ -14,7 +14,7 @@ vobjs-$(CONFIG_X86_SGX)			+= vsgx.o
- vobjs-$(CONFIG_FUTEX_ROBUST_UNLOCK)	+= vfutex.o
- 
- # Compilation flags
--flags-y				:= -DBUILD_VDSO64 -m64 -mcmodel=small
-+flags-y				:= -DBUILD_VDSO64 -m64 -mcmodel=small $(CONFIG_CC_OPT_INLINE_MEMSET)
- 
- # The location of this include matters!
- include $(src)/../common/Makefile.include
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f06c52..98d8d7fa64c5 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -173,6 +173,11 @@ config CC_HAS_ALLOC_TOKEN
- config CC_HAS_MULTIDIMENSIONAL_NONSTRING
- 	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
- 
-+config CC_OPT_INLINE_MEMSET
-+	string
-+	default "-finline-stringops=memset" if $(cc-option,-finline-stringops=memset)
-+	default "-mllvm -max-store-memset=4294967295" if $(cc-option,-mllvm -max-store-memset=4294967295)
-+
- config LD_CAN_USE_KEEP_IN_OVERLAY
- 	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
- 	# https://github.com/llvm/llvm-project/pull/130661
--- 
-Cheers,
-Nathan
+Thanks,
+Navya
