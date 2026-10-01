@@ -1,124 +1,81 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD5F385D9C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBD4366051;
+	Thu,  1 Oct 2026 04:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829155; cv=none; b=k86AQdQm2c4LMVaZ1Gof6FCYZrgfC3cODtbtQsB/2eGuvxDc8I4pJhaB2A0rCPH6em1azTJP/kvzgGlrivHNY4XBym3wfyTDEIZC3yxKZaExABe7a/Ck8/R22bZ55hosH6aFGuCyP3j1CiWI14CeqNxxSQZeFCGpRhrNGesUETI=
+	t=1790829182; cv=none; b=KNJGHdWpE2Bq2tpvK5okWtRo2rHCTjaxb5MgOOH4QgQ6Eki0CC+EoR0ra5W80/29ANDtaj4kdiKP2cRn2kTtC37XCGrijgpnSO8i/dbF019DCxa39LPqrENSHtybgUMgL/6a9KtRnZMmciyPfw2e2yZBGIYc4HmN6VZ4ZNnbKek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829155; c=relaxed/simple;
-	bh=2cdXcBFEwI3jjzLipmLP0911D2tzhGvFyo2oGd1W+H4=;
+	s=arc-20240116; t=1790829182; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XBKJFAt4w9XEYtGhd2ltPuMzmuzEg5s8M6hhQc3O1LSGWFK5NlsYDMYGwG9gshIcKKmikq6fOKCOLTZ1g0hy93D8YRzhGMqONDeXJKRkT4XeHsjDI58DZQH1dQ3zOnGYVMRIrROT+4JHCeNFJ4CNtsNZPRbxXKOkPCq8kMy0DeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mnt8cTOU; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=tMxGsE/5xX9OEVvma1ZUHLESlc3ZFOYT6wNWGrOkAVwabjDY4BND0lmxaj/nPY/db1Nw/apOUrl0prSVkUaDs8XRmc0BISC8wH0EusWsAPjTZFdJLTdLxVyrPuHybhI4pCbQpLl6OAl7kdEfhm6cEpdUTDjCZu0p1eygWI4+4MI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bVRCDdf0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mnt8cTOU"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4aa80a73so39695535ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:32:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790829153; x=1791433953; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=elrhZUFLcXcRp6X3/p8YCNVRVzWhHBdMXnMivKI+qJc=;
-        b=Mnt8cTOUziV9v8EX0nwjrZE96FK8fkoumiO71CPm2s8k+pX6tsTsC3AH5yAm4/IAfs
-         Lhy0Z7HX5pdJsjKwNR0MWTycaH66fe3igF0bd3XouOalSYzLDC/wT3NWaDIFgZtd+hdl
-         WAqUMCicFtba1DAn1tnMVAIDTWwUcRAynaf4EBOglQhqzuKvebvUwku+GdM+IvglSqW1
-         F48c/P4pQtj++sou39CioJZYOVojUXL9g+YlzGmCciTZWkQ7UbeGDUYRJM+Z+qG2XHI0
-         1MNXQn7vvcvJ1Tpt5bzlxSoaKxEjx/uolSJZJLuQSmUedBLZVxl1DPpr4HqW868zIqgu
-         9FeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790829153; x=1791433953;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=elrhZUFLcXcRp6X3/p8YCNVRVzWhHBdMXnMivKI+qJc=;
-        b=pkCoCOIr2TVfFGxLCTJmylnXRbGlUx7ZQEtHPRSK/f6iW7t991s+mtH0A7Ihptd3Ej
-         3dv3yINVqfw8IlSJ69egV+tSC42GK8xb5DEJrQrMkmXVgztbQj2So7Ta1XJKgH0gkwp0
-         aNtvzjUZUX/o6G+nOBX+e6wM2Y7Fkilu1Jd5/JQ3cWRkGVUITG37kBZ0sFlvba38mFeI
-         CtBx9oIEidEb4U9TaTCnCe6m0Fb7xD+/1YFyTtSQLjsTHBBqD/G4aXzu2Vp2BkWirf3J
-         JuKk8k5mrWk+tty4u9MJSrxhyXFyUSrjgJNbxdDpQYKc9RuQbQKAIdLxmyInM4mJYeqk
-         yZNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxxFV6/jiQaHi3AZhOe+iruH/E71UCyPvcEEgR+gqvnRWL4SOd+OcMcVWG7hzh2M9xiTMxKIyR59WqCMYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIwhrUynn8geM5XJd3G4SwIBJgrtU9GrL8d55xQRUEojjZFK2Y
-	AdKMmR5AJH/FRo9U1v9PsquGje+LrhtFkrPE7dPmR2arH5XwduGdb0MbYRPYONv2Ggo=
-X-Gm-Gg: AYBFou1sL4BK+z5eHON94JJy1NLfNHGMcaN/Q+HmuwpD9onx3sonUwgg/WPWKzanwU5
-	nukDn6YjEJbNztDVVusdiY6uiz77FGZVNUgqtPdjqBFesUO7Z7723POWJhfLnOFAD5cahx3Se49
-	r1xr2bib0uUofkrKPPiv26u4nloRDcieRiI16L4eVSVSMLC4v42eUHtxMfHRp8JEro9/Eb2V3rf
-	AwEP7kYHcKTYUEAVXYu/+0BUw18jMhDLjchRu0Tzju5vVaGj+OIX4rWx7E66BTiqAO/CC8IDM/I
-	KGiMaGNFMndM1ntghR6IsW1e9aFawk+rTK5rsWb5lJcfhKwgeWp509QLxQg3Dmtx/ot/dNshRos
-	hSMGIT4tXzW/z5u1tV3qJKVK1ZTAH5vTOQxcMsaS2FEzkv6+nkg4OyF46B/DzmzK+h/Ao4WQkMc
-	i0pFuK8fp82oOcuU8wvjy9TsQJZsynGHT1juIB1QV9sd5MK5otx7EftXdvhebrhmUJnTpibO64e
-	cvw1X1D4qd9P5uYaEAFvSM0g02VoSFei+b1TdSWbYT7VRiWAM7dT720WVNgOXZNALBgbaVXPRU=
-X-Received: by 2002:a17:903:32c3:b0:2df:90d4:1188 with SMTP id d9443c01a7336-2e2e4939452mr28042805ad.7.1790829153200;
-        Wed, 30 Sep 2026 21:32:33 -0700 (PDT)
-Received: from lima-arm64-dev.hitronhub.home (180-176-144-38.dynamic.kbronet.com.tw. [180.176.144.38])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e300a90dc9sm4921885ad.18.2026.09.30.21.32.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 21:32:32 -0700 (PDT)
-From: Harry Hsu <x90613@gmail.com>
-To: mbenes@suse.cz
-Cc: jikos@kernel.org,
-	joe.lawrence@redhat.com,
-	jpoimboe@kernel.org,
-	linux-kernel@vger.kernel.org,
-	live-patching@vger.kernel.org,
-	pmladek@suse.com,
-	sashiko-reviews@lists.linux.dev,
-	shuah@kernel.org,
-	song@kernel.org,
-	x90613@gmail.com
-Subject: Re: [PATCH v4 1/5] livepatch: Fail object initialization on duplicate patched function
-Date: Thu,  1 Oct 2026 12:32:28 +0800
-Message-ID: <20261001043228.74946-1-x90613@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <alpine.LSU.2.21.2609181452160.21788@pobox.suse.cz>
-References: <alpine.LSU.2.21.2609181452160.21788@pobox.suse.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bVRCDdf0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536C71F000FF;
+	Thu,  1 Oct 2026 04:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790829181;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bVRCDdf0/1T8kSqaKwEzdCIoYR6HU5BI7iyh2jOl+PXmpwZbt8o9DhW4p24oGXdpN
+	 /PTZ+SsBkJPIsIPvDcoTwm9LfB+asS5Hkkq+HJ5ww2TizYYZW3JxVe0CpFBnmZ+N2S
+	 A/WPfA1LU5Jq42mqez/7H5iC90o5GKWpWO7nRNhKIMcZDqZw16FfPEEWFd+Gcr2hdX
+	 pVNKUqvOSttOHiJkesISfQ47cwgLhzDtaU91wkM1PVkjRdIaFo6iRD8IM3G21heegY
+	 jhvxjJh+lFi6qCfHAMo4MfsYy4gZbU8pYYjopnmrvatStYYBV24maw5iXQNStyzunG
+	 SNgp3Dt1tfiKQ==
+From: netdev-bot+sinfo@kernel.org
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: unwind the WoL IRQ after a safety IRQ
+ request failure
+Date: Thu, 01 Oct 2026 04:32:59 +0000
+Message-ID: <179082917987.31693.16306963663623790870@kernel.org>
+In-Reply-To: <20260930-stmmac-irq-unwind-v1-1-0c8a053761c7@gmail.com>
+References: <20260930-stmmac-irq-unwind-v1-1-0c8a053761c7@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Fri, 18 Sep 2026, Miroslav Benes wrote:
+Hi!
 
-> Could we also check prev_func/func->nop in the check in
-> klp_init_object_loaded() and have a pass if true?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Thanks for the suggestion.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Yes, I've updated the check to skip the pair when both klp_funcs are
-nops. Two nops added by klp_add_nops() for replaced aliases are
-interchangeable, so an atomic replace patch that inherits nops for
-__do_sys_fork and __x64_sys_fork from two previous patches now loads
-fine. A non-nop func colliding with a nop (or another non-nop func)
-is still rejected, since the nop would land on top of the real
-replacement on ops->func_stack and silently disable it.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-The incremental change on top of v4 1/5 is:
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
---- a/kernel/livepatch/core.c
-+++ b/kernel/livepatch/core.c
-@@ -894,6 +894,8 @@ static int klp_init_object_loaded(struct klp_patch *patch,
- 			if (prev_func == func)
- 				break;
- 			if (prev_func->old_func == func->old_func) {
-+				if (prev_func->nop && func->nop)
-+					continue;
- 				pr_err("'%s' and '%s' resolve to the same address, aliased symbols are not supported\n",
- 				       prev_func->old_name, func->old_name);
- 				return -EINVAL;
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-If this direction looks good, I'll resend the series. Petr, should I
-just bundle everything into a v5, or do you have changes on your side
-that I should wait for?
-
-P.S. Sorry for the second mail. I forgot to quote the message I was
-replying to in my first one.
-
-Harry
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
