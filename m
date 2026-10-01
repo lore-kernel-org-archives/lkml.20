@@ -1,71 +1,110 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A913909BF;
-	Thu,  1 Oct 2026 15:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA53351C27;
+	Thu,  1 Oct 2026 15:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869788; cv=none; b=QouiOd/M7ehOBaqR4TeG0DgAnswWqnLr+PEKDnzNgLVV4vXvXQ0UFW3jkKcAwYNIzSB7z0bgMYGdxfqaSwE3KczGSjqWTz1Sf4WPzcvnzsj8rs9Ycuuib+UGJQJgEdIwZl3hHF+VPp2XOVxMVXEN+rcniFo3TSgYmNbwjdMFDgI=
+	t=1790869800; cv=none; b=eiQNESxguCMS7hbWZD2Wj64m9xbBFSHrVWaDhEQ4MXFmtAdDEiqStj7Tcv7ZuYJhvO/bxD+0SpjlI9NJ6dHI6jCoHVvLlW430joDuhM/xLPud36icHYuuhXucYj1OWT5klJ1nEpLTe1KDBYAMA/Y97ueZzdJ5IObhOPDRirp6BQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869788; c=relaxed/simple;
-	bh=WjKuKcb5daavebDKTVBv1ViKiif6cXNwReONapeldT0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YvnAXx8+ghw96jtkrU0/TWcUo58tGR2Pukzht+jjP7V7a61w1qdtQ7HnQ9Kcg5mf7qGfOqartsTi5/NBogR9b31LgDSgiUAmAsY51XEnnWzDTmvNrqd9exxve8/+D2dmP0Z84UCsn9AAWc0g8zLcWm4659vwO5LNp/LUZsdjeyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=mB3xQ7OL; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790869800; c=relaxed/simple;
+	bh=d5wjsmU4iwodPmCvT+NJtftx88hL20Yv4nRXnfEGQzU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=iV5VDoLN4+mPQLcV0yDNe2kFPOHLot8LEG/IlmUAYaA3CyKaTD5bB67AoP/UIKb9H3KRn43lQg7p1BpyUP+NQ+5vde4sPg+UHFIRZH9auEetqqmEUkVUxyDOLJ7YJEcsBp2+dlxUe7BFPGVnR/IpPgkWFP23xFEjrn/6YzLzz34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ieDfAB85; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="mB3xQ7OL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=CwCNZwJCJdJ17fMRBLRacvbvjnwe/+Ql4dP2Gc32nCs=; b=mB3xQ7OLqbg/Kz8Qh8PyFfK9F2
-	CHugfzwiu3uarezWfDbPROBM1Ol7/L0ytpdAWL49EmZuTWGSWeq6C3xM8jpED9xNN9yj02xBt4M+T
-	nIb6mOkH9kOfMzpBU6Phh8mWJalYlsPMXrvE6tEcckkO7cM6HZhngC95ucomAb2nN8jBEKx8JC9mN
-	dP+GF4YLEzFg7D/1mDCo/1a2WKMZsS9g7kX6MVNg34NslPHkXr0AhIKdwTU5/n0PNYd93iQA3pwgZ
-	P/n67HUonp4+I5xPIJoJTP9x9n81jLgIDzc4+lg5Zw3GAcOa7Q8zkO7Rfqg2pMmI/ZUpVgphn/d4Y
-	AOFxnyqg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1xCJ2N-00000005A22-3JVy;
-	Thu, 01 Oct 2026 15:49:36 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9A2B8300390; Thu, 01 Oct 2026 17:49:34 +0200 (CEST)
-Date: Thu, 1 Oct 2026 17:49:34 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Nam Cao <namcao@linutronix.de>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Wen Yang <wen.yang@linux.dev>,
-	Tobias Schaffner <tobias.schaffner@siemens.com>,
-	Viktor Malik <vmalik@redhat.com>
-Subject: Re: [PATCH v2 01/15] sched: Add task enqueue/dequeue trace points
-Message-ID: <20261001154934.GT88198@noisy.programming.kicks-ass.net>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
- <20261001152042.124445-2-gmonaco@redhat.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ieDfAB85"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 29AB14E41115;
+	Thu,  1 Oct 2026 15:49:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E56BF60343;
+	Thu,  1 Oct 2026 15:49:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BAD94103282D5;
+	Thu,  1 Oct 2026 17:49:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790869792; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=uGiWo6C+ycX09EU8H32CDb7AmZmrCKj9IV2lN2Mp/Hk=;
+	b=ieDfAB85stwwyZZSONxP4MucbdJVdGaD4CpTNy0XtKFsHuWU+pNP8OS+xoLFHBrWXaM/Vp
+	1WYzN+Wc8w6iie1fbCnX32LrMk6e5YzcWJnq1SKuenvHkWs0XZytGUfVprH2foGRrwKqBn
+	ZWNyWpZxptuyAsWuQ/dcVlL7W+hgLx0KBfqpf8PflbL0Np7aC6MD86rEJaMHhGC2TF9P+T
+	pzorWpQcNQpiRbvbXIEUJXHGri4D5wGd1qywEMeZGLxL3XLDuoBwXb6DIiZNK3lK0/BF0j
+	PPDx1NfHnVBER6DpUYsTEn45LfFjbpasGktZ1AsxhDb/j1/C1zMS+rJOgrwA7w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001152042.124445-2-gmonaco@redhat.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 01 Oct 2026 17:49:39 +0200
+Message-Id: <DLTMCR2DR484.2J56NLPQEQO3M@bootlin.com>
+Subject: Re: [PATCH v2 0/7] drm: remove deprecated *_of_get_bridge() from
+ non-OF drivers (fixes build regression)
+Cc: "Arnd Bergmann" <arnd@kernel.org>, "Doug Anderson"
+ <dianders@chromium.org>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+ "kernel test robot" <lkp@intel.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Dave Stevenson"
+ <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
+ <kernel-list@raspberrypi.com>, "Geert Uytterhoeven"
+ <geert+renesas@glider.be>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 01, 2026 at 05:20:28PM +0200, Gabriele Monaco wrote:
-> From: Nam Cao <namcao@linutronix.de>
-> 
-> Add trace points into enqueue_task() and dequeue_task().
-> 
-> Signed-off-by: Nam Cao <namcao@linutronix.de>
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+On Tue Sep 29, 2026 at 3:39 PM CEST, Luca Ceresoli wrote:
+> After commit Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to
+> drm_panel.c") some drivers fail building:
+>
+>   error: implicit declaration of function 'devm_drm_of_get_bridge'
+>
+> This is because devm_drm_of_get_bridge() (and drmm_of_get_bridge()) have
+> been moved to drm-panel.h.
+>
+> The affected drivers are those which:
+>
+>  * can be built without CONFIG_OF, and
+>  * don't include drm_panel.h
+>
+> The affected drivers are 3, fix them (patches 1-3) by replacing the
+> deprecated *_of_get_bridge() calls with of_drm_get_bridge_by_endpoint().
+>
+> While there, do the same for all drivers which be built without CONFIG_OF=
+,
+> even if they don't fail (patches 4-7).
+>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Obviously I don't remember anything at all. But also, you 'forgot' to
-send me the rest of the patches which might hold a clue. As is I'm
-clueless as to why we want this, since the Changelog also offers none.
+Patches 1-4 and 7 applied to drm-misc-next. This includes all fixes to the
+known regressions.
+
+The two missing patches (5-6) are improvements, not bugfixes, and have
+changes requested. I will send a v3 later on.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
