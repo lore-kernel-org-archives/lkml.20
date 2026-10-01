@@ -1,349 +1,210 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012030.outbound.protection.outlook.com [40.107.209.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D2E3E315E;
-	Thu,  1 Oct 2026 15:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870200; cv=fail; b=efi7tvsGzHBpceehcptccDHql9WB/mk9zvxrqwsRtxTh88xmqKa1XnV4lXjgAXt5/8AI6t51ozBpna2qyLK2rA2Imiaygpi1D99dv3QB6UV8kMgdo2byI60qJKnfBMVsaVUFu1VWtVYCofY+TRG1vIQsYLH8cjqFLIBaH5GmtvA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870200; c=relaxed/simple;
-	bh=HhXilCzetUyq+hWDlBCklK2+97hJycZYleRd3UXyR5g=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=c1VBL2icjd4vhtUBOhV2/flChqMPEsa80mKGflKO9oJkpYJthMqz9rQWAMU2Fb7/o9pR25iLEqdgK2/poXaSQW+fns0SPDg6M2wHZzjkVfrn8iR6tcmD+FXvBpHQ0NRgYk5RmMJfBDT6m1qBq5M89mOwecANioMDOuc8YB9/ygw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=H3i3jRY8; arc=fail smtp.client-ip=40.107.209.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501CE3E0097;
+	Thu,  1 Oct 2026 15:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790870265; cv=none; b=dfe6ZL7mW+iVPZwz6MxGfg7SP6F+3kDJCdGtQYVckx0rMkbW+4Bzji/ScxzGR3GeAMv2xQC+BTmK/cDbCEnncY+ozWZ5fPR1vqOf7MZuiTnoMaJ5yJbehVn1bCtm+DZVtN2++kwqgFSrMBdGJ5wqN/SKH9eGOS9T6aL6Qagdr0k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790870265; c=relaxed/simple;
+	bh=UNkHMqxGBAcD+RzwKWSXdRY112uRoXout3g80Fye6f0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VqPjbekDDgNgzF6GHhx9zXxPFNw3QwXnsug5V3U3+g2OMU8sMnOxflUvaM3JXsVT3rrPgj7FVVy7A/AQKdbG9UxsGoR0f/dlEV1UbImkmKEoHqJJ5ntdB7keZRpL7btbcIYEXYPHwQXLgkbqTT5VdXBsmzg9o5e6hOOxNr4J6Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XwgacyKU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=libx+BTn; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fUpJhl1n; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=UuCWnDvL; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="H3i3jRY8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qLTaP3khvwvzYILGU2/TGCbglaaw3V/NbGvEk5A7u4KpQcNIMReYWqbSUfGt2DO86SJTmYz7en+SzQ64lqYvIOj18Ob8H8SGzIqumSsvZms/4y4Mh1pAeeqfj+DPYYsXkCxkx0JQhwwEn1OLtRZ8p0z94DvyYV5+PIv85hExJN9GnsppB7SmlsDxpJ55oAAKsoA5bVpJIwJG0kB+/nZ4yzHXL5Rb6ktb1wLIfJVJgft1f4KBaGY6M/35EhxZzfHDcvWigpbvwZXSGm0JpbsP1nJqXcAunviSYAvrw4nJsm1hDG+8kvuXClFguAMYCjwL1byHsGxivw0FkYEgAmUzWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3aM/EMoo5Oh9Zw7hN1naWL76lwsg8klLTu/lhKY/5LA=;
- b=aSsBZnMf++0eGmvGVcB+tmK44ggTHzTpHL2ksAdNDYo6Bx4JnkwTR7YevAvafPRW5mAUrZMqw6odp3SobrPVIL0th16pO7H3VSGyjQTqGqrRoKRLEvu4XxNtZgztI1E+viMZ+CEAwd1e4CMqRAvSP0EjIfnd/ye288hx/PNJZxFbAflVmP8A9LTb9K/RWsH/Ci6H12hDcD1yqDwv9eaPARassg/bdyeB7NROLIO4sp0GLs/oDdAl8M0e7Iv39sfhiXXztWpAd/Id/nJWmmXmvH3wE69e9zZP+JYKzdr5wuHZMY86OMAF1Gbq7TnrK8CYJv5IFMdRx+Ey0PBnT/pZ6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3aM/EMoo5Oh9Zw7hN1naWL76lwsg8klLTu/lhKY/5LA=;
- b=H3i3jRY8OhbjwMdrOBOzcr4z4rEktgRGT/otItikgFPjlGY9YFwmFuHky9l/M9hdUXQy8MdC8OvAdnlsrvKqVPjHGJh2GWs+R92TwW+7iquQYEABBEh6Ccz05MkIwTCp34cOmnsoD/L7KA81YXJcvFAPffCg1rSwCt4MQVxQHyk=
-Received: from SJ0PR03CA0197.namprd03.prod.outlook.com (2603:10b6:a03:2ef::22)
- by BL1PR12MB5994.namprd12.prod.outlook.com (2603:10b6:208:39a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
- 2026 15:56:31 +0000
-Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::39) by SJ0PR03CA0197.outlook.office365.com
- (2603:10b6:a03:2ef::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Thu, 1
- Oct 2026 15:56:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 15:56:31 +0000
-Received: from weiserver.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
- 2026 10:56:29 -0500
-From: Wei Huang <wei.huang2@amd.com>
-To: <bhelgaas@google.com>
-CC: <linux-pci@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <skhan@linuxfoundation.org>,
-	<corbet@lwn.net>, <rdunlap@infradead.org>, <fengchengwen@huawei.com>,
-	<wei.huang2@amd.com>
-Subject: [PATCH RFC 3/3] Expose the CPU/Steering Tag mapping via debugfs
-Date: Thu, 1 Oct 2026 10:55:51 -0500
-Message-ID: <20261001155551.4182899-4-wei.huang2@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001155551.4182899-1-wei.huang2@amd.com>
-References: <20261001155551.4182899-1-wei.huang2@amd.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XwgacyKU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="libx+BTn";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fUpJhl1n";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UuCWnDvL"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EF6B721292;
+	Thu,  1 Oct 2026 15:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790870258; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qhF6KmmCbZRNKmOH2gXcyTapxNbzeo8YMso0EFlu0Ec=;
+	b=XwgacyKUjFR+XxQTbtoP9EjvRsO1nbA1T0+JMuaVocRVEf0LJMYgerHbAECpvG1jhTlwl5
+	4sY2jMAHxuHL2Cp06Aro7KAsX98zymLmBrzmvbCtEZiq14qiv9O26w75T8C1ur1mRXW19a
+	waBtTFI5QWXSVUpkbZvaWrepx4fwYSY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790870258;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qhF6KmmCbZRNKmOH2gXcyTapxNbzeo8YMso0EFlu0Ec=;
+	b=libx+BTnJP/eyYyYVlVz+mo7U2UONe4Ozskz0zArpfLps64VO7R2La7Zc/r33RFVVysluI
+	71NcGxN8IzCj/PAw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fUpJhl1n;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UuCWnDvL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790870253; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qhF6KmmCbZRNKmOH2gXcyTapxNbzeo8YMso0EFlu0Ec=;
+	b=fUpJhl1n6dBhYqnLlR0TGAM+/ezNQ7Z0xRJGAEp+wUTht5sPvgY6FKc2QOE/DdYAACeo+z
+	8qq02G099dw/n5/QHPyaYZaHwEt/m6rSsIBKBFAVf3YF3nXGSuCcUEwCz/L8pIZfXgHP/+
+	wsc6jvG0GNdJd/pPSY0+gqRCrWKaJ0c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790870253;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qhF6KmmCbZRNKmOH2gXcyTapxNbzeo8YMso0EFlu0Ec=;
+	b=UuCWnDvLvCmJTh/wRWFXg3DkW+3x+Gwp5h1Go7syIhVsUw53jEjbVAobh5luFgsGneo17P
+	k40VfaF8y0J86ICg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 670E713B97;
+	Thu,  1 Oct 2026 15:57:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id yvM5C+2CvmqlUQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 15:57:33 +0000
+Message-ID: <14c21d1f-6be7-4477-8010-3d6439310410@suse.de>
+Date: Thu, 1 Oct 2026 17:57:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|BL1PR12MB5994:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc8cca1e-d656-4eff-ac63-08df1fd48fdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|11063799006|56012099006|22082099003|18002099003|10067099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	iNOmsK9wmhP23mZYzmfpBh+pepWWfLfceQfvVCFausPVlFYTOeXHT8RzCGXpk5XWAfpJvge4ptbWt8UGjOXN7taDw7Eel0UluMvW3yKchYqdEKeijljFVYWevyweBdD0favG37bDlk6dNE539gJYATzk/c9UEG23zxYgaV9aqlBrM9sCHLXMQSbkjpcxlZJCkngEgrzVxDRbp7yGeMwcOx2D/y2NabdM+M+19FJz4rIBL/lRnlEWp1pQcOLHxIkKUSoDRhWwW6BE9eWiZrJpDnBnuDIA4A5EtyvaubHQZb2znolDSCs4eLCx4axzV3i1kmOv8ikh9WGWJgI9RM9wcO8GbwaucrjwODGUSpF0fRx+w/Y2h1Hso7WC+8SHDjFNWlEwnd9ZiJXXKo00EkMDrh9MOFPR9S5Gymf0pcl8LPQKBeD8rWi1elKeOyElHV5VT1uvG1WPWU9hh0S2XecLyUrrOuyNf3wzjMD25PtPfBjK/+0Bs8q+RQjzP0uKYZ2l2qA+ozYrf3vRmn4eaXgvjQ/g0Yi4USlgE/ESEfZ0knabb6IZRof725IcPx4k/QGGu9eo0pCnXPZcZOnJVf7yxWMZVIC2aUnkRQ/bbJ0oL0MES/Q9Kds7E7FehCA519o02AxXyX/nza+rkFDfPvZBHnpb2qo41VArj5mwxyvjDMx9KdZUun4pbJ0jXynjOveF9JjsBNp5lgLXkB9CteY73g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	q/IEwfWwnTVVLeX4f2L6S+bojBZgrBcCMONLRorwgMRSQBCJn44DLmEL6cdrcMXAACtw9YDpZG2Jm/sz26JIp3fXHi4g5e/3jKXp4rf8jJn/MFDc6aEEXEviqfayyNo+uOZLYMmew8G1oJE12Jx06crZiL2jZ2XcIs5kO61uXdZViRmDxZQ4LeBNv7ES8vQ9Cj6D4bkHS5mzcagf8z+GZAZs6tebDLu2JLTQB36IKFj5HSh2V/o9DB/g2nGMhB4XH4NBsEz+Y5rQlzKSreHFpDyqwDgQoMkG5J3WS3UeAEHUuglIJWbKLBpCqPMjDRpra4JdCeou/Y1EJT5Qu21XuU62ahcDVE7MBL1E2V1RUg0SOvw9OuBjF1UrP9TzfvMfcLCdUKpyOcTk+spC6fR7CHjaF7v0k4Zg9HiVXplJ0vwDr0Y2SlvYVIQBoPpHkrTJ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:56:31.5965
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc8cca1e-d656-4eff-ac63-08df1fd48fdf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001E8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5994
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/kms-helper: Remove struct drm_simple_display_pipe
+ and helpers
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, decui@microsoft.com, longli@microsoft.com,
+ ssengar@linux.microsoft.com, andy@kernel.org, gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20261001133736.802604-1-tzimmermann@suse.de>
+ <20261001133736.802604-3-tzimmermann@suse.de>
+ <xlv1jyo1fphg.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <xlv1jyo1fphg.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: EF6B721292
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,microsoft.com,linux.microsoft.com,linuxfoundation.org];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
+X-Spam-Level: 
 
-Steering Tags (ST) are opaque, platform specific values obtained from the
-ACPI ST _DSM, and are only visible to the driver that asks for them. That
-makes it hard to validate whether firmware reports a sane mapping at all.
+Hi Javier
 
-Expose the mapping read-only in the debugfs directory of each Root Port
-that has ST _DSM support:
+Am 01.10.26 um 16:46 schrieb Javier Martinez Canillas:
+> Thomas Zimmermann <tzimmermann@suse.de> writes:
+>
+> Hello Thomas,
+>
+>> There are no drivers using struct drm_simple_display_pipe. Remove
+>> the data type and all related helpers.
+>>
+>> The idea behind struct drm_simple_display_pipe was to provide an
+>> easier way for writing DRM drivers besides regular atomic helpers.
+>> It turned out to be more complicated. With all drivers being updated
+>> to use atomic helpers, it's time to remove simple-pipe. Also clean
+>> up the related TODO items.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>   Documentation/gpu/todo.rst              |  17 --
+>>   drivers/gpu/drm/drm_gem_atomic_helper.c |  92 -------
+>>   drivers/gpu/drm/drm_simple_kms_helper.c | 328 ------------------------
+>>   drivers/staging/fbtft/TODO              |   6 +-
+>>   include/drm/drm_gem_atomic_helper.h     |  28 --
+>>   include/drm/drm_simple_kms_helper.h     |  56 +---
+> There are no more users of struct drm_simple_display_pipe but still some
+> drivers include the drm_simple_kms_helper.h header. Latest drm-misc-next:
+>
+> git grep "drm_simple_kms_helper.h" -- drivers/gpu/drm/*/ | wc -l
+> 21
+>
+> So it seems you need more  preparatory patches. For this patch though:
 
-  # cat /sys/kernel/debug/pci/0000:00:01.1/tph_cpu_st
-  cpu  vm_st  vm_xst vm_ph_ignore pm_st  pm_xst pm_ph_ignore
-  0    0x03   0x0103 0            -      -      0
-  1    0x03   0x0103 0            -      -      0
+I'll take another look at it, but there's another interface in this 
+header file that is (still) being used by several drivers. The header 
+file still remains in place for now.
 
-Each line holds the raw ST info the _DSM returns for one online CPU;
-invalid tags and failed queries are reported as "-".
+Best regards
+Thomas
 
-The interface is per Root Port because the _DSM is evaluated on the ACPI
-device of the host bridge above it. A system with multiple host bridges may
-return different tags for the same CPU, and the value that matters to a
-driver is the one for the Root Port its device sits below. Root Ports below
-the same host bridge report identical contents.
+>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+>
 
-The file is created during enumeration and removed with the device's
-debugfs directory in pci_destroy_dev(), which returns only once no read is
-running, so the pci_dev the file refers to stays valid.
-
-Signed-off-by: Wei Huang <wei.huang2@amd.com>
----
- Documentation/PCI/tph.rst |  32 +++++++++
- drivers/pci/tph.c         | 136 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 168 insertions(+)
-
-diff --git a/Documentation/PCI/tph.rst b/Documentation/PCI/tph.rst
-index b6cf22b9bd90..19239546af3b 100644
---- a/Documentation/PCI/tph.rst
-+++ b/Documentation/PCI/tph.rst
-@@ -125,6 +125,38 @@ been changed. Here is a sample code for IRQ affinity notifier:
-              return;
-     }
- 
-+Inspect the firmware ST mapping
-+-------------------------------
-+
-+When firmware provides the ST _DSM, the CPU to ST mapping it returns is
-+exposed read-only under debugfs, in the directory of each Root Port::
-+
-+  /sys/kernel/debug/pci/<domain:bus:device.function>/tph_cpu_st
-+
-+Each file holds one line per online CPU::
-+
-+  # cat /sys/kernel/debug/pci/0000:00:01.1/tph_cpu_st
-+  cpu  vm_st  vm_xst vm_ph_ignore pm_st  pm_xst pm_ph_ignore
-+  0    0x03   0x0103 0            -      -      0
-+  1    0x03   0x0103 0            -      -      0
-+
-+``vm_*`` and ``pm_*`` refer to volatile and persistent memory, ``*_st`` and
-+``*_xst`` are the 8-bit and 16-bit (extended) Steering Tags, and
-+``*_ph_ignore`` reports whether the Processing Hint is ignored by the
-+platform. Steering Tags that firmware marks as invalid, and CPUs whose
-+query fails, are shown as ``-``.
-+
-+The _DSM is evaluated on the ACPI device of the host bridge above the Root
-+Port, so all Root Ports below the same host bridge report the same mapping.
-+The file is per Root Port because that is the granularity drivers see: the
-+mapping that applies to a device is the one in the directory of the Root
-+Port the device sits below.
-+
-+Tags are queried on read rather than cached, so the output always matches
-+what pcie_tph_get_cpu_st() would return at that moment.  The list of CPUs
-+is a snapshot; CPUs that come or go while the file is being read may be
-+missing from the output.
-+
- Disable TPH system-wide
- -----------------------
- 
-diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
-index d2c6d3dda202..bd682185ffbb 100644
---- a/drivers/pci/tph.c
-+++ b/drivers/pci/tph.c
-@@ -6,11 +6,14 @@
-  *     Eric Van Tassell <Eric.VanTassell@amd.com>
-  *     Wei Huang <wei.huang2@amd.com>
-  */
-+#include <linux/cpu.h>
-+#include <linux/debugfs.h>
- #include <linux/pci.h>
- #include <linux/pci-acpi.h>
- #include <linux/msi.h>
- #include <linux/bitfield.h>
- #include <linux/pci-tph.h>
-+#include <linux/seq_file.h>
- 
- #include "pci.h"
- 
-@@ -171,6 +174,133 @@ static int tph_get_cpu_st_info(struct pci_dev *pdev, unsigned int cpu,
- }
- #endif
- 
-+#if defined(CONFIG_ACPI) && defined(CONFIG_DEBUG_FS)
-+/* Longest Steering Tag string is "0xffff" */
-+#define TPH_ST_STR_SIZE		7
-+
-+static bool tph_dsm_supported(struct pci_dev *pdev)
-+{
-+	acpi_handle handle = tph_dsm_handle(pdev);
-+
-+	if (!handle)
-+		return false;
-+
-+	return acpi_check_dsm(handle, &pci_acpi_dsm_guid, TPH_ST_DSM_REV,
-+			      BIT(TPH_ST_DSM_FUNC_INDEX));
-+}
-+
-+static const char *tph_st_str(char *buf, bool valid, u16 st, int digits)
-+{
-+	if (!valid)
-+		return "-";
-+
-+	snprintf(buf, TPH_ST_STR_SIZE, "0x%0*x", digits, st);
-+
-+	return buf;
-+}
-+
-+/*
-+ * Position 0 is the header, position N > 0 is the first online CPU with an
-+ * id >= N - 1.  Encoding the CPU id in the position, instead of an index
-+ * into the online mask, keeps the remaining output stable if a CPU goes
-+ * offline between two read() calls.
-+ *
-+ * The iterator itself is the CPU id biased by 2, because 0 is the end of
-+ * the sequence and 1 is SEQ_START_TOKEN.
-+ */
-+static void *tph_cpu_st_pos(loff_t *pos)
-+{
-+	unsigned int cpu;
-+
-+	if (!*pos)
-+		return SEQ_START_TOKEN;
-+
-+	if (*pos > nr_cpu_ids)
-+		return NULL;
-+
-+	cpu = cpumask_next((int)*pos - 2, cpu_online_mask);
-+	if (cpu >= nr_cpu_ids)
-+		return NULL;
-+
-+	*pos = cpu + 1;
-+
-+	return (void *)(unsigned long)(cpu + 2);
-+}
-+
-+static void *tph_cpu_st_start(struct seq_file *s, loff_t *pos)
-+{
-+	return tph_cpu_st_pos(pos);
-+}
-+
-+static void *tph_cpu_st_next(struct seq_file *s, void *v, loff_t *pos)
-+{
-+	++*pos;
-+
-+	return tph_cpu_st_pos(pos);
-+}
-+
-+static void tph_cpu_st_stop(struct seq_file *s, void *v)
-+{
-+}
-+
-+static int tph_cpu_st_show(struct seq_file *s, void *v)
-+{
-+	char vm_st[TPH_ST_STR_SIZE], vm_xst[TPH_ST_STR_SIZE];
-+	char pm_st[TPH_ST_STR_SIZE], pm_xst[TPH_ST_STR_SIZE];
-+	struct pci_dev *pdev = s->private;
-+	union st_info info;
-+	unsigned int cpu;
-+
-+	if (v == SEQ_START_TOKEN) {
-+		seq_printf(s, "%-4s %-6s %-6s %-12s %-6s %-6s %s\n",
-+			   "cpu", "vm_st", "vm_xst", "vm_ph_ignore",
-+			   "pm_st", "pm_xst", "pm_ph_ignore");
-+		return 0;
-+	}
-+
-+	cpu = (unsigned long)v - 2;
-+
-+	if (tph_get_cpu_st_info(pdev, cpu, &info)) {
-+		seq_printf(s, "%-4u %-6s %-6s %-12s %-6s %-6s %s\n", cpu,
-+			   "-", "-", "-", "-", "-", "-");
-+		return 0;
-+	}
-+
-+	seq_printf(s, "%-4u %-6s %-6s %-12u %-6s %-6s %u\n", cpu,
-+		   tph_st_str(vm_st, info.vm_st_valid, info.vm_st, 2),
-+		   tph_st_str(vm_xst, info.vm_xst_valid, info.vm_xst, 4),
-+		   (unsigned int)info.vm_ph_ignore,
-+		   tph_st_str(pm_st, info.pm_st_valid, info.pm_st, 2),
-+		   tph_st_str(pm_xst, info.pm_xst_valid, info.pm_xst, 4),
-+		   (unsigned int)info.pm_ph_ignore);
-+
-+	return 0;
-+}
-+
-+static const struct seq_operations tph_cpu_st_sops = {
-+	.start	= tph_cpu_st_start,
-+	.next	= tph_cpu_st_next,
-+	.stop	= tph_cpu_st_stop,
-+	.show	= tph_cpu_st_show,
-+};
-+DEFINE_SEQ_ATTRIBUTE(tph_cpu_st);
-+
-+static void tph_debugfs_add_cpu_st(struct pci_dev *pdev)
-+{
-+	if (!pci_is_pcie(pdev) ||
-+	    pci_pcie_type(pdev) != PCI_EXP_TYPE_ROOT_PORT)
-+		return;
-+
-+	if (!tph_dsm_supported(pdev))
-+		return;
-+
-+	debugfs_create_file("tph_cpu_st", 0444, pci_dev_debugfs_dir(pdev),
-+			    pdev, &tph_cpu_st_fops);
-+}
-+#else
-+static void tph_debugfs_add_cpu_st(struct pci_dev *pdev) { }
-+#endif /* CONFIG_ACPI && CONFIG_DEBUG_FS */
-+
- /* Update the TPH Requester Enable field of TPH Control Register */
- static void set_ctrl_reg_req_en(struct pci_dev *pdev, u8 req_type)
- {
-@@ -536,6 +666,12 @@ void pci_tph_init(struct pci_dev *pdev)
- 	int num_entries;
- 	u32 save_size;
- 
-+	/*
-+	 * A Root Port has no ST table of its own, but it is where the
-+	 * firmware ST mapping of its host bridge is exposed.
-+	 */
-+	tph_debugfs_add_cpu_st(pdev);
-+
- 	pdev->tph_cap = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_TPH);
- 	if (!pdev->tph_cap)
- 		return;
 -- 
-2.55.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
