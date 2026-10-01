@@ -1,63 +1,63 @@
-Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com [74.125.231.164])
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E44148EC8C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6AC49E142
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872498; cv=none; b=C8PIBywtQgnPyEwI5cC7JGe7vETaBU/lmpssfnOxoCP5yqnTQEYmOWYb3TRJL88BT/Q7Rkt850jzWcg11JsXAj5/UsNc3LKS8YtZKpyAlkKN3tun58Ascbtt9qYcOirsw32Z1rM3nw7iJRbKklMXLHXc1HkiKyenhEyw2xqW0W8=
+	t=1790872500; cv=none; b=RiPIZVXw9czX8cqBTT8Em3+lAokhfJI2YyWWGlX5ZVdptoTtzPYvmJLvlJ9lgJ7FfBlt8TAzPxbRGFQJBaxkNudwLNXPmaq0GMBid0a74oYe/qKNg5c9ohEyQL5k+V6kMZOEDO7kqTvt6FBlWC4WDkFdgdYrtesWc0k+ZE8pJtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872498; c=relaxed/simple;
-	bh=LCR2JBPCr9b9PvvbUIwHG1o1bbom3rQF9fJDcnI02NM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NW5eOlsyXz0+XeL1ijl7cbr0BPnnZys85jxPUStzEua4WMd6Ig+BjwTunaYdjK4TZhCj6LN8omRtIDqNLOe5BrjT24vrXO8iNI1SbV6EhmkchkQYh4h83FwiSysrcPGHmO2zPQFOAX50cL5qzrJnfbFpuNlUG6qHYiRpJRmmRoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nk20xKT4; arc=none smtp.client-ip=74.125.231.164
+	s=arc-20240116; t=1790872500; c=relaxed/simple;
+	bh=zrZwbjnwFa2fvtKd1riZTpYubuiOygKlk11p9wvAiaw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=slCAIqq6+eydkc7mAMkRWqpDQlGmyL9yjyd4XeiyOD6Ki7hucelouzcQ47/WsyWHjquG+UurZV+JEHGAuN7qn93m1dOP1G/tpLlX+hcMdv2BZzDmWWUZBL8f/c9xH3OtqTVE3MrRPZ8yZnz5UJFYCbQmZTLr6ptD0/t151L3LEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y57irXey; arc=none smtp.client-ip=74.125.231.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nk20xKT4"
-Received: by mail-oo2-f36.google.com with SMTP id 006d021491bc7-6dd42533365so1020162eaf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:34:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y57irXey"
+Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6d8709e0e13so2114791eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:34:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790872495; x=1791477295; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790872498; x=1791477298; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ch59/OCcOGgQy9W6cxXyKxD4pGxnDPiLx3tiRY8B8Ow=;
-        b=Nk20xKT4puAnw1nU6cKNmdsF8oWp2KX8tcnMec/SewOEHXtFMqZ0uPB0VWS/+VIzOn
-         k5OzqmS6PMZL/Sg9lp9gl9G33C+cx04iIFCQ+SZt/D1d2KU3SzoRDGeg9XrM9WFD/rGm
-         132Baf0CLgaBpxmDFVFhDSmUwR+sWlLWK4fKhm+BI/gHNjs/muOY4TxH+eu+0PlEqXg6
-         15gMsElSLnnbRPuZKanHVYNZ66GJ9jp68vn6WU2Y0qMGhWouVAxIru3dPY4mPFqaIq5+
-         ovV/FJ+AE2jQP9wQb+3QeE1+DYIRrt0XAHwbPJVFDOnH9k1BfngtrxXQPaYWdEBSye4t
-         dsiA==
+        bh=IoKxOTjOYPY0jJKf2vvmoT8EEKuylC7jQJjw/PcHr2A=;
+        b=Y57irXeyBtQzrnu7gORbK/VFx5J/kId/tN6l8xkwriUi13/+4tRKGrh7gYpyAylyS6
+         kzvTk2ZStrD7mUbfdLkGdWGz5C77Ab10IBGGBVYB58z81LpAuByHQkoRzxFJxNtKEYd7
+         Np7apDo2+/tnEpWeXPyz/7pY1moGnJe7rWWIPzJ0vjH/1nmxq92JL6QRPPB1YN5+++d4
+         g2dJ5rQETItqNjlz1A49W1ag9J5cvtf2oG9oKOwjw34CebOg+WIWq8cXna4/QJOeRxDE
+         5TfChpija7fTnKorT+vM57twATOxMTCfei/2E9ut1S2Ykb7dgOZm7XWbo/L7e4bUqeAx
+         hbTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790872495; x=1791477295;
+        d=1e100.net; s=20260707; t=1790872498; x=1791477298;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ch59/OCcOGgQy9W6cxXyKxD4pGxnDPiLx3tiRY8B8Ow=;
-        b=x3lNwRITjA+UzUphC6zwFhYGnxBTIWuDmTbOaTfOoL7xA3fOkWJI2rzcBfi9UB/VQt
-         7j4wogq45ddItVKdGho46ikv0scVja2hRRUePMcPgsSWsq1AKobnZ8BM1izqc7v85VWl
-         3cdpg4jAAYRLIjMiZaWKpQtxHyMzliGjziip3vAGLvRSUjH3P9KiGPKfUslhr2h0vk0u
-         IO9qPtF097GAiSIHQT+1mDyhhMw1gaxdmS9fPOgcz1jWOOuDxpPONPxMQV4qCWrzxSql
-         fOlcZTbpeC1pXlxseF1IfBtHsYQiEm2b/2npxySaHTvzS8n7QqZVChxVDv0S9stmE4PY
-         FEgg==
-X-Forwarded-Encrypted: i=1; AKwUvBxDghnSBzxe231ql/VxRdx9ZuG4FO+MVzvK4Nn9LNOwjWEEaeoshnr4dt4Jq6byvb44e9wYvjYKzd026h0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k16hckHy9kGOOwIJVwBZgspZyAatNKQv+BuFH7wJcptOLn1+R+
-	v+JinLYHFaeqvZPTTILoIg++OeiC1CETLS0OiLVDML7U0qntuQJSSXCg
-X-Gm-Gg: AYBFou2p+zRRaZSun3qopbyPY4LToWN7Lh+0NNwJIhtK7U1nWyg4MVViMlbcD1V2Z+V
-	FLlYxFnKHAaaBqBE39lzL57Ao4CsB5+7a+ptF5b2aNVUkZrcWBfLE0FcMGay7DMs7+DL8OvGKLO
-	I92lz77mbO6+DDaZr11+sBHIkNEMRRgII2F372wYYbzvPTnce7T5CKBdDj2rsqLK4RKbXVnqlvd
-	3Vqk/wVVi2VQyQcL+2c4GvKy0W7Ovq0jeau8kw2TPqYRFxeQsb5IcEaCneMhBoDm7NHz6K+x8vC
-	iBGcO0hSKcKVzNAIDzALP0//EEZbH3Q3L3KomnO6s3rSj13CPRMnZAQezR38a8bshL52Nh5sJCz
-	ygl79e9H6ogaIFdHRX3ww8hyz0/wYkhXHWvsgsSVS7R2qLPswaSiWqPpO8GD7LHwu8iPBwYqSfL
-	5q0/EVOAZuyF6QxyyWfDVLXSCbuybBjMtkULIUr2HbbRTtH0PO3YE3S4ar1BWDVU0+h8POHIwH6
-	ClJXn0vVVwHthC2otDQyu2v1AbwXal1qOFhbRJiUL4SbwUI7SjBzQlQiG5YScoQXNhSVRMxn2cb
-	ro2LuCMetuYympDuAtPQYjF6LsDDIua+N4unptX9C6TwA2yPAzLbfcaHqR4=
-X-Received: by 2002:a05:6820:4c87:b0:6b7:2cab:be91 with SMTP id 006d021491bc7-6dcf1ab37c6mr5559312eaf.10.1790872495191;
-        Thu, 01 Oct 2026 09:34:55 -0700 (PDT)
+        bh=IoKxOTjOYPY0jJKf2vvmoT8EEKuylC7jQJjw/PcHr2A=;
+        b=RufObnfyImZnJJYFYPt8SfgYt/UDm2UmjbA4f4FmtcNoMeobO2agjkzkJAZFfY1VLS
+         s7BK/HxFWqq99Gp1SVMaDOYJgidJZ96NGkF4PN9+TVQ28gs/2pVPAxLRKitwR8XY7Z0P
+         5dfvwVsltsvnej2CCwivGkiEamMI5HCmweXbSc8w6OWMAAmBHQQhPmWP768GLWWk4/1e
+         3eLkcQUUWA49qDTb/xbVDZTFxYakHAHhCdrCRo05cVp22/TfWCUUoWSBMEZrUUFBuoCy
+         k64QFM/MjdFB3DtJ8r5+v2qey0D23Hl0QXs+0ylITlad7Uh1u/T/KcU1SUL0XpHf6nv9
+         z4pw==
+X-Forwarded-Encrypted: i=1; AKwUvBzqx6HImAE+EaDHNAD/IsFN5LkQvd1Y+U9DhRktOvudkWgoiUmu0hdQnwStwdokU3oaiN5UVAjKp9NTllg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2ZXB7tVVo88DojfBce+lPNpAUNbI/w22AuHIR/VsUq3GcVKgz
+	9TVTc6xJ7OxB90RPX2+8OQEIy3h8ELgY1vkhQ4iV6tQvP02qa1ZCPTi9
+X-Gm-Gg: AYBFou3PQxv0bqRTI8TF/PeaAPzhAKg5ILGulZ9gUcOtN5wXeuP4VkXdCtYDLnaIWm7
+	WP5UiezVVMHTiicESOlRxw0xINqyKYJ2YYHSI1e4RElGot2lXU97WWDTz78tbGkIAzmsopuYp7A
+	LJFxMqZk5Rr17JAGGGdhTNwRHMs95LASN9yDk1kvj/6Eu+ueAa51SSYWjvDdQToRnfwmzBZRZWf
+	NEbZtJLML3Boy+On314tun7CBUS4aUxW3+HDiQac34UYEGofI1IBcxpSJl9cvhoNy6jMNTXb4v2
+	ViTjQGlB8PCoJs+B6/Dzd01nS3yPgPExvieybacheYQwpTZShJNLZXZsiUno8VTrYFlqxRfEZC0
+	PxLcNJiiykcr7Rp4I5RrFPRoGOcsdLGIuNuUnOOWgeCR/O9jvIOTZyO/Ghc0oIwzjeQNKyTJBEw
+	/x74l6YVAZuzV/05jhY/vXb1F1jzieYIdGDJMk8IvWTKRWJtFvvBz0pNm3Eek74UKh6i4fb0VyX
+	RwCM7+Sz/M4vhz4GbEdwS8hECAxAz7LDG8l44XgABvagrmJcSwtOb3fAXLMHWrcYjId/Ihqwxq2
+	sJV1PdoZpu451IstGZwq7AxCNxJRk13reteMLCG+qg0bkCkbv04TY0z5SXE=
+X-Received: by 2002:a05:6820:4c04:b0:6c0:f44d:fb9c with SMTP id 006d021491bc7-6dcf50558a7mr5271071eaf.47.1790872497439;
+        Thu, 01 Oct 2026 09:34:57 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49ded33505esm2712687fac.18.2026.10.01.09.34.53
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49ded33505esm2712687fac.18.2026.10.01.09.34.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:34:54 -0700 (PDT)
+        Thu, 01 Oct 2026 09:34:57 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Jan Kara <jack@suse.com>
 Cc: linux-fsdevel@vger.kernel.org,
@@ -65,9 +65,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	syzbot+799a0e744ac47f928024@syzkaller.appspotmail.com,
 	syzbot+43fc5ba6dcb33e3261ca@syzkaller.appspotmail.com,
 	syzkaller-bugs@googlegroups.com
-Subject: [PATCH 1/3] udf: don't let the extent type hide an exhausted free-space table extent
-Date: Fri,  2 Oct 2026 00:34:46 +0800
-Message-ID: <20261001163448.753190-2-matthias.goergens@gmail.com>
+Subject: [PATCH 2/3] udf: check the unallocated space table when it is loaded
+Date: Fri,  2 Oct 2026 00:34:47 +0800
+Message-ID: <20261001163448.753190-3-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,105 +77,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-udf_table_new_block() takes the first block of the free-space table
-extent closest to the goal.  It keeps that extent's type and length
-together in goal_elen, subtracts one block, and deletes the extent only
-if goal_elen then reaches zero.  UDF 2.60 section 2.3.7.1 requires the
-free-space extents of an Unallocated Space Entry to be of type 1
-(allocated but not recorded), and mkudffs writes them that way.  For
-such an extent the type bits keep goal_elen non-zero, so taking its last
-block leaves a type-1 extent of length zero behind, starting at the
-block after the extent, which is in use.
+udf_table_new_block() hands out the first block of the extent closest
+to its goal and trusts that the extent covers at least one whole block
+inside the partition.  Nothing checks that.  A zero-length extent makes
+it return the block the extent points at, which need not be free, and
+the subtraction of one block then underflows the length into the type
+bits, turning the entry into a bogus continuation.  An extent running
+past the end of the partition makes it return blocks behind the
+partition.
 
-The next allocation that picks this empty extent returns that in-use
-block.  Subtracting a block from 0x40000000 then borrows from the type
-bits, and the extent becomes type 0 with a length of 2^30 - blocksize:
-about a gigabyte of "free" space overlapping live metadata, the other
-table extents and whatever lies behind the partition.  From then on
-blocks are handed out twice, or past the end of the partition.
+Such tables are not only found on crafted images: until the previous
+commit, udf_table_new_block() itself left zero-length extents behind
+in tables written by mkudffs, and then converted them into extents
+running past the partition.
 
-Extents that udf_table_free_blocks() adds are type 0, where the check
-works, so only tables written by mkudffs or by another implementation
-are affected.  Nothing more than filling such a filesystem is needed:
-on a fresh 1 MiB "mkudffs --space=unalloctable" image, creating empty
-files until the partition is full writes file entries over the reserve
-volume descriptor sequence and the backup anchor, and df then reports a
-negative amount of used space.
-
-On syzbot's images the same double allocation is what the two reports
-below trip over.  In the first, ftruncate() extends a new file with
-enough hole extents to need a chain of allocation extent descriptors;
-one AED is placed on another inode's file entry, and a later one is
-placed on the block of the AED currently being filled, which
-udf_setup_indirect_aext() zeroes, so __udf_add_aext() finds
-lengthAllocDescs out of step with its cursor.  In the second, an AED
-is placed past the end of the device, sb_getblk() fails, and the error
-path of udf_do_extend_file() calls udf_truncate_extents() on an extent
-list that no longer covers i_size.
-
-Keep the type separately from the length, as udf_table_prealloc_blocks()
-already does.
+Check every extent once when the table is loaded, and refuse
+read-write access if one is empty, is not a whole number of blocks, or
+does not lie inside the partition, in the same way as for other
+allocation information the kernel cannot use.  Check first that the
+table is an Unallocated Space Entry at all: the walk starts at the
+offset of the allocation descriptors in one, and for a file entry that
+offset lies before the inode's in-memory copy of the descriptors.
+Treat a chain of allocation extent descriptors that leads back to
+itself the same way: the walk would otherwise return the same extents
+forever, and the mount would never finish.  Let a fatal signal
+interrupt the walk and fail the mount.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reported-by: syzbot+799a0e744ac47f928024@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=799a0e744ac47f928024
-Reported-by: syzbot+43fc5ba6dcb33e3261ca@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=43fc5ba6dcb33e3261ca
 Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 ---
-Reproducer, with mkudffs from udftools:
+ fs/udf/super.c | 80 +++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 79 insertions(+), 1 deletion(-)
 
-  truncate --size=1M udf.img
-  mkudffs --blocksize=512 --space=unalloctable udf.img
-  mount -t udf -o loop udf.img /mnt
-  mkdir /mnt/d
-  i=0; while touch /mnt/d/f$i 2> /dev/null; do i=$((i + 1)); done
-  df /mnt
-  umount /mnt
-  dd if=udf.img bs=512 skip=2047 count=1 | od -A n -t u2 -N 2
-
-Without this patch df shows a negative used count, and the last block,
-the backup anchor (tag identifier 2), now holds an extended file entry
-(266).  With it, file creation stops when the partition is full, df
-shows it 100% used, and the anchor is intact.
-
- fs/udf/balloc.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
-index 30cec5600149..2ec577b4321c 100644
---- a/fs/udf/balloc.c
-+++ b/fs/udf/balloc.c
-@@ -572,7 +572,7 @@ static udf_pblk_t udf_table_new_block(struct super_block *sb,
- 	uint32_t elen, goal_elen = 0;
- 	struct kernel_lb_addr eloc, goal_eloc;
- 	struct extent_position epos, goal_epos;
--	int8_t etype;
-+	int8_t etype, goal_etype = 0;
- 	struct udf_inode_info *iinfo = UDF_I(table);
- 	int ret = 0;
+diff --git a/fs/udf/super.c b/fs/udf/super.c
+index 5351755aca3e..995969e6c7c5 100644
+--- a/fs/udf/super.c
++++ b/fs/udf/super.c
+@@ -1106,6 +1106,73 @@ static int check_partition_desc(struct super_block *sb,
+ 	return 0;
+ }
  
-@@ -623,7 +623,8 @@ static udf_pblk_t udf_table_new_block(struct super_block *sb,
- 			goal_epos.block = epos.block;
- 			goal_epos.offset = epos.offset - adsize;
- 			goal_eloc = eloc;
--			goal_elen = (etype << 30) | elen;
-+			goal_elen = elen;
-+			goal_etype = etype;
++/*
++ * Check the Unallocated Space Table once when it is loaded: the allocator
++ * hands out blocks from the start of each extent and trusts that every
++ * extent covers at least one whole block inside the partition.
++ */
++static int udf_check_unalloc_table(struct super_block *sb,
++				   struct inode *table, u32 partition_len)
++{
++	struct extent_position epos = {
++		.block = UDF_I(table)->i_location,
++		.offset = sizeof(struct unallocSpaceEntry),
++	};
++	struct kernel_lb_addr eloc;
++	uint32_t elen, blocks;
++	struct kernel_lb_addr seen_block = {};
++	uint32_t seen_offset = 0;
++	u64 steps = 0, period = 1;
++	int8_t etype;
++	int ret;
++
++	/* The walk below assumes the layout of an Unallocated Space Entry */
++	if (!UDF_I(table)->i_use) {
++		udf_err(sb, "unallocated space table is not an unallocated space entry\n");
++		return -EFSCORRUPTED;
++	}
++
++	while ((ret = udf_next_aext(table, &epos, &eloc, &elen, &etype, 1)) > 0) {
++		blocks = elen >> sb->s_blocksize_bits;
++		if (!blocks || (elen & (sb->s_blocksize - 1)) ||
++		    eloc.logicalBlockNum >= partition_len ||
++		    blocks > partition_len - eloc.logicalBlockNum) {
++			udf_err(sb, "invalid unallocated space table extent (block %u, length %u)\n",
++				eloc.logicalBlockNum, elen);
++			ret = -EFSCORRUPTED;
++			break;
++		}
++		/*
++		 * A chain of allocation extents can lead back to itself, and
++		 * then the walk returns the same extents forever.  Remember a
++		 * position at doubling intervals (Brent's cycle detection);
++		 * a walk that comes back to it is in a loop.
++		 */
++		if (epos.block.logicalBlockNum == seen_block.logicalBlockNum &&
++		    epos.block.partitionReferenceNum ==
++				seen_block.partitionReferenceNum &&
++		    epos.offset == seen_offset) {
++			udf_err(sb, "unallocated space table loops back on itself\n");
++			ret = -EFSCORRUPTED;
++			break;
++		}
++		if (++steps == period) {
++			seen_block = epos.block;
++			seen_offset = epos.offset;
++			steps = 0;
++			period <<= 1;
++		}
++		if (fatal_signal_pending(current)) {
++			udf_err(sb, "interrupted while checking the unallocated space table\n");
++			ret = -EINTR;
++			break;
++		}
++		cond_resched();
++	}
++	brelse(epos.bh);
++	return ret;
++}
++
+ static int udf_fill_partdesc_info(struct super_block *sb,
+ 		struct partitionDesc *p, int p_index)
+ {
+@@ -1166,6 +1233,16 @@ static int udf_fill_partdesc_info(struct super_block *sb,
+ 				  p_index);
+ 			return PTR_ERR(inode);
  		}
- 	}
- 
-@@ -647,7 +648,8 @@ static udf_pblk_t udf_table_new_block(struct super_block *sb,
- 	goal_elen -= sb->s_blocksize;
- 
- 	if (goal_elen)
--		udf_write_aext(table, &goal_epos, &goal_eloc, goal_elen, 1);
-+		udf_write_aext(table, &goal_epos, &goal_eloc,
-+			       (goal_etype << 30) | goal_elen, 1);
- 	else
- 		udf_delete_aext(table, goal_epos, &freed);
- 	brelse(goal_epos.bh);
++		err = udf_check_unalloc_table(sb, inode, map->s_partition_len);
++		if (err) {
++			iput(inode);
++			if (err == -EINTR)
++				return err;
++			if (!sb_rdonly(sb))
++				return -EACCES;
++			UDF_SET_FLAG(sb, UDF_FLAG_RW_INCOMPAT);
++			return 0;
++		}
+ 		map->s_uspace.s_table = inode;
+ 		map->s_partition_flags |= UDF_PART_FLAG_UNALLOC_TABLE;
+ 		udf_debug("unallocSpaceTable (part %d) @ %llu\n",
+@@ -2233,8 +2310,9 @@ static int udf_fill_super(struct super_block *sb, struct fs_context *fc)
+ 				/*
+ 				 * EACCES is special - we want to propagate to
+ 				 * upper layers that we cannot handle RW mount.
++				 * EINTR means that a fatal signal is pending.
+ 				 */
+-				if (ret == -EACCES)
++				if (ret == -EACCES || ret == -EINTR)
+ 					break;
+ 			} else
+ 				break;
 -- 
 2.55.0
 
