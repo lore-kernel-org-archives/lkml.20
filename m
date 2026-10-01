@@ -1,100 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18283E008F;
-	Thu,  1 Oct 2026 16:10:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1643BA236
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871028; cv=none; b=a5QicLIfhLAH62OD4BPpAlM4wlG7EbEFsE7CIysZFejjRAOGEjUcWfOe3pY7V6ozMp2JUvQ02PhjA0o6LKkmYNczWhPiJuqaNwpOxx5UJjUjqCLZEA7WmEmD5ORAMzQAjz2B965I4E/k3S4nhHM59Gf2nYqGcIzBlg9i/WbVlGU=
+	t=1790871092; cv=none; b=uP/HZ/QliXv63hEyTxs4orN8o5Y53bdSi74LntndZUdz9v47nev2Oojci46PvQcRScOz2SEUs7g6Ts8ivAEmvDYn1NDvipyLbd7219dXIMm7pfc6lo5696oo9NzB245ucmXSkKD5W6IXPRkEfRDGL8v72zolN9becQapTKJXviY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871028; c=relaxed/simple;
-	bh=aVNqZcABgbs32+A95jsE0b3FnF3dktGddMtfUNUgeRs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=olVtnRPJfZfoNyVViBD8OeBS9dNqc2g5Br52fjS8hBLB2h2PzfKWAKhRKjzDebp0vm/+UAqjbUIsDXrO4NweruwL+HsmYut2y61yBt8pDZx7oE2jvOO+Lgs7+U8a85evw+0TbQP6GAOHiGCn0oCbfLmDzm4+aorGolKkYW1a0l0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LuCwfIuX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790871092; c=relaxed/simple;
+	bh=XStV42dN90oncuZkgZa2fQZPOmDsXrGunS+USmh79ms=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=J/tvZquS2y1d5MQRRAwi1xf/Zwe4MiDJVbtNk347M0/VMYtmYWQKPnvC0xzWEOxmA92b/TYYAmN2y5KasmF5K5VZp29x++01nEG2rAyOZKiIm1MYUfgYQWZhfOrsxuJPPche2wnEQhaEb+oHbbzCKLSJXDmtFkyCky6xiKnvA98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N0VUaqCD; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LuCwfIuX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13E71F000FF;
-	Thu,  1 Oct 2026 16:10:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790871026;
-	bh=jFYKBSXmVrvCCp3cFMi714EVNYh0y7yNdphxelCDcQ8=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=LuCwfIuXtzIbh9RHT5ij2NisUVkqoTeViflThr6+UoMreaXTHGvjdcqUQCIivSNVG
-	 aV/AdqTTeXgAmPbJkhgO24SpyDUPnv9OOwLYCdBjFraIwKFlAsasIvwSl6xXjbmaoX
-	 3Gnj3ItBBhXGrRBjczdxuHzLaGm1/XMEkJvYEpaixndTxwbviARgAfgBYIHUKzYNEC
-	 6j+z7nd4/tUK8mykUxE6wdhMUOKR0AcrJr9A+Je2JY6E/wx/nKNDeFivG8H/QuNiFo
-	 Tdta/5RAd3h9pLbVvbvQe8bjhn917pYQ8D7eis1PZZMenUIBziR36+grxNHYBXMJJ6
-	 V3Uqhe0maOHTQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 89FA7CE0CAC; Thu,  1 Oct 2026 09:10:26 -0700 (PDT)
-Date: Thu, 1 Oct 2026 09:10:26 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Ming Lei <tom.leiming@gmail.com>,
-	Yu Kuai <yukuai@fygo.io>, Hannes Reinecke <hare@suse.de>,
-	"Martin K. Petersen" <mkp@kernel.org>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] blk-mq: stop waiting for an SRCU grace period when
- freeing a tag set
-Message-ID: <3680179e-da3d-4689-96cd-58dce29a96e9@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N0VUaqCD"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so13330645e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:11:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790871087; x=1791475887; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VIZGQQshvUma/6DcqkuS/JxSHm+uvQgTCEKSqUG/nes=;
+        b=N0VUaqCDXm8tyyZf1ullqYzvZ1BPK/ZCaYzKHV4SfYVdeccv5aBH6eeJhNIhkiJItc
+         b80GCxagXt6mJMpHuhoGv1fU7a3pWBjuU4/6dMh8XiexwO0OIdiUigjPBUEnnMCRz2Td
+         30QUWnxTrJllK9MginQQsM6ItMpSUON8HPRHUNDbLiB40xKGmKf/tyTeJVZrqrfhP3C9
+         jWY/XE4Iw4UMW8BmhZXmg92R1D79FpBLVaDwIqcBKHRTuM47tzpzGY3ueoGMvuBsPLuN
+         /j9uZdsjhGXIDXmiFr1cennX58D+nzbkrfsHTg0kly79rl2mmIX0rvWiS8wYZ2H/U5hv
+         aQAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790871087; x=1791475887;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VIZGQQshvUma/6DcqkuS/JxSHm+uvQgTCEKSqUG/nes=;
+        b=TiC9V/mskXyBZ/jWw0d934GjjWwvKx53f98lhxseZKb41m8elU9nhz/YJFGbzr5ldL
+         zXrt54a+Fzt8aG60rYNsbyFPehmcce0J5b+R1eaLkN9HY2s2ZJDsjy+er2azDcuyJpS0
+         pHPPYTruALqmSO2u39d6cNthLPxvR+fqpZRdAdcB/kHGFgs7W42cVdyxpGcqEDLSMhzm
+         A9qXtm4dP66W1xfpUVNFhIyp6tnof6DVTsmYZaagvMd8S923NoIWZge3b+w9ZSp7QrXT
+         7CACyjSxD57iPQTNthJQ9J4jz3W2RD7XqIeLiTydo0tbLYMuA9xj+NpRHPWFuA1Ik5HK
+         jnXg==
+X-Forwarded-Encrypted: i=1; AKwUvBxXPgXlC4gTpD+RbxSIjNzuJg2+2c1HJzzLB9JTVOBz2PsHD2UhW9WumT+4xG5TReXoMJa7LBq0qLBEd0U=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4hLEkN9aaA0c7HcqgAYE4Hw6vTDYvBGdJ6avm16rTVRNI8Ghq
+	2ccTkRtfKMyVj9ANHk74A3cEgVsXToXHdXVn/hGhXqaWCFIDGcEbpDk5
+X-Gm-Gg: AYBFou0PMS7q7y6OEYrjWN2SEQ9hw82R+EjcjezBwM1lTdPMK7sT36gJEhazmcubltD
+	x+0kIvpQ46PEnsMxyynYizmBRb7zFipYJOjLENeeRcFRWnrFywAVlUh+3KZL/SpSZmquZKIjIRf
+	+Q+MQflzOfu/xK92z9pgj5G20SHjyiWhOEJF4QspD87RvP48ZEbN+6rHnZ7h43jnQqIeHqeqD7f
+	yv3KcFeJxl9vJPAs8QlSH+4LEgZs97auXDSjfkKrxcsRiXYJfj8Zrm85R6Ix0sRcr8KfT04sIq3
+	0GXPPrdu23lzW0K5UNWjx6hDQkinoTxe933fcW7LcOSAd4FP0QGU9CwH7n1OWoHH1G8A7PGXWmv
+	1vMPYKs6eUhauwwsZJXi86+htaOhwWGkkMhOmvhJP+Fk2LTfTC4EswmljT4TzrOHYLEueHjzAr4
+	v04oKIT59IlMpDrKfVLGRgLy/ke9uKfyMObzskZ3tFxPJMgz0f/OmCw5BTh0zs4+0q6z62BBW6B
+	oRGX/JU7RT0eS5lb1m/q5A/+wZk8eMjic7MGHXq2TwcSx40fn6T2QKDmHCoCJokFYNXu/Tmi5wo
+	53C+oPU6bYdYTjDfaYpfCMvHbjuN47Bov7RVDWprJwVRwCrhfl+TE/XkSIpQtgInipyd2dYWry2
+	Jmf4wwObkVZYjVHNjA2D5qy6eCtiJv/RAKcSrtkY9P565iBcyXy12vIsSag4pBBeICSOBxtMpjA
+	gMBMJwI5P0a95fP2XS1p+H565B
+X-Received: by 2002:a05:600c:354a:b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a027447475mr3271805e9.0.1790871087229;
+        Thu, 01 Oct 2026 09:11:27 -0700 (PDT)
+Received: from jernej-laptop.localnet (95-143-149-57.dynamic.telemach.net. [95.143.149.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0db6de18sm3629464f8f.44.2026.10.01.09.11.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 09:11:26 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
+ samuel@sholland.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Aleksander Jan Bajkowski <olek2@wp.pl>
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Subject:
+ Re: [PATCH v2] arm64: dts: allwiner: h5: OrangePi PC2: add ethernet LEDs
+Date: Thu, 01 Oct 2026 18:11:25 +0200
+Message-ID: <mSzGX1AcQ6yrkdDVueDg2Q@gmail.com>
+In-Reply-To: <20260927200820.795348-1-olek2@wp.pl>
+References: <20260927200820.795348-1-olek2@wp.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, Oct 01, 2026 at 05:17:49PM +0800, Qiliang Yuan wrote:
-> blk_mq_free_tag_set() calls srcu_barrier() on the tag set's own
-> tags_srcu before cleaning it up. That costs a full SRCU grace period,
-> 1-3 ms, on every tag set teardown. When the free happens under a lock,
-> the cost multiplies. ublk drops its last device reference under the
-> global ublk_ctl_mutex, which caps 16-thread deletion of 4000 devices at
-> 19 s on 7.3-rc5.
-> 
-> The SRCU callbacks free only blk-mq-owned memory and never touch the
-> tag set, so patch 1 makes the SRCU instance global and drops the
-> per-set barrier and cleanup. Patch 2 removes the tag_set argument that
-> was added to blk_mq_free_rq_map() and blk_mq_free_tags() only to reach
-> the per-set instance.
-> 
-> With patch 1, 16-thread deletion of 4000 ublk devices takes 2.9 s and
-> serial DEL_DEV drops from 3.45 ms to 0.17 ms. Destroying 256 null_blk
-> devices from 16 threads goes from 5.15 s to 4.30 s.
-> 
-> Tested on 7.3-rc5 with ublk and null_blk create/destroy loops. A
-> KASAN + lockdep + DEBUG_OBJECTS_RCU_HEAD kernel ran a 10-minute stress
-> that raced device creation and destruction, I/O, scheduler and
-> nr_requests changes, and CPU hotplug against inflight, debugfs busy and
-> tags readers. It produced no reports.
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Hi,
 
-Looks plausible from an RCU viewpoint.
+you mispelled "allwinner:" in subject.
 
-Acked-by: Paul E. McKenney <paulmck@kernel.org>
+Dne nedelja, 27. september 2026 ob 21:38:18 Srednjeevropski poletni =C4=8Da=
+s je Aleksander Jan Bajkowski napisal(a):
+> This patch adds support for Ethernet LEDs. Keep the default LED settings.
 
+Reword message. "This patch" should be removed. Check other commits for exa=
+mples.
+
+Other than that, it looks ok.
+
+Best regards,
+Jernej
+
+>=20
+> Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
 > ---
-> Qiliang Yuan (2):
->       blk-mq: share one tags_srcu instance across all tag sets
->       blk-mq: drop the tag_set argument from blk_mq_free_rq_map/tags
-> 
->  block/blk-mq-tag.c     | 19 +++++++++++++------
->  block/blk-mq.c         | 25 +++++++++----------------
->  block/blk-mq.h         |  6 ++++--
->  include/linux/blk-mq.h |  3 ---
->  4 files changed, 26 insertions(+), 27 deletions(-)
+> Changes iv v2:
+> - add defaullt-state property. Previously, the LEDs were dark by default.
 > ---
-> base-commit: 551c722f40809618230001baccf219193e22fc5a
-> change-id: 20261001-bug-blk-mq-global-tags-srcu-811e8d958281
-> 
-> Best regards,
-> -- 
-> Qiliang Yuan <odys.yuan@gmail.com>
-> 
+>  .../dts/allwinner/sun50i-h5-orangepi-pc2.dts  | 22 +++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts b/a=
+rch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
+> index 6e57ee19e799..c23315994799 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
+> @@ -7,6 +7,7 @@
+> =20
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/sun4i-a10.h>
+> =20
+>  / {
+> @@ -132,6 +133,27 @@ &external_mdio {
+>  	ext_rgmii_phy: ethernet-phy@1 {
+>  		compatible =3D "ethernet-phy-ieee802.3-c22";
+>  		reg =3D <1>;
+> +
+> +		leds {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			led@0 {
+> +				reg =3D <0>;
+> +				color =3D <LED_COLOR_ID_GREEN>;
+> +				function =3D LED_FUNCTION_LAN;
+> +				linux,default-trigger =3D "netdev";
+> +				default-state =3D "keep";
+> +			};
+> +
+> +			led@1 {
+> +				reg =3D <1>;
+> +				color =3D <LED_COLOR_ID_AMBER>;
+> +				function =3D LED_FUNCTION_LAN;
+> +				linux,default-trigger =3D "netdev";
+> +				default-state =3D "keep";
+> +			};
+> +		};
+>  	};
+>  };
+> =20
+>=20
+
+
+
+
