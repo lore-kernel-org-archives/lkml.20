@@ -1,177 +1,136 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-oa2-f34.google.com (mail-oa2-f34.google.com [74.125.231.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C343D47A0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36621416856
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872489; cv=none; b=lDzCjdnNckclkSo82xRaWo9VwGskcgqw6MjeKh5BED3KyEYN+xnpnDfNyp+ve96Vb96VYWhD7a3C9gavyATucJ1nAyN795ukGle0uUKLOgLyM5mmO+zYpXAV45WAFIH3ZYg3zmXVaWexG69M89bCFWj9MmWqxFC/cBqZTKCcJ78=
+	t=1790872495; cv=none; b=FeIQL+bsXAYsWUxBuk3BF1xYEkKFd5JByMNiWUKFlXp/nPGuFeHFlaFg9roG/XDqx2BhYik2YDdXwDnyvdSw49J7n4S7RUE6kuSNYXHt3kxRqp39wkQxRbJOjo7rn7k6+td4RpxjZJSXD22kJg3srfRTW2HU5Y9xkFPYqQQERjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872489; c=relaxed/simple;
-	bh=ub7p2AvtgHDlyXYYb3wPWRrL+7fdxwouzEwE+TG4swI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CfMCkMFIGG/qBXi6EyUVTywgANSoQXNjHCNknWWM4WjJPIDR49MQOI+Z2dLSBtZYaDBKTvmdEb4H4vYpESVRs/TSvyuokzqEFYN2dW5cJ1Mjcm7WrWe3eeWKDd6yfQswf3poTQreEge7C1V7ZTHO0HOaen/DGvT6BkN7/gi6r3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UhtsiPWJ; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790872495; c=relaxed/simple;
+	bh=WkmK+XlQQX3qUXwgZnim03kUSt20YXcbzmJHM/2EZJI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YNLx8z5WY5IlgI6opqXygPwTDBaBY5FUm8SAaIJrvYODUiZmDFlGzHPVLAuqD8tLL5zoPJZWfAJBWqA08KIUCRXZbGHIycsSSjCRcjA8e7quEMxtVbbYmZv2kcgTAFWZmDEa2rV7QQCORTA2p3pkJbLgxaZQrvU9rcjR620cGM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nUzUGctO; arc=none smtp.client-ip=74.125.231.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UhtsiPWJ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so41886465e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:34:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nUzUGctO"
+Received: by mail-oa2-f34.google.com with SMTP id 586e51a60fabf-49dedadaa6dso859031fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:34:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790872486; x=1791477286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2XF3uKaHdG+8ZvOmrRUZMGcZKEjSK/xxMzPJWRXrSow=;
-        b=UhtsiPWJEm9uMR5fJOjbFVJpL4QANCdD69enIVccLPU37LftDi3l0z8KvvOX2BiMPL
-         hr27OneYrKoA2Cvu+pFnsDxxXQXdtYDEf0xLYcjBjpDiIVeAbC/MebSU8oNAbAKHUWfe
-         miWmlz9FTMJ8k/wrVVdjCUMjh3l7MBiqJItSkTgDsO4a99oa2WzjB6Dg4n08nZ5eAYY+
-         KBwhriik+6toiFLs4zrsNcZ1rHl+B8vj/XJKz/9kvuSLW28bCbRkkPKmqhAQjv9eU2lw
-         GlbttyPj4BiE9RYCOuHzjgeDfHhGBT1eMkrvmQR6Jnc0e3Gsr9IUXgUuAGo1TjwpwkNh
-         oQaA==
+        d=gmail.com; s=20251104; t=1790872493; x=1791477293; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kiju55ygaJriB4Kwb2rimCLoHI2M8u9N+dHPGcKCxK4=;
+        b=nUzUGctO/kbRLN3a0OZrdTb4uZv/8zHIKGs+eVPFT2GiFaOSeEg4N+/GtJ8Vmv/hu0
+         1hXSJ3g09GTFL2kUWLkaIFxQ2OYtMlRBk7biyHA3acVYsw4Xu9qbLw3xPK8x5fmh/6ZN
+         dna9vX/Ce2hxNP0292WNB/WPAOzyh8yrKwDmOAugLyp7F+drggw1nN7zXV0G0rQbVpy4
+         QFpjsxvvdLR91nNbpNLrW5R45DUYln5ga+sU3zn8/dhpddEi67/bXsbOvMMxIoIbQiuq
+         24T51lIpqI0X2ECp8DDpO/7loXfVfHM+SvWUeCNluIHLiNYxBnxJ1JfQHx6CESUJQ+GO
+         meFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790872486; x=1791477286;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2XF3uKaHdG+8ZvOmrRUZMGcZKEjSK/xxMzPJWRXrSow=;
-        b=tsrMlqMumV7hURPCO0XWVpPDEep4/CbPh73klVqqRUgMQotriGo0BWtRVayhDMEpqC
-         WcK9TYigHXoiyn4GYGBUiTWcmmaMq3r3aZFi5B0cmoiZ/cVavn5+Zz7/fFfs9Tli5Gys
-         KxzVI8nYDo/ub6n0swXoc8YO/BzplA+p0j30yjzS+pioHPPtqhswsliP2IT1R2qrdkM0
-         QwJLGZ61rVm5TDc5Z1pWRcEuzngnBza/vZmk69nMOGhgVzmw/eUuGtBWfeOX6E2GolFx
-         td94ztaCdvJXxhqXH/AsN+hmQaFJvnvbpCJjGnT5q5P/aSL3tA3xY09Q0a6rRcHGTVh/
-         M46w==
-X-Forwarded-Encrypted: i=1; AKwUvBwWD7PCjb6afo14ooJ4gsWvt+BslD5DZeX60DfLWTSjsQ1UHMG3XXQfNMmwm0G/jAVb1CvxROXW9ag9hP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9wKbNnVBDxjmfqCHfOHbJ8QNHHJu0W0kEMDJDPaCMavf3UdTe
-	aAnvuBDLEq4+bBzZCpWpcp6xij3gv8aOC+jiCCWpJD65R/eBBw6Spy1aI3RtX5aqJWc=
-X-Gm-Gg: AYBFou1hv8XqIlinLb9rDKggoYrM4ZQcy5wY1mBoks7xFf2bSOOg5845L0QKC9c8CML
-	1FoXp+JU/WkDdzaeMu7Uokdmf0zYLK5oxzR5VLOOlzHj77DjwSD8yShkDO3qKO8eCUXQiEUMQIo
-	q/uL7NbFEO+37lDMX7zftYcYAZPDZfZnC0Mljy0Sklt88vOLYsfxX0J/5vaW9Dry58di6ikSGf6
-	I8gVOPF0lYSip5/hDwvAsFbm36CQX1SV33GbIzkh8IdoY615xXtmVDIHoGwv79fTu0MZsWHxZ3H
-	Ph9GfHz1S9F1jRWq1TSR3vfjEZ9CmkMku9DuYfVz4aOXwSDgvZF8LZRssKoyu7hYeOOC16UeECV
-	6+Mn6w8BIrLVSezzg/boyCbLGnYFUo19ROu1/REPKQUGUeeyfQ2oWarCl1gVlh8YwGmhy9GkgkN
-	KsEDXsYwHosw9IQ0aBcaty5U5pocSqPNSU1Vp3DrJ28/4t8/rCZBa+EKLltNLIdYHdyNzZFDltb
-	JV3nuDRDhDZEleMinnelvY=
-X-Received: by 2002:a05:600c:c16e:b0:49f:ffdc:939d with SMTP id 5b1f17b1804b1-4a02755fd8bmr2940795e9.9.1790872485794;
-        Thu, 01 Oct 2026 09:34:45 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f1c2sm38621205e9.2.2026.10.01.09.34.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 09:34:45 -0700 (PDT)
-Message-ID: <ca464aaf-1935-42ed-b486-4f4cb84ecd2a@suse.com>
-Date: Thu, 1 Oct 2026 19:34:43 +0300
+        d=1e100.net; s=20260707; t=1790872493; x=1791477293;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kiju55ygaJriB4Kwb2rimCLoHI2M8u9N+dHPGcKCxK4=;
+        b=UehsLoljuAddq7rLeNcGwRcbFt/6jt5dZdjqMbw2LpOGbp3SaUwOKHa8K1PWFZecFu
+         Fd04IkT1/MhVfL3Fs6eeP7TnmJYawWjSQ+pwZNaU6F6c0j6z8+ZpzSHB1rln2WfPPPF1
+         yOZirJzojbXtdKPepJ4D7HOzTZuY1G9KELG15NRok7u0Yux/0gG2+O8nahxA7TdkwbW+
+         IRKQjAc7j8JJbwdpmwR4W3bZ4GxIHc+TsmLpDP7a9Eqy4Ce3tBs0y1kJsDmzUbL05m2J
+         zC/oRh4rvYJkwsIf3dyXtAIFCcTzmMef7qfUV1T9yNFmxGrAf3cSmETRY01XQYDa+pLf
+         D4AA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxM8GLD01kunVI9tLif0MQIz4NZzbQr1S0iYOjnzYmJbtPPFdG0HYBCk25EhQJcY6huNFeDxjy6gBgbqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQJJesq8i/B3cnTt2CR7ZsYWbWZSvRIoPAEMbjN8MdKpZSUluK
+	kjMY659Sd2UmCOc9dq7QXqG5/2EZNR14ns85nhBTsienYmxOGowcF+Ip
+X-Gm-Gg: AYBFou0g2WjL8lV6AbfoAHfRC6MuxIOPzrsbjwH/dll0PH7Zz5JyoOm5zDVejBZlXOx
+	/6QG7EVsNBycsNCUDBa3wpG7gvlOtUiaVV2Xw3GYnHbay/2OE646oGvQZxXVCw2bigq2uRUrSZH
+	NGkJ2VaszkflVoexd8L63lzHrDK2N/zlwWlNWEgdJWEwEs5tD9chbsKz1N3hSW5wteNXstowNzC
+	DSELRtdlUrUyEThXBazFMUhtN73PUJWCEfprbk+u7fgDRhubJIgJHgg8cjGmVOnA5uRi1B+QHO3
+	GztkODYjj1g+P+G7pGr2IIwsztxvtOaY8uDKPfs3B/0YHFtBSj4TpIGHyScOxsOj/5UaEQbuiZm
+	VM2htv0UMFbsey1zoGCDeRRzpBMNdV7U2iqGxc3COmADhVPiR376+oQLJl+Z+IALz8RrUgYBWGO
+	RYwAbRqhXOXI4nOU8ROZ2mXLbpdjhk1pTcnM+3uCCxbOsT8W4zwg27Jjthrbs9RfcBW9LrkNKFy
+	rYHTE3YmkQNzepWpmESVk0knVlrNfb2US1rOQQlAgF4XpFfdOO1IxMd+d8itDUSQAVOuPLYetPZ
+	q12CF6uUI26PdmFcdOoayyv6byIfQ/DmY5/KloryLFfvneP4j5Z6FSGJlZRP7in3l8338YA=
+X-Received: by 2002:a05:6870:c192:b0:46a:e0c1:6b34 with SMTP id 586e51a60fabf-49e15c57bd0mr24722fac.12.1790872492871;
+        Thu, 01 Oct 2026 09:34:52 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49ded33505esm2712687fac.18.2026.10.01.09.34.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 09:34:52 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jan Kara <jack@suse.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+799a0e744ac47f928024@syzkaller.appspotmail.com,
+	syzbot+43fc5ba6dcb33e3261ca@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH 0/3] udf: fix double allocation from the unallocated space table
+Date: Fri,  2 Oct 2026 00:34:45 +0800
+Message-ID: <20261001163448.753190-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/10] x86/virt/tdx: Convert the td_conf metadata
- reader
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Gao, Chao" <chao.gao@intel.com>
-Cc: "kas@kernel.org" <kas@kernel.org>, "x86@kernel.org" <x86@kernel.org>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
- "bp@alien8.de" <bp@alien8.de>, "mingo@redhat.com" <mingo@redhat.com>,
- "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-References: <20260930053901.22528-1-chao.gao@intel.com>
- <20260930053901.22528-8-chao.gao@intel.com>
- <763dcf982570e0ffcc69a6e1922fd2cc266539aa.camel@intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <763dcf982570e0ffcc69a6e1922fd2cc266539aa.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Hi Honza,
+
+A filesystem made with "mkudffs --space=unalloctable" hands out blocks
+that are still in use, for two separate reasons.
+
+Patch 1: udf_table_new_block() keeps the extent type in the length
+word, so an exhausted type-1 table extent (the type mkudffs writes)
+survives as a zero-length extent pointing at an in-use block, and the
+next allocation from it underflows into about a gigabyte of "free"
+space.  Filling a fresh 1 MiB image with empty files is enough to
+overwrite the reserve VDS and the backup anchor.  This is the double
+allocation behind the two syzbot reports linked in the patch.
+
+Patch 2 checks the table once at mount and refuses read-write access
+if it is damaged, for example by the bug in patch 1.
+
+Patch 3: when a file's extent list ends in an empty allocation extent,
+udf_next_aext() returns 0 with its outputs describing the continuation
+descriptor, and udf_discard_prealloc() frees that block a second time
+instead of the preallocated blocks.  On a table the block is then
+handed out twice, and the fsx runs of generic/091 and generic/263 read
+back bad data, with or without patches 1 and 2.  On a bitmap the
+preallocated blocks leak.
+
+With the series, fstests -g quick (2 GiB images; KASAN, UBSAN and
+lockdep enabled) passes generic/091 and generic/263 on a table.  The
+remaining failures (generic/131, 360, 563, 634 and 777, and a hang in
+generic/346) are the same without the series and on a bitmap, where
+the series changes no result.  The reproducers are below the --- of
+patches 1 and 3.
+
+The series is based on your for_next and applies to v7.3-rc5 as well.
+
+Thanks,
+Matthias
+
+---
+For stable: patch 3 builds on the int return of udf_next_aext()
+(b405c1e58b73, v6.12, also backported to 6.6.y) and applies as is to
+6.6.y and later; older stable trees need a trivial adaptation.
+
+Matthias Goergens (3):
+  udf: don't let the extent type hide an exhausted free-space table
+    extent
+  udf: check the unallocated space table when it is loaded
+  udf: leave udf_next_aext() outputs alone at the end of the extent list
+
+ fs/udf/balloc.c |  9 ++++--
+ fs/udf/inode.c  | 21 ++++++++++---
+ fs/udf/super.c  | 80 ++++++++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 102 insertions(+), 8 deletions(-)
 
 
-On 1.10.26 г. 2:54 ч., Edgecombe, Rick P wrote:
-> On Tue, 2026-09-29 at 22:38 -0700, Chao Gao wrote:
->> +	/*
->> +	 * TDX_FIELD_CPUID_CONFIG_LEAVES and TDX_FIELD_CPUID_CONFIG_VALUES
->> +	 * give the field ID of each array's first element. The remaining
->> +	 * elements follow consecutively, in the order they appear in the
->> +	 * structure.
->> +	 */
->> +	for (i = 0; i < td_conf->num_cpuid_config; i++) {
->> +		ret = read_sys_metadata_field(TDX_FIELD_CPUID_CONFIG_LEAVES + i,
->> +					      &td_conf->cpuid_config_leaves[i]);
->> +		if (ret)
->> +			return ret;
->> +
->> +		/* Each config has two u64s of CPUID values. */
->> +		for (j = 0; j < 2; j++) {
->> +			ret = read_sys_metadata_field(
->> +				TDX_FIELD_CPUID_CONFIG_VALUES + i * 2 + j,
->> +				&td_conf->cpuid_config_values[i][j]);
->> +			if (ret)
->> +				return ret;
->> +		}
->> +	}
->> +
->> +	return 0;
->> +}
-> 
-> The comments are not strictly required, but probably fit into turning this thing
-> into "hand coding". I think it's a nice addition. I wonder if we should make the
-> "i * 2 + j" a bit clearer though?
-> 
-> I'm not against leaving it as is for now. It helps that it doesn't morph too
-> much from the code getting moved. But I think the above falls a bit short of
-> hand coded quality.
+base-commit: ba5855e74bcd761123e39f4708834a0015a74a8b
+-- 
+2.55.0
 
-Perhaps this code warrants open coding? The code will end up looking 
-like config_values[i][0] ... config_values[i][1] ....
