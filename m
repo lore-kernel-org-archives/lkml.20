@@ -1,139 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE034A5EB6;
-	Thu,  1 Oct 2026 09:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A994C4C10ED
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790848029; cv=none; b=Wqx8pqZhdzh5wYFfuF+SPKqYVWSMramVx2zCi7XJXiVCNPJZV2QV/sQZ8SoPVTzhdjHsgtJuMbcLp6QOhvIKy0R9f9ccnG4+Q7mkph4tVCcu7C1/8P/eZBN9XZBSJT+DXovKpF4xxqICL4vCjjCfFdBEsnNlo0HssGU7xfvAd9U=
+	t=1790848031; cv=none; b=a/ne284efImbAw9WsAU60LdRibWvgua2x9ETO7U4Oylbqdw4LpAJxv4Cm/qW6VKdCqqWyfNxxVXZfRUzBxTDLVJb/K1QMvc5eNSQnnXNY415YrCB4CVlmEZqJ8qt0hkju1EzHaBnn0TrFWd/XPLZYw++UgJXWj7KYC1hBet6NIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790848029; c=relaxed/simple;
-	bh=LIsI7pJf92ZC8exo8cetPNOBspcx+EJXW8oMIPASwJ4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cgS0TpaIrSjZzfgLxVRSzwLyjvBN+qwrHaKFmn2qUd0bo+HgxYQyX8/yWECkjXqdBYjGcewbGy+UVIaqab4F+g8dzyabNzOlkabMHsrZGipsBIpRtDVStemUa5SDskAg4Bk/nuVPDz9BD1w5cIFwrx1mjvJSoBhVkmwEz6oLLhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJWxzyDP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790848031; c=relaxed/simple;
+	bh=/QIsZj5ZknEUJbqRrL7io4YJRt6LKVatf9W0JsU0gc0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bcz87Y4srf8306cIRZbJIMsZ0qSxM17RYfaFBFcV0FLigtzcv2pTgKH9sYmiVFWg2jSZe8pqubPB90YTJaQURZluZ9MwtRnx0ZXGu0q39DeIC38hbllKJDG5u5aP0+MgiveMwY8KKuQARLlDJoCSbQSGBsxfi44G4wbo0f+wiro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C3YuSdKb; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJWxzyDP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8015F1F000FF;
-	Thu,  1 Oct 2026 09:47:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790848028;
-	bh=v4GqKargadOKFOeTVuHEXINDOBqQTvwvPfjl+C4vh8U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aJWxzyDPdnJdNi2TjUCTK0yhJBzt46zkMU32arEIItoVyd6OsLs9rdL2/KHw/bKVk
-	 NhoB18799FLYONifrXyeku4nuFSlMDusVkEvECBPW3Ghaxy36jJSOeBhKvgHTFMqpP
-	 CdBlRMKIYu0qMGk/zs2DkGlMoSteG4LWfotigkhQq2zpPiOeGUpHqkXSHxnPQKQbMA
-	 KoI3m2rRWuT8iQMvrYfW5j2NswsLTkD+wbEiAHHwYTsJYKp8limOtk9mXMwE6TsqeZ
-	 Lc+UvKef3mi3q16kqYD7xBUqb7E7syPsnOveSYYWRDGTOW/Fbi53NgTzW/KwkLqqRx
-	 WqUQoI1gjEdwQ==
-Message-ID: <9a6a1c15-89aa-4504-8585-0f7861c3377b@kernel.org>
-Date: Thu, 1 Oct 2026 11:47:01 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C3YuSdKb"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9271F497;
+	Thu,  1 Oct 2026 02:47:04 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 369363F86F;
+	Thu,  1 Oct 2026 02:47:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790848028; bh=/QIsZj5ZknEUJbqRrL7io4YJRt6LKVatf9W0JsU0gc0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=C3YuSdKbRNRrJeKGiTX+MeAWFYw1nMoNgLQPuFYsOKCffatmtgLArZDDicLEn5IVN
+	 QdfadJ+CTSkMVLbzp8x6wGpUaXAex+pC4OdZCR998yLM9QY0S0Of+W+nz/hvtSi8a0
+	 Y4FJRvpIK78QwNVq7zTFGk0de+v9hV5E84NrS3R8=
+Date: Thu, 1 Oct 2026 10:47:03 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, will@kernel.org,
+	linux-kernel@vger.kernel.org, steven.price@arm.com,
+	gshan@redhat.com, aneesh.kumar@kernel.org, maz@kernel.org,
+	oupton@kernel.org, tabba@google.com, mark.rutland@arm.com,
+	linux-coco@lists.linux.dev
+Subject: Re: [PATCH v19] arm64: mm: Handle Granule Protection Faults (GPFs)
+Message-ID: <ar4rYdrDAp_uveXv@arm.com>
+References: <20260930164930.1388438-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: mrelease_test: fix retry limit
-To: Aveline Noir <jm5905938@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Christian Brauner <brauner@kernel.org>,
- Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <CANOyQmFzsssM_BXHUDrV+UuVD5SZMBmSkg3UQnmw9Ns1PV7GCQ@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CANOyQmFzsssM_BXHUDrV+UuVD5SZMBmSkg3UQnmw9Ns1PV7GCQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930164930.1388438-1-suzuki.poulose@arm.com>
 
-On 10/1/26 08:00, Aveline Noir wrote:
-> mrelease_test doubles the child allocation when process_mrelease()
-> returns ESRCH.
+On Wed, Sep 30, 2026 at 05:49:30PM +0100, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
 > 
-> When size is already MAX_SIZE_MB, the current <= check still allows
-> another retry, causing the allocation to grow from 1024 MB to 2048 MB.
+> If the host attempts to access granules that have been delegated to RMM
+> (for use as an RMM object or Realm Data), these accesses will be caught
+> and will trigger a Granule Protection Fault (GPF).
 > 
-> Use < instead of <= so the largest allocation attempted remains
-> MAX_SIZE_MB.
+> A fault during a page walk signals a bug in the kernel and is handled by
+> oopsing the kernel. A non-page walk fault could be caused by:
 > 
-> LLM used in discovering bug. Changes were made and reviewed manually.
+>  * Userspace having access to a page which has been delegated. We don't allow
+>    mapping a delegated page (which may have Realm VM private data) to EL0.
+>    But if we do encounter this, trigger a SIGBUS to allow debugging
 > 
-> Fixes: 33776141b812 ("selftests: vm: add process_mrelease tests")
-> Assisted-by: LLM
-> Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+>  * A kernel mode access is even more serious, except for the cases where :
+>    - Benign overreads e.g. load_unaligned_zeropad(), we should be able to fix
+>      this up.
+>    - A kdump kernel trying to access delegated page (donated by the primary
+>      kernel). We do not support this yet, but can be added in the later series.
+> 
+> There is ongoing work to unmap the guest_memfd backed private pages
+> from the linear map. We would additionally need to unmap the other
+> delegated pages too. For now handle the GPF and only fixing up kernel mode
+> accesses via kernel VA (which would cover both the legitimate cases above)
+> 
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 > ---
->  tools/testing/selftests/mm/mrelease_test.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Changes since v18:
+>  * Only fixup accesses via kernel VA
+> Changes since v17:
+>  * Pass untagged address to die_kernel_fault() - Sashiko
+>  * Explicitly check !user_mode() for fixups - Catalin
+>  * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
+> Changes since v16:
+>  * Update the commit description to indicate why we try to fixup GPFs
+> Changes since v10:
+>  * Don't call arm64_notify_die() in do_gpf() but simply return 1.
+> Changes since v2:
+>  * Include missing "Granule Protection Fault at level -1"
+> ---
+>  arch/arm64/mm/fault.c | 35 +++++++++++++++++++++++++++++------
+>  1 file changed, 29 insertions(+), 6 deletions(-)
 > 
-> diff --git a/tools/testing/selftests/mm/mrelease_test.c
-> b/tools/testing/selftests/mm/mrelease_test.c
-> index 64e8d00ae944..a5124c9e9f43 100644
-> --- a/tools/testing/selftests/mm/mrelease_test.c
-> +++ b/tools/testing/selftests/mm/mrelease_test.c
-> @@ -157,7 +157,7 @@ int main(void)
->  		 * Retry until we succeed or reach MAX_SIZE_MB.
->  		 */
->  		if (errno == ESRCH) {
-> -			retry = (size <= MAX_SIZE_MB);
-> +			retry = (size < MAX_SIZE_MB);
->  		} else {
->  			waitpid(pid, NULL, 0);
->  			ksft_exit_fail_msg("process_mrelease: %s\n", strerror(errno));
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index 75c3e463df2ef..ded9288a5dd2f 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -914,6 +914,29 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
+>  	return 0;
+>  }
+>  
+> +static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
+> +{
+> +	const struct fault_info *inf = esr_to_fault_info(esr);
+> +	unsigned long addr = untagged_addr(far);
+> +
+> +	die_kernel_fault(inf->name, addr, esr, regs);
+> +	return 0;
+> +}
+> +
+> +static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
+> +{
+> +	/*
+> +	 * Userspace must not have a delegated page mapped in. If the kernel
+> +	 * is made to access it, then we have a serious problem.
+> +	 * Only fixup if the access came via kernel VA. e.g., load_unaligned_zeropad()
+> +	 */
+> +	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
+> +	    !is_ttbr0_addr(untagged_addr(far)) && fixup_exception(regs, esr))
+> +		return 0;
+> +
+> +	return 1;
+> +}
 
-Makes sense
+The logic looks fine to me, so:
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+
+Whether we want to unmap the delegated pages eventually (and not just
+guest_memfd), given that we get a synchronous fault architecturally, I'm
+not yet convinced it's worth it (it fragments the linear map).
 
 -- 
-Cheers,
-
-David
+Catalin
