@@ -1,43 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B892949EC76;
-	Thu,  1 Oct 2026 12:08:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F1E4A2A5E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:08:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856512; cv=none; b=JBUsMKWM82tYGrY4LbG+Iukyul8DY/bQNhTJOLGBH22l6JtV3no+64A65Fxm5w3mZdLnjBEFHTRWrxgwv7ttoCZVGv0fdb/bUXjH1nRsJehs436YSOFGQl+xD9xLcIh5YDwV7xryvR7DZhlqvifZCwlPfMpKc7fAbwFz1eTtUK4=
+	t=1790856511; cv=none; b=eia27K1p6mrXxI8CZA97w7I1xGUrfzs6dIOnsLlDwR7kDply9oVm1DcQWX6iV5TyFlXy1bRKeAC2uPRIF7GtdCe3HIBQ6gna9wsaQ9AGcQiiPHDSERy/mc8H2NLwSDEtXuktPmhUPGKrWoo8AfAh/DuvKy7YfiwxUmTwxgyhn2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856512; c=relaxed/simple;
-	bh=wx4Mbv/Dx6UAy9KrfDT6GoeCx12UNgoBU2rSXd8LxnE=;
+	s=arc-20240116; t=1790856511; c=relaxed/simple;
+	bh=4YflbMOHkg0HrgzDGAXA4qCdrbT9GdmpSszMcV71XXQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S5m711hv7uJB7w//4zfBhhVcqaYBMmtcapBgZ2xPxtobk04Ozo57pb0mO6Zbk5NZTKzJZHDUzD8YTMVFWOMAP0BwvWVbStBcwtS1cWr9Ffk1dOQQkrZVMEgDMPqpJYrx9Y3LVtl0nzI1eThoxSdCXIeMCrW6+wgy+b5h46uL0zY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DMmQHHlz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=pvW2rNWyMsmJH9XDbmusNfH+GUwaLm83tkLpbQx4YEAeNjAHXv9sYbTXquOCLWiaW6a+SD8EffyrhH0TcB05SJQfK3tH/n9om5I8naGJqxcmkEvKNeXJ06ISKdNL+c+CSBmMC4SCnYnCbKycoY1kkYDn6VBwuqloOjZGL2yv9A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pOKM/XTw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DMmQHHlz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13DC1F000FF;
-	Thu,  1 Oct 2026 12:08:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pOKM/XTw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6991F008A0;
+	Thu,  1 Oct 2026 12:08:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790856500;
-	bh=vVQBmByUL0b38bMZkqFlIw1DQs32Q1NlWpDovlmveUE=;
+	s=korg; t=1790856497;
+	bh=73/yoLHRCwElG/nCSvuLJjggT+8ahlZ1DruwtxaY+os=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DMmQHHlzHHm8B/O1lGgsaKmj2BPL313ItlwRbgeUMMMOrdAl6BwQBf8e2CY4SeloA
-	 Wfjk3cpvfmV56flIZYv92o8jbkP9bR7j2+bfdNfuNLRODyOWUjO7q48Z4QJ8m7f/1d
-	 NsBKEesLoEZU1Y4fQTtzD9vUpZ14KZ9DEruX70IY=
-Date: Thu, 1 Oct 2026 14:00:06 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Rishi Chhibber <rishi.chhibber@broadcom.com>
-Cc: arnd@arndb.de, bryan-bt.tan@broadcom.com, vishnu.dasa@broadcom.com,
-	corbet@lwn.net, skhan@linuxfoundation.org, shuah@kernel.org,
-	rdunlap@infradead.org, bcm-kernel-feedback-list@broadcom.com,
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ajay.kaher@broadcom.com,
-	alexey.makhalov@broadcom.com,
-	vamsi-krishna.brahmajosyula@broadcom.com, yin.ding@broadcom.com,
-	tapas.kundu@broadcom.com
-Subject: Re: [PATCH v3 0/4] misc: vmw_zerocopy: VMware zero-copy buffer
- sharing driver
-Message-ID: <2026100137-molasses-rented-5c88@gregkh>
-References: <cover.1789413109.git.rishi.chhibber@broadcom.com>
+	b=pOKM/XTwkK0/KkS7x8MQq9mHcZmnLyFmLXJhr6Hze19k0QAqo3xfxVn+WmtPvj7oX
+	 u7Wp7DCQmln3em0NiioEIGDxGDwkCwsF0+zGn2hl3jc+A8dg3aIxLJIy+DIKz5Ckoq
+	 VzZxHWDO1BP54pKetKo5KJUAhnYxDRG2An8CXlas=
+Date: Thu, 1 Oct 2026 13:58:27 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH v2 09/13] drivers/misc: Stop using 32-bit MSR interfaces
+Message-ID: <2026100121-pedicure-shout-525e@gregkh>
+References: <20260819102314.1499258-1-jgross@suse.com>
+ <20260819102314.1499258-10-jgross@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,29 +39,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1789413109.git.rishi.chhibber@broadcom.com>
+In-Reply-To: <20260819102314.1499258-10-jgross@suse.com>
 
-On Mon, Sep 14, 2026 at 01:22:05PM -0700, Rishi Chhibber wrote:
-> Summary of changes:
-> - 1/4 reserves a VMCI datagram resource id for the hypervisor-side
->   zero-copy service
-> - 2/4 adds the vmw_zerocopy driver: /dev/vmw_zc, a single ioctl, page
->   pinning and the VMCI datagram transport
-> - 3/4 documents the userspace interface
-> - 4/4 adds a kselftest covering the ioctl input-validation paths
+On Wed, Aug 19, 2026 at 12:23:10PM +0200, Juergen Gross wrote:
+> The 32-bit MSR interfaces rdmsr() and wrmsr() are planned to be
+> removed. Use the related 64-bit variants instead.
 > 
-> This series adds a misc character device, /dev/vmw_zc, that lets guest
-> userspace hand a buffer to a VMware hypervisor-side peer without copying
-> it. The driver pins the user pages, collects their guest physical frame
-> numbers and sends that list over a VMCI datagram; the hypervisor then
-> reads the buffer directly out of guest memory. An optional metadata
-> buffer is pinned writable so the peer can return a result through the
-> same mechanism.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  drivers/misc/cs5535-mfgpt.c | 33 ++++++++++++++++-----------------
+>  1 file changed, 16 insertions(+), 17 deletions(-)
 
-You are going to need to get the -mm maintainers/developers to sign off
-on this thing before I can accept it due to your "fun" use of memory
-buffers in here.
-
-thanks,
-
-greg k-h
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
