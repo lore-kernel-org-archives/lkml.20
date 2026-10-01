@@ -1,101 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F44439E9D5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:45:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8825438655D;
+	Thu,  1 Oct 2026 16:45:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873116; cv=none; b=V+TJk00ZaTnqakD4A3A/ZXUbWqx2JbbOyXHGzDsqRd5r6rrKlbozItSeyzDw23EuLXwiAM83N8+NV1YwyS4OXDPTGTo7TkFUAEfJWFlugCBuj7kRfGNGYeG1TgbhYnOCmd9NBxvIbhZpebYdfnYm7eh7xx8VROVX2j9x+SuQ8jI=
+	t=1790873131; cv=none; b=fIa+LEH+9QHkGswfiRNo1LBVm9eoLvoXUjrkfVuT1aMYlMXy9zxlagFB/N0i7PzdeviCLAPI3KTSdJw9nkNbEO712tsGv7WXlsfmI9gyDzAE1DHBniluySHCfc0rUpjHx9ce6x3gwiaSaYiWCrVTXibsS2pFdJ19nvEs8jo0c4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873116; c=relaxed/simple;
-	bh=RCob8u/MS1feSlIbhNwkab1NoYhy9NBcIyQwLhJ46GY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ObIDv/c8V3yF7QxZIv7ouZ0GBUPDmhnNfhVZwQRqRsYIeW1/esQ/sZNcnEtfUQQc6nUtDfCK0Vt67VMMyqsZ+LAYMXab15OMvnlbTzEw6f9OWGfqFnvPK9lxiKkzH9BIdfezHKYkHYxtlBDphDQfpjNPeGllSAE5b7utL15c6lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iT9Mtm6w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790873131; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ddLG62zmiJwKjRnnLZcbLiKxJCsZJn2ksZ7NXELY9qE6z6jQnikn9gRAUJDqPBmIuGHttqaRsGKrhlUh8O0rsv0FGob7rj/8gUq3ZnG+xqPlYTjuwfRJz5FBWdCrzWwrNj3JOUn0VmOjemAbu/XqjrPuq9AXO8ARAy21uGKc9Ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zk7neMj8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iT9Mtm6w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7F941F00898;
-	Thu,  1 Oct 2026 16:45:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zk7neMj8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACA881F000FF;
+	Thu,  1 Oct 2026 16:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790873114;
-	bh=oiy1TAmPvuT7fLgnrKrdYEj5f+TvhnwsMZ7DNxp6rLQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=iT9Mtm6wRxYeDEIlw+cANrV8UaSNQf0lRzkY+mc7M4JJ/UisPozUXJ90qCFrebGQm
-	 6G3DBn3zXNvHRgJexj/zsUqs0ZbFkPQm5R9jxnORayKqYHXuf5cGv4jEeOeGuNEiPj
-	 eKHrDx2bLiBemd0nck2O3srd4zLlKouT2Et4F6cLGTgme0seXFx9s70l2LRexkykAi
-	 /OyUOz2G8EP6NqaWOJPV7hQ6Q+39AdsPKxF3VUI100I5yUFmYxSfeLbnCkXHP2NjTv
-	 jS3dtnCs6dvhRoiPprGFwgoc82qODCT0Ryp/6y1qV1YY1uAD7/wgEnTxULZcldugd3
-	 k6WxzWqub6JXg==
-Date: Thu, 1 Oct 2026 10:45:11 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: Thorsten Blum <blum@kernel.org>
-cc: Geert Uytterhoeven <geert@linux-m68k.org>, Paul Walmsley <pjw@kernel.org>, 
-    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-    Alexandre Ghiti <alex@ghiti.fr>, Deepak Gupta <debug@rivosinc.com>, 
-    Zong Li <zong.li@sifive.com>, Samuel Holland <samuel.holland@sifive.com>, 
-    Zishun Yi <vulab@iscas.ac.cn>, linux-riscv@lists.infradead.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: process: Use str_supported_unsupported() in
- compat_mode_detect()
-In-Reply-To: <aruH26spDeM8O9dh@kernel.org>
-Message-ID: <7d4e8a05-4e4e-55be-2a9d-715c65787c38@kernel.org>
-References: <20260924213256.122530-2-blum@kernel.org> <15d659fe-c9cb-fa65-5dd6-7182fb152317@kernel.org> <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com> <aruH26spDeM8O9dh@kernel.org>
+	s=k20260515; t=1790873129;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Zk7neMj8PgVCs6SNfY1nofCAiC8ammsGgiRbkAOQT6ZOndWrFNeE/sEgmqY2Yq8Ag
+	 HUHESZs2nS6m3JMiRbRtIHxA9ip1udShxeiUfir2lwGLRh2CG0HTwjuif7CnKW4AuQ
+	 QVndPoQR0JugWpmNmsDTlHiJPwWFUKTPzO93Jr33veFrrVUky+35wV+0M7hPYFVVLF
+	 jI0PLCG170jodORpXxbay7CJcs7lbM8E29EqZ8oFkTsbRHO0DyyOpmJLQFLF8a1Efe
+	 zU6S23j91RFCq2ArneOyuWDLDpNYzb4QWtMq1CAMatn3GFWzFNjkZ95HYMPhUwIaol
+	 hT7cTG2ztv6nQ==
+From: netdev-bot+sinfo@kernel.org
+To: Daniel Zahka <daniel.zahka@gmail.com>
+Cc: Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/4] mpnic: add NAPI buffer depletion check
+Date: Thu, 01 Oct 2026 16:45:28 +0000
+Message-ID: <179087312824.1402591.13891424496391739284@kernel.org>
+In-Reply-To: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
+References: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-407165345-1790873114=:2885293"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi!
 
---8323329-407165345-1790873114=:2885293
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-On Tue, 29 Sep 2026, Thorsten Blum wrote:
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> On Tue, Sep 29, 2026 at 11:11:55AM +0200, Geert Uytterhoeven wrote:
-> > Hi Paul, Thorsten,
-> > 
-> > On Sat, 26 Sept 2026 at 01:48, Paul Walmsley <pjw@kernel.org> wrote:
-> > > On Thu, 24 Sep 2026, Thorsten Blum wrote:
-> > > > Replace hard-coded strings with the str_supported_unsupported() helper.
-> > > > This unifies the output and helps the linker with deduplication, which
-> > > > can result in a smaller binary.
-> > > >
-> > > > Signed-off-by: Thorsten Blum <blum@kernel.org>
-> > >
-> > > Thanks, queued for v7.4.
-> > 
-> > Thanks for your patch, which is now commit a06776565b9e7351 ("riscv:
-> > process: Use str_supported_unsupported() in compat_mode_detect()")
-> > in riscv/for-next.
-> > 
-> > This fails to build:
-> > 
-> >     arch/riscv/kernel/process.c: In function ‘compat_mode_detect’:
-> >     arch/riscv/kernel/process.c:138:17: error: implicit declaration of
-> > function ‘str_supported_unsupported’
-> > [-Werror=implicit-function-declaration]
-> >       138 |                 str_supported_unsupported(compat_mode_supported));
-> >           |                 ^~~~~~~~~~~~~~~~~~~~~~~~~
-> > 
-> > as it has a hard dependency on commit 5383cf280ef4f00b
-> > ("lib/string_choices: Add str_supported_unsupported()
-> > helper"), which is only present in the for-next branch of
-> > https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git.
-> 
-> Hi Geert,
-> 
-> It's also in linux-next:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=5383cf280ef4f00b15f1d9e2a2886d0d02c0118b
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-I'm dropping this one until the dependency lands in mainline.  
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-- Paul
---8323329-407165345-1790873114=:2885293--
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
