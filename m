@@ -1,102 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9B352BE29;
-	Thu,  1 Oct 2026 18:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732554A206E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878388; cv=none; b=CeR1Aqa/75UmjV8FDLGGvD9TAbG358uBFlavG0Fz6lhEUWWm/Nib3BFx8tk/C/3EYnNvwNKEhJtZ26em1svyWNEiyc7Zq+22hZDVgXlK+KldiLzWsLEHch9onLGua/4U3lSJ05gjD41epDtwFQu3AMDCyreLoLNNaWjAIEe+yVw=
+	t=1790878441; cv=none; b=HmQ8pMwmhwwKf3CHVqmnpY0ikVD/yRa5orVhatZEJ6asN5uYXyCAfxVD44wI2TKv2N4vnzJeBbHsyDYa3oGkj5QJw2m32cDnsP787K4nsKoZ6tUEKbxsNiHmBXLT/UIqoT65pTS9SWP4MhiDBVoxWu6KyPRo11coDv2Zqa4+Yjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878388; c=relaxed/simple;
-	bh=2GhyhvZKPw3VjnvpjmDdBrYHsIMKFo9AyBq4sUmUA70=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kC2BzADKs8PRtsUUdz70Vl9ZXI9aPtD+cQM+3XTrVn83gT4d7YntqBtZzLse6TnP4NZIncU/PgdPl907SL5SCEvDMOlc0GG1p/N+X4cBc0EQuWu28qGJJgvYm5C4MrOQGYK8xPgi8wOI5SCpFr+FAhz9f+6mXRmJOyztwm2SEYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BairUJaY; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790878441; c=relaxed/simple;
+	bh=2XOoaBawLjbMqXkjs7Dxr/8UeBMSq7cEksbLVDPeip0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GZ5AXel5a9zFqstNnzMOXPisLip9r9OV1Ri1SXzc388/cVcbVj58bPmOOk65UZJmvOKoj8obp6qFRMN7IX8PmcG1btTIFl/q5dyMzJ2e/raM3nC2qu/1FCjWcRr1autqa4O5/ObRGfp6j2YD9hrUkeWONezErSL7hXjZxroeJng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=htU7wn7N; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BairUJaY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790878384; x=1822414384;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2GhyhvZKPw3VjnvpjmDdBrYHsIMKFo9AyBq4sUmUA70=;
-  b=BairUJaYa2EOjuzDZVzDyZjA3wrnsdDTcbdv1QE3Ez4Bfk2R6AIejdRF
-   bi9vTHapMmJ+BrB9j1NlD85t+D9ypqQ6+oOkjPSQRdUfPQ5eTjyQdCQP4
-   e4YRjxAdVKRZSnZZXd36329wFkZJDHcRgPB70Pq+gBj3LBwtAUdABftxK
-   wZY9Y1kQyexN9w6y8gCDb2DB/jDrEwsB3C2FbADyseapm9bFiTOFe/IZH
-   PMAJiNitNd6gltqShPxxhuO09xisBrNWio6sNnX5fgg8/1GSwRTkpHFuu
-   896dDzS5szJ2HhmwyWKq+3jmVhmSMcDps7VhoZVF1c8d+ZtugLJiKP8yY
-   w==;
-X-CSE-ConnectionGUID: l5xlsmukT1eR5FET8Imkqg==
-X-CSE-MsgGUID: SEgeynvhSoCh9YTasVpDvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="95456595"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="95456595"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:13:02 -0700
-X-CSE-ConnectionGUID: skrK7cNQQy2Q0plDc6zw9g==
-X-CSE-MsgGUID: zfR0XCoCTrigFDX9Pi+v9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="276120236"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:13:01 -0700
-Date: Thu, 1 Oct 2026 21:12:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	David E Box <david.e.box@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 19/20] platform/x86/intel/tpmi: Declare the loop
- counters in their loops
-Message-ID: <ar6iqgYsCZG7oTnL@ashevche-desk.local>
-References: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20260930172918.743656-20-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="htU7wn7N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790878435;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=2K6+AjrHHCLY+3zXw5HOJ91vX9fbZQsVpcAGubvt7/o=;
+	b=htU7wn7N4KJHwqLKPnpzuxGjNZNEIPYIHRn1nXHg9IkkYGouvgRkChD/fv96k5jUAr7A69
+	UVjZq7PHtO9uObGSU3bTEUrE478xxD0hNl7rZ22WmEQJzJ5B/xRr87MKaA+Kz5Fa3NAH+r
+	iJyAA11pTpdGQnhJ24nzswOm0G1tte0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-l93d_TTfNca1FqR8r5n-pA-1; Thu,
+ 01 Oct 2026 14:13:50 -0400
+X-MC-Unique: l93d_TTfNca1FqR8r5n-pA-1
+X-Mimecast-MFC-AGG-ID: l93d_TTfNca1FqR8r5n-pA_1790878429
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B36B218009D3;
+	Thu,  1 Oct 2026 18:13:48 +0000 (UTC)
+Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A4CED180059F;
+	Thu,  1 Oct 2026 18:13:44 +0000 (UTC)
+From: Luiz Capitulino <luizcap@redhat.com>
+To: stable@vger.kernel.org,
+	sashal@kernel.org
+Cc: rppt@kernel.org,
+	sayalip@linux.ibm.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6.18.y v3] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
+Date: Thu,  1 Oct 2026 14:13:30 -0400
+Message-ID: <20261001181330.684841-1-luizcap@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930172918.743656-20-sathyanarayanan.kuppuswamy@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Wed, Sep 30, 2026 at 10:29:16AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> Declare the loop counters in the for statements that use them, so that
-> they are scoped to their loops.
-> 
-> In tpmi_create_device() this also replaces the tmp cursor, which moved
-> in step with the counter, with res[i].
-> 
-> No functional change intended.
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+commit a914785f6349da754e1226420bf4e51961956769 upstream.
 
-...
+hugetlb-mremap test fails if there are no free huge pages prepared by a
+wrapper script.
 
-> -	for (i = 0; i < tpmi_info->feature_count; ++i) {
-> +	for (int i = 0; i < tpmi_info->feature_count; ++i) {
+Add setup of HugeTLB pages to the test and make sure that the original
+settings are restored on the test exit.
 
-While at it, I would also move to post-increment. The pre-increment is not so
-usual in the kernel and might rise additional question "why?".
+Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Luiz Capitulino <luizcap@redhat.com>
+Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Donet Tom <donettom@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Li Wang <li.wang@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-...
+[ Backport-notes: this is a partial backport containing only the aligning
+of 'length' to the hugepage size. The hugepage_settings.h include line and
+the hugetlb_setup_default() call are omitted. Without this fix, the
+uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
+default HugeTLB page size causing the test to fail with the error below as
+'length' is 10 MiB and not aligned to the HugeTLB page size.
 
-> -	for (i = 0; i < tpmi_info->feature_count; i++) {
-> +	for (int i = 0; i < tpmi_info->feature_count; i++) {
+  # -------------------------
+  # running ./hugepage-mremap
+  # -------------------------
+  # TAP version 13
+  # 1..1
+  # # Map haddr: Returned address is 0x7eaa40000000
+  # # Map daddr: Returned address is 0x7daa40000000
+  # # Map vaddr: Returned address is 0x7faa40000000
+  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
+  # # Planned tests != run tests (1 != 0)
+  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+  # [FAIL]
+  not ok 1 hugepage-mremap # exit=1
+  # NOTE: These hugetlb tests provide minimal coverage.  Use
+  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
+  #       hugetlb regression testing.
+  # SKIP ./uffd-wp-mremap
+]
+Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+---
+ tools/testing/selftests/mm/hugepage-mremap.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Ah, we have even inconsistency in the style used for the loop iterator
-advancing.
+v3
+- Preserved original changelog & subject
+- Small code style difference from v2 due to git cherry-pick usage which
+  preserved the original commit style
 
+v2
+- Added "commit <sha1> upstream" line to changelog
+
+diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
+index 928c1045e295..d6caa075a86a 100644
+--- a/tools/testing/selftests/mm/hugepage-mremap.c
++++ b/tools/testing/selftests/mm/hugepage-mremap.c
+@@ -97,6 +97,7 @@ static void register_region_with_uffd(char *addr, size_t len)
+ 
+ int main(int argc, char *argv[])
+ {
++	unsigned long hugepage_size;
+ 	size_t length = 0;
+ 	int ret = 0, fd;
+ 
+@@ -114,7 +115,11 @@ int main(int argc, char *argv[])
+ 	else
+ 		length = DEFAULT_LENGTH_MB;
+ 
++	hugepage_size = default_huge_page_size();
++	if (!hugepage_size)
++		ksft_exit_skip("Could not detect default hugetlb page size\n");
+ 	length = MB_TO_BYTES(length);
++	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
+ 	fd = memfd_create(argv[0], MFD_HUGETLB);
+ 	if (fd < 0)
+ 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
