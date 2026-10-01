@@ -1,511 +1,152 @@
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com [209.85.167.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4F850AC30
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2302E4915B0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863894; cv=none; b=kHx8j6LpOTdWttEFyVgszSe3xY/MOpe4Q9kRWc00irB5q6NB3HSAkl5Wajj+cUw37yGG2Dw/nkgYjzbZUtELeSKqFSUcQJ8XpcmVS/WY2ZcbgCasy+KXv3bqd8oFLm1JLye4XXtX+6vUk9GwIOwcF/tsRuok+5pFC8wj3Tnjt3A=
+	t=1790863954; cv=none; b=sQayy1t/2Ypv+a+rOskAQmmaMLrW1xEozeKR+RJDjQKryWO59AnHDiUiRKeHHWZB4GZlX3uS1zq8gjk8QI2e4qWs5BBPM43q9+v+V3igPFGYnyeZ+fgQRHYiB3jruQey3vHIgdQnUepgJx/poKNN8hGF9XT2DYjOcPLWVR86Jpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863894; c=relaxed/simple;
-	bh=L9PSzxz9ow7tEiq89TuGLX4WX3jI9sVO+PIlfEUclLU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=A7N8rAqwC1/+JXmlV4WsKdEoHkhj5M6SY8xrvYlFQJ5EeT0KgITLEffw65Ie1jBt8k98FxaGaRizCxXmHkhUbB42MATBhleSTA99iLMr2zISNKCZeeTRAgkqpXh64FfFBuUsyA+xQriIrrZZDKZUFh8PFSqCTMKU8Mm717Nm1VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EMSXU0iy; arc=none smtp.client-ip=209.85.167.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1790863954; c=relaxed/simple;
+	bh=qHqfBgsCEeljf9vm8b9twmiuzTdhNXvKeLcCrcBZevE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FVSUPHYMmQoAqXodHxGcUX9NsPE/D7IwmmTZGtFaohMdD/+7vVX6rpctm1JG/4ydtGf4WAFAzN8T2L1bZfuPlkKEeIh/F4eyIx8y03mmkd7+Offti2ol/5mjuVeJkzDFBRIYa/44jahrZNSbbN6OiMixubkUZ6pVlqdckfBWi8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=HIp0zGsF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZhOMb4hv; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EMSXU0iy"
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5ba427ff5e0so440088e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790863889; x=1791468689; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=486XmBvd/hdxqC0Yn+wHgxFrwoJGrB0vH9oLIuJX/p4=;
-        b=EMSXU0iyLt8LD9JCelyJNuOGewROOYLTq+1zeEQjlWnurKcjpnX67DwdzKDD0GRlSE
-         3ZzLV9rBc25fPiMCBnWCeBzfg/7DvCn2xKLSBnzJmDDG8Pu0T3N6mlELbsh8y7cbIffK
-         cmWNHo6nqm9TPTlYnuXTVH2GzFzXJJujfh26J56YvNWG+P7hyljaidcMJ6AypDppD3hh
-         Xo5xh+4GRoTLL+FJVDb3/5digQ8yLWfbGjCBvKQWkDwJE9k8YkLBlOYoY1Al8PyZoMBA
-         s1EY4n8L/E1nQmSJnZh4NvEFtC9Tlgp2jpvU1HwKM3NHoH1BIDGQiwnF1OddoswED7se
-         hmeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790863889; x=1791468689;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=486XmBvd/hdxqC0Yn+wHgxFrwoJGrB0vH9oLIuJX/p4=;
-        b=sP+dmcznlHpQg5KwwR890T2pU09Q+4afUvGSxW6j4c2RQWBhYb0nU49eW6zroVT/8O
-         3J56/fb2vFe/NttDLx9e6flK/UBfaBLTq63lcZNFcuZNDUA6t4Qs4c7+7G+tHiLBIG8B
-         l2AQCBohhttdmAG04ZTHsgsIDzo1dNwBFqEzOEBGFwM78DudkF42nz1Fb+Y+98wgm6ZX
-         KH69jkfkdq2pwPoQGnwwBb6R04DW37jNOyjIn6pDoU9S2xSEYjGT1Z//IS0ab+HkhlKg
-         8FCZnXrY04TIFKhL4QU1SqV18dRhomKUa8o7/AcIBdVM2V9PXzANqJkPlSNV0ZRgVHVr
-         o69A==
-X-Forwarded-Encrypted: i=1; AKwUvBysyfpd3Q8UXsu1twivlakiKL7wshfr5qm9brKmnpVDxOoW1KVOEccDwGRxQL5drOGVi1v4NWiq5ADtuxs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpIR0h4L84Q9xfAsE7XP2mTI7oYldwBtwOUqZLCTwH7Ba1qjpR
-	5Hc4b0rth1nMTwpomVsz+OUYreqUClAR9Lfgy/0evzQmapoKz6GaBLoQLnCNCkHH/bixQdaFwEn
-	2x7po9yhtGGWcj8WcCA==
-X-Received: from ejcex16.prod.google.com ([2002:a17:907:9550:b0:c2d:c0b7:97f5])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:c205:b0:c2e:20ab:daee with SMTP id a640c23a62f3a-c2e34063e6emr256987166b.27.1790863877231;
- Thu, 01 Oct 2026 07:11:17 -0700 (PDT)
-Date: Thu,  1 Oct 2026 14:11:14 +0000
-In-Reply-To: <2026100136-immerse-wildlife-6d7e@gregkh>
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="HIp0zGsF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZhOMb4hv"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 2CCB1EC0170
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:12:30 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 01 Oct 2026 10:12:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790863950;
+	 x=1790950350; bh=ATj4hW1x9LFmtPl4Wl9BUty+fvJ2OV+MQvDPOpVWCE8=; b=
+	HIp0zGsF7637I8t2gHWJ9NXMbg+IxRyQUoXKcE1F+33tiFkNfe9tCTcmvJxQChUw
+	sZrLTQmJPWOVKx7iVub5dOXGKG/IPP/xeRpcTQ1whVln9R6IpHy6lk17BReBjn7O
+	fW5yQCAU34sj7JQA1w1JLKAOqpO99GDhuPD5j363NOUn4GGmkifSO5wo0hL6aNZv
+	v7VU4e8a2YkGdUCL3eSqxgt4hAaMI3d0Gl2XqnTawWgjOKg20fwNSOfrHDV0arZP
+	Rqzarp3+MRBIz+aLp09UWOMkmorfz41yHwbJ6DCtgocSQy3tRUA8VDhwP6Sp2rrk
+	Ri/Ulm3wvpuy5SX2IYz7lA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790863950; x=
+	1790950350; bh=ATj4hW1x9LFmtPl4Wl9BUty+fvJ2OV+MQvDPOpVWCE8=; b=Z
+	hOMb4hvzuky3mGV1EPEZiSKsDlmqI3J/eLh5jlDBSmitAG4dm49YhUqOhPPN4L0R
+	ry2Zyzj8Q1KvWUoXsvbHoe9Z2/j2g3KueNagxDbLEZ0MqsPZW0BuEAfdM/JdqCCz
+	vkPu9phf4VhF89mFkjj4bb58EMKLRqNICMz1HRRxI8UPar33oBIwD02RbAj4W+mJ
+	x5yXHB8E47jB/EI96lBfMf32q4fh+LnO3J0phm6ffuQaiWUAk4EKksCVHHRWu2Cc
+	5i/z8DyXbT6OwmS7JfF6X7aeeJe7Gf3m1bRDTI6xUdPMM4YwG2ixxsWmf1b9KveJ
+	7JKHFx4/CULLHfrlRF5Ow==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790863950; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:WOCytwAmeU5gF62z+y+xWX2fkJ/w3xDlR1WAQkeAsG9L5Su
+	6IGsLXiiYlBVhW/RGVXsPYiH7yUmFliFQ1fllevjfH6M1H+dKMfBh7obcX53Gwv+
+	c4dOcugt1C/nw6S2aRsDMxiP6YOUTzOGCJLuW9SrUXSx6YghxGWQ5/vgLjkbQSvZ
+	tU6itUJW8zw89m0ZArU/cht1TwvrBUX/mg9C0up1MH17K4E5eAyEcHSPqcHCiKtH
+	ZJNWh/Bz8adSb0eKWIBhRRa0C7ZFHfx7oVgmBBu2M9SCm6FxPx7IDIFy+muHVOt1
+	XEj588USSwDtc+C1QK0un4/ixWirmQQbZVPf3iA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:OSrEUGyBkg0M+a65O7qJz0QrO5DVNjdK6k5ba6ssCOs=:qHqfBgsCEeljf9vm8b9twmiuzTdhNXvKeLcCrcBZevE=;
+X-ME-Sender: <xms:TWq-akJ349tD8isl3-KCFtctc5uqNpw8lbKmqEx6Smb6dNAlHN4EWA>
+    <xme:TWq-ah8h9wLRf2x_ieEtZycurmmlRg5hzZnwK4Qh4oIfb3q_mAfaK-4y-Gn5oyE8X
+    tmVjgt7T7jcliFDVaSWZaW9UnpVQtzXdgFmc7OBWqjF1AZaPpYnQDE>
+X-ME-Received: <xmr:TWq-avIp0GLeV9_ihg7nQyVDPxcQARnRXsOki4-X0i-Zjs0XajkNYeg7hArV5A>
+X-ME-Proxy-Cause: dmFkZTENZzRQMMP6NTk/k0Uhoq2oYvTQbTJ2Mi9/DHCC3vPgyVfx4igkBQlVMs5u7PK7Jo
+    S1ok/VqC/2bkgbRqw6H34gXKZm/tnDcbE1glwwdjjwZsneRo6g5xRv6u4BiaNTLYcNDe/g
+    YFmxK0NVoF5M3X33w/TulcQ0kBXp5ABbC40a2C9ofScystrHoXtQ2VZc65RnmEkr9tl2aX
+    QKPpfC6NWNPi24+mKkNukrrPozXi+YQlp0JGtMmbNaPx7t4aVQaG4PMiqQKZcbK6Jgu7S4
+    En/KzlBBF7XhI+nF5zjryWliB41Sc00wN4YEqubseBwZKMVwT1v5EWwOXlEu02J9yDn5Em
+    RSqzTI1bU4iTPdxoqouF/48HDGCwNGWV75sMLMfj2S8Qk+NdvuQHI/nJrph++AP3a76k5R
+    XdOLNLorqRqmRjlznXfr27JgosgAkEiRwlw1ne0c+DVl32HNXZ0Ion58nyHaTZu2HvD7MQ
+    FnXee/AlTuwqk0GhbuqC+vmJ+KBkP7oCbTXvsnc1rnN5jYGkD5xlLIoco6TFZfFdyCLmip
+    pGUcOsmuzuRpDtSCiV2eNDW34ROuWlXNoAqiaaw0ENpj05pH+t0wWNGL5WaZaCe/jPH0Up
+    Re5HNAlKIU3vCOurJyIoVPMtx3VbZwH2G6hFP2V33iZfG8yRjBnbsN7z66Ig
+X-ME-Proxy: <xmx:TWq-aumV_-1K4OPfE-cIN0xWPXndCN5JFJhm-8r-JJpNFjMXAnkwPg>
+    <xmx:TWq-arM9Ob-6M12l71jHDXjCz0mEiFpMRAcyYZnt84wFEPR9Cg3XAA>
+    <xmx:TWq-as39_g7qAAHTb3OdQvdP0w6oW2DV7iSS2-Mqe8ZSyhz3HEgllA>
+    <xmx:TWq-ainRptxxE-j48Jvzjx-XE37nsROuhXBz9Nr3l4nxGNIgLORYPg>
+    <xmx:Tmq-ald2kls5rw2N8N__T59Gnt-q8ncWr1oDDshWHjznq2Mc5ePez2S->
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Oct 2026 10:12:29 -0400 (EDT)
+Date: Thu, 1 Oct 2026 08:12:27 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH] vfio: cdev: Reject duplicate bind before updating KVM
+ file
+Message-ID: <20261001081227.18eaba1e@shazbot.org>
+In-Reply-To: <20261001093152.1698474-1-aneesh.kumar@kernel.org>
+References: <20261001093152.1698474-1-aneesh.kumar@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <2026100136-immerse-wildlife-6d7e@gregkh>
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16758; i=aliceryhl@google.com;
- h=from:subject; bh=L9PSzxz9ow7tEiq89TuGLX4WX3jI9sVO+PIlfEUclLU=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqvmnPWXBc3EKaafIx5hrYMs3OU7yK/AO90Myio
- M7GHq+4RE+JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCar5pzwAKCRAEWL7uWMY5
- RgOND/96xCYmF8q1QhPARzCHU/dDA20j/pahcod24HYdiJQuk94j6sVZmcPFP1S37BI1LAN4cfz
- 4WP97436tjSDoPeC9KNdee7+7ljUP0domcdP8dGAu3K2fDLuaDiPSQPh7w9TqjkuUeVdHTXX/Wf
- cfnymJZhx3cLL9Po89j3//hp2Z3q9aZ50lrGvAmzU9LXD1fJFobFQIU/E4clz3L9f13Yv9QJN/h
- urHB6pooaYVYjVpTtyz8FRwbQsbc3YhsYldWu4Wewk9g6hKYhIdcL86Jc+/3UVtml4wFvPGIv6w
- +/7iFHRLwOYF1gjJOnRxVq6xVCtik9dkI8RD4Sbx2OSgGdnvUtUgM6hDEb8kbwcF1wzgdygBJTF
- pEGoTwMX9LKj3oh4LSBPdzmdmWilUnIn93tAITM1T6iqSPwdtiDvIppKtwLHN3w7zuz1H8jqVlh
- CPo610l4MLEkW0a/mWr41DP5m6XcvaRTGtw+jcWiUVr8cwrfjLPYVCMnCgwYOCn0SXSoaOzCfz0
- o6mrtO8ncT4jMKkOebIT+tJ/JVISaBK9kSzdMDKvz4vtOJVsLZW0sD00kCkBRPc+21JL5q5RL6Q
- aU5is2iiX8z1y60X84kAqbqZzbvhYeLLJ16+/sSFfPBLqZfCnHe+EzUi50YxvOqk/F6Pbwm4Gjw 6ESD/a8gLjjgL8Q==
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261001141114.2731136-1-aliceryhl@google.com>
-Subject: [PATCH v2 3/3 rebased] rust_binder: add transaction_log and failed_transaction_log
-From: Alice Ryhl <aliceryhl@google.com>
-To: gregkh@linuxfoundation.org
-Cc: a.hindborg@kernel.org, acourbot@nvidia.com, aliceryhl@google.com, 
-	bjorn3_gh@protonmail.com, boqun@kernel.org, cmllamas@google.com, 
-	dakr@kernel.org, daniel.almeida@collabora.com, gary@garyguo.net, 
-	linux-kernel@vger.kernel.org, lossin@kernel.org, ojeda@kernel.org, 
-	rust-for-linux@vger.kernel.org, tamird@kernel.org, tmgross@umich.edu, 
-	work@onurozkan.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Implement the binder_logs/transaction_log and
-binder_logs/failed_transaction_log binderfs files in Rust Binder,
-matching the circular 32-entry transaction logs in C Binder.
+On Thu,  1 Oct 2026 15:01:52 +0530
+"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
 
-Example output from /dev/binderfs/binder_logs/transaction_log:
+> The cdev path only supports one bound/open device fd, but
+> VFIO_DEVICE_BIND_IOMMUFD only checked the per-file access_granted flag
+> before capturing the KVM file reference. A second fd for the same device
+> could therefore replace device->kvm, fail later in vfio_df_open()
+> because open_count is already nonzero, and then clear the active KVM
+> association during error cleanup.
+> 
+> Reject the bind while holding dev_set->lock if the device is already
+> open, matching the existing cdev single-open rule before touching the
+> device-wide KVM state.
+> 
+> Cc: Alex Williamson <alex@shazbot.org>
+> Cc: kvm@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> ---
+>  drivers/vfio/device_cdev.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
+> index 1d9515c967b0..ab46563604ac 100644
+> --- a/drivers/vfio/device_cdev.c
+> +++ b/drivers/vfio/device_cdev.c
+> @@ -124,8 +124,8 @@ long vfio_df_ioctl_bind_iommufd(struct vfio_device_file *df,
+>  		return ret;
+>  
+>  	mutex_lock(&device->dev_set->lock);
+> -	/* one device cannot be bound twice */
+> -	if (df->access_granted) {
+> +	/* The cdev path only supports one bound/open device fd. */
+> +	if (df->access_granted || device->open_count) {
+>  		ret = -EINVAL;
+>  		goto out_unlock;
+>  	}
 
-  261251: call  from 6157:6171 to 391:0 context binder node 170 handle 34 size 256:0 ret 0/0 l=0
-  261254: async from 606:783 to 669:0 context binder node 2048 handle 2 size 144:0 ret 0/0 l=0
-  261255: reply from 391:552 to 6157:6171 context binder node 0 handle -1 size 2436:8 ret 0/0 l=0
+This is already addressed by [1], committed as [2].
 
-Example output from /dev/binderfs/binder_logs/failed_transaction_log:
+[1]https://lore.kernel.org/all/20260911170429.1642480-2-alex.williamson@nvidia.com/
+[2]https://github.com/awilliam/linux-vfio/commit/258ba46543abdd36844f04bba8b4022a5731d873
 
-  194556: async from 6646:6853 to 7452:0 context binder node 177682 handle 450 size 160:0 ret 29189/0 l=process.rs:1081
-  194846: reply from 6646:6775 to 7452:7544 context binder node 0 handle -1 size 8:0 ret 29201/0 l=process.rs:1081
-  201573: call  from 7771:7793 to 6646:0 context binder node 198883 handle 28 size 0:0 ret 29189/0 l=process.rs:1081
-
-Unlike C Binder, which writes to log entries without a lock using memory
-barriers (smp_wmb/smp_rmb) and a debug_id_done field, each
-TransactionLog uses an atomic index cursor with 32 cacheline-aligned
-SpinLock<TransactionLogEntry> slots initialized in BinderModule::init
-via SetOnce<_>. Using a SpinLock per slot avoids data races (such as
-tearing when the ring buffer wraps around while an entry is being
-printed) without requiring atomic accesses for every field, and has very
-low risk of contention: concurrent transactions are spread across 32
-separate cacheline-aligned locks, each lock is only held briefly for a
-fixed-size copy, and two writers only contend on a slot if 32
-transactions occur before a single copy completes.
-
-Assisted-by: LLM
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
-Changes in v3: minor conflict resolution
-
- drivers/android/binder/rust_binder_internal.h |   1 +
- drivers/android/binder/rust_binder_main.rs    |  24 +++
- drivers/android/binder/rust_binderfs.c        |  19 ++
- drivers/android/binder/thread.rs              |   7 +
- drivers/android/binder/transaction.rs         | 197 +++++++++++++++++-
- 5 files changed, 246 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/android/binder/rust_binder_internal.h b/drivers/android/binder/rust_binder_internal.h
-index 78288fe7964d..50a50df14c77 100644
---- a/drivers/android/binder/rust_binder_internal.h
-+++ b/drivers/android/binder/rust_binder_internal.h
-@@ -44,6 +44,7 @@ struct binder_device {
- int rust_binder_stats_show(struct seq_file *m, void *unused);
- int rust_binder_state_show(struct seq_file *m, void *unused);
- int rust_binder_transactions_show(struct seq_file *m, void *unused);
-+int rust_binder_transaction_log_show(struct seq_file *m, void *unused);
- int rust_binder_proc_show(struct seq_file *m, void *pid);
- 
- extern const struct file_operations rust_binder_fops;
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index 89add66c0483..56c786475237 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -310,6 +310,9 @@ fn init(_module: &'static kernel::ThisModule) -> Result<Self> {
-         // SAFETY: The module initializer never runs twice, so we only call this once.
-         unsafe { crate::context::CONTEXTS.init() };
- 
-+        crate::transaction::TRANSACTION_LOG.init()?;
-+        crate::transaction::FAILED_TRANSACTION_LOG.init()?;
-+
-         let netlink = crate::netlink::BINDER_NL_FAMILY.register()?;
-         BINDER_SHRINKER.register(c"android-binder")?;
- 
-@@ -550,6 +553,27 @@ unsafe impl<T> Sync for AssertSync<T> {}
-     0
- }
- 
-+/// # Safety
-+/// Only called by binderfs.
-+#[no_mangle]
-+unsafe extern "C" fn rust_binder_transaction_log_show(
-+    ptr: *mut seq_file,
-+    _: *mut kernel::ffi::c_void,
-+) -> kernel::ffi::c_int {
-+    // SAFETY: Accessing the private field of `seq_file` is okay.
-+    let is_failed = !unsafe { (*ptr).private }.is_null();
-+    // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
-+    // this method is called.
-+    let m = unsafe { SeqFile::from_raw(ptr) };
-+    let log = if is_failed {
-+        &transaction::FAILED_TRANSACTION_LOG
-+    } else {
-+        &transaction::TRANSACTION_LOG
-+    };
-+    log.debug_print(m);
-+    0
-+}
-+
- fn rust_binder_transactions_show_impl(m: &SeqFile) -> Result {
-     seq_print!(m, "binder transactions:\n");
-     let contexts = context::get_all_contexts()?;
-diff --git a/drivers/android/binder/rust_binderfs.c b/drivers/android/binder/rust_binderfs.c
-index acc83a179f38..25dc54ab45e9 100644
---- a/drivers/android/binder/rust_binderfs.c
-+++ b/drivers/android/binder/rust_binderfs.c
-@@ -46,6 +46,7 @@
- DEFINE_SHOW_ATTRIBUTE(rust_binder_stats);
- DEFINE_SHOW_ATTRIBUTE(rust_binder_state);
- DEFINE_SHOW_ATTRIBUTE(rust_binder_transactions);
-+DEFINE_SHOW_ATTRIBUTE(rust_binder_transaction_log);
- DEFINE_SHOW_ATTRIBUTE(rust_binder_proc);
- 
- char *rust_binder_devices_param = CONFIG_ANDROID_BINDER_DEVICES;
-@@ -611,6 +612,24 @@ static int init_binder_logs(struct super_block *sb)
- 		goto out;
- 	}
- 
-+	dentry = rust_binderfs_create_file(binder_logs_root_dir,
-+				      "transaction_log",
-+				      &rust_binder_transaction_log_fops,
-+				      (void *)0);
-+	if (IS_ERR(dentry)) {
-+		ret = PTR_ERR(dentry);
-+		goto out;
-+	}
-+
-+	dentry = rust_binderfs_create_file(binder_logs_root_dir,
-+				      "failed_transaction_log",
-+				      &rust_binder_transaction_log_fops,
-+				      (void *)1);
-+	if (IS_ERR(dentry)) {
-+		ret = PTR_ERR(dentry);
-+		goto out;
-+	}
-+
- 	proc_log_dir = binderfs_create_dir(binder_logs_root_dir, "proc");
- 	if (IS_ERR(proc_log_dir)) {
- 		ret = PTR_ERR(proc_log_dir);
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index c91c885c1292..4df006b98ebf 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -1332,6 +1332,7 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-             self.push_return_work(err.reply);
-             if err.reply != BR_TRANSACTION_COMPLETE {
-                 info.reply = err.reply;
-+                info.error_line = Some(err.line);
-                 if let Some(source) = &err.source {
-                     info.errno = source.to_errno();
- 
-@@ -1363,6 +1364,8 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-             }
-         }
- 
-+        info.write_log(&self.process.ctx);
-+
-         if info.oneway_spam_suspect {
-             // If this is both a oneway spam suspect and a failure, we report it twice. This is
-             // useful in case the transaction failed with BR_TRANSACTION_PENDING_FROZEN.
-@@ -1378,6 +1381,7 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-     fn transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-         let node_ref = self.process.get_transaction_node(info.target_handle)?;
-         info.to_pid = node_ref.node.owner.task.pid();
-+        info.to_node_debug_id = node_ref.node.debug_id;
-         security::binder_transaction(&self.process.cred, &node_ref.node.owner.cred)?;
-         // TODO: We need to ensure that there isn't a pending transaction in the work queue. How
-         // could this happen?
-@@ -1472,6 +1476,8 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             orig.from
-                 .deliver_reply(Err(BR_FAILED_REPLY), &orig, Some(ee));
-             info.reply = BR_FAILED_REPLY;
-+            info.errno = param;
-+            info.error_line = Some(err.line);
-             err.reply = BR_TRANSACTION_COMPLETE;
-             err
-         });
-@@ -1482,6 +1488,7 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-     fn oneway_transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-         let node_ref = self.process.get_transaction_node(info.target_handle)?;
-         info.to_pid = node_ref.node.owner.task.pid();
-+        info.to_node_debug_id = node_ref.node.debug_id;
-         security::binder_transaction(&self.process.cred, &node_ref.node.owner.cred)?;
-         let transaction = Transaction::new(node_ref, None, self, info)?;
-         let code = if self.process.is_oneway_spam_detection_enabled() && info.oneway_spam_suspect {
-diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
-index e56272b00be4..e627522141b8 100644
---- a/drivers/android/binder/transaction.rs
-+++ b/drivers/android/binder/transaction.rs
-@@ -7,8 +7,9 @@
-     prelude::*,
-     seq_file::SeqFile,
-     seq_print,
-+    str::BStr,
-     sync::atomic::{ordering::Relaxed, Atomic},
--    sync::{Arc, SpinLock},
-+    sync::{Arc, SetOnce, SpinLock},
-     task::{Kuid, Pid},
-     time::{Instant, Monotonic},
-     types::ScopeGuard,
-@@ -18,7 +19,7 @@
- use crate::{
-     allocation::{Allocation, TranslatedFds},
-     defs::*,
--    error::{BinderError, BinderResult},
-+    error::{BinderError, BinderResult, ErrorLocation},
-     netlink::Report,
-     node::{Node, NodeRef},
-     process::{Process, ProcessInner},
-@@ -56,12 +57,195 @@ pub(crate) fn is_oneway(self) -> bool {
-     }
- }
- 
-+const LOG_SIZE: usize = 32;
-+
-+pub(crate) static TRANSACTION_LOG: TransactionLog = TransactionLog::new();
-+pub(crate) static FAILED_TRANSACTION_LOG: TransactionLog = TransactionLog::new();
-+
-+#[derive(Copy, Clone)]
-+enum CallType {
-+    Call,
-+    Async,
-+    Reply,
-+}
-+
-+#[derive(Copy, Clone)]
-+pub(crate) struct TransactionLogEntry {
-+    debug_id: usize,
-+    call_type: CallType,
-+    from_proc: Pid,
-+    from_thread: Pid,
-+    // The kernel ignores `target.handle` on replies (where `libbinder` passes `-1` / `0xffffffff`),
-+    // and C Binder stores and prints this field as a signed `int` (`%d`).
-+    target_handle: i32,
-+    to_proc: Pid,
-+    to_thread: Pid,
-+    to_node: usize,
-+    data_size: usize,
-+    offsets_size: usize,
-+    return_error_line: Option<ErrorLocation>,
-+    return_error: u32,
-+    return_error_param: i32,
-+    context_name: [u8; 16],
-+}
-+
-+impl TransactionLogEntry {
-+    const fn empty() -> Self {
-+        Self {
-+            debug_id: 0,
-+            call_type: CallType::Call,
-+            from_proc: 0,
-+            from_thread: 0,
-+            target_handle: 0,
-+            to_proc: 0,
-+            to_thread: 0,
-+            to_node: 0,
-+            data_size: 0,
-+            offsets_size: 0,
-+            return_error_line: None,
-+            return_error: 0,
-+            return_error_param: 0,
-+            context_name: [0; 16],
-+        }
-+    }
-+
-+    fn new(info: &TransactionInfo, ctx: &crate::Context) -> Self {
-+        let call_type = if info.is_reply {
-+            CallType::Reply
-+        } else if info.is_oneway() {
-+            CallType::Async
-+        } else {
-+            CallType::Call
-+        };
-+        let name_bytes = ctx.name.to_bytes();
-+        let mut context_name = [0u8; 16];
-+        let len = usize::min(name_bytes.len(), context_name.len());
-+        context_name[..len].copy_from_slice(&name_bytes[..len]);
-+
-+        let failed = info.reply != 0 && info.reply != BR_TRANSACTION_PENDING_FROZEN;
-+        Self {
-+            debug_id: info.debug_id,
-+            call_type,
-+            from_proc: info.from_pid,
-+            from_thread: info.from_tid,
-+            target_handle: info.target_handle as i32,
-+            to_proc: info.to_pid,
-+            to_thread: info.to_tid,
-+            to_node: info.to_node_debug_id,
-+            data_size: info.data_size,
-+            offsets_size: info.offsets_size,
-+            return_error_line: if failed { info.error_line } else { None },
-+            return_error: if failed { info.reply } else { 0 },
-+            return_error_param: if failed { info.errno } else { 0 },
-+            context_name,
-+        }
-+    }
-+}
-+
-+#[pin_data]
-+#[repr(align(64))]
-+struct TransactionLogSlot {
-+    #[pin]
-+    entry: SpinLock<TransactionLogEntry>,
-+}
-+
-+pub(crate) struct TransactionLog {
-+    cur: Atomic<usize>,
-+    entries: SetOnce<Pin<KBox<[TransactionLogSlot; LOG_SIZE]>>>,
-+}
-+
-+impl TransactionLog {
-+    const fn new() -> Self {
-+        Self {
-+            cur: Atomic::new(0),
-+            entries: SetOnce::new(),
-+        }
-+    }
-+
-+    pub(crate) fn init(&self) -> Result {
-+        let entries = KBox::pin_init(
-+            pin_init::pin_init_array_from_fn(|_| {
-+                pin_init!(TransactionLogSlot {
-+                    entry <- kernel::new_spinlock!(
-+                        TransactionLogEntry::empty(),
-+                        "TransactionLog::entries"
-+                    ),
-+                })
-+            }),
-+            GFP_KERNEL,
-+        )?;
-+        self.entries.populate(entries);
-+        Ok(())
-+    }
-+
-+    fn add(&self, entry: &TransactionLogEntry) {
-+        let Some(entries) = self.entries.as_ref() else {
-+            return;
-+        };
-+        let idx = self.cur.fetch_add(1, Relaxed) % LOG_SIZE;
-+        let mut slot = entries[idx].entry.lock();
-+        // Avoid overwriting a newer entry if the ring buffer wraps around between `fetch_add` and
-+        // acquiring the lock.
-+        // CAST: Overflowing behavior of this cast is intentional to handle `debug_id` wrap-around.
-+        let diff = slot.debug_id.wrapping_sub(entry.debug_id) as isize;
-+        if slot.debug_id == 0 || diff < 0 {
-+            *slot = *entry;
-+        }
-+    }
-+
-+    pub(crate) fn debug_print(&self, m: &SeqFile) {
-+        let Some(entries) = self.entries.as_ref() else {
-+            return;
-+        };
-+        let cur = self.cur.load(Relaxed);
-+        for i in 0..LOG_SIZE {
-+            let idx = cur.wrapping_add(i) % LOG_SIZE;
-+            let entry = *entries[idx].entry.lock();
-+            if entry.debug_id == 0 {
-+                continue;
-+            }
-+            let call_type = match entry.call_type {
-+                CallType::Call => "call ",
-+                CallType::Async => "async",
-+                CallType::Reply => "reply",
-+            };
-+            let ctx_name = match CStr::from_bytes_until_nul(&entry.context_name) {
-+                Ok(cstr) => BStr::from_bytes(cstr.to_bytes()),
-+                Err(_) => BStr::from_bytes(&entry.context_name),
-+            };
-+            let return_error_line: &dyn kernel::fmt::Display = match &entry.return_error_line {
-+                Some(line) => line,
-+                None => &0,
-+            };
-+            seq_print!(
-+                m,
-+                "{}: {} from {}:{} to {}:{} context {} node {} handle {} size {}:{} ret {}/{} l={}\n",
-+                entry.debug_id,
-+                call_type,
-+                entry.from_proc,
-+                entry.from_thread,
-+                entry.to_proc,
-+                entry.to_thread,
-+                ctx_name,
-+                entry.to_node,
-+                entry.target_handle,
-+                entry.data_size,
-+                entry.offsets_size,
-+                entry.return_error,
-+                entry.return_error_param,
-+                return_error_line,
-+            );
-+        }
-+    }
-+}
-+
- #[derive(Zeroable)]
- pub(crate) struct TransactionInfo {
-     pub(crate) from_pid: Pid,
-     pub(crate) from_tid: Pid,
-     pub(crate) to_pid: Pid,
-     pub(crate) to_tid: Pid,
-+    pub(crate) to_node_debug_id: usize,
-     pub(crate) code: u32,
-     pub(crate) flags: TransactionFlags,
-     pub(crate) data_ptr: UserPtr,
-@@ -72,6 +256,7 @@ pub(crate) struct TransactionInfo {
-     pub(crate) target_handle: u32,
-     pub(crate) errno: i32,
-     pub(crate) reply: u32,
-+    pub(crate) error_line: Option<ErrorLocation>,
-     pub(crate) oneway_spam_suspect: bool,
-     pub(crate) is_reply: bool,
-     pub(crate) debug_id: usize,
-@@ -83,6 +268,14 @@ pub(crate) fn is_oneway(&self) -> bool {
-         self.flags.is_oneway()
-     }
- 
-+    pub(crate) fn write_log(&self, ctx: &crate::Context) {
-+        let entry = TransactionLogEntry::new(self, ctx);
-+        TRANSACTION_LOG.add(&entry);
-+        if self.reply != 0 && self.reply != BR_TRANSACTION_PENDING_FROZEN {
-+            FAILED_TRANSACTION_LOG.add(&entry);
-+        }
-+    }
-+
-     pub(crate) fn report_netlink(&self, reply: u32, ctx: &crate::Context) {
-         if let Err(err) = self.report_netlink_inner(reply, ctx) {
-             pr_warn!(
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Thanks,
+Alex
