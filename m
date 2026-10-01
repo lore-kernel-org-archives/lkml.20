@@ -1,63 +1,65 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B5E3DDDC0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859BA4052CD
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829741; cv=none; b=ndhydilrGTUPW5EQMkNsHdCQg4KWFR+o+Cd6FNdmDknkAvLjxCh1gOMKCwtsN6oaPKTYlbR1G8wIM/bXH9ceqGwJTedTE1/H0nSglzlSjAws/PCind5SfNBEUMd2a220N8QhT3zsKBqIbN32uYdiF1RODkQDn9DITlod6WIkltE=
+	t=1790829745; cv=none; b=rERfOO21E4aGCTHTHOTZspeJMFUJqTPVWdwGVWyAlffRz+Z7k1lfUB0UcQMT32pCJp+GMcWSjV4lKtnXw97B2xzib3jxhi/Rc5HpfEZjh/Gf6UbWpzlGXScJpnN3U2hG6YKtGroHHx9Ix5MuyrTBLpN84HHvnpan9ba0I9xMfVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829741; c=relaxed/simple;
-	bh=SS7j2Mi3g5GlPry3bUdyss69gJmE53mV446QuvJzBYM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XyXSFeP9ql1aqSuxZXuaryYJXfm8KMTrr3MXUxnpRZSsXK1BZL9J3ku33v4U+3m/GY+qntxsSGCPL/9HUSfSiD1o4PvQJ4tsSJtYKG2vqJEyQXp9Yz5GePSO7QzAJKAYRoT9F4ZZauz13VSguUdjHrAtlLz772Moqm1s+rRO4QM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IWTeAvoA; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790829745; c=relaxed/simple;
+	bh=vZ2a1RS1CoeagLQdph6wHtoMViLnpsPlbekfBXE+tuE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Tgs6gXMPcFGAdefE8v07csXeEWdcu8o4yMs4r4kj9HtiofwQWdx01dkXoZU3eElpYSRPovyUwgz6BhTqOkdYsmBjiEc7GtO+qTIiL22QEIc5K3axCmw18nVe9RTE86gawLYfLZzoIdT2gbsQZz4dDkZOAIeTEbjWCXuV74IaMGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UqXfvQin; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IWTeAvoA"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso15012175e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:42:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UqXfvQin"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so45495225e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:42:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790829737; x=1791434537; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a1VMb1gdkAzPRn13HLN7Aa+0FwFU3dz+Af4Wv7wExRg=;
-        b=IWTeAvoAJxpZWo5gWWXPhTGXZGjKyzinPbCyh8WkIhAE1IZN2d3IM0DRRSUtd2M481
-         PNicrRfD3jw0xzN1lvq/twOaltIi9/c/4ovlN9JAaf81ssUUac9CgsjHy2/0D2Vg5xNr
-         DdSrIzpp3FBXy38p7UyM4Fyom/rxabUOxct1aQWC3dATXgwgLvecCCMtKql4L8FJQBet
-         b9FQqFutCMY8rDp+pfi1uM1lc++ODeWSPUP1WVCtQTMb8BzlEv6oAckQWUbOJmE4bFrW
-         wg8JOHb0+JiT+ibxscn9oKm1dThoOdaSuINrMzYMRhMdAqB0wEGp0BAGC3/Bh24ZJWMo
-         SvVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790829737; x=1791434537;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790829739; x=1791434539; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a1VMb1gdkAzPRn13HLN7Aa+0FwFU3dz+Af4Wv7wExRg=;
-        b=ch/6zspGNS2DqM7KGUVllQn9ztbK8hSegGMj8kTg8dfrV+QHcQL3ObXbH6sMxFxa5H
-         2SlSw5+d7YakMi+LMTlEwg5H52657y3LJHApx/lp7y0X4kcFiXfeDKS0ct7voy7nx0p8
-         R75w+oPyQQq02Hqa9E33M0RPPcTb34mMl5lH+VNUm7GaqpCxDR3afvQAmgnPnRU2JycT
-         gmt3rqpMJ4ZCdR60QZdBBmKPbjfdlj7gftQKsayAxceRmUgWDNvrJ/JPmC4Ifw2iasn0
-         d/CO+qIsqgt/cLe0RMskoAEb9aPGHW5O5Tk/sLPWOhLE/xOcpIajEYzbCrXxdvc+e7nF
-         Uj1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ9UtmuNDWyxUriOXQJJ50G9jeedWPZj8WhDjrj05U09h+EobfuIG0aQovoruLwFLDecNOVYRgNfclMrQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFohjJ+bo+7hOuc2VsD7LezffkKScLPJErYwpZINqKe6LXvPoR
-	jHxajrFxX92JFZmGt7wvKz4T4hHDZ3XCtcw6EzouWG1yteIygnt3I2CA
-X-Gm-Gg: AYBFou06YOK91X3PW3jA1YiF3R9Np+84hpBZdivxjLt7AR1fYuqIIuBo7u62AivhYcv
-	SijtrP0uf8QeWx5oSKYSF98TgngEvGM7PXx6bnvE33T/Mios6XcvQq5+op1Y5Sut0D2r/E1gxKB
-	zleEzDSvBUhd8UagKP6HCpUF0XblzieG+TSHk4LMWdkwauRl+PuSbchvadEAT03seXt5lMW0twp
-	VFPCU6kyzZ795WHwbYfh4fAmOP+lPyKZTonOC8U/zobbjy5n32rBrnXRoAZ2Z6S+PM0hA2UrN2o
-	hn+EijrXdf5y1wlxXauG+Qny50Ctx2//ULUvB4bu/2MmeFyGH/QjlSMWbb2O7DjxKVZt4IYgyN1
-	HfPLUlhlbL+z+pO3Kaa3Ki9gC++jvM0NIvtCalDVV/cE22TKOaYxHuN4eMQ8/ve9XGOkY/RQ93u
-	UOC/Ij++kkIhKsovrJ62/50GB99nhEIF9J/1lDw9jj+WepuaW2gJOEAmJeHAmoKQiVR+ZnEs3cp
-	PBsrl4u1CjIwmmXquqtgrPmZsPdMR8VPQFWSEbt675ntsPbPYviUTO+W1B4JjhTnRAbVnn2VQBk
-	8zseZHqiy1TOJHv1wjtawIXLdEaRxiLIdpgAMZ0J44InMoyEM1XNvzgCFOUDjrU=
-X-Received: by 2002:a7b:ca5a:0:b0:49f:fbad:29ae with SMTP id 5b1f17b1804b1-4a01eb19ffdmr17039525e9.17.1790829736713;
-        Wed, 30 Sep 2026 21:42:16 -0700 (PDT)
+        bh=p2Gp1DxjHQ0qTISrrSjvk99H2tt8CfuvB/h7scE7CDY=;
+        b=UqXfvQinxt+NHrhgqikrVcvkpAftlLeI45IG08yG5MN843l66qXD4S4RO7BaWSbNZw
+         iYbPUZPwU5vFjGYM+WJc0cF3mK4lud76GLWQJqEs+A8oKLMvOsI3A+KdcbsMzl+5NDnJ
+         9rEqJwfanwwxJ63tiGZ6akqHzL18DqS/1FOt7jZV/9SRhQMTTYCj1eNWkwrLgAZhm7dl
+         qKehcURJ3AQSEzNVMQRy7C5O3uKBoxlX/gwc577j/2Kn7c/KkSXbr88LpiQlbBZMTj5u
+         VraxuyooadZn5OoRDDxz7h2Nz5pOtJZFg+PPJO8BvEwvWJSX52BTP2yEssK2UrKr01SK
+         7vXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790829739; x=1791434539;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p2Gp1DxjHQ0qTISrrSjvk99H2tt8CfuvB/h7scE7CDY=;
+        b=rqCla3bBS4sB8Y9xeesktJV3cjAI4EjUgP77s+S5c3oYFsEowpFEh0etl3pkMbOmKa
+         50rOlwoKgDTGYyGLI2JtVHdW/gAFQJIMajSD3Q9KxigWceQzJQ5bjc+3++xh4wlk2hXx
+         Qc/+7jA3oyzyUXhDzd13odmj31IZgZQ5pqD165etU4f8H925X8GC85g+bRZbXelJUe6i
+         fK5z/MvMThsM2U6CvVh8ifkARtMYaxGgrOsnVI08uccT2LOsZov7RkwlH+WfiU0MA4eN
+         /w1fMPXgw+sKAUUnF+VVOxO9rUdk1+PJyj18WRr8aAJZpA/IZleCHkbYH1rvrFcpngx2
+         0XPA==
+X-Forwarded-Encrypted: i=1; AKwUvBws26ZG8i9lWvJWadJj+UES5SrMMnCFjT6lMM7b2HyqLMZjYDy2EvamZFmWkKYtLJjbsfWt4yICbCSgVEw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVA3aDBjCxeEaj2b/OxtrE7COleRhuVnkKHODbsY9TctGQub4K
+	IYN+JcSVtIOwtE8Chyl/hGYGpO331qzltWuNZGzV/0lxmXXnjQYWQCgI
+X-Gm-Gg: AYBFou1PxH68i1NUgriOTHn5r+BMxWW4YtH5sKYvSX3r8NIfZCr+ibSjdZQ3jUrdQ5b
+	D6pI23lQvRlVQZg5b4GIho5gf1he/6pJYwCwoomE7nXhliT4iLvcvL6zdX1bU7YxX6xr7IE3b7j
+	6Eko4gD2RgQbtTamFTcyLBq2YoDCLWqSzX94WrLkWVEUvgYr3MK9SJZzE9MsGq2wP6cTlqwFRIz
+	FyjYK3+D5WV4/B7D2xn8hrEH3p3zwTip7Iw91lWyNG3WGxJbPGrBw/ZIHmLF3CdzPeaC/W7ZRkg
+	qOWDUwGz2NOUrZl6nMznvQ0NJrNZ1TsBelRFCFUHSvcU6skAJ7sANSix93MiibVmOFDNycMj9uf
+	fBx0zakhkaRqltRSE+8NRHInHSCRrxbdtQqpfS7b71mrRloK5ew5RtRjRbIWyEMjrcA0wxYVCA9
+	Scpmy2cu8WqYO/hQBi315AFJRLvGdTddEi3W1+C7mneJIpa1jHxZVogc90j/sfSXwRcELDrl7vn
+	FDyMK5P9jIRnPAo4/ct15+Sc+VC4FA34EK0Fe1tVTqP5OtRkPSK5io0FCq1yaz+4nHVKbqiakUF
+	jtB/I7hS3KO8d0miPLBv0WKysFFGup5UR8rhdvL0hYsWE3G5bgTM
+X-Received: by 2002:a05:600c:8b38:b0:49f:ce72:e930 with SMTP id 5b1f17b1804b1-4a01b13d7d9mr54875995e9.34.1790829738870;
+        Wed, 30 Sep 2026 21:42:18 -0700 (PDT)
 Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-117-056-101.95.117.pool.telefonica.de. [95.117.56.101])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f6c5059sm32619515e9.0.2026.09.30.21.42.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f6c5059sm32619515e9.0.2026.09.30.21.42.16
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 21:42:16 -0700 (PDT)
+        Wed, 30 Sep 2026 21:42:17 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Vlastimil Babka <vbabka@kernel.org>,
 	Harry Yoo <harry@kernel.org>,
@@ -79,10 +81,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev
-Subject: [PATCH 0/2] mm: preserve nolock context through memcg cleanup
-Date: Thu,  1 Oct 2026 06:40:54 +0200
-Message-Id: <20261001044056.75079-1-kmehltretter@gmail.com>
+Subject: [PATCH 1/2] mm/slub: preserve no-lock freeing after memcg charge failure
+Date: Thu,  1 Oct 2026 06:40:55 +0200
+Message-Id: <20261001044056.75079-2-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261001044056.75079-1-kmehltretter@gmail.com>
+References: <20261001044056.75079-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,41 +95,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The no-lock allocation and free APIs can still enter regular locking
-through two memcg cleanup paths.
+kmalloc_nolock() can obtain an object before its memcg
+post-allocation charge fails.  For a single object,
+memcg_slab_post_alloc_hook() rolls the allocation back through
+memcg_alloc_abort_single().  That enters the regular SLUB free path,
+which can take a sleeping list_lock on PREEMPT_RT even though the caller
+selected a no-lock allocation.
 
-Patch 1 handles rollback after a post-allocation charge failure. If
-kmalloc_nolock() obtains an object but its memcg charge fails,
-memcg_slab_post_alloc_hook() frees the object through the regular SLUB
-path. Preserve the selected allocation mode by using kfree_nolock()
-when the allocation flags disallow spinning.
+Use kfree_nolock() when the allocation flags disallow spinning.  This
+keeps the SLUB object rollback on the no-lock free path.  The failed
+allocation continues to return NULL.
 
-Patch 2 handles the final reference to a killed object cgroup.
-kfree_nolock() and free_pages_nolock() can drop that reference in the
-caller's context, after which obj_cgroup_release() takes regular locks.
-Queue the objcg on a lockless list and finish its teardown from normal
-irq_work. On PREEMPT_RT that work runs in irq_workd task context.
+Fixes: af92793e52c3 ("slab: Introduce kmalloc_nolock() and kfree_nolock().")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ mm/slub.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-These paths were found while discussing the following RFC and during
-the subsequent investigation of no-lock allocation and free paths:
-
-https://lore.kernel.org/r/20260919171443.90512-1-kmehltretter@gmail.com
-
-Based on 40288c9206c17. Each patch's forced cleanup test passed on
-x86-64 release and lockdep PREEMPT_RT QEMU, arm64 and ARM32 SMP QEMU,
-and Pi 400 hardware. The objcg test accounted for all 256 queued and
-deferred releases. The series also passed non-RT builds and arena tests.
-
-Karl Mehltretter (2):
-  mm/slub: preserve no-lock freeing after memcg charge failure
-  mm/memcontrol: defer final objcg release from no-lock frees
-
- include/linux/memcontrol.h |  1 +
- mm/memcontrol.c            | 29 ++++++++++++++++++++++++++---
- mm/slub.c                  |  5 ++++-
- 3 files changed, 31 insertions(+), 4 deletions(-)
-
-
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+diff --git a/mm/slub.c b/mm/slub.c
+index 54ec125033571..a1f08338102e2 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -2519,7 +2519,10 @@ bool memcg_slab_post_alloc_hook(struct kmem_cache *s, gfp_t flags,
+ 		return true;
+ 
+ 	if (likely(size == 1)) {
+-		memcg_alloc_abort_single(s, *p);
++		if (alloc_flags_allow_spinning(ac->alloc_flags))
++			memcg_alloc_abort_single(s, *p);
++		else
++			kfree_nolock(*p);
+ 		*p = NULL;
+ 	} else {
+ 		kmem_cache_free_bulk(s, size, p);
 -- 
 2.53.0
