@@ -1,153 +1,149 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A6744E046;
-	Thu,  1 Oct 2026 10:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852095; cv=none; b=XRmN8G+w2sN5ylXiUr9URx2ifukDeRL+odwycYKtTioKWK9JrRItMMQk3sfZ7e0SWO/gVJLx0GHlP/Za0sjujZhp1HZDZIZCwOLGAiK/fRHL4Fo1npLdxpJbuLwi6UqMcJClZA+LjRS/yn15XNpMNG1MPzHBOPLnYKJb57bcZoM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852095; c=relaxed/simple;
-	bh=wTx6Mvyr5xDbxsqv9Qcf07k2wHNrFdQv99ODg9frgbA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s2wjqrGVyneVcQZiJwlvd3JpI33+4FqqhV0JfC2mhmc67Nzzeg9UNKl5sK5W86SX1lNp7q4B1Wri4VXOFmhrR2ylcmFMchxD6nWxxpZcYVH9yrEAYEJpK7Zfkx5WNIk+q+1jU3kNSnColYPdMpLOSMHf/DlJiiS7zzPgWd0by8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=la9C++oV; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2AE3F871B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790852108; cv=pass; b=uZUHg3F8oJI/6/zZGGpKJQky0n89sftYyKHOHoU8kuUI7NioPY7u7LObWTMkxUSnc5Z9zusdNgJ4nOcDlpIMmy3C+0iqruTSe6Sz2yfv5gc35/G5vMeXTm3OUMI32q44XxqWxokO6h0G2GfqhoNzhAYjb3WFraKF1OPvOSekFhM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790852108; c=relaxed/simple;
+	bh=RE+We5gpB0yEZFpvEPvhDPB0zlwF6sdRfR7T+1Y5KD4=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=r3Yy6PPYKXRb4XEm++85bej62Owp9crfT+CzF589OwLp2ZyJNSd3kt2zSzxHH40JJSVt5afdSMc5yzLWLQgeq1cbRcZAe2/mEoOYKBOeWVXL6YW6rF1UXHmD/IhG1hrczavGucVlEd/u1VAZz1/An/VvA+1/2OXtv6noUPCwEcA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b4rKkSpD; arc=pass smtp.client-ip=74.125.231.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="la9C++oV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=QMQi3pfWB0wiaCHgvp5eiKUKLsxkaOq5Mv0PAKIuKqE=; b=la9C++oVmy91EssZzyrMx0EQyi
-	2Z2A4CAKhpig2EEh/JoYbzxfMSZdRpsk75dwabdgBm56msfF9NGMtsXwNLbBo5Je5P38DpMMQVbCS
-	vPOQF2ukfYIISDmrJWMkKKLolN2Ksu2QsR4MXoql+tu63gXEHZcDYh8ym3Urr+98GbbbFciqI3JN7
-	V22+O8+OfAj/JqLQj40+ts5CdvGafHKZUpHuWcPStSH2DJ5+dNhaCr+MU881mU5yPCtF3H1Kuq50A
-	Ikj+NcN24Kdhfox9zWY/yzhIdsxCiCjFFP8rJVG/sMqP2K89HbjXcxOeLBcG28E4ZBuBTFpInoyq4
-	khXNRqow==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1xCEQk-00000004rjo-0GEu;
-	Thu, 01 Oct 2026 10:54:26 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B11FD3001FD; Thu, 01 Oct 2026 12:54:24 +0200 (CEST)
-Date: Thu, 1 Oct 2026 12:54:24 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	David Dai <david.dai@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Daniel Jordan <daniel.m.jordan@oracle.com>,
-	Hao Lee <haolee.swjtu@gmail.com>, kernel-team@meta.com,
-	cgroups@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/7] cgroup: charge kernel work to the cgroup it is
- done for
-Message-ID: <20261001105424.GK4121339@noisy.programming.kicks-ass.net>
-References: <20260924184714.912181-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b4rKkSpD"
+Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-4881ca701a4so3313243fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:55:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790852102; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QFY5YuIVi6HeSBz2YSA34DdC3apF/LvC0Ov9ib5Vy78/f26pN9e8hXMm0PXras9Jyv
+         e0utn3pC0BCPT7mH2dJ1TQlC0nJ6xAtoBYNf6teRNOVRWKhzngMZAzpq/Jrj1JmQg7lc
+         c9eujT6+BUepy15D4oe/XA8n0hY28Qld2HL7Osf6/q3XXBYmyIJQr6vk2L+ZCin2sTsn
+         dReWKQ0V71VH082+6qJNp88OiAB/q5J9URWzeZaav0prJl/cw1HGF89FryrztaJlRNO+
+         9Z19GhVCcc0aa0tGFBQb6B5r98BqTHidDoSkKlrSj+/f0vNAown+VmxEpKH4m3EIvkJm
+         wOcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=RE+We5gpB0yEZFpvEPvhDPB0zlwF6sdRfR7T+1Y5KD4=;
+        fh=vcTmNfTNKe22/1VHQsbEcHkP2cN1Y6AsRGrlvbyJrOg=;
+        b=nI0j71eSYIM01+vJGmp0YLTaRiC+w5x1u71AdaQyh0yhaM+LdlDci7pWrwZINtee6I
+         ZO2asRJYBHjhYJ5l1sxMfFQ37gL1bBAJe70IAAZ42E/YaQwhVBYq8w55O+HilAV1hi6T
+         4b+tINdZ9MDmWYxnMwmFM6rRGCZNHzWNG4Llr9UhBlJf2XO/NwSvaD7K7vU7s4lZ4NgR
+         TNTa3DYvzP+/ccHB5BF9DXrUa8Kc2wSLxlsk6kM1D9gKzW6osFR8RfzbViBWjLFSpXOq
+         J5d9pwR2oivjpdJs4jGvei95pPDrCdHfJ6VmQeiVM8uQwBPFlyuMBUcaNbu2cCrPPEbX
+         Jdtw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790852102; x=1791456902; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RE+We5gpB0yEZFpvEPvhDPB0zlwF6sdRfR7T+1Y5KD4=;
+        b=b4rKkSpDtDsl0IH/4cGgGxf866ftxTY3ApnpOmN4pCmYNlAb7e7yL4mPUsh+Icz5ch
+         m+nldH5//kFhNyaCdsIQ+OS4JKh3QpWAzFnohkQU5g21GdX3IRgbu46k4XwlzBuehToR
+         KzJJfOO6R298J56wrErcpimzOYhR+sfimy/iNCmIBbcrn8Umip8Qh1Xh+dwwpO4TiSVD
+         Gph38BWPehTX/+u0UNhAvhBLC4O67mJiZAV0p0pA2Z4y6cEN607aTf1K4zzoIdFAuLSg
+         0QExlgY6yx1TI1hpAFiuBuMc1MSoQKjrGBX4pV7Xgg2NRAtfhsrz2SHRLZlDRfrB0/9M
+         vsQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790852102; x=1791456902;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RE+We5gpB0yEZFpvEPvhDPB0zlwF6sdRfR7T+1Y5KD4=;
+        b=u6+1S3+PO0zbHdmR5nMgbYP3q8kpo5OZCob7icGv1snRXCSMG7dtPKmCQ0VEupp+/3
+         510Ra4x2tRz7bzLFNSfAhqTFCTMctrhOEOW18qFCPBkfdyI4aJ12pmo8zOI8gOxyfvYZ
+         3yjNz0307BhbD/aBX8+FJGFouLV3e64az04Ej9slgE5Dbhz4T+Y5lrcKOLJpQ2k/8c2z
+         2dVs8njAAkHjqIfId80V1P33gbEQVZ+bmTmASZ01WJz9UMVyQQcf9IEX4cS5rKYKFGsZ
+         mUldtEc9ZCZnlPI2hX8nprmO73ZSorGXQUWaeL2pFNd/PY9HpoXF4kL5/rGCSGkik41x
+         k1pw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKnZBbxMrniL0hosCUIhowX9TO3M3YgPcQsczFbNpVHgzRuWoZldLMZpuM/Voe/7qPl5WWyswv3KETo8A=@vger.kernel.org
+X-Gm-Message-State: AFuF++miLJPF2XtqjKS9W7R4t8mvY1XhaOw3oEM+juNlfEfJxqUGmF9f
+	ndkMbs3kEHJ5sw5M+fqn5k1ZeCBxE4JikXKPv10z6F3pwe2OAnQ/TaKDFZ22w8VuhHZNi7sOW/L
+	fo4pdrctfVw8vx1O32EaXrvVK7mkDQ5EJ/RV2
+X-Gm-Gg: AYBFou1E3ug2M00LvyaXjkRlmGdTjOWhQ3XtRtLnZ7D7w59OdWjdkmWhz3oqRfl2wCB
+	XLei8YwpBLBi0NUH23yDTPlwriC722NHQMRfz7wEz0Kr7Hbk2F5jo/j9RaTMSOY8JKuepC0RAbS
+	YUxfdps1+U9sU7NeAb8qlMMPDX2xp3re5q8tsw4ULExX9sDIYQ5HgzhCZRiZVPEPou5LEkfqT3S
+	Md7l7o4HMeoYc+/K9L4Q+Ikpao7/OCg0WeOs6iwEQu+hChNmzbdVZTCiPDQYwOpcx//wZe5/9pc
+	yd4oRv7edJiR0w1jhIPyNg6LIbhKV4bs5MTTrMIaoraZ5h8kVnnSGWo=
+X-Received: by 2002:a05:6808:c1ef:b0:4b9:a88b:888c with SMTP id
+ 5614622812f47-4f1b64a6ef5mr4765837b6e.34.1790852101873; Thu, 01 Oct 2026
+ 03:55:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924184714.912181-1-shakeel.butt@linux.dev>
+From: Jiaming Ouyang <jiamingouyang13@gmail.com>
+Date: Thu, 1 Oct 2026 12:54:50 +0200
+X-Gm-Features: AclHuK8AuvSeIEDvFdVXJ1BcDoYuYJK_4LwuepSYvn8RQjOTdj5yZPKZ_GGJBTc
+Message-ID: <CAMnqnYxWj7jFKcgekEXoq0EP-7g6mST6yqoU5DRhsHCkhfaGJg@mail.gmail.com>
+Subject: [PATCH v3] docs/zh_CN: add Chinese translation for usb/ohci.rst
+To: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: alexs@kernel.org, corbet@lwn.net, Dongliang Mu <dzm91@hust.edu.cn>, 
+	si.yanteng@linux.dev, skhan@linuxfoundation.org, gregkh@linuxfoundation.org, 
+	rdunlap@infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-On Thu, Sep 24, 2026 at 11:47:04AM -0700, Shakeel Butt wrote:
-
-> Options we looked at
-> ====================
-> 
-> A. Keep the shared kworker, and only charge the cgroup.
-> 
->   A1. Measure how long the reclaim ran, then charge that time to the
->       memcg's cgroup.
-> 
->   A2. Let the kworker say "charge this cgroup" while it works, the
->       same way set_active_memcg() works for memory.
-> 
-> B. Also make the cgroup's CPU limits apply.
-> 
->   B1. Run the kworker in the cgroup's scheduling group while it works,
->       so cpu.weight and cpu.max apply to it.
-> 
->   B2. Run the reclaim at full speed, then take its CPU time out of the
->       cgroup's cpu.max quota afterwards (back-charging).
-> 
-> C. Do the reclaim inside the cgroup.
-> 
->   C1. Record the overage as a debt on the memcg, and let the memcg's
->       own tasks pay it the next time they charge memory or return to
->       user space.
-> 
->   C2. Give each memcg its own reclaim thread that lives in the cgroup.
-> 
->   C3. Use a cgroup-aware workqueue, as in [1], or per-cgroup worker
->       pools.
-
-> What we chose and why
-> =====================
-> 
-> We chose A2, together with B2 for cpu.max.
-> 
-> We do not throttle the reclaim itself. Adding limits to it is more
-> complicated and most probably unneeded, as we envision that we will
-> need concurrent background reclaimers instead of throttling in a
-> real-world environment. We are working on developing a system to
-> balance the rate of allocations/charges with the rate of reclaim, to
-> keep the system always running effectively.
-> 
-> In addition, reclaim takes sleeping locks, like i_mmap_rwsem and the
-> anon_vma lock in rmap walks, and fs locks in shrinkers. With a low
-> cgroup weight, the kworker can be preempted while it holds them, and
-> then tasks in other cgroups wait on it. It also hurts the workqueue. A
-> kworker that is runnable but not running still counts as running, and
-> the workqueue only spots CPU hogs by the CPU time they use. So other
-> work queued on that CPU's system_wq waits too.
-
-With proxy execution, this should be alleviated. Then all tasks waiting
-on a lock acquisition will contribute to the runnability of the lock
-holder.
-
-> Still, the reclaim should not be free CPU time on top of the cgroup's
-> limit. With A2 alone, the reclaim shows up in cpu.stat, but the
-> cgroup's own tasks still get their full cpu.max quota. B2 fixes that
-> without slowing the reclaim down. The kworker runs at full speed, and
-> afterwards its time is taken out of the cgroup's cpu.max quota, so the
-> cgroup's own tasks get less CPU time instead. This is the
-> back-charging Tejun described [2]. It only covers cpu.max.
-> Back-charging cpu.weight is future work.
-
-Fiddling with weight sounds like horrible garbage. If you find you need
-that, I would really rather you went C[23].
-
-> We did not take C2 or C3. A high_work run asks for only 64 pages,
-> which is far too little to pay for moving a thread into a cgroup
-> through the global cgroup locks. A thread per memcg means thousands of
-> threads. cgroup v2 does not allow tasks in a non-leaf domain cgroup.
-> And a kernel thread in a cgroup shows up in cgroup.procs and blocks
-> rmdir.
-
-You don't move the threads, you spawn them on group creation and leave
-them there. I'm sure you can fudge the rmdir thing with less ugly than
-you're proposing here and in the other series.
-
-
+VHJhbnNsYXRlIERvY3VtZW50YXRpb24vdXNiL29oY2kucnN0IGludG8gQ2hpbmVzZSBTaW1wbGlm
+aWVkLg0KDQpUaGUgdHJhbnNsYXRpb24gY292ZXJzIE9IQ0kgZHJpdmVyIG92ZXJ2aWV3LCBoYXJk
+d2FyZSBwcm90b2NvbA0KZGlmZmVyZW5jZXMgKE9IQ0kgdnMgVUhDSSksIGltcHJvdmVtZW50cyBz
+aW5jZSAyLjQga2VybmVsLA0KcXVldWVhYmxlIGludGVycnVwdCB0cmFuc2ZlcnMsIGFuZCBub24t
+UENJIHN1cHBvcnQuDQoNClNpZ25lZC1vZmYtYnk6IEppYW1pbmcgT3V5YW5nIDxqaWFtaW5nb3V5
+YW5nMTNAZ21haWwuY29tPg0KLS0tDQoNCkNoYW5nZXMgaW4gdjM6DQotIENvcnJlY3QgdGhlIGRv
+Y3MgbGlzdCBpbiBpbmRleC5yc3QNCi0tLQ0KIC4uLi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL2lu
+ZGV4LnJzdCAgICAgICAgICB8ICAyICstDQogRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhf
+Q04vdXNiL29oY2kucnN0IHwgMzggKysrKysrKysrKysrKysrKysrKw0KIDIgZmlsZXMgY2hhbmdl
+ZCwgMzkgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KIGNyZWF0ZSBtb2RlIDEwMDY0NCBE
+b2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy96aF9DTi91c2Ivb2hjaS5yc3QNCg0KZGlmZiAtLWdp
+dCBhL0RvY3VtZW50YXRpb24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9pbmRleC5yc3QNCmIvRG9j
+dW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL2luZGV4LnJzdA0KaW5kZXggZGY5OTgx
+NGM2NDk3Li5jOTZlYWNmMTNlMTEgMTAwNjQ0DQotLS0gYS9Eb2N1bWVudGF0aW9uL3RyYW5zbGF0
+aW9ucy96aF9DTi91c2IvaW5kZXgucnN0DQorKysgYi9Eb2N1bWVudGF0aW9uL3RyYW5zbGF0aW9u
+cy96aF9DTi91c2IvaW5kZXgucnN0DQpAQCAtMzIsNiArMzIsNyBAQCBVU0Ig5pSv5oyBDQogICAg
+IGNoaXBpZGVhDQogICAgIGR3YzMNCiAgICAgZWhjaQ0KKyAgICBvaGNpDQogICAgIHVzYm1vbg0K
+DQog5b6F57+76K+R5paH5qGj77yaDQpAQCAtNDksNyArNTAsNiBAQCBVU0Ig5pSv5oyBDQogKiBt
+YXNzLXN0b3JhZ2UNCiAqIG1pc2NfdXNic2V2c2VnDQogKiBtdG91Y2h1c2INCi0qIG9oY2kNCiAq
+IHJhdy1nYWRnZXQNCiAqIHVzYmlwX3Byb3RvY29sDQogKiB1c2Itc2VyaWFsDQpkaWZmIC0tZ2l0
+IGEvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL29oY2kucnN0DQpiL0RvY3Vt
+ZW50YXRpb24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9vaGNpLnJzdA0KbmV3IGZpbGUgbW9kZSAx
+MDA2NDQNCmluZGV4IDAwMDAwMDAwMDAwMC4uNWUzNjgzMWJmMzcwDQotLS0gL2Rldi9udWxsDQor
+KysgYi9Eb2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy96aF9DTi91c2Ivb2hjaS5yc3QNCkBAIC0w
+LDAgKzEsMzggQEANCisuLiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KKw0KKzpP
+cmlnaW5hbDogRG9jdW1lbnRhdGlvbi91c2Ivb2hjaS5yc3QNCisNCis657+76K+ROiDmrKfpmLPl
+rrbpk60gSmlhbWluZyBPdXlhbmcgPGppYW1pbmdvdXlhbmcxM0BnbWFpbC5jb20+DQorDQorPT09
+PT09PT0NCitPSENJ6amx5YqoDQorPT09PT09PT0NCisNCisyMDAy5bm0OOaciDIz5pelDQorDQor
+4oCcT0hDSS1IQ0TigJ3pqbHliqjnqIvluo/mmK/kuIDkuKpVU0LkuLvmnLrmjqfliLblmajnqIvl
+uo/vvIhIQ0TvvInvvIzlroPmupDoh6oyLjTlhoXmoLjns7vliJfkuK3nmoTigJx1c2Itb2hjaeKA
+nQ0KK+mpseWKqOeoi+W6j+OAguKAnHVzYi1vaGNp4oCd5Luj56CB5Li76KaB55SxIFJvbWFuIFdl
+aXNzZ2FlcmJlciA8d2Vpc3NnQHZpZW5uYS5hdD7nvJblhpnkvYbkuZ/ojrcNCivlvpfkuobmnaXo
+h6pEYXZpZCBCcm93bmVsbCA8ZGJyb3duZWxsQHVzZXJzLnNvdXJjZWZvcmdlLm5ldD7vvIxMaW51
+cyBUb3J2YWxkcw0KK+WSjEdyZWdvcnkgUC4gU21pdGjnmoTmlK/mjIHjgIINCisNCivlroPmlK/m
+jIHigJzlvIDmlL7kuLvmnLrmjqfliLblmajmjqXlj6PigJ3vvIhPSENJ77yJ77yM6K+l5o6l5Y+j
+5qCH5YeG5YyW5LqG55So5LqO5LiOVVNCIDEuMeS4u+acuuaOp+WItuWZqOmAmuS/oeeahA0KK+eh
+rOS7tuWvhOWtmOWZqOWNj+iuruOAguKAnOS4juiLseeJueWwlOaXqeacn+eahOKAnOmAmueUqOS4
+u+acuuaOp+WItuWZqOaOpeWPo+KAne+8iFVIQ0nvvInnm7jmr5TvvIzlroPlsIbmm7TlpJrlj6ro
+g73lip/og70NCivms6jlhaXliLDnoazku7bkuK3jgILpmaToi7HnibnlsJTlkozlqIHnm5vkuYvl
+pJbnmoTlhbbku5bkvpvlupTllYbnmoRVU0IxLjHmjqfliLblmajpgJrluLjkvb/nlKhPSENJ44CC
+DQorDQor6IeqMi405YaF5qC45Lul5p2l55qE5pu05pS55YyF5ousDQorDQorICAgICAgICAgLSDm
+j5Dpq5jkuoblgaXlo67mgKc7IOS/ruWkjeS6humUmeivrzsg5YeP5bCR5LqG5byA6ZSADQorICAg
+ICAgICAgLSDmlK/mjIHmm7TmlrDlkoznroDljJbnmoR1c2Jjb3JlIEFQSQ0KKyAgICAgICAgIC0g
+5Lit5pat5Lyg6L6T5Y+v5Lul5pu05aSn77yM5bm25LiU5Y+v5Lul5o6S6ZifDQorICAgICAgICAg
+LSDpgJrov4fkvb/nlKjkuIrlsYLigJxoY2TigJ3moYbmnrbvvIzlh4/lsJHku6PnoIHph48NCisg
+ICAgICAgICAtIOaUr+aMgeS4gOS6m+mdnlBDSeeahE9IQ0nlrp7njrANCisgICAgICAgICAtIC4u
+LiDku6Xlj4rmm7TlpJoNCisNCivigJxPSENJLWhjZOKAnempseWKqOeoi+W6j+WkhOeQhuaJgOac
+iVVTQiAxLjHkvKDovpPnsbvlnovjgILmiYDmnInnsbvlnovnmoTkvKDovpPpg73lj6/ku6XmjpLp
+mJ/jgILlnKjigJx1c2Itb2hjaeKAnQ0KK+S4reS5n+aYr+WmguatpO+8jOS9huS4reaWreS8oOi+
+k+mZpOWkluOAguS7peWJje+8jOS9v+eUqOS4gOW4p+eahOWRqOacn+S8muWboOS4uklSUeWkhOeQ
+hueahOW8gOmUgOiAjOWvvOiHtOaVsOaNruS4og0KK+WkseeahOmjjumZqeOAguW9k+S4reaWreS8
+oOi+k+aOkumYn+aXtu+8jOWPr+S7pemAmui/h+ehruS/neehrOS7tuWcqOaTjeS9nOezu+e7n+Wk
+hOeQhuebuOWFs0lSUeaXtuWni+e7iOacieS8oOi+k+mcgOimgQ0KK+WkhOeQhu+8jOadpeacgOWk
+p+mZkOW6pueahOmZjeS9jui/meS6m+mjjumZqeOAgg0KKw0KKy0gRGF2aWQgQnJvd25lbGwNCisg
+IDxkYnJvd25lbGxAdXNlcnMuc291cmNlZm9yZ2UubmV0Pg0KKw0KLS0gDQoyLjUzLjANCg==
