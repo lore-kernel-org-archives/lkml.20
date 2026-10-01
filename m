@@ -1,93 +1,88 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9E43B3891;
-	Thu,  1 Oct 2026 05:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B7F285061;
+	Thu,  1 Oct 2026 05:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790833924; cv=none; b=ofiGN6jdC0ADDBW0YgUwHl6htMKqMJYO8gR2/Gt82E5sOjjdrIMhMxHe1rVZG50Q0qbk2ZXTGmGhg18D2RD+iUUST3ts6ibnCmsZ1Pf7EkZXT5QgF9bB4jnFpwCHc2Gzpjciaxw5ImhCN4qvjt67kyMs+ex1XVVvM4Uj+9GWr4Y=
+	t=1790834125; cv=none; b=KieEVmfRn0s+gfquw5RIyc9Vg+XHgeqY35M0nAR4vqdpiN9iKF+bt1TU2u63g1LF3ck0sp3w00vdBzOvhPoBdE3VCNxLlX/4hG+tVCX5AeItKJTGoae19GIsQgj0TjYGojxu7khTZ+cFO9QAB2466l3QA1ruqp11jJiT2z75BVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790833924; c=relaxed/simple;
-	bh=obrsEtepa7uP5Kmdp1k8ipjS/LykTrXMkDP+jIYlm8E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OppAbA+Ue49+esGxGBVeHm1SGrRDia3mm0ks2nAphKOfYxIM1J44P6UGI0WifDOpI54LzAwEuZmFdDGTaRJBQBEjaR7AB6LW1cnXdP9v5LEPLOw3Nuvp8uUT3saCwrVExHUOvCPxvHbxIzZFGhrtfwrkg77gqLVO+l0iGjZJooo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=D5Cv2Iax; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=NZzYyAK/; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790834125; c=relaxed/simple;
+	bh=VQG+6RcC/UsuL2/qrcC/BDhzj7sv0ZbL4XvPJR6d2jY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cUeATx3ApMTkb+gxCxzMaGJz9Mh/UTkcDRefEB/EJjwXyWbvmLMTC7z+3FzMSkr1+cVJc7oyV0ru8HK3o8KAUbLQHx0hOqIlxybM4WFVSAp1g2ozNi86PbePkerWhuFUtigQnx/r8jeWE6SJExW9TsANQoeRJiqDF0u2lwPrC1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U3H20qSC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="D5Cv2Iax";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="NZzYyAK/"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790833901; bh=rx6lYOt2a0GVtVX5usNrqOe
-	rpP5US08LN5kesRHVLu8=; b=D5Cv2IaxXl31ImPybjmuvk7UUymWbdZJyjZr1rpUfUIuIBCg1D
-	i9KEWZerhlbx2VHVvnJAUnOGxk4BStZrzjOIaF2CKvg3MjPuze7Z4KOPp9MpZmzkkyk01mteALt
-	f5K4LE0FWevRoAGbblJiNRbQa4GRv/jm5Md+3anD2R6iOrhU3QZ1kpYObAS4MV1RDc6TlThKac7
-	MCZkBgYkftxjCX73gE7jMQyoFt/RXmycHuCucfokiXUOt8684hBVg/iMBrje/mgzEGRWfeuGMtk
-	dUvt9nZUoi890xAVP8h+A8SkQA6T9n91RJ2ClgWlmGOjq8xtvTCMOSFGwTH24z6XaGg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790833901; bh=rx6lYOt2a0GVtVX5usNrqOe
-	rpP5US08LN5kesRHVLu8=; b=NZzYyAK/k/xgxjp3rQuf9bqyTf35XQl+AhqeTSTHBgihQdUwVv
-	FfiKxrP/ZqffXzz32RQnHBEhp9p+woA0q8Cw==;
-From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Date: Thu, 01 Oct 2026 07:51:39 +0200
-Subject: [PATCH 2/3] arm64: dts: qcom: msm8937: change prng compatible
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U3H20qSC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 282C81F000FF;
+	Thu,  1 Oct 2026 05:55:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790834124;
+	bh=SuoBxeaHJ3VQHpgg7ms0oKOBF2/YqGb3bzdAb6NYIPE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U3H20qSCQl6zLIBDuN61dLVoK42L6GfH+GmiGJ6NBiqDLBHhAULlUwEr0NDllviLG
+	 iw8hMoPnZcfMo02DL6Rxt2wDiuh1YVRQuFB+7tGgE0KP2DkO/Z/dSAvdHcNEER7mMN
+	 wupLvbkfMoPhpDTer+kGxkQDX2gv/4hZlzhcKBp+uKRLoa5ljHEO49mER6PvDq7jtU
+	 GuIReX1+dFOrnoatRFH3txzTBAmzZ20fuTZAqTmAXz3IfImAambdZA56msn2KWdlqK
+	 WNxgiXF6TY0FxstMYP12a+vyscqswvuQyGYWH0jhOUeCoaH8GzjgbdzQEbWh9VzB8A
+	 gz+MuSYTf4Y0Q==
+Date: Thu, 1 Oct 2026 07:55:19 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, hkallweit1@gmail.com, lxu@maxlinear.com, michael@walle.cc, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luka.perkov@sartura.hr
+Subject: Re: [PATCH 4/5] dt-bindings: net: maxlinear: add MxL86211C lane
+ mapping support
+Message-ID: <20261001-splendid-athletic-coot-1bbbb6@quoll>
+References: <20260930122305.293686-1-robert.marko@sartura.hr>
+ <20260930122305.293686-4-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261001-prng-fix-v1-2-72f924527465@mainlining.org>
-References: <20261001-prng-fix-v1-0-72f924527465@mainlining.org>
-In-Reply-To: <20261001-prng-fix-v1-0-72f924527465@mainlining.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
- Dang Huynh <danct12@riseup.net>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Weiss <luca@lucaweiss.eu>, Vladimir Lypak <vladimir.lypak@gmail.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790833899; l=907;
- i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
- bh=obrsEtepa7uP5Kmdp1k8ipjS/LykTrXMkDP+jIYlm8E=;
- b=jsYBD8OJAGWE72mOO8mMtCysnqHgC4nPGYdeY8opAnTN/0CkDsZMh8IBm+VfP21DKfE6nme0k
- xG5ZTwnAqYfCD1Ufc1cKKo44tJKgVBxiFKmDD9DMhWPCKc700b/INKV
-X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
- pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930122305.293686-4-robert.marko@sartura.hr>
 
-On MSM8937 HW QRNG is configured by TZ. qcom-rng driver
-will not have access to the configuration registers.
-Change the compatible to qcom,prng-ee for skip the initialization sequence.
+On Wed, Sep 30, 2026 at 02:22:16PM +0200, Robert Marko wrote:
+> Describe the optional lane-to-ASP mapping for the MxL86211C PHY.
+> 
+> The mapping accounts for board-level swaps between its physical TPI
+> lanes and analog signal processing lanes.
+> 
+> MxL86211C supports per lane mapping.
+> 
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> ---
+>  .../bindings/net/maxlinear,gpy2xx.yaml        | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> index 0645e885f1747..b98cb3c3e6d49 100644
+> --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> @@ -22,6 +22,21 @@ allOf:
+>  
+>      then:
+>        properties:
+> +        maxlinear,lane-asp-map:
+> +          description: |
+> +            Mapping of the physical TPI lanes A through D to the PHY's
+> +            analog signal processing lanes (ASPs). The array index identifies
 
-Fixes: a829f6f2e8a7 ("arm64: dts: qcom: Add initial support for MSM8937")
-Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
----
- arch/arm64/boot/dts/qcom/msm8937.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Are there other lanes as well? Not ASP? What sort? data-lanes does not
+fit here?
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8937.dtsi b/arch/arm64/boot/dts/qcom/msm8937.dtsi
-index 7de6447de48f..73909d6179c3 100644
---- a/arch/arm64/boot/dts/qcom/msm8937.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8937.dtsi
-@@ -653,7 +653,7 @@ usb_hs_phy: phy@6c000 {
- 		};
- 
- 		rng@e3000 {
--			compatible = "qcom,prng";
-+			compatible = "qcom,prng-ee";
- 			reg = <0x000e3000 0x1000>;
- 			clocks = <&gcc GCC_PRNG_AHB_CLK>;
- 			clock-names = "core";
+> +            physical lane A, B, C, or D, while its value identifies ASP A, B,
+> +            C, or D, encoded as 0 through 3. Each ASP must be mapped exactly
+> +            once. Omit the property to retain the hardware reset mapping.
+> +          $ref: /schemas/types.yaml#/definitions/uint32-array
 
--- 
-2.56.0
+Best regards,
+Krzysztof
 
