@@ -1,69 +1,268 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f37.google.com (mail-pj2-f37.google.com [74.125.227.165])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D3E43DEB8;
-	Thu,  1 Oct 2026 08:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E27345629D
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842268; cv=none; b=G9KZpmneqCKFTVF7tkl9Tlp02NdrmbW1OcH+eFdCNeJjf2T4ICXEnz7NLqlrt2c+n5UoWt96B+jASzcrLk5cBPFUMZwU1/Eadr5i8F1CAA9ZQgtC7YDRXsaDJjteA1xHlSBrsjqtxdZadzxJ/gOEvAxMDr2WOnQ+xhX/E4scTE8=
+	t=1790842295; cv=none; b=lHB7nAwV4ef7VPWHmL9uu38vCNG0R8Bnfdj6ESbJJ5whHg1OoI8SndYChTwt8z7yWrNPgjRMYAbfbfg1+C3Z8bqDdRHuaSvTJ22BMEqv6lNTGgWdeWCnWOpTdkDkp/WVmsWRKhu0CAQhp7LRnMIoGPcMVwIL1V25iABoFfYR9Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842268; c=relaxed/simple;
-	bh=a3KAFfZLPL/iqhDGoZOXunbeijIVxJ+m5g4rQeKJ4iw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tcTrdt3LilXYZd/gmMzjWcM9q9UaqCLYTb4F9z81ae4DUFtfiCBg0D73/2mJtyDPNGtgNp5X3hNtszmsijQyyW7qWQISUMt/s/pj3Tj1WHnWgQEghMJa6mddcOzda5z8rpqzl58rVfNPT2/iWLYWTWOA7Cz+UUK+GqQ/p6/RpEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqvZRIdr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790842295; c=relaxed/simple;
+	bh=KI1zRQa5K6/wYYyT/0ta+OBvniUPsDTcrSnc2AGY5Hg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=gLXLZdIvImcwgXPXwoWNnH523HJ7jY3KJdw/ItgYDmvywFDYROBESq5Aszfnu3UuqvZpKdB0krYTzECSqpVJODQC7FvnC9NEfi+MM9vdAgl92+3s33Ot6O1NObL6ODoXRVjIbEflFJa5AGAhHBnA87cCP/+RAHwY1dE0Pqbndng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bJcvT/LT; arc=none smtp.client-ip=74.125.227.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqvZRIdr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810F11F00898;
-	Thu,  1 Oct 2026 08:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790842248;
-	bh=d5/phgaGBQwVy6V6BUkCiUN5WmeiYYNNtE9pDVKKLjI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aqvZRIdro+8NdHQstHL7gE3OG7dqz2U+WyzsVI8h3r7c0vsi0QBDnSdZLjUzzqYgk
-	 2c3/n5Z10vygU+/SCs7KYlMFoYvJ8tnzI/jomGmzM6R8qiDL301Ylbbqi6wffK7LbC
-	 c6l2jaWaPxj0CmM2DwtLvk3wvVUNMb+72TMjPWjrH1nAVT3O/T6MjIz2L7HSW1D+qs
-	 eA9E2v1TdygeOd1/qYwfp/TyTnEzmbZxFqMSSDx368vIbMXS10j1yYm2n3nHUeUcqM
-	 xuaj5dQL3RUErk6WliqUS+3LFfo9vjjx6Ir9SlwR+KyDpXvTEECiUPbyFisBqBpyyP
-	 NE3pI1FiXgGKg==
-Date: Thu, 1 Oct 2026 09:10:42 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
-Message-ID: <ar4VdqHwMRuYdqck@gremlin>
-References: <20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org>
- <CAEev2e8TXNwon=Ro27WYvyn-N5j=CenA8pEgLTPerMQtDh2OWw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bJcvT/LT"
+Received: by mail-pj2-f37.google.com with SMTP id d9443c01a7336-2e300fa474aso3732685ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:11:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790842284; x=1791447084; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O49A8aUNipnvcLMWEIKdq99mBpPaf6ukSfReHy2ZKOg=;
+        b=bJcvT/LTUpQY7PVllih2sG5wG1utC81xsKbtwMjulzBEmiZSuWBZbBQ4Rmcvz9EvvP
+         mEvQLnE44zsF6qglmESZJzut7c0vwq4GQiFVpO4ifz3anQcygScTS3i1j054z/4ujLiZ
+         sB7KI6kNYb4jM457Utv9RzPFkEps8Y9gCPLOkHHM0/C6lYTUrgSHO1GFUvj9EOTKrfiM
+         Q4/+wxQzh5aKEnC+x7WJGsOhbhk2YrJlUeV3a2WCftY+RYYQwf6VxtSV6qReQjyiVinK
+         Air/5m7NgRWP+SBUvzTUWaGl3C8wTsmwTElxe6wPanv/5U50Q1IbaC9kdLw72U7QwPKZ
+         yDlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790842284; x=1791447084;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O49A8aUNipnvcLMWEIKdq99mBpPaf6ukSfReHy2ZKOg=;
+        b=CkUARaoaeUpTVDO6tshTgZOrT5BbH/V1v1sZtJ4PCjuUeQn2yqDUWPeNuhhWg2G38Z
+         hwemziETDCxAi6aiLyY3R3GGbTY3qa6gXLO0KpRwSHoWI+BMpzO6jlKfFP+pjRewLtRA
+         KUDfbMWqeiRgUHUZz3MPstmv+xJNsCVHs/jmzIEhTLK6ErNksJs5VTUKeLEc/yKwNxMR
+         u7c4DMy7iUWwkg9mteLJWZtpzIENI5nJCWIsNbdq5TXEGimkPucp4m5xWAsqVNt9n8XA
+         IVWdbYh3kyjlb6Pfvlaz1ElY9yyYSW79mvdkLdpoFJ+KgAxmAzlM+nAa2rvwQd7cppfp
+         0J+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwSaxxLg5isCeS7MkbjroqvvmE9TSf5ztNvzaL8AfQgF40lz0TkIA7hNqGISebg56ZQnVTVcimLNA4F1nU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjPGnrPlMgOVOxqkf4QmukqkYEd02SRcTE9f7xr3v4yKvkLyuc
+	SF5VEuyJ3YYt10zEBAg9dZkJh6daaH1yybyEgGzA8JS3GECPxRK0EYk0
+X-Gm-Gg: AYBFou0dKdZyhVJFwdfZl/j7JDZIcsy6kc14U0dc4DZEklaAmxyICJpPRyUFYgdZgu4
+	Da9fp5pXJ08Ka2tMgIn4C+CYhlI9XPYDlDYEdlzmmk1kWrg6eD8GYNTEnAlhF9Xck5FhJn5z4Hk
+	HSl8RLRRLYKABgobxeHzHaXotOYgO70vGjDE4RhoeUxrrllpqpGDIza+rsFYupkI2PzUEAucyNz
+	EmUhCKcDdv5g29i7orVphVmQ7UC5Dc1jAlhYTLIzlA4eboVJTddJ0/Y46tD89XygAzUTFTOD0cH
+	e7g9yKGgGSKDm+2FItFCXyfzmqOTF6qiXjyAO9Gqu6XhUcwJOjP6s1oJbc1mh4zBGtIHcHYjVm2
+	UwuZDWGk8GMV1LTPPmZAMs/RS92GsK09qMwGkujfHfxSc4chhW/6W+ypJMCSSWdjdqkaZzrMY2w
+	GgyxVYQqgBMf2n9vK4znmV/0QLEyaxGV7EE5eiepwjGbC6fx1z6zGe37LHxh1FH2cx+OF2YXB/S
+	eC75BB2y5tHv6pv
+X-Received: by 2002:a17:902:f684:b0:2e3:913:31a9 with SMTP id d9443c01a7336-2e30913f27emr12791735ad.34.1790842283723;
+        Thu, 01 Oct 2026 01:11:23 -0700 (PDT)
+Received: from embedsky001.tail6d6b2f.ts.net ([183.13.3.196])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e31ec1a2c3sm57125ad.52.2026.10.01.01.11.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 01:11:23 -0700 (PDT)
+From: Yonghao Zhang <hyz3367@gmail.com>
+To: mathieu.poirier@linaro.org
+Cc: andersson@kernel.org,
+	hyz3367@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org
+Subject: [PATCH v3] remoteproc: core: Fetch the auto-boot firmware only once
+Date: Thu,  1 Oct 2026 16:10:56 +0800
+Message-Id: <20261001081056.38293-1-hyz3367@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <ar0lvsu80miGJdGS@p14s>
+References: <ar0lvsu80miGJdGS@p14s>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEev2e8TXNwon=Ro27WYvyn-N5j=CenA8pEgLTPerMQtDh2OWw@mail.gmail.com>
 
-On Wed, Sep 30, 2026 at 02:15:16PM -0500, Anirudh Srinivasan wrote:
-> On Wed, Sep 30, 2026 at 1:47 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+Auto-boot for an always-on remote processor registers an asynchronous
+request_firmware_nowait() whose callback, rproc_auto_boot_callback(),
+calls rproc_boot() first and only releases the fetched image at the
+very end of the callback.  rproc_boot() does not take this image as an
+argument: it fetches the very same image again with a synchronous
+request_firmware(), so every auto-boot reads the firmware image twice
+and allocates the buffer twice; on kernels with the sysfs fallback
+enabled, the uevent round-trip is repeated as well.
 
-> >  mm/mremap.c                   | 70 ++++++++++++++++++++++++++++++++-----------
-> >  mm/vma.c                      | 21 +++++++++++--
-> >  mm/vma.h                      |  7 ++++-
-> >  tools/testing/vma/tests/vma.c | 10 +++----
-> >  4 files changed, 81 insertions(+), 27 deletions(-)
->
-> Thanks, the selftests are passing now.
->
-> Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+The asynchronous request exists only so that rproc_add() does not
+block on the filesystem read; the image it fetches is never used.
+The core already defers rproc_boot() to a worker for detached
+processors (attach_work).  Reuse that worker for offline processors
+too and drop the asynchronous firmware request: rproc_boot() fetches
+the image exactly once and dispatches between a firmware boot and
+an attach based on the processor state.  The work is renamed to
+boot_work to match its widened role.
 
-Great, thanks for confirming :)
+commit 400e64df6b23 ("remoteproc: add framework for controlling remote
+processors") noted back in 2011 that "we must wait until it completes
+before we try to unregister the device".  rproc_del() now does exactly
+that: it waits for the boot work with cancel_work_sync(), which also
+closes the theoretical window in which a pending attach work could
+outlive the rproc instance.
 
---
-Cheers, Lorenzo
+The changed fallback behaviour only matters for legacy
+configurations.  udev dropped its userspace firmware loader back in
+2014, as recorded in
+Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
+kernel has documented since commit 02c399306826 ("firmware_loader:
+enhance Kconfig documentation over FW_LOADER") that "Linux no longer
+relies on or uses a fallback mechanism in userspace".  Auto-boot now
+uses the same synchronous fallback semantics as every other explicit
+boot source (sysfs, cdev).
+
+Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+---
+Changes in v3:
+- Drop rproc_trigger_auto_boot() wrapper and schedule boot_work
+  directly in rproc_add() (Mathieu).
+
+Changes in v2:
+- Fix the order described in the changelog: the callback calls
+  rproc_boot() first and releases the asynchronously fetched image at
+  the end of the callback (Mathieu).
+- Fix typo "proccessor".
+
+ drivers/remoteproc/remoteproc_core.c | 66 +++++++---------------------
+ include/linux/remoteproc.h           |  4 +-
+ 2 files changed, 19 insertions(+), 51 deletions(-)
+
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index 263e12f022ea..b88bf179507d 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -1662,51 +1662,23 @@ static int rproc_attach(struct rproc *rproc)
+ }
+ 
+ /*
+- * take a firmware and boot it up.
+- *
+- * Note: this function is called asynchronously upon registration of the
+- * remote processor (so we must wait until it completes before we try
+- * to unregister the device. one other option is just to use kref here,
+- * that might be cleaner).
++ * Boot or attach the remote processor in the background: rproc_add()
++ * runs in probe context and must not block while the firmware image is
++ * read from storage.  rproc_boot() dispatches on the processor state,
++ * so this covers both a firmware boot and an attach to a processor
++ * started by another entity.
++ *
++ * Note: rproc_del() waits for this work to complete with
++ * cancel_work_sync(), so the rproc instance remains valid for the
++ * entire lifetime of this function.
+  */
+-static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
+-{
+-	struct rproc *rproc = context;
+-
+-	rproc_boot(rproc);
+-
+-	release_firmware(fw);
+-}
+-
+-static void rproc_attach_work(struct work_struct *work)
++static void rproc_boot_work(struct work_struct *work)
+ {
+-	struct rproc *rproc = container_of(work, struct rproc, attach_work);
++	struct rproc *rproc = container_of(work, struct rproc, boot_work);
+ 
+ 	rproc_boot(rproc);
+ }
+ 
+-static int rproc_trigger_auto_boot(struct rproc *rproc)
+-{
+-	int ret;
+-
+-	if (rproc->state == RPROC_DETACHED) {
+-		schedule_work(&rproc->attach_work);
+-		return 0;
+-	}
+-
+-	/*
+-	 * We're initiating an asynchronous firmware loading, so we can
+-	 * be built-in kernel code, without hanging the boot process.
+-	 */
+-	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
+-				      rproc->firmware, &rproc->dev, GFP_KERNEL,
+-				      rproc, rproc_auto_boot_callback);
+-	if (ret < 0)
+-		dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
+-
+-	return ret;
+-}
+-
+ static int rproc_stop(struct rproc *rproc, bool crashed)
+ {
+ 	struct device *dev = &rproc->dev;
+@@ -2348,11 +2320,8 @@ int rproc_add(struct rproc *rproc)
+ 	rproc_create_debug_dir(rproc);
+ 
+ 	/* if rproc is marked always-on, request it to boot */
+-	if (rproc->auto_boot) {
+-		ret = rproc_trigger_auto_boot(rproc);
+-		if (ret < 0)
+-			goto rproc_remove_dev;
+-	}
++	if (rproc->auto_boot)
++		schedule_work(&rproc->boot_work);
+ 
+ 	/* expose to rproc_get_by_phandle users */
+ 	mutex_lock(&rproc_list_mutex);
+@@ -2361,10 +2330,6 @@ int rproc_add(struct rproc *rproc)
+ 
+ 	return 0;
+ 
+-rproc_remove_dev:
+-	cancel_work_sync(&rproc->crash_handler);
+-	rproc_delete_debug_dir(rproc);
+-	device_del(dev);
+ rproc_remove_cdev:
+ 	rproc_char_device_remove(rproc);
+ 	return ret;
+@@ -2552,7 +2517,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+ 	INIT_LIST_HEAD(&rproc->subdevs);
+ 	INIT_LIST_HEAD(&rproc->dump_segments);
+ 
+-	INIT_WORK(&rproc->attach_work, rproc_attach_work);
++	INIT_WORK(&rproc->boot_work, rproc_boot_work);
+ 	INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
+ 	spin_lock_init(&rproc->crash_handler_lock);
+ 
+@@ -2630,6 +2595,9 @@ int rproc_del(struct rproc *rproc)
+ 	if (cancel_work_sync(&rproc->crash_handler))
+ 		pm_relax(rproc->dev.parent);
+ 
++	/* auto-boot may still be fetching firmware: wait for it here */
++	cancel_work_sync(&rproc->boot_work);
++
+ 	__rproc_shutdown(rproc, true);
+ 
+ 	rproc_delete_debug_dir(rproc);
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index a44368737b39..d77e24539133 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -231,7 +231,7 @@ enum rproc_features {
+  * @subdevs: list of subdevices, to following the running state
+  * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
+  * @index: index of this rproc device
+- * @attach_work: workqueue for attaching rproc
++ * @boot_work: workqueue for booting rproc
+  * @crash_handler: workqueue for handling a crash
+  * @crash_handler_lock: serializes crash handler queueing and deletion
+  * @deleting: remoteproc deletion has begun
+@@ -277,7 +277,7 @@ struct rproc {
+ 	struct list_head subdevs;
+ 	struct idr notifyids;
+ 	int index;
+-	struct work_struct attach_work;
++	struct work_struct boot_work;
+ 	struct work_struct crash_handler;
+ 	spinlock_t crash_handler_lock;
+ 	bool deleting;
+-- 
+2.34.1
+
