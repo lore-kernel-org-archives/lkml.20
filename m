@@ -1,88 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAF74D9540
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D494A43E8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:35:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847339; cv=none; b=kViluFK7pqo754bpDPSQGC3XLCEH5Abn1/H/GpIU/5g+eOsA0r++IHGSqvG8M3EJeRQEviteRUAngDRinfsqa0K+d/Efsrg4TcQAB5U+gkhxb9qUyYyLAfcZea/IdLqLZn8fQZS1BQdxwO+Ce20UfTSacGxXrRI06TxgwtwG/ro=
+	t=1790847343; cv=none; b=VpWLf2XaOGQ5igO89X545O9ujUfGXCNkc990+jusTQV4SWzUDdSqilcuTaMXb5nzNSvCvJcilpRy9xufLcT0LplJnzAXJp9JVeRp2R8vWBnCJmJ9CNZgPR1qVhMbMTrQ5zIw4xxnJz2G9+MkEeSRmr+6TBZvXwK5+UsCn6Q/JPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847339; c=relaxed/simple;
-	bh=uxYrQOYeJnqiMDJLxvTXyzLZKASXHOHpSAmKkbL6k/k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MTL26D/R1opGpmBlC74aLOwBwmBMWBYFhZdFnNHALbypF9jQ6jGcK4c9KzH+se5X0dFi9+RjzKmyvg12inzDd6SbHQbL95QKbhJwPr1mvupUFsjUzrd3uoBGAlAfIYBEXb5eFN/cizbFBB5n0kl7aCTUc4BhI+DvvcUgIVM1rIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PGf3xNt4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f/nUzUg8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790847343; c=relaxed/simple;
+	bh=TAy7SXvodxwIVUeYRCkkRqmpU/1T4vMLfRFjM5CPyIQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cj7PdN/Nb73dqaZWWXkzSiyqunfkPXFv3r0rCjufZFC7+nrGixn3WsTaXJaPg4DX+2bA7eQLGfxuB8kiJfWcTHMxojNOzqPZRCNKqbA1glC/J7MlbMEdxowLQ4cddP7JxDRGSZ9bGAZ1VXE01lVX6vmqzyhA3Hsj2JpZJ4KUmLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kqm180Pb; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PGf3xNt4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f/nUzUg8"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xnpJ396309
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 09:35:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ELdWrxhztmbj7ZPNYMtYOg17dOkRsO8KbkYbW/z+7ng=; b=PGf3xNt4fKnLs3yw
-	nXbo1Y4R15/CwiZGOP3z4dU551bgWEXLWtU09vzyY3Qnkertck1rr0b2j1WbtPhD
-	goREJ4nLiSS/Z+2DMKfF0U1bdn3QX6ylCMxSW3sVJP20Gt/7o4XBC1Xjhf3d2WST
-	eluqYyWG+hP9ZFD8BSTF0t9LV0f9NktAATuXS5WzHMuNB9vwi8PTegDpyeqq+ouw
-	yTFlflqenVI7nYgBiT3ccPoSbNmJeYipy5EZvDBlEFbTEeyMcqRy4feyxlek0Soo
-	Ti8ybpdlK62xM4j+QjVahbb8jgH2Y13yqOLW3V9+MC86c9KMtW2+Rs0LYUgQAwLG
-	f3G1Xw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1bh5a4kk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:35:35 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca8aee88725so3525040a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:35:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kqm180Pb"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664c2da6so5393172eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:35:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790847335; x=1791452135; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ELdWrxhztmbj7ZPNYMtYOg17dOkRsO8KbkYbW/z+7ng=;
-        b=f/nUzUg8nigszVfP5eJC++EsxyASGMmU0QrKHRvX9mAi7zxhHk5v3AzqXsblVru1L6
-         5FdTG2LSEpC7Ojx3mkBaR9GtfeCv95hRo55mf2bNewBZJ7swgSzzt8ENiatG5HcxWfWk
-         qvrwQpNCPVWh+8InRZfvawRPsRYXJgfKwmNizbS5NiVR5Dif3XiTfOebGjUfnTS4Qnbr
-         zV5MrxYIfIprAAFAGQeHKC6AvQ3v//aGt/wifXpmM193l/ZTTEtlKnpk2ObwRx6KkgUn
-         fpQmAUsKGWdQ/2+YBmO4b/cwxoxj91poEE9H2YJwi1RIMwAUliVfDMxWZ+zQypYaIUvi
-         ZVAQ==
+        d=gmail.com; s=20251104; t=1790847340; x=1791452140; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LGX/SBLSJlBXSD7ryPBEbi/Uhkcr21PESamwaTOcG4E=;
+        b=kqm180PbmrGS4GnfTdq6usSOjR//PeE7YQJz6u2KzbV2pOZ4X9DeuvPrjj5Q5RvOWy
+         PXbVEgyc67GpgWX2pe0HpwtJL5NLEk5Y/oDM5gd/RlEv2tokNMwDtkj9OAumN+AE1DZW
+         Jvs8tAmJTK+yCKq9fBS2J9DN5n1Nlxxpa61yTBFTXvWx3qjCeYVVdqh4fv2K/aZGQjXt
+         +2TL33XrUX9LcQ9H09aISEyrIhYc4q4ZjCSu4ISGxziQmCbn5OcR//WCjDTknghrHbOB
+         FoiEZDYTK9fj231f1cIyA6v9+no7V7R3J1517FuYm6TlNUzAWiRBoq2FJyy5cXtkJgDC
+         agQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790847335; x=1791452135;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ELdWrxhztmbj7ZPNYMtYOg17dOkRsO8KbkYbW/z+7ng=;
-        b=17Vk10hm2n39SQ+4VfhwReiT7tygZyA3rLlvoD2HSj0qLhoW5MHmhiBcoLGY7OL0Zx
-         xG/eold4fwaFlhHYMHA7NP8fWrFBYDeQQwGfXH+N9XB5kMtJ5z/jssBH/8VbJRSn88ie
-         IY6QuxmrKLBHX5uY+Blr7MNxnQRtyRrWKEvavaW6K/2w6YMc2ful9ztaUsHkX5DZRK6V
-         969T3/z5vQ4YVnUZfzMalt16HnnNU76VymYVlQO83QJ62VlzwKNFL8qxlpBJ8B39nXm2
-         dZFBlwT7g4pAHliK2hhigwIrV4zYjF9xHDQOJi8Z3cx3UeuaB4uW3mJHhD3Ff8242tPy
-         Av4A==
-X-Forwarded-Encrypted: i=1; AKwUvBw5rOf7epOUfE241Wypqi1LaMQO8EjYZQo6vGBRG4Yz+bap95QDc73kK90SwZ3C2gjgqZObQXnH2zSUQ1g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFZVFAMnPONjzPXCcE4+ivilzZKOHXyK6cA62q5LXI7QZMxHRC
-	fKviavx8FE5TMkZEy+x7qKdhLY504hlfznB86bk0NjBEvJT9GJBHalZSIuNdAt6pLZHkfbwn9/F
-	SlWE4jw7EQugO6RZ9/m43rJnrBgN25HuOsXyuQFcjsu1CX/CZcN2GIyO3d9hcALerPdk=
-X-Gm-Gg: AYBFou1ipUJ76vgZDJmdnmbDH4EMILOEeJCAJcGZELDOZxodE7YB+7WD/KhH/rHH80n
-	P6mI66usfqTWeAvhdLt9aP9XM1s/iwYZO1O1HI6H6dwzcpatO4RAfFRE5NmzmBZd2r3X/2ArErt
-	NoGkrbQZ6OASant88VJJFyGrv9cpvwBsj7EM2VukZkrqmVOwP29bXa2nUT/oi7nuVKLm58nDa6H
-	GBRYe17OIeeRvKJK3Xl4OUA7xZcJeENuYRzmabDh3RvWG2mIBWSWwJJsd3thZ4Ahv1sLkS33T/Y
-	KMIDbPH9CfEwD5PlhtVeOe75D+mruAWNBW2/frlcxcyeSZXvVjFEhcxM3NygB7iQCFMGxPQHvgN
-	/tjjNOFq5zi/1ib01Av9K5aU2Nt0=
-X-Received: by 2002:a05:6a21:7001:b0:3de:5d79:a64d with SMTP id adf61e73a8af0-3de9e7edbd0mr4185735637.82.1790847335173;
-        Thu, 01 Oct 2026 02:35:35 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7001:b0:3de:5d79:a64d with SMTP id adf61e73a8af0-3de9e7edbd0mr4185698637.82.1790847334713;
-        Thu, 01 Oct 2026 02:35:34 -0700 (PDT)
-Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e54bf4c4sm1152944a12.29.2026.10.01.02.35.30
+        d=1e100.net; s=20260707; t=1790847340; x=1791452140;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LGX/SBLSJlBXSD7ryPBEbi/Uhkcr21PESamwaTOcG4E=;
+        b=qqixL2tTXG1dAvKp0uSbbQl0qbG1QPPJrrb5XlRktJX3BCVySN42Epa7g86h7mcD9M
+         oNL+M1vXHbhyroOq7hC1L6wqYgboG72BEqfWw65PulISSWYomJ+DDSssqHpxfNbPd+33
+         FOFA3dMWkuLaXpyJ85L2VEsUhqJ7VPGXQYzzN2eawZNOwRyb0k+OX7yV9U3ui+/l2vdh
+         wsRIroc9Hs5iy7cckPzoOvHFy4sXki+OTj6OmsORY9q8pPcDFvSkRJXraf+zaijtpEmc
+         cP2+lT+YObO3zDA9jiBt64/PaztOqA19EiA0rJaDnKCAygqtTwRI698LFJrgjO9QZle7
+         jgBA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwEjorQxK2LAAHL9XNd025xhGcCDlPDYN1aq5Mfa93KO9ULg96yYC/E9Lxi2zIX1YHp2276i+SDhD4JdI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVP0nfTmzvq7vmR2vJUenUUP65w7pzT849xKe8APk/f7l9MFeS
+	5tECyFFCZMDubMSNRtRz4+eRVKm+K5Gb9zQhvhHz+Vz/TgbCJhULpLdG
+X-Gm-Gg: AYBFou0oCiqU4vu2pYNRWQ6+I0ZPhRdwT4OHrn56Ib5hea3kg8F5nKq5MCc6WwAxP+P
+	L0S2ZsVl4eGKfHOQonFhj4Va3uNbh08K2mkOW0gYtSgI5GmNac6bb39CQg2xgSuKXjqKhmpjgaY
+	RhP+noHw9s//lK4rL76IJqnK2iI+EGEYKhuUVbK0wOfsH0ek13qWSukWhYQg0NT2WiPH91N8Jve
+	OB8f/Yrfn3e+zbu4lSmkvc1LfK36va2hgCyuHdX6Lez+VQzeRH/uFyUaDbEE98vBTVwtg90sTfa
+	uEqnxh8LrMO60j4od9CfrEKusLPkpxNVTQfZYLHLphJ/lUKjFCZh9inOSi/VX9+iZmBYaG75tgG
+	jWmoCtdSrrbgebojwDXbFi0dsYmNMZlXivQDnfZW4CFZWkbRmzBg17KiowJHOJHcYlpTH84xhFg
+	/Dcc09ImbtMuz9694+j5kI3SJk8ljVZHPk+Bj0Iy1BgqW1RcKYidXfL9G831xwDn4jRw==
+X-Received: by 2002:a05:7301:1928:b0:33b:9540:89c6 with SMTP id 5a478bee46e88-34cdb5f9107mr4257043eec.6.1790847339814;
+        Thu, 01 Oct 2026 02:35:39 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db37507a7sm6003982eec.13.2026.10.01.02.35.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:35:34 -0700 (PDT)
-From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Date: Thu, 01 Oct 2026 15:04:25 +0530
-Subject: [PATCH v5 08/11] phy: qualcomm: qmp-combo: Remove VCO_DIV
- programming from qmp_v8_configure_dp_clocks()
+        Thu, 01 Oct 2026 02:35:39 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH bpf-next 0/4] bpf: Apply the rewrites of
+ bpf_do_misc_fixups() at once
+Date: Thu, 01 Oct 2026 17:35:31 +0800
+Message-Id: <20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,109 +70,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-glymur-phy-v3-v5-8-3848c2615d5a@oss.qualcomm.com>
-References: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
-In-Reply-To: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Bjorn Andersson <quic_bjorande@quicinc.com>,
-        Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-        Nabige Aala <nabige.aala@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790847286; l=1674;
- i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
- bh=7nDdrAfLMVZ+R82NXO9KFSocsJHjCnRF/WR1qq2n7DI=;
- b=8fSBH7rbJg9UdtYHHBdxBa/fGnmx9OrGpik+PWXJ07EtE0KX974LNsEluIG388NVegnCuJywc
- kzgS+t0h/X3CXIVsZ5g4aqSdmzq+TqgnJtvnHOz4rOjkmg3Fsrz2wm5
-X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
- pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfXw68M6QqU6W8i
- noJx/FvxIrN/5AsbfCU4nwrgDAQj+uEOcL0Cz+I54Zt1UCM31neKAr8jSJH/sweuWes+6g9Sv56
- t0rPhb9akqTGkWLTQpn0coGHxXf5XEeDftvYansMc/uYllWQ89AAv2wEyKZ95NyYYNrWQXn2hZk
- lSkPXZAY34L5O7XiES62MNVUwzVLShG/uxcYWqGUCPnNxT11eFVrR49sqoqn+HeXi1OJl1XhuHb
- Ak/tj0OCIB93dvwZFdp1AymlgKIX5rf1l6stqd9r6+kwRDaeMNO8GdZh/UWVdsc9LbvkXrH2ONq
- iPm7WpVvWoA2k8zIHR0PuqH9Uv7WfUIfDl/yBdcDzRWj/cDd5Kitexb9z/r98PIpSwXp5fQuhjX
- ufcDCPdUObCGWhecDVQJn2ZMOJuH0nWZPR4muHJqVnFmFYzIHAJb59JAdCJf0LsOfGIMpXsv/at
- dOu+zhK21dEmxVIfk9A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfX4V9S2m4QcHoo
- iMAJl4X49qlAGPn/WpZfcDVwabVqGo6p0Oe0zngF5cW/6pld2cO+hxm79wnxrZ1uuKSVWMNSGKg
- UwVTAjh5Gj7x2xZn/wAQJUoDP9PApXk=
-X-Proofpoint-ORIG-GUID: mPEMYDnnGsPvIo8IHWUOmwHQzVEAbyAL
-X-Proofpoint-GUID: mPEMYDnnGsPvIo8IHWUOmwHQzVEAbyAL
-X-Authority-Analysis: v=2.4 cv=NrJE4MdJ c=1 sm=1 tr=0 ts=6abe2967 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=VniZYPIeq2n4UU9-3AgA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 bulkscore=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010038
+X-B4-Tracking: v=1; b=H4sIAGMpvmoC/x3MQQqAIBCF4avErBsYTSq6SrSwGms2JhoRRHfP3
+ Dz4F997IHEUTjBUD0S+JMnhc6i6gmW3fmOUNTdo0q0iUjgHh1c2TjhisOey41xWG6OpJ+6bboX
+ MQ2Qnd7ke4Vee7xOm9/0AhMWZrXQAAAA=
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+Eduard pointed out that bpf_patch_insn_data() takes a large share of the
+time to load pyperf180 [1]. Every patch moves the tail of the
+instruction and aux data arrays and walks the whole program to fix up
+branches, so a pass that patches M instructions of an N instruction
+program does O(N * M) work. Kumar's commit 261b61d3735b ("bpf: Make
+post-verification instruction rewrites killable") made that work
+preemptible, but its cost is still quadratic.
 
-QPHY_DP_PHY_VCO_DIV register does not participate in the
-divider of vco_divided_clk, it can be left as it is- No impact
+On current bpf-next nearly all of it comes from one place in pyperf:
+bpf_do_misc_fixups() inlines each bpf_map_lookup_elem() on a hash map
+into 3 instructions, 930 times in a ~24k instruction program for
+pyperf180 and 1530 times in ~42k instructions for pyperf600.
 
-Fixes: d10736db98d25 ("phy: qualcomm: qmp-combo: Add DP offsets and settings for Glymur platforms")
-Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Patch 1 adds a list of patches that a pass queues and then applies in
+one O(N + inserted instructions) step. It keeps the semantics of
+bpf_patch_insn_data(): a patched instruction is named by the first
+instruction of its patch, and jumps from a patch out of it are relative
+to the patch in place. Branches, aux data, subprog starts, line info,
+instruction arrays, function pointers and poke descriptors are
+remapped together. Patch 2 moves the main loop of bpf_do_misc_fixups()
+to it, patch 3 drops the delta that is now always 0, and patch 4 adds
+xlated tests for jumps around patches.
+
+The other passes still use bpf_patch_insn_data() and can move over to
+the list one at a time in follow-up series.
+
+perf stat -B --all-kernel -r30 -- veristat -q <obj>, mean of two rounds,
+x86_64 VM with 32 vCPUs:
+
+                      base      patched
+  pyperf180          0.575 s    0.458 s   -20.4%
+  pyperf600          1.491 s    1.041 s   -30.2%
+  strobemeta         0.531 s    0.532 s
+  test_verif_scale2  0.561 s    0.562 s
+
+For the 1042 objects of the selftests, the 2863 programs that load have
+the same xlated code on both kernels, with the immediates that hold
+kernel addresses or BTF ids masked. test_verifier passes on both. Of
+test_progs, only missed/tp_recursion failed once on the patched kernel
+in a parallel run, it passes when run alone.
+
+On a side note, the largest part of the time to load pyperf180 is the
+arg tracking analysis: analyze_subprog() takes about half of it on base,
+__arg_track_join() alone about 30%.
+
+[1] https://lore.kernel.org/bpf/a714ee96d0ad96bbc9d51037616e5c4e2790a8ec.camel@gmail.com/
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 6 ------
- 1 file changed, 6 deletions(-)
+Qiliang Yuan (4):
+      bpf: Add a list of deferred instruction patches
+      bpf: Queue the rewrites of bpf_do_misc_fixups() and apply them at once
+      bpf: Drop the constant delta from bpf_do_misc_fixups()
+      selftests/bpf: Test jumps around patches of bpf_do_misc_fixups()
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index fc35da80e57f..6f5d32afae67 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -3897,32 +3897,26 @@ static void qmp_v4_configure_dp_tx(struct qmp_combo *qmp)
- static int qmp_v8_configure_dp_clocks(struct qmp_combo *qmp)
- {
- 	const struct phy_configure_opts_dp *dp_opts = &qmp->dp_opts;
--	u32 phy_vco_div;
- 	unsigned long pixel_freq;
- 	const struct qmp_phy_cfg *cfg = qmp->cfg;
- 
- 	switch (dp_opts->link_rate) {
- 	case 1620:
--		phy_vco_div = 0x4;
- 		pixel_freq = 1620000000UL / 2;
- 		break;
- 	case 2700:
--		phy_vco_div = 0x2;
- 		pixel_freq = 2700000000UL / 2;
- 		break;
- 	case 5400:
--		phy_vco_div = 0x4;
- 		pixel_freq = 5400000000UL / 4;
- 		break;
- 	case 8100:
--		phy_vco_div = 0x3;
- 		pixel_freq = 8100000000UL / 6;
- 		break;
- 	default:
- 		/* Other link rates aren't supported */
- 		return -EINVAL;
- 	}
--	writel(phy_vco_div, qmp->dp_dp_phy + cfg->regs[QPHY_DP_PHY_VCO_DIV]);
- 
- 	/* disable core reset tsync */
- 	writel(0x09, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+ include/linux/bpf.h                                |   1 +
+ include/linux/bpf_verifier.h                       |  26 +
+ kernel/bpf/bpf_insn_array.c                        |  18 +
+ kernel/bpf/fixups.c                                | 545 ++++++++++++++-------
+ kernel/bpf/verifier.c                              |   1 +
+ tools/testing/selftests/bpf/prog_tests/verifier.c  |   2 +
+ .../selftests/bpf/progs/verifier_patch_list.c      | 120 +++++
+ 7 files changed, 546 insertions(+), 167 deletions(-)
+---
+base-commit: 6a75c73eebd4d497ded7d08b47894f9ddbebb5a9
+change-id: 20261001-bpf-verifier-patch-batch-2442080e837d
 
+Best regards,
 -- 
-2.34.1
+Qiliang Yuan <odys.yuan@gmail.com>
 
