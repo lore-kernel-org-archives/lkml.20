@@ -1,185 +1,282 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D7952BE47
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE17852B1EC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868862; cv=none; b=Y6peJYklT50HdCnSteInqjit/EmoukNJzEMHwJhsQOQMSXC/6WE6FgQw+4vrXJAykLDaFge/UQOx4kXJcj0OJeogPyfBj0Ekkwl9s87tM5A0cMu/lIkH5TFe23Jo7nTEz1W027YL4lx30b/mB4AU0D1/13bUGGEfMHVXgg45+ms=
+	t=1790868894; cv=none; b=dVCyYRocgZiuz8Cz8KTYD9j38iIcmhx8s9iw6bJbiwHD2uaDHrre2yEap6Z17A913cOIUCBHILHiLr4QGfSFe/6sq+iO231LGiRRMr3ej4/blMFj97xi9D+bV4482YqnsAqgGPjvIex9U+Np3kPUVEfGkMapcuBPXxrcN+ftKzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868862; c=relaxed/simple;
-	bh=zfoGhZ9tkatQAPTvMhsHChhPWCw6Z8eEJLu/axoyvVE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GBVgSCS8FHQH6TZd2cz2pT87a2gNIBJJ4JO1JXl4IMTpJDbdYrMnjfhk4bzhphuGrQMX6/jbfwkts0y61jiILxjd1paUxKoxihckAtdK2+dho5sET1JyEyLqRiT8SBddR/d6uyEjor+wS0bLn1m5uyNf98gaFjkJbgwIOeROl1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K4HyrvoH; arc=none smtp.client-ip=74.125.229.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790868894; c=relaxed/simple;
+	bh=7CNEw5WXfn5DqQbU2q5TrcNd80B22UTnV8ObayxHffI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XtrHvhZPG2eWQJ6i6Rw2reKZPrRp6TyeP4p+srZ4GBX07utiFc3wRmg1b/4VBM05RiOojH3wt9lpFhEA5M6KYQ3qsz/4rBwOK+mtgPjqGlTi/iy6M1+dT9tyXSUEuuOdEiX2qKrqiIxY4nzCmCDLffeyPTlFove3fQydRZPDRS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Y5XghGrZ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K4HyrvoH"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-1474c6b7742so5025121c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:34:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790868859; x=1791473659; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UYLCjPpLfBewvYdjBDkNxTVbyP/bcB0jfIhL2wBACGM=;
-        b=K4HyrvoHiwX8tLPo+4vior3S0EMYyxp/gpIhJSbLb1l3Lf6kYSSmvLmignKZdHTDDo
-         1+ac/DDls+UQO0aG4SHQ0VwLizJMVnGWgiCVJwAS1hd1MYRPwLaSx3oTUJtCHiKugQuc
-         1j1cnEGOS+Tq/mPmzAiPdaRw7AdX96UlrdUo6Q0GmtP5FdCgHYbhOgozOktoyY9D9/80
-         wdt8IjxsO9qtTzrFYRM//HDZnLWl6ozOad3mPps3lAOrP99OseKFDGRdxE+cpUDkMVTO
-         zgdz/Ma3IDq1UE5mocAi/ODqNcQgP7oV7v8kbozPWLs5ofsq0TQ9by06qbysfG5kf4dw
-         tj1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790868859; x=1791473659;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UYLCjPpLfBewvYdjBDkNxTVbyP/bcB0jfIhL2wBACGM=;
-        b=zzJT45Bly0GorvkFmO56TrSGb8KDnAP+wGtEC0d8mp5Y32B4CAiQoOm+IYTCVVMrZd
-         Z81wQRy8IrqGj/Oi9Y5+m6HtNj8OHXfKT/U2pufZmKhdheE4OBFuyOl3eytY8EArNHcL
-         obQs4gnhi3IrqFRqP2vgbDfpEvto8BsnAnu6exTxWvmd0t1+6bXBzwMTe/NkJ78nP5LH
-         5PDdlkhKh7NhkBcYKRr8+eKWacE+l7MMX0l2Br8fTrx7tJiGjr4Mm0XSYaOOVCEzcHrR
-         3tZ/OhMncd7umzOvmjGG5zQBDxh3s9A9YK72JbkqIdch7rn0lSZY7hB1Zj8F1zTHsXVJ
-         QP1Q==
-X-Forwarded-Encrypted: i=1; AKwUvByubiTaKH21IwEXtgqk9rISL8DtA16Ugg7uvSjx1Gif2pvSGaQTKNZWA/i//mdxqB7/gTgqcFkYRfxXVhg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLUnp29zQ3AoDvx92FmWnHET82uy3x1N9gbIfbKrnelRfElC2y
-	JZDlwitUGQ7K3dpVM4uH3YXf0R+dkK5Q9lV4t6a4Ea0jrJXyDs5u8HbeTY8nQK2M
-X-Gm-Gg: AYBFou1sBg+XJ+RPY8/NIF1uJqFqOsGEHQohpaW1FBii64cdE8kktwTqYGaXZIG+gm6
-	tmjcmkAIB+b2ro/qlWyi/AkWtKlplCTCDlQJhg0NkpDR/VkLANH7qGdOg0VqtEqGKQ9DWSvmvIE
-	7KENvhpY8QLJyJRRIc20CXJn50t7bSwJhEiZZxZvOZ/f7rv1/O/C8DGfWJVcYlOS8yidHLucu0O
-	O7CWGl7pOZcgX5wT9rWQGYSIqNNum0btU34SRRSlSsjHrVR/dMkjDN0Gfdz6dgqCZQegcjE9mkK
-	ec0ZbX1r+Y2nYgky3mGhPYiEEpG65acAYTBD+lMaBojO7s0ZMDN6/3F7NMc+qpd/bUnY1A/dt5Z
-	RqX3fheY0xypSbzvXZWuSZe+iNOq4QnYsMqMiWZEKREtYeARu0/Nm1oyS3bmqVXrR2ozDjXzYW6
-	UhzKhnpAFC+rlvf5Pst3OxtJHGxFrisCFDtsjntddVG74S3sJsW/6pventyLOYj3t2Nw==
-X-Received: by 2002:a05:7022:e1b:b0:14e:906f:9c8e with SMTP id a92af1059eb24-14e906f9dc4mr2454634c88.20.1790868859216;
-        Thu, 01 Oct 2026 08:34:19 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f266d1156sm146683c88.6.2026.10.01.08.34.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:34:18 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 01 Oct 2026 23:33:49 +0800
-Subject: [PATCH 2/2] mm/compaction: defer failed async direct compaction
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Y5XghGrZ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7D974497;
+	Thu,  1 Oct 2026 08:34:48 -0700 (PDT)
+Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 45B9C3F86F;
+	Thu,  1 Oct 2026 08:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790868891; bh=7CNEw5WXfn5DqQbU2q5TrcNd80B22UTnV8ObayxHffI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Y5XghGrZYx7A7wp+zahgocBoxiCiEPS1P8XOgt8D8pDhJ/RrO371hAU/vcRUK6BQC
+	 KKLp530Y0faoFsek29y5IGszEvYFGYzUbZfFHOdNPaR6wZx/9dm54qE/y4zmtc1hJ0
+	 xFqFEvMpegegzEG4od+dM3K9PJUK+ijr02TkzyBw=
+From: Andre Przywara <andre.przywara@arm.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+	Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+	Trilok Soni <tsoni@quicinc.com>,
+	Srinivas Ramana <sramana@qti.qualcomm.com>,
+	Niyas Sait <niyas.sait@arm.com>,
+	Lee Trager <lee@trager.us>,
+	Ritwick Sharma <ritwick.sharma@arm.com>,
+	Gavin Shan <gshan@redhat.com>,
+	linux-acpi@vger.kernel.org--cc,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v12 00/13] arm_mpam: Add MPAM-Fb firmware support
+Date: Thu,  1 Oct 2026 17:34:25 +0200
+Message-ID: <20261001153439.3295416-1-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-bug-mm-thp-async-compact-defer-v1-2-0174c7923430@gmail.com>
-References: <20261001-bug-mm-thp-async-compact-defer-v1-0-0174c7923430@gmail.com>
-In-Reply-To: <20261001-bug-mm-thp-async-compact-defer-v1-0-0174c7923430@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-A THP fault on a MADV_HUGEPAGE VMA first tries the local node only,
-with __GFP_THISNODE | __GFP_NORETRY, and runs a single round of async
-direct compaction there before falling back to other nodes. A failed
-async run is never deferred.
+Hi,
 
-When the local node has plenty of free memory but no free pageblock,
-and what sits between the free pages can't be migrated, such as memory
-long-term pinned for RDMA, each of these faults scans the zone again
-and fails. Populating a large buffer pays for one failed compaction
-per 2M fault. A KV-cache store that registers hundreds of GiB for RDMA
-reports registration growing from tens of seconds to tens of minutes,
-and works around it with MPOL_INTERLEAVE.
+hopefully the final update to the MPAM-Fb code, for firmware based MSC
+accesses. Addressing mostly Sashiko comments, and some small changes
+pointed out by Jonathan. For a changelog see below. Based on v7.3-rc1.
 
-Defer the async state when an async run fails, and check it before
-further async runs. Sync compaction keeps its own state and behaves as
-before, and a successful compaction or allocation resets both. Keep
-resetting the pageblock skip hints only when sync compaction restarts,
-as async relies on them.
+=======================
+The Arm MPAM specification defines Memory System Components (MSCs),
+which are devices that are programmed through an MMIO register frame. In
+some occasions this turned out to be too limiting: the MSC might be
+located behind a separate bus system (for instance inside an on-board
+controller), it might be mapped secure-only, or in a different processor
+socket without direct MMIO mapping. Also the MMIO access might be too slow
+or it would need to be filtered or otherwise access controlled. Finally
+there might be bugs in the MSC integration, which require a mediating
+firmware to be accessible.
 
-Populating a 4 GiB MADV_HUGEPAGE buffer from node 0 of a two-node VM,
-with node 0 (24 GiB) fragmented by long-term pinning every other page,
-median of 3 runs:
+To accommodate all those different use cases, the MPAM-Fb specification
+[1] describes an alternative way to access MSCs. Accesses to an MSC
+would be wrapped in a message and communicated to the system using a
+shared-memory/mailbox system mostly mimicking the Arm SCMI spec.
+For ACPI systems, this would be abstracted through an ACPI PCC channel,
+which provides the shared-memory region and the mailbox trigger. We can
+lean on existing ACPI parsing code to register with these two
+subsystems, but cannot rely on the existing SCMI code in the kernel.
+This means we somewhat need to open code a very simplified SCMI handler,
+which just provides enough functionality for the very basic subset of
+SCMI that the MPAM-Fb spec requires.
 
-                          before     after
-  direct compactions      735        15
-  time in compaction      122.7 ms   3.6 ms
-  population time         380 ms     273 ms
-  THPs on node 0          1313       1126
+The first nine patches rework all MSC access wrappers to propagate error
+information. Pure MMIO based MSC accesses would never fail, but the
+MPAM-Fb access can go wrong in multiple ways. The patches have been split
+up purely for reviewing reasons, if the number is a problem, we could as
+well squash them. Please note that until the very last patch of this series
+any MSC accesses would always only return 0, it's only the final enablement
+of MPAM-Fb that could possibly introduce errors. Hence all former patches
+can add error handling gradually, those code paths wouldn't be triggered
+before the very last patch.
+Patch 10/13 solves a nasty problem: At the moment we protect stateful MSC
+register accesses (mon_sel) through a spinlock. Unfortunately the mailbox
+subsystem and the slow nature of the communication through this channel
+forbid MPAM-Fb access in atomic context. So this patch keeps using a
+spinlock for MMIO based accesses, but reverts to a mutex otherwise.
+We just deny taking the lock for MPAM-Fb in atomic context, ideally we
+wouldn't need that (no need to IPI another core when the MSC access does
+not need to be local to one particular core), or we simply deny that part
+of the functionality (access through perf).
+Patch 11/13 adds the code to redirect MSC accesses through the
+PCC shmem/mailbox system.
+Patch 12/13 reworks the error interrupt handler to use a threaded IRQ for
+MPAM-Fb, to be able to do MPAM-Fb MSC accesses inside (which might sleep).
+Patch 13/13 then adds the code to detect and store the PCC channel
+information from the ACPI tables, and eventually enables MPAM-Fb accesses.
 
-The THPs that no longer land on node 0 come from node 1. With the same
-fragmentation but movable memory, compaction still succeeds and the
-median run still gets all 2048 THPs on node 0, as before.
+This whole series would enable systems where some MSCs are not accessible
+via MMIO to use those components anyway.
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- mm/compaction.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+Please have a look and test!
 
-diff --git a/mm/compaction.c b/mm/compaction.c
-index 7f8845d1990aa..25f758bc54f06 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -2600,7 +2600,9 @@ compact_zone(struct compact_control *cc, struct capture_control *capc)
+Cheers,
+Andre
+
+[1] https://developer.arm.com/documentation/den0144/latest
+
+Changes in v12:
+- adjust mailbox channel teardown order
+- add barrier after group of writel_relaxed() calls
+- drop unneeded mutex guard conversions
+- converge mpam_fb_send_request() errors to -EIO, to avoid filtering
+- separate errors from "false" return in mpam_ris_hw_probe_csu_nrdy()
+- add tags
+
+Changes in v11:
+- drop RFC patches for MPAM-ACPI spec change
+- add patch to propagte error in mpam_reset_class_locked()
+- move PCC channel put operation into mpam_msc_destroy()
+- increase props[] array size in ACPI code to accommodate new ID
+- use msc_fb_id in mpam_fb.c to stress independent numbering
+- use shorter "fb_id" name in msc struct for MPAM-Fb MSC number
+
+Changes in v10:
+- rebase on v7.3-rc1
+- add tags
+- (re-)introduce mpam_fb_msc_id field to allow per-PCC MSC IDs
+- add patch to introduce mpam_fb_offset ACPI MSC node field
+- add patch to adjust mpam_fb_msc_id if needed
+- add mon_sel_mutex comment
+- "select" missing KConfig symbols
+
+Changes in v9:
+- always create a threaded IRQ, but differ handling between PCC and MMIO
+- drop dev ptr setting for shared mailbox client (leave at NULL)
+- propagate errors from IRQ setup functions (incl. mpam_disable_msc_ecr)
+- improve MPAM-Fb error reporting (drop snprintf call)
+
+Changes in v8:
+- disable error IRQ on irqchip level when device side fails
+- use MSC dev pointer for dev_err() instead of mailbox one
+- smaller white space and formatting fixes
+- reorder MPAM-Fb definitions
+- rename error translation function to mpam_fb_to_linux_errno()
+- add review and test tags
+
+Changes in v7:
+- add tags
+- add new patch to propagate errors in mpam_reprogram_ris_partid()
+- prevent loop when mpam_diable() tries MSC accesses again
+- register MMIO error IRQ handler without IRQF_ONESHOT
+- re-use existing "err" variable instead of declaring "ret"
+- initialise mon_sel_lock later, to wait for interface decision
+- convert timeout units for nominal latency, between us and ms
  
- 	/*
- 	 * Clear pageblock skip if there were failures recently and compaction
--	 * is about to be retried after being deferred.
-+	 * is about to be retried after being deferred. Only do it when sync
-+	 * compaction restarts: async compaction relies on the skip hints, and
-+	 * clearing them on every async retry would rescan the whole zone.
- 	 */
- 	if (compaction_restarting(cc->zone, cc->order))
- 		__reset_isolation_suitable(cc->zone);
-@@ -2858,8 +2860,10 @@ enum compact_result try_to_compact_pages(gfp_t gfp_mask, unsigned int order,
- 			!__cpuset_zone_allowed(zone, gfp_mask))
- 				continue;
- 
--		if (prio > MIN_COMPACT_PRIORITY
--					&& compaction_deferred(zone, order, true)) {
-+		if (prio > MIN_COMPACT_PRIORITY &&
-+		    (compaction_deferred(zone, order, true) ||
-+		     (prio == COMPACT_PRIO_ASYNC &&
-+		      compaction_deferred(zone, order, false)))) {
- 			rc = max_t(enum compact_result, COMPACT_DEFERRED, rc);
- 			continue;
- 		}
-@@ -2890,14 +2894,17 @@ enum compact_result try_to_compact_pages(gfp_t gfp_mask, unsigned int order,
- 			break;
- 		}
- 
--		if (prio != COMPACT_PRIO_ASYNC && (status == COMPACT_COMPLETE ||
--					status == COMPACT_PARTIAL_SKIPPED))
-+		if (status == COMPACT_COMPLETE ||
-+		    status == COMPACT_PARTIAL_SKIPPED)
- 			/*
- 			 * We think that allocation won't succeed in this zone
- 			 * so we defer compaction there. If it ends up
--			 * succeeding after all, it will be reset.
-+			 * succeeding after all, it will be reset. A failed
-+			 * async run only defers further async runs, as sync
-+			 * compaction may succeed on pageblocks it skipped.
- 			 */
--			defer_compaction(zone, order, true);
-+			defer_compaction(zone, order,
-+					 prio != COMPACT_PRIO_ASYNC);
- 
- 		/*
- 		 * We might have stopped compacting due to need_resched() in
+Changes in v6:
+- keep using hard IRQ handler for MMIO based accesses
+- move shmem buffer size and MPAM-Fb version check into mpam_fb.c
+- drop mutex guard in mpam_fb_send_request(), we use gotos anyway
+- factor out MPAM-Fb protocol error translation
+- add MPAM_FB_ERR_BUSY error code to translation
+- explicitly report also MPAM-Fb protocol error number when disabling MPAM
+- remove unneeded MPAM-Fb details from mpam_internal.h
+- drop leftover mpam_fb_msc_id usage 
 
+Changes in v5:
+- do not initialise _high variables early
+- fix whitespace issues
+- add Jonathan's Reviewed-by: tags
+- init only either the spinlock OR the mutex for the mon_sel_lock
+- drop warning about mapped_hwpage_sz for MPAM-Fb in mpam_msc_zero_mbwu_l()
+- change IRQ handler to threaded handler, to allow MPAM-Fb MSC accesses
+- disallow per-CPU IRQs (PPIs) for MPAM-Fb
+- trigger MPAM disabling on MPAM-Fb protocol errors
+- fix MPAM_PROTOCOL_VERSION_CMD name
+- use PCC driver defined symbol for PCC_CHAN_FLAGS_IRQ
+- add comment about usage of PCC's .signature field
+- check for illegal MPAM-Fb command before sending request
+- drop CPU accessibility check for MPAM-Fb based MSC accesses
+- move MPAM-Fb protocol message structs inside build functions
+- add comment about largest message size
+- drop extra msc->mpam_fb_msc_id, in favour using pdev->id
+- use already defined local dev variable instead of &pdev->dev
+- use FIELD_GET() macro for MPAM-Fb protocol check
+- drop devm_mutex_init() for pcc_chan_lock
+
+Changes in v4:
+- unify error check patterns
+- use scoped_guard(mutex) and ACQUIRE to simplify error handling
+- use struct kref for PCC channel refcount
+- drop unused mailbox rx_callback function
+- increase size of props[] array to hold new msc_id property
+- set mailbox TX timeout based on ACPI MPAM table field
+- use devm_mutex_init() to allow automatic cleanup
+- avoid overwriting error value for arm,not-ready-us property read
+- prune MPAM-Fb protocol token to fit into bitmask inside register
+- check return value for AIDR read
+- use two separate MPAM-Fb protocol payload structs
+- prune header list for mpam_fb.c
+- drop "nrdy handled as an error" change
+- fix message size field in MPAM-Fb protocol shmem area
+- drop message size return from MPAM-Fb message build functions
+- bring back IRQ flag in MPAM-Fb protocol header
+
+Changes in v3:
+- drop inner/outer mon_sel lock patch, replace with simpler version
+- harmonise code patterns in error propagation changes
+- drop mon_sel lock before erroring out in mpam_ris_hw_probe_csu_nrdy()
+- refactor mpam_msc_read_mbwu_l() to return an error
+- drop special NRDY handling in __ris_msmon_read()
+- add IRQ numbers in error interrupt handler to help pinpoint failure
+- refactor MPAM-Fb message generation to accommodate more than read/write
+- check MPAM-Fb protocol version at probe time
+- drop mpam_fb.h header, merge into mpam_internal.h
+- translate MPAM-Fb error code in Linux codes where needed
+- clear IRQ flag bit in MPAM-Fb protocol header
+- drop unneeded endianness conversions when crafting MPAM-Fb message
+- use C struct to model MPAM-Fb message payload
+
+Changes in v2:
+- add patches to add error propagation to MSC access wrappers
+- drop former patch 1/5 (not needed)
+- drop lock in mpam_reprogram_msc(), to avoid double lock
+- add support for multiple MSCs per PCC channel
+- adjust SCMI protocol code to use a PCC subtype 3 channel
+- let PCC code handle the PCC channel negotiation (due to subtype 3)
+- drop SCMI names in shmem offsets, and use existing PCC type 3 struct
+- adjust shmem field offsets to match MPAM-Fb spec, not pure SCMI
+- prevent MPAM-Fb calls inside atomic smp_call_function_any() payload
+- skip all MSC accesses inside the IRQ handler when using MPAM-Fb
+
+
+Andre Przywara (13):
+  arm_mpam: let low level MSC accessors return an error
+  arm_mpam: propagate MSC access errors for hw_probe functions
+  arm_mpam: propagate MSC access errors for MBWU counters
+  arm_mpam: propagate MSC access errors for msmon helpers
+  arm_mpam: propagate MSC access errors for __ris_msmon_read()
+  arm_mpam: propagate MSC access errors for state saving function
+  arm_mpam: propagate MSC access errors for mpam_reprogram_ris_partid()
+  arm_mpam: propagate MSC access errors for interrupt control
+  arm_mpam: propagate MSC access errors in mpam_reset_class_locked()
+  arm_mpam: prepare mon_sel locking for MPAM-Fb
+  arm_mpam: add MPAM-Fb MSC firmware access support
+  arm_mpam: change MPAM-Fb error IRQ to use a threaded IRQ handler
+  arm_mpam: detect and enable MPAM-Fb PCC support
+
+ drivers/acpi/arm64/mpam.c       |   6 +-
+ drivers/resctrl/Kconfig         |   2 +
+ drivers/resctrl/Makefile        |   2 +-
+ drivers/resctrl/mpam_devices.c  | 928 ++++++++++++++++++++++++--------
+ drivers/resctrl/mpam_fb.c       | 258 +++++++++
+ drivers/resctrl/mpam_internal.h |  70 ++-
+ include/linux/arm_mpam.h        |   2 +-
+ 7 files changed, 1022 insertions(+), 246 deletions(-)
+ create mode 100644 drivers/resctrl/mpam_fb.c
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
 2.43.0
 
