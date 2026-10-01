@@ -1,41 +1,41 @@
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2184A9D7C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:44:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A01EC4AB1A9
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858692; cv=none; b=mkkbKNFFsG/lilDr6sEFPrKtb6Sbrer+HzRSp+ymbY/15f1mqdcodVKQ+WL8ueeRfGb2JYgUT3gv70PR8al1H3rW+qzXSlnBDEP7PEnj5ZdVz29FjlRwzn/GHHQeif2en7eSSb7TT1ut8gB97ADigsdCzpmnZaCld1k0Y2fiLLg=
+	t=1790858696; cv=none; b=BsgLRnAkzXv6jnh0hSTJ2D4zFIgllLsqEpY2Mf+UcYv2LTZWU+h4spzwuUzalvFwz1zXv+6Twv6ExGE8DpdvXYLlOExyrUv/GYwyFIBPgg52PCktDZ2sd1Z7iuIxs5YjxsW9wdHpqUSFiSD63uoQS/rls+x8/xJ3/ebEs4+kv9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858692; c=relaxed/simple;
-	bh=3uVJ0+CiBjqBMXrAwSnrSvrnV27RzwdfNd6pfvpfBCc=;
+	s=arc-20240116; t=1790858696; c=relaxed/simple;
+	bh=xWeQxwBa85yJK9iJ4H3WyvCaqUapkJafz+PjYsVMpws=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OyFC77Rwb9gav79hjYendlC/GTPdWOoxI0JOEbvf1IDSA/0Y0bC/IsOiQ65xiTZIhkHc3rzcX75JFMEJ/4xrMIcgmoLM/EuqPy5nqQy1O9Xkkmjo6RLUCq8wv65kTJoLSgdaokuKhCZL5xXL1MLrz0gL16/ktGcLntygXBPFB9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=O6pYDGHm; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=pfgCEDK8tsKTfPaI7bStr7NW8ndFKPX1FiK/4nVz0/eCj2GmG+WPznswsdl6WTNRbs/WYc1hBY/W8c727sud3dZ/MSESKq+S8f1Cr6NPy+ljayP4wtzsXrFY4xehz6hWg5lGF6H/K8LurBclrwx4W5cGxcpl6cz6koXvM5aFtyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GeRCdvCS; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="O6pYDGHm"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GeRCdvCS"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DF1E14E416CC;
-	Thu,  1 Oct 2026 12:44:47 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 050914E416CC;
+	Thu,  1 Oct 2026 12:44:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B021160341;
-	Thu,  1 Oct 2026 12:44:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 08D1D103280C2;
-	Thu,  1 Oct 2026 14:44:40 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C57F460341;
+	Thu,  1 Oct 2026 12:44:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9206510328105;
+	Thu,  1 Oct 2026 14:44:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790858685; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790858690; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=QLYOPEBics56dBWNl5ZGCyhzCyMt9242fRwYR5+3TQ8=;
-	b=O6pYDGHm3h4SYtZpmOXehWrflfGfvi1BHLUeuGeDjCVUhRG4yGQU2DxSB7/ZM8ls5x9XVI
-	1eWk3pPBRuG8XRY7Ha6ySoTS6V7aBqU6TXagOAjvto0o81lOe89/Yx7eU/nE4Rb2fTTQmA
-	5eMVGXsMrems6KoSxxA84lOTvNi78DWTSuBzu8Nq4JUnDUQrAd50VdiGXGycuahIlrLLCp
-	Jr1BKm3GLghp8atUVtOxRWIuvH8uPRy7oGv+vLBUmCrsXXewOg79PDpBTIA4Zja7e7M6dZ
-	dbytFQConraipTLbNc9guDAEuL3X8aVQGIGt66zf2fWZkjquKw4MOcsg9fJO+Q==
+	bh=rpVfkIZMmQdurRVLSRng0OFRynPKl3AukF6MjWLjGoQ=;
+	b=GeRCdvCSP0ELtOglNNDwnlP0we9U0+IuG6VnbWKcKH18jyqSH84UZH2DYCE+/E1+HGobQl
+	1OGI9ngUc0cb8709QVWw3B54YA0+KzFactSZ7eIr1Tyut03da7bddK8n3w/M45MKzHWAeD
+	oHl4+UBxKspLMYctwlS8KTrSD/GAeZElS5DUVT+VArK+NSbgCmgyOroBlhIGR4tmgcZBdE
+	HwiDVRXojzT4hW+abfy14J963Unn3I2VqZ96p0AD5JV0MrLhKc1Qbu511F5p5KvGyz9sPx
+	N0wkcUjJlAlv/jAA0t901JmKpqSlE06myX/dpHLwwV2fbq0P1sb+IL/5oFogiA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:42 +0200
-Subject: [PATCH RFC v2 20/24] drm/bridge: ti-sn65dsi83: implement
+Date: Thu, 01 Oct 2026 14:42:43 +0200
+Subject: [PATCH RFC v2 21/24] drm/bridge: ti-sn65dsi86: implement
  .get_next_bridge
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-20-8e34986dcb68@bootlin.com>
+Message-Id: <20261001-drm-bridge-hotplug-v2-21-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,43 +75,46 @@ Add get_next_callback func to expose the next bridge.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index d32b80e7c374..05c6b1d6b9f1 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -295,6 +295,13 @@ static struct sn65dsi83 *bridge_to_sn65dsi83(struct drm_bridge *bridge)
- 	return container_of(bridge, struct sn65dsi83, bridge);
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+index 369c13183232..7196097f68aa 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+@@ -768,6 +768,13 @@ static int ti_sn_attach_host(struct auxiliary_device *adev, struct ti_sn65dsi86
+ 	return devm_mipi_dsi_attach(&adev->dev, dsi);
  }
  
-+static struct drm_bridge *sn65dsi83_get_next_bridge(struct drm_bridge *bridge)
++static struct drm_bridge *sn65dsi86_get_next_bridge(struct drm_bridge *bridge)
 +{
-+	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
++	struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
 +
-+	return ctx->panel_bridge ?: ERR_PTR(-ENODEV);
++	return pdata->next_bridge ?: ERR_PTR(-ENODEV);
 +}
 +
- static int sn65dsi83_attach(struct drm_bridge *bridge,
- 			    struct drm_encoder *encoder,
- 			    enum drm_bridge_attach_flags flags)
-@@ -796,6 +803,7 @@ sn65dsi83_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+ 			       struct drm_encoder *encoder,
+ 			       enum drm_bridge_attach_flags flags)
+@@ -1358,6 +1365,7 @@ static void ti_sn_bridge_hpd_disable(struct drm_bridge *bridge)
  }
  
- static const struct drm_bridge_funcs sn65dsi83_funcs = {
-+	.get_next_bridge	= sn65dsi83_get_next_bridge,
- 	.attach			= sn65dsi83_attach,
- 	.detach			= sn65dsi83_detach,
- 	.atomic_enable		= sn65dsi83_atomic_enable,
-@@ -1066,6 +1074,7 @@ static int sn65dsi83_probe(struct i2c_client *client)
- 	ctx->bridge.of_node = dev->of_node;
- 	ctx->bridge.pre_enable_prev_first = true;
- 	ctx->bridge.type = DRM_MODE_CONNECTOR_LVDS;
-+	ctx->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
- 	drm_bridge_add(&ctx->bridge);
+ static const struct drm_bridge_funcs ti_sn_bridge_funcs = {
++	.get_next_bridge = sn65dsi86_get_next_bridge,
+ 	.attach = ti_sn_bridge_attach,
+ 	.detach = ti_sn_bridge_detach,
+ 	.mode_valid = ti_sn_bridge_mode_valid,
+@@ -1496,8 +1504,9 @@ static int ti_sn_bridge_probe(struct auxiliary_device *adev,
+ 	pdata->bridge.type = pdata->next_bridge->type == DRM_MODE_CONNECTOR_DisplayPort
+ 			   ? DRM_MODE_CONNECTOR_DisplayPort : DRM_MODE_CONNECTOR_eDP;
  
- 	ret = sn65dsi83_host_attach(ctx);
++	pdata->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
+ 	if (pdata->bridge.type == DRM_MODE_CONNECTOR_DisplayPort) {
+-		pdata->bridge.ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
++		pdata->bridge.ops |= DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
+ 		if (client->irq)
+ 			pdata->bridge.ops |= DRM_BRIDGE_OP_HPD;
+ 		/*
 
 -- 
 2.55.0
