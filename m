@@ -1,147 +1,123 @@
-Received: from flow-a5-smtp.messagingengine.com (flow-a5-smtp.messagingengine.com [103.168.172.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f40.google.com (mail-ej2-f40.google.com [74.125.228.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0625376483
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273EB547044
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790876776; cv=none; b=CJ4IsMGTrP+yhpbIPUy+1dgz74cCdfTJSwBvIL/0Nn1ZY3a4qM75m7C+Nrk+jzwMfVsOdD7RkmeTN1O6l68wClPVkMXBbHwyj2C3c0/HEYYxIR+8lM8/X9kpOq9GalZadGZFMLVqXJySB2nx/9fDVhHrKGQGES9x6fr35KzHick=
+	t=1790876832; cv=none; b=En02kcad9cw6BW3iJM2JTjNlH6qqlTY4CWKRmM0MNC2uLH04Pbo7vYLD8Q8F1BdHkSFHpm/hX081rpiMJyON929JjgF6uCMznn1LGpt7DV5nscWYXFemCbE5CP/gC6qmXRMl82GF0QrWZgjPrma6XiQhcS9bIeU8CBnAtUX6e28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790876776; c=relaxed/simple;
-	bh=rnxeMZYf/9z+Xb0KkANecvdRglyjwp/CtJHPxz2f1UM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eWl3o2LEytfHru6VCpuCSk0hEjBkoAU1WTkIm+70D4ors9xeYS+X7v+aDBRFFtbTTSt0OJEvU1VphxYiDc40zVodhjmFAmqn29MJkPNQ92XXLzv4BIOaYAQC2tiVnnEz7/DNO+TohpKBRzmiVb73qHGnNr7Ym8T49GMcC1MqvSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=56a7garZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=W5rQo7gt; arc=none smtp.client-ip=103.168.172.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1790876832; c=relaxed/simple;
+	bh=yrsdKmL2y9lPPr18nFAgKM0SX9Dw5bHdA3om1AWFKw8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rqyjxHQqLAnh+v9wrPCqTeaE9K3LJ7TNHoJzVzN9wBtvN1bKTGAde5RyjTTkIKKF8sOOGkEHExRvE4N77XC/N+HnFdMnIZS9JshoiIlbd8EuOTchpTQ8vZAY3PE/RVDYcd/xQzrQVVd4kFLw9WfCNGhLKxRhD2cbi4dLl3EFCW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P4jpHaqr; arc=none smtp.client-ip=74.125.228.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="56a7garZ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="W5rQo7gt"
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailflow.phl.internal (Postfix) with ESMTP id D0EC1138032E
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:46:08 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-11.internal (MEProxy); Thu, 01 Oct 2026 13:46:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790876768;
-	 x=1790883968; bh=CtQ3WPdADjRa24hJ7cOX4tECd7fd+Masma1XcYGDjzc=; b=
-	56a7garZnY23HpMfZVeSIX9qiczOMX9EtzEqL/bYGbLv1Vr4cGrVfzhP0xXFVYOY
-	/COP40NWJF3UZoWRIJO0+jKtBivI//YLwaCoYcAjRCLws59VsxHy3GaiGVDDLdgm
-	mdY6SLClRvNJ8H+CDd5gL9Qc4NQxfV5ABx57W1BTwjDdjjJC/hqKUcr+HpuuUWd6
-	JtRwF2bCaR2jGb4raqhxqUyRyCaNspKU2nwjPcRt+rVsHJj4Bx9MrPWrEPLWAkwa
-	kIVqLck1aC0Kfl5On5e5Ua6x1jvuTA7/9ooiVSPV90dyHLMe0ZBwbNuLYlb74YuO
-	l3TYNpkg4STm+crf7cdSbQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790876768; x=
-	1790883968; bh=CtQ3WPdADjRa24hJ7cOX4tECd7fd+Masma1XcYGDjzc=; b=W
-	5rQo7gtSetJyyr1A8ZXKvTECrD3bt8TVfZn+Vm2hQhMK736mtLuEvBMp3kzBScrG
-	7N3+NsqGlDNoCukWpYhieOy6eqWoLguwr/lfJbrbaq2L9RB3c0ogz05YVboMJ8Cp
-	zlxv3qrHNiaRt8D36f+V71Tk36Twl4RF5TDrOOwagSqAOq3bpRwNDPhAUf/7fszP
-	kjt/CiCAx4RXA/0NyN9iEH+jmBGdOMm6MfSFcRAHTskhVZEYVtptETwHjqo92Ji5
-	YeQywd04OiWDZQZq43/rmvf5fkn6GcOHyySXRBWnSJY71Df8onseeE4yEBJoWyH8
-	NXtrXvfOY1UspHafNvhgw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790876768; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Y3A1kktkhpti1yWQAnBszrJC9kkW7RIFhbPBQtVF9PLPpXz
-	x2pF3t5XG/vbWz8N56OBPETLAs+9aYah9Il/+XyGqs4Iht/dWhzIgyEpomJAjXKD
-	Pxkk8sk+qSJR0zmDORHIS0Rdj/q+LRcYLWjq3HVCddvlFLDbwv1qGpXrxnCLHr3V
-	CyYu450u9ydEjJeFoivrLKAYaPNBnlku8tJF7aHPPSSh4G2nyIG8yVINCNTT+L0D
-	NCkA1nbGTY4RSkpRUTTx+tTBWhljH0tcVNg+e2Yj2qamWcDzMbmtCxmsG6xU6eHv
-	xyrEHoSmHIuuP8MTlV49Iv/eSK0UPTsxXZJXPeA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:mzoQOsQeOsMe7yu+QchXp1gDZTMc9yWC8jTVvXYHafE=:rnxeMZYf/9z+Xb0KkANecvdRglyjwp/CtJHPxz2f1UM=;
-X-ME-Sender: <xms:YJy-apJ9FCs-iuch36jfRecXTc5pxl4kBPcbCJkBwnQlotuZ_w3w_A>
-    <xme:YJy-aiiaonWddKPd0lbc_Zi9-_5NQRyZvuHQri_r61On4tfeVkSUTI-N136uDfsNG
-    ggBBGoV2lwXkWUKkK7BPIHI10dBQLSJeV-94yMyJodkKkIF_eInLXU>
-X-ME-Received: <xmr:YJy-atuHfc7Y4LZn6aVxLEWlITZtk7GeYzO1lfG97ycwxWG06Otpt82GKrI2-w>
-X-ME-Proxy-Cause: dmFkZTGeFOiYRSvqQRzaU9O5PYqcmDoxeyZGLAapC8+oi4sRpdZKAY+lSdXnsz87R/LRsN
-    OAwD0Pix9/dGlidb6OpIQUYllU+qPGUmUMr9RtZkzLhkG8QfXKxnuAfSx+he7ZiQliUm4p
-    fS19xhtT7B0LTzhA7nGIdVYTJY8rISmFadgjpkz7nJ5cCS/ofG7/mVnhD/Ogq1cJO4Bq5v
-    HzaOqDG6yarbzEKNQU4IzTVdy1NR5OGboNIioUq7ivHUWWwQeeI8eVLfBMc+iNHOHR+8Q9
-    rd1bYCqkvxobZISxhV/wnQGymuUJtWZ+DIreaBjkK9eX9AhlsvIQsdSJTzeXBPpLAbClMg
-    kAMQ508m946nM3uG04rxSR/HFEGCsaOuixFXRWmi91SdHjx0fLlp3EmjQuFy5eOJOsXL2P
-    jcD4flgmr3VEOaR4p2M/EftUQ8mUuIsTzlAn5IftslRhcy7LufPXoame2M1FSVdL4SYu3X
-    BnQHIsMv77I6N6JCGPINyuFkyabKF/eAOF9oCy5pkXzjhXkdGsUO7S3gH8CHS4xbUaOdOe
-    wwBrsncYU8LTOihBOIW1WUwkcXuetEutTc1uPN0+zqmINYOLAbdXeOv1C7D+JNu47VjZIO
-    xfq8SngKR0vz7b6Epkdu8SHnXk1OgXkrnVQA7ZTWYxtwWn17Tw8IDCOTmqjA
-X-ME-Proxy: <xmx:YJy-auEcMH1yFAmmedCA70c1CKmTdCqctQhwts2jJAbVsYmEzW-iGQ>
-    <xmx:YJy-ar-9doEDGvIsB1qcb8iBPN1fUXS04NK3VamUPXHJ2nqwrnqVhg>
-    <xmx:YJy-aujJPABC2q67rzOhqGbVXnsbuU_aVeTCg28X-__B6fEkdLl81w>
-    <xmx:YJy-ah_-teYB6dF1k5KZ11i3KFTVcwJ1oAz7OwmM6HIdqwWMs3kgfA>
-    <xmx:YJy-auAkQ8bouM_WLRsuqtmRPbPVO4drjEUgJf9pMILUTDBXtWjZGw8V>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 1 Oct 2026 13:46:06 -0400 (EDT)
-Date: Thu, 1 Oct 2026 11:46:05 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Steffen Eiden <seiden@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- David Hildenbrand <david@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Sean Christopherson <seanjc@google.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>,
- Matthew Rosato <mjrosato@linux.ibm.com>,
- Farhan Ali <alifm@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
- Tony Krowiak <akrowiak@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
- Jason Herne <jjherne@linux.ibm.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Holger Dengler <dengler@linux.ibm.com>, alex@shazbot.org
-Subject: Re: [PATCH v4 0/6] KVM/vfio: Use file-based reference counting for
- KVM
-Message-ID: <20261001114605.4167fa97@shazbot.org>
-In-Reply-To: <0c5fe5c2-4ab8-4d1f-a36a-84a8fd136160@linux.ibm.com>
-References: <20260928-vfio-v4-0-e32e226d5932@linux.ibm.com>
-	<0c5fe5c2-4ab8-4d1f-a36a-84a8fd136160@linux.ibm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P4jpHaqr"
+Received: by mail-ej2-f40.google.com with SMTP id a640c23a62f3a-c2e417a5a81so112983466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:47:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790876827; x=1791481627; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=H6z/w//LhWCZLSKNntdvRXZK6X4eFaUVprUdafE2INY=;
+        b=P4jpHaqrECxfhSyGh8+WcasiSIs15/F8kZPkFbW/vZTjCMSuoGc6NFRkvkwjePixum
+         /jKkW1nY1FKPBjJsYIi0s33OezquFWXwf6VbGm3cYPlApS9DtQXZkwia71WThCqazHm6
+         SQuZH7bRe6x5UhQPu3xzQ92rPDjcuLW78LhSUm7hS52tsb2iBdgUYkvtLx3L1b7LoCT0
+         SZ7e58zo0ab2mwVWJYLjai9ALgPhpvyGonLDoYGW9qxo3YhNA9XhFlOJF7wmhMdu30S7
+         y3GPj3LtDBqsxHmLkmrxvd9g5YRpV96krU8LhwVGOGlQCRxlwsDGRjm4nSukLAdZpKIE
+         s44w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790876827; x=1791481627;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H6z/w//LhWCZLSKNntdvRXZK6X4eFaUVprUdafE2INY=;
+        b=ZUwTYCJTS+N56cvG/SrJn/FAItxO85Wrow8p5vEc214b7fnv53jh1ojDJVoCl+qz3u
+         FkHQm5C0aRBSrnYh0ySL1rwTdHXHNbkBAwSLZGevB0T+dXUmFtmneNhxfq2KFcYqlacF
+         YuOOMpuR06mc1jKMcvK3pwqnbmcUaOql16Dgylp6KiUGSUQR0eOYBPopOkq498Cn8hNF
+         snHVMamslk61thewyY0a/2coKFW0Nti1DUmgLDm/YyTBqI+EzJlnFwm2nfXMOSIegedH
+         5JsIaVAsgVk55wobuHFjDUVmjqao5S3dQffM9GwKdXsu0hqRJCuOU2wCVM44cde8GQQq
+         luag==
+X-Forwarded-Encrypted: i=1; AKwUvBzZz4gJsRUy27pm+qHBVq7/7ggN8SywVhPbHrym74fC4r+DAfYVLYfq5yuFygEM2vVjJH6KyXeP6RZ27X4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQ+Bsdi2CENSrvAEXXA0JX176m9FSpNAk/Uq/hvLxtlIHvhJjD
+	mpftWz4REUjojVwSpgmkPZoMkznob3R1jYlO6BCd4/ybhkxuG8gmRst3LFoXNaXPyWyL5g==
+X-Gm-Gg: AYBFou3ft8tLwkmBEuogMS4y5bAwYs9IDTIE38OR1yD4eL+N1fPhw3z7x6IlcBKEI0B
+	bOSgFTrk8MrGh+ZVfArFZ02lSa8O6DwAVsZfI7VOhRhKBAQYW3xNE00GZatigDCHauFjCBBdQtT
+	T2ZcFXYDVIPt8q0aJpUt+IzEjL9iZx4oFb+bbZ2jeevEFS1nLb+xn7bHvwqrgEMAbJF0Lkzvts9
+	arRREr5omHu4rMP0r2DmBbymMMJgaHit3TZS3VhTuQ7gzmmPyV0IGBiUqEfGb/rzXe9XFjVPEDH
+	tLX4K54wy+1IMGL+VIYNGqQ4BbTWwkLMxuha2jyikDrQDahwdFQgk+BRlPi10YOpxXDKreZpvGv
+	eGAt0QB+RRkPYhW/fwYZ3WTLgnkqlb1SdFSLn+D6q77QW1Zd7hj1QLajKUKUfBh00R8jmirl0ja
+	pzKHbpxBCPCc1VKAeomNIjVC9755mQXgRpIHdcW0r7j4LUxFuv8lYCM6uPij/Y/02X9flVucf0r
+	eOX3Q==
+X-Received: by 2002:a17:907:ea8f:b0:c25:6c9a:88bc with SMTP id a640c23a62f3a-c2e4ad565f4mr28222466b.19.1790876826406;
+        Thu, 01 Oct 2026 10:47:06 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4b9b1f4csm11560766b.69.2026.10.01.10.47.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 10:47:05 -0700 (PDT)
+Date: Thu, 1 Oct 2026 20:47:00 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Amirhossein Hajimohammadi <info@hajimohammadi.net>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] staging: rtl8723bs: stop overreading monitor
+ interface name
+Message-ID: <ar6clK3N4by6EN0O@stanley.mountain>
+References: <3B4B0B72-4DCE-4E40-9E87-732DCBAA4EAF@hajimohammadi.net>
+ <2026092915-luxury-shush-6b29@gregkh>
+ <ar4vH3F5lLFijgTU@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar4vH3F5lLFijgTU@stanley.mountain>
 
-On Thu, 1 Oct 2026 13:59:49 +0200
-Christian Borntraeger <borntraeger@linux.ibm.com> wrote:
-
-> Am 28.09.26 um 15:07 schrieb Steffen Eiden:
-> > This series switches the KVM-VFIO interface and external consumers over to
-> > standard file-based reference counting, eliminating all external KVM symbol
-> > exports.
-> >   
+On Thu, Oct 01, 2026 at 12:59:59PM +0300, Dan Carpenter wrote:
+> > > diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+> > > index 4416d0ec1..8f5032844 100644
+> > > --- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+> > > +++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+> > > @@ -2158,7 +2158,7 @@ static int rtw_cfg80211_add_monitor_if(struct adapter *padapter, char *name, str
+> > >  		goto out;
+> > >  
+> > >  	*ndev = pwdev_priv->pmon_ndev = mon_ndev;
+> > > -	memcpy(pwdev_priv->ifname_mon, name, IFNAMSIZ + 1);
+> > > +	strscpy(pwdev_priv->ifname_mon, name);
+> > 
+> > But we are replacing str*() calls in the kernel with memcpy() calls
+> > where it can happen, so why go backwards here?
+> > 
+> > What caused you to notice this change is needed?  Have you measured a
+> > speed up in throughput with this change applied?  How was it tested?
 > 
-> Paolo, Alex,
+> This seems like a legit patch to me, although it's probably AI generated.
 > 
-> I assume this will go over one of your tree? If you want, I can also create a topic branch
-> for you to pick if you prefer that.
+> net/wireless/nl80211.c
+>   5199          wdev = rdev_add_virtual_intf(rdev,
+>   5200                                  nla_data(info->attrs[NL80211_ATTR_IFNAME]),
+>                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> This means that it is a string up to IFNAMSIZ (16) bytes long counting
+> the NUL terminator, but it could be less.  So doing a memcpy() is a
+> read overflow.
+> 
+>   5201                                  NET_NAME_USER, type, &params);
+> 
 
-It's a KVM focused change, vfio is collateral, so I'd defer to Paolo.
-I don't believe I have anything pending that conflicts, it applies
-cleanly against current vfio next branch, but a shared branch is always
-a nice hedge.  Thanks,
+I tasked ChatGPT with writing a Smatch check for this and it noticed
+that the "+ 1" in "IFNAMSIZ + 1" is wrong as well.  "name" can only
+be 16 characters long (counting the NUL terminator).
 
-Alex
+drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c:2164 rtw_cfg80211_add_monitor_if()
+warn: buffer 'name' too small user_len=1-16 for 17 byte copy
+
+regards,
+dan carpenter
