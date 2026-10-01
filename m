@@ -1,170 +1,114 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1F73D2FF7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856894; cv=pass; b=TNtevnMKZL//of3QJGJJBVHK6XQB0oVSGqvR9pLt5BbP90/UVCd9YbFgsRYT3tqCd/VfLCNl4aoxeNlpfUMmFhlbGHafYZCCciCgNNJE/tUbq00q0zjafNetPc1DU7bxjgMRWd0qixexp67LfsjBnx9KELz85bstfBIuc1N7Hfo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856894; c=relaxed/simple;
-	bh=t80nhwRApDWZA93DyMsDHi8I1BEwRmnmkFQwG4H1QEQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Baq7OOEEZea64p+pG2QfSYV2ZexpJ2CggzLTICtm2tv/0WmdKLQiUG0GSyoxouPvFlgfPNQYyvpFTn5MQ4BNajWoGB+lG8ArXQk+M2BZndc9Mvnc8dVfrsns0aRz9YDKe/Lk5B0IKiEyGDj/aPMC4/kbvWud9zrdzp68PX/ozEw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=CX9q+Ujc; arc=pass smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A6D496D55;
+	Thu,  1 Oct 2026 12:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790856899; cv=none; b=q9OvZY0m+yfSSrK+GcKECgrybN3/hbFJzgPEyd4AkHUiwe+JY1cjiTuR0Dk8yBVpleq4KROsSOL3yjnJtQHLGteV+b9EtLEGJGoeuzaots8QITFzLu1vnYnVgEJQ3FdsfSmKf72vzXYq9dcc78k2W3FepSY2YFxwDk4//faQmSs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790856899; c=relaxed/simple;
+	bh=wzl4bQpHufVbGcUH2VpVjtJU0TDaij6VKMDPl43NN0I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UX4f4xTzQH8rJIcbAP/4WMTUtQM4PsuzGwG9qIUGqsHEG1t9M51jQJMwHCcSBHyG2FfxcA6y/RTTK0r4EzZYKrT9XwuLfDywS5RWOGD1TQ66F0ZRuswY4a3/3bCMRN8lJRbiP10e5SS2n6/Qa83ZdSvAGA9B2392HCKvEEwbJTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EazoPou7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="CX9q+Ujc"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso3198291b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:14:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790856890; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V084Twl90W9gwN9cQrACmV77DCTS42LxnaJ2/uR8JZbgkoGfLohe3hBUz9dhtTivlI
-         eJUNrb0y15iCOIHev/8ks+G9YCbkC6azIPTFfZ3sq1f3/uvlfQbNOINa0nJqGfn7Ay34
-         X+PlOTSXCmRrydDG8IfaZM87gTvr9S//fR6/yJTpbfHJ4IrucHUL8hUzgctFJfyxxbEW
-         9hT76yV7WbBdXWIx4x/yQ5ki8t2C3rhFxWQaPdUconUXFYGcZzXIwbnt2vahtF68kN5a
-         FEEwmYpuODGaWMDV0Eimv/Mo7gCbe8lg9i8GDLqpyQW6lFD8r2uCalvK6LbsJJ5kFo0Z
-         lfyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YpU0f3NtjRyuzMkIqJCo4gz/bCKyWtpvBq9HB+O7ccE=;
-        fh=mqkR/rCr3HNc9krS2Saq2VhsljbH3vFnPTOq4IdSq3c=;
-        b=EkIVEENbXyig/Uojp0yAAeBFDmia86gxPnOF7FLz3SvCQUamxwuNFMLUDiKJjo8rMZ
-         m9Zc5Bf8u5fonP4NmdZolBLvhzqSRNJz/5b9F6vS6BM57zSZA0jHea08H2D/F56t25Vj
-         VfuwuilpIZv8oGSE+tt7elD7IcPIFYpcAGO6SEheMIJqgcx/W7ITKO48fYMDAuIdioau
-         Z/Ytef4oWXP6JKS8lLv1XSGnJtSjkaXYqqSbpv7KiVqdjK0KiNZrLye60UTzvLROLnEV
-         dJbkS0VNGEtMEiBt57Ci9tRhi0ploKMAFKPFzO71fRbG4bB2RV7h3LwRZH4S0Ni5m3hS
-         kpmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1790856890; x=1791461690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YpU0f3NtjRyuzMkIqJCo4gz/bCKyWtpvBq9HB+O7ccE=;
-        b=CX9q+Ujc+9ijyP+hjLjhQHKOA1Ajp3s5G8hxo2Q49I1ChcSodIObiGY3k+tCZ5fhuE
-         cKEaci8lNfwxR2JAtFk0QBxmt7cgJFJTegk9HhVcQeuKddj5zMxJGIDM1W7F+PhLb0eb
-         QDCbD0DNBN4+IPyhdOVdwwwIklPpDB/SkU/tNYh9CMETu2vE05c6pFIgMMHKHSg79Xco
-         JNS/Dw/fG0w/wM6YBf4voHLb+o1QiI/Q6kRouSgQFePjoz38ejkkf+97oFnva09nQyBz
-         B0q7tjHJNzfe5ocPl79T04rA6IgNw8RdiGfnYcj+CyD7mbw1nKLyVeL1cg2A4zu7FHvR
-         jYiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790856890; x=1791461690;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YpU0f3NtjRyuzMkIqJCo4gz/bCKyWtpvBq9HB+O7ccE=;
-        b=UlWKtwGUO8WMx4EE/jmYGQKEaBTEfSHGroZJ3WlQcMnT6d/XiAi/6BK/jTIXEZuOpG
-         1B5YtZnJ0P/h6MhoekWdEobGzOzsWTi+g+hhuPG/lGOpedcyppvQRK2HjqNgRUSCfkGy
-         fkQmFF5aclxOuD0qEaS6bM3l5CJTWF+2p56wQrbe/k/EPsfUambJwFhRTOFwB0OO5nk+
-         3YQzESyAdUaR/eciQAslKhLlfGxMEO0keXEpkZPW6ysskCGetThmoevnAejfwNeEMCMA
-         eR1pyOUvBeouSV69P59+sonTNwr4WsQdG7RKaB/Pcp2AaKojCGIIxyrIeS/by5o9ZABn
-         xdlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjvmb02PEnQUQB2rEzaM4UuJmPr+14+vSnEpAz1z3WZ2e4ScXx2hV833y6ZvSTFdY48X/R061G8QXTJzA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG41QrbkTzMnAD7UIyrSOlVkYLrSgfhIFjyE0yZQiEnggspTGw
-	ELA8vqCI3MK/XYa85OHzNPVS5+k8ddzTXrbu5iaFPZLN+ZrdVlpV6A4cYM7SulbiMmcN0rvxf4x
-	DXNyDpE8J4grgab8PbEYMb0fe2PqQJEoHtirXmm68wQ==
-X-Gm-Gg: AYBFou2i7YbHZnaua2VrTUMAowKMsn57ggJk/qDyqeCQwURAiaT/nLbXdTWjmLSdDnK
-	em+HtGk+EF6DRhJlGiLLY7IDkxZDDENReX7vxJhj0tI685cs8m5k46WPJC/M2/P496IagkdRA2/
-	J4eJbRH6y9R2MXQAr76UzIVQMxfJ+uAZbikYpCwcGuBOx9M0uyNYi/90i3KBlQ7jkXiAg0tLTdP
-	eaoaCgPZbTayCbY+OkbdX3/N6blKonx6svMQUeN7GB7spNPy9VjdBVuqoOkh7yxKcicbcL7YiUt
-	VGgMwv9bRDdW0g4PrZj4goyyNv7Nnal+QsOreaoZh3v5hy9AUErZijx7uYFiaB7dSkntlLljAD9
-	kXogsydrVoidXMGzdC5S50J/2Hr11ZQbtHkk=
-X-Received: by 2002:a05:6a00:99b:b0:880:78ca:8408 with SMTP id
- d2e1a72fcca58-887498020a8mr4062364b3a.7.1790856890524; Thu, 01 Oct 2026
- 05:14:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EazoPou7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747F31F00898;
+	Thu,  1 Oct 2026 12:14:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790856897;
+	bh=DYmoiuH04vCrKntkd6fvwAuUoeiwmoc5CuyAp/tVUL0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EazoPou70hQV84XiGWeQ+BeuJoBKc/GYwYe9XuLqYpTz2Fg9aFnD6H48Vu8DM3Xtm
+	 oEz9bOD2d9e95OsLDsvMpuLs2FAV761uBC/zHq3uwi5gvW6Z3fB1g+m3jiR5aQmai2
+	 Yb3dqLWR+s8ZzSnAqreTt9XMKrDr5r0g5+RH2vXyKSs7oLqxBxVS4AwejkDFNyWXSF
+	 Kvfn8tQs/1dGByjVSzzMo0lczqFxsxFVwNMbR7wWce+7axsqz/kYQX7gZ2dEAG3dNZ
+	 xJABUE1EMx0X9LaUUoZszyqKkM5qNugxkFPQJdCMp8h9ERuBaZ/mb4wvnzIctgYfsW
+	 gten9bB/dSIWg==
+Date: Thu, 1 Oct 2026 14:14:54 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+	intel-gfx@lists.freedesktop.org, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+	Andi Shyti <andi.shyti@linux.intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>, 
+	Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec <krzysztof.niemiec@intel.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: Disable not supported reset methods on DG1 0x4905
+Message-ID: <ar5Ol94SjttvxEAO@zenone.zhora.eu>
+References: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930122305.293686-1-robert.marko@sartura.hr>
- <20260930122305.293686-4-robert.marko@sartura.hr> <20261001-splendid-athletic-coot-1bbbb6@quoll>
-In-Reply-To: <20261001-splendid-athletic-coot-1bbbb6@quoll>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Thu, 1 Oct 2026 14:14:39 +0200
-X-Gm-Features: AclHuK_WE9ut5IG7WpoJ3i8LiSUCQkUGd-Zayy7qamfoOiiMgfWXeX1Yay2v7OY
-Message-ID: <CA+HBbNEOiAw+_zzQco13nNzUPdGUgo+kjcRzLFEA4LmnzF8_=A@mail.gmail.com>
-Subject: Re: [PATCH 4/5] dt-bindings: net: maxlinear: add MxL86211C lane
- mapping support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, hkallweit1@gmail.com, lxu@maxlinear.com, 
-	michael@walle.cc, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Oct 1, 2026 at 7:55=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.org=
-> wrote:
->
-> On Wed, Sep 30, 2026 at 02:22:16PM +0200, Robert Marko wrote:
-> > Describe the optional lane-to-ASP mapping for the MxL86211C PHY.
-> >
-> > The mapping accounts for board-level swaps between its physical TPI
-> > lanes and analog signal processing lanes.
-> >
-> > MxL86211C supports per lane mapping.
-> >
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> > ---
-> >  .../bindings/net/maxlinear,gpy2xx.yaml        | 19 +++++++++++++++++++
-> >  1 file changed, 19 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yam=
-l b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> > index 0645e885f1747..b98cb3c3e6d49 100644
-> > --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> > +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> > @@ -22,6 +22,21 @@ allOf:
-> >
-> >      then:
-> >        properties:
-> > +        maxlinear,lane-asp-map:
-> > +          description: |
-> > +            Mapping of the physical TPI lanes A through D to the PHY's
-> > +            analog signal processing lanes (ASPs). The array index ide=
-ntifies
->
-> Are there other lanes as well? Not ASP? What sort? data-lanes does not
-> fit here?
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
 
 Hi,
-I tried to keep it similar to the datasheet, but looking back, a more
-appropriate
-name would be ASP instances instead of lanes.
 
-I am not sure if data-lanes describe what it is fully but I am open to idea=
-s.
+any news here? This patch looks to be stuck, can someone please
+give it a look?
 
-Regards,
-Robert
+Thanks,
+Andi
 
->
-> > +            physical lane A, B, C, or D, while its value identifies AS=
-P A, B,
-> > +            C, or D, encoded as 0 through 3. Each ASP must be mapped e=
-xactly
-> > +            once. Omit the property to retain the hardware reset mappi=
-ng.
-> > +          $ref: /schemas/types.yaml#/definitions/uint32-array
->
-> Best regards,
-> Krzysztof
->
-
-
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+On Mon, Sep 07, 2026 at 10:59:18AM +0200, Janusz Krzysztofik wrote:
+> DRM CI consistently reports failing device reset attempts on Intel DG1
+> discrete graphics adapters.  Manual reproduction attempts allowed to
+> narrow down the scope of that problem to a specific revision of that
+> hardware, SKU 8086:4905.  It has been confirmed that both reset methods
+> claimed by the device, i.e., flr and bus, suffer from that issue.
+> 
+> Since consecutively failing device resets may lead to system hangs,
+> disable both useless reset methods.  A respective CI test will then be
+> skipped instead of aborting whole CI jobs.
+> 
+> Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/11814
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> ---
+> v2: Fix commit description wording (Andi)
+>   - add Suggested-by: tag missing from v1,
+>   - add collected Reviewed-by: tags.
+> 
+>  drivers/pci/quirks.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index de9bbccda21fd..e55475374c6fd 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005, quirk_no_bus_reset);
+>   */
+>  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_reset);
+>  
+> +/* Intel DG1 0x4905 may not recover from bus reset */
+> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_reset);
+> +
+>  static void quirk_no_pm_reset(struct pci_dev *dev)
+>  {
+>  	/*
+> @@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
+>   * AMD Neural Processing Unit 0x1502 0x17f0
+>   * Intel 82579LM Gigabit Ethernet Controller 0x1502
+>   * Intel 82579V Gigabit Ethernet Controller 0x1503
+> + * Intel DG1 Discrete Graphics Adapter 0x4905
+>   * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
+>   * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
+>   */
+> @@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
+> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
+>  
+> -- 
+> 2.54.0
+> 
