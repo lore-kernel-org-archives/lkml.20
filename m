@@ -1,168 +1,111 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6154248C411
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4827C371049
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855665; cv=none; b=P3EO02vc0wOIxkjuTpBkFG96UcUR3RKiyCudT4xf4GdJwXhQkRBUzzwZJvUzUkOSwsSC5xY0WT7AnsYCICPq+GlHzu1joRk5bc+KCVFjZ2CdMf/Imd9zzqxlIprApTWp2UqjEjEV0YJPwdGNcEH1/koe1xRCT9S7nGNogcT84II=
+	t=1790855677; cv=none; b=lgTnUKSkOnknCJF08ZUaZ0cBsEg1fKDObLZlLWHgHXTUCtIqnVNQbvIBB+SnhfWnR9aymYckbyhlvUML4+9r+4Zn9owHdiuueu1kr6MDdfFTU9tC95MMCuQpgmzu2ivfdMUlkG2+xViTogOnjRbcGkcFrLcbLMNjU4711Sj8erY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855665; c=relaxed/simple;
-	bh=vrWngMnEwFlwYMg/O0oxdbK96JFu/6/RxmEiy4BLLIs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UEGb6gfS+wm5p6gVsLvW54kdqsPQZ58UveQA54qTMvrAxM/owXjoT3GeQRutMyemRLJD8hHRWjoPqY4WxbIroOAJUhL16OPQcyAc8ivaVLaKU+mE+EPTFLpaKkEC/C/QLKRGvuwvdSK7y7hx7j7P3kKZKia99i8yQ8bPQz8cSx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jb/1o05v; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790855677; c=relaxed/simple;
+	bh=xTnrOATJyRY/t1BaZ1/rZxgk2urH6TavcD2eYZ2/x8k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=olaVQXLmKJKDCnRgwowjWKTgOV/Kb2aX4VxxweF+WEzuCFLIanDdfP5J/HxQiU0Fyap6PVZh5KW3WPhpbfRZJjDSOzwxz1xgGXns5lb/msgfnagu+uTVn5PCx0TaTJL1yDdV6QWlwR7CBUdRttZC4Z9HyP8hkBV3LNnPnzX8C7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bV1j9neZ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jb/1o05v"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175eBK1119381;
-	Thu, 1 Oct 2026 11:53:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=AM5/kk
-	iDnPkkN007F7bZwVMu40gWfmJpauZ1LAygkmk=; b=jb/1o05vfyTKYeEL4WVrWr
-	5iIr8CTmrc8TMrdulN0f8L6z630IWQIGEyvagjKhcxBhDqKj9RLu2eF4xO7ySHMr
-	aP7/3vYxluS2GVNH9PA+oUzEVmm2pnZoqoSKWl501VnY3Uz30JLAlFeZtS7vqRBb
-	1KMXg7p05OtTWLZ65pvNoPQCX9CoHWOA0G1/H7I45gcWmlIIUI5tXtKF2IzB8u9y
-	vW1DLgWOvYtQEHAVjwk9hDiq2RVifXcUQV1/QYgEH4vtWkhQfv8WzhEiHjyAO7vM
-	012UXKOMAV5utE0xpZwEt54W8cbHjO5cuQY5VgVMU9kVv+k3mlFUtsMIsoRuSTrA
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j5k2td-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 11:53:58 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 691BAF9s589661;
-	Thu, 1 Oct 2026 11:53:57 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h1aa7tqf6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 11:53:57 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691Brre542336570
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 11:53:53 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B295620043;
-	Thu,  1 Oct 2026 11:53:53 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3D80320040;
-	Thu,  1 Oct 2026 11:53:51 +0000 (GMT)
-Received: from [9.123.5.233] (unknown [9.123.5.233])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 11:53:51 +0000 (GMT)
-Message-ID: <2a75097f-6b49-456a-bfef-d5e559ce719a@linux.ibm.com>
-Date: Thu, 1 Oct 2026 17:23:50 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bV1j9neZ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so29436665e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:54:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790855671; x=1791460471; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xTnrOATJyRY/t1BaZ1/rZxgk2urH6TavcD2eYZ2/x8k=;
+        b=bV1j9neZpe4L/wJrqRACbO9er+NpmsHxNAzfUYcvMr0sAgLFRQVUoQhoIeqGp+TCOQ
+         LrNUBYkbYZKC+9Wkcti741WrgaMIcXvqJ60iqS4zGIHhjdeZ+u/rKHH0BQ4iy/5DEK02
+         OJHMwLkGshD8O5RZiy0a89uIwH8JbsFqh/xuUxAG6iBagCy5JaPuuDq47pv+l/WBZ8gk
+         tIxGo45+pCtsBct1Cys5+AUCd/pZCQ2lB+8aMex0+zPSUtyGU7ChSrwhf3md7Dv2WZcW
+         e/7FS91ium3AzeO5w91ZNVaLGKaNAeqTM26wWirJ9lJ8zTAuFPgJ8WLQNuqZ0J0J5nGF
+         CvNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790855671; x=1791460471;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xTnrOATJyRY/t1BaZ1/rZxgk2urH6TavcD2eYZ2/x8k=;
+        b=cae5XrOb1Sk/vFeyabwFlKpHX5AuJbaucbthoHK2+0M4a6vB9+RmcHjjmH1KfuMzb9
+         BGJLjrMaMa4bFYp9wGShJL0kzZWw8h868mgTPnsXeicBd1uTBjZQSuxEt3NzPakczHi7
+         LA9hGRzxkboFBqKdthE4iu3dCeS21Frg1v73YOlK78eaI3B8xp1lGkeqtNVsSy0vUQUC
+         z7Ljhz2VAp4AAyjJ8dHc4xQbEyFXlQh4o2ivy5YkBiO24MIFQRzDJ9TCg2Gkfsyotude
+         327kDg1CLs3jsZORCkYMv8rotyFsYdldnwQ50+CeyxmL/Pyqinv1p4Ifsq1FesmmtMk4
+         Wqgg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSt5TYwTS5whVTzO4AQZWFomfjBBrkT00DVrkkK0b2l+kh9eHgN2Kchtlc3MZWpHmwEj4WD+QhKr/5ctw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHTT3d7i30h/BuIKkzDh4qxzkwlHBR1TEQiR7kQVimsr1RALtO
+	K1EozSI1ag0qCMhGza9M1VCBO2l6kvwauJNXP089jgOjQyX77YMxFqXQ
+X-Gm-Gg: AYBFou2TG3JYai7xrCWdAMlFtNwloJaFgFAR84cJtOZ0UnDYF7qiNmlctxPuzlK6Nk4
+	kuBXhBjELF3cuJgFZ13nWiVTVdI5EbRWM+Uvpsd98Xjo94PBjvpRcm1Kr0W656gniBqKT4QnrBx
+	rJwdXZg5ZDZ/6CLmlhgQ0VkKGcxWvdl/+2MHfyu1hBxBaAyM6uPNLKEsqoT2RhwjbG4MT+hqwLg
+	DnfI3SFjb+JeKtgJ8Fc9HSehnfRlWZ+yjpi+sIV7rEJ/b1DDFfXvyOhos/WsFNwTurIdmnfaFNK
+	UB/Edwg0FcOxZYkX0SsHhOZ1ZDHu1m9xT3fh3bnTzPFNBLyow1cq6RNnGjQ5rP6cBpVtPHjDN+q
+	NK4RDEp5G62Zaz8zZ/Bzru/DJgGbTKlpE/e6E3Nf3VwKvdetbnRLabckaG2pBxCj5P8gEAMLDF5
+	rjnrhZ94SjxISlO2WfWcz7/0sTPjxYlkhyY41t3nuuJBW/bMyFgClJOHIG6mutx4WDDNueImNTP
+	4Fm8SQYn91mowM=
+X-Received: by 2002:a05:600d:864b:10b0:4a0:2dd:7573 with SMTP id 5b1f17b1804b1-4a01b12b666mr53819085e9.33.1790855670520;
+        Thu, 01 Oct 2026 04:54:30 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f220sm68289915e9.5.2026.10.01.04.54.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 04:54:29 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH rtw-next v2 1/2] wifi: rtw88: download the beacon the reserved page was built with
+Date: Thu,  1 Oct 2026 13:54:28 +0200
+Message-ID: <20261001115428.2979730-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001071656.16499-1-luka.gejak@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] KVM: PPC: BookE: Disable preemption before loading
- guest FP and Altivec
-To: Narayana Murty N <nnmlinux@linux.ibm.com>, maddy@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
-        harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
-        venkat88@linux.ibm.com
-References: <20260928110411.844582-1-sshegde@linux.ibm.com>
- <20260928110411.844582-2-sshegde@linux.ibm.com>
- <9d83e196-4d6b-4be1-811c-eb72527d3cdd@linux.ibm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <9d83e196-4d6b-4be1-811c-eb72527d3cdd@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0NiBTYWx0ZWRfX/8pgtH/Ud1wU
- u/y3VX5GgOqDwFHqk2eYWLuFbpQ8XlKxPmMhveaNx/SkAKaiZaTWTh7FrcpZvAbrI3DHG4bYrqG
- EpmSbB1E7Zqu/xNU3AACthEpowB/KLw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0NiBTYWx0ZWRfXw1RPIUQWrhmB
- 1EoNf31m67poo/99ihEN+nUSknStiVw93SK63yCqHx9EEZhF09kKf/PG3Z4kdEZ/zwZX/s3VCY7
- oYL5RvaJ//nyDgiV0/DKjDT4z5ucT8jbm8MKYQrHklZx7NY7Tu2qBwgNQaAuWzrxMN7jZx4uDiS
- fjmIGfolmq+4PPY0SI/qpfTSpN7sXgAS6dvkA7z0veKx+aAe6sTZep2MPxEFhSSmtW8jMbXU/51
- Svc9Hj2vw/h8GBZArntyHS/lT69oM1d7OaPPSzq1CCMc6//5oFAVuhlqxkaGBg9jk2aWLAOI18Z
- VdoWSHlaVQxnANe6t9lMLRl7d7Cg8gvugB2GKxARC0k10xfXf4eyuMyqBG8EM5mQsoeh6U6N7J8
- 5rv9GDs6n0Rn0g2I458F406En6S6UaQIzacTBP8G7sCqkcnwGlltg3p9NHhqfOuCaGM+vtxde81
- mlKsT6e/6bEou7FC71Q==
-X-Proofpoint-GUID: -goUR-A0nxh6fhN1cWHmVSwncqr8OVgv
-X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abe49d7 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=aKqlADSCJPk8I_5TKKQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 81A0Hy3citkg-fWJjm21Qx6wwIF3JUoi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010046
 
-Hi Narayana.
+Hi Luka,
 
-On 10/1/26 4:56 PM, Narayana Murty N wrote:
-> Hi Shrikanth,
-> Thanks for the fixes. I had one question on patch 1.
+On 2026-10-01 Luka Gejak wrote:
+> beacon is written in that branch only, and the caller declares it without an
+> initialiser while the free at the end frees whatever it holds. The first page
+> always takes that branch today, but the caller cannot see that, so a later
+> change in the build would free a stack value. Would you mind initialising it to
+> NULL?
 
-See response below.
+Yes, v3 initialises it in rtw_fw_download_rsvd_page(). That is the only
+caller of rtw_build_rsvd_page(), so nothing else holds the out-pointer.
 
-> 
->> diff --git a/arch/powerpc/kvm/booke.c b/arch/powerpc/kvm/booke.c
->> index 13ad4cf5fa71..5b9118eefe1d 100644
->> --- a/arch/powerpc/kvm/booke.c
->> +++ b/arch/powerpc/kvm/booke.c
->> @@ -1404,10 +1404,17 @@ int kvmppc_handle_exit(struct kvm_vcpu *vcpu, unsigned int exit_nr)
->>           if (s <= 0)
->>               r = (s << 2) | RESUME_HOST | (r & RESUME_FLAG_NV);
->>           else {
->> -            /* interrupts now hard-disabled */
->> +            /*
->> +             * kvmppc_fix_ee_before_entry() marks the software
->> +             * IRQ state enabled while interrupts are still
->> +             * hard-disabled. So disable preemption while loading
->> +             * guest FP and Altivec.
->> +             */
->>               kvmppc_fix_ee_before_entry();
->> +            preempt_disable();
->>               kvmppc_load_guest_fp(vcpu);
->>               kvmppc_load_guest_altivec(vcpu);
->> +            preempt_enable_no_resched();
-> Would it be simpler to move kvmppc_fix_ee_before_entry() after the
-> FP/Altivec loads instead?
-> 
-> The normal kvmppc_vcpu_run() entry path already loads the guest
-> FP/Altivec state while interrupts are still disabled and calls
-> kvmppc_fix_ee_before_entry() immediately before entering the guest.
-> 
-> So could this path follow the same ordering:
-> 
-> kvmppc_load_guest_fp(vcpu);
-> kvmppc_load_guest_altivec(vcpu);
-> kvmppc_fix_ee_before_entry();
-> 
-> That would avoid making the software IRQ state enabled before loading
-> the guest FP/Altivec state, and also avoid the additional
-> preempt_disable()/preempt_enable_no_resched() pair.
-> 
-> Thanks,
-> Narayana Murty.
->>           }
->>       }
-> 
+> The cover says this path is compile tested only. The feature comes from the
+> firmware header rather than from the chip:
+[...]
+> so another firmware for the same hardware can reach it, and this is the path
+> that v1 got wrong. Can it be run once on a device whose firmware has scan
+> offload?
 
-I thought I had put that for discussion after ---, but looks like I forgot.
+Agreed, it should run once. The feature word at offset 0x0c of the
+firmware my dongles load is 0x7 for rtw8821c_fw.bin 24.11.0 and 0x0 for
+rtw8822b_fw.bin 27.2.0, so neither has bit 8, while rtw8822c_fw.bin
+9.9.15 carries 0x1e7. An RTL8822CU dongle is on its way here; v3 goes
+out after the scan ran on it with the AP up, once without a countdown
+(the download must keep the beacon) and once during one (the scan must
+be refused).
 
-I don't mind the above too.  but I didn't have a way to test it.
-So kept it as is based on what Christian said works for him.
-
-If you have a way to test the patches, please let me know.
-We can try that too.
+Best regards,
+Mehmet
