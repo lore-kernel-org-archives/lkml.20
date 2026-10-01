@@ -1,134 +1,142 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7849346A0A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.202
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790834431; cv=pass; b=fLbhe0Typ+nadhVWCLAhm0WZPU4FSSdIYOB/jbUgBpxnkdGTrWQp2gz951LL4dhaY/Vio9dM/8b5vzoiBeYZsA8ge8mKn8d0jxiGMuduTZpxrpcdr+DixTjTF6v47CoSwU5qfZYH39XJnYCBoD+g3hhA/3sv0bRSSVw/lk0U8DQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790834431; c=relaxed/simple;
-	bh=Ea5L+NfGwGW15gGuIzQxh+b2WvHUSCGvR5hc6itnj1I=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=C5bUcmQjF8dHX2i4lWguZlHtcnaZ8ocUGwJRhjJxgftP6gijIeRqzPh2yWPoLFoLogpUZYrTWv2SCd7w3vSWxXhoCT23Rteluhs1zgtWpaKPiPEtEkbQ46GhvLarP1drHXcv8JFEEtQqwnO9VeWIp9wV1+GpPC+izFPGu7szdiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UgiLHK6P; arc=pass smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UgiLHK6P"
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so1197454b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:00:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790834428; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TDgz1c9LurSdnogHFdD4/llKJK4WtXIDeOi4ILmnmKg4mDCQG1blxQVFdkqftyAS/S
-         RpRvYHOdmKbukPid+lCm9UKenFRpjJz9JyL7rQWae1lwy2VOcQONqysw8ziUwVxMgEUM
-         C804+0EyyfLBA5Whv4f8NjBI45ijhasTuL81VzC7kzP1OCiFgDfaYMZvQ3Jn0g0htDhe
-         TyNINj7w8YFEz0X8PfNVaLcBlsJTRHAs/0l8kRORlLoWowll+z5JIkAKoAm2naXXRnBd
-         uI/GaFsFCeQJSFx/r0vLHCOnKdYPIZLplkKCNIMUYogPjYSiOZKXXuaKJ6cFsBmuyB98
-         TVcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=86MBDdoN8+nPFAYYb3eyEgckb6tHnNUv3pn1Zb+pPE8=;
-        fh=0dhAW+wswkB0WX86jAMZmqOjE/3KvtyoW7nlOW7OgfM=;
-        b=cmI177bS9jJWGQBftDSqcaAch5DnnnfxBX4uDDbr3lrljMoI6IerML7lDwpKNI4FJ2
-         qlFWdWjX+LKFZMZV5x9+8gbUvxgcykiT6DS3BBy0X7BkhFJV5ELDQ8HpyPxG7B8WqiNR
-         hJvSEeKYZpqlhXtWDC862Jgtew90Wg/vEibngIK/KhkekBHknPS6RVpuvK4uMAjHnP3Y
-         TFK3EbPvixMMr9FKLXV3eqFyJfDlzS3vU3BD1KbK4kYKlwNni7t+JKaAt9RivtqhURvt
-         frodldt8MZz9KWF534BLtccGnpymFS+WfdcvAq7ea7cDGcGlar3GwsfN654MNKt0vPUH
-         tgCA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790834428; x=1791439228; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=86MBDdoN8+nPFAYYb3eyEgckb6tHnNUv3pn1Zb+pPE8=;
-        b=UgiLHK6PhxSzQIvNG0AKz//Yr+Gj+umBXHHfkF832o28gIeZ1X8LELmmcH/MEaP8RB
-         +CmeL9009CelREWGS0fgOwiUzlBxhV8/QpNKXDeP9to5rj64JyQOizkRfxmyZyuSDJnJ
-         ZS302YC+MqJIJ56QL8Z2d7XWYFZ8iKlWKUACUtlYWPDkXV9GdumaWCnztIUoCVFer/hw
-         8PbS/ffFZjCESBHUs94CW5DNyl4HmEtOnoJdbxdMvkXy4DS1RPRHFiEYafnZqF/eA0Sc
-         ekcPfxcy+0oVGf25q7bh2ciJpJsJsmCv79K6gssJ4PqDcUp4v1yTePVZaKKPLT90VF4E
-         X2Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790834428; x=1791439228;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=86MBDdoN8+nPFAYYb3eyEgckb6tHnNUv3pn1Zb+pPE8=;
-        b=A3lUyDqK7xe5u94xPZ+aLEoDG/YxNONDglPXAVIDNIYHe9LnLV1gC1KpISCoLLbHL1
-         P/2se9/wQ+i/Q5ElpJwSWiPfUNaT11M1pqo6AWGGlAV1vFflz3/scIABYTF1ZY4rYI+G
-         FvudWH2YLE0XG6vHyYfTbKvJiSJFC0QO/RlCKPu+4BUcBWfqd1CTHMwy8brn9UZRMGRW
-         Za4b49c4AvDdiQ1hT3Aj9bdRPad4tnaLMC1JzSsIGz1Dj1wdWKgcWF6h7O/lEs/kM/cV
-         KMN1pU2pb89gwrpW/Tv8JKmWD/3pFddN82f0RbevN4KQryVOVKFf376+vvnGSyfYcAN5
-         cPOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwRpN84OjSwBGgY+kyCsIzagcpeDToSdD9EKhKEDWrgMdfV3hH/xu1Y6zsHAOn22TQjLw5sixNOd1wz7sw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX3lOBDblOtz//Fjbfef7jUMRP+oajKuOgeiQhJxRPnKw4LQen
-	MngC6zhV8SEL0yBj+ovIwgQxkGxVdLeJAyi/zj76mX/hPW7VwmAQ2as0K+rO30/FH3Pece7q39O
-	TFANnz4MrT9vt3ZjvN/NUjv7eR6qs0u8=
-X-Gm-Gg: AYBFou3eJ1BQ8Xu1f1v0tvkAv16100K0s6G9mjj4WLzhWBG8nfcVwo+yn6LmLBX4r+C
-	F4B2x2q3lEGvlVnuHB5tobygLmESiJ3jZwiJhM/mUu9YNwPDJ7r6ck1giSf6KawSOrgNz0ige6i
-	t75a0uK1YYIB3/925LojhtQbFCp3+6xuO9VJpsAwiM6Ag/aKYSWzVA6BxWM3hngFC4cd0+yO5UT
-	BbaeoP/y8Bk3wHrr/m0raGNXakw3yhZfInQIjtQqgei7/DC6ItiPSuVvOeC1rgQsujg0lVAAPHT
-	9Q5kHmvAEXDAeLWdsK82FcktjwPwzFkbLIQnckYAttu60C5wZeGz18ic0ARtm6gw9uPJmyQPONz
-	DJq1bHTLdWA==
-X-Received: by 2002:a05:6808:c2d2:b0:4d6:93e2:5bc7 with SMTP id
- 5614622812f47-4f1b937789bmr4169206b6e.67.1790834428301; Wed, 30 Sep 2026
- 23:00:28 -0700 (PDT)
-Received: from 578479312649 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 30 Sep 2026 23:00:27 -0700
-Received: from 578479312649 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 30 Sep 2026 23:00:27 -0700
-From: Aveline Noir <jm5905938@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAF73793B4;
+	Thu,  1 Oct 2026 06:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790834439; cv=none; b=mA8webArp2XKzn2oMmogj2NKCKdyA9/CPdoTh3EiiokqLhmiiVF/wvQ2gW016KOwk/RH/Au/G50LyTDR8ojpNRdi8lZFWITrD+/Z0iNJl17NUUUvdjfm09/nzmcB0ASc4dYsbFx0+s5aopjLCU9QngkFoFxm7WyAp8OFwXzNuf4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790834439; c=relaxed/simple;
+	bh=fTBzghfiQ6G266t0RzcRm9TGNS3+YrZKvd4H+bWPwxg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VBcbwSGWPespc84WzF+jqp8ia7BRZa1/9hTgAhLBCDSgpCVokHqu3G9NSqqPKRKOaI6JZAtmI7g6RIvy814zOluNt0vfzERrkhe98PkviwwJL899DX3MvCx5onR5chNWasP26JOykSHguBNcezG6l7r9b1PEPIUyLVJxjhpOdP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:54566 helo=[192.168.69.116])
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xC9qQ-00000001W8y-0Rgz;
+	Thu, 01 Oct 2026 08:00:34 +0200
+Message-ID: <37eb1b08-0430-48d0-bac9-88a4a1d8db8c@norik.com>
+Date: Thu, 1 Oct 2026 08:00:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 30 Sep 2026 23:00:27 -0700
-X-Gm-Features: AclHuK-fk3VgJqHBfeBrKPt-2j6Rf7JJ_J_9SFI-Q-5BndDxw9L61bmuFQdGI00
-Message-ID: <CANOyQmFzsssM_BXHUDrV+UuVD5SZMBmSkg3UQnmw9Ns1PV7GCQ@mail.gmail.com>
-Subject: [PATCH] selftests/mm: mrelease_test: fix retry limit
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Michal Hocko <mhocko@suse.com>, Christian Brauner <brauner@kernel.org>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] ARM: dts: imx6: phycore-som: Convert to generic PHY
+ reset binding
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, upstream@lists.phytec.de
+References: <20260930102532.2262700-1-primoz.fiser@norik.com>
+ <20260930102532.2262700-4-primoz.fiser@norik.com>
+ <ar0vxTCkxOg00jhn@SMW015318>
+Content-Language: en-US
+From: Primoz Fiser <primoz.fiser@norik.com>
+Autocrypt: addr=primoz.fiser@norik.com; keydata=
+ xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
+ JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
+ ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
+ gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
+ jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
+ 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
+ TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
+ AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
+Organization: Norik systems d.o.o.
+In-Reply-To: <ar0vxTCkxOg00jhn@SMW015318>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-mrelease_test doubles the child allocation when process_mrelease()
-returns ESRCH.
+Hi Frank,
 
-When size is already MAX_SIZE_MB, the current <= check still allows
-another retry, causing the allocation to grow from 1024 MB to 2048 MB.
+On 9/30/26 17:50, Frank Li wrote:
+> On Wed, Sep 30, 2026 at 12:25:31PM +0200, Primoz Fiser wrote:
+>> The phy-reset-gpios property on the FEC node is deprecated by the
+>> Documentation/devicetree/bindings/net/fsl,fec.yaml in favour of the
+>> generic reset binding on the PHY node itself, described by the
+>> Documentation/devicetree/bindings/net/ethernet-phy.yaml.
+>>
+>> Move the reset GPIO from &fec to the ethphy child node as reset-gpios.
+> 
+> This movement may impact back compatiblity. Any other user use
+> phy-reset-gpios under $fec?
 
-Use < instead of <= so the largest allocation attempted remains
-MAX_SIZE_MB.
+Yeah, good point.
 
-LLM used in discovering bug. Changes were made and reviewed manually.
+I was tempted to convert due to checkpatch warning.
 
-Fixes: 33776141b812 ("selftests: vm: add process_mrelease tests")
-Assisted-by: LLM
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
----
- tools/testing/selftests/mm/mrelease_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Since it's a legacy board, lets keep phy-reset-gpios as is due to
+potential backward compatibility and other unforeseen implications.
 
-diff --git a/tools/testing/selftests/mm/mrelease_test.c
-b/tools/testing/selftests/mm/mrelease_test.c
-index 64e8d00ae944..a5124c9e9f43 100644
---- a/tools/testing/selftests/mm/mrelease_test.c
-+++ b/tools/testing/selftests/mm/mrelease_test.c
-@@ -157,7 +157,7 @@ int main(void)
- 		 * Retry until we succeed or reach MAX_SIZE_MB.
- 		 */
- 		if (errno == ESRCH) {
--			retry = (size <= MAX_SIZE_MB);
-+			retry = (size < MAX_SIZE_MB);
- 		} else {
- 			waitpid(pid, NULL, 0);
- 			ksft_exit_fail_msg("process_mrelease: %s\n", strerror(errno));
+I will drop this patch in v2 and convert patch #4 to phy-reset-duration.
+
+BR,
+
+Primoz
+
+> 
+> Frank
+> 
+>>
+>> Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+>> ---
+>>  arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
+>> index 9070388eecb0..88eabc7af6b7 100644
+>> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
+>> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
+>> @@ -56,7 +56,6 @@ &fec {
+>>  	phy-handle = <&ethphy>;
+>>  	phy-mode = "rgmii";
+>>  	phy-supply = <&vdd_eth_io>;
+>> -	phy-reset-gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
+>>  	status = "disabled";
+>>
+>>  	mdio {
+>> @@ -65,6 +64,7 @@ mdio {
+>>
+>>  		ethphy: ethernet-phy@3 {
+>>  			reg = <3>;
+>> +			reset-gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
+>>  			txc-skew-ps = <1680>;
+>>  			rxc-skew-ps = <1860>;
+>>  		};
+>> --
+>> 2.34.1
+>>
+>>
+
 -- 
-2.55.0
+Primoz Fiser
+phone: +386-41-390-545
+email: primoz.fiser@norik.com
+--
+Norik systems d.o.o.
+Your embedded software partner
+Slovenia, EU
+phone: +386-41-540-545
+email: info@norik.com
+
