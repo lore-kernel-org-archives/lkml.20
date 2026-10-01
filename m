@@ -1,89 +1,101 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BA142FCBE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715E636E46F;
+	Thu,  1 Oct 2026 16:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872800; cv=none; b=bCtHzjABlF1Obq6N/wxtpkUtgZWaLpDzPtB7ex4O9lycIEe2XYgy1L43rvu/LtFaY4xD4tFaKFzyu7t3PSQUI7TjLn4d1vgxEpYayPY+jCWkSr6Tc+95woXt2gbjctd7LOHaPVG0kXcRlsiHvMXk3UzEyChHiZ+vpwuR9cqQmJc=
+	t=1790872870; cv=none; b=jPyiKkabLZhAQhjv+mRWr9TKMEvtmz9yw3nA4KB8ACa6+ugywEupkON9lP3mv851A3fR8k2fPOzRBcTLoxzTG0Ynwol4ef8BgYCnqiybnrt/CZG/YptUSJ8BE18Socf6L1yFtJGXaC2gUy3HyRbxBJaH0HwCDc7aJMuVzB9ogyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872800; c=relaxed/simple;
-	bh=s6+tQTA7eM+scFpAMzrbaCGiLe0m1KsihrjpBh2oaWA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hHQhGxHDjC2fXgZYlkHThy1cLUUEqr+uGk+LskCfYpFnGoX0Ku6BuM/BhtMvPHw0DNBUPKW1bcUFhgGZPJrzSvjGHv0HgD8eYp2lmV25Snfzrmv/Zg6vCHLS+u/SgVUujuLairv0RMScZ5Rt/p0iXwwDj3cIGkaO7jaT4u7iNho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZUWSwCH5; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790872870; c=relaxed/simple;
+	bh=6UefJdn0vBCHGV64Wk+1bs5aMzO1Zx8UIvb1GAVrUAI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uQLoZnfKwKR8pZhUSUhLXMwmSmW0JZiZ2vzDHG5aePDoq0FESm9bCqBw9ruQ13UPC7/uREy5RsYheH7wNfIh4rVcgGpP/5Iu9fDB0/pBj5ekaXtuVFFUzQbYA+QaQBuzi7eulqnsGIlAedf0s0d/ljBFD7ZTrYfyWP7BL8dJRJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=OClwcbqB; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZUWSwCH5"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4BD6B4E4153C;
-	Thu,  1 Oct 2026 16:39:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0A7836035C;
-	Thu,  1 Oct 2026 16:39:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D8161032813A;
-	Thu,  1 Oct 2026 18:39:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790872795; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zqO9wZAcpr/Xip1m0ECW+JKX9OkInYFz8R6jGpSZpwc=;
-	b=ZUWSwCH5hIeRSW7iJp9LnRx2eQDRD3Pe7PvVf9XdlfTJcI6x3efnRyLVl0HbRxMAr+Eire
-	372cp3SSp/9MJ4MqhrNjQrN/acJcaWJQEeKMF154bO8xwXZnzVqqVSCvG9EPofv7JRjo1S
-	Ghb0hKezKZsTSbg+MhGwkm+v56UMSz2zVy9nsE22oqqhrQ0b09Bx9KNLydaJIe4B/ecG5Z
-	b0b2o9/e1t2zY8N6wpOlW/QWLnlbi8loSAuFizHeYVSA1VddXNS4BB09dG+vVVwOU4TtNN
-	r+WBC7sXq735w3W29MIbyh3Zh06u4Us1g2/DJ7vrYatZDu0iXKNZ3TW9Gywbpg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-  linux-spi@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-mtd@lists.infradead.org,  Michael Walle <mwalle@kernel.org>,
-  Takahiro Kuwano <takahiro.kuwano@infineon.com>,  Pratyush Yadav
- <pratyush@kernel.org>,  Steam Lin <STLin2@winbond.com>,  Santhosh Kumar K
- <s-k6@ti.com>
-Subject: Re: [PATCH 0/4] spi: spi-mem/mtd: spinand: Prevent SPI NAND
- continuous reads on am65/am62
-In-Reply-To: <38290328-a562-4813-a9e0-2fafaa3874c7@sirena.org.uk> (Mark
-	Brown's message of "Mon, 28 Sep 2026 16:08:47 +0100")
-References: <20260326-winbond-v7-0-rc1-cadence-cont-read-v1-0-0d626e1dfb2b@bootlin.com>
-	<878qa7dzke.fsf@bootlin.com> <87mrt177km.fsf@bootlin.com>
-	<38290328-a562-4813-a9e0-2fafaa3874c7@sirena.org.uk>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 01 Oct 2026 18:39:48 +0200
-Message-ID: <87cxttml2j.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="OClwcbqB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=CcnbKH72/xakJdn4+pXD8ZcS1KfVTKDmYVimX4BquTA=; t=1790872866;
+	x=1791477666; b=OClwcbqBKuZv4D+pBUnnKTVA9vk+d0AagH9Vg2UvJgMpX3C5mXW+NJTwty0UG
+	Bcym4x9Kxdan3z8jUM+s5mnPxU9/0j6DTSA2Ocv1YXnN6pPhYAfQzh0d5EtDX0UD7hS5nvg+TE74J
+	fh91LCa/oHvGejeSFeQpz79bcMW82iNdGNWhsL4WOr1kpeWqCGjvrcnLAexcmamsfY0Jga9TdHmDD
+	8A1NOH2jXrNftztiVwl+JrTuKgKKVqE2TZdf+7E4Dcfdsb62lJv31A9EvPBWHQQnCfdqQLm4b0s+c
+	ZspBOX3X48nzQjX6jiNAhsFZuaSm+dgw6uNEYvDk28Bz8cxImQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xCJqB-00000003Ykz-1Ah0; Thu, 01 Oct 2026 18:41:03 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xCJqB-00000001qgT-0HOx; Thu, 01 Oct 2026 18:41:03 +0200
+Message-ID: <7e991a2c3cc33696ea8d15734b89b67c8bb46f5d.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 0/2] sh: kfr2r09: fix i2c adapter leaks
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Johan Hovold <johan@kernel.org>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
+ <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 01 Oct 2026 18:41:02 +0200
+In-Reply-To: <ar5afD7Sx-hBgTxp@hovoldconsulting.com>
+References: <20260508120601.426115-1-johan@kernel.org>
+	 <aiwtIkdGNMFqJmHk@hovoldconsulting.com>
+	 <06c0871d4999dcb09aeca6bbf6a6eb282147d606.camel@physik.fu-berlin.de>
+	 <anx_ntq7VbbuQtkF@hovoldconsulting.com>
+	 <ar5afD7Sx-hBgTxp@hovoldconsulting.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Hi Mark,
+Hi Johan,
 
->> It seems like the spi bits have not been applied, can you check if you
->> can still apply them? Without these, people using this controller with
->> continuous read capable devices may observe spurious issues hard to
->> debug (due to the CS possibly not being kept asserted during long reads,
->> leading to the continuous read being cancelled by the SPI NAND).
->
-> No, they don't apply to even v7.3-rc1.  I didn't see the immutable
-> branch mentioned in:
->
->    https://lore.kernel.org/r/1FyLxEwWqNFzX@sirena.co.uk
->
-> yet?
+On Thu, 2026-10-01 at 15:05 +0200, Johan Hovold wrote:
+> On Wed, Aug 12, 2026 at 04:13:50PM +0200, Johan Hovold wrote:
+> > On Sat, Jun 13, 2026 at 07:11:02AM +0200, John Paul Adrian Glaubitz wro=
+te:
+> > > On Fri, 2026-06-12 at 18:00 +0200, Johan Hovold wrote:
+> > > > On Fri, May 08, 2026 at 02:05:59PM +0200, Johan Hovold wrote:
+> > > > > The kfr2r09 platform setup code fails to drop the references it a=
+cquires
+> > > > > to the I2C adapter.
+> > > >=20
+> > > > > Johan Hovold (2):
+> > > > >   sh: kfr2r09: fix i2c adapter leak on USB gdaget setup
+> > > > >   sh: kfr2r09: fix i2c adapter leak on serial console setup
+> > > >=20
+> > > > Can these be picked up now?
+> > >=20
+> > > I will try to review some patches this weekend.
+> >=20
+> > Any chance to get these into 7.3?
+>=20
+> Can these be picked up now?
 
-In theory you should have received a request to merge
-the immutable mtd/spi-mem-cont-read-for-7.2 tag some time ago:
+Yes, I'll pick them up for v7.4. I have already reviewed and merged
+some patches for v7.4. I need to perform some more tests but yours
+should go in with v7.4 as well.
 
-Subject: [GIT PULL] spi-nand/spi-mem changes for 7.2
-Date: Tue, 05 May 2026 17:17:42 +0200
+Adrian
 
-But that's not a big deal, I will rebase the remaining SPI and resend ;)
-
-Thanks!
-Miqu=C3=A8l
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
