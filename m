@@ -1,159 +1,166 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916CE4A64D4;
-	Thu,  1 Oct 2026 08:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057314B8262;
+	Thu,  1 Oct 2026 08:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842959; cv=none; b=FvXWbHf44I2QGF6iw1iIb9tn48iWZ8RoiWHCpBQDcROsD0zlUp+bxtRUf7JzDDwx53EtUWTSTnLdYTUK+5haksJAO2HDeXQtr3aCWELGy3HohGUynd+DkaYUVZcl3Oket/E6OtRZv+p4a/qKPEYMZhfAyM0b5RqjcnnE1tQ8GAA=
+	t=1790842972; cv=none; b=nm176AR0ZQEBx0DnsCj9OHuQq07UcA13aNW5rHGpE+dSybqzvQrONWiE3UsW/hiGCeZZo20J8LcsNAjsdSX/YfQtFqPhrLbNzHoPkI5rpEhlcI+k/prSD+prSg98geFViSBpFNqUgPPfWjNbp442HlYPFTvCQ3IS+eLpu5Z+b1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842959; c=relaxed/simple;
-	bh=C6WU5muT4CSMp4ocJ0duZlA1BaH7TSQUNA7vUIHznNU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=a7DD3p7hkd5B7tGHLV3W0cp3a6wnKMUF5pFoVJ5cx3CsOw7kHOg90OxV7fETvJaByInZnIjiMWjwA/to0q6vx9AUT/T9rtBe2IVmMRIV7N7nPJvGRv+LXNq1xhsYQp5ARHhhSzZmNC7lRwZyihttLFTNgSpy2EVbYEhEEJrEvJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GBZ18O/X; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790842972; c=relaxed/simple;
+	bh=+BGYJv/Ec5lmfa8H8S/IhXnRpw8XMU+otzHcScLyKyQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JRgDU7dhlJmAOWkCFIpDPwkwjkJdHhlCx6ItQcpzypBmlrTx1J8qnd4b5Jf1tk5uhj8c5J6gGNNeTVCqdYXbXo01tlqcshDIgEWvmzObdSuMQQ7UvTkWbNlXbAUoWASPlikFodHiBMHHb6dw3XkRqZTNOTAsQBbc7qTvKwbrpmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YDZNOU0M; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GBZ18O/X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790842941;
-	bh=C6WU5muT4CSMp4ocJ0duZlA1BaH7TSQUNA7vUIHznNU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GBZ18O/XugUFmqBfvtJCfJY9cglpmYvAfzqcrJ51HMwt0ilFpNAvQ2pVdywPCg8TY
-	 xO5Rrl0W5b7JPdRRRR5tCymBKwRzZIy0JNrSyl35Q+zYpGcWswivMYfoFmO2nq56gh
-	 lzbM3nh2RleXAjnvknP0al3axziNc1viqGOWybRnmgct89mSNCs0TqFV+2mSiugeu/
-	 VtRXw4TbuO4CShjJMegF0nOIec6Cn9avlRVWAD319IkeUYiu6Dk3yWcc/DSNQSulWm
-	 IJ5/CDLFtrthC9vy8RRRPjVRanm4lokhWrurI2oXlFvM5/mcFRSzC0cDsOkFJaW/fA
-	 4OM5FhszBjb8g==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id F180817E089A;
-	Thu, 01 Oct 2026 10:22:20 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Thu, 01 Oct 2026 10:21:53 +0200
-Subject: [PATCH v13 21/24] scsi: ufs: mediatek: Back up idle timer in
- per-instance struct
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YDZNOU0M"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 13F124E410EF;
+	Thu,  1 Oct 2026 08:22:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D34D160341;
+	Thu,  1 Oct 2026 08:22:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 10F8F103290C1;
+	Thu,  1 Oct 2026 10:22:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790842955; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=fO65BpNoMjprHokkh6R5n/KLjYhKRahGsAa+s7tmcCM=;
+	b=YDZNOU0MpWP7RdrvqFtn8DJTciuoeUSUxV9yE+WRKXFYZiDlxqbNNjFL5NIfczESYjhJ2p
+	Nx8upCxwqqIgYGk/2vMXtEN6tC1gbaRHhGcUQfcNSnkD5T5Ss5o6vhGfucLJb8yrCuewkT
+	645RutDNUKPop4oDkiMJSQigWIkE3plSQbl3+RMkMP0pn5VliHGkm4Q78syjCZfx4f2yyP
+	f7+Uaa5pDU8TQovdbcPCuHFKlPszDzzl1frzuBPPCC6CfjCbUYRt5qwVhbb9qZLZqGPCK5
+	IIr8UCo65tKENlQ13m96GTk2Cl45Y0re4yE6zMhA9g/Z4dDAPtjIpmxx3/u3zA==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 1/4] dt-bindings: timer: Add the Renesas RZ/N1 timer
+Date: Thu,  1 Oct 2026 10:22:21 +0200
+Message-ID: <20261001082225.125956-2-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001082225.125956-1-herve.codina@bootlin.com>
+References: <20261001082225.125956-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-mt8196-ufs-v13-21-60854adab6d9@collabora.com>
-References: <20261001-mt8196-ufs-v13-0-60854adab6d9@collabora.com>
-In-Reply-To: <20261001-mt8196-ufs-v13-0-60854adab6d9@collabora.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Peter Wang <peter.wang@mediatek.com>, 
- Chaotian Jing <chaotian.jing@mediatek.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
- Stanley Jhu <chu.stanley@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790842918; l=2715;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=LlUuqdMlsNSEAOOJ4/R3q2PAm+kuC3zJ+NW1oJaqskg=;
- b=83kswAUplS5vDKZDeo9N/mk0Kumq/zqqD0IET02wxfXVVIXki+oqbeiQl2GQYR5aGN566Bvcj
- HbBWZJauSePCB2hKvVjvnbZFD0jVdMucKCm+H/uOrYInq0wo2eHC7c0
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+The Renesas RZ/N1 timer block controller is the controller in charge of
+timers available in the Renesas RZ/N1 SoCs family.
 
-The MediaTek UFS driver uses a function-scope static variable to back up
-a hardware register across a power change in the
-ufs_mtk_pwr_change_notify function. This is dangerous, as it's only
-correct if only ever one instance of the driver is loaded, which isn't
-true if there's more than one device on a SoC that needs it, or it
-otherwise gets loaded a second time.
+This controller handles 8 timers:
+ - 6 16-bit timers
+ - 2 32-bit timers
 
-Back it up into a member of the host struct instead, as this struct is
-per-instance. Rework the function to not use a pointless "ret" local as
-well.
-
-Fixes: f5ca8d0c7a63 ("scsi: ufs: host: mediatek: Disable auto-hibern8 during power mode changes")
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Chaotian Jing <chaotian.jing@mediatek.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
- drivers/ufs/host/ufs-mediatek.c | 19 ++++++++-----------
- drivers/ufs/host/ufs-mediatek.h |  1 +
- 2 files changed, 9 insertions(+), 11 deletions(-)
+ .../bindings/timer/renesas,rzn1-timer.yaml    | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
 
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index 1b5f8c2596f3..de3e0b5b50f7 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -1456,27 +1456,24 @@ static int ufs_mtk_pwr_change_notify(struct ufs_hba *hba,
- 				enum ufs_notify_change_status stage,
- 				struct ufs_pa_layer_attr *dev_req_params)
- {
--	int ret = 0;
--	static u32 reg;
-+	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
- 
- 	switch (stage) {
- 	case PRE_CHANGE:
- 		if (ufshcd_is_auto_hibern8_supported(hba)) {
--			reg = ufshcd_readl(hba, REG_AUTO_HIBERNATE_IDLE_TIMER);
-+			host->ahit = ufshcd_readl(
-+				hba, REG_AUTO_HIBERNATE_IDLE_TIMER);
- 			ufs_mtk_auto_hibern8_disable(hba);
- 		}
--		ret = ufs_mtk_pre_pwr_change(hba, dev_req_params);
--		break;
-+		return ufs_mtk_pre_pwr_change(hba, dev_req_params);
- 	case POST_CHANGE:
- 		if (ufshcd_is_auto_hibern8_supported(hba))
--			ufshcd_writel(hba, reg, REG_AUTO_HIBERNATE_IDLE_TIMER);
--		break;
--	default:
--		ret = -EINVAL;
--		break;
-+			ufshcd_writel(hba, host->ahit,
-+				      REG_AUTO_HIBERNATE_IDLE_TIMER);
-+		return 0;
- 	}
- 
--	return ret;
-+	return -EINVAL;
- }
- 
- static int ufs_mtk_unipro_set_lpm(struct ufs_hba *hba, bool lpm)
-diff --git a/drivers/ufs/host/ufs-mediatek.h b/drivers/ufs/host/ufs-mediatek.h
-index 6b81c8f76201..1fa14a83e8cd 100644
---- a/drivers/ufs/host/ufs-mediatek.h
-+++ b/drivers/ufs/host/ufs-mediatek.h
-@@ -188,6 +188,7 @@ struct ufs_mtk_host {
- 	u16 ref_clk_gating_wait_us;
- 	u32 ip_ver;
- 	bool legacy_ip_ver;
-+	u32 ahit;
- 
- 	bool mcq_set_intr;
- 	bool is_mcq_intr_enabled;
-
+diff --git a/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+new file mode 100644
+index 000000000000..7218c0c2671d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/timer/renesas,rzn1-timer.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Renesas RZ/N1 timers
++
++maintainers:
++  - Herve Codina <herve.codina@bootlin.com>
++
++description: |
++  The Renesas RZ/N1 SoCs timers block controller is composed of 8 independent
++  timers.
++    - 6 are 16-bit timers
++    - 2 are 32-bit timers
++
++  Each timer has its own interrupt line and can work in either one-shot or
++  periodic mode.
++
++properties:
++  compatible:
++    items:
++      - const: renesas,r9a06g032-timer   # RZ/N1D
++      - const: renesas,rzn1-timer
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: APB internal bus clock
++
++  clock-names:
++    items:
++      - const: pclk
++
++  power-domains:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 8
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - power-domains
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/r9a06g032-sysctrl.h>
++
++    timer@51001000 {
++        compatible = "renesas,r9a06g032-timer", "renesas,rzn1-timer";
++        reg = <0x51001000 0x200>;
++        clocks = <&sysctrl R9A06G032_HCLK_TIMER0>;
++        clock-names = "pclk";
++        power-domains = <&sysctrl>;
++        interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
++    };
++...
 -- 
 2.55.0
 
