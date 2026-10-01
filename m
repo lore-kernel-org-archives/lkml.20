@@ -1,168 +1,120 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8563E3E00A1;
-	Thu,  1 Oct 2026 09:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2F525D53B;
+	Thu,  1 Oct 2026 09:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847258; cv=none; b=QbI56u0zIAAEqrkE5tjqa2Rmswf5mQ2Axo0YcmwQha9eQIcSwv6TB+cHE5EfE7EmC1KUCz6c6Fqmw4HX3umsqxbgHEU3HBzGhiSNnwE93teK29ksVcuo7kIhAZAKSd9HkJQuRmgQM5nUbyYRIKA9yL9gWGm0Ti9+44bZtTx9n+0=
+	t=1790847278; cv=none; b=RKUxJiYxxfzbP3BEV2yzMIQ2KaV4OLII3JV9kXv1IBI+z5nqLpFgZ+VM4X73BSlIkLGrJ1QmBtdxY9fXSUPPtVAkpNSYKVRqQLZRKa3U2cCCH9GL9JwYpN4n7V2N7OgulGr4HkLP6/U6F4SXkuTfe+7Jj14H+JTHUaW4iw0lwss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847258; c=relaxed/simple;
-	bh=1zrhDKNmu636ji5kFIjsspTp01sRMrCi4IOadjuNaHM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sQ+LFMTB+OBVMlJOXoOaCQ/ZFhX0Sk1S8+0SD1QVVkF5CzMbQ9t3SaZwP/XPnDar2gC36I6RXKPfD+1bGuKo0QA6WJpXN95a2CyBIDbiqHakEihZtBAM6RK2cxPrk8yvX4Yi3VlFU9ZVjbnRqveauIYdttiVCNDpCrXSz5/Q5+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eKHxwRgs; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790847278; c=relaxed/simple;
+	bh=hQYZDHQMcbw/d8KXo+HpSMl5noUx9NArgKqldP3vg+0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hnUf6BArVZl59Zb3lqg/yD56LMdWcidpsmhwpiPPjE71uDxKM5s2z4UyiMOwmfgcrQj8xhyxgjOo/VV6I/YDkEg5SkAEb+/nkWXfzLjUZYwrJTTRQOsOK8I3SV3njPEidS++VFJ388KnBzP1m52q+1oGSMBdnQGOqJOLk3tHENU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YoWAbQxq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eKHxwRgs"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87E32497;
-	Thu,  1 Oct 2026 02:34:12 -0700 (PDT)
-Received: from [10.57.54.170] (unknown [10.57.54.170])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CAA703F86F;
-	Thu,  1 Oct 2026 02:34:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790847255; bh=1zrhDKNmu636ji5kFIjsspTp01sRMrCi4IOadjuNaHM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eKHxwRgsFLwuLhOef3kDJKGvaJxbwEY9GEebLqGc0Nmqyfzm1AfZ5WhNhm+smOwyh
-	 +cE/EkmEfoc4IB1exw347qcu3IIOnHAUdOqOGt3sZZDxafbxRhvAztatI8nLFIjrEl
-	 2EXbxy8FTS1+GoGL8dCflHfm2XEswdw3325mH/a4=
-Message-ID: <0494fd68-2b73-4bbd-b013-7d1e79fdf01a@arm.com>
-Date: Thu, 1 Oct 2026 11:34:12 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YoWAbQxq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0921F000FF;
+	Thu,  1 Oct 2026 09:34:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790847276;
+	bh=CrzPDLLP2wDEefnTNd8ytoRC5YCbDnBS8U835v19rQw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YoWAbQxqx7mS7tZ3iLUsaHfuc8lacD5ocD1C0l9grTfWRVXUzHT5iNjN+sXwzm8Mu
+	 khZM9hmptKZ4ROO02hAVdGZysW2OdIMMk1i20PRkBmeeJQcpRmhmRrZ24fgnZ23YLx
+	 QsEkhZ2isAR+c4RlCwEgXOKjQSw/QN/0Qgp3OELE=
+Date: Thu, 1 Oct 2026 11:34:30 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Eric LI (Honggang)" <eric.lee0305@gmail.com>
+Cc: Hungyu Lin <dennylin0707@gmail.com>,
+	Andrei Khomenkov <khomenkov@mailbox.org>,
+	Khushal Chitturi <khushalchitturi@gmail.com>,
+	Ethan Tidmore <ethantidmore06@gmail.com>,
+	Oskar Ray-Frayssinet <rayfraytech@gmail.com>,
+	SeungJu Cheon <suunj1331@gmail.com>,
+	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
+	Jennifer Guo <guojy.bj@gmail.com>, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: refactor xmit_xmitframe
+Message-ID: <2026100121-chirpy-stomp-9fbe@gregkh>
+References: <20260924151606.333467-1-eric.lee0305@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] arm64: smccc: add cache clean/invalidate IDs and
- return codes
-To: Srirangan Madhavan <smadhavan@nvidia.com>, mark.rutland@arm.com,
- lpieralisi@kernel.org, sudeep.holla@kernel.org, conor@kernel.org,
- jic23@kernel.org
-Cc: catalin.marinas@arm.com, will@kernel.org, treding@nvidia.com,
- jonathanh@nvidia.com, bence.csokas@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org
-References: <20260910082142.1522865-1-smadhavan@nvidia.com>
- <20260910082142.1522865-2-smadhavan@nvidia.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260910082142.1522865-2-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924151606.333467-1-eric.lee0305@gmail.com>
 
-Hi,
+On Thu, Sep 24, 2026 at 11:16:06PM +0800, Eric LI (Honggang) wrote:
+> Refactor the function xmit_xmitframe in rtl8723bs_xmit.c to
+> reduce the leading tabs
 
-On 9/10/26 10:21, Srirangan Madhavan wrote:
-> Define SMCCC Arch function IDs for CLEAN_INV_MEMREGION and its ATTRIBUTES
-> call, and add RATE_LIMITED/BUSY return codes from DEN0028 for callers that
-> need transient error handling.
+Refactor it how?
+
+And is the output the same before/after?
+
 > 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Reviewed-by: Jonathan Cameron <jic23@kernel.org>
+> Signed-off-by: Eric LI (Honggang) <eric.lee0305@gmail.com>
 > ---
->   include/linux/arm-smccc.h       | 21 +++++++++++++++++++--
->   tools/include/linux/arm-smccc.h | 21 +++++++++++++++++++--
->   2 files changed, 38 insertions(+), 4 deletions(-)
+>  .../staging/rtl8723bs/hal/rtl8723bs_xmit.c    | 43 ++++++++++---------
+>  1 file changed, 22 insertions(+), 21 deletions(-)
 > 
-> diff --git a/include/linux/arm-smccc.h b/include/linux/arm-smccc.h
-> index 4de81848fe2e..2e205320d88a 100644
-> --- a/include/linux/arm-smccc.h
-> +++ b/include/linux/arm-smccc.hARM_SMCCC_FAST_CALL
-> @@ -116,6 +116,22 @@
->   			   ARM_SMCCC_SMC_32,				\
->   			   ARM_SMCCC_OWNER_CPU, 0x10)
->   
-> +/*
-> + * DEN0028 v1.7 defines these cache maintenance functions as SMC64
-> + * because they carry 64-bit memory range arguments.
-> + */
-> +#define ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION				\
-> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,				\
-> +			   ARM_SMCCC_SMC_64,				\
-> +			   ARM_SMCCC_OWNER_ARCH,			\
-> +			   0x5)
+> diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+> index 7f55448d544e..46895b05538d 100644
+> --- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+> +++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+> @@ -231,29 +231,30 @@ static s32 xmit_xmitframes(struct adapter *padapter, struct xmit_priv *pxmitpriv
+>  
+>  				/*  check xmit_buf size enough or not */
+>  				txlen = txdesc_size + rtw_wlan_pkt_size(pxmitframe);
+> -				if (!pxmitbuf ||
+> -					((_RND(pxmitbuf->len, 8) + txlen) > max_xmit_len) ||
+> -					(k >= (rtw_hal_sdio_max_txoqt_free_space(padapter) - 1))
+> +				if (pxmitbuf &&
+> +				    (((_RND(pxmitbuf->len, 8) + txlen) > max_xmit_len) ||
+> +				     (k >= (rtw_hal_sdio_max_txoqt_free_space(padapter) - 1)))
+>  				) {
+> -					if (pxmitbuf) {
+> -						/* pxmitbuf->priv_data will be NULL, and will crash here */
+> -						if (pxmitbuf->len > 0 &&
+> -						    pxmitbuf->priv_data) {
+> -							struct xmit_frame *pframe;
+> -
+> -							pframe = (struct xmit_frame *)pxmitbuf->priv_data;
+> -							pframe->agg_num = k;
+> -							pxmitbuf->agg_num = k;
+> -							rtl8723b_update_txdesc(pframe, pframe->buf_addr);
+> -							rtw_free_xmitframe(pxmitpriv, pframe);
+> -							pxmitbuf->priv_data = NULL;
+> -							enqueue_pending_xmitbuf(pxmitpriv, pxmitbuf);
+> -							/* can not yield under lock */
+> -							/* yield(); */
+> -						} else
+> -							rtw_free_xmitbuf(pxmitpriv, pxmitbuf);
+> -					}
+> +					if (pxmitbuf->len > 0 &&
+> +					    pxmitbuf->priv_data) {
+> +						struct xmit_frame *pframe;
 > +
-> +#define ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES			\
-> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,				\
-> +			   ARM_SMCCC_SMC_64,				\
-> +			   ARM_SMCCC_OWNER_ARCH,			\
-> +			   0x6)
+> +						pframe = (struct xmit_frame *)pxmitbuf->priv_data;
+> +						pframe->agg_num = k;
+> +						pxmitbuf->agg_num = k;
+> +						rtl8723b_update_txdesc(pframe, pframe->buf_addr);
+> +						rtw_free_xmitframe(pxmitpriv, pframe);
+> +						pxmitbuf->priv_data = NULL;
+> +						enqueue_pending_xmitbuf(pxmitpriv, pxmitbuf);
+> +						/* can not yield under lock */
+> +						/* yield(); */
+> +					} else
+> +						rtw_free_xmitbuf(pxmitpriv, pxmitbuf);
 > +
->   #define ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID				\
->   	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,				\
->   			   ARM_SMCCC_SMC_32,				\
-> @@ -305,13 +321,14 @@
->   			   0x53)
->   
->   /*
-> - * Return codes defined in ARM DEN 0070A
-> - * ARM DEN 0070A is now merged/consolidated into ARM DEN 0028 C
-> + * Return codes defined by Arm SMCCC (DEN0028 v1.7).
->    */
->   #define SMCCC_RET_SUCCESS			0
->   #define SMCCC_RET_NOT_SUPPORTED			-1
->   #define SMCCC_RET_NOT_REQUIRED			-2
->   #define SMCCC_RET_INVALID_PARAMETER		-3
-> +#define SMCCC_RET_RATE_LIMITED			-4
-> +#define SMCCC_RET_BUSY				-5
->   
->   #ifndef __ASSEMBLY__
->   
-> diff --git a/tools/include/linux/arm-smccc.h b/tools/include/linux/arm-smccc.h
-> index 63ce9bebccd3..ae5637b3240f 100644
-> --- a/tools/include/linux/arm-smccc.h
-> +++ b/tools/include/linux/arm-smccc.h
+> +					pxmitbuf = NULL;
 
-Why is that? Is there any tool using that? I don't think we 
-unconditionally sync the two files?
+This jumped out at me, why add this new line?
 
-The numbers in the file above match the spec, so for that part:
+thanks,
 
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-
-Cheers,
-Andre
-
-
-> @@ -96,6 +96,22 @@
->   			   ARM_SMCCC_SMC_32,				\
->   			   0, 0x3fff)
->   
-> +/*
-> + * DEN0028 v1.7 defines these cache maintenance functions as SMC64
-> + * because they carry 64-bit memory range arguments.
-> + */
-> +#define ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION				\
-> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,				\
-> +			   ARM_SMCCC_SMC_64,				\
-> +			   ARM_SMCCC_OWNER_ARCH,			\
-> +			   0x5)
-> +
-> +#define ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES			\
-> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,				\
-> +			   ARM_SMCCC_SMC_64,				\
-> +			   ARM_SMCCC_OWNER_ARCH,			\
-> +			   0x6)
-> +
->   #define ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID				\
->   	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,				\
->   			   ARM_SMCCC_SMC_32,				\
-> @@ -182,12 +198,13 @@
->   			   0x53)
->   
->   /*
-> - * Return codes defined in ARM DEN 0070A
-> - * ARM DEN 0070A is now merged/consolidated into ARM DEN 0028 C
-> + * Return codes defined by Arm SMCCC (DEN0028 v1.7).
->    */
->   #define SMCCC_RET_SUCCESS			0
->   #define SMCCC_RET_NOT_SUPPORTED			-1
->   #define SMCCC_RET_NOT_REQUIRED			-2
->   #define SMCCC_RET_INVALID_PARAMETER		-3
-> +#define SMCCC_RET_RATE_LIMITED			-4
-> +#define SMCCC_RET_BUSY				-5
->   
->   #endif /*__LINUX_ARM_SMCCC_H*/
-
+greg k-h
