@@ -1,129 +1,136 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CDA26982C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4A13DA5A3;
+	Thu,  1 Oct 2026 07:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790840122; cv=none; b=PV153Ng0vhiXS3d1iezACRwL4OYISpJckEW8Wi6Utp6ELi4dtcaV9XBpTuDers8BYlDZlaq4PnBKYjn1knpCW1qJZmnnbgdeo13Qs+eQEMzlJi6dLLGYX/syq8B26L3oiyMT6iBleOe0MJK8NZ0OTg9uxigmjzGZZ/4v1NOGVgg=
+	t=1790840260; cv=none; b=Vc5We2QmX71wbDA812Wob8Fl9e1sZucO2ruHE6F2ggSA9wIn6CWT3GIzUUjt1TonnF/R2mRd6D8tW9e893LRl2M7VF4EE3n1+rgfSIHKeuY3aLf7JlYchFI3kwYhXeoM8p9yQCGZBNKR+LJ63/DHU350bLVFYPXswJnMIIRlBic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790840122; c=relaxed/simple;
-	bh=9Ow88ngY/eToV6q2OOUEvhdkMKoiN6ZQlSDSuhIxvjU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gsBOmQjcexot9ZI0j44SN4siMiV7RX6u+BGp+Ed+TwRlPZhBIYt7DSv+29Zxoi8NtUAMIf6m/n4Ivagd86SmKLe/jLvaadzEwFFsxnQqdeigBIL3CVG564VEoYcGYsC6UKcSpAgO08yqNfu1/xPyYxMJW9MzCYXTvucQrdTsYHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=butz.st; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=butz.st
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a00d8bec5aso17118295e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:35:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790840119; x=1791444919;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=b+RBOt3rS/J9etAr3asGin1fc499s7yddsi1unBuAEY=;
-        b=lplPF1bV9SnqBGWJC3oEnrlhGqLAFgPuCwBLp2BRWH0M7Y8qDm9LLyhnoEmBJaSwPL
-         lrBkjIIhiI+GcIUpDvBDrZiI1/w1tfgiZNBNbcQJQZES4jg4zQlHzpObwwKyzH0rJ+oL
-         /EzGw7tX2ww0YIZE0j5H/F0O7CusSnxOQkzl4ypbTuENChCibBIGcsOsATNz2o7fvHrq
-         PtpgxI4zmSOpeAyYFXp/Dh5Uht0c3aL178BGDXsIRiWv6xUH3A62f7uvuSStgC7tqYV6
-         zuxrUxmJyH0ZR6I7YeAz1Rt54XkrSisNrMrEkfYRwyQC3arIqO8B31hOvJjMxtsu3qR2
-         I5NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkME63sFDLbKrYa0vH8LrWkrof0owJVxIy+SCAsgGAxTHhI/bosR0NJRr+Gm486IdZv9ztht+2gsfo04U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAH/5Whu57uwhRiZrWaOk+mZSIChMOBRaeKggd7E2d/h5BCtmC
-	aN23jmtzFczS2G+bqt+XU/OONLQmss/j8hoVlGxsPIvLPAL5UH6SzQTq
-X-Gm-Gg: AYBFou0cbM0D/UpXYKgfbkzVx5FYjgpzJRoCDgdpy+0cofI731LBZWD8H6XGiImR/YY
-	s2OVdlnNLwUqa0PVE8pc07wlqSOv+WZ76MDutlgGfezjfHy+j314c3O5I2Y78XpjKPdIplr9bI9
-	8ZG2rXMQbissgc+BszPI9nDm8uHhK+KKlyGqB627pXJ5E17jc4xm7vqsU6d6RC+14HMqD/opuhX
-	4DLjHL9WV1EIwxBWWAfHbsiAaomjZVw3leEAUmpezyERQl06tZodtxWOhysW6zSu/mF2RWp09eh
-	Dtph46/YRCLR6NTnDoBmJbSl+H13wRFXliAy2chS4DXzg+iPUCVI9bxascWoV6SiwiT25CIg3zR
-	iXNIqpbVMc+rpGAMH8QHvLUDjVBAUNVK6B5W46JfYbhdqX7ckO9J7ODHYq7+JHOfYqg/kA7W3uD
-	QJgmy1+uiBob7csm3S5GDrSx6Cs2WXieBsgQYqxtP0vzfbCpvVsN+RDeJjBnC8hIfJGWo0rCa+x
-	PnB7RYp6kqa3/pfmwRzJRNz9aHee0XCLc0RudXgcEPr6vIdci6hwldosD60ESYHHa9LJpS3O4B8
-	AA==
-X-Received: by 2002:a05:600c:c3db:20b0:4a0:37d:9e21 with SMTP id 5b1f17b1804b1-4a01affcedemr49892375e9.29.1790840119247;
-        Thu, 01 Oct 2026 00:35:19 -0700 (PDT)
-Received: from mac.fritz.box (p200300eee7049d00f14da2a424a76ad6.dip0.t-ipconnect.de. [2003:ee:e704:9d00:f14d:a2a4:24a7:6ad6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f922ac4sm45890045e9.6.2026.10.01.00.35.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 00:35:18 -0700 (PDT)
-From: Stefan Butz <mail@butz.st>
-Date: Thu, 01 Oct 2026 09:35:07 +0200
-Subject: [PATCH] RISC-V: KVM: Don't write MMIO load result to x0
+	s=arc-20240116; t=1790840260; c=relaxed/simple;
+	bh=UiHlbN6JO+38M0NHYQ6YdG919LW3YMtEtW2boekRz8c=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SUbXk1zqk+huuQ3rA+QgxwvmmkC0PbsUg1mLsra/nSAWT9kuv16BYP4rXX6LWaV765IdLOWZMAYI+Z2UpLLp/Sg2VgCa8OnwQA/chAvjEeoUoJJmyCFB+ntw8L9zmUMab295+VIp8PzjcSya94bm74JBgCdZMV6yvJjdh87Lscg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=hRcDw7MZ; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="hRcDw7MZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=kCKep5BKuURXfC25icw8yxRw6hM7YFCvbMlLzOcfVeg=;
+	t=1790840257; x=1792049857; b=hRcDw7MZipLTjJZf7QxldkWFk9yfRjfJKHruB+M4BJKBQE8
+	ynzGVMeknFlicPzH4SKxla0GeFJSWhyvlR/3Y8369Adve4ulm6sliTXz8La8mBmhrNOLYWvyy2qtj
+	1wxNEoV2CmN1t/aZ17dtLTKgioDvI7Xm3RJe/YfdCCuhGXwVks3WZJys3T9ZPOufkH1dIRXAxZqiD
+	4zK2EksgDT3uFP5YBaOqg+ktv/j710OK4HUUvB+WTHN9lDXmjGZ5U6ZJSVnMUFu9q+wL6webeQaJi
+	woRNKXOVluxyQafTdh5OeMcQpHNAISgLmtsmucR0FADiaSaAImc4u8zv6WqUbY7g==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xCBM0-0000000HWrR-2m9Q;
+	Thu, 01 Oct 2026 09:37:20 +0200
+Message-ID: <47ebbd91b4bdb57723be40608349eff9ced1f34b.camel@sipsolutions.net>
+Subject: Re: [PATCH v2 0/5] wifi: add opt-in FIPS exception for iwlwifi
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>, 
+	herbert@gondor.apana.org.au, davem@davemloft.net, 
+	miriam.rachel.korenblit@intel.com
+Cc: ilan.peer@intel.com, emmanuel.grumbach@intel.com, 
+	linux-crypto@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 01 Oct 2026 09:37:19 +0200
+In-Reply-To: <20260930120829.383408-1-jtornosm@redhat.com>
+References: <20260930120829.383408-1-jtornosm@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-b4-mmio_load_protect_x0-v1-1-90515d86f201@butz.st>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrA1kgnHhVUoJMZnUkWokSYsg3
- t20Lj947z8gU2LKMDQHJPpy5rhWYNuAm+z6IsG+GpRUPUqJYuzEsnA072i92VIs5IrZpdBBB4d
- IVisL9b0lCrz/y4/n7fwZ57r+5eA8L7Cnm3N7AAAA
-X-Change-ID: 20261001-b4-mmio_load_protect_x0-5f5fc11ea52a
-To: Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Paolo Bonzini <pbonzini@redhat.com>, Alexander Graf <graf@amazon.com>, 
- Yifei Jiang <jiangyifei@huawei.com>
-Cc: Palmer Dabbelt <palmerdabbelt@google.com>, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Stefan Butz <mail@butz.st>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790840118; l=1161;
- i=mail@butz.st; h=from:subject:message-id;
- bh=9Ow88ngY/eToV6q2OOUEvhdkMKoiN6ZQlSDSuhIxvjU=;
- b=U1NIU0lHAAAAAQAAAZcAAAAHc3NoLXJzYQAAAAMBAAEAAAGBAOJW8yHG2FdKcC8jiWoQyd2Z6
- SNHh+aJB0RLkH7BFF7Yy7MymfE5UJE2mmoucIa3HiNQdlVZjgqLY7wph/VSM4kniDO57IG9Q9jN
- x96oOAzzWWJEVrh8vlxRGXatNy8ywcO9WExvzLop5s2ddP08f0Wrzn/55mpqoLJyoKaIbk10kxz
- JW1GONHT8nsNvBpVB2lnzA2jhv7DC79UlHzA98+sp8eX6kmUips+9LpTJLDeVna8f/vwkU708PI
- Qxt/5nhmFXKj/su/CMFivCLHckdmMOem/4UNoTyRcAbcoFQ9WWyYHvAD/bRuYZVEA2hfoBEQVu2
- FGHdG/OimvbT/GseVmWjiw7WV9HUOJJawVmfoTEJynX9BbV+VNMKZVpW5YaAaps6/KOC7V2bM7P
- hvORUmj3b8eUr418GYC3M4rLJtrj6Vu2cUyTV9Q5dvq9Lg2TIj/jpbEWpOqn2FSGkQcLvcDksNk
- jOSGmdG4h+OJ3vbGrva5UCJF/KIyuV4ozlSU7awAAAAZwYXRhdHQAAAAAAAAABnNoYTUxMgAAAZ
- QAAAAMcnNhLXNoYTItNTEyAAABgNFm4MOaEyzELZNBwbPaVz9/x1KmXNjfSW2SxHyCKpy6XafGX
- BCXcTrwCvg1f/y/bHmlxQanPGKYZp46WedmvlcguZHU4ivCQiw5rnXtH9OxaKHdox/dRhSlUHWj
- SnOPY5e79+yrKjpMK/uzUY16o6I4aIusq/3qQ+mazCVEmx8t3Gt9tIo/y4swzu61Zze/LmMDIjH
- R4pLtYxuWChtgj0HgOU7+oA1yIKWYY31cq4NNXsBDtzVsAxKV/BvmX49yfLB3iqN6oN31Y4srrc
- 5R+hyD54KYZJ1dx6toBBzUnNMtsCaox4R8hIBYAJ04wQ8qnWez7ie4GbLSJu2h1Y/kEqupriFHx
- Yz2fv0TxpEdzXtw8P4pNHAQ0BwVnszRLvbN0ZgNngYbEgdombqJAbfZ2yw9kzRCdiik+NDxCHsg
- 4sdBkUV7/mU+ifx+ZPbsOlkqDb7cvzm+JNnmbH7xaIMoGelqUVTMkTkcVRACC1R67RkpnITYeXV
- 6CnNZONNm2anAHA==
-X-Developer-Key: i=mail@butz.st; a=openssh;
- fpr=SHA256:jcZFBs39daoQJIontO/rJaVachWp/oqTbhNpQk8+REQ
+X-malware-bazaar: not-scanned
 
-An MMIO load with rd=x0 writes the result into guest_context.zero,
-which is never cleared, so later emulated reads of x0 return garbage.
+Hi Jose,
 
-Fixes: 9f7013265112 ("RISC-V: KVM: Handle MMIO exits for VCPU")
+I'm super confused by this, it looks like mostly random code changes to
+not really do anything useful any more ... Nor do the code changes seem
+to actually be doing what you describe.
 
-Signed-off-by: Stefan Butz <mail@butz.st>
----
-An MMIO load with rd=x0 writes the result into guest_context.zero,
-which is never cleared, so later emulated reads of x0 return garbage.
----
- arch/riscv/kvm/vcpu_insn.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Commits 5241526dede9 ("wifi: mac80211: don't send keys to driver when
+> fips_enabled") and 0636800c8ee1 ("wifi: iwlwifi: disable certain features
+> for fips_enabled") disabled WiFi functionality under FIPS mode because
+> Intel firmware autonomously sends some management frames without
+> FIPS-validated integrity protection.
+>=20
+> While this is technically correct, it leaves FIPS-required environments
+> with no WiFi connectivity at all, since WPA3-SAE mandates MFP and without
+> MFP_CAPABLE the client cannot even associate.
 
-diff --git a/arch/riscv/kvm/vcpu_insn.c b/arch/riscv/kvm/vcpu_insn.c
-index adbbb59a0f36..2a8dc2b88ba8 100644
---- a/arch/riscv/kvm/vcpu_insn.c
-+++ b/arch/riscv/kvm/vcpu_insn.c
-@@ -647,7 +647,7 @@ int kvm_riscv_vcpu_mmio_return(struct kvm_vcpu *vcpu, struct kvm_run *run)
- 	vcpu->arch.mmio_decode.return_handled = 1;
- 	insn = vcpu->arch.mmio_decode.insn;
- 
--	if (run->mmio.is_write)
-+	if (run->mmio.is_write || !((insn >> SH_RD) & MASK_RX))
- 		goto done;
- 
- 	len = vcpu->arch.mmio_decode.len;
+Arguably, that's what FIPS wanted. It mandates that you cannot give keys
+to the device since it's not certified, and therefore it cannot do the
+necessary functionality for these connections.
 
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20261001-b4-mmio_load_protect_x0-5f5fc11ea52a
+I can understand why you don't like it, and I guess we can try to find
+ways around it like what you fundamentally seem to try to be doing here,
+i.e. formulate an exception to the policies.
 
-Best regards,
---  
-Stefan Butz <mail@butz.st>
+But I think you should actually formulate the exception that you *want*
+first and then implement it, not randomly poke holes into the code and
+call it done.
 
+> Patch 1: Adds the fips_exception infrastructure (boot parameter,
+>          read-only sysctl, fips_allows() helper)
+
+Not my domain, but I'd argue that design documentation I ask for above
+should somehow make it into the documentation for this parameter so taht
+administrators can actually make an informed decision.
+
+> Patch 2: Gates the mac80211 key blocking with fips_allows() so keys
+>          can reach the firmware for data traffic
+
+This patch is mostly wrong. If the exception is called "MFP" then
+there's no need to pass all keys, and in fact the way you implemented
+it, I don't even see how it doesn't end up with HW crypto after all.
+
+> Patch 3: Gates the iwlwifi feature disabling with fips_allows(),
+>          restoring MFP, Beacon Protection, EHT, 6GHz, A-MSDU sizes
+>          and MLO support
+
+This is also partially wrong - you didn't really understand this and
+just undid everything?
+
+> Patch 4: Best effort to force software encryption for unicast
+>          management frames (CCMP/GCMP). It sets
+>          IEEE80211_KEY_FLAG_SW_MGMT_TX on pairwise CCMP/GCMP keys when th=
+e
+>          exception is active, forcing mac80211 to encrypt unicast robust
+>          management frames (SA Query, deauth, disassoc) in software using
+>          FIPS-approved CCMP/GCMP, the same mechanism used by ath9k, ath5k=
+,
+>          carl9170, mt76x02, rtw88, rtw89, rtlwifi, ... and other drivers.
+
+This makes no sense at all.
+
+> Patch 5: Reduces firmware decryption error message to debug level in
+>          FIPS mode. Same as v1 patch 2/2, accepted upstream but not
+>          yet landed.
+
+That seems reasonable.
+
+I'm not going to reply to the individual patches, but I observe that you
+didn't understand IGTK functionality, WoWLAN, A-MSDUs, or maybe
+encryption offload in general. From what I can tell, your patches are
+mostly equivalent to turning FIPS off for wifi.
+
+I don't know where to go from here. I don't think I'm going to teach you
+all the necessary things here in the context of an upstream review, or
+redo the patches correctly myself. Maybe you can approach Intel over the
+distro channel Redhat has and ask them to help. Which will almost
+certainly end up falling back to me, but at least then we can support it
+and it's accounted for.
+
+johannes
