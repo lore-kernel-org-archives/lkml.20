@@ -1,176 +1,138 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63861330B01
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CDA30C147
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861364; cv=none; b=oiV9J9hG5giwRacfoJkbv6X2tk2eshp7tNRM5xRFpEYCWAZFFetJ59r83x/WrF6+H/kFg1VdWRC7rUtxFNc/56MPK/GWT/mBZB5kincwpWqzq0kT2lUC0BHVacCPc2OTujQOtlnVOqykgKwY2oLXqg5JzQxq0WI0JN1PeW2JCRU=
+	t=1790861438; cv=none; b=jbJCAUHuGNk2OfJQDRp0k3aeSl4eRFdftZWK5/fYIFG+eV0Qnfo2z7/tTsZSa5Jv+3j3osWHwi9Ch7cX+78/wOM1SJD1HABhDtdpV96ZQwW5gcUFQxEku9sgtauVHn2uf0Us+1QCMndoWdCXVEeE7XfbSIxANVHKUQ32HeVrKOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861364; c=relaxed/simple;
-	bh=qhzcIOoY2hosLyVIxdPxsmyEewTnK1YjZA3gz2txs9A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lLsWOKmZueNIVwTwouWbquksDDF8YasqdAX202ZYKRzAAM/zNlkHayUQ49kiMgAl+3ocT26LAKtBMnKKihKlTrlX+rPqvbWs3Lo/zl/x6aHLLwaUqKySyTiG7RX8bGmGfp4E9Hm9IHA1yQY+WfJSn/He3YzGyifh/BTOqjya7ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=RvhAHV0S; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790861438; c=relaxed/simple;
+	bh=LZvJdoqMiLFE1kDgHxNdu2ZkOJ6v87aLJyP7tgfMseo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IXsc7bZ0aGxi5oQYlOmavId43YT0LNTkYACSSuE8Xn0R8AQKQ8yDV180/WyukfC8EKD4Fg4v99e7bW+HwdWZduq9AC6sILrQsv/6ECyX0/jQWlD7aW2vLXR8Ob8y4JSwPbi7l7qo6lSAveleJGFqgwS+j9115NXi2YkvBVBbKrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=udp5xLZ5; arc=none smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="RvhAHV0S"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso59720305e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:29:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="udp5xLZ5"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b104f6aa3so232541f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:30:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790861362; x=1791466162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=djo86y34WOc5FBXQPseI8JTPk4toU7ySXcp+GeD54N4=;
-        b=RvhAHV0S2K/1fncgugK9c9V6+RABQEyMM9IfFhlztnc05JOL1bhrTEOzp8dwA//dgx
-         /kfCXemv7nNkNo5fIQCLLMfwAg3Tf3MYF4IXuXxiumFaL45Kk7So5jJFVAH12SjMYhKJ
-         vVNs4YRQMh/czuLcXOslI/aa9NAjxx6C0Ik3w+evd3BAFo0AjTI7CkRxp7vnA/stbVyF
-         nb/KVPfq2UrKBOLNWaKyHx0eTLA2zOQM2BvuulkQmIB8ubJOZaEOlgZ8tTpd2kotm0vb
-         1dTqGjz4hHP2tTLDglDhS/YS43JCKBVs1DOzbpq6JzCsuZCFkVowatwkPu5O3zvPEaPU
-         aiQw==
+        d=flipper.net; s=google; t=1790861432; x=1791466232; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qVy4e5OGZI4MlIMiZQzW05oIlOjQRJp2AkRb/z+b38k=;
+        b=udp5xLZ5idx/RlGmp0Kq+91EjxG8f8uSpqp8BJM5/bPxl6g1Y8DMhOMCXnG2jU4VJO
+         nIAiP1+mD5eMGx7Q6hbjONA+7RcyePNx5M5Js8kQmREXRiek0wC8gAmx2WGFQwWPuTAh
+         al7ZSlA9w35Zrt8lTbY2AjbeMq+jo0ZDkqWZwF/mjswq9voA6+GVw9rSdA88P0fOqp4r
+         ShEbAw/XeafaOENRAYlOjwptX0PYYqErQ/iv+z7riGzmLl8XYBGZ/MoA91TUN3cFMMnE
+         fWavtvgEtuqookb5EXYiPkpoIq1G6TTpdirLCKbt17xTT/DbyIUWXoPraW/8ulGjjhBX
+         odBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790861362; x=1791466162;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=djo86y34WOc5FBXQPseI8JTPk4toU7ySXcp+GeD54N4=;
-        b=UvgXurK3jdRda1Bz3q+XnK44BFl4ETyH2RkmbWLadnUK9zVvwUiXbdtkxgHiyf+/vb
-         0WJpW4oSbQ8LBTO7bUUIi3RzyX/aPfdPhnRHlVrjvQ4C9v9sfpf1c06wFxr9wtBO/87K
-         4HJE8JNLoB2EllGnikw0FgHrDZ2NsU+xJW545sD5ZqJ/W/QLFB0Tr6LW/e4lEfGPq1iz
-         iVuRV+xiQfUVm1FFrp0CihBAz8gaeGk4DaYSpxKPRyzWeKLQ0kslGnV34Oh2N0EhVrvd
-         TAlXiivojFOJOsZU1Us7zm6MOj5ospuK6agnrDLSsfwS8rlmxp74LWrfCyKhU69r3WbK
-         WrtQ==
-X-Gm-Message-State: AFuF++m0Tjy01643FEHcshtpDQy0mIzfMfANl+FQ6I7Euxcp1IUog4ee
-	Dom9uNLPmtd3CbY8o3jqd9jpTRigVsUwoPG5RNCEzBsVVCz/IoCnb/FkHI2a6v3Y2QU=
-X-Gm-Gg: AYBFou02ykcOdtkVgafq/ImD1AqwALNi3x9qXjGzccm2+ZJ1OMvLRm+XeH9QEOEppmM
-	HyIiDcJsBTvhoQIKtHdc1AlWJU19e6R5EReYfrGjksJIiJkwO5C3m7GzH8tKzxlghEUGcX+k0zC
-	mZl8sByIZwD/vY669CBWTnNOySOu+Lzug22DkMAo1Fr0/DVZ0DlVa+UJPnjUuOL/j7+MiwOittW
-	SMtOntaPGNJANvHVbYvk6t52dHSIrw5uE/72BqVt+4mq4CqDLpjbZKYIWbRzJrOGIwBPLBQSR1f
-	GFCbjV9TktAeYUKlv0+A677/wTW5z2LxCkSzPHZvazwN825HcWjTUkiMvCwSHkiaG9bvliJspU4
-	O8DIaWlrfGNr5YMuUiL3qQcNnG4UISbim9saIyrEfgKBmOsnO9bmqMXRn4ulytOh+ZQVm5y256L
-	vSf09bKNzjGyLMm2E9TqrO1CLXtWyka6Y6WcxzZ/BD2CxWYqe/soi0UCCLG1cbvu5H1wjpcr+uL
-	9kSAafPVkdVExxLYGyYU9UnmgA4
-X-Received: by 2002:a05:600c:3486:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-4a01ad9847amr74558815e9.1.1790861361167;
-        Thu, 01 Oct 2026 06:29:21 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.thefacebook.com ([2620:10d:c092:500::6:7dd1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a024a85409sm25779795e9.15.2026.10.01.06.29.19
+        d=1e100.net; s=20260707; t=1790861432; x=1791466232;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=qVy4e5OGZI4MlIMiZQzW05oIlOjQRJp2AkRb/z+b38k=;
+        b=gcnf2/EsCC73CPY55m/r9JcdI7weilVNi44CfxooXWAmGY19DEG+Cbh3O0+AXIJuy7
+         5yJcsgkhDyeD3OAQD47bF4IkD5B8UyID6GxEeEkPi/nuLpQ2qgjlPzLoSqfCZkDwLHfy
+         Yh9LR4yy+FonbVcL9YroYPL0fu/3SXq2QC9HDzvdatqEr0i6lT0Szxr4NSOHuxDlcLQy
+         bMM3GoIDEEAwaFCvTvA2mlk25TGdppqi2otoa7nuN5xg5fkJzrpNxbc996y4ipts60zt
+         j2Brg/f1DoPY7s87qDSIU+7T3VGqCrbnWkPYERve1Vi+OQEKjTfqwDN+i0u+jDHmiMRs
+         FiwQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhFJJUTXadT809GHuyIsKFV8/SzxSlpfKQPGN2tR/hqENKr22b54Ri737PzghhXf4Xvx9vo0xswfth/gE=@vger.kernel.org
+X-Gm-Message-State: AFuF++llZvCQS8xvX7S3QQxYXFy6DRF5EcilCKxC4/Fs8WaL807gTfDi
+	slQq2ictfc1kvuTwuG9EITpXfoNJnYqxXfrXNQKzvVTcjVYcgJCmEVEh3CtfhoPRz8Cwx4CEB7U
+	csTuxELBWqA==
+X-Gm-Gg: AYBFou3AMiRu3IrQWo2DgQrb2bkwgamv44NmEj440ftOQJ0ZKoeolli1U99ZK9kE3jX
+	uPmt8ulff5qWvaHYmnZ5WoHaEbRs2xptpjFbtBetEYZ4dyjn9y71+4j/orWrWoWKC8SEfGHlfOJ
+	NSI+4PozxPPua/ShQ8fHulTJRZ53+3RQrlJFpiT6PnBMcSvImEiWCp02LuIT397m+tnC65c9a43
+	QJ1g/UTVQuWr56NBnf4hWoBRoeKs01F5E7boNKEkZelATn2tWgJrCKMCEZGYlfRWx0mchMNPswY
+	hKcIEoEmwOaZ3i2tIqW0WUkBJIiQTitWu4x+hKmIXd/lm06KRAdhtjiiGck1aIGMjEUN3R6udGE
+	SujOxOlcwEn5pW+311DPO+F3pPXttWY78cjh3MmMhPtZJGx8Hv9jEWf+1x4Ag3iU2qi+AU5LLou
+	KSKB8hwwVnLYNYiC3abgNSjnov+K5aYcIwv2X9JZv4O8dtAnZqxhZnV0imCaNerwwk1Ge331q6x
+	+F0NrXG+MCIKlk4
+X-Received: by 2002:a05:600c:46d0:b0:4a0:1a18:b742 with SMTP id 5b1f17b1804b1-4a01ad909e9mr83128855e9.2.1790861432366;
+        Thu, 01 Oct 2026 06:30:32 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.93.183])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0267ab7efsm1603395e9.2.2026.10.01.06.30.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:29:20 -0700 (PDT)
-From: Gregory Price <gourry@gourry.net>
-To: david@kernel.org,
-	linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	matthew.brost@intel.com,
-	byungchul@sk.com,
-	apopple@nvidia.com,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hannes@cmpxchg.org,
-	shy828301@gmail.com,
-	osalvador@suse.de,
-	raghavendra.kt@amd.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 4/7] sched/numa: separate VMA placement from scan continuation
-Date: Thu,  1 Oct 2026 09:29:13 -0400
-Message-ID: <20261001132913.486570-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <e1728faa-5d50-48af-8ba0-5098be9124eb@kernel.org>
-References: <20260930112206.205083-5-gourry@gourry.net> <e1728faa-5d50-48af-8ba0-5098be9124eb@kernel.org>
+        Thu, 01 Oct 2026 06:30:31 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 01 Oct 2026 17:30:23 +0400
+Subject: [PATCH] mfd: bq257xx: Mark self-modifying BQ25792 registers
+ volatile
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-bq25792-volatile-v1-1-cb3d4ec8a414@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDQAxA4atI1g5MUqZqryIuNEaNiD8zKgXx7
+ p22y2/x3gVBvEqAV3KBl1ODLnMEpgnwUM+9GG2jgSw90Vo0zUYuK8icy1TvOomhll3+cJgxMsR
+ s9dLp+7csq7/D0YzC+/cD9/0BwFAEBXQAAAA=
+X-Change-ID: 20261001-bq25792-volatile-2dc583517c1c
+To: Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1778; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=LZvJdoqMiLFE1kDgHxNdu2ZkOJ6v87aLJyP7tgfMseo=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtSyidG+MSuFVlk8ieF78spmwt3XHkQPAmS/0DSl9kI
+ qWPnM6q75jIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DI10jHWMGLg4BWCqe9oZ/tnvSH0YLuSVvK1mllLKjcwi/kN/GZ/M32yvFzfp6crtxZKMDEvOf9O
+ 86KsXnPZwIcv5BLObHeuuTrOI1Duw5OO/aaHTDJgA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On Thu, Oct 01, 2026 at 12:44:50PM +0200, David Hildenbrand (Arm) wrote:=0D
-> On 9/30/26 13:22, Gregory Price wrote:=0D
-> > -static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struc=
-t *vma)=0D
-> > +static bool vma_needs_placement_scan(struct mm_struct *mm,=0D
-> > +             struct vm_area_struct *vma)=0D
-> =0D
-> mm can be had from vma->vm_mm, so likely sufficient to only pass the vma?=
-=0D
-> =0D
-> Apart from that this looks much clearer to me=0D
-> =0D
-=0D
-ack. agreed.=0D
-=0D
-If nothing else comes up on v4, could you please fold the fixlet below?=0D
-Otherwise i can spin a v4.=0D
-=0D
-should be conflict-free with a git am -3=0D
-=0D
-~Gregory=0D
-=0D
---- >8 ---=0D
-=0D
-Subject: sched/numa: drop mm argument from vma_needs_placement_scan()=0D
-=0D
-The mm can be had from vma->vm_mm.=0D
----=0D
- kernel/sched/fair.c | 6 +++---=0D
- 1 file changed, 3 insertions(+), 3 deletions(-)=0D
-=0D
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c=0D
-index 3b30786ded3b..095289d3da3c 100644=0D
---- a/kernel/sched/fair.c=0D
-+++ b/kernel/sched/fair.c=0D
-@@ -4082,9 +4082,9 @@ static void reset_ptenuma_scan(struct task_struct *p)=
-=0D
- 	p->mm->numa_scan_offset =3D 0;=0D
- }=0D
- =0D
--static bool vma_needs_placement_scan(struct mm_struct *mm,=0D
--		struct vm_area_struct *vma)=0D
-+static bool vma_needs_placement_scan(struct vm_area_struct *vma)=0D
- {=0D
-+	struct mm_struct *mm =3D vma->vm_mm;=0D
- 	unsigned long pids;=0D
- 	/*=0D
- 	 * Allow unconditional access first two times, so that all the (pages)=0D
-@@ -4313,7 +4313,7 @@ static void task_numa_work(struct callback_head *work=
-)=0D
- 		 * VMA candidate exists. If a scan is already in-progress, finish it,=0D
- 		 * but track continuation separately from starting a new one.=0D
- 		 */=0D
--		placement_due =3D vma_needs_placement_scan(mm, vma);=0D
-+		placement_due =3D vma_needs_placement_scan(vma);=0D
- 		scan_started =3D mm->numa_scan_offset > vma->vm_start;=0D
- 		pid_scan_allowed =3D vma_pids_forced || placement_due;=0D
- =0D
+Some BQ25792 configuration registers change without being written: input
+source detection sets VINDPM and IINDPM at plug-in, plug-in also clears
+EN_HIZ, the FORCE_* bits clear once their operation starts or completes,
+EN_ACDRV1/2 follow input path changes, and ADC_EN clears after a one-shot
+conversion. Reading them from the cache returns stale values.
+
+Mark these registers volatile, keeping the cache for the rest.
+
+Cc: stable@vger.kernel.org
+Fixes: 9adbe53e32cd ("mfd: bq257xx: Add BQ25792 support")
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+ drivers/mfd/bq257xx.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/mfd/bq257xx.c b/drivers/mfd/bq257xx.c
+index 054342c60b73..01f5fc97f538 100644
+--- a/drivers/mfd/bq257xx.c
++++ b/drivers/mfd/bq257xx.c
+@@ -52,8 +52,18 @@ static const struct regmap_access_table bq25792_writeable_regs = {
+ };
+ 
+ static const struct regmap_range bq25792_volatile_reg_ranges[] = {
++	regmap_reg_range(BQ25792_REG05_INPUT_VOLTAGE_LIMIT,
++			 BQ25792_REG06_INPUT_CURRENT_LIMIT + 1),
++	regmap_reg_range(BQ25792_REG0F_CHARGER_CONTROL_0,
++			 BQ25792_REG0F_CHARGER_CONTROL_0),
++	regmap_reg_range(BQ25792_REG11_CHARGER_CONTROL_2,
++			 BQ25792_REG11_CHARGER_CONTROL_2),
++	regmap_reg_range(BQ25792_REG13_CHARGER_CONTROL_4,
++			 BQ25792_REG13_CHARGER_CONTROL_4),
+ 	regmap_reg_range(BQ25792_REG19_ICO_CURRENT_LIMIT,
+ 			 BQ25792_REG27_FAULT_FLAG_1),
++	regmap_reg_range(BQ25792_REG2E_ADC_CONTROL,
++			 BQ25792_REG2E_ADC_CONTROL),
+ 	regmap_reg_range(BQ25792_REG31_IBUS_ADC,
+ 			 BQ25792_REG47_DPDM_DRIVER),
+ };
+
+---
+base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+change-id: 20261001-bq25792-volatile-2dc583517c1c
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
+
