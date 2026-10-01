@@ -1,88 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3800734F24E;
-	Thu,  1 Oct 2026 01:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E882374758
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790817015; cv=none; b=b020v2YxjCYEiDuQVlC3CqET5WtLhG4IWeKWVNzbWh+kCPNZbJyp7j5Z+kyJV2JcF3WD0MSiO/Z3uZx2ZqMfMwrOI2npaPGFJmRkL61IXqoqZ4sVAaYVnZv4pE7ZaFvBlH6JzAXczjuTuDC1oLWP6ZsC2cPTziF7GyP1ndCQrh0=
+	t=1790817021; cv=none; b=eoi5WgbafyJzo8qQv+wrTc9sBhO9n92yzePlIrJIUvl94QXXHwa/u/NpBIf7h307UbqBjdr/AL3p53K4ht+zU5qZdbAEVrC/S+qK1rIrD7/UtsDArLhuuExhyjOVoGZZPswsuCqJO5XsxZDvEFJC4Qcr9MxpsmNvoX9u7AXrc/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790817015; c=relaxed/simple;
-	bh=g+8LN7aRVEwIB/kJEhZmt4SF+4i3wUn30jchAukfEko=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=SE1o8YMihQVYIUyDT7XKvyf95IwbsrqVY+cwqL8Q1HPqlXWzFptY/K+RehPJVCj1gfZplBUCCpCz4HDT7Vv554OZWpivE+YOPL562y3gKu/+ZSgLWIeLEKPUm0QAWIUsi5VGdfFFLsD8X0lC8N+h4OGqGCvqD5lxAggiZPA7Sa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mW32Rwpx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790817021; c=relaxed/simple;
+	bh=Tq+EEQZZUSkW/OHULP4X5a3jFtNXvLlkqUIM3wN+i+A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QP/hMGsrAHBTDqxflEvAz4xRHbbToaLEC97kIR5qq+9fLtKEFsziasK2WQZNAdEmAErQw1ld8l/y/ghFXXOfabyKLfA/WyZpdg1v+lqBvhJxXsmimeBk6oQ/5ya0ejd1Cg7kqyQzarQdESzrK4XhPI+iih0nnU5mTyNFZ3NY86M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=k6xd6uAN; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mW32Rwpx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44F8D1F000FF;
-	Thu,  1 Oct 2026 01:10:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790817011;
-	bh=5ZzwpWnJAA51L6P5ZLDGxna7Zxy3b1JYMInm0UP1QOg=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mW32RwpxPoDvUcKskTofevvtzVj1EuQYtkZhHB7fGmtZ+Pvky9TQmvgVh3NznO9V1
-	 Ybk8w6XWbVIGhC8tpCZHkkaqV2rS+btG9t13NLHTln5C329Fcyxi86DFkUk/4ou0uF
-	 BFA8vHTSrYkuZzrLTaENU8eGrrPWeMkBJaikzO+Eo+zVitfU7gWQzrNd/rIRl723eJ
-	 fDwHZe2NGqoD9XSf6W6SeqVW1+87AHv58YyRvM5+ujJQoz88fj09gmCtykJRdnwldB
-	 IEYCzLbkLlIqzWo8BgdPBAr56Bf88SkEVkMqI/8Zz8CrR8iJ96xWiW69sZQSQwfLvR
-	 A/jFV50MuOkbQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A2BD3AA6A61;
-	Thu,  1 Oct 2026 01:10:11 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="k6xd6uAN"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so38177665e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:10:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1790817015; x=1791421815; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2Hqg7fvezYx0gMAe4vTkP11iGpswB7iKcMQUSEGGhy4=;
+        b=k6xd6uAN2j9hAboy+qkp71mKUnYkHa23MOSi8NYL0SrQC9P3OuoiNrhzBo38iyxFDr
+         Q5t8uX+EgqWNH+kpAwzIb/oLn3TrM+VlVpcYuLuFNeKBEz7r+XNQGuSl+0aIqndBuaWJ
+         phrXRC/WfJABx8wCv8Rksf2G1m0v7m7OrwzxBcBAd7WQueWsnExLzR2ldMI8woc60D+y
+         GEBAqHTBChCGu9xb6ClC9D4T5s/5AX8OKsjQP2Zg7e9nZWKGjvMXpFH3XAjbPeopbtiP
+         /gioLEM1m0MgF8l/dkve0AfIjzdLHV3wud1mJFmTncqsXxcfr29WAi5k0tU5iqL7L2Kt
+         6HMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790817015; x=1791421815;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2Hqg7fvezYx0gMAe4vTkP11iGpswB7iKcMQUSEGGhy4=;
+        b=tqorG2sf4NCv3VRE081iDVwmaDh2vj0fbeiIwhZffAa9Wa0mqrZpdP/NDbaZ50K7sz
+         E6/HnUlEUuc1CiHcCrIs3CwyKxnnvR7JpXCku4Upd3kWCJY3k2Jtnykw15eosEM9qreI
+         SxwSWVsfH+qQHAkYDeurgA1ZIoizBKhXyJjzrcw7piEw8eBMdABh5m6N+Ct0uOYufB7P
+         pTEx2KTFDmVRSE4JG9ke/LTdbW7OzCtrmUdv4x6Q/7LQH0e+hENJ2TnmLvw01a3IsVTY
+         LNKu4t6Ytmya2xt7NzpMzrcK6igdK49lLbpze73pHPCOpAhHImvnxb3/IH/LH0hgwCi+
+         zYrA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFtJKF5MSykJFf2poRktXp4Hfd5qRBbnUiFgoBkjtnJgJK/SWelz4/1KFhQFWn1amOWNaE+OT/pLhhe+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0hfP9pbwglz7F0tFHv7DICEMkqsmB0YJgqx1lYI6kuhifbWd1
+	pfKr9R4a7bcL3tTeOM93MkN1kyz4laKD93pjyyawov7HVcfQATC0hVE=
+X-Gm-Gg: AYBFou2DjFaehE2sz12D0/FYHE3ofiuejhWSPacdB5N2t50dLTJFo2wcMWsVM0iSKkD
+	ImzD+cMSqmVtPeixAOqmAW9SdQBo5a3HsZiqopzPEhqb/s8+NgCyb34ddwRNaJlBNv5H0q4aTqF
+	LKsntu8cYuSMuzYFiV4JxMPf5/zjoZ1oV8xoQ5FImGqqzhbu18zz7T5+gywZG1fWUQDLij6pgb2
+	5EpvFUNX5M5zQ8k4hVghJ87hy94RTW38AtQJy5eI5y6Nti6GrSw3xz7Z+XlfGhwo21pjWNfLTyS
+	Y5eLmzXG8kXAkPfT5PdI4ZZAqPkM3ZTCaFHcuWDOogpBbfPl0mJ8YrgmNvA8qOVN3xd1bydLGO8
+	oPk6D8c+UDBabmV6nimBeNyG5z9tHfkxpwlU0AT2Eo95rjoSiX1+atU/5tPf2+PRlMDGt5hfkh3
+	w9qPK/qcrFKPXQGf4RrxTh2azFIUDtXFfX1SYGlauvbj3o7E1snKNEI+zDhjQEZ6wHm+7H4jE4b
+	iO4t8VnZWq8GNiARP7kaZm7VHv+mLbUXYhFXV64zp7qwLrqSvCDOQpDyy8F
+X-Received: by 2002:a05:600c:8b88:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4a01ad98373mr50081855e9.4.1790817015182;
+        Wed, 30 Sep 2026 18:10:15 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057568.dip0.t-ipconnect.de. [91.5.117.104])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f952931sm26870905e9.13.2026.09.30.18.10.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 18:10:14 -0700 (PDT)
+Message-ID: <f7456596-f978-4d75-b949-f61e21f4c798@googlemail.com>
+Date: Thu, 1 Oct 2026 03:10:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/395] 6.18.55-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152340.591469096@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next 0/4] net: mana: Add support for the CDX bus
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179081700977.2200095.10074995671789811332.git-patchwork-notify@kernel.org>
-Date: Thu, 01 Oct 2026 01:10:09 +0000
-References: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
-In-Reply-To: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
-To: Manish Awasthi <mawasthi@linux.microsoft.com>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, longli@microsoft.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- kotaranov@microsoft.com, horms@kernel.org, linux-hyperv@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, bpf@vger.kernel.org, nipun.gupta@amd.com,
- nikhil.agarwal@amd.com, gargaditya@linux.microsoft.com,
- ernis@linux.microsoft.com, kees@kernel.org, paulros@microsoft.com,
- mawasthi@microsoft.com
 
-Hello:
+Am 30.09.2026 um 17:24 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.55 release.
+> There are 395 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-On Thu, 24 Sep 2026 17:30:50 +0000 you wrote:
-> This series adds CDX bus support to the MANA driver.
-> 
-> The shared GDMA and Ethernet code currently builds together with the PCI
-> transport. To add another bus without duplicating the driver or adding
-> configuration checks throughout the shared code, this series separates the
-> bus-specific operations and builds each transport independently.
-> 
-> [...]
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Here is the summary with links:
-  - [net-next,1/4] net: mana: Introduce gdma_bus_ops for bus-specific operations
-    https://git.kernel.org/netdev/net-next/c/c03e69c95a18
-  - [net-next,2/4] net: mana: Move PCI transport code into gdma_pci.c
-    https://git.kernel.org/netdev/net-next/c/34520ae5dd57
-  - [net-next,3/4] net: mana: Build the PCI transport as a separate module
-    https://git.kernel.org/netdev/net-next/c/445927de07cd
-  - [net-next,4/4] net: mana: Add support for CDX device ID 0x00C2
-    https://git.kernel.org/netdev/net-next/c/3d6792ea4605
 
-You are awesome, thank you!
+Beste Grüße,
+Peter Schneider
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
