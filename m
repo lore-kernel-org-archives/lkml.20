@@ -1,174 +1,231 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013012.outbound.protection.outlook.com [40.107.159.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC5E3C945A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871563; cv=none; b=QYEgqwUVd4Shy/0vH5DFhjLzxV1vXVqqSZ5GAFu/S5qLCa9mz2ubREKCga957SiEyxvD5n29gAl/Ntps3+farYyZjzDSgKI40XQI/JXYhIruxLAIVCcmfCPYsImkkqsG2BT44AGro94pWJa12by5TLdEjxuSPnCzXP3xWfY922Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871563; c=relaxed/simple;
-	bh=vdrItP7NNIB5efxVoNcXZS6zdv9F/6GpckExPWjVY50=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hPKPgg8G2QpaIJmtJRW6ANAlpZdhgtzxhq1Y3nE6fdtJ1bCq4tjQiMY3wE5R/PPzyNbkgyO76fBXJCACXHW54gavzolaFjfAW20CC1mM1lnV+Xqhz4vbLXhrbmGcf47YLFF1gtMdhbUacuSiZgYFJNmu4g+LOqNzsUfCbWpPD5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=e5R9yb/f; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E2F2EEE9E;
+	Thu,  1 Oct 2026 16:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790871574; cv=fail; b=H3hCEGCap7UzC9VcZRdeBRSJdNyLJUwbQlbrArNEyGzZkOmXU9+ELsv+FFFJtFFK4dgSwXXyGoP7Kwv/+zW6w6zpihm9viL23mD2qyBDu8VKgNDm5EjM+H+7sz/BlvvAp7OUswQ6ES6qYNcSoGggLmumND4SXGoIRZB7M/pXt2I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790871574; c=relaxed/simple;
+	bh=ApQh/c8Z15XQe/PqxrPxW4XUWgr2VNulpRtu8lAEwRo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=OYiaABxkK9qp2KGK4Z0CNgZiszRYAL4BbwpSlMZTcRXEWUSGVvmRxmmRSd9gpCqT4SR4SKgxXVzTYR5NOQlzjUsIiOPiHJntx3HEzGFwGzAlObnt2NZgkCxwf9hQn2dCYqEHHf+SBmoOuUZOaPZyU4c4WNFPDmHHUvk1dFVBmcY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=D7VqWzKi; arc=fail smtp.client-ip=40.107.159.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="e5R9yb/f"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a003bd18e5so26155835e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:19:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790871559; x=1791476359; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vi7SR1DPMZ2IESiCs8hDuzeZjMXZIWPfZzQhtaUi3a0=;
-        b=e5R9yb/f+WfsYhr27bBkJHkYcGkpou46eFxfBEGNMNhUgSYWuehlbEv+cwx3iqvbVQ
-         u+nlXRPDym3ytnMkK8Z+PXUhzmghph1okbVGInaDdw3siq5j164Je7CRFVg65rsIac3H
-         h+z69HZHfPl+r4GhMRJOp5Jc/68uNV6ZFTIH+c10AdfP3sCP9hy334wUU3fW/DkNE2Fc
-         pFotfIgnxC7EbHNT+idDAIaCzMAWEzY0v2EryfoDMKoMnCbSpDtjNoeFLeh9Ar6+s3Te
-         hwdfXeayf4b8ZJUhSfw53xBsuBjBDVTPBMqCRJR5SyHHJ4BHFfUQfzrOZSGkjX8RMa9E
-         YGXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790871559; x=1791476359;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vi7SR1DPMZ2IESiCs8hDuzeZjMXZIWPfZzQhtaUi3a0=;
-        b=dEoPqQV/ZLQemwInr3KBPW5iCm8ylic2FZ3+YrZ2HscxSN74KwXDjQMYWMMbYXsBAM
-         ArDUpZt2hVKwxcxAOgw7icX8R4rBIA/vupbojwf4/VSHQe6M7ZOy6cAxgpdKX4EcsK2N
-         dWSCjn+oiRgNB7k+VEnphI6OwUwMKcUA65Of1byyS/TFLh2Lij9l5TKIAVOTX+DMXGZv
-         RLTJt6rb6sHQrVkuLFesshvOSMr4cStAcQILzmQDvbyLqAO6323w3MZ23ARSe9Zum7WP
-         iOZf4WZMov8qYrH83ln3buycyxKLsUYEwqR2T0WexojK/Tkt5Jqn4X2CF1JX9H9wvTJ3
-         hjKw==
-X-Forwarded-Encrypted: i=1; AKwUvByUedHa6+3y7t4PfUmB5pO4TwkTARupipeWo4Hty9hlfepcmTFddGav0FFU5IHkleGy1qnP9cbmw7gkM9Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEosullDIIFwMQVQS4QaDyJG0ToTutNe0EyItsBZcwCTjOrlUF
-	7pKyC9i0t5SxKLvnklLrTLukqylzKWdgBrIfUzfWo9L5KGX27g8nVI30FyYoKeDDo6o=
-X-Gm-Gg: AYBFou32EN00JHd7kCilifoPHRQDQW+IZVbZ74OAolaf+6OVdjqx+5YQ7pnWXEm5Nwi
-	PVD5Fs9DWcOv7d2BFWDxCdK9NWRou8FxwxwVTZMTQ2Ekrkao6Gozlay8RNMx+cVkMBzaxTz5Ohq
-	E8Ato4r0kp4V4p7OvbalgA2myVJ7eia29hBx5eLN4j9eWGxlonNFjXnHPP7Tl4IrAbasDLehpju
-	Ae33r2JrqSfCKju6ejEJLdrQ4ITSe4rw7nEqhnBph/VfMoL4AQhzr/AZaElNBa2AC2fFM4IMeIJ
-	6jkOGqyt+CvJGE4/UUGlu5ElmfvagbvzPZY8h2MwZoN3CmIyiZRM0KXyl5WPJNa/wdcTNNUeCyz
-	yM4HVQ1gXgxn37HZsUnv8HtWpP7TM+s6UckdyfpUtx/l9ZG/Iff97xOSbg0WsQnTrItxs7BosaF
-	kLK/QU/5TrwIefiDlA60eYCheytpj31POQObjM3lcfObEL4Su8VvZdqpPMlTUVum5MMgYBkoHPt
-	NEpnmdQZDVt/xd50XVB0tkHiEE2lcEYeg==
-X-Received: by 2002:a05:600c:6217:b0:4a0:1ea1:477a with SMTP id 5b1f17b1804b1-4a0276a31b1mr2008765e9.27.1790871559329;
-        Thu, 01 Oct 2026 09:19:19 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0db6a3b7sm4158135f8f.41.2026.10.01.09.19.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 09:19:19 -0700 (PDT)
-Message-ID: <0b1f8e58-51f8-4062-ab0e-6cd5b915b49e@suse.com>
-Date: Thu, 1 Oct 2026 19:19:17 +0300
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="D7VqWzKi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ukcQ+igV6uK7IRgpHa0D7lrHWgoZArhP4GC7gY2cL4KWnXY8zUoPHtaseAj1KTGCKABb2k0gvf1JzRdAHi3Pp9o3jkfPRD4rUC2v0uTRFTnaa2njq+XX/nC3NIeuCzSBMrEc6ldvIig/gmkaGijwa7oxpLoCZFOCzbhGcRXGUJvbWeSP3OqfZgi8xwObV54Ckexi7d82WbuUC8+0hG8y17vMz+7RmpQsyeywo1MOr6R0HFHetxaxvb7zj7OKJ1fUdeKg34vcPkiBzAzGSK7CR51p/IjVvK5jCYm5ZCGflf794AYawvw+y+XV8LpppRJZxP3yBczK3ocnGAsZ7muzpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yOmjIWuuFskKaVt9lkoQ9vyv6lpnJE3hOcThbRySXY4=;
+ b=EhwEdsN+07h6rCTZxuNb0ha3fwh802iPdQbQQhJd4SmwSZPoazB856WawwiQSurZ4nDhzzjx+6yOxuXtbI9Ib/jCf4QGLsODr50IAmpKgDKBZS36zIn55BZramMho3dNdvsJgUJ1lEmbg5J104r3uHHQLYRC3mKlCUnqHCoAtNRCkASwLAV2HdLun0HaknmvEtW+0Zo8XNJAOe8/xa7wRx/5vKOy7YIyto97fzx/U85DqqGzZxz36MRpiuZbOlW8EwtXiz5fdR3TwRCFAdQgdm6cARFzcdD3wY0STQkAk2CVVsM4keJhozNNbh0+guismsIeltNeS1Dkt5lSVm1sww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yOmjIWuuFskKaVt9lkoQ9vyv6lpnJE3hOcThbRySXY4=;
+ b=D7VqWzKiuZmiAaiKCRTHXYlbhNqksuwB6YFSBp74Tl/BBCGbrjTLvhX8hNzEP+Cxf9tXzIhx8/wuSE9kGSZ1nX4OzlIThZmuyA2jNmiRW4FZk3OISbSSH0s9iIQ74XdTJbQcMNCZ0i5BvXEAoAEIeJ6g5F8qeGBbSHmZuVJFyKorccuHtCH7ArDcoYKW5BARU1//YctnkTuq+ur0RzzycalcCLMaJq5aU6L9ybZGLg2DmrJhUw18XWljtudlwk047SX4UkD5K4Hjkd9JNhMUyxuRPrJ3SzTFy7oJe9y07eFICJtsfTG9A5ejnim8UmymPQWQrMJ0F70ovoEVnhB3gw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AMZPR04MB301662.eurprd04.prod.outlook.com (2603:10a6:20b:7c3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Thu, 1 Oct
+ 2026 16:19:27 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 16:19:27 +0000
+Date: Thu, 1 Oct 2026 11:19:16 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
+	festevam@gmail.com, francesco.dolcini@toradex.com,
+	leonardo.costa@toradex.com, hvilleneuve@dimonoff.com,
+	marex@nabladev.com, stefano.r@variscite.com,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/7] ARM: dts: imx6q-apalis: Add Toradex Resistive Touch
+ Display 7" Parallel
+Message-ID: <ar6IBEngz1w3T_Di@SMW015318>
+References: <20261001155412.3177428-1-leoreis.costa@gmail.com>
+ <20261001155412.3177428-6-leoreis.costa@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001155412.3177428-6-leoreis.costa@gmail.com>
+X-ClientProxiedBy: CY5P221CA0133.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:930:1f::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/10] x86/virt/tdx: Add a helper to read a table of
- metadata fields
-To: Chao Gao <chao.gao@intel.com>, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org
-Cc: yilun.xu@linux.intel.com, binbin.wu@linux.intel.com,
- tony.lindgren@linux.intel.com, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>
-References: <20260930053901.22528-1-chao.gao@intel.com>
- <20260930053901.22528-2-chao.gao@intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <20260930053901.22528-2-chao.gao@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMZPR04MB301662:EE_
+X-MS-Office365-Filtering-Correlation-Id: 161e0719-985f-4843-e30c-08df1fd7c38d
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|7416014|1800799024|19092799006|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	xCD5hwjc2JK0MIwpBdY9UXCEizlNrJvoQvfjparolLjbFWVRL8ngVdG5N80JL2bUgYczIJLrHQYqIKCO+o1gA09USY1gGMAw/g3dGoQqOOW0N/xU5nho8Wd9cdDVhKzHLQinCo21IVrEnzDpbbi6scC9St/5jzXPdqGaBM4r6ed5Z1xjC1DQldMnqQnAb1LI8fz51Ga0/PjKDTmLIRbv87K05M2btGbJARbE6rXBOi5otSp/K9P/LQmFo+wGH6D1ZfsBpH6N4mdsrzQGV4J+WilgEzp8rC//KRTX8WpIAA4EqPKGDHp9jPKrhi/T0eCpxXby4XGkJH1wTegCGH0otXx64uH4kCg12ZG5uNwniOPdgTXw4P7Slcts14cJqYYszJMQU8qgdY2rdG+Scdy1FF5SywDx6wnW6lGyCTMTktt9VU/ViN9IVMh9JLmi75u8/0aA89n11ndB662pf66ERAoqyF7yYZI4tcTW7wYOWppajT2NEUyWRN+25Mo5nhwLdMlLyWPzTWME0WH2dun9kP81sYJS9wx4AtMkWresDYMnt4WFAgQEHS72NrF/R0lse5ZxzuU5WsEJW7FpGn1S8CoqIIEuP3KJOwL0VAasCcq2271pC624fqC3JcERQbKf
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(7416014)(1800799024)(19092799006)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qZffyVJjCrUrg4rzfYe6aVE9MqI7wWJyR9TcjZ7PoyRTPm4AoNCti9i/1G78?=
+ =?us-ascii?Q?cSAQCPIlUI6X9+eG+4XgMxucIPqITWJGTx2JoeJvg7JVyGZ5tFQIsBXPS8HZ?=
+ =?us-ascii?Q?TSG22H9Or1uCD5LuN4kUCDcgryQ2mHBC45Ogssn+3QmXRXxsY0qpbe8Lx9G+?=
+ =?us-ascii?Q?71pjFO09+7C/ZRNYb0LpbEf8SKqSv+EeqfSFkpJbExYSEXaejvRTthIpqbFs?=
+ =?us-ascii?Q?x18oDbsVV7Sy0/3qM+9MAFvq99wIZwpkedG4LYvuyehWmTjT4BGHk+Jb02Od?=
+ =?us-ascii?Q?HzpKRzOYhM3OI3019xQyy5kWXGGADapeAmZ/NQtJX2YBaCU7XVle5H5LS/gq?=
+ =?us-ascii?Q?W8M2O9R+ZaRDnHp8rSaQODnOSQg+r0M6HwxwojXt57L+kS6PC13ebH9ytFLA?=
+ =?us-ascii?Q?MU5zTIXvizpqjvoPV4FJFfLDRNHDMDmL3pBz4mTXMwvMRrJ9ubq1nXewuNP8?=
+ =?us-ascii?Q?5WN4qf+nZvWK6pXiXm1uH0kgPeoa93BZn7sepCc/t6zVdcZbuFiXty+qUsGU?=
+ =?us-ascii?Q?6nkU1gPB+Ueag5Jm/qfYnVRqJG1xnWTmuYNg7/FhwQv6w+JBWmAlPjCEVBCn?=
+ =?us-ascii?Q?0i+1mIMBHzj9JMb321m/1AsXtKZQ5+E+n5z5ttNcGEK/tbTv56FLbssyRDEs?=
+ =?us-ascii?Q?19QGziYSXytiko4NmfK8QdYRzbxeb151nhbW6ztiLvO9+G3tnfesNrVd34FX?=
+ =?us-ascii?Q?rD/SBQZexzKaxsvQ5FV733ad67WaR9tPviHR60pvOCx9Yw75ZgraJtvt1CCQ?=
+ =?us-ascii?Q?ahwthpKT9wzMcsMmjYqMZy9+D4mvrSRgLTZHx/yIK+cyscAHA1g5woAKBsuo?=
+ =?us-ascii?Q?DmVDxC3XhdPKNLPuLhHgz5FMdWym9991128tjxiaFbXBy8kCPbneMPt/VuIa?=
+ =?us-ascii?Q?s9UPUqEDVZoiHR6Yn98RWpSwbMDHmy4h+i3ymHMIYu0W6HpXRq5LDl9yYoiz?=
+ =?us-ascii?Q?kfNSW9TFT0RCDxzH7EIpecyUifHQtYPL7sW7zb1Y6Zue5SrbSLv3tCOlPvGF?=
+ =?us-ascii?Q?eaS0IopSvTEB27U6YIegMdC6MU3egXNT+UWhKRVje2sEdpcguknyhITTNMSy?=
+ =?us-ascii?Q?IFxcKwSSCiXxj+4LvWcEjVoSWIQimv8wFLYEu27Jo/96bfX1xtRwXLBPYmk4?=
+ =?us-ascii?Q?LvZ0DpmZrLHEk9rOBpWdpUpFVoy1909h3dFbMm+R2FNBqGoNo8/ZNx72ZqwU?=
+ =?us-ascii?Q?fw6RCi2P8k4gG5FsD8kDeiQFfmZB+eip7RUuVo3gZP7BxH2IWOMQI5kdapNO?=
+ =?us-ascii?Q?bkRhK3B4VVghwmBeKVSaj73y/NhllX7NzPYEA8tYrogm+c+Q1lu4ewHK2Agb?=
+ =?us-ascii?Q?/sQ8iQ3Dg+poomk8ECH6Gn4i82Kj6U4bJ5F0+e4/tWDBehdF7mezGBKPkKoz?=
+ =?us-ascii?Q?Vn0pbV13OV3zDMrU+VgSBwGuE8rY1xRfvV9tM1KhQCea/KTA3Y2ENPKd51lP?=
+ =?us-ascii?Q?/xs2a7xkGdStB/TjK+diYxLuMQyFC3G57i0UUnA2/43TWP4ynzO2ugla+HkP?=
+ =?us-ascii?Q?+wtU0MiklLk93skspe8oMhyf+rB1iXrwGmchqJ+MHdjS9bl24HrI0FzWibKF?=
+ =?us-ascii?Q?gY+SiAwNB3kHjlCaR+a+Rn7NDNfPXDbUSI0T0BzBDIHNerEs5MuXJZ7H6cCa?=
+ =?us-ascii?Q?Fbkw9XoEwiZd8lfyZm9dQ+TFpYACkYGM+U01oYQQmRhE7f2yF76PMLB6ZDIB?=
+ =?us-ascii?Q?gN6D+6FD5NnoIY92+SaLu1IJwE719w3J5WBMlcTwrsO8pRbXFQ1I3OjSZ/fj?=
+ =?us-ascii?Q?DGRXM14HX/e7yTSnXmXxUKwTdqmUUWtkhoZTbQQP/OI16nEoh7uD?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 161e0719-985f-4843-e30c-08df1fd7c38d
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 16:19:27.3912
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nimmf/BD48ZMA9c6WbgY7eU+q1a5+IGJ2bZ1bMx1cE4iuH2kY2/PGq33rfzlsf/X944diUte27dVc3QbdbC9NOKg7ITMIfgj/iTB+wU2RgHSmYy5RDdn+SlgkkYUztC/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMZPR04MB301662
 
+On Thu, Oct 01, 2026 at 12:52:55PM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
+>
+> Add a device tree overlay for the Resistive Touch Display 7" Parallel
+> on the Apalis iMX6 parallel RGB LCD interface.
+>
+> The panel is a LogicTechno LT161010-2NHR 7" WVGA TFT Transmissive LCD
+> with a resistive touch.
+>
+> The overlay is also combined with the Apalis iMX6 V1.2 Ixora Carrier
+> Board V1.2 device tree to provide a ready-to-use DTB.
+>
+> Link: https://developer.toradex.com/hardware/accessories/displays/resistive-touch-display-7inch-parallel/
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> ---
+>  arch/arm/boot/dts/nxp/imx/Makefile            |  6 ++++
+>  ...apalis-panel-res-touch-7inch-parallel.dtso | 30 +++++++++++++++++++
+>  2 files changed, 36 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-res-touch-7inch-parallel.dtso
+>
+> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+> index 5f35771cc3626..cd1b095ce06f4 100644
+> --- a/arch/arm/boot/dts/nxp/imx/Makefile
+> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
+> @@ -107,6 +107,10 @@ imx6q-apalis-v1.2-ixora-v1.2-panel-cap-touch-7inch-parallel-dtbs := \
+>  	imx6q-apalis-v1.2-ixora-v1.2.dtb \
+>  	imx6q-apalis-panel-cap-touch-7inch-parallel.dtbo
+>
+> +imx6q-apalis-v1.2-ixora-v1.2-panel-res-touch-7inch-parallel-dtbs := \
+> +	imx6q-apalis-v1.2-ixora-v1.2.dtb \
+> +	imx6q-apalis-panel-res-touch-7inch-parallel.dtbo
+> +
+>  imx6qdl-dhcom-pdk2-overlay-497-200-x12-dtbs := \
+>  	imx6q-dhcom-pdk2.dtb \
+>  	imx6qdl-dhcom-pdk2-overlay-497-200-x12.dtbo
+> @@ -243,6 +247,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+>  	imx6q-apalis-ixora-v1.2-hdmi.dtb \
+>  	imx6q-apalis-panel-cap-touch-10inch-lvds.dtbo \
+>  	imx6q-apalis-panel-cap-touch-7inch-parallel.dtbo \
+> +	imx6q-apalis-panel-res-touch-7inch-parallel.dtbo \
+>  	imx6q-apalis-v1.2-eval.dtb \
+>  	imx6q-apalis-v1.2-eval-hdmi.dtb \
+>  	imx6q-apalis-v1.2-eval-v1.2.dtb \
+> @@ -255,6 +260,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+>  	imx6q-apalis-v1.2-ixora-v1.2-hdmi.dtb \
+>  	imx6q-apalis-v1.2-ixora-v1.2-panel-cap-touch-10inch-lvds.dtb \
+>  	imx6q-apalis-v1.2-ixora-v1.2-panel-cap-touch-7inch-parallel.dtb \
+> +	imx6q-apalis-v1.2-ixora-v1.2-panel-res-touch-7inch-parallel.dtb \
+>  	imx6q-apf6dev.dtb \
+>  	imx6q-arm2.dtb \
+>  	imx6q-b450v3.dtb \
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-res-touch-7inch-parallel.dtso b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-res-touch-7inch-parallel.dtso
+> new file mode 100644
+> index 0000000000000..be2164dcd0369
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-res-touch-7inch-parallel.dtso
 
+imx6q-apalis-panel-lt161010.dtso, in case other 7inch panel added. it may
+be end of life in future.
 
-On 30.09.26 г. 8:38 ч., Chao Gao wrote:
-> The metadata field readers get_tdx_sys_info_<class>() in
-> tdx_global_metadata.c were generated by an out-of-tree script. That has
-> not worked out: the JSON file they were generated from is neither stable
-> nor authoritative enough [1].  The goal now is to maintain the readers by
-> hand and to establish one standard way of adding a metadata field.
-> 
-> Take get_tdx_sys_info_version() as an example:
-> 
->        if (!ret && !(ret = read_sys_metadata_field(0x0800000100000003, &val)))
->                sysinfo_version->minor_version = val;
->        if (!ret && !(ret = read_sys_metadata_field(0x0800000100000004, &val)))
->                sysinfo_version->major_version = val;
->        if (!ret && !(ret = read_sys_metadata_field(0x0800000100000005, &val)))
->                sysinfo_version->update_version = val;
-> 
-> Two patterns stand out: the read-check-store sequence repeats once per
-> field, and the error of each read is chained into the reads that follow.
-> Neither is common in hand-written code.
-> 
-> Prepare to eliminate both with a loop that reads each field, stores the
-> value into its structure member, and returns on the first error.
-> 
-> Add 'struct field_mapping' to describe one field as its ID plus the offset
-> and size of the member that receives its value. Add TDX_SYSINFO_MAP() to
-> build such an entry from a field ID, a structure type and a member name.
-> Add __read_sys_metadata_table() helper to read every field in a table.
-> Annotate that helper __maybe_unused as there is no caller right now.
-> 
-> Following changes will convert the existing readers to use the new helper.
-> 
-> AI was used under supervision to review code and workshop logs. It
-> suggested adding read_sys_metadata_table() macro, which avoids repeating
-> the table name when passing both the table and its size.
-> 
-> Signed-off-by: Chao Gao <chao.gao@intel.com>
-> Link: https://lore.kernel.org/kvm/1e7bcbad-eb26-44b7-97ca-88ab53467212@intel.com/ # [1]
+or imx6q-apalis-parallel-panel-lt161010
 
-Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+> @@ -0,0 +1,30 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
+> +/*
+> + * Copyright (c) Toradex
+> + *
+> + * Toradex Resistive Touch Display 7" Parallel connected through the 40-way
+> + * Unified Interface Display connector (as featured on Ixora carrier board and
+> + * Apalis Evaluation Board). Touchscreen is available only on Apalis iMX6 v1.2.
+> + *
+> + * https://docs.toradex.com/104498-7-inch-parallel-resistive-touch-display-800x480.pdf
+> + * https://developer.toradex.com/hardware/accessories/displays/resistive-touch-display-7inch-parallel/
+> + * https://www.toradex.com/accessories/resistive-touch-display
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +&backlight {
+> +	status = "okay";
+> +};
+> +
+> +&lcd_display {
+> +	status = "okay";
+> +};
+> +
+> +&panel_dpi {
+> +	compatible = "logictechno,lt161010-2nhr";
+> +	power-supply = <&reg_3v3_sw>;
+
+You'd better use additional unified name reg_lcd_panel
+
+in main board dts,
+reg_lcd_panel: reg_3v3_sw: regulator... {
+}
+
+So this dtso may be easy shared in future.
+
+Frank
+> +
+> +	status = "okay";
+> +};
+>
