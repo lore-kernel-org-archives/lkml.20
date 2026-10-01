@@ -1,354 +1,230 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636CC42668C;
-	Thu,  1 Oct 2026 03:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762D342E8E6;
+	Thu,  1 Oct 2026 03:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790826810; cv=none; b=cIGHFrlVAYCXBc7+Ji3kULlCqdHFvu84UDv0W40RF0Itu+txZWD3NFxn6RYo5YgBh3lSUIFiYj3uhmsrjYSFKPAHpkiGPTIAgxDrop8wCCE43+aMSKRZ92Ot9JnVKHizekr9iKXXYaPETMaESw38OQ5CX1m5fFGZa1tOEkwFClc=
+	t=1790827047; cv=none; b=Cb1W+awvfhVKnrpk8RcgbunKE4z/THBMe3J8/4rbqP4I9SLOT/CiLCCdwngS9lsUrK2jZF0Jpw0BVR/7dZtcE0SPAGXZD7B28wRx9EE5QgKuMBUxG2YrVwhXmv5lh2ssgcuCz3cQm5mGC27JlcrrdlDsQD4i7tzziFs7vxzUpTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790826810; c=relaxed/simple;
-	bh=YJC3yqWs3aDP64pE5hmoi9OQbr5yxvJTiou/XLPXZL0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=C8ZoheaO7aKI+puAzBlNUQDQIuZsfUYsQrYr/u3N1bYMlm1x7oJt30HuXl+nf+LmI4vreF9YWEhshnzwgQzSMU6GH3hjotJ/sViiJwWVJaW4Df7YZi7Sh440WO7AAgbOqODeFeCEveatc6iFeWu2ZU6wBoN8WPjvaPuyU9/vW8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Zf0JuOPI; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790827047; c=relaxed/simple;
+	bh=hQ8NYmadh8Vr9SUtn0nSGku5dnhZbFMbNf/Yo47e5Pk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vw6uIV/+h6rQeqzFJr3jI2Jmtr7pzFJ9ftM8x+Wvy7MKbamIaHli3X0LsA5rf8KAJ/Ap0MYgUggertZZTcJWYZG1sIEpsL+8UTbDxsUDL3OjytWEjpS824gAkXpPnD3FHJxEdUdLR1gDMiGUPViMaaOExc6qLXybiyfXtlWy2Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rj3iqbLl; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Zf0JuOPI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wH
-	Z2E/OQmO+09/WUCbUdj0HkaiGsm5QMM8GTBL9q62k=; b=Zf0JuOPIls4+quomvF
-	nFKUVOZk5IMYPshTuVt776e+7tN9ZqytWeEbvvRvBSol8m3c2HRBVV3SuI4LaT+k
-	VPmW7aXqk+dV2CdU9+ONPBDohJs7yYfzQ4w055kWHp2VMTohgN/uYzHX4hll/Ej2
-	bQHox+jWMSLpuSRUhU0qUD6Vs=
-Received: from 4CV529F122.company.local (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nwKY2L1q925SBw--.54539S2;
-	Thu, 01 Oct 2026 11:51:04 +0800 (CST)
-From: Ding Hui <dinghui1111@163.com>
-To: netdev-bot+sashiko@kernel.org,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
-	linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Cc: dinghui@lixiang.com,
-	xiasanbo@lixiang.com,
-	yangchen11@lixiang.com,
-	liuxuanjun@lixiang.com
-Subject: [PATCH net v4] net: stmmac: fix error path cleanup in DMA descriptor ring allocation
-Date: Thu,  1 Oct 2026 11:50:32 +0800
-Message-Id: <20261001035045.3305816-1-dinghui1111@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rj3iqbLl"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69115eZ43277034;
+	Thu, 1 Oct 2026 03:57:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=j3C1jtCzYOB/7ct9Ws2eH5RhJT8FVt
+	vOQDQxv8iP5/A=; b=rj3iqbLlO89Sl6vnzzUsGzN+CzC/8kNzEtBsMPDdQiDjeO
+	6UyzGokWniiMPIbJSqq+uxgveOYqweZmZRFQgUjSRaoPuaPwi86MpPim2TarDQ9L
+	qpuJhUKdpgKx5ztszruVhCjR0/fPuRuZJX4DUYAu6+PLmEvNufusnq3GpNI4HF8S
+	ZKClON2j1CR6ll8XwRYinyYtkibfR+UwvBF58FoDaG7XNJaRfgq/caOWf8bZx/y8
+	zGsIVVdw79LPf7K40EGaKwGFiUSWQE8JsbCSF6i+wt+Ny2ukIfaQiWaZbq/HM79J
+	CQu/DqgT5HHMZXxpN0nMAG5rrorGmqs0I0ZGj34Q==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fefwge-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 03:57:03 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6913le46306270;
+	Thu, 1 Oct 2026 03:57:03 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpeyes-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 03:57:03 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6913uwAW47972792
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 1 Oct 2026 03:56:58 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7EBA420040;
+	Thu,  1 Oct 2026 03:56:58 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CA3092004B;
+	Thu,  1 Oct 2026 03:56:54 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.124.215.84])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu,  1 Oct 2026 03:56:54 +0000 (GMT)
+Date: Thu, 1 Oct 2026 09:28:56 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Narayana Murty N <nnmlinux@linux.ibm.com>
+Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        amachhiw@linux.ibm.com, linuxppc-dev@lists.ozlabs.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
+ by LPCR_MER bit
+Message-ID: <ar3ZrgzhSwkgPuZf@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+References: <20260921111043.49825-1-gautam@linux.ibm.com>
+ <ed756a12-182f-4933-8788-8b54a4e8912a@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3nwKY2L1q925SBw--.54539S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWfJr47CF4xGrW7JrWkJFyxZrb_yoWDWw15pF
-	4xCw4qkrWjqr15Jw4DJw48X3W5AayFyr4YgFWxWw1fZ3WavryYgF15Zryj9rykAFyku3Za
-	k398C3W3AF1UJrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jtCzZUUUUU=
-X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC0gpqlmq92KoK1wAA3c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ed756a12-182f-4933-8788-8b54a4e8912a@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abdda10 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=9HMC7dwcUNEby-kk_2AA:9
+ a=CjuIK1q_8ugA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxNCBTYWx0ZWRfX0Mwwp8a+mcA+
+ kBRtTKDNRB8DfhDmk5KpUFnbXJfo7/81uwd1qUkTj+Reo/NS0D6oE0MHsdbhX9S8nkeZKiaXWWK
+ x/M2ILMvWU/iYEwU9xg1R2DcQ/RUQJU=
+X-Proofpoint-ORIG-GUID: b4ol1MZLxroLxsstq4uGJlIotdzkNjSm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxNCBTYWx0ZWRfX3adJ90NN5pRW
+ kH1dhiitnZwaxcGerX+0jbDkISq/9wOKDPg5gMseRkw4mWJvGvWIznIuGfSTZcnEm73vylVs6gW
+ JtozuE+THOxtwK2lfsh0mqw3VsPM5iw10OxGmvn9hMtkFj4zLwNe6xdh+KYQabZwQWxed2EzQx6
+ 9V7Da6MPirZgsBJGVKLwZQabTnag8j8TRMefljS9WEltgn2Lkr9RS2+eaKtaU1oo3brx/RHKl2a
+ AAkvdqOlS+QUmx18z0kpxwnU1QkgQDfnKeUEXy8ulkcyet6jiVtvneigW1VwPPmmTc9IJnD62G7
+ ftiR5b8DW+Nh4sz0igqpbfDU6ZFKN4x6pSyPQpcezPSv7KVfqKmE4pB+BcFwyonYEIlnEOdlabm
+ AV+EUyL9s0MfdYysW/fwA2l/lY5E6OluTY68k4PW1jzMyeP4/8LMSep8iCpW8xkkzN36gTnlIJf
+ Zgueu6JIVWf/S2vjzZw==
+X-Proofpoint-GUID: MLpu277iUP6UEDeVLkicwtUv15akBGR7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010014
 
-From: Ding Hui <dinghui@lixiang.com>
+On Wed, Sep 23, 2026 at 09:08:57AM +0530, Narayana Murty N wrote:
+> Hi Gautam,
+> 
+> On 21/09/26 4:40 PM, Gautam Menghani wrote:
+> > A huge number of spurious interrupts can be seen immediately after a KVM
+> > on PowerNV guest boots up in XIVE mode.
+> > 
+> > $ cat /proc/interrupts  | grep SPU
+> > SPU:     223705     192439     273526     147623   Spurious interrupts
+> > 
+> > This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+> > Handle pending exceptions on guest entry with MSR_EE"). The root cause
+> > is that once LPCR_MER bit is set, it is supposed to be reset by
+> > software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+> > not exit back to the host until the decrementer expires or there is an
+> > hcall, etc. This is because KVM on PowerNV guests have support for
+> > native XIVE, so they are not dependent on host for interrupt emulation.
+> > Due to this behaviour, a huge number of spurious interrupts are seen
+> > since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+> > vCPU exits to the host.
+> > 
+> > Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
+> > available (currently in case of KVM on PowerNV only), as the XIVE hardware
+> > can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
+> > functionality is not required. This reduces the number of spurious
+> > interrupts drastically.
+> > 
+> > Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+> > Cc: stable@vger.kernel.org # 6.8+
+> > Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+> > Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+> > Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+> > ---
+> > v3:
+> > 1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
+> > 
+> > v2:
+> > 1. Handle the case where xive_interrupt_pending() is true and also the
+> > external exception bit is set. (Narayana)
+> > 
+> >   arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
+> >   arch/powerpc/kvm/book3s_hv.c       | 2 +-
+> >   2 files changed, 8 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+> > index 169ea6a7fbad..580ad2548c2b 100644
+> > --- a/arch/powerpc/include/asm/kvm_ppc.h
+> > +++ b/arch/powerpc/include/asm/kvm_ppc.h
+> > @@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+> >   	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
+> >   }
+> > +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm)
+> > +{
+> > +	return kvm->arch.xive_devices.native;
+> > +}
+> Also, should 'kvmppc_xive_native_enabled()' check the active XIVE
+> device rather than just whether a native device has been created?
+> 
+> 'kvmppc_xive_native_release()' clears 'kvm->arch.xive', but explicitly
+> keeps the 'kvmppc_xive' pointer under 'xive_devices' for reuse. The
+> comment in 'book3s_xive.c' also says that when switching between XICS
+> and native XIVE, the previous KVM device is released before the new one
+> is created.
+> 
+> So 'xive_devices.native != NULL' seems to mean that a native XIVE
+> device has been allocated/cached, rather than that it is currently
+> active.
 
-__alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources()
-allocate resources in multiple steps but return early on failure
-without cleaning up what they have already allocated. The outer
-error paths then call the free helpers on partially-initialized
-queues, which dereference pointers that were never allocated:
 
-  - dma_free_rx_skbufs() and dma_free_rx_xskbufs() dereference
-    rx_q->buf_pool[i] via stmmac_free_rx_buffer(), but buf_pool
-    may be NULL if its kzalloc_objs() failed.
+In a KVM guest on PowerNV, whatever interrupt mode the guest is booted
+in (XIVE/ XICS), you cannot switch it with kexec. So if
+'xive_devices.native' exists, we can be confident that native XIVE is
+being used. So the code in the patch should be fine.
 
-  - dma_free_tx_skbufs() dereferences tx_q->tx_skbuff_dma[i] via
-    stmmac_free_tx_buffer(), but tx_skbuff_dma may be NULL if its
-    kzalloc_objs() failed.
+> 
+> Would this be more appropriate?
+> 
+> return kvm->arch.xive_devices.native &&
+>        kvm->arch.xive == kvm->arch.xive_devices.native;
+> 
+> > +
+> >   extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+> >   					   struct kvm_vcpu *vcpu, u32 cpu);
+> >   extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
+> > @@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
+> >   static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+> >   	{ return 0; }
+> > +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm) { return false; }
+> > +
+> >   static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+> >   			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
+> >   static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
+> > diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> > index dbac3573b2c8..cb2bb29451a7 100644
+> > --- a/arch/powerpc/kvm/book3s_hv.c
+> > +++ b/arch/powerpc/kvm/book3s_hv.c
+> > @@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
+> >   			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
+> >   				kvmppc_inject_interrupt_hv(vcpu,
+> >   							   BOOK3S_INTERRUPT_EXTERNAL, 0);
+> > -			else
+> > +			else if (!kvmppc_xive_native_enabled(vcpu->kvm))
+> >   				lpcr |= LPCR_MER;
+> Is the intent here to suppress LPCR_MER only for interrupts that
+> native XIVE can deliver directly?
+> 
+> BOOK3S_IRQPRIO_EXTERNAL is a separate software-pending exception. If
+> MSR_EE is clear it remains pending, so it seems this path should still
+> set MER even when native XIVE is active.
+> 
+> IOW, should the behavior be:
+> 
+> else if (!kvmppc_xive_native_enabled(vcpu->kvm) ||
+> 	 test_bit(BOOK3S_IRQPRIO_EXTERNAL,
+> 		  &vcpu->arch.pending_exceptions))
+> 	lpcr |= LPCR_MER;
+> 
+> so that only the native-XIVE-pending case suppresses MER?
 
-  - stmmac_free_tx_buffer() dereferences tx_q->xdpf[i] and
-    tx_q->tx_skbuff[i] (aliased through a union), but tx_skbuff
-    may be NULL if its allocation failed while tx_skbuff_dma
-    succeeded.
-
-Fix this by making each allocation function responsible for undoing
-its own allocations on error, following the standard kernel error
-handling pattern of cleaning up in reverse order. Also add NULL
-checks in the free helpers as a defensive measure, since they may
-be called on partially-initialized queues.
-Additionally, make __free_dma_rx_desc_resources() and
-__free_dma_tx_desc_resources() clear the pointers they free, so that
-the NULL guards in the free helpers hold reliably when the long-lived
-priv->dma_conf is reused across XDP open/release cycles.
-Free the RX resources in alloc_dma_desc_resources() when the TX
-allocation fails, as the callers only free dma_conf itself on
-that path. And skip queues whose descriptor rings are not allocated
-in stmmac_rings_status_show() so reading the rings sysfs entry will
-never dereference a NULL pointer.
-
-Signed-off-by: Ding Hui <dinghui@lixiang.com>
-
----
-Changes in v4:
-  - Free the RX resources in alloc_dma_desc_resources() when the TX
-    allocation fails.
-  - Skip queues whose descriptor rings are not allocated in
-    stmmac_rings_status_show() and print a hint instead.
-  - Link to v3:
-    https://lore.kernel.org/netdev/20260919121436.1642724-1-dinghui1111@163.com/
-Changes in v3:
-  - Use addr directly in __alloc_dma_rx_desc_resources() error path
-    instead of the if/else block on rx_q->dma_erx/dma_rx.
-  - Clear the freed pointers in __free_dma_rx_desc_resources() and
-    __free_dma_tx_desc_resources().
-  - Link to v2:
-    https://lore.kernel.org/netdev/20260905154654.1725313-1-dinghui1111@163.com/
-Changes in v2:
-  - Instead of only adding NULL checks in the free helpers, also fix
-    __alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources()
-    to clean up their own allocations on error, as suggested by Andrew.
-  - Update commit message.
-  - Link to v1:
-    https://lore.kernel.org/netdev/20260830040610.1156008-1-dinghui1111@163.com/
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 92 +++++++++++++++++--
- 1 file changed, 82 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index f2fc89176654..e79dd726b1ca 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1728,7 +1728,7 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv,
- 					 DMA_TO_DEVICE);
- 	}
- 
--	if (tx_q->xdpf[i] &&
-+	if (tx_q->xdpf && tx_q->xdpf[i] &&
- 	    (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_TX ||
- 	     tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_NDO)) {
- 		xdp_return_frame(tx_q->xdpf[i]);
-@@ -1738,7 +1738,7 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv,
- 	if (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XSK_TX)
- 		tx_q->xsk_frames_done++;
- 
--	if (tx_q->tx_skbuff[i] &&
-+	if (tx_q->tx_skbuff && tx_q->tx_skbuff[i] &&
- 	    tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_SKB) {
- 		dev_kfree_skb_any(tx_q->tx_skbuff[i]);
- 		tx_q->tx_skbuff[i] = NULL;
-@@ -1761,6 +1761,10 @@ static void dma_free_rx_skbufs(struct stmmac_priv *priv,
- 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
- 	int i;
- 
-+	/* buf_pool may not be allocated if alloc failed early */
-+	if (!rx_q->buf_pool)
-+		return;
-+
- 	for (i = 0; i < dma_conf->dma_rx_size; i++)
- 		stmmac_free_rx_buffer(priv, rx_q, i);
- }
-@@ -1802,6 +1806,10 @@ static void dma_free_rx_xskbufs(struct stmmac_priv *priv,
- 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
- 	int i;
- 
-+	/* buf_pool may not be allocated if alloc failed early */
-+	if (!rx_q->buf_pool)
-+		return;
-+
- 	for (i = 0; i < dma_conf->dma_rx_size; i++) {
- 		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
- 
-@@ -2097,6 +2105,10 @@ static void dma_free_tx_skbufs(struct stmmac_priv *priv,
- 	struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[queue];
- 	int i;
- 
-+	/* tx_skbuff_dma may not be allocated if alloc failed early */
-+	if (!tx_q->tx_skbuff_dma)
-+		return;
-+
- 	tx_q->xsk_frames_done = 0;
- 
- 	for (i = 0; i < dma_conf->dma_tx_size; i++)
-@@ -2154,13 +2166,20 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
- 	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
- 
- 	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
-+	rx_q->dma_erx = NULL;
-+	rx_q->dma_rx = NULL;
-+	rx_q->dma_rx_phy = 0;
- 
- 	if (xdp_rxq_info_is_reg(&rx_q->xdp_rxq))
- 		xdp_rxq_info_unreg(&rx_q->xdp_rxq);
- 
- 	kfree(rx_q->buf_pool);
--	if (rx_q->page_pool)
-+	rx_q->buf_pool = NULL;
-+
-+	if (rx_q->page_pool) {
- 		page_pool_destroy(rx_q->page_pool);
-+		rx_q->page_pool = NULL;
-+	}
- }
- 
- static void free_dma_rx_desc_resources(struct stmmac_priv *priv,
-@@ -2202,9 +2221,16 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
- 	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
- 
- 	dma_free_coherent(priv->device, size, addr, tx_q->dma_tx_phy);
-+	tx_q->dma_etx = NULL;
-+	tx_q->dma_entx = NULL;
-+	tx_q->dma_tx = NULL;
-+	tx_q->dma_tx_phy = 0;
- 
- 	kfree(tx_q->tx_skbuff_dma);
-+	tx_q->tx_skbuff_dma = NULL;
-+
- 	kfree(tx_q->tx_skbuff);
-+	tx_q->tx_skbuff = NULL;
- }
- 
- static void free_dma_tx_desc_resources(struct stmmac_priv *priv,
-@@ -2272,15 +2298,19 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
- 	}
- 
- 	rx_q->buf_pool = kzalloc_objs(*rx_q->buf_pool, dma_conf->dma_rx_size);
--	if (!rx_q->buf_pool)
--		return -ENOMEM;
-+	if (!rx_q->buf_pool) {
-+		ret = -ENOMEM;
-+		goto err_destroy_pool;
-+	}
- 
- 	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
- 
- 	addr = dma_alloc_coherent(priv->device, size, &rx_q->dma_rx_phy,
- 				  GFP_KERNEL);
--	if (!addr)
--		return -ENOMEM;
-+	if (!addr) {
-+		ret = -ENOMEM;
-+		goto err_free_buf_pool;
-+	}
- 
- 	if (priv->extend_desc)
- 		rx_q->dma_erx = addr;
-@@ -2296,10 +2326,22 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
- 	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev, queue, napi_id);
- 	if (ret) {
- 		netdev_err(priv->dev, "Failed to register xdp rxq info\n");
--		return -EINVAL;
-+		goto err_free_dma;
- 	}
- 
- 	return 0;
-+
-+err_free_dma:
-+	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
-+	rx_q->dma_erx = NULL;
-+	rx_q->dma_rx = NULL;
-+err_free_buf_pool:
-+	kfree(rx_q->buf_pool);
-+	rx_q->buf_pool = NULL;
-+err_destroy_pool:
-+	page_pool_destroy(rx_q->page_pool);
-+	rx_q->page_pool = NULL;
-+	return ret;
- }
- 
- static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
-@@ -2352,14 +2394,14 @@ static int __alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
- 
- 	tx_q->tx_skbuff = kzalloc_objs(struct sk_buff *, dma_conf->dma_tx_size);
- 	if (!tx_q->tx_skbuff)
--		return -ENOMEM;
-+		goto err_free_skbuff_dma;
- 
- 	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
- 
- 	addr = dma_alloc_coherent(priv->device, size,
- 				  &tx_q->dma_tx_phy, GFP_KERNEL);
- 	if (!addr)
--		return -ENOMEM;
-+		goto err_free_skbuff;
- 
- 	if (priv->extend_desc)
- 		tx_q->dma_etx = addr;
-@@ -2369,6 +2411,14 @@ static int __alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
- 		tx_q->dma_tx = addr;
- 
- 	return 0;
-+
-+err_free_skbuff:
-+	kfree(tx_q->tx_skbuff);
-+	tx_q->tx_skbuff = NULL;
-+err_free_skbuff_dma:
-+	kfree(tx_q->tx_skbuff_dma);
-+	tx_q->tx_skbuff_dma = NULL;
-+	return -ENOMEM;
- }
- 
- static int alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
-@@ -2411,6 +2461,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
- 		return ret;
- 
- 	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
-+	if (ret)
-+		free_dma_rx_desc_resources(priv, dma_conf);
- 
- 	return ret;
- }
-@@ -6510,10 +6562,20 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
- 		seq_printf(seq, "RX Queue %d:\n", queue);
- 
- 		if (priv->extend_desc) {
-+			if (!rx_q->dma_erx) {
-+				seq_puts(seq, "Extended descriptor ring not allocated\n");
-+				continue;
-+			}
-+
- 			seq_printf(seq, "Extended descriptor ring:\n");
- 			sysfs_display_ring((void *)rx_q->dma_erx,
- 					   priv->dma_conf.dma_rx_size, 1, seq, rx_q->dma_rx_phy);
- 		} else {
-+			if (!rx_q->dma_rx) {
-+				seq_puts(seq, "Descriptor ring not allocated\n");
-+				continue;
-+			}
-+
- 			seq_printf(seq, "Descriptor ring:\n");
- 			sysfs_display_ring((void *)rx_q->dma_rx,
- 					   priv->dma_conf.dma_rx_size, 0, seq, rx_q->dma_rx_phy);
-@@ -6526,10 +6588,20 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
- 		seq_printf(seq, "TX Queue %d:\n", queue);
- 
- 		if (priv->extend_desc) {
-+			if (!tx_q->dma_etx) {
-+				seq_puts(seq, "Extended descriptor ring not allocated\n");
-+				continue;
-+			}
-+
- 			seq_printf(seq, "Extended descriptor ring:\n");
- 			sysfs_display_ring((void *)tx_q->dma_etx,
- 					   priv->dma_conf.dma_tx_size, 1, seq, tx_q->dma_tx_phy);
- 		} else if (!(tx_q->tbs & STMMAC_TBS_AVAIL)) {
-+			if (!tx_q->dma_tx) {
-+				seq_puts(seq, "Descriptor ring not allocated\n");
-+				continue;
-+			}
-+
- 			seq_printf(seq, "Descriptor ring:\n");
- 			sysfs_display_ring((void *)tx_q->dma_tx,
- 					   priv->dma_conf.dma_tx_size, 0, seq, tx_q->dma_tx_phy);
--- 
-2.34.1
-
+No this would still result in spurious flood. If native XIVE is being
+used, LPCR_MER cannot be set in any case. Software interrupts will
+continue to work in the same way they work in an LPAR.
