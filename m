@@ -1,149 +1,234 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B034FC344
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0740B4F68DD
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790854115; cv=pass; b=GRwDgBzPFtwPWCAiHcHeQiR91XjO0RgfSLDnYRomnUfosaYl+JJ3t5sE1aToorYojAjccASYRCFa6Gyt4QQzSnydL9NIkZfF6kSgciVgzBgdkGHwsKbNgE84xHxiSgIFVxNSIQuYM27fma1gOHbx7gDX1qjni3YKFeDa6sQSY6E=
+	t=1790854164; cv=pass; b=p+RXLNMZtMiC1eVzdSrMbWGYSAF9u4dgGAud1fLtI/1gcLcMP2zsT9/YoMOzER73EzN2kTc5eVYvJ7Wd1FiDaht4CKSMhuy+M/3GkCppjgcpJ2ropbZUHSe9aD/9YrGN0G4SwgrDaKe6OJezwJ/9uRun2Yd+W6wPeH1la13vL7I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790854115; c=relaxed/simple;
-	bh=AwszME0PVQXG1C2Shl+TVih5js5vNu61zvf1dP2CyC0=;
+	s=arc-20240116; t=1790854164; c=relaxed/simple;
+	bh=Ot1+xCJHzq0e02e3Cyh06QAAuD68wjvmC/Hp2Hqnjv8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N8aqJOVoj2smlCfzV/MegNI+AxTY+/bNpW3+8V2m8m22ynlAQImyj74Z/ePg5nfa4GzwyGFuDNF52cDUHTH3TeWPZzHEG9ItKi3MRK49QbyFswFa3E5JYJHKOWJCpHqxAUH4AML9XM2tb485X2d8bOAqf7sGFMQ3gVMIzk3ZhdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hmRgA7XM; arc=pass smtp.client-ip=74.125.225.97
+	 To:Cc:Content-Type; b=PdrHkn2eFIuCXJp5Vs4pooYEiwl6ctDrohjzCNd1Lgf3cE7nkAZhXfvM9Pvbf7kqta5Yto9gX4c8sFiFW/skTLrsXxNbz30Zb0U35awvWe5PW1MFMDEvNKE3goIaaPYjdY7Nlr04ZiGfPGdCHqmS/eiak45xIBaN5+6Qjyh5chc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lK9BTSGK; arc=pass smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hmRgA7XM"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b0fc598f8so209526f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:28:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790854104; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lK9BTSGK"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a8038a9f10so8841094a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:29:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790854156; cv=none;
         d=google.com; s=arc-20260327;
-        b=Zyq4RDAd257F68QcAEjmoUsnZm2jO5Qxh7fIUEyzflMARioLmZQkM9UE+5z2BHBMvd
-         nT5Y6B53FGbDeTIO39PRN09VT8I7uLIrOfMXrCjLl0zMV0WOTKrEEgdMAPpVivrt/S4q
-         AK5AB0LsJGIcp8+DW43BHSOkAbSplmBP9ioQAyTuu/AhtJ6X3rMORZsNh50e8gRS17Fj
-         eJUFrlYmtP1SWhlYozX9lt45apG1sdtnDxz3TU4KrsUoCfTPfvEtTAPSrSTiCNDTEeLr
-         HiMPPUx3qc5nlnRJKTRXz0zLJBGRrRV3SrrA1bCih0C85HlCzoqtWIskjlStLQRF2AoJ
-         ezgg==
+        b=i02DWGPsO6+UKmJ42OQgDEgBPg2jl1eOcTQIrmChHgoJciO14UoNNGujFFO1KAywR6
+         QKt5cSfNiN3lLMYVXSabBDBdu46FMxZwSY51FVn+KxQqgL/IryCy61VoeS14NK94ZpVd
+         iLh2p4zciiJaBBfElZAIQc2sucGJJBJtPL3qbKFYTMqN5pelaQkRlAxAxKNbCUCxERn3
+         PwSp3ldYj+NbK8PQ1biqQ5RON2Mxll2kFTjbFRI7OgtpFKm3CGYM0dvapd3NlWB+bQ6K
+         5JW9hQVFas0H9fI8fZlyBUYcFFg+8MHWKVptY01dlxv1vVul3ZxxhcdymDxxnt+nnLkT
+         QBNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=wlTXVZFyOCFbc+V/2yF4m7zDYgmRZl4N5AzvlwIj8Is=;
-        fh=JOE6W07lHR5EugTPoF3cgZqi/8DaCHMa/ij64NWoR54=;
-        b=PII/zhzaE1kl+5i2B2JqS8xo4KXW7atPuDT1YU1VJAwKsnTvgrjNZrrmpLTUiwygnp
-         KyS/YlrQHUfUsYl3pg9luhthX/1Qsjab7r2GGrx3lWvt4QX754qZNCKrYysTXCGFid3r
-         JPJ+WptICX0m14ul8SBtZoD3w+j8tmEztjzYxNb/0W6wga1JwIQzHZPcKr7mYt0hUOOc
-         7kHaQvOvMgBTBbXZoecGIUbDfEK7CtYuzo47X3yL6O9S3Za7adm6nA5bLpsaRNAizDUj
-         Pni5lfCpmvRdMxGWFV6XWbjerqfKAbALH+i5CW+PbBF/tG+/TFgUk11AbZXCwIn0xy+2
-         zjTA==;
+        bh=RmUrB8DoICBbcpN5AXnNeG9QLbqxZWqBz7y7VYPLydw=;
+        fh=Ag5dEHb/u847F1gdRj8xXx1A+TewMkIzIknKGYGjyNY=;
+        b=iNLtkEpH51OALbPT7Nu1l/PzKDJyFPSoGjDUb/w9PTO90NFOOwYdtLnacP2wmUYa5o
+         3HXGmympsrcou1bAxsGnAeCOoXojUqqDLR80aQwuY/MCBzJJiZWZJG+7jsDLhxfolPJx
+         c5Xlyu9d7Lr0d/uqeghgc1V3sj+aYwbJzLT4xl2wIHIr2E96JCDPgT5ptR9QKAXaUrt5
+         GAQUK1KqoKduBDLoVbF4gRFwC516ehGJPTz0hnCCjR/X3r+u3Y5LrQiwNoK5WTKFRcSD
+         ZopDmYXSe+8/uhLAGHAHYlMO7yqnrlVIlUrw0XE5WgLlDOWR6pulgFtYMJoBqhtdkSoW
+         ymBg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790854104; x=1791458904; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790854156; x=1791458956; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wlTXVZFyOCFbc+V/2yF4m7zDYgmRZl4N5AzvlwIj8Is=;
-        b=hmRgA7XMkdEUl5NDDcgnxH6nPHV45XbFOLCGcbW6yI+zubzTerjygoc2LBiwsmEZMY
-         Z5sVoZc72Xc22ckzOZ2IJVDFOpxSGVn8Uw3mPLFJKbE6IX5hsi6ocKjWNa3VpPTIGEIw
-         vEz4TFynFiB+apqfoP18RiyMc/TgfInaxGvebKBiwx/xzcccAcMXPsAKMX1/UChjKbVw
-         jr47EM+HKDM9cvF29ONKb1phPGWuoZ2rawclhn93dovhH4dlbnsxXm/USeHV8OZpVdB5
-         1bwQkcTF7V8nOyXeX1NfHfGV+hJj3iYn74DPrTPbdZVYztIEKyDhoADHfLlDaIm2iS8Z
-         lE+A==
+        bh=RmUrB8DoICBbcpN5AXnNeG9QLbqxZWqBz7y7VYPLydw=;
+        b=lK9BTSGKwiblSiz/mizW948fGsD3gAFBTSoQCy8JrRIaHOJfpP9rjdTHnBtAaU8dYV
+         HvesHu2KyEtZigjSGOz3c/0KzNFQyNwuycConmFRBxj28ZvrADyWw/ZIJiBBJLLBZTOE
+         nAALkx7ooMm179gdNsj+7rMfNBh76ioI7dZGhbrQ5m8Wk35ABrsoZoDWaSHH4qO76z6z
+         EERjO/Wc72cQNP+zhxF5Z/f2pg+fxKdoLLB7pIMO5AdcarVRxreJe8kNrBHWZUOnRvGl
+         lk3ZFHayF2xQuSEnlaTQPzjgnAUcxP0/Gegu64CUvIlLamSDJ+M3XvYL7wLmFOTebtyL
+         x7gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790854104; x=1791458904;
+        d=1e100.net; s=20260707; t=1790854156; x=1791458956;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wlTXVZFyOCFbc+V/2yF4m7zDYgmRZl4N5AzvlwIj8Is=;
-        b=BYhr1rRDMi+pO7FcTpCdL+ZniiEsarOnz/3VU0tHwAUFdtutayPL91LjQdDyHynLJB
-         f/y2IaBv76NGl6S51e6rwYL37uFEyrJGYm+a3hqvaQc2z0MoX+h6IvkcgQD0rRJZECYr
-         9iOdJRruMQsIIF04ZDzWFCJ4RN8zjG/OOI3KumxP0MjyRBdQokOgXqUp0n+7Tqd/adfR
-         9V0qppbSeMZgTZL2bfYpy4VNpR/ZcVo2GlP4GZHp+OPYT6X0CfyzMf1FIGZPdRtxGafB
-         z/lsemzXKezKVrC2Z9qcLpv4q5EEVctYu6CY/2ZhBCK30pW6Dq0u3TMtQudU6255CY+h
-         qwFA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1XoxNM4Uc6g64tF5HsK+E4N4V4TEGGpvZRc3A+0Ny4sAgTZwIc3Rkxnrwi+YBMqmmFqgNOvR/sVQgmqA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpqLC0bMXXVydUpO2L/ItguzwUQOaAiqKuISOdt5ruar/s04zc
-	b5IOp+VXPOefmcr6PHNgz7HwOsH0dExBRitHfDH6qO3Z622aQXREkx5nqKEI58i3zdI+oPOujWn
-	LsuwEPhw62bVa2e9utHVfpmlVxLUjjTw=
-X-Gm-Gg: AYBFou3Bgmd7O+fgqsjfj87hqq3HoDIeGkKHKtKP1hNfvrlscWU5hjvb2SbdubWuCIB
-	+kaECUW32vum4qpophXv0Vwx5e7o5Q/Asc9JRmGxw54+4yUovQVMtZUPiga+J3cXh83FtTVd+Ga
-	uJpILE6XQbINvJWskspAhPq3kXd8N2K6X/6r8ryx0MdN9aKM4YURjGHKhHl5qKMdXTmIuMO5e9m
-	5xL3CwXyRs84F5+sA2I3W+cqxgbGKRd7ua+CDG1icGt5fNECegAwetU2uHq8hNCRRG6X/6RJ2ft
-	bXgGSwEf+jUBgE1ncBm2nnUmmGw8mxCmFO8X/Xv68z/jXCjXtA6Spd6BH8R3cpeGcnz7W0WWzav
-	oixM5gFFm1f4/v6WpLjxsLVkthRJsYhVGub/pq/Q2zw9c6IFvcxGVvohcg8Ru4Z+Sb+6ZgaYoAQ
-	==
-X-Received: by 2002:a05:6000:290c:b0:48a:fcf8:20d1 with SMTP id
- ffacd0b85a97d-48b02550600mr8872303f8f.48.1790854103827; Thu, 01 Oct 2026
- 04:28:23 -0700 (PDT)
+        bh=RmUrB8DoICBbcpN5AXnNeG9QLbqxZWqBz7y7VYPLydw=;
+        b=cq0an9qa4p6xEjnlhI/0G1ngVYi9P5WC4czvwuJlg5Rt2/EB90EC5uzAjWB79LNz9/
+         2h1MEQmLK9Re+keaJdz5bY+6da6iP0zDvdI0KRQi1ArQkcu8Ksfgep0OXvdPe63yAVv3
+         UOqQFr26KML9XJs3ka4ujSrEm/3ZmHUXUzILpVZ7cjR4ar+7sMVzebIvdlMAesorJxNk
+         2F0uKU8yB7NuRmZbxJdttnr3EqW5WhfrG0TRSrWB79zohYpY8pm/6mH/qNHueNt822Vf
+         ylo0htwwKmUamIDzxsFDPb2FtXjzyuJyH68FywKhyv7Apl7gvGV6gt7oG5rsHT5YOAQO
+         uciA==
+X-Forwarded-Encrypted: i=1; AKwUvByPHXTXpMvYUCdFxGPCASID5sVUEnYNiu9Mz6dApPxvJ4wb8ydbmPDS44Jw4F4MfAtuge4ZidC8EiS4QbU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYQkkQbZ1RPZxr+3UNIiYCrugtcY5eCtHa2E9j0KnvdOAkcrxD
+	S8lsC2stNp6Q3ZbAxBRPZJDVIL9MIWNBcKBpSibzgLpRR4/4dzr+BC/kXJRDtlRIS/rSV1gTkM4
+	NYHsM07UpyPSrENn/M22RyKn+6P08S7nipAf7vfs=
+X-Gm-Gg: AYBFou2q1ognfcHPse0OF9JjXYo03Ieygkv7max0rmdymaSsn8+dr/+//EBTcZ5mX/4
+	1PBbFq/VkO+GKyDTMjzkccHoke8nwk1iBlE8TeQrOkJo+yk/p6vq+Gqp9wSLT2UuHsNrVvqXMJb
+	t46Wl/M/DPBkYakpyl4r2zGeZOfyhEc8kccvnns7OGAJ8b+jE7AKUiaD4mQX7mAvEO1aU3d4VEj
+	+82HtVOZi07SZL1sT2uD+bqmEZ047Q5jpvjqnyhvqrleEE0YWeqVFuA/17GhP9TNThXgI0jIWK5
+	moEDtwhWSqv79z5UpWK4H5+bbx0byN2RMciSV/smdRAMaAowK74Heydv
+X-Received: by 2002:a05:6402:a544:20b0:6af:92a6:97df with SMTP id
+ 4fb4d7f45d1cf-6af92a6a414mr43983a12.0.1790854155697; Thu, 01 Oct 2026
+ 04:29:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-miic-validate-dtb-v2-0-1ee3d33748e9@reliablecontrols.com>
- <20260928-miic-validate-dtb-v2-1-1ee3d33748e9@reliablecontrols.com>
-In-Reply-To: <20260928-miic-validate-dtb-v2-1-1ee3d33748e9@reliablecontrols.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 1 Oct 2026 12:27:56 +0100
-X-Gm-Features: AclHuK8F6U7l3QWG93hRCdan52bWlrmjNJx7o9EjG92O3k2nxmSLT0XW8-w3RDA
-Message-ID: <CA+V-a8uGauEQZD4dT7woBmg4b0dqgvWNQ7JCdCgpf4U=aZ0X-Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 1/3] net: pcs: rzn1-miic: Fix port numbering
- on RZ/T2H
-To: khendry@reliablecontrols.com
-Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260913185016.523376-1-jkoolstra@xs4all.nl> <20260913185016.523376-8-jkoolstra@xs4all.nl>
+ <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
+ <178972607557.207413.4312278359822083538@noble.neil.brown.name>
+ <178977609418.207413.15011378414000392029@noble.neil.brown.name>
+ <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl> <179072013439.37859.465558431050704411@noble.neil.brown.name>
+ <CAOQ4uxis4tsea6fx+9iAffVX+qwBC9KzHg5GcP7ahthKd1T9KQ@mail.gmail.com>
+ <1910540525.790746.1790806610320@kpc.webmail.kpnmail.nl> <CAOQ4uxhYHf-gAkjdhs37vZREOcNds5a_6c3nBX0Lva3resofmw@mail.gmail.com>
+ <179084933040.37859.13445625413196658440@noble.neil.brown.name>
+In-Reply-To: <179084933040.37859.13445625413196658440@noble.neil.brown.name>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 1 Oct 2026 13:29:04 +0200
+X-Gm-Features: AclHuK_pcBihlxtanRskirK29rw2qS74wFNrXL56cTDsIdZmgFEUTJL-6VkpUbc
+Message-ID: <CAOQ4uxhryRbKojbMDA2Y9u4o0sNUVTt8KshacWqqEJYb-EYnzw@mail.gmail.com>
+Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
+To: NeilBrown <neil@brown.name>
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>, Christian Brauner <brauner@kernel.org>, 
+	Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+	Aleksa Sarai <aleksa@amutable.com>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Theodore Tso <tytso@mit.edu>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Kyle,
+On Thu, Oct 1, 2026 at 12:08=E2=80=AFPM NeilBrown <neilb@ownmail.net> wrote=
+:
+>
+> On Thu, 01 Oct 2026, Amir Goldstein wrote:
+> > On Thu, Oct 1, 2026 at 12:16=E2=80=AFAM Jori Koolstra <jkoolstra@xs4all=
+.nl> wrote:
+> > >
+> > >
+> > > > Op 30-09-2026 05:45 EDT schreef Amir Goldstein <amir73il@gmail.com>=
+:
+> > > >
+> > > >
+> > > > On Wed, Sep 30, 2026 at 12:15=E2=80=AFAM NeilBrown <neilb@ownmail.n=
+et> wrote:
+> > > > >
+> > ...
+> > > > > The problem with this approach is that open(.., O_CREAT|O_DIRECTO=
+RY)
+> > > > > might create the directory, then return -EOPNOTSUPP.  This is wei=
+rd and
+> > > > > I'd rather it not be visible.
+> > > > >
+> > > > > Currently O_DIRECTORY|O_CREAT results in -EINVAL.  I would rather=
+ it
+> > > > > remain a -EINVAL on any filesystem which doesn't completely suppo=
+rt
+> > > > > the functionality.
+> > > > >
+> > > >
+> > > > Joining late to this party so apologies in advance if my questions
+> > > > have already been addressed.
+> > > >
+> > > > I agree with Neil's statement above, but IMO, the atomic_open() fs
+> > > > match the description of "doesn't completely support the functional=
+ity."
+> > > > Therefore, I think that rather than success if directory exists, th=
+ey
+> > > > should also return -EINVAL/-EOPNOTSUPP consistently (see below).
+> > > >
+> > >
+> > > The issue with this is that if you want per fs atomic_open() opt-in (=
+in
+> > > contrast to either implementing all instances in one release or disab=
+ling
+> > > all), you have the issue that your lookup now depends on the caching =
+status
+> > > of the directory dentry.
+> > >
+> > > If that dentry is in cache, and positive, d_lookup() earlier in looku=
+p_open()
+> > > makes it return early:
+> > >
+> > >         if (dentry->d_inode) {
+> > >                 /* Cached positive dentry: will open in do_open(). */
+> > >                 goto out;
+> > >         }
+> > >
+> > > So you get your lookup. But if the same dentry is not in cache, now y=
+ou
+> > > suddenly get -EINVAL. I thought that behavior was more unwanted then
+> > > what I eventually settled on, namely to strip the O_CREAT bit.
+> > >
+> >
+> > Maybe I am missing something, but I think you misunderstand me.
+> > What I mean is - if directory inode has a ->atomic_open() op,
+> > bail early with -EINVAL/-EOPNOTSUPP, because this is a network
+> > filesystem that does not support atomic O_CREATE|O_DIRECTORY
+> > and in most likelihood never will support it.
+>
+> NFS can certainly support O_CREATE|O_DIRECTORY.  The MKDIR request
+> creates a directory and returns the file-handle of the directory that
+> was created.  I think other network filesystems return the identity of
+> the created thing - or fail if it already existed.  That is enough for
+> full support.
+>
+> The only cases where I think I think there is any doubt of support is
+> kernfs and tracefs because they don't return the inode.  tracefs is
+> interesting because it drops and retakes the parent lock so it isn't
+> immediately clear what atomicity is available, though it doesn't support
+> rename at all so maybe there is no interesting race.
+>
+> >
+> > This gating criteria is not dependent on cache state,
+> > which is what we wanted.
+> >
+> > The justification of using ->d_revalidate() as another opt-out
+> > is that existence of ->d_revalidate() means that the state known
+> > to dcache is only semi-reliable, so making atomic create/open
+> > promises is problematic (O_EXCL for example).
+>
+> The idea of using ->d_revalidate as a gate is certainly interesting.
+> Apart from the interaction with case-insensitivity, if we initially only
+> supported filesystems that don't have ->d_revalidate, I think we would ge=
+t
+> coverage for enough filesystems to be interesting.  We could then take a
+> bit more time to think through the rest of the picture.
+>
+> I don't think O_EXCL is at all problematic.  ->mkdir() is already
+> required to return -EEXIST if the directory already exists.
+>
+> >
+> > The problem is that some fs (overlayfs/ext4/f2fs) register
+> > a mostly-noop  ->d_revalidate() so I proposed how to deal with those.
+>
+> Presumably the fs would provide two dentry_operations structures and
+> choose which to pass to set_default_d_op() when creating the superblock.
 
-Thank you for the patch.
+Yes, either that or clear sb->s_d_flags & DCACHE_OP_REVALIDATE
+when d_revalidate is not going to be used.
 
-On Mon, Sep 28, 2026 at 10:19=E2=80=AFPM Kyle Hendry via B4 Relay
-<devnull+khendry.reliablecontrols.com@kernel.org> wrote:
+> Doing that would even provide slightly better performance in the
+> case where no d_revalidate is needed.
 >
-> From: Kyle Hendry <khendry@reliablecontrols.com>
->
-> The port numbers on the RZ/T2H are documented as 0 to 3. Update the info
-> structure to reflect this.
->
-> Fixes: 08f89e42121d421b ("net: pcs: rzn1-miic: Add RZ/T2H MIIC support")
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
-> ---
->  drivers/net/pcs/pcs-rzn1-miic.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
-iic.c
-> index cb74861e823c..df70309c2d97 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -838,7 +838,7 @@ static struct miic_of_data rzt2h_miic_of_data =3D {
->         .index_to_string =3D rzt2h_index_to_string,
->         .index_to_string_count =3D ARRAY_SIZE(rzt2h_index_to_string),
->         .miic_port_start =3D 0,
-> -       .miic_port_max =3D 4,
-> +       .miic_port_max =3D 3,
-The description for miic_port_max in struct miic_of_data needs
-updating. I would suggest renaming this variable to miic_port_last.
 
-Cheers,
-Prabhakar
+Very slightly, so this should not be a reason, but advertising corrects
+contracts to vfs.
 
->         .sw_mode_mask =3D GENMASK(2, 0),
->         .reset_ids =3D rzt2h_reset_ids,
->         .reset_count =3D ARRAY_SIZE(rzt2h_reset_ids),
->
-> --
-> 2.43.0
->
->
->
+For example, if overlayfs would want to install:
+
+static const struct dentry_operations ovl_dentry_real_operations =3D {
+        .d_real =3D ovl_d_real,
+};
+
+It needs to know that none of the underlying dentries is expected to have
+a d_revalidate op at super fill time.
+
+Thanks,
+Amir.
