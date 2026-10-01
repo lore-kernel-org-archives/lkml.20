@@ -1,133 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A213AE6F3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865913; cv=none; b=meFyaK31lkqH9R7z0eS4bM42uYYEXSf0hzOyJ+eBW95sh5OXvSm6p665MfUpNdjm9fO6MXeRelsLOWrkyYURcFmSPBfsH4n5sdzkSjpXc7K5HkLdl4RoE0s7E9ST79/PgL8bOaILJ1BeIvALQguLenaCZ7KtxF2oiolS1fz2MfE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865913; c=relaxed/simple;
-	bh=9L6CH3BNsiAwS+p+KZKfthcFKV4pNXIkhNBnMWLc38U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bGsVemT1nkJIkHZ7ZS8u34xoNi/+WIdJTDM6jU7xKyknAUHCD1Zh+kacRrC9TiI67bf1ebPRH47Kpy+/JA3CzPOuMNAA9zIQfmEcIbmnZtTdZjGEo7xNgh8NUrwbpj0Qz85bvl9nEBb3PFITB6EKOi9BAt0tzq6sm39ZI9P+qKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R40y2+z0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E09E457E7F;
+	Thu,  1 Oct 2026 14:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790865921; cv=pass; b=KVZF2YVKaDyaHFiiQvPIvG7IhMDQKPmhzMoNjyK4QGSEU7t+ttycPjv8aQz0xtQKefnW7hI09kH63u4wgp1C70CjWCNiHW+Y5nGIJWTa9W43gxliFx9WSIJYKvdtTnRSblZNZG86UPFRUwMQ7OIHdi2rQMXmJwRQOItiAV+fapU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790865921; c=relaxed/simple;
+	bh=BekAdl4V7Zy1Q0hGuYnmnpejNDblWxGABm9hF/B65sI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VwU5DlItTBIqCdtoR8BpS613TvaWV/ncSzYR9Twle6Auu1YffeYExIYdN0hZWPn9rOA6QYEqCakjVTxzGlNDwroPCUogWa0Fr78UXXEu3Kwexa0heOU8S9u78MxMuJGQeq20gl+jI8dXwAM/rD8OSKSu9SMCrvJOR5K5QsVWmNY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=harin.net; spf=pass smtp.mailfrom=harin.net; dkim=pass (2048-bit key) header.d=harin.net header.i=me@harin.net header.b=H3Fv5avl; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=harin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=harin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R40y2+z0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87711F00898
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:45:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790865911;
-	bh=9uZ3mVJtvx6p++HOh3FyeX5LdpfEqkU81Hfu+v2ES8Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=R40y2+z0yPoQVl1o5lFeZEka6UC42wpMJflYdk5nvWP5N8Yr2KciXqbqma5DFmRuE
-	 jI6CaMKitg5Z7a37E3MgfBM7C5Q3zsS5/+LVSXyOHhOaa9/LAcDjHpiVS6+LdIIjvK
-	 cgQGPwXteFUyyNGWRMym5rsxPzq3Ip+or//8M3m34jWR8P9N03zhf9zRxbp7FWmALD
-	 hx3HBnyuE5Uk9LTtVagCPr9yLFE+XL788gdkh6QEC3JCWf4Ny0yZvaVMNB76nEGBfT
-	 CJVqUtnREkl91LqqeT+rALZXvRwCjMHj5gNFN5r94qh/aCJKouHRwjxq/XgDyXWqy4
-	 /w3DsCh3b5PrQ==
-Received: by mail-qk2-f37.google.com with SMTP id d75a77b69052e-533342a38ebso62465031cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:45:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz9RjnLHf4JtF519ZuKsLfOqwyMfurM+AHfn5pc7EHKA/EZ274OlHgS/ZuqOtcys1tEH+yu5/WVYOQON3E=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5c8tjR3X1HRtyCEr7oVaB54lDu8weNjR+rtUe0rQ3n6pI2V3g
-	Ostig8TbwD2UqBSk0Z9Jk1vGZGqv8Lcgufo17YBV934OdDBVh8/KD7sFIeu1Mm+v8s5F5XtExmu
-	5fkbgijgGe0bqb1KYAsiASRPZOtsvAEA=
-X-Received: by 2002:a05:622a:e398:20b0:533:8ae0:3a4c with SMTP id
- d75a77b69052e-5338ae048e0mr29517051cf.47.1790865911012; Thu, 01 Oct 2026
- 07:45:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=harin.net header.i=me@harin.net header.b="H3Fv5avl"
+ARC-Seal: i=1; a=rsa-sha256; t=1790865908; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=H0OoFjwwCBfGU7Jzs7Ue0vADJPz4XTho2Eg759ufRQi3FVKRhzKQInnc952/p/u0p1pyGBoSefkmHlf0WfZlQvMByKdqooAnwoHCJLynNvsVJIV0gaxzMCV/kStR1u3JQJDrGUDkZfVJdP+Pa+t7PdTVg7LoSIPbslUvXB+qofA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790865908; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=vylu7oC7KlwaP9epXMPxXOEHT37v5jTpXUVi9RC+ylA=; 
+	b=OU9v55DpZRydL22P5i6tNoj6q6iC9VgyV7keOIb+CBmhYsaEP5NSP0XRFiIN1EKbYQzyKDz+7bMTDGIKS+VQ1ALo58uK0+O0oxRS5nk4odKe/s0AupKKHVmtlXrNWBdSD6cPicCqJs4/ti+hkPsY73PDi0tzVT4Ohs3l4A688+Y=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=harin.net;
+	spf=pass  smtp.mailfrom=me@harin.net;
+	dmarc=pass header.from=<me@harin.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790865908;
+	s=zmail; d=harin.net; i=me@harin.net;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=vylu7oC7KlwaP9epXMPxXOEHT37v5jTpXUVi9RC+ylA=;
+	b=H3Fv5avlZbAjM7vHN7xu11eRQ8k5AYFu1OhNokTISThG4f0ujLHhFfp0kypcZkJg
+	LsDor446qmXax/4NO01Jqymzh/40KJ6aVqENUle3Nt1eBpXx13ItIlAh8QgX8jeAHu7
+	PpcSYl2L0xbEI45dyGxXTsdM0YvV4pml2Ur+TLEtBjdQ2kNZUI+qdgY8V0DNw+y7Pcn
+	pPldBWAc86oaAXCckqjIAcb1dOeoRO7LwN5DHH0pj/MAhfmPBG+KTemCfesqfhZ8rTR
+	tzTB2wXcqqbPxpFd0xkE07PYcyP0AjE3d7j9cn286/ge2fr8+mEmRAfj6UPD/EWienz
+	mxmfwOhMwQ==
+Received: by smtp.zohomail.com with SMTPS id 1790865905401744.9452129344045;
+	Thu, 1 Oct 2026 07:45:05 -0700 (PDT)
+From: Harin Lee <me@harin.net>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Harin Lee <me@harin.net>
+Subject: [PATCH 0/1] ALSA: ctxfi: Fix memory leakage when clearing DAO input mappers
+Date: Thu,  1 Oct 2026 23:45:00 +0900
+Message-ID: <20261001144501.3050667-1-me@harin.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902065922.1408-1-yanlonglong@kylinos.cn>
-In-Reply-To: <20260902065922.1408-1-yanlonglong@kylinos.cn>
-From: Len Brown <lenb@kernel.org>
-Date: Thu, 1 Oct 2026 10:44:58 -0400
-X-Gmail-Original-Message-ID: <CAJvTdKn3--_KCvGiqJAOySscw+vpT1OnvdVfi3uMUVjJ6L3LiQ@mail.gmail.com>
-X-Gm-Features: AclHuK9iD_6H4G1l1yw-Z14P0ZZrV7zTwx2IT9mIW7X9lkLTzjdgHB29E7kOdQ0
-Message-ID: <CAJvTdKn3--_KCvGiqJAOySscw+vpT1OnvdVfi3uMUVjJ6L3LiQ@mail.gmail.com>
-Subject: Re: [PATCH] tools/power/x86/turbostat: add NULL check after calloc()
-To: longlong yan <yanlonglong@kylinos.cn>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Applied -- thanks!
+I fixed the memory leakage in dao_clear_input() and successfully
+tested this patch on an AMD64 system with an OK0010 card and KASAN
+enabled.
 
-Len Brown
-Intel Open Source Technology Center
+However, actually I could not find any evidence for why the original
+commit mistakenly removed the kfree() calls.
 
-On Wed, Sep 2, 2026 at 2:59=E2=80=AFAM longlong yan <yanlonglong@kylinos.cn=
-> wrote:
->
-> Three calloc() calls in turbostat lack NULL return checks, leading to
-> potential NULL pointer dereferences on allocation failure:
->
-> 1. rapl_perf_init(): the allocated `domain_visited` is used later via
->    memset(domain_visited, 0, ...) without checking for NULL.
->
-> 2. added_perf_counters_init_(): the allocated `domain_visited` is used
->    later via memset() and domain_visited[next_domain] without checking
->    for NULL.
->
-> 3. pmt_add_counter(): the allocated `pcounter` is dereferenced
->    immediately via strncpy(pcounter->name, ...) without checking for
->    NULL.
->
-> Add NULL checks after each calloc(), using the same error handling
-> style already present in each function: err(-1, ...) for rapl_perf_init()=
-,
-> errx(1, ...) for added_perf_counters_init_(), and return 1 for
-> pmt_add_counter().
->
-> Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
-> ---
->  tools/power/x86/turbostat/turbostat.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turb=
-ostat/turbostat.c
-> index 4ad7cb1df5c5..926dd1422fbe 100644
-> --- a/tools/power/x86/turbostat/turbostat.c
-> +++ b/tools/power/x86/turbostat/turbostat.c
-> @@ -8578,6 +8578,8 @@ void rapl_perf_init(void)
->  {
->         const unsigned int num_domains =3D get_rapl_num_domains();
->         bool *domain_visited =3D calloc(num_domains, sizeof(bool));
-> +       if (!domain_visited)
-> +               err(-1, "calloc domain_visited");
->
->         rapl_counter_info_perdomain =3D calloc(num_domains, sizeof(*rapl_=
-counter_info_perdomain));
->         if (rapl_counter_info_perdomain =3D=3D NULL)
-> @@ -9942,6 +9944,8 @@ int added_perf_counters_init_(struct perf_counter_i=
-nfo *pinfo)
->         const size_t max_num_domains =3D MAX(topo.max_cpu_num + 1, MAX(to=
-po.max_core_id + 1, topo.max_package_id + 1));
->
->         domain_visited =3D calloc(max_num_domains, sizeof(*domain_visited=
-));
-> +       if (!domain_visited)
-> +               errx(1, "%s: alloc %s", __func__, "domain_visited");
->
->         while (pinfo) {
->                 switch (pinfo->scope) {
-> @@ -10333,6 +10337,8 @@ int pmt_add_counter(unsigned int guid, unsigned i=
-nt seq, const char *name, enum
->         pcounter =3D pmt_find_counter(*pmt_root, name);
->         if (!pcounter) {
->                 pcounter =3D calloc(1, sizeof(*pcounter));
-> +               if (!pcounter)
-> +                       return 1;
->                 new_counter =3D true;
->         }
->
-> --
-> 2.43.0
->
+Please feel free to drop this patch when this change looks like it
+has not been verified yet.
 
+Harin Lee (1):
+  ALSA: ctxfi: Fix memory leakage when clearing DAO input mappers
 
---=20
-Len Brown, Intel Open Source Technology Center
+ sound/pci/ctxfi/ctdaio.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+-- 
+2.55.0
+
