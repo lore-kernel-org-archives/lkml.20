@@ -1,95 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE1C48A8D8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290AE3451A9
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866171; cv=none; b=uGDiq2nNvR3/F8zfJzxSYhsrDr7433+RAGoIR8uEVWSKTqAvkaEXGudHTr88TzWPltV6i0s5dMHwT1Rj9286hwFkFVFajYqTyYAZ7Kte6t7Kvd8VHGc+Z9pHv+uZSJEq0XY0TXM0mhqZgq8hFtQN+DXyrrr9dvQh+qkBCJVwgWg=
+	t=1790866184; cv=none; b=LdAttC8sTbj7MqyKlk1Q2bEc72YYBD8iU+dpTXeYsMmiKvWVzkgvjJ/YDPDpOTl7Op6fWR6MU84Ewc5Dje/+hvTc3G69QDqf7HUVOpczyqyjC3WfV4W7MyJsBdRqYcOCcf+4HPh9UGlAV+rmg62oqbKcPAfvpyfdO9QcJHWVCxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866171; c=relaxed/simple;
-	bh=V7u46sNVWKL4z36H5sU99U9pul16ah+/hvWwKR1Y50E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ojz8qH3DZLMMOW4G5mBBWdb5eUi4S9u+NFgFQYEsI+azM6YEtCAjJPSVv0GD/6VgW3Iqr6e7l+vzgeFKrqzVQwW+WKJ2Pqp+g/fi+uJL1jDMs5cau/AbQ4RsrVk3ri/SuUFwz60HMNuAOnC54pdMkygVuQgBz0Fen9slXAeMcwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFj0ZHgo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790866184; c=relaxed/simple;
+	bh=Oj5C4Mfx0dTb9luGBZORcT2IiZ7I3lUSzqMSLKqiAiI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XipF9LAoTSdyFWtN0vTRLZUFdmFkpbSps+63J20HxXpWDHil1smMjkIx3no8GgzejNivRlFe/suupLDYQZ5olxhTtFpzSOKJskROVLMt85YFfgQRqDLKUXvtEixptvmgviUlZGtUAGuyIDDDtz6qY0TIPKC4R+714eYfbBjUCvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S6oG742Q; arc=none smtp.client-ip=74.125.227.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFj0ZHgo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689651F000FF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790866169;
-	bh=Tgr7p0VhahlwKCMKcLQrM7qHhQG52smQ+uxsQJQ7xWg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oFj0ZHgoy1G1c9lqXMSPI5mi/utJpF+WagGrhmOSvLXn/qbbiebWErVpzNVjf8kNb
-	 OiDqA7EHe56VTDCw0N2pTiQ86XFnnp0cNaRmDIOuY4XWhXzzcv8r2KJY9jtXnFdyDZ
-	 N/GrWjAnsmX9AKWeEsqMDCeHPa2B4EyGPhAjxVUuSptPJ4DlDeL7HEySgmPVt5SQri
-	 WyhKk9jK1wBN9EBEKUpY5cnMaa8no/rVALaZiiS5C1AvjZZ4/lY1YyQt9Zh2Shk5eQ
-	 DvHpSYpqIl5T1kA+EPCfgJ4Dro6fBguQnRxevX5cLoxnoLR8M71o79Umkxk+5tJc6k
-	 +QPgD0jo9UA6A==
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91795fb225aso26431156d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:49:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx31EIXzMCg1wln0+whqDxQX+ZKcJwvwmxp5zYYrETI7kh/tu0BYu6nV5JEZp08GpVjDR7io454I8U7x28=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKeeoKddGJR8CGAu7yVlahtubxH1mFbzR5xhkZUwIgnpNt2K/i
-	SPjLgChAdLl4H72QyFS0lkbTAf2wTGfBv9yP6VZRr13bZN5GxYaQy7trf8qT0x6r1RnUwyPRKht
-	nkZZHDuPYPVtdRPKKnusFjB4GFZVDFzk=
-X-Received: by 2002:a05:6214:6291:20b0:917:a21f:d12f with SMTP id
- 6a1803df08f44-917a21fd1b6mr69555646d6.28.1790866168848; Thu, 01 Oct 2026
- 07:49:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S6oG742Q"
+Received: by mail-pj2-f39.google.com with SMTP id d9443c01a7336-2e2d2bbcab2so12003495ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:49:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790866182; x=1791470982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kxg73ytnb8qP6pJiBvg4zQ5ISBtXzCRO0EIz45SrSkE=;
+        b=S6oG742Q/QXOyCQphW7CN8a250AcOQobfC4bkHb5PZwliQO3Vsp3Z00fK9hXMWLC15
+         te48lzj6ReBKXth/ptPmFHzMUg0CX6ljDDOjRW5BoeLf2bzrQ4Kk3hGDQFk+f30TC76L
+         Kdxjh+2hT0mavXpnkLRgQfx6hE9TxMTWOK7prbuE26Sv2IR5VKAjIdXlcXtZHPlGXfNe
+         nvTd/zZSXM2BBMffyQ86ZdRdn3rlOTs4T5g0mwW4u+wCl5wSDi5ipx8S+j2LMvgJMBha
+         o5/0Kze5HM7cu8VamAGK7xEGvJNmMdiXIucMblDrPV/3qgL++QO8X10uqaW/tT5SzEOi
+         zfeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790866182; x=1791470982;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kxg73ytnb8qP6pJiBvg4zQ5ISBtXzCRO0EIz45SrSkE=;
+        b=Z/AivAQNaLqJokFecyDzlq0m2ecezrND/4bWarngLz2BYMZdr5o43Ft5Krix1X0h4K
+         8I6mJWaFJNLazaB6wQzAa7DJB7hmKAXpQjpM7xk8EgCWLympDMDdV+5Hznq5HVCBZkwk
+         2w6IMh8ZacsCm2tJ+ICsh7fYqUZzusraESnDq8AB01RNsHqq24iWScyGAAlrSwop4Id2
+         06OnI+lMfysregJm36DtESfIWtQA5nk3oSUD/CwEPJoWG/yoiZuDBzVSb2OugnUM2iTk
+         h3nmBhWq6bCSQQPTEGPmmilGTQsS5LM3+FkfoZaCiLLJI/1JoR4eblf8n7iw6YZofKnR
+         ZONA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVgD5I+tGwt9tpErmwS+p8Jks+7tft9PUIA5/E9w4GWBjWzKWoY3xKPbkaHyl+NAzseIood9w5wS9HBzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCJbeE4wU2IMQG0NoBXz2bm4xfQp5L2x2RlC4ibVl53Zrl3l78
+	qKcUdvWNPyJ81vUJ9Vt9mNqW1+ohm69jYbzd2nI7dsJfdrn9rGnwmNbK
+X-Gm-Gg: AYBFou1F4d5xJFP+gXEXDJXzyK3HTSdWlS69FP2VJyTx6pvjeJ0NIfZVR0rhHVcCRo3
+	FgDIlpUym66b5XBd8Txud9R+iDKedxnntIp4qaHvWNRcZW8mV35QlHCqJ4KVj+IKnxNrxGJv8nZ
+	bwCCL2GXwq0O4WHxbJMckyWCTNCOLlGru28LkvleZWgV0uXkgid5TGDaq+1KOOOxwRmqQWYPB5h
+	6M3DbV8kAUd+ZAfCn3DK1Bm0ncUregLo8jrfqr/YKubfXilrqMJGFgCyGmuU905i5E9m57bNJHu
+	IH+cjs604hEzJzS3Ac/+qU36TK7KJCh/y4OtS3aSyGXERHK/OzB40gxnKGZKxXG++xXqv3BB+NG
+	lTTk3kCcTnNnWWXKcwg150osDN0awGsxQG4puaivFkaogZ/+glxVmzQeKmZccZQ/yR3TMlyK05c
+	sFoDEbUKp58hoSN79huPjKMB9Kw+0y60Vd62NmpYC2bJcaRebiCMCtbM+rJtR3cDvBbvh54/vGf
+	ByK6hzOkTR7ldRGbqXSLxEJvT30VecW4ASpVetoLpNQNB9JTZ+kiK96MUna5pcgUGvNtTI0lnI4
+	FMWXGUUBntIJQauP+xIEiI+l+2OUUE8QZ3hlpAqiPsxlXrznkhBgC+a5BkY=
+X-Received: by 2002:a17:903:2b04:b0:2dd:2b8:7198 with SMTP id d9443c01a7336-2e2e49962aemr46519465ad.6.1790866182244;
+        Thu, 01 Oct 2026 07:49:42 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e317cd0624sm6636775ad.30.2026.10.01.07.49.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 07:49:41 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: Baolin Liu <liubaolin@kylinos.cn>,
+	liubaolin <liubaolin12138@163.com>,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] ntfs: fix spurious EIO and ENOSPC on nearly full volumes
+Date: Thu,  1 Oct 2026 22:49:35 +0800
+Message-ID: <cover.1790853718.git.matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819174154.1184393-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20260819174154.1184393-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-From: Len Brown <lenb@kernel.org>
-Date: Thu, 1 Oct 2026 10:49:14 -0400
-X-Gmail-Original-Message-ID: <CAJvTdKm5g2-rLjSXNPkGqUU3BD-PUbSbNJecBn2-CA29O3WJvQ@mail.gmail.com>
-X-Gm-Features: AclHuK_qDOS55FG_-O0iK1pV9MC8gYHKkOHHOsAHdYwkbCKjTABNoLl4UY6wh7Q
-Message-ID: <CAJvTdKm5g2-rLjSXNPkGqUU3BD-PUbSbNJecBn2-CA29O3WJvQ@mail.gmail.com>
-Subject: Re: [PATCH v1] tools/power turbostat: Add rugged Panther Lake support
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-perf_model_support() also should be updated.
+These fix three errors returned while free space is left.  Patch 1
+fixes file creation failing with EIO on a nearly full volume; it now
+goes on until the volume is full and then fails with ENOSPC.  Patch 2
+fixes the cluster allocator missing free clusters when its start hint
+lies at or past the end of the volume, which empties the MFT zone, and
+patch 3 removes the fallocate() check that then fails every later call.
+Together the two bugs make fallocate() refuse space that is free until
+the next mount.  Reproducers, run with KASAN and lockdep:
+https://github.com/matthiasgoergens/linux/tree/reproducer/2026-10-01-ntfs-nearfull-v2
 
-thanks,
--Len
+Changes in v2: in patch 2, a contiguous request whose run from the hint
+stops at the end of a bitmap buffer or of the zone now gets that run
+back, instead of a second, non-adjacent run from the zone position, as
+Baolin Liu suggested.  That second run also happens on ntfs-next
+without this series, and fallocate() over a hole then leaves part of the
+range reading the data of a deleted file; patch 2 now fixes that as
+well.  Rebased on ntfs-next, with Baolin's Reviewed-by on patches 1
+and 3.
 
-On Wed, Aug 19, 2026 at 1:41=E2=80=AFPM Kuppuswamy Sathyanarayanan
-<sathyanarayanan.kuppuswamy@linux.intel.com> wrote:
->
-> From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
->
-> Add CPU model for rugged Panther Lake.
->
-> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-> ---
->  tools/power/x86/turbostat/turbostat.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turb=
-ostat/turbostat.c
-> index 920694c3c1ec..f5b3afa050bf 100644
-> --- a/tools/power/x86/turbostat/turbostat.c
-> +++ b/tools/power/x86/turbostat/turbostat.c
-> @@ -1229,6 +1229,7 @@ static const struct platform_data turbostat_pdata[]=
- =3D {
->         { INTEL_ARROWLAKE, &adl_features },
->         { INTEL_LUNARLAKE_M, &lnl_features },
->         { INTEL_PANTHERLAKE_L, &lnl_features },
-> +       { INTEL_PANTHERLAKE_R, &lnl_features },
->         { INTEL_NOVALAKE, &lnl_features },
->         { INTEL_NOVALAKE_L, &lnl_features },
->         { INTEL_WILDCATLAKE_L, &lnl_features },
-> --
-> 2.43.0
->
+v1: https://lore.kernel.org/all/cover.1790503811.git.matthias.goergens@gmail.com/
+
+Matthias Goergens (3):
+  ntfs: set the attribute list size before reserving space for it
+  ntfs: restart the zone search when the allocation hint fails
+  ntfs: do not refuse fallocate() when the MFT zone is empty
+
+ fs/ntfs/attrlist.c |  5 +++--
+ fs/ntfs/file.c     |  3 ---
+ fs/ntfs/lcnalloc.c | 25 ++++++++++++++++++++++---
+ 3 files changed, 25 insertions(+), 8 deletions(-)
 
 
---=20
-Len Brown, Intel Open Source Technology Center
+base-commit: 708f9d56cacae21aeee98d16bcdd50a66edc04a0
+-- 
+2.56.0
+
