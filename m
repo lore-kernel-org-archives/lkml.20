@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6593340B6D4
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:24:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B634142DA33
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:24:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832271; cv=none; b=UI5IcrschQ3qm4Uexl1z7flaigeMq4O6rURpEvMRCsc+jBKN2b/y1EbqdPkQQrFYBowGrK9XEzjyDlv7USHaZYqxShHgx/XNeJLapxgmlO5E9qTUrlg78Ev7PbeC0J0nmu0IbW1zQM7poS7xbr5RUUkr3du2NuWjsMiwGZh/s1M=
+	t=1790832280; cv=none; b=Mec/KU2z6jwjVMVgP6RBWAwnoe0Sog4Na46MJ59tFwmMfO+EDaLMzHKtZpZBPkZyoQpW4U86zUVBfoFDdDKCSLARyEG2jdFo2NIHYJI+pizEOS1A4I0VUkm68uS4zh4bXEx1PZc7SBSDZ04RT5VCjV/sZvUqG/Vhq+niPddVcy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832271; c=relaxed/simple;
-	bh=49xFSVZEPbXgZTcuGJ9R8PyRDarMnGzCnfFE/tYT9SY=;
+	s=arc-20240116; t=1790832280; c=relaxed/simple;
+	bh=hVPKhnk9bYQUpK8IUIHIpUcRGTMxJg7jd8f4Z8smiPM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fH/eEDBKwHuoKMmVug+cM4UV8J8M+DC6bW+IX1qUHh9EMkXms4TIRY8Ri1YiFkWH+FV/FywJHy6+HPsnF2dt6kM1T09Cb8Lq4K/OsTkzUA0jYbDmifnQzCAhZZQQMs4Gmr6J3gLcRI65++CXJsKTWpK6c4Wmxr2ttTF2LloqM/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MuGXSLwf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hxdddbL9; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=Lvp1wcEp6ouCfRBOXBw67yTFmJfEsQuSj5ZBwaZtDXcr32MeLIcdHDZNKELhuBADaywe0S5FCxkwK7vZFQVJI2VoFAKj6W8mAVkzY7Wbd7d31Or28b0QyUYDxwhfZ6LyfUB3pknRgXxalnSGq9noc+zwhGfNz/DbsFofd3O8Onk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EwgAQ9/I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AzaYtrkP; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MuGXSLwf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hxdddbL9"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913gFkc542093
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 05:24:29 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EwgAQ9/I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AzaYtrkP"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913g2Wk1509997
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 05:24:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=HZjVRtF8Ja3
-	Eebp0/BccuPRRLSdbeb1VPoYbtbjst2g=; b=MuGXSLwfMJan8tpwaJeqJ7exgtH
-	17939RC9gawl2BdnmnSXxzNkD7BZ79HMf6btYMKtNMm7QS4EkSG8xkwQwETWT9/b
-	ppmKu9gXgRcfohdUFGSmuG6KmsBFQCog1wVTm1uEq6ghQGPP3n2AfTUttCbRmD2Q
-	NyWVOBfp806/QxGOyMOyE+oQ9qrCierf6JW/QPCKQgMkhUzQgg8WV51NAUreCNRa
-	r1kkyMLD3sdbBkVhGICyUDF0qXP/ZNlYi8dgiOpGo0xlfmzVQgYsiy4qQbMUDqGw
-	0KqgrKYJwtdGRvMI84Zom/u8EvD1R/U833v/XKpQlXIit415H5ueS9YjDRQ==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=6/r2QKyxxEp
+	qb6dbsqqKh+TPY0S+dQ+HfQ9Tt/z9oww=; b=EwgAQ9/IfL+zbptFqk9pwGHeNhK
+	9gihOYYSb6BJ5A+9H3VmipkDdG+XD0WrRyucffntX4APmwXd+Ywnp7VxrBOvb0nz
+	5WdrfWEQjUzyA67y1K+OcS+0B8axPavwzG8Es6QZY9vsTiE71N31JOiVIKucnTlU
+	x3s0dOyAGPa8GNdxCaFpGDmaNN/Rpms/IcCPYFQts46EsQkZL9lguCazk9GJpQUy
+	cN2PkG4+veI/un8JkgYoG2Vwwdbvm6Wrhm/IObqRjIwzLB7shgORqO4rrGrrcYRg
+	TsmwgM4t2SvRyiWdPOv9V0B9hjmm4x7DLhLGcqlNk0DIFoKhaP7bi1QdwPg==
 Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wctchw-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h10bkca4a-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:24:29 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2df5a65671eso6101945ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:24:28 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:24:37 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfa4e4684bso102875585ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:24:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790832268; x=1791437068; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790832276; x=1791437076; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HZjVRtF8Ja3Eebp0/BccuPRRLSdbeb1VPoYbtbjst2g=;
-        b=hxdddbL9gdtWvaeQnwbKpfpETMHlJw8K9IYxFqOEE3rPyHWJVaw2LRgYqdzvRuLjAQ
-         mA+nFtDTqjpUjIJiyCQXVJc2zppELL5Kz2lLGl6Q5qMVvrmTNsBwXbX/MuEeoSj78OGE
-         hx9EpSGK0GxuPlvHVIt+HpuhlSyqm8JRKAsIVGgG/4/Qy/gW9q1h6iF2cAskDksgcHQv
-         CZWqzCEFBTdmGuZmZDlb968zPukimGNnkcXjFsWq+zQFmrnpf2QFh9x6Dn77U+oXqRYn
-         LUqIzfWpGz+1IcArXbZMaLKB+8l4mnhhFXiMgS1Ys3QNjPI6vVbftg268SH/hNCIoCAs
-         4LCg==
+        bh=6/r2QKyxxEpqb6dbsqqKh+TPY0S+dQ+HfQ9Tt/z9oww=;
+        b=AzaYtrkP2Y8M8SfEuV4fLNIEhYtwni0Ewj5qcVqqgbf7QwHPU68JpTzaH7sVhIFlVo
+         Pjf2UnUbCRtVndZKjf923vIoaLBww2gJyv6ua9XbeB+KPrk/LyXI/oGyi2mqdaDkDaAF
+         rVZwZpjvuWpdltyKeqYi1hRvvExm7z8v/5hAE5mEDw3Pbh0y5+y2iO9e4upYyB8VDwaq
+         wDAMBmR2PgLuAaOsGAlNDSVEqQeDkz42u3xlxRDtufyms97wIbUCp9bCJCS7RMEo+M/f
+         ES+Eb/kIJ0IEuj5KWaOCPZgBQSTDGaynbxI4niVhkU9RvYnDsg1cyuPsHheETOCTQnCw
+         r17A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790832268; x=1791437068;
+        d=1e100.net; s=20260707; t=1790832276; x=1791437076;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HZjVRtF8Ja3Eebp0/BccuPRRLSdbeb1VPoYbtbjst2g=;
-        b=l3pZw48gn8XB8ZhGsOJ0S620V09SUWXhVxGrIjL+j/9uxKOVPmSGVnXGts2VVxdafW
-         IqIayQ2UEnjXVTDw215YvNFeWDFIpqFUqLOo8AEyGARr18EzJWhZcR22w27z8fEuM3Uo
-         Tn793kagK0uQO6m8+/7c5xnO0xI533Iufr1YG9VJIsbguQ0V/N0FW/iUdb10O7PZEOh1
-         8yk8elHMfbSn8/9GboP+WAfhBP4MviTyoNWXH0chFs2W1HFWVzlzxC8u3wT6ylAc1Mql
-         JqamuoJ7cxJn/S6/RvbTxWhCGKSS9ofoxk61sySne7W4lzIDQ8V9h9PU+O703ubaEV7H
-         zJWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzmbSAzCdfZuXAnP067q1IhBXnDhkXkZlmn1nGoc6q60zmaXOKkjE59+/4/LsC1GmGLlIA0p4ovpqY4U0k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSa6MvQII4ySqWNHf0qPcmL9CNYr2jack/c5RtyDRuqR+7ouH7
-	sM27Q6BzNL7zUfI4wNgRHwUxT3jQ/szs9HN418OZHVn1TnGrmECmgb7BHpV5XGpaLdsvc+dJoui
-	qp4lYf3IUstPa+RNqRYuJEsaXkQ0eQ9EGFybZAcgo5Qr0XSZ7oUS1EkjNuAEM8UYDihw=
-X-Gm-Gg: AYBFou0s4kyxuRwTV0fLjnQtaRSJslgOnF7YPHyHl8hjInWRezwWEP+1onpS/ebZkbR
-	S7yPXWTwlZM+hEmGi9JVVUqXX7utYIFwyl/IqsUyzhGoYS86QTRcHjbtYw52jEIuzfmsAXZUvfv
-	EXv+kkTINXr6Yi0fxiEdquQzHJZ04FolbGRwHnXnVWaSuWIKm5iR8IzpzY5CcmrlqR0EJlf4Ct8
-	qAZSg3LIO9nrmHLC+wmJSBUA1PtjhRmYOyk+poiw/c7rEx9okl2zFRqivG22IHNO03TsQ3NvpLK
-	RygIbfaWvaDwwTo0zbrdkcAfW3VlIlCbAWwDmKOJYU/2FVeHuxba3IQrXeS6H1MdJyxedOO53Qe
-	hilN5FXIawT0AR+nxBZR1tQ5GrjksAJpBqDmZeRizd5LGxhprqBoPkHbXE5t+JYc4ird5NHUhD0
-	l+E43vOuW5pJopZqYGhE8fbBYj
-X-Received: by 2002:a17:903:2407:b0:2df:9489:83f7 with SMTP id d9443c01a7336-2e3004226bbmr9535475ad.40.1790832268070;
-        Wed, 30 Sep 2026 22:24:28 -0700 (PDT)
-X-Received: by 2002:a17:903:2407:b0:2df:9489:83f7 with SMTP id d9443c01a7336-2e3004226bbmr9535315ad.40.1790832267519;
-        Wed, 30 Sep 2026 22:24:27 -0700 (PDT)
+        bh=6/r2QKyxxEpqb6dbsqqKh+TPY0S+dQ+HfQ9Tt/z9oww=;
+        b=I1XcBZD1ni/rc2ei+9jM3JXPGVYo3O93LkPfUcJAo56rQ/s5df8t3wP7TiHk65nPaW
+         +kjDnhwPsPOy/RjljVyFEcISu1fbY9/f9c+TqgxgxDLfkn7TsIMupfSJOzbMrFmJ9VDb
+         KIICmbphX0xGhEmvbAgdmZ80qgSZERrN/rUNrTttvt0u8ZSC6TIZQjU4SUMnKTetwFhj
+         OzMRzl7iWhZHOttiu4IM10VWVvKUTzNd9O8JLr2Wzg2zWrDF7H3QrAIldKmHNSc+Kzjs
+         EQhTKDLcnxbkf0OOzNowxm4Nq4RyIrpKL1xujjMMEja3R07AVPyNm6d8RkoynwNlvk0k
+         Mszg==
+X-Forwarded-Encrypted: i=1; AKwUvByHE62sc6w3okd/znBmKHbk0lGvkPc08xZGedTS7Pm5T06ERuqiYct5NIj8y+RrD17s7d2HBebV/z7mir0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdTuWchEKqPyyvrkEw5KnfoVJs06T0VXgCr906ccyadHM8pH56
+	j2ASFSAfpqAJTO0RMqgLCWXE3HqdHoAOD+FcP7vYWl5lmU4Fvrs+krE/IuWo5WtQKPGnDYmWNv2
+	AVaX2Igx05oS50QMcpHK53T+ZOVcn0HDrHsNhpU/ibF65Q2ubZ6W3vHOverTeC7XUxy4=
+X-Gm-Gg: AYBFou3GZkLra2bm/A2LPC/yvyQrnLV3Tnu1lcRaDflUl7M4/B+CTvAafcd7D+qtw0e
+	4/Hrleh7XzBg6hH6/4h4j83uGY1CmhwTjWSuZhnfrJWBdLmoIf+PRbFBFmLriDDyQVpAk96CQ56
+	PgSjLsL57VQwuzBIdGI0Vw1L2PVe+bpu+FekVXCyXLYRdRmDESA9fnB113YvzJh5rnmkSEHKP2X
+	rJUGJTsH/RhKB036pfKKgWe92i4Cp5xix/YxhMv9CX7wnJu4TmcHQ/KTzZinMEo7VrvG5Z/D3K1
+	7SplFhZEPCD+43YHT2m3jJen03vA9r1x9mXlwgYInY2h8Fw84gtSkndM/y8gUb3c6gTufZ/x9+O
+	lRaInQREX0D2t/d2edV5womTyxI/6wkF1eIfCuasWoV7OadgYtZBikIhBaNOSf3Oxk0ZMksoTm7
+	oV+Y0kvATpYTnTaisLbb+KaftQ
+X-Received: by 2002:a17:903:120b:b0:2dd:c054:197e with SMTP id d9443c01a7336-2e2e4b48161mr27798115ad.35.1790832276122;
+        Wed, 30 Sep 2026 22:24:36 -0700 (PDT)
+X-Received: by 2002:a17:903:120b:b0:2dd:c054:197e with SMTP id d9443c01a7336-2e2e4b48161mr27797955ad.35.1790832275632;
+        Wed, 30 Sep 2026 22:24:35 -0700 (PDT)
 Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.24.20
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.24.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 22:24:27 -0700 (PDT)
+        Wed, 30 Sep 2026 22:24:35 -0700 (PDT)
 From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -95,10 +95,11 @@ Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         Andrew Jones <andrew.jones@oss.qualcomm.com>,
         Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Anup Patel <anup.patel@oss.qualcomm.com>,
         Zane Leung <liangzhen@linux.spacemit.com>
-Subject: [PATCH v6 08/14] perf: Add gtrace AUX buffer trace format type
-Date: Thu,  1 Oct 2026 10:52:19 +0530
-Message-ID: <20261001052243.3042627-9-mayuresh.chitale@oss.qualcomm.com>
+Subject: [PATCH v6 09/14] gtrace: Add RISC-V Trace ramsink driver
+Date: Thu,  1 Oct 2026 10:52:20 +0530
+Message-ID: <20261001052243.3042627-10-mayuresh.chitale@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
 References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
@@ -109,76 +110,442 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX5Qdk2cK/l9QA
- m6PuYzPML0mQkuOZhUpdF9mYgRpw7+x5uD1ArvTA4I1loVr7H+RvOVG1LkFfRR/epwpqh9JIa2p
- l4nyQbiw3kLWCMh12I200yGy/NEMfVP30mConRPPk34OlRLttt1wuMaiOD9r2niJ0K9miczf9MI
- J1xh2SKcU7/XtCwlO4uIyXxmeucbh5zHSl8pPquME4ELNwyfybBJ2MQpIEG6O+ghC1QaZzO8E4G
- NuBXPQVscdEATDqI4/by0qgxI7fQbEOlUuwKPFPJMlcN2eRVj1jKCWDLZK7KlbRrCLX/2lLcaEg
- xeXkST6tYRZ47DkSol3rRV/Z2CDM4ca/gPgEog4tPklCb67T5zxJuLJp37Am9JxwcelCx7Bw36F
- Wl+m4IuXxObqUb+tD79+ot7sANbI17PEW8dDGBz4/bz2fWJi4RbZxuCHuamIJSSMpDKatTrKda7
- ZBmc4nnl01LUEfvl6IA==
-X-Proofpoint-GUID: RLQWc3cqlhpKjmqr_qVAJozYTtg9lbpT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX3OChYLy+5NZy
- GYl8W2m+JnwVBDlP2PkbyKFmClkvKlGZPeH+z98/mYazwGyzRO5repB1hqdbuBjSNgx65DQIpMc
- W5p4btQQZE/HrUiAeIOofPOlXx10LWg=
-X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abdee8d cx=c_pps
+X-Proofpoint-GUID: lK4QIg0NrIC3ODTQK-BlSUExo3fmplXF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX12lDc4WYMOU7
+ cKm7A6ZOvMO9ddUl5713HiI2wrDoIVZk7X/ntWF2HcnzU5cqtZe/V+dzVWoEztYCkpciRPIFJT+
+ zZrwqhU7VL2ar1dvXH9vU1WLUsa2auPwhqQKl1TeRXiGyoWfeQR8ZQZfJQTQA/u0OJla7EdcrQ8
+ zu+ne6pdvc03A6vrHLoJHp5fl5jsIJzSDJSiEhDoY500Fbvhwgaxas0pDjEJsguW7J0EvgXtHeI
+ nBH3nDSEZdOWYAos5kSHMmwYs+xH/zpRmLF+h+0P9G5mvJ/X3qQ/5rXEQS24d6UvHH4Pwot0cgG
+ Rnc6ZWXQuZxj1IN4hpzL4eEQgvex/MxE/2FD1P0ZANlCK9tIY/7OALfb8vDawrWX5ZPe66hzfGl
+ 073kLE1UsPH29XJaNs5uPaDKymn2KLZ2NPmEvkud9oEX1lyzXrIg2H2XeINRu4rJg4zwD8coiJ8
+ KsAOWphfIV3TanjZ0dg==
+X-Authority-Analysis: v=2.4 cv=MZn5KJ/f c=1 sm=1 tr=0 ts=6abdee95 cx=c_pps
  a=cmESyDAEBpBGqyK7t0alAg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=EjOQMhZftjg6WCmXgxIA:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: RLQWc3cqlhpKjmqr_qVAJozYTtg9lbpT
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=XnCO0IvpVGiLHJXh1eIA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX03x2xzkpohni
+ ew5c305d3Qxj0t4mRvwhiTuKRnpH00Ko7bKugIf8d1+T2WYj5d58EJEm6sQO/0gcYZssY0b67nh
+ 6J6k7klF6zh0WymCEPbJzpZKTw7oCjI=
+X-Proofpoint-ORIG-GUID: lK4QIg0NrIC3ODTQK-BlSUExo3fmplXF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010021
+ malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010021
 
-The gtrace PMU can host trace components of different architectures and
-trace protocols, so the recorded AUX data needs to carry its format as
-well. Define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE for the RISC-V E-trace
-format which the perf tool can use to decode the payload.
+Add initial implementation of RISC-V E-Trace ramsink driver. The ramsink
+is defined in the RISC-V Trace Control Interface specification.
 
+Co-developed-by: Anup Patel <anup.patel@oss.qualcomm.com>
+Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
 Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 ---
- include/uapi/linux/perf_event.h       | 5 +++++
- tools/include/uapi/linux/perf_event.h | 5 +++++
- 2 files changed, 10 insertions(+)
+ drivers/hwtracing/gtrace/Kconfig           |  15 +
+ drivers/hwtracing/gtrace/Makefile          |   1 +
+ drivers/hwtracing/gtrace/rvtrace-ramsink.c | 357 +++++++++++++++++++++
+ 3 files changed, 373 insertions(+)
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace-ramsink.c
 
-diff --git a/include/uapi/linux/perf_event.h b/include/uapi/linux/perf_event.h
-index fd10aa8d697f..2ac00a409a04 100644
---- a/include/uapi/linux/perf_event.h
-+++ b/include/uapi/linux/perf_event.h
-@@ -1311,6 +1311,11 @@ enum perf_callchain_context {
- #define PERF_AUX_FLAG_CORESIGHT_FORMAT_CORESIGHT 0x0000 /* Default for backward compatibility */
- #define PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW	 0x0100 /* Raw format of the source */
+diff --git a/drivers/hwtracing/gtrace/Kconfig b/drivers/hwtracing/gtrace/Kconfig
+index e3a621b59913..de4a3b533591 100644
+--- a/drivers/hwtracing/gtrace/Kconfig
++++ b/drivers/hwtracing/gtrace/Kconfig
+@@ -41,3 +41,18 @@ config RVTRACE_ENCODER
  
-+/* gtrace PMU AUX buffer formats */
-+#define PERF_AUX_FLAG_GTRACE_FORMAT_UNKNOWN	 0x0000
-+#define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE	 0x0100 /* RISC-V E-trace format */
-+#define PERF_AUX_FLAG_GTRACE_FORMAT_NTRACE	 0x0200 /* RISC-V N-Trace format */
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called rvtrace-encoder.
 +
- #define PERF_FLAG_FD_NO_GROUP			(1UL << 0)
- #define PERF_FLAG_FD_OUTPUT			(1UL << 1)
- #define PERF_FLAG_PID_CGROUP			(1UL << 2) /* pid=cgroup ID, per-CPU mode only */
-diff --git a/tools/include/uapi/linux/perf_event.h b/tools/include/uapi/linux/perf_event.h
-index fd10aa8d697f..2ac00a409a04 100644
---- a/tools/include/uapi/linux/perf_event.h
-+++ b/tools/include/uapi/linux/perf_event.h
-@@ -1311,6 +1311,11 @@ enum perf_callchain_context {
- #define PERF_AUX_FLAG_CORESIGHT_FORMAT_CORESIGHT 0x0000 /* Default for backward compatibility */
- #define PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW	 0x0100 /* Raw format of the source */
++config RVTRACE_RAMSINK
++	tristate "RISC-V Trace Ramsink driver"
++	depends on RVTRACE
++	select DMA_SHARED_BUFFER
++	default y
++	help
++	  This driver provides support for the RISC-V trace ramsink component
++	  which is defined by the RISC-V Trace Control Interface specification.
++	  The ramsink is a trace sink which stores the trace data generated by
++	  the upstream components into a system memory buffer. The buffer is
++	  then copied to the perf AUX buffer when tracing using the perf tool.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called rvtrace-ramsink.
+diff --git a/drivers/hwtracing/gtrace/Makefile b/drivers/hwtracing/gtrace/Makefile
+index 2660fcaa332b..31262cf5993d 100644
+--- a/drivers/hwtracing/gtrace/Makefile
++++ b/drivers/hwtracing/gtrace/Makefile
+@@ -6,3 +6,4 @@ gtrace-$(CONFIG_OF) += gtrace-of.o
  
-+/* gtrace PMU AUX buffer formats */
-+#define PERF_AUX_FLAG_GTRACE_FORMAT_UNKNOWN	 0x0000
-+#define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE	 0x0100 /* RISC-V E-trace format */
-+#define PERF_AUX_FLAG_GTRACE_FORMAT_NTRACE	 0x0200 /* RISC-V N-Trace format */
+ obj-$(CONFIG_RVTRACE) += rvtrace-platform.o
+ obj-$(CONFIG_RVTRACE_ENCODER) += rvtrace-encoder.o
++obj-$(CONFIG_RVTRACE_RAMSINK) += rvtrace-ramsink.o
+diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+new file mode 100644
+index 000000000000..67b6779aacee
+--- /dev/null
++++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+@@ -0,0 +1,357 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2026 Qualcomm Technologies, Inc.
++ */
 +
- #define PERF_FLAG_FD_NO_GROUP			(1UL << 0)
- #define PERF_FLAG_FD_OUTPUT			(1UL << 1)
- #define PERF_FLAG_PID_CGROUP			(1UL << 2) /* pid=cgroup ID, per-CPU mode only */
++#include <linux/device.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/dma-mapping.h>
++#include <linux/gtrace.h>
++#include <linux/minmax.h>
++#include <linux/types.h>
++#include <linux/sizes.h>
++#include <uapi/linux/perf_event.h>
++#include "rvtrace.h"
++
++#define RVTRACE_RAMSINK_STARTLOW_OFF		0x010
++#define RVTRACE_RAMSINK_LIMITLOW_OFF		0x018
++#define RVTRACE_RAMSINK_WPLOW_OFF		0x020
++#define RVTRACE_RAMSINK_WPLOW_WRAP		0x1
++#define RVTRACE_RAMSINK_CTRL_MODE_MASK		0x1
++#define RVTRACE_RAMSINK_CTRL_MODE_SHIFT		0x4
++#define RVTRACE_RAMSINK_CTRL_STP_WRAP_SHIFT	0x8
++#define RVTRACE_RAMSINK_CTRL_MEMFMT_MASK	0x3
++#define RVTRACE_RAMSINK_CTRL_MEMFMT_SHIFT	0x9
++#define RVTRACE_RAMSINK_CTRL_ASYNCFREQ_MASK	0x7
++#define RVTRACE_RAMSINK_CTRL_ASYNCFREQ_SHIFT	0xc
++#define RVTRACE_RAMSINK_MEM_ACC_WIDTH_MIN	4
++#define RVTRACE_RAMSINK_SIZE_MIN		PAGE_SIZE
++
++enum rvtrace_ramsink_mode {
++	MODE_SRAM,
++	MODE_SMEM
++};
++
++struct rvtrace_ramsink_priv {
++	size_t size;
++	void *va;
++	dma_addr_t start;
++	dma_addr_t end;
++	/* alloc_* store the DMA allocation returned by the kernel and are used later for free */
++	size_t alloc_size;
++	void *alloc_va;
++	dma_addr_t alloc_start;
++	enum rvtrace_ramsink_mode mode;
++	bool stop_on_wrap;
++	u32 async_freq;
++	int mem_acc_width;
++	u64 prev_wp;
++};
++
++struct trace_buf {
++	void *base;
++	size_t cur;
++	size_t len;
++};
++
++/* Helper to access start, limit, wp pair registers */
++static u64 rvtrace_ramsink_read_pair(struct gtrace_platform_data *pdata, u32 low_off)
++{
++	u32 low, high;
++
++	low = gtrace_read32(pdata, low_off);
++	high = gtrace_read32(pdata, low_off + 4);
++
++	return (u64)high << 32 | low;
++}
++
++static void rvtrace_ramsink_write_pair(struct gtrace_platform_data *pdata, u64 val, u32 low_off)
++{
++	gtrace_write32(pdata, lower_32_bits(val), low_off);
++	gtrace_write32(pdata, upper_32_bits(val), low_off + 4);
++}
++
++static int rvtrace_ramsink_start(struct gtrace_component *comp)
++{
++	struct rvtrace_ramsink_priv *priv = dev_get_drvdata(&comp->dev);
++	u32 trram_ctrl;
++	int ret;
++
++	trram_ctrl = gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
++	trram_ctrl &= ~BIT(RVTRACE_RAMSINK_CTRL_STP_WRAP_SHIFT);
++	trram_ctrl |= priv->stop_on_wrap << RVTRACE_RAMSINK_CTRL_STP_WRAP_SHIFT;
++	trram_ctrl &= ~(RVTRACE_RAMSINK_CTRL_MEMFMT_MASK << RVTRACE_RAMSINK_CTRL_MEMFMT_SHIFT);
++	trram_ctrl &= ~(RVTRACE_RAMSINK_CTRL_ASYNCFREQ_MASK <<
++			RVTRACE_RAMSINK_CTRL_ASYNCFREQ_SHIFT);
++	trram_ctrl |= priv->async_freq << RVTRACE_RAMSINK_CTRL_ASYNCFREQ_SHIFT;
++	gtrace_write32(comp->pdata, trram_ctrl, RVTRACE_COMPONENT_CTRL_OFFSET);
++
++	trram_ctrl = gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
++	if ((trram_ctrl >> RVTRACE_RAMSINK_CTRL_MEMFMT_SHIFT) & RVTRACE_RAMSINK_CTRL_MEMFMT_MASK) {
++		dev_err(&comp->dev, "only plain memory format is supported\n");
++		return -EINVAL;
++	}
++
++	ret = gtrace_enable_component(comp);
++	if (ret)
++		dev_err(&comp->dev, "failed to start ramsink.\n");
++
++	return ret;
++}
++
++static int rvtrace_ramsink_stop(struct gtrace_component *comp)
++{
++	int ret;
++
++	ret = gtrace_disable_component(comp);
++	if (ret) {
++		dev_err(&comp->dev, "failed to stop ramsink.\n");
++		return ret;
++	}
++
++	return rvtrace_comp_poll_empty(comp);
++}
++
++static void tbuf_to_pbuf_copy(struct trace_buf *src, struct trace_buf *dst, size_t size)
++{
++	size_t bytes_dst, bytes_src, bytes;
++	void *dst_addr, *src_addr;
++
++	/* If destination cannot hold entire source buffer then write only the latest data. */
++	if (dst->len < size) {
++		src->cur = (src->cur + size - dst->len) % src->len;
++		size = dst->len;
++	}
++
++	while (size) {
++		src_addr = src->base + src->cur;
++		dst_addr = dst->base + dst->cur;
++
++		/* Ensure that there are no OOB memory accesses */
++		if (dst->len - dst->cur < size)
++			bytes_dst = dst->len - dst->cur;
++		else
++			bytes_dst = size;
++
++		if (src->len - src->cur < size)
++			bytes_src = src->len - src->cur;
++		else
++			bytes_src = size;
++		bytes = min(bytes_dst, bytes_src);
++		memcpy(dst_addr, src_addr, bytes);
++		dst->cur = (dst->cur + bytes) % dst->len;
++		src->cur = (src->cur + bytes) % src->len;
++		size -= bytes;
++	}
++}
++
++static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
++					    struct gtrace_perf_auxbuf *buf,
++					    u64 *format)
++{
++	struct rvtrace_ramsink_priv *priv = dev_get_drvdata(&comp->dev);
++	struct trace_buf src, dst;
++	size_t bytes = 0;
++	bool wrap;
++	u64 wp;
++
++	dst.base = buf->base;
++	dst.len = buf->length;
++	dst.cur = buf->pos;
++	src.base = priv->va;
++	src.len = priv->size;
++	*format = PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
++	wp = rvtrace_ramsink_read_pair(comp->pdata, RVTRACE_RAMSINK_WPLOW_OFF);
++	wrap = wp & RVTRACE_RAMSINK_WPLOW_WRAP;
++	wp &= ~RVTRACE_RAMSINK_WPLOW_WRAP;
++
++	if (wrap) {
++		rvtrace_ramsink_write_pair(comp->pdata, priv->start, RVTRACE_RAMSINK_WPLOW_OFF);
++		src.cur = wp - priv->start;
++		priv->prev_wp = priv->start;
++		/*
++		 * There is no way to tell if trRamWp wrapped around more than once. As a
++		 * result priv->prev_wp can't be used and the entire buffer must be copied
++		 * even though some data might be duplicated.
++		 */
++		bytes = priv->size;
++	} else {
++		src.cur =  priv->prev_wp - priv->start;
++		bytes = wp - priv->prev_wp;
++		priv->prev_wp = wp;
++	}
++
++	tbuf_to_pbuf_copy(&src, &dst, bytes);
++	dev_dbg(&comp->dev, "Copied %zu bytes\n", bytes);
++	return bytes;
++}
++
++static int rvtrace_ramsink_setup_buf(struct gtrace_component *comp,
++				     struct rvtrace_ramsink_priv *priv)
++{
++	struct device *pdev = comp->pdata->dev;
++	u64 limit_max, end;
++	int ret;
++
++	/* Probe max value for limit register */
++	rvtrace_ramsink_write_pair(comp->pdata, U64_MAX, RVTRACE_RAMSINK_LIMITLOW_OFF);
++	limit_max = rvtrace_ramsink_read_pair(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
++	if (!limit_max) {
++		dev_err(&comp->dev, "trRamLimit register not implemented\n");
++		return -EINVAL;
++	}
++
++	/* Set DMA mask based on the maximum allowed limit address */
++	ret = dma_set_mask_and_coherent(pdev, DMA_BIT_MASK(fls64(limit_max)));
++	if (ret)
++		return ret;
++
++	priv->alloc_size = priv->size;
++	priv->alloc_va = dma_alloc_coherent(pdev, priv->alloc_size, &priv->alloc_start,
++					    GFP_KERNEL);
++	if (!priv->alloc_va)
++		return -ENOMEM;
++
++	/*
++	 * Check if DMA start and end addresses allocated by the kernel can be set in the ramsink
++	 * start, limit registers respectively.
++	 */
++	rvtrace_ramsink_write_pair(comp->pdata, priv->alloc_start, RVTRACE_RAMSINK_STARTLOW_OFF);
++	/* Limit address needs to be set to end - mem_access_width to avoid overflow */
++	end = priv->alloc_start + priv->alloc_size - priv->mem_acc_width;
++	rvtrace_ramsink_write_pair(comp->pdata, end, RVTRACE_RAMSINK_LIMITLOW_OFF);
++
++	priv->start = rvtrace_ramsink_read_pair(comp->pdata, RVTRACE_RAMSINK_STARTLOW_OFF);
++	priv->end = rvtrace_ramsink_read_pair(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF) +
++		    priv->mem_acc_width;
++
++	/* Sanity check start, end addresses */
++	if (priv->start < priv->alloc_start ||
++	    priv->end > priv->alloc_start + priv->alloc_size ||
++	    priv->end <= priv->start ||
++	    priv->end - priv->start < RVTRACE_RAMSINK_SIZE_MIN) {
++		dev_err(&comp->dev, "invalid ramsink configuration detected.\n");
++		ret = -EINVAL;
++		goto err_free;
++	}
++
++	if (priv->start != priv->alloc_start ||
++	    priv->end != priv->alloc_start + priv->alloc_size)
++		dev_warn(&comp->dev, "ramsink start, end updated to %pad and %pad\n",
++			 &priv->start, &priv->end);
++
++	priv->va = priv->alloc_va + (priv->start - priv->alloc_start);
++	priv->size = priv->end - priv->start;
++	priv->prev_wp = priv->start;
++	rvtrace_ramsink_write_pair(comp->pdata, priv->start, RVTRACE_RAMSINK_WPLOW_OFF);
++
++	return 0;
++
++err_free:
++	dma_free_coherent(pdev, priv->alloc_size, priv->alloc_va, priv->alloc_start);
++	return ret;
++}
++
++static int rvtrace_ramsink_setup(struct gtrace_component *comp)
++{
++	struct rvtrace_ramsink_priv *priv;
++	u32 trram_ctrl;
++	int ret;
++
++	priv = devm_kzalloc(&comp->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	/* Derive RAM sink memory size based on component implementation ID */
++	switch (comp->pdata->impid) {
++	default:
++		priv->size = SZ_1M;
++		priv->mode = MODE_SMEM;
++		priv->stop_on_wrap = false;
++		priv->async_freq = 2;
++		priv->mem_acc_width = RVTRACE_RAMSINK_MEM_ACC_WIDTH_MIN;
++		break;
++	}
++
++	if (priv->mode != MODE_SMEM) {
++		dev_err(&comp->dev, "only smem mode is supported\n");
++		return -EOPNOTSUPP;
++	}
++
++	trram_ctrl = gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
++	trram_ctrl &= ~BIT(RVTRACE_RAMSINK_CTRL_MODE_SHIFT);
++	trram_ctrl |= priv->mode << RVTRACE_RAMSINK_CTRL_MODE_SHIFT;
++	gtrace_write32(comp->pdata, trram_ctrl, RVTRACE_COMPONENT_CTRL_OFFSET);
++	trram_ctrl = gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
++	if (((trram_ctrl >> RVTRACE_RAMSINK_CTRL_MODE_SHIFT) &
++	     RVTRACE_RAMSINK_CTRL_MODE_MASK) != priv->mode) {
++		dev_err(&comp->dev, "smem mode is not supported\n");
++		return -EINVAL;
++	}
++
++	ret = rvtrace_ramsink_setup_buf(comp, priv);
++	if (!ret)
++		dev_set_drvdata(&comp->dev, priv);
++
++	return ret;
++}
++
++static void rvtrace_ramsink_cleanup(struct gtrace_component *comp)
++{
++	struct rvtrace_ramsink_priv *priv = dev_get_drvdata(&comp->dev);
++
++	dma_free_coherent(comp->pdata->dev, priv->alloc_size, priv->alloc_va, priv->alloc_start);
++}
++
++static int rvtrace_ramsink_probe(struct gtrace_component *comp)
++{
++	int ret;
++
++	ret = rvtrace_ramsink_setup(comp);
++	if (ret)
++		return dev_err_probe(&comp->dev, ret, "failed to setup ramsink.\n");
++
++	return ret;
++}
++
++static void rvtrace_ramsink_remove(struct gtrace_component *comp)
++{
++	rvtrace_ramsink_cleanup(comp);
++}
++
++static const struct gtrace_component_id rvtrace_ramsink_ids[] = {
++	{ .type = GTRACE_RVTRACE_RAMSINK,
++	  .version = rvtrace_component_mkversion(1, 0), },
++	{},
++};
++
++static struct gtrace_driver rvtrace_ramsink_driver = {
++	.id_table = rvtrace_ramsink_ids,
++	.copyto_auxbuf = rvtrace_ramsink_copyto_auxbuf,
++	.stop = rvtrace_ramsink_stop,
++	.start = rvtrace_ramsink_start,
++	.probe = rvtrace_ramsink_probe,
++	.remove = rvtrace_ramsink_remove,
++	.driver = {
++		.name = "rvtrace-ramsink",
++	},
++};
++
++static int __init rvtrace_ramsink_init(void)
++{
++	return gtrace_register_driver(&rvtrace_ramsink_driver);
++}
++
++static void __exit rvtrace_ramsink_exit(void)
++{
++	gtrace_unregister_driver(&rvtrace_ramsink_driver);
++}
++
++module_init(rvtrace_ramsink_init);
++module_exit(rvtrace_ramsink_exit);
++
++/* Module information */
++MODULE_AUTHOR("Mayuresh Chitale");
++MODULE_DESCRIPTION("RISC-V E-Trace Ramsink Driver");
++MODULE_LICENSE("GPL");
 -- 
 2.43.0
 
