@@ -1,109 +1,131 @@
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+Received: from mail-ej2-f31.google.com (mail-ej2-f31.google.com [74.125.228.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E4F3F7AA8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889665; cv=none; b=CG15Gg0/CUJQgvEFlnQp1mR9KqqGnrrFgn+WaLMcHR9g7jjqboruo2CBh87Yg/qMuWiz4NmaKxt5mpdzhBIgC5xclb3QuAKc63CsgNsABimBcHZBrruclr2xXNz8st29ZpQPcGitGtB37PBmhHnifQ78dJIqjdFU9MVdHftgvXc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889665; c=relaxed/simple;
-	bh=SbI9zuwpLoviGTLgjhQIkxJ0mcfP+lQtKKioVT52hTM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=UcD88l8/pfrAmNpIVqhNgyfsJonP544Gz9Ty/vprzqTArrpEkuTrTviDu0qsqPGEwGP2qPKsSDVfpqOw1LRIA732RGNCKa0UsPV1Kv93hkPt4tCo05QCXELJwkXyOJ6X58vsdXXSOFKUjj1nAxh4wcL7TTcibtwKOm228shDl+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rhTvoUaz; arc=none smtp.client-ip=209.85.160.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB47035C1AD
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.159
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790889796; cv=pass; b=C2L9YxbFXuWM+KhGBV4ML7lHDUve2SqxAw15+Qr8wJxaggviXtvPDTeEEWroP8blhm/2bOhgnI/jGl+cmNl4FC26o2XJoktmQ07+5OXBXYoM5VrlqARY9f8m14XpQK1yzfLdQUBXZ3FQXuTVW8sdlRe2sL1ewtM/HhM5AILcSOg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790889796; c=relaxed/simple;
+	bh=DLs/KIZ5/ycwSa0SN3niPNJWgFMiQFCmcvqsb0nclfY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uoADeiiv7Jz0Q4aSS6B6BVpCfYh1Lwt7JyU01QMVaHqi4XaWwRUtykMo6hUD+E4AYBJQkb8F8kXsUg8E/CrMa6Gpi2Rfaa1YpFzfejgcgs5CqkxbbJVLuz07GIf/EpxIXt6rd4a4BxVHhKPsoq8eyGZDXlBk/G/WLc1RYZIehYQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TLUBHtM4; arc=pass smtp.client-ip=74.125.228.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rhTvoUaz"
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-448d51840c4so6738985fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:21:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TLUBHtM4"
+Received: by mail-ej2-f31.google.com with SMTP id a640c23a62f3a-c29703cb796so999378466b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:23:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790889792; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gP7gvmWCBLlUD/scjJRdpwPStrLNcXBh8d4Fk3+mYpsidV293L3pJmmIYMLZ5MIN3e
+         eHxYlN+ah1paCKsIYIufLK8oGRZxIJgUAiWnmcvBUkbuWOrneZMk11i21R/MLTfp3XjQ
+         N/VUQDl8IVfhrjuQ1JZfFc0MSPa2Q4qg4xF5IVvAeiq4p4/8ydW0JoVVxLhWyjv55278
+         b/7pUnsqc5NtEzTnLzwkUZ3XvMepVDdWfZJGpMQ5YDJU7CoEJ07WqidcXnRRe1LRbxTj
+         oYLhlM8jHSjrsue0mJbjaiJ+TpKn8oVPHu2xE9Orka+38oeTbHMxtSfQ/ms2HHQxv+0o
+         nk0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bGDIIilh263XLFQkrjj0HvyT95v71lu9sg14IVq4dQQ=;
+        fh=CAhqSgaJprAm7KsmIDgmtY263kL+tjBA4tuqP6RyWxg=;
+        b=Q4YNU9AdIhSfnld3kTLceC2GYGM7H07vEQrJ7eiMXR2foMfFwi9DmeqBcCtSffrRHU
+         EjSZQgqT6C/HcwvsDdz5gQ9wRwMf/mFW/j6XULU7v5BsElkJulJHkPSaU0cXHPo/Pens
+         jUHIC1FObwoZIz88pYoQ9J17iVdefOo+g1Qk9Ay/JP1V2ma1eFhNgQdZAjWF9csysr5L
+         RH59NfsTtX5byvOIvQ1iIk9hiGEGHqq7I0u8fLk1z9lCvnGzOxSoFsXfYQjXFeSCU70x
+         +Z/At5lI80LUy+cTFgBk+ptkjAp1P4lpHC0VmCci0+1Fqn+4tgGR59ZOfy5NPeASHWuV
+         i6Pg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790889661; x=1791494461; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dIr4K7N8tWlFElP154T0gDhZmtv6PLeTBLURDyjAzjU=;
-        b=rhTvoUaz+E+iJsTSARzZw8S6lz4ltoU2dJ9G0gCdDREV7lICxZkfGfK/b+aB80D9QS
-         XQTJSJ10OBersaohxgAAMSwWY8s1ftI7rkEnws4UXcNLgqpaYb1ArpqmACTo3mLaAsmG
-         gdjIaJG3Nbf9Eol4x2BgozJnwNsch3T7oEFcGc48bmP9J1q+GLRS6gjlKTKfYByfCcjT
-         Chw2MPCkNsar6/F3BqrASOUSkacre+/lK4J5YD4K3w75c72KcJ9mASpk7N+rDJBRLBxY
-         8fR/elkj36oUuTVal+aJ4i/Ha3VPaK7w8kADd6oXxGcNiDI/MJxUTJtsRHCJlzHrFoDN
-         o2/g==
+        d=google.com; s=20251104; t=1790889792; x=1791494592; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bGDIIilh263XLFQkrjj0HvyT95v71lu9sg14IVq4dQQ=;
+        b=TLUBHtM4X9DfCuZ+6UdOl6Pymyz9MySlWXhFPcefNzL8k2Gq8fs+jKPTLkk0Sv4vWe
+         TUHEzMiqAqdbdFmatWRgOhwKRlrqN207xBYbZ/R19XlEKJoOmFCuj4A/cU3y1wXDGgMb
+         Vq7LOg2k2JSXkwHKZuyngZqcsAn14vS5eZtj1w9M5Y6oWQowL7z5wpQJ0PRVR17N4IcW
+         ky2ZGWnqpeKVQBri8a3SkK4xTareftW5LaJetdwtXbW37sDgTWqC130B7o+gD4s/FD88
+         ak7U3SUgN251Ey66LpsgCLt0xPdEYfovtlK1wb/X2RtE5zpETwrLlpu/CTxnXdsz7clu
+         zB0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790889661; x=1791494461;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dIr4K7N8tWlFElP154T0gDhZmtv6PLeTBLURDyjAzjU=;
-        b=e9zhfJVyinUembukzM9kwTa2BG4yuaxkGZJt7s9gfib4NFYbywhQGchPKQfwReRRJ2
-         Ym0HBab5OymsG2kkdf8N0zyRPyg7x816TOaaxYWRNCC64B5Nzob+jLHFUjCuynLgLc0U
-         FUmODk/tj2ljQbEtJ/ZS4qCu1V59hiPhrugGLYGMmfLb8xufWSxVHu3hlvrkX/5lMJBg
-         8670GP2I8wnqRlnDlxd2SEusGrA0esVNcekBDetdFZ/9JnhuoAComSHq9AJiLQTUOxhy
-         nNstik75lPk6IqV+tz/yuR/ITzA9MUapcx9N8lZZ//jOb0ZTzxdRCLPm2moz0VGCtL1w
-         wLJA==
-X-Forwarded-Encrypted: i=1; AKwUvBwR7n0Mi87ITRkNWk/Ne1fgR/ezZkD/YGTHz1XSa/hRjOYHdxrBtLBHXyCajHFH+898s4MP3nwhH7dTlvY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUeHzssDgo8xwZ2+bWgCdFg+I9C0Zh/j4XmOxq3uHqymLKKp8D
-	1xJ2+fYqbx95hTYSuW0sebNdwKzSnQmrx4D4kpG25kcVxAjkVhH4tU/Dhfy9OkyhBKCMJaV+KwA
-	7VPJO80vv3AKJrsMb8+OLxFuoWg==
-X-Received: from iobir24.prod.google.com ([2002:a05:6602:7158:b0:9c3:8b15:2c82])
- (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:6905:b0:4c3:a091:52f9 with SMTP id 5614622812f47-4f526747d3fmr385353b6e.2.1790889660625;
- Thu, 01 Oct 2026 14:21:00 -0700 (PDT)
-Date: Thu,  1 Oct 2026 21:21:00 +0000
-In-Reply-To: <56d86280-fcea-4d2d-b6b9-b47449f3408d@linaro.org>
+        d=1e100.net; s=20260707; t=1790889792; x=1791494592;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bGDIIilh263XLFQkrjj0HvyT95v71lu9sg14IVq4dQQ=;
+        b=rYSFFq4R5VLeugErrvts839ffSQawMW2jo4kJNLZ6TXZxly6G4TWCXg3W+G0aVaaB7
+         Qv724gSl+l9ktoZx9y5qRJytyuPTUiAxrQooKdK04pcgOQB1t0gjirhm5f6Yu0iPoYfV
+         EcHPghicmsXDao6Xhq4NtG5IQVdmGi/d4ggFrakeAUPgr9DhrWmJtOptDhGqDMkqLtSG
+         Xel3hCGH/cWHahecgHh/L4tiVhWM6dRJ/Qv9YgIkLDotR4x1uXDfLiT0F2zYVqjOMIPM
+         B+Yqjz/BVqyEpdDDOxFfJuHb7II0kt3ufOgQGTEOPsmjbTmXTOyk8l6TOXlP9wNY4DMD
+         POYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxdNc3SRBA8GJ3fMnWkCjthlVEUE3OTZwrXvpFhQyDuslD6wQm3KFzt+OoasNKVt/eb8vMJFVVOB0a2kJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIL23pM0EcsZ+16jCnz/zvPv/9xHux/Nq907FiADVgVDgsqa5nV
+	n8VNcHJeePBz6SYVBCR1D/EkI9StGWfV9ZmFVszZhkkl6YuDPffh72SbZrOV9dpbuL6EPGHwuYR
+	8ZavYTYmFRNTsutVwKAgUoxKjV39ipTdtD7jMn4Wy
+X-Gm-Gg: AYBFou0nkS1UTFV8T0n4WpcxeUcai9cIdGsHsruzdLdRScUeow6QqhiUv2IqRkxWV2K
+	2di2BvX6OtqvyvADMTXOMU2QKQsbRZ/PVkK51S4hPdprLG4pfFhP+305Xm05UfZ9sB1tMrE/dfM
+	L4KguZm5CHQu9syLDEuKV+bNn5Q9kHQWOHMuESq0qwOUWi0qQ8I5PgxiLE6ppOE8HLLnwoqlr1m
+	vp0Vr+0Tac6nEKS1A+w1iwotwQ6XcVX/emeuOD9HAD5pEnTuvI2ye4y89kxhmWqZBHv1EJXiMPj
+	UJwZLEbjJXjCtQDBFVQb55KdZkng3MmKkyuJIQkH4D8sACXtMDRaE5ShQTG15mgmRAx5nElPUsy
+	FvweHWsBPw+oKLT6iKNH8
+X-Received: by 2002:a17:907:7282:b0:c25:977e:5377 with SMTP id
+ a640c23a62f3a-c2e4ad7cbf6mr69097466b.10.1790889791661; Thu, 01 Oct 2026
+ 14:23:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260924172928.2110956-1-coltonlewis@google.com>
- <20260924172928.2110956-21-coltonlewis@google.com> <56d86280-fcea-4d2d-b6b9-b47449f3408d@linaro.org>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261001212100.2035442-1-coltonlewis@google.com>
-Subject: Re: [PATCH v9 20/22] KVM: arm64: Add vCPU device attr to partition
- the PMU
-From: Colton Lewis <coltonlewis@google.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Colton Lewis <coltonlewis@google.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Zide Chen <zide.chen@intel.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Mingwei Zhang <mizhang@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Russell King <linux@armlinux.org.uk>, Shuah Khan <shuah@kernel.org>, 
-	linux-perf-users@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+MIME-Version: 1.0
+References: <20261001171349.81454-1-ebiggers@kernel.org>
+In-Reply-To: <20261001171349.81454-1-ebiggers@kernel.org>
+From: Sandeep Dhavale <dhavale@google.com>
+Date: Thu, 1 Oct 2026 14:23:00 -0700
+X-Gm-Features: AclHuK8XgZOhRUaL3sAt7Iljpz3t_TC6CLjoxsnzy8OUuuVA4aEvXm2un4VWkDk
+Message-ID: <CAB=BE-TsYHMdwKbVPmEQZXENL1gVcwUa7Sde=e1wgGuVLKWnEA@mail.gmail.com>
+Subject: Re: [PATCH] fsverity: RCU-delay the freeing of struct fsverity_info
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: fsverity@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi James,
-
-On Wed, Sep 30, 2026 at 04:27:27PM +0100, James Clark wrote:
-> > @@ -77,7 +80,9 @@ Parameters: in:imaan address of a u32 value (N)
-> >   Returns:
-> >   	 =======  ====================================================
-> >   	 -EBUSY   PMUv3 already initialized, or a vCPU has already run
-> > -	 -EINVAL  No PMUv3 explicitly selected, or value of N out of range
-> > +	 -EINVAL  No PMUv3 explicitly selected, or value of N out of
-> > +		  range (>= max_counters when partitioning is
-> > +		  enabled)
+On Thu, Oct 1, 2026 at 10:13=E2=80=AFAM Eric Biggers <ebiggers@kernel.org> =
+wrote:
 >
-> "No PMUv3 explicitly selected, or value of N > max_counters, or N >
-> max_counters - 1 when partitioning is enabled".
+> __fsverity_get_info() calls rhashtable_lookup_fast(), which just uses
+> rcu_read_lock() and doesn't directly synchronize with
+> fsverity_remove_info().
 >
-> That might be clearer, otherwise it seems like max_counters being relevant
-> to "out of range" only applies to when partitioning is enabled, not that
-> it's max_counters all the time but one is -1.
+> For the same inode this isn't a problem: its fsverity_info is removed
+> only at inode eviction time or upon failure to enable verity, when the
+> inode no longer needs its fsverity_info and it will no longer be
+> accessed via that inode.
+>
+> However, this is broken and can cause a use-after-free for concurrent
+> __fsverity_get_info() for *different* inodes.  Those rely on following
+> fsverity_info::rhash_head in the rhashtable under rcu_read_lock() only.
+> They also use fsverity_info::inode to do the key comparison.
+>
+> Fix this by RCU-delaying the freeing of 'struct fsverity_info' after
+> it's been removed from the rhashtable.
+>
+> Fixes: f77f281b6118 ("fsverity: use a hashtable to find the fsverity_info=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+>  fs/verity/fsverity_private.h | 15 ++++++++++++++-
+>  fs/verity/open.c             | 13 ++++++++++++-
+>  2 files changed, 26 insertions(+), 2 deletions(-)
 
-Agreed, that reads much better. I will update it to your phrasing in
-v10.
+Reviewed-by: Sandeep Dhavale <dhavale@google.com>
 
 Thanks,
-Colton
+Sandeep.
