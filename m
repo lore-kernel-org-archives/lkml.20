@@ -1,46 +1,46 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013015.outbound.protection.outlook.com [40.107.159.15])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013006.outbound.protection.outlook.com [52.101.83.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C454C1512;
-	Thu,  1 Oct 2026 22:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB634E0B63;
+	Thu,  1 Oct 2026 22:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.6
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894261; cv=fail; b=oUJQSHNo+j40woyWoD1FcxM3Lfa0074wXgTzb/sHERfrNaLNR7w1gdrH3uZTVVu0lUa+FWNJy8f3BvAh9LAKmD00gO/TnWNPfUe44c9G0DTKfDP9XBA5X2QXKM6iOqihdlLA2CiEBIygJx88bYB+cHIFgDMVnKmSfV69DkMMHFE=
+	t=1790894273; cv=fail; b=rJXpn6/bkQLeV80yWDo7pasmt0Vu4xnlu+ydCBfI+A+rPe2ol/r/y50Zv/EW9kTxUaUHxtz5TSq22CXgjuXZ5gfdBchEgJkgk6ZmPS8xFo74DEjCaD+2+7WtA8RYD9cBTJ+WFWPjzuLnCe0IWAWv4f83yzARnzRVCBsoCPQ44WM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894261; c=relaxed/simple;
-	bh=oSFexXtYKh9Cu52nm+wuZOaL9KWMdKb9th+cwJ6ixTA=;
+	s=arc-20240116; t=1790894273; c=relaxed/simple;
+	bh=1RM1GDFQnRypMoFnLba04i4/6H8m1vTZjUPR8xxhW9U=;
 	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type; b=aDmMyXWq3nBDwoqoxg5Vr95n0uYx5L6xq4zLcjzH5j/cFznjaE7j8ctFcVGUfzCDfSo/oQK/9OshijVd4GBjYIWls+VWh+Z29FMVYyS8MRUsbBkYWwM+ltxjkN1GD44OHbhgEGhI9YNBY1Cd+SGCBlDVVCsqZ/sL5tY6w0vS2t0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=Rtb/d8v+; arc=fail smtp.client-ip=40.107.159.15
+	 MIME-Version:Content-Type; b=j6aCS2ONfRvVQJ5D3t8Y7eIWo9nuvYsM91Dj/oUxUBlcZzrPoDxkYLch2KoSz8cfW2bIfQST6mi66u0hC7e5AymT4foGh6fS7Y2ombb0zV15fjpO35UM8UA253I7SYnLxWjF9TnLEFIxvh25W9CWgprYRICLO7aTZe6DBzOBERk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=hpzYz3SJ; arc=fail smtp.client-ip=52.101.83.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="Rtb/d8v+"
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="hpzYz3SJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iv+sL+Z9viHQ22GktohxSbXWyIaXyshw/UWUKzn47f0EVvb1dWKqDE09bK/17ulX96daUIn5IcwIEQuCxQcjKMD5qny8g5dMD8wYnsbZD5s46A2vtIno2zCiqmtTBx8ZS3VsJGTIFg9Poc/ljtB9Bzl29RePgWTUtjW6vM6352RM90lPqnDLR8sKh1iwdGAEUYopgXAy9aSiuxwenjbFpw6MPveMJqfrBqD3gdrxZxCrbHcFHsbCjMIulJK1frDTXBiFXomvYgZfQokKTnr+9e/1+BrI6Svut/wSeOamY4n/g0pZaeAUfVJ4hL15ugZyaqtOllZiRw6sicfeDoi7FA==
+ b=WLjlxFcq2XLER0Nmm4mPHydRl6Cp5OlZGSRucCoNjPjBIrxob5lfijysd8Zg5dPtOllx0c/TRzAaxyq32HPkR0eW3XZkargcjupftE/hXHhmbo74h5Yc3EP/XQWYxF+OT14iw2YQ4wq4ZtcSwxtCM6L7gRQtadBlLvAHOFCgCqXAqyspBc2ks2S0f2gBznlmr8wbzIocxXXeApQ93saeVK3XPnqUeUcDdMhZDVr0RDnuQ3mv0wjuQnF/ADQ1umOAWvenBaZAvSNIDKcRtASwi3LWMtB+sAXNfJOM1JtRGoc9mIvKw5yT5p0j47J6PtVq71sLsS+x79MO2hLDidiIGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/MhO9LzOFsbzA/KM+S4nQ5RAqoeFr+BnWr161HcLW6s=;
- b=E/duY/UtOv4w2wq9pHqEt5r54aZGNg7gHC1suJQTcp3qphPvltC6v8bp9NTNt1PKd6ZsYXEXeFkn+zYkesceT8In6dCjNMOP9dx8zlWvDqPClOwfplA/OO06DnZ47+nBkwDf1o3qA6Fv4sCTyZ3cui4kib3W8DX7VSHKeroyMxXunsrPPjFNVTh0BTvTuQek9M19OOnb6uEp5dyhg2tSg2br5nwXc+/y/r0c9sTL/5v98+xMK4af404Z03WFXGKu7/3xGJ0dLCPa2tcxNzde1HGHhEZtYmlxAxpED0my28uI1sv/SCtBlccavuhyQlDt7XCxRsqRWcIp1CuoIHAyVQ==
+ bh=kcAiFTC6N9w3bYZZ3eGG1uUnWKSTUyeUEUUFn8v2MPw=;
+ b=WVgVVU8y5pzm0GodxBR47kHHMNgsSzWGee5d0wPR3X4G6WrdFwfFlooUkBL9K139pZX0SongN43LudPOT0aALAcbkIY0QYAfRbSaK79s3olnfSeXItFQ3iM2eWIFX/ixxHvGHI4df8ySOA77MNfAY5/S5gO3TVuZvIIt+HHHeJmAmBQctKliIWmI8/MkCvpR4HOEFXkMI1wR9ugz2bw7QVHBXS3PbfU1mI5MnUx1sE8r3cfZGkOY1skQPoQZb8uxHyxkXEWWKt6xLJG2dGf1BCjVcFC9YQn2DkS8pNlbE2v8lEmDn75hyo4dQw3eRV6pCR6jmJJIDOouxbbA/6J4qg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/MhO9LzOFsbzA/KM+S4nQ5RAqoeFr+BnWr161HcLW6s=;
- b=Rtb/d8v+2f1c1UuEdtKH3QgiFKx29w6zp3+IRDwfQ2YfEwlCfWGQ21h9P4Ylyh2w1tyyF6sBglKaDxASk7lh4yj6Oc5x4a0MnAjDzdcuqiSLKBOmEDOO9jn8JvYZ7Bw6WqxwkEtlaGeQ/Juo1rZ7FbSfumeYCXyH9S3yClx9TdA=
-Received: from DU2PR04CA0057.eurprd04.prod.outlook.com (2603:10a6:10:234::32)
- by AM7PR02MB6468.eurprd02.prod.outlook.com (2603:10a6:20b:1b5::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=kcAiFTC6N9w3bYZZ3eGG1uUnWKSTUyeUEUUFn8v2MPw=;
+ b=hpzYz3SJakGqPLvDuAMtsOaaKkSRNniG7KM9AMf80RqCxGiceJBWFj4HIRuGb+2k7q8I7k1Ak8aOb5652IOq1GNHUDNAA9Uwel2T7Kxd3QtywDOsVrNGUO/dcRfXgLVu8FUhdaHRuE4Kmims4cLVGgED1gPoKCbb5s4j0JeOvuI=
+Received: from DUZPR01CA0323.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4ba::24) by DB8PR02MB5836.eurprd02.prod.outlook.com
+ (2603:10a6:10:114::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
- 2026 22:37:36 +0000
-Received: from DB1PEPF000509FC.eurprd03.prod.outlook.com
- (2603:10a6:10:234:cafe::a2) by DU2PR04CA0057.outlook.office365.com
- (2603:10a6:10:234::32) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 22:37:37 +0000
+Received: from DB1PEPF000509FD.eurprd03.prod.outlook.com
+ (2603:10a6:10:4ba:cafe::65) by DUZPR01CA0323.outlook.office365.com
+ (2603:10a6:10:4ba::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Thu, 1
- Oct 2026 22:37:36 +0000
+ Oct 2026 22:37:00 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=axis.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
  195.60.68.100 as permitted sender) receiver=protection.outlook.com;
  client-ip=195.60.68.100; helo=mail.axis.com; pr=C
 Received: from mail.axis.com (195.60.68.100) by
- DB1PEPF000509FC.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ DB1PEPF000509FD.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 22:37:36 +0000
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 22:37:00 +0000
 Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 2 Oct
- 2026 00:36:50 +0200
+ 2026 00:36:49 +0200
 From: Waqar Hameed <waqar.hameed@axis.com>
 To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
 	<konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring
@@ -62,12 +62,12 @@ To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
 	<conor+dt@kernel.org>
 CC: <kernel@axis.com>, <linux-arm-msm@vger.kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 35/38] arm: dts: qcom: msm8974: Add newline between subnodes
+Subject: [PATCH 33/38] arm: dts: qcom: msm8974: Align multiple property data
 In-Reply-To: <cover.1790892852.git.waqar.hameed@axis.com>
 References: <cover.1790892852.git.waqar.hameed@axis.com>
 User-Agent: a.out
-Message-ID: <fba7a99d988200d102d88c7f644ea8cef7047d65.1790892852.git.waqar.hameed@axis.com>
-Date: Fri, 2 Oct 2026 00:36:50 +0200
+Message-ID: <ecfee840a4884f277a73924d9da6831b85269e26.1790892852.git.waqar.hameed@axis.com>
+Date: Fri, 2 Oct 2026 00:36:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,131 +79,67 @@ X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail10w.axis.com
  (10.20.40.10)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FC:EE_|AM7PR02MB6468:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9a21652-5c48-4c2f-cd7f-08df200c9784
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509FD:EE_|DB8PR02MB5836:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74d753a0-baba-4800-4e7f-08df200c8246
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|22082099003|18002099003|10067099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	PgrDoagLLKa3N8tbgJBJW2tQVSjudaHbFifn7tSJRCBRoM0g6btyOy5Z6XOzlHsMjOA80jEHsATVXKIyK2igrwrwAs1O0M0TkELwpdmtNLAkA+5nSJ4coaffpIBvtP0RtX4uzyXkFjeNn3CdL6hVo1CIvy0DA+Di3nQRNil0IBWS1BHA7io5YLW3OC0tFC5QwA/H91sZFUpWkkYvDaae/T0v/xZuuhArsfLfwPtqrccez9koLJoRE1ZUJCrhaIZQpM3UKa0qnAzyeFn4Y5chahNuF0uo+Q7dH85mAH30JAd+g/3HC9X7HB1Q0tnaRtCrW0VUT5qmc5jcZgAubk/cK/Y8NKhttOXT9asDug3xnENZWj83b+YGT7L1beAfV54B0s2lDqz9I3uQhYkp0/1yg2XXveep9OxNWeIfvjA4rQMfsF7OIXD3NGA6f0d8z9vhTr0gH1YfD6a+lUB/GktPFjoyQBOCl5vV9JCGx5w2NXKsKNYLDCu8+GDWak0hdxfFtaINJGM4k8C6iD9u7DFzvs14yFLzo4itnD0e+7wC6McWfemyI8Q1vfmpXHRP5t7v3mlIQOJpHclC9QT21qXnmsa0DiIBUJUxb03adlC59GLslt+ypzCl//sUkDx8+pwnDQgv+nA4VfKQnGgNzn311s+2Jvq44AMgP+Hbt81LR1CNG36Q6NqPQsPHJPUlxZKJe3YY7Lu2npDOJ5pS4pb3rQ==
+	eOeD8MGeKJHHmhvaCaqMI+OyRjPOoGmWSKr7oXlna1pWetL9fPWUMnipO5j4L813nmvx6ZGbFaSoaHlWizlPqf0gFh6khNYuv79b7a6I7b6dIdXCMzLqTYX1twEUc6qQNB2KbbyqkQ73zUAcoFIGkK8c7xJWsM++etGhipyuN76vSMQo5BZgdTMnZcV1w1/7OslHnXhECYc1aCFE0PRZsAFzD/cWkVdqYhyBj6fLsBuRWAb1S+PQnBc0MJFgHth8AJL/n/xVO1y4FpAC/rslsbfy+j8+0WQ49JCzHlCm7G00Q+JP+F7XumnyR6v9Sg2Jjw/2E7scrLnRFdi3l43DS7COIP6fb9HSMAFKyoPPEb3I+bFGc+bK2RhHt+c8/QDMGCnQ548gWXp8F5tfzh0M1fQ046zcT6XKg7NouQj6NuoTXAyerda3g+nm4nNRWkHHn1wqQDgI+8YOmm72wpHWyVRozDTcF5etCmxLp0eaZVjZp9FwyuaYYFof1d7Hxlj/dWQb7klkFgzHKYLNm93H9IfSUYeKubbqBcBmh4x0/3nqlbsT02Jz12jfoKFbeUw4l9WvJeljBSsn4iHb3dVF12HAuNwiB9IIFJq8ZWiYwkDJ8OsUbpNc+FCvPBtkiLTXRFxqa25q12SLZX6yJVXVW2Y/JVzImwvkj7XbxgizAykQU79VtZrKcrBl3yLBPP84lZC6/TIK9qTvbBsbAzlGNg==
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	FDfw+d45S/1M4Z85s1FMBNdBY5ACgOWIP2KeTJ+PMIK5gOcqDixsFVbk2p5Z0y287akSpSJ0eGJRhtuDI8IABx9uU+nWbQ6orXhtLiTUAwH1QHHSZ5QxPZ0dK4bpIU+zmo0TsbfoJ9HMZJl8uQgKVS/yoF6OBDFSchDyw+CEGGEYbW/l7vXD6ZOcNifAkSgcX9efkgyXOuXazKuOXUW1TNFsSTlz4WzxZ5yzmGLzYhF83SJa1CtzAxuDKGTSgQYB+KNK6+5IiEWAGOzwIAkSpYvDPMOe1qsJyF8FcRASZouhCEqSX15oahm1AlmOXcnf1b0oI61dYr0en3OoE8/AlFef6EeqdGukobWdQYKjMBYv325VH6g1P+hcEzl0JAxGkbvCWqVQXvH1o5dkU/Jn5Zb62lBAsks31rsEzwVbga3cux/0v6gx78au8q1xyWHe
+	dMnhUioXwTWN3l9tlIQZJjCkH7+hFtXJYLOYElp40I6+5XDCZCJ55JFy/Zvtc3DvCkABmH+grNeWEV9tarL+3f3toWiLBQ0SF6jWdNrOBe/D2zSLfo0GymcNTZ5Zb6jvAHZlimaj+V9JA/h6s+PkSLLwqZRyKUv/rQN5+yQCG8SiVCCZyISOcIRuRH5gFjXl2p6OMH9vY8y7RK6deLiLgxLirqmyEIe3aRJfaLOv8YyEz9zXxEUIOqPSMVXtMdZxJtXmfqbPeoHydz7JkTxmi5VXgim53rCWDKM0geVY4tMgw676IYj4CrlORcDrQxJtZVODCdaRWXdTx1hE/ZRY944N+LzVIDO3IXZ/DdRVJVwdg1DJjlr023ItM7FEvfgEcs2Jbwnhupr+tRmsba41iUi9aNrH06B5GT8jLxIUwgIY8SGIev3NYBkKRp6IXuaB
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 22:37:36.3161
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 22:37:00.6763
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9a21652-5c48-4c2f-cd7f-08df200c9784
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74d753a0-baba-4800-4e7f-08df200c8246
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FC.eurprd03.prod.outlook.com
+	DB1PEPF000509FD.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR02MB6468
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR02MB5836
 
-There should be a newline between subnodes. Found/fixed with
-dtfmt (Devicetree Source formatter).
+Multiple property data on a newline should be aligned with the first
+one. Found/fixed with dtfmt (Devicetree Source formatter).
 
 Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
 ---
- arch/arm/boot/dts/qcom/qcom-msm8974.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ arch/arm/boot/dts/qcom/qcom-msm8974.dtsi | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
-index 4c2730b34cd1d..1a2f0cc9f8a03 100644
+index f300de74c47d4..ccf66f45ea7c3 100644
 --- a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
 +++ b/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
-@@ -960,6 +960,7 @@ replicator_out0: endpoint {
- 						remote-endpoint = <&etr_in>;
- 					};
- 				};
-+
- 				port@1 {
- 					reg = <1>;
- 					replicator_out1: endpoint {
-@@ -1083,18 +1084,21 @@ kpss_in0: endpoint {
- 						remote-endpoint = <&etm0_out>;
- 					};
- 				};
-+
- 				port@1 {
- 					reg = <1>;
- 					kpss_in1: endpoint {
- 						remote-endpoint = <&etm1_out>;
- 					};
- 				};
-+
- 				port@2 {
- 					reg = <2>;
- 					kpss_in2: endpoint {
- 						remote-endpoint = <&etm2_out>;
- 					};
- 				};
-+
- 				port@3 {
- 					reg = <3>;
- 					kpss_in3: endpoint {
-@@ -1785,6 +1789,7 @@ blsp1_i2c6_sleep: blsp1-i2c6-sleep-state {
- 				drive-strength = <2>;
- 				bias-pull-up;
- 			};
-+
- 			/* 6 interfaces per QUP, BLSP2 indexes are numbered (n)+6 */
+@@ -92,7 +92,7 @@ l2: l2-cache {
+ 		idle-states {
+ 			cpu_spc: cpu-spc {
+ 				compatible = "qcom,idle-state-spc",
+-						"arm,idle-state";
++					     "arm,idle-state";
+ 				entry-latency-us = <150>;
+ 				exit-latency-us = <200>;
+ 				min-residency-us = <2000>;
+@@ -2228,10 +2228,10 @@ remoteproc_adsp: remoteproc@fe200000 {
+ 			reg = <0xfe200000 0x100>;
  
- 			/* BLSP2_I2C1 info is missing */
-@@ -1872,14 +1877,17 @@ mosi-pins {
- 					pins = "gpio45";
- 					function = "blsp_spi8";
- 				};
-+
- 				miso-pins {
- 					pins = "gpio46";
- 					function = "blsp_spi8";
- 				};
-+
- 				cs-pins {
- 					pins = "gpio47";
- 					function = "blsp_spi8";
- 				};
-+
- 				clk-pins {
- 					pins = "gpio48";
- 					function = "blsp_spi8";
-@@ -2280,6 +2288,7 @@ cpu_alert0: trip0 {
- 					hysteresis = <2000>;
- 					type = "passive";
- 				};
-+
- 				cpu_crit0: trip1 {
- 					temperature = <110000>;
- 					hysteresis = <2000>;
-@@ -2300,6 +2309,7 @@ cpu_alert1: trip0 {
- 					hysteresis = <2000>;
- 					type = "passive";
- 				};
-+
- 				cpu_crit1: trip1 {
- 					temperature = <110000>;
- 					hysteresis = <2000>;
-@@ -2320,6 +2330,7 @@ cpu_alert2: trip0 {
- 					hysteresis = <2000>;
- 					type = "passive";
- 				};
-+
- 				cpu_crit2: trip1 {
- 					temperature = <110000>;
- 					hysteresis = <2000>;
-@@ -2340,6 +2351,7 @@ cpu_alert3: trip0 {
- 					hysteresis = <2000>;
- 					type = "passive";
- 				};
-+
- 				cpu_crit3: trip1 {
- 					temperature = <110000>;
- 					hysteresis = <2000>;
+ 			interrupts-extended = <&intc GIC_SPI 162 IRQ_TYPE_EDGE_RISING>,
+-					       <&adsp_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+-					       <&adsp_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+-					       <&adsp_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+-					       <&adsp_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
++					      <&adsp_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
++					      <&adsp_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
++					      <&adsp_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
++					      <&adsp_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
+ 			interrupt-names = "wdog", "fatal", "ready", "handover", "stop-ack";
+ 
+ 			clocks = <&xo_board>;
 -- 
 2.43.0
 
