@@ -1,210 +1,588 @@
-Received: from gwu.lbox.cz (bck.lbox.cz [193.165.144.186])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88AA433F59C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.165.144.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B82C33F59C
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790883938; cv=none; b=cqM9tdqrEzZKEj8nHWo3yMeIJP58vBooFGCb5xpZOq0r6T+gptMLCzQWB1ROyHZtDDxWhoPlbcjXcwuqEBytc/PhtBuXVttIvW5/6mSTYCqRYUw7dN0sS1/U0LjaTKsxZ8ZkyBgqiKblKqbZHBPH/7pi/a9awUGAbVJ2sKevDQ4=
+	t=1790883944; cv=none; b=k9U1z645ZKJsj7CaH+ttGK5zJza6w6RheYRNDIfd10yjflbNOtDE4plyoNtlk92I2iVc+ng+4jRj6mdAvE5I/aKDI4YhskoInydupVqoWbFrZ8ECKguSEwzRxC9sPV/3m2TtNUM8zkdDMEhfK6SalFfMiJBNua07fE3kDJd+J+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790883938; c=relaxed/simple;
-	bh=mDHaP2DzNwFRMsfAghG41VRUP8NtBtPPjXmf8oa7gSU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T6/VhPlewQ2pexPMo5RkJhVqQIbHeH32CPVEHVTP71uaE46bigWhGSNRULCkt7hGR/U3AP52OyRaTze5CAFCSbgSdUhaNac6kmEMnA5EBsoHpBKVJ/58G5uQwjvZnojC0d83ns4YuvhXks8lGbtok9nkG2witI/kVlQPWKoD9vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz; spf=pass smtp.mailfrom=linuxbox.cz; dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b=00COJ5bx; arc=none smtp.client-ip=193.165.144.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxbox.cz
+	s=arc-20240116; t=1790883944; c=relaxed/simple;
+	bh=nWZttx3s2dYePcZQpiSB9R1CirXXVivMxInjCTOLYi0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=G2cfoe5Kt4wCsvA2uxteS3dvX3lrX7fEfESSMEywpjr1AWBUvpiXfi7gqAi9fz2qaBKCh76TU1i7Cx96/dejxIEiqIpwlct2wW/7hlEqPCC/D0xPM84QG1T3umEcsrQBSQoK07j66ue8yJMONSg0PE61ccBvjPOXltLPqJvjJFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MYzwVYGe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KYIBaLOL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b="00COJ5bx"
-Received: from linuxbox.linuxbox.cz (linuxbox.linuxbox.cz [10.76.66.10])
-	by gwu.lbox.cz (Sendmail) with ESMTPS id 691Jf4gI3748979
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 1 Oct 2026 21:41:04 +0200
-DKIM-Filter: OpenDKIM Filter v2.11.0 gwu.lbox.cz 691Jf4gI3748979
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxbox.cz;
-	s=default; t=1790883665;
-	bh=FZMJ3of9h2zjYqREJLmrVh3ELzDIAAnl2juI8l3qEW0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=00COJ5bx/dX149M66PbRPeZIKMv9DUGe5n0iVWaFUnGXov7aPz8wukGlwyAM8MxeA
-	 /rhU6q6sh4J2z0yr8z0XQrmybCvqjCu000QiodcBcNz6mdcbk4TYTdEES7QyuLCdBm
-	 CeV7u4hWAejVLGqIe8SSFPgXYaLrg/T+vGxCohBU=
-Received: from pcnci.linuxbox.cz (pcnci.linuxbox.cz [10.76.3.14])
-	by linuxbox.linuxbox.cz (Sendmail) with ESMTPS id 691Jf3MV038171
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 1 Oct 2026 21:41:03 +0200
-Received: from pcnci.linuxbox.cz (localhost [127.0.0.1])
-	by pcnci.linuxbox.cz (8.18.1/8.15.2) with ESMTPS id 691Jewe32175335
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 1 Oct 2026 21:41:02 +0200
-Date: Thu, 1 Oct 2026 21:40:58 +0200
-From: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        akpm@linux-foundation.org, david@kernel.org,
-        Mike Rapoport <rppt@kernel.org>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
-        luizcap@redhat.com, pbonzini@redhat.com,
-        Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Subject: Re: hunting memory corruption bug in 6.18.x
-Message-ID: <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
-References: <arY1Wq6R9OY20ans@pcnci.linuxbox.cz>
- <arZHp8hjYFXE8Rkt@gremlin>
- <arde/t0zQNEkWqi5@pcnci.linuxbox.cz>
- <areOeRwZOez0eHm7@gremlin>
- <arotyz5g6LozSjb1@pcnci.linuxbox.cz>
- <arwNebjYXyGqrp32@pcnci.linuxbox.cz>
- <arzRBv9ceJsxJppI@gremlin>
- <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MYzwVYGe";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KYIBaLOL"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691Fsq1V2268204
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 19:45:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=imlkCdVK4y8CefNk7xQGek
+	nG/13MHXsaNLitlWMDIwU=; b=MYzwVYGevCsiKgbFFlFXBVQ5tMGsJ1mmIsUGQg
+	r+W3KkX9KNgp7r+nEwpav1fAbGhlBtfBjNWIBx0xRV4J/i3uBdlrhDfcJpuVkf5J
+	K9orwcXx6o+/x6HD8KG9x8lmLo7tHZ+11VDODjMhd8EAFH05OZvahzTnz/aha5+0
+	x98402QfG7UTWlgto2k6djs9kst6QV4DWEEp5L41Ysm2XMgTUI8BM6Jj6QxJa6jJ
+	t6UV4jAzlr/FpZVXK7P8FhLbs4YsM7yi9YIQ7d2pAjeoGKSWl24HCTBwBfztXB1E
+	ay9WuNM+dIYFh/aJNnIt/u1kRm2nAW3eDcz/JChi0O3TJiSA==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1rvq9mqn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 19:45:40 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1416f32fe11so7493813c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:45:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790883940; x=1791488740; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=imlkCdVK4y8CefNk7xQGeknG/13MHXsaNLitlWMDIwU=;
+        b=KYIBaLOLhGeLldcFJqJxTJickOyqwBhfIWXXOX+Ypv+Twqfw4TwzOO8oQjwt7Tmoe9
+         qli8fB/doW+DrxFatfRvGmwPKj76H7nLBbBaoatEmGAPlHB8ZV61/wOaJ/kKRkpFPiFV
+         QunCuSyEruxBuJ++y1iixGsNSJ0oUuJxvfs+Wn9UnuWiSIrCo/wUfOIK4rHCtnXJ3gEU
+         G6F9FEZ2R4r+LKf5jxIzMrG0PkKFmgmHRao0XwLwWg4+snnak3N1QYVLM+js9VJLlRsM
+         ViPx0BTPeylzpYutHYV4ZWd0O0LoanLo2eohBCVE2OO/82CDiLP2LjNWW0rou0BsQh7o
+         ew3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790883940; x=1791488740;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=imlkCdVK4y8CefNk7xQGeknG/13MHXsaNLitlWMDIwU=;
+        b=KfoTBh0eT23qVLahD7+6l5rWZQcTwNWbp1G1wj/fFzbD4DmaY22TVKORkS8ibaNH2p
+         0RY4VfCYA6AmYU3vOTuYYwB3vtmaN2au3kkl+QoDi81eNdBVAoA0AOodER/pVm9fuD7f
+         eBzgSxOkdLuSTu/FzigPBS4yrEbdKB8T1o8RyF7SaOK28+drB7WqCDDZutlah+MxBdmq
+         0GLhKcSaCMf/HsLf3lbBL8+JzT9T41aQlY0G2dzWw4nlTlbDAXqCIeD2S58RaewuQVDf
+         JBTaSPacHUD6Vqdhi3CHhbWJniM6I6ta8qTwO+s4sGQau5jFf1hp+HR1bFflrlVUN5Ze
+         0MCA==
+X-Forwarded-Encrypted: i=1; AKwUvByk4oMWJgV7N0IgrVXgYCzsXF8iwRK1hfBQRsZoDHIifVzjRnmPRHRDquIeta0LeCqFxYI8OmuWq4aOeDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkiCZGlr95KDFsFyODW/+8WDZ4V21a/wq5YothnpfrITH802jV
+	jwZErDTmRhKPHE9Y8t+cBXe3A6JSvejiqvHmPBMB1hMbTibFS8EK+M3sIP95jkxYIZlFDuWl9tU
+	ANIjqLMuj69jtJOKGqY3W9M2JFeKIrIFdXz3NHrSDcmpAoac9Lbo2B9L/CLOY7ZWQV9c=
+X-Gm-Gg: AYBFou0qCkRybKgDy+k0500eZBqgAZ1ItYQ1eerhfAlSScDZ8s7iERWRgOJWRXexu+U
+	ijPDdEnvIeV+dq/tBRmsvDOsZZ7HNu+7WQUSwPvI9dHE5t0hisU60Fn3p4iM7/LOKCwsvgZLhhc
+	oEC4jeTyGGD6wftUia8hyI7leMcl2NyNT1F8/EXBV+FF5F0P65/AoIjS2cH3dZDHhp/dEQKjJoU
+	3pRFPC86YaXXpav+DGZ+8rJIUscfjxURKJPgbItDqX36sI3RTtZlXscwriGlameVaRA80EcjkfF
+	2PUTjxcws7nKilBnHBqSXDkFPgfhjos7+57OYw8O0j7yp7+0/VCvUD9A/KZ5ebRoF0/1JfdOZzh
+	Vk9OdhtFBpA==
+X-Received: by 2002:a05:7022:e09:b0:144:fb31:a597 with SMTP id a92af1059eb24-14f5cdc4149mr217900c88.47.1790883939563;
+        Thu, 01 Oct 2026 12:45:39 -0700 (PDT)
+X-Received: by 2002:a05:7022:e09:b0:144:fb31:a597 with SMTP id a92af1059eb24-14f5cdc4149mr217858c88.47.1790883938701;
+        Thu, 01 Oct 2026 12:45:38 -0700 (PDT)
+Received: from [10.213.99.236] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm1210900c88.4.2026.10.01.12.45.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 12:45:37 -0700 (PDT)
+From: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+Date: Fri, 02 Oct 2026 01:15:30 +0530
+Subject: [PATCH v3] misc: fastrpc: fix context leak and hang on
+ signal-interrupted invoke
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
-X-Scanned-By: MIMEDefang 3.7.1 on 10.76.66.3
-X-Scanned-By: MIMEDefang v3.7.1/SpamAssassin v4.000002 on lbxovapx9 (nik)
-X-Scanned-By: MIMEDefang 2.86 on 10.76.66.10
-X-Antivirus: on lbxovapx9 by Antivirus 
-X-Spam-Score: N/A (trusted relay)
-X-Milter-Copy-Status: O
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-anandu-fastrpc-interrupted-invoke-v3-v3-1-31e90439d2ba@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAFm4vmoC/yXNywrCMBCF4Vcps3YgaYKgryIu0mSio5CGyYVC6
+ bsbdXe+zX92KCRMBa7TDkKdC69pwJwm8E+XHoQchmFW81ldjEKXXAoNoytVskdOlURarhTG7uu
+ bsBvUatFGeWtt1DBSWSjy9ru53f8ubXmRr982HMcHIgdA/IgAAAA=
+X-Change-ID: 20260930-anandu-fastrpc-interrupted-invoke-v3-10b130c444f1
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, stable@kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA3OCBTYWx0ZWRfX3MOSVEA+x54f
+ DIQUcD7vFdQa6TVqENexbSC8EeLPFYqIRiSwNsu+ezjWaqbpySfYoI701m//R8RRf5oq0I4PrLn
+ eKP5Fg3QWrbDzd8qlUdxs+2Yt+ZBptmMToefOZsWt1+G6Wzjwf8TuCv7v58LTJCqvO9WGxcht8O
+ yRdBV5AOMJ98Z9EgEwuRbZ8Q24FHuVqZCCFNs/XHJC5zG7jhzjpasqI+Dw7dMBFRjgkqZQqNqf9
+ wgf2k9lRayPL/sN2qeK6wv4rInsAxHIOUcdiFBemhc7kyhp2uTQa1ezPsulwDC1tt7j7eWvy+mS
+ IAsWLNsFNSZGhRzXq0RHAnXE5IiaE8m1gONtHL1QB7mIbQKtUZd2GjBpTvyMP+DTAKuUOyVu+m7
+ vpdwxkiA4zTsk/wUe4r65hWBwQ9+Vts9VoUjJwnP7UKMa9CqAGhXDFNbRamQP+BfErTDGN/Y9+Y
+ s0kw6WGqDnmfHmcFdLg==
+X-Authority-Analysis: v=2.4 cv=JIauIMKb c=1 sm=1 tr=0 ts=6abeb864 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=p835DqasiJLdI_LsOtQA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-GUID: bl0C7ce2mqQzdcjsfRrv9xOsXR6LzhqW
+X-Proofpoint-ORIG-GUID: bl0C7ce2mqQzdcjsfRrv9xOsXR6LzhqW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA3OCBTYWx0ZWRfX1JKlL0z4JPv3
+ 3B6mYCqiqoVHRWCZeXLsxayjZhmVvnGl2eC92VMKlk4LtDsIhS3RrtEat1nhujZXCgcqWX4HUjT
+ ZVGTX8MyRfeAlc1xvyAAlCPKu64myOg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_04,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010078
 
-Hello again,
+fastrpc invokes work by sending an RPC message to the DSP and blocking
+in wait_for_completion_interruptible() until the DSP responds. If a
+signal arrives during this wait, the syscall returns -ERESTARTSYS and
+the invoke context which holds the in-flight DMA buffers and
+completion state is left stranded in fl->pending.
 
-the good (?) news is, in the meantime we got another crash on different machine
-and I have a kdump including complete vmcore. This one was 6.18.53
+On the next syscall attempt (either auto-restarted by the kernel via
+SA_RESTART or manually retried by user-space after EINTR), a fresh
+context is allocated and the RPC message is re-sent to the DSP. This
+has two consequences:
 
-here are some details:
+ - The original context leaks in fl->pending until the file is closed.
+ - The DSP receives a duplicate invocation. If the DSP was mid-way
+   through processing the first request and had issued a reverse RPC
+   call back to the host, the retry sends a new forward request
+   instead of the expected reverse-RPC response. The DSP thread
+   waiting for that response is never woken, causing a hang.
 
-Hardware: Supermicro AS-2024US-TRT / H12DSU-iN, BIOS 3.5 (2025-09-22). Dual-socket AMD EPYC 7343 16-Core, 32 CPUs, 1024 GB RAM.
+Fix this by saving the interrupted context to a new fl->interrupted
+list on -ERESTARTSYS, instead of freeing it or leaving it on
+fl->pending. The context keeps the same reference it already held;
+only list membership changes, so the refcount stays symmetric no
+matter how many times a context is interrupted and retried. When the
+same thread retries the invoke with a matching handle and sc, the
+context is pulled back onto fl->pending and the call jumps straight
+to the wait, skipping context allocation and message re-send. Any
+retry whose handle/sc does not match a parked context simply falls
+through to a normal fresh allocation, so a thread that goes on to
+issue a different call after an interrupted one is never wedged.
+ctx->args is repointed at the retry's own args on resume so DSP output
+lands in the current call's buffers rather than the original,
+already-freed ones; fastrpc_context_alloc() now also takes its own
+copy of args up front, so ctx->args is always owned by the context and
+is freed exactly once, by fastrpc_context_free(), regardless of
+whether the context completes normally, is resumed after an
+interruption, or is drained unresumed.
 
-analyzed with crash + matching vmlinux debuginfo:
+A context parked on fl->interrupted is reachable from three places
+that can run concurrently: a resumed retry, process exit, and SSR via
+rpmsg channel removal/notify. fastrpc_context_free() now removes the
+context from whichever list it is on before releasing its resources,
+using list_del_init() (plain list_del() poisons the node, which would
+otherwise break this same check if the context is freed via a race
+with one of the exit/SSR drains). fastrpc_device_release() and
+fastrpc_rpmsg_remove()'s fastrpc_notify_users() both drain
+fl->interrupted, completing any parked context with -EPIPE and
+dropping the invoker's reference, so a context stuck there at fd close
+or channel teardown cannot leak the context -- or, in the fd-close
+case, fl itself, since fl's own reference is held via the context
+until this drain releases it. Because the DSP response worker
+(fastrpc_rpmsg_callback()) and the exit/SSR path can both end up
+scheduling the same ctx->put_work for a parked context, a
+put_work_scheduled flag checked and set under fl->lock ensures only
+one of them actually queues it.
 
-Oops:
-general protection fault, probably for non-canonical address 0xfffffff0c930038
-RIP: __d_lookup+0x4a/0xc0
-Comm: systemd PID: 1274600 CPU: 23
-Call trace:
-__d_lookup
-lookup_fast
-walk_component
-link_path_walk
-path_openat
-do_filp_open
-do_sys_openat2
-__x64_sys_openat
-do_syscall_64
+The -ETIMEDOUT path is also brought in line with normal cleanup: it
+used to be exempted from the bail-path list_del()/context_put(),
+leaking the context on every kernel-invocation timeout.
 
-Exception frame registers:
-RAX: 0fffffff0c930020 RBX: 0fffffff0c930020 RCX: 000000000000000b
-RDX: ffff985ffd223600 RSI: ffffb18962823d70 RDI: ffff989ddf09b5c0
-RBP: 000000005560450b R8: 000000007fffffff R9: fefefefefefefeff
-R10: 0000000000000000 R11: 93c3d2eb02a31dda R12: ffff989ddf09b5c0
-R13: ffff989ddf09b5c0 R14: ffffb18962823d70 R15: 0000000000000000
+Remove the obsolete invoke_interrupted_mmaps mechanism from
+fastrpc_channel_ctx; context resources are now kept alive through the
+context refcount rather than by migrating mmaps to a channel-level
+list.
 
-Faulting instruction (cmp %ebp,0x18(%rbx)) dereferences RBX+0x18. RBX held
-the non-canonical value 0x0fffffff0c930020, giving fault address
-0x0fffffff0c930038. __d_lookup was walking the d_hash (hlist_bl) bucket;
-RBX was the node pointer being dereferenced.
+Fixes: 387f625585d1 ("misc: fastrpc: handle interrupted contexts")
+Cc: stable@kernel.org
+Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+---
+This patch fixes a context leak and DSP hang that occur when a
+fastrpc invoke syscall is interrupted by a signal, along with seven
+follow-on bugs found during review and self-review.
 
-Observations from the vmcore:
+Changes in v3:
+- fastrpc_context_save_interrupted() no longer drops a reference when
+  parking the context, fixing a kref double-put that left the context
+  under-refcounted.
+- Restoring an interrupted context now matches on both handle and sc,
+  not sc alone, so a stale/differently-shaped retry cannot be handed a
+  buffer layout it didn't allocate.
+- A mismatched handle/sc on retry now falls through to allocating a
+  fresh context instead of returning -EINVAL, so a thread issuing a
+  different call after an interrupted one is never permanently
+  wedged.
+- Added a put_work_scheduled flag, checked and set under fl->lock, to
+  guard against fastrpc_notify_users() and fastrpc_rpmsg_callback()
+  both scheduling put_work for the same context.
+- fastrpc_device_release() now drains fl->interrupted and drops the
+  invoker's reference on each parked context before releasing its own
+  reference on fl, fixing a leak of both fl and the context if the fd
+  is closed while a context is still parked.
+- fastrpc_device_release()'s and fastrpc_user_free()'s drain loops now
+  use list_del_init() instead of list_del(), avoiding a poisoned-node
+  list_empty() check in fastrpc_context_free().
+- fastrpc_invoke_send() can return -ERESTARTSYS from rpmsg_send()
+  itself before the message is ever delivered to the DSP. This is now
+  distinguished with a `sent` flag so only a completion-wait
+  interruption after a successful send is parked as resumable.
+- ctx->args is now repointed at the retry's args on resume instead of
+  pointing at the original call's already-freed buffers; an
+  args_owned flag lets fastrpc_context_free() free ctx->args if a
+  parked context is drained/abandoned without ever being resumed.
 
-The faulting value 0x0fffffff0c930020 is non-canonical and is not a mapped
-kernel address:
-crash> kmem 0x0fffffff0c930020
-kmem: cannot determine page for fffffff0c930020
-fffffff0c930020: physical address not found in mem map
+Link to v2: https://lore.kernel.org/all/805d5de8-477c-41e9-b192-d889d1cca9b6@oss.qualcomm.com/
+Link to v1: https://lore.kernel.org/all/20260525124222.3082420-1-anandu.e@oss.qualcomm.com/
+---
+ drivers/misc/fastrpc.c | 157 ++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 129 insertions(+), 28 deletions(-)
 
-The dentry being looked up (RDI/R12/R13 = 0xffff989ddf09b5c0) is intact and
-well-formed:
- name "app.slice", len 9, d_name.hash 0xCE973022 (consistent)
- d_op = kernfs_dops; valid d_parent, d_inode, d_sb
- d_hash.next = 0x0 (this node is the end of its bucket chain)
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 5ac7b3e78ba7..f51cb772e683 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -261,6 +261,7 @@ struct fastrpc_invoke_ctx {
+ 	int pid;
+ 	int client_id;
+ 	u32 sc;
++	u32 handle;
+ 	u64 *fdlist;
+ 	u32 *crc;
+ 	/* Poll memory that DSP updates */
+@@ -271,6 +272,8 @@ struct fastrpc_invoke_ctx {
+ 	bool is_work_done;
+ 	/* process updates poll memory instead of glink response */
+ 	bool is_polled;
++	/* set once put_work has been scheduled for this ctx, guarded by fl->lock */
++	bool put_work_scheduled;
+ 	struct kref refcount;
+ 	struct list_head node; /* list of ctxs */
+ 	struct completion work;
+@@ -320,7 +323,6 @@ struct fastrpc_channel_ctx {
+ 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+ 	struct fastrpc_device *secure_fdevice;
+ 	struct fastrpc_device *fdevice;
+-	struct list_head invoke_interrupted_mmaps;
+ 	bool secure;
+ 	bool unsigned_support;
+ 	bool poll_mode_supported;
+@@ -340,6 +342,7 @@ struct fastrpc_user {
+ 	struct list_head user;
+ 	struct list_head maps;
+ 	struct list_head pending;
++	struct list_head interrupted;
+ 	struct list_head mmaps;
+ 
+ 	struct fastrpc_channel_ctx *cctx;
+@@ -566,7 +569,12 @@ static void fastrpc_user_free(struct kref *ref)
+ 	fastrpc_buf_free(fl->init_mem);
+ 
+ 	list_for_each_entry_safe(ctx, n, &fl->pending, node) {
+-		list_del(&ctx->node);
++		list_del_init(&ctx->node);
++		fastrpc_context_put(ctx);
++	}
++
++	list_for_each_entry_safe(ctx, n, &fl->interrupted, node) {
++		list_del_init(&ctx->node);
+ 		fastrpc_context_put(ctx);
+ 	}
+ 
+@@ -605,6 +613,11 @@ static void fastrpc_context_free(struct kref *ref)
+ 	cctx = ctx->cctx;
+ 	fl = ctx->fl;
+ 
++	spin_lock(&fl->lock);
++	if (!list_empty(&ctx->node))
++		list_del_init(&ctx->node);
++	spin_unlock(&fl->lock);
++
+ 	for (i = 0; i < ctx->nbufs; i++)
+ 		fastrpc_map_put(ctx->maps[i]);
+ 
+@@ -616,6 +629,7 @@ static void fastrpc_context_free(struct kref *ref)
+ 
+ 	kfree(ctx->maps);
+ 	kfree(ctx->olaps);
++	kfree(ctx->args);
+ 	kfree(ctx);
+ 
+ 	/* Release the reference taken in fastrpc_context_alloc() */
+@@ -641,6 +655,50 @@ static void fastrpc_context_put_wq(struct work_struct *work)
+ 	fastrpc_context_put(ctx);
+ }
+ 
++/* Ensures put_work is scheduled at most once per ctx; racing callers may both try. */
++static void fastrpc_context_schedule_put_work(struct fastrpc_invoke_ctx *ctx)
++{
++	bool do_schedule;
++
++	spin_lock(&ctx->fl->lock);
++	do_schedule = !ctx->put_work_scheduled;
++	ctx->put_work_scheduled = true;
++	spin_unlock(&ctx->fl->lock);
++
++	if (do_schedule)
++		schedule_work(&ctx->put_work);
++}
++
++/* References taken for ctx are left intact; ownership just moves between lists. */
++static void fastrpc_context_save_interrupted(struct fastrpc_invoke_ctx *ctx)
++{
++	spin_lock(&ctx->fl->lock);
++	list_del(&ctx->node);
++	list_add_tail(&ctx->node, &ctx->fl->interrupted);
++	spin_unlock(&ctx->fl->lock);
++}
++
++/* Matches on handle+sc, not sc alone, to avoid resuming an unrelated call. */
++static struct fastrpc_invoke_ctx *fastrpc_context_restore_interrupted(
++			struct fastrpc_user *fl, u32 handle, u32 sc)
++{
++	struct fastrpc_invoke_ctx *ctx = NULL, *ictx;
++
++	spin_lock(&fl->lock);
++	list_for_each_entry(ictx, &fl->interrupted, node) {
++		if (ictx->pid == current->pid && ictx->handle == handle &&
++		    ictx->sc == sc) {
++			ctx = ictx;
++			list_del(&ctx->node);
++			list_add_tail(&ctx->node, &fl->pending);
++			break;
++		}
++	}
++	spin_unlock(&fl->lock);
++
++	return ctx;
++}
++
+ #define CMP(aa, bb) ((aa) == (bb) ? 0 : (aa) < (bb) ? -1 : 1)
+ static int olaps_cmp(const void *a, const void *b)
+ {
+@@ -721,7 +779,15 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+ 			kfree(ctx);
+ 			return ERR_PTR(-ENOMEM);
+ 		}
+-		ctx->args = args;
++		/* Own copy: ctx may outlive the caller's args if parked on fl->interrupted. */
++		ctx->args = kzalloc_objs(*ctx->args, ctx->nscalars);
++		if (!ctx->args) {
++			kfree(ctx->olaps);
++			kfree(ctx->maps);
++			kfree(ctx);
++			return ERR_PTR(-ENOMEM);
++		}
++		memcpy(ctx->args, args, ctx->nscalars * sizeof(*args));
+ 		fastrpc_get_buff_overlaps(ctx);
+ 	}
+ 
+@@ -765,6 +831,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+ 	fastrpc_channel_ctx_put(cctx);
+ 	kfree(ctx->maps);
+ 	kfree(ctx->olaps);
++	kfree(ctx->args);
+ 	kfree(ctx);
+ 
+ 	return ERR_PTR(ret);
+@@ -1325,10 +1392,18 @@ static inline int fastrpc_wait_for_response(struct fastrpc_invoke_ctx *ctx,
+ 	int err = 0;
+ 
+ 	if (kernel) {
+-		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
++		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ)) {
+ 			err = -ETIMEDOUT;
++			dev_warn(ctx->fl->sctx->dev,
++				 "fastrpc_invoke: TIMEOUT ctxid=0x%llx handle=0x%x nscalars=%d\n",
++				 ctx->ctxid, ctx->handle, ctx->nscalars);
++		}
+ 	} else {
+ 		err = wait_for_completion_interruptible(&ctx->work);
++		if (err == -ERESTARTSYS)
++			dev_warn(ctx->fl->sctx->dev,
++				 "fastrpc_invoke: INTERRUPTED ctxid=0x%llx handle=0x%x nscalars=%d\n",
++				 ctx->ctxid, ctx->handle, ctx->nscalars);
+ 	}
+ 
+ 	return err;
+@@ -1355,8 +1430,7 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+ 				   struct fastrpc_invoke_args *args)
+ {
+ 	struct fastrpc_invoke_ctx *ctx = NULL;
+-	struct fastrpc_buf *buf, *b;
+-
++	bool resumed = false;
+ 	int err = 0;
+ 
+ 	if (!fl->sctx)
+@@ -1370,9 +1444,21 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+ 		return -EPERM;
+ 	}
+ 
+-	ctx = fastrpc_context_alloc(fl, kernel, sc, args);
+-	if (IS_ERR(ctx))
+-		return PTR_ERR(ctx);
++	if (!kernel)
++		ctx = fastrpc_context_restore_interrupted(fl, handle, sc);
++
++	if (ctx) {
++		/* ctx->args is already populated from before the interruption. */
++		resumed = true;
++	} else {
++		ctx = fastrpc_context_alloc(fl, kernel, sc, args);
++		if (IS_ERR(ctx))
++			return PTR_ERR(ctx);
++		ctx->handle = handle;
++	}
++
++	if (resumed)
++		goto wait;
+ 
+ 	err = fastrpc_get_args(kernel, ctx);
+ 	if (err)
+@@ -1392,6 +1478,7 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+ 	if (handle > FASTRPC_MAX_STATIC_HANDLE && fl->pd == USER_PD && fl->poll_mode)
+ 		ctx->is_polled = true;
+ 
++wait:
+ 	err = fastrpc_wait_for_completion(ctx, kernel);
+ 	if (err)
+ 		goto bail;
+@@ -1409,21 +1496,13 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+ 		goto bail;
+ 
+ bail:
+-	if (err != -ERESTARTSYS && err != -ETIMEDOUT) {
+-		/* We are done with this compute context */
+-		spin_lock(&fl->lock);
+-		list_del(&ctx->node);
+-		spin_unlock(&fl->lock);
+-		fastrpc_context_put(ctx);
+-	}
+-
+ 	if (err == -ERESTARTSYS) {
++		fastrpc_context_save_interrupted(ctx);
++	} else {
+ 		spin_lock(&fl->lock);
+-		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
+-			list_del(&buf->node);
+-			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
+-		}
++		list_del_init(&ctx->node);
+ 		spin_unlock(&fl->lock);
++		fastrpc_context_put(ctx);
+ 	}
+ 
+ 	if (err)
+@@ -1725,6 +1804,7 @@ static int fastrpc_device_release(struct inode *inode, struct file *file)
+ {
+ 	struct fastrpc_user *fl = (struct fastrpc_user *)file->private_data;
+ 	struct fastrpc_channel_ctx *cctx = fl->cctx;
++	struct fastrpc_invoke_ctx *ctx, *n;
+ 	unsigned long flags;
+ 
+ 	fastrpc_release_current_dsp_process(fl);
+@@ -1733,6 +1813,18 @@ static int fastrpc_device_release(struct inode *inode, struct file *file)
+ 	list_del(&fl->user);
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
++	/* fl is already unlinked from cctx->users; drop the invoker's ref so it isn't leaked. */
++	spin_lock(&fl->lock);
++	list_for_each_entry_safe(ctx, n, &fl->interrupted, node) {
++		list_del_init(&ctx->node);
++		ctx->retval = -EPIPE;
++		complete(&ctx->work);
++		spin_unlock(&fl->lock);
++		fastrpc_context_put(ctx);
++		spin_lock(&fl->lock);
++	}
++	spin_unlock(&fl->lock);
++
+ 	fastrpc_session_free(cctx, fl->sctx);
+ 	file->private_data = NULL;
+ 	/* Release the reference taken in fastrpc_device_open */
+@@ -1762,6 +1854,7 @@ static int fastrpc_device_open(struct inode *inode, struct file *filp)
+ 	spin_lock_init(&fl->lock);
+ 	mutex_init(&fl->mutex);
+ 	INIT_LIST_HEAD(&fl->pending);
++	INIT_LIST_HEAD(&fl->interrupted);
+ 	INIT_LIST_HEAD(&fl->maps);
+ 	INIT_LIST_HEAD(&fl->mmaps);
+ 	INIT_LIST_HEAD(&fl->user);
+@@ -1871,6 +1964,7 @@ static int fastrpc_invoke(struct fastrpc_user *fl, char __user *argp)
+ 	}
+ 
+ 	err = fastrpc_internal_invoke(fl, false, inv.handle, inv.sc, args);
++	/* ctx keeps its own copy of args, so this is always safe to free. */
+ 	kfree(args);
+ 
+ 	return err;
+@@ -2636,7 +2730,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	rdev->dma_mask = &data->dma_mask;
+ 	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+ 	INIT_LIST_HEAD(&data->users);
+-	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
+ 	spin_lock_init(&data->lock);
+ 	idr_init(&data->ctx_idr);
+ 	data->domain_id = domain_id;
+@@ -2669,13 +2762,22 @@ static void fastrpc_notify_users(struct fastrpc_user *user)
+ 		ctx->retval = -EPIPE;
+ 		complete(&ctx->work);
+ 	}
++
++	/* Drops only the worker ref; the invoker ref is released by fastrpc_user_free(). */
++	list_for_each_entry(ctx, &user->interrupted, node) {
++		ctx->retval = -EPIPE;
++		complete(&ctx->work);
++		if (!ctx->put_work_scheduled) {
++			ctx->put_work_scheduled = true;
++			schedule_work(&ctx->put_work);
++		}
++	}
+ 	spin_unlock(&user->lock);
+ }
+ 
+ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ {
+ 	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
+-	struct fastrpc_buf *buf, *b;
+ 	struct fastrpc_user *user;
+ 	unsigned long flags;
+ 
+@@ -2692,9 +2794,6 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	if (cctx->secure_fdevice)
+ 		misc_deregister(&cctx->secure_fdevice->miscdev);
+ 
+-	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+-		list_del(&buf->node);
+-
+ 	if (cctx->remote_heap_size && cctx->vmcount) {
+ 		u64 src_perms = 0;
+ 		int err, i;
+@@ -2778,9 +2877,11 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+ 	/*
+ 	 * The DMA buffer associated with the context cannot be freed in
+ 	 * interrupt context so schedule it through a worker thread to
+-	 * avoid a kernel BUG.
++	 * avoid a kernel BUG. fastrpc_context_schedule_put_work() guards
++	 * against a concurrent fastrpc_notify_users() also scheduling this
++	 * same work item for an interrupted context.
+ 	 */
+-	schedule_work(&ctx->put_work);
++	fastrpc_context_schedule_put_work(ctx);
+ 
+ 	return 0;
+ }
 
- The target dentry and its hash chain in the dump show no corruption; the
- chain terminates cleanly.
+---
+base-commit: ef071c4906eb45d16b60f09154cf0bc6ec8f5435
+change-id: 20260930-anandu-fastrpc-interrupted-invoke-v3-10b130c444f1
 
-No page migration, compaction, or THP activity was in progress on any CPU
-at panic. "bt -a" filtered for migrate*/compact*/khugepaged/kcompactd/
-kswapd/split_huge*/folio*/d_move/rename returned nothing.
+Best regards,
+--  
+Anandu Krishnan E <anandu.e@oss.qualcomm.com>
 
-Automatic NUMA balancing was disabled at crash time (read from kernel memory):
- crash> p sysctl_numa_balancing_mode
- $ = 0
-
-Top-level (PMD) transparent hugepage policy was "never" at crash time:
-crash> p/x transparent_hugepage_flags
-$ = 0x1c0
-Bits set: 6 (DEFRAG_REQ_MADV), 7 (DEFRAG_KHUGEPAGED), 8 (USE_ZERO_PAGE).
-Bits 0 (TRANSPARENT_HUGEPAGE_FLAG) and 1 (REQ_MADV_FLAG) are clear, i.e.
-sysfs enabled = never. Per-order mTHP controls (huge_anon_orders_*) were not
-inspected for this dump, so mTHP state is not asserted here.
-
-No MCE/EDAC/hardware-error records are present in the kernel log for this host.
-
-I can provide the full vmcore and the matching vmlinux/debuginfo on request, and
-run further crash queries against it.
-
-not sure if this is of any help?
-
-with regards
-
-nik
-
-
-
-On Wed, Sep 30, 2026 at 08:40:23PM +0200, Nikola Ciprich wrote:
-> (CC Paolo Bonzini)
-> 
-> Hello Lorenzo,
-> 
-> > 
-> > Yeah 6.18.15 is expected, I'd not say reverting is really worthwhile honestly,
-> > given what you've observed previously.
-> yes, I wasn't available at the time he was dealing with that..
-> 
-> 
-> > 
-> > Maybe worth checking if commit 26505e1b5b54 ("KVM: SVM: make svm_flush_tlb_gva
-> > do a full asid flush if NPT enabled") helps in that case?
-> sure, I'll do that.. however, the patch doesn't apply cleanly on top of 6.18.54 at
-> all.. what do you guys recommend, is it OK to adjust the patch to this kernel
-> (I have to admit I'm able to do that, but without any deep knowledge of the subsystem)
-> or do you recommend to apply some of the previous patches?
-> 
-> tried going through them, but its ~134 commits affecting svm.c between
-> v6.18 and 26505e1b5b54
-> 
-> cheers
-> 
-> nik
-> 
-> > 
-> > --
-> > Cheers, Lorenzo
-> > 
-> 
-> -- 
-> Ing. Nikola CIPRICH
-> technický ředitel
-> 
-> +420 591 166 214
-> +420 777 093 799
-> nikola.ciprich@linuxbox.cz
-> 
-> www.linuxbox.cz
-> 
-
--- 
-Ing. Nikola CIPRICH
-technický ředitel
-
-+420 591 166 214
-+420 777 093 799
-nikola.ciprich@linuxbox.cz
-
-www.linuxbox.cz
