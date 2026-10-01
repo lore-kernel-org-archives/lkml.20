@@ -1,200 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCF33B71CF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:35:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96924908AC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:35:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843703; cv=none; b=EyeLzW+obS/l8rh8eG6WTJdS79zG13GxOOEYltY0Vsgei9iurDyfHqAenxfSGBvj8sgd11VRIGlR1OAgEM1enSh8pnve8r0uj/nWenXvcRTB7P+pZLw1AIkYGCdzmmGyMUJDD5oYEoU6TOuwmD33sZ7xt+L8vZVhDQQz25Yt+t4=
+	t=1790843706; cv=none; b=g1AZvcLTFkJvlnQAl2nPnZhtDvekAtSwOPUJxq6iTqk7z9kAwOZHxKAcp9g/ugG6KR5d9YfPjgWw68dwT99EE7YRITmUGyXdEBV8M5iHJQzKA1uGytB38sEatt7q50d0sT00Icr/MwnFCguY5mgn24Zy0SxXIOIoMoh/bjMMoZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843703; c=relaxed/simple;
-	bh=RUcCmJXMafO+1xVxRi9lTxkn8DsNoOeV88OTvIJCCIg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iSTya2Bqoeb5iRuA5GTp7rmB2r4LjBHKbmGFV753TNHpP773jasM1i5H8W2FAvjeKshCAXqNV4X6cGRwGkwMhEm3fny8csMPFpiMv1OLWuDUENrKCWu86DrZ3V5jGZQBD+KXywGZB+XmMmCoqNdZjSa9F6Gy4RYsZbYsjQqN53A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YpwGDrY5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790843706; c=relaxed/simple;
+	bh=nRbIKtsqOqygVzGsujZN6/nCxuJYbBISgZetm9P74vE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rQAeOjgh/SwGdszKzyTcf7QAk9erwrGSdLxPdb1nHuohAXUHQdZP+OqoSHjPqSs+yJzoiU+qZzJ0IdxhDymYNJZ/+hNrmObiL8V0Ov12IF29Q25VNI2CT/rXZA9CeSTEgyGTUyP4puRGVNflGc9vcMvduud07jozVrITSrhFaXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3Slhvcu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YpwGDrY5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07121F000FF;
-	Thu,  1 Oct 2026 08:34:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3Slhvcu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649121F000FF
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:35:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843702;
-	bh=Beu3PTH0hGN+3Qc/F8w3XSUtWyseEXXZRw/+4Um0mjo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YpwGDrY5ZFPShy38M7zct/x7SvYt5v87AXBKQjVt4OTx5QQT/w1dOKlAk8T0WW1Qb
-	 +y6KZLI1PD6p622hdijB9L5s07rsZ1UAI6d/OJQ+225ZHG3bHxaPrizZ9HMkvM2IKa
-	 tmwOlJ5lzOU3krwHs8bLTr4Qw7/YQgmevD6Lg5Sl1QP7wjY0L2dMyp5Nwl6C3z3PUA
-	 436dXWUSBlCeC2NZRFNziVzDm2AogHd11r5/kZCsVU6XzNqeMLqo1zI/tf768cj4k4
-	 OJ5KQBdY9cqUHsC5gfaRBEDArH+rqSrVTOf1ivoWmHnj61ZoW7ISTjAveduCY9Oxmh
-	 GvMoH78UTDN7g==
-Message-ID: <9bf6623e-ad1b-415c-9720-6063a1ac11ea@kernel.org>
-Date: Thu, 1 Oct 2026 10:34:54 +0200
+	s=k20260515; t=1790843705;
+	bh=nRbIKtsqOqygVzGsujZN6/nCxuJYbBISgZetm9P74vE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=c3SlhvcuQrJSyZoW9VcteJICxeUldHXylfc0gTU6cl9V9f74rwDXanedOzcCzlsIM
+	 vswt64LHLMRnb8NHBIWe8gc2vmrkKOWVKRS50WGHUdmcOWc4zp53V+H+C4nVaKGVDl
+	 w+Bt0IS+IF87pVzi8Xvf8rZEHU+gahzeTbYeUA66BZ+fVKM/OfEKVbuGt4tL8AqSkn
+	 rMf9Laexa3+O37DxX/FCz++g8+RYLyck4j5xVNQmOJxFvjKFGzfCCtDzbLkSrFglKm
+	 EvcOg29Wr+wBRsMF/lvqePmxLAiUdDkLgkH6xS6+gkFUOR9saE6Izx186mwo7itaga
+	 4H1QiGn/AsfMQ==
+Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-493cf6d8e60so2600031fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:35:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzFx93zok3M8DcK12AP8BiQAVci6JlkTRWmYBygQzZVG2xPrvEY+ZSKh/QLWtr4G9ljsmUxcRq1VXUkKmM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvqjTDKxxYUu5PlVmPEnZX3bTVGqBcRQdxYTPc/avq3A5JdCvQ
+	RJtdjxG+5gvZ44EXK6ghtOOmRMMrU2m497LfUVSSF4VLXrw6U8RBwk5PIpOtq6aWU+1FYLe+qoq
+	lhSZjsGDpDadxoWVPkd6VwqmMym9oaXQ=
+X-Received: by 2002:a05:687c:20d1:b0:491:88f1:f3aa with SMTP id
+ 586e51a60fabf-49dddd46654mr4533364fac.26.1790843704807; Thu, 01 Oct 2026
+ 01:35:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/13] mm/collapse: separate scanning a PTE table from
- collapsing it
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>
-References: <20260928100630.21870-1-kirill@shutemov.name>
- <20260928100630.21870-10-kirill@shutemov.name>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260928100630.21870-10-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260926-b4-mt7629-pinctrl-v1-1-23904cb0c3f3@gmail.com>
+In-Reply-To: <20260926-b4-mt7629-pinctrl-v1-1-23904cb0c3f3@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 10:34:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLndGJmGzeMvHk695Kh9y56Zxye86DiFTuoKBiWTnvkmLg@mail.gmail.com>
+X-Gm-Features: AclHuK8ING7eVXmVQv5H-ajPOg6LfXVJcEvYhwqQVDz3x1__fBSswtm27gPTJNQ
+Message-ID: <CAD++jLndGJmGzeMvHk695Kh9y56Zxye86DiFTuoKBiWTnvkmLg@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: mediatek: mt7629: fix the 2.4 GHz Wi-Fi pin mode array
+To: Chuanhong Guo <gch981213@gmail.com>
+Cc: Sean Wang <sean.wang@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/28/26 12:06, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> A collapse is two jobs.  One reads a PTE table under mmap_lock and decides
-> whether the range is worth collapsing.  The other allocates, isolates,
-> copies and flushes, and wants the lock given up first.
-> 
-> collapse_single_pmd() did both, so the boundary between them was somewhere
-> in the middle of a function.
-> 
-> Give each half its own function:
-> 
->   - collapse_scan_pmd() scans one table.  The anonymous scan that used to
->     carry that name keeps its body as collapse_scan_anon_pmd(), and
->     collapse_scan_pmd() is now the entry that picks the anonymous or the
->     file side.
-> 
->   - collapse_run_pmd() does the collapse the scan asked for, and is
->     handed what the scan returned.  SCAN_SUCCEED means there is
->     something to collapse.  SCAN_PTE_MAPPED_HUGEPAGE means the page
->     cache already holds the PMD folio and only the PTE table is left to
->     retract.  Both are work for the run; anything else is why there is
->     nothing to do.
+On Sat, Sep 26, 2026 at 12:04=E2=80=AFPM Chuanhong Guo <gch981213@gmail.com=
+> wrote:
 
-I raised that I don't like the "run" in collapse_run_pmd(). That hasn't changed,
-as we are adding more inconsistency.
+> The wf0_2g group contains nine pins but only eight mux values.
+> mtk_pinmux_set_mux() indexes the mode array once for each pin, reading
+> past its end when configuring pin 78 (WF0_2G_HB6). This can select an
+> unrelated mux value or fail with -EINVAL, preventing the Wi-Fi device
+> from probing.
+>
+> Add the missing mode 1 entry for WF0_2G_HB6.
+>
+> Fixes: b44677375fee ("pinctrl: mediatek: add pinctrl support for MT7629 S=
+oC")
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
 
-We do have after your patch set
+Patch applied as nonurgent fix.
 
-	collapse_scan_pmd calling
-	-> collapse_scan_file
-	-> collapse_scan_anon_pmd
-
-Inconsistency: why not simply collapse_scan_anon? Alternatively
-collapse_scan_file_pmd, although for this internal helper including the "pmd" is
-not particularly helpful.
-
-The we have
-
-	collapse_run_pmd calling
-	-> mthp_collapse
-	-> collapse_file
-
-Inconsistency: a lot, including the "run" thing.
-
-
-So I suggest the following in the context of this patch here:
-
-	collapse_scan_pmd
-	-> collapse_scan_file
-	-> collapse_scan_anon
-
-	collapse_pmd
-	-> collapse_anon
-	-> collapse_file
-
-(as I previously said, "scanned" could be thrown in there, to make the
-expectation clearer, but I don't particularly care about that)
-
-> 
-> collapse_single_pmd() is now the two of them with the mmap_lock drop in
-> between, so its callers see what they saw before.  collapse_control_init()
-> sets a control up before its first scan.
-
-You should mention that collapse_single_pmd() is only temporary.
-
-> 
-> What the scan found and the run needs travels in collapse_control.  For
-> an anonymous table that is the orders and the referenced and swapped-out
-> counts, which mthp_collapse() and collapse_huge_page() now read from
-> there instead of taking as arguments.  For a file it is the file itself
-> and the offset in it: a file collapse works on the page cache and never
-> sees a VMA, so the scan takes the reference while it still has one and
-> the run gives it back.
-> 
-> The file scan moves under mmap_lock with the anonymous one, where before
-> the lock was given up first.  The lock is now held over the page cache
-> walk, an RCU walk over one table's worth of slots with no PTL, and taken
-> fewer times.  collapse_scan_mm_slot() ends its walk whenever the lock was
-> dropped, so a refused file table used to cost khugepaged an unlock, a
-> trip back through khugepaged_do_scan(), a relock and a VMA lookup.  Now
-> only a table that goes on to be collapsed does.
-
-[...]
-
->  
-> +/*
-> + * Try to collapse a single PMD starting at a PMD aligned addr, and return
-> + * the results.
-> + */
-
-I'd just not add that doc if you intend to remove the whole thing in the same
-comment.
-
-
--- 
-Cheers,
-
-David
+Yours,
+Linus Walleij
