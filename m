@@ -1,171 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6ED408612;
-	Thu,  1 Oct 2026 16:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC69468C0F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870809; cv=none; b=LavoEy3tBzHLDojIguPyzwZy0dzem3AFuKfguK9VxCGHXOfx2Q7nprpODq53xmxQ9L1qp4QlEOl23fwoyFrvuqyfuSja5q9W01pTnqCK74XUtpE2Fx++C8m8uu0AZU8DSpMLH2IQMUUGf7XV4+iN0x184mRv/lF5Uc5RljS70RA=
+	t=1790870809; cv=none; b=rO3cNZrJoOpLj5q+TH+YhsclCKnjjW8ftZaZo3esDVk9nmFGmfHSAg5BjFjDZunio85HZQliUga6OYRxxJdQwe/AQ8RGqJ7e2QKXsWYT13HSsZsyj7k1WJHxQsPK0t4EKEJea8dL4+mVkzoo6BRAcNkiaByNybCqkWwimDypH9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790870809; c=relaxed/simple;
-	bh=l8+noZkp63aNawaAnj+8TsRyj2+ycU1v89Te3nvroKE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OvGv1yAjUQRIYqr1a6ILX9SjwOMaawmEyXBZxE336mLQk36xL9/Oy6BK+IbgT8B236bi8Q7x0Sw2AewVBzO3epTOrTkBcrdaHSuytx4Xo11i6YePX73cvR0Us1ZquMjH6fTbfgiRU5uvJiMViWY3udcqgWbwys0t2ebBiNqKF/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GFrAH2g3; arc=none smtp.client-ip=100.103.45.18
+	bh=/Q2BrDG59GmMlxGGtQS3aLFT+KnRGjYRz96TAYWMkFk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XyCwMY7Fr9s+dqz029L4AM3mgZ2ZZCGl2bLl6uYd1fKTjJJMTh7qpcXTyVDWh9o3Nmtf+sL9070TbvCBgbeZH96ZMTLfSYe4VD8VL1pmAGuIc/UqqfbjsYwKnxu5AIHUvkHyWtr4ueYY2FXFN2JWZ5+VYeCJUebvZpFNs4XtdJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Fp3PL77K; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GFrAH2g3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80AD11F008BD;
-	Thu,  1 Oct 2026 16:06:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790870806;
-	bh=QzdZVGsBhb86uFnqhlQV/l3Wz3CnvhbzCzbHnzSCWUs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GFrAH2g3gbw+2wqb39X9mzsup+WCKbIqwLLvaTS+mlo5VO6VbvKvCh873/7yqyD3l
-	 D9IiO/pwkDPYZC5PNQl9KsbYXUeu/IRMPbn2Cn2UZMSENigM6lTN9L/+rpt6NlknHL
-	 EoehOqGkU1gHjLlaew1VcYBULCTlhpv3DYO4bJsYMCDB07AgGG4u7zBg5a1r7XCqW0
-	 IoEswiun36o8KZ6irowxkRZ2HsUR5p+LcOfhu6R484w5fZX7yIyV2pzMXbZjxTYYyd
-	 imjVfLDijvAfiUP9ExYDDQvFs7fJ92N3MwqxP+ypUg5hsXZ9wn+lXXR+nBhBwrEUBp
-	 DsMy67a7/Ls1g==
-Subject:
- Re: [PATCH net-next v15 3/7] r8169: add support for new interrupt mapping
-From: netdev-bot+sashiko@kernel.org
-To: javen_xu@realsil.com.cn
-Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 01 Oct 2026 16:06:45 +0000
-Message-ID: <179087080509.434549.16383544775565277664@kernel.org>
-In-Reply-To: <20260928070423.202-4-javen_xu@realsil.com.cn>
-References: <20260928070423.202-4-javen_xu@realsil.com.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Fp3PL77K"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a024e16179so3438045e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:06:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790870805; x=1791475605; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ij5hZ/f/5ZSAVNfXmFdWrj1YYWFbkwnSZJULxesQxbM=;
+        b=Fp3PL77KkPiQxkZBc2knFccmUX4dAFBbdBbjP9AojRAzbftWIMcUE579HOJbTB3VkC
+         2plLXw+QuV4nn93elE/hNB6yExUFK76RIWiSYAZ3yPQB90MIkYd7h6lM5B8Rb+xhI3Zb
+         PYMWE6C8j9AhZzzQbBEUyudMPTIUbJPnIpWeE4NDIWKxb3KZVzUTrg6ZD7v9L3PcY9Rt
+         yv95KZBLpMNzr/J9WIC8ZHjzj7ia+0AsGWxPQ7L32na47yQ7QfsvvM2+ylKry01z/MOr
+         VvH8MnNRGDY1vespw4Fo93rK1PfbQDSuxK3c4xe/eMKYEKpkrBAyaKfDWiZ3O1VMQws6
+         6l6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790870805; x=1791475605;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ij5hZ/f/5ZSAVNfXmFdWrj1YYWFbkwnSZJULxesQxbM=;
+        b=k4Zv2gWqwo6w+z3+CdzQrjlIBBVZrj8dUFUYi3ihDO7BFQ/byMY/WdgPRrCC9nzqIF
+         JeMBLAOwczsFeZarFwudBkLZVwo7bjbUz/bjwEc3py5Zo5sRCTBMpUYsOvuegK4xMWSg
+         39OLY1t55LGgMj+DglFkFqw6lIRIf4AqE+nluanCzJalLIlpHeuEQp+Jrg9ezZNIk1Ta
+         UVuXxhKHP6AT6qA1EcbIF923+n0Koh3UZzYBv1+7VUtJS0JuBOu+QFWiO8sdtdS7BmXE
+         cyPg8uWggQNYge3R6YnSS6zZyow63M87WERyOuylw6QSUlsDxCpaoLB4AHQw9bJiC85j
+         3tug==
+X-Forwarded-Encrypted: i=1; AKwUvByoyajyFZ5wg57KUlkL0NVAb2wClMgqhWkK/MoC5JyHHhfb3HfD6vqki3EfBYxSY2Z6NuJuC9iOhH0nL1I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfVaSY7nr80GCQwhDoDPyAmsMTw4WY2mV4k9dwgjZQG4q2PTRW
+	o/Zm4WDXOYOKuybLOdoQCeC1AyxoJqhWtsjPHxUpK+JVmMGZOH2/biPESNnKQ76B3Po=
+X-Gm-Gg: AYBFou02iwRWLqQli4luCP88N6dC490XOsguTYYyLSWfsehIxQ5crcgvC8kCLMhCIMn
+	B8yvzbhYUf8gN5KzB54hSS5QZ4EKRTMfDpLOgGX26IAQiqmZN24uts0Mn6P56y98HzopVUWxKZZ
+	LxkpWxB/mr2tWk1SuafSJbKQJYwDn0ITTNEs8vzjydnglYPvOo1RmrUPwE7QIh8IrHmNBtlDzGC
+	ystaRcSBm+aC6MPXR0euHBV0wPs1Mt0YJ86cP46AVrzntfSsPnDqDOUA6wPvaTtkYOwaEuU2f8A
+	jz1QenmkgglBExU5k9tW9YUtMMB+5yxMM693WH9hv7/MaqsKw75TdtWf1EYMhv7xXkX+oonNGHN
+	ewWlXvv3eQoOoFTpktyNHnwByUNhP7bJVXP7uWVt76pNEkRBSNZenY58qfwLlH+dMzW5NnJwYCB
+	YfgFsqdo3lg12u5+hwCf0mI2jFYjDv3YW8/Hb3JGOVdrnrPCNi1nZycWOpIByV9zoL
+X-Received: by 2002:a05:600c:6091:b0:4a0:a34:f6fe with SMTP id 5b1f17b1804b1-4a027577f81mr1689465e9.17.1790870804666;
+        Thu, 01 Oct 2026 09:06:44 -0700 (PDT)
+Received: from [127.0.1.1] ([151.42.82.6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f93ad0bsm52969705e9.4.2026.10.01.09.06.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 09:06:44 -0700 (PDT)
+From: Valerio Setti <vsetti@baylibre.com>
+Date: Thu, 01 Oct 2026 18:06:32 +0200
+Subject: [PATCH v4 7/7] arm64: dts: amlogic: gx: add AUDIN node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-audin-v4-7-2476646118b5@baylibre.com>
+References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
+In-Reply-To: <20261001-audin-v4-0-2476646118b5@baylibre.com>
+To: Jerome Brunet <jbrunet@baylibre.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3008; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=/Q2BrDG59GmMlxGGtQS3aLFT+KnRGjYRz96TAYWMkFk=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFn7Wrmf3L3b+J6zXq3/e8YmKettBq/Sry057jXRQ+VYt
+ P1Sa2PNjhIWBjEuBlkxRRaW6fd+F5SqPTROOFkAM4eVCWQIAxenAExkigYjQ8+B1u1S3P6FHOV2
+ drLNsuWG/ybtmm7978aTy/LL5rK47GT4cbX1npJ8voJV69w52luWKnJtFVn/+U93yXtBvqmTtp3
+ hBAA=
+X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
+ fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+AUDIN provides audio input support to Amlogic GXBB/GXL SoCs.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+What's missing after this to get capture support working is to connect a
+capture capable codec to the SoC. For example to test these changes an
+NXP SGTL5000 chip has been connected to an OdroidC2 (GXBB) board using a
+custom hat board.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The following additions/overlay are required on top of
+'amlogic/meson-gxbb-odroidc2.dts' to make that hat board to work:
 
-- [Medium] In drivers/net/ethernet/realtek/r8169_main.c,
-  rtl8169_request_irq() registers rtl8169_interrupt_msix for every…
-- [Low] Concern: the commit message says the patch adds support for the
-  new interrupt mapping, but every new path is gated by tp->irq_nvecs >…
+    &sound {
+            audio-routing = "AUDIN I2S Formatter", "AIU I2S Encoder Capture";
 
---
+            dai-link-1 {
+                    codec-1 {
+                            sound-dai = <&sgtl5000>;
+                    };
+            };
 
-r8169: add support for new interrupt mapping
+            dai-link-3 {
+                    sound-dai = <&audin 0>;
+            };
+    };
 
-This commit adds the vector-map interrupt registers (IMR_SET_VEC_MAP_REG,
-IMR_CLEAR_VEC_MAP_REG, ISR_VEC_MAP_REG). It also adds per-vector MSI-X
-handlers for the RX queues, the TX queue and link change, plus separate
-RX and TX NAPI poll functions. All of the new paths are gated on
-tp->irq_nvecs > 1.
+    &audin {
+            status = "okay";
+    };
 
-> To support RSS, the number of hardware interrupt bits should match the
-> interrupt of software. So we add support for new interrupt mapping here.
+Then, from userspace:
 
-[Severity: Low]
-This isn't a bug, but every new path in this patch is gated on
-tp->irq_nvecs > 1. At this commit rtl_alloc_irq() still does:
+    $ amixer sset 'AUDIN FIFO0 SRC SEL' 'I2S'
+    $ arecord -l  # find the "FIFO Capture" device
+    $ arecord -D hw:0,<N> -f S16_LE -r 48000 -c 2 /tmp/in.wav
 
-    nvecs = pci_alloc_irq_vectors(pdev, 1, 1, flags);
+Signed-off-by: Valerio Setti <vsetti@baylibre.com>
+---
+ arch/arm64/boot/dts/amlogic/meson-gx.dtsi   | 9 +++++++++
+ arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi | 5 +++++
+ arch/arm64/boot/dts/amlogic/meson-gxl.dtsi  | 6 ++++++
+ 3 files changed, 20 insertions(+)
 
-so none of the new vector-map code can be reached yet.
-
-The next patch in the series, "r8169: enable new interrupt mapping",
-changes rtl_alloc_irq() to request get_min_irq_nvecs()..get_max_irq_nvecs()
-vectors, and that is what turns this code on.
-
-Could the commit message say that this patch only adds the infrastructure
-and that the next patch enables it?
-
-> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-> index f24a1e1f435c0..4656ae108f9c6 100644
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-
-[ ... ]
-
-> @@ -5219,18 +5310,28 @@ static int rtl8169_request_irq(struct rtl8169_private *tp)
->  		napi = &tp->rtl8169_napi[i];
->  		irq = pci_irq_vector(pdev, i);
->  
-> -		rc = request_irq(irq, rtl8169_interrupt, irqflags,
-> -				 dev->name, napi);
-> +		if (tp->irq_nvecs > 1) {
-> +			/* RX: 0~7, TX: 8*/
-> +			if (i <= R8169_MAX_RX_QUEUES)
-> +				rc = request_irq(irq, rtl8169_interrupt_msix,
-> +						 irqflags, dev->name, napi);
-
-[Severity: Medium]
-This installs rtl8169_interrupt_msix() on every vector from 0 to 8, with
-&tp->rtl8169_napi[i] as dev_id. However, r8169_init_napi() only calls
-netif_napi_add() for the active RX rings and for index
-R8169_MAX_RX_QUEUES:
-
-    for (i = 0; i < tp->num_rx_rings; i++) {
-        netif_napi_add(tp->dev, &tp->rtl8169_napi[i],
-                       rtl8169_poll_msix_rx);
-
-What happens if a message arrives on a vector between num_rx_rings and 7?
-Those napi entries are still zeroed from kcalloc(), so
-rtl8169_interrupt_msix() would do:
-
-    struct net_device *dev = napi->dev;    /* NULL */
-    ...
-    tp = netdev_priv(dev);
-    message_id = napi - tp->rtl8169_napi;
-
-    rtl8169_disable_hw_interrupt_msix(tp, message_id);
-
-Could this oops in hardirq context when RTL_W32() goes through
-tp->mmio_addr? If it didn't fault, it would call napi_schedule() on a
-NAPI that was never added.
-
-This can't happen at this commit, because only one vector is allocated.
-Later in the series, rtl_alloc_irq() requests 30 to 32 vectors on
-RTL_GIGA_MAC_VER_80. num_rx_rings comes from
-rounddown_pow_of_two(min(netif_get_num_default_rss_queues(), 8)), which
-is 1 in a kdump kernel and below 8 on many machines.
-
-Only the vector-map IMR keeps these vectors quiet, and it isn't cleared
-before the handlers are installed:
-
-  - At probe, rtl8169_irq_mask_and_ack() runs before rtl_alloc_irq() sets
-    irq_nvecs. It therefore clears IntrMask_8125, not the vector-map IMR.
-  - In rtl_open(), rtl8169_request_irq() runs before rtl8169_up() resets
-    the vector-map IMR.
-
-Could IMR state left by a previous kernel fire one of these vectors as
-soon as request_irq() unmasks it? One example is a crashed kernel before
-kdump that had more rings enabled.
-
-Would it make sense to request the MSI-X handler only for
-i < tp->num_rx_rings, i == R8169_MAX_RX_QUEUES and
-i == MSIX_ID_VEC_MAP_LINKCHG, so the set matches the NAPI setup?
-rtl8169_free_one_irq() uses the same i <= R8169_MAX_RX_QUEUES check and
-would need the matching change.
-
-> +			else if (i == MSIX_ID_VEC_MAP_LINKCHG)
-> +				rc = request_irq(irq, rtl8169_interrupt_other,
-> +						 irqflags, dev->name, tp);
-> +			else
-> +				continue;
-
-[ ... ]
+diff --git a/arch/arm64/boot/dts/amlogic/meson-gx.dtsi b/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
+index c1d8e81d95cb..2b92a99ab2cb 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
+@@ -436,6 +436,15 @@ watchdog@98d0 {
+ 				reg = <0x0 0x098d0 0x0 0x10>;
+ 				clocks = <&xtal>;
+ 			};
++
++			audin: audio-controller@a000 {
++				compatible = "amlogic,gxbb-audin";
++				reg = <0x0 0xa000 0x0 0x148>;
++				interrupts = <GIC_SPI 7 IRQ_TYPE_EDGE_RISING>;
++				sound-name-prefix = "AUDIN";
++				#sound-dai-cells = <1>;
++				status = "disabled";
++			};
+ 		};
+ 
+ 		gic: interrupt-controller@c4301000 {
+diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
+index a9c830a570cc..8f3c7ca06a3c 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
+@@ -84,6 +84,11 @@ &aiu {
+ 	resets = <&reset RESET_AIU>;
+ };
+ 
++&audin {
++	clocks = <&clkc CLKID_I2S_SPDIF>;
++	resets = <&reset RESET_AUDIN>;
++};
++
+ &aobus {
+ 	pinctrl_aobus: pinctrl@14 {
+ 		compatible = "amlogic,meson-gxbb-aobus-pinctrl";
+diff --git a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
+index d5e0f72892f8..de213c0b63a3 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
+@@ -100,6 +100,12 @@ &aiu {
+ 	resets = <&reset RESET_AIU>;
+ };
+ 
++&audin {
++	compatible = "amlogic,gxl-audin", "amlogic,gxbb-audin";
++	clocks = <&clkc CLKID_I2S_SPDIF>;
++	resets = <&reset RESET_AUDIN>;
++};
++
+ &apb {
+ 	usb2_phy0: phy@78000 {
+ 		compatible = "amlogic,meson-gxl-usb2-phy";
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928070423.202-1-javen_xu%40realsil.com.cn
+2.47.3
+
