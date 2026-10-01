@@ -1,167 +1,112 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011060.outbound.protection.outlook.com [40.107.130.60])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A0547C0EE;
-	Thu,  1 Oct 2026 20:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790887880; cv=fail; b=sBJG3WsHY18KpH5jJkMNzBggMfxXPS6UIlzmXLA8QpctOm65L9fjQoxJPBtS6VHExpNJA5OxGh9PMn9PXsgf4JQOLu/XVrcZBF98A9ZIPk219Uci6QRCVM7o8gTqk+PUG9DTxuRN8rPWPV5AciI0Aii6HJcEistUONNNFTGzEkc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790887880; c=relaxed/simple;
-	bh=8yfgnUqpms6tV4crgHNvSaX8IFLwx5prVBrCNm97OXM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Z9Fhegao91YNAG1tQPjk8tpzodMuBdj42Ht/WZk2a6jxtm6FIk6vzSgP9BW+RY9hBcBTHfLjOLuzmhvgQ/I9m+MtUFDGalQj6zl2V1UFMw0Nw2Ruh17Ng1GFXJLg3GKe0f3i0pvX+Tcdxtlvn47vShLkKMb4Os3yHlHC1FuiG2g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QpP16LA8; arc=fail smtp.client-ip=40.107.130.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7534A4A0EF8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790887936; cv=none; b=cqH+DC50+drdj7y2gUVEiyVtXW/xvujAsJ086EL1CjV6awDLxGr9/wkZ66x82LIi0uz6eppTd14PhHzFYWyJ8kkUVQVdVLZd6s0leU4H1H9pDjCiWj9YY78iN/S0F8ASK1/6WU7gYAbSHuPexycFQBMjWbfU7t9nqraVtM9fnc0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790887936; c=relaxed/simple;
+	bh=Pgvycu9NIFRzaxwimfgVVVuiiso0JZizJ0BD4uYoiLQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O8H6k1ZFknnLhU0MlTsX4qjGB7Q93EKvgSKqrjvSr0FLutQt/na8JEr5GBbQ6nxJSL375xhSpNtLQXg4yJg8r5O+4AsCO2ojGQCxV049G1baK+eUxaQGHTzfdTigotRMc2XkHeyBK+E+9hs3/39XdYGYOMKLTFaUwdqPZqhLyCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xf6brGex; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QpP16LA8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s1ElXGIKDjDawk3o8Oe5G0XqdHtC951ewdKFcvxVqX1ZcmozTdOeZgyUnH8MCN4c574kJaUVVB9qQIaelt6MTdpgZ1s08fqAotrncHWjcoUBjaItqJzuubS6yA9p3J1Z4WMTctmc+7zQIwIZt/mP/KdacgUTPFrXIedvVFZoGlF/FrLh017cSB6Krrzz9o6F06Y3AIGTniKRh6X5P3vlG8gbIyteJTI6sPEuNdVNM1Aw3/h8j8oKR7NFMdp6/pp0lJocQ2/lIHSgdS0YH7iacyCHhcbcoqgDbXkoZGpwiP/brDZ42i2TJG+Kv5mjQWd0K7bD6fuT+4s9ez9S31yNMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LIVx6o82PaJRej2GW2jUDVd1+/oZRxZLSNyowyuaqso=;
- b=kaeRCOyOtceVwmIb2XkPvUM3hwAAiaz5yk9GuiXtQqscQ2Uh3BHpwb294BcOEosUuFwAmFH0hzDfHVEA0WpMTL2QYH9kkyN0k7NXyHWX8PuQuw75wez4lH+LOTibdsT1rviYKQQR6hWK8bFSSZVV1UAZMK+ZuPWc2+f6RCAmPIxOc0C/63bxV//Wa7siE2iEbwhOJ7pXIxT8IitVZ+xJNCJyaxGKUNUUN6ovjSslANTj8ER0fz+CPeTMH2hcIpJhaoUadgn539ConygZ5RGEd+Ytf3irW0stBT84OtevhWceCIURJxs6KAqZpA/tlNpPr4Fwv3a1GgPzrBpaV1ZNZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LIVx6o82PaJRej2GW2jUDVd1+/oZRxZLSNyowyuaqso=;
- b=QpP16LA8+0+Kd1N1xOz/V6k6yIjQq77x9PIMpeIdu6UPsCYYbLBrBZZ1Ld7vYc9JTS6qnIxhcrMqFUTokKq888xUOCUAvJRX8bD4ZwHEnvzhS45msgg7t5G6zQBzZYJVwPE/4PI6vZAs2RD2rLrD6YKof53ZFLZ2z53TLe7YPdIYmc7nnx1lPlz4sN//dAhtj//QYPrrSPp9BJF4QHbcmlacELbjgCjZU/OY5VnrZ/S1fDTVVQENfYUkJxt2R/D2q+rgH04Ec96guZq6oBVLgmfEV0+Q0BJ0c6SHF1qG7Kc816YSmZJxLV/mvZYwfiZEVpqz5qovcAyI8lLbLyTBjA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8692.eurprd04.prod.outlook.com (2603:10a6:20b:42b::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
- 2026 20:51:11 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 20:50:30 +0000
-Date: Thu, 1 Oct 2026 16:50:23 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Jiale Yao <yaojiale02@163.com>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Hyun Kwon <hyun.kwon@xilinx.com>, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] dmaengine: xilinx: dpdma: Reserve space for a string
- terminator
-Message-ID: <ar7Hj-BQW7xPtjaC@lizhi-Precision-Tower-5810>
-References: <20260926121250.3258285-1-yaojiale02@163.com>
- <20260926121250.3258285-4-yaojiale02@163.com>
- <20260926143415.GA764757@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926143415.GA764757@killaraus.ideasonboard.com>
-X-ClientProxiedBy: CY5PR15CA0209.namprd15.prod.outlook.com
- (2603:10b6:930:82::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xf6brGex"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F951F0089F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:52:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790887935;
+	bh=q9ttC13+Szmw2q5jUZhmuOOwnwu09uPEZ6e3y79ttiA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Xf6brGexee1jd+IvaGPNkVrQy2PKgADseSQpBcrVIUySxZEOoK+mUTJJ8dFVoK/FD
+	 xDfepoA02FoD1kqrELvMAkNMx2YzlS8445JeyM5t2P7RzT1qe6FWWFp9OGfYYHazmS
+	 QE/zmoCILsspP0+qkz7sG/9pLu79ypqesVEaqXp83dGUyPpWDEJTNVq35Qp8X0WuK8
+	 7vlgM+W4cZB4rCFXOaI+di92p/5bAOohYDBo1jWKBks9KO2PjqaZGYzEhhZslPSHBB
+	 m7cvQffYCsoAYVyXD3XD7ehB6OhlOn8u8Dy+u0OG5SWJiGnugM1gDa+bXp92AJw0Pd
+	 tJ2BvXaszahTA==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a64d20990fso67898551fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:52:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwYDWoI8MMfL7xsD7mu+Z+2zJeYEaTalaJWp5cAt5FhEOtf12ZarUB5NCF7o7/9GQ16TrcgCIObfn6+KbQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIdkcPM34Jj7XARaXHZH4tyMyQozU7Ubg78wd1xKt9RFq323rQ2
+	SsW0I/bxl9fTCyzIL9V+q4/G8YouxIaD7qkteCa8i3kMQT5e4aho3/IbM63B3BDfomxfA3Q6a7R
+	N0G0tu0yu5jHPiaP4jeGXq0HkQS3mQE0=
+X-Received: by 2002:a05:651c:2115:b0:3a6:6011:fc98 with SMTP id
+ 38308e7fff4ca-3a8877f67f7mr1329021fa.26.1790887933882; Thu, 01 Oct 2026
+ 13:52:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8692:EE_
-X-MS-Office365-Filtering-Correlation-Id: d528dea7-e488-4cbf-ef94-08df1ffda151
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|366016|376014|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Aserf5OcubU3fb/hhvZVBpDGmamtCZPdvxOlDDjYFTEQEIt6Qy8BZL7ddEf44PRE1TLvyZh5sfjSnKBYOO1MkeOn0dU20ORV2Ufgefd3vWzIlfn1Po3cUbHLKkXG0hYzzEBCP3zS43aSffhOYhUfJ655cbJuHiSa8lbgy+6hS4AtVpxrpQYrxtNLp3V4KDm6cJkmQSciPt+YcIptGoiolqzhjIp0ZFV4qjiT+otrEpdIF3O+z3zpE8LqWnLCntA4sOKp895xdXg4LjxeM8cBfJPpQzpGYtDsUVSox9l2fXEeZ4KcT2QI9C8vhL0k/yhn2Dph1jp2b/Tg7bMNtcjtUJsIPKgGNoxZBl5/SwEvnR/ECUcAD2YJAksuRUQO8E36QZw/MzHbxTNA6ilMrHwAyZ3EFOG57VvQx4eBY1mVO5gROP/Hjqqs9/AzdC0KnVTWLDU9SMu27OFGO340Z2z15ah0oiiUX0s5Doio9I01Xm2V7nqsBanbQHrfRIIYh84S+/f7+qxns+uZXs+ayQ1MOxUMtwTxhr9bSa9QFXlEsKPLrVcaQjxxfvfYw67qaB+7n6lYHKP/mjbei4gf3Ica+zbqZdSgBN+AsCYCxinfmgm6dKYucXZsvcY2T4y+M/1vDfa24CPMXKtQ+1MdEOUwnMCGJcbzjjiSHoz7m7lrZtY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(366016)(376014)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?b/Q0wm90KQ8+CEHGBzi3Y48rra6YvOFpZnWX7D6UCPlmVf7hSEb87FMF4RpC?=
- =?us-ascii?Q?lyuCoUToYMvLC7A8zm8KAfZtWaWGkwQ3i+ZLL93eML8pPnAOsYN+ymkMxkGG?=
- =?us-ascii?Q?w5B1mrox65QBxdOyye4D470qTPt+9LaTku0w76jfqO12oDKh5uyHT/gsytJB?=
- =?us-ascii?Q?KjzZ1hcRqdhxBvIkS/qHmggw7ulXjj2xDZ74MDXNYHNO1Jtirv1tWKU3JOHl?=
- =?us-ascii?Q?00qxFXdRuVzjaRrpUSRw+PA3g6DFfQN74fVmHPunNT1HdSh1L0OuLFq18Wjp?=
- =?us-ascii?Q?aiaUsj3mv4h3G+VtspNmKHIswqw0OSFBv/gcleYC4Y5fy3Yqaa1D/d5Whras?=
- =?us-ascii?Q?VduBC7OActrp6xBgPsaXP1ocFum5/HwCEK87Tu2RUh3bIXVEN0p1ao0wPF7J?=
- =?us-ascii?Q?hun/iQ32TmkJOZG7DF7jIMOni5PcS+od3wFyIWjC5tchzmyq5wZVoTC846FQ?=
- =?us-ascii?Q?xDkpLEWpFk8zIz+obyUCQEzSvVHrXcA551PQn3FFXEj8/j4wh5yviKg8t4Wg?=
- =?us-ascii?Q?IUif7dH25HIoslJzCFHLP0oxHR5UhPNF2Gh4OH9f4xCTvMj9hEjAe/AbL7p3?=
- =?us-ascii?Q?dlq0n93PXjx4dUr0achvUV6jAU0VtaXuo9A/iSERYeOXqYd0Uq55bWAqin8K?=
- =?us-ascii?Q?K0H5rjkbLxdq6aTPTPkx67EMcAW/+n77j9bmQ8FtROxT9o4qByjfIJ37pClU?=
- =?us-ascii?Q?67O8xvSTc/GtvbT2uwtS/T3TIqgRE9YHmSDW7sfKQGpaaet2Lwqkliw/UYG+?=
- =?us-ascii?Q?QAR0Lj2c6q7KScz80qGPy9slQMw/WZikBUSc1105F2r4wu60BJBK4Zgdz4SS?=
- =?us-ascii?Q?nQeHDCQCStqyDyC9SrenpGW0FDtpTXfk465k/5h7yqmuQvCJqY7NW3ucYi5A?=
- =?us-ascii?Q?sKjL8DLtO+zQ/IZpyJgYsnNku+ONwY5UuzB89nadlMmfGRAofJ7Z437qQJJD?=
- =?us-ascii?Q?JZ8MJCaCg7RY9xrTXYXLZDaE8pknrYRlFUhp8zsHA0o1vUtzafZNc1wrlQwB?=
- =?us-ascii?Q?xXPA2clcphl+aPk6ISYr8HhwaNtUaz6Xf8jD3XqD79iU+ogGOWOAcRa9aZu0?=
- =?us-ascii?Q?NeJE+2CMQ5lq2pmq7sHQyty6k4DrNhSZt55P0CwEueG6YwsdI6i3ePnK7nTY?=
- =?us-ascii?Q?7PvzgXMbywgRXQLSkdYXx811vfErRmbIASMFITCMN4FQ6JrZro1QIF91RMac?=
- =?us-ascii?Q?ZyflkR2qKSDI2QvtKgsb1HjTVRETHZHgGzrRGRpEysHgiyF1+nbCnpvbs55a?=
- =?us-ascii?Q?OwatadTrcSPjzH6UfGBeCUvATQjfPudVX1746+IEeFpsSjYjxiEFt5OG5MLe?=
- =?us-ascii?Q?1SCOP+U2pgk2K/tbA5e5O8fzykX43TDRkU1VF7qD+dfwcCgDLo0Xm2RxbeQ2?=
- =?us-ascii?Q?/FxoMfJfjLzsa8ZyiFlgMRrw6JcX6fK4T9oDUP7pXosjn23JkjxCauzVT5Vl?=
- =?us-ascii?Q?h+FFEZDc+FpKw0kb3lwkd5vR69q4lnC9yXKsCJKlcsHTwvRk6wVsWWwhuesM?=
- =?us-ascii?Q?7LtM/qXvVd1z/m+MekpKbxMAEDMXMkZ8f3thdZ4HfdErqIJibUuieuiq/rZH?=
- =?us-ascii?Q?2mge4WjA1rJNtA0rMyrNkNybpYd333KxRlkd94isay/evHSogt1Rf0hRWSe9?=
- =?us-ascii?Q?ZURFdGwPZrhzuo7rjkQ4Fjhvnq7D+vJlodBhpfVCRKT96Gqsqz253Ajk3xDR?=
- =?us-ascii?Q?DeirMgP2ZEpz4PZSM4QGsDYUgXcG7MCMrB0/C9KcF9IYfShsCG3VCNaX4IjT?=
- =?us-ascii?Q?nDizXpZPohnbMLxT63J7FqXL8ezhIBi3kvcU5eTTSU3p8jCwH8uw?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d528dea7-e488-4cbf-ef94-08df1ffda151
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 20:50:30.6877
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AIfJcUtJCHgQpyiK4qyOyOlmoxhIdJa+vPfvW214NhghsHuKrHGuLfbMZcD3cauGekZhRDiWh8ehw91cn7h6snJXx3flSdGoMKbwQ+0A/Z2XgTp6LTE4WO7c1Ym7Rybf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8692
+References: <20260930092020.1047221-1-y-abhilashchandra@ti.com> <20260930092020.1047221-3-y-abhilashchandra@ti.com>
+In-Reply-To: <20260930092020.1047221-3-y-abhilashchandra@ti.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 22:52:02 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm462gGw38acBk1VzwKZq0WE6xfFUKoMsoiVxy4iqfEtg@mail.gmail.com>
+X-Gm-Features: AclHuK9E9lhAW9EXXB412B7L3puPb3e0XQeQk3VcMKZ_aaAndt5SX5qECoYPyw8
+Message-ID: <CAD++jLm462gGw38acBk1VzwKZq0WE6xfFUKoMsoiVxy4iqfEtg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] pinctrl: ti: Add TDA54 pin controller driver
+To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, 
+	vigneshr@ti.com, kristo@kernel.org, brgl@kernel.org, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, afd@ti.com, 
+	u-kumar1@ti.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 26, 2026 at 05:34:15PM +0300, Laurent Pinchart wrote:
-> On Sat, Sep 26, 2026 at 08:12:50PM +0800, Jiale Yao wrote:
-> > xilinx_dpdma_debugfs_write() allocates a buffer of size bytes, and
-> > strncpy_from_user() can fill it without a terminating NUL when the input
-> > has no NUL in the copied range. strsep() and strcasecmp() then read
-> > beyond the buffer.
->
-> strncpy() has long been considered unsafe, and has finally been removed
-> from the kernel in v7.2. A better fix would be to similarly replace
-> strncpy_from_user() with a safe equivalent.
+Hi Yemike,
 
-Do you means use strndup_user()?
+thanks for your patch!
 
-Frank
+On Wed, Sep 30, 2026 at 11:21=E2=80=AFAM Yemike Abhilash Chandra
+<y-abhilashchandra@ti.com> wrote:
 
+> The TDA54 pin controller splits the pad configuration across two register=
+s:
+> PADCFGA holds the mux mode and the functional pin configuration, PADCFGB
+> holds the wakeup and retention configuration. The controller also support=
+s
+> two proxy addressing regions and claiming of registers. A register claime=
+d
+> through proxy 1 becomes read-only at proxy 0 and can only be written
+> through proxy 1.
 >
-> > Allocate an extra byte and keep that byte zero-initialized, so the input
-> > copied remains unchanged and the buffer is always terminated.
-> >
-> > Fixes: 1d220435cab3 ("dmaengine: xilinx: dpdma: Add debugfs support")
-> > Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> > ---
-> >  drivers/dma/xilinx/xilinx_dpdma.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/dma/xilinx/xilinx_dpdma.c b/drivers/dma/xilinx/xilinx_dpdma.c
-> > index d9a3542c4531..b61ef3062d84 100644
-> > --- a/drivers/dma/xilinx/xilinx_dpdma.c
-> > +++ b/drivers/dma/xilinx/xilinx_dpdma.c
-> > @@ -410,7 +410,7 @@ static ssize_t xilinx_dpdma_debugfs_write(struct file *f,
-> >  	if (dpdma_debugfs.testcase != DPDMA_TC_NONE)
-> >  		return -EBUSY;
-> >
-> > -	kern_buff = kzalloc(size, GFP_KERNEL);
-> > +	kern_buff = kzalloc(size + 1, GFP_KERNEL);
-> >  	if (!kern_buff)
-> >  		return -ENOMEM;
-> >  	kern_buff_start = kern_buff;
+> Add support for the pin controller in the TI TDA54 SoC.
 >
-> --
-> Regards,
->
-> Laurent Pinchart
+> Signed-off-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+
+Overall this looks pretty nice.
+
+Check the Sashiko reviews, there is always something
+interesting there.
+
+> +config PINCTRL_TDA54
+> +       tristate "TI TDA54 pinctrl driver"
+> +       depends on OF && (ARCH_K3 || COMPILE_TEST)
+> +       select GENERIC_PINCTRL_GROUPS
+> +       select GENERIC_PINMUX_FUNCTIONS
+> +       select GENERIC_PINCONF
+
+Just
+
+select GENERIC_PINCTRL
+
+and you get all three.
+
+> +static int tda54_dt_node_to_map(struct pinctrl_dev *pctldev,
+> +                               struct device_node *np,
+> +                               struct pinctrl_map **maps,
+> +                               unsigned int *num_maps)
+
+What is so unique here that you need your own node to map function?
+
+Can't you use pinctrl_generic_pinmux_dt_node_to_map()?
+
+Please consult the code in drivers/pinctrl/pinctrl-generic.c.
+
+Yours,
+Linus Walleij
