@@ -1,130 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26534E13E0;
-	Thu,  1 Oct 2026 10:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4B74E4C24
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849475; cv=none; b=gQqycb4qHzdhfUO0/jyg7+nPV7/g2BjLvypcttimWrCYMgA8SvJEwphEGyWFiQBLBQw8yPbMATRXjM3trvmTirsuHoCwpUPvhhDU0ujVGtXZWmycd19rIy9a+4HrM6ypx7CUlipBk4vqB7CKstlWsHtEdZvVK7aa7NdThS1I4QI=
+	t=1790849495; cv=none; b=LYIjWYMqkuUnfp8UKcL61YrPIinbD4C1zf17wt3Z5/esoCSXsocMFRHyyM1VT5niZnZERsYXx4VrUzdLgRIxKvX6Wj/wJ/TUtZeG7h4SwTM3sxkV8/Z/HUC9AEyTUM4aPTGDkVh9iPpNcbTYZKFQXQX1eiIPLyn4VU5P+/6NJv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849475; c=relaxed/simple;
-	bh=HmmSMWq2rCjwo05n7HQB4k8lsgm+ZEbjZF351Q8CZHs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=nzlI4rBb9vT053YN5knNAlRREbzr5O/JLMw7DZX+8PamzvQzZ8RmccHRkOXed6gW4Onepav9nD7DgSDBM2TNLdltyraVZGqwaztpQ2EXDgCsAug9z6+yAMYmmOVe9YHQuqXurMtRq2tE85BOgJTiSKn6Nhmk/AIplqoq83LSE5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wd3YtjkK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790849495; c=relaxed/simple;
+	bh=6C565t/VlyoDv3UV6Pv/GK2eTKoZ4N03hIDuBo2UJDA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PsrcWrtUqqpCoqlbf+VgFSv0bO9cY0PQitUfohu2HqN9IAa+3men8lspg0roITZiILKAZM1iRPdCEsZ0DaiNxyjok+zvfR67kKyntWrP8fL9KBH2FS04Z4HHDe1Ld1AXUS01t7oytzmCpiTK0MhmL5shY63lO/Bxa7oxmP31c5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bOMFfnn/; arc=none smtp.client-ip=74.125.228.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wd3YtjkK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20471F00898;
-	Thu,  1 Oct 2026 10:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790849462;
-	bh=mLZRTSg0T1/OZPn8CyCkwzpUfqzpp0DZEYvr2NUeX/Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Wd3YtjkK5yoJLGS0TCoiSUyMA5uTPCgROv0hTBhuPGpl7Zy+tJLoNFvjg1RtRVCp1
-	 /Q2+knwi9a9n/3fMe5WOUdbLXdkGgZnQD8LcXx03lvzXao4ng77nVWwOpY7GFaZz/B
-	 XihZOqckAxtzyCzDeI9aiVj2PrENlXn/IGqH/bULIDAzsTH5Kjtj+h1+b8d8L3l5oi
-	 v24Uqnm4Qj/T6ik2QWFZobZiz15PAYjxxMaYkFgXj0A/J4JyhjsHtZEaiFD2eTRC+0
-	 BosTEcMYEEF4TX0yX3sON5ZGorpDUWZkSnHo3L2ZndhbWTuk66Sp9j8WzZgW3R6jGK
-	 IxNQR6QX6Vgxw==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: FUJITA Tomonori <tomo@flapping.org>
-Cc: chenhan0017.work@gmail.com, rust-for-linux@vger.kernel.org,
- boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
- lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
- georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] rust: time: make Delta division and remainder fail
- consistently
-In-Reply-To: <20261001.183120.1111705981110043336.tomo@flapping.org>
-References: <6z5gg2l6ctq6aQIEoJ5hBjZr03ffUqGeECNSGQcVv5eyiZz35kWClxv9o5N7Y-PPk2R2dgpdDxEDLfG7GpkGog==@protonmail.internalid>
- <20261001042942.109012-1-chenhan0017.work@gmail.com>
- <87wls1alk5.fsf@t14s.mail-host-address-is-not-set>
- <wURmlSiujLNG9rpTlhXlgbGsxDFPFGRmZBsH1vX_HLcTsVnQFFSDbkQEVQ8Q2auAdvdukDKwRtCfdaL_VsFzaQ==@protonmail.internalid>
- <20261001.183120.1111705981110043336.tomo@flapping.org>
-Date: Thu, 01 Oct 2026 12:10:51 +0200
-Message-ID: <87tsn5afys.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bOMFfnn/"
+Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6af82ce3c83so344123a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:11:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790849485; x=1791454285; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i3XG5cy5KBLHekXoy0zdt8qQzO6LEdX5LiupQKnkZIo=;
+        b=bOMFfnn/jgcz1WJBEzhyFKMrlGUEYbsuCSbA6r3wTylJd66TyCu5SR5fCkUgQwBOZW
+         KCIcufLthnXh9KQfCHlLl6IF1XEBvloeFkmBFXF0LJHMarEOn6JQ6byyvAzMyOShQzQ6
+         ZeXpvpF+kCn/QX5M7cdXO+ltiSp50HpNN66qTWqfVzrO1GWLSk6rHIO3ctSgJGFXilPx
+         cWJ2a1WagwmIT/r5gmeYZv75Sgf/gADZh2ePg7Gip4Gs5qS3RkeVui5mj57bHcWc1hYD
+         tT8Pn0TUhjCu8dEhc4DwmL1JtVVcp4D+xWFtpf2R8SZMySyhumIc59LClekjWdnvLITG
+         CLOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790849485; x=1791454285;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i3XG5cy5KBLHekXoy0zdt8qQzO6LEdX5LiupQKnkZIo=;
+        b=zxHtqbe+i5+B3nxeohXUjEP1KIoyM7pNaP1RidNHL5iaV1BMPfITg/rkG2bANa9X3Y
+         /yQ2M0Q8Awz/Ki2I5fA3zKyVRiGRbnbrHGqcyS39iWu/IuRjge08Pyye1m58+NRNvuMM
+         B703LGssqVyZQ3dH164UTKXtrDViZCEGx0puZPLYbQXK31myTJS3iwT5IOH7alz+0TsF
+         GmEMNGbMUizJtWjdUanEyphjSbSU9IiMh4wF2CU5zz05jUKo6AVcS/ea9v7tRuytY7gz
+         10yhK2oGkud6IkaG+7vnwhjEv6UIUxkwdNVtNLK07RV8vPFRJWLMNq7pDqyi8fg+dDgZ
+         WmVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/oetG4GErEOz/NLPz4rM2QFTb07+sECiDCegDxJJs0o+FJiYhTjqfTJL/UJ+SwgHuDCi9lfucHbBPEn0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/qI8EiPJIUYlfTbLFQpvMBBKyI5/eRlGcZ3B7L1kGR3toPcJx
+	JLMqIl0Casv7WXH8WRKJ5/Yni9u7PTOfqodOoJWBSs6cvOmkGnkZKFpJflK+68hrZOA=
+X-Gm-Gg: AYBFou2DJDwADh0P/9Yflv9byq4Wzz3kk47fXHQUSWaXaqwjEw4KY1gjxhYAlhET69U
+	EffyIhEUmiAuvVo2znF+TZ9PYV+RxtoLyda2zjlfDc+7+eE7JCLvWGepaJ1oBg4HEUXooOaItS1
+	J79S1SjFUkSJOWdrzA2BbzZRWc/B0UwPOVJQ8fPq1fAK93RqdoQRRQvaGvLoVoFA9FFJWkfmN+G
+	MY/DDYqv0WT7z/PSFDBzOTLjHSfp5cv9J+EPsHZoLaUpX8LkcZmG41TmaG/bvJWRUy3gbrqg0FC
+	icvpQ0/41eoRt30zFVH7X1V3MJlFlL8PgngzmE6MUtu9iyI1KWc/IFytYe5hmSqwTEP8PsWSXOW
+	joAbKAJjaPILbatEFFWzSo/ZWTaBe41WX+RuKjT+WnJ9D3X9wO2ZOdUQwkTQiCeKZ5WSKKRtO6/
+	ngA1YbxGvZMcnvIDh+2CrMjHW/4FDIoOWqMO5/vIlJm8ZUf34G8GNz/riIp7dYgMTKtNpVdBx8k
+	UmlZVrdDXg=
+X-Received: by 2002:a17:906:f587:b0:c2d:c98f:4824 with SMTP id a640c23a62f3a-c2e23d7e12fmr327647166b.30.1790849484765;
+        Thu, 01 Oct 2026 03:11:24 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.14.175])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e342a24c5sm95689566b.4.2026.10.01.03.11.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 03:11:24 -0700 (PDT)
+Message-ID: <f61f1882-d6a5-46ce-81e3-b84648ecc6d6@linaro.org>
+Date: Thu, 1 Oct 2026 11:11:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: Add qcom,x1p42100-camss
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260930-purwa_camss-v3-0-0fe2a5b11208@oss.qualcomm.com>
+ <20260930-purwa_camss-v3-1-0fe2a5b11208@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260930-purwa_camss-v3-1-0fe2a5b11208@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-"FUJITA Tomonori" <tomo@flapping.org> writes:
+On 30/09/2026 07:57, Wenmeng Liu wrote:
+> Add bindings for the Camera Subsystem for X1P42100.
+> 
+> The X1P42100 platform provides:
+> - 2 x CSIPHY
+> - 3 x TPG
+> - 3 x CSID
+> - 2 x CSID Lite
+> - 1 x IFE
+> - 2 x IFE Lite
+> 
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
 
-> On Thu, 01 Oct 2026 10:10:02 +0200
-> Andreas Hindborg <a.hindborg@kernel.org> wrote:
->
->> "chenhan" <chenhan0017.work@gmail.com> writes:
->>
->>> Delta's division and rem_nanos() use Rust operators on 64-bit and C
->>> helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
->>> a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
->>> i64::MIN / -1 case also differs, and neither API documents these inputs.
->>>
->>> Use Rust's signed division and remainder semantics on both architectures,
->>> as discussed in the report. Div should behave like i64 division, and
->>> rem_nanos() supplies the corresponding remainder operation with a 32-bit
->>> divisor. Both reject zero divisors and i64::MIN with -1, even when Rust
->>> overflow checks are disabled.
->>>
->>> Check these inputs before entering the architecture-specific code and
->>> document the panic conditions. This preserves the API signatures and
->>> valid-input results, but intentionally makes invalid inputs panic on
->>> 32-bit too. No in-tree callers of either API were found at the base
->>> commit. Correct the rem_nanos() parameter name to divisor as well.
->>>
->>> Tested on x86-64 and ARMv7 QEMU with a built-in Rust module that passes
->>> runtime operands to both APIs. Separate boots verify each panic case;
->>> valid-input tests cover mixed signs, signed extrema and full-width
->>> division operands.
->>>
->>> Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
->>> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
->>> Closes: https://github.com/Rust-for-Linux/linux/issues/1254
->>> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-5869573842
->>> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-5869925737
->>> Cc: stable@vger.kernel.org
->>> Assisted-by: LLM
->>> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
->>> ---
->>> Changes in v2:
->>> - Put the checks directly in div() and rem_nanos(), following Tomonori's
->>>   suggestion. Each proposed helper had only one caller, and no other
->>>   concrete users were found to justify a math module.
->>
->> Even so, I think we should get the math module started and move the
->> division helpers there. This discussion is not the first on this
->> problem. Having the helpers available will help everyone, and create
->> precedence for further helpers down the line.
->
-> I'm not against starting the math module. Uwe asked for div helpers in
-> pwm_th1520 [1], and I plan to add the math module for them.
->
-> However, if this patch is backported to stable, I think it should be
-> as small as possible. Also, v2 does not add any new div helpers. It
-> only adds checks to the existing code.
->
-> How about merging this fix as is, and adding the math module in a
-> separate patch?
-
-I'm not a stable expert, but I think adding the math module on stable
-should be fine?
-
-If you really want to, I guess we could have this patch be a 2-patch
-series with this as the first patch with the stable Cc and then the 2nd
-patch moving the code to the helpers from v1, but placed in the math
-module.
-
-Then we can pick patch 1 for fixes and have plenty time to discuss patch
-2?
-
-Best regards,
-Andreas Hindborg
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
