@@ -1,189 +1,244 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955DF3B5E15
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380FC46A60A;
+	Thu,  1 Oct 2026 21:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889411; cv=none; b=RV+rHi1S2EDUYLs+XvbkEbLWJlh1SeIAyMibH5DB8KuUZLfetM5pV8ekgngN8hEfZYHN9o0+d0hWM6X9vqX2r3Y3pFJ7Kq8FiJNbGdfwIo9sBFeyt7vF0wv04phN89DVINz5VGFIKPwB7BLzedgYAM3LlbIq8KN/GDiGmxrKbgg=
+	t=1790889418; cv=none; b=IyUfz8RRA2wo1MnM2Tful4h2BfXwUpT2TnQViQ6nW5NghRBOmY3wT5E9cKfMr//4/eMbPkaR0aCTGY4OEDynOcxnZolMM73LuI4Xvco6CVoK7aP6/dYkSxHVd1+2PtPmtnmTFdk+hPmCHaMML5/5uFMsndpQwpIDlkKiz+u81sY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889411; c=relaxed/simple;
-	bh=rHP27KtHsChwYNu/muDlCaqo/Qq89CxAfKbvtGKGPtU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JI9RxELxCdY2x6mSxJiyoI/ku+ATfakPA9CPB0Lmh8HLqJzYOGQ5Q5qmo8ez22El/NX92Q7apbDkDduaMccDfgDQ9ct/+LMD0r2wRH6CCn0f+S2JLqLqiR09sClM2om80lr6ftKj7AbMx3xfq8FqvwyiUyX7bZWNtd5iO2Sy3SI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pk+bKUYj; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790889418; c=relaxed/simple;
+	bh=JOlqp6Cy2f7dgy9WstV9kdwykzFIe+8amE5T46/T7XY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nKRNnljQJXp1/ItN9bHeknzqvy3SsO5MX6BqDf9x1SxwPCA8gu5yM1CN8tZY5ED65QQHBWLfAkZAc4aTS9pBfVFNZ3iqA0lSwpdKtPqI/W9TY2TQlp9AKLTD68zsJa8lrKPieVdxPoG9ecZHof/vdrUcq6weUTNcysTY6cp+M1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHdc2Zlr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pk+bKUYj"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afbfe4247so337227f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:16:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790889399; x=1791494199; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HSoM3PgpQ4vYswgRtDn6FHAfsCzsP4haRyzseK7Qt9k=;
-        b=Pk+bKUYj/qxWuxDSkjBeUmrSey384OvQOJqgUOmohmWGEgrRY0a6D3LedMEgtZuEPs
-         Y6wZhGFw9K8YVeBoZ4IDo9KcDL+/rPGUQsDBZtzT9Oo00OlqHXpMZGzN1Q8IZtYyfyCG
-         SxO2KnEHNrDfmOZvloSaC86ZEozOwrqIAsoEg5nxaMMgK+d/uqVqLBy5inJMeHUgzH9h
-         EO41BFq/KFhcd3ut9eQcwRoD0PGErVuGivoalcJhpUYypb3xgMjvdnaKSRSrCENZxVHv
-         ERtIrUUJWvygHeROVMHLO/Ap3wJUsqjWtHeN7Jvq58Zvf16hqvHY2MjhXX7mdEkKOd0D
-         VkFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790889399; x=1791494199;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HSoM3PgpQ4vYswgRtDn6FHAfsCzsP4haRyzseK7Qt9k=;
-        b=PNErZknxEWZjI1Cbo0E1vjm+ZJmJK/S54ziT7L3Yb+SpN/RMqpekV3D1Jru+V8Ne5m
-         IUlRpCHd2ny+nvW48t0wml3zrtHTE3bWRcYkN9PEQEzRnq+t/WO6sCewruWSqukc3StU
-         isRYzRsx1HSduTjnigtPIfplqA0WXRZLNfcfAhnD8i1qj193M4ta+93MrHDmZjiQHSj1
-         KfBD/hY2KrkhGTFJkmw50ZQTjhjhXloFD9UXi7B9C4EHD+tu9LjZbxupWcZC+RuPJp+v
-         L4ye4Kmx0Y+BOWKssHQp+dvf0DnoFR3GzaLtYDL14cmBqUc7q3bjQTLwKgeV8F39j0jR
-         I9Og==
-X-Gm-Message-State: AFuF++lXTZAtqUCKvYQE7WupBxrVBZ12900Xs1pgDuH9RCo/4xO54/Q9
-	4mBcyPQvZ6HekIkGaip5pduc1jCF3r57q58BkEvEDUPJgqy9Frr4vfZY
-X-Gm-Gg: AYBFou1ah4upr+IaY6waQLC8Dqky9ZQ845gyoB+/uDb6iCtgCJj21HKEj+9oj/L1xVp
-	nTIXq6dw8IUc3ANZyzP2bSZyxZGAmtMO8nLud464uWv2ufZVS0yIeER/MK64f92IzMrat8Fz4Qb
-	QEftOxF+L3KrYlOw+pYvC9rXNpZaD3P0GlVEsG603MQi1pAMCCFhrLNr87RpwmfacrOOqw32zlI
-	t4w7UFf1x1v2M+KUdcKx9LRc7ybzpyokny5nlO0aOUYlKbJPQS0XBhilAd+HVqdhqJ9a86KBzRs
-	ucwNFMFNAzrqqBaVkCyxIkezfZ7UntVL0n4OIiUGp0Ny+WUmOWP1civRrgyZR1LS8VWqmsplpYT
-	Dfgs0aGwfy5c9gVOHA4XdcSdQpji6Qpt+dYKK/PrdUHw38pFGzyfXkVyEYk3VJc1pLQPScdQ4mI
-	4XRITL/bGueuwe3K2d4Bp5WX6Kl047alBBjFyFsLcq1aGBO/k20+dARz9zKBo45KbCwxWUEeuUX
-	Z/RlhykLEripMqY+IoDTIj3WrNSEhg=
-X-Received: by 2002:a05:600c:a196:b0:49e:6683:d227 with SMTP id 5b1f17b1804b1-4a02745a402mr9164165e9.0.1790889399365;
-        Thu, 01 Oct 2026 14:16:39 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a030326132sm6438275e9.0.2026.10.01.14.16.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 14:16:38 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: kayracizmeci@gmail.com,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	mingo@kernel.org,
-	tj@kernel.org
-Subject: Re: [PATCH v2 4/4] sched/fair: Rework/fix task_h_load()
-Date: Fri,  2 Oct 2026 00:16:14 +0300
-Message-ID: <20261001211615.249877-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930114416.211829-1-kayracizmeci@gmail.com>
-References: <20260930114416.211829-1-kayracizmeci@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHdc2Zlr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 11EDEC2BCC7;
+	Thu,  1 Oct 2026 21:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790889416;
+	bh=JOlqp6Cy2f7dgy9WstV9kdwykzFIe+8amE5T46/T7XY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=nHdc2ZlrY8JXDXc2vRiTOYJZewIyVGBt6xj0s/nwFavr0BELRpSO0/Dw63GKtfIQi
+	 HoMNLo20T94Ys0yK/gXRPmM5FyXoTh3BdedUDAoHFLsgCTIBX8wdm/AX48r2kfPB+n
+	 ancSaTmC4nGCH4+Lu5aGn7kj/U75RTgtqSxdmJuISAGE1GbrT+wTCTyIP9hn/MxPC7
+	 Vd378KuUPaJAFWbM57nx/IpXbfS+ZuR7KygnGNW9CQ9IOV21327ZgV9EBDxipVbkgc
+	 wX5QMq9CalJTRFsM2fvmtz8i+oBCvTXGCx5QhSyosytbpV9xitBSUtP195j4PJng/c
+	 m3jw7KlR2wOWw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC0DCCA5FD2;
+	Thu,  1 Oct 2026 21:16:55 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Thu, 01 Oct 2026 23:16:31 +0200
+Subject: [PATCH net v2] vsock/bpf: release sock lock while waiting for data
+ in recvmsg
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCQBAEv7L02YGZSQjoV8RDEidmFFbZTRYh5
+ O+ueqxuqjZkS24Zp7AhWfHsz1hBDgHj3MebkV8rQ1k7YRZ6DHNDQqxKk7+pKFkzSatH7lrpUb1
+ Xsvr8mmdEW0JRXP57Xoe7jcs3iH3/AI5QqDF9AAAA
+X-Change-ID: 20261001-kbh3-1-022-fix-v2-e3f14290641a
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Bobby Eshleman <bobby.eshleman@bytedance.com>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Michal Luczaj <mhal@rbox.co>, stable@vger.kernel.org, 
+ Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790889414; l=6591;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=YvTTC+RU/Ym1bKqgzQ3IfPdzTa169kmvcqEE9p94f/U=;
+ b=CbqSqTZQSQB1j9Ic2qSu4ImstdiiTZ8FbKwO5N3DKsTQCUwDC6vjzO2uQ735OWUzjXlEDyY5b
+ iVFVupzJPnuBXzJPBSX1rf9M02xPxsgmwnGLx4izONlMWJ9pY2WAiZ3
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
 
-> > > Hi Peter,
-> > > 
-> > > I checked everything *again* to make sure;
-> > > 
-> > > > -	if (!se) {
-> > > > -		cfs_rq->h_load = cfs_rq_load_avg(cfs_rq);
-> > > > -		cfs_rq->last_h_load_update = now;
-> > > > -	}
-> > > > +	/*
-> > > > +	 * The above (forward) leaf_cfs_rq_list traversal will have done
-> > > > +	 * update_cfs_rq_load_avg() in a bottom-up fashion. Now iterate the
-> > > > +	 * list backwards, such that we're ensured to have visited every
-> > > > +	 * parent of the current group to update h_load in a top-down fashion.
-> > > > +	 */
-> > > > +	list_for_each_entry_reverse(cfs_rq, &rq->leaf_cfs_rq_list, leaf_cfs_rq_list)
-> > > > +		update_cfs_rq_h_load(cfs_rq, NULL, NULL);
-> > > 
-> > > 
-> > > >  static unsigned long task_h_load(struct task_struct *p)
-> > > >  {
-> > > >  	struct cfs_rq *cfs_rq = task_cfs_rq(p);
-> > > >  
-> > > > -	update_cfs_rq_h_load(cfs_rq);
-> > > > -	return div64_ul(p->se.avg.load_avg * cfs_rq->h_load,
-> > > > +	return div64_ul(p->se.avg.load_avg * READ_ONCE(cfs_rq->h_load),
-> > > >  			cfs_rq_load_avg(cfs_rq) + 1);
-> > > >  }
-> > > 
-> > > Is updating the root less often intentional? 
-> > > Or am I missing something and we update the root more than the old code?
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-> > You're referring to the removal of update_cfs_rq_h_load() here? That was
-> > the whole purpose of the patch. The callers of task_h_load() do not (in
-> > general) hold rq->lock, and thus update_cfs_rq_h_load() is unserialized
-> > and broken.
+vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the receive
+loop, including vsock_msg_wait_data(), which slept in wait_woken() without
+dropping the lock. When data arrived the transport's delivery context (the
+vsock-loopback worker, or the virtio/vhost rx path) called
+virtio_transport_recv_pkt() -> lock_sock() on the same socket and blocked,
+so neither side made progress and a blocking recv() hung; the hung-task
+watchdog reported the delivery worker in D state.
 
-> In the old code we were updating root when we go fully up and if it hadn't been
-> updated it already.
+Dropping the socket lock around the wait is necessary but not sufficient:
+vsock_msg_wait_data() also did not loop and checked too few conditions,
+which left three further problems in the same helper.
 
-> But now, that block is deleted. update_cfs_rq_h_load() is only called from this
-> other list_for_each_entry_reverse() block. 
+ - It did not loop. Once the lock is dropped, a wakeup that is not for new
+   data (for example a credit update via sk_write_space()) made the helper
+   return with nothing queued, so a blocking recv() returned -EAGAIN
+   prematurely instead of waiting for data.
 
-Ah.. Why I'm like this? (Maybe it's because of the brain-damage :>)
+ - It checked only sk->sk_shutdown & RCV_SHUTDOWN, not sk->sk_err or
+   vsk->peer_shutdown & SEND_SHUTDOWN. Once the peer shut down for send or
+   the socket errored (for example a reset), recv() did not notice and kept
+   waiting instead of returning 0 or the error.
 
-I meant that the only place that the root was getting updated were this list_for_each_entry_reverse()
-block.
+ - vsock_bpf_recvmsg() had no "if (!len) return 0;" guard, so a
+   zero-length recv() with data queued never satisfied the loop's
+   copied == 0 exit and spun holding lock_sock(), which wedges the delivery
+   worker and stalls all rx on the transport.
 
-Old code was giving maximum 1 jiffy obsolescence (But it was broken, as you say it)
-while the new one is less broken but doesn't gives any obsolescence clarity.
+Rewrite vsock_msg_wait_data() to loop: return the data when it is ready, 0
+on RCV_SHUTDOWN or peer SEND_SHUTDOWN, the negative socket error on sk_err,
+-EAGAIN on timeout and the signal error on a pending signal, releasing the
+socket lock around the wait and re-acquiring it before re-checking. Add the
+len == 0 guard to vsock_bpf_recvmsg(), and route MSG_ERRQUEUE to the native
+path before that guard so a zero-length error-queue read is not swallowed,
+as tcp_bpf does. The exit conditions follow vsock_connectible_wait_data();
+dropping the lock across the wait matches unix_bpf (u->iolock) and tcp_bpf
+(sk_wait_event()).
 
-Nevermind, I wanna talk from the code that should'a be easier. (BTW, my git tree is mess, everything is everywhere
-it's like a warzone. Hope I'm not the only one messy with these things...)
+Testing: built a fuzz kernel (KASAN + lockdep) on the net tree
+(v7.3-rc4) and ran reproducers over the loopback transport on a private
+VM, each before and after the fix. Before: a blocking recv() on a
+sockmap socket deadlocks the vsock delivery worker (hung-task); and with
+only the lock dropped, a spurious credit-update wakeup returns -EAGAIN,
+a peer SEND_SHUTDOWN returns -EAGAIN instead of 0, a zero-length recv()
+with queued data never returns and wedges the delivery worker (hung-
+task), and a len == 0 MSG_ERRQUEUE read returns 0 instead of reaching
+the error queue. After: recv() returns the data, ignores the spurious
+wakeup and returns the real byte, returns 0 on peer shutdown, returns 0
+for len == 0, and routes MSG_ERRQUEUE to the error-queue handler; no
+KASAN or lockdep report.
 
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+---
+Changes since v1 [1] (netdev review by the Sashiko bot):
+- v1 only released the socket lock around the wait. v2 additionally makes
+  vsock_msg_wait_data() loop (no premature -EAGAIN on a dataless wakeup),
+  checks sk_err and the peer SEND_SHUTDOWN as well as RCV_SHUTDOWN (correct
+  EOF/error on peer shutdown or reset), and adds the len == 0 guard to
+  vsock_bpf_recvmsg() plus an MSG_ERRQUEUE route ahead of it (no spin on a
+  zero-length recv; an error-queue read is not swallowed).
+- Garzarella's Acked-by on v1 is intentionally dropped: v2 is a materially
+  larger change and needs a fresh review.
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 50583fde20e1..aa9a54817dc6 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -5773,8 +5773,10 @@ static inline void __update_cfs_rq_h_load(struct cfs_rq *cfs_rq,
- 		if (!p_cfs_rq)
- 			p_cfs_rq = cfs_rq_of(se);
- 
--		load = p_cfs_rq->h_load;
--		load = div64_ul(load * se->avg.load_avg,
-+		if (p_cfs_rq == &p_cfs_rq->rq->cfs)
-+			load = se->avg.load_avg;
-+		else
-+			load = div64_ul(p_cfs_rq->h_load * se->avg.load_avg,
- 				p_cfs_rq->avg.load_avg + 1);
- 	}
- 
-@@ -11617,6 +11619,9 @@ static unsigned long task_h_load(struct task_struct *p)
- {
- 	struct cfs_rq *cfs_rq = task_cfs_rq(p);
- 
-+	if (cfs_rq == &cfs_rq->rq->cfs)
-+		return p->se.avg.load_avg;
-+
- 	return div64_ul(p->se.avg.load_avg * READ_ONCE(cfs_rq->h_load),
- 			cfs_rq_load_avg(cfs_rq) + 1);
+[1] https://lore.kernel.org/netdev/20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de/
+---
+ net/vmw_vsock/vsock_bpf.c | 59 ++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 45 insertions(+), 14 deletions(-)
+
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index 9049d2648646..127a20429aa6 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -34,24 +34,46 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+ 	return vsock_sk_has_data(sk, psock);
  }
+ 
+-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
++/* Returns 1 if data is ready, 0 on EOF/shutdown, or a negative error. */
++static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
+ {
+-	bool ret;
++	struct vsock_sock *vsk = vsock_sk(sk);
++	int ret;
+ 
+ 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+ 
+-	if (sk->sk_shutdown & RCV_SHUTDOWN)
+-		return true;
+-
+-	if (!timeo)
+-		return false;
+-
+ 	add_wait_queue(sk_sleep(sk), &wait);
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+-	ret = vsock_has_data(sk, psock);
+-	if (!ret) {
+-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+-		ret = vsock_has_data(sk, psock);
++	while (1) {
++		if (vsock_has_data(sk, psock)) {
++			ret = 1;
++			break;
++		}
++
++		if (sk->sk_err) {
++			ret = -sk->sk_err;
++			break;
++		}
++
++		if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
++		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
++			ret = 0;
++			break;
++		}
++
++		if (!timeo) {
++			ret = -EAGAIN;
++			break;
++		}
++
++		release_sock(sk);
++		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
++		lock_sock(sk);
++
++		if (signal_pending(current)) {
++			ret = sock_intr_errno(timeo);
++			break;
++		}
+ 	}
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	remove_wait_queue(sk_sleep(sk), &wait);
+@@ -80,6 +102,12 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	struct vsock_sock *vsk;
+ 	int copied;
+ 
++	if (unlikely(flags & MSG_ERRQUEUE))
++		return __vsock_recvmsg(sk, msg, len, flags);
++
++	if (!len)
++		return 0;
++
+ 	psock = sk_psock_get(sk);
+ 	if (unlikely(!psock))
+ 		return __vsock_recvmsg(sk, msg, len, flags);
+@@ -101,11 +129,14 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
+ 	while (copied == 0) {
+ 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
++		int data = vsock_msg_wait_data(sk, psock, timeo);
+ 
+-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+-			copied = -EAGAIN;
++		if (data < 0) {
++			copied = data;
+ 			break;
+ 		}
++		if (!data)
++			break;
+ 
+ 		if (sk_psock_queue_empty(psock)) {
+ 			release_sock(sk);
 
-Yeah, well I was thinking about something like this.
-Maybe I'm misunderstanding something tho :/,
-I done this in the middle of the night, untested.
-I should sleep. Ah..
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261001-kbh3-1-022-fix-v2-e3f14290641a
 
-> Also, there's a typo:
-> 
-> > + * Pelt uses apprixmate 'us' as ns/1024; and then uses time segments of 1024
-> > + * 'us'. As a result each segment is in fact '1<<20' ns.
-> 
-> 'apprixmate' :-).
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-> Some day I might learn to type :-)
 
-> My situation is worse than yours ;-) 
-
-Anyway,
-Kayra
