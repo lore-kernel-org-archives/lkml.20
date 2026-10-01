@@ -1,180 +1,77 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-24.mta0.migadu.com [91.218.175.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334D8471249
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885BD4F93A1
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790854175; cv=none; b=qKCrMfX1+uA1GhyZ2a2atXuAjJFJW6XsuDT0bLEtANH85YCMtOzcDyWqnZaHQF41/9yFoPZ+PEyAapU0LhAkevCNCXUQPJcZGKf/XyVR+nkRp5Bpw7BfDdnX6/bZEzA08HTsF5fEhe9c+mCTnzkvV623/deZSYmrou/xu/30GW0=
+	t=1790854206; cv=none; b=WK7Is/1Jk0JUjmokGQwicDcz+5EqSKvsVQQYBJb6CHxUyZoFJjzLJUbnamrBkT5XJ6mVPcADaQKckDhjv+2xqeebfl8zEIKH8VLH3LQPFh9WRKCkGbQT43zyfTrs1oripBsGP8eecKl3DGTiDHbQ3an0ZPKP+SadtzFJAEeiI4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790854175; c=relaxed/simple;
-	bh=8kqJ0FJTIhuhCS0GJfM+uqdC9jx9zPUDptaeKbT/R+s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SWnuwNu3SArdZYXz4JHR9wcuTEEyvtpdkH1S9/GIMnoym9GM+wvh3/X8pt/BiB2QsGB7jsp5aBqyC4o7RK2c2Rry/Cy8bLkQRky+OUbxwBApUFJzz2Mb/ZdBYP+JuX4wP/tj36OkUqO/sJjA1CZMU8gMYGxQixMCD/CPOC/i3RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OtKbZ+eg; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790854206; c=relaxed/simple;
+	bh=644WdXrcQKKFsq7AhDiX9d2BThhTqk+Juqvr2NrcL4o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pro65OXtTXqjxuHzZl6neMi0QJATPHW1aQUZJCnGjv5JSKYn0Ya6182a9fCrC03vs87f/7CQfnfeBLHGbY/MZpiIw3h1QiDq89lgq50OcHSrPm4/NZAcrZ/UaDeeROQyChx9exsbhVna5TaG6ASOB3le2FgyJYn3amIlevHr1oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=btSd0vQ6; arc=none smtp.client-ip=91.218.175.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OtKbZ+eg"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175i9u4041025;
-	Thu, 1 Oct 2026 11:29:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=2mqT5f
-	fLuTlAsQJJawrRUp+sTMvsiAITxlpxQQHyt38=; b=OtKbZ+egwgzL0pdl+U+tJd
-	SqMYCLQZ+65cjzZGcojGgWhH/y0e762CCg/uaNO/ZFXm7r3GaKI+nAbl4OjT2QlP
-	Ga6OqfAyIqVJ2bH+2ayMa8VdgdGr86oA8STPpID0wff/d3UqqePyhbXDENtFB+dk
-	RqYHzbyR/ebHRHwTLK/zqUGbw3//8VPFcoIVsVd6HG7guldDozDy4hSPD/u+DpKc
-	m8LqEb2+EUibK3qdFspKE3MUJWIlutMU1iJBWlGMsWncbqRUsOtXKgXQWyhv1MtE
-	TduMumsOjyrqoqXExA5KDnLJVYh2+UlQxzMBQ67CgKgqlYcokCIVoS/+FiNrjwJg
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fehpc4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 11:29:04 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 691BDKEY520693;
-	Thu, 1 Oct 2026 11:29:03 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpgg2m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 11:29:03 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691BSxl747120786
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 11:29:00 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DF74C20043;
-	Thu,  1 Oct 2026 11:28:59 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CBAD520040;
-	Thu,  1 Oct 2026 11:28:56 +0000 (GMT)
-Received: from [9.124.216.115] (unknown [9.124.216.115])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 11:28:56 +0000 (GMT)
-Message-ID: <3d342788-b99e-447e-a664-8385c2b55475@linux.ibm.com>
-Date: Thu, 1 Oct 2026 16:58:55 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="btSd0vQ6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=644WdXrcQKKFsq7AhDiX9d2BThhTqk+Juqvr2NrcL4o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790854196; v=1; x=1791458996;
+ b=btSd0vQ6ZNh3/DqnKBC0bLnkYskP5Spkzkfaq+oP6X5UHYSZS8mvJc5s4vSOXtOtQ5TIkyr+
+ pE07edSwfY7ayGWuJzzzfRCRXkcW5elcLc70AEfo+4ypMGcRsmXoaZGf5D88NMDRalXvDcNZZ5H
+ DawojIiQFkHNZtM+1RD0tiwE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7b2e7b37e7a3a569;
+	Thu, 01 Oct 2026 11:29:56 +0000
+X-Mizu-Trace-ID: 7b2e7b37e7a3a569
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Eric Dumazet <edumazet@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/3] tcp: fix a few divide-by-zero in congestion control modules
+Date: Thu,  1 Oct 2026 19:29:40 +0800
+Message-ID: <20261001112948.322463-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] KVM: PPC: Replay pending interrupts before entering
- the guest
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
-        harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
-        venkat88@linux.ibm.com
-References: <20260928110411.844582-1-sshegde@linux.ibm.com>
- <20260928110411.844582-3-sshegde@linux.ibm.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <20260928110411.844582-3-sshegde@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abe4400 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=lKvXAlz5IkXwsUspWBoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0NCBTYWx0ZWRfXw9/+6EqeT6Ij
- C2yJNE35URdOIM/0C3lZN43tVmB4ti9s9NsrOTo3gi4fBSZVi6179T5nzsSxvaVBdbq4ekEE6rD
- KtLlK/VNag+XtEBPMtSwINVycLCmK/g=
-X-Proofpoint-ORIG-GUID: jp92skmyR67JEnv7gFRpdh3c4Wyh4Ghr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0NCBTYWx0ZWRfXwuxv1aiVA2vE
- +kFfLyTiMC7dJefO6jefJnav4s49FK0mUU0lzYN/ZMIyrqFu4P9Gkqwh3QINRUtMzQH1gBKgf/x
- /0Gv9YCEmtV73+f4B3gZSUeaiu9QLLiMQzRPY3ZxWNV7WAyD6OZvxmLZcmsGb3IdBXk44O3RO+i
- pg+Vtud9KcisCvXjrtetonDnkRK5ghjo97XQXBVlqTc5+UD86NRs0EeMcaZvMME8RGanmQM64Q3
- 28NFMlhyEoyBp/FdmUXe2qq8m1FhTULP2S/LZlcu0IZ05ZYYuPIVQtNDbC3Y+Qzsl3nkFCZkKBo
- J+qLSp65KfRVERNy6MnfEpgTG5k/4VY+DGgz9Skky6uLDsxEeI8XWKdqT+iFJeeXL4epeMpj9CN
- 2JwVXY4oJPLPLv0PZY5yOALBV8MiD3v7B1lgIEpcYi7jJDexppxdeATY8bV5XCB+yYGKQhvAXtc
- GcctmKuAmpFgbERNnbw==
-X-Proofpoint-GUID: yl8-jb3vmJh9rDSn6oa1hOG0sWypVJIE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010044
+Content-Transfer-Encoding: 8bit
 
-Hi Shrikanth,
+Patch 1 and 2 were reported by VEGA <vega@nebusec.ai>.
 
-On 28/09/26 4:34 PM, Shrikanth Hegde wrote:
-> After applying preempt disable patch, i.e PATCH 1/2, Christian reported
-> a subsequent warning stopping his board to boot properly.
-> 
-> WARNING: at .kvmppc_fix_ee_before_entry+0x10/0x28, CPU#0: qemu-system-ppc/4667
-> CPU: 0 UID: 1000 PID: 4667 Comm: qemu-system-ppc Tainted: G        W           7.3.0-rc4-2-powerpc64-smp #1 PREEMPT
-> Tainted: [W]=WARN
-> Hardware name: varisys,CYRUS5040 e5500 0x80240012 CoreNet Generic
-> NIP [c00000000005dc3c] .kvmppc_fix_ee_before_entry+0x10/0x28
-> LR [c00000000005f298] .kvmppc_handle_exit+0x5b4/0x5e8
-> Call Trace:
-> [c000000086587780] [c00000000005ee10] .kvmppc_handle_exit+0x12c/0x5e8 (unreliable)
-> [c000000086587830] [c000000000062068] .kvmppc_resume_host+0xb8/0x10c
-> 
-> It triggers below warning...
-> 
-> static inline void kvmppc_fix_ee_before_entry(void)
-> {
->          trace_hardirqs_on();
-> 
->          /*
->           * To avoid races, the caller must have gone directly from having
->           * interrupts fully-enabled to hard-disabled.
->           */
->          WARN_ON(local_paca->irq_happened != PACA_IRQ_HARD_DIS);
-> 
-> This happens since kvmppc_prepare_to_enter does first local_irq_disable
-> followed by hard_irq_disable. This leaves a small window where interrupt
-> may occur and it could set the irq pending bit in PACA. When that
-> happens replay that interrupt before entering the guest.
-> 
-> Fixes: 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
-> Reported-by: Christian Zigotzky <chzigotzky@xenosoft.de>
-> Closes: https://lore.kernel.org/all/b8f82519-9ae5-c247-e020-e79c627e57df@xenosoft.de/
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> ---
->   arch/powerpc/kvm/powerpc.c | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
-> 
-> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
-> index 9194cf492d1c..847ff07c364b 100644
-> --- a/arch/powerpc/kvm/powerpc.c
-> +++ b/arch/powerpc/kvm/powerpc.c
-> @@ -147,6 +147,19 @@ int kvmppc_prepare_to_enter(struct kvm_vcpu *vcpu)
->   			continue;
->   		}
->   
-> +#ifdef CONFIG_PPC64
-> +		/*
-> +		 * Interrupt arrived between the soft and hard
-> +		 * disable. Replay it and retry guest entry.
-> +		 */
-> +		if (unlikely(local_paca->irq_happened != PACA_IRQ_HARD_DIS)) {
-> +			local_irq_enable();
-> +			local_irq_disable();
-> +			hard_irq_disable();
-> +			continue;
-> +		}
-> +#endif
-> +
->   		guest_enter_irqoff();
->   		return 1;
->   	}
+Patch 3 was found while reviewing the other TCP congestion control
+modules for the same kind of divide-by-zero on module parameters.
 
-It look good to me.
+v1 -> v2:
+- Patch 3: rework as suggested by Eric.
+- Patch 1 and 2: add Eric's Reviewed-by.
+v1: https://lore.kernel.org/netdev/20260930100937.206377-1-jiayuan.chen@linux.dev/
 
-Thanks,
-Narayana
+Jiayuan Chen (3):
+  tcp_bic: fix divide by zero on max_increment == 0
+  tcp_hybla: fix divide by zero on rtt0 == 0
+  tcp_cubic: fix divide by zero and endless loop on bad module params
+
+ net/ipv4/tcp_bic.c   | 14 ++++++++++++--
+ net/ipv4/tcp_cubic.c |  9 +++++++++
+ net/ipv4/tcp_hybla.c | 16 ++++++++++++++--
+ 3 files changed, 35 insertions(+), 4 deletions(-)
+
+-- 
+2.43.0
 
