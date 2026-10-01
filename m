@@ -1,95 +1,96 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C15388E4B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C12345ED8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829245; cv=pass; b=AY1Nzfxl+wZSrFg3cbq1UM7ck/ta5IUIw8t/EeQMc7BJwkFyKyrzq904FstmhSswyC6RYE0xo8LDv/5qDiQRFAWZPht6rk1P4iWdJjGL91GTIDmsMMqTRmLB8/jZgONKZ+JK4Nronq6jBplmKGLCF0snXZutMTTdvp82xGdh8tk=
+	t=1790829512; cv=pass; b=QX3iFnWTdSVU7BjAkmR+p4tHAJo8DOaoiaoL/4OKCIFBUgjoFaM6oaV24IBw+pgd5Dx6aGUOcaW7YV0/LoMZfjDNu23lmsMbTpmEZfWLNO6GDjFqv0ANciURvlnDhmZl4Ug/aKOpk2aqKx1nracKCnFsmqQsVR2EKGb1UhkItJ0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829245; c=relaxed/simple;
-	bh=SsD7P6PfA1YYsVqoiE5QKifgHw2H/lNYtQ2xlqkrqDo=;
+	s=arc-20240116; t=1790829512; c=relaxed/simple;
+	bh=RzZXfiD796BISLE4d54SM7rERI/SYqzCPtyXD48JKMw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h+kpb7+eIUIuWwfMgf4RQIW1xdmZDcD8pUHK6x00dYvktwDoOxsTzQYBGpp0M4u6DrTL34a1tU95Dpacx6raPjVr/U5ehHw1/YNEXNkZ4X4xb54j845bZRIbRULMSW4oOzEAXKpPB7JS9oFN1P44mt5GFg4aM7oqTqvJ2TRdepw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MSaer8p/; arc=pass smtp.client-ip=74.125.229.140
+	 To:Cc:Content-Type; b=rtGoBPemupmoTIElv+XgnOMF0vGn/HAZu11olShiGhEcaM+AhCcPWTiSIwbfRTizIAJyGg1g2ANYr6cfgxWNPyHB6dX9R0f+KRaDe7E2B+V//RTlYHCP6LReSsBJOEFqD7NeoLEeT29ruBlUshrKfmwrQTpE5UCzPr7E7FzA8rU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oxm4Q/aH; arc=pass smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MSaer8p/"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d07so5348227c88.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:34:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790829242; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oxm4Q/aH"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-341d0522b4dso9456518eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:38:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790829510; cv=none;
         d=google.com; s=arc-20260327;
-        b=fHY2FWHc2h0gf7QAUv1IdFDv8yZMcfN+a7bD45NxrVYAi6j2yqPsmukEYBvUDspK3L
-         OT1fcPPVdox2t4IHfzZ1I7vUuASlrrOIQClCiSJ9y1oqmFUyP3r0kuZawD1qIAe67bYB
-         H5epjDsjUw3uzi/7As6SxJE0GOoHGIV5JOXX+GrV9p71w88HF+qm5ZoG09aFxZYkavtd
-         lhZrK5EmLQTq42lR2q/5rTeiWttU6Cb4plWcafYxDtFxtuF24wZw158lUdxBGKEwjh16
-         2OIcwMOVQvzx5zwi0wpVLBhdxMd6vpbjZXpSRo+vr8YXDF5W9I0N1t4j0ITjiH7k/bs0
-         SsAg==
+        b=RHmuKadcMfI7wNclEOpiOBVqkIS3BjiAmTAnfuDZCTokoqJqr+LQQvsVkLvkhSuUk/
+         3/s/qxXQBxdMksfwdv9soG+pboAItP4ufvD419KVYZOXQaXf/U94i74Cfqv4HtgKmhU3
+         a41el0Dpd9N3YlScxN0Kh7D+4TmwMsB0HMEzc3/qJkHFo9QlOVMiTQhvNZ/sy22EEBbw
+         xwe+YsCgZW7dXBdgwOYL4o5/kTkAxOQcsRYVjzT5YkA0GAgAsvEh9yX/mnUhJS7WDHsZ
+         h/+FDm+NcNVbgjO8cFDhANYX8FLEhHBjI3v6786w5ce9vYLiATUnxGdVIXKpT3qTIYU6
+         ma+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=SsD7P6PfA1YYsVqoiE5QKifgHw2H/lNYtQ2xlqkrqDo=;
-        fh=U3KUgUyQBZzc+e2sqkBH2sFGVIqYPRTJzNKyrYJ+Vhc=;
-        b=CvC019W0w+MWOwWrskIi1pLg30Mn66es288dehPylJL8e4O3xCY7BcqoFUUlAbSzE+
-         bmquWrDfKSeFniejJv0eFYEsqJH0HW0piH1Mcp2ysSI8m1KrG4mgBPUkKmDWbQdcNfkz
-         U7ywlnA7dc/SvDF0EH7TatbJrwCyb5JeTENbSrLBKOPOQQAIpOVQFOJ/I4VHCt223akK
-         MDcicSIpwFjcuDe7gLE4I6UBEadvfQOPJ1px4QtBaCj4u6OOZMT0Q6R8Z+iNY6v9U7pm
-         aYUXL5F//ST4sYLy214uJkuzrP/OdIEFqtRkUo6wg+VhybOdtER1NJDpA6wb6z5H7/LX
-         bvXA==;
+        bh=RzZXfiD796BISLE4d54SM7rERI/SYqzCPtyXD48JKMw=;
+        fh=sV0ZK306wTJEYO0hGVLt7oOwh0eQqI/0llMG5ZgOh5E=;
+        b=jVfopS8B6+J+1LHmU+Wu10qIJ3FlXvazI50WWbmPWFY5wxQEi3vfWvGXkhEg3n5aDo
+         3c29L5Tum/AAOIAHSnznpLvkRanZzlst9oFukc5CK0t33ato8s2uL4iiYn/YvL0r2JDI
+         i/a0WqIXJXq+rSPABoMmc3Sp4gP2KroOQ5mvhzAjk0+hG9c2iopJpyvga8g+nHHeMsOl
+         AiuBaIyI7J0mchfUGao+I9GQtU0I4mw3JqS5E7po1Wcx4dUKJdfsNkAfYkqv533/n9J8
+         0aBWi0GUX8nhBajlNzz8OPcGCNEwVxrP7LEEmXHzPNPeqTvTS9QFGX5vAU+te6mkH40v
+         3edA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790829242; x=1791434042; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790829510; x=1791434310; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SsD7P6PfA1YYsVqoiE5QKifgHw2H/lNYtQ2xlqkrqDo=;
-        b=MSaer8p/sI42pnatnOD0xT1uwap1OtQuj/9Ums7pRw4GZxjEZYLnaAXrW0Abdisu60
-         0KY7c19Q6nZChgecO0+1VxLfYLFlZFZn1J/jBV3QJO6mBVllp0FhRSakBri4HZtpNgcq
-         JlyUvCviHjZD41Ycy7anEV13Hqg4igje66r0jgIc3m7Tw8MT4sIIiONabiyknRzcY5Xh
-         X7zzmfbJjA0UQQsI+PE3xgCT3dU39WvQvDIdzQ+0hDxO1zoH8CoB2aPFlWS/bx+aOyXF
-         YODa6bxF42useHea3Edf7WCYvtZZsJ3x9Nwkm5N/NyQIX6orN2ygv/uSfa+RRTet90kt
-         YeFA==
+        bh=RzZXfiD796BISLE4d54SM7rERI/SYqzCPtyXD48JKMw=;
+        b=oxm4Q/aHHtjIckSdR1pLOKeqyLX0OMGyF2aYHj1zgxq1jAcax71VpqLs+cMVqb+zlB
+         0xh9jybedlrK5jDsC33dlXfJjsnISRuGwi6Z0Se8ls49+Xj/m0JgcDr964LDMpPTXBQX
+         /yDcUbmn9obEkfzCmSF1bFIzzr8/XJxZNiEo/9AA0lsRLMG6UFZXeMOdIhG6GwUOJa7f
+         +jcIyYQjzVIvWQOlAKme0sopXTi0zPJ+cyojivzQfKdilJAbLHBkVu4yZIKjhvb7nC0i
+         5rBiV5hjbTIHFlCyF/wBe4CoGL7F6ATXg/utTBLWr1S/ph2PGaxQL/HHA9UYse+bwyeC
+         QevA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790829242; x=1791434042;
+        d=1e100.net; s=20260707; t=1790829510; x=1791434310;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SsD7P6PfA1YYsVqoiE5QKifgHw2H/lNYtQ2xlqkrqDo=;
-        b=pJy0rFxhWZekap1IOijyi8wqiPqNPBA/MZDZ0m/sHsE1T+soK28RhU9ZqZZB0YGrhv
-         ZPTOpx5LS/qG8UHWus5MLnuoQi+/00XXxJKza4XujpGLZfp99hrS2ADDqn36WjKoH9MI
-         adewaLuFI9DbVdQZcygy9NxmcqWN/0JPOsdv5F7goJ3/EhN+PgfVm2I4sp1sfXKDwMK4
-         Zgz5O5nwFxjO7vhzxGUv2mjLSHLaP9gyhJp0Jogj8xlJkoFcNBC16CK89xcgDC3mhU6d
-         3vRDhHutOwocR0+1x5lvTBJcc4tKEoUAc5Y+f4ZX2ba90my+nPBwplWTU80WZHNBeAca
-         nOiQ==
-X-Forwarded-Encrypted: i=1; AKwUvByErHmlOQl64Ki7+UrJzuWTkUipfFeOjpzYpWLiUb5tIWMJ38pMy3e18iWkiz4JuxqKwDw0BAlhWUt/srM=@vger.kernel.org
-X-Gm-Message-State: AFuF++moRxj2h3gCdUzEelEM/lGcqKsFlsAzK0+HR+/thkzzFKZxKig7
-	68jcoTxlHE1R+yDI1cLV/UAbK1ImV4LayLFRm/gQtI/dbJq62pE3lL8ahjB9L4523FrrKg5MF9l
-	gUB9lhwG4YPLSetRXCcC1DOMxmmKqhn/KaDp7af25
-X-Gm-Gg: AYBFou1TAQl4k14gT/nZPkje2bIULXiqKsuAakUdXMx6UmKQSsWp8s/xHQktQ+mN2N0
-	VXGBFdBgOs3lIIWEU+ufZnwJRCfVFBlSo1GYeRaLMWJbfJuG0G9InfvOtHgK4AJGR3iGekfRS5Q
-	CrJLUGmXILRLuworkFWGfi3esHpz+PwNCkg6R9q+pmnm574keEULJ6YHsDWhpqIQxE9mMhsEVPh
-	QzIS9Besp/L2la1aDwwR/AkyVmbe1iVRpOSSj+ofWooTNUITXZ+mZq6saIGjKRUoPKhJDKPCGzV
-	f/HCFMSoZO8qHChTyZqJnRSy7jNbCU5T8Ok+9ee5Cd9KyqTus/UFyeaMRS9n2+2vok1G/MZboeJ
-	peohDgrnr8XgWoiy2IO7MbQHfj3bilnA/vQbSgWT7TotjevkWMPd3v0/kP018S8H+ANw=
-X-Received: by 2002:a05:701b:4187:10b0:143:4d12:396d with SMTP id
- a92af1059eb24-14d32fb9a44mr3389493c88.26.1790829241124; Wed, 30 Sep 2026
- 21:34:01 -0700 (PDT)
+        bh=RzZXfiD796BISLE4d54SM7rERI/SYqzCPtyXD48JKMw=;
+        b=byVyi1+7iq9AQD/meaAoWDwrQPiHajZ4UNIz+E3Yf1IHR4tAAvAqJFI08aQG4/LkL8
+         evLFa+1TfKbT90xUKKGij81pOnD2AsP//vwZOFUVNab+r8sr/z1qaFG5CEUEkiRNpqWu
+         nkTkx+J1q3uFYT12U3RTRkm7sGCk0fdK7WGQJN14R/RfXGTXzy/Uf9Vsp9dsLf8nImAC
+         DimBQWqmA6uQu+OQ4mDfTvQunZfQhmXUMwAa7KxE6/0w+b8Un2+nyFq7VdYehnBdK9e1
+         8FAtLoPFXdPSaNVlbTsy2fbBDhDWhufyrq9Bdd6CAoU6BkwKKH1ycOx1nSRIwFTddwjC
+         5GOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhIw9IxAnOAIePd6kPWO4cemrex0d6dRmOsk0Vl3dUrhp0xlsfICqxL6dcy2Qrzmzw0jFW1MXsQV9M6yk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfvUfzEEbmpqAjrU00Crg6IGbV3tRrzRh1dsB7zvnSQKQRI8Lg
+	+yuI5es41CTRImuld3YgBVZyx5byLy5FzsgkjheX68rhbH3vWEkFBgkmy7DHFFx+QJT2UOrg9Xw
+	tnIpL7dmTy/a0mr6O+rZHnEqIq+SjJwnqkz90Hhb2
+X-Gm-Gg: AYBFou0RFMYKpYFTCAIdLbLUJByDAqJTuaUaqpdmephqT95u8cIUAkx7HdIuqu8hGb8
+	IouPqUwEFe+a31wviwe4zeRqZ/Cuvuyw5qDZAOD36O75nw6kyv9HUBbRKz/AcdhtjzVK/nc2zbg
+	S5dw7uYDuz6Fn8yX5PUPSUMzvYENHY0CR3UiXcfm8scdT+JmJdNt7AVeya9wlaGedrkgNOeJjh4
+	NxMqxMgZRYZzSk+HmmZwknFKcsBq7hPTjnrsWRm1z3fufwIFOA/c7zMiTWeo6G0Ir0PMBqwlXlF
+	kShV67rtUQ28cfgmidkEtUTbGrKXBsx6Htfd30vAensaeyYRv0eq4Qw8WPjlBIJBpmJmltIdCT9
+	atQdkkf3oaRtiGfrktanCQs5uJ/bZAAsBnmbId8WPSxRDb83YE417TuJOGwNDCkXhkmk=
+X-Received: by 2002:a05:701b:42c1:20b0:143:2984:6517 with SMTP id
+ a92af1059eb24-14d33399ab2mr3673486c88.38.1790829509400; Wed, 30 Sep 2026
+ 21:38:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com> <20260928-work-unix-passpidfd-v3-6-532018a91b21@amutable.com>
-In-Reply-To: <20260928-work-unix-passpidfd-v3-6-532018a91b21@amutable.com>
+References: <20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com> <20260928-work-unix-passpidfd-v3-7-532018a91b21@amutable.com>
+In-Reply-To: <20260928-work-unix-passpidfd-v3-7-532018a91b21@amutable.com>
 From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Wed, 30 Sep 2026 21:33:49 -0700
-X-Gm-Features: AclHuK80-WytqOlhQ_cTt40E22rT2LSFx63QxmMEJnVWBKUyH4pl6_lj5c5cTLI
-Message-ID: <CAAVpQUAgB+awkOOr6BdVCMVfNJ4tS0WrK-vT1n4pecz44SxC7w@mail.gmail.com>
-Subject: Re: [PATCH v3 06/10] af_unix: record the pid of the connecting thread
+Date: Wed, 30 Sep 2026 21:38:17 -0700
+X-Gm-Features: AclHuK9QRXzI8_0z1Op0JTA9GMdarUQ2An_aAKGGaGQjZXyZBTeygagsSXiYtsM
+Message-ID: <CAAVpQUCf9+shzzU_sar=GG=E=FGvGpvQaY3ErTgQatmB=kSZsg@mail.gmail.com>
+Subject: Re: [PATCH v3 07/10] net: add SO_PEERPIDFD_THREAD to get a
+ thread-specific pidfd
 To: Andrew Halaney <andrew@amutable.com>
 Cc: Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
 	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -106,13 +107,10 @@ On Mon, Sep 28, 2026 at 2:27=E2=80=AFAM Andrew Halaney <andrew@amutable.com=
 >
 > From: Christian Brauner <brauner@kernel.org>
 >
-> Currently only the struct pid of the thread-group leader is recorded.
-> The identity of the actual thread that connected to a given socket
-> cannot be retrieved.
->
-> Add the plumbing to make it possible to retrieve a pidfd for the
-> connecting thread. Nothing uses the thread-specific struct pid yet. No
-> functional changes.
+> SO_PEERPIDFD hands out a pidfd for the thread-group that called
+> connect() or socketpair(). Enable workloads such as the coredump server
+> or a broker to get a pidfd of the specific thread that connected to the
+> socket.
 >
 > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 > Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
