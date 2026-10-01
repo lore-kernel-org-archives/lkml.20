@@ -1,87 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710A8318EC5;
-	Thu,  1 Oct 2026 13:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D8D478E20
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861040; cv=none; b=JBpmqXf+KCS1i3a1bccwpthMph3M+TYDWIi3vcy4IQGla/ps5Bhw9BJcZMwJ2VEWz/M5HKOMJrjwoiN+ciQJKFYe7YkoyaB5dYO2V54IPaK+6jlwHtBIDSajrioCtJg884FY6algOrknSWiwn6nW6+HU/xRLV8Pf3uzGLQKK3R0=
+	t=1790861106; cv=none; b=D4WUZ9sI250c2h1DNTjYycc6KtVeQy31YiLE9eYFOWob0kxa21CyReY7ml9gIevSPdJm3vR70vU1QjuZVXzVTxJDUSv5RC/ziveke6qlZ99ttaXPMV0hkB8T8aAk7t78qYJpHFYcKpXvW29aXtOrra8+Qy//apx29V/yLONcZIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861040; c=relaxed/simple;
-	bh=wDElpy/TGiRJSn/ziLR4CYi/go52QvZc+rz0PEQ7FBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cuL+A0+XD3JTbZpdTDAJd8B6oAGP+JRx7jBr7P+VNg9AWlNmsmBio/nJgSs0MfGr15mt6sgN/O7KdVBGIxf+PzzMm/Qkw5a6ulNm15w5kOYi3on9+hFov/yotpt8b/8KARWHMvXri8eH8sGlFcfBYFWv9hNvOGBF2RIQBOVEIl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXYfjsEt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXYfjsEt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA95E1F000FF;
-	Thu,  1 Oct 2026 13:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790861039;
-	bh=DXB7tQcfmFfnugtQtf2FqJSIg4yqfN74RxF+rT3OIJ4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KXYfjsEtmBrjOHOpmGcZsAOnEve26Cv9qvbg/YdeO4N92M7jmsbdZHAQsV+evXOLC
-	 9/d9FILtp4cVeZM2Mgv+dKbzN5EsCPootQDurWLu3KDuC2VI50uhLA0bNX/S3INOI7
-	 Hu/kUs7lyr9lgJeHJ8+NfkGx9nD/pjgrwzZclVw4J9BwfBNSe+KFf7RI/PEWJikDak
-	 /S0yPrr7v6Tv5p0DBpjeOQ8luEk04CDL8AvlFy2mQEqDgamJh1dl6HR9Pab08V4w20
-	 0CQLqE9ddLyPuDbW8lugUHOetzvCo2TIgA8hhbfT7AUNqB0GO+Kesc0MJp9lNvIOk8
-	 kTbziUHvX2BrQ==
-Date: Thu, 1 Oct 2026 13:23:49 +0000
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>, Frederic Weisbecker
- <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Josef Bacik
- <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, rcu@vger.kernel.org
-Subject: Re: [PATCH] fprobe: Use guard(rcu_sched_notrace) and check
- rcu_is_watching()
-Message-ID: <20261001132349.472186a7@mhiramat99.roam.internal>
-In-Reply-To: <20260930160325.3f2621ea@fedora>
-References: <179064115227.394389.16910234241400391996.stgit@devnote2>
-	<20260930160325.3f2621ea@fedora>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1790861106; c=relaxed/simple;
+	bh=Hjq7y5xwF/o3OITGh831QTeK4BuPW2gVe2ffDx8V0XY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=DvErVBRNZgK5hRdBliSyhvNi+y6rsDaHrfDl7vRlEKLaZAwO5JTmeS2voFl7ZcwuF5OV7pEuRbPc9sUD29ayzbj/InStoFDi4JH2pm0fPZV9Y0FnVT1XcoTtHzEQZ27GgQvngWeryBpRwNms87wJzptJjrRTZJIyFc4aet/BcnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b26d8d2498so10054972b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:25:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790861102; x=1791465902;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zGC8eoo7sqBg/OF81st5hi1IyHpdEbJJnULEgfNzl9o=;
+        b=C2s1ct2tSmn3EM5yQ0DDm+hlDn6ycBQMmhx9MCiYdOu22Eaulqef6zUfNl2jEmvf+C
+         jSIOCFWIF/b0x63r5vSXSu67+OmwMnlGSDX1+Zojr/xufir6Jlep7T4pU7ws6liWPQPp
+         ZymmGMBV51wwcFmUEerCRMk6n/D+kBLXV2acvkw1u+/zmGTFXSi46m4NfV/rPh9QLMHj
+         UamZ9PXtRD6x6KfVT1Ehx00TU5dCMwhYlP/6wzxGxgWtnslDkReWn91w++sH0BoMZ5L/
+         40NgWeLmnCkLPmVqdW2NJC4Hv9kSadEdYjDqg0+cy8omNmTnBdZdoKx8+P4pDEGDSi73
+         jJaA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2oEXm96oQlIW/lnyfEQ86iZi3rwiKqk2EakrV+aP4kajdNlgZ3HaZPCbiSyCX2EXvJ2hjzDDEls0Bets=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA/sE70IEOnAHdllkL6sZGhu6vrOM5XSUnVxMRa1Xze5LoiKyB
+	znuNF/l2T5duQNEInFgekKGs5qvasDOrXMklNTtu+GJCU/uks+GcD+QmOsoflIFdkvqRWjwmBS/
+	mx/1r+sz/KBgUPdBDoRykk1qoB5Aj59LMPdbak6/qlJ44LAOxpAsrUIi2TDM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:4fd2:b0:4e8:bce4:993d with SMTP id
+ 5614622812f47-4f1b724c7ffmr5141948b6e.11.1790861102334; Thu, 01 Oct 2026
+ 06:25:02 -0700 (PDT)
+Date: Thu, 01 Oct 2026 06:25:02 -0700
+In-Reply-To: <CAJnrk1Ze8s8EGJqy62_mLbgvzW5fVVWMdeq3zSH0mWu_HRfpcQ@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abe5f2e.f32479dd.202a09.0003.GAE@google.com>
+Subject: Re: [syzbot] [fuse?] WARNING in fuse_iomap_writeback_range
+From: syzbot <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com>
+To: fuse-devel@lists.linux.dev, joannelkoong@gmail.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	miklos@szeredi.hu, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 30 Sep 2026 16:03:25 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+Hello,
 
-> On Tue, 29 Sep 2026 09:19:12 +0900
-> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-> 
-> > @@ -329,16 +333,14 @@ static void fprobe_ftrace_entry(unsigned long
-> > ip, unsigned long parent_ip, struct fprobe *fp;
-> >  	int bit;
-> >  
-> > +	if (!rcu_is_watching())
-> > +		return;
-> > +  
-> 
-> I'm thinking these should really be:
-> 
-> 	if (WARN_ON_ONCE(!rcu_is_watching()))
-> 		return;
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Hmm, is this for warning users to notice it is out of supported path?
+Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
 
-If CONFIG_ARCH_WANTS_NO_INSTR=n, we will not prohibit user to set ftrace
-avoiding the function where the RCU is not watching. So maybe it is hit
-by user's operation.
+Tested on:
 
-Thank you,
+commit:         fd179f8a Merge tag 'ata-7.3-rc5' of git://git.kernel.o..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1036c035580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1483a6c9580000
 
-> 
-> -- Steve
-> 
-
-
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Note: testing is done by a robot and is best-effort only.
