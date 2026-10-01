@@ -1,161 +1,110 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74276488757
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA33C4908AC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790887482; cv=none; b=bOR0nRdfaMfMbGjowz0gJLQ8d0PsKEClPxlHIONvHyDrGdHcfy5aAfwY+KeTZ7QU3P1VYRy357H66hr44oi3JpZPJxpwhb4GwvpSbGY2I0sja19qu1YcZptmDC4ZEgkeoaJhCMDnltEZ8/Qd1HAqYCG+7ILQLYG9KCHUT7ZbcAQ=
+	t=1790887542; cv=none; b=k6p1jKtTL5bb/kHgFVLR1RvsehT+UrdC7B2QE95bZAJvjSc0y7FnxIop2ZdiYRHmsFXB8gz9w4meHeVZeK0XeIHwmA7I9OO07bVzQsUBtMh3wU9xZmYIGpPXYQctPRYt4ATJh1liDYLDEhaaBjpX0p24WfGk+LTd0Qz3ggJZHjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790887482; c=relaxed/simple;
-	bh=KJn0QhtEtLoJch6pEICL6WI3sI1z1uRT4P4EyjWUbLc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=mgvGuVF0uaTi9xMeFjeTzYRTTf+D4r8vCl8zyu8QCsYEAZAfbU60WpPLCIf6tU8N6bc8eMNfQjRJFhnDw55kY3kiaEaW4P+dcP1dmuoEmWm7Ma6CCmhIrOzA0FwqEnDQf3BGsxkk4O4P7FpGJTd8VJHjegM4GMTlBuMDCrI4/EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+	s=arc-20240116; t=1790887542; c=relaxed/simple;
+	bh=k+dw8/R2WqLZNu95k8jgGVbQ9TWiybediAKgdWrHS3Y=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=S613wMbkX8oaMlyDI9eaWaVf+sMwu8r8XSe5i+CQWt/uUFNKiiG0LNY8yLnkasQ+vT2ilnAZ80kFPaJIDvWascNR2iu2qOKZQeY7TNfNaUL+nRo6axzjhEoojppcM0Z6tlcwywoq2+uubMssLEDvF1ytdbGl4KZnJNG+I3L0ho0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-805fa97ca69so11566758a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:44:40 -0700 (PDT)
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-82169fb66c3so1615572a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:45:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790887479; x=1791492279;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+        d=1e100.net; s=20260707; t=1790887540; x=1791492340;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Mz37xzZPmzC/x5l9vHJH36dpPP1odnZmnV3cNoLfw7k=;
-        b=DD3LkTzb3peaLUOcMv5hQbb0t4eWnT/PmwiNOnKBDrEFCRVmp5cYC1lfrAYKye8+zX
-         9PaBz67ZfUZzSsA/6HXSV4UwNTNQ7XGKrQ/VjWDmOeuYyPBL+xY2aKvyUhRwUZuUnX25
-         xwgjgxEsQ2HwZEi0TPpTTpxHpFknMmYwWd7vKUu9dUvRZWWcJU4MyYgYiXWceoIaNxwc
-         ux+/AXTMDiA/73lrv2KTnIufgiC4osTkjMUfiJmRrSijSWKevwBt0koulHH2QwzmG2iT
-         ugw+svES6VF5/lEjgygBhqmnjE1NKB1NS0hBszlGta79N6TgwA1dhp1lWYd9bZ7eWAAp
-         H5PA==
-X-Forwarded-Encrypted: i=1; AKwUvBz6NORG4EwgYWi+nxFHu0byDo9k8xXboLdTp5jKqaPhx8iemoTTp9hgKcVkvEZQoPTPi+ClRB28I25cHSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM0aIdVz4VA7X6KcozrLnmCoLzDQucgQMUo4gIGWpKMvj74CYi
-	HeWf9IGM99E7zKqw4DVVl/Q4CQThmWYciMbWgKxOd0zCdlvndfLVzS8qYoNumf96Ur1fmlkxFDV
-	aMnesIL10+T+2IXOsE2jBRM5ioyqNVEddnfTe6fo7rh+uHm+3mLAd2ktPIJM=
+        bh=+MH95l8i4XH/ZmIyTT0aXklaGidQuE9OJxWMHQcx8CI=;
+        b=flB/PnCf5xLdvc9xl+QYW0rlmeBgk7LhEgSTGLJYn7coFn86aHlxJLT+2c4n5b/dkt
+         1MdZrZxMZOGcdZ4PLsH/C7fW5gyfCGfWL3iUXFnsf7I41GNz0miB/yuAlTU05LtaAoIx
+         a6ExSjdNrxyk3KCiOydibZe1Y4PiH1ODMmcOFLNST6kT+hBBi5Y8IhTUQmAf9zrBUed0
+         ZZA/YeWddQf9mwutJj5bBwtq/LkIjmR3SPJA1TsGOirkS277lYK/sXWseh//8tak6yAU
+         +7vM2F1Ups362uYORyWpp7YUVpGfIUCxDQ/OBKksEQyjLgMM6CoWmLQNAfT3EMhw6Dgk
+         1G9Q==
+X-Gm-Message-State: AFuF++l6fogHBk5ChzxNrTUvqLhQ38Sn4X17lWDMsRpycXJR6gNvbCxj
+	d2bsvdCE4wQPgqKfhdFM0F8Z/LGvtJwoT6t+ioF9cGdvvMENyS0AzZuBpsb/Y26D68Z5a6AzPHj
+	devVn5pQlz34rWrpv3TzyLNQYFfaRJlbHiGC2cRBCqwC7cfoIjjjn9cQtUwc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bc6:b0:4d6:90f4:48b1 with SMTP id
- 5614622812f47-4f52b3b8911mr376388b6e.51.1790887479547; Thu, 01 Oct 2026
- 13:44:39 -0700 (PDT)
-Date: Thu, 01 Oct 2026 13:44:39 -0700
-In-Reply-To: <20260930152229.1453929-1-hengyul@cs.unc.edu>
+X-Received: by 2002:a05:6808:3c48:b0:4e5:c2b4:33a3 with SMTP id
+ 5614622812f47-4f52b0a1765mr274445b6e.45.1790887539934; Thu, 01 Oct 2026
+ 13:45:39 -0700 (PDT)
+Date: Thu, 01 Oct 2026 13:45:39 -0700
+In-Reply-To: <6abebdfe.7503fbd6.2d3f6.0009.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abec637.7503fbd6.2d3f6.000c.GAE@google.com>
-Subject: [syzbot ci] Re: ipv6: route: fix adding routes via the loopback device
-From: syzbot ci <syzbot+cidbf3efe2a5ca243b@syzkaller.appspotmail.com>
-To: davem@davemloft.net, dsahern@kernel.org, edumazet@kernel.org, 
-	hengyul@cs.unc.edu, horms@kernel.org, idosch@nvidia.com, 
-	jiayuan.chen@linux.dev, jiayuan.chen@shopee.com, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	netdev@vger.kernel.org, pabeni@redhat.com, shuah@kernel.org, 
-	stable@vger.kernel.org
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Message-ID: <6abec673.7503fbd6.2d3f6.000e.GAE@google.com>
+Subject: Forwarded: [PATCH] ecryptfs: validate auth tok payload and sKEK size
+From: syzbot <syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-syzbot ci has tested the following series
-
-[v1] ipv6: route: fix adding routes via the loopback device
-https://lore.kernel.org/all/20260930152229.1453929-1-hengyul@cs.unc.edu
-* [PATCH net 1/2] ipv6: route: do not validate nexthop of routes promoted to reject routes
-* [PATCH net 2/2] selftests: net: fib_tests: add tests for IPv6 routes via loopback device
-
-and found the following issue:
-WARNING in nsim_fib_event_nb
-
-Full report is available here:
-https://ci.syzbot.org/series/7c566bff-eca1-4b49-90ae-6537c6011730
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
 ***
 
-WARNING in nsim_fib_event_nb
+Subject: [PATCH] ecryptfs: validate auth tok payload and sKEK size
+Author: adrianox@gmail.com
 
-tree:      net
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
-base:      e23a64eb244356ee47c0620f0722d51bd88db522
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/ef50b46f-5dab-4a9c-943a-321047ec0627/config
-syz repro: https://ci.syzbot.org/findings/96331068-e137-4de8-85a3-65ac3caafea0/syz_repro
+#syz test: upstream master
+ fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
+ fs/ecryptfs/keystore.c        | 7 +++++++
+ 2 files changed, 13 insertions(+)
 
-------------[ cut here ]------------
-i != fen6_info->nsiblings
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib6_event_init drivers/net/netdevsim/fib.c:831 [inline], CPU#1: syz.2.19/5834
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib6_prepare_event drivers/net/netdevsim/fib.c:947 [inline], CPU#1: syz.2.19/5834
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib_event_schedule_work drivers/net/netdevsim/fib.c:1003 [inline], CPU#1: syz.2.19/5834
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib_event_nb+0x1029/0x11d0 drivers/net/netdevsim/fib.c:1043, CPU#1: syz.2.19/5834
-Modules linked in:
-CPU: 1 UID: 0 PID: 5834 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:nsim_fib6_event_init drivers/net/netdevsim/fib.c:831 [inline]
-RIP: 0010:nsim_fib6_prepare_event drivers/net/netdevsim/fib.c:947 [inline]
-RIP: 0010:nsim_fib_event_schedule_work drivers/net/netdevsim/fib.c:1003 [inline]
-RIP: 0010:nsim_fib_event_nb+0x1029/0x11d0 drivers/net/netdevsim/fib.c:1043
-Code: eb 0d 4d 89 fd e8 97 75 6e fa be 01 00 00 00 48 89 df e8 aa db 85 fd 4d 89 ef 4c 8b 6c 24 20 e9 4a f3 ff ff e8 78 75 6e fa 90 <0f> 0b 90 e9 db fa ff ff 89 e9 80 e1 07 80 c1 03 38 c1 0f 8c df f0
-RSP: 0018:ffffc9000388f030 EFLAGS: 00010293
-RAX: ffffffff87596688 RBX: 0000000000000001 RCX: ffff88816f738000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: ffffc9000388f1c0 R08: ffff88816ecf302f R09: 1ffff1102dd9e605
-R10: dffffc0000000000 R11: ffffed102dd9e606 R12: dffffc0000000000
-R13: 0000000000000001 R14: 0000000000000000 R15: ffff8881be596000
-FS:  00007f94438b96c0(0000) GS:ffff8882a8cca000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f94429eb840 CR3: 000000016e632000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
- atomic_notifier_call_chain+0xda/0x180 kernel/notifier.c:223
- call_fib_notifiers+0x31/0x60 net/core/fib_notifier.c:36
- call_fib6_multipath_entry_notifiers+0xf5/0x160 net/ipv6/ip6_fib.c:428
- ip6_route_multipath_add net/ipv6/route.c:5591 [inline]
- inet6_rtm_newroute+0x14f5/0x1a30 net/ipv6/route.c:5713
- rtnetlink_rcv_msg+0x802/0xc00 net/core/rtnetlink.c:7137
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2575
- netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
- netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1364
- netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1919
- sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
- __sock_sendmsg net/socket.c:815 [inline]
- ____sys_sendmsg+0x54e/0x850 net/socket.c:2713
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
- __sys_sendmsg net/socket.c:2799 [inline]
- __do_sys_sendmsg net/socket.c:2804 [inline]
- __se_sys_sendmsg net/socket.c:2802 [inline]
- __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2802
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f944299e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f94438b9028 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
-RAX: ffffffffffffffda RBX: 00007f9442c25fa0 RCX: 00007f944299e159
-RDX: 0000000004000040 RSI: 0000200000000000 RDI: 0000000000000003
-RBP: 00007f9442a3506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f9442c26038 R14: 00007f9442c25fa0 R15: 00007ffdb2cbb968
- </TASK>
+diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+index 58165928ed1e..4315c18ba1cd 100644
+--- a/fs/ecryptfs/ecryptfs_kernel.h
++++ b/fs/ecryptfs/ecryptfs_kernel.h
+@@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
+ 	if (!payload)
+ 		return ERR_PTR(-EKEYREVOKED);
+ 
++	if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
++		return ERR_PTR(-EINVAL);
++
+ 	return (struct ecryptfs_auth_tok *)payload->payload_data;
+ }
+ 
+@@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
+ 	if (!ukp)
+ 		return ERR_PTR(-EKEYREVOKED);
+ 
++	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
++		return ERR_PTR(-EINVAL);
++
+ 	return (struct ecryptfs_auth_tok *)ukp->data;
+ }
+ 
+diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+index 51651314b7a6..7f2dbc81fcbc 100644
+--- a/fs/ecryptfs/keystore.c
++++ b/fs/ecryptfs/keystore.c
+@@ -477,6 +477,13 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
+ 		rc = -EINVAL;
+ 		goto out;
+ 	}
++	if ((*auth_tok)->token_type == ECRYPTFS_PASSWORD
++	    && (*auth_tok)->token.password.session_key_encryption_key_bytes
++	       > ECRYPTFS_MAX_KEY_BYTES) {
++		printk(KERN_ERR "Invalid password auth_tok sKEK size\n");
++		rc = -EINVAL;
++		goto out;
++	}
+ out:
+ 	return rc;
+ }
+-- 
+2.51.0
 
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
