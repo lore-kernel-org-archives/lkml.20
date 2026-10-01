@@ -1,103 +1,224 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013006.outbound.protection.outlook.com [52.101.83.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B9C4052A9;
-	Thu,  1 Oct 2026 10:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852373; cv=none; b=ME4OU926/abbA/RRUQysqAjOAp7VuuYTuEQCrPNtQMbR2RcZkLtXvSkwX3zQG+vcR97BSeMjqb1+axBqYGMa1tRQEDcwxINV2D0Bj0JhXcv9bDLcUiBaAet98g62D6LHfKtboIN86Dshn9K8l/ICa3pff2RXZJrQkah+bO8snkI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852373; c=relaxed/simple;
-	bh=P2mPmdSeN7M/92lKbHc68p8T0hLOu0rZMNpkrr+Q7S8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p+TuZH63WJEWulYv8TyEPyfMO52YboAKb8OEW4wPGvPhfhx2hnjUUhe/Z99/eionTomHcNG/V7g5SfyFNeAZ3vQ7lKhrfz3QU8bj4ZfQ4x/4k1KcPWTqasdDCT9EqkKz6pXBlCAtCdiP9aODUSVaJZzPmnAq80W+W51R9PRIyw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=LCl1OI8l; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B6F4E50B5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.6
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790852477; cv=fail; b=JCpDj11OpzWLrYrF8UvJu2hA4NHmM9sGUKDQXHRgzD9eECGHwjRWrsg/GZgL6XmHKYStfdPrdQlep2akw6M2R9PrkHx1dtcyyZotV0xqaJMINyxQygigOd0SFxsoFLkbq8f/BdJSMK0fTfTqUnnYeg2C7pEzcq97n/7GKezKLcY=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790852477; c=relaxed/simple;
+	bh=MR1dlGyppGiIBtv0l2jdiCmrFwXeHoJynr1yIqFLYfM=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=FumoyUpO1jIkJEoej7bfcsqtZVzL44aBHxTHzbFBM0O8I6ta/7frn/bwDXzxcrntYNeOqO7Vl1HJ2Pu7edXiQFvud1mZUIYRsTV9HCo6eRIvia1Rr9ZatuAPetkRqrSrJYsnBPOrgBJEn9v3Y4mcg/hk6mEbByMxD9jowxoHdZg=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pMcgJs+1; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pMcgJs+1; arc=fail smtp.client-ip=52.101.83.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="LCl1OI8l"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=MXA2KDE32vmEL8dBfumYlL+dA+/j3dJ1ohxuDqggpGk=; b=LCl1OI8lRvcv+outLHBWL9A2bo
-	DG5ITJUiFjfuw/CEH5vbNjtI/P+BGLUvwXGLDA3jC0T340gY/Wk7k1gpkQvW1Z70RfVbhOYmCo3xw
-	AQrPBZuoPECelcO87vpNBk1zQqZk4sUCEzOkgiymVqQuPddoPjUy5oK3h0Qme/AB7rJNngceuc7hq
-	SpH7CHPQ+yTaxLRhMOeVVPTVIV3l0euLPDh5NhuMo38PzhWMuEE+tFR7wdSAxCvYvgzjUDCfjyRZJ
-	2Vfd5RXX1oJ8sfOXd6TivgxG21zO1fScJ0vlE+bpH4aP4s6m55zck+Q/N8LB/P1cBonRI090dOtPd
-	BxfbrTrw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCEVK-00000006r8z-1WSi;
-	Thu, 01 Oct 2026 10:59:10 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E81DA3001FD; Thu, 01 Oct 2026 12:59:09 +0200 (CEST)
-Date: Thu, 1 Oct 2026 12:59:09 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Tejun Heo <tj@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	David Dai <david.dai@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Daniel Jordan <daniel.m.jordan@oracle.com>,
-	Hao Lee <haolee.swjtu@gmail.com>, kernel-team@meta.com,
-	cgroups@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/7] cgroup: charge kernel work to the cgroup it is
- done for
-Message-ID: <20261001105909.GL4121339@noisy.programming.kicks-ass.net>
-References: <20260924184714.912181-1-shakeel.butt@linux.dev>
- <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pMcgJs+1";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pMcgJs+1"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=ifdfxm/fz51DQaxx43JCLqrueitnstWjXJ4yu0g0/THYSvjfYGUxjJxZSZgB7OQzkZQoQwhPaTwFJDiyuJYSQ2p2P/EPLSwwXtI2W9WyD0KfBtyewQZ835id/Z1wQ4+vSYuGPjcHQiG5tnjBY83aTBbkgxGMw/hZ12FMbBMmGjE6dR18FVBjZRliu9QI+v0slp1VEULEt4Pb8O7BN0oSlpJoIKtHdG9myoO9tZGQbsKgjTeUAaKwBt4HyIMtdAvNUSGs3otMcCspo5i1yJ76kH/9YMLDCl/O68LUQrduC+ibchFltXNEKY3kKShIPNqtieOiiuDAcQXnLo0M4s0oLA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k+fZEXIXhYmZiWrpdQyqlYpaY+vwFaQcr2LPQiWkqNg=;
+ b=Oo9QHqHzhJjHNQ3ID5KCBn4nK+tmUKHxpMSAb+7Jl49YjhUtG0qwqs1vvy95+qbKRSrTDnvW/7lk1MOvOiW4lotmrDWlr2rHxo+3iEMtLEPsv00uyQXvNRLc9cOYt4eseaXk1+y4k6eXsR/7a20bUsT0N9oELooVROzsLZi2BOmcl5ufPSPBbynrPYZBAb1XqfW+4b1zki/O8vu2RJ0N1eplTsC5dGXI6/6jNIG281dwoLaj5Au7wZdiosMR7BwLCEamwebnyJvEb3iWe6juV8hCH54rHlUIs4lBU+GVTm4BJgKF/z6e7uEa9dxkdy6aZKQ4kfhmLrxjP0pUyzpfHw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k+fZEXIXhYmZiWrpdQyqlYpaY+vwFaQcr2LPQiWkqNg=;
+ b=pMcgJs+1bHFsAOr7E1vCE1mnQ7z8Ricuejrb+5h+4a6yMImXZzdbLgniZu6Vqwv7CJCKyUBPs6Nzk2Ja+3m5KPMrKxo7j2pgSmIuBSlBbd1mbSq4SQ5Omnjp5R2ItxUcM08eyjhwrBxFNTK0m+hDWYVzP+fEuEDNzSKNlUv6KAo=
+Received: from OS6P279CA0054.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:31::12)
+ by AMDPR08MB11411.eurprd08.prod.outlook.com (2603:10a6:20b:717::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 11:01:11 +0000
+Received: from CPH1EPF0000051E.eurprd04.prod.outlook.com
+ (2603:10a6:e10:31:cafe::8f) by OS6P279CA0054.outlook.office365.com
+ (2603:10a6:e10:31::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
+ Oct 2026 11:01:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ CPH1EPF0000051E.mail.protection.outlook.com (10.167.241.233) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Thu, 1 Oct 2026 11:01:10 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WAAqr6/57XhifdBBXeZIwdP9S9Gxi1UivXdwHRbfkDVUerpEW5OqoFFsDcBS2oDF/njzCTT/3PxEu6QXKN4qjnVlqv8s2OXhLn1fP3Kpg8mu8lJ5qV20c+EJEdJrYdj/GXXNpxqPQQ0vjh7j7End1tigwAm55/iIbMmxEZ7p3dooqyY0SWSRT0IygvHLgrGgJ4AQxUy1jPClQWfnjJy3Kpm39ghvp2WzduIvG3Zzb/LSdNdLqMvPuA8DYFd0Ohg67ip7xruo6bJ3jwnEX3pMEBWz0b44nBy4vvnb6AhtD+F02V6ThVJMIA9KX174WH1AKf19lz76M5jOcIn2QvhUkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k+fZEXIXhYmZiWrpdQyqlYpaY+vwFaQcr2LPQiWkqNg=;
+ b=oqFTv1uGD7yKt8uIvoT6Z0KYKRVMfeIPT2TgcVomdZLNi6dFGjUcYoqalaqpXHgcUPF7H3d+j10kN8u/d80wQ7NwpJdLmMUusYnydDy7H/0dpxYkWU2/76wHQvKJc2oB5bkf9eCULnAUmSuj1KPykfYjOtGrpZUU/roTM+Hun8tIB0/GTZO2kd5LLFrumlSr3qZqOry7AdH8RnG6t5Wcl9WAnVmLaFC8063Myi9AxpvGjMZGWcAI6On9VIWqckvAEkSZK2ZoHWGvTvwOVqginKpKSeHfFTzxTcrRIktN3z+NR3tAfnDFOriNHUooEt3hbSZ2c9W1icuzltAlwT9eAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k+fZEXIXhYmZiWrpdQyqlYpaY+vwFaQcr2LPQiWkqNg=;
+ b=pMcgJs+1bHFsAOr7E1vCE1mnQ7z8Ricuejrb+5h+4a6yMImXZzdbLgniZu6Vqwv7CJCKyUBPs6Nzk2Ja+3m5KPMrKxo7j2pgSmIuBSlBbd1mbSq4SQ5Omnjp5R2ItxUcM08eyjhwrBxFNTK0m+hDWYVzP+fEuEDNzSKNlUv6KAo=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from GV1PR08MB10455.eurprd08.prod.outlook.com
+ (2603:10a6:150:16f::10) by DB9PR08MB8410.eurprd08.prod.outlook.com
+ (2603:10a6:10:3d6::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 11:00:36 +0000
+Received: from GV1PR08MB10455.eurprd08.prod.outlook.com
+ ([fe80::af66:6019:a08:d04]) by GV1PR08MB10455.eurprd08.prod.outlook.com
+ ([fe80::af66:6019:a08:d04%5]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
+ 11:00:35 +0000
+From: Bence Csokas <bence.csokas@arm.com>
+Date: Thu, 01 Oct 2026 13:00:07 +0200
+Subject: [PATCH] cache: Make cpu_cache_invalidate_memregion() error out if
+ there are no handlers
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-cci_enxio-v1-1-3c9e16024abd@arm.com>
+X-B4-Tracking: v=1; b=H4sIADY9vmoC/02OQQrCMBBFr1KyNpKkYKkr7yFFksnUjtBEMrFUS
+ u9uUxFcvj+f92cRjImQxblaRMKJmGLYQB8qAYMNd5TkNxZGmZNqjZYAdMMwU5R97WvtWwsIjdj
+ 6z4Q9zbvr2n2ZX+6BkIugNJxllC7ZAEOJRssZUzkMxDmm9/7FpIvgN2j+BictlVTKWY9Gm8a0F
+ 5vGI8RRdOu6fgCAr+NCywAAAA==
+X-Change-ID: 20260921-cci_enxio-f3d31d9acec7
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ Yicong Yang <yangyicong@hisilicon.com>
+Cc: linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+ Bence Csokas <bence.csokas@arm.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: LO4P123CA0228.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a6::17) To GV1PR08MB10455.eurprd08.prod.outlook.com
+ (2603:10a6:150:16f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
+X-MS-TrafficTypeDiagnostic:
+	GV1PR08MB10455:EE_|DB9PR08MB8410:EE_|CPH1EPF0000051E:EE_|AMDPR08MB11411:EE_
+X-MS-Office365-Filtering-Correlation-Id: 931564b5-109d-48da-587b-08df1fab4d0d
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ cCpDk3W5uVNrL1ilGxzFbcYNT3VwNGsciSgBMVBHlbG83bQjg19qpbj1zoX3EyPZkVDDz8e5o6uJ+Gk5dtARde/oR+0zwnzhgdTRMyFK0IDWgYg3g6Avro9hnnIm3ujqZKuQdY1hQwSv/wCnkxirMYGRmNolT0Brq/Hhs5HNYEIy9GFa5+0b3TJHy209Y/n2sWQg79YpF0mKDLenT7yjsntDzW5xNlv5wjWu4btTbqgkfSiEFc2B2YrtMHeoZf5yFQbFJdrfRGiomV9ZIOquEe39lu2nsif+yZrHiNTfFUm5BsmU7syXv8+UC3TpejR92sm5I3/FcWGJDVZ/u1S/7JptkVt3rf/av1OBBJOijR30Gm2knwjKHGbAXqTNIZdrCf8aSPO6omXlYW/kvLRQ7YUZyQ2RTp11RqKFkHchpPIMTPaPVCrlCUpViVbMo2DHYDnJ3xkpKpm63f2D7oWhJ+JEfYFXi67f+jLTmcfZ9B6mI61KieWvK2B0oY5OFWWYtvfZ/e64XQVSrcBN+oqxntWbFdgoWpk3TABnt69sZrUNhSEjn8zg2Qy5tZbv1xi41dPO+XeKYRki5lT8CPJ1Ml/dxTgl9FvNSDnLrAIKFZY=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR08MB10455.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ HZO3uVqwBBN2jqVI9m9Pl2SlKqlmInVHkFBiV83Hc2X6APf0UuMGn7ynFpEK6CioPZI6urs4DUe5P1DQtwM12YEDCFhKKg/yvc7o3scnAhYMbWq+TV9y++SrDAZG6A6J5RRoNviXX+XZhao5GPxzQsIru+yWvWUuc6H2/P6zfzLBo8mngCSjw96F3IJOshkhzLwbt4qaCrYHOiub0V2bc6I99X8lR2A3GweEaBFhJmAKF9F62ic81MefK46tzzp3SEkp4sBBbO1pRXos9QKZpHex65BOyovqHR2eJQ2KcyQYkjHAS+xXgaStNTornj9eZ5Yf9Drus8+6eAz/oMb8Wg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB8410
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ CPH1EPF0000051E.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	779053ba-424e-42b7-f7b0-08df1fab385d
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|14060799003|82310400026|35042699022|36860700016|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	vrX2AJ2UI4rbjVqmBjgf5SYb7uaq3Q8Hsfl0rfBDrIbYGe4EhxfSOm6TxmGSqEJEy/I/oMES0Oqk9eenuUc1D+5EBRXrxnNIq2kr/CnacvgkwIHUWt/dkRfv/UV83nNEv8hpjYI44ycEkoYxK9/kkNst8VzN5uMZC7p+V4fzVafHBtXlBv5JFvNSryaG/a22Sq0JKUhjDUFngK6skdovEhfPnF6HTgpyx2T6j+n6Tpbs4XpQuMhQA23B6RRXmk+FD58Z9PJE8AIrczcPz32YcVhNHsSqVGYDjVhNQOnQWIv69mGfQrpqFrEpU+Uq516viBwwmR1Blbgknn9MLAiaA/BWl4Yb+4T0id7foRwmwC0yOQx0Q5wpleZJnpZa6X496RMUn9fzFbs+UcxqbrtB8ktulvaVya95bYVrxCCZCmFI19HfZKH4VMxJcMI6vRw5gPCv5GZoX6YUtBtjvRHXSPHBpnoxsG+/uaHtTZeGm4q5RNo45En5CiZmOL+5cYzWfjs9YxBmdhAY4PLJDq6AToYtxXzi3BHgbgZN9oXDQZ/lkbPJApQoKQzkyOWFsDwRgXjNMWcZlLCBnqknPM4mHrim4YQelEiurL7sPewwsM28/Cmx0stt5gdXh7LNjftScj2KYEb6ea8UahE4rjrORA==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(14060799003)(82310400026)(35042699022)(36860700016)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	I7Kvx5RsqSNEqGGRoQfQTMQBdmdWD6+JUH50eKjWHwpLqnwKpzz2FmylwqeVUqleOAAOTfe/Myxrsqtup41oMxpeztQyBDcvDxfiSI9+2V4eyDmpV2WPx3OujohFzH3ANMppi3BpMJjpj60rElQIjDTL3qn1mjg6OIaqi9UWJSzWNAEdl7nmVtzs8lD1w0PTRlkB+mX5EK5+j8r68aIBHVWuNFXouv0gXakDdYnTOjNCLufPXD5pbyR6sQXuTS5pr2BXcAHQKQ5/1i8pObIdUq4nJMnHVS/JB1oVd84y3cOrgdWSUlIf+/jDFtnfPHir5Or8uvNigRTuLSuNUMhpHodPV8FydQMnKJu+PdcD1RMy1Ibdgvbj4wu2jIrXDAhERE9Bofo4kUAy0k6M/EHroCC35jWlv9BY1QiYEJhegxYJ9cOvYO9h5gp5YcFCJ9d+
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 11:01:10.1106
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 931564b5-109d-48da-587b-08df1fab4d0d
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000051E.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR08MB11411
 
-On Thu, Sep 24, 2026 at 10:28:10AM -1000, Tejun Heo wrote:
-> Hello, Shakeel.
-> 
-> On Thu, Sep 24, 2026 at 11:47:04AM -0700, Shakeel Butt wrote:
-> > This series lets a kernel thread say which cgroup it is working for.
-> > That cgroup then sees the CPU time in its cpu.stat and the stalls in
-> > its memory.pressure, and the CPU time comes out of its cpu.max quota.
-> > The first user is the memcg reclaim that runs from high_work.
-> 
-> This doesn't translate to net rx, which is another major source of
-> displaced CPU usage. Switching membership on each packet isn't going to
-> work there. Attribution can't happen that way. We'd much rather count
-> per-cgroup received packets and prorate the CPU consumption. If at all
-> possible, I think it'd be better to adopt an approach which can cover
-> both use cases.
+Currently, if there are no registered handlers,
+cpu_cache_invalidate_memregion() returns 0. Callers are expected to check
+cpu_cache_has_invalidate_memregion() and return -ENXIO themselves, instead
+of calling this function. If a caller forgets to do this, they may
+erroneously think the operation succeeded. This is in contrast to x86,
+where cpu_cache_invalidate_memregion() itself checks if the operation is
+supported, and returns -ENXIO if it is not.
 
-Ideally RX would be split for each network queue, rather than lumped
-into the one giant softirq that nobody owns.
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Bence Csokas <bence.csokas@arm.com>
+---
+I noticed cpu_cache_invalidate_memregion() returns 0 if there are no
+registered `cache_coherency_ops_inst`s, which I find counter-intuitive.
 
-I know PREEMPT_RT has been wanting something like that for ages. Not all
-queues are created equal. Some might want RT priority while others
-should definitely not.
+From what I've seen, there are no in-tree users who do not check
+cpu_cache_has_invalidate_memregion(). However, IMO the better solution
+would be if the function would perform this check, and not the callee.
 
-Furthermore, without ingress throttling, your RX back charge could
-completely deplete the actual cgroup time quota.
+Furthermore, arch/x86/mm/pat/set_memory.c also implements this function,
+but actually does the feature check, and WARNs and returns -ENXIO if it
+fails that check.
 
-Anyway, if you get per queue RX processing threads, then you can move
-them into cgroups where so desired.
+This patch that provides a low-overhead fix.
+---
+Changes in v1:
+- Rebased to master
+- Collected tags
+- Link to RFC: https://patch.msgid.link/20260922-cci_enxio-v1-0-00bade212729@arm.com
+
+To: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org
+---
+ lib/cache_maint.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/cache_maint.c b/lib/cache_maint.c
+index 9256a9ffc34c..132d2816d6b1 100644
+--- a/lib/cache_maint.c
++++ b/lib/cache_maint.c
+@@ -59,12 +59,12 @@ static int cache_inval_done_one(struct cache_coherency_ops_inst *cci)
+ 
+ static int cache_invalidate_memregion(phys_addr_t addr, size_t size)
+ {
+-	int ret;
+ 	struct cache_coherency_ops_inst *cci;
+ 	struct cc_inval_params params = {
+ 		.addr = addr,
+ 		.size = size,
+ 	};
++	int ret = -ENXIO;
+ 
+ 	guard(rwsem_read)(&cache_ops_instance_list_lock);
+ 	list_for_each_entry(cci, &cache_ops_instance_list, node) {
+@@ -78,7 +78,7 @@ static int cache_invalidate_memregion(phys_addr_t addr, size_t size)
+ 			return ret;
+ 	}
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ struct cache_coherency_ops_inst *
+
+---
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+change-id: 20260921-cci_enxio-f3d31d9acec7
+
+Best regards,
+--  
+Bence Csokas <bence.csokas@arm.com>
+
