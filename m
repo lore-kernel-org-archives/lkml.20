@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0362165EA;
-	Thu,  1 Oct 2026 05:35:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C12536E468;
+	Thu,  1 Oct 2026 05:36:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832914; cv=none; b=fhvxk45fqtxhwZEsdyEmOtXeSikHxIeNhK6FJ66ihXcqVh0I927p8nbRI5hUQyBLqUHhcanSEAco6m4qfZYvbd+MS6dSWNKnM6JC8JGiHBqeLwkcJFxSU0c6o+D+TwCAdF+vs4QMxGcbeT19EfS6eP4zpUssRb85OkTHZSLkmhI=
+	t=1790832987; cv=none; b=LWWRp1IrRWApqcFMfiJ0k6f3A6aW/ER/PcrjzYf6gTzSjzDAqsjL0+VVCUzYSY3WQLaq5AK3XSQD+Ja0g7TcsCIkCK0urE8QzFwrECpqYHfpZMQNL4iENSmGZM3HDmdeUFDgjBCFibicGwyU75MsEnQStAXZyQXiUI6ScF2k7KI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832914; c=relaxed/simple;
-	bh=bRDw1wOgxh2eSp7LkLa/QOl9kS0c2jnm3ihbhNKk0jg=;
+	s=arc-20240116; t=1790832987; c=relaxed/simple;
+	bh=qKwI9Kshf1ybQ2X2CNtp6K5Xj8njpOqEjZpvhvw83hU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q9VVXYJu4PdfxWZAT0/NCdoqGHefvP6DFiUx6xC7eJvCqLL6qYyO0H+0Au5TuRg++c1X4uogEx403c2nIgd/n/lBzhK/hzT2bb2JTAGwF+TyNij3axhuthzYHVu0Jwk2r7a5plIQF41EN27uS74stcMY3H1dPb11wA5f8MnayZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jQqDBoj2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gPWA4HkwHie6EQpCxNW80zIW8zNTQGlDQbwwSLmV25Bryug4RSrN4t+02z5eKWYYRh2BHRnAbXPQHv4fwUjhbCUeOSCjEoeTMjQJYvYE4/6nQSb7RuYTTVd4OfD0+DXbFJjk1JAcCNc6BtQeLJa0/86AA75VK0jYyZLIEsn1qC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eEOpR/ah; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jQqDBoj2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F881F000FF;
-	Thu,  1 Oct 2026 05:35:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eEOpR/ah"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192FC1F00898;
+	Thu,  1 Oct 2026 05:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790832912;
-	bh=bRDw1wOgxh2eSp7LkLa/QOl9kS0c2jnm3ihbhNKk0jg=;
+	s=korg; t=1790832985;
+	bh=MdjbezUf64HYf0RaE1hWKpAx7HR3PMPbz707UTcnqK0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jQqDBoj2o4m/mITfDr3y6taWrhct4nRDMfsFYja1vBZiNDwb4lkGoINVVuH6LJd36
-	 KnGUIj9klL2PHy78SyE5VT3ysl39i92Ha/jcM2YXlTQ0OqJrUhuzC+Ul14S8erS/5W
-	 4BkW7I6M5KPJCyVOKx5cQK8dwBXmpsNE1/5CamCA=
-Date: Thu, 1 Oct 2026 07:35:06 +0200
+	b=eEOpR/ahZEiF7FwsGtdJQSCRId7Q6qCK5QDWa/O3YBlPS81QDWe3Srvb2cr2PNGOs
+	 hlwTHN7vPVBmdL0UEqehPMVCOtGVykSfqtZr1auIO1tTkCzwyMOd41Kcwr5kjz5Xf9
+	 nBcnL0tT5iBJfzCMkpdgnCG8neoDoLQWSf1Q5xME=
+Date: Thu, 1 Oct 2026 07:36:19 +0200
 From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: Kaden Vaughn <randomfnp@outlook.com>
+To: William Hutton <TheWilliamHutton@outlook.com>
 Cc: "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] staging: rtl8723bs: fixed formatting issues in
- rtw_security.c
-Message-ID: <2026100147-boxer-railcar-0ee4@gregkh>
-References: <PH7PR10MB66522A228CCAA372A4F0820FBFA32@PH7PR10MB6652.namprd10.prod.outlook.com>
+Subject: Re: [PATCH] staging: rtl8723bs: fix checkpatch whitespace and
+ indentation errors
+Message-ID: <2026100158-cranial-net-4aba@gregkh>
+References: <MA4P292MB014947C54E25163A32A627F9C2AF2@MA4P292MB0149.ESPP292.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,13 +40,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <PH7PR10MB66522A228CCAA372A4F0820FBFA32@PH7PR10MB6652.namprd10.prod.outlook.com>
+In-Reply-To: <MA4P292MB014947C54E25163A32A627F9C2AF2@MA4P292MB0149.ESPP292.PROD.OUTLOOK.COM>
 
-On Fri, Aug 21, 2026 at 03:15:50AM +0000, Kaden Vaughn wrote:
-> Hi Greg, this is my first contribution to the Linux kernel!
-> I tried using git but it wouldn't let me send the email so im doing it through the outlook GUI.
+On Tue, Aug 25, 2026 at 09:55:18PM +0000, William Hutton wrote:
+> Hi Greg,
+> This patch fixes checkpatch whitespace and indentation errors in the rtl8723bs staging driver.
+> Thank you,
+> William Hutton
+> 
 
-Please use git send-email, we can't take patches as atachments.
+> From ac17f2cf6f9f0dea36c10f0e039d01f5b48aa31b Mon Sep 17 00:00:00 2001
+> From: William Hutton <TheWilliamHutton@outlook.com>
+> Date: Tue, 25 Aug 2026 22:37:02 +0100
+> Subject: [PATCH] staging: rtl8723bs: fix checkpatch whitespace and indentation
+>  errors
+> 
+> Signed-off-by: William Hutton <TheWilliamHutton@outlook.com>
+> ---
+>  rtl8723b_hal_init.c | 2825 +++++++++++++++++++++++++++++++++++++++++++
+
+Something went really wrong with your patch, please read the tutorial on
+how to create a kernel patch again.
 
 thanks,
 
