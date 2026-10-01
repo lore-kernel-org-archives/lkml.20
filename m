@@ -1,1242 +1,331 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5381F5834;
-	Thu,  1 Oct 2026 13:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1D65449B01;
+	Thu,  1 Oct 2026 13:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862698; cv=none; b=etNgKt4kvkXKDJUwuJYm6KHtub7YzN3O5t8qJOHq+Vl+A5Vp3DZQ0lIr9HEDWahLsOWZl9pH7iJjvnbm+gkG0/Tq2VDbBvdyIqTGE8rnV9p/4ApGbPDgSGpscoMSd5d/zcyEpZ6sfivGcRl+MQSemSco4+8qa9HDDIHMqcfyei4=
+	t=1790862734; cv=none; b=DbFKZGnFqJOSY9D4R0QH3U/kYCUxLZGpJKA89ismj9XY2H+Zq64bbVO744SSzz3+pf5eLoiZFpwOB+32OpQb7cwlXlvIulxQNBtL35HsDziboPPxg/sLgYrcQqXgGKimGjjbnsX1zLusZBtSLaRYmQ6ft01wydwXTiU5GsW/IjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862698; c=relaxed/simple;
-	bh=O2nEbnQ3SMFLCEaAa4O1m/uKD04zRTk3+A/Pwp9Qjr8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References; b=gG8FRG8/7LVIdNM04PNo7n0zdFYi4Rch42CBUK8mqSSWF/+SPeQqP/QC4gQAu1tmONlhDDn3sSxxW9QlYRXtdB+73i/tppZ3AUlizfcSsi+2KETZyPtsR16O4DCK2VvKgQ1rtP6yc7jDgYL/EA4TiUG8PYSa7tCR8yYmOsVkjHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=J+qsFZpP; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790862734; c=relaxed/simple;
+	bh=BFYsSQEEDW9ivKme2GW+ybv9NgRrwNxqnlj2UvnfFOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MimD4An8XhbFqvXIDS0SKS8Tfnj9KAbTrA7QiimW/QUhTmFMKHMf4ZUblepAYm8lJpECYZ5VcGxXOJZ0h12XFHTQyjpgc/xWq6aW3DnbL+bY5uUFhy8q1v6Dje613eXIVaJ9ALIgbnWzOWg9iy1sma+AiZ1EQ5JNiEqJvIoff4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=avLvr1eT; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="J+qsFZpP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID; bh=lfwSkxwznDYVII5
-	ole1gEwc1DSL1w8YOnQzpbFFuzD0=; b=J+qsFZpPabougUw7gwFqp/C5J7v4zSr
-	rWyUYVm1Gxb4ehayOUUPwpdbxuvcTpm7FPopv5ksty17TaQIb7vtKtRuKKAylGUf
-	u+5wRlitHuEnhpGpZywCKh+/AWiUoqygCQGXnVhbzSxgxNlzSIQ1J9A/JV4mNviF
-	cRDTdy2CiDPM=
-From: BG9OXA <bg9oxa@163.com>
-To: linux-rockchip@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v4 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
-Date: Thu, 01 Oct 2026 21:51:06 +0800
-Message-ID: <179086266668.29834.5300530518863942845@163.com>
-In-Reply-To: <179086264917.29834.5543033479795788817@163.com>
-References: <179086264917.29834.5543033479795788817@163.com>
-X-CM-TRANSID:_____wD3t8hKZb5q34quBw--.47954S2
-X-Coremail-Antispam: 1Uf129KBjvAXoWfZrW8WFyDGw4xCw4ktryUtrb_yoW5GryDuo
-	Z2vFW0vF4SgF4fGr1vqFWUCw1xJrWkGanakF45KF1rWr4rJasFyrs0yayUWF17Gr10kryD
-	Z3WrJFy3Aw17A3s5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUO18BDUUUU
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+Qu1I2q+ZUv9RwAA3k
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="avLvr1eT"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97F87497;
+	Thu,  1 Oct 2026 06:52:07 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 572643F86F;
+	Thu,  1 Oct 2026 06:52:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790862731; bh=BFYsSQEEDW9ivKme2GW+ybv9NgRrwNxqnlj2UvnfFOY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=avLvr1eTGOHRMC4ainKq32M1Rv9qJhzcdp8ui1a6bT05iOwUQqOjMwV6ahWU8ss3M
+	 jdv6uqw6vGM52rUj4rOlVEcanprQmJ311rJcSCmQcbBoyOGAeEvbbSnKj2j+zpn10K
+	 uKUcHHRSK8QicsnORjwxzMBcM3eo2FWE3bVkDB3I=
+Date: Thu, 1 Oct 2026 14:52:06 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 3/4] kselftest: mm: integrate huge page checks
+Message-ID: <ar5lhhdKlK6NwX19@e129823.arm.com>
+References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
+ <20260924-fix_split-v8-3-cba7359d882a@arm.com>
+ <16f16e77-05ab-418e-ad06-8f48fb29375a@kernel.org>
+ <aruMgm8UZ_t2V_wh@e129823.arm.com>
+ <3e03425b-7962-4c69-93aa-96168fd7168e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3e03425b-7962-4c69-93aa-96168fd7168e@kernel.org>
 
-The QuarkPi-CA2 is an RK3588S based single board computer with LPDDR4X
-RAM, eMMC, microSD, one Gigabit Ethernet port (YT8531 PHY), HDMI 2.1,
-DisplayPort over USB-C, M.2 PCIe 2.0 x1, USB 2.0 and 3.0 host ports,
-an ES8388 audio codec with headphone amplifier, a MIPI CSI camera
-connector, an IR receiver, a PWM controlled fan, ADC keys and a 40-pin
-GPIO header.
+> On 9/29/26 12:01, Yeoreum Yun wrote:
+> > On Tue, Sep 29, 2026 at 10:07:37AM +0200, David Hildenbrand (Arm) wrote:
+> >> On 9/24/26 21:11, Yeoreum Yun wrote:
+> >>> check_large_folios() only checks for large folios without distinguishing
+> >>> between anonymous and file-backed huge pages.
+> >>>
+> >>> To add huge page type checking, integrate the huge page checks into
+> >>> __check_huge():
+> >>>
+> >>>   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of using
+> >>>      check_large_folios(), since only the mapping type matters. This
+> >>>      identifies PMD-mapped huge pages.
+> >>>
+> >>>   2. Otherwise, use check_large_folios() to detect large folios. This
+> >>>      covers mTHP cases.
+> >>>
+> >>>   3. Check the folio flags according to the huge page type.
+> >>>
+> >>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> >>> Suggested-by: Zi Yan <ziy@nvidia.com>
+> >>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> >>> ---
+> >>
+> >> Instead of merging both things (detecting mapping vs. detecting anon vs. file),
+> >> could we simply perform the anon vs. file change separately?
+> >>
+> >> Doing another pagemap walk that focuses on that should end up with something
+> >> that is easier to read.
+> > 
+> > Okay. I'll change like below in next-spin:
+> > 
+> > -------&<-------
+> > 
+> > @@ -411,57 +400,78 @@ static bool check_huge_type(uint64_t categories, enum check_huge_type type)
+> >         return false;
+> >  }
+> > 
+> > -static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> > -                 uint64_t hpage_size, enum check_huge_type type)
+> > +static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> > +               uint64_t hpage_size, enum check_huge_type type)
+> >  {
+> >  {
+> > -       int pagemap_fd;
+> > +       bool ret = false;
+> > +       int pagemap_fd, kpageflags_fd;
+> >         int nr_pmd_mappings = 0;
+> > +       uint64_t pmd_pagesize, scan_mapping_size;
+> >         uint64_t categories;
+> > +       unsigned long pfn;
+> > +       bool check_pmd_mapping, allow_nonpresent;
+> >         char *start = addr;
+> >         char *end = start + len;
+> > 
+> > +       pmd_pagesize = read_pmd_pagesize();
+> > +       if (!pmd_pagesize)
+> > +               ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> > +
+> > +       check_pmd_mapping = hpage_size == pmd_pagesize;
+> > +       scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+> > +       /* Some mTHP tests check a partially populated PMD-sized range. */
+> > +       allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
+> > +
+> >         pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> >         if (pagemap_fd < 0)
+> >                 ksft_exit_fail_perror("open pagemap");
+> > 
+> > -       for (; start < end; start += hpage_size) {
+> > +       kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> > +       if (kpageflags_fd < 0)
+> > +               ksft_exit_fail_perror("open kpageflags");
+> > +
+> > +       for (; start < end; start += scan_mapping_size) {
+> >                 categories = pagemap_scan_get_categories(pagemap_fd, start);
+> > -               if (!(categories & PAGE_IS_HUGE))
+> > +               pfn = pagemap_get_pfn(pagemap_fd, start);
+> > +               if (pfn == -1UL) {
+> > +                       if (!allow_nonpresent)
+> > +                               goto out;
+> >                         continue;
+> > -               if (check_huge_type(categories, type))
+> > +               }
+> > +               if (!check_huge_type(categories, type))
+> > +                       goto out;
+> > +       }
+> > +
+> > +       if (!check_pmd_mapping) {
+> > +               ret = check_large_folios(pagemap_fd, kpageflags_fd,
+> > +                               addr, len, nr_hpages, hpage_size);
+> > +               goto out;
+> > +       }
+> > +
+> > +       for (start = addr; start < end; start += scan_mapping_size) {
+> > +               categories = pagemap_scan_get_categories(pagemap_fd, start);
+> > +               if (categories & PAGE_IS_HUGE)
+> >                         nr_pmd_mappings++;
+> >         }
+> > -       close(pagemap_fd);
+> > 
+> > -       return nr_hpages == nr_pmd_mappings;
+> > +       if (nr_pmd_mappings != nr_hpages)
+> > +               goto out;
+> > +       ret = true;
+> > +
+> > +out:
+> > +       close(pagemap_fd);
+> > +       close(kpageflags_fd);
+> > +       return ret;
+> >  }
+> > 
+> 
+> I'd leave existing __check_huge() mostly alone, and instead have an additional
+> function that checks the type.
+> 
+> Essentially a __check_type() or sth that we run after the large folio / pmd check.
 
-The GbE MAC receives its reference clock from the PHY, and the PHY keeps
-its clock output enabled while the link is down so that the MAC can be
-initialised.
+So, You mean like this?
 
-The MDIO bus is described with separate mdio and mdio-child nodes, and
-the RK3588S RGMII delays are applied on the MAC side (tx_delay).
+-------&<-------
 
-Signed-off-by: BG9OXA <bg9oxa@163.com>
----
- arch/arm64/boot/dts/rockchip/Makefile         |    1 +
- .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts | 1157 +++++++++++++++++
- 2 files changed, 1158 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+-enum check_huge_type {
+-       CHECK_HUGE_ANON,
+-       CHECK_HUGE_FILE,
++enum check_type {
++       CHECK_TYPE_ANON,
++       CHECK_TYPE_FILE,
+ };
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index e7936a21c..34423e8cf 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -231,6 +231,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-khadas-edge2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-lubancat-4.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-r6s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-r6c.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-quarkpi-ca2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-odroid-m2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5b.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-new file mode 100644
-index 000000000..d9d679d99
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-@@ -0,0 +1,1157 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+#include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/thermal/thermal.h>
-+#include "rk3588s.dtsi"
-+
-+/ {
-+	model = "Alientek QuarkPI-CA2";
-+	compatible = "alientek,quarkpi-ca2", "rockchip,rk3588s";
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ramoops: ramoops@118000 {
-+			compatible = "ramoops";
-+			reg = <0 0x118000 0 0xd8000>;
-+			console-size = <0x80000>;
-+			ftrace-size = <0x00000>;
-+			pmsg-size = <0x30000>;
-+			record-size = <0x14000>;
-+		};
-+	};
-+
-+	aliases {
-+		mmc0 = &sdhci;
-+		mmc1 = &sdmmc;
-+		ethernet0 = &gmac1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial2:1500000n8";
-+	};
-+
-+	adc_keys: adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 1>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-vol-up {
-+			label = "volume up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			press-threshold-microvolt = <17000>;
-+		};
-+
-+		button-vol-down {
-+			label = "volume down";
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			press-threshold-microvolt = <417000>;
-+		};
-+	};
-+
-+	leds: leds {
-+		compatible = "gpio-leds";
-+
-+		work_led: led-0 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio1 RK_PD7 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&work_led_pin>;
-+		};
-+	};
-+
-+	fan: pwm-fan {
-+		compatible = "pwm-fan";
-+		#cooling-cells = <2>;
-+		pwms = <&pwm7 0 50000 0>;
-+		cooling-levels = <0 50 100 150 200 255>;
-+	};
-+
-+	vcc12v_dcin: regulator-vcc12v-dcin {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc12v_dcin";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+	};
-+
-+	vcc5v0_sys: regulator-vcc5v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+
-+	vcc5v0_usb: regulator-vcc5v0-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_usb";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v1_nldo_s3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
-+		compatible = "regulator-fixed";
-+		gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sd_s0_pwr>;
-+		regulator-name = "vcc_3v3_sd_s0";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+};
-+
-+&spi2 {
-+	status = "okay";
-+	assigned-clocks = <&cru CLK_SPI2>;
-+	assigned-clock-rates = <200000000>;
-+	num-cs = <1>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
-+
-+	pmic@0 {
-+		compatible = "rockchip,rk806";
-+		reg = <0x0>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
-+			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
-+		spi-max-frequency = <1000000>;
-+		system-power-controller;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		vcc1-supply = <&vcc5v0_sys>;
-+		vcc2-supply = <&vcc5v0_sys>;
-+		vcc3-supply = <&vcc5v0_sys>;
-+		vcc4-supply = <&vcc5v0_sys>;
-+		vcc5-supply = <&vcc5v0_sys>;
-+		vcc6-supply = <&vcc5v0_sys>;
-+		vcc7-supply = <&vcc5v0_sys>;
-+		vcc8-supply = <&vcc5v0_sys>;
-+		vcc9-supply = <&vcc5v0_sys>;
-+		vcc10-supply = <&vcc5v0_sys>;
-+		vcc11-supply = <&vcc_2v0_pldo_s3>;
-+		vcc12-supply = <&vcc5v0_sys>;
-+		vcc13-supply = <&vcc_1v1_nldo_s3>;
-+		vcc14-supply = <&vcc_1v1_nldo_s3>;
-+		vcca-supply = <&vcc5v0_sys>;
-+
-+		rk806_dvs1_null: dvs1-null-pins {
-+			pins = "gpio_pwrctrl1";
-+			function = "pin_fun0";
-+		};
-+
-+		rk806_dvs2_null: dvs2-null-pins {
-+			pins = "gpio_pwrctrl2";
-+			function = "pin_fun0";
-+		};
-+
-+		rk806_dvs3_null: dvs3-null-pins {
-+			pins = "gpio_pwrctrl3";
-+			function = "pin_fun0";
-+		};
-+
-+		regulators {
-+			vdd_gpu_s0: dcdc-reg1 {
-+				regulator-name = "vdd_gpu_s0";
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+				regulator-enable-ramp-delay = <400>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
-+				regulator-name = "vdd_cpu_lit_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_log_s0: dcdc-reg3 {
-+				regulator-name = "vdd_log_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <750000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <750000>;
-+				};
-+			};
-+
-+			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
-+				regulator-name = "vdd_vdenc_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_ddr_s0: dcdc-reg5 {
-+				regulator-name = "vdd_ddr_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <850000>;
-+				};
-+			};
-+
-+			vdd2_ddr_s3: dcdc-reg6 {
-+				regulator-name = "vdd2_ddr_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vcc_2v0_pldo_s3: dcdc-reg7 {
-+				regulator-name = "vcc_2v0_pldo_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <2000000>;
-+				regulator-max-microvolt = <2000000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <2000000>;
-+				};
-+			};
-+
-+			vcc_3v3_s3: dcdc-reg8 {
-+				regulator-name = "vcc_3v3_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <3300000>;
-+				};
-+			};
-+
-+			vddq_ddr_s0: dcdc-reg9 {
-+				regulator-name = "vddq_ddr_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s3: dcdc-reg10 {
-+				regulator-name = "vcc_1v8_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
-+				};
-+			};
-+
-+			avcc_1v8_s0: pldo-reg1 {
-+				regulator-name = "avcc_1v8_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s0: pldo-reg2 {
-+				regulator-name = "vcc_1v8_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
-+				};
-+			};
-+
-+			avdd_1v2_s0: pldo-reg3 {
-+				regulator-name = "avdd_1v2_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_3v3_s0: pldo-reg4 {
-+				regulator-name = "vcc_3v3_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vccio_sd_s0: pldo-reg5 {
-+				regulator-name = "vccio_sd_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			pldo6_s3: pldo-reg6 {
-+				regulator-name = "pldo6_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
-+				};
-+			};
-+
-+			vdd_0v75_s3: nldo-reg1 {
-+				regulator-name = "vdd_0v75_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <750000>;
-+				};
-+			};
-+
-+			vdd_ddr_pll_s0: nldo-reg2 {
-+				regulator-name = "vdd_ddr_pll_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <850000>;
-+				};
-+			};
-+
-+			avdd_0v75_s0: nldo-reg3 {
-+				regulator-name = "avdd_0v75_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <837500>;
-+				regulator-max-microvolt = <837500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v85_s0: nldo-reg4 {
-+				regulator-name = "vdd_0v85_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v75_s0: nldo-reg5 {
-+				regulator-name = "vdd_0v75_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&i2c0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c0m2_xfer>;
-+	status = "okay";
-+
-+	vdd_cpu_big0_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_cpu_big0_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+
-+	vdd_cpu_big1_s0: regulator@43 {
-+		compatible = "rockchip,rk8603", "rockchip,rk8602";
-+		reg = <0x43>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_cpu_big1_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2m0_xfer>;
-+	status = "okay";
-+
-+	vdd_npu_s0: vdd_npu_mem_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_npu_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <950000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+
-+	husb311: typec-port@4e {
-+		compatible = "hynetek,husb311", "richtek,rt1711h";
-+		reg = <0x4e>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <RK_PA4 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usbc0_int>;
-+		vbus-supply = <&vbus5v0_typec>;
-+
-+		usb_con: connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			power-role = "dual";
-+			data-role = "dual";
-+			try-power-role = "sink";
-+			source-pdos = <0x401912c>;
-+			sink-pdos = <0x4019064>;
-+			op-sink-microwatt = <1000000>;
-+
-+			altmodes {
-+				displayport {
-+					svid = /bits/ 16 <0xff01>;
-+					vdo = <0xffffffff>;
-+				};
-+			};
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					usbc0_hs: endpoint {
-+						remote-endpoint = <&usb_host0_hs_ep>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					usbc0_ss: endpoint {
-+						remote-endpoint = <&usbdp_phy0_ss_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy0_dp_out>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&cpu_l0 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l1 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l2 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l3 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_b0 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b1 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b2 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&cpu_b3 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_gpu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_1 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_2 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&sdhci {
-+	bus-width = <8>;
-+	no-sdio;
-+	no-sd;
-+	non-removable;
-+	max-frequency = <200000000>;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	vmmc-supply = <&vcc_3v3_s3>;
-+	vqmmc-supply = <&vcc_1v8_s3>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	max-frequency = <150000000>;
-+	no-sdio;
-+	no-mmc;
-+	bus-width = <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_3v3_sd_s0>;
-+	vqmmc-supply = <&vccio_sd_s0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc_det>;
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	pinctrl-0 = <&uart2m0_xfer>;
-+	status = "okay";
-+};
-+
-+&gmac1 {
-+	phy-mode = "rgmii";
-+	clock_in_out = "input";
-+
-+	snps,reset-gpio = <&gpio0 RK_PD5 GPIO_ACTIVE_LOW>;
-+	snps,reset-active-low;
-+	snps,reset-delays-us = <0 20000 100000>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac1_miim
-+		     &gmac1_tx_bus2
-+		     &gmac1_rx_bus2
-+		     &gmac1_rgmii_clk
-+		     &gmac1_rgmii_bus
-+		     &gmac1_clkinout>;
-+
-+	tx_delay = <0x2f>;
-+	rx_delay = <0x00>;
-+
-+	phy-handle = <&rgmii_phy1>;
-+	status = "okay";
-+};
-+
-+&mdio1 {
-+	rgmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+
-+		motorcomm,clk-out-frequency-hz = <125000000>;
-+		motorcomm,keep-pll-enabled;
-+	};
-+};
-+
-+&u2phy2 {
-+	status = "okay";
-+};
-+
-+&u2phy2_host {
-+	phy-supply = <&vcc5v0_usb>;
-+	status = "okay";
-+};
-+
-+&usb_host0_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host0_ohci {
-+	status = "okay";
-+};
-+
-+&u2phy3 {
-+	status = "okay";
-+};
-+
-+&u2phy3_host {
-+	phy-supply = <&vcc5v0_usb>;
-+	status = "okay";
-+};
-+
-+&usb_host1_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host1_ohci {
-+	status = "okay";
-+};
-+
-+&pwm7 {
-+	pinctrl-0 = <&pwm7m0_pins>;
-+	status = "okay";
-+};
-+
-+&saradc {
-+	status = "okay";
-+	vref-supply = <&vcc_1v8_s0>;
-+};
-+
-+&tsadc {
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	sdmmc {
-+		sd_s0_pwr: sd-s0-pwr {
-+			rockchip,pins = <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	pcie {
-+		pcie2x1l2_perstn: pcie2x1l2-perstn {
-+			rockchip,pins = <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	usb-typec {
-+		typec5v_pwren: typec5v-pwren {
-+			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		usbc0_int: usbc0-int {
-+			rockchip,pins = <1 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	leds {
-+		work_led_pin: work-led-pin {
-+			rockchip,pins = <1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+	};
-+};
-+
-+&package_thermal {
-+	polling-delay = <1000>;
-+
-+	trips {
-+		fan_trip0: fan-trip0 {
-+			temperature = <50000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip1: fan-trip1 {
-+			temperature = <55000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip2: fan-trip2 {
-+			temperature = <60000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip3: fan-trip3 {
-+			temperature = <65000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip4: fan-trip4 {
-+			temperature = <70000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map0 {
-+			trip = <&fan_trip0>;
-+			cooling-device = <&fan THERMAL_NO_LIMIT 1>;
-+		};
-+
-+		map1 {
-+			trip = <&fan_trip1>;
-+			cooling-device = <&fan 1 2>;
-+		};
-+
-+		map2 {
-+			trip = <&fan_trip2>;
-+			cooling-device = <&fan 2 3>;
-+		};
-+
-+		map3 {
-+			trip = <&fan_trip3>;
-+			cooling-device = <&fan 3 4>;
-+		};
-+
-+		map4 {
-+			trip = <&fan_trip4>;
-+			cooling-device = <&fan 4 THERMAL_NO_LIMIT>;
-+		};
-+	};
-+};
-+
-+&hdmi0 {
-+	frl-enable-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_LOW>;
-+	pinctrl-0 = <&hdmim0_tx0_cec &hdmim0_tx0_hpd
-+		     &hdmim0_tx0_scl &hdmim0_tx0_sda>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&hdmi0_in {
-+	hdmi0_in_vp0: endpoint {
-+		remote-endpoint = <&vp0_out_hdmi0>;
-+	};
-+};
-+
-+&hdmi0_out {
-+	hdmi0_out_con: endpoint {
-+		remote-endpoint = <&hdmi0_con_in>;
-+	};
-+};
-+
-+&hdptxphy0 {
-+	status = "okay";
-+};
-+
-+&vop {
-+	status = "okay";
-+};
-+
-+&vop_mmu {
-+	status = "okay";
-+};
-+
-+&vp0 {
-+	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
-+		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
-+		remote-endpoint = <&hdmi0_in_vp0>;
-+	};
-+};
-+
-+&i2s5_8ch {
-+	status = "okay";
-+};
-+
-+&hdmi0_sound {
-+	status = "okay";
-+};
-+
-+&sata0 {
-+	status = "disabled";
-+};
-+
-+&combphy0_ps {
-+	status = "okay";
-+};
-+
-+&pcie2x1l2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie2x1l2_perstn>;
-+	reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
-+	vpcie3v3-supply = <&vcc_3v3_s3>;
-+	status = "okay";
-+};
-+
-+&u2phy0 {
-+	status = "okay";
-+};
-+
-+&u2phy0_otg {
-+	status = "okay";
-+};
-+
-+&combphy2_psu {
-+	status = "okay";
-+};
-+
-+&usb_host2_xhci {
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	dr_mode = "host";
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			usb_host0_hs_ep: endpoint {
-+				remote-endpoint = <&usbc0_hs>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			usb_host0_ss_ep: endpoint {
-+				remote-endpoint = <&usbdp_phy0_ss_in>;
-+			};
-+		};
-+	};
-+};
-+
-+/ {
-+	hdmi0-con {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi0_con_in: endpoint {
-+				remote-endpoint = <&hdmi0_out_con>;
-+			};
-+		};
-+	};
-+
-+	vbus5v0_typec: regulator-vbus5v0-typec {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		regulator-name = "vbus5v0_typec";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		vin-supply = <&vcc5v0_sys>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&typec5v_pwren>;
-+	};
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1m4_xfer>;
-+	status = "okay";
-+
-+	es8388: audio-codec@11 {
-+		compatible = "everest,es8388", "everest,es8328";
-+		reg = <0x11>;
-+		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
-+		assigned-clock-rates = <12288000>;
-+		AVDD-supply = <&vcc_3v3_s0>;
-+		DVDD-supply = <&vcc_1v8_s0>;
-+		HPVDD-supply = <&vcc_3v3_s0>;
-+		PVDD-supply = <&vcc_3v3_s0>;
-+		#sound-dai-cells = <0>;
-+	};
-+};
-+
-+&i2s0_8ch {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s0_lrck &i2s0_mclk &i2s0_sclk &i2s0_sdi0 &i2s0_sdo0>;
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	headphone {
-+		hp_det: hp-det {
-+			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		hp_con: hp-con {
-+			rockchip,pins = <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+/ {
-+	analog_sound: analog-sound {
-+		compatible = "simple-audio-card";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_det &hp_con>;
-+		simple-audio-card,name = "QuarkPi-CA2 ES8388";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&sound_cpu>;
-+		simple-audio-card,frame-master = <&sound_cpu>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,aux-devs = <&hp_amp>;
-+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
-+		simple-audio-card,pin-switches = "Headphones";
-+		simple-audio-card,widgets =
-+			"Headphone", "Headphones",
-+			"Microphone", "Headset Mic",
-+			"Microphone", "Main Mic";
-+		simple-audio-card,routing =
-+			"Headphones", "LOUT1",
-+			"Headphones", "ROUT1",
-+			"Headphones", "Headphone Power OUTL",
-+			"Headphones", "Headphone Power OUTR",
-+			"Headphone Power INL", "LOUT1",
-+			"Headphone Power INR", "ROUT1",
-+			"LINPUT1", "Headset Mic",
-+			"LINPUT2", "Main Mic",
-+			"RINPUT1", "Headset Mic",
-+			"RINPUT2", "Main Mic";
-+
-+		sound_cpu: simple-audio-card,cpu {
-+			sound-dai = <&i2s0_8ch>;
-+		};
-+
-+		sound_codec: simple-audio-card,codec {
-+			sound-dai = <&es8388>;
-+			system-clock-frequency = <12288000>;
-+		};
-+	};
-+
-+	hp_amp: audio-amplifier-hp {
-+		compatible = "simple-audio-amplifier";
-+		sound-name-prefix = "Headphone Power";
-+		enable-gpios = <&gpio1 RK_PC6 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3m1_xfer>;
-+	status = "okay";
-+};
-+
-+
-+&uart5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart5m1_xfer>;
-+	status = "okay";
-+};
-+
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0m3_pins>, <&spi0m3_cs0>, <&spi0m3_cs1>;
-+	num-cs = <2>;
-+	status = "okay";
-+
-+};
-+
-+&rga3_core0 {};
-+
-+&rga3_core1 {};
-+
-+&pinctrl {
-+	ir {
-+		ir_receiver_pin: ir-receiver-pin {
-+			rockchip,pins = <0 RK_PD4 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+};
-+
-+
-+&{/} {
-+	ir_receiver: ir-receiver {
-+		compatible = "gpio-ir-receiver";
-+		gpios = <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&ir_receiver_pin>;
-+	};
-+};
-+
-+
-+&dp0 {
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp0>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&usbdp_phy0_dp_in>;
-+	};
-+};
-+
-+&vp1 {
-+	vp1_out_dp0: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
-+
-+&usbdp_phy0 {
-+	orientation-switch;
-+	mode-switch;
-+	sbu1-dc-gpios = <&gpio4 RK_PA6 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
-+	rockchip,dp-lane-mux = <2 3>;
-+	status = "okay";
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		usbdp_phy0_ss_out: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&usbc0_ss>;
-+		};
-+
-+		usbdp_phy0_ss_in: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&usb_host0_ss_ep>;
-+		};
-+
-+		usbdp_phy0_dp_in: endpoint@2 {
-+			reg = <2>;
-+			remote-endpoint = <&dp0_out_con>;
-+		};
-+
-+		usbdp_phy0_dp_out: endpoint@3 {
-+			reg = <3>;
-+			remote-endpoint = <&usbc0_sbu>;
-+		};
-+	};
-+};
+-static bool check_huge_type(uint64_t categories, enum check_huge_type type)
++static bool __check_type(void *addr, size_t len, uint64_t page_size,
++               bool allow_nonpresent, enum check_type type)
+ {
+-       const bool file = categories & PAGE_IS_FILE;
++       bool ret = false;
++       int pagemap_fd, kpageflags_fd;
++       char *start = addr;
++       char *end = start + len;
++       uint64_t categories;
++       unsigned long pfn;
++
++       pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
++       if (pagemap_fd < 0)
++               ksft_exit_fail_perror("open pagemap");
++
++       kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
++       if (kpageflags_fd < 0)
++               ksft_exit_fail_perror("open kpageflags");
+
+-       switch (type) {
+-       case CHECK_HUGE_ANON:
+-               return !file;
+-       case CHECK_HUGE_FILE:
+-               return file;
++       for (; start < end; start += page_size) {
++               categories = pagemap_scan_get_categories(pagemap_fd, start);
++               pfn = pagemap_get_pfn(pagemap_fd, start);
++               if (pfn == -1UL) {
++                       if (!allow_nonpresent)
++                               goto out;
++                       continue;
++               }
++
++               if ((type == CHECK_TYPE_FILE) != !!(categories & PAGE_IS_FILE))
++                       goto out;
+        }
+
+-       return false;
++       ret = true;
++
++out:
++       close(kpageflags_fd);
++       close(pagemap_fd);
++       return ret;
+ }
+
+-static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+-                 uint64_t hpage_size, enum check_huge_type type)
++static bool __check_huge(void *addr, size_t len, int nr_hpages,
++               uint64_t hpage_size)
+ {
++       bool ret = false;
+        int pagemap_fd;
+        int nr_pmd_mappings = 0;
++       uint64_t pmd_pagesize;
+        uint64_t categories;
+        char *start = addr;
+        char *end = start + len;
+
++       pmd_pagesize = read_pmd_pagesize();
++       if (!pmd_pagesize)
++               ksft_exit_fail_msg("reading PMD pagesize failed\n");
++
+        pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+        if (pagemap_fd < 0)
+                ksft_exit_fail_perror("open pagemap");
+
+-       for (; start < end; start += hpage_size) {
++       if (hpage_size != pmd_pagesize) {
++               ret = check_large_folios(addr, len, nr_hpages, hpage_size);
++               goto out;
++       }
++
++       for (start = addr; start < end; start += hpage_size) {
+                categories = pagemap_scan_get_categories(pagemap_fd, start);
+-               if (!(categories & PAGE_IS_HUGE))
+-                       continue;
+-               if (check_huge_type(categories, type))
++               if (categories & PAGE_IS_HUGE)
+                        nr_pmd_mappings++;
+        }
+-       close(pagemap_fd);
+
+-       return nr_hpages == nr_pmd_mappings;
++       if (nr_pmd_mappings != nr_hpages)
++               goto out;
++
++       ret = true;
++
++out:
++       close(pagemap_fd);
++       return ret;
+ }
+
+ bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+ {
+-       uint64_t pmd_pagesize = read_pmd_pagesize();
+-
+-       if (!pmd_pagesize)
+-               ksft_exit_fail_msg("reading PMD pagesize failed\n");
++       /* Some mTHP tests check a partially populated PMD-sized range. */
++       const bool allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
++       const uint64_t scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+
+-       if (hpage_size == pmd_pagesize)
+-               return __check_pmd_huge(addr, len, nr_hpages, hpage_size,
+-                                       CHECK_HUGE_ANON);
++       if (! __check_huge(addr, len, nr_hpages, hpage_size))
++               return false;
+
+-       return check_large_folios(addr, len, nr_hpages, hpage_size);
++       return __check_type(addr, len, scan_mapping_size, allow_nonpresent,
++                       CHECK_TYPE_ANON);
+ }
+
+ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+ {
+-       uint64_t pmd_pagesize = read_pmd_pagesize();
++       /* Some mTHP tests check a partially populated PMD-sized range. */
++       const bool allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
++       const uint64_t scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+
+-       if (!pmd_pagesize)
+-               ksft_exit_fail_msg("reading PMD pagesize failed\n");
+-
+-       if (hpage_size == pmd_pagesize)
+-               return __check_pmd_huge(addr, len, nr_hpages, hpage_size,
+-                                       CHECK_HUGE_FILE);
++       if (! __check_huge(addr, len, nr_hpages, hpage_size))
++               return false;
+
+-       return check_large_folios(addr, len, nr_hpages, hpage_size);
++       return __check_type(addr, len, scan_mapping_size, allow_nonpresent,
++                       CHECK_TYPE_FILE);
+ }
+
 -- 
-2.47.3
-
+Sincerely,
+Yeoreum Yun
