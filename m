@@ -1,200 +1,246 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77A4377AB6;
-	Thu,  1 Oct 2026 06:47:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9777B48A8B2;
+	Thu,  1 Oct 2026 06:48:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837276; cv=none; b=gL7p01+S25vggssDobI/LHoN5sq1hXDrGNBASQptAHN1OE/fq2c4GJ+5kolNTFFhAYfYngWHK0AZcliRmCyhOie0XYveE+x+Bww21gGvJreBM0vieRc0ft0pX1ndvSPjPLbQzLlaZ3615RtvjuhYgQPoNg2RZkThU9RHXBSumps=
+	t=1790837309; cv=none; b=BVtqDK5OKT0NZM2LS/MfwfdzfyNbtXvEC5yc5mUEmKe3GqbU2V4RgOXph7cx656PZOnnqTYMGvmCBkkD4N4DwDslwjdrIwySZxvsSSBBpLZb4+x0BUG1IyegE4Pyc1qHPySXDO8xqMvZDlEcLL+hzKa52DhnprcX75eO92ZDZBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837276; c=relaxed/simple;
-	bh=TXC5ruVXo+a9dEJ5rZbCZbW68skQG3TCrlDnMCSWDdk=;
+	s=arc-20240116; t=1790837309; c=relaxed/simple;
+	bh=9C9YwHz2LmenEFx6ac2crhMBgLDF9XFjHszoDkDbV/E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fgRey8TT7UQBtN/Ak8u/D+I+Rm9N6UMgqSnKhQ08n+6dKYdk8q5sTMdCJVuN57ccd2OqjGXc6iHVc3MEJtBngPlItV0ZN5zOIeQJrXEfMvo+AE8foQdLkr0HP+eeFtm2WePK06jnh6XwTzO6Y3YYvRWxe0zPZTLykjbddebOJWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GAx4r1Qy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Sw0FGEGVlstgawSAfbKZlD2toC+kOMBu3869LrjVpV0mCAN/R6rzTWL8rj8gEMEpnTTyAaSRWziQoKBuAe6WRTNiTKae7GchbTmkSf0jdh5KSklS3NVhoEWWoPHjnGx8EFmoKFHmu9/40uS1CaYkyoLmhvKuZ5mwxnaPcvGZWqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S2oAAim+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GAx4r1Qy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7CA1F000FF;
-	Thu,  1 Oct 2026 06:47:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S2oAAim+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FA01F000FF;
+	Thu,  1 Oct 2026 06:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790837272;
-	bh=/eo4VXfLJA2BqXU04SITGfBAcQm5nCCQ0vEGJlZDNXc=;
+	s=k20260515; t=1790837301;
+	bh=oTPiNK1ijgqqieTLDnk5gsI3qKTkeHbyJgaO+3TPCaM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GAx4r1QySbXUQtVhs5ku+Px8WYJpasZv+1qGZplpRI54QCCxJjWc3ccOrq0QC6kMh
-	 xXuiXwz1LLp5AseyT0GJfSt5L4ekNSx871d6NGOwDlRj7haRlEytVgsdzV9pQuwpjg
-	 7dmDwboevsrg7cCbe5e3FAAPqCpg0+cxMTIk5XUKojRZd0HN+zQv4d2uwHvPBUwcaB
-	 Z2ZjNi+i5+cbXSIiyNufW209Su4GyX6wb5vveag/MfkEnt9g+vgPUwfT+tAmkoEPmw
-	 8OeaW3EZkLcz/Wjt/qNgrvbHS9NtLEJt9qaiFG+e0UiYV8vh9AcoCfrzJxaedCeuuH
-	 RnuCcORKTfgNQ==
-Date: Wed, 30 Sep 2026 23:47:50 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
-	Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 00/26] perf trace: Fix BPF filtering and make tracing
- tests non-exclusive
-Message-ID: <ar4CFsO_TMn1ZQnX@z2>
-References: <cover.1790145937.git.irogers@google.com>
- <20260928182605.3649015-1-irogers@google.com>
- <ar1HuxPsRpiOZ_4K@x2>
+	b=S2oAAim+ZNN1UcFWk7JwFJyWhJfmpAkwn9wIrUXnc9gDsyIOrLMMP59x1ylVtpqpG
+	 pTzdfwm1Uhh/acqjNDV1CVJMYuTJYmAjDf9E+SaTmVAb5hSpsIrSsnEH5/UHX3mkB2
+	 xFytObp+UzIjfucg0Wd4tDrA3T+ZnqzroP3taQyRabiYXpyzMfYmDpwFtpoSMEoWGb
+	 ixwuV70lKjFBRPQ+ayaT78Xkp/1CRw8RUvQUCWunq7zOc6OU9l/EEA+EdaVFg06I5p
+	 A/YT+UVWignazMIbm71xq98Jtz3/PTH/rV6rwOrMuEjSMz8mVSuk8M7xP56UdsDyez
+	 UDFp3UPZJuXEQ==
+Date: Thu, 1 Oct 2026 08:48:18 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <ar4ADESgOoIx4F5d@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+ <artgrTe6wvKxnUOG@houat>
+ <c75feb5d-055d-403a-8dba-3c187cdb8e7d@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="xylhezw3t3zffshi"
 Content-Disposition: inline
-In-Reply-To: <ar1HuxPsRpiOZ_4K@x2>
+In-Reply-To: <c75feb5d-055d-403a-8dba-3c187cdb8e7d@linaro.org>
 
-On Wed, Sep 30, 2026 at 07:32:43PM +0200, Arnaldo Carvalho de Melo wrote:
-> On Mon, Sep 28, 2026 at 11:25:39AM -0700, Ian Rogers wrote:
-> > perf trace's BPF programs return 0 from raw_syscalls:sys_{enter,exit} to
-> > filter, which drops the event for every other session using the
-> > tracepoint. Fix that, and bugs found on the way, so the perf trace and
-> > probe tests can run in parallel.
-> 
-> Applied the first 4 patches so far,
-  
-I've reviewed other patches and they all look fine.  Thanks Ian for
-incorperating my earlier patches.  I'd like to merge this series first
-and work on more cleanups later.
 
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+--xylhezw3t3zffshi
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+MIME-Version: 1.0
 
-Thanks,
-Namhyung
+On Wed, Sep 30, 2026 at 03:46:04PM +0200, Neil Armstrong wrote:
+> On 9/29/26 09:13, Maxime Ripard wrote:
+> > Hi Neil,
+> >=20
+> > On Mon, Sep 28, 2026 at 06:39:58PM +0200, Neil Armstrong wrote:
+> > > On 9/28/26 18:22, Maxime Ripard wrote:
+> > > > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > > > difficult to support and require pretty much a panel driver for each
+> > > > panel produced. Most of them are pretty simple, and require an opaq=
+ue
+> > > > initialization sequence that is usually poorly documented.
+> > > >=20
+> > > > This creates a tension between OEMs and distros because OEMs will
+> > > > typically get a new panel to react to a sourcing issue during
+> > > > production, and thus need some swift turnaround between getting the=
+ir
+> > > > new panel and it being operational in the OS. Distributions on the =
+other
+> > > > hand can take years to ship a kernel with that new panel driver.
+> > > >=20
+> > > > To solve this, I followed the example of HID-BPF and wrote a panel
+> > > > driver that will rely on BPF programs to perform the panel
+> > > > initialization. That way, we can ship the programs separately from =
+the
+> > > > kernel, and with a different lifecycle. If this driver is accepted,=
+ the
+> > > > plan is to have a userspace component started by udev to identify a=
+nd
+> > > > load the right BPF program for the panels found on the device.
+> > >=20
+> > > This is kind of late for serious applications except if we manage to
+> > > solve the bootloader to Linux display engine transition.
+> >=20
+> > Virtually all "generic" distributions are shipping the panel as modules
+> > today anyway, because anything else is nothing but impractical. But
+> > maybe you don't consider them serious enough. Also, applications live in
+> > userspace already, so can be ran after this driver would be initialized
+> > anyway.
+>=20
+> So what would this exactly solve ? keeping out-of-tree BPF driver + bindi=
+ngs
+> driver forever and never upstreaming then ? Is this what we really want ?
+>=20
+> >=20
+> > > > This driver is fully functional and works with both 5" and 7" Touch
+> > > > Display 2 panels for the RaspberryPi. However, it breaks away from =
+the
+> > > > typical panel driver in multiple ways:
+> > > >=20
+> > > > - BPF programs can only be loaded by userspace. This leaves us with=
+ two
+> > > >     choices:
+> > > >=20
+> > > >     * We prevent the driver from loading until the script itself is
+> > > >       loaded. This has the side effect of preventing any other outp=
+ut to
+> > > >       be used until the initramfs is ran at the earliest, and possi=
+bly
+> > > >       ever if the loader isn't installed for example.
+> > >=20
+> > > This adds a dependency on user-space behavior and if somehow the
+> > > initramfs doesn't load for a reason we won't have a way to display
+> > > an error.
+> >=20
+> > Yes, if an error happens before the DRM driver loads, it won't be shown
+> > on the screen. This is already the case for any panel driver today on
+> > any major !embedded distribution. And with built-in drivers, this can
+> > also happen before or while the DRM driver loads.
+> >=20
+> > The solution is always the same though: load simpledrm first, move to
+> > the proper DRM device once it's functional. It still works with this
+> > solution.
+>=20
+> Module !=3D bpf programs, maybe one day it will change.
 
-> > Patches 1-6 fix reading augmented arguments.
-> > 
-> > Patches 7-10 fix starting the BPF summary, and the syscall tracepoints'
-> > internal fields being taken for arguments.
-> > 
-> > Patches 11-18 fix the filtering. Namhyung's series [2], patches 11, 17
-> > and 18, sends sys_exit as well as sys_enter through the bpf-output event
-> > so nothing is vetoed. That event only works for the first thread of a
-> > task target and not for its children, so patches 14-16 open it on every
-> > CPU and select the target's tasks in BPF, keyed by process when
-> > inheriting. Patch 19 adds --no-syscall-augment.
-> > 
-> > Patches 20-26 scope the tests' probes and events to their pid so they
-> > can drop the exclusive tag.
-> > 
-> > Aaron's series [1] overlaps patches 4 and 5, whose approach was
-> > preferred. In [1], 3/7 steps over a string by its size rounded up to 8,
-> > but the BTF augmenter packs arguments unaligned, so the second path of
-> > rename-like syscalls is misread. 2/7 doesn't step over the zero sized
-> > argument a failed read leaves, so the next argument rereads it. [1] also
-> > has checkpatch warnings, Reported-by without Closes: and 112 column
-> > lines.
-> > 
-> > >From [2], Jakub's 1/5, using the kernel's syscall tracepoint structs, is
-> > left out as these fixes don't need it and patches 1, 2, 15 and 17 change
-> > the same code. It can follow on top. 3/5 adds common_type to the existing
-> > structs instead and, among the changes noted in it, always returns 1
-> > from augmented__output(), as returning 0 from the tail called augmenters
-> > still vetoed the tracepoint. 5/5 keeps trace+probe_vfs_getname.sh
-> > exclusive, as without BPF every perf trace opens its probe.
-> > 
-> > The series applies on top of [3], which fixes the vfs_getname tests on
-> > v7.0+ kernels and changes the same lines as patch 21.
-> > 
-> > Tested on x86_64, the trace and probe tests pass under 'perf test -r3'.
-> > Every patch builds with and without BUILD_BPF_SKEL.
-> > 
-> > [1] https://lore.kernel.org/r/20260919005530.728615-1-atomlin@atomlin.com
-> > [2] https://lore.kernel.org/r/20250814071754.193265-1-namhyung@kernel.org
-> > [3] https://lore.kernel.org/r/20260926223905.6865105-1-irogers@google.com
-> > 
-> > v6:
-> >  - Shorter commit messages and comments (Namhyung).
-> >  - Keep v5 8-9/23 as patches 4 and 5 rather than Aaron's [1], see above.
-> >  - New patch 6 copies sockaddr arguments by their length, so IPv6
-> >    addresses are shown.
-> >  - Namhyung's 2-4/5 with patches 15 and 16 replace v5 11-15/23, and his
-> >    5/5 replaces v5 22/23, see above.
-> >  - Seed the target's tasks before the events are opened, rather than
-> >    re-reading /proc after attaching, keyed by process when inheriting.
-> >    Tasks that don't fit are reported as lost, suggesting
-> >    --no-syscall-augment.
-> >  - Patch 14 moves bpf-filter's convert_to_tgid() to thread_map.c, fixing
-> >    a read after free and a comm containing "Tgid:" being taken for it.
-> >  - Split v5 7/23 into patches 8-10, stopping at the first internal
-> >    field (Namhyung).
-> >  - --no-syscall-augment is its own patch (Namhyung).
-> >  - Drop v5 3-5/23, now applied.
-> >  - Drop v5 16/23, as perf-tools-next's port of task-analyzer to the perf
-> >    module made the same change.
-> > 
-> > Ian Rogers (22):
-> >   perf trace: Set the augmented arg header in the augmenters that omit
-> >     it
-> >   perf trace: Include the augmented arg header in nanosleep's payload
-> >     length
-> >   perf trace: Don't read sample padding as an augmented argument
-> >   perf trace: Bounds check augmented arguments before reading them
-> >   perf trace: Bound the fixed size augmented argument beautifiers
-> >   perf trace: Copy sockaddr arguments by their length
-> >   perf trace: Start BPF summary before starting workload
-> >   perf trace: Stop at internal fields when walking syscall arguments
-> >   perf trace: Don't allocate syscall arg formats for internal fields
-> >   perf trace: Only take augmented arguments from the BPF output event
-> >   perf trace: Use the CPU map index for the BPF output event's fds
-> >   perf trace: Destroy the BPF skeleton if it fails to load
-> >   perf thread_map: Add thread_map__tgid()
-> >   perf trace: Filter the target's tasks in BPF
-> >   perf trace: Open the BPF output event on every CPU for task targets
-> >   perf trace: Add an option to disable syscall augmentation
-> >   perf test common: Only disable probes in clear_all_probes
-> >   perf test probe_vfs_getname: Scope probe name to PID and make
-> >     non-exclusive
-> >   perf test record+probe_libc_inet_pton: Scope event to PID and make
-> >     non-exclusive
-> >   perf test trace_summary: Improve error diagnostics
-> >   perf test trace_btf_general: Drop --max-events=1 and make
-> >     non-exclusive
-> >   perf test uprobe_from_different_cu: Scope probe name to PID
-> > 
-> > Namhyung Kim (4):
-> >   perf trace: Split unaugmented sys_exit program
-> >   perf trace: Do not return 0 from syscall tracepoint BPF
-> >   perf trace: Remove unused code
-> >   perf test: Remove exclusive tag from perf trace tests
-> > 
-> >  tools/perf/Documentation/perf-trace.txt       |   6 +
-> >  tools/perf/builtin-trace.c                    | 441 ++++++++++--------
-> >  tools/perf/tests/shell/common/init.sh         |  21 +-
-> >  .../perf/tests/shell/lib/probe_vfs_getname.sh |  25 +-
-> >  tools/perf/tests/shell/probe_vfs_getname.sh   |   3 +-
-> >  .../shell/record+probe_libc_inet_pton.sh      |  85 +++-
-> >  .../shell/record+script_probe_vfs_getname.sh  |  16 +-
-> >  .../shell/test_uprobe_from_different_cu.sh    |   7 +-
-> >  .../tests/shell/trace+probe_vfs_getname.sh    |   5 +
-> >  tools/perf/tests/shell/trace_btf_general.sh   |   8 +-
-> >  tools/perf/tests/shell/trace_summary.sh       |  15 +-
-> >  tools/perf/trace/beauty/beauty.h              |  17 +
-> >  tools/perf/trace/beauty/perf_event_open.c     |  31 +-
-> >  tools/perf/trace/beauty/sockaddr.c            |  49 +-
-> >  tools/perf/trace/beauty/timespec.c            |   2 +-
-> >  tools/perf/util/bpf-filter.c                  |  29 +-
-> >  .../bpf_skel/augmented_raw_syscalls.bpf.c     | 210 +++++++--
-> >  tools/perf/util/bpf_skel/perf_trace_u.h       |  14 +
-> >  tools/perf/util/bpf_skel/vmlinux/vmlinux.h    |   9 +
-> >  tools/perf/util/bpf_trace_augment.c           |  89 +++-
-> >  tools/perf/util/thread_map.c                  |  26 ++
-> >  tools/perf/util/thread_map.h                  |   1 +
-> >  tools/perf/util/trace_augment.h               |  34 +-
-> >  23 files changed, 800 insertions(+), 343 deletions(-)
-> >  create mode 100644 tools/perf/util/bpf_skel/perf_trace_u.h
-> > 
-> > 
-> > base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
-> > prerequisite-patch-id: 8c69aafd92a5783df1ce11b7ab792ab39508380e
-> > -- 
-> > 2.56.0.rc1.315.gc6ed9934b7-goog
-> > 
+I have exactly zero idea what your point is here. You were saying that
+it's bad because panels get to probe later now and you wouldn't see an
+error. I'm saying it's already what happens today with a significant
+part of the install base and doesn't seem to bother you.
+
+I'm not talking about BPF programs themselves, I'm talking about your
+double standard.
+
+> > > >     * Or we probe the driver all the time, but only report it as co=
+nnected
+> > > >       once a program has been registered. This is somewhat unconven=
+tional,
+> > > >       but allows the other outputs to be functional, *and* allows t=
+he user
+> > > >       to force the output if their panel doesn't require any
+> > > >       initialization or during debugging. I chose this solution.
+> > >=20
+> > > Both options are not really great...
+> >=20
+> > Feel free to make any suggestions
+> >=20
+> > > >=20
+> > > > - It's not a panel driver, but a bridge one, which is also pretty
+> > > >     unconventional. This is required because panel drivers don't ha=
+ve
+> > > >     access to a detect callback that is required for the above, but=
+ I also
+> > > >     think that the recent work from Luca blurs the line from panels=
+ and
+> > > >     bridges and we'll end up going that road anyway.
+> > >=20
+> > > On this point, DDIC _are_ bridges,
+> >=20
+> > I have no idea what a DDIC mean.
+>=20
+> The DDIC is the Display Driver Interface Controller, basically the
+> IC which received DSI packets and physically drives the display.
+>=20
+> It's basically a bridge to the panel, and this is mainly what we program.
+
+I've been writing panel drivers longer than you did, there's no need to
+be patronizing.
+
+> > > but in the current panel API we blur the line between the panel and
+> > > the DDIC. So being a bridge is fine, but in a general way we lack a
+> > > proper way to describe the display/panel/monitor independently of the
+> > > DDIC.
+> > >=20
+> > > At first glance it's a nice driver, but moving the timings into a blob
+> >=20
+> > Let's not kid ourselves, it's *already* a blob. We just sugar-coated it
+> > enough that we can be happy and call it GPL.
+>=20
+> It's the case for most drivers, but since we don't get proper
+> documentation we're stuck using registers list and can't
+> implement advanced features. And moving this to a bpf won't solve
+> but enhance the problem by a large factor.
+
+How? You keep saying those broad, alarmist statements. Look at the BPF
+examples I provided. *How* is it "making the problem worse by a large
+factor" exactly?
+
+Just like I said to Rob, I don't mind changing that driver to accomodate
+your fear or anxiety. But "this is shit" isn't a review, it's abusive
+behaviour. If you plan on continuing that trend, don't.
+
+> > > moves something into possible proprietary binaries with possible
+> > > closed licence and distribution restriction so it's a downgrade for
+> > > the same of bringing up a panel faster.
+> >=20
+> > We can already make a proprietary, out-of-tree, panel driver today. That
+> > being said, the only license we allow for BPF programs here is GPL, so
+> > if anything it would be less of a concern for this than it would be for
+> > regular panels.
+>=20
+> So you're on to facilitate keeping panel driver out-of-tree and never
+> upstream them ? this is awkward TBH.
+
+Hahahaha, yeah, sure. I don't care about upstreaming anymore and just
+want to scorch-earth the entire kernel to have an excuse to retire and
+do goat farming. You got me.
+
+However, given the current state of this discussion and the intention
+you're giving me, it does sound appealing.
+
+Maxime
+
+--xylhezw3t3zffshi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4CMQAKCRAnX84Zoj2+
+dsKJAYDegBJXjN+DAIL+zFTw7NMWESWe1rT4wG/kSYCXb2ykCFMpoNvFPAczuyY3
+BveNkdgBgIbDXFAFc4WfspVAtEoMIh5QoJ6lGdHtAgVkVxhB2ZTLGnqTj1aS6ZvV
+TMcKW9VWrA==
+=Rwjh
+-----END PGP SIGNATURE-----
+
+--xylhezw3t3zffshi--
