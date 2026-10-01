@@ -1,172 +1,75 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346A743CE6A;
-	Thu,  1 Oct 2026 08:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6455D43BDA1;
+	Thu,  1 Oct 2026 08:05:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841884; cv=none; b=NRncRPdJVzEOKXeuCuqMR7la4uZ6rKme616gyL3yuvHFL2r6nyQdchg+svJHJYN3Ye7h4KP8KgqjMsQMJneM5wd64MqZ+NQ0/CL2G01qezy+MP6r/URFO9rtyXdJzgA8hDomt+BPquNMe0fXXPGtr/AVBuqwTb6WX4sESe6evso=
+	t=1790841944; cv=none; b=Po4E7ir3COIEziuIrFLIU09SFDegE1WHyMyTSyTQiughILVye9eN1BIx3gm8w7HrzZU/u4UKMdgWa+RCvOJ1X7263sOWq5vVzJUE7fZcnoQUMSJdQ2k+9azAKThmfWjuAIPKIKI5muiGahV13sIpdQyQFJ0fp7ip88bhC4RsI8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841884; c=relaxed/simple;
-	bh=NTdwP03EBhbkODzsoWd38mRud8YETeI8DSOShPTmjno=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AjZ502qxLBZsjJ57joQCTQ7FYOfiUBMU7+EMoSUJIBahgutrV4eKP8z6qTVu85V3DaQYFu1+jtfcHVuSDo5Moaxrr5h/a96BL+d7HuV27HNUfnCqPBmwVmX5Qa/whuAs/GzPu/WUGT5x/6bgRNGKiwW5qKqcnH//gIrRW6sdDYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KnWwUC6Z; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790841944; c=relaxed/simple;
+	bh=6i++DhDCJo3alPBNnwrUPtudb0DfC5cHquTsuDEHPg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iO/hh1ey2grry3E7faMfF+EX2kTcJ6txh0SbsWRklCoo4HVNCr9j8X7E0qYW/QRW0cL90/KKQ4W4buASsxkE1PT2WuouCqwzC2Sd2SgHyqOfetq5yUyYsO0EVmMHZElk0JsSbOGIqJsKXInSHhxI1Lz/SvbctnF9FWqfrV6dECg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9/IDkVg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KnWwUC6Z"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9AB901A109C;
-	Thu,  1 Oct 2026 08:04:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6252060341;
-	Thu,  1 Oct 2026 08:04:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 13AE21032989B;
-	Thu,  1 Oct 2026 10:04:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790841876; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=LkMJWvScoP2McGwOycO3kVpr2pNA3Xtxnmqw1hXAFHU=;
-	b=KnWwUC6ZHSn8mpdNupHA/dHpj5qX3sIhg2HSqXsmRildXlcFrAmHjrCEh7zER92HE8xVT0
-	T8K6OKFc8QSdC+0CgAcNa4T+SHsGE/olwDhSf0bN+xPda4U88zGr/VkrEt8zIZfFEYlrni
-	nVwYJyVIYfRVSBSrWx8z3k81LbgNimJVNUBl447LidVcv3Oio+K8bPwdWGSjg28J2t6EWX
-	VO9gEr/J8owPvcdrPYpzlugsm+d4KFkxffsenC21HdwmUflDnvZ2eD+VIGmJRSt/Fqq19f
-	sOxp4VOTXiNS8Jk2haRtzWa+jKljofRIuvDOzqfSM9mftQeQE1ibajBF6VdyYQ==
-Message-ID: <7db03f6fa24930ce7386bef277124a63a5807fcb.camel@bootlin.com>
-Subject: Re: [PATCH v2 2/7] drm: verisilicon: stop using deprecated
- devm_drm_of_get_bridge()
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
- <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
-	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, kernel test robot <lkp@intel.com>
-Date: Thu, 01 Oct 2026 10:04:25 +0200
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
-References: 
-	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
-	 <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9/IDkVg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55FF1F000FF;
+	Thu,  1 Oct 2026 08:05:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790841943;
+	bh=PGdqsABiHifezL69EQkKgockADvH39dMNn1MkutZUlU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y9/IDkVgxh7FvYe+24kJvQV30H1sGhInXRDF37M7Id1szihp3UUzg2Af7pGxKy8v+
+	 HmqWMx+3VUhxt+M8xLrTB40t4tZOecSJ/CaSmxnieoT7VolyewNLt36gBG9IMPiZ8a
+	 mkhs1P/pZspYG/O/U4w+wDrWInsNWatn1RcmcGnPWhxZJ5Neq+4v8gP4WaUaOUePha
+	 RZFHQOmfYZJbi86cAgWcKB8u+Uu7qiIOnXuQofDqZpqlLxImrb6zRoNfLtellzvYqB
+	 zyCvJiiVIP7XGhSDZz38TriJrMytpfoiRvcpBMuBNxKw2ePPxoDwJfGLmodU6eVr41
+	 6L6Ni9RdVgNog==
+Date: Thu, 1 Oct 2026 09:05:36 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, stable@vger.kernel.org, 
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
+Message-ID: <ar4T2vmGD1vZfAaI@gremlin>
+References: <20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org>
+ <20260930152139.e8fc193b9c2880b625fda814@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930152139.e8fc193b9c2880b625fda814@linux-foundation.org>
 
-Hi Lucas,
+On Wed, Sep 30, 2026 at 03:21:39PM -0700, Andrew Morton wrote:
+> On Wed, 30 Sep 2026 19:47:08 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
-=C2=A0:
-> devm_drm_of_get_bridge() is deprecated, switch to
-> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
-ns
-> a refcounted bridge, ensure it is put by using bridge.next_bridge.
->=20
-> Fixes build failure when CONFIG_OF is disabled.
->=20
-> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
-> Reported-by: Arnd Bergmann <arnd@kernel.org>
-> Closes: https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.or=
-g
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes:
-> https://lore.kernel.org/oe-kbuild-all/202609291109.OIsGTysr-lkp@intel.com=
-/
-> Closes:
-> https://lore.kernel.org/oe-kbuild-all/202609290408.BOs7sk55-lkp@intel.com=
-/
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > v2:
+> > * Added tags (thanks everybody!)
+> > * Updated 2/2 to avoid splitting the VMA if the VMA was not mlock()'d. It
+> >   is only meaningful and necessary to perform the split in this case. This
+> >   also fixes the proc_maps_race selftests that broke, as reported by
+> >   Anirudh.
+>
+> Here's how v2 altered mm.git's mm-hotfixes-unstable branch.  Quite a
+> large change - are you sure that retaining the tags was appropriate?
 
-Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+It's not a large change conceptually.
 
-Cheers,
--Paul
+The dontunmap_complete() delta is just reverting it to what it was before.
 
->=20
-> ---
->=20
-> Changes in v2:
-> - fix bridge reference leak on attach error path
-> - mention lkp report
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c | 11 ++++++-----
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.h |=C2=A0 1 -
-> =C2=A02 files changed, 6 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> index dc7c85b07fe3..3a5091c0ac2c 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> @@ -29,7 +29,7 @@ static int vs_bridge_attach(struct drm_bridge *bridge,
-> =C2=A0{
-> =C2=A0	struct vs_bridge *vbridge =3D drm_bridge_to_vs_bridge(bridge);
-> =C2=A0
-> -	return drm_bridge_attach(encoder, vbridge->next_bridge,
-> +	return drm_bridge_attach(encoder, vbridge->base.next_bridge,
-> =C2=A0				 bridge, flags);
-> =C2=A0}
-> =C2=A0
-> @@ -303,8 +303,7 @@ struct vs_bridge *vs_bridge_init(struct drm_device
-> *drm_dev,
-> =C2=A0		return NULL;
-> =C2=A0	}
-> =C2=A0
-> -	next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev->of_node,
-> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 output, intf);
-> +	next =3D of_drm_get_bridge_by_endpoint(drm_dev->dev->of_node, output,
-> intf);
-> =C2=A0	if (IS_ERR(next)) {
-> =C2=A0		ret =3D PTR_ERR(next);
-> =C2=A0		if (ret !=3D -EPROBE_DEFER)
-> @@ -321,12 +320,14 @@ struct vs_bridge *vs_bridge_init(struct drm_device
-> *drm_dev,
-> =C2=A0
-> =C2=A0	bridge =3D devm_drm_bridge_alloc(drm_dev->dev, struct vs_bridge, b=
-ase,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bridge_funcs);
-> -	if (IS_ERR(bridge))
-> +	if (IS_ERR(bridge)) {
-> +		drm_bridge_put(next);
-> =C2=A0		return ERR_PTR(PTR_ERR(bridge));
-> +	}
-> =C2=A0
-> =C2=A0	bridge->crtc =3D crtc;
-> =C2=A0	bridge->intf =3D intf;
-> -	bridge->next_bridge =3D next;
-> +	bridge->base.next_bridge =3D next;
-> =C2=A0
-> =C2=A0	if (intf =3D=3D VSDC_OUTPUT_INTERFACE_DPI)
-> =C2=A0		enctype =3D DRM_MODE_ENCODER_DPI;
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.h
-> b/drivers/gpu/drm/verisilicon/vs_bridge.h
-> index 70fee1749699..2b0ed94e4520 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.h
-> @@ -25,7 +25,6 @@ struct vs_bridge {
-> =C2=A0	struct drm_connector *conn;
-> =C2=A0
-> =C2=A0	struct vs_crtc *crtc;
-> -	struct drm_bridge *next_bridge;
-> =C2=A0	enum vs_bridge_output_interface intf;
-> =C2=A0};
-> =C2=A0
+The rest of it is literally just checking for VMA_LOCKED_BIT to avoid an
+unnecessary split.
+
+So yeah I think fine to retain tags.
+
+--
+Cheers, Lorenzo
