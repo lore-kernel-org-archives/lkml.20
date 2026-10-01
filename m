@@ -1,102 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5263F6C3D;
-	Thu,  1 Oct 2026 18:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82B24746B1;
+	Thu,  1 Oct 2026 18:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878675; cv=none; b=K9VpWC8/iQXNPiGmFakm10S7+c+WkaxRTXawZzbNo0H5P54NtTa3HZLTd3/wkb57WVzbK6hbGIvLbVrTpUT6fwaTjFH54WMGyo7wZ0yVgxCplBRWwHGINi5Ry5x67Xu/poGizkjPDjwGfDHAPmLOFVC/bBU4rQ0kNraa1so2S6I=
+	t=1790878748; cv=none; b=qnppXSHxgCxIplKpSgZ0odgUwlCfm6gpXjlj9X4Wi1I7t56ozTnUZSosiDx8uCdYfEj0qr0LrlTBycFB53jnIW315ghA9Xt5VHOyowCYiDMfry2s05PyMZT2J707xj/+8I0ysR+yCgr3Ll8tvmU3Fe5JN85B66UbjvSpz5rAW9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878675; c=relaxed/simple;
-	bh=3ZmflNzaiLcNCfQKsT5ZY7rchtehQoayT5kF/TVeg84=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=hmTxzbWtgqF61LbF9lOgctXNfYSkgCXxej4JqTqBRRvlLZ/RyoojJjG69yH8QsutDAvxCW+His1PCS73FBa4VMnujH+fIyuSdoLn1YhYM/tcTdSFfsW0sktExP/I0QI59Yx24sU5dOLfX0ogolurSCZ8ICT1Bxf29zUzbvZWIdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhHs9Xog; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790878748; c=relaxed/simple;
+	bh=kVZEZT9i2fpCtlgwV3LkpV6iMgWstIpk2hmyqSnOAuE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GUXevnDCIoPv0+6QdZ/2eixQE/svaADcHBXzHklr0MZOjRYxI+l6nH614OQKGHBjDgbzv2aVQmmV4fXsxD8fL1WzmPykLLkVe3pILcGUk/PiVlFIbWRLCnpU9jqoL5B6sqBfUk4+18Pp2qDgoU992c2IpNA6exZFm5xhxnfZkN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WSwYoUui; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhHs9Xog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9521F000FF;
-	Thu,  1 Oct 2026 18:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790878667;
-	bh=MesaoZSQ3esm3EyAqNPB4AFZZ/rifbsqgmE4LQLEul4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=YhHs9XogTz0xpgvpPBI1VHJ+i29O2mb9pO9p9CGt3dFqvKp/R8adrbXwMt8/6JiDx
-	 tCSYCzx+2JNmw/ilxKuv0OEGlwDdikdIEI6Wl+JsO879Hd7luP+ux6/EO3Q6hesjB9
-	 5ZctKDPBJveH8BshAoWZ2Objb58/refg2aXlJ0OW/F37D5LV8AIUBe2z2PbGC8vERb
-	 sbSiQ9RQjT+byWGCf7uYc/SNnxC7qGlDzdJxP8L35/wUAXRd4mziSXEjY/Ci9W6PW9
-	 ycLcOi54atxcnNyFEsQSkZCbKzPwsYBfZmJmoqXzl8JF29eYnNg8hoxaJfHpJrBVqw
-	 F5IvYmwHTWuwA==
-Date: Thu, 1 Oct 2026 20:16:43 +0200 (CEST)
-From: Imre Kaloz <kaloz@kernel.org>
-To: John Ogness <john.ogness@linutronix.de>
-cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org, 
-    Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
-    Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH] MIPS: SGI-IP27: print the NMI dump on an nbcon console
-In-Reply-To: <87bj9d8fm7.fsf@jogness.linutronix.de>
-Message-ID: <61511441-7d39-9606-9d9a-38c72baffd5e@kernel.org>
-References: <20261001155013.1694-1-kaloz@kernel.org> <87ece98je8.fsf@jogness.linutronix.de> <55083820-478c-e6a6-b129-467140f161db@kernel.org> <87bj9d8fm7.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WSwYoUui"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790878741; x=1822414741;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=kVZEZT9i2fpCtlgwV3LkpV6iMgWstIpk2hmyqSnOAuE=;
+  b=WSwYoUuiLJqQsL+aW6vpshFACana1GyQV8srdQb7CJq9Zs7os3Cl5O1b
+   o0vDhifiFq4Redoq8P67zCiG1I9S1ESEhW0/J8qpZ42JpI3w8WkPmShug
+   d411m8IuYhD1BTO2IMc8CQ+kSH6BPPyiwRu37RkVxJbXFSu/lS5Ni3eiG
+   6JpYMDy42IrRUM8Rkoh1LBBT39EbMxwFidhTiemd4vrbX4ga7/eIKaCiN
+   IOEP9PR4l6UTFvZm7W2PXmkvH25J2dkGoCyMJU3/xm+3SX0Jnr2hxa70y
+   h7GKBKPaGKY65xZbt1qSWR+bMHyOrVUG1SRDrTh9LjtEr2iJ6pX3Ha4Ig
+   Q==;
+X-CSE-ConnectionGUID: OuD3uqDcRIiEqYPXuFV0LQ==
+X-CSE-MsgGUID: UhFA572qR6elibqqni0MOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90704379"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="90704379"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:18:56 -0700
+X-CSE-ConnectionGUID: +zJX6LNZRs2Mxt+Z74rl/A==
+X-CSE-MsgGUID: mOzn9RtiQomCyd4cBwo8Fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="302298057"
+Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:18:55 -0700
+Message-ID: <9b33dcee-6d4a-4062-b212-797ac56a5ce1@linux.intel.com>
+Date: Thu, 1 Oct 2026 11:18:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 14/20] platform/x86/intel/tpmi: Use scope based cleanup
+ in the memory dump
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ David E Box <david.e.box@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20260930172918.743656-15-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <ar6hNf4_43MQGRtQ@ashevche-desk.local>
+Content-Language: en-US
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <ar6hNf4_43MQGRtQ@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi John,
+Hi Andy,
 
-On Thu, 1 Oct 2026, John Ogness wrote:
-
-> On 2026-10-01, Imre Kaloz <kaloz@kernel.org> wrote:
->> nmi_dump() has no caller in Linux. install_cpu_nmi_handler() stores
->> its address in the per-CPU NMI vector the PROM keeps in low memory,
->> and the PROM jumps to it when the system controller asserts NMI on
->> the CPUs: the "nmi" command at the L1 (or the MMSC on an Origin
->> 2000), typically used to get a dump out of a hung machine.
+On 10/1/2026 11:06 AM, Andy Shevchenko wrote:
+> On Wed, Sep 30, 2026 at 10:29:11AM -0700, Kuppuswamy Sathyanarayanan wrote:
+>> tpmi_mem_dump_show() frees its dump buffer and drops tpmi_dev_lock by
+>> hand at the end of the function, so the ioremap() failure in the middle
+>> of the loop cannot just return. It breaks out with an error stashed in
+>> ret, which is the only reason ret exists.
 >>
->> Every CPU that takes the NMI enters nmi_dump(). The first one to get
->> nmi_lock waits until all online CPUs have arrived, prints the saved
->> state of every CPU and ends with the NI_PORT_RESET write. The others
->> spin on nmi_lock, which is never released. No CPU goes back to the
->> interrupted context
->
-> Thanks for the explanation. I guess it should have been obvious, also
-> because @nmi_lock is locked and never unlocked.
->
->> @@ -183,6 +184,12 @@ static void nmi_dump(void)
->>  	 */
->>  	arch_spin_lock(&nmi_lock);
+>> Attach the buffer to __free(kfree) at its allocation and take the mutex
+>> with guard(), then return the error directly from the loop. mem_write()
+>> in this file already does both, so this makes the two debugfs paths
+>> consistent.
 >>
->> +	/*
->> +	 * No CPU leaves the NMI handler before the hub reset below, so an
->> +	 * nbcon console's printer thread would never print the dump.
->> +	 */
->> +	nbcon_cpu_emergency_enter();
->> +
->
-> Note that putting the CPU into emergency state does not cause any
-> printing. A later printk call is required.
->
-> Also note that only _this_ CPU is put into the emergency state. So any
-> printk's on other CPUs will not be visible until _this_ CPU performs a
-> printk.
->
-> In order to make sure that any backlog is flushed, I suggest also
-> adding:
->
-> 	printk_trigger_flush();
->
-> after the loop waiting for the other CPUs, just before triggering the
-> reset.
->
+>> No functional change intended.
+> 
+> I assume that file already includes cleanup.h? Otherwise needs to be added.
 
-Makes sense, thanks. v2 will flush after the dump, right before the 
-NI_PORT_RESET write.
+Yes, it does. tpmi_common.c already includes <linux/cleanup.h>. 
 
 
-Best,
-Imre
+> With that in mind,
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
+
+Thanks for the review.
+
+
+-- 
+Sathyanarayanan Kuppuswamy
+Linux Kernel Developer
+
