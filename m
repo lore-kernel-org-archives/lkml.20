@@ -1,143 +1,130 @@
-Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA45A51EE10;
-	Thu,  1 Oct 2026 15:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC00528431
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869214; cv=pass; b=a/6qQu5qFTtCn4ZX/CBxFACHNV1qpWGyskCWHfbjRIBkpJuXREOjpY2pWiPJJRpz34o8IsDgGAI8gDm0lCXLCUwvOzxiYTFCq+3w1UGlR5FKdGmocS3/qppLvg9EJ9OXKNKdj77f7gdBWhnJuaUj4A0ZCSpndma3YvjnaTEJyFI=
+	t=1790869216; cv=pass; b=cjndjbFsyDyV0S1xBZOIFblNEYGFOSXii9uHJCRDdNdQJRJD0oA50jskzacTwW8DBJczUrTR9EXPHaVB3gEBYhujUWYQgz+cstW/LccbwmcoOih5J/DdsNdWEkaSWIpoVeQ+QvfgEWmqBIs5EFTTfwrgTVxQu4PytQXC8LfLnQA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869214; c=relaxed/simple;
-	bh=+EAfRuBTyaf2fWEEar7r40jxwRcUecv+6lfvlY4edFw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sakjLp1k+ABhWXE3K4uHqIuSI47GRBDssDJhBRFAfDgu5SMtwP/idmNa/Gun+rAq4rgdQl+ifuvOYJX/eILMdo+3xpspVYjOgD7U2rt1cQfEqWSXue2ft5q8scWGB8z/NBGjQMZNCAJMzp6NZb7c4SQB19+B6yZkOEDMGZYD0c4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=TCEoFDBb; arc=pass smtp.client-ip=135.181.6.248
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
+	s=arc-20240116; t=1790869216; c=relaxed/simple;
+	bh=Rt5kCYTovKo79P8T5a1y2BU7GEOnV/NaT7+bvWuL78c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AGKlYdyP9H6/DFI8bruEJvNhXJA5PqiKEoM4b2SfcMtbSXGefvl4NTxZHmq4ZVw4krqrrZxZF/mYYOvUddmrKwwYJfWqsEJkbglocXU1Iid8stIUSP7+FlfuNupHroHlFB1MbXwNjswsVODPZc42P5Ah9Vg5sC2SELcAW0zEgeI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UEqRGMCS; arc=pass smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="TCEoFDBb"
-Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail2.ecloud.global (Postfix) with ESMTPSA id F0DEB720BA3;
-	Thu, 01 Oct 2026 15:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
-	t=1790869209;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qKDPtfxAhV/dREsJEcSyq7SoOHuO3ciIber1G1Mlbkk=;
-	b=TCEoFDBbjYRUo3c3fevSgQ02QIdoN8xUTOuZX4DnbNjkrxZf3NsSMJCDP/MJ2ahHmsp/ob
-	CZm9EzW0JqyQepC+Mnx/wD6iInO/gE6qqTN6uPkLE2YHijtYT2D6xeDv6kzMtQ2zw9Yp6m
-	oqIa9aQsK+srkNwKqeXCFbnHDAubzL8=
-ARC-Seal: i=1; a=rsa-sha256; d=murena.io; s=mail2; cv=none; t=1790869209;
-	b=VNETGM+K8h+iqT1UgCB1Tyj/1jgj3s+OJmVqwrK8EC6gaoplSJXbAgezfVTDHlQqR7w31Y
-	pJJjeVIznq7magjlH4S0Y4KzwY/p8b8liSEVRALNAhMz6cVOJT5tnFoOv1mhJrF2LsWiVD
-	RwXYI5A6T6b7Ep9svcPR2Rxzh01/mPM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
-	s=mail2; t=1790869209;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qKDPtfxAhV/dREsJEcSyq7SoOHuO3ciIber1G1Mlbkk=;
-	b=ZNq50gAmDVE09SbtqXvrb4VyxebLiZgRYzrViBFsX459PliBv+F2kxIilSuf95+w28YMvk
-	pKYEUbbhSKrCyLVj+Klf7A5Rg3h61gXuL5gSAokYwrBVKrb0/Rr3OS4KugTIbU9NALael8
-	V9nPlJRRQHNAr/SJI/WBGam7iDaXO7w=
-ARC-Authentication-Results: i=1;
-	mail2.ecloud.global;
-	auth=pass smtp.mailfrom=maud_spierings@murena.io
-Message-ID: <6462d084-5861-4df6-94ca-dbd23e619a61@murena.io>
-Date: Thu, 1 Oct 2026 17:40:06 +0200
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UEqRGMCS"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e494adf48dso1078345ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:40:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790869214; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fUWkpJoyFZ9eOSX9neXu3b2J/F+8IawC+5wz6tlaIrlaoWAi2w3ApN3o5Me1jMJP8D
+         hn3dIOiRltHJ9rxb+3JBm1BAN1rXdTxTt58NfLBBgeptmBgoWXeTr9frEGkf03413ahm
+         GVVI/NZuywNew40xAYiAcDZDJlfNEYcZtBTnpRdMhc+L7LOsgDjagVcA62yh6UvvBzKm
+         Fd2AfJkhKfcN/fexZkVxVdR5505dszpG0hUVLK19i62Hhyj3Q5OCqWqAW1hFODnyDbz2
+         DcuXdWWiD5RA44ydL+izM/ScB/OeLpDjM/f9D4T1T1N5hhgMrabhjcVa5mc6wO80UNuw
+         atAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sH7suoulEGbXb6HUyxR66b9Kl139W81dotKBuuxFi4g=;
+        fh=vEF0EyC7T8cYy1rAiKc3642X245prQjtwT5HGawrHV0=;
+        b=If4/DZiMEf/Zsa761VTpUlDZ9fKRjRRatoRA05hLRqr3ND0AlN1CnOArHUtEEILfrh
+         deKeAMXmBu5wNWTUC46Jcgtn0U83mZnqqw9hruzxfCMsGSjBeHSqQGs6/jbH6NrRcGhY
+         dhbnkLdiyAvmUAoBmygVanDsId48OQepyuZI6GSIz10IcHU3HTD9ZX9lUYS8duqlXKSq
+         6TNomJNUKE3G0Q36kvefptP4T3tdxt9Mf3LBIkPSvhoy4ZQycysH3FSFPOKQgSTI5DrA
+         tvEbZHzzdFC31S48bN/l7DU82Hka2uTlp3t1n35hwW/STjoRjtrF5gUFy2Ye7VfeWmXx
+         ecZg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790869214; x=1791474014; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sH7suoulEGbXb6HUyxR66b9Kl139W81dotKBuuxFi4g=;
+        b=UEqRGMCS5AsPC7sL+2qEmCipuV+jRPfhMrdS5BLxrRjr/GNLH5IUNO+kj9BblAf3iJ
+         PBeK8KCcuLYo+25shkMuH6zBn2GSOLHOkUem/Wz+zQXGnbu0fCiouhmv0TnJ1ggD92Wn
+         qThrBpoLn/CwPetyKpz/O4TOFHR0bstECNbGg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790869214; x=1791474014;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sH7suoulEGbXb6HUyxR66b9Kl139W81dotKBuuxFi4g=;
+        b=pzuTLE/sUAmEzvsP6IXqbOyeI01VEPl5BBxjpdXzPuzL3aXU2n8u5AaC47to1f9j9D
+         rRNmijrZDjr8UBBE+QWUC+k5nv+Z/qKXeNQsSwozdyqWnw3hAenfb42fT4JD8kWASfBX
+         ZOIsapJ2+qc5Q/LhMNh9LsTsgdz6FFon7P4XKla7rllX5q+sXhmg6IfAD5w2qpDCI7Z7
+         oxudp0Ck7AjTeXOMom7BSsAdfAxBi0eRAtoMDmJUK8/U7DMfAPoybPUEZJjthp+OK4mw
+         gPqM+MQQzPNl8dh2M4/J4GbuW65Bd3cT2o7OxOCEiHuNv041NsZfzfdJvf7Unq82Wlk8
+         5HJg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOWfAYGGHVS93m77jKwru4PahgLNasbpyStWXU4VyYKx1/wa4tcNKG+7eP/Y0LpxP9z+prA3ctfyvWkzw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIDeJP01R78a6gX8Jj5tT2zMQl4WaD4dq6y54ZjEHfPIVZAFBm
+	Yqqb7qehLGKwilXBa2XE7wi+ja+6nwCZghb1vxgKZr6k0/qT2V07OfWA48X75eUacwDQM2VKVGd
+	56ZfnOSl7BDVoBBntSXgZEp13s5/4cCjkMwUdXTH7
+X-Gm-Gg: AYBFou1eRilJ5/bY1Z0th2Cd1UrPXCPz9FP4nYGOSanmZZT91Ouq8tD5V9zlml3v5hZ
+	0l/rZPMMLP6RyIGPO98XjZGkyI0gIxPVI1HSGC/g70JqVBoUgdgJ+kGSpID2HuLsaMstogPFCM/
+	NbHEAKkqlCeHF5K1lpXmtgt5RPV+G0lQzdJ48qj1ExmX722JI/FK9Vj/ghq575l2rRQse0fMUQN
+	grK1JId0A1ImTxLX6oRO2VRXkAlbrVv/fYsc0EurnXaSBTkJJEjEOBbMSa2ONSUOh6EmX+sQ+Zm
+	UDj17WdLZLK8QH7m/f4TMzNPhHmwgBzntBONIqwgvELTI9KcANbxis0FlZNupBODsRQlmNf6fBw
+	Q/QkrF8E=
+X-Received: by 2002:a17:903:19cd:b0:2e2:b00f:564f with SMTP id
+ d9443c01a7336-2e2e4a20259mr42758525ad.18.1790869213794; Thu, 01 Oct 2026
+ 08:40:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 01/21] drm/bridge: inno-hdmi: fix swapped HSYNC and
- VSYNC polarity
-To: Michal Wilczynski <m.wilczynski@samsung.com>,
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Joshua Peisach <jpeisach@ubuntu.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Byron Stanoszek <gandalf@winds.org>
-References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
- <CGME20260929103203eucas1p14cb6262ba2c7bbaf36856f24f7bdc9e7@eucas1p1.samsung.com>
- <20260929-jh7110-clean-send-v5-1-82b4d8e3c6c7@samsung.com>
-Content-Language: en-US
-From: Maud Spierings <maud_spierings@murena.io>
-In-Reply-To: <20260929-jh7110-clean-send-v5-1-82b4d8e3c6c7@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260917204209.97699-1-mhun512@gmail.com> <arpa-Ps8l8LOwbbx@tzungbi-laptop>
+In-Reply-To: <arpa-Ps8l8LOwbbx@tzungbi-laptop>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Thu, 1 Oct 2026 15:40:02 +0000
+X-Gm-Features: AclHuK-ph787-_ubenGMoiVVddecDSrjn5jG0cc2n9OWoEqyfW5NTQ54A1U_4YQ
+Message-ID: <CAMMMRMe7g7yj1iOTOc+TCWe=+1cjFA1rG7H=VfjnrY3p7XCKFg@mail.gmail.com>
+Subject: Re: [PATCH] platform/chrome: cros_ec_typec: Stop altmode work before
+ unregistering ports
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Myeonghun Pak <mhun512@gmail.com>, Benson Leung <bleung@chromium.org>, 
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
+	Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Michal,
+On Mon, Sep 28, 2026 at 12:18=E2=80=AFPM Tzung-Bi Shih <tzungbi@kernel.org>=
+ wrote:
+>
+> On Thu, Sep 17, 2026 at 04:42:09PM -0400, Myeonghun Pak wrote:
+> > partner altmodes. Disabling also prevents a partner callback from
+> > requeueing the work while its driver is being removed. Use the common
+>
+> Would the work be scheduled even if the driver is about to remove()?
+>
+> > diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform=
+/chrome/cros_ec_typec.c
+> > index 50a68819ceb7bbfbd888ca919d678d4c75237c26..e91bbc219c077067294935d=
+d5602c1aec636cfa6 100644
+> > --- a/drivers/platform/chrome/cros_ec_typec.c
+> > +++ b/drivers/platform/chrome/cros_ec_typec.c
+> > @@ -378,6 +378,7 @@ static void cros_unregister_ports(struct cros_typec=
+_data *typec)
+> >               if (!typec->ports[i])
+> >                       continue;
+> >
+> > +             cros_typec_altmodes_stop(typec->ports[i]);
+>
+> Shouldn't this be called in cros_typec_unregister_port_altmodes()?
 
-Fixed! Thanks!
+This should be called in the very beginning of cros_typec_remove_partner(),
+or even in cros_typec_unregister_altmodes(). The idea is to stop the queue
+when the partner no longer exists.
+Partner disconnection rather than port teardown ought to trigger this.
 
-Tested-by: Maud Spierings <maud_spierings@murena.io>
-
-Kind regards,
-Maud
-
-On 9/29/26 12:30, Michal Wilczynski wrote:
-> v_HSYNC_POLARITY() and v_VSYNC_POLARITY() write the wrong bits: the
-> hardware puts HSYNC in bit 2 and VSYNC in bit 3, the macros do the
-> opposite. Most CEA modes drive both syncs with the same polarity so it
-> goes unnoticed; it only shows up on modes where the two differ.
-> 
-> Fixes: 412d4ae6b7a5 ("drm/rockchip: hdmi: add Innosilicon HDMI support")
-> Reported-by: Maud Spierings <maud_spierings@murena.io>
-> Closes: https://lore.kernel.org/all/e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io/
-> Reported-by: Byron Stanoszek <gandalf@winds.org>
-> Closes: https://lore.kernel.org/all/b8b046ee-c574-3e16-6079-2fc415633dae@winds.org/
-> Suggested-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->   drivers/gpu/drm/bridge/inno-hdmi.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-> index dd35f5a875d3d842fee6d2ead0de88503f9914e1..d7c33b92e2ddf4ced84d17304463f44be52270b8 100644
-> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -122,8 +122,8 @@ enum {
->   #define v_VIDEO_MUTE(n)			((n) << 0)
->   
->   #define HDMI_VIDEO_TIMING_CTL		0x08
-> -#define v_HSYNC_POLARITY(n)		((n) << 3)
-> -#define v_VSYNC_POLARITY(n)		((n) << 2)
-> +#define v_VSYNC_POLARITY(n)		((n) << 3)
-> +#define v_HSYNC_POLARITY(n)		((n) << 2)
->   #define v_INETLACE(n)			((n) << 1)
->   #define v_EXTERANL_VIDEO(n)		((n) << 0)
->   
-> 
-
+Thanks,
+Andrei
