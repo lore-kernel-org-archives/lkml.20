@@ -1,283 +1,237 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D22B443C10
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDDF44C64C
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790834443; cv=pass; b=IbwtJeTUutWByFbi+NOnltqXC8JcfyQnCrt+PCxOqj5XAWwSvUIDB1hQo1T1DgbgUO6FVt5aGCEosYFeI4crVABgQJPWef4bYIwvdUqg+qLh44zBSb8kuoFx/CdCUNSYJFKQaigH1nDX2n4lQr+tl4F5SzC1w8sY8GojAkoT8Is=
+	t=1790834480; cv=pass; b=Za8gDdbcJwX0wHMIKXe7lmeioMPwA9aDetT/ymUC6tuY3rFF5dYUfXhItRb5hFTPDsLFtgKoGoRYdvkL4A0KMa6xLv7F9kDSTHdHfNJsMM8GNLkgfunVfr3g5vg+Oj3xlwx1d8kiUUcAvXE4yakn2S8uTQchxkRf8seK275TU4Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790834443; c=relaxed/simple;
-	bh=/FJGoO1fk95hxs0DHBp/xd6arTYff4kea7u7+4sr1TM=;
+	s=arc-20240116; t=1790834480; c=relaxed/simple;
+	bh=orNJIYCPExrhwIMf8GZooIvqSki4abZ9scUo3yGD+8Y=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P3FSylvfIGBZbQmugHhD3qN4E8slijuIowk1isWDKRQxXz2l9qiRjiZIRxO4ln1SnNU4Ai+3SkBwAxkiD6cOROCnAkzuQF+zicfF3T7bfajVTT+Dcd2uj7skMsot7XLkfsvO2C5+jhTZn6YMd+SyeGwtOdjUY6q5nFH/A3irl9o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h6crsQ+l; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=REBT4wG25aSDWX4iGUK3VTR2DMjLf6BprX7lwdPLhYiOEyID4AJOixkV7EN8OTBTeGrIP6PvW2tJeyKrwqRa1uimgYKB6SYt+3e1Cvv77D/ljk6RmRE+rDO+Qr+JBG2OReG5JrlaK9UwKy5MLa8BpJNuGv40TkCcAobSOfFolHo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LgE+0ZZD; arc=pass smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h6crsQ+l"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e50968489so5331626d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:00:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790834440; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LgE+0ZZD"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-533202fe429so196171cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:01:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790834475; cv=none;
         d=google.com; s=arc-20260327;
-        b=AFsT1JIA5fbhhdtManmjgC3WxdVED74o3OJsU6M3U+W+yALeWfY6Plmerv1wa9jLZE
-         ylIq/TkvWZAGMK8GNhKST7D/I1bBFYipH33+rUgPf41pst/gj7XfQ4aToszcu/st1X0s
-         b2NFI6g0l/cyp68Qv3pc2tDyp4nCxYbzlmWNNcvAH+bPXU/x7kOHnr5t/EuncwAYWHtV
-         v2WmhCEUnVk8HJbFulBq0EbA4JTTggFgXp0p/Km8R6XqvNxxENGbOB4WkNZofstlrz+n
-         z3RfvBs6fnurcNalkcSMGrSK4zJk5U0daCUL7NPS1W7bs1QJpGUiG38lnd6Nk27328+0
-         x6XA==
+        b=fOh2ubskQlw0Fxt5o5ze1U7EvijFdRQtbE2fploYlqs5Zr//FZ9cSbjwWw5ur47ed/
+         IyoZYsbLy5xLNQo7b5ZUzAPNVJPhhEScXh7B3ijt82W2Q8jrdKLu81uKx5DVCkoQWt4V
+         mD3T6sxwiJbhfNS5JFCu52rOJslhPB8i7llHhgUroDsiQ2H6bQJg4yQorj9qmO0oNdZS
+         +elDhSVbrRC8YuNh3ZiuqXkdIYYBwp5AgrjhHAsH9IZ6eTjPQdq/4H1L9FQa0mkOOwKa
+         wRq0X/alSI3wyWTiI5cnc6+3T4hkMWBn7lFqXt+tElVsJX0WOfrMOJK7kQgheYqpES+B
+         S61w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=xN7BcKnsbu8UTgMaoDBZRZB/C6V11nckFkUqzqAfWz0=;
-        fh=McCU+2YieDtQNzaQ62xkRCgQp7xIlVoWPXqZyVN1y4I=;
-        b=KsxQVnXctheMM5b2WklPwWTAEoaKKFIVEUcFXeDN1dBjlMKQIs5XA5/1FBwSNT5sq2
-         hM6lNbxdGvA/WRxmon2oo2sHnS0JGi2b4x6u44u9zrs/HsSq8nktyxMfaq9hBa5whJ9o
-         wY9w7BgFEAeVLIG0GwFg5gukgyTZ92zzaqhcop2oSq22//DfCJPOwg11mgWsz1/O66KF
-         gtwKOVbBcRJj32SDjwIi2N6GmvJyaN3NyF8Oe9qwgU3QWSjSifgJXibueYhtSba54ZJf
-         MFvVeb03DrO37l9F7P5Y9IHCyxw2UxSA68Jftks4NtqsxRk3wsx3bKf748VtPNVNY/Wv
-         LB1g==;
+        bh=OyPwq39iE32SaL8RXGnmByH8Kd2xuM6EtYTUcKeGtco=;
+        fh=0KYVhaB0pQHsMOw902EvoYgN9AZSpWOCzlliIebG1EA=;
+        b=a+bLcOXIIDhMGuSY3h+p8CTayxpdwRogY8B9qlGMpWlTGl/Q39jMG+J+Kl4Wz6K7Fc
+         PobTBn7cshTzjHDEXCgJg3gThXKcbVybw1xWW9Jr1rzd+J+2xwR1s+W1BkUxnZoczJba
+         SsBkLwc3NChFs69ziKmkLT1+f4jpZf5i9XVy6KKxNEruzz4IXnFr6dJKaaoqwWOfWeMZ
+         eZafCC3ye1FLxgAKqQAk7lQmTCeXywVpC27QDQwS5Ed1yUF56KdOPH/N79zYB5jMAHiB
+         kH8RqUALrcx3MV2NEFrVuiQ74z+o6r7eQ/RTDCOHEFcx6qNiDDOJOHmxGz9Yl/x+So7E
+         7D0g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790834440; x=1791439240; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790834475; x=1791439275; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xN7BcKnsbu8UTgMaoDBZRZB/C6V11nckFkUqzqAfWz0=;
-        b=h6crsQ+laozd5ozh5eXNPHsuu2Avz2QzU96eavpdYWv3CnivZkWw5iq/hE16ktQC0t
-         KevV/a68pcBYoC6EBHAhZ2Cj3TI6aZ1oMLXExcdUcaheLPyEH79jOAVzLa1BXMc7ZMHY
-         xNcTMD8otixWVzFjqGJ3vcrq4XDXdGMyiTY04ERSl3+07/EBTgd2P8Ost6wvvBD68aHP
-         +i7gRBbHLQ9dfSxFGEJWhdoRL8aTBy8WxvMEKLxFAgI/EE/syvevDA5IlK6HI1fZdEE1
-         kdEhxo1t2XPN2+GXKoBrDa9ULO+NUhu7nmsbaJFm6Jh2K+XTIE+jORG747YAljg31hDo
-         Nasw==
+        bh=OyPwq39iE32SaL8RXGnmByH8Kd2xuM6EtYTUcKeGtco=;
+        b=LgE+0ZZDVlZChphrTtpq1NQLf9s80p6SdFx4oTRubPKmx/d6Tf4ZjX2j97y/Sxic7s
+         rlVJZQXshq1FyLiTxd9CJYDE/bvl+oO1sAWxe4HZDwIuHm0B41MVDUsnhYba+TYKefcZ
+         cYKil500gG8eaph83++tn8dJqNaUrJg6PemdqEKbnv2zTc7RJQgXxGAr4fa1hW3VsnvT
+         wGjTZfR7wjVOqWjPw+fffvykTCALj6ctTlggpB+f+8mwRXUoR8Gth7HGuxwHZCSB6vQ+
+         oyGfg2rqKAwbxM/dqGC7sbIcoJMg0sPfclbNNmoDpPwEp/ICkYUvSSBrDJrhZJmQjieS
+         1rWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790834440; x=1791439240;
+        d=1e100.net; s=20260707; t=1790834475; x=1791439275;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xN7BcKnsbu8UTgMaoDBZRZB/C6V11nckFkUqzqAfWz0=;
-        b=z02DgkVZDf83pKy20/i9XHOBxMECGWbV43NJUAVHDI7JmvAKVFrLJ1KVIQxpgGgUf5
-         43YOtukXMmdXYRiE4FRfSPl1nYF6JAx4HmBOydD8qlVMMhGjVq++R5otrdekTOiSUncf
-         tTG0x8qRF16mLKFzAWoNYtmHiQuC56SkOyPQpFS0lY9vGn4aQ+gx+RmRycSLb1cd+t8g
-         5w5wHPQDugGrN8T0Kw24VCb1IV12XhRlZkrjDaghkW/jks01HQAzXNSt3VxYWXhJMxGc
-         qhntglXiQkqZr/haTFZTTwXZ0oI/5MT0fh6g9+qtJB1503JfyL2MA4UUdcDR/oZ6AZ55
-         wyGw==
-X-Forwarded-Encrypted: i=1; AKwUvBzo6XZTfsR82xyHrY/Yyq+cSuWaubhffEypCKY/MCh3bogCinLxrlrEBg4uhKHk8eFyu/7feQZD2thIceo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDWZ+E8/BraOLGiDb44QndBHnCFtMZ5nJDMeOvI+frLfYxIDBH
-	S1h2sIaPllZ07eSuYd6ueUvVETLqz7if23bVlBxrf1YMB9d5FbGLLIs5wsDJdQ9af/f2Q7r7uKC
-	FikhmwwyMgNfCz8ocIxSNqCa6psiU1F4=
-X-Gm-Gg: AYBFou0QtVv3kfwDip3VUSdgSJAEU4XQiPCxVOSMQjLgD10SuwHqWDt8AjjUSG4nk59
-	shpD286f0iUtmU7vnIiSsc9pO9aoXRapmkZSSPwNVXRxSrVmx3XXwsAZqucK8VLT3R6pZ+hOxw/
-	HEeP6ntKlmQcDZmnfTBGeJw5rFjyJJZndztb1l/KNRlyyJ1lkbODkvPks/jJnJNHR2OkKKmFmby
-	Dpl+W8ZZJLzUwMNJoXI7W3JWFaoV9xpC78gAdf9A4rFJ5Q6Nd4NaxC/KNMh03j0P86JAKy38WdS
-	m2eVirDHRWGxUtc4e7UqWKWyAzZ6Ep3zSfEXzRa9OYNVwUWcoOV1OAfGJbVPjWJN6cY=
-X-Received: by 2002:a05:690e:4419:b0:675:5fea:d08d with SMTP id
- 956f58d0204a3-67683540c18mr1462188d50.95.1790834439646; Wed, 30 Sep 2026
- 23:00:39 -0700 (PDT)
+        bh=OyPwq39iE32SaL8RXGnmByH8Kd2xuM6EtYTUcKeGtco=;
+        b=LwzLordy4ccps0oJURY3JhkqLkrWgxwvEMhfLiQS5q52kuTr0HSda1QMmMLnj7+1yL
+         ZiXOfFCWHwqVr2eemNMeF3Y57+yG/uUDpQEaWl/IHZliJt4oF8F755GdlYH+8Lfyzz+r
+         viQYUwT+cGxjXEuOUQp9HcZGasEQCzQ9wwtZK30DPmd9r0vOhlySV2KzG+dTOMnRSMKm
+         D1PxZ/UsJ+jLEBb+9F5gBXmlXdmnNtnFS8C7HaaEhOQTC8Q0bZpBCWnQUHBfF50DX524
+         UpwUxPsTOk0CL6uUqERw4U7eqk0aSupUbMd8YbgwsUQfXuc0uVssYIK2xz9BDMD8RVq4
+         xmOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxUox18+HrYJLyrWlpYuOPZGTDr4TFfIrFvIn/ykQEkV3rnzXV1PJ9VSGVVzh6Is/hnJVYVElECFjk118c=@vger.kernel.org
+X-Gm-Message-State: AFuF++njJGsM8qDy+1+hgNn9m2QIptCwoBxE3Pc5RIJpZvbYs04ztvjB
+	h0efcnLD6AHyaeMnsv4lTZaR+5MgVcxH3KL6I5AlHrAHZARnddeF9Rij95aFdhJx6SdAqnsEwN/
+	jRm309EnpDiOaMc6fLrWn32Gxbw/OyKExP1jzrLu7
+X-Gm-Gg: AYBFou2dETACkGaMdWl5+d2uLnhNuzGdo3Ax5XDijPdYwUTQE2KrmrskeQbpBb/at7V
+	zJ8UA52//BTT8UWHJodRiw/hLOyQwYgbhl5pbc9CjspaKD0UM5pEoT9OKTfEPj4ymFVgAEqTF8q
+	z5vvzJqmfJxP+6sz5Y654o4xxImGOo8iUW1Vq0Gf1b5wWvgcK/H7zeQ+DBpu4WsaHGEVWvfwzjA
+	Uond4Id1+IySdNYTk3JreB/0lVvRVD7EhMpgB9h29wtvCAXx5jZJSV9A+NYaXMmwFrp9ga98OKb
+	5dXxEhNiYLKuC/E3SK9racjQmiFxK8OOdQOXSAbpeGjLu18NWUF80w==
+X-Received: by 2002:ac8:570d:0:b0:532:c99e:b16b with SMTP id
+ d75a77b69052e-5338456868amr11151001cf.3.1790834473785; Wed, 30 Sep 2026
+ 23:01:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927-pvr-fixes-a-v1-0-7f5b18ab989a@gmail.com>
- <20260927-pvr-fixes-a-v1-3-7f5b18ab989a@gmail.com> <26a436bd27cc66407d776947c5f91ea7ae518600.camel@imgtec.com>
- <b15cab8d1c5074d702f8acc1924911e06076e25f.camel@imgtec.com>
-In-Reply-To: <b15cab8d1c5074d702f8acc1924911e06076e25f.camel@imgtec.com>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Thu, 1 Oct 2026 15:00:28 +0900
-X-Gm-Features: AclHuK-fQjrBk_jWbe2V4mvWX0gdKe-JZOGe_2GT2zX42Yv18CEwrrb6vROL82c
-Message-ID: <CAKbEznsX8y_KAtEuk2Rp9VrcRbTO7Cn0B373ke5pGKvTq5GQOw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/imagination: Size page table preallocation by
- device address
-To: Brajesh Gupta <Brajesh.Gupta@imgtec.com>
-Cc: Luigi Santivetti <Luigi.Santivetti@imgtec.com>, 
-	"tzimmermann@suse.de" <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>, 
-	"airlied@gmail.com" <airlied@gmail.com>, Alessio Belle <Alessio.Belle@imgtec.com>, 
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
-	"mripard@kernel.org" <mripard@kernel.org>, 
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
-	"imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
+ <20260928182605.3649015-7-irogers@google.com> <ar1fon_Z4uT3Cd22@x2> <ar2WYemXnrbDx-Il@google.com>
+In-Reply-To: <ar2WYemXnrbDx-Il@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 30 Sep 2026 23:01:01 -0700
+X-Gm-Features: AclHuK_MV7id34lX8cEpkQdw3irzLIYujhfHvytA6kxE1fL6j6ztkyS-gf3QnZY
+Message-ID: <CAP-5=fVPANOdM5vFY93SCm=mN5Z1U+jMqa7s6piqgtAbUrCBbg@mail.gmail.com>
+Subject: Re: [PATCH v6 06/26] perf trace: Copy sockaddr arguments by their length
+To: Namhyung Kim <namhyung@kernel.org>, Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Aaron Tomlin <atomlin@atomlin.com>, Howard Chu <howardchu95@gmail.com>, 
+	Jakub Brnak <jbrnak@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Sure!
-
-On Thu, Oct 1, 2026 at 1:47=E2=80=AFPM Brajesh Gupta <Brajesh.Gupta@imgtec.=
-com> wrote:
+On Wed, Sep 30, 2026 at 4:08=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
+wrote:
 >
-> On Mon, 2026-09-28 at 09:03 +0000, Brajesh Gupta wrote:
-> > On Sun, 2026-09-27 at 17:25 +0900, Gyeyoung Baek wrote:
-> Hi Gyeyoung,
-> > Hi Gyeyoung,
-> > > pvr_mmu_op_context_create() preallocates the page tables a mapping
-> > > needs. How many is set by the device-virtual address being mapped, no=
-t
-> > > by the offset into the object's pages, which it used instead.
+> On Wed, Sep 30, 2026 at 09:14:42PM +0200, Arnaldo Carvalho de Melo wrote:
+> > On Mon, Sep 28, 2026 at 11:25:45AM -0700, Ian Rogers wrote:
+> > > The BTF augmenter copies sizeof(struct sockaddr), 16 bytes, for the
+> > > sockaddr arguments of connect, bind and sendto, and runs before the
+> > > sys_enter_connect and sys_enter_sendto programs that copy their lengt=
+h.
+> > > An IPv6 address needs 24 or 28 bytes, so the rest was read from past =
+the
+> > > payload, and now that the printers are bounded only its family is sho=
+wn.
 > > >
-> > > Size the preallocation from the device address instead.
+> > > Copy them as buffers sized by the length argument after them, up to t=
+he
+> > > 32 bytes augmented buffers are limited to. That holds an IPv6 address
+> > > and doubles the AF_LOCAL path shown.
 > > >
-> > This issue is recently fixed under
-> > https://patchwork.freedesktop.org/patch/755274/. Please have a look.
-> >
-> > Thanks,
-> > Brajesh
-> > > Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
-> > > Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+> > > Fixes: a68fd6a6cdd3 ("perf trace: Collect augmented data using BPF")
+> > > Assisted-by: Antigravity:gemini-3.1-pro
+> > > Signed-off-by: Ian Rogers <irogers@google.com>
 > > > ---
-> > >  drivers/gpu/drm/imagination/pvr_mmu.c | 27 ++++++++++++++-----------=
---
-> > >  drivers/gpu/drm/imagination/pvr_mmu.h |  3 ++-
-> > >  drivers/gpu/drm/imagination/pvr_vm.c  |  5 +++--
-> > >  3 files changed, 19 insertions(+), 16 deletions(-)
+> > >  tools/perf/builtin-trace.c | 7 ++++++-
+> > >  1 file changed, 6 insertions(+), 1 deletion(-)
 > > >
-> > > diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/=
-imagination/pvr_mmu.c
-> > > index 3e494bfa936..dd5f6d32864 100644
-> > > --- a/drivers/gpu/drm/imagination/pvr_mmu.c
-> > > +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-> > > @@ -2335,7 +2335,8 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_=
-op_context *op_ctx)
-> > >   * pvr_mmu_op_context_create() - Create an MMU op context.
-> > >   * @ctx: MMU context associated with owning VM context.
-> > >   * @sgt: Scatter gather table containing pages pinned for use by thi=
-s context.
-> > > - * @sgt_offset: Start offset of the requested device-virtual memory =
-mapping.
-> > > + * @sgt_offset: Offset into @sgt of the start of the requested mappi=
-ng.
-> > > + * @device_addr: Device-virtual address at the start of the requeste=
-d mapping.
-> > >   * @size: Size in bytes of the requested device-virtual memory mappi=
-ng. For an
-> > >   * unmapping, this should be zero so that no page tables are allocat=
-ed.
-> > >   *
-> > > @@ -2346,7 +2347,7 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_=
-op_context *op_ctx)
-> > >   */
-> > >  struct pvr_mmu_op_context *
-> > >  pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_tab=
-le *sgt,
-> > > -                     u64 sgt_offset, u64 size)
-> > > +                     u64 sgt_offset, u64 device_addr, u64 size)
-> > >  {
-> > >     int err;
+> > > diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+> > > index 85db74965280..f94745a60f4a 100644
+> > > --- a/tools/perf/builtin-trace.c
+> > > +++ b/tools/perf/builtin-trace.c
+> > > @@ -4159,7 +4159,12 @@ static int trace__bpf_sys_enter_beauty_map(str=
+uct trace *trace, int e_machine, i
+> > >                             continue;
 > > >
-> > > @@ -2362,18 +2363,18 @@ pvr_mmu_op_context_create(struct pvr_mmu_cont=
-ext *ctx, struct sg_table *sgt,
-> > >
-> > >     if (size) {
-> > >             /*
-> > > -            * The number of page table objects we need to prealloc i=
-s
-> > > -            * indicated by the mapping size, start offset and the si=
-zes
-> > > -            * of the areas mapped per PT or PD. The range calculatio=
-n is
-> > > -            * identical to that for the index into a table for a dev=
-ice
-> > > -            * address, so we reuse those functions here.
-> > > +            * The page tables needed are set by the device-virtual r=
-ange
-> > > +            * being mapped: one level 1 table per 1GiB region and on=
-e
-> > > +            * level 0 table per 2MiB region the range touches. Table=
-s that
-> > > +            * already exist are not consumed, so this is an upper bo=
-und.
-> > >              */
-> > > -           const u32 l1_start_idx =3D pvr_page_table_l2_idx(sgt_offs=
-et);
-> > > -           const u32 l1_end_idx =3D pvr_page_table_l2_idx(sgt_offset=
- + size);
-> > > -           const u32 l1_count =3D l1_end_idx - l1_start_idx + 1;
-> > > -           const u32 l0_start_idx =3D pvr_page_table_l1_idx(sgt_offs=
-et);
-> > > -           const u32 l0_end_idx =3D pvr_page_table_l1_idx(sgt_offset=
- + size);
-> > > -           const u32 l0_count =3D l0_end_idx - l0_start_idx + 1;
-> > > +           const u64 last_addr =3D device_addr + size - 1;
-> > > +           const u64 l1_count =3D
-> > > +                   (last_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT)=
- -
-> > > +                   (device_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIF=
-T) + 1;
-> > > +           const u64 l0_count =3D
-> > > +                   (last_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT)=
- -
-> > > +                   (device_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIF=
-T) + 1;
-> > >
-> We identified over allocation of page tables due to incorrect calculation=
- of end
-> offset. And your change is correctly takes that into account.
-> Can you please update your patch on top
-> https://patchwork.freedesktop.org/patch/755274?
->
-> Also update fixes tag to include https://patchwork.freedesktop.org/patch/=
-755274?
->
-> Thanks,
-> Brajesh
->
-> > >             /*
-> > >              * Alloc and push page table entries until we have enough=
- of
-> > > diff --git a/drivers/gpu/drm/imagination/pvr_mmu.h b/drivers/gpu/drm/=
-imagination/pvr_mmu.h
-> > > index a8ecd460168..7088f80805e 100644
-> > > --- a/drivers/gpu/drm/imagination/pvr_mmu.h
-> > > +++ b/drivers/gpu/drm/imagination/pvr_mmu.h
-> > > @@ -99,7 +99,8 @@ dma_addr_t pvr_mmu_get_root_table_dma_addr(struct p=
-vr_mmu_context *ctx);
-> > >  void pvr_mmu_op_context_destroy(struct pvr_mmu_op_context *op_ctx);
-> > >  struct pvr_mmu_op_context *
-> > >  pvr_mmu_op_context_create(struct pvr_mmu_context *ctx,
-> > > -                     struct sg_table *sgt, u64 sgt_offset, u64 size)=
-;
-> > > +                     struct sg_table *sgt, u64 sgt_offset,
-> > > +                     u64 device_addr, u64 size);
-> > >
-> > >  int pvr_mmu_map(struct pvr_mmu_op_context *op_ctx, u64 size, u64 fla=
-gs,
-> > >             u64 device_addr);
-> > > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/i=
-magination/pvr_vm.c
-> > > index c5ae0b79fe6..7bb58ca14e4 100644
-> > > --- a/drivers/gpu/drm/imagination/pvr_vm.c
-> > > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-> > > @@ -276,7 +276,8 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bi=
-nd_op,
-> > >             goto err_bind_op_fini;
-> > >
-> > >     bind_op->mmu_op_ctx =3D
-> > > -           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, sgt, offset, s=
-ize);
-> > > +           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, sgt, offset,
-> > > +                                     device_addr, size);
-> > >     err =3D PTR_ERR_OR_ZERO(bind_op->mmu_op_ctx);
-> > >     if (err) {
-> > >             bind_op->mmu_op_ctx =3D NULL;
-> > > @@ -318,7 +319,7 @@ pvr_vm_bind_op_unmap_init(struct pvr_vm_bind_op *=
-bind_op,
-> > >     }
-> > >
-> > >     bind_op->mmu_op_ctx =3D
-> > > -           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, 0, 0);
-> > > +           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, 0, 0, 0)=
-;
-> > >     err =3D PTR_ERR_OR_ZERO(bind_op->mmu_op_ctx);
-> > >     if (err) {
-> > >             bind_op->mmu_op_ctx =3D NULL;
-> > >
+> > >                     bt =3D sc->arg_fmt[i].type;
+> > > -                   beauty_array[i] =3D bt->size;
+> > > +                   /* Copy a sockaddr as a buffer sized by the next =
+argument, e.g. addrlen. */
+> > > +                   if (strcmp(name, "sockaddr") =3D=3D 0 && field->n=
+ext &&
+> > > +                       strstr(field->next->name, "len"))
+> > > +                           beauty_array[i] =3D -((i + 1) + 1);
+> > > +                   else
+> > > +                           beauty_array[i] =3D bt->size;
 > >
+> >
+> > Humm, I thought that this would be called in BPF handlers like:
+> >
+> > SEC("tp/syscalls/sys_enter_connect")
+> > int sys_enter_connect(struct syscall_enter_args *args)
+> > {
+> >         struct augmented_args_payload *augmented_args =3D augmented_arg=
+s_payload();
+> >         const void *sockaddr_arg =3D (const void *)args->args[1];
+> >         unsigned int socklen =3D args->args[2];
+> >         unsigned int len =3D sizeof(u64) + sizeof(augmented_args->args)=
+; // the size + err in all 'augmented_arg' structs
+> >
+> >         if (augmented_args =3D=3D NULL)
+> >                 return 1; /* Failure: don't filter */
+> >
+> >         _Static_assert(is_power_of_2(sizeof(augmented_args->arg.saddr))=
+, "sizeof(augmented_args->arg.saddr) needs to be a power of two");
+> >         socklen &=3D sizeof(augmented_args->arg.saddr) - 1;
+> >
+> >         bpf_probe_read_user(&augmented_args->arg.saddr, socklen, sockad=
+dr_arg);
+> >         augmented_args->arg.size =3D socklen;
+> >         augmented_args->arg.err =3D 0;
+> >
+> >         return augmented__output(args, augmented_args, len + socklen);
+> > }
+> >
+> > And it knows how many bytes to read by looking at socklen
+> > (args->args[2]), i.e. not use the generic BPF handler that uses this
+> > beauty_array, because knowing how many bytes to read in this case is
+> > dynamic, varies with each syscall, according to one of its arguments :-=
+\
+> >
+> > What am I missing?
 >
+> I think Ian's patch update the beauty map which is used by
+> augment_sys_enter() before tail-calling syscall-specific functions.
+>
+> It'd be great if we cover all syscalls in the BPF skeleton and switch
+> to the beauty-map and discard the functions.
 
+Right, as Namhyung says, sys_enter() runs augment_sys_enter() before
+tail-calling syscalls_sys_enter, and only falls back to the tail call
+if augment_sys_enter() returns non-zero:
 
---=20
+  if (augment_sys_enter(args, &augmented_args->args))
+    bpf_tail_call(args, &syscalls_sys_enter, augmented_args->args.syscall_n=
+r);
+
+trace__init_syscalls_bpf_prog_array_maps() populates beauty_map_enter
+for every enabled syscall, even ones with a dedicated sys_enter_*
+program. In trace__bpf_sys_enter_beauty_map(), connect, bind and
+sendto's "struct sockaddr *" argument matched the struct branch, which
+looked up "struct sockaddr" in BTF and put bt->size (16 bytes) in
+beauty_array. So whenever BTF was available, augment_sys_enter()
+handled connect, bind and sendto by copying 16 bytes and returned 0,
+and sys_enter_connect / sys_enter_sendto were never tail-called.
+
+beauty_array already supports dynamic lengths from another syscall
+argument: a negative entry -(j + 1) tells augment_arg() to read
+args->args[j] bytes (clamped to TRACE_AUG_MAX_BUF =3D 32), which was
+added for buffer arguments like write's buf/count. This patch uses
+that encoding for struct sockaddr * when the next argument is its
+length.
+
+If you'd rather have connect, bind and sendto fall back to
+sys_enter_connect and sys_enter_sendto (which copies up to
+sizeof(struct sockaddr_storage) =3D 128 bytes, so AF_LOCAL paths over 30
+bytes aren't truncated), we could instead skip "struct sockaddr" in
+trace__bpf_sys_enter_beauty_map().
+
+On Namhyung's point: all 9 syscalls with dedicated sys_enter_*
+programs (connect, sendto, open, openat, rename, renameat2,
+clock_nanosleep, nanosleep, perf_event_open) already get
+beauty_map_enter entries when BTF is loaded, so the tail-call programs
+and trace__find_usable_bpf_prog_entry() are mostly shadowed today. The
+main gaps before removing them are:
+
+1. trace__bpf_sys_enter_beauty_map() bails out early if trace->btf is
+NULL, even for strings/buffers that don't need BTF.
+2. TRACE_AUG_MAX_BUF is 32 bytes vs sizeof(struct sockaddr_storage)
+(128 bytes) for AF_LOCAL sockaddrs.
+3. perf_event_open reads attr->size from userspace in
+sys_enter_perf_event_open if the BTF-sized read of perf_event_attr
+faults on an older, smaller struct.
+
+That seems like a good follow-up cleanup.
+
 Thanks,
-Gyeyoung
+Ian
