@@ -1,115 +1,156 @@
-Received: from mta0.migadu.com (out-60.mta0.migadu.com [91.218.175.60])
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748071F8691
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C429BD8C
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790816456; cv=none; b=DTur24U0AComGFoVtBXfrtnj5TaCuMU7k6KC/q+izEItMcikM01tO16er7VyxV1j4oYq1pQd1h4ucTNJFYSNsh6w7NE1gwRHieRXfyAztkVoUKid36I/ugPJzxhuOUo0UHXwt8EHddt9LMU5BoFmCw1OSytgp8585XlqISv0/Ks=
+	t=1790816498; cv=none; b=BpXoW0f80XaiQDrLH++eXzD9enxyH/aEfBDDSpzM21NmdNRfddzjC+EQUjNC8C1uJHSrMN067LNjR8CFwexpsrWr7KD50GpnUuSy1VnW/pwnVvGBg/+rloK5JTGw5XIM1jpIW1+2sorQZsrcDzyz+wvYQjSiSflezsg9lVJ9sTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790816456; c=relaxed/simple;
-	bh=HaQPNgehEuldW2UhCdxSN+8tT39bgGHcvLRMMFKomVs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AMrg9TENhw0YMhOp7ttC8p9VdQpJcLqWXHHQliIRdKWMgBzH0yKg6WZiN35vbirjUX9EaVbwKq72VMbXmKKGB3nd2wYWXgI8TtT+ZFSZVT+ujyCv+qScXIMSX12XpETMy5R7TeiIf6EzNjHfAFkDBodwobYRCmjQTs9jJdPU+AU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xShgBlgK; arc=none smtp.client-ip=91.218.175.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790816498; c=relaxed/simple;
+	bh=cINaHydl09cxBcvFqTlYGQ6MHKu1jghguZ6j16+ZxYc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=f/ZJ9N7AFNKxZY5+6NM7dxnx/pSsq2L5GsBUQB3cS0prVLnkBqp95/IsEcPPTeqba/m2bLIplEh6gkAlLC8XW216wshulXI4BgHS+u7Smun8LzVfYQELnpiL2zfFSXmWsZhzKK1xS18TeqgbtsNsb9Zq7oHbeTt/5UAuyE5YVWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i+a+7KSQ; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xShgBlgK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HaQPNgehEuldW2UhCdxSN+8tT39bgGHcvLRMMFKomVs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790816448; v=1; x=1791421248;
- b=xShgBlgKu6+XLjyZu3n6X1OOEztZFWuRNKQvyZnrkQrQuVf523VESG6Y0ZmhL7b+U/UHGC09
- /vkcndQ/mWan2KqAGYQepSqZF9slE0h9A7W/y3XoFfdT7mNPbRZrKiu9SDvtEviqZJhibdHCnlp
- Rn6DPhQrny1gA/ouQF0fbcO0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9f96ffee7864c01d;
-	Thu, 01 Oct 2026 01:00:47 +0000
-X-Mizu-Trace-ID: 9f96ffee7864c01d
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 30 Sep 2026 18:00:41 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Tejun Heo <tj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	JP Kobryn <jp.kobryn@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Michal Koutny <mkoutny@suse.com>, Amery Hung <ameryhung@gmail.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	John Fastabend <john.fastabend@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev, 
-	Donet Tom <donettom@linux.ibm.com>, Greg Thelen <gthelen@google.com>, 
-	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, bpf@vger.kernel.org, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/4] memcg_ext: memcg policy through cgroup-attached
- struct_ops
-Message-ID: <ar2kvmCPR9q31V8M@linux.dev>
-References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
- <bda525506b3fb3e61da28a112f28abba@kernel.org>
- <arw4rjVkm2ob9ioL@linux.dev>
- <bc6815954b8d08e75deadd43e1a2192c@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i+a+7KSQ"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-895fd505832so55223797b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790816494; x=1791421294; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lnMNm9948egObF1IuNHPSJpwOljnWRz/GhZI4bv+aoM=;
+        b=i+a+7KSQfM0/AbTmT2zV5M93ONDfW7/4Hfi3ip39Z1qmW2PsgBvusUQxKzDDbXW8kB
+         Ip2DYTfbgu8eFHkXaj3xtYFySmZWngF7JgS1X/ft24WmJKq6HyhUhatnfire1YrwKlq0
+         uWKQynqc2gixBYwl5jTRFvaBQE1njTfN+fJ6z/zigCBD9gqTYkjmsr8QWKKbnuXmdM3u
+         VeIOBhY3lpFXYT9n2fDRF5qNmEIaP829R+jW0Hg+Ztub9datta7z4bFgj2wMh+EPe/XS
+         5CxealTmep0uQfAewQkP+mIi1Z/ADEThPWhT18g4RIjWURfiqCWwOnuPffUs9Z/1soSw
+         hLBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790816494; x=1791421294;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lnMNm9948egObF1IuNHPSJpwOljnWRz/GhZI4bv+aoM=;
+        b=fjCaZxl7foz03bLQDeTvplh3mvMJ6M+W+SgBEyCXVq+JdFvIvJ7J7tduLeIqqU+Yxf
+         53NH2/EG4QIPShQo9hgW7T4iEDn9AHDGGneSl8hh5BOXkI/OhuMn8kIP5xlB/O7Bx/YY
+         aA49kHJ7+6vk8Od6gQO4CpsVmg6/rd68tkp1uv/FQdXLSu0K6KjcLFXoyhuJnh74UAwP
+         2p+fLLOKxSmXCJRRBeHW8ZPsiDizNpo1CruO4VQfIZlG/fuDRoiE9du/Iy2OOATq1S3V
+         3ug8sndhNTFcjSCKH9jdmWkDhPBdWhfckJPDI6q/WBU/pGsHgtgWjiqpFBpPAs4kcC+g
+         hiEA==
+X-Forwarded-Encrypted: i=1; AKwUvBykJ1xONKGtrWhiRxpsaw+Syc6SlW1+lG6GSle/BrnjemhptAFL+jqB0M6Uedocljufq5r7UE7wXSCQL1c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhvELYojeUL63lnEuWSzzaK55vlUY14bb6A82TH/b0QdYR8xay
+	2//vQNWzB4ErwfIyioecwa6iDgDJ/UYJtCd9lriBEFX6+y/SlLMeo7Jz
+X-Gm-Gg: AYBFou2snt532xTDjj84QIDOMRR/30IkNXn38w5sX4g6T4QN0s0RJvtrG1MjbiGws4p
+	IUcD1AAyzAuTW/0ZYMcREJK2dGzWXPwlO7phSIQsTYmmQtLifIUo8j2Nwbatq+Re0/pOiG1q1eA
+	LsUWgSkEnQ2nuM0Zt+zkdu07RecIEz296hm+Sd7adIvc/xCQzXWgSE++ljD74p0Va7Dl+Duxv8B
+	P1T+/S+mksGvhTKvovFezuocVXKIdQJNURdhDpf/8vKk4zmXOWWilkbgVUdhplCzMrVeVoEX2jW
+	oVHk/+uSSdAAchLaBaZsZOOGItoY05hyIOoKrrTiVMLyTl4WnO+YuNy5HEhpltYPlmKSw/SbSQx
+	L7OWCnCnv32Wgt+dXjEhrQZD21JJNhhRwzj68gCwkhb2YCCGChaDdA5tcICF/w4ccUhEwnkP4oc
+	rZkp2T6oMvXzj41Dwk/YBLQPA5Tf8b5u/TNOXltFMJKUcKhAeUMIYrkPcdtHgl55hjZ8W8OxH0k
+	BE76fO9kLQjkierNRCjajP5hRIx44kRe+XRqAtqXG871Y4hBKoDD0/ZNmKVBvY=
+X-Received: by 2002:a05:690c:5703:b0:8ab:422f:a89e with SMTP id 00721157ae682-8ac93fea07amr12918507b3.53.1790816493908;
+        Wed, 30 Sep 2026 18:01:33 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdad9eaafsm5062287b3.46.2026.09.30.18.01.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 18:01:33 -0700 (PDT)
+Date: Wed, 30 Sep 2026 21:01:32 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: netdev-bot+sashiko@kernel.org, 
+ quchaosheng000406@163.com
+Cc: willemdebruijn.kernel@gmail.com, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ mkl@pengutronix.de, 
+ socketcan@hartkopp.net, 
+ stable@vger.kernel.org, 
+ benquike@gmail.com
+Message-ID: <willemdebruijn.kernel.34fd899c50ed8@gmail.com>
+In-Reply-To: <179081112900.434549.3927636774761151103@kernel.org>
+References: <20260928113108.2127215-1-quchaosheng000406@163.com>
+ <179081112900.434549.3927636774761151103@kernel.org>
+Subject: Re: [PATCH v3 net] net/packet: guard the ll header push in
+ packet_rcv_spkt()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bc6815954b8d08e75deadd43e1a2192c@kernel.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 01:35:33PM -1000, Tejun Heo wrote:
-> Hello, Shakeel.
-> 
-> On Wed, Sep 30, 2026 at 06:28:21AM -0700, Shakeel Butt wrote:
-> > I am fine with changing the default behavior. Actually, I have been
-> > contemplating whether I should propose a revert of commit c9afe31ec443e
-> > ("memcg: synchronously enforce memory.high for large overcharges") because
-> > it has introduced more problems than it has solved, but that is a separate
-> > topic. The initial commit already mentioned that MEMCG_CHARGE_BATCH was used
-> > arbitrarily, so replacing it with something big might be acceptable. I want
-> > to keep that decision separate.
-> 
-> Which kernel paths allocate enough for this to matter? Can you give specific
-> examples where the in-kernel synchronous enforcement helps?
+netdev-bot+sashiko@ wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> =
 
-mlock(), madvise(POPULATE), fadvise(WILLNEED) are the obvious ones where large
-amount of memory can be allocated before returning to userspace. Now regarding
-the in-kernel sync high enforcement for these cases helps or not, I think it
-depends on what the user is trying to achieve with memory.high. One scenario I
-can think of is an overcommitted system where admin dynamically adjusts
-memory.high limits of colocated workloads based on their working set size. The
-memory spikes will be smoothen by memory.high otherwise colocated workload can
-be negatively impact. In this example, ineffective memory.high will not be able
-to avoid global pressure which can impact colocated workloads.
+> Critical: 0 =C2=B7 High: 0 (2) =C2=B7 Medium: 1 =C2=B7 Low: 0
+> =
 
-BTW the above scenario is just an example and not something I am proposing.
-Actually I think memory overcommit in the presense sync throttling can
-potentially cause more isolation issues.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchw=
+ork
+> know by including "pw-bot: cr" as a separate line at the end of your re=
+ply
+> (one such reply per series is enough).
+> =
 
-> 
-> > Returning to the actual proposal, my plan was to start small with a narrow,
-> > specific use case. However, my long-term plan is to provide a mechanism to
-> > change the default behavior for custom use cases. For example, for
-> > memory.high, I will provide a way for users to specify what behavior they
-> > want, i.e., whether or not they want more synchronous throttling.
-> 
-> This doesn't seem like a policy problem.
+> - [Medium] The history and Fixes attribution in the commit message are
+>   inaccurate.
+> =
 
-What is "This" in the above statement?
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the same CAN=
 
-> It feels like a problem that should
-> be and can reasonably be solved for everybody, so I'm not sure whether BPF is
-> the right call for this specific purpose.
+>   RX skb with mac_header =3D=3D 0xFFFF (left that way by init_can_skb()=
+=E2=80=A6
+> - [High] This problem wasn't introduced by this patch, but the
+>   SOCK_PACKET receive path this patch touches leaks stale skb->cb bytes=
+=E2=80=A6
+> =
 
-Here if you meant that default behavior of memory.high should work for most (if
-not all) users then we are on same page. If some user want memory.high reclaim
-to happen in a separate thread instead of return-to-userspace or synchronously,
-this proposal provides mechanism through BPF to such users to achieve their
-goals.
+
+> [Severity: High]
+> This is a pre-existing issue, but further down, packet_rcv_spkt() build=
+s
+> the sockaddr_pkt in place in skb->cb:
+> =
+
+>     spkt->spkt_family =3D dev->type;
+>     strscpy(spkt->spkt_device, dev->name, sizeof(spkt->spkt_device));
+>     spkt->spkt_protocol =3D skb->protocol;
+> =
+
+> strscpy() writes strlen(name) + 1 bytes and doesn't pad, and nothing cl=
+ears
+> the rest of spkt_device. packet_recvmsg() then copies the full
+> sizeof(struct sockaddr_pkt) to userspace:
+> =
+
+>     memcpy(msg->msg_name, &PACKET_SKB_CB(skb)->sa, copy_len);
+> =
+
+> Can this leak stale skb->cb bytes to userspace?
+
+This is being addressed in a separate fix that is in the review process:
+
+https://lore.kernel.org/netdev/20260919215237.3470987-1-benquike@gmail.co=
+m/
+ =
+
+
 
