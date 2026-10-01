@@ -1,177 +1,107 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76614D37AF;
-	Thu,  1 Oct 2026 09:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4363DD849;
+	Thu,  1 Oct 2026 09:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790848171; cv=none; b=QzmGRFizW297c4+RIcH7paPVRdhZU0C8v7szJcE6VND22EVzG2wNc+iLrdY9HRcV6uN/mD0CwG3uddT0UTOywkGWrAXkO6B1whN9zwhseaFq75IPNgjGj63qGDuLXYxG4JxyhcHF8902UmxBj7IrAQqUMjF90RaeIytbjpx9YLY=
+	t=1790848247; cv=none; b=OlruVfSHAA4l7fK7mRAZrzNHaCE7GQq4Mtbo/UWYtOyeV5nSRGf6qTC6qiwinV1ITb+Av/HlgCQX7f9B2t76f+hzdsyZ+zsifvWoKgqwnEjnEETsjjeyOczkiLnuIkw2x232eJ/LgLtJxbUguhKpkkc26S3tv21EUqhGigXN+Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790848171; c=relaxed/simple;
-	bh=OfzALKUKErDnTeV6+Scy6LOty9NGQxM9etrLaViB0jA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=JxPf/wHNzU+H0hsuYoqsEiuLifb/CmQPEQ5fin0XzqtXuK9HCJAlqjaPey4tdir2zA9OrpKKQojlvxOzDVts6SztM5U8Csl9hMCB8A2TLlhgWRR3AXcySewa4M/GVdOARjAhYgAEltRF0KS2uSg1L2g9261r+u3LjMTH1PDpL1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=YducBsFg; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="YducBsFg"
-Message-ID: <cb8a33f0-2aa3-4ec1-9efc-af78eaa4b435@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1790848157;
-	bh=OfzALKUKErDnTeV6+Scy6LOty9NGQxM9etrLaViB0jA=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=YducBsFgeTVWLgaNUEqqiArMeOdjw49nO470W2tuk25ONR6sR62oPwPLiXoDrRjla
-	 7uw9c3Hu2p51okugWypnlZkwCRXxCqtXjGERkf8r7rCfxtdBpi3aAn0ei/FPtoMcJj
-	 6f1VSsbp6XBQ61/Pz3tl8ESa7xr+rK4XVpLlIOAY=
-Date: Thu, 1 Oct 2026 11:48:01 +0200
+	s=arc-20240116; t=1790848247; c=relaxed/simple;
+	bh=XHbvVorMLz5K4/Iil2a7YFAg6vMcHZYbtiuuQiSNe0k=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=tLCdV35kPsTHmyUXN6fJicc1KfkencopQFydofF1wl1yO4op7R9HEdGqlYwZ2/c22JiuI2XtyJ08Fdkw2zUfIydH5rN2Qx8bEtjOVX+IVlgdz1LaIGZVG5OOL9bSwOvXLtXCWEjRwuI5LtswMRYsESpYAzr+6uWH7IbF3RzN/VI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 1 Oct
+ 2026 17:50:36 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Thu, 1 Oct 2026 17:50:36 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Subject: [PATCH v2 0/3] iio: adc: aspeed: Fix SCU lookup for multi-SCU
+ AST2700
+Date: Thu, 1 Oct 2026 17:50:35 +0800
+Message-ID: <20261001-ast27xx-adc-upstream-v2-0-2f9c15cc0064@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: linux-kernel-dev@aliel.fr
-Subject: Re: [PATCH v3 1/3] dt-bindings: pwm: amlogic: Add core clock for S4
- like
-To: Chuan Liu <chuan.liu@amlogic.com>, Conor Dooley <conor@kernel.org>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org
-References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
- <20260927-add-t7-sys-pwm-clk-v3-1-18d66abea4d1@aliel.fr>
- <20260928-cardiac-relax-cdccdecdd4c2@spud>
- <1bf03811-40f8-4c85-bf45-e48c5545c3e1@amlogic.com>
-Content-Language: en-US
-In-Reply-To: <1bf03811-40f8-4c85-bf45-e48c5545c3e1@amlogic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOssvmoC/4WNOw7CMBAFrxJtzSJ/YhKouAdK4dgLcZGPvMYKi
+ nJ3TC5AOSO9eRswxUAMt2qDSDlwmKcC6lSBG+z0Igy+MCihLlIIiZaTatYVrXf4XjhFsiPqutf
+ +Si2ppocyXSI9w3pkH13hIXCa4+d4yfJn/wSzRIHGOjKN0bqW7d3yQuQTueHs5hG6fd+/AxcTI
+ L0AAAA=
+X-Change-ID: 20261001-ast27xx-adc-upstream-34b3d9e8e27b
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
+ Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	"Ryan Chen" <ryan_chen@aspeedtech.com>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>,
+	Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790848236; l=2233;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=XHbvVorMLz5K4/Iil2a7YFAg6vMcHZYbtiuuQiSNe0k=;
+ b=i/tI1BJzfiDkiUcQwMt/rhJNaPcweC5wck+TdqspYqpZ4Y5MPP0Jhp10JReWFcUeOAqp0PQTi
+ cBYPABhdVEQCuaeD8tkxpipGV1NaAx3bQR52X9jX/3a7mtQjCwy33Zz
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-Hi Chuan,
+The ADC's reference-voltage trimming data lives in a SCU register. The
+driver has always located that SCU with a global, name-based
+device-tree search, which works as long as a platform only has a
+single node named "syscon". AST2700 splits its SCU into two
+instances, syscon0 and syscon1, that share that same node name and
+differ only by label and unit address, so the lookup always resolves
+to syscon0 even when the ADC's trimming data lives in syscon1.
 
-On 9/30/26 9:13 AM, Chuan Liu wrote:
-> Hi Ronald, Cc Conor,
-> 
-> On 9/29/2026 12:46 AM, Conor Dooley wrote:
->> On Sun, Sep 27, 2026 at 04:28:15PM +0200, Ronald Claveau via B4 Relay
->> wrote:
->>> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>>
->>> The T7, A1, C3, and S4 PWM controllers have a system clock in
->>> addition to the two input clocks of channels A and B.
->>>
->>> The channel clocks are acquired by index in the pwm driver,
->>> where the core clock is fetched by name, with optional get
->>> which is silent when not provided.
->>>
->>> Require clock-names and minimum 3 items for S4, and devices
->>> which fallback to S4, where the PWM devices do not work
->>> without all 3 clocks.
->>>
->>> Add an example showing T7 usage with its fallback to
->>> amlogic,meson-s4-pwm.
->>>
->>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>> ---
->>>   .../devicetree/bindings/pwm/pwm-amlogic.yaml        | 21 ++++++++++
->>> ++++++++---
->>>   1 file changed, 18 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->>> b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->>> index c337d85da40f1..e9cd5f1fdf264 100644
->>> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->>> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->>> @@ -62,7 +62,7 @@ properties:
->>>       clock-names:
->>>       minItems: 1
->>> -    maxItems: 2
->>> +    maxItems: 3
->>>       power-domains:
->>>       maxItems: 1
->>> @@ -143,9 +143,15 @@ allOf:
->>>             items:
->>>               - description: input clock of PWM channel A
->>>               - description: input clock of PWM channel B
->>> -        clock-names: false
->>> +            - description: gate clock for the PWM controller
-> 
-> This is the APB bus clock gate for the PWM controller. If this clock is
-> disabled, the CPU can no longer access the PWM controller's registers.
-> 
-> This clock serves the same purpose as the "bus" clock in the thermal
-> sensor patch you submitted previously [1].
-> 
-> By the way, in the Amlogic clock driver, many sys_clk/clk81 clocks are
-> used to provide the clock for the APB bus of individual controllers.
-> Some of them also provide the functional clock for the controller, such
-> as I2C.
-> 
-> Therefore, would it be reasonable to keep the description here
-> consistent with the description in the thermal dt-binding mentioned above?
-> 
-> [1] https://lore.kernel.org/all/20260923-fix-t7-thermal-clock-v2-1-
-> bff7a09eb487@aliel.fr/
-> 
+This series adds an explicit "aspeed,trim-syscon" phandle property so multi-SCU
+platforms can point the ADC at the right SCU, keeps the existing
+global lookup as a fallback for single-SCU platforms and already
+deployed device trees, and wires the new property up on AST2700.
 
-Thanks for your help and your feedback on this series. I will rename and
-change the description in v4.
+Patch summary:
+1. dt-bindings: iio: adc: Add syscon property for multi-SCU SoCs
+2. iio: adc: aspeed: Use syscon phandle for trimming data when available
+3. arm64: dts: aspeed: Add syscon phandle to AST2700 ADC nodes
 
->>> +        clock-names:
->>> +          items:
->>> +            - const: channel-a
->>> +            - const: channel-b
->>> +            - const: core
-> 
-> Similarly, would it be more appropriate to name this clock "bus" as well?
-> 
->>>         required:
->>>           - clocks
->>> +        - clock-names
->>>       - if:
->>>         properties:
->>> @@ -179,6 +185,15 @@ examples:
->>>       pwm@1000 {
->>>         compatible = "amlogic,meson-s4-pwm";
->>>         reg = <0x1000 0x10>;
->>> -      clocks = <&pwm_src_a>, <&pwm_src_b>;
->>> +      clocks = <&pwm_src_a>, <&pwm_src_b>, <&pwm_src_core>;
->>> +      clock-names = "channel-a", "channel-b", "core";
->>> +      #pwm-cells = <3>;
->>> +    };
->>> +  - |
->>> +    pwm@60000 {
->>
->> If you respin, drop the second example please, since it doesn't actually
->> do anything different anymore.
->>
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+---
+Changes in v2:
+- Rename the new property to "aspeed,trim-syscon": a bare "syscon" is
+  not a generic property per writing-bindings.rst, so follow its
+  vendor,type-syscon convention
+- Reword the property's description to state its purpose instead of
+  restating the schema's required condition in prose
+- Drop the extra AST2700 example added for the one new property
+- Link to v1: https://lore.kernel.org/r/20261001-ast27xx-adc-upstream-v1-0-5ace57533418@aspeedtech.com
 
-I will drop this example in the mean time.
+---
+Billy Tsai (3):
+      dt-bindings: iio: adc: Add syscon property for multi-SCU SoCs
+      iio: adc: aspeed: Use syscon phandle for trimming data when available
+      arm64: dts: aspeed: Add syscon phandle to AST2700 ADC nodes
 
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> pw-bot: not-applicable
->>
->>> +      compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
->>> +      reg = <0x60000 0x24>;
->>> +      clocks = <&channel_a>, <&channel_b>, <&core>;
->>> +      clock-names = "channel-a", "channel-b", "core";
->>>         #pwm-cells = <3>;
->>>       };
->>>
->>> -- 
->>> 2.49.0
->>>
->>>
-> 
+ .../bindings/iio/adc/aspeed,ast2600-adc.yaml         | 17 +++++++++++++++++
+ arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi       |  2 ++
+ drivers/iio/adc/aspeed_adc.c                         | 20 ++++++++++++++------
+ 3 files changed, 33 insertions(+), 6 deletions(-)
+---
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+change-id: 20261001-ast27xx-adc-upstream-34b3d9e8e27b
 
-
--- 
 Best regards,
-Ronald
+-- 
+Billy Tsai <billy_tsai@aspeedtech.com>
+
