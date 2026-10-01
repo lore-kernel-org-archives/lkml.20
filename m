@@ -1,317 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010054.outbound.protection.outlook.com [52.101.85.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCC65304C2;
-	Thu,  1 Oct 2026 20:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790886187; cv=none; b=p+NzP+8E8RhPWqyXtXC6E+SxpA+w7+OOamTh31Dlz+SLDZdLVj8uM87YmTN8SVyWnZ4x19E6ZTCwsUfZK84Qy4lYgRSXjXDrFFped5AIQT5+d73aPX+vKJmrrQ53oKR+KIDhcNhknUBQftFZBHzocHbM7CVNW6yvlBk1HAKlvuw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790886187; c=relaxed/simple;
-	bh=UPXENUPaKnkpLGIG0EJdzFRy7knkJIHYMp4miTMaPe0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nMd9rj9UsdPt9JEXaLow0/Tbw6rnz4X0L+lvzlqEpRJc0eiS5N33349JuSGLsjv2pegZOE4amqKwumNJ2Yuyx13QM/nfd7v4w/Io4t7bioODS/ly4VWwU1CLyl13kZJcMhqAjf8h4uik+BZz5PH4GMl1n/0Z5xCmlF1V0XoU2aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/IWTHu4; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A416953F683;
+	Thu,  1 Oct 2026 20:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790886196; cv=fail; b=tKHrJCpiE+zbVVDcGdUEGuz06vl88nQFrEvEMViGMoKu5dPnF1GPalpUPqyOOR5w5UAP0+pkiYSZJJGVzA7r23W0pP5YEsksxZJWt8dvvhAz4kbdlrfiGucOq1W6Hj5Uq8wG+UoYxNCcHUv0TaKNje3kEBwU/i7+rovi5v6gl2c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790886196; c=relaxed/simple;
+	bh=vYZJIO5TzBRSu9OTQlg+PjXnlf942nQfOGs0xU/qak0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u0plDxrud64rjH8P+/XtILX6C2NSfj6HX1jf+6DxFp3MU7Q+MO2Af7pTBjsBZr2hILLQJOkvd9nZSyv1BW7MKReee0f3vcHJDRQEu34u0fM8XyaDfRBGCINicqNcqe56Vivr+quTz6u/tpM5FlTcHr7tPLQOi3eRY6PpRjh1bQk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=auSHSEHf; arc=fail smtp.client-ip=52.101.85.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/IWTHu4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5631F00898;
-	Thu,  1 Oct 2026 20:23:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790886181;
-	bh=qX1O/9NiOPFtTih/KfPqzGLQIYo32qyCWBMGjYqQlSM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b/IWTHu4sbj8D3fxUuAQQskD1vRddcsB+bLS3SLEi+K5EBk6pshxbR7ldtwetErAI
-	 yqc9KInQ9nkpH8LMaEXQbNDqM5GBMRtRsQjer00f5pzBEmwnmff99nFGT7vT90MWg9
-	 egLwQYzJjv/kPYwhUpe9UwIYVUN8ocmSA2Dvu3fibA3Ekd4WNu4zrNG93EV0pOiFCU
-	 6ZmGy/UCmTjtSSgPfh3j/a8T+eX1dmkIc6OmtTH50NNpreU1XZ0yIftuF9da047Dg5
-	 tc1TBJL7iZV0U2LM9wDeCmFuilgnqC8vekaSnDn/9jUXimpe1hA5dRjrOsc9g7mDbI
-	 PioxGhCzI2I1Q==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Perry Yuan <perry.yuan@amd.com>,
-	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	linux-pm@vger.kernel.org (open list:CPU FREQUENCY SCALING FRAMEWORK),
-	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v2 3/3] cpufreq: amd-pstate-ut: Fix max_freq and EPP test failures on Zen6
-Date: Thu,  1 Oct 2026 15:22:54 -0500
-Message-ID: <20261001202254.1679976-3-superm1@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001202254.1679976-1-superm1@kernel.org>
-References: <20261001202254.1679976-1-superm1@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="auSHSEHf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F+27dLCA6Mgyet4dUBSVlbYqKfvTxW8JhyZiFXpiFhV7bs3KQbfFh4mE+iUnErSQeUIE1x3WlsOC0CrEjJGwGvEsnz3GaGVXFKl4Aandfubq791MVP/nLrIkZOoIiNX5SDtaQvotzMXTR4lB3cJkpmwOAWZYuBnAVuh2DPX+KuwMVaJcGuluEjoUgexOX8Y5SBxTegetNIJTb/fBCWZF4rPuMZ04x+DeM0CaHM5WVZZms1UPEWVCb6gbF8KDLMIb7skMTliFjxhQzxknn4Kl0Wj4oA6RgBtNxq6/cszzw6h1XGDhStqkNGB2e5GSNUAxq9ahczj++2hLgH5E+BxQ+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jpPkeOCPURulNiOuVdrND84Csg55H/+ONreaDCazi8I=;
+ b=HxTRAeazuQMcH6vlCjZnij5aUAQPWA/dajh9F1sozs4uIffDT+0qljS7L3WSBozB3XnvM/RMBnDlICCf6s/BECPcHmcz/9vUy/Ey/hEecuOa9ObNIWbSKBW8icG3O+xCfF15nwHKZF0JsKwmNMyt005sHqEz8bGpde5+VvQOWMsu8lv6PNq8SZ7gFnHr4QeqmcoBTG5Lp7OiWbx+EHnScl0TzE6te6Srr7s7dneJw4bqAxCSTlQkiPbhiDM4Ud9nKvD4HuKC9lXt8nMY9E17psWcTpHrvY7kOr/qAMtGNuKVjnIHlo2mxNaAcnlB1bbhXQDgTvhmPvJo/QwgCLjSdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jpPkeOCPURulNiOuVdrND84Csg55H/+ONreaDCazi8I=;
+ b=auSHSEHfjMhs3Iwdo/ByIGBNy57dkcjYw8gcVPkr/uqvOtzJvYHf/gXv6fVHcpVfFAVEFjQKJ4Dw0pVPa+7V+T9MtsHtJfH7fuK7gNai1Ge8eDaHaJ3PKJy5eKHrNyB+Jigr3PN7RIqy1tJcJjjccpoTcTDpUdmE6VxkE8TEvfZ1HlDXI5S+y+vfMZtKyHspHkWfoFf/Pd8ptNNEamrY+o7Cq6aH9ctv8bU11S+DsJlHw9H+hJYFvYZXZBWsQrQuMJ99ZjnE8SvkQxrZ6P3RWlDRr3N7JYsI6+Ms/Zxpj3wiA4rbfUzc8aUqD+jygES3M78WAtsruqvyJMy1YW8I8A==
+Received: from SJ0PR03CA0141.namprd03.prod.outlook.com (2603:10b6:a03:33c::26)
+ by LV0PR12MB243158.namprd12.prod.outlook.com (2603:10b6:408:3fc::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 20:23:07 +0000
+Received: from SJ1PEPF0000231F.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::7f) by SJ0PR03CA0141.outlook.office365.com
+ (2603:10b6:a03:33c::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Thu, 1
+ Oct 2026 20:23:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ SJ1PEPF0000231F.mail.protection.outlook.com (10.167.242.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 20:23:07 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
+ 2026 13:22:44 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 13:22:44 -0700
+Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.181)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Thu, 1 Oct 2026 13:22:42 -0700
+Date: Thu, 1 Oct 2026 13:22:40 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Pranjal Shrivastava <praan@google.com>
+CC: <iommu@lists.linux.dev>, Will Deacon <will@kernel.org>, Joerg Roedel
+	<joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe
+	<jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Daniel Mentz
+	<danielmentz@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
+	<linux-arm-kernel@lists.infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>, Bjorn Helgaas <bhelgaas@google.com>,
+	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, <rafael@kernel.org>, "Danilo
+ Krummrich" <dakr@kernel.org>, <driver-core@lists.linux.dev>
+Subject: Re: [PATCH v11 13/16] iommu/arm-smmu-v3: Implement pm_runtime &
+ system sleep ops
+Message-ID: <ar7BEIURVG6kGKX8@nvidia.com>
+References: <20260929034510.2023173-1-praan@google.com>
+ <20260929034510.2023173-14-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260929034510.2023173-14-praan@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231F:EE_|LV0PR12MB243158:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6069da64-a309-4036-a7b5-08df1ff9cde1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|7416014|23010399003|1800799024|56012099006|6133799003|11063799006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	wkNJ00GJVTxA/PZgKwTJQTPQs7wJNy5VilET7+tVt1HDv1I+bROwmfVJrzpQrMLLflfxafWye3V6K/PLdrVkDyES4bEGPu0KgDaWrDyiJ0bUfe71Lhp09dXQljvtWOEj0fNg9YcQtbOQZLM5ymcyR12VYrBqTrTElqyMCMdvaJsPmFN1Ss29EA914SRHYIium1NeN2Zo1s8Yole2paZ4CHe+B4WXlVEuW8vps/2W464TnwDEYnn0k82NGeZJ/wkSyoRQV4jFHiTGFqE2/OLIqqWy3XZd0vCI3c/7Y0lvQVAlvKuB8VRyqO9cGsD/M/nOkD2wZHj5bC+MyjD5H9++04cotbvZvty9SAdrHU4+o7VcRXvUFvhdmES9seH2L9TinNG7dfcC4fKLM8c0yK/dok7QG2cH68RCTsF/ArSvJ2EG1QjGxDiCK6eIlECO6hQfyPl3qaIgIQBVg6vY5PXLEcHSxnuwjce1fxu/WTFEB0vTFHFBZTo6ulUpYFWRPZ7nlCtxVm45L7yt9iHazZ+ZJw9OB+todHUm0WaS7H8eJIUtWCKgNwx7R1Kc62gD8hyxt80SZbrPNz1f5iF/ThIvgi7RWJEh6e8JvdYpclGgtNGml8zteT0U/Olt6Q2tHbp1hceQn9XmD5tMaYkGKr/kJohnpZAKZ/Ge0FzV+eBFXsz9PaNTslEC67RSBu1eKHoRX434uRoNtKMXqOja56sASw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(6133799003)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/joHKHcVocduuhZZ4Mr+NO+05zxdWqnpFYLy+SyQELNicRWh1jHHUqV9ec3cVCMyfgiBN/Id/w+eYAbaPhoqQajIXONZ3zFBFWX4+3pg0PMdHjFNKyAuLeSj16K3DFA/dFTMBwuzcq8ypVylUkZcJpx3+ykDtYPHAxBjP4esizlPg6i0mMAc/iELbfNEIGkCMLsIcH9v+RjtoWdiNl93oUvbr6KiNgyklLPvASMcy1tWOBEpNoiAcb99eIprCI749bFgVLYqe09B45Y1Ek0KIFsPP2QL66JfochG+0TcfCjUjbq4VuyqqTFvW/SSLsk7DX9Qq38r8eK0CT5LgIIW+8RnZ4JC94O68YpF+x9d8CpN9fdDyUEMOMi//37IpU8NTYt+qbe+0B3oGK/9k74HWGJ2j8zavQWG8TIT1/0vKKRVL4aRFNboEHzmwHfiw5XF
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 20:23:07.1076
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6069da64-a309-4036-a7b5-08df1ff9cde1
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB243158
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+Just some small things from a quick scan:
 
-Zen6 platforms expose conditions that cause two amd-pstate unit tests to
-fail: low-power cores can report max_freq below the shared nominal_freq,
-and multiple EPP preferences can alias to the same raw value.
+On Tue, Sep 29, 2026 at 03:45:07AM +0000, Pranjal Shrivastava wrote:
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> index 0a841441cc44..d0a3d497915c 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> @@ -663,11 +663,14 @@ arm_smmu_make_cmd_tlbi(enum arm_smmu_cmdq_opcode op, u16 asid, u16 vmid)
+[...]
+> +#define RPM_AUTOSUSPEND_DELAY_MS	15
+> +
+>  struct arm_smmu_ll_queue {
+>  	union {
+>  		u64			val;
+> @@ -1234,6 +1237,18 @@ int arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
+>  				bool sync);
+>  bool arm_smmu_erratum_repeat_tlbi_cfgi(void);
+>  
+> +/*
+> + * Lockless pre-check to test if the SMMU is actively powered.
+> + * Races with concurrent suspend are benign: the cmpxchg loop in
+> + * arm_smmu_cmdq_issue_cmdlist() acts as the true commit point.
+> + * If we lose the race, that loop observes Q_STOP == 1 and safely
+> + * drops the command. If we win, the suspend thread waits for us.
+> + */
+> +static inline bool arm_smmu_is_active(struct arm_smmu_device *smmu)
+> +{
+> +	return !Q_STOP(READ_ONCE(smmu->cmdq.q.llq.prod));
+> +}
 
-Relax the max_freq >= nominal_freq assertion to max_freq >=
-lowest_nonlinear_freq, and tolerate aliased EPP preferences by validating
-the raw programmed value instead of string comparison.
+Move these to the patch that uses it? 
 
-Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Tested-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v2:
- * Replace patch 3/4 and 4/4 with Prateek's patch
- drivers/cpufreq/amd-pstate-ut.c | 54 ++++++++++++++++++++++++---------
- drivers/cpufreq/amd-pstate.c    | 44 ++-------------------------
- drivers/cpufreq/amd-pstate.h    | 44 +++++++++++++++++++++++++++
- 3 files changed, 85 insertions(+), 57 deletions(-)
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 89a4e756ff17..e127e3be3a6b 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/sort.h>
+>  #include <linux/string_choices.h>
+> +#include <linux/pm_runtime.h>
+>  #include <kunit/visibility.h>
+>  #include <uapi/linux/iommufd.h>
+>  
+> @@ -119,6 +120,45 @@ static const char * const event_class_str[] = {
+>  static int arm_smmu_alloc_cd_tables(struct arm_smmu_master *master);
+>  static bool arm_smmu_ats_supported(struct arm_smmu_master *master);
+>  
+> +/* Runtime PM helpers */
+> +__maybe_unused static int arm_smmu_rpm_get(struct arm_smmu_device *smmu)
+> +{
+> +	int ret;
+> +
+> +	if (!pm_runtime_enabled(smmu->dev))
+> +		return 0;
+> +
+> +	ret = pm_runtime_resume_and_get(smmu->dev);
+> +	if (ret < 0) {
+> +		dev_err(smmu->dev, "failed to resume device: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +__maybe_unused static bool arm_smmu_rpm_get_if_active(struct arm_smmu_device *smmu)
+> +{
+> +	if (!pm_runtime_enabled(smmu->dev))
+> +		return true;
+> +
+> +	return pm_runtime_get_if_active(smmu->dev) > 0;
+> +}
+> +
+> +__maybe_unused static void arm_smmu_rpm_put(struct arm_smmu_device *smmu)
+> +{
+> +	int ret;
+> +
+> +	if (!pm_runtime_enabled(smmu->dev))
+> +		return;
+> +
+> +	ret = pm_runtime_put_autosuspend(smmu->dev);
+> +
+> +	/* -EAGAIN & -EBUSY aren't failures */
+> +	if (ret < 0 && ret != -EAGAIN && ret != -EBUSY)
+> +		dev_err(smmu->dev, "failed to suspend device: %d\n", ret);
+> +}
 
-diff --git a/drivers/cpufreq/amd-pstate-ut.c b/drivers/cpufreq/amd-pstate-ut.c
-index c2c1a166b3a9e..506d7bb2e6609 100644
---- a/drivers/cpufreq/amd-pstate-ut.c
-+++ b/drivers/cpufreq/amd-pstate-ut.c
-@@ -216,7 +216,14 @@ static int amd_pstate_ut_check_perf(u32 index)
- 
- /*
-  * Check if frequency values are reasonable.
-- * max_freq >= nominal_freq > lowest_nonlinear_freq > min_freq > 0
-+ * nominal_freq > lowest_nonlinear_freq >= min_freq > 0
-+ * max_freq >= lowest_nonlinear_freq
-+ *
-+ * On most parts the boost frequency is the highest, i.e.
-+ * max_freq >= nominal_freq. On heterogeneous designs (e.g. Zen6) a
-+ * low-power core can have a maximum frequency below the shared nominal
-+ * reference frequency, so only require the boost frequency to sit above
-+ * the lowest nonlinear frequency here.
-  * check max freq when set support boost mode.
-  */
- static int amd_pstate_ut_check_freq(u32 index)
-@@ -235,11 +242,11 @@ static int amd_pstate_ut_check_freq(u32 index)
- 		cpudata = policy->driver_data;
- 		perf = READ_ONCE(cpudata->perf);
- 
--		if (!((policy->cpuinfo.max_freq >= cpudata->nominal_freq) &&
-+		if (!((policy->cpuinfo.max_freq >= cpudata->lowest_nonlinear_freq) &&
- 			(cpudata->nominal_freq > cpudata->lowest_nonlinear_freq) &&
- 			(cpudata->lowest_nonlinear_freq >= policy->cpuinfo.min_freq) &&
- 			(policy->cpuinfo.min_freq > 0))) {
--			pr_err("%s cpu%d max=%d >= nominal=%d > lowest_nonlinear=%d > min=%d > 0, the formula is incorrect!\n",
-+			pr_err("%s cpu%d max=%d, nominal=%d, lowest_nonlinear=%d, min=%d, the formula is incorrect!\n",
- 				__func__, cpu, policy->cpuinfo.max_freq, cpudata->nominal_freq,
- 				cpudata->lowest_nonlinear_freq, policy->cpuinfo.min_freq);
- 			return -EINVAL;
-@@ -297,12 +304,12 @@ static int amd_pstate_set_mode(enum amd_pstate_mode mode)
- 
- static int amd_pstate_ut_epp(u32 index)
- {
--	static const char * const epp_strings[] = {
--		"dynamic",
--		"power",
--		"balance_power",
--		"balance_performance",
--		"performance",
-+	enum energy_perf_value_index epp_modes[] = {
-+		EPP_INDEX_DYNAMIC,
-+		EPP_INDEX_POWERSAVE,
-+		EPP_INDEX_BALANCE_POWERSAVE,
-+		EPP_INDEX_BALANCE_PERFORMANCE,
-+		EPP_INDEX_PERFORMANCE,
- 	};
- 	char *buf __free(cleanup_page) = NULL;
- 	struct cpufreq_policy *policy = NULL;
-@@ -371,9 +378,9 @@ static int amd_pstate_ut_epp(u32 index)
- 		}
- 	}
- 
--	for (i = 0; i < ARRAY_SIZE(epp_strings); i++) {
-+	for (i = 0; i < ARRAY_SIZE(epp_modes); i++) {
- 		memset(buf, 0, PAGE_SIZE);
--		snprintf(buf, PAGE_SIZE, "%s", epp_strings[i]);
-+		snprintf(buf, PAGE_SIZE, "%s", energy_perf_strings[epp_modes[i]]);
- 		ret = store_energy_performance_preference(policy, buf, strlen(buf));
- 		if (ret < 0)
- 			goto out;
-@@ -389,8 +396,24 @@ static int amd_pstate_ut_epp(u32 index)
- 		 */
- 		strreplace(buf, '(', '\0');
- 
--		if (strcmp(buf, epp_strings[i])) {
--			pr_err("String EPP value mismatch: %s != %s\n", buf, epp_strings[i]);
-+		if (strcmp(buf, energy_perf_strings[epp_modes[i]])) {
-+			u8 epp = FIELD_GET(AMD_CPPC_EPP_PERF_MASK, cpudata->cppc_req_cached);
-+
-+			/*
-+			 * The preference read back may legitimately differ from the one
-+			 * written: some platforms (e.g. Zen6) program the same raw EPP
-+			 * value for more than one named preference, so show() reports the
-+			 * first name that matches that value.
-+			 *
-+			 * If strings mismatch, confirm the CPU is programmed with the correct
-+			 * EPP value for the mode. This verifies hardware programming while
-+			 * tolerating such aliasing in driver.
-+			 */
-+			if (epp == amd_pstate_cpu_epp_values(cpudata->cpu_type)[epp_modes[i]])
-+				continue;
-+
-+			pr_err("String EPP value mismatch: %s != %s\n",
-+			       buf, energy_perf_strings[epp_modes[i]]);
- 			ret = -EINVAL;
- 			goto out;
- 		}
-@@ -406,11 +429,12 @@ static int amd_pstate_ut_epp(u32 index)
- 		 * restore it here before dropping policy reference.
- 		 */
- 		if (orig_dynamic_epp) {
-+			const char * const dynamic_string = energy_perf_strings[epp_modes[0]];
- 			int ret2;
- 
- 			ret2 = store_energy_performance_preference(policy,
--								  epp_strings[0],
--								  strlen(epp_strings[0]));
-+								  dynamic_string,
-+								  strlen(dynamic_string));
- 			if (!ret && (ret2 < 0))
- 				ret = ret2;
- 		}
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index d8e2eec6e7250..4bf158f677f3e 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -44,7 +44,6 @@
- #include <acpi/cppc_acpi.h>
- 
- #include <asm/msr.h>
--#include <asm/processor.h>
- #include <asm/cpufeature.h>
- #include <asm/cpu_device_id.h>
- 
-@@ -89,46 +88,6 @@ static int cppc_state = AMD_PSTATE_UNDEFINED;
- static bool amd_pstate_prefcore = true;
- static struct quirk_entry *quirks;
- 
--/*
-- * AMD Energy Preference Performance (EPP)
-- * The EPP is used in the CCLK DPM controller to drive
-- * the frequency that a core is going to operate during
-- * short periods of activity. EPP values will be utilized for
-- * different OS profiles (balanced, performance, power savings)
-- * display strings corresponding to EPP index in the
-- * energy_perf_strings[]
-- *	index		String
-- *-------------------------------------
-- *	0		default
-- *	1		performance
-- *	2		balance_performance
-- *	3		balance_power
-- *	4		power
-- *	5		custom (for raw EPP values)
-- *	6		dynamic (platform profile driven selection)
-- */
--enum energy_perf_value_index {
--	EPP_INDEX_DEFAULT = 0,
--	EPP_INDEX_PERFORMANCE,
--	EPP_INDEX_BALANCE_PERFORMANCE,
--	EPP_INDEX_BALANCE_POWERSAVE,
--	EPP_INDEX_POWERSAVE,
--	EPP_INDEX_CUSTOM,
--	EPP_INDEX_DYNAMIC,
--	EPP_INDEX_MAX,
--};
--
--static const char * const energy_perf_strings[] = {
--	[EPP_INDEX_DEFAULT] = "default",
--	[EPP_INDEX_PERFORMANCE] = "performance",
--	[EPP_INDEX_BALANCE_PERFORMANCE] = "balance_performance",
--	[EPP_INDEX_BALANCE_POWERSAVE] = "balance_power",
--	[EPP_INDEX_POWERSAVE] = "power",
--	[EPP_INDEX_CUSTOM] = "custom",
--	[EPP_INDEX_DYNAMIC] = "dynamic",
--};
--static_assert(ARRAY_SIZE(energy_perf_strings) == EPP_INDEX_MAX);
--
- /*
-  * The numeric EPP value programmed for each named preference. First dimension
-  * is CPU type (TOPO_CPU_TYPE_ANY for non-hybrid, TOPO_CPU_TYPE_PERFORMANCE/
-@@ -159,7 +118,7 @@ static_assert(ARRAY_SIZE(epp_values) == TOPO_CPU_TYPE_LOW_POWER + 1,
-  * Non-hybrid systems use TOPO_CPU_TYPE_ANY; hybrid systems use the CPU's
-  * actual type (PERFORMANCE/EFFICIENCY/LOW_POWER).
-  */
--static inline u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type)
-+u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type)
- {
- 	switch (cpu_type) {
- 	case TOPO_CPU_TYPE_PERFORMANCE:
-@@ -170,6 +129,7 @@ static inline u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type)
- 		return epp_values[TOPO_CPU_TYPE_ANY];
- 	}
- }
-+EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_cpu_epp_values);
- 
- /**
-  * struct amd_pstate_epp_values - EPP values for the four named preferences
-diff --git a/drivers/cpufreq/amd-pstate.h b/drivers/cpufreq/amd-pstate.h
-index c7189d177b81a..422188c639b1e 100644
---- a/drivers/cpufreq/amd-pstate.h
-+++ b/drivers/cpufreq/amd-pstate.h
-@@ -11,6 +11,8 @@
- #include <linux/pm_qos.h>
- #include <linux/platform_profile.h>
- 
-+#include <asm/processor.h>
-+
- #if IS_MODULE(CONFIG_X86_AMD_PSTATE_UT)
- #define EXPORT_SYMBOL_FOR_PSTATE_UT(symbol) \
- 	EXPORT_SYMBOL_FOR_MODULES(symbol, "amd-pstate-ut")
-@@ -162,6 +164,48 @@ enum amd_pstate_mode {
- 	AMD_PSTATE_MAX,
- };
- 
-+/*
-+ * AMD Energy Preference Performance (EPP)
-+ * The EPP is used in the CCLK DPM controller to drive
-+ * the frequency that a core is going to operate during
-+ * short periods of activity. EPP values will be utilized for
-+ * different OS profiles (balanced, performance, power savings)
-+ * display strings corresponding to EPP index in the
-+ * energy_perf_strings[]
-+ *	index		String
-+ *-------------------------------------
-+ *	0		default
-+ *	1		performance
-+ *	2		balance_performance
-+ *	3		balance_power
-+ *	4		power
-+ *	5		custom (for raw EPP values)
-+ *	6		dynamic (platform profile driven selection)
-+ */
-+enum energy_perf_value_index {
-+	EPP_INDEX_DEFAULT = 0,
-+	EPP_INDEX_PERFORMANCE,
-+	EPP_INDEX_BALANCE_PERFORMANCE,
-+	EPP_INDEX_BALANCE_POWERSAVE,
-+	EPP_INDEX_POWERSAVE,
-+	EPP_INDEX_CUSTOM,
-+	EPP_INDEX_DYNAMIC,
-+	EPP_INDEX_MAX,
-+};
-+
-+static const char * const energy_perf_strings[] = {
-+	[EPP_INDEX_DEFAULT] = "default",
-+	[EPP_INDEX_PERFORMANCE] = "performance",
-+	[EPP_INDEX_BALANCE_PERFORMANCE] = "balance_performance",
-+	[EPP_INDEX_BALANCE_POWERSAVE] = "balance_power",
-+	[EPP_INDEX_POWERSAVE] = "power",
-+	[EPP_INDEX_CUSTOM] = "custom",
-+	[EPP_INDEX_DYNAMIC] = "dynamic",
-+};
-+static_assert(ARRAY_SIZE(energy_perf_strings) == EPP_INDEX_MAX);
-+
-+u8 *amd_pstate_cpu_epp_values(enum x86_topology_cpu_type cpu_type);
-+
- static inline u8 freq_to_perf(union perf_cached perf, u32 nominal_freq, unsigned int freq_val)
- {
- 	u32 perf_val = DIV_ROUND_UP_ULL((u64)freq_val * perf.nominal_perf, nominal_freq);
--- 
-2.53.0
+Ditto
 
+> +static int __maybe_unused arm_smmu_runtime_suspend(struct device *dev)
+[...]
+> +	/* Wait for the last committed owner to reach the hardware */
+> +	while (atomic_read(&cmdq->owner_prod) != target && timeout) {
+> +		udelay(1);
+> +		timeout--;
+> +	}
+> +
+> +	/*
+> +	 * Entering suspend implies no active clients. A timeout here
+> +	 * indicates a fatal CMDQ lockup or hardware stall. We proceed
+> +	 * anyway to prioritize memory safety (avoiding stale TLBs)
+> +	 */
+> +	if (!timeout)
+> +		dev_err(smmu->dev, "cmdq owner wait timeout, (check runtime PM + devlinks)\n");
+> +
+> +	/* Wait for cmdq->lock == 0 to ensure last CMDQ_CONS_REG is written */
+> +	timeout = ARM_SMMU_SUSPEND_TIMEOUT_US;
+> +	while (atomic_read(&cmdq->lock) != 0 && timeout) {
+> +		udelay(1);
+> +		timeout--;
+> +	}
+> +
+> +	/* Timing out here implies misconfigured Runtime PM or broken devlinks */
+> +	if (!timeout)
+> +		dev_err(smmu->dev, "cmdq lock != 0, forcing suspend. Polling CPUs may fault.\n");
+
+Maybe a small helper that takes: read pointer, target, print?
+
+> +	/* Wait for pending gerror handlers */
+> +	synchronize_irq(smmu->combined_irq ? smmu->combined_irq : smmu->gerr_irq);
+
+Both might be 0?
+
+Nicolin
