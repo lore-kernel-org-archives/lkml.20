@@ -1,45 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEF937FF48;
-	Thu,  1 Oct 2026 05:42:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E2A43D510;
+	Thu,  1 Oct 2026 05:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790833341; cv=none; b=mHt0/JHgwCKQp0US734Sr+Zk8pfg/VnpXvuq/wMFT7uBzLxwIyToQuKRDVRbskTWnOOk0cpPqH/4uAKUNmairu8u/sJ/+sNLZOpgYegCsmvYJoiMb/j+bSgz8WO1QCqv/Ypy1X7V8RisMWe1Qqo2lkmHKG9DnMk0C/KnQkDzlY8=
+	t=1790833356; cv=none; b=YV+kAfDndT42Wp0DsS/uESE9wWpcLVFoTCe/u3KT8uByLwkfut/jiwbE9mX1vFLdaCTT4quNS80w+gB2VcRS+IzJsi4vmrciX1Y5Da0VyUYv+S+g9leFtM2PUh7aYZBjHTtYhjjeRohnRr65FJrh27ow1WzRz01fi9qDAH4lctk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790833341; c=relaxed/simple;
-	bh=qM2+IlXgxzCvRL1V0xvEgDu1jH9GrS8PIF5q4v/tma0=;
+	s=arc-20240116; t=1790833356; c=relaxed/simple;
+	bh=kqq0Mc9za7LEpPEg9nYySb7qNnA96Muq1SKQVs8d7F8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k3suLFSqnqegDSYLwMBrDEC1jG9rIJH7w8JSHSf2Kk7LWlLsJ7tgCU1Nz7g/GTyo4nlVDZ8WW2FSQQQ9unUhndSu7y+iEGRcs0Rw/99/M36MTJ2oSADeKAQCwAHWfmmh3/+wsW1IsqM2nwRKsGd9DU3J3v9yqMCaCq8b56A7iSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UJ5M7Hwd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OsUDFlYwissu5sdSwhfWOyQEYyq7n4uOQiMV1uYXmamuKgO594zai6OjbrOW2VQzqOpRzmGsBeMb5OK1wNZlBmrUqZCr3/hTBZ+bNq//AhS1s1r+X0LS/+4SHNZ2pBE+YGz/t/ibyTwmUHND3iYSFX/ydDla8TI2kCqQSRwqbOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n7veUeEU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UJ5M7Hwd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61AF51F000FF;
-	Thu,  1 Oct 2026 05:42:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n7veUeEU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC961F000FF;
+	Thu,  1 Oct 2026 05:42:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790833339;
-	bh=YFqHc2IPL4HsStJHwRBHONtEGCcmeJb8M30ksqgsN7g=;
+	s=korg; t=1790833354;
+	bh=/87ExxWE0hZ1KqhxTwlm59aQ63nyqH9jmsBk1ZiFzsk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UJ5M7HwdQysgOsMzcvmfRvOuoQiFiDzJ9tWq7R2b1MDnauodGaG+ZLp2NXSvVNRFY
-	 K2tdeT+6dESwEPybreehixdN7+4ltEGmuuivuvANW4XdPwM4aJOUOmwkFYPniG9uV9
-	 OhFJP2ZXXOg/X/8EffSSTh8ngSj6MIlNdVvIAq8I=
-Date: Thu, 1 Oct 2026 07:42:13 +0200
+	b=n7veUeEUTsoh+uqkmtoi0kxnmCBiqy2jKG9+acQSiS+hJzGOgFoekwEkNmE64sR/q
+	 RvvwhdCN0PRlAqCKoHKRcgW5/CMuArpXDl90CgQAvjWCmQA06p2/1bxDrtqVbVsnZq
+	 mUM4bDcUt8UsYi+IKjS8MYa3SC551bB24nTpLkc8=
+Date: Thu, 1 Oct 2026 07:42:28 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Enzo Frese <freseenzo@gmail.com>
-Cc: Jennifer Guo <guojy.bj@gmail.com>,
-	Andrei Khomenkov <khomenkov@mailbox.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
-	Michael Straube <straube.linux@gmail.com>,
-	Michael =?iso-8859-1?Q?Steinm=F6tzger?= <m.steinmoetzger@gmail.com>,
-	Navaneeth K <knavaneeth786@gmail.com>,
-	Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
-	"open list:STAGING SUBSYSTEM" <linux-staging@lists.linux.dev>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] staging: rtl8723bs: avoid CamelCase in
+Cc: m.steinmoetzger@gmail.com, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: fix checkpatch style issues in
  odm_DynamicBBPowerSaving.c
-Message-ID: <2026100147-sixties-dramatize-8bee@gregkh>
-References: <20260910143857.154320-1-freseenzo@gmail.com>
+Message-ID: <2026100116-blubber-wimp-5419@gregkh>
+References: <20260909215608.117443-1-freseenzo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,22 +40,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910143857.154320-1-freseenzo@gmail.com>
+In-Reply-To: <20260909215608.117443-1-freseenzo@gmail.com>
 
-On Thu, Sep 10, 2026 at 11:38:47AM -0300, Enzo Frese wrote:
-> Rename odm_DynamicBBPowerSavingInit to odm_dynamic_bb_power_saving_init,
-> and rename local variables and struct ps_t fields (PreCCAState,
-> CurCCAState, PreRFState, CurRFState, Rssi_val_min, Reg874, RegC70,
-> Reg85C, RegA74, bForceInNormal, Rssi_Up_bound, Rssi_Low_bound) to
-> avoid CamelCase, which is not accepted by checkpatch.pl.
+On Wed, Sep 09, 2026 at 06:56:08PM -0300, Enzo Frese wrote:
+> Fix several checkpatch.pl style warnings in
+> odm_DynamicBBPowerSaving.c:
+> 
+> - remove unnecessary blank line after opening brace
+> - add missing spaces around '&' and '>>' operators
+> - add braces on all arms of if/else statements
+> - remove trailing whitespace
+> 
+> CamelCase naming issues are left untouched, as renaming
+> these identifiers would require wider refactoring across
+> the driver, as already noted in the driver's TODO file.
 > 
 > Signed-off-by: Enzo Frese <freseenzo@gmail.com>
 > ---
->  drivers/staging/rtl8723bs/hal/odm.c           |  2 +-
->  .../rtl8723bs/hal/odm_DynamicBBPowerSaving.c  | 72 +++++++++----------
->  .../rtl8723bs/hal/odm_DynamicBBPowerSaving.h  | 16 ++---
->  3 files changed, 45 insertions(+), 45 deletions(-)
-> 
+>  .../rtl8723bs/hal/odm_DynamicBBPowerSaving.c  | 36 +++++++++++--------
+>  1 file changed, 22 insertions(+), 14 deletions(-)
 
 Hi,
 
