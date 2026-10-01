@@ -1,139 +1,97 @@
-Received: from flow-a1-smtp.messagingengine.com (flow-a1-smtp.messagingengine.com [103.168.172.136])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6C5341062;
-	Thu,  1 Oct 2026 01:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF2B263F5D;
+	Thu,  1 Oct 2026 01:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790818342; cv=none; b=Owghu5SjGH8xFbH/TvT99F2d2xb4sWeMxqn2Hmri+VJ/9gfjnGbdYW2vw/N0uEXmBqB2YDn58sXuUiExmFfC/TbvSBm2SZ3W02/NVO2mjjYIyb/nXX4R3/QBHTtokGWaYfTTn/nbY9Jvf7TM69kRhxDt+HV3b08huw/Ufn4gTUc=
+	t=1790818458; cv=none; b=TNr7KSsJ+Rc8x7/HT/T6b/pqv4seeOgYauiyBaIfNm1ZKEB4RLf62z1lF4g+yEVU7aGuqe/5Ql2EJLmhS+KFMCY+z7F/odk6U5m25IWv9lxNgGOCKqoqxYtc2HU+gkonlnkQmADd8VhmqTKcdrKAgoBLaJYwlV/5/cnedLeAyMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790818342; c=relaxed/simple;
-	bh=sLpgQF6H5d75/JTN/4twpvPGiqyIfg6B6/aAguvJD0Y=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=F/TZOA+ybwz0bIOj66blUIJhwP68MIvjpL1OnMrTyLf7TJ4pHsf6efFp13JhWcjUpLU8HYi43EvKRz5Xazdt2oVf+5vJpAPR7U12hK4uzXTp/unDmqVVBP6FAiGwprpeg7ndIr8ktd+F+oYoTMrgvqdGW3lcx/wcauCPkRUW0xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=dU+0WpT9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nykSWi/s; arc=none smtp.client-ip=103.168.172.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1790818458; c=relaxed/simple;
+	bh=C+jsNGQ3FL4goplrfsCbMjy3+eqHXyzCkvpCV8mkNRc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fv3W3V6qdR+VQ++BDNR9KYiyoQIvJ3jxeWKuvDxHv/kVvsQoleo322F5JIYS2maSDq/LFGmWfGNy5SU7B5ixaDihnrr/AUDPNYL9SV6nXxQUQmXOMNvnk+wMhNRZZc2BfdFTgDyOfUADiWuykWBCnGfoSK4Ciw8OXdAzu9qLAlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Q+1hJWVO; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="dU+0WpT9";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nykSWi/s"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.phl.internal (Postfix) with ESMTP id B6867138013B;
-	Wed, 30 Sep 2026 21:32:15 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Wed, 30 Sep 2026 21:32:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
-	1790818335; x=1790825535; bh=v6sl/0R+rB68lGY0FGguwPrnWxhGA/6NlVe
-	vSXWfXMc=; b=dU+0WpT9ayrHlXGiw2fE7NtD4nUKlPkDDP3/RGUUox8ZXvJoUQo
-	oINwTLuzSo0Zg9v+dfBIplaHyARav2Mu8lCTqCAOo96G8RZvfBJi0GOymeRhi/dI
-	f7XplgGDzIDMI1NiNvfl0Zh7g8pAGXhSyOM2ZuxW5gpn9bMfnBKntlbG0GmOil2a
-	B91sBRg0ZDavly5kGWDikF89yurM2VpKV4qhOtg+jwnmZhRe5eEarAe582USAxvq
-	3TpRvW/dssTdCeqkSWOs6STZvipHkq3bwiSYuWKRV8gjPh+rQa+uxuUeDyyZW7OI
-	yaHU7NrMF786oNViHGBZb+A/zmB/ZU28Rkg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790818335; x=
-	1790825535; bh=v6sl/0R+rB68lGY0FGguwPrnWxhGA/6NlVevSXWfXMc=; b=n
-	ykSWi/sGd5gvCHPUtRxJkK9qcoysaAZwvGnmOCwOtaQRRj1psP/USs+V1s3CCE8U
-	bGXX2E4xnMQU2eypDh/nQ4BVxOh/jB80ebnekbDY1oAa3240VyEwbSN+2nHiBQg7
-	kQTEDfjMQuCTtO/5lEEZqtGJvdfezRH80tHfoLaAYyvbV1vxa0wXlsMv0CSzAF1W
-	IzJYOjwhvjlayK2Cce3kxXooukECSCZ8CEO+QC2UTlLIWfL00oyTSCyqiKtquJWR
-	WNVkaXGTVvKYZyu/rAoJrUdPgNYilg28OA2T/F7ZfmMU+EBPOcfIPiXJIyMb+g3q
-	Wd07JiigVXT8DStdGxSBA==
-X-ME-Sender: <xms:Hbi9amRCw_kioWSBEhgnA4y0lG82UU2w07EeZKMs03XSK3bOCXF6nA>
-    <xme:Hbi9aus6-sF1IYxOKWGWnSJ7esBELFJJ4RjqP7pbXWzuyw9SfNidEdevmUe2qrpPT
-    6dBXtg9wpG_1KbOWHqWu7HcbCJn4x4SjDV-rfvmQFhNcSZy2pY>
-X-ME-Received: <xmr:Hbi9asCM5t-3GQu68lUW4pPb12EVK7ZfxE5JiCn0jxXqtLlyltpHLJofGBy1_PCWUyE0cOmDB2n7mv8cveU-5a6ZpaCEunk>
-X-ME-Proxy-Cause: dmFkZTG3KGb7tHgt4XbEdgaBbvRJJoXDWpMAFSGKnPa+FGRadeoOBQt63/9dFXh0uDdMHQ
-    4iJ2cIgUNrLNuACkoRhTc5qxpMylSF3jV7QyvProt74YjF+kiQqUTZdmWNsWacBqmWB84K
-    veH6OTbRcmsBVg1Wf2i8FMyZzc1eVaa+pkZCjnSlhdl4PlH1TysaXJbsGByCtBTH+n50BB
-    bcLzTEbkv5u2szZE2cmghDoJokPu68Cm+X2VRhSm6wIj0B+fmNAmOyZWU4zuUgOTHOSYnY
-    8OFG6vhsXQdCgKC6M6ZLdbcYz18tGTjcRhbAFMqiExh5vytioSAFh0IWdadZHBY/Q+YJsA
-    ln/MlFLYMsinjIw+1kmsqp3DVjRD4Hn+KNat7h1gnG7JekPoGkqrnYyrqPZvn6fiBKUpEn
-    0MDVBje7PRDGze3i9HFtvY9bUZlsY71046ZeN38zQq5h9E7XluoSZIuDT7WpQG37GNp+rF
-    E1CpBcw0zc0B9qZwbqQWwlUygDW1onMVM0VOnhrcnxwCQ59RFCVQsv7t2U3/QMSCzEuWaX
-    d8tEmDr4x0aozLp1DyF/IIcp6jGB2ETbZsjzbcpG3jEdtniaAruC9emGU9rvRatKlLHGfb
-    RQr8YBl253XGkX0sH1oOBGWWEx8zXBUrG+J7MHy/si5zIydG76lUiyz2+k1w
-X-ME-Proxy: <xmx:Hbi9ag0SmFUKJA6pqZNzQM73oSQuOS6JxCjWZ0qnhOnwy_oETfCYIA>
-    <xmx:Hbi9auS6xhgyi0kKzqyjeQGXMDAuEAIZaJqH5HhIKYcDW6E6NgAWjg>
-    <xmx:Hbi9avuA45NcxPmR8CruuVNHR7uHKgcEa3khA2ZaZ-H-_VBIq3pJvg>
-    <xmx:Hbi9au6JtIyHmLZ0gH6zRoBQAOTZdhLvdp4YIL2YSwaLGMgSKC6big>
-    <xmx:H7i9aqETvhFQVYysvlbm8o1zdHJwYsBkfqktEGeP4RoZ9q8OaxtXJYbM>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 21:32:05 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Q+1hJWVO"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1519C106FBC;
+	Thu, 01 Oct 2026 03:34:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790818454;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=NjgmiFQVKa4zAjO/LIqAXz65QfcuTP0PTq0IBCVgr7Q=;
+	b=Q+1hJWVOAh5oibOJdgrV+FAYt6jNt1bh7wkG+94HG8TilYMx85ct61VDXzbrp2EAr354Ho
+	Dn5NOHU7pfmAVrrSTx6YJ51BH+CWB3XNAvwREPMYuZoIWiM0Jcj6mndbTJG76w7M5hdo5N
+	FhADSnfm/0l4LNHr/IHXHzJqliGkAh6K2BONA72/czA/q6JkJ4aMfnGNXbudNHN4UJfNxh
+	bRlsexTB0JnCfhbgLOXBY2DQQhZU5to+tbJlRk296pfmOVPp5YFx+m5Ao9Ck0s78RbU46C
+	lqe/zOzn1ttianpUm4qxRUrXE2jXb6f7oezT61uklevpuwtOWtAtyK6G2C2kpQ==
+Message-ID: <e7f574ab-5fcf-484a-a5bf-fc94d45b2311@nabladev.com>
+Date: Thu, 1 Oct 2026 03:34:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Al Viro" <viro@zeniv.linux.org.uk>
-Cc: "Miklos Szeredi" <miklos@szeredi.hu>,
- "Amir Goldstein" <amir73il@gmail.com>, "Kees Cook" <kees@kernel.org>,
- "Joel Granados" <joel.granados@kernel.org>,
- "Richard Weinberger" <richard@nod.at>,
- "Anton Ivanov" <anton.ivanov@cambridgegreys.com>,
- "Johannes Berg" <johannes@sipsolutions.net>,
- "Breno Leitao" <leitao@debian.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Jan Harkes" <jaharkes@cs.cmu.edu>, "Hugh Dickins" <hughd@google.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Namjae Jeon" <linkinjeon@kernel.org>, "Hyunchul Lee" <hyc.lee@gmail.com>,
- "Carlos Maiolino" <cem@kernel.org>, "Christian Brauner" <brauner@kernel.org>,
- "Jeff Layton" <jlayton@kernel.org>, "Jan Kara" <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-unionfs@vger.kernel.org,
- linux-um@lists.infradead.org, codalist@coda.cs.cmu.edu, coda@cs.cmu.edu,
- linux-mm@kvack.org, ntfs@lists.linux.dev, linux-xfs@vger.kernel.org
-Subject:
- Re: [PATCH 4/7] configfs: remove d_add() calls before configfs_attach_group()
-In-reply-to: <20260929050739.GB3909609@ZenIV>
-References: <20260929034158.1455429-1-neilb@ownmail.net>
-  <20260929034158.1455429-5-neilb@ownmail.net>
-  <20260929050739.GB3909609@ZenIV>
-Date: Thu, 01 Oct 2026 11:32:02 +1000
-Message-id: <179081832202.37859.12981680448323688912@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+To: Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+References: <20260924180607.60932-1-marex@nabladev.com>
+ <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
+ <AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <b4addd8f-43ba-417e-85ad-a78391c8f2fb@nabladev.com>
+ <AS4PR04MB9338E76DB4A59D70F1D6AB2F888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <AS4PR04MB9338E76DB4A59D70F1D6AB2F888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 29 Sep 2026, Al Viro wrote:
-> On Tue, Sep 29, 2026 at 01:36:04PM +1000, NeilBrown wrote:
-> > From: NeilBrown <neil@brown.name>
-> > 
-> > These d_add() calls cannot be necessary.  The inode given is NULL so all
-> > they do is attach the dentry to the hash table.
-> > 
-> > If configfs_attach_group() fails, then d_drop() is called so the dentry
-> > will be detached.
-> > If configfs_attach_group() succeeds, then
-> >  configfs_attach_group -> configfs_attach_item ->configfs_create_dir
-> > must have succeeded, so d_instantiate() will have been called and the
-> > dentry hashed there.
+On 10/1/26 2:45 AM, Wei Fang wrote:
+
+Hello Wei,
+
+>> Hmmmm, are those clock available on MX95 ? Maybe we can do some sort of
+>> fallback -- assume 166 MHz clock on LS, and obtain the clock and clock
+>> rate via clock framework on MX95 ?
 > 
-> Neither in mainline, nor in -next...
+> The MDC clock is derived from the NETC system clock. For iMX platforms, the
+> system clock is controlled by system manager (M33 core), Linux cannot
+> configure it.
 
-I guess you are refering to d_instantiate() not being called here in
-mainline or -next, because it has been replaced with
-d_make_persistent()??  Sorry - old commit message.
+That is probably still fine, as long as the clock are available via SCMI 
+and their clock frequency can be read (not written/set), we can use them.
 
+> Moreover, the actual situation is a bit complicated. For iMX95, the
+> system clock source provided by the SoC to NETC is IMX95_CLK_ENET, which is
+> 666MHz. There is a 1/2 divisor in NETCMIX, so the clock input to NETC is 333MHz.
+> Therefore, to obtain the actual system clock from the clock framework, we need
+> to add a fixed-factor clock to the DTS as the NETC's system clock. Some platforms
+> do not have this divisor. So we do not add the system clock to the binding-doc of
+> both emdio and enetc.
+
+This is something which can still be handled by a compatible string match.
+
+> In addition, the NETC is also used on S32 platforms, that might be another story
+> altogether.
 > 
-> d_add() _is_ wrong there, but this is not the right solution.  What
-> we really ought to do is build the subtree first, then either dissolve
-> it (without any pathname resolution having ever seen it) or move it
-> in place once we are sure that everything worked.
-> 
+> Therefore, hardcoding the clock frequency according to the NETC revision in
+> the driver is a simple and quick method, just like we did in the enetc driver.
+> https://elixir.bootlin.com/linux/v7.3-rc5/source/drivers/net/ethernet/freescale/enetc/enetc.c#L3770
 
-I'll just drop this patch for now.  I only want it as part of
-deprecating d_add(), and that can wait.
+Let me try something better, give me a day or two.
 
-Thanks,
-NeilBrown
+Jakub, do you want a revert of this one, fix, or follow up patch ?
