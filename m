@@ -1,106 +1,173 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8093437E5EE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2463D3CFD
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790851590; cv=pass; b=oWZslTvwd7QWYIolfOTAw+0HtLeul1paOP/aWj73buuiCGSZ81jwHvFqMxozWwWWK+fETrQb0yxMnnH4aAGW6nv3rcU1URgXzFhh3Y7cZpEvahp3y070BgQ04tfqxtia+6pVUs9Yi3BPm3zhyi938KFg7wteW5non8LHA+WZidw=
+	t=1790851634; cv=pass; b=KcvxTRJNyUtE7azEOqXSDa339sHQ0T/vrcqF9QqcqyrYwtTqHLdJpLgOTNnmz7FULQcDlPfg8SkX8wJXJTV4tu6gYlkZZkrJpg70FnJMU7DJ6bWnZo7AtSGliRKD1fJ46I+yHrh4HHdXeZM6s62g5CpKIMr6Bnt7X3J/XyHjxKQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790851590; c=relaxed/simple;
-	bh=xHheWCZqxhb77Fa7IJS/W05TvCOOUP/VZ4rMa+wK/Ts=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SZ2uKUpbRRQsb+hloyIivT5XB7LFa/sZVgP0fLKOwa4IowR6syLUnBo7hq7Ef55iiVOKRrrL9FXb5f7ytcR+YNfCrhEq7UkVJOECIiS9NFxfLru1oVDrAWT5mvLLx6VTDQdqlHoF+0hXzkBi5cfWxeFecZMBtUni4AIFJvHlSjo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=F0U1KVhC; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790851634; c=relaxed/simple;
+	bh=Sk7RTOQcN4cidxedcRYIVkGub/oGpNeLEskr9NMZ1eA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rPMLRhInMGdCq/S6W8WVySYvi8G6nsj81Nf5ykuSIbtXz8cjrbxL9/ztzU9t87PENYx+QzvO+kD/L3OqssraHTA5OeUpOjY5FXh+Ha1gJB2Q+dLdmN+sBUtGJDb9sEFVD+6NxRx8j9eDDvAYjQV2xKFnR5mWzuZADoQZhtTtZUc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SVLuSdq/; arc=pass smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="F0U1KVhC"
-ARC-Seal: i=1; a=rsa-sha256; t=1790851578; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=h0X+2Z8FTOuZxR4NaFKUOo4BEeNPSS6M/zba4h8v827HnHaFgAJtCF7pVY44Oplvv9DuppvdAD49QoOJMFE6+9Ai/AkfJNF+9NasfyaSAqjmMIDYlxaZjltl6Vm2bCgTNNEVSYEMoDZzmpkxwjTGbGhu5R0SyT1/AOSGIcUnUMk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790851578; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=2HzGCzDfJRSxURSFLUp5EFwzSKrik2fgPy8B4HnFxCE=; 
-	b=XQYX9XxneS9roREzfIftliV0HLRFMBp+0v1Atk+rOTmyUd9L8XUJErwQIQ1BfBDECU1oNW5lg2qDXLn7PjVk0iwoD2wZ2vVZKD6rT/2BPvMW90q4kSMil2XhGB6HTbAO4F+1vloqZWlnNu56Ruhqr46drJGBMofNYWM1tHLM95s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790851578;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=2HzGCzDfJRSxURSFLUp5EFwzSKrik2fgPy8B4HnFxCE=;
-	b=F0U1KVhCyjzzZ7tGAijotnDY4dtGPmcI7HEANAqbpPKxp3V4LtsUeTO07XzJS1sk
-	APFm7IHS2cV+LWZDn0RVzakRHfK+IfeXHPMk1q5fFQ9+CE2H3yzf3IKiKFbeuN6Tuow
-	I9w+Gmr7rWCu30FS3BZzGEv3VtR+g1GIh6Bq3XXA=
-Received: by smtp.zohomail.com with SMTPS id 1790851576827524.4943374976424;
-	Thu, 1 Oct 2026 03:46:16 -0700 (PDT)
-Message-ID: <b8064104-99dd-472d-883d-56b362d60371@collabora.com>
-Date: Thu, 1 Oct 2026 13:46:11 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SVLuSdq/"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e4e75342aso502422eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:47:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790851632; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TtU0KOj6TqqWxV8CH4ZYvJWY5WiXDvMfEW7mzA2JKxJsp0kVy1Ql7RBCpo+v5C29Hc
+         qtnnNKL8LlV83jEpI2KigiDIablFl901L5/sBcWZmCJXGylY9MTQ75D4Cud0U7XnxAoz
+         Xcj2G/Nqgh6rwTN1vu7eiH2XEpTtPB8OkLgs0+Ia96i+2cjPTWjuK0DWoPh5HxhSD72a
+         zsH9M6W0ZTU1XTtvIxY/YFijqvbOmZgPdqiXceTzQRnQqMxwAexO3iSE9AWQ6wS453/8
+         8jucWraFVS/GIFJb2/MhnG2f/8nFfwtezYSq12TR9MWZqHt92huqCaJCnK7JWs6dgE8O
+         /4MQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xZGQWu5F+L+LnhlrlKnJBt7Q9Qa/GJcvQeTn5kUBy+o=;
+        fh=sv2dDzFGclqmMOJC7Z5/lfkD6S29rWoUznk+A7tbavI=;
+        b=BfNuUny0N2pTrS+//dSIuNbc1SiWQazoeziczXvN/UpBUSwia+ovtiXjCAbKh0f20+
+         8pmSGKxK8PaWV0MFIjZ2BnjnLxaBAQd28Nkuy0gN+xBMHxuwNc2KKq879qgroZPYMcc9
+         PNU3q5d9g2gfiw7g0MElKtSLlxVERxl61ViqQmYwgPNj6lweJ23mPyXnLhtpVh//m87h
+         pSzIRQ1OLm6eNJWo0yoy5GbMkGYS/3LXGxEvmxrKN2KCqoeIL1vifGBNkhTeKprx7EWZ
+         fncDVDdnfjPW5xuBy1FRBIPAbD5Dv2OVVBxBQ2d7ugaFY2zYPwldpt/rAymiF5jymBea
+         hJCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790851632; x=1791456432; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xZGQWu5F+L+LnhlrlKnJBt7Q9Qa/GJcvQeTn5kUBy+o=;
+        b=SVLuSdq/5miDqsF3OehTAiZGkWSLw1jUF43HwR6I34Lu9xE1axu6bwF9gwcJNTA5kF
+         U8vPKBE1vUqFRqsFA7AE+q1OMVuz02OkhFEFW5+uHjRa4ok/8IohGfkZfLXNBqhQlxh+
+         3TZnW+atvLc7QhFxOLfUzwM/dAeAyXSLnLn0eabti8ybR2VijI9vivWhlSGusAQe4RI8
+         Ak9CLyn6BjL7OOer0dA4AJepj8TIJ205/WBR6upqEiX4LzP0QiGiPrbn9fK06Luua7BH
+         uHvzvoDfbEXHs2glbii7vHe7tSKb+hHy9LdvyUdBEcnYecBbZ2gk1gXQcfXpRgYt3sKe
+         bk6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790851632; x=1791456432;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xZGQWu5F+L+LnhlrlKnJBt7Q9Qa/GJcvQeTn5kUBy+o=;
+        b=KpYOxWDtnu3t7lMxhiBUtA5Sd2YTWhPZvl3HW1k8QWgOWNteTGHvYjmkKydr4Vg4TA
+         cMk5UVKKo4zm9zsXb7X0GdN9FFqWjOnkRgojRVucXs4gRlsLV2bJaJSUtPgpnVtCHmSM
+         z5UilLFIV37Bp6PwE0NGjdlfqVSPRnO+5bY20sCK3CQZ6OqJz9VoGtXjzncMwu7ckQEm
+         AlAh1lELlWMPAOslWjtm2WwCwCXHo4o6VREK/4r0h9wzVzMR5y9P272xWzHUg8w3LVwi
+         0RCtQ24/8LansWJxJjgC77Rrtm702X57Mufp+RdDbVFNXMsDyTEfKbH3SeD4Oa7rGW6Q
+         MMaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdxYMKf3F8BvOJlShCj7lXYhPCLlrtRiH+hfNqCeI8lEuqKZTkjObScIbrnHfh2a2s0tjg3TF61u20sNw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjXEd+X6CcvYx0K32GBz4jop/eiEAr6KwO99y48Eoq7HhbALoL
+	ivvSpoUBNwp+S/tLJlcg/6hBFFePV/8zAuPsw2XYwaOAH2oZAHHSZXmw0ESU+SfEy1ogt4M8nvv
+	JbeP01yocMvJG5t4swrlENmbPs6Ca9A8=
+X-Gm-Gg: AYBFou28XbpfJtjJgMIMmF8O82SkORlhE8dUW8/8n8YfIg7uvgTZiIu+P7Du5lZbNdv
+	ONWeGL34c4/1SfgCg/AcUG48FSf33AjOg/Qo6adUMP/XzZeVZYiwEXCYF70sJ+Dz8i0nuKUs9KH
+	mOa1e4z4f32/DaDWBwcWp5+JfG9EklPX5hY4dI5839ZpvNxi7epTnJGlK3kDBF8DWEhOJvx5fiw
+	VjA0dKFqeVvO/yGu07XxG3NEfzeSj2TJZNen7ayqn0XD0EcmsNRbY2/AcDbc8lwlPGQKIiCu7G/
+	yke9cOjy3KSJd6m4Ynhz/osmCBYt5gqKWvdLRNBaD+5dwrQVoCc9lKPGX5A2WEMT/6P3sUFEm/Q
+	9d2D1e3gakR1dYsife0q6gaXKxSzAR1zKYtr0uWfS4Mmu5/r8EWpCIoXePAjB/BJ3X+ii/MFjpx
+	19Os+aaFRQpjOiOVFXjqO4Yb7Ud9CGVWi/B6wACoeGJxGoj4rNXXlEqZwSKAa/mQ==
+X-Received: by 2002:a05:693c:8085:b0:34c:f181:85e4 with SMTP id
+ 5a478bee46e88-34cf1818b1fmr7262875eec.1.1790851632033; Thu, 01 Oct 2026
+ 03:47:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: add ARGB8888 support for primary planes
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Dorinda Bassey <dbassey@redhat.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev
-Cc: kraxel@redhat.com, airlied@redhat.com, slp@redhat.com, mhrica@redhat.com,
- gurchetansingh@chromium.org, mripard@kernel.org, simona@ffwll.ch,
- linux-kernel@vger.kernel.org
-References: <20260930132707.500748-1-dbassey@redhat.com>
- <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+References: <20261001042942.109012-1-chenhan0017.work@gmail.com>
+In-Reply-To: <20261001042942.109012-1-chenhan0017.work@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 1 Oct 2026 12:46:59 +0200
+X-Gm-Features: AclHuK-fHM8iJEVkEzuvz_ovqF_dLYt_Qxw_QJ6A0Z4myKEgiMjsoUcH2rpEiKc
+Message-ID: <CANiq72kjGWVk_9hR-gn4vJT-pgBsGWEvThMd9dF6-+GfBZseOA@mail.gmail.com>
+Subject: Re: [PATCH v2] rust: time: make Delta division and remainder fail consistently
+To: chenhan <chenhan0017.work@gmail.com>
+Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org, boqun@kernel.org, 
+	fujita.tomonori@gmail.com, frederic@kernel.org, lyude@redhat.com, 
+	tglx@kernel.org, anna-maria@linutronix.de, jstultz@google.com, 
+	sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com, 
+	tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com, 
+	tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, tomo@flapping.org, 
+	georgeandrout13@gmail.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/30/26 18:03, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 30.09.26 um 15:27 schrieb Dorinda Bassey:
->> Add DRM_FORMAT_HOST_ARGB8888 to the list of supported formats for
->> virtio-gpu primary planes. Without this, glmark2-drm fails at
->> startup because it selects ARGB visual configs by default, which
->> don't match the XRGB-only plane capabilities. This causes
->> drmModeSetCrtc to fail with EINVAL.
-> 
-> But does the host also support ARGB on the primary plane? We usually
-> don't export formats that are not available in (virtual) hardware.
-> 
-> Best regards
-> Thomas
-> 
->>
->> The virtio_gpu_translate_format() function already handles
->> ARGB8888 translation to VIRTIO_GPU_FORMAT_B8G8R8A8_UNORM,
->> so this just exposes the existing capability to userspace.
->>
->> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
->> ---
->>   drivers/gpu/drm/virtio/virtgpu_plane.c | 1 +
->>   1 file changed, 1 insertion(+)
+On Thu, Oct 1, 2026 at 6:29=E2=80=AFAM chenhan <chenhan0017.work@gmail.com>=
+ wrote:
+>
+> commit. Correct the rem_nanos() parameter name to divisor as well.
 
-For primary plane, alpha channel often doesn't matter as primary has
-fixed z=0 order and a usual alpha blending mode would account only
-overlay's alpha channel. Many real hw drivers expose alpha-channel
-formats for primary plane for compatibility with userspace, even though
-for them the alpha has no meaning for the primary plane.
+This seems like it should be a first patch.
 
-QEMU is most popular VMM using virtio-gpu, but there are others. For a
-stricter compatibility we can translate B8G8R8A8 to X8R8G8B8 for the
-primary plane in the driver code, but I assume in practice it's very
-unlike this will be necessary and we can always do it later on if will
-be needed.
+> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-58=
+69573842
+> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-58=
+69925737
 
-The change looks okay, will apply after testing.
+The discussion is small enough, so I am not sure why we need the two
+Link:s. They can be useful if you want to reference something in
+particular, using e.g. the square brackets notation [1] to point to
+them.
 
--- 
-Best regards,
-Dmitry
+> On the MIN / -1 safety question: div_s64_rem() computes a quotient even
+> though the caller discards it. V1 already checked this input before the C
+> call; v2 keeps the guard and makes the representable-quotient condition
+> explicit in the SAFETY comment.
+
+Yes, that is fine -- what I meant is that even if we had the check,
+the `// SAFETY` comment should still justify why it is not UB (please
+see below).
+
+> -            // SAFETY: This function is always safe to call regardless o=
+f the input values
+> +            // SAFETY: The divisor is non-zero and the quotient is repre=
+sentable.
+
+"representable" is a fine way to succinctly put it, but I wonder if it
+would be better to just spell the condition.
+
+In any case, safety comment need to explain *why* those conditions are
+true, not just re-state them (otherwise, safety comments would be a
+repetition of the `# Safety` documentation of the function called, and
+thus not useful). In other words, the point is that they explain why
+something is supposed to hold.
+
+> -    /// Return `self % dividend` where `dividend` is in nanoseconds.
+> +    /// Return `self % divisor`, where `divisor` is a number of nanoseco=
+nds.
+
+"a number of" seems to be added spuriously -- please try not to do
+unrelated changes, or you do them, please add as new commits (e.g.
+this one wouldn't be a fix to backport).
+
+> +    /// The divisor is an [`i32`] because `div_s64_rem()`, used on 32-bi=
+t
+> +    /// platforms, takes a signed 32-bit divisor. The dividend remains a=
+n [`i64`].
+
+Do we need this in the public documentation?
+
+> +    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`=
+]
+> +    /// nanoseconds and `divisor` is `-1`, matching Rust's signed remain=
+der
+> +    /// operator even though the remainder would be zero.
+
+Not sure if we need the "even though ..." bit.
+
+Thanks!
+
+Cheers,
+Miguel
