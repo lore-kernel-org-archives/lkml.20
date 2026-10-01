@@ -1,198 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8C64052AA
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9412A3C1400;
+	Thu,  1 Oct 2026 16:12:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871155; cv=none; b=eyEgfQkM6oHync4dLkJh2zc4c67mAptfClV3YU0Xx19D0cKMi1CUCGOUl08zNKjvKpou+XAxcUF4N6mZOqS/Fh3LFApaWb21NVnwHKNVkhVVbKhgY3OP68jKEB1bWd6w7NxPBHlJfex25QOPhU/luM2Ub3i8Q1jwwLtP07f2pDQ=
+	t=1790871165; cv=none; b=J0+BcArSuiQ1UvbhJgO4r4B535tW92p5wMkaeXHn7XCYqJxEWcX9AnQ7HLrqGYc4c1ZmKsGKWRE09FD1LK78nw/ArOP62eyCxMelSQC7ZrszsNBws9beRzwe/rUKmhBhuXksElGFqP2Y1unnZC0+GqfZO2J1KxqOya9VdS8PeYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871155; c=relaxed/simple;
-	bh=jpsLQWQBJ17VnNLI66kLG66uqMPF9GGSoY6u0QFrme4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OziTjS8AE2x2OjGnZVAIpjwlKJgAn8syNVPejSp2PcIxGHnobv8ynNA/TDGIfcq3S/L1ZJ6c3WEZfZ09NQXPSXd7LjJcZfcpUncnGrQU22nztCMURiwy3TbKOWtw58FT3EKZ+TlGtdLWyct1nomnqmFr6RQj0Cig0XJg15STMyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sYYxGQcw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790871165; c=relaxed/simple;
+	bh=ka874H3cfxETDUqsV+uwIEcCwZa8EM9XwB8xJX1dSAw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lTLR84w5vFZ5yEUQEpPRe+Z24Xz3X1WHG8K4IHXLlIZl8mMr9s29ETSlDZWUzvM2ukpD03G2aqZxvIcMnsfT/+paaepIo1E7q4qDaYlUBZtx2cD+iRt4dpmtiOACwYAunW+ENODBc31W0Y1YrD2bhtBCAtzokmFR6i4S6duD8gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=R8kSheh5; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sYYxGQcw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9419EC2BCC7;
-	Thu,  1 Oct 2026 16:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790871154;
-	bh=jpsLQWQBJ17VnNLI66kLG66uqMPF9GGSoY6u0QFrme4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=sYYxGQcwd/qqh2zn+KvnyVAQVp5FZkczqhAdm+gXtAEKNKvJQb5AswSoOxnFjXi9m
-	 trbxyzUChGTTyq0loSELZwwu31OkU+4Ogw2ghxiBF6ksPqYMr2kjubAsc4IuNSg518
-	 nmYyC6Pr7eG10ON7a13vdWADJgiAyIWDAqO6jq3T6KgYfUJmY+91F6aEHfCwgpkcJt
-	 JHakIbRT1DDw0DtYD2xC4JvUKsaITbWYi2gGEhtPVoXsoxRgmdslnWh7C/ujeUrwS1
-	 sCIDNA0EIu84o1cHMgj0Re0hsj+pKGvepgXvTFfP8rgfciQIACkxcK4CCt1eUDyq0i
-	 iEqO0+80YthJQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C617CA5FD6;
-	Thu,  1 Oct 2026 16:12:34 +0000 (UTC)
-From: Hitesh Murali via B4 Relay <devnull+hitesh.murali.imperva.com@kernel.org>
-Date: Thu, 01 Oct 2026 19:12:27 +0300
-Subject: [PATCH] x86/mm/fault: Test _PAGE_RW, not pte_write(), in
- spurious_kernel_fault_check()
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="R8kSheh5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CF65D1A1458;
+	Thu,  1 Oct 2026 16:12:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9FB4160343;
+	Thu,  1 Oct 2026 16:12:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B4B5A103282A7;
+	Thu,  1 Oct 2026 18:12:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790871157; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BFgFgmJeZliuTaE95NHJ21R0tItMIZqm1nC1CcwqcAY=;
+	b=R8kSheh5qpYXPb5+qnU/aZgN19+5zjzf79rXO5j1MDaBEr16DX5HFXmvvfC4i8WFKJReR0
+	OVuCLQcRxsQvCh6/UfUXkR8dyvVkfGPytEoLSA3wR5tfe/jJqhTmrLVUCNGnNoqcjQgztY
+	925PxiB7aZDCYY6Q4sPhoUZ5ZkI70ZAME6vqEmlB2TEb9tcyY3k/f10/XF5pPdtNK3kGBB
+	VOnn+oL5VXMAPF+MDOTf0g5FTOwcALudFrp5Dkx2bdNt2KFkvvbtw/sU9uTnN0Tq+dwIpI
+	YJo8ZbEaUfEPxBQ5/+hmlM6qT56bKq0EpoIiegxjAJoIgZqYtNrGCroCookNFQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+In-Reply-To: <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
+	message of "Thu, 01 Oct 2026 11:36:33 +0200")
+References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
+	<20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+	<1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 01 Oct 2026 18:12:29 +0200
+Message-ID: <87o6ddmmc2.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-x86-fault-spurious-rw-v1-1-7fe1189b5efd@imperva.com>
-X-B4-Tracking: v=1; b=H4sIAGqGvmoC/yXMQQqDQAxA0atI1g1MjQzqVUoXU41tiqgkM1YQ7
- +60Xb7F/zsYq7BBW+ygvIrJPGVcLwV0rzA9GaXPhtKV3jXkcKs9DiGNEW1JKnMy1A/WDREFJue
- rCnK7KA+y/b63+9+WHm/u4ncGx3EC3BK0f3kAAAA=
-X-Change-ID: 20260930-x86-fault-spurious-rw-89333ae30644
-To: Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- "Mike Rapoport (IBM)" <rppt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Hitesh Murali <hitesh.murali@imperva.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790871153; l=5905;
- i=hitesh.murali@imperva.com; s=20260930; h=from:subject:message-id;
- bh=um02QXKjfD4K0WAcPvJgtdQiY6QeH6ENFD+z7x2HjO8=;
- b=O3rQogz/th5dWZgydip8gFEwBPtx0I47HzqQspG98+NaYrpDuiF0bBJrR7oQdeMa4abhgK7lf
- nOACEzbtFq4Dk9708HLbzX8X7wvag0cwlUhpwc0ZhQ0Jvv8SdwUDtjp
-X-Developer-Key: i=hitesh.murali@imperva.com; a=ed25519;
- pk=u+EU1sWLTi0JU+w6N94rfNf+D0ev1cH486lE6MBQTak=
-X-Endpoint-Received: by B4 Relay for hitesh.murali@imperva.com/20260930
- with auth_id=1088
-X-Original-From: Hitesh Murali <hitesh.murali@imperva.com>
-Reply-To: hitesh.murali@imperva.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Hitesh Murali <hitesh.murali@imperva.com>
+On 01/10/2026 at 11:36:33 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
 
-spurious_kernel_fault() only considers faults whose error code is exactly
-X86_PF_WRITE | X86_PF_PROT or X86_PF_INSTR | X86_PF_PROT. A write fault
-that reaches spurious_kernel_fault_check() is therefore a normal store,
-never a shadow stack access, and with CR0.WP set, which the kernel pins,
-the hardware permits a normal store only if _PAGE_RW is set. The check is
-applied to 4K, 2M and 1G leaves and to the PMD table entry, and _PAGE_RW
-means the same at each of these levels.
+> On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com>=
+ wrote:
+>
+>> HXT and LXT are crystal oscillator inputs of the clock controller, they
+>> are described in the DT, so retrieve them, in order, and store them in
+>> their respective HXT/LXT hw table entries.
+>>
+>> Since old DTs reference the HXT fixed-clock without naming it and do not
+>> describe LXT at all, we assume that HXT must be present, and fallback to
+>> creating a fixed clock for LXT if it is not described (for backward
+>> compatibility purposes).
+>>
+>> The downstream gate clocks can directly use the hw clocks as parents,
+>> instead of relying on string matching.
+>>
+>> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock co=
+ntroller")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>> ---
+>>  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++-=
+-------
+>>  1 file changed, 35 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-=
+ma35d1.c
+>> index ceebcbd8c18b..d955d79abdd2 100644
+>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+>> @@ -4,6 +4,7 @@
+>>   * Author: Chi-Fang Li <cfli0@nuvoton.com>
+>>   */
+>>=20=20
+>> +#include <linux/clk.h>
+>>  #include <linux/clk-provider.h>
+>>  #include <linux/mfd/syscon.h>
+>>  #include <linux/module.h>
+>> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device=
+ *dev, const char *name, cons
+>>  				    reg, shift, 0, &ma35d1_lock);
+>>  }
+>>=20=20
+>> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const =
+char *name,
+>> +					     struct clk_hw *parent,
+>> +					     void __iomem *reg, u8 shift)
+>> +{
+>> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
+>> +						   CLK_SET_RATE_PARENT,
+>> +						   reg, shift, 0, &ma35d1_lock);
+>> +}
+>> +
+>>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pl=
+lmode)
+>>  {
+>>  	const char *of_str;
+>> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_dev=
+ice *pdev)
+>>  {
+>>  	struct device *dev =3D &pdev->dev;
+>>  	struct device_node *clk_node =3D pdev->dev.of_node;
+>> +	struct clk_bulk_data *clks;
+>>  	void __iomem *clk_base;
+>>  	static struct clk_hw **hws;
+>>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
+>>  	u32 pllmode[PLL_MAX_NUM];
+>> +	int num_clks;
+>>  	int ret;
+>>=20=20
+>>  	ma35d1_hw_data =3D devm_kzalloc(dev,
+>> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_dev=
+ice *pdev)
+>>  		return -EINVAL;
+>>  	}
+>>=20=20
+>> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>> -	hws[HXT_GATE] =3D ma35d1_clk_gate(dev, "hxt_gate", "hxt",
+>> -					clk_base + REG_CLK_PWRCTL, 0);
+>> -	hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>> -	hws[LXT_GATE] =3D ma35d1_clk_gate(dev, "lxt_gate", "lxt",
+>> -					clk_base + REG_CLK_PWRCTL, 1);
+>> +	num_clks =3D devm_clk_bulk_get_all(dev, &clks);
+>> +	if (num_clks < 0)
+>> +		return num_clks;
+>> +
+>> +	if (!num_clks) {
+>> +		dev_err(dev, "missing crystal input clocks\n");
+>> +		return -ENODEV;
+>> +	}
+>> +
+>> +	hws[HXT] =3D __clk_get_hw(clks[0].clk);
+>
+> Don't open code it. use .fw_name
 
-Commit bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
-made pte_write() return true for Write=0,Dirty=1 entries, the encoding of
-shadow stack memory, so that core mm treats shadow stacks as writable.
-pte_shstk() decides this from X86_FEATURE_SHSTK alone, so it applies on
-every shadow stack capable CPU, also with CONFIG_X86_USER_SHADOW_STACK=n.
-For a kernel mapping the hardware does not agree: the kernel never sets
-IA32_S_CET.SH_STK_EN, so a supervisor Write=0,Dirty=1 entry is an
-ordinary read-only entry.
+Ok, if I understand your suggestion, I will go for the use of
 
-Kernel read-only mappings are created without Dirty since commit
-f788b71768ff ("x86/mm: Remove _PAGE_DIRTY from kernel RO pages"), but a
-store made while _PAGE_RW is temporarily set leaves Dirty behind, and the
-kernel does not clear it again. A later normal store to such an entry
-raises a protection fault, which is then classified as spurious. The
-store is restarted, faults again, and the CPU makes no progress.
+    devm_clk_hw_register_fixed_rate_parent_data()
 
-When the soft lockup watchdog reports it, it reports a stuck CPU at the
-store, which reads as a long running loop rather than as a write to a
-read-only page. This was found with an out-of-tree module that writes to
-.rodata; on a distribution kernel carrying bb3aadf7d446, on Sapphire
-Rapids, one CPU looped on the store for days.
+for these fixed clocks.
 
-Test _PAGE_RW directly. The fault then takes the regular
-bad_area_nosemaphore() path: an exception table fixup where the access
-has one, as for any other read-only page, and otherwise an oops that
-reports the faulting address and the page table entry.
+>
+>> +
+>> +	if (num_clks > 1)
+>> +		hws[LXT] =3D __clk_get_hw(clks[1].clk);
+>> +	else
+>> +		/* Old DTs do not describe the low-speed crystal */
+>> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>
+> I'd give it another name so you can clearly see the difference between the
+> DT one and the manually registered one.
+>
+>> +
+>
+> Don't need to open code this either.
+> provide both .fw_name and .name - CCF will fallback to the name.
+>
+> When you want to conditionally register the fixed is up to you.
 
-Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
-Assisted-by: LLM
-Signed-off-by: Hitesh Murali <hitesh.murali@imperva.com>
-Cc: stable@vger.kernel.org
----
-Observed on a distribution kernel carrying bb3aadf7d446 (RHEL 9.8,
-5.14.0-687.10.1.el9_8) on Sapphire Rapids, with a proprietary out-of-tree
-module storing into sys_call_table:
+Ok, so if my understanding is correct, I should use parent data with:
+* .fw_name being the clock-names entry
+* .name being the name of the clock that will be created ex-nihilo
+Am I correct? And clock-output-names in that case has no importance at
+all (hence this strengthen my wish to get rid of it)?
 
-  watchdog: BUG: soft lockup - CPU#53 stuck for 23s! [<task>:5016]
-  RIP: 0010:<module store function>+0x1d/0x30 [<out-of-tree module>]
-    faulting insn: mov %r8,(%rsi,%rdx,8)       (plain store, not WRSS)
-  CR0: 0000000080050033   (WP=1)
-  CR2: ffffffff96c02250   (= sys_call_table + 0x2a * 8)
-  CR4: 0000000000f73ef0   (CET=1)
-  Kernel panic - not syncing: softlockup: hung tasks
-                                  (softlockup_panic=1 on this host)
+In the fallback case, what naming makes sense? I don't know. I would
+have preferred to just name it "hxt" (respectively "lxt") in both cases
+because we truly don't care about the name, except it would be nicer for
+the reader of clk_summary. Do you mind if I keep "hxt"/"lxt" for both?
 
-  vmcore page table walk of CR2:
-  PMD: 8000004af5e001e1 -> 2MB page, PRESENT|ACCESSED|DIRTY|PSE|GLOBAL|NX
-
-Reproduced on mainline v7.3-rc5-37-g551c722f4080 without this patch, on
-an Amazon EC2 m7i.metal-24xl (Xeon Platinum 8488C, user shadow stack
-enabled, CR4.CET=1). Only two small GPL test modules were loaded
-(taint O, E). They are available on request.
-
-1) A test module sets _PAGE_RW on the live leaf that maps sys_call_table,
-   stores an entry's own value back, and clears _PAGE_RW again. As read
-   back through lookup_address():
-
-     before: level=2M flags=0x80000000000001a1 RW=0 DIRTY=0 pte_write()=0
-     after:  level=2M flags=0x80000000000001e1 RW=0 DIRTY=1 pte_write()=1
-
-2) A second module stores sys_call_table[39]'s own value back (a plain
-   MOV; sys_call_table is no longer used for x86-64 dispatch, so the
-   store would be harmless if it completed). It never completes. Nine
-   minutes later the task was still running, with CPU time equal to wall
-   time, and the leaf was unchanged. An NMI backtrace (sysrq-l), trimmed:
-
-     RIP: 0010:sct_store_init+0xaa/0xff0 [sct_store]
-     Code: ... <48> 89 83 38 01 00 00     mov %rax,0x138(%rbx)
-     RBX: ffffffffa2a029c0 (sys_call_table)
-     CR0: 0000000080050033 (WP=1)  CR2: ffffffffa2a02af8  CR4: 0000000000f73ef0 (CET=1)
-     Call Trace:
-      do_one_initcall
-      do_init_module
-      init_module_from_file
-      __x64_sys_finit_module
-
-   CR2 is sys_call_table + 39 * 8, the slot being written: the same
-   leaf state, the same kind of store, and the same fault address as on
-   the distribution kernel.
-
-Testing:
- - W=1 build of arch/x86/mm/fault.o on v7.3-rc5-37-g551c722f4080, no
-   warnings. The patched kernel was built from the same tree and config.
- - The patched kernel has not been boot or runtime tested yet. The
-   expected result is an oops at the store ("supervisor write access in
-   kernel mode", "permissions violation") instead of the loop.
----
- arch/x86/mm/fault.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/mm/fault.c b/arch/x86/mm/fault.c
-index aa88370ce739..84298cb38fae 100644
---- a/arch/x86/mm/fault.c
-+++ b/arch/x86/mm/fault.c
-@@ -955,7 +955,13 @@ do_sigbus(struct pt_regs *regs, unsigned long error_code, unsigned long address,
- 
- static int spurious_kernel_fault_check(unsigned long error_code, pte_t *pte)
- {
--	if ((error_code & X86_PF_WRITE) && !pte_write(*pte))
-+	/*
-+	 * Only normal stores get here: the caller's exact error code match
-+	 * filters out shadow stack accesses, and a normal store requires
-+	 * _PAGE_RW. Do not use pte_write(), which also reports
-+	 * Write=0,Dirty=1 as writable.
-+	 */
-+	if ((error_code & X86_PF_WRITE) && !(pte_flags(*pte) & _PAGE_RW))
- 		return 0;
- 
- 	if ((error_code & X86_PF_INSTR) && !pte_exec(*pte))
-
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20260930-x86-fault-spurious-rw-89333ae30644
-
-Best regards,
---  
-Hitesh Murali <hitesh.murali@imperva.com>
-
-
+Thanks a lot for the hints!
+Miqu=C3=A8l
