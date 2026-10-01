@@ -1,282 +1,359 @@
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0A42E3FE;
-	Thu,  1 Oct 2026 06:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBA6476681;
+	Thu,  1 Oct 2026 06:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790836700; cv=none; b=HbdKNNzlX74ppg1y7lZVJwRMFFkwlM495IiU77SgaJBaNhxRS13hwNix/Gs35qR1kYLpOckxBknofS+1R+9MImGvpjXhEKTR8bD7iA9eu7tgBIuu2X6tEUlPSyC0S3uycZK7IyLsONf+CGhWpcKhFcGmq3dvW6qD7uSGajLpCc0=
+	t=1790836722; cv=none; b=TIiOLeioTbxWRu/AcE3vbpZaaozqt5wnZ+pR0lCfNdfOhuTJlVTV7GuLVZ/0xuFAe2sA5KxBiUrW7BWKkcOQsuY83/MMPBc3VLDbhL+7LlMih0m8hl4FDC4bIqgzIkm1gu/SPdDMyKPbwj8ZxlwtdvrR5FdoELXLlAnsFzlag3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790836700; c=relaxed/simple;
-	bh=WoIhPOHpC8s8yT5ohlgD0HkfxRAxCp2qHwo6DL87/G4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Icq+ui57joYJak2cqWKz3GHzOR1TMge4/1ssPqGOJfA2i5dkvPCBKV14jdHvBhxOqZrJ9FEmNk+7h8tBWPSrMYHQjpwXJF6HOvwqnB2NUWUVHmRig3+uaJjACTuBFQarcwiSjneZjeDGEeH9w2t8ELgLgQnGRpN+i0EZfHeuFPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b=Gz6RI0Zd; arc=none smtp.client-ip=67.231.145.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1790836722; c=relaxed/simple;
+	bh=3k/73FIdIwGTod8JjsQ2zvTvDeVnic2sR46jaRefYq8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eD6I5hcOo1Q0u5iBj3JrRPljQM6CTsB2gjKhdLYEEwofTCirMVR/eCEPj8TpPvbuAYLfPjgteBEtHF2kVN3whG58W+GKbJcxFJFKlwR/vCDPYsDfCT6E0D3dpEHpV84zhXghozkanp7oL34T89APVIIE5QUZ7eygqnA4FS+akUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEIjM5PT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b="Gz6RI0Zd"
-Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913jtCu2551671;
-	Wed, 30 Sep 2026 23:37:47 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=ePsYbUtFX
-	pbuwE4etdiYgx9d7jErTUbIxX6XDvoT8w8=; b=Gz6RI0Zd2DhkxexJkrirJckQ+
-	VC8M84OthKx2hQaCGzc872CGs/KWXB1oKFQuep6HdMFtR0aON+xJA3/61pbsF20k
-	P1OgpHKIcm36yRev+HcOa/1nH0OjkLQY5oCdbclpDTL1ujixDku0CUOLpZ79qDlL
-	hna6nr+bnZCj9KDbLEzdB3c3OrAyyjQbp9nLov0g0JGMiJrmnNFZpfgduhKKUDKU
-	y5GAL0nlN+xsg8+LmBuRhh5VZjKSmRclAnt3KzWfks6PMVY9Lda1EKPvtxB0lYx6
-	AMDqy15bEpsUDt2P8vlsBqGyzPWa9XMXQuFT711X5VUptaXPm+Nh8vIoYf5ow==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4h1djvhtbb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Wed, 30 Sep 2026 23:37:47 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1b::2d) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.49; Thu, 1 Oct
- 2026 06:37:45 +0000
-From: Amir Ayupov <aaupov@fb.com>
-To: James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-        Suzuki K
- Poulose <suzuki.poulose@arm.com>,
-        Mike Leach <mike.leach@arm.com>,
-        Alexander
- Shishkin <alexander.shishkin@linux.intel.com>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, <coresight@lists.linaro.org>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-doc@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/2] coresight: etm4x: Report whether the PMU counts external output 1
-Date: Wed, 30 Sep 2026 23:37:43 -0700
-Message-ID: <20261001063744.2143819-1-aaupov@fb.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEIjM5PT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7C71F000FF;
+	Thu,  1 Oct 2026 06:38:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790836720;
+	bh=d6btj38+HsO2qMSEPqeG6CeLl60eJfnkitB1H/EBGZI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oEIjM5PTLkJ4ToifqiB2FHwVY1aYXxfoIn9c8BxMIh6PSPsUzH+VYScrg0+nFak9Y
+	 +at8puaF5ohKGYCBgxnwE/s/zMJZ9RH4sSTpR0/y0YWF7hWgRPi52wsZIa0urs4wxK
+	 5wWXM8zrJOa3gvdmRhIcfCNkClxQtPfgEMLS5snhgbcQSUnj9qd3Q79Vm6PK9P9599
+	 6LeAYGKZTzloo7A2NtMwzli3XYHWbIsgAzLvpAJauovmfRfaZZfy44JAV5Vj2a1ooo
+	 rBGsC9xArNwgotAX4eSAtwEsIk36ArnSYcPdM1y0XH7cSZj74Byg2p90Fsa5WDSIZP
+	 /Pm75Em4u0eLQ==
+Date: Thu, 1 Oct 2026 08:38:36 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <ar3_tJdoim6in8u0@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+ <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
+ <arrAqg5n87INTHE6@beelink>
+ <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org>
+ <artpBMeM13Dd0lLy@houat>
+ <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyNSBTYWx0ZWRfX+Fb++yfeE6ns
- AKbfrxgmj1XD3635TkQOgmGrinPzmMNmDyBuDgtiYxIr8mhmLH1MCqnhceO88DuP/Ywal3lgTf2
- shQi5poO13e5gNzE/ajlshhf49K8UP5nTXhpaqK76u9aBjldBSnUFeC+mxqUNSllS53m78HrDqB
- iDcnLObWLKa1jUc3SJwPd/+3Lpq0FFMixwOo/C/1QQmsSyBcMQkcAfceTTN0Ls7SbevCWhHMd3u
- NgnuvMxj45Vp+nFFOSkPjHXrYXlsWSb4Ws/jAL2hjoFKtIkW+NfPcW3iyvUUlspspLELcXKd6FT
- JnP8RAQnJCCZ5E5N/nA5PSQhxO+eX7hzggEQ6E6QsxzvLLMykBoMm8/a6ynMZuZ8e29HGN44iSN
- seq72J893LN6QtKaIxD2mqvqAY9SDTnxwXc1yPMPlDSwYHRQDBahvOUPJ8Ex8shrcnu6H7kwyXI
- pD+flNfkrmQ4GqE1NuQ==
-X-Authority-Analysis: v=2.4 cv=L4qI0OT8 c=1 sm=1 tr=0 ts=6abdffbb cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_1IyUuN4QrATX339ibzo:22 a=FOH2dFAWAAAA:8 a=XRV931vYzU7mMciAVosA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyNSBTYWx0ZWRfX7mSqof4glzoN
- wKFWewORdaBlXrC+ZTy/o9DMy3QXwupJr/yGLsKzenp1N7i8/gFGNklBbuM+IIEIQq6NOqx9sUi
- Fd50Ro5YG2PP6+KYYLdauUZ3GdGP/VA=
-X-Proofpoint-ORIG-GUID: QRC7aA9uAu11n69M-yMrzKDxglvwIiOT
-X-Proofpoint-GUID: QRC7aA9uAu11n69M-yMrzKDxglvwIiOT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="glslsrnv4uyo4fso"
+Content-Disposition: inline
+In-Reply-To: <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
 
-cscfg features match on device class only, so a feature that drives ETM
-external output 1 for the PMU to count as TRCEXTOUT1 (0x4011) would load
-on every ETMv4 device, including CPUs whose PMU has no such event
-(Neoverse N1) or whose PMU connection is undocumented. There the pulse is
-never counted, and whatever depends on it silently does not happen.
 
-Add a capability match flag, CS_CFG_MATCH_CAP_PMU_EXTOUT1, that features
-can require. The ETM sets it at probe, on its own CPU, when:
+--glslsrnv4uyo4fso
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+MIME-Version: 1.0
 
-- the CPU is one whose TRM documents ETE external outputs 0-3 as PMU
-  events TRCEXTOUT0-3: Cortex-A520, Cortex-X925 and Neoverse N2, N3, V2
-  and V3;
-- PMUv3p1 or later is implemented and PMCEID0_EL0 reports TRCEXTOUT1,
-  which also covers a hypervisor hiding the event;
-- the trace unit has event 1, since event 0 is the trace unit trigger,
-  which the TRBE driver treats as fatal.
+On Wed, Sep 30, 2026 at 03:36:36PM +0200, Neil Armstrong wrote:
+> On 9/29/26 09:41, Maxime Ripard wrote:
+> > On Mon, Sep 28, 2026 at 10:36:18PM +0200, Neil Armstrong wrote:
+> > > On 9/28/26 21:48, Benjamin Tissoires wrote:
+> > > > On Sep 28 2026, Neil Armstrong wrote:
+> > > > > On 9/28/26 19:24, Benjamin Tissoires wrote:
+> > > > > > On Sep 28 2026, Neil Armstrong wrote:
+> > > > > > > Hi,
+> > > > > > >=20
+> > > > > > > On 9/28/26 18:22, Maxime Ripard wrote:
+> > > > > > > > Hi,
+> > > > > > > >=20
+> > > > > > > > Panels in general, and MIPI-DSI panels in particular, are p=
+retty
+> > > > > > > > difficult to support and require pretty much a panel driver=
+ for each
+> > > > > > > > panel produced. Most of them are pretty simple, and require=
+ an opaque
+> > > > > > > > initialization sequence that is usually poorly documented.
+> > > > > > > >=20
+> > > > > > > > This creates a tension between OEMs and distros because OEM=
+s will
+> > > > > > > > typically get a new panel to react to a sourcing issue duri=
+ng
+> > > > > > > > production, and thus need some swift turnaround between get=
+ting their
+> > > > > > > > new panel and it being operational in the OS. Distributions=
+ on the other
+> > > > > > > > hand can take years to ship a kernel with that new panel dr=
+iver.
+> > > > > > > >=20
+> > > > > > > > To solve this, I followed the example of HID-BPF and wrote =
+a panel
+> > > > > > > > driver that will rely on BPF programs to perform the panel
+> > > > > > > > initialization. That way, we can ship the programs separate=
+ly from the
+> > > > > > > > kernel, and with a different lifecycle. If this driver is a=
+ccepted, the
+> > > > > > > > plan is to have a userspace component started by udev to id=
+entify and
+> > > > > > > > load the right BPF program for the panels found on the devi=
+ce.
+> > > > > > >=20
+> > > > > > > This is kind of late for serious applications except if we ma=
+nage to
+> > > > > > > solve the bootloader to Linux display engine transition.
+> > > > > > >=20
+> > > > > > > >=20
+> > > > > > > > This driver is fully functional and works with both 5" and =
+7" Touch
+> > > > > > > > Display 2 panels for the RaspberryPi. However, it breaks aw=
+ay from the
+> > > > > > > > typical panel driver in multiple ways:
+> > > > > > > >=20
+> > > > > > > > - BPF programs can only be loaded by userspace. This leaves=
+ us with two
+> > > > > > > >       choices:
+> > > > > > > >=20
+> > > > > > > >       * We prevent the driver from loading until the script=
+ itself is
+> > > > > > > >         loaded. This has the side effect of preventing any =
+other output to
+> > > > > > > >         be used until the initramfs is ran at the earliest,=
+ and possibly
+> > > > > > > >         ever if the loader isn't installed for example.
+> > > > > > >=20
+> > > > > > > This adds a dependency on user-space behavior and if somehow =
+the
+> > > > > > > initramfs doesn't load for a reason we won't have a way to di=
+splay
+> > > > > > > an error.
+> > > > > > >=20
+> > > > > > > >=20
+> > > > > > > >       * Or we probe the driver all the time, but only repor=
+t it as connected
+> > > > > > > >         once a program has been registered. This is somewha=
+t unconventional,
+> > > > > > > >         but allows the other outputs to be functional, *and=
+* allows the user
+> > > > > > > >         to force the output if their panel doesn't require =
+any
+> > > > > > > >         initialization or during debugging. I chose this so=
+lution.
+> > > > > > >=20
+> > > > > > > Both options are not really great...
+> > > > > > >=20
+> > > > > > > >=20
+> > > > > > > > - It's not a panel driver, but a bridge one, which is also =
+pretty
+> > > > > > > >       unconventional. This is required because panel driver=
+s don't have
+> > > > > > > >       access to a detect callback that is required for the =
+above, but I also
+> > > > > > > >       think that the recent work from Luca blurs the line f=
+rom panels and
+> > > > > > > >       bridges and we'll end up going that road anyway.
+> > > > > > >=20
+> > > > > > > On this point, DDIC _are_ bridges, but in the current panel A=
+PI we blur the line between
+> > > > > > > the panel and the DDIC. So being a bridge is fine, but in a g=
+eneral way we lack
+> > > > > > > a proper way to describe the display/panel/monitor independen=
+tly of the DDIC.
+> > > > > > >=20
+> > > > > > > At first glance it's a nice driver, but moving the timings in=
+to a blob moves something
+> > > > > > > into possible proprietary binaries with possible closed licen=
+ce and distribution
+> > > > > > > restriction so it's a downgrade for the same of bringing up a=
+ panel faster.
+> > > > > >=20
+> > > > > > Quick answer on this, because I had the very same questions reg=
+arding
+> > > > > > HID-BPF:
+> > > > > > - in BPF, you can require (and by default it does) that only GPL
+> > > > > > 	compatible BPF programs are loaded, closing the argument of "c=
+losed
+> > > > > > 	licence and distribution restriction"
+> > > > > > - also, a BPF program can be disassembled much easier than a bi=
+nary
+> > > > > > 	blob, and I remember Alexei showing me an example where you ge=
+t almost
+> > > > > > 	the source code from the BPF object in just one pass.
+> > > > >=20
+> > > > > Right, it "solve" one of my question, but doesn't really solve th=
+e issue
+> > > > > of vendors providing "GPL" bpf programs with source available "so=
+mewhere".
+> > > > >=20
+> > > > > Another big issue is the API, I don't want to keep the current AP=
+I as-is,
+> > > > > we plan to support more advanced panel features and use try to us=
+e the
+> > > > > atomic states to support rate switching for example, and I'm not =
+confident
+> > > > > it's a good idea since there's no "simple" and "forever valid" API
+> > > > > to initialize panels...
+> > > > >=20
+> > > >=20
+> > > > That's exactly where BPF shines. The simple rule of thumb is: there=
+ is
+> > > > no API stability guaranteed. Basically, thanks to the verifier and =
+CORE
+> > > > (Compile Once Run Everywhere), you don't need to keep the API stabl=
+e and
+> > > > available forever. There are multiple ways of dealing with it, but =
+the
+> > > > gist is that if a BPF is trying to load an "old" API, it will be
+> > > > rejected by the verifier.
+> > > >=20
+> > > > Then it's a matter of being nice enough in the kernel and provide w=
+ays
+> > > > to deal with those.
+> > > >=20
+> > > > To give you a few examples:
+> > > >=20
+> > > > - in HID-BPF, in userspace, we keep old versions of APIs in separate
+> > > > 	compiled objects. Each is incremented (by 10 so we have a little b=
+it
+> > > > 	of room in the middle). Then the loader tries first
+> > > > 	0020-device-with-new-api.bpf.o, and if it fails, it tries
+> > > > 	0010-device-with-old-api.bpf.o
+> > > >=20
+> > > > 	I'm not saying we should do the same here, but that's one idea
+> > > >=20
+> > > > - recently, a BPF commit broke the ABI of a function while removing
+> > > > 	implicits: bpf_wq_set_callback_impl() was replaced by
+> > > > 	bpf_wq_set_callback() with a different number of arguments. I simp=
+ly
+> > > > 	had to add a new function in my header which basically does:
+> > > >=20
+> > > > 	static inline int
+> > > > 	hid_bpf_wq_set_callback(struct bpf_wq *wq,
+> > > > 	                        int (*callback_fn)(void *, int *, void *),
+> > > > 	                        unsigned int flags)
+> > > > 	{
+> > > >         if (bpf_ksym_exists(bpf_wq_set_callback))
+> > > >                 return bpf_wq_set_callback(wq, callback_fn, flags);
+> > > >         if (bpf_ksym_exists(bpf_wq_set_callback_impl))
+> > > >                 return bpf_wq_set_callback_impl(wq, callback_fn, fl=
+ags, NULL);
+> > > >     }
+> > > >=20
+> > > >     And then I changed the bpf.c to use hid_bpf_wq_set_callback() a=
+nd the
+> > > >     bpf is compatible with both APIs
+> > > >=20
+> > > > - with CORE, struct fields are relocated on the fly when you load t=
+he BPF
+> > > >     So for instance, if my BPF only accesses fields .name, .phys an=
+d .id
+> > > >     in the BPF, I can define:
+> > > >     struct hid_device {
+> > > >       char                       name[128];
+> > > >       char                       phys[64];
+> > > >       unsigned int               id;
+> > > >     }
+> > > >=20
+> > > >     Then when loading the bpf, the verifier replaces all offset to =
+the
+> > > >     ones actually used by the running kernel, and the program loads
+> > > >     transparently, even if you add fields before/after or change the
+> > > >     fields order in the kernel.
+> > > >=20
+> > > > Changing the mindset is the hardest part of it. But once you are ma=
+king
+> > > > the shift, it's actually much better to work with. It doesn't mean =
+you
+> > > > can go yolo. You still need to be careful in your choices knowing t=
+he
+> > > > impact on your users. But the API at version 0 is not frozen and you
+> > > > don't need to maintain it forever, especially if you control the lo=
+ader
+> > > > and the headers used to compile the BPFs.
+> > >=20
+> > > It's really impressive, but there's no way this would become the de-f=
+acto
+> > > way to program the panels
+> >=20
+> > Nobody said it would? And like I said in my previous mail, I actually
+> > expect us to keep merging panel drivers. Do I think it should become the
+> > go-to solution for simple panels? yes. But we can always make
+> > exceptions, and for more complex panels we should totally do a more
+> > complex driver. Like HID has been doing.
+> >=20
+> > > and if the motivation is to make it simpler this implementation
+> > > requires adding bindings and bpf programs which that are the same as
+> > > native panel drivers, but won't be able to work until user-space
+> > > starts and will require to be in initramfs or rootfs to have
+> > > functional display.
+> > >=20
+> > > Not sure to understand what are the positive features here except
+> > > isolating the panel code in a safe bpf program (is this really needed
+> > > ?).
+> >=20
+> >  From the cover letter:
+> >=20
+> > """
+> > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > difficult to support and require pretty much a panel driver for each
+> > panel produced. Most of them are pretty simple, and require an opaque
+> > initialization sequence that is usually poorly documented.
+> >=20
+> > This creates a tension between OEMs and distros because OEMs will
+> > typically get a new panel to react to a sourcing issue during
+> > production, and thus need some swift turnaround between getting their
+> > new panel and it being operational in the OS. Distributions on the other
+> > hand can take years to ship a kernel with that new panel driver.
+> >=20
+> > To solve this, I followed the example of HID-BPF and wrote a panel
+> > driver that will rely on BPF programs to perform the panel
+> > initialization. That way, we can ship the programs separately from the
+> > kernel, and with a different lifecycle.
+> > """
+> >=20
+> > You can disagree with the solution, that's fair, we can also discuss on
+> > how to solve this problem, but I'd appreciate it if you weren't claiming
+> > it's all useless.
+>=20
+> I did read the cover-letter and I got the arguments from Benjamin, and
+> while in theory it could indeed solve the issue described, in reality
+> it won't for the reasons I exposed.
+>=20
+> And since it's basically allowing to accept out-of-tree downstream
+> driver instead of upstreaming, I'm kind against TBH.
 
-The PMU only reports whether the event is implemented, not what drives
-it, so the CPU list keeps the check conservative. Other cores can be
-added once their manuals or hardware confirm the connection.
+I'm confused, is it something we do not allow today?
 
-Matching on a flag skips the feature on other ETMs rather than failing
-the load, which would unregister the device from cscfg and lose its
-other configurations.
+Maxime
 
-cscfg_csdev_enable_active_config() also returns success when the active
-configuration is not loaded on the device, so a session selecting such
-a configuration would run unconfigured. Return -EINVAL instead, so the
-session fails to start on that CPU. This applies to all configurations.
+--glslsrnv4uyo4fso
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Show the flag in the feature's configfs 'matches' attribute.
+-----BEGIN PGP SIGNATURE-----
 
-Assisted-by: Devmate:Opus-5.5
-Signed-off-by: Amir Ayupov <aaupov@fb.com>
----
- .../hwtracing/coresight/coresight-config.h    |  2 +
- .../hwtracing/coresight/coresight-etm4x-cfg.c |  7 ++-
- .../coresight/coresight-etm4x-core.c          | 44 +++++++++++++++++++
- drivers/hwtracing/coresight/coresight-etm4x.h |  3 ++
- .../coresight/coresight-syscfg-configfs.c     |  3 ++
- .../hwtracing/coresight/coresight-syscfg.c    |  7 +++
- 6 files changed, 65 insertions(+), 1 deletion(-)
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar3/5QAKCRAnX84Zoj2+
+diapAX9Dph3QM+TSAN18B+4v0ve7mNDvhVEz+4CbyQ2u9RlIykyUTfKtE3QeKLhD
+Lx5rdRkBgL8PslbTANcIb2FTYpECCxtqcDcicFkkgRrB3KuIap0FkvbwwHwi2Wja
+/DZlWJOpCw==
+=DFoF
+-----END PGP SIGNATURE-----
 
-diff --git a/drivers/hwtracing/coresight/coresight-config.h b/drivers/hwtracing/coresight/coresight-config.h
-index 90fd937d3bd83..2efe73a0d0a0d 100644
---- a/drivers/hwtracing/coresight/coresight-config.h
-+++ b/drivers/hwtracing/coresight/coresight-config.h
-@@ -29,6 +29,8 @@
-  */
- #define CS_CFG_MATCH_CLASS_SRC_ALL	0x0001	/* match any source */
- #define CS_CFG_MATCH_CLASS_SRC_ETM4	0x0002	/* match any ETMv4 device */
-+/* ETM external output 1 is countable by the PMU as TRCEXTOUT1 */
-+#define CS_CFG_MATCH_CAP_PMU_EXTOUT1	0x0004
- 
- /* flags defining device instance matching - used in config match desc data. */
- #define CS_CFG_MATCH_INST_ANY		0x80000000 /* any instance of a class */
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
-index e1a59b4345052..2847d2d7f7bed 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
-@@ -174,9 +174,14 @@ static int etm4_cfg_load_feature(struct coresight_device *csdev,
- 
- int etm4_cscfg_register(struct coresight_device *csdev)
- {
-+	struct etmv4_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
- 	struct cscfg_csdev_feat_ops ops;
-+	u32 match_flags = CS_CFG_ETM4_MATCH_FLAGS;
- 
- 	ops.load_feat = &etm4_cfg_load_feature;
- 
--	return cscfg_register_csdev(csdev, CS_CFG_ETM4_MATCH_FLAGS, &ops);
-+	if (drvdata->pmu_extout1)
-+		match_flags |= CS_CFG_MATCH_CAP_PMU_EXTOUT1;
-+
-+	return cscfg_register_csdev(csdev, match_flags, &ops);
- }
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index 2247ad55d4442..7dc29727f07db 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -30,6 +30,7 @@
- #include <linux/uaccess.h>
- #include <linux/perf_event.h>
- #include <linux/perf/arm_pmu.h>
-+#include <linux/perf/arm_pmuv3.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/property.h>
-@@ -1368,6 +1369,47 @@ static void etm4_fixup_wrong_ccitmin(struct etmv4_drvdata *drvdata)
- 	}
- }
- 
-+/*
-+ * CPUs whose Technical Reference Manuals document ETE external outputs 0-3 as
-+ * the PMU common events TRCEXTOUT0-3.
-+ */
-+static const struct midr_range etm4_pmu_extout1_cpus[] = {
-+	MIDR_ALL_VERSIONS(MIDR_CORTEX_A520),
-+	MIDR_ALL_VERSIONS(MIDR_CORTEX_X925),
-+	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_N2),
-+	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_N3),
-+	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V2),
-+	MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3),
-+	{},
-+};
-+
-+/*
-+ * Check whether a PMU event can count external output 1 of this trace unit,
-+ * and whether the trace unit has event 1 to drive it, since event 0 is the
-+ * trace unit trigger. The PMU only reports whether an event is implemented,
-+ * not that the trace unit drives it, so also require a CPU whose manual
-+ * documents the connection.
-+ *
-+ * Must run on the CPU that owns the trace unit.
-+ */
-+static bool etm4_pmu_has_extout1(struct etmv4_drvdata *drvdata)
-+{
-+	int pmuver = read_pmuver();
-+
-+	if (!is_midr_in_range_list(etm4_pmu_extout1_cpus))
-+		return false;
-+
-+	/* PMCEID0_EL0[63:32] describe events 0x4000-0x401f from PMUv3p1 */
-+	if (!pmuv3_implemented(pmuver) || pmuver < ID_AA64DFR0_EL1_PMUVer_V3P1)
-+		return false;
-+	if (!(read_pmceid0() & BIT_ULL(32 + ARMV8_PMUV3_PERFCTR_TRCEXTOUT1 -
-+				       ARMV8_PMUV3_EXT_COMMON_EVENT_BASE)))
-+		return false;
-+
-+	/* nr_event is TRCIDR0.NUMEVENT, the number of events minus one */
-+	return drvdata->nr_event >= 1;
-+}
-+
- static void etm4_init_arch_data(void *info)
- {
- 	u32 etmidr0;
-@@ -1522,6 +1564,8 @@ static void etm4_init_arch_data(void *info)
- 	/* NUMCNTR, bits[30:28] number of counters available for tracing */
- 	drvdata->nr_cntr = FIELD_GET(TRCIDR5_NUMCNTR_MASK, etmidr5);
- 
-+	drvdata->pmu_extout1 = etm4_pmu_has_extout1(drvdata);
-+
- 	coresight_clear_self_claim_tag_unlocked(csa);
- 	etm4_cs_lock(drvdata, csa);
- 	cpu_detect_trace_filtering(drvdata);
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x.h b/drivers/hwtracing/coresight/coresight-etm4x.h
-index df9e0748d71ec..dbdfe48e8b6c3 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x.h
-+++ b/drivers/hwtracing/coresight/coresight-etm4x.h
-@@ -1024,6 +1024,8 @@ struct etmv4_save_state {
-  * @skip_power_up: Indicates if an implementation can skip powering up
-  *		   the trace unit.
-  * @paused:	Indicates if the trace unit is paused.
-+ * @pmu_extout1: The PMU counts external output 1 of this trace unit as
-+ *		TRCEXTOUT1, and the trace unit has event 1 to drive it.
-  * @arch_features: Bitmap of arch features of etmv4 devices.
-  */
- struct etmv4_drvdata {
-@@ -1076,6 +1078,7 @@ struct etmv4_drvdata {
- 	bool				lpoverride : 1;
- 	bool				skip_power_up : 1;
- 	bool				paused : 1;
-+	bool				pmu_extout1 : 1;
- 	u64				trfcr;
- 	struct etmv4_config		config;
- 	struct etmv4_save_state		*save_state;
-diff --git a/drivers/hwtracing/coresight/coresight-syscfg-configfs.c b/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
-index 2b40e556be872..cd446d7ca43da 100644
---- a/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
-+++ b/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
-@@ -250,6 +250,9 @@ static ssize_t cscfg_feat_matches_show(struct config_item *item, char *page)
- 	if (match_flags & CS_CFG_MATCH_CLASS_SRC_ETM4)
- 		used += scnprintf(page + used, PAGE_SIZE - used, "SRC_ETMV4 ");
- 
-+	if (match_flags & CS_CFG_MATCH_CAP_PMU_EXTOUT1)
-+		used += scnprintf(page + used, PAGE_SIZE - used, "PMU_EXTOUT1 ");
-+
- 	used += scnprintf(page + used, PAGE_SIZE - used, "\n");
- 	return used;
- }
-diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-index 2bfdd7b45e49c..953c060c88549 100644
---- a/drivers/hwtracing/coresight/coresight-syscfg.c
-+++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-@@ -1116,6 +1116,13 @@ int cscfg_csdev_enable_active_config(struct coresight_device *csdev,
- 
- 		if (err)
- 			cscfg_config_desc_put(config_desc);
-+	} else {
-+		/*
-+		 * The configuration is active but was not loaded on this
-+		 * device, for example because the device lacks a capability
-+		 * its features require. Fail rather than trace without it.
-+		 */
-+		err = -EINVAL;
- 	}
- 
- 	return err;
--- 
-2.52.0
-
+--glslsrnv4uyo4fso--
