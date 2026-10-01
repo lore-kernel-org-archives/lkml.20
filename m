@@ -1,109 +1,155 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 132B54D4882;
-	Thu,  1 Oct 2026 08:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C90C4D4890;
+	Thu,  1 Oct 2026 08:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844418; cv=none; b=qZJ1rsa3kOuqrfNLaeNLm8bXPWmfYHEGBWUkSXaIPtY4nj7aiJw/K8BbTnCHZ+dRCy8FqpXCOIfbY4uDqQZAQo9GOUIW4dDSiBJVU8qBy1mfsdb/W24QZmZwP/zT/Hpeqq5XJ0SPBc/YAez1tpA7FL7hk0cNcsDj+O+EvinlYAU=
+	t=1790844420; cv=none; b=dQb8ijAn4Oy5OBs8lpyZdvWYlP5uYjWwpt9LUnKZcKBnBwR/kZWPYQvej27uD0m6V4mQS9GkFNOheRnt+7suGeglg/LhSDE4cr0NFexw/SzVxVFesLjm/CGCZZDdNWqz2zxwvqqZjll6GTTPQdr30zbn17s0T5ebjEuzYsDInXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844418; c=relaxed/simple;
-	bh=/hbqQXvydI/cbOiE3kBOkvhziUA1TXNotJV14+0m5x4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PqLZJOm1qPQyHH9JYApWSD9HeZvnZBmvSVTG9IpYAA1+x6fV4qALcC4lcN0VP1ude3qWVAUUBLTevCCZd7+EXgQQbAR3LfY2bfcNFijssW1sMg6HTz1OZumnla8V5N/VgwXCgtYj95K+egAPiNDb6enW0NbIQk87cndKLorBKG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kE7v9ici; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790844420; c=relaxed/simple;
+	bh=u4z+zKpl5MpoZUZDIi5i1L+Yt0tNb8zpb6NWbVEKlts=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IqI5wqeY4WpJtGLB0rvdgiVfM+/P3GUTN97sXX1vCvknz+NtU0vef7gegk0TlVJJhNZHrmuJjqCQm3haQ46uEah7v/ar+IwHxe93feJODe0/JUdQrujMbykrrXCnHRS3NoxlEzzk4wDupImLT7aNlmtjlkAcpLf8q7m3vmzHjxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=vAPk79nq; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kE7v9ici"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F759169E;
-	Thu,  1 Oct 2026 01:46:53 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 596103F85F;
-	Thu,  1 Oct 2026 01:46:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790844416; bh=/hbqQXvydI/cbOiE3kBOkvhziUA1TXNotJV14+0m5x4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kE7v9iciE/7+WAnqZqeUn3Pr2zvxK8K2TQskagzUbY91Xxm2KwiNTmNQtJCo1ZQh1
-	 k5DGHfM5n4Z8eVkBoasw04xMX/buFJp6/XMz1zEL0fQxpmfpSXM0pRBpgUG8mXZ9z7
-	 NFWtoCORAOkrS5/UHeJFNEgr8FF2Tmy5+XKkiQR4=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	David Hildenbrand <david@kernel.org>
-Subject: [PATCH v21 9/9] firmware: arm_rmm: hotplug: Skip memory added to ZONE_MOVABLE
-Date: Thu,  1 Oct 2026 09:45:55 +0100
-Message-ID: <20261001084555.1456543-10-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001084555.1456543-1-suzuki.poulose@arm.com>
-References: <20261001084555.1456543-1-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="vAPk79nq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1790844415;
+	bh=qfwqIlO/B9d/gQZcSXC89TRJ7a33VpkcIh9JA/58SYM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vAPk79nqDBMD+uffHv5rZhnxSc1Zehm758wIA/3edGI7Dgs5O77iP5WeCo7phXVHr
+	 Pud2de0zewRIlm3jeS1lwGdj4q4abSIV/ECiTTo86UGQlYtxt8XCuqx5Y+80xtpNc7
+	 LrMhH/mNz5161UT5Ph8Y/g8dWPbcXB5wxV2ywRIUFXYZSUK7vPUnOnupdCrH3a2pYo
+	 JvVl8FhV/pkVb6bsyu6MNwVSoXDz+b9L8iMnLJFcFwHrQKJzuDq9XumCcd3KwAyOMA
+	 QkOgGBsdkS4lQwjMxTo+oUDM0+o60M7ukQid2zZ/6SKmSIAx7lKnLcmmO1VlkoBH+r
+	 XyBexLKPM9vkg==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 7235160076;
+	Thu,  1 Oct 2026 10:46:55 +0200 (CEST)
+Date: Thu, 1 Oct 2026 10:46:52 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Ma Xinmeng <1564938642@qq.com>
+Cc: Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.1] netfilter: nf_tables: fix UAF in
+ nf_tables_netdev_event walker
+Message-ID: <ar4d_JbuojZJuazs@chamomile>
+References: <2026-09-25-daily-reply-0003-re-nf-tables-netdev-event-uaf@kernel.org>
+ <tencent_CD037FFEEB8CA462C8403FB30F50EEC6DF06@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <tencent_CD037FFEEB8CA462C8403FB30F50EEC6DF06@qq.com>
 
-If the hotadded memory is in ZONE_MOVABLE, we could allow that to proceed
-without the RMM having fine grained tracking, as we won't allocate pages
-from there for guest-memfd or kernel allocation
+On Thu, Oct 01, 2026 at 11:51:30AM +0800, Ma Xinmeng wrote:
+> This is a 6.1-only fix. Mainline already fixed this bug in fc0133428e7a
+> ("netfilter: nf_tables: Tolerate chains with no remaining hooks"), which
+> 6.1 cannot take because it lacks 207296f1a03b ("netfilter: nf_tables:
+> allow to create netdev chain without device") and b9703ed44ffb
+> ("netfilter: nf_tables: support for adding new devices to an existing
+> netdev chain").
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
----
-Changes since v20:
- - Use is_zone_movable_page() and only check the start_pfn
----
- drivers/firmware/arm_rmm/rmi.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Then, why not add those patches you refer to as -stable dependencies?
+-stable trees will become hard to maintain if they start deviating too
+much from upstream.
 
-diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-index d0842d621cd4b..a01ab69a64c7c 100644
---- a/drivers/firmware/arm_rmm/rmi.c
-+++ b/drivers/firmware/arm_rmm/rmi.c
-@@ -1043,6 +1043,17 @@ static int rmi_memory_notifier(struct notifier_block *nb,
- 	start = PFN_PHYS(arg->start_pfn);
- 	end = PFN_PHYS(arg->start_pfn + arg->nr_pages);
- 
-+	/*
-+	 * If the hotplugged memory region is in ZONE_MOVABLE, neither the
-+	 * guest-memfd nor the kernel allocations can come from there. So we are
-+	 * fine to skip this.
-+	 * For boot time memory, we don't allow this discount, as the
-+	 * decision to move boot memory pages to ZONE_MOVABLE is purely
-+	 * a kernel choice and the firmware must have decided what it covers.
-+	 */
-+	if (is_zone_movable_page(pfn_to_page(arg->start_pfn)))
-+		return NOTIFY_DONE;
-+
- 	ret = rmi_prepare_memory(start, end);
- 
- 	return notifier_from_errno(ret);
--- 
-2.43.0
-
+> So 6.1 keeps dropping the chain on the last
+> NETDEV_UNREGISTER, and this patch only makes the walker safe.
+> 
+> nf_tables_netdev_event() walks table->chains with
+> list_for_each_entry_safe(). On the last NETDEV_UNREGISTER for a base
+> chain, nft_netdev_event() calls __nft_release_basechain(), which removes
+> that base chain (nft_chain_del()) and destroys its rules. A JUMP/GOTO rule
+> targeting an NFT_CHAIN_BINDING chain deactivates and frees that successor
+> (nft_immediate_destroy() -> nf_tables_chain_destroy()), so the walker's
+> saved "nr" iterator can point at freed memory, triggering a
+> slab-use-after-free.
+> 
+> Fix it by restarting the table->chains walk whenever nft_netdev_event()
+> released a chain. __nft_release_basechain() removes the base chain from
+> the list before returning, so a restart cannot revisit the freed chain and
+> the walk terminates.
+> 
+> Signed-off-by: Ma Xinmeng <1564938642@qq.com>
+> ---
+>  net/netfilter/nft_chain_filter.c | 14 +++++++++-----
+>  1 file changed, 9 insertions(+), 5 deletions(-)
+> 
+> diff --git a/net/netfilter/nft_chain_filter.c b/net/netfilter/nft_chain_filter.c
+> index d170758..ca6450a 100644
+> --- a/net/netfilter/nft_chain_filter.c
+> +++ b/net/netfilter/nft_chain_filter.c
+> @@ -318,7 +318,7 @@ static const struct nft_chain_type nft_chain_filter_netdev = {
+>  	},
+>  };
+>  
+> -static void nft_netdev_event(unsigned long event, struct net_device *dev,
+> +static bool nft_netdev_event(unsigned long event, struct net_device *dev,
+>  			     struct nft_ctx *ctx)
+>  {
+>  	struct nft_base_chain *basechain = nft_base_chain(ctx->chain);
+> @@ -326,7 +326,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+>  	int n = 0;
+>  
+>  	if (event != NETDEV_UNREGISTER)
+> -		return;
+> +		return false;
+>  
+>  	list_for_each_entry(hook, &basechain->hook_list, list) {
+>  		if (hook->ops.dev == dev)
+> @@ -335,7 +335,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+>  		n++;
+>  	}
+>  	if (!found)
+> -		return;
+> +		return false;
+>  
+>  	if (n > 1) {
+>  		if (!(ctx->chain->table->flags & NFT_TABLE_F_DORMANT))
+> @@ -343,7 +343,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+>  
+>  		list_del_rcu(&found->list);
+>  		kfree_rcu(found, rcu);
+> -		return;
+> +		return false;
+>  	}
+>  
+>  	/* UNREGISTER events are also happening on netns exit.
+> @@ -353,6 +353,8 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+>  	 * so we cannot skip exiting net namespaces.
+>  	 */
+>  	__nft_release_basechain(ctx);
+> +
+> +	return true;
+>  }
+>  
+>  static int nf_tables_netdev_event(struct notifier_block *this,
+> @@ -380,6 +382,7 @@ static int nf_tables_netdev_event(struct notifier_block *this,
+>  
+>  		ctx.family = table->family;
+>  		ctx.table = table;
+> +restart:
+>  		list_for_each_entry_safe(chain, nr, &table->chains, list) {
+>  			if (!nft_is_base_chain(chain))
+>  				continue;
+> @@ -390,7 +393,8 @@ static int nf_tables_netdev_event(struct notifier_block *this,
+>  				continue;
+>  
+>  			ctx.chain = chain;
+> -			nft_netdev_event(event, dev, &ctx);
+> +			if (nft_netdev_event(event, dev, &ctx))
+> +				goto restart;
+>  		}
+>  	}
+>  	mutex_unlock(&nft_net->commit_mutex);
+> -- 
+> 2.49.0.windows.1
+> 
