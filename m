@@ -1,424 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACA64A13B6;
-	Thu,  1 Oct 2026 07:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FD826982C;
+	Thu,  1 Oct 2026 07:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839710; cv=none; b=lkl6KLhGIMAEJGZYZajSajlS+Eg+abJS+E7w/ctN7dcjiGMAsJegH7zNIJEj9vcIDBjpFfSGccsfho9zbmIg8mpp1eRNRkpFlbQ4l7S8JgrBgVLDIJ4npVsoQbAQ4CKL3V4hJdiBtRf0BUoLrOKxEpR4iEelOpGlrKqnDW79rgY=
+	t=1790839715; cv=none; b=jB7cj8Ph7452/OVHMFt2pBnEPIfCxLP6uId8S8QcFjo8CG0P3keRwIJX9AFdwinY830WMZvoSyXcXJgFQKi4ZIb+cYXkxcEM5op3+09GKQkGbIkx+XY34KNbFIvHLQ6h95C53t4UcQ3MMB33I6EJM6vPorsxgrvtqQMZ2+FFSOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839710; c=relaxed/simple;
-	bh=x9oaTXCm7oieJRz+jWta177TVkkAfnBgwuM6D47kQgc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jx+O3UcPuiXjWPLPACSMD3CgrmTDtgsPDRCr0zpXFobFZf7CBKzkEsJdupVTTdDxe1FAmZp0eL/hLsy+AfX6xH1V/4BXDLhDxXoy5rFo4S1mEw5dOvuQBXSxwKALuHnnmdxyAFMqXNva1BGonVB2cxXGtD3W7APH74dIcNG3c3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QaaphgwM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790839715; c=relaxed/simple;
+	bh=IehjHGyeTB3qOxdnG2Qu4ujZGQukL04r22A8lNc2Xac=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HPcOFfIaOWTuRGxqWahWZydsJk/Q3ZWTrgp5qha+GctImkK7TayGdJ0ZrzPmOJNmFPJiEvDX7n1TFytAyBeWLltSp8vu0BFqR3HHgxS00QHxanFifRmHbuLM5ETo47gQdmCV07uVOFhc4Nd3oPb7+J6XpIbYymwjzbW+CcYAHcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XE2OPNhm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QaaphgwM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F6A1F00898;
-	Thu,  1 Oct 2026 07:28:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790839695;
-	bh=c8Vd1e20JlGlNSiVSVLLcwUU2Y9QgO/1s1qHISfYcDQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QaaphgwMOg8NzPZW1hX3SaHmlO0Gc1XyzUz7gu+nZe1cVAFYuWDO72GojQ2lxMGdt
-	 UqYSbZEuN0FG8Gq6pY3ySGxjo60xl0fq00py2ZynbiUrSUZZfo6ENY9gnvJMTv7m0x
-	 CNgsWezFynqx3Q3YlQuFd7J5Z9Fu4O1oyfz8s19X3duRZm2dMpqFx2Xw0kh0HJJrAN
-	 lYaDiNaBhIvUfdnX7G5UoMD5HYwcjojPAYemNXYuRMJX3lBlYv8wSYWk19z9ncveWu
-	 6ECP9Zw1sKfdIDaruLGG1GvCn7GtQ/SbDwcVXUko3FV0TEGXmirMZWM2+HJeNJda3v
-	 qgLZYeXhfq4Rw==
-Date: Thu, 1 Oct 2026 00:28:13 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH v6 5/5] perf test: Add false_sharing workload exhibiting
- cross-CPU false sharing
-Message-ID: <ar4LjQ8ryDjWDQ9y@z2>
-References: <20260930213716.2633750-1-acme@kernel.org>
- <20260930213716.2633750-6-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XE2OPNhm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 51443C4AF12;
+	Thu,  1 Oct 2026 07:28:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790839714;
+	bh=IehjHGyeTB3qOxdnG2Qu4ujZGQukL04r22A8lNc2Xac=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=XE2OPNhmTHMZ8DpR7JC2R1Qo19+qfYd+KyNC7BhrH8NEASAtQwPh6yI/L6TOZwLwJ
+	 JU7RUZrclDwVHn+Zi80CIJ1NXXdH7cP1jkmJxyEb4S+3glRdR8Dgmt1rHIq7NKxWzo
+	 LFJvSVmnNFt6Tnrt7mrT1Nf7wniI1KapQFM10v0pDKM2M1B/bni3JiQU7pkKm+usA6
+	 l1vb1rczfWagN+eWaFYuhTIxqVSNKj2a2HM0ry2G91M379p/xiosCh5PGda/0Z0UtO
+	 eWvNn3FQqENkpocKS49pKCHmpWvRJbvTy7L7OJ1wsJzciAPR3tG8H6TW+D8HW+KzRa
+	 QeNHj109z3VMg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 313A2CA5FCE;
+	Thu,  1 Oct 2026 07:28:34 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Thu, 01 Oct 2026 09:28:23 +0200
+Subject: [PATCH v2 2/2] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930213716.2633750-6-acme@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-2-07d368dcc662@free.fr>
+References: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-0-07d368dcc662@free.fr>
+In-Reply-To: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-0-07d368dcc662@free.fr>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Charles Hsu <ythsu0511@gmail.com>, 
+ Eduardo Valentin <eduval@amazon.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790839710; l=1207;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=eUACogoOzN7KH0RZ64dJTRG0jM5WEIXL8p7BWtlD+1c=;
+ b=P6Eevym8r4AST3C2BvKlz+p6AtnuCeFhPK+3u2/layzRDgXBvLUjdAh5V8ekmkFKTG+WI4W2m
+ /nx+nYTxalVDKgh4fED7WVF5oTtxjpq7Wj8HEqJhGDoyVmAXhpI/kEt
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On Wed, Sep 30, 2026 at 11:37:16PM +0200, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> Add a 'perf test -w false_sharing' workload that hammers one shared
-> struct from several CPUs, shaped as a TCP connection: a read-mostly
-> identity (five-tuple) shares a cacheline with per-packet rx counters
-> (the false-sharing line), a second line has packet-path private tx and
-> congestion control counters, and a third the connection config.
-> 
-> The packet path runs in the main thread and up to four lookup threads
-> sum the five-tuple and pull the config, reading one volatile shared
-> instance directly so the accesses are PC-relative and resolvable by the
-> data type profiler.
+From: Vincent Jardin <vjardin@free.fr>
 
-It'd be great if you can share an output of data type profiling with
-cacheline info.  Probably like below?
+Since commit
+  3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
+the PMBus core calls devm_thermal_of_zone_register() for every
+temperature input, so the devices of this binding can be referenced as
+thermal sensors.
 
-  $ perf mem record -- perf test -w false_sharing
+By code review, it should work for the MPQ and MPM device bindings.
+They register a single page with PMBUS_HAVE_TEMP through
+pmbus_do_probe(), it means that one device has one
+temperature input, temp1.
+
+The PMBus core registers the first temperature input as sensor 0, so no
+cell is needed.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
+index d7a32fb3b7af..6257a8030e53 100644
+--- a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
+@@ -34,6 +34,9 @@ properties:
+     maximum: 4095
+     default: 706
  
-  $ perf report -s type,typecln -H --group --stdio
++  "#thermal-sensor-cells":
++    const: 0
++
+ required:
+   - compatible
+   - reg
 
-Thanks,
-Namhyung
+-- 
+2.43.0
 
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
->  tools/perf/tests/builtin-test.c               |   1 +
->  tools/perf/tests/shell/data_type_profiling.sh |   9 +-
->  tools/perf/tests/tests.h                      |   1 +
->  tools/perf/tests/workloads/Build              |   2 +
->  tools/perf/tests/workloads/false_sharing.c    | 251 ++++++++++++++++++
->  5 files changed, 262 insertions(+), 2 deletions(-)
->  create mode 100644 tools/perf/tests/workloads/false_sharing.c
-> 
-> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-> index d2f594921e25bda9..98134b1c74cf80f4 100644
-> --- a/tools/perf/tests/builtin-test.c
-> +++ b/tools/perf/tests/builtin-test.c
-> @@ -175,6 +175,7 @@ static struct test_workload *workloads[] = {
->  	&workload__context_switch_loop,
->  	&workload__deterministic,
->  	&workload__callchain,
-> +	&workload__false_sharing,
->  
->  #ifdef HAVE_RUST_SUPPORT
->  	&workload__code_with_type,
-> diff --git a/tools/perf/tests/shell/data_type_profiling.sh b/tools/perf/tests/shell/data_type_profiling.sh
-> index a916c410274aa888..57203e0e5f857540 100755
-> --- a/tools/perf/tests/shell/data_type_profiling.sh
-> +++ b/tools/perf/tests/shell/data_type_profiling.sh
-> @@ -8,8 +8,8 @@ set -e
->  # data type profiling manifestation
->  
->  # Values in testtypes and testprogs should match
-> -testtypes=("# data-type: struct Buf" "# data-type: struct buf")
-> -testprogs=("perf test -w code_with_type" "perf test -w datasym")
-> +testtypes=("# data-type: struct Buf" "# data-type: struct buf" "# data-type: struct net_conn")
-> +testprogs=("perf test -w code_with_type" "perf test -w datasym" "perf test -w false_sharing")
->  
->  err=0
->  perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-> @@ -59,6 +59,9 @@ test_basic_annotate() {
->  
->      "xC")
->      index=1 ;;
-> +
-> +    "xFS")
-> +    index=2 ;;
->    esac
->  
->    # Under 'set -e' a bare failing command aborts the script through the EXIT
-> @@ -114,6 +117,8 @@ test_basic_annotate Basic Rust
->  test_basic_annotate Pipe Rust
->  test_basic_annotate Basic C
->  test_basic_annotate Pipe C
-> +test_basic_annotate Basic FS
-> +test_basic_annotate Pipe FS
->  
->  cleanup
->  exit $err
-> diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-> index 9c96f33483d14356..f379620069d34f3a 100644
-> --- a/tools/perf/tests/tests.h
-> +++ b/tools/perf/tests/tests.h
-> @@ -250,6 +250,7 @@ DECLARE_WORKLOAD(jitdump);
->  DECLARE_WORKLOAD(context_switch_loop);
->  DECLARE_WORKLOAD(deterministic);
->  DECLARE_WORKLOAD(callchain);
-> +DECLARE_WORKLOAD(false_sharing);
->  
->  #ifdef HAVE_RUST_SUPPORT
->  DECLARE_WORKLOAD(code_with_type);
-> diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workloads/Build
-> index 048e371eb63e3164..18fceddccb56c013 100644
-> --- a/tools/perf/tests/workloads/Build
-> +++ b/tools/perf/tests/workloads/Build
-> @@ -14,6 +14,7 @@ perf-test-y += jitdump.o
->  perf-test-y += context_switch_loop.o
->  perf-test-y += deterministic.o
->  perf-test-y += callchain.o
-> +perf-test-y += false_sharing.o
->  
->  ifeq ($(CONFIG_RUST_SUPPORT),y)
->      perf-test-y += code_with_type.o
-> @@ -29,3 +30,4 @@ CFLAGS_inlineloop.o       = -g -O2
->  CFLAGS_deterministic.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
->  CFLAGS_named_threads.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
->  CFLAGS_callchain.o        = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-> +CFLAGS_false_sharing.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-> diff --git a/tools/perf/tests/workloads/false_sharing.c b/tools/perf/tests/workloads/false_sharing.c
-> new file mode 100644
-> index 0000000000000000..e949bb36646a97a5
-> --- /dev/null
-> +++ b/tools/perf/tests/workloads/false_sharing.c
-> @@ -0,0 +1,251 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * False-sharing demo for data type profiling, shaped as a TCP
-> + * connection: a read-mostly identity shares a cacheline with per-packet
-> + * rx counters (the false-sharing line), a second line has packet-path
-> + * private tx and congestion control counters, and a third the connection
-> + * config.
-> + *
-> + * 'perf mem record' of this workload followed by 'perf report -s type'
-> + * (see tests/shell/data_type_profiling.sh) resolves the accesses to
-> + * struct net_conn members, showing the rx counters and the read-mostly
-> + * identity sharing cacheline 0.
-> + */
-> +#include <pthread.h>
-> +#include <sched.h>
-> +#include <stdint.h>
-> +#include <stdlib.h>
-> +#include <stdio.h>
-> +#include <signal.h>
-> +#include <unistd.h>
-> +#include <linux/compiler.h>
-> +#include "../tests.h"
-> +
-> +struct net_conn {
-> +	/* cacheline 0: identity (read-mostly) + rx counters (per packet) */
-> +	uint32_t	saddr;		/*   0 */
-> +	uint32_t	daddr;		/*   4 */
-> +	uint16_t	sport;		/*   8 */
-> +	uint16_t	dport;		/*  10 */
-> +	uint8_t		state;		/*  12: 1 == ESTABLISHED */
-> +	uint8_t		protocol;	/*  13: 6 == TCP */
-> +	uint16_t	__pad0;		/*  14 */
-> +	uint64_t	bytes_rx;	/*  16: every packet */
-> +	uint64_t	packets_rx;	/*  24: every packet */
-> +	uint32_t	rx_queue;	/*  32: backlog depth, fluctuates */
-> +	uint8_t		__pad1[24];	/*  36..59 */
-> +	uint32_t	last_ack;	/*  60: written per ACK */
-> +	/* cacheline 1: tx + congestion control (packet-path private) */
-> +	uint64_t	bytes_tx;	/*  64: every packet */
-> +	uint64_t	packets_tx;	/*  72: every packet */
-> +	uint32_t	cwnd;		/*  80: on every ACK */
-> +	uint32_t	ssthresh;	/*  84: on loss */
-> +	uint32_t	rtt_us;		/*  88: on every ACK */
-> +	uint32_t	retrans;	/*  92: on timeout */
-> +	uint32_t	__pad2[8];	/*  96..127 */
-> +	/* cacheline 2: config, set at setup, read by everybody */
-> +	uint16_t	mss;		/* 128 */
-> +	uint8_t		snd_wscale;	/* 130 */
-> +	uint8_t		rcv_wscale;	/* 131 */
-> +	uint32_t	keepalive_int;	/* 132 */
-> +	uint32_t	mark;		/* 136: firewall mark */
-> +	uint32_t	priority;	/* 140: traffic class */
-> +	uint32_t	__pad3[12];	/* 144..191 */
-> +} __attribute__((aligned(64)));
-> +
-> +/* Volatile so every iteration really loads and stores. */
-> +static volatile struct net_conn conn;
-> +/* Keeps the reader checksums alive after the threads join. */
-> +static volatile unsigned long fs_sink;
-> +
-> +static volatile sig_atomic_t done;
-> +
-> +/*
-> + * One cacheline each: sum before cpu, or the implicit padding after cpu
-> + * pushes the struct past 64 bytes, and aligning it to a cacheline then
-> + * rounds it up to 128.
-> + */
-> +struct fs_reader {
-> +	pthread_t	thread;
-> +	unsigned long	sum;
-> +	int		cpu;
-> +	char		__pad[64 - sizeof(pthread_t) - sizeof(unsigned long) - sizeof(int)];
-> +} __attribute__((aligned(64)));
-> +
-> +static void sighandler(int sig __maybe_unused)
-> +{
-> +	done = 1;
-> +}
-> +
-> +static void pin_to_cpu(int cpu)
-> +{
-> +	cpu_set_t set;
-> +
-> +	/* There may be no second CPU in a restricted cpuset. */
-> +	if (cpu < 0)
-> +		return;
-> +
-> +	CPU_ZERO(&set);
-> +	CPU_SET(cpu, &set);
-> +	/* Best effort: in a restricted cpuset this fails and the thread runs unpinned. */
-> +	pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
-> +}
-> +
-> +/*
-> + * Connection lookup, as a load balancer or 'ss' scrape would do it: the
-> + * reads go straight to the global, this file is built -O0 and a local
-> + * pointer would be reloaded from a stack slot, a form the data type
-> + * resolver does not track.
-> + */
-> +static void *reader_fn(void *arg)
-> +{
-> +	struct fs_reader *r = arg;
-> +	unsigned long sum = 0;
-> +
-> +	pthread_setname_np(pthread_self(), "fs-reader");
-> +	pin_to_cpu(r->cpu);
-> +
-> +	while (!done) {
-> +		sum += conn.saddr + conn.daddr + conn.sport + conn.dport +
-> +		       conn.state + conn.protocol;
-> +		sum += conn.mss + conn.snd_wscale + conn.rcv_wscale +
-> +		       conn.keepalive_int + conn.mark + conn.priority;
-> +	}
-> +	r->sum = sum;
-> +	return NULL;
-> +}
-> +
-> +static int false_sharing(int argc, const char **argv)
-> +{
-> +	double sec = 2.0;
-> +	int nreaders = 0, nr_allowed = 0, err = 1;
-> +	int *allowed = NULL, nallowed = 0;
-> +	cpu_set_t set;
-> +	int nr_mask_bits = sizeof(set) * 8 < CPU_SETSIZE ? sizeof(set) * 8 : CPU_SETSIZE;
-> +	struct fs_reader *readers = NULL;
-> +	int i, writer_cpu;
-> +	unsigned long n = 0;
-> +
-> +	pthread_setname_np(pthread_self(), "fs-writer");
-> +	if (argc > 0)
-> +		sec = atof(argv[0]);
-> +	if (!(sec > 0.0)) {
-> +		fprintf(stderr, "Error: seconds (%f) must be > 0\n", sec);
-> +		return 1;
-> +	}
-> +	if (argc > 1)
-> +		nreaders = atoi(argv[1]);
-> +
-> +	/*
-> +	 * A connection that just got established: identity and config fixed
-> +	 * from here on, counters at zero.
-> +	 */
-> +	conn.saddr = 0x0a000001;	/* 10.0.0.1 */
-> +	conn.daddr = 0x0a000002;	/* 10.0.0.2 */
-> +	conn.sport = 54321;
-> +	conn.dport = 443;
-> +	conn.state = 1;			/* ESTABLISHED */
-> +	conn.protocol = 6;		/* TCP */
-> +	conn.mss = 1448;
-> +	conn.snd_wscale = 7;
-> +	conn.rcv_wscale = 7;
-> +	conn.keepalive_int = 7200;
-> +	conn.cwnd = 10;
-> +	conn.ssthresh = 65535;
-> +	conn.rtt_us = 50;
-> +
-> +	/*
-> +	 * Pin against the allowed set, restricted cpusets still spread the threads.
-> +	 * The whole mask is looked at, not the CPU count: the count can be lower
-> +	 * than the highest ID in it, as when a cpuset allows only high numbered
-> +	 * CPUs, and then no allowed CPU would be found at all.
-> +	 */
-> +	if (sched_getaffinity(0, sizeof(set), &set) == 0) {
-> +		for (i = 0; i < nr_mask_bits; i++) {
-> +			if (!CPU_ISSET(i, &set))
-> +				continue;
-> +			nr_allowed++;
-> +		}
-> +		allowed = malloc(nr_allowed * sizeof(int));
-> +		if (allowed == NULL) {
-> +			fprintf(stderr, "Error: malloc failed for CPU list\n");
-> +			return 1;
-> +		}
-> +		for (i = 0; i < nr_mask_bits; i++) {
-> +			if (CPU_ISSET(i, &set))
-> +				allowed[nallowed++] = i;
-> +		}
-> +	}
-> +	if (nreaders <= 0) {
-> +		/* By default leave one CPU for the packet path, up to 4 readers. */
-> +		nreaders = nallowed > 1 ? nallowed - 1 : 1;
-> +		if (nreaders > 4)
-> +			nreaders = 4;
-> +	}
-> +
-> +	signal(SIGINT, sighandler);
-> +	signal(SIGALRM, sighandler);
-> +
-> +	readers = calloc(nreaders, sizeof(*readers));
-> +	if (readers == NULL) {
-> +		fprintf(stderr, "Error: calloc failed for %d readers\n", nreaders);
-> +		goto out;
-> +	}
-> +	for (i = 0; i < nreaders; i++) {
-> +		int cpu = nallowed > 1 ? allowed[(i + 1) % nallowed] : -1;
-> +
-> +		readers[i].cpu = cpu;
-> +		if (pthread_create(&readers[i].thread, NULL, reader_fn, &readers[i])) {
-> +			fprintf(stderr, "Error: failed to create reader %d\n", i);
-> +			done = 1; // Ensure started threads terminate.
-> +			nreaders = i;
-> +			goto out_join;
-> +		}
-> +	}
-> +	writer_cpu = nallowed > 0 ? allowed[0] : -1;
-> +	if (nallowed == 1)
-> +		fprintf(stderr, "Warning: single CPU allowed, no cross-CPU traffic expected\n");
-> +	if (writer_cpu >= 0)
-> +		pin_to_cpu(writer_cpu);
-> +
-> +	/*
-> +	 * The packet path: receive, acknowledge, transmit, repeat; every 64th
-> +	 * packet simulates a loss so ssthresh/retrans get sampled too.
-> +	 */
-> +	if (sec < 1.0) {
-> +		useconds_t usecs = (useconds_t)(sec * 1000000.0);
-> +
-> +		ualarm(usecs > 0 ? usecs : 1, 0);
-> +	} else
-> +		alarm((unsigned int)sec);
-> +	while (!done) {
-> +		conn.bytes_rx += conn.mss;
-> +		conn.packets_rx++;
-> +		conn.rx_queue = (uint32_t)(n & 0x3f);
-> +		conn.last_ack = (uint32_t)n;
-> +		conn.bytes_tx += conn.mss;
-> +		conn.packets_tx++;
-> +		conn.cwnd = 10 + (n & 15);
-> +		conn.rtt_us = 50 + (n & 7);
-> +		if ((n & 63) == 0) {
-> +			conn.ssthresh = conn.cwnd / 2;
-> +			conn.retrans++;
-> +		}
-> +		n++;
-> +	}
-> +	err = 0;
-> +out_join:
-> +	for (i = 0; i < nreaders; i++) {
-> +		if (readers[i].thread) {
-> +			pthread_join(readers[i].thread, /*retval=*/NULL);
-> +			fs_sink += readers[i].sum;
-> +		}
-> +	}
-> +	fs_sink += (unsigned long)(conn.bytes_rx + conn.bytes_tx + n);
-> +	free(readers);
-> +out:
-> +	free(allowed);
-> +	return err;
-> +}
-> +
-> +DEFINE_WORKLOAD(false_sharing);
-> -- 
-> 2.55.0
-> 
+
