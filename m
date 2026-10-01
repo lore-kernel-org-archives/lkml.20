@@ -1,192 +1,151 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013048.outbound.protection.outlook.com [52.101.83.48])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C914B0CA3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.48
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845314; cv=fail; b=u60imJ9obRlG/QyejABamUVLJCnBiZSYSMIlVxFzRAco4VFHVPYsO2xBcvTqzSafhizJCVeSgrgBHsUpw8Or+2lnoYF0E+BwJK5Z1VbadrX8fW4YGvA+Qa2eVtYeISql71VFmo3HAyxDma4SVWpbNqSjlpIgvSI947DUufpN/Vc=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845314; c=relaxed/simple;
-	bh=l1Aa5ZkEkWLubJ7KAUKg1jiILLp4mk3J4ktz24EA8YI=;
-	h=Message-ID:Date:Cc:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=KJyIeI2o5b7OYqLsyFROlQGj/b4311EAbH6Vn4ywmUu4G9YK2CGiD/usmNNwVfkgvFQEGnnCX0t38MMb/XEHiw5ESvAr2lnPPy+WdnK2ynBjQY3npSthJOLJOJGu2y6FxsnNht+aNWNznL1p9fwjRLbS9xPX5zgVeVxuRwPGn8o=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CuXwIjVo; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CuXwIjVo; arc=fail smtp.client-ip=52.101.83.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9623B37D11A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790845365; cv=none; b=XjFyTC0271pqeV5BRHdpTj40WH14kCtErkS4yNoEZP1TQy67XBqJRVYaviwg4T2Btkk4+drxJ7mF3SRPct8M2jmLy6xVWWp1JGgvGD8d03ufhlugI1UBkcEXDhb44F4t25SVpmgEe/Mz1Xu4JR4p+wkYEQB5dBJayTw3J/+xhYE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790845365; c=relaxed/simple;
+	bh=5cmWKzSSAcuDnCz4P29b0L8VSxjUUzHLXDvEWuOR9K0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mu2KFC4JSpkXPc3OMhkL/p5RB9VsxW12JT014wOsDL3u8RPP2vBXFi1aet4XIRVApU6tfzC7gQjQLeEr8a9oFzroS7ujS18xG4upqmS+T+KlCQtBL6IqU+Bprm+Yy0U29M1XY2z5951GjwB73CYuC7xkvgtNQztJOMqvK0lw/mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=R9gQUOxB; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CuXwIjVo";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CuXwIjVo"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=Qm9tmWdK6TImqwIDlH1CxEdRt+/UeHXg7/khrtnoa+f1aoUwb5jycO8D2CIAR6p1UflpAvUWgm+cU177oncP0TSi/HrNx5EQK4DDhnfqLrBDBD/Jagr49iInH27HtwFCDMIub9Kaeh3PW9GLxJi9N9jJ/TP1yglb+QAj++x1y2OLo3x9yR2Ps0qNsoy1SMCMpKHIC51x0F9sjboTMUMV/7bTE+n3G4SPtbF2ZGA6pQonR+NFwO9yJ75ulkYheoA3XSUNXggwgTMHtm3nTdtSliYd3Tsrd30DnbF+4AOETO3BreKoT/QelJAOZpG5HR27j85sbbskZUIEuRVvAxUgeA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8EMp9ioHsauhff6rt3MKJM8xAZeP5pGGXQEnrcrV4V0=;
- b=Y4S57JJ4XFRrBW+sWya2axn6FyDmHo99eS53l/PzJmbglSmKLGMVB5UKpec8xqWSAwb5BQsK8QUmQWZs3Z5QPXOmfwIzpIT7tBX1fL1noibxGTHdK7i1VG3pq56qe6TYztjrB8eGMcDAY4IzZimxPCvadFBFxfrfr+ljT5F1ulmQR9c7Td2/IW7KcuOu0YvjKdekynAmYfqAwdSbVgiSXx0p19nsyyjwZ3qJgl6MAhOnHtUckp099hBD/npJRlq1RQNACJw2jUJ+fGgAkuoadeC1Nn43rgrEFKr636UaMSfBueaTeDF+3HFj+3RXlYQHfq0LFwRV1DkL1X4vJlbn7g==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8EMp9ioHsauhff6rt3MKJM8xAZeP5pGGXQEnrcrV4V0=;
- b=CuXwIjVowtzJt/N4h4jDeeQ8PJpGR0x1ULYGUq3ZnBaXpOCDzTunp1PkK4yTC1Gc4Blxi5+QUgTjlBZwp8u++E3mailxTUl1dIy88G5gXz1Vw19ocY8UbMlH78nrs98cQ1ZVMYkAKq3Wq8YolRQqefWCM9Gz8brCUPktQLRRtOk=
-Received: from AM0P190CA0016.EURP190.PROD.OUTLOOK.COM (2603:10a6:208:190::26)
- by GV2PR08MB132880.eurprd08.prod.outlook.com (2603:10a6:150:3b9::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
- 2026 09:01:48 +0000
-Received: from AM2PEPF00070CF7.eurprd02.prod.outlook.com
- (2603:10a6:208:190:cafe::a9) by AM0P190CA0016.outlook.office365.com
- (2603:10a6:208:190::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Thu, 1
- Oct 2026 09:01:46 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM2PEPF00070CF7.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Thu, 1 Oct 2026 09:01:45 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FuO4meA0nwIC2P2QP4E57xpg/UB5ZU3Ap7hOzhXHb4rs1kKslGda/Pnf9R2fYTBVdqt6l/fMOXa/EOOAfWxhFFQQKdyt1v9B6stjjJN31+nWWPMGhmNTqEjtAcwcczGtcqECsJMY2C11hV76efxPrbivUStFiERvWMLX8gOhjE4kktbN0LEJP3kg4paRDoGw3K0a3oaKn9aQClAnaCNn6w4Vr0NvBpZmHuZsMx6Cx4nzHXBkmq0GrLGbBZq3EYL6iNldQNuCqXZFAFY9IUAg3M3X7BXH8yWAnb711rDfoDGFyBRe6eInnl+X5zHUv2pyMbj7BAfzL2yrBHgldT3LxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8EMp9ioHsauhff6rt3MKJM8xAZeP5pGGXQEnrcrV4V0=;
- b=BBOIfl7bkMVt6SGJVgOuzmiyjgOLAwVCuI00yAA22fFNBALywdjyOQbpU/v+nzoH3PqCDqRNhNqDsoPnBoInDPym/V44m/t9BHWgCtk89eL4TQl84dtG1O55EvQjANosj93pe8xIdGO8UY66gPLRDOqgSiw8hahliAZnWg6XtunrjdHUcvYLpPecBs0+CdIq/Xo5s4o65B4pBiuS8Q6ZCKHlWIFNNFqdxCelMIot8jwMjRVO/sbWezT57/qbFsoSDxJQx1L5weT78ihOP85w2AUYPUfaz9Q72HTWnN2cy0VySnMDPi5ngXXOeaXwJCKF12VR2JTVd6SA8bWhYkjZyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8EMp9ioHsauhff6rt3MKJM8xAZeP5pGGXQEnrcrV4V0=;
- b=CuXwIjVowtzJt/N4h4jDeeQ8PJpGR0x1ULYGUq3ZnBaXpOCDzTunp1PkK4yTC1Gc4Blxi5+QUgTjlBZwp8u++E3mailxTUl1dIy88G5gXz1Vw19ocY8UbMlH78nrs98cQ1ZVMYkAKq3Wq8YolRQqefWCM9Gz8brCUPktQLRRtOk=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by VI1PR08MB10050.eurprd08.prod.outlook.com (2603:10a6:800:1c4::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
- 2026 09:01:05 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0472.012; Thu, 1 Oct 2026
- 09:00:39 +0000
-Message-ID: <15549877-85ad-49ad-b2f2-843dd506ba0a@arm.com>
-Date: Thu, 1 Oct 2026 10:00:37 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Ard Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz
- <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Vladimir Murzin <vladimir.murzin@arm.com>,
- Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Marc Zyngier <maz@kernel.org>
-Subject: Re: [PATCH v2 00/21] arm64: Move overflow sp into SP_EL1 and kernel
- sp into SP_EL0
-To: Will Deacon <will@kernel.org>, Linus Walleij <linusw@kernel.org>
-References: <20260918161407.2300-1-will@kernel.org>
- <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
- <ar4KD6FTZzw2Wq6w@willie-the-truck>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <ar4KD6FTZzw2Wq6w@willie-the-truck>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PR1P264CA0166.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:347::12) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="R9gQUOxB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 10CAF4E410E6;
+	Thu,  1 Oct 2026 09:02:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D726160341;
+	Thu,  1 Oct 2026 09:02:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E8218103297EB;
+	Thu,  1 Oct 2026 11:02:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790845359; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=fmmywyAPks95sZtEVx0Myfsm2V1g8WhOEOmkPzK/9+U=;
+	b=R9gQUOxBkOy7kRVNS0EoQ+E5Ijc10tPbvnI2QIqJCXSDuoTz54EjalIwxsLBDjZNFhztSW
+	eQarkZnPyN7Kq50VxJa3D8ueei4X0spovokV6GBbz+7NPapPEV6bhghXOt+bt5YgiB/P5C
+	I0DKSgL70HVvoFzzl+fY+0gEqyhFoDLqLtaq4zac62a2boQ3pT/E+hnaEJPLHaj6hXON33
+	+N5IsDjx2gqhO6kUxf/KEU3g/ol+rYxItIj5KFtczBLoBhHPurfeCAbp6FXCwv2ZdBJsEB
+	E70KOmFt4fyDmPjQH+yBU7+wgkLOLGfyoP4+Zvfs/9CoTmIOS1B7DVHKC5J/mw==
+Message-ID: <a2ae9e54b60a6f11572ed85d1d92c866e143a283.camel@bootlin.com>
+Subject: Re: [PATCH v2 6/7] drm/vc4: dsi: stop using deprecated
+ drmm_of_get_bridge()
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
+ <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
+	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Thu, 01 Oct 2026 11:02:27 +0200
+In-Reply-To: <d247a15360eb3254ed1ae1f9bad859c3bb0b5c77.camel@bootlin.com>
+References: 
+	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+		 <20260929-drm-fix-of_get_bridge-build-regression-v2-6-6da431d8f180@bootlin.com>
+	 <d247a15360eb3254ed1ae1f9bad859c3bb0b5c77.camel@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	VI1PR08MB3421:EE_|VI1PR08MB10050:EE_|AM2PEPF00070CF7:EE_|GV2PR08MB132880:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45b9a402-c4b5-4940-00c8-08df1f9a9eb2
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|10067099003|4143699003|56012099006|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- OfgRN6DmSaEeDi0voHBMZRyp1ADvNEfJpwr5RDaDCUSaPzU9cr1AR3nL2SBVlMBogUP0R2J1J5Wqt9Lq6KnMgfzBdbmf8Fs+8WqSSCNLrcLBe+If9nDZervHI/nRGq6vKcafSrB1wvk/cL/JD38E+m/28U8b40wLWLXW1CHT3kMAoE7oJDqlIy9p9D+IVtbhrf4nAdav6eZweU8NdV95fr9qUQUxWWVduD5pG/LrF2qxaBWtqbEr9da7g5BfW4ztWSnRXTrrP0Fc+ytzeYDS3vdkZ5oPG+t8hTPHTV2friRVWz4eoVsfj9yEKDlqIS4jIA+quFXyeBq6xuUbOw+dSLygXvF4FUjitbIwT1MuO9TiwQ1s6+wJbCbdq+VY3JaJa5FtOnSSs66c9+SPxWmU5ufEu6aJy4iAuXL/D3pqEowo2piUf5sHaUXb5MKRiov7YzUq8iF7o+2YmlOMG7lnQZjzMhDuo0pO7lth4XozcjNUPbeeLNCixQmgolO+Sy34onwVpxOnpxBqyeDzdCRqHpqmeWpWJPbov9CdzaLa3k5//Z3xYUiawO3ItwRt0h84YalvKm/Be4B9K6bokAchbqR19Ios3FxCxauZJNAyK/phsUet4Lzpj/mLbhzaEV1xMKHzEa5aMgRjyOkYrOeUnMUiohdxAjrwndTFDSR48Mg=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3421.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10067099003)(4143699003)(56012099006)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- sMH8HdWcVWeCa/WxpdoVgCN1VEXyuiEz0Bj4tnvYzxw6F5VKyHtnitHi6fRP5ihPl7nqoRzKuJTe6B9kEKXTDF8zZ6+8qB/0SERPgVVFqjPUsqlfDG8AXZcCPhYa6jMwmye0FpEVlHqENu/4LlalGYlowhPd1ModnUKtRyZnREJ87dSlD2sNqv/u78athzqZTjVkN6Dse9V6hBN5829n0rnJsT3UHEja4KHKyh4wf92t1Xtgjy1wJsK9w5EdgVNX/pj6+D25Q+l2nW2VnyHaVOToGW9x5ZKP73oX9TRx4dEPDwNnECgj8Gjh5RpXrk9vPvg2/y/8dLvQQ9kRkJcUnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB10050
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM2PEPF00070CF7.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	18ed55b5-f719-4538-a868-08df1f9a7717
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|14060799003|82310400026|35042699022|36860700016|4143699003|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	pY32WEv9EfqQt/0w2oB9njLD/L7dr8XgDIASb6lyJZnu6/9RqyMinVz1ruEpnvLV62mRgD0j7P4NQwMIQEwAafFK4uZPhADw+/VNPZ2MjWSB5s0M0fpaILA/P/TK7JyWRb/+FdPoTv12UM0BaPVqwua5iJXwk3KPGnWGQFgdJlZsbLwzRvecJl0mzdulsTHAAnGYYAeXZFGQQNtEjbQJHQ1oL23slkRyTSy+AhT7g+8kuqDYJGKiOXNrNtspgyp8N7XqYzTy6abb1PhIvTgHIqtrcZ5NaU6qmAK95bvXAq5Kb/4LhSbtK1lihrRK8MbSpUspYRtbzHa2ejCNRz/uHdFOv5wsZ0NGLKFaunX5CW8l6c3Oy4QZg7wwZ5IT9W4cAYcNWKmr0AylUpQFYjVcl+C/NPwJuMiSIxFNfnlvmyYuskXFZK9qgJ8Js7bxjMp1U8bGoppm6+It2HNm2JmFNfQtRehJUfLpBZht2veVl67mzxdNkw0pGKjByHfP64Pu9E/1i/bHivn82nsuJAbAz8zY+/skRh/50oNWGO/lfXU8BPguazGy+1zCZ+WYYDj5FUWadKUa8EC6LE96bC6x9mMuRpmYD0U/MAM2VX9IhoMb6VHNShpEzu7hkeYe1376FXauHLPx8SoGlDRJwIJHs2ZWuer31gZzM/N2KwD5sqNLnfT4JOp9wiDTXa3GoVQUyaHovu/pxF7XcloyH2lAgg==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(14060799003)(82310400026)(35042699022)(36860700016)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bDp//M8Opk5/oLFDT8QCKHBgB1ibxtonMQg53S/iPrhyO0WcmPb7KijARCkerDkX2tqQQXZY39yOQKwq6Ye7PlrMJnhp5b217OE7ufCwWPj0kXdq2HrUtF3XTcu1CCmdnaXPN9031td1P+FrqeekuLEKvcQ7v867H/2khWCxSrc7OnnEiejghSCCFOevLs71B9Tl8DwMrTDVRLia727kJLTMUci/JM+bI9LCC0/CJK65Voxoknkq+/Vm7pDlszmBiQt2VcWp9i8F0vJYsKeDnyxfbGsSfVKv023hPM4Na5NWKEgceUZRXh27f5zwhhT5SkpF0YE6vJ8/QUMDn7BWIbB408ru3OEPwqkJJRFY8zKusQTN3tujGX4LbLf+clh5VA80NJmNkzrZZL93zEWmzxRlKcFkdt8pwpU/UXABekXwzlvCf9bvSMhYzqUS2j6a
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 09:01:45.6884
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45b9a402-c4b5-4940-00c8-08df1f9a9eb2
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM2PEPF00070CF7.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB132880
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 01/10/2026 8:21 am, Will Deacon wrote:
-> On Wed, Sep 30, 2026 at 11:42:51PM +0200, Linus Walleij wrote:
->> On Fri, Sep 18, 2026 at 6:14 PM Will Deacon <will@kernel.org> wrote:
->>
->>> This is version two of the kernel stack juggling patches I previously
->>> posted here:
->>>
->>>   https://lore.kernel.org/r/20260907164247.17223-1-will@kernel.org
->>>
->>> Changes since v1 include:
->>>   * Fixed suspend/resume paths to handle the stack pointers properly
->>>   * Fixed restoration of ptrauth keys on resume
->>>   * Added tags
->>
->> Overall I like what I see, but can we split it in two... like first the patches
->> up to fixing the overflow handling using SP_EL0 and finalize that?
-> 
-> Yes, that makes sense (and thanks for going through it). The whole thing
-> is bisectable, so lemme go through the feedback I've got so far and send
-> out a prefix that we could consider merging as preparatory work.
+Le jeudi 01 octobre 2026 =C3=A0 10:56 +0200, Paul Cercueil a =C3=A9crit=C2=
+=A0:
+> Hi Luca,
+>=20
+> Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
+=C2=A0:
+> > drmm_of_get_bridge() is deprecated, switch to
+> > of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() ret=
+urns
+> > a refcounted bridge, ensure it is put by using bridge.next_bridge.
+> >=20
+> > drm_panel.h becomes unused, drop the include.
+> >=20
+> > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > ---
+> > =C2=A0drivers/gpu/drm/vc4/vc4_dsi.c | 10 ++++------
+> > =C2=A01 file changed, 4 insertions(+), 6 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_ds=
+i.c
+> > index 0148f2befed1..30598738cfcf 100644
+> > --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+> > +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+> > @@ -35,7 +35,6 @@
+> > =C2=A0#include <drm/drm_edid.h>
+> > =C2=A0#include <drm/drm_mipi_dsi.h>
+> > =C2=A0#include <drm/drm_of.h>
+> > -#include <drm/drm_panel.h>
+> > =C2=A0#include <drm/drm_print.h>
+> > =C2=A0#include <drm/drm_probe_helper.h>
+> > =C2=A0#include <drm/drm_simple_kms_helper.h>
+> > @@ -555,7 +554,6 @@ struct vc4_dsi {
+> > =C2=A0
+> > =C2=A0	struct platform_device *pdev;
+> > =C2=A0
+> > -	struct drm_bridge *out_bridge;
+> > =C2=A0	struct drm_bridge bridge;
+> > =C2=A0
+> > =C2=A0	void __iomem *regs;
+> > @@ -1165,7 +1163,7 @@ static int vc4_dsi_bridge_attach(struct drm_bridg=
+e
+> > *bridge,
+> > =C2=A0	struct vc4_dsi *dsi =3D bridge_to_vc4_dsi(bridge);
+> > =C2=A0
+> > =C2=A0	/* Attach the panel or bridge to the dsi bridge */
+> > -	return drm_bridge_attach(encoder, dsi->out_bridge,
+> > +	return drm_bridge_attach(encoder, dsi->bridge.next_bridge,
+> > =C2=A0				 &dsi->bridge, flags);
+> > =C2=A0}
+> > =C2=A0
+> > @@ -1749,9 +1747,9 @@ static int vc4_dsi_bind(struct device *dev, struc=
+t
+> > device *master, void *data)
+> > =C2=A0		return ret;
+> > =C2=A0	}
+> > =C2=A0
+> > -	dsi->out_bridge =3D drmm_of_get_bridge(drm, dev->of_node, 0, 0);
+> > -	if (IS_ERR(dsi->out_bridge))
+> > -		return PTR_ERR(dsi->out_bridge);
+> > +	dsi->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev-
+> > >of_node,
+> > 0, 0);
+> > +	if (IS_ERR(dsi->bridge.next_bridge))
+> > +		return PTR_ERR(dsi->bridge.next_bridge);
+>=20
+> I had to double-check that it is fine to leave the .next_bridge field as =
+a
+> pointer-encoded error. It works because drm_bridge_put() handles this cas=
+e.
+>=20
+> Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
-I'll trigger run on this prefix.
+Actually scrap that - I missed Sashiko's review which found an issue I had
+totally missed.
 
-> 
->> Hopefully Usama can test just that part and see if it has a lesser
->> performance impact as well.
-> 
-> I'd like to see those numbers at various points during the series, tbh,
-> so we can rule out any stack-protector changes etc.
-
-Sure, I can trigger runs on different points if you can mention which would be
-more valuable.
-
--- 
-Thanks,
-Usama
+-Paul
