@@ -1,162 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF65B494A10;
-	Thu,  1 Oct 2026 12:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261C0377A88
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790857267; cv=none; b=nEbJIEJzVtp4abRdacE1J5Swanan2/4rwRM97KO3CDURgZk7O1SWjRqwX53gHOoQ0uVuo0Akonw/nxzke9U5zwUlLwqrbLQel+G0bUI9ledNpKEi0eWLdBvXudGTp3A45H0SMJvvXmZMlCAB6L+DC/hCj+FkcVx+GoVwFtWE4os=
+	t=1790857331; cv=none; b=qHvNyrSo5HuRjGZHkdzUdXA0a200P/0lEZZoIiRY8V3KJr0rglUtdxRRWz5rENUWTo6rpLtuBVqeTa8CGmNPpGKubMie5zRiHstV2LEnytI3dx205XHStpoMbSbGJZvflucZONRBjnh0Li5q9xk1Axzc3n4PGw7gS7rBh7yHsgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790857267; c=relaxed/simple;
-	bh=VnqBlR8aQErsJp+68ga18nZBKpa+tlAFSjSc+hIcAPo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M+01yqTTeMSArSs5mI1caz/KqaDsx8aZJXdDc8rzqpvsE+olNTeV0OAnGpL+a1TPozV3idOT7mI7QRv4UMAQaO+Rbuix3QIVfrr6ak/YznY/BFwEE7xEb4vmmdPS2JAK9Tp2yl1ljulbLBzUDFBJFgqhhpTo76nUWarmjOjIgRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3b578wM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790857331; c=relaxed/simple;
+	bh=49gUjB07jzcUs0SASiEA4LUZgFq8s0w8m6vCZ7qJ7mU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YcETn1zJiOKYHmwimzg0KlOfCTNcPtDvC7TYxOqwVuGgfHYPpgYfrcZpb2IWDeF2sHBs4qYOHFOGpcCO598spgW1YyN/8oqmrq86um2W7JY/rStRX2k6bykw/TUuHRMIgacpr6AH7Yn8pIkh7Fhqyu1G1JWfPQAP4eUjvPviOl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b=NWG5jr1M; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3b578wM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD711F00898;
-	Thu,  1 Oct 2026 12:21:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790857265;
-	bh=S+iGV3zlyxybtoEyH66OUvED/IvoG6h1BK3dsOLdOoU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=S3b578wM5wfbZ+5LOUf57MLw7GQ2kNtiQQJlUxeCK52ndL2chJtl9rXn+1ZYDXkHj
-	 d3fQKaoa1CyE5qInmwuQTfz1JSqtlAbsUhvs6LkmdQQwa4M3NKnJRpO+JwDQc1WxUM
-	 hJSXIaGSeZyo+x3T22SM5+VBC6o7fo1ouVDYYXRAnEuGbaLDhJfV+rUWl1yKg+qPQ4
-	 IxtUTHYRGNXt8q+/UNMKrRK0FsLayODDQirIJNZNMj3ihyvmES+z4it7lH71P3SX05
-	 gI+rIjIEI8iBhjeO1FEpPxCZcBTB09KofwzdlKbPJ8mFdjETGUzScoyk/BTxY8TZ3F
-	 XJ/FkUrMD1hpA==
-Subject: Re: [PATCH net-next v1 1/1] net: phy: realtek: add MDI-X support for
- RTL8365MB-VC
-From: netdev-bot+sashiko@kernel.org
-To: o.rempel@pengutronix.de
-Cc: linusw@kernel.org, luizluca@gmail.com, andrew@lunn.ch,
- hkallweit1@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, kernel@pengutronix.de,
- linux-kernel@vger.kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
- alvin.sipraga@analog.com
-Date: Thu, 01 Oct 2026 12:21:04 +0000
-Message-ID: <179085726415.434549.9532496066289384267@kernel.org>
-In-Reply-To: <20260929092007.1184843-1-o.rempel@pengutronix.de>
-References: <20260929092007.1184843-1-o.rempel@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b="NWG5jr1M"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a29bf27so2915544b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:22:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790857329; x=1791462129;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RjJ/LbHMd8F4VdMBdkD4rQjeyoWt22OtGMQeeYBWqfM=;
+        b=0+L9HNuCGWcrIZrk0B8kr+aYROIv5pk6WI7QLPsBLdpoJRCKyQlni70ypO3rhhN4K9
+         a7CFsNpiQtoxKbx7Q6DhBZsmU6wcICm7m43LK4snnpFzojMUV6BhZywvfF85sEdeSgfj
+         /ReDcJbq5MyR8UmC7emXN+BjRVGHyQUQLg1b7MfVuHCXIDhfH7KdAjXZZ4Z/bm4L5s6f
+         SscPaECul1ns/1r2cL+kJcAQO+PyPjqC8vFAETimxzsvbu3hOcdeEh5/dgqkWkBo3M62
+         mhdz2BtPeeRADfg/sTQ4jo9fI1B9qpeiibHll3aLJEDXMzlfTzH7QTzu/Tk4eEfqYieR
+         UX1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwI5jfkUO8R0FimuI4EBnJE+BKBoN1y8p5dePEjFojhjAHPEVmzqQ9gBzASlbjTIWZBQIPI5IsfwUj9B4A=@vger.kernel.org
+X-Gm-Message-State: AFuF++msWW2PMelh/CH8usXRW2TSSf4YxCPW6XFeEIOg/GmWEK3Y9bBE
+	RVi38neIq5NLvUYlZJF842Lr1VSO6WThtmm1G0UQaNAPTRDaJA5Sz2t9
+X-Gm-Gg: AYBFou3j6HR46E+k4AlImm+xeNq71uNv73reVuRmLL2JPZX/IPkRd79xjS4AbVcu3oj
+	yuzOJjDpOhuvQqMPUQuTohQTCU+yOPtzNe84fASxLBNwzxl5qJCe6/JLhk6euVSiThxWe0WUxSM
+	NPCmJGdjYcFuYMaj9FBAwB7dFtI+an4Rdm9l163xUH7JeC87A5rLTTOR5ThB5X8G0UI5qD8Uacr
+	poIdy+rkrYQsmQJv5TdXZ8fp8m1vgCs5PBxese595HAUHcMBnELadyAh6NZDfTjV1qWstpYyPLR
+	01e1UtAsKaropBWpIBJs3MIZVAE7TNCrILVXFtAW0QfmSw2tjWUKVTV/83HPPF73VRFMkc4ktgk
+	+AhYxAE9Sn2pZLR0XXuvlaYuQg1UhLXjYj1LTo53eiPEmDNkllYTTtB00qumuNopl6Ls/fTKxh/
+	qdiOPyxdm4u3eSX09CzdtTL4YqAUCmzWVOUVE40x8By7E8GReMtsNO48N38uWefPJD7maQGLTqQ
+	l0rx/5jHNf1Y+CciOSNFgbE04+9flqobSX8IV00dVO6AN5zyHgq09cyvdVKyRdfnt6kL4p/xtnW
+X-Received: by 2002:a05:6808:1486:b0:4d6:90d4:6bd with SMTP id 5614622812f47-4f1b753acb8mr5361336b6e.47.1790857328582;
+        Thu, 01 Oct 2026 05:22:08 -0700 (PDT)
+Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f34c19be5dsm2106158b6e.12.2026.10.01.05.22.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 05:22:07 -0700 (PDT)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8DC4C605D5;
+	Thu,  1 Oct 2026 12:22:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
+	s=dkim; t=1790857324;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=RjJ/LbHMd8F4VdMBdkD4rQjeyoWt22OtGMQeeYBWqfM=;
+	b=NWG5jr1M8VoTDXQfRX4h/8ZvK6JPHbWZg8nATim3RMLmy/V5++5uskudHF4zx7xmU08XRv
+	3xItjT+aen0ccV4y7jKSL6O+haB/4Ipa+rQE8hQeh3g0xKBLx0/Bm2yML3kkU85OV2RnuB
+	i/9ivSVHSqVgf5DlbpGaSbtFMklPCx2WU5WnpMpvIhXGOgjwYPTb6I1bGzshj/e2ZCGstt
+	4Fh8cO0uNXyNSqi3QqfmYbl2uHv+hNqT7dGz7wYRZmNOYzUXcCY9SsvVarOr+vk64nZF+z
+	sFgqRsCfSFcVqvk0bml9bhymYRUp7RR9zvAx1AU9CG8A/iQ5kcPugUz/jujs2g==
+From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+Date: Thu, 01 Oct 2026 09:21:56 -0300
+Subject: [PATCH] selftests/namespaces: Wait for thread exit via pidfd in
+ active-ref tests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261001-selftests-namespaces-nsid_race-v1-1-25f542cf0b9c@marliere.net>
+X-B4-Tracking: v=1; b=H4sIAGNQvmoC/yWNUQrCMBBEr1L222BaNIJXESmbZNuu2LTsRhFK7
+ 26if/OG4c0GSsKkcG02EHqz8pIKtIcGwoRpJMOxMHS2c621rVF6Dpk0q0k4k64YqETl2EuJJrp
+ zxHA5WXIeimQVGvjzO7jd/6wv/6CQq7UuPCoZL5jCVKtFeOR0nFEzCez7F03UcV+iAAAA
+X-Change-ID: 20261001-selftests-namespaces-nsid_race-d65dac740e6b
+To: Shuah Khan <shuah@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openssh-sha256; t=1790857320; l=3680;
+ i=ricardo@marliere.net; h=from:subject:message-id;
+ bh=49gUjB07jzcUs0SASiEA4LUZgFq8s0w8m6vCZ7qJ7mU=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgguRCc5X8/UX9M40lkMnr//aFGOhce
+ x5ezt8MFNUFlqYAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QLe6gRHfdouBKWEJELYo/+6ih5pQmeJSJgXvjGtvj1MZ1BwxvwwDayDUXAljONZ9QOwTqjedMTr
+ OqLriiIVD/wE=
+X-Developer-Key: i=ricardo@marliere.net; a=openssh;
+ fpr=SHA256:pzhe0fJpYLz+3cZ33FFPhIfaUElk9CXPFFXmalIH+1g
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+pthread_join() returns once exit_mm() wakes the CLEARTID futex, but the
+exiting thread drops its namespace reference later, in
+exit_nsproxy_namespaces(). The joining thread can therefore still see the
+namespace as active, making the final open_by_handle_at() check in
+thread_ns_inactive_after_exit and thread_ns_fd_keeps_active fail
+intermittently.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Have the thread open a PIDFD_THREAD pidfd on itself and poll it before
+pthread_join(). A pidfd becomes readable from exit_notify(), which runs
+after exit_nsproxy_namespaces().
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 29f083c49982 ("selftests/namespace: first threaded active reference count test")
+Fixes: ee861032381b ("selftests/namespace: second threaded active reference count test")
+Assisted-by: LLM
+Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
+---
+ .../selftests/namespaces/ns_active_ref_test.c      | 29 ++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-- [Medium] Changing MDI/MDI-X on a port that is forced to 10 or 100 Mb/s
-  does not restart the link, so the new setting is not applied.
+diff --git a/tools/testing/selftests/namespaces/ns_active_ref_test.c b/tools/testing/selftests/namespaces/ns_active_ref_test.c
+index 093268f0efaa..ab5ffe4de521 100644
+--- a/tools/testing/selftests/namespaces/ns_active_ref_test.c
++++ b/tools/testing/selftests/namespaces/ns_active_ref_test.c
+@@ -8,6 +8,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <linux/nsfs.h>
++#include <poll.h>
+ #include <sys/mount.h>
+ #include <sys/socket.h>
+ #include <sys/stat.h>
+@@ -20,6 +21,10 @@
+ #include "../filesystems/utils.h"
+ #include "wrappers.h"
+ 
++#ifndef PIDFD_THREAD
++#define PIDFD_THREAD O_EXCL
++#endif
++
+ #ifndef FD_NSFS_ROOT
+ #define FD_NSFS_ROOT -10003 /* Root of the nsfs filesystem */
+ #endif
+@@ -2120,6 +2125,7 @@ TEST(ns_mixed_types_same_owner)
+ /* Thread test helpers and structures */
+ struct thread_ns_info {
+ 	__u64 ns_id;
++	int pidfd;
+ 	int pipefd;
+ 	int syncfd_read;
+ 	int syncfd_write;
+@@ -2152,6 +2158,13 @@ static void *thread_create_namespace(void *arg)
+ 		return NULL;
+ 	}
+ 
++	/* Open a pidfd so the main thread can later poll it to detect actual thread exit. */
++	info->pidfd = syscall(__NR_pidfd_open, gettid(), PIDFD_THREAD);
++	if (info->pidfd < 0) {
++		info->exit_code = 6;
++		return NULL;
++	}
++
+ 	/* Send namespace ID to main thread */
+ 	if (write(info->pipefd, &info->ns_id, sizeof(info->ns_id)) != sizeof(info->ns_id)) {
+ 		info->exit_code = 4;
+@@ -2169,6 +2182,20 @@ static void *thread_create_namespace(void *arg)
+ 	return NULL;
+ }
+ 
++/*
++ * pthread_join() returns once exit_mm() wakes the CLEARTID futex, before
++ * exit_nsproxy_namespaces() drops the namespace reference. A pidfd becomes
++ * readable only from exit_notify(), after that point.
++ */
++static int wait_thread_exited(int pidfd)
++{
++	struct pollfd pfd = { .fd = pidfd, .events = POLLIN };
++	int ret = poll(&pfd, 1, -1);
++
++	close(pidfd);
++	return ret;
++}
++
+ /*
+  * Test that namespace becomes inactive after thread exits.
+  * This verifies active reference counting works with threads, not just processes.
+@@ -2234,6 +2261,7 @@ TEST(thread_ns_inactive_after_exit)
+ 	close(syncpipe[1]);
+ 
+ 	/* Wait for thread to exit */
++	ASSERT_EQ(wait_thread_exited(info.pidfd), 1);
+ 	ASSERT_EQ(pthread_join(thread, NULL), 0);
+ 	close(pipefd[0]);
+ 	close(pipefd[1]);
+@@ -2317,6 +2345,7 @@ TEST(thread_ns_fd_keeps_active)
+ 	close(syncpipe[1]);
+ 
+ 	/* Wait for thread to exit */
++	ASSERT_EQ(wait_thread_exited(info.pidfd), 1);
+ 	pthread_join(thread, NULL);
+ 	close(pipefd[0]);
+ 	close(pipefd[1]);
 
---
+---
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+change-id: 20261001-selftests-namespaces-nsid_race-d65dac740e6b
 
-net: phy: realtek: add MDI-X support for RTL8365MB-VC
+Best regards,
+--  
+Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
 
-This commit adds config_aneg and read_status hooks for the RTL8365MB-VC
-internal PHY. They let the MDI/MDI-X crossover mode be forced through a
-chip-specific control register and report the resolved MDI-X state to
-ethtool.
-
-> diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-> index 3b3352e2cdc6a..e14960192e791 100644
-> --- a/drivers/net/phy/realtek/realtek_main.c
-> +++ b/drivers/net/phy/realtek/realtek_main.c
-
-[ ... ]
-
-> @@ -3058,6 +3068,74 @@ static irqreturn_t rtl8221b_handle_interrupt(struct phy_device *phydev)
->  	return IRQ_HANDLED;
->  }
->  
-> +static int rtl8365mb_config_mdix(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	return phy_modify_changed(phydev, RTL8365MB_VC_PHYCR1,
-> +				  RTL8365MB_VC_PHYCR1_MDIX_FORCE |
-> +				  RTL8365MB_VC_PHYCR1_MDI, val);
-> +}
-> +
-> +static int rtl8365mb_config_aneg(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +
-> +	ret = rtl8365mb_config_mdix(phydev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* The pair assignment is only evaluated while the link is brought up,
-> +	 * so renegotiate if the crossover configuration changed.
-> +	 */
-> +	return __genphy_config_aneg(phydev, ret);
-
-[Severity: Medium]
-Does this renegotiate when the port is forced to 10 or 100 Mb/s?
-
-When autoneg is disabled and the speed is below SPEED_1000,
-__genphy_config_aneg() returns early and drops the changed argument:
-
-drivers/net/phy/phy_device.c:__genphy_config_aneg() {
-    ...
-	} else if (phydev->speed < SPEED_1000) {
-		return genphy_setup_forced(phydev);
-	} else {
-    ...
-	return genphy_check_and_restart_aneg(phydev, changed);
-}
-
-genphy_setup_forced() only calls phy_modify() on MII_BMCR. If speed and
-duplex are unchanged, __mdiobus_modify_changed() skips the write. Nothing
-then restarts the link: there is no ANRESTART, no soft reset and no power
-cycle.
-
-For example, take a link that is up at a forced 100/full:
-
-  ethtool -s <dev> autoneg off speed 100 duplex full
-  ethtool -s <dev> mdix on
-
-This goes through:
-
-phy_ethtool_ksettings_set()->phy_start_aneg()->rtl8365mb_config_aneg()->
-    __genphy_config_aneg()->genphy_setup_forced()
-
-PHYCR1 bits 9:8 get updated. According to the comment above, though, the
-pair assignment is not re-evaluated until the link drops for some other
-reason. This part depends on the hardware behaviour that comment describes.
-
-In the meantime, rtl8365mb_read_status() reads the new mode back from
-PHYCR1 and reports it as mdix_ctrl. That no longer matches the pair
-assignment actually in use.
-
-The eth_tp_mdix_ctrl description in include/uapi/linux/ethtool.h says:
-"When written successfully, the link should be renegotiated if necessary."
-
-Would it help to handle the forced case the way marvell.c does? That
-driver calls genphy_soft_reset() when "phydev->autoneg != AUTONEG_ENABLE ||
-changed".
-
-> +}
-> +
-> +static int rtl8365mb_read_status(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929092007.1184843-1-o.rempel%40pengutronix.de
