@@ -1,106 +1,144 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAA939FCAE;
-	Thu,  1 Oct 2026 20:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84253405F7;
+	Thu,  1 Oct 2026 20:19:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790885969; cv=none; b=KdsxoI73mXEQraJ2+iH3uyjstPFFA1jN3ti6Nu2zEzVBSG/LfxhO9pKoTNzoC0cZ2CJcuT9Z/DWG5chBPeOr1Gp/MXaSOwrzXR4qWBlYWuHhjS4POeakxGQdbmnQHJtiioZGfziGZBNN4d76g9HW9fybpReZGwY5STW75cteO3Q=
+	t=1790885997; cv=none; b=Tf0dUtBWRERvydYf+y7ohsfVuFvaPTNNE5iU0XWdtu+YlewwVRGRX/gO/JVWiFUE8r0BP8qMCfIEC6xgmrQLSZOdMJIby6frWpIP0J9a9AYfCsXk86gTUrFCZDc/fW9o8VU+HJ7lAN3wA7TdVvGabedu4W7xqIHIgcY0Rs87YNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790885969; c=relaxed/simple;
-	bh=WTo7VA2LESgZ7Kd4Pt0GivZRGYJ5cCilvCtYAC/GiyI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=k2cCRrzjllGzBM9WEbH6j6M6YAaqdxCu1ZqqFdR3VBsXlrzBCu1dZjbzXBjOpTdD7+UViZsrzbt3OmS1E1av3WlRjqYJhz7Q/vF7T6LsDLUpz5uJWt73GBUI7DtsCJ7z9dZJHvVvwUUExLaanqFOx36nJGnDkVDGeLbjMKbfla0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=cWAOycCV; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790885997; c=relaxed/simple;
+	bh=7kGlAtxlDwvmiMrNPynxA+8SM/rja6Od+YSxIr+hMiY=;
+	h=Subject:To:Cc:From:Date:Message-Id; b=oipSEoOG3b3LJAh+V5Rt32ClmSPkSaQm2BGBz7YXcclzZh1UedD8vSjQHNgV5maEARyjDcZrorX24y59lTXs+ECANM1/0i+W8BWJkW7QQzfAIy2eITAKrzBqXnzVgY7l0ThVIDriSQ8QkYd8xyPb64KifcFDzDneu+iaQaBDBDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gdQWVUSf; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="cWAOycCV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=8DkObyjFpWlzUsKh0ddtC3dRDIwRGpzyzE4rGlKzL7k=;
-	t=1790885967; x=1792095567; b=cWAOycCVV3krIiWvwBvozG4Ja5gpm3fbyQgfmT7PgC4YCAt
-	QQvPjcpbvuh6PYkhm28ginPg0/sYrv/kP8a2eYaX7EfqunQxeijUX0+7lX4S0NRL1D9rLw1/dqo7Z
-	rNY5cihOl556manPKIM571dG5Tff1nVpDWrZuYyPsnt5PhN+2B75s0r+nrXhuc4jMy9e3KOM1iAIm
-	aLUDnAi6ZyobhJsRcE/LXUy24GNX00ChHeya8Em7AePTYqSnlcRRgog9Q0i0PakggDIzGOokg5lPE
-	B5R54r2Eivbo8mDAnU1LfCel9Nic+BfRmGs0LS9XyQNO+pmQN8uc5Er9XEo8Jw/A==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xCNFT-00000000Qug-1EC3;
-	Thu, 01 Oct 2026 22:19:23 +0200
-Message-ID: <d1f53a596835f79580b2078a83820d98d795ae17.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless-next v2 10/16] wifi: nl80211: Define attributes
- to pack SMD BSS Transition context
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>, Kees Cook
-	 <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Date: Thu, 01 Oct 2026 22:19:22 +0200
-In-Reply-To: <20260924-smd-v2-10-bb40094da1d4@oss.qualcomm.com>
-References: <20260924-smd-v2-0-bb40094da1d4@oss.qualcomm.com>
-	 <20260924-smd-v2-10-bb40094da1d4@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gdQWVUSf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790885995; x=1822421995;
+  h=subject:to:cc:from:date:message-id;
+  bh=7kGlAtxlDwvmiMrNPynxA+8SM/rja6Od+YSxIr+hMiY=;
+  b=gdQWVUSf6f4kmR/OjM8zDzOdB5l5bPPzMBOYNrhe9PxdyDXL31pj90DB
+   LE3oLn6scLVOyvBq6Y1X41ewYj5FKVpmwj7Jl6Xgp0jmysGxabN1l37qp
+   bwpUx+9G1VYrfgLr89rr/+5apMzQOWsFYEvBj0tvcJiu6hdtEnPaKriDH
+   MvlSxg7D69My3c6jnCENHTI8Kg125ihtkt41Gd3a//8AirlXOcaxnFu+5
+   CD+Ay6GnIR7PoA/e99+vCxH+XiqniROtrERZ9soeXa/dmT2D6iEKIeRY6
+   bmSX3iFh4C2vURJY8EKeC5iKmQl2EMbJxqovwZoVEW7Q9LO6ocLbNpkPY
+   g==;
+X-CSE-ConnectionGUID: g08RiSnVSi+94NdVY96N3A==
+X-CSE-MsgGUID: QDLMv//oQdi4s+/XPXYrSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="79213699"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="79213699"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 13:19:53 -0700
+X-CSE-ConnectionGUID: Z5WIDkyRSCW09jKumH2hwA==
+X-CSE-MsgGUID: f/VkIIDrQz2ub9lPmGuNUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="304026150"
+Received: from davehans-spike.ostc.intel.com (HELO localhost.localdomain) ([10.165.164.11])
+  by fmviesa001.fm.intel.com with ESMTP; 01 Oct 2026 13:19:53 -0700
+Subject: [RFC][PATCH] x86/mm: Disconnect RWX module checking from execmem
+To: linux-kernel@vger.kernel.org
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, Aaron Tomlin <atomlin@atomlin.com>, Borislav Petkov <bp@alien8.de>, Daniel Gomez <da.gomez@kernel.org>, Frederic MARIE-JOSEPH <fredericmariejoseph@gmail.com>, "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, linux-modules@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>, Mike Rapoport (Microsoft) <rppt@kernel.org>, Peter Zijlstra (Intel) <peterz@infradead.org>, Petr Pavlu <petr.pavlu@suse.com>, Sami Tolvanen <samitolvanen@google.com>, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org
+From: Dave Hansen <dave.hansen@linux.intel.com>
+Date: Thu, 01 Oct 2026 13:19:52 -0700
+Message-Id: <20261001201952.ACC7B6D6@davehans-spike.ostc.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-malware-bazaar: not-scanned
 
-On Thu, 2026-09-24 at 08:10 +0530, Pooventhiran G wrote:
-> Define nl80211 attributes and policies required to pack SMD BSS Transitio=
-n
-> context along with NL80211_CMD_FRAME to be sent to userspace, and to set
-> and get the context during roaming via current AP MLD and roaming via
-> target AP MLD. Without these, userspace will not be able to transport the
-> context to the target AP MLD, program the context on the target AP MLD TX
-> and RX queues, nor fetch the context on behalf of the target AP MLD if
-> the ST Execution frame is sent directly to the target.
 
-The commit subject and message don't really seem right - you're also
-adding all the commands.
+From: Dave Hansen <dave.hansen@linux.intel.com>
 
-> + * @NL80211_CMD_SET_SMD_CTX: Set the SMD BSS Transition dynamic context =
-for a
-> + *	non-AP MLD sent from the current AP MLD on the target AP MLD managed =
-by
-> + *	an SMD-ME. This command carries %NL80211_ATTR_MLD_ADDR,
-> + *	%NL80211_ATTR_SMD_CTX_TYPE and %NL80211_ATTR_SMD_CTX.
+Frédéric reported:
 
-This is a bit ... brief. Incomplete, I'd even say. How is it meant to
-work, e.g. this carries PN data which fundamentally maps to a key, so it
-seems the key must be there before it. Surely the station must be, and
-it must be in the right state (whichever that is) etc.
+	x86/mm: Checked W+X mappings: FAILED, 7 W+X pages found.
 
-> + * @NL80211_CMD_GET_SMD_CTX: Get the SMD BSS Transition dynamic context =
-for a
-> + *	non-AP MLD associated to an AP MLD managed by an SMD-ME. This command
-> + *	carries %NL80211_ATTR_MLD_ADDR and %NL80211_ATTR_SMD_CTX_TYPE.
-> + * @NL80211_CMD_SMD_CTX_EVENT: Event reporting the collected SMD context
-> + *	(requested via %NL80211_CMD_GET_SMD_CTX) to userspace. It carries
-> + *	%NL80211_ATTR_MLD_ADDR, %NL80211_ATTR_SMD_CTX_TYPE, and
-> + *	%NL80211_ATTR_SMD_CTX.
+errors on a build with modules disabled. There are some build
+dependencies in play:
 
-Why would this be async?
+ * ARCH_HAS_EXECMEM_ROX depends on STRICT_MODULE_RWX
+ * STRICT_MODULE_RWX depends on MODULES
+ * execmem_restore_rox() is a stub without ARCH_HAS_EXECMEM_ROX=y
 
-> + * @NL80211_SMD_CTX_ATTR_DRV_DATA: Optional (binary) driver-specific blo=
-b.
-> + *	Passed through nl80211 as a blob; parsed only at the driver layer of
-> + *	the current AP MLD and target AP MLD. First 3 bytes shall be driver O=
-UI
-> + *	for the driver to parse as required.
+execmem_restore_rox() is what the x86 "ITS" code uses to zap its
+W+X mappings during early boot. The error message comes from
+CONFIG_DEBUG_WX which is independent from any of the other options.
 
-That's just a vendor command through the back-door?
+But the nutty part is that there is any connection at all between
+ARCH_HAS_EXECMEM_ROX and STRICT_MODULE_RWX.
 
-What do you envision this carries, and why couldn't that be defined
-properly? Is the intent to have some kind of optional data there, or
-would the target possibly refuse the operation if it's not present?
+Restore a functional execmem_restore_rox() to all 64-bit builds by
+eliminating the STRICT_MODULE_RWX dependency.
 
-johannes
+Then, turn our attention to execmem. 47410d839fcd "x86/Kconfig: only
+enable ROX cache...") was trying to make module memory access more
+permissive unless STRICT_MODULE_RWX is in play. For execmem, never
+consider module memory to be ROX except under STRICT_MODULE_RWX.
+
+This seems to fix Frédéric's issue, but I'm a bit worried that it
+has other implications in the execmem code. For instance, the
+module_enable_text_rox() loop is now rather weird mem->is_rox is
+now directly dependent on STRICT_MODULE_RWX.
+
+Mike, do you see anything bad happening on the execmem side if we
+do this?
+
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Tested-by: Frederic MARIE-JOSEPH <fredericmariejoseph@gmail.com>
+Reported-by: Frederic MARIE-JOSEPH <fredericmariejoseph@gmail.com>
+Link: https://lore.kernel.org/all/20261001-x86-fault-spurious-rw-v1-1-7fe1189b5efd@imperva.com/
+Fixes: a82b26451de1 ("x86/its: explicitly manage permissions for ITS pages")
+Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Daniel Gomez <da.gomez@kernel.org>
+Cc: Sami Tolvanen <samitolvanen@google.com>
+Cc: Aaron Tomlin <atomlin@atomlin.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-modules@vger.kernel.org
+---
+
+ b/arch/x86/Kconfig     |    2 +-
+ b/kernel/module/main.c |    3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff -puN arch/x86/Kconfig~x86-STRICT_MODULE_RWX arch/x86/Kconfig
+--- a/arch/x86/Kconfig~x86-STRICT_MODULE_RWX	2026-10-01 07:11:50.443595828 -0700
++++ b/arch/x86/Kconfig	2026-10-01 07:11:50.454595751 -0700
+@@ -85,7 +85,7 @@ config X86
+ 	select ARCH_HAS_DMA_OPS			if GART_IOMMU || XEN
+ 	select ARCH_HAS_EARLY_DEBUG		if KGDB
+ 	select ARCH_HAS_ELF_RANDOMIZE
+-	select ARCH_HAS_EXECMEM_ROX		if X86_64 && STRICT_MODULE_RWX
++	select ARCH_HAS_EXECMEM_ROX		if X86_64
+ 	select ARCH_HAS_FAST_MULTIPLIER
+ 	select ARCH_HAS_FORTIFY_SOURCE
+ 	select ARCH_HAS_GCOV_PROFILE_ALL
+diff -puN kernel/module/main.c~x86-STRICT_MODULE_RWX kernel/module/main.c
+--- a/kernel/module/main.c~x86-STRICT_MODULE_RWX	2026-10-01 07:11:50.449595786 -0700
++++ b/kernel/module/main.c	2026-10-01 09:47:20.842360625 -0700
+@@ -1355,7 +1355,8 @@ static int module_memory_alloc(struct mo
+ 	if (!ptr)
+ 		return -ENOMEM;
+ 
+-	mod->mem[type].is_rox = execmem_is_rox(execmem_type);
++	if (IS_ENABLED(CONFIG_STRICT_MODULE_RWX))
++		mod->mem[type].is_rox = execmem_is_rox(execmem_type);
+ 
+ 	/*
+ 	 * The pointer to these blocks of memory are stored on the module
+_
