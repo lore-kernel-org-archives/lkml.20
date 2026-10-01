@@ -1,335 +1,190 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012066.outbound.protection.outlook.com [40.93.195.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5827D3BC69C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 03:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E82919F12D;
+	Thu,  1 Oct 2026 04:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.66
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790827198; cv=pass; b=Buexw6RMYtLscckBybNxKxmraVg7kb/a2etsrVJFX3xTCcIoqKxwI0yyLY5YjO5gr/S2jOzy8bfccTU5+wb+SokMRm/EbZyfu6OJoaNLdWBVzgrowSGYdEA5NjaaN/n+NcB8d5JiUdh1IIbwuC6ZXdG6LeWgPuI21KE2OC6rYgs=
+	t=1790827462; cv=fail; b=ZHakPw7aN8iQCyKNjnEGwdweb29jRw7nFjkuCdzg47h0nWG/sBSehtkVbTL6rg+qjPP/sjBQ/n3ShhMh44ZSho3EGqAF1o0D9z4vJrEpSHCH4GTERdaHw+55u3YrnQSxme+rNQVuMg5UcKMBXfqiFIiH3hc2hhpen9/ZxENpj7U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790827198; c=relaxed/simple;
-	bh=JfjhtWAX/5PoHBlGE27TqtOtdtC4PuPBWAxjmTiuq7Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q0kREprSAxhupT2xMIo1Vdo8zE8VU0Sx0j7cMeG4reM0gXzVNif+bEVWCBXdvjDjjHJsmU1WyGCD4ZrbhWcKNttvJjv6oDyK4ZmdAUi3VxNISu7NJ70vjAdz7SpAJrCrcXUpkVnREAjiFpuFnaLBUSzUGfBOlQPrhcfrOy5IBnA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cwtaXyA8; arc=pass smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790827462; c=relaxed/simple;
+	bh=eQMCDd74DKKnnu5q678qtlZv5B8OkqJrHPe54qW3QEA=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=Dx6VI3/rQ5FwbJTEMi+mN9p2drtX2XizJVeGPKy8FrAUMQbMZLVgE3+yMeTjFCkGXkaAgqRrM1EfU48E779RVUQpQ9rdVTdOr0z/BqwRUBtwJ360kVzSEozAHA6Fzt/0AP2UU7bqSz8U3SQsoDR220rG8mor0wa3S5pX1XlmaJc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BvQ7NEid; arc=fail smtp.client-ip=40.93.195.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cwtaXyA8"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04edb5so10157002c88.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:59:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790827195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nt408EDNBMVcWC6wvAv4YlzLRHtlg3UAfSxgFqnlspyuiQsdWXmR9AwvvTTBMb41z0
-         yWq8uY18bixbMo4Whgni1fz4vzA8IkARPQXGCI9iQsZqWmxgBlR+ICjGpksDKLuJk/Vk
-         MrPRMxpHKLSDpqzCzyzeW//PdQDETu9PmESHrqr3hbdKEcMfHZPJf6Mm4LfSdhbjPw66
-         36X3CcG6SIeYIGOfDj+RCVdi6fbux6fVkGcdLZ0uhzv+TEBIGZ1dTYpFyDK877IgaNjD
-         RBOE/4CEHxF7YZ86rNGm/iLq+j1yldnjVXBxEJrDzEks0frPIoFAGxvz7miEkYI2BCnK
-         AO+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ywwb2zJHaIFNjSQOhqCmHZmRwQwtwKhmlrvLgQ+t+Tg=;
-        fh=5GnFhpaHlSYsYb9+YUHCyA+EskyX1KEM/EW013ttXc0=;
-        b=TJnWKOvsinuTuK8IgXxe8jg03NvEGmZO0yMWFLQbiISQacm5jwQyvgLELZ+Zem5FpQ
-         hMfPKWZuw7HYvvIQCdKqCAdxd9/zfXWJha2vkrBv+/gV0AwfD5TzTFKIq1sQusMpSc50
-         fhDR4IBb/FCTBEvfmpcRVL/EDEtWqi9NftlUEBJoHxOsTJvn1xo1k+qjPhxdZeM6hBs2
-         D7rj6aEt/tIeWFOccAdm56r3NNx/LEJ3z46CamRWRMsB2AKlsX0RBnzAweRkkfGWkRUN
-         /Smr3Pzm5of1PIAuPiNsW+4COU1o/cEMvtyDFKHydzNMSsA7P2MPqCIg14uHju5f7Au8
-         5IrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790827195; x=1791431995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ywwb2zJHaIFNjSQOhqCmHZmRwQwtwKhmlrvLgQ+t+Tg=;
-        b=cwtaXyA8+DEpkP3kx8faRD87R2av2SFFcHmzcAihOwIC4826BafRF0YWeM23RUv+t3
-         R1BJgFJrogeHKrG+ctyAS762llUZCEVUokwkOn8k/R1D0iqZ4Z2IQBVEm6bUYtOtBXqv
-         nlux+OEJOIvjP/E6FKO8H2RBrShnWXLiz3CDqruvXgagFFN06GlplMsCmiEf8SeE4576
-         SYGkB1fVhPEuHTo8AJAPjVsUFApK1/FnJopsmEqULz0pWV50u60mHuhVqgqIc9lgcRUz
-         Y6b8vJlMnTGaj5Damldl7h88xpBABJ7C/TAmjC4WfrMhYSpBNVy6mt4HkjHzmI0lUjTo
-         w1zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790827195; x=1791431995;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ywwb2zJHaIFNjSQOhqCmHZmRwQwtwKhmlrvLgQ+t+Tg=;
-        b=HCh9u7o7WPK3kXPZkYBfiMz8ewB2vT+Y9SZoOFAvuziXS3us2U25vYxAlYMhTeGbHq
-         61Hu3Ryan06yR4SddeAgZ76xl+ZbUdA8+cBPcHIsnl16dvOHT4ZimJ1vrrdODZ/sUl0/
-         sPA5NcHTSuwQplW75hu1eZNRNfKrfZZUJRc5GBrGJ7+S8ziP/Hvu7f+/mvJFYMxxjkTq
-         mved8kv6y1LxI+wLdkeeevsBKuUZyVsbE7IQIVmXWBI8KggmEk+LLH21tXg/gIa5a+Gt
-         POczJtftMR2bZvIIHwxVR2OhLa6GD/PK7tD1uX+Se7N4EhJqO5lNyYBP4jFhkMdezn2W
-         XYuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSYK7491ho1ETdWRY6plgDzJzaj17GfQ5IAjTlSpB49aII35r4X7ewq+JPRW6oylZxIISsyV4Rt2qYlV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9gvbBjygHQUUb7W2N4tQGXGxMH/5S0QUfN577yIku7blt3tNF
-	R0u7z8yfJA3buOdXjqV4SPraAFXRU2TpVz8402qxasKqPU5L5ds6CWoKeD5E35IYbH8c5Mnmntm
-	htqb7tiAUJ9a36EpuD5gAihYTfMieHRhBQ+tSUOh+
-X-Gm-Gg: AYBFou3i9C5FkaWkhQGIcZQqUqaNAO/PEkpRYQi8THGHjYSD46Zhv3+2cQ96wPUCnzh
-	398vNyTjR+zCPykLitpqFLf/U4pvQm7buvttCYXxGIK9FcW9RSYPa6No9RhcMx1VC9wNc2C3kyg
-	WpMNSejBMlT3BreAMDPnyK3B5SOQQJEpmYNoPEJNzFX+GiqKikoJThvpI+JLQIVmQFxThApWGaK
-	qLDkrb91tQsIlUoBRo1C8W5BA6qTvrLHSWV27CwOyQdIneJFAcOPKOgJffspV117A9dsbifceh2
-	fBWpiiUGx5PpS5w1SKijgzSXC0dZzzF0ZLiiBVRSmvqweW1QM8BDU8a1GQtdWw4I5r+cxvbI5Fd
-	rGQg3kwi5cjkjZ+jj/XkXQ26aYg7CMGjuXIVo6hvZLbLf/yDrCesWYGJXPHQDQu6Tu8w=
-X-Received: by 2002:a05:701b:4511:10b0:149:f2b3:ef78 with SMTP id
- a92af1059eb24-14d3348e2femr3016102c88.32.1790827194314; Wed, 30 Sep 2026
- 20:59:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BvQ7NEid"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mPvwwUtnGzYiWeJ+Gfme2pHkwa5+NEFGif/9swJcdjb2pThCVsD3kSPLMD/vbw/T7ryaWCIT6JzvWiP69/XTKv55mt1tdrhfQnJD6aeXndmLYt7JyozSfB1mxBnwQ++YIg+iEIwDAa4yKAmjCM/YrB8SShxDvE6EcPRgnGdWLpxvfPTAd8ALsoNQ9Xlpk1teaA0FytZEPIPRmdMdLFtZkUY5HVL2RANXreSbFxzqtEj6hvIlE9XdhyqN4+ESkrDqZx63u9UuzV6FLISXPtmPxroLKTW0IVR/zTUcOHy19C9gdcT1SSWkqiZ352OyiMi/F72GIRYDgMaxvRHnrBJaMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cTyKbxWffL+9+ycYtSYd/BVLI0Js8vlq2vBr0IQZUvY=;
+ b=urfD0ULBZnCKiveCeGfg9Ys397dENNrvYDKMSlQ/hlu84LjhoOaxMkrM2juhtqyzzX3N0vDjGjmES62/oi5C+sD1eE5DBhZQQCEqQvIdOQ10ygn9pHEq0RLc+6k4ssWkRBoT19SbiEk2MvPRWALFPiabxdGoJbmhFNiz2jkVCg0MVF7p03t8BzpqpPShQaP4HlDg9YT3BskH/1oE+LQq/tedo7MT6ToWrBctSozIGrGu/Bzyi5J2R/KGEWwbFRj8EUwWcw1E0cqrZrBB3ol2Gq2sCPMX5aUXwVPRyb3Sw07hJuDAP1cO0B9x1s2DQ/BZnZls+QHuzAxZVneX7+YcfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cTyKbxWffL+9+ycYtSYd/BVLI0Js8vlq2vBr0IQZUvY=;
+ b=BvQ7NEidURakBQ3IDNItpLWdYu8h4spr3reTB2Kj61SLZdbcvBpiPd/57/YEJ2i/xnwA8pyGQeKi0jpcfBocS3KVTl8+J2iQBcMTFpB38pGzLGQ2LecsR2RX7AZ5W0QvwvlF1+Iy6BkRS7rgw9Bpt4YmwRcR+aG0myx7MxobGfFT2QMs+4/vP24z/tpjn0MOLpD67YRo82fq3gerLd29vZVMqnvvahcXCno5kIdCSy93mRt0+jh/JcBuC4pK4Q2G8D97duuI0jBl+3FvxtlfOCJG/3ap0TQOHSK5BCd2ZQw7YxFkTWdtXirFjfZI1NBYIN6VFWvW/U71EQuvNYXUDg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ PH7PR12MB7841.namprd12.prod.outlook.com (2603:10b6:510:273::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 04:04:14 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 04:04:14 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 01 Oct 2026 13:04:10 +0900
+Message-Id: <DLT7CLF1AJVA.3BNA0XWZOZB99@nvidia.com>
+Subject: Re: [PATCH v3 5/9] gpu: nova-core: gsp: cmdq: split RPC parsing
+ part of the receive path
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
+ <20260930-cmdq-rpc-v3-5-91613f06520b@nvidia.com>
+In-Reply-To: <20260930-cmdq-rpc-v3-5-91613f06520b@nvidia.com>
+X-ClientProxiedBy: TYCP301CA0060.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:384::9) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com> <20260928-work-unix-passpidfd-v3-2-532018a91b21@amutable.com>
-In-Reply-To: <20260928-work-unix-passpidfd-v3-2-532018a91b21@amutable.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Wed, 30 Sep 2026 20:59:42 -0700
-X-Gm-Features: AclHuK-Ya3wsqs8meD2kLmWdhIUvmp-Bq6013K1cUrm-VFKKFzhmNEX86QW6AHM
-Message-ID: <CAAVpQUD3XomEde8kR2m1776rPwkJwp_qHraAiWbdrWk6Y+=RaQ@mail.gmail.com>
-Subject: Re: [PATCH v3 02/10] af_unix: record the pid of the sending thread
-To: Andrew Halaney <andrew@amutable.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB7841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ca3cc0a-5551-40fc-34d4-08df1f710e53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|366016|376014|7416014|1800799024|22082099003|18002099003|3023799007|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	+qEknAk13WDOJaFV4nDOA/wNmAavRaUGlUCxEBU+JsImoxzWvMEyc6A050Fu3KauKv9K7tWY4BHkdC8bcBakazTthUWo8qetpslFtzKbFxYXasw+QxKir2nvDzo6ytpWr6yOZ1pTIohyV0Gw8tjqYbVqjIElmQXWr6OkV4Tu1mZZ/qUuohckMqAnnd1k+u/yWRdjCzrnGwoTNqVIh9GAVhjnheYTXVfNbnrSeExCFl3xIRnYu91AoZNBgmuqPtKJ6gC4ivFfWwcPAu846x1yiotkZ0DiTB+r/RnzDaOvjuuumL0JB/eTJyKX0B/3FTlxBoAmCzrEaFWXJGbtiETKhPWfDAwuPYVVSgy8cKWO9rfr0X7XzJ7st+QESNmkRFrH/HGUxTMchhrSUNAM1h77pTpK+KEqZH5IvCmKW2AGShNHzkFMgm54IPpRAFLxtE2RR+C6ZVnDlNrNpREjpBBQEgxoy+sBk9uQz2lMpIwQ7vbQw0vnfra4ifEXGOf4ZUzVicY+Pj8PB8Q71yetnPEUFUqsTvHGzqd6IUF5FiKYGj2tgAnU/rNTFBv/o1K9nrZz+T0nLIedPvz4RFYGs/OnlI3yGHHnICxTQ9ncaA9hrjgFlfevTQHlyqsGQivaRAvu76B1r8O9zThVGc2SHf5/GxX5S3GVa54nRvuu6WnYhfY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(366016)(376014)(7416014)(1800799024)(22082099003)(18002099003)(3023799007)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UkhkWDF0MHN4dGM2di9udllTMDNYUlR3UUl4TFQ2Y1F5QlBVZlh6Z2w3RXJH?=
+ =?utf-8?B?dFF3WE5nb0Q0TGptSHB4cWxJcTZIN2VhYjRrVnhaSmNDRmV2RC9xU0Zhb3M5?=
+ =?utf-8?B?UmpXdy9zdU9seHVCWWJKcmw3TUd3U05mdU5sK3g2RS9QQi9IQ3FUbXl3YUxU?=
+ =?utf-8?B?UDRTTFh0RDVTT0ErYmhvRm12cWMwUnFBb1haWGowMnhYS1A3S0pLVm9FcU40?=
+ =?utf-8?B?MnpDNllETUdFWUhQQVRaaHJGV0tLOEFBcHZ4TmFYSVc3TWlvWE16aWt1WjAv?=
+ =?utf-8?B?bFE5WDJ1Y1JLNjJjSDY3VXFxUUhTMTZodW1za3dBRGoybGhWVUFQM3VBVVgv?=
+ =?utf-8?B?dkZ4b1oyVDh5cmdpQjFMTkVSM0I2a2cxaThha3ZKTUNJQUgrbjlsYllzZ09s?=
+ =?utf-8?B?TzU3NFJDMUZ4djIwQncxNXhnUER6Zm5obVpHdXVDbDBXNHQ0SzE2RHcyQjdx?=
+ =?utf-8?B?U3U2ZzNYUERtZWtKZzNsVjVhQmpsb2ZWMWlSVEJIdjBndEsyUXUxVGs2c0Vx?=
+ =?utf-8?B?blRQSVdHVThsUzNwb2xwWEwvN2lyV29FTGFaVmRpdWd4a2NaNWprU01uaFpL?=
+ =?utf-8?B?N1JsS3lrdVhsSUFUcFdyeG9weHQvekNGcFhtWGVCZ0JWcUNlOW1MTWZKdWM5?=
+ =?utf-8?B?eVVLcXRZdWtmSGZKdmMyMjQra3ZId2VIQTF1cVl0Tmc0eGh3V2xRTVQ2V09q?=
+ =?utf-8?B?aFIyeVFMVzZLZlZ4dXdSanRRcmJaOFlBeGE1aXJVUDVOWStCZlNRaFA5Z2Qw?=
+ =?utf-8?B?Z2hOUU56ek1CM3dDU09NdVRiUitkbWJiV3NlOE8xZ3Y1QU5ZN1VPalRKcHl2?=
+ =?utf-8?B?YWFVUDFPaUlRRjBHMThuTHBwL1JjeXZmOVkvQWtQN0xpSjhac3BCUHpoeTh1?=
+ =?utf-8?B?WDlFZk0xOUg1eXlZakhvSU8veThNRk9iWDdlWEx6SkR5b1J2b2lRcm8xam55?=
+ =?utf-8?B?M1RUMktoK1NTTzdZZ3Fia3JRQXZzSzNoMTlNSUdhVDlyYkJTQ3VMRlpQQm5z?=
+ =?utf-8?B?UHZtZktVWklvUURPVVVSZ3lKU1ZGdzNCa3BzMDQ0Kys3QTNKRElIU1ZvMFI4?=
+ =?utf-8?B?b1NoL2NEbzk0SDhLZzhGRTJzNEU5emlDekV4MWtaY05ibUxKa1N4VHcwMjVy?=
+ =?utf-8?B?Y3B3TGJwVEhLYTJlM2libFJBVjF0QU85cDhDREZabCtrSzJtYUpOK21qd3dM?=
+ =?utf-8?B?SkoxZjF1Q3dDZWVudkZYT2xGY1pJV2FRQnBRYW1NQlVpc01ldWZ3SXVTUXlE?=
+ =?utf-8?B?UnQrUUdUZ2g5K3QrTFk5NTZoSzduWittYmZOTnk1UTVJMzhadEVQQTNzWURY?=
+ =?utf-8?B?VDJOTlZZRHNCSjB0OXJVRGNmTTNzR2RSUnFteW1MMVZicWhBNEFqWUZWZ0dF?=
+ =?utf-8?B?cEF3WWZLdkFwWGNlRHV6N0dtT21ueVRoTUQ3dG5idUhlWFI5dFhyMWk2VzVw?=
+ =?utf-8?B?eXdnTThvMFkreFprZzZaUk5qNzdXNzUwT3g3T1l1dVl2VE1QYnUxdjZXbXVM?=
+ =?utf-8?B?amZqRDBhNzYrQkdvbGdWUStCOEF2WE5kazlVUkozNTRjbi9uS3FCeDVZbVhG?=
+ =?utf-8?B?cHNRQ29YeGthZFUyLzExQmE4RzlpRXA2M01mZ1U4LzhkRUZheHQyQXhvOUhy?=
+ =?utf-8?B?UURydnQ5MTRtb1pEcmgvWkZ4RitqUWtQMnRZM0FJOHdmbEduOWNaQ0FWVG4v?=
+ =?utf-8?B?b0ZhTXBZNXlTTSs2UjNrZkdLU0oyWXZybUdCK3dvYWl5emYyTGJ3WGdaODhV?=
+ =?utf-8?B?dkFsT25Na2RRTkxCd2xxVzlUVDBxUTJROW04K2tGbGNxMWpNOFBKbG94NDJx?=
+ =?utf-8?B?MWU2b3hQSk4rWmR1RVFESHM4VlEvUzRiQ2VBcER1dkh4aTR0d2RpNFhnQTFV?=
+ =?utf-8?B?MXMvYVZ5eU5jZEl6K25Lc3Y4WGh0cS81SWdodzRsZXRJdzF5cXlSazFLS3Y2?=
+ =?utf-8?B?aDlvRFpoOUI0OFlEbExkM0VHNGJ4eFllSmlTbEszWmtTV3ZQSkpxcFU3dDVQ?=
+ =?utf-8?B?M00xbktxUXRIdmNmT1lCbms0b0lseXlDeVF5MWtqTzJFOWt1ZzBoNTE0Sjlr?=
+ =?utf-8?B?bW16Ky9zWW9XcVdYV2dnNCtHeWtCZnFsQW1WZnVUMjFjclFZUTlIb2xONW50?=
+ =?utf-8?B?RFJYblJqb3ozVjh3OVZra1l4cHc5NmlyQ0NMUHFISm95RW95NHArWU9LNHhi?=
+ =?utf-8?B?eTVidzJjKzY2cFRodGY5MHh4bkV1Q2t3ZkJmMk13WGQ0cVo3eHgweHlIakZq?=
+ =?utf-8?B?YUdlTFFkVXU3Wkg1amdiS0Z2cnVEbG1XSUZMckVXRmF5eFR5SnlhZzJacE1k?=
+ =?utf-8?B?L2xtTzBxNE5xbTVTNkZpMG5heEVqbGFDZjFXQnB6UTBucDloZmk2bHVMYmV2?=
+ =?utf-8?Q?rBvqEBdyXbv9qFitx8cY2KH0P3nbaLLnNOYUtBLqpnwBc?=
+X-MS-Exchange-AntiSpam-MessageData-1: laIWx2YqOiYxlw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ca3cc0a-5551-40fc-34d4-08df1f710e53
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 04:04:14.4574
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /IbLAuV8MiOIoMjnxo2mTBp/t6yJQbA7Vc1rFRVYMnYqXeZN0QTgvPnfp0uR+qW419YA1XufU5wG1TMW89W4vQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7841
 
-On Mon, Sep 28, 2026 at 2:27=E2=80=AFAM Andrew Halaney <andrew@amutable.com=
-> wrote:
+On Wed Sep 30, 2026 at 11:55 PM JST, Alexandre Courbot wrote:
+> The RPC parsing should not be done in the same method as the transport
+> header parsing. Split it out and introduce a `RpcMessage` type to
+> indicate messages that have been successfully parsed as RPC. This makes
+> the code easier to move around into its new destination.
 >
-> From: Christian Brauner <brauner@kernel.org>
->
-> Currently only the struct pid of the thread-group leader is recorded.
-> The identity of the actual thread that sent the message or is connected
-> to a given socket cannot be retrieved.
->
-> Add the plumbing to make it possible to retrieve a pidfd for the sender.
-> Nothing uses the thread-specific struct pid yet. No functional changes.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
-> Signed-off-by: Andrew Halaney <andrew@amutable.com>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 > ---
->  include/net/scm.h  |  7 +++----
->  net/core/scm.c     | 21 +++++++++++++++++----
->  net/unix/af_unix.c | 23 +++++++++++++----------
->  net/unix/af_unix.h |  3 ++-
->  4 files changed, 35 insertions(+), 19 deletions(-)
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 37 +++++++++++++++++++++++++++++++++=
+----
+>  1 file changed, 33 insertions(+), 4 deletions(-)
 >
-> diff --git a/include/net/scm.h b/include/net/scm.h
-> index 86ae6bc109ec..aa7d15c5fc27 100644
-> --- a/include/net/scm.h
-> +++ b/include/net/scm.h
-> @@ -42,7 +42,7 @@ struct scm_fp_list {
->  };
->
->  struct scm_cookie {
-> -       struct pid              *pid;           /* Skb credentials */
-> +       DECLARE_PIDS(pid, PIDTYPE_TGID);        /* Skb credentials by pid=
- type */
->         struct scm_fp_list      *fp;            /* Passed files         *=
-/
->         struct scm_creds        creds;          /* Skb credentials      *=
-/
->  #ifdef CONFIG_SECURITY_NETWORK
-> @@ -69,7 +69,7 @@ static __inline__ void unix_get_peersec_dgram(struct so=
-cket *sock, struct scm_co
->  static __inline__ void scm_set_cred(struct scm_cookie *scm,
->                                     struct pid *pid, kuid_t uid, kgid_t g=
-id)
->  {
-> -       scm->pid =3D get_pid(pid);
-> +       scm->pid[PIDTYPE_TGID] =3D get_pid(pid);
->         scm->creds.pid =3D pid_vnr(pid);
->         scm->creds.uid =3D uid;
->         scm->creds.gid =3D gid;
-> @@ -77,8 +77,7 @@ static __inline__ void scm_set_cred(struct scm_cookie *=
-scm,
->
->  static __inline__ void scm_destroy_cred(struct scm_cookie *scm)
->  {
-> -       put_pid(scm->pid);
-> -       scm->pid =3D NULL;
-> +       put_pids(scm->pid);
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index d8a7716fc500..b8a9e02b76fe 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -553,6 +553,17 @@ struct GspMessage<'a> {
+>      contents: (&'a [u8], &'a [u8]),
 >  }
->
->  static __inline__ void scm_destroy(struct scm_cookie *scm)
-> diff --git a/net/core/scm.c b/net/core/scm.c
-> index f0d44ecdb11f..9b9e119c353a 100644
-> --- a/net/core/scm.c
-> +++ b/net/core/scm.c
-> @@ -149,6 +149,7 @@ EXPORT_SYMBOL(__scm_destroy);
->
->  static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pi=
-d)
->  {
-> +       struct pid *thread_pid;
->         int err;
->
->         /* drop all previous references */
-> @@ -158,7 +159,18 @@ static inline int scm_replace_pid(struct scm_cookie =
-*scm, struct pid *pid)
->         if (unlikely(err))
->                 return err;
->
-> -       scm->pid =3D pid;
-> +       /* A sender naming its own thread-group sends from the current th=
-read. */
-> +       if (pid =3D=3D task_tgid(current))
-> +               thread_pid =3D task_pid(current);
-> +       else
-> +               thread_pid =3D pid;
+> =20
+> +/// A RPC message ready to be processed from the message queue.
+> +///
+> +/// This is the type returned by [`CmdqInner::parse_rpc_message`].
+> +struct RpcMessage<'a> {
+> +    // Reference to the RPC header of the message.
+> +    header: &'a RpcMessageHeader,
+> +    // Slices to the contents of the message. The second slice is zero u=
+nless the message loops
+> +    // over the message queue.
+> +    contents: (&'a [u8], &'a [u8]),
+> +}
 > +
-> +       err =3D pidfs_register_pid(thread_pid);
-> +       if (unlikely(err))
-> +               return err;
-> +
-> +       scm->pid[PIDTYPE_TGID] =3D pid;
-> +       scm->pid[PIDTYPE_PID] =3D get_pid(thread_pid);
->         scm->creds.pid =3D pid_vnr(pid);
->         return 0;
->  }
-> @@ -207,7 +219,8 @@ int __scm_send(struct socket *sock, struct msghdr *ms=
-g, struct scm_cookie *p)
->                         if (err)
->                                 goto error;
->
-> -                       if (!p->pid || pid_vnr(p->pid) !=3D creds.pid) {
-> +                       if (!p->pid[PIDTYPE_TGID] ||
-> +                           pid_vnr(p->pid[PIDTYPE_TGID]) !=3D creds.pid)=
- {
->                                 struct pid *pid;
->                                 err =3D -ESRCH;
->                                 pid =3D find_get_pid(creds.pid);
-> @@ -504,10 +517,10 @@ static void scm_pidfd_recv(struct msghdr *msg, stru=
-ct scm_cookie *scm)
->                 return;
->         }
->
-> -       if (!scm->pid)
-> +       if (!scm->pid[PIDTYPE_TGID])
->                 return;
->
-> -       pidfd =3D pidfd_prepare(scm->pid, PIDFD_STALE, &pidfd_file);
-> +       pidfd =3D pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pid=
-fd_file);
->
->         if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
->                 if (pidfd_file) {
-> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-> index 42cffeafc8c1..c7d423465859 100644
-> --- a/net/unix/af_unix.c
-> +++ b/net/unix/af_unix.c
-> @@ -1973,7 +1973,7 @@ static void unix_destruct_scm(struct sk_buff *skb)
->  {
->         struct scm_cookie scm =3D {};
->
-> -       swap(scm.pid, UNIXCB(skb).pid);
-> +       swap_pids(scm.pid, UNIXCB(skb).pid);
->
->         if (UNIXCB(skb).fp)
->                 unix_detach_fds(&scm, skb);
-> @@ -1991,7 +1991,7 @@ static int unix_scm_to_skb(struct scm_cookie *scm, =
-struct sk_buff *skb, bool sen
->  {
->         int err =3D 0;
->
-> -       UNIXCB(skb).pid =3D get_pid(scm->pid);
-> +       get_pids(UNIXCB(skb).pid, scm->pid);
->         UNIXCB(skb).uid =3D scm->creds.uid;
->         UNIXCB(skb).gid =3D scm->creds.gid;
->         UNIXCB(skb).fp =3D NULL;
-> @@ -2005,7 +2005,10 @@ static int unix_scm_to_skb(struct scm_cookie *scm,=
- struct sk_buff *skb, bool sen
->
->  static void unix_skb_to_scm(struct sk_buff *skb, struct scm_cookie *scm)
->  {
-> -       scm_set_cred(scm, UNIXCB(skb).pid, UNIXCB(skb).uid, UNIXCB(skb).g=
-id);
-> +       get_pids(scm->pid, UNIXCB(skb).pid);
+>  /// GSP command queue.
+>  ///
+>  /// Provides the ability to send commands and receive messages from the =
+GSP using a shared memory
+> @@ -794,7 +805,7 @@ fn send_command<M>(&mut self, command: M) -> Result
+>      ///   message queue.
+>      ///
+>      /// Error codes returned by the message constructor are propagated a=
+s-is.
+> -    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+> +    fn wait_for_msg(&self, timeout: Delta) -> Result<RpcMessage<'_>> {
 
-nit: keep scm_set_cred() here and rather move get_pid()
-from scm_set_cred() to scm_send().
+This gets changed back to `GspMessage` return value in the next patch,
+and also introduces a bug [1]. What about just keeping return
+`GspMessage` here? You can move RpcMessage to the next patch.
 
-
-> +       scm->creds.pid =3D pid_vnr(scm->pid[PIDTYPE_TGID]);
-> +       scm->creds.uid =3D UNIXCB(skb).uid;
-> +       scm->creds.gid =3D UNIXCB(skb).gid;
->         unix_set_secdata(scm, skb);
->  }
->
-> @@ -2025,20 +2028,20 @@ static void unix_skb_to_scm(struct sk_buff *skb, =
-struct scm_cookie *scm)
->  static int unix_maybe_add_creds(struct sk_buff *skb, const struct sock *=
-sk,
->                                 const struct sock *other)
->  {
-> -       if (UNIXCB(skb).pid)
-> +       if (UNIXCB(skb).pid[PIDTYPE_TGID])
->                 return 0;
->
->         if (unix_may_passcred(sk) || unix_may_passcred(other) ||
->             !other->sk_socket) {
-> -               struct pid *pid;
->                 int err;
->
-> -               pid =3D task_tgid(current);
-> -               err =3D pidfs_register_pid(pid);
-> -               if (unlikely(err))
-> +               get_task_pids(UNIXCB(skb).pid, current);
-> +               err =3D pidfs_register_pids(UNIXCB(skb).pid);
-> +               if (unlikely(err)) {
-> +                       put_pids(UNIXCB(skb).pid);
->                         return err;
-> +               }
->
-> -               UNIXCB(skb).pid =3D get_pid(pid);
->                 current_uid_gid(&UNIXCB(skb).uid, &UNIXCB(skb).gid);
->         }
->
-> @@ -2048,7 +2051,7 @@ static int unix_maybe_add_creds(struct sk_buff *skb=
-, const struct sock *sk,
->  static bool unix_skb_scm_eq(struct sk_buff *skb,
->                             struct scm_cookie *scm)
->  {
-> -       return UNIXCB(skb).pid =3D=3D scm->pid &&
-> +       return UNIXCB(skb).pid[PIDTYPE_TGID] =3D=3D scm->pid[PIDTYPE_TGID=
-] &&
->                uid_eq(UNIXCB(skb).uid, scm->creds.uid) &&
->                gid_eq(UNIXCB(skb).gid, scm->creds.gid) &&
->                unix_secdata_eq(scm, skb);
-> diff --git a/net/unix/af_unix.h b/net/unix/af_unix.h
-> index 8119dbeef3a3..402742895acc 100644
-> --- a/net/unix/af_unix.h
-> +++ b/net/unix/af_unix.h
-> @@ -2,6 +2,7 @@
->  #ifndef __AF_UNIX_H
->  #define __AF_UNIX_H
->
-> +#include <linux/pid_types.h>
->  #include <linux/uidgid.h>
->
->  #define UNIX_HASH_MOD  (256 - 1)
-> @@ -11,7 +12,7 @@
->  struct sock *unix_peer_get(struct sock *sk);
->
->  struct unix_skb_parms {
-> -       struct pid              *pid;           /* skb credentials      *=
-/
-> +       DECLARE_PIDS(pid, PIDTYPE_TGID);        /* skb credentials by pid=
- type */
->         kuid_t                  uid;
->         kgid_t                  gid;
->         struct scm_fp_list      *fp;            /* Passed files         *=
-/
->
-> --
-> 2.55.0
->
+[1]: https://lore.kernel.org/all/DLT4O89RYP29.UKGBMIJD8ZSC@nvidia.com/
