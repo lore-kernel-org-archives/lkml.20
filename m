@@ -1,99 +1,85 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F7C30C147
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FADF217648;
+	Thu,  1 Oct 2026 21:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790890234; cv=none; b=J/35h27gHORKPukcuTHMo8isjX1Iy0RhZ1jED7MSCoYhjMPDj6M5EmQ6l3ZP+S+GUhWFPv0lKbebxT83rf5V9XSLQiP/jwfCA4zaEqvOryPBctXQljXTnu1oKBlSd5lg+FFSv+nu2qTNmg978DJFG5yto6nS05IdgCkqunqsYOc=
+	t=1790890355; cv=none; b=mdhRWqQZ82Ad3tQ4nmIoEyCb9U6j/0wDlPlNius0rFWg3VY9TGghmZ7rluqSPXvJF4JcTpdL0YTvvGH2SaQs7c50yEWWYe1Thwy9DLDPw3RkfhrhhnrVVp15+tdwmVMjXuqceEhHp911TRrRKxf3l/57b9l80ZLzozPMGo5ckw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790890234; c=relaxed/simple;
-	bh=xQHKqYkxELcm+WN8MsPJK1Ac5MnoTEVaXRgZ99lyjdg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=j9CPHoQGs/gwIlwvMh1LZrXEUB/Sg03QTuApuibHN4N4es3IZu0vSMADUhkamubtJWGoXGa5v9U6WuJyNzn2BByPEFDnJiV37uIc0F8Vv3aqtkFP3F6ncKnkvPceKKKlW4dSopNHay8jeecuNUN5PuNl1Kn3eAmxfR+1qw7SkLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e4dso10668763b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:30:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790890232; x=1791495032;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2Nd2H3jrTVOq5dQBV1RRRYJiXpB5AZXe3Nr3NQwG3cE=;
-        b=FZCS9Mxi0M2ncyx4vJHJazYEyXsTUUBF0NGhpwUf9O3LeToWzpF60OfBSX1SInALA9
-         xFmwDlX82PQFsnXQ66B3wS4BHN3lbxv/sYGWxSd7g5u2/7S7MMcbvsBP10twOkYxxqJ0
-         o8LVw+gteEqnEDiuRFjZr/ehzSy2O2BcbqweUOJj3O/YBWTlTHSyOlFnWe9d2IZATrLH
-         9BSWw/IDxUf72hFmNfdtd6RaT7xITfZUuEWSZelSUAMDDrGEEEe02kEx7EOouQnbYsk6
-         Xb4FHyK4aBOTI6L1DQPwN3sQorCLRfjAITm91QgJunrgwwhteOcVKyhjFtOS5WRq2gJN
-         H+Hw==
-X-Gm-Message-State: AFuF++lfEnFS0+5tlFkPBsN6gH4TNjmSJqysUNQ0cLUISgWx1Bswo64o
-	5ajhFbfwxVedRXkKK9V2Q+SJDUefFr6HwqW+3npcwk3IFFRahFPSSir+t6Dnmb4FffuZamu47z6
-	I+r2tYP8jYC7aHH/u3tGBqUNWHeyMheJXgsjlKYpp7/zcZ6QEx3hW0mShCZ0=
+	s=arc-20240116; t=1790890355; c=relaxed/simple;
+	bh=I1W1x3MrjQlnmNumrGjwU/XyjM08fHkIZJXMgzAoY94=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ujCsoK4A0JruESGyxFkJw7Y2ujQlF4Ea/+a7L+lBfdi7kdyUng9m3+trCx7h5zzGz4ymyAQkFDX+Rp7NC9NVwDuL8EZzPffWKemwdGYCqkOj/B7Vf4RwMDLXVpHrrGtpVFZ3FsyPXvFZuuB+rWQ7eWpQq3ySS08Sc1S3Bb+xsV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=vHgQ19hn; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="vHgQ19hn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=MHM2juU7N796n9dDPdLpSkCHtSGJwnLr/rKOTOI+TCs=; b=vHgQ19hnIArKkvfcSGQ/Jd2Pah
+	iTBhla9bIdzNEtNQNNOLf4lKSH/VAxVVkoaKr01V1WOplPMdOzQtVYbSs7E4RLVnmb+LgpE5OVeOI
+	iQ4onqRg2tmu+GHk2R8qY+KbO1uT0N8+8w3pic34YsnbrBexAkU3sZr68GYfpDNdvc6lW0GuJRDxO
+	P5vHKOAHJ/xYr4q+wQ+B9sDa4JAmVjiNvwbfvLtnRzxqxeBiy/wFrPqeBl6buCnzXIDsvWg5sZAfz
+	xVIb9pKfkFV9CMuWUhlbGH7I4uSnLZamoeUS569y0KU31vUvLHSI3rZoCx91bFxjniWCbHWvEUthZ
+	h30kwpAw==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xCOOE-0000000AH44-1unT;
+	Thu, 01 Oct 2026 21:32:30 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org,
+	Maurizio Lombardi <mlombard@redhat.com>,
+	Daniel Wagner <dwagner@suse.de>,
+	Keith Busch <kbusch@kernel.org>
+Subject: [PATCH] docs: kernel-parameters: alphabetize NVME entry
+Date: Thu,  1 Oct 2026 14:32:29 -0700
+Message-ID: <20261001213229.2399120-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6902:b0:4f4:73a9:f831 with SMTP id
- 5614622812f47-4f5292067d8mr422867b6e.19.1790890232139; Thu, 01 Oct 2026
- 14:30:32 -0700 (PDT)
-Date: Thu, 01 Oct 2026 14:30:32 -0700
-In-Reply-To: <6abae226.69bd487b.a6f8c.000a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abed0f8.b50370da.302ea9.0006.GAE@google.com>
-Subject: Forwarded: [PATCH] ext4: don't trust on-disk rec_len in dx_move_dirents()
-From: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+The list of kernel build options (or the legends or keys for them)
+should be kept in alphabetical order. Put the NVME entry in its place.
 
-***
-
-Subject: [PATCH] ext4: don't trust on-disk rec_len in dx_move_dirents()
-Author: adrianox@gmail.com
-
-#syz test: upstream master
-syzbot reported an out-of-bounds write from do_split() while a directory
-is converted to an indexed one:
-
-  BUG: KASAN: slab-out-of-bounds in dx_move_dirents [inline]
-  BUG: KASAN: slab-out-of-bounds in do_split+0xf9c/0x1de0
-  Write of size 90458
-
-dx_move_dirents() wipes the source entry using its on-disk rec_len.
-That field can't be trusted: on a corrupt block it may be garbage
-(0x6161 here) and ext4_rec_len_from_disk() turns it into a huge value,
-so the memset() runs far past the block.  The entry is already copied
-using its own real length, so use that length for the wipe as well.
-
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
- fs/ext4/namei.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: Maurizio Lombardi <mlombard@redhat.com>
+Cc: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index a6386c1d237f..71e9e7c9a7fd 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1860,10 +1860,8 @@ dx_move_dirents(struct inode *dir, char *from, char *to,
- 
- 		/* wipe dir_entry excluding the rec_len field */
- 		de->inode = 0;
--		memset(&de->name_len, 0, ext4_rec_len_from_disk(de->rec_len,
--								blocksize) -
--					 offsetof(struct ext4_dir_entry_2,
--								name_len));
-+		memset(&de->name_len, 0, rec_len -
-+		       offsetof(struct ext4_dir_entry_2, name_len));
- 
- 		map++;
- 		to += rec_len;
--- 
-2.51.0
+ Documentation/admin-guide/kernel-parameters.txt |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+--- linux-next-20260930.orig/Documentation/admin-guide/kernel-parameters.txt
++++ linux-next-20260930/Documentation/admin-guide/kernel-parameters.txt
+@@ -44,6 +44,7 @@
+ 	NET	Appropriate network support is enabled.
+ 	NFS	Appropriate NFS support is enabled.
+ 	NUMA	NUMA support is enabled.
++	NVME	NVMe support is enabled
+ 	OF	Devicetree is enabled.
+ 	PARISC	The PA-RISC architecture is enabled.
+ 	PCI	PCI bus support is enabled.
+@@ -74,7 +75,6 @@
+ 	TPM	TPM drivers are enabled.
+ 	UMS	USB Mass Storage support is enabled.
+ 	USB	USB support is enabled.
+-	NVME	NVMe support is enabled
+ 	USBHID	USB Human Interface Device support is enabled.
+ 	V4L	Video For Linux support is enabled.
+ 	VGA	The VGA console has been enabled.
