@@ -1,72 +1,85 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E7736B912;
-	Thu,  1 Oct 2026 13:53:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0587A4D957C;
+	Thu,  1 Oct 2026 13:54:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862817; cv=none; b=gZhLtfyNhUUMDadbpSlYuDYPfzyJfp98FGpOgoO8J3nOwgHG23cXtWpYPIxVGux8SNq4K9neCSh7bZrbs01S56Yjci7c4eES2BLDyskCKmyPthFdqgG/L3pM/4LnuPuKrhBrjU0EMxZxv4dXyN0/4+ZNkrpsyZ4IgsLQ11klbyg=
+	t=1790862852; cv=none; b=ei2dkMbaYUp7eFTvnVpwHVaiUTzoAsInbhb14jhCGKoeceLHSbuexFaIOsEerDspERYHVXspncgesemklvvKFAlt5Uz2z/j6u2WzFVV4tWN3jYcsbTjo2AdNWxijRMesDRItVyonRoItSZJqg77ikMRSGdjfCmOSBNxqLuaaSDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862817; c=relaxed/simple;
-	bh=uCdfcz3v6mxxw3wC/s78cYO+k50sdqDfx1y0FX3fHU8=;
+	s=arc-20240116; t=1790862852; c=relaxed/simple;
+	bh=kn2kfJxBkaPoOoPabBVX9xXVYYeqk0vySS+fAxtBW1E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IDP7hwxpw+mBFxR2GpB4aCTW6E/PSrTCWpid9i0CUl/skz22gDpw9HeAcqckuHe5w3cwMGWqKteu7V06Rw7q3366QNmJ9Q0C3z6Ffr79IREo7K3l+hNWvx08EBzGGRKj4nsKNhQuCjLCzIDMdYuHbUS3+CBO7n9cLFHpUF+fvTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=38MSYv9c; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=QQnbT3h+Q2+ic8JmhxaZi9d+X+1lUjx7QgEcWzTrCdSTabAN+GFTUW9NjW/9z5iZVM1bYYNoIsQIioB4P84HdObRWKETbTqovDNXgZdknPeYmYtSvyX2qv4PHMzoyXnQpYmld5HiFwhRnMNR3ilsmyqK/hj1LQhSmF/b6QoR9XE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iWnkgrVM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="38MSYv9c"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=o1erPuTBrPzxFY3cpm9t8CWiJEf5qm/y/ZbecFvb/I4=; b=38MSYv9cMjolrsZPutOvwHpQ/C
-	nHkJrQHZElwLnAkPVTe7mftiqo2a3ucTBylGoHT2034eodK2UDOK4gQ8cJ+9MdKMIEkcaqm2S+lw4
-	cAVlq3en0+owiy7CPjzysxOpv9ZfK9g2hUwPt4K4uO0+udJ4B3WeczZJlebtCHVfDZxs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xCHDu-008Oh1-Fw; Thu, 01 Oct 2026 15:53:22 +0200
-Date: Thu, 1 Oct 2026 15:53:22 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Wei Fang <wei.fang@nxp.com>
-Cc: Marek Vasut <marex@nabladev.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	Claudiu Manoil <claudiu.manoil@nxp.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: Re: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
-Message-ID: <0b1e6d29-5054-423c-bf7d-2206f2473579@lunn.ch>
-References: <20260924180607.60932-1-marex@nabladev.com>
- <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
- <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
- <AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
- <b4addd8f-43ba-417e-85ad-a78391c8f2fb@nabladev.com>
- <AS4PR04MB9338E76DB4A59D70F1D6AB2F888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
- <e7f574ab-5fcf-484a-a5bf-fc94d45b2311@nabladev.com>
- <AS4PR04MB9338B4278A2A5B94FA854056888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iWnkgrVM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C6C1F000FF;
+	Thu,  1 Oct 2026 13:54:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790862847;
+	bh=kskZ3/N5JJqk76yzl+JeZUGSFe+C1abpcJtyovYQOvI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iWnkgrVMXJJoNRs34OP6AI0a7pBRmg5nkX8smclxX7rudhmxx1rhT03CXPekVVPZx
+	 xPkMiEObeSVUt+CnwNDoeJYMy/4IEYU4tDeNtglsh5Kn7WzVV+ep3IUn6KTjG/1fSH
+	 ODN3kYilvJ4oyo2E0eEm1/5db34oxpfgS0e4uuGU=
+Date: Thu, 1 Oct 2026 15:54:00 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: nenkov2004@gmail.com, rust-for-linux@vger.kernel.org,
+	Miguel Ojeda <ojeda@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] rust: binder: Use lower bound for node debug lookup
+Message-ID: <2026100149-sampling-playtime-f5e6@gregkh>
+References: <20260831052635.42417-1-nenkov2004@gmail.com>
+ <20260831054920.42550-1-nenkov2004@gmail.com>
+ <2026100156-strongly-plural-e7f1@gregkh>
+ <CAH5fLgh5MRMRJfym-Cv=P_bqCzZ+jXh=ieTD=hPX4KrktKtBiA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <AS4PR04MB9338B4278A2A5B94FA854056888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAH5fLgh5MRMRJfym-Cv=P_bqCzZ+jXh=ieTD=hPX4KrktKtBiA@mail.gmail.com>
 
-> Okay, but please consider Andrew's suggestion. Add clock-frequency
-> support for greater flexibility in adapting to different situations,
-> instead of fixing the MDC clock to 2.5MHz.
+On Thu, Oct 01, 2026 at 03:43:25PM +0200, Alice Ryhl wrote:
+> On Thu, Oct 1, 2026 at 2:38 PM Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Mon, Aug 31, 2026 at 07:49:20AM +0200, nenkov2004@gmail.com wrote:
+> > > From: Hristos Nenkov <nenkov2004@gmail.com>
+> > >
+> > > The Binder node debug lookup currently walks the process node RBTree
+> > > from the beginning until it finds the first node pointer greater than
+> > > the requested pointer.
+> > >
+> > > Use RBTree::cursor_lower_bound() to start the lookup at the relevant
+> > > tree position instead. When the lower-bound key is equal to the
+> > > requested pointer, inspect the next node to preserve the existing
+> > > strictly-greater-than semantics.
+> > >
+> > > This changes the tree lookup from a linear scan to an O(log n) search
+> > > without changing the returned node semantics.
+> > >
+> > > Suggested-by: Alice Ryhl <aliceryhl@google.com>
+> > > Link: https://github.com/Rust-for-Linux/linux/issues/1249
+> > > Signed-off-by: Hristos Nenkov <nenkov2004@gmail.com>
+> > > ---
+> > >  drivers/android/binder/process.rs | 8 ++++++--
+> > >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >
+> > This does not apply to the char-misc-testing branch :(
+> 
+> Please check this instead:
+> https://lore.kernel.org/all/20260814215145.2050599-1-rafael@rcpassos.me/
+> 
+> This one is a duplicate, and I prefer the other one.
 
-I consider this nice to have. And to actually implement it, you need
-to know the base frequency in order to calculate the divider. So i
-suggest the first patches in the patchset set the clock to 2.5Mhz,
-then consider other DT requested frequencies.
+Ah good, I already took that one :)
 
-	 Andrew
+thanks,
+
+greg k-h
