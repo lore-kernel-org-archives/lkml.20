@@ -1,130 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B91628CF4A;
-	Thu,  1 Oct 2026 19:19:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49ECB1624D5;
+	Thu,  1 Oct 2026 19:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790882380; cv=none; b=R+b0iq8OAUDPvqnvaPAltq8Y9xp682ObpU2btNTMye73bwc5Nk5R3UtCBdSEMktr5jp5Hex7YfrhKtZXyHM3+boqaXRfjNSojbbacwr0BJFjjXrZLKXLrfAHB5ObCBNR8PEOpX/oznasA6kYxhJBBwM9RA1AYQQGTQrkL0H5u9I=
+	t=1790882445; cv=none; b=o61PUJhim0wgnRwho1QzcnLxc8tI+Ng1FBRQxLnvOMWXvHH9WJcK+6XzzYa8u6S3rD4U1f6c1SWRLAlMe+5eE0/IVurP8YPO5m3Oq9mgZo/rBO3QcwJ3Be97YyRIaCgQiN8WiP2kl4ObIRQpkxMXdqNUZJ1DQY87o/z6DCCaSZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790882380; c=relaxed/simple;
-	bh=NDVKO6z9ae8s39Np4wTUcUClLpjM3RJffgYHo+1t3KM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qyoyFlUgnnT4mfj7U/rPYCNfE9Vht1epNly+Ka3gXkORQVZVQ9X3wPYN9uMYUdUCAnEJTyx4+B6GDBc3HbFB5SWHL5blw4zzgpNz6YaBMSXVypLCMgRKcJ74WACfjbfFIlEll6m6kMIKSX19dOFpwVmZJUkp5nSBk236c+9/0KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBidyppM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790882445; c=relaxed/simple;
+	bh=TSwMD8nl+PjPuPRpFSzmLP1DTG8nZBaUE/WJp6oCTwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SR3QJ58yxTxfRHJux47d2uv3wNgxNmYsCHYwHK1pcRDmSUzAxfuoIS5TeCJ2TYj2L9vAhS2/Qm0gsKtsBXIQ0gf9U4TIJTTftMlQ6LvGR+vaMx2SgFb4QF3fwo0Wv5LpQZvoe6+0s0Ikl42zzX5oFIweUMr1/0vEGplZbn51D5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5YSQrqj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBidyppM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 253F51F000FF;
-	Thu,  1 Oct 2026 19:19:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5YSQrqj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D681F000FF;
+	Thu,  1 Oct 2026 19:20:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790882379;
-	bh=CT8yQ3Gq2o7+FTXBC0DvPFaCUnOHHEBD5RX9jtK/6Fk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YBidyppM5Naw9H2O4p+I1wOaB6wx4ulIhhJLxAVqPFWPCFTQJe2CEOqyBRNJm0Hn9
-	 WoG9Lo79dbQ4bWJ4XGLSSblFFfydY9b+YR9a5Fs9uEjPC2fFz8t1n9fnHV1jqw7FAF
-	 +SgiI4bwBahPwIlRHu8Ux2TNIk84vtflwTtBiDXI9CavMgvw7IQ9hpMCJP7tWdM07O
-	 3v969NtjhiOA+IPDjbui4ZvfVrvwQO2E7ZrezNL7SKvLbL28Wp6KbAMXYKfmKsIKxi
-	 NxduCYn8b4uhNqe5AvevMVBuDpYICWeEruf6QpR8PdRXYXlwWYWGT3h7V0kA/xhlby
-	 q8zTGjCHYXZiA==
-Date: Thu, 1 Oct 2026 20:19:35 +0100
-From: Conor Dooley <conor@kernel.org>
-To: vjardin@free.fr
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Charles Hsu <ythsu0511@gmail.com>,
-	Eduardo Valentin <eduval@amazon.com>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] dt-bindings: hwmon: pmbus: mps,mpq8785: add
- #thermal-sensor-cells
-Message-ID: <20261001-hash-husband-663954aed7b0@spud>
-References: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-0-07d368dcc662@free.fr>
- <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-2-07d368dcc662@free.fr>
+	s=k20260515; t=1790882443;
+	bh=YoRRWwHHrdSAn0vKfcey2RKMKMtPzjTI79hJWIRNUQY=;
+	h=From:To:Cc:Subject:Date;
+	b=R5YSQrqjd1zN93EbJst8Dcm7q5HHCAqWPG3E3vZg97rYAHUkyNi7ApWf7MWs72Jkg
+	 2gS8MtzeSYUSdkSjGCR9bU5Az0VuCHCzUd5YiMSo5bkKqfp+vPIi8KGVRxy2wSusTB
+	 OTLHLkwZhUFqPihbT6yNsw+ADsPu8SANczcXsaBgh3a86qveBZ1SCGeRDD9ka5SegM
+	 UzUJzjRd5Z6wTLh/Vm1MUaNL/qNCwr2dpUMHmILGp0FO/+CizcaymIh4V+vVoEqjPy
+	 6CiqlhHwkqoUggk83ecrZYAgYPPX18XVZ0w/EMoyFSsGewykQxF2iVWA7gS6vR2hWO
+	 ce0tDZhSm+G3A==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	linux-serial@vger.kernel.org,
+	Petr Mladek <pmladek@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH v2] MIPS: SGI-IP27: print the NMI dump on an nbcon console
+Date: Thu,  1 Oct 2026 21:19:38 +0200
+Message-ID: <20261001191938.3256-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="27EFFU1PLM87yezZ"
-Content-Disposition: inline
-In-Reply-To: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-2-07d368dcc662@free.fr>
+Content-Transfer-Encoding: 8bit
 
---27EFFU1PLM87yezZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Since the 8250 console became nbcon, printk() in nmi_dump() only queues
+records for a printer thread that never runs, as no CPU leaves the NMI
+handler. Print from an emergency section and flush pending records
+before the hub reset.
 
-On Thu, Oct 01, 2026 at 09:28:23AM +0200, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
->=20
-> Since commit
->   3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE=
-")
-> the PMBus core calls devm_thermal_of_zone_register() for every
-> temperature input, so the devices of this binding can be referenced as
-> thermal sensors.
+Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+v2: flush pending records before the hub reset (John Ogness)
+v1: https://lore.kernel.org/all/20261001155013.1694-1-kaloz@kernel.org/
 
-Commit messages for bindings should reference hardware in their
-justification, not what a particular OS has decided to do.
+This conflicts by context with patch 14/38 of the IP35 series,
+https://lore.kernel.org/all/76f2a9c32eba23de36817f0a186def01e009e1c7.1790857966.git.kaloz@kernel.org/
+which rewrites the reset write. Whichever lands second places the
+printk_trigger_flush() call above the system_is_ip35 branch.
 
-> By code review, it should work for the MPQ and MPM device bindings.
-> They register a single page with PMBUS_HAVE_TEMP through
-> pmbus_do_probe(), it means that one device has one
-> temperature input, temp1.
->=20
-> The PMBus core registers the first temperature input as sensor 0, so no
-> cell is needed.
+ arch/mips/sgi-ip27/ip27-nmi.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-I don't understand this, if it has multiple sensors, each could be
-referenced by something and it would need cells. It only has single
-input, then that's the justification that needs to be provided here.
-What software does, especially in generic code, should not be used to
-justify a binding change.
+diff --git a/arch/mips/sgi-ip27/ip27-nmi.c b/arch/mips/sgi-ip27/ip27-nmi.c
+index fc2816398d0c..c502982621e6 100644
+--- a/arch/mips/sgi-ip27/ip27-nmi.c
++++ b/arch/mips/sgi-ip27/ip27-nmi.c
+@@ -1,4 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
++#include <linux/console.h>
+ #include <linux/kernel.h>
+ #include <linux/mmzone.h>
+ #include <linux/nodemask.h>
+@@ -183,6 +184,12 @@ static void nmi_dump(void)
+ 	 */
+ 	arch_spin_lock(&nmi_lock);
+ 
++	/*
++	 * No CPU leaves the NMI handler before the hub reset below, so an
++	 * nbcon console's printer thread would never print the dump.
++	 */
++	nbcon_cpu_emergency_enter();
++
+ #ifdef REAL_NMI_SIGNAL
+ 	/*
+ 	 * Wait up to 15 seconds for the other cpus to respond to the NMI.
+@@ -227,5 +234,6 @@ static void nmi_dump(void)
+ 	 * Save the nmi cpu registers for all cpu in the eframe format.
+ 	 */
+ 	nmi_eframes_save();
++	printk_trigger_flush();
+ 	LOCAL_HUB_S(NI_PORT_RESET, NPR_PORTRESET | NPR_LOCALRESET);
+ }
+-- 
+2.47.3
 
-I checked the devices supported by the mpq8785 driver and none of them
-actually appear to have temperature inputs at all?
-
-Confused,
-Conor.
-
->=20
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
->  Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.ya=
-ml b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-> index d7a32fb3b7af..6257a8030e53 100644
-> --- a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-> @@ -34,6 +34,9 @@ properties:
->      maximum: 4095
->      default: 706
-> =20
-> +  "#thermal-sensor-cells":
-> +    const: 0
-> +
->  required:
->    - compatible
->    - reg
->=20
-> --=20
-> 2.43.0
->=20
->=20
-
---27EFFU1PLM87yezZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar6yRwAKCRB4tDGHoIJi
-0tFWAP9NCfnJfQks8j8h71AR4gvQ3pJaOoPWq1XLe9VWquTr9gEAwFKxEjf5sjMx
-yVJ3ergXkjeiFGuAnh9L4PKWLCzWyQc=
-=nZTq
------END PGP SIGNATURE-----
-
---27EFFU1PLM87yezZ--
