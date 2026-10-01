@@ -1,190 +1,123 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 254523C4167
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr2-f23.google.com (mail-wr2-f23.google.com [74.125.225.87])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD574FDA4E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862056; cv=none; b=V8u3Ary8GdeSD4AGWM+aGsACI+sM3ZO+GXpxO3JcIaOBsxaAiIQDO03tFX7heHuK5mHjOL5ljiwQVQQT/JT5/qlKj+EdHGKNj4bX4YABM8oDEnJpB1iAdY4GmbFhkI/DCVL2RTzRGb7yOh7mQkwNfA5NENc+ZzmFSh9lwVgm3+g=
+	t=1790862062; cv=none; b=q6RiS5C0TlAi/C2MJCDEPOVs84C2xz89C9YfYNKDUNafvo1IQ73J496il2y1NCVew0CTw4m840YHrV7lPlTE+PFRwQuYtS4MKpSkqQU9lDvc2uL9pJ0v5Vo+Ezvx2HXyDM+XGbM3Xgd5T/W/g6Lj8NX7gMiKhFVaulBRKFQafcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862056; c=relaxed/simple;
-	bh=cga5org1q/q/bKI3rNh8W1nENCJtKS9JxjUZKRGwvZQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PYlhqu/efmzIcFPGrKYCKIX6zWEVm3RfesdUdwQC4/ZndzlhNoehj3Ac806QdSdgxsThlZ05/gE0KJQT3po0ka495UF7m0Z6UPqIXUFsRxf7MeW+NcDIgjUjNKQlbmY8YkJwddIZutkXRmGfvfVQ+HUe+ny7JrsCMgPHvDHRQx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=j7fqMIi0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790862062; c=relaxed/simple;
+	bh=jSF6sckf2CdykpIyTHyIXc502TuC2NL74BfAZtOKhK0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f0gACU/X/YHuR/Ei7ALZkaxYxSwGZdPIVq01Cpegz1V81pzhEUHeq3Yh1xpjJVcq0MyUJ/Of8rzRy3+UipPgYMnV6fWgD7JCwG1OQ6UU+9Jdv2iqddj/09epCOnJY5KBgAvEj1prZ+AiYAGmuDWie+E43F6AlVwdVeUqUI2fbHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=exp965j+; arc=none smtp.client-ip=74.125.225.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="j7fqMIi0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A1DC8497;
-	Thu,  1 Oct 2026 06:40:49 -0700 (PDT)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.165])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CE2523F86F;
-	Thu,  1 Oct 2026 06:40:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790862053; bh=cga5org1q/q/bKI3rNh8W1nENCJtKS9JxjUZKRGwvZQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=j7fqMIi012Nvq5XjZD+8SJ8tdPJiz5FYbgsY2BvhEEXkzP1unbFbZEwqy44kRuH+d
-	 M91qRGdKfW0FvzsysZrOuMhxRRxCw9uKc8Vi2T2+0GaMaipVLZ3+CPh2f9EgJM3UxB
-	 NkZsIp5PBKn70CFj5EXHj6s4Qz/B0VhcMyrMo6ls=
-From: Christian Loehle <christian.loehle@arm.com>
-To: linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	kayracizmeci@gmail.com,
-	kprateek.nayak@amd.com,
-	elif.topuz@arm.com,
-	sh@gentwo.org,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH v2 0/5] sched/eevdf: Keep slice protection boundaries consistent
-Date: Thu,  1 Oct 2026 14:40:11 +0100
-Message-Id: <20261001134016.3881268-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="exp965j+"
+Received: by mail-wr2-f23.google.com with SMTP id ffacd0b85a97d-48b0622cc90so640128f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:40:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790862057; x=1791466857; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hGqLF1Rm/hEU75zgoHWcWsfF1Mh1p1AKwwc942QTcEk=;
+        b=exp965j+dK9d3Gg6mjmXjj64N8SdLOy+ZO3GDm6KuE6rw9tKEECr6wmASJdpi7W+A/
+         X1vof8aRgStYFZTE9Dnqt+0uSPx7g655K+vzr0LvkZF5qV67VZnkXVnnaYARmlEj75nX
+         ljbntdkA8J3v/FpBR2KA1vB9xIisyPDceWiKFoNsmV7ugiEyRoKO9BazcrAMJaGIUPNu
+         Y4XAR4SHh9QDwqol+bU2O030hn2Qk44gRWDi9lXA1T9cehmU8Pprdh1OOV2zb0YPUP4S
+         HNUHFt/SgkuRX7/no6zQ+uvTatXpJ1rDOWX1+CDt24vc4a6p8pm/i+PlatQSEKTKPZlD
+         d9Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790862057; x=1791466857;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hGqLF1Rm/hEU75zgoHWcWsfF1Mh1p1AKwwc942QTcEk=;
+        b=uiZZj0Ou16yET2YV/rEJ5jmgeWN82d8rRkqcYB9NUg4PznK8c9yjLDKLnUhXTmgr8M
+         eROGmUoJIRSVGVuuPJcvF69r3sBQGDKo5P/H8h7vvwgLGvXkk/r/5DzuH2ShtGj6WkFQ
+         AaqjBwVv8012VIw64xYj2tqIGim81efnFbvL9/1qXuH9e/i7OK1H9ASxJWcofWm4u57h
+         C3fst6k1VKVy/f2MnFB9ycWFPDwUBs8guKWqgoQGz9XNTqVU/Vc9XjztDvW6+J8xdcmy
+         /tl5C7wtdNYWU1GWOBeUWNIaXtAeq5S70m6pNuTGAcUNr3/ePgYjCU8OyXTGpjs3KGdN
+         fu0g==
+X-Forwarded-Encrypted: i=1; AKwUvBylVfJ8SP8gkZ38k28zCOhs/GynvrOYzwgv/a6+sfO4AmuM5tPzlDQbC+7wt9hOIw8SSIx/t6l0EWlsWq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLClmtaKrRf7YBQHypEyXl45DFK1bq85+8dtM5EXeExjpzmk6SM
+	AEVxE6dqSjYP0n3vjsIMbPx2eWp3kXEO9DVD3xOZdzm3Q6lS+9rzwfduolQvQjqYaIk=
+X-Gm-Gg: AYBFou2Y+cNRgAoO70MJLllxhFsFTAQYI1ywekIbNt+5CygG+tRT4iSz+MzmUfPcagC
+	LCnsf2drKfXwppCFTrTUJm0kGRhdiRxAustwtb3tuLtfKFMR75lzlKIS2Bob43Qo7OXQesYb6ba
+	kPaTqDzMp3oCXXU+aQ5OElgi/5OiCKB+CwGpy5P4D2o4qHGaa679+AEdIFW6De/BgrxkjYnFLy4
+	XvtUiiiIa8/vrMlbZNzDovHP5l/o0FZfWdGIYXMJrVA8Zk4sFoTVeRodW7uUEW1Vi3bHD0RO8FD
+	Uz/5s9qKfAOqVTFacBvY6M2PkwwdloKYecgfgUsgSGzJXEOQildkFRt6vErfdgBBHLiiEdEUDwG
+	VM7mqWT5IHgKkruy2nt3T8y0UQxfcZXpbax5eW6lyN9bdFxzzBby6yqASXAWdtYyINBruChgCCL
+	moQcX44h4Glro9wKRAOrxZVSj7p+4CEbY0F3xIVT7XQYVGBhDRXtHN5teK0xipH0fmL2I7qpYwE
+	aGWpQHEo92JUGSicb3UjRrDXksojFlvKbM=
+X-Received: by 2002:a05:6000:3101:b0:48a:f318:ac03 with SMTP id ffacd0b85a97d-48b02505291mr8094664f8f.25.1790862057220;
+        Thu, 01 Oct 2026 06:40:57 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0691d681sm5667084f8f.23.2026.10.01.06.40.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 06:40:56 -0700 (PDT)
+Message-ID: <2ce83a44-c85f-4e3d-ba47-fa07a1663253@suse.com>
+Date: Thu, 1 Oct 2026 15:40:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917051147.98775-1-tweek@google.com>
+ <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <CANiq72nRLF7PmqqVUrAiw_M3dYZCr9ifoo+Q4SuXfBQsAFH-pQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-EEVDF slice protection is an absolute virtual-runtime boundary. Several
-paths currently treat that boundary inconsistently with the task's current
-slice, or with the timer that makes the scheduler reconsider current.
+On 9/30/26 2:13 PM, Miguel Ojeda wrote:
+> On Thu, Sep 17, 2026 at 7:11 AM Thiébaud Weksteen <tweek@google.com> wrote:
+>>
+>> Module authors may have non-ASCII characters in their names. In C,
+>> `MODULE_AUTHOR` allows arbitrary string literals which are emitted as
+>> raw UTF-8 bytes into the `.modinfo` section, and multiple in-tree
+>> modules use non-ASCII author names.
+>>
+>> Originally, the single `author` field permitted arbitrary string literals
+>> including non-ASCII characters. When support for multiple authors was
+>> introduced in commit 38559da6afb2 ("rust: module: introduce `authors`
+>> key"), it reused the `expect_string_array` helper that had originally been
+>> added for module aliases. Because that helper enforced an ASCII check,
+>> `authors` inadvertently became restricted to ASCII-only string literals.
+>> Later, when the macro parsing was rewritten to use `syn` in commit
+>> c578ad703ae9 ("rust: macros: use `syn` to parse `module!` macro"), this
+>> restriction was carried over by using AsciiLitStr in `authors` type.
+>>
+>> Change the element type of `authors` in `ModuleInfo` from `AsciiLitStr`
+>> to `LitStr` so that UTF-8 author names are permitted.
+>>
+>> Fixes: 38559da6afb2 ("rust: module: introduce `authors` key")
+>> Signed-off-by: Thiébaud Weksteen <tweek@google.com>
+> 
+> This looks good, thanks! We did discuss allowing non-ASCII long ago,
+> so this wasn't intentional.
+> 
+> Petr & modules: I can pick this on up (an Acked-by would be nice!),
+> unless you want to pick it.
 
-Patch 1 makes fair HRTICK expire at live protection rather than only at the
-later virtual deadline. Patch 2 consolidates the fresh and update
-protection calculations. The remaining patches cap protection after a
-slice change, prevent reweighting from reviving expired protection, and
-update protection when sched_setattr() restores the running task.
+Acked-by: Petr Pavlu <petr.pavlu@suse.com>
 
-All workloads below pin every task to CPU1, use SCHED_OTHER, and keep the
-controller on another physical core. rt-app's dl-runtime values are in us;
-sched_getattr() verified the resulting sched_runtime values. The tests
-enable PREEMPT_SHORT, RUN_TO_PARITY and PLACE_REL_DEADLINE, and run with
-both HRTICK and NO_HRTICK (except for patch 1).
-
-The HRTICK/deadline mismatch in patch 1 is exposed by two continuously
-runnable equal-weight tasks:
-
-  "short": { "cpus": [1], "loop": -1,
-             "dl-runtime": 100,  "run": 1000000 },
-  "long":  { "cpus": [1], "loop": -1,
-             "dl-runtime": 1000, "run": 1000000 }
-
-On the HZ=250 control, the short task's median sched_switch run interval is
-1005 us even with HRTICK enabled. With patch 1 it is 101 us. Both tasks
-retain approximately half of the CPU in either case. (The error is therefore
-the reconsideration time rather than CPU share.)
-
-With RUN_TO_PARITY disabled, vprot instead marks current's minimum progress
-quantum. HRTICK must reconsider current at that boundary as well. After an
-expired-protection repick it falls back to the deadline without renewing
-the quantum.
-
-The oversized fresh protection in patch 3 is exposed by retaining a 100 ms
-relative deadline while reducing the request to 100 us:
-
-  "shrink": {
-    "cpus": [1], "loop": -1, "dl-runtime": 100000,
-    "delay": 700000,
-    "phases": {
-      "warmup": { "loop": 1,  "dl-runtime": 100000, "run": 20000 },
-      "hold":   { "loop": -1, "dl-runtime": 100,    "run": 1000 }
-    }
-  },
-  "peer": { "cpus": [1], "loop": -1,
-            "dl-runtime": 1000, "run": 10000 }
-
-After the change, inspect the next fresh SNT_PICK of shrink. The control
-grants between 13 and 28 ms of protection to the 100 us task because its
-own slice is the runqueue minimum. Patch 3 caps that fresh boundary to the
-current request. In the trace-free companion test, the control's complete
-post-change run intervals reached 69--83 ms with HRTICK enabled; the
-isolated fix reduced the maximum to 3--4 ms. Wall time includes interrupts
-and legitimate repicks, so the vprot observation is the correctness
-criterion.
-
-The expired-protection reweighting bug in patch 4 is exposed by three
-continuously runnable tasks in separate cgroup-v2 CPU groups:
-
-  group a, weight 10000:
-    "long":  { "cpus": [1], "loop": -1,
-               "dl-runtime": 100000, "run": 10000 }
-  group b, weight 100:
-    "short": { "cpus": [1], "loop": -1,
-               "dl-runtime": 100, "run": 10000 }
-  group c, weight 100:
-    "mid":   { "cpus": [1], "loop": -1,
-               "dl-runtime": 1000, "run": 10000 }
-
-While rt-app runs, change group a's cpu.weight every 400 ms through:
-
-  10000, 1, 100, 1, 10000, 100, 1, 10000
-
-On the control this produced 32 expired-to-live vprot transitions in 16
-captures and seven selections of current over a runnable, eligible peer
-with an earlier deadline. With patch 4, 181 captures containing 441920
-queued current weight changes produced no revival and no such wrong
-selection.
-
-Kayra Cizmeci reported the same invariant failure when
-sched_change_begin() temporarily dequeues current. This rt-app phase loop
-makes the weight change after running beyond a 100 us request:
-
-  "change": {
-    "cpus": [1], "loop": -1, "priority": -10, "dl-runtime": 100,
-    "phases": {
-      "heavy": { "loop": 1, "priority": -10,
-                 "dl-runtime": 100, "run": 117 },
-      "light": { "loop": 1, "priority": 10,
-                 "dl-runtime": 100, "run": 173 }
-    }
-  },
-  "peer": { "cpus": [1], "loop": -1,
-            "dl-runtime": 1000, "run": 10000 }
-
-The diagnostic trace records vprot <= vruntime at __setparam_fair() entry
-and checks that the following SNT_NORMAL restore does not make vprot live
-again.
-
-The restore bug in patch 5 is exposed at the phase boundary itself. Use a
-long-slice peer so the task being changed owns the minimum after the
-change:
-
-  "change": {
-    "cpus": [1], "loop": -1, "dl-runtime": 100000,
-    "delay": 700000,
-    "phases": {
-      "warmup": { "loop": 1,  "dl-runtime": 100000, "run": 20000 },
-      "hold":   { "loop": -1, "dl-runtime": 100,    "run": 1000 }
-    }
-  },
-  "peer": { "cpus": [1], "loop": -1,
-            "dl-runtime": 100000, "run": 10000 }
-
----
-Changes since v1:
-- Expand the standalone HRTICK fix into a series covering related
-  protection-boundary inconsistencies found during testing.
-- Share the fresh and update protection calculation.
-- Fix protection after slice changes, reweighting and SNT_NORMAL restores.
-- Request lazy rescheduling when an SNT_NORMAL update expires protection.
-- Add HZ=250/HZ=1000 and HRTICK/NO_HRTICK regression testing.
-
-Link: https://lore.kernel.org/r/20260929194711.2689811-1-christian.loehle@arm.com/
-
-Christian Loehle (5):
-  sched/fair: Take slice protection into account when arming HRTICK
-  sched/eevdf: Share the slice protection calculation
-  sched/eevdf: Cap protection when current has the shortest slice
-  sched/eevdf: Keep expired protection expired across reweighting
-  sched/eevdf: Update protection after restoring current
-
- kernel/sched/fair.c | 72 +++++++++++++++++++++++++++------------------
- 1 file changed, 44 insertions(+), 28 deletions(-)
-
-
-base-commit: 01d1f30564aac8d53c4ba2de2bfc81fcef206721
 -- 
-2.34.1
+Thanks,
+Petr
