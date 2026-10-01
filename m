@@ -1,53 +1,37 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F22340417;
-	Thu,  1 Oct 2026 12:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53951492E3C
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856483; cv=none; b=uv6NxFHkoV/bVsiQ0ACKXavjEGCK28i69k8YrnhrMl+IyEhLxbzTmfM8CEfeTm39ljynSFByA1nbp0QAUSVceGUDqG1RqK27A1KIYXX/CWXvCmPaF7NKXGdp+hxj8PBYgtpxjgBpwQIYqy93l5EiZ7Ds60izRosntHsTFKsvgMs=
+	t=1790856486; cv=none; b=qsSDY+HdYN9gkVYNDaVLMkIsH+O0qT1wBx1EwXdLZc2X/HV5lvo+cJ/x05UsrhOjm9Od212To5AsEjAi7H8dc/ayK+drVZPieFXEHvuf/syDlVkhvQwc0+TMo3JFwBJucZYgcpkKQZRLV/yIicqopOkqw4e1NywhtfeTmu7YPuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856483; c=relaxed/simple;
-	bh=yP7VXMieC1ae7RLGmbXh0dR1MmRHi9+xnYzns8xmVfw=;
+	s=arc-20240116; t=1790856486; c=relaxed/simple;
+	bh=sT7VGhc+RSEWQRGAkMrlBYAcTj5gBNYTccAx1/mraxM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZoD3B1mdNIp8QIN1oZ1tg2B1zM9XeE27392VBwPqpk79LDdoApIpg3OxuiyW0ri7zyVhuixCPWRfsi3a5i94lfJn0wfelSkez0eprtfQHVyUvrKc+lbNujKsij77s/x6Lohfu9WS1XQCP9dIIVyL8c6CvxrguxTgN0IOAQT6gwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Ye8mKcwn; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=PltE97p4kUX9vPdKF2cTP1Kmt50uQODAArwy72oywY9InQD6DDgXcdRu+Ybr9EkC2UivV8h9VFJoXhOkexSrlFvKErxp3uri62zkh0DmPfhLFpL3hQ09IZdIb8UGWNSYN0ROTj6qRej0H37ogYcLja+xFzXYkqlIwg71kAmg+4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1fj50fCn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Ye8mKcwn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=GyeCL9VLJDxMlJIwAhfIiiYyFP5Y9P0dKixR5n332YQ=; b=Ye8mKcwncV2q0EFynQY8I75wMz
-	hVFo5KdGFWQZ0bX2vuoMzoFyHomXTilBCNrEZBPSOKO6AAPOezLJHjBYytN5NZtUxtBvAJ1xqcyuO
-	cA90bJZ/zuyeV7RVEI2UONmcOjVw0YUcfLRhJ8igOhqIBDej3f85K5Mt4Zr6X+XNp1XM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xCFZd-008N7b-Gy; Thu, 01 Oct 2026 14:07:41 +0200
-Date: Thu, 1 Oct 2026 14:07:41 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Igor Velkov <iav@iav.lv>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Eric Dumazet <edumazet@kernel.org>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: dwmac-rk: keep the GMAC powered when
- the PHY wakes the system
-Message-ID: <1795d1c1-7103-4dcb-856f-8881521417e0@lunn.ch>
-References: <20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4@iav.lv>
- <1799630a-945e-49ca-b9d5-9e068c482cea@lunn.ch>
- <ab67bccd76b55d7252c5380a37809656.iav@iav.lv>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1fj50fCn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A231F0089A;
+	Thu,  1 Oct 2026 12:07:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790856477;
+	bh=BOpRc4Gujf+vgaFDNdrz84+SoAyHVrXrvNXn8Cv7QJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=1fj50fCn7or84UD2Xbr+W5dU2/TOMPogJDz3uoKkqEIw6S+f04FgqM1dqisKQGDdn
+	 fNnnzFsmXRS50Sp/HEXqzTmG3jtvLk7GZ9TDatazIG3JUUrJpbo/pmnzR6pSqatfSz
+	 ENXzmG3bpFx5jevTyNIQe2LYnXaq7jUgahumb5xs=
+Date: Thu, 1 Oct 2026 13:46:10 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: mahesh@linux.ibm.com, andrew+kernel@donnellan.id.au, arnd@arndb.de,
+	kees@kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH] misc: ocxl: cancel XSL fault work before freeing SPA
+Message-ID: <2026100102-clerical-underrate-cc5d@gregkh>
+References: <20260928134110.227-1-getshell@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,19 +40,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ab67bccd76b55d7252c5380a37809656.iav@iav.lv>
+In-Reply-To: <20260928134110.227-1-getshell@seu.edu.cn>
 
-On Thu, Oct 01, 2026 at 06:11:09AM +0300, Igor Velkov wrote:
-> On Wed, Sep 30, 2026 at 11:51:45PM +0200, Andrew Lunn wrote:
-> > You have not answered the question why is hangs? Given the current
-> > description, this just sounds like a workaround, not a fix.
+On Mon, Sep 28, 2026 at 09:41:10PM +0800, Hongyan Xu wrote:
+> The XSL fault interrupt takes an mm reference and queues fault_work
+> embedded in the SPA. free_irq() stops new interrupt handlers but does
+> not drain an already queued worker, allowing free_spa() to release its
+> container first.
 > 
-> It hangs because the PHY interrupt handler accesses the powered-down MAC.
+> Cancel the work after freeing the interrupt. When cancellation removes a
+> pending instance, also drop the mm reference that the worker would have
+> released.
 > 
-> stmmac sets mac_managed_pm, so mdio_bus_phy_suspend() returns before
-> setting irq_suspended and phy_interrupt() runs the handler at once.
+> Fixes: 5ef3166e8a32 ("ocxl: Driver code for 'generic' opencapi devices")
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> ---
+>  drivers/misc/ocxl/link.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/misc/ocxl/link.c b/drivers/misc/ocxl/link.c
+> index 7749dcd16117..8146e98e77e7 100644
+> --- a/drivers/misc/ocxl/link.c
+> +++ b/drivers/misc/ocxl/link.c
+> @@ -335,6 +335,8 @@ static void release_xsl_irq(struct ocxl_link *link)
+>  
+>  	if (spa->virq) {
+>  		free_irq(spa->virq, link);
+> +		if (cancel_work_sync(&spa->xsl_fault.fault_work))
+> +			mmput(spa->xsl_fault.pe_data.mm);
+>  		irq_dispose_mapping(spa->virq);
+>  	}
+>  	kfree(spa->irq_name);
+> -- 
+> 2.50.1.windows.1
+> 
 
-Why is the PHY interrupting? What interrupts are left enabled? Should
-the mask be changed to disable everything except wol?
+How was this found and tested?
 
-	Andrew
+thanks,
+
+greg k-h
