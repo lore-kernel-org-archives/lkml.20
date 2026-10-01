@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3812BE053;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBFE43CE6A;
 	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841227; cv=none; b=qsbvu9LyXVoRUrJXG3YV+BS2ymRt5an7E5sZ+yJxcg687xpdE0eFyfloOpYFn0X8sVWMP+3ZTCntTqgTjFdX6dLeUnK85kLz/3D5h2LAF4r3aayFFTv8TptcHmHp8i8sJc8jL99jXvlYfe3w+fgIdytEx1AelpCV+21aWnqxJt4=
+	t=1790841227; cv=none; b=nqQZef4BpvRSs0jZSGpWCugSryyzRWEGUrg2zTSJlQn+qkUOQ12vUe0+BvL5meRxGj0XFwwLY9lPREwzN0/GCwtbiITw96VxSzuaorFSF7m9tI9zq4cUOOM58q+BQxnpUTZ0NadzP2n1UgfodEs4hizr84fsuNwsar0RWSKcq0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790841227; c=relaxed/simple;
-	bh=EVINqzp6xWaGFh5nsVvzl2MoeVgc9moWhUusgsXG0Yw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=saLBUHMcHMX7ToWgDSjGdWghZ7BcdhrAqyeMmhueONpeM6Wdpv+7HURpE0SYqKTFpJMMFG+XjeCLyvT3LPMM3JvSTLrThQYa/Pl1KgqsgTVIQgvKJQu9/Fa1ugc+wuMbKG8Yqjrn9nGIK781mClLqsZn1JsNEisL7ZxZ8kv36h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9g2LdNA; arc=none smtp.client-ip=10.30.226.201
+	bh=4w6+GW+2P0AqMS3tHgIC+zIGNdPd9ZGYDVWCh7x55J4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LeaTYDle3lFMxh1BYeAXYT0yZH+mpQ7Pcynmh99GSqKY4q8Ds6Gz5WTw/4qgEYmUmL+slQmNZsUISejTJwIdmVvlu0HZgDZuo6yTX+wec0bu5Cg656z7ilI+Eq3met+PayhMAG/vne2XwC64ZisAdq0MGsmfxU0wdbo/+fpxeAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCthoOn6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9g2LdNA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 18EE5C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCthoOn6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DEC2C4AF18;
 	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790841227;
-	bh=EVINqzp6xWaGFh5nsVvzl2MoeVgc9moWhUusgsXG0Yw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=G9g2LdNAoQXMZ3fRRXTDFr3MsdjNPC8174GJX2TPExjMAFkTTmltfXiHpgQ0E5+BR
-	 f9S7hsJmHFw6RvwKvcvuZ8U2qNTZJZYyXfUkezD49RKdtO7tcwND4/Ac3pZG5UIJSv
-	 G4THtZl2t1d4/lgV8qySW30+4PAiWJFdQlL32H+wMkAPL/hJWcFja8kgg7ocu0EOJf
-	 WWQGUd1/CxDJDxCpKhZE/Dg6ef9MfDhiOzb9LIqa7HDgPACaLyVFFrbj2xfiv+vWxA
-	 Pv/d8dEa+cxtFLT7uKMptcyvE+OdWVe7bIKtI3eWPnbckDxxddKbO2M3/wKxvCq7Ys
-	 KEcFe40T3HBMQ==
+	bh=4w6+GW+2P0AqMS3tHgIC+zIGNdPd9ZGYDVWCh7x55J4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NCthoOn6oGSVUtZfIRcX2rop99wZLLDSSRbrADA+wyjvuZeSBmAelF/dq6dOTWxhP
+	 3+QbAsdcDvW9d1jH5+lDR/CpePWFMm/eVOfUqG+faN4NuajR56uGbzW4fcsZJ+dBw6
+	 EoLC5Oa0+rjd/lvjpBtW5X4b80U0h91Qwyd0KZ+tHhiTsMhzPHedhYwqladF95VDur
+	 d+V5O4fg5c8dDTIByfMkZa3dBTXeA9tn1oInUlOd1s7Muly72pnySUIFUcv3K4Zxr+
+	 qpbxrKW9pmd5yyf+dFT6PtqiyLgq/18NjMkP32uj7neme4YJs0y9Fl8iDGD5EmXhjX
+	 paJQuOqilQdGA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFF9FCA5FB3;
-	Thu,  1 Oct 2026 07:53:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13AE5CA5FA5;
+	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Subject: [PATCH v4 0/8] Flatten USB Controller Nodes on IPQ SoCs
-Date: Thu, 01 Oct 2026 11:53:43 +0400
-Message-Id: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
+Date: Thu, 01 Oct 2026 11:53:45 +0400
+Subject: [PATCH v4 2/8] arm64: dts: qcom: ipq5332: Flatten usb controller
+ node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,11 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNTQ6CMBCG4auQrq3pDxRw5T2Mixam0qgU29JoC
- He3sDGGGJfvl8wzE/LgDHh0yCbkIBpvbJ8i32Wo6WR/AWza1IgRJkjFCmyGB9Y3GQL0ePQKN2V
- balpoXguB0tXgQJvnKp7OqTvjg3Wv9UGky/rbihQTXDRUc1oSpaA+2jHcrL3uG3tHixbZR6iJ2
- AosCa1UFaeMKErkVuB/BJ4EyiEHokVS+Lcwz/MbYaOB3DQBAAA=
-X-Change-ID: 20260825-ipq-flatten-usb-c7d7f15f3966
+Message-Id: <20261001-ipq-flatten-usb-v4-2-486a4d5ede30@outlook.com>
+References: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
+In-Reply-To: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
@@ -56,14 +55,13 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
  Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
  Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
  George Moussalem <george.moussalem@outlook.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790841224; l=3682;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790841224; l=3451;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=EVINqzp6xWaGFh5nsVvzl2MoeVgc9moWhUusgsXG0Yw=;
- b=Yg7Qas+wFoBYDf3dERIqYRgd4m/P1+mkfZzkh/GSCqNqPVx7wa90ou4Zp43A0W2r6RBcrhDsl
- 88HeSZwQp8VBi5DIm9XW2gcewxHiK5gR1toWotwKfEH8I0761SiiPVE
+ bh=1qS4NT/cs8yQ4e0VcSryU3KkiLwYMVRQP8Vj+lpl+kk=;
+ b=u5ie5O0RmdbFbWaBIJlzrQ4N3sEoDs9fpaanL8tqPv4itJfJdCjDys+qNfziCChtIAYYZS8zn
+ pwVvzHmozAZCxgrPbW/ptkTn4zveqpgYbnNejhn+HTU2zJ+Qn6KztS5
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -71,80 +69,123 @@ X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
 X-Original-From: George Moussalem <george.moussalem@outlook.com>
 Reply-To: george.moussalem@outlook.com
 
+From: George Moussalem <george.moussalem@outlook.com>
+
 Flatten usb controller node and update to using latest bindings and
 flattened driver approach.
 
-In addition, set the right UTMI clock rate and override any clock
-rate inherited from the bootloader.
-
-I've split these patches from a larger patch set to add USB3 support on
-IPQ5018 and IPQ5332 SoCs where these patches are required to ensure new
-functionality is added to the new flattened driver and binding model.
-
-link: https://lore.kernel.org/all/20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com/
+In addition, set the right UTMI clock rate and override any clock rate
+inherited from the bootloader.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
-Changes in v4:
-- Dropped patches to have the glue layer pass the reference clock rate
-  to the core as they're no longer required since Kathiravan's patches
-  updating the UTMI clock rates have been applied in next:
-  commit 0fe2995196a5 ("clk: qcom: ipq5018: add 24MHz rate for USB UTMI clock")
-  commit 33e6a4864ddc ("clk: qcom: ipq5332: add 24MHz rate for USB UTMI clock")
-- Updated the dts patches for IPQ5018 and IPQ5332 accordingly to set the
-  UTMI clock rate to 24 MHz.
-- Link to v3: https://lore.kernel.org/r/20260906-ipq-flatten-usb-v3-0-13e4e0f63123@outlook.com
+ arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts |  6 +--
+ arch/arm64/boot/dts/qcom/ipq5332.dtsi       | 57 +++++++++++++----------------
+ 2 files changed, 28 insertions(+), 35 deletions(-)
 
-Changes in v3:
-- Re-added dr_mode back to the controller node in ipq6018-cp01-c1.dts
-  after having removed it in patch 6.
-- Swap interrupts for dp_hs_phy_irq and dm_hs_phy_irq for ipq9574 as per
-  order in updated binding.
-- Only set the ref_clk_rate in the probe_data structure if the UTMI clock
-  is available.
-- Also referring to changes below in v2 (v2 wasn't reviewed yet).
-- Link to v2: https://lore.kernel.org/r/20260906-ipq-flatten-usb-v2-0-dab83120b10a@outlook.com
+diff --git a/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts b/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
+index c224ffc65b08..25a70cd884c0 100644
+--- a/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
++++ b/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
+@@ -90,11 +90,9 @@ spi_0_cs_pins: spi-0-cs-state {
+ };
+ 
+ &usb {
+-	status = "okay";
+-};
+-
+-&usb_dwc {
+ 	dr_mode = "host";
++
++	status = "okay";
+ };
+ 
+ &usbphy0 {
+diff --git a/arch/arm64/boot/dts/qcom/ipq5332.dtsi b/arch/arm64/boot/dts/qcom/ipq5332.dtsi
+index 74d9de8d7641..25c32e966de9 100644
+--- a/arch/arm64/boot/dts/qcom/ipq5332.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq5332.dtsi
+@@ -493,16 +493,9 @@ qpic_nand: spi@79b0000 {
+ 			status = "disabled";
+ 		};
+ 
+-		usb: usb@8af8800 {
+-			compatible = "qcom,ipq5332-dwc3", "qcom,dwc3";
+-			reg = <0x08af8800 0x400>;
+-
+-			interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "pwr_event",
+-					  "dp_hs_phy_irq",
+-					  "dm_hs_phy_irq";
++		usb: usb@8a00000 {
++			compatible = "qcom,ipq5332-dwc3", "qcom,snps-dwc3";
++			reg = <0x08a00000 0xfc100>;
+ 
+ 			clocks = <&gcc GCC_USB0_MASTER_CLK>,
+ 				 <&gcc GCC_USB0_SLEEP_CLK>,
+@@ -510,34 +503,36 @@ usb: usb@8af8800 {
+ 			clock-names = "core",
+ 				      "sleep",
+ 				      "mock_utmi";
++			assigned-clocks = <&gcc GCC_USB0_MOCK_UTMI_CLK>;
++			assigned-clock-rates = <24000000>;
+ 
+-			resets = <&gcc GCC_USB_BCR>;
+-
+-			qcom,select-utmi-as-pipe-clk;
++			interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
++					  "dp_hs_phy_irq",
++					  "dm_hs_phy_irq";
+ 
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			ranges;
+ 			interconnects = <&gcc MASTER_SNOC_USB &gcc SLAVE_SNOC_USB>,
+ 					<&gcc MASTER_SNOC_USB &gcc SLAVE_SNOC_USB>;
+ 			interconnect-names = "usb-ddr", "apps-usb";
+ 
+-			status = "disabled";
++			resets = <&gcc GCC_USB_BCR>;
+ 
+-			usb_dwc: usb@8a00000 {
+-				compatible = "snps,dwc3";
+-				reg = <0x08a00000 0xe000>;
+-				clocks = <&gcc GCC_USB0_MOCK_UTMI_CLK>;
+-				clock-names = "ref";
+-				interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+-				phy-names = "usb2-phy";
+-				phys = <&usbphy0>;
+-				tx-fifo-resize;
+-				snps,is-utmi-l1-suspend;
+-				snps,hird-threshold = /bits/ 8 <0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_u3_susphy_quirk;
+-			};
++			phys = <&usbphy0>;
++			phy-names = "usb2-phy";
++
++			qcom,select-utmi-as-pipe-clk;
++
++			tx-fifo-resize;
++			snps,is-utmi-l1-suspend;
++			snps,hird-threshold = /bits/ 8 <0x0>;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++
++			status = "disabled";
+ 		};
+ 
+ 		intc: interrupt-controller@b000000 {
 
-Changes in v2:
-- Dropped the "qcom,select-utmi-as-ref-clk" property from the binding
-  and DTS nodes since it is no longer needed. If the UTMI clock is
-  available, the glue layer will pass its clock rate to the core
-  unconditionally.
-- Added separate patches to move the DR mode to the relevant board DTS
-  files as per Konrad's request.
-- Picked up RB tags
-- Link to v1: https://lore.kernel.org/r/20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com
-
----
-George Moussalem (8):
-      arm64: dts: qcom: ipq5018: Flatten usb controller node
-      arm64: dts: qcom: ipq5332: Flatten usb controller node
-      arm64: dts: qcom: ipq5424: Flatten usb controller nodes
-      arm64: dts: qcom: ipq6018: move DR mode to board DTS
-      arm64: dts: qcom: ipq6018: Flatten usb controller nodes
-      arm64: dts: qcom: ipq8074: move DR mode to board DTS
-      arm64: dts: qcom: ipq8074: Flatten usb controller nodes
-      arm64: dts: qcom: ipq9574: Flatten usb controller node
-
- arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts   |   6 +-
- arch/arm64/boot/dts/qcom/ipq5018.dtsi            |  51 +++++------
- arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts      |   6 +-
- arch/arm64/boot/dts/qcom/ipq5332.dtsi            |  57 ++++++------
- arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts      |  12 +--
- arch/arm64/boot/dts/qcom/ipq5424.dtsi            |  86 ++++++++----------
- arch/arm64/boot/dts/qcom/ipq6018-cp01-c1.dts     |   2 +
- arch/arm64/boot/dts/qcom/ipq6018.dtsi            |  95 +++++++++-----------
- arch/arm64/boot/dts/qcom/ipq8074-hk01.dts        |   4 +
- arch/arm64/boot/dts/qcom/ipq8074.dtsi            | 110 +++++++++++------------
- arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi |   6 +-
- arch/arm64/boot/dts/qcom/ipq9574.dtsi            |  48 +++++-----
- 12 files changed, 215 insertions(+), 268 deletions(-)
----
-base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-change-id: 20260825-ipq-flatten-usb-c7d7f15f3966
-
-Best regards,
 -- 
-George Moussalem <george.moussalem@outlook.com>
+2.53.0
 
 
