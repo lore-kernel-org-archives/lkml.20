@@ -1,160 +1,413 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D6E327C08;
-	Thu,  1 Oct 2026 08:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0948736B92A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841668; cv=none; b=AVA3F3KXv++hz7CD8K1NyZ9SYMcUSFWFXuGD8QbB2AVzFKz7DieP4m46hVWSO6lBOBtEX+RhscrhjC0bwveKn4xYQxOfZWDwpCh8+j+ufwX3y3J86Xz1N8rFdxyNIMgX8B9JAxOD972m1NedUmx9EIYqCAxuFGiOGL3YUlyWpas=
+	t=1790841722; cv=none; b=m91FxosobboeBov8ZDFUquZng1h1FfIkO/tkPvHZOFyjmlCegFHD7VJT1gR3enNm7iwcmrUQKG+vctajIkfUN6zxWr0QbQR3vls9ga6+oGgSopErNoe8HlzDUVsqHqsiwLeMFXQcycJ7K//imXkeUGdpp3WowAx4VTQw7LN5JtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841668; c=relaxed/simple;
-	bh=EYHi4g1akhjQcrRiixtJasq3p1fNPiPMkObrWuXs8Vo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V1VcgKoIEP8EFfOTIPHZHbWMFwZp5dmNkm7XSltbGUwpxUX/rqWgq/pSP/ut5y3DWJ8CaQIcAnGUZvx37upnMaxfLRgFp37oQCgd/5tpZDNrdn/Ou+o1S7fIP5CWT53KI5+ptyZpUvuUDNCa/ye7UieDp5vaXVc1OK5iaI/GQJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WvUyfFJK; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790841722; c=relaxed/simple;
+	bh=+iOhiU0xVhdDOEkQKNUzjJRfjoSH0XZz9lgFpyROGdQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=OikvJgVuXRbTL4L1Bo9H7xgjXFUfBBS7ruw8w0MM4GPi734MwLk1PXeWQcnzFzJw8ISv6UFeTkn8DesAk6t5owt4OxrN8QoEsc/4lIHdw8dwapW6mmbqZrA4P+pNvf6XcEdhynFd6qSNBw4PioHBUaQryzDvZL1iPZ22ooNIS08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YwmdfPvy; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ySRSpeYq; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ozsWyRNS; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=6S+XirGV; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WvUyfFJK"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175Xug3446209;
-	Thu, 1 Oct 2026 08:01:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=+MTva56L4+MD5F+jwR8XlVy8f0pKRk
-	7aCi8mRoUiY0w=; b=WvUyfFJKFW0VDbmrHYWDGwwFB5wCgoN9X0fs973me+S9S/
-	qthidMoseVBJmpR0BdS1VeLZVJ6mLBBhJwl/if+/uPekWefVnZrw5Q0SYNjIC6TD
-	DN7UJKAPEb6k3e3SaGJ0pn5SOXJ4IvIZ76riKCaY1N/bBoWvSXAsqB5/Qp7sK3ui
-	l59XkNk4tagBBnhULN4Py4TXgiQf7MAnzZ4aogTM//GfSPhBRkyQBK4uobAjGSoe
-	5VrqKa7Xv16W6OQtDtIF+waFmr6mINPX9WDA5wbr5sDCSTEPoZ4Zdw+DsReQkoR2
-	oDHz6YDwpRoFF3lscoNgGtD2fChqbtyizG3x8QZA==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qrhxbc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 08:01:01 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69172VwZ520704;
-	Thu, 1 Oct 2026 08:01:00 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpfrvb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 08:01:00 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69180uNQ38797662
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 08:00:57 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E072120043;
-	Thu,  1 Oct 2026 08:00:56 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7D6D520040;
-	Thu,  1 Oct 2026 08:00:56 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.111.54.207])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu,  1 Oct 2026 08:00:56 +0000 (GMT)
-Date: Thu, 1 Oct 2026 10:00:55 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>, linux-s390@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        kasan-dev@googlegroups.com
-Subject: Re: [PATCH v7 2/4] s390/mm: Batch PTE updates in lazy MMU mode
-Message-ID: <b66a61a4-a532-44ba-a1c6-26f02193fb05-agordeev@linux.ibm.com>
-References: <cover.1786956464.git.agordeev@linux.ibm.com>
- <d7fd78377a7278108ef501cf76571e80caef5968.1786956464.git.agordeev@linux.ibm.com>
- <20260824104048.11040Cdc-hca@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YwmdfPvy";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ySRSpeYq";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ozsWyRNS";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="6S+XirGV"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EEA5D21DE1;
+	Thu,  1 Oct 2026 08:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790841714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vw7lJ7nkh5P4ecvDfyD3Gih1JedgDjQSFuIKWSko4sY=;
+	b=YwmdfPvyYkSs4WfKlLQ96xBHCgT3XnkEoN7g3B23Xf4Vq4+UKSeRVYpoitUK0PjzvTiOzv
+	6MZeq3ZK19l0KAVPShxkVX5eoS+FOPSVNm0mIGGJCPHx+tKWRFInsGUaTMa+bWLY2Tk+Ky
+	uJ8JcKsavjO3u3Oj1ZsvulO+ESI/QOg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790841714;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vw7lJ7nkh5P4ecvDfyD3Gih1JedgDjQSFuIKWSko4sY=;
+	b=ySRSpeYqYJNU7cYLZQPnwYfEQb/i6NAtTUiCOniAQDkE82MC35/UoSkEt/VYLFRSgED4BV
+	YTMb6cXIMnyD1jDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790841708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vw7lJ7nkh5P4ecvDfyD3Gih1JedgDjQSFuIKWSko4sY=;
+	b=ozsWyRNSagvwrt6jusLYtQT4/cEj6qcFjCf04rQPjMqspi19ItObTsgLhTm435bAFM/2io
+	dxYpObBA4W14RQZwp1Y6OtXuAESES6pDDNEmB2mm5NQtGebwN7emhxHFu9dZzzynEMFqQG
+	VsO6e3l/mOz90LpcW1qvT0DhUKHecIw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790841708;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vw7lJ7nkh5P4ecvDfyD3Gih1JedgDjQSFuIKWSko4sY=;
+	b=6S+XirGV9/kSLI5pMJRLIvIwxxfe63M0rpAusmLFIW8mbXbbewZudnWQQ8PAMuiHsY3mSp
+	tCZk+79km1VLfrDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B35BB136A5;
+	Thu,  1 Oct 2026 08:01:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3qNKI2wTvmq8RgAAD6G6ig
+	(envelope-from <chrubis@suse.cz>); Thu, 01 Oct 2026 08:01:48 +0000
+Date: Thu, 1 Oct 2026 10:02:03 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it, linux-kernel@vger.kernel.org,
+	libc-alpha@sourceware.org,
+	valgrind-developers@lists.sourceforge.net
+Cc: lwn@lwn.net, akpm@linux-foundation.org, torvalds@linux-foundation.org
+Subject: [ANNOUNCE] The Linux Test Project has been released for SEPTEMBER
+ 2026
+Message-ID: <ar4TexudzfhsKBwT@yuki.lan>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260824104048.11040Cdc-hca@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzMCBTYWx0ZWRfX6YkfKWEpBcwQ
- N2xtb1Zed75UiX/0yLNPdPQE96ozCdqKrFZHX/6ymzjryvv/daZNPMdeaQnxgFwHnckyHhm3NOa
- Qv9LHLuGwBZ238IfOmW9PKzH7M4ZVNn0MnBYRrMckVVE8mL/aYMKH4LXagsu5wi5Q6izOYdBQnd
- P1AuYkstpiJGwkTpkfHfF+F2TeXPrfjupHcu0t1ch9SLsw81nFLMmNPkq9BlsILeuoG51t/y6S2
- j1hEBQo4HLq9NAWedmxUKmzWctC8gJzsf/Dam3pjWBRmBrKPwnBFyf+1yY73IInOAFsetjMG0hn
- MUiEr6JISkKZuUZA1uTdpDKMnK1Zcf9Vx7BexLsIjgN8pKlIJlBqQXosKSVQ4aPyszalJYMO/aF
- 8wzcOHl+ce6RRq+wqykxuNdoIokl6NjqXhVRs+HrVJr0iaBGjrNAQbGNlcS+kDkY+dGbuY/oGPS
- +YiLDdFYJORXuPr2o+w==
-X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6abe133e cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=m8Li7VA48kL__Rn2agMA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: TK7xsE2_XFdNWioSpWUiuMdbLcLFSrY1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzMCBTYWx0ZWRfXxyXQgnjU9D0X
- tHuY+PHhFc0+n146WPgAoCn5CXGMkEz1Xcon9MFTMa/vr85rvUu+TYqhuXHR0vgHIurZX6X4FGL
- H+EpDwZzW7oLW3wfVHrtJk35nIoyOqo=
-X-Proofpoint-GUID: snOW1WwzWZreqGa1tdD562TZ2vVp2wdG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010030
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spam-Level: 
 
-On Mon, Aug 24, 2026 at 12:40:48PM +0200, Heiko Carstens wrote:
-> > +static __always_inline bool is_lazy_mmu_active(void)
-> > +{
-> > +	if (__is_defined(__DECOMPRESSOR))
-> > +		return false;
-> > +	if (!get_lowcore()->lazy_mmu_count)
-> > +		return false;
-> 
-> I guess there is opportunity to generate better code here using an
-> alternative and using a flag output constraint too.
+Good news everyone,
 
-It is only CY and LT instructions that make sense for me.
-Here is what I came up with:
+the Linux Test Project test suite stable release for *September 2026* has been
+released.
 
- static __always_inline bool is_lazy_mmu_active(void)
- {
-	unsigned long lc_lazy_mmu_count;
-	int cc;
+Since the last release 382 patches by 41 authors were merged.
 
- 	if (__is_defined(__DECOMPRESSOR))
- 		return false;
-	lc_lazy_mmu_count = offsetof(struct lowcore, lazy_mmu_count);
-	asm_inline(
-		ALTERNATIVE("	cy	%[zero],%[offzero](%%r0)\n",
-			    "	cy	%[zero],%[offalt](%%r0)\n",
-			    ALT_FEATURE(MFEATURE_LOWCORE))
-		CC_IPM(cc)
-		: CC_OUT(cc, cc)
-		: [offzero] "i" (lc_lazy_mmu_count),
-		  [offalt] "i" (lc_lazy_mmu_count + LOWCORE_ALT_ADDRESS),
-		  [zero] "d" (0), "m" (((struct lowcore *)0)->lazy_mmu_count)
-		: CC_CLOBBER);
-	return CC_TRANSFORM(cc);
- }
+Patch review is what most of the projects struggle with and LTP is no
+different. If you can spare some effort helping with the patch review is more
+than welcomed.
 
-As result instead of gcc code:
+NOTABLE CHANGES
+===============
 
-	lghi	%r8,0
-	lt	%r1,1032(%r8)
-	je	...
+* New CVE regression tests
+  - ghostlock aka CVE-2026-43499
+    3bfdc63936dd ("rtmutex: Use waiter::task instead of current in remove_waiter()")
 
-We get more or less the same:
+  - sctphantom aka CVE-2026-64564
+    9b2854f86f0b ("sctp: don't free the ASCONF's own transport in DEL-IP processing")
 
-	lhi	%r1,0
-	cy	%r1,1032
-	jne	...
+  - refluxfs aka CVE-2026-64600
+    2f4acd0fcd86 ("xfs: resample the data fork mapping after cycling ILOCK")
 
-The only benefit is [zero] "d" (0) could sometimes avoid LHI if a
-zeroed register is already around. But also the KASAN coverage is
-not generated.
+  - setsockopt11 aka CVE-2026-53362
+    736b380e28d0 ("ipv6: account for fraggap on the paged allocation path")
 
-Does it make sense to go ahead whith the alternative?
+  - cve-2026-46331
+    899ee91156e5 ("net/sched: fix pedit partial COW leading to page cache corruption")
+
+  - io_uring04 aka CVE-2026-43494 aka PinTheft
+    e17492979319 ("net/rds: reset op_nents when zerocopy page pin fails")
+
+* New tests
+  - coredump{01,02} - tests core_pattern and does sanity check on coredump file
+  - swapon04 - tests swapon discard flags
+  - hugemmap41 - test that hugepages can be accessed by ptrace() PKEDATA and PEEKDATA
+  - mremap09 - tests that mremap() fails with ENOMEM when existing mapping
+    cannot be expanded
+  - hugemmap36 - regression test for truncating hugepage files above 4GB offset
+                 on 32bit systems
+  - hugemmap37 - tests that kernel fails hugepage mmap operations that straddle
+                 TASK_SIZE boundary
+  - hugemmap38 - regression test that verifies that kernel properly maintains
+                 hugepage reservation accounting
+  - connect03 - test for EPROTOTYPE and EACCES errors
+  - landlock08 - landlock UDP bind/connect tests
+  - rfim - test for RFIM sysfs interface
+  - cpufreq_intel - test for intel_pstate sysfs interface
+  - epoll_wait16 - EPOLLEXCLUSIVE test
+  - epoll_wait15 - test that all epoll instances are woken up on single event
+  - epoll_wait{13,14} - tests that events are properly returned if there are
+                        more events queued than the syscall can return in the
+                        epoll_event array passed to the syscall
+  - epoll_wait12 - test for EPOLLERR
+  - epoll_wait11 - test for EPOLLHUP
+  - epoll_wait10 - test for POLLPRI on /proc/mounts
+  - epoll_ctl06 - that hammers epoll_ctl() with all kinds of valid and invalid fds
+  - epoll_wait09 - test for recursive epoll event propagation
+  - epoll_wait08 - test for EINTR
+  - epoll_create03 - test for EMFILE
+  - epoll_ctl07 - test for ELOOP
+  - acl_link01 - test for ACL operations on symlinks
+  - acl_file_ops01 - tests that chmod() and chown() interact correctly with ACL
+  - acl_inherit01 - test for default ACL inheritance from parent directory
+  - acl_other01 - tests that ACL_OTHER permissions are applied correctly
+  - acl_mask01 - tests that ACL_MASK correctly restricts permissions
+  - acl_user_obj01 - tests ACL_USER_OBJ permissions
+  - futex_cmp_requeue03 - tests for EFAULT
+  - futex_wake05 - tests for EFAULT
+  - futex_wait07 - tests for EINTR
+  - futex_wait06 - tests for EFAULT
+  - hugemmap35 - A regression test that file can be mapped PROT_MTE even when
+                 MAP_HUGETL is not set in the mmap flags
+  - thermal_interrupt_events - test for Intel CPU termal sensors
+  - high_freq_hwp_cap_cppc - test for acpi_cppc on intel CPUs
+  - userfaultfd07 - test for UFFDIO_CONTINUE
+
+* New keyctl() sanity tests
+
+  - keyctl30 - tests KEYCTL_PKEY_QUERY on private key
+  - keyctl29 - tests KEYCTL_PKEY_QUERY on public key
+  - keyctl28 - negative tests for KEYCTL_DH_COMPUTE
+  - keyctl27 - tests KEYCTL_DH_COMPUTE KDF key derivation
+  - keyctl26 - tests KEYCTL_DH_COMPUTE size query
+  - keyctl25 - tests KEYCTL_DH_COMPUTE shared secret computation
+  - keyctl24 - negative tests for KEYCTL_RESTRICT_KEYRING
+  - keyctl23 - tests KEYCTL_RESTRICT_KEYRING builtin_trusted
+  - keyctl22 - tests KEYCTL_RESTRICT_KEYRING reject-all
+  - keyctl21 - negative tests for KEYCTL_MOVE
+  - keyctl20 - tests KEYCTL_MOVE displacement
+  - keyctl19 - tests KEYCTL_MOVE with same source and destination
+  - keyctl18 - basic tests for KEYCTL_MOVE
+  - keyctl17 - negative tests for KEYCTL_GET_SECURITY
+  - keyctl16 - tests KEYCTL_GET_SECURITY truncated copy
+  - keyctl15 - tests KEYCTL_GET_SECURITY label retrieval
+  - keyctl14 - negative tests for KEYCTL_DESCRIBE
+  - keyctl13 - tests KEYCTL_DESCRIBE size query
+  - keyctl12 - tests KEYCTL_DESCRIBE with too small buffer
+  - keyctl11 - tests KEYCTL_DESCRIBE with exact buffer size
+  - keyctl10 - tests KEYCTL_DESCRIBE format parsing
+
+* New sysfs sanity tests
+
+  Sanity tests are mostly read-only tests that assert that sysfs files have
+  expected values, e.g. booleans are 0 or 1, etc. The cases where the tests are
+  writing the sysfs values are when we can create virtual device, e.g. TUN/TAP
+  networking interface.
+
+  - sys_thp01 - tests /sys/kernel/mm/transparent_hugepage/* files
+  - sys_mm_swap01 - tests /sys/kernel/mm/swap/vma_ra_enabled file
+  - sys_ksm01 - tests /sys/kernel/mm/ksm/* files
+  - sys_hugepages02 - tests /sys/kernel/mm/hugepages/* files
+  - sys_hugepages01 - tests /sys/kernel/mm/hugepages/hugepages-*/* files
+  - sys_block_size01 - tests /sys/block/*/{ro, size} files
+  - sys_block_queue01 - tests /sys/block/*/queue/* files
+  - sys_block_loop01 - tests /sys/block/loop*/* files
+  - sys_net04 - tests /sys/class/net/*/* files
+  - sys_net03 - tests /sys/class/net/*/* files
+  - sys_net02 - tests /sys/class/net/*/* files
+  - sys_net01 - tests /sys/class/net/*/* files
+  - sys_thermal01 - tests /sys/class/thermal/cooling_device*/* files
+  - sys_rtc01 - tests /sys/class/rtc/*/* files
+  - sys_wakeup01 - tests /sys/class/wakeup/*/* files
+  - sys_leds01 - tests /sys/class/leds/*/* files
+  - sys_hwmon01 - tests /sys/class/hwmon/*/* files
+  - sys_bdi01 - tests /sys/class/bdi/*/* files
+  - sys_ata01 - tests /sys/class/ata_device/*/* files
+  - sys_clockevents01 - tests /sys/devices/system/clockevents/* files
+  - sys_cpu_cache01 - tests /sys/devices/system/cpu/cpu*/cache/* files
+  - sys_cpu_smt01 - tests /sys/devices/system/cpu/smt/* files
+  - sys_cpu_vulnerabilities01 - tests /sys/devices/system/cpu/vulnerabilities/* files
+  - sys_cpu_topology02 - tests /sys/devices/system/cpu/cpu*/topology/* files
+  - sys_cpu_topology01 - tests /sys/devices/system/cpu/* files
+  - sys_node01 - tests /sys/devices/system/node/* files
+  - sys_clocksource01 - tests /sys/devices/system/clocksource/* files
+  - sys_kernel01 - tests /sys/kernel/* files
+  - sys_power01 - tests sysfs/power/* files
+
+* Increased coverage
+  - swapon02 - tests for invalid swapon() syscalls flags
+  - fanotify21 - added test for FAN_REPORT_ID
+
+* The runtest/irq file was merged into runtest/kernel_misc
+
+* Test scripts that depended on ltp-pan were removed, since ltp-pan was removed
+  in previous release.
+
+  - ltp-aiodio.sh
+  - tpm_tools.sh
+  - network.sh
+
+* More of LTP API was documented and docs are now available at:
+  https://linux-test-project.readthedocs.io/en/latest/developers/api_c_tests.html
+
+* LTP removed dependency on the keyutils library
+
+  - back then we were using it mostly for the constants and structures that are
+    now part of the kernel uapi.
+
+* 15 tests were rewritten to the new test library API
+
+* LTP has migrated its patchwork from ozlabs to kernel.org
+
++ The usual amount of fixes and cleanups
+
+
+NOTABLE CHANGES IN NETWORK TESTS
+================================
+brought to you by Petr Vorel
+
+- removed outdated DNS stress tests
+
+
+KIRK
+====
+
+The LTP test runner kirk was updated to version 4.2.0
+
+  * Add --dry-run option to preview tests before execution
+  * Add configurable fault injection interval option
+  * Persist and export partial results when a session is aborted mid-suite
+  * Fix --exec-timeout not killing tests in the shell channel
+  * Fix JSON report file being opened in read/write instead of write-only mode
+  * Fix incorrect log message when test parameters are missing in LTP metadata
+  * Fix exception handling in the event subsystem
+  * Fix --randomize command-line description
+  * Major documentation update (quickstart, SSH, LTX, QEMU, and plugins)
+  * Move IOBuffer implementations inside the sut module
+  * Improve test suite coverage and fix flaky test cases
+
+
+DOWNLOAD AND LINKS
+==================
+
+The latest version of the test-suite contains 3000+ tests for the Linux
+and can be downloaded at:
+
+https://github.com/linux-test-project/ltp/releases/tag/20260930
+
+The project pages as well as GIT repository are hosted on GitHub:
+
+https://github.com/linux-test-project/ltp
+
+If you ever wondered how to write a LTP testcase, don't miss our developer
+documentation at:
+
+https://linux-test-project.readthedocs.io/en/latest/developers/test_case_tutorial.html
+
+And our library API documentation at:
+
+https://linux-test-project.readthedocs.io/en/latest/developers/api_c_tests.html
+
+Patches, new tests, bugs, comments or questions should go to to our mailing
+list at ltp@lists.linux.it.
+
+
+CREDITS
+=======
+
+Many thanks to the people contributing to this release:
+
+git shortlog -s -e -n 20260529..
+
+   110  Andrea Cervesato <andrea.cervesato@suse.com>
+    75  Petr Vorel <pvorel@suse.cz>
+    61  Cyril Hrubis <chrubis@suse.cz>
+    26  Avinesh Kumar <avinesh.kumar@suse.com>
+    13  Martin Doucha <mdoucha@suse.cz>
+     9  Sachin Sant <sachinp@linux.ibm.com>
+     9  Wake Liu <wakel@google.com>
+     9  Wei Gao <wegao@suse.com>
+     6  AnonymeMeow <anonymemeow@gmail.com>
+     5  Li Wang <li.wang@linux.dev>
+     5  Michael Menasherov via ltp <ltp@lists.linux.it>
+     5  Pavithra <pavrampu@linux.ibm.com>
+     4  Piotr Kubaj <piotr.kubaj@intel.com>
+     4  Victor Cheng-Yen Yang <cyyang772@andestech.com>
+     4  Sebastian Chlad <sebastian.chlad@suse.com>
+     3  Disha Goel <disgoel@linux.ibm.com>
+     3  Jinseok Kim <always.starving0@gmail.com>
+     3  Mimi Zohar <zohar@linux.ibm.com>
+     2  Anders Roxell <anders.roxell@linaro.org>
+     2  Kuba Pawlak via ltp <ltp@lists.linux.it>
+     2  Ricardo Branco <rbranco@suse.de>
+     2  Vasileios Almpanis <vasileios.almpanis@virtuozzo.com>
+     2  XiaoLei Wu <wxl18715129466@gmail.com>
+     1  Amir Goldstein <amir73il@gmail.com>
+     1  Benjamin Wheeler via ltp <ltp@lists.linux.it>
+     1  Brian Grech <bgrech@redhat.com>
+     1  Frank Ranner <frank.ranner@intel.com>
+     1  Gang Yan <yangang@kylinos.cn>
+     1  Grzegorz Jaszczyk <jaszczyk@google.com>
+     1  Hongtao Zhang via ltp <ltp@lists.linux.it>
+     1  Ivan Hu via ltp <ltp@lists.linux.it>
+     1  Jeff Layton <jlayton@kernel.org>
+     1  Kinshu Agrawal <kinshu@google.com>
+     1  Pavan G <giridharpavan593@gmail.com>
+     1  Runli <mingyu.he@shopee.com>
+     1  Samir <samir@linux.ibm.com>
+     1  Stephen Bertram via ltp <ltp@lists.linux.it>
+     1  Tang Yizhou <yizhou.tang@shopee.com>
+     1  Terence Tritton <ttritton@google.com>
+     1  Wenbo Ma <wenbo1.ma@intel.com>
+     1  Xuewen Wang <wangxuewen@kylinos.cn>
+
+And also thanks to patch reviewers:
+
+git log 20260529.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
+
+    144 Cyril Hrubis <chrubis@suse.cz>
+    140 Petr Vorel <pvorel@suse.cz>
+    113 Andrea Cervesato <andrea.cervesato@suse.com>
+     63 Li Wang <li.wang@linux.dev>
+     13 Avinesh Kumar <avinesh.kumar@suse.com>
+     10 Jan Stancek <jstancek@redhat.com>
+      7 Martin Doucha <mdoucha@suse.cz>
+      6 Wei Gao <wegao@suse.com>
+      5 Jan Kara <jack@suse.cz>
+      4 Amir Goldstein <amir73il@gmail.com>
+      2 Sebastian Chlad <sebastian.chlad@suse.com>
+      2 Mimi Zohar <zohar@linux.ibm.com>
+      2 Michal Koutný <mkoutny@suse.com>
+      1 Wake Liu <wakel@google.com>
+      1 Vlastimil Babka (SUSE) <vbabka@kernel.org>
+      1 Piotr Kubaj <piotr.kubaj@intel.com>
+
+And everyone else suggesting or co-developing:
+
+git log 20260529.. | grep -Ei '(suggested|co-developed)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
+
+     13 Cyril Hrubis <chrubis@suse.cz>
+      2 Petr Vorel <pvorel@suse.cz>
+      2 Li Wang <li.wang@linux.dev>
+      2 Andrea Cervesato <andrea.cervesato@suse.com>
+      1 Wake Liu <wakel@google.com>
+      1 Martin Doucha <mdoucha@suse.cz>
+      1 Amir Goldstein <amir73il@gmail.com>
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
