@@ -1,931 +1,196 @@
-Received: from mail-wm2-f5.google.com (mail-wm2-f5.google.com [74.125.225.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E05536E46F
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195193E2ADF;
+	Thu,  1 Oct 2026 17:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790874651; cv=none; b=E7TVkM1EU3KFwmOuyA7M0yz+EWtaWf+LpKYDUXlMZb4VRQ9YW7v1S1vWjXKiYPuLgCyLCoyVCSIjYoHu+TqnhIYKhF6fLp5c7qLAYUEZIA20kFMNNwDfk1GYISgr3jKOannlt1CJibQ68z5hvUqHbRmPYmte5vIQVvgKM+6XGyI=
+	t=1790874826; cv=none; b=hI7tqh+NWTZBTSxtBY1KNkQqZOQtmiq4wrOIzjobU9/G3aRhm7k/s+I76CkoklqH2qofEjyf9bRg1U4LYw/EtN303qnliked8khsgc+ewiPFnn+nAHp6Pzkh3e7gE4ZBzgc2hEz0yZLROZvJfJ2WQROMVPlLueCuW1iTGbOSkvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790874651; c=relaxed/simple;
-	bh=Fw9dsfELz78BA8ipIlfO3EHgK0DKWN+NWCxKnscNcYY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aC97YafKD/O4197hSuL1jdggYvwGjT7QCTRbwJVzlxTGg9zj/TkWF9EcgVPZUxIySeU0aQsEhcs6EzXmSLuv3WbWVoJfL3Ce7chqwLPiR8o4u8cmJ5+bP0txPlddtgXDbNLPP3ZqKhHCiVaHtSl4Fmj54aj0oGt+Cr/U+mqr1WA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=FNutL7he; arc=none smtp.client-ip=74.125.225.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	s=arc-20240116; t=1790874826; c=relaxed/simple;
+	bh=lhq8JKa61aTi2bOedB2Rr/BQnnWBa3OKYCB3YEzC3dc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HyPXwG5VkKkughA55khicV8K6VfMLJeXZa0KbRRSkUj/TiyJsTtiK7ScUckzZ3fWg/XiNEsFwcH/FcjRv3/qk9nLjc/LyIaDGl21M+ilh4cYEYPZ4L/cMby/IEuQcvxQoa0dEKRPCpLKMI0MSxG69J/FthSfaMiBrLeb1EMJXFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pu4Nr4N0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="FNutL7he"
-Received: by mail-wm2-f5.google.com with SMTP id 5b1f17b1804b1-49e7b06acb8so25850355e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1790874641; x=1791479441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TGm7IC7PEFYqvBb16na7BG1gbnvFypBDABToiBBYHKQ=;
-        b=FNutL7heJ7dFJzR/PFWMfe0zlkLx2GF/qoSwf1bIMsEyPLjfaDXvuMnsvXn0lbzet1
-         dnfScenlPelNc/T0PFj2vutN0VwLsQAw9/M0bfO+QcykgGHzS7T5V5XLt0DCp5zt/vI4
-         yhnM1xHifmF6DIcqhxcK6P0iVZ0Fd/7PAMNgdDiHeZx5Lmslmucgm12iXelaxqnhpALO
-         S3+Jk5afgHonZc1XuMqUdv6gn9AIYm6sRnE9/NiszVQIF2SRoeTW9vnSsGJkOvw0NHin
-         JNBhsJxKia7WztodBmujNYFclsn1uEVq33jfeyYYU1sNzoBfnCLbjmB4UxncYaSiE12a
-         VfJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790874641; x=1791479441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TGm7IC7PEFYqvBb16na7BG1gbnvFypBDABToiBBYHKQ=;
-        b=Gcbn+eLrIYQ4ZlyTFoiYelGY5eS25TT2cbpi7SdT4xZTuv0NYSeP0PEFdfAoaJd1ua
-         +zxU9eUQtUU4IO9Qw6bNIBy+PqcHHrTntFA4Ye9P6LuMs7hGItgSunPBsw/abTvewpH0
-         CfmkaaDmxcTe+kA/+NXNgImc0eDUz7JXbBDlW9//p4LezbzNxbGf3NeKmB+Me/bVhbFx
-         Fp8sQllH4UbVVLItB9B9vlMPpXpDhHnAnD/gvWHV/8jxcZBFGv136frigdMgL0cRinUs
-         Q4rmgcisdW3ne4f1xlr/Eu6CTmde+Vk0WVfChxUPNOrMqO/RTuapBXgi9Ll0xCWgTLZj
-         rBeA==
-X-Forwarded-Encrypted: i=1; AKwUvBysnKD223C92p5r+phRY63snTVsHskBMiDSiYkxF5rQPtEroKSyiqGk4Cnn6YAQJwpVjY2Vt4NPgBeDGoU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ms2adimJfcTyVITi+3+5pZ2F7ioRHu50S025zy2L0ZOAkX4fX9
-	AiL+2bG4BODDIY3KcGPM/NSADZL5DhG/DuBzHSICzvgDVrdNZPeZALJ1D5NXwY/nY1k=
-X-Gm-Gg: AYBFou08X00j4RatudGDf43qVcNExb8UZBUruOqyRyJZM7viLmBAKgJW+hPN6qnJIek
-	DGhNQY9287gfE+LDNOqoE2a165zi/xld/SpfKBtqXp8vRJD2TT1sZ/cVnH61B3+1DhCQQ1lLILu
-	NWcseTEA8WJwy0ED9W/bx7wjpKFSM5cNN3w2czK22l0AMbRsnq7Q0q67/wOKu4dtKltmW3SnmSA
-	V56zvuLfJNVgbad8gXCeVbfXzalPDrh/saugQ+9OlJ8q0J9Y7p9f31tKg0B829oMDyJC5v7TS0Y
-	GISzAnqT+XeQySwfrqBBxSE8hazjH9L+4rmnsRvEF+luk9zDGlDpKAmumAFzcIViSWmz4m2mBYJ
-	SXSYLWeoVDrcUfuZJCJTrIq65c/61AlaUJSJRD4Ilcrrl6SNNTSZv1U/MAjoqRA5/BMGgfs0kd2
-	aWxqNODAv1SMt0x6VFdR0ziQAaxAkF6zKRK/lU5cWxZ+ilxFfI1DCVtrsCUPv7lAyM4FJoiFinA
-	kpxo5HWQje0hEspiqVu48l/XVYTUORgtXnjxb1K8xyTLrGrxYVEbuV0+mdBBuP40y5uzHcAe2q/
-	YTiBKg==
-X-Received: by 2002:a05:600c:3510:b0:4a0:c4:a1e0 with SMTP id 5b1f17b1804b1-4a02756729dmr5277165e9.9.1790874641017;
-        Thu, 01 Oct 2026 10:10:41 -0700 (PDT)
-Received: from localhost.localdomain ([197.51.130.226])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0278fb6f1sm2496985e9.9.2026.10.01.10.10.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 01 Oct 2026 10:10:40 -0700 (PDT)
-From: Omar Ramadan <omar@blockcast.net>
-To: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 2/2] selftests: net: add an amt test for UDP_SEGMENT through the relay
-Date: Thu,  1 Oct 2026 20:10:16 +0300
-Message-ID: <20261001171016.88208-3-omar@blockcast.net>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261001171016.88208-1-omar@blockcast.net>
-References: <20261001171016.88208-1-omar@blockcast.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pu4Nr4N0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 146D6C2BCC7;
+	Thu,  1 Oct 2026 17:13:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790874825;
+	bh=lhq8JKa61aTi2bOedB2Rr/BQnnWBa3OKYCB3YEzC3dc=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Pu4Nr4N0SCi9iwuahSsPUdyfOR56ompJLH+Bhfm1/eFG/ix/XPZD6JJArSmt0gYPx
+	 0OSN1c5VQh4CiC1ZWcR7USgV4SGLLH/P1LvrvfMEQ2lnmbP3C40b697yUI2/NAA7k0
+	 DKWoDz7giesPUpqTnzO9lgEoArUVlUVuq+9wECDdnWbju7PrLr9yyJLS76GQxVOqH8
+	 fxmwqMuiXmQ/grX6JecJF0x3kAdTLSS9s2St5jL7az3Z4jnghisaxDFhFe8c99Cxym
+	 5w7/z/8G0DTvp+IjcXyAACjmQiKrXA7nl9hdghlwUujCbxWUK7BAt/d8orpNDPxepI
+	 4ax8ZceHlJ6Ww==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E308BCA5FD4;
+	Thu,  1 Oct 2026 17:13:44 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Thu, 01 Oct 2026 19:13:29 +0200
+Subject: [PATCH net] vsock/virtio: clear vqs[] to avoid a UAF on a failed
+ PM restore
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAwAf2Xk2UAzYaK/Ij50bapRaCXpxmDs3
+ +3c4x3crWCswga3bgXlWUxKbkCnDsLL5yejxMbQu34g5whnK+GDylaLMk4+oXGOSClcztcheRo
+ jtPirnGT5j++QucLjkDaNbw51X8K2/QCBE6SYfwAAAA==
+X-Change-ID: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Stefan Hajnoczi <stefanha@redhat.com>, 
+ Stefano Garzarella <sgarzare@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790874824; l=4969;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=OzDITxghnCYWCrZYjn50doFti2WNlSPFkziXexLwJqE=;
+ b=gJV0ZugB4Fep9rZp+kEVHlD38YYd8UmQENkr+fukRe8g1yhWWzWG6WECTSs6uOS/yFvZZY7R9
+ ORFIua46Ha4Aa1Cz94X/RmyKurU7eskGPowCKDtVwxCAjCLjlIM8ofH
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
 
-Add amt_gso.sh, which sends a UDP_SEGMENT burst from a local sender on
-the relay to a listener behind a gateway, for IPv4 and IPv6, and checks
-that every segment arrives with the right length and payload.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-With the default features of the amt device, the core segments the burst
-before amt_dev_xmit(), so that case is the control for the harness. With
-"ethtool -K amtr tx on" the GSO skb reaches the driver unsegmented.
-A capture on amtr, which sees what is handed to the driver, is used to
-show that, and the case is reported as skipped if no frame larger than
-the MTU reached amt_dev_xmit(). A capture on the gateway side of the
-link checks that the AMT messages on the wire are not larger than the
-MTU, that there is one for each segment, and that the gateway has not
-counted checksum errors. The tx_dropped counter of the relay's egress
-device must not move. Plain, non-GSO datagrams with tx on are sent as
-well.
+virtio_vsock_vqs_del() frees the virtqueues via del_vqs() but never
+clears vsock->vqs[]. If a later virtio_vsock_restore() fails to
+reallocate them (its error path is a bare "goto out" that only unlocks
+and returns), the driver is left bound with a dangling vqs[]. The next
+virtio_vsock_vqs_del() - on a second freeze or on remove/unbind - then
+passes a freed vring_virtqueue to virtqueue_detach_unused_buf(), a slab
+use-after-free. KASAN on a guest with a virtio-vsock device, after a
+restore made to fail by fault injection:
 
-The relay's egress device has tx offload switched off so that the outer
-segmentation and checksum are done in software and the result does not
-depend on what the veth passes through.
+  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
+  Read of size 4 at addr ... by task repro
+   virtqueue_detach_unused_buf
+   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
+   virtio_vsock_remove
+   virtio_dev_remove
+   ... unbind_store
+  Freed by task ...:
+   kfree
+   vp_del_vqs
+   virtio_vsock_freeze          <- the preceding freeze freed the vq
+  Allocated by task 1:
+   vring_create_virtqueue
+   virtio_vsock_vqs_init
+   virtio_vsock_probe           <- original allocation at probe
 
-amt_gso is a small helper because none of the existing tools can send
-UDP_SEGMENT to a multicast group through a chosen interface and also
-check payloads. It sends, receives and captures.
+The object is the RX vring_virtqueue freed during the freeze;
+vsock->vqs[RX] still points at it. virtqueue_detach_unused_buf() does
+not guard a NULL vq, so a bare NULL-out is not enough on its own.
 
-Without the previous patch the two cases with tx on and a UDP_SEGMENT
-burst fail (the burst is dropped on the relay's egress device); the
-control and the plain datagram cases pass. With it, all six pass. That
-was the result in each of 11 runs per kernel.
+Clear vsock->vqs[] after del_vqs() in virtio_vsock_vqs_del(), skip the
+detach loops when a vq pointer is NULL, and also clear the array when
+virtio_find_vqs() fails partway in virtio_vsock_vqs_init() (which can
+leave freed pointers behind). This mirrors virtio_blk
+commit 0739c2c6a015 ("virtio_blk: NULL out vqs to avoid double free on
+failed resume") and virtio_rtc commit 548d2208455f ("virtio: rtc: tear
+down old virtqueues before restore"); virtio_console carries the same
+stale-pointers-after-failed-restore fix.
 
-About the stability of the test itself: an earlier version failed
-intermittently, in about 3 of 25 full runs. The listener's interface
-counted the packets but the receiver reported none, in a control case or
-a tx-on case. I think the receiver's idle timer expired before the
-sender started on a loaded guest, because the receiver had already
-exited when the counters rose, but I only inferred that from the
-counters. The receiver now waits up to 15 seconds for the first
-datagram, and the final version has no warm-up traffic and no fixed
-sleeps: the captures are drained after SIGTERM, once the receiver is
-done. The final version was run 22 times (11 per kernel) in a 4-vCPU KVM
-guest, two guests at a time on a busy host, with the expected result
-each time. That is a small sample, so occasional flakiness cannot be
-excluded, and it has not been run under a stock kselftest runner or on
-another machine. The remaining waits are timeouts: 3 s idle, 15 s for
-the first datagram, 5 s for each helper's READY line.
+Testing: reproduced on a private VM with a KASAN fuzz kernel based on
+v7.3-rc5. The restore allocation failure was forced with CONFIG_FAILSLAB
+steered by the fault-injection stacktrace filter to the virtio-vsock
+restore path only; a guest-root program drives a pm_test=devices
+freeze/restore cycle (so .restore returns -ENOMEM) and then unbinds the
+device. The unfixed kernel reports the slab-use-after-free above; with
+this patch the same run makes restore fail identically yet produces no
+KASAN report. checkpatch.pl --strict is clean and the build is
+warning-free. The reproducer is available on request.
 
+Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Omar Ramadan <omar@blockcast.net>
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
 ---
- tools/testing/selftests/net/.gitignore |   1 +
- tools/testing/selftests/net/Makefile   |   2 +
- tools/testing/selftests/net/amt_gso.c  | 473 +++++++++++++++++++++++++
- tools/testing/selftests/net/amt_gso.sh | 269 ++++++++++++++
- 4 files changed, 745 insertions(+)
- create mode 100644 tools/testing/selftests/net/amt_gso.c
- create mode 100755 tools/testing/selftests/net/amt_gso.sh
+ net/vmw_vsock/virtio_transport.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/tools/testing/selftests/net/.gitignore b/tools/testing/selftests/net/.gitignore
-index c9f46031a..0f11d58a8 100644
---- a/tools/testing/selftests/net/.gitignore
-+++ b/tools/testing/selftests/net/.gitignore
-@@ -1,4 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+amt_gso
- bind_bhash
- bind_timewait
- bind_wildcard
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index d4ca82fec..b90a9a382 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -9,6 +9,7 @@ CFLAGS += -I../
- TEST_PROGS := \
- 	altnames.sh \
- 	amt.sh \
-+	amt_gso.sh \
- 	arp_ndisc_evict_nocarrier.sh \
- 	arp_ndisc_untracked_subnets.sh \
- 	bareudp.sh \
-@@ -143,6 +144,7 @@ TEST_PROGS_EXTENDED := \
- # end of TEST_PROGS_EXTENDED
+diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+index 4f9aa9c4c3aa..0553c0641fd2 100644
+--- a/net/vmw_vsock/virtio_transport.c
++++ b/net/vmw_vsock/virtio_transport.c
+@@ -714,8 +714,15 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+ 	atomic_set(&vsock->queued_replies, 0);
  
- TEST_GEN_FILES := \
-+	amt_gso \
- 	bind_bhash \
- 	cmsg_sender \
- 	fin_ack_lat \
-diff --git a/tools/testing/selftests/net/amt_gso.c b/tools/testing/selftests/net/amt_gso.c
-new file mode 100644
-index 000000000..96c002e58
---- /dev/null
-+++ b/tools/testing/selftests/net/amt_gso.c
-@@ -0,0 +1,473 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Helper for amt_gso.sh.
-+ *
-+ * send:  send datagrams to a multicast group, optionally as one UDP_SEGMENT
-+ *        burst per datagram, with a self-describing payload pattern.
-+ * recv:  receive datagrams on a UDP port and check count, length and payload
-+ *        of every one of them against the pattern used by "send".
-+ * sniff: capture on an interface with AF_PACKET and report how large the
-+ *        frames handed to the device were.
-+ *
-+ * Every datagram consists of "chunks" cnt chunks of seg bytes followed by an
-+ * optional tail chunk of tail bytes. A chunk starts with a struct chunk_hdr and
-+ * the rest of it is a function of (datagram number, chunk number, offset).
-+ * With UDP_SEGMENT set to seg, every chunk is one segment on the wire.
-+ */
-+#define _GNU_SOURCE
-+#include <arpa/inet.h>
-+#include <errno.h>
-+#include <linux/if_packet.h>
-+#include <linux/if_ether.h>
-+#include <net/if.h>
-+#include <netinet/in.h>
-+#include <poll.h>
-+#include <signal.h>
-+#include <stdbool.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/socket.h>
-+#include <time.h>
-+#include <unistd.h>
-+
-+#ifndef UDP_SEGMENT
-+#define UDP_SEGMENT	103
-+#endif
-+#ifndef SOL_UDP
-+#define SOL_UDP		17
-+#endif
-+
-+#define MAX_DGRAM	65507
-+#define AMT_MSG_MCAST_DATA	6
-+#define AMT_UDP_PORT_HDR	8
-+
-+struct chunk_hdr {
-+	uint32_t seq;
-+	uint16_t idx;
-+	uint16_t len;
-+};
-+
-+struct cfg {
-+	bool ipv6;
-+	bool gso;
-+	bool ignore_out;	/* sniff: skip frames sent by this host */
-+	bool only_out;		/* sniff: skip frames received */
-+	bool amt;		/* sniff: count AMT multicast data messages */
-+	const char *ifname;
-+	const char *group;
-+	const char *bind_addr;
-+	unsigned int port;
-+	unsigned int seg;
-+	unsigned int cnt;
-+	unsigned int tail;
-+	unsigned int num;
-+	unsigned int delay_us;
-+	unsigned int idle;
-+	unsigned int grace;	/* recv: extra wait for the first datagram */
-+	unsigned int mtu;
-+};
-+
-+static void die(const char *what)
-+{
-+	fprintf(stderr, "amt_gso: %s: %s\n", what, strerror(errno));
-+	exit(2);
-+}
-+
-+static uint8_t fill_byte(uint32_t seq, unsigned int idx, unsigned int off)
-+{
-+	return (uint8_t)(seq * 131 + idx * 17 + off * 7 + (off >> 8));
-+}
-+
-+static unsigned int chunk_len(const struct cfg *c, unsigned int idx)
-+{
-+	return idx < c->cnt ? c->seg : c->tail;
-+}
-+
-+static unsigned int chunks_per_dgram(const struct cfg *c)
-+{
-+	return c->cnt + (c->tail ? 1 : 0);
-+}
-+
-+static void fill_dgram(const struct cfg *c, uint32_t seq, uint8_t *buf)
-+{
-+	unsigned int i, off, n = chunks_per_dgram(c);
-+
-+	for (i = 0; i < n; i++) {
-+		unsigned int len = chunk_len(c, i);
-+		struct chunk_hdr h = { .seq = seq, .idx = i, .len = len };
-+
-+		memcpy(buf, &h, sizeof(h));
-+		for (off = sizeof(h); off < len; off++)
-+			buf[off] = fill_byte(seq, i, off);
-+		buf += len;
+ 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
+-	if (ret < 0)
++	if (ret < 0) {
++		/*
++		 * On a partial failure virtio_find_vqs() can leave freed
++		 * virtqueue pointers in vsock->vqs[]; clear them so a later
++		 * virtio_vsock_vqs_del() does not detach a freed virtqueue.
++		 */
++		memset(vsock->vqs, 0, sizeof(vsock->vqs));
+ 		return ret;
 +	}
-+}
-+
-+static int open_udp(const struct cfg *c)
-+{
-+	int fd = socket(c->ipv6 ? AF_INET6 : AF_INET, SOCK_DGRAM, 0);
-+
-+	if (fd < 0)
-+		die("socket");
-+	return fd;
-+}
-+
-+static void fill_addr(const struct cfg *c, const char *str, unsigned int port,
-+		      struct sockaddr_storage *ss, socklen_t *len)
-+{
-+	memset(ss, 0, sizeof(*ss));
-+	if (c->ipv6) {
-+		struct sockaddr_in6 *a = (void *)ss;
-+
-+		a->sin6_family = AF_INET6;
-+		a->sin6_port = htons(port);
-+		if (inet_pton(AF_INET6, str, &a->sin6_addr) != 1)
-+			die("inet_pton");
-+		*len = sizeof(*a);
-+	} else {
-+		struct sockaddr_in *a = (void *)ss;
-+
-+		a->sin_family = AF_INET;
-+		a->sin_port = htons(port);
-+		if (inet_pton(AF_INET, str, &a->sin_addr) != 1)
-+			die("inet_pton");
-+		*len = sizeof(*a);
-+	}
-+}
-+
-+static int do_send(const struct cfg *c)
-+{
-+	static uint8_t buf[MAX_DGRAM];
-+	struct sockaddr_storage dst, src;
-+	socklen_t dlen, slen;
-+	unsigned int total, ifindex, i;
-+	int fd, ttl = 8, zero = 0;
-+
-+	total = c->cnt * c->seg + c->tail;
-+	if (total > MAX_DGRAM || (c->tail && c->tail < sizeof(struct chunk_hdr)) ||
-+	    c->seg < sizeof(struct chunk_hdr)) {
-+		fprintf(stderr, "amt_gso: bad sizes\n");
-+		return 2;
-+	}
-+	ifindex = if_nametoindex(c->ifname);
-+	if (!ifindex)
-+		die("if_nametoindex");
-+
-+	fd = open_udp(c);
-+	if (c->bind_addr) {
-+		fill_addr(c, c->bind_addr, 0, &src, &slen);
-+		if (bind(fd, (void *)&src, slen))
-+			die("bind");
-+	}
-+	if (c->ipv6) {
-+		if (setsockopt(fd, IPPROTO_IPV6, IPV6_MULTICAST_IF, &ifindex,
-+			       sizeof(ifindex)))
-+			die("IPV6_MULTICAST_IF");
-+		if (setsockopt(fd, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &ttl,
-+			       sizeof(ttl)))
-+			die("IPV6_MULTICAST_HOPS");
-+		if (setsockopt(fd, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, &zero,
-+			       sizeof(zero)))
-+			die("IPV6_MULTICAST_LOOP");
-+	} else {
-+		struct ip_mreqn mr = { .imr_ifindex = ifindex };
-+
-+		if (setsockopt(fd, IPPROTO_IP, IP_MULTICAST_IF, &mr, sizeof(mr)))
-+			die("IP_MULTICAST_IF");
-+		if (setsockopt(fd, IPPROTO_IP, IP_MULTICAST_TTL, &ttl,
-+			       sizeof(ttl)))
-+			die("IP_MULTICAST_TTL");
-+		if (setsockopt(fd, IPPROTO_IP, IP_MULTICAST_LOOP, &zero,
-+			       sizeof(zero)))
-+			die("IP_MULTICAST_LOOP");
-+	}
-+	if (c->gso) {
-+		int gso = c->seg;
-+
-+		if (setsockopt(fd, SOL_UDP, UDP_SEGMENT, &gso, sizeof(gso)))
-+			die("UDP_SEGMENT");
-+	}
-+	fill_addr(c, c->group, c->port, &dst, &dlen);
-+
-+	for (i = 0; i < c->num; i++) {
-+		fill_dgram(c, i, buf);
-+		if (sendto(fd, buf, total, 0, (void *)&dst, dlen) != (ssize_t)total)
-+			die("sendto");
-+		if (c->delay_us)
-+			usleep(c->delay_us);
-+	}
-+	close(fd);
-+	printf("SENT datagrams=%u bytes_each=%u gso=%d\n", c->num, total, c->gso);
-+	return 0;
-+}
-+
-+static int do_recv(const struct cfg *c)
-+{
-+	unsigned int per = chunks_per_dgram(c), expected = c->num * per;
-+	unsigned int good = 0, bad_len = 0, bad_payload = 0, dup = 0, unk = 0;
-+	static uint8_t buf[MAX_DGRAM + 1];
-+	struct sockaddr_storage any;
-+	socklen_t alen;
-+	uint8_t *seen;
-+	int fd, rcvbuf = 8 << 20, idle_ms = 0;
-+	bool got_any = false;
-+
-+	seen = calloc(expected ? expected : 1, 1);
-+	if (!seen)
-+		die("calloc");
-+	fd = open_udp(c);
-+	setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &rcvbuf, sizeof(rcvbuf));
-+	fill_addr(c, c->ipv6 ? "::" : "0.0.0.0", c->port, &any, &alen);
-+	if (bind(fd, (void *)&any, alen))
-+		die("bind");
-+	printf("READY\n");
-+	fflush(stdout);
-+
-+	while (good < expected) {
-+		struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+		struct chunk_hdr h;
-+		unsigned int off;
-+		ssize_t n;
-+		int r = poll(&pfd, 1, 100);
-+
-+		if (r < 0)
-+			die("poll");
-+		if (!r) {
-+			idle_ms += 100;
-+			if (idle_ms >= (int)(c->idle + (got_any ? 0 : c->grace)) * 1000)
-+				break;
-+			continue;
-+		}
-+		idle_ms = 0;
-+		got_any = true;
-+		n = recv(fd, buf, sizeof(buf), 0);
-+		if (n < 0)
-+			die("recv");
-+		if (n < (ssize_t)sizeof(h)) {
-+			bad_len++;
-+			continue;
-+		}
-+		memcpy(&h, buf, sizeof(h));
-+		if (h.seq >= c->num || h.idx >= per) {
-+			unk++;
-+			continue;
-+		}
-+		if ((unsigned int)n != chunk_len(c, h.idx) || h.len != n) {
-+			bad_len++;
-+			continue;
-+		}
-+		for (off = sizeof(h); off < (unsigned int)n; off++)
-+			if (buf[off] != fill_byte(h.seq, h.idx, off))
-+				break;
-+		if (off != (unsigned int)n) {
-+			bad_payload++;
-+			continue;
-+		}
-+		if (seen[h.seq * per + h.idx]++) {
-+			dup++;
-+			continue;
-+		}
-+		good++;
-+	}
-+	printf("RECV expected=%u good=%u bad_len=%u bad_payload=%u dup=%u unknown=%u\n",
-+	       expected, good, bad_len, bad_payload, dup, unk);
-+	free(seen);
-+	return good == expected && !bad_len && !bad_payload && !dup && !unk ? 0 : 1;
-+}
-+
-+static int sniff_stop;
-+
-+static void sniff_sig(int sig)
-+{
-+	__atomic_store_n(&sniff_stop, 1, __ATOMIC_RELAXED);
-+}
-+
-+static int do_sniff(const struct cfg *c)
-+{
-+	static uint8_t buf[MAX_DGRAM + 256];
-+	unsigned int n = 0, max_len = 0, over = 0, amt = 0;
-+	struct sockaddr_ll sll = { .sll_family = AF_PACKET };
-+	struct timespec t0, last, now;
-+	struct tpacket_stats st = { 0 };
-+	socklen_t stlen = sizeof(st);
-+	int fd, rcvbuf = 32 << 20;
-+
-+	fd = socket(AF_PACKET, SOCK_DGRAM, htons(ETH_P_ALL));
-+	if (fd < 0)
-+		die("socket(AF_PACKET)");
-+	sll.sll_protocol = htons(ETH_P_ALL);
-+	sll.sll_ifindex = if_nametoindex(c->ifname);
-+	if (!sll.sll_ifindex)
-+		die("if_nametoindex");
-+	if (bind(fd, (void *)&sll, sizeof(sll)))
-+		die("bind(AF_PACKET)");
-+	/* Do not lose frames to a full receive queue: the verdict counts them */
-+	if (setsockopt(fd, SOL_SOCKET, SO_RCVBUFFORCE, &rcvbuf, sizeof(rcvbuf)))
-+		setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &rcvbuf, sizeof(rcvbuf));
-+	signal(SIGTERM, sniff_sig);
-+	printf("READY\n");
-+	fflush(stdout);
-+	clock_gettime(CLOCK_MONOTONIC, &t0);
-+	last = t0;
-+
-+	for (;;) {
-+		/* Once asked to stop, read what is still queued, then report */
-+		int stopping = __atomic_load_n(&sniff_stop, __ATOMIC_RELAXED);
-+		struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+		struct sockaddr_ll from;
-+		socklen_t flen = sizeof(from);
-+		unsigned int hl, dport;
-+		const uint8_t *p = buf;
-+		ssize_t len, got;
-+		int r;
-+
-+		clock_gettime(CLOCK_MONOTONIC, &now);
-+		if (!stopping && (now.tv_sec - t0.tv_sec > 120 ||
-+				  now.tv_sec - last.tv_sec >= (long)c->idle))
-+			break;
-+		r = poll(&pfd, 1, stopping ? 0 : 100);
-+		if (r < 0 && errno == EINTR)
-+			continue;
-+		if (r < 0)
-+			die("poll");
-+		if (!r) {
-+			if (stopping)
-+				break;
-+			continue;
-+		}
-+		got = recvfrom(fd, buf, sizeof(buf), MSG_TRUNC,
-+			       (void *)&from, &flen);
-+		if (got < 0)
-+			die("recvfrom");
-+		len = got;
-+		if (from.sll_pkttype == PACKET_OUTGOING ? c->ignore_out : c->only_out)
-+			continue;
-+		if (got > (ssize_t)sizeof(buf))
-+			got = sizeof(buf);
-+
-+		if (ntohs(from.sll_protocol) == ETH_P_IP && got >= 28 &&
-+		    (p[0] >> 4) == 4 && p[9] == IPPROTO_UDP) {
-+			hl = (p[0] & 0xf) * 4;
-+		} else if (ntohs(from.sll_protocol) == ETH_P_IPV6 && got >= 48 &&
-+			   (p[0] >> 4) == 6 && p[6] == IPPROTO_UDP) {
-+			hl = 40;
-+		} else {
-+			continue;
-+		}
-+		if (got < (ssize_t)hl + 8)
-+			continue;
-+		dport = (p[hl + 2] << 8) | p[hl + 3];
-+		if (dport != c->port)
-+			continue;
-+		if (c->amt) {
-+			const uint8_t *a = p + hl + AMT_UDP_PORT_HDR;
-+
-+			/* type in the low nibble, version 0 in the high one,
-+			 * then one reserved byte, then the IP packet.
-+			 */
-+			if (got < (ssize_t)hl + 8 + 3 ||
-+			    a[0] != AMT_MSG_MCAST_DATA || a[1] != 0)
-+				continue;
-+			if ((a[2] >> 4) != (c->ipv6 ? 6 : 4))
-+				continue;
-+			amt++;
-+		}
-+		last = now;
-+		n++;
-+		if ((unsigned int)len > max_len)
-+			max_len = len;
-+		if ((unsigned int)len > c->mtu)
-+			over++;
-+	}
-+	getsockopt(fd, SOL_PACKET, PACKET_STATISTICS, &st, &stlen);
-+	printf("SNIFF frames=%u max_len=%u over_mtu=%u amt_data=%u lost=%u\n",
-+	       n, max_len, over, amt, st.tp_drops);
-+	return 0;
-+}
-+
-+static void usage(void)
-+{
-+	fprintf(stderr,
-+		"amt_gso send|recv|sniff [-6] [-I ifname] [-g group] [-b srcaddr]\n"
-+		"           [-p port] [-s seg] [-c chunks] [-t tail] [-n datagrams]\n"
-+		"           [-G] [-d delay_us] [-T idle_s] [-S grace_s] [-M mtu] [-a] [-i] [-o]\n");
-+	exit(2);
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	struct cfg c = { .port = 4000, .seg = 1200, .cnt = 8, .tail = 100,
-+			 .num = 1, .idle = 2, .mtu = 1500 };
-+	int opt;
-+
-+	if (argc < 2)
-+		usage();
-+	optind = 2;
-+	while ((opt = getopt(argc, argv, "6I:g:b:p:s:c:t:n:Gd:T:S:M:aio")) != -1) {
-+		switch (opt) {
-+		case '6':
-+			c.ipv6 = true;
-+			break;
-+		case 'I':
-+			c.ifname = optarg;
-+			break;
-+		case 'g':
-+			c.group = optarg;
-+			break;
-+		case 'b':
-+			c.bind_addr = optarg;
-+			break;
-+		case 'p':
-+			c.port = atoi(optarg);
-+			break;
-+		case 's':
-+			c.seg = atoi(optarg);
-+			break;
-+		case 'c':
-+			c.cnt = atoi(optarg);
-+			break;
-+		case 't':
-+			c.tail = atoi(optarg);
-+			break;
-+		case 'n':
-+			c.num = atoi(optarg);
-+			break;
-+		case 'G':
-+			c.gso = true;
-+			break;
-+		case 'd':
-+			c.delay_us = atoi(optarg);
-+			break;
-+		case 'S':
-+			c.grace = atoi(optarg);
-+			break;
-+		case 'T':
-+			c.idle = atoi(optarg);
-+			break;
-+		case 'M':
-+			c.mtu = atoi(optarg);
-+			break;
-+		case 'a':
-+			c.amt = true;
-+			break;
-+		case 'i':
-+			c.ignore_out = true;
-+			break;
-+		case 'o':
-+			c.only_out = true;
-+			break;
-+		default:
-+			usage();
-+		}
-+	}
-+	if (!strcmp(argv[1], "send") && c.ifname && c.group)
-+		return do_send(&c);
-+	if (!strcmp(argv[1], "recv"))
-+		return do_recv(&c);
-+	if (!strcmp(argv[1], "sniff") && c.ifname)
-+		return do_sniff(&c);
-+	usage();
-+	return 2;
-+}
-diff --git a/tools/testing/selftests/net/amt_gso.sh b/tools/testing/selftests/net/amt_gso.sh
-new file mode 100755
-index 000000000..8b32f17b6
---- /dev/null
-+++ b/tools/testing/selftests/net/amt_gso.sh
-@@ -0,0 +1,269 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Check that an AMT relay forwards a UDP GSO burst (UDP_SEGMENT) to a gateway
-+# when transmit checksum offload is enabled on the amt device.
-+#
-+# With the default features the core segments the burst before it reaches
-+# amt_dev_xmit(), so that case is the positive control for the harness. With
-+# "tx on" the unsegmented GSO skb is handed to the driver, which must mark it
-+# as a UDP tunnel packet before it hands it to the lower device.
-+#
-+# There are three network namespaces. The sender runs in the RELAY namespace,
-+# because a forwarded GRO skb with DF set would be dropped by the multicast
-+# router before it ever gets to amt.
-+#
-+#   LISTENER             GATEWAY                RELAY
-+#  +---------+        +-------------+       +-----------------+
-+#  |  l_gw   |--------| gw_l  br0   |       |                 |
-+#  |         |        |       amtg  |       |  amtr  <- sender|
-+#  +---------+        |  gw_relay   |-------| relay_gw        |
-+#                     +-------------+       +-----------------+
-+#
-+# amt_gso, built from amt_gso.c, sends, receives and captures. The listener
-+# reports datagrams by count, length and payload. A capture on amtr shows what
-+# was handed to amt_dev_xmit(), and one on gw_relay shows what was put on the
-+# wire.
-+
-+source lib.sh
-+
-+AMT_GSO=./amt_gso
-+GRP4=239.0.0.1
-+GRP6=ff0e::5:6
-+SRC4=192.0.2.1
-+SRC6=2001:db8:3::1
-+PORT_AMT=2268
-+SEG=1200
-+TAIL=100
-+BURST=8
-+NUM=100
-+PROBE_OPTS="-s 64 -c 1 -t 0 -n 1"
-+
-+TMPD=$(mktemp -d)
-+
-+cleanup()
-+{
-+	rm -rf "$TMPD"
-+	cleanup_all_ns
-+}
-+
-+trap cleanup EXIT
-+
-+dev_stat()
-+{
-+	ip netns exec "$1" cat "/sys/class/net/$2/statistics/$3"
-+}
-+
-+udp_mib()
-+{
-+	ip netns exec "$1" awk -v f="$2" '
-+		/^Udp:/ { if (!h) { split($0, k); h = 1 }
-+			  else for (i = 2; i <= NF; i++) if (k[i] == f) print $i }
-+	' /proc/net/snmp
-+}
-+
-+field()
-+{
-+	grep -o " $2=[0-9]*" "$1" | tail -n 1 | cut -d= -f2
-+}
-+
-+setup_topology()
-+{
-+	setup_ns LISTENER GATEWAY RELAY || exit $ksft_skip
-+
-+	ip link add l_gw netns "$LISTENER" type veth peer name gw_l \
-+		netns "$GATEWAY"
-+	ip link add gw_relay netns "$GATEWAY" type veth peer name relay_gw \
-+		netns "$RELAY"
-+
-+	ip -n "$LISTENER" link set l_gw up
-+	ip -n "$LISTENER" addr add 192.168.0.2/24 dev l_gw
-+	ip -n "$LISTENER" addr add 2001:db8::2/64 dev l_gw nodad
-+	ip -n "$LISTENER" route add default via 192.168.0.1 dev l_gw
-+	ip -n "$LISTENER" addr add "$GRP4"/32 dev l_gw autojoin
-+	ip -n "$LISTENER" addr add "$GRP6"/128 dev l_gw autojoin
-+
-+	ip -n "$GATEWAY" link set gw_l up
-+	ip -n "$GATEWAY" link set gw_relay up
-+	ip -n "$GATEWAY" addr add 192.168.0.1/24 dev gw_l
-+	ip -n "$GATEWAY" addr add 2001:db8::1/64 dev gw_l nodad
-+	ip -n "$GATEWAY" addr add 10.0.0.1/24 dev gw_relay
-+	ip -n "$GATEWAY" link add br0 type bridge
-+	ip -n "$GATEWAY" link set br0 up
-+	ip -n "$GATEWAY" link set gw_l master br0
-+	ip -n "$GATEWAY" link add amtg master br0 type amt mode gateway \
-+		local 10.0.0.1 discovery 10.0.0.2 dev gw_relay \
-+		gateway_port $PORT_AMT relay_port $PORT_AMT || exit $ksft_skip
-+
-+	ip -n "$RELAY" link set relay_gw up
-+	ip -n "$RELAY" addr add 10.0.0.2/24 dev relay_gw
-+	ip -n "$RELAY" link add amtr type amt mode relay local 10.0.0.2 \
-+		dev relay_gw relay_port $PORT_AMT max_tunnels 4 || exit $ksft_skip
-+	ip -n "$RELAY" addr add "$SRC4"/32 dev amtr
-+	ip -n "$RELAY" addr add "$SRC6"/128 dev amtr nodad
-+	ip -n "$RELAY" link set amtr up
-+	ip -n "$GATEWAY" link set amtg up
-+
-+	# Segment and checksum in software on the relay's egress, so that the
-+	# frames on the wire are at most one MTU and carry a final checksum
-+	# whatever the veth can do.
-+	ip netns exec "$RELAY" ethtool -K relay_gw tx off >/dev/null ||
-+		exit $ksft_skip
-+
-+	AMTR_MTU=$(ip netns exec "$RELAY" cat /sys/class/net/amtr/mtu)
-+}
-+
-+# Send one single-datagram probe every second until the listener sees it,
-+# which means that discovery, request and update are done for this group.
-+wait_tunnel()
-+{
-+	local fam=$1 v6="" grp=$GRP4 src=$SRC4 port=4999 i
-+
-+	[ "$fam" = 6 ] && { v6=-6; grp=$GRP6; src=$SRC6; port=6999; }
-+
-+	for i in $(seq 40); do
-+		ip netns exec "$LISTENER" $AMT_GSO recv $v6 -p $port \
-+			$PROBE_OPTS -T 1 >"$TMPD/probe.out" &
-+		local pid=$!
-+		busywait 5000 grep -q READY "$TMPD/probe.out"
-+		ip netns exec "$RELAY" $AMT_GSO send $v6 -I amtr -g $grp \
-+			-b $src -p $port $PROBE_OPTS >/dev/null
-+		if wait $pid; then
-+			return 0
-+		fi
-+	done
-+	return 1
-+}
-+
-+# run_burst <4|6> <gso 0|1>: send NUM datagrams and capture. Sets RECV_RC.
-+run_burst()
-+{
-+	local fam=$1 gso=$2 v6="" grp=$GRP4 src=$SRC4 port=4000 cnt=$BURST
-+	local tail=$TAIL gsoopt="" pid_r pid_a pid_g f
-+
-+	[ "$fam" = 6 ] && { v6=-6; grp=$GRP6; src=$SRC6; port=6000; }
-+	if [ "$gso" = 1 ]; then
-+		gsoopt=-G
-+	else
-+		cnt=1
-+		tail=0
-+	fi
-+	local opts="-s $SEG -c $cnt -t $tail -n $NUM"
-+
-+	rm -f "$TMPD"/{recv,amtr,gw,send}.out
-+
-+	ip netns exec "$LISTENER" $AMT_GSO recv $v6 -p $port $opts -T 3 -S 15 \
-+		>"$TMPD/recv.out" &
-+	pid_r=$!
-+	ip netns exec "$RELAY" $AMT_GSO sniff -I amtr -p $port -M "$AMTR_MTU" \
-+		-o -T 20 >"$TMPD/amtr.out" &
-+	pid_a=$!
-+	ip netns exec "$GATEWAY" $AMT_GSO sniff -I gw_relay -p $PORT_AMT \
-+		-M 1500 -i -a $v6 -T 20 >"$TMPD/gw.out" &
-+	pid_g=$!
-+	for f in recv amtr gw; do
-+		busywait 5000 grep -q READY "$TMPD/$f.out"
-+	done
-+
-+	DROP0=$(dev_stat "$RELAY" relay_gw tx_dropped)
-+	TXP0=$(dev_stat "$RELAY" relay_gw tx_packets)
-+	CSUM0=$(udp_mib "$GATEWAY" InCsumErrors)
-+	GRX0=$(dev_stat "$GATEWAY" amtg rx_packets)
-+	LRX0=$(dev_stat "$LISTENER" l_gw rx_packets)
-+	GRXD0=$(dev_stat "$GATEWAY" amtg rx_dropped)
-+
-+	ip netns exec "$RELAY" $AMT_GSO send $v6 -I amtr -g $grp -b $src \
-+		-p $port $opts $gsoopt -d 2000 >"$TMPD/send.out"
-+
-+	wait $pid_r
-+	RECV_RC=$?
-+	# The receiver is done, so every frame the captures will see is already
-+	# queued on their sockets. Ask them to drain it and report.
-+	kill -TERM $pid_a $pid_g
-+	wait $pid_a $pid_g
-+
-+	DROPS=$(($(dev_stat "$RELAY" relay_gw tx_dropped) - DROP0))
-+	TXP=$(($(dev_stat "$RELAY" relay_gw tx_packets) - TXP0))
-+	CSUMERR=$(($(udp_mib "$GATEWAY" InCsumErrors) - CSUM0))
-+	GRX=$(($(dev_stat "$GATEWAY" amtg rx_packets) - GRX0))
-+	LRX=$(($(dev_stat "$LISTENER" l_gw rx_packets) - LRX0))
-+	GRXD=$(($(dev_stat "$GATEWAY" amtg rx_dropped) - GRXD0))
-+	EXPECT=$((NUM * (cnt + (tail ? 1 : 0))))
-+}
-+
-+# run_case <name> <4|6> <tx on|off> <gso 0|1>
-+run_case()
-+{
-+	local name=$1 fam=$2 tx=$3 gso=$4 big gwn stats
-+
-+	RET=0
-+	retmsg=
-+	ip netns exec "$RELAY" ethtool -K amtr tx "$tx" >/dev/null
-+	if [ "$tx" = on ] && ! ip netns exec "$RELAY" ethtool -k amtr |
-+	   grep -q '^tx-udp-segmentation: on'; then
-+		log_test_skip "$name" "amtr cannot take tx-udp-segmentation"
-+		return
-+	fi
-+
-+	run_burst "$fam" "$gso"
-+	big=$(field "$TMPD/amtr.out" over_mtu)
-+
-+	gwn=$(field "$TMPD/gw.out" amt_data)
-+	log_info "$name: $(grep RECV "$TMPD/recv.out")"
-+	log_info "$name: amtr tx $(grep SNIFF "$TMPD/amtr.out")"
-+	log_info "$name: wire $(grep SNIFF "$TMPD/gw.out")"
-+	stats="relay_gw tx +$TXP drop +$DROPS; gw csum_err +$CSUMERR"
-+	stats="$stats; amtg rx +$GRX drop +$GRXD; listener rx +$LRX"
-+	log_info "$name: $stats"
-+
-+	check_err $(($(field "$TMPD/amtr.out" lost) + \
-+		     $(field "$TMPD/gw.out" lost) != 0)) \
-+		"a packet capture lost frames, the verdict is unreliable"
-+	check_err $RECV_RC "listener did not get every datagram intact"
-+	check_err $((DROPS != 0)) "relay_gw dropped $DROPS packets"
-+	check_err $((CSUMERR != 0)) "gateway counted $CSUMERR csum errors"
-+	check_err $((gwn != EXPECT)) \
-+		"gateway saw $gwn AMT data messages, expected $EXPECT"
-+	check_err $(($(field "$TMPD/gw.out" over_mtu) != 0)) \
-+		"frames larger than the MTU were put on the wire"
-+
-+	if [ "$tx" = on ] && [ "$gso" = 1 ]; then
-+		# Without this the case proves nothing about the driver.
-+		if [ "$big" = 0 ] && [ $RET -eq 0 ]; then
-+			RET=$ksft_skip
-+			retmsg="no GSO skb reached amt_dev_xmit()"
-+		fi
-+	else
-+		check_err $((big != 0)) \
-+			"a frame larger than the MTU reached amt_dev_xmit()"
-+	fi
-+
-+	log_test "$name"
-+}
-+
-+require_command ip
-+require_command ethtool
-+if [ ! -x $AMT_GSO ]; then
-+	log_test_skip "amt_gso helper not built"
-+	exit $EXIT_STATUS
-+fi
-+ip link help 2>&1 | grep -q amt || {
-+	log_test_skip "iproute2 without amt support"
-+	exit $EXIT_STATUS
-+}
-+
-+setup_topology
-+
-+wait_tunnel 4 || { log_test_skip "IPv4 AMT tunnel did not come up"
-+		   exit $EXIT_STATUS; }
-+wait_tunnel 6 || { log_test_skip "IPv6 AMT tunnel did not come up"
-+		   exit $EXIT_STATUS; }
-+
-+run_case "IPv4 UDP_SEGMENT burst, amt tx offload off (control)" 4 off 1
-+run_case "IPv6 UDP_SEGMENT burst, amt tx offload off (control)" 6 off 1
-+run_case "IPv4 UDP_SEGMENT burst, amt tx offload on" 4 on 1
-+run_case "IPv6 UDP_SEGMENT burst, amt tx offload on" 6 on 1
-+run_case "IPv4 plain datagrams, amt tx offload on" 4 on 0
-+run_case "IPv6 plain datagrams, amt tx offload on" 6 on 0
-+
-+exit $EXIT_STATUS
--- 
-2.43.0
+ 
+ 	virtio_vsock_update_guest_cid(vsock);
+ 
+@@ -782,19 +789,30 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+ 	virtio_reset_device(vdev);
+ 
+ 	mutex_lock(&vsock->rx_lock);
+-	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
+-		kfree_skb(skb);
++	if (vsock->vqs[VSOCK_VQ_RX])
++		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
++			kfree_skb(skb);
+ 	mutex_unlock(&vsock->rx_lock);
+ 
+ 	mutex_lock(&vsock->tx_lock);
+-	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
+-		kfree_skb(skb);
++	if (vsock->vqs[VSOCK_VQ_TX])
++		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
++			kfree_skb(skb);
+ 	mutex_unlock(&vsock->tx_lock);
+ 
+ 	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+ 
+ 	/* Delete virtqueues and flush outstanding callbacks if any */
+ 	vdev->config->del_vqs(vdev);
++
++	/*
++	 * del_vqs() has freed the virtqueues. Clear the stale pointers: if a
++	 * later virtio_vsock_restore() fails to allocate new ones, the driver
++	 * stays bound with a dangling vqs[] and the next virtio_vsock_vqs_del()
++	 * would detach a freed virtqueue (use-after-free). Mirrors virtio_blk
++	 * commit 0739c2c6a015.
++	 */
++	memset(vsock->vqs, 0, sizeof(vsock->vqs));
+ }
+ 
+ static int virtio_vsock_probe(struct virtio_device *vdev)
+
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
+
 
