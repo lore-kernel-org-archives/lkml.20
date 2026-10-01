@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C55535FD4;
-	Thu,  1 Oct 2026 16:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD2E5383C6;
+	Thu,  1 Oct 2026 16:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871257; cv=none; b=rgnQMimghZEkDj61KXRxHxRF/us7tgNardg4V6CA1hfs3FFLFSEuRtW08cNqGlruRBrB4tA69R1e/nhMJDNeeMZvZu0A2odNSn+1WMxy/DlH4ITYQr4o9DhfiD2ykRzlvQk5kTHpz4QDLi/Qz1LfsPhu/SbDNNo6zlyRuVb6+Qc=
+	t=1790871260; cv=none; b=LtJNzTQ9MjCQWyzHJK7/drDU/SsZPs9Fo9IGsJonln6TlELb/wx1V5Tt/RVu2lS2IIR2svD3u5JxIZw8JRX+r2xZvAmF9seOSB35OTntgrm+BQc74iqSIWZTQak2FI4i+US8JHHGMmECuGogIb+aEgyp2iqWfMk++iSldCIaxJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871257; c=relaxed/simple;
-	bh=zOnXEWmcLNVhZwiacf0mV4aS0Nov+ky4PdgDHfXeXCs=;
+	s=arc-20240116; t=1790871260; c=relaxed/simple;
+	bh=RroAd8UZcU+Y375o9bFAKmGh2P6hkvDDsXtZUgaIWoQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mIlCLiZ0YJQP/rdpULScUEivjn6KA/xNDDJGh3MPmE6+XOo5XKVvpwU8dLF+O6j6sOhre/eSHKgYr7ZpvmPUclxhaLEVDQjCyD+avgPHVfDBp55Ok4xg1TiJ93aDgVuapX2ldCIzjT8IMsjRJZGk5/tfv8+ufpB1vWtCeHryDDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PH03Q5M4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Cg1GPc44retPMnQa6m24B8cJ1+8UrTsgyLrX0bJJ/WtUnLNDOIrFcKJ5mgo42q7UpLB86fOoj6j9WPkxZrOae+DjgRAWxi1nXkxNIEioeo0PYgN8iVX3Wo62ldmno6wvxUMf30FnBW17ydxkmbGwNSzwTT81zxl7dmdYV8bYwJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfhKlnlp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PH03Q5M4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0B51F00898;
-	Thu,  1 Oct 2026 16:14:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfhKlnlp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C510B1F00898;
+	Thu,  1 Oct 2026 16:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790871255;
-	bh=6J5G6s1kVzGeLB3NlSDeYr0j/6KR66H98mTRXN8rHhA=;
+	s=k20260515; t=1790871258;
+	bh=xSfka7Qm9Zhk7SLI+NPU0qQ0vaYEUintOpLLjISf/9E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PH03Q5M4c0uBf1hbAoWsUtpzg1l5s6TbT64wNBT7DiXLzjHl69c81e6SebZ6GRO9W
-	 TqJkGdCxtZbuH4axVbrQv+mExndYCsa7FQts6coEbrL6QMBUzpVWB/TUrVzNfORnFm
-	 ZA2v7B0z9xW1dgNL47VP+MLLfr0dxtg68shx6cnihUc6/wCUpqFXV1o+aVaNvCcfap
-	 kravmNGPaLgowwPRM1Rq4hb7Axh6th2Xwsb29046ypnwiBCig7xeHls1ApcgxyQ9uE
-	 cucAUryEEiJCk61YKd7BWyP2s2IdfD8EhL07yLYwSrX0yrf9dAH2ceh5nyuTmIGXzP
-	 4df1sqzTBDWFQ==
+	b=UfhKlnlpKQDeBjLGoy6hRWIIk600+sjATVhKPdMhPZz4W505mcTaotITHmpgGFY3L
+	 XBGkfMxFgwQKatMharOE/BX15knFdmg5m62uFuGI3q8TQPXv6fLSgWsHDiGitHktyi
+	 mZT6oJPRSapu62LwAFeqQqV1ASqDx68lMfpD6bwtSHwFGD2T72Mc6SKnzxHgg1YDWL
+	 fErLJc3pCwlTFthyGUEhtEsiVZk0a7dfGaz44pnzeTacMpcnFUUKHWQR8Qk5oMlPrY
+	 jNpNa/gV/G1UJ9fpGTzLa9AOIDZ3uoy3Ij8w/gmKWSi1rUvDodjkyb1FOHyYYpfb/J
+	 nLOOxqGj+80Lw==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 Cc: linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 28/38] MIPS: SGI-IP27: add L1 system controller support
-Date: Thu,  1 Oct 2026 18:12:03 +0200
-Message-ID: <0672388c6c673dbed1d1f1047ab03d7d474739f6.1790857966.git.kaloz@kernel.org>
+Subject: [PATCH 30/38] MIPS: PCI: xtalk-bridge: take the board part number from the L1
+Date: Thu,  1 Oct 2026 18:12:05 +0200
+Message-ID: <e8aa94c609966bfea8dd95d6636db5110cc75aab.1790857966.git.kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790857966.git.kaloz@kernel.org>
 References: <cover.1790857966.git.kaloz@kernel.org>
@@ -44,500 +44,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IP35-family (Bedrock hub) machines carry an L1 system controller on a
-polled UART with RFC 1662 async-HDLC framing. Add the transport, the
-request/response core and l1_exec_command(); on a Hub every request
-fails with -ENODEV.
-
-Ported from OpenBSD sys/arch/sgi/sgi/l1.c and licensed ISC like it,
-keeping its notice.
+An XBridge answers nothing on the b_nic 1-wire pin, so
+bridge_get_partnum() finds no PROM and the probe defers forever. Stop
+waiting on XBridge and PIC widgets; on Bedrock hubs read the assembly
+number from the L1 instead.
 
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- arch/mips/Kconfig             |   1 +
- arch/mips/include/asm/sn/l1.h |  14 ++
- arch/mips/sgi-ip27/Makefile   |   4 +-
- arch/mips/sgi-ip27/ip27-l1.c  | 423 ++++++++++++++++++++++++++++++++++
- 4 files changed, 440 insertions(+), 2 deletions(-)
- create mode 100644 arch/mips/include/asm/sn/l1.h
- create mode 100644 arch/mips/sgi-ip27/ip27-l1.c
+ arch/mips/include/asm/sn/l1.h    |  7 +++
+ arch/mips/pci/pci-xtalk-bridge.c | 37 +++++++++++++-
+ arch/mips/sgi-ip27/ip27-l1.c     | 83 ++++++++++++++++++++++++++++++++
+ 3 files changed, 125 insertions(+), 2 deletions(-)
 
-diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
-index 20212194e763..348217328c9d 100644
---- a/arch/mips/Kconfig
-+++ b/arch/mips/Kconfig
-@@ -764,6 +764,7 @@ config SGI_IP27
- 	select FW_ARC64
- 	select ARC_CMDLINE_ONLY
- 	select BOOT_ELF64
-+	select CRC_CCITT
- 	select DEFAULT_SGI_PARTITION
- 	select FORCE_PCI
- 	select SYS_HAS_EARLY_PRINTK
 diff --git a/arch/mips/include/asm/sn/l1.h b/arch/mips/include/asm/sn/l1.h
-new file mode 100644
-index 000000000000..e61935e2fac8
---- /dev/null
+index e61935e2fac8..1a3b7fa0e213 100644
+--- a/arch/mips/include/asm/sn/l1.h
 +++ b/arch/mips/include/asm/sn/l1.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Entry points into the SGI L1 system controller driver.
-+ *
-+ * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
-+ */
-+#ifndef __ASM_SN_L1_H
-+#define __ASM_SN_L1_H
-+
-+#include <linux/types.h>
-+
-+int l1_exec_command(const char *cmd);
-+
-+#endif /* __ASM_SN_L1_H */
-diff --git a/arch/mips/sgi-ip27/Makefile b/arch/mips/sgi-ip27/Makefile
-index 9877fcc512b1..4b6aa641ccc6 100644
---- a/arch/mips/sgi-ip27/Makefile
-+++ b/arch/mips/sgi-ip27/Makefile
-@@ -4,8 +4,8 @@
- #
+@@ -9,6 +9,13 @@
  
- obj-y	:= ip27-berr.o ip27-irq.o ip27-init.o ip27-klconfig.o \
--	   ip27-klnuma.o ip27-memory.o ip27-nmi.o ip27-reset.o ip27-timer.o \
--	   ip27-xtalk.o
-+	   ip27-klnuma.o ip27-l1.o ip27-memory.o ip27-nmi.o ip27-reset.o \
-+	   ip27-timer.o ip27-xtalk.o
+ #include <linux/types.h>
  
- obj-$(CONFIG_EARLY_PRINTK)	+= ip27-console.o
- obj-$(CONFIG_SMP)		+= ip27-smp.o
-diff --git a/arch/mips/sgi-ip27/ip27-l1.c b/arch/mips/sgi-ip27/ip27-l1.c
-new file mode 100644
-index 000000000000..da3095b66cf1
---- /dev/null
-+++ b/arch/mips/sgi-ip27/ip27-l1.c
-@@ -0,0 +1,423 @@
-+// SPDX-License-Identifier: ISC
 +/*
-+ * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
-+ *
-+ * SGI L1 system controller communication, ported from OpenBSD/sgi's
-+ * l1.c:
-+ *
-+ * Copyright (c) 2009 Miodrag Vallat.
-+ *
-+ * Permission to use, copy, modify, and distribute this software for any
-+ * purpose with or without fee is hereby granted, provided that the above
-+ * copyright notice and this permission notice appear in all copies.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-+ *
-+ * The L1 is the IP35-family (Bedrock hub) system controller, reached
-+ * over a polled UART with async-HDLC (PPP) framing. Every request fails
-+ * with -ENODEV on an IP27 (Hub) machine.
++ * Which L1 EEPROM component id carries which board is undocumented and
++ * differs from machine to machine, so a caller walks the whole range.
 + */
-+#include <linux/kernel.h>
-+#include <linux/errno.h>
-+#include <linux/serial_reg.h>
-+#include <linux/spinlock.h>
-+#include <linux/stdarg.h>
-+#include <linux/string.h>
-+#include <linux/types.h>
-+#include <linux/unaligned.h>
-+#include <linux/crc-ccitt.h>
-+#include <linux/io.h>
++#define L1_BOARD_COMPONENT_MAX	8
 +
+ int l1_exec_command(const char *cmd);
++int l1_read_board_partnum(unsigned int component, char *buf, size_t len);
+ 
+ #endif /* __ASM_SN_L1_H */
+diff --git a/arch/mips/pci/pci-xtalk-bridge.c b/arch/mips/pci/pci-xtalk-bridge.c
+index 35ae7c423973..c97533653ef6 100644
+--- a/arch/mips/pci/pci-xtalk-bridge.c
++++ b/arch/mips/pci/pci-xtalk-bridge.c
+@@ -18,7 +18,9 @@
+ #include <asm/pci/bridge.h>
+ #include <asm/paccess.h>
+ #include <asm/sn/irq_alloc.h>
 +#include <asm/sn/addrs.h>
-+#include <asm/sn/agent.h>
+ #include <asm/sn/ioc3.h>
 +#include <asm/sn/l1.h>
-+#include <asm/sn/types.h>
-+
-+/* packet types */
-+#define L1PKT_REQUEST		0x00
-+#define L1PKT_RESPONSE		0x20
-+
-+/* packet subchannels */
-+#define L1CH_MISC		0x10	/* available for operating system */
-+
-+/* argument encoding */
-+#define L1_ARG_INT		0x00	/* followed by 32 bit BE value */
-+#define L1_ARG_ASCII		0x01	/* followed by NUL terminated string */
-+#define L1_ARG_BINARY		0x80	/* length in low 7 bits */
-+
-+/* command types and destination addresses */
-+#define L1_ADDRESS(type, addr)	(((type) << 28) | (addr))
-+
-+#define L1_TYPE_L1		0x00
-+
-+#define L1_ADDRESS_RACK_LOCAL	0x3ff
-+#define L1_ADDRESS_RACK_SHIFT	18
-+#define L1_ADDRESS_BAY_LOCAL	0x3f
-+#define L1_ADDRESS_BAY_SHIFT	12
-+
-+#define L1_ADDRESS_LOCAL \
-+	((L1_ADDRESS_RACK_LOCAL << L1_ADDRESS_RACK_SHIFT) | \
-+	 (L1_ADDRESS_BAY_LOCAL << L1_ADDRESS_BAY_SHIFT))
-+
-+#define L1_TASK_COMMAND		0x03
-+
-+/* response codes */
-+#define L1_RESP_OK		((u32)0)
-+#define L1_RESP_NXDATA		((u32)-0x68)
-+#define L1_RESP_INVAL		((u32)-0x6b)
-+
-+/* L1_TASK_COMMAND requests */
-+#define L1_REQ_EXEC_CMD		0x0000	/* interpret plaintext command */
-+
-+/* Async-HDLC framing bytes; linux/ppp_defs.h would drag in skbuff.h. */
-+#define L1_FLAG			0x7e
-+#define L1_ESC			0x7d
-+#define L1_TRANS		0x20
-+#define L1_FCS_INIT		0xffff
-+#define L1_FCS_GOOD		0xf0b8
-+
-+/* A raw iteration count, not a time bound: this can run before jiffies. */
-+#define L1_POLL_ITERATIONS	1000000
-+
+ 
+ #define CRC16_INIT	0
+ #define CRC16_VALID	0xb001
+@@ -583,6 +585,29 @@ static const struct {
+ 	BRIDGE_BOARD_SETUP("030-1707-", bridge_setup_ip34_fuel_sysboard),
+ };
+ 
 +/*
-+ * The L1 UART sits in the HSPEC "local register" window, reached
-+ * through the "remote HSPEC" indirection even for the local node.
++ * The L1 answers one board information area per EEPROM component id, and
++ * which id carries which board is undocumented. Ask for each in turn and take
++ * the first answer the table above knows.
 + */
-+#define L1_RHSPEC_OFFSET	0x20000000	/* remote-HSPEC indirection */
-+#define L1_LREG_OFFSET		0x10000000	/* local register window */
-+#define L1_UART_REG(r)		(L1_LREG_OFFSET + 0x80 + ((r) << 3))
-+
-+#define L1_UART_ADDRESS(nasid, r) \
-+	((u64 *)(NODE_HSPEC_BASE(nasid) + L1_RHSPEC_OFFSET + L1_UART_REG(r)))
-+
-+static int l1_serial_getc(nasid_t nasid)
++static int bridge_l1_partnum(char *partnum, size_t len)
 +{
-+	unsigned int n;
-+	u64 lsr;
++	unsigned int component;
++	int i;
 +
-+	for (n = L1_POLL_ITERATIONS; n != 0; n--) {
-+		lsr = __raw_readq(L1_UART_ADDRESS(nasid, UART_LSR));
-+		if (lsr & UART_LSR_DR)
-+			break;
-+		cpu_relax();
-+	}
-+	if (n == 0)
-+		return -ETIMEDOUT;
-+
-+	return __raw_readq(L1_UART_ADDRESS(nasid, UART_RX)) & 0xff;
-+}
-+
-+static int l1_serial_putc(nasid_t nasid, u8 val)
-+{
-+	unsigned int n;
-+	u64 lsr;
-+
-+	for (n = L1_POLL_ITERATIONS; n != 0; n--) {
-+		lsr = __raw_readq(L1_UART_ADDRESS(nasid, UART_LSR));
-+		if (lsr & UART_LSR_THRE)
-+			break;
-+		cpu_relax();
-+	}
-+	if (n == 0)
-+		return -ETIMEDOUT;
-+
-+	__raw_writeq(val, L1_UART_ADDRESS(nasid, UART_TX));
-+	return 0;
-+}
-+
-+static int l1_serial_ppp_write(nasid_t nasid, u16 *crc, u8 data, bool escape)
-+{
-+	int rc;
-+
-+	if (crc)
-+		*crc = crc_ccitt_byte(*crc, data);
-+
-+	if (escape && (data == L1_FLAG || data == L1_ESC)) {
-+		rc = l1_serial_putc(nasid, L1_ESC);
-+		if (rc)
-+			return rc;
-+		data ^= L1_TRANS;
-+	}
-+
-+	return l1_serial_putc(nasid, data);
-+}
-+
-+static int l1_packet_put(nasid_t nasid, const u8 *packet, size_t len)
-+{
-+	u16 crc = L1_FCS_INIT;
-+	int rc;
-+
-+	rc = l1_serial_ppp_write(nasid, NULL, L1_FLAG, false);
-+	if (rc)
-+		return rc;
-+
-+	while (len-- != 0) {
-+		rc = l1_serial_ppp_write(nasid, &crc, *packet++, true);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	crc ^= L1_FCS_INIT;
-+	rc = l1_serial_ppp_write(nasid, NULL, crc & 0xff, true);
-+	if (rc)
-+		return rc;
-+	rc = l1_serial_ppp_write(nasid, NULL, (crc >> 8) & 0xff, true);
-+	if (rc)
-+		return rc;
-+
-+	return l1_serial_ppp_write(nasid, NULL, L1_FLAG, false);
-+}
-+
-+static int l1_packet_get(nasid_t nasid, u8 *buf, size_t buflen, size_t *rlen)
-+{
-+	u16 crc;
-+	size_t rcvlen;
-+	int data;
-+
-+	for (;;) {
-+		data = l1_serial_getc(nasid);
-+		if (data < 0)
-+			return data;
-+		if (data == L1_FLAG)
-+			break;
-+	}
-+
-+	rcvlen = 0;
-+	crc = L1_FCS_INIT;
-+	for (;;) {
-+		data = l1_serial_getc(nasid);
-+		if (data < 0)
-+			return data;
-+		if (data == L1_FLAG)	/* end of packet */
-+			break;
-+		if (data == L1_ESC) {
-+			data = l1_serial_getc(nasid);
-+			if (data < 0)
-+				return data;
-+			data ^= L1_TRANS;
-+		}
-+		if (rcvlen < buflen)
-+			buf[rcvlen] = data;
-+		rcvlen++;
-+		crc = crc_ccitt_byte(crc, data);
-+	}
-+
-+	if (rcvlen > buflen)
-+		return -EMSGSIZE;	/* did not fit the buffer */
-+	if (rcvlen < 2)
-+		return -EBADMSG;	/* short packet */
-+
-+	rcvlen -= 2;			/* crc bytes */
-+	if (crc != L1_FCS_GOOD)
-+		return -EBADMSG;	/* CRC error */
-+
-+	*rlen = rcvlen;
-+	return 0;
-+}
-+
-+/*
-+ * Returns the would-be length even when the buffer is too small, and
-+ * SIZE_MAX for an unknown argument type.
-+ */
-+static size_t l1_command_build(u8 *buf, size_t buflen, u32 address,
-+			       u16 request, int nargs, va_list ap)
-+{
-+	u32 data;
-+	size_t len = 0;
-+	int argtype;
-+	const char *str;
-+
-+	if (buflen >= 1) {
-+		*buf++ = L1PKT_REQUEST | L1CH_MISC;
-+		buflen--;
-+	}
-+	len++;
-+
-+	if (buflen >= 4) {
-+		put_unaligned_be32(address, buf);
-+		buf += 4;
-+		buflen -= 4;
-+	}
-+	len += 4;
-+
-+	if (buflen >= 2) {
-+		put_unaligned_be16(request, buf);
-+		buf += 2;
-+		buflen -= 2;
-+	}
-+	len += 2;
-+
-+	if (buflen >= 1) {
-+		*buf++ = nargs;
-+		buflen--;
-+	}
-+	len++;
-+
-+	while (nargs-- != 0) {
-+		argtype = va_arg(ap, int);
-+		switch (argtype) {
-+		case L1_ARG_INT:
-+			data = va_arg(ap, u32);
-+			if (buflen >= 5) {
-+				*buf++ = L1_ARG_INT;
-+				put_unaligned_be32(data, buf);
-+				buf += 4;
-+				buflen -= 5;
-+			}
-+			len += 5;
-+			break;
-+		case L1_ARG_ASCII:
-+			str = va_arg(ap, const char *);
-+			data = strlen(str);
-+			if (buflen >= data + 2) {
-+				*buf++ = L1_ARG_ASCII;
-+				memcpy(buf, str, data + 1);
-+				buf += data + 1;
-+				buflen -= data + 2;
-+			}
-+			len += data + 2;
-+			break;
-+		case L1_ARG_BINARY:
-+			data = (u32)va_arg(ap, size_t);	/* size */
-+			str = va_arg(ap, const char *);	/* data */
-+			if (buflen >= 1 + data) {
-+				*buf++ = L1_ARG_BINARY | data;
-+				memcpy(buf, str, data);
-+				buf += data;
-+				buflen -= data + 1;
-+			}
-+			len += data + 1;
-+			break;
-+		default:
-+			WARN_ON_ONCE(1);
-+			return SIZE_MAX;
-+		}
-+	}
-+
-+	return len;
-+}
-+
-+/* The L1 multiplexes unsolicited event and console traffic onto one wire. */
-+static int l1_receive_response(nasid_t nasid, u8 *pkt, size_t *pktlen)
-+{
-+	size_t rcvlen;
-+	int rc;
-+
-+	for (;;) {
-+		rc = l1_packet_get(nasid, pkt, *pktlen, &rcvlen);
-+		if (rc == -ETIMEDOUT)
-+			return rc;
-+		if (rc)		/* bad packet */
-+			continue;
-+		if (pkt[0] != (L1PKT_RESPONSE | L1CH_MISC))
++	for (component = 0; component < L1_BOARD_COMPONENT_MAX; component++) {
++		if (l1_read_board_partnum(component, partnum, len))
 +			continue;
 +
-+		*pktlen = rcvlen;
-+		return 0;
++		for (i = 0; i < ARRAY_SIZE(bridge_ioc3_devid); i++)
++			if (!strncmp(partnum, bridge_ioc3_devid[i].match,
++				     strlen(bridge_ioc3_devid[i].match)))
++				return 0;
 +	}
++
++	return -ENODEV;
 +}
 +
-+static int l1_response_to_errno(u32 response)
+ static void bridge_setup_board(struct bridge_controller *bc, char *partnum)
+ {
+ 	int i;
+@@ -657,8 +682,16 @@ static int bridge_probe(struct platform_device *pdev)
+ 	int err;
+ 
+ 	/* get part number from one wire prom */
+-	if (bridge_get_partnum(virt_to_phys((void *)bd->bridge_addr), partnum))
+-		return -EPROBE_DEFER; /* not available yet */
++	if (bridge_get_partnum(virt_to_phys((void *)bd->bridge_addr),
++			       partnum)) {
++		/* Only a classic Bridge waits for its 1-wire PROM. */
++		if (!bd->is_xbridge && !bd->is_pic)
++			return -EPROBE_DEFER; /* not available yet */
++
++		if (!IS_ENABLED(CONFIG_SGI_IP27) || !system_is_ip35 ||
++		    bridge_l1_partnum(partnum, sizeof(partnum)))
++			partnum[0] = '\0';
++	}
+ 
+ 	parent = irq_get_default_domain();
+ 	if (!parent)
+diff --git a/arch/mips/sgi-ip27/ip27-l1.c b/arch/mips/sgi-ip27/ip27-l1.c
+index 25f9be350c0b..173a506595da 100644
+--- a/arch/mips/sgi-ip27/ip27-l1.c
++++ b/arch/mips/sgi-ip27/ip27-l1.c
+@@ -650,6 +650,89 @@ static int l1_get_brick_ethernet_address(nasid_t nasid, u8 *enaddr)
+ 	return is_valid_ether_addr(enaddr) ? 0 : -EINVAL;
+ }
+ 
++/*
++ * The L1 stores SGI assembly numbers with underscores where the printed
++ * form has dashes: "030_1707_003" for "030-1707-003".
++ */
++static int l1_get_board_partnum(nasid_t nasid, unsigned int component,
++				char *buf, size_t len)
 +{
-+	switch (response) {
-+	case L1_RESP_OK:
-+		return 0;
-+	case L1_RESP_INVAL:
++	size_t iapos, ialen, fieldlen, i;
++	u8 *ia;
++	int rc;
++
++	rc = l1_read_board_ia(nasid, L1_TYPE_L1, component, &ia, &ialen);
++	if (rc)
++		return rc;
++
++	if (ia[1] < 2 || ia[1] * 8UL > ialen)
 +		return -EINVAL;
-+	case L1_RESP_NXDATA:
-+		return -ENXIO;
-+	default:
-+		return -EIO;
-+	}
++
++	/* skip the fixed part, then mfg, product, serial */
++	iapos = 6;
++	iapos = ia_skip(ia, iapos, ialen);
++	iapos = ia_skip(ia, iapos, ialen);
++	iapos = ia_skip(ia, iapos, ialen);
++
++	if (iapos >= ialen || (ia[iapos] >> IA_TYPE_SHIFT) != IA_TYPE_ASCII)
++		return -EINVAL;
++
++	fieldlen = ia[iapos] & IA_LENGTH_MASK;
++	if (fieldlen == 0 || iapos + 1 + fieldlen > ialen || fieldlen >= len)
++		return -EINVAL;
++
++	iapos++;
++	for (i = 0; i < fieldlen; i++)
++		buf[i] = ia[iapos + i] == '_' ? '-' : ia[iapos + i];
++	buf[fieldlen] = '\0';
++
++	return 0;
 +}
 +
 +/*
-+ * One request and its response are a single transaction on the wire,
-+ * so every entry point holds this.
++ * Part numbers cannot change at runtime, so failures are cached along
++ * with successes and each component is queried once.
 + */
-+static DEFINE_SPINLOCK(l1_lock);
++#define L1_PARTNUM_SIZE		24
++static char l1_partnum[L1_BOARD_COMPONENT_MAX][L1_PARTNUM_SIZE];
++static int l1_partnum_rc[L1_BOARD_COMPONENT_MAX];
++static bool l1_partnum_cached[L1_BOARD_COMPONENT_MAX];
 +
-+/*
-+ * Run one request/response exchange in pkt, which has to be large enough
-+ * for both; returns the response's argument count.
-+ */
-+static int l1_transact(nasid_t nasid, u8 *pkt, size_t pktsize, u32 address,
-+		       u16 request, u8 **rargs, size_t *rarglen, int nargs, ...)
++int l1_read_board_partnum(unsigned int component, char *buf, size_t len)
 +{
-+	va_list ap;
-+	size_t pktlen;
-+	int rc;
-+
-+	if (!system_is_ip35)
-+		return -ENODEV;
-+
-+	va_start(ap, nargs);
-+	pktlen = l1_command_build(pkt, pktsize, address, request, nargs, ap);
-+	va_end(ap);
-+	if (pktlen > pktsize)
-+		return -ENOMEM;
-+
-+	rc = l1_packet_put(nasid, pkt, pktlen);
-+	if (rc)
-+		return rc;
-+
-+	pktlen = pktsize;
-+	rc = l1_receive_response(nasid, pkt, &pktlen);
-+	if (rc)
-+		return rc;
-+
-+	if (pktlen < 6)
-+		return -EIO;
-+
-+	rc = l1_response_to_errno(get_unaligned_be32(&pkt[1]));
-+	if (rc)
-+		return rc;
-+
-+	if (rargs) {
-+		*rargs = pkt + 6;
-+		*rarglen = pktlen - 6;
-+	}
-+
-+	return pkt[5];
-+}
-+
-+/*
-+ * Send a plaintext command to the L1's own console command parser, the
-+ * same strings a human types at the L1 console. Such a command can reset
-+ * the Hub, or cut power to it, before the L1 answers, so an error here
-+ * means "no response", never "retry".
-+ */
-+int l1_exec_command(const char *cmd)
-+{
-+	u32 address = L1_ADDRESS(L1_TYPE_L1,
-+				 L1_ADDRESS_LOCAL | L1_TASK_COMMAND);
-+	u8 pkt[64 + 64];	/* command and response packet buffer */
 +	unsigned long flags;
-+	bool locked;
-+	int rc;
 +
-+	/*
-+	 * Reset and poweroff reach this after smp_send_stop(), so a stopped
-+	 * CPU may hold the lock for good; go to the wire either way.
-+	 */
-+	locked = spin_trylock_irqsave(&l1_lock, flags);
++	if (component >= L1_BOARD_COMPONENT_MAX)
++		return -EINVAL;
 +
-+	rc = l1_transact(get_nasid(), pkt, sizeof(pkt), address,
-+			 L1_REQ_EXEC_CMD, NULL, NULL, 1,
-+			 L1_ARG_ASCII, cmd);
++	spin_lock_irqsave(&l1_lock, flags);
 +
-+	if (locked)
-+		spin_unlock_irqrestore(&l1_lock, flags);
++	if (!l1_partnum_cached[component]) {
++		l1_partnum_rc[component] =
++			l1_get_board_partnum(get_nasid(), component,
++					     l1_partnum[component],
++					     sizeof(l1_partnum[component]));
++		l1_partnum_cached[component] = true;
 +
-+	if (rc < 0)
-+		return rc;
++		if (l1_partnum_rc[component])
++			pr_debug("l1: component %u: no part number (%d)\n",
++				 component, l1_partnum_rc[component]);
++		else
++			pr_debug("l1: component %u: part number %s\n",
++				 component, l1_partnum[component]);
++	}
 +
-+	/* nothing is expected back besides the response code */
-+	return rc == 0 ? 0 : -EIO;
++	spin_unlock_irqrestore(&l1_lock, flags);
++
++	if (l1_partnum_rc[component])
++		return l1_partnum_rc[component];
++
++	if (strscpy(buf, l1_partnum[component], len) < 0)
++		return -E2BIG;
++
++	return 0;
 +}
++
+ static u8 ip27_l1_mac_addr[ETH_ALEN];
+ static bool ip27_l1_mac_addr_valid;
+ static bool ip27_l1_mac_addr_tried;
 -- 
 2.47.3
 
