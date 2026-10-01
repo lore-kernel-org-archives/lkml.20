@@ -1,108 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FF6374745;
-	Thu,  1 Oct 2026 11:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7029230D401;
+	Thu,  1 Oct 2026 11:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790854734; cv=none; b=oM1VvDGKZDX8HK7Gf18ioWw1CYNgXBp0s1Nfxb4VVW4hIcgC+TrW996lxtJooktaYd9P2+BZgTYtbypBNI7KqDedsrfhxAWYtg+RkCieAhek8rhnZF51dDZ+lvwbEVrGYS89kMK89qESY1UR3KHoGcog3t+S/4GUEpW2ONcPwS0=
+	t=1790854785; cv=none; b=ZE0YQeOV6RDHpzcwlb/4BVmf/Kvn5vN0R77wV0RYdxjPmB3YtQ1kTGUtlhTKcKHW7urA/xONYPP94EKJGaTqTHmIgU8rT6SqZrN/R9X2sAsjt7ncqN2iwPOAhC3GTf1dI2WCJRDVRZ8X47HhdOvqGtC8/8p9nI/MChy8Qjwbpx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790854734; c=relaxed/simple;
-	bh=GLdcpdS4qKCMGASoeVk32ozp0hTf0ZbsqpFQN6qAHFY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=prAU+IinGOvxK0uxBgeVbw0WiccJ/VfYUzhyTdI3EbDOsKmcg+jiulMW2x7awMgUKxlgZB9suPTAsgZXzjncmpjSuvqrxixTse1r33Iev0E9hUTV5ctht8w0Siglcak8XC3DdzdO450MpLyCZqow8TvMh8uNkM4EqW2F56W/TPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=owdv9Yk7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790854785; c=relaxed/simple;
+	bh=aIUuO4ENC77y8AatC+unyTYHYRfthaC+8kOZ3gEUHLc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ABcw5cKO7xQct41EjPzpC7TnIFpnDlAnp0Pii0BO/lzhcaNZ//HIeUcbOZAgROixLSjaM6WNsqGynbhYDy73xP9bYcQSIwPOW1HNvTXEyqlSOfi+1Q86ftg/Dr5QAbosGE8ux0eC4+UwoosNlMze7H5totD6jPlwsQ99pjbCPn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=neqGY7qE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="owdv9Yk7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926CB1F000FF;
-	Thu,  1 Oct 2026 11:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790854732;
-	bh=/wSo/8Bk5oj9ucRYiv19MbJjLBK29LPujmY3DmPBK1o=;
-	h=Date:From:To:Cc:Subject;
-	b=owdv9Yk7UUY+T+JsEbXhRSU/HZx0VskDXO8w8jlrnulFjdUB5vg442Y2fLkOSOxP+
-	 4MXlViz4Hpm6+KMOuhB4hRGm/zZ3xMBewyxPQHEah/6sgUXlLU3S9y7suc33tGVWuT
-	 PCUMTevqugbGZgP2U776r28FI+lx6R85jk1gJFVwMuKEKYMwK/vGNRjfb5qt85h4OD
-	 h3AtL/tlpw1Ty8piOuVHcXoYjDG+Cx00mYY6T8AE5FpdZU0alKSJJgKn+Je6FnOw8J
-	 cuXsPWJBh3yDBwcOG+hYN7L6SChnMWome9FZPQBGnfOU09x0DtyI6flLOa0guINwsE
-	 56HGaaoXWJp2g==
-Date: Thu, 1 Oct 2026 13:38:46 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Bradley Morgan <brads@mainlining.org>, Kees Cook <kees@kernel.org>, 
-	Zhan Xusheng <zhanxusheng@xiaomi.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] sysctl fixes for v7.3-rc6
-Message-ID: <zcnee7kd4z7ncgccbh4cpmwoj4pbdvrscjl4chey7c4oczzgwg@fy3tb5yzdkii>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="neqGY7qE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F9A6497;
+	Thu,  1 Oct 2026 04:39:38 -0700 (PDT)
+Received: from [10.57.9.178] (unknown [10.57.9.178])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 47ED43F86F;
+	Thu,  1 Oct 2026 04:39:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790854781; bh=aIUuO4ENC77y8AatC+unyTYHYRfthaC+8kOZ3gEUHLc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=neqGY7qENHa5C3IakID0foMencI4cFZZHabSuLJ1lNBFE4M0m2FgM7mAvbQNY3BFx
+	 stn/gI/6Xq2wXq7RIjF5XuMlVa57lMplWsGspYC8wxz97g6TqZdZE3Y5XcZczFYbgm
+	 OpqxKgkX2oAxFSQVnqoXEr45ElxUfdqWnQd2sbTw=
+Message-ID: <bf6efab5-ab8e-48e2-8576-2f3fb69a3d6a@arm.com>
+Date: Thu, 1 Oct 2026 12:39:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ogqfjisgzn5wve4m"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 7/9] arm64: Block hibernate and kexec while RMM is
+ active
+Content-Language: en-GB
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, linux-pm@vger.kernel.org
+References: <20261001084555.1456543-1-suzuki.poulose@arm.com>
+ <20261001084555.1456543-8-suzuki.poulose@arm.com> <ar4-kg8Jq9BTn7Sb@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <ar4-kg8Jq9BTn7Sb@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 01/10/2026 12:05, Catalin Marinas wrote:
+> On Thu, Oct 01, 2026 at 09:45:53AM +0100, Suzuki K Poulose wrote:
+>> RMM can be deactivated only after all delegated granules have been
+>> reclaimed. If a new kernel is entered while any granules remain in the
+>> Realm PAS, accesses to that memory can raise a Granule Protection Fault
+>> and be fatal to the new kernel.
+>>
+>> Crash kexec/kdump needs separate handling. It can be supported only once
+>> the crash kernel can tolerate delegated memory inherited from the primary
+>> kernel. i.e., be able to read the pages safely and fixup the GPF. Until
+>> then disable the kexec completely.
+>>
+>> Hibernate has a similar problem. The image cannot be safely saved for
+>> delegated pages, as the RMM doesn't support exporting the pages.
+>>
+>> Disable both kexec and hiberation while the RMM is active.
+> 
+> I would mention that this adds a new arch_hibernation_available() hook
+> called from hibernation_available(), otherwise the hibernation
+> maintainers may not realise why they've been cc'ed.
+> 
+> Alternatively, just introduce the hook as a separate patch without any
+> arch code.
+
+I will go for this approach, adding the hook in a prep patch and then
+the arm64 version with kexec changes.
 
 
---ogqfjisgzn5wve4m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> 
+>> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+>> Cc: Len Brown <lenb@kernel.org>
+>> Cc: Pavel Machek <pavel@kernel.org>
+>> Cc: linux-pm@vger.kernel.org
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>> Changes since v20:
+>>   - Add arch_hibernation_available() hook for archs to have a say and drop the
+>>     other checks.
+>> Changes since v19:
+>>   - New patch to disable kexec and hibernation with RMM
+>> ---
+>>   arch/arm64/kernel/hibernate.c     | 14 ++++++++++++++
+>>   arch/arm64/kernel/machine_kexec.c | 11 +++++++++++
+>>   include/linux/suspend.h           |  1 +
+>>   kernel/power/hibernate.c          |  8 +++++++-
+>>   4 files changed, 33 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
+>> index 7bf1174277772..08e03d24b93a8 100644
+>> --- a/arch/arm64/kernel/hibernate.c
+>> +++ b/arch/arm64/kernel/hibernate.c
+>> @@ -10,6 +10,8 @@
+>>    * Copyright (C) 2006 Rafael J. Wysocki <rjw@sisk.pl>
+>>    */
+>>   #define pr_fmt(x) "hibernate: " x
+>> +
+>> +#include <linux/arm-rmi-cmds.h>
+>>   #include <linux/cpu.h>
+>>   #include <linux/kvm_host.h>
+>>   #include <linux/pm.h>
+>> @@ -105,6 +107,18 @@ void notrace restore_processor_state(void)
+>>   {
+>>   }
+>>   
+>> +bool arch_hibernation_available(void)
+>> +{
+>> +	/*
+>> +	 * If we have activated the RMM, there could be pages that are
+>> +	 * delegated to the RMM. Trying to save them to the image will be fatal.
+>> +	 * Also, we donate pages to the RMM at activation and restoring data
+>> +	 * to those pages are going to be fatal.
+>> +	 * Hence, disable the hibernation when the RMM is active
+>> +	 */
+>> +	return !cpus_are_stuck_in_kernel() && !is_rmm_active();
+>> +}
+> 
+> For now, I would keep is_rmm_active() only in here as not to change the
+> behaviour for pKVM. "disk" would disappear from /sys/power/state with
+> this patch. I think it's the correct thing to do for pKVM as well but we
+> can discuss this separately once this goes in (I also think pKVM using
+> cpus_are_stuck_in_kernel() is a bit of a bodge but it's a handy hook
+> called in the right places).
 
-Linus:
-
-Missed this in the tag: tested with sysctl selftests on x86_64 as well
-as linux-next (for a week).
-
-Best
-
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
-
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/sysctl/sysctl.git tags/sysctl-7.03-fixes-rc6
-
-for you to fetch changes up to fdd6553e1e53b0421d89c7469c8a36d2eadb1115:
-
-  time/jiffies: Saturate in mult_hz() instead of wrapping (2026-09-29 10:00:40 +0200)
-
-----------------------------------------------------------------
-Summary
-
-* Fix sysctl jiffies conversions errors introduced in 2dc164a48e6f ("sysctl:
-  Create converter functions with two new macros")
-
-  - Ensure that mult_hz does *not* wrap
-  - Ensure we pass just the magnitude for the negative branch in
-    proc_int_k2u_conv_kop
-
-----------------------------------------------------------------
-Zhan Xusheng (2):
-      sysctl: Negate before converting in the int read path
-      time/jiffies: Saturate in mult_hz() instead of wrapping
-
- kernel/sysctl.c       | 2 +-
- kernel/time/jiffies.c | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+I was in double mind about this. Yes, I agree, makes sense to deal the
+pKVM case separately.
 
 
---ogqfjisgzn5wve4m
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+>> +
+>>   int arch_hibernation_header_save(void *addr, unsigned int max_size)
+>>   {
+>>   	struct arch_hibernate_hdr *hdr = addr;
+>> diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
+>> index 8f9bc2327dc85..48f343704cb54 100644
+>> --- a/arch/arm64/kernel/machine_kexec.c
+>> +++ b/arch/arm64/kernel/machine_kexec.c
+>> @@ -6,6 +6,7 @@
+>>    * Copyright (C) Huawei Futurewei Technologies.
+>>    */
+>>   
+>> +#include <linux/arm-rmi-cmds.h>
+>>   #include <linux/interrupt.h>
+>>   #include <linux/irq.h>
+>>   #include <linux/kernel.h>
+>> @@ -59,6 +60,16 @@ int machine_kexec_prepare(struct kimage *kimage)
+>>   		return -EBUSY;
+>>   	}
+>>   
+>> +	/*
+>> +	 * We will be able to allow kdump to proceed, once we have the support
+>> +	 * for handling GPF from vmcore accesses to delegated pages. Until then
+>> +	 * block kexec completely.
+>> +	 */
+>> +	if (is_rmm_active()) {
+>> +		pr_err("Can't kexec: RMM is active.\n");
+>> +		return -EBUSY;
+>> +	}
+>> +
+>>   	return 0;
+>>   }
+>>   
+>> diff --git a/include/linux/suspend.h b/include/linux/suspend.h
+>> index b02876f1ae38a..a3815027773c5 100644
+>> --- a/include/linux/suspend.h
+>> +++ b/include/linux/suspend.h
+>> @@ -401,6 +401,7 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data);
+>>   int hibernate_resume_nonboot_cpu_disable(void);
+>>   int arch_hibernation_header_save(void *addr, unsigned int max_size);
+>>   int arch_hibernation_header_restore(void *addr);
+>> +bool arch_hibernation_available(void);
+>>   
+>>   #else /* CONFIG_HIBERNATION */
+>>   static inline void register_nosave_region(unsigned long b, unsigned long e) {}
+>> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+>> index d2479c69d71a4..9d9d53828542f 100644
+>> --- a/kernel/power/hibernate.c
+>> +++ b/kernel/power/hibernate.c
+>> @@ -106,11 +106,17 @@ bool hibernation_in_progress(void)
+>>   	return !atomic_read(&hibernate_atomic);
+>>   }
+>>   
+>> +__weak bool arch_hibernation_available(void)
+>> +{
+>> +	return true;
+>> +}
+>> +
+>>   bool hibernation_available(void)
+>>   {
+>>   	return nohibernate == 0 &&
+>>   		!security_locked_down(LOCKDOWN_HIBERNATION) &&
+>> -		!secretmem_active() && !cxl_mem_active();
+>> +		!secretmem_active() && !cxl_mem_active() &&
+>> +		arch_hibernation_available();
+>>   }
+> 
+> With the comments above addressed:
+> 
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 
------BEGIN PGP SIGNATURE-----
+Thank you!
 
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmq+RkAACgkQupfNUreW
-QU+q+Av/RW55OSWuZVnuqjVwKb9r70wvsIuyTwvOZG50IopF5KQNs66i5whX6Fge
-hq2//HmkeLxv0zuLNIX0nmmXOIqkTlQGTBManb+z7bfXuJ6MgLVU1S7ZvnVkLXys
-VQ8Wp3f3sIb09fM3/M9rtNozjkIb21W6YgKQLVogSC9ysQa2uoZVRAZ/vCdXy64l
-6awBOFjVOOGallw8sEcHZRhaSgFytWDhiPjnGtvemFEdjPIuPYBUuUNjgQglhYYc
-h5PBZ5z7MOyKPVYoZD9PbYa2+hmF+GefcBGSK06WigjosBq8gZYGokSwMGDASA5W
-wSezqux+2mFBZhbzbkuvtDd0eRnTw7QHkCcdHj533oniKeX3iqv93V5cubEYvvNi
-Reu8VQAJb+7g+XGWKEKJeHc/f8omWLXO0qArkUs6yLOxO9BeHMATzLfDOkK2ilPj
-DK0mw0ydnIzPPRiwusAYxN6DJr+do2LZaumqZqKtIUhY7MBqOokBUWXz8axtUust
-YY0cS3ZO
-=JOIO
------END PGP SIGNATURE-----
+Suzuki
 
---ogqfjisgzn5wve4m--
