@@ -1,91 +1,75 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48B34CDDC5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67794A7C9B;
+	Thu,  1 Oct 2026 09:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846834; cv=none; b=m19wk1QlrqXcBxxb1Q64h3DvneRGwWuWQJx6hByP6K/F4QXffuDMlBaXe8RTJJsTWDHJdBzz1uCVZ52jqiJx+lhYWtcY9N9qVCa8CBoQEqCaOtUY+Bn2NRJXcoCYgiB54aD315eW/SuR5rAvZc/k1mTU5O6Ce16hgXKbIjRedA4=
+	t=1790846899; cv=none; b=QtM8rW0+WCtoBtWxHHIH7gWL2WPk3bniI+s0pu/lH0bxdoHmkQyJm6S0hKdOTNp6V5SOy2Fv7xnegw1Ki/vitdT5esVov5sx+zPdGnpWknMcEain7KLyDu/jR9t5nCzQ1jVIvtaZoCDAvC8XHp9NJlfEbUIRP60S7GdZHfuKqWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846834; c=relaxed/simple;
-	bh=WFLgXtMlI9Urs6/emSt8fVdotgeH/7tztd/CHHVBZE0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=msocGEDf5feZQNnlT5IsL91eTV+tjl/iLNbpl5Dy9MZWQe1pgT9vRIR0nwWjf7NhjFTVzjSdJDG0eNpCCAF0FwpLdtBm8miLF1qR2kalhxAXYIRv/YjJ7mqa9bExgv4nn1gxJx3S4m4jkKiaUxCjrz+IJV/JQ/F5G30zT23aUqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [IPv6:2001:4b98:dc4:8::227])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id ABD445837F4
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:57:43 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 2BD693EC12;
-	Thu,  1 Oct 2026 08:57:32 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	linux-kernel@vger.kernel.org,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [PATCH] mm/swap: submit the last readahead batch before unplugging
-Date: Thu,  1 Oct 2026 10:57:12 +0200
-Message-ID: <20261001085730.2029773-1-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790846899; c=relaxed/simple;
+	bh=AnURxHfhsJVzQNUxgO/7dXS3RztEqGpRqrT07miIn+8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XppxC1eKjumJaEcpvjhXDaxtSacBI5+gwAAK5w7hMdvZbiXe9O6NeZpGSUnzBoMkkhkyKbo5G8WhdqZdCcasdyZfX+Exns4U2SSs/Ai7RQ6apfiEWy1WhKP2JPDOzSJjF4xHkX2AlBfIj+HUjM4eA5OlTu200GYiamNouSj8WyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0NzAUWiL; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0NzAUWiL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AD51F000FF;
+	Thu,  1 Oct 2026 09:28:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790846887;
+	bh=M1+gxPnqihf3sYvjqc9uWAg2uM4ocva618sTuonTi14=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=0NzAUWiLeK+ldX+a8inqWM5x4XaOWHOx6mTHiZNvl98ZOciikLTLDVomc1JTFPGgR
+	 HxGo2I90gBhkLjFbmphohjfHkN8KJysLtXS4RgfpMI/tN5TDOmD2iU1ZTiGI7L0E+M
+	 aulgoMhfgcX/RUqUNjED3ueLbq6C1yGUnj8hOnKA=
+Date: Thu, 1 Oct 2026 11:28:01 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Dan Carpenter <error27@gmail.com>
+Subject: Re: [PATCH] staging: rtl8723bs: make rtl8723_dequeue_writeport()
+ return bool
+Message-ID: <2026100145-unbitten-playmaker-8ac5@gregkh>
+References: <20260926105827.3760-1-dennylin0707@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-Score: -100
-X-GND-Cause: dmFkZTF1ZYRqrGBHftE47xIW2kWpWI6gPPZrBB0Fm2rHvUXkYYWGSu9bNQ4d4HVyhDy/NIybAnjmiF6pBYixger2QutfBbU4qbhWgGqzRtaP73q9SQvz845UU72nXpi2UucOwghImYR8IYwaxIE5XH8XU/uXkuVbcQdBHyRcTjmdcGMygMcxvXMBtUX/Cg1pSgZ/wdXfFSVnOvGAji3SOIoQ1ozVEoAUSRjGrg+FkZhEQmBDIdu86mBkTKSZMz/5l2OLju48pks3Mzo4LlIalkOe+F+/vvhT9lN7Jk6nolKAiNDPrC7oiqNr1sfRzpu1z8vMb1S3hwqE22s5+3cMlgLwn/ZgQNRdDN6XnTTIkeVd2IBSOhGN9XEwPa5zd16NTnqn/F4vQfm2E4s1hI0HbcT/OgNGCgEEu4DekqyUUC+afl/R5E5zSJ+hzpg5PZYOjYcAskn7JGUYT/ADplASg1NaL08u36yxzNaaspa6sGziiFeYiEoEVte4zhuCjbspW8zF6t8ndEc91NrxJblqFzHiHTthf8wCtraXcn4Ixws7xfMqu1OIhDUsGRdoFB7tUOLfRgB+BwXg2WZEH9D1YeTMReQNYmhFIdRQQhSquGcuL97ZKtNQQ7IgZhO3/XJEm4yGF8NSn6sTxXNPt7xHZLX+MBPbVpt4K5rxTGudeYQYRAfNdA
-X-GND-State: clean
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926105827.3760-1-dennylin0707@gmail.com>
 
-Since block swap I/O is batched in struct swap_iocb, swap_add_folio()
-only appends a folio to the pending batch when its slot directly follows
-the previous one, and submits the pending batch otherwise. Batches
-submitted inside the readahead loop go through the plug, where the block
-layer can still merge them, but the final batch is submitted after
-blk_finish_plug() and always becomes a separate request.
+On Sat, Sep 26, 2026 at 10:58:27AM +0000, Hungyu Lin wrote:
+> rtl8723_dequeue_writeport() returns boolean state and its caller uses the
+> return value as a boolean.
+> 
+> Change the return type to bool and replace _FAIL with false. Also use bool
+> for the caller's queue_empty variable.
+> 
+> No functional change.
+> 
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+> index 0441e84ea87d..482dd1baf3ca 100644
+> --- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+> +++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+> @@ -33,7 +33,7 @@ static u8 rtw_sdio_wait_enough_TxOQT_space(struct adapter *padapter, u8 agg_num)
+>  	return true;
+>  }
+>  
+> -static s32 rtl8723_dequeue_writeport(struct adapter *padapter)
+> +static bool rtl8723_dequeue_writeport(struct adapter *padapter)
 
-So submit the final batch before finishing the plug.
+Please change the variable that is assigned to the output of this
+function as well.
 
-Fixes: dda8fb68b590 ("mm/swap: also use struct swap_iocb for block I/O")
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
----
- mm/swap_state.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+thanks,
 
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index 2475ba29126d..ebef568cd62e 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -906,8 +906,8 @@ struct folio *swap_cluster_readahead(swp_entry_t entry, gfp_t gfp_mask,
- 			continue;
- 		folio_put(folio);
- 	}
--	blk_finish_plug(&plug);
- 	swap_read_submit(&ctx);
-+	blk_finish_plug(&plug);
- skip:
- 	return swap_cache_read_folio_sync(entry, gfp_mask, mpol, ilx);
- }
-@@ -1019,8 +1019,8 @@ static struct folio *swap_vma_readahead(swp_entry_t targ_entry, gfp_t gfp_mask,
- 	}
- 	if (pte)
- 		pte_unmap(pte);
--	blk_finish_plug(&plug);
- 	swap_read_submit(&ctx);
-+	blk_finish_plug(&plug);
- skip:
- 	/* The folio was likely read above, so no need for plugging here */
- 	return swap_cache_read_folio_sync(targ_entry, gfp_mask, mpol, targ_ilx);
--- 
-2.53.0-Meta
-
+greg k-h
