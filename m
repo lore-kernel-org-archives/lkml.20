@@ -1,135 +1,178 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6801251CF78
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0A9851B196;
+	Thu,  1 Oct 2026 14:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864698; cv=none; b=iDVSQakabR9laQXrUbuAMwmYWazDzRRowgdmM3EfipxClmJ4wY2BcQfQzQpGqorPD/OohfbcYT6oQf+yMT9zYMbivX7D4hJJIJQU82ERW3PqDnAPXSwCTxpbKposJnkdLMTxmH6l0+4El5UJu8ZCb7G283sScfs/vu0G3bsbHXc=
+	t=1790864709; cv=none; b=lr4ke04zoGCOYerKNvmtt/531liaxeUWVS90SdQqypbQ5Yd6bjkQv+3o+aY3R0/ukNKMyv0dNl7ZYkeqwVZR3aLtdG6qJNqZ5aLKbacC1MPKPK5C0GQi17eyLa8XuizUouxsmbH2hbXEdlnUYQk3LC8f3NIMBqVQyTBqPSx6RNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864698; c=relaxed/simple;
-	bh=/xcTDSWCbk5pM7p8qnK/WVZeRS08djZx8bVhdbQBd5Q=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mlPtGEP2SQpW5m+jE6d7xhzf5Q0jbkTSF0v8iofpAonWQN1P2BoabUYfSdxN2WzCQaC+3pSTENOfQifLjNQ/idAJ6swHe7yOVk60h8qqQ6isS2kApyfwRX07MgjCcs0Rqxlw2rj4xuiPEHzgBJBVc/EAvzrhGmG9GWXnbxyl070=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ILEYpDpq; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790864709; c=relaxed/simple;
+	bh=1hHoKyAPD/b2cGTc6dQTSAgCcK5RPRJLB0llMk6ht/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C8RBkqidGwAjzWU8chyNkD36J+nU/PRECai0rPu9JTTQVPgWHZ6H8VX8FZODffmHgQkHeu3fYOZbUq+SVEpHmIItvD42EubsaOQFduVLVxXrAV7ZCkqgpplIZVixtSSq6QSisUMwhJuoeME3qfijs+Tjm+PHnawZ/gKlMSEJEDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vXAk2mOi; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ILEYpDpq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790864690;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4H73h7S4dMjm2zegNZZAD/L3qe6gjYIfZH1lraT+3GI=;
-	b=ILEYpDpqMVNtdX1AWVDEZCfDZHubBptWi6zNEUYsuk8KLmJtUHs54yiXU9Op8t0rn6Agif
-	vlt8Pb0FoZ40f3BQ/s96Q/aZiNtvdHnJx5qCLzABFpVQ0Lj14GqlKsGyZiY+oltwdsNpFE
-	fXbMG2xQGgD3K+cetzWPF1ynQs6TGtU=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-418-cDH3BM9aNtmR88XyREtwGw-1; Thu,
- 01 Oct 2026 10:24:49 -0400
-X-MC-Unique: cDH3BM9aNtmR88XyREtwGw-1
-X-Mimecast-MFC-AGG-ID: cDH3BM9aNtmR88XyREtwGw_1790864688
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BF491193611A;
-	Thu,  1 Oct 2026 14:24:47 +0000 (UTC)
-Received: from [100.90.87.156] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 30E9630000E4;
-	Thu,  1 Oct 2026 14:24:44 +0000 (UTC)
-Message-ID: <8c609bc7-be81-4498-8612-3a8f3b4a2401@redhat.com>
-Date: Thu, 1 Oct 2026 16:24:43 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vXAk2mOi"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87EDD497;
+	Thu,  1 Oct 2026 07:24:59 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6FAA3F85F;
+	Thu,  1 Oct 2026 07:24:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790864702; bh=1hHoKyAPD/b2cGTc6dQTSAgCcK5RPRJLB0llMk6ht/Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vXAk2mOiEzPgG8p0QPPgnsQD9c5SttjpCm6UTeqpSxuv3JpF0R9stnfs2sdooXT1+
+	 +mCwykU1KCsMii36XRamLizkeQxtZpwHbBx36tBChLs0b2MUBc+3jhX+h4uZmD5BNU
+	 l8S2Mq3+aGtDdpe0Qwus2ffDKEwIB9946i46aoYk=
+Date: Thu, 1 Oct 2026 15:24:57 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Roberto Sassu <roberto.sassu@huaweicloud.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Dan Williams <djbw@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, gongruiqi1@huawei.com
+Subject: Re: [PATCH RFC 0/3] security: ima: support TSM measurement registers
+Message-ID: <ar5tOUor0bp3MtQ6@e129823.arm.com>
+References: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
+ <ebe68f6463f8ece8a5cd8ce70bba292ec4f64a41.camel@huaweicloud.com>
+ <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 0/6] dpll: zl3073x: add PTP periodic output
- support
-From: Ivan Vecera <ivecera@redhat.com>
-To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Min Li <min.li@microchip.com>,
- Paolo Abeni <pabeni@redhat.com>, Petr Oros <poros@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org
-References: <20260928185552.1103515-1-ivecera@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260928185552.1103515-1-ivecera@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
 
-On 9/28/26 8:55 PM, Ivan Vecera wrote:
-> This series extends the zl3073x output pin support and finally adds PTP
-> periodic output (perout) support on top of it.
-> 
-> Each zl3073x output exposes a P-pin and an N-pin that share a single HW
-> output and most of its configuration registers. Patch 1 makes a change
-> requested on one pin notify the sibling pin as well, so userspace on the
-> sibling is told when its effective frequency, esync or phase adjustment
-> changed.
-> 
-> Patches 2 and 3 add the plumbing to control an individual output pin:
-> GPO override registers and a clean stop/restart of an output (patch 2),
-> and then per-pin enable/disable through the state_on_dpll_get/set
-> callbacks - differential pins via the output stop condition, CMOS pins
-> via the GPO override bracketed by a glitch-free stop/restart (patch 3).
-> 
-> Patches 4 and 5 are preparatory: the per-pin 'esync_control' boolean is
-> replaced by an extensible 'caps' bitmap, and the divisor/N-division
-> computation is factored out of frequency_set() into a helper that
-> updates a struct zl3073x_out without committing it.
-> 
-> Patch 6 registers a PTP periodic output pin for each output pin that
-> supports step-time and declares 1 PPS support in firmware. Any perout
-> channel can be assigned to any such pin; only 1 PPS is supported.
-> Enabling a channel programs its pin for 1 Hz and connects it, disabling
-> disconnects it, reusing the helper and connect/disconnect primitive
-> introduced earlier in the series.
-> 
-> Ivan Vecera (6):
->    dpll: zl3073x: notify sibling pin when shared output config changes
->    dpll: zl3073x: add GPO support for output pins
->    dpll: zl3073x: allow enabling/disabling output pins
->    dpll: zl3073x: consolidate pin capabilities into bitmap
->    dpll: zl3073x: factor out output pin frequency helper
->    dpll: zl3073x: add PTP periodic output support
-> 
->   drivers/dpll/zl3073x/core.c | 117 ++++++++
->   drivers/dpll/zl3073x/core.h |  30 ++
->   drivers/dpll/zl3073x/dpll.c | 539 +++++++++++++++++++++++++++++++-----
->   drivers/dpll/zl3073x/dpll.h |   4 +
->   drivers/dpll/zl3073x/out.c  |  50 +++-
->   drivers/dpll/zl3073x/out.h  | 138 ++++++++-
->   drivers/dpll/zl3073x/prop.c |   2 +
->   drivers/dpll/zl3073x/prop.h |  21 ++
->   drivers/dpll/zl3073x/regs.h |  20 ++
->   9 files changed, 834 insertions(+), 87 deletions(-)
-> 
-> 
-> base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
+Hi Roberto,
 
-Hi Jakub & Paolo,
+> On Thu, 2026-10-01 at 13:27 +0200, Roberto Sassu wrote:
+> > On Wed, 2026-09-30 at 14:43 +0100, Yeoreum Yun wrote:
+> > > Confidential computing guests without a TPM can use TSM measurement
+> > > registers to record IMA measurement digests instead of TPM PCRs.
+> 
+> + Gong Ruiqi, of course.
+> 
+> Roberto
+> 
+> > Hi Yeoreum
+> > 
+> > a similar patch set has been sent to the linux-integrity mailing list:
+> > 
+> > https://lore.kernel.org/linux-integrity/20250630125928.765285-1-gongruiqi1@huawei.com/
+> > 
+> > Could you please work with Gong Ruiqi to have a unified proposal?
+> > 
+> > Thanks
+> > 
+> > Roberto
+> > 
 
-I would like to send the v2 series but now it depends on two bugfix patches
-that were submitted to 'net' as
+Thanks for letting me know and I think the proposal is almost the same
+with the different terminology only.
 
-https://lore.kernel.org/netdev/3c4e8106-83d0-4c1c-a3bd-8d9343d2d557@redhat.com/T/#m0caa2ce66da8213c8594bce7d0ff55baeafeee05
+@Gong, what do you think?
 
-Without them the v2 is not applicable to net-next...
+> > > This series introduces in-kernel interfaces for accessing TSM
+> > > measurement registers, abstracts IMA's measurement-register operations,
+> > > and adds a TSM backend for Intel TDX and Arm CCA.
+> > > 
+> > > The following mappings between TPM PCR indices and TSM measurement
+> > > registers are defined for Intel TDX [0] and proposed for Arm CCA [1]:
+> > > 
+> > >   TPM PCR index | Intel TDX register | Arm CCA register
+> > >   --------------+--------------------+-----------------
+> > >   0             | MRTD               | RIM
+> > >   1, 7          | RTMR[0]            | REM[0]
+> > >   2-6           | RTMR[1]            | REM[1]
+> > >   8-15          | RTMR[2]            | REM[2]
+> > > 
+> > > These mappings allow IMA to translate PCR indices into the corresponding
+> > > TSM measurement registers.
+> > > 
+> > > The TPM backend remains preferred when it is available at IMA
+> > > initialization. Otherwise, IMA falls back to a supported TSM backend.
+> > > Only one backend is selected; IMA measurements are not extended to both
+> > > TPM PCRs and TSM measurement registers.
+> > > 
+> > > The attestation proccess for guest with TSM measurement register will
+> > > be done with Confidential Compute Event Log (CCEL) which is exported by
+> > > /sys/firmware/acpi/tables/data/CCEL. Here is brief process in arm64:
+> > > 
+> > >   Verifier                 Realm guest              RMM / Platform
+> > >      |                         |                           |
+> > >      |--- Challenge (nonce) -->|                           |
+> > >      |                         |--- Request token -------->|
+> > >      |                         |    with challenge         |
+> > >      |                         |                           |
+> > >      |                         |<-- CCA token T -----------|
+> > >      |<-- CCA token T ---------|                           |
+> > >      |<-- CCEL event log ------|                           |
+> > >      |<-- IMA measurement log -|                           |
+> > >      |                         |                           |
+> > >  Verify token T:               |                           |
+> > >   - signatures                 |                           |
+> > >   - Platform/Realm             |                           |
+> > >     token binding              |                           |
+> > >   - challenge freshness        |                           |
+> > >   - platform/RIM policy        |                           |
+> > >   - verify measurement logs    |                           |
+> > >      |                         |                           |
+> > >      | ----ACCEPT / REJECT---->|                           |
+> > > 
+> > > This patch based on arm-cca-mr series [3].
+> > > 
+> > > Link: [0] https://uefi.org/specs/UEFI/2.11/38_Confidential_Computing.html#intel-trust-domain-extension
+> > > Link: [1] https://github.com/tianocore/edk2/issues/11383
+> > > Link: [2] https://github.com/tianocore/edk2/issues/11384
+> > > Link: [3] https://lore.kernel.org/all/20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com/
+> > > 
+> > > ---
+> > > Yeoreum Yun (3):
+> > >       virt: coco: introduce tsm_default_tm() and tsm_mr_read()/write()
+> > >       security: IMA: introduce ima_mr structure
+> > >       security: IMA: use TSM measurement registers
+> > > 
+> > >  drivers/virt/coco/guest/tsm-mr.c          | 159 +++++++++++++---
+> > >  include/linux/tsm-mr.h                    |  26 +++
+> > >  security/integrity/ima/Makefile           |   3 +-
+> > >  security/integrity/ima/ima.h              |   7 +-
+> > >  security/integrity/ima/ima_api.c          |   4 +-
+> > >  security/integrity/ima/ima_crypto.c       | 137 +++++---------
+> > >  security/integrity/ima/ima_fs.c           |  16 +-
+> > >  security/integrity/ima/ima_init.c         |   7 +-
+> > >  security/integrity/ima/ima_mr.c           |  48 +++++
+> > >  security/integrity/ima/ima_mr.h           |  76 ++++++++
+> > >  security/integrity/ima/ima_mr_tpm.c       | 155 ++++++++++++++++
+> > >  security/integrity/ima/ima_mr_tsm.c       | 290 ++++++++++++++++++++++++++++++
+> > >  security/integrity/ima/ima_queue.c        |  39 ++--
+> > >  security/integrity/ima/ima_template.c     |   4 +-
+> > >  security/integrity/ima/ima_template_lib.c |   2 +-
+> > >  15 files changed, 819 insertions(+), 154 deletions(-)
+> > > ---
+> > > base-commit: b561246f45174b7472c24b75358ea95bae72b7b8
+> > > change-id: 20260929-ima_tgx_integration_v2-1c54aeeaeaee
+> > > 
+> > > Best regards,
+> 
 
-Can I include these 2 patches into v2 so they will be present on both net and
-net-next? Or how to proceed in this situations?
-
-Thanks,
-Ivan
-
+-- 
+Sincerely,
+Yeoreum Yun
