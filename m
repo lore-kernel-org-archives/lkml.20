@@ -1,296 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f7.google.com (mail-wm2-f7.google.com [74.125.225.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1BF51CF43;
-	Thu,  1 Oct 2026 17:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC16951CF43
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790874504; cv=none; b=hqT1kLgj4RsqdBR+y9np2kouagAHOpvpJV+hB5XKWTp5LAsI5BuAjZf9QFUml6sk9tAoTUaqAygMOdXvCOqIaIUdsHLBqMEEekoHWDorOgz1tUc3gJA1uqo9BtbZuztcdQwUUt9RDRrr26jfCvNPshgy0nJ9gy3mfTasJHFOdQE=
+	t=1790874634; cv=none; b=JMpvuCAe9hA8ToZk6S8czLVL3275xyhhxpAwUHJrIsLOw2lpX51MWIMM7fk52+BxXQla6fOmSUPuuYxUAbG2ZoAWdxo+3zPsg6skBz3V1fmRPijTu2PkmCv9OpoPt1kZyk8VOLcETtxv97AcNTKjCu9U3PllbisOddKCBiV9m7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790874504; c=relaxed/simple;
-	bh=vkzHWmtkQnXfDOBM8yyOCwI0qAln+O7/+Tqc74Wvo2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=pQfHk7IVxySliKkqAdw2IZY/eX78z05DUYIJX4HpN7XR4eS0RwuvGJEgB4pRdwXj1HB3t2eyIELQgQ4aQNwloNRawKuasQDs5U8Wn7nWDNO74H6hoc0DBDCWbTONchIkv+X35+9ZeaLRT/qTTAbs9QwMueZAyL5jAIJAxmoLhzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmR8ugfq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790874634; c=relaxed/simple;
+	bh=iRuh/s6Ipo9nZvx/J9+0+HpYrUaUvgSFRS3OUGAoNwI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cHlz6T4MXZRIDE4sONLIYHHopdpLpCnGwjJkbJFCEqga4BsrEARnyOV9gNhLg/K+de1o415jSPHOHwVXSr1KmDq4g4pLkHNyyvkFBvrW22Jqfgv++ARGM+t8Wk08B2LCm3FqlWh6RW1OTeUPGX9IlMMCmin2OIOSoS+71qZdSYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=KPBN5Q7p; arc=none smtp.client-ip=74.125.225.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmR8ugfq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F481F000FF;
-	Thu,  1 Oct 2026 17:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790874497;
-	bh=2EBHTCbQ9dYD3G0cXc8AK50xFhsxNiy6PPwJjkJDECo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=LmR8ugfq7MkFiQbu3TBY25zL60kpjw5V6UjC97NldfxQqfbcMmCEJzuWOw1abTII2
-	 JJKDTR2molXFIIzSGv8wfXAdcdQ7sqm/r5saoalX0QsXHI17Ltc6wcT7KA/d/GtXgP
-	 aVMQXxPG4BnI7eAaWQI9LjqQVvQqzfi/J7URixhsaFwJRQZsQA6PQopLkTh2ut2V+2
-	 Reeb1NpzVuvSqmQzk34TDWxv7/WQYVtD/c+EW4XmOSDIQsGCtJmjlUlsHE8Ih4fvoE
-	 KTg+/6ZbiWOwo+cpriVIedmgFDdZNom6Zm+fCHEIKVDHC0w+Wpm7fAT5HM7+qcG7IM
-	 99TXfxv72T0hQ==
-Date: Thu, 1 Oct 2026 12:08:16 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Rickey Bartlett <subtexel@gmail.com>
-Cc: Nirmal Patel <nirmal.patel@linux.intel.com>,
-	Jonathan Derrick <jonathan.derrick@linux.dev>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof Wilczynski <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Kai-Heng Feng <kai.heng.feng@canonical.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>, linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="KPBN5Q7p"
+Received: by mail-wm2-f7.google.com with SMTP id 5b1f17b1804b1-49e8361492fso25515635e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:10:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blockcast.net; s=google; t=1790874627; x=1791479427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nBgkdMW2PJxTxBX+kIlfjfUkDEKiBwZjSW88C9NEh9s=;
+        b=KPBN5Q7pmsFdNiGDGmqAHm+VUxTbNXGzZaVJ/O+EwdGRFHDx6Mrd5lm0Kp6DfoOLyD
+         F22C+MjaTY71cLdY9D+c5c5HdmUxlEgAYBhWrh/ejmkXNzReBGPhU3qJ8Me4FfJsFh8N
+         5Bf9VgxgX1F6V0A6wYzVxnAi3M/slh1XyXOJFMQMOEV1LsB5/h3TxajpNmvfYqdx57EP
+         FMHAtsfpYkhU/2OeTy+USeAIJqt68lUIe5Vs62vtxFtR05krFM8cprK7zAu9slyLwSB7
+         cr6OMEf/l4bPiehyGakXhlZX+4BP0jJdKBnP51b2nnz09k+ACttUjhOiYr973KVeF/w/
+         dm6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790874627; x=1791479427;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nBgkdMW2PJxTxBX+kIlfjfUkDEKiBwZjSW88C9NEh9s=;
+        b=qqp0nFKR5WmId+22o35pCBMRHxFgsbVvE70uUX1Q1derHqUDp3r9LPdMCpP1tywS9v
+         t3wJWHEHil4rQZMZIVZmRd5fwrqLj+732n11v1iK8oPQMCZ4Br8ipBbad5vsy3RlZlTJ
+         4eMpXT0eO4frXboDMVKYyj8cfsMFX7fAnP6ZZ0EPuYSK5PkrwzH0AZoJi29DWolHdlNM
+         Utv1EwB7zH8ZHQz5KusLZiymK9uS5tn5ULzWfV8wyWAIPk59kNIddkIz579kLSnE05Yp
+         4E8OIUuQK+XHz/5WpUBRuuK2WbLmOqSNdGQzD75eXvROHtv4/DWw6rdHzZldDfXnXVic
+         S/1g==
+X-Forwarded-Encrypted: i=1; AKwUvBz/QodsaSx9I5eUMKVPFaeLVxQFJ7BfOl9EyTqsyc0yUoM60bG0pd3rSkCcnzF1a8yQzptsLbPThBm7tso=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSQ+dY5ySzDv+/isRB3vg9ksr+NWa/jf1LDbuGTaE0OG4vIi7A
+	wcETyUodfnPTBsQkAu6h3xTL/86hFpyHUcdI9tGhSgbGORHV3nP3CIe9KZc41iv5XbfepZ+ic/M
+	dUcSOgCzUXkBneas=
+X-Gm-Gg: AYBFou0QIrr8zr8LiDbifaSV2Jfsqkf9KQLJdtks4KSK7ILj0ukSl95tJBUW6VVPGnX
+	QbjFB3K0WlWE8BRcOtu7cP6/6XuupJYGnJoafuMcxHwZAorg/WrpsMurv8iG8DKfWuIxTPvRmHj
+	VRGuoIR4iZlgmkdHsugq17JKibSu/CnrI6HspWJ1UOywmWHzkUd7TuZZo3p1oINKEXoQl2gSNYv
+	UetoZjVg+FGBoGgfEBSiLGL5h7xC+xya8MV4ro7RN8luk7TAAq0ELjbWCp8NpL6wfBM37HoWSeG
+	NdfVK124GMG0bVVHiXLF6JAI7OekgT1PORkiuOZ3x6G2pG7AvYvUjVvG5ujEvY/nfQzGb1Nfg6L
+	o1x8SQDaDsi6Wa+FhfQn3gogH2NddyhptQ8TKoJ9O0mzrFbZGPgiMeuddzzNTCwIOZ7NxtDhysA
+	G5T0jOBBa63Zjt3gLbkqHQB8JhhTo2Ul7axUMHAcKzDYuI8sL0wBzFbGDIjpuAv0vKOVM0P8Lzi
+	ldsrh/ybZbbCl7bLO6xPwvSme8keT3oJMe6IKum4pZ8QoHMLI92bSFPHQSlkX/7foeuxR9IDd5C
+	mMrs
+X-Received: by 2002:a7b:cd8e:0:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-4a02758ff89mr4168705e9.19.1790874626793;
+        Thu, 01 Oct 2026 10:10:26 -0700 (PDT)
+Received: from localhost.localdomain ([197.51.130.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0278fb6f1sm2496985e9.9.2026.10.01.10.10.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 01 Oct 2026 10:10:24 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: vmd: Flush initiator posted writes before demuxing
- interrupts on Meteor Lake
-Message-ID: <20261001170816.GA2702295@bhelgaas>
+Subject: [PATCH net-next 0/2] amt: mark relay data as a UDP tunnel packet, with a selftest
+Date: Thu,  1 Oct 2026 20:10:14 +0300
+Message-ID: <20261001171016.88208-1-omar@blockcast.net>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825043220.9047-1-subtexel@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 09:32:20PM -0700, Rickey Bartlett wrote:
-> Meteor Lake VMD (8086:7d0b) is affected by erratum MTL016: the VMD can
-> signal its MSI before the posted writes carrying a child device's DMA
-> data have landed in memory. vmd_irq() then demuxes to the child handler
-> while the child's completion queue is not yet coherent, so the handler
-> observes no completion and returns without consuming it. The I/O is
-> only recovered when the block layer timeout expires and polls the queue:
-> 
->   nvme nvme0: I/O tag 253 (50fd) QID 1 timeout, completion polled
-> 
-> The practical effect is therefore not a lost I/O but a 30 second stall
-> of the entire storage stack, repeated under any sustained read load.
-> 
-> This was originally diagnosed and fixed by Kai-Heng Feng in September
-> 2024 [1]. That patch used udelay(4); Keith Busch objected that the delay
-> is merely a side effect of the read, and that flushing the pending
-> device-to-host writes is what the erratum actually requires. Kai-Heng
-> agreed to respin with a dummy register read. The thread then stalled on
-> an open question from Manivannan Sadhasivam [2]: whether the read must
-> target the child device (the "MSI initiator" named by the erratum)
-> rather than the VMD, and whether the workaround belongs in the NVMe
-> driver instead. No revision followed, and the erratum has remained
-> unmitigated in mainline since.
-> 
-> This implements the flush read Keith asked for, and answers the open
-> question empirically: the read MUST complete at the initiating child
-> device. A read of the VMD's own config BAR was tried first and does not
-> help - it terminates at the VMD and never traverses the downstream
-> link, so it does not order against the child's posted writes (measured:
-> timeout rate unchanged). Reading the initiator's config space does
-> order correctly: per PCIe ordering rules the read completion cannot
-> pass the device's earlier posted writes, so returning from the read
-> guarantees the completion queue entry is visible.
-> 
-> The initiator's config address is captured per-IRQ at MSI allocation
-> time from the requesting device, so the hot path adds one config read
-> only on affected parts, and only for vectors owned by a child device.
-> The read is serialized with cfg_lock like all other VMD config access.
-> No NVMe driver change is needed.
-> 
-> Measured on a Dell Pro Max 14 MC14250 (Meteor Lake, VMD 8086:7d0b,
-> KIOXIA BG6 512GB, 7.0.0-30-generic). The drive is healthy (46C, 0 media
-> errors, 2% used) and ASPM is disabled on the link with all L1 substates
-> off, so neither ASPM nor APST is involved.
-> 
-> Dropping caches and reading 3000 shared libraries, measuring
-> /proc/pressure/io "full" (every task on the system blocked on I/O),
-> with nvme_core.io_timeout=5:
-> 
->   unpatched:      round 1  wall 37.4s   full I/O stall 32.6s   timeouts 0
->                   round 2  wall 30.6s   full I/O stall 28.7s   timeouts 1
->                   round 3  wall 30.3s   full I/O stall 27.4s   timeouts 1
-> 
->   VMD-BAR read:   round 1  wall 44.8s   full I/O stall 38.6s   timeouts 8
->   (insufficient)  round 2  wall 234.8s  full I/O stall 207.9s  timeouts 37
->                   round 3  wall 3.6s    full I/O stall 0.8s    timeouts 0
-> 
->   this patch:     round 1  wall 3.6s    full I/O stall 1.3s    timeouts 0
->                   round 2  wall 3.6s    full I/O stall 1.3s    timeouts 0
->                   round 3  wall 3.6s    full I/O stall 1.4s    timeouts 0
-> 
-> Before any workaround, 208 seconds of total-system I/O stall
-> accumulated in the first 13 minutes of uptime, roughly 27% of wall
-> clock. Userspace experiences this as GUI applications taking 30-60+
-> seconds to start while throughput between stalls looks entirely normal
-> (1.9 GB/s QD1) - which is what makes the fault easy to misattribute to
-> ASPM or to the drive.
-> 
-> [1] https://lore.kernel.org/all/20240909082657.19660-1-kai.heng.feng@canonical.com/
+This series follows the discussion of my earlier [PATCH net] "amt: do
+not offer software GSO on the amt device", which I withdrew. Eric
+Dumazet pointed out that tx checksum offload is off by default on amt,
+so that case does not trigger by default, and that the better fix is to
+call udp_tunnel_handle_offloads() in amt_send_multicast_data() like the
+other UDP tunnels do. Patch 1 does that, and patch 2 adds the selftest
+that I said I would send with it.
 
-This link doesn't work.  Do you have a corrected one?  Maybe it was a
-followup to this one:
+The earlier thread: https://lore.kernel.org/all/20260928181554.85766-1-omar@blockcast.net/
 
-  https://lore.kernel.org/all/20240903025544.286223-1-kai.heng.feng@canonical.com/
+The trigger needs a non-default setting (ethtool -K <amt dev> tx on) and a
+GSO source, such as a UDP_SEGMENT sender on the relay. The problem was
+found by an LLM-assisted code review of drivers/net/amt.c, while
+developing an IPv6 outer transport for amt.
 
-> [2] https://lkml.iu.edu/hypermail/linux/kernel/2409.1/08047.html
+Results, from the selftest in patch 2 in a KVM guest on net-next
+commit eb0c18404c89 ("amt: pull the AMT header behind the transport
+header in amt_parse_type()") with CONFIG_DEBUG_NET=y, eleven runs per
+kernel:
+without patch 1 the UDP_SEGMENT burst with tx on is dropped (0 of 900
+datagrams arrive, tx_dropped of the relay's egress device +100 per run,
+a trace shows __udp_gso_segment() returning -EINVAL during the
+segmentation on that device); with patch 1 all 900 arrive intact and
+tx_dropped does not move. With tx off, and with plain datagrams, both
+kernels pass. The existing amt.sh passes with patch 1 (it was not run
+on the unpatched kernel).
 
-And this appears to be the email at
-https://lore.kernel.org/all/20240913111142.4cgrmirofhhgrbqm@thinkpad/
+Not tested: hardware with UDP tunnel segmentation offload, hardware
+checksumming on the egress device (the selftest turns it off there, so
+the non-GSO CHECKSUM_PARTIAL packet that now leaves with
+skb->encapsulation set is only checked through the software path),
+KASAN, sparse, the udp_csum=false variant, and NETIF_F_GSO_FRAGLIST.
 
-Prefer lore.kernel.org over lkml.iu.edu because lore doesn't depend on
-non-kernel.org resources.
+The selftest is a small sample so far: an earlier version of it failed
+intermittently in about 3 of 25 full runs (listener counters rose but
+the receiver got nothing, which I think was its idle timer expiring
+before the sender started, inferred and not confirmed). The final
+version passed or failed as expected in all 22 runs, but those were in
+one 4-vCPU KVM guest, so it may still be flaky elsewhere.
 
-> Reported-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> Suggested-by: Keith Busch <kbusch@kernel.org>
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Rickey Bartlett <subtexel@gmail.com>
-> ---
-> This revives the MTL016 workaround that Kai-Heng Feng posted in September
-> 2024 [1]. To be clear about the provenance: the diagnosis and the fix are
-> his. Intel confirmed the silicon bug in that thread. What is new here is
-> the implementation Keith asked for, and the measurements needed to close
-> the question the thread ended on.
-> 
-> That thread stalled on one unanswered point - whether the flush read has
-> to target the NVMe child device, the "MSI initiator" named in the erratum,
-> or whether the VMD's own register is enough, and whether the workaround
-> belongs in the NVMe driver at all. Nobody had hardware in front of them to
-> settle it, and the discussion stopped there. It has been two years, the
-> erratum is still unmitigated in mainline, and every affected machine has
-> been stalling that whole time.
-> 
-> I have the hardware, so here is the answer: the read must complete at
-> the NVMe child device - the "MSI initiator" named in the erratum -
-> exactly as Manivannan suspected. I first tried reading the VMD's own
-> config BAR; it does not help (measured, numbers in the commit message:
-> timeout rate was unchanged). A read that terminates at the VMD never
-> traverses the downstream link, so PCIe ordering gives no guarantee
-> about the child's posted writes. Reading the initiator's config space
-> closes the race. The workaround still lives in the VMD driver rather
-> than the NVMe driver: the VMD is the broken component, the initiator
-> address is captured generically per-IRQ at MSI allocation time, and no
-> NVMe-specific knowledge is needed.
-> 
-> Measurements are in the commit message.
-> 
->  drivers/pci/controller/vmd.c | 52 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 50 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
-> index 241023e..e45ef8c 100644
-> --- a/drivers/pci/controller/vmd.c
-> +++ b/drivers/pci/controller/vmd.c
-> @@ -92,6 +92,22 @@ enum vmd_features {
->  	 * referred to as MEMBAR2 or MSI-X BAR.
->  	 */
->  	VMD_FEAT_USE_BIOS_INFO		= (1 << 6),
-> +
-> +	/*
-> +	 * Meteor Lake VMD (device ID 0x7d0b) is affected by erratum MTL016:
-> +	 * the VMD may signal its MSI before the posted writes that carry the
-> +	 * child device's DMA data have landed in memory.  The demuxed handler
-> +	 * then runs against a not-yet-coherent completion queue and misses the
-> +	 * completion entirely, so the I/O is only recovered when the block
-> +	 * layer timeout fires and polls the queue ("timeout, completion
-> +	 * polled").  Intel's documented workaround is to issue a dummy read
-> +	 * to the MSI initiator (the child device) before handling the
-> +	 * interrupt: the read completion cannot pass the device's earlier
-> +	 * posted writes, so it pulls them into memory per PCIe ordering
-> +	 * rules.  A read that terminates at the VMD itself does not order
-> +	 * against the child's writes and is not sufficient (measured).
-> +	 */
-> +	VMD_FEAT_INTERRUPT_QUIRK	= (1 << 7),
->  };
->  
->  #define VMD_BIOS_PM_QUIRK_LTR	0x1003	/* 3145728 ns */
-> @@ -114,6 +130,9 @@ static DEFINE_RAW_SPINLOCK(list_lock);
->   * @irq:	back pointer to parent.
->   * @enabled:	true if driver enabled IRQ
->   * @virq:	the virtual IRQ value provided to the requesting driver.
-> + * @flush_addr:	config space address of the initiating device, read before
-> + *		demuxing to flush its posted writes (MTL016); NULL if the
-> + *		VMD is not affected.
->   *
->   * Every MSI/MSI-X IRQ requested for a device in a VMD domain will be mapped to
->   * a VMD IRQ using this structure.
-> @@ -123,8 +142,14 @@ struct vmd_irq {
->  	struct vmd_irq_list	*irq;
->  	bool			enabled;
->  	unsigned int		virq;
-> +	void __iomem		*flush_addr;
->  };
->  
-> +struct vmd_dev;
-> +
-> +static void __iomem *vmd_cfg_addr(struct vmd_dev *vmd, struct pci_bus *bus,
-> +				  unsigned int devfn, int reg, int len);
-> +
->  /**
->   * struct vmd_irq_list - list of driver requested IRQs mapping to a VMD vector
->   * @irq_list:	the list of irq's the VMD one demuxes to.
-> @@ -132,12 +157,15 @@ struct vmd_irq {
->   * @count:	number of child IRQs assigned to this vector; used to track
->   *		sharing.
->   * @virq:	The underlying VMD Linux interrupt number
-> + * @vmd:	back pointer to the owning VMD device; serializes the MTL016
-> + *		flush read against other config space access.
->   */
->  struct vmd_irq_list {
->  	struct list_head	irq_list;
->  	struct srcu_struct	srcu;
->  	unsigned int		count;
->  	unsigned int		virq;
-> +	struct vmd_dev		*vmd;
->  };
->  
->  struct vmd_dev {
-> @@ -295,6 +323,13 @@ static int vmd_msi_alloc(struct irq_domain *domain, unsigned int virq,
->  		INIT_LIST_HEAD(&vmdirq->node);
->  		vmdirq->irq = vmd_next_irq(vmd, desc);
->  		vmdirq->virq = virq + i;
-> +		if (vmd->features & VMD_FEAT_INTERRUPT_QUIRK) {
-> +			struct pci_dev *pdev = msi_desc_to_pci_dev(desc);
-> +
-> +			vmdirq->flush_addr = vmd_cfg_addr(vmd, pdev->bus,
-> +							  pdev->devfn,
-> +							  PCI_VENDOR_ID, 2);
-> +		}
->  
->  		irq_domain_set_info(domain, virq + i, vmdirq->irq->virq,
->  				    &vmd_msi_controller, vmdirq,
-> @@ -756,8 +791,20 @@ static irqreturn_t vmd_irq(int irq, void *data)
->  	int idx;
->  
->  	idx = srcu_read_lock(&irqs->srcu);
-> -	list_for_each_entry_rcu(vmdirq, &irqs->irq_list, node)
-> +	list_for_each_entry_rcu(vmdirq, &irqs->irq_list, node) {
-> +		/*
-> +		 * MTL016: the MSI may have outrun the initiating device's
-> +		 * posted writes (e.g. its NVMe completion entry).  A read
-> +		 * that completes at the initiator flushes them, so the
-> +		 * demuxed handler observes a coherent completion queue.
-> +		 * The value is discarded; only the ordering matters.
-> +		 */
-> +		if (vmdirq->flush_addr) {
-> +			guard(raw_spinlock)(&irqs->vmd->cfg_lock);
-> +			readw(vmdirq->flush_addr);
-> +		}
->  		generic_handle_irq(vmdirq->virq);
-> +	}
->  	srcu_read_unlock(&irqs->srcu, idx);
->  
->  	return IRQ_HANDLED;
-> @@ -788,6 +835,7 @@ static int vmd_alloc_irqs(struct vmd_dev *vmd)
->  			return err;
->  
->  		INIT_LIST_HEAD(&vmd->irqs[i].irq_list);
-> +		vmd->irqs[i].vmd = vmd;
->  		vmd->irqs[i].virq = pci_irq_vector(dev, i);
->  		err = devm_request_irq(&dev->dev, vmd->irqs[i].virq,
->  				       vmd_irq, IRQF_NO_THREAD,
-> @@ -1250,7 +1298,7 @@ static const struct pci_device_id vmd_ids[] = {
->  	{PCI_VDEVICE(INTEL, 0xa77f),
->  		.driver_data = VMD_FEATS_CLIENT,},
->  	{PCI_VDEVICE(INTEL, 0x7d0b),
-> -		.driver_data = VMD_FEATS_CLIENT,},
-> +		.driver_data = VMD_FEATS_CLIENT | VMD_FEAT_INTERRUPT_QUIRK,},
->  	{PCI_VDEVICE(INTEL, 0xad0b),
->  		.driver_data = VMD_FEATS_CLIENT,},
->  	{PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_VMD_9A0B),
-> -- 
-> 2.53.0
-> 
+Known and not touched here: amt advertises NETIF_F_GSO_FRAGLIST, and
+skb_copy_expand() refuses a SKB_GSO_FRAGLIST skb with a WARN_ON_ONCE().
+That is independent of this series, I have not reproduced it, and if it
+is real it would be a separate fix for the net tree.
+
+Assisted-by: LLM
+
+Omar Ramadan (2):
+  amt: mark relay data as a UDP tunnel packet before sending it
+  selftests: net: add an amt test for UDP_SEGMENT through the relay
+
+ drivers/net/amt.c                      |  11 +
+ tools/testing/selftests/net/.gitignore |   1 +
+ tools/testing/selftests/net/Makefile   |   2 +
+ tools/testing/selftests/net/amt_gso.c  | 473 +++++++++++++++++++++++++
+ tools/testing/selftests/net/amt_gso.sh | 269 ++++++++++++++
+ 5 files changed, 756 insertions(+)
+ create mode 100644 tools/testing/selftests/net/amt_gso.c
+ create mode 100755 tools/testing/selftests/net/amt_gso.sh
+
+-- 
+2.43.0
+
