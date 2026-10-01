@@ -1,153 +1,242 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013067.outbound.protection.outlook.com [40.93.201.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF273F3270;
-	Thu,  1 Oct 2026 17:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E6C3F3270
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790875520; cv=fail; b=J7nnSKVUUhnDafkaoYXU7kwYo6oVFnB42LrIEn/yqeTsSnjfoIIZR3bu9DHEiaX2SC6OuZeus+CidOl8kXI+ewVfgMjjlShtuRhgJ6ZWxiAUrHiDFYbLhv6ImoyYHZIqeiCnzC6KxKwMqEwAjys5zVAWxVhFm/flh+MV0dOfJB0=
+	t=1790875587; cv=pass; b=m27A8vF3AGr6C2TBbXyVfhOkyPSiHT5cxoWoIjnTCgIiajrmAKM2bZL0hICStZSyPx+OWS8eH1YDjmmewJ8/hY7sVnTb+wgIPa0FwDbrR7+bU6pcKuIAa3QWrntMoiJhX+BZ8NVmZQvewsehBk5T/AHuyobhV64pjOFPDrrucdw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790875520; c=relaxed/simple;
-	bh=ADaooecVYIiUPPM8pKoGJiRH0aXuAq4wdWIrXgOK808=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=R10VA27wpQSmsDDTLPNZ+R3Tu6dRj1tjwVUwGQycqvEx5zAFJOKal1LRCAf483zUTWbsjKSVSSsMm6ZQpDjv5lHma3WnTXAct5Wh8Q+voq/VcGQ8YqtsRVcRBT7s7gBArUjiUTHr6yq/KLKxTA5b3SlKq50gI9kVNh3KFVlNt6A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CLeHbjXW; arc=fail smtp.client-ip=40.93.201.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790875587; c=relaxed/simple;
+	bh=3CJUxrL3kW030JoHEX5HubkolpDZz0bB0OuESBTT/Wk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n5oDGojLX1LrDyT61me+SLTdz0nR50VGT2dqwNOJCnVW9iV/0annX9orwGAF4BLMCL7KX297z8SyZACP8O5+mpeDnmZXMIwuv6O5uFSKVVs+li0iMZufnersK+1b0TR1N/MjU2g12ZZ073zpxvZva8JHPH0BtLDPjSuTJvDI7Ps=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=JADdcFWA; arc=pass smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CLeHbjXW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WsSvs9ALdvF2lxko9EYeOH0/AjpM+5FpQLENtGCn3cLtEaDBltjiYttcat9jaZzdBMAN2zbZrPIbf669ylV/lrZj0Pj4fmU4zjbDqffDE7tVTSPOu4aOZASqztQ5Hk366+9fn5M2qpZ+95BYFRtuS+wMJrptZACyyhcIdkKuh3OEx+ZGJqBLT+p70aR+tGDF7MQyBgobJcjRkcela/gdc8qnuHsGH4p5pD893pfs28cCy82BsikHA6kwhg+Q+4j4P/WpAAiY4qNr/gz3HmS9HF+Nm1VtMRpnGtZsnlYi5tMQVGxfm5nrixIsGKOzeYdjuw/5nIfOszkRiPDU/qAbcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=we5aozBPnVxajddT4R7I8Jju1LpvW7HC8LN8roM8jv0=;
- b=YkCq6rQTvvy2WRnsUoRJG177LdkSQyrqUDL9jGb8IA2uu9yjxSIc1/oHlSmFaUAEEjUWwAxmMW7WCCWD4ypnjNpvfDq0CvKR1Ky/C7K0A//pkmekotmcMvhEZ/e2hJhBCf+rH0w16thK9K/LQy12E4/maeBr4M+WrynYffqCc3d+6FlDHgxSYptxdAObL4CFvBJEXvNdag7Ts5oiZUPGAQ4TbtzXmQuzpQKQJqB5Rd1ddi4mi0anvkQqiVpAFLQnikgcAzKk3gnOrOj38uXZGhRPL22EHyupfCZD9OFNVbpY3CRuresTLL6wZRML6waBhw4QFh0fJ5h5rizZek/nrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=we5aozBPnVxajddT4R7I8Jju1LpvW7HC8LN8roM8jv0=;
- b=CLeHbjXWejoKLf43MmDUiqEpq7Y5ORoI5/oHuezMtBdt+OyzwOQSy3WrEC9jSBx9gysI2HCvo7HAvDJm16dvvzjbNltxigkZGEq9t2Dg2ZbeM7a6I7Q9ZgqkqpfnY/1UzFg8gsv3n0xF2+FMsEk+ToXHHCh+Zcy+8podPh3lmp20HhIuroEkVPsnzsKMIcV7mQSNUeoYPeij1B+Cr80XXjLQAnB8d813td62nRAndybPv98M9VdZ7OULWFcaU0o6DxxNdMC7reGgpxu+hK/SkxC4nydrYvUH0YwrMrroyQv0pZgIt+ZegwsoUcgAWP5sIfcAClyppn+BlKttHTZAKA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by CH3PR12MB9080.namprd12.prod.outlook.com (2603:10b6:610:1a7::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
- 2026 17:25:10 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0451.026; Thu, 1 Oct 2026
- 17:25:10 +0000
-Date: Thu, 1 Oct 2026 20:24:59 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Anton Danilov <littlesmilingcloud@gmail.com>
-Cc: netdev@vger.kernel.org,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] tun: use pskb_may_pull_reason() and remove
- SKB_DROP_REASON_HDR_TRUNC
-Message-ID: <20261001172459.GA1660921@shredder>
-References: <20261001093925.3529772-1-littlesmilingcloud@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001093925.3529772-1-littlesmilingcloud@gmail.com>
-X-ClientProxiedBy: FR5P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f0::8) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="JADdcFWA"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9b2f02so1324208fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:26:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790875584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nIFibjbli2vBoKlZLnWHVXkjA4qFPUQ7Hy45iK4Pr00bWzc3LwjP3Acvqy0w3Qbaqg
+         wHFGqWkRNykVgM+jz5P1TEmYkxhkrTmO6HVGNZxiNMrkS2lL9JavI1UXAyrCEy94BhO6
+         rweakgJDmpinJ2jP9UpMkz1vfX7186srtQodD4pJjRo2+8+hvWIys2tFIEIgFNiFeY1O
+         z9QlaWJhur6uhI/sT+oUUtCO0G5DyKwGL+R/zH301KFT58SYXv6m1PfXfXDOPxtcGvp0
+         bujP98VommcXha6TYYMBopigH21hNV2rsVWf6zdNjqs6Du25IaoM39ffdWFFZSB1Ojl4
+         nfKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=R+7f1WEXi7Dnz/u+SCwV0uCtWUYjG5PzPuRb4pUkzq8=;
+        fh=SJNL2wrL+RR9H4+fDkutpWjSMdl+P1rsuP/UJR1CmIQ=;
+        b=Mr8BXtVQanGU9PF2sTS8MN3m9BG2dJ5G7odXCudJ4bWGiJw+goAFadSYyxWv5mGPf5
+         fONw6I7pXIUUMn4PTAERB1bUl6mkJoHU9Ps3OzoHHfXClnhDUmaftQ0uU0EhcdJ5MKks
+         PRoIaHN3cmGSslxkfHDAvRg1srTXJYCStlyy29r0WjvIyk4U4Q4DtzGk9vG3kTb7XfXb
+         D56t1gYFw7+xnd34ttxYYk5+JuWj5VEOypBDIZNg9fZMplP4lcbFJGvhQ4Btlr5ej3JL
+         zs0D5vk9I2Zs6vaomXHTt8kkIa/wmw/0Rm/felwBKu7+KWSPRBf/hyyFJQ2eD51gaG8+
+         6wOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1790875584; x=1791480384; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R+7f1WEXi7Dnz/u+SCwV0uCtWUYjG5PzPuRb4pUkzq8=;
+        b=JADdcFWAq1HyCyEc+xI9C4ktpBrnzyRgaRgVu1+97kG0gz/NoQlUp2lI9lLFu7wklf
+         QfQ2Qq/Ihr9ait0wY9JkaHNe2/exa6QbztLp1FgbVSJaLxw67xBVJ6RdZsuqvXRTwlzL
+         4zor5wdA7QMWthi9C3OaNtSjmw6xqYlt8AZp4KEFWtDzDeV+TkUjCRrpAdstWVqYui+K
+         GhLaj2TgZsjNzPMEurOz+O2zUykYhbzQRXfYE5DsV5EGdznGF+wd4zjOVvJEDQL7H2bm
+         6PQmWB2OdAFnkzXFxbWWqKXECQ6vUKevQXnMibW7s9OOxH3RfzM7ttJ2i2+hYuj2KUoY
+         pkFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790875584; x=1791480384;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R+7f1WEXi7Dnz/u+SCwV0uCtWUYjG5PzPuRb4pUkzq8=;
+        b=ZLs5k7MMKXZTJr/Ey3PC20l9tDRQSJeMFnGW+UeSSLFl1fHgDO4qLMkaQCkk6EXW7e
+         hugt2jK9VfM2UgfLNoo1gyIuqSsnTGYput4nRuN+mcXWgd3+tdzH+i7n0+jqNeLux7FA
+         9lPEmhq+eWjjoQljIImniKWvrBX4bc7yartMg7Sq0MSnbOjegJMAxwu7Y73uF+N5sr5s
+         hvIAUWFLyXYEtxOdyKo7n0+6M35lDtKxWUc6cnsL4vUnisKtUzWQ+aAL/zt0wO3RjM8a
+         +PwV+0cIg2tDzK4LnZPYOAcRCAcLsxJDS8zOXLyOI65kYmFVqmzKrohn8xUprS8+/MBx
+         bgzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnXdiVkoBs+VgpFqqmYFIizBMwwaBp6gaqlUyubx8i1z6uVblg+KnzQoNBwpuA/WoSTG8j0w+o3EqiWG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlS/LCnvspIWoipeYk63+peroJX0Um9OCCkzB/zAfq0UdGQ5x1
+	TaXXIPwt8BRu7oJwxmFzJWyHoCyAdU316x33jNmObDKjJlzri7xT3LecG5PcjPqEcFxX/OiwOQZ
+	x/3eMo7MPPR8TDzBqHnRBDAoqUHu4JEYiDG9MAswT0Rp6ocqbPF6GNvQ=
+X-Gm-Gg: AYBFou1t0W9JP5/eqOYIAr09biWA1Ej2oSpipnFafkvNy7mqTyrsYFmLMnKFxtNbagY
+	rCbo8wZDuAPAPNoHmS42EyUeC9o7ERBmUKXAbudILNxpO01Yr26b1dR9g+FBupWGtnX8i4Xsetb
+	bd5fRFRXzybfGeXYFUdlr44Osod99NVAhpkh0kSOJDVSdZA+zEpWzbVr/7TspoIps9cSOwuiE4t
+	STcXiDbjYrW8BkDIjSJtDVdguj9rCoyqe7GkQxESK0UdCav0n5jfJyXMb9rOEbdTMlgTCujj9ET
+	GP2RTIEc0nQ7cVkzeRbcDrpAEoiaNWrKiISPIyXDHaZjtuPTAQjCH7HkX5WdXwsaUo949VEb/wq
+	rjEzrrteq+2cS85qhBxNi/y2iyX+FKiI33Uo1L9KvzhZyzKLnU5J4leXHSmN4YYmWKKXf0q6m
+X-Received: by 2002:a05:6870:17a3:b0:48f:e0f6:bfea with SMTP id
+ 586e51a60fabf-49e15e4be7dmr131030fac.22.1790875583606; Thu, 01 Oct 2026
+ 10:26:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|CH3PR12MB9080:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd984925-775f-4bdf-5650-08df1fe0f23c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	+u/OGqMRG8C2vUSnvGVKFIvVt0E5llxnCUBjyqdUjqcTs45jShxS2hM2SXsKh21fyGj9E+Ah483gV6hBOG4sZSqavwproHV9sLwLFUerpS2PryFGzZqENSqIbTz0naDpa+PSk8lB3xPv4RmzLv/MYr58I5iQco/iFxQydt129TtW+iwBDJ+OoZCq9i7yJVzNG6A6auf0sUQCZuLGQthoW5c8XgJpFqEyrCCW2r9lgBwnWfeavsVgrKizmOytDMOPj6uTXRfa29rwInGUDF3j9ojNzGAIdSvMRZ9+OOkOWiFGx3rDzxuZvwhhetgsEKql76B2gDZFLwkNFk9dg07LsvBCLMIeGxQce9lo7QraKQrfnvC8NF68cFc8lJYNpw4XlfeeGq70y9wz8NSFjCPb5Lp8uOaj9chxDBZdiNS63G6dSn/RLxHGKKKMzK78JGjhaya08P9wnQ0Ky+A8PnQYN9WJgVBg0k22ZWag62nbqb7R8zduVwB7AR/LXMZjogBE+0XeRHcSFT/zqYGTAyu22Cdb9IEEBUL7mP5mFANfFzbGqHzU9x6R14SX7u+WhB9Ys0i55bzODSHtMVDKCoMC05SG6cIuph94AOFbXDZJ11AiRytL61GxODs8AVFGfUiT8bOdy7yYWJUYNHh1N25agyi6AR6tSo9jCsts77AzfWU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?e/i+4WTl1Sn2w1Lyd8371shCKajJmdtFB1jv+K3Kyd5eq9mB/f53ba3oKGcM?=
- =?us-ascii?Q?3lkqkCipmpNS1DfmU8IpDPkQEveI51OxrKpf4G0QbPBUEHG9jW3AErleVKQC?=
- =?us-ascii?Q?CYRN5mYtRGzb9gfxdfTrKC4J3xGpXW6lxzJ5X0ohU9Tvpf/qv/j75Zbh6AOz?=
- =?us-ascii?Q?bmtxBpsxWf0VQmGSu5Jt76HyqWnUYRlUB4tu5X986BakcqhMoMD/LwMKlpsM?=
- =?us-ascii?Q?k7TTcExWBF0JHQj6Lv7vysf/LHDTS/uW+1apYKq+504D85UGgtVyn4Imc/bS?=
- =?us-ascii?Q?WRtKAY1jpenoneZx+XSqAdsxFbubzMlqGNa/vsROwJD7x4b974JmNmGVFSLB?=
- =?us-ascii?Q?17V5AY1NiC46t50u1PhcWvaTGe3S12BQWA38OeR2kUIq1mF9dkPiuMKgUfnr?=
- =?us-ascii?Q?y92puM+Y0QP2ewzxbN5RVyCI5Av6HEWn84W6WbxiXA7TtIsgvn5r1Q3nmcxs?=
- =?us-ascii?Q?Lmck/AZYC8Z+Ep6ZRoY+QNzcXL6rTtWKO5X4R7ZcrWk3EeJgmA2sLS2XJNpI?=
- =?us-ascii?Q?7VCfhMt4tkuXtgX0WValeHdxq+OYZ3c1bUXuyGj2gFnmD836AQpircU1clcS?=
- =?us-ascii?Q?M+mxtTMzAKiSMqHJnJdGRM9yIrlV+/F+bVpH5qDcIzrk80a2Mqy67GBmQ/26?=
- =?us-ascii?Q?yAySgJ8zkpc4OVO2Z3no648yrI9XetkTp3vw3EqxWx9M/RqqRi0Fkmohw6oU?=
- =?us-ascii?Q?KDY+VBIPR/nn99FkkWtRN4Rm3nR40H/6HUmKQ2yGkVETgIhVkuUH5YIHJvVQ?=
- =?us-ascii?Q?BzEjy8i/F8uqhT4EPW2j632TEpwXV8j3OcWZVymYgPQME2Cr3EQxaa8L0uNz?=
- =?us-ascii?Q?+iOs8Z8N4vHb8O4MAhP3uRtsfheF3jsTxHxhgc0qZKWjIxiEnoQ/e5JBc7mj?=
- =?us-ascii?Q?fFmUqLn1utV+eSt262R4HUqFjBcsqebdBD1aj3FpMgwsOAOsXFqiQL2mYgYB?=
- =?us-ascii?Q?wJCP5Jck0juYwhf9UbiuhdwMV5kmkD6hUQopNVnHnWxPAZ32cslv8wKrvjST?=
- =?us-ascii?Q?tbtWcl2ni6UtBtMLGIMo1rp06c0cVvTZR6COhDsLp19JeNW5ihbb9UNxqiPE?=
- =?us-ascii?Q?9GUgOe99YDucDHyE1nXEQAz9SvX9hQvJ5BTK70JYLutaky3wLaCHXjGSg8PW?=
- =?us-ascii?Q?77f6TYi7g3+4tobjAUtRWIlyZHvUDbIqFGinU0KSr/efPlXSX4Keac1S+b4W?=
- =?us-ascii?Q?T5T5xaTneebbSWDb2HUO0CNrID81OJuQhwQDdOQn2g3Xo2y+NFxNntlEUcT4?=
- =?us-ascii?Q?8RjqlLgyAOqw6s0U/2zzunU7LjpZ7j0LvcyGGGDGFXfpIk4gL1i4KMUotDR3?=
- =?us-ascii?Q?d7fIiZmamQxKxKDsOSSRtfiagkTM0ZEkRuiLKX4MpsCewAWrehdZ97F7Gn2x?=
- =?us-ascii?Q?i7F8Q8WArMxc5clEejl4xaQFROv9kMefcA8XVPct8lrBiEHRWoCX8CwxEOh1?=
- =?us-ascii?Q?4SvBSJoAPu+NfWqdMXOvVgDxs5DGVi98/TptKvXqJLcdAyRz4zGTVoCSHxjc?=
- =?us-ascii?Q?TYgcBZuG+KjMBMFRMJ2wUCaYPzrkZG14cq5zyQgDvoB7c/QyzDHKrGoo5p1u?=
- =?us-ascii?Q?JSpSisqFE6G9uonetMQpJHPEYpLZ94InrHA+EbD+Sh7MZLizhA5uLiiTg8A9?=
- =?us-ascii?Q?foQrHSrKTPGE1AvlQR3DnkJ+IM5ChyM6yqfVXfbxHWpP+lOjWQwB3y2ygoGF?=
- =?us-ascii?Q?BF1Hg7IQP0+35tv7a2G8teaw/4DtgwW673mMi1CjBPxVvvyXClJYDKYzr6ru?=
- =?us-ascii?Q?Edvul/jr3w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd984925-775f-4bdf-5650-08df1fe0f23c
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 17:25:10.8035
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xXo9gFPm+p6HrJZAF/ZmFIipJkme/6RWjGPe5fxbALnfuoaprWIBkqkhg+gq67D6LNngFPwn11wRQxb0YgF1ig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9080
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <20261001-v4l2-sensor-detect-v1-5-a45993be17b8@kernel.org> <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
+In-Reply-To: <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 1 Oct 2026 18:26:07 +0100
+X-Gm-Features: AclHuK9xdYo1ENtvCe2bDvlA21YMpzjkK_sVOz108ZEs_aVAzZPVifHLAuU6otM
+Message-ID: <CAPY8ntC_4UWjR3hPG7E3ORaO_WaDaK9iiGoghcmwkmN3H0qmUQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 5/5] media: imx219: Add status polling using .detect()
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Michael Riesch <michael.riesch@collabora.com>, Maxime Ripard <mripard@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 01, 2026 at 12:39:25PM +0300, Anton Danilov wrote:
-> tun_get_user() is the only user of SKB_DROP_REASON_HDR_TRUNC. It sets
-> it when pskb_may_pull() fails to pull the Ethernet header of a frame
-> written to a TAP device.
-> 
-> pskb_may_pull_reason() reports why the pull failed: PKT_TOO_SMALL if
-> the packet is shorter than requested, NOMEM if pulling the data into
-> the linear area fails. Use it for the Ethernet header pull in
-> tun_get_user() and remove the now unused SKB_DROP_REASON_HDR_TRUNC.
-> 
-> After a successful pull drop_reason is SKB_NOT_DROPPED_YET. The path
-> that later finds the queue detached has no reason of its own and relied
-> on the SKB_DROP_REASON_NOT_SPECIFIED initializer. Fall back to
-> SKB_DROP_REASON_NOT_SPECIFIED at the free_skb label, as vxlan_rcv()
-> does, so that this path, and any later one without a reason of its own,
-> keeps reporting it.
-> 
-> The error returned to user space does not change.
-> 
-> Suggested-by: Ido Schimmel <idosch@nvidia.com>
-> Link: https://lore.kernel.org/netdev/20260923145931.GA2859441@shredder/
-> Assisted-by: LLM
-> Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
+On Thu, 1 Oct 2026 at 16:58, Dave Stevenson
+<dave.stevenson@raspberrypi.com> wrote:
+>
+> Hi Mattij
+>
+> On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
+> <mkorpershoek@kernel.org> wrote:
+> >
+> > Userspace needs to be notified when a sensor connection status
+> > changes (e.g. disconnected at boot, then later reconnected) so it can
+> > react accordingly.
+> >
+> > Add periodic polling using a delayed work that calls .detect() every
+> > 2s and sends a KOBJ_CHANGE uevent with HOTPLUG=1 on status changes.
+> > This mirrors the approach used by DRM connectors in output_poll_execute().
+>
+> AIUI DRM polls from within the framework (drm_probe_helper.c), not by
+> a workqueue in the individual drivers.
+>
+> Admittedly V4L2 doesn't currently have a totally obvious place to
+> setup this, but it would be far less effort to have the polling
+> framework within the core code rather than driver.
+> Possibly initialised in __v4l2_async_register_subdev_sensor() based on
+> whether .detect is set, and cleaned up in
+> v4l2_async_unregister_subdev, with the workqueue calling .detect and
+> generating the udev event based on the return value? I think that's
+> feasible.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+2 followup thoughts:
 
-I will check the other series next week.
+1 - This rather defeats pm_runtime_autosuspend.
+The sensor will be powering up and down for every detect call, which
+may or may not be within the autosuspend time. A grep for
+pm_runtime_set_autosuspend_delay in the current tree gives mainly 1
+second, but video-i2c uses 2 seconds, and vd55g1 uses 4 seconds.
+If the regulator has a startup delay defined, it'll be slowing down
+your polling.
+
+DRM hotplug polling is at 10 second intervals.
+Assuming that enable_streaming triggering power_on reports the error,
+then your application always has to handle that failure mode, so a
+larger poll interval isn't a big issue.
+
+2 - if the sensor has a privacy LED connected to the power rail, it'll
+be blinking away with every poll. We've already got folks worrying
+about that blink during probe, but it's now become 100 times worse.
+This polling process likely needs to be opt-in based on use-case,
+either through some configuration parameter, or possibly by the first
+call to VIDIOC_SUBDEV_G_CONNECTION_STATUS starting the process.
+
+  Dave
+
+>   Dave
+>
+> > Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+> > ---
+> >  drivers/media/i2c/imx219.c | 40 ++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 40 insertions(+)
+> >
+> > diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> > index e198d3fe99c6..76e578a8eab5 100644
+> > --- a/drivers/media/i2c/imx219.c
+> > +++ b/drivers/media/i2c/imx219.c
+> > @@ -20,6 +20,7 @@
+> >  #include <linux/i2c.h>
+> >  #include <linux/minmax.h>
+> >  #include <linux/module.h>
+> > +#include <linux/workqueue.h>
+> >  #include <linux/pm_runtime.h>
+> >  #include <linux/regulator/consumer.h>
+> >
+> > @@ -374,6 +375,9 @@ struct imx219 {
+> >
+> >         /* Two or Four lanes */
+> >         u8 lanes;
+> > +
+> > +       struct delayed_work detect_work;
+> > +       enum v4l2_subdev_connected_status_whence detect_status;
+> >  };
+> >
+> >  static inline struct imx219 *to_imx219(struct v4l2_subdev *_sd)
+> > @@ -1252,6 +1256,35 @@ static int imx219_check_hwcfg(struct device *dev, struct imx219 *imx219)
+> >         return ret;
+> >  }
+> >
+> > +#define IMX219_DETECT_INTERVAL_MS 2000
+> > +static void imx219_detect_work(struct work_struct *work)
+> > +{
+> > +       struct imx219 *imx219 = container_of(work, struct imx219,
+> > +                                            detect_work.work);
+> > +       struct v4l2_subdev_connected_status status = {};
+> > +
+> > +       /*
+> > +        * All async notifiers should have been run before
+> > +        * we can use sd.devnode
+> > +        */
+> > +       if (!imx219->sd.devnode)
+> > +               goto reschedule_detect_work;
+> > +
+> > +       imx219_detect(&imx219->sd, &status);
+> > +
+> > +       if (status.status != imx219->detect_status) {
+> > +               struct device *dev = &imx219->sd.devnode->dev;
+> > +               char *envp[] = { "HOTPLUG=1", NULL };
+> > +
+> > +               imx219->detect_status = status.status;
+> > +               kobject_uevent_env(&dev->kobj, KOBJ_CHANGE, envp);
+> > +       }
+> > +
+> > +reschedule_detect_work:
+> > +       schedule_delayed_work(&imx219->detect_work,
+> > +                             msecs_to_jiffies(IMX219_DETECT_INTERVAL_MS));
+> > +}
+> > +
+> >  static int imx219_probe(struct i2c_client *client)
+> >  {
+> >         struct device *dev = &client->dev;
+> > @@ -1334,6 +1367,11 @@ static int imx219_probe(struct i2c_client *client)
+> >         pm_runtime_set_autosuspend_delay(dev, 1000);
+> >         pm_runtime_use_autosuspend(dev);
+> >
+> > +       imx219->detect_status = V4L2_SUBDEV_STATUS_UNKNOWN;
+> > +       INIT_DELAYED_WORK(&imx219->detect_work, imx219_detect_work);
+> > +       schedule_delayed_work(&imx219->detect_work,
+> > +                             msecs_to_jiffies(IMX219_DETECT_INTERVAL_MS));
+> > +
+> >         return 0;
+> >
+> >  error_subdev_cleanup:
+> > @@ -1355,6 +1393,8 @@ static void imx219_remove(struct i2c_client *client)
+> >         struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> >         struct imx219 *imx219 = to_imx219(sd);
+> >
+> > +       cancel_delayed_work_sync(&imx219->detect_work);
+> > +
+> >         v4l2_async_unregister_subdev(sd);
+> >         v4l2_subdev_cleanup(sd);
+> >         media_entity_cleanup(&sd->entity);
+> >
+> > --
+> > 2.55.0
+> >
