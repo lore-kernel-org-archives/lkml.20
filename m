@@ -1,176 +1,149 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737675275AF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D04F50AC33
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869364; cv=none; b=P8KWyR+IiBg8nCGWP4ydt4xyqukeBWQsyKpBtcaxhiAf1u02cmgR9a7lEQPFqGkII6Z4D808ub4hFIeycKLt7GKHwobAMvM0QJMFFRT+Bgvl1EHUpsBfMBCJdJHO6oXNyMS51vIsegfr2WtMGQ4jXj+pO7/mCxBXIwbNQ96y+bk=
+	t=1790869417; cv=none; b=ZKMpEqF76BT3WOhQmtAF5eHuSrnXv0xruXFl0SZKQGhJFxKID4+VAeynQgd9FFWZlPOQedX/Qbjgu7KOwUEW4M3378+PfIRzksl1qt/LXP3CH0su6P+djp2q4v1kBwOZ1yed6sIUW1dhagg7QXEGFSDv7QTGuu8I7qPpAFDflKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869364; c=relaxed/simple;
-	bh=s0uqrlzfEovdMYYmWO3V0cXdBVLMH121ur+Zt2+XQxg=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=ERjTGVYZz/7jQkCnmSqxFYrsTlhFZ++B7reyUlW93V5wl5C832Nu4y6fLfzlnkaRTjzngi7H7qEPU5B9KUbi+x7Z55sLJH208NVqWdhCbP9ESg2p3XzOzNekDVBriNZg7jF5TTCluVIxchYek0h5wZbRSfPcV823QBPnczcgn5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=W7HnVUjl; arc=none smtp.client-ip=195.121.94.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1790869417; c=relaxed/simple;
+	bh=j9l1v7SIh1agy+d/CcExB7uuosTnCNp7Ova34dlK+C4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W6CIzOL3wF+Uq1tjQZrUFWfd0CaLyhdf5DjG4j0oYH/9MzMv1HjM8JffXfwuPflJ9PjYCGXcu8SaiqfOAoVtigKspXv0d9A92e1ykrKE8Zw1xkqAqqutGOgxXCeco8W1gSmMcFqQo/N/S1lm7DRajiroaQg6ljcxWj9aJvZruJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uegk7I5v; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="W7HnVUjl"
-X-KPN-MessageId: b9c3d6a0-bdae-11f1-bfbc-00505699b430
-Received: from mta.kpnmail.nl (unknown [10.31.161.191])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id b9c3d6a0-bdae-11f1-bfbc-00505699b430;
-	Thu, 01 Oct 2026 17:42:36 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id b9c424a0-bdae-11f1-9235-00505699891e;
-	Thu, 01 Oct 2026 17:42:36 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uegk7I5v"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso68880945e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:43:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=pufbjWZ2bZVanFp3ehIV9u9uVyrHeClJtwBhjp4HFB8=;
-	b=W7HnVUjlj4Bi4RACE8YEBjUx5w7Dp32YYn9qIUPghu2yrgpO5IkQFtBYEDXKWHsUJ/A37AZR8oZoF
-	 czCVJ+a0+enLbN/y6zEgq1xEaTwq8UK1wDktdyfVHzW8+79Uq06IFrT+WFDu4h/IC1yUZg+r33nc9P
-	 zI/aM6RmOS+gh61CPtO4vBk9V4+dsFUn6IJw+zbvK7ZJ5gOBOaS0VVo/A8tL5ApK4yPJKt2d83K0vF
-	 ukBio0mwue5p0SeGtpDtZBpwJA8kKPAkoNJAwoe7CGWxAmax1POlU/s+w8gjPtvbvW7sYj4dwtiCwe
-	 RTKKi56af2uqp1FbAfJWx0bRjDyME2w==
-X-KPN-MID: 33|xXmJQbOIUW6WkkYwA0eOZ5kNnf0tpV9MMlzmzsN9TNDzPdA2xeM/u21I24Dec/6
- 6y4b3OTr5+1BBC1JqRYHwU/9Ldbxb0BWvXjobNHP3B/c=
-X-CMASSUN: 33|OEgeru7VRMCbyzLTcde9nf7GoiI0AKJkmr6MXmXrRv1kEwG+z+piYrCbULOriO8
- EYp0+tXp310g/BQOGJZ/A9g==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh07 (cpxoxapps-mh07.personalcloud.so.kpn.org [10.128.135.213])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id b9b89491-bdae-11f1-8edd-00505699eff2;
-	Thu, 01 Oct 2026 17:42:36 +0200 (CEST)
-Date: Thu, 1 Oct 2026 17:42:36 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
-	Aleksa Sarai <aleksa@amutable.com>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Theodore Tso <tytso@mit.edu>
-Message-ID: <1000409963.929534.1790869356300@kpc.webmail.kpnmail.nl>
-In-Reply-To: <CAOQ4uxhYHf-gAkjdhs37vZREOcNds5a_6c3nBX0Lva3resofmw@mail.gmail.com>
-References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
- <20260913185016.523376-8-jkoolstra@xs4all.nl>
- <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
- <178972607557.207413.4312278359822083538@noble.neil.brown.name>
- <178977609418.207413.15011378414000392029@noble.neil.brown.name>
- <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl>
- <179072013439.37859.465558431050704411@noble.neil.brown.name>
- <CAOQ4uxis4tsea6fx+9iAffVX+qwBC9KzHg5GcP7ahthKd1T9KQ@mail.gmail.com>
- <1910540525.790746.1790806610320@kpc.webmail.kpnmail.nl>
- <CAOQ4uxhYHf-gAkjdhs37vZREOcNds5a_6c3nBX0Lva3resofmw@mail.gmail.com>
-Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
+        d=gmail.com; s=20251104; t=1790869413; x=1791474213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6mIaBbe8F5fUbSrAQQEV7tPEg3S5HZdRq+Ky+H8+JXg=;
+        b=Uegk7I5v9aNjou9OucGzKvmOgXm6sAKL6XsmgKtblas5GOouOmWH3WeXtZ77Dts60V
+         SzblQ1hmd3OsZW9FgTQvM5LY9/RFNMk1PuUZ0+dh9WPldiSlWAEzb8ZQfSBSRn+Dh/+A
+         hzBkh/XC8ERT55GZzzkU6jjXFaLEzDLtm5ugY+pb1hufReKJDLkPbjR9Z5FCkHiERd/H
+         v8vPWjf4ze7p02VUZrIpN91Z5igBhLnlVxZvWZ5MO52ZPH3LURdQ8lVWpCDG7o3MQbPw
+         KSwu7Z0C5ueayQubxBT0g2F6TFzmSCCHeBNqXU8ChWr8tp85hQu3Puh1prNAMwL8IKeF
+         AH8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790869413; x=1791474213;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6mIaBbe8F5fUbSrAQQEV7tPEg3S5HZdRq+Ky+H8+JXg=;
+        b=YHbK2AA1ZPLef7W0ICeksiLhJI75ujD0T/BMfEONRetIBTFQCEbHE2kjM2fcj/qVkB
+         7j5Vkz3PUgF+O38ejbWgkijRCTTHGiF+OKqkqp9TOgqt136/uggepnTlwsLGvgqLXfFB
+         dthoozgp8AE/mbMCx0GSqWxXWLEGwYZ0GJdkQ7rvIUXD7+1z0DAJlQ4/nY15XH2YXrPs
+         jhN7/XdbrvBHS376fkYoEV8rylP7jQHRU9HkVsPn0oohdY99I+sD8e+euDDJj/G9s4nE
+         Tsj+3lYg18zuDSRWGCIqRirmLaiJYPVGcxqzAF8WA0L8i7WtwzTr1LhXemheXN55oC/E
+         CpqA==
+X-Forwarded-Encrypted: i=1; AKwUvBx71+YId4DmGeqSrABwVp0DuubnR+MtJPvLuj6vKJGMfXYJEvz618jhwqjjFNncppnkb3YyLuEObAMDPAc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0+UoJ9hk2n/3UBkVTBKjgWL/Yo/kMWrUKqfWLO4KzqpqxLw5k
+	8Mvu9TBJI6G9vldub4FR0gB/o+ULSdC6YtNIZWrgPSJ9ukfDHOKnUBJF
+X-Gm-Gg: AYBFou0mUhFWVBNpP5wAjvQgDG3Rdp0+azSvu/tS0vyo+2/cQ+YDL/pz6bXYapFT7eN
+	62s8ibo8erq4yWMGhd4o4zGmY80DerhVyjhBtlNWDXL49yviG//mBf5sfpEAjdoIfoXhq4ndGfX
+	COzgSspMYxA8JYIEUga6cmIFsSJxoLf89s3o1+3d/X6k1KO+NqvmvjprxMjbb9I9R/0ofx4kxZe
+	HjTw4au49pBITqkTasMGBu29qBZA5t1oOobf4xuSFM7hEGmpmJLBIA7Xrdkj7Mng3Z400yO1zPi
+	ipZgRcytK3SlzdbZO8yAXFe+TKF1ErpodkgkCHry8icNwVpiAXRg8XLrTViI07IG6zMHRz46g/x
+	EYsXe1depfqtzNWPoHRHo3icIB/ZAEgsJhmfe8PYzwn48oPGRvO4JUG5iqRJAfm73T1T8OyBox8
+	SGVI+9FZWGGW6j/cdDMxTy+Xphdjkz1BGXESyeNnHk6StSCZ4Y7Te9Cwtielt/z+cZmCHUWToKG
+	H7ztYjpc24z5I8wMqORxc9a0bsKt38UuhmniR6dopYNdAg4v09l66lm0l7aujMaR5CBLNhUdLbL
+	q0O0QDqy
+X-Received: by 2002:a05:600c:4e4e:b0:4a0:62d:4424 with SMTP id 5b1f17b1804b1-4a027566f93mr163105e9.8.1790869413262;
+        Thu, 01 Oct 2026 08:43:33 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:1be5:ad57:d5e0:f854])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f6db98fsm65195615e9.0.2026.10.01.08.43.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 08:43:31 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@bootlin.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH net-next v2 00/12] Add ETHSW support for Renesas RZ/T2H and RZ/N2H SoCs
+Date: Thu,  1 Oct 2026 16:43:13 +0100
+Message-ID: <20261001154326.754314-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Priority: 3
-Importance: Normal
+Content-Transfer-Encoding: 8bit
 
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> Op 01-10-2026 11:29 CEST schreef Amir Goldstein <amir73il@gmail.com>:
->=20
-> =20
-> On Thu, Oct 1, 2026 at 12:16=E2=80=AFAM Jori Koolstra <jkoolstra@xs4all.n=
-l> wrote:
-> >
-> >
-> > > Op 30-09-2026 05:45 EDT schreef Amir Goldstein <amir73il@gmail.com>:
-> > >
-> > >
-> > > On Wed, Sep 30, 2026 at 12:15=E2=80=AFAM NeilBrown <neilb@ownmail.net=
-> wrote:
-> > > >
-> ...
-> > > > The problem with this approach is that open(.., O_CREAT|O_DIRECTORY=
-)
-> > > > might create the directory, then return -EOPNOTSUPP.  This is weird=
- and
-> > > > I'd rather it not be visible.
-> > > >
-> > > > Currently O_DIRECTORY|O_CREAT results in -EINVAL.  I would rather i=
-t
-> > > > remain a -EINVAL on any filesystem which doesn't completely support
-> > > > the functionality.
-> > > >
-> > >
-> > > Joining late to this party so apologies in advance if my questions
-> > > have already been addressed.
-> > >
-> > > I agree with Neil's statement above, but IMO, the atomic_open() fs
-> > > match the description of "doesn't completely support the functionalit=
-y."
-> > > Therefore, I think that rather than success if directory exists, they
-> > > should also return -EINVAL/-EOPNOTSUPP consistently (see below).
-> > >
-> >
-> > The issue with this is that if you want per fs atomic_open() opt-in (in
-> > contrast to either implementing all instances in one release or disabli=
-ng
-> > all), you have the issue that your lookup now depends on the caching st=
-atus
-> > of the directory dentry.
-> >
-> > If that dentry is in cache, and positive, d_lookup() earlier in lookup_=
-open()
-> > makes it return early:
-> >
-> >         if (dentry->d_inode) {
-> >                 /* Cached positive dentry: will open in do_open(). */
-> >                 goto out;
-> >         }
-> >
-> > So you get your lookup. But if the same dentry is not in cache, now you
-> > suddenly get -EINVAL. I thought that behavior was more unwanted then
-> > what I eventually settled on, namely to strip the O_CREAT bit.
-> >
->=20
-> Maybe I am missing something, but I think you misunderstand me.
-> What I mean is - if directory inode has a ->atomic_open() op,
-> bail early with -EINVAL/-EOPNOTSUPP, because this is a network
-> filesystem that does not support atomic O_CREATE|O_DIRECTORY
-> and in most likelihood never will support it.
->=20
-> This gating criteria is not dependent on cache state,
-> which is what we wanted.
->=20
+Hi All,
 
-No in that case I think I've understood you (or maybe still not?) My
-point is that we can't do that if we want to be able to individually
-support O_CREAT|O_DIRECTORY for some ->atomic_open fs. If we bail early
-the how can say only NFS support it at some point? You get into the
-situation where everybody needs to have support or no one.
+This series of patches adds support for the Renesas RZ/T2H and RZ/N2H SoCs
+which integrate an Ethernet switch IP variant called ETHSW. The ETHSW is
+largely compatible with the A5PSW switch found on RZ/N1 SoCs, but has
+several key differences in register layout and hardware configuration. The
+series includes updates to the DSA driver, device tree bindings, and
+Kconfig to enable support for these SoCs.
 
-Does that make sense, or do I still misunderstand you point?
+v1->v2:
+- Added RB tag
+- Fixed review comments from Vladimir.
+- Added info about the IP issue and the workaround
 
-> The justification of using ->d_revalidate() as another opt-out
-> is that existence of ->d_revalidate() means that the state known
-> to dcache is only semi-reliable, so making atomic create/open
-> promises is problematic (O_EXCL for example).
->=20
+v1: https://lore.kernel.org/all/20251121113553.2955854-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
 
-I must admit I don't know too much about what the revalidate step is for.
-What does semi-reliable mean here? That the dcache might have returned a
-dentry that has timed out in some sense and does not reflect the actual
-state of the fs?
+Cheers,
+Prabhakar
 
-But if we force O_EXCL like Neil suggested, is that a problem? You'd only
-get an fd if you actually created the thing.
+Lad Prabhakar (12):
+  net: dsa: tag_rzn1_a5psw: Drop redundant ETH_P_DSA_A5PSW definition
+  net: dsa: tag_rzn1_a5psw: Add RZ/T2H ETHSW tag protocol support
+  net: dsa: Kconfig: Expand config description to cover RZ/T2H and
+    RZ/N2H ETHSW
+  dt-bindings: net: dsa: renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW
+    support
+  net: dsa: rzn1-a5psw: Add support for optional reset control
+  net: dsa: rzn1-a5psw: Add support for optional timestamp clock
+  net: dsa: rzn1-a5psw: Make use dev_err_probe()
+  net: dsa: rzn1-a5psw: Get switch info via OF data
+  net: dsa: rzn1-a5psw: Choose tagging protocol based on compatible
+    string
+  net: dsa: rzn1-a5psw: Add fixed frame length workaround for management
+    port
+  net: dsa: rzn1-a5psw: Add support for RZ/T2H Ethernet switch
+  net: dsa: Kconfig: Enable support for RZ/T2H and RZ/N2H SoCs
 
-I should really start to learn and contribute to an actual fs that is used
-instead of just staying at the VFS level. It would make understanding all
-these subtleties easier...
+ .../bindings/net/dsa/renesas,rzn1-a5psw.yaml  | 154 +++++++++++++++---
+ drivers/net/dsa/Kconfig                       |   9 +-
+ drivers/net/dsa/rzn1_a5psw.c                  |  79 +++++++--
+ drivers/net/dsa/rzn1_a5psw.h                  |  25 ++-
+ include/net/dsa.h                             |   2 +
+ include/uapi/linux/if_ether.h                 |   2 +-
+ net/dsa/Kconfig                               |   9 +-
+ net/dsa/tag_rzn1_a5psw.c                      |  22 ++-
+ 8 files changed, 250 insertions(+), 52 deletions(-)
 
-> The problem is that some fs (overlayfs/ext4/f2fs) register
-> a mostly-noop  ->d_revalidate() so I proposed how to deal with those.
->=20
-> Thanks,
-> Amir.
+-- 
+2.55.0
+
