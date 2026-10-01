@@ -1,116 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6313938DC62;
-	Thu,  1 Oct 2026 12:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A8CC3D2FF7
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856860; cv=none; b=bCtWbi9Nut1IBRPp6PoeUxlMtkhkolvxWHV1p2g1e5hI2lW/qSP7RW9JncoKbqzXVgL5dbgu1O7xVJ89gmrNpsqCpI01uXLuNQt7unT1yqSLP4eU5235qJRQhDT67bY5phnQcBR8tS/Z17IH7ZrHi2ENxiixMogDlItZ0Q0hllY=
+	t=1790856883; cv=none; b=NOjUuE2XIf1PhBH/U1EBDPiKz9blGMCd9peLr7YKS7zKvUOfw1ZzPmW2H7HLkOvIjCeXBh7ZBVVIX7oYObHpR9khIAu8zOBAa1Y6xCQbMt3rfKrjnobLNg6ECdVsTfZZS7/z/W7SgVZccthkE+vOkVLORZCEwOcP392jUnnrvyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856860; c=relaxed/simple;
-	bh=eKttG8SaITSxoK/QoG0cajgTN6vm4423JvmMnQkI0KM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jGxU0xHJyjwy2dZJyJr79pvJB2eBl/1DziWbDYrIQM7U/0mgZg4r++4ZmPf5a7GbLGwnA0/S5CSrChqD8vzlfhikEY2ofUkzyhbezKLRux66TTZwkSzfn2PtXmNqfO3yFVnB+kJ1JhlaJZWUYDXzXU1j9BzQDAWbY9y3X8YhAoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2DMBfsC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790856883; c=relaxed/simple;
+	bh=wVtUWgaOEKeMG3QBbTDE3Q2m74NMlKQFKVvtmP3UtEo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N24QeBgjmQZk0OTVCHBm660jXFeF8SliWZiXE3Y7dllUFGBPs34VXb3bzU+L6wPzqA+dsAplHg9xtiQf5esJ2EcmcDtAN/IcBRxACcGqjvhjQeP1OkFgHlbXe5hufgmO650BFuNYKdbZsCZcBTdpWTkiFI27th5boyT2ZpmGrOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NSo/qk3F; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2DMBfsC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E5F1F000FF;
-	Thu,  1 Oct 2026 12:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790856859;
-	bh=tsTu+ivO6nYzU4UB6TTwTcgRRAX1fh6kgYdba3siVbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i2DMBfsClrkhM4UfArR22ifU5uOHAU81OQFXxKW70FVgG91+wu3ySNvJ3gxDYuNw6
-	 TBakz/FX8PFjopzg5K5FOXRjePd64uUhMrtaWyF13pg8JGdA6VNN5Z6WUH240lKsdX
-	 J4jZQvb18OFc3rzBr6gTYWFLbRigHUsqM4aCAeIl5iVQsj03sqqKQEkB0NFDbntagf
-	 v8C8mb/jFX7RPNuCfVEFOuiiVXfPksTAzFWeo8vAoODm47yD7nMhjTIv2+aXjK4Gkx
-	 nVhnVZzYXSv9uLKzoBkmjAjTghNoUef2IUf0NEzUgKaG4foCmFcbT55R4f2P9VnIBx
-	 MqqNFIDttyejw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 56776198003A;
-	Thu,  1 Oct 2026 08:14:13 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Thu, 01 Oct 2026 08:14:16 -0400
-X-ME-Sender: <xms:lE6-albcSYUMh1UwShli0-nZ02yJ8v_z08SDST-EvSd6LIlWA2bTAA>
-    <xme:lE6-avtYiSQtACDjxI4oKvESDn0zR1gHVzbWSzttq7QnBrLj7ZhmvzYT8NY99owzQ
-    g5V8wI_HTF3WoV4bZ3ivquqKRFNjiJULytXB-ig8XF3ohblfmYDvbVC>
-X-ME-Received: <xmr:lE6-ajxTYpy_U7fdumzfaZe58yaheXTcpgWZRMJdDwFIOKb0viORfDCiJTs>
-X-ME-Proxy-Cause: dmFkZTGscorWyNN2o5LoOyItHMer0FeaqXCPDWR9S3cL5Rwiug+O4GIdVilaSv6JhPGdG5
-    L/Wy49rTf1gkxMjNx/S7wpW9dLiYyBW7/49BDiOyJci22P2iMTmh1TIDWdAPGoTJOQdxZn
-    Uav/JbHdjXXPh+FENIckI9RqhLeExhEl6VwpdYfL5HQ2/LFYbnhmLlMPtg5vJdOBnQO2y1
-    14s80keGJvgpI2GwGqJk0Ts5bZoUE3RPCBx06BZb2T4UCCU1tlUdtL3DY2jGeg9KuHDZ6z
-    JoIGXCmbpiWX7BEfp28NKmdKnCPCi1XcSD6nuDLpNntEVV7PzliheVkmJ1q5gg2cqekHee
-    Sw1qMXFp93587VCU1BcQkup1tPXqhXP9q7imnKRmOADFEAx7e91e4wC9fgthFSCx04zw9c
-    Xor1c/V5L4oTan3+NBLTKIZrdlwU+wFVMn52T9ce+BL2oK0e/7ElhJmjgn8Pe3s2yCGa/H
-    hRTHwKYQ758Ps/hzWeeUGvYoNLjSNPFXH0Cwq+Z4LDeiArDyMBrc8lyW/kNfnCrxeAuT36
-    P8vcHNlGAvZZuKbYM7r79yZz8GSdG2a3OxlORQNIAPwfxNzQDB8VgQtMDEaxOCRReBWqkv
-    OAVtji2tHLKjvxovFAfgkrsXB9i6oIyLM0nZhOIiaXXS9nyXvsdTlp5m5Cww
-X-ME-Proxy: <xmx:lE6-am0CLb4v3S1hwidglAeGPV5GhfFVnBCdmujhHzaZ1oIpQkX_tQ>
-    <xmx:lE6-aklAo2BvMUoat_-PI5FijphxVMVRS06AehdBDAfcbL4i97QrmA>
-    <xmx:lE6-al44ZLJoltFNc3h-6fgUSlMfQu7sAxiMKoeMMSb-NygZMOM78w>
-    <xmx:lE6-agx6zfKilukC_qEmxfsawQ-FdvZjHP5A3Mk0uIs57szINDdQEA>
-    <xmx:lE6-algzCZQaa0YSa07kkQNnOOMlE0mliUbknQcezRzJTxDrT5aNkY7l>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 1 Oct 2026 08:14:12 -0400 (EDT)
-Date: Thu, 1 Oct 2026 13:14:11 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>, 
-	"x86@kernel.org" <x86@kernel.org>, "Gao, Chao" <chao.gao@intel.com>, 
-	"Xu, Yilun" <yilun.xu@intel.com>, "Duan, Zhenzhong" <zhenzhong.duan@intel.com>, 
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, 
-	"Maloor, Kishen" <kishen.maloor@intel.com>, "Hunter, Adrian" <adrian.hunter@intel.com>, 
-	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>, "Mehta, Sohil" <sohil.mehta@intel.com>, 
-	"Fang, Peter" <peter.fang@intel.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>, 
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
-	"artem.bityutskiy@linux.intel.com" <artem.bityutskiy@linux.intel.com>
-Subject: Re: [PATCH v2 4/5] x86/virt/tdx: Add extra memory to TDX module for
- the extensions
-Message-ID: <ar5M-jQA-rejFjdw@thinkstation>
-References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
- <20260915102658.713079-5-yilun.xu@linux.intel.com>
- <c373197ce8a8a7238696ce94bcd3dd7ba8be092e.camel@intel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NSo/qk3F"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 050FF497;
+	Thu,  1 Oct 2026 05:14:36 -0700 (PDT)
+Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1734A3F85F;
+	Thu,  1 Oct 2026 05:14:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790856879; bh=wVtUWgaOEKeMG3QBbTDE3Q2m74NMlKQFKVvtmP3UtEo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NSo/qk3FMwNv9RrDMGnKIJ0NxM8mzH7RcdqvkX6yfEz2PraIu0tDl7C5bgAlNtbOX
+	 6y/1alX+hNoWfYJ3BqMpkp/c3ILapUduZlyvI+5xPwtmzfNsXtVNqXLHNbc8y+cdtI
+	 J3//LjOce1qGPXKAnC0/sGpWfNOGwSdDdLbeLlq8=
+Message-ID: <450d39ab-de8e-4a3f-aaa1-78c66c8509d1@arm.com>
+Date: Thu, 1 Oct 2026 13:14:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c373197ce8a8a7238696ce94bcd3dd7ba8be092e.camel@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/2] arm64: errata: Share broken AMU constant-counter
+ handling
+To: Will Deacon <will@kernel.org>, Beata Michalska <beata.michalska@arm.com>
+Cc: suzuki.poulose@arm.com, James.Morse@arm.com, xuewen.yan94@gmail.com,
+ seanwang1@lenovo.com, linux-kernel@vger.kernel.org
+References: <20261001090050.3849551-1-beata.michalska@arm.com>
+ <ar5HOl4JL0G2yZfE@willie-the-truck>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <ar5HOl4JL0G2yZfE@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 09:19:14PM +0000, Edgecombe, Rick P wrote:
-> Hey Kiryl,
+On 10/1/26 12:42, Will Deacon wrote:
+> On Thu, Oct 01, 2026 at 11:00:30AM +0200, Beata Michalska wrote:
+>> This series factors out the existing Cortex-A510 erratum 2457168 AMU constant
+>> counter workaround into a generic broken AMU constant-counter capability,
+>> then wires Cortex-A725 erratum 3821522 into the same handling.
+> Thanks, Beata. These look good to me now and I'd like to include them
+> in the next batch of arm64 fixes, but I'll give Vladimir a chance to
+> have another look first...
 > 
-> On Tue, 2026-09-15 at 18:26 +0800, Xu Yilun wrote:
-> > An alternative solution is to use a loop that gives memory on a memory
-> > error code - TDX_EXT_MEMORY_POOL_REQUIRED, add one page per iteration
-> > until TDH.EXT.INIT succeeds. Something like:
-> > 
-> > 	do {
-> > 		ret = tdh_sys_init();
-> > 		if (ret == TDX_EXT_MEMORY_POOL_REQUIRED)
-> > 			tdh_ext_mem_add(); //single page
-> > 	} while (ret == TDX_EXT_MEMORY_POOL_REQUIRED);
-> > 
-> > This approach is slightly simpler as we don't have to query the module
-> > for the total memory, no memory pre-allocation or segmentation math.
-> > But allocating a single 4K page per iteration may cause permanent memory
-> > fragmentation.
+
+LGTM as well :) Thanks Beata!
+
+> Will
 > 
-> So this is definitely a bad thing to do? Even if this is running at boot before
-> much fragmentation could have happened? Don't early boot allocations tend to be
-> more physically contiguous?
 
-Not necessarily. See CONFIG_SHUFFLE_PAGE_ALLOCATOR, which default Y.
-
-But even with shuffling, page allocator shouldn't claim new non-movable
-page block just to keep shuffling satisfied.
-
-It is better to check what happens in practice.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
