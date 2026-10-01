@@ -1,42 +1,42 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078D4518140
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34901513570
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858636; cv=none; b=oYRUZe1CndRpgC01hz0j2APuKEj5LfdVhsoWv4hhWbWwuxq07yHG3uOGzVv2XaIYma4V7khf/wEBwKjoGDJo9Nv4UtRBeaQZ/o1b5xTJreNNgibdpGQQmzCwWpActEzG/gb3I5YcG9BybwZHb18Di4b8KbU5Q9vxi2/IWJxnWHg=
+	t=1790858641; cv=none; b=tGD8xhui0LXwqc83MO9iLmHIjD9EQPDbbya0Qziy6qWXjbAnRI3ZzqNmXLqaGg4zWJ/NTVp2yVx222IUEtik2/+DTs69EpfCxkZbTuPABKnDwtBpZOvQZkl+bcnopyiB0N8rTDQjdQvg1NZOEAqOHWfuPQsB3F4b+BvbmeEpqPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858636; c=relaxed/simple;
-	bh=+alCd0R9/Szgi4Z3GwJaNlW9HBwAuYf9hJxdF6+uSK0=;
+	s=arc-20240116; t=1790858641; c=relaxed/simple;
+	bh=Sms6Hm0bqrkOC8r0tQMl3X20kBIz3xLS8ZiGlVmV19A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OzHHODPBmNeDRRJQSiyZV9K2ZMEOIoMxVaT0WWSMoQPN711oHznsn3WKr8g+fy1FcbdF0HyvOC1J+fo+w+ce1I1k4Iol/zm5KOJDqkYqc5XwjGDeVn8MKUWZ3+npnJhrH3dTdxuQJ7pCph9JG3q9eLT0r8a1phUJNasL/B0ZuaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uKqwpUTx; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=M1WY/8egNzHqf9W5WAB6OaZBy7iqkYo20toYA1Mudbc07sXFupnu/qx5upJcP6d0EvaMdKbGiGwAEfLH5d1tfM75WHKGqpQucvc1ia3eaaaKFVQGJNvXxtYEe9IPbYAtdPBFTUJSKBKeCiMdbM1tyXpqar0zCpziF5eKAEJGhxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JPdWxQm1; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uKqwpUTx"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JPdWxQm1"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7FAA84E41E84;
-	Thu,  1 Oct 2026 12:43:53 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BBEEC1A24DD;
+	Thu,  1 Oct 2026 12:43:58 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C5A160341;
-	Thu,  1 Oct 2026 12:43:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B20031032809F;
-	Thu,  1 Oct 2026 14:43:46 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 848D060341;
+	Thu,  1 Oct 2026 12:43:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6E5D11032811B;
+	Thu,  1 Oct 2026 14:43:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790858630; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790858636; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=d8sRHCj1LfeaitArGCptBNg5yIjIKKLU8Yc9pqpZHp8=;
-	b=uKqwpUTxeMSVETp8oi2R2qfYX3XikeUsnqq6J6anFGUgYa0FuvoZkeKx3hY5Sx2qrYcPHH
-	Js5oT13YMmnmZvKP83HPQIdRLekLXWkwgb5yFixpjBmh0/Fc+qJpqTdIGpVj5I251YMCWx
-	Lw0V2VSRgJ6hwfFwu3zEbOCr/EbfOiGX3M5tonBIXjJftpVfZmlAPki2k4AyMWuStB9hrs
-	LuHYY8vNXRPVMAxmyaKjivrL6T9L8pHpgJi8twn24DOQiRUdj5ac1hF8zt2IXnsjEzoOCa
-	cpITW9wSrIBWoPhGuFE+YJAjH44ioVtKFeGk/lC0C/S7gvmqFAV3q459WcQI2w==
+	bh=uBDynqj0MRNe0ZE5dYCnK/0m9DNXvSOsN2x3my6qZE0=;
+	b=JPdWxQm1nF0z8GIFcgwEpWxo3QmoSCS6QhBxCwWHTqwDfXxoomJUioC6SeiKDZHJAtOwCW
+	/zcLk+Xv5IgsT8ObmefEO0uIZ2Ofl+qJYq9M+h74Yo4rTEsmXGfpl049cAdxcWAyljD2h/
+	EcF70V8h3CA96e5sel/Dfu8BpD0EBCd6rvz9IJru5K5Gezz+ROZhNJ1XY8ObxcPyfBpYW5
+	0f4TsinQew72YShXkQenL6ekNHvqtaqsD5WeqONB7pGl+52UOxI3JzdzCcejAfOm9r0D2h
+	ZSq0RhTSwcr1spv3HkT8DdXU5z1gwEzAHHdySgUVhYPL0T2KbL5H/9iYBT9QzQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:34 +0200
-Subject: [PATCH RFC v2 12/24] drm/bridge: shutdown and cleanup on bridge
- unplug
+Date: Thu, 01 Oct 2026 14:42:35 +0200
+Subject: [PATCH RFC v2 13/24] drm/mipi-dsi: turn DRM_MIPI_DSI into a
+ tristate
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-12-8e34986dcb68@bootlin.com>
+Message-Id: <20261001-drm-bridge-hotplug-v2-13-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -71,38 +71,30 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-With the upcoming support for DRM bridge hot(un)plugging, bridges can be
-removed at any time. When this happens, shutdown the pipeline and detach
-from the encoder chain the bridge being removed along with all the
-following ones.
+DRM_MIPI_DSI is currently a bool, but there's no reason to not be allowed
+to build it as a loadable module.
+
+Moreover being a bool prevents DRM_MIPI_DSI to depend on a tristate module
+that is configured as 'm'.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 2a112ed69e20..c0a2f7f1ce62 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -509,9 +509,17 @@ EXPORT_SYMBOL(devm_drm_bridge_add);
-  * it won't be found by users via of_drm_find_and_get_bridge(), and add it
-  * to the lingering bridge list, to keep track of it until its allocated
-  * memory is eventually freed.
-+ *
-+ * If the bridge was attached, also shutdown CRTCs and detach this bridge
-+ * and the following ones.
-  */
- void drm_bridge_remove(struct drm_bridge *bridge)
- {
-+	if (bridge->encoder) {
-+		drm_atomic_shutdown(bridge->dev);
-+		drm_encoder_cleanup_from(bridge->encoder, bridge);
-+	}
-+
- 	mutex_lock(&bridge_lock);
- 	list_move_tail(&bridge->list, &bridge_lingering_list);
- 	mutex_unlock(&bridge_lock);
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 65d46dfa7266..9bdd9110e754 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -39,7 +39,7 @@ config DRM_MIPI_DBI
+ 	select DRM_KMS_HELPER
+ 
+ config DRM_MIPI_DSI
+-	bool
++	tristate
+ 	depends on DRM
+ 
+ config DRM_KMS_HELPER
 
 -- 
 2.55.0
