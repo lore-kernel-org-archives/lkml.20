@@ -1,237 +1,320 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5483911DC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832137; cv=pass; b=Gk+GikW48fR0heqkj2L1Eu3MqbiyIzBC3ptrCvbH/5ZWd9VMatEsOGMm3ZlfQKdje4gAfAcOnZcvZqavfm8L8cQdknQ2eWax9iAXuOj68BGasWLhpLNWEAk+1xR3gpIKQHX1ej3w47B8oe/jKJpOWYopIZp8nbMPMGRfeUtUPaE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832137; c=relaxed/simple;
-	bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=si/M9wWls6ZMnPx4AlruhxV93HPf7+B44Nqu/vrYNDEav7T+EmMTijj+g+LRDlseJB4Fc7BHnFEkVb+hx48+V/dzkjLh0E89gXlFNYo8HVA9CRu/ZMb3MBDaFhboFKw1ucQG2VUYlx2zARXFT7P7WPykbM7FgumTrCH+Ae12+7Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=qeOpMIHq; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DBC30E85B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790832208; cv=none; b=X02Ncvr1R7V/tW4yktn6udwLWtWnT/j3+dA3jSQf3F4SCT5eeVmiUmSlmCZKLtsDnvWBgu0178k+UAC3G1T+O98LbLqsYyCrcxqmmpbk+kYKZ04HaRKpKyGf7TYX24yifAZQezav4TDr4gdI0PgGTS/Y8TC7/U9xI0kMiv+mlZk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790832208; c=relaxed/simple;
+	bh=WICCUBitUB85OCh21FIUAUOYOI2jyJs7GHEq8ouBpf4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l4HOs+EldpGOFDi5gGsxhXmBK3T2tvsI2ALiTEC7mkT5wyMUdt3QyBq8M05LaMH3rtSV1eWTnOX39c5Xy2vOVBasd3rez8MjukZE3HxpZvGWbTKsP/U6yDP1wK38koG8Cxhj4RkErGYDgXVlCm370k/rvVkRiRRPYDspsaFwlrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mZM73UNI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PARnEubV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="qeOpMIHq"
-ARC-Seal: i=1; a=rsa-sha256; t=1790832099; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mMFw8cCuCMzUEVMfJF3aKZ1neIlbin6WcRqxVN2oUpSmY3mthZUi3rbTPVw4LXqJrmpYw2e6f8Je8I9Eb+CaGshT6YlFRYiHY+8exwpRiSo3J4RYwhDUdJqJe+gqiPv1uKy8myK3nqZH/8LDXLfSVLvOGJwpAIGNrqb4ieLuuoc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790832099; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=; 
-	b=EFxTNTjLePxt3iHQb2Ba0jJeFfoP96hTmNrDCC05/pM31i33xwSi3Ax8SOMikyRYZaT+FPoI+bWmRMxKbtE6SVMV1wnMdE1P/lULXCoz6wNswJepj/CnIJa26tMk7ssXYRAqthXRcre1gHhbr6Hn5soDfwiYTUKXuybhSq+Uggo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790832099;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=;
-	b=qeOpMIHqj1lSX3vGn5zRrQcXblWXrJn6zCXKct6mSEhyE3JIpF/41Snh0wFP3YeK
-	rSBzgz53J4Fr7Za9KWvSY9gTbD6EW48oHJGicSgQfI9rgVI2gCp8PHyx+bZZRd6Ga1p
-	+NfdDnuYYb97D3bDwoh5c9zNxjBJTeCCgYbn5c6DY6qUPvJJ9CB8qd7oeoZMVjtYdd+
-	/u733hGh6GKkT4WHZY8mlAG4QGQ96vA4EafqEm1T5X6Z65k69t5wot50HeGbLY+wW6y
-	Sb252PWO9qGeoF+hwHxoL6DjHJeOvpaWyUf5kjOd3Sy23wcsf/2u1FVKK2+aozJW5G8
-	trKoR2xWSg==
-Received: by smtp.zohomail.com with SMTPS id 1790832098016772.1720132572663;
-	Wed, 30 Sep 2026 22:21:38 -0700 (PDT)
-Message-ID: <3e8bc62a01f5b0162373cb8016d7409c6a4c269b.camel@icenowy.me>
-Subject: Re: [RFC PATCH 0/2] drm: add a noncoherent mapping checking helper
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Conor Dooley <conor@kernel.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Paul Walmsley <pjw@kernel.org>, Samuel
- Holland <samuel.holland@sifive.com>, Dominique Belhachemi	
- <domibel@debian.org>, Michal Wilczynski <m.wilczynski@samsung.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org
-Date: Thu, 01 Oct 2026 13:21:32 +0800
-In-Reply-To: <20260930-reoccupy-pupil-6a5d0cace243@spud>
-References: <20260930073528.3369325-1-zhengxingda@iscas.ac.cn>
-	 <20260930-zippy-container-d48f72432c1f@wendy>
-	 <32baa664ee2f66618a54c260849b311c581febfc.camel@icenowy.me>
-	 <20260930-reoccupy-pupil-6a5d0cace243@spud>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mZM73UNI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PARnEubV"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913gRVR542942
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 05:23:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=wRMZ5C+W4s3WBTEwnJCNbG5XG3HtxGnpkSf
+	0y0USG3E=; b=mZM73UNI311C0UnbbwbOBngeN9+DmwbCj103ngjjqzmtlUWFg94
+	JYBnCpzaLT3q43NB6AdCgB2AoLKcLEzED60viLnvkvRTY7hAXcL+k/aalZC5VshI
+	P4Fr4XnMNE1iywZmRt6DBOMXAUloph0W3PfuzqD1lUQpQ7v4k/bWue4PkfImEqOC
+	agAanG7EpMXqzRSpcqBDkjGIKRsD7ut7HBoR75hMpXbPsyLGBiH7jE4NtNacYtJS
+	kJfFDBWcS/lbxYv2d64mUA3uWLLAI9HDg9IdLHDXSyBWXq0flHg+wJwgSzkZvX6/
+	WJBQOPLT7P14/FOx9jRmpjYdCt3ce7qzdeg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wctca1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:23:25 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df5a65671eso6090735ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:23:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790832204; x=1791437004; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wRMZ5C+W4s3WBTEwnJCNbG5XG3HtxGnpkSf0y0USG3E=;
+        b=PARnEubVycN5wZg2T8hmLD/+zKq/d3gqZDwDum2TwD9cvqQIXKVqW4vSSCi6wDODue
+         jSZto17pUG1AeE1Xlp6V7JzsFF8mJA9Qp0N0k1cwK9y5naTQEtoU8Ronbfigj2GA8Afk
+         zhrIJ7LdZg9FJ2QetWi4eTdF+rRcr/kCuK734astGzLxjP0mBS2wgMWlNR6DHUQIQ1Yx
+         X283bH6pEKGM/UExuJncHkKDzCOuSS7Eo4mB9mL2TIaOXGxwvPtgxnQYrar4EZFxAwXo
+         /AV28BtgIDAR5AVEzuqlyRqzO/zwaE+uUoYc2/WfKPsbeRTIQBA88RnreSwJVUCmfqIy
+         z9uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790832204; x=1791437004;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wRMZ5C+W4s3WBTEwnJCNbG5XG3HtxGnpkSf0y0USG3E=;
+        b=ECn205Uk717WdRyswfpQ1DbuqrsQl2NlwqzxhixwpWOBKJAKdDBM799n6usM6dbHOw
+         MvdqiG9JX/6w/RKf5embhVwKhF8g3UHKSA17wpN3uDFNJlXP31KkCWTBERThSC512MA/
+         h8tpeyuSCFL0YssvuVch6sBxgqwfswKKvZ+cwXIEnQFF16pvsgOknW09ID9QsYwmIFdN
+         LNm1tSr9OynFxUHj1G7ToikvW0BbS0xjirhd9c6icOsfDiz4JWam9FPLo0NpgGSn4zQH
+         7qnbNFGBPEW6t6Hug4kiZ+3evBmR2Gb1QHqpDKE5qmNWMz5FGNdm6keVO0G5o13V0K3K
+         7k4A==
+X-Forwarded-Encrypted: i=1; AKwUvBxTtK5qs3gV2Agj834g921f+HEWqd1UGYXWSAnAsvqoP7z/G+3DxpOVxWwnDwhARtowO0PKvtjAWE9ZQBg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPBHxIRA4z5C/O7LyfS0i11QqViH7q0BA4Hc6xQLlK/ST7e4YD
+	14jl/JTwSC/PJmpqTGeUlIrZj55jO4e/PJiIfn6Vwm++YeEjoNvFKzezjbvqxTuFI7aIoJyfy5n
+	jmX3U1H3EcouiLg21TTKNE5TzCG5Ppk7L5HhLz41WlZXD/m9iLxcwtqSLKhiBphsw5V8=
+X-Gm-Gg: AYBFou2+HeLGVX5hNx3M2fx1XRWNgsK89Yb0EFdXtcmDVc5tuq9yQK+DP9af+qmFp0o
+	bvi40GPzlMRT7RjVFl1qVr5tXejmPvTWMfoqH1J+Tfg88hdKhH1ovttLJ9FZMYIdfuPvD7xr6K5
+	QAcjYvvJmchMygXDQ/k4WctUhVzdMoofNgx58jFNFrIzRpQN+CUmjRHQYd193A/qzqDY/joQ340
+	C5eGsDedYx8RmxoqgNCEwo9kqVcSO5J9c1Lhco2COBJU7Dh3u2h4AbnIZ3Z3ndRFQ9M4FoGtoHK
+	hIXAA/dvv1bz6tQCXve2BlF4SKghJdykgbwueDvssn/oEJnT//VxQJsbrrVlNtWuSMLQiM/GJYK
+	/9CrP9Fydd8mn2Imc1uvejqeblRqFFSPxOuG4yFBdah4uWmaOTEsOjy4C9PbJdKpFYoOrJbD/g4
+	Wy52k7JEpY+boLbXxmm5mzNQaM
+X-Received: by 2002:a17:903:3201:b0:2dd:86a3:232d with SMTP id d9443c01a7336-2e3000ecbebmr9988235ad.8.1790832204327;
+        Wed, 30 Sep 2026 22:23:24 -0700 (PDT)
+X-Received: by 2002:a17:903:3201:b0:2dd:86a3:232d with SMTP id d9443c01a7336-2e3000ecbebmr9988055ad.8.1790832203727;
+        Wed, 30 Sep 2026 22:23:23 -0700 (PDT)
+Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.23.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 22:23:23 -0700 (PDT)
+From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Ian Rogers <irogers@google.com>
+Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+        Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+        Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+        Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Mayuresh Chitale <mchitale@gmail.com>,
+        Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
+        Andrew Jones <andrew.jones@oss.qualcomm.com>,
+        Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Zane Leung <liangzhen@linux.spacemit.com>
+Subject: [PATCH v6 00/14] Linux RISC-V trace framework and drivers
+Date: Thu,  1 Oct 2026 10:52:11 +0530
+Message-ID: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX3yK0I69SnK42
+ FZWawVySfEvqmPzjn4AY7eZ2tHBUtm5Wmpe8JdcX58n8vbm4nCA3On9/vErPUW8P+eqJr4QXzTB
+ G2BHc57ty/ziXAZJ7Gq1ugqx75zvz6udytGOyUaDvT5FxvBvQMzTJAtdx3z+JqEv+VU6DJlgtn8
+ GphFXmy3fFmsFdWyKfztMBlAnyEescKKF+Do0YHuuClxpZbmYIoYXroD9d6SKdRQhY4ZB6XlcwB
+ WpwyBjTpMeY052pWQxqPGaGEZYuYB2bwfVfX4ET4Nqnza1WrTXPnvkYy7VMHQvC2Ww6gJGjWwec
+ 20HRd6kVx2be6SozSTu6uK/GWh75lGZ1W7n9L9GJoFsUkkWMUGIMOvE2zXFGn5KFJSB19mjhpvZ
+ F2UICgp5S6ET2TRhDIRHyXExXbCO0kAtQO3LPyIv9tEB67wBP1S8RstMwrUdaREFQ04knIxni2R
+ XcgBCaLMmawVwLNaO8g==
+X-Proofpoint-GUID: QYad6yn6r6fBwfY6aXmVOVAOSy2n9Gyj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX7193jgUYzwh0
+ PCZGSg7N7tjcSwzNTKelWSyZ/HrzhR+sLyU+PcFyDFJjbyS1FmZrhRwDwnd9YDMO9bOhX26jJ9A
+ Yz6uVhxSyLEDoW7wGh5QiNyqdTjI+h0=
+X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abdee4d cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=V1jnuoLLAAAA:20
+ a=NEAV23lmAAAA:8 a=p0WdMEafAAAA:8 a=141_r4vzzXyHVjRiWNIA:9
+ a=324X-CrmTo6CU4MGRt3R:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-ORIG-GUID: QYad6yn6r6fBwfY6aXmVOVAOSy2n9Gyj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010021
 
-=E5=9C=A8 2026-09-30=E4=B8=89=E7=9A=84 17:30 +0100=EF=BC=8CConor Dooley=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Wed, Sep 30, 2026 at 10:38:07PM +0800, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-09-30=E4=B8=89=E7=9A=84 15:18 +0100=EF=BC=8CConor Dooley=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Wed, Sep 30, 2026 at 03:35:26PM +0800, Icenowy Zheng wrote:
-> > > > This patchset tries to address the lack of uncached mapping
-> > > > support
-> > > > on
-> > > > several SiFive-core-based SoCs, currently targeting JH7110 but
-> > > > EIC7700
-> > > > would have the same problem (although it uses DC8000 display
-> > > > controller
-> > > > instead of DC8200 and real display support is pending).
-> > > >=20
-> > > > Because other users (either SoCs with Xuantie cores, which have
-> > > > Xtheadmae extensions or non-RISC-V SoCs) of the driver have
-> > > > proper
-> > > > writecombine support, a helper is added to check whether
-> > > > coherent
-> > > > (cache-bypassing) mapping is available. This helper currently
-> > > > returns
-> > > > true for all architectures except RISC-V, and checks whether
-> > > > pgprot_writecombine() is a no-op on RISC-V.
-> > > >=20
-> > > > The patch really enabling manual cache maintenance for the
-> > > > verisilicon
-> > > > driver is picked from Dominique, and reworked to check both
-> > > > dma-noncoherent property and the platform's mapping
-> > > > capaibility.
-> > > >=20
-> > > > Tested on VisionFive 2 with the display enablement patchset at
-> > > > [1]
-> > > > (and
-> > > > its dependency).
-> > > >=20
-> > > > Also tested on Lichee Pi 4A (TH1520, which has Xtheadmae),
-> > > > operation is
-> > > > not affected, map_noncoherent isn't set and Xorg says kernel
-> > > > dirty
-> > > > updates aren't required.
-> > > >=20
-> > > > [1]
-> > > > https://patch.msgid.link/20260929-jh7110-clean-send-v5-0-82b4d8e3c6=
-c7@samsung.com
-> > >=20
-> > > Out of curiosity, have you seen Bo Gan's series from a few months
-> > > ago
-> > > that creates an extension/erratum to get these devices working?
-> > > https://lore.kernel.org/linux-riscv/20260316060328.1173634-1-ganboing=
-@gmail.com/
-> > >=20
-> > > I've been meaning to reply to it over and over again for the last
-> > > number
-> > > of months, but I just haven't had the time to actually understand
-> > > the
-> > > detail of the EIC7700 solution or check whether it works yet. I
-> > > know
-> > > this is just one driver because the JH7110 only has this problem
-> > > for
-> > > the=20
-> >=20
-> > I personally think his EIC7700 solution unacceptable -- it's not
-> > running directly on EIC7700, but some custom hypervisor (because
-> > the
-> > uncached offset of EIC7700 doesn't behave as a simple OR
-> > opertaion),
-> > which requires 3rd party code and prohibits KVM usage of the
-> > kernel.
->=20
-> I was actually reading through Bo Gan's patchset when I noticed this
-> series, trying to get my thoughts in order and figured a second set
-> of
-> eyes and thoughts would be helpful to me.
->=20
-> I've got a similar opinion to yours about the EIC7700 solution, it's
-> quite invasive (it'd only be 3rd party if it wasn't accepted) but I
+This series adds 'gtrace' which is an architecture-neutral hardware trace
+framework with RISC-V E-trace as its first backend. The 'gtrace' core framework
+has the minimal shared plumbing (component registration, path create/destroy,
+path start/stop, etc) and the RISC-V trace drivers are its first consumer.
+It should be possible for the required ARM components to be adapted to the same
+framework in a future.
 
-It'd always be 3rd party if Eswin doesn't accept it. The Linux kernel
-cannot deliver such a hacked firmware.
+This series also adds initial support for RISC-V trace compnent drivers.
+The RISC-V trace v1.0 specification is already ratified and can be found at:
+https://github.com/riscv-non-isa/e-trace-encap/releases/tag/v1.0.0-ratified
+https://github.com/riscv-non-isa/tg-nexus-trace/releases/tag/1.0_Ratified
 
-> would consider something invasive firmware wise to be worthwhile if
-> no
-> peripheral on the device worked without it.
->=20
-> > > display pipeline, but according to Bo Gan this applies to all
-> > > peripherals on the EIC7700.=20
->=20
-> And, as I said, Bo Gan was of the opinion that all of the peripherals
-> require it. Of course I suspect that actually meant all DMA capable
-> peripherals require it, not all peripherals (especially given there's
-> been patchsets adding simpler peripherals).
+The RISC-V trace component drivers are designed to be agnostic to the
+underlying trace protocol hence both RISC-V E-trace and RISC-V N-trace should
+work fine. The discovery of trace protocl parameters are left to user-space
+trace decoder.
 
-All DMA peripherals on EIC7700 is non-coherent, but some of them will
-still work without uncached mapping.
+In the future, there will be subsequent series adding:
+1) Sysfs support
+2) ACPI support
+3) More trace drivers (such as funnel, ATB, etc)
+4) Support for upcoming self-hosted trace specification
+5) Arm component support under the gtrace framework
+6) ... and more ...
 
-Only peripherals that really share the same buffer between CPU and the
-device will be affected, because otherwise the coherency is kept by
-cache maintenance instead of uncached mapping. (Display framebuffer is
-a borderline situation -- it is accessed by the CPU and the DC in the
-same time, but the DC does read-only access, so manual cache
-maintenance is still doable although with price).
+These patches can also be found in the riscv_trace_support_v6 branch at:
+https://github.com/mdchitale/linux.git
 
->=20
-> That said, Samuel's solution does exist and if the feedback was
-> implemented by someone that cared about the eic7700 it'd be much more
-> acceptable. The fact that you've got a solution here at at least
-> works
-> on an interim basis for the JH7110 (although I have no idea what the
-> DRM
-> folks will think of it) is another point in Samuel's method's favour.
+To test the patches, we need QEMU virt machine with RISC-V trace support
+which can be found in rv-etrace branch at:
+https://gitlab.com/danielhb/qemu.git
 
-I think the major problem of Samuel's method is that it's invasive to
-other kernel subsystems, which would make the review time much much
-longer; but I still expect it.
+To capture gtrace data using perf on QEMU virt machine do the following:
+1) Launch QEMU virt machine
+   $ qemu-system-riscv64 -nographic -M virt -smp 2 -bios fw_dynamic.bin \
+     -kernel Image -append "root=/dev/vda rw console=ttyS0 earlycon=sbi" \
+     -drive file=rootfs.img,id=disk1,if=none,format=raw \
+     -device virtio-blk-device,drive=disk1
+2) Run perf record to capture gtrace data
+   $ perf record --all-cpus -e gtrace/event=0x1/ <command>
+3) The step2 would create a perf.data file which has the gtrace data.
+   Now run perf report -D and look for PERF_RECORD_AUXTRACE event
+   section(s) which point(s) to the actual gtrace data offset.
 
-(A minor problem is that his mail server is too strict -- on SPF rules,
-which prevented his mails to be forwarded by mailing lists.)
+Changes since v5:
+ - Moved the DT connection parsing into the gtrace core as gtrace-of.c.
+ - Added start_count and a lock to the core's private component data
+   to serialize start/stop/copyto_auxbuf operations. Dropped
+   perf_buf_lock.
+ - Added handling of partially enabled path by disabling all enabled
+   components
+ - Added cycle detection when walking the trace component graph
+ - Added trace source ID configuration in the encoder driver
+ - Added trace format (E-Trace/N-Trace) selection via the platform driver
+   compatible string. It is used by encoder and perf drivers to set it
+   into hardware and perf data header respectively
+ - Modified the ramsink buffer setup to read back the trRamStart and
+   trRamLimit registers, and program the sync frequency, memory format
+   and stop-on-wrap settings at start time
+ - Improved error handling and added path owner in the perf driver
+ - Fixed several issues reported by sashiko-bot but some of its findings
+   are deferred to a later version.
 
-Thanks,
-Icenowy
+Changes since v4:
+ - Introduced a new architecture-neutral 'gtrace' (Generic Trace) framework
+   and moved the RISC-V trace drivers on top of it instead of a RISC-V-only
+   'rvtrace' core.
+ - Added new PATCH3 "gtrace: Add RISC-V platform driver for the gtrace
+   framework" to split out the RISC-V platform/DT code from the core
+   framework patch.
+ - Moved all rvtrace driver sources from drivers/hwtracing/rvtrace/ to
+   drivers/hwtracing/gtrace/, with single Kconfig, Makefile using
+ - Made the perf driver (previously rvtrace-perf.c) architecture-neutral
+   and moved it into the gtrace framework as gtrace-perf.c; PMU name
+   changed from "rvtrace" to "gtrace"
+ - Added new PATCH8 "perf: Add gtrace AUX buffer trace format type" to
+   define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE which is used in later patches.
+ - copyto_auxbuf() and gtrace_path_copyto_auxbuf() now take an output
+   parameter so the AUX data format can be reported by the sink
+   driver by setting PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE.
+ - Renamed the generic side of the perf tools support from rvtrace* to
+   gtrace*. perf.data ABI is unchanged.
+ - Fixed gtrace ramsink start/stop to call gtrace_enable_component()/
+   gtrace_disable_component() to remove duplication with code in
+   gtrace-core.c
+ - Updated the MAINTAINERS patch to refer to gtrace framework instead of
+   rvtrace
 
->=20
-> Thanks. I've got a much better idea of what to say to Bo Gan now.
->=20
-> Conor.
->=20
-> > In fact JH7100 suffers from the same problem too, so JH7110 put
-> > some
-> > DMA peripherals to the L2 front AXI bus; however although this bus
-> > keeps coherency with the CPU, its bandwidth is questionable (I
-> > think
-> > the bottleneck could be exhibited if you attach a not-too-bad NVMe
-> > SSD
-> > on JH7110's PCIe).
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > >=20
-> > > >=20
-> > > > Dominique Belhachemi (1):
-> > > > =C2=A0 drm: verisilicon: support non-coherent DMA framebuffers
-> > > >=20
-> > > > Icenowy Zheng (1):
-> > > > =C2=A0 drm: add a helper function to check availbility of coherent
-> > > > mapping
-> > > >=20
-> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c |=C2=A0 9 +++++=
-+
-> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 32
-> > > > ++++++++++++++++++-
-> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 ++++
-> > > > =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 =
-|=C2=A0 9 ++++++
-> > > > =C2=A0include/drm/drm_cache.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 21
-> > > > ++++++++++++
-> > > > =C2=A05 files changed, 77 insertions(+), 1 deletion(-)
-> > > >=20
-> > > > --=20
-> > > > 2.55.0
-> > > >=20
+Changes since v3:
+ - Rebased on Linux-7.1-rc1
+ - Use kzalloc_obj() in-place of kzalloc() in PATCH2, PATCH3 and PATCH9
+ - Improved PATCH7 to save the previous WP value
+
+Changes since v2:
+ - Rebased on Linux-7.0-rc1
+ - Addressed Rob's comments on DT bindings in PATCH1
+ - Addressed ref-count related issues in rvtrace_of_parse_outconns()
+   of PATCH2
+ - Made RVtrace framework more generic by avoiding implicit access
+   to component registers in PATCH2
+ - More improvements in trRamStart/Limit/WP programming and other
+   improvments in PATCH7
+ - Removed RVTRACE_BUF_LEN from PATCH9
+ - Removed redundant page_size from PATCH10
+ - Renamed found_etm in PATCH10
+ - Removed rvtrace_recording_init() declaration from header in PATCH11
+
+Changes since v1:
+ - Rebased on Linux-6.18-rc3
+ - Addressed Rob's comments in dt-bindings added by PATCH1
+ - Get reference of conn->dest_fwnode and add missing break in
+   rvtrace_of_parse_outconns() of rvtrace-platform drivers added
+   by PATCH2
+ - Added new inline function rvtrace_comp_is_empty() in PATCH2
+   and used it in rvtrace_encoder_stop() added by PATCH5
+ - Fixed trRamWPLow usage in PATCH7
+ - Determine RAM sink buffer size based on component implementation
+   ID and reduce default RAM sink buffer size to 1MB
+ - Add new PATCH8 to enable DMA_RESTRICTED_POOL in RISC-V defconfig
+   so that implementations with RAM sink address restrictions can
+   be handled.
+
+Anup Patel (7):
+  dt-bindings: Add RISC-V trace component bindings
+  hwtracing: gtrace: Initial implementation of gtrace framework
+  gtrace: Add RISC-V platform driver for the gtrace framework
+  gtrace: Add functions to create/destroy a trace component path
+  gtrace: Add function to copy into perf AUX buffer
+  riscv: Enable DMA_RESTRICTED_POOL in defconfig
+  MAINTAINERS: Add entry for RISC-V trace framework
+
+Mayuresh Chitale (7):
+  gtrace: Add functions to start/stop tracing on a component path
+  gtrace: Add RISC-V Trace encoder driver
+  perf: Add gtrace AUX buffer trace format type
+  gtrace: Add RISC-V Trace ramsink driver
+  gtrace: Add perf driver for tracing using perf tool
+  perf tools: Add RISC-V trace PMU record capabilities
+  perf tools: Initial support for gtrace decoder
+
+ .../bindings/riscv/riscv,trace-component.yaml | 120 +++
+ MAINTAINERS                                   |  11 +
+ arch/riscv/configs/defconfig                  |   1 +
+ drivers/Makefile                              |   1 +
+ drivers/hwtracing/Kconfig                     |   2 +
+ drivers/hwtracing/gtrace/Kconfig              |  59 ++
+ drivers/hwtracing/gtrace/Makefile             |   9 +
+ drivers/hwtracing/gtrace/gtrace-core.c        | 858 ++++++++++++++++++
+ drivers/hwtracing/gtrace/gtrace-of.c          | 126 +++
+ drivers/hwtracing/gtrace/gtrace-perf.c        | 390 ++++++++
+ drivers/hwtracing/gtrace/rvtrace-encoder.c    | 236 +++++
+ drivers/hwtracing/gtrace/rvtrace-platform.c   | 186 ++++
+ drivers/hwtracing/gtrace/rvtrace-ramsink.c    | 357 ++++++++
+ drivers/hwtracing/gtrace/rvtrace.h            | 121 +++
+ include/linux/gtrace.h                        | 332 +++++++
+ include/uapi/linux/perf_event.h               |   5 +
+ tools/include/uapi/linux/perf_event.h         |   5 +
+ tools/perf/arch/riscv/util/Build              |   1 +
+ tools/perf/arch/riscv/util/auxtrace.c         | 221 +++++
+ tools/perf/util/Build                         |   1 +
+ tools/perf/util/auxtrace.c                    |   4 +
+ tools/perf/util/auxtrace.h                    |   1 +
+ tools/perf/util/gtrace-decoder.c              |  95 ++
+ tools/perf/util/gtrace.h                      |  18 +
+ 24 files changed, 3160 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml
+ create mode 100644 drivers/hwtracing/gtrace/Kconfig
+ create mode 100644 drivers/hwtracing/gtrace/Makefile
+ create mode 100644 drivers/hwtracing/gtrace/gtrace-core.c
+ create mode 100644 drivers/hwtracing/gtrace/gtrace-of.c
+ create mode 100644 drivers/hwtracing/gtrace/gtrace-perf.c
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace-encoder.c
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace-platform.c
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace-ramsink.c
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace.h
+ create mode 100644 include/linux/gtrace.h
+ create mode 100644 tools/perf/arch/riscv/util/auxtrace.c
+ create mode 100644 tools/perf/util/gtrace-decoder.c
+ create mode 100644 tools/perf/util/gtrace.h
+
+
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+-- 
+2.43.0
+
