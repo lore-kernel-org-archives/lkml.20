@@ -1,183 +1,216 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012037.outbound.protection.outlook.com [40.107.200.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D8E3F20EC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790853478; cv=none; b=dq6coV/z0QJQAefN76rw9UmvJXeABLLgKjqhzRRQ00i/sCtLxTHG1350ueJgxsxa+NcZifzmYTahQtJJFQBgA9qWrUJ+AYGm044Pf1uSnc5Ol9IPTKIEPUK0F8+FduVlK8NA9dwBNtdgK++Rt/YbnyXtTFwB8S/GQiC9P0qfAAc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790853478; c=relaxed/simple;
-	bh=IVjGiVYslexfxMICXy6eISfMJ5kmnGVdCXms6l5qJKM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I1YUvQReTN441hBhtL69WVUbfI4zdG0UOUM798A4ZjbE5XyPUnjltzzOwMhcb7WY8rwB87YpZoyoYCSQATc9dhxeO0SW5336qCVDcEpjNpuKbp2Uj0LwEnYrVf0H9D537hOAv4xBnOmeTFi98G+q7Vs2gIdRXFbWOKXdIcjJxgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bz9Z9V/3; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=BfiOt4GQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AE1471244;
+	Thu,  1 Oct 2026 11:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790853499; cv=fail; b=gpK0GdTj1H3w/8TeXraqdC4XBzK7WN1t4dfLwyMyw2wb2ug+PqPMapDA1MUimOMW88NyIg75CDb7FXy7UdDkPkLjD97G+AyATAg+xxHx2a6EFAC9sw+GQP9YW6s94aU73q3c/11Ebvj8vtFMwmy+ZdpJxzKLEk3942tgu0UNVkc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790853499; c=relaxed/simple;
+	bh=4G1eKVaT9W1v/5ES84dCeVaSqYfHgbXo2DQ7l91DDwQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nLaV/iwrfgs2jqhkwz4jCC7QX3twsdvXjJbzlzV1xdwqV3EuscZkVBlSetsdO9p8exD9xx8Ux5kXhMGYLDf1qfh7P1vRBV5spZWlSq0mDAY+nsYxxieRoeUcAGKqVTcchf2D08dO8qzLt6bRg/kx1FJfAF4BDcG448cMuE1/sq4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XQRscA+o; arc=fail smtp.client-ip=40.107.200.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bz9Z9V/3";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="BfiOt4GQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790853476;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6XQ0LxDigeeaZqBMssbCnY6iBpDsmsz0VQ1JYSkHCwo=;
-	b=bz9Z9V/3rY9hrfYg0RGJ2GYm5wv9Woeyv5XAMglizXR95FuuD3tNNADLJfoO1FwJj24n0z
-	Q1ZDHGSENkvXr/L+fTcHNcix3lJ1Hd44hegOH2Z8OrzkbgmDZAeck2EmlZQqC8Bsr9/kc1
-	l6FBpL3A2xp884s9V4NBPWeNDCTqsrw=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-267-syTpRgHVOXGFRcEP-cGBpA-1; Thu, 01 Oct 2026 07:17:52 -0400
-X-MC-Unique: syTpRgHVOXGFRcEP-cGBpA-1
-X-Mimecast-MFC-AGG-ID: syTpRgHVOXGFRcEP-cGBpA_1790853472
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48b026b8133so1132323f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:17:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790853471; x=1791458271; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6XQ0LxDigeeaZqBMssbCnY6iBpDsmsz0VQ1JYSkHCwo=;
-        b=BfiOt4GQmvR8FGuzCR1flNnNymlZPWMxYYqHsKxXGYt+Y48iJ6HqbFbNIj9qk+QcEQ
-         UB4luNEPiU4TRSg4NVU0lqZk3yy7m0+te7djL3UAXYxQ3WLUbvlT/otQqZVL9hJ4Sh+i
-         tFGpsrbVQq7Hf5xqCorOOR/WHDiVLZJ5KvYFbG8OXSB/W0WdOErP1zotCLBW6/0cMYoa
-         I4HpuhJMj6ZQ7Lw88R1XIRYFiPA3tXqMdONs6NtvEGZvwtPNGMEFN1B6m27sklbiOKnK
-         P6KQ1V9EtK/ve5DDeLB071A6iX4+4+YFGJvn3UxEO8FUQwZUxNa95T+hzf8VeLNnIRAV
-         p2rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790853471; x=1791458271;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6XQ0LxDigeeaZqBMssbCnY6iBpDsmsz0VQ1JYSkHCwo=;
-        b=UjtfhEt3UnZ+mmxT4PXHAtVrHjMglAyhZ865bBevOkCCY6+uzqkvWjj16Ixq9OtJbu
-         P1c3VLD4E85r1y1TN5n3JAKB/mopu/kVGGWdEMPg2s4jytNNCf+64NrW1umz5/PYj66s
-         ps4HWLUAXGur6LW7IvLEjufFbND6f+GhndlC2hblF/yPdGQNj8PHzATNdxgB5aJ3d2bV
-         K4rOmjfX3eYi3e4u1+4HiZhk5/PFL7NDuoij8ZMMcAWoarbZkhdHsMYCJIZ8M0GJKUEu
-         f7+3Jy//N8cmPSlwn5TZ9EgBKT1u6nfesODwb1D3kF5ftCuSTGDGbetTmFUpR1s5McfC
-         LSkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxEiCl08Ap4YR68sexZfHmI3j45cT0wYcDhcQP9N48cmarMuHw2d0cXxssku4+UkXOnAflYy3xKfj46wGE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKG0fMWyrlbxQkN6TupH/yGULZH1jymYHIKOPocLczDiORm95OQ
-	ZTpPN29MRi3QD+Ea7YiF31cCZCpzWXW8ERzSHEurPyNZlAl+7NfDlUQ7Ud5A+zrGx8OYgy+c+j+
-	UAGMeCGbQOFh+rXWQg1UxWA6PJEsqerS1/1NjqEVnLsHRTdo8KVzYYfPlZDf44KtQNQ==
-X-Gm-Gg: AYBFou1LS7Msx3P2GGBzWRgFsnEjc9v2VfQOBKoAeGfUki7P0diJp175qpVtKH50tBt
-	xO6DMm2P+pHAtXW2yZ+2+QmlplVY1A52lsdWMNGw4CJCT+7HqfTolY5nt2ThiSsM4x7iiwpuaPi
-	YDTLqgPAJoErVmm1itxflgvD7dagcuUyl86Zll95tlKmx1pQoHLFlUXRqur9Jr+4C5vC0Y2aPVT
-	+nS5AkMO5ejXP0hTAacfz8e6Cfbnnquf9TCh0+Y3Pg2/7F3d0miY3GW43KclULeE4QEMXXBsPFG
-	HTgzQUEBRXxywRc5K+r43YjKYbldKNfp3nvvVk9uB0KRE1T1+xD5J39hQDQUeGxxjybPA/NyJ/N
-	kLEo7e9Ao3PPMUeSxtsYdANlCbnA=
-X-Received: by 2002:a05:6000:4024:b0:48a:f8dc:ae14 with SMTP id ffacd0b85a97d-48b0245a3b1mr9283425f8f.2.1790853471596;
-        Thu, 01 Oct 2026 04:17:51 -0700 (PDT)
-X-Received: by 2002:a05:6000:4024:b0:48a:f8dc:ae14 with SMTP id ffacd0b85a97d-48b0245a3b1mr9283388f8f.2.1790853471205;
-        Thu, 01 Oct 2026 04:17:51 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([185.168.96.228])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068bd8c9sm5587597f8f.2.2026.10.01.04.17.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 04:17:50 -0700 (PDT)
-Message-ID: <e91ee6fcd36a6ae4616fbd61121b2354594099f9.camel@redhat.com>
-Subject: Re: [PATCH] rv/rtapp/wakeup: Use "rv_this" the rv_monitor variable
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Nam Cao <namcao@linutronix.de>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, John
- Ogness	 <john.ogness@linutronix.de>
-Cc: stable@vger.kernel.org
-Date: Thu, 01 Oct 2026 13:17:49 +0200
-In-Reply-To: <e6f78faca93f92981130621d712ac05374d83b05.camel@redhat.com>
-References: <20261001044218.3508990-1-namcao@linutronix.de>
-	 <e6f78faca93f92981130621d712ac05374d83b05.camel@redhat.com>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XQRscA+o"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tt/7KttJcmXrb1CYiG725dhJ1i4ZWGUvGDe2HBVexmcSZUHDOSn2EIcMCm17gOZL+qN4Fcxb0+uorVfB9udq4DS4NhLLxmY//BR9SQ5hn0X0/qGM9eDFfwb/uSc+z0ImCqT4yY1pEr/sJzMKXbwzNl2Onmr2ksRYsErJ4uaztScJddHruGHMZJOhYvL+zogVdqiYIS9UowGI7n6sHnEvrRXrIGGOngx/udPGo2pvq32LVRz6LsVSsU6mWYWYFzlb1r8KdT45ucdl1FZdQNcRaiUZWdNeJqj+3siCLYqT0jOJfL6LbCo5zI/NLhLqoxxy4E9dnuIxn7MtbGEovqOFQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OLexoLRVfDQa+64aoDbaSAoPyQyGTI/u9Y7kIeL2owk=;
+ b=PkGf9seseu9k53SE+Po52+zDA4HzNjuUfR8mF+ljSG3EJdaF6mJTzTr1NjlFmBNdhomifgDDzSixDQvidL19jZmS2INLiTd+9Yw8f22IX9DtqwyCpTJkXjvKDMbYXw3St+ZcE100HuBwfg9NiVCgtjiMM+SZbkeIIw0sb3aKUWkvGioQztw9bY5mF76wcbUTyLHTxpdzI/8GZgUz1GrEbHQOWdEDP3iSq5IRt4KLsEdS/K23p2/xAWLn4/qnkLxIzm8VuGtQqJNM2UHOZqe6gMIMhlGGarPy+pnryKfef9kiI0kKGUb62e8v5a+HR31j7/gXkM0Rcp2/fNnH6I+kCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OLexoLRVfDQa+64aoDbaSAoPyQyGTI/u9Y7kIeL2owk=;
+ b=XQRscA+oQo+okrILTcLCYg0PvvjJab4AKW9+VxpJUOnkn+s5fwpPGwM4fQ1Uu3MMiX6IZ4bkhdhnXyZ3tpsDZpD4Fd3+zGMVSkGWVS+W4H/EDhcgGZLEmrGF2vr5a9EA08Vg2Uk7hbvYsc8b73cig23AzTnAC2j26wYtxl0PPXYBtdlRjE6KnaN2dTTm5I6auS67H5GqBNmaVx+a3fxqdEmoqPWkrRN/ppdSDJpAi044QhaQ2CDOFaCzuThGYpi2Y3xk/QzJADa3sX86tlF8d2S8lcq/WLn/3niPOVLOOgfm2r+8PLsfvlLtXaSa8ngvl2aCP6LEQU1cDhVqXZyX0g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by MN0PR12MB5811.namprd12.prod.outlook.com (2603:10b6:208:377::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 11:18:13 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Thu, 1 Oct 2026
+ 11:18:13 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Gregory Price <gourry@gourry.net>, Li Zhe <lizhe.67@bytedance.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, akpm@linux-foundation.org,
+ ljs@kernel.org, liam@infradead.org, rppt@kernel.org, mhocko@suse.com,
+ corbet@lwn.net, skhan@linuxfoundation.org, ying.huang@linux.alibaba.com,
+ apopple@nvidia.com, linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
+ with MPOL_WEIGHTED_INTERLEAVE policy
+Date: Thu, 01 Oct 2026 07:18:11 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <4CDEE1DB-1847-42EB-9801-6B3968590C33@nvidia.com>
+In-Reply-To: <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org>
+References: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
+ <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
+ <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
+ <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com>
+ <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+Content-Transfer-Encoding: 8bit
+X-MS-Reactions: disallow
+X-ClientProxiedBy: MN2PR16CA0047.namprd16.prod.outlook.com
+ (2603:10b6:208:234::16) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|MN0PR12MB5811:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43c8a7f9-689c-40b5-68bd-08df1fadae75
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|10067099003|56012099006|4143699003|3023799007|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	vUARe23zlZxkKWgIrh7d8cr5ce/eEHj1hm2i2KVD1wkZcdodSaqkBbaiDlk1I0Gmev5YmBXLZ/gyrs0JSn2aAFbQfwHVJijUYCelII3nk3SZ6rtH0qWhRb01/yYV73IeTydTq4+GP5hGjePN2pfWv70oSQ+n+0QNcvPSS/NIKrDMobK/uHEflAGOqM+SiYfqMujlmlT2P7UFYLKbTw7aIrgUaZmz80NDusDV/RLCKNbickjPQdjXAIi7I0TAHENRdZKIefHJ46Sgp2uvlD15mi/POrdK1c3igGVZ6g82dnftuVg1OziSIfuodFWJ6VbG5BBEVgcu4QlNXo1FbZYM63IBclCnF6L8rgW5zfYBU3ZiKSEN5iFUW2pz2Scavzbqw4br4BgKKQnczmiBe8ewtopIzrN9rTcUr7jIYw31jaoWxNJ0SAqxnb6cYogmYyJLcz0+oHlRdaynXHNEh0lpddZKSUw+L6GhspZ1Td3SlWf+cSckkqJqhMwmsBVKwf7M7GPxBMiQaYtiroOfyKP2oA98IzZbtuBYyOGThpvF2zeEQUniyb7BNVnjWVtvWjlN3F97uUa7+eFADg79T7RHByMPyu75zwn8bPtv30LX9Pc1BhuLXFf2Oin+s+0AaO1AdZ0T975xZYpl+eXZBzjUVN8iEan5JlVsd8TnjNV9Jls=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(4143699003)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?enN1TFBsS1N5SHpyc1gwbzhmT1Ywb2xIRjhSVVcwcFM0a1RqYURaWEJmemNm?=
+ =?utf-8?B?cExsU0hxbXIxTXBhckFUNzloWjBrbjBscjA4YTEybytVU1VSOXUxSG82aEhT?=
+ =?utf-8?B?bU1QNDNoN0o4S0c4VUZ0OEQvbDdOUmx0OWNBZFBaNDZNYndJOUhnTG13M1ov?=
+ =?utf-8?B?NGxUM3oyUjFkMmpkWit1T2wxTWJXa3FuT0VuMmFMNWdjSHR5TDZHWmpDcEtj?=
+ =?utf-8?B?ZnVLYmVQMm10NjlISFIvbzduTHFNUGZjRkRIaVYvMFU3Z2VFdElMazBIb3Ez?=
+ =?utf-8?B?ZmJMeXpnSWI5bWI2U2pWQWQ2N2lYc201ZEVKaTVTVG44eWk2eHhzK0R2emcz?=
+ =?utf-8?B?S0JpaEtOMjZ5aXlrYmZDMHlpbmQ4Zm45Uk0wa1VZMXZNdnE2SE0xRmNxZXNq?=
+ =?utf-8?B?NThKLzVSNnJ2UjVHQjlqbDF5OVNkc1BHaWZvZG9VejhwQkh0dFRmQ1QxbXVz?=
+ =?utf-8?B?YWJENC9tellsd1RBclBBOXB5SGhtY0lZd1BKSE1oNG9wMGJFWnZtMkFId3pl?=
+ =?utf-8?B?NHpySUNKUEpBZFFuR3R2azEzUEEwMm5PMCtlbkt6ZU1sUXEyRDNvSEdpdzIz?=
+ =?utf-8?B?d05hOGc4Yng1M2xWR0gzM0ZTWGI4dVJ5Rm9qeVRDam9FTjMzTy9GOUJPVlVB?=
+ =?utf-8?B?TmhYTjlicitDR0NnR1lEUUIzd0tnY1lpK3RDWFB3R1kwd3k3NzVnTEIyN3dn?=
+ =?utf-8?B?cWRqSldNOEVDaUxkVVpKSDlCK1N6OERBcDhVazdFNlJCRkRIRTBHVXcwWHBZ?=
+ =?utf-8?B?K3Z1UXlKcDQ0NTUzQ0g2L2J1aDQ4UEdXMmxXRkdLamRTUnQydG5DN0JadUVC?=
+ =?utf-8?B?TkJud2FpRm5nNHVYMDJDZllsK0IweG9zSndQY0RCUnlrR01FcVpJdWw0Y2dE?=
+ =?utf-8?B?cmRpbHRMbE5RYlA2OXp4MmZ3RnFwNDBWUHJmdENCRVh2aXBvRGxjcm5jZnov?=
+ =?utf-8?B?ZTkzV0VUT0pkdW8yRWs2ZjBzTzlOWUwzNHFOSlVuMWNTaUI1MTFrWkE1d25j?=
+ =?utf-8?B?Y0cvTFFnMGpxNUpMc3VJV1owb0xrZlF6aVFFSXhtN2hhZGgzMnN3akhPNnpW?=
+ =?utf-8?B?azJJa3pQVGJOVHpVQlNyNHd3RzhOQXR1YWNBSFJzYk52VDc2KzVIdFdBWkJS?=
+ =?utf-8?B?OWtCSHZ5L1NlaHJnbVFxZmUzRGJ2aTZvRkdnRnRyR0pXTHZybWtVTlVRL0ZL?=
+ =?utf-8?B?R2JHbkRsNmQ3TUZKb3hvRVFSZzhUaXZoZFBJUFBNWmZWUGNKeUw3bExhOWh6?=
+ =?utf-8?B?bEJDbHk3SjRvMldRZUVLVVBuNUgwWnpDbDRKWi9GZDYyZ2R3Yk04S0RMWDVQ?=
+ =?utf-8?B?VHVKS1lpNkhIZDRFekdjcFgyaUlCUkVkR1lqcmtMMnpWUmlHU0hmaUZiSGxD?=
+ =?utf-8?B?RW1XNGRHOVAyR3hyU3JkNHlrakdtUERmbE44bENQTUhNdGhyUjFyVDFyT0kx?=
+ =?utf-8?B?RXFlSWZwdDVRQ3lBSjVyZGljck1QdE9raFIrUXN3UkVrUWx1dWJTNzg5SHZp?=
+ =?utf-8?B?QVZoTmM2M01BYTlqcnlIMWwyc2tnRTBPYjZJRjZ4RVZHZFlDcXZkLzJpN2xG?=
+ =?utf-8?B?SlgrSitGUk9BQXhWbnV5RnhSam01dit6M1hJUDJHYU9PNjdxTzFlaUlGUlBx?=
+ =?utf-8?B?YmZURWhGMjVCUGMyZWRzcVJKTHpja2NxQ2YrOG8xc2Z5VGM2TlhQc29YS1lY?=
+ =?utf-8?B?cWJrRGhCOWhjbGc0Q081b1BjcFVkQWhmenhvbE1QYk5jaUxtWDI1YWdvcis1?=
+ =?utf-8?B?NmdDak9wMzlVc21hL0ZuY0c3NVFmZmdwbnJ6R1prSDVUVjFyZ1JOekJBc2ND?=
+ =?utf-8?B?cSsxL2lJQmlGZVlGekxBcTVCbUUrYkluL000YVlYNTV6SnNwZlV0NytVeGVa?=
+ =?utf-8?B?UHNDajlEUVBEKzNieUZicThRcFI3QnFCd2psWGdxWkRCNnpqeENCU3VqTGsx?=
+ =?utf-8?B?dHpZNm9HMlhpMlRtUGRtS1drWnROZjg2WksvclczTkhvN1p0Q1htWkk3cktz?=
+ =?utf-8?B?anJKL3FHUThUODlMUW5WZDBEUXpYVU0vSGo4QldDU08vSXFMeVNBYzJLT3dk?=
+ =?utf-8?B?Tk03dmpBdWJxNmlmeWUycGFzaFNEZXo4c2tHMzA1U2ZpT2Fsb1E3UEFJZEhs?=
+ =?utf-8?B?ZjhFVW9Qd2J6U2hrVFk0Sjk4a201eEw4QkN5NUtZYVNWMWlBMDB6Ry82emV3?=
+ =?utf-8?B?Vk90NzRjTjRKNHArWitwWmpxcjhjQ2NpNVg5U0dob2t1VTZJMjZJODVhdGVZ?=
+ =?utf-8?B?bHlEZ3dtK3l3dDU5TEFya2lWazN5VEl0SkRmZTV2VkQvek5nWnNZd2pwQjNN?=
+ =?utf-8?Q?1C4oqmiuLw3IAZxOMy?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43c8a7f9-689c-40b5-68bd-08df1fadae75
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 11:18:12.9767
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nD5YnVJi4a8orRs7Bduy5lNr6RNCfULi5L7KLlGTLGHNj980gAu0HIehAyNZ8Da5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5811
 
-On Thu, 2026-10-01 at 08:31 +0200, Gabriele Monaco wrote:
-> On Thu, 2026-10-01 at 06:42 +0200, Nam Cao wrote:
-> > Commit d9e4c61a12dd ("rv: Use generic rv_this for the rv_monitor
-> > variable in LTL") renamed the rv_monitor variable to rv_this. But
-> > rtapp/wakeup monitor was late to the party and missed that.
-> >=20
-> > So for this monitor, rv_this is an empty struct. The reactor fails to
-> > work, because rv_react() checks monitor->react and sees NULL.
-> >=20
-> > Correct to "rv_this" and make the reactor work again.
-> >=20
-> > Signed-off-by: Nam Cao <namcao@linutronix.de>
+On 1 Oct 2026, at 6:54, David Hildenbrand (Arm) wrote:
 
-d9e4c61a12dd was introduced in the same pull request but after introducing =
-the
-wakeup monitor.
-So for me that's the commit that is "broken" (should have accounted for wak=
-eup):
+> On 9/30/26 17:10, Zi Yan wrote:
+>> On 30 Sep 2026, at 10:50, Gregory Price wrote:
+>>
+>>> On Wed, Sep 30, 2026 at 10:02:23PM +0800, Li Zhe wrote:
+>>>> The use case is closer to the second one, but the main motivation is not
+>>>> only startup-time performance.  The more important point is that each
+>>>> workload has its own DDR/CXL budget assigned by the workload manager.
+>>>>
+>>>
+>>> mempolicy is the wrong interface to do budget policy, you'd be better
+>>> off looking at Joshua's memcg tiered node solutions for that.
+>>>
+>>>> MPOL_WEIGHTED_INTERLEAVE is useful because it lets new allocations
+>>>> follow that per-workload budget from the beginning, instead of placing
+>>>> everything on one tier first and correcting the placement later. This is
+>>>> important for workload orchestration because the workload starts from a
+>>>> placement close to its assigned DDR/CXL ratio.
+>>>>
+>>>
+>>> This however is reasonable to me - you'd prefer to spread out the cost
+>>> of initial faulting placement explicitly, rather than simply take
+>>> fallbacks when the top-tier budget becomes pressured.
+>>>
+>>> i.e. w/o interleave:
+>>>
+>>> [node 0       ]
+>>> ^^^^^^^^^^^^^^ alloc until full
+>>>                 vvvvvvvvv fallback
+>>>                 [node 1          ]
+>>>
+>>> in this scenario you end up with considerable hot memory
+>>> on the remote node consolidated in time-space (everything
+>>> allocated after node0 becomes full skews heavily toward
+>>> node1)
+>>>
+>>> Tiering then likely takes many faults to rebalance after
+>>> you've already reached node0 limits.
+>>>
+>>> w/ interleave
+>>>
+>>> [node 0                                      ]
+>>>  ^^^vv^^^vv^^^vv^^^vv^^^vv^^^vv....
+>>> [node 1                                      ]
+>>>
+>>> In this scenario you do an initial fill distributed by weight
+>>> and then let tiering figure it out without consolidating all
+>>> of the pressure to the point where node0 has no space left.
+>>>
+>>> That said - this seems like mostly an initial-fill problem, after
+>>> you initially fill your memory, a new allocation largely implies
+>>> the memory is hot - and you probably prefer that to be local.
+>>
+>> If this is a initial-fill problem, can userspace set weighted interleave
+>> initially? The program or harness can observe memory usage of the program
+>> or related NUMA nodes and switch the policy to numa balancing via
+>> set_mempolicy() or mbind() without MPOL_MF_MOVE after certain threshold
+>> is met?
+>
+> You mean: use the weighted policy initially and then switch to a NUMA-balancing
+> one which doesn't involve the weights anymore?
+>
+> That makes more sense to me. Although I struggle to see why an effectively
+> "let's put random memory on slow and others at hot" is a good starting point to
+> later let if be fixed up by actual balancing/tiering.
 
-Fixes: d9e4c61a12dd ("rv: Use generic rv_this for the rv_monitor variable i=
-n
-LTL")
+Statistically speaking, unless the hot/cold page distribution follows a power-law
+distribution, random placement usually provides an average placement result.
+So it is not a bad start point.
 
->=20
-> Damn.. Thanks for noticing!
->=20
-> That's a weird one, I cannot think of a way to only declare the rv_this, =
-so
-> the
-> compiler is perfectly happy to give you the empty one..
->=20
-> I'm taking this, but I believe it deserves the Fixes tag. What do you thi=
-nk?
->=20
-> Thanks,
-> Gabriele
->=20
-> > ---
-> > =C2=A0kernel/trace/rv/monitors/wakeup/wakeup.c | 6 +++---
-> > =C2=A01 file changed, 3 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/kernel/trace/rv/monitors/wakeup/wakeup.c
-> > b/kernel/trace/rv/monitors/wakeup/wakeup.c
-> > index 01b47416f24e..2e803e79181e 100644
-> > --- a/kernel/trace/rv/monitors/wakeup/wakeup.c
-> > +++ b/kernel/trace/rv/monitors/wakeup/wakeup.c
-> > @@ -128,7 +128,7 @@ static void disable_wakeup(void)
-> > =C2=A0	ltl_monitor_destroy();
-> > =C2=A0}
-> > =C2=A0
-> > -static struct rv_monitor rv_wakeup =3D {
-> > +static struct rv_monitor rv_this =3D {
-> > =C2=A0	.name =3D "wakeup",
-> > =C2=A0	.description =3D "Monitor that real-time tasks are not woken by
-> > lower-
-> > priority tasks",
-> > =C2=A0	.enable =3D enable_wakeup,
-> > @@ -137,12 +137,12 @@ static struct rv_monitor rv_wakeup =3D {
-> > =C2=A0
-> > =C2=A0static int __init register_wakeup(void)
-> > =C2=A0{
-> > -	return rv_register_monitor(&rv_wakeup, &rv_rtapp);
-> > +	return rv_register_monitor(&rv_this, &rv_rtapp);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static void __exit unregister_wakeup(void)
-> > =C2=A0{
-> > -	rv_unregister_monitor(&rv_wakeup);
-> > +	rv_unregister_monitor(&rv_this);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0module_init(register_wakeup);
+>
+> It all sounds a bit hackish. :)
 
+
+Best Regards,
+Yan, Zi
