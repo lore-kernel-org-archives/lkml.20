@@ -1,76 +1,54 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7D93D2FF7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA0D3D2FF7
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856784; cv=none; b=iXMIAOMQWPCzGBjfSgggj7o+hzhUa17lUVZAF/4MrV/X+pQl1BzgMSMgO8h3qSFAYrnJRg4gTu0ZEkwSx0sJQfFFYDob0IwIWjh/vH+JVAzJ9WMAu+uxmfAuQP1oqkWWXBfbRpOfQONAnHR/xXSIhC2JprDPZ/wHD1WajjmFiAA=
+	t=1790856794; cv=none; b=FYcBVzDd+mF9RHvhwawySjo+eqHibEP2S1LGvi+KzGyPylzShOjpua9mReNhSFOsmpVQii7Uwql0PMbfGxr+dgA2xabgn+FMSOsvrpK+7tLuFSodWMPwUmqlGVjCBsRe2BNYWBL/qob2Mp+VwBSVUCjS0IWbn1S8mX+Kyiw3YvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856784; c=relaxed/simple;
-	bh=i+ltdcFsLIEvz4SDJhUntE5L6neNexr3VtDtFKAc6FY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ELoo9UofjU8a7IvsRf5i+jLZumr+xYutVZhxGdgnZsC/ydK9UVVJVXaLa3fX4GuD3eazGD4XbV4+CSDgvDNv3YQv6YT6nmyepgyyl/pPV7/Xz1eKa0BfZzxyOOByyG0L5DOhu7KGeJZp93LQwBW5tevNzt7X5EVDDyKkwUN76zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1yxgg32; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790856794; c=relaxed/simple;
+	bh=3AwjGRXGu8zT5eH6+ZoOQ3OcTZ/G7b/KTBaBFUCITTI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tKuZ9NAFUPcm5UUGan6x4IqNzeqj7MgWR2zJ2PbycZrCgqTU4l91yu8eYsmneLX4wB5sYr6D5Xv6HHL2wT831a8l0jxBX4lrUH6wvc2E/lF8eJdLvYq4KpjIVYuQBxPiUY3grwpgoHhQ/fdPoL55MsDmqntxvMzKz9XxPtV1cWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f3LnAXuI; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1yxgg32"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b042e00f7so897464f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:13:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790856779; x=1791461579; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HqLShQaGOCLf+7ExwT95YBelZPGkBd9T5yA0HWlhScg=;
-        b=T1yxgg32TM72VtkqOLFNIX8QPhoTPcixfuUwEknGSmPt7nx9Ay3JUeGVOcsDYIHAh/
-         yYc1G5u8fx0XO/zri6Z8mplJdfwj5VEW9ExBAdyXlnZwNlAVGjASZpZLrJEHKauQtU8v
-         s5XhqPH5KZCKmgYfumxJQkAoJJzJmiNvl/d2nP/0AgSetJT1euMo+QOZ5IZ+qcLVMcUi
-         3rj46H7ju92I9XGeWJVH/bHee2rmg/xthnHUblGlHUmS7UqNPkhmIXd1Pl5ROcqDVaLG
-         I4vJaH56BLXqykjc0N3SWKM/tTCVQh5yrOUkD5ymcvuYiNJcktoIoIgq0E36IR9xhL/j
-         iOhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790856779; x=1791461579;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HqLShQaGOCLf+7ExwT95YBelZPGkBd9T5yA0HWlhScg=;
-        b=AgAomARLA82Vjj9ph0PpCgirfXrYI0marrdjascpxCREenxXUOtDA1dIHgnPlgIUYI
-         Mb06HXDnKvauZNEgnXEIHDfmzslOKkGtmzpF6VXtbrBof/J0446chbjxJgPEHci2wrZv
-         zmy4Do3ZooNLgjwlJzNRdvaFEOoWyR6d7eJo1ANYADLlNrw+dyrNKVyKvzsGGuPdnY9p
-         DApbCpGMd73AwKx42wa29vNZDapMVHrRd/aRMtHd2Sq6ad+3K5b/qdar1tayW51j51Zz
-         HzGh5P5Csiv4kNsVhYTG+oyqXP+qP2zo6zPU+w0QSTbuBxgdL5S7Q/wmDMU9iuN1vt8N
-         VW8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxpcudCpNtpU71JtcLRpk4zq9sW7dBPjGT6jX6yZbdZNHLEj4lL6UFLzXfn6X2SffPjapF1acXTfE5u3FQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kx6Nft2lUWo/Megq8nQgs6bi0W11CqWs6dQdNkB829Dfji1gUL
-	hOyqySeTwUJuxJOT+Atdq3Yp1DwLclG3it9NNW36VxZrwenVEKOVHiX7
-X-Gm-Gg: AYBFou2oI7LmEknHS5CDDDK7LDlxByvUc+Zag90475n5qdC3jO1xoMqD1smm2y9KbYv
-	LU1TWqv0mcOHDyGN1vbXwOHG1tS1ZHY4b5zQg/Zqr+1RB+exHB7RNvmL+3QJwZ6c9nV2T48yT3W
-	05oux6lHfeo7IdG1ArhvU4LyS2ZfS04El91rdeysPbcuOPgqnVQ3U8Av+Ip9NJ6sRSCZtZLaAoJ
-	dfzjy1/87NBxKoZ6OM66iQbgD3qHZUp8sDeZPSyz+Qce8M8XRv8DdV6uD2/yixwYnEBJRNe9SJ8
-	c1afvBJh34tiXgKXbcKEBbOx7a1Z5TPQ2p9D4qTjXBWpZ25KgbQCTLmTaPnOR68bruYNa9tBkyc
-	plZk04JL+N9w/Zo5d0HV41/Ux9zv/so9TN/HLRbHAHhJgYb8/nox/KAt+oq8GPRrHf4pttlLBws
-	ZwLdxpPsLMpdLyFI8uEWmYvM0SM8QWdTXURgsOQ8yeemVbQHdRsgci/vOtBpUEo7OLbxCKTdP5W
-	8nlUvozKbSh8mqvIY7wD9h0oeoF1Dq/O7js4tRpmli+0G+jjv6AtS4/r0Rl4lbiMSx4EA52tjVe
-	3g==
-X-Received: by 2002:a05:600c:3b21:b0:4a0:1a7f:2ab7 with SMTP id 5b1f17b1804b1-4a01afe1ecemr74033985e9.10.1790856778860;
-        Thu, 01 Oct 2026 05:12:58 -0700 (PDT)
-Received: from arch ([5.22.131.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f98c4desm40574365e9.4.2026.10.01.05.12.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 05:12:58 -0700 (PDT)
-From: Aviv Vaknin <vaknins33@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
-Date: Thu,  1 Oct 2026 15:12:54 +0300
-Message-ID: <20261001121254.883973-1-vaknins33@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f3LnAXuI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790856792;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oJx64k3tpOWp6ewLW+ASrcp0fX+Z1KsGOTzisWPjMBg=;
+	b=f3LnAXuIen4stGV8XwCcJfEq9MMGcpZg9PYnrngibXK6bOnbiErJc4aQtzcG101NfRue4F
+	klWgEsc6XzqSAjL68pMZehFxzdKiBvwQSIE8lFCUskxUmRHWbcd55reuYkVQPCj/FS8VA8
+	C2hIiTFaQQcLikWj0waKmYOpVO6xhKE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-662-xA-WbZo3O5yy7uLXx2hwkQ-1; Thu,
+ 01 Oct 2026 08:13:08 -0400
+X-MC-Unique: xA-WbZo3O5yy7uLXx2hwkQ-1
+X-Mimecast-MFC-AGG-ID: xA-WbZo3O5yy7uLXx2hwkQ_1790856787
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 22788180A9A5;
+	Thu,  1 Oct 2026 12:13:07 +0000 (UTC)
+Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 733B51800299;
+	Thu,  1 Oct 2026 12:13:05 +0000 (UTC)
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	linux-kernel@vger.kernel.org
+Cc: linux-trace-kernel@vger.kernel.org,
+	Nam Cao <namcao@linutronix.de>,
+	Wen Yang <wen.yang@linux.dev>
+Subject: [GIT PULL] rv changes for v7.4 (for-next)
+Date: Thu,  1 Oct 2026 14:12:19 +0200
+Message-ID: <20261001121218.77078-2-gmonaco@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,290 +56,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-When the init of a pid namespace exits, zap_pid_ns_processes() waits
-until every other pid in the namespace has been freed. That wait has no
-upper bound: a tracer outside the namespace that doesn't reap its traced
-zombies keeps their pids allocated (see the comment above the final
-loop). While a task waits there, every suspend attempt fails:
+Steve,
 
-  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
-  task:pidns-freeze-re state:S stack:14200 pid:104   tgid:104   ppid:99     task_flags:0x40014c flags:0x00080000
-  task:pidns-freeze-re state:S stack:14160 pid:109   tgid:105   ppid:104    task_flags:0x40044c flags:0x00080802
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
 
-and keeps failing until the tracer reaps or exits, because neither wait
-can be frozen:
+  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
 
-- The first loop sleeps in kernel_wait4(). The freezer's fake signal
-  ends that wait with -ERESTARTSYS, then the loop clears TIF_SIGPENDING
-  and waits again without ever calling try_to_freeze().
+are available in the Git repository at:
 
-- The final loop sleeps in TASK_INTERRUPTIBLE without TASK_FREEZABLE.
-  Worse, nothing clears the TIF_SIGPENDING that the fake signal set, so
-  from the first suspend attempt on schedule() returns at once and the
-  task spins at 100% CPU for as long as the wait lasts.
+  git://git.kernel.org/pub/scm/linux/kernel/git/gmonaco/linux.git rv-7.4-next
 
-Neither loop has ever been freezable. The spin came with
-commit b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes"),
-which replaced TASK_UNINTERRUPTIBLE to keep such long waits from
-triggering the hung task detector.
+for you to fetch changes up to 5e9bdf2924c9041ff1520b528db6104626e9ef41:
 
-This happens in practice with Chromium-based browsers, whose renderers
-are pid namespace inits. If a renderer crashes while the browser shuts
-down, crashpad (outside the namespace) ptrace-attaches its threads to
-dump it. When the renderer is SIGKILLed mid-dump, crashpad keeps the
-dead threads as unreaped traced zombies, and it can then block in
-waitpid() on the renderer's last thread, which is itself waiting in
-zap_pid_ns_processes() for those zombies. One such renderer blocks
-suspend system-wide until crashpad is killed or the machine reboots.
-The userspace side is being reported to Chromium separately.
+  rv/rtapp/wakeup: Use "rv_this" the rv_monitor variable (2026-10-01 13:59:46 +0200)
 
-Call try_to_freeze() after kernel_wait4() in the first loop, and sleep
-in TASK_IDLE | TASK_FREEZABLE in the final loop, as coredump_task_exit()
-already does on the same exit path. Like TASK_INTERRUPTIBLE, TASK_IDLE
-keeps the hung task detector quiet and adds no load, but it is not
-woken by signals, so a pending signal can no longer turn the wait into
-a busy loop. TASK_FREEZABLE lets the freezer freeze the task in place;
-a free_pid() wakeup that arrives while it is frozen is kept in
-->saved_state and acted on at thaw.
+----------------------------------------------------------------
+rv changes for v7.4 (for-next)
 
-Tested on v7.3-rc5 in QEMU with PROVE_LOCKING, DEBUG_ATOMIC_SLEEP and
-DETECT_HUNG_TASK (10 s timeout), using a reproducer in which a tracer
-PTRACE_SEIZEs two threads of a nested pid namespace init and doesn't
-reap them (it works unprivileged too, from a user namespace), and using
-the real browser and crashpad trigger:
+Summary of changes:
 
-- before: freezing fails after 20 s, and afterwards the final loop
-  spins (500 ticks of system time per 5 s).
-- after: freezing completes in 0.001 s, the waiting task sits in state
-  I without using CPU, no hung task or lockdep report appears over
-  30-45 s, and the task exits as soon as the zombies are reaped.
+- Improve lockdep annotation for reactors
 
-Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
-Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
-Cc: stable@vger.kernel.org # 6.1+
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
----
-Based on vfs kernel-7.4.signal (also in next-20260930), on top of
-5c0985dd3c32 ("pid_namespace: prevent TIF_NOTIFY_SIGNAL from
-interrupting the reaper"). That commit keeps TIF_NOTIFY_SIGNAL from
-waking the reaper; this one is about the freezer, whose fake signal
-sets TIF_SIGPENDING, which the guard doesn't cover. Retested on this
-base with the reproducer below (same debug config): freezing completes
-in 0.000 s, no spin, no warnings. A version for v7.3-rc5 is available
-if wanted.
+  Reactors are not supposed to take locks, so they fit the LD_WAIT_FREE
+  lockdep class. However, reactors may run in preemptible context and
+  if the preempting code (tick or simply the scheduler) takes locks, we
+  see a lockdep splat. Switch to LD_WAIT_SPIN to avoid the splat while
+  documenting that reactors should still not take locks.
 
-Reproducer (run as root in a VM, then follow its instructions):
+- Add KUnit tests for reactors
 
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * pidns-freeze-repro: a task waiting in zap_pid_ns_processes() blocks suspend.
-   *
-   *   main (tracer, root pid ns)
-   *    `- A: pid 1 of pid ns A, single-threaded
-   *       `- B: pid 1 of nested pid ns B, multithreaded
-   *
-   * main PTRACE_SEIZEs non-leader threads of B, then A exits.  zap(A) kills B;
-   * the seized threads stay traced zombies until main reaps them, keeping ns B's
-   * pids allocated.  B's last thread waits in zap's final loop, A in zap's first
-   * loop (kernel_wait4() for B).  While "stuck" is shown, run as root:
-   *   echo freezer > /sys/power/pm_test; echo mem > /sys/power/state
-   * Unpatched, freezing fails after 20 s ("2 tasks refusing to freeze") and B's
-   * thread then busy-loops in zap.  At the end main reaps, ending the hang.
-   *
-   * Build: gcc -O2 -Wall -pthread -o pidns-freeze-repro pidns-freeze-repro.c
-   * Usage: ./pidns-freeze-repro [hold_seconds]  (root, in a VM; default: Enter)
-   * With -DUSERNS, A also gets a new user ns, so no privilege is needed.
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <pthread.h>
-  #include <sched.h>
-  #include <signal.h>
-  #include <stdarg.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <sys/ptrace.h>
-  #include <sys/wait.h>
-  #include <unistd.h>
+  Add KUnit test cases to validate registration and reaction, this
+  requires exporting some symbols and other minor fixes.
 
-  #ifdef USERNS
-  #define NS_FLAGS (CLONE_NEWUSER | CLONE_NEWPID)
-  #else
-  #define NS_FLAGS CLONE_NEWPID
-  #endif
-  #define NTHREADS 4	/* B's threads besides its leader */
-  #define NSEIZE   2	/* how many of them main seizes */
+- Use the right rv_this variable in the wakeup monitor
 
-  static int ready[2], go[2];	/* B -> main: threads are up; main -> A: exit */
-  static char stack_a[256 << 10], stack_b[256 << 10];
+  LTL monitors were updated to use the generic rv_this static variable
+  but this change wasn't propagated to the newly introduced wakeup
+  monitor. This broke reactors for the monitor: update the it.
 
-  static void *idle_thread(void *arg) { for (;;) pause(); return arg; }
+----------------------------------------------------------------
+Nam Cao (1):
+      rv/rtapp/wakeup: Use "rv_this" the rv_monitor variable
 
-  static int init_b(void *arg)		/* pid 1 of ns B */
-  {
-  	pthread_t t;
+Wen Yang (4):
+      rv: Use LD_WAIT_SPIN as the reactor lockdep wait type
+      rv: Propagate rv_register_reactor() error from reactor init
+      rv: Export rv_register_reactor() and rv_unregister_reactor()
+      rv: Add KUnit tests for reactor registration and dispatch
 
-  	for (int i = 0; i < NTHREADS; i++)
-  		pthread_create(&t, NULL, idle_thread, arg);
-  	if (write(ready[1], "r", 1) != 1)
-  		_exit(1);
-  	for (;;) pause();
-  }
+ kernel/trace/rv/Kconfig                  |  12 ++++
+ kernel/trace/rv/Makefile                 |   1 +
+ kernel/trace/rv/monitors/wakeup/wakeup.c |   6 +-
+ kernel/trace/rv/reactor_panic.c          |   3 +-
+ kernel/trace/rv/reactor_printk.c         |   3 +-
+ kernel/trace/rv/rv_reactors.c            |  12 +++-
+ kernel/trace/rv/rv_reactors_kunit.c      | 111 +++++++++++++++++++++++++++++++
+ 7 files changed, 140 insertions(+), 8 deletions(-)
+ create mode 100644 kernel/trace/rv/rv_reactors_kunit.c
 
-  static int init_a(void *arg)		/* pid 1 of ns A */
-  {
-  	close(go[1]);			/* only main may hold the write end */
-  	if (clone(init_b, stack_b + sizeof(stack_b), CLONE_NEWPID | SIGCHLD, arg) < 0)
-  		_exit(1);
-  	while (read(go[0], &arg, 1) > 0)	/* EOF: main has seized */
-  		;
-  	_exit(0);			/* -> zap_pid_ns_processes(A) */
-  }
-
-  /* Read a small /proc file into buf ("" if it is gone). */
-  static char *slurp(char *buf, size_t len, const char *fmt, ...)
-  {
-  	char path[300];
-  	va_list ap;
-  	FILE *f;
-
-  	va_start(ap, fmt);
-  	vsnprintf(path, sizeof(path), fmt, ap);
-  	va_end(ap);
-  	buf[0] = 0;
-  	if ((f = fopen(path, "r"))) {
-  		buf[fread(buf, 1, len - 1, f)] = 0;
-  		fclose(f);
-  	}
-  	return buf;
-  }
-
-  /* Global pid of A's child B: the process whose PPid is A. */
-  static pid_t child_of(pid_t parent)
-  {
-  	DIR *d = opendir("/proc");
-  	struct dirent *e;
-  	char buf[512], *p;
-  	int ppid;
-
-  	while (d && (e = readdir(d))) {
-  		p = strrchr(slurp(buf, sizeof(buf), "/proc/%s/stat", e->d_name), ')');
-  		if (p && sscanf(p + 2, "%*c %d", &ppid) == 1 && ppid == parent)
-  			return atoi(e->d_name);	/* (leaks d; fine here) */
-  	}
-  	return -1;
-  }
-
-  /* Print a task's state and wchan; return whether it is exiting (PF_EXITING). */
-  static int show(const char *what, pid_t pid, pid_t tid)
-  {
-  	char st[512], wchan[64], *p, c = '?';
-  	unsigned int flags = 0;
-
-  	p = strrchr(slurp(st, sizeof(st), "/proc/%d/task/%d/stat", pid, tid), ')');
-  	if (p)
-  		sscanf(p + 2, "%c %*d %*d %*d %*d %*d %u", &c, &flags);
-  	slurp(wchan, sizeof(wchan), "/proc/%d/task/%d/wchan", pid, tid);
-  	printf("  %s tid %d: state %c, flags %#x, wchan %s\n", what, tid, c, flags, wchan);
-  	return flags & 0x4;
-  }
-
-  int main(int argc, char **argv)
-  {
-  	pid_t a, b, tid, seized[NSEIZE];
-  	int n = 0, status;
-  	struct dirent *e;
-  	char buf[64];
-  	DIR *d;
-
-  	if (pipe(ready) || pipe(go))
-  		return perror("pipe"), 1;
-  	if ((a = clone(init_a, stack_a + sizeof(stack_a), NS_FLAGS | SIGCHLD, NULL)) < 0)
-  		return perror("clone (run as root)"), 1;
-  	if (read(ready[0], buf, 1) != 1 || (b = child_of(a)) < 0)
-  		return fprintf(stderr, "setup failed\n"), 1;
-
-  	/* From outside both namespaces, seize non-leader threads of B. */
-  	snprintf(buf, sizeof(buf), "/proc/%d/task", b);
-  	for (d = opendir(buf); d && (e = readdir(d)) && n < NSEIZE; )
-  		if ((tid = atoi(e->d_name)) > 0 && tid != b && !ptrace(PTRACE_SEIZE, tid, 0, 0))
-  			seized[n++] = tid;
-  	printf("A=%d B=%d: seized %d threads of B\n", a, b, n);
-
-  	close(go[1]);				/* A exits now */
-  	sleep(2);
-  	if (!n || waitpid(a, &status, WNOHANG) != 0 || !show("A", a, a))
-  		return printf("not reproduced\n"), 1;
-  	for (rewinddir(d); (e = readdir(d)); )
-  		if ((tid = atoi(e->d_name)) > 0)
-  			show("B", b, tid);
-  	printf("stuck: A and B can't finish exiting until main reaps its %d traced threads\n", n);
-  	printf("now run: echo freezer > /sys/power/pm_test; echo mem > /sys/power/state\n");
-  	fflush(stdout);
-  	if (argc > 1)
-  		sleep(atoi(argv[1]));
-  	else
-  		getchar();
-
-  	/* Reap the traced zombies: ns B empties, then B and A finish exiting. */
-  	for (int i = 0, left = n; left && i < 500; i++, usleep(10000))
-  		for (int k = 0; k < n; k++)
-  			if (seized[k] && waitpid(seized[k], &status, __WALL | WNOHANG) == seized[k])
-  				seized[k] = 0, left--;
-  	for (int i = 0; i < 500; i++, usleep(10000))
-  		if (waitpid(a, &status, WNOHANG) == a)
-  			return printf("reaped the zombies: hang resolved\n"), 0;
-  	printf("still stuck after reaping\n");
-  	return 2;
-  }
-
- kernel/pid_namespace.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
-index 8bc9edb40..abdc05462 100644
---- a/kernel/pid_namespace.c
-+++ b/kernel/pid_namespace.c
-@@ -23,6 +23,7 @@
- #include <linux/sched/task.h>
- #include <linux/sched/signal.h>
- #include <linux/idr.h>
-+#include <linux/freezer.h>
- #include <linux/nstree.h>
- #include <uapi/linux/wait.h>
- #include "pid_sysctl.h"
-@@ -243,6 +244,11 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
- 	do {
- 		clear_thread_flag(TIF_SIGPENDING);
- 		rc = kernel_wait4(-1, NULL, __WALL, NULL);
-+		/*
-+		 * The freezer's fake signal ends the wait with -ERESTARTSYS;
-+		 * freeze here, or one stuck pid namespace blocks suspend.
-+		 */
-+		try_to_freeze();
- 	} while (rc != -ECHILD);
- 
- 	/*
-@@ -269,7 +275,13 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
- 	 * free_pid() will awaken this task.
- 	 */
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		/*
-+		 * TASK_IDLE: no hung task warning or load for a wait that can
-+		 * last as long as a tracer keeps a zombie, and a pending signal
-+		 * (e.g. the freezer's fake one) can't turn it into a busy loop.
-+		 * TASK_FREEZABLE: let the freezer freeze us while we wait.
-+		 */
-+		set_current_state(TASK_IDLE | TASK_FREEZABLE);
- 		if (pid_ns->pid_allocated == init_pids)
- 			break;
- 		schedule();
-
-base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
--- 
-2.55.0
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Nam Cao <namcao@linutronix.de>
+Cc: Wen Yang <wen.yang@linux.dev>
 
