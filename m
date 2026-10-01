@@ -1,85 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FF64D4882;
-	Thu,  1 Oct 2026 09:29:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D797D3EBF18;
+	Thu,  1 Oct 2026 09:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846988; cv=none; b=CYrYgrepHrJG8N2WQ2/Bnyusvg8c599ttsxLfNObwOlCFaBq0M8BMEMJcm6CluHuljtB8IGWR713OFSXVQ0hIUuOhfp3XzBFQjotkILtsqYRSxCAQiY80pVA+sc0EarHY9PrNUXq+8zSo4Lpt0krHG7d9hXn8ugXFjxoE9Dj45g=
+	t=1790847009; cv=none; b=p8nh0Mo/xEO36Liqd+VmVM4OdloqxqP4ZXtmVerg6PzXCPP3vBtHkO0Or+43zqlHvs++bO6xup3r5cJ2e2rq6t++3ZwDS2ENLpXx39BseDH6628qgAxfRj59epLQH10kWy/0LPl4H8R7jfpAcdFPCtiPs8YwOnBW//+OXdFudys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846988; c=relaxed/simple;
-	bh=t/FRGhrqgQAOhkutZ2HIcjirUgjtyqV8JphA/SoHTgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C44ydA6yq7vWsDQmp1zbrTLkziclWMia9nYnbBb9QIx8l/MS+WWO++UoMjthjxJdkUm/7iIm2N3lSM/HHskIpvxxywAnKQZj2DhZGwDp6nChmgINjIQvqrlxAfxFd1kCCXCEuTadsECz5kYsMf3eHPCoCyx8SQBcSIN06VgGyQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BPDvimf5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790847009; c=relaxed/simple;
+	bh=tKFmQz/0PIHFJJ3Fy23nm8bb/L6AaRvo4oQWJ+Syu8s=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=sv5oDp9FKZz2wHrRvwu1kzu6EFKuY4jSJf4OCb4J3ikRb4U9o1LtevEErlhA7I85221cah4MyEGCv6Vwjbl66N7/fGlMZUBM4/qn0Alr/zqVXFl++TsNlXvzQEJoYHJYg6PSE1wBB7E/PgvCYOeXvSdI/U7fqv3fx5EDuxvQJQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=beL2mUp3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BPDvimf5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93ADD1F000FF;
-	Thu,  1 Oct 2026 09:29:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790846986;
-	bh=IHdCB7UXS+RjN6aYKAYsbpA0C9+cu8S0I234OeLJvaM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BPDvimf5e1+t9uXhg0qpt22uzk5cSA0w836eEpPdkePA2vHndtFRSA7tXfcT1qwOc
-	 jVrmOQSjlptmgWgwvm6DtIXLtAc4lZ0N2o9Sl8I+2Eeh/mIE7PJn+LrzD7ZVM1N5nc
-	 Vv14TXGY25dCyRBNfw+HcQa/Ad1TAwvt0QDzH6DI=
-Date: Thu, 1 Oct 2026 11:29:39 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Dan Carpenter <error27@gmail.com>
-Subject: Re: [PATCH] staging: rtl8723bs: make rtw_register_tx_alive() return
- bool
-Message-ID: <2026100113-donation-filling-5562@gregkh>
-References: <20260926111125.5036-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="beL2mUp3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828801F000FF;
+	Thu,  1 Oct 2026 09:30:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790847007;
+	bh=BASQsGTAf4/JG9/5xVbsFJZDHdyR3Pn4iHMnd9rEmIs=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=beL2mUp3MEQ2SzIRzIxpVDe+gwf84TxZZF2/q4ZJhsXxRStFUo2sf00kxm14aW2fc
+	 wCLoPiLmoFP5ul0zQ4PWi6YF9J8NJC2JAfCh+QxnMqlbCB4+eSReVi10xn7OKz/WyW
+	 B00rKffEBAU0s2rSxqB94G6cYdsZsg8z2m/PUz/ttzrKerG2k9+aekBCUkzuddBDJq
+	 HiL/lpfti1LjKXNPSE8vkvgBlThE+JMgpi/cZ4Z2G/MTET03dlKD7/bdoMHF8wmaNs
+	 SeSOiDf/CT92Hj58gMn1aP46I16SVziqckkAaXAsZHIZvYpxuDaIYFThx9tyASoWY7
+	 bud/bWcOg3fxg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773E1380DBD7;
+	Thu,  1 Oct 2026 09:30:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926111125.5036-1-dennylin0707@gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2 0/2] net: axienet: allow instantiation without
+ a
+ device tree
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179084700627.2358019.13742661894584329814.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Oct 2026 09:30:06 +0000
+References: <20260928074256.462345-1-maimon.sagi@gmail.com>
+In-Reply-To: <20260928074256.462345-1-maimon.sagi@gmail.com>
+To: Sagi Maimon <maimon.sagi@gmail.com>
+Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com, michal.simek@amd.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
+ vadim.fedorenko@linux.dev, richardcochran@gmail.com
 
-On Sat, Sep 26, 2026 at 11:11:25AM +0000, Hungyu Lin wrote:
-> rtw_register_tx_alive() only reports whether the transmit path can
-> continue, and its only caller treats the return value as a boolean.
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Mon, 28 Sep 2026 10:42:54 +0300 you wrote:
+> The ADVA TimeCard X2 is a PCIe timing card driven by ptp_ocp.  Its FPGA
+> contains an AXI Ethernet MAC with an AXI DMA engine.  The plan discussed
+> on netdev [1] is for ptp_ocp to register the MAC as a child platform
+> device described by a software node, so that this driver runs it rather
+> than a copy in ptp_ocp; Vadim Fedorenko agreed that a platform device is
+> the way to go.
 > 
-> Change the return type to bool and replace _SUCCESS and _FAIL with true
-> and false. Update the caller accordingly.
-> 
-> No functional change.
-> 
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  drivers/staging/rtl8723bs/core/rtw_pwrctrl.c    | 12 ++++++------
->  drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c  |  4 +---
->  drivers/staging/rtl8723bs/include/rtw_pwrctrl.h |  2 +-
->  3 files changed, 8 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-> index 448611ad8237..007ead477a51 100644
-> --- a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-> +++ b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-> @@ -771,13 +771,13 @@ void rtw_unregister_task_alive(struct adapter *padapter, u32 task)
->   * _SUCCESS	rtw_xmit_thread can write fifo/txcmd afterwards.
->   * _FAIL		rtw_xmit_thread can not do anything.
->   */
-> -s32 rtw_register_tx_alive(struct adapter *padapter)
-> +bool rtw_register_tx_alive(struct adapter *padapter)
+> [...]
 
-This is kind of the wrong way to do this as the caller of this function:
+Here is the summary with links:
+  - [net-next,v2,1/2] net: axienet: use device_property and fwnode APIs for probe-time config
+    https://git.kernel.org/netdev/net-next/c/f5185ec79dac
+  - [net-next,v2,2/2] net: axienet: add a MODULE_ALIAS for platform instantiation
+    https://git.kernel.org/netdev/net-next/c/418149559ef3
 
-> -	ret = rtw_register_tx_alive(padapter);
-> -	if (ret != _SUCCESS) {
-> +	if (!rtw_register_tx_alive(padapter))
->  		return _SUCCESS;
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Is now in the "opposite" format for kernel functions, right?
 
-Why not fall back to the normal 0 and -ERROR instead?
-
-thanks,
-
-greg k-h
