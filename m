@@ -1,140 +1,192 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FF53B6359
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C03B42E8F4;
+	Thu,  1 Oct 2026 14:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865987; cv=none; b=sQbfrCO2QnNAWyedmXGdXvFAYWboql+Mbx22OmjT2NfyhnrmJmFz/WyPXSHauRGSaP4ttHak2XNXGJmsBs2pzwNX76STKpi+rOng3Oin+cbjCa06hPv8XGp8UjFI+IquDutrvd/8pesbxONp3yh3aoQJdldSP2w8L6zM2J6dw6k=
+	t=1790866017; cv=none; b=GUPTGQSmIF3t0XawtMmF1zBuSjiI2cuwLv9eeWqgqKQ1MDI7x82L0qbBNCIgekM/aeHoDTshAu2kHhAhROiezd2JCdgWW6uDgyOWV5PRhJAvz6inOQ8ShsiewAKZ3miRR25hWE8VHgcvMfqMtAb/gIthz2Kcvl4XmY5wPtnIxWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865987; c=relaxed/simple;
-	bh=y592cWDD7sh9JPJn4KeHW+g6gg94dBAe9nlpopS5a+I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WXXo5vq13jn1eJiimNsk+jEzSawcv0fcsAATkcd6hUskNm8hTC3i4n5I/b/6OF+kVoEF1tOHiOMp9+MZhcQNHSRbbG7bqDMODsunf2KedCcg15VwFsZpaBCN6LzKgrX1CUDLGEsNt78vpeDZV20Ds+pRc6ln++7iw94O6V28sWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bnu0cgts; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PCYnnmso; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790866017; c=relaxed/simple;
+	bh=GhVWk4SPao9B105HUeFe+fyef8iI9rmX37XSkTrAels=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=m9iSZMgjJmaASelADtDWx6nmdikG76EMI+30HgobZU52nx/hwjvj0GrQc/fe4EVwZQnBR+xSUk7NGWx1I9QPlp4/PiFXKIaiLxwVFBoBW2473AQFIjj/TmqYQkutfzxvngh8YoJcsmq1QTOeAYLqYYflqrwJk2na3zNn3bAopDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fl2Dr44C; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bnu0cgts";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PCYnnmso"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790865984;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CuGmcOB5B7OU7vPcQ5Kxs9sP8F6GWHF+e8A0rz6DPVU=;
-	b=bnu0cgtsDC7TTD+g9P2qdakhJ4ghf9AvIsR9zUYcPjpjlwY2dDe0IKvPlsR5FUZhmJ63hv
-	DnN8QkTzQSCNKun2TwM0RzXrbKx+rwLmDAWpM61ah0Ycp5UdIHfHsRZ9UkSOsjVebobEQo
-	2D+cBp6+Ec2871uYcMyi0tfZOeuzeqA=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-82-0I50kHhqP_uRymPOdy12jQ-1; Thu, 01 Oct 2026 10:46:23 -0400
-X-MC-Unique: 0I50kHhqP_uRymPOdy12jQ-1
-X-Mimecast-MFC-AGG-ID: 0I50kHhqP_uRymPOdy12jQ_1790865982
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a021b1b561so5886425e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:46:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790865982; x=1791470782; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CuGmcOB5B7OU7vPcQ5Kxs9sP8F6GWHF+e8A0rz6DPVU=;
-        b=PCYnnmsorPg98wW5Ez+Yfoh0MV/iI2II7jqSlJSQSfSLUWwlHDvOlyVgJdSdWzh1CL
-         6kAAPyyXbT5gvpRHF5LoTDnKdVYbhYCHFPng4pH6rhfo6cHtw/oAX0m/WMwUiiI+3Fw+
-         ZUZnS5nu1CbsQsmyyq+BWisgfqzDLEWen5IS3YVJwCUnahgTj45Gp9o+aBgTg26r4Iki
-         eqkQMNQT9lCCbIo/dy7jl01RtAZ4L0ZtTCfvbUm6b+LvVPBas7QHPALsW2PgqxgwhQu7
-         fYOEKMiPrYrdAnjrhQukVCU7MEBq1V5vc4HDLnFPHETmiDheXdmINYXcB32+7P9v+FIJ
-         UkYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790865982; x=1791470782;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CuGmcOB5B7OU7vPcQ5Kxs9sP8F6GWHF+e8A0rz6DPVU=;
-        b=0Y0aZmXlh1eBzl3lZDg33jcVB86JUjtV22Q7ByUT8N7tR32vmJfUCtSkQXEnZVGWJF
-         lrIqylpIYOwFLPmlu4I6ca8WrIOOYRw3fFPYoPyyUzeD1o8PCCw+B0X0KCD3SsvAB3RA
-         0Aw8QPc96Cvr3N2IiYc1nOxTdEAWvIhfTFw8y07T+HQNqAfMish3p01VD0Fr5w383x7Q
-         KClvTIDwq2H6NZfKgELrs2MlVt94TSL50CGGAsy2+zjyFqfQyN4jAZ5btPF56C0n4cTF
-         y5nobKlok+fifcs7d5Ril6xmqz4bvwvBHf5uLeByYsc1z37OUnJfJfZm07R6a/x6suuQ
-         8P0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwCz4bh1E4afaByHAimYH/J6K+0lBucQghIsrAhohXNW2OPhUWOKO+kIH1UZ9/z8RGQ30p3t/ynzP8T83U=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+d3Xty6vaSE+0MHdXo6pGLqOhYGkc3XUzJyiEX1h5R686VGpU
-	ukWTjxsXsTmlDBxpdq+N4tl1g4SPcgVbzjUaLfoCbSQEkzTEBTa5IBD7OnTfITm9PDhovLD5dPI
-	Or8ARZHM8zOJuDHjHdQ3ye8GcqpxltX+i2VvXWkrvMwAuY74kOfe4lV3upovAe6XknQ==
-X-Gm-Gg: AYBFou3/HQO7++2I5lCy9OD2qNqRw1VYB5seHhG7AccT/a/Otk1SSvMo7KrgMAtIYOa
-	bYEqvuwNZALgqPzERBkZh5c2nYgacLEBi1bjhe6JyFVgVtjpcnTRxsdQ91h3wL+xbGpouUUW96i
-	C/LZojRMqlBcMd8qJlTV3VCD+gXFzw6SapTi7/JtkAQknj1EAn7wCXhsnzJTsGIh9Cx8odO+gFu
-	i+BDZ5tQ0rK8tR/OB5/k14ThCcp4dQePmOWA7eE+AUEPyxN9ghAlgRV8e/izCyNgDE2e7+RGxyD
-	sWCbEAKXVydFSXE5Ib+boRwqIeXMmnXQEBWQz5OYN5+SX9bYTrXRNdxov8QCG9WJDubNfwsP68I
-	zNIl07exbOXRyl5L4CgJqyzpP5IqKgxlP/SyM7Xi1XZNa4z+Pyr5WrWCjrf0sLwq4cw==
-X-Received: by 2002:a05:600c:4e41:b0:4a0:c01:1902 with SMTP id 5b1f17b1804b1-4a01ad9e5d2mr78126255e9.2.1790865981679;
-        Thu, 01 Oct 2026 07:46:21 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e41:b0:4a0:c01:1902 with SMTP id 5b1f17b1804b1-4a01ad9e5d2mr78125495e9.2.1790865981098;
-        Thu, 01 Oct 2026 07:46:21 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0226201aasm59955425e9.6.2026.10.01.07.46.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:46:20 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, decui@microsoft.com, longli@microsoft.com,
- ssengar@linux.microsoft.com, andy@kernel.org, gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 2/2] drm/kms-helper: Remove struct
- drm_simple_display_pipe and helpers
-In-Reply-To: <20261001133736.802604-3-tzimmermann@suse.de>
-References: <20261001133736.802604-1-tzimmermann@suse.de>
- <20261001133736.802604-3-tzimmermann@suse.de>
-Date: Thu, 01 Oct 2026 16:46:19 +0200
-Message-ID: <xlv1jyo1fphg.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fl2Dr44C"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0A047497;
+	Thu,  1 Oct 2026 07:46:52 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8965A3F85F;
+	Thu,  1 Oct 2026 07:46:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790866015; bh=GhVWk4SPao9B105HUeFe+fyef8iI9rmX37XSkTrAels=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=fl2Dr44CtoIET7Uf1dd2ORhUSUA5Ozi3uDyE+KzyOlexv+rqgzKHrF83+jDV670WB
+	 HzjfeEL7cAW+GR2EySj6VzEX/5rA0MWNvThg8q4BxSEsovEeV1MSjEcdQeZCJbaKCg
+	 HJpqBoxhtEmdjcBnSV6ANmIugXCk6CgaMhQUIzrI=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	David Matlack <dmatlack@google.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Josh Hilke <jrhilke@google.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Wu Fei <wu.fei9@sanechips.com.cn>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/3] KVM: selftests: Check dirty-ring size before enabling
+Date: Thu,  1 Oct 2026 15:46:51 +0100
+Message-ID: <ar5yW30S75THCfdV@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ar1xne00AHnJ-p_d@google.com>
+References: <20260929113711.2064390-1-leo.bras@arm.com> <20260929113711.2064390-3-leo.bras@arm.com> <ar1xne00AHnJ-p_d@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+On Wed, Sep 30, 2026 at 01:31:25PM -0700, Sean Christopherson wrote:
+> On Tue, Sep 29, 2026, Leonardo Bras wrote:
+> > As of today, trying to enable dirty-ring with a size bigger than the
+> > maximum will return an "argument list too long" error.
+> > 
+> > Change vm_enable_dirty_ring() to get the maximum size, then compare it to
+> > the desired size before enabling. If the value is invalid, print a more
+> > precise error message.
+> > 
+> > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > ---
+> >  tools/testing/selftests/kvm/lib/kvm_util.c | 21 +++++++++++++++++----
+> >  1 file changed, 17 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+> > index 9ddc047d5c27..15a671b71553 100644
+> > --- a/tools/testing/selftests/kvm/lib/kvm_util.c
+> > +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+> > @@ -168,24 +168,37 @@ unsigned int kvm_check_cap(long cap)
+> >  	ret = __kvm_ioctl(kvm_fd, KVM_CHECK_EXTENSION, (void *)cap);
+> >  	TEST_ASSERT(ret >= 0, KVM_IOCTL_ERROR(KVM_CHECK_EXTENSION, ret));
+> >  
+> >  	kvm_free_fd(kvm_fd);
+> >  
+> >  	return (unsigned int)ret;
+> >  }
+> >  
+> >  void vm_enable_dirty_ring(struct kvm_vm *vm, u32 ring_size)
+> >  {
+> > -	if (vm_check_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL))
+> > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL, ring_size);
+> > -	else
+> > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING, ring_size);
+> > +	long cap = KVM_CAP_DIRTY_LOG_RING_ACQ_REL;
+> > +	int max_size = vm_check_cap(vm, cap);
+> > +
+> > +	if (!max_size) {
+> > +		cap = KVM_CAP_DIRTY_LOG_RING;
+> > +		max_size = vm_check_cap(vm, cap);
+> > +	}
+> > +
+> > +	TEST_ASSERT(max_size > 0,
+> 
+> Rather than open code this, which is kinda sorta going to show up in multiple
+> places, what if we do this as a prep patch?  Then vm_enable_dirty_ring() can use
+> kvm_get_dirty_ring_cap() (completely untested).
 
-Hello Thomas,
+Sure, if you think it's useful :)
 
-> There are no drivers using struct drm_simple_display_pipe. Remove
-> the data type and all related helpers.
->
-> The idea behind struct drm_simple_display_pipe was to provide an
-> easier way for writing DRM drivers besides regular atomic helpers.
-> It turned out to be more complicated. With all drivers being updated
-> to use atomic helpers, it's time to remove simple-pipe. Also clean
-> up the related TODO items.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  Documentation/gpu/todo.rst              |  17 --
->  drivers/gpu/drm/drm_gem_atomic_helper.c |  92 -------
->  drivers/gpu/drm/drm_simple_kms_helper.c | 328 ------------------------
->  drivers/staging/fbtft/TODO              |   6 +-
->  include/drm/drm_gem_atomic_helper.h     |  28 --
->  include/drm/drm_simple_kms_helper.h     |  56 +---
+> 
+> diff --git a/tools/testing/selftests/kvm/dirty_log_test.c b/tools/testing/selftests/kvm/dirty_log_test.c
+> index af5eb0334a74..558a71d631da 100644
+> --- a/tools/testing/selftests/kvm/dirty_log_test.c
+> +++ b/tools/testing/selftests/kvm/dirty_log_test.c
+> @@ -291,8 +291,7 @@ static void default_after_vcpu_run(struct kvm_vcpu *vcpu)
+>  
+>  static bool dirty_ring_supported(void)
+>  {
+> -	return (kvm_has_cap(KVM_CAP_DIRTY_LOG_RING) ||
+> -		kvm_has_cap(KVM_CAP_DIRTY_LOG_RING_ACQ_REL));
+> +	return kvm_get_dirty_ring_cap();
+>  }
+>  
+>  static void dirty_ring_create_vm_done(struct kvm_vm *vm)
+> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+> index e3b122719262..c08d1581221e 100644
+> --- a/tools/testing/selftests/kvm/include/kvm_util.h
+> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
+> @@ -339,6 +339,17 @@ static inline bool kvm_has_cap(long cap)
+>  	return kvm_check_cap(cap);
+>  }
+>  
+> +static inline long kvm_get_dirty_ring_cap(void)
+> +{
+> +	if (kvm_has_cap(KVM_CAP_DIRTY_LOG_RING_ACQ_REL))
+> +		return KVM_CAP_DIRTY_LOG_RING_ACQ_REL;
+> +
+> +	if (kvm_has_cap(KVM_CAP_DIRTY_LOG_RING))
+> +		return KVM_CAP_DIRTY_LOG_RING;
+> +
+> +	return 0;	
+> +}
+> +
+>  /*
+>   * Use the "inner", double-underscore macro when reporting errors from within
+>   * other macros so that the name of ioctl() and not its literal numeric value
+> 
+> 
+> > "Dirty-ring not supported in this kernel\n");
+> 
+> "this kernel" could be misleading, some architectures simply don't support the
+> dirty ring.
 
-There are no more users of struct drm_simple_display_pipe but still some
-drivers include the drm_simple_kms_helper.h header. Latest drm-misc-next: 
+So, do you suggest keeping it simple by printing "Dirty-ring not supported"?
 
-git grep "drm_simple_kms_helper.h" -- drivers/gpu/drm/*/ | wc -l
-21
 
-So it seems you need more  preparatory patches. For this patch though:
+> 
+> > +	TEST_ASSERT(ring_size <= max_size && is_power_of_2(ring_size) &&
+> > +		    ring_size >= getpagesize(),
+> > +		    "Invalid dirty-ring size: Should be a power of two "
+> > +		    "between %lu and %lu entries\n",
+> 
+> Don't wrap strings.  The "Invalid dirty-ring size:" part is redudant with the
+> expressions, just drop that to shorten things.  This should also spit out the
+> requested ring_size.  Stating the range as a number of entries is also confusing;
+> as a debugger, I don't want to have to go look at the size of kvm_dirty_gfn to
+> understand why ring_size is invalid.
+> 
+> And maybe split up the asserts?  If the goal is to make it easier for developers
+> to know when they messed up, might as well make it as easy as possible.  E.g.
+> leaning on the above diff, something like this?
+> 
+> 	long cap = kvm_get_dirty_ring_cap();
+> 
+> 	TEST_ASSERT(cap, "Dirty-ring not supported");
+> 
+> 	TEST_ASSERT(is_power_of_2(ring_size),
+> 		    "Dirty-ring size '0x%x' must be a power-of-2", ring_size);
+> 	TEST_ASSERT(ring_size >= getpagesize(),
+> 		    "Dirty-ring size '0x%x' must be at least one (host) page", ring_size);
+> 	TEST_ASSERT(ring_size >= vm_check_cap(vm, cap),
+> 		    "Dirty-ring size '0x%x' is larger than KVM's limit of '0x%x'",
+> 		    ring_size, vm_check_cap(vm, cap));
+> 
+> 	vm_enable_cap(vm, cap, ring_size);
+> 	vm->dirty_ring_size = ring_size;
+> 
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Humm, I see the point. 
+Will do as suggested then, thanks!
 
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Leo
