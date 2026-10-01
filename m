@@ -1,82 +1,96 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D200548F02B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440F04A0EF0;
+	Thu,  1 Oct 2026 07:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841453; cv=none; b=EElQcE07YhKoViDVsDQshXKt+RAvjPxfkH9QhoekY0VViOErHEHtU9UvKF64V7Tyt+bUXmPdDUy83Sti0sf7Xci923f9c41/oUNMlrXfCKn9pnoFkS0938UeYbdPKwkeldM57Px3BYGY7OKBTI0aOEFfaEYobOqM6orHJWFZZzU=
+	t=1790841479; cv=none; b=Oq8gYhQ1m1ItEG7keF+/4jRYW/UEdTDSV1RzzxbbxIbMp6DEkfw6hslAaOHlBbTitcUVjRUyhN67hQ7BnimdkRv+Z4eiA2Atif/VyAqdGJJWw3X9Fwbmf5gJLiqurK4WL3Q+x8kyvwUCu+Bidf73jsy3NnZn++PAu63L8PuoKLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841453; c=relaxed/simple;
-	bh=q9gtPF2hDL/OuVu1BG1f1pT6Sj8g4QIlRciGT765Wmw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=LIPy/135zlP5D2wfmEhWR9E8NKSAyqW1H6hW3KjqYAASwq1qBlui/ApoJG0lwvMdW0If1vjv/EEHqJjEq21NOqxxEyUQvN7ffx4nF3me1x00kAMX7rIGO/EXecoS0pdZT1co6xdSyRvE/+9L4Y8rAyGI3dre4aJSYsrzcUAcFNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xhGFSjFe; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790841479; c=relaxed/simple;
+	bh=ly+BWC52sF/OYFXfYj6BaYppy1ieR0G9wlserb6IaFA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XMpCi774NVL8fKQIN3kgGu8Tijtt+Pq7FGTIZdrrlNts2U46Af+HWmZJtgFFN46KIB1UChZSvSpxL7V5aE59ZWRYUZuFl6ym/3wqoCBOiLGgi7jarRIHfRkrUId+vqhS/jvYYiXcMFIyJ2fpeg8mZltHUKdUbvB2EG6X6RcMkCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=a2XN6vES; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fIWTvi4k; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xhGFSjFe"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id EDA9E4E410EC;
-	Thu,  1 Oct 2026 07:57:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B57E660346;
-	Thu,  1 Oct 2026 07:57:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C4CB81032989B;
-	Thu,  1 Oct 2026 09:57:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790841447; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ea1fbe+c1Bj2VsRfvIM5hRTESNst+GdPGcpUsHtDn1s=;
-	b=xhGFSjFeLsF3SZONrAZrzTJVCqVwIvWnYEHDHUlJoJmsYayI0bwZsvuZnf3d+LHraIYpd+
-	dEiR+rfJfjqirMbA041CebIgW2HYLZ10HLWzAqOkI3JM3rgwn7LDAgXrqpEwHt9ivewXax
-	it2Qv3MSBzzPJw2imwd32vLJzFZim3vFO1MEQETjsNaEkdfg/bbwBz42wyD2bMUxDZg1yE
-	tJguCgn7hybaTONn2X7pzga6vrDtHbJkKNP3CNuDaTOnFNgSjqIb+7sS4rDKlfbWFhHtCJ
-	/LE7fNMo1bPQzByQ7cL+9x01d5ryHIuqwb5CoI7hHoDnRIw37h47fUswcRb3mg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- dri-devel@lists.freedesktop.org, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-In-Reply-To: <20260928210326.1526997-1-rdunlap@infradead.org>
-References: <20260928210326.1526997-1-rdunlap@infradead.org>
-Subject: Re: [PATCH] Documentation/gpu: fix location of drm_panel
- kernel-doc
-Message-Id: <179084144262.1017724.17529088161372803961.b4-ty@b4>
-Date: Thu, 01 Oct 2026 09:57:22 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="a2XN6vES";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fIWTvi4k"
+Date: Thu, 1 Oct 2026 09:57:55 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790841476;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M6T3x2RxWtqqk+wcudz6NNG13H0Pe7ygwHg54hjQ92w=;
+	b=a2XN6vEStkiFi4QOi2f58GVZzy5OQFXqqk7Ju2BKHLVRY2zZHPoryFCiT2qC/UMIjSahtI
+	1AZ2vscsoD9mRcAaXOBlO+PZOnq+861nS3Jk9nQ0/TcGn2xdVtW+qFDR2uqu7aRcvsYdX8
+	DWEsRikHHEZ+nzdqtMJaYQ3tWulAFjJzwrhZH2S8lNC0cvUmNXvZGvxlTJwUwKypOTWZNf
+	5rJHxIu7LYme0UGvq2cni+sfzkQ/FpuTv9j1e4jqx7YH2zPJcnNtyqCfVik72AjHd0sRLT
+	ZXg3oOg3HnKCho6rnZGsUfqmwCMbIMI8PBGw8fLja4uw0sRuQK3zfPS4BDuZNw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790841476;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M6T3x2RxWtqqk+wcudz6NNG13H0Pe7ygwHg54hjQ92w=;
+	b=fIWTvi4kPkbBnrdPPo1dRokyr6OevCik1PKF0bbmV08CTQ5B5bFH2eyO9zqbURz5QiDFaE
+	u2jhQdhydAKjVPCQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-wireless@vger.kernel.org,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
+ context
+Message-ID: <20261001075755.3MilPS2C@linutronix.de>
+References: <20260930185417.61865-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930185417.61865-1-kmehltretter@gmail.com>
 
-
-On Mon, 28 Sep 2026 14:03:26 -0700, Randy Dunlap wrote:
-> The source file location was changed, so update the documentation
-> accordingly. Fixes these warnings:
+On 2026-09-30 20:54:17 [+0200], Karl Mehltretter wrote:
+> With the default fcmode=0, netpoll calls ndo_start_xmit() with hard
+> interrupts disabled and reaches brcmf_sdio_bus_txdata() directly. The
+> function takes txq_lock with spin_lock_bh(), and the queue helper takes
+> the embedded sk_buff_head lock. These locks may sleep on PREEMPT_RT.
+> On non-RT, spin_unlock_bh() can run pending networking softirqs before
+> netpoll releases the transmit lock, causing a recursive transmit
+> deadlock.
 > 
-> ERROR: Cannot find file ../drivers/gpu/drm/bridge/panel.c
-> ERROR: Cannot find file ../drivers/gpu/drm/bridge/panel.c
-> WARNING: No kernel-doc for file ../drivers/gpu/drm/bridge/panel.c
+> Use spin_trylock() for IRQ-disabled calls and enqueue with the unlocked
+> skb helper while holding txq_lock. On PREEMPT_RT, reject hard IRQ and NMI
+> callers, where rt-spinlocks cannot be acquired. If the lock is busy or
+> the queue is full, return through the existing drop path. Do not evict an
+> older packet from this context. Suppress the queue-full printk because
+> netconsole can recursively enter this path.
 > 
-> [...]
+> The flow-control callback takes another spinlock, so defer it when an
+> IRQ-disabled enqueue reaches TXHI. The data worker rechecks the bus state
+> and queue length under txq_lock before stopping the queue. Existing TXLOW
+> handling wakes the queue after it drains.
+> 
+> This fixes the direct SDIO transmit path used by fcmode=0. Modes 1 and 2
+> take the FWS lock first and need a separate change.
 
-Applied, thanks!
+Is this the only affected driver?
+Do you have maybe a backtrace?
 
-[1/1] Documentation/gpu: fix location of drm_panel kernel-doc
-      commit: aefb99d4406ee2f3f22b1b4211717a194262e8c8
+> Fixes: ac3d9dd034e5 ("netpoll: make ndo_poll_controller() optional")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+Sebastian
