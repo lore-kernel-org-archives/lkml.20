@@ -1,117 +1,199 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9591A3BED32;
-	Thu,  1 Oct 2026 08:31:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE0B3B530A;
+	Thu,  1 Oct 2026 08:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843512; cv=none; b=g3l2HqeJLJh+OE/xm71iYXmV8NymAJQKtIrjA9vnPO4MB7OHjsZW6ASVsi0fTRj+Ocr1XyUoKjJb84wCBwTH5W+ujfuX/dcflxgyBSAB9m+7gCy0bZ3fgbc6OlM33XsNak2oMbLGMSmniv/DJ9WWNDduiz7wTtyQOdfo0sgtQp4=
+	t=1790843567; cv=none; b=UZ8qybJHKy3j3YLH/VerKj5p4pzG9WIBBNAjVMQfe8zLjxO1GS+FvCeqGtDaWUGpFGlqvNoPE58s29RPUYVq+JJ21RQa1ObCUUxZ32rwtZJtw+e6K4Es11xsu3wXDPoeNVF4LKQsNfBBaTC6LaQWn6kXvQrnSheweE9QQnAB+Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843512; c=relaxed/simple;
-	bh=jpbVVx9QoqKKtBn74779r5rJeMJp9L3EDVWrB/wBfF8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=IyLPEymcsZa5PLJwp/LOUIb75pPQaskEM54iPF4+Jf39540keg+P8BJ7m010+G4UwKDNyxnezyFPC/D7a58fKLhjkoNiridWZAhMiNoIyZYcMWl9u3CUVMUrcIsEyvzM9NdSFshp5FUdSxbNT0B7SwF+xIWAdDYbG54ifpoTTEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sagW3Htt; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790843567; c=relaxed/simple;
+	bh=vbieRc23U63bZU7FcyJmM7ykqI4f0wyKxATSQo/BI1o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lCyXH0prVF7JC4NlEcfcJSE0ToqvXlU4/lqJG9zDexUHmn/xqRqPySbFSPrviQmhBiuVwb1xsE76MmR+sS2KkQnCrb5bGpnqq6/usyv3tIkjH/fWavx2Eh1zIIvGVDsRw/UDJW3qwJdDj40u8jYfu5nkcxo4EGjiAdcO8oXK1LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqRA69vV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sagW3Htt"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B50A01A109B;
-	Thu,  1 Oct 2026 08:31:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 81B8260341;
-	Thu,  1 Oct 2026 08:31:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5F0F4103290C1;
-	Thu,  1 Oct 2026 10:31:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790843506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=RiIDTpci/0UJ3NCrt48cxrs7UcRvkm9TcGYKchYj198=;
-	b=sagW3Htt5YQwsJod0ppAZZLVo/HIbh2Wh1p3vMtfEqB4XzuMaoD5AyK9Xuqhjsglex+M6K
-	d6GboCZyFgqJlMZx/6YAQ/YGbVbRnzF/QRgBYMIxDkxucLFdgQTFK7kiSTyH2OcmiZydOt
-	cccMEa+DX6efu2rnGF1NSYK75PUxwZe91djO9sMyVvwWqi1k3ZSaKvhvSSfS4AyzCGrV8Z
-	lzPuYHAJ/x6OL2dxv2lcoAoKWQvoySk7ekWG2AyInjDdfcaHesnl6/y18kaAcliFte1w5R
-	U/SEZR0ZuELcN7FNSCQ3LXdMRk/6JwXjyWiJuEMWoEEcGGJtD4zg1voBIxS/MA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqRA69vV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F45D1F00898;
+	Thu,  1 Oct 2026 08:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790843566;
+	bh=zd4Rd9CRvxd2ybJD/+XeXGt4GToIyin27erBl4UTD4s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lqRA69vVhP22r+xNMjuZDk6zVy0BlPDTwdr8miLQzuLn5bKlkEkfF/6lzBVtcnV45
+	 noqAa7JlvMDWw6XSe5NoDH9/SGEXVzbIPRkw51e9quA6ZGoVkFYibTVnVTic/TBXKr
+	 FniUuL8aU1vf2a8t1jztuYCMUQBUpPs4tqZolg0+MWbdRuWxilq0MOXgiira04Vejf
+	 sWp+bCXIForjCTb7GXRREKeRYFUf8lbzpZdd4n+pbIsi2/CZ9J2egH9kmQ5EP3mreJ
+	 KTKn0lEHFuHfyRRjZqHAqYZbJBdg+BO7W8d0DUAN6JKNtvFy5oxRQCgAqKRcAGuFOJ
+	 2spgEVfEMRLVg==
+Date: Thu, 1 Oct 2026 10:32:43 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jose Abreu <Jose.Abreu@synopsys.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: take ownership of saved RX state at
+ poll entry
+Message-ID: <ar4aq0i5lJLT7SGd@lore-desk>
+References: <20260930-stmmac-rx-state-v1-1-c286c43813c1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tPlwEejj5iNQjWqT"
+Content-Disposition: inline
+In-Reply-To: <20260930-stmmac-rx-state-v1-1-c286c43813c1@gmail.com>
+
+--tPlwEejj5iNQjWqT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 01 Oct 2026 10:31:37 +0200
-Message-Id: <DLTD1D4TV8ZX.2PNM1B670T8UK@bootlin.com>
-Subject: Re: [PATCH v2 5/7] drm/vc4: dpi: stop using deprecated
- drmm_of_get_bridge()
-Cc: "Arnd Bergmann" <arnd@kernel.org>, "Doug Anderson"
- <dianders@chromium.org>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>
-To: "Paul Cercueil" <paul.cercueil@bootlin.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Dave Stevenson"
- <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
- <kernel-list@raspberrypi.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com> <20260929-drm-fix-of_get_bridge-build-regression-v2-5-6da431d8f180@bootlin.com> <accaa9f4ad05ef73071e5cfb5368fcbdd394d3ab.camel@bootlin.com>
-In-Reply-To: <accaa9f4ad05ef73071e5cfb5368fcbdd394d3ab.camel@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Paul,
+> When a saved partial packet completes with a poll budget of one, the
+> old loop can leave state_saved and state.skb pointing at an skb that
+> has already been delivered or freed. The next poll then reuses that
+> pointer, causing a use-after-free or double free.
+>=20
+> Take the saved state at poll entry and clear the stored ownership
+> immediately. Save it again only if the packet remains incomplete,
+> including when the next descriptor is still DMA-owned. Release a
+> saved partial skb when the RX ring is destroyed.
+>=20
+> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-On Thu Oct 1, 2026 at 10:22 AM CEST, Paul Cercueil wrote:
+Hi James,
 
->> -/* Sets up the next link in the display chain, whether it's a panel or
->> - * a bridge.
->> - */
->
-> The first part of the comment is not wrong, I would keep "Sets up the nex=
-t link
-> in the display chain".
+I guess we have a similar issue for stmmac_rx_zc() path as well, can you pl=
+ease
+fix it as well?
 
-OK, I will do it in v3. This patch is not a fix, so not urgent.
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 25 ++++++++++++++++-=
+------
+>  1 file changed, 18 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index ec62fa7418f4..1a4d03aaaf78 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -2149,6 +2149,11 @@ static void __free_dma_rx_desc_resources(struct st=
+mmac_priv *priv,
+>  	else
+>  		dma_free_rx_skbufs(priv, dma_conf, queue);
+> =20
+> +	if (rx_q->state_saved)
+> +		dev_kfree_skb_any(rx_q->state.skb);
 
->> =C2=A0static int vc4_dpi_init_bridge(struct vc4_dpi *dpi)
->> =C2=A0{
->> -	struct drm_device *drm =3D dpi->encoder.base.dev;
->> =C2=A0	struct device *dev =3D &dpi->pdev->dev;
->> -	struct drm_bridge *bridge;
->>
->> -	bridge =3D drmm_of_get_bridge(drm, dev->of_node, 0, 0);
->> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D
->> +		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
->> =C2=A0	if (IS_ERR(bridge)) {
->> =C2=A0		/* If nothing was connected in the DT, that's not an
->> =C2=A0		 * error.
->
-> It could make sense to go the extra mile and just move that code back int=
-o the
-> caller function, I don't see much benefit in having it in a static functi=
-on
-> here.
+nit: you can drop if (rx_q->state_saved) and just run dev_kfree_skb_any().
 
-Why not. If no one objects I'll do it as an additional patch in v3.
+> +	rx_q->state.skb =3D NULL;
+> +	rx_q->state_saved =3D 0;
 
-Cheers,
-Luca
+nit: rx_q->state_saved =3D false;
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> +
+>  	rx_q->buf_alloc_num =3D 0;
+>  	rx_q->xsk_pool =3D NULL;
+> =20
+> @@ -5726,6 +5731,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int =
+limit, u32 queue)
+>  	struct stmmac_xdp_buff ctx;
+>  	bool fcs_stripped =3D false;
+>  	int xdp_status =3D 0;
+> +	bool in_progress =3D rx_q->state_saved;
+
+can you please respect RCT here?
+
+Regards,
+Lorenzo
+
+>  	int bufsz;
+> =20
+>  	dma_dir =3D page_pool_get_dma_dir(rx_q->page_pool);
+> @@ -5740,6 +5746,14 @@ static int stmmac_rx(struct stmmac_priv *priv, int=
+ limit, u32 queue)
+>  		stmmac_display_ring(priv, rx_head, priv->dma_conf.dma_rx_size, true,
+>  				    rx_q->dma_rx_phy, desc_size);
+>  	}
+> +	if (in_progress) {
+> +		skb =3D rx_q->state.skb;
+> +		error =3D rx_q->state.error;
+> +		len =3D rx_q->state.len;
+> +		rx_q->state.skb =3D NULL;
+> +		rx_q->state_saved =3D false;
+> +	}
+> +
+>  	while (count < limit) {
+>  		unsigned int buf1_len =3D 0, buf2_len =3D 0;
+>  		enum pkt_hash_types hash_type;
+> @@ -5748,12 +5762,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int=
+ limit, u32 queue)
+>  		int entry;
+>  		u32 hash;
+> =20
+> -		if (!count && rx_q->state_saved) {
+> -			skb =3D rx_q->state.skb;
+> -			error =3D rx_q->state.error;
+> -			len =3D rx_q->state.len;
+> -		} else {
+> -			rx_q->state_saved =3D false;
+> +		if (!in_progress) {
+>  			skb =3D NULL;
+>  			error =3D 0;
+>  			len =3D 0;
+> @@ -5787,6 +5796,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int =
+limit, u32 queue)
+> =20
+>  		prefetch(np);
+> =20
+> +		in_progress =3D status & rx_not_ls;
+> +
+>  		if (priv->extend_desc)
+>  			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
+>  		if (unlikely(status =3D=3D discard_frame)) {
+> @@ -5971,7 +5982,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int =
+limit, u32 queue)
+>  		count++;
+>  	}
+> =20
+> -	if (status & rx_not_ls || skb) {
+> +	if (in_progress || skb) {
+>  		rx_q->state_saved =3D true;
+>  		rx_q->state.skb =3D skb;
+>  		rx_q->state.error =3D error;
+>=20
+> ---
+> base-commit: 7375d38364a9aa66fb31716bcefef38aecad75d8
+> change-id: 20260930-stmmac-rx-state-041371e43e8c
+>=20
+> Best regards,
+> -- =20
+> James Hilliard <james.hilliard1@gmail.com>
+>=20
+>=20
+
+--tPlwEejj5iNQjWqT
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCar4aqwAKCRA6cBh0uS2t
+rFuEAQDSLs28FZXtvlFLovCP1shWroHJcnR6//fdjyCKN0DS2AD/f6MbvrXfDTP6
+NaSWZHYL7Stp2fYZCBntEBoUBKpiCAI=
+=LpWX
+-----END PGP SIGNATURE-----
+
+--tPlwEejj5iNQjWqT--
