@@ -1,121 +1,125 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDA3389104;
-	Thu,  1 Oct 2026 05:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41264409604
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832335; cv=none; b=VpX3meDd/OOY5Yvs5rYYKdgLbcXyJHlGinHEMJ8rXK/r8ylzXBQPhanjC/sKwOmg3vWSEGMen5CCv9hS1Emc2i2wgXH/U3bMn8SuNwMKGi/YUMxqG+loYoAHbhDxs1iB9Fwt8N5a9SyKHh4Tv9jiR6UK72PQk3q2S/ku1lPInGk=
+	t=1790832481; cv=none; b=eFZ7a0h6oSC9AtEj5PkCEJe2ivYyLU5UXCnCrCj05bKZ3BSz9ltmGwR8yOxAFx9mJSW3FTk4r7eg/YMrko2NU11CrNCovVYuMVzAwHmuYCWkPfNAWmL6TiskGC+MrJMigqd0uiZhOuMikDWHH+5YpU1olrziumZWxxk2HSxV4Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832335; c=relaxed/simple;
-	bh=lsQMBdLcRX7PmWUQ5J/QEEvsnF/ZjUYdTGcRytEQyO8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IUcRtpA89Fmpy56/GW3v8iTgPEFCcuOOh5AGOovNJVvk74ZZg3ZMlYS+Wl9bg5pmIHBIo3S43lSfhnFfYNluQg1MeO58r2mNDDHLmYu91ndYZTCcg6/3h4LKns0Dz0xPmdQrACzE6YISRP9Eb/Ul5Vt6biFHA64hD6HBQAYSMvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=IyyrDGRt; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=igN0LVf9; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1790832481; c=relaxed/simple;
+	bh=Spt+UFjBXJhc44j8DHEYV1c+HqSHqqXAG/TyMRpCf5A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WyUN3udBSYzUTTYCyjMEJUauHeKPVC1/HBep1tdXO9lt9x6UkdE62eWXaf82w1qIikLSizo8GPdX+fcBDWbF+ZDJP6fWNP7+IKjwIjKNAmJ0zfivxR9V4xCon1bG4KXGFcf+VJbXLC3PwVy+vKj4+oNc0N8MI54FxowBWIprZPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BoBehnhv; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="IyyrDGRt";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="igN0LVf9"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 823341D00101;
-	Thu,  1 Oct 2026 01:25:32 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-03.internal (MEProxy); Thu, 01 Oct 2026 01:25:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790832332;
-	 x=1790918732; bh=DYe71L+mDbbwttT1897OI7k1IUNPmXiRDqp4jV2KsIc=; b=
-	IyyrDGRtGugT5+TdoGc8NhL8YxZrai4YNFuYN3dLoa3iiAwfjIj0dhcqNOKN77hx
-	q3XGEMPw7/KTe7RT5aLSUmFJbMvdlIWVWBzjDuVii7TCR50+ux3Q25cpU/vtJtwt
-	dcD1tnh6NzHWcuZIw2lwL61o0K6CdLFkjaq44mt7M6ojOQmgXePYvgom0y4dHoP7
-	YpeF3g0dkVZtgv28f+X3wwVNp9rDpgAZIWFRXpVEmmRTfe8aypYUTfRNjmSOfBkl
-	MknUKENJrfY8cWtxlAs+utcF/+uUnIe8kn3+Q0IGUkwK/AVOUPNyZmQsELNZ8L6i
-	S3XsL0kff8xDfAHBmtwiSA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790832332; x=
-	1790918732; bh=DYe71L+mDbbwttT1897OI7k1IUNPmXiRDqp4jV2KsIc=; b=i
-	gN0LVf9I/weJaTJw9z144q11EHbGOcae7ScFsT1r5tSTJ+yuDNOeBql6fldoCj0W
-	GJEH+01l7IozyzefamETMCXVhtyPfScRTnDLR7rssZf1YSxaFKusEFB4p7Ayu/58
-	ftEMkbyNrSRKqmT5CT+ecR6yUvpKLMjt5wddgRZZ9qIrt74MvUeSbv5xO9QmDz9I
-	p5C6cloH4IJofE97EZTI5L9DOiarstZQIp+wlYuxANm6rgr4eA1fLsXoXnRfHLyN
-	R0xiMS4zlxpcDX+2pj0KPYkXLpDfirlrwKWyIpmCwJsQ9hFnWqlNz1dlb4B9viv6
-	v4vAMcJKGms5t0INLsUqA==
-X-ME-Sender: <xms:y-69ahH6HDwrbJW-OL4lbdBN8up0LdjG4YFVEQDl2CBzP1m6Sj3ifQ>
-    <xme:y-69aiMOscI_aOFTOr_ykSN5qPpLoE2A3GEfddDn-ntoDfwedFc7DOKXnVn7YgRSk
-    2WTS18pLJ7LmPSQrWhxvL4PxNW-RJFWK9PGVlOX8nTo5dg7357YhJOl>
-X-ME-Received: <xmr:y-69aupdbmMe9KAmBI5cLuCoXH4FIeaJ3EFH3LNu4VVanBVGqsKPA8SStmqoa9MXUj_B0i9QXE9pWgPZ6f5s_6wx24YoIKb7>
-X-ME-Proxy-Cause: dmFkZTF8BPCiDwND0Mh4xnIYhVyPpph8ui90Syrb3L0zQW/6p/684YSFsNUG1NlE+RIwBT
-    wDek5GsYyShQP6dIqOcjpWV5ao615gK1zACtEWiWfOg45Cyp4jBI/UPGsM4nS2zOre+E91
-    wevRW4Kzocgrx65HoYwAqbovvLuWy4Eq2qqXseUq/UfeXJy1Fh8S5nQXyvzUcqK6LCIJmO
-    lKz/3eC9qx+wO4jOge28wmpdkPv/2Ji9vZil1/22zGQKFb+bdlg6WN1GrWLh8wurOcfbHr
-    VXF+HcWojgFXk/4ijv/f+dHFIRY/QsT5n+l27ntLEnMQDYqeij7kfBhG2OzVNO6KmUBZI3
-    gJoeK481E4jObwOqhcvPlodJnpKxyoZF4Bz8IutjB8cDAaZKh3zvo/4ezwxRanKboLjQd8
-    2wLTpmx3hQp4Vgs7Fw1PNSNhNZoKl0q8kSwe+RktWo3tHp/Flmas4mOKrRU7LOln3/Gbxw
-    jBfCMO1+xDRFh/NFQD0htt0+cJouH4WILsbHzpzCgTacV0BbNj/yEqgKSAOTtbkr3ALL1/
-    9QApYGcvNQ/dgs7fweNiWjCQo//CNjEHflDPsAzfC3ndKtDZj2nZGOYfO+s4V9p4xRnKfG
-    BhV4/XWnm3Z4ecUpEiSRV0dhRi8kPqL2aiUAMkgiaeEkRg52EGYDl9hX2xWw
-X-ME-Proxy: <xmx:y-69arAiiVH47vKuSL_1d06DRUFqDdyGlTFMOLKu65WIyJbPH3XNPQ>
-    <xmx:y-69avOdOQK_su9g_OVQtVEaRLn3htwdRQceXYpnpH0jVRlaxsvQXQ>
-    <xmx:y-69ahAp0Mwu3bWm7tNO5RWTZKx53JLWcNO79EaTBpWEA6IaWXaK1Q>
-    <xmx:y-69al_9D_6qzhWAg70B1ptC7b1KgTw-anZHT2AnbYwCwU2FOO5MYQ>
-    <xmx:zO69akqMf7-z9fZQMsru6lITi9wKoK-z-RhjeVav6hhZrKDmSUsUu-Jo>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 1 Oct 2026 01:25:27 -0400 (EDT)
-Message-ID: <4f1487f4-872a-4c54-b367-cec8ab5a6621@pobox.com>
-Date: Wed, 30 Sep 2026 22:25:24 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BoBehnhv"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so32151685e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:28:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790832478; x=1791437278; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IVL0YicU6s4vWnH0QGlqg5VqXOz3HA74QxakKY7UMwI=;
+        b=BoBehnhvGnEwe6RqurJZxA57cvqIitsXMR5OWAilkmb9oVO/eR5GfMmbMMBwSv+GjZ
+         AOy0N8/96rqwMgfGj9j7VmQLeII+N43MfI01JqOVjpXbABlpfAnEAIdWZiFzQ/+/C5Wj
+         R3ak1GI0Ea/uBnAHw0NaVEmyWRSv92OzezGB9tu4R5Hw7ayYgKJwaWO5OXw5++Zcc84m
+         3n9wNkKGXZX4yQduFkfim/DqxvC5f0LEeSXunHsijZA/CW4AKd7yVNdDPVSmjj1hqvDT
+         aXE+O8HbKD8FLmceXY1y7QXaj24yGiIdXNpEwLmZ/abtDoE2igfwbPS1hgRvRaUrw0tC
+         TT0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790832478; x=1791437278;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IVL0YicU6s4vWnH0QGlqg5VqXOz3HA74QxakKY7UMwI=;
+        b=rpIRtsjycu6aEZLUzBDcta3Y07WsDxU3ypDGDCn2xlkGPjELO+/m1nCxLUgVcWIb+q
+         09vSIb3AWSCQPCyl3dKtkxmhGbhY0XEUv0FI1QjUkzJmaZe9PX6DxaMEtiwu2NfKrQiW
+         Ne4aFJojumg5eNQmyPw34Qts0l9mphWICJIjCZgg7ty1VJI/8Irb3ROLN5A2MnC6boO4
+         R1oOIuO9TB6V5cCD9tVwYKXKsxMEFLrpxLFjyT7aionMnOWCYNowDFhd/+jMO804gDAe
+         gDgp+RQhi+CiGBq0Y8l+4SLmbK+rQ05fdYh3ZJYgrsE2TOx4qImEI1a4NbYnPkyRH0vB
+         Tbqw==
+X-Forwarded-Encrypted: i=1; AKwUvByscmWP2e+9cxNo8cZmcF1x08zieuX029rHdmIT+huAEN97ZPyalPt/Vfba4NEyMUC2AxWmE4PCT0jZmNU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvESywA4WK/LVAiqBvphdfTH2BmSomT2jRjdbNErR9Bv6ys75/
+	0QnO7OasoF8Tsz5ZboFUPpLkpVp2Jaa9im9kJvVmGHWGrOFKNKwxwLDp
+X-Gm-Gg: AYBFou30YgztMmLbzrKzM6FiGgUvB/XVRiXg/gYgISvPW1bJIfW7Zn2zDm+fohFk6o5
+	t5BDfnZt83yozqyHGACjn5yiUmYtnVK+DxicaV5TXDH32yO/2jDwmw+8Hcud/eKqfbBl/eCH5Gm
+	kkfjGXaJ7Hosc7Z71qWLhW2HopdADuCt5JcF7hDImZTr2yVTwUpFsITlmIEjIOcDi2sZoQXfaJ4
+	oqJwIuyX9VY0fJO5+0SHs8wuZCXvdy14brtFx3lD0XlOOCmMlhVXxKZgYhBPUMXi2LZF7Igk0uv
+	+0UrgNrNwj4dJ5wU2GgqsVVRxrB2omQTz8fmgOrpdNAqY3ZTkp+eLPVAC5b4uF/K+EOa8xCLR2C
+	aXqNzsksRNxCZSKrIukteO1qDXkA44s5fPV+zIulLUezH+w3puOT/p6/eAodgh0vJmFW11YdyM8
+	WvaA58TVDDVuTYp56PrASVcRDpCB7d89QNei7KA2NI99mTZZxmNwbE+TV7w5bFg5SFR9Pi+RE/d
+	WKkLTMumdazrUB2vVucMzpEjU+FLZjGF1l9kvN+kOw=
+X-Received: by 2002:a05:600c:4687:b0:4a0:3a3:33e2 with SMTP id 5b1f17b1804b1-4a01adde08dmr57434805e9.5.1790832478268;
+        Wed, 30 Sep 2026 22:27:58 -0700 (PDT)
+Received: from [127.0.1.1] ([92.241.26.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f979c05sm64944975e9.3.2026.09.30.22.27.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 22:27:57 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Jason Li <jason.li@cortina-access.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>
+Subject:
+ RE: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
+In-Reply-To: <SEZPR01MB4208B8B4A5A7F48F7FFE0C9FA28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
+ <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
+ <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
+ <179076749140.3134070.3869742286743401078@gmail.com> <SEZPR01MB42087271C56AD1C7E926AF35A28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
+ <179082517588.138645.14615134489246049313@gmail.com> <SEZPR01MB4208B8B4A5A7F48F7FFE0C9FA28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
+Date: Thu, 01 Oct 2026 08:26:39 +0300
+Message-ID: <179083239972.193541.4791387611943615705@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/877] 6.12.112-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152414.738996857@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-On 9/30/26 8:15 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.112 release.
-> There are 877 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.112-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Thu, Oct 01, 2026 at 05:14:59AM +0000, Jason Li wrote:
+> We agree with the approach of using a single UART driver since the
+> CS75xx and CA series share the same UART hardware implementation.
+> For the Device Tree compatible strings, we would prefer using the
+> "cortina-access" vendor prefix for the CA SoCs (e.g.
+> "cortina-access,<soc>-uart").
+> We do not have concerns with using a neutral driver name such as
+> cortina-uart. However, for DT bindings and related documentation
+> describing the CA devices, we would prefer the wording "Cortina
+> Access" to distinguish them from the legacy Cortina/Marvell branded
+> devices.
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Thanks, that works for me. So for v2:
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+- drivers/tty/serial/cortina-uart.c, SERIAL_CORTINA,
+  SERIAL_CORTINA_CONSOLE;
+- the CS75xx parts keep the existing "cortina" prefix
+  ("cortina,cs7542-uart"), the CA parts get "cortina-access,<soc>-uart"
+  when they are added;
+- the binding and the Kconfig help name both families, as "Cortina
+  Systems CS75xx" and "Cortina Access CAxxxx".
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Arnd, this also answers the prefix question from patch 4 for me: I
+would leave the CS75xx compatibles and the dts directory on "cortina"
+then, and use "cortina-access" only for the parts that Cortina Access
+made. Please shout if you or the DT maintainers see it differently.
+
+Thanks,
+Fil
+
