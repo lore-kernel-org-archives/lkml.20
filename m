@@ -1,81 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A192D4D37B0;
-	Thu,  1 Oct 2026 09:32:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4F12E06E4;
+	Thu,  1 Oct 2026 09:32:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847122; cv=none; b=qVc9r4MzVB0mnl0iMcvRj/90z7c180aBDzRW++/dt1UYsH+RmcgUqXiLGKttdCpPZUnq9Nos7tqXJme0La2Ht3QmjsI7+p7gGmZRIDw4NoNgbumJ6wOKvWw6B+f5rLUm4SW4qnrUsLZB99P7kf1Gx6nTIH3PmRqqN9t3rncdrhU=
+	t=1790847168; cv=none; b=WQ+jSulL9rXmT9+r7KGPijzevUHiYkAMtYv2RiJtccRy3VCc/IWEW/EiQXeXVzQZt78YTJ1CxhPZD1RNZYhDnFzP6eWFQbimuwrysbndj4msZ8Mes86OwvJC0GZX6ad9sLteEuVPeZM7LLgJBH5zKwMvuhGtzwgodnJUlfrMTGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847122; c=relaxed/simple;
-	bh=2L3GHBgKnxNfEISMFOnCHgNLDM0Kl4d0dR1aAm/XekY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sY6DwQ5JklIeRQVGvg8rqM2bFMXK+zYGoGqJzApwXOaPMc9Aeg5k8gUhQLyq4w2nt5Wv3R+/wjL0+jHF0Eua7fv6d8WNYYT8hYyBElYI7Ge7oj0L0B5ssrE54clbk3iHjNZymqMpMrlJuDnnac1Ju2bISCzMYvdfPX1rJOHOBvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eu0Nc7VI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790847168; c=relaxed/simple;
+	bh=XJiueADghLyLwbIZc3AcKR0IvPahUz+22530pqlb2/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DV8lLsslDUO0U8oVZl0lsFec2tf0tserLWgyM9tGE4jLmNCzG3j5Z1cY5uLQ6kmdicm+Fd9eJDXaUz5IJ8x+zgb7GRJCzHJnKFPuBpzKZoOFYzfHhohqdByOHbW6Imdqymq0P415EcyfYNjdm79PR0cZ/LGxuCTyNDJ3P/B0QTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Yd+y2I/v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eu0Nc7VI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC3A1F000FF;
-	Thu,  1 Oct 2026 09:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790847120;
-	bh=Q8nH4a9zyuqymi5cvucxrHlyiGUE1EZm5MBlxkRW3Lc=;
-	h=From:To:Cc:Subject:Date;
-	b=Eu0Nc7VIX1Bk59LO+H+6uZvTd34u0rhQzJC/lxF0nGzQLXV55JlOPs5wz3Rl0wrNc
-	 6fqH4KGTfGLgSr9vfjDOusR16vgpiHmKduaK+HEOXitkAG/LSieMV34eRz1b9jyyC2
-	 6DJZR7ElCCozC8G8SlwprGsCd20GWf9tw7jE6ofAH+v1/cj7ZgdomLmBDMKIYr4cWn
-	 OJBm00Ii7bqSQFEZrXyHoK1kQV27FBskKFy60OrKHoqNN425QeURN3nj3lqUXt/U7v
-	 yDOYJmWaHrez9An5jeFPUbHTNiVxiAb8K/hXzXFQKJTT+SeW4yx11AAdeBVdzF9sIM
-	 USyVSkm3dAUlg==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Alex Williamson <alex@shazbot.org>
-Subject: [PATCH] vfio: cdev: Reject duplicate bind before updating KVM file
-Date: Thu,  1 Oct 2026 15:01:52 +0530
-Message-ID: <20261001093152.1698474-1-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Yd+y2I/v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4A931F00898;
+	Thu,  1 Oct 2026 09:32:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790847167;
+	bh=5Fct3uDnKb2lV3DBFo3WSMgmxCqbWrG6VAqWnzi8oBY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yd+y2I/vHFz8JDGpkbV/BOvvYiGEBfptIBxPOMGF47wGaDLXS6z4kThL4bdjO+QKV
+	 XpYXp8tEdcli+mRs5CtDtw0BXejEItiESl4ash+MeTrXe/6vti/fk5puno12Urgeka
+	 GShEdLufQDhoMpJohsjzRGiaNqtVNw3aH0/cryvU=
+Date: Thu, 1 Oct 2026 11:32:41 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Timo Joannin <timo.joannin@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs : remove dead commented-out 8192e code
+Message-ID: <2026100130-sulfite-operator-a572@gregkh>
+References: <20260929130716.61119-1-timo.joannin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929130716.61119-1-timo.joannin@gmail.com>
 
-The cdev path only supports one bound/open device fd, but
-VFIO_DEVICE_BIND_IOMMUFD only checked the per-file access_granted flag
-before capturing the KVM file reference. A second fd for the same device
-could therefore replace device->kvm, fail later in vfio_df_open()
-because open_count is already nonzero, and then clear the active KVM
-association during error cleanup.
+On Tue, Sep 29, 2026 at 03:07:16PM +0200, Timo Joannin wrote:
+> The rtl8723bs_hal_init.c file contains a commented-out
+> call to rtw_write(8) referencing REG_DWBCN1_CTRL_8192E.
+> 
+> A grep of the driver in the rtl8723bs codebase shows that
+> REG_DWBCN1_CTRL_8192E isn't defined anywhere else,
+> meaning it could never be uncommented without breaking the build.
+> Remove it to clean up the driver.
+> 
+> Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
+> index 6a4a13544ca1..748567059af8 100644
+> --- a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
+> +++ b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
+> @@ -1903,7 +1903,6 @@ static void hw_var_set_opmode(struct adapter *padapter, u8 variable, u8 *val)
+>  			rtw_write8(padapter, REG_BCN_CTRL, (DIS_TSF_UDT|EN_BCN_FUNCTION|EN_TXBCN_RPT|DIS_BCNQ_SUB));
+>  
+>  			/* SW_BCN_SEL - Port0 */
+> -			/* rtw_write8(Adapter, REG_DWBCN1_CTRL_8192E+2, rtw_read8(Adapter, REG_DWBCN1_CTRL_8192E+2) & ~BIT4); */
+>  			rtw_hal_set_hwreg(padapter, HW_VAR_DL_BCN_SEL, NULL);
+>  
+>  			/*  select BCN on port 0 */
+> -- 
+> 2.55.0
+> 
 
-Reject the bind while holding dev_set->lock if the device is already
-open, matching the existing cdev single-open rule before touching the
-device-wide KVM state.
+Someone already sent this change before you did, sorry.
 
-Cc: Alex Williamson <alex@shazbot.org>
-Cc: kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- drivers/vfio/device_cdev.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+thanks,
 
-diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
-index 1d9515c967b0..ab46563604ac 100644
---- a/drivers/vfio/device_cdev.c
-+++ b/drivers/vfio/device_cdev.c
-@@ -124,8 +124,8 @@ long vfio_df_ioctl_bind_iommufd(struct vfio_device_file *df,
- 		return ret;
- 
- 	mutex_lock(&device->dev_set->lock);
--	/* one device cannot be bound twice */
--	if (df->access_granted) {
-+	/* The cdev path only supports one bound/open device fd. */
-+	if (df->access_granted || device->open_count) {
- 		ret = -EINVAL;
- 		goto out_unlock;
- 	}
--- 
-2.43.0
-
+greg k-h
