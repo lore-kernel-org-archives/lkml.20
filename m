@@ -1,133 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588D53B95E0;
-	Thu,  1 Oct 2026 07:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04AA3C10B9;
+	Thu,  1 Oct 2026 07:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838581; cv=none; b=KKAncf6Fa9S6Zfi2xvOW1+yRvkEhjHUNH39kH5f6e7F06wKUmz9qCs79L3BNV0Tn0Y87izdOO/p5r7WfdV6tLacVLlHfgg3+Zs77n/zxWSxabZiDMt9H7f11N8e/z994OSeqi+6wdiCTSZkV7qrTm4GYuvc+jV8SLIkkB9ue31Y=
+	t=1790838594; cv=none; b=RfboaMZR6rdN4N5o1rciLgCnHagkH9SDB6k6BvjAKBR60kmpCEoUl0Yb9hXbNunRPlOx83qbDbsCcMXiPfS2rw3CfO3VS5pPrE05ge0G5kvZFOjgMMVqV0GKmdpYx5a8aUKUKCOFViXTTiP4rCgl/EqKrxRZ+gFV302GyM4koMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790838581; c=relaxed/simple;
-	bh=XFF9m1extKl7fuxmH9zsMDX2E4Ef70rJNPT+E8HnDCk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MpWJBb2xK9qlp9wg3ra1JwOAATVoWNAk4Tigw29HolAvzQpzkgwJuDC6v2ZyNSOp7Bqhf/r37w+nKVsAUaDQnkkGgh99EG0iu9LqG8lXtihgXE6BG6BGpyma1XHNuBWBrlHlJHqIFNdNyOkTxxSkQQmp4kmP8SRgXrGA0/OZFFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8TXv8sn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8TXv8sn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965BA1F000FF;
-	Thu,  1 Oct 2026 07:09:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790838580;
-	bh=XFF9m1extKl7fuxmH9zsMDX2E4Ef70rJNPT+E8HnDCk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E8TXv8sn/bSpQE+NI1vYkKweFuPd7YNLLIzGNuQ+ceTS6EmKTPqCxr518iNn8GQ9l
-	 aXUKjLMuhGUJ03/7Yzr9S+fIWZC1/dhfZTpt/JUCnlpkuzoOP0PA8m+PKtzWDinIA7
-	 1w9ry8qGjqlCvnmNjIDocjTT7HE39m6sIKGxqAaSBs6nchvWxHnm7Bf8lNmbrRAPFo
-	 9fop9kGm+I65m2iX6nMlQY9fNRlenCMdG2dm4ebBtegIWPnT32Gno/Pol9pgkbnrba
-	 jYftS8MARMUeWwBdPBxrLlqKbfCqb8ssHOr/oNjHzJqstipUmCCbfD/1SrmJJ2uKBJ
-	 3McRuxZ1+Lv6g==
-Date: Thu, 1 Oct 2026 09:09:35 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-Message-ID: <ar4G864IgYTvfNNy@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org>
- <artyl8fD3zzng8Uh@houat>
- <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org>
+	s=arc-20240116; t=1790838594; c=relaxed/simple;
+	bh=tpqG2YliUNexWLHZmB2+lpt04BHTxv8k575uHSa/lao=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=t9/nUSpYi4rqp+4nWK7rTkBv8yJp4LW8MMDVhGnyPAcDaktTsBQKwmzvPlk9RL38xBp4dQj9s/OGBnlw5QPkoD7K8AebIaI7DCCuAbejIDl03DycNd7gYPI6kHAlDnqfHsrYtDuvwOFng7KrteEgMhAruPg5BDlY3ZHFiqlHzuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:41660 helo=localhost.localdomain)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xCAvR-00000001Ztc-1QzD;
+	Thu, 01 Oct 2026 09:09:50 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	upstream@lists.phytec.de
+Subject: [PATCH v2 2/3] ARM: dts: imx6: phycore-som: Increase PMIC max SOC and ARM voltage
+Date: Thu,  1 Oct 2026 09:09:46 +0200
+Message-Id: <20261001070947.1815279-3-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261001070947.1815279-1-primoz.fiser@norik.com>
+References: <20261001070947.1815279-1-primoz.fiser@norik.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="s3nqed5trv4kttpt"
-Content-Disposition: inline
-In-Reply-To: <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org>
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
+The i.MX 6Quad with 1.2 GHz needs 1.4-1.5 V supply voltage for the 1.2
+GHz operating point. Therefore this patch increases the maximum output
+voltage of the PMIC's SOC and ARM core supply regulators to 1.5 V.
+Otherwise transition to 1.2 GHz OPP fails (with the 125 mV anatop LDO
+dropout taken into account).
 
---s3nqed5trv4kttpt
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-MIME-Version: 1.0
+Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+---
+Changes in v2:
+- no changes
 
-On Wed, Sep 30, 2026 at 03:32:19PM +0200, Neil Armstrong wrote:
-> On 9/29/26 10:39, Maxime Ripard wrote:
-> > Hi,
-> >=20
-> >=20
-> <snip>
->=20
-> >=20
-> > panel-mipi-dsi-spi is a generic panel that will load a firmware, and
-> > quite similar to this one. google,android-pipe and qcom,fastrpc don't
-> > attach to anything and will just open a tunnel to userspace, which is
-> > somewhat equivalent but more dramatic than what this driver is doing.
-> > simple-card or its variations will just instantiate a kernel driver from
-> > the DT and is used pretty much everywhere.
-> >=20
-> > I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
-> > by rob, and acked by a panel maintainer, and 4 years ago, so we're way
-> > past the "oh but we didn't know what we were doing back then" argument.
-> >=20
-> > So, let's phrase this differently: what's different about the
-> > description than panel-mipi-dsi-spi, or any other binding already in
-> > tree?
->=20
-> The panel-mipi-dsi-spi still describes a class of H/W control interface,
-> not a pure software driver implementation type.
->=20
-> "panel-mipi-dsi-bpf" or "panel-mipi-dsi-rust" or "panel-mipi-dsi-cplusplu=
-s"
-> would be the same problem.
+ arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Rob explicitly said the bpf part wasn't the problem. Also, I don't care
-for the compatible itself, so what would be an acceptable compatible for
-you?
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
+index 205467fd223e..9070388eecb0 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
+@@ -133,7 +133,7 @@ regulators {
+ 			vdd_arm: buck1 {
+ 				regulator-name = "vdd_arm";
+ 				regulator-min-microvolt = <925000>;
+-				regulator-max-microvolt = <1380000>;
++				regulator-max-microvolt = <1500000>;
+ 				regulator-initial-mode = <DA9063_BUCK_MODE_SYNC>;
+ 				regulator-always-on;
+ 			};
+@@ -141,7 +141,7 @@ vdd_arm: buck1 {
+ 			vdd_soc: buck2 {
+ 				regulator-name = "vdd_soc";
+ 				regulator-min-microvolt = <1150000>;
+-				regulator-max-microvolt = <1380000>;
++				regulator-max-microvolt = <1500000>;
+ 				regulator-initial-mode = <DA9063_BUCK_MODE_SYNC>;
+ 				regulator-always-on;
+ 			};
+-- 
+2.34.1
 
-> > If it's the BPF part, BPF is not Linux-only, and there's hardware with
-> > direct BPF support these days, so it can be considered OS-agnostic and
-> > not an implementation detail.
->=20
-> If somehow panels used a standardized MIPI firmware we could define this
-> in DT, but here we're basically inventing our own type of firmware from
-> thin air.
-
-That's not what panel-mipi-dsi-spi is.
-
-Maxime
-
---s3nqed5trv4kttpt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4HLwAKCRAnX84Zoj2+
-dl6uAYDovwkc1hvb39koGbGLJWTMCbmYcACHdaVw0R7sPvU3411ITrKE0XW6bqGC
-VstReW0Bf3SPl1Nrf6ImNbY2KvutXe9EvqIRF88l0/bekyLhlDEc+vl+24UFci5P
-jH5weB34Lw==
-=ZDWr
------END PGP SIGNATURE-----
-
---s3nqed5trv4kttpt--
