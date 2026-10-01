@@ -1,139 +1,179 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62C34A5C59;
-	Thu,  1 Oct 2026 15:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BC33A4513;
+	Thu,  1 Oct 2026 15:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790867183; cv=none; b=in3w7PK4vkdG5W//kkMjaapM8VUdElIhexRGXfLTtXU0ToniC1HDQebcrn1AtPVijiO2ByAJNl1eqfrfATjn66a62Z5FfDbjqhaOrw8e/ZgFkEFT+z2cX2YZUYXDwGCAJ3fEhPBjISJedSq0Z6Urom3xz82rJv5eJiP1CTftB5Q=
+	t=1790867187; cv=none; b=Mgeeokhy5cZCVV0P3j55RIewbW+nGEeO9FxZJMG2vMUGXjUDzCtR2fKGuGVieprSs/zPpMWIT3Sxpt37LCIR/8RRCAeEDgKuDfydHqndCb4UgnFSBShNhiiE7JknLY9otSIz+HHpzORDr+xhR3VGjNNyuTu+ns2appGVs8vYFjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790867183; c=relaxed/simple;
-	bh=rcBSxfFI3Xa9wehey/O91tmbMkt2W9SKHF/85tu/loA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ONtnrgKghjCnKWY3AeJDa7rKEf+i1DcIdi6Jn/6EtzH8LljY4/FOXhXSCJJ7mEIr4N8M3Mcbpzv040dqDImIWKgFSrAQJNj6H47u3yttc9gAV9msug5v+YZ7ggvKZ9R9DWafVJz5ZorpN5Gnfs4WrSbaiqm+LflYxUNh3zer9xY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OOW0Vx7W; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=TUxJZY5d; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=H2qxIrXO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OvxZNPaJ; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790867187; c=relaxed/simple;
+	bh=WC5DToNAwuDkSZ3DUESV/uejr3zazobHOeacmQlJuJg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZBfOpfMB4bxEVQZ51WvyAdecbn3DcagEBnOIZhBepQATY394SmZmMa8ahILW2snHImA2rG/nLbI3E+7nWZvTmGgtTgfL9n6MCXk60BeC+7lAxTxwLIawqRQPz5zhvzmAqDmKXZg44Gho8esLhmp78EDa7IKSQEOCMllycRAJyIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AfHkhrsS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OOW0Vx7W";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TUxJZY5d";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="H2qxIrXO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OvxZNPaJ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 869641FCE9;
-	Thu,  1 Oct 2026 15:06:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790867174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jw+bK/GhbzESXh70gVq/JCMPpBsYVqXEwwA0wUoWmRc=;
-	b=OOW0Vx7W/H/RXU3jb0ZvK81xipFPtnwfXMxtI6lFbGkwD8knUeX6QOdvnfhoekcFtvEPN7
-	6+6p5KVeGh+LVMs+KBRru/ALhYOVeFx+X0KvNnKJdFn6ctVmrGH4sXUBuCfv2IOSG/M4Vk
-	PJhg7NUCNHpkKNSVuNlsEw4HKl1sxrQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790867174;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jw+bK/GhbzESXh70gVq/JCMPpBsYVqXEwwA0wUoWmRc=;
-	b=TUxJZY5d0pQ2E1uar5mUg3EQ+/8WusZnFG7W9HZDuk/xVe12RbWasdyeP1ZEAb+v8QidHn
-	EL+PSEYv9HJceJBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790867170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jw+bK/GhbzESXh70gVq/JCMPpBsYVqXEwwA0wUoWmRc=;
-	b=H2qxIrXO5sEYozEsNgZFGexc8vvAY223bV20C0PgfFINMidaAeR5+/O+TC470u0oBXf2Gy
-	CueC9MFiCZlarmd9o5Btx5GmisHVxz251Lz1qm0hboRLNEnYl46H14f2ubZ77LHA9D82c5
-	yAwbkUTsw2FqJTNNdYDjPnMGR5RDenQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790867170;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jw+bK/GhbzESXh70gVq/JCMPpBsYVqXEwwA0wUoWmRc=;
-	b=OvxZNPaJm/y2s0Hyc+Gfa+9ebFp/uNPztmIXs/naVhJOU7jDe44R+zDjo7E7ZSbLCe5+Dy
-	wDJfoBadn7r3fgCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A3CC13B83;
-	Thu,  1 Oct 2026 15:06:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jpWACOJ2vmrFGgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 01 Oct 2026 15:06:10 +0000
-Date: Thu, 01 Oct 2026 17:06:09 +0200
-Message-ID: <87y0ch1mvy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: core: Make sure to call snd_card_disconnect() at freeing
-In-Reply-To: <20261001131810.527650-1-tiwai@suse.de>
-References: <20261001131810.527650-1-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AfHkhrsS"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 97E6F1F000FF;
+	Thu,  1 Oct 2026 15:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790867186;
+	bh=xJUcV/Qd/GMbx19FV6jDy34AUKZXpazdy8hkip3kD58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AfHkhrsSMfL13Z56l8L9RiYTdWwxHkcXP6Kl5FM08A9osT/Tzu4fhy/ZepCH33Va9
+	 eEwjTA2xlwBsyuOsnsLFYFSHXLX8rU4GHNlX+XYpdnA/MQwkEWvHHSC+aQOuLFmK9g
+	 eIlXWAfj6I1XafXXYqgqUs4Zk5qkOznLXCyiHgoPHUgcUYPYpFngF1hdj6KCWuqGfR
+	 g2bnH1RNflmFE0ezDxGAlLaDmNNcaCl84oF/XqZUvvq/zn8VCPW/25hXxad2/JsCaD
+	 YpVG8W76qnxxMzjeNg040N0ztdP83kBV2z/Zuwpgf767mg+v6GT5Rzcax6MEvs5YmM
+	 fcOVzkPZCMaRQ==
+Date: Thu, 1 Oct 2026 17:06:14 +0200
+From: Nicolas Schier <nsc@kernel.org>
+To: Dmitry Voytik <voytikd@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Rong Zhang <i@rong.moe>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
+Subject: Re: [PATCH v3] scripts/config: honor $KBUILD_OUTPUT by default
+Message-ID: <ar525jXEMt3ZecH_@levanger>
+Mail-Followup-To: Dmitry Voytik <voytikd@gmail.com>,
+	Nathan Chancellor <nathan@kernel.org>, Rong Zhang <i@rong.moe>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
+References: <20260927154101.122633-1-voytikd@gmail.com>
+ <art6lF6jcHBNHCi3@levanger>
+ <CAAX90H1Ma5TkiSSg0CB-Tb__G++h-_P=+kiJbaQ4DtS0c+kVRw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAX90H1Ma5TkiSSg0CB-Tb__G++h-_P=+kiJbaQ4DtS0c+kVRw@mail.gmail.com>
 
-On Thu, 01 Oct 2026 15:18:09 +0200,
-Takashi Iwai wrote:
+On Tue, Sep 29, 2026 at 09:15:28PM +0200, Dmitry Voytik wrote:
+> Hi Nicolas,
 > 
-> When a card object gets freed via devres, it might be freed without
-> calling snd_card_disconnect(), and it might forget to release some
-> resources such as the procfs that gets deleted at the disconnect call.
+> Thank you for taking your time and reviewing the patch.
 > 
-> Add an explicit call of snd_card_disconnect() at snd_card_do_free()
-> for assuring the preparation for cleanup.
+> On Tue, Sep 29, 2026 at 2:05 PM Nicolas Schier <nsc@kernel.org> wrote:
+> >
+> > On Sun, Sep 27, 2026 at 05:41:01PM +0200, Dmitry Voytik wrote:
+> > > If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
+> > >
+> > > Fix the issue when the script silently updates a stale .config in
+> > > the root directory, while the user expects ${KBUILD_OUTPUT}/.config
+> > > to be updated.
+> > > The problem can be worked around with --file, but this is easy to miss,
+> > > and is inconsistent with how the Makefile and other tools work
+> > > (e.g., scripts/diffconfig).
+> > >
+> > > How to reproduce the issue:
+> > >       rm .config
+> > >       export KBUILD_OUTPUT=.out
+> > >       make defconfig
+> > >       ./scripts/config \
+> > >              -e CONFIG_UBSAN
+> > >       grep: .config: No such file or directory
+> > >
+> > > Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+> > > ---
+> > > v3:
+> > >  - Added an example in the commit message how to reproduce the issue
+> > > v2:
+> > >  - Addressed comments by sashiko:
+> > >    - https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
+> > >    - use basename when --refresh is used
+> > >    - remove echo which can be misleading when --file is passed
+> > > v1:
+> > >  - https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
+> > > ---
+> > >  scripts/config | 6 +++++-
+> > >  1 file changed, 5 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/scripts/config b/scripts/config
+> > > index 32428ea909c2..cdee67157fe1 100755
+> > > --- a/scripts/config
+> > > +++ b/scripts/config
+> > > @@ -130,6 +130,10 @@ on_exit() {
+> > >  trap on_exit EXIT
+> > >
+> > >  FN=.config
+> > > +if [ -n "${KBUILD_OUTPUT}" ]; then
+> > > +     FN=${KBUILD_OUTPUT}/${FN}
+> > > +fi
+> > > +
+> > >  CMDS=()
+> > >  while [[ $# -gt 0 ]]; do
+> > >       if [ "$1" = "--file" ]; then
+> > > @@ -229,7 +233,7 @@ while [ "$1" != "" ] ; do
+> > >               ;;
+> > >
+> > >       --refresh)
+> > > -             yes "" | make oldconfig KCONFIG_CONFIG=$FN
+> > > +             yes "" | make oldconfig KCONFIG_CONFIG=$(basename $FN)
+> >
+> > Thanks for attempting to fix the '--refresh' option.  But this way,
+> > this may lead to very unexpected behaviour, as it regardlessly modifies
+> > the path to the config file, even if it was specified via --file.
+> >
+> > If --file is given, it should take precedence over any KBUILD_OUTPUT
+> > (or KCONFIG_CONFIG) from the environment and not be changed unrequested.
 > 
-> Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
+> Thanks. I misunderstood what KBUILD_OUTPUT really means. For some reason,
+> I thought it should be a filename and not a full path. The
+> documentation entry is a bit vague on it.
 > 
-> This patch is required as a prerequisite for the recent cleanup series
-> to use auto-cleanup:
->   http://lore.kernel.org/20261001110447.486782-1-tiwai@suse.de
+> > It would be a tiny bit nicer to just strip the KBUILD_OUTPUT path from
+> > FN, e.g. (untested):
+> >
+> >                 yes "" | make oldconfig KCONFIG_CONFIG="${FN#${KBUILD_OUTPUT}/}"
+> >
+> > But I am still not feeling happy with that.
+> 
+> Thanks for the suggestion! So, what I did - I just completely dropped
+> the second change hunk, i.e. kept it as is:
+>       yes "" | make oldconfig KCONFIG_CONFIG=$FN
+> 
+> I tested the following three scenarios and it looks like it works as expected:
+> 
+> make mrproper
+> export KBUILD_OUTPUT=.out
+> make defconfig
+> grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config
+> 
+> # test basic use case:
+> ./scripts/config \
+>        -e CONFIG_UBSAN
+> grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config
+> ./scripts/config -d CONFIG_UBSAN
+> 
+> # test --refresh picks up correct config file by using $KBUILD_OUTPUT
+> ./scripts/config --refresh \
+>        -e CONFIG_UBSAN
+> grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config
+> ./scripts/config -d CONFIG_UBSAN
+> 
+> # test --file takes precedence over $KBUILD_OUTPUT
+> cp .out/.config .my_config
+> grep "CONFIG_UBSAN=y" .my_config
+> ./scripts/config --file $(pwd)/.my_config --refresh \
+>        -e CONFIG_UBSAN
+> grep "CONFIG_UBSAN=y" .my_config
 
-Scratch this (and the series above).
+This one shows one of the problems with scripts/config: while the script
+itself handles relative paths to --file FILE from the current working
+directory, a call of Kbuild changes the working directory to
+$(KBUILD_OUTOUT) and realtive paths in KCONFIG_CONFIG are resolved from
+there.
 
-It turned out that this can be problematic in another subtle way.
-Namely, when snd_card_disconnect() is called from the card_dev's
-destructor, it can double-free the card_dev via device_del().
-Skipping this call doesn't suffice as dpm_list may be still unbalanced
-without the explicit call of device_del() beforehand...
+I don't have a solution in mind, that fits it all.  But I think it's
+important to not make things worse (or more unexpected) than before, by
+accident.
 
-A new fix and another series of cleanups will come up later.
+> If you are fine with the above, I can send v4 with adding the above
+> testing steps into the commit message.
 
+yeah, please send a v4 and then let's see what we'll do with it, ok?
 
-Takashi
+Thanks and kind regards,
+Nicolas
