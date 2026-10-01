@@ -1,69 +1,68 @@
 Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1338F31D72E
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:45:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6523CB8F1
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:45:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829945; cv=none; b=OwkV4o+VjtP7NFR2gonnAd916Ic2atxhfML29UVagstYaoakFgy7m9+rrUccj3stA+DGuPvRFUQCgANqO0wq8uV8GXuxZi1RcXKpnlH77C/rqMKNepC6oxF8HdiC8uZqWnDAjq94A8eCM6dqEuEL0bppozFBKjUtxQ/oHqXYm8A=
+	t=1790829948; cv=none; b=N4oJ3JhrPegXhdYb8vKyHyxFxnsGrCzSVS/pXVWFAD52GOeKAS3BVuMEawFzt+tBsd1KFPn3rqQiLf3ZCb9eoZ/ZB6B/f2MUKAHc+sgCx0SeT7E5HMj0PMdUQoc6SvgDb7jLdH7/S1cViOB1SLwEtNLIEDVgJzUQ7j2Ltr5wRnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829945; c=relaxed/simple;
-	bh=Kl59HLPtGA0YGI1jSQ31FQyI2MljJt0I0JDgqMd96vQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GYk8LyoL7jmKPvilmTcZqDkYbRjZoRhaqelz7ZHO3n/YAoyDtw3Vk9j1yP4GOJu0JoQKoig+q0F6T3h3sFXmK7nl//xHWkKfK+yO6KiXf51bfPXIfomCjmDdWkr0LWTRLAqsuqyxxlmBUczujAGzPYEeRExhAt9HiMyV/mFiQ0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtGUEc1M; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790829948; c=relaxed/simple;
+	bh=eEl8QR+rB9IOMQDWRHcUt7vIZSR3LbsxWeksxBhbqT4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hb+RyNuGSvEWlvu+zHXDUVQpPbpEAg93JltOr1GKSQQSssnbZj3yJv9t+wzMgljnLAPtarcogdFakA4W6nlGH7UBjVKC9Y13CkGzOxwG/rsSA5iRDldvWYSjA1NnstedhKNT94JLaruWf6TIbKiJnkX85Vl6/QDrITVRPWW0bjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKwdPYAl; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtGUEc1M"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso6963732eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:45:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKwdPYAl"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so5761671eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:45:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790829942; x=1791434742; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YUMtS5RjOq3z0OjJOB6QJzFPbiRJk8TU9R7d+42yRmI=;
-        b=KtGUEc1MpzaMNdo0AEU8WdAS4UbLweNXb6eZ6LJPvwu2fuQ12KMrCLQWB3qMOidHUu
-         S/BJPNxFmZg4isUf3JwxrbCmP7NKOr2F/ERwoFSGkuHpEAzXBZ8FOM++VkeVxu6x+LlA
-         yysfDny6CuPAPStbeQde1Gn5oaW8dTpybOUVq7M+03gL9cOs5FOz3ocC0cFOZEisHJWV
-         n2n1HD4qzipBXpQx2tDw46PYEvlF2nCwMhqtGoQRdquPf7xxU0UBJLUiD+/IWzDiqpfB
-         GJYGdg6jSzg9JfX/RmiX9AVoUkbhXC3muRBDsm9uG/gwhhcBScfCwuIDLZvSx8Eca04Y
-         lLoQ==
+        d=gmail.com; s=20251104; t=1790829940; x=1791434740; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dXeIZLOIAX5LEZkoUbZIMdBzX/lThU3KbCUVJA49llg=;
+        b=PKwdPYAlXPiSlFk20xReaHE3QR43JnVDuiftO1UPVb39LbVHRXKPuQpT4rA1RLzVrb
+         v/1DyKyheNKvN8rKIXiwmp0XgcoM2rR3QxFWBk8vgxkoD32iSAzfIQUu625kpZZl8JI5
+         Som3Na6DFFQ0QdooXQwvqy8wCoWLvOU3v0RZyhBDFnPKGgglkQ/k2AtUERgDE3Ph8q+h
+         YqZb9Upon88FeNvw1Va+EutyYjIahjd5QqukSvTETYDWR4NNDtv10V7V9lVVtFqlJ9hs
+         jgpSEMLtx7NWwFaCdHhO5IfdiTsiHM5+rdRX5Y6vmkggwCNzjHC2AJXZce2wQE0mPxvO
+         8mXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790829942; x=1791434742;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YUMtS5RjOq3z0OjJOB6QJzFPbiRJk8TU9R7d+42yRmI=;
-        b=rHEarXXp+DRflEgey5kE3nslKOrRDtTqY/EVX+MbemDNGgLNNuXWyHvS3zqIU60aDb
-         5GisYAgv6cIud+pSPz+21EyFtKLBeYXTiBRxU8gvQ5oDBENv/hRymI75QBVUc6F3HLCm
-         K8+y4jbd+9eiR+RaB6vQn0hCkDfYMmMbd+j8j2gvcVSxj25BA0C1uuQ2RntxOsUfm7U8
-         2nnCxUH/Kf78jl8+QUgRG0iUqSUz2b/z5nzeDxSfrg0IfcjuxFvhH5BSOAGKQr7GZxqm
-         wQV5JCF4NSJqgfAtSoWk84oSZdDA4EakK1EQx8oO+du/zxtTMQ+fqCRWcxFWvZgUjM4G
-         I4mA==
-X-Forwarded-Encrypted: i=1; AKwUvBwk0N38t4J9mDZDxJUTOcmyB9OQZPnPCYyStMeGPepSdkwyvtwpk9zZOAMmfey21OpIDFBdMXMelgKICXE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/bqcW95NpOtb6hzKkolu73VevqZccHLWS2qZQlnNUcjMdm9En
-	DbtgfD/dRuUE7j5CaNCwuBC5V5p0PCI7858TalKmzsibM5vmNoCmY1lk
-X-Gm-Gg: AYBFou3a8NgDlxXNud+mnuQd+A6pHNHH4rCHF3p8SH1p/M1trHq6vuEWq2kOlxl0tK6
-	nHNbFo4dsar8aopZf3se5rTpBCQhBprEDHf6KqeGoC7+v2w2hMogxmdTUzxwsb4u7LDyzTEQSym
-	mUFLipwbY6WgKcWHGEKYGF4M9Lpyv/T4UjeO+31wAGk9e2MXT7Ua+1HGy00ju3xxRH9ZZiBqMob
-	e55J6E1lL98YYOFA3synLWBr7R/V2y7gFxixAI7C0f8pV5HxvmfLfiGq4fikhlA2+hJBEV4waVg
-	sYhpcLw/q/mmZm3knDR3/Pdla8BSLne6jU0hkLh7N9Mxhos1aQZAvxGsQ+p/eDFBsWouTQu06/0
-	fdEG9IwLN4FdWS8XcQDv1WfUMM4RSeGHA9e/EM1tScEPnu2mvXhFnrQl2RIpE/lY5aWWYkmuqsr
-	vFvS2N/f4h81rP1CiAT64BP0KJHfTYqEVD5T0zvmzzNXgNqdbFmKf9Tb+qQAlQGoHT1gptYI77x
-	5ygINQBWLxdZRKBjvjFJCKIZ8h2DY+b3n6EIXv4LYO5VLjXfFRYp7huLTQS7u8=
-X-Received: by 2002:a05:7301:730e:b0:34c:d1f2:b56d with SMTP id 5a478bee46e88-34cdc0cd8a4mr3523736eec.25.1790829942306;
-        Wed, 30 Sep 2026 21:45:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790829940; x=1791434740;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dXeIZLOIAX5LEZkoUbZIMdBzX/lThU3KbCUVJA49llg=;
+        b=MIlBBwT85TiEmFE5zcVkG1Cxxvr051YRdZIDkvKwy4Jwz64x7rh7UECehuL2HPIUGu
+         voUg2d92jzgM6Lr8ITqnlq/zNmmoaBAt/w9evufVHvMYm3BwuG59BxRHUQnBxEgv6dIR
+         EnWaq1Sfv5FIra10utoUbw9YWidBcxsUU5HPDmMrjDXtyHmnKQfgsGFXv12XIfytM/QG
+         umyiey5KfUpcjXVX1VQeQ5/zZ57C0/jtP1qigbthN+bC/jPLststGbwKGnbLePF/jKKN
+         B/dyr7bjaZWJ8t9FMrLzKI+f44HsrQsuzXtFYRbRIkVxa4oZjrp2kWesaeEuPie1o8eA
+         PxcA==
+X-Forwarded-Encrypted: i=1; AKwUvBym7TjX+XfCjVOBtdXylWc91blWtq0UexSHQ36laV+YrZnQgmfX+iWKVSaanTAztuzkDASj72now9w/sJQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgoxJg7G0izaeCRY6exzAuftdOgqW43uhDdnHQUsciQwsHdblM
+	yCOZXG9XWD07AcIiLeJ18nASUUCE6SDMvgCZXsOHXib2L+rtGY2usJh8
+X-Gm-Gg: AYBFou1RQ4+cXyg5vC1vN17YbiDwxFgPNwJwDbiJPLQyvlGiWTHEyqGBx2Ka5oDUbsm
+	SQMfyAkzn76am5rn57dZk2wJ9AOTxGvh84yOB0x5Br6mQ41RNqV7HyfcSNmQRmL+wgaftFJQEYa
+	V9jMjsvqBAgIW624x+aPW+j5ojBskrLVNw7GqHhH38EEUc3Ibcw6dp7H8HOLRTv86pH+0x79DJT
+	lAM+L3iUp9j/2wfnBc9cUqN1oys3+bprNkMyq7TMjNbcdWJPY7CjMlVBCeH8frtXnrA3z6dMOZo
+	M7apfZhWfUltn6PF7ctoHasOLUFWpcHh0mVEdHa81yh90fFKR2TvLcWPs/puk+Apg/SFf5NhHUw
+	YklgHsdzjalC+XApMeCg2/BX2gxCCfApGOi1yrHyXV7mTaOF5UhqYR+JANYhcTMK6SUwVmF5NOS
+	vQprN48ghOZBAYXoQ5oY3iI7rVHzR3+xICwQCz/jSjI9muXpisej2BJYp4YE6mv5JVWcBxlTEpC
+	HwGC/lXUsw/E2ECN1D0YCdR0hgkXsn5dvFluWM5tnoG7Ngwq0xXiFlbvWDY5r0=
+X-Received: by 2002:a05:7300:5552:b0:33b:e3c8:aef4 with SMTP id 5a478bee46e88-34cd6100ce9mr3727853eec.0.1790829939700;
+        Wed, 30 Sep 2026 21:45:39 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:9835:e0ad:476f:74a9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e3414asm3891332eec.19.2026.09.30.21.45.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e3414asm3891332eec.19.2026.09.30.21.45.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 21:45:41 -0700 (PDT)
+        Wed, 30 Sep 2026 21:45:39 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Wed, 30 Sep 2026 21:45:31 -0700
-Subject: [PATCH 2/2] wifi: carl9170: Revert "carl9170: devres-ing
- hwrng_register usage"
+Subject: [PATCH 0/2] wifi: carl9170: revert broken devres conversions for
+ input and hwrng
+Date: Wed, 30 Sep 2026 21:45:29 -0700
+Message-Id: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,9 +71,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-carl9170-reverts-v1-2-7033b5716c14@gmail.com>
-References: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
-In-Reply-To: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGnlvWoC/yXMQQqDMBCF4avIrA0ksY2kVxEXSZzqSLEyoyKId
+ 2+qyw/e+w8QZEKBV3EA40ZC3ynDlAWkIUw9KuqywWrrtK+0SoE/3tRa5TXyIiqmR6yiCybYJ+T
+ bzPim/Uo27W1Z44hp+XfgPH/Mq+UMdAAAAA==
+X-Change-ID: 20260930-carl9170-reverts-bc4b3b6a1a25
 To: Christian Lamparter <chunkeey@googlemail.com>, 
  Kalle Valo <kvalo@kernel.org>
 Cc: Christian Lamparter <chunkeey@gmail.com>, 
@@ -82,113 +82,38 @@ Cc: Christian Lamparter <chunkeey@gmail.com>,
  stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-6c14f
 
-This reverts commit 23de0fa0d2a05ff71c7bc8df9d12c9f23be83f13.
+Commits 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage") and
+87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device") converted
+the HWRNG and WPS button input device registrations in carl9170 to
+devres attached to the parent struct usb_device (&ar->udev->dev) and
+removed the explicit unregistration calls from carl9170_unregister().
 
-carl9170_register() is invoked asynchronously from the
-request_firmware_nowait() callback after carl9170_usb_probe() has
-already returned, and carl9170_usb_disconnect() calls
-carl9170_unregister() followed immediately by carl9170_free(), which
-frees struct ar9170 (including struct hwrng ar->rng.rng and
-ar->rng.name).
+Because carl9170_register() runs asynchronously from the
+request_firmware_nowait() callback after probe has returned, and
+carl9170_usb_disconnect() frees struct ar9170 immediately in the
+interface disconnect callback before devres_release_all() runs, both the
+WPS input device (along with its ar->wps.name and ar->wps.phys strings)
+and the embedded struct hwrng remain registered after struct ar9170 has
+been freed, leading to use-after-free bugs.
 
-Registering the hardware random number generator via
-devm_hwrng_register(&ar->udev->dev, &ar->rng.rng) ties its
-unregistration to the parent struct usb_device rather than the driver
-lifecycle. Furthermore, if carl9170_rng_get() fails at the end of
-carl9170_register_hwrng(), or when the interface is disconnected and
-carl9170_free() frees struct ar9170 before devres_release_all() runs,
-the embedded struct hwrng remains registered on the global rng_list in
-freed memory, causing a use-after-free.
+Revert both commits to restore explicit lifecycle management in
+carl9170_unregister().
 
-Fixes: 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/net/wireless/ath/carl9170/carl9170.h |  1 +
- drivers/net/wireless/ath/carl9170/main.c     | 29 +++++++++++++++++++++++++---
- 2 files changed, 27 insertions(+), 3 deletions(-)
+Dmitry Torokhov (2):
+      wifi: carl9170: Revert "carl9170: devres-ing input_allocate_device"
+      wifi: carl9170: Revert "carl9170: devres-ing hwrng_register usage"
 
-diff --git a/drivers/net/wireless/ath/carl9170/carl9170.h b/drivers/net/wireless/ath/carl9170/carl9170.h
-index e66e3e2ae952..03a94a5a209b 100644
---- a/drivers/net/wireless/ath/carl9170/carl9170.h
-+++ b/drivers/net/wireless/ath/carl9170/carl9170.h
-@@ -454,6 +454,7 @@ struct ar9170 {
- # define CARL9170_HWRNG_CACHE_SIZE	CARL9170_MAX_CMD_PAYLOAD_LEN
- 	struct {
- 		struct hwrng rng;
-+		bool initialized;
- 		char name[30 + 1];
- 		u16 cache[CARL9170_HWRNG_CACHE_SIZE / sizeof(u16)];
- 		unsigned int cache_idx;
-diff --git a/drivers/net/wireless/ath/carl9170/main.c b/drivers/net/wireless/ath/carl9170/main.c
-index 702b6d113b18..8ca76e9044de 100644
---- a/drivers/net/wireless/ath/carl9170/main.c
-+++ b/drivers/net/wireless/ath/carl9170/main.c
-@@ -1545,7 +1545,7 @@ static int carl9170_rng_get(struct ar9170 *ar)
- 
- 	BUILD_BUG_ON(RB > CARL9170_MAX_CMD_PAYLOAD_LEN);
- 
--	if (!IS_ACCEPTING_CMD(ar))
-+	if (!IS_ACCEPTING_CMD(ar) || !ar->rng.initialized)
- 		return -EAGAIN;
- 
- 	count = ARRAY_SIZE(ar->rng.cache);
-@@ -1591,6 +1591,14 @@ static int carl9170_rng_read(struct hwrng *rng, u32 *data)
- 	return sizeof(u16);
- }
- 
-+static void carl9170_unregister_hwrng(struct ar9170 *ar)
-+{
-+	if (ar->rng.initialized) {
-+		hwrng_unregister(&ar->rng.rng);
-+		ar->rng.initialized = false;
-+	}
-+}
-+
- static int carl9170_register_hwrng(struct ar9170 *ar)
- {
- 	int err;
-@@ -1601,14 +1609,25 @@ static int carl9170_register_hwrng(struct ar9170 *ar)
- 	ar->rng.rng.data_read = carl9170_rng_read;
- 	ar->rng.rng.priv = (unsigned long)ar;
- 
--	err = devm_hwrng_register(&ar->udev->dev, &ar->rng.rng);
-+	if (WARN_ON(ar->rng.initialized))
-+		return -EALREADY;
-+
-+	err = hwrng_register(&ar->rng.rng);
- 	if (err) {
- 		dev_err(&ar->udev->dev, "Failed to register the random "
- 			"number generator (%d)\n", err);
- 		return err;
- 	}
- 
--	return carl9170_rng_get(ar);
-+	ar->rng.initialized = true;
-+
-+	err = carl9170_rng_get(ar);
-+	if (err) {
-+		carl9170_unregister_hwrng(ar);
-+		return err;
-+	}
-+
-+	return 0;
- }
- #endif /* CONFIG_CARL9170_HWRNG */
- 
-@@ -2053,6 +2072,10 @@ void carl9170_unregister(struct ar9170 *ar)
- 	}
- #endif /* CONFIG_CARL9170_WPC */
- 
-+#ifdef CONFIG_CARL9170_HWRNG
-+	carl9170_unregister_hwrng(ar);
-+#endif /* CONFIG_CARL9170_HWRNG */
-+
- 	carl9170_cancel_worker(ar);
- 	cancel_work_sync(&ar->restart_work);
- 
+ drivers/net/wireless/ath/carl9170/carl9170.h |  1 +
+ drivers/net/wireless/ath/carl9170/main.c     | 42 ++++++++++++++++++++++++----
+ 2 files changed, 38 insertions(+), 5 deletions(-)
+---
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20260930-carl9170-reverts-bc4b3b6a1a25
+
+Thanks.
 
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Dmitry
 
