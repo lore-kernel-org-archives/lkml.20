@@ -1,151 +1,115 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8571B515896;
-	Thu,  1 Oct 2026 13:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A559951614B;
+	Thu,  1 Oct 2026 13:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862352; cv=none; b=BaO6WY1ni+87fMo13oZP5sWd/eo5a+fYjvsA6+uX54av011j4GBeD3XCV2k+oJELVEE+S042zBjvH1lfpDfqF/gGPhLuW62vpGzYwVozZetbXgI4Y2MT/QOax03Sfhh3rBsh99OZuJorhkBYRqgSu+x/8hIdbaCz0wdTJNTRmcc=
+	t=1790862355; cv=none; b=lN5vfoexXx+poL1H8goeXOh5nnyi8qTOso886kkCh86LbhHxXmGj/fNWZmGWJCiUmdWvB7Ia41vyz0iiQogwsMKm4MgINLZlOHGTnYa8Q3NkCJ7+oue+NxcP3BKhQcMmLiV6oWrVA9RRWh5+1GV58HGvh+JqDE/0Str/VjxN+Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862352; c=relaxed/simple;
-	bh=NGSMm8PfNE9EuKGA03aikfRRcQ9RlsMinnp33+WTOQg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jqCwETKBOM0FvdAV6s5jXZXT0MP18z9GAfauh5oFIB41hGddiNJdN8YcFnl/U5Usq+QD4jqAs/SANutFYnnsGWHUD9SSHuZsKp71cBWQkvkeZKl0wTujTa9GkgYA6tCHrkgQKwi6YukHBZr2KtD+aFlHPBOVAVbr9IZV4ap7paU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dpBpGDoR; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790862355; c=relaxed/simple;
+	bh=apKzEwDGvm39faDzm+9FLwjhohGrNW4I7Dxp/WKtP3E=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=KaCRBWR9zJ9fJ+2vrqzSwNeNewCWxIVmHsV4Wn05v0E5ssFsLMJo9v7tb/Vo1+rrhOlguqL4L3HJ+vIeSsD1+fR9WzQTiYiYdVfg5z9H/QGPKtrr3m4lkpwv5kumfHIbRbdhZjx0vzHkBEejMUFrO1deDtGkp2ypoU+E6E3pH1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUpcTBxM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dpBpGDoR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790862350; x=1822398350;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NGSMm8PfNE9EuKGA03aikfRRcQ9RlsMinnp33+WTOQg=;
-  b=dpBpGDoRcUaMJiJoq5b1lFuaDISwvr5vKAhs+nUzSPMV+m0NT8LCwcFp
-   r+ZRrEBr3ULblxQDxakzQrHWnvh55DmRlwJBYnG3/PYz2Ozs80g5d90cA
-   g0+cMXlBfEzYmscqVizsFsrVq/F1ymtvJfQObHjk2BjwwJlMUOqjo2AOC
-   IW9xZClEhV+7t0tt502g0x0ob0uU5ck+pPhN01/WBbr0F+iBLD7cuP1Fa
-   1K36xQUCmOWX7gFb9/TauPYxluKnOjao6YlUBubKmrvLuUSio+pfnKGdA
-   UToXETY1pY3WQKZpvSt378AkAjwQwwAW0r3kzvr7eTVXRKPRu7wwpN7oJ
-   g==;
-X-CSE-ConnectionGUID: BIkAPYINQtG8gU7HNrksTQ==
-X-CSE-MsgGUID: NIDHVCJAT76bF6HC3caUPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91638283"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="91638283"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 06:45:49 -0700
-X-CSE-ConnectionGUID: UYseu5zYTCKu4Kh0A7r3rw==
-X-CSE-MsgGUID: +S72MK2gTOKtxCwcX+WfkQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="279301760"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 06:45:47 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id CDC3A11F84B;
-	Thu, 01 Oct 2026 16:45:42 +0300 (EEST)
-Date: Thu, 1 Oct 2026 16:45:42 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
-	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Message-ID: <ar5kBpv8hdkpldp9@kekkonen.localdomain>
-References: <20260828064843.65047-1-lachlan.michael@sony.com>
- <20260828064843.65047-3-lachlan.michael@sony.com>
- <ar5RFpomHbdAAMLx@kekkonen.localdomain>
- <20261001133138.GM944070@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUpcTBxM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853BA1F000FF;
+	Thu,  1 Oct 2026 13:45:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790862354;
+	bh=O+hFdg3vTjqlHkFtIZYWlUtyOb9Pvlpw/KTbPdqgDfg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=oUpcTBxMhif+OuMIVz8sidLgmOIuLLDYM4tgCbE/esDRHUbLHc5qX1g9G99Lreogr
+	 AlwwRNOfNwhOLY9Hz+nuvtMydy+dTbcGCR/3YfOv/90CQpCFJNi61lzTujMAx5iars
+	 Dkw6MXnmjstPNNytcANXASuU+x67gVlJsLXHRwWYeapBuWw/U30V6IXO6eUE/4fFlA
+	 AokpQP4jOLHj0cl8Ab+LHg5ECRM3u0kAm8YdTQCy6myVmSx7O840oMRFhEa6X1BXdi
+	 MW4uHxlZzwfy3DBn8WiyBTyDDCXh9yPclNB6AI5Zlt23y+46IoccSrs6qFECHm/tsD
+	 mpA83Ymdc+Vrw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Gary Guo <gary@garyguo.net>, Gary Guo <gary@garyguo.net>, Andreas
+ Hindborg <a.hindborg@kernel.org>, Anna-Maria Behnsen
+ <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
+ <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross
+ <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lyude
+ Paul <lyude@redhat.com>, John Stultz <jstultz@google.com>, Stephen
+ Boyd <sboyd@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, FUJITA
+ Tomonori <fujita.tomonori@gmail.com>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/6] hrtimer: add expiry injecting callback variant
+In-Reply-To: <DLT1I5F55U3W.2N237BGZ1EDF1@garyguo.net>
+References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-1-90411c6217c7@kernel.org> <877bk3ixp5.ffs@fw13>
+ <DLSOFOGGZC92.12KYHEALX1271@garyguo.net> <87qziah0uo.ffs@fw13>
+ <DLT1I5F55U3W.2N237BGZ1EDF1@garyguo.net>
+Date: Thu, 01 Oct 2026 15:45:50 +0200
+Message-ID: <87fqyph6up.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001133138.GM944070@killaraus.ideasonboard.com>
+Content-Type: text/plain
 
-Hi Laurent,
+On Thu, Oct 01 2026 at 00:29, Gary Guo wrote:
+> On Wed Sep 30, 2026 at 10:43 PM BST, Thomas Gleixner wrote:
+>> So what's your actual argument that you can't build a "safe" Rust API
+>> around this?
+>
+> Sure, if all expiry read/update functions have their _safe_from_callback
+> variant.
 
-On Thu, Oct 01, 2026 at 04:31:38PM +0300, Laurent Pinchart wrote:
-> On Thu, Oct 01, 2026 at 03:24:54PM +0300, Sakari Ailus wrote:
-> > > +static int imx908_set_selection(struct v4l2_subdev *sd,
-> > > +				struct v4l2_subdev_state *sd_state,
-> > > +				struct v4l2_subdev_selection *sel)
-> > 
-> > We don't really have cropping behaviour documented before the common raw
-> > sensor model. I'd just postpone this until we have the common raw sensor
-> > model support
-> > <URL:https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata> merged.
-> 
-> There's real progress on merging the raw camera sensor model, with Jai
-> finalizing the implementation in libcamera. We could drop crop support
-> for the initial version of the IMX908 driver or wait for the raw camera
-> sensor model to be merged. The former is probably better to avoid
-> delays.
-> 
-> Lachlan, sorry about this last-minute request. Hopefully it will be
-> quite simple to drop the .set_selection() handler and hardcode full
-> resolution. imx908_update_framing_limits() will then have no user and
-> could be dropped too. We'll add it back one kernel version later by
-> adding crop support based on the raw camera sensor model.
+Why do you need more than the safe forward variant to solve
+the problem of preventing that a callback forward and a concurrent start
+collide and create inconsistent state?
 
-As an added bonus, it'll be more simple to support that in the driver, too.
+Just to take a step back. We have two sorts of hrtimer usage:
 
-> > > +static int imx908_disable_streams(struct v4l2_subdev *sd,
-> > > +				  struct v4l2_subdev_state *sd_state,
-> > > +				  u32 pad,
-> > > +				  u64 streams_mask)
-> > > +{
-> > > +	struct imx908 *imx = to_imx908(sd);
-> > > +	int ret;
-> > > +
-> > > +	ret = imx908_stop_streaming(imx);
-> > 
-> > imx908_stop_streaming() is used in a single location only. I think you
-> > should move the code here. Same for imx908_enable_streams() and
-> > imx906_start_streaming(), too.
-> 
-> For imx908_start_streaming() it could make error handling a tiny bit
-> more complex. This is the kind of detail I'd leave to the appreciation
-> of the driver author.
+  1) a simple "start, wait or cancel, done" sequence, e.g. nanosleep()
 
-Works for me. In that case I'd move the other function just above the
-caller.
+  2) a more complex scenario which has to take care of concurrency,
+     e.g. POSIX interval timers
 
-...
+#1 does not need any of this
 
-> > > +	/* Device is powered; keep it resumed across registration, release at end */
-> > > +	pm_runtime_set_active(imx->dev);
-> > > +	pm_runtime_get_noresume(imx->dev);
-> > > +	ret = devm_pm_runtime_enable(imx->dev);
-> > 
-> > What will happen on error here? PM runtime will be disabled after probe()
-> > exits on error, but you'd need to set the state to suspended after that.
-> > I'm not sure you can correctly use this as things stand currently. This
-> > also conflicts currently with remove() below disabling Runtime PM
-> > explicitly.
-> 
-> I'm not sure to understand what's requested here. Are you saying there's
-> a potential issue that can't be fixed currently ? Or should this code be
-> modified ? In the latter case, could you please tell what should be done
-> ?
+#2 has almost always a related data structure, which needs to be kept
+   consistent by some form of serialization. The embedded hrtimer is
+   just a small low level detail of the overall use case logic.
 
-I'd just avoid using devm_pm_runtime_enable() here. The problem really is
-that you'll need to set the device to suspended state (as well as power it
-off) *after* devm does its teardown work. You can't do that, at least not
-right now, without introducing devm variant of setting the state active.
-There may be dependencies to some assumptions on how devices are unbound.
+   The base lock _cannot_ provide the required serialization and any
+   amount of 'callback safe' addons will not change that.
 
--- 
-Regards,
+I completely understand that you want to create a fool proof hrtimer
+Rust API, but honestly that's just creating an illusion of correctness.
 
-Sakari Ailus
+If the core provides you a get_expiry_safe() variant, which takes the
+lock before reading, then what is the return value?
+
+  It's a snapshot which might be invalid at the time of usage already.
+
+Ergo, if you need consistent state across concurrent contexts including
+the callback, then the only solution for that is external serialization.
+
+I'm not against hardening the core implementation against API misuse
+where it makes sense. But that's hardening and cannot solve the other
+problems which are solely in the scope of the usage sites.
+
+Thanks,
+
+        tglx
+
+
+
+
+
