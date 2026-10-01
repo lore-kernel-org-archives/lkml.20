@@ -1,150 +1,190 @@
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4C14BCABD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 254523C4167
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862009; cv=none; b=vBs507SWlcr6540mHxM7Am4oS0MZNVMEGIrt5OS79UltJftI/oaBg7ZHyI/9xI7oZZFRwkEWlyQ76WURyaE5HygjZns/eEEGbDohX1FBH17F9sGAy5WTWKYKA5SvnV6ADu6PbSPui4jV0uKUZlpx+Qhfj7f39UjXM/K7wrEhaBs=
+	t=1790862056; cv=none; b=V8u3Ary8GdeSD4AGWM+aGsACI+sM3ZO+GXpxO3JcIaOBsxaAiIQDO03tFX7heHuK5mHjOL5ljiwQVQQT/JT5/qlKj+EdHGKNj4bX4YABM8oDEnJpB1iAdY4GmbFhkI/DCVL2RTzRGb7yOh7mQkwNfA5NENc+ZzmFSh9lwVgm3+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862009; c=relaxed/simple;
-	bh=44EZaq4IayZwFnSEKr7sAoYn1kVxome40EQ9XQHbL/E=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=DMa+UaYk1OS2P0eyLf5aAVan+eakIgsKHuYECqGYzeiuC7741t0iyJa47AONBFw3gtNwry7rxpbhyCokbjtNOiCMKfMH7/fDfRbJFNyezdnZxqUFrRWZLYrzTlegn5L8QShfSieNrnKNOTayCfwBYh1a1xz2CWIH90lFrDnmTP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Vvo60XYF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=yE0Y3aPz; arc=none smtp.client-ip=103.168.172.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1790862056; c=relaxed/simple;
+	bh=cga5org1q/q/bKI3rNh8W1nENCJtKS9JxjUZKRGwvZQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PYlhqu/efmzIcFPGrKYCKIX6zWEVm3RfesdUdwQC4/ZndzlhNoehj3Ac806QdSdgxsThlZ05/gE0KJQT3po0ka495UF7m0Z6UPqIXUFsRxf7MeW+NcDIgjUjNKQlbmY8YkJwddIZutkXRmGfvfVQ+HUe+ny7JrsCMgPHvDHRQx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=j7fqMIi0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Vvo60XYF";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="yE0Y3aPz"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 31FC2EC01CD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:40:07 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 01 Oct 2026 09:40:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790861991;
-	 x=1790948391; bh=Uwp2ZDOoPY3tI2VNi4uZ1TmL4tpZAymbe2XPjfSWC3g=; b=
-	Vvo60XYFrWy2XPdLwFA9adRkgSN3UVtkoS97ON0g2cGLCnP/r70JvNVCKk02dTpg
-	VDO1wr+/WyiNuQcycIM88DErSPgqbuSU94W8y016zNYI446AuE+uTIftFoiNdWAu
-	FmvLnI1iVuzLIHxP+h5qSkg5dckZO8Nm+09yWalyTUwYhdEIULLSaf49/9ozGQVZ
-	sFcs+noqoxMH57+7ZYpSBQZ0lLPFqII3mpuy1wp6t5FXcrKaQ4PzCYS5EDoFdjVX
-	7PR3k6b2zyNse0qgFebEvb+PQRPXDA8ZQg1bdc1kS+clYqOgRdRJrtxkhy4vxkCH
-	2Hnoq6IBtYmhr2ACmlZdbw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790861991; x=
-	1790948391; bh=Uwp2ZDOoPY3tI2VNi4uZ1TmL4tpZAymbe2XPjfSWC3g=; b=y
-	E0Y3aPzlONuyx97IbQDkB4tJwxI4yrGQ0Uh6wjPCIopZN/XwMX7BiVptHeT2n7J4
-	JHLSu6Lked9EkPyOzQmskgXlQ39Fa+a8Kc4jWz8ZBDEifiqfcnG3CZBJmc77mUYW
-	MDVjwJPSUCXjCOdtDGmo8d75WwK3FXVmYgcrzgHsLNZ+H2fNdkuRJZLrGoxBu1Xl
-	rbu7lhXbIOcKaH6AJyuu9qb/gRwNp1lCsolXgizZ+Jlq1EVFaG/nM2ZkkAeDGWf+
-	PI55JTlT8JMJjNyz7zWPecjxOzglND4gkkRFqQ2nxceOh7z+53xrU5Bi5v9aQdMi
-	gQm+O2J6WY1RlD8L2adRA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790861991; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:ACXlCMAcbuxGYtdbj5pBy0ZQOqLMA5J9ZFGrVrvdpI3Dmdg
-	0lJ1EV4Xj6pog9O83TN4Hun7uQFKySJx9HSJIC1nG372JTGaIyp+s7mbfsjVDhi/
-	f1QI2M09FslWuJpx13SvFzWA9XSOFZtQQv74wJEhazGDtbqPLET+mWnkj8nM3ZgP
-	jbV25z5lE/i/3jJRVk/GCWAKiVV7ePchA4oFOX/blCT0KlKWyjdr+Z4prqc3uncS
-	/VLxSfu0J4HOwgn5SMWfG8bsXxD+mE51U+GJWronh5vUbuXSn2YybKJg1qLGDSzC
-	Z2O3NKczsMUi/V/tWmgH2WZjRd56/pSDkHguzeQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:BGpLFMCduRgTg7y1aJr8Ihh10vNT6FWHgqI8rrxK5fI=:44EZaq4IayZwFnSEKr7sAoYn1kVxome40EQ9XQHbL/E=;
-X-ME-Sender: <xms:oGK-aqKqS5O8pEqGgKCvh__LvsScmCIsvi5uWnyQVKCo8Zk4lQQwIQ>
-    <xme:oGK-as8GbFf_iRvMnim8wlA19YZROZHMvzVXmocivAHkXrM_d6iXEiGBw6qXEAu1S
-    fE61CGw6T95gOkCwEXVs_MLfrviBAyYn5mk8p9PXCqMwpUGceO2MWTO>
-X-ME-Proxy-Cause: dmFkZTEdx5AqovL1MTEo9qQdIf1UspZIhV2/zxzYRmwyd+bfaXPeYA2sFWVvA4rtnWQssz
-    e/2T3RJgnanif0LUm5IZ4ZAoV5grcdZq8G0huQxY29Y8wRoYp009HNfv+KgK5P0w8gmFDz
-    vuFpNcewv5coXrOM/gbTVyOCjoacUGWKLvFYxLZoD9S9vDqeLMeRitS9iJywkISeFaDiOG
-    9HH2239doQyc+FRdEt6Dz45AR1v0pEqiNZCMXnPubcaWeWH/WeBdO1NtWDppw33wUpE9ib
-    hFCl0FzAh+BwPd/iWfy1e3RgasoKugqSILaqPXGOHF4i0TS2V6y7Ghsg/2kzdADRJ67tFk
-    sAomxwNvOZE3Xl4f/XP3A66f9+z9gspYtzZhE4n76yksZa22YcktB2kJwt0AKSyvWKqBnW
-    uThVg1YEV1xUtXdeifE7P+vxCE6CDd5LJ/7+dXXv+Yf4HAaKsl9TzqphOh6uZSnAtXOjHe
-    kjhUwVDtlG2ldd0RYCQAAvdnkapM11UMiRGoBcZgec6rtl/YDvWJHkkF8HXPtm6zq/s32M
-    RM32kc482Ehq7OcsYWXwZvkFARvGyQVFMaMyJSLOcZsQHNLk6CBbaSwOB+baaHKM2a09ih
-    NBkhZ1o7/ENmZlRpShwI8nt1Qe3hGLG5Hb6dsqZU2wuIFvmIxC7QFcNP0u3Q
-X-ME-Proxy: <xmx:pWK-ak-68vXD1ePX4y31qlVBoKs_NqqSxrJHMUKlKasmB4u1PJxesw>
-    <xmx:pWK-agA8IgXnKSdK4QKof0d01XAqAbnMT9DOVIKV8plUbRPRL6zAmQ>
-    <xmx:pWK-auE1s0-gtqaMocgsUVh5dhVkU53_2Of23DTTKtkiFQiexqfdvg>
-    <xmx:pWK-aq1g8e83K9bz6wyRWDXEDrfkLCMGvfwelPYVnOiv_WIGGc2O2w>
-    <xmx:p2K-ar_Hipd_0Tf2XNyz7_3JwgUuiODDRV-TrdSqE9bmmYkIE4Xc8zHN>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 8214032A008A; Thu,  1 Oct 2026 09:39:44 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="j7fqMIi0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A1DC8497;
+	Thu,  1 Oct 2026 06:40:49 -0700 (PDT)
+Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.165])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CE2523F86F;
+	Thu,  1 Oct 2026 06:40:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790862053; bh=cga5org1q/q/bKI3rNh8W1nENCJtKS9JxjUZKRGwvZQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=j7fqMIi012Nvq5XjZD+8SJ8tdPJiz5FYbgsY2BvhEEXkzP1unbFbZEwqy44kRuH+d
+	 M91qRGdKfW0FvzsysZrOuMhxRRxCw9uKc8Vi2T2+0GaMaipVLZ3+CPh2f9EgJM3UxB
+	 NkZsIp5PBKn70CFj5EXHj6s4Qz/B0VhcMyrMo6ls=
+From: Christian Loehle <christian.loehle@arm.com>
+To: linux-kernel@vger.kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	kayracizmeci@gmail.com,
+	kprateek.nayak@amd.com,
+	elif.topuz@arm.com,
+	sh@gentwo.org,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH v2 0/5] sched/eevdf: Keep slice protection boundaries consistent
+Date: Thu,  1 Oct 2026 14:40:11 +0100
+Message-Id: <20261001134016.3881268-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AompHzTHtn-7
-Date: Thu, 01 Oct 2026 15:39:24 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Steffen Eiden" <seiden@linux.ibm.com>, "Marc Zyngier" <maz@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org, "Alexander Gordeev" <agordeev@linux.ibm.com>,
- "Andreas Grapentin" <gra@linux.ibm.com>,
- "Catalin Marinas" <catalin.marinas@arm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Friedrich Welter" <fritz@linux.ibm.com>,
- "Gautam Gala" <ggala@linux.ibm.com>,
- "Hariharan Mari" <hari55@linux.ibm.com>,
- "Heiko Carstens" <hca@linux.ibm.com>,
- "Hendrik Brueckner" <brueckner@linux.ibm.com>,
- "Ilya Leoshkevich" <iii@linux.ibm.com>,
- "Janosch Frank" <frankja@linux.ibm.com>,
- "Joey Gouly" <joey.gouly@arm.com>, "Nico Boehr" <nrb@linux.ibm.com>,
- "Nina Schoetterl-Glausch" <oss@nina.schoetterlglausch.eu>,
- "Oliver Upton" <oupton@kernel.org>,
- "Paolo Bonzini" <pbonzini@redhat.com>,
- "Sean Christopherson" <seanjc@google.com>,
- "Suzuki K Poulose" <suzuki.poulose@arm.com>,
- "Sven Schnelle" <svens@linux.ibm.com>,
- "Ulrich Weigand" <Ulrich.Weigand@de.ibm.com>,
- "Vasily Gorbik" <gor@linux.ibm.com>, "Will Deacon" <will@kernel.org>,
- "Zenghui Yu" <yuzenghui@huawei.com>,
- "Fuad Tabba" <fuad.tabba@linux.dev>
-Message-Id: <40dd808c-bddf-4a7a-be81-53c64de2707d@app.fastmail.com>
-In-Reply-To: <20261001132715.108643-A-seiden@linux.ibm.com>
-References: <20260930173441.66762-1-seiden@linux.ibm.com>
- <179085262878.3865846.5787241839391727949.b4-ty@b4>
- <20261001132715.108643-A-seiden@linux.ibm.com>
-Subject: Re: (subset) [PATCH v9 00/24] KVM: s390: Introduce arm64 KVM
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 1, 2026, at 15:27, Steffen Eiden wrote:
-> On Thu, Oct 01, 2026 at 12:04:51PM +0100, Marc Zyngier wrote:
->
-> quick fix: 
+EEVDF slice protection is an absolute virtual-runtime boundary. Several
+paths currently treat that boundary inconsistently with the task's current
+slice, or with the timer that makes the scheduler reconsider current.
 
-Ah, I was about to send the same thing.
+Patch 1 makes fair HRTICK expire at live protection rather than only at the
+later virtual deadline. Patch 2 consolidates the fresh and update
+protection calculations. The remaining patches cap protection after a
+slice change, prevent reweighting from reviving expired protection, and
+update protection when sched_setattr() restores the running task.
 
-> I can send the two fixup patches as a reply here for this tomorrow or 
-> later today if you want. 
+All workloads below pin every task to CPU1, use SCHED_OTHER, and keep the
+controller on another physical core. rt-app's dl-runtime values are in us;
+sched_getattr() verified the resulting sched_runtime values. The tests
+enable PREEMPT_SHORT, RUN_TO_PARITY and PLACE_REL_DEADLINE, and run with
+both HRTICK and NO_HRTICK (except for patch 1).
 
-My build bot is churning away looking for more corner cases.
-I initially had the wrong base, but with this one and the other
-two I sent, things are starting to look good. I'll keep it
-running over night, but if you don't hear from me for any additional
-build regressions in the next hour, it's probably fine.
+The HRTICK/deadline mismatch in patch 1 is exposed by two continuously
+runnable equal-weight tasks:
 
-      Arnd
+  "short": { "cpus": [1], "loop": -1,
+             "dl-runtime": 100,  "run": 1000000 },
+  "long":  { "cpus": [1], "loop": -1,
+             "dl-runtime": 1000, "run": 1000000 }
+
+On the HZ=250 control, the short task's median sched_switch run interval is
+1005 us even with HRTICK enabled. With patch 1 it is 101 us. Both tasks
+retain approximately half of the CPU in either case. (The error is therefore
+the reconsideration time rather than CPU share.)
+
+With RUN_TO_PARITY disabled, vprot instead marks current's minimum progress
+quantum. HRTICK must reconsider current at that boundary as well. After an
+expired-protection repick it falls back to the deadline without renewing
+the quantum.
+
+The oversized fresh protection in patch 3 is exposed by retaining a 100 ms
+relative deadline while reducing the request to 100 us:
+
+  "shrink": {
+    "cpus": [1], "loop": -1, "dl-runtime": 100000,
+    "delay": 700000,
+    "phases": {
+      "warmup": { "loop": 1,  "dl-runtime": 100000, "run": 20000 },
+      "hold":   { "loop": -1, "dl-runtime": 100,    "run": 1000 }
+    }
+  },
+  "peer": { "cpus": [1], "loop": -1,
+            "dl-runtime": 1000, "run": 10000 }
+
+After the change, inspect the next fresh SNT_PICK of shrink. The control
+grants between 13 and 28 ms of protection to the 100 us task because its
+own slice is the runqueue minimum. Patch 3 caps that fresh boundary to the
+current request. In the trace-free companion test, the control's complete
+post-change run intervals reached 69--83 ms with HRTICK enabled; the
+isolated fix reduced the maximum to 3--4 ms. Wall time includes interrupts
+and legitimate repicks, so the vprot observation is the correctness
+criterion.
+
+The expired-protection reweighting bug in patch 4 is exposed by three
+continuously runnable tasks in separate cgroup-v2 CPU groups:
+
+  group a, weight 10000:
+    "long":  { "cpus": [1], "loop": -1,
+               "dl-runtime": 100000, "run": 10000 }
+  group b, weight 100:
+    "short": { "cpus": [1], "loop": -1,
+               "dl-runtime": 100, "run": 10000 }
+  group c, weight 100:
+    "mid":   { "cpus": [1], "loop": -1,
+               "dl-runtime": 1000, "run": 10000 }
+
+While rt-app runs, change group a's cpu.weight every 400 ms through:
+
+  10000, 1, 100, 1, 10000, 100, 1, 10000
+
+On the control this produced 32 expired-to-live vprot transitions in 16
+captures and seven selections of current over a runnable, eligible peer
+with an earlier deadline. With patch 4, 181 captures containing 441920
+queued current weight changes produced no revival and no such wrong
+selection.
+
+Kayra Cizmeci reported the same invariant failure when
+sched_change_begin() temporarily dequeues current. This rt-app phase loop
+makes the weight change after running beyond a 100 us request:
+
+  "change": {
+    "cpus": [1], "loop": -1, "priority": -10, "dl-runtime": 100,
+    "phases": {
+      "heavy": { "loop": 1, "priority": -10,
+                 "dl-runtime": 100, "run": 117 },
+      "light": { "loop": 1, "priority": 10,
+                 "dl-runtime": 100, "run": 173 }
+    }
+  },
+  "peer": { "cpus": [1], "loop": -1,
+            "dl-runtime": 1000, "run": 10000 }
+
+The diagnostic trace records vprot <= vruntime at __setparam_fair() entry
+and checks that the following SNT_NORMAL restore does not make vprot live
+again.
+
+The restore bug in patch 5 is exposed at the phase boundary itself. Use a
+long-slice peer so the task being changed owns the minimum after the
+change:
+
+  "change": {
+    "cpus": [1], "loop": -1, "dl-runtime": 100000,
+    "delay": 700000,
+    "phases": {
+      "warmup": { "loop": 1,  "dl-runtime": 100000, "run": 20000 },
+      "hold":   { "loop": -1, "dl-runtime": 100,    "run": 1000 }
+    }
+  },
+  "peer": { "cpus": [1], "loop": -1,
+            "dl-runtime": 100000, "run": 10000 }
+
+---
+Changes since v1:
+- Expand the standalone HRTICK fix into a series covering related
+  protection-boundary inconsistencies found during testing.
+- Share the fresh and update protection calculation.
+- Fix protection after slice changes, reweighting and SNT_NORMAL restores.
+- Request lazy rescheduling when an SNT_NORMAL update expires protection.
+- Add HZ=250/HZ=1000 and HRTICK/NO_HRTICK regression testing.
+
+Link: https://lore.kernel.org/r/20260929194711.2689811-1-christian.loehle@arm.com/
+
+Christian Loehle (5):
+  sched/fair: Take slice protection into account when arming HRTICK
+  sched/eevdf: Share the slice protection calculation
+  sched/eevdf: Cap protection when current has the shortest slice
+  sched/eevdf: Keep expired protection expired across reweighting
+  sched/eevdf: Update protection after restoring current
+
+ kernel/sched/fair.c | 72 +++++++++++++++++++++++++++------------------
+ 1 file changed, 44 insertions(+), 28 deletions(-)
+
+
+base-commit: 01d1f30564aac8d53c4ba2de2bfc81fcef206721
+-- 
+2.34.1
