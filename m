@@ -1,98 +1,143 @@
-Received: from mail.holtmann.org (mail.holtmann.org [81.169.141.235])
+Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE652CCD7;
-	Thu,  1 Oct 2026 15:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=81.169.141.235
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869207; cv=none; b=i5KIop03KJL6rMXR48ryA16r9vKdoIRQI5wh9oe1iTRqZ/X+2TLuxkRuuDD5GfCXMA90SrYDxnSxHevzoh+iRkUMM8DDXhKKZ6hUMrg6/UY6SmgqkyeDVCy0PG2ljZN4+2Ws55FFLEUA3pWTdgseV44oLt1aM6HNihs6DzVDkD4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869207; c=relaxed/simple;
-	bh=vw1rj845XftbG9SUjyzYpshHEzKeJ159aAiFNfiYTUA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Ccug37HfQfL6QfmyZe2rGcxXTDIHvYZCWhp6EoeEF/f0GeQNwQ4+Lbad5ieD6+E8MeIJkAhQWqdh7jiVoUb7JIo49eCCXZz/43b94cUm/Av52efvi0F/DwPcRMhfM6ReOG+dH+UImdga5Hp/whpHsDZ+pSw9kPHcb77caOq6iJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=holtmann.org; spf=pass smtp.mailfrom=holtmann.org; arc=none smtp.client-ip=81.169.141.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=holtmann.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=holtmann.org
-Received: from smtpclient.apple (p5b0a9ac0.dip0.t-ipconnect.de [91.10.154.192])
-	by mail.holtmann.org (Postfix) with ESMTPSA id A906FFF12A;
-	Thu, 01 Oct 2026 17:39:57 +0200 (CEST)
-Content-Type: text/plain;
-	charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA45A51EE10;
+	Thu,  1 Oct 2026 15:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790869214; cv=pass; b=a/6qQu5qFTtCn4ZX/CBxFACHNV1qpWGyskCWHfbjRIBkpJuXREOjpY2pWiPJJRpz34o8IsDgGAI8gDm0lCXLCUwvOzxiYTFCq+3w1UGlR5FKdGmocS3/qppLvg9EJ9OXKNKdj77f7gdBWhnJuaUj4A0ZCSpndma3YvjnaTEJyFI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790869214; c=relaxed/simple;
+	bh=+EAfRuBTyaf2fWEEar7r40jxwRcUecv+6lfvlY4edFw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sakjLp1k+ABhWXE3K4uHqIuSI47GRBDssDJhBRFAfDgu5SMtwP/idmNa/Gun+rAq4rgdQl+ifuvOYJX/eILMdo+3xpspVYjOgD7U2rt1cQfEqWSXue2ft5q8scWGB8z/NBGjQMZNCAJMzp6NZb7c4SQB19+B6yZkOEDMGZYD0c4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=TCEoFDBb; arc=pass smtp.client-ip=135.181.6.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="TCEoFDBb"
+Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail2.ecloud.global (Postfix) with ESMTPSA id F0DEB720BA3;
+	Thu, 01 Oct 2026 15:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
+	t=1790869209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qKDPtfxAhV/dREsJEcSyq7SoOHuO3ciIber1G1Mlbkk=;
+	b=TCEoFDBbjYRUo3c3fevSgQ02QIdoN8xUTOuZX4DnbNjkrxZf3NsSMJCDP/MJ2ahHmsp/ob
+	CZm9EzW0JqyQepC+Mnx/wD6iInO/gE6qqTN6uPkLE2YHijtYT2D6xeDv6kzMtQ2zw9Yp6m
+	oqIa9aQsK+srkNwKqeXCFbnHDAubzL8=
+ARC-Seal: i=1; a=rsa-sha256; d=murena.io; s=mail2; cv=none; t=1790869209;
+	b=VNETGM+K8h+iqT1UgCB1Tyj/1jgj3s+OJmVqwrK8EC6gaoplSJXbAgezfVTDHlQqR7w31Y
+	pJJjeVIznq7magjlH4S0Y4KzwY/p8b8liSEVRALNAhMz6cVOJT5tnFoOv1mhJrF2LsWiVD
+	RwXYI5A6T6b7Ep9svcPR2Rxzh01/mPM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+	s=mail2; t=1790869209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qKDPtfxAhV/dREsJEcSyq7SoOHuO3ciIber1G1Mlbkk=;
+	b=ZNq50gAmDVE09SbtqXvrb4VyxebLiZgRYzrViBFsX459PliBv+F2kxIilSuf95+w28YMvk
+	pKYEUbbhSKrCyLVj+Klf7A5Rg3h61gXuL5gSAokYwrBVKrb0/Rr3OS4KugTIbU9NALael8
+	V9nPlJRRQHNAr/SJI/WBGam7iDaXO7w=
+ARC-Authentication-Results: i=1;
+	mail2.ecloud.global;
+	auth=pass smtp.mailfrom=maud_spierings@murena.io
+Message-ID: <6462d084-5861-4df6-94ca-dbd23e619a61@murena.io>
+Date: Thu, 1 Oct 2026 17:40:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v3 2/4] net: qrtr: Assign unique node id for MHI endpoints
-From: Marcel Holtmann <marcel@holtmann.org>
-In-Reply-To: <19433f85-4cf1-4ec1-a26f-0eab7df062df@app.fastmail.com>
-Date: Thu, 1 Oct 2026 17:39:47 +0200
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
- Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Jeff Johnson <jjohnson@kernel.org>,
- linux-arm-msm@vger.kernel.org,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org,
- ath12k@lists.infradead.org,
- Bjorn Andersson <andersson@kernel.org>,
- Chris Lew <christopher.lew@oss.qualcomm.com>,
- Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A709172A-40F7-4986-B7D3-02A422F6584A@holtmann.org>
-References: <20260922-qrtr-multi-ep-v3-0-c00831e88957@oss.qualcomm.com>
- <20260922-qrtr-multi-ep-v3-2-c00831e88957@oss.qualcomm.com>
- <7aed969d-0868-4c9c-967e-7766dbba427e@oss.qualcomm.com>
- <13BFC5B0-77E6-48F2-B857-37686EA1DB2C@holtmann.org>
- <05e539f8-bb7c-4038-8a83-8ab0d1a5b917@app.fastmail.com>
- <m657dtesuagn7vdajsuzjb4mfysf5xabsu3s6n6lujj7yb3z4p@m2e7e3n4zyev>
- <10091679-7567-42C2-B77E-EFD95CEDD649@holtmann.org>
- <6e0ed085-07d0-46f0-97dd-b8d942842e1f@app.fastmail.com>
- <0A4EB216-06E0-4A7D-A0FD-821DD371773B@holtmann.org>
- <19433f85-4cf1-4ec1-a26f-0eab7df062df@app.fastmail.com>
-To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Subject: Re: [PATCH v5 01/21] drm/bridge: inno-hdmi: fix swapped HSYNC and
+ VSYNC polarity
+To: Michal Wilczynski <m.wilczynski@samsung.com>,
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Byron Stanoszek <gandalf@winds.org>
+References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103203eucas1p14cb6262ba2c7bbaf36856f24f7bdc9e7@eucas1p1.samsung.com>
+ <20260929-jh7110-clean-send-v5-1-82b4d8e3c6c7@samsung.com>
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@murena.io>
+In-Reply-To: <20260929-jh7110-clean-send-v5-1-82b4d8e3c6c7@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Juha-Matti,
+Hi Michal,
 
->>> Well, in defense of Manivannan's patchset it currently works for =
-PCI+AHB
->>> setups better than the last version of that by Denis/Mihai/me =
-(although=20
->>> I could easily fix that), and it may be simpler for userspace to
->>> continue using nid than having to bind to an endpoint, which =
-requires
->>> more changes in userspace code.
->>>=20
->>> The userspace just needs to know the nid.
->>=20
->> and existing userspace? You can _NOT_ break existing userspace.
->>=20
->> Don=E2=80=99t you need to re-write all existing QRTRIPC packets to =
-actually even make this work?
->=20
-> Well, from what I understand this rewriting is the plan.
->=20
-> It is true that if someone has a single card, the nid changes, thus
-> maybe breaking userspace if the userspace has hardcoded nid.
->=20
-> But if someone has multiple cards, the breakage to userspace is less
-> with this patch, since userspace can keep on using the same code and
-> just change the nid, whereas with the endpoint_id patch, the userspace
-> needs code changes to bind to an endpoint.
+Fixed! Thanks!
 
-the general rule for Linux is to _not_ break existing userspace.
+Tested-by: Maud Spierings <maud_spierings@murena.io>
 
-Regards
+Kind regards,
+Maud
 
-Marcel
+On 9/29/26 12:30, Michal Wilczynski wrote:
+> v_HSYNC_POLARITY() and v_VSYNC_POLARITY() write the wrong bits: the
+> hardware puts HSYNC in bit 2 and VSYNC in bit 3, the macros do the
+> opposite. Most CEA modes drive both syncs with the same polarity so it
+> goes unnoticed; it only shows up on modes where the two differ.
+> 
+> Fixes: 412d4ae6b7a5 ("drm/rockchip: hdmi: add Innosilicon HDMI support")
+> Reported-by: Maud Spierings <maud_spierings@murena.io>
+> Closes: https://lore.kernel.org/all/e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io/
+> Reported-by: Byron Stanoszek <gandalf@winds.org>
+> Closes: https://lore.kernel.org/all/b8b046ee-c574-3e16-6079-2fc415633dae@winds.org/
+> Suggested-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>   drivers/gpu/drm/bridge/inno-hdmi.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+> index dd35f5a875d3d842fee6d2ead0de88503f9914e1..d7c33b92e2ddf4ced84d17304463f44be52270b8 100644
+> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+> @@ -122,8 +122,8 @@ enum {
+>   #define v_VIDEO_MUTE(n)			((n) << 0)
+>   
+>   #define HDMI_VIDEO_TIMING_CTL		0x08
+> -#define v_HSYNC_POLARITY(n)		((n) << 3)
+> -#define v_VSYNC_POLARITY(n)		((n) << 2)
+> +#define v_VSYNC_POLARITY(n)		((n) << 3)
+> +#define v_HSYNC_POLARITY(n)		((n) << 2)
+>   #define v_INETLACE(n)			((n) << 1)
+>   #define v_EXTERANL_VIDEO(n)		((n) << 0)
+>   
+> 
 
