@@ -1,85 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FD937646E;
-	Thu,  1 Oct 2026 15:50:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEFF3B3BF3
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:50:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869810; cv=none; b=t8e5FQxssCMryMlAJuW2aZ1q0ih3Z37GXcusg3usffWZfvxe7PuqRqWoNTh66+mdoqCUlLqmySPJB4MSQBTuLTuIDc782WOFju5e1oFblOtF1JSsb/LJNiHeKvIbIdiBveYTGje6YPMyaLL94dCRm4zGSva4Yj6tou5Jri5zTSo=
+	t=1790869853; cv=none; b=L10ryuRB5ugWF6tshQSG+b+ggQYzDKoHmFjFQ6dLqX3BCkIPrUBJJMAcM1vYAT3fkOLTZdPTLDnsQ2YdLzw+lXkMFPm3x3HqesOuUIpKfQNUeCBT2S/FUs9TdcrnU7hYpaQuUasSeq1OX0f627BRwEpP51eQa9TBWnUrm44lsso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869810; c=relaxed/simple;
-	bh=PdF8p2ZI2uQejqtY9aserBwe4AxQkxlkqFwob8MRz6Q=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=V18U8c5AYl2wa16IE7YW+AhZWu5X/gdUZ0SSOcCRBhcbIfusCn3KNccF8vuv/Ay7D14nzyu56iNfLuHHqwRfwEaTfV7Wv6R1Yy4Sct/jo6JQ2R/1Vw9juJc5UGUztBJbYxPInUQfAcop0RztkvsRwma+MpVbTLz+gJdrQ+BUjM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dp56ESLh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790869853; c=relaxed/simple;
+	bh=tiGivEimnoa2XWirSyFka2iWq25HCiVKk8Q8QNYIDXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R93zTnRp2+zQlzqdTk7P02yJeFsWnkgziwMLNXrwpkoM73N+5q6W1/RFXWm1nYCGgAiLFcP3+nCJ18CW89RwyMEB8GBeFNxJNnHHzi1bxbkNVENDpiglUtIvhb5WmxvjEMFOe16I83MT0TNiMgmG3Oy0ysoryUhq4e8uRGf8hSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6dqT27Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dp56ESLh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7F31F000FF;
-	Thu,  1 Oct 2026 15:50:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6dqT27Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D4C1F000FF;
+	Thu,  1 Oct 2026 15:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790869808;
-	bh=X+57FzkOegW9YBdETSFnlMg5tct64oHtPmLHW1sZowk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Dp56ESLhx15znR8kW1wb7d2z2HKct7zLXF7vkbF5r/vugtbt4x6UqPf8rADY8bUlW
-	 4eNEFnNyaO/T/a5eAJZ2nupu9o0swBqcpPtJfMUC4VnQq/RJ0IUz9Otjrk1gSLx4r8
-	 gxKFcnrzc+OtZzgg6y/EkAnlWV2YoVEHl9S4H8HFtpCT7sruTqzHXuYfCwsonMqwfB
-	 BcNX1DvD1re523Y9jy046Jzv6z7sPnOcqG7dp3zuaWxl/GMZ1NJBdP5tBYiYdCvrj0
-	 ty29WA8Izl6C+dzzhwtwOxD8oXwnn36pEdRMNy26YxIfqJ3ZlAqgQISvkO5TCOs7Wo
-	 u4Ib2Z8vxMbLg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4394381195F;
-	Thu,  1 Oct 2026 15:50:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790869852;
+	bh=38PEju8gJraz7rj/lcXRXGwgYOzwaB6JD1QWV7pLJ5E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e6dqT27Z4SMNBytpWWlfL5w3s5ueCegHCiUgSDc2ZMEbD2bEswlCFECsVY+uPTcQF
+	 OJZVcmsT1d1FHkANFS6MKuXP+V3Qxcvg3LoKWk5M8xzSoi9h2qY2b+ToIgzoFn0jy0
+	 hVfnyb14YLbGSN3DOo0GfoGPdnSdvlw9WFZGROSEBne/2Uel4Khf3ihI5NHQZzHE8y
+	 E+hkT61NbbqlJdoRL7xdrtVlqLBS5UF6NsXYE1uJPNn+oOu2aztEqz/5aknt5MkT1w
+	 MIJfa9ZPAgWBbnHXAyzgAf1RXuBlVgGj8KpmK8WhwEbavVVzaGB2iVKFnVEyWTvT6t
+	 uU0m2Vk6lOarg==
+From: Will Deacon <will@kernel.org>
+To: linux-arm-kernel@lists.infradead.org,
+	Beata Michalska <beata.michalska@arm.com>
+Cc: catalin.marinas@arm.com,
+	mark.rutland@arm.com,
+	kernel-team@android.com,
+	Will Deacon <will@kernel.org>,
+	Vladimir.Murzin@arm.com,
+	suzuki.poulose@arm.com,
+	James.Morse@arm.com,
+	xuewen.yan94@gmail.com,
+	seanwang1@lenovo.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] arm64: errata: Share broken AMU constant-counter handling
+Date: Thu,  1 Oct 2026 16:50:42 +0100
+Message-ID: <179085736057.651403.12389463608357199980.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261001090050.3849551-1-beata.michalska@arm.com>
+References: <20261001090050.3849551-1-beata.michalska@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next v2] bpf,
- cgroup: fix cgroup struct_ops query for a second attach type
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179086980753.2537503.5108865645630186229.git-patchwork-notify@kernel.org>
-Date: Thu, 01 Oct 2026 15:50:07 +0000
-References: <20261001141901.3225830-1-shakeel.butt@linux.dev>
-In-Reply-To: <20261001141901.3225830-1-shakeel.butt@linux.dev>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
- song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
- emil@etsalapatis.com, ihor.solodrai@linux.dev, ameryhung@gmail.com,
- tj@kernel.org, kernel-team@meta.com, cgroups@vger.kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, laoar.shao@gmail.com
 
-Hello:
-
-This patch was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
-
-On Thu,  1 Oct 2026 07:19:01 -0700 you wrote:
-> Two things in __cgroup_bpf_query() work only because CGROUP_TCP_SOCK_OPS is
-> the only struct_ops attach type.
+On Thu, 01 Oct 2026 11:00:30 +0200, Beata Michalska wrote:
+> This series factors out the existing Cortex-A510 erratum 2457168 AMU constant
+> counter workaround into a generic broken AMU constant-counter capability,
+> then wires Cortex-A725 erratum 3821522 into the same handling.
 > 
-> It calls cgroup_bpf_enabled(atype) with an atype that
-> find_atype_by_struct_ops_id() works out at runtime.  That macro is an asm
-> goto and needs a constant.  Today the compiler can see there is only one
-> value; add a second type and the build breaks with "impossible constraint
-> in 'asm'".  The check is not needed anyway.  When the key is off nothing is
-> attached, so progs[atype] and effective[atype] are empty and the count loop
-> leaves total_cnt at 0.  The other attach types already use that loop with
-> no such check.  Drop the check and the skip_count label.
-> 
-> [...]
 
-Here is the summary with links:
-  - [bpf-next,v2] bpf, cgroup: fix cgroup struct_ops query for a second attach type
-    https://git.kernel.org/bpf/bpf-next/c/b5a4aa31abd6
+Applied to arm64 (for-next/fixes), thanks!
 
-You are awesome, thank you!
+[1/2] arm64: errata: Factor out broken AMU const counter cap
+      https://git.kernel.org/arm64/c/573371caf7ae
+[2/2] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
+      https://git.kernel.org/arm64/c/45f730467987
+
+Cheers,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Will
 
-
+https://fixes.arm64.dev
+https://next.arm64.dev
+https://will.arm64.dev
