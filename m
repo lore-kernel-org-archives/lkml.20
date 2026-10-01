@@ -1,167 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BB73EB81B;
-	Thu,  1 Oct 2026 09:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D338A4B0497
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845257; cv=none; b=EOSUYKHKMS7LFmz1GHRa7NoFYucAwsv9u8HCZGuISPF9mwH1o8EpC5nTFHn/IS4yYc9alq4ktEZNBZHS2Gi/ZU0ytYrUyXZxnPlY+cbIBkm1WMXXamb42hs5dGzwIMGi3ulnsbuRu+/qZWvHLe03YLyFvWqN1mHMM4jT/AJ+rGQ=
+	t=1790845261; cv=none; b=BDHN5b3EJ094dM93EMwaXN2vnC0G0RYmVNlZop2v5CKIQ4mab3Cq9UWXxly0xAyfKwU5/BFQ7WknqYDhe6Mc53+gE/W4uDSPsB2drLeNZPvh8k7rBNlFZRxbHS5DpBnw1INaEhgK7qAzIkYyHz3xLn+qW4C8GNO/DXP/hwCaTaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845257; c=relaxed/simple;
-	bh=hUhPUJte1ZSwzAyT4Y1MkM9QOSL5TLUyYCuDiTv2ArI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n8XSU3FhRkLQuY3EhkExZsoBaljXAFCvCT30SVgRvVNwlB6ToWsDm3EH7gmBFJFiE3yRY2rPxAlVwIz3PDqHvPQygqGHgndyZVTb7/+e9AkHyOCJ9/7K9mSXL+tR346eIDsCPS69MktiyvLvzcHqSfKqe4sLK/Zb/LchQkKzpd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVqACOK0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790845261; c=relaxed/simple;
+	bh=KpFLlIbgFKmtwym5+idRmX6jfxg0rnNaBCB2tjQsIU0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cDutgA01o0JCur/+IGgXp/kJ2nubrJY++GCL1TgSejPgP8IyjxFNqZL9VcfCIa6+S8CHL/bJ/Pfqcls+qCWLQA7FKzNnFETv/nn3nb85N+3dOLTsyQ+Icy1GbsHxrAHqQrsNqOdmEERRxuAxTPEhWsop/nOPITC9zWq/H2sQIrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GJhVN5vM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVqACOK0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709361F000FF;
-	Thu,  1 Oct 2026 09:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790845256;
-	bh=7FpohZnEJYDgmU3T2u3ttgjSXvyGDDs6PkImJs9o6pU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dVqACOK07bbhAenRNC/oZaTcIg1CxR80jNHldj9FJJFYr0nAHd2CqzO4w4177AUWj
-	 FhteCpg08Peo+nKHXdmDm/y0ydmiJ7A12mAN1DYlOR5KKvzXeGaFyc8uxQWLav5zjE
-	 HstOpX/9YSvxynP2n5Ey1HVCH5zFZV2mX+dv2JCyR0wi4jE5gu5urW8uJw7gK8V7tE
-	 eYrHlzIlS4uxeT91hn5NvilyNzcshMjU8vFho+6JH5NJZ27guds0JW4buDjNzQSNNr
-	 YLToY5CUKEV39bJevHoYb41RxL2goThzv7f+zZAaKHf7lV/lYzE5AZlGLI6ZXcxPDf
-	 87ncap2Ix/DeQ==
-Subject: Re: [PATCH net-next 3/4] netconsole: avoid printing partially updated
- target attributes
-From: netdev-bot+sashiko@kernel.org
-To: gustavold@gmail.com
-Cc: leitao@debian.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, mpm@selenic.com,
- bonbons@linux-vserver.org, stephen@networkplumber.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 01 Oct 2026 09:00:54 +0000
-Message-ID: <179084525499.434549.454029290243818186@kernel.org>
-In-Reply-To: <20260928-netcons-fixes-v1-3-bb5ffe5e698a@gmail.com>
-References: <20260928-netcons-fixes-v1-3-bb5ffe5e698a@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GJhVN5vM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A7310497;
+	Thu,  1 Oct 2026 02:00:55 -0700 (PDT)
+Received: from e143943.arm.com (unknown [10.57.77.101])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CFE413F85F;
+	Thu,  1 Oct 2026 02:00:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790845259; bh=KpFLlIbgFKmtwym5+idRmX6jfxg0rnNaBCB2tjQsIU0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=GJhVN5vM/OElXdPKTUMu/gwzOf/WZY9CLVYrjyjQRbxmYyJqfDvbcYQ6uYy5b6MJr
+	 Dhau8RyM4IeTF7B8bPhMJUHzF/8iAkHJAOt9iIOI271aowTWPnUMQH8gvwAGsbBrD7
+	 8YPuihgLShhiJzC2slcyRbzZIEZwsJzHRFzNYQXk=
+From: Beata Michalska <beata.michalska@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Vladimir.Murzin@arm.com,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	suzuki.poulose@arm.com,
+	James.Morse@arm.com,
+	xuewen.yan94@gmail.com,
+	seanwang1@lenovo.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] arm64: errata: Share broken AMU constant-counter handling
+Date: Thu,  1 Oct 2026 11:00:30 +0200
+Message-ID: <20261001090050.3849551-1-beata.michalska@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+This series factors out the existing Cortex-A510 erratum 2457168 AMU constant
+counter workaround into a generic broken AMU constant-counter capability,
+then wires Cortex-A725 erratum 3821522 into the same handling.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+---
+v4:
+- use midr range instead of multi cap list
+- reword comment to be more generic
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+v3:
+- splitted the commit and droped changes for cpucap_is_possible
+---
 
-- [High] The fix is incomplete for dev_name.
-- [Low] The commit 'netconsole: avoid printing partially updated target
-  attributes' fixes a user-visible race: configfs *_show() callbacks can…
+Beata Michalska (2):
+  arm64: errata: Factor out broken AMU const counter cap
+  arm64: errata: Add Cortex-A725 erratum 3821522 workaround
 
---
-
-netconsole: avoid printing partially updated target attributes
-
-This patch takes dynamic_netconsole_mutex in the configfs show callbacks
-for dev_name, local_ip, remote_ip, remote_mac and the userdatum value.
-Readers are then serialized against the store callbacks and should no
-longer see partially updated values.
-
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-
-> Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
-
-[Severity: Low]
-Should this have a Fixes: tag?
-
-These show callbacks have read the fields without dynamic_netconsole_mutex
-for a long time. dev_name_show() and local_ip_show() date back to
-0bcc1816188e ("[NET] netconsole: Support dynamic reconfiguration using
-configfs").
-
-The IPv6 rework (for example 56ddc8d48e75f, 46b3f9e7e761d, f6e96d72f64a8)
-made the window larger by adding the separate family field.
-
-The other two fixes in this series, "netconsole: finish enabling the
-target before releasing RTNL" and "netconsole: read np.dev under the RTNL
-in local_mac_show()", both carry Fixes: tags.
-
-> diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> index 5f4311726d11..627475f16383 100644
-> --- a/drivers/net/netconsole.c
-> +++ b/drivers/net/netconsole.c
-> @@ -861,7 +861,14 @@ static ssize_t release_show(struct config_item *item, char *buf)
->  
->  static ssize_t dev_name_show(struct config_item *item, char *buf)
->  {
-> -	return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-> +	struct netconsole_target *nt = to_target(item);
-> +	int ret;
-> +
-> +	dynamic_netconsole_mutex_lock();
-> +	ret = sysfs_emit(buf, "%s\n", nt->np.dev_name);
-> +	dynamic_netconsole_mutex_unlock();
-
-[Severity: High]
-Does this fully close the torn read for dev_name?
-
-dynamic_netconsole_mutex only excludes dev_name_store(). The netdev
-notifier path has two other writers of np.dev_name, and neither of them
-takes this mutex.
-
-For an enabled target, the NETDEV_CHANGENAME case rewrites the name in
-place. It holds RTNL, target_cleanup_list_lock and target_list_lock:
-
-drivers/net/netconsole.c:netconsole_netdev_event() {
-    ...
-		if (nt->np.dev == dev) {
-			switch (event) {
-			case NETDEV_CHANGENAME:
-				strscpy(nt->np.dev_name, dev->name, IFNAMSIZ);
-				break;
-    ...
-}
-
-For MAC-bound targets on unregister, release or join, the notifier calls
-netconsole_process_cleanups_core()->netcons_release_dev(). That zeroes the
-name with only RTNL and target_cleanup_list_lock held:
-
-drivers/net/netconsole.c:netcons_release_dev() {
-	do_netpoll_cleanup(&nt->np);
-	if (bound_by_mac(nt))
-		memset(&nt->np.dev_name, 0, IFNAMSIZ);
-}
-
-dev_name_store() refuses to write while the target is enabled, so it
-never overlaps these writers. dev_name_show() has no such state check.
-
-So a read of /sys/kernel/config/netconsole/<target>/dev_name can still
-race with "ip link set eth0 name ..." or with deleting the device. The
-read could return a mix of old and new bytes, or a partly zeroed name.
-The buffer stays NUL terminated within IFNAMSIZ, so the result is wrong
-output, not an out of bounds read.
-
-This looks the same at the tip of the series. The other fields this patch
-touches (local_ip, remote_ip, remote_mac and the userdatum value) have no
-writers outside the mutex, so the gap only affects dev_name.
-
-local_mac_show() in this same series already takes rtnl_lock() to
-serialize with this notifier. Could dev_name_show() also take RTNL inside
-the mutex? That would follow the existing dynamic_netconsole_mutex -> RTNL
-order used by enabled_store().
-
-> +
-> +	return ret;
->  }
-
-[ ... ]
+ Documentation/arch/arm64/silicon-errata.rst |  2 ++
+ arch/arm64/Kconfig                          | 30 +++++++++++++++++++++
+ arch/arm64/kernel/cpu_errata.c              | 24 ++++++++++++-----
+ arch/arm64/kernel/cpufeature.c              |  2 +-
+ arch/arm64/kernel/topology.c                | 16 ++++++-----
+ arch/arm64/tools/cpucaps                    |  2 +-
+ 6 files changed, 61 insertions(+), 15 deletions(-)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-netcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
+2.43.0
+
