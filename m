@@ -1,43 +1,51 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5648A526AB2;
-	Thu,  1 Oct 2026 15:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868267; cv=pass; b=WcFvBkB3ndX3LITNd29JXwaFRvBkYxyM9k/roK5ggPp5eI1NyzDYdHUWcbdPrNZnpEzwOzTjDV4BuE2yyka8BegEwQuves7TjAQd3WvvQi2gY0K3Ay2F4+pRNUVDrtSJ+/YRT3k/r4UnToB257pEM+l7YJE3V83D3yPA6qbQvE8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868267; c=relaxed/simple;
-	bh=1eFiP54451WXXSImvkn64wyF5tkIYonC92hhp7gZjjk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MUkWTtJ0njiScsrmmVNsjRsL0juNncr7noT9g2Hnw9a7C8mnrRb0hJ0DQu/i4RTkiI1NFj0x5NKnNH8M2MaX7n7jG1OzKiW6YaRDB32wsblpgmV89v4ndFXa2jN1VmMr1Kqi2OdQ704xyJyOHu5HsjvW8hnxu+rL1yNPZOFoc6E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=kZkmnO/E; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B094F93DC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790868294; cv=none; b=C9VNplAydce6pzg6NafbXQFgrsKCYu9fpNwqtbsEI1yOiHLGibQGC6ZMgD7FCBWY6E8FX+/lrihz4e03EpkdQaV1fmDhUDqjZRoIk9xanCbgmwBjeisDp/pWnvgw00dUnUxlABIRWyHjTQ13tf31XN8M0cKeqrJRGT6cXIqI1CY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790868294; c=relaxed/simple;
+	bh=UOCqyg2Tz0WdYHcm1LPgV3NFbk5rl424488FngyLFo4=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=ET+b8x30LS6ijcGN5/GnaUkpq1u1aLv5ySRi2qfsPmRDdzubgqilgScj6l8fCkYG72rSE2+0J0YfSPwxYTjZJ5RsnF3wEp7ek9x+ge70ncwHT0Kq0mbflxEarsMpsFxOBu3upeEh2QDokDbJFnKtpMehtTh3t6cE8+0mElxQkK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AO1DcxQK; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="kZkmnO/E"
-ARC-Seal: i=1; a=rsa-sha256; t=1790868249; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LMZrb6afw3oTGtMbidMarR4ZugTRd9/Di361HWsDlGRonWw3O0uNRxEmQN6IpwmACv45Cs65Sa8IEgIifjt0Po36UnwZOgsQb050Qkq4VAQx/J7MpO4ph/Eq0mnWAzrBOcJWJkZ0xpYe6GBAJdnsUS278dnCCTyCbI8Rzzg3JfI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790868249; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=4N1vT/oJ/8DhtT1QnOcUoxN7apPGAdAxRz++doaHaNM=; 
-	b=Zl7zcH4ikkOo6DgnF81jSNvxruHlKQ2lgYBaRZbiY0W8eiLXL1HViVnJgm92YzulCRZKQAF0nOOutiURxbpWWRiRpD9MeSwkZEU7YSmiF+28S9Or3Rg57GTLjjFZAY4b0Bxai3bS2SG51Rd2GDIRw876tcYqsCqZtIHLaJ+WRjg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790868249;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=4N1vT/oJ/8DhtT1QnOcUoxN7apPGAdAxRz++doaHaNM=;
-	b=kZkmnO/E7PHbg9+/1rlpapaUnes2Lq0Zc4BJm+bzEi7E2kypViTOAtXsaewLunPe
-	XLFyvPiSqPjIjxRuQ1ya0KStuFptK8Hi78oAvwx3k64ZHIlMOhnY534YI73hV2rN9BV
-	y8AvcTS5nfNXeY69pyAG3VTEjXbD9SGbZmzC3LKI=
-Received: by smtp.zohomail.com with SMTPS id 1790868247200454.79215717342186;
-	Thu, 1 Oct 2026 08:24:07 -0700 (PDT)
-Message-ID: <ead1a8dd-5cac-4fa4-bde5-ef0fadfd70e1@collabora.com>
-Date: Thu, 1 Oct 2026 17:24:03 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AO1DcxQK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790868293; x=1822404293;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to;
+  bh=UOCqyg2Tz0WdYHcm1LPgV3NFbk5rl424488FngyLFo4=;
+  b=AO1DcxQKRzx+ZBxXxtuUIKvL1Y2evrVkObg9p1O+VplDYWznFmw4KYdn
+   bsNe/1PBG4oZvlR+befeTw8zpbptQPshNbw099vGLJtBLzoFurFfsVPN6
+   KmhCdcC+GUxSNGWhaV28IpMVuFx7xO1pszO/lqk1wFBiLEywWtCO/I+Hi
+   9srA8e74TxHo1rBB5JQ2hKYLd1vndZ2AeaMAfG0ToHZYVyhQyx+ZWDQhv
+   R6bojYgBmWerdgW8+VpDm6LlVlVmGPU3ayKhSi/2uWUEZWYs868NLaAdc
+   5vUSzqLL8KFvlGsaoM65o9w3BKuaOmqNXmgqZKS+8vLVOIM5x6Rer+sKy
+   Q==;
+X-CSE-ConnectionGUID: /13pjWzPQ3yBqBb/0Rg8xA==
+X-CSE-MsgGUID: te7YBz4TS8KOwi8JRfoHNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="117159320"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="117159320"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:24:52 -0700
+X-CSE-ConnectionGUID: okwaHFjWRzOmUl/ymn6L1w==
+X-CSE-MsgGUID: QsizSKmIRD2aMvN71ctODg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="305514626"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.237]) ([10.125.111.237])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:24:51 -0700
+Content-Type: multipart/mixed; boundary="------------9McwORqVWFuzMVH3NTrsxBTi"
+Message-ID: <93716ff0-e693-4056-b6e7-9d221a3c58ac@intel.com>
+Date: Thu, 1 Oct 2026 08:24:50 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,139 +53,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] media: rockchip: rkcif: add a register index for
- the MIPI capture size
-To: Amin Gattout <amin.gattout@gmail.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
- <20260921-vicap-rk3576-v2-2-0a4582e20c72@gmail.com>
+Subject: Re: [PATCH] x86/its: Make ITS thunk pages read-only without the ROX
+ execmem cache
+To: =?UTF-8?Q?Fr=C3=A9d=C3=A9ric_MARIE-JOSEPH?=
+ <fredericmariejoseph@gmail.com>, x86@kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org
+References: <CAHD2OOfP=h=qS6nP4dtn7RTQqMEqOvXD+iURXJ7Rgc5KFjgi5A@mail.gmail.com>
+From: Dave Hansen <dave.hansen@intel.com>
 Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20260921-vicap-rk3576-v2-2-0a4582e20c72@gmail.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <CAHD2OOfP=h=qS6nP4dtn7RTQqMEqOvXD+iURXJ7Rgc5KFjgi5A@mail.gmail.com>
+
+This is a multi-part message in MIME format.
+--------------9McwORqVWFuzMVH3NTrsxBTi
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Amin,
+On 10/1/26 06:22, Frédéric MARIE-JOSEPH wrote:
+> That's my first post so I hope I do things right. I found what seems to
+> me like a bug, and worked with Claude to find a patch. Hope it will be
+> usefull.
 
-Thanks for the patch!
+Your mailer is sending out HTML, but there was a plain-text version too,
+so the message at least made it to the archives. Using git-send-email is
+the most foolproof way to send these things, fwiw.
 
-On 9/21/26 17:29, Amin Gattout wrote:
-> The RK3568 and RK3588 variants configure the MIPI capture size in the
-> ID_CTRL1 register. The RK3576 has a dedicated ID_SET_SIZE register
-> instead.
+> With CONFIG_MODULES=n there is no STRICT_MODULE_RWX, so x86 does not
+> select ARCH_HAS_EXECMEM_ROX and execmem_restore_rox() is the stub that
+> returns 0.
+
+Ugh. The origin of this seems to be:
+
+         select ARCH_HAS_EXECMEM_ROX             if X86_64 &&
+STRICT_MODULE_RWX
+from:
+
+> commit 47410d839fcda6890cb82828f874f97710982f24
+> Author: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Date:   Tue Jun 3 14:14:42 2025 +0300
 > 
-> Add a register index for the capture size and write it through that
-> index, in preparation for the RK3576 support. The RK3568 and RK3588
-> mark the index as unsupported, so the write is a no operation for them
-> and their behavior is unchanged.
-> 
-> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+>     x86/Kconfig: only enable ROX cache in execmem when STRICT_MODULE_RWX is set
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+That commit is trying to change execmem internal details via an
+arch-specific Kconfig tweak. It's also logically a bit silly that what
+an arch supports:
 
-Best regards,
-Michael
+	ARCH_HAS_EXECMEM_ROX
 
-> ---
->  drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c | 10 ++++++++++
->  drivers/media/platform/rockchip/rkcif/rkcif-regs.h         |  1 +
->  2 files changed, 11 insertions(+)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> index bc9518f8db50..e0acb9049ca1 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> @@ -438,6 +438,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x38,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x40,
->  			[RKCIF_MIPI_CROP_START] = 0xbc,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  		[RKCIF_ID1] = {
->  			[RKCIF_MIPI_CTRL0] = 0x08,
-> @@ -451,6 +452,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x58,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x60,
->  			[RKCIF_MIPI_CROP_START] = 0xc0,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  		[RKCIF_ID2] = {
->  			[RKCIF_MIPI_CTRL0] = 0x10,
-> @@ -464,6 +466,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x78,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x80,
->  			[RKCIF_MIPI_CROP_START] = 0xc4,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  		[RKCIF_ID3] = {
->  			[RKCIF_MIPI_CTRL0] = 0x18,
-> @@ -477,6 +480,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x98,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0xa0,
->  			[RKCIF_MIPI_CROP_START] = 0xc8,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  	},
->  	.blocks = {
-> @@ -549,6 +553,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_CROP_START] = 0x8c,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  		[RKCIF_ID1] = {
->  			[RKCIF_MIPI_CTRL0] = 0x08,
-> @@ -562,6 +567,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_CROP_START] = 0x90,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  		[RKCIF_ID2] = {
->  			[RKCIF_MIPI_CTRL0] = 0x10,
-> @@ -575,6 +581,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_CROP_START] = 0x94,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  		[RKCIF_ID3] = {
->  			[RKCIF_MIPI_CTRL0] = 0x18,
-> @@ -588,6 +595,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
->  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
->  			[RKCIF_MIPI_CROP_START] = 0x98,
-> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
->  		},
->  	},
->  	.blocks = {
-> @@ -759,6 +767,8 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME0_VLW_UV, vlw);
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME1_VLW_UV, vlw);
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CROP_START, 0x0);
-> +	rkcif_mipi_stream_write(stream, RKCIF_MIPI_SET_SIZE,
-> +				RKCIF_XY_COORD(width, height));
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL1, ctrl1);
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, ctrl0);
->  
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-> index 3cf7ee19de30..0460e963b154 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-> @@ -147,6 +147,7 @@ enum rkcif_mipi_id_register_index {
->  	RKCIF_MIPI_FRAME1_VLW_Y,
->  	RKCIF_MIPI_FRAME1_VLW_UV,
->  	RKCIF_MIPI_CROP_START,
-> +	RKCIF_MIPI_SET_SIZE,
->  	RKCIF_MIPI_ID_REGISTER_MAX
->  };
->  
-> 
+depends on a module-specific option:
 
+	STRICT_MODULE_RWX
+
+If execmem is being too aggressive on for modules on !STRICT_MODULE_RWX
+configs, shouldn't the fix be in execmem *module* code?
+
+Maybe something along the line of the lightly-tested attached patch? I
+see the "11 W+X pages found" message without it, and the message goes
+away when it is applied.
+--------------9McwORqVWFuzMVH3NTrsxBTi
+Content-Type: text/x-patch; charset=UTF-8; name="x86-STRICT_MODULE_RWX.patch"
+Content-Disposition: attachment; filename="x86-STRICT_MODULE_RWX.patch"
+Content-Transfer-Encoding: base64
+
+CgotLS0KCiBiL2FyY2gveDg2L0tjb25maWcgICAgIHwgICAgMiArLQogYi9rZXJuZWwvbW9k
+dWxlL21haW4uYyB8ICAgIDMgKystCiAyIGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygr
+KSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLXB1TiBhcmNoL3g4Ni9LY29uZmlnfng4Ni1TVFJJ
+Q1RfTU9EVUxFX1JXWCBhcmNoL3g4Ni9LY29uZmlnCi0tLSBhL2FyY2gveDg2L0tjb25maWd+
+eDg2LVNUUklDVF9NT0RVTEVfUldYCTIwMjYtMTAtMDEgMDY6MzE6MTQuMzc5NTc3MTI0IC0w
+NzAwCisrKyBiL2FyY2gveDg2L0tjb25maWcJMjAyNi0xMC0wMSAwNjozMTozOS43Nzc0MzYw
+OTAgLTA3MDAKQEAgLTg1LDcgKzg1LDcgQEAgY29uZmlnIFg4NgogCXNlbGVjdCBBUkNIX0hB
+U19ETUFfT1BTCQkJaWYgR0FSVF9JT01NVSB8fCBYRU4KIAlzZWxlY3QgQVJDSF9IQVNfRUFS
+TFlfREVCVUcJCWlmIEtHREIKIAlzZWxlY3QgQVJDSF9IQVNfRUxGX1JBTkRPTUlaRQotCXNl
+bGVjdCBBUkNIX0hBU19FWEVDTUVNX1JPWAkJaWYgWDg2XzY0ICYmIFNUUklDVF9NT0RVTEVf
+UldYCisJc2VsZWN0IEFSQ0hfSEFTX0VYRUNNRU1fUk9YCQlpZiBYODZfNjQKIAlzZWxlY3Qg
+QVJDSF9IQVNfRkFTVF9NVUxUSVBMSUVSCiAJc2VsZWN0IEFSQ0hfSEFTX0ZPUlRJRllfU09V
+UkNFCiAJc2VsZWN0IEFSQ0hfSEFTX0dDT1ZfUFJPRklMRV9BTEwKZGlmZiAtcHVOIGtlcm5l
+bC9tb2R1bGUvbWFpbi5jfng4Ni1TVFJJQ1RfTU9EVUxFX1JXWCBrZXJuZWwvbW9kdWxlL21h
+aW4uYwotLS0gYS9rZXJuZWwvbW9kdWxlL21haW4uY354ODYtU1RSSUNUX01PRFVMRV9SV1gJ
+MjAyNi0xMC0wMSAwNjo0NDo0Mi40MTc3OTU3ODggLTA3MDAKKysrIGIva2VybmVsL21vZHVs
+ZS9tYWluLmMJMjAyNi0xMC0wMSAwNjo1MToyOC4wNDg3MjI5NzYgLTA3MDAKQEAgLTEzNTUs
+NyArMTM1NSw4IEBAIHN0YXRpYyBpbnQgbW9kdWxlX21lbW9yeV9hbGxvYyhzdHJ1Y3QgbW8K
+IAlpZiAoIXB0cikKIAkJcmV0dXJuIC1FTk9NRU07CiAKLQltb2QtPm1lbVt0eXBlXS5pc19y
+b3ggPSBleGVjbWVtX2lzX3JveChleGVjbWVtX3R5cGUpOworCWlmIChJU19FTkFCTEVEKFNU
+UklDVF9NT0RVTEVfUldYKSkKKwkJbW9kLT5tZW1bdHlwZV0uaXNfcm94ID0gZXhlY21lbV9p
+c19yb3goZXhlY21lbV90eXBlKTsKIAogCS8qCiAJICogVGhlIHBvaW50ZXIgdG8gdGhlc2Ug
+YmxvY2tzIG9mIG1lbW9yeSBhcmUgc3RvcmVkIG9uIHRoZSBtb2R1bGUKXwo=
+
+--------------9McwORqVWFuzMVH3NTrsxBTi--
