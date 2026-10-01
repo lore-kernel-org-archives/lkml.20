@@ -1,143 +1,126 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7F22E7387
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 00:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDDA30E0F8;
+	Thu,  1 Oct 2026 00:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790816175; cv=none; b=PUpB9FYhMujOAE1IkkaclE1pp5tMq9SklF9f4gsiekJT8MuWCP1uJM58kyI562vYgt507GZHoPs5NVAMD5EmtRB1aUuvsJFsBYxhus0Au+iDk/8Zgxf2aZz5kqVDMZabUGo8qOl5qWh6sFAAByTeAkVqeKcL1KtGUsxYe6zaYxo=
+	t=1790816244; cv=none; b=X9uR4R2uN4eGmQ2Uc12QWzf2VpC8EGMFGUNXAFtbl2u0en7yJOPWHqH1f9KBlg2LdFNOX3QdZBL/HJsOoXMOnFM9pEqLWs0zqzFJXLxOPEfZpcg+C3UNeHjXnGl+pY47xGFCjQAy5Gg+BdFNP8Gwv4C5JMBjG/hvRK6TLouQi+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790816175; c=relaxed/simple;
-	bh=U56QULVWqsKJW2EZBRefVWv3E+jcCLq19wO8Z6fvjlQ=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:In-Reply-To:
-	 From:Content-Type; b=JlHScoU68+z730BGDdNPqEyn3Z6Fanj2gT4gQzrZc3ZNauESgsC2UiPAs8bWs9sdFTC7enNrCE9KoOV4gpQxByqNsjkwYD3U4h6fFZwKkiCGfnat6gmb1dlbs5vZQTwckPKnIi9GGE8sSrKL2Cd/C+wG8ANDKpT2EDOkgbkqeSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fZSbQexn; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790816244; c=relaxed/simple;
+	bh=YbikIasQmrmWSK/D7xj5oCxCOLx7N0wR5T+swhhBxyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mF3V8HMNf17dqbSiLaabuWay2HTly6C5Ww/p3QuM2K6k7ojznLkuAMZtiTMQRKecM8yP8MNtcMRP+/7DVHTxFqZfpk5aYMKH7hFchYbbRQXiGPxeCGyd9gQQ0YcbICb4OC5WG/Uv6kKB6Oe147uF5CfzDfRnGwFFggw7pReRRh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmWdBfLE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fZSbQexn"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so439437f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:56:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790816171; x=1791420971; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:from:in-reply-to
-         :content-language:subject:references:cc:to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7SWQolDlxs/mWv18+ONCdedDA47CMCmGgXEL49Xti+c=;
-        b=fZSbQexntwSIvdZveOa5hCZGYf48vj+grPJZo8VS6AIGoz4dEO4VMRd7rBZd5CPnnt
-         IKBbrfAED0rtML0rO/KAADj59OyQTtU5XRirizaHaO3KFdWEbuI/EZjFDFr9suoy2/hc
-         q8Q+HhKsvu+0B7NOKW7QT/Rmb5SLeIjkjRsZVQhMz8PWWSt7qHkgdfyrOdcsL6XknWx3
-         jBcFa08nG58XXjSAK7P4ICNqMxcfBsm0lnNBlcELS9D5/PljYgfm9g+KGhFOhcXoaPG6
-         83xvOhZFQM08CcQuIIBg8tqJdduqktkC4HGdEvTmZjipbyCTG72jWvtHOOopirMMDtVA
-         1dag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790816171; x=1791420971;
-        h=content-transfer-encoding:content-type:from:in-reply-to
-         :content-language:subject:references:cc:to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7SWQolDlxs/mWv18+ONCdedDA47CMCmGgXEL49Xti+c=;
-        b=anelqq79hqvOLDEOeYY81nNTqLh9+o0IPG1jEiDw8QEy0V8zeU51ADw8BGCPRqro+Z
-         0ijhEhzOEX9Fvr3NqbpGGaFNC4+E4J/xMwAJksYML45DzyBeDLpu3qBQBt+XrzK15Io0
-         pvBOIKT1tTv1W3mq9fcGZBzpMMTs2LWWDUI7N0lVBKQk3OMYzwd57x9AKIJcKJ1uuLxo
-         6NwhhLxz1HlfHhVzRj4e3wZOMNfDKzfJO7vx+8XNXIvqD1b+i86IXPbPdfnLTRUzN3oC
-         m4pnvGfN0MXiYVOTmyaRIc1sc03dOgwNKjYYeTBJPBTTnnKHFhXBb7QDlP6qy5dFwNa2
-         kj+A==
-X-Forwarded-Encrypted: i=1; AKwUvBx+4gi+NtnZ/k/rpIIuFm9MynB5hqbnFePTo2PjOwMbrq8eG2rX1blkIqpueVJlcTHW1f9nzA9/MsJSojM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKqPliTN9cLEf6YvGdkc6Fe/ZnMS5lxZI4OHNfVqHOOXn3xlGQ
-	5phqjVwZtS9J7p0CvJhDVT3rXDNdFfHtg9b/9E8GBGtzj9bq4iHEMtp2
-X-Gm-Gg: AYBFou3sNnPEzFH8udZNZUEseIEZuzMoXnACvHvXaxelQWLs1IgLcuCFskDgCkBjw3H
-	A4QOUi9BlEDw6Ntby8MKQ/SVPgJQ4pHXgLLhJAdy9cei8WCDlM3lRXCxJhyHt1FpR29jbvm8cIb
-	u86RMz1c70SrVI7d9mTXHeMFNh0203BT66KLy7DxVVwfmi95Dv1+VSXSJS9C5ds9cQEt1x+alVy
-	V6shBeAjG21tcWA6x5sl4LhAjlCv0SzhXr4E642UEuObgt0cmtqa0s0sOqqCKZx7ksV1CmHm8rs
-	vfU6aXrOKdvBeIUDZNBiLn7pLCeOjGAQ9qMyTH7DKzQiACeFDnpCr3ZSOegVKq43dVVpBo0fZMH
-	8bKkDha7JRrmu8AAo4AWEJbg40IbQ2YHaGn5ZSjCelHOUMFX8p56SVChVI6hJRcBSsO0mQ3vlT3
-	Bi3UqY97Cbwj5XhBkvoPX6covGzarTnub+JciU9LtDXosMKbgG5ZT33tfI0gbS1R1Dl3yfW5GM5
-	gOwPcyZR31lNNjEXRKwkHE3fhFW3Fia/pIW
-X-Received: by 2002:a05:600d:82f0:b0:4a0:1e64:4238 with SMTP id 5b1f17b1804b1-4a01e644325mr29628645e9.24.1790816171286;
-        Wed, 30 Sep 2026 17:56:11 -0700 (PDT)
-Received: from [192.168.1.6] ([90.243.208.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f949709sm36071075e9.12.2026.09.30.17.56.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 17:56:10 -0700 (PDT)
-Message-ID: <3d2d6a70-8a00-4ef4-89ac-8000d9f9bf85@gmail.com>
-Date: Thu, 1 Oct 2026 01:56:09 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmWdBfLE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C1A1F000FF;
+	Thu,  1 Oct 2026 00:57:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790816242;
+	bh=eJLcecphKzjRHbY4IdAuCTvM0WGj9dGRXdkRNC9wPgw=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=TmWdBfLEPl+YtbTtDtxelDSZNo1lCkjIFSE2pAOQiMkstselgsVkqsDcefafwGdv5
+	 D5LlwX4dhI5t9sDTaezohdKu7FsuZincV3n4F5QABgIEzCfvGUEHPIOT/d8HeFOPpj
+	 0MmbcA+KzG5ywz7If2I2h/ztjeJyGPgS4ndkpffYnwNEQPJN5kkIjNkABRSg6WaLn8
+	 LqqdwLBKyV+82eZxHCb2AuraABOY+N3gqwFpPGjD+2QFW6co+cmleDXxyBJbkJDh9v
+	 k0ltv0Qe0ISyOaPHUFAlNNuzA9mwfFtPjwogzhxEds9brWnLGsuiVXi6Gsn7ce+u25
+	 p/ou8THn3w56g==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id A8E62CE097C; Wed, 30 Sep 2026 17:57:21 -0700 (PDT)
+Date: Wed, 30 Sep 2026 17:57:21 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	rostedt@goodmis.org, Sunho Park <shpark061104@gmail.com>,
+	syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com,
+	Zqiang <qiang.zhang@linux.dev>
+Subject: Re: [PATCH 09/19] srcu: Fix WARN_ON() for rcu_segcblist_n_cbs() in
+ cleanup_srcu_struct()
+Message-ID: <a79c83e1-a7ae-407b-8b11-0a031be2faf1@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
+ <20260919003521.3134552-9-paulmck@kernel.org>
+ <ar2o5yyB-o12pAos@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: suravee.suthikulpanit@amd.com
-Cc: frank.gorishek@amd.com, iommu@lists.linux.dev, jon.grimm@amd.com,
- joro@8bytes.org, linux-kernel@vger.kernel.org, santosh.shukla@amd.com,
- thomas.lendacky@amd.com, vasant.hegde@amd.com, alex@shazbot.org
-References: <20260424092213.16976-1-suravee.suthikulpanit@amd.com>
-Subject: Re: [PATCH v2 0/4] iommu/amd: IVMD handling cleanup and ivmd= boot
- override
-Content-Language: en-US
-In-Reply-To: <20260424092213.16976-1-suravee.suthikulpanit@amd.com>
-From: Adam Pelka <adampelka26@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar2o5yyB-o12pAos@google.com>
 
-Hi Suravee,
+On Wed, Sep 30, 2026 at 05:27:19PM -0700, Sean Christopherson wrote:
+> On Fri, Sep 18, 2026, Paul E. McKenney wrote:
+> > From: Sunho Park <shpark061104@gmail.com>
+> > 
+> > The WARN_ON() added by commit 78a38cbf6f20 ("srcu: Queue sdp->work
+> > when the delay timer is successfully deleted") uses rcu_segcblist_n_cbs()
+> > to detect callbacks that srcu_barrier() failed to wait for. However, the
+> > ->len counter is decremented only at the end of srcu_invoke_callbacks(),
+> > after the invoking loop has finished. Since srcu_barrier() can return
+> > right after the barrier callback is invoked, cleanup_srcu_struct() can see
+> > a non-zero n_cbs even though the cblist is already physically empty,
+> > falsely triggering the WARN_ON() together with a still-pending delay_work
+> > timer.
+> > 
+> > This can be triggered as follows, as seen in the syzbot report against
+> > kvm_destroy_vm() -> cleanup_srcu_struct(&kvm->srcu):
+> > 
+> > 1. call_srcu(&kvm->srcu, &bus->rcu, __free_bus) starts SRCU grace
+> >    period GP1.
+> > 
+> > 2. GP1 ends: a delay timer is armed and sdp->work is queued, but
+> >    sdp->work has not run yet.
+> > 
+> > 3. Another call_srcu(&kvm->srcu, &bus->rcu, __free_bus) call invokes
+> >    srcu_segcblist_advance(), which moves the GP1 callback to
+> >    RCU_DONE_TAIL, and starts SRCU grace period GP2.
+> > 
+> > 4. srcu_barrier() is called. It queues its barrier callback after the
+> >    GP2 callback and waits for srcu_invoke_callbacks() to invoke it.
+> > 
+> > 5. GP2 ends: another delay timer is armed, and the sdp->work queued in
+> >    step 2 begins to run. Its srcu_invoke_callbacks() call invokes
+> >    srcu_segcblist_advance() again, moving the GP2 and barrier callbacks
+> >    to RCU_DONE_TAIL as well, and then invokes all of them. However,
+> >    rcu_segcblist_add_len(), which updates srcu_cblist's ->len, has not
+> >    run yet at this point.
+> > 
+> > 6. srcu_barrier() returns once its callback has been invoked, and
+> >    cleanup_srcu_struct() starts running. It finds the delay timer
+> >    armed in step 5 still pending and srcu_cblist's ->len still
+> >    non-zero (because step 5 has not reached rcu_segcblist_add_len()
+> >    yet), and WARN_ON() fires even though every callback has actually
+> >    been invoked.
+> > 
+> > Use rcu_segcblist_empty(), which checks the actual head of the cblist,
+> > instead of rcu_segcblist_n_cbs(), which checks the racy ->len counter.
+> > Callbacks that have genuinely not been invoked yet still leave the list
+> > non-empty, so the WARN_ON() still catches callers that skip srcu_barrier()
+> > or queue callbacks after it.
+> > 
+> > Link: https://lore.kernel.org/rcu/e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev/T/#t
+> > Reported-by: syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=d4faf7db59e11f6fd1ab
+> > Fixes: 78a38cbf6f20 ("srcu: Queue sdp->work when the delay timer is successfully deleted")
+> > Suggested-by: Zqiang <qiang.zhang@linux.dev>
+> > Signed-off-by: Sunho Park <shpark061104@gmail.com>
+> > Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> > ---
+> 
+> Is this going to be grabbed for 7.3?  It shows up relatively frequently in KVM.
+> Not so much that it's truly problematic/alarming, but enough that it definitely
+> stands out.
+> 
+> Tested-by: Sean Christopherson <seanjc@google.com>
 
-This series removes the IOMMU_RESV_DIRECT regions that block VFIO
-passthrough on my Gigabyte B850 AORUS ELITE WIFI7 (BIOS F11, 05/21/2026;
-same problem on F7), Ryzen 9 9950X3D, RTX 5080.
+I wasn't thinking in terms of doing so, figuring that the almost-here
+merge window would be good enough.  But it does seem to apply cleanly.
+Any other votes for pushing it into 7.3?  If I do so, it must be soon.
 
-The IVRS table on this board has three IVMD type 0x22 entries, all with
-flags 0x08 (exclusion range only, no unity/IR/IW bits), each covering
-devid 0000:00:00.0 - 0000:0f:1f.7:
+Either way, I will of course apply your Tested-by.
 
-   IVMD 0x22 flags 0x08  0x8aa34000 len 0x1000
-   IVMD 0x22 flags 0x08  0x8aa33000 len 0x1000
-   IVMD 0x22 flags 0x08  0x95967000 len 0x1000
-
-Without the series (stock 7.2.6), init_unity_map_range() converts these
-to r/w unity maps, so every IOMMU group on buses 0-15 (27 groups) gets
-them as IOMMU_RESV_DIRECT. The GPU's group (01:00.0 + 01:00.1) shows:
-
-   0x000000008aa33000 0x000000008aa34fff direct
-   0x0000000095967000 0x0000000095967fff direct
-   0x00000000fee00000 0x00000000feefffff msi
-   0x000000fd00000000 0x000000ffffffffff reserved
-
-and VFIO assignment of the GPU failed (tested on F7) with "Firmware has
-requested this device have a 1:1 IOMMU mapping, rejecting configuring
-the device without a 1:1 mapping. Contact your platform vendor."
-
-With v2 1-4 applied on top of 7.2.8 (they apply cleanly), the same
-group shows:
-
-   0x000000008aa33000 0x000000008aa34fff reserved
-   0x0000000095967000 0x0000000095967fff reserved
-   0x00000000fee00000 0x00000000feefffff msi
-   0x000000fd00000000 0x000000ffffffffff reserved
-
-No group on the system reports a direct region any more. The host runs
-with the default DMA-FQ domain on every group except the iGPU
-(identity), and there are no AMD-Vi IO_PAGE_FAULT or FW_BUG messages in
-the log. The ivmd= parameter was not exercised. I have not yet assigned
-the GPU to a VM, so the VFIO ownership claim itself is untested on the
-patched kernel; the check above is of reserved regions only.
-
-This matches the IVMD pattern in the amd_iommu=relax_unity report from
-March [1] (Gigabyte AM5, type 0x22 over devid 0x0000-0x0fff). That
-report didn't include the IVMD flags (Vasant asked for them); on this
-board they are exclusion-only (0x08). If those boards are the same,
-this series should fix them too without relax_unity. I can send the
-raw IVRS dump if useful.
-
-[1] 
-https://lore.kernel.org/all/20260328213228.12084-1-chris.longros@gmail.com/
-
-I'm happy to retest v3 when it's out.
-
-Tested-by: Adam Pelka <adampelka26@gmail.com>
-
-Thanks,
-Adam
+							Thanx, Paul
