@@ -1,37 +1,37 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926B3490C11
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF9B4825D8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790886110; cv=none; b=r6V+BGzPM7qHEJax/zNTQgggBEvWLCX7f3qNn9woebXn7fCg3XEMr4BY8i9+UUpS2CSvUQbdUvBdZvT22Fwd3Xn7MRTlVE674/jlqd3QM/IBlgor46CI8XxiaxRITM//J6EFDOM2Is9ahiX62NRFQZ8H54DjzPk/mokd9Qc5Q0o=
+	t=1790886109; cv=none; b=sZ9wFirkCEGUCQ2AuGwbzeU5bDgBNpi8u5YOSu6kgQ77u/SJo+v7Nayn51aQuEsWevTUbOYcYQ4l0wiNgZxtjCxOTfu51e69acxoL64FIAmXhNf6VEBqFoGfU7uW481XxlfbHyxfDnkL4zaO+jWzFkH4l5Eeb+7/7A717USuyHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790886110; c=relaxed/simple;
-	bh=GVpxYRu+8584h/aYWM5kQDx3x92JCyK0VRLy0eJfGCg=;
+	s=arc-20240116; t=1790886109; c=relaxed/simple;
+	bh=hGQCfoikrCVYkQWYT/pgMBxxcj34mYBayHjxpd04/QA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pyw7xLaw9u9rvb5xNQHjPtOhxHT17FKwIjcmFqrus4rwMZvzpkMltsfvqOS+6Ai1X2D/l3Wgrsc7JrpIXEqZCCnXIVP29QkmD+twJDSizA23RtaQib7aNh0xXI8+bVHjmjyv+lmM3LaldeBSTw9CmZANIrHXwgls/GUtFhQ+Hy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=hIVzLkRS; arc=none smtp.client-ip=90.155.50.34
+	 MIME-Version:Content-Type; b=fYnMUvVrC1+d+iMTgJ3X12HbaaCttDnL62CkyWZmOXndQuqjUm90MgfuZFyOCfVDrdLrx/zhccRQJjscP4VO8c078YQW8ORL/jXSDOi/DsaqXpFDGK4dH9lltE5eCaHKq1b7hlNK3/Bd1xe5eMlsxf0tEjNOgCam7sLagE8O1IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=lQ/KJUl5; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="hIVzLkRS"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="lQ/KJUl5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=kQRrha7PW27pqoIOSakZ9K/6jDGxw7dZW1aLodqp/eQ=; b=hIVzLkRSD0YX0YqTrc+bYRBxV+
-	7AZ/FZaTOh674Gu4ZCvvIHoGUKZo29bduKjh9/h43ebbdBZej6Bhb6apLAGRSdIxW/Fl1O3mx+L8b
-	wRe5qyfUdqE2V8sSJbxy/RizsN7Nj6nHadS1NlN3/ge2Xhj0JygLUbUV01a5hxRgXJ0uQDL74XhzY
-	ZyRbVe7Fl95tWhEyk9pnFLk8ajDTxDmivM9J4nLdY41cQSKl2wEMaMA/NdKfsvtDduD9WcK5mXFKh
-	rbepL95TCnNObIboAa10eQS1GH43tzGkjimDWz4JkAfWKq4P0FXujtSYW9kOLZE45Vp6mIP7cogKJ
-	oIgXd4jg==;
+	bh=D2fmHSpfpmUe2HAQJmn3Blsb4rc8fDC6ukysJpFE/sE=; b=lQ/KJUl56ONuVzTkVoHEe/ZXN/
+	GdQ/pbdGEQBIRMSiO+d5jBagwkw3kTs+GuRxZKnWWHpM4uy+FCV6TmwQpHZp7nrTgKn+rbIEkDK5l
+	cKOU+aTOwd6q6Oj85MfgmQquyiEf0bWdwpYnE5FS5I6jIrzG9V66dwWkuKXehZgcFXPW51ZuANOOj
+	DIYeVhvz73iAXC43LPhm74eaZUZUfS5bAobisY1/AittWV+DDfJ4Dbp8QTmhSt1Lmo4GtFW8P5PeR
+	Pd65FV6SLR3FEbRTVangI1lr+VQdr9bw+mbE70yQ6Jufi1wQc5wDz+Bxr/8XBgZ/OYzszCQ6N04TB
+	XO3xCaUA==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCNHd-00000009lWq-3yRq;
+	id 1xCNHe-00000009lWr-0INI;
 	Thu, 01 Oct 2026 20:21:38 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xCNHd-000000008pQ-33lj;
+	id 1xCNHd-000000008pY-3b1d;
 	Thu, 01 Oct 2026 21:21:37 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: Thomas Gleixner <tglx@kernel.org>,
@@ -44,9 +44,9 @@ Cc: Stephen Boyd <sboyd@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw2@infradead.org>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH 1/5] timekeeping: Allow tick_length changes to apply mid-tick
-Date: Thu,  1 Oct 2026 21:21:30 +0100
-Message-ID: <20261001202134.33929-2-dwmw2@infradead.org>
+Subject: [PATCH 3/5] timekeeping: Bound idle sleep while a phase slew is in flight
+Date: Thu,  1 Oct 2026 21:21:32 +0100
+Message-ID: <20261001202134.33929-4-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261001202134.33929-1-dwmw2@infradead.org>
 References: <20261001202134.33929-1-dwmw2@infradead.org>
@@ -63,73 +63,64 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-When the NTP tick length changes, timekeeping_apply_adjustment() applies
-the accounting for the new rate to ntp_error retrospectively for the
-partial tick which is currently in progress. So the ideal line of the
-clock conceptually changes from the moment of cycle_last (which can be
-almost a full tick ago), and ntp_error grows to show the difference
-between that and what userspace actually saw already.
-
-This can lead to a significant value (10s of microseconds) landing in
-ntp_error which can take *days* to drain through the natural mult ±1
-dithering.
-
-The slow-draining ntp_error then applies a consistent bias to that ±1
-dithering, meaning that the precision of the effective frequency
-requested by userspace is limited to integer 'mult' values, since the
-dithering is no longer effective to achieve the fractional parts.
-
-Fix this by allowing the rate change to be conceptually applied at
-'offset' into the partial tick, rather than the start of the tick.
-This means that the amount of delta which gets accumulated into
-ntp_error remains low.
-
-Rather than factoring this into timekeeping_apply_adjustment() which
-already makes my eyes bleed, pre-correct it when the rate changes, to
-adjust the 'intended' clock position according to the delta between
-old and new tick lengths (but leaving skew as it should be).
+Phase offset for adjtime() can be delivered at a rate of 500µs/s, and
+for STA_PPSTIME potentially even more. The skew is recalculated in
+second_overflow() each second, and if that's missed in a tickless
+kernel, the skew continues to be applied for the whole of the idle
+period. While skew is active, clamp timekeeping_max_deferment() to the
+top of the current second to avoid the overshoot.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
 ---
- kernel/time/timekeeping.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ kernel/time/timekeeping.c | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-index ea2e6e55f37b..e2f7e28dc16e 100644
+index e2f7e28dc16e..986649cae46d 100644
 --- a/kernel/time/timekeeping.c
 +++ b/kernel/time/timekeeping.c
-@@ -2444,6 +2444,8 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
- 		/* Revert to the base mult rate. */
- 		mult = tk->tkr_mono.mult - tk->ntp_err_mult;
- 	} else {
-+		u64 old_ntp_tick = tk->ntp_tick;
-+
- 		tk->ntp_tick = ntp_tl;
- 		tk->skew_delta = skew;
- 		/*
-@@ -2453,6 +2455,21 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
- 		skew *= NTP_INTERVAL_FREQ;
- 		mult = div64_u64((tk->ntp_tick + skew) >> tk->ntp_error_shift,
- 				 tk->cycle_interval);
-+
+@@ -1975,6 +1975,21 @@ u64 timekeeping_max_deferment(void)
+ 
+ 		ret = tk->tkr_mono.clock->max_idle_ns;
+ 
 +		/*
-+		 * Rate adjustments are conceptually applied mid-tick in order
-+		 * to avoid accumulating large deltas in ntp_error which can
-+		 * take days to drain. Offset the ntp_error that will be
-+		 * introduced by timekeeping_apply_adjustment(), accordingly.
++		 * Skew introduced for phase offset is intended to be
++		 * recalculated each second. Ensure a tickless kernel
++		 * wakes up for that and does not overshoot, while skew
++		 * is being applied.
 +		 */
-+		if (tk->ntp_tick != old_ntp_tick) {
-+			u64 old_dividend = (old_ntp_tick + skew) >> tk->ntp_error_shift;
-+			s64 old_base_mult = div64_u64(old_dividend, tk->cycle_interval);
-+			s64 mult_delta = (s64)mult - old_base_mult;
++		if (abs(tk->skew_delta) > 1) {
++			u64 nsec_in_sec = tk->tkr_mono.xtime_nsec >>
++					  tk->tkr_mono.shift;
++			u64 remaining = NSEC_PER_SEC - min_t(u64, nsec_in_sec,
++							     NSEC_PER_SEC);
 +
-+			tk->ntp_error -= ((s64)offset * mult_delta)
-+					 << tk->ntp_error_shift;
++			ret = min_t(u64, ret, max_t(u64, remaining, TICK_NSEC));
 +		}
++
+ 	} while (read_seqcount_retry(&tk_core.seq, seq));
+ 
+ 	return ret;
+@@ -3045,8 +3060,16 @@ static int __do_adjtimex(struct tk_data *tkd, struct __kernel_timex *txc,
+ 		tk_update_leap_state_all(tkd);
  	}
  
- 	/*
+-	/* Update the multiplier immediately if frequency was set directly */
+-	if (txc->modes & (ADJ_FREQUENCY | ADJ_TICK))
++	/*
++	 * Update the multiplier immediately if the frequency was set
++	 * directly, or refresh the cached skew_delta if a phase
++	 * adjustment started a slew, so that it bounds idle sleep.
++	 * ADJ_OFFSET_READONLY excludes the unprivileged read-only
++	 * adjtime() form, which starts no slew.
++	 */
++	if ((txc->modes & (ADJ_FREQUENCY | ADJ_TICK)) ||
++	    ((txc->modes & ADJ_OFFSET) &&
++	     !(txc->modes & ADJ_OFFSET_READONLY)))
+ 		result->clock_set |= __timekeeping_advance(tkd, TK_ADV_FREQ);
+ 
+ 	return ret;
 -- 
 2.43.0
 
