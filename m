@@ -1,101 +1,145 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34901513570
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9B95187D9;
+	Thu,  1 Oct 2026 12:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858641; cv=none; b=tGD8xhui0LXwqc83MO9iLmHIjD9EQPDbbya0Qziy6qWXjbAnRI3ZzqNmXLqaGg4zWJ/NTVp2yVx222IUEtik2/+DTs69EpfCxkZbTuPABKnDwtBpZOvQZkl+bcnopyiB0N8rTDQjdQvg1NZOEAqOHWfuPQsB3F4b+BvbmeEpqPI=
+	t=1790858644; cv=none; b=kXMjI0FYIKG/nXHhlDuLbI6RXyfdcvce7p+kFty1++azdwuC7qc8g2VxmMSBKGAwC+VXFtiEeQdF9hUb9Jt7lL54aiNK9Cs6qhASmPsh1P/0nm8aMYWTpSD2O+MFrG1iv1gyHirFOBndH4EWbdm4YbbnIx9NsizZOdavT1sfnJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858641; c=relaxed/simple;
-	bh=Sms6Hm0bqrkOC8r0tQMl3X20kBIz3xLS8ZiGlVmV19A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M1WY/8egNzHqf9W5WAB6OaZBy7iqkYo20toYA1Mudbc07sXFupnu/qx5upJcP6d0EvaMdKbGiGwAEfLH5d1tfM75WHKGqpQucvc1ia3eaaaKFVQGJNvXxtYEe9IPbYAtdPBFTUJSKBKeCiMdbM1tyXpqar0zCpziF5eKAEJGhxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JPdWxQm1; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790858644; c=relaxed/simple;
+	bh=t+0B/sAQ3S+l9NYVbZtcH2UUvZ95WL4OO/xfo3lJYEY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mcsZSW4U7kOtwlTNbCxehsuTRzmqpj0bWh6p9SHUnrH19wqrnLwjoGdF+jO1Qicqifh7L0x8DZ0U98VOLL34sgHvNUwFj/Ae1eXTBgr0gVGP69sGRk4P+Kf4dsZf0QY+Voya2JgDUTIk5fI0efErhaljLW8NsCw1ll7Wy+dDCJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lw3yNYuW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JPdWxQm1"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BBEEC1A24DD;
-	Thu,  1 Oct 2026 12:43:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 848D060341;
-	Thu,  1 Oct 2026 12:43:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6E5D11032811B;
-	Thu,  1 Oct 2026 14:43:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790858636; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=uBDynqj0MRNe0ZE5dYCnK/0m9DNXvSOsN2x3my6qZE0=;
-	b=JPdWxQm1nF0z8GIFcgwEpWxo3QmoSCS6QhBxCwWHTqwDfXxoomJUioC6SeiKDZHJAtOwCW
-	/zcLk+Xv5IgsT8ObmefEO0uIZ2Ofl+qJYq9M+h74Yo4rTEsmXGfpl049cAdxcWAyljD2h/
-	EcF70V8h3CA96e5sel/Dfu8BpD0EBCd6rvz9IJru5K5Gezz+ROZhNJ1XY8ObxcPyfBpYW5
-	0f4TsinQew72YShXkQenL6ekNHvqtaqsD5WeqONB7pGl+52UOxI3JzdzCcejAfOm9r0D2h
-	ZSq0RhTSwcr1spv3HkT8DdXU5z1gwEzAHHdySgUVhYPL0T2KbL5H/9iYBT9QzQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:35 +0200
-Subject: [PATCH RFC v2 13/24] drm/mipi-dsi: turn DRM_MIPI_DSI into a
- tristate
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lw3yNYuW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27DDA1F00899;
+	Thu,  1 Oct 2026 12:43:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790858642;
+	bh=rXN5Orvh6wcqwDgLUoyOl8q44kbcCZ04cp0WYtrNd28=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lw3yNYuWneYsXq36Dz0QRT4eJVGomNCaXLPibAKzTAn2zplZLxvZhtownDL11Arzq
+	 YJ2bV3rgHjWp0l25u9LdG5xUHC1ZihTOylnvjhNXwZm0OOETpCnislnIaF/aEksuKu
+	 9K8dO+LztHyXmnyYyeqLJXDTYvR4ZhtTp9Gjin5SJR0e3oZhnG5BL46U2b3VriEsxr
+	 msd8lUUmlIvGcLXQqFIetvfqRUvSHiFnvXtsjfN1GKz95wNgOqNz9Wsexl3ViGlX/r
+	 9odGos4HXVs5aMy4692DLEdP3acrLIs9GHpZedmF+WA5LWpsTM/mRsQJ/Iham3wXY8
+	 gx47hXTX8hnGQ==
+Date: Thu, 1 Oct 2026 18:13:55 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Cc: Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+	Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Basant Kumar <basantk@qti.qualcomm.com>,
+	Apurupa Pattapu <apurupa@qti.qualcomm.com>,
+	Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 2/6] tee: Add kernel client object invoke helper
+Message-ID: <ar5Vi8ccysSh4fQ1@sumit-xelite>
+Mail-Followup-To: Harshal Dev <harshal.dev@oss.qualcomm.com>,
+	Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+	Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Basant Kumar <basantk@qti.qualcomm.com>,
+	Apurupa Pattapu <apurupa@qti.qualcomm.com>,
+	Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+References: <20261001-qcom_uefisecapp_migrate_qcomtee-v3-0-13df5c20c2e3@oss.qualcomm.com>
+ <20261001-qcom_uefisecapp_migrate_qcomtee-v3-2-13df5c20c2e3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-13-8e34986dcb68@bootlin.com>
-References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
-In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Douglas Anderson <dianders@chromium.org>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261001-qcom_uefisecapp_migrate_qcomtee-v3-2-13df5c20c2e3@oss.qualcomm.com>
 
-DRM_MIPI_DSI is currently a bool, but there's no reason to not be allowed
-to build it as a loadable module.
+On Thu, 01 Oct 2026 at 16:32:34 +0530, Harshal Dev wrote:
+>From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>
+>Kernel clients can open a TEE context and invoke regular TA commands
+>through tee_client_invoke_func(). However, there is currently no
+>equivalent helper for invoking TEE objects.
+>
+>Add tee_client_object_invoke_func() as a kernel client API for issuing
+>object invocation requests. The helper checks that the backend provides
+>object_invoke_func() before forwarding the request by setting the origin
+>as TEE_OBJECT_INVOKE_KERNEL. This allows TEE backends to support
+>privileged object-based calls from the kernel-space.
+>
+>Co-developed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>---
+> drivers/tee/tee_core.c  | 12 ++++++++++++
+> include/linux/tee_drv.h | 13 +++++++++++++
+> 2 files changed, 25 insertions(+)
 
-Moreover being a bool prevents DRM_MIPI_DSI to depend on a tristate module
-that is configured as 'm'.
+Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+-Sumit
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 65d46dfa7266..9bdd9110e754 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -39,7 +39,7 @@ config DRM_MIPI_DBI
- 	select DRM_KMS_HELPER
- 
- config DRM_MIPI_DSI
--	bool
-+	tristate
- 	depends on DRM
- 
- config DRM_KMS_HELPER
-
--- 
-2.55.0
-
+>
+>diff --git a/drivers/tee/tee_core.c b/drivers/tee/tee_core.c
+>index 30901390149c..a03a3d645dd1 100644
+>--- a/drivers/tee/tee_core.c
+>+++ b/drivers/tee/tee_core.c
+>@@ -1404,6 +1404,18 @@ int tee_client_invoke_func(struct tee_context *ctx,
+> }
+> EXPORT_SYMBOL_GPL(tee_client_invoke_func);
+>
+>+int tee_client_object_invoke_func(struct tee_context *ctx,
+>+				  struct tee_ioctl_object_invoke_arg *arg,
+>+				  struct tee_param *param)
+>+{
+>+	if (!ctx->teedev->desc->ops->object_invoke_func)
+>+		return -EINVAL;
+>+
+>+	return ctx->teedev->desc->ops->object_invoke_func(ctx, arg, param,
+>+							  TEE_OBJECT_INVOKE_KERNEL);
+>+}
+>+EXPORT_SYMBOL_GPL(tee_client_object_invoke_func);
+>+
+> int tee_client_cancel_req(struct tee_context *ctx,
+> 			  struct tee_ioctl_cancel_arg *arg)
+> {
+>diff --git a/include/linux/tee_drv.h b/include/linux/tee_drv.h
+>index f3c5e106d853..369c87ad0205 100644
+>--- a/include/linux/tee_drv.h
+>+++ b/include/linux/tee_drv.h
+>@@ -283,6 +283,19 @@ int tee_client_invoke_func(struct tee_context *ctx,
+> 			   struct tee_ioctl_invoke_arg *arg,
+> 			   struct tee_param *param);
+>
+>+/**
+>+ * tee_client_object_invoke_func() - Invoke a TEE object from kernel space
+>+ * @ctx:    TEE Context
+>+ * @arg:    Invoke arguments, see description of
+>+ *          struct tee_ioctl_object_invoke_arg
+>+ * @param:  Parameters for the object invocation
+>+ *
+>+ * Return: On success, returns 0; on failure, returns < 0.
+>+ */
+>+int tee_client_object_invoke_func(struct tee_context *ctx,
+>+				  struct tee_ioctl_object_invoke_arg *arg,
+>+				  struct tee_param *param);
+>+
+> /**
+>  * tee_client_cancel_req() - Request cancellation of the previous open-session
+>  * or invoke-command operations in a Trusted Application
+>
+>-- 
+>2.34.1
+>
