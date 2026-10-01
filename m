@@ -1,41 +1,41 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A7F51477D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03114A2A5E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858655; cv=none; b=Lqkn5IlSxIn3/lm2PM6KTesAEhoFOF85n1FS6nzId4JeyisyS9jjD3cGa22tvzoMAuiIKzPbTpVUFEqpAxSatQaV+BTn7DjIRkV18Z7Qhyq5n5e/McHPfYJGn943Hz5HKStOxwB4MsqF7OuJXLfXGLCr6bEwDeBU8+DvCAFLp3k=
+	t=1790858663; cv=none; b=M0JEpzfpmItsud07t8Iqw8sWQbEsAXC4DbUhz2vD6QYZqBrLdwv1Nifht4r7bLfF0kt6WTUKTmD25MPod8ls1Ogv2WrRJwiGpxPQNHGjztqB3u2HT34bjdznse8OtXzeMaeBmipIO5nEDQICbW4KWVJpd5O1+eAhtSel8ErRuQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858655; c=relaxed/simple;
-	bh=A4P9N+OXbxLc3wXLNeYZMwzLhUhlpOq04AACdWyuUd0=;
+	s=arc-20240116; t=1790858663; c=relaxed/simple;
+	bh=ksWzs0Nqles4NrPLHoCXXwgwiYjoKXHReGcRvbjtsPI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZxFlA1Pl0W6FrSk7uctQepdOkI0P5acLH5fqDEGCqSsNEmVuCMg+qRMfd8LV/LHBSPdHdR/+0JkHyiaK92KltS0jxbcrJR9kEVTyjCwjDbbo4Z7gnBMhD6ib+KRPlDtzp4WoGnqTl+WluDMZORKMV8wzTQSKqH3GU3YHR0+RoIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kVSUQTrD; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=YeiBfDwSfNgwa/t0yDxuZ/Gcv+k1Q7XLqIXbqTsUFO9W/Rsxaa6P8e4sSIjQhE3enh2kWoXh+O+OxXFjVAyn6R9jkwN2HOIyNw9vyONM6SEmoLY+b4hxo1x+AMCu6uN74TxhaiCAtUlERiIgeaTRHE2cq/q0nVsjls82YyJOc0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=aBPKzM7g; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kVSUQTrD"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="aBPKzM7g"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 746BD4E41E84;
-	Thu,  1 Oct 2026 12:44:12 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 72BB91A24DD;
+	Thu,  1 Oct 2026 12:44:20 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 46CA860341;
-	Thu,  1 Oct 2026 12:44:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B6EA11032811E;
-	Thu,  1 Oct 2026 14:44:01 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 42C2560341;
+	Thu,  1 Oct 2026 12:44:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E3F3E103280C2;
+	Thu,  1 Oct 2026 14:44:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790858645; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790858654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=BXiFyAdA2pKb+DolrUPc5utozhi6bB8a1GkxVqd6DwY=;
-	b=kVSUQTrDvpjesOOUIcBa/CId/m8TyMLerCQnWIk/cCgjDCQ+NWb3siCi5znX1J+bA8jiyk
-	mE3lWx7yz3SPb8bpSXtIxvbvSAeY3bODbJpgTU+COE4vmF2aOxbhGIVvDSD+A6f9VeI5SB
-	TLup0fYYHZvIvh70TF96ILGK9OuAAXqEoesxqBtLqPsQ6hH13wxRyR+5VJF6iuaoCD8AnF
-	/9ytnbYyzGg25x/+NebwY3+lx07F43R2cnqFXvl6n1edOlufyQzV8w0OccUhTPSXhd1ID3
-	lKLXO1Zrmjo0+atMBDmWSVP239IN20nF28mH7pkcvkj8El7KhIhWp4YouoVEhg==
+	bh=WapcN4u4O2P2Y+ZdWXKtu9oaGnwPkCOTy0BexZllVJ4=;
+	b=aBPKzM7g8VsMMRJ6dD92iJu+e9xBuoG91dnx+NjfTvZY4daWydYrbRK3OEY1q2sDB8QgLa
+	bMJe5HarR/RyCZMGwGHePJNbBtVgZbqbsr+VU6pbFQ+fS7r9igQAIxQcAJKk4wAwytNe9q
+	vYdW06HwfKqcGXQK8QX7c9zI0ARqj5jAN7xB9A0TEVnZo/d0gjyE+SEdcsxbDTedFjZKRP
+	MRhHWm+SOCwcCja8bGdxTXnD0KnhwoaWrKKPjwBqlrFIOmcnfTGiB/zcktScPT/eNFNvsa
+	imua9heDWQ+eXKqQLPyxmUrh/I2K6crsDT0gdIef3pDU88Wf2KxQrAkc3lvnjw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:37 +0200
-Subject: [PATCH RFC v2 15/24] drm/bridge: notify about detached bridges
+Date: Thu, 01 Oct 2026 14:42:38 +0200
+Subject: [PATCH RFC v2 16/24] drm/mipi-dsi: notify about DSI attach
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-15-8e34986dcb68@bootlin.com>
+Message-Id: <20261001-drm-bridge-hotplug-v2-16-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -70,51 +70,50 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-In preparation to support DRM bridge hotplug, let the drm_bridge code emit
-an event when a bridge is detached, so that this event can trigger the
-actions needed to deconfigure the pipeline and unregister the connector as
-appropriate.
+In preparation to support DRM bridge hotplug, let the drm_mipi_dsi code
+emit an event when a DSI device is attached to the corresponding DSI host,
+so that this event can trigger the actions needed to deconfigure the
+pipeline and unregister the connector as appropriate.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/Kconfig      | 1 +
- drivers/gpu/drm/drm_bridge.c | 4 ++++
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/Kconfig        | 1 +
+ drivers/gpu/drm/drm_mipi_dsi.c | 3 +++
+ 2 files changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index e661241ed1df..17c86244c75a 100644
+index 17c86244c75a..59015e89de92 100644
 --- a/drivers/gpu/drm/Kconfig
 +++ b/drivers/gpu/drm/Kconfig
-@@ -17,6 +17,7 @@ menuconfig DRM
- # device and dmabuf fd. Let's make sure that is available for our userspace.
- 	select KCMP
- 	select VIDEO
+@@ -45,6 +45,7 @@ config DRM_MIPI_DBI
+ config DRM_MIPI_DSI
+ 	tristate
+ 	depends on DRM
 +	select DRM_EVENT_NOTIFIER
- 	help
- 	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
- 	  introduced in XFree86 4.0. If you say Y here, you need to select
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index c0a2f7f1ce62..c825e80b9a7f 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -34,6 +34,7 @@
- #include <drm/drm_debugfs.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
-+#include <drm/drm_event_notifier.h>
- #include <drm/drm_file.h>
- #include <drm/drm_of.h>
- #include <drm/drm_print.h>
-@@ -702,6 +703,9 @@ void drm_bridge_detach(struct drm_bridge *bridge)
- 		bridge->funcs->detach(bridge);
  
- 	list_del_init(&bridge->chain_node);
+ config DRM_KMS_HELPER
+ 	tristate
+diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
+index 3ac1dd5ad640..eaa474da4a51 100644
+--- a/drivers/gpu/drm/drm_mipi_dsi.c
++++ b/drivers/gpu/drm/drm_mipi_dsi.c
+@@ -34,6 +34,7 @@
+ #include <linux/slab.h>
+ 
+ #include <drm/display/drm_dsc.h>
++#include <drm/drm_event_notifier.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_print.h>
+ 
+@@ -386,6 +387,8 @@ int mipi_dsi_attach(struct mipi_dsi_device *dsi)
+ 
+ 	dsi->attached = true;
+ 
++	drm_event_notifier_notify(DRM_MIPI_DSI_ATTACHED, dsi);
 +
-+	drm_event_notifier_notify(DRM_BRIDGE_DETACHED, bridge);
-+
- 	bridge->dev = NULL;
- 	drm_bridge_put(bridge);
+ 	return 0;
  }
+ EXPORT_SYMBOL(mipi_dsi_attach);
 
 -- 
 2.55.0
