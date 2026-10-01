@@ -1,178 +1,205 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0A9851B196;
-	Thu,  1 Oct 2026 14:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B524FDE55
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864709; cv=none; b=lr4ke04zoGCOYerKNvmtt/531liaxeUWVS90SdQqypbQ5Yd6bjkQv+3o+aY3R0/ukNKMyv0dNl7ZYkeqwVZR3aLtdG6qJNqZ5aLKbacC1MPKPK5C0GQi17eyLa8XuizUouxsmbH2hbXEdlnUYQk3LC8f3NIMBqVQyTBqPSx6RNw=
+	t=1790864729; cv=none; b=F14jUqYRRUuajGvNAoPdoUrRn3tCYj+5hPB/4plQ3VXH14xpkXzFZNVPrTjCq0EOycUzxGBeX3Xn4QxuulYR++qLAIzWE4yV4Arxg3rv5Hp0OaXI8u7Hf3+buhApVvGV1CmFU3N3J8ReHB0oHatNh0MTaiJTvbezZekivpheR1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864709; c=relaxed/simple;
-	bh=1hHoKyAPD/b2cGTc6dQTSAgCcK5RPRJLB0llMk6ht/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C8RBkqidGwAjzWU8chyNkD36J+nU/PRECai0rPu9JTTQVPgWHZ6H8VX8FZODffmHgQkHeu3fYOZbUq+SVEpHmIItvD42EubsaOQFduVLVxXrAV7ZCkqgpplIZVixtSSq6QSisUMwhJuoeME3qfijs+Tjm+PHnawZ/gKlMSEJEDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vXAk2mOi; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790864729; c=relaxed/simple;
+	bh=nAXCB2HbY7Mf+wmDfZkiXREuGwS2H6D9YJ4ox3hdyYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SasbmAExDK5VM6btyQjFzmGa9QIkF6iPdNW0C0bactrkK0s+7FkFnBbvbBY6GbEUWZEUNq5wpQMnycuw6vqDPX8XYJVNyPFOkwOBS6aMGLlNoqcoRwWUPyETpPsIpqV4FddZkm1WPJK/Iaz1UoZzKi3KNogkEiOAhDrqWtOyLSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PXECmK3k; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vXAk2mOi"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87EDD497;
-	Thu,  1 Oct 2026 07:24:59 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6FAA3F85F;
-	Thu,  1 Oct 2026 07:24:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790864702; bh=1hHoKyAPD/b2cGTc6dQTSAgCcK5RPRJLB0llMk6ht/Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vXAk2mOiEzPgG8p0QPPgnsQD9c5SttjpCm6UTeqpSxuv3JpF0R9stnfs2sdooXT1+
-	 +mCwykU1KCsMii36XRamLizkeQxtZpwHbBx36tBChLs0b2MUBc+3jhX+h4uZmD5BNU
-	 l8S2Mq3+aGtDdpe0Qwus2ffDKEwIB9946i46aoYk=
-Date: Thu, 1 Oct 2026 15:24:57 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Dan Williams <djbw@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Suzuki Poulose <suzuki.poulose@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sami Mujawar <sami.mujawar@arm.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>, gongruiqi1@huawei.com
-Subject: Re: [PATCH RFC 0/3] security: ima: support TSM measurement registers
-Message-ID: <ar5tOUor0bp3MtQ6@e129823.arm.com>
-References: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
- <ebe68f6463f8ece8a5cd8ce70bba292ec4f64a41.camel@huaweicloud.com>
- <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PXECmK3k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790864726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+RQauoITMstIPGsYZHrV59o4U7Nh5j8XAKzdsfn+Yig=;
+	b=PXECmK3khYnAAIYL7LQm3a4ptt01U1uXXjDVfNS5W5CzThrXw6bOu652SNj7O6HnjLmfCY
+	n0otvT0AOyhkDbpd4JHUbwFboeWssTIU30aNBtynnLxkNexz8GNNfRDKTe21BQKadTAkyk
+	ayi5MwdiIftRYfDJecRUHACk9fweXcE=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-685-9m2QvmfuMBeug2vV4AyS8A-1; Thu,
+ 01 Oct 2026 10:25:23 -0400
+X-MC-Unique: 9m2QvmfuMBeug2vV4AyS8A-1
+X-Mimecast-MFC-AGG-ID: 9m2QvmfuMBeug2vV4AyS8A_1790864721
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8513B18007FD;
+	Thu,  1 Oct 2026 14:25:20 +0000 (UTC)
+Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3B16B30000E4;
+	Thu,  1 Oct 2026 14:25:18 +0000 (UTC)
+From: Vaibhav Nagare <vnagare@redhat.com>
+To: davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nagarevaibhav@gmail.com,
+	Vaibhav Nagare <vnagare@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] bnxt_en: don't leave an XDP program installed when the open fails
+Date: Thu,  1 Oct 2026 19:55:16 +0530
+Message-ID: <20261001142516.1386525-1-vnagare@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Hi Roberto,
+bnxt_xdp_set() stores the new program and drops the reference on the old
+one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
+returns an error with the new program still in bp->xdp_prog.  The caller
+treats the error as "nothing was installed" and drops its own reference,
+so bp->xdp_prog is left pointing at a freed program and the next XDP
+update dereferences it:
 
-> On Thu, 2026-10-01 at 13:27 +0200, Roberto Sassu wrote:
-> > On Wed, 2026-09-30 at 14:43 +0100, Yeoreum Yun wrote:
-> > > Confidential computing guests without a TPM can use TSM measurement
-> > > registers to record IMA measurement digests instead of TPM PCRs.
-> 
-> + Gong Ruiqi, of course.
-> 
-> Roberto
-> 
-> > Hi Yeoreum
-> > 
-> > a similar patch set has been sent to the linux-integrity mailing list:
-> > 
-> > https://lore.kernel.org/linux-integrity/20250630125928.765285-1-gongruiqi1@huawei.com/
-> > 
-> > Could you please work with Gong Ruiqi to have a unified proposal?
-> > 
-> > Thanks
-> > 
-> > Roberto
-> > 
+  BUG: unable to handle page fault for address: ff78ecc80ddd1038
+  RIP: 0010:__bpf_prog_put+0x5/0x80
+  Call Trace:
+   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
+   dev_xdp_propagate+0x36/0xa0
+   bond_xdp_set+0xeb/0x2d0 [bonding]
+   dev_xdp_install+0x1b1/0x350
+   bpf_xdp_link_update+0xc5/0x1b0
+   link_update+0x104/0x1e0
+   __sys_bpf+0x662/0xcf0
 
-Thanks for letting me know and I think the proposal is almost the same
-with the different terminology only.
+Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
+allocation on a fragmented host:
 
-@Gong, what do you think?
+  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
+  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
 
-> > > This series introduces in-kernel interfaces for accessing TSM
-> > > measurement registers, abstracts IMA's measurement-register operations,
-> > > and adds a TSM backend for Intel TDX and Arm CCA.
-> > > 
-> > > The following mappings between TPM PCR indices and TSM measurement
-> > > registers are defined for Intel TDX [0] and proposed for Arm CCA [1]:
-> > > 
-> > >   TPM PCR index | Intel TDX register | Arm CCA register
-> > >   --------------+--------------------+-----------------
-> > >   0             | MRTD               | RIM
-> > >   1, 7          | RTMR[0]            | REM[0]
-> > >   2-6           | RTMR[1]            | REM[1]
-> > >   8-15          | RTMR[2]            | REM[2]
-> > > 
-> > > These mappings allow IMA to translate PCR indices into the corresponding
-> > > TSM measurement registers.
-> > > 
-> > > The TPM backend remains preferred when it is available at IMA
-> > > initialization. Otherwise, IMA falls back to a supported TSM backend.
-> > > Only one backend is selected; IMA measurements are not extended to both
-> > > TPM PCRs and TSM measurement registers.
-> > > 
-> > > The attestation proccess for guest with TSM measurement register will
-> > > be done with Confidential Compute Event Log (CCEL) which is exported by
-> > > /sys/firmware/acpi/tables/data/CCEL. Here is brief process in arm64:
-> > > 
-> > >   Verifier                 Realm guest              RMM / Platform
-> > >      |                         |                           |
-> > >      |--- Challenge (nonce) -->|                           |
-> > >      |                         |--- Request token -------->|
-> > >      |                         |    with challenge         |
-> > >      |                         |                           |
-> > >      |                         |<-- CCA token T -----------|
-> > >      |<-- CCA token T ---------|                           |
-> > >      |<-- CCEL event log ------|                           |
-> > >      |<-- IMA measurement log -|                           |
-> > >      |                         |                           |
-> > >  Verify token T:               |                           |
-> > >   - signatures                 |                           |
-> > >   - Platform/Realm             |                           |
-> > >     token binding              |                           |
-> > >   - challenge freshness        |                           |
-> > >   - platform/RIM policy        |                           |
-> > >   - verify measurement logs    |                           |
-> > >      |                         |                           |
-> > >      | ----ACCEPT / REJECT---->|                           |
-> > > 
-> > > This patch based on arm-cca-mr series [3].
-> > > 
-> > > Link: [0] https://uefi.org/specs/UEFI/2.11/38_Confidential_Computing.html#intel-trust-domain-extension
-> > > Link: [1] https://github.com/tianocore/edk2/issues/11383
-> > > Link: [2] https://github.com/tianocore/edk2/issues/11384
-> > > Link: [3] https://lore.kernel.org/all/20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com/
-> > > 
-> > > ---
-> > > Yeoreum Yun (3):
-> > >       virt: coco: introduce tsm_default_tm() and tsm_mr_read()/write()
-> > >       security: IMA: introduce ima_mr structure
-> > >       security: IMA: use TSM measurement registers
-> > > 
-> > >  drivers/virt/coco/guest/tsm-mr.c          | 159 +++++++++++++---
-> > >  include/linux/tsm-mr.h                    |  26 +++
-> > >  security/integrity/ima/Makefile           |   3 +-
-> > >  security/integrity/ima/ima.h              |   7 +-
-> > >  security/integrity/ima/ima_api.c          |   4 +-
-> > >  security/integrity/ima/ima_crypto.c       | 137 +++++---------
-> > >  security/integrity/ima/ima_fs.c           |  16 +-
-> > >  security/integrity/ima/ima_init.c         |   7 +-
-> > >  security/integrity/ima/ima_mr.c           |  48 +++++
-> > >  security/integrity/ima/ima_mr.h           |  76 ++++++++
-> > >  security/integrity/ima/ima_mr_tpm.c       | 155 ++++++++++++++++
-> > >  security/integrity/ima/ima_mr_tsm.c       | 290 ++++++++++++++++++++++++++++++
-> > >  security/integrity/ima/ima_queue.c        |  39 ++--
-> > >  security/integrity/ima/ima_template.c     |   4 +-
-> > >  security/integrity/ima/ima_template_lib.c |   2 +-
-> > >  15 files changed, 819 insertions(+), 154 deletions(-)
-> > > ---
-> > > base-commit: b561246f45174b7472c24b75358ea95bae72b7b8
-> > > change-id: 20260929-ima_tgx_integration_v2-1c54aeeaeaee
-> > > 
-> > > Best regards,
-> 
+Bonding is not required to hit this; a plain XDP attach on a bnxt
+interface takes the same path.
 
+Restore the previous program and its ring and feature configuration
+when an attach or a replace fails, and release the old program only
+once the change has been committed.  The configuration matters because
+bnxt_init_one_rx_ring() only assigns rxr->xdp_prog in page mode, and
+__bnxt_set_rx_skb_mode() derives dev->max_mtu from the installed
+program.
+
+A detach is not undone: dev_xdp_detach_link() releases the core's
+reference whether or not the driver returns an error, so putting the
+program back would leak it and leave the driver running a program the
+core has already detached.
+
+Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+---
+  v3:
+   - don't undo a detach when the reopen fails.  dev_xdp_detach_link()
+     releases the core's reference whether or not the driver returns an
+     error, so restoring the program leaked it and left the driver running
+     a program the core had already detached (Sashiko AI review)
+   - v2: https://lore.kernel.org/netdev/20260930070901.1218980-1-vnagare@redhat.com/
+   - v1: https://lore.kernel.org/netdev/20260928131458.1012180-1-vnagare@redhat.com/
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
+ 1 file changed, 33 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+index 9e5009be8e98..430272fc0594 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
+ 	return nxmit;
+ }
+ 
++static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
++{
++	struct net_device *dev = bp->dev;
++	int tc = bp->num_tc ? : 1;
++
++	if (bp->xdp_prog) {
++		bnxt_set_rx_skb_mode(bp, true);
++		xdp_features_set_redirect_target_locked(dev, true);
++	} else {
++		xdp_features_clear_redirect_target_locked(dev);
++		bnxt_set_rx_skb_mode(bp, false);
++	}
++	bp->tx_nr_rings_xdp = tx_xdp;
++	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
++	bnxt_set_cp_rings(bp, true);
++	bnxt_set_tpa_flags(bp);
++	bnxt_set_ring_params(bp);
++}
++
+ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+ {
+ 	struct net_device *dev = bp->dev;
+ 	int tx_xdp = 0, rc, tc;
+ 	struct bpf_prog *old;
++	int old_tx_xdp;
+ 
+ 	netdev_assert_locked(dev);
+ 
+@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+ 	if (netif_running(dev))
+ 		bnxt_close_nic(bp, true, false);
+ 
++	old_tx_xdp = bp->tx_nr_rings_xdp;
+ 	old = xchg(&bp->xdp_prog, prog);
+-	if (old)
+-		bpf_prog_put(old);
+-
+-	if (prog) {
+-		bnxt_set_rx_skb_mode(bp, true);
+-		xdp_features_set_redirect_target_locked(dev, true);
+-	} else {
+-		xdp_features_clear_redirect_target_locked(dev);
+-		bnxt_set_rx_skb_mode(bp, false);
++	bnxt_xdp_apply_cfg(bp, tx_xdp);
++
++	if (netif_running(dev)) {
++		rc = bnxt_open_nic(bp, true, false);
++		/* dev_xdp_detach_link() drops the ref even if we fail */
++		if (rc && prog) {
++			WRITE_ONCE(bp->xdp_prog, old);
++			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
++			return rc;
++		}
+ 	}
+-	bp->tx_nr_rings_xdp = tx_xdp;
+-	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
+-	bnxt_set_cp_rings(bp, true);
+-	bnxt_set_tpa_flags(bp);
+-	bnxt_set_ring_params(bp);
+ 
+-	if (netif_running(dev))
+-		return bnxt_open_nic(bp, true, false);
++	if (old)
++		bpf_prog_put(old);
+ 
+ 	return 0;
+ }
 -- 
-Sincerely,
-Yeoreum Yun
+2.55.0
+
