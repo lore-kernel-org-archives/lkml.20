@@ -1,85 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3113769F0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:04:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E473B95E0;
+	Thu,  1 Oct 2026 07:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838251; cv=none; b=k+Gi1rcT+kGgxRN5cqnONVTCnutZO1bWQH7o9r9Kdm4QdP4NIq2ILQwmTdEC89RNwb57URIgXTs5VDhZGueaDy/UIFrNEkEd2vaLK7qzbZE0RVmEsYxt3HB7Y+aEgbXT8wPa/2p0PynYnttQRXSpDP3bT+mTjf0sFACdUTKb+qA=
+	t=1790838309; cv=none; b=hDGQQxjYVC/JSDm7fyOxQVVJ2cucDKkpurrTyQXK8oJ6D4Ccn7O3kkuggQ/MSffJgqgWuQqUs2Vd9YBnoiWntOks03GWU7NJhZoWtJZqDhKFLthbIaNkYdQEvgd9P0ltlg6aY7Hn4e7ZwJcEr6ShF/EWZwHhNuncIMJ4Zm0z+8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790838251; c=relaxed/simple;
-	bh=wEN0e2H7/40ktw6SZv37khLK/vSI6EBRPCqKAg34jhs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hkLIZs7vtjY8NU5KTkOyqNp7ZHvP/49gFaAWqJlFezCdB0SN2fpJoQGLhy/r6nCUCIECREW/zRu7zSqPugC+R6NplShW2Ii2KYw1QPzdOn3iexVe1QByQGQby1JPG4CPC0YQCR6ZVX3EXMIbdhgHBK/55+xan6a9QnUvUcRo0q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rag2NIga; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790838309; c=relaxed/simple;
+	bh=fcQ2y1wc6VRCd4OgMADXevuJLq2I1HVoXkWDblKuYWU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qawc76gtVtIP2SbNERajrsv8br/RqDmWC73qfIyHtVwq0wR3KUAAaR0QGsOi753UGJPYrx8MKRg9qX7XPFVP4wE6SjY1Vu77lZIqGnCOy0xyvCdsxWlEh6txyQI8G74hcnGovTcyeDZ25lFyVap1gN45CQ+2/aDBCTM1ztX9gkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VdNj1j0Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rag2NIga"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70411F008A4
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:04:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VdNj1j0Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11CEE1F000FF;
+	Thu,  1 Oct 2026 07:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790838249;
-	bh=wEN0e2H7/40ktw6SZv37khLK/vSI6EBRPCqKAg34jhs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Rag2NIgaLGE5+zLXWRj+vMIiBBSCcqDN/WT8xmBZ9nHFiVEs2z/YtTzC5yHrY0tG1
-	 kNoVSCdt3xMdbcLIM3FYTafcIdDEixFTew1wrZgus+9IkwmEgFk5jey7/R8nW6G4y1
-	 NyvcQe0/5Wkmn+m/57rSuvmFQ9F2ouJO1Z9L5nH66BHM+uS0MDtzLCizg0VTyeRcUl
-	 UyPtU9ZqSXRQzl9yaoOBAn3EU8htUUsEKKD0gtfB5Zg4zin84yQto7shhfcqEx50ZH
-	 Zz3TxgUxZM/Zpn5Sy8Hh/qCR0fuURqeLKbQ7zIphL3aS3cTuAreeImFLlOE4fFOVVC
-	 XlFnieB76IgqA==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5bb6ddbb75dso109642e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:04:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzwtXHWFDRVaXyppY6yz1ChhiFE0jGUuEvUC0EBcx/8B5c6iMycWfexGafV1Xx5qsNNQYJFfoi3Y6QGvPA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkpjrwucPNSAMqwBtku+7mzqaiTGPrWG101Vzh6TOKwndlxvWq
-	GPsV6KHYxVdQM1XVGQ875WjVkbXjK1ro8/BYsiONf95DmeFcMYOLxsCC5g+dnM3xtR1Jd/7caEy
-	v9t3IJE+MsZNTFxUdSMPZQQemh5dbXpQ=
-X-Received: by 2002:a05:6512:715:b0:5b8:edeb:5c27 with SMTP id
- 2adb3069b0e04-5ba405ea48emr1230973e87.10.1790838248433; Thu, 01 Oct 2026
- 00:04:08 -0700 (PDT)
+	s=k20260515; t=1790838306;
+	bh=fcQ2y1wc6VRCd4OgMADXevuJLq2I1HVoXkWDblKuYWU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VdNj1j0Z2VqDtl/ZO9MIS6QjdZKZpMIEE3F5hihWOY19PVAeBxcvRrd7Dhvy9N6Dr
+	 EMg4Vze/EWbPMklL96eMj9p7tWXCbE4ivn5EiWvUOK5pClViP+fdAMNI0mtjmI3gTI
+	 CHnBvUeZ2Q6gmlgKvg9KUmq/RzHjznaH3Bbdga/Ahc0rvFxAS+Jj+9DCOpjmZSraLz
+	 nVtDW2O+bzCRITrShZ+JpQQqXSrK8XOnfYnj7Tzo5N+Xc7EjjqQtDI4d1NGQdX5Wze
+	 LXbuvSmTtj/BEwiydFeRs3oPPYZgqiSFcURqC6rfAvvRvM6YMqhkDqSqtmgNJY9NR6
+	 5/VI+13AADiJQ==
+Date: Thu, 1 Oct 2026 09:05:03 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <ar4FOkG58Efmyo99@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
+ <6c581ae0-2480-47a2-b46e-97afadbc7c1f@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
-In-Reply-To: <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 09:03:53 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
-X-Gm-Features: AclHuK8S_q-U5PRteYICZ8VGfGhkOd-OtdrQpaJ2DynuPN4AlXp-gJ1LMPWAi-g
-Message-ID: <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
-Subject: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="4fvfqvnrglbwmlpj"
+Content-Disposition: inline
+In-Reply-To: <6c581ae0-2480-47a2-b46e-97afadbc7c1f@linaro.org>
+
+
+--4fvfqvnrglbwmlpj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+MIME-Version: 1.0
 
-On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+On Wed, Sep 30, 2026 at 04:01:52PM +0200, Neil Armstrong wrote:
+> On 9/29/26 11:03, Jani Nikula wrote:
+> > On Mon, 28 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> > > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > > difficult to support and require pretty much a panel driver for each
+> > > panel produced. Most of them are pretty simple, and require an opaque
+> > > initialization sequence that is usually poorly documented.
+> > >=20
+> > > This creates a tension between OEMs and distros because OEMs will
+> > > typically get a new panel to react to a sourcing issue during
+> > > production, and thus need some swift turnaround between getting their
+> > > new panel and it being operational in the OS. Distributions on the ot=
+her
+> > > hand can take years to ship a kernel with that new panel driver.
+> > >=20
+> > > To solve this, I followed the example of HID-BPF and wrote a panel
+> > > driver that will rely on BPF programs to perform the panel
+> > > initialization. That way, we can ship the programs separately from the
+> > > kernel, and with a different lifecycle. If this driver is accepted, t=
+he
+> > > plan is to have a userspace component started by udev to identify and
+> > > load the right BPF program for the panels found on the device.
+> >=20
+> > I'd think for most panels it would suffice to have a declarative
+> > language describing what to do at what points in time. For example, at
+> > poweron, enable this GPIO, wait a little, write this set of DSI
+> > commands, etc. You rarely need actual programming, or even ability to
+> > read-modify-write something.
+>=20
+> Yes we could have a similar panel-simple but with init tables, but
+> in reality those panels offers much more features we don't handle because
+> the DDIC vendors and panel integrators just don't care exposing those
+> features, but they get handled by vendor implementation like for Phones.
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Document the CV75 pin controller binding using generic function and
-> groups properties for pinmux configuration.
->
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+It's kind of what we already do. It somewhat works, but doesn't address
+my problem.
 
-This patch 4/18 applied to the pinctrl tree.
+> > It could be, say, YAML converted to some binary representation. Maybe
+> > that could be in the DT, or maybe you could override it with the
+> > firmware loader. And obviously any vendor "blob" could be trivially
+> > converted back to YAML and upstreamed.
+>=20
+> I don't think we want this, downstream vendors does that and we don't want
+> to go there.
+>=20
+> >=20
+> > Where that falls short, you could always have a dedicated driver, or
+> > extend the declarative stuff.
+> >=20
+> > Now, the question is, how much more BPF solves over that, without
+> > requiring a dedicated driver, and is the added complexity worth it?
+>=20
+> This is my global question, and this is what I'm evaluating here, and so
+> far is created more problem that solutions.
 
-Yours,
-Linus Walleij
+Great, more judgmental stuff. It's a v1 that hasn't been merged yet.
+What problems did it create exactly, and for who?
+
+> > FWIW, on the Intel platforms that support DSI, all of the
+> > initialization, poweron/poweroff, backlight on/off etc. sequences like
+> > that are stored in the BIOS, defined by the OEM. A plethora of DSI
+> > panels, one driver. Don't look at it for examples how to implement it,
+> > but I think the basic idea is workable.
+>=20
+> For _some_ panels, here, as a general solution no because we really
+> want to have full support for panel features.
+
+The only one who claimed it was a generic solution was you. I've been
+pretty clear from the very beginning that I wasn't expecting it to be a
+one-size-fits-all solution.
+
+So if you want to review your idea of what this driver is, fine, but
+keep me out of the recipient list.
+
+Maxime
+
+--4fvfqvnrglbwmlpj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4GHgAKCRAnX84Zoj2+
+dn3UAX9cj8V5XOZnckDiSXI52zwz3hS723YGZhAt7H9G2vCH5gpnzt9rN3xy+o/5
+NNhj5qoBgIw5OCgp6Tzq7BOrsSw2VfeymLcVpDw4SIUcWZ8fL19/9rqg1h7cxBiY
+4UA1G5YUJw==
+=rmnt
+-----END PGP SIGNATURE-----
+
+--4fvfqvnrglbwmlpj--
