@@ -1,199 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE0B3B530A;
-	Thu,  1 Oct 2026 08:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7B93B530A;
+	Thu,  1 Oct 2026 08:32:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843567; cv=none; b=UZ8qybJHKy3j3YLH/VerKj5p4pzG9WIBBNAjVMQfe8zLjxO1GS+FvCeqGtDaWUGpFGlqvNoPE58s29RPUYVq+JJ21RQa1ObCUUxZ32rwtZJtw+e6K4Es11xsu3wXDPoeNVF4LKQsNfBBaTC6LaQWn6kXvQrnSheweE9QQnAB+Xc=
+	t=1790843571; cv=none; b=TmK9i+SK7CjLLLsA7XQPDYqYbuX3P/2EF7Kp5wO1+us9tLhrWjGlk8oGkUxIcGGRxJLMQWlhAYkdgURt/1teWAEkBVcyomTTKRrv+1kgQxjMo3XUct1Vx1FaZ2zjgKzkbwbN/EuNs9W1y/WLd9Tc9Dl3OIcGMxgRKPZFiU0YMjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843567; c=relaxed/simple;
-	bh=vbieRc23U63bZU7FcyJmM7ykqI4f0wyKxATSQo/BI1o=;
+	s=arc-20240116; t=1790843571; c=relaxed/simple;
+	bh=Tq2clok+ScDGc3LXVq5Ad9835b/aMtHGaftsGkCQ8YY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lCyXH0prVF7JC4NlEcfcJSE0ToqvXlU4/lqJG9zDexUHmn/xqRqPySbFSPrviQmhBiuVwb1xsE76MmR+sS2KkQnCrb5bGpnqq6/usyv3tIkjH/fWavx2Eh1zIIvGVDsRw/UDJW3qwJdDj40u8jYfu5nkcxo4EGjiAdcO8oXK1LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqRA69vV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ADOYPzn4a8zAluQWsn2RBg+m7th9tqsJ5GoIIriHIcePeycQAhA5wS+qqhLbllGtjLztF3Wcll1sOKSdH/K0dt5hlhIKzku6jd+cq+HE2tRJWfi4G2tlRsQpCammcynBFYwmS8BEJzfBPYo2AO2Vs6OkjwYn6cUctIlqRBaH1Os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipWPd6Vl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqRA69vV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F45D1F00898;
-	Thu,  1 Oct 2026 08:32:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipWPd6Vl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697381F00899;
+	Thu,  1 Oct 2026 08:32:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843566;
-	bh=zd4Rd9CRvxd2ybJD/+XeXGt4GToIyin27erBl4UTD4s=;
+	s=k20260515; t=1790843570;
+	bh=KuJMB0R2fpyv246i5bflCVnaHCMCzlODoqds21wYmj4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lqRA69vVhP22r+xNMjuZDk6zVy0BlPDTwdr8miLQzuLn5bKlkEkfF/6lzBVtcnV45
-	 noqAa7JlvMDWw6XSe5NoDH9/SGEXVzbIPRkw51e9quA6ZGoVkFYibTVnVTic/TBXKr
-	 FniUuL8aU1vf2a8t1jztuYCMUQBUpPs4tqZolg0+MWbdRuWxilq0MOXgiira04Vejf
-	 sWp+bCXIForjCTb7GXRREKeRYFUf8lbzpZdd4n+pbIsi2/CZ9J2egH9kmQ5EP3mreJ
-	 KTKn0lEHFuHfyRRjZqHAqYZbJBdg+BO7W8d0DUAN6JKNtvFy5oxRQCgAqKRcAGuFOJ
-	 2spgEVfEMRLVg==
-Date: Thu, 1 Oct 2026 10:32:43 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jose Abreu <Jose.Abreu@synopsys.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: take ownership of saved RX state at
- poll entry
-Message-ID: <ar4aq0i5lJLT7SGd@lore-desk>
-References: <20260930-stmmac-rx-state-v1-1-c286c43813c1@gmail.com>
+	b=ipWPd6VlKmPWzF1y4l5rakilJRkBnSbPuXbITRmkx5ZaNzK+TpSyElGbF0i71wDT4
+	 Uta0D1qYFrFoc6Y/wQeyoyRPpsKaUYkvlLdI1nSBlA7m0guCT0I22WX8NXOcomsI9d
+	 Ely/WhK/Had3ecTlQapdsJzMjkIc5f7FTK+TPmEkGA+7NawPJuGbCJTGW9ypqnyHSf
+	 Z8C6LZcoD1zzCxPDm70XGwaKY/QOOYrp0LiB1bbL+Lgx2Hnhx3GcRXVCpI17xS3CqR
+	 0nAHM4rTLFVy4+IqZa3+bTj+GV1DpMyzgKvOscL/Cfl8XYcbNHq/ISyc2GZYZEB8pl
+	 qRtiNAMht4mJQ==
+Date: Thu, 1 Oct 2026 10:32:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dmitry Yashin <dmt.yashin@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: arm: rockchip: add Forlinx FET3568-C
+Message-ID: <20261001-enigmatic-armadillo-of-finesse-2ec4a5@quoll>
+References: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
+ <20260930-ok3568-c-v1-1-a0ffd55f5c95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tPlwEejj5iNQjWqT"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260930-stmmac-rx-state-v1-1-c286c43813c1@gmail.com>
+In-Reply-To: <20260930-ok3568-c-v1-1-a0ffd55f5c95@gmail.com>
 
---tPlwEejj5iNQjWqT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> When a saved partial packet completes with a poll budget of one, the
-> old loop can leave state_saved and state.skb pointing at an skb that
-> has already been delivered or freed. The next poll then reuses that
-> pointer, causing a use-after-free or double free.
->=20
-> Take the saved state at poll entry and clear the stored ownership
-> immediately. Save it again only if the packet remains incomplete,
-> including when the next descriptor is still DMA-owned. Release a
-> saved partial skb when the RX ring is destroyed.
->=20
-> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-
-Hi James,
-
-I guess we have a similar issue for stmmac_rx_zc() path as well, can you pl=
-ease
-fix it as well?
-
+On Wed, Sep 30, 2026 at 02:29:04PM +0500, Dmitry Yashin wrote:
+> FET3568-C is an System on Module made by Forlinx based on Rockchip RK3568.
+> This SoM used by OK3568-C Board.
+> 
+> FET3568-C features:
+> - Rockchip RK3568
+> - DDR4 1/2/4/8 GB
+> - eMMC 8/16/32/64 GB
+> - RK809 PMIC
+> 
+> Add devicetree binding for Forlinx FET3568-C SoM.
+> 
+> Signed-off-by: Dmitry Yashin <dmt.yashin@gmail.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 25 ++++++++++++++++-=
-------
->  1 file changed, 18 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
-net/ethernet/stmicro/stmmac/stmmac_main.c
-> index ec62fa7418f4..1a4d03aaaf78 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -2149,6 +2149,11 @@ static void __free_dma_rx_desc_resources(struct st=
-mmac_priv *priv,
->  	else
->  		dma_free_rx_skbufs(priv, dma_conf, queue);
-> =20
-> +	if (rx_q->state_saved)
-> +		dev_kfree_skb_any(rx_q->state.skb);
+>  Documentation/devicetree/bindings/arm/rockchip.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
-nit: you can drop if (rx_q->state_saved) and just run dev_kfree_skb_any().
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> +	rx_q->state.skb =3D NULL;
-> +	rx_q->state_saved =3D 0;
+Best regards,
+Krzysztof
 
-nit: rx_q->state_saved =3D false;
-
-> +
->  	rx_q->buf_alloc_num =3D 0;
->  	rx_q->xsk_pool =3D NULL;
-> =20
-> @@ -5726,6 +5731,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int =
-limit, u32 queue)
->  	struct stmmac_xdp_buff ctx;
->  	bool fcs_stripped =3D false;
->  	int xdp_status =3D 0;
-> +	bool in_progress =3D rx_q->state_saved;
-
-can you please respect RCT here?
-
-Regards,
-Lorenzo
-
->  	int bufsz;
-> =20
->  	dma_dir =3D page_pool_get_dma_dir(rx_q->page_pool);
-> @@ -5740,6 +5746,14 @@ static int stmmac_rx(struct stmmac_priv *priv, int=
- limit, u32 queue)
->  		stmmac_display_ring(priv, rx_head, priv->dma_conf.dma_rx_size, true,
->  				    rx_q->dma_rx_phy, desc_size);
->  	}
-> +	if (in_progress) {
-> +		skb =3D rx_q->state.skb;
-> +		error =3D rx_q->state.error;
-> +		len =3D rx_q->state.len;
-> +		rx_q->state.skb =3D NULL;
-> +		rx_q->state_saved =3D false;
-> +	}
-> +
->  	while (count < limit) {
->  		unsigned int buf1_len =3D 0, buf2_len =3D 0;
->  		enum pkt_hash_types hash_type;
-> @@ -5748,12 +5762,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int=
- limit, u32 queue)
->  		int entry;
->  		u32 hash;
-> =20
-> -		if (!count && rx_q->state_saved) {
-> -			skb =3D rx_q->state.skb;
-> -			error =3D rx_q->state.error;
-> -			len =3D rx_q->state.len;
-> -		} else {
-> -			rx_q->state_saved =3D false;
-> +		if (!in_progress) {
->  			skb =3D NULL;
->  			error =3D 0;
->  			len =3D 0;
-> @@ -5787,6 +5796,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int =
-limit, u32 queue)
-> =20
->  		prefetch(np);
-> =20
-> +		in_progress =3D status & rx_not_ls;
-> +
->  		if (priv->extend_desc)
->  			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
->  		if (unlikely(status =3D=3D discard_frame)) {
-> @@ -5971,7 +5982,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int =
-limit, u32 queue)
->  		count++;
->  	}
-> =20
-> -	if (status & rx_not_ls || skb) {
-> +	if (in_progress || skb) {
->  		rx_q->state_saved =3D true;
->  		rx_q->state.skb =3D skb;
->  		rx_q->state.error =3D error;
->=20
-> ---
-> base-commit: 7375d38364a9aa66fb31716bcefef38aecad75d8
-> change-id: 20260930-stmmac-rx-state-041371e43e8c
->=20
-> Best regards,
-> -- =20
-> James Hilliard <james.hilliard1@gmail.com>
->=20
->=20
-
---tPlwEejj5iNQjWqT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCar4aqwAKCRA6cBh0uS2t
-rFuEAQDSLs28FZXtvlFLovCP1shWroHJcnR6//fdjyCKN0DS2AD/f6MbvrXfDTP6
-NaSWZHYL7Stp2fYZCBntEBoUBKpiCAI=
-=LpWX
------END PGP SIGNATURE-----
-
---tPlwEejj5iNQjWqT--
