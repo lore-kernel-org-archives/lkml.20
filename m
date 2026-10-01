@@ -1,201 +1,270 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B74837B02D;
-	Thu,  1 Oct 2026 07:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B049A386C37;
+	Thu,  1 Oct 2026 07:01:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838061; cv=none; b=tHpBxJgDDamKj4qGRG4cQukA0REyamC/Rj29X5Z6csZRPL5rIis4w2S/d5aPv0C5A+n+MP9oDbfWNySClJlniDdJgIBe/dqqIETe+mRKRKKivy6VdfUmlV9Z3hY+4bEajRXDUR5pXctEguOLf/suynMI9Kmk8IUpK9y016Teou4=
+	t=1790838066; cv=none; b=Ik3UV/XYD2VFzhNcbkOk8HUA7eCy5p5CYfWDqHM8VvPWqhk6A70zha3kfHAHkyHNxaNk2BPBa6LCj/qzusezS4puXZhhqmH2lQ2DLxLImFe7qzF9B6O9LDm1egmjMKWXAxaVoZQZ1xGkOnmTuJ6tAjeukSjoR2FkSLLtVDVkHYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790838061; c=relaxed/simple;
-	bh=LYuwTyhDYEXAQwJP3/saK5KTDbbRgSa2pwT+MFLbnSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZM9cl68Pw7zYs98+bcc7OxCUZTrwHM4dDrE1kLaMycoclwjNREb4l/3Zt5AGT1pV5IDk/3IRQv2jf2bqOaPBQPnMAT2VvOUnjo/y6lt+fSCKdjEeF1GMSpcLfnCZq5VeqOaeKMqbjz06ROA8CMBtwi8OKkqqqrddspREyp+KgMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fZLLXGgI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790838066; c=relaxed/simple;
+	bh=eE9JDb7cT0xaYqZ3fnXEch+9dLPKEpm5DR9p5L/JP94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MsptRwmptNdDrP+MAEt5t+UeMYwEyO/4DozieSJVCMVhT3XafHKHoSUxuV5a2X+tA69DwwGmTgloUtIAhRKhRQl3gfBjP97EjhkET+1sWRFm+iPZ4aizI/HYMwYs0WSbB04lw1HQft0S95/IYn2Sn8tvuGkukAfehiBgYfjAfl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lp7ep3St; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZLLXGgI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49AD21F000FF;
-	Thu,  1 Oct 2026 07:00:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lp7ep3St"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96BC1F000FF;
+	Thu,  1 Oct 2026 07:01:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790838060;
-	bh=B/xIh6O/I0mNSdyjCfn1fJtCctSaY1kOaJ3RjSONH5k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fZLLXGgImx9TODyKrsAZATl2CLQRWhm4jFBxozmhe8EFqK/rDLFcc+rfSfHj2MD0M
-	 BWsDFoWK4TOmELcImdTcActnUZM4VT6UAFN76l76QFNpncSYha9PTldrxQw2YjAc75
-	 BHhY4gvN+krCpXwJoKxVeuZZodZo9sMBImDdGrnUHfbjuYFR8lPLilAAVACr9Var21
-	 UdOU7fIU4Zahk1J2RXAPRtprWmx4mDgbxZHF124azE39oJaPo9AbYIg9kn7stS2Od6
-	 Hmk2agEza9eZuqnHN9zDYWQU3WQYlvywYC4rJjPux76oOjW3m+lDXAfhGLGB0pkpxJ
-	 f4zwPl4C2b2Yg==
-Message-ID: <4aad3847-4240-40aa-af24-df34da4d68ad@kernel.org>
-Date: Thu, 1 Oct 2026 09:00:55 +0200
+	s=k20260515; t=1790838064;
+	bh=KS0Ss/ffTJUp5L49rLpdU43wb6+7z7lGoeJJi6W0x3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lp7ep3StOohbLecY2bxsRKPlsyxwPZfsGjFriRa7GH7Nfor7FnoL75V0NjDj+zOvd
+	 Y9t9D6A7+m5aTs/Sqz9t9LWMcr5BcY0JM6d2NUmPsI2QTXaAOQfHJgPoslvv0/tNpx
+	 Cx39zhzVS8o1qi3wjpFQoxtVq64z+KgWcDXHC7zSI1OWkt+VD7g+GcxYlkP4Z9bwIV
+	 tVDvkYjaL/SDbQhOuIcNbi9HtP8RehenrFceEPX82uX36A313KnmeYWoXjaL2RqxTU
+	 +cZ7rFe4V9yoavp9cAp9Xl/NO7hI1ETfYBKgQowxS+PoVHPxJlnEfICZIDYTGxDumw
+	 +LkDLNqgJhpfQ==
+Date: Thu, 1 Oct 2026 09:01:01 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <ar4C329Cm5hzB3kH@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+ <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
+ <artlIYhgbskRJXDQ@houat>
+ <27bc999f-ef3a-450d-a4ea-57ac45508705@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] mm/memory_hotplug: fix missing rollback in
- __add_pages()
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Lance Yang <lance.yang@linux.dev>, osalvador@suse.de,
- akpm@linux-foundation.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260930160432.5564-1-lance.yang@linux.dev>
- <d4fac8af-fd71-47a2-bfe9-3c6559b92209@kernel.org>
- <203892F4-B04A-4F69-A1B3-DC1619176C67@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <203892F4-B04A-4F69-A1B3-DC1619176C67@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="bnu55xk7ah7f6vwr"
+Content-Disposition: inline
+In-Reply-To: <27bc999f-ef3a-450d-a4ea-57ac45508705@linaro.org>
 
-On 10/1/26 04:33, Muchun Song wrote:
-> 
-> 
->> On Oct 1, 2026, at 00:46, David Hildenbrand (Arm) <david@kernel.org> wrote:
->>
->> On 9/30/26 18:04, Lance Yang wrote:
->>> __add_pages() returns on a sparse_add_section() failure without removing
->>> the sections already added in the same request.
->>>
->>> For memremap_pages(), the failed range is not counted in pgmap->nr_range,
->>> so memunmap_pages() skips it. The sections already added in that range
->>> retain their vmemmap mappings and subsection bits. Retrying a
->>> section-aligned range can then fail with -EEXIST.
->>>
->>> Save the initial PFN and remove [start_pfn, pfn) on failure. For a vmemmap
->>> population failure, section_activate() already cleans up the current
->>> section, so the rollback excludes it. If the first section fails,
->>> __remove_pages() receives an empty range and does nothing.
->>>
->>> Link: https://lore.kernel.org/all/BAD58999-1EDD-4A37-ABA0-DB1BD8AB3453@linux.dev/
->>> Suggested-by: Muchun Song <muchun.song@linux.dev>
->>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
->>> ---
->>> No Fixes tag, as I couldn't identify the commit that introduced this issue.
->>>
->>> mm/memory_hotplug.c | 6 +++++-
->>> 1 file changed, 5 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
->>> index 796af1028ee2..ca4656698148 100644
->>> --- a/mm/memory_hotplug.c
->>> +++ b/mm/memory_hotplug.c
->>> @@ -380,6 +380,7 @@ EXPORT_SYMBOL_GPL(pfn_to_online_page);
->>> int __add_pages(int nid, unsigned long pfn, unsigned long nr_pages,
->>> struct mhp_params *params)
->>> {
->>> + 	const unsigned long start_pfn = pfn;
->>> 	const unsigned long end_pfn = pfn + nr_pages;
->>> 	unsigned long cur_nr_pages;
->>> 	int err;
->>> @@ -413,8 +414,11 @@ int __add_pages(int nid, unsigned long pfn, unsigned long nr_pages,
->>>    SECTION_ALIGN_UP(pfn + 1) - pfn);
->>> 		err = sparse_add_section(nid, pfn, cur_nr_pages, altmap,
->>>  					params->pgmap);
->>> - 		if (err)
->>> + 		if (err) {
->>> + 			__remove_pages(start_pfn, pfn - start_pfn, altmap,
->>> + 				       params->pgmap);
->>> 			break;
->>> + 		}
->>> 		cond_resched();
->>> 	}
->>> 	vmemmap_populate_print_last();
->>
->> Makes sense and LGTM.
->>
->> Do we have a Fixes: tag? It probably dates back quite a while ... not sure about
->> stable, we never saw this in practice. But if it's easy, we should just do it?
->> (not sure if we ever had __remove_pages be limited to hotunplug support)
->>
->> I'm planning on picking this up and sending it for the next merge window (so not
->> as a hotfix).
->>
->> Looking at this ...
->>
->> x86 does not really expect add_pages to fail:
->>
->> ret = __add_pages(nid, start_pfn, nr_pages, params);
->> WARN_ON_ONCE(ret);
->>
->> That's probably something to clean up as well?
-> 
-> The warning is a historical leftover. The original code
-> printed an error when __add_pages() failed. Commit
-> 10f22dde556d accidentally turned that conditional printk
-> into an unconditional WARN_ON(1), and commit fe8b868eccb9
-> subsequently changed it to WARN_ON_ONCE(ret) to avoid
-> warning on successful memory hot-add.
-> 
-> There is no no-failure contract here: __add_pages() can
-> legitimately return errors such as -ENOMEM, and those
-> errors are already propagated to the caller. Since
-> WARN_ON_ONCE(ret) has no effect on control flow or error
-> handling, it can be safely removed without changing the
-> failure semantics.
 
-We do not want to WARN_ON in any situation that can legitimately happen. So this
-should be sorted out (and Lance is on it IIUC :) )
+--bnu55xk7ah7f6vwr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+MIME-Version: 1.0
 
-> 
-> This also reveals a potential bug introduced by commit
-> ea0854170c952: when update_end_of_memory_vars() was
-> added, it was called without checking that ret == 0, so the
-> end-of-memory variables may be updated even when
-> __add_pages() fails. Returning immediately on error fixes
-> that as well.
+On Wed, Sep 30, 2026 at 03:49:12PM +0200, Neil Armstrong wrote:
+> On 9/29/26 09:27, Maxime Ripard wrote:
+> > On Mon, Sep 28, 2026 at 09:20:12PM +0200, Neil Armstrong wrote:
+> > > On 9/28/26 19:24, Benjamin Tissoires wrote:
+> > > > On Sep 28 2026, Neil Armstrong wrote:
+> > > > > Hi,
+> > > > >=20
+> > > > > On 9/28/26 18:22, Maxime Ripard wrote:
+> > > > > > Hi,
+> > > > > >=20
+> > > > > > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > > > > > difficult to support and require pretty much a panel driver for=
+ each
+> > > > > > panel produced. Most of them are pretty simple, and require an =
+opaque
+> > > > > > initialization sequence that is usually poorly documented.
+> > > > > >=20
+> > > > > > This creates a tension between OEMs and distros because OEMs wi=
+ll
+> > > > > > typically get a new panel to react to a sourcing issue during
+> > > > > > production, and thus need some swift turnaround between getting=
+ their
+> > > > > > new panel and it being operational in the OS. Distributions on =
+the other
+> > > > > > hand can take years to ship a kernel with that new panel driver.
+> > > > > >=20
+> > > > > > To solve this, I followed the example of HID-BPF and wrote a pa=
+nel
+> > > > > > driver that will rely on BPF programs to perform the panel
+> > > > > > initialization. That way, we can ship the programs separately f=
+rom the
+> > > > > > kernel, and with a different lifecycle. If this driver is accep=
+ted, the
+> > > > > > plan is to have a userspace component started by udev to identi=
+fy and
+> > > > > > load the right BPF program for the panels found on the device.
+> > > > >=20
+> > > > > This is kind of late for serious applications except if we manage=
+ to
+> > > > > solve the bootloader to Linux display engine transition.
+> > > > >=20
+> > > > > >=20
+> > > > > > This driver is fully functional and works with both 5" and 7" T=
+ouch
+> > > > > > Display 2 panels for the RaspberryPi. However, it breaks away f=
+rom the
+> > > > > > typical panel driver in multiple ways:
+> > > > > >=20
+> > > > > > - BPF programs can only be loaded by userspace. This leaves us =
+with two
+> > > > > >      choices:
+> > > > > >=20
+> > > > > >      * We prevent the driver from loading until the script itse=
+lf is
+> > > > > >        loaded. This has the side effect of preventing any other=
+ output to
+> > > > > >        be used until the initramfs is ran at the earliest, and =
+possibly
+> > > > > >        ever if the loader isn't installed for example.
+> > > > >=20
+> > > > > This adds a dependency on user-space behavior and if somehow the
+> > > > > initramfs doesn't load for a reason we won't have a way to display
+> > > > > an error.
+> > > > >=20
+> > > > > >=20
+> > > > > >      * Or we probe the driver all the time, but only report it =
+as connected
+> > > > > >        once a program has been registered. This is somewhat unc=
+onventional,
+> > > > > >        but allows the other outputs to be functional, *and* all=
+ows the user
+> > > > > >        to force the output if their panel doesn't require any
+> > > > > >        initialization or during debugging. I chose this solutio=
+n.
+> > > > >=20
+> > > > > Both options are not really great...
+> > > > >=20
+> > > > > >=20
+> > > > > > - It's not a panel driver, but a bridge one, which is also pret=
+ty
+> > > > > >      unconventional. This is required because panel drivers don=
+'t have
+> > > > > >      access to a detect callback that is required for the above=
+, but I also
+> > > > > >      think that the recent work from Luca blurs the line from p=
+anels and
+> > > > > >      bridges and we'll end up going that road anyway.
+> > > > >=20
+> > > > > On this point, DDIC _are_ bridges, but in the current panel API w=
+e blur the line between
+> > > > > the panel and the DDIC. So being a bridge is fine, but in a gener=
+al way we lack
+> > > > > a proper way to describe the display/panel/monitor independently =
+of the DDIC.
+> > > > >=20
+> > > > > At first glance it's a nice driver, but moving the timings into a=
+ blob moves something
+> > > > > into possible proprietary binaries with possible closed licence a=
+nd distribution
+> > > > > restriction so it's a downgrade for the same of bringing up a pan=
+el faster.
+> > > >=20
+> > > > Quick answer on this, because I had the very same questions regardi=
+ng
+> > > > HID-BPF:
+> > > > - in BPF, you can require (and by default it does) that only GPL
+> > > > 	compatible BPF programs are loaded, closing the argument of "closed
+> > > > 	licence and distribution restriction"
+> > > > - also, a BPF program can be disassembled much easier than a binary
+> > > > 	blob, and I remember Alexei showing me an example where you get al=
+most
+> > > > 	the source code from the BPF object in just one pass.
+> > >=20
+> > > Right, it "solve" one of my question, but doesn't really solve the is=
+sue
+> > > of vendors providing "GPL" bpf programs with source available "somewh=
+ere".
+> >=20
+> > Would you be ok if I was to make a tool to decompile a BPF program into=
+ its
+> > source file equivalent?
+>=20
+> Not really, I don't see the point TBH.
 
-I'd assume the end-of-memory variables are not a problem, as we usually do not
-adjust them during memory unplug either. But yeah, ideally we wouldn't update
-them (like other architectures do IIRC).
+Cool, another moving goalpost then.
 
--- 
-Cheers,
+> > > Another big issue is the API, I don't want to keep the current API as=
+-is,
+> > > we plan to support more advanced panel features and use try to use the
+> > > atomic states to support rate switching for example, and I'm not conf=
+ident
+> > > it's a good idea since there's no "simple" and "forever valid" API
+> > > to initialize panels...
+> >=20
+> > So, a couple of things here. First, I really don't think we should
+> > extend the panel API, like at all. But let's discuss that at Plumbers, I
+> > don't think it's very relevant to this discussion anyway.
+>=20
+> It is, and I'll expose why we need to get out of this deprecated API
+> as soon as possible, we are seriously keeping the ability to provide
+> support for advanced panel features which are implemented in vendor
+> kernels.
 
-David
+I guess I'm not the one working on out-of-tree panel drivers then. But
+yeah, I don't dispute that statement.
+
+> The API was ok when DSI was added and we didn't have generalized atomic
+> modesetting, why would you not want panels to embrace atomic ?
+>=20
+> I don't understand, please elaborate.
+
+Again, you're putting words in my mouth. I never said I don't want
+panels to embrace atomic. I said we shouldn't extend the panel API, I
+told you twice what I meant exactly by that:
+
+https://lore.kernel.org/ksummit/20260604-grinning-determined-falcon-0e8b01@=
+houat/
+
+> I acknowledge it might sound a bit like "let's burn the whole thing to
+> the ground", but what you just described sounds an awful lot like what
+> the bridge API already does.
+>
+> Let's acknowledge that drm_bridge isn't just about bridge anymore, make
+> panels bridges, and we're done.
+
+https://lore.kernel.org/dri-devel/20260928-drm-mipi-dsi-panel-ebpf-v1-0-524=
+4926aace4@kernel.org/
+
+> It's not a panel driver, but a bridge one, which is also pretty
+> unconventional. This is required because panel drivers don't have
+> access to a detect callback that is required for the above, but I also
+> think that the recent work from Luca blurs the line from panels and
+> bridges and we'll end up going that road anyway.
+
+So, yeah, my point is we already have an atomic API to support panels:
+it's the bridge one. If your plan is to make the panel API an equivalent
+to the bridge API, then it just makes no sense when all consumers are
+handling bridges anyway. Just write a bridge driver for your panel IC,
+and you're done. It works today, and you don't have to extend anything.
+And you can embrace your atomic panel.
+
+Maxime
+
+--bnu55xk7ah7f6vwr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4FLAAKCRAnX84Zoj2+
+dkWqAX9zUZI4E7mxKZN1Y1GCLbXBhkAvgliVL8C1FEaYE4+MjOPRi3MnEf78Hsxk
+/9MrBfcBgOofz+9iFoZkLYhZfn5hVc6U6621zAhtiqRzZNvaqK9allN+rkgXh1zN
+RDrtanF4bQ==
+=1Xtb
+-----END PGP SIGNATURE-----
+
+--bnu55xk7ah7f6vwr--
