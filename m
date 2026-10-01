@@ -1,88 +1,72 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CB84BA9F2;
-	Thu,  1 Oct 2026 09:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846011; cv=fail; b=J3h7w96umct+1pZ/R/HQ1Vpa8u4eq/cNCvpg25aPlRmtWtbojWwAseb/lSdg9pTcz86VH56sjOvr2j+S3VydCDsCG/yCXLejlfzvz4dsPGO7hdGKPZ+S8knP3Tbbzsfw1ojfbErBBYuMKa4DQoXgVn2B55fTtXxs89OWFA3tMlE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846011; c=relaxed/simple;
-	bh=kRgMGN1Yw62r2FthGOhbpUQjMj3csljulOlOx1hAw1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pdDkjEqeceUwNrf/MyRjHMKVI4SLdZVfwPqivF8Gn8jUNnn+pZS3SX9+stUDqH81XJp844ZpSzc+9l9I/XCD6w6BD6MCGVdAjHWhitBt1rBiSbB7O8s/x+Memm+cJBjp76Y5EwQRPj0xfKgQl1rlrVeNuS1c1OYNVCp87pL4MrI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=QvMYmd4A; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=GtXnPV9l; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F5C4ED1B6
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790846014; cv=none; b=P2sho/YQWVAYzOYaDiGqmAPxEMDbzPvr5e/2mkx7fxF43Y/O+0R8XHMJl0egYDXIyDuvlxX7UXCmJZBEmcer2KwbAYczKjwyj7N7xhmd3AbGBz0I7fYPQcSnNZu+hp6bjSm5YDWIVWmwWcF/PiiWeSEMG3hq58gUWXoHqZ6fkbI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790846014; c=relaxed/simple;
+	bh=hhbzCcknlKeg3dKncZbe96FlbnZPAbtAVVWIeqpAT30=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XU2Cmvx0ev9fhNMQ8r+ZbRg6WM7dOiQktVdyv2w11dn6hLL8ALcV1tvsnQlEazsxj+tHHJ1qH5qo9XWPjLwMr0/iw+BouzLAt1tJUXoBQ0CsTo+MxE88xuAB7dR8m5313n44khqMoxXHUEzXs5rvpuxrppW1q/sNDlV1wjlBPI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZS/bEPWL; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="QvMYmd4A";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="GtXnPV9l"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6914qidV3043943;
-	Thu, 1 Oct 2026 03:58:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=zDNEH2ZPXJ4zQ1ka
-	d1HTLfwuPKnXI9MMO8bT+1FWvsE=; b=QvMYmd4ABqFgBaCylOhX6YFOUNjiCb+t
-	xLifecgrVbIGvqcnkUoy2bi9TWlxoyY30wk+2AQ/5Py3+mHOQI/6v8/92K1iATNv
-	IFSoP+HfbkGqTbJtauJKk13TaWl56U0HsYpF6iaB9NrUcG/CGxPUSkiqwiXcsduX
-	PO9o+SjWql4OVgzA1Qwa3Mjavn+ff4kK5yGqeHvO8ZDPxxbsfNIx7lskxYlUUZl7
-	3NcVHtsO/jPGdss9HKG8fUTNXcCYWK5aolaVdqORqrVcnfjDzp7UwZlHxAeXvyna
-	w/Uoomm6D+JidhTqyUQxA+Xcg+WS/IJBEp71DRKP1sUpuSCuf/XEhA==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11022083.outbound.protection.outlook.com [40.93.195.83])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4h1gv7g6uv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 03:58:44 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gXgMcr//Kds8LLfqSH91J5O5wsksPEooNFCAKssjiQNRBydHDm6SW3A3OdwVjshEG7d0Xzi7pcEjb2Eek3GWDtj9xBlQpizTbR6Mu3VS1/TUv9S0RR5iMHtUeXRY3ZPPXiayCMfLqx5tj0U8qiCifcMyRjAiBHrKEzTepbF+v/vYVPwbZW6LST42x1hkt2/hyn5E1+rSf7GpCupe6eKLk7xapZ8XYUpymzWzEYtjBboFBGXPWSJwAm+seuZ/q4K/xoGvdpn0AsS5HXDTLY8wEQLLC6yY06IuCzXFiHSWGU2kDnenLGLBwEGcjcJ7YRKGJAks6xK8wc471NNiTht9Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zDNEH2ZPXJ4zQ1kad1HTLfwuPKnXI9MMO8bT+1FWvsE=;
- b=Z9ScIZprdYmIRT28h0QG43+dGTeJv74aOUb/HVF7adKEdCEn9rW6OV+KwXJ0U1UgI30HTjfaYqOfP+tnNgOWTLy54Rp+Q8P6UYuuIL8XtArZtOBaQ8+fpGqjksJjhzWmMQVXwEwcIFsyEfcSdDuOZciFD80RiJlC2uzoPosKnVgOu4UWuYOTYGUiFP0SZ6K19He6utsEmTznQ8AQcdA8XgSbZpWlxj0abFonEyzAN0snCQ3uBQDWdfetwStg0bGButWVK9Rh6U2dviAK43vI32oPDYEADWCO/mvEfc1xo48Kaa8MSS9uQ24/TBlxMzF0xnZcXC7mdGS8tE+T2gl8dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zDNEH2ZPXJ4zQ1kad1HTLfwuPKnXI9MMO8bT+1FWvsE=;
- b=GtXnPV9lJUMf+snVw3ZfBo59J9flSApb3LApAYQfz57bmozg442ZJovIyVF5Vgpgm3TmcD1Q4w42vWQ4cPbkCFMcd95WL1adfpcItnVeJ/6VClJ/b6wGNZbUe+nVM0wMSOOVVDJic24XcRcOcoGKPF10d+C3t3wUb4MO5z/znBg=
-Received: from SJ0PR03CA0237.namprd03.prod.outlook.com (2603:10b6:a03:39f::32)
- by IA1PR19MB7278.namprd19.prod.outlook.com (2603:10b6:208:429::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
- 2026 08:58:33 +0000
-Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
- (2603:10b6:a03:39f:cafe::96) by SJ0PR03CA0237.outlook.office365.com
- (2603:10b6:a03:39f::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
- Oct 2026 08:58:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Thu, 1 Oct 2026 08:58:32 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 2BBF0406544;
-	Thu,  1 Oct 2026 08:58:31 +0000 (UTC)
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 0D0E582254B;
-	Thu,  1 Oct 2026 08:58:31 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: broonie@kernel.org
-Cc: linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-Subject: [PATCH v2] spi: cs42l43: Workaround for wrong speaker ID on Dell XPS 13 DX13260
-Date: Thu,  1 Oct 2026 09:58:30 +0100
-Message-ID: <20261001085830.4014291-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZS/bEPWL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790846008;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kWaMKuv5y/5a7qnp1IGfdpyCnjqRwtIiUhklYzVsHyE=;
+	b=ZS/bEPWLb8t2rF5Q7/vsWgoFb/vIuWnVSrk8OCdUusrktDte5uNBqVqMfPewsRIUFNn2aL
+	HKpyqE895t9TN6Spo6oyoxcpoNfY8rJfhBe73njTAntue0R4zSPsJUubrzSWpYABFnY6NG
+	jwouhJ4vt8YUjKJuyQOozoI0JcVvm48=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-167-dp0iaHe6PBmXSgIz-vQJfQ-1; Thu,
+ 01 Oct 2026 05:13:23 -0400
+X-MC-Unique: dp0iaHe6PBmXSgIz-vQJfQ-1
+X-Mimecast-MFC-AGG-ID: dp0iaHe6PBmXSgIz-vQJfQ_1790846001
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 68A821955F74;
+	Thu,  1 Oct 2026 09:13:21 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5E8CA433;
+	Thu,  1 Oct 2026 09:13:15 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@infradead.org>
+Subject: [PATCH v15 04/10] afs: Use a bvecq to hold dir content rather than folioq
+Date: Thu,  1 Oct 2026 10:12:32 +0100
+Message-ID: <20261001091239.3343034-5-dhowells@redhat.com>
+In-Reply-To: <20261001091239.3343034-1-dhowells@redhat.com>
+References: <20261001091239.3343034-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,210 +74,627 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|IA1PR19MB7278:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 14e514e6-5f0f-442b-a32a-08df1f9a2bf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|23010399003|376014|36860700016|82310400026|56012099006|11063799006|10067099003|6133799003|18002099003|13003099007|16102099003;
-X-Microsoft-Antispam-Message-Info:
-	rD6vP4mPTE+wH11FP7UiXxli1PYamxmbHkfDBblvhVBFmwTLH5wvzjGFAWn9qIjpAVbdkLIugQ+1IW77fsOJV7vVVFiOykzvuzNFh3kFdgODL9ur/A5milUbHtUeVs02Ju0cCfEzUxfN5pfiZ7Y0hrjOYki/mxwIj+IptukYfHF/k4iTI9o4+fVtiW1PW8S8KuQxoUtGSrJqiG1iqBX2DcOSkL3XqayqHqQ8Inyf5F4f/iAvOFKDlYgvJc7QlR2K5rsolifLfnFy7wVE3r0bYXGmLxsSYkXB9ibzyN0VVfEYvzLFcI86M5hV7YDDN0g4/GZSEFvN9cMlW9c80v2MSGoofVLYxVjZ/1Vhvk8PndVLAo4jI8XzmwYVZIuaPtlEhVg47CshN9JUUT3f/BTCWCdcpegAz4eZ+7UEIfgkDkctqWyLKlpl5lU0IYpABqF4PiFRYm+R1f9IlCXPngCu3ZrblmEZDUwU5i5Md9brHskiRHsBAn/C/68lQpIO0xL+FWUw2h8rwVSSDaeuvMiYL1DiFF/inqxpruHi6P7c3Qs4pLORXF0cQ0akFcabDAkL7r/50RAJM20IOPHRiuUBuUjFBVWceuuDlR9YT9YtiGZV2jU4ulvifCJNBSRTS+B5SguvmamQkKSA3R445uIxVVD7jGWO+JZnHUDBI+rgJl8=
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(13003099007)(16102099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5gnPYGTH+OFErDF+Elfe+5DX1bpOAD3mMW5RLPWy9iG4klHIPeUw5DN4XmdswHWaRXZaH5QkYY2RofITPUevhhUtSgvp5XP+b/ngr596SbKupawaTWsMM7kcQzvTPgvA4hj+gPOtCfT4TpBFtsz5B0aWsBoelU+RSC9g69fyLAOXDp6wQ7EhbJRCsjmfaZVhrCS6dzcbZPBdkfDq2ZeAhP0lJ2bhSCNg/yEp60Z+Z79jHl+z62o7d+Y4+DJdqmoxA7zpB4FUVe0T3ZWCEIlPU2hRFFy0yFR9BHFEy558hYqlCaa4V1zkNrRlKzDO9bqxgrri0QWILjeBNql3iZ1CaS+NZGPLGwg1VzzuI+wgR64wEQKJ/0qkJFPnfzzEgKVZ95otv7RikZFjDZH2LsrHZx8tZ6xKNWyHFBwQ2WNIy6UZz7FDHTfqLFHuCW+9tMZG
-X-Exchange-RoutingPolicyChecked:
-	VyP7fzbQhp72ucnbpD3VON1wIhIXEJPbDTs/MN+RWHMoUkJFuqNonGvNXXuqoJhwGr6d7B6VRmeBbF82Dzo3o/gPlcF9V+zRI5pm1GZ/seDWt/7m73iVAP6af2GWfsz2jkxhRKjlafc2pN/rjNAyyaqs5Xv81R1UX4CXuEkknPNKg4udwbDRvJdfjq56rdgAX+j2oI4Sb7GbFL3Ghx3uqAeTFAukV0oYCnOfFeoadH86YlGCVvGPQm8BKOzO6e42gyGxkLqFo8yEGczrIc0gHdL2f0T9dU0/fcQXizrBLtEwi4FBbiSv4czSOKuvc++9ESe45GXmuZ//92aEFgOEgw==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 08:58:32.9713
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14e514e6-5f0f-442b-a32a-08df1f9a2bf6
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF00002327.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR19MB7278
-X-Authority-Analysis: v=2.4 cv=JtBkP84C c=1 sm=1 tr=0 ts=6abe20c4 cx=c_pps
- a=qXrkyhrtrlo5bn8cMY6OCA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=w1d2syhTAAAA:8 a=781EvAJ9ysGJopcBSz8A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzNSBTYWx0ZWRfX8Bju2/XBKgC+
- VE5vkIKfZcxKL1w+iWz92WVeV9j8pj7m93e73cJrWyOndjXsj6/QgiVwBhBMpS3GNFNlRgz20g9
- EGRjr0sopU8uUX6MAVuhsJ2Dy3TRkQFOGaITX79EauK9irv8EmvZkLem0NUZ2Iu+SOcM5yuKKuP
- FGeI98SxHr74MSuLEmGrea4yMTDe0BHActIA4pKs55SFOGT4MTf+BbK0QzuGuZIVzNjeYr44ppx
- 8DaPURsGJo7xhJp/SpIbDTcV82pqbH/UKGV7VsOXAjZXrV5Bmp1bGMHXQOxMfgdb3du8JwJWFo+
- 60MxYGg4XIA2QhpReal6TBEX3rlBywoaeVJMqZKSTtw0LX1GL1B50kUycmcpMgf8ikVZov6Vqfp
- b4DCgss9GYlaARfkY6WZp30gKt+reLVq6wuzIzqP1uv3VND8y1NwniKRcwJ5mRGfIlXGIxiu/QK
- EIS9/fH1rIzqHPBD6LQ==
-X-Proofpoint-ORIG-GUID: SegMoQvuJKw-ut2O5RJDx8fUF4U47z3t
-X-Proofpoint-GUID: SegMoQvuJKw-ut2O5RJDx8fUF4U47z3t
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzNSBTYWx0ZWRfX4ZtTdHVaZmG0
- G0TYouGlb3yb1um4WrQh7H/Ry1onNAhv0fvwkaxNNWSLkF2DwNspLjZZXAocnGjfuPGsaPVW4j3
- jeduesB3mqpvIHhYDk1/G879Tmrv+0o=
-X-Proofpoint-Spam-Reason: safe
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Dell XPS 13 DX13260 create an acpi_gpio_mapping with exactly two
-GPIO entries to point at the two pins in the GpioIo(). Use this to
-read the speaker ID GPIOs.
+Use a bvecq to hold the contents of a directory rather than the folioq so
+that the latter can be phased out.
 
-This fixes problems on Dell XPS 13 DX13260:
-
-- No speaker audio
-- The wrong firmware was loaded so the speaker protection did not match
-  the speaker characteristics.
-
-The Dell XPS 13 DX13260 has two speaker ID GPIOs, to form a 2-bit ID. The
-ACPI GpioIo() has both pins but the Linux-specific spk-id-gpios property
-only has a mapping to the first pin. This meant that the speaker ID was
-wrong in most cases, and that would lead to the codec driver loading the
-wrong amp firmware, or not finding a firmware (as 0 is not a valid ID on
-this laptop).
-
-Assisted-by: Codex:gpt-6-sol
-Reported-by: Wiza Jalakasi <wjalakasi@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221956
-Tested-by: Wiza Jalakasi <wjalakasi@gmail.com>
-Fixes: f3c605147741e ("spi: cs42l43: Add GPIO speaker id support to the bridge configuration")
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Christoph Hellwig <hch@infradead.org>
+cc: linux-afs@lists.infradead.org
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
 ---
-Changes in V2:
-- Rewritten to be a DMI-specific quirk. We need to leave the original
-  GPIO code in place to support a proposed ACPI change for future
-  products.
-- As it's now a quirk for the specific model it is hardcoded to be
-  two GPIOs.
+ fs/afs/dir.c           |  36 ++++-----
+ fs/afs/dir_edit.c      |  43 +++++-----
+ fs/afs/dir_search.c    |  33 ++++----
+ fs/afs/inode.c         |   2 +-
+ fs/afs/internal.h      |   6 +-
+ fs/afs/symlink.c       |  38 ++++-----
+ fs/netfs/write_issue.c | 175 ++++++++---------------------------------
+ 7 files changed, 107 insertions(+), 226 deletions(-)
 
- drivers/spi/spi-cs42l43.c | 97 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 97 insertions(+)
-
-diff --git a/drivers/spi/spi-cs42l43.c b/drivers/spi/spi-cs42l43.c
-index 7106a8a4f2805..6772abb483dd3 100644
---- a/drivers/spi/spi-cs42l43.c
-+++ b/drivers/spi/spi-cs42l43.c
-@@ -11,6 +11,7 @@
- #include <linux/bitfield.h>
- #include <linux/cleanup.h>
- #include <linux/device.h>
-+#include <linux/dmi.h>
- #include <linux/errno.h>
- #include <linux/gpio/consumer.h>
- #include <linux/gpio/machine.h>
-@@ -215,12 +216,108 @@ static size_t cs42l43_spi_max_length(struct spi_device *spi)
- 	return CS42L43_SPI_MAX_LENGTH;
+diff --git a/fs/afs/dir.c b/fs/afs/dir.c
+index 2db534a2c7cc..5fac02d2d281 100644
+--- a/fs/afs/dir.c
++++ b/fs/afs/dir.c
+@@ -140,9 +140,9 @@ static void afs_dir_dump(struct afs_vnode *dvnode)
+ 	pr_warn("DIR %llx:%llx is=%llx\n",
+ 		dvnode->fid.vid, dvnode->fid.vnode, i_size);
+ 
+-	iov_iter_folio_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0, i_size);
+-	iterate_folioq(&iter, iov_iter_count(&iter), NULL, NULL,
+-		       afs_dir_dump_step);
++	iov_iter_bvec_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0, i_size);
++	iterate_bvecq(&iter, iov_iter_count(&iter), NULL, NULL,
++		      afs_dir_dump_step);
  }
  
-+/*
-+ * Workaround needed for two speaker ID pins in one ACPI GpioIo() but
-+ * the Linux-specific _DSD property only contains one pin.
-+ * Create a temporary acpi_gpio_mapping pointing at both pins.
-+ */
-+static const struct acpi_gpio_params cs42l43_2bit_speaker_id_from_one_gpioio_params[] = {
-+	[0] = {
-+		.crs_entry_index = 0,
-+		.line_index = 0,
-+	},
-+	[1] = {
-+		.crs_entry_index = 0,
-+		.line_index = 1,
-+	},
-+};
-+
-+static const struct acpi_gpio_mapping cs42l43_2bit_speaker_id_from_one_gpioio_mapping[] = {
-+	{
-+		.name = "spk-id-quirk-gpios",
-+		.data = cs42l43_2bit_speaker_id_from_one_gpioio_params,
-+		.size = ARRAY_SIZE(cs42l43_2bit_speaker_id_from_one_gpioio_params),
-+	},
-+	{ }
-+};
-+
-+static int cs42l43_get_2bit_speaker_id_from_one_gpioio(struct cs42l43_spi *priv, int *result)
-+{
-+	struct fwnode_reference_args args;
-+	struct acpi_device *adev;
-+	struct gpio_desc *desc;
-+	u32 spkid = 0;
-+	int i, ret;
-+
-+	/* Use the _DSD property to get the node containing the GpioIo() */
-+	ret = fwnode_property_get_reference_args(dev_fwnode(priv->dev), "spk-id-gpios",
-+						 NULL, 3, 0, &args);
-+	if (ret)
-+		return ret;
-+
-+	struct fwnode_handle *fwnode __free(fwnode_handle) = args.fwnode;
-+
-+	/* An acpi_gpio_mapping must be added to the node that contains the GpioIo() */
-+	adev = to_acpi_device_node(fwnode);
-+	if (!adev)
-+		return -EINVAL;
-+
-+	ret = acpi_dev_add_driver_gpios(adev, cs42l43_2bit_speaker_id_from_one_gpioio_mapping);
-+	if (ret)
-+		return ret;
-+
-+	/* gpiod_get_array() can't read from a mapping in a child node */
-+	for (i = 0; i < ARRAY_SIZE(cs42l43_2bit_speaker_id_from_one_gpioio_params); i++) {
-+		desc = fwnode_gpiod_get_index(fwnode, "spk-id-quirk", i, GPIOD_IN,
-+					      dev_name(priv->dev));
-+		if (IS_ERR(desc)) {
-+			ret = PTR_ERR(desc);
-+			goto out;
-+		}
-+
-+		ret = gpiod_get_value_cansleep(desc);
-+		gpiod_put(desc);
-+		if (ret < 0)
-+			goto out;
-+
-+		spkid |= (u32)ret << i;
-+	}
-+
-+	dev_dbg(priv->dev, "spk-id-gpios = %u\n", spkid);
-+	*result = spkid;
-+	ret = 0;
-+out:
-+	acpi_dev_remove_driver_gpios(adev);
-+
-+	return ret;
-+}
-+
-+static const struct dmi_system_id cs42l43_spk_id_quirks[] = {
-+	{
-+		.ident = "Dell XPS 13 DX13260",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0E53"),
-+		},
-+		.driver_data = cs42l43_get_2bit_speaker_id_from_one_gpioio,
-+	},
-+	{ }
-+};
-+
- static int cs42l43_get_speaker_id_gpios(struct cs42l43_spi *priv, int *result)
- {
-+	const struct dmi_system_id *dmi_id;
- 	struct gpio_descs *descs;
- 	u32 spkid;
- 	int i, ret;
- 
-+	dmi_id = dmi_first_match(cs42l43_spk_id_quirks);
-+	if (dmi_id) {
-+		int (*get_speaker_id)(struct cs42l43_spi *priv, int *result) = dmi_id->driver_data;
-+
-+		return get_speaker_id(priv, result);
-+	}
-+
- 	descs = gpiod_get_array_optional(priv->dev, "spk-id", GPIOD_IN);
- 	if (!descs)
+ /*
+@@ -203,9 +203,9 @@ static int afs_dir_check(struct afs_vnode *dvnode)
+ 	if (unlikely(!i_size))
  		return 0;
--- 
-2.47.3
+ 
+-	iov_iter_folio_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0, i_size);
+-	checked = iterate_folioq(&iter, iov_iter_count(&iter), dvnode, NULL,
+-				 afs_dir_check_step);
++	iov_iter_bvec_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0, i_size);
++	checked = iterate_bvecq(&iter, iov_iter_count(&iter), dvnode, NULL,
++				afs_dir_check_step);
+ 	if (checked != i_size) {
+ 		afs_dir_dump(dvnode);
+ 		return -EIO;
+@@ -250,15 +250,15 @@ static ssize_t afs_do_read_single(struct afs_vnode *dvnode, struct file *file)
+ 	if (dvnode->directory_size < i_size) {
+ 		size_t cur_size = dvnode->directory_size;
+ 
+-		ret = netfs_alloc_folioq_buffer(NULL,
+-						&dvnode->directory, &cur_size, i_size,
+-						mapping_gfp_mask(dvnode->netfs.inode.i_mapping));
++		ret = bvecq_expand_buffer(&dvnode->directory, &cur_size,
++					  round_up(i_size, PAGE_SIZE),
++					  mapping_gfp_mask(dvnode->netfs.inode.i_mapping));
+ 		dvnode->directory_size = cur_size;
+ 		if (ret < 0)
+ 			return ret;
+ 	}
+ 
+-	iov_iter_folio_queue(&iter, ITER_DEST, dvnode->directory, 0, 0, dvnode->directory_size);
++	iov_iter_bvec_queue(&iter, ITER_DEST, dvnode->directory, 0, 0, dvnode->directory_size);
+ 
+ 	/* AFS requires us to perform the read of a directory synchronously as
+ 	 * a single unit to avoid issues with the directory contents being
+@@ -294,8 +294,8 @@ static ssize_t afs_read_single(struct afs_vnode *dvnode, struct file *file)
+ }
+ 
+ /*
+- * Read the directory into a folio_queue buffer in one go, scrubbing the
+- * previous contents.  We return -ESTALE if the caller needs to call us again.
++ * Read the directory into the buffer in one go, scrubbing the previous
++ * contents.  We return -ESTALE if the caller needs to call us again.
+  */
+ ssize_t afs_read_dir(struct afs_vnode *dvnode, struct file *file)
+ 	__acquires(&dvnode->validate_lock)
+@@ -483,7 +483,7 @@ static size_t afs_dir_iterate_step(void *iter_base, size_t progress, size_t len,
+ }
+ 
+ /*
+- * Iterate through the directory folios.
++ * Iterate through the directory content.
+  */
+ static int afs_dir_iterate_contents(struct inode *dir, struct dir_context *dir_ctx)
+ {
+@@ -498,11 +498,11 @@ static int afs_dir_iterate_contents(struct inode *dir, struct dir_context *dir_c
+ 	if (i_size <= 0 || dir_ctx->pos >= i_size)
+ 		return 0;
+ 
+-	iov_iter_folio_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0, i_size);
++	iov_iter_bvec_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0, i_size);
+ 	iov_iter_advance(&iter, round_down(dir_ctx->pos, AFS_DIR_BLOCK_SIZE));
+ 
+-	iterate_folioq(&iter, iov_iter_count(&iter), dvnode, &ctx,
+-		       afs_dir_iterate_step);
++	iterate_bvecq(&iter, iov_iter_count(&iter), dvnode, &ctx,
++		      afs_dir_iterate_step);
+ 
+ 	if (ctx.error == -ESTALE)
+ 		afs_invalidate_dir(dvnode, afs_dir_invalid_iter_stale);
+@@ -2228,8 +2228,8 @@ static int afs_dir_writepages(struct address_space *mapping,
+ 	}
+ 
+ 	if (test_bit(AFS_VNODE_DIR_VALID, &dvnode->flags)) {
+-		iov_iter_folio_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0,
+-				     i_size_read(&dvnode->netfs.inode));
++		iov_iter_bvec_queue(&iter, ITER_SOURCE, dvnode->directory, 0, 0,
++				    i_size_read(&dvnode->netfs.inode));
+ 		ret = netfs_writeback_single(mapping, wbc, &iter);
+ 		if (ret == 1)
+ 			ret = 0; /* Skipped write due to lock conflict. */
+diff --git a/fs/afs/dir_edit.c b/fs/afs/dir_edit.c
+index c31303059444..de53d7ff82c3 100644
+--- a/fs/afs/dir_edit.c
++++ b/fs/afs/dir_edit.c
+@@ -10,7 +10,6 @@
+ #include <linux/namei.h>
+ #include <linux/pagemap.h>
+ #include <linux/iversion.h>
+-#include <linux/folio_queue.h>
+ #include "internal.h"
+ #include "xdr_fs.h"
+ 
+@@ -110,9 +109,8 @@ static void afs_clear_contig_bits(union afs_xdr_dir_block *block,
+  */
+ static union afs_xdr_dir_block *afs_dir_get_block(struct afs_dir_iter *iter, size_t block)
+ {
+-	struct folio_queue *fq;
+ 	struct afs_vnode *dvnode = iter->dvnode;
+-	struct folio *folio;
++	struct bvecq *bq;
+ 	size_t blpos = block * AFS_DIR_BLOCK_SIZE;
+ 	size_t blend = (block + 1) * AFS_DIR_BLOCK_SIZE, fpos = iter->fpos;
+ 	int ret;
+@@ -120,41 +118,38 @@ static union afs_xdr_dir_block *afs_dir_get_block(struct afs_dir_iter *iter, siz
+ 	if (dvnode->directory_size < blend) {
+ 		size_t cur_size = dvnode->directory_size;
+ 
+-		ret = netfs_alloc_folioq_buffer(
+-			NULL, &dvnode->directory, &cur_size, blend,
+-			mapping_gfp_mask(dvnode->netfs.inode.i_mapping));
++		ret = bvecq_expand_buffer(&dvnode->directory, &cur_size, blend,
++					  mapping_gfp_mask(dvnode->netfs.inode.i_mapping));
+ 		dvnode->directory_size = cur_size;
+ 		if (ret < 0)
+ 			goto fail;
+ 	}
+ 
+-	fq = iter->fq;
+-	if (!fq)
+-		fq = dvnode->directory;
++	bq = iter->bq;
++	if (!bq)
++		bq = dvnode->directory;
+ 
+-	/* Search the folio queue for the folio containing the block... */
+-	for (; fq; fq = fq->next) {
+-		for (int s = iter->fq_slot; s < folioq_count(fq); s++) {
+-			size_t fsize = folioq_folio_size(fq, s);
++	/* Search the contents for the region containing the block... */
++	for (; bq; bq = bq->next) {
++		for (int s = iter->bq_slot; s < bq->nr_slots; s++) {
++			struct bio_vec *bv = &bq->bv[s];
++			size_t bsize = bv->bv_len;
+ 
+-			if (blend <= fpos + fsize) {
++			if (blend <= fpos + bsize) {
+ 				/* ... and then return the mapped block. */
+-				folio = folioq_folio(fq, s);
+-				if (WARN_ON_ONCE(folio_pos(folio) != fpos))
+-					goto fail;
+-				iter->fq = fq;
+-				iter->fq_slot = s;
++				iter->bq = bq;
++				iter->bq_slot = s;
+ 				iter->fpos = fpos;
+-				return kmap_local_folio(folio, blpos - fpos);
++				return bvec_kmap_partial(bv, blpos - fpos);
+ 			}
+-			fpos += fsize;
++			fpos += bsize;
+ 		}
+-		iter->fq_slot = 0;
++		iter->bq_slot = 0;
+ 	}
+ 
+ fail:
+-	iter->fq = NULL;
+-	iter->fq_slot = 0;
++	iter->bq = NULL;
++	iter->bq_slot = 0;
+ 	afs_invalidate_dir(dvnode, afs_dir_invalid_edit_get_block);
+ 	return NULL;
+ }
+diff --git a/fs/afs/dir_search.c b/fs/afs/dir_search.c
+index 11ebdfffcb1d..e1f91b3ac6e2 100644
+--- a/fs/afs/dir_search.c
++++ b/fs/afs/dir_search.c
+@@ -66,12 +66,11 @@ bool afs_dir_init_iter(struct afs_dir_iter *iter, const struct qstr *name)
+  */
+ union afs_xdr_dir_block *afs_dir_find_block(struct afs_dir_iter *iter, size_t block)
+ {
+-	struct folio_queue *fq = iter->fq;
+ 	struct afs_vnode *dvnode = iter->dvnode;
+-	struct folio *folio;
++	struct bvecq *bq = iter->bq;
+ 	size_t blpos = block * AFS_DIR_BLOCK_SIZE;
+ 	size_t blend = (block + 1) * AFS_DIR_BLOCK_SIZE, fpos = iter->fpos;
+-	int slot = iter->fq_slot;
++	int slot = iter->bq_slot;
+ 
+ 	_enter("%zx,%d", block, slot);
+ 
+@@ -80,36 +79,34 @@ union afs_xdr_dir_block *afs_dir_find_block(struct afs_dir_iter *iter, size_t bl
+ 	if (dvnode->directory_size < blend)
+ 		goto fail;
+ 
+-	if (!fq || blpos < fpos) {
+-		fq = dvnode->directory;
++	if (!bq || blpos < fpos) {
++		bq = dvnode->directory;
+ 		slot = 0;
+ 		fpos = 0;
+ 	}
+ 
+ 	/* Search the folio queue for the folio containing the block... */
+-	for (; fq; fq = fq->next) {
+-		for (; slot < folioq_count(fq); slot++) {
+-			size_t fsize = folioq_folio_size(fq, slot);
++	for (; bq; bq = bq->next) {
++		for (; slot < bq->nr_slots; slot++) {
++			struct bio_vec *bv = &bq->bv[slot];
++			size_t bsize = bv->bv_len;
+ 
+-			if (blend <= fpos + fsize) {
++			if (blend <= fpos + bsize) {
+ 				/* ... and then return the mapped block. */
+-				folio = folioq_folio(fq, slot);
+-				if (WARN_ON_ONCE(folio_pos(folio) != fpos))
+-					goto fail;
+-				iter->fq = fq;
+-				iter->fq_slot = slot;
++				iter->bq = bq;
++				iter->bq_slot = slot;
+ 				iter->fpos = fpos;
+-				iter->block = kmap_local_folio(folio, blpos - fpos);
++				iter->block = bvec_kmap_partial(bv, blpos - fpos);
+ 				return iter->block;
+ 			}
+-			fpos += fsize;
++			fpos += bsize;
+ 		}
+ 		slot = 0;
+ 	}
+ 
+ fail:
+-	iter->fq = NULL;
+-	iter->fq_slot = 0;
++	iter->bq = NULL;
++	iter->bq_slot = 0;
+ 	afs_invalidate_dir(dvnode, afs_dir_invalid_edit_get_block);
+ 	return NULL;
+ }
+diff --git a/fs/afs/inode.c b/fs/afs/inode.c
+index 14f39a9bea6c..634fbf8eb212 100644
+--- a/fs/afs/inode.c
++++ b/fs/afs/inode.c
+@@ -683,7 +683,7 @@ void afs_evict_inode(struct inode *inode)
+ 	flush_delayed_work(&vnode->lock_work);
+ 	netfs_wait_for_outstanding_io(inode);
+ 	truncate_inode_pages_final(&inode->i_data);
+-	netfs_free_folioq_buffer(vnode->directory);
++	bvecq_put(vnode->directory);
+ 	if (vnode->symlink)
+ 		afs_evict_symlink(vnode);
+ 
+diff --git a/fs/afs/internal.h b/fs/afs/internal.h
+index d58273c00fbc..51078cc9b0e5 100644
+--- a/fs/afs/internal.h
++++ b/fs/afs/internal.h
+@@ -710,7 +710,7 @@ struct afs_vnode {
+ #define AFS_VNODE_MODIFYING	10		/* Set if we're performing a modification op */
+ #define AFS_VNODE_DIR_READ	11		/* Set if we've read a dir's contents */
+ 
+-	struct folio_queue	*directory;	/* Directory contents */
++	struct bvecq		*directory;	/* Directory contents */
+ 	struct afs_symlink __rcu *symlink;	/* Symlink content */
+ 	struct list_head	wb_keys;	/* List of keys available for writeback */
+ 	struct list_head	pending_locks;	/* locks waiting to be granted */
+@@ -991,9 +991,9 @@ static inline void afs_invalidate_cache(struct afs_vnode *vnode, unsigned int fl
+ struct afs_dir_iter {
+ 	struct afs_vnode	*dvnode;
+ 	union afs_xdr_dir_block *block;
+-	struct folio_queue	*fq;
++	struct bvecq		*bq;
+ 	unsigned int		fpos;
+-	int			fq_slot;
++	int			bq_slot;
+ 	unsigned int		loop_check;
+ 	u8			nr_slots;
+ 	u8			bucket;
+diff --git a/fs/afs/symlink.c b/fs/afs/symlink.c
+index 6b8c122877ca..9a611efe6b26 100644
+--- a/fs/afs/symlink.c
++++ b/fs/afs/symlink.c
+@@ -56,7 +56,6 @@ void afs_evict_symlink(struct afs_vnode *vnode)
+ void afs_init_new_symlink(struct afs_vnode *vnode, struct afs_operation *op)
+ {
+ 	struct afs_symlink *symlink = op->create.symlink;
+-	size_t dsize = 0;
+ 	size_t size = strlen(symlink->content) + 1;
+ 	char *p;
+ 
+@@ -66,13 +65,18 @@ void afs_init_new_symlink(struct afs_vnode *vnode, struct afs_operation *op)
+ 	if (!fscache_cookie_enabled(netfs_i_cookie(&vnode->netfs)))
+ 		return;
+ 
+-	if (netfs_alloc_folioq_buffer(NULL, &vnode->directory, &dsize, size,
+-				      mapping_gfp_mask(vnode->netfs.inode.i_mapping)) < 0)
++	vnode->directory =
++		bvecq_alloc_buffer(PAGE_SIZE,
++				   mapping_gfp_mask(vnode->netfs.inode.i_mapping),
++				   false);
++	if (!vnode->directory)
+ 		return;
+ 
+-	vnode->directory_size = dsize;
+-	p = kmap_local_folio(folioq_folio(vnode->directory, 0), 0);
++	vnode->directory_size = size;
++	p = bvec_kmap_partial(&vnode->directory->bv[0], 0);
+ 	memcpy(p, symlink->content, size);
++	if (size < PAGE_SIZE)
++		memset(p + size, 0, PAGE_SIZE - size);
+ 	kunmap_local(p);
+ 	netfs_single_mark_inode_dirty(&vnode->netfs.inode);
+ }
+@@ -94,17 +98,13 @@ static ssize_t afs_do_read_symlink(struct afs_vnode *vnode)
+ 	}
+ 
+ 	if (!vnode->directory) {
+-		size_t cur_size = 0;
+-
+-		ret = netfs_alloc_folioq_buffer(NULL,
+-						&vnode->directory, &cur_size, PAGE_SIZE,
+-						mapping_gfp_mask(vnode->netfs.inode.i_mapping));
+-		vnode->directory_size = PAGE_SIZE - 1;
+-		if (ret < 0)
+-			return ret;
++		vnode->directory = bvecq_alloc_buffer(
++			PAGE_SIZE, mapping_gfp_mask(vnode->netfs.inode.i_mapping), false);
++		if (!vnode->directory)
++			return -ENOMEM;
+ 	}
+ 
+-	iov_iter_folio_queue(&iter, ITER_DEST, vnode->directory, 0, 0, PAGE_SIZE);
++	iov_iter_bvec_queue(&iter, ITER_DEST, vnode->directory, 0, 0, PAGE_SIZE);
+ 
+ 	/* AFS requires us to perform the read of a symlink as a single unit to
+ 	 * avoid issues with the content being changed between reads.
+@@ -126,7 +126,7 @@ static ssize_t afs_do_read_symlink(struct afs_vnode *vnode)
+ 		refcount_set(&symlink->ref, 1);
+ 		symlink->content[i_size] = 0;
+ 
+-		const char *s = kmap_local_folio(folioq_folio(vnode->directory, 0), 0);
++		const char *s = bvec_kmap_partial(&vnode->directory->bv[0], 0);
+ 
+ 		memcpy(symlink->content, s, i_size);
+ 		kunmap_local(s);
+@@ -135,7 +135,7 @@ static ssize_t afs_do_read_symlink(struct afs_vnode *vnode)
+ 	}
+ 
+ 	if (!fscache_cookie_enabled(netfs_i_cookie(&vnode->netfs))) {
+-		netfs_free_folioq_buffer(vnode->directory);
++		bvecq_put(vnode->directory);
+ 		vnode->directory = NULL;
+ 		vnode->directory_size = 0;
+ 	}
+@@ -248,14 +248,14 @@ int afs_symlink_writepages(struct address_space *mapping,
+ 
+ 	if (vnode->directory &&
+ 	    atomic64_read(&vnode->cb_expires_at) != AFS_NO_CB_PROMISE) {
+-		iov_iter_folio_queue(&iter, ITER_SOURCE, vnode->directory, 0, 0,
+-				     i_size_read(&vnode->netfs.inode));
++		iov_iter_bvec_queue(&iter, ITER_SOURCE, vnode->directory, 0, 0,
++				    i_size_read(&vnode->netfs.inode));
+ 		ret = netfs_writeback_single(mapping, wbc, &iter);
+ 	}
+ 
+ 	if (ret == 0) {
+ 		netfs_wb_begin(&vnode->netfs, false);
+-		netfs_free_folioq_buffer(vnode->directory);
++		bvecq_put(vnode->directory);
+ 		vnode->directory = NULL;
+ 		vnode->directory_size = 0;
+ 		netfs_wb_end(&vnode->netfs);
+diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
+index 3989b4ec0c4b..486dddf7308b 100644
+--- a/fs/netfs/write_issue.c
++++ b/fs/netfs/write_issue.c
+@@ -624,132 +624,17 @@ int netfs_writepages(struct address_space *mapping,
+ }
+ EXPORT_SYMBOL(netfs_writepages);
+ 
+-/*
+- * Write some of a pending folio data back to the server and/or the cache.
+- */
+-static int netfs_write_folio_single(struct netfs_io_request *wreq,
+-				    struct folio *folio)
+-{
+-	struct netfs_io_stream *upload = &wreq->io_streams[0];
+-	struct netfs_io_stream *cache  = &wreq->io_streams[1];
+-	struct netfs_io_stream *stream;
+-	size_t iter_off = 0;
+-	size_t fsize = folio_size(folio), flen;
+-	uoff_t fpos = folio_pos(folio);
+-	ssize_t ret;
+-	bool to_eof = false;
+-	bool no_debug = false;
+-
+-	_enter("");
+-
+-	flen = folio_size(folio);
+-	if (flen > wreq->i_size - fpos) {
+-		flen = wreq->i_size - fpos;
+-		folio_zero_segment(folio, flen, fsize);
+-		to_eof = true;
+-	} else if (flen == wreq->i_size - fpos) {
+-		to_eof = true;
+-	}
+-
+-	_debug("folio %zx/%zx", flen, fsize);
+-
+-	if (!upload->avail && !cache->avail) {
+-		trace_netfs_folio(folio, netfs_folio_trace_cancel_store);
+-		return 0;
+-	}
+-
+-	if (!upload->construct)
+-		trace_netfs_folio(folio, netfs_folio_trace_store);
+-	else
+-		trace_netfs_folio(folio, netfs_folio_trace_store_plus);
+-
+-	/* Attach the folio to the rolling buffer. */
+-	folio_get(folio);
+-	ret = rolling_buffer_append(&wreq->buffer, folio, NETFS_ROLLBUF_PUT_MARK, wreq->gfp);
+-	if (ret < 0) {
+-		folio_put(folio);
+-		return ret;
+-	}
+-
+-	/* Move the submission point forward to allow for write-streaming data
+-	 * not starting at the front of the page.  We don't do write-streaming
+-	 * with the cache as the cache requires DIO alignment.
+-	 *
+-	 * Also skip uploading for data that's been read and just needs copying
+-	 * to the cache.
+-	 */
+-	for (int s = 0; s < NR_IO_STREAMS; s++) {
+-		stream = &wreq->io_streams[s];
+-		stream->submit_off = 0;
+-		stream->submit_len = flen;
+-		if (!stream->avail) {
+-			stream->submit_off = UINT_MAX;
+-			stream->submit_len = 0;
+-		}
+-	}
+-
+-	/* Attach the folio to one or more subrequests.  For a big folio, we
+-	 * could end up with thousands of subrequests if the wsize is small -
+-	 * but we might need to wait during the creation of subrequests for
+-	 * network resources (eg. SMB credits).
+-	 */
+-	for (;;) {
+-		ssize_t part;
+-		size_t lowest_off = ULONG_MAX;
+-		int choose_s = -1;
+-
+-		/* Always add to the lowest-submitted stream first. */
+-		for (int s = 0; s < NR_IO_STREAMS; s++) {
+-			stream = &wreq->io_streams[s];
+-			if (stream->submit_len > 0 &&
+-			    stream->submit_off < lowest_off) {
+-				lowest_off = stream->submit_off;
+-				choose_s = s;
+-			}
+-		}
+-
+-		if (choose_s < 0)
+-			break;
+-		stream = &wreq->io_streams[choose_s];
+-
+-		/* Advance the iterator(s). */
+-		if (stream->submit_off > iter_off) {
+-			rolling_buffer_advance(&wreq->buffer, stream->submit_off - iter_off);
+-			iter_off = stream->submit_off;
+-		}
+-
+-		atomic64_set(&wreq->issued_to, fpos + stream->submit_off);
+-		stream->submit_extendable_to = fsize - stream->submit_off;
+-		part = netfs_advance_write(wreq, stream, fpos + stream->submit_off,
+-					   stream->submit_len, to_eof);
+-		stream->submit_off += part;
+-		if (part > stream->submit_len)
+-			stream->submit_len = 0;
+-		else
+-			stream->submit_len -= part;
+-		if (part > 0)
+-			no_debug = true;
+-	}
+-
+-	wreq->buffer.iter.iov_offset = 0;
+-	if (fsize > iter_off)
+-		rolling_buffer_advance(&wreq->buffer, fsize - iter_off);
+-	atomic64_set(&wreq->issued_to, fpos + fsize);
+-
+-	if (!no_debug)
+-		kdebug("R=%x: No submit", wreq->debug_id);
+-	_leave(" = 0");
+-	return 0;
+-}
+-
+ /**
+  * netfs_writeback_single - Write back a monolithic payload
+  * @mapping: The mapping to write from
+  * @wbc: Hints from the VM
+- * @iter: Data to write, must be ITER_FOLIOQ.
++ * @iter: Data to write.
+  *
+- * Write a monolithic, non-pagecache object back to the server and/or
+- * the cache.
++ * Write a monolithic, non-pagecache object back to the server and/or the
++ * cache.  The caller must explicitly set NETFS_RREQ_UPLOAD_TO_SERVER when
++ * initialising the request if it wants the data to be written to the server
++ * (for AFS directories and symlinks, this is not possible; things like mkdir,
++ * symlink, rmdir and unlink must be used instead).
+  *
+  * Return: 0 if successful; 1 if skipped due to lock conflict and WB_SYNC_NONE;
+  * or a negative error code.
+@@ -760,13 +645,8 @@ int netfs_writeback_single(struct address_space *mapping,
+ {
+ 	struct netfs_io_request *wreq;
+ 	struct netfs_inode *ictx = netfs_inode(mapping->host);
+-	struct folio_queue *fq;
+-	size_t size = iov_iter_count(iter);
+ 	int ret;
+ 
+-	if (WARN_ON_ONCE(!iov_iter_is_folioq(iter)))
+-		return -EIO;
+-
+ 	if (!netfs_wb_begin(ictx, wbc->sync_mode == WB_SYNC_NONE)) {
+ 		/* The VFS will have undirtied the inode. */
+ 		netfs_single_mark_inode_dirty(&ictx->inode);
+@@ -779,36 +659,45 @@ int netfs_writeback_single(struct address_space *mapping,
+ 		goto couldnt_start;
+ 	}
+ 
++	wreq->buffer.iter = *iter;
++	wreq->len = iov_iter_count(iter);
++	wreq->submitted = wreq->len;
++
+ 	__set_bit(NETFS_RREQ_OFFLOAD_COLLECTION, &wreq->flags);
+ 	trace_netfs_write(wreq, netfs_write_trace_writeback_single);
+ 	netfs_stat(&netfs_n_wh_writepages);
+ 
+-	if (__test_and_set_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags))
++	/* Start writing to the server only if asked. */
++	if (test_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags))
+ 		wreq->netfs_ops->begin_writeback(wreq);
+ 
+-	for (fq = (struct folio_queue *)iter->folioq; fq; fq = fq->next) {
+-		for (int slot = 0; slot < folioq_count(fq); slot++) {
+-			struct folio *folio = folioq_folio(fq, slot);
+-			size_t part = umin(folioq_folio_size(fq, slot), size);
++	for (int s = 0; s < NR_IO_STREAMS; s++) {
++		struct netfs_io_subrequest *subreq;
++		struct netfs_io_stream *stream = &wreq->io_streams[s];
+ 
+-			_debug("wbiter %lx %llx", folio->index, atomic64_read(&wreq->issued_to));
++		if (!stream->avail)
++			continue;
+ 
+-			ret = netfs_write_folio_single(wreq, folio);
+-			if (ret < 0)
+-				goto stop;
+-			size -= part;
+-			if (size <= 0)
+-				goto stop;
+-		}
++		netfs_prepare_write(wreq, stream, 0);
++
++		subreq = stream->construct;
++		subreq->len = wreq->len;
++		stream->submit_len = subreq->len;
++		stream->submit_extendable_to = round_up(wreq->len, PAGE_SIZE);
++
++		netfs_issue_write(wreq, stream);
+ 	}
+ 
+-stop:
+-	for (int s = 0; s < NR_IO_STREAMS; s++)
+-		netfs_issue_write(wreq, &wreq->io_streams[s]);
+ 	netfs_all_subreqs_queued(wreq);
+-
+ 	netfs_wake_collector(wreq);
+ 
++	/* TODO: Might want to be async here if WB_SYNC_NONE, but then need to
++	 * wait before modifying.
++	 */
++	ret = netfs_wait_for_write(wreq);
++	if (ret > 0)
++		ret = 0;
++
+ 	netfs_put_request(wreq, netfs_rreq_trace_put_return);
+ 	_leave(" = %d", ret);
+ 	return ret;
 
