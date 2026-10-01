@@ -1,162 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764FF3B4EAC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790898256; cv=pass; b=iAYb7iEpC/S+NvKWIcQTKAoGc1h069ZoUPkwMeZWJLEvok3XTgvY3kFKoS3We1o58ft8DwULcVLMOxypzEx0wvHH2fvAthdRoXS8kxRMl1PP5iJnwk+reenZREH1zT/FLsjMz14QWO4flsEcAOAZYqd1JwhPcLkW51Hx7Osl16s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790898256; c=relaxed/simple;
-	bh=o2g104Wfo69c4modhI8ohmf9z/HmP117IrUmXcvK64w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LO/+00k+eLNHkP2rXlJ6NThwxrDwKsUE17W13ws4qfguQsQNaa5sxa9NK9+52ByTgMH5HjaSPMilVqfEeepXcvavu+v6KP0+zu+KNT+dcWEGmfUKKoIlaZo4eR9BcfpaYKuV0uc0SBFXSFnzul6o1SfrrOVd6vA+vMS24fSXC4g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YJo2CXMy; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=kRvG/Q44; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9097918FDDE;
+	Thu,  1 Oct 2026 23:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790898359; cv=none; b=NvuE9Gbx5TgTBvpP1IQ0DHdl9R+Nw56yXyJWi8bSSbmvUznAbHRRmeoNC+Yy6gjSioCI0pB9Xoh+MeGHR1YrauoYltJ9KNxCyNRSE5qwOU7jewXJqxIYoeUy3isyeMlSD7nU5bpbf+HDtKyFM0395AW6qDW4T4mwXUKSOYEGSco=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790898359; c=relaxed/simple;
+	bh=onoNW7nSh00pNaqmyI5cO+4kptJg87Xle2/B3cYBvdU=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=ef8LzVGyvNEXg0AXLM/6mzEfsi3k32jGHFtXA1/QjsTLogIkHH41/qeprgMg3US4XBRBmTsghtYP44hXykIx8HnjrAch0VHD5YLNLzUO6nYIWanSMuroE9B/J8TCb4pFIrvUqc1AHkR78Gf+bBj8q5G9pvynVQEAJx3HS6HyTaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Edikgci7 reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YJo2CXMy";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="kRvG/Q44"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790898253;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7C0wO41olnFgIkFyxcI/7Fxg3q/LgyAQWGzA9515Wqo=;
-	b=YJo2CXMySVAfdUwdP+daGj7wmYg7TIoAJGpc12rzGbWnzr6XeoecRrhcYucUhP0XBUfF9M
-	tryRZGqW6YPJfRQtgQdkAvWo9HaIijGnUigUbWbeJkMIphOI4FWZpYPmoBBZfnE1MQR/CI
-	XCaExTGEJ1cQFbRR8OQNuiUzjmH2tS4=
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
- [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-54-ooNI3qVcPpOE88HuEzHDeg-1; Thu, 01 Oct 2026 19:44:12 -0400
-X-MC-Unique: ooNI3qVcPpOE88HuEzHDeg-1
-X-Mimecast-MFC-AGG-ID: ooNI3qVcPpOE88HuEzHDeg_1790898251
-Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3a782b8620dso8107781fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:44:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790898250; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gE4OAEiILNO83U7+wld7uoYLtab2xr6EedY6u3c5Lz//SHVX3O8LuOmrpka+fP3JPn
-         +sX0oJd7TGe/JvWes0xS067hoprBqqiwq3+Y0Y9XJFuaPBLmRL5BWVP134NAHPPXWYJb
-         BCdAm9vUBUq8LqF5601+gAZYbdNXnSpvwe07DcTRb4xdILWhQsvA8EKSztoT+Mrnu7tL
-         O3mhAfb1tPm0Ug94IHvyc9HXg8erc6RSmNUBQ2AQtyB5bKzST2JPU4LL3ITdQigUSg6O
-         6C5y3tQ7StLx/KQ79YS2TdRHAWmxTbqYnX0IZu9K777B6opFtfW0g8GQm8eXdldDilNM
-         jQNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7C0wO41olnFgIkFyxcI/7Fxg3q/LgyAQWGzA9515Wqo=;
-        fh=d4dVVbRlQVWeCKNh1O8C3kfuaQTacT3lNB19k4e0eYE=;
-        b=ptw/NF53w2/xeME+eWWz1BPDtcW/QacY7//2er/iCrE3WOR/Sz0CyJXeGjuWJckepk
-         AoB2HqjwVlTatCnReiSjUSAJIqQhziID8HZeGcZ3lBQUqoEr/Vjwt5vDn6BDpca9ryxM
-         jdrXGpxjz58qfhDerJrN2jymTI+IMFA22GWQlYpGpuAnLhUye2rulEkC4/Ajzzf39Pl1
-         fTXu4ZxmHh8DxeSFjIBiDddptNzBZWoDtafLg6GdfAJB+PGVktpDEye4n5hxKFZySWly
-         SU9CN+ymT3WidJXeAR1p4AcUQymxoQ7tEL3yfoWP/r/BgQ/N0dWjAHi+aYPZXhYhnVnZ
-         UrEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790898250; x=1791503050; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7C0wO41olnFgIkFyxcI/7Fxg3q/LgyAQWGzA9515Wqo=;
-        b=kRvG/Q44Mcxy9Q+bEiiQ29xWdD02nPuXEPkTe1VbqWDq+FbljtgK8wpV3kuPLiSjiy
-         lMhckjmcd7yYtKHchWqPltgqx0Brmo8yOHZk+aQ5xNm2Aj77WqgJEpCQEkGv1Yzvb0Nd
-         18Z0C+cC+TKyWYm2aEigciayDYGUq0VJyct5QyvxOiQnXUhR5xM8zIaLyrc21AoMTC7u
-         Q0yFeDIqm1YHOyVKBu01gJBZX8aNVSOjmuhqEjrewKFkKxriBPpFRp1tc7qJMppaup36
-         foEab+I+BY86GVZwDzFle2361vfism9JvIn9yTD4FBa17b/h8HBlEejuVWRNQ5tTujXs
-         48ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790898250; x=1791503050;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7C0wO41olnFgIkFyxcI/7Fxg3q/LgyAQWGzA9515Wqo=;
-        b=M5W6mr1/mHcCNTLH7MpLwnvluVGYeDLTbn2EBuIezruVmf1tmG7A+FsWLZGVqagu6/
-         mAfXzrilDpty3jvIh4KmGVmTQjszjZcUnNwr1aa2P7SDV1Fywch396Aol2jiZmRTg5Rf
-         Nj153GmcqqBNiFui55kHL2zbftO3WcG9JZAKleD/2aRoMqBcuE0WPZCDnCMukIpgZvuP
-         Po4b/on4EK6lUYINx2TXy8p+tdTIyrvO9bUSEeV1C0I+jZyWdYswYWvjUKlwNhiWPAxd
-         c74qgyRoauUhYcOmKaMYN5FF2cTQk0PzKBlWftyNxskkSRSZzNEAnYM0UH3IG1uWuAU1
-         RBrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVy4hxNBomB4mIFG5NU9siQulLEZZ+CaDx0RLXpxuZFps0IjWQcBKMs9z5qo8Cg0MRd1xXC4Qi6b+GZN4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEf9BQoTvlMU/yY5xK5sXJHCt4+6+mFyvb0r2+J7i5U8ipVhFz
-	etW5tTEdWXkG+dgJQxZctRJmtgs7CeOMU9YFyyP15dMiDsJedLxgfZFnjv4zsNZN7BaGN5W59mo
-	gj4/jD07bJBk2p6/cHwajqWqE5fFNRF5Zyqub5lk9W6AbOoyUHrkS/iSh+D2/zzjusfp17pl9V5
-	FTDyzARncsfYdjSkw5b0xeTuAiAw+feRh5Odt/2gap
-X-Gm-Gg: AYBFou3Q54LxllPbtxVXpjXD844JKX2KLSZZHRSBAdVA3BsWJomhYtfOTVS3R58uvpJ
-	HKBtqgwZGa72XxysQI4fjn2d4x02sHemb6nC+dDxCMkzLF2gC0ECnXoSpcZkSkIT4/432oPEh72
-	/KZx/uoiBk0cZwEOTEquXk+KpRbK7Jo0wjn+XYWf2KG8VNhBoXvBKnUTwJ
-X-Received: by 2002:a2e:bc29:0:b0:3a5:d070:9fef with SMTP id 38308e7fff4ca-3a887787567mr1692571fa.10.1790898250545;
-        Thu, 01 Oct 2026 16:44:10 -0700 (PDT)
-X-Received: by 2002:a2e:bc29:0:b0:3a5:d070:9fef with SMTP id
- 38308e7fff4ca-3a887787567mr1692511fa.10.1790898250148; Thu, 01 Oct 2026
- 16:44:10 -0700 (PDT)
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Edikgci7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C131F000FF;
+	Thu,  1 Oct 2026 23:45:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790898357;
+	bh=N/LCQOBK04vvpX7fsnv3cF5MDnngFEJQ54ZjbTk1ow8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Edikgci7N6UhxUoFhusp67ABDchjrhdEP10eBeaU+hSxNNWIx63xczuYAyJ3om/Th
+	 q6e6OBZY5jCli3+01x38cFuBDqygfQnQXMFlBiILnlkvjMLFEKAC+anYhrpAHgi/Py
+	 D+j6Rsl8bRSzYKLSYoPXJXBwLSbHVCT4tjUV8b/u3QAyY8OJsY+SMbUbYDnawJrm+9
+	 PsrPNqMBJaV7PRYbvMv9V29pZWqkKm6tFywGGKKOG1xHDQu5UvCN781wp7mhDL2TbG
+	 mrcTkjo4+3q0WRiRF0bbYTkWqzyI1/K2qbui5yCk0E5xJY+K7iqxw2MpLw2onqLPEl
+	 yexpzZinCtHBA==
+Content-Type: multipart/mixed; boundary="===============0210627898918852927=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911065357.3511466-1-ljp1205831794@gmail.com>
-In-Reply-To: <20260911065357.3511466-1-ljp1205831794@gmail.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Thu, 1 Oct 2026 19:43:59 -0400
-X-Gm-Features: AclHuK8B2IlGXv-cagMI52YwLUQveVZTRqqkPPRuJDKafJ4tVysX2bs9w7uZ4e4
-Message-ID: <CAK-6q+iB2jjvKN+p5WmMap3znWPUhXXT0dRsCFK5BcAXBJRRuA@mail.gmail.com>
-Subject: Re: [PATCH] dlm: fix RCOM_LOOKUP length underflow
-To: Aohan Mei <ljp1205831794@gmail.com>
-Cc: gfs2@lists.linux.dev, teigland@redhat.com, linux-kernel@vger.kernel.org, 
-	Aohan Mei <henrymei@tencent.com>, TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <02c101b324038913fe17ddd47d66f51774a541d7ed4d04796e643cee7ee65da7@mail.kernel.org>
+In-Reply-To: <20261001225214.12351-5-wanjay@amazon.com>
+References: <20261001225214.12351-5-wanjay@amazon.com>
+Subject: Re: [PATCH bpf-next v4 04/12] bpf: take the vmlinux BTF from the btf_vmlinux module
+From: bot+bpf-ci@kernel.org
+To: wanjay@amazon.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: alan.maguire@oracle.com,martin.lau@linux.dev,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,qmo@kernel.org,nathan@kernel.org,nsc@kernel.org,linux-kbuild@vger.kernel.org,linux@weissschuh.net,christian@heusel.eu,mcgrof@kernel.org,petr.pavlu@suse.com,samitolvanen@google.com,linux-modules@vger.kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,linux-trace-kernel@vger.kernel.org,acme@kernel.org,namhyung@kernel.org,irogers@google.com,linux-perf-users@vger.kernel.org,jikos@kernel.org,bentiss@kernel.org,linux-input@vger.kernel.org,tj@kernel.org,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,sched-ext@lists.linux.dev,shuah@kernel.org,linux-kselftest@vger.kernel.org,ojeda@kernel.org,rust-for-linux@vger.kernel.org,arnd@arndb.de,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,abuehaze@amazon.com,doebel@amazon.de,mpohlack@amazon.de,jay.wang.upstream@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kern
+ el.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu,  1 Oct 2026 23:45:55 +0000 (UTC)
 
-Hi,
+--===============0210627898918852927==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 2:54=E2=80=AFAM Aohan Mei <ljp1205831794@gmail.com>=
- wrote:
+> bpf: take the vmlinux BTF from the btf_vmlinux module
+
+TL;DR: Retrying __sys_bpf() in bpf() may break BPF_PROG_LOAD: the failed first
+run can write the kernel's record size into uattr, so the retry may fail with
+-EINVAL instead of -E2BIG and libbpf won't recover.
+
+> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> --- a/kernel/bpf/syscall.c
+> +++ b/kernel/bpf/syscall.c
+
+[ ... ]
+
+> @@ -6525,10 +6544,40 @@ static int __sys_bpf(enum bpf_cmd cmd, bpfptr_t uattr, unsigned int size,
+>  	return err;
+>  }
 >
-> From: Aohan Mei <henrymei@tencent.com>
->
-> receive_rcom_lookup() derives the resource name length from the
-> peer-supplied 16-bit h_length header field:
->
->     int len =3D le16_to_cpu(rc_in->rc_header.h_length) -
->               sizeof(struct dlm_rcom);
->
-> The 3.1 receive path only bounds h_length to the range
-> [sizeof(struct dlm_header), DLM_MAX_SOCKET_BUFSIZE] in
-> dlm_validate_incoming_buffer(), and the RCOM case in
-> dlm_midcomms_receive_buffer_3_1() performs no further length check
-> despite its "length already checked" comment.  A peer can therefore
-> send an RCOM_LOOKUP message whose h_length is smaller than
-> sizeof(struct dlm_rcom) (48).  The subtraction is evaluated in size_t
-> arithmetic and wraps, and the result is assigned to an int as a
-> negative value.
->
-> Both consumers of that length only guard the upper bound
-> (len > DLM_RESNAME_MAXLEN), which a negative len passes as a signed
-> comparison:
->
-> - with rc_id =3D=3D 0xffffffff, len reaches dlm_dump_rsb_name() ->
->   dlm_search_rsb_tree(), where memcpy() converts it to a huge size_t
->   and overflows the on-stack 64-byte key buffer;
+> +/*
+> + * With CONFIG_DEBUG_INFO_BTF=m the vmlinux BTF is loaded on demand, but never
+> + * from within a command: loading waits for user space, and a command may hold
+> + * locks or run from a BPF program (bpf_sys_bpf()).  A command that needs the
+> + * BTF while it is not loaded fails as it would without BTF.  If the command
+> + * is one whose failure leaves nothing behind, load the BTF here, on entry
+> + * from user space with nothing held, and run the command once more.
+> + */
 
-This case is already covered in dlm/next. [0]
+[ ... ]
 
-> - otherwise len reaches dlm_master_lookup() -> _dlm_master_lookup(),
->   where jhash() converts it to a huge u32 and reads out of bounds.
->
+>  SYSCALL_DEFINE5(bpf, int, cmd, union bpf_attr __user *, uattr, unsigned int, size,
+>  		struct bpf_common_attr __user *, uattr_common, unsigned int, size_common)
+>  {
+> -	return __sys_bpf(cmd, USER_BPFPTR(uattr), size, USER_BPFPTR(uattr_common), size_common);
+> +	unsigned int misses = bpf_btf_vmlinux_misses();
+> +	int err;
+> +
+> +	err = __sys_bpf(cmd, USER_BPFPTR(uattr), size, USER_BPFPTR(uattr_common), size_common);
+> +	if (IS_MODULE(CONFIG_DEBUG_INFO_BTF) && err < 0 && bpf_btf_vmlinux_retry(cmd, misses))
+> +		err = __sys_bpf(cmd, USER_BPFPTR(uattr), size, USER_BPFPTR(uattr_common),
+> +				size_common);
+> +	return err;
+>  }
 
-This case is partially covered but lacks a check for negative values.
-Can you send a patch to change it to unsigned int? [1]
+Is it safe to run __sys_bpf() a second time on the same uattr?  The comment
+and the commit message say a failed BPF_PROG_LOAD "leaves nothing behind" and
+"fails again the same way", but the first run can write into the caller's
+attr.
 
-- Alex
+When the func_info, line_info or core_relo records are larger than the
+kernel's struct and have a non-zero tail, the failing run writes the
+kernel's record size back into the attr, which is an input field:
 
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm.git/=
-tree/fs/dlm/lock.c?h=3Dnext#n632
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm.git/=
-tree/fs/dlm/lock.c?h=3Dnext#n1273
+kernel/bpf/check_btf.c:
+	if (ret == -E2BIG) {
+		verbose(env, "nonzero tailing record in func info");
+		/* set the size kernel expects so loader can zero
+		 * out the rest of the record.
+		 */
+		if (copy_to_bpfptr_offset(uattr,
+				  offsetof(union bpf_attr, func_info_rec_size),
+				  &min_size, sizeof(min_size)))
 
+The same happens for line_info_rec_size in check_btf_line() and for
+core_relo_rec_size in bpf_check_core_relo().
+
+With CONFIG_DEBUG_INFO_BTF=m, suppose the global miss counter moves while
+this load runs.  That happens if any bpf_get_btf_vmlinux() call misses, for
+example another process loading BPF, or btf_module_notify() for a module that
+is loading.  Suppose the carrier module can also be loaded.  Then
+bpf_btf_vmlinux_retry() returns true and the second __sys_bpf() copies the
+attr in again.
+
+func_info_rec_size (or line_info_rec_size) now holds the kernel's size, but
+the user's func_info/line_info array is still laid out with the original,
+larger stride.  prepare_btf_func() and check_btf_line() then read record i
+from the wrong offset, landing in the previous record's non-zero tail, and
+fail with -EINVAL ("same or smaller insn offset", "Invalid
+line_info[%u].insn_off") instead of -E2BIG.
+
+libbpf's bpf_prog_load() recovers from E2BIG only here:
+
+	while (errno == E2BIG && (!finfo || !linfo))
+
+which rebuilds the records with the size the kernel wrote back.  With EINVAL
+that path is skipped, so a load that works without this patch (E2BIG, libbpf
+trims the records, then success) now fails, and the verifier log shows a
+misleading message.
+
+A miss in the same run does not trigger this, because it fails earlier
+(attach_btf, CO-RE candidates, kfunc).  Only a concurrent miss before the
+vmlinux BTF is first loaded does, for example during boot.
+
+Should the retry be skipped when err == -E2BIG, or more generally when the
+first run may have written into uattr?  kernel/bpf/syscall.c is not touched
+by later commits in the series, so nothing there changes this.
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36938681172
+--===============0210627898918852927==--
