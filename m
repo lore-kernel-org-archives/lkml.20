@@ -1,57 +1,57 @@
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98DB3CAE60;
-	Thu,  1 Oct 2026 10:33:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60CC3B14D4;
+	Thu,  1 Oct 2026 10:32:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850786; cv=none; b=OM6nfUGDnHoJc7oLLoY92+cvsZge2LTpCYP9myw7fx5GZH/hDpNs8xMKYxR9ylR5F3yURxhnahAF1BG30EEIb9AQUrlQGN+93LpaNeKsOa0YIZeeHcEl0h+qyF90pyuntSUM1U7B/OvfqlevBoGlcvaqOsKuWYAenTCykWcXv1A=
+	t=1790850784; cv=none; b=S+BtV8ioZMzCdKy+bPzQ/fuCWy/gh1FCO1lGDhYFnt/Bhd+HD5kTDK/pWS+wwzKdPVzEGJiP8837wt200dgwONWSHD8BruYLcodRxUE9V/Hv2Oqcdaqpg7xnhx3lfKZtTcDDSzV+m2R/rnDhxLs5bFsAaHBZI/myY3IktJCERTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850786; c=relaxed/simple;
-	bh=qALfMiUHDYijJcvbtCwBcC0OPIYQ8lDGDlviiADxdU0=;
+	s=arc-20240116; t=1790850784; c=relaxed/simple;
+	bh=Y0PvQyutKHqaQtIMSOhQdFa8HvgdjmLyyvO0e+Xzy4Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DDUHApbfRvzPK3h+QxQZI8bYYJARZNQb6MXYavZAgf+8rlwDuL8BJ3qBX1S/kqo8IGwobgrWXtHftZbsbzDvrTYlg42r1uPMRBzDeZntQPenNWu8O9usagbRidkfe4yPPtGIlziUvnBzngbIX4epqLfk2f06sJ/Rvz8iAOcIzno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sEUs1vKd; arc=none smtp.client-ip=148.163.158.5
+	 MIME-Version; b=jOY0PX/21UNunwhkvc/6vK3cM33Nygqy+PNJYcaCa5U5hmjcl3Elgv+AUntHUdHkCKaBxrCKM9Ue8E9Z7nQBxOBGX+i43Ajlo/SxbaiVuK7UVlCk4wCzl7lUGuSTAk9ErE5rqhN7mhkmq5iLwUExhSgm5z7jFhexX0mJAgW/1sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hM41kKeq; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sEUs1vKd"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175l724041113;
-	Thu, 1 Oct 2026 10:32:57 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hM41kKeq"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175gtb1086145;
+	Thu, 1 Oct 2026 10:32:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=i1NqJTaCCaaWkP3mr
-	EF26OKwrpoEAGqjT9RmUwL5PuE=; b=sEUs1vKdGJljXHiPfswlpoboFCllx11HB
-	btiUEcatOUgohdNS9YqTYMNONWjedfoC3AP+0XyqTLHEBtWuzy4dvBje2fskFQIA
-	b+bQHXhFjP2MBVtt9pXOn+HfOy1T+FzZR2zLBQvHYtAhRYhuQsoCm+QLmZH+SD/f
-	k1rYzNhTF4yRoTkgiIZ41ABgtD3yynDKbz+ldd64QprV9Vyx8i8D0BsAU9K3nW1E
-	ymL/XWTs66y6b+Aqsbl/uJccCEwl8Awpl2mx7Q60xsW4AM4WRFNwcQrQn5KqEyBT
-	KfDp1MN4kVKmEZQvjOidUDX/A0dhar8CKynWPl4/93MicI7LkxFEA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fehfna-1
+	:mime-version:references:subject:to; s=pp1; bh=7pGi7tHyDacownkdG
+	NZ1hvbgU7e5FUAgdLF7CQdtfEo=; b=hM41kKeqcjF5n1mURkmXM3cKLV65nIXPm
+	/ZtNihGLyrSwl8udpAktP0x0LJxU1UdJXrODDdNHaSoNZ7J9Fu0IVmqOlBokgDvE
+	AOu+2wUYi82xhdS1S+8vnB+9wHw3Ou2eSoD6LbHxGnkJdl5sVfluHPm28BP3mf/Z
+	LO8lDcHXfzIk9M9st0rGnfspODQ8v/Vzc2Cc0hC4iauWoYSZhCIQGIW26XGQmFCJ
+	xQRvmaidNhDTEyYacH7iDwpuCdkfI04X8NXzuS7hVq/NxsqwVDKQynoPvzDMLao/
+	PRMOymqOMgGH/6A5Os3W4VjYW7m+Jq/bbq1JLnkitSWrC7clM9SMg==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5pthcgq-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 10:32:57 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69172Yrj589689;
-	Thu, 1 Oct 2026 10:32:57 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h1aa7tf56-1
+	Thu, 01 Oct 2026 10:32:55 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69172s123460471;
+	Thu, 1 Oct 2026 10:32:54 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0q4pexb0-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 10:32:56 +0000 (GMT)
+	Thu, 01 Oct 2026 10:32:54 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691AWrVs39911710
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691AWokO39125398
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 10:32:53 GMT
+	Thu, 1 Oct 2026 10:32:50 GMT
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E49AB20040;
-	Thu,  1 Oct 2026 10:32:52 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id B273520043;
+	Thu,  1 Oct 2026 10:32:50 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9F51020043;
-	Thu,  1 Oct 2026 10:32:52 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 769452004B;
+	Thu,  1 Oct 2026 10:32:50 +0000 (GMT)
 Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
 	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 10:32:52 +0000 (GMT)
+	Thu,  1 Oct 2026 10:32:50 +0000 (GMT)
 From: Heiko Carstens <hca@linux.ibm.com>
 To: Alexander Gordeev <agordeev@linux.ibm.com>,
         Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
@@ -69,9 +69,9 @@ To: Alexander Gordeev <agordeev@linux.ibm.com>,
         Janosch Frank <frankja@linux.ibm.com>,
         Claudio Imbrenda <imbrenda@linux.ibm.com>
 Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH 17/32] s390/cert_store: Convert inline assembly to EX_TABLE_INSN
-Date: Thu,  1 Oct 2026 12:32:32 +0200
-Message-ID: <20261001103247.1989111-18-hca@linux.ibm.com>
+Subject: [PATCH 09/32] s390/extable: Rework exception handling logic
+Date: Thu,  1 Oct 2026 12:32:24 +0200
+Message-ID: <20261001103247.1989111-10-hca@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261001103247.1989111-1-hca@linux.ibm.com>
 References: <20261001103247.1989111-1-hca@linux.ibm.com>
@@ -83,59 +83,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abe36d9 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Proofpoint-ORIG-GUID: nbz44dwEeHIaiQ2KlvsHidJPYJCBh2IF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfXx8ofNfWpYdUo
+ KgxcnLQ57D4FNCd32LJ6k3ubUcBVengjfMKjOAZ9h39jWCCWkAMd2qbT0uKdyfDO8TX7XpgmeSX
+ WjH761SgZiPkW9aRdAsKhlr0oI5g2nClJX1UxOz4zK/Hec4K7DSp/j8wWfXrgkUFssTGXhYlUi2
+ hRF9lxz/WCWKpX8UQHd1X7vgymji+qXP1f7DA8nLH9scP0ETnDXyhKI/buFPeCqLDbS2xWkCQty
+ zkZYFlPyfT6Z0kcw0hRbWlybIlj6ImENovblpYggEKuR7agMfbPHovkIZmfAyHX+PhQr5msBgZa
+ JDdYrH0CTZuOMU4chQM13e3GOdMRf/t+h/T1MKjuGzc7j1YmyGjVw7oqFNlkpcAvoAqjShQrVc7
+ p5N2c8dQRmb3AxrEckOiEjSlflLy80gwMINFRCDy7oLul40mX21r3BFDXmlUfjnsYWJ/oGbXYkA
+ XBvmzMAiBxfe5acylRg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfX3kmPyAUZhRUS
+ zT1N7CkErveNMYk/Kwzf98cyM8QWYyojUpSaP06rlOCo/YKV0jDEDNS/4IgeZ9eCKVRghY6Nf2m
+ XYTfLBstGRG12tS7uqVncDpRo85BHHM=
+X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6abe36d7 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=v0tfPaRulT_9CaumWagA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfXwMK+a4RdyWKa
- s2xq4Z07+nRqiVunZ55ACr0ub7oQqX3vLsw54hsQConUyt7pIPNaYz6W84TkLGNDboaDkIINTFJ
- Pq0A6wTQKhMkt8LkD8b0vtvpcV+oNCw=
-X-Proofpoint-ORIG-GUID: dVP0wDgjR1zw-dR_f1gACLaG2O8Y9DBv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfX/2CNVf66kQUX
- awijCpmhcyxBBJw4DglkTCdG8ZOXXMpTl6fkffLLoRQPTMLaVA3Yqm+I7pmH8guxT07li9jBGbW
- HJYDE358UI++QybO8DnCltnONz89VRVZWXUg4nVmmtr8Uk6R7zMrlfCM70s0guDELO3pQfvP1GA
- xbJCd8l9YpVY0+v4+Ia9sPvyOv56RLtHw+RnjIHjWcH3JFRleE0tVJb0vq5H858yI8czbT83B1S
- D17BCAqPY0G6dOgQMYEBIk7VskToV9+bGHTRYoXt1JMtgh4WRw5tm7nVONNcmS7jDpwHR1IZqcS
- 3ciGumZx1FGNyqU1AH+ltliJN99BUO2bGocrBJdysbWXvFY/xcL3pipLNGNSyesvK8ZnQ/ZeWpi
- orA2iouDUq5WeOLF3Yhs31XVpoBVuOfWwqx3kWbuXKvGuGNW9vCR4EzilpBlBT9W2T816ehS9op
- zSqJz3jYMDh6/a4N/Hg==
-X-Proofpoint-GUID: dVP0wDgjR1zw-dR_f1gACLaG2O8Y9DBv
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=zA0FmRQ007t9RPfKMkQA:9
+X-Proofpoint-GUID: nbz44dwEeHIaiQ2KlvsHidJPYJCBh2IF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010040
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010040
 
-Convert the diag320 exception table entry to use EX_TABLE_INSN.
-With EX_TABLE_INSN entries always point to the faulting instruction,
-so nopr padding is no longer needed and removed.
+Add EX_TABLE_INSN macros which will replace the existing EX_TABLE
+macros. The macros come with new semantics for the whole exception
+handling: with the new exception handling the exception table entries
+always point to the instruction which may cause an exception. This is
+regardless of exception type, and whether an exception is nullifying,
+suppressing, completing, or terminating.
+
+This improves the current situation where exception table entries are
+required which point to the instruction (nullifying) and/or behind the
+instruction (suppressing, completing, or terminating), since depending
+on usage an instruction can generate different exceptions.
+
+The new EX_TABLE_INSN macros are aliases to the existing EX_TABLE
+macros. The exception handling logic is changed to first perform a lookup
+in the exception tables with get_trap_ip() / boot_get_trap_ip(). If that
+finds nothing, it falls back to looking up with instruction_pointer().
+
+This is a temporary solution until all EX_TABLE usages have been
+converted to EX_TABLE_INSN. When that work is complete EX_TABLE will
+be removed, exception tables will only be searched by using the return
+value of get_trap_ip() / boot_get_trap_ip().
 
 Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 ---
- arch/s390/kernel/cert_store.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/s390/boot/pgm_check.c          | 35 ++++++++++++++++++++++++-----
+ arch/s390/include/asm/asm-extable.h | 10 +++++++++
+ arch/s390/mm/extable.c              |  4 +++-
+ 3 files changed, 42 insertions(+), 7 deletions(-)
 
-diff --git a/arch/s390/kernel/cert_store.c b/arch/s390/kernel/cert_store.c
-index dc1992a675de..998f2da56175 100644
---- a/arch/s390/kernel/cert_store.c
-+++ b/arch/s390/kernel/cert_store.c
-@@ -236,9 +236,9 @@ static int __diag320(unsigned long subcode, void *addr)
- 	union register_pair rp = { .even = (unsigned long)addr, };
+diff --git a/arch/s390/boot/pgm_check.c b/arch/s390/boot/pgm_check.c
+index fa621fa5bc02..56d0be7e2823 100644
+--- a/arch/s390/boot/pgm_check.c
++++ b/arch/s390/boot/pgm_check.c
+@@ -3,9 +3,11 @@
+ #include <linux/stdarg.h>
+ #include <linux/string.h>
+ #include <linux/ctype.h>
++#include <asm/pgmcheck-defs.h>
+ #include <asm/stacktrace.h>
+ #include <asm/boot_data.h>
+ #include <asm/lowcore.h>
++#include <asm/processor.h>
+ #include <asm/setup.h>
+ #include <asm/sclp.h>
+ #include <asm/uv.h>
+@@ -40,19 +42,40 @@ static inline unsigned long extable_insn(const struct exception_table_entry *x)
+ 	return (unsigned long)&x->insn + x->insn;
+ }
  
- 	asm_inline volatile(
--		"	diag	%[rp],%[subcode],0x320\n"
--		"0:	nopr	%%r7\n"
--		EX_TABLE(0b, 0b)
-+		"0:	diag	%[rp],%[subcode],0x320\n"
-+		"1:\n"
-+		EX_TABLE_INSN(0b, 1b)
- 		: [rp] "+d" (rp.pair)
- 		: [subcode] "d" (subcode)
- 		: "cc", "memory");
+-static bool ex_handler(struct pt_regs *regs)
++static unsigned long boot_get_trap_ip(struct pt_regs *regs)
++{
++	static const unsigned long nullified[2] = { PGM_CHECKS_NULLIFIED };
++
++	if (test_bit(regs->int_code & PGM_INT_CODE_MASK, nullified))
++		return regs->psw.addr;
++	return __rewind_psw(regs->psw, regs->int_code >> 16);
++}
++
++static const struct exception_table_entry *search_boot_extable(unsigned long ip)
+ {
+ 	const struct exception_table_entry *ex;
+ 
+ 	for (ex = __start___ex_table; ex < __stop___ex_table; ex++) {
+-		if (extable_insn(ex) != regs->psw.addr)
++		if (extable_insn(ex) != ip)
+ 			continue;
+ 		if (ex->type != EX_TYPE_FIXUP)
+-			return false;
+-		regs->psw.addr = extable_fixup(ex);
+-		return true;
++			return NULL;
++		return ex;
+ 	}
+-	return false;
++	return NULL;
++}
++
++static bool ex_handler(struct pt_regs *regs)
++{
++	const struct exception_table_entry *ex;
++
++	ex = search_boot_extable(boot_get_trap_ip(regs));
++	if (!ex)
++		ex = search_boot_extable(instruction_pointer(regs));
++	if (!ex)
++		return false;
++	regs->psw.addr = extable_fixup(ex);
++	return true;
+ }
+ 
+ void do_pgm_check(struct pt_regs *regs)
+diff --git a/arch/s390/include/asm/asm-extable.h b/arch/s390/include/asm/asm-extable.h
+index d23ea0c94e4e..488bd10452b3 100644
+--- a/arch/s390/include/asm/asm-extable.h
++++ b/arch/s390/include/asm/asm-extable.h
+@@ -92,4 +92,14 @@
+ #define EX_TABLE_UA_MVCOS_FROM(_fault, _target)				\
+ 	__EX_TABLE(__ex_table, _fault, _target, EX_TYPE_UA_MVCOS_FROM, __stringify(%%r0), __stringify(%%r0), 0)
+ 
++#define EX_TABLE_INSN				EX_TABLE
++#define EX_TABLE_INSN_AMODE31			EX_TABLE_AMODE31
++#define EX_TABLE_INSN_UA_FAULT			EX_TABLE_UA_FAULT
++#define EX_TABLE_INSN_UA_LOAD_REG		EX_TABLE_UA_LOAD_REG
++#define EX_TABLE_INSN_UA_LOAD_REGPAIR		EX_TABLE_UA_LOAD_REGPAIR
++#define EX_TABLE_INSN_ZEROPAD			EX_TABLE_ZEROPAD
++#define EX_TABLE_INSN_FPC			EX_TABLE_FPC
++#define EX_TABLE_INSN_UA_MVCOS_TO		EX_TABLE_UA_MVCOS_TO
++#define EX_TABLE_INSN_UA_MVCOS_FROM		EX_TABLE_UA_MVCOS_FROM
++
+ #endif /* __ASM_EXTABLE_H */
+diff --git a/arch/s390/mm/extable.c b/arch/s390/mm/extable.c
+index 7498e858c401..ca6a1efa49ee 100644
+--- a/arch/s390/mm/extable.c
++++ b/arch/s390/mm/extable.c
+@@ -120,7 +120,9 @@ bool fixup_exception(struct pt_regs *regs)
+ {
+ 	const struct exception_table_entry *ex;
+ 
+-	ex = s390_search_extables(instruction_pointer(regs));
++	ex = s390_search_extables(get_trap_ip(regs));
++	if (!ex)
++		ex = s390_search_extables(instruction_pointer(regs));
+ 	if (!ex)
+ 		return false;
+ 	switch (ex->type) {
 -- 
 2.53.0
 
