@@ -1,75 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6455D43BDA1;
-	Thu,  1 Oct 2026 08:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C52E42C500
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841944; cv=none; b=Po4E7ir3COIEziuIrFLIU09SFDegE1WHyMyTSyTQiughILVye9eN1BIx3gm8w7HrzZU/u4UKMdgWa+RCvOJ1X7263sOWq5vVzJUE7fZcnoQUMSJdQ2k+9azAKThmfWjuAIPKIKI5muiGahV13sIpdQyQFJ0fp7ip88bhC4RsI8I=
+	t=1790841964; cv=none; b=DDfg8TVqI23WSPrzO0TvVWn+H/x5Zlshdb1qyHP3L6Rqrzp2eG9dsRdflMhgVZaf6eFaTqEhNg2CCtfCsrbdsrqpfRIVogGQlP7Un6s83X+FI1Xawp17jWNclCdfrEF0YFPvGO+e/I2zaI7/gZFltGYmkEhiVK0K4JBBn64aeUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841944; c=relaxed/simple;
-	bh=6i++DhDCJo3alPBNnwrUPtudb0DfC5cHquTsuDEHPg8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iO/hh1ey2grry3E7faMfF+EX2kTcJ6txh0SbsWRklCoo4HVNCr9j8X7E0qYW/QRW0cL90/KKQ4W4buASsxkE1PT2WuouCqwzC2Sd2SgHyqOfetq5yUyYsO0EVmMHZElk0JsSbOGIqJsKXInSHhxI1Lz/SvbctnF9FWqfrV6dECg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9/IDkVg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790841964; c=relaxed/simple;
+	bh=HFACzAThRwF4HNWhXY+Az/0bPEtPTupok3k1g20gs/A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=dyPf8iZ1UUuaWnWyZ9TxkhR9tS34gDmf9MwsuCqLptipWkI6OrGZBb3UcLATp+dizWuthJT2B/NFP4kVXb1BixnPEDVqYTOA+DVPf0XdenzUbWHwN5ULaZnl4T6vY3Hr7b7rtynC13z4c1H/JRW4g3KQGzxo0EXPfJVMXYlizHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=UUQVNnuk; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9/IDkVg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55FF1F000FF;
-	Thu,  1 Oct 2026 08:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790841943;
-	bh=PGdqsABiHifezL69EQkKgockADvH39dMNn1MkutZUlU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y9/IDkVgxh7FvYe+24kJvQV30H1sGhInXRDF37M7Id1szihp3UUzg2Af7pGxKy8v+
-	 HmqWMx+3VUhxt+M8xLrTB40t4tZOecSJ/CaSmxnieoT7VolyewNLt36gBG9IMPiZ8a
-	 mkhs1P/pZspYG/O/U4w+wDrWInsNWatn1RcmcGnPWhxZJ5Neq+4v8gP4WaUaOUePha
-	 RZFHQOmfYZJbi86cAgWcKB8u+Uu7qiIOnXuQofDqZpqlLxImrb6zRoNfLtellzvYqB
-	 zyCvJiiVIP7XGhSDZz38TriJrMytpfoiRvcpBMuBNxKw2ePPxoDwJfGLmodU6eVr41
-	 6L6Ni9RdVgNog==
-Date: Thu, 1 Oct 2026 09:05:36 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, stable@vger.kernel.org, 
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
-Message-ID: <ar4T2vmGD1vZfAaI@gremlin>
-References: <20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org>
- <20260930152139.e8fc193b9c2880b625fda814@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="UUQVNnuk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D68B24E410F0;
+	Thu,  1 Oct 2026 08:06:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A2CAE60341;
+	Thu,  1 Oct 2026 08:06:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A162A103292AE;
+	Thu,  1 Oct 2026 10:05:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790841960; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=7LxKkS3OIA86iEfYPpkA2C4DKR5gB3TTQi/gBFlt+qA=;
+	b=UUQVNnukjjn8j6yk9Pplw+4ty1+2fd0IMaaKfWBl1Y2oucBOl5kGU5f3wzVPu4n6wRt0MO
+	RpQMiVmRZPx6DFBpgMMiMnhm05WRQzsEn1OsuNhLntEWMZWsxkk53tg4aolZJSWq3Q4V7Q
+	e7u5wOj8vIKqIQsG3gi0RwaUosB0I0qRdVDGHxfxGMe/u2Cd0afmkNyLuN12KwukNyHv93
+	6yZVl7QLQf1H2YoQ9a/NE7+OyHAPBlFT+AzF5jJef1RxcT70aiFvh/RHKf3MBuFpx/4F9j
+	ol73MgsyWlLh7AwUpX0r2cuXF2Vztj6zKYV+oqL3+82k0Lrj3a2QCtnPKjjjJQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sasha Levin <sashal@kernel.org>
+Cc: "kernelci.org bot" <bot@kernelci.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260929114828.3260345-1-sashal@kernel.org>
+References: <20260929114828.3260345-1-sashal@kernel.org>
+Subject: Re: [PATCH] drm/panel: select DRM_KMS_HELPER
+Message-Id: <179084195736.1090687.3586500502136676199.b4-ty@b4>
+Date: Thu, 01 Oct 2026 10:05:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930152139.e8fc193b9c2880b625fda814@linux-foundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 30, 2026 at 03:21:39PM -0700, Andrew Morton wrote:
-> On Wed, 30 Sep 2026 19:47:08 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-> > v2:
-> > * Added tags (thanks everybody!)
-> > * Updated 2/2 to avoid splitting the VMA if the VMA was not mlock()'d. It
-> >   is only meaningful and necessary to perform the split in this case. This
-> >   also fixes the proc_maps_race selftests that broke, as reported by
-> >   Anirudh.
->
-> Here's how v2 altered mm.git's mm-hotfixes-unstable branch.  Quite a
-> large change - are you sure that retaining the tags was appropriate?
+On Tue, 29 Sep 2026 07:48:28 -0400, Sasha Levin wrote:
+> Since the panel_bridge code moved into drm_panel.c, any config with
+> DRM built in but without the KMS helpers fails to link, for example
+> arc haps_hs_smp_defconfig with allnoconfig and the kselftest fragment:
+> 
+>   arc-elf32-ld: drivers/gpu/drm/drm_panel.o:(.rodata+0x28): undefined
+>   reference to `drm_atomic_helper_bridge_duplicate_state'
+>   arc-elf32-ld: drivers/gpu/drm/drm_panel.o:(.rodata+0x2c): undefined
+>   reference to `drm_atomic_helper_bridge_destroy_state'
+>   ...
+> 
+> [...]
 
-It's not a large change conceptually.
+Applied, thanks!
 
-The dontunmap_complete() delta is just reverting it to what it was before.
+[1/1] drm/panel: select DRM_KMS_HELPER
+      commit: 82e81301ef3b2c7345702c9d5e7374492680df20
 
-The rest of it is literally just checking for VMA_LOCKED_BIT to avoid an
-unnecessary split.
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-So yeah I think fine to retain tags.
 
---
-Cheers, Lorenzo
