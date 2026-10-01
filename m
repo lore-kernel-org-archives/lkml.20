@@ -1,160 +1,101 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DED52FE24
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:15:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D0F486431
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878536; cv=none; b=hL28HJQPSeBeTN/Yv9MXBGuFkw9/a7GMcz6FbrrrxNiHum1+yZYvxc5Mfu3x9pvtny94huf0OtSKsg9LT6bCdOD7WbC6GuA8MCRQ0GhfjUVICSIXXSBVjnvxmJRI+Q+Q0qI+NZYc7grnitecCiGkJO3lkFEyzXH6FHMmWUG2JWQ=
+	t=1790878607; cv=none; b=N40yfq4o+E++Gt3lwsO0XlKe+/vcFnGISRO6gpwPRAHhi45CjJw0qWnB9yuhVso2+rl73zA24DS8FTCo1QP0SzS+oDJYtYJdPv21DI2dWf5WTmR9ucYIoyutFDNv4X+YivSx6zuKmQryyD5e9DoEVAxtfoZyeTnxwWvd6bZSe6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878536; c=relaxed/simple;
-	bh=UYIxpue9U7wLOldjTAEq2Y8YcpIjqgAN3TM8JYsRuCU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pd+XsmE9gDYFOoxurLodke+Js+w8eTppaa96H1Ih5K85XZOzV/Kp/1rn3/i0A9CHqgv+8kHyzSJoUWBuNRQ8yJWGJIwPQVV1Do9tqz66/aiO+hDh6mKlRg8gwNKHppGLvY0X5094wkU3T6yXP36QJr50KeydBcUiC7R+7fEITEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iI4+Zd05; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790878607; c=relaxed/simple;
+	bh=KILrO5C2pN82m6mxD22TjUAkf2TJhwYe9y4RpURq5V4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=n3WoAvrkXxhkVWULMJYkB63q1eWG9zfLsbemdbrYHEtrhES/96kdxaxYwBb8ZFXkNmpYHC0mv9l7zo7JDalX6VBpLqbJki1Y4MYQZXsHa/7UF33kejVoI6fxja/dZm+M0zqQoXWzyLOjxPBeYukqzW+JIbPCsk8jQBvh9EyU0wI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i7uRVcPq; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iI4+Zd05"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790878528;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=A0IEnKIIoe14yk04bwWgYY6XA9TxUuiuYvjrXGnIi6w=;
-	b=iI4+Zd05rqa21SgNKBTgQtCD6h2kZ/uA/saUBDopt7ukHJogAStLOtFyY9W4cZduxiYuVp
-	HEsOfQlF8eyfmQT4b4DQMX8XWNL9i7CnYI2ypbB53/nvHwwPbtWe4T6EN01zkkj2I0raom
-	FwqdEse1fABq/7nma2vNg9hvaIn4k8o=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-211-3j7Aynp0Me-5pNw8J8K6SQ-1; Thu,
- 01 Oct 2026 14:15:26 -0400
-X-MC-Unique: 3j7Aynp0Me-5pNw8J8K6SQ-1
-X-Mimecast-MFC-AGG-ID: 3j7Aynp0Me-5pNw8J8K6SQ_1790878525
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B1EDD180049F;
-	Thu,  1 Oct 2026 18:15:24 +0000 (UTC)
-Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7CA3430000E4;
-	Thu,  1 Oct 2026 18:15:23 +0000 (UTC)
-From: Luiz Capitulino <luizcap@redhat.com>
-To: sashal@kernel.org,
-	stable@vger.kernel.org
-Cc: rppt@kernel.org,
-	sayalip@linux.ibm.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6.12.y v2] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
-Date: Thu,  1 Oct 2026 14:15:18 -0400
-Message-ID: <20261001181518.685129-1-luizcap@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i7uRVcPq"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so38805565e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:16:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790878602; x=1791483402; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KILrO5C2pN82m6mxD22TjUAkf2TJhwYe9y4RpURq5V4=;
+        b=i7uRVcPqfZY0di1GOTj5XQhALY1tXdaLkpXkUfWTa/pijub4czHhP02khT0xHEyQGU
+         oaq9Nq7ktZFpuH3Vn90v4v1EKbzVrNT0cmo9eiyXU5UShIzTGytuXEqiE9bBLXgygMUi
+         0IcPB94OE86YACJNAA48YO2+ktattQ8B/95RlaExYPwGqUIHhwA0zwJGuWSufeC99Rim
+         mU2UptBUvWzN6MCS9Cc6+k0FGe+GPjyZaNyBpqzupTkpB29E8G9H1i660xSwiJayHJYV
+         fBilbmLj64kAnh/0dp8jet25l9gPIkucDbo7HB8O0+l9nqyDhLqi0Rne2NjSVW1AyUZf
+         p8ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790878602; x=1791483402;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KILrO5C2pN82m6mxD22TjUAkf2TJhwYe9y4RpURq5V4=;
+        b=Q+2l6FFYzcDO+gKl8LkQOTyNqHmFXGkqzz7eAwzjF0p9vumfJjz4JKNEhb54L5VUxY
+         uxVosXzYiFcmF9eKING4jz/gqBUj4mqpWItjb+95+Ydf3YPMP3TJp2VaXHGoStNaOPRG
+         PUzu27be/cH1ghxf3IIYQobOb1qUsdmFOrxznnhFZp37v5Z5d6HXZcVwmEPPVjI6do3Z
+         ITai+o2hvQ82JWFIBVZcxVXa5FgiyHNo7OhcUxE6b9iTEVLkzP7/OvyaOTDMyRsByg7B
+         7rUkAnrbf7pOclzk5gDS8h1ZBz3g6PzPq0OLOV6UPo8qemomwPGCEJo3CESFtgDmSNm7
+         PvJg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+ovirgqbPXndkLEcgvxqCDMbsssw2sYDktMYD3szMEeNt/iaiEO6XKnglbAivoOEakfMaWxZiNPzoIeA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwAYpnf+t8ZZFrHCyS6frGBpuU8EeLrPqwGCRMXkISYnM8Pd/U
+	smkyeeCoHsbEphKxOAMRFhP9sb9A4XKMTL9byrMC6Ie/XbqEwjhOGt0=
+X-Gm-Gg: AYBFou0e5DT0cuC5nlZFEfBKx7EIYJd3uPzaZdAxvOjVEDcvbbOZl8rFB3ddOwMXW3o
+	xuTwPtrNxTrt5hZ5as5qRniFi5I3HSx9YPLfPOpKebCwtQnuOn8RCVoAyCcvjHHNs/Bg6nheswo
+	xijZvKxTEpN3vTdWu8YhcmbwrW2vTHcXwQLOJp5CZz+M7N7m71TRtmYuBVxmaHMY2J4om5Xyq8Q
+	UzxbrAgZb+Ny+3rswqWpHnjaPZFdKm8J5GvLhoZQ/ZA2/nJVbvmnwCevfQUzNd/Jtq4+PXzZsnU
+	HmPZDdpcdqugbu7BNXdMv7FMjDPR7Bf2V4mUr5J38JClaS4iQu+cG02fD3NeN1p356uW0b24Gqu
+	GsFGS6qKeLDk6Gls9uMEpuHf2Guo0WL4aujY/3Y4kHVIgbycxqE8lSVOQ0MFnrK6a1ZaQDA6ZEC
+	n89KtyfC0nzZyI7joM9o3Jj3355WhR8e+VZW0vyq0rA44Pok8VXOOLx4RyWdgd1O2exF3r/I5g4
+	EtpFY7oYKnFBhMx47YzpaRP38e/02Bo7HYFlG5o4WAjeru1sNVzz1zEgL7Asc0duQ==
+X-Received: by 2002:a05:600c:16d3:b0:4a0:263c:7064 with SMTP id 5b1f17b1804b1-4a0275758admr5878605e9.11.1790878601918;
+        Thu, 01 Oct 2026 11:16:41 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02770fe4csm8482415e9.7.2026.10.01.11.16.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 11:16:41 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Thierry Chatard <tchatard@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: Re: [PATCH v11 2/9] mfd: intel-lpss: add Dell Latitude 7275 to the resource conflict quirk
+Date: Thu,  1 Oct 2026 20:16:39 +0200
+Message-ID: <20261001181639.1788077-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ar4GYJvy_w-ZMJb4@ashevche-desk.local>
+References: <20260930214321.600863-1-tchatard@gmail.com> <20260930214321.600863-3-tchatard@gmail.com> <ar4GYJvy_w-ZMJb4@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+On Thu, 1 Oct 2026, Andy Shevchenko wrote:
+> > Assisted-by: Claude Code:claude-fable-5-1
+>
+> Assisted-by: LLM
 
-commit a914785f6349da754e1226420bf4e51961956769 upstream.
+Author of 2/9 here: agreed, and thanks for catching it.
+coding-assistants.rst reserves the optional fields for analysis tools
+(coccinelle, sparse), not for the model, so plain "Assisted-by: LLM" is
+right. Thierry, please just fix it in v12 — no need to check with me
+about editing the trailer.
 
-hugetlb-mremap test fails if there are no free huge pages prepared by a
-wrapper script.
+Thanks for carrying the patch.
 
-Add setup of HugeTLB pages to the test and make sure that the original
-settings are restored on the test exit.
-
-Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Luiz Capitulino <luizcap@redhat.com>
-Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Donet Tom <donettom@linux.ibm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Liam Howlett <liam@infradead.org>
-Cc: Li Wang <li.wang@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-[ Backport-notes: this is a partial backport containing only the aligning
-of 'length' to the hugepage size. The hugepage_settings.h include line and
-the hugetlb_setup_default() call are omitted. Without this fix, the
-uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
-default HugeTLB page size causing the test to fail with the error below as
-'length' is 10 MiB and not aligned to the HugeTLB page size.
-
-  # -------------------------
-  # running ./hugepage-mremap
-  # -------------------------
-  # TAP version 13
-  # 1..1
-  # # Map haddr: Returned address is 0x7eaa40000000
-  # # Map daddr: Returned address is 0x7daa40000000
-  # # Map vaddr: Returned address is 0x7faa40000000
-  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
-  # # Planned tests != run tests (1 != 0)
-  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-  # [FAIL]
-  not ok 1 hugepage-mremap # exit=1
-  # NOTE: These hugetlb tests provide minimal coverage.  Use
-  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
-  #       hugetlb regression testing.
-  # SKIP ./uffd-wp-mremap
-]
-Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
----
- tools/testing/selftests/mm/hugepage-mremap.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-v2
-- Preserved original changelog & subject
-- Small code style difference from v1 due to git cherry-pick usage which
-  preserved the original commit style
-
-diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
-index 3070484f9ed0..164bbda8128f 100644
---- a/tools/testing/selftests/mm/hugepage-mremap.c
-+++ b/tools/testing/selftests/mm/hugepage-mremap.c
-@@ -87,6 +87,7 @@ static void register_region_with_uffd(char *addr, size_t len)
- 
- int main(int argc, char *argv[])
- {
-+	unsigned long hugepage_size;
- 	size_t length = 0;
- 	int ret = 0, fd;
- 
-@@ -104,7 +105,11 @@ int main(int argc, char *argv[])
- 	else
- 		length = DEFAULT_LENGTH_MB;
- 
-+	hugepage_size = default_huge_page_size();
-+	if (!hugepage_size)
-+		ksft_exit_skip("Could not detect default hugetlb page size\n");
- 	length = MB_TO_BYTES(length);
-+	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
- 	fd = memfd_create(argv[0], MFD_HUGETLB);
- 	if (fd < 0)
- 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
--- 
-2.55.0
-
+D. Manresa <dmanresa@gmail.com>
