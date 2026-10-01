@@ -1,139 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521B62F7EE0;
-	Thu,  1 Oct 2026 23:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D5B3D5673
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790897354; cv=none; b=KeHE9TVj1QBJ9Sqmd5P2vuxAgRC9yPbEcwUopJeZlFvhMuwZViCYQiFdkr3gjzz0n8lqrYAtn+akNCUu5aeIEJ3qonctMw8eDOLzplCq5D1AnHwVnYR3q0Kb/vBiMpqDbAJ3NMFfvTqKidOKznOEFEwBntJHaHRuW7a/YDtoIAc=
+	t=1790897375; cv=none; b=PXw9qyJ7vl4G/IG700Hh3s+d/99h66XRuVEzGD80Rh5YwZtgiHrM9oBxUFvm95mTCvo1GqyUtZU69WGe30X2LnGpmcb61QA8e1cG7Mr0zCylZLMlSRhfMsVUteT+dMtpjaT1l3L0ILVvtEiTUJspBG1UpAUjeefbVf+ZX7iEC8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790897354; c=relaxed/simple;
-	bh=F9sNR8uDTG36T1yCX+2t3qyQu6bPwVnlyLuwhWIk1YM=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=uDGpMsRmFHRY3mCK1fHpVdUZhsvjcDV2i+uQF8A1GK28nK7nc8Wo2i26HToCvFq3XnxMpmWdsbaPKx5AICHZnjSNiiJ17hffrs+XA1X06RwBN3zHHSVL0Ey/qbRQSWyC5cf3Syq5Lrk1oVlKEFSS7eS1hDltGR0O9Ihjg3MoHFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CpeBFHqH reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CpeBFHqH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE651F000FF;
-	Thu,  1 Oct 2026 23:29:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790897353;
-	bh=UCp1D+bv7tlX4Dr/jntNO+4AHuP9rt2modE0wkIcwtc=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=CpeBFHqHmryldip33VnRdbzF7UDAkLGKgPdQ9lHYGrW6rtOepKTkX10IheVlSV68s
-	 zP0+ZgJcG6bJNHQ09dSoiIdm4t4Q2z8WoOAAtjBk0k7/hl4Md2ZyvgW3poockTNLH2
-	 NaSj4VRTTucIRopc40Fe4twHCke9Vh2jXEzblEZ2qOYNojWt8POe7HzKlwHhLj7wD2
-	 NerpPQWJ3T/qkqRnZP6EaMXe+ywenBpGPOz4vFuzDM5605Fuz9abCJM58rGHBQDe4C
-	 ml6DhqhVjbS1yy2XEBmIPvgjYCC6tdMC0fEwobsoCpL99DTeXhZka9b3v7UpLTruYk
-	 3SBAUkOKC/JnA==
-Content-Type: multipart/mixed; boundary="===============6923769064512196432=="
+	s=arc-20240116; t=1790897375; c=relaxed/simple;
+	bh=lulebXRJYgCMf2sepGhL7uwJpGuNxICxTGjtx3e9IlI=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rDZEVJi3HoH8T8/IJivO8ZuIlzxBCp120Cy4K45T5sqXAV1Oe3XEKcY/VGaTdPdBe6TFrqPKPnYjW2CR5M7MTtzrNrQ9PHqUFyzMvwKJ8QumM+oQRJeur+LvnEo+ilKvUHn/4aHl+Qy3AoEj7CG9OQoRSBVPa5DaksT9saKShkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4eb0b989f0eso2457910b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:29:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790897372; x=1791502172;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jm8A7dbfF6HWsE7A81+LRliaab1wzvv5kbVtrXeQkyk=;
+        b=WVrt5nppdxfRFakfcCc1HgBhoWxw4iOT1EZWnXgXKkbWFqR/ky0t7TOPMEFQnDdoUc
+         LlTmQRH96W7p+jHrbKI0xg//d7cVn9eFkRblU46fFFxbWve2xCiAiANIykGJHkzJxCt9
+         qD032itIah0K1UUGBtmLRIvGS5q3HEBoGHk0CSBbcw7XvelFuJWQX1MXFimlkUC/RNZN
+         Lzr5mCl8wuYxQQz3IjAnh2Z4mQICLK5ExjRDObR3bDAEUrV4HaOfNraNlKnRb+NSS/9R
+         9m1hUKWL9Vl8uskvC1HuXIKOG4ifl0cjES9lP+t0M6lfj7Owb/3qHn5fo5z+xm0HZTGl
+         yvAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzo7yWSKGwPoPA3ikCKZyv8rADARhgx9u0giJnDmrom2F/TyU0rMvmTHuHKj69obYfwJ788zijFLc2m7Nk=@vger.kernel.org
+X-Gm-Message-State: AFuF++koADnV//xTXbqhwFjVuNjC8c14XNaQI+7bvh3eWi+Z4KjLBltt
+	fG+sEXN6U336w3fQSbkeWXKoBjV/vL2m3R4l4sKdIU6fZ2LC+qwTRoUgUxDIPh1skpcJKO0reAD
+	9GrumlmJT608YGDtknC6nQObU81el5CJSX/TSpaR+2GPFPdcVa/IEr5ZD59U=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <562cbc38006e96e7fed9d935db2dbf4849bb20353f3fc86be22980680557d9d3@mail.kernel.org>
-In-Reply-To: <20261001225214.12351-11-wanjay@amazon.com>
-References: <20261001225214.12351-11-wanjay@amazon.com>
-Subject: Re: [PATCH bpf-next v4 10/12] resolve_btfids: add --btf_link to fill in .BTF.link records
-From: bot+bpf-ci@kernel.org
-To: wanjay@amazon.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: alan.maguire@oracle.com,martin.lau@linux.dev,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,qmo@kernel.org,nathan@kernel.org,nsc@kernel.org,linux-kbuild@vger.kernel.org,linux@weissschuh.net,christian@heusel.eu,mcgrof@kernel.org,petr.pavlu@suse.com,samitolvanen@google.com,linux-modules@vger.kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,linux-trace-kernel@vger.kernel.org,acme@kernel.org,namhyung@kernel.org,irogers@google.com,linux-perf-users@vger.kernel.org,jikos@kernel.org,bentiss@kernel.org,linux-input@vger.kernel.org,tj@kernel.org,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,sched-ext@lists.linux.dev,shuah@kernel.org,linux-kselftest@vger.kernel.org,ojeda@kernel.org,rust-for-linux@vger.kernel.org,arnd@arndb.de,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,abuehaze@amazon.com,doebel@amazon.de,mpohlack@amazon.de,jay.wang.upstream@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kern
- el.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu,  1 Oct 2026 23:29:10 +0000 (UTC)
+X-Received: by 2002:a05:6808:16a5:b0:4d6:9133:cfe6 with SMTP id
+ 5614622812f47-4f30bcdf81amr3861437b6e.43.1790897372471; Thu, 01 Oct 2026
+ 16:29:32 -0700 (PDT)
+Date: Thu, 01 Oct 2026 16:29:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abeecdc.7503fbd6.2d3f6.0010.GAE@google.com>
+Subject: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in md5_blocks
+From: syzbot <syzbot+46bbbe175b7eea8036b8@syzkaller.appspotmail.com>
+To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
---===============6923769064512196432==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hello,
 
-> resolve_btfids: add --btf_link to fill in .BTF.link records
+syzbot found the following issue on:
 
-TL;DR: Not a bug: patch_btf_link() duplicates most of patch_btfids()'s ELF
-open/find-section/update code, so each --btf_link reopens and rewrites the
-file; suggests a shared helper or a single ELF handle.
+HEAD commit:    6375e61c01e9 Add linux-next specific files for 20260928
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=17231325580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1dae85014253be90
+dashboard link: https://syzkaller.appspot.com/bug?extid=46bbbe175b7eea8036b8
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=138ff605580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13d21ac9580000
 
-> diff --git a/tools/bpf/resolve_btfids/main.c b/tools/bpf/resolve_btfids/main.c
-> --- a/tools/bpf/resolve_btfids/main.c
-> +++ b/tools/bpf/resolve_btfids/main.c
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/dac817cfa9ca/disk-6375e61c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e503a06f8d7e/vmlinux-6375e61c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6a6051b849cb/bzImage-6375e61c.xz
 
-[ ... ]
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+46bbbe175b7eea8036b8@syzkaller.appspotmail.com
 
-> +static int patch_btf_link(const char *elf_path, const struct btf_link *link)
-> +{
+==================================================================
+BUG: KASAN: slab-out-of-bounds in md5_block lib/crypto/md5.c:40 [inline]
+BUG: KASAN: slab-out-of-bounds in md5_blocks+0x120/0xbd0 lib/crypto/md5.c:126
+Read of size 64 at addr ffff88803236dce0 by task syz.1.18/5953
 
-[ ... ]
+CPU: 0 UID: 0 PID: 5953 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Call Trac
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
+ md5_block lib/crypto/md5.c:40 [inline]
+ md5_blocks+0x120/0xbd0 lib/crypto/md5.c:126
+ md5_update+0xef/0x150 lib/crypto/md5.c:161
+ md5+0xed/0x180 lib/crypto/md5.c:202
+ ecryptfs_write_tag_70_packet+0x820/0x12e0 fs/ecryptfs/keystore.c:741
+ ecryptfs_encrypt_filename fs/ecryptfs/crypto.c:1378 [inline]
+ ecryptfs_encrypt_and_encode_filename+0x576/0x1580 fs/ecryptfs/crypto.c:1789
+ ecryptfs_lookup+0x20e/0x780 fs/ecryptfs/inode.c:402
+ lookup_one_qstr_excl+0x12d/0x360 fs/namei.c:1810
+ __start_dirop fs/namei.c:2920 [inline]
+ start_dirop fs/namei.c:2942 [inline]
+ filename_create+0x20e/0x370 fs/namei.c:5103
+ filename_mkdirat+0xd2/0x510 fs/namei.c:5449
+ __do_sys_mkdirat fs/namei.c:5477 [inline]
+ __se_sys_mkdirat+0x35/0x150 fs/namei.c:5474
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe5ba99e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffeb47b2408 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
+RAX: ffffffffffffffda RBX: 00007fe5bac25fa0 RCX: 00007fe5ba99e159
+RDX: 0000000000000080 RSI: 0000200000000100 RDI: 0000000000000003
+RBP: 00007fe5baa3506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fe5bac25fac R14: 00007fe5bac25fa0 R15: 00007fe5bac25fa0
+ </TASK>
 
-> +	elf_version(EV_CURRENT);
-> +	fd = open(elf_path, O_RDWR);
-> +	if (fd < 0) {
-> +		pr_err("FAILED to open %s: %s\n", elf_path, strerror(errno));
-> +		goto out_data;
-> +	}
-> +	elf = elf_begin(fd, ELF_C_RDWR_MMAP, NULL);
-> +	if (!elf) {
-> +		pr_err("FAILED cannot create ELF descriptor: %s\n", elf_errmsg(-1));
-> +		goto out_close;
-> +	}
-> +	elf_flagelf(elf, ELF_C_SET, ELF_F_LAYOUT);
+Allocated by task 5953:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5531 [inline]
+ __kmalloc_flags_noprof+0x52d/0x790 mm/slub.c:5719
+ _kmalloc_flags_noprof mm/slab.h:55 [inline]
+ __alloc_empty_sheaf+0x28/0x40 mm/slub.c:2854
+ alloc_empty_sheaf mm/slub.c:2874 [inline]
+ __pcs_replace_empty_main+0x43b/0x6c0 mm/slub.c:4806
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ kmem_cache_alloc_noprof+0x394/0x600 mm/slub.c:5047
+ ecryptfs_init_fs_context+0x70/0x1b0 fs/ecryptfs/main.c:617
+ alloc_fs_context+0x99e/0xd00 fs/fs_context.c:295
+ do_new_mount+0x17f/0xdc0 fs/namespace.c:3841
+ do_mount fs/namespace.c:4194 [inline]
+ __do_sys_mount fs/namespace.c:4407 [inline]
+ __se_sys_mount+0x31d/0x420 fs/namespace.c:4384
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-[ ... ]
+The buggy address belongs to the object at ffff88803236dc00
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 224 bytes inside of
+ allocated 256-byte region [ffff88803236dc00, ffff88803236dd00)
 
-> +	if (elf_getshdrstrndx(elf, &shdrstrndx)) {
-> +		pr_err("FAILED cannot get shdr str ndx\n");
-> +		goto out_elf;
-> +	}
-> +	while ((scn = elf_nextscn(elf, scn))) {
-> +		if (gelf_getshdr(scn, &sh) != &sh) {
-> +			pr_err("FAILED to get section header\n");
-> +			goto out_elf;
-> +		}
-> +		name = elf_strptr(elf, shdrstrndx, sh.sh_name);
-> +		if (name && !strcmp(name, section))
-> +			break;
-> +	}
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3236c
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88813ff22b40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88813ff22b40 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 29, tgid 29 (kdevtmpfs), ts 16571924726
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1854
+ prep_new_page mm/page_alloc.c:1862 [inline]
+ get_page_from_freelist+0x220f/0x2280 mm/page_alloc.c:3933
+ __alloc_frozen_pages_noprof+0x1fc/0x400 mm/page_alloc.c:5441
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab+0x7d/0x5e0 mm/slub.c:3499
+ new_slab mm/slub.c:3550 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __do_kmalloc_node mm/slub.c:5530 [inline]
+ __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
+ security_inode_init_security+0x102/0x3e0 security/security.c:1386
+ shmem_mknod+0x1ea/0x340 mm/shmem.c:4042
+ vfs_mknod+0x448/0x610 fs/namei.c:5282
+ handle_create drivers/base/devtmpfs.c:283 [inline]
+ handle drivers/base/devtmpfs.c:435 [inline]
+ devtmpfs_work_loop+0x861/0xdf0 drivers/base/devtmpfs.c:450
+ devtmpfsd+0x4d/0x50 drivers/base/devtmpfs.c:492
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page_owner free stack trace missing
 
-[ ... ]
-
-> +	elf_flagdata(data, ELF_C_SET, ELF_F_DIRTY);
-> +	if (elf_update(elf, ELF_C_WRITE) < 0) {
-> +		pr_err("FAILED to update ELF file %s: %s\n", elf_path, elf_errmsg(-1));
-> +		goto out_elf;
-> +	}
-
-[ ... ]
-
-> @@ -1773,21 +1974,28 @@ int main(int argc, const char **argv)
-[ ... ]
-> -	if (btfids_path)
-> -		return patch_btfids(btfids_path, obj.path);
-> +	if (btfids_path) {
-> +		err = patch_btfids(btfids_path, obj.path);
-> +		for (i = 0; !err && i < btf_links.cnt; i++)
-> +			err = patch_btf_link(obj.path, &btf_links.links[i]);
-> +		goto out;
-> +	}
-
-This isn't a bug, but patch_btf_link() repeats most of what patch_btfids()
-does just above it: elf_version(), open(O_RDWR), elf_begin(ELF_C_RDWR_MMAP),
-elf_flagelf(ELF_F_LAYOUT), the elf_getshdrstrndx() plus elf_nextscn() /
-gelf_getshdr() / elf_strptr() / strcmp() loop that finds a section by name,
-and the elf_flagdata(ELF_F_DIRTY) / elf_update() / elf_end() / close()
-teardown.  Only the section name and what gets written into data->d_buf
-differ.
-
-With the loop in main(), a --patch_btfids run with N --btf_link options
-opens, maps and rewrites the same ELF file N + 1 times.
-
-Could the two share a small helper that opens the ELF and returns the
-Elf_Data of a named section, or could the .BTF.link records be written while
-.BTF_ids is being patched, using the same ELF handle?
+Memory state around the buggy address:
+ ffff88803236dc00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff88803236dc80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff88803236dd00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                   ^
+ ffff88803236dd80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88803236de00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+==================================================================
 
 
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36938681172
---===============6923769064512196432==--
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
