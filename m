@@ -1,133 +1,66 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFB05187C8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BD817DFFA;
+	Thu,  1 Oct 2026 14:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863694; cv=none; b=Oy6VZ65qxqeSUtHKT19Ck0HKzdBCuIrt+xntykRKQEpwQu+SkLbdAkTwSE/i0jLbagdNP20WW/GSjPz2rcUChohbkmQTFDjO77hNzuxGv6qeWc2bzbvxqFYMtTPk53v2PAwPZhnjrF4bZGE+7gM+4mz+OdEF8eKBq1McmXkoFaU=
+	t=1790863793; cv=none; b=LX9dit1/POznINpAr8aPxZo6gv8/ziBM78Nv6BhivFfIZUjPgBM2sZETFotHc8Nq3wykoNMZ/4ROgKb3zplTl6R4oCLJPxgZz8KrOnJYPoqWYVV+O42L3F72hTaUPYCHFdzx8pw55Vd94O2vsUCJxI89GGjv+0MQMNtLDzMH9Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863694; c=relaxed/simple;
-	bh=zECpyUBkuoTFGnpwSyLJZls4RBh3ZrxrUUu2x8F+Hms=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=IwJ3gT/mUrbfR2C/Ow00yPXs4zRaZYwRNUNLszXPAdcuugVP5X2e9dtu8KZJog8EmIkbvaqN02AAUd79rUyFlWEd4rPFtrBNScGkpEA8Iu7+tqGKLwhTvu8+44pqqjTf8O2jr0Nl1UJxQFapgAVFr34lFGSx1JNXoyXCBZbJ09w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oRfj7FkH; arc=none smtp.client-ip=74.125.228.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790863793; c=relaxed/simple;
+	bh=M5Ar3MoX3fWOuP+elqUMf7O1tby+6SpIqvoH7bo0HMg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gDuFSZz6F5Wq6U9bnA4bkXivIZtAh7yGgOM82A7N8wButIDgIahPnqYP7wn+r5kPygLN9QGQg7Umr+tlEDx/fTr3d7wtBxRUR1sFvu6nh8gMPJbppUCvkuXnXj4KGd83KXzHHOpBOox8WMYkNjJWJvkzvL5Pxko7DoaHb1lVJX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doC5wVT6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oRfj7FkH"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac768bda6aso7809140a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:08:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790863691; x=1791468491; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zECpyUBkuoTFGnpwSyLJZls4RBh3ZrxrUUu2x8F+Hms=;
-        b=oRfj7FkHiu21TkuJzLEjQ1WBZAQCtT34TaAQiM70+g81xaqgv4HrCXysAoxBMuNWvE
-         n78oFjsZPhERWcCpn0GIfGfM3n2/cwzJrWDMhl1Ok9m0M9zCJxUW6I6ofQghh/RrL/Di
-         FQ3H3lbnZXxCd/EiIVVPf1PyJ5Fx5cnZ2AFLxYFaE1HJKRmPssvs9Xkkb7+Z+4yggMKj
-         k20P6SEwcqJKc9EgxyuIWnN4Yr+4subazOAxjj6BmRlqdIkmeGDS5yXqUf52guMhngh7
-         SggepNmp4yBLjZxCDGd4UQJ8ITJfGhRqOvLrjIhV9wgVBun75ZGzFHN+TrzHdHz/UZbC
-         wZLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790863691; x=1791468491;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zECpyUBkuoTFGnpwSyLJZls4RBh3ZrxrUUu2x8F+Hms=;
-        b=iVln8AqOSD/jFcaXAkRUbWWS9/qd/Q23nyWTAASG4mrOTx5OKBEQ1oMHtE6W/J9CBl
-         HtWikkBWsZIc9F72JnC1QFgzB8XEG2T+4OQCHdvLD3y7qcuNF/4LqJ0MZUF3OGEbbZ14
-         Cko3fWcDsyxpWJkoBMwFlzLqrD83847KeCHmC8k+zgNM70Kss09jj7l7UxRakcDTvAF/
-         08QE1mKwEWxchyFp3tgClPyCXW+rzcRW0MbIymzbfaQfYArSRoYCvmkV5oG8mWtOYRtO
-         nQSzScr0P13YA/zH7SoNGalxbjHEtf157Rjr2CnKW83qp/VB0HMa9HqemO9cFAcSyRgk
-         gkEg==
-X-Forwarded-Encrypted: i=1; AKwUvBwtG/kIEMaA/LpMFm4rQJYLA/ZJB1r3VsctYUnQXiRRbzbSc4dcXMTtK+R++JN80TVIrRdxoxQDxs5mKs4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKs4aKVxrWV5VuzgC4jhdC7mCP36nevt7Q2xa10YVnh2vnEHpaM
-	1ZS9bYWLJoncTT5x416fphblBFCykqiH40B/FZqcyFwqo5XhXDeuwbk=
-X-Gm-Gg: AYBFou21OzuUlfCtkE41qj0ahyCAL+M7+uAYsU1w+PGyqMwL2aGGhRmFTg2knZYuiYh
-	SKGb0OYd370NqZHMCRgD9G5Eomqmb3OHttYwUBDWav3YfLue6yBUikKy1rVXw6RBnki5YTbxiE4
-	MiIIVNwiT4Nh3gYMwDK0lBnw0iGxnRCEZraCGjozdX3eoGB6BrKYqKHE/1d+GGD8IDKtJ4oeuHS
-	TtFTdD6GBHTnMYdMNBZCmsw+xEMFw0Ihw5SxyFikALqbbls2JFif6JH6Sv+SYizz3k97jrowk19
-	OJPg8FKQHoR8PfzyfTot3rEOKw/QIXnliUaLgvoKcSdE5AryKL61wEUM8+UFkFIh2D5emJEltJS
-	Nf8ubg6ViHFqqbisqp74uk1p76weDJSV62QBgJl6Yxb0qJSSBaEDXGbl5Ci11buliRcWy1qeaYt
-	8MudARSnprAyQMYF/pJNUEUWJFH8lSR4+tBAMUZAvlediCfI5GVbmsFr/3oxzZ5thrxXxj4tK6B
-	Kum1IiV7YMjDVxrASDpt3vkKpx4QHDVmj44uv+QqVcp
-X-Received: by 2002:a05:6402:52cf:b0:6ac:c4fd:c726 with SMTP id 4fb4d7f45d1cf-6ae1995216dmr3927218a12.42.1790863690562;
-        Thu, 01 Oct 2026 07:08:10 -0700 (PDT)
-Received: from localhost ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae5ca76374sm1111911a12.30.2026.10.01.07.08.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 07:08:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doC5wVT6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB0F1F000FF;
+	Thu,  1 Oct 2026 14:09:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790863791;
+	bh=M5Ar3MoX3fWOuP+elqUMf7O1tby+6SpIqvoH7bo0HMg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=doC5wVT63GSkFR9Qbp4OZgjya72TueUHOtJecMiNyL2vZERUlywj6Uf2yQFPms2SA
+	 BhFiWLeWewoAwI7TaShiVnDpbsd1rykILkXjhWUMV92vILTbatVHYmQB9EHSgzdphN
+	 tpN19uVy20y7dZv65ecELz8f5tUT30brmQvh2sOQHafuKajfZz7m57Yu23Lt2I6h/K
+	 ajCfbg8lfWM6sEJTueHjAqV19Z30pXqKXaZEhW9gqTdOIil/ExEZFTG7CD78UAFh6T
+	 8K8zi9wrogUz/z2dHXS7UvbbMpQQjOuRfn/v1DH846YKk2b+2tPxzQH2k7MTWM5Dsr
+	 NckNtcwTP9lQg==
+Message-ID: <98de7db9-31a4-4a47-b363-cde395263c87@kernel.org>
+Date: Thu, 1 Oct 2026 16:09:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/15] nova-core: GPU interrupt support and GSP event
+ delivery
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ nova-gpu@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
+References: <20260930034148.590687-1-jhubbard@nvidia.com>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260930034148.590687-1-jhubbard@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 01 Oct 2026 11:08:00 -0300
-Message-Id: <DLTK6X5RFK4Q.1OW6JA242CMRJ@gmail.com>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas Hindborg"
- <a.hindborg@kernel.org>, "Benno Lossin" <lossin@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Boqun Feng"
- <boqun@kernel.org>, "Brigham Campbell" <me@brighamcampbell.com>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Jori Koolstra" <jkoolstra@xs4all.nl>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Rae Moar"
- <raemoar63@gmail.com>, "Shuah Khan" <skhan@linuxfoundation.org>, "Tamir
- Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>, "Yury
- Norov" <yury.norov@gmail.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>
-Subject: Re: [PATCH 0/3] rust: kunit: support #[should_panic] and same test
- name with different #[cfg(...)]
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-To: "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>,
- "Burak Emir" <burak.emir@gmail.com>, "Brendan Higgins"
- <brendan.higgins@linux.dev>, "David Gow" <david@davidgow.net>, "Miguel
- Ojeda" <ojeda@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com>
- <DLSQJS2QT4JW.3BPUMU5M6N171@garyguo.net>
-In-Reply-To: <DLSQJS2QT4JW.3BPUMU5M6N171@garyguo.net>
+Content-Transfer-Encoding: 7bit
 
-On Wed Sep 30, 2026 at 11:54 AM -03, Gary Guo wrote:
-> On Wed Sep 30, 2026 at 2:23 PM BST, Nicol=C3=A1s Antinori via B4 Relay wr=
-ote:
->> This patch series intends to implement two features for KUnit tests
->> written in Rust. The work is based on a TODO comment made in the
->> `bitmap.rs` module [1].
->>
->> Changelog:
->> - RFC patch: [3]
->>
->> 1. Supporting `#[should_panic]` [2]:
->>
->> KUnit tests in Rust follow the user-space syntax, but at the moment
->> `#[should_panic]` is not supported. The first patch of this series adds
->> support for the attribute (only in its basic form, `#[should_panic =3D
->> "message"]` is not supported yet).
->>
->> The way it is supported is by adding a new boolean property called
->> `rust_should_panic` to `kunit_attributes` struct in kunit/test.h and
->
-> This is now more general than Rust panics? Perhaps this should just be
-> "should_bug"?
+On 9/30/26 5:41 AM, John Hubbard wrote:
+> This series adds GPU interrupt support to nova-core, so that GSP events
+> reach the driver as interrupts instead of only when the driver polls.
+> v5 applies Alex's review of v4, and makes three of the design changes
+> that he had set aside for after the merge. The series is 15 patches,
+> down from 17. The two rust/ patches are unchanged.
+With patch 7 and 8 adjusted accordingly,
 
-I used the name suggested by David Gow in the RFC Patch [1]. I believe
-"should_panic" is better because it directly matches the attribute name
-and will stay consistent in case the panic handler changes the way it
-trigger kernel panics (although this is very unlikely I think).
-
-That said, I'd be happy to change it to should_bug if that is preferred,
-please let me know what you think!
-
-Best regards,
-Nicol=C3=A1s=20
-
-[1] https://lore.kernel.org/rust-for-linux/d20cc2b2-afeb-432c-924b-55ad00d9=
-80fe@davidgow.net/
-
-
+Acked-by: Danilo Krummrich <dakr@kernel.org>
