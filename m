@@ -1,134 +1,203 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD5D35203C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 00:27:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50C3363096
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 00:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790814443; cv=none; b=ayoZCjnIce3JQaYc+kgucZVzpcVajBsasZ6sw7BzTuGOR6f9LsMqRSaKldPykIk3ybpwoPFIq1/ypNYnticKPM5YOBCPZxVpGIGBvoFbgNU1EoB/IovC2lmNhsUcIn4MlAJZ+kRRlmID7hpJ4t8Wpyl+H1s9uh9XghEpIOSweDc=
+	t=1790814457; cv=none; b=qJka2etOte9SSERcl791vNiUzRziRI6HdPBZMq95R3+Fcvp71cT1qWwDNc1P8rehs2qAhOPi+kjrm77pqWNa9w8fJzYdHtPjSJq00AnoTbsMutHukC3GDsNCYaeMeY18dnbQM4e1oej+AOrMG/hMs1UzqtK9k1JQIvqZeyU6p2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790814443; c=relaxed/simple;
-	bh=mkJEtMXVnewaQWaa7emYCn9l85AZ82Eeo+UPDVwb/Ek=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Y7j0PiAaYqcbclg3eAZOlVvDH8WXkza/chEUOLgUjAsHaiAKHWNwvwwZDlzo3GsvuyMNNWTtfUK1d7pBWZgANW1NjV5vquixTjPQis+kiQ8LSkKFAWAh22K7o1HMx3ou7Ov4xenK3Jf/leFCbjnmusoocCJYq6kmCHORiDSkTFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AsIUoGt3; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790814457; c=relaxed/simple;
+	bh=xON4dTCYI11gc9I1ss2ZDpffd+cnlQVGEoVamWChjnI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EYw/pIYnY1plH6yObiU+dL2i2wFkgqw+jPW7ewmPFiP0p3CLqQxo6zqD65FWpxrNmPyF0C4fgZa2DW6xxnuVMaq9paq4Sy0+oqdtUOaRXRyfzaJ4l3/hTIIfe6T6tW7bJPt9jH3AdeQ+cw//y4Ot8s+zqQ/5nMkreFDiFB4bDbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J4TSmKTH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CVz4XHyx; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AsIUoGt3"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2db3d832827so65341035ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:27:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J4TSmKTH";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CVz4XHyx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790814449;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
+	b=J4TSmKTHWiyiGi4BxmklrzEDbZGRK5cQV0wjFBuEE+qseaqntyxWE1Ahm65qcHx78rPVql
+	ibjg/rsuUVMOgwHOGtqcqP7pVrC/ZQpdz6Bv26vErzwsUv8vIKm2ilwzzAm/i8txesdPIp
+	bxKB69lcbwKz+0tvS+fKJdhLQvc8iPI=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-464-cd83EeZYNq6zXk3whwzG6A-1; Wed, 30 Sep 2026 20:27:27 -0400
+X-MC-Unique: cd83EeZYNq6zXk3whwzG6A-1
+X-Mimecast-MFC-AGG-ID: cd83EeZYNq6zXk3whwzG6A_1790814447
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-532c6028621so70516471cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:27:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790814441; x=1791419241; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1790814447; x=1791419247; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xHjizEd9MIZQguiTJSV62chQrotI4W8c7atuMs3Hr2g=;
-        b=AsIUoGt3zAaxjGJOnWmDuQzW0Xlc5j5PGNsiYGDouVpIIkZdXrnf8WijNOuV6eC4zE
-         OfwSUk8QO6eBoyMKD+4XaU0TjIzwoeDvo1EJ9uqHXxXxa1JRj24D9CH1zx0Pk36uT1xG
-         FrpXirsqCkvLvA0ZzUjokPFJZG2bPQn1J1SqSMQkAaIKt9tm3y8qtpvOIc/ALkc21c+W
-         Oy6LJA4d6VdCr7uFPBnaDQmlU+1IDJTq5ch9NceWLS6Li/OtdvlApwiAiq74zHuzUupy
-         jTk5879yWcQOpge+y/gQHHaevkoynU5rDkzKeAGmP4h46bYk/62fjwDW8htgV9e+OOoF
-         m3UA==
+        bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
+        b=CVz4XHyxmHXRsOLdeUw70/SoniBJKaJepu+ln3Tqhbas6w7wvntkFriYuwN3mI7N9B
+         2SwAJCdeSjL2LdILT1+mVn/OKEyarKN1P3DwrFV3ik6GRDtbFEK2uakgLOanz/1W6PNh
+         UOVJplwZsin4o50OVLmT4pdxe6NGXJcZuapwdDuN9aW2mZRhTdevcJkfumOQ0rO8i0bH
+         5SVNbPt4y+EO8ku8PUUGUSwLk+RTQiZ4GsBj8vxAiwoAMwKRENq1l9yPrR9yY6UeCfnI
+         7Z0bDkix3yYVJHdoq2J0cC+CMely4+3g7jH7Alb4+V0T91umO7Ko/vIzzTXV7+L85bmh
+         p4AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790814441; x=1791419241;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xHjizEd9MIZQguiTJSV62chQrotI4W8c7atuMs3Hr2g=;
-        b=g0ZTSlkKHrTUVyHBljo6yy0SL/4SAzRyQ43gQrehoD4zQUvvODU453wWMPiGZd3EP2
-         ybdsp1wFJ2p/k+9DErl/JQHTCd8gyFsW3OWqDc8AdoqqW0WScp2LbNqWJakz3oYGUMpg
-         wctfdbyJ80iMs70+AKYO5XN4/8ebRVjyXzKBAhMSD+oGTZgDelo5fSTHF9P90kT39hhy
-         lGvqK6i5Ni8P561KwuJ5wTch3Th+kCb8u9IydHB7JwEcWYMe3fvVPiPnwgERhKh6DWwH
-         lp9OaMSyQ9foquMZWZvWPBEfFoI9f9KRv5hgqtIfwt3o9YpjA7q/G5n0S+PI/DkojkF0
-         3aeg==
-X-Forwarded-Encrypted: i=1; AKwUvBw89dckqWAt7+fpv5kVVquEsjlEuMnwcrSx3y2JfMRtXmFMyMOXSvH8ZFyHG+l5cmDxOEpWvGGlmHTECuU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0Yg6iJ3MH3D9Q/v8zFpAexFY75vp4Y53YvyoFC/T4V+SIhmc9
-	j1v7VWAZkcbsOISlUXMFOzJsbPAd2WTC46dM0RyQ/aav/LHtvG6a7f4AjXd//5gl7KU0BNLwn8M
-	egscMgg==
-X-Received: from plyv15.prod.google.com ([2002:a17:902:d68f:b0:2e2:dba7:5b84])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f78e:b0:2dd:b795:9cb6
- with SMTP id d9443c01a7336-2e2e4a13c4dmr24426465ad.21.1790814440632; Wed, 30
- Sep 2026 17:27:20 -0700 (PDT)
-Date: Wed, 30 Sep 2026 17:27:19 -0700
-In-Reply-To: <20260919003521.3134552-9-paulmck@kernel.org>
+        d=1e100.net; s=20260707; t=1790814447; x=1791419247;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
+        b=YOt3DMjaB3NVCOfOnZjmbn/H2BzGfwPdbsSgOhz3YOQl5XuHqpChMYeGR5BhhKXjZ7
+         2tbwIKL2W7SMdQZdSDg6QyIYKyq0Rzxb2rp5fWWKMMzl8g2X0aZ6h4Rd6Zbi8rsSnpea
+         vRYjuyuKyD2SusQglOP8m+J4ugrn+FQkcJbElvkWOzTHzIn5Ie80yz4ZOUhqX/Cb3ZdT
+         DxADbgH/djfzCiHzet5I2SET/H1cbmbDVroakgZdiwiPfMv2PJmzsz1zYr+pWOAQf2qo
+         57H2gYVzqCYSf9D0aLu34AQe2fxhgbBgLTfv68L2ypBpFq0rcqn5HtSYZQWOzklTJrZ/
+         j8Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBywHFErJOqinF2XQtTvYLjOitAAFzD30pZCvJcst4sutJ/sIY5x1Iw2iYmoWJOgCdzevCuFQ9hpUoBpsIk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjXFvz8vl9hXthLuZqijfIYuxkFEYRiMFWImar01yxVPIYknV8
+	TXtODu932YH1xB/r9S7+0kgIEN/6fiHA0Rlq9NBAKfFs7VTiYtpBDUYP1+H+n46dplBUWSXtLPj
+	kU/qY08nlICpZT+dcQLE30rlfcodqkSfdM6PNFKTM+uXztSXEFXfVyO9knNWh1Csj9Q==
+X-Gm-Gg: AYBFou3AZrN+0H/fIermDNPXd5mV6ZCwFHpbz6DobUa33V/Rd7Y3DebkLh12S4WU75w
+	pqBR7NfevnxjZVw7i09BfC4k8K49lNHsbQlR6ZUEwqvniqTFLHopYvb2e6akobb4W79Pk3sKW3N
+	1Qo6VLp3HETSREgviEHKgvmWZngmh0FtCRiyczGx0vEN6wVs092b4qj3vGnJ8k8mf8TjrHfNxo7
+	OtXG9al+hbvLOmL50f8dJWFL/Mssz2Z793RePTWtbmBIOSP8mgCsFRSK+fzkbxXjEMF1TxEeRB5
+	P/CYcYxprXSUbG5icjnPbVM1rDluQmNUTmASZoQv8Sro5fqnrUXjnTETAr1OBXO1vcoswP2Vahs
+	GeHQadJ+oW++jPzmJKYiJl0t2eTH5MoKPxNk=
+X-Received: by 2002:a05:622a:4d9a:b0:533:3868:1f78 with SMTP id d75a77b69052e-53374328747mr61077691cf.51.1790814446779;
+        Wed, 30 Sep 2026 17:27:26 -0700 (PDT)
+X-Received: by 2002:a05:622a:4d9a:b0:533:3868:1f78 with SMTP id d75a77b69052e-53374328747mr61077101cf.51.1790814446078;
+        Wed, 30 Sep 2026 17:27:26 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53385f87469sm6552381cf.3.2026.09.30.17.27.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 17:27:24 -0700 (PDT)
+Date: Wed, 30 Sep 2026 20:27:23 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: linux-clk@vger.kernel.org, Brian Masney <bmasney+clk@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, mturquette@baylibre.com
+Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver
+Message-ID: <ar2o6yUzJP0H1YJv@redhat.com>
+References: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop> <20260919003521.3134552-9-paulmck@kernel.org>
-Message-ID: <ar2o5yyB-o12pAos@google.com>
-Subject: Re: [PATCH 09/19] srcu: Fix WARN_ON() for rcu_segcblist_n_cbs() in cleanup_srcu_struct()
-From: Sean Christopherson <seanjc@google.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	rostedt@goodmis.org, Sunho Park <shpark061104@gmail.com>, 
-	syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com, 
-	Zqiang <qiang.zhang@linux.dev>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-On Fri, Sep 18, 2026, Paul E. McKenney wrote:
-> From: Sunho Park <shpark061104@gmail.com>
-> 
-> The WARN_ON() added by commit 78a38cbf6f20 ("srcu: Queue sdp->work
-> when the delay timer is successfully deleted") uses rcu_segcblist_n_cbs()
-> to detect callbacks that srcu_barrier() failed to wait for. However, the
-> ->len counter is decremented only at the end of srcu_invoke_callbacks(),
-> after the invoking loop has finished. Since srcu_barrier() can return
-> right after the barrier callback is invoked, cleanup_srcu_struct() can see
-> a non-zero n_cbs even though the cblist is already physically empty,
-> falsely triggering the WARN_ON() together with a still-pending delay_work
-> timer.
-> 
-> This can be triggered as follows, as seen in the syzbot report against
-> kvm_destroy_vm() -> cleanup_srcu_struct(&kvm->srcu):
-> 
-> 1. call_srcu(&kvm->srcu, &bus->rcu, __free_bus) starts SRCU grace
->    period GP1.
-> 
-> 2. GP1 ends: a delay timer is armed and sdp->work is queued, but
->    sdp->work has not run yet.
-> 
-> 3. Another call_srcu(&kvm->srcu, &bus->rcu, __free_bus) call invokes
->    srcu_segcblist_advance(), which moves the GP1 callback to
->    RCU_DONE_TAIL, and starts SRCU grace period GP2.
-> 
-> 4. srcu_barrier() is called. It queues its barrier callback after the
->    GP2 callback and waits for srcu_invoke_callbacks() to invoke it.
-> 
-> 5. GP2 ends: another delay timer is armed, and the sdp->work queued in
->    step 2 begins to run. Its srcu_invoke_callbacks() call invokes
->    srcu_segcblist_advance() again, moving the GP2 and barrier callbacks
->    to RCU_DONE_TAIL as well, and then invokes all of them. However,
->    rcu_segcblist_add_len(), which updates srcu_cblist's ->len, has not
->    run yet at this point.
-> 
-> 6. srcu_barrier() returns once its callback has been invoked, and
->    cleanup_srcu_struct() starts running. It finds the delay timer
->    armed in step 5 still pending and srcu_cblist's ->len still
->    non-zero (because step 5 has not reached rcu_segcblist_add_len()
->    yet), and WARN_ON() fires even though every callback has actually
->    been invoked.
-> 
-> Use rcu_segcblist_empty(), which checks the actual head of the cblist,
-> instead of rcu_segcblist_n_cbs(), which checks the racy ->len counter.
-> Callbacks that have genuinely not been invoked yet still leave the list
-> non-empty, so the WARN_ON() still catches callers that skip srcu_barrier()
-> or queue callbacks after it.
-> 
-> Link: https://lore.kernel.org/rcu/e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev/T/#t
-> Reported-by: syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d4faf7db59e11f6fd1ab
-> Fixes: 78a38cbf6f20 ("srcu: Queue sdp->work when the delay timer is successfully deleted")
-> Suggested-by: Zqiang <qiang.zhang@linux.dev>
-> Signed-off-by: Sunho Park <shpark061104@gmail.com>
-> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-> ---
+Hi Stefan,
 
-Is this going to be grabbed for 7.3?  It shows up relatively frequently in KVM.
-Not so much that it's truly problematic/alarming, but enough that it definitely
-stands out.
+On Wed, Sep 30, 2026 at 09:40:12PM +0300, Stefan Dösinger wrote:
+> Hi,
+> 
+> This pull request contains the device tree bindings and clock driver for ZTE
+> zx297520v3 boards. It contains the next step in adding support for
+> zx297520v3 boards: Documenting clock and reset manager hardware and
+> adding drivers for its PLLs and clock tree.
+> 
+> The patches have been reviewed and carry appropriate R-B tags by Krzysztof Kozlowski (bindings) and Conor Dooley (clk driver).
+> 
+> The PR does not contain the MFD, reset and device tree patches. They
+> will be submitted to the MFD, reset and soc trees respectively. The
+> clock driver compiles without them, but won't be instantiated without
+> the MFD parent.
+> 
+> The following changes since commit b1470947e92aeedd522ddb7363369c956e55d6b6:
+> 
+>   Merge branch 'clk-pile' into clk-next (2026-09-29 14:14:32 -0400)
 
-Tested-by: Sean Christopherson <seanjc@google.com>
+Please send a new pull that's based on v7.3-rc1. Or if it's easier you
+can post a new version of the patch series with just these clk patches.
+
+Brian
+
+
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.com/stefandoesinger/zx297520-kernel.git tags/zx29-clk-for-7.4
+> 
+> for you to fetch changes up to 89e2c0fa481f6a0da23ad5c4dc98bcd940f09fd2:
+> 
+>   clk: zte: Introduce a driver for zx297520v3 LSP clocks (2026-09-30 20:03:29 +0300)
+> 
+> ----------------------------------------------------------------
+> clk: zte: Add clock drivers for zx297520v3 SoC
+> 
+> This tag contains the device tree bindings and clock driver for ZTE
+> zx297520v3 boards. It contains the next step in adding support for
+> zx297520v3 boards: Documenting clock and reset manager hardware and
+> adding drivers for its PLLs and clock tree.
+> 
+> The PR does not contain the MFD, reset and device tree patches. They
+> will be submitted to the MFD, reset and soc trees respectively. The
+> clock driver compiles without them, but won't be instantiated without
+> the MFD parent.
+> 
+> ----------------------------------------------------------------
+> Stefan Dösinger (9):
+>       dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
+>       dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
+>       dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
+>       clk: zte: Add Clock registration infrastructure
+>       clk: zte: Add regmap-based clocks
+>       clk: zte: Add zx PLL support infrastructure
+>       clk: zte: Introduce a driver for zx297520v3 top clocks
+>       clk: zte: Introduce a driver for zx297520v3 matrix clocks
+>       clk: zte: Introduce a driver for zx297520v3 LSP clocks
+> 
+>  Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml    |  101 ++
+>  Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml |   98 ++
+>  Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml    |  122 +++
+>  MAINTAINERS                                                           |    7 +
+>  drivers/clk/Kconfig                                                   |    1 +
+>  drivers/clk/Makefile                                                  |    1 +
+>  drivers/clk/zte/Kconfig                                               |   28 +
+>  drivers/clk/zte/Makefile                                              |    6 +
+>  drivers/clk/zte/clk-regmap.c                                          |  237 +++++
+>  drivers/clk/zte/clk-zx.c                                              |  192 ++++
+>  drivers/clk/zte/clk-zx.h                                              |  137 +++
+>  drivers/clk/zte/clk-zx297520v3.c                                      | 1657 +++++++++++++++++++++++++++++++++
+>  drivers/clk/zte/pll-zx.c                                              |  576 ++++++++++++
+>  include/dt-bindings/clock/zte,zx297520v3-clk.h                        |  154 +++
+>  include/dt-bindings/phy/zte,zx297520v3-topcrm.h                       |   12 +
+>  include/dt-bindings/reset/zte,zx297520v3-reset.h                      |   62 ++
+>  16 files changed, 3391 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+>  create mode 100644 drivers/clk/zte/Kconfig
+>  create mode 100644 drivers/clk/zte/Makefile
+>  create mode 100644 drivers/clk/zte/clk-regmap.c
+>  create mode 100644 drivers/clk/zte/clk-zx.c
+>  create mode 100644 drivers/clk/zte/clk-zx.h
+>  create mode 100644 drivers/clk/zte/clk-zx297520v3.c
+>  create mode 100644 drivers/clk/zte/pll-zx.c
+>  create mode 100644 include/dt-bindings/clock/zte,zx297520v3-clk.h
+>  create mode 100644 include/dt-bindings/phy/zte,zx297520v3-topcrm.h
+>  create mode 100644 include/dt-bindings/reset/zte,zx297520v3-reset.h
+
+
