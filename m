@@ -1,327 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010057.outbound.protection.outlook.com [52.101.84.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11BB3803F4;
-	Thu,  1 Oct 2026 20:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790888048; cv=none; b=gsHBBUjwezjRjRuX9Vr+e3aii4hdDLVX7YbiBNkxT1bt0GOrWOOGnuKT6XqK48ASAjWxK0y69K+yXerD2dCH9idmtkXJfllg0UcV7gcb/2bGorg0vgRPLHDxKq2qduRqwLJ7idvFeRjerfKHYjJW9tsl0LQNM1BSyjDPtrRA1gI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790888048; c=relaxed/simple;
-	bh=P3SF9otAZdJaxkszqcz5bv11Q1Mfs4zmqC0bR20qF+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=gUsye23hfbrw27L9tE3Wj7V4l9qxK0OwRU5yn+npD2yZX5H8oeL4duGjVdKTSwIviZq2Wl+Uuwf+NQ4qJO/uxmZC8uRtl53MVqF6iprwFx12wON814oXxiZfSbbDUTrnYhWdujGUMNyi2cuAgUOilQuuGSgqBny9uMLLd6AYiSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aZboiL11; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DB4489FB3;
+	Thu,  1 Oct 2026 20:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790888186; cv=fail; b=GhjGGAPwnaMlvhipFXfTz+P4U+KqVvdJnFqRMgiw+q2cKfAtVe0cPhiBg2kbLvH7OPvVUf2kd0cGS0FoAg4Do/0JkXCLwPw/oCvAsD9Gd4cNxEBisc5aaWOAxpj9lsaaHtMcHSSKnBu1UGoNKqhP1/urogY/OIk1hqMe0uZliRc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790888186; c=relaxed/simple;
+	bh=4dlAmCtR/CuVYVIhpff3Z9jD/o4nbiyknNxj3LV2smo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=C3AVeqX/bJIPKZAKSIo3oDm0ZN02JfYZyXRki72JKdFXn6B6GD3f3JQmKwV15Zy3WLnTbI7bO3jJf7YBrRko52dPPkt8umufXvy9KQ07WVPylfs9qUxC5DISAGj8QlLrriZ7HvJiC+jX3QnrYjsI8gkAYNNLw0yDWOioz5A843o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=uPrh6TYH; arc=fail smtp.client-ip=52.101.84.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aZboiL11"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12A741F000FF;
-	Thu,  1 Oct 2026 20:54:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790888046;
-	bh=19czLLVCO1aWFVXglQpbsw/YidD2Z2K+3NWJraSpMQY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=aZboiL11hlWy+5tMoU8k3/CGxt+OvITo5nk9APZ9Dmp31l2JBoTROo1slOR6WykOg
-	 Eel5a6r9pWdfaQzqTMBVMFW2HR+6l70yogDFl15p393EBlL5u5A0v8QFFPX5++OiFm
-	 DPGFwX+uybzY/S8bUKAcYlmCClPTq9RzzdRuCIOdcmyJtONWV2L+00gaPlT8ND8g6t
-	 XKcF9n1WxA4EC8LM8FnpYuMZTHQhPCWlpcnm2l87eQwGajfdaYG2Vr1fCy9hAsJyGs
-	 UrBL9uOiQRR1QzpT5DhHS6gD+gjfBMFAxyirWyU/oj5XQyU55hrtwRJNfal94JMpMJ
-	 IV0iVygYqHbRQ==
-Date: Thu, 1 Oct 2026 15:54:04 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	rafael@kernel.org, lukas@wunner.de, terry.bowman@amd.com,
-	kanie@linux.alibaba.com, olof@lixom.net
-Subject: Re: [PATCH v14 3/4] PCI/ACPI: Centralize pcie_ports_native checking
-Message-ID: <20261001205404.GA2718182@bhelgaas>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="uPrh6TYH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C/3rw2zUjNf7pKj08MdoUckWpLZYN/ULNut6PLh1sCDLD5Ch9nU6xucN72Ea+Zf26tEnmeRFbQhJOBMwPoAmML9Pfpn5S0ovDgebGoPoqe2aVvZrYtST1EWxJ24uXC+vpr+S4BddFkECJ8uUq3Qg5jFD6hfD/YcqftbR7Hyk8JKGcc1UsrRByPbM4ig2Nflbmdx5SFHACDuDRKathlIdrxeR67LJ2F1jhWoVgT5vVlaqJWg0rmOJhHatvPrsFz1Q/5omf2GClyJa9vqz+jOz1YSjzWPfs1kktZUsLK13qyxEeIalGpl6oT5tprg1tdqCLWgJoaSO53d1MC4LbUsP5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7cbiUqbmCmbowSzbXuI7mfcpFXuDVSTQvVCXoBgbH/A=;
+ b=Q3eAQc8ZEahO+IcPJITQNLqZOPpQ0vUKMsYK6sKdnM4U9Jxo6MPq9nCxF6eTAIX9k7OHRV/gIM8Eoh7knjeBXV2itZcikem+vnEZOenyeFdc7rvDverU0TgpBkO6rcjBRKxc2ea2/zO4ub0ZAANt5+DoheOoR6kbCXztES05EG92VoYAHf7pZ8YU+1X+hiIm2i6uxP2CbywZYp8R1VVCOApF30EEm2HaWdvAQehAjDf8a5otTCG9RqqPzwdFmihGEOncayFTG2xoyB8rz94mfwWDM9SSXBEd3PE0SF8VS3ApzqVApzgrqXP4YTUVR58JN0lEgt6zj7hrX6dWV3azHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7cbiUqbmCmbowSzbXuI7mfcpFXuDVSTQvVCXoBgbH/A=;
+ b=uPrh6TYHfwnHDzJGloUk/f3FA4xWQebONSROg4oqck1VLVt0GW2m4xjm46AQANK0e6dAu3OOQTsseZrFpdR+7bN+iSNZd65xJPPF2LDa+clGaz60+46tWev8Nc/TQ40H4A4uALxPWzogDFKA1mGMGq+rO7pbAAI/DNYXTa8zfxKxFSvynrJMrbRDptivaL1lDxQAHcqQD/nDsN/cuf9m0OsPFefEJxS+vBaCJQvA+Y1/YjhKEgsATrkmfShi+sPsV7ktBcxpYlf5yBU/9xZptnqnmrpqerJ8L2igBkUSatiNwfcDu0DFh4bDRzfiZzkvc6aYAD9hIv0Nfrju7yxhFg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB10794.eurprd04.prod.outlook.com (2603:10a6:102:482::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 20:56:18 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 20:56:18 +0000
+Date: Thu, 1 Oct 2026 16:56:11 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: SeungUk Nam <tmddnr49449@gmail.com>
+Cc: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Vinod Koul <vkoul@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
+	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: idxd: Free the minor number when cdev setup
+ fails
+Message-ID: <ar7I66RYnxUokeNS@lizhi-Precision-Tower-5810>
+References: <20260910074832.15729-1-tmddnr49449@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910074832.15729-1-tmddnr49449@gmail.com>
+X-ClientProxiedBy: CYXPR02CA0030.namprd02.prod.outlook.com
+ (2603:10b6:930:cc::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922204548.3884906-4-sathyanarayanan.kuppuswamy@linux.intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10794:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a207a0d-b509-4eeb-4142-08df1ffe70d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|366016|376014|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	BNpdGDRvy5AediR8trEWtCQvHsRm9/zH+ogagNGdQE53rmntKYlEfKZDxN8zR22XTLzMulxeIbZuVnVffJFfFWDbxs5Z4GursEFL+IewsrGr4GXHWNlukZ++fKdVmJR/wQZ8KLR4q2itDp0SEQSr2pVwDy+7nhpVlirQ9BK/yJbOWA7zxJ753ludduDk9D/X4vkqqhpSx9aCpahPPeLsaKPZDo/7FCYLn3uyqfaW0xUlaHFuvcQ/hgnXNg8sLr20gEMgIKoDhKmbV5pK5YfJT6QESk2HmqbBaVwwArlyaE3vV3iA51KafV1pXdYHDZm/BlQXHL5mAtgIn0tBiZ8Llllg3YLK6ShIjNo5VHRhXCddxa0rdx7ZAvNXqw2v6Hp2fMzw9P2ivn5yYWPyXr65Ru5+47McPATPddsYe1aQbMhx4aejle9h3YlqgOs4KeWAsFFBWqRLCym7TUQhmQ8XxlWLgj7qC8YLFAU4ta9LDoMqT+QuF2UoliUVQjYT2Z6hkTT5J0Rkc7rX5By7XOy8MkMSR3M2CUKCyWDOdIVduyBjOe5AQ78P094r2WKD6p+2Ha+W3hZjwNwPu1Un85mwJivdB9xExiOZkOrWdJdNwn5hKDGV4tU6lQ39TrVQY+lk6yixTeN1h1mgU+iW81fFd5K+vEDRmrAp61YOIIzhyP8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FMURLw2B0LNh/kAnU+Se0hCgYEcQGh6bfkA2XCDFOCVUrOCrhhBudAFLmdxE?=
+ =?us-ascii?Q?ErCImSSlEcoFwXmXGf8jGGZuDXS2d6y9YVcN8T5xkxDfBSgpr6yXMXkOjczg?=
+ =?us-ascii?Q?NjD0uH4lHBBbtlpDU/jOmzJ/PAQHsX1VdGoXfMyEtMxKKkUM6FZVhLPTBJ1r?=
+ =?us-ascii?Q?Cqo+TDrR2pLcz3n0eV7AGnjk4CcjQSe2Jqc8cCzjcM9kELtufpVP9BAdaqgf?=
+ =?us-ascii?Q?UslY25HaT0goAMK8kO7wR/zzIXjGCj8Yao2RhsSPeittbpYyySVZMrx3nvHF?=
+ =?us-ascii?Q?vZ5g/1N8D0yXmjlN6BUUhGmOh2qa8DE05EFV+rT01IL5Dd/DUFnXlwoFWelW?=
+ =?us-ascii?Q?daI32C/wg2lzoW8wS1h4ES5/Au48liG2rUqTXuYEArqKBT+I67p8qpSVN8An?=
+ =?us-ascii?Q?dvYGTDrPQ5btDFUg0wyllifR4/evhYZyWCXuBTgKJ+o/l+UCJjRAa4VwVjWP?=
+ =?us-ascii?Q?03xwi0iC2FTSRw1WsyiBO0E3U657zmFgEG6p2V5v/DfUYnsog3viE9EmJ/Yk?=
+ =?us-ascii?Q?ptqiDgbOfy/OBxPsduSTWmth+Q7OpmJaYMq+9jd/hqTNJdSCYH13Ch/bf0nm?=
+ =?us-ascii?Q?iJ/CoL9B9EApNDStLVGNvM9gbEAehiIXTmUydUmia0mhHitYw7+PQP9VP23w?=
+ =?us-ascii?Q?/YRRrpDcwpLazfM5TYWtYyYPc8CjmhRoV+ysjZ657hr+cVN0oJl7vbt/Nu7W?=
+ =?us-ascii?Q?Vn0n/Qx8AS0/9ierFrIkStXPCbtidD90gvbhmImP+zi1jONbMwhTwEF1KCsq?=
+ =?us-ascii?Q?7NA3aBmHyJSkqUS17xkbw9xGAzMXpE9Cd4FG3chXrEPGRNqvwjev/81MVzjs?=
+ =?us-ascii?Q?JCMcsznTU0unif2T5/rLeo2bMaqEPJVmQPpOUNLcu8R+yAE2z0X3SzjbEB5J?=
+ =?us-ascii?Q?IeSlfQq/y5fWqKsjNBFe1TJ6DgAM2UBX/EWre/WAUkQsUicXllZSRhyZeKIT?=
+ =?us-ascii?Q?d9jgZMWhMmhmeO2Oj7/r0L7NLUIbl9Hk0Bfj4ok93nk42QlgbhsfYBmWpgg7?=
+ =?us-ascii?Q?Sw1ODwuCrwHu/jj9PP4Gg6v7FsOvgW5zGfjAy+kGN4/odcHllAUrqn1FVAqk?=
+ =?us-ascii?Q?4PRyPMSeB/jWvoLIoizES1mgu2yedUqBywh5VU8KoUdZ83tPeGoWI74NUvh+?=
+ =?us-ascii?Q?D0++59s4VJtSWixb42ODckwS9bU3PzK+7zZq4nuMk3ci19BTIaNfNd8sxhpJ?=
+ =?us-ascii?Q?+if/AqKKOogahvCEtnB6FK5jV1FabR8SQnjU/w0D3Uh0H0ZegwRVso0KKXdZ?=
+ =?us-ascii?Q?0IrZZpZn1yXcSBkFycXhBqznXP4pDyKwCoZi9BD6G27RAgbsFkKgyhDy3ank?=
+ =?us-ascii?Q?rfxCOmmrXrky/Wlkdrmmj1y7lue6lcf05PZElqewvwXc+hkF17H0+PgyKG0n?=
+ =?us-ascii?Q?E0DQ6rttGeTeeapszPX2sUewFmGxnsNj04KI/DMTN3g4gt+czrNq3FsvsPJn?=
+ =?us-ascii?Q?FuaGIyLXUg4z4KRYLbLWTZQfuYcvK93fyk84G1E3itxVfZXtoXCwZY8/MwKE?=
+ =?us-ascii?Q?QO3IQ/4W8FME32ENzSs9tYl8R4NnvZHciilo34kv5nBm4bDlL7MalerM2vWB?=
+ =?us-ascii?Q?Jxy3/nM2Nx6c8XxeZezgdL3S0JFJBp6X7a0K3ObUNuyqVdkf5f8K09Q4+Pzd?=
+ =?us-ascii?Q?1KCbJdAFPRD0w9T0T3CWaEqHDqkEUO7m79QKRn5afTcgJUrmMv4loFwYPgDM?=
+ =?us-ascii?Q?31SbRP/ZcBU/wXlw5qu3n2p/9Xi7B9IAKx0KHTktxuw7X5+t141VYMOtjjfo?=
+ =?us-ascii?Q?Fu0z1rVRWSxhqyuOWv61R676/fzmzsLfp6rbvRfJgn4qEPLmesV7?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a207a0d-b509-4eeb-4142-08df1ffe70d3
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 20:56:18.7178
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i8tzyMc/WBxGGixk0S1IJ6t1S9aLYJNsbvLhD6hlrZO2XEZmJr6Atbn5w/+fU9zed/W4ynHKNiJDg9OcCf7+Hka21Lk9XAQHYZcP8rv0ZwXrFElSMLnptWk2FVyQkBkz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10794
 
-On Tue, Sep 22, 2026 at 01:45:47PM -0700, Kuppuswamy Sathyanarayanan wrote:
-> If the user booted with "pcie_ports=native", we take control of the PCIe
-> port services unconditionally, regardless of what _OSC says.
-> 
-> Centralize the testing of pcie_ports_native in acpi_pci_root_create(),
-> where we interpret the _OSC results, so other places only have to check
-> host_bridge->native_X and we don't have to sprinkle tests of
-> pcie_ports_native everywhere.
-> 
-> Rather than overriding the host_bridge->native_X flags after the fact,
-> fold "pcie_ports=native" into the _OSC control mask we evaluate, i.e.,
-> proceed as though the platform had granted control of the port services.
-> That way there is a single mechanism deciding each native_X flag, and we
-> can report exactly which features we are overriding _OSC for instead of
-> just noting that we are overriding something:
-> 
->   acpi PNP0A08:00: _OSC: OS forcing control ("pcie_ports=native") of [PCIeHotplug PME AER DPC]
-> 
-> Forcing host_bridge->native_aer also restores DPC service binding under
-> "pcie_ports=native", which regressed in commit 97ca178c899d ("PCI/DPC:
-> Allow DPC on all Downstream Ports when OS controls AER").  That commit
-> replaced the AER service test in get_port_device_capability() with
-> host->native_aer, so DPC stayed off when host_bridge->native_aer was not
-> set.
-> 
-> This also extends "pcie_ports=native" to host_bridge->native_dpc, which
-> had no pcie_ports_native fallback before.  That effect is narrow.
-> native_dpc is only consumed by pci_dpc_recovered(), where with
-> CONFIG_PCIE_EDR=n it previously gave up immediately and now lets pciehp
-> wait for DPC recovery before treating a Link Down as a hotplug event.
-> 
-> host_bridge->native_ltr is deliberately not forced.  "pcie_ports="
-> controls PCIe port services and LTR is not one.  There is no
-> PCIE_PORT_SERVICE_LTR, and native_ltr is only used by
-> pci_configure_ltr() to enable ASPM L1.2, so forcing it would be an ASPM
-> policy decision users did not ask for.
-> 
-> SHPC hotplug is left alone for a simpler reason: SHPC is a conventional
-> PCI feature rather than a PCIe one, so "pcie_ports=" has no bearing on
-> it.
-> 
-> Fixes: 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
-> Closes: https://lore.kernel.org/linux-pci/20260901064554.2178688-1-kanie@linux.alibaba.com/
-> [bhelgaas: commit log, rework OSC_PCIE_PORT_SERVICE_CONTROLS, logging]
-> Link: https://lore.kernel.org/r/bc87c9e675118960949043a832bed86bc22becbd.1603766889.git.sathyanarayanan.kuppuswamy@linux.intel.com
-> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org> # ACPI core
+On Thu, Sep 10, 2026 at 04:48:32PM +0900, SeungUk Nam wrote:
+> idxd_wq_add_cdev() allocates a minor number from cdev_ctx->minor_ida for
+> the new struct idxd_cdev. When dev_set_name() or cdev_device_add()
+> fails, the error path calls put_device(), and the release callback
+> idxd_cdev_dev_release() only frees idxd_cdev, so the minor number is
+> never returned to the ida. Leaked numbers accumulate across bind/unbind
+> cycles, up to MINORMASK, for as long as the module stays loaded.
+>
+> Free the minor number before put_device() drops the last reference on
+> that path.
+>
+> Fixes: c311f5e92484 ("dmaengine: idxd: Fix freeing the allocated ida too late")
+> Signed-off-by: SeungUk Nam <tmddnr49449@gmail.com>
 > ---
-> Changes since v13
-> 
->  * Added the Fixes: tag for 97ca178c899d. (Guixin Liu)
->  * Reworded the commit log (Sashiko AI review).
->  * No code change. Picked up Rafael's Acked-by.
-> 
-> v13 posting
-> https://lore.kernel.org/r/20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com
-> 
->  drivers/acpi/pci_root.c           | 36 +++++++++++++++++++++++++++++++
->  drivers/pci/hotplug/pciehp_core.c |  2 +-
->  drivers/pci/pci-acpi.c            |  3 ---
->  drivers/pci/pcie/aer.c            |  6 +++---
->  drivers/pci/pcie/aer_cxl_rch.c    |  2 +-
->  drivers/pci/pcie/err.c            |  2 +-
->  drivers/pci/pcie/portdrv.c        |  6 +++---
->  7 files changed, 45 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/acpi/pci_root.c b/drivers/acpi/pci_root.c
-> index 756dc2f055f5..2494811dd69b 100644
-> --- a/drivers/acpi/pci_root.c
-> +++ b/drivers/acpi/pci_root.c
-> @@ -999,6 +999,19 @@ static void acpi_pci_root_release_info(struct pci_host_bridge *bridge)
->  			flag = 0;		\
->  	} while (0)
->  
-> +#define FLAG(x)		((x) ? '+' : '-')
-> +
-> +/*
-> + * _OSC control bits for the features implemented by the PCIe port driver,
-> + * i.e., the ones "pcie_ports=native" applies to.  LTR and SHPC hotplug are
-> + * negotiated via _OSC as well, but they are not portdrv services, so
-> + * "pcie_ports=" has no bearing on them.
-> + */
-> +#define OSC_PCIE_PORT_SERVICE_CONTROLS	(OSC_PCI_EXPRESS_NATIVE_HP_CONTROL | \
-> +					 OSC_PCI_EXPRESS_PME_CONTROL | \
-> +					 OSC_PCI_EXPRESS_AER_CONTROL | \
-> +					 OSC_PCI_EXPRESS_DPC_CONTROL)
-> +
->  struct pci_bus *acpi_pci_root_create(struct acpi_pci_root *root,
->  				     struct acpi_pci_root_ops *ops,
->  				     struct acpi_pci_root_info *info,
-> @@ -1039,6 +1052,21 @@ struct pci_bus *acpi_pci_root_create(struct acpi_pci_root *root,
->  	ctrl = root->osc_control_set;
->  	ext_ctrl = root->osc_ext_control_set;
->  
-> +	/*
-> +	 * If the user specified "pcie_ports=native", use the PCIe port
-> +	 * services regardless of what _OSC says, i.e., proceed as though the
-> +	 * platform had granted us control of them.  This may conflict with
-> +	 * firmware that expects to own those features.
-> +	 */
-> +	if (pcie_ports_native) {
-> +		u32 override = OSC_PCIE_PORT_SERVICE_CONTROLS & ~ctrl;
-> +
-> +		if (override)
-> +			decode_osc_control(root, "OS forcing control (\"pcie_ports=native\") of",
-> +					   override);
-> +		ctrl |= override;
-> +	}
-> +
->  	OSC_OWNER(ctrl, OSC_PCI_EXPRESS_NATIVE_HP_CONTROL,
->  		  host_bridge->native_pcie_hotplug);
->  	OSC_OWNER(ctrl, OSC_PCI_SHPC_NATIVE_HP_CONTROL,
-> @@ -1051,6 +1079,14 @@ struct pci_bus *acpi_pci_root_create(struct acpi_pci_root *root,
->  	OSC_OWNER(ext_ctrl, OSC_CXL_ERROR_REPORTING_CONTROL,
->  		  host_bridge->native_cxl_error);
->  
-> +	dev_info(&root->device->dev, "OS native features: SHPCHotplug%c PCIeHotplug%c PME%c AER%c DPC%c LTR%c\n",
-> +		 FLAG(host_bridge->native_shpc_hotplug),
-> +		 FLAG(host_bridge->native_pcie_hotplug),
-> +		 FLAG(host_bridge->native_pme),
-> +		 FLAG(host_bridge->native_aer),
-> +		 FLAG(host_bridge->native_dpc),
 
-I think the native_dpc printed here is inaccurate if booted with
-"pci=dpc-native", isn't it?
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Can we test pcie_ports_dpc_native above, similar to what we did with
-pcie_ports_native?
-
-The DPC probe handling still seems kind of convoluted.  In portdrv.c,
-we have this:
-
-  get_port_device_capability()
-  {
-    if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
-	pci_aer_available() &&
-	(pcie_ports_dpc_native || host->native_aer))
-	    services |= PCIE_PORT_SERVICE_DPC;
-
-And then we have this in dpc.c:
-
-  dpc_probe()
-  {
-    if (!pcie_aer_is_native(pdev) && !pcie_ports_dpc_native)
-	    return -ENOTSUPP;
-
-The combination of get_port_device_capability() and dpc_probe() makes
-my head hurt.
-
-It seems like the DPC clause of get_port_device_capability() should be
-parallel to the AER clause, i.e., set PCIE_PORT_SERVICE_DPC if the
-device has a DPC Capability and the OS owns DPC (host->native_dpc).
-Anything other than that needs explanation.
-
-I'm confused about why host->native_dpc is not involved in the
-dpc_probe() path at all.
-
-> +		 FLAG(host_bridge->native_ltr));
-> +
->  	acpi_dev_power_up_children_with_adr(device);
->  
->  	pci_scan_child_bus(bus);
-> diff --git a/drivers/pci/hotplug/pciehp_core.c b/drivers/pci/hotplug/pciehp_core.c
-> index 2cafd3b26f34..b42829cf1377 100644
-> --- a/drivers/pci/hotplug/pciehp_core.c
-> +++ b/drivers/pci/hotplug/pciehp_core.c
-> @@ -258,7 +258,7 @@ static bool pme_is_native(struct pcie_device *dev)
->  	const struct pci_host_bridge *host;
->  
->  	host = pci_find_host_bridge(dev->port->bus);
-> -	return pcie_ports_native || host->native_pme;
-> +	return host->native_pme;
->  }
->  
->  static void pciehp_disable_interrupt(struct pcie_device *dev)
-> diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
-> index 42d545edd7fa..1150f2fbabf4 100644
-> --- a/drivers/pci/pci-acpi.c
-> +++ b/drivers/pci/pci-acpi.c
-> @@ -812,9 +812,6 @@ bool pciehp_is_native(struct pci_dev *bridge)
->  	if (!IS_ENABLED(CONFIG_HOTPLUG_PCI_PCIE))
->  		return false;
->  
-> -	if (pcie_ports_native)
-> -		return true;
-> -
->  	host = pci_find_host_bridge(bridge->bus);
->  	return host->native_pcie_hotplug;
->  }
-> diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-> index d8dcd238fda1..e84dd686582a 100644
-> --- a/drivers/pci/pcie/aer.c
-> +++ b/drivers/pci/pcie/aer.c
-> @@ -260,7 +260,7 @@ int pcie_aer_is_native(struct pci_dev *dev)
->  	if (!dev->aer_cap)
->  		return 0;
->  
-> -	return pcie_ports_native || host->native_aer;
-> +	return host->native_aer;
->  }
->  EXPORT_SYMBOL_NS_GPL(pcie_aer_is_native, "CXL");
->  
-> @@ -1847,7 +1847,7 @@ static pci_ers_result_t aer_root_reset(struct pci_dev *dev)
->  	 */
->  	aer = root ? root->aer_cap : 0;
->  
-> -	if ((host->native_aer || pcie_ports_native) && aer)
-> +	if (host->native_aer && aer)
->  		aer_disable_irq(root);
->  
->  	if (type == PCI_EXP_TYPE_RC_EC || type == PCI_EXP_TYPE_RC_END) {
-> @@ -1862,7 +1862,7 @@ static pci_ers_result_t aer_root_reset(struct pci_dev *dev)
->  			pci_is_root_bus(dev->bus) ? "Root" : "Downstream", rc);
->  	}
->  
-> -	if ((host->native_aer || pcie_ports_native) && aer) {
-> +	if (host->native_aer && aer) {
->  		/* Clear Root Error Status */
->  		pci_read_config_dword(root, aer + PCI_ERR_ROOT_STATUS, &reg32);
->  		pci_write_config_dword(root, aer + PCI_ERR_ROOT_STATUS, reg32);
-> diff --git a/drivers/pci/pcie/aer_cxl_rch.c b/drivers/pci/pcie/aer_cxl_rch.c
-> index e471eefec9c4..b480dad8bbf4 100644
-> --- a/drivers/pci/pcie/aer_cxl_rch.c
-> +++ b/drivers/pci/pcie/aer_cxl_rch.c
-> @@ -31,7 +31,7 @@ static bool cxl_error_is_native(struct pci_dev *dev)
->  {
->  	struct pci_host_bridge *host = pci_find_host_bridge(dev->bus);
->  
-> -	return (pcie_ports_native || host->native_aer);
-> +	return host->native_aer;
->  }
->  
->  static int cxl_rch_handle_error_iter(struct pci_dev *dev, void *data)
-> diff --git a/drivers/pci/pcie/err.c b/drivers/pci/pcie/err.c
-> index d77403d8855b..1a7fc71c79d8 100644
-> --- a/drivers/pci/pcie/err.c
-> +++ b/drivers/pci/pcie/err.c
-> @@ -273,7 +273,7 @@ pci_ers_result_t pcie_do_recovery(struct pci_dev *dev,
->  	 * it is responsible for clearing this status.  In that case, the
->  	 * signaling device may not even be visible to the OS.
->  	 */
-> -	if (host->native_aer || pcie_ports_native) {
-> +	if (host->native_aer) {
->  		pcie_clear_device_status(dev);
->  		pci_aer_clear_nonfatal_status(dev);
->  	}
-> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-> index a9cbfc1d2bc7..32fc623dd410 100644
-> --- a/drivers/pci/pcie/portdrv.c
-> +++ b/drivers/pci/pcie/portdrv.c
-> @@ -223,7 +223,7 @@ static int get_port_device_capability(struct pci_dev *dev)
->  	if (dev->is_pciehp &&
->  	    (pci_pcie_type(dev) == PCI_EXP_TYPE_ROOT_PORT ||
->  	     pci_pcie_type(dev) == PCI_EXP_TYPE_DOWNSTREAM) &&
-> -	    (pcie_ports_native || host->native_pcie_hotplug)) {
-> +	    host->native_pcie_hotplug) {
->  		services |= PCIE_PORT_SERVICE_HP;
->  
->  		/*
-> @@ -240,14 +240,14 @@ static int get_port_device_capability(struct pci_dev *dev)
->  	if ((pci_pcie_type(dev) == PCI_EXP_TYPE_ROOT_PORT ||
->               pci_pcie_type(dev) == PCI_EXP_TYPE_RC_EC) &&
->  	    dev->aer_cap && pci_aer_available() &&
-> -	    (pcie_ports_native || host->native_aer))
-> +	    host->native_aer)
->  		services |= PCIE_PORT_SERVICE_AER;
->  #endif
->  
->  	/* Root Ports and Root Complex Event Collectors may generate PMEs */
->  	if ((pci_pcie_type(dev) == PCI_EXP_TYPE_ROOT_PORT ||
->  	     pci_pcie_type(dev) == PCI_EXP_TYPE_RC_EC) &&
-> -	    (pcie_ports_native || host->native_pme)) {
-> +	    host->native_pme) {
->  		services |= PCIE_PORT_SERVICE_PME;
->  
->  		/*
-> -- 
-> 2.43.0
-> 
+>
+> Found by code inspection; the error path was not exercised at runtime.
+>
+>  drivers/dma/idxd/cdev.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/dma/idxd/cdev.c b/drivers/dma/idxd/cdev.c
+> index 82b07cf942ef..f1af7f0d25d3 100644
+> --- a/drivers/dma/idxd/cdev.c
+> +++ b/drivers/dma/idxd/cdev.c
+> @@ -573,6 +573,7 @@ int idxd_wq_add_cdev(struct idxd_wq *wq)
+>  	return 0;
+>
+>   err:
+> +	ida_free(&cdev_ctx->minor_ida, minor);
+>  	put_device(dev);
+>  	wq->idxd_cdev = NULL;
+>  	return rc;
+> --
+> 2.34.1
+>
