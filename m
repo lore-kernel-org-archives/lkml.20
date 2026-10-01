@@ -1,72 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90D4175A8B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A82547059
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:54:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837537; cv=none; b=WrJyJVnAQuOFWTgVv4FeIgy4wUz/ycDPJ7OLJbcy4IX9nL9YeISAtU008aebeMDIZDZnOR72cSqPFWz5KrDt2rSfv9poqd3rXBzbPsCSGBajkiaFMXCN1ChG2IbQMHKfn8cDDcrnhgkOZSW9CZrIur9Y21yMNWgf7ykSDsCPDko=
+	t=1790837661; cv=none; b=InIRt7j6D3QDuObEwP1P8VAwl0edfA2eHuMh0JRKYTX/Wgn2Abe9L8s+b9f4FuRJzojy2q+cvgHrjIAlcyT1SaIe+d/TPD8LzB+8LDILIa4UOEo3q8F6dstQjB1nS7XTSHT1mvCizb8+6Hd6MwQCMLqk8bVPjVTGo7LGlFuDiQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837537; c=relaxed/simple;
-	bh=s6KihODjWLcvTtrTaXOHXpzKQIJ5jPP6ueTaOR+MOFs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k3Uh1FOtS7vitd0BEW9/HjdULMP+bKQcqdM/qxftKCPZXZm9HzWG+b1MMr9LZEk3hbZPOmcivY7tt+63dqz6iofOzr0ZyVHU5ynrkQIvA05cRs4Ii4FbNbnYFW64dtbKpgjxawGuSJK6ecGfug+N0XGE76Hy4RMSoWYBE3r4224=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhZcfM6D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790837661; c=relaxed/simple;
+	bh=OQGFboAIgaxsHZXP29Wd9s2vQCVrfmH798k2j+zX9Gs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nNcAxXhS3QOQVa+soYkM2F2UJtqzDhcEFf4H8bQrUT+olm8aEqzDUwW1+4TbPmZKcf6h0fVTK948o18AscQflHl6CCyoRjQo6r/BVFISXagZyBYbV+z4eB1JLmCIuBC9g49y9OuB6OpoIssqIJvm99DtkkM3svOO9+wUY5jMfLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HxtEQIrP; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhZcfM6D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833861F000FF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:52:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790837535;
-	bh=s6KihODjWLcvTtrTaXOHXpzKQIJ5jPP6ueTaOR+MOFs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KhZcfM6DIjfrK5ZgFKYgFHNMBc/Rb5o7lAsP842M8gbeKoYiv/AwrorJ3nHqmZ1z7
-	 VG2H1cP47qWxmRDVpTWDyB/1wUj13l1R/6ydb+SMz5kNGQWZ2CURrA/vOOTrPM4unz
-	 fBJZaym5bvFLky3T6EKLy5CUZJZzt+SsXr8hGpRtgKP3oH6uIMzB3SSgoG/jzJctAH
-	 7Ns8vFFNkyXiwV73R/KGIfWMew2RcQcmHvwQew79JCj8QNZR/8hu5Zo1NXxizPzQ3G
-	 t0h/1QY/04+U+meozhdjMjOSdiRFcThUI+jMPCVKQ4Fuk1Kz/gUqmdiAsMeJ9xe+1a
-	 zgkQcq9U+e6ng==
-Received: by mail-lr2-f33.google.com with SMTP id 38308e7fff4ca-3a7847d8aadso4129861fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:52:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByZqA2xtDDU4hJctRGDUjZqfkmo2z7xrf/7u9kKa8Kv8buRjTLASU0pagMMUXVL4W+0xU4+jDzu2bEvD9U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIc/yEn/kQ+S7qvYUO12DN7wBd2Yr1ZP99iVW8AatnN0UGn04z9
-	ggtJ41jd4DB9kQwEDa9l/vVKl0jsMkIL2jFFbFvuJSi7Y2jP4AYkYMlQk11lJHBj4FdXv2Szl7c
-	iXr/Xnx1oLvaMC4z8/raJLykuzmCQWbk=
-X-Received: by 2002:a05:651c:2122:b0:3a7:7dfb:612a with SMTP id
- 38308e7fff4ca-3a77dfb62afmr8856271fa.25.1790837534303; Wed, 30 Sep 2026
- 23:52:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HxtEQIrP"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so649788f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:54:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790837658; x=1791442458; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=dQM3nzcaHIpaT+Z8HPZx7VZW+Ub3Nz7sGdgKg0hJno4=;
+        b=HxtEQIrPevPbWFEGyq415CdLzCbBgdicvRTVqcjxdTmACiTBZFSvXiehx8qwTGcEME
+         wdw1RWJA1tfBWOTEn5lIpqr/McFl2pTIH1mUb996L4mDsvol2XmBsOjnz1Qm7mEfnRkS
+         V+hsScH9cWAWNS2/ISRy/jse4foUpTnsvFYSt0CChnnx19KiOKvdYmm3gYh2JtZ1xWaZ
+         ICXe2LIESM5oHhnblNqp3a5ulURqW+HU7GiHYaOZ87ItXLqk6rAbneIdw2ZgCYsUbAQs
+         tAN8nkJOSyNkic9oT7TXgHdb/VjVPmM6n1MFPXnKMuXeKSnPTu8a+0hoIjjq8WmMnk94
+         khRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790837658; x=1791442458;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dQM3nzcaHIpaT+Z8HPZx7VZW+Ub3Nz7sGdgKg0hJno4=;
+        b=SqCd3wY6lmK+/oW9cwscN9hwEmtN/fwd0dTvljqjpsInL/co94VR+jD20sQiH+XLcQ
+         ufLazJvHDrTcOTjC2inXAVhQDf/Bb8dUjdCk9ARKRHEtsprQV9ZtCAQrkTHArtQUoEQT
+         KSj1BLSSa4rZ0eEgaLr/WBIjKLoA+yEfjAaETxAcfyjzv8KcWPqJjYAh7sJt6pniZwx3
+         qWZfaEC25ENKgjwtyxOnZydTLOg8rWEQ7zp4c/Mh1te373Wy50qGtCDW/eTCCJU59zDa
+         81+o0DvuxZKcrOfPjUVandMjpytwhnGWFrQ0d527lAFbJZeALHm3C054sXBDcarxUS8w
+         n2jA==
+X-Gm-Message-State: AFq9FYJxvIH5lURKUVG/yM+QbVIgC6u52jFEktdAvdFuzS2bBwNDGmY2
+	Yx9z80hGuBP8scaGWNhePuZ0K1DY/3X9jlWRV8P6fK4ZrXY35+doyoy8
+X-Gm-Gg: AYBFou3c+0BYobIX+I8QtfCsZjVfdneEIi207QnkFf/82T9xyIwjE+LBu58nfWGlFIh
+	nXawoJl1eIl1oh9ogRRRGuUdubJIRvqBZqRbV0KQ4KZH5MXD+LhWU0eOPOZ8fjfQS8TuJ0h6iQC
+	RhVe52zpNKRWvraE9BLSYNY9iYmhuCuYxV9E/SDmyALJTd+smD13JrJMRcwVOWBV2Sl1WajYblV
+	LCKK5UL1D8Flr+/LjD8x72u3uDI+xG7OHbE3E/9W1ITduxNUrv5nX0jMLt4vxxF1JrG3KMGXIsh
+	V288H8ImfK4AH0ZJsAMt29nX43hRFnTie/8l9RUaa0Blaz347iydeobBxzvqnuODcD6o2VTUemX
+	d9yNd9MD1m/eJzTH/KnxXcUGDYGsj20vpxflSZo6Oi/6BcG/+PevL3iNRBVFrGw9fwILUwFivXt
+	ma/DcAdfHXo/pvZp7cAipQeYqK99jkOhlgkjvhZC/khE4RzASaTI4bajIGwSIHwBNqfqexn1dHH
+	koo8OVdRBdqIBIteHXQYEkt4INEwZDouNWO/LZphk0KzBBu+ROuyS/XaKjjjTQRtL2OXtvHVEo6
+	M79k3A==
+X-Received: by 2002:a5d:5e0f:0:b0:486:e9ab:2b88 with SMTP id ffacd0b85a97d-48b02a9f53bmr3865955f8f.24.1790837657921;
+        Wed, 30 Sep 2026 23:54:17 -0700 (PDT)
+Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068bc944sm4283186f8f.3.2026.09.30.23.54.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 23:54:17 -0700 (PDT)
+Message-ID: <a1fb38b1aef69d344d31235fbb4bb55d75aaa1d4.camel@gmail.com>
+Subject: Re: [PATCH v2 2/2] spi: axi-spi-engine: fix stale SYNC IRQ pending
+ in trigger_enable
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Mark Brown <broonie@kernel.org>, Jonathan Santos
+	 <Jonathan.Santos@analog.com>
+Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
+	dlechner@baylibre.com, nuno.sa@analog.com, michael.hennerich@analog.com, 
+	jonath4nns@gmail.com, andriy.shevchenko@intel.com
+Date: Thu, 01 Oct 2026 07:55:45 +0100
+In-Reply-To: <8ba05b99-36ac-4a76-ac11-e6ad92c631d4@sirena.org.uk>
+References: <cover.1790731588.git.Jonathan.Santos@analog.com>
+	 <b1573f16b8e30f22877677026bc2296420a0c527.1790731588.git.Jonathan.Santos@analog.com>
+	 <8ba05b99-36ac-4a76-ac11-e6ad92c631d4@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789983244.git.ukleinek@debian.org> <40e52e7300313b33d7c49e9edea71ec98808c7fd.1789983244.git.ukleinek@debian.org>
-In-Reply-To: <40e52e7300313b33d7c49e9edea71ec98808c7fd.1789983244.git.ukleinek@debian.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 08:52:00 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnFzWzPHDjBHgEzos0p9zq7o0pBN4hodPufFq_dfcY-vg@mail.gmail.com>
-X-Gm-Features: AclHuK92sAD3SPcjdSWOlOd38PzFSOQ2n0p6YEgCyXxEh75uGXrlADVj-sR7rzA
-Message-ID: <CAD++jLnFzWzPHDjBHgEzos0p9zq7o0pBN4hodPufFq_dfcY-vg@mail.gmail.com>
-Subject: Re: [PATCH 1/4] pinctrl: axp209: Drop check for disabled devices
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@debian.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 11:42=E2=80=AFAM Uwe Kleine-K=C3=B6nig <ukleinek@de=
-bian.org> wrote:
+On Wed, 2026-09-30 at 14:09 +0100, Mark Brown wrote:
+> On Tue, Sep 29, 2026 at 11:17:45PM -0300, Jonathan Santos wrote:
+> > spi_engine_trigger_enable() sends SYNC(1) and polls SYNC_ID, it never
+> > clears the INT_PENDING[SYNC] bit afterward. This leaves a stale pending
+> > interrupt that can fire spuriously when INT_SYNC is later enabled.
+>=20
+> > +
+> > +	/* Clear the stale SYNC pending bit so it doesn't fire when the IRQ i=
+s
+> > later enabled */
+> > +	writel_relaxed(SPI_ENGINE_INT_SYNC, spi_engine->base +
+> > SPI_ENGINE_REG_INT_PENDING);
+> > +
+> > =C2=A0	if (ret)
+> > =C2=A0		return ret;
+>=20
+> I'm not seeing anything here for the issue with ensuring posted writes
+> are completed before we drop the lock?=C2=A0 The write may not be visible=
+ on
+> enother CPU, we need a read from the controller or something.
 
-> Since commit 6b5c350648b8 ("mfd: mfd-core: Honour Device Tree's request
-> to disable a child-device") the mfd core checks for disabled devices, so
-> there is no use in doing that again in the mfd child driver.
->
-> Drop the check.
->
-> Signed-off-by: Uwe Kleine-K=C3=B6nig <ukleinek@debian.org>
+Just for my understanding, why would it be an issue? The trigger register s=
+eems to
+only be accessible from the trigger callbacks which are protected by a lock=
+ where we
+have implied barriers. Im sure I'm missing what can go wrong here :)
 
-This patch 1/4 applied to the pin control tree.
-
-Yours,
-Linus Walleij
+- Nuno S=C3=A1
