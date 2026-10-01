@@ -1,70 +1,69 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36C13DDB09
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365A2404BE3
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855069; cv=none; b=EzVi2a6Yg/UDh/QQxyV7EKOVQ+ENalXNTDKYt7QquNsemTAUwHem0DkrKbdMdjInly7D15paru13xP/ItzEsTd49fmRSncijMImCCDP9B2ap00T2xgunx5/bBqV5vbH7KrmQifO59WoiaE3k9Z4FxrSFqQuj14Zn8HIpnzKp6pI=
+	t=1790855066; cv=none; b=nVkKKyvnQ+DOFWtar5eFeROmItkqDxRIyAVIk5/AUweHQ4EEvVpdJhHtw3wC3rIb71hveR6ue4MaMw4R8ZL9eRidwVPwKEYys/6CmSR5PdFcov5HgMMtYI2h3+qeYAGBSLPBET9CrlG28omlVLKw7LneYWK9PJP0LKhNGmH5GY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855069; c=relaxed/simple;
-	bh=t59HA6ckivCe/4YnKmDvJmeL7B0/skKgvWKi9ud/Zg8=;
+	s=arc-20240116; t=1790855066; c=relaxed/simple;
+	bh=TrTvDfFn/k4uiEHyffaC4IKdjtst9K0k0gvyN6WQHvg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PFk5to572lXNNY4vUNTe86H9fDTKXyFno4co3u2IhjzS2V4DmvxY2UC5IdrifuGH4TCwYIowPAdeodeKOfF5elNttbvexCx3CJebK5J0Y1c8oAEoBKBFfbf2UqIKNDUOZ8DbsYibDLIbt4u+FMJ6SAgtmFwMv4OVoLZgfyZuiZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YuQ6c9Wk; arc=none smtp.client-ip=74.125.225.99
+	 In-Reply-To:To:Cc; b=L1FiW6OUejBIp1FH6Mog/QbbFu+QZ4hTYiy6V4JsFHNcdBb2jEUY4eVUANyqdqrVdCDkBAXBWj/u3/FA2VDS3vPq4PTsk9NgVRZqCANOWwcKikyggSLPIzL6KgeUO6kgBa6t/j00MWEctaGng+Fya4BjbHWe22XekdBOfARyna4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XLgfOlJe; arc=none smtp.client-ip=74.125.225.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YuQ6c9Wk"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b08452cafso609662f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:44:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XLgfOlJe"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b024549a2so1325651f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:44:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790855058; x=1791459858; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790855056; x=1791459856; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HmnXElFSJd4KcBqGRqP1X7uyQN8BRiiAkPdqtLDtOZY=;
-        b=YuQ6c9Wkfszs5kBKe3E3ne2Hz7SVDCls8buFtHdFVhgvkQ6nko0JelkQU7LoSwNQ+S
-         HYzUROJUT9UIH547ebuT/1O/MgEdrvDruwpd9xHHNOcAx8EK4kD3P5Ck/oEjNBmBBBG9
-         AdfJhNZJb8VW+U0fYU1hoVo7RcxU3Zpg5QOaryd079HUvrlYEkeNJzSPa80WjbjueMsQ
-         X5QLg0P1WDdxWHUVpcpCME5R2CQXP2vO1P6r29oWXT1ApQdlX37X7+ZORUskVCL5pl+8
-         oNfwKwm/c5cRv7y/iqNFnnWvb7Vy09Ut4B9jeG4nqlI/3LZMAOp9B2l6y2ELRRftNhhC
-         e0nw==
+        bh=oHoaVug1Lx4d7NCtEru06mZWP8AQ/VN7bfbLwwo+zA8=;
+        b=XLgfOlJeGr0cYV1OULxE3UdFb70m+d3T4FjQcs0cW9Hk+GNhzNwfZ4AmLtFumheUoJ
+         z7cfk7NVEvKm0Yyt9ZWjqFb49OPIo5eHFjRS6HVvbazV7X61dfEoGPrmzwRU6T40utFF
+         ZcO8tqux7Ck8Yo0ZL3eN86ZGvD+BmY5JeKCv89K/l0GajlnGyTThvNMb5cWknauJXTkb
+         JiEl2U8cvy7+Sx9iYC70BpnneNx2KYW0hIYmCENZbke908lODGAE1+PZ8hyWzmu/5ic3
+         twYFi3AbchK+Srhv+/+x0qnfo6NpfiWBKDJBKHQY/H4Ixn1qAvQy/mJ4BHvg0VLnhN4L
+         AAdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790855058; x=1791459858;
+        d=1e100.net; s=20260707; t=1790855056; x=1791459856;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HmnXElFSJd4KcBqGRqP1X7uyQN8BRiiAkPdqtLDtOZY=;
-        b=PwcZF3TkiUt/qZaDIJ68sonNqSoiMIAf0oPRcpUPj6yb1IqOe/G3x2zUvLHOTm5ZUi
-         4tYb0G3uHIj8fPVnmSdz0rIx9KRzqAZVO2m4vJ1Q3gdD16d5T8eblBam2NgsW0qIYfSZ
-         mrlN00LJD+Ks8tzXkJPbirgCWHB6MHpm2mXasCsPP11VoE4FjIvuquEikJZT13jSRTMx
-         qPkF32O7uLf6D0KG2CEKUCthZyFeWDtsqLUAEP4qjIad6oygEjN+mq5F2WlI+aHif53X
-         1nnv4QDOfvn2XcDmnhO9i2DYWS+BewO6s46oj4IWO44Yi8nKroVMnKLs15xFOvijsuXB
-         wxaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzX8fJSmsE8jN2JmnAiXpwvqyhfZY5sUX7yarM3dDucaIiwk1Ge2iw3BD8Jf3BQXgZm2ZBUscKL33ikz64=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcHrTbp/9Rwg2TwAzGKlWKU2YWs7s3Jvx6Ty6q3lD7AybruxB+
-	54oVsYWzicM2hL/Npixps1AOakw6Wgg/ldj0O9Jt1OsMFF+lJVI4X/GL
-X-Gm-Gg: AYBFou15qEGMuMsudWWXxZqBE5C39wwlE6G/dM6s9mrl2Kg9HSzpkog44fxUl3iIApL
-	nhWGQ5QLVeZnz2dFV4linLvrwbtUcCTKXYC0xSiNvcD7rI6Si/CfPPsCgTZ14L5AS3mNF3/El6G
-	7h2+1FzcDYKYsbVpg6769m4cyAtXx488coL0sfMdmBLvW9JhQBmudBbMHQAayXjgN90SXJ2jZyj
-	QLZ44iXgGZKvxAgH5akIkV07HoBKGxqyITfNylSzYZBgDY36Plb8B76uYuAbmtq8PAnmRlbdwgc
-	ZM3eHLSNT0E/4u54XerG3GXvNG1DQx5kVj0Wgsu2JKOHrnGOY9tE2aHN2jvPSs1OYtY4QDdMZHJ
-	XqmpyEtmqGej6nDkM83kjviYCLpVHg+RYv7zuY0jKTEkfVAZ3/zGIJqHENoedBgx33s0s3OdXz0
-	gqjxd29UnblQTX/YMxAp8rGBpFdxX6l1yIaz/LuwQxX5sGioWVl5yNmjWRya7ur9zTZBrqKHSgn
-	QcJJtGpY9dGqzlvMdJxfVoheb0i349eUcDxeBctGYRNOivkmSRBCKFnteLQpUfOL9Lh7/Ns6Jey
-	kloanUNe
-X-Received: by 2002:a05:6000:230a:b0:48b:515:f94 with SMTP id ffacd0b85a97d-48b05151156mr5639332f8f.51.1790855057900;
-        Thu, 01 Oct 2026 04:44:17 -0700 (PDT)
+        bh=oHoaVug1Lx4d7NCtEru06mZWP8AQ/VN7bfbLwwo+zA8=;
+        b=sIeJMDTsyqd3Xib+3mBbhqNwZFGm9uodhG2f3XG8HOGvb/9OPTFoGzOX3bzyH+Qi5m
+         m9pVdYxBE/Ozpj4sim3xu4P/ihCOZkYuLaC196p8V7dPLAa9xC8fQw2Jrewi0eevK8Rv
+         zfEZuQLYvrWAOoTE33Z60ISghR6EGc6ZpxCo9gJ8g5+nnLvQgWoU21I/OqevfNtced5R
+         y7baroBRIk+w8wwYH9cMq0KI1RMShMnBB4a73NTj5IU1+AMn6KKj82BtVChw98Xuul2Q
+         VvYGXfLY9yNYHpyPqiTZptwPPo+/5XTfPCKw/9DCmfq+4D4nUnYlNGlIL0vpOJr/lz6u
+         DFfQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXClH3J34MHF0TMB4tFKPD/kVEuakS+4KbagTGjj6iqDPnHX7R+uAcLNp2EB645Ja7xSsmIW6jfzzVyPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJhYjJnUKU0Sh5OiQ9PcjHBVL0OEDVp/CZLfvnHDrxMYO/yaqv
+	KuU9F/D7M1m15qXuCUDRtGt3cSAACoE5YJ+WtM2cZEK3vER/ddvVdbg7
+X-Gm-Gg: AYBFou1LIqDntP1bIae5Cd8thxWkT5+QUYrLN5AIMN1pUtbAQqKzMr83IDb/jFlRbWD
+	alytexQdhRtQea9in7+QzoaCoQigeQPJulQWHvluosFjYJHpyhfMoNcubTXxmkDRCe/XrUrZz+F
+	KeWZMoqaUeuPqZWd/44zEP6y5qfVuSST0YjGewdMpVQMJa5NEy3Dy4PSvo5uOmtnSf791MhQkle
+	H75x/95b63rl1kRvuijFkVV2RizIkWDHyGqGZsBkpQlJZ6jyVKh+1dH7TRf7xHJdI4Pyavami21
+	3XpU+7t8Mf0vJifTqjitw31eNAufJ75ZQY7Qm0t2mo7Meyw42j0ylGSq5U0Ur00eTSzvXLHPbQa
+	gZiUwDLQ/ub7UWqGLh+jyiwTmNf0VbR2Q9fqNGJi9/XfJT8vv7f4GEgto3MSLqMAmwywjcSQgJ+
+	EI0Fovo1zEu+8w6WbZUS76uqaloDYuW/tzDM1ijhUOAfrWscx4+9B6xIaH7vVRC1oeNBVQt17WD
+	3oB0XE7aty4KsJL+TupsD/feIgBmyfE4A5bTK5OTPn6xCD+yg+sBxBFKBDBjo0OfhzzLSvZN4c=
+X-Received: by 2002:a05:6000:4b18:b0:487:14b6:b1be with SMTP id ffacd0b85a97d-48b024d523amr7320787f8f.25.1790855056060;
+        Thu, 01 Oct 2026 04:44:16 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b1035eff8sm1243705f8f.7.2026.10.01.04.44.17
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b1035eff8sm1243705f8f.7.2026.10.01.04.44.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 04:44:17 -0700 (PDT)
+        Thu, 01 Oct 2026 04:44:15 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 01 Oct 2026 13:44:11 +0200
-Subject: [PATCH v2 3/6] dt-bindings: connector: Add Toradex camera
- connector
+Date: Thu, 01 Oct 2026 13:44:09 +0200
+Subject: [PATCH v2 1/6] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7
+ remoteproc
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
+Message-Id: <20261001-verdin-imx8mp-hmp-camera-ready-v2-1-7d1343ecd3ec@toradex.com>
 References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
 In-Reply-To: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -91,109 +90,65 @@ X-Mailer: b4 0.13.0
 
 From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Toradex boards route the sideband signals of their 24-pin camera
-connectors to different GPIO controllers. Camera overlays which name
-those controllers directly must therefore be duplicated for each host
-board.
-
-Describe reset, power-down, detection and power-control as
-connector-local GPIO functions. This lets an accessory overlay remain
-independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
-remain described separately because the GPIO nexus does not abstract
-them.
+Describe the Cortex-M7 remote processor available on the Verdin iMX8M
+Plus SoM.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- .../connector/toradex,camera-connector.yaml        | 81 ++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi | 33 ++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-new file mode 100644
-index 000000000000..27fee3defde7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
-+$schema: http://devicetree.org/meta-schemas/base.yaml#
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+index 9fee2cf9ef54..45a4713c260f 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+@@ -77,6 +77,18 @@ key-wakeup {
+ 		};
+ 	};
+ 
++	imx8mp-cm7 {
++		compatible = "fsl,imx8mp-cm7";
++		clocks = <&clk IMX8MP_CLK_M7_DIV>;
++		mbox-names = "tx", "rx", "rxdb";
++		mboxes = <&mu 0 1
++			  &mu 1 1
++			  &mu 3 1>;
++		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
++				<&rsc_table>;
++		syscon = <&src>;
++	};
 +
-+title: Toradex camera connector GPIO nexus
+ 	sound_hdmi: sound-hdmi {
+ 		compatible = "fsl,imx-audio-hdmi";
+ 		model = "audio-hdmi";
+@@ -185,6 +197,27 @@ reserved-memory {
+ 
+ 		/* Use the kernel configuration settings instead */
+ 		/delete-node/ linux,cma;
 +
-+maintainers:
-+  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-+  - Toradex Linux BSP Team <linux-bsp@toradex.com>
++		vdev0vring0: vdev0vring0@55000000 {
++			reg = <0 0x55000000 0 0x8000>;
++			no-map;
++		};
 +
-+description: |
-+  Toradex carrier boards share a common 24-pin, 0.5 mm pitch FFC/FPC camera
-+  connector carrying MIPI CSI-2, I2C, clock, power, and sideband GPIO signals.
-+  This binding describes the sideband signals as a GPIO nexus. The other
-+  connector resources remain described by the surrounding board device tree.
++		vdev0vring1: vdev0vring1@55008000 {
++			reg = <0 0x55008000 0 0x8000>;
++			no-map;
++		};
 +
-+  The nexus exposes connector-local GPIO function numbers to camera overlays
-+  and maps the functions wired by a carrier board to their GPIO controllers.
-+  GPIO specifiers contain a function number followed by standard GPIO flags.
-+  A board may omit functions which it does not wire.
++		rsc_table: rsc-table@550ff000 {
++			reg = <0 0x550ff000 0 0x1000>;
++			no-map;
++		};
 +
-+  The function numbers are:
-+    - 0: Camera reset, connector pin 11
-+    - 1: Camera power-down, connector pin 22
-+    - 2: Camera identification, connector pin 23
-+    - 3: Camera power control, connector pin 24
-+
-+properties:
-+  compatible:
-+    const: toradex,camera-connector
-+
-+  "#gpio-cells":
-+    const: 2
-+
-+  gpio-map:
-+    minItems: 1
-+    maxItems: 4
-+
-+  gpio-map-mask:
-+    items:
-+      - const: 0xffffffff
-+      - const: 0
-+
-+  gpio-map-pass-thru:
-+    items:
-+      - const: 0
-+      - const: 0xffffffff
-+
-+required:
-+  - compatible
-+  - "#gpio-cells"
-+  - gpio-map
-+  - gpio-map-mask
-+  - gpio-map-pass-thru
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    camera-connector {
-+        compatible = "toradex,camera-connector";
-+        #gpio-cells = <2>;
-+        /*
-+         * 0: Camera reset, connector pin 11
-+         * 1: Camera power-down, connector pin 22
-+         * 2: Camera identification, connector pin 23
-+         * 3: Camera power control, connector pin 24
-+         */
-+        gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
-+                   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
-+                   <2 0 &gpio1 2 GPIO_ACTIVE_HIGH>,
-+                   <3 0 &gpio1 3 GPIO_ACTIVE_HIGH>;
-+        gpio-map-mask = <0xffffffff 0x0>;
-+        gpio-map-pass-thru = <0x0 0xffffffff>;
-+    };
-+
-+...
++		vdev0buffer: vdev0buffer@55400000 {
++			compatible = "shared-dma-pool";
++			reg = <0 0x55400000 0 0x100000>;
++			no-map;
++		};
+ 	};
+ };
+ 
 
 -- 
 2.43.0
