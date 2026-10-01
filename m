@@ -1,876 +1,265 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673394A68BC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4572547044;
+	Thu,  1 Oct 2026 13:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860719; cv=none; b=c/+oDxtf8/nfBD/41lyiyzYosFb2IPEA+//+Thfuk0oqSckcVIGzl8JEiE8A4U7EvTtK/73p1fjvdRNaSkgbMmr/Y/krwC8GtkyD3BqMkkKJuVfARjzJSnRL2/sdMbjaHzlEcMzJHaJBxyQj+2dn7Xw/MB9JUazoQfNTSwq7ZbE=
+	t=1790860721; cv=none; b=uGFbyisuqXKAI7o9CBKSb/XNW81H2SVhdtG32zJ30/vWj9TriZi3ySosXwGcKWzs7AmJ3B+4YDitHQlJhocOzjgzDF9aWzFZNQ9f+L6ZtgwxrnvMfl9sQqNgTycEOAxlgRw0phunuoJalYzHDObhg8C82vzpan7o/8dKl0phm28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860719; c=relaxed/simple;
-	bh=Kjor2FzK7CTNgJHE9LXCeUI2TAGYuiwNRAynE5sBRNs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pKXb3aB35LYT37/HM84QpxOaeUDCcAPxcIZRJfH5dg4lDMJKdrSdYN2pFZj0bzuBZnOD4BhCni9jbXs/SVn33dgJViPkbGYF8VYMxFKtycN8Sfh8BU0NRvL2yj/B+LZj3VvSUj0mS26ktWNJbCtJfVr+gWoZGg2xl1LxVU0C6oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rFdMRYrp; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790860721; c=relaxed/simple;
+	bh=JkI7VZ4A2uC+/dn/L/W5qEz5CiiPheGQnlanGKaUISA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ETcJ1NcbHqBgpF6IYf+BqSLH5Q39PI3LRPFC36l+haeIC9pjh4HHzbN8cuH5IYH29UnW8LP8d5t2qlMWfZjNhUTSuVyDMnrlTD4BwkMAAhYhSWlkAk9kSFUq671GPknSMJW1mDMx/OvoiwBXoAimx14GHxEdmJKErvSOqw4nbOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agBhyH+b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rFdMRYrp"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so3898273a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:18:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790860715; x=1791465515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rLY/ur1Fk26mxY+HoEWe9ij36mmqxTHAK9cMFWuPb0c=;
-        b=rFdMRYrpmegjNXtz6vF+4CduIc+MJZbPkMR5/bsNgc0tT58fK1AIETWxLixEs7rse8
-         wwd8G53Ek6wY+Mq5FKTG4uFLfg8TZhqjGAYnGSFUtq6hZlwiQxN8Fn6QbGAxcwNo8ttm
-         oKpNCVmBlebpY5WOKgvVkRf5ZlvU5N7/k4bfinCJ6weRt0mbo6R5Bhk95ybwY5SgAMVM
-         VHalhqjY2S4FVYm5w2Nn1E0PTUIsK5f0pjbcPCz7fncLZs1s/douLOynH25FFjVcMuHX
-         0907v7w1nJs2sEkyKnRG0IuwssMtBmBJ20JvYL/a1hfIbQpWjud24ld8yPVCDMF/dKZg
-         MmRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790860715; x=1791465515;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rLY/ur1Fk26mxY+HoEWe9ij36mmqxTHAK9cMFWuPb0c=;
-        b=ckCCBtLHP2mPgdode79uKjVl3oC1kk7g6lkHBUviKpqZNLu2roMg+CwyBrBVsgJZ9t
-         F/eOY5vczo3aa/eQ63Nao8ReBKp4lb3qY6cm+KtT9xthOt3GTgvzZk3JDiD+eJYYgz4x
-         r0tI88cxUIg1R/22lElmu3JFl7tvENMWh94Q9a45dlDZ0SWXr0fv7f5TEyg+ZX68dDrZ
-         g7KvWgFwRMl28isC6x210uYMv5DHRQfR3cWxGty1zk105hD6XHkr9J41fD0+y2uJm4Kl
-         M1PA4vA9H+04dvplyvrrSdRdhc80LJUy1qoe1amGPdWjLRhCym0/LaI7zfyaNhLeszy/
-         d4CQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8B1EZCgv7JF8Zn4Md/4YXN7nbdoYkv7Kf8dcSkPW8u11GxvPnzrpo8ktq+kLxuI5Sb0M6kQ8nL9k5xUE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUanRPoFvt6VHZ0PWCv/s5l7GTv2YJHm2N4Baz0L4P4XuihbsD
-	LkESoWrkh0wUIjWMzX5+XUfKFV5gGNOhyHzNNVQ//N/rC2zOw2RSivg/
-X-Gm-Gg: AYBFou3U7VhFNRuNCYQP2RsOi2xhp46/kYk/Z44DpsNkBIYuTTEeRdg6/GORKLC4uf2
-	UM1OC8DvN/toTBIO3B528FlJXpWxvacqiq6CmpcbXaTMzGuvb+6dKqVX1E7ZOt8c6Uh4yx2uUkw
-	c4dDJSxhidd2wAhmP4ubt78UJzsLeWm+ar8ved5wpRsOwqeAGu9U4oLsdYu+XrKC3HINbZb3VZL
-	66ym7yV9JS6hmU2rOaoHwmY48yPJUMc0WD1A1wVz7j/8KDyn65MTaog2XbAhXouMcbEzlTkUNQQ
-	sgGrx1ERdHIEmGuXOGTlKwcvQtPOtbp3vojaEO5IiuuKLtDNFNDrpB6TS8/y8mniJjAS0eoO84g
-	YCSQ8t+EeYjv9DQ5vL/XI4T3DTwW4NlCjzaUFBogwOds8wgTe/2VDYl+9Lu5FvWS5zJANujF20P
-	zgAdobcrZxb1byMCOax1Myoj8ywnEXu2YyCNtRWZK9pg5a+lktT/iaXq0ShafcW0ywxSiyCjol9
-	GgyTZVerBFtKhg8KK2FwqdnddZw2v4lmIdHkRpNwKGQswNSmp4EXRbdIlHTpB3V6sxQe5A=
-X-Received: by 2002:a17:90b:48cc:b0:3a4:c18c:b894 with SMTP id 98e67ed59e1d1-3a4d18f52d7mr3756070a91.52.1790860714983;
-        Thu, 01 Oct 2026 06:18:34 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f46bb550sm5016692a91.5.2026.10.01.06.18.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:18:34 -0700 (PDT)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH v2 2/3] spi: ma35d1: Add Nuvoton MA35D1 SPI controller support
-Date: Thu,  1 Oct 2026 21:18:17 +0800
-Message-Id: <20261001131818.110028-3-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261001131818.110028-1-cwweng.linux@gmail.com>
-References: <20261001131818.110028-1-cwweng.linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agBhyH+b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628371F000FF;
+	Thu,  1 Oct 2026 13:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790860718;
+	bh=UxjpaonxC/3VDFbLXavStYHgpCVIO4MBlBHvzTk6YXI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=agBhyH+bFmKD1JiAnoEtz/5qMdv8Ap+ND3x/3N77sLFcXCZ3bcDlajbZP+2ap44sx
+	 KPIQ+CdPX8Cd2RQc2lWaQ+6tuTQVHD2pYQlPNxdOxQthGqM2hpE/FWfeBE+JBoOiSg
+	 aTHw3Pfaa+usXhHmYbPmjg6Em6hcDF+IY/Dz4XEOgO3LkcfaH27mJOMvaKWNKyUSaV
+	 dIgxHpJeU+ZOW+vHFYouo/WQFX/mh6XCActsubBMgSttDFWHcozj2biVdd0OlH5rHg
+	 SjqdUVy0SHAv0dkWibepFp4IukMLRAR7jxSvh/uVcF78zQKMLBluxXYPcqcH563yw/
+	 oK2yZa6XGh3Fg==
+Message-ID: <0623ee06-00e5-421e-a24a-ed605abb559b@kernel.org>
+Date: Thu, 1 Oct 2026 14:36:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 15/40] mm/vma: add vma[_flags]_is_kernel_owned()
+ predicates
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
+On 9/17/26 18:22, Lorenzo Stoakes (ARM) wrote:
+> Rather than referring to VMA flags with uncertain meaning, add a new
+> predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
+> or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
+> determining VMA mergeability.
+> 
+> Either flag means the contents of the mapping are owned by the kernel,
+> usually a driver, rather than by the core mm: the memory may be MMIO,
+> kernel-allocated pages or even ordinary pages the driver maps itself, but
+> the core must not populate, reclaim, migrate, copy-on-write or merge the
+> range on its own initiative.
+> 
+> We initially also include VMA_IO_BIT here, as by implication, these must be
+> kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
+> while locking them, which is addressed later in this series.)
+> 
+> However the intent is to in future remove this, as no mapping should be
+> marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+> 
+> This forms the basis of further work intended to improve how we express VMA
+> properties such as this.
+> 
+> Also update the VMA userland tests to reflect the change.
+> 
+> No functional change intended.
 
-Add support for the SPI controller found in the Nuvoton MA35D1 SoC.
+Of course I have to bitch about the naming :)
 
-The driver supports SPI host mode using polling-based PIO transfers,
-with SPI modes 0 through 3, LSB-first operation, and word sizes from
-8 to 32 bits.
+Intuitively: kernel owned vs ... user owned?
 
-Support the two native chip-select outputs as well as GPIO chip selects
-through the SPI core GPIO descriptor support.
+No, it's kernel owned vs core-mm owned.
 
-Configure the SPI clock divider according to the hardware requirement
-that only odd CLKDIV register values are valid, ensuring that the
-generated SPI clock does not exceed the requested transfer frequency.
+Which implies core-mm is not part of the kernel?
 
-The controller must be disabled before changing CTL, CLKDIV, SSCTL or
-FIFOCTL. Avoid unnecessary enable/disable cycles by reconfiguring the
-controller only when the transfer settings change.
+Yes, this is confusing. ;)
 
-Add system sleep support using the SPI core suspend and resume helpers.
-The MA35D1 SPI registers are retained across power-down and deep sleep,
-so no hardware state restoration is required after resume.
+I assume you're coming from "map_kernel_pages*", but that's rather "kernel
+memory" and not "kernel owned".
 
-Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
----
- drivers/spi/Kconfig      |  11 +
- drivers/spi/Makefile     |   1 +
- drivers/spi/spi-ma35d1.c | 716 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 728 insertions(+)
- create mode 100644 drivers/spi/spi-ma35d1.c
+Usually we say "driver owned" when not talking about pagecache/anon. Or user vs.
+kernel memory.
 
-diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-index eb042cf5268f..49088e5886d3 100644
---- a/drivers/spi/Kconfig
-+++ b/drivers/spi/Kconfig
-@@ -667,6 +667,17 @@ config SPI_LP8841_RTC
- 	  Say N here unless you plan to run the kernel on an ICP DAS
- 	  LP-8x4x industrial computer.
- 
-+config SPI_MA35D1
-+	tristate "Nuvoton MA35D1 SPI controller"
-+	depends on ARCH_MA35 || COMPILE_TEST
-+	help
-+	  This enables support for the SPI controller found in
-+	  Nuvoton MA35D1 SoCs.
-+
-+	  The controller supports standard SPI peripheral devices with
-+	  configurable clock polarity and phase, chip select, and data
-+	  word sizes from 8 to 32 bits.
-+
- config SPI_MA35D1_QSPI
- 	tristate "Nuvoton MA35D1 QSPI controller"
- 	depends on ARCH_MA35 || COMPILE_TEST
-diff --git a/drivers/spi/Makefile b/drivers/spi/Makefile
-index 37c6eec9b541..b493f50b93e3 100644
---- a/drivers/spi/Makefile
-+++ b/drivers/spi/Makefile
-@@ -86,6 +86,7 @@ obj-$(CONFIG_SPI_LOONGSON_CORE)		+= spi-loongson-core.o
- obj-$(CONFIG_SPI_LOONGSON_PCI)		+= spi-loongson-pci.o
- obj-$(CONFIG_SPI_LOONGSON_PLATFORM)	+= spi-loongson-plat.o
- obj-$(CONFIG_SPI_LP8841_RTC)		+= spi-lp8841-rtc.o
-+obj-$(CONFIG_SPI_MA35D1)		+= spi-ma35d1.o
- obj-$(CONFIG_SPI_MA35D1_QSPI)		+= spi-ma35d1-qspi.o
- obj-$(CONFIG_SPI_MESON_SPICC)		+= spi-meson-spicc.o
- obj-$(CONFIG_SPI_MESON_SPIFC)		+= spi-meson-spifc.o
-diff --git a/drivers/spi/spi-ma35d1.c b/drivers/spi/spi-ma35d1.c
-new file mode 100644
-index 000000000000..7560cb7e0b09
---- /dev/null
-+++ b/drivers/spi/spi-ma35d1.c
-@@ -0,0 +1,716 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+//
-+// Nuvoton MA35D1 SPI controller driver
-+//
-+// Copyright (c) 2026 Nuvoton Technology Corp.
-+// Author: Chi-Wen Weng <cwweng@nuvoton.com>
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/math.h>
-+#include <linux/module.h>
-+#include <linux/pm.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/reset.h>
-+#include <linux/sizes.h>
-+#include <linux/spi/spi.h>
-+#include <linux/time.h>
-+#include <linux/unaligned.h>
-+
-+/* Register offset definitions */
-+#define NUVOTON_SPI_CTL_OFFSET			0x00
-+#define NUVOTON_SPI_CLKDIV_OFFSET		0x04
-+#define NUVOTON_SPI_SSCTL_OFFSET		0x08
-+#define NUVOTON_SPI_PDMACTL_OFFSET		0x0c
-+#define NUVOTON_SPI_FIFOCTL_OFFSET		0x10
-+#define NUVOTON_SPI_STATUS_OFFSET		0x14
-+#define NUVOTON_SPI_TX_OFFSET			0x20
-+#define NUVOTON_SPI_RX_OFFSET			0x30
-+
-+/* SPI Control Register bit masks */
-+#define NUVOTON_SPI_CTL_DATDIR_MASK		BIT(20)
-+#define NUVOTON_SPI_CTL_REORDER_MASK		BIT(19)
-+#define NUVOTON_SPI_CTL_SLAVE_MASK		BIT(18)
-+#define NUVOTON_SPI_CTL_UNITIEN_MASK		BIT(17)
-+#define NUVOTON_SPI_CTL_RXONLY_MASK		BIT(15)
-+#define NUVOTON_SPI_CTL_HALFDPX_MASK		BIT(14)
-+#define NUVOTON_SPI_CTL_LSB_MASK		BIT(13)
-+#define NUVOTON_SPI_CTL_DWIDTH_MASK		GENMASK(12, 8)
-+#define NUVOTON_SPI_CTL_SUSPITV_MASK		GENMASK(7, 4)
-+#define NUVOTON_SPI_CTL_CLKPOL_MASK		BIT(3)
-+#define NUVOTON_SPI_CTL_TXNEG_MASK		BIT(2)
-+#define NUVOTON_SPI_CTL_RXNEG_MASK		BIT(1)
-+#define NUVOTON_SPI_CTL_SPIEN_MASK		BIT(0)
-+
-+/* SPI Clock Divider Register bit masks */
-+#define NUVOTON_SPI_CLKDIV_MASK			GENMASK(8, 0)
-+
-+/* SPI Slave Select Control Register bit masks */
-+#define NUVOTON_SPI_SSCTL_SS1_MASK		BIT(1)
-+#define NUVOTON_SPI_SSCTL_SS0_MASK		BIT(0)
-+#define NUVOTON_SPI_SSCTL_SSACTPOL_MASK		BIT(2)
-+#define NUVOTON_SPI_SSCTL_AUTOSS_MASK		BIT(3)
-+#define NUVOTON_SPI_SSCTL_SLV3WIRE_MASK		BIT(4)
-+#define NUVOTON_SPI_SSCTL_SLVBEIEN_MASK		BIT(8)
-+#define NUVOTON_SPI_SSCTL_SLVURIEN_MASK		BIT(9)
-+#define NUVOTON_SPI_SSCTL_SSACTIEN_MASK		BIT(12)
-+#define NUVOTON_SPI_SSCTL_SSINAIEN_MASK		BIT(13)
-+
-+/* SPI PDMA Control Register bit masks */
-+#define NUVOTON_SPI_PDMACTL_TXPDMAEN_MASK	BIT(0)
-+#define NUVOTON_SPI_PDMACTL_RXPDMAEN_MASK	BIT(1)
-+
-+/* SPI FIFO Control Register bit masks */
-+#define NUVOTON_SPI_FIFOCTL_SLVBERX_MASK	BIT(10)
-+#define NUVOTON_SPI_FIFOCTL_TXUFIEN_MASK	BIT(7)
-+#define NUVOTON_SPI_FIFOCTL_TXUFPOL_MASK	BIT(6)
-+#define NUVOTON_SPI_FIFOCTL_RXOVIEN_MASK	BIT(5)
-+#define NUVOTON_SPI_FIFOCTL_RXTOIEN_MASK	BIT(4)
-+#define NUVOTON_SPI_FIFOCTL_TXTHIEN_MASK	BIT(3)
-+#define NUVOTON_SPI_FIFOCTL_RXTHIEN_MASK	BIT(2)
-+#define NUVOTON_SPI_FIFOCTL_TXRST_MASK		BIT(1)
-+#define NUVOTON_SPI_FIFOCTL_RXRST_MASK		BIT(0)
-+
-+/* SPI Status Register bit masks */
-+#define NUVOTON_SPI_STATUS_TXRXRST_MASK		BIT(23)
-+#define NUVOTON_SPI_STATUS_TXFULL_MASK		BIT(17)
-+#define NUVOTON_SPI_STATUS_SPIENSTS_MASK	BIT(15)
-+#define NUVOTON_SPI_STATUS_RXEMPTY_MASK		BIT(8)
-+#define NUVOTON_SPI_STATUS_BUSY_MASK		BIT(0)
-+
-+#define NUVOTON_SPI_MAX_NATIVE_CS		2
-+#define NUVOTON_SPI_DEFAULT_NUM_CS		2
-+#define NUVOTON_SPI_DEFAULT_BPW			8
-+#define NUVOTON_SPI_MAX_SPEED_HZ		100000000U
-+#define NUVOTON_SPI_MIN_DIVISOR			2U
-+#define NUVOTON_SPI_MAX_DIVISOR			512U
-+#define NUVOTON_SPI_RESET_CYCLES			5U
-+
-+/* Bound PIO operations to avoid long polling loops. */
-+#define NUVOTON_SPI_MAX_TRANSFER_SIZE		SZ_4K
-+#define NUVOTON_SPI_TIMEOUT_US			10000
-+
-+struct nuvoton_spi {
-+	void __iomem *regs;
-+	struct device *dev;
-+	unsigned long clk_rate;
-+};
-+
-+static u32 nuvoton_spi_read(struct nuvoton_spi *nspi, u32 reg)
-+{
-+	return readl(nspi->regs + reg);
-+}
-+
-+static void nuvoton_spi_write(struct nuvoton_spi *nspi, u32 val, u32 reg)
-+{
-+	writel(val, nspi->regs + reg);
-+}
-+
-+static void nuvoton_spi_update_bits(struct nuvoton_spi *nspi, u32 reg,
-+				    u32 mask, u32 val)
-+{
-+	u32 tmp;
-+
-+	tmp = nuvoton_spi_read(nspi, reg);
-+	tmp &= ~mask;
-+	tmp |= val & mask;
-+	nuvoton_spi_write(nspi, tmp, reg);
-+}
-+
-+static int nuvoton_spi_disable(struct nuvoton_spi *nspi)
-+{
-+	u32 ctl;
-+	u32 val;
-+
-+	ctl = nuvoton_spi_read(nspi, NUVOTON_SPI_CTL_OFFSET);
-+	if (!(ctl & NUVOTON_SPI_CTL_SPIEN_MASK))
-+		return 0;
-+
-+	nuvoton_spi_write(nspi, ctl & ~NUVOTON_SPI_CTL_SPIEN_MASK,
-+			  NUVOTON_SPI_CTL_OFFSET);
-+
-+	return readl_poll_timeout_atomic(nspi->regs + NUVOTON_SPI_STATUS_OFFSET,
-+					 val,
-+					 !(val & NUVOTON_SPI_STATUS_SPIENSTS_MASK),
-+					 1, NUVOTON_SPI_TIMEOUT_US);
-+}
-+
-+static int nuvoton_spi_enable(struct nuvoton_spi *nspi)
-+{
-+	u32 ctl;
-+	u32 val;
-+
-+	ctl = nuvoton_spi_read(nspi, NUVOTON_SPI_CTL_OFFSET);
-+	if (ctl & NUVOTON_SPI_CTL_SPIEN_MASK)
-+		return 0;
-+
-+	nuvoton_spi_write(nspi, ctl | NUVOTON_SPI_CTL_SPIEN_MASK,
-+			  NUVOTON_SPI_CTL_OFFSET);
-+
-+	return readl_poll_timeout_atomic(nspi->regs + NUVOTON_SPI_STATUS_OFFSET,
-+					 val,
-+					 val & NUVOTON_SPI_STATUS_SPIENSTS_MASK,
-+					 1, NUVOTON_SPI_TIMEOUT_US);
-+}
-+
-+static int nuvoton_spi_wait_ready(struct nuvoton_spi *nspi)
-+{
-+	u32 val;
-+
-+	return readl_poll_timeout(nspi->regs + NUVOTON_SPI_STATUS_OFFSET, val,
-+				  !(val & NUVOTON_SPI_STATUS_BUSY_MASK),
-+				  0, NUVOTON_SPI_TIMEOUT_US);
-+}
-+
-+static int nuvoton_spi_reset_fifo(struct nuvoton_spi *nspi)
-+{
-+	u32 val;
-+
-+	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_FIFOCTL_OFFSET,
-+				NUVOTON_SPI_FIFOCTL_TXRST_MASK |
-+				NUVOTON_SPI_FIFOCTL_RXRST_MASK,
-+				NUVOTON_SPI_FIFOCTL_TXRST_MASK |
-+				NUVOTON_SPI_FIFOCTL_RXRST_MASK);
-+
-+	/*
-+	 * Give the controller a short time to latch the FIFO reset request
-+	 * before polling the reset status bit.
-+	 */
-+	udelay(1);
-+
-+	return readl_poll_timeout(nspi->regs + NUVOTON_SPI_STATUS_OFFSET, val,
-+				  !(val & NUVOTON_SPI_STATUS_TXRXRST_MASK),
-+				  1, NUVOTON_SPI_TIMEOUT_US);
-+}
-+
-+static int nuvoton_spi_wait_tx_not_full(struct nuvoton_spi *nspi)
-+{
-+	u32 val;
-+
-+	return readl_poll_timeout(nspi->regs + NUVOTON_SPI_STATUS_OFFSET, val,
-+				  !(val & NUVOTON_SPI_STATUS_TXFULL_MASK),
-+				  0, NUVOTON_SPI_TIMEOUT_US);
-+}
-+
-+static int nuvoton_spi_wait_rx_not_empty(struct nuvoton_spi *nspi)
-+{
-+	u32 val;
-+
-+	return readl_poll_timeout(nspi->regs + NUVOTON_SPI_STATUS_OFFSET, val,
-+				  !(val & NUVOTON_SPI_STATUS_RXEMPTY_MASK),
-+				  0, NUVOTON_SPI_TIMEOUT_US);
-+}
-+
-+static int nuvoton_spi_calc_divisor(unsigned long clk_rate, u32 speed_hz,
-+				    unsigned int *divisor)
-+{
-+	unsigned int div;
-+
-+	div = DIV_ROUND_UP(clk_rate, speed_hz);
-+	if (div < NUVOTON_SPI_MIN_DIVISOR)
-+		div = NUVOTON_SPI_MIN_DIVISOR;
-+
-+	/*
-+	 * CLKDIV only accepts odd register values, corresponding to even
-+	 * clock divisors. Round up so the generated clock never exceeds
-+	 * the requested frequency.
-+	 */
-+	if (div & 1)
-+		div++;
-+
-+	if (div > NUVOTON_SPI_MAX_DIVISOR)
-+		return -EINVAL;
-+
-+	*divisor = div;
-+
-+	return 0;
-+}
-+
-+static int nuvoton_spi_configure_mode(struct nuvoton_spi *nspi,
-+				      struct spi_device *spi)
-+{
-+	u32 mask = NUVOTON_SPI_CTL_TXNEG_MASK |
-+		   NUVOTON_SPI_CTL_RXNEG_MASK |
-+		   NUVOTON_SPI_CTL_CLKPOL_MASK |
-+		   NUVOTON_SPI_CTL_LSB_MASK;
-+	u32 ctl = 0;
-+	u32 cur_ctl;
-+	u32 mode;
-+	int ret;
-+
-+	mode = spi->mode & SPI_MODE_X_MASK;
-+	if (mode == SPI_MODE_0 || mode == SPI_MODE_3)
-+		ctl |= NUVOTON_SPI_CTL_TXNEG_MASK;
-+	else
-+		ctl |= NUVOTON_SPI_CTL_RXNEG_MASK;
-+
-+	if (spi->mode & SPI_CPOL)
-+		ctl |= NUVOTON_SPI_CTL_CLKPOL_MASK;
-+
-+	if (spi->mode & SPI_LSB_FIRST)
-+		ctl |= NUVOTON_SPI_CTL_LSB_MASK;
-+
-+	cur_ctl = nuvoton_spi_read(nspi, NUVOTON_SPI_CTL_OFFSET);
-+	if ((cur_ctl & mask) == ctl)
-+		return 0;
-+
-+	ret = nuvoton_spi_disable(nspi);
-+	if (ret)
-+		return ret;
-+
-+	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_CTL_OFFSET, mask, ctl);
-+
-+	return 0;
-+}
-+
-+static int nuvoton_spi_configure_transfer(struct nuvoton_spi *nspi,
-+					  struct spi_transfer *xfer)
-+{
-+	u32 ctl_mask = NUVOTON_SPI_CTL_DWIDTH_MASK;
-+	u32 cur_clkdiv;
-+	u32 cur_ctl;
-+	u32 clkdiv;
-+	u32 dwidth;
-+	unsigned int divisor;
-+	int ret;
-+
-+	ret = nuvoton_spi_calc_divisor(nspi->clk_rate, xfer->speed_hz,
-+				       &divisor);
-+	if (ret) {
-+		dev_err(nspi->dev, "unsupported SPI clock %u Hz\n",
-+			xfer->speed_hz);
-+		return ret;
-+	}
-+
-+	clkdiv = FIELD_PREP(NUVOTON_SPI_CLKDIV_MASK, divisor - 1);
-+	dwidth = xfer->bits_per_word == 32 ? 0 : xfer->bits_per_word;
-+	dwidth = FIELD_PREP(NUVOTON_SPI_CTL_DWIDTH_MASK, dwidth);
-+
-+	xfer->effective_speed_hz = nspi->clk_rate / divisor;
-+
-+	cur_ctl = nuvoton_spi_read(nspi, NUVOTON_SPI_CTL_OFFSET);
-+	cur_clkdiv = nuvoton_spi_read(nspi, NUVOTON_SPI_CLKDIV_OFFSET);
-+
-+	if ((cur_ctl & ctl_mask) == dwidth &&
-+	    (cur_clkdiv & NUVOTON_SPI_CLKDIV_MASK) == clkdiv)
-+		return 0;
-+
-+	ret = nuvoton_spi_disable(nspi);
-+	if (ret)
-+		return ret;
-+
-+	if ((cur_ctl & ctl_mask) != dwidth)
-+		nuvoton_spi_update_bits(nspi, NUVOTON_SPI_CTL_OFFSET,
-+					ctl_mask, dwidth);
-+
-+	if ((cur_clkdiv & NUVOTON_SPI_CLKDIV_MASK) != clkdiv)
-+		nuvoton_spi_write(nspi, clkdiv, NUVOTON_SPI_CLKDIV_OFFSET);
-+
-+	return 0;
-+}
-+
-+static u32 nuvoton_spi_get_tx_word(const void *txbuf, unsigned int offset,
-+				   unsigned int bytes_per_word)
-+{
-+	if (!txbuf)
-+		return 0;
-+
-+	switch (bytes_per_word) {
-+	case 1:
-+		return ((const u8 *)txbuf)[offset];
-+	case 2:
-+		return get_unaligned((const u16 *)((const u8 *)txbuf + offset));
-+	case 4:
-+		return get_unaligned((const u32 *)((const u8 *)txbuf + offset));
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static void nuvoton_spi_put_rx_word(void *rxbuf, unsigned int offset,
-+				    unsigned int bytes_per_word, u32 val)
-+{
-+	if (!rxbuf)
-+		return;
-+
-+	switch (bytes_per_word) {
-+	case 1:
-+		((u8 *)rxbuf)[offset] = val;
-+		break;
-+	case 2:
-+		put_unaligned((u16)val, (u16 *)((u8 *)rxbuf + offset));
-+		break;
-+	case 4:
-+		put_unaligned(val, (u32 *)((u8 *)rxbuf + offset));
-+		break;
-+	}
-+}
-+
-+static int nuvoton_spi_txrx(struct nuvoton_spi *nspi,
-+			    struct spi_transfer *xfer)
-+{
-+	unsigned int bytes_per_word;
-+	unsigned int offset;
-+	u32 val;
-+	int ret;
-+
-+	bytes_per_word = spi_bpw_to_bytes(xfer->bits_per_word);
-+
-+	/*
-+	 * Use conservative word-by-word PIO. Each transmitted word produces
-+	 * one receive FIFO entry, so always drain RX, including TX-only
-+	 * transfers. RX-only transfers send zero-filled dummy words.
-+	 */
-+	for (offset = 0; offset < xfer->len; offset += bytes_per_word) {
-+		ret = nuvoton_spi_wait_tx_not_full(nspi);
-+		if (ret) {
-+			dev_err(nspi->dev, "TX FIFO full timeout\n");
-+			return ret;
-+		}
-+
-+		val = nuvoton_spi_get_tx_word(xfer->tx_buf, offset,
-+					      bytes_per_word);
-+		nuvoton_spi_write(nspi, val, NUVOTON_SPI_TX_OFFSET);
-+
-+		ret = nuvoton_spi_wait_rx_not_empty(nspi);
-+		if (ret) {
-+			dev_err(nspi->dev, "RX FIFO empty timeout\n");
-+			return ret;
-+		}
-+
-+		val = nuvoton_spi_read(nspi, NUVOTON_SPI_RX_OFFSET);
-+		nuvoton_spi_put_rx_word(xfer->rx_buf, offset, bytes_per_word,
-+					val);
-+
-+		spi_delay_exec(&xfer->word_delay, xfer);
-+	}
-+
-+	ret = nuvoton_spi_wait_ready(nspi);
-+	if (ret)
-+		dev_err(nspi->dev, "controller busy timeout\n");
-+
-+	return ret;
-+}
-+
-+static void nuvoton_spi_set_cs_level(struct nuvoton_spi *nspi,
-+				     unsigned int cs, bool assert)
-+{
-+	u32 mask;
-+
-+	switch (cs) {
-+	case 0:
-+		mask = NUVOTON_SPI_SSCTL_SS0_MASK;
-+		break;
-+	case 1:
-+		mask = NUVOTON_SPI_SSCTL_SS1_MASK;
-+		break;
-+	default:
-+		dev_warn(nspi->dev, "invalid chip select %u\n", cs);
-+		return;
-+	}
-+
-+	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_SSCTL_OFFSET,
-+				mask, assert ? mask : 0);
-+}
-+
-+static int nuvoton_spi_setup(struct spi_device *spi)
-+{
-+	unsigned int cs = spi_get_chipselect(spi, 0);
-+
-+	if (spi_get_csgpiod(spi, 0))
-+		return 0;
-+
-+	if (cs >= NUVOTON_SPI_MAX_NATIVE_CS) {
-+		dev_err(&spi->dev, "invalid native chip select %u\n", cs);
-+		return -EINVAL;
-+	}
-+
-+	if (spi->mode & SPI_CS_HIGH) {
-+		dev_err(&spi->dev,
-+			"active-high native chip select is not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static void nuvoton_spi_set_cs(struct spi_device *spi, bool level)
-+{
-+	struct nuvoton_spi *nspi = spi_controller_get_devdata(spi->controller);
-+	int ret;
-+
-+	/*
-+	 * SSCTL may only be changed while SPIEN is clear. Clearing SPIEN
-+	 * retains the CLK and MOSI output levels.
-+	 */
-+	ret = nuvoton_spi_disable(nspi);
-+	if (ret) {
-+		dev_err(nspi->dev, "failed to disable controller for chip select\n");
-+		return;
-+	}
-+
-+	/*
-+	 * The SPI core passes the physical CS level to ->set_cs(). This
-+	 * initial driver only supports active-low native chip selects.
-+	 */
-+	nuvoton_spi_set_cs_level(nspi, spi_get_chipselect(spi, 0), !level);
-+}
-+
-+static int nuvoton_spi_prepare_message(struct spi_controller *ctlr,
-+				       struct spi_message *message)
-+{
-+	struct nuvoton_spi *nspi = spi_controller_get_devdata(ctlr);
-+	int ret;
-+
-+	ret = nuvoton_spi_configure_mode(nspi, message->spi);
-+	if (ret)
-+		dev_err(nspi->dev, "failed to configure SPI mode\n");
-+
-+	return ret;
-+}
-+
-+static int nuvoton_spi_transfer_one(struct spi_controller *ctlr,
-+				    struct spi_device *spi,
-+				    struct spi_transfer *xfer)
-+{
-+	struct nuvoton_spi *nspi = spi_controller_get_devdata(ctlr);
-+	int ret;
-+
-+	ret = nuvoton_spi_configure_transfer(nspi, xfer);
-+	if (ret)
-+		return ret;
-+
-+	ret = nuvoton_spi_enable(nspi);
-+	if (ret) {
-+		dev_err(nspi->dev, "failed to enable controller\n");
-+		return ret;
-+	}
-+
-+	return nuvoton_spi_txrx(nspi, xfer);
-+}
-+
-+static void nuvoton_spi_handle_err(struct spi_controller *ctlr,
-+				   struct spi_message *message)
-+{
-+	struct nuvoton_spi *nspi = spi_controller_get_devdata(ctlr);
-+	int ret;
-+
-+	ret = nuvoton_spi_disable(nspi);
-+	if (ret) {
-+		dev_err(nspi->dev,
-+			"failed to disable controller during recovery\n");
-+		return;
-+	}
-+
-+	ret = nuvoton_spi_reset_fifo(nspi);
-+	if (ret)
-+		dev_err(nspi->dev, "failed to reset FIFO during recovery\n");
-+}
-+
-+static size_t nuvoton_spi_max_transfer_size(struct spi_device *spi)
-+{
-+	return NUVOTON_SPI_MAX_TRANSFER_SIZE;
-+}
-+
-+static int nuvoton_spi_hw_init(struct nuvoton_spi *nspi)
-+{
-+	u32 ctl_mask;
-+	u32 fifo_mask;
-+	u32 ssctl_mask;
-+	int ret;
-+
-+	ret = nuvoton_spi_disable(nspi);
-+	if (ret) {
-+		dev_err(nspi->dev, "failed to disable controller\n");
-+		return ret;
-+	}
-+
-+	ctl_mask = NUVOTON_SPI_CTL_DATDIR_MASK |
-+		   NUVOTON_SPI_CTL_REORDER_MASK |
-+		   NUVOTON_SPI_CTL_SLAVE_MASK |
-+		   NUVOTON_SPI_CTL_UNITIEN_MASK |
-+		   NUVOTON_SPI_CTL_RXONLY_MASK |
-+		   NUVOTON_SPI_CTL_HALFDPX_MASK |
-+		   NUVOTON_SPI_CTL_LSB_MASK |
-+		   NUVOTON_SPI_CTL_DWIDTH_MASK |
-+		   NUVOTON_SPI_CTL_SUSPITV_MASK |
-+		   NUVOTON_SPI_CTL_CLKPOL_MASK |
-+		   NUVOTON_SPI_CTL_TXNEG_MASK |
-+		   NUVOTON_SPI_CTL_RXNEG_MASK;
-+
-+	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_CTL_OFFSET, ctl_mask,
-+				NUVOTON_SPI_CTL_TXNEG_MASK |
-+				FIELD_PREP(NUVOTON_SPI_CTL_DWIDTH_MASK,
-+					   NUVOTON_SPI_DEFAULT_BPW));
-+
-+	ssctl_mask = NUVOTON_SPI_SSCTL_SS0_MASK |
-+		     NUVOTON_SPI_SSCTL_SS1_MASK |
-+		     NUVOTON_SPI_SSCTL_SSACTPOL_MASK |
-+		     NUVOTON_SPI_SSCTL_AUTOSS_MASK |
-+		     NUVOTON_SPI_SSCTL_SLV3WIRE_MASK |
-+		     NUVOTON_SPI_SSCTL_SLVBEIEN_MASK |
-+		     NUVOTON_SPI_SSCTL_SLVURIEN_MASK |
-+		     NUVOTON_SPI_SSCTL_SSACTIEN_MASK |
-+		     NUVOTON_SPI_SSCTL_SSINAIEN_MASK;
-+
-+	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_SSCTL_OFFSET,
-+				ssctl_mask, 0);
-+
-+	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_PDMACTL_OFFSET,
-+				NUVOTON_SPI_PDMACTL_TXPDMAEN_MASK |
-+				NUVOTON_SPI_PDMACTL_RXPDMAEN_MASK, 0);
-+
-+	fifo_mask = NUVOTON_SPI_FIFOCTL_SLVBERX_MASK |
-+		    NUVOTON_SPI_FIFOCTL_TXUFIEN_MASK |
-+		    NUVOTON_SPI_FIFOCTL_TXUFPOL_MASK |
-+		    NUVOTON_SPI_FIFOCTL_RXOVIEN_MASK |
-+		    NUVOTON_SPI_FIFOCTL_RXTOIEN_MASK |
-+		    NUVOTON_SPI_FIFOCTL_TXTHIEN_MASK |
-+		    NUVOTON_SPI_FIFOCTL_RXTHIEN_MASK;
-+
-+	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_FIFOCTL_OFFSET, fifo_mask, 0);
-+
-+	ret = nuvoton_spi_reset_fifo(nspi);
-+	if (ret)
-+		dev_err(nspi->dev, "FIFO reset timed out\n");
-+
-+	return ret;
-+}
-+
-+static int nuvoton_spi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct spi_controller *ctlr;
-+	struct nuvoton_spi *nspi;
-+	struct reset_control *rst;
-+	struct clk *clk;
-+	unsigned int max_divisor;
-+	u32 num_cs = NUVOTON_SPI_DEFAULT_NUM_CS;
-+	int ret;
-+
-+	if (device_property_read_bool(dev, "spi-slave"))
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "target mode is not supported\n");
-+
-+	ctlr = devm_spi_alloc_host(dev, sizeof(*nspi));
-+	if (!ctlr)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, ctlr);
-+
-+	nspi = spi_controller_get_devdata(ctlr);
-+	nspi->dev = dev;
-+
-+	nspi->regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(nspi->regs))
-+		return PTR_ERR(nspi->regs);
-+
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get and enable clock\n");
-+
-+	nspi->clk_rate = clk_get_rate(clk);
-+	if (!nspi->clk_rate)
-+		return dev_err_probe(dev, -EINVAL, "invalid clock rate\n");
-+
-+	rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(rst))
-+		return dev_err_probe(dev, PTR_ERR(rst),
-+				     "failed to get and deassert reset\n");
-+
-+	/*
-+	 * The hardware requires at least five peripheral clock cycles after
-+	 * reset deassertion before programming controller registers.
-+	 */
-+	udelay(DIV_ROUND_UP_ULL((u64)NUVOTON_SPI_RESET_CYCLES *
-+				USEC_PER_SEC, nspi->clk_rate));
-+
-+	ret = device_property_read_u32(dev, "num-cs", &num_cs);
-+	if (ret && ret != -EINVAL)
-+		return dev_err_probe(dev, ret, "failed to read num-cs\n");
-+
-+	if (!num_cs || num_cs > NUVOTON_SPI_MAX_NATIVE_CS)
-+		return dev_err_probe(dev, -EINVAL, "invalid num-cs %u\n",
-+				     num_cs);
-+
-+	ctlr->num_chipselect = num_cs;
-+	ctlr->max_native_cs = NUVOTON_SPI_MAX_NATIVE_CS;
-+	ctlr->use_gpio_descriptors = true;
-+	ctlr->max_transfer_size = nuvoton_spi_max_transfer_size;
-+	ctlr->setup = nuvoton_spi_setup;
-+	ctlr->set_cs = nuvoton_spi_set_cs;
-+	ctlr->prepare_message = nuvoton_spi_prepare_message;
-+	ctlr->transfer_one = nuvoton_spi_transfer_one;
-+	ctlr->handle_err = nuvoton_spi_handle_err;
-+	ctlr->bits_per_word_mask = SPI_BPW_RANGE_MASK(8, 32);
-+	ctlr->mode_bits = SPI_CPOL | SPI_CPHA | SPI_LSB_FIRST;
-+	ctlr->min_speed_hz = DIV_ROUND_UP(nspi->clk_rate,
-+					  NUVOTON_SPI_MAX_DIVISOR);
-+
-+	ret = nuvoton_spi_calc_divisor(nspi->clk_rate,
-+				       NUVOTON_SPI_MAX_SPEED_HZ, &max_divisor);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "clock rate does not support SPI transfers\n");
-+
-+	ctlr->max_speed_hz = nspi->clk_rate / max_divisor;
-+
-+	ret = nuvoton_spi_hw_init(nspi);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_spi_register_controller(dev, ctlr);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to register SPI controller\n");
-+
-+	return 0;
-+}
-+
-+static int nuvoton_spi_suspend(struct device *dev)
-+{
-+	struct spi_controller *ctlr = dev_get_drvdata(dev);
-+
-+	return spi_controller_suspend(ctlr);
-+}
-+
-+static int nuvoton_spi_resume(struct device *dev)
-+{
-+	struct spi_controller *ctlr = dev_get_drvdata(dev);
-+
-+	/*
-+	 * The MA35D1 SPI registers are retained across power-down and deep
-+	 * sleep, so the controller state does not need to be restored here.
-+	 */
-+	return spi_controller_resume(ctlr);
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(nuvoton_spi_pm_ops, nuvoton_spi_suspend,
-+				nuvoton_spi_resume);
-+
-+static const struct of_device_id nuvoton_spi_of_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-spi" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nuvoton_spi_of_match);
-+
-+static struct platform_driver nuvoton_spi_driver = {
-+	.driver = {
-+		.name = "ma35d1-spi",
-+		.of_match_table = nuvoton_spi_of_match,
-+		.pm = pm_sleep_ptr(&nuvoton_spi_pm_ops),
-+	},
-+	.probe = nuvoton_spi_probe,
-+};
-+module_platform_driver(nuvoton_spi_driver);
-+
-+MODULE_DESCRIPTION("Nuvoton MA35D1 SPI controller driver");
-+MODULE_AUTHOR("Chi-Wen Weng <cwweng@nuvoton.com>");
-+MODULE_LICENSE("GPL");
+So is it really all about "is this (excluding CoW) no ordinary user memory that
+we would track through the rmap" ?
+
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h              | 56 ++++++++++++++++++++++++++++++++++++++++-
+>  tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
+>  2 files changed, 83 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 2a92193ac6a5..cab29d6e15c1 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -1612,6 +1612,44 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+>  	return is_shared_maywrite(&vma->flags);
+>  }
+>  
+> +/**
+> + * vma_flags_is_kernel_owned() - Do the specified VMA flags indicate that the
+> + * contents of the VMA are owned by the kernel rather than the core mm?
+> + * @flags: The VMA flags to test.
+> + *
+> + * A kernel-owned mapping is one whose contents are established and controlled
+> + * by the kernel, typically a driver, rather than by the core mm's fault and
+> + * rmap machinery.
+> + *
+> + * The mapping may be memory-mapped I/O, kernel-allocated pages or ordinary
+> + * pages the owner has chosen to map itself (shmem via a PFN map, for instance).
+> + *
+> + * In all cases the core mm must not populate, reclaim, migrate, copy-on-write
+> + * or merge it of its own accord.
+> + *
+> + * Pages mapped this way are not necessarily reference counted or map counted.
+> + *
+> + * Returns: true if the flags indicate a kernel-owned mapping.
+> + */
+> +static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
+> +{
+> +	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
+> +				  VMA_IO_BIT);
+
+I thought we have cases where we drivers insert pages and neither set
+VMA_PFNMAP_BIT nor VMA_MIXEDMAP_BIT.
+
+I assume vmf_insert_page_mkwrite() is fine because it is DAX doing it (should we
+limit this interface to DAX?).
+
 -- 
-2.25.1
+Cheers,
 
+David
