@@ -1,101 +1,116 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715E636E46F;
-	Thu,  1 Oct 2026 16:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15E93DDAFD;
+	Thu,  1 Oct 2026 16:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872870; cv=none; b=jPyiKkabLZhAQhjv+mRWr9TKMEvtmz9yw3nA4KB8ACa6+ugywEupkON9lP3mv851A3fR8k2fPOzRBcTLoxzTG0Ynwol4ef8BgYCnqiybnrt/CZG/YptUSJ8BE18Socf6L1yFtJGXaC2gUy3HyRbxBJaH0HwCDc7aJMuVzB9ogyo=
+	t=1790872916; cv=none; b=Zi9xg5etBWygO9rjR/Zn2LuheVALYVHmGDOsoTsqki3bUt7/woPP4Z8R0OsK6TzGHTIKLiyqElAtbLaw2+LFvQievN+KYoemPklRkqMQacgb4+M05geGMnoT/vxM0d7e9OzpW0L4ftXK+baR1aVswabnaPl34tAeS2ozn9/xoqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872870; c=relaxed/simple;
-	bh=6UefJdn0vBCHGV64Wk+1bs5aMzO1Zx8UIvb1GAVrUAI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uQLoZnfKwKR8pZhUSUhLXMwmSmW0JZiZ2vzDHG5aePDoq0FESm9bCqBw9ruQ13UPC7/uREy5RsYheH7wNfIh4rVcgGpP/5Iu9fDB0/pBj5ekaXtuVFFUzQbYA+QaQBuzi7eulqnsGIlAedf0s0d/ljBFD7ZTrYfyWP7BL8dJRJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=OClwcbqB; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790872916; c=relaxed/simple;
+	bh=AY9iaZGWyYRkUc9XubczlcTYFN/80sMzL04PqdMfZuo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YOaoJ2IIFHZJZWWlpICwru7TYpdIPjew/Ogdi3Ic+rlXI1f0cqT6YpgPMD9Olm4MJP2eeR+LVmISI7kkWl1GuWtFIl9Mkyj9y91pMOzYgWu2Eck5oidq0+MSk04BZzkH5flQCp9boaH999zyPrqQJJD1l4SxeTrDaJTLWSxbJu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSaAw3rp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="OClwcbqB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=CcnbKH72/xakJdn4+pXD8ZcS1KfVTKDmYVimX4BquTA=; t=1790872866;
-	x=1791477666; b=OClwcbqBKuZv4D+pBUnnKTVA9vk+d0AagH9Vg2UvJgMpX3C5mXW+NJTwty0UG
-	Bcym4x9Kxdan3z8jUM+s5mnPxU9/0j6DTSA2Ocv1YXnN6pPhYAfQzh0d5EtDX0UD7hS5nvg+TE74J
-	fh91LCa/oHvGejeSFeQpz79bcMW82iNdGNWhsL4WOr1kpeWqCGjvrcnLAexcmamsfY0Jga9TdHmDD
-	8A1NOH2jXrNftztiVwl+JrTuKgKKVqE2TZdf+7E4Dcfdsb62lJv31A9EvPBWHQQnCfdqQLm4b0s+c
-	ZspBOX3X48nzQjX6jiNAhsFZuaSm+dgw6uNEYvDk28Bz8cxImQ==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xCJqB-00000003Ykz-1Ah0; Thu, 01 Oct 2026 18:41:03 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xCJqB-00000001qgT-0HOx; Thu, 01 Oct 2026 18:41:03 +0200
-Message-ID: <7e991a2c3cc33696ea8d15734b89b67c8bb46f5d.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 0/2] sh: kfr2r09: fix i2c adapter leaks
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Johan Hovold <johan@kernel.org>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
- <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 01 Oct 2026 18:41:02 +0200
-In-Reply-To: <ar5afD7Sx-hBgTxp@hovoldconsulting.com>
-References: <20260508120601.426115-1-johan@kernel.org>
-	 <aiwtIkdGNMFqJmHk@hovoldconsulting.com>
-	 <06c0871d4999dcb09aeca6bbf6a6eb282147d606.camel@physik.fu-berlin.de>
-	 <anx_ntq7VbbuQtkF@hovoldconsulting.com>
-	 <ar5afD7Sx-hBgTxp@hovoldconsulting.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSaAw3rp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBDC31F000FF;
+	Thu,  1 Oct 2026 16:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790872915;
+	bh=on88P7izvphnCHCDc8e1Yaww3dTpsQnTne0sTtDZayk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PSaAw3rp4iuMnLC2doiY087YMDwz30kvUtFgDv8SFiWd82JL1XyBPYwZQH4D9szjz
+	 869IgWaH459u48KKhV/iM/v5TVMxn63Yz6MevE5LEgk+2eUJfjY/Ni5RUaZQ4To0us
+	 vlIbxDQTENO0/kaNv0dpPT9XQhTqRWFGahGNcs6fSoqMzEcrl4tvLeVVfESRc0HjFj
+	 hYp6rGGOMLx0sqDqvUwS8SP17rXI8SsMhypDqJDyOyDeVDVkoW2rMLQjd5J7qH1dD1
+	 i1DAoiZ4MomHCbTeEE4Bgy6JCl7PEhMuMxM4Plp6VATs471uvz8AAEYPP2lZareaGa
+	 JLRKPdwYS/h0g==
+Date: Thu, 1 Oct 2026 17:41:48 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 13/15] KVM: selftests: arm64: Only restore SPSR_EL1
+ and ELR_EL1 if they change
+Message-ID: <ar6M4AqGoSUb1dkq@gremlin>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+ <20260930-arm64-gcs-v21-13-3556644cd927@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-arm64-gcs-v21-13-3556644cd927@kernel.org>
 
-Hi Johan,
+On Wed, Sep 30, 2026 at 10:48:23PM +0100, Mark Brown wrote:
+> When EXLOCK is enabled for ELx writes to SPSR_ELx and ELR_ELx generate
+> GCS exceptions. Currently the selftest helpers unconditionally reload the
+> saved values for these registers regardless of if the handler didn't change
+> them. This gets in the way of EXLOCK testing, making it hard to generate
+> contexts which will generate an invalid ERET since we never get as far as
+> doing an exception return while EXLOCK is enabled.
 
-On Thu, 2026-10-01 at 15:05 +0200, Johan Hovold wrote:
-> On Wed, Aug 12, 2026 at 04:13:50PM +0200, Johan Hovold wrote:
-> > On Sat, Jun 13, 2026 at 07:11:02AM +0200, John Paul Adrian Glaubitz wro=
-te:
-> > > On Fri, 2026-06-12 at 18:00 +0200, Johan Hovold wrote:
-> > > > On Fri, May 08, 2026 at 02:05:59PM +0200, Johan Hovold wrote:
-> > > > > The kfr2r09 platform setup code fails to drop the references it a=
-cquires
-> > > > > to the I2C adapter.
-> > > >=20
-> > > > > Johan Hovold (2):
-> > > > >   sh: kfr2r09: fix i2c adapter leak on USB gdaget setup
-> > > > >   sh: kfr2r09: fix i2c adapter leak on serial console setup
-> > > >=20
-> > > > Can these be picked up now?
-> > >=20
-> > > I will try to review some patches this weekend.
-> >=20
-> > Any chance to get these into 7.3?
->=20
-> Can these be picked up now?
+Sounds reasonable.
 
-Yes, I'll pick them up for v7.4. I have already reviewed and merged
-some patches for v7.4. I need to perform some more tests but yours
-should go in with v7.4 as well.
+>
+> In order to facilitate testing of nested virtualisation emulation of EXLOCK
+> change our reloads into read/modify/write cycles, suppressing the writes
+> when they would not change the value in the register.
 
-Adrian
+Also sounds sensible.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+>
+> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+
+Also looks obviously correct (TM) to me so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  tools/testing/selftests/kvm/lib/arm64/handlers.S | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/tools/testing/selftests/kvm/lib/arm64/handlers.S b/tools/testing/selftests/kvm/lib/arm64/handlers.S
+> index 0e443eadfac6..367c22d61cba 100644
+> --- a/tools/testing/selftests/kvm/lib/arm64/handlers.S
+> +++ b/tools/testing/selftests/kvm/lib/arm64/handlers.S
+> @@ -33,8 +33,18 @@
+>
+>  .macro restore_registers
+>  	ldp	x1, x2, [sp, #16 * 16] /* PC, PSTATE */
+> +
+> +	/* Suppress redundant writes to support GCS exception lock testing */
+> +	mrs	x3, elr_el1
+> +	cmp	x1, x3
+> +	beq	.Lskip_elr_\@
+>  	msr	elr_el1, x1
+> +.Lskip_elr_\@:
+> +	mrs	x3, spsr_el1
+> +	cmp	x2, x3
+> +	beq	.Lskip_spsr_\@
+
+Even as an arm64 assembly novice I can see what this is doing :)
+
+>  	msr	spsr_el1, x2
+> +.Lskip_spsr_\@:
+>
+>  	/* sp is not restored */
+>  	ldp	x30, xzr, [sp, #16 * 15] /* x30, SP */
+>
+> --
+> 2.47.3
+>
+>
+
+--
+Cheers, Lorenzo
