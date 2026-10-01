@@ -1,33 +1,33 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7029230D401;
-	Thu,  1 Oct 2026 11:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAC423D7FF;
+	Thu,  1 Oct 2026 11:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790854785; cv=none; b=ZE0YQeOV6RDHpzcwlb/4BVmf/Kvn5vN0R77wV0RYdxjPmB3YtQ1kTGUtlhTKcKHW7urA/xONYPP94EKJGaTqTHmIgU8rT6SqZrN/R9X2sAsjt7ncqN2iwPOAhC3GTf1dI2WCJRDVRZ8X47HhdOvqGtC8/8p9nI/MChy8Qjwbpx8=
+	t=1790854817; cv=none; b=CvH18rLFuL+tHPqavFiTAd3MsRevdqtYUEAtL0QoQHokxGH94lnpyJWdW1ai/R+/HVQDsrJpCD7isijdHS92XkeV1Bx5a8OSorgBBPrYLDvZASlegFl6bRvXVUW6or0fEbmiQIExpcOXV5T/ulOjL5RnLEwOpbw/JMi+hbnkI4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790854785; c=relaxed/simple;
-	bh=aIUuO4ENC77y8AatC+unyTYHYRfthaC+8kOZ3gEUHLc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ABcw5cKO7xQct41EjPzpC7TnIFpnDlAnp0Pii0BO/lzhcaNZ//HIeUcbOZAgROixLSjaM6WNsqGynbhYDy73xP9bYcQSIwPOW1HNvTXEyqlSOfi+1Q86ftg/Dr5QAbosGE8ux0eC4+UwoosNlMze7H5totD6jPlwsQ99pjbCPn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=neqGY7qE; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790854817; c=relaxed/simple;
+	bh=lGps2LNFvq9etSUgZN4EzP27oJQU5/5U260/hM7QV2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=iFPT4Yfw27tbNKlRxrqY6Y5qZUzlVQR5HQ0ASBLVqQjXw3gH57ZBaZ71O4H8BCQ84ye1LP3/jv7ks4AIvHYgFx8CDE/VxVR2+q/oSIait1E9lychEZx8frkYgrN7voHZbqha7jHztDuSu2UWK3Uc+L1+9lK2e1BEKTj2RXk+gXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUupB5gQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="neqGY7qE"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F9A6497;
-	Thu,  1 Oct 2026 04:39:38 -0700 (PDT)
-Received: from [10.57.9.178] (unknown [10.57.9.178])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 47ED43F86F;
-	Thu,  1 Oct 2026 04:39:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790854781; bh=aIUuO4ENC77y8AatC+unyTYHYRfthaC+8kOZ3gEUHLc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=neqGY7qENHa5C3IakID0foMencI4cFZZHabSuLJ1lNBFE4M0m2FgM7mAvbQNY3BFx
-	 stn/gI/6Xq2wXq7RIjF5XuMlVa57lMplWsGspYC8wxz97g6TqZdZE3Y5XcZczFYbgm
-	 OpqxKgkX2oAxFSQVnqoXEr45ElxUfdqWnQd2sbTw=
-Message-ID: <bf6efab5-ab8e-48e2-8576-2f3fb69a3d6a@arm.com>
-Date: Thu, 1 Oct 2026 12:39:36 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUupB5gQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B055D1F000FF;
+	Thu,  1 Oct 2026 11:40:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790854815;
+	bh=R8QnVRuxXx0DRHjhLodBsB0dPH0Vc9e66VDO/VON7WE=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=PUupB5gQlzr+bWtFrTHfgVpwkTN7x++K9kI8wfHEPTjtHMkwKqyI5WDWii0Bkkdm8
+	 zc+/P0XWsRcF7derKkF83f7dkkQc1UWQelBTuOtpZ/gyAomoRXsifxd4luvWVBD3ER
+	 TNQ2PESLWmY6by6SyG+A+EUs5kmjXWnECiwaagON8c8jwJG3jtik1eKSgLol4paxDr
+	 wYHUnf6dCWnKcvULC69CJnKHJRP34dqQqmv3TFIugxWuTWrJDeeDJJV4e6n9vxHzzD
+	 srwh8e1g+YjOwg3w4ItlCE5jLfQT8SVJ4wjtkI4PFRLphYU+I+lLPhvTLFJuGLozv2
+	 hKJP4P4l3Is7g==
+Message-ID: <3e03425b-7962-4c69-93aa-96168fd7168e@kernel.org>
+Date: Thu, 1 Oct 2026 13:40:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,188 +35,189 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 7/9] arm64: Block hibernate and kexec while RMM is
- active
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, linux-pm@vger.kernel.org
-References: <20261001084555.1456543-1-suzuki.poulose@arm.com>
- <20261001084555.1456543-8-suzuki.poulose@arm.com> <ar4-kg8Jq9BTn7Sb@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <ar4-kg8Jq9BTn7Sb@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v8 3/4] kselftest: mm: integrate huge page checks
+To: Yeoreum Yun <yeoreum.yun@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
+ <20260924-fix_split-v8-3-cba7359d882a@arm.com>
+ <16f16e77-05ab-418e-ad06-8f48fb29375a@kernel.org>
+ <aruMgm8UZ_t2V_wh@e129823.arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aruMgm8UZ_t2V_wh@e129823.arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01/10/2026 12:05, Catalin Marinas wrote:
-> On Thu, Oct 01, 2026 at 09:45:53AM +0100, Suzuki K Poulose wrote:
->> RMM can be deactivated only after all delegated granules have been
->> reclaimed. If a new kernel is entered while any granules remain in the
->> Realm PAS, accesses to that memory can raise a Granule Protection Fault
->> and be fatal to the new kernel.
+On 9/29/26 12:01, Yeoreum Yun wrote:
+> On Tue, Sep 29, 2026 at 10:07:37AM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/24/26 21:11, Yeoreum Yun wrote:
+>>> check_large_folios() only checks for large folios without distinguishing
+>>> between anonymous and file-backed huge pages.
+>>>
+>>> To add huge page type checking, integrate the huge page checks into
+>>> __check_huge():
+>>>
+>>>   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of using
+>>>      check_large_folios(), since only the mapping type matters. This
+>>>      identifies PMD-mapped huge pages.
+>>>
+>>>   2. Otherwise, use check_large_folios() to detect large folios. This
+>>>      covers mTHP cases.
+>>>
+>>>   3. Check the folio flags according to the huge page type.
+>>>
+>>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+>>> Suggested-by: Zi Yan <ziy@nvidia.com>
+>>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+>>> ---
 >>
->> Crash kexec/kdump needs separate handling. It can be supported only once
->> the crash kernel can tolerate delegated memory inherited from the primary
->> kernel. i.e., be able to read the pages safely and fixup the GPF. Until
->> then disable the kexec completely.
+>> Instead of merging both things (detecting mapping vs. detecting anon vs. file),
+>> could we simply perform the anon vs. file change separately?
 >>
->> Hibernate has a similar problem. The image cannot be safely saved for
->> delegated pages, as the RMM doesn't support exporting the pages.
->>
->> Disable both kexec and hiberation while the RMM is active.
+>> Doing another pagemap walk that focuses on that should end up with something
+>> that is easier to read.
 > 
-> I would mention that this adds a new arch_hibernation_available() hook
-> called from hibernation_available(), otherwise the hibernation
-> maintainers may not realise why they've been cc'ed.
+> Okay. I'll change like below in next-spin:
 > 
-> Alternatively, just introduce the hook as a separate patch without any
-> arch code.
-
-I will go for this approach, adding the hook in a prep patch and then
-the arm64 version with kexec changes.
-
-
+> -------&<-------
 > 
->> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
->> Cc: Len Brown <lenb@kernel.org>
->> Cc: Pavel Machek <pavel@kernel.org>
->> Cc: linux-pm@vger.kernel.org
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->> Changes since v20:
->>   - Add arch_hibernation_available() hook for archs to have a say and drop the
->>     other checks.
->> Changes since v19:
->>   - New patch to disable kexec and hibernation with RMM
->> ---
->>   arch/arm64/kernel/hibernate.c     | 14 ++++++++++++++
->>   arch/arm64/kernel/machine_kexec.c | 11 +++++++++++
->>   include/linux/suspend.h           |  1 +
->>   kernel/power/hibernate.c          |  8 +++++++-
->>   4 files changed, 33 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
->> index 7bf1174277772..08e03d24b93a8 100644
->> --- a/arch/arm64/kernel/hibernate.c
->> +++ b/arch/arm64/kernel/hibernate.c
->> @@ -10,6 +10,8 @@
->>    * Copyright (C) 2006 Rafael J. Wysocki <rjw@sisk.pl>
->>    */
->>   #define pr_fmt(x) "hibernate: " x
->> +
->> +#include <linux/arm-rmi-cmds.h>
->>   #include <linux/cpu.h>
->>   #include <linux/kvm_host.h>
->>   #include <linux/pm.h>
->> @@ -105,6 +107,18 @@ void notrace restore_processor_state(void)
->>   {
->>   }
->>   
->> +bool arch_hibernation_available(void)
->> +{
->> +	/*
->> +	 * If we have activated the RMM, there could be pages that are
->> +	 * delegated to the RMM. Trying to save them to the image will be fatal.
->> +	 * Also, we donate pages to the RMM at activation and restoring data
->> +	 * to those pages are going to be fatal.
->> +	 * Hence, disable the hibernation when the RMM is active
->> +	 */
->> +	return !cpus_are_stuck_in_kernel() && !is_rmm_active();
->> +}
+> @@ -411,57 +400,78 @@ static bool check_huge_type(uint64_t categories, enum check_huge_type type)
+>         return false;
+>  }
 > 
-> For now, I would keep is_rmm_active() only in here as not to change the
-> behaviour for pKVM. "disk" would disappear from /sys/power/state with
-> this patch. I think it's the correct thing to do for pKVM as well but we
-> can discuss this separately once this goes in (I also think pKVM using
-> cpus_are_stuck_in_kernel() is a bit of a bodge but it's a handy hook
-> called in the right places).
-
-I was in double mind about this. Yes, I agree, makes sense to deal the
-pKVM case separately.
-
-
+> -static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> -                 uint64_t hpage_size, enum check_huge_type type)
+> +static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> +               uint64_t hpage_size, enum check_huge_type type)
+>  {
+>  {
+> -       int pagemap_fd;
+> +       bool ret = false;
+> +       int pagemap_fd, kpageflags_fd;
+>         int nr_pmd_mappings = 0;
+> +       uint64_t pmd_pagesize, scan_mapping_size;
+>         uint64_t categories;
+> +       unsigned long pfn;
+> +       bool check_pmd_mapping, allow_nonpresent;
+>         char *start = addr;
+>         char *end = start + len;
 > 
->> +
->>   int arch_hibernation_header_save(void *addr, unsigned int max_size)
->>   {
->>   	struct arch_hibernate_hdr *hdr = addr;
->> diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
->> index 8f9bc2327dc85..48f343704cb54 100644
->> --- a/arch/arm64/kernel/machine_kexec.c
->> +++ b/arch/arm64/kernel/machine_kexec.c
->> @@ -6,6 +6,7 @@
->>    * Copyright (C) Huawei Futurewei Technologies.
->>    */
->>   
->> +#include <linux/arm-rmi-cmds.h>
->>   #include <linux/interrupt.h>
->>   #include <linux/irq.h>
->>   #include <linux/kernel.h>
->> @@ -59,6 +60,16 @@ int machine_kexec_prepare(struct kimage *kimage)
->>   		return -EBUSY;
->>   	}
->>   
->> +	/*
->> +	 * We will be able to allow kdump to proceed, once we have the support
->> +	 * for handling GPF from vmcore accesses to delegated pages. Until then
->> +	 * block kexec completely.
->> +	 */
->> +	if (is_rmm_active()) {
->> +		pr_err("Can't kexec: RMM is active.\n");
->> +		return -EBUSY;
->> +	}
->> +
->>   	return 0;
->>   }
->>   
->> diff --git a/include/linux/suspend.h b/include/linux/suspend.h
->> index b02876f1ae38a..a3815027773c5 100644
->> --- a/include/linux/suspend.h
->> +++ b/include/linux/suspend.h
->> @@ -401,6 +401,7 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data);
->>   int hibernate_resume_nonboot_cpu_disable(void);
->>   int arch_hibernation_header_save(void *addr, unsigned int max_size);
->>   int arch_hibernation_header_restore(void *addr);
->> +bool arch_hibernation_available(void);
->>   
->>   #else /* CONFIG_HIBERNATION */
->>   static inline void register_nosave_region(unsigned long b, unsigned long e) {}
->> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
->> index d2479c69d71a4..9d9d53828542f 100644
->> --- a/kernel/power/hibernate.c
->> +++ b/kernel/power/hibernate.c
->> @@ -106,11 +106,17 @@ bool hibernation_in_progress(void)
->>   	return !atomic_read(&hibernate_atomic);
->>   }
->>   
->> +__weak bool arch_hibernation_available(void)
->> +{
->> +	return true;
->> +}
->> +
->>   bool hibernation_available(void)
->>   {
->>   	return nohibernate == 0 &&
->>   		!security_locked_down(LOCKDOWN_HIBERNATION) &&
->> -		!secretmem_active() && !cxl_mem_active();
->> +		!secretmem_active() && !cxl_mem_active() &&
->> +		arch_hibernation_available();
->>   }
+> +       pmd_pagesize = read_pmd_pagesize();
+> +       if (!pmd_pagesize)
+> +               ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> +
+> +       check_pmd_mapping = hpage_size == pmd_pagesize;
+> +       scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+> +       /* Some mTHP tests check a partially populated PMD-sized range. */
+> +       allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
+> +
+>         pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+>         if (pagemap_fd < 0)
+>                 ksft_exit_fail_perror("open pagemap");
 > 
-> With the comments above addressed:
+> -       for (; start < end; start += hpage_size) {
+> +       kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> +       if (kpageflags_fd < 0)
+> +               ksft_exit_fail_perror("open kpageflags");
+> +
+> +       for (; start < end; start += scan_mapping_size) {
+>                 categories = pagemap_scan_get_categories(pagemap_fd, start);
+> -               if (!(categories & PAGE_IS_HUGE))
+> +               pfn = pagemap_get_pfn(pagemap_fd, start);
+> +               if (pfn == -1UL) {
+> +                       if (!allow_nonpresent)
+> +                               goto out;
+>                         continue;
+> -               if (check_huge_type(categories, type))
+> +               }
+> +               if (!check_huge_type(categories, type))
+> +                       goto out;
+> +       }
+> +
+> +       if (!check_pmd_mapping) {
+> +               ret = check_large_folios(pagemap_fd, kpageflags_fd,
+> +                               addr, len, nr_hpages, hpage_size);
+> +               goto out;
+> +       }
+> +
+> +       for (start = addr; start < end; start += scan_mapping_size) {
+> +               categories = pagemap_scan_get_categories(pagemap_fd, start);
+> +               if (categories & PAGE_IS_HUGE)
+>                         nr_pmd_mappings++;
+>         }
+> -       close(pagemap_fd);
 > 
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> -       return nr_hpages == nr_pmd_mappings;
+> +       if (nr_pmd_mappings != nr_hpages)
+> +               goto out;
+> +       ret = true;
+> +
+> +out:
+> +       close(pagemap_fd);
+> +       close(kpageflags_fd);
+> +       return ret;
+>  }
+> 
 
-Thank you!
+I'd leave existing __check_huge() mostly alone, and instead have an additional
+function that checks the type.
 
-Suzuki
+Essentially a __check_type() or sth that we run after the large folio / pmd check.
 
+-- 
+Cheers,
+
+David
