@@ -1,76 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CAF03EFFC0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458BD4A206C;
+	Thu,  1 Oct 2026 08:07:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842071; cv=none; b=gdwNo0THsZv7+pXJI6va6osdkcm9rm96aAN1URH4KFL+G/wynlyBJnBx8SxejAXy7zZv1oSZyLfkeSnEEKRhEBA8uqsXMO29GnN+QPWGSbUknlKy5poJR/w09RRUV0bUscyghZXu1VHJt23smpq4lKvajou8taVkXNuHQxttxNI=
+	t=1790842075; cv=none; b=RLc4ySDluWj3qJT65S20cbK3KjJpWKSWJAsLv++ZkrLqFN4FW40IBs99rJfQMaJaI9HF29Kq9mdU+rVjExsrQbXooUmbFPOTDx9ygQCHj8DSCsk+FUVDCzJEUEMGjqqyPp137oANtZVq9EHhyXSMuOc3y2sMQbzdINErHQvIqk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842071; c=relaxed/simple;
-	bh=Whsf0EdL6Ez55mFSbFEjlueW7+J+D+gO7NqGXLZD2kA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XA/4o+onrxVaSgAXSqBe5vg14aiM7o3t80oIG/nUQOMZsoEujGft7S96AQokGnIL/BAIotP8j0uQWUKnxkzLCvDMyS99MGDuPJ1UYrrskHHCys+vswE4L1pH6goTexAdAnUwZWJq8ZrqZ/TcIHzNcNcAEyBmPqFnGeEAYhWkvAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJRpI2gE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790842075; c=relaxed/simple;
+	bh=Cj8+xx4a1cGnubfS45VM1VNE7TM98dnMfnI0AQ9vwDU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i5OkK7PKvycWrh1sWgb9O1N1KBwB7UFDJx1Pm0wtdnixkFsz+uza7etemsJP+/JxuF62GCDbH1J4e2B8ADmudsr1ihXt8KjUqcd/xB8PIDb6R+9VsI3NB/MHC4LUQbZ7etG9tK7OaWPgD9wKCSYyuNbcHA9japE9dJc4HkqKOFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbeGcI29; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJRpI2gE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86DC1F00899
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:07:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbeGcI29"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 734791F00898;
+	Thu,  1 Oct 2026 08:07:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790842069;
-	bh=Whsf0EdL6Ez55mFSbFEjlueW7+J+D+gO7NqGXLZD2kA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BJRpI2gEiSwWeWCCAgrIim0T4Sv0VjnqMJmVp57DD4uyXq3aTE3eWSPlD554Y2KbN
-	 rmuC8E1VzFqzHtwiko4YJyIhMYClIwcnQe6mGEJCU3LB10bF9gJ3AV0LQKfJKVfjdp
-	 fDIJStHTp2DAX9FBjOmkItm+y2Y6PHTpvBh7ZWEY1zLx/DAwsPfxibNqZxYREs8qug
-	 XeDR0jaZRTvGBJ6deMOXHdcv78VFVjj+/R9sWTGBc24io0Oxmz3wqwfZB8VaGL2QTC
-	 11htZX/YS0OeAwa8m2gSPwyZl8IuljwnDTNJU3Fd5vC5wjGkz5UWBgo5K+Ms23opHP
-	 bOzK7REYtPvyQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3ce4795aso2062977e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:07:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByOFvvzUXSeP6wF/HXGdzOu3SDBN+IxFl2vnPHAjwrObyDrROskCvPyr8xkmyxl3w/LbtZHqgmI0MNPLZo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLo8FdHg4FZ5D/u1gR3iQWKVnKV6oDL1DpIqByHss+iXWuY6ryY
-	2rBtMQ2l0bXBACRw+S/OHZ1Dx2rV71snM3ywg9DT+G2SVGWDZc2W7Db8fkCZ5uzHj+sa/znQdaK
-	GxeWXTnvJnctMIye6IAgo1XsWdE1QcqA=
-X-Received: by 2002:a05:6512:2527:b0:5b8:c763:67f7 with SMTP id
- 2adb3069b0e04-5ba405d9cd5mr1752355e87.24.1790842068511; Thu, 01 Oct 2026
- 01:07:48 -0700 (PDT)
+	s=k20260515; t=1790842074;
+	bh=SS2mGHyUmwe0VmX0h8vluIHyfjQsXGUXCMbq0JhU3lo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RbeGcI29zuUSYAKStnXiypREtlH6js2GNQJXjVBCtm7Anbt+ppZoAuCmt/mP2v6iv
+	 2rcRxQZEZVvrc2sB4fDDVk5JuFzsYe4/AUaaJz+BXvYvQNBNA8vzIekXHHubWbWFiY
+	 6p0RSVKlRPkYBT+ZwHhLdsZ4Kn7fzgtymOAtpz81WU+4bKrgqm5OZrylOiI4MgrNce
+	 Z17XjxgdZWeXHVamV5I9Io++nMbcq3BIr7VQULNiqTxEKHUgIQc7EOuQs14a666Cpl
+	 3WUL/yrVoB08V4dLFZD/OGdfSNH/ryrDVWOS/mOf7t96e7ly0OtyuspZ0+tC0RnzfM
+	 +OLzzE00dl8Hg==
+Date: Thu, 1 Oct 2026 10:07:49 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	pierluigi.p@variscite.com, Stefano Radaelli <stefano.r@variscite.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>, Joseph Guo <qijian.guo@nxp.com>, 
+	Josua Mayer <josua@solid-run.com>, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+	Mehmet Fide <mehmet.fide@screeningeagle.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
+Subject: Re: [PATCH v4 02/13] dt-bindings: arm: fsl: Add Variscite i.MX6ULL
+ board variants
+Message-ID: <20261001-pearl-skylark-of-bloom-6a6b40@quoll>
+References: <cover.1790693249.git.stefano.r@variscite.com>
+ <075691831d4da249672c3141ab16b9e856ee42da.1790693249.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
-In-Reply-To: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 10:07:35 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnJZBqQVkh51QGWuv0SQVNoxdy4fw3xOSOdCVSpSkkXww@mail.gmail.com>
-X-Gm-Features: AclHuK-0NQ14ujL6Tmqh9QRuhM6uLtSq2NayK5UcJdRP46UImYU4EzJh14NaMY0
-Message-ID: <CAD++jLnJZBqQVkh51QGWuv0SQVNoxdy4fw3xOSOdCVSpSkkXww@mail.gmail.com>
-Subject: Re: [PATCH v9 0/6] MediaTek pinctrl DT binding cleanup and MT6735
- pinctrl support
-To: Yassine Oudjana <y.oudjana@protonmail.com>
-Cc: Sean Wang <sean.wang@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Andy Teng <andy.teng@mediatek.com>, linux-mediatek@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <075691831d4da249672c3141ab16b9e856ee42da.1790693249.git.stefano.r@variscite.com>
 
-On Fri, Sep 25, 2026 at 5:46=E2=80=AFPM Yassine Oudjana
-<y.oudjana@protonmail.com> wrote:
+On Tue, Sep 29, 2026 at 05:17:29PM +0200, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
+> 
+> Document new VAR-SOM-6UL configurations on the already supported
+> Concerto carrier while retaining its legacy compatible. Add
+> VAR-SOM-6UL variants on Symphony and DART-6UL variants on
+> VAR-6ULCustomBoard.
+> 
+> The new compatibles identify the SoM storage, wireless and audio
+> options followed by the carrier, module and SoC compatibles.
+> 
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 
-> These patches are part of a larger effort to support the MT6735 SoC famil=
-y in
-> mainline Linux. More patches (unsent or sent and pending review or revisi=
-on) can
-> be found here[1].
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Waiting for a DT maintainer ACK on patch 3 otherwise this looks good.
+Best regards,
+Krzysztof
 
-Yours,
-Linus Walleij
