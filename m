@@ -1,201 +1,239 @@
-Received: from mail-oo2-f35.google.com (mail-oo2-f35.google.com [74.125.231.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786C74A49A6
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5623EF0A0;
+	Thu,  1 Oct 2026 16:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872503; cv=none; b=PLbJsCIPgh2nHPjp7ads+TMUm1WKsYi9KgmMRn376kjO03+z4D1RgVx+sGT9L9O+7AKWhMoMKkVwi2uYFbZz1raIKeGMQTW91hYvuNa1Z9j7o9DQ5fNAuo3jJZeS8zqQBGRWe+VwefWXNHpugWV3SQ1SCSBvDphzBrF6VJf4tDE=
+	t=1790872510; cv=none; b=cFTyaWAJjEfqFmfAnWhDsAxB5tEK8YNvd/w9OyEB5axU2AM+6zIOu69fg6xFKT6JXQ2/h7Ql9hTJzAHjdjklfdI0/dMXr51zq3YiVye0+C9ifR3KQyMZ4G2J4jdrYOi0IkxocnAb7OGlmQkc86+re8bvuxiNsBOxzRbZassU80A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872503; c=relaxed/simple;
-	bh=L8Lns7TsZOH6fg9p7zuRQ17Cx9fE42n0YgkEobEXxRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BsXqE5i1hs0w7/jtb01D3V74fsm6z4RiNuVF/6VPK9TK5L+viT4wV9yqCGPloAilhCd5OM6YCsC9wKxhCOil/rtnnidRrbZ/fH0j94gp1HXtcpaH4F6q/L9fjsVw0RF9pnoGexFFJUYf71Rh2K2vWhwKE7NlPsch3hbtm2vVmx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o8a/2PLa; arc=none smtp.client-ip=74.125.231.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790872510; c=relaxed/simple;
+	bh=K9ipQYhDUImEGFkWItdOFON/xTYTCacdhdBcgKQDA/Y=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pSNHNEfqed3OWRUqUKP9eJoIUCUrAI2GMHoqbzHgW7eUV9QEtEBPR5AlmVFBkEgLALrTjFjTZ/F0loxS/TgdQgi7fZoHh/ak//cVI00cM1w2P4JiBeJjzu4rtNpm180JkJby9A6P22n8dKziB5nKZCmcntpIYorlBJC8rGCPFLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebApsIb2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o8a/2PLa"
-Received: by mail-oo2-f35.google.com with SMTP id 46e09a7af769-821699a987cso513569a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:35:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790872500; x=1791477300; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GqroQK+KWhpUECnqkLQZ6DQ/b3Wl2bifoRVa0It3kTQ=;
-        b=o8a/2PLaVsbY1QgRaZEpy2/0EHuR7To0RWXTWqkMstvabMpyhndQUYO8Cs8lzZo/pj
-         qAAFI0ire4ZdWCJVQiN7tzEBuytLceKj3/jG2C8E3HsQkCduiEaGjbUAvOQALYXCeQ0k
-         svUwOPQ1A693RbUSjrIpbFJinTqDyZsF6/P2MEVGPCTxvD7v/DIlfZWVAKZQPsZelOOH
-         yTq6yiZBqjO9T/qJUrsg6ldLdQ3CaajuvNUh6RsUVs48cGCZGNjKW3e/qmrzSfHMADK3
-         2PAk/K/dOMOg74IXqRxho+uQPmeKwfwlvwYqmD2u2tqejQ+R+eWDwN7ekUDdDrwZlPM+
-         vSNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790872500; x=1791477300;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GqroQK+KWhpUECnqkLQZ6DQ/b3Wl2bifoRVa0It3kTQ=;
-        b=vsktlsYe+hnE5GxnV2T9OmxLUM7SaXt4TwWxskCU9BvpC+ajIrcVVb6jLi18K5SepZ
-         PD74zs2b+t2ThMGU3iHmyuLBLh5KvjyEgT36GzzL9OHl0//D31aosYwXvVc+od+cpmjm
-         PVTJ5+c+33cde7NTIhAT5aY49F/zBGahkd4ys2ZjctvGj3XiZ7wJZYTAlidWnGCXTAiB
-         DHLVBQvvrR4kMsbeLa65bVA5X+HLe+8FOJMfoIQETeg5Iy5+5mKoVgv7nD9ZocwmiKGh
-         0naBoWqIFAQTsnw8zG7KTvE3q3Xmh+6dpRT3h0/QorhScx2zCLwIzgYqvqXDsh5oBo2l
-         ahFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwy3ueyBQiRlukfbRJjxRVEgClewzIx0jEL15U1xaROHVdmS8HSi+mkmDi/ZprlkLDl48LIlGwF/GuEDMY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kz/CBYdcDeJuUN2SAo/09uKSveIe5Gpn38T3GWLxS8yolHCUUU
-	yjFf94zLxPSp6orQRFNSfrnS1pyM9bnsrriXtJJDaCidxsnqPW4LuKR7
-X-Gm-Gg: AYBFou2RGCXtPn5OZWZ1B1eWp4Md6W2rjHfpm+nggRMsAozOEHwWOOa00safXoyFvUV
-	U36TzJcVzPjqk2lqEFbkY79hVmoeWYTwzLTjm3vt/q3VoR3f1NwRz4TPDno5zYUhE2Xw2xIrUUL
-	iuQUdEdL/Pv5/kP/130Ec4Kc0DrPw+Hyk5GgrEUnULWwjJrmbQzf0GWD3KuVEGv0LvkXs3Fu68b
-	AxClGBfNKDkmBDrUpYIxsaSamY5mih0foRrLNPSSK2hHsJAqIYZWEu3Dxc5fqYwYXxlnS4rSn2a
-	fUfykX8OGVt1eAzeV6pbnxzDsTvX4Gti1cy4gFE9YJbRwIv3+LNZhEHw/ugvraW/AcrqdNW15Bs
-	CvkDAqqTOHDwlOYEtx18eZrIFkmTEJ+hVA9UxDTHpx64yiBMb3mkW44bhFFey4mk0GQMZOasI5L
-	TzjOxcY9jP/ufTLi1nMpdDuO5IK78D37b4zTxoD33dLqZlrK2eya9176PPLvt3olQDz616SoqgM
-	0nbleFwVJ/8jCSesgU18A1fEIOQ2NQFmao8V4Or8tbCYxDEZff0fTESpqlRSH4D76k1grVk8mdE
-	vnJ/NTJTMXQxjjfwsQoaBaBmRmlcc/aGBb5M70mlO3VomoXR1YxRyhNJ2Co=
-X-Received: by 2002:a05:6820:604:b0:6de:d2c1:e97c with SMTP id 006d021491bc7-6ded2c1ea69mr922462eaf.86.1790872499756;
-        Thu, 01 Oct 2026 09:34:59 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49ded33505esm2712687fac.18.2026.10.01.09.34.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:34:59 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jan Kara <jack@suse.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+799a0e744ac47f928024@syzkaller.appspotmail.com,
-	syzbot+43fc5ba6dcb33e3261ca@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH 3/3] udf: leave udf_next_aext() outputs alone at the end of the extent list
-Date: Fri,  2 Oct 2026 00:34:48 +0800
-Message-ID: <20261001163448.753190-4-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebApsIb2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1151F000FF;
+	Thu,  1 Oct 2026 16:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790872508;
+	bh=u32X4VpgmHbk5ebw0Pu1w8aVte2ZcN+S8G/K2mFCaiU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ebApsIb2FOL2jH3V++g/q73QKPEF+WeYpfs7qNi/FzMfzD28r3sXO7LqFtPKaonKW
+	 V6G2lKCJBjnacRYaemv80x0CpjdbKe2hMaVP1goEJ/ySyhy12ANiPtQIRjKPGt6tZj
+	 niGv0ceupVDlwUpqDtRPLWjWoB0H2OT+ILS6z/1pPTDrEJE5jhwOVtw4bMuvolR/uN
+	 mp4+Y8+Gj2ugVa4XR6hcbLYvAU5oQioinGZwlmpmdnLb6e9ZKT5PRXz3tx3ZpMgGVC
+	 0whZkjwgqhV9enCE3oNy192dzfed+X+rVquXnHk1ZGFdUyHPv1BfIZp7etd46i6XRq
+	 TR3gfWdYgHHPg==
+Subject: Re: [PATCH net] vsock/bpf: release sock lock while waiting for data
+ in recvmsg
+From: netdev-bot+sashiko@kernel.org
+To: jrmmhm.kernel@eldare.de
+Cc: sgarzare@redhat.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ bobby.eshleman@bytedance.com, mst@redhat.com, virtualization@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Thu, 01 Oct 2026 16:35:07 +0000
+Message-ID: <179087250713.434549.8388772928991296342@kernel.org>
+In-Reply-To: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+References: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-udf_next_aext() decodes each allocation descriptor straight into the
-caller's eloc, elen and etype, and follows a continuation descriptor
-into the next allocation extent.  If that allocation extent holds no
-descriptors, it returns 0 for the end of the list, but by then eloc,
-elen and etype describe the continuation descriptor itself: the block
-of the empty allocation extent, one block long, type 3.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The kernel creates such lists itself: udf_delete_aext() leaves the last
-allocation extent of a list empty when it removes its only descriptor,
-and udf_do_extend_file() and udf_extend_file() already handle a list
-that ends in an empty one.
+Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
 
-Two callers use the outputs after a return of 0.  udf_discard_prealloc()
-walks to the last extent and, if it is a preallocation, deletes it with
-udf_delete_aext() and frees eloc/elen.  When an empty allocation extent
-follows, udf_delete_aext() removes the continuation and frees the empty
-block, and udf_discard_prealloc() then frees that block a second time
-instead of the preallocated blocks.  On a space bitmap the preallocated
-blocks are leaked and the free block count drifts.  On an unallocated
-space table the second free adds a second free extent for the same
-block, which is later handed out twice: fsx as run by generic/091 and
-generic/263 ends up with two parts of its test file in one block and
-reads back bad data.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-udf_table_prealloc_blocks() can likewise take an empty allocation extent
-at the end of the table's own list for a free extent starting at the
-goal block.
+- [Medium] Because the patch releases the socket lock around wait_woken()
+  in vsock_msg_wait_data() (net/vmw_vsock/vsock_bpf.c:52-57), the virtio…
 
-Only update the outputs once a descriptor other than a continuation has
-been found.  The other callers use the outputs only on a positive
-return, or not at all, with one exception: when udf_table_free_blocks()
-appends a new extent, it keeps the partition reference of whatever eloc
-last held, which for a table whose list is a single continuation to an
-empty allocation extent would now be uninitialised.  Take it from the
-freed blocks instead.
+Pre-existing issues:
+- [High] In net/vmw_vsock/vsock_bpf.c, vsock_msg_wait_data() stops
+  waiting only when the local socket has RCV_SHUTDOWN set (line 43: `if…
+- [High] vsock_bpf_recvmsg() in net/vmw_vsock/vsock_bpf.c has no zero-
+  length early return.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
-Reproducer, with fsx from fstests and mkudffs from udftools:
+--
 
-  truncate --size=2G udf.img
-  mkudffs --blocksize=512 --space=unalloctable udf.img
-  mount -t udf -o loop udf.img /mnt
-  fsx -N 10000 -l 500000 -r 4096 -t 512 -w 512 -Z -R -W /mnt/junk
+vsock/bpf: release sock lock while waiting for data in recvmsg
 
-Without this patch fsx stops with READ BAD DATA after about 9850
-operations, in every run; with it, all 10000 operations complete.
-With --space=unallocbitmap fsx completes either way.
+This commit drops the socket lock around wait_woken() in
+vsock_msg_wait_data(). The transport rx path, virtio_transport_recv_pkt(),
+can then take lock_sock() and deliver data while a sockmap reader sleeps.
+Before this change, a blocking recv() and the shared vsock delivery worker
+deadlocked on the same socket lock.
 
- fs/udf/balloc.c |  1 +
- fs/udf/inode.c  | 21 +++++++++++++++++----
- 2 files changed, 18 insertions(+), 4 deletions(-)
+> diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+> index 9049d26486460..bb7d81a95baa6 100644
+> --- a/net/vmw_vsock/vsock_bpf.c
+> +++ b/net/vmw_vsock/vsock_bpf.c
+> @@ -50,7 +50,9 @@ static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long ti
+>  	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+>  	ret = vsock_has_data(sk, psock);
+>  	if (!ret) {
+> +		release_sock(sk);
+>  		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+> +		lock_sock(sk);
+>  		ret = vsock_has_data(sk, psock);
 
-diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
-index 2ec577b4321c..d863ee201cbf 100644
---- a/fs/udf/balloc.c
-+++ b/fs/udf/balloc.c
-@@ -457,6 +457,7 @@ static void udf_table_free_blocks(struct super_block *sb,
- 
- 		int adsize;
- 
-+		eloc.partitionReferenceNum = bloc->partitionReferenceNum;
- 		eloc.logicalBlockNum = start;
- 		elen = EXT_RECORDED_ALLOCATED |
- 			(count << sb->s_blocksize_bits);
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index 71386e7ac796..0e55f749bc48 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -2266,22 +2266,35 @@ void udf_write_aext(struct inode *inode, struct extent_position *epos,
- 
- /*
-  * Returns 1 on success, -errno on error, 0 on hit EOF.
-+ *
-+ * eloc, elen and etype are only updated when the next allocation descriptor
-+ * was found.  In particular, when a chain of indirect extents ends in an
-+ * empty one, following the trailing CONTINUE descriptor and hitting EOF must
-+ * not clobber them with the location and length of that CONTINUE: callers
-+ * keep using the last real extent's values after a 0 return, e.g. to discard
-+ * its preallocation.
-  */
- int udf_next_aext(struct inode *inode, struct extent_position *epos,
- 		  struct kernel_lb_addr *eloc, uint32_t *elen, int8_t *etype,
- 		  int inc)
- {
-+	struct kernel_lb_addr tloc;
-+	uint32_t tlen;
-+	int8_t ttype;
- 	unsigned int indirections = 0;
- 	int ret = 0;
- 	udf_pblk_t block;
- 
- 	while (1) {
--		ret = udf_current_aext(inode, epos, eloc, elen,
--				       etype, inc);
-+		ret = udf_current_aext(inode, epos, &tloc, &tlen, &ttype, inc);
- 		if (ret <= 0)
- 			return ret;
--		if (*etype != (EXT_NEXT_EXTENT_ALLOCDESCS >> 30))
-+		if (ttype != (EXT_NEXT_EXTENT_ALLOCDESCS >> 30)) {
-+			*eloc = tloc;
-+			*elen = tlen;
-+			*etype = ttype;
- 			return ret;
-+		}
- 
- 		if (++indirections > UDF_MAX_INDIR_EXTS) {
- 			udf_err(inode->i_sb,
-@@ -2290,7 +2303,7 @@ int udf_next_aext(struct inode *inode, struct extent_position *epos,
- 			return -EFSCORRUPTED;
- 		}
- 
--		epos->block = *eloc;
-+		epos->block = tloc;
- 		epos->offset = sizeof(struct allocExtDesc);
- 		brelse(epos->bh);
- 		block = udf_get_lb_pblock(inode->i_sb, &epos->block, 0);
+[Severity: Medium]
+With the lock dropped here, virtio_transport_recv_pkt() can run while the
+reader sleeps. Can it wake the reader for events that carry no data?
+
+The reader sleeps on sk_sleep(sk) with woken_wake_function(), which
+ignores the poll key. virtio_transport_recv_pkt() calls sk_write_space()
+for every packet when space is available:
+
+net/vmw_vsock/virtio_transport_common.c:virtio_transport_recv_pkt() {
+    ...
+	if (space_available)
+		sk->sk_write_space(sk);
+    ...
+}
+
+OP_CREDIT_UPDATE in virtio_transport_recv_connected() does the same. For
+vsock this is sock_def_write_space(), which calls
+wake_up_interruptible_sync_poll() on the same wait queue.
+
+OP_SHUTDOWN and RST call sk_state_change(). An SK_DROP verdict or a
+redirect to another socket also wakes the reader through
+sk_psock_data_ready(), without queuing anything for it.
+
+After such a wakeup, vsock_has_data() returns false. vsock_msg_wait_data()
+then returns false without waiting again for the rest of timeo, and
+vsock_bpf_recvmsg() does this:
+
+		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+			copied = -EAGAIN;
+			break;
+		}
+
+Would a blocking recv() with no SO_RCVTIMEO then fail with -EAGAIN as
+soon as the peer sends a credit update?
+
+For comparison, vsock_connectible_wait_data() loops until one of these
+happens: data arrives, sk_err is set, RCV_SHUTDOWN or peer SEND_SHUTDOWN
+is seen, the timeout expires, or a signal is pending. On a signal it
+returns sock_intr_errno().
+
+The BPF path also returns -EAGAIN when a signal is pending. That part
+existed before this patch.
+
+Should vsock_msg_wait_data() loop the same way that
+vsock_connectible_wait_data() does?
+
+>  	}
+>  	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. Can a
+blocking recv() still hang after the peer shuts down or resets?
+
+The only exit condition vsock_msg_wait_data() checks is a local shutdown:
+
+	if (sk->sk_shutdown & RCV_SHUTDOWN)
+		return true;
+
+The virtio, vhost and loopback transports report a peer shutdown only
+through vsk->peer_shutdown:
+
+- virtio_transport_recv_connected() sets it for OP_SHUTDOWN.
+- virtio_transport_do_close() sets peer_shutdown = SHUTDOWN_MASK and
+  SOCK_DONE for RST or a full close.
+
+sk->sk_shutdown changes only on a local shutdown().
+
+Suppose the peer has shut down and the receive and psock queues are
+empty:
+
+- vsock_bpf_recvmsg() skips the native fallback.
+- sk_msg_recvmsg() returns 0.
+- vsock_msg_wait_data() sleeps in wait_woken().
+
+vsock_remove_sock() has already removed the socket, so no further wakeups
+will arrive. The recv() sleeps until a signal arrives or a finite
+SO_RCVTIMEO expires.
+
+Meanwhile vsock_poll() reports EPOLLIN | EPOLLRDNORM on peer
+SEND_SHUTDOWN. poll() says the socket is readable while recv() blocks.
+
+If the reader is already asleep when the shutdown arrives, the
+sk_state_change() wakeup that this patch now allows makes recv() return
+-EAGAIN instead of 0. A retry then hangs as described above.
+
+The native vsock_connectible_wait_data() handles this case:
+
+		if (sk->sk_err != 0 ||
+		    (sk->sk_shutdown & RCV_SHUTDOWN) ||
+		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
+			break;
+		}
+
+__vsock_connectible_recvmsg() also returns 0 for a socket that is not
+TCP_ESTABLISHED and has SOCK_DONE set.
+
+After this fix, this is the remaining case where a blocking recv() hangs
+until a signal arrives. Could it be handled while aligning with
+vsock_connectible_wait_data()?
+
+[Severity: High]
+This is also a pre-existing issue and was not introduced by this patch.
+Can vsock_bpf_recvmsg() spin forever with the socket lock held when len
+is 0?
+
+tcp_bpf, udp_bpf and unix_bpf all return early with "if (!len) return 0;",
+and __vsock_connectible_recvmsg() handles len == 0 explicitly.
+vsock_bpf_recvmsg() does neither.
+
+If psock->ingress_msg is not empty, for example after SK_PASS or an
+ingress redirect, sk_psock_queue_empty() is false. The native fallback is
+then skipped:
+
+	if (vsock_has_data(sk, psock) && sk_psock_queue_empty(psock)) {
+
+With len == 0, __sk_msg_recvmsg() never enters its
+"while (copied != len)" loop. It returns 0 without consuming anything, so
+the loop in vsock_bpf_recvmsg() repeats:
+
+	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
+	while (copied == 0) {
+		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
+
+		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+			copied = -EAGAIN;
+			break;
+		}
+		...
+		copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
+	}
+
+vsock_msg_wait_data() sees that vsock_has_data() is true and returns true
+without sleeping, so the loop never reaches the new release_sock(). The
+loop never calls cond_resched() or checks for signals, and it keeps
+ownership of lock_sock(sk) the whole time.
+
+Would the vsock-loopback worker or the vhost/virtio rx path then block in
+lock_sock() on this socket? That would stop rx for every socket on the
+transport, which is the symptom this commit sets out to fix.
+
+Would adding the same "if (!len) return 0;" check that the other *_bpf
+recvmsg implementations have be enough here?
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929-kbh3-1-022-fix-v1-1-cc97cc95d269%40eldare.de
