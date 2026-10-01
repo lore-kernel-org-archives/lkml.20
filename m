@@ -1,61 +1,61 @@
 Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124EE523786;
-	Thu,  1 Oct 2026 14:52:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4DA522EFB;
+	Thu,  1 Oct 2026 14:52:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866374; cv=fail; b=pQsEChxjcAz+IywuWF3zascW9+6jVO+P+AhTgcHgCduSaE5tanxGSrwXRLQkW74PfhWd4iqoqANSyvc4ROhn0K0nairiP3xyl/9N6JJ65+o69c9rfvY0JHwAVfYuZTZW0q6TnXB4ejBduHP9LPtMsaNL3Y3MaSd563ssmtgaywU=
+	t=1790866377; cv=fail; b=OS9IvFp+rVXJbobDzUdL1AL7ZMEi1TDsP2i2VdR3/ZoQAynkEoShenRuQ0wHuAt6vfmvy9eVQQ1mh2HVNXIvswOtoRVIjB+0npJjYHgsMGG1QYFj9w6Gk22LDobeKVWK23ALGwkunI+exCAT8cqWpTeElXVBaySNsrHOFR/KOf8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866374; c=relaxed/simple;
-	bh=LjQxm0tFdlNXl7xZaUKn/m/kDGyXv3bhA4iQv7WlfC0=;
+	s=arc-20240116; t=1790866377; c=relaxed/simple;
+	bh=E/xkZ1ptQmOz/sG91Xanrbd1Cf0AGu6udNOn0S49dQE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uEHhra8akm2hfrtgu+Pq0EXRptJ4YNmSPK5NCTYS6yf55IHpSKZfHfcT6rFnDkzy1b7LGLvKSf0Dbnhijqj6tGOtAmtZ7qn2I5VloHymYhG+AOraIJAFpxA5j0xvuCTt1Yz9eGuspb8OhYMHV6MVJp9XWZjXjTh7Ne1oKe04GZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=UxTndiHU; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=yuVdmUgH; arc=fail smtp.client-ip=205.220.177.32
+	 Content-Type:MIME-Version; b=oEVZvknsJcyQalC0xkV43Si+gh5sCU13p+EXgrJUn9Nvxw3H1mour0WCILl7HYYNshYevEMr2/rmXd9HvTAA9+MfBRL3XslGEIYIDzh8TJ8WBFs6VYXCERd3bgeBwBXpaFkeebqJU9+zzssqo8rlGp2jTbJwYVvjuyZdraKgYZI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=UVqRzjot; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=hmwf9+Ct; arc=fail smtp.client-ip=205.220.177.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="UxTndiHU";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="yuVdmUgH"
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMgn2539352;
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="UVqRzjot";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="hmwf9+Ct"
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMgkF2256997;
 	Thu, 1 Oct 2026 14:52:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=TI6fPeo4uFVjGqM52F3EOF7wswHYgfrLi3ygYD4ltxc=; b=
-	UxTndiHUB3QCE42otk+fJNdlIUlno/KVFdVXwUe7tq2nTvG7ob83toR0RSJ3+u4C
-	PbVki6DVP50BrtJuo8PcDWwBaUZXpAFwepe7LYBunRvGHVRs7fJLvnde7EX3rQtI
-	dKW+taZe5jBbYr916n3vxGb2vMGOkxaTXdo6yTxBRojMNQCPfWS1XdT2OMSoccLX
-	vNM+wu1cZ18cSj8wOoQPIbe8qCLgy5LS8/zFqivcO2FBcAOcp0Z3M5Ra7vJU0u+l
-	7oV77HSz0qKSvoIa1w6zPHHqvg7EzFHbdqi4vxRP5T+FIwj6/qoJhIVa1gzuzoTV
-	N1+ZMcc9GxqVZAcfkZWD1w==
+	corp-2025-04-25; bh=vPwPMcwir8JMNdahQi0AvpqKE0CBhssd7amyUXFYD/U=; b=
+	UVqRzjotmsrdoMay2H4upUmPQXMo38cKXOF8TmgM/l1YSVVbsBjrdGNukaNojoV1
+	LjtakBdeHfk/rXk/tEYm4QQF7sV+u6FMtxpzUfWQW9imP1GpuYfb2kYEwVtrLny8
+	+oX5j7sKJEiXF00omQFiyGMP5fnBJREVYHyvmVEedKZcQq9B3zNXmLs5zRv907HX
+	pEd+B/yHi+rcICOmHhOY0f4STQDs2KpMOURvAm2gLW45Rk3RT+7S+buBsktAaqoX
+	JcuWXxI/0/r4YpiM59+YYCx+vASq1CQh+gZynl12PMPeLTai0IyZpYqTUgQ70U3T
+	zfVIedwKdStKgq8dWahu8w==
 Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx4fbgypv-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx63c13g2-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 01 Oct 2026 14:52:47 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691EnpY9017265;
-	Thu, 1 Oct 2026 14:52:46 GMT
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012065.outbound.protection.outlook.com [40.93.195.65])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gey0qe-6
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
 	Thu, 01 Oct 2026 14:52:46 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691EnpY8017265;
+	Thu, 1 Oct 2026 14:52:45 GMT
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012065.outbound.protection.outlook.com [40.93.195.65])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gey0qe-5
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 01 Oct 2026 14:52:45 +0000 (GMT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UIi5HHxOk1ee5piQCXZMxVC1COuuKj8XZgaplFVcY06y3rz3+jpaMUz1D5mlK140lYJPpnxHEB7eHYM0MPS3GfJX/qk57k1obcfhNJJJIjbKu/CfjsTOrl0I1EDltXoVBcVnbYtpE1wUNqoUkP4ltY+F6UKT7Vt1nTpmyBZaRzUn/RY2x6Zgk3BBC/XpGzJeRZOtqbB+bON9tsrC9ELXQ+dnedTX6QmwU55beTyNUiLnJvmHRPYdzpSGyp8EZfcJ1uA3xj6bVVxmKLN3TasM00tvGEpBzvp2oFXtNEkaJbX0ozEFRI+Y4A77UBS2+oIYxNoGOfp3MlKEx3MUJXlitw==
+ b=AtfCGIrlOHO8/Es4nidi518qBn2a6QcPddrovNmbBHgNl/SA7h6+dRwogTayheLfvkqg1vqPiNP6q9IxCZC+Qd4AJIqrhg3oTM9cTRhAvJ01NU8NjJWE7pkEtAMHP/zK2NmlG6yJVfjDcLIhhit+OHUR+tFJI3RdMulXXGoWIVor+iPv6SYF6ImQjoeASSzUbo+caxli2flbnT74cICf4GMQ+86e3WhSTyM1Lx3EINGjKnpLVUknDY8Db7NYIz17RHdr22bVUbVNanHZPeSTPSmebzHjyLJNR098CngfXcLlhv/Fnspd4KK+ozOEHn3nM0WJDhRb0olVjpVeqBHINQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TI6fPeo4uFVjGqM52F3EOF7wswHYgfrLi3ygYD4ltxc=;
- b=V0F563l84GOtM3xAGf4Q8H2Bwl8e37q+l29z0H9dMNnDVAAQM5uFoNhO8wnWs3cr3X7dQWFRgvGY8geUDkCtIPQtz1DocJltQQhSWsRXTWYj4jg+URDy3uIe/qGpJJtVzlfJPVUSqB6OMqt/ymWMV8BJqqURF0YfXLSwKfUJqSDhAcHOx5G0QFzhooT3ZWBG26yrxAn9i6rBjePRxnw2j4jc03YQdtUjLLZZfZ6gcCGXaqYyH/+tbioXlDgwNQF/z+/4WgQ/bWwDyJhnwH6n23/QBF7LhmGt2N8eGZGqMqB/HDLtcDhA9V0KTwtRVo6bRLbtnotfu+GP9p1jjZUCHQ==
+ bh=vPwPMcwir8JMNdahQi0AvpqKE0CBhssd7amyUXFYD/U=;
+ b=y26trr5rhnspxtqt4eReLpS2Ln6EYf3So5qBqsN1ATB48bIBWvmbmL1zcDvXKRpm8V1LXH8w6p5Jh+ywHw2kje+k9qWg+3m9JK4ajq9TavPtdLu27sZjTCY/8A5ZLeLpyLqkTs8VnDUccQ5tNxyN0SNc5XIAq0cXBqF6tboIAMV/mU78U622efLO4iJ5jmtjog2ccB0GiG15CxIzRri33ta7wqyURFmCUVBPqPwo/A2yJIkYzEk/d2orF7rHP5v6AUOWjKUmB8CS0vb81CZPIHDwtDhBoB7B0f+ZCdXZR8JlpQel/Vr6F0A1V6TVSVN90yXNeRV6qLw79GpGHnQhdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TI6fPeo4uFVjGqM52F3EOF7wswHYgfrLi3ygYD4ltxc=;
- b=yuVdmUgHAjZkf/iYE4/i8GF0vTRVPhKJqhRFE4JQFw452a+DGEpee2NwU6D7tZXHHslDDh4s8jfTWkieCvD+qU8eJPxP8+fzLllsHRPsDjHcvE77bXge54HIpUxhX44BjpGVAFIWNirLp4kA9G1LeMI/bkP3zh7lRcIjj120odA=
+ bh=vPwPMcwir8JMNdahQi0AvpqKE0CBhssd7amyUXFYD/U=;
+ b=hmwf9+CtoNFZbz40AL3RnA1S/eXZs24rcX9gMLHB56wzjGT8cTTUU/DjRAEgdE0LDlyE5WT46jF7OhKl5cj6bn2HJH/ejm5aK7czUxnFusvPBPqNqfB1n/bqLKXNl019lfX4KPdX60UifhuQ7BC8ZG46gYEHq2PKmS6FBK6nug4=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oracle.com;
 Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
@@ -71,16 +71,16 @@ To: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
         "Darrick J . Wong" <djwong@kernel.org>,
         Dave Chinner <dchinner@redhat.com>
 Cc: linux-kernel@vger.kernel.org, Mark Tinguely <mark.tinguely@oracle.com>
-Subject: [PATCH 5.10 08/21] xfs: convert XLOG_FORCED_SHUTDOWN() to xlog_is_shutdown()
-Date: Thu,  1 Oct 2026 20:21:21 +0530
-Message-ID: <7a59a53b0c1d6647b2f558d032287d8155dd67fd.1790866131.git.siddh.raman.pant@oracle.com>
+Subject: [PATCH 5.10 07/21] xfs: don't nest icloglock inside ic_callback_lock
+Date: Thu,  1 Oct 2026 20:21:20 +0530
+Message-ID: <504acdc62fd2f2b7ec376c582c7f63556f4b554f.1790866131.git.siddh.raman.pant@oracle.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790866131.git.siddh.raman.pant@oracle.com>
 References: <cover.1790866131.git.siddh.raman.pant@oracle.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PNYPR01CA0070.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2ba::6) To DM4PR10MB7505.namprd10.prod.outlook.com
+X-ClientProxiedBy: PNYPR01CA0077.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b4::6) To DM4PR10MB7505.namprd10.prod.outlook.com
  (2603:10b6:8:18a::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -90,63 +90,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|CH2PR10MB4118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b952604-1994-4b8c-cab7-08df1fcba393
+X-MS-Office365-Filtering-Correlation-Id: 215d3eba-92f3-4d77-e394-08df1fcba0c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|23010399003|1800799024|10070799003|366016|376014|56012099006|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	gtp3tuFcoJZnAG5yP8DNnl1elIWhLNQKHrbIp0TsnIPVHgI0PZHWMwCvU5t+zEf3LpNEIQ6aTfVacVXD4IbGEgk8pTmMtumSnXDs1+9Y/o/wbGVVMiVHglLoJxuJToH34g2o5Ac5zL1eFbFvUmsHdLqjX/r2sa538DMGZ/x7qY26oZS/g09OTmUK/CuSrcipXkEtXbLfpRDX1yENYMWsv14neeaRoEk51CfsSZskQJw/wImPIC2LBwiDUbdOwpDLT+PkgtL0n4QrmmsIIjfIQRjgNAazct3wt8tTP9sLF1SwDLJmtOjv+4nNIcUBHW6vb6cltn5mGo0khD30T4OD9y9o9mMkW0MMx3bePBE1IZYIg759WIrYpNrmLp+dCQ3iGb5vO6t9e4E+a+QigsnuP/mVToN3nLi/E5iIrqIrceoeCePGWhXtQNrmAg6oAOxRcQa7bfdlYiTB22TmdgZ6lBMK5cBCl1Xo+kTlLhqlJe9bVaAKMf1bJ849TGqYbORRMUgyK61NAHRiVkhoOoAeiQI5od56k/Fs9OWBIZHdhbJ1BfbHvseNcY0o9ul+LT0sKtWW2a7Sp2idr5KRGjbRx7601s7NYiJrX9JV0Ju2hJBNOAcOrK6TugzNjK6F4rma+ECzcuP3ahi3yKIehTQVtV4zrG8ApvW1KFX/OCki7AQ=
+	cHajkux7j+e4EmXnhhqqkKk3HmncymamhbXi6qZBWi6LJ8X84nxhWWsDD0Af/Ztk3iM0+FSy3ek/cPNCIF5kTwXBpEjgFTujvxGrPmWNneZKGWsVdLMfCc1RVdlFwvtRv2boXSiattLzG2Sj2v92zTNlSC/ZQB0duZlXllce3wCZaKjR63+C0Y6mRuRzvm96zenRjLJF7K6I5AwnOqhYPyoIR85APv+jp85Rg6zqaqoaaujQNCGa4rEhvqAepw/zDyq5BxFD8sPN354lovYPSJxZ4vLFII8typHMoFDlQrVUbWAgPuVjH21MDNbPvzIOiRTUEv8UHYsICN7zLy+FL1CCXeFokKXIELU0DViFKOaD5CA5jSNKyz4w0Ml18oLCmzKzxYYCeRgvAzLGzWIn8l7x3QzWmd0jPPV/UJG+ofnCIVtsIbnh8klyTOdy6LkBAY/RrZJIedhHDdCtGqwSboNUmrAeAG04SMtZ3ODmVDjuuVueak5P0VIjmVRV2Csct4rDPRcS2jYb2rbD4VTzKxx11p1eF+/xjNA5OXD259YG9+o4sg+HppZunSYUsyTuPyVWoOnuWG2W3ffDx6yo90sFMoQUcQltnk+eEHOHtXbIfn4m9xpf3tpVxuO/EQDjcjCyQgozGi4IhNqSEQW91k1oBNSMIeYWxXc5I+9Rd6k=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(366016)(376014)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xQOQ4jKb7Nh1JO2+3PRS/iIAZVJDAcyKx/ZBiekPguxTmsoSTvVyca0ASr8W?=
- =?us-ascii?Q?SKL9619BdVA1fF83HC955kGO/Ncap+rqfNAhmWED5Nfb1EWWYci/HtGl5w69?=
- =?us-ascii?Q?Yc8/+m4dDr7zSuB/qRgex9W/ljNg4LNc8TPlZAQSSn3sEFGFN53A5hvcA6lY?=
- =?us-ascii?Q?AEfQiUcSCGHwZNZuZbVrq9vkaKKsTvxNZ+see0RWG6lCQKjox7dyPouvqL4l?=
- =?us-ascii?Q?uYO+MVbsCB9awLf/ORfC5DOnSMtDlgfWDDIhKAUIlmKzwtWcrnRLkAkislos?=
- =?us-ascii?Q?z1akM8xdEyOOGouwM13qbmGGCjKEJMdLiXfadx0fq+HyEw4qkXPyQp79cZbk?=
- =?us-ascii?Q?CUBi4xs6IHbLyp9c8GPvS+TLP31e3X/6ArCAmWsCYoZu7sxUdw5yoz7BTda0?=
- =?us-ascii?Q?GLpCEuH7Pc6365I3ucqmqOyQQdkMovgeDyDs3qNab6yk9eNspKmwdWSClZ3n?=
- =?us-ascii?Q?XrNvSPEHyYufgR5QXtEoNY/ueSoMkw3BLpOlGryWHVFCS5zpdI6xC/pBDtoI?=
- =?us-ascii?Q?Ws1/AQgBd9Mu6LfJzZ5EanlVsUh0A1MooOCTFfAnKfIQs2TiTNsVeB/OYn2+?=
- =?us-ascii?Q?lkiWzVguOHTe+urKqun5WhLBb/8Q6zuYaKEWcJPP3Jt5zzWoC1CdVymlr6C2?=
- =?us-ascii?Q?6IriFZBfoFuPgam/vWck0HmYdF2iaAmpdFzv+Wfa1m2tXxI9q05Q2nQFgUld?=
- =?us-ascii?Q?N8rt6gnLgHZT3w94BAUHlfg8lkk2F+gr+F40ufB+KsiDKcMu7AfNDDr+X4/q?=
- =?us-ascii?Q?P1Y3kJo5oSZCKqrhxfh5vehM291d6gPLekJQgarTL1/rMsY0I06rg7OYMGGz?=
- =?us-ascii?Q?FbIcAHy8FxBonU2yv8Zc7raWprLJVuK3mzpJhk0nl3aqQ34s7cfWMcIayaek?=
- =?us-ascii?Q?g/aTiFjq0xAYdoV225f+UjBl/xmBYGhAB1uJzcN9ojhwsu6oAoGEmfk/CIFd?=
- =?us-ascii?Q?NxoGK6hGLj6KbssNAf0smlg7XH02USIUVik3PLHieZC6qS4ryfVfE6kIcXs4?=
- =?us-ascii?Q?AXYOlum+FUBdNfqEBJtfXUhhxS4NLxnUoxKGPe9UXRJxrRzDEh1bA3CnkxFl?=
- =?us-ascii?Q?OrljNv/viMDpZIt8loORhhTes3XsqAapkA0yFQXf8iYz495zjIQ1GMe09/WQ?=
- =?us-ascii?Q?sRvXjxtYEKur8gBrs7vEYtyfw+svTShdt7QVR42B0DA+F+1qDIu2cqcKSm1x?=
- =?us-ascii?Q?zNKVo8VagcuNllXD9BNu/hANbTlHpc5UlKJ+PKRCAWffs7EfVTGq4iLJpt6c?=
- =?us-ascii?Q?im8Z0mBsSE6Vf0qJivcoesmG2vSdyWqZ+B0vLo9ZBBJedWtCKrmre9qfC7HZ?=
- =?us-ascii?Q?WA6ondjuYrNZUZJUXwjxzgH9Qg4G1lx8tbQTwSWodxTBJdsoyhUBqjyEkLHU?=
- =?us-ascii?Q?ijmRt69lTVMf7qQ6OxC41SBb1ZaTzPf7wybTLC/IPze5hW1gHATE3vBIb6eY?=
- =?us-ascii?Q?t7Zd3rbXS/U/P+zun37D5pegnYw8UT58ovMrTYmsc+slMeMsWHdgEuAFPIhW?=
- =?us-ascii?Q?axv79zOrZhTIVtv4VH3jWTipADp/5mwNc9WEIo0rXd4R5BkA2aNIfsgIIP7F?=
- =?us-ascii?Q?ekwnFMDhBT8tVrK22EUMR8ZyGx2z06Or5uTwwfiWsEcQCMvTqcbrRsmh8bKy?=
- =?us-ascii?Q?vg9Qwh0wOS8rF0Hf4cuPnmFFg8RYpAy236ukRKCT3cLk5FsCsmAE+SOcubcI?=
- =?us-ascii?Q?YX1u2uRhHCp2vlyMeR/is8KyWf58yQE2Z1MPuvX4cHfxXrSeXnoTrnkbyC+W?=
- =?us-ascii?Q?ACtT+c+/2N+MgCVaBgzoN/Mvjak6I8svdd3+2XPe+l+3ccpEK6AnNclCKtck?=
-X-MS-Exchange-AntiSpam-MessageData-1: zTyG11FEtaU32P8QkbyvWz2MAGpQKYAja3M=
+	=?us-ascii?Q?7jpOcZhenO2GS71JWfTE3t5q12xVapKUPGu8bDPFi2OIhKaOa6rbi2cUx/py?=
+ =?us-ascii?Q?kEvym3fQMLuXC2+pgBwsvtihtV6nEeKDXgBvtYhv7yaPcW71RvFozx5y6MnW?=
+ =?us-ascii?Q?wXOsl6yAQgPKGRCyl5RUZSKOZWIUQ4ro5OshRcE0QR+PwAWjdDZeix8T8Z9k?=
+ =?us-ascii?Q?e6jhbOnzyj+c2Ax73dWu869GqeUmrVo9yG12L7DdTMR2tj9Hnq9pIf6RLF5n?=
+ =?us-ascii?Q?U7HGjCINA4b8y2xkXxcALB6NoPjNYtQHj4cPRqef0bS4lONjoOnC6E7YH1UA?=
+ =?us-ascii?Q?t28tOCTyIYWG70woqEtAaxUBtTMDzv4R3iGl7Jk5qZz6h5/2zB41egGnO46b?=
+ =?us-ascii?Q?tKKO1GIbi6ZC8yumhqIi6dze4jo9J/ZyZIbgGWpiSckU0NayW9g+kvu+UTr0?=
+ =?us-ascii?Q?8n5vJOg0rm/vHw9U6OBu9yaIGLgZM6GNzMxqOSZSbMYMKY9DMOXGZa5v3zg2?=
+ =?us-ascii?Q?rSGV7qzgGARBcjLt4OXsvJsj8JoF9X3yit3Gv+KMhWKrrAQx8iEasgHFIv1B?=
+ =?us-ascii?Q?ueaF34MrwlbeU9u6tL7HUIjWmSHXKKCdDHxZPrnp3C2DKVGTRpWY1TArYmAY?=
+ =?us-ascii?Q?5s8JuptbdE2ACLYs1xLrTcD6Xe0RV8KfVRpec/oGCX5BNOEydrMBhvjuQvTc?=
+ =?us-ascii?Q?bxmayFemdAImRRS93flFvpSn+pC0YnxL1OWqIhe5Kp4hDQ6cjzICALlaG45K?=
+ =?us-ascii?Q?kvCskor7MwGiMB477YtvPrHHmWODNoknx+2kizT7UUf765IP+LhunQNzAYMK?=
+ =?us-ascii?Q?GejnAvOH9cIPmQ3EJTi5pKZlQMspw/ASHzijMLGUfx8GBZFdrIesT6TyBTyB?=
+ =?us-ascii?Q?6p2u3nLQvDmAmXFojKiyqF4E0oGbaCWwFJtuZG/1MUQ8EKYEY5f+3yI20YGJ?=
+ =?us-ascii?Q?sYWtnc/s67ikEcW71VKCk6BvjYhF5uYjNt33fEN60nobw/ixIkUutIJhqzrC?=
+ =?us-ascii?Q?lg8CRZaIdGN827BWtzvMkfzqeSaHnKIAA0ebOKAC3UP0dqJ92VcM2tqvsDxV?=
+ =?us-ascii?Q?Mw1KlUEimAVNETic+XGl8owwmmWPMMDiScaYkXGA62sD1jLg/MzjaTLbSYDR?=
+ =?us-ascii?Q?g7Xg10nxGR9Wpa4wZuupT/GuSp9o30Ahd6LV58Z5SHM/JSFgsYazg60W46fr?=
+ =?us-ascii?Q?/ymJ+cYcd6lcnroy82tuaw2JibrnXyQpapHeCSdX/dl7M2oXYAaHlQH3HMBU?=
+ =?us-ascii?Q?+IRov1xn9Bclv3j5jAeuM0SDHYLSvGqnRCTRXewJElDCGfwGmT/bPQj5bZx6?=
+ =?us-ascii?Q?PawbLcjNtMyy1V89GDDjHOA58n7at7Xpfcwluya68XxakktE/VqSavMIA5E+?=
+ =?us-ascii?Q?mRZ9xI6uAg6VBbafny1DLhel896/LOokTYn4qfPrOf+QAPaCXQV6pDciiVZP?=
+ =?us-ascii?Q?iAfKmQggh9USiYaUJtM60fHDEbOuOk5hhj4nv/aO1ujdMeZBS0hGK/kKUL4d?=
+ =?us-ascii?Q?QGmNbjOYPHw72G5CEjncfg7LRZAk+lr6GL2B+O0W2+L4vpl0A/Q/BDx/w3Ht?=
+ =?us-ascii?Q?H92srvXdEurpSHX8YFO7IH5brKRYz26uq2ZQ6Co4S55njsBvSOFtf76DiNJh?=
+ =?us-ascii?Q?+avU7enbE23BiHvx64wsPwb3oDlucZirTZ7zfCYNWYQW1pOfaeXw1ZJM+NBc?=
+ =?us-ascii?Q?P4FWiS8aUywRemMArjwk9FEielc3zmtVQoM8JK2qvv/FlaqHSivFwISIjjMy?=
+ =?us-ascii?Q?DdKUZNeLBubtDogSV7451qSgZbfxWNZVRMG3ONsDWMQwipXoLAyO/Mw3yPvc?=
+ =?us-ascii?Q?P18dp8mSjpJoRiFv5vudfMqdPEaSLFzh7Hs9K1vbQvnk0iDrGXaqHgnKnIrV?=
+X-MS-Exchange-AntiSpam-MessageData-1: +HM+WI66BbB0k2JS3jjy6hC7LwdrVSEMoFo=
 X-Exchange-RoutingPolicyChecked:
-	Ki+e5hIzm5ihgWN5FpzxGgk0rpaGbhR36tp19urhgN0CSMzerFsI2R8Kcu5QIBqtm+Lb4c4GkkrQtLidd3+X0o9DmJR0UnyqkXIb9pShsKAZnFyKWdyzRqQ8NKHk8aJxtwtlVzCc4WAch+Pbjx34VDDHhBir0rsUt/0pZnPSoYMj4B5byzRhmoi8pnd97wxUL48TKBRJsN6juVPjs9ItsgX9dPUdmuIQJFezdQWWPtsny3GIDk1+f0+AiuNBMZJF9jjcWsFeasocPQWsy4/PLqdb5Gof9wz8F7O0ySGXkVfNHCFzOq8ar1ITbFGWRDJVpAcZoXE0QLXsH5um/sMAeQ==
+	4BKGmYlip1Jr3tCDM5FH9gQ6s8zcd3ZAil4iEAdXU0fWVkHgoIIncrXkaCUamllGCxo941yx2gYzkUT0NKEEN2SZEyEfuctac8SygYeDxJAG3FSOdqeKyBdxN6nXes1PWW2bfbmoNp5KwytK77CXgToCNt/aPxDuRAq07hAn4/1GUBkPxBBKYAQMWJxsxzz1Ndzvak0T7KZyC0GKrQxg4nVV+6AOKwuD47fO7HzTq6F2onnGU4EulAryDOGJ2eId/TN+MLZaP4k2szdnJx+ItPHgrDCwEXSlhGk8ZQb+xL6xOZDP0Y1guLjZ1nPso7St7bOByD1iDoFg6aC6FJHJTw==
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	wBHjLer4V3poTnMKfdYM8MfeGEE0fwwrtnV+XHxmUdV7X4AQk3pIS4Bcsj6Kt6Jf8Xt57gLZANnYd4gBjBHstXcwZvIOIQC3D9VXdzFW570gGBopht4/88oyim43aqy4Hu8HepAqO9lMVJXlJwPVbtXaJktPX2vsqWgRGuaUqXBG9VaQvrLCJN4S0mkiWxM6Qij4cb8HUi5tiF8cQAqr9qWKh0DBLTUiH1DEeaiH756mxFmIFu9s5mq8kcTBgCiDx6VNlKr10OpMCsvYhToobOLKCLGTnivllkzhUb/nm2RzOej75W6IX3WHrHh5eplKbDI2n4Gw6ePB/ww+KmTfOJms60Vd0CWWMGf7IR8Rz/q/wvjTshqLgxmfz1aXyj3MrUSCqhbHH8lsMVeMNLNpKdZAfSQX7zchiPuPepEO2ne+R9JTIxMrEUVJZ5CNDTs/TH9sW8U5zZHnimmJBic6B+h45AbO9MZGLrusgDyARONrgryiNHuSZX4Bz0NmZTC+Gs4ZqriAbLRQaCaCMdWk+Qow5/zCkjLR9plBmq6aNgkXuM4rmKReDd9bi517Ia2M4MWSgD3x/p+Escskr8BFr5JjQYNnTnIAlZNbSaH8yvY=
+	aCyshn1g4t5eXRjDru8mE/tTn7VqPDr1qD+V1ZYdE+l6AdJoQ/4xqcBFwhE7Ss+qJHcxczKmnqAxov4SNf7PyiLHj9b0ZHoBUiIB5xj2LP5syHfa2Zo2aG5JgGqyl6HOMPmmGMIMIWmiAjjOiaakKS76wnNvfEMqJv6KWuttXQuEd5iVLgem2G/2NxabE6xkt2pJe91ZsdGEGLfrLwy7ZYDFofeWzvFBxMneBrXwSZcH8jn/h9ux8JFR72Z3p9CnUSJR/EQxl2BQGbba2TQSpwZlrunxoyTiLKFmoHokng3hGef5fm79Z9Jmj4wckpEM5Dw+8LudioOSiDla1xj5rx3nNfNTKtrWXqjnUWrHx2kXW7sbquC39UopRdRzOO+6u9+cfxPMxyYIXFxCINlCgeG1G4t6v2ev8sLqGXuzCzB7BPqxwCNfmzX0vqjSykjk6sohMs1K3VOlJIDrzqSHj9Aj+ijgJk+NrzgDD41CiJBCKr8Cx79F3vbPZAHdROegCe5aPfrCNYrEwxXjj7kxb5Zkt6kpCkJLagsKS4LH3yR5WmdGjx9a/++4UWeAo/SQKCaJVafIc7ZCRGa+STX1XwDNrflYyVsLk1PxkRRMFFY=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b952604-1994-4b8c-cab7-08df1fcba393
+X-MS-Exchange-CrossTenant-Network-Message-Id: 215d3eba-92f3-4d77-e394-08df1fcba0c2
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:52:39.4678
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:52:34.6888
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PZaXrXjmlcfg0vzCJ6KSvyXrHWrU+HKzZ3RFSmBhk7v8oQRpf+yORtw4FsdA1Hhp3d+hT4dFuYIcYnEU/tXiidK0LSYDWyuA/WnQdtwbZ48=
+X-MS-Exchange-CrossTenant-UserPrincipalName: E1toJjEm7Sc+tgpfNjFBdxVHiSBKCJ1VTzBw0S2ScslXuMKo/z52CECc2mBSNLK5GoRcJO2gmHO4Wx2uCxbJvSKcYkZ4q16VwyzeYiIxmdI=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB4118
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
@@ -155,310 +155,97 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
  lowpriorityscore=0 mlxlogscore=999 suspectscore=0 mlxscore=0 bulkscore=0
  spamscore=0 adultscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.19.0-2609040000 definitions=main-2610010059
-X-Proofpoint-ORIG-GUID: YdVnF0Y3audmO6zeXIou3l5NCER1_t0h
-X-Proofpoint-GUID: YdVnF0Y3audmO6zeXIou3l5NCER1_t0h
-X-Authority-Analysis: v=2.4 cv=eJCGH3p1 c=1 sm=1 tr=0 ts=6abe73bf cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfXzthjQYRTJGzY
+ L0QrLqiofcFP15q3n4jBd3h+kD5IKsMsMvFZmqKYW7Ykqqiz+c3XQ3hGN8MqoGzjaHEAsBbIkdE
+ p/a3dZuDIRcxurGRrWmxVxE3hoJFwLSv8iXsrE8pTtl7n7NxOEv8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX+R2MovMZ4NQ1
+ WU0ReC8YbrNsyYqOelAsGzwGMKmDZ6TFXmAj53H5BbpFPLY0QqU4FHA5YN2CHHxg9RZoJ5+ME8g
+ TYBwr5Q+UCaOC81tZeZbFp6XdUYfgHV9wgsdgi4PGmabWp9igkfjJ05vYnYToGgw0dAR2DgRgkv
+ l2m9EVa7K6ZmopKf5NLlyKoc5aGl9HMHmbO4UTQVNr/Ke4SiDa95M5OvU9zrm/gwUkVH6Upapae
+ BuGr7iLFWwy1pYkhKik/JV4WNzVJI7SueaWukyPBRYjTKe94Pr+k+I64XVrJ2uK/37dXLlTacqt
+ BtXl7xAnlyUZFGMwlOpFq+uyo5x38MWaMnDudVK0LJ99eZ/7dyAdQ3Jy8bdKi2bK9fC0qCaQihK
+ uTA7R/Lc4i0qeNzaW6oZMv0RD2mxoxICG9RYLCMvg+8ldI7JdOAEw7KvfP6U3aQ3RO1im65x255
+ uqpzJFwLRMD/8yaEe6A==
+X-Proofpoint-ORIG-GUID: qUmdVY4J7n__87lySRUMrRrTI13PKSrw
+X-Proofpoint-GUID: qUmdVY4J7n__87lySRUMrRrTI13PKSrw
+X-Authority-Analysis: v=2.4 cv=PPGaavqC c=1 sm=1 tr=0 ts=6abe73be cx=c_pps
  a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
  a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=x4eqshVgHu-cdnggieHk:22 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
- a=28ojpAUaEbF8HSBGY38A:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX+Nhc576xDEh5
- mkSPQQidVTmiYKZRxyqFnAMq0yTaAR83auLp44lBEQmijJ04QGgl+dKCXPiBqO1J6iWvaF7ViQq
- 9r1Hfo7O+YsiE8b/2qywnShgsEk/yYzEGqOGXfw7ORsVhx9uH7/H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX9aJPRQs3KFlw
- alonNmTSi0JDRNJwNfAwjNPLBXAakmMXxTsFSFdBeHxzlhyizE6/80ds03jEx8wO8uEQgAOSLCZ
- iXRGfIu6x+M8LiZ7NGlf6WgWqO09p28uIG1Gpzr0QPrHxg3Mu+6r7U5E/k40pp/YHoLzHU9ew3f
- Z7bi/WqIZmwlfNEsOpKThHzHZTkfmIT3UvML86tlVquajBcdjzZgOKipvsSIEWVZtr45StupcGR
- 6d8J3tMEHjThoB69RUWVmFxdO8+EjB8B93vAcy3A1OosF89JArndIYyhTc8m7bqH7Ea+ZJlV/Z0
- SASNDPwc4/U2kXqcP0YHaL3rjNDCw7Y2S7gTW7zZ7vHW+uVyALHXdxq2sa71d4pDCFV2kGauCCg
- xlJhuBEYoxJZEIP7/zQw7UJ4wSRQJZAvMJ0ioaWKK8snNP1rywvOm/DgMbcOJ8CzxLeb9puuAub
- WR6DgNnzQ1tQfTY7YHQ==
+ a=BqU2WV_vvsyTyxaotp0D:22 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
+ a=Yrdf2Ick_R6uxJIQGh4A:9
 
 From: Dave Chinner <dchinner@redhat.com>
 
-Make it less shouty and a static inline before adding more calls
-through the log code.
-
-Also convert internal log code that uses XFS_FORCED_SHUTDOWN(mount)
-to use xlog_is_shutdown(log) as well.
+It's completely unnecessary because callbacks are added to iclogs
+without holding the icloglock, hence no amount of ordering between
+the icloglock and ic_callback_lock will order the removal of
+callbacks from the iclog.
 
 Signed-off-by: Dave Chinner <dchinner@redhat.com>
+Reviewed-by: Brian Foster <bfoster@redhat.com>
 Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-(cherry picked from commit 2039a272300b949c05888428877317b834c0b1fb)
+(cherry picked from commit 6be001021f0b307c8c1544e8b3ac87de20d711de)
 Stable-dep-of: 7b5f775be14a ("xfs: fix unmount hang with unflushable inodes stuck in the AIL")
 
 5.10:
 
-Fixed conflicts due to the following missing commits:
+Fixed conflict due to the following missing commit:
 	956f6daa84bf ("xfs: add iclog state trace events")
-	303591a0a947 ("xfs: cover the log during log quiesce")
 
 Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 ---
- fs/xfs/xfs_log.c         | 30 +++++++++++++++---------------
- fs/xfs/xfs_log_cil.c     | 10 +++++-----
- fs/xfs/xfs_log_priv.h    |  7 +++++--
- fs/xfs/xfs_log_recover.c |  9 +++------
- fs/xfs/xfs_trans.c       |  2 +-
- 5 files changed, 29 insertions(+), 29 deletions(-)
+ fs/xfs/xfs_log.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
 
 diff --git a/fs/xfs/xfs_log.c b/fs/xfs/xfs_log.c
-index 2b83b2b7786b..bb57a125eae5 100644
+index 22d7d74231d4..2b83b2b7786b 100644
 --- a/fs/xfs/xfs_log.c
 +++ b/fs/xfs/xfs_log.c
-@@ -244,7 +244,7 @@ xlog_grant_head_wait(
- 	list_add_tail(&tic->t_queue, &head->waiters);
- 
- 	do {
--		if (XLOG_FORCED_SHUTDOWN(log))
-+		if (xlog_is_shutdown(log))
- 			goto shutdown;
- 		xlog_grant_push_ail(log, need_bytes);
- 
-@@ -258,7 +258,7 @@ xlog_grant_head_wait(
- 		trace_xfs_log_grant_wake(log, tic);
- 
- 		spin_lock(&head->lock);
--		if (XLOG_FORCED_SHUTDOWN(log))
-+		if (xlog_is_shutdown(log))
- 			goto shutdown;
- 	} while (xlog_space_left(log, &head->grant) < need_bytes);
- 
-@@ -361,7 +361,7 @@ xfs_log_writable(
- 		return false;
- 	if (xfs_readonly_buftarg(mp->m_log->l_targ))
- 		return false;
--	if (XFS_FORCED_SHUTDOWN(mp))
-+	if (xlog_is_shutdown(mp->m_log))
- 		return false;
- 	return true;
- }
-@@ -378,7 +378,7 @@ xfs_log_regrant(
- 	int			need_bytes;
- 	int			error = 0;
- 
--	if (XLOG_FORCED_SHUTDOWN(log))
-+	if (xlog_is_shutdown(log))
- 		return -EIO;
- 
- 	XFS_STATS_INC(mp, xs_try_logspace);
-@@ -446,7 +446,7 @@ xfs_log_reserve(
- 
- 	ASSERT(client == XFS_TRANSACTION || client == XFS_LOG);
- 
--	if (XLOG_FORCED_SHUTDOWN(log))
-+	if (xlog_is_shutdown(log))
- 		return -EIO;
- 
- 	XFS_STATS_INC(mp, xs_try_logspace);
-@@ -794,7 +794,7 @@ xlog_wait_on_iclog(
+@@ -2721,10 +2721,7 @@ static void
+ xlog_state_do_iclog_callbacks(
+ 	struct xlog		*log,
+ 	struct xlog_in_core	*iclog)
+-		__releases(&log->l_icloglock)
+-		__acquires(&log->l_icloglock)
  {
- 	struct xlog		*log = iclog->ic_log;
- 
--	if (!XLOG_FORCED_SHUTDOWN(log) &&
-+	if (!xlog_is_shutdown(log) &&
- 	    iclog->ic_state != XLOG_STATE_ACTIVE &&
- 	    iclog->ic_state != XLOG_STATE_DIRTY) {
- 		XFS_STATS_INC(log->l_mp, xs_log_force_sleep);
-@@ -803,7 +803,7 @@ xlog_wait_on_iclog(
- 		spin_unlock(&log->l_icloglock);
+-	spin_unlock(&log->l_icloglock);
+ 	spin_lock(&iclog->ic_callback_lock);
+ 	while (!list_empty(&iclog->ic_callbacks)) {
+ 		LIST_HEAD(tmp);
+@@ -2736,12 +2733,6 @@ xlog_state_do_iclog_callbacks(
+ 		spin_lock(&iclog->ic_callback_lock);
  	}
- 
--	if (XLOG_FORCED_SHUTDOWN(log))
-+	if (xlog_is_shutdown(log))
- 		return -EIO;
- 	return 0;
- }
-@@ -913,7 +913,7 @@ xfs_log_unmount_write(
- 
- 	xfs_log_force(mp, XFS_LOG_SYNC);
- 
--	if (XLOG_FORCED_SHUTDOWN(log))
-+	if (xlog_is_shutdown(log))
- 		return;
- 
- 	/*
-@@ -1013,7 +1013,7 @@ xfs_log_space_wake(
- 	struct xlog		*log = mp->m_log;
- 	int			free_bytes;
- 
--	if (XLOG_FORCED_SHUTDOWN(log))
-+	if (xlog_is_shutdown(log))
- 		return;
- 
- 	if (!list_empty_careful(&log->l_write_head.waiters)) {
-@@ -1479,7 +1479,7 @@ xlog_commit_record(
- 	};
- 	int	error;
- 
--	if (XLOG_FORCED_SHUTDOWN(log))
-+	if (xlog_is_shutdown(log))
- 		return -EIO;
- 
- 	error = xlog_write(log, &vec, ticket, lsn, iclog, XLOG_COMMIT_TRANS,
-@@ -1561,7 +1561,7 @@ xlog_grant_push_ail(
- 	xfs_lsn_t	threshold_lsn;
- 
- 	threshold_lsn = xlog_grant_push_threshold(log, need_bytes);
--	if (threshold_lsn == NULLCOMMITLSN || XLOG_FORCED_SHUTDOWN(log))
-+	if (threshold_lsn == NULLCOMMITLSN || xlog_is_shutdown(log))
- 		return;
- 
- 	/*
-@@ -2779,7 +2779,7 @@ xlog_state_do_callback(
- 			cycled_icloglock = true;
- 
- 			spin_lock(&log->l_icloglock);
--			if (XLOG_FORCED_SHUTDOWN(log))
-+			if (xlog_is_shutdown(log))
- 				wake_up_all(&iclog->ic_force_wait);
- 			else
- 				xlog_state_clean_iclog(log, iclog);
-@@ -2830,7 +2830,7 @@ xlog_state_done_syncing(
- 	 * split log writes, on the second, we shut down the file system and
- 	 * no iclogs should ever be attempted to be written to disk again.
- 	 */
--	if (!XLOG_FORCED_SHUTDOWN(log)) {
-+	if (!xlog_is_shutdown(log)) {
- 		ASSERT(iclog->ic_state == XLOG_STATE_SYNCING);
- 		iclog->ic_state = XLOG_STATE_DONE_SYNC;
- 	}
-@@ -2878,7 +2878,7 @@ xlog_state_get_iclog_space(
- 
- restart:
- 	spin_lock(&log->l_icloglock);
--	if (XLOG_FORCED_SHUTDOWN(log)) {
-+	if (xlog_is_shutdown(log)) {
- 		spin_unlock(&log->l_icloglock);
- 		return -EIO;
- 	}
-@@ -3720,7 +3720,7 @@ xfs_log_force_umount(
- 	 * No need to get locks for this.
- 	 */
- 	if (logerror && log->l_iclog->ic_state == XLOG_STATE_IOERROR) {
--		ASSERT(XLOG_FORCED_SHUTDOWN(log));
-+		ASSERT(xlog_is_shutdown(log));
- 		return 1;
- 	}
- 
-diff --git a/fs/xfs/xfs_log_cil.c b/fs/xfs/xfs_log_cil.c
-index fbe160d5e9b9..407e80d06bec 100644
---- a/fs/xfs/xfs_log_cil.c
-+++ b/fs/xfs/xfs_log_cil.c
-@@ -576,7 +576,7 @@ xlog_cil_committed(
- 	struct xfs_cil_ctx	*ctx)
- {
- 	struct xfs_mount	*mp = ctx->cil->xc_log->l_mp;
--	bool			abort = XLOG_FORCED_SHUTDOWN(ctx->cil->xc_log);
-+	bool			abort = xlog_is_shutdown(ctx->cil->xc_log);
- 
- 	/*
- 	 * If the I/O failed, we're aborting the commit and already shutdown.
-@@ -827,7 +827,7 @@ xlog_cil_push_work(
- 		 * shutdown, but then went back to sleep once already in the
- 		 * shutdown state.
- 		 */
--		if (XLOG_FORCED_SHUTDOWN(log)) {
-+		if (xlog_is_shutdown(log)) {
- 			spin_unlock(&cil->xc_push_lock);
- 			goto out_abort_free_ticket;
- 		}
-@@ -888,7 +888,7 @@ xlog_cil_push_work(
- out_abort_free_ticket:
- 	xfs_log_ticket_ungrant(log, tic);
- out_abort:
--	ASSERT(XLOG_FORCED_SHUTDOWN(log));
-+	ASSERT(xlog_is_shutdown(log));
- 	xlog_cil_committed(ctx);
- }
- 
-@@ -1041,7 +1041,7 @@ xlog_cil_commit(
- 
- 	xlog_cil_insert_items(log, tp);
- 
--	if (regrant && !XLOG_FORCED_SHUTDOWN(log))
-+	if (regrant && !xlog_is_shutdown(log))
- 		xfs_log_ticket_regrant(log, tp->t_ticket);
- 	else
- 		xfs_log_ticket_ungrant(log, tp->t_ticket);
-@@ -1114,7 +1114,7 @@ xlog_cil_force_seq(
- 		 * shutdown, but then went back to sleep once already in the
- 		 * shutdown state.
- 		 */
--		if (XLOG_FORCED_SHUTDOWN(log))
-+		if (xlog_is_shutdown(log))
- 			goto out_shutdown;
- 		if (ctx->sequence > sequence)
- 			continue;
-diff --git a/fs/xfs/xfs_log_priv.h b/fs/xfs/xfs_log_priv.h
-index 42cd1602ac25..6e619b34c6bb 100644
---- a/fs/xfs/xfs_log_priv.h
-+++ b/fs/xfs/xfs_log_priv.h
-@@ -441,8 +441,11 @@ struct xlog {
- #define XLOG_BUF_CANCEL_BUCKET(log, blkno) \
- 	((log)->l_buf_cancel_table + ((uint64_t)blkno % XLOG_BC_TABLE_SIZE))
- 
--#define XLOG_FORCED_SHUTDOWN(log) \
--	(unlikely((log)->l_flags & XLOG_IO_ERROR))
-+static inline bool
-+xlog_is_shutdown(struct xlog *log)
-+{
-+	return (log->l_flags & XLOG_IO_ERROR);
-+}
- 
- /* common routines */
- extern int
-diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
-index 527facd5126b..46b1213e8ff3 100644
---- a/fs/xfs/xfs_log_recover.c
-+++ b/fs/xfs/xfs_log_recover.c
-@@ -145,7 +145,7 @@ xlog_do_io(
- 
- 	error = xfs_rw_bdev(log->l_targ->bt_bdev, log->l_logBBstart + blk_no,
- 			BBTOB(nbblks), data, op);
--	if (error && !XFS_FORCED_SHUTDOWN(log->l_mp)) {
-+	if (error && !xlog_is_shutdown(log)) {
- 		xfs_alert(log->l_mp,
- 			  "log recovery %s I/O error at daddr 0x%llx len %d error %d",
- 			  op == REQ_OP_WRITE ? "write" : "read",
-@@ -3288,10 +3288,7 @@ xlog_do_recover(
- 	if (error)
- 		return error;
  
 -	/*
--	 * If IO errors happened during recovery, bail out.
+-	 * Pick up the icloglock while still holding the callback lock so we
+-	 * serialise against anyone trying to add more callbacks to this iclog
+-	 * now we've finished processing.
 -	 */
--	if (XFS_FORCED_SHUTDOWN(mp))
-+	if (xlog_is_shutdown(log))
- 		return -EIO;
+-	spin_lock(&log->l_icloglock);
+ 	spin_unlock(&iclog->ic_callback_lock);
+ }
  
- 	/*
-@@ -3313,7 +3310,7 @@ xlog_do_recover(
- 	xfs_buf_hold(bp);
- 	error = _xfs_buf_read(bp, XBF_READ);
- 	if (error) {
--		if (!XFS_FORCED_SHUTDOWN(mp)) {
-+		if (!xlog_is_shutdown(log)) {
- 			xfs_buf_ioerror_alert(bp, __this_address);
- 			ASSERT(0);
- 		}
-diff --git a/fs/xfs/xfs_trans.c b/fs/xfs/xfs_trans.c
-index 73a1de7ceefc..d334bb3ce643 100644
---- a/fs/xfs/xfs_trans.c
-+++ b/fs/xfs/xfs_trans.c
-@@ -901,7 +901,7 @@ __xfs_trans_commit(
- 	 */
- 	xfs_trans_unreserve_and_mod_dquots(tp);
- 	if (tp->t_ticket) {
--		if (regrant && !XLOG_FORCED_SHUTDOWN(mp->m_log))
-+		if (regrant && !xlog_is_shutdown(mp->m_log))
- 			xfs_log_ticket_regrant(mp->m_log, tp->t_ticket);
- 		else
- 			xfs_log_ticket_ungrant(mp->m_log, tp->t_ticket);
+@@ -2782,13 +2773,12 @@ xlog_state_do_callback(
+ 				iclog = iclog->ic_next;
+ 				continue;
+ 			}
++			spin_unlock(&log->l_icloglock);
+ 
+-			/*
+-			 * Running callbacks will drop the icloglock which means
+-			 * we'll have to run at least one more complete loop.
+-			 */
+-			cycled_icloglock = true;
+ 			xlog_state_do_iclog_callbacks(log, iclog);
++			cycled_icloglock = true;
++
++			spin_lock(&log->l_icloglock);
+ 			if (XLOG_FORCED_SHUTDOWN(log))
+ 				wake_up_all(&iclog->ic_force_wait);
+ 			else
 -- 
 2.53.0
 
