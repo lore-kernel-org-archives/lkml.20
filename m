@@ -1,33 +1,33 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FFB3C945A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D63841DE0A;
 	Thu,  1 Oct 2026 16:48:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873307; cv=none; b=EXpUvKn+3p0wI5nN/SkaFvpr3LRcGVVrug+Uf2IEgNFvZcQRMvV5VJf8GB0BcAVJWnGAqfRTJ1x0Lr1hnry1Tilks/qJnt/gdulwMfWjCGTNpJbCy9QU4OQW8XqLxmJwJe4uu17VfLEtEhXsHZcmg0ykMZoTpNT5am/9gBxgiwk=
+	t=1790873307; cv=none; b=sknhXuOnbjHvsWpgj3FGcjHontn7WzpOVKqYW/siU8yQTye5cCo8TOR00/wu376fkps0ZZyzN6W1IKbr/JrNkXznP+Im4h5HJT4zwdL4aChNshsnkCU0Ltmg3wHRSMx4TuvlncNnOYWi2WrHCRKyydBwDivXI/lwUlFpDCqz10I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790873307; c=relaxed/simple;
-	bh=Pbvzl3fegsu2puZ3g258aXSl1ZIFkS0wSrGpOrqhT88=;
+	bh=+HuJRv9MxBWoIl1CqVAhOCJ8Nb9U+afeGbiwDFQ1MhE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VO8iuGarmZuyzV/pOic2cFMUg0fzKxT3UHwXkRTIavRYpSPbwcNxJpMm7WQuJzlR7jmzkYQ5alEaJRsoz0fWJ4x03mbiPfVFgy9XIbrPAlcspZ4g1sI+wZetK5XJKzOm2FKV0yV4MEwGooo5uxTghK8+0kHYy2Ar8nsJPLNaAzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=GN8cxSxH; arc=none smtp.client-ip=213.97.179.56
+	 MIME-Version; b=eKYQIUZbsA/9d0q92DTvLRQRpuPuV15BSHR6L4krcw/qEzx0nU9rdkeysB1d/3TM3INj2+/7huZRgYWCRcqEL7T1fauh7+NkskjuikiwEkuVqt65n9wm0GyxW99yputw+l4Vt9uU8duL7FvDq5VwoZ7RSlMtFyxc6Ll/pzuDG6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=mDbvO3AT; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="GN8cxSxH"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="mDbvO3AT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=WAuGsJhLhg9VRXF1Kt/sgeyukS8mFgIw573v21wmQtg=; b=
-	GN8cxSxHM/924VZEy8v+V7wTl+0+RhSEhhNIfYQg1CntLpflr7eDb1A4ZeT76q/B26LbIavawVOco
-	qzTTmw/VqQrv1PusmWZBvj/CjI0OrjUzXYjFraUgPxBuz7w9Ve0NsoYd40bHB5MURMWhGhu2a5+1a
-	fmA6+sSOh4tAGHkQPN0HChXNahH1hd+g3uHm1leZFKTadws4c0Z9qkl8Bw1RmS5G4dgeYeLyyx0aG
-	RTGwKT0QSM/hZeEQs+Qa0zGGkx2CyZ8NkIKNy4E0UujipRSd1pPRyBBmX1sxZpR0xtOFcGnirPsZK
-	gjsTX/Ipr0Qe3vCeTG+jLEsQ4Lrc8i7j0Q==;
+	Cc:To:From:From:Reply-To; bh=f/JuPB5ODbW76qoUQlyBQI5XfcE9nTaSz3hiDI+DXao=; b=
+	mDbvO3ATAPaAdxIYeOzs+JybxBhCWupFswluTObtrGYnpKKos4aTk3CKO9iPAFcwaf2C11Le06VqM
+	xlavALDcm/hvWLCz8RHRj8qAtmUXrbeDlvsal/4q/+p2jiP25EA2nXOTvKhkSwuN37kEbD2pMGGxl
+	WUzPLkEz9gFND5ls+2uTiwwCCfQQvpAIQMXo00zjiu1Jn40ilxxjScw5uXLySvFZV8G/zxo28Ogt9
+	2coD7NOIErTmwlDWLrx8n0c3dsVVAS5BTBw5zpqH97J/Fvu7Drxmo4yA9R5mameCtmTL2lIqwXKFY
+	6aNpYrg9OMECySjBFGoPPQMn8NxFj3GfUA==;
 Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xCJxC-00AD1H-KC; Thu, 01 Oct 2026 18:48:18 +0200
+	id 1xCJxA-00AD0g-98; Thu, 01 Oct 2026 18:48:16 +0200
 From: Luis Henriques <luis@igalia.com>
 To: Miklos Szeredi <miklos@szeredi.hu>,
 	Amir Goldstein <amir73il@gmail.com>,
@@ -40,9 +40,9 @@ Cc: fuse-devel@lists.linux.dev,
 	Matt Harvey <mharvey@jumptrading.com>,
 	kernel-dev@igalia.com,
 	Luis Henriques <luis@igalia.com>
-Subject: [RFC PATCH v5 7/8] selftests/fuse: add fuse symlink caching test
-Date: Thu,  1 Oct 2026 17:49:15 +0100
-Message-ID: <20261001164916.15311-8-luis@igalia.com>
+Subject: [RFC PATCH v5 2/8] selftests/fuse: convert fusectl test to fuse3
+Date: Thu,  1 Oct 2026 17:49:10 +0100
+Message-ID: <20261001164916.15311-3-luis@igalia.com>
 In-Reply-To: <20261001164916.15311-1-luis@igalia.com>
 References: <20261001164916.15311-1-luis@igalia.com>
 Precedence: bulk
@@ -53,212 +53,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch adds a simple test that allows to verify that, when resolving a
-symlink, user-space is called only the first time when caching is enabled
-or, if caching is disabled, every time the symlink resolution is requested.
+Since it is probably not worth adding new fuse kselftests based on fuse2,
+it is a good idea to convert the single existing test to fuse3.  The
+conversion is trivial, as it only requires some changes to function
+signatures (the gettattr and truncate fuse operations), and to the filler()
+helper.
 
 Signed-off-by: Luis Henriques <luis@igalia.com>
 Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 ---
- .../selftests/filesystems/fuse/.gitignore     |   1 +
- .../selftests/filesystems/fuse/Makefile       |   2 +
- .../fuse/fuse_symlink_cache_test.c            | 162 ++++++++++++++++++
- 3 files changed, 165 insertions(+)
- create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
+ .../selftests/filesystems/fuse/Makefile       | 20 +++++++------------
+ .../selftests/filesystems/fuse/fuse_mnt.c     | 17 +++++++++-------
+ 2 files changed, 17 insertions(+), 20 deletions(-)
 
-diff --git a/tools/testing/selftests/filesystems/fuse/.gitignore b/tools/testing/selftests/filesystems/fuse/.gitignore
-index f7f3dd345a50..ebfe7133d811 100644
---- a/tools/testing/selftests/filesystems/fuse/.gitignore
-+++ b/tools/testing/selftests/filesystems/fuse/.gitignore
-@@ -3,3 +3,4 @@ fuse_mnt
- fusectl_test
- write_extend_eof_test
- fuse_acl_cache_test
-+fuse_symlink_cache_test
 diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/testing/selftests/filesystems/fuse/Makefile
-index 7744f796eb06..3a5a557dde7a 100644
+index 95a1ee947ca7..a3ee9b3a2f5d 100644
 --- a/tools/testing/selftests/filesystems/fuse/Makefile
 +++ b/tools/testing/selftests/filesystems/fuse/Makefile
-@@ -5,6 +5,7 @@ CFLAGS += -Wall -O2 -g $(KHDR_INCLUDES)
+@@ -4,31 +4,25 @@ CFLAGS += -Wall -O2 -g $(KHDR_INCLUDES)
+ 
  TEST_GEN_PROGS := fusectl_test
  TEST_GEN_PROGS += write_extend_eof_test
+-TEST_GEN_FILES := fuse_mnt
+-
+-# fuse_acl_cache_test requires libfuse3; add it only when the library is present.
+-ACL_CFLAGS := $(shell pkg-config fuse3 --cflags 2>/dev/null)
+-ACL_LDLIBS := $(shell pkg-config fuse3 --libs 2>/dev/null)
+-ifneq ($(ACL_CFLAGS),)
  TEST_GEN_PROGS += fuse_acl_cache_test
-+TEST_GEN_PROGS += fuse_symlink_cache_test
- TEST_GEN_FILES := fuse_mnt
+-endif
++TEST_GEN_FILES := fuse_mnt
  
  include ../../lib.mk
-@@ -28,5 +29,6 @@ $(OUTPUT)/fuse_mnt: CFLAGS += $(VAR_CFLAGS)
+ 
+ $(OUTPUT)/write_extend_eof_test: LDLIBS += -lpthread
+ 
+-VAR_CFLAGS := $(shell pkg-config fuse --cflags 2>/dev/null)
++VAR_CFLAGS := $(shell pkg-config fuse3 --cflags 2>/dev/null)
+ ifeq ($(VAR_CFLAGS),)
+-VAR_CFLAGS := -D_FILE_OFFSET_BITS=64 -I/usr/include/fuse
++VAR_CFLAGS := -D_FILE_OFFSET_BITS=64 -I/usr/include/fuse3
+ endif
+ 
+-VAR_LDLIBS := $(shell pkg-config fuse --libs 2>/dev/null)
++VAR_LDLIBS := $(shell pkg-config fuse3 --libs 2>/dev/null)
+ ifeq ($(VAR_LDLIBS),)
+-VAR_LDLIBS := -lfuse -pthread
++VAR_LDLIBS := -lfuse3 -pthread
+ endif
+ 
+ $(OUTPUT)/fuse_mnt: CFLAGS += $(VAR_CFLAGS)
  $(OUTPUT)/fuse_mnt: LDLIBS += $(VAR_LDLIBS)
  
- $(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
-+$(OUTPUT)/fuse_symlink_cache_test: fuse_common.c fuse_symlink_cache_test.c
+-$(OUTPUT)/fuse_acl_cache_test: CFLAGS += $(ACL_CFLAGS)
+-$(OUTPUT)/fuse_acl_cache_test: LDLIBS += $(ACL_LDLIBS)
++$(OUTPUT)/fuse_acl_cache_test: CFLAGS += $(VAR_CFLAGS)
++$(OUTPUT)/fuse_acl_cache_test: LDLIBS += $(VAR_LDLIBS)
+diff --git a/tools/testing/selftests/filesystems/fuse/fuse_mnt.c b/tools/testing/selftests/filesystems/fuse/fuse_mnt.c
+index d12b17f30fad..5d335fa5cf05 100644
+--- a/tools/testing/selftests/filesystems/fuse/fuse_mnt.c
++++ b/tools/testing/selftests/filesystems/fuse/fuse_mnt.c
+@@ -4,7 +4,7 @@
+  * Creates a simple FUSE filesystem with a single read-write file (/test)
+  */
  
- EXTRA_CLEAN := fuse_common.o
-diff --git a/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
-new file mode 100644
-index 000000000000..7b5373499573
---- /dev/null
-+++ b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
-@@ -0,0 +1,162 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Simple filesystem to test FUSE symlink cache
-+ *
-+ * This is a simple FUSE filesystem that contains two objects: a file named
-+ * 'file' and a symlink to that file named 'link'.  If symlink caching is
-+ * disabled (i.e. FUSE_CAP_CACHE_SYMLINKS is reset during FUSE_INIT), whenever
-+ * the ->readlink() is executed to resolve 'link' a counter will be incremented.
-+ *
-+ * If symlink caching is enabled (i.e. FUSE_CAP_CACHE_SYMLINKS is set during
-+ * FUSE_INIT), resolving a symlink will only call into user-space the first
-+ * time.
-+ */
-+
+-#define FUSE_USE_VERSION 26
 +#define FUSE_USE_VERSION 31
-+
-+#include <stdio.h>
-+#include <fuse_lowlevel.h>
-+
-+#include "kselftest_harness.h"
-+
-+#include "fuse_common.h"
-+
-+#define FILENAME "file"
-+#define FILE_INO 42
-+
-+#define LINKNAME "link"
-+#define LINK_INO 43
-+
-+#define TIMEOUT	86400.0f
-+
-+struct test_state {
-+	pthread_mutex_t lock;
-+	int readlink_counter;
-+	bool cache;
-+} test_state = {
-+	.lock = PTHREAD_MUTEX_INITIALIZER,
-+};
-+
-+static void fs_init(void *userdata, struct fuse_conn_info *conn)
-+{
-+	pthread_mutex_lock(&test_state.lock);
-+	if (test_state.cache)
-+		fuse_set_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
-+	else
-+		fuse_unset_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
-+	pthread_mutex_unlock(&test_state.lock);
-+}
-+
-+static void fs_lookup(fuse_req_t req, fuse_ino_t parent, const char *name)
-+{
-+	struct fuse_entry_param e = {};
-+
-+	if (parent != FUSE_ROOT_ID ||
-+	    (strcmp(name, FILENAME) != 0 && strcmp(name, LINKNAME) != 0)) {
-+		fuse_reply_err(req, ENOENT);
-+		return;
-+	}
-+
-+	if (!strcmp(name, FILENAME)) {
-+		e.ino = FILE_INO;
-+		e.attr.st_mode = S_IFREG | 0444;
-+		e.attr.st_nlink = 2;
-+	} else if (!strcmp(name, LINKNAME)) {
-+		e.ino = LINK_INO;
-+		e.attr.st_mode = S_IFLNK | 0444;
-+		e.attr.st_nlink = 1;
-+		e.attr.st_size = strlen(FILENAME);
-+	}
-+	e.attr_timeout = TIMEOUT;
-+	e.entry_timeout = TIMEOUT;
-+
-+	fuse_reply_entry(req, &e);
-+}
-+
-+static void fs_readlink(fuse_req_t req, fuse_ino_t ino)
-+{
-+	char buf[PATH_MAX];
-+	size_t sz = strlen(FILENAME);
-+
-+	if (ino != LINK_INO) {
-+		fuse_reply_err(req, ENOENT);
-+		return;
-+	}
-+
-+	memcpy(buf, FILENAME, sz);
-+	buf[sz] = '\0';
-+	pthread_mutex_lock(&test_state.lock);
-+	test_state.readlink_counter++;
-+	pthread_mutex_unlock(&test_state.lock);
-+
-+	fuse_reply_readlink(req, buf);
-+}
-+
-+static const struct fuse_lowlevel_ops fs_ops = {
-+	.init           = fs_init,
-+	.lookup		= fs_lookup,
-+	.readlink	= fs_readlink,
-+};
-+
-+FIXTURE(symlink_cache)
-+{
-+	struct fuse_common_ctx ctx;
-+};
-+FIXTURE_VARIANT(symlink_cache)
-+{
-+	const bool cache;
-+};
-+FIXTURE_VARIANT_ADD(symlink_cache, symlinks_nocache)
-+{
-+	/* Variant with symlink cache disabled */
-+	.cache = false,
-+};
-+FIXTURE_VARIANT_ADD(symlink_cache, symlinks_cache)
-+{
-+	/* Variant with symlink cache enabled */
-+	.cache = true,
-+};
-+
-+FIXTURE_SETUP(symlink_cache)
-+{
-+	char err[MAX_ERR_MSG];
-+
-+	pthread_mutex_lock(&test_state.lock);
-+	test_state.readlink_counter = 0;
-+	test_state.cache = variant->cache;
-+	pthread_mutex_unlock(&test_state.lock);
-+
-+	if (fs_setup(&fs_ops, &self->ctx, err))
-+		SKIP(return, err);
-+}
-+
-+FIXTURE_TEARDOWN(symlink_cache)
-+{
-+	fs_teardown(&self->ctx);
-+}
-+
-+TEST_F(symlink_cache, test_symlink_cache)
-+{
-+	char pathname[PATH_MAX];
-+	char buf[PATH_MAX];
-+	ssize_t sz;
-+	int counter;
-+	int i;
-+
-+	sprintf(pathname, "%s/%s", self->ctx.mountpoint, LINKNAME);
-+	for (i = 0; i < 100; i++) {
-+		sz = readlink(pathname, buf, PATH_MAX);
-+		ASSERT_NE(sz, -1);
-+	}
-+	pthread_mutex_lock(&test_state.lock);
-+	counter = test_state.readlink_counter;
-+	pthread_mutex_unlock(&test_state.lock);
-+
-+	if (variant->cache) {
-+		ASSERT_EQ(counter, 1);
-+	} else {
-+		ASSERT_EQ(counter, 100);
-+	}
-+}
-+
-+TEST_HARNESS_MAIN
+ 
+ #include <fuse.h>
+ #include <stdio.h>
+@@ -20,7 +20,8 @@ static char *content;
+ static size_t content_size = 0;
+ static const char test_path[] = "/test";
+ 
+-static int test_getattr(const char *path, struct stat *st)
++static int test_getattr(const char *path, struct stat *st,
++			struct fuse_file_info *fi)
+ {
+ 	memset(st, 0, sizeof(*st));
+ 
+@@ -41,14 +42,15 @@ static int test_getattr(const char *path, struct stat *st)
+ }
+ 
+ static int test_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+-			off_t offset, struct fuse_file_info *fi)
++			off_t offset, struct fuse_file_info *fi,
++			enum fuse_readdir_flags flags)
+ {
+ 	if (strcmp(path, "/"))
+ 		return -ENOENT;
+ 
+-	filler(buf, ".", NULL, 0);
+-	filler(buf, "..", NULL, 0);
+-	filler(buf, test_path + 1, NULL, 0);
++	filler(buf, ".", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
++	filler(buf, "..", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
++	filler(buf, test_path + 1, NULL, 0, FUSE_FILL_DIR_DEFAULTS);
+ 
+ 	return 0;
+ }
+@@ -107,7 +109,8 @@ static int test_write(const char *path, const char *buf, size_t size,
+ 	return size;
+ }
+ 
+-static int test_truncate(const char *path, off_t size)
++static int test_truncate(const char *path, off_t size,
++			 struct fuse_file_info *fi)
+ {
+ 	if (strcmp(path, test_path) != 0)
+ 		return -ENOENT;
