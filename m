@@ -1,178 +1,217 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0FC4A2626;
-	Thu,  1 Oct 2026 08:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842076; cv=none; b=N0eg+RAVzMspMQP8t02RVKKKtML3I4NuBuhqUfIRvnIltBxkRWuRJVkSWfoDVgLFhYcjHcr5zzdFuKai1DpzhgRnjNV9EMzN1bex/uUYDmMVPqKpD/ycgyMoVOM11qwFVMUyddV76BLeRtrDQ+1Ms7jfUXiIHGbcO2Lp8sP0am8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842076; c=relaxed/simple;
-	bh=3BdLDhHFSD6EX+MHdBpo8bRKRfBRwSX8AkQjo+0Q/MY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qEByLF7RUxVYlMb8hS6cHlT/AJIpqysh9rY/Ebs6Dp0K5fe0ezptv621ZteoDLJavT0LvMmRIxic6BuOQ3k6vmd22m9tcdOJMiNd6PXeEX/E0M6mF21q7j3IFigo1M1MfkPYe3eyccnuvn43qQP7ZB+7F3tkEL6BOOTp1kPDw9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SSbnjn0i; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A394A2A56
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790842077; cv=pass; b=L7NNcf9xUoTYigtG8dLtTHvBFw5UmP/hhZIN9x6CDaTKrvkLBS0P7T1vBZyuiX6jFBdoSH61l6Nq9FAGHPzrN46818/6jSFmEA9htSfNX8dIyLdb69HwQAUOUevLVa6gSDN+tpmf2/XJna+cjn6QHFWieHQ8/lt9n1Xx/jxnLTs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790842077; c=relaxed/simple;
+	bh=mhPnoofehpAnih/7vt9wRjfa6Jbx3NTWojOWvQWkOmk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iNJht7Xx5PMR8zGVczmAPcwoTPdsHFhbzToudgaJxYn4XRZiyRBX9eIB3q8TFPQcq4BhAJV1/SfEV2rYh2a2sCc0smb95pxL9a+UmUcL/O9eDYghaGUtqlsempmVpON9GJDPMAvUti69rn9xV7wzn2pkQ5Nb0FANw2kWSeHThOg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E3hwn5FG; arc=pass smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SSbnjn0i"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CE1321A109E;
-	Thu,  1 Oct 2026 08:07:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9797C60341;
-	Thu,  1 Oct 2026 08:07:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7A9251032989B;
-	Thu,  1 Oct 2026 10:07:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790842070; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ZoRgh+HiizwlbhXbl/RDuER/H7t/s9B1fudhHC4/lYI=;
-	b=SSbnjn0ireQYdKAqjQueJ7O3umzoXTqLeeFns6EwrKQDd9HV7xFnAIsbKlBLFvSYy118z6
-	1rpotxW192u3VvVX1raOPLY2fw0QaozG/wdE16w1Tmrf+U9D81qdJ1StP4NscGjzzJFmJl
-	8yLCjh2D0rokD+y3FfSwUxFNrLLfqqhfULbEe5QTSmOxX/qAoKmTfCO+M/o80vOlC6ySGy
-	OuiGXZQAqtzbDxKDwz23imBEIOem/W6XEO58d80DoQabeFZdnL+Oo1N4M978x3T1EwiyrP
-	nRgTUtXvLtyy9KEv9U15qfKnOZtRXCNdG0cw2mS1+CSIprUVXaVSce/u+g4JQA==
-Message-ID: <7fe4eb5cc217b00cf791d9006e3312a9eaa104e0.camel@bootlin.com>
-Subject: Re: [PATCH v2 3/7] drm/bridge: dw-mipi-dsi: stop using deprecated
- devm_drm_of_get_bridge()
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
- <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
-	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, kernel test robot <lkp@intel.com>
-Date: Thu, 01 Oct 2026 10:07:39 +0200
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-3-6da431d8f180@bootlin.com>
-References: 
-	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
-	 <20260929-drm-fix-of_get_bridge-build-regression-v2-3-6da431d8f180@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E3hwn5FG"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a01b560392so6028715e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:07:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790842073; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eZW3euUZ8z5n8zBF58UosMC8V0A2MZvEMaLMY8D8ICvXmN19SIpZV/n7/IsxjZXbXU
+         Nhs/BRETaUjhljlrYpugnsnKeEPE7N6lZZTM2uWSmQqGeQl67WniiQ9lfw+cEPOFW95d
+         4iIesydPtv5XextKut5eUbWjKNF8Kilw+7tiobWREXj1asVMf0ij8jBITDTximvwbBZq
+         B5Hg021hvV0fUABlyTMCQVjMnwEHcj8fnKwvYrFDM1Mamb4o+y5rMIANSqB0necNEb7o
+         R9qPN/qUVqLoti05pCNodNWLEF/E96Q6TJ0IPJXIarDX3aT93V+vLa6edjGaHF6tPurp
+         tQpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=18zLq0gxDFVMpNFIuebbzGpXcEbEbepSMRwKNaKe0Ds=;
+        fh=6hclIFyO3dNsqxhwD0nuQgefiLTQUOtOUNeIUakZr9c=;
+        b=PYnmC8Evy/S0uKRKynLyaGw+cUknI7xmStwpe0pt2aqAx/SvSTJVvMckASGQOVze6Q
+         nDBjEqnuMWvJZM2zpuMaayPF1iI0vTcSF96TtqbQhV55aUXA0aGWz6cuY8iu7DHUcByY
+         w7+iqseBrtgqgq9Xd+A+8j+4Sy2gz9dIVtcUwvQmsCjfyMsO0xV3hoWAEqEY2pnW4A0E
+         Twy4is0/rozvOEyBg0MO/0TtYbUBKW5ERwLo3K3DKoS70O+Tcrjt7nqL26u/fUpLntY4
+         CbEYRUDligBFaI/d6vQ24o+ctD1Odb8CPg6eVNVeWTupxkHOtVkimL3c5E4Jsam3hMDY
+         qzHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790842073; x=1791446873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=18zLq0gxDFVMpNFIuebbzGpXcEbEbepSMRwKNaKe0Ds=;
+        b=E3hwn5FGUIcK9ldfaqmc2LF8LdTA6bAz8tY8cYVssVBIGar3uwDcTuyE39v25MPVSY
+         6A2hosd9DZzg2cSp3B3OIImhKfTEtNojoL7sYGfWpzsHfE+23wkdoGxd0TV7bqCJDkwG
+         WEcAsJDlye3yLddX0Ctu0MtPDy3BYaGnh01k4Bw6fIaYT5Wqv7L9EGi+PhQKLT6vGstF
+         y56R5U1M/AVc9YpMlWAawApFj5Unsl7va8wYNoVwPzWqoLAqTNEnPuUkM1reCuWk68Y1
+         +brhaS7XutlpEdDPVAFwO98VOCEN/vnLGgKIbiLUueukBs1u8ZIEX3/u3woBUqubClAB
+         LqEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790842073; x=1791446873;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=18zLq0gxDFVMpNFIuebbzGpXcEbEbepSMRwKNaKe0Ds=;
+        b=0uXzDxyHk6Po+L7Oiu/zvRe286nLw/Q0O9PuR3FueK1x1+rp+uPsDHoEJJtU6ICPbT
+         eXA1dxk4CKJS0c4MbXziT2n+fi4lNY0DCt027lp9zIzTkGPCqAzaDM141Aahwh0M+6+y
+         23pZWkeSVfQc4ouxiqILP+3Xtb9kkTWeRLLUoGH1zDGR2C5NxxgIk5uRg8J6lv9kfDLh
+         GQKrnlIZTB11BA4670qd6OO35KRg4aS//gtYlkMiWBLiOoUg4I4rnlZbDyjWLsX8rnwr
+         uND/JL9BWyBILihTAX7RWcudSEf8K2ngYTBTcvsr/EpKhQzQVA3AVVa3f4w5LIIo4lcL
+         1OVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfKoWNYiqh1mbs8C7b+yWFSC4eNhicRvSjTv2i8WfOCZAheQwlndxmbPfYN2zf8g4wwVQT0iRfiV6JVvU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJmdbWa7br3/Z+ApcCv00myY9P//39amVSq+5xNQqrP54oCuPC
+	tis+jtlbXFyP3fM68ThRy4FMHPWBhwcZcb2AsNHCEqFi+g/TF0CXhR96muZlJRdf5IPPASC3gxE
+	6r7yMIOiTHrpY9eicXsmzbraFqmD8OwM=
+X-Gm-Gg: AYBFou0mx8zq7m2JcR610fha8fcFJIM//uuyVt479fO6R/vPdGMAvogj8u7jAeCr4PZ
+	C7SW//C92XmG3SjbT+ZnVPORaEciy13Y1V4/IHMkl+EmexXq8B5wm07qr0K91Am9L7jBJnqf1xH
+	Rhn7vMpWgMDBPaZNnt/RiNmyopqvG8HFc/erCwQjCuEY+RutlRgdT7uZwQEvsxUT0U8rSy+mJZU
+	ADUm02JyZfdNmMQJgvz/fGvjIqLnJSUHts4HL4CG+2dpso1DKmdOzcvcswI9spiF/oMy4fTeMnT
+	zPqcy52bwRqeyb0H5NajSTY+euoQM7vstvgIjJ/FEw4B3U6JDozGq1zJzMlKnAdP91pcz5gXckL
+	5dkp24HWcQ0GWtbJrOd+BDLcMziIaUAZ5F2S8ag3QcA==
+X-Received: by 2002:a7b:c319:0:b0:49f:bd43:5a1c with SMTP id
+ 5b1f17b1804b1-4a01eb388aemr28276965e9.15.1790842072599; Thu, 01 Oct 2026
+ 01:07:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com> <20260930133257.23210-5-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260930133257.23210-5-biju.das.jz@bp.renesas.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 1 Oct 2026 09:07:25 +0100
+X-Gm-Features: AclHuK9cX00JQ5BRsiOahPrZyoL_jqZij1NEb2GdYg1yn5CCJaNcWxmYljLqQbc
+Message-ID: <CA+V-a8tQZONUkeZYFBTvO+L+FTnrq6AE_aJQsm7MFX9CBnA-8w@mail.gmail.com>
+Subject: Re: [PATCH v4 4/9] drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
+To: Biju <biju.das.au@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Lucas,
+Hi Biju,
 
-Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
-=C2=A0:
-> devm_drm_of_get_bridge() is deprecated, switch to
-> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
-ns
-> a refcounted bridge, ensure it is put by using bridge.next_bridge.
->=20
-> Fixes build failure when CONFIG_OF is disabled.
->=20
-> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
-> Reported-by: Arnd Bergmann <arnd@kernel.org>
-> Closes: https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.or=
-g
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes:
-> https://lore.kernel.org/oe-kbuild-all/202609291109.9RGna4XZ-lkp@intel.com=
-/
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Thank you for the patch.
 
-Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-
-With one nitpick below.
-
->=20
+On Wed, Sep 30, 2026 at 3:47=E2=80=AFPM Biju <biju.das.au@gmail.com> wrote:
+>
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> The register for controlling power to the DSI region is in the SYSC
+> (System Controller) block. Add support for controlling the DSI PWRRDY
+> signal so the driver can efficiently manage power to the DSI region.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 > ---
->=20
-> Changes in v2:
-> - fix bridge reference leak on attach error and detach paths
-> - mention lkp report
+> v3->v4:
+>  * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
+>    using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
+>  * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
+>    devm_pwrseq_get().
+> v2->v3:
+>  * Updated powerseq API names.
+> v1->v2:
+>  * Switched to power sequence for handling pwrrdy signal.
+>  * Dropped header file regmap.h and mfd/syscon.h
+>  * Added header file pwrseq/consumer.h
 > ---
-> =C2=A0drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 11 +++++------
-> =C2=A01 file changed, 5 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> index 5dd475fcaacf..22d1b8cbe1d5 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> @@ -244,7 +244,6 @@ struct debugfs_entries {
-> =C2=A0struct dw_mipi_dsi {
-> =C2=A0	struct drm_bridge bridge;
-> =C2=A0	struct mipi_dsi_host dsi_host;
-> -	struct drm_bridge *panel_bridge;
-> =C2=A0	struct device *dev;
-> =C2=A0	void __iomem *base;
-> =C2=A0
-> @@ -333,12 +332,12 @@ static int dw_mipi_dsi_host_attach(struct mipi_dsi_=
-host
-> *host,
-> =C2=A0	dsi->format =3D device->format;
-> =C2=A0	dsi->mode_flags =3D device->mode_flags;
-> =C2=A0
-> -	bridge =3D devm_drm_of_get_bridge(dsi->dev, dsi->dev->of_node, 1, 0);
-> +	bridge =3D of_drm_get_bridge_by_endpoint(dsi->dev->of_node, 1, 0);
-> =C2=A0	if (IS_ERR(bridge))
-> =C2=A0		return PTR_ERR(bridge);
-> =C2=A0
-> =C2=A0	bridge->pre_enable_prev_first =3D true;
-> -	dsi->panel_bridge =3D bridge;
-> +	dsi->bridge.next_bridge =3D bridge;
-> =C2=A0
-> =C2=A0	drm_bridge_add(&dsi->bridge);
-> =C2=A0
-> @@ -352,6 +351,7 @@ static int dw_mipi_dsi_host_attach(struct mipi_dsi_ho=
-st
-> *host,
-> =C2=A0
-> =C2=A0err_remove_bridge:
-> =C2=A0	drm_bridge_remove(&dsi->bridge);
-> +	drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
-> =C2=A0	return ret;
-> =C2=A0}
-> =C2=A0
-> @@ -368,9 +368,8 @@ static int dw_mipi_dsi_host_detach(struct mipi_dsi_ho=
-st
-> *host,
-> =C2=A0			return ret;
-> =C2=A0	}
-> =C2=A0
-> -	drm_of_panel_bridge_remove(host->dev->of_node, 1, 0);
-> -
-> =C2=A0	drm_bridge_remove(&dsi->bridge);
-> +	drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
-> =C2=A0
-> =C2=A0	return 0;
-> =C2=A0}
-> @@ -1086,7 +1085,7 @@ static int dw_mipi_dsi_bridge_attach(struct drm_bri=
-dge
-> *bridge,
-> =C2=A0	encoder->encoder_type =3D DRM_MODE_ENCODER_DSI;
-> =C2=A0
-> =C2=A0	/* Attach the panel-bridge to the dsi bridge */
-> -	return drm_bridge_attach(encoder, dsi->panel_bridge, bridge,
-> +	return drm_bridge_attach(encoder, dsi->bridge.next_bridge, bridge,
-> =C2=A0				 flags);
+>  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 27 +++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu=
+/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> index d67e1230b70c..5263b2b8f1ca 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/of_graph.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/pwrseq/consumer.h>
+>  #include <linux/reset.h>
+>  #include <linux/slab.h>
+>  #include <linux/units.h>
+> @@ -38,6 +39,7 @@ MODULE_IMPORT_NS("RZV2H_CPG");
+>  #define RZG2L_DCS_BUF_SIZE     128 /* Maximum DCS buffer size in externa=
+l memory. */
+>
+>  #define RZ_MIPI_DSI_FEATURE_16BPP      BIT(0)
+> +#define RZ_MIPI_DSI_FEATURE_PWRRDY     BIT(1)
+>
+>  struct rzg2l_mipi_dsi;
+>
+> @@ -87,6 +89,8 @@ struct rzg2l_mipi_dsi {
+>         struct clk *vclk;
+>         struct clk *lpclk;
+>
+> +       struct pwrseq_desc *pwrseq;
+> +
+>         enum mipi_dsi_pixel_format format;
+>         unsigned int num_data_lanes;
+>         unsigned int lanes;
+> @@ -1396,6 +1400,25 @@ static const struct dev_pm_ops rzg2l_mipi_pm_ops =
+=3D {
+>   * Probe & Remove
+>   */
+>
+> +static int rzg2l_mipi_dsi_pwrrdy_init(struct rzg2l_mipi_dsi *dsi)
+> +{
+> +       if (!(dsi->info->features & RZ_MIPI_DSI_FEATURE_PWRRDY))
+> +               return 0;
+> +
+> +       dsi->pwrseq =3D devm_pwrseq_get(dsi->dev, "dsi-pwrrdy");
+> +       if (IS_ERR(dsi->pwrseq)) {
+> +               /*
+> +                * This platform requires a sequencer. If we can't get it=
+, we
+> +                * must return the error (including -EPROBE_DEFER to wait=
+ for
+> +                * the provider to appear)
+> +                */
+> +               return dev_err_probe(dsi->dev, PTR_ERR(dsi->pwrseq),
+> +                                    "Failed to get required power sequen=
+cer\n");
+> +       }
+> +
+> +       return pwrseq_enable(dsi->pwrseq);
+Do we want to add a devm action to disable the pwrseq when the DSI
+driver is removed?
 
-It would look a little bit better to have 'bridge' moved to the line below =
-I
-think. No big deal.
+Rest LGTM.
 
 Cheers,
--Paul
+Prabhakar
+
+> +}
+> +
+>  static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+>  {
+>         unsigned int num_data_lanes;
+> @@ -1454,6 +1477,10 @@ static int rzg2l_mipi_dsi_probe(struct platform_de=
+vice *pdev)
+>
+>         platform_set_drvdata(pdev, dsi);
+>
+> +       ret =3D rzg2l_mipi_dsi_pwrrdy_init(dsi);
+> +       if (ret)
+> +               return ret;
+> +
+>         pm_runtime_enable(dsi->dev);
+>
+>         ret =3D pm_runtime_resume_and_get(dsi->dev);
+> --
+> 2.43.0
+>
+>
