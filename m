@@ -1,64 +1,64 @@
 Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D413E008F
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:54:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3747047DF95
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:54:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870073; cv=none; b=oEdCG06sjM5TtwPBDDhl7jmjoBAGs4qWZ1gxCWhMCVcOl+j2D4svoOdPQSlhOmQv4C/ll1zabTmFCHteo0iS1ep1jaOfFlngsZQKQ2G771uJH/eWSG5GKNa1R5srmG/Tm9NqNHR/nQI7/p1NmuO/JERtrtGMnIBcIqNlDclvL4M=
+	t=1790870075; cv=none; b=ncOrg77D0BkIvF+oemIef8hoI3kIABJLMiczPwGRCIzibDFPXMRrxLMInJzncvuxcUZQWs9vwkBD8eBWB5VZKtQT7OlIhwB5ZUcWcQPVUZ4wa3HMzd4gEE2sdxHFulJgoCkVOMAEBMn4IaM64C/roim32xH9C5YjrcG4BErw+sE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870073; c=relaxed/simple;
-	bh=rKlCQm13/lVSoRcoMYle6T204+/T5Pa4/yPg7USLSQM=;
+	s=arc-20240116; t=1790870075; c=relaxed/simple;
+	bh=dHV1S0743ZWwIgXm5VDJrijPJE34+rYwyTI38JNTUhU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EfRkBDewQZqZq9LGiGFzXH/p8Uio74U8h6G789QCtipmL9WD7Miu5S9ZjXdV4ioVQcdQ3NMGtmaxchQPGy1vYFm0iVwL/B7g84c3ZE4/T/ASrVyEwKYCDywB/Lk5Ws6DJy42OR8FNdzOyumNavzCHlqCisE+HrnAvZjQo2c1v2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zo49IjM+; arc=none smtp.client-ip=74.125.225.98
+	 MIME-Version; b=c7X7Ru035L3pL21WO1BmnbFDRKT07bnsceoNH0SXdbpFOVgPqsFLOa4pJobth9wUaof7glU8oGAmXipy+S73OfoNorK6yFjeR82UGlk1US0PA7LB4bC5/4Q2AkcLk4MQCZdSZ4tf+j9dP8lupnuUoByYhpNZ5Irc9Aw4EpWGeYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HHzqv+VU; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zo49IjM+"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af929e59dso2139631f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:54:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HHzqv+VU"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48aef5d66c1so1930504f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:54:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790870067; x=1791474867; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790870069; x=1791474869; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Elg4CK8BHPTlS8KGlNqB5v2UOw1qnjW/5zGPlvDhyVU=;
-        b=Zo49IjM+FJUumbqlcG/zNCdt8xNt8r5MwkE9xlGMihEMXhYKi4BgEbSeOoxv54zqAo
-         uZq0ClpPcnfsw+jsQ1NXxuzZbEqPMg7+pToTYBhHOdkICaqoOTAmZKnL611ZEtY/15Y8
-         syY3GvlpdoKLKwEyqOQpfwuE7/L+iwpH1T+DawIpc/9yngBo+tWYjLr8ngOmA45Os+E8
-         N2clwD+ClQEQIAqPgID7ZYlSv3F1TgajjLUKOvCLhQSEGSKr+B5uEU+3gl2ZS3omxL/Z
-         NIWkuSSirWdA1AYbwT2xA6Jc/1iBOXSGj6XCNMf8fFTG3skaPYnD61BLtnJk882Ku3LV
-         YMlw==
+        bh=J5CGv0/6w5gVrsPF9zExhSI+JtnFir6oWba07h7nJSU=;
+        b=HHzqv+VU0HDAXoZu14Mz/iYfR3we/1cTpNqGip+tuO1RRpyAxdQhwdVR7VdSruJifZ
+         KkeYWFHtu8ZA3kBU/kgFXW+vSSVu0QAwgAdE/zIQOpavhFaulpuw6sN7jIdmaKWwI5JK
+         dUvqM5HufJI/1jyUETGQu7yrgyTyeUZKJSsnNbjjxV42p4BW8IovUhmYcNBVW/cAzu/j
+         ejG7cORYTvC4OqKLpdDHJdlr8Rh7ohH5BQWnM/V/W0otwLNZl6o4g8TPb+w4DK5lkvUe
+         UiMmR0OQme5KSxI64joFdWQxmwCIFbyG2u15WE/ufXb87wEV7f5qR64UhbG4at/QFeIv
+         ez2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790870067; x=1791474867;
+        d=1e100.net; s=20260707; t=1790870069; x=1791474869;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Elg4CK8BHPTlS8KGlNqB5v2UOw1qnjW/5zGPlvDhyVU=;
-        b=Ut4lT7pp7tj/J3/hJEd3I1NFFZxX2mr3+FmDIyA6phrNHjv/Jaq3McH/FdsPsEfwSU
-         sLtUcSmRsuf6GbeUOieyppE0zW/O2f0kwBWNDCEugkCmMsrbmogYBu96CYsIkP0AmI9a
-         iVv2rFCcZjMxmFVl5lWJUsAc55SmgJg+2KZjZWFeQU/tnpOenMqetsH68rqG15DRgNDk
-         7AGl5VU30N4ubgJSjAXFkacvqfibZuUoFwwI/AVZLdudtjKovq6UzGzMTLBt7xjtCkRv
-         uR2uzH6cSkMDEz4Y0C8mPKG0HMoe8N3CFkM6Jm1HaLsATQu0sQO+dRdJAIhziNcq6nB0
-         huug==
-X-Forwarded-Encrypted: i=1; AKwUvBzoFfNemqXyKJzdlcrtixMnQ3LjbX0EAcgYi07hfOQ99BX5aK4m+BhETRBnEBFZqg6yh6HuQuQ0deubXn8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9WKjpvbVkxFn2Os0rf5LM0ly/eww3ixehPkN1K0g9Y64DkMS7
-	Dmn9uF5VqSFUQvb2kJ0SHFv5d78BlciqIE5ryckDtWBeN9MEM1ih2yOg
-X-Gm-Gg: AYBFou2jCmWZqeizHWkbDmizHA8KhVN1XgmGgtnF297c4VO0ZcXNVgXQOVuUDc+WReQ
-	C3J33PuWi5Ic44gLrnJVFkPfgWY+fkXfgzkWAE8CleEYDmGFxgyuG+o0dPR1TTdigV4jjNPCSyu
-	XCpAboesuaeo4xLcH0QNHayBmTtepDN2tmdF98cvkEauVh138QCa/GuxskO6JHpbkxl4kkMphsd
-	fgNO4K+JLTHDsYFtsDWWRzBbtMqplfffptU6bKHTkxUsBycVOvz3PklMCxTOG9fuBh4NhthUJhz
-	JWyTKTJ9ajMDoRL4p7LlJBNCRlDwSxx1sAwUMHR9hGaZhJiJ4D12Yu3e7/WNqGuPptvz1BB9DVW
-	ixI0JgGS6BapS+1mbKtpzCcv90/wG9atXsKLHlX5wcbi7m5zBcK/dLrcHBA7+JE61ZIxc/0ryr3
-	GjPz+b+5ay0SSMJmbwVPIGlWJVL1pALVs01X2usLzDnPQ5TEXREHTS/BVm4bGO+ZWDRr3Ig3pTh
-	lU2cA8LR67tJGR6ihGe0c+PKShYzd73Qv5rMTsDlexjD1nAAiXf6ikUVhy11WCFzyo=
-X-Received: by 2002:adf:edc2:0:b0:488:7d08:edbc with SMTP id ffacd0b85a97d-48b127431dcmr12700f8f.24.1790870067132;
-        Thu, 01 Oct 2026 08:54:27 -0700 (PDT)
+        bh=J5CGv0/6w5gVrsPF9zExhSI+JtnFir6oWba07h7nJSU=;
+        b=ma1k4UPN+i1+9QdvVvCbR9761ZsH58Je3I6X+xV/ga9rt9NgTG4ygKC705jL7tp5Vc
+         IuviGPh3ypSrbuTRt0OFgCdGbLkfhgyqdS0plL5pROLOB1XjNVh8EjQNGScNmTO+XDDP
+         1a7UbiCgr+jgXZc1/ekwmVr/zWCrfbwClO0e3HDsCEBIG94Gqxf3OwqsDNyOTclqR/LH
+         rXonh5oHibZtzQxJaOj2bEVbhqczBXH45ILVkRRzDGGC+SnBocw9TPWoPhpZeA+aNxyX
+         EaR2rKqruDst/DPKv7lBKy995SEvOI89m24dfOF/d9oY8glS4S4FGom4fbUALHX9MdVP
+         nhww==
+X-Forwarded-Encrypted: i=1; AKwUvByiDtQcIvwGjpViIVH+NtXkeAljaBcarK3Gtd1mFms3SbBVddDu89dodyc+au9a2KbvEEYCxmFsCkx7mWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmzVXI0f+YBu6QCJ5DJd9RXyqv/Z/nTADGwrxwiOe5jShjbWJ3
+	rm/lSj6ITx8c03+1ax/GXb7h58td8j0Vt85S/JJKzSEPQOfeF4IGUQcO
+X-Gm-Gg: AYBFou3PM1HMFDwJeQy9vLbakonNWObYRxsifzh4TH+LmK+zuRxZEFop23XSQgBtuh5
+	SVfdE3+nfY7Mv9aYfigu3K6+0qSZ4n2Hqdfb27i/DkeTeIUnZ8pvKN33pqAT8QRq9LHU2Vj+D3O
+	MYF8aleyVCGwmKeyYYZkqX9hjAOdn5t+GCfti/WjIXrSLED057u+u8n/ZSajLmzi0u/ajmSdP8/
+	87YFUnJd0UAMZbLmcdov8JZThaYhaqqaJBOWdhy6h1QMSfV1nhgVIvug87oRQuwbyX4+x4WvSoJ
+	iFtovmwAzrS17VEU0KbciMM7beb8L9Al45/TGqP47BTQFDnYv+I/phlcS5q3kGgIAbhULsz6EBG
+	OqVn3ox6pkZPYm1+rCQ+oLnWXuxfrtIJi1Y17zdPxK6DnBnBVm24lawRLY0epe93rJGkgsMfaRE
+	ZqES/xm0sB6U4ZrR2jQ9Rt2HQlDZdLQ/Au1aIbglFfdIzlawIVVf5io66xIeGOoTQYwsLTjCh1M
+	LTxRl2IEee7HmlRfu2rOkbIV7xZH2NEKtuqA5pDq2HEYCjqxRgCIOsHZ+W1tgOqSuZJY6SQId0b
+X-Received: by 2002:a05:6000:41c6:b0:487:81c:6de with SMTP id ffacd0b85a97d-48b1271f670mr44164f8f.34.1790870069033;
+        Thu, 01 Oct 2026 08:54:29 -0700 (PDT)
 Received: from leonardoc-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff6eesm6517294f8f.11.2026.10.01.08.54.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff6eesm6517294f8f.11.2026.10.01.08.54.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:54:26 -0700 (PDT)
+        Thu, 01 Oct 2026 08:54:28 -0700 (PDT)
 From: Leonardo Costa <leoreis.costa@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -76,9 +76,9 @@ Cc: devicetree@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/7] ARM: dts: imx6q-apalis-ixora: Add 3.3V_SW power regulator
-Date: Thu,  1 Oct 2026 12:52:52 -0300
-Message-ID: <20261001155412.3177428-3-leoreis.costa@gmail.com>
+Subject: [PATCH 3/7] ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch Display 10.1" LVDS
+Date: Thu,  1 Oct 2026 12:52:53 -0300
+Message-ID: <20261001155412.3177428-4-leoreis.costa@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261001155412.3177428-1-leoreis.costa@gmail.com>
 References: <20261001155412.3177428-1-leoreis.costa@gmail.com>
@@ -92,51 +92,146 @@ Content-Transfer-Encoding: 8bit
 
 From: Leonardo Costa <leonardo.costa@toradex.com>
 
-The Ixora carrier board has a switched 3.3V power lane that is used for
-powering peripherals. Add the correspondent power regulator node to the
-Ixora carrier board device trees, similarly to the already existing
-reg_3v3_sw node in imx6q-apalis-eval.dtsi, so that it can be referenced
-by peripherals that require a specified power supply.
+Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
+LVDS connected via the Apalis iMX6 LDB.
 
+The panel is a LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the
+touch input is provided by an Atmel MaxTouch capacitive touch
+controller.
+
+Remove the panel-lvds node from the Apalis iMX6 dtsi, as it is an
+external component that does not exist at the SoM level.
+
+The overlay is also combined with the Apalis iMX6 V1.2 Ixora Carrier
+Board V1.2 device tree to provide a ready-to-use DTB.
+
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
 Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
- arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts | 7 +++++++
- arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora.dts      | 7 +++++++
- 2 files changed, 14 insertions(+)
+ arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++
+ ...6q-apalis-panel-cap-touch-10inch-lvds.dtso | 53 +++++++++++++++++++
+ arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi | 13 -----
+ 3 files changed, 59 insertions(+), 13 deletions(-)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts
-index 3ac7a45016205..f6eb2eeee417e 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts
-@@ -57,6 +57,13 @@ led5-red {
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index 32d77a59c4358..23fcc80d7f309 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -99,6 +99,10 @@ imx6q-apalis-v1.2-ixora-v1.2-hdmi-dtbs := \
+ 	imx6q-apalis-v1.2-ixora-v1.2.dtb \
+ 	imx6q-apalis-hdmi.dtbo
+ 
++imx6q-apalis-v1.2-ixora-v1.2-panel-cap-touch-10inch-lvds-dtbs := \
++	imx6q-apalis-v1.2-ixora-v1.2.dtb \
++	imx6q-apalis-panel-cap-touch-10inch-lvds.dtbo
++
+ imx6qdl-dhcom-pdk2-overlay-497-200-x12-dtbs := \
+ 	imx6q-dhcom-pdk2.dtb \
+ 	imx6qdl-dhcom-pdk2-overlay-497-200-x12.dtbo
+@@ -233,6 +237,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+ 	imx6q-apalis-ixora-v1.1-hdmi.dtb \
+ 	imx6q-apalis-ixora-v1.2.dtb \
+ 	imx6q-apalis-ixora-v1.2-hdmi.dtb \
++	imx6q-apalis-panel-cap-touch-10inch-lvds.dtbo \
+ 	imx6q-apalis-v1.2-eval.dtb \
+ 	imx6q-apalis-v1.2-eval-hdmi.dtb \
+ 	imx6q-apalis-v1.2-eval-v1.2.dtb \
+@@ -243,6 +248,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+ 	imx6q-apalis-v1.2-ixora-v1.1-hdmi.dtb \
+ 	imx6q-apalis-v1.2-ixora-v1.2.dtb \
+ 	imx6q-apalis-v1.2-ixora-v1.2-hdmi.dtb \
++	imx6q-apalis-v1.2-ixora-v1.2-panel-cap-touch-10inch-lvds.dtb \
+ 	imx6q-apf6dev.dtb \
+ 	imx6q-arm2.dtb \
+ 	imx6q-b450v3.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
+new file mode 100644
+index 0000000000000..a84114e1d3fba
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
+@@ -0,0 +1,53 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex Capacitive Touch Display 10.1" connected via Apalis iMX6 LDB
++ * on carrier boards with a Toradex standard LVDS display connector.
++ *
++ * https://docs.toradex.com/105952-10-1-inch-lvds-capacitive-touch-display-1280x800-datasheet.pdf
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
++ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
++ */
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	panel-lvds {
++		compatible = "logictechno,lt170410-2whc";
++		backlight = <&backlight>;
++		power-supply = <&reg_3v3_sw>;
++
++		port {
++			lvds_panel_in: endpoint {
++				remote-endpoint = <&lvds0_out>;
++			};
++		};
++	};
++};
++
++&atmel_mxt_ts {
++	status = "okay";
++};
++
++&backlight {
++	status = "okay";
++};
++
++&ldb {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	status = "okay";
++
++	lvds-channel@0 {
++		reg = <0>;
++
++		status = "okay";
++	};
++};
++
++&lvds0_out {
++	remote-endpoint = <&lvds_panel_in>;
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi
+index 5fcd7cdb7001f..e52b55a386f7a 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi
+@@ -95,18 +95,6 @@ lcd_panel_in: endpoint {
  		};
  	};
  
-+	reg_3v3_sw: regulator-3v3-sw {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "3.3V_SW";
-+	};
-+
- 	reg_3v3_vmmc: regulator-3v3-vmmc {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora.dts b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora.dts
-index f338be4352779..f015faf19199f 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora.dts
-@@ -55,6 +55,13 @@ led5-red {
- 			label = "LED_5_RED";
+-	panel_lvds: panel-lvds {
+-		compatible = "panel-lvds";
+-		backlight = <&backlight>;
+-		status = "disabled";
+-
+-		port {
+-			lvds_panel_in: endpoint {
+-				remote-endpoint = <&lvds0_out>;
+-			};
+-		};
+-	};
+-
+ 	poweroff {
+ 		compatible = "regulator-poweroff";
+ 		cpu-supply = <&vgen2_reg>;
+@@ -738,7 +726,6 @@ port@4 {
+ 			reg = <4>;
+ 
+ 			lvds0_out: endpoint {
+-				remote-endpoint = <&lvds_panel_in>;
+ 			};
  		};
  	};
-+
-+	reg_3v3_sw: regulator-3v3-sw {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "3.3V_SW";
-+	};
- };
- 
- &can1 {
