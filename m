@@ -1,120 +1,103 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EC83D669A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852340; cv=pass; b=YH3zzQuHw2mNFDiwPb3YXagL9uF3P+Sv9gDnCrZlfoIdd54puVknb2OSM8v0uuImQAMTC42/1akLA0mM07F+bCvwwZ+sHsHKG06DZB2ChbT9QmRQYte2oQpTEAaFm7Ex+52LJWGhBqgGZ8Jh+/Ujwn8rtxyT2wPnav95+bGL1NE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852340; c=relaxed/simple;
-	bh=KbGEgPnk7vZYR+vl7/TWwf7XdN4fpXM/jHOacnKAOBk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AKFpomoFQOwXEGfItAEyETI7KYmgdWysgWRQ52FyPeinHyCz3GmE8Iu0ptzwjhdDbxB/jcco3UjH2HIVNGMNZXD4q1lKN7rxw0TfcI+FxW0cPOEu0V17cggSGwJgku0HqRmZQTx265ZbJ7XSWvppebjiei0HfN1NTzmu1XeoF8Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hEcqxHOi; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B9C4052A9;
+	Thu,  1 Oct 2026 10:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790852373; cv=none; b=ME4OU926/abbA/RRUQysqAjOAp7VuuYTuEQCrPNtQMbR2RcZkLtXvSkwX3zQG+vcR97BSeMjqb1+axBqYGMa1tRQEDcwxINV2D0Bj0JhXcv9bDLcUiBaAet98g62D6LHfKtboIN86Dshn9K8l/ICa3pff2RXZJrQkah+bO8snkI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790852373; c=relaxed/simple;
+	bh=P2mPmdSeN7M/92lKbHc68p8T0hLOu0rZMNpkrr+Q7S8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p+TuZH63WJEWulYv8TyEPyfMO52YboAKb8OEW4wPGvPhfhx2hnjUUhe/Z99/eionTomHcNG/V7g5SfyFNeAZ3vQ7lKhrfz3QU8bj4ZfQ4x/4k1KcPWTqasdDCT9EqkKz6pXBlCAtCdiP9aODUSVaJZzPmnAq80W+W51R9PRIyw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=LCl1OI8l; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hEcqxHOi"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e0b486d91so309638866b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:58:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790852337; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Co3McB1Dv/lQr2KgxzQv4wSQjnUClC8zP5TMk5rQWVaLAFiVRKPeba38vtotZBtjyO
-         SDMyId8q77UMMqLdsnm2WdTd7pGlvOSAz716gWp8cDhyqi+jl8rKSqZo+pZKU7CKEGGr
-         lRJwXDkuzM2hgkxjKjmo4pG6l+0R3q6qF7W3NtTIIS95v4CFO7vCvsXanAcPHsA+zbNw
-         YhEjxkLfFrbraW+HvxQc8j80QZ4xOaZrK4m1NC888lCJgeDVjQdLzfSM60pNg1PJTcER
-         u44S0wRp+WVoxPBJtc8W6xm76bml31mePzSTAu2u2T5MbZKQYKOGJW103SswlnQpDjZ6
-         6LMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KbGEgPnk7vZYR+vl7/TWwf7XdN4fpXM/jHOacnKAOBk=;
-        fh=4aKEzR2lodSJcmGj8K4aIh1iw4Q3IRguk0ekgTZsfWk=;
-        b=FZ7P/AibinnwdqceI+VHg8stq0Jo6dLbJwJCFXClSJpTZMx8GOx9L2gNHmR1v+MF7A
-         ynSQ8BGqH8snKdsF+gdjn0cAClElDOnfCaU45ZHOZMiwY7d0AM/zzlvq5vnRVDRRb7LM
-         sGwhK/9fXGUoSqk6eWxxBUgHWiVVEWVr36hk/y4V1gOBlu876cngvcay+4TaQq17UdJO
-         CQJ8KFvZvAxu8/MPnjj9HeDQmsU5/hx0uOy4aLJzv9eHjiJfjR1s4qtFkL+ZKIxdYqes
-         2h2kksaQSNqoEsHPLHro+ifebp1ofkXBi00CLfZbj8KZ4TZF7WaNygCZ53Mc920hMw5v
-         8e0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790852337; x=1791457137; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KbGEgPnk7vZYR+vl7/TWwf7XdN4fpXM/jHOacnKAOBk=;
-        b=hEcqxHOiuingEmH8/Sf/LuhYLAdSqW8jSge6P68ARYPY5iL3ADWBzchaRBG93lZvaj
-         4fdOlibMDsAe9ZKN9OG18GGIN85g3fNTCE5WVdCBQx0pXZmHdXhddIkOokX/lgMoSEQI
-         ul4DMM9QQJiVjGS5L9WnDMx2S78He83pFkxl3+4R/IvT611WmQyC7rZS6dzH4KpUea73
-         Jzdp2o16kH3w1+n5+wN8yDAI4TwTuiCzCTtbk+gfC3YcFF7PuLHCmUlcMXb/yM57a2Er
-         q1NUkkIHvCWB2Df2CQtU+emKmewyLjnCiqe3SRW87tKLvl4rhDxGcttJKne5naFWrnnn
-         GLVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790852337; x=1791457137;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KbGEgPnk7vZYR+vl7/TWwf7XdN4fpXM/jHOacnKAOBk=;
-        b=mUDMEdXz9waiNQY1lFduPVQ5K+vLo0FcXCedK8wmeXWUburqbLWonK5s9zERIwPj0B
-         I2CVmZXSBn0mi+ikKCyEPtleE5GYtp3KqoWwRfHciKc8ZcqAQvK6HPBg9a7o3HZDiwPg
-         PBrQ5RsTAE4sEDRb/OScJpi72Tz2Ak5bJ3Hzadp3gf9G80hMZCv/HzRzB0xjym6A9Fpd
-         8kC8XQLg0+hOGcViDDuUksdKiXM5pCudCJk5c0YerVHxNsoVeAGjjECxsi+G62ezFsCa
-         9Sh2/vhBpBiEPbWEiGuGW/LE//FS7D/ln+lwg9wff9+0w4dyQa8bwT5WEQyYtIxaRteb
-         kn7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxdlyny+pjIXGkkzQfp5FIpivGx5l5jP6muhSoC8dxqqaAMt+F3pOzEk74NLbpzCHZ3IMd687RrFUSvyu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lA2Mddm0yB/9td4IMtX31cQJ2pke/a/A9vtool7fttjHQA0p72
-	bOdhmG22zyBLuIN++5QunYmnahOltyk/k0bckgIAsyibaQvbRJO5LTtGSGfqeklIrTnp0NyEgOi
-	3Cu0WYffEP87x149fwTN4jizBqI3d/MxCFvsu
-X-Gm-Gg: AYBFou0LPKQS9ioiD+WQQ8k5UotcCEvQQF7YefGIm6fNfMhu41EXxhqMqa22EU2CYIs
-	998LLmGR3XbXlMKiXpEJH+ZpyPUCoViCGdG6dmvbWX9ugfEVdg5aCnBzo3DPKJK5dkgluU0DuK2
-	Awao/RgByqzPmA4BD8yEy4gES6jRm69S75zuy5apOJMoZG6Pj9cmkEMjVHQvH9ZxwYpqlx3irvv
-	s2kQeCSJYCm18pNwLNUZCE+/2XSitzgopR1qKyPGJvR7Jq/KeWANFzkEfCzmJgZYATDdB2cz7va
-	ZI589wNCi2Xo7QOv0l9WPcvQHXrsRIh0XwxhVc5wRmP9Wzsal8ag16QVZ/sOBR93n5Bx8c8T6Nh
-	UYLCmmIhxGXRht9DGfMKLsAT0
-X-Received: by 2002:a17:907:9688:b0:c29:5151:16b8 with SMTP id
- a640c23a62f3a-c2e23763c99mr352304566b.2.1790852337129; Thu, 01 Oct 2026
- 03:58:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="LCl1OI8l"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MXA2KDE32vmEL8dBfumYlL+dA+/j3dJ1ohxuDqggpGk=; b=LCl1OI8lRvcv+outLHBWL9A2bo
+	DG5ITJUiFjfuw/CEH5vbNjtI/P+BGLUvwXGLDA3jC0T340gY/Wk7k1gpkQvW1Z70RfVbhOYmCo3xw
+	AQrPBZuoPECelcO87vpNBk1zQqZk4sUCEzOkgiymVqQuPddoPjUy5oK3h0Qme/AB7rJNngceuc7hq
+	SpH7CHPQ+yTaxLRhMOeVVPTVIV3l0euLPDh5NhuMo38PzhWMuEE+tFR7wdSAxCvYvgzjUDCfjyRZJ
+	2Vfd5RXX1oJ8sfOXd6TivgxG21zO1fScJ0vlE+bpH4aP4s6m55zck+Q/N8LB/P1cBonRI090dOtPd
+	BxfbrTrw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xCEVK-00000006r8z-1WSi;
+	Thu, 01 Oct 2026 10:59:10 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id E81DA3001FD; Thu, 01 Oct 2026 12:59:09 +0200 (CEST)
+Date: Thu, 1 Oct 2026 12:59:09 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	David Dai <david.dai@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Daniel Jordan <daniel.m.jordan@oracle.com>,
+	Hao Lee <haolee.swjtu@gmail.com>, kernel-team@meta.com,
+	cgroups@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/7] cgroup: charge kernel work to the cgroup it is
+ done for
+Message-ID: <20261001105909.GL4121339@noisy.programming.kicks-ass.net>
+References: <20260924184714.912181-1-shakeel.butt@linux.dev>
+ <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918090010.1688-1-aditya.ansh182@gmail.com>
- <20260918090010.1688-2-aditya.ansh182@gmail.com> <CADUfDZorK-i+eOEpGkVFf_vJhqLUKfBX9n_rkiWtbcyoMHT8uw@mail.gmail.com>
-In-Reply-To: <CADUfDZorK-i+eOEpGkVFf_vJhqLUKfBX9n_rkiWtbcyoMHT8uw@mail.gmail.com>
-From: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
-Date: Thu, 1 Oct 2026 16:28:41 +0530
-X-Gm-Features: AclHuK-FOgD42JgsxASW5ZRNJ_Uwb8ZfRxtR396n_NYyi1ZD5u7-WI5DU3g3XwE
-Message-ID: <CAK5ssPOAZ=PGDMjsihKCx87Gw+UBpc0J=NB+pOo8PbSBdzSpgw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/3] tools: sync io_uring.h UAPI header
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
-	Gabriel Krisman Bertazi <krisman@suse.de>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
-	io-uring@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
 
-On Fri, Sep 18, 2026 at 10:20=E2=80=AFPM Caleb Sander Mateos
-<csander@purestorage.com> wrote:
->
-> Can you drop the tab character and just use a space between the words?
->
-> Best,
-> Caleb
->
-Thanks Caleb, will fix that to use a single space in the next revision.
+On Thu, Sep 24, 2026 at 10:28:10AM -1000, Tejun Heo wrote:
+> Hello, Shakeel.
+> 
+> On Thu, Sep 24, 2026 at 11:47:04AM -0700, Shakeel Butt wrote:
+> > This series lets a kernel thread say which cgroup it is working for.
+> > That cgroup then sees the CPU time in its cpu.stat and the stalls in
+> > its memory.pressure, and the CPU time comes out of its cpu.max quota.
+> > The first user is the memcg reclaim that runs from high_work.
+> 
+> This doesn't translate to net rx, which is another major source of
+> displaced CPU usage. Switching membership on each packet isn't going to
+> work there. Attribution can't happen that way. We'd much rather count
+> per-cgroup received packets and prorate the CPU consumption. If at all
+> possible, I think it'd be better to adopt an approach which can cover
+> both use cases.
 
-Hi Jens, Gabriel,
+Ideally RX would be split for each network queue, rather than lumped
+into the one giant softirq that nobody owns.
 
-If there are no other comments or concerns with the patch series, I
-can send v5 with Caleb's formatting fix addressed. If there are further
-changes needed, I can pick them up in v5 along with Caleb's space
-suggestion.
+I know PREEMPT_RT has been wanting something like that for ages. Not all
+queues are created equal. Some might want RT priority while others
+should definitely not.
 
-Thanks,
-Aditya
+Furthermore, without ingress throttling, your RX back charge could
+completely deplete the actual cgroup time quota.
+
+Anyway, if you get per queue RX processing threads, then you can move
+them into cgroups where so desired.
