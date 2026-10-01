@@ -1,110 +1,202 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DD149AA24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1416B49C4B7
 	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894753; cv=none; b=vEV7IAO1BGNlEHsLWyiVdUW0KWrOs43WbI9/B4lm8k/noSNGnuloiI5NPxki5Q7YQs7RkwDmuSfRlQHa2H0mv/JbO0X7JZY81XSEEGP0GWShXsC7PhzBZaASU3y42/6EkAnGHcD0XjkQ8ZEe3xss94e0p/r+/OPTFcyf4DGFMfk=
+	t=1790894753; cv=none; b=OLMDu6X1Jh/tcOKWRpUMmjuEHMfAmS37Sxng4X8qZyHeuEo56KZKIqf0aYs5BJFlqGPj/fHxq1HhGaMq7XtS2Rv68TWcbbjxgiAhUKIThyXRbPrEOoLxnd3j+ioEAdsS8SRK6mdz0gWl2mVY/XvnAjjGrraBsBFGsQguWf2HLLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790894753; c=relaxed/simple;
-	bh=iyOloBZlQg/MDR1GswDFmzHuvue+1j2j/aHCDmB5nFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WGcrmS5Y/x7jWyLNykctKi3ODnAJUPo7Qn5cXSZ2aeUxijHRUQuk6E4ntNZrMnKP3aBf0KmviOmlp6SxQir+kZPAmCi3YS4FRz7r9JBSE+tvZ/GVJYiBq+Nyodiy4QdYIEV3ftOg2xt9JzYHFvbIhGs7QqE/05ONkY7aCvat1Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aeF0yUdq; arc=none smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=nUfqkFlbuPVBGi5zN5hZQzJYCoKidUYPuMDZeGldilE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=jgse5/XpOwuCgBk4pBiLOtwuyvar8+dCyONCy/LnxQeMt7O7cBc5r1ep/JoMDlppcDeaEr+mYDEHQz2S6IldPklEeX3iGLKDMdJC+44hMmD91Wi3cNlPYZs1CSlU2BYImo2DP8bxmC8YmOKwyIYIAsU/874zEphvSGsAE5uBEiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QOnAm18h; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aeF0yUdq"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4bbc51755so365297a91.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QOnAm18h"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbf293831so10876879a91.3
         for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790894750; x=1791499550; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
-        b=aeF0yUdq62zFUiqUopKLxv/6g24uwHkL0+dm+ZZBZVzofn1SlzwpNamXysaZse8o7g
-         y/rqograQMJs1xvHsHZFbf/dLQU5oljYHFQTAIvIb1vFiKmxh3cxjq9XeXLYdEUqrloZ
-         plBB8AJrVSzh0bgpQ6lYq4Atg/129Z4ujSBFLSUJvY+u7zStpzsn9VunpGZwfwjhzbIi
-         69E/WXqVExCbUfyUfO0s0tZL6EK4BEmIaI8npY4iXwMXMW4QWGKW6Bt9hx/q0lI/nU+3
-         CWFjfEIniKGeZZlvHxLDnYHZaUp6VeBZtFsWCDpi54fro7BwK8HnGKaXMzzvAM1/QTnS
-         zSSw==
+        d=google.com; s=20251104; t=1790894750; x=1791499550; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CAK9NPwX7Ow+EtKIIe3HO24Ti3BDkDgcMm+QryEOtLs=;
+        b=QOnAm18hszZ+RL6AkRSxRtjODzR5QoIAgf8ARhK7zFMFlPeuniv/iUhB+vU6KzqBMD
+         nFH54GY/w+VfYrJ83xZTBv3t2rPUovqAIT61oSyflYcFowiewuY37BcawJ+eiVtlUtG4
+         VbS+mmGguwwJymX82uUoGZOGiDxd1vAWze3HNApy5TogV7yc8dXFaSHbvkcJitUX+2m7
+         JV+VWSqxxmdvUfKLS0+iMniFg4eakAxiJsenaEzY0eqpDPXtSGg/hbnrfMIh5z1LmrUw
+         TYetuyHrgLsCDGdKGOA5NAc7afLTFyxEZPLuMeQvnRKQVZHC5YRiNpd9VOaK4N+/6Gzu
+         oPvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790894750; x=1791499550;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
-        b=LCPfQKE6j0tkckW32z1wXP+n5pBdMgydMGIN7pdPQCU0r860WkeuK6+WfppMCrmHW1
-         o/ciweCrWuB8aUQXDPn95OLkIsexUcWzF8WGi2X3GxxqxQ0irK2o4xSLGGbaHx3AMOop
-         JJmtNktp8EbLXPnwobsJTRQjO7zL8UO5FwRsYi4tzWyV1fB00BYYVgoB0F2wkGVDaSW3
-         IbLK8MXKMB0UxljLscb0fBi7XM/xSubVt99iWV5DtEz4Pc47XyLQevy48HZDQZ4v8Geu
-         vZx9MIOlYdsEXLFer3Qq+inkj8ALkJDp5TnCn4kiXPvjcdSLJ4jXEPGQlT3pW20LVhjd
-         3JUA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMkxtxWTbPlNy+Kv9BVg6VO664XINJAsU20g381neNEuFPco4E/enkVHerSidY2d1l8ehfGDps9UF81t8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImu6nyiES4v6IvfQ5vuLLNJUY8x3zeshhg95F2d0P2qbn+J5uX
-	jt/0xlZCoZd08ct7n+Sezbq8hkb6OM3BHrrYbvcnENf+Hu17qe6x5e0Y4VZyKrXZVNu55g==
-X-Gm-Gg: AYBFou0ssHojOFEDS82Hr/9krRlZVkq9CA+9gihllp1/Qev/g3yqZXGFQti9zp/R8oX
-	ApM7/jMBse1FfAm/DAlJS5fh7fkaAu9kCVlZ/yzKk2NhcwWAXcujFe3/YK4IF6DrZXkQ1EideOq
-	2e/kdqWXT5BHPdFvkX5WDHmBi+AptStpDxF1lOodsgCrWJn5EDZw7U67GCGXSCbnsAQ6jMu4/pE
-	l+N3RAsxNWWgxiMgbd5O0C3bpUPaidVMyzrglBu/XoZI0u55viZi9mebOqbIyBTEUl7gyxObChV
-	eUA2mp0Pgje3ZCyXkcbO3BOGhS3DJNOXFfdabUIZ4HfvRu2b+Ykslez6yB4x6H7ctFBEioBnDyC
-	ls11e8jGjJELHgLIZ1zihD1wYsitOjm7ljDtQQKF1Vqkvd+j/bhzZdiQb9xFmePswrQO+DgWs9U
-	2Wa8V46YSjD3WYkk7wfHFyaOsORWwRCm2ZewnZz6Cv/nQoYlCsyToL4P2yWcq58EFTR4BL8KoMV
-	m18vXU=
-X-Received: by 2002:a17:90b:4b0d:b0:3a4:9fcd:6189 with SMTP id 98e67ed59e1d1-3a6ce69ac99mr1528647a91.2.1790894750283;
-        Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
-Received: from marchy ([2405:3800:8e5:44e3:ee8e:77ff:fed4:d18b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ccc92646sm1146396a91.1.2026.10.01.15.45.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 15:45:49 -0700 (PDT)
-Date: Fri, 2 Oct 2026 06:45:47 +0800
-From: Adam Azuddin <azuddinadam@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
-	airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add RAiO RA8875
- display controller
-Message-ID: <ar7im3iTb_UF8VxU@marchy>
-References: <20261001144128.2336301-1-azuddinadam@gmail.com>
- <20261001144128.2336301-2-azuddinadam@gmail.com>
- <20261001-relight-unexposed-1a3d7dd8bfed@spud>
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CAK9NPwX7Ow+EtKIIe3HO24Ti3BDkDgcMm+QryEOtLs=;
+        b=iNFxEN+P0h0+fa/0lkWfZXWcCtrO0KV+n8l2KA6qrYyrX9Fa1gviiqvCwuBufvmoAv
+         aPu57ZHqxfFGZtDITmshztOIE7FmV+aow19dIe0AZ9Q/DedsoA8BlyQTJhrA23tf/tKj
+         NUxRC0JZ9dnMehuOkVfeFs//hiECjO6/R2G8Nf1bRi6ZYGzjGAQ8YUXOFyblsGhtw+V2
+         vDgUz+sWp9+dkdfK6/r2eSDTio+J6+nAbMjuVb6yUS+gYURugQPLZljfo4VQWpKKBdFi
+         jN62Hd2FQKjVL/I/VHuUyk5w4tMcNyFtn5G0arCkQUXbup38Pxil0XcXkMnDgloZWiBF
+         JxMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxTyNtNiJ0Z4teFHyqGM0wBGGyGdKGkX+cLtrDi5j2700qlKZ9Pv8E/5136NSfJ3iQ4DvvgeE+0DxKGHAU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0le8AglV5q86uuKJ28LqLJ2QIY9sbkZSl5xGCs1/pzDJCP5za
+	8ubk/AXTgVInPjE4MvgTImZLl2zRU8pNM6nZaSmjeTjtnP5lQ5/dPqB714t8TQZRkzhrM/37OFP
+	5uQ==
+X-Received: from pgww21.prod.google.com ([2002:a05:6a02:2c95:b0:cc9:5e28:9460])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:224e:b0:3a0:2900:f584
+ with SMTP id 98e67ed59e1d1-3a6cec4fc80mr957433a91.46.1790894750108; Thu, 01
+ Oct 2026 15:45:50 -0700 (PDT)
+Date: Thu,  1 Oct 2026 22:45:26 +0000
+In-Reply-To: <20261001224531.765278-1-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-relight-unexposed-1a3d7dd8bfed@spud>
+Mime-Version: 1.0
+References: <20261001224531.765278-1-praan@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261001224531.765278-3-praan@google.com>
+Subject: [RFC PATCH 2/7] iommu: Implement domain-attributed page allocation
+From: Pranjal Shrivastava <praan@google.com>
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: Mostafa Saleh <smostafa@google.com>, Daniel Mentz <danielmentz@google.com>, 
+	Samiullah Khawaja <skhawaja@google.com>, iommu@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Logan Odell <loganodell@google.com>, Pranjal Shrivastava <praan@google.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 01, 2026 at 07:54:19PM +0100, Conor Dooley wrote:
-> On Thu, Oct 01, 2026 at 10:41:25PM +0800, Adam Azuddin wrote:
-> > +description:
-> > +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
-> > +  It can be connected to the controller via 8080/6800 parallel interface,
-> > +  SPI or I2C. This binding describes the SPI-connected device.
-> 
-> This binding describes all three, or at least it should describe both
-> i2c and spi in the current state. I have no idea what the parallel
-> interfaces look like in dt, but if what you've got covers spi it should
-> also cover i2c. Probably remove this last sentence.
-> pw-bot: changes-requested
+Implement the core logic for per-domain IOPT page accounting.
+Introduce iommu_alloc_pages_node_sz_attributed() which increments
+the domain's nr_pages counter & stores the domain ptr in the ioptdesc.
+Update the free path to recover domain ptr and decrement the count.
 
-Understood, I'll drop that last sentence.
+Modify iommu_alloc_pages_node_sz() to be a legacy wrapper that passes a
+NULL domain, ensuring backwards compatibility for non-domain use-cases.
 
-> > +        panel: display@0 {
-> 
-> Drop the unused panel label if there's a respin.
+Co-developed-by: Logan Odell <loganodell@google.com>
+Signed-off-by: Logan Odell <loganodell@google.com>
+Signed-off-by: Pranjal Shrivastava <praan@google.com>
+---
+ drivers/iommu/iommu-pages.c | 35 ++++++++++++++++++++++++++++++++---
+ drivers/iommu/iommu-pages.h | 17 +++++++++++++++++
+ 2 files changed, 49 insertions(+), 3 deletions(-)
 
-Will do.
+diff --git a/drivers/iommu/iommu-pages.c b/drivers/iommu/iommu-pages.c
+index 3bab175d8557..81fa01b763b7 100644
+--- a/drivers/iommu/iommu-pages.c
++++ b/drivers/iommu/iommu-pages.c
+@@ -29,8 +29,10 @@ static inline size_t ioptdesc_mem_size(struct ioptdesc *desc)
+ }
+ 
+ /**
+- * iommu_alloc_pages_node_sz - Allocate a zeroed page of a given size from
+- *                             specific NUMA node
++ * iommu_alloc_pages_node_sz_attributed - Allocate a zeroed page of a given size
++ *                                        from specific NUMA node for a specific
++ *                                        iommu domain
++ * @domain: IOMMU domain to which the page will belong
+  * @nid: memory NUMA node id
+  * @gfp: buddy allocator flags
+  * @size: Memory size to allocate, rounded up to a power of 2
+@@ -40,7 +42,8 @@ static inline size_t ioptdesc_mem_size(struct ioptdesc *desc)
+  * returned allocation is round_up_pow_two(size) big, and is physically aligned
+  * to its size.
+  */
+-void *iommu_alloc_pages_node_sz(int nid, gfp_t gfp, size_t size)
++void *iommu_alloc_pages_node_sz_attributed(struct iommu_domain *domain, int nid,
++					   gfp_t gfp, size_t size)
+ {
+ 	struct ioptdesc *iopt;
+ 	unsigned long pgcnt;
+@@ -83,18 +86,44 @@ void *iommu_alloc_pages_node_sz(int nid, gfp_t gfp, size_t size)
+ 	mod_node_page_state(folio_pgdat(folio), NR_IOMMU_PAGES, pgcnt);
+ 	lruvec_stat_mod_folio(folio, NR_SECONDARY_PAGETABLE, pgcnt);
+ 
++	iopt->domain = domain;
++	if (domain)
++		atomic_long_add(pgcnt, &domain->nr_pages);
++
+ 	return folio_address(folio);
+ }
++EXPORT_SYMBOL_GPL(iommu_alloc_pages_node_sz_attributed);
++
++/**
++ * iommu_alloc_pages_node_sz - Allocate a zeroed page of a given size from
++ *                             specific NUMA node
++ * @nid: memory NUMA node id
++ * @gfp: buddy allocator flags
++ * @size: Memory size to allocate, rounded up to a power of 2
++ *
++ * Returns the virtual address of the allocated page. The page must be freed
++ * either by calling iommu_free_pages() or via iommu_put_pages_list(). The
++ * returned allocation is round_up_pow_two(size) big, and is physically aligned
++ * to its size.
++ */
++void *iommu_alloc_pages_node_sz(int nid, gfp_t gfp, size_t size)
++{
++	return iommu_alloc_pages_node_sz_attributed(NULL, nid, gfp, size);
++}
+ EXPORT_SYMBOL_GPL(iommu_alloc_pages_node_sz);
+ 
+ static void __iommu_free_desc(struct ioptdesc *iopt)
+ {
+ 	struct folio *folio = ioptdesc_folio(iopt);
+ 	const unsigned long pgcnt = folio_nr_pages(folio);
++	struct iommu_domain *domain = iopt->domain;
+ 
+ 	if (IOMMU_PAGES_USE_DMA_API)
+ 		WARN_ON_ONCE(iopt->incoherent);
+ 
++	if (domain)
++		atomic_long_sub(pgcnt, &domain->nr_pages);
++
+ 	mod_node_page_state(folio_pgdat(folio), NR_IOMMU_PAGES, -pgcnt);
+ 	lruvec_stat_mod_folio(folio, NR_SECONDARY_PAGETABLE, -pgcnt);
+ 	folio_put(folio);
+diff --git a/drivers/iommu/iommu-pages.h b/drivers/iommu/iommu-pages.h
+index edf75c81054f..a4a8e9ba57c5 100644
+--- a/drivers/iommu/iommu-pages.h
++++ b/drivers/iommu/iommu-pages.h
+@@ -55,6 +55,8 @@ static inline struct ioptdesc *virt_to_ioptdesc(void *virt)
+ 	return folio_ioptdesc(virt_to_folio(virt));
+ }
+ 
++void *iommu_alloc_pages_node_sz_attributed(struct iommu_domain *domain, int nid,
++					   gfp_t gfp, size_t size);
+ void *iommu_alloc_pages_node_sz(int nid, gfp_t gfp, size_t size);
+ void iommu_free_pages(void *virt);
+ void iommu_put_pages_list(struct iommu_pages_list *list);
+@@ -107,6 +109,21 @@ static inline void *iommu_alloc_pages_sz(gfp_t gfp, size_t size)
+ 	return iommu_alloc_pages_node_sz(NUMA_NO_NODE, gfp, size);
+ }
+ 
++/**
++ * iommu_alloc_pages_sz_attributed - Allocate a zeroed page of a given size from
++ *                                   specific NUMA node for a specific domain
++ * @domain: iommu domain
++ * @gfp: buddy allocator flags
++ * @size: Memory size to allocate, this is rounded up to a power of 2
++ *
++ * Returns the virtual address of the allocated page.
++ */
++static inline void *iommu_alloc_pages_sz_attributed(struct iommu_domain *domain,
++						    gfp_t gfp, size_t size)
++{
++	return iommu_alloc_pages_node_sz_attributed(domain, NUMA_NO_NODE, gfp, size);
++}
++
+ int iommu_pages_start_incoherent(void *virt, struct device *dma_dev);
+ int iommu_pages_start_incoherent_list(struct iommu_pages_list *list,
+ 				      struct device *dma_dev);
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-Thanks for the review,
-Adam
