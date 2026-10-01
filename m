@@ -1,153 +1,205 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AC9531AE6;
-	Thu,  1 Oct 2026 15:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DF44483A9
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868038; cv=none; b=klPsL6cOlY5UenFXHEmmMcqLKtqP7o2pfH8EImK8VK7Nx3F2OlfZIw0M/vmvJMAO1iLiY4C2mQPh0w6wbx6X2+jVa1zEXV8NIv+jZBt8eq3nSdZooLe29MfEAWop0mCysWd/45dBX8BOhaM0fC88Penm5QH+MlyG7wnOq1YJalM=
+	t=1790868089; cv=none; b=MTQW3BVApH6DeoO1D2f8kNslX5rU8MEa3q8RDhA66JgyQc5IrN7COVawKRMaHTU9fwBS5W70PAi3exUlho018uHgQo/pjFBydAesXeV8JBErPcrs/q3JUF+fcwFyP/59S4a2YNQXZ2XITfHkYSxjXXeiZ8LYoT6gAaLUty6KfiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868038; c=relaxed/simple;
-	bh=78yNeHB58q99vx2v1kF/fBirmQ8KIdI0e9A0mQ0vZ/U=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=K6H4zt9E7IjYAgu8t2T6ufiPq/yE0SOkaeRhFjPhk6vnIDgAMR06Uvv+pFX/5allHoXWMwd5MoDBHdq7ZvYHwe6nvurY8jkD39/sJ9MpnODMXWEa+WwPxYgtm/T6+wVvneu0gIsgO4MaUk5D4sg/dQi2/fCWqZUGobKiDUx7tLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Pzvt0Dgc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gIPFKH6K; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MQSG4Wej; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8KJnqatC; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790868089; c=relaxed/simple;
+	bh=RwTCQyc2/9eU5Qe48T11rYrMElaBaSpn+E9MCzvdW68=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uDiLZ2UPCtkGa+qCNKQ+L6EiKJWbsvlG314bjX2eEbwx0dCeDn90hw7wDwEWRpqniJ63JVbW1S2DoEJXwoj6ucXohNptcoILlJ9/LGZVWdRfAUS0gvCckaRYBFKM009inuRdylhnzyL3S8e95EfDauRygTcYll4rRThvYK8jPU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hvEhzjHy; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Pzvt0Dgc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gIPFKH6K";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MQSG4Wej";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8KJnqatC"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hvEhzjHy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790868086;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Kagp4PSpoBgfM4ETMuyvLvwUUXLW/GIW655rVwDhZEA=;
+	b=hvEhzjHymk3YSrX03ViJ//gQEU/e2SfOv/FCFjGqzKyaOSWs08wFN2YmGaneQLhIVorSX5
+	z4+oOb239iwtfFhXzxMmXDXY1VcAv6Q8k4BEB7ZU89e931YEBHG9ERwCK1TOCKvT6/4y3n
+	MXIf9SHF3gr7NmJvBu+uy2F5Xvhh+T0=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-314-E8fy8NjvMMKQRHHXHAbMkw-1; Thu,
+ 01 Oct 2026 11:21:23 -0400
+X-MC-Unique: E8fy8NjvMMKQRHHXHAbMkw-1
+X-Mimecast-MFC-AGG-ID: E8fy8NjvMMKQRHHXHAbMkw_1790868081
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B304E1FD04;
-	Thu,  1 Oct 2026 15:20:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790868030; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZjtqkUq7SI0M01/7Cb90z3i51OFWZf6Uy2zt1XoQ220=;
-	b=Pzvt0DgcW10rSQf81wpHWFnlpZg8c+ute7IDRUTF4VvUh19D6BSiHteGVcHWbMTooTABIC
-	QlqnO+9WYxRBPdEO0xUZ7TBOS/RknnRkmr/G6kE1dGITCiAPZ3mRVDZu8xNWmLvHFlszgr
-	LQY1z5V9UaPJJ45OTAD+Xnia3GUsLX4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790868030;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZjtqkUq7SI0M01/7Cb90z3i51OFWZf6Uy2zt1XoQ220=;
-	b=gIPFKH6KMwPgH5kbeFJwi7vjbVnF6V3gqb4HcuB+3wkqPMuKINWOLSk1Ojo0e7ixCbXq8+
-	DiWdkVRk7f/koACw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MQSG4Wej;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=8KJnqatC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790868026; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZjtqkUq7SI0M01/7Cb90z3i51OFWZf6Uy2zt1XoQ220=;
-	b=MQSG4WejpeGYd1DoAfV0rZSLFYv1A0bM4u5ESD+mDv5HVSoKnbnw3dTKTs2vjpTRMemQ3g
-	f48Ag6kAkCdv4nVxDUBhOUEf4ik3ayZGMehQCWEoXAqaVOe1NAlowxokGwCw+zcFG0gnAz
-	VjdSi0HqgeKpoBx9d+paKJ5CZ4eVNhA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790868026;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZjtqkUq7SI0M01/7Cb90z3i51OFWZf6Uy2zt1XoQ220=;
-	b=8KJnqatC8m5d7Hm8B2Nr7FKibzeSFKPNeMfBTEfYNxIdWAJJK5aeeTHafPN69BXJ4nd8aD
-	cUacAASDth6l9pCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 60A1013B80;
-	Thu,  1 Oct 2026 15:20:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id /UTPDTp6vmouKgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 01 Oct 2026 15:20:26 +0000
-Date: Thu, 01 Oct 2026 17:20:25 +0200
-Message-ID: <87v77l1m86.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: dchristensen8 <dchristensen8@proton.me>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RGB LED strip support
-In-Reply-To: <0zWxXXeew_rreqULhlodJWrfM8Ew1UwF-6S7mK25YzO6_w574QYRYOlTNbInKVbIWGVZ0ZnVPhyXchVsbgQnh6dOmle--tPNROUu6MAuhHk=@proton.me>
-References: <eFYfxKMV2ei__fURd-elssegCIVmOuRDne6lj9PMaM2bEgnYkz7Tzf6JLrgEaPZtvrUC_wHnmnwaUZAOdg0uh24nt73FQqi6T65qvJebHJA=@proton.me>
-	<87fqys19vt.wl-tiwai@suse.de>
-	<0UViNKefxgxrLggTEzDgzIe9-kh2EqU2Pnip6zuyJl1sthZtgJ-OIai3KBgkltft587c-ryvum1IqQZt-awOQTdrohMWKh79F3X8u6JOjuo=@proton.me>
-	<87jyo24zu5.wl-tiwai@suse.de>
-	<0zWxXXeew_rreqULhlodJWrfM8Ew1UwF-6S7mK25YzO6_w574QYRYOlTNbInKVbIWGVZ0ZnVPhyXchVsbgQnh6dOmle--tPNROUu6MAuhHk=@proton.me>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5B4A61944AA4;
+	Thu,  1 Oct 2026 15:21:21 +0000 (UTC)
+Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2AFC61800352;
+	Thu,  1 Oct 2026 15:21:17 +0000 (UTC)
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Cc: Gabriele Monaco <gmonaco@redhat.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	Nam Cao <namcao@linutronix.de>,
+	Wen Yang <wen.yang@linux.dev>,
+	Tobias Schaffner <tobias.schaffner@siemens.com>,
+	Viktor Malik <vmalik@redhat.com>
+Subject: [PATCH v2 00/15] rv: Add support for BPF monitors
+Date: Thu,  1 Oct 2026 17:20:27 +0200
+Message-ID: <20261001152042.124445-1-gmonaco@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -3.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: B304E1FD04
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Wed, 30 Sep 2026 18:09:54 +0200,
-dchristensen8 wrote:
-> 
-> Thats genius. I reworked it with an ALSA byte control instead of sysfs and rolled in all your code cleanups for v2.
-> 
-> I set up two controls using IFACE_CARD and volatile:
-> -AE-5 LED Strip": 300 bytes of RGB
-> -AE-5 LED Strip Count: integer for setting the active strip length
-> 
-> Attached the v2 patch file. If you'd prefer anything named or laid out differently, just let me know.
+Extend the rv userspace tool to load BPF monitors, those can be found in
+specific locations (e.g. /usr/share/rv/bpf_monitors/) and are plain
+object files including BTF data.
 
-I'm fine with those names.  Feel free to submit a proper patch for
-upstreaming.
+This type of BPF monitors can be generated from rvgen using the -b flag
+just like in-kernel monitors and, after manual adaptation, can be built
+and run transparently by the rv userspace tool.
 
-BTW, one more optimization: snd_hda_power_up() / _down() pair can be
-replaced with a single call of
-	CLASS(snd_hda_power_pm, pm)(codec);
+Only DA monitors are supported (as they are the only class the rv tool
+currenly supports) and the tool aims to work in the same way for both
+in-kernel and BPF monitors.
 
-Then snd_hda_power_down() will be automatically called upon its end of
-code block.
+The da_monitor header is adapted to be included directly in BPF programs
+and share as much logic as possible.
+
+BPF monitors are implemented purely in BPF and as such require the rv
+userspace tool for any operation:
+ * listing: find properly formatted objects in specific locations
+ * running: load trace handlers for events
+ * tracing: read event/errors from the ring buffer
+ * reactors: link a react() function over the object
+
+Selftests (make -C tools/verification/rv check) are present to validate
+and demonstrate the usage, which is mostly equivalent to the standard rv
+tool usage.
+
+Patch 1 adds tracepoints required in a later monitor example.
+Patch 2 improves the rv tool selftest reporting.
+Patches 3-4 prepare the kernel headers for BPF support.
+Patch 5 adds a feature check for tools/build.
+Patch 6-8 prepare and add support for BPF monitors in the rv tool.
+Patch 9-11 prepare and include BPF monitors examples.
+Patch 12 adds support for BPF reactors.
+Patch 13 adds support for generating BPF monitors in rvgen.
+Patch 14-15 adds BPF selftests (make check) for the rv and rvgen tools.
+
+Changes since RFC [1]:
+* Drop struct_ops integration to favour a BPF-only implementation.
+* Implement BPF reactors with a dynamic linker.
+* Don't pin programs and maps.
+* Improve handler performance when not tracing.
+
+[1] - https://lore.kernel.org/lkml/20260831090524.106845-1-gmonaco@redhat.com
+
+To: linux-trace-kernel@vger.kernel.org
+To: bpf@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Nam Cao <namcao@linutronix.de>
+Cc: Wen Yang <wen.yang@linux.dev>
+Cc: Tobias Schaffner <tobias.schaffner@siemens.com>
+Cc: Viktor Malik <vmalik@redhat.com>
+
+Gabriele Monaco (14):
+  tools/rv: Skip empty pid error in selftest if command failed
+  rv: Refactor da_trace() functions to get strings internally
+  rv: Cast result of model_get_*_name()
+  tools/rv: Move argument parsing from in_kernel to utils
+  tools/build: Add a feature test for bpftool-btf
+  tools/rv: Implement BPF monitor discovery and listing
+  tools/rv: Implement BPF monitor loading and tracing
+  tools/rv: Copy stripped bpf_atomic.h from libarena
+  tools/rv: Add BPF monitors
+  tools/rv: Define CONFIG_X86_64 statically for BPF monitors
+  tools/rv: Add reactors support to BPF monitors
+  verification/rvgen: Add support for BPF monitors
+  tools/rv: Add selftest for rv bpf monitors
+  verification/rvgen: Add selftest for rvgen -b
+
+Nam Cao (1):
+  sched: Add task enqueue/dequeue trace points
+
+ include/rv/automata.h                         |   4 +-
+ include/rv/da_monitor.h                       |  61 +-
+ include/trace/events/sched.h                  |   8 +
+ kernel/sched/core.c                           |  12 +-
+ kernel/sched/sched.h                          |   2 +
+ tools/build/Makefile.feature                  |   1 +
+ tools/build/feature/Makefile                  |   7 +-
+ tools/verification/models/nohz.dot            |  16 +
+ tools/verification/models/tqueue.dot          |  15 +
+ tools/verification/rv/Makefile                |  54 +-
+ tools/verification/rv/Makefile.config         |  49 +
+ tools/verification/rv/Makefile.rv             |  10 +
+ tools/verification/rv/bpf_monitors/.gitignore |   2 +
+ .../verification/rv/bpf_monitors/bpf_atomic.h | 105 ++
+ .../rv/bpf_monitors/da_monitor_bpf.h          | 374 +++++++
+ tools/verification/rv/bpf_monitors/nohz.c     |  42 +
+ tools/verification/rv/bpf_monitors/nohz.h     |  49 +
+ tools/verification/rv/bpf_monitors/tqueue.c   |  30 +
+ tools/verification/rv/bpf_monitors/tqueue.h   |  47 +
+ tools/verification/rv/bpf_reactors/.gitignore |   2 +
+ tools/verification/rv/bpf_reactors/panic.c    |  15 +
+ tools/verification/rv/bpf_reactors/printk.c   |  13 +
+ tools/verification/rv/include/bpf_monitor.h   |  22 +
+ tools/verification/rv/include/utils.h         |  19 +-
+ tools/verification/rv/src/Build               |   5 +
+ tools/verification/rv/src/bpf_monitor.c       | 982 ++++++++++++++++++
+ tools/verification/rv/src/in_kernel.c         | 176 +---
+ tools/verification/rv/src/rv.c                |   5 +
+ tools/verification/rv/src/utils.c             |  98 +-
+ tools/verification/rv/tests/rv_list.t         |   6 +-
+ tools/verification/rv/tests/rv_mon.t          |  61 +-
+ tools/verification/rvgen/__main__.py          |  15 +-
+ tools/verification/rvgen/rvgen/dot2c.py       |  15 +-
+ tools/verification/rvgen/rvgen/dot2k.py       |  22 +-
+ tools/verification/rvgen/rvgen/generator.py   |  26 +-
+ .../rvgen/rvgen/templates/dot2k/main_bpf.c    |  21 +
+ .../tests/golden/da_bpf_cpu/da_bpf_cpu.c      |  35 +
+ .../tests/golden/da_bpf_cpu/da_bpf_cpu.h      |  47 +
+ .../tests/golden/da_bpf_obj/da_bpf_obj.c      |  49 +
+ .../tests/golden/da_bpf_obj/da_bpf_obj.h      |  47 +
+ .../verification/rvgen/tests/rvgen_monitor.t  |  11 +
+ tools/verification/tests/engine.sh            |   5 +-
+ 42 files changed, 2392 insertions(+), 193 deletions(-)
+ create mode 100644 tools/verification/models/nohz.dot
+ create mode 100644 tools/verification/models/tqueue.dot
+ create mode 100644 tools/verification/rv/bpf_monitors/.gitignore
+ create mode 100644 tools/verification/rv/bpf_monitors/bpf_atomic.h
+ create mode 100644 tools/verification/rv/bpf_monitors/da_monitor_bpf.h
+ create mode 100644 tools/verification/rv/bpf_monitors/nohz.c
+ create mode 100644 tools/verification/rv/bpf_monitors/nohz.h
+ create mode 100644 tools/verification/rv/bpf_monitors/tqueue.c
+ create mode 100644 tools/verification/rv/bpf_monitors/tqueue.h
+ create mode 100644 tools/verification/rv/bpf_reactors/.gitignore
+ create mode 100644 tools/verification/rv/bpf_reactors/panic.c
+ create mode 100644 tools/verification/rv/bpf_reactors/printk.c
+ create mode 100644 tools/verification/rv/include/bpf_monitor.h
+ create mode 100644 tools/verification/rv/src/bpf_monitor.c
+ create mode 100644 tools/verification/rvgen/rvgen/templates/dot2k/main_bpf.c
+ create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_cpu/da_bpf_cpu.c
+ create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_cpu/da_bpf_cpu.h
+ create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_obj/da_bpf_obj.c
+ create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_obj/da_bpf_obj.h
 
 
-thanks,
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+-- 
+2.55.0
 
-Takashi
