@@ -1,91 +1,112 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8EC4A99DE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5784ADD8E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:25:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843137; cv=none; b=Rky4oqAXAwvWyrbIvxLlAXtw3KfLaljjoPf4F7L3qEfebpsa02lPeILboP6sPR5xIzzajJhvwwD7N5g7UbZUHN1PJTVJGoK+kfl8Vl+LIgUt5VtzRIHfJ1+b9+nOg4VvlRX04DIftgG/bp17XIYHshS2QLaZygwAoYzBqqVnrRE=
+	t=1790843140; cv=none; b=dS5tBB9MLzequH7MQtCU8JSQU6Erx0WezjMrUZWSPaPI2tRgkkItI2u3dAIux7G9XCBw/P0TxbUWK4grWh+4B251t9/HWRw0hzZeUKgcefRtc1/kwseX9dwoJrIT46lzuY2Rbty68dQ91Kp2DeK8W8RELM409vYKjwfY6zSZyFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843137; c=relaxed/simple;
-	bh=hWBYh+HFET7KkZE5QMWM2qDP25k0apkoZdP3D+xIBHw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AfDn9Q3BtTCTNvzhfuIbtE1HOEr/l7XVo3zk0o5LpCxtF5B3vguYWU6N3/tdM3nO0yv4SOxPlAa8UnPMRaKyP+bKh+BBvIeWmdCNeeJbq6IadZB29ThV6asJT5LB80LdLCnHg6oQnhy5Da4RqvoQVrYq3JplC8Exw2jVwN+ppyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=KtjvyFdU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790843140; c=relaxed/simple;
+	bh=epFo68DRO5HO03uyGogPfBRRkcxs6U0wYGl3of+7i+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M5pGLnbgpzSv/Rf7J4IHgJXP2xRiz1xR6/oTE+04djiBL3Phgel4DneewvFF4f26ji4DMjB8/Gj9pjBsNI1OBEJ9O/C8DLu+Wv9j0czu/sqEzKkwm6jLkHeMZ4sA/kL6o4Nq4dMgrRn0kklQ2HykDs6M7sJo91qkgC37FJLQFPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+wCV3SV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="KtjvyFdU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790843131;
-	bh=hWBYh+HFET7KkZE5QMWM2qDP25k0apkoZdP3D+xIBHw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=KtjvyFdULBK0Ofvzj3udV+h2ELm/yCmZN9QKHtm79IshBQfmzMYAosiPaqUyKANuQ
-	 44VVhhYKi/Fg+peN7DfIjfp6ppfMwoNepFmcH3RzIepnuChHPDgbp7nnkvPUxzwoMP
-	 nZw3CEwCkadrx3FMymmRTnV/f0ciI3Pd0fol/8VL26Sj6IjCeSfeA3NG567O2d7TyV
-	 0TtXATodj+dPDzQ5Kh3Vl8CEDafGjEQt3OxAAANlBLkfLtLl3sRJ428CqAMgfeWM3J
-	 wGoT5ucIe9Q70uBhij7f6Jq4y5LIi4l9qsWH2RwooGvseDD9OmxP7eDYrq0UxuQ5F4
-	 hWqXAOIlQ5eww==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3467917E0528;
-	Thu, 01 Oct 2026 10:25:31 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 01 Oct 2026 11:25:12 +0300
-Subject: [PATCH 2/2] drm/bridge: lontium-lt8713sx: Drop redundant bridge
- funcs assignment
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+wCV3SV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F131F0089D;
+	Thu,  1 Oct 2026 08:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790843135;
+	bh=QG6EMhK7f31Zipc8Za8yi9V5CKNrwVi5K1KKEswjybA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C+wCV3SV2kJOjEnkfvk8bkcXxRv8DoRhi8h7qWgifAyZ+hp+Lx5P0p1hACFilxsys
+	 KV4YbzxkCbmOJZ6UPqnOzP+/wk3NOtmXFucxA1WknU5x3BjTajGWJjKIZdrjq/xS2G
+	 Ah4TjgKBUFfGu9Z+9FIDfiTMoJ3/Pao6sidXa698zLUn2hJ3IuroDBVH3hcxBLkSdd
+	 4m3//nPWTn1Vae4q3HhWiKRM/s/aqfCobDoep2W4Dfb2z498Ypum6zXJi0ORVyxeaF
+	 CF9HQIDJGO8yq0nuyPZgaW2GzvfiJsf/AlgtkDj1WEPXFMmD9SbebKxF0T5H7oSj+/
+	 holEtQCHTPc0w==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 83A29F40066;
+	Thu,  1 Oct 2026 04:25:33 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Thu, 01 Oct 2026 04:25:33 -0400
+X-ME-Sender: <xms:_Ri-aooTy5-qSJTKBoJCWvnwlKfmsbFfBbbFFtNSGJv0jkDOYuCRwg>
+    <xme:_Ri-akOt8N9tIkszG4vNAR6edS6L84ghRAcazRLLHMKZ1AMJddgC1GCcsOdc0gMu0
+    fItFD68dsGvWdiTlflGZd2qY2ExC1x9paMlw9FdpZ2ootaMsjNraHw>
+X-ME-Received: <xmr:_Ri-amx_OX1CddR3a4Xw9O5_7awEbKKXnd4yX_nalZy66coeLX7Re41SgV_8>
+X-ME-Proxy-Cause: dmFkZTFTtZ9e+AEXGyH/UMNFNKx7GWX00fXAsakj+PulafEHjbIKBMQx7Xnly6B3nqNRyA
+    VpoObhA1Qhfd5N42FAzO0sTBGw4yFG6PnLFuaeM1bW97EfiTCSnufadyR4ojJhWoPi2Orp
+    Nw2JMX8opnwBw/C+wIQG8nb1UCGojK0rMbXtCocQAaV/C59AWyi9HRGVAloGTrFNLENSW6
+    18Nhy0c76z6pdAWuM1RbSN8pspZwRgkcin1hWylWhTZJTEMyJuzlL76xznqewDQePbxkmp
+    OZxFI4a4FQttqB7KZKggwQOHJeTyNiNl9FbtOJ+hzXoyQwWY84px4TyS7SR9tfVXrM6gBZ
+    aIwIKi/ed+3ot85pAQxX8josllyS7aSY2PiOI6OrDP6Wn2CEsYG+IKR8JFeMeJoBpEw+wQ
+    XttPdIXLBDAhoA+XAzJXP/xXqSu2y4jrSxftiG2ISdvtM5jaAXAsXsrxEzHuS2PqD4ZhLZ
+    pomAeTXUr1V3srUvPUKbUBV4wYPf8h/2JrgLA0hmzIemQgZ6SDOJIgzaPMBSLNiQuG0nkb
+    tCVnhEfpm7Em/Rcu2VX291sJVVO6xdHlDuaAiRaJd7g1/kAVWnUiCwBuU8oteIZ0irZpa6
+    bmhk9VX+QBVZFrCmFRGe+KY8HSPE6AUIqErIKOSWMG2Ilxoven5zamfkGd0A
+X-ME-Proxy: <xmx:_Ri-agyHDPnQGBg2twNEtq8K-s_Zl-EkBmLUvaF1urq-qpNO-6Q7xg>
+    <xmx:_Ri-avJjtqh5nQxXfzsuypfjiuqHmQIzUJ2Y0z7nCf_xqz3_bs6NlQ>
+    <xmx:_Ri-ashF8oO7CJdsCwS1SdQzqy_XLB0ygbejDZ2D9BmEsL5hV1cImQ>
+    <xmx:_Ri-agOkOG0e1UXtiUD0dFdueQtQl76lj9gR4iCCrixzIruyGZYW0A>
+    <xmx:_Ri-an4FdW2sld98aw7SZRUOmKsHOUt5Dg0ZK1b_3cl7SgHa8ztDjcaO>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Oct 2026 04:25:33 -0400 (EDT)
+From: Boqun Feng <boqun@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: "Ingo Molnar" <mingo@kernel.org>,
+	"Will Deacon" <will@kernel.org>,
+	"Boqun Feng" <boqun@kernel.org>,
+	"Waiman Long" <longman@redhat.com>,
+	"Gary Guo" <gary@garyguo.net>,
+	"Alice Ryhl" <aliceryhl@google.com>,
+	"Lyude Paul" <lyude@redhat.com>,
+	"Daniel Almeida" <daniel.almeida@collabora.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	"Miguel Ojeda" <ojeda@kernel.org>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Shrikanth Hegde <sshegde@linux.ibm.com>
+Subject: [PATCH v2 3/5] selftests/bpf: Use the new NMI_BITS definition
+Date: Thu,  1 Oct 2026 10:25:17 +0200
+Message-ID: <20261001082519.16195-4-boqun@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261001082519.16195-1-boqun@kernel.org>
+References: <20261001082519.16195-1-boqun@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-bridge-alloc-conv-v1-2-f0a1fe040a86@collabora.com>
-References: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
-In-Reply-To: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-The driver already allocates its private data via
-devm_drm_bridge_alloc(), which initializes the bridge funcs pointer.
-Remove the leftover manual assignment in the probe function.
+The definition of NMI_BITS was out of sync after the introduction of
+HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Signed-off-by: Boqun Feng <boqun@kernel.org>
 ---
- drivers/gpu/drm/bridge/lontium-lt8713sx.c | 1 -
- 1 file changed, 1 deletion(-)
+ tools/testing/selftests/bpf/bpf_experimental.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-index 926f9e1e85bf..18696b75bec1 100644
---- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-@@ -554,7 +554,6 @@ static int lt8713sx_probe(struct i2c_client *client)
+diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
+index 2893bf06ff25..4bf7390994bf 100644
+--- a/tools/testing/selftests/bpf/bpf_experimental.h
++++ b/tools/testing/selftests/bpf/bpf_experimental.h
+@@ -371,7 +371,7 @@ extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
+ #define SOFTIRQ_BITS	8
+ #define HARDIRQ_DISABLE_BITS	8
+ #define HARDIRQ_BITS	4
+-#define NMI_BITS	1
++#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
  
- 	lt8713sx_reset(lt8713sx);
- 
--	lt8713sx->bridge.funcs = &lt8713sx_bridge_funcs;
- 	lt8713sx->bridge.of_node = dev->of_node;
- 	lt8713sx->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
- 	drm_bridge_add(&lt8713sx->bridge);
-
+ #define PREEMPT_SHIFT	0
+ #define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
 -- 
-2.55.0
+2.51.0
 
