@@ -1,104 +1,89 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1904306B3D;
-	Thu,  1 Oct 2026 16:39:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BA142FCBE
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:39:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872787; cv=none; b=UZtvJN5QZEto5TltoKEYxr0ppVAYtXtuOhjZPfh5Hd0Qe+uL6dZdygLvjevcsihmzQ9KxrSwp31ztzl5sFeazjyLoTYeaFH8Py7qOl758uJhZShvdn1i+R14pBHoFucmJCRvIywoFTaPcicOyUw0RYWQ562oDFvu0AcjUjDwaTc=
+	t=1790872800; cv=none; b=bCtHzjABlF1Obq6N/wxtpkUtgZWaLpDzPtB7ex4O9lycIEe2XYgy1L43rvu/LtFaY4xD4tFaKFzyu7t3PSQUI7TjLn4d1vgxEpYayPY+jCWkSr6Tc+95woXt2gbjctd7LOHaPVG0kXcRlsiHvMXk3UzEyChHiZ+vpwuR9cqQmJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872787; c=relaxed/simple;
-	bh=CoFIg5zVxdnbRNF+xA6y6DD9CF5IBpGo8K9jZgyNx3w=;
+	s=arc-20240116; t=1790872800; c=relaxed/simple;
+	bh=s6+tQTA7eM+scFpAMzrbaCGiLe0m1KsihrjpBh2oaWA=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kaqBlTxaUPITMooQa4fKaJ1pTI21KHooF5ud9IGMJBVhc/nJ9+KBnfKwjvDNDWk/OZlocf0GdzzuwgOO51+x0NtRU40xoIyWTvQDFNESavtP8dRNJJYQsTbnDMRyh364YI770fL2KrpYUk0PxE/xaxC1gutIphgnPUWR+H2BDww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CplMPwRu; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VHCx7DuI; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 MIME-Version:Content-Type; b=hHQhGxHDjC2fXgZYlkHThy1cLUUEqr+uGk+LskCfYpFnGoX0Ku6BuM/BhtMvPHw0DNBUPKW1bcUFhgGZPJrzSvjGHv0HgD8eYp2lmV25Snfzrmv/Zg6vCHLS+u/SgVUujuLairv0RMScZ5Rt/p0iXwwDj3cIGkaO7jaT4u7iNho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZUWSwCH5; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CplMPwRu";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VHCx7DuI"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790872783;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dW+cKpw6NdVRG/EtiOgDyZsg/gwP7QSsUMI8sG6iNmE=;
-	b=CplMPwRudXp//hBgERoFxRn7Fjmt5Pds98oTs2ahHQAsV5AnmZct5dhPqw2fIAzNCpt+jb
-	BYkcvIWsAUP/0DER5dvEeMzYdS4IzM1SOpSd+oQy48E7uQf3z6mjZrTgEuens/cx0DUrH7
-	J4ZjlRHb689GsYpHapad9NaZTZbX4UZ9Yddp5Gb8gDuS+duTw0tdn4JDCGljnlXQYz49fA
-	r95YsBMKWlPTFhRi6uBe6T0rvmi/85N09xZh/om6UO1ZYt758cj6OMwKSMS4qvbGMty1PL
-	yVi0PaKEC+qZ6OpkNrhQr5ix0/QD83w4K9wCyAZVPB7jJGIRYS1DDXHMNGsPEw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790872783;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dW+cKpw6NdVRG/EtiOgDyZsg/gwP7QSsUMI8sG6iNmE=;
-	b=VHCx7DuIamZChKkQRioT97bAfm8uBI3g7ZQ9nSUagzTCKeo6XhP1bL1UWVP3ZkehW2aMYb
-	cHSUPIHM8i/t6/Cg==
-To: Imre Kaloz <kaloz@kernel.org>, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, linux-serial@vger.kernel.org, Petr Mladek
- <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, Sergey
- Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH] MIPS: SGI-IP27: print the NMI dump on an nbcon console
-In-Reply-To: <20261001155013.1694-1-kaloz@kernel.org>
-References: <20261001155013.1694-1-kaloz@kernel.org>
-Date: Thu, 01 Oct 2026 18:45:43 +0206
-Message-ID: <87ece98je8.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZUWSwCH5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 4BD6B4E4153C;
+	Thu,  1 Oct 2026 16:39:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0A7836035C;
+	Thu,  1 Oct 2026 16:39:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D8161032813A;
+	Thu,  1 Oct 2026 18:39:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790872795; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zqO9wZAcpr/Xip1m0ECW+JKX9OkInYFz8R6jGpSZpwc=;
+	b=ZUWSwCH5hIeRSW7iJp9LnRx2eQDRD3Pe7PvVf9XdlfTJcI6x3efnRyLVl0HbRxMAr+Eire
+	372cp3SSp/9MJ4MqhrNjQrN/acJcaWJQEeKMF154bO8xwXZnzVqqVSCvG9EPofv7JRjo1S
+	Ghb0hKezKZsTSbg+MhGwkm+v56UMSz2zVy9nsE22oqqhrQ0b09Bx9KNLydaJIe4B/ecG5Z
+	b0b2o9/e1t2zY8N6wpOlW/QWLnlbi8loSAuFizHeYVSA1VddXNS4BB09dG+vVVwOU4TtNN
+	r+WBC7sXq735w3W29MIbyh3Zh06u4Us1g2/DJ7vrYatZDu0iXKNZ3TW9Gywbpg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+  linux-spi@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-mtd@lists.infradead.org,  Michael Walle <mwalle@kernel.org>,
+  Takahiro Kuwano <takahiro.kuwano@infineon.com>,  Pratyush Yadav
+ <pratyush@kernel.org>,  Steam Lin <STLin2@winbond.com>,  Santhosh Kumar K
+ <s-k6@ti.com>
+Subject: Re: [PATCH 0/4] spi: spi-mem/mtd: spinand: Prevent SPI NAND
+ continuous reads on am65/am62
+In-Reply-To: <38290328-a562-4813-a9e0-2fafaa3874c7@sirena.org.uk> (Mark
+	Brown's message of "Mon, 28 Sep 2026 16:08:47 +0100")
+References: <20260326-winbond-v7-0-rc1-cadence-cont-read-v1-0-0d626e1dfb2b@bootlin.com>
+	<878qa7dzke.fsf@bootlin.com> <87mrt177km.fsf@bootlin.com>
+	<38290328-a562-4813-a9e0-2fafaa3874c7@sirena.org.uk>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 01 Oct 2026 18:39:48 +0200
+Message-ID: <87cxttml2j.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026-10-01, Imre Kaloz <kaloz@kernel.org> wrote:
-> Since the 8250 console became nbcon, printk() in nmi_dump() only queues
-> records for the printer thread, which never runs because no CPU leaves
-> the NMI handler before the hub reset. Print the dump from an emergency
-> section.
+Hi Mark,
 
-Please excuse my ignorance, but could you inform me about the context?
-When is nmi_dump() called? Does the hardware always reset/reboot/hang
-from this call?
-
-> Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
->  arch/mips/sgi-ip27/ip27-nmi.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>> It seems like the spi bits have not been applied, can you check if you
+>> can still apply them? Without these, people using this controller with
+>> continuous read capable devices may observe spurious issues hard to
+>> debug (due to the CS possibly not being kept asserted during long reads,
+>> leading to the continuous read being cancelled by the SPI NAND).
 >
-> diff --git a/arch/mips/sgi-ip27/ip27-nmi.c b/arch/mips/sgi-ip27/ip27-nmi.c
-> index fc2816398d0c..4447c0bec8b4 100644
-> --- a/arch/mips/sgi-ip27/ip27-nmi.c
-> +++ b/arch/mips/sgi-ip27/ip27-nmi.c
-> @@ -1,4 +1,5 @@
->  // SPDX-License-Identifier: GPL-2.0
-> +#include <linux/console.h>
->  #include <linux/kernel.h>
->  #include <linux/mmzone.h>
->  #include <linux/nodemask.h>
-> @@ -183,6 +184,12 @@ static void nmi_dump(void)
->  	 */
->  	arch_spin_lock(&nmi_lock);
->  
-> +	/*
-> +	 * No CPU leaves the NMI handler before the hub reset below, so an
-> +	 * nbcon console's printer thread would never print the dump.
-> +	 */
-> +	nbcon_cpu_emergency_enter();
-> +
->  #ifdef REAL_NMI_SIGNAL
->  	/*
->  	 * Wait up to 15 seconds for the other cpus to respond to the NMI.
+> No, they don't apply to even v7.3-rc1.  I didn't see the immutable
+> branch mentioned in:
+>
+>    https://lore.kernel.org/r/1FyLxEwWqNFzX@sirena.co.uk
+>
+> yet?
 
-The CPU enters an emergency state, but shouldn't it exit the emergency
-state at some point? Or does the machine always unstoppably
-reset/reboot/hang after this point?
+In theory you should have received a request to merge
+the immutable mtd/spi-mem-cont-read-for-7.2 tag some time ago:
 
-John Ogness
+Subject: [GIT PULL] spi-nand/spi-mem changes for 7.2
+Date: Tue, 05 May 2026 17:17:42 +0200
+
+But that's not a big deal, I will rebase the remaining SPI and resend ;)
+
+Thanks!
+Miqu=C3=A8l
