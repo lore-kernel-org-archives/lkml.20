@@ -1,129 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF970348C7F;
-	Thu,  1 Oct 2026 12:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1786C3D2FF7
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856554; cv=none; b=C5HsHB1DwYd8UZUMpDzEZvH0HsHRcdSbewWFwxI4YtPwdUtaPzjumw3y7KKEo+v0piKvqfXm+2vH+WzYjmYPWXylTSR1wvKDugLwKxcMSnksKWxEdvUNa5FdqHx3JoEvLEKfoD7klz8tVrbIBvpQ+YcJmRGomYRNmbZ8UWp+tZU=
+	t=1790856632; cv=none; b=lbh+be9Bb8atUr2HKRfThewm5dr2CVSDaAUCxSHyXl2zyrzfHQxY2UjW6yPePNx9mwJCyfAZAEoOcIQkTDHyy0T2z/s0Z53cEcP+314BCBSvdHaiPvbeoedjSc5xr+vdklWYScrxKsRQ4aDFLupyd89ZQeMG8sCRZLOg3x+IK2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856554; c=relaxed/simple;
-	bh=bR2spzIh3zet0pPh6uVbRSV0HV+1esMYudDbDMvALRg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dVr6251vhEr+LTf8Md8b7ptGH5PYaoFlEoZyAF3fLEDAEDPiTdi+NKivMRQjd3C4jTAqrLI1A/YpMn8GH8HRQnU2briDcNhReJq74eyWUQNoF2evZQv5pE44iwY4Zbm/PFXgaQEDlI4vGgb1XbaV79ybUJZzZSqPWgfVVDQAMkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JQb22Aff; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790856632; c=relaxed/simple;
+	bh=GfzGR1fGsN/V0+j7gvKYifuzwingsnYuNC+55v70W3E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lBB2Det7rlDJg51615PWvs25Mw1BbjiyB5WvjDvUbD3blDDNeLeiLckO2/qPaj7ncQb3Fz6uXzO9NFnuAoMelfKGBzd7XqBclYFnVK9QtXn+jU4GjZb7KtRI1JUuUm5AbRnv5QYzgx1f/GBhLUtoBAEBejBYPtxTdCGq/OuTAPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=s9N4aedE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JQb22Aff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BF61F000FF;
-	Thu,  1 Oct 2026 12:09:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790856545;
-	bh=emxSo4AqFL/kIfhEjAFPntFEmGp1tnhrmjTZ125Rwio=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JQb22Aff1tABubUE3XviqH/t8H91+biyOsMP3r15m8H24AKPjkrS/6oLadyjUQ3Bm
-	 k6XTX8feVEGApmVxP+Pldj6l0TmU66qYAoTWsrE6vjrLQeQwOvyQbOZmGoXCf9Z6QC
-	 YOT7vor1ZEb3lOlki392VjVwra5turBbYfXGOxyk=
-Date: Thu, 1 Oct 2026 14:06:31 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	bhelgaas@google.com, andersson@kernel.org, konradybcio@kernel.org,
-	abelvesa@kernel.org, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint
- buses
-Message-ID: <2026100159-retold-could-3468@gregkh>
-References: <20260918152659.413268-1-elder@riscstar.com>
- <20260918152659.413268-4-elder@riscstar.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="s9N4aedE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71119143D;
+	Thu,  1 Oct 2026 05:10:13 -0700 (PDT)
+Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 184C23F85F;
+	Thu,  1 Oct 2026 05:10:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790856616; bh=GfzGR1fGsN/V0+j7gvKYifuzwingsnYuNC+55v70W3E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=s9N4aedEESWfJQKMgJKYh1Qf9QTqNzfpKMcexbyKaFnIc7ItcimsgjuAz1MB5JZGl
+	 EPHqSxyYU3ZvSwEfbN6O0QLwE2jySodrKKWQAK03fBHcBAwn3b+DegcZ4lcI13xMTC
+	 79ZIzB+ACZqABxYBZIF48V4ozRurrc1t714p4bKg=
+Message-ID: <ce0a72a9-ea08-4899-b282-ea39b195a161@arm.com>
+Date: Thu, 1 Oct 2026 13:10:13 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918152659.413268-4-elder@riscstar.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] arm64: errata: Factor out broken AMU const counter
+ cap
+To: Beata Michalska <beata.michalska@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
+ James.Morse@arm.com, xuewen.yan94@gmail.com, seanwang1@lenovo.com,
+ linux-kernel@vger.kernel.org
+References: <20261001090050.3849551-1-beata.michalska@arm.com>
+ <20261001090050.3849551-2-beata.michalska@arm.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20261001090050.3849551-2-beata.michalska@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 10:26:58AM -0500, Alex Elder wrote:
-> The TC9564 SoC incorporates a PCIe switch, which is connected via
-> the second PCI segment (0001) on the RB3gen2 platform.  The third
-> downstream port of that switch (pcie@3,0) has an embedded PCIe
-> endpoint that implements two PCIe functions.
+On 10/1/26 10:00, Beata Michalska wrote:
+> Move the workaround from the erratum 2457168-specific cpucap to a generic
+> broken AMU constant-counter one. This keeps the existing Cortex-A510
+> handling unchanged while allowing other errata with similar AMU constant
+> counter issue to share the capability bit and call sites.
 > 
-> The SoC implements other peripherals, and they will be accessed via
-> PCI endpoint bus.  Define the devicetree nodes representing these
-> buses, including the mapping of each BAR's address range to its
-> local address space.
-> 
-> The endpoint's ranges property must be defined, but it will be
-> updated dynamically to include all BARs.  As a result of this update,
-> the parent address portion of each range will reflect the specific
-> address assigned to the BAR.
-> 
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
 > ---
->  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 30 ++++++++++++++++++++
->  1 file changed, 30 insertions(+)
+>  arch/arm64/Kconfig             |  8 ++++++++
+>  arch/arm64/kernel/cpu_errata.c | 20 ++++++++++++++------
+>  arch/arm64/kernel/cpufeature.c |  2 +-
+>  arch/arm64/kernel/topology.c   |  7 ++++---
+>  arch/arm64/tools/cpucaps       |  2 +-
+>  5 files changed, 28 insertions(+), 11 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> index 3bb5fca8e2b13..5b7f5292a8864 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -955,11 +955,41 @@ pcie@3,0 {
->  			bus-range = <0x5 0xff>;
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index b5a51b0ef9440..3b6c052d46a18 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -1040,9 +1040,17 @@ config ARM64_ERRATUM_1902691
 >  
->  			dev@0,0 {
-> +				compatible = "pci1179,0220";
->  				reg = <0x50000 0x0 0x0 0x0 0x0>;
-> +				#address-cells = <3>;
-> +				#size-cells = <2>;
-> +				/* Ranges will be updated dynamically */
-> +				ranges = <0x0 0x0 0x0  0x83050000 0x0 0x0  0x0 0x4000>,
-> +					 <0x2 0x0 0x0  0x83050000 0x0 0x4000  0x0 0x80000>,
-> +					 <0x4 0x0 0x0  0x83050000 0x0 0x84000  0x0 0x200000>;
-> +
-> +				pci-ep-bus@4 {
-> +					compatible = "simple-bus";
-> +					#address-cells = <1>;
-> +					#size-cells = <1>;
-> +					/* Map 0x0-0x1fffff to BAR 4 */
-> +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-> +				};
->  			};
+>  	  If unsure, say Y.
 >  
->  			dev@0,1 {
-> +				compatible = "pci1179,0220";
->  				reg = <0x50100 0x0 0x0 0x0 0x0>;
-> +				#address-cells = <3>;
-> +				#size-cells = <2>;
-> +				/* Ranges will be updated dynamically */
-> +				ranges = <0x0 0x0 0x0  0x83050100 0x0 0x0  0x0 0x4000>,
-> +					 <0x2 0x0 0x0  0x83050100 0x0 0x4000  0x0 0x80000>,
-> +					 <0x4 0x0 0x0  0x83050100 0x0 0x84000  0x0 0x200000>;
+> +config ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> +	bool
+> +	# Targeting errata affecting AMEVCNTR01, the AMU constant counter.
+> +	# On affected CPUs the counter may not increment at the expected rate,
+> +	# making it unreliable. As a result, AMU users should treat it as
+> +	# unavailable rather than relying on misleading counter values.
 > +
-> +				pci-ep-bus@4 {
-> +					compatible = "simple-bus";
-> +					#address-cells = <1>;
-> +					#size-cells = <1>;
-> +					/* Map 0x0-0x1fffff to BAR 4 */
-> +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-> +				};
->  			};
->  		};
->  	};
-> -- 
-> 2.53.0
+>  config ARM64_ERRATUM_2457168
+>  	bool "Cortex-A510: 2457168: workaround for AMEVCNTR01 incrementing incorrectly"
+>  	depends on ARM64_AMU_EXTN
+> +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+>  	default y
+>  	help
+>  	  This option adds the workaround for ARM Cortex-A510 erratum 2457168.
+> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+> index 5db8f0619e4bc..8ce559ac073c7 100644
+> --- a/arch/arm64/kernel/cpu_errata.c
+> +++ b/arch/arm64/kernel/cpu_errata.c
+> @@ -381,6 +381,16 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
+>  };
+>  #endif
+>  
+> +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> +static const struct midr_range workaround_amu_constcnt_list[] = {
+> +#ifdef CONFIG_ARM64_ERRATUM_2457168
+> +	/* Cortex-A510 r0p0-r1p1 */
+> +	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
+> +#endif
+> +	{}
+> +};
+> +#endif /* CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT */
+> +
+>  #ifdef CONFIG_CAVIUM_ERRATUM_23154
+>  static const struct midr_range cavium_erratum_23154_cpus[] = {
+>  	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
+> @@ -916,14 +926,12 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+>  		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
+>  	},
+>  #endif
+> -#ifdef CONFIG_ARM64_ERRATUM_2457168
+> +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+>  	{
+> -		.desc = "ARM erratum 2457168",
+> -		.capability = ARM64_WORKAROUND_2457168,
+> +		.desc = "Broken AMU AMEVCNTR01 (const counter)",
+> +		.capability = ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT,
+>  		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
+> -
+> -		/* Cortex-A510 r0p0-r1p1 */
+> -		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
+> +		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
+>  	},
+>  #endif
+>  #ifdef CONFIG_ARM64_ERRATUM_2038923
+> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+> index 17b83a2518a8f..1569f84214763 100644
+> --- a/arch/arm64/kernel/cpufeature.c
+> +++ b/arch/arm64/kernel/cpufeature.c
+> @@ -2064,7 +2064,7 @@ static void cpu_amu_enable(struct arm64_cpu_capabilities const *cap)
+>  		cpumask_set_cpu(smp_processor_id(), &amu_cpus);
+>  
+>  		/* 0 reference values signal broken/disabled counters */
+> -		if (!this_cpu_has_cap(ARM64_WORKAROUND_2457168))
+> +		if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT))
+>  			update_freq_counters_refs();
+>  	}
+>  }
+> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+> index d28438f8b83f1..64588554e7f76 100644
+> --- a/arch/arm64/kernel/topology.c
+> +++ b/arch/arm64/kernel/topology.c
+> @@ -402,7 +402,7 @@ static void cpu_read_constcnt(void *val)
+>  	 * the counter is disabled. A return value of 0 at counter read is
+>  	 * properly handled as an error case by the users of the counter.
+>  	 */
+> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
+> +	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
+>  		      0UL : read_constcnt();
+>  }
+>  
+> @@ -463,8 +463,9 @@ static void amu_read_core_const_ctrs(void *val)
+>  
+>  	/*
+>  	 * cpu_read_constcnt() incurs slight latency due to the
+> -	 * ARM64_WORKAROUND_2457168 check. Read it first to minimize
+> -	 * the sampling skew between the const and core counters.
+> +	 * ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT check.
+> +	 * Read it first to minimize the sampling skew between the const
+> +	 * and core counters.
+>  	 */
+>  	cpu_read_constcnt(&ctrs->constcnt);
+>  	cpu_read_corecnt(&ctrs->corecnt);
+> diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+> index 2775ba3359cfe..58b6c084f9f25 100644
+> --- a/arch/arm64/tools/cpucaps
+> +++ b/arch/arm64/tools/cpucaps
+> @@ -105,7 +105,6 @@ WORKAROUND_1902691
+>  WORKAROUND_2038923
+>  WORKAROUND_2064142
+>  WORKAROUND_2077057
+> -WORKAROUND_2457168
+>  WORKAROUND_2645198
+>  WORKAROUND_2658417
+>  WORKAROUND_4193714
+> @@ -132,3 +131,4 @@ WORKAROUND_REPEAT_TLBI_SYNC
+>  WORKAROUND_SPECULATIVE_AT
+>  WORKAROUND_SPECULATIVE_SSBS
+>  WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+> +WORKAROUND_BROKEN_AMU_CONSTCNT
+> -- 2.43.0
 > 
 
-This doesn't apply to the char-misc-testing branch :(
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
 
-So I took the first two patches only.
-
-thanks,
-
-greg k-h
+Thanks
+Vladimir
