@@ -1,67 +1,68 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+Received: from mail-oa2-f21.google.com (mail-oa2-f21.google.com [74.125.231.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFE3488DA0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D610247ACE8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872764; cv=none; b=pOtFoEChP/bUlnF/gP2p/d9OSOmhw1Qkak+LLHcwGNGc6uDOu6a2HlrQN6E2oFIn7McYyeDitBA3YRH0BOqhq2FatOq/B8BXYuQc3CJLy9pDLs3JzordKAOezDYNP3bh8P/77XKHDnRv8d4S4t+fzq1J0Aa6TVYr+W6ih62B9TM=
+	t=1790872766; cv=none; b=Xhnsgdc5Q5QbpgifT7ULVbN+Z1ILaowuZDlGVi3YA3DAA9kUVnyBadmJw3MwMvwAYAztanLpE07BVFabSc9EVjzmx41f07WsUvScvqLnYgs4nXu0el1/aqndukeBtsCoy2YfBxSjJKpZtfctrHV6TMZxfNKhhe8ZLSYbvcwvLRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872764; c=relaxed/simple;
-	bh=BFjkNjtYt9dwhHdxJz55WsZjKqRIQOJlE+Th0INQzYY=;
+	s=arc-20240116; t=1790872766; c=relaxed/simple;
+	bh=iJKqaHq0Hyi1dwRzicToNHsSN2TXdceoWQwgAEZjUtc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KABVQcNS25saKhUJmNMfTjeu7l7+ignShwtjOP2eSD9rVZxjlzJl1xFW/GneI+dzNsN50QiLPJHsBe7o4WD2gvBwN8nQSeY5Auk35PNMAXfOvA/ZnRA+fl5R7X2sA4PxFVF6+Qi+J1sNmK28sT5iYdzJxtkiFMAWVQTs/zvezIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dFBrfoW3; arc=none smtp.client-ip=74.125.231.169
+	 In-Reply-To:To:Cc; b=BKd+Y0AW/QRW2U0kearVzX+q3UfX3dszwHvnTI+qWAFHqWqwmYhchxioXYC7NdF2mrbCdh62w+zgq/nE2RanGMyrBUkydX0mZImyMEC5A2xUxPvpGEwV68hD2xwKEPovUB/8mteFxs+EcKs3ymFWqHJhhCM1mjjDl0FX9JDjKsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ofWREvZZ; arc=none smtp.client-ip=74.125.231.85
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dFBrfoW3"
-Received: by mail-oo2-f41.google.com with SMTP id 46e09a7af769-7fcb425fb68so4203771a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:39:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ofWREvZZ"
+Received: by mail-oa2-f21.google.com with SMTP id 586e51a60fabf-466ccbd4773so2100756fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:39:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790872761; x=1791477561; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790872764; x=1791477564; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HsBpaqoe1XdrxTwlbUTe0CHLVjnjs1N8TCf3+hW7KOs=;
-        b=dFBrfoW37zKvkCd+ZKET2VF8axWGQJ9/DRbiqNweUMIm0VfJhlnB/1+pKNYRTOfaCJ
-         6TcJDmt0+dALRsDUuJm2D2XobbQB6BYBOQdKoVtktiEX+W0SiiQUSU0r++BFdRU5VqTC
-         BSIdW6L8s+h2xSGHaDNsD9aTLXzVOJgY9R0Z6YhVc0cLWb/KRQQYJPDUPenerLnWoB/r
-         pVFBOcZXHHEcnJxyMEGXXG433UXVaP7BRUnu8IK5+R8cYOEFdZHISEhoFa1HIZWSuRvG
-         0iRTGgVwavusXv4swsdlznQJrq4U4Q/5oyGJRszk30+XFmFUgPfOSoRsRfUVPZJ3CNUc
-         I4vw==
+        bh=rgo5FwnDqxd8ZjCJLuyh6GkRISOMT279GXhU4H/zTL0=;
+        b=ofWREvZZr6Mj0sQXes1W7DNxtp6UG+sfCFmh18az0ZniGP7+q2fkyt8cf+0bkAMT/E
+         RYCCX3AiFwguq3sDZ5aptXpUI4XjrYllAoq+OD0g+sKJllXBivuiDlynFxrjwI4Z8ut2
+         NYko238h0/rh3X2oBoDKvm1YkUNohW3Opkm+1meHDB3EcdOifKOB37i15M0THZkg5qoD
+         0Cj6QMqIKyhLReUhBaFHwiRunqRxBz2qnKNLSJadgs2UikFVQN/klU03+1ZllSTmI74C
+         NTYx5Y+XggWvIuE5eKgWqpaodaohvgN5jTrXW4XolqBMAyXwF67xGzPyEhi5csbROn3z
+         2s3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790872761; x=1791477561;
+        d=1e100.net; s=20260707; t=1790872764; x=1791477564;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HsBpaqoe1XdrxTwlbUTe0CHLVjnjs1N8TCf3+hW7KOs=;
-        b=Z6XGwE0Dww9YyW3QOJt+rEUCVNsGNpvEcwpMP9Nv8x1tIAieLX8WhqUB69lmS5M2eB
-         dVKNViTLW3iyrOGK+vFlPXOO0Cyu4e4r38NS8Wv2eHHmJnrcSWOPEqdDvPVR0QoYo63a
-         j1n9Fpi/e2xW+Y/8m86zlBdOG2OhdAOq0UiDD6R+jD7r3MZINsu8IITDKF6S5tQk8tfJ
-         nzj7iVGT75+CCykQ6fh4K7rR/9l7mhfCCawHrHR2JCfFkU+/XHew2YAU0TsV62VQkqKD
-         hOGrYiIz0J0HOfkY7cbg1GcbmfM/JhKYMCx2e1IXM8KU84j5ji07fz9t714oe+n7naWn
-         yczg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0zky0q1HfLXHisr9iM2EOpSWZt9LZ5OL+qoQnCCSnk5/H+kRtZi2BR8A4xQdWkWNTN6oBOUH+GBk/oRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8xx3g86EIjQ3mJFXVl+DvGmzJ94UHEZxI1c16qHc4W/V1zdpe
-	WRbq61zy40pGNnwdXzK1fs5m4IcCt4fXX27/iCmC/o2N+pk2J8w0Nwvy
-X-Gm-Gg: AYBFou3Gf3UxVprdFPPEeRFlmonia7Yo3BMrdYbTPShUdl+Yyx9LLOR0cekHeCrsnMr
-	twAdqCDeXgXih0kyCPQjp7TlHWma4LcHWaba+n8jU+TD9vq2XGnm2wuCZC61C8HoqaVer75vCi3
-	1PoQo4k58uhIvTdZi5Or2SdnYRBE4n+Xv3WloXofyAdCQx9c1YRU4ME7STmQyL2/XKsRfPwKpCJ
-	CxUxKbo8AVbx7VqnOoDpQITba5FG1p3CXWMwmU8/0LtVtXVE+sAmJuKEzDW2+iPIrb8s9xlVoXS
-	PVlaO5zWzvOogfPV8ejGAbo9c8eZXJBXnSZncWyheawysBrZI5RmyTzqxILIXj28R75PS8JAJvj
-	1VXWJw0EVFARSPsOD29HVyhny+VpnquSl5L/IOh+CMl04zxkHU3WoaG440lta76LbhWbiGYiyeQ
-	+/wtHx4zBIUJ9OPgFhnKH8XdZTXe8cw/nnGrREGOxXVaP9inPS4oofsDECEHoio6kPe3eB
-X-Received: by 2002:a05:6830:3747:b0:81b:a5aa:e82b with SMTP id 46e09a7af769-82286250332mr151999a34.24.1790872760868;
-        Thu, 01 Oct 2026 09:39:20 -0700 (PDT)
-Received: from localhost ([2a03:2880:30ff:41::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8227a874654sm276142a34.25.2026.10.01.09.39.20
+        bh=rgo5FwnDqxd8ZjCJLuyh6GkRISOMT279GXhU4H/zTL0=;
+        b=sjii3NOiwesMPiUWXzAB4UHGt2NnSkKaCErt12bd9ndqiCNxr+9+WfWs4t9TlqJ+P4
+         6mpN+cVQ6xfzYSBFpaZXfGa+BWHNN6wgGaZR27RFRWei+bapBd5/wk++WYbgZZ+SWPlC
+         ackCDhFpEkZKRY7v0r3umU2Kl5IgiEGcVwXwVQgrxifmkKj1zeEh9EWLXMmXXHJpthHh
+         uTCQn5bViyQGluRSMrjyyuSWYmc3CLHX5+l3q0PDuQTbF+ZtDV32jnu2oLWbwINRwZ4r
+         fxYNZ/lYVmCiCLk/4CS0IzXseiS+VW5QvrM9oizT37/BswEopwEF4XSyIp1gfpKTo/ru
+         5pZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJDdNv5s1FN9LqCGcLQ6kILcEWbkzmB9DI7bFq8mIBXDfaG4nA5b7oULCcgSJHyu2jT1PlWMpY2LRhC/Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDmlhHSS/f8bvYdJIwQOaPTr2buYWvb1lx5Ex0IKBH0UTAdE2x
+	P2/Nv/suVCPwveX+eDeDJDC/H9TLC5Uiy5fAf+cqA7bFkAYNFRDqQFDW
+X-Gm-Gg: AYBFou0IuoMDn0G/B55UeKUDkon9pah8AurJ/LmOyDqM4dxMM1deY/1y4Tl+NPmC8NS
+	0AQncVxeIGcWenPaQKPcmRaCJ61X9S1uIpBtRGhx1JIWHlfFahSjnAHgkwGvoiFogfhsn1IP6+t
+	cVfnW/BGWvPjixVpOm1raWAk6GtaSQpVAENSFOJrJlTGCvYfwlbZ/gHRTwp9d+BKXRU7YC2Rtsq
+	7WaRTlDb5NdWGv+L0QX8wu7CAsfaNs/Aod7qJiWXEvG0YWVIwGaiiHrfyjEfMoJFq+svAu00byQ
+	XrG/xkcDlKkPQ2s1Fep53236tcxGyl1bjBvRzSdn1FjgHow1a0zIzFCWpIA94oScbssLKMzIc5f
+	ABPPKBi5LSK+1hwF+Ib6HEvkOBER/JukRbS5JJ73iKZXUlZeeVa/bVTML6UT05OfBZmJwIpb1IC
+	n6ONKaBugrZxIr81ZZcdIFwGvhSjt/PNfJ0llsQEmI7VwnK9+oPDvtQ9V42NeNe2fsZb0=
+X-Received: by 2002:a05:6808:13c2:b0:4f5:98d:d1ae with SMTP id 5614622812f47-4f5099d178bmr60184b6e.55.1790872763618;
+        Thu, 01 Oct 2026 09:39:23 -0700 (PDT)
+Received: from localhost ([2a03:2880:30ff:3::])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f34d0859bcsm2822362b6e.16.2026.10.01.09.39.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:39:20 -0700 (PDT)
+        Thu, 01 Oct 2026 09:39:22 -0700 (PDT)
 From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Thu, 01 Oct 2026 09:38:59 -0700
-Subject: [PATCH net-next 2/4] eth: mpnic: add a service task
+Date: Thu, 01 Oct 2026 09:39:00 -0700
+Subject: [PATCH net-next 3/4] eth: mpnic: set Rx buffer minimums using page
+ size and mtu
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-linux-mpnic-v1-2-6422ee74233a@gmail.com>
+Message-Id: <20261001-linux-mpnic-v1-3-6422ee74233a@gmail.com>
 References: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
 In-Reply-To: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
 To: Alexander Duyck <alexanderduyck@fb.com>, 
@@ -81,100 +82,77 @@ To: Alexander Duyck <alexanderduyck@fb.com>,
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.13.0
 
-Add a service task that runs while the netdevice is running. For now,
-the service task does nothing besides conditionally reschedule itself.
+Set buffer based drop thresholds in the Rx path based on page size and
+the max MTU supported. The device will drop packets if it does not have
+at least the minimum number of completely unused buffer descriptors
+available.
+
+These thresholds are currently set to 17 BDs for both HPQ and PPQ. These
+are overly conservative. With our current max MTU of 9742B, the settings
+we should target are:
+
+4KiB page size: 1 HPQ, 3 PPQ
+64KiB page size: 1 HPQ, 1 PPQ
+
+The HPQ and PPQ rings are always given PAGE_SIZE sized buffers.
+
+The RDE_CTL register encodes the thresholds as one less than the number
+of BDs needed.
 
 Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
 ---
- drivers/net/ethernet/meta/mpnic/mpnic.h        |  3 +++
- drivers/net/ethernet/meta/mpnic/mpnic_netdev.c |  3 +++
- drivers/net/ethernet/meta/mpnic/mpnic_pci.c    | 17 +++++++++++++++++
- 3 files changed, 23 insertions(+)
+ drivers/net/ethernet/meta/mpnic/mpnic_init.c | 13 +++++++++----
+ drivers/net/ethernet/meta/mpnic/mpnic_txrx.h |  6 ++++++
+ 2 files changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic.h b/drivers/net/ethernet/meta/mpnic/mpnic.h
-index 78359ab6abb1..8b08af0fadcc 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic.h
-@@ -7,6 +7,7 @@
- #include <linux/interrupt.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/types.h>
-+#include <linux/workqueue.h>
+diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_init.c b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
+index 2daed458f5fc..ace4124158fb 100644
+--- a/drivers/net/ethernet/meta/mpnic/mpnic_init.c
++++ b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
+@@ -10,6 +10,7 @@
+ #include <linux/sizes.h>
  
- #include "mpnic_csr.h"
+ #include "mpnic.h"
++#include "mpnic_txrx.h"
  
-@@ -27,6 +28,8 @@ struct mpnic_dev {
+ #define MPNIC_MEM_INIT_POLL_US		500
+ #define MPNIC_MEM_INIT_TO_US		5000
+@@ -272,10 +273,14 @@ static void mpnic_rxglb_init(struct mpnic_dev *mpd)
+ 	 * the per-queue prefetch FIFO.
+ 	 */
+ 	mpnic_wr64(mpd, MPNIC_RDE_CTL,
+-		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_DROP_THRESHOLD, 16) |
+-		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_DROP_THRESHOLD, 16) |
+-		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_LOCAL_DROP_THRESHOLD, 16) |
+-		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_LOCAL_DROP_THRESHOLD, 16));
++		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_DROP_THRESHOLD,
++			      MPNIC_RX_HPQ_DROP_THRS - 1) |
++		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_DROP_THRESHOLD,
++			      MPNIC_RX_PPQ_DROP_THRS - 1) |
++		   FIELD_PREP(MPNIC_RDE_CTL_HPQ_LOCAL_DROP_THRESHOLD,
++			      MPNIC_RX_HPQ_DROP_THRS - 1) |
++		   FIELD_PREP(MPNIC_RDE_CTL_PPQ_LOCAL_DROP_THRESHOLD,
++			      MPNIC_RX_PPQ_DROP_THRS - 1));
  
- 	u32 __iomem *uc_addr0;
+ 	/* Receive side coalescing is not supported yet */
+ 	mpnic_wr64(mpd, MPNIC_RSC_GLOBAL_CONF,
+diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
+index 834eb9bfffd1..9397010557eb 100644
+--- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
++++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
+@@ -58,6 +58,12 @@ struct mpnic_net;
  
-+	struct delayed_work service_task;
+ #define MPNIC_MAX_JUMBO_FRAME_SIZE	9742
+ 
++#define MPNIC_RX_HPQ_DROP_THRS \
++	DIV_ROUND_UP(MPNIC_RX_HROOM + MPNIC_RX_MAX_HDR + MPNIC_RX_TROOM, \
++		     PAGE_SIZE)
++#define MPNIC_RX_PPQ_DROP_THRS \
++	DIV_ROUND_UP(MPNIC_MAX_JUMBO_FRAME_SIZE, PAGE_SIZE)
 +
- 	u16 num_irqs;
- 
- 	u64 dsn;
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-index 2c0309d0c221..bd10df4a9d46 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-@@ -35,6 +35,8 @@ static int mpnic_open(struct net_device *netdev)
- 	netif_tx_wake_all_queues(netdev);
- 	netif_carrier_on(netdev);
- 
-+	schedule_delayed_work(&mpn->mpd->service_task, HZ);
-+
- 	return 0;
- 
- err_free_resources:
-@@ -48,6 +50,7 @@ static int mpnic_stop(struct net_device *netdev)
- {
- 	struct mpnic_net *mpn = netdev_priv(netdev);
- 
-+	cancel_delayed_work(&mpn->mpd->service_task);
- 	netif_carrier_off(netdev);
- 
- 	mpnic_napi_disable(mpn);
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-index 968cd611b8ea..17eae5a9ba16 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-@@ -53,6 +53,20 @@ u64 mpnic_rd64(struct mpnic_dev *mpd, u32 reg)
- 	return ~0ULL;
- }
- 
-+static void mpnic_service_task(struct work_struct *work)
-+{
-+	struct mpnic_dev *mpd = container_of(to_delayed_work(work),
-+					     struct mpnic_dev, service_task);
-+	struct net_device *netdev = mpd->netdev;
-+
-+	netdev_lock(netdev);
-+
-+	if (netif_running(netdev))
-+		schedule_delayed_work(&mpd->service_task, HZ);
-+
-+	netdev_unlock(netdev);
-+}
-+
- static struct mpnic_dev *mpnic_alloc(struct pci_dev *pdev)
- {
- 	struct mpnic_dev *mpd;
-@@ -69,6 +83,8 @@ static struct mpnic_dev *mpnic_alloc(struct pci_dev *pdev)
- 	mpd->readrq = pcie_get_readrq(pdev);
- 	mpd->relaxed_ord = pcie_relaxed_ordering_enabled(pdev);
- 
-+	INIT_DELAYED_WORK(&mpd->service_task, mpnic_service_task);
-+
- 	return mpd;
- }
- 
-@@ -162,6 +178,7 @@ static void mpnic_remove(struct pci_dev *pdev)
- 	struct mpnic_dev *mpd = pci_get_drvdata(pdev);
- 
- 	unregister_netdev(mpd->netdev);
-+	cancel_delayed_work_sync(&mpd->service_task);
- 	mpnic_netdev_free(mpd);
- 	mpnic_free_irqs(mpd);
- 	kfree(mpd);
+ /* The page a buffer descriptor queue is currently handing out. Records
+  * how many of the references taken on it are still unused.
+  */
 
 -- 
 2.52.0
