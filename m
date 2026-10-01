@@ -1,113 +1,75 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D384B475344
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9DC38423B;
+	Thu,  1 Oct 2026 18:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878092; cv=none; b=Y6Z/4Eq7GOFGvGU+iLAOeC6QVS02bhlODT6uDAkb+9iNIvKH7T1B9djsMycb4GjzFGJAZFliTIW1aUxP5tBg2ubOwXYCFZeWUNGmkE8a2pP4sYm8Q3+CcDA4rJ4KT7OdkzzI5t+DvVETWxQAkWrFmz5JsYubPKg3e3/4mXnfdto=
+	t=1790878145; cv=none; b=PVmpO/tHG4dzjL1q9wPUcNcZU7dxt5gT04bDwb0EBrKmmknavTHOpiuOJBuaE7k32f9GJlIrc/EOEIV3xQ3X1sIJXW9FphQE/K2cNWDv5YTygfM6jNAV3bnyNs/3Gb9gssg5wwP6UFFs4A/kmEGdEcJKoxb/iGgq0qLX5MLP8/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878092; c=relaxed/simple;
-	bh=oMalSm8hB0qWgrXw0+EvUk1DuiMUoX6eV8N07xHy790=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FuUBIxVHviL5rbRhJm0cc+Qtm+E6F8AcRiboT8vsqULCsWsi5BrNIG1JTX5darjkB2QiVFm4q5NOiNz2SHftxYTinPIF+/s71ljwaE/2ryPazkAAB93v7/ic97LZkQ7MOeFSUXZw9YBO8FmkS+sZ5aWE4Vcu41q9tlGm0FErwB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=naLUThIy; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790878145; c=relaxed/simple;
+	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Iax3Bqs1UemRT4N8KQGPNsSu8x5Q4mAyavDXKdH2gPlQXH6s+pXHrlYyMDnMVThjF8yFIOptXw5JC3+2wLFymQKot105MstQQokNgd6T1c4ykf9MNoCKbxS9NdMmuMIPChbjOtbyTzPbQN02jlz+XHFYD7WSSSdm+IuDYgRIYWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQHctUju; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="naLUThIy"
-Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7c058617aso1790243a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:08:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790878088; x=1791482888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lLND6mqvtrw/hYdQey6ykKNo6QnpNvUQNznvBKs4ZJI=;
-        b=naLUThIyXhcNGLqJ0FVOmEQJU4XQXpzbLCXcost/XKcjXpOfqIx33uCZIjwtQcbyx9
-         jreP72SDfOHf0VqLatbtGu2hEfGVEXwkpS9Lrhm+TBLUomXIyux+YMgHdlISDJh9fr3i
-         CFD39gxIib5ycRI/cgagGyedNqqSXMW+ZMEg+J7Pm52IbdhU8va2w//sTjgmzAXiO2QN
-         9PaFlyfWhrZSZ2K/zniw1VjiUFuzYmKvI4Mg/XwvirvMxybZx2d5ctthkBxR7I0TCmjg
-         MyGW/jUtNrtjoFNVQIBKJXpbQL7yONQYk8vNNGyOYb7VMzaf57AxiEhTZSqUzIrNmZiK
-         51+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790878088; x=1791482888;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lLND6mqvtrw/hYdQey6ykKNo6QnpNvUQNznvBKs4ZJI=;
-        b=weI8jh1Cb3054fvHscc7ixnBSReEoa751AxPyKmQ+oA9nOejOp/K1ShNTytMnTKDKu
-         hiAZhmeASm/gb2boH4JIc1QHGqriFunG+DJ7Hy1q9o+az999DGmEfqg56nJZW90kxrww
-         bFX0QQCACeIIygITl2t3/sSDHDvkALDzraFfXtmeuFd9VV7NVxm8OoheMUL7smqyNsBq
-         E2MTJ7TYqmbHT6r3XXY3yyI4xn6TB6hCJLq/BEUL75u6sJyBQWrOmPLbJUbpi8VAMU00
-         6Hy6PRmsSx3jHRUI8PyC+JufHMtLQh9S/TQFHzFIZ3s/Npgl+QhOJBPlpOVb+WTDXFCN
-         VtMw==
-X-Gm-Message-State: AFuF++mH/yxhi3n90xv6wV09MfrxqpdPWm8ZS87iS83cLlgrvAtRenu1
-	ao0NRs4/Pcj1CYmD/5/v8zyH6/CXhukP3/h57eDZecL9TwsIBOJQoQ0XiloH/g==
-X-Gm-Gg: AYBFou2L94QhpX0nQR+dG0pE1ib9yEudUne8p4arJzvQ/8hpYowFMSgh18TNKFKJX5q
-	bp2wP3vC8+vi18mobg34gibRpGi3mcyGLxEhcsWDullbec40amVwvDabrjNbRnxNcjGxWCQ7CPA
-	FhPMzcGAk8Zcr728cHBcnNdTaXgt7jekcHjPhrIoFbsshSLh/dxgXq3Jbh3yj69vH3wJFCt6VNK
-	XhN7trRpulhuoteFQFI9ax12IzoKuXod0MlJN3tPWBIuhcEfTl1lLpahmpje9ocHiIIDhxweVkF
-	DIfentMNjSxND7oOSmvOJp2SvoHXy/NyJN4HyYlX0LDRIMPqTIXWIduq+ycgNDNQk0+LmUut1hL
-	2VnCGXUEyu3+BkZwHepO1etZmIlew05HEMTKokOaxVUm4zkdO1IoIsZ4wAkOJvlMhaKcQD7TBLZ
-	p2oH21+tcPs1EvJT5ZUDwLKAj/ARO0phaB1Z39MTFoUNbf4fhKXeQBnXKIl2vjwLIks3rhOqp+H
-	opE9b3ElJPXwGFWzjR+0KcM+dnTsN+SySIYN8Zsqe0u4HyxgzX9pX5r8CkLkl1Cq5KV+Vlh9EZJ
-	zHW3KugReR6LGVM=
-X-Received: by 2002:a05:6a20:918c:b0:3dd:fdc6:ee7b with SMTP id adf61e73a8af0-3e0bd44aa4cmr130932637.66.1790878088371;
-        Thu, 01 Oct 2026 11:08:08 -0700 (PDT)
-Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f737a231sm949a12.18.2026.10.01.11.08.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 11:08:07 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>
-Subject: [PATCH] fsck.f2fs: enable fix_on when CP_RESIZEFS_FLAG is set in auto-fix mode
-Date: Thu,  1 Oct 2026 18:07:58 +0000
-Message-ID: <20261001180758.2099491-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQHctUju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0C41F000FF;
+	Thu,  1 Oct 2026 18:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790878141;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UQHctUjuUNpw6LkyASUZ9HSFteDzJeR38iaU80Gktw1pGFWCLZSYF/YGGSZzkMish
+	 CI0kKn39Tn2wmkI+JdM9cAL2ebawL6a2NJ098qLlJdRUahDEfM6lZIJ2T7cKU2GPdw
+	 0NXWPu6qcC6lC27LkOhpl1kvAZnWG931UKFlZcorvNlFUWm7/G1eFEAK7fLlnc/7fJ
+	 bxompRVWn6MverJHcn5hr7Mr9YOD8mHDYQfyQ30PHDkvD66s9hpK9WFw6pnT0nrHtV
+	 Z6y6MF57oKO9tCDgYWbN7c8PKgyS1Tt2yub8EUxI6/JVTGEnkgZXKRPXyw9eL3m3l5
+	 dA0HXVrqpGBlw==
+From: netdev-bot+sinfo@kernel.org
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Wei Fang <wei.fang@nxp.com>, netdev@vger.kernel.org,
+ Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH net RESEND] net: fec: drain PEROUT requests before
+ canceling the timer
+Date: Thu, 01 Oct 2026 18:09:00 +0000
+Message-ID: <179087814030.1402591.9699379066974975442@kernel.org>
+In-Reply-To: <20261001180258.4054391-1-mhun512@gmail.com>
+References: <20261001180258.4054391-1-mhun512@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+Hi!
 
-Commit 9a31cefa2966 ("fsck.f2fs: allow fsck to fix issues with online
-resize due to SPO") added logic in sanity_check_ckpt() to recalculate
-and fix user_block_count when CP_RESIZEFS_FLAG is set after a sudden
-power-off during online resize.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-However, sanity_check_ckpt() calls f2fs_should_proceed() and checks
-c.fix_on before repairing user_block_count, while f2fs_should_proceed()
-did not check CP_RESIZEFS_FLAG when setting c.fix_on in auto_fix (-a) or
-preen (-p) mode. As a result, running 'fsck.f2fs -a' after an SPO during
-online shrink leaves c.fix_on unset and fails to repair the checkpoint.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Check CP_RESIZEFS_FLAG in f2fs_should_proceed() so that auto-fix and
-preen modes properly enable c.fix_on and recover the filesystem.
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-Fixes: 9a31cefa2966 ("fsck.f2fs: allow fsck to fix issues with online resize due to SPO")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- fsck/mount.c | 1 +
- 1 file changed, 1 insertion(+)
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-diff --git a/fsck/mount.c b/fsck/mount.c
-index 2fd8e1c..8479ed1 100644
---- a/fsck/mount.c
-+++ b/fsck/mount.c
-@@ -1515,6 +1515,7 @@ static int f2fs_should_proceed(struct f2fs_super_block *sb, u32 flag)
- 	if (!c.fix_on && (c.auto_fix || c.preen_mode)) {
- 		if (flag & CP_FSCK_FLAG ||
- 			flag & CP_DISABLED_FLAG ||
-+			flag & CP_RESIZEFS_FLAG ||
- 			flag & CP_QUOTA_NEED_FSCK_FLAG ||
- 			c.invalid_sb & SB_NEED_FIX ||
- 			(exist_qf_ino(sb) && (flag & CP_ERROR_FLAG))) {
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
