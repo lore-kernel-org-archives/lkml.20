@@ -1,145 +1,84 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B85385D9D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A4E3793DF
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790840449; cv=none; b=YGIKKNni/MTD8VUj8wJ53RUb9RH7OoPpG3g0iZbD1Gn/gFYdTxdqxLs9/CRN7sBYZzWlegDbttXok1XZX/77iX9Rc9BQlwlYx+jU1DJqHC49JWYGRWW84kgvBMveZdq3i5ts46G6SefEsRGc3kK2MbKZN+SL8NoIeQtHpc8Kc5c=
+	t=1790840465; cv=none; b=efYttQEdPYijMJ5m7grVAAkqH2cecgD8/vbpmdOqWJ04XTrFE2wbzmCFTNINBQ8DG565PNmoy6xMG0J88zY6KhXSeCfiJv631lJS8Lif/0UwC6pyL+ItM1BB+X0LJ1pp6ZtXcEw7Vo0XACI6w1/ELCNmvCY5GGe8smonaulQ5RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790840449; c=relaxed/simple;
-	bh=ucWAOggwr+mPb21mpQHRenVwJ30J0XlSmziq+E7u99g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gyTHOMcS0kEIq0VWpTde3eTBZ9KK+V/VK23Xo6WRfoCow9xPsKRdZRSUvmcUXSE3w35M6Fl1gyW6ZVkBob771xayl7EITRRwR4Mz9VIh86rCNmv7FjyJurcJK8t0CAwdGO5MyJ1qYcz3jccMpBCMm8NYNcBP33Y9IjVhkZZtBok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=W/QupU5X; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790840465; c=relaxed/simple;
+	bh=n3q8C1Mv0IGLkinL4JNLuXIyrqejRcM+zdH6hqQuF9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fJJdyAMgpqI4QvGnOeRj/17HNpLIaNCC6+jNAG//Fx/oVQx8MdRL56DzVSPnnpvAcyniPZVHkQfhEYTUY+m/0EiwngnmhVy3TDpXuRa8X2Cmx9RBCYClHx779OuZCx6Qp8UmaoHNlaJv9DVRTzDzqObNNNlFTnTnfpMlhdN8qDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=kJj+ctWg; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="W/QupU5X"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 57689269;
-	Thu,  1 Oct 2026 09:38:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790840333;
-	bh=ucWAOggwr+mPb21mpQHRenVwJ30J0XlSmziq+E7u99g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=W/QupU5XyuVs/IpX6JHJ19dN3sqlOXMyfDGftkw1Z7MhIrbvbamNVlZUzGClwTj2o
-	 RIE34WI1+eAu8K2hz4mYpoJj/GIvazSiaP+o8NXCkLZe54QhceKPo6IoYB6pb8Hnu8
-	 RpVpzG2YlkkVUMELxyW27yX7cKoGHLOfpv8foGzs=
-Message-ID: <982ffabf-4709-427a-b2b6-481eb074f2d0@ideasonboard.com>
-Date: Thu, 1 Oct 2026 10:40:41 +0300
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="kJj+ctWg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail2; t=1790840458; x=1791099658;
+	bh=n3q8C1Mv0IGLkinL4JNLuXIyrqejRcM+zdH6hqQuF9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kJj+ctWgsCS1QALzMTdQ0wuUO84UHAS5bB0jF9mX0POvoDgXPhn3528/Al2RbBaMj
+	 Q7aPI2q+QsXsDflm7Si3svAjsjC7hQ0qCXuDlPIWycbTULVAJ+lvSPsuVcN1SVJ7eb
+	 3imMUnj1Gjt6Zrx8+JlalcJcKVEndp0g0RRvvcXaCkxm9ZbYXDDjiNve6qFNA/R7f2
+	 PLCBbzCbm67tj2Kdw6vVGfWulLrwD5C/O/xjln0v0Ga/Na+FYZbh9olrabJF+0hhLI
+	 Qs7mi0keBBuOm7e3UwJjo1dbLLFv2LqrZmY9q5TKx+uNAcrPSav8N/pyYnluv8h4hd
+	 foY/7dyg/ry9A==
+X-Pm-Submission-Id: 4hwP3T4zNgz1DF6h
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: rust-for-linux@vger.kernel.org,
+	lossin@kernel.org,
+	lyude@redhat.com,
+	ojeda@kernel.org,
+	alex.gaynor@gmail.com,
+	boqun.feng@gmail.com,
+	gary@garyguo.net,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	will@kernel.org,
+	longman@redhat.com,
+	felipe_life@live.com,
+	daniel@sedlak.dev,
+	thomas.hellstrom@linux.intel.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 0/7] rust: add ww_mutex support
+Date: Thu,  1 Oct 2026 10:40:41 +0300
+Message-ID: <20261001074052.4928-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <21B6451E-4344-41C1-B74B-1DFAD1AA3D7D@collabora.com>
+References: <20260103073554.34855-1-work@onurozkan.dev> <21B6451E-4344-41C1-B74B-1DFAD1AA3D7D@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/bridge: cdns-mhdp8546: Add suspend resume support
- to the bridge driver
-To: abhash <a-kumar2@ti.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, s-jain1@ti.com, y-d@ti.com,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- devarsht@ti.com, u-kumar1@ti.com, sjakhade@cadence.com
-References: <20260601095041.3042950-1-a-kumar2@ti.com>
- <3dbf5a77-c314-4511-ab63-1b1ecd2e16c1@ideasonboard.com>
- <1c8dfc23-c03c-4c98-ae52-c66ffea244e6@ti.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <1c8dfc23-c03c-4c98-ae52-c66ffea244e6@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On 29/06/2026 13:32, abhash wrote:
-> 
-> Hi Tomi,
-> 
-> Thanks for the review.
-> 
-> On 18/06/26 14:19, Tomi Valkeinen wrote:
->> Hi,
->>
->> On 01/06/2026 12:50, Abhash Kumar Jha wrote:
->>> Add system suspend and resume hooks to the cdns-mhdp8546 bridge driver.
->>>
->>> While resuming we either load the firmware or activate it. Firmware
->>> is loaded only when resuming from a successful suspend-resume cycle.
->>
->> It's not clear from the patch if this is a fix or improvement. It 
->> sounds a bit like a fix, but it doesn't mention any kind of issue in 
->> the driver. So, why is this patch needed?
-> 
-> The driver lacked support for suspend-resume as stated in the todo on 
-> the driver, So the patch adds this improvement.
-
-The patch doesn't remove any todo lines. Was that just a miss, or is 
-there more to add wrt. PM?
-
-What does it mean it didn't support PM? Does the driver not work after 
-suspend-resume cycle? Or does the driver prevent a proper suspend?
->>> If resuming due to an aborted suspend, loading the firmware is not
->>> possible because the uCPU's IMEM is only accessible after a reset and 
->>> the
->>> bridge has not gone through a reset in this case. Hence, Activate the
->>> firmware that is already loaded.
->>>
->>> Use genpd_notifier to get the power domain status of the bridge and
->>> accordingly load the firmware.
->>>
->>> Additionally, introduce phy_power_off/on to control the power to the 
->>> phy.
->>
->> If you write "also" or "additionally" or such in a commit desc, you 
->> should stop and think if that part should actually be a separate 
->> patch. Also, why is that change needed? 
-> 
-> The phy device could be powered off while resuming. So we are explicitly 
-> powering it on.
-> 
-> The phy driver api also recommends to always call phy_init() first 
-> followed by a phy_power_on().
-> 
-> "Some PHY drivers may not implement `phy_init` or `phy_power_on`, but 
-> controllers should always call these functions to be compatible with 
-> other PHYs"
-
-It still sounds like a separate patch to me: the current driver is 
-missing phy_power_on/off from the probe/remove functions.
-
->> Overall, this sounds fragile/hacky to me.
->>
->> The first thing is that usually you shouldn't use system suspend/ 
->> resume in a bridge driver. When a system suspend happend, the display 
->> pipeline will be disabled, so this driver will get an atomic_disable() 
->> call, and enable when resuming. You can use runtime PM hooks if you 
->> need resume/suspend hooks.
->>
-> Thanks for the suggestion, I will use the runtime PM instead.
-> 
->> The second thing is the PD notifier. Is there really no way we can see 
->> the state from the MDHP IP registers? 
-> 
-> The other way that i found was to read the MHDP KEEP_ALIVE_p register 
-> twice to know if the firmware is incrementing the counter.
-> 
-> Based on that we can decide if the bridge is active or not. Do you think 
-> this approach would be okay over the PD notifier?
-I think it would be best to be able somehow to ask this from the HW to 
-find the true state, instead of guessing it second hand from the PD 
-notifier (which also doesn't tell us the initial HW state at probe).
-
-KEEP_ALIVE_p sounds fine. Or what does the mdhp IP do if you send a 
-message to the firmware when it's not up? Say, if you always do 
-cdns_mhdp_set_firmware_active, what happens if the FW has not been 
-loaded? I would guess that there's a timeout, and that could be used to 
-find out the FW is not up.
-
-Also, if the IMEM is not accessible and you load the FW, what happens?
-
-  Tomi
-
+On Wed, 30 Sep 2026 19:13:19 -0300=0D
+Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
+=0D
+> Hi Onur,=0D
+> =0D
+> Thanks for all your work on this!=0D
+> =0D
+> This is a few releases old by now. It needs a rebase.=0D
+=0D
+Yeah, it also needs to follow the vertical import style which I will do in =
+the=0D
+coming week.=0D
+=0D
+Thanks,=0D
+Onur=0D
+=0D
+> =0D
+> =E2=80=94 Daniel=0D
