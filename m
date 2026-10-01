@@ -1,439 +1,199 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF85522EFB
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866366; cv=none; b=S1kca6rUEzyeP3MYkGg4DMRWjxIbFsNMAXicsUCENL+ACP837NFBLXxVOvHMl+3ByjY8lxIFi4z0o0DGCv4weBIssIsnrnPdZG2+64KPL+DLHiDBOWsa8U92a/YsPurrCdF7Vr50D6pDbCVK0Oz27zciypDgb+8ahd+uHFGki4c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866366; c=relaxed/simple;
-	bh=xcDk1V0EXoztnDbk11NuZIokSUf38007T8sICTWeLIE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ettEHqxBgSC3tr0pdV/EEmCrZIIjdNOsfEG5QI/24TI2Y1A0uNfiQo+KQLUrsppeGZiOZvxuf1lCRahozI9SVizlz3BzDuc/hjU35gHUJTxMHdqH/aloZVKvA/ZTqYDyArGxqWfnI1ogIUPQiiqNh9j3WMK/o96uO+osjtFZCGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q9t7s0gk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XgmU+ePz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C870948095F;
+	Thu,  1 Oct 2026 14:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790866373; cv=fail; b=ush1g3JvTxu0pCEOEpXh4LW2sjx3wCNNn6cX6DL9iY1Po7+KMD1aNPpcwNZXCFy6U6myw+ND0gnEAQulz7Tz4VZKFp30tZQ5uHiD1V75eow6ZmOBXCK+dasa6Q1fpxgvtvLWPxq2XkoRidWowHIuLetMSZwVQofE7fFARgkQKJk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790866373; c=relaxed/simple;
+	bh=37n/4xrnhH72WshUg6WC0WtUDzs/+l1cEclPL0/58lY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=I67VoLn/r1aVFJtCk6AQ+zSXjdVtOQSEvv0zZdMPQCOKBxNi9i5wjYVb+rvFUwwrc2cbsq2VPHdnfO4TQCYICW7dH7DzhYrCLrrFL/nRgrptfRzPYza0DRTS+BBglja5XQ1fM3Zrg0uYpFY/sZWoJeWSOv3TMmwT/qdkjzY6qwo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=RSACyF5U; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=C7zX4rZ1; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q9t7s0gk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XgmU+ePz"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DjJwG2830124
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 14:52:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=+iF3uPEmgMCgIUnS2IvHI32Q
-	7kQFVUfGG8r74lHA8/8=; b=Q9t7s0gkGeDDuh/txskwTFX3eCOS59ef4lHXrzDD
-	glvj/rT9sCmgTh9kQO3wTvexY9SlTYWtlMp9sBcNAsbduoEr9PfiYbwoI83W+aiR
-	q3idWncivINgzAQQUMJMonCYM1utjKzv5Ni6fKlV94v3txUIJ0m0+yUWzQNCoTib
-	RUHBrB7KENnfZtisxxs9CE4a5He5XTKd7KXgGt414o4jT7Dje1P3BBDNUGbwECtX
-	R3AwZIeGAzuGZoppztDC7NaZASJDjyI4/ISH2Tjqvq+oPaB4L/FD6AJ/N5cZ+sYy
-	G/sczsoSjPmQ4Sd4jFRJvnkmsYlwbtEDBV6bz3xXfoR7Gw==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1bh5bh6t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:52:42 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-989cd936d30so135041241.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:52:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="RSACyF5U";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="C7zX4rZ1"
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMjv51410840;
+	Thu, 1 Oct 2026 14:52:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=corp-2025-04-25; bh=K6MgnJOFDUAtHp8R
+	0K1xMjqUM5WJfCdS9rE3sNp8M5E=; b=RSACyF5Ukk7wQGpFTcKVSQRrCjqQg8ob
+	LsYMOeKxXBA/2TI1XbWz/6sgkgKjSySvIQ+5+2DnvNkof2gYxZRWIys4+Lf34UgG
+	Qws/7yMc+plI0Zb2wM8gprAZAQjmMh9Kr4nxXPlzyZtn+i5baT+hAbP4NkhX6vOo
+	1Pr7R3Ki7y1ACatRpDpgnzGxQIjEase6AWrHp4J2XUOroFZRj53KTHm0eNUW94E6
+	PD5d2tzeq8jH8dhX4nMrDov3ud5oxxm4Xce+V7lJ7u01X5zjpO0bXCa1E/LSMp5U
+	ZT7mvVDFTmQViglkQxDgM1VdBluqxihWMdGGwEJhfhuObM++CP5T9w==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx4y9h61n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 01 Oct 2026 14:52:44 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691EnpY4017265;
+	Thu, 1 Oct 2026 14:52:44 GMT
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012065.outbound.protection.outlook.com [40.93.195.65])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gey0qe-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 01 Oct 2026 14:52:44 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K4DqjYVf/1tQjOUQ/WS21kIfUiBprol5H/vpkVCyDvaFw22+wh2+m42Cby6T6Dvvrp/0N5DBjMbl8/djnOwhd0lLf2Kn0q0C4r3ErK3YPldBMpqT/2Tntpk3EAEv9/iZDIR0aF9Mc+g+PVqhSb5BWzIYvrUJvxs98OnoilcA2LYhCMQWTdniGcwA6Ie0fCfX9jHMOhNp237+3VLZOebkXVbbO17CU//aEf4epclnszhB3z1grbM5vIXeYHtqlpYdpfuS1UHcH1ZVWnjRN5UvfYKxgWSob2CGut4ZzCwHz+5Ku6czhBH1EMA6PDgkiYCIZlyd8VgxlQawgHXkG1vVQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K6MgnJOFDUAtHp8R0K1xMjqUM5WJfCdS9rE3sNp8M5E=;
+ b=id6T2HDxM/zrMcEvzcLXoC0bBfHHeE8xIvM/MNNTS9eXRBv1Z283GFHM7AmlAx2NqduWZix+m+dfj2dJemEguoN1/DhmhsWD1Fd+vwSvAo1I2jvXdHcs9Y6C0Ol12aOearZyQ2jUEmSn8G9eUx447VgIpqll4SboRKXoGXMbj526KGlHFqDZFnlM/AEpn/Znknuo7yN1iHaFMS6Yty7XMyT+dxEzAOnWmd0VzGQrti/fV3EroNfXTviapazzCWTScAqWAvZvU7cQegQbduJ/v5JFG6v7QVarJWYqmiYiNCzqbyMWnGr0y753iJVq5p8J265+76vfg8gLtol3hd6icA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790866362; x=1791471162; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+iF3uPEmgMCgIUnS2IvHI32Q7kQFVUfGG8r74lHA8/8=;
-        b=XgmU+ePz2CRuFVSq0GEpnIjV6eeuCiHRf1yubhfyPncvWpRB/IjFTDgzw3nj2K9505
-         qVEMAn8hxe8F79Y0mVWgNx52riZoi0kohUcKboCS6MobX8BgzgFnQ2wtwz21xpz7ckUT
-         g9g70mMsNQWogHdgS/B1SniTSPoNJKUqHof48iVrXFWEWjRo1fzNa4iQ91p2Rb8KVEXH
-         v03vK9952cSj20WEFq7sjIuw9fosB8cIt17GWkdNQM2JLsd67fdt7qfWsO2UqxPYqu9r
-         4RAnN7rTZgjTkcHaZsGeQRPWvWwUZhfuhTQ2m2BFwQQ+RiKLGaSBLsMyFpt2rBqKZOsb
-         pTqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790866362; x=1791471162;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+iF3uPEmgMCgIUnS2IvHI32Q7kQFVUfGG8r74lHA8/8=;
-        b=i5yIi3pjAiKVba8qvbUSSbr21b1mTgRajwjvzlDfREEwd16RsXHvpEwvEZdpDscAbP
-         bgDwQ2MCm1uZs1UKozuZiLHWvO/vieuUDZa+7l3kRWgWNfzpv5Ar4csC3Jgcnk8+oWAL
-         3+E1eplLd0ZnE/LwuFzT3QdvAJhmnqvwP5Vk1MgBXy0Yp+DbcGOi5BH+szxq3E4lK/yQ
-         Ir1qEbTFocH83ge+gu5+/RzFPEKZzUE+trQ2Atvod42C5uXz2hzqEjLljjCwqCwnVVmF
-         LlhiTs3lGDN5cy0PfikfXrr3Pnhu2XUPXi+MBAyYirA6EfLhBA9zwR/qQjYkwxEju/iI
-         Geqw==
-X-Forwarded-Encrypted: i=1; AKwUvByhIwP2pCGuwrLXSgMCICnmPmZZrZ+cGX4mfurFp/2i7VvZAxr3G0Oxa2VODyygYqoCBT1x8VoPdlsUP2M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4HfNNixsXjGp3Nv6m9HlI3aBfh/GdpcoXSfoRnbACJbEJdVoC
-	p6gS/LrNwhM7jiw3unhGtqF7Og4WW6TSNu7vllJFiKPwBHo0iokxoLehefDkbvG4qUW8J3xMNna
-	yB7xsSJXGOn7fWc+Bkt7Pe8lIDqgYg0TZeF/NCnoozPZAJ58BQhcXiAttJMMn2pvjpOg=
-X-Gm-Gg: AYBFou1Ir6/3XFit5hQwZjb61ISZSEC+nUZq+eam7QBPZk3YraGPXBxcvJVS0WNM5eJ
-	EGtu/TRjiEniRHtVjzg653ejuJb3fkC62n/C0pi//43gl5MhNaUVfG/RT3xZzojwQHGp1BvorUz
-	fgSarC+pldd7q83NmGBQMBxlqoHklUr5lytS1ATyshhsVv2qWtJJXadn/OH6r0NJCE2v6pzghTm
-	9/DUlCQGu6CqGw6hQqnfTRG/s03TAYxM5Pmdx8+MNlzQ6SeZW5dtvbgi3xzsQWwUDOMhD4NUzp9
-	WvnsoOhSs0icy/tzdF6C7UeplV8Sdjmu92Tzyv3xFCXwdvRxeA0hNQwwmgsNk6O88baVNPhnGE9
-	de8+jjS1lD+Rexo5U1XiUAeNoLl3EOcFMckf3Wd9ynsqjjcScamUzI7IaSu33Gm5fI8x/Strmoi
-	Z0dqVapU10i+sD
-X-Received: by 2002:a05:6102:148e:b0:7a7:196a:84ea with SMTP id ada2fe7eead31-7be7428e894mr1337146137.34.1790866361646;
-        Thu, 01 Oct 2026 07:52:41 -0700 (PDT)
-X-Received: by 2002:a05:6102:148e:b0:7a7:196a:84ea with SMTP id ada2fe7eead31-7be7428e894mr1337122137.34.1790866360841;
-        Thu, 01 Oct 2026 07:52:40 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7bf038b1sm10900e87.47.2026.10.01.07.52.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:52:39 -0700 (PDT)
-Date: Thu, 1 Oct 2026 17:52:37 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21] drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI
- case
-Message-ID: <zgig74ptxcqnyzl7pvlecnnf6j2br6uz72ywcjbvhj2ccsljgr@n7rqpxpvwiu3>
-References: <20260727-msm-next-quad-pipe-split-v21-1-965dfa5b669e@linaro.org>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K6MgnJOFDUAtHp8R0K1xMjqUM5WJfCdS9rE3sNp8M5E=;
+ b=C7zX4rZ113U9MKhkJc75pLmZ9KPlcNu8AgR2QUWqDwvoP0IdDBFtXs8etc5c5yqeRsnASH905S3TrTAjA12SKTCD/GucuPgay/B5SPNJJP06sLeIQHtCuISK2T0LNSf73GuTk4BiyByqGiUGUDqTetk/r/M+2zPPp5uFWIElMzo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
+ CH2PR10MB4118.namprd10.prod.outlook.com (2603:10b6:610:a4::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.12; Thu, 1 Oct 2026 14:52:40 +0000
+Received: from DM4PR10MB7505.namprd10.prod.outlook.com
+ ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
+ ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
+ 14:52:40 +0000
+From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+To: "Darrick J . Wong" <djwong@kernel.org>, Dave Chinner <dchinner@redhat.com>
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: [PATCH] xfs: Fix duplicate assignment in xfs_alloc_read_agf.
+Date: Thu,  1 Oct 2026 20:21:53 +0530
+Message-ID: <20261001145153.308087-1-siddh.raman.pant@oracle.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0014.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::9) To DM4PR10MB7505.namprd10.prod.outlook.com
+ (2603:10b6:8:18a::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727-msm-next-quad-pipe-split-v21-1-965dfa5b669e@linaro.org>
-X-Proofpoint-GUID: BDffn9_wClmoT3vx2q2rDeqaUGAoyCl9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX2EqZ2GO4hCJ0
- 3gA42yo2NOJLfyytLETQIn+OxzvHoBJUVD/F7ph1rv3bby/I0wKMKAPDhDSnnnMLJbuI/7de6D2
- YYaCftSP159Zzypo167qO4ht0FvqK64=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX6LT66bCDY47i
- jzmgMUXgJUsm54GU1KAdOyT0blUjYmkVIYSvssvj52Pib/eujs4H6ms3WmgdG5uvVuhSH+mSRPe
- Hk8EOwgI2ExyUGsYUktsbOgg1ZSsRDcpW8aAXux7KF1y3GvzYKDGQz17tmEuLUbray+7ySqP381
- ZC8cJJ1n7LNwkL7Ar8KcxI/uBAbbgun7hY8jt7y8rM+1D+8yhZM/gs8nQm84VTvwgqdzxYTCGef
- K4YA8X/ozGWEFQSvDmQX3H9crkJOy3ReNgsxi+o45+JQXl+2ppObYrhZ8emnlfW/IBPkK7jMfp5
- u0hZV2rgvrdGkqGg2pYMq2l1b3J1H16IhPt/T50Bj52OWHC+xcAO90X6342H2bT+SputkIVZfoa
- 26LpwUqdcU4ecLM42VihW4U3+/O6BLzOvuyBZya0IUT5bKB7nI4dsCkL+LjvupTi1X8CmysNYJl
- zJhAXdkdYfCh0ZkabzA==
-X-Authority-Analysis: v=2.4 cv=NuxE4MdJ c=1 sm=1 tr=0 ts=6abe73bb cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=e5mUnYsNAAAA:8
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=T8Yxk-s-iGYFq7mrDv8A:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: BDffn9_wClmoT3vx2q2rDeqaUGAoyCl9
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|CH2PR10MB4118:EE_
+X-MS-Office365-Filtering-Correlation-Id: f185996a-5a96-4ee8-fee1-08df1fcb8e5d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|10070799003|366016|376014|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	At8vxZGIs7kC1Rm41ZTq3kSwgvBPVzuEft5tYl8J1P4dNUYzTnHbhOmZQ9XAdMfwPr0chkzaDvft3Sf0kNaLYV26OOFyNVARnIRvyixq2MCdOPkvam7T5vAp2eg0gq6X8j4//W+YFO2LUWy2xqj4GN6qZ+lOTTAuS6GlYHKNvy3J6M7o3Au05PXbdXbu2P3d8SqI95UPKOOCFXFz8NeCDbQU21WbqwwBl/ewhr/YtHc//k0x6kHf/yCHu06yY/lAtyZq8hNRfXB1mGB6eZV4H8jIeu2/i4eUz/dGW2S+LYkWO3aq+4pYKSknDyCZeripFswkEbi0L2aNl+NuXV1BoAZ9tuhZuHQ4BYeTBp/AM3DhHWh9NTYDxcTL0tGu66GOXEmJmLsGP/CXqABhCvQ5DSDReOFM03pUqZ7B+OI2R6VVTOEcoeq28H+W3mgi1MN9/FNtro93qHKX2WnvF2g/DE7lg28Cg9eH5flAAAsieDtLco/ivGpm1bfRTtkMllMtiaLBG5/1urZmdMa1L0FKp/XMi8eqLSTjFz3jGBPlyXzbTIm+tzamoRuDZi/X+CWQ9i73oFF3C4OE+eAndgL5oZ9mHwBiN/mG/cMoq4D/quiWRd9fFf6W6HFd8c2ffI3Uu70fyPCs0D+zNvtj2UHfztcatnrE7y8YD6TPcOGsn08=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(366016)(376014)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?q/5x8yqdxyKnhaEgy5GGwK4j09Bz/i9sGsPjPKFoonhWCsM1m0g71S/oL3Qy?=
+ =?us-ascii?Q?nYR1OqobmfYNjbsw9fKYYTTKMGhC/VkHogGFcx7edmHj+BxgHpgFZZKDR1d3?=
+ =?us-ascii?Q?aW9QIW/NyX32Kra6bICXrc/cDc86sPxO+uLUE+TOSUcmKdEKAgGWa954c9j0?=
+ =?us-ascii?Q?/DtJbs458TUZPS/XyVnZVyMF94uCWashVDOelc+NpXug7W0kh31pd38ARR4L?=
+ =?us-ascii?Q?BgbZrQ3a/CcUDTT6R3nVbU8rLYXmN59i1sIUhmpZ8EQxaNIuPXZabVHu9j75?=
+ =?us-ascii?Q?rmZV3FS1zGfKV820CPknqclvJ6K/LImpqqcenv4yUQXguIxqmbN3MIracfzf?=
+ =?us-ascii?Q?EyLB7VeR6fGVG4dfGasZjTSDgO9jGt7N8WhDMKTutbt2mvZaZI54jMygTd7b?=
+ =?us-ascii?Q?ODyQAejmY6b76xw+2/KueZDQhrHiGvrgi62pupwIdM+OS2Qu8fxOTzcEBQW4?=
+ =?us-ascii?Q?HqHwD+J61kxxO8geGJ9inN0lUFGoYEhYP+6g08DwE4SJbrDRSn4mmy3bSKpQ?=
+ =?us-ascii?Q?EBXNLi3QGn7VPNZTynN77TfTTwIqL7yN+yk+N1nCAdY8V6AuBudrupooCFMf?=
+ =?us-ascii?Q?1yKY99JNUbsaRUtC8dBuq3e31kBr+dv+VFUpGZ0d0g869Y2h+TSEG1ndRNrV?=
+ =?us-ascii?Q?w56L7BsS7lXvGL1o1GWDl19xC9lZ3JToqUFxzGMAMR2gsFIpFBkhpmm+X4qY?=
+ =?us-ascii?Q?FZqYn3H4bBX93adEAtXdNHd6sRbQmtvkD8iFGGrV36202/C0Jp7J0DneCpYf?=
+ =?us-ascii?Q?hEhvFGASbEF46XieqT9uQ69VKPM0RzCBLxpy0J5JS5wQ3Shj4KiGgBWvQROA?=
+ =?us-ascii?Q?IAFQMqqtAiaGnBPozPKgBbkWtPS4Tu7UpnZWOptMPaeH8feawGjRGY5zlQxI?=
+ =?us-ascii?Q?i0IrBesCtFrF3rGHs56kAs6O9WCumcsbc+decMRgtDgliPp/mbnwz9u5ZGvT?=
+ =?us-ascii?Q?dpLt2Sk7KnXET5DLVcg7bzDkV/HSLOKuW286W0nxsnezQ59UxbUAJA+69Jnn?=
+ =?us-ascii?Q?KcABa21p6kaq9+Pv68GQG/kPFb0OTs37BY4l+uoILl/KnlQQw2vbht7Bl0mR?=
+ =?us-ascii?Q?rmZi5iSBITlCKJ5bdlyWFWtvs5jLXXrAAsSClQ6AkzkrQWWRs2JwC+ILITJC?=
+ =?us-ascii?Q?lq58LHZmffAlHrqUxfPvv4ycU0vNWM3VSTQU9jJNjjA22+Yn3go88t+Xw+or?=
+ =?us-ascii?Q?DmnfMTIr1vA5wo5U66wBE3IyyRZ97T85Yc631etD9y1Zx99uuGj91fnLnp4P?=
+ =?us-ascii?Q?xQSNBH7wNXmbjBxU2eGdNmUJwVmzwDEBv4RVsVgPK8cmFPK29T4Z3nvGQT86?=
+ =?us-ascii?Q?a/csy0dlrVYBB6FynSQPrIPUKwIPUl2o+cyuElPItZVk+AV+Z7xPys4IQ/Ek?=
+ =?us-ascii?Q?75xD9KwNSwUTmIfrOWZcBZvNOXdZRQihOzI4XD0HUcGyFnzqSCq8rW737XPi?=
+ =?us-ascii?Q?xhGp70OGObR+8Q/H62vq7bh11wx0NsrW4JT6yDiB88gPxEoHiKMI+z5sRVsb?=
+ =?us-ascii?Q?vIBlALubtr/Rfc5FbsX/E1YmGGWXQ79NkSmqkDzBS0NLiqm0U0vCohZXn2ig?=
+ =?us-ascii?Q?iou8vl8YyXLjRKGv08ou+mmuLVl5tZVBep71ZSP7wfm2IMpeOjLsDKQElmfh?=
+ =?us-ascii?Q?hKuTdmgC1pcEXi9dWjeK+0+gsFsHc03umN8pOEbzadwsNrwl+HI6YvJ4bjCF?=
+ =?us-ascii?Q?8my24Qzhg1MorczXZVK3OGi4nglVk1NlyrTU1l1tt36hUTeSbF2iSCKUDYKs?=
+ =?us-ascii?Q?ItlSIDKjTWMbqCo8YXqbylJwAIyZ9i7/OiINVjz9ZHkQZ6IMhbejsSOM5tHP?=
+X-MS-Exchange-AntiSpam-MessageData-1: 6zcsjSsweVtRZYyNplfkoUikJqEQdwTWxkU=
+X-Exchange-RoutingPolicyChecked:
+	ChdlBynckqg1UOZokQ3B3MLuAMHZQDUopvSY9X15uniH5a9CmHHaHKi1qCuSmZ6ce+LIcXhtcuyuKabVwM4xfkCUrq1HHmXLovJV4KcoWf1G4BuMDnqJMebDDgOWBf9br4mRpnz0G2NCmtzzlhB1oHodwo9DkTFeeZ9Rj493+1fNHRTXbpXb/NgdqawNc3IDmKY5hRh7Jt6GNRsEkdjdA1uWGxxgfjNYyjbBUYu3/KBfI87M5bUrxhETk0GEsLvU8sw+oatd0ghZN9vzMdugY7kU8xFWwdc391PsU3pKyfc1JQemI5xlIT1S4fmN2DKDYJg5mJsiNxuUs1gYWd5anQ==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	sYl9zjVE5T91Ofa9qC5GEfkSxUEgT0U5RStwvyrr0+X6L2MAev4XDFxyUWOaq+3lMrXCgrr7EvoC36bhMvhtuT7Q6lmkNB6fQygZRv4JP/dHFgde2y0plkqLoMpOFsTMTKRAgJx8wAIe+4Laz1jZOL73V2+9CnMBokJhWH5u5eeFsKdyqGXEHGc0rDTWv6k3w9c+9eze5sNwmByzqQXrMhjaBKqJWIauZTfDW/2rT2VDPHn//r7cH4eyK3HAuMv1Gv+NKpql5UxsEBB4LEFM43xqe49u8Bl/eonThVl0bH3hKkyoEtzxzChct9bM2ZxESaRiyQXj/h4p0DJ+Jl3OwKeJS50DagNoJnv+lmgMyTTXyIYqeEyLAuKxnLxIp01zjSsHD0TGJZjpuYqqTMWFOLkYrXbJLAdWRa3TaKWkiV+GyfSq740FzxP9oNoCjp3uK0I4SAkhYlGJi3lJ+JqnEq5vNOsXDyHUcCs9bs2Q0IBCIJcMfmP2ELMgozll9HqAC0PVOzmKlQ813l1yGcleLKooxinsql2d0qWBv8wBIZD6ybt6dtr0XNOrA0bkSto6omwqtHHuPNJKHcPZG5i8ytYkbbYvQspinQKMFOHAxv8=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f185996a-5a96-4ee8-fee1-08df1fcb8e5d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:52:03.8621
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OKihn8J2v3ph18kqBX8LujpquUjVOuH6D3u+nuv5Xl3ABQqKBplhFVYoFDCUCwMFUb20MRvRdIiKieAHFBqhtBx/3K/OtyO9t5SLQEmTOIo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB4118
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 phishscore=0 bulkscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010059
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ lowpriorityscore=0 mlxlogscore=999 suspectscore=0 mlxscore=0 bulkscore=0
+ spamscore=0 adultscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2609040000 definitions=main-2610010059
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX+ZQEnfbeR797
+ XasXqPVCeHG7DMggI4ic9MN+ZoYpXQsizlZtbrcUenJ+75AzhpNFFsNTYRYsweXLzRwLQW8jITz
+ g5wpR1ISEaD2pEGR3VqtFDydtUo7RQ4FnSR7zmK0JAYvgfCkCKUMdr8Bx0OMreRbdktzqUx2HXq
+ IiyWYWiLO9QCSgLNi4f4hQQ9rqpaR4uB21Z5p7/PmTwQDeNDopyKq8quDN+VUn+urWGlArEBCcZ
+ 9jPV52/2KSgapTLD+rqLrm7AHxBJ5KHH72IU6Si8caeUsWxFTgFy783P7Jh4bJOmyKbfVPAsN6H
+ c73l3mRk7SMIIIGdpMZQW0VA4xY7iNEgONSrPemvbRp+ZtFHFDRQ8MYRH1c28JC1bD5BLL70ZrR
+ //yFEqCjpqVO4/fnp4ztGNKfnEvBSrDD6PJtUttx1s0uQ+4Cmjq8zmlINGt0B3Z0ur868odPy4A
+ pAjLX8tklk3MvLRQg6Q==
+X-Proofpoint-GUID: O4C8WyiL3XomX5mKtZYWE9KawYYR25BD
+X-Proofpoint-ORIG-GUID: O4C8WyiL3XomX5mKtZYWE9KawYYR25BD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX/ImwsDcMPVi8
+ RpxSxeLjqQryNb8TD93FMvgZ6yT1w3CObgEw09Vp5GfjFpdDUfNIAR00j++qZXLYuj6cpEPjs/v
+ 5j4rnQwq3nhD7j1K6o5EsJ4IGdFmnw/1I/BI6E3aTDXOWGyukgwt
+X-Authority-Analysis: v=2.4 cv=IuyL47/g c=1 sm=1 tr=0 ts=6abe73bd cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=x0eKOSpe3m1H3M0S9YoZ:22 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
+ a=aV9P-uB20TjLUuXUIe0A:9
 
-On Mon, Jul 27, 2026 at 05:33:26PM +0800, Jun Nie wrote:
-> To support high-resolution cases that exceed the width constrain
-> or scenarios that surpass the maximum MDP clock rate, additional
-> pipes are necessary to enable parallel data processing within
-> the width constraints and MDP clock rate.
-> 
-> Expand pipe array size to 4. Request 4 mixers and 4 DSCs for
-> high-resolution cases where dual interfaces are enabled for virtual
-> plane case. More use cases can be incorporated later if quad-pipe
-> capabilities are required.
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Patchwork: https://patchwork.freedesktop.org/patch/675418/
-> Link: https://lore.kernel.org/r/20250918-v6-16-rc2-quad-pipe-upstream-4-v16-10-ff6232e3472f@linaro.org
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> 2 or more SSPPs and dual-DSI interface are need for super wide panel.
-> And 4 DSC are preferred for power optimal in this case due to width
-> limitation of SSPP and MDP clock rate constrain. This patch set
-> extends number of pipes to 4 and revise related mixer blending logic
-> to support quad pipe. All these changes depends on the virtual plane
-> feature to split a super wide drm plane horizontally into 2 or more sub
-> clip. Thus DMA of multiple SSPPs can share the effort of fetching the
-> whole drm plane.
-> 
-> The first pipe pair co-work with the first mixer pair to cover the left
-> half of screen and 2nd pair of pipes and mixers are for the right half
-> of screen. If a plane is only for the right half of screen, only one
-> or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
-> assinged for invalid pipe.
-> 
-> For those panel that does not require quad-pipe, only 1 or 2 pipes in
-> the 1st pipe pair will be used. There is no concept of right half of
-> screen.
-> 
-> For legacy non virtual plane mode, the first 1 or 2 pipes are used for
-> the single SSPP and its multi-rect mode.
-> 
-> This patch set drop the merged heading 8 patches of v16, only the last
-> 2 are revised and split into 4 patches here.
-> 
->     Changes in v21:
->     - Add active-CTL constrain to quad-pipe case.
+Probably an (harmless) error in copy-paste.
 
-I'm going to post a patch to drop this condition, but anyway.
+Fixes: db6a2274162d ("xfs: catch stale AGF/AGF metadata")
+Cc: stable@vger.kernel.org
+Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+---
+Put in stables <= 6.12 after the backport series lands.
 
->     - adjust high clock rate constrain to quad-pipe case so that 4K@30Hz
->       still use 2 LMs.
+ fs/xfs/libxfs/xfs_alloc.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Why is it only 4k@30? 4k@60 also can and should use 2LMs.
-
-At this point I'd probably prefer 'use 2LMs unless you have to use
-4LMs'.
-
-For example, there is one more fix for dpu_crtc_assign_resources():
-    int ctl_idx = i * num_ctl / num_lm
-
->     - Link to v20: https://lore.kernel.org/all/20260415-msm-next-quad-pipe-split-v20-1-bc1fdf140b81@linaro.org/
-> 
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index bd0e720b484fd..d586825015906 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
->  		struct dpu_crtc_state *crtc_state)
->  {
->  	struct dpu_crtc_mixer *m;
-> -	u32 crcs[CRTC_DUAL_MIXERS];
-> +	u32 crcs[CRTC_QUAD_MIXERS];
->  
->  	int rc = 0;
->  	int i;
-> @@ -1384,6 +1384,9 @@ static struct msm_display_topology dpu_crtc_get_topology(
->  	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
->  	struct msm_display_topology topology = {0};
->  	struct drm_encoder *drm_enc;
-> +	struct msm_drm_private *priv = crtc->dev->dev_private;
-> +	struct dpu_kms *kms = to_dpu_kms(priv->kms);
-
-There is already a dpu_kms being passed to this function. Please drop.
-
-> +	u32 num_rt_intf;
->  
->  	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)
->  		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
-> @@ -1396,32 +1399,48 @@ static struct msm_display_topology dpu_crtc_get_topology(
->  	 *
->  	 * Dual display
->  	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
-> +	 * 4 LM, 2 INTF ( Split display using 2 interfaces and stream merge
-> +			  to support high resolution interfaces if virtual
-> +			  plane is enabled)
-> +	 * If DSC is enabled, use 2:2:2 for 2 LMs case, and 4:4:2 for 4 LMs
-> +	 * case.
->  	 *
->  	 * Single display
->  	 * 1 LM, 1 INTF
->  	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
->  	 *
-> -	 * If DSC is enabled, use 2 LMs for 2:2:1 topology
-> +	 * If DSC is enabled, use 2 LMs for 2:2:1 topology for single display
-> +	 * to support legacy devices that use this topology. Use 1:1:1 topology
-> +	 * if there is only one DSC engine in SoC.
->  	 *
->  	 * Add dspps to the reservation requirements if ctm or gamma_lut are requested
-> -	 *
-> -	 * Only hardcode num_lm to 2 for cases where num_intf == 2 and CWB is not
-> -	 * enabled. This is because in cases where CWB is enabled, num_intf will
-> -	 * count both the WB and real-time phys encoders.
-> -	 *
-> -	 * For non-DSC CWB usecases, have the num_lm be decided by the
-> -	 * (mode->hdisplay > MAX_HDISPLAY_SPLIT) check.
->  	 */
->  
-> -	if (topology.num_intf == 2 && !topology.cwb_enabled)
-> -		topology.num_lm = 2;
-> -	else if (topology.num_dsc == 2)
-> -		topology.num_lm = 2;
-> -	else if (dpu_kms->catalog->caps->has_3d_merge &&
-> -		 topology.num_dsc == 0)
-> -		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
-> -	else
-> -		topology.num_lm = 1;
-> +	num_rt_intf = topology.num_intf;
-> +	if (topology.cwb_enabled)
-> +		num_rt_intf--;
-> +
-> +	if ((mode->hdisplay > (dpu_kms->catalog->caps->max_mixer_width * num_rt_intf)) ||
-> +	    ((u64)mode->hdisplay * mode->vtotal * drm_mode_vrefresh(mode) >
-> +	     kms->perf.max_core_clk_rate))
-> +		topology.num_lm = num_rt_intf * 2;
-> +	else {
-> +		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ?
-> +				  2 : num_rt_intf;
-
-This becomes unreadable. Replace ternary with the if, make it a chain of
-if-else.
-
-> +	}
-> +
-> +	if (!dpu_use_virtual_planes ||
-> +	    dpu_kms->catalog->mdss_ver->core_major_ver < 5)
-> +		topology.num_lm = min(2, topology.num_lm);
-> +
-> +	if (!dpu_kms->catalog->caps->has_3d_merge)
-> +		topology.num_lm = min(num_rt_intf, topology.num_lm);
-> +
-> +	if (topology.num_dsc) {
-> +		if (num_rt_intf == 1)
-> +			topology.num_lm = min(2, dpu_kms->catalog->dsc_count);
-> +		topology.num_dsc = topology.num_lm;
-> +	}
->  
->  	if (crtc_state->ctm || crtc_state->gamma_lut)
->  		topology.num_dspp = topology.num_lm;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> index 6eaba5696e8e6..455073c7025b0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> @@ -210,7 +210,7 @@ struct dpu_crtc_state {
->  
->  	bool bw_control;
->  	bool bw_split_vote;
-> -	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-> +	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
->  
->  	uint64_t input_fence_timeout_ns;
->  
-> @@ -218,10 +218,10 @@ struct dpu_crtc_state {
->  
->  	/* HW Resources reserved for the crtc */
->  	u32 num_mixers;
-> -	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-> +	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
->  
->  	u32 num_ctls;
-> -	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-> +	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
->  
->  	enum dpu_crtc_crc_source crc_source;
->  	int crc_frame_skip_count;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index eba1d52211f68..058a7c8727f7c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -55,7 +55,7 @@
->  #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
->  	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
->  
-> -#define MAX_CHANNELS_PER_ENC 2
-> +#define MAX_CHANNELS_PER_ENC 4
->  #define MAX_CWB_PER_ENC 2
->  
->  #define IDLE_SHORT_TIMEOUT	1
-> @@ -661,7 +661,6 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
->  	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->  	struct msm_drm_private *priv = dpu_enc->base.dev->dev_private;
-
-Unused (and triggers a warning).
-
->  	struct msm_display_info *disp_info = &dpu_enc->disp_info;
-> -	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
->  	struct drm_connector *connector;
->  	struct drm_connector_state *conn_state;
->  	struct drm_framebuffer *fb;
-> @@ -675,22 +674,12 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
->  
->  	dsc = dpu_encoder_get_dsc_config(drm_enc);
->  
-> -	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
-> -	if (dsc) {
-> -		/*
-> -		 * Use 2 DSC encoders, 2 layer mixers and 1 or 2 interfaces
-> -		 * when Display Stream Compression (DSC) is enabled,
-> -		 * and when enough DSC blocks are available.
-> -		 * This is power-optimal and can drive up to (including) 4k
-> -		 * screens.
-> -		 */
-> -		WARN(topology->num_intf > 2,
-> -		     "DSC topology cannot support more than 2 interfaces\n");
-> -		if (topology->num_intf >= 2 || dpu_kms->catalog->dsc_count >= 2)
-> -			topology->num_dsc = 2;
-> -		else
-> -			topology->num_dsc = 1;
-> -	}
-> +	/*
-> +	 * Set DSC number as 1 to mark the enabled status, will be adjusted
-> +	 * in dpu_crtc_get_topology()
-> +	 */
-> +	if (dsc)
-> +		topology->num_dsc = 1;
->  
->  	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
->  	if (!connector)
-> @@ -2180,8 +2169,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
->  {
->  	int i, num_lm;
->  	struct dpu_global_state *global_state;
-> -	struct dpu_hw_blk *hw_lm[2];
-> -	struct dpu_hw_mixer *hw_mixer[2];
-> +	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-> +	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
->  	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
->  
->  	/* reset all mixers for this encoder */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> index 61b22d9494546..09395d7910ac8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> @@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
->  
->  	/* Use merge_3d unless DSC MERGE topology is used */
->  	if (phys_enc->split_role == ENC_ROLE_SOLO &&
-> -	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-> +	    (dpu_cstate->num_mixers != 1) &&
-
-I think here you should be comparing to 'phys_enc->split_role ==
-ENC_ROLE_SOLO ? 1 : 2'. Add separate variable for it.
-
->  	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
->  		return BLEND_3D_H_ROW_INT;
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index ba04ac24d5a9e..b1ac84c0b52db 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -24,7 +24,7 @@
->  #define DPU_MAX_IMG_WIDTH 0x3fff
->  #define DPU_MAX_IMG_HEIGHT 0x3fff
->  
-> -#define CRTC_DUAL_MIXERS	2
-> +#define CRTC_QUAD_MIXERS	4
->  
->  #define MAX_XIN_COUNT 16
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index 0e65bf5ddc4a6..fd1f3e7982062 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -34,7 +34,7 @@
->  #define DPU_MAX_PLANES			4
->  #endif
->  
-> -#define STAGES_PER_PLANE		1
-> +#define STAGES_PER_PLANE		2
->  #define PIPES_PER_STAGE			2
->  #define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
->  #ifndef DPU_MAX_DE_CURVES
-> 
-> ---
-> base-commit: a913d08e5ea9a491b806e64a24410f6722ddc9b3
-> change-id: 20260121-msm-next-quad-pipe-split-ab95b6e3ffd3
-> 
-> Best regards,
-> -- 
-> Jun Nie <jun.nie@linaro.org>
-> 
-
+diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
+index f762dcce8d13..0ffa82400007 100644
+--- a/fs/xfs/libxfs/xfs_alloc.c
++++ b/fs/xfs/libxfs/xfs_alloc.c
+@@ -3461,7 +3461,6 @@ xfs_alloc_read_agf(
+ 	if (!xfs_is_shutdown(pag_mount(pag))) {
+ 		bool	ok = true;
+ 
+-		ok &= pag->pagf_freeblks == be32_to_cpu(agf->agf_freeblks);
+ 		ok &= pag->pagf_freeblks == be32_to_cpu(agf->agf_freeblks);
+ 		ok &= pag->pagf_btreeblks == be32_to_cpu(agf->agf_btreeblks);
+ 		ok &= pag->pagf_flcount == be32_to_cpu(agf->agf_flcount);
 -- 
-With best wishes
-Dmitry
+2.53.0
+
