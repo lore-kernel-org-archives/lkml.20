@@ -1,207 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013062.outbound.protection.outlook.com [40.107.162.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C32052D2C9
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790867778; cv=none; b=rqn+RcaVHWGHkw/w7HxFw2QS8GbOIqtrKN1KM8hWl0aUju2OVfMajNZBniK8wIaPCD14siX3oxNAYV9J8/Ul3rBShnQuwbMCYg2++RsAY4igfE/pfRMZfPAVwpcitbWa7Ek0ZDDoCKSBmOvDaXfSO30MMIrqohmHoxWZt78+MZI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790867778; c=relaxed/simple;
-	bh=MeXjBLbBVTGhFIqetcUFLb3uSFJPU6ikWRvYWOhZ2Nw=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=RE7JAuS6PFu3C8jmrVmFE9PMAS18uLCdrEny6nH1DmGqxXmPvEN2GZmo8TRFDgA+5+D1y3zGzrpdGi03mHDUXs9UaXwJrU4LzgAdISq7f7ELiz54qc1WjuMgy3HDzIyK2j3VxOOXr7+Au6Zyg26OsPvy9/tKW2dKcr35bRh0BZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g4JylrNz; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA0C51FCB7;
+	Thu,  1 Oct 2026 15:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790867860; cv=fail; b=hAUWkpQkb2lWgDivU3DJJuPJwTHqrg+i3itGDuQTB2YwKPc0LsmzF/nrm+uSKef+XFGKx54NCFOrfNfUXGJWN6VJCm6Hu8qdbtiWbyMA37Phiem+rYqUDQ228dDY1I7lv3am2+eJWntw4smfc6fF8Kgaep6Nt17Ll5sZszyf3Z8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790867860; c=relaxed/simple;
+	bh=8jDNvKYWTqnVwqRDdqX3XXOtu1M7f2wgms61omOyfrE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hyKdmjXBD3IPZLbjI+6WCUTnmBGgFMmOYXsR3uDJv/CYeCkWxSpQ26C7qFdkX0h/6WLKBf1q5GUj8Lahbbbjpp/8WshaUn250uNJ8NfiR7cOgaKJGOkr/71gVtEUxvvOfZUYOSoNz8dkKkakzJyhYWD/pUK3pVJMIiszxqDIypQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=KySuql7t; arc=fail smtp.client-ip=40.107.162.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g4JylrNz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790867777; x=1822403777;
-  h=date:from:to:cc:subject:message-id;
-  bh=MeXjBLbBVTGhFIqetcUFLb3uSFJPU6ikWRvYWOhZ2Nw=;
-  b=g4JylrNzmSLOv93KySZqlJsH6k6ZawanDqetjLHa9P2c5+rt6TA1DZcw
-   ay1X1Tl3obJjMobPX76unN2HIOCQTsOcw4KkHwry67D8AOiXqkBUUqxG5
-   nTtG7ZSYIDeJRM5TUBpXDSxBcK/p/HZ44EfLJ5+5MJ7Ah+T9H/HdHhd+s
-   SxuVz1+x+gCJy0S1DzPN+lEQAvzcnUEJgIhygaLu4WFcQ2FYqO9bpykNE
-   iBMu4QRNau5+etPzzfK2qhYOkhSQ68inw2tdHmmgSnCtmomUPoAGf9MbR
-   bAl45rzn4G44O7Tu7rF7G0hl8yR5pBpBsavqPqyDJAEygVggDK+U8283k
-   g==;
-X-CSE-ConnectionGUID: ZKVGGac3Su62c+aAU9z5ww==
-X-CSE-MsgGUID: gYUnxMl/SOCFyymw8koVzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94341354"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="94341354"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:16:16 -0700
-X-CSE-ConnectionGUID: 18W00y6bRuyQjmIaZDpv5Q==
-X-CSE-MsgGUID: FUmvh4u3SlmTvrijgo+rbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="303953355"
-Received: from igk-lkp-server01.igk.intel.com (HELO 3fb566d470b1) ([10.211.93.152])
-  by fmviesa001.fm.intel.com with ESMTP; 01 Oct 2026 08:16:14 -0700
-Received: from kbuild by 3fb566d470b1 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xCIW4-0000000007v-1S2N;
-	Thu, 01 Oct 2026 15:16:12 +0000
-Date: Thu, 01 Oct 2026 17:15:53 +0200
-From: kernel test robot <lkp@intel.com>
-To: Dave Penkler <dpenkler@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: drivers/gpib/cb7210/cb7210.c:120:32: sparse: sparse: cast to
- restricted __le16
-Message-ID: <202610011729.ZtctXAPk-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="KySuql7t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c055mV7VGti0oGICLaTHglwdMIEY/bXkE/AvoURKV70hCd30qJzVyXW9cZVVooXwPmlp5bxb25Uk0Vi6y2ev2g41R01IrluzEeuagxmvSIRMMUulfjLfpIA9eEWP7uBkuRdsWJ3fUqloPa/Nx5ee/UOHGVX8BaaO/KlTAlVmEiGVEKKRXtuz5zdd7XkuEyIbCnMnLwuns8IjS9+xr5tmFWR/4kT4Cgu8+L6lNlgHh7h7dll6RY8BVCr1mA/KcQ4/XR1lJkXItHrY2xF8aMC8cLVMAD7z+DW9FZUWQCcRMbl14Tox99eyCzXDzA9bletDzgxR8Q5/ibx9hoZRj67GbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3oXNarGnnDpU6pIBAy7NeZb7nrIwvsbLNf+6l+Y87FE=;
+ b=hDKPnzUHENIGdhWOwjAmTnM1R4mbk2nNwMy5LUvEYPMjgLyGTmzhagLGrl8mZ0iD3Bz6A4nLNQw4ezmfG2JlxAMwWAVPX2srbE7831q6J7bC3aeTd2SrGauXGYX7uphviSVfQJCaKM2JW8TbfvrmLDgkCW+UTjUj/EOEpPhYSSn+l38YVyRI9IGPd9js+AvJ6ypSVEdOzTcvnq8a+f/Ev6rUZabZc9fv646LW78MFsKBG9EZGPmjjyqzb+Jznb1Rb+T6yuazeEjhYYiM6mb5VDv+utQhKyXilCsXWAHAXNpX3MRGFTtaHnlU22y+YEVsMh1q543Hu4DMavHetSWTKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3oXNarGnnDpU6pIBAy7NeZb7nrIwvsbLNf+6l+Y87FE=;
+ b=KySuql7tmYkveu6bp6sN4WfbtjZNvbeb5qCij3ZYmUqNYmEQRF9gqHtjUjVkRa22IUgUpN0nPyVgHpUisDmaUpZmXy43h2HZ1HynKTi1gQ3KS0/KdMPLOmpIzYrnufrwLVq6udM9Tjc8LbOD97eLbkOnV15weWbJdomAYpjucOLIqNq9Cke3qn+uXyrdJ1VYJa7Rb7EasH3FSPxGwAJ8r4X+KX31WzwTI6TcSaf3v4B4Ovo0rjkL3Pya6N/cTYMUPyQAvvUiTkvwFwBWm0ISTBjzlvEIw5mGVBizSYmZlSgUXo22KWGitkeHOUDDAZ3FztIpuDDejz/juPWe6NCH1w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU4PR04MB10647.eurprd04.prod.outlook.com (2603:10a6:10:589::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 15:17:32 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 15:17:32 +0000
+Date: Thu, 1 Oct 2026 11:17:23 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Diogo Ivo <diogo.ivo.sx@renesas.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] i3c: renesas: Fix MDYAD(x) field length
+Message-ID: <ar55g42Qqz1BN3n9@lizhi-Precision-Tower-5810>
+References: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+X-ClientProxiedBy: PH8P221CA0039.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:346::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB10647:EE_
+X-MS-Office365-Filtering-Correlation-Id: 466e6d82-5fed-4721-fe04-08df1fcf1d2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|19092799006|366016|23010399003|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	rZnNv4Cap6qbWP8ILLBJpZN4egx4syjjyW/L3RY3RIziZXm/Ush2QQGvHA9/PZYi1UEzvxR0FfHkuiiIP/0AIUTbqTOBfvGFTXQC8DouLC/vkul17oDX+oRawYfTNk4ASu0zEZ/ONna20BxOZKdJTfj8i01cul+rklaut9zPgL87AZuhMiXB6x6InRBENprp7iJ2oCKrVkrP8Y23HyLqN37SSOWHSp160ml7hBktcs07QEjmgqdxzHYRu/7+KUXAXngmXjj+CRFeR/KFJ7h0uD/N5/IJaJY7tSJ8QM90gUj0Ak9ee0dipO9IdX/hoyVus7jtA5KFrUx+uuwp3odR97hs3AV6KFFX7nSsxlSeiFBCbiUu4GSsTWDPi0uFv4KnSfOFJVAm2fXcSeT+9GNpXunbcq9lwKhvAWEhrz75FTHPJtoAuAcObI73IziV1DrEVDY5HuaJThFw3S2vH5HbsKvFc/sO0aHCz3zuAfpnRm+Ww8iysPxcGXN1P8ofbejfCgTIwwQM5aW5KqBsCOOuFBB+3X/xomS/TjVrWTuPbxKJ+kdKJlKQ5lWBdSh7m32Yjvlr76y5khj4T+psbN3Zh31706XrHsS20WsFEmTnEMz5Ggztis3LGciEiCM4kXsoq+SLUkXQbz6ilNOluOBDrUCLLgQpkfRI4gEMhILSnfs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1DaKlrHcSB5wHmtcekFWpE12jOYL2RjfW+8D20uTwOmq5OoGXtVAreIlddT/?=
+ =?us-ascii?Q?rKWu3EwvMhYPiFZL9Mx5K9rXg2OaYIfYdJR2oHoCLL8hLo7My3ym2Q+vU0sZ?=
+ =?us-ascii?Q?jK5+EsKDN0Iaxq9P1sfbVxQpxpRA2fMUQRoxdaVq9GgTBafCaEv6exIeOEuw?=
+ =?us-ascii?Q?R1u9k/kdycg14blEwd7dwzr09wDsvFMfuFQvXC0IUh4Tj6Zf3J+a75Rx+jDQ?=
+ =?us-ascii?Q?tr9rSkzU1vcHwsc9IirkSrpcgfuRQ2x404Pm+0qek/4DGrPHNc2/kdCbOzfx?=
+ =?us-ascii?Q?QG0NNS0qEGmVj2LyAHoL3x0ZH2aw4u55+2QAKqo/s8zJB3pV4QuSc794vwi/?=
+ =?us-ascii?Q?dNllFJTWCzK65A5gJnFHmx8rMPKWymSgoSDl/Eq3EP1d0lO67bNV9toouiFC?=
+ =?us-ascii?Q?dG/SiUDHf6CYidbfKXz/5XmhXUnv5n6GszaO9j9/Ntr+Jq0QAj79zGpEvXGl?=
+ =?us-ascii?Q?tumIxkCk45uKVt+0RZh0ge3Be1ru5LiUt6o9157GNhTiOuvzCaueXyfgzgnA?=
+ =?us-ascii?Q?ApQ1jWkkGeVeylOSLLMvDmMfyqJRwLOJmRNn4oGorQwHY8Rp/4SGsglaJcVq?=
+ =?us-ascii?Q?OYVVSxB1NStJHEB2medSngacXJxtxgRe29FvyT5EmOx31yt4mwPZHxHHOmEN?=
+ =?us-ascii?Q?voEscwvMmF38h3FWrUvGcnpCjtqaanGMtdfdHxpH98mQAE1iecU3tUuf4euo?=
+ =?us-ascii?Q?ZYvi0/TV2gB+FgV8aKZ2pZtWAFqSjl4IBh0gntSdUvp9TAbbulnATTM2AC3J?=
+ =?us-ascii?Q?2vXCStmtGOUPIoeXyMghykrEs1FGJGgkdPndHEoL2idTvrMwTkYPit0R7kF7?=
+ =?us-ascii?Q?skDuenrmrEtL+QoAdA9KoOO6LEjgnXKP8bhMhw1j+jI286n9OfleezQwJ9Tt?=
+ =?us-ascii?Q?ltEA6+R6eOzS/e0/rLCpVlFF1q2Kxst6q+tRYLTIKdXVt3eF7Ps0SfGTxjSV?=
+ =?us-ascii?Q?k6Pg782gaRzX9qC5uVC5b696wkZb6rrqe/tgnI61oVxC5R5tJsHpkvyj4mVu?=
+ =?us-ascii?Q?QspCB1tAJXWQENsls+eVc5UJBo9jrfOs6jJdginjfKzCgF4McrSyVx2RKOZj?=
+ =?us-ascii?Q?E3hqR+3ekxlvB+BZzYDBaI0l4bx5Btm40K6YgWrnBRffo1i921J4/mkRE/WP?=
+ =?us-ascii?Q?Q75FQ5+D5Eaq9wzRR5ItCoTiA3sC1ncKG22Pbuk58nzMfUv0voxXtg/u4u18?=
+ =?us-ascii?Q?OMziRkjErchotWlkFuOXIKYzRCLLAZJ0vxkjCIsfSMrQyBpDxqfyhSub0rvq?=
+ =?us-ascii?Q?yxaux9hu4DkYJocMsmVitLmk3reizs69BkhSUv5VtNJ07qfiuo37eGbhK5ok?=
+ =?us-ascii?Q?/NYt9a+RaUvT0BHExxNVW79cF7/9WQ5NLgYKengkmj7GmeqfE7K9mftUtIgo?=
+ =?us-ascii?Q?gqYip5tWPvtGZuBUbHrAaQXm2L1/GbpdAykpsieIaSl9V01k2whyUIwBppnf?=
+ =?us-ascii?Q?96RhWpNcpdl5izMXnIC6c3eALssAt7oOaR3fCblHWkAsCMIy894Z4Ev/s8qr?=
+ =?us-ascii?Q?4ruikJwtUwGxr7tkno9UuF84pRMnm6w7C2GvOLuRHX5vosAxlw0xBj3FgZUv?=
+ =?us-ascii?Q?/nmbUUDlTaH5wrJ2al60Q+TQuqfctcGM/zNA0TfMStQGDxQQDJG/gQ1w7xad?=
+ =?us-ascii?Q?7/Mk7+um3cYgVlUQMqT1qlqY2gwPYVq19QO5E2k5iRRdoJmPEvPWTotoNdKn?=
+ =?us-ascii?Q?bZsp22hLJGzfkLecp4sMrmouHtD5DMT8HKqPdh3Bap8cX9wPnBVzFtVpdOa1?=
+ =?us-ascii?Q?EdMcjnLN/sVdgZUAj9tY0Ivkwy6AVBePkovKy1L+/kQHZOtrIMaI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 466e6d82-5fed-4721-fe04-08df1fcf1d2b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:17:32.3074
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f0FFELbewtHuFcVj39AeIBgwOiLa1lk6T3MfBsbOyghDnW8CDCr09e3ld38r+dE9fFqOXwEQJZfMm5gY5zFEmTUB3nGFNjjTCcwIN3+r20QJ0ewXUNIXBwTpJeBeTGw/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10647
 
-Hi Dave,
+On Thu, Oct 01, 2026 at 04:10:09PM +0100, Diogo Ivo wrote:
+> Fix the length of the MDYAD(x) macro to be 7 bits as it represents an
+> I3C address, which is 7 bits. The length of this field was confirmed on
+> the documentation of the RZ/G3{E,L,S} SoCs.
+>
+> Fixes: d028219a9f148 ("i3c: master: Add basic driver for the Renesas I3C controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+> ---
 
-First bad commit (maybe != root cause):
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   551c722f40809618230001baccf219193e22fc5a
-commit: e6ab504633e4c06e35377ecf3c8cbc304de79858 staging: gpib: Destage gpib
-date:   10 months ago
-config: m68k-randconfig-r2304-20261001 (https://download.01.org/0day-ci/archive/20261001/202610011729.ZtctXAPk-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 8.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261001/202610011729.ZtctXAPk-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: e6ab504633e4 ("staging: gpib: Destage gpib")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610011729.ZtctXAPk-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpib/cb7210/cb7210.c:120:32: sparse: sparse: cast to restricted __le16
->> drivers/gpib/cb7210/cb7210.c:120:32: sparse: sparse: cast to restricted __le16
->> drivers/gpib/cb7210/cb7210.c:120:32: sparse: sparse: cast to restricted __le16
->> drivers/gpib/cb7210/cb7210.c:120:32: sparse: sparse: cast to restricted __le16
-   drivers/gpib/cb7210/cb7210.c:148:24: sparse: sparse: cast to restricted __le16
-   drivers/gpib/cb7210/cb7210.c:148:24: sparse: sparse: cast to restricted __le16
-   drivers/gpib/cb7210/cb7210.c:148:24: sparse: sparse: cast to restricted __le16
-   drivers/gpib/cb7210/cb7210.c:148:24: sparse: sparse: cast to restricted __le16
-   drivers/gpib/cb7210/cb7210.c: note: in included file (through arch/m68k/include/asm/io.h, include/linux/io.h, include/linux/irq.h, include/asm-generic/hardirq.h, ...):
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-   arch/m68k/include/asm/io_mm.h:164:21: sparse: sparse: Using plain integer as NULL pointer
-
-vim +120 drivers/gpib/cb7210/cb7210.c
-
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   78  
-e8d9c91abf5ad9 drivers/staging/gpib/cb7210/cb7210.c Michael Rubin 2025-04-09   79  static int fifo_read(struct gpib_board *board, struct cb7210_priv *cb_priv, u8 *buffer,
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   80  		     size_t length, int *end, size_t *bytes_read)
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   81  {
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   82  	ssize_t retval = 0;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   83  	struct nec7210_priv *nec_priv = &cb_priv->nec7210_priv;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   84  	int hs_status;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   85  	u16 word;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   86  	unsigned long flags;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   87  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   88  	*bytes_read = 0;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   89  	if (cb_priv->fifo_iobase == 0)	{
-82e3508046f9bc drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2025-02-20   90  		dev_err(board->gpib_dev, "fifo iobase is zero!\n");
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   91  		return -EIO;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   92  	}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   93  	*end = 0;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   94  	if (length <= cb7210_fifo_size)	{
-82e3508046f9bc drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2025-02-20   95  		dev_err(board->gpib_dev, " bug! fifo read length < fifo size\n");
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   96  		return -EINVAL;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   97  	}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   98  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18   99  	input_fifo_enable(board, 1);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  100  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  101  	while (*bytes_read + cb7210_fifo_size < length)	{
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  102  		nec7210_set_reg_bits(nec_priv, IMR2, HR_DMAI, HR_DMAI);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  103  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  104  		if (wait_event_interruptible(board->wait,
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  105  					     (cb_priv->in_fifo_half_full &&
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  106  					      have_fifo_word(cb_priv)) ||
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  107  					     test_bit(RECEIVED_END_BN, &nec_priv->state) ||
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  108  					     test_bit(DEV_CLEAR_BN, &nec_priv->state) ||
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  109  					     test_bit(TIMO_NUM, &board->status))) {
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  110  			retval = -ERESTARTSYS;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  111  			nec7210_set_reg_bits(nec_priv, IMR2, HR_DMAI, 0);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  112  			break;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  113  		}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  114  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  115  		spin_lock_irqsave(&board->spinlock, flags);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  116  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  117  		nec7210_set_reg_bits(nec_priv, IMR2, HR_DMAI, 0);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  118  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  119  		while (have_fifo_word(cb_priv))	{
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18 @120  			word = inw(cb_priv->fifo_iobase + DIR);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  121  			buffer[(*bytes_read)++] = word & 0xff;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  122  			buffer[(*bytes_read)++] = (word >> 8) & 0xff;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  123  		}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  124  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  125  		cb_priv->in_fifo_half_full = 0;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  126  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  127  		hs_status = cb7210_read_byte(cb_priv, HS_STATUS);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  128  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  129  		spin_unlock_irqrestore(&board->spinlock, flags);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  130  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  131  		if (test_and_clear_bit(RECEIVED_END_BN, &nec_priv->state)) {
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  132  			*end = 1;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  133  			break;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  134  		}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  135  		if (hs_status & HS_FIFO_FULL)
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  136  			break;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  137  		if (test_bit(TIMO_NUM, &board->status))	{
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  138  			retval = -ETIMEDOUT;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  139  			break;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  140  		}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  141  		if (test_bit(DEV_CLEAR_BN, &nec_priv->state)) {
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  142  			retval = -EINTR;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  143  			break;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  144  		}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  145  	}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  146  	hs_status = cb7210_read_byte(cb_priv, HS_STATUS);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  147  	if (hs_status & HS_RX_LSB_NOT_EMPTY) {
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  148  		word = inw(cb_priv->fifo_iobase + DIR);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  149  		buffer[(*bytes_read)++] = word & 0xff;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  150  	}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  151  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  152  	input_fifo_enable(board, 0);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  153  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  154  	if (wait_event_interruptible(board->wait,
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  155  				     test_bit(READ_READY_BN, &nec_priv->state) ||
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  156  				     test_bit(RECEIVED_END_BN, &nec_priv->state) ||
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  157  				     test_bit(DEV_CLEAR_BN, &nec_priv->state) ||
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  158  				     test_bit(TIMO_NUM, &board->status))) {
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  159  		retval = -ERESTARTSYS;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  160  	}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  161  	if (test_bit(TIMO_NUM, &board->status))
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  162  		retval = -ETIMEDOUT;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  163  	if (test_bit(DEV_CLEAR_BN, &nec_priv->state))
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  164  		retval = -EINTR;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  165  	if (test_bit(READ_READY_BN, &nec_priv->state)) {
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  166  		nec7210_set_handshake_mode(board, nec_priv, HR_HLDA);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  167  		buffer[(*bytes_read)++] = nec7210_read_data_in(board, nec_priv, end);
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  168  	}
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  169  
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  170  	return retval;
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  171  }
-e9dc69956d4d9b drivers/staging/gpib/cb7210/cb7210.c Dave Penkler  2024-09-18  172  
-
-:::::: The code at line 120 was first introduced by commit
-:::::: e9dc69956d4d9bf4a81d35995ce9229ff5e4cad5 staging: gpib: Add Computer Boards GPIB driver
-
-:::::: TO: Dave Penkler <dpenkler@gmail.com>
-:::::: CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>  drivers/i3c/master/renesas-i3c.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
+> index 28c0927a0179..8b264f72e55c 100644
+> --- a/drivers/i3c/master/renesas-i3c.c
+> +++ b/drivers/i3c/master/renesas-i3c.c
+> @@ -37,7 +37,7 @@
+>  #define  BCTL_BUSE             BIT(31)
+>
+>  #define MSDVAD                 0x18
+> -#define  MSDVAD_MDYAD(x)       FIELD_PREP(GENMASK(21, 16), x)
+> +#define  MSDVAD_MDYAD(x)       FIELD_PREP(GENMASK(22, 16), x)
+>  #define  MSDVAD_MDYADV         BIT(31)
+>
+>  #define RSTCTL                 0x20
+>
+> ---
+> base-commit: 66b734f67a4a0a4c2313afb89033d5ab8b8f7523
+> change-id: 20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-0ba701c9add9
+>
+> Best regards,
+> --
+> Diogo Ivo <diogo.ivo.sx@renesas.com>
+>
+> ________________________________
+>
+> Renesas Electronics Europe GmbH
+> Registered Office: Arcadiastrasse 10
+> DE-40472 Duesseldorf
+> Commercial Registry: Duesseldorf, HRB 3708
+> Managing Director: Carsten Jauch
+> VAT-No.: DE 14978647
+> Tax-ID-No: 105/5839/1793
+>
+> Legal Disclaimer: This e-mail communication (and any attachment/s) is confidential and contains proprietary information, some or all of which may be legally privileged. It is intended solely for the use of the individual or entity to which it is addressed. Access to this email by anyone else is unauthorized. If you are not the intended recipient, any disclosure, copying, distribution or any action taken or omitted to be taken in reliance on it, is prohibited and may be unlawful.
