@@ -1,153 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C5B26656D;
-	Thu,  1 Oct 2026 00:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29965368D47
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 00:50:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790815773; cv=none; b=SvsZgbsF1EP3PSzT2ZtqfLOcC+z1w2BoZqfz8ChWAa7lfHnOk8s6+I0+ivjg/lgoVImD5xor88TLhLuDi/N+s5jTm2e9R0BqmwzB5yocXcpJdWRwTfPea8l4TI4l6fUojL3aRcqMYhmznG/x8xvkCUZY8iStzyQNGgnfzSxynqQ=
+	t=1790815853; cv=none; b=VhpmhzbJC1DHN21gnA0Aa+JAJqSrBnHXtEaxakRtUV/xCGEGL0zEWoIkkEbRuhojuUxZLKutCfxqrqAxMGy5p9PdlIiFJ53NOdebVk/CNDHbV5o0s1YhnPIWIgigwgWAVAe0eGu/qgZOl/iJ0NmfahOLq/ndyuY7oim4bh5m+jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790815773; c=relaxed/simple;
-	bh=Tq67/JdvD00RnAGSM6IDPb5xvFelJzEaXMrgy88CzP8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NnH9J8PSuaBr8wzQh2vciI9wPKtlCeCf/wTopeA8yG1+l/2ntGBNdiBxvExevy09vpyfyTwEKjLxbIi13rk3SFzz46SWQuidBnyTXyRntSqf2zRgRgRsxUj3CDeMVlnICG4fa3eYEpq6kRcqhPCcfX4MBkZMHuKq0vUgX3Rr4cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEL6AUsA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790815853; c=relaxed/simple;
+	bh=QYUC4uyzYSIZKc3Y9RSNmVV75UIvAUJr6HbAAtAFuQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k0DLix6Xs/2hz0vzSuJwWYtVb07mLGY9ZhncfhaM8/EJeRGgRXcRjccl9T8Wuxk6iF1Br0ohZlFK0Q0/AUdl9eDM+QmbWKYL/GCUQIwUT0pEXUDPFIF+9t0GjMYllIe++plISBJvpPpknhBVdGC5KNYlOisfuuCHudCaOQGaVt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EN+Lr0vI; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEL6AUsA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2EF61F000FF;
-	Thu,  1 Oct 2026 00:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790815771;
-	bh=dsmAzYwZWv0KlwVz1Z46WG8v+aQCQZ3x5dgAm2eAzwo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HEL6AUsAxvDBqPketTl4ohKhQUqlwlxIhRkpQWAW0bp06y2E3sJNg+cxZjRNh0y3Y
-	 zsNTsVNm/Hr+Ss1i/hxeCH78WoKA6mWxLK/Dsw+6kNr14SW2TbrJey3DCNM5mSaIDu
-	 10dXM9lf+5e1NPpNQfFUszBo97/kSZEoLf9RLaRjS0z/2IiTZl6dNxino8O7R9eqLL
-	 SAeTG3F0DVJQ6H8QSXitXNJf1l4+/qTitZvjwkN8RFhu/4amCUgpvO7SiVW3anlsWp
-	 X96c82ashbm9q8ETzu9iCNZgSq7wIUUCREV5HpM+dEboGPJ7yloAQEutsHptCOAQ2p
-	 2alsZ5P4gmXYg==
-Message-ID: <4d594d86-b037-43e4-9c48-de6170d64051@kernel.org>
-Date: Thu, 1 Oct 2026 01:49:27 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EN+Lr0vI"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f38so26741005ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:50:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790815851; x=1791420651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+p/hrm6+chvYSoq4BTJEh28/132fMbyEn9rvNB7Zknw=;
+        b=EN+Lr0vI2edvGJtFp3P7bMvVdMsp41W8fvV9aDE0ctF66Jz99w0G5y9xJyBQs85pvq
+         p7nz+yPd6shO0wYHLYXnf8TLStdwTpmK0w4NJRP1wbID8m4bTOzrxscq8vp6xXe/CLJm
+         xt+mRW10IoYqtlDjdx4SmWXbJGbL9XJl4zUT0XhY2z2mnPPtRfN3p3/mxRMyZoCfYCoT
+         8IP0JqCQshfXD5JbW9F01bdQkG1BcxBhg27+fXNHwMEAc83vnQ6UqCxm14nZVJBtnjLr
+         +717VgEgImorXCR8coTBHdCi0GWE4mZW2F3Fv6yQhKdVegFjDgxy4fwl8lTmjEaHRrWs
+         jajg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790815851; x=1791420651;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+p/hrm6+chvYSoq4BTJEh28/132fMbyEn9rvNB7Zknw=;
+        b=Sj5I3+a5QimVQVYa5BqWKFSyyYwp/hkdkcsZ6l8kHrfhMOcHgxGpwBJgXYRiYvNWt8
+         S4RW34K0NgraZ9QbyjEob6Em3josk+T9B4nbXWbTl/K7nr1nGQ6c5xJQzI48t5hQmQFz
+         6zmpU7FKOKln+lk0lY71sX9bzYhY+jMyPMK8/SD0eon7m0Fjh9EIrbR14HV8K51wMH6a
+         4BRZFDdb+OeGtODhR4xHVeEK4H4LpG3/01EeMKIXAYd5b/fIxGKMVjPxmMY7IT/syENT
+         37UUNeHkBtqydyprCM9TlUYfYfkOgNPa+CxpkheXeM7UAlyRFlW9E0XsUFZQuRaP087s
+         6Z6g==
+X-Forwarded-Encrypted: i=1; AKwUvByMXYmCy+050N3ymahld1DfkjGXG/P1fqfkDI51n4xPzZibHfCgSlW1jt7BWS5nrMcfRaVzw/zblWGCDSo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBc8Xqp5/OMegqkpU052bxz/g76NZy36K3Hj/2JrwSA/CF6Rf9
+	xDGbAPdXxgD6IlUrlD8tSuvhMok3x0VjrR7+PhVC3410STgQotVNJCdy
+X-Gm-Gg: AYBFou1RnX1wCDx6Z6JzfdriBNlUt8Z4PtXzeSDCJNoGCMGeUbjSRQ5sDeqGYdqUhoy
+	Wu9671aDFZm9+tOQBHJeT070kAom7LvCt3ns+SEMV6Y8fb5j1RcLF9qgt0qRlDZQrI36O2Ckmxk
+	k/UMh3xZ9DkSZcphCpFqormUCIgzxdGOaVNyR3PaKe8raelon1SGgvot5PdEzDBqzHtauQQrpVw
+	lTEfMF7CViWH5MCjfArf1FIVKdqrxWHPP9WrvpqlKfwSSCPdLfT3V4sNaZjAS0zS8YutwQNWZep
+	Vjs56bFOLU0gHxK2qUB7U5/tA0h4DpYBwOH0x15qz0UxAVJ3atOOpXBqWekHjtik3I7cmYfr+hj
+	DU/dqTwoxl62aFzL74W7AJ82R9fMPTniN7lnLo9S5O5B8cZhLHiFZ6dZoxwd0Fv0M+pCIBAG6Td
+	FJgl826sdiRZ7of2W2RsyTTR/M/hQ/m2Q5EVrwOnzFSgh5uHD3qSs3qmq9sJUKut+RisibuQ69t
+	xIWexOtja11tXjifZy5/9inPC3UZsl1TRuDVkCC/p5adN3jo1jUP2yAj2HBkodS5bJ2NKelcXr6
+	Xpda0Q==
+X-Received: by 2002:a05:6a20:9191:b0:3da:421e:40f3 with SMTP id adf61e73a8af0-3de9e69ac1emr2778847637.17.1790815851221;
+        Wed, 30 Sep 2026 17:50:51 -0700 (PDT)
+Received: from pc130107.ADVANTECH.CORP (59-124-202-175.hinet-ip.hinet.net. [59.124.202.175])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88818815025sm270995b3a.18.2026.09.30.17.50.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 17:50:50 -0700 (PDT)
+From: Hsieh Hung-En <hungen3108@gmail.com>
+To: dianders@chromium.org,
+	neil.armstrong@linaro.org,
+	jesszhan0024@gmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	Hsieh Hung-En <hungen3108@gmail.com>
+Subject: [PATCH v2] drm/panel: ronbo-rb070d30: Ignore DCS errors in disable()
+Date: Thu,  1 Oct 2026 08:49:40 +0800
+Message-ID: <20261001004940.110776-1-hungen3108@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: iris: fix 64-bit division in
- iris_set_slice_count()
-To: Sasha Levin <sashal@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-Cc: "kernelci.org bot" <bot@kernelci.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <WGjCcYNrTTl1nX0egc4fFtnjES8VeY1nYXm4v7kHVBNOSkChhctiUs2iU0KupHeUVt5uzgS6b3Re1MNJNK9riQ==@protonmail.internalid>
- <20261001004619.2230849-1-sashal@kernel.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261001004619.2230849-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/10/2026 01:46, Sasha Levin wrote:
-> 32-bit ARM builds fail at modpost:
-> 
->    ERROR: modpost: drivers/media/platform/qcom/iris/qcom-iris.ko:
->    symbol '__aeabi_ldivmod' undefined!
-> 
-> The maximum average slice size in MAX_BYTES mode is derived from the
-> BITRATE capability, whose value is an s64, so both the division by
-> the frame rate and the DIV_ROUND_UP() by the number of slices are
-> 64-bit divisions. 32-bit ARM has no instruction for these and the
-> compiler emits calls to __aeabi_ldivmod(), which the kernel does not
-> provide.
-> 
-> The bitrate is always positive, so use div_u64() for the division by
-> the frame rate and DIV_ROUND_UP_ULL() for the rounding. Include
-> <linux/math64.h> for div_u64() instead of relying on it being pulled
-> in indirectly.
-> 
-> Reported-by: kernelci.org bot <bot@kernelci.org>
-> Closes: https://d.kernelci.org/i/maestro:4935f1aae20e7f957e60f8fde09c4e6d153c7909
-> Fixes: 5f21cd9a4ae4 ("media: iris: add support for multi_slice in iris encoder")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   drivers/media/platform/qcom/iris/iris_ctrls.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> index 8c4c47944f22f..4f2633bbb49f8 100644
-> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-> @@ -3,6 +3,7 @@
->    * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->    */
-> 
-> +#include <linux/math64.h>
->   #include <linux/types.h>
->   #include <media/v4l2-mem2mem.h>
-> 
-> @@ -1588,8 +1589,9 @@ int iris_set_slice_count(struct iris_inst *inst, enum platform_inst_fw_cap_type
->   	} else if (slice_mode == V4L2_MPEG_VIDEO_MULTI_SLICE_MODE_MAX_BYTES) {
->   		hfi_value = inst->fw_caps[SLICE_MAX_BYTES].value;
->   		if (rc_type != HFI_RC_OFF) {
-> -			max_avg_slicesize = DIV_ROUND_UP((inst->fw_caps[BITRATE].value / fps) / 8,
-> -							 slice_caps->max_slices_per_frame);
-> +			max_avg_slicesize =
-> +				DIV_ROUND_UP_ULL(div_u64(inst->fw_caps[BITRATE].value, fps) / 8,
-> +						 slice_caps->max_slices_per_frame);
->   		} else {
->   			/*
->   			 * No bitrate target exists under RC_OFF, so approximate a
-> --
-> 2.53.0
-> 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+If rb070d30_panel_disable() returns an error, drm_panel_disable() skips
+clearing panel->enabled. unprepare() still powers the panel off, but the
+next drm_panel_enable() sees the panel as already enabled and does
+nothing, so the panel stays dark.
+
+Always return 0 from disable(). A failed ENTER_SLEEP_MODE is still logged
+by mipi_dsi_dcs_enter_sleep_mode_multi().
+
+Suggested-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
+---
+
+Notes:
+    Changes in v2:
+    - Add a comment explaining why the error is ignored (Doug)
+    
+    This applies on top of:
+    https://lore.kernel.org/all/20260929080143.559685-1-hungen3108@gmail.com/
+    
+    v1:
+    https://lore.kernel.org/all/20260930013029.3241267-1-hungen3108@gmail.com/
+    
+    Compile-tested on arm64 with W=1; not tested on hardware.
+
+ drivers/gpu/drm/panel/panel-ronbo-rb070d30.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
+index ebe6352db..9adf97aba 100644
+--- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
++++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
+@@ -87,7 +87,13 @@ static int rb070d30_panel_disable(struct drm_panel *panel)
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+ 
+ 	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+-	return dsi_ctx.accum_err;
++
++	/*
++	 * Returning an error would leave panel->enabled set, causing the
++	 * next enable to be skipped even after unprepare powers off the panel.
++	 * The helper above already logs any command failure.
++	 */
++	return 0;
+ }
+ 
+ /* Default timings */
+-- 
+2.43.0
+
