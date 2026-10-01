@@ -1,124 +1,77 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBB64C4F58
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:13:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E2D4CB8C0;
+	Thu,  1 Oct 2026 09:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845991; cv=none; b=jmnuhifcYaFt8j2GKoZTyTKjwnreHEPwwokE5nHcYMHrJo1CAitLVIQVU02nscqqZ+imP2MiKXEoj3MiVv1Ynjm9Hs+ryrIDVH5mxXD4ao8vtV23AfUOdSmm+1d5I5RYCWoXrqnqBwv3crKL/2CCYLKrGs+0kF6CCl5mJPJ5Yag=
+	t=1790846001; cv=none; b=icKGkU+ceAqPlqG9o/J0agazqxdX2WynSqAFEuSErnJm91VsBAahkZS0JfS4luN4EepyBpvKxJoF+tuHmhyhsVvlkVo47evKXFZalUf6Iyzm3c7G4ykzdHJZoR07AdfYuHCGf8UeK9+shNDsEvWJlkw92cR/cS7wc4yHqo2EPG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845991; c=relaxed/simple;
-	bh=FFbefN2Y4qRJn5vswr2Uy9xuWqjQECbgHAQFP+xEhfc=;
+	s=arc-20240116; t=1790846001; c=relaxed/simple;
+	bh=f6EkHzolGy8GYPjeII04sc8oTncaFwHLWXs9LkHKYfM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N3TrlIv3Uv1VTiUfBzTx7q64QDarx3RDfOEf3CV6w2TzaVWlGq+ukiMrtaZ+b9C+sHCz3ng3R9vIAAnqlzIAQAHWFVmg+MURTp94+ZT1JxeKTNnX36XgSnz7dKlW3tecNaj27oNM/jWU1TH40XxD1D8MgKXgJW0LeaNnkmpEYGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IBumMC0s; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:MIME-Version; b=T8L0lIzQJ6hRVEI/T15k1zHk01RWz9iwcznSfC5Aen2U2kmpojbj3aVdgBrt++YAqRANNoyvVRgHMkZ3VuHWim8vi/novmABPYWQKCl/pZm6yRjdSl/uPpDot87DsT9Gh1rVnzA9ijgdtQIpiQn229g+PletQgZngYQ+gcfB5Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTPngBIy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IBumMC0s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790845988;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TrGq5iY6/w2n25N0igq41iNBSv1Z7z5H/VJULRFdP7Y=;
-	b=IBumMC0slm8Mc4IzHfwqNZ8d+KGwUTau1PC9U5y39L4+HggPPrIO2WEaA0UqK7GkKOhDYv
-	YTxGKFnrEyX3vI7++lEdyYA+Spip2YKpBfcbosUDy6WotY18dFjTMLelHEC9cqk6hXAjj+
-	S26iYTKEimWv9CH77lYz68o6mPHmTFM=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-458-3QCnMg68Mte5z_0MKene0w-1; Thu,
- 01 Oct 2026 05:13:03 -0400
-X-MC-Unique: 3QCnMg68Mte5z_0MKene0w-1
-X-Mimecast-MFC-AGG-ID: 3QCnMg68Mte5z_0MKene0w_1790845980
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5D17F19774E7;
-	Thu,  1 Oct 2026 09:12:58 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5011C180029C;
-	Thu,  1 Oct 2026 09:12:50 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@infradead.org>,
-	linux-block@vger.kernel.org
-Subject: [PATCH v15 01/10] Add a function to kmap one page of a multipage bio_vec
-Date: Thu,  1 Oct 2026 10:12:29 +0100
-Message-ID: <20261001091239.3343034-2-dhowells@redhat.com>
-In-Reply-To: <20261001091239.3343034-1-dhowells@redhat.com>
-References: <20261001091239.3343034-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTPngBIy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93A21F000FF;
+	Thu,  1 Oct 2026 09:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790845999;
+	bh=LPA6Inh2wBCKqBtP/pIYKJnpKzD87TCTJsmoxrtXeEE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QTPngBIy0FusCGL7ZltkQ8QtLyBjiZ4SdLchb+CZ6GHIWTD8dKoSphCqrEL/gYsMi
+	 sgkxY+AhuJcR3ShwSqGUC1G7dNZ/aiEJpQpOTONvOPwJZPmYU2KvWuaJDFgEKaXBxF
+	 j4QiQo5WqNTkrUmvOq1zogHXSqf0+yDbl9NYWq0mYUYD5FfJ2JH9vb+uI2CPpFkL7t
+	 kMapa9/xic0T3xTgvAoUAmG96Qeq5vTx8xeyJULwe5h0DTQtkBHr9keKPhiMEn6DMc
+	 yqm8Qz8OsImqpCu1c+xWH6TN6ByePFrChc5Z/LRoociciuqcvvVMHF+V67cZBeQnCl
+	 R9lTv5UVCGoSw==
+From: netdev-bot+sinfo@kernel.org
+To: MD Danish Anwar <danishanwar@ti.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>, Roger Quadros <rogerq@kernel.org>,
+ Kees Cook <kees@kernel.org>, Stefan Wiehler <stefan.wiehler@nokia.com>,
+ Arnd Bergmann <arnd@arndb.de>, Simon Horman <horms@kernel.org>,
+ Chintan Vankar <c-vankar@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org
+Subject: Re: [PATCH net v3] net: ti: am65-cpsw-switchdev: flush dynamic FDB
+ entries by port on delete
+Date: Thu, 01 Oct 2026 09:13:18 +0000
+Message-ID: <179084599831.31693.11273065705866823199@kernel.org>
+In-Reply-To: <20261001090820.1605711-2-danishanwar@ti.com>
+References: <20261001090820.1605711-1-danishanwar@ti.com>
+ <20261001090820.1605711-2-danishanwar@ti.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Add a function to kmap one page of a multipage bio_vec by offset (which is
-added to the offset in the bio_vec internally).  The caller is responsible
-for calculating how much of the page is then available.
+Hi!
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: Jens Axboe <axboe@kernel.dk>
-cc: Christoph Hellwig <hch@infradead.org>
-cc: linux-block@vger.kernel.org
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
----
- include/linux/bvec.h | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-diff --git a/include/linux/bvec.h b/include/linux/bvec.h
-index fc566ee1c1ff..df9ce860e787 100644
---- a/include/linux/bvec.h
-+++ b/include/linux/bvec.h
-@@ -343,4 +343,22 @@ static inline phys_addr_t bvec_phys(const struct bio_vec *bvec)
- 	return page_to_phys(bvec->bv_page) + bvec->bv_offset;
- }
- 
-+/**
-+ * bvec_kmap_partial - Map part of a bvec into the kernel virtual address space
-+ * @bvec: bvec to map
-+ * @offset: Offset into bvec
-+ *
-+ * Map the page containing the byte at @offset into the kernel virtual address
-+ * space.  The caller is responsible for making sure this doesn't overrun.
-+ *
-+ * Call kunmap_local on the returned address to unmap.
-+ */
-+static inline void *bvec_kmap_partial(struct bio_vec *bvec, size_t offset)
-+{
-+	offset += bvec->bv_offset;
-+
-+	return kmap_local_page(bvec->bv_page + (offset >> PAGE_SHIFT)) +
-+		(offset & ~PAGE_MASK);
-+}
-+
- #endif /* __LINUX_BVEC_H */
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
