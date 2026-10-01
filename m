@@ -1,193 +1,141 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC45A3F164E
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07913DAAC2;
+	Thu,  1 Oct 2026 10:33:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850799; cv=none; b=H+/B8EjUen1zvKVOe32ReKq07HTXZUs4Kye1cxymiFhqtEoftOCiNcUMkUwIUGZ3Nfxkb4gmkEMfScN0dMECV0/0yR3y/QRDhP70AfSmMyvoioFdwf2zbmMPlYBD/9GLLft/B2nn/tRQ+c7YWc9egIYqsssl0uC2Lh0q9DMssTw=
+	t=1790850797; cv=none; b=XR7NAdCpe7ap/MO6sFaEi3ZKdbQa6dbxfTK+YNMwO7/xhj863Mv96zQnG07GrCUv+juu+oL3tcNv7LZ1QdY6Mhz+jg0SFNHZlM6Lh3qdssCk8FA1OXwQE67dvVFRRdahzwMy6qm/88LdSxexvWpkC4PBCAC7ttcuTdMbszjk79M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850799; c=relaxed/simple;
-	bh=tJTffJZLXlPGAsrJc39ZqaTSQQX+mKudeITiabdnp6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MzcbyezZgdhd37U9Rnbg1JTy+a4+Vy6ERCIkoBpqqxdxkq/7RDVb/Fr2NnTP0WCNtZ5tfyT2ITjwT0dVkYU3Qcn2eLC7c6rqm4HPcZbUBC49mVxA/MIuwxmcvM5ETl3WB3B0ZgWECzQ8zHf3upwv8tRY/Fqm7ULBF27KFWFFB4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NE+p73bP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B1G0ygvI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790850797; c=relaxed/simple;
+	bh=okABa28gjgRBRA1xCNETLqEddnHukT9RQd1Gk7+1RUs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tlu8s/Xys8bMNHc7jo4EKnNLZNVNryaJvlQNHAHBwTEkhl5ykxcS2PPACUarl1k5XcralpgUCibucCPw3ECbIiWr3XU0cXo97C3v04Rz6QN0yYNO6uQTc5zrnKzT7ofg6aIFTS8eoOWb9k8LcHfOiS3gpaXSp8WMtFtwusFwejk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FVBo7FfY; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NE+p73bP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B1G0ygvI"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xabN962455
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 10:33:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=z+fRcNyFokIOP6C2JoqZvYe6
-	PNaD5BlV3HutyAbAUA4=; b=NE+p73bPN3ahQPGdIi5YY5hyFQ38Ob4Ba70MnpBa
-	cgNW44UkH6vzVqdajHLjAeii2LDUhmWSJ3wRttKId+OEvJGTAnjz8teTffNhoHbr
-	vWJnUH3+M5Gfnd75ULtX/QjNhmAGDeM95iLyM7PocPcVGCTSX9aE4rjUIbBZE00c
-	hstLQisITl8lErsQDpMJ8msWZ9vAlfxSWNBv068rjBrt+HmDVR6KFE8nS6lBrA4b
-	50ATa2Sv1NbKsKs7FT7OH9LS/63lPG5GVZTjpi6FoyZKDbVe30we+5UjqgUOon2x
-	khmPUdweZdqOTUmvbAcwvvobXlh8fdmW8XnoAQeh6JXHxw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wcupxc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:33:02 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-936aa34873bso1161215885a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:33:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790850782; x=1791455582; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z+fRcNyFokIOP6C2JoqZvYe6PNaD5BlV3HutyAbAUA4=;
-        b=B1G0ygvI/kEkexvcG/wpvtWaB+uQ6PmxvmLW0lPy8AYYMwfus6VXCnQBW7oxNHAaIv
-         WVZEZcZGnrp5pqrRKVtgLryBd8vzstRRnjJXILunG/0Yxurs2Qs9nSnbanFLf+S1qghf
-         vaoWYkNDl0MjwSwwS3ql2Lzra83+EOYK7t7e1P9q2F3ibg5GXMDzRymIeU+LfKmdXnCC
-         0DnrviSz304/ibNSXFSZRP71nUicAYXbrNjF6tkFD19vnIInFDx9cFbbdyub/p7D+45C
-         6DtoYCDjaLftHKmVFlwW/bLo7YOgvsgZx5WDvn+e6Y0wuZqifQPbE6fm4DgI5lbRNVA2
-         wdqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790850782; x=1791455582;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z+fRcNyFokIOP6C2JoqZvYe6PNaD5BlV3HutyAbAUA4=;
-        b=jYxrenlV69wyaeKm4LcLx1qzbqeR8hTLenW13zgFVcWLPtx+L+H6JNJ5njOsFP8gep
-         e0xzcghMjPafE80SFZxFNreDH52105yPDNYzeVeidMBROs88MLPCnsRl4uYmq43vA18+
-         hemdYj8i9FbFh7NMMbyE2ostQIIjHiW8cMtfGwuiGIdsgsfqnuzSGqmkjoC1uw2MNJmm
-         j/BNOEtb/YPgIyheL45MFql3QIRJKiHwzIH6vRGk8JhPZs7kTmvQlQ/OHC/zNlhIoxGe
-         TCUJRZL5OvAvmp16imoRhHYaKcAUiPaNcpE8CywW+sqMALcmmWaq2Dcq09FPW8YrGdYE
-         FZGA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8ewa55HTNfMwNJGRcWXCIAy9t1D6i2+j1vw2FDYEMDVNyr8zCK7h9MG2+kHvBB1cxgVYa1wWelOQTeTU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFFlsjtBPAFoDP0uUy6PW96V4G1bNo0oc/RxurdkMFVD0E+8Y0
-	YiZ04LTVJ2kaPFwkC9IQC9+Vcxm415bOIjSVkvyp1NrNf/I6VptBER+TwnJ6jW5xcrCy7r7jFQO
-	/YYZvsUfnGFJjMLdrup1gltBFTaSKul4p9o82ikLNo5LMXZpB6I1aQpThYxa6w8O8A00=
-X-Gm-Gg: AYBFou12T1I1aPIrpNRcj9gHBvJsDomKpogz7v9jDJyEOdRuIcXgLgBsOYauuIyZNvw
-	hdQr6WwnvuI5rQ9ysW25lPLbbnZH9io6bg7Y9EjrJ05PZJtC51+fbSNyIB2mgaHyjGrv6AJKoPP
-	ybe0cfqvbEMRossinS0Ea6IzIc10MI6AMMASFoq1shy0I0yp7UATda2BsFVeAHg/wO2SzzHc7Pt
-	24Z2NuaScyIr9jTuZJh7LIsoZT967RJPrKRgCCTAIVLRcivvGwwGOKnlmk0q/yGkGG7S1an+DNi
-	vgTQ/OwPyS/joUbNxFWShDGffDNttQJFiTpiyOvp/UxtE63XEUvulTMWXj5f0mhW48kAsDkQEF9
-	7QqZIpeLdQqU5nlmNGIDOERxnnhdf7pDmOSUOYmq8s8SY3Bcko7UK1XEJH7aZLo6aBUerhO7BCF
-	MlqdthgAq3vUTm
-X-Received: by 2002:a05:620a:4153:b0:93b:ca79:3b0b with SMTP id af79cd13be357-93ca97a1484mr787791685a.24.1790850782203;
-        Thu, 01 Oct 2026 03:33:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:4153:b0:93b:ca79:3b0b with SMTP id af79cd13be357-93ca97a1484mr787785885a.24.1790850781615;
-        Thu, 01 Oct 2026 03:33:01 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba44059a7esm460736e87.5.2026.10.01.03.32.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 03:32:59 -0700 (PDT)
-Date: Thu, 1 Oct 2026 13:32:56 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org,
-        Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v7 08/35] drm/msm/dp: add support to send ACT packets for
- MST
-Message-ID: <aolbmfnrk6qkfifib6bmhslaro5z2734ydfip4mnn3go4efpsy@2d4m6nnh7ogv>
-References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <20260929-msm-dp-mst-v7-8-4b81473185e7@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FVBo7FfY"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175Ulu1086044;
+	Thu, 1 Oct 2026 10:33:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=JbNx8so3xWZLQFDPh
+	ECK8AOhE0zq1ejSlky4EIyOq/k=; b=FVBo7FfYMpLudwjFRq6BleH3LoiV8lYrN
+	1BtLjKgJV/uNswQmFuxyTo8WkVhB+OaZV/xkkZxUnq/raM2orOs+1FVqtCBYF7FB
+	FkxqQR2V99y5DNUe8ELiZCqssqSLgbBwHo/CKoIw6is/b4HFas0OSPnEBEsY+wMy
+	U0IMich0ojGaQbUJLF8Oqy84H5ypcDZE/LnXJiCKedifUgWuQ/2SLcRfkiQ1BELt
+	0lbAlwzWP3STJTId/h3dss6NOYe2k+b7a7Fd8L7ZpSJyLaEr80CC2W+Qk1l1h2eg
+	AFR3lpsoIIqsUANSK0AnkPS5f9fkLGLoVBFxZDoNN9wMN0d3VS8hA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5pthchc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 10:33:01 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69172aiF520749;
+	Thu, 1 Oct 2026 10:33:00 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpga60-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 10:33:00 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691AWuCQ49545584
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 1 Oct 2026 10:32:56 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C6C8920040;
+	Thu,  1 Oct 2026 10:32:56 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 81F5A2004E;
+	Thu,  1 Oct 2026 10:32:56 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  1 Oct 2026 10:32:56 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH 30/32] s390/sclp: Convert inline assembly to EX_TABLE_INSN
+Date: Thu,  1 Oct 2026 12:32:45 +0200
+Message-ID: <20261001103247.1989111-31-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261001103247.1989111-1-hca@linux.ibm.com>
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-msm-dp-mst-v7-8-4b81473185e7@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MSBTYWx0ZWRfX+XZ+7ppJqUXs
- bH/JeJEHohtkqZZ1WVnNUw5Hs2dwtFDyjxoJhftbh+CIBTBnd4nnOJ0fIVizOBqBfIrYIFbfV+o
- I+0hNcibxc8N5rU3kSYZtxHt3mrZpJ/ITW5mssepe6c62kb1yIRrXQkyDRDLCTRI/m3gD8fivGO
- yAmmRS+eCsf608mctv4rvYwR+ST6gZlfDH8UnoL06hisi3r3zwVWi21ud2GS4UWL7nqpBjKysl5
- fL41MYq5bhj2vt1bKY/ivRKsz901WbAEBVEdo9gsT/myL/MwT2Smmq9iGGTOXY1o4LVHjl8LfBk
- 2QC5JTeLHUpGuNmKe8ZTnb+IGhkHwu5SQ6IFZNXiPHY7tpLbUKd2+ZP8cp5XjbvdhXH3ili2vDA
- 73MVo0f6wq4ACS+uJRB+lIvAh2RvPqN56FGlOgTePrzDr4dIQqair//JRD66A6687jKJx/ICNxw
- gbUF2RBi6lLxUvBVBUA==
-X-Proofpoint-GUID: -xy0W0efPbwYHSt54LDHSXIX7ChGaqzr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MSBTYWx0ZWRfXz9m7YzqIfv/K
- pHTaQKycaE+NrzA+n7zvK7TmebO7ty2/TDO4MpK+z7JRXF83iZBMAfHAIGBypOanH7TTn4kkJZy
- BjRTjZR+RgU5P1yqFSRcY+8FmIaBV6I=
-X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abe36de cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=tbiIBGwOz-cSeEb3_YgA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: -xy0W0efPbwYHSt54LDHSXIX7ChGaqzr
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 97sbzTnIxvhFWOqy5zH_i4tjmzQeGmTz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfXzwmWCIY0QnhH
+ sR6VNJFr9CGrr+oU/W/DFfbicSBhmML1ydB8RYyNAzIRMgl+skJKBv6J68KZ+eNkxvg2VfB5qMq
+ vu7JweApvIJ+J+5IE3ypiEql/oORoxru96teqt+i+jknDMqmd5K8h4eooJFbsNaakyHW52NiawV
+ Hw+lZ07BZ54bLNwBWq55rrJM7tyIPUv5ehXbk5YpLwZ2/a+yIlU7aeC5mGdUNq0hW1vtWcwHz7N
+ Y5sK6XK29nFZ5h7BN+LdNIU40fuEoIrlMOPXV7S19yvrfhOEuvQrUvbVXre4DR+QtOiOzNy0Fri
+ MiqozhMf5K2UYC8mZZEre7VS2vsw5Z3Ltqq2fjj9Ng9O1kfdU+WxehmwNxx6iGI7etJL/8DwhcL
+ /TIiob/ratORKvUSIEOjwZU3xJMZlYBo/g6p0BMJo+LNZYoTz4msNWFlC/y8rVAQUIZwZgb3yJW
+ vJ4tIXUHb7TTSKJ84kw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfX9E1XrM0TTuzA
+ qHFKzdvCf/sutn7aTiMwGAN00vdmJqB8RzHWwEVRLLWCt4ZS0V0g8fBwK5cGXL3ygCVEqMs+RYR
+ 0fgVvKo0rY4sffqiyfKme3kKUh8oBBk=
+X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6abe36dd cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=AB0-fAUhRVCwOXPndrkA:9
+X-Proofpoint-GUID: 97sbzTnIxvhFWOqy5zH_i4tjmzQeGmTz
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010041
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010040
 
-On Tue, Sep 29, 2026 at 12:25:32PM +0800, Yongxing Mou wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> Whenever virtual channel slot allocation changes, the DP
-> source must send the action control trigger sequence to notify
-> the sink about the same. This would be applicable during the
-> start and stop of the pixel stream. Add the infrastructure
-> to be able to send ACT packets for the DP controller when
-> operating in MST mode.
-> 
-> Add REG_DP_MST_ACT, the ACT trigger register used by this sequence.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 44 ++++++++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 ++++-
->  drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
->  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->  drivers/gpu/drm/msm/dp/dp_reg.h     |  1 +
->  5 files changed, 51 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index e1614bc49a7c..65d22505c2b6 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -142,6 +142,7 @@ struct msm_dp_ctrl_private {
->  	bool core_clks_on;
->  	bool link_clks_on;
->  	bool stream_clks_on[DP_STREAM_MAX];
-> +	bool mst_active;
+Convert the sclp_service_call exception table entries to use
+EX_TABLE_INSN.
 
-I really don't like the idea of having this flag in two locations. Here
-and in the msm_dp_display_private. Can we have it in one place only?
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+ drivers/s390/char/sclp.h | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
->  };
->  
-
-[...]
-
->  
->  static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-> index 83117e7619f3..472429d09200 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-> @@ -19,6 +19,7 @@ struct msm_dp {
->  	struct drm_bridge *bridge;
->  	bool audio_enabled;
->  	bool power_on;
-> +	bool mst_active;
->  	unsigned int connector_type;
->  	bool is_edp;
->  
-
+diff --git a/drivers/s390/char/sclp.h b/drivers/s390/char/sclp.h
+index b31a680e0871..b91d31f8e0ef 100644
+--- a/drivers/s390/char/sclp.h
++++ b/drivers/s390/char/sclp.h
+@@ -320,11 +320,10 @@ static inline int sclp_service_call(sclp_cmdw_t command, void *sccb)
+ 	exception = 1;
+ 	asm_inline volatile(
+ 		"0:	.insn	rre,0xb2200000,%[cmd],%[sccb]\n" /* servc */
+-		"1:	lhi	%[exc],0\n"
+-		"2:\n"
++		"	lhi	%[exc],0\n"
++		"1:\n"
+ 		CC_IPM(cc)
+-		EX_TABLE(0b, 2b)
+-		EX_TABLE(1b, 2b)
++		EX_TABLE_INSN(0b, 1b)
+ 		: CC_OUT(cc, cc), [exc] "+d" (exception)
+ 		: [cmd] "d" (command), [sccb] "a" (__pa(sccb))
+ 		: CC_CLOBBER_LIST("memory"));
 -- 
-With best wishes
-Dmitry
+2.53.0
+
