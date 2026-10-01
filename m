@@ -1,125 +1,118 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010007.outbound.protection.outlook.com [52.101.229.7])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011050.outbound.protection.outlook.com [40.107.130.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67433D954F;
-	Thu,  1 Oct 2026 10:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FADA3F871B;
+	Thu,  1 Oct 2026 10:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852203; cv=fail; b=jY6KThcZXW0ha744ZjjV289uLBamGm6Miv4oefXNLDQMuebrwEwNT4ghfxCyazzL1fDoNhTzjKinmbYBjtitc5ppV8KUTYK6fU7Y+0xe/YnatysjSIWhGrIpiAQzZ4K3zHLAuFRsXcLTOU9k1bXnqXacFdvq/nTnnBkXJtUXl7k=
+	t=1790852233; cv=fail; b=nQKwIFsaOQwdj+UEQLskpYyQ1Y9aCEel+KZ+CNkkZqRqCcCGQd08lRHetYs7Vc2fiCpdVp5g3tbw1hufFcvdts8WoLv1ZO1F5BE3ub/qb9LRL570+gJUa44wIvKorWaLfeEK26R7PNCA05pJ0/mLc8qv66EFLyxuRyX/ypaU+O8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852203; c=relaxed/simple;
-	bh=40iV+N91s++0Ikk1Ler/GuYrDr6gDBof6K2wy2Pe6bo=;
+	s=arc-20240116; t=1790852233; c=relaxed/simple;
+	bh=wYH2gBX6/qdqdJWXWp12gdixaxBoG4oC4/9woOe+t2o=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fdRkQ0LjTsUC4HAg8tj04F/AV3oFWCPcxHc+HQ1X/QLN8CzB6A4k77yWFN3qjvR6hN2FaCyYCrFH8smqZyhLdrCP2HZ9iOZ7yGJ2hkhJu36ueNHuQlNH2kFNpiUm8RZJYQF0pr+5Oq/bQpQLbRmVBHtpzEutKejDhNgjXDFpDx8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=fhD3kAlR; arc=fail smtp.client-ip=52.101.229.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	 Content-Type:MIME-Version; b=aLMv5HLhStsJ5wAZSrcI8GAWMONIMS7ZPnjJ346hCvGJR1LKv/he8jWfbVtz0HzQncY2oxxzMTNZEnCnXvd2f5eYpgqQ35+yuK6gsoMz7LuPkrz3Pc4x5vsm3RuKSx4iV+th3V6n1tQCfXQGuB7zwy/3S/rPMcvOV1tUXEv57Kg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=CRLZmmfX; arc=fail smtp.client-ip=40.107.130.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="fhD3kAlR"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="CRLZmmfX"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iOwX2mYiT+T3ON9/y7xw86+TfPR5/xcJcVEc1ZdfG6BhjNaEWutm4/W6JLC9lQrgcNZSjU2BBtypZaeuBASBZZL23uoXNeyqjW6tY+hL3qp4BofVEi6VK1Kyd5JiU0/WYMV9Bh/dPIKyShUrgqbl/h7riBTx7ilLEWb5VG/GT82KteWA0EAabU6vUgdvUrkizaXHCEhN0ovNNgXo1gF0cTu/OIZMeKOB5+Hr9B6aFGS+M0xXvOoTFBFn0XtLQ5IHyA+fINz5f5+hqwxQg9WW8YcNhSbuZBx1Kx1fA9dQ0XBiscrrmmt2RFSDYrh5SkTmJ5vIQrTtL94zVUIthYadAw==
+ b=I48MGvbpjSV0DPgINdlwmN/O9wtz4pG9UoD0t4frUvn+LwUsBBbub8/wZxjS11sata2l3Kcktm46eSI8DMDkrMfrNt+bhk51upTWQwyD/JpKbOtmjzYV/SKzA0zV8eKja9TVblLKucrKV4waho/Fi6/eLuJe9kmPtTaMc3eZ18HMgE/E+Db2Xw6Fq7Zq/eom9OfQiHii5qpb3hOnjB72BivnQn0yD0udC/A/Hqfp2qu1RCYFaOJp94TfmtBsMaEY62d/jRWMcHIEiRJQ6PipEh6l6aoTDjMoHZMSUzKmkWmgs1ovoha3lyOgRGRY2oiA34K8i8gKC7LYIrTx2ev0QQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZqqBuEWcTxhjtjSU4S0TREMb8anPcvdIBEYdQIHT6g8=;
- b=r+qQZTCBCa+X3rr0YNtdQxsYtmDq23b85YsVAmgXuYnQXMNo8pZXWSQ53C1UsIO6o9MuqpvyCRyE46efm/uvvDLZ+iV1JwFXX+l4zX1UVVuWMO0pSoMpI+/2YC78HHcWB+GJ/IQKMtq99SyPXu1X+mWlt8IXt8aXbVTl1C7f2xw8wckNEts6V+DvEVNDnd5eEoP4zACLwuiGWiiWrge1GSZU3qeq9k3cSnniWiFnmL5jBeaZ2eUyoh8vSFRKMcKoBoc7OyqI/BuDSs1STIF/AH30nDqF4nCRWvyk23BoIPFXJ/K9Cd/Rt76FhqzxH94WHR+PXdXrH8nGHrfqmkbfsA==
+ bh=wYH2gBX6/qdqdJWXWp12gdixaxBoG4oC4/9woOe+t2o=;
+ b=urgHceGoSLcWRZEcbtzqgz2JFrDOkschCMh3H/xZo/+H3UO8dIuZ7MLZh3E3OaYfionfC6Nf1xm9VC1c+H+4qmHOp8xa1oDBId5XpewrRhfOGNpgspWhsFU5PbKU1Bp2d1DsN9vKK0CiOynPBqrGuwqQPB5c9GgbvzK/TX1eIsEymqFDUICpl1kMJFqrCwchBrL/rRJ4xTsxGT/S74G3GbgNRHliOEUg3U1Ab1erX1bthT2EdWmRleMynh5mSD339dbo/x4PfdptodwXfrv4trNkfOECpxfEBforgClmlz3v+l/O1jx8UCf41dTr1y1Gf3evuj+TmIsKq5Ccd7wx7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZqqBuEWcTxhjtjSU4S0TREMb8anPcvdIBEYdQIHT6g8=;
- b=fhD3kAlR4naWdCmdBtzvVQy4Sb7jgjAORdtrHANy9GzNKHF+go2oJJrhC6l6NCzUk7u2Hd8Bult39HPPGAS3SJYUz9jUEKoqWzLxOrptNdyyJzSg5936PtjK78ZuU158MpM8qgx44gODKoudf1/nMXkt/9OE6DX2H0rJqBu5eVY=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYYPR01MB12418.jpnprd01.prod.outlook.com (2603:1096:405:f8::10) with
+ bh=wYH2gBX6/qdqdJWXWp12gdixaxBoG4oC4/9woOe+t2o=;
+ b=CRLZmmfXJ/o0xctF9bcLk6XqD5hq6LVcNRItXjy1v9OeSS9F4Yz+zgREGqbrsAtCOynvcqHKP9YjCQATEN4ZhOsTkL7nLcQx9j9UU16y7Onw8pquCZIP2xpQ8aivJf+CmqHB28k74irtNeeb/1IpfOy7O8gk+fnhPtrdAfU6n02lTY9V4CfqEDUF0hsHSvkXrp5teM0xLtCGJfFGOTpGX56uFnTYkXD6zvh/65ntUtQmkr8IiqxVYBqDGeQM/HCwcLiGAIVkIxI+rkCbVnNy5tEa3xB3qnAESRfywMbS/8Vzo6+GteWd8owwYWco3YpCTZ71YKShb5LbFr8i9I8CJg==
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ by PA4PR04MB7949.eurprd04.prod.outlook.com (2603:10a6:102:cc::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
- 2026 10:56:37 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.026; Thu, 1 Oct 2026
- 10:56:37 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: "biju.das.au" <biju.das.au@gmail.com>, Andrzej Hajda
-	<andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, Robert
- Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>
-CC: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Tommaso Merciai
-	<tommaso.merciai.xr@bp.renesas.com>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>, "biju.das.au"
-	<biju.das.au@gmail.com>
-Subject: RE: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas
- RZ/G3L SoC
-Thread-Topic: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas
- RZ/G3L SoC
-Thread-Index: AQHdUYjx9uHffJnf20W6dhJCyerXp7bog3uA
-Date: Thu, 1 Oct 2026 10:56:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
+ 2026 10:57:07 +0000
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 10:57:07 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Marek Vasut <marex@nabladev.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
+	<vladimir.oltean@nxp.com>
+CC: "David S. Miller" <davem@davemloft.net>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>
+Subject: RE: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+Thread-Topic: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+Thread-Index:
+ AQHdTE9m1hutRzwLFUKmfktoRBJfE7bmds5AgAAWOgCAABaJ8IAAgr2AgACyLoCAABjNgIAAnAsA
+Date: Thu, 1 Oct 2026 10:57:07 +0000
 Message-ID:
- <TY3PR01MB11346526530C7998D0FDEA560868A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
-Accept-Language: en-GB, en-US
+ <AS4PR04MB9338B4278A2A5B94FA854056888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+References: <20260924180607.60932-1-marex@nabladev.com>
+ <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
+ <AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <b4addd8f-43ba-417e-85ad-a78391c8f2fb@nabladev.com>
+ <AS4PR04MB9338E76DB4A59D70F1D6AB2F888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <e7f574ab-5fcf-484a-a5bf-fc94d45b2311@nabladev.com>
+In-Reply-To: <e7f574ab-5fcf-484a-a5bf-fc94d45b2311@nabladev.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
+msip_labels:
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+ header.d=none;dmarc=none action=none header.from=nxp.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB12418:EE_
-x-ms-office365-filtering-correlation-id: d5ae6c2b-49e9-4d3d-4fff-08df1faaaa60
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|PA4PR04MB7949:EE_
+x-ms-office365-filtering-correlation-id: 27162961-ccb0-4f6f-e431-08df1faabc58
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|38070700021|921020|11063799006|56012099006|10067099003|18002099003|22082099003;
+ BCL:0;ARA:13230040|19092799006|366016|1800799024|376014|23010399003|38070700021|4133799003|4143699003|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
 x-microsoft-antispam-message-info:
- iUNlFvvhNa7ZXx5A3xeW9b/7YCUb0eCVzYQ7nkC/+qXQHmduxuV1l88iywpNT09t3ldwGqhDjRG66k+ioqFxWQDlrWjiri7wBFoEy1E+r/bYQ97SfYzc/boNbdM635r0g7Ufs8ilB10D2O8kiIxA1klCeW6LLMCHrbLqM0IXUbwNQY1iFB4yUGjvDPSMjuM8jdGBdTotpFcIHsl6UJYGX7MN1IlTcCy6humKy1OkXNAcSgAVh7ODO3pvU82KTguuqrcnDDgnLaOQkAZzpfawcf74kQ6EZbSGRGTd/nyNgSpJnRJBDXPRKX4zqXdBjuCzr50BPmDmLM5EW6SPXeEv//uQhdGQDM3IOxnUT1q3oSRkxFzx7Gh+O9qBkMuMl+XfonuWx96Eb8emVj4I7Abxe08fVtSw4yksvU2KZpFL3EN6C9kHPRxNatEz4Vh/k4ySyxY6h+lYkTD9bav+9/btXzSSNOT44zz+sMA190urdmJkUysbsQU1t4JrDqUE9vSaL/utrj3t+CKQyICUEbrpUYydXIg6Xfw1WOexdOVZ78Iu2A4cXYNHKo+m2kG7EB9R9YFr4dxpaOmj0lF713JPo1jje1jTTJ+bl1TgkuYu94bF3s+lQ98bSQ0AJ7jnv2ieWXMeGTqdpwskwD/6+f2LldtjR0xjM+kb12IK+LLu1E69lXgRlQ0b9UEcjIQh7zfTM3LLbVZc2PR07OFucj3JaN4t6L4Hv5IXzZOzwKj1MgQY55kCOV0c/CXnLfFfIGcv
+ 0OME0gEk9O85LVsqg/2SRosuv+vgDgvVVd3vCKmfe2vSyeoNmmdFQY2uHSc0ONsFHdpR9Nyhp2c1MUHB2Am7aocuAviXy9o+V/ax98lBgL4RaNpJRaagHhh9uVnCnAasuimoYoUN7J9Lkn4IjHBEJuvLu8NJ+la4HGjw4mD9Kd23Vgp7AKf+vVlBWeem6UmVnLH1bBvoxKqjb1UEFjCjQKvlTlhB0dR+54lg0d09t0qrSplFp0ToYxvQDTj3XVb7CVgtTr9UWudg5RZv6dOf5DIE0ST/JIQz4jarjtCwEihsveViRmBMMeomj0T7occIsGgH73Ro73LgDiNdiTShy6FCDyO3cfQZNKoGygc8VRpPAzHnIjvTYUhtc/RS/IJ2zoLjhscKeZ9j9zR5EtLTv0IhCiQwJPJRWoykkXfgOwO8UBcUxL7JvGjr+llOfimCqcMpFzfE63ZZ5FuuhcpWkqN5NBIpRFC82r1LKK+nDdpE+Zcx9YzK6IpRzdyErYLOVE7vvsLHj1nUFLQeOLsOI5x5K0iR2CAtwsuBBBqNg3wn7HokKGvtKIq6w6jbYZasboy87dKb9x3PewYK49yuRiyxqmEhNsMLEqAOs2SB4NVDWlVE0ltqmWdlSt519i647HgHlaNoPtwAmB1Z3sKdf5LBbXHnJ10Rm38cNXNhTxw=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(38070700021)(921020)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(376014)(23010399003)(38070700021)(4133799003)(4143699003)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?cXPrE/rDxnXIDzx4k3ctqyijUAPDRJgWDaPbtpnPK+VvCW+EK3rpCiUHM6JA?=
- =?us-ascii?Q?iQNjsFnnEo4aWIMl/r1fo+XKiw4L7tM5g2IqV7X9kyk/THOpSt9kN/wv8hDF?=
- =?us-ascii?Q?ChapHedvRNU2TY6cttR4Ni1PFY9MH4n66KVEnioAkExQfWgnJuxHP/hFLu4b?=
- =?us-ascii?Q?9DO+Zk3GETASSU+xQoTnRj1gp9HIrWS8AfBMSdfQSD+RN9xkqLT77TTjIY28?=
- =?us-ascii?Q?uvm7FlN59Bu1vfpewLRasUlTzuriOrEzgSFhZEImggYPbC8RoQAm0HY3fzHG?=
- =?us-ascii?Q?hsdMr+jl3XjptvVpEdpcC9+xw6B2e58UiBaIT/8Fxczq6regVaYulPcC58yr?=
- =?us-ascii?Q?4kNXpQf0A+dTb1iyUKJbWG7SyDx0lgZcu4YbEQR/3D3O3AU2ClHjX200ONDr?=
- =?us-ascii?Q?a4aiecRlYkoQ+GFp5SHFFF5NtjzExCm0M1KDXI+wBsK1XQ8m/+a+17JLyIrU?=
- =?us-ascii?Q?KsXavPJSDb1MRU/O4rDnqu15cKmm4xQlSY05F+lusH2LGakiN8F7MI0qEMeY?=
- =?us-ascii?Q?OFMROyLViieXhuO6KfF3N1idnFpYQ14cAEWjNVO0fGOI3tK/bx/ySihRx6Ad?=
- =?us-ascii?Q?+zPva85zV8D+zKBMbTYIuqdGzkYadY7kusEXBmd4K0lp7KAP4k4PtN2925eL?=
- =?us-ascii?Q?33N9R+tUwulyFGZN2fL5HnBDXHZs9nNbHNRkaQI/VtV5WUSMrBCehg8Jt2LD?=
- =?us-ascii?Q?q+FdJpSolOKGDJ07Xbgyo1smaQuplemjB6FVhDcQK7vWDwuzizUJJvmjZy5u?=
- =?us-ascii?Q?YY7SU7stF8FQffcqbqu0tsX0E6Fd48R3hOdbcZlngdrB3YXg5aXNeNR4jlk+?=
- =?us-ascii?Q?wpObYZ2kV1J3hzarEqh22scWqOc4p5ZVzH724yyvb7y1mbjMEMzcS0fJtLDx?=
- =?us-ascii?Q?rHsWwwR/uJL27r0ynJiG7O+dxdZFPF3LnQ0vztVI7dNhsJztT9gUvGVXEiXG?=
- =?us-ascii?Q?TuHbtpCqroV5+7vq20XMKQGZnNXQzU986gn8Czrrj7oevVwgMOAUVM8jLISv?=
- =?us-ascii?Q?srEaZOH/FrJAl0HXbj0mQrnpp4Vs0Jl4aJzZLF2zhdOgMtahgnoh00DQBs3y?=
- =?us-ascii?Q?ROWmAQN93ixjJyM7dkXbnVhKNyk3fSrV2AvuReuJn033qpYsScDQAVSOY6HY?=
- =?us-ascii?Q?M3/jVPjh3xk3tU97EhEYb1lqCDt0w7CAGv+qosg+e7xxQbmam2Ft6t5KgCNW?=
- =?us-ascii?Q?OYYuGb9EItUh8ID4ZIF6hrkuVJvqsBRnRM5wMumvP/fZ9P9wxiypHPgS1V7x?=
- =?us-ascii?Q?/2BwBtBjRlDoi0d00Tfw/aHDPr9AdIKDMvJd/gX8pL3No7xT85IE/M2ne9Aq?=
- =?us-ascii?Q?E2ISU8/5v0mOX9ArWFpB88CPcV5WZI21ggU2ZSQRlrl99JstM5MERylZMJew?=
- =?us-ascii?Q?d/pDlPxa0rIHqiJx6yE2/Ta2Mr1R4MB8AQ2XyedM48WShofAENKZTOmqH7WS?=
- =?us-ascii?Q?l+1JXfbZccMfjTp+jF+bjTcfQa8qVkYHQ/1iwL9iPkMWjVs1AUs0wpe16lFg?=
- =?us-ascii?Q?RZt0YVPMcMN3Wspxbgd7vIFKtsgXZm4UbR8bg1y8/aX5XGibwd9auuVTGDkS?=
- =?us-ascii?Q?OZx6tNUfieycNNg5SEWAi0oUn2CvQNogLGb0bQQ48aJxn+T2CXh8pa/R0ZCO?=
- =?us-ascii?Q?NEUhGDlzbaQkEijgr1s9opmEb6KyMGamL+MxPvANzcMpUI/QHVdAoimuwpfn?=
- =?us-ascii?Q?t7G9fl7/qiR4TgeUzWqRr1egvWL5x218ciIRglaShajX9GUAZEtPPI2HZi9k?=
- =?us-ascii?Q?TiBRMSRZaw=3D=3D?=
+ =?us-ascii?Q?TNMZjFEUMmKEPJZymdDICOExtUVkc4J/J2rCtrRfyZ/ywbRSqkpOGkjQvwYh?=
+ =?us-ascii?Q?jxFtP13pcCSg1ecBubGwjvbdLoOHBgtzVS85+4QFR27Re26FRjeBhms+Bh8b?=
+ =?us-ascii?Q?k+JwCoq2G4gK3qAwwIkQFr8NsvRZ7JWOoIfoBXRy3dIOKSTL2jk7CHMjocaY?=
+ =?us-ascii?Q?vM5WwFUHHBrWpTpUNPKNg31XIZQUUkmd1KYzLvPWt8wpTWcs220rhA+Ix0BJ?=
+ =?us-ascii?Q?vuKArwIeX3jISpuDmQerzxNH/te5E42VOmFbQJluHf/ZS/kBVALNlK2YB2kU?=
+ =?us-ascii?Q?QN6IzQ/fnIvNFY7bHOb+PfMpI6LsqeMuwK/chVuJnclb3rm71VAsGw5RAgM3?=
+ =?us-ascii?Q?8lCcVcnyjKtPhRmF4DxygT4iBDrpYTRgIIhtW/UCx9J5ByWdGRHRVo3jb4Da?=
+ =?us-ascii?Q?ppKknuLXyBPEimlC6/Q4VU5FzuSiaqt7siQDIue979VbnZMKw8JtwSCm1p9Q?=
+ =?us-ascii?Q?165fiGuOgoYl6c1P2OFVySjJeeAp84Jb77EELpEcBKsAGz7tiCXUP41/nzXJ?=
+ =?us-ascii?Q?5KeDf1gER3cWW0GVd5dagw7IPuOSsJC4FBQ3kNWOXeMm776SpmuoZu2+iksf?=
+ =?us-ascii?Q?97yM/fF5HP/IgkqvnMF2c1hunYRf9jjg9KRBbIN+daqHemF3olRH9yS/vGhB?=
+ =?us-ascii?Q?9rFXYknm1DWna+NepQ+zl0ZIOqHEfWiqQJDlb5kkpZhPdKb0YF1b0F2HQhyx?=
+ =?us-ascii?Q?/Wp4I0UxKowpxHEnSSU0+2iU8bOfyFCLwYK77MsfLpcR8Sc0gTWxDX4ACTaA?=
+ =?us-ascii?Q?vAbDCf93ZRLeeOFynvQQNfJA8Y+vIwZQXZgwo/N5LY7l2bwweS4wIBdOGS5+?=
+ =?us-ascii?Q?ahrYslj++us8EEWYGg7oxMlO8iD4OgPpH9dQ2k3uFf0Lart9ZJRkIfOasTaC?=
+ =?us-ascii?Q?OhzeWrbBOZkAzBYKDjCuX3xYloKpjyuJdRv2fFsBID1bZ2lt9rzykrMsjCGI?=
+ =?us-ascii?Q?2z9x3pyrs2pSR/eEibutrjSV1eJ+UhQlXCR+Ajd7ucSo9fOt4MLhSsg4hEWc?=
+ =?us-ascii?Q?iFoyxC4YFZEl7Ai7Plcb/Lo+QcfO8fIO29cIPtHIAqc4OXMUigquOLHvmob3?=
+ =?us-ascii?Q?ddNox1q2/WzwRv+OVzzAZ9sbTMjJUfKvioT92XNmj6RYOmda9btGU3IOSwzH?=
+ =?us-ascii?Q?tZh5MU+2icxSp5kQb3FUgRLO88/61r0LlfM2JHKvP3p5FY+4e8qgqcM4C89m?=
+ =?us-ascii?Q?yEPexMldHpwxD7eC/E/mc9N2w67ePJVaMA13Ykf7gDlvYMQM2BAUg660Iqmb?=
+ =?us-ascii?Q?f5E5WUAWJZjfNCWV6cOzfJtK03xqnjtvEj83mn5DJ101NET5ZsH7vg5ZgHMv?=
+ =?us-ascii?Q?fjD2qLPPw4uERWY1L226Tz3BtmC3ZuaOFH8cYE+m8Gy4OVjixmjhs2+xhj7r?=
+ =?us-ascii?Q?AhDZ9eGG19E76Wjz5Pf+8LmHUKE6sbFmj6gpTN8DWFcokXjEqChXuD8C6GBJ?=
+ =?us-ascii?Q?u8BSIZ9lYCLqsptzln0IrD21XC3BDJiSeuVgGpHKLEwiBe5HbTh2YkkE4jbq?=
+ =?us-ascii?Q?mCUoBTNujvvwjXKh0srHPttWEzqmS97XkebMB0tf4ppb++Z+8olxG56LLuC2?=
+ =?us-ascii?Q?W0lJqfTu8tE9y7lXb9Rhhs5dTqLUbGoChuwyaVb/sgzjYdNYzXLJBM7Kq1u/?=
+ =?us-ascii?Q?O0sHSUwin1EI81PdNMF6qtWbRRF5ID+jQFj6pj1OlDnH3AztQujG4kCZ5YNC?=
+ =?us-ascii?Q?k6kQXpvfKeagkK9dtZdJdvsQsqfbet9C/uKcv/D8cXr8dzNn?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -128,115 +121,94 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5ae6c2b-49e9-4d3d-4fff-08df1faaaa60
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2026 10:56:36.9519
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27162961-ccb0-4f6f-e431-08df1faabc58
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2026 10:57:07.4473
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9JBgsXPDpyFB0p4sNF8xGWHXElGO25XUJR9K8/XeV7rQdSTLbS8I944OTul3AlouAfDq4NQVshQylm0FCN575DzliJMd14xuYHIXpMWYtfQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12418
+X-MS-Exchange-CrossTenant-userprincipalname: rPZHqKS7TS3zcxFJVdynTn7RY7LX/gx8l1IQ0yYIPAj2tMbEOG1XmH5ot5tzDKoGb555ERmnVTXPdXKnUZghng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7949
 
-Hi All,
+> >> Hmmmm, are those clock available on MX95 ? Maybe we can do some sort
+> of
+> >> fallback -- assume 166 MHz clock on LS, and obtain the clock and clock
+> >> rate via clock framework on MX95 ?
+> >
+> > The MDC clock is derived from the NETC system clock. For iMX platforms,=
+ the
+> > system clock is controlled by system manager (M33 core), Linux cannot
+> > configure it.
+>
+> That is probably still fine, as long as the clock are available via SCMI
+> and their clock frequency can be read (not written/set), we can use them.
 
-> -----Original Message-----
-> From: Biju <biju.das.au@gmail.com>
-> Sent: 01 October 2026 10:40
-> Subject: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas R=
-Z/G3L SoC
->=20
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Hi All,
->=20
-> This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L SM=
-ARC EVK. The RZ/G3L LCDC is
-> similar to the one found on RZ/G2L, but has LVDS support.
->=20
-> The LVDS series [1] is merged here to get an overall picture.
->=20
-> [1] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.re=
-nesas.com/
->=20
-> v4->v5:
->  * Collected tag.
->  * Restored mode_clock_min to 5440 kHz.
->  * Replaced static resets array in probe with global resets array.
->  * Updated rzg3l_lvds_atomic_disable() to fix the
->    PM_RUNTIME_ACQUIRE_IF_ENABLED guard that prevents synchronous suspend.
->  * Updated rzg3l_lvds_atomic_enable() to fix refcount underflow in
->    atomic_disable due to early return in atomic_enable.
->  * Dropped dotclk from struct rzg3l_lvds.
-> v3->v4:
->  * Collected tag.
->  * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
->    using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
->  * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
->    devm_pwrseq_get().
->  * Updated mode_clock_min from 5440->5400 kHz.
->  * Added resets in pair for simplification.
->  * Added comment in probe() for asserting resets.
->  * Updated commit description for patch#8 and #9.
->  * Updated license header  for patch#8 and #9.
->  * Added HDMI audio support.
->  * Dropped reg_1v8 and reg_3v3 nodes as they are redundant.
->  * Renamed it6263 node name from it6263 to hdmi.
-> v2->v3:
->  * Dropped binding patches as it is accepted.
-> v1->v2:
->  * Dropped renesas,sysc-pwrrdy property as it is modelled as power
->    sequence.
->  * Switched to power sequence for handling pwrrdy signal.
->  * Dropped header file regmap.h and mfd/syscon.h
->  * Added header file pwrseq/consumer.h
->  * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
->  * Restored ports in DU bindings.
->  * Replaced endpoint with port in ports node.
->  * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS=
+Yes, SCMI can read the clock frequency. However, because some platforms
+have a divisor between the clock source and NETC, we also need special
+handling in DTS - for example, a fixed-factor-clock. In addition, some
+platforms do not expose a clock provider at all (e.g. LS1028A, and likely
+S32N7), so they would require adding a fixed-clock in DTS.
+
+All of these extra DTS modifications exist solely to obtain the clock
+frequency - yet for a given NETC version, that frequency is effectively
+a constant. Whether we put it in a fixed-clock/fixed-factor-clock in DTS
+or in the driver, we are hard-coding the same constant; the only
+difference is where it lives.
+
+For these reasons, I believe hard-coding the per-version frequency
+in the driver is the simpler and more efficient approach, rather than
+introducing this extra DTS complexity just to read a constant.
+
+>
+> > Moreover, the actual situation is a bit complicated. For iMX95, the
+> > system clock source provided by the SoC to NETC is IMX95_CLK_ENET, whic=
+h
+> is
+> > 666MHz. There is a 1/2 divisor in NETCMIX, so the clock input to NETC i=
+s
+> 333MHz.
+> > Therefore, to obtain the actual system clock from the clock framework, =
+we
+> need
+> > to add a fixed-factor clock to the DTS as the NETC's system clock. Some
+> platforms
+> > do not have this divisor. So we do not add the system clock to the
+> binding-doc of
+> > both emdio and enetc.
+>
+> This is something which can still be handled by a compatible string match=
 .
->  * Dropped the variable rcdu from struct rzg2l_du_encoder.
->  * Dropped the variable lvds from struct rzg2l_du_device.
->  * Dropped renesas,sysc-pwrrdy from dsi node.
->=20
-> Biju Das (9):
->   drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
->   drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
->   drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
->     struct
->   drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
->   drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
->   drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
->   drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
->   arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
->   arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
->     ITE6263
->=20
->  arch/arm64/boot/dts/renesas/Makefile          |   6 +
->  .../r9a08g046l48-smarc-dsi-adv7535.dtso       | 138 +++++++++
->  .../r9a08g046l48-smarc-lvds-ite6263.dtso      |  86 ++++++
->  drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
->  drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  24 +-
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   3 +-
->  .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  24 ++
->  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 162 ++++++++++-
->  drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 275 ++++++++++++++++++
->  .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
->  11 files changed, 749 insertions(+), 8 deletions(-)  create mode 100644
-> arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
->  create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-i=
-te6263.dtso
->  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
->  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
->=20
-> --
-> 2.43.0
+>
+> > In addition, the NETC is also used on S32 platforms, that might be anot=
+her
+> story
+> > altogether.
+> >
+> > Therefore, hardcoding the clock frequency according to the NETC revisio=
+n in
+> > the driver is a simple and quick method, just like we did in the enetc =
+driver.
+> >
+> https://elixir.bo/
+> otlin.com%2Flinux%2Fv7.3-rc5%2Fsource%2Fdrivers%2Fnet%2Fethernet%2Ffr
+> eescale%2Fenetc%2Fenetc.c%23L3770&data=3D05%7C02%7Cwei.fang%40nxp.c
+> om%7C5cf4fb9826954a20a0bf08df1f5c1ab2%7C686ea1d3bc2b4c6fa92cd99c
+> 5c301635%7C0%7C0%7C639264152594829487%7CUnknown%7CTWFpbGZs
+> b3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIk
+> FOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3DC8sTNGPtiqsUqz
+> 1eXYif8deaG1R1e%2BEjcpzGHnkR16k%3D&reserved=3D0
+>
+> Let me try something better, give me a day or two.
 
-Applied patches 1..7 on drm-misc-next.
+Okay, but please consider Andrew's suggestion. Add clock-frequency
+support for greater flexibility in adapting to different situations,
+instead of fixing the MDC clock to 2.5MHz.
 
-Cheers,
-Biju
+BTW, I'm currently OOO until next Thursday, so I won't be able to
+reply to emails during that time. Sorry.
 
+>
+> Jakub, do you want a revert of this one, fix, or follow up patch ?
