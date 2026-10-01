@@ -1,126 +1,165 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012046.outbound.protection.outlook.com [40.107.200.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131AB3E16A5;
-	Thu,  1 Oct 2026 15:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870172; cv=fail; b=YmXwSUu/4NJ0pCGvitTGNqRE+yiadExWZmRvy1LOdIYTR3Hsampbz8iScdIhkjuXPulK+5TDLPG41POrt/Yj1zHgm8c5mSDROkQCLfL+AR+AtF8BXhomSWhc38Lme5ZlokX/HpfhMVCFGoPEna0uC1lIaViAc8AJJjaXCmvidmw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870172; c=relaxed/simple;
-	bh=AarJf7yj8GzB+uK6SNYAg1mvOYHZYYavTSqtSHU4KfU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MmBRuxX58+jbaRJN+BKfg3YbnYBEDAkPqNtZKa9D3hO8ADjop1lE1jMmnJPBDtuhXnp+lDqFix3RcvtkWe+DQwWdHTV+M7x4tXta3Q0VUqtOqbK3n3CgcuDbvSJk8oxHEHRDqFNjRl7LbhHUwnM1TvY9FAd2ejo+e/fD75Ay8Fk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UjPPoVoU; arc=fail smtp.client-ip=40.107.200.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793CF3D34BB
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790870177; cv=none; b=sK7ICUpzngHYgFb9T9ts+bQ4ETGTW4UIU+SVfvXdFX4X2dwS3pMj0ciMg6Ni7/IuZEj2FH2KVd7jpGC8AIPqnRpln2Yc+GSzRWhWEh8B7jIGpbvL5d6KIYPmlKX0DZiy0303LiUzqTMUNYGUDPYfVNKD8+tfEOIwIVD1R7qTUGk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790870177; c=relaxed/simple;
+	bh=soHWGimngASpNC5I55Pu9aDC3ObZmGZzEBwPXjj52N4=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TEcG4hKy/7HVygz/Mf1lEc9EGcgzjzpcFRDL3m+ZclF9HnOQNg7NU4HclQVxW3vOFZCJrzyjAJJqeJzkvVyXAgUnuS1qKQNBPA7wrg0XvFK7OdJyt3BPYZUbccmnzamUCxlkZjViGIvrL/p8fFRpdy6e3elwMJA8RJ8XhYic3NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0k6FXwP; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UjPPoVoU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=APBq9SBm1iZDiFr73XGaCdT8F4mM/TKUaIOOtO2XBuSVYRiIDFnsv1eHmmZkvbqCmCF71Grm5UlpmiozT04URltVbjeeMtlV9pQ1q3CUZEQhvnaFUNuZPnaBqu426XwHsIiCyXgdFe0TL0uzv7M30t5dQ6JrqzHNlwN7atjLh9TMuHT23aosgCCALMJEpJTivSzIz1mBMLe9Y16sa2CSDolC38gDnc7Y5qNWG28Ju494+Qx/xf5NUvKVBFn+w37Ny5fMeSLa3SE96uD4BH9PfDij4xxJnOmFGQDHKhYM6MmcvPSR0JI7BKp/2l2wJK7eh0kGen3NUkw/Gba16E57sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y53DZBq3w3iIvLxccCDsl2GKPGiozh3eXQJts4MZCpU=;
- b=IRLw3QSVoKm6tgAmavVK651VzZ8MYHklY2NUb2zvxLRhrUSmpeCKCLOMZwwa9LTHrOhspzD+amQqyKbU3PZ8+hilNhSKWGfR5zdnYOn+B6VbUmv0WfMDRCcdpQiVY+QRDpHD0SkK/GpoQb7HLAlfyrVEn73kqiiQ26UT0XXZfrxPZ/QR4Ys5ehmQ1sWs3xSHVldGCN0Xt6k7d/dmioYbdhFhoia/mcDpaKG7K4nhwjqjzvM6yzUCT0VhTSU35Xeu64aOJN7lXJOLdhaEQ+iibJVeVJdecV/8KWNDoh4E7W0hr7RGK7kZS7mIxiNZtAAqcidASAxQRD98WQefl1roTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y53DZBq3w3iIvLxccCDsl2GKPGiozh3eXQJts4MZCpU=;
- b=UjPPoVoUCm9IR3+AA2YlBVIk2bMwgbch4u5vq0gSbqzu9n8lcW8vXJUvTAEJOoxfEBg20UR8BTyOFOhvUcn+NVz4mIHO6eWFzjA/+JES6Gxn9CrsTBbO17J2fSCfBRABB1KDDs4Uni94AeGCdrWmhVKLFoInC08MIsp+RyroEt0=
-Received: from PH8PR15CA0006.namprd15.prod.outlook.com (2603:10b6:510:2d2::14)
- by SA3PR12MB598757.namprd12.prod.outlook.com (2603:10b6:806:52d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
- 2026 15:56:00 +0000
-Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
- (2603:10b6:510:2d2:cafe::39) by PH8PR15CA0006.outlook.office365.com
- (2603:10b6:510:2d2::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
- Oct 2026 15:56:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 15:56:00 +0000
-Received: from weiserver.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
- 2026 10:55:56 -0500
-From: Wei Huang <wei.huang2@amd.com>
-To: <bhelgaas@google.com>
-CC: <linux-pci@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <skhan@linuxfoundation.org>,
-	<corbet@lwn.net>, <rdunlap@infradead.org>, <fengchengwen@huawei.com>,
-	<wei.huang2@amd.com>
-Subject: [PATCH RFC 0/3] PCI/TPH: Expose CPU-to-Steering Tag mappings via debugfs
-Date: Thu, 1 Oct 2026 10:55:48 -0500
-Message-ID: <20261001155551.4182899-1-wei.huang2@amd.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0k6FXwP"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e20bb4583so305324666b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:56:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790870174; x=1791474974; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mZXyBZOxPP9aVP1iLcONa2ADo5uyWcMjFEkbOU3Yh9w=;
+        b=B0k6FXwPzWwN34p/HNn8yTENCujhgxLpaaPp0b+vOwc5Jq198rUoD3OU080HOwxK5j
+         kDiCNPDb+l8VsPNXvSGBYO8L8ve7NwQOk1Ti3Tg8h7sQqzU70xles3SfrtlxUsy8auR4
+         cJGaPkz5AyX2qwGBkRriKqYpWP1qD1OsRBe99uFeTf3FJ13ywMyv1rtQ7oJeLnnPi197
+         vXuzKHDmahqO6JwFkRiDUvU7TdB2uD4HGgRC3U7lRQ+E3WQkfPZKyk5KgG8U6uKSN2tG
+         cWPi7+m9PwXUjHnEKThhRhSpLxS8CfPSsPbpKH/xmtDMKvbj4IeN6Pxz2ak4r72s68Vj
+         WW1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790870174; x=1791474974;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mZXyBZOxPP9aVP1iLcONa2ADo5uyWcMjFEkbOU3Yh9w=;
+        b=ZObzNk2iXA2QvqxgO5wRwMz5q8xQMZ/OBtpz2U6kij1gocqL/9EuFIbIbDIXDAF2IQ
+         Q/ezbCydSmhqrUpHLI+/8GHUS7CalaBjkZi97CM8BLNhwwfzh2zIJa22WsStaFgMbm+M
+         DuZQogQySMf2jzpucOnanYIhmP1+k5GLDg/w9rsct5JgMMmyyxm9PK/z9Y4V3xExxEPR
+         +Rdm/W40aFk/vJ6mcxF3YpfabSvxr6waliTZTGQkyjbL00skTndfbFCGpuT9bnpOBnAp
+         YP7c1ue+8f0GRpLuvV1scHV6ukyGmU8BxsWdO6D16ghfy5i1rFjoAOJfAdoPRwI0cDII
+         ZibQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWHVGyFOU/oHjAfo7kd9XEBoKhhh+RfbVeHqPhuh2/KIfliITQauFuRpJtA0/aDWjF/1EJQ3ASU7Zkhmo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZktfSqNmGVVtwu4u2KzQ3Y+M9mDsTSkk/fQFlSUUsm25MLuF1
+	Kd2ZOWDYLIbjZ/6hWL88Iabtp+ray3GEVmkXP+9WO0HHHoPgqtdT4HRF
+X-Gm-Gg: AYBFou2UQyStAJQLLn/QBoYRtXvrtg0nKcBYAP7pHp7GCU+c9Q0bY2DvGij1G5AR+Nn
+	bemL5aJKgNifYoVrMDaoiRugeKb945UVSx1L9WMC3qe4cOa/PNzQ2z2zKeTUB1TSZLZgW8fI+eO
+	A7C5x1cllD+n6fhbPdLs5rY/CdkC9Vc0C7a4A1kVi2MLDLUqdtZHKVglD4w7r3Hn+SLBbTMdOJt
+	Aq9uGOi8RtUgJSNy/j2NCQUHh4jgGgBkZOIoWWLB7Z5ceHkweGk9eae5Z+eym178jVF/rncDEpj
+	r0BxIwtk3NMhlccY/p33AgNVfwS/crBuM4cpaP5rlNIENjDzzUg4Yq75QTJSAPY8yy7awNX0fTC
+	HvO6bhKo3U+Lnq/CwY4uy9pDMCvs4m1OnSGbqOfWKiUA+ddbGkmY8zuY2DorzynRZ2FxQosjvdz
+	YmOB51xBn9C0cm7BO60isSzy4fbaTvgQLGkeQ=
+X-Received: by 2002:a17:907:96a0:b0:c26:3566:5b47 with SMTP id a640c23a62f3a-c2e4ad55c07mr1700466b.12.1790870173588;
+        Thu, 01 Oct 2026 08:56:13 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31d96628sm181851866b.62.2026.10.01.08.56.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 08:56:13 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Thu, 1 Oct 2026 17:56:10 +0200
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>, akpm@linux-foundation.org,
+	catalin.marinas@arm.com, linux-mm@kvack.org, will@kernel.org,
+	Xueyuan.chen21@gmail.com, ajd@linux.ibm.com,
+	anshuman.khandual@arm.com, baohua@kernel.org, chleroy@kernel.org,
+	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com,
+	leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+	rppt@kernel.org, ryan.roberts@arm.com
+Subject: Re: [PATCH v9 05/10] arm64/vmalloc: allow
+ arch_vmap_pte_range_map_size() to batch multiple CONT_PTE
+Message-ID: <ar6CmpPkwu1VgZ22@milan>
+References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
+ <20260923062832.479455-6-jiangwen6@xiaomi.com>
+ <ar0s14p8KPgmDKmR@milan>
+ <CAHKocdEF3RE5FA+LPRf_E0ns02a5akvUDKvSDvERoyTryV1X6Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|SA3PR12MB598757:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bfd1e1d-7a5c-48d8-eab6-08df1fd47d16
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|18002099003|6133799003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5mWRP8QuAYxzkT87PRuhRbcsTlUZpGws9uUSuM3bEuZvJphV+pSawiZBWai0mxtNva7yeLEch52+Mp9aiHu8IPdT87z/hJD5ed380FV+Fk31XT3qUMTjgizt47KOWLVvg5LX9iJqFbFMRhl9pNdOe2Cpzs5I/lyYYPF30dhOYWqsi+PkfZI12JxXGHDaul5cWDKDXqVR6UOtpAOsMqwqjYz8vuMadY1oUgEyW6ECcLN93c9UzLn1Z6JVn97cqkxMUonk9L0lCGKTttEgWTk40QONDv1c3ewUl9dhflvGaoJwYPfUyEJGnUftSFMc9Hd1c6J1/Nocq6TmL9OmoanCOMMMMXJXVDICpqhjYYqgmvMPeFR9YZT8TNU4IpgMMa0WyqT8zQ37DGLX8kd6Ic1EFkzrVpsAL4edM/oxLs8XiA206Ws5wQ5sDRSaI9SlI1l2UQr5eM1pL29VCuVEYbUGacQW3K1lBJZS/jPY1dboi+CU4an7d6djaDP9dvVTjREw226IEmE6oRIZRCrN5esxcTM2izZV9zaQUtHHh1DXfmuGfLtdY4+fzr4UgjGiVSCkZgovLztLe92S+Xo31Em1Fv+7hr3Vm7EHR9uAbPMU6gT1BcQAXQYrXjBq+tZfyTN//RpiYEzk3TX8AMKwISmDvrmSrtzExTc8OGBGgr1Y+7LPnEWNDowTxPtkKAM1oqqMXawnVUMQ/UOY98REoVvv9A==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(18002099003)(6133799003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NyfRt2D/0/3+wqDX7gNl2T8+OtZckU97qeyF1D9mWciWZtokN9WRV3+tJJ8chqbkaAAJuKP9Eaj0t+eSmfG0KEUHfHLaarrSZzM2zqLt09E6DonavR3ZGYxlRwd8cx/n7hfbnxPldZpFViX0cXRxr76UpxJzApyFeUUn/FR2clxXV5p/nBusLwQ+JMgl7CQd3VopELs1r7078ZZPvWdnUAMURd1CnCHvTJ1wL16Vc+hcT0kVornGqVZIp5wemG+oZp7YlsQXwYHYt8cfCeGvB57meHP9Z2Pua7qKclmGTXiEyW5AobA8GbYyBPXUVi4VAAWzMIb/EL1JXNkCcrajappID61CIdFk7X1sGNT3UwIDU5oC9mK07o4FGfzRg/u5E0QgMSzmt7Fy9tBnEg+N+Rtm5c4ZPkdVGTUMrHwIVMyFUwYtZcI9oqR+3VN5baFT
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:56:00.0810
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bfd1e1d-7a5c-48d8-eab6-08df1fd47d16
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001E9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB598757
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHKocdEF3RE5FA+LPRf_E0ns02a5akvUDKvSDvERoyTryV1X6Q@mail.gmail.com>
 
-Add reusable per-device PCI debugfs directories and use them to expose
-the firmware-provided CPU-to-Steering Tag mapping for each Root Port.
-Factor the ACPI _DSM query path for reuse and document the new read-only
-interface.
+On Thu, Oct 01, 2026 at 03:55:44PM +0800, Wen Jiang wrote:
+> On Wed, 30 Sept 2026 at 23:38, Uladzislau Rezki <urezki@gmail.com> wrote:
+> >
+> > On Wed, Sep 23, 2026 at 02:28:27PM +0800, Wen Jiang wrote:
+> > > From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+> > >
+> > > Allow arch_vmap_pte_range_map_size to batch across multiple CONT_PTE
+> > > blocks, reducing both PTE setup and TLB flush iterations.
+> > >
+> > > For CONT_PTE_SIZE-aligned ranges, return a mapping size that may cover
+> > > multiple CONT_PTE blocks, capped below PMD_SIZE. These sizes are vmalloc
+> > > mapping spans, not HugeTLB hstate sizes.
+> > >
+> > > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> > > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> > > Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> > > Tested-by: Leo Yan <leo.yan@arm.com>
+> > > ---
+> > >  arch/arm64/include/asm/vmalloc.h | 8 +++++++-
+> > >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/arch/arm64/include/asm/vmalloc.h b/arch/arm64/include/asm/vmalloc.h
+> > > index 4ec1acd3c1b34..4053b1ec1902e 100644
+> > > --- a/arch/arm64/include/asm/vmalloc.h
+> > > +++ b/arch/arm64/include/asm/vmalloc.h
+> > > @@ -23,10 +23,14 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
+> > >                                               unsigned long end, u64 pfn,
+> > >                                               unsigned int max_page_shift)
+> > >  {
+> > > +     unsigned long size;
+> > > +
+> > >       /*
+> > >        * If the block is at least CONT_PTE_SIZE in size, and is naturally
+> > >        * aligned in both virtual and physical space, then we can pte-map the
+> > >        * block using the PTE_CONT bit for more efficient use of the TLB.
+> > > +      * The returned mapping size may cover multiple CONT_PTE_SIZE blocks,
+> > > +      * capped below PMD_SIZE.
+> > >        */
+> > >       if (max_page_shift < CONT_PTE_SHIFT)
+> > >               return PAGE_SIZE;
+> > > @@ -40,7 +44,9 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
+> > >       if (!IS_ALIGNED(PFN_PHYS(pfn), CONT_PTE_SIZE))
+> > >               return PAGE_SIZE;
+> > >
+> > > -     return CONT_PTE_SIZE;
+> > > +     size = min3(end - addr, 1UL << max_page_shift, PMD_SIZE >> 1);
+> > >
+> > Capped below PMD_SIZE? It is half of PMD_SIZE. Where is that limitation
+> > comes from? I think the commit message should be improved in that sense.
+> >
+> 
+> Hi Uladzislau,
+> 
+> You're right, and the "half" is a leftover that can be dropped entirely.
+> 
+> Before this series decoupled vmalloc from the HugeTLB, the value
+> returned here was fed into ilog2, which reconstructs pagesize as
+> 1UL << shift. That forced the size to be a power of two, and PMD_SIZE >> 1
+> was then the largest power of two strictly below PMD_SIZE,
+> 
+> How that pte_set_huge() takes the size directly, the size only needs
+> CONT_PTE_SIZE alignment. And this function is only ever called for
+> a range that the caller has already confined to a single PMD via
+> pmd_addr_end(), so no explicit PMD cap is needed at all. I'll
+> simplify it to:
+> 
+>         size = min2(end -addr, 1UL << max_page_shift);
+> 
+> and update the commit message accordingly.
+> 
+Thank you!
 
-Wei Huang (3):
-  PCI/TPH: Factor out the ST _DSM evaluation
-  PCI: Add per-device debugfs directories
-  Expose the CPU/Steering Tag mapping via debugfs
-
- Documentation/PCI/tph.rst |  32 ++++++
- drivers/pci/Makefile      |   1 +
- drivers/pci/debugfs.c     |  60 ++++++++++++
- drivers/pci/pci.h         |  12 +++
- drivers/pci/remove.c      |   1 +
- drivers/pci/tph.c         | 201 ++++++++++++++++++++++++++++++++++----
- include/linux/pci.h       |   3 +
- 7 files changed, 290 insertions(+), 20 deletions(-)
- create mode 100644 drivers/pci/debugfs.c
-
--- 
-2.55.0
-
+--
+Uladzislau Rezki
