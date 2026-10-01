@@ -1,131 +1,107 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7E93C5DA1;
-	Thu,  1 Oct 2026 22:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8533A4AD7CB
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790893589; cv=none; b=OOCNswIZyH1U+e7yrW895zadvX0cIdR62478JMXDe3UciUvtQGAfiHkncvlP1FaOxMS5wOkRd9iVuW8hCsXsAAIu6WxtvAHvUKWS1LpdyLKX7PIEH1wTMiV1q6tQ8XD3fXt7jD8u4CAvnHiNP8/IrjQMWb5pfDpSGdUfqJzFUww=
+	t=1790893592; cv=none; b=ZEGJskaYjTWm/paVYIxaWYvOxga20y9uyNCPEd1RRYg0GMr8H/zP6827Nwg2+jHPwsE/waJ7M2Zid9WP8ef3m+zBV4HFnbUZJZOjKpnEzCMn0hzRTcfk/7qdI3JcFJ0dyikm9QRdLbdXIpWppRRFZMfmw0F8h3dojVPG4zEA9Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790893589; c=relaxed/simple;
-	bh=hGHr+2I81ejfp/DsBfCmghrWW5fjJ8hrG8YNO8L7p5c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iP/2dqgZFlwcJLJ174jquz8wvFVF80uWxi0HNS3/VwmbUxubJlsrX3Pte5976FQSXVTsrxCgpVNOtSR5j2XOWNdtrfpRu80AttecYCuOvEuYIlDKmJ7vqsMaxIN0quEzuuV2dzW2fljumByg2DBgrooFy+Y8p5nNba1xRo+Aw8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mEFyXm74; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790893592; c=relaxed/simple;
+	bh=a502TtNr4VrqlVPyn8osIApydd3Tk0Kn8V2v4c6+miI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NBg9VBu+7LdZTm6HgC9ljb9E8pnS/xV7OG85HWSBwAvDhaE2Odzc3IqXzLpoezr9OeuV4prTjwwuEyyzuhX2Am3JWFsDLcKfiyKQuLsgKlV1d1dtjzB7E72qqjeAm4C/kmGcOte2RA3rK1V3emGIUt6A8xwMWHGGohOXECisTrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=R5njMsEu; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mEFyXm74"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691G5T6J2030035;
-	Thu, 1 Oct 2026 22:26:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=g/sMdSj8DDi4M03l1I2UQfN4y5okDdFfRf9ky0ubX
-	PY=; b=mEFyXm742DXm6ZjTk/GW+12uO4cBlOBonNHKNgFcXKLjWMqynSy2U02TG
-	sb8a2Rlm10BFbNuIyjC4RVpfPKjgRgobilx9Oun/GpsSI0PNtEZasvwzehaOLZYH
-	K6BvgM8Rdo9oAWbTOSQm7dfJbH9bjjhYnTaICEjX7G6Hk/xkKhpdfeiy7jcdJNB5
-	Wucwu2zpYRYdrQ6FMjtBFExk/Fsvdk67ZMDhMHLZaOkXp685vq1sZi8MW0Tq4/0S
-	5SVfoAoKle3kX+mH3Xn83jKa304awG4eKHK2VRlBO7gVkmr4FwDTq/gSvEtku7KO
-	6IK8KDEpGTteXAiVwn7X6fI9LOv/w==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fknd2c-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 22:26:10 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 691Ja83u4073405;
-	Thu, 1 Oct 2026 22:26:09 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0q4pht66-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 22:26:09 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691MQ7tO30212642
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 22:26:07 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6AA8458055;
-	Thu,  1 Oct 2026 22:26:07 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C64D858043;
-	Thu,  1 Oct 2026 22:26:06 +0000 (GMT)
-Received: from ltcrain119-lp4.ltc.tadn.ibm.com (unknown [9.5.7.39])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 22:26:06 +0000 (GMT)
-From: wenxiong@linux.ibm.com
-To: mathias.nyman@intel.com, gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, wenxiong@us.ibm.com,
-        Wen Xiong <wenxiong@linux.ibm.com>,
-        Brian King <brking@linux.vnet.ibm.com>,
-        Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-        Joel Stanley <joel@jms.id.au>
-Subject: [PATCH] xhci: Reset controller on xhci shutdown
-Date: Thu,  1 Oct 2026 18:25:27 -0400
-Message-ID: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="R5njMsEu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790893588;
+	bh=a502TtNr4VrqlVPyn8osIApydd3Tk0Kn8V2v4c6+miI=;
+	h=From:Date:Subject:To:Cc:From;
+	b=R5njMsEuvwtWrT3nuNcNAqnN7l86Cb0gO1V8EIPubq4kIcYkl/scjSzglPvQbtSEE
+	 X53ZDDF7hp550uh9GfFLLkba8ao/LfCvdOz4tYlo+xIQOi+VPU/3E0bK133JlC22YL
+	 YVUHsnuwknLKrXuNHP04RDxhHFxTA1r9W1fSwpU4s/cfNo2L5ui1bW9PtPxIuBisq1
+	 //jlvZwXCgYluD4QyuJmcWE8nBHMBzCpPstaWXLyAUy8RhF5l/NyORi0y4hIorlFmT
+	 I0ENvy0vMwxKeFx2Lc3gSWhIv7ZIFvnXcEXD8FMChBtXBFvYrJcSp0SYG4IchXMvmW
+	 ZJ9R3pN/uZhow==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 72AA917E005A;
+	Fri, 02 Oct 2026 00:26:28 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Fri, 02 Oct 2026 01:26:14 +0300
+Subject: [PATCH] drm/display: hdmi: Prevent NULL pointer dereference in
+ sync_scdc()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: vUfaowdiw9kcGPmzh0WlD1wzcNf8HSKD
-X-Proofpoint-GUID: vUfaowdiw9kcGPmzh0WlD1wzcNf8HSKD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA4OCBTYWx0ZWRfX6tBzrPEjyCtd
- My3iJXOhGO0Pn2OK/uwL5OsPVzexVllL5MdmO9XKAa1qLGHclDvBO+wUtSM/846TTwrtUGk6v2f
- LI/+/2qp29v2xsaa0HweADeGlFRuQ1Y=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abede02 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=jT_9lS9cAAAA:8
- a=_TR_F_hvtShnT16lqtcA:9 a=Ec8Bv2-zM_L_lWdDgjzK:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA4OCBTYWx0ZWRfX8laPojxqdjYe
- ppIeSWaAM9eXWwZsLiIaG6AEx3ZPs1mDK+ZJigiEz/EeVVRnT+kvG1/2rCxVefmIcKBOyaesHD2
- 37YlEJ6rHjTyaCuslfAD0/aXTkag6VsVZsCS4A1RyCsOyhYUEFecl9vylMHlZ3fXlWDcUwp47BV
- gj8pV8JlMx7CSzc6I3XNzV7pnWvOrd/53PHEHu35pWnFa9P27dk5D7o64eJOkFtxkd3kjGz7TGf
- Vl0+Q2bE8sG1XgX3F0jdUtXJfWjMu0szCkKi9fva0kZWFmrF/+3I8Be9ls1t+okN9fKOidi/apm
- GqJ8lhc0HUi3sFbyGaaLRhhAVb8I47PDD43GST0ZY3dyrR0M14HDCmfwLbSVfZvDMOtdl2rNNbp
- r0+hBKBwa6pjPnvJ58Oog91Lw5AMA9LCzwsPsUyjwo5JTBQ6VkE8kXYqSK4VvOMU1tPv7IBqdBu
- yjxiTsNkOxAWWl2afiA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_04,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010088
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-hdmi-sync-scdc-fix-deref-v1-1-d99b4f544dd4@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAyF4atI1g3MTItKr1K6sEnUCE7LRMUi3
+ r1TXX4P3r+BSVIxuBcbJFnU9B0z/KUA6pvYCSpnQ3Ch9M4F7HlUtG8kNGLCVldkSdKir/3VVRX
+ zrW4g3z951PVIP56nbX4NQtO/B/v+A8/DOw98AAAA
+X-Change-ID: 20261002-hdmi-sync-scdc-fix-deref-1813077dd48a
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Wen Xiong <wenxiong@linux.ibm.com>
+The connector pointer is used to initialize the local variables hdmi and
+dev before the NULL check takes place, leading to the following Smatch
+complaint:
 
-Fixes kexec boot. Without a hard reset, some USB chips will fail to
-initialize in a kexec booted kernel.
+  drivers/gpu/drm/display/drm_hdmi_helper.c:663 drm_connector_hdmi_sync_scdc()
+  warn: variable dereferenced before check 'connector' (see line 657)
 
-Signed-off-by: Brian King <brking@linux.vnet.ibm.com>
-Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
-Signed-off-by: Wen Xiong <wenxiong@linux.ibm.com>
+Move those initializations after the sanity check to avoid a potential
+NULL pointer dereference.
+
+Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/all/arJo7A7L5hud3tyc@stanley.mountain/
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/usb/host/xhci.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_helper.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index a9e47e178c28..364bd61a4bd7 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -781,6 +781,9 @@ void xhci_shutdown(struct usb_hcd *hcd)
- 	xhci_dbg_trace(xhci, trace_xhci_dbg_init,
- 			"xhci_shutdown completed - status = %x",
- 			readl(&xhci->op_regs->status));
-+
-+	/* TI XHCI controllers do not come back after kexec without this hack */
-+	pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
- }
- EXPORT_SYMBOL_GPL(xhci_shutdown);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
+index f85cce3d6254..872f7e32e8d2 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+@@ -653,9 +653,9 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
+ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+ 				 struct drm_modeset_acquire_ctx *ctx)
+ {
+-	struct drm_connector_hdmi *hdmi = &connector->hdmi;
+-	struct drm_device *dev = connector->dev;
++	struct drm_connector_hdmi *hdmi;
+ 	struct drm_connector_state *conn_state;
++	struct drm_device *dev;
+ 	struct drm_crtc *crtc;
+ 	u8 config;
+ 	int ret;
+@@ -663,6 +663,9 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+ 	if (!connector || !plugged || !ctx)
+ 		return 0;
  
--- 
-2.52.0
++	hdmi = &connector->hdmi;
++	dev = connector->dev;
++
+ 	/*
+ 	 * This is normally part of .detect_ctx() call path, which already holds
+ 	 * connection_mutex through @ctx.  However, re-acquiring it with the
+
+---
+base-commit: 37b346eab23aead52d17a8fa687056bfc651a416
+change-id: 20261002-hdmi-sync-scdc-fix-deref-1813077dd48a
 
