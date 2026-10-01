@@ -1,158 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA023EDAAE;
-	Thu,  1 Oct 2026 07:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021A53793DF
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841162; cv=none; b=BSKWneotbtafyrBSXE0ld/ts5gYEXXuPNayEE155/DYNTlaXDfMiFgR0AKQB9JktF8SG1fDESmOegLdCZXynRQW0h5kRk3kLlcdsPJ7GT4lG2457I/ZTHC+wNI311sTFpYMHYirVRMLUASn2TFV67BZ1NJi54T+xCgZqhbtOylw=
+	t=1790841200; cv=none; b=XdW6uznuddXxLpeP97/nde5599qzoMtGsMYe2liiVAmG394F75XBJ0ubSrNX6vc4wTjgHe/2HeG60LOnh5fOQXr6jz1FxPzcU44y73S37pQW0F/6JkoLgbL2wNoy9YeyN6q/81D+G6brDF5I4q5uKskp2g3qapSDszbTFqG2LdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841162; c=relaxed/simple;
-	bh=j8pnUYyTEBPUJ3+BBmab725EHgwQiNp5ebXhSLWXnXc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KlyXm4ArhG8G65JvrWYUkAKpPJ9sz4tdqjPtOEzKpbWa/aW6i2RLvLwWY/FeMV6bV9TLKmaMzGfHZi/Ao+wAB0JoA/6ZkaSigvfY5VDSdL64XQ8udCtBIHRshhF2GmJtgPZ/t8pwFRfabYVEm0oLxbJ9X0LVHsO+NRHbZWxv8jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UdwZDTZn; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790841200; c=relaxed/simple;
+	bh=BnyoYXlx48o6LiKRnqfSaEEHyc90mBDXq3VnD8GdE04=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YPegYohG8GYHm1mXkqynMLoQfLUeX9Ul3QGI0WzfdIG6Na6UNvcCT4FYNSXv9HURxT6WC4AgLj0aIIaBfjNBsEJEnXvO8HKzeTlKZ9yu/741yNtFpAUNWnOWzoJptb3gpzHKK27pgLPXSxb/rTLMOTBydCO9xoEDePEHBH5gtq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sg2vrAZR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UdwZDTZn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790841161; x=1822377161;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=j8pnUYyTEBPUJ3+BBmab725EHgwQiNp5ebXhSLWXnXc=;
-  b=UdwZDTZnhAAXol7HKWV6MLNlFqjrvxjNm7VTw7RNrZyonuonfDRZ6NJA
-   t4+FoOLHYWQyp0zKndg+joCdO6ODStnqYn8rsAvCSfxCTrBzAApCW9zk8
-   7vX6rMTatYWCvi0xmIDfmVmmnyEqhXk925kxECok0ekjRlVm8yH9tTJZf
-   SqziSFDwvnEVHHS2VKTTBQsPzPzOOOzkUgXMMFWvzLr4D/qGeJWbPn3f1
-   PLeqDc1TMCuZ/rnN4DIdzFgumG+VvQej6yzzJFL9ePOcLkCy9ZhfbfXFc
-   cq9f5d8KABP8BhKT9KnqdMeDrlGEOY6pqwGxS2SyX3w0gQ2oZe94UBcPe
-   g==;
-X-CSE-ConnectionGUID: lTFgRwSNRXakYNtkok70uw==
-X-CSE-MsgGUID: OAwkmD8aRh+4++0KnAAfog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="113379320"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="113379320"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:52:40 -0700
-X-CSE-ConnectionGUID: C4og+XwwR2izuGN6ei35WQ==
-X-CSE-MsgGUID: snE1L8qPQ36dbR8vZiA4LA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="275469580"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:52:38 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 76AE1121D05;
-	Thu, 01 Oct 2026 10:52:35 +0300 (EEST)
-Date: Thu, 1 Oct 2026 10:52:35 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ar4RQ2OnP20BOhC7@kekkonen.localdomain>
-References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
- <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
- <ar4BsDNOkcusy4Qz@kekkonen.localdomain>
- <ar4IKQHYzprZ3CPv@zed>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sg2vrAZR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7751F008A0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:53:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790841198;
+	bh=BnyoYXlx48o6LiKRnqfSaEEHyc90mBDXq3VnD8GdE04=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Sg2vrAZRhe/78hv0dYmb8hkAH8i9ibDdhHfcXEyQMYIVYscVxwFzhHgQ+CGKd6tMc
+	 ssqugj+waRHcJmf42M55QGVldecfKWWRn87c07aLfIlLQeKgor0EHznDZol5QTEQx6
+	 RuJT0ltdjjD6jzHnoafcdFXvfL2x2I9yIfPrfRCxvnLTWZhCZwM+pZ9rvkw1KnrWqR
+	 vmH8CnbA2wwgObo/GTeBoUwJGJ6t//7K0fW6AhoTlAzrJoP5+Ss+4qtwQi9hY6Kyvy
+	 nejgOlpTQ7HLmhreZ/mN/3Gg0476G4VM6Dlzc81bay/EkDdtzDble4pOPuxXGLjDrr
+	 fA6gY0H7hjO9A==
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a76cedd9baso21511291fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:53:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwPa3NlUMD05s7zQHFYShXnVVNcjske0IqhqUOfrcM94L7IiOdPYg3jagGRAefAxfwCLsW5pvojjCE1+vE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJ+yEwhfnNFspifY3qrLQY97YRyHWYyWFP2iruGYv20byaRIvL
+	p+u7g+E/HGGH3ixfXSPhljtBLxe4gtnQsVa1SBUBtUJQp4VMG389nfVTscQquVB0zU62ljWkobR
+	22WIHR7zzpJF0QfaG9gFyijfFK9PS998=
+X-Received: by 2002:a05:651c:418d:b0:3a7:6d4a:1c9f with SMTP id
+ 38308e7fff4ca-3a779208624mr10185991fa.15.1790841197261; Thu, 01 Oct 2026
+ 00:53:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar4IKQHYzprZ3CPv@zed>
+References: <20260922103051.5257-1-farbere@amazon.com> <20260923182243.41060-1-farbere@amazon.com>
+ <20260923182243.41060-5-farbere@amazon.com>
+In-Reply-To: <20260923182243.41060-5-farbere@amazon.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 09:53:05 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=cPZ1vEDgXodbmHAGd2jr+X8DdaH7yxbfN7OJMBojSpA@mail.gmail.com>
+X-Gm-Features: AclHuK96XSBtmlDHjUjVB2CCIFY5lwq0-m1jdyvq1z87aPg8ZZ_e7N-RjYFed7c
+Message-ID: <CAD++jL=cPZ1vEDgXodbmHAGd2jr+X8DdaH7yxbfN7OJMBojSpA@mail.gmail.com>
+Subject: Re: [PATCH v6 4/4] pps: clients: gpio: release pins to an inactive
+ state on remove and shutdown
+To: Eliav Farber <farbere@amazon.com>
+Cc: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jacopo,
+On Wed, Sep 23, 2026 at 8:23=E2=80=AFPM Eliav Farber <farbere@amazon.com> w=
+rote:
 
-On Thu, Oct 01, 2026 at 09:19:02AM +0200, Jacopo Mondi wrote:
-> Hi Sakari
-> 
-> On Thu, Oct 01, 2026 at 09:46:08AM +0300, Sakari Ailus wrote:
-> > Hi Jacopo,
-> >
-> > On Wed, Sep 30, 2026 at 12:51:20PM +0200, Jacopo Mondi wrote:
-> > > Add driver for the ams OSRAM Mira016 sensor.
-> > >
-> > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
-> > > +{
-> > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
-> > > +	struct v4l2_fwnode_endpoint ep_cfg = {
-> > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
-> > > +	};
-> > > +	int ret;
-> > > +
-> > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > > +	if (!endpoint)
-> > > +		return -ENODEV;
-> > > +
-> > > +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	/*
-> > > +	 * Link frequencies: the driver supports a single link frequency,
-> > > +	 * no need to check bitmap after this call.
-> > > +	 */
-> > > +	ret = v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
-> > > +				       ep_cfg.nr_of_link_frequencies,
-> > > +				       mira016_link_freqs,
-> > > +				       ARRAY_SIZE(mira016_link_freqs),
-> > > +				       &mira016->link_freq_bitmap);
-> > > +	if (ret) {
-> > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> >
-> > I recall commenting about this at in least three occasions earlier.
-> 
-> And, again, I have replied twice to your comment without receiving a
-> response: https://lore.kernel.org/linux-media/arPJ_-yKVMXE-Gav@zed/
-> 
-> I'll repeat here anyway: do not mix cleanups and gotos. In this case
-> it's harmless, but why contradict the usage notes to avoid typing out
-> v4l2_fwnode_endpoint_free() 2 times ?
+> Some boards route the PPS input GPIO through a pin controller and need to
+> mux it to another function when pps-gpio is not driving PPS. The driver
+> core applies the "default" pinctrl state before probe, so the pins are
+> muxed for GPIO/PPS use while the driver is bound. Nothing, however, hands
+> the pins back when the driver is unbound or the system is shut down, so
+> they stay stuck in the GPIO function for whatever runs next, kexec
+> included.
+>
+> Look up an optional "inactive" pinctrl state in probe via
+> devm_pinctrl_get() and pinctrl_lookup_state(), and select it with
+> pinctrl_select_state() in remove() and shutdown(). The state is looked up
+> and selected by the driver itself rather than reusing the runtime-PM
+> "idle"/"sleep" states, so its meaning is unambiguous and it does not
+> depend on CONFIG_PM. Boards that do not describe an "inactive" state are
+> unaffected.
+>
+> Since "inactive" is only meaningful as the mux to restore after the
+> core-applied "default" state, reject an "inactive" state that is not
+> paired with a "default" one rather than releasing pins that were never
+> put into a defined PPS state.
+>
+> Look up the pinctrl states first in probe(), before pps_gpio_setup(), and
+> route every subsequent failure through a common err_release_pins label.
+> The driver core applies the "default" mux before probe(), so a probe that
+> fails after this point would otherwise leave the pins stuck in "default";
+> releasing them to "inactive" on the error path is the symmetrical
+> counterpart to what the core did on the driver's behalf. A failure in
+> pps_gpio_get_pins() itself returns directly, as no state was taken yet;
+> pps_gpio_release_pins() is a no-op when no "inactive" state was found.
+>
+> Convert the pps_register_source() failure path to dev_err_probe() too,
+> so all three probe error paths that share err_release_pins log the same
+> way. This path already returned PTR_ERR(data->pps), so this is a logging
+> change, not a fix.
+>
+> The mux must not change while something can still drive the pins. On
+> shutdown() the requested IRQ and the echo timer would otherwise outlive
+> the mux change -- device_shutdown() is not the end of the road, the
+> kernel keeps running to load and start the kexec image -- so a timer
+> callback or the PPS handler could poke a line that by then belongs to
+> another function. Tear down in the same order as remove(): free_irq()
+> first, then the echo timer (only when the board has an echo GPIO, as in
+> remove()), and the mux change last. shutdown() does not unregister the
+> PPS source, which is a remove-time concern.
+>
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
 
-It's not about typing but correct error handling. It's much easier to miss
-unwinding whatever needs to be unwound in multiple places when you're not
-using goto's.
+v6 looks reasonable to me!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-In other words, the pattern you're following is bad, please stop using it.
-
-> 
-> >
-> > Also applies to the other driver.
-> >
-> > > +		return ret;
-> > > +	}
-> > > +
-> > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
-> > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
-> > > +		dev_err(dev, "Continuous clock is not supported\n");
-> > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	mira016->bus_config = ep_cfg.bus.mipi_csi2.flags;
-> > > +
-> > > +	v4l2_fwnode_endpoint_free(&ep_cfg);
-> > > +
-> > > +	return 0;
-> > > +}
-> >
-
--- 
-Kind regards,
-
-Sakari Ailus
+Yours,
+Linus Walleij
