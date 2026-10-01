@@ -1,159 +1,215 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013050.outbound.protection.outlook.com [40.107.162.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB5151EDEC;
-	Thu,  1 Oct 2026 14:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866197; cv=fail; b=eIStTiDaJFMbwqtHqzGp0JUz6idOCPeQPHKq8YYv3yhmO1OsyDWtNcFuv1qhTwTJjWv0ZT203itE6rbpJIsZBPtdiZvnbpg0dn+PtmOxHs2fIA9eKr7kl26MTVj2PIvMK5ENE7obRGrY+zbRBjT7wE4VbkSzqlzLpk254M0DP0M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866197; c=relaxed/simple;
-	bh=+QHhUG8t672nn9qxsfyIDzMMX0snjQhLpuV5BPEtFLs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=RfV2mA7BgAlsjMNx4TARC86DyrZilLW9gFKkwd9exH6fKZb74cyReGJh9Vx/skfVGZlIQqgq4uNH/56cepMyT9uXss6NB7kS6eVJ0mteKVO29jZX+jcCMlwQNSae39Sv0bV6rGpO7PoCNeVnvY2Sgzce9o+b0q9WqxjUQOfvNJ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=sdIkBwLZ; arc=fail smtp.client-ip=40.107.162.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A688251CF46
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790866251; cv=none; b=oY+1w5N3s8AU1zWtWS6zBbrDg6+purmcImILLEhFpvyrpe7lbj3Gs/pC/VqttVXnTv85txmgO5RjRSAnTuQ0gRhezdyHV8m7lC+zfemB2B+a1rp6f5J3GrN5MA1a2ee4naR9TWIA4B2/CcqWrzMk5+yGXps9skTZi4qXr1ZwZUQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790866251; c=relaxed/simple;
+	bh=dDIRB5Oi9FoUSrNMqIkdMDYOwZXhk13+e4IgFEYdx7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ewcLh1Kvice21ipyVU57cAUV5Sj4GqR4wl2uQS08l5bg72bD3z+YtfSpeoqDJUAliFJaipAvNNsEJVVd6VkxgLKfhOwB4oPMsaXz2oCh1GNajIuKEDl0+uxE6GefvkwKzM5M0fRxDQJPb1tTLwK5LGLjlQNRCg9WX36VzDHYeq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I3PwQCu5; arc=none smtp.client-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="sdIkBwLZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uqEXDMuzkOxjoGxh/+Z1fETDrzg9OvI2V/IQMEYwR6PYhYXMZtoFjRncSefd7ffB+sukx3n6tggWgSFmgxUii1yomtbOyu9Bxf3xW/2OKkcSNCaKH+NtzoyCzUQIKHhwZfroBpSrwq91rgzjc/fg6/4mzNZdcCtBHggp4CXOn7bTJENrqEezQRu2hDnAT34LJdbxFxpQKXtRNh8QsBeRNOyv75ZDmp5I6pKVZXpGFGSuP5zGfZZf+pznEzxj498QtfKXLrjElEO/7iYnjV7pA4e7W4Yx9Xm+Iy9FjWvV0yOG6u+r2aUbFs+TtF1qwPOL7H0R9NXWx9/xKmuFNVMuIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ckxfA4Q41cskYde/9HvCT0D+V6kP29MW4Z5Kjh6/mCM=;
- b=n/8Wfe7Wbrwba2BLrqO9DXzC3Wj3DAxfLql3bqlwMCW3dR0w5XVNj70NYqXtK28sKsUwBl1bLEk9pEUI6YfWi9L1kL3KLn/QrWjIfRhWQqa9YSzHSVGJHewh2YyT3+UI/CLPv3l0Fz+WhDB/4DgmTHlAfl8AHK/7IgtiWuHN07z7uFYExN2Tv4Y2Ged4yOHoF4o5gWgndD8JGmjB2yJUuFQBmkf1AxM2yX8C/MMUEWv9zPSiWm/OjTEc9N4NlhJEsqSxkXRHetsWcPdF/5YQDPziPuil8JDa1CwhXPK7u5fWFb4INaw21nxg9yEPSl7fCyRZiY/U927g8jB3yrtnRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ckxfA4Q41cskYde/9HvCT0D+V6kP29MW4Z5Kjh6/mCM=;
- b=sdIkBwLZgE29mNrN7cdMItzjs66MIQtoF037+YG1uiI1c/01olPM625aZ9DbNgYWcsUlIOakMUKPUKtAjSjj/5Y3y6WW+ARc+DcCPJQBIkpQY8PeJG9KmPkCvEPZ4E77JALgA3B9UZ4+hcix1yotSTfefdyMqrGS5rtZZZcUSy3Qf0Io1qzfV4YmkeNY/sGHwrXFk8jfvj+iOLkQVPsvy9F+00NrUjNEnr78J7RWVf+0aVWKoJ9ydMKxGAhOww9u8x+DL6lXdLVhYADuRG4ks8r4KhitIn5/qub0Z9S7vEbWnyEvZZu6Y4PA9rbItr5cEAWkznnyz4vxdIz0Ke41yg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA2PR04MB10312.eurprd04.prod.outlook.com (2603:10a6:102:414::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
- 2026 14:49:46 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 14:49:43 +0000
-Date: Thu, 1 Oct 2026 09:49:33 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Primoz Fiser <primoz.fiser@norik.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, upstream@lists.phytec.de
-Subject: Re: [PATCH v2 0/3] ARM: dts: imx6: phycore-som: PMIC and PHY fixes
-Message-ID: <ar5y_StTTBYDeck3@SMW015318>
-References: <20261001070947.1815279-1-primoz.fiser@norik.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001070947.1815279-1-primoz.fiser@norik.com>
-X-ClientProxiedBy: CYXPR02CA0017.namprd02.prod.outlook.com
- (2603:10b6:930:cf::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I3PwQCu5"
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-343990e8ee2so72626eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:50:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790866249; x=1791471049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MawLjsR6a0c8Iz3+/frylZDgFlv1Xa4BhzLG/vLSrIU=;
+        b=I3PwQCu53fz6FY7V6VAX+1t1OXe5L4DlKKEo23M5BX6WreIRIYi4Lq5W00BtLUTeN6
+         PfFfFC+7nJY3Bv6gzAN+gMoMQKDHm3IFd4+QjIYb100jiZw8sdQO9Segon+YW0C2OGJz
+         LR+qsfWZ5OLMvKVoSgRNHIDH/4PCkbFvmgHa7DnVnAeidvHnCDAGYLrcb0h1ecBTqPmc
+         JfxuX7tMu3tab5PsmPvwT1XN8V7bOxCs/5CZuRqc1DmGzutsElIacoGZvAfQayPx0c1s
+         5eHiUUNXm/qsWeMbtChn3nEvgyQvE48bJfy7bfTtvWrGA2FfwcnCdSRf7Px796W7JTpg
+         0jYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790866249; x=1791471049;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MawLjsR6a0c8Iz3+/frylZDgFlv1Xa4BhzLG/vLSrIU=;
+        b=1j7GbeM7lqHiXuBglX84VeuDMVk5NayatH7bkv14HjxCc7TezOuGasUZRZA+YP6bEx
+         lz6bOZ7E5TYo0yDEEqyInJfum5l+qR7QrdC6z2Fr+0aqHRh4FCMpssvGVZqjiw3wcHOI
+         RQ0mZrUCrUHmpRbLEikO/56Nl6q4wiDGQuBE+10Tk8sLefl7pF74mwXsnZh82tPTt8Ut
+         5iq4H2IR7RONAIytqXIWI3lum/lK9BIZ8LH/6wXJd4idQrB1L/IsTzcRHw5TFJYHiDHK
+         73XazwoNa5r+SbwpPbZl3mhR5MFnfLidC1waVABRUBDYmbjywjBaxk9zo8slBaDb25yO
+         Blvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzlE1Oa1wYZgY6C+P7E8Yi5LzwfFF+uHzkJj6oiBEJx3VuF3TRhuIPKDPh5M1yyffEYD8WFZNdVVibRyKM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPkP0eldxtmmaW0O1prTHd/6VH55k5vAnp3ccgf96nh+VmkWCP
+	CyT/3OMKu9g8smmUF+o1pEz1ZFzwUOeExtznhj6M2f+a/8gj4eaU1H6d
+X-Gm-Gg: AYBFou27J0FiQMD0zFCM/CdeZy326hQcKTHWSliXomIbU92aWAFwKoz3/p8rDJIx8Au
+	zTz1poxGVCpAdbXKDiHHXPfdJjbEIA46/+341P1NpsvSgQ7TCnTfT9LcxjmJZx7UazohMtE2dql
+	kbNLqqo0IhI0YB0TCU0ZULV6U0jdwm3JePkT9k7zflzg71CRVFL8QEdZM2hQEh3A/j2xIHYvzU0
+	Dzt2IIk55jhwHHZhvrdmDZKU8mxLXTX6KFAZhk0tGslYlWon4uL89OHqlIkQzNkkmnC6hJEN4rt
+	hLL5ve+BVUGAGVwfhkezZcXFxlEqWeFX02jBRiyYbge4UHeOc3bJwr0dHeM+gUgYMLi+q8fwIOq
+	ojR1/yXKu/6zR6D5gctyUHReS+Cjn6RcViDboiQK5rVaGu23Qgk4pXIE8WDM9YvLwCM8ydYMMPF
+	KRd48mGFuLQ347Xbt9T8yq3KJ2oYE3NUhiIZoDqxnYPOU92F95f+44dhwtSHOR4acpw3KvFYnwm
+	xfZg0sCFofbZmKb5ovjCXBSiWI=
+X-Received: by 2002:a05:7300:8aaa:b0:34b:e21e:5e2c with SMTP id 5a478bee46e88-34cdb1feb63mr5732460eec.12.1790866248511;
+        Thu, 01 Oct 2026 07:50:48 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34e7ff86d5csm5048122eec.5.2026.10.01.07.50.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 07:50:47 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v7] media: qcom: iris: release OPP constraints on VPU power-on failure
+Date: Thu,  1 Oct 2026 14:50:33 +0000
+Message-ID: <20261001145033.17652-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA2PR04MB10312:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94a15edb-7164-4da5-47ad-08df1fcb3a2f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|7416014|376014|23010399003|366016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	dMEVYstpqNaMPRiw4/O6WOfV6eO61wM4pEa3OCTeS68fBNsuoIL1gKLTc3FXhroyrgllqlGWoIl2fRW1LvXi5gtZBu9txJ9o/omXYxd0jlKDt/+qTnrLEP5YaruQMF8DI39nIdCMihmfIvhuIWE0j2iJmQlKg5cr9353yVuR8wJaDB0WXLpCpFW6kiDPXAPBUENu+zpab234K5JFfEwzWX3MQTzggftsmblK728kq9A24CmsO1/L6GKvh+0vYU9OFG0F5uJfp1MdB3a9+xJeXis/D+sezPbAqQo1eJJuFp85P+FwydcS0emO5Hxv2OlWaCaF+SJUPAjlMVt/FaqZe07foaPCozcdHXm3Aiua6oeHyCsqbMtw+KbHgGsxgSR2cUWZL2sZ8I9Q9yrgBssGdXHhJeFJh4EBYM9rlUnUdzZbDcaM7JLOKDpFdNbjtF1Qy0crU9WjGJoDc46sQ9kpUi1ZcNjzXvPrccTV5Ou4romMgYTt25QOaS94EGulEEHAAY7fjM9qTLS717FaHdm3P083xxIeZ3aBh77FRdhd1YMHN2rvnIzPQwQVtCkHW0A0nGC75oT7wS4Lj7wrzhygXfCouyMCWG/fPT14lkyEXZnXUZ5n/dyCRwfOp+AlfD0N2SquUwskrLs+XhrT0X5dubuQAoh4cuiDZH+0QExTeAQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BCUFKXaqucNOSZQUlZjFV+Rr2dt+9HLp76JyDhUHEl7aFAo/Zltb9/JY5KV1?=
- =?us-ascii?Q?Vsy8TcHPPZHpwWgTObz/xuR3c281skfPzx1H4z9IWeUywlunhVRYVKiRSy8i?=
- =?us-ascii?Q?0Gs7jg+pdoTBiMcUC74+MU9W0IpKgBe4AHyJ4jR45V9hDVF5rjrFcFEayW4S?=
- =?us-ascii?Q?21hDe+i1g8uAg4aL805vDdvjXd41m+oGnG/6cpiJUCyqRvVvsH51mJMD7O2A?=
- =?us-ascii?Q?R3IjBhBKeDz2z8/9o+8/KLLhm/Nyo0MHHC53oeDWauBvtVwAiYmUYALHobS6?=
- =?us-ascii?Q?s6ssVofWFrzmN2pKdx5Uqle4yfq+eOqaD0nRefzHLcdUj7Kwkts7KwqmVohs?=
- =?us-ascii?Q?5oEMpsUOOw8G/h+NAffgYDCs2kywJHWC7DbTNtwbAoI/dt4USF9LDb1fYDvr?=
- =?us-ascii?Q?hUSZWi/9BDHXi74ja/gmagrGhPAuK95MuSnQzuOu4J3hsX5QPVxm/IAYHpMl?=
- =?us-ascii?Q?Jp4uCKAuT1kos+dghfTPnoj4FCxZ0umFTY1/IvOPXseVKnw2O3weCPoUHU3K?=
- =?us-ascii?Q?zzwzef4UsAo6RvjRB+vkBcTAjzLj7LW+5Y+3y0inOPZmg6Zhmi8KbGBLIbBB?=
- =?us-ascii?Q?KeyivWAKT2gdwCXpry3JGhIhuAiLKYUQmw16q3DTdIItdPkHVYhZ6a63b8Ka?=
- =?us-ascii?Q?CG9JrDLDqlVgG2WdW51zUSnLnjXbQaJpC5fPcfgWR8VXVKHadsd6M+r20L3V?=
- =?us-ascii?Q?AavzgbwAPv6hgcqobubtjdS+mQT4wxrfoJCCCKiuXiYqeeeEkngPG9D+dTRs?=
- =?us-ascii?Q?5vCqoBfhMyYiSgHcr4/8Gf2Txia9KYwGvQjQf2yxb3A9kI2jbfpzbMMDWCSa?=
- =?us-ascii?Q?FJM8HwTLWfr9/U0gaoAg0Zuf/XDn6HTl6wAWs9XvQAqd11e+BTwMO9geuPGG?=
- =?us-ascii?Q?M4wgq8tsDQQClnlyJGpjYJrR79rnVYpUDlWuoArag53hkvcjWD2WXSWhZLYc?=
- =?us-ascii?Q?k/OraA8NjQarY6sp1DauQ7HL9tuQmc9W7o0R9a5iZarf1zem7Iwkk4AWFzYR?=
- =?us-ascii?Q?hGBW1zXo8ws0JtyMcG+AFlyxmt/hkfgcGsd11lXHFRhAzl3zPfBduVfUKHCK?=
- =?us-ascii?Q?Fp69XhA8fNKArS3Rsld6Q6XghD40pGZGPEfbQvdP1AHZnUXKF8MlNkIozkNQ?=
- =?us-ascii?Q?B4T45cxI1k9qOmyxP2ide43Ugw4jUr5ojCi5uyXlgcRJHche5zK/rH1Gw7UI?=
- =?us-ascii?Q?GlFIQDUFzhjgt5gt2SxQItcVT8eCCkKcghoIBwwtV/boK6059h6YQEBeB+st?=
- =?us-ascii?Q?MX3ZguhfYkScZY0HbANpNSiLio5IP24amroqNFwOj0BM91l05zYGrZTlZ2Rk?=
- =?us-ascii?Q?0y5yGK5ZUbDO0lnFJAZwnraQqpZTS9gK5kf+hsek770x23bBgzvlJD4u5LMH?=
- =?us-ascii?Q?sAAmbEJ7fL8dVBF7LJabKIERWnSWYcvcQk/xu3plNwE9DLiOih116tYle0vy?=
- =?us-ascii?Q?8X9nGpF0+1ttDOgQpwi2s7aYTp4bLYxgvECC5yyNQUPedmTwkiSf0mWWRR6y?=
- =?us-ascii?Q?zFh/yo0J9Zc0kloyB4eyYKwNnmRYS3kqdRGgaEYp0/+KB1z9CPVFCgLt58Eh?=
- =?us-ascii?Q?pH/tTTNpXJ/aC2lWuS1fpJQ997UFgG5LL35bgdr5a/HKzcB7SVVxklY6pSr2?=
- =?us-ascii?Q?3RKA5lOWvMytkRaY1QN2Q57vCm43H1qIiCKJHoIL1LyTiEW43QBEfMW7ZNem?=
- =?us-ascii?Q?cA7JVLunLlQYuv1gBNP9rzGa3dcYNEScf0y6OZIyv6ch74hUIzK5eGCTWJUk?=
- =?us-ascii?Q?+wErghiD87t04uMNQb7HllWSBTIxjiJFlvoTUwUOc5vX13BsYYu2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94a15edb-7164-4da5-47ad-08df1fcb3a2f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:49:42.9077
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LyIpMHvHS+LCOQh3a/3BqzgQW9nefM4i3HL8Ifp06OiOWrAxNqWv5r341rsh5aVeuUPg4XaWe+KsaWyjEb7GlCoUTyCGjZ9fEQS6YGZ4qHTfE/PO82WrQGCfRxYN7SCg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10312
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 09:09:44AM +0200, Primoz Fiser wrote:
-> A few small fixes for the PHYTEC phyCORE-i.MX6 SOM:
->
-> - Pin the DA9062 PMIC watchdog to /dev/watchdog0 (1/4).
-> - Raise the PMIC's SOC/ARM buck ceiling to 1.5V, needed once the
->   1.2GHz OPP tier ([1]] requests 1.3V for VDD_ARM and the anatop
->   LDO's 125mV dropout is added on top (2/4).
-> - Add phy-reset-duration to fec node for more robust reset pulse (3/4)
->
-> [1] https://lore.kernel.org/all/20260923070505.494949-1-primoz.fiser@norik.com/
->
-> Link to v1: https://lore.kernel.org/all/20260930102532.2262700-1-primoz.fiser@norik.com/
->
-> Changes in v2:
-> - Drop patch #3 from v1 (converting to reset-gpios) due to potential
->   backwards compatibility as suggested by Frank
-> - Convert patch #4 from v1 to patch #3 in v2 (use phy-reset-duration)
+The per-block cleanup paths request a zero rate through
+iris_opp_set_rate(). This selects the minimum OPP rather than
+disabling the OPP constraints, so a failed VPU power-on can leave
+required-OPP performance-state requests installed. Supplier reference
+cleanup after a failed runtime resume does not itself request supplier
+suspension.
 
-What branch do you work on? I can't apply.
+Move the maximum OPP request to iris_vpu_power_on(), leaving the
+per-block helpers responsible for their power domains and clocks.
 
-Frank
+When controller or hardware power-on fails after the OPP request
+succeeds, unwind the acquired clocks and functional domains, then
+disable the OPP constraints with dev_pm_opp_set_opp(dev, NULL).
 
->
-> Primoz Fiser (3):
->   ARM: dts: imx6: phycore-som: Set PMIC watchdog alias as default
->   ARM: dts: imx6: phycore-som: Increase PMIC max SOC and ARM voltage
->   ARM: dts: imx6: phycore-som: Add phy-reset-duration
->
->  arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->
-> --
-> 2.34.1
->
->
+Report an OPP-disable failure without replacing the original error,
+and continue ICC cleanup. Keep failures of the maximum OPP request on
+the ICC-only cleanup path. Recovery from partial failures in the OPP
+transition itself and the existing normal-power-off behavior are
+outside this change.
+
+Fixes: f6940b79fcb6 ("media: iris: Fix opp scaling of power domains")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+Changes in v7:
+- Rebase the fix onto the updated power-domain and clock helpers.
+- Remove OPP handling from the per-block power-domain and clock helpers.
+- Keep the maximum OPP request in iris_vpu_power_on().
+- Use the NULL-OPP disable path for failures after a successful maximum
+  OPP request.
+- Keep a separate ICC-only cleanup path when the maximum OPP request
+  itself fails.
+- Preserve the original power-on error if OPP disable fails.
+
+Changes in v6:
+- Move OPP handling from the power-domain helpers to
+  iris_vpu_power_on().
+- Request the maximum OPP before powering on the controller and
+  hardware.
+- Add a zero-rate OPP request to the VPU power-on error path.
+- Keep the power-domain helpers limited to runtime PM operations.
+- Replace pm_runtime_get_sync() with pm_runtime_resume_and_get().
+- Rename the patch to reflect the new approach.
+- Update the Fixes tag to the commit that introduced required-OPP
+  performance states.
+
+Changes in v5:
+- Return pm_runtime_resume_and_get() directly.
+- Handle pm_runtime_put_sync() failures while preserving an earlier
+  OPP-update error.
+- Add a blank line before the rollback return.
+
+Changes in v4:
+- Convert the OPP rollback to a goto-based cleanup path.
+
+ drivers/media/platform/qcom/iris/iris_resources.c  |  7 -------
+ drivers/media/platform/qcom/iris/iris_vpu_common.c | 12 ++++++++++--
+ 2 files changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
+index 7149a5bf4e7f..b1734e5ecf60 100644
+--- a/drivers/media/platform/qcom/iris/iris_resources.c
++++ b/drivers/media/platform/qcom/iris/iris_resources.c
+@@ -77,10 +77,6 @@ int iris_enable_power_domain_and_clocks(struct iris_core *core, struct iris_powe
+ {
+ 	int ret, i;
+ 
+-	ret = iris_opp_set_rate(core->dev, ULONG_MAX);
+-	if (ret)
+-		return ret;
+-
+ 	for (i = 0; i < pd->pd_cnt; i++) {
+ 		ret = pm_runtime_resume_and_get(pd->dev[i]);
+ 		if (ret < 0)
+@@ -94,8 +90,6 @@ int iris_enable_power_domain_and_clocks(struct iris_core *core, struct iris_powe
+ 	return 0;
+ 
+ error:
+-	iris_opp_set_rate(core->dev, 0);
+-
+ 	while (--i >= 0)
+ 		pm_runtime_put_sync(pd->dev[i]);
+ 
+@@ -107,7 +101,6 @@ void iris_disable_power_domain_and_clocks(struct iris_core *core, struct iris_po
+ 	int i;
+ 
+ 	clk_bulk_disable_unprepare(pd->clk_cnt, pd->clocks);
+-	iris_opp_set_rate(core->dev, 0);
+ 
+ 	for (i = 0; i < pd->pd_cnt; i++)
+ 		pm_runtime_put_sync(pd->dev[i]);
+diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+index 22d394851ef1..9bd59bbfc109 100644
+--- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
++++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+@@ -413,16 +413,20 @@ u64 iris_vpu3x_vpu4x_calculate_frequency(struct iris_inst *inst, size_t data_siz
+ int iris_vpu_power_on(struct iris_core *core)
+ {
+ 	u32 freq;
+-	int ret;
++	int ret, opp_ret;
+ 
+ 	ret = iris_set_icc_bw(core, INT_MAX);
+ 	if (ret)
+ 		goto err;
+ 
+-	ret = core->iris_platform_data->vpu_ops->power_on_controller(core);
++	ret = iris_opp_set_rate(core->dev, ULONG_MAX);
+ 	if (ret)
+ 		goto err_unvote_icc;
+ 
++	ret = core->iris_platform_data->vpu_ops->power_on_controller(core);
++	if (ret)
++		goto err_opp;
++
+ 	ret = core->iris_platform_data->vpu_ops->power_on_hw(core);
+ 	if (ret)
+ 		goto err_power_off_ctrl;
+@@ -442,6 +446,10 @@ int iris_vpu_power_on(struct iris_core *core)
+ 
+ err_power_off_ctrl:
+ 	core->iris_platform_data->vpu_ops->power_off_controller(core);
++err_opp:
++	opp_ret = dev_pm_opp_set_opp(core->dev, NULL);
++	if (opp_ret)
++		dev_warn(core->dev, "failed to disable OPP: %d\n", opp_ret);
+ err_unvote_icc:
+ 	iris_unset_icc_bw(core);
+ err:
+-- 
+2.43.0
+
