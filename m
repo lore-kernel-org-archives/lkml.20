@@ -1,202 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD4B3955E8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B6848820E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865283; cv=none; b=aqvcl5ajKpnBtQd3Nod8g6e2b1LXK1WXHQW0BlAxAx9oDmKl3bqUuORnS2ULdmO8/j45DmxyPG6Xg1tTPgZ2QOhwx/AZ8fKEV7IDMsFMtdoivFCQhtArZivQhFFwsZk5TKiKgKk+xNgINUUqSpHTVBCOGv/POZpZTkYh3CLUdUo=
+	t=1790865311; cv=none; b=JwfqYkD48MssKYbcmm/aFy3cjw0LqEuNm2oL3sUpcPMQundB7Ehn11HlfbUNy6HHeJqN4oZNvnU+U04Sh75730dcWX3klD73vxmiQIOevTKyowti+VbUJwmlljcRyaGEtgpAMk8MU4BsEzlrSWpwkhsalA4ugwcf+Dgq1lYq0ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865283; c=relaxed/simple;
-	bh=EqMbMECS/t3vccpilsRChSaq7nHSoFEt06+pq6s7Wug=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XfKobiEMXl3caev8B4e61LLSUUOCbhaP1MSOoOt21dOTExmgEKuO9qA74G9cpGLKMvqmHsJbazhy6tMxij1lU/Nk7Oezv5Z0EgMjrOtZbZOgC88JoKRjP/0jj8mQVQYF9Ob924jcGqgp89c421NBd2XxZTzVOQZbsVaklHB+zNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aNj6BWYR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790865311; c=relaxed/simple;
+	bh=8bNBonel1eiwJmzEGlZ12+ywTpzur3cAUUr7r6NablA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NUKLnon+aKzcoTPrIXa+w9Do3vEXvFnRH3nCvXUYEe/dmbyo7uBoI/VksQlmbgKdPR+XUIpZH+ZIHbjk73oFEeqzebyNdxKWdNcfyk4d80r1UYkyAPz5td5q7l8m/GPT0TYWKK29aPGHFduZARRcIaGuND8QN/6xChQimQwiWsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nx5OEGYV; arc=none smtp.client-ip=74.125.231.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aNj6BWYR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADED41F00898
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:34:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790865278;
-	bh=fPM/4SeHch6pzXrCpR9Y27L1SZ7b9gGTaXj74w9Jua8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aNj6BWYR3olZkAJJnj8BRriVmf9zOM1axIBqSY61jnXKoGzR3LcfendxV7QQ6SuOx
-	 w86a68MYHh8ZA1skTW9K+qe1wzrftdm7QQaMrl4p2nRMf0b87ON61KMIikwfjgMxZT
-	 yBmTEcClpC3W5ekda335eE3f/0wPUStID6ciGg03qYyhs6Lc16QsB//cLYxak4DjR6
-	 hhb+55hMOJFR/1JRMaT46sUpOh4ygENcsopUXWJhbs2DmFpEyA5WSzGVWDM0ThrdcF
-	 LWnsmxdXceoKD9mauwPVeAEPYsF6pK/VCY9N2s5KlCiuwb0qHhIWsDAKNY4tD2INb5
-	 4QHN/HLpgEP3A==
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93ca50c8ba6so249288085a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:34:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxE52OldfgoRbOiUNaoz90Ykub2PRaRjiXOY5slwQ1HDRBiYgGoYubOQlOI1ACDENZ0KBbjTmEuweFS3YU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKX/z8sJoyRbSG3hiIl1ce4rdNvRh9v8fV5EqYBlQrAFj4mWXl
-	0QtGo2bUFTtw8Ku9HDGTYMvA0N3Nx24YjemlNCQROP4/uc4vLy9jsN1LK2Ep+TB4f/JIvfOc7AI
-	tY9nnURZTHHWbCRlXwY10n6Q3kZ2Vqg4=
-X-Received: by 2002:a05:620a:2550:b0:93c:3d7e:6e90 with SMTP id
- af79cd13be357-93ca96e9ddemr860429585a.32.1790865278068; Thu, 01 Oct 2026
- 07:34:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nx5OEGYV"
+Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4e4b644b4e3so1094731b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:35:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790865302; x=1791470102; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cUAcFPVvp9NmtmeivTgTtb3I2BaROQYBORbE57S0nb4=;
+        b=Nx5OEGYVX0/QogaBBHIp27XtHq9eNT9fld1Yxe/fMW8JD2hScOqg1T4Y3AJXSWVT9E
+         YlqbQLQ3uiMaLkcuXHFnz8km0e5qtAdF72Izwl8AXQDpvP7HHT4fOsFvKuu9ajCbed0V
+         vCrXa5bYynaPFYyUxHcZJUoXQReKYAkiJCiKx5N8Ra5X8dBHDQ6Mdo3TAXiLFGFFVYqI
+         CDYfn+F2FXZ9gJdL4gbdH56I1d2RteSDviJNTsRExlZdVwL7FZDHABnlZHn33hro+rdY
+         ra6Oi4BtS2LK43oFwx2EuMBsnzkiax70KbP1Jl/ya4Ya1cCjRHFw8bEr530nj3BnCTHM
+         pRaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790865302; x=1791470102;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cUAcFPVvp9NmtmeivTgTtb3I2BaROQYBORbE57S0nb4=;
+        b=ccTXBmVyNSjHQXhaDNreVhIdttHn9J33awMOPC+7s8vnvVeDyqliqAhLskYDwiOokc
+         yLoIiNfGXIP1AdHs6FMVnntD/D7B6HUVhWISEejbI+eFSd881NTSWNfxsfHQriB+R5D7
+         bHzdgsQgv06+uz3pQrh7eeX/Nd5+NA3vv1ZyueEdRLEM18GB8OK3sm59tY3XYvR7mNMd
+         myqyLZ87UMoeUAo122BlfDE/ccbgybZuwG1ayKBA6EHv79wJeFZA0LOeS7ZkiDWFC28L
+         sfEDC3cza9TFFj5XDKQrbGNWlxF56lR1XYuWSObpboRKAgvS+B1aAPWQLSQcSCgk0vPS
+         BobA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3n7XhDqkHQVk9XXnFHUIz7REW5hQmfYiapTMCeHYQ8fSJ+ypqAOdWtkmNoFDhDe8z2hRCLhDul0u9bbg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPT4dxP0c0nRsbj1AJ3o5hLmlk7cWIDSxIBz+iTJPQ/alY3VWF
+	cztNCvHwwIrG3nYi0kgT+GrDQLBnhM6+kZApKV4grlwtyH+SmQWLE1UU
+X-Gm-Gg: AYBFou3n9DnUHFUybiWYbjQb53R7jAGDaLZ1LfDxfGou3ZkU5ew0bKA3u5AAbrQd9Af
+	lu8HnCsDB6xnWyXynhG1ESCI3SeherlvIXd2aTDwNCZAD1kI3t4KGLvzmTZT2zCf4LEmLI4Plek
+	TaVU5Tgs0AEGQM1vdo5qWpGjwUTP+09c50P7kI3sYRDjae2g+uCiWXUa6g7s85Vbe6EGLwCuWZp
+	nWYMnLZ7mwzLnm6AtARpGD/6Q/xUE+D2Ao7AnVlM30CKCmRsSiQEYgwcZx6d1vTJczGA59MYbz+
+	bZlBs02gMeQRcpvgT6DqaIzzqoqVIOXbHCvPXw91hXSxR/WOc8rqBUfHdBI6VEfn6Qrg9SzbAcC
+	cr51nM22ICJ33Pd4pykpb76lNSm3Seh2X5mBh7N3LloqieWvFoXCivVnjA7Nwt2PzXqre7mKpHH
+	DCLWS1JmADuTg0IFTZFCoQtkzfP7PfmFSB1hnIfj+4G8utnOtSe0yUNf0kep1ONNedGnGdWT+9z
+	nxmivv90FBfJhER+dwj6qGLkeZGjRKjq92fEjpotwg0yrl/STtbPT+56UGgy1pn/tlE+L3TS2Am
+	p/PxZQF34yeEzg==
+X-Received: by 2002:a05:6808:508f:b0:4e9:3412:14ac with SMTP id 5614622812f47-4f1b87b67cbmr6198251b6e.33.1790865301709;
+        Thu, 01 Oct 2026 07:35:01 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f34b8bc733sm2445476b6e.10.2026.10.01.07.34.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 07:35:01 -0700 (PDT)
+Date: Thu, 1 Oct 2026 09:34:53 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ublk: drop the device reference outside ublk_ctl_mutex
+ in DEL_DEV
+Message-ID: <ar5vjRR_I4Vkd9h5@fedora-laptop>
+References: <20261001-bug-ublk-del-dev-put-unlocked-v1-1-18e9bb9be727@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730030031.28678-1-ali@iusegentoo.com>
-In-Reply-To: <20260730030031.28678-1-ali@iusegentoo.com>
-From: Len Brown <lenb@kernel.org>
-Date: Thu, 1 Oct 2026 10:34:25 -0400
-X-Gmail-Original-Message-ID: <CAJvTdKn_OrEQNBH=uW6exhW8Y3GoqGGujBNxU36GTqwQy92myg@mail.gmail.com>
-X-Gm-Features: AclHuK_OaFtvuk_AMu9BzLHuUYBE8rlL8qthlcNrdVlLY-j_DpowU_julj-x06Y
-Message-ID: <CAJvTdKn_OrEQNBH=uW6exhW8Y3GoqGGujBNxU36GTqwQy92myg@mail.gmail.com>
-Subject: Re: [PATCH] tools/power turbostat: Read complete CPU lists
-To: Ali Ahmet Memis <ali@iusegentoo.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-bug-ublk-del-dev-put-unlocked-v1-1-18e9bb9be727@gmail.com>
 
-Applied -- thanks!
-
--Len Brown
-Intel Open Source Technology Center
-
-On Wed, Jul 29, 2026 at 11:00=E2=80=AFPM Ali Ahmet Memis <ali@iusegentoo.co=
-m> wrote:
->
-> CPU_SUBSET_MAXCPUS accepts CPU IDs through 8191, but the sysfs and
-> cgroup CPU-list readers stop at 1024 bytes. A fragmented cpuset or
-> hybrid PMU CPU list can exceed that size and be truncated.
-> initialize_cpu_set_from_sysfs() can also pass a full, non-NUL-terminated
-> buffer to parse_cpu_str(), causing an out-of-bounds read.
->
-> Additionally, initialize_cpu_set_from_sysfs() returns with the file
-> still open on success. It is now called once per CPU for
-> thread_siblings_list, so large systems can leak thousands of descriptors
-> during topology discovery.
->
-> Use getline() so both readers receive a complete, NUL-terminated line.
-> Close and free the sysfs CPU-list resources on every path, and report
-> malformed input from the correct buffer.
->
-> Fixes: eb187540d13a ("tools/power turbostat: Increase CPU_SUBSET_MAXCPUS =
-to 8192")
-> Fixes: 58839fdbd441 ("tools/power turbostat: Process HT siblings in CPU o=
-rder")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+On Thu, Oct 01, 2026 at 11:10:47AM +0800, Qiliang Yuan wrote:
+> ublk_ctrl_del_dev() drops its reference to the device while holding the
+> global ublk_ctl_mutex. When this is the last reference, ublk_cdev_rel()
+> frees the tag set, and blk_mq_free_tag_set() waits for the pending SRCU
+> callbacks of the tag set with srcu_barrier(). Every DEL_DEV thus waits
+> for an SRCU grace period with the mutex held, and deleting devices from
+> several threads serializes on it.
+> 
+> The release path doesn't need ublk_ctl_mutex. The device number is freed
+> under ublk_idr_lock, and the last reference is already dropped without
+> the mutex when the ublk server still has the char device open at
+> DEL_DEV time, from ublk_ch_release_work_fn().
+> 
+> Drop the reference after unlocking ublk_ctl_mutex.
+> 
+> ublk null target, 4000 single-queue devices, STOP_DEV + DEL_DEV issued
+> from N threads, 16 vCPU KVM guest:
+> 
+>   threads     before      after
+>         1     77.6 s     77.6 s
+>         4     20.1 s     19.4 s
+>         8     19.3 s      9.0 s
+>        16     19.2 s      4.1 s
+> 
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 > ---
->  tools/power/x86/turbostat/turbostat.c | 44 +++++++++++++++------------
->  1 file changed, 25 insertions(+), 19 deletions(-)
->
-> diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turb=
-ostat/turbostat.c
-> index 920694c3c..cec3f2fbb 100644
-> --- a/tools/power/x86/turbostat/turbostat.c
-> +++ b/tools/power/x86/turbostat/turbostat.c
-> @@ -6311,33 +6311,35 @@ int for_all_proc_cpus(int (func) (int))
->
->  #define PATH_EFFECTIVE_CPUS    "/sys/fs/cgroup/cpuset.cpus.effective"
->
-> -static char cpu_effective_str[1024];
-> +static char *cpu_effective_str;
->
->  static int update_effective_str(bool startup)
->  {
->         FILE *fp;
-> -       char *pos;
-> -       char buf[1024];
-> +       char *buf =3D NULL;
-> +       size_t size =3D 0;
->         int ret;
->
-> -       if (cpu_effective_str[0] =3D=3D '\0' && !startup)
-> +       if (!cpu_effective_str && !startup)
->                 return 0;
->
->         fp =3D fopen(PATH_EFFECTIVE_CPUS, "r");
->         if (!fp)
->                 return 0;
->
-> -       pos =3D fgets(buf, 1024, fp);
-> -       if (!pos)
-> +       if (getline(&buf, &size, fp) < 0)
->                 err(1, "%s: file read failed", PATH_EFFECTIVE_CPUS);
->
->         fclose(fp);
->
-> -       ret =3D strncmp(cpu_effective_str, buf, 1024);
-> -       if (!ret)
-> +       ret =3D cpu_effective_str ? strcmp(cpu_effective_str, buf) : 1;
-> +       if (!ret) {
-> +               free(buf);
->                 return 0;
-> +       }
->
-> -       strncpy(cpu_effective_str, buf, 1024);
-> +       free(cpu_effective_str);
-> +       cpu_effective_str =3D buf;
->         return 1;
->  }
->
-> @@ -8529,13 +8531,16 @@ int add_rapl_perf_counter(int cpu, struct rapl_co=
-unter_info_t *rci, const struct
->         return ret;
->  }
->
-> -char cpuset_buf[1024];
-> -int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, char *sysfs_path, =
-char *sysfs_file)
-> +int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, const char *sysfs_=
-path,
-> +                                 const char *sysfs_file)
->  {
->         FILE *fp;
-> +       char *cpuset_buf =3D NULL;
-> +       size_t size =3D 0;
->         char path[128];
-> +       int ret =3D -1;
->
-> -       if (snprintf(path, 128, "%s/%s", sysfs_path, sysfs_file) > 128)
-> +       if (snprintf(path, sizeof(path), "%s/%s", sysfs_path, sysfs_file)=
- >=3D (int)sizeof(path))
->                 err(-1, "%s %s", sysfs_path, sysfs_file);
->
->         fp =3D fopen(path, "r");
-> @@ -8543,19 +8548,20 @@ int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_=
-set, char *sysfs_path, char *sy
->                 warn("open %s", path);
->                 return -1;
->         }
-> -       if (fread(cpuset_buf, sizeof(char), 1024, fp) =3D=3D 0) {
-> +       if (getline(&cpuset_buf, &size, fp) < 0) {
->                 warn("read %s", sysfs_path);
-> -               goto err;
-> +               goto out;
->         }
->         if (parse_cpu_str(cpuset_buf, cpu_set, cpu_possible_setsize)) {
-> -               warnx("%s: cpu str malformat %s\n", sysfs_path, cpu_effec=
-tive_str);
-> -               goto err;
-> +               warnx("%s: cpu str malformat %s\n", sysfs_path, cpuset_bu=
-f);
-> +               goto out;
->         }
-> -       return 0;
-> +       ret =3D 0;
->
-> -err:
-> +out:
->         fclose(fp);
-> -       return -1;
-> +       free(cpuset_buf);
-> +       return ret;
->  }
->
->  void print_cpu_set(char *s, cpu_set_t *set)
-> --
-> 2.54.0
->
+>  drivers/block/ublk_drv.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index 66eb55e7162e5..5d237aae51b7b 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -4901,10 +4901,15 @@ static int ublk_ctrl_del_dev(struct ublk_device **p_ub, bool wait)
+>  		set_bit(UB_STATE_DELETED, &ub->state);
+>  	}
+>  
+> -	/* Mark the reference as consumed */
+> +	mutex_unlock(&ublk_ctl_mutex);
+> +
+> +	/*
+> +	 * Drop the reference outside ublk_ctl_mutex: if it is the last one,
+> +	 * the release frees the tag set, which waits for an SRCU grace period,
+> +	 * and holding the mutex would serialize concurrent deletions on it.
+> +	 */
+>  	*p_ub = NULL;
+>  	ublk_put_device(ub);
+> -	mutex_unlock(&ublk_ctl_mutex);
+
+Looks good,
+
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
 
---=20
-Len Brown, Intel Open Source Technology Center
+Thanks,
+Ming
