@@ -1,403 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7AF25B0B8;
-	Thu,  1 Oct 2026 04:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF439373BFE
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790830385; cv=none; b=cOdarI0Ei2tMWg5WfF5Is+cAzPjSG97otGJnCtldqaAAbl3pwEiSCfsh8Loj5fIZ94dMZM5ZkKHa1aQC6a23J2frvSLxKGUsXdjeF2rUTZqs97z53APzAbbEtqNLFp/y/kx5S7Gv/u8LO3//Wy2Tl8KKPpIfdTiKyFRICJ8J3rA=
+	t=1790830418; cv=none; b=kRKmZSULXeDcCO9FTyBkHeHXWC+vLyotGObE62iduFXFpADaWQghkpB1T5xzvJY/3UoVY2L0avM6Rg8NzkyeegdhvBIjLH6bnqI5POxjYWY80YWLIA8tFRTmAKVWaEXAi+UjnVtZ3m2sD5CJ1G4TlMaKKvt6fY6SURq2HevkIYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790830385; c=relaxed/simple;
-	bh=RJHfrMQOzeHasJQc11GC2/zOmdRNEZMzbZObrLV+tv4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ti2yoXBLLurijdWVt5yh25Hxf5yi93IOLq/nqibbYS717fWgzlDxEGM6gGU5W0hHMX3Y0wS7A4xT3QHskyLwSaa5Iltb/Ek4LDvcCOfrTmbQOG1qcK4evMS8Scih6acFzokoJjM0xmAlpEAX8PDNjfwUYBn7Wc0Zpln8NVW3sPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXa+yI/2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790830418; c=relaxed/simple;
+	bh=5Kio8RtxV7sBc0mpDH2TvnykRXHYCC/NufCuroxXloY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Byy6UjYcjtaFjH7b0UVet5HaSeBA9T3a2iMN/s/rDVg2x9YokNiPoqFzirjeFGAjH42uFqmzyNpw4l2eeHcK3372zs8DLvxpWteYWTJSpT5GTyXc3YkQH48krxCCbZyNmMUIhNl24A67sbEgQOpJOcM5eHKqrv3yXj82fxmHVMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P7Uz7MIP; arc=none smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXa+yI/2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219E51F000FF;
-	Thu,  1 Oct 2026 04:53:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790830383;
-	bh=ZPNVNGCC7+f9k0tOjdVXJLDay1HZfqVmIkEgdHRNsSM=;
-	h=From:To:Cc:Subject:Date;
-	b=IXa+yI/2dJzK3DRrTuM1gC/qt2/shJYyH47ay7PLkiM5azSKrPlb0rEWDyh5bhuFj
-	 r6CYwB0TFVgcSWrbeNWYgLG4ekanEszPAsoV9WJDVlmL8/d+qVYn3t1Xw3EZ+xT9Vx
-	 Uu5V2Brgi2o6WjQuc8toibWGG8djO6J77BtY00WIXu0XjbEHsWUlDS4jB6xGRAy7cf
-	 tdV13CxBzb8o7dBxHe2o/YqRWa8eukeft/NGvHOEt5BTr9SvKqFWTyGvaLq+rSorf8
-	 zM0VJnYmlo6d9PnqLGaVul8eUyvaEclaP5l/tP0y855pbniz3Ko1+Wwf4Wx32+R2SH
-	 fouJ+x2XiOd5Q==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Disseldorp <ddiss@suse.de>,
-	Lee Duncan <lduncan@suse.com>,
-	Alexandru Hossu <hossu.alexandru@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH] scsi: target: iscsi: Use crypto library API
-Date: Wed, 30 Sep 2026 21:48:57 -0700
-Message-ID: <20261001044857.169487-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P7Uz7MIP"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b02c279beso3672516a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:53:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790830415; x=1791435215; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qGfEP9YKt+sxdoo5ymI5NTrv8fzOq/Y6MXhmWkaNL/o=;
+        b=P7Uz7MIPwKZKU/3MxfHGcKeicN21TiKm7/89c4dZuZVHo2bQmI6WU3nfvT5+R05BNQ
+         7m3+Btg6I/tSLsXLTp+caa2Ntd0kwkQX/bWGwoO+GPpyuxBwdZUY2t9ZP1qQ3gaJq6kD
+         opjDgLrDUPLDnf+zCpIbzOQd95bO/bySUv/CUmeI+mLoMZx/9eqVkzqRlTe+V3AyXMT/
+         DLy9uV2806gb/5FXhoFA7WKa3hGetQuy8fma3ysGs8WMar6z6FGYYMfYhll1kfxp5Phh
+         KTJOMWXY9sweTmhLH3w4I/3JuDhDzmPqWFY9ZnRqVj4Bsy2TNApr+qOwtiHoTK3pHuNI
+         R6KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790830415; x=1791435215;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=qGfEP9YKt+sxdoo5ymI5NTrv8fzOq/Y6MXhmWkaNL/o=;
+        b=R3NjIfbgKulPFhU1ZK1bmap69bh53y60A+Y1zMG6BnauQoj3Jh7HTRxeRJ2W6uKwYS
+         cRfmsoTeW4PsPZ2iEUFgChQDMTMk7Qub12IpLCgy0OkXHIW6DOfdbcLtqDs7iKfITiFX
+         ekt97LioD3ved/PIGhiktAHhZxULDjB47838iH7g/fBmn7+MLC7UID3Yl/heH45mqiLY
+         DRoE+glPq3Z54+xcXTf+wjbeIcLStRSS6h5p9sZogneOfDe8tuGg0BmG9EjeXv7KvWI+
+         KgU8iHdis7iAmtcsRzNSM+VfHFhtIioOqFNi/O+FQft3OnzQYwvR/KVRwLYryZUQBdLA
+         GCcw==
+X-Forwarded-Encrypted: i=1; AKwUvBwoLxEOxokKwkNjSFaGm46lqehLqGk7egSm9drNplzHKShmRhUHvz0BmIbVx+FcbxTi/oeHY/1X1GEAmjE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7n41kTtV8Ww0mMTlmd8O03HGyHKNJeDeQ07nRtks+33w/3Uae
+	+cou5o/nRakT/cdmo0WAv7tqOCFCFc2wSmuntW4nLnP2e5bIHqSkoYIP
+X-Gm-Gg: AYBFou0ZxDtrmW+lP68aSa5RKlQW80jbt5rsruEbTyXx8x8yd3NGn1YyMZFPRLeFWZH
+	sr6kfEW88Fr0TH1L1pjnA9C7t7x4dshjEP6fT1zPLvMHD9tKpjrP1hMkiYmFU+O8UQT0QRRQoF9
+	9sVCTjcbtmgoikQqUyNd6utje9FGqJVb8PuzH6X2h3Z4YIXXyRJdcOXbLTi868bQulG5VF4QAyX
+	d20TIKc7wUwIT/idfs181AAjJW3AMIBI7ZLK2CJMUynlgJDsEVwpNX2bjpYQioJkF1r4jOJzQbV
+	KCDUD3HpVNdClYpGUsrRlZzcMR6VrFV9pyxmTXUcsXq0cjdZXMsn1aijbVMScPDV4W00ditMFJn
+	CnvFFzOkb01Z4VJEOFv1qG6TwanzTXXSLfIIoJ4Y0vm+DipcX/ovazYUuc7Ug3FbH+cJNH/Bc0D
+	sWz4gNeiHsGroz+Wff7Th+a7Z1IuQjJ0wYORoP/rFhKbqnZjylQxQo4dkDo68jmLjvopABCd1u6
+	tHgfdsrUm/9/23sr1F6+st7rsVQOU+/fQy3i9MUxV7qoUeaLkCIrlkVvKmkVcMFrCORxYjkJGVk
+	XwaBWbV9Et01wr722cNQXzgV/ci170fFDir+TEQiiexIlETo15glqRpdf4VubzMrhQPFaadRCAp
+	l9qqJMB+Y9GInBHGGIqwgb9/XoCuoezI=
+X-Received: by 2002:a05:6830:621a:b0:805:352c:a6a1 with SMTP id 46e09a7af769-8204aa5b392mr3774356a34.24.1790830415616;
+        Wed, 30 Sep 2026 21:53:35 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8212aa1b208sm1788977a34.14.2026.09.30.21.53.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 21:53:35 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 30 Sep 2026 22:53:26 -0600
+Subject: [PATCH net] net: stmmac: take ownership of saved RX state at poll
+ entry
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-stmmac-rx-state-v1-1-c286c43813c1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2MTQ6DIBCFr2JmXRJwLKBXMS5GHFoWaAu0MTHev
+ aTt7n3v74DMKXCGoTkg8TvksK0V1KUBd6f1xiIslaGVrZY9SpFLjORE2quiwkJ2Co3iDtk6qKt
+ HYh/27+MIKxeYfmbi56u+l38yU2bhthhDGRqD5rqgRd1RT6S1n1EZpWfHnj1aYkdLbViYzvMDl
+ 9fpd7IAAAA=
+X-Change-ID: 20260930-stmmac-rx-state-041371e43e8c
+To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <Jose.Abreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Make iscsi_target_auth.c call into the crypto library directly instead
-of going through crypto_shash.  This is simpler and much more efficient,
-as it avoids overhead of the crypto_shash layer.  The hash computation
-itself also no longer has error codes that need to be checked.
+When a saved partial packet completes with a poll budget of one, the
+old loop can leave state_saved and state.skb pointing at an skb that
+has already been delivered or freed. The next poll then reuses that
+pointer, causing a use-after-free or double free.
 
-For simplicity, still do a memory allocation per operation to buffer the
-data (which is typically less than 50 bytes here) so that the one-shot
-digest functions can be used.  It's still much more efficient than doing
-the super slow crypto_alloc_shash().
+Take the saved state at poll entry and clear the stored ownership
+immediately. Save it again only if the packet remains incomplete,
+including when the next descriptor is still DMA-owned. Release a
+saved partial skb when the RX ring is destroyed.
 
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/target/iscsi/Kconfig             |   7 +-
- drivers/target/iscsi/iscsi_target_auth.c | 192 +++++++++--------------
- drivers/target/iscsi/iscsi_target_auth.h |   8 +-
- 3 files changed, 78 insertions(+), 129 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 25 ++++++++++++++++-------
+ 1 file changed, 18 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/target/iscsi/Kconfig b/drivers/target/iscsi/Kconfig
-index 70d76f3dd693..44bbf1f32859 100644
---- a/drivers/target/iscsi/Kconfig
-+++ b/drivers/target/iscsi/Kconfig
-@@ -3,8 +3,11 @@ config ISCSI_TARGET
- 	tristate "SCSI Target Mode Stack"
- 	depends on INET
- 	select CRC32
--	select CRYPTO
--	select CRYPTO_HASH
-+	select CRYPTO_LIB_MD5
-+	select CRYPTO_LIB_SHA1
-+	select CRYPTO_LIB_SHA256
-+	select CRYPTO_LIB_SHA3
-+	select CRYPTO_LIB_UTILS
- 	help
- 	Say M to enable the SCSI target mode stack. A SCSI target mode stack
- 	is software that makes local storage available over a storage network
-diff --git a/drivers/target/iscsi/iscsi_target_auth.c b/drivers/target/iscsi/iscsi_target_auth.c
-index f3c0cdd31830..945dd6409723 100644
---- a/drivers/target/iscsi/iscsi_target_auth.c
-+++ b/drivers/target/iscsi/iscsi_target_auth.c
-@@ -8,31 +8,73 @@
-  *
-  ******************************************************************************/
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index ec62fa7418f4..1a4d03aaaf78 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2149,6 +2149,11 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	else
+ 		dma_free_rx_skbufs(priv, dma_conf, queue);
  
--#include <crypto/hash.h>
-+#include <crypto/md5.h>
-+#include <crypto/sha1.h>
-+#include <crypto/sha2.h>
-+#include <crypto/sha3.h>
- #include <crypto/utils.h>
-+#include <linux/fips.h>
- #include <linux/kernel.h>
- #include <linux/string.h>
--#include <linux/err.h>
- #include <linux/hex.h>
- #include <linux/random.h>
--#include <linux/scatterlist.h>
-+#include <linux/slab.h>
- #include <target/iscsi/iscsi_target_core.h>
- #include "iscsi_target_nego.h"
- #include "iscsi_target_auth.h"
++	if (rx_q->state_saved)
++		dev_kfree_skb_any(rx_q->state.skb);
++	rx_q->state.skb = NULL;
++	rx_q->state_saved = 0;
++
+ 	rx_q->buf_alloc_num = 0;
+ 	rx_q->xsk_pool = NULL;
  
--static char *chap_get_digest_name(const int digest_type)
-+static const struct {
-+	const char *digest_name; /* Used only in log messages */
-+	unsigned int digest_size;
-+} chap_digest_algs[] = {
-+	[CHAP_DIGEST_MD5] = {
-+		.digest_name = "md5",
-+		.digest_size = MD5_DIGEST_SIZE,
-+	},
-+	[CHAP_DIGEST_SHA1] = {
-+		.digest_name = "sha1",
-+		.digest_size = SHA1_DIGEST_SIZE,
-+	},
-+	[CHAP_DIGEST_SHA256] = {
-+		.digest_name = "sha256",
-+		.digest_size = SHA256_DIGEST_SIZE,
-+	},
-+	[CHAP_DIGEST_SHA3_256] = {
-+		.digest_name = "sha3-256",
-+		.digest_size = SHA3_256_DIGEST_SIZE,
-+	},
-+};
-+
-+static int chap_digest(int digest_type, u8 chap_id, const char *password,
-+		       const u8 *challenge, size_t challenge_len,
-+		       u8 *out_digest)
- {
-+	size_t pass_len = strlen(password);
-+	size_t data_len = 1 + pass_len + challenge_len;
-+	u8 *data __free(kfree_sensitive) = kmalloc(data_len, GFP_KERNEL);
-+
-+	if (!data)
-+		return -ENOMEM;
-+	data[0] = chap_id;
-+	memcpy(&data[1], password, pass_len);
-+	memcpy(&data[1 + pass_len], challenge, challenge_len);
-+
- 	switch (digest_type) {
- 	case CHAP_DIGEST_MD5:
--		return "md5";
-+		md5(data, data_len, out_digest);
-+		return 0;
- 	case CHAP_DIGEST_SHA1:
--		return "sha1";
-+		sha1(data, data_len, out_digest);
-+		return 0;
- 	case CHAP_DIGEST_SHA256:
--		return "sha256";
-+		sha256(data, data_len, out_digest);
-+		return 0;
- 	case CHAP_DIGEST_SHA3_256:
--		return "sha3-256";
-+		sha3_256(data, data_len, out_digest);
-+		return 0;
- 	default:
--		return NULL;
-+		WARN_ON_ONCE(1);
-+		return -EINVAL;
+@@ -5726,6 +5731,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 	struct stmmac_xdp_buff ctx;
+ 	bool fcs_stripped = false;
+ 	int xdp_status = 0;
++	bool in_progress = rx_q->state_saved;
+ 	int bufsz;
+ 
+ 	dma_dir = page_pool_get_dma_dir(rx_q->page_pool);
+@@ -5740,6 +5746,14 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		stmmac_display_ring(priv, rx_head, priv->dma_conf.dma_rx_size, true,
+ 				    rx_q->dma_rx_phy, desc_size);
  	}
- }
++	if (in_progress) {
++		skb = rx_q->state.skb;
++		error = rx_q->state.error;
++		len = rx_q->state.len;
++		rx_q->state.skb = NULL;
++		rx_q->state_saved = false;
++	}
++
+ 	while (count < limit) {
+ 		unsigned int buf1_len = 0, buf2_len = 0;
+ 		enum pkt_hash_types hash_type;
+@@ -5748,12 +5762,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		int entry;
+ 		u32 hash;
  
-@@ -72,21 +114,9 @@ static int chap_gen_challenge(
- 	return ret;
- }
- 
--static int chap_test_algorithm(const char *name)
--{
--	struct crypto_shash *tfm;
--
--	tfm = crypto_alloc_shash(name, 0, 0);
--	if (IS_ERR(tfm))
--		return -1;
--
--	crypto_free_shash(tfm);
--	return 0;
--}
--
- static int chap_check_algorithm(const char *a_str)
- {
--	char *tmp, *orig, *token, *digest_name;
-+	char *tmp, *orig, *token;
- 	long digest_type;
- 	int r = CHAP_DIGEST_UNKNOWN;
- 
-@@ -113,17 +143,17 @@ static int chap_check_algorithm(const char *a_str)
- 		if (kstrtol(token, 10, &digest_type))
- 			continue;
- 
--		digest_name = chap_get_digest_name(digest_type);
--		if (!digest_name)
-+		if (fips_enabled && digest_type == CHAP_DIGEST_MD5)
- 			continue;
- 
--		pr_debug("Selected %s Algorithm\n", digest_name);
--		if (chap_test_algorithm(digest_name) < 0) {
--			pr_err("failed to allocate %s algo\n", digest_name);
+-		if (!count && rx_q->state_saved) {
+-			skb = rx_q->state.skb;
+-			error = rx_q->state.error;
+-			len = rx_q->state.len;
 -		} else {
--			r = digest_type;
--			goto out;
--		}
-+		if (digest_type < 0 ||
-+		    digest_type >= ARRAY_SIZE(chap_digest_algs) ||
-+		    chap_digest_algs[digest_type].digest_name == NULL)
-+			continue;
-+		pr_debug("Selected %s Algorithm\n",
-+			 chap_digest_algs[digest_type].digest_name);
-+		r = digest_type;
-+		goto out;
- 	}
- out:
- 	kfree(orig);
-@@ -159,27 +189,15 @@ static struct iscsi_chap *chap_server_open(
+-			rx_q->state_saved = false;
++		if (!in_progress) {
+ 			skb = NULL;
+ 			error = 0;
+ 			len = 0;
+@@ -5787,6 +5796,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
  
- 	chap = conn->auth_protocol;
- 	digest_type = chap_check_algorithm(a_str);
--	switch (digest_type) {
--	case CHAP_DIGEST_MD5:
--		chap->digest_size = MD5_SIGNATURE_SIZE;
--		break;
--	case CHAP_DIGEST_SHA1:
--		chap->digest_size = SHA1_SIGNATURE_SIZE;
--		break;
--	case CHAP_DIGEST_SHA256:
--		chap->digest_size = SHA256_SIGNATURE_SIZE;
--		break;
--	case CHAP_DIGEST_SHA3_256:
--		chap->digest_size = SHA3_256_SIGNATURE_SIZE;
--		break;
--	case CHAP_DIGEST_UNKNOWN:
--	default:
-+	if (digest_type == CHAP_DIGEST_UNKNOWN) {
- 		pr_err("Unsupported CHAP_A value\n");
- 		chap_close(conn);
- 		return NULL;
+ 		prefetch(np);
+ 
++		in_progress = status & rx_not_ls;
++
+ 		if (priv->extend_desc)
+ 			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
+ 		if (unlikely(status == discard_frame)) {
+@@ -5971,7 +5982,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		count++;
  	}
  
--	chap->digest_name = chap_get_digest_name(digest_type);
-+	chap->digest_name = chap_digest_algs[digest_type].digest_name;
-+	chap->digest_type = digest_type;
-+	chap->digest_size = chap_digest_algs[digest_type].digest_size;
- 
- 	/* Tie the challenge length to the digest size */
- 	chap->challenge_len = chap->digest_size;
-@@ -247,7 +265,6 @@ static int chap_server_compute_hash(
- 	unsigned int *nr_out_len)
- {
- 	unsigned long id;
--	unsigned char id_as_uchar;
- 	unsigned char type;
- 	unsigned char identifier[10], *initiatorchg = NULL;
- 	unsigned char *initiatorchg_binhex = NULL;
-@@ -258,8 +275,6 @@ static int chap_server_compute_hash(
- 	unsigned char chap_n[MAX_CHAP_N_SIZE], chap_r[MAX_RESPONSE_LENGTH];
- 	size_t compare_len;
- 	struct iscsi_chap *chap = conn->auth_protocol;
--	struct crypto_shash *tfm = NULL;
--	struct shash_desc *desc = NULL;
- 	int auth_ret = -1, ret, initiatorchg_len;
- 
- 	digest = kzalloc(chap->digest_size, GFP_KERNEL);
-@@ -364,44 +379,10 @@ static int chap_server_compute_hash(
- 
- 	pr_debug("[server] Got CHAP_R=%s\n", chap_r);
- 
--	tfm = crypto_alloc_shash(chap->digest_name, 0, 0);
--	if (IS_ERR(tfm)) {
--		tfm = NULL;
--		pr_err("Unable to allocate struct crypto_shash\n");
--		goto out;
--	}
--
--	desc = kmalloc(sizeof(*desc) + crypto_shash_descsize(tfm), GFP_KERNEL);
--	if (!desc) {
--		pr_err("Unable to allocate struct shash_desc\n");
--		goto out;
--	}
--
--	desc->tfm = tfm;
--
--	ret = crypto_shash_init(desc);
--	if (ret < 0) {
--		pr_err("crypto_shash_init() failed\n");
--		goto out;
--	}
--
--	ret = crypto_shash_update(desc, &chap->id, 1);
--	if (ret < 0) {
--		pr_err("crypto_shash_update() failed for id\n");
--		goto out;
--	}
--
--	ret = crypto_shash_update(desc, (char *)&auth->password,
--				  strlen(auth->password));
--	if (ret < 0) {
--		pr_err("crypto_shash_update() failed for password\n");
--		goto out;
--	}
--
--	ret = crypto_shash_finup(desc, chap->challenge,
--				 chap->challenge_len, server_digest);
-+	ret = chap_digest(chap->digest_type, chap->id, auth->password,
-+			  chap->challenge, chap->challenge_len, server_digest);
- 	if (ret < 0) {
--		pr_err("crypto_shash_finup() failed for challenge\n");
-+		pr_err("chap_digest() failed\n");
- 		goto out;
- 	}
- 
-@@ -530,40 +511,12 @@ static int chap_server_compute_hash(
- 	/*
- 	 * Generate CHAP_N and CHAP_R for mutual authentication.
- 	 */
--	ret = crypto_shash_init(desc);
-+	ret = chap_digest(chap->digest_type, id, auth->password_mutual,
-+			  initiatorchg_binhex, initiatorchg_len, digest);
- 	if (ret < 0) {
--		pr_err("crypto_shash_init() failed\n");
-+		pr_err("chap_digest() failed\n");
- 		goto out;
- 	}
--
--	/* To handle both endiannesses */
--	id_as_uchar = id;
--	ret = crypto_shash_update(desc, &id_as_uchar, 1);
--	if (ret < 0) {
--		pr_err("crypto_shash_update() failed for id\n");
--		goto out;
--	}
--
--	ret = crypto_shash_update(desc, auth->password_mutual,
--				  strlen(auth->password_mutual));
--	if (ret < 0) {
--		pr_err("crypto_shash_update() failed for"
--				" password_mutual\n");
--		goto out;
--	}
--	/*
--	 * Convert received challenge to binary hex.
--	 */
--	ret = crypto_shash_finup(desc, initiatorchg_binhex, initiatorchg_len,
--				 digest);
--	if (ret < 0) {
--		pr_err("crypto_shash_finup() failed for ma challenge\n");
--		goto out;
--	}
--
--	/*
--	 * Generate CHAP_N and CHAP_R.
--	 */
- 	*nr_out_len = sprintf(nr_out_ptr, "CHAP_N=%s", auth->userid_mutual);
- 	*nr_out_len += 1;
- 	pr_debug("[server] Sending CHAP_N=%s\n", auth->userid_mutual);
-@@ -577,9 +530,6 @@ static int chap_server_compute_hash(
- 	pr_debug("[server] Sending CHAP_R=0x%s\n", response);
- 	auth_ret = 0;
- out:
--	kfree_sensitive(desc);
--	if (tfm)
--		crypto_free_shash(tfm);
- 	kfree(initiatorchg);
- 	kfree(initiatorchg_binhex);
- 	kfree(digest);
-diff --git a/drivers/target/iscsi/iscsi_target_auth.h b/drivers/target/iscsi/iscsi_target_auth.h
-index ceb9b7754770..7ed288936af2 100644
---- a/drivers/target/iscsi/iscsi_target_auth.h
-+++ b/drivers/target/iscsi/iscsi_target_auth.h
-@@ -15,11 +15,6 @@
- #define MAX_RESPONSE_LENGTH	128	/* sufficient for SHA3 256 */
- #define	MAX_CHAP_N_SIZE		512
- 
--#define MD5_SIGNATURE_SIZE	16	/* 16 bytes in a MD5 message digest */
--#define SHA1_SIGNATURE_SIZE	20	/* 20 bytes in a SHA1 message digest */
--#define SHA256_SIGNATURE_SIZE	32	/* 32 bytes in a SHA256 message digest */
--#define SHA3_256_SIGNATURE_SIZE	32	/* 32 bytes in a SHA3 256 message digest */
--
- #define CHAP_STAGE_CLIENT_A	1
- #define CHAP_STAGE_SERVER_AIC	2
- #define CHAP_STAGE_CLIENT_NR	3
-@@ -36,7 +31,8 @@ struct iscsi_chap {
- 	unsigned char	id;
- 	unsigned char	challenge[MAX_CHAP_CHALLENGE_LEN];
- 	unsigned int	challenge_len;
--	unsigned char	*digest_name;
-+	const char	*digest_name;
-+	int		digest_type;
- 	unsigned int	digest_size;
- 	unsigned int	authenticate_target;
- 	unsigned int	chap_state;
+-	if (status & rx_not_ls || skb) {
++	if (in_progress || skb) {
+ 		rx_q->state_saved = true;
+ 		rx_q->state.skb = skb;
+ 		rx_q->state.error = error;
 
-base-commit: 551c722f40809618230001baccf219193e22fc5a
--- 
-2.56.0
+---
+base-commit: 7375d38364a9aa66fb31716bcefef38aecad75d8
+change-id: 20260930-stmmac-rx-state-041371e43e8c
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
