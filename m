@@ -1,81 +1,44 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834FA23BD02
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9333264C8;
+	Thu,  1 Oct 2026 10:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790851365; cv=none; b=LOLjoctb7DLHzAwA6tupdJkbeNKUmFmVZkI4EdJMhLP0djNjqwp7zWkApZXUeNyV3RAUpQbCH+4wusv27JQ9eb9isQL6BpKfkL3MpiZweoTaVpSZPygRRW3zPy0g8ei+IlibVao+sCk8OeUCbzdoIoYkxEYeLqdfa4gY4egMXQg=
+	t=1790851438; cv=none; b=XUhEqqWV+mkcX6P7v9pOsLvDX/TZtTjvfGnFGZTg0R2YfLBVtQCsgczayM8ck1AdlD/VIbSs9ITUx6GdNZ3iTUd2IGcOj8UfHJMHBieaz/KSAnUe5tsB04rUAyEgCVP4khxGaZiwhJGAbOXGWPL94/BYDpbe1CjvVtpkVoj9Vjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790851365; c=relaxed/simple;
-	bh=lEoXV1QFxcBBPNnfpdpaqnedrBNV6euredLXJ07PvbU=;
+	s=arc-20240116; t=1790851438; c=relaxed/simple;
+	bh=F5T25okxxj3wkm8vBHu1BJoGK39vzb+Nbf/OZkVMo9g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lKIOax7IdAbTdU573I/v8msfHjj+KrUkAwA+K6NjdwDwY+2YkDywWtbencwXV2Qja1yEyuI985fRZzRg2ZhUU6qdFMjFnDU3eq9npidFVekX6nrRUy5N3f7gJscR41kNIIBfd+qJSkFrAs4i1LE2w6i2l2HWK7trjp3zau9x700=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lFtgAJX4; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=h8ESOh0lQda4jNczx9pYDspLWmySLEQHP8yjfkBo0fBTQAg+S/4/iZxkYPKTj+xLtOz2JeAh8dPnJm9958UHmUePwHJKh75n081SFZWpinSi2g0aurhlUoTNSU82MXn0xeXecBS7CYZrQngVrMCGI/WuuAl8oFlEyJbmlvYki6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvijDuM8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lFtgAJX4"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e0f2c945eso278587666b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:42:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790851358; x=1791456158; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+64khRp4KbgkO8juqqsE5rAagecy3Xz4KrJ45qjCyjs=;
-        b=lFtgAJX4Oq9sEcYXgBio9gu+XY7LCQxz1hPfvT2LWfydzSqa9FXbg67t/korHZn9Y1
-         kLCERr2yBX+8MGDwkh7A9ctdrVvLmc69+Zz1+6duc9VFK8dudix+cGIetu7eRnTc4BmL
-         DTTtbcwmqgaiy9tnc4SS3+rDlYXVMWb2XDvnQYhC0HleeADKvoE9dfCIgYLqEz7NrpK9
-         Iqv4+DMD0PBQLA/PKdxd1Aj3k5Rat4i8J1q+MEFsVBfwdNYk7UIlg3jVk1EDFvU2XD8w
-         Ch5weB8OULdEHjllhv+Lik920b/nItFNNxd/JowA2h1nlzJNmsDuNEB/HlzHIMH2jkO4
-         pCbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790851358; x=1791456158;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+64khRp4KbgkO8juqqsE5rAagecy3Xz4KrJ45qjCyjs=;
-        b=23M5Me7LV3KIsV+VUw7BJcLyZl/z/gPWap48KdjUapvM/soFYX1Ege8pn3isJq1rfD
-         c63rrZhAY+KGUMY488hHmy5ogRDWjaNOR4faQqKJTk2MC0hnGKil8iU2BJSOqIPMz6HW
-         hf4WEAdIzmCZl6kE71vQP8qLYmhrP5HJh6P7wbJ4fLSB6qUksI4DPPH3Od2OwZCFrk+p
-         U9ccRM3SphHgq/dp27wDgrRp/64/Oc3Vw5GnZNPPmaQPWKmtVC7LZd9EL1XUReJeua1h
-         fAPF46dOe3AMh1YcGZTsY7KnqNs0YaYqe3pk3XH/tUnGKqXTT5XzyH/O7/twzDoTr8DB
-         s9Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZr1zy9jCYRI45QdV7/NVT0LJ774/nNLJ9YlBwh3tu1sGwc49Up3s+OKswvohH+8R5Ms5wAnnHGpI6kT4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/G4Ijr0zVZIB20OSOx+sT3fjAKlLZuDQ4eQeTAW+TfFWWFt8y
-	ZbExIFeyuqRAW2iNHbc5m7V+glsowc5BiDQdoEzEh1HM0FK7yqGpXqum
-X-Gm-Gg: AYBFou0plL+BrO6S4XdX5kYRX7IKedCNp/R4tuR71KqyBxiBgNtoywTNpNg/NBXkiat
-	cBasmltXLsAQF1vULlF0gVTqPSeZHiCG9y38wR0plEKYPFwh3q25sqjsYuOINDgS+/EnUENhZrf
-	aVg1OBZcvduOAlbRbAd+Aa6LDQCeRqi0ajLQODFSv4ifH5RtS7hw1ege571DS2l32NaUuM5yvND
-	xcNbGlGRKMhB7RWyjtWh7a4aF8nAHkkQLf+kG0TBqnZhjAvbu8vIND+59ZXm2WkTV79ZQ+Qic+S
-	nH4s/FTIlxU+UJVxQt8JzYGLuFyozwQquEullq8+sE3W8sVMSGViFAR4/sK2vhpdZB4u//Z8JBA
-	+C2gskYM1CYIJwBMQqYROdjehF7Qp+dqF2w7kqOikQ+aQi0cssdXGvKlxLt2oH8InSfKXEm8qlo
-	SRvZGkupcPn4QTXoHJmDd7Yk/bQPLuX4af2Y8b0VFG4HpqsDC9utk0cSthpH2AKtrroZg=
-X-Received: by 2002:a17:907:60d0:b0:c2d:ca32:217a with SMTP id a640c23a62f3a-c2e23da3c15mr328686966b.33.1790851357626;
-        Thu, 01 Oct 2026 03:42:37 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31c93c31sm131768866b.11.2026.10.01.03.42.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 03:42:37 -0700 (PDT)
-Date: Thu, 1 Oct 2026 13:42:33 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Eric LI (Honggang)" <eric.lee0305@gmail.com>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Andrei Khomenkov <khomenkov@mailbox.org>,
-	Khushal Chitturi <khushalchitturi@gmail.com>,
-	Ethan Tidmore <ethantidmore06@gmail.com>,
-	Oskar Ray-Frayssinet <rayfraytech@gmail.com>,
-	SeungJu Cheon <suunj1331@gmail.com>,
-	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
-	Jennifer Guo <guojy.bj@gmail.com>, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: rtl8723bs: refactor xmit_xmitframe
-Message-ID: <ar45GeQXJ-dIUw91@stanley.mountain>
-References: <20260924151606.333467-1-eric.lee0305@gmail.com>
- <2026100121-chirpy-stomp-9fbe@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvijDuM8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F7F1F000FF;
+	Thu,  1 Oct 2026 10:43:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790851436;
+	bh=ag07URdANwZ2qlpZa9rQoXExFjLkpiIUYJe8sMUl1e4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DvijDuM8v5XPVG1j0cOZUQ6H+4qknXwmGflt5eIOyqTpsgckF5NYy/gcWAR/JOzh1
+	 8VGUn4zp2Up/miINCoJcsEGqx7VkLXY4vXris3UAOW0bH+N4Uzr7Pv6WmTtWo63aP9
+	 lDOQzXYg5NRLOW4Re49lYhIc7Lc8hqZRbzFSfSCF6TlySCmv3DRBFvY6QfI8Muv9+/
+	 FK3ns881Vo128u5ZTXcWBi9g5Z+h1rCQQVXbgpxNq181DoAiu6ndcjXtuS/nyfJkFw
+	 4r8RDpITroLExrph21YMlaqXqjTI9lS885udyzw7YITJIIL0q+2Iw79oUDcpusd1Od
+	 rhl9J/hV98ikQ==
+Date: Thu, 1 Oct 2026 11:43:52 +0100
+From: Simon Horman <horms@kernel.org>
+To: Yuchao Zhang <ndaugoing@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] nfc: nci: ignore unexpected CORE_RESET_NTF and
+ CORE_RESET_RSP
+Message-ID: <20261001104352.GZ13925@horms.kernel.org>
+References: <20260927132914.24648-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,34 +47,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026100121-chirpy-stomp-9fbe@gregkh>
+In-Reply-To: <20260927132914.24648-1-ndaugoing@gmail.com>
 
-On Thu, Oct 01, 2026 at 11:34:30AM +0200, Greg Kroah-Hartman wrote:
-> > +					if (pxmitbuf->len > 0 &&
-> > +					    pxmitbuf->priv_data) {
-> > +						struct xmit_frame *pframe;
-> > +
-> > +						pframe = (struct xmit_frame *)pxmitbuf->priv_data;
-> > +						pframe->agg_num = k;
-> > +						pxmitbuf->agg_num = k;
-> > +						rtl8723b_update_txdesc(pframe, pframe->buf_addr);
-> > +						rtw_free_xmitframe(pxmitpriv, pframe);
-> > +						pxmitbuf->priv_data = NULL;
-> > +						enqueue_pending_xmitbuf(pxmitpriv, pxmitbuf);
-> > +						/* can not yield under lock */
-> > +						/* yield(); */
-> > +					} else
-> > +						rtw_free_xmitbuf(pxmitpriv, pxmitbuf);
-> > +
-> > +					pxmitbuf = NULL;
+On Sun, Sep 27, 2026 at 09:29:14PM +0800, Yuchao Zhang wrote:
+> Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+> added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
+> received, it updates ndev->nci_ver, ndev->manufact_id, and
+> ndev->manufact_specific_info, and calls nci_req_complete(ndev,
+> NCI_STATUS_OK) to finish the pending reset request.
 > 
-> This jumped out at me, why add this new line?
+> However, unlike other notification handlers in ntf.c (which validate
+> ndev->state before completing requests), nci_core_reset_ntf_packet()
+> does not check whether a core reset request is actually pending.
+> If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
+> command times out or from a misbehaving NFCC), it unconditionally:
+> 1. Completes whatever request is currently in-flight (such as CORE_INIT,
+>    RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
+>    state desynchronization.
+> 2. Overwrites ndev->nci_ver and manufacturer info. Because
+>    ndev->nci_ver is used as a selector for subsequent packet formats
+>    and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packet()),
+>    unexpectedly modifying it can cause protocol format confusion.
 > 
+> A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
+> delayed response packet can prematurely complete an unrelated in-flight
+> request.
+> 
+> Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only processed
+> by the core layer when a reset command is actively awaiting them:
+> - Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
+> - In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PENDING
+>   is not set. If set, atomically clear the flag and complete the request
+>   on failure or for NCI 1.x (checking skb->len >= sizeof(*rsp)).
+> - In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
+>   completion, cancellation, or timeout.
+> - In nci_core_reset_ntf_packet(), fail any in-flight reset request if the
+>   controller reports an unrecoverable error (0x00), and only process
+>   command-triggered notifications (0x02). Non-command triggers (e.g.
+>   power-on 0x01 or proprietary triggers) and unexpected notifications
+>   return 0 without modifying core state, ensuring driver-specific
+>   notification handlers (such as fdp firmware patch handling) still
+>   receive them.
+> - In nci_core_reset_ntf_packet(), support notifications shorter than 9
+>   bytes (e.g. NCI 2.0 frames with manufacturer_specific_len == 0),
+>   validating the fixed header length and safely bounding
+>   manufact_specific_info reads.
+> 
+> Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+> ---
+> v3:
+>  - In nci_core_reset_ntf_packet(), do not reject notifications shorter than
+>    9 bytes with -EINVAL; instead allow valid short frames (e.g. 2-byte NCI 1.x
+>    or 5-byte NCI 2.0 with manufacturer_specific_len == 0), safely cap field
+>    reads, and return 0 so driver-registered hooks (such as fdp firmware
+>    patching) are not skipped (per Sashiko AI).
+>  - Fix trigger semantics: in NCI, CORE_RESET_CMD trigger is 0x02
+>    (NCI_RESET_TRIGGER_RESET_CMD). If controller reports an unrecoverable error
+>    (0x00, NCI_RESET_TRIGGER_ERROR) while reset is pending, fail the request
+>    instead of completing with OK; ignore power-on (0x01) and proprietary
+>    triggers at core layer (per Sashiko AI).
+>  - In nci_core_reset_rsp_packet(), use test_and_clear_bit(NCI_RESET_PENDING)
+>    upon completing the request to consume the flag atomically (per Sashiko AI).
+>  - Link to v2: https://lore.kernel.org/netdev/20260922102144.39689-1-ndaugoing@gmail.com/
+> 
+> v2:
+>  - Do not abort the notification pipeline on unexpected CORE_RESET_NTF (return 0
+>    instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmware
+>    patching) per Simon Horman.
+>  - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and 2.0)
+>    while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-triggered resets
+>    on NCI_RESET_PENDING alone.
+>  - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid completing
+>    unrelated requests on unexpected responses.
+>  - Explicitly check skb->len >= sizeof(*rsp) in nci_core_reset_rsp_packet()
+>    for NCI 1.x handling.
+>  - Link to v1: https://lore.kernel.org/netdev/20260918013337.82214-1-ndaugoing@gmail.com/
 
-The patch is correct but the new version is as confusing as heck...
-Glad that I'm not the only person who thinks this.  I've been doing
-more and more AI coding these days and they say that AI makes you
-stupid so I was worried about my own brain health.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-regards,
-dan carpenter
