@@ -1,284 +1,313 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013013.outbound.protection.outlook.com [40.107.159.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD5B1F1534;
-	Thu,  1 Oct 2026 16:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871982; cv=fail; b=nAehaw3H3RrRFBHmvUkO/wbLS9Vp2OkP0V/510ZoeRNg19+u7pDG/RzYiEtt4Z3zk6auClScYFSq0Je977uO3viUD01jOwwEWuNWTkbUStrPoTXrmm4YY4ycSs4b+rUqN+hJ1KBAG9v3BWA5CgTgn8bC6zvvCDE9LEkHvDQeGZ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871982; c=relaxed/simple;
-	bh=SeI3X48NIFTRXyZOUHoO/onQjGEOGV2HISdwdtfcVIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dsaKUKRxgPF6YmjcFvFOagpgSZATWDSLCmnLvMayG7V0pERm35zByWiHubGkaD2IDhGxoeIahmL1Y/k/GGsWWvNllpGI2H+/p8rTN4o8lYdW9LZNUXTp3MrbsfkWwkJA79jfNxms6YUOPeOLUlm9YzlFXb3THDrvvwETtC0IGbM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gZvYaEPJ; arc=fail smtp.client-ip=40.107.159.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3A237B030;
+	Thu,  1 Oct 2026 16:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790872010; cv=none; b=Rccu06ZOcFO2s+YtJpisvrCNzEr5CR9Oa5496Dx2z2uoyk98CuOc0XsLGT/lTKjNOB7kC2LqCE7ZAhTvP4GCMjvYWi0NxAJzWWLkxzl/BWR5AcX2p9HXwUKiMfIDoIP9U/809zxqr+hmMR+ZsLbdUQBXeK21znGj+7AVrI+Xcqw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790872010; c=relaxed/simple;
+	bh=hB5jHJcHH8DbO6XMsvsWp4cAYbLvk+aXuCc52F/gLQc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ndTtRAfxTbac467L3AEFsfHFVQIkHhQLKpOV8Y1Zf+bXQZ8O066a72EB1GxQ561+nMA6pvkc7pOmgSivnXOi0zROaK/Dx23bOCcue2FyQnsMtXCuOKQ3T2UYYb1l9rb3uKSAibMRICoV4Uuc4QlhhB07BsJPO0k4L37QSjDUwKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTVTZ2xh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gZvYaEPJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V5WyG2T5ta0TxoZOzVw2VKp8HT61Z1/W8HsxIQuxLbJgbsv8d70JytH6au+xfTLEUBxMt3wRT9UWz9XXsUGHwy3fkWpNzTd4fqXiLmUaOqPubEw5Bc6ryL6YJEKX44SKrqKrLmX1HxOjxrUkDo72mzX1AH96k6JWV5J/qfb6QiyyQtxwDNPevj4fu5ahO89FKVYccQmAMP844KYeT/rO/iKUmOCIox+6mAfXMy3WZU+yBnlqqyU7ZBSuDOJBdqyQnIkdGZwCLXyqxf6nDlD8ESGF/E8K6wFBER0lxB+VAhpqDK1YHFduVSVKLLoqdola/uSHXqCeAKsjL40c+ZSeOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TOgZd6VLdZnRsvYndlXC8GHgusDHdMdjS+sKtbYYN6s=;
- b=L2zqS8/gu0vkEf55I97yX04zI9ZquqHVIKIfUBjYIXqGYvCxEQxHUr9EuH0YS0BehvtUatSeHJHR0HjpeUJa8AVP54SGwN10TTROJVSaVHge9aDXhklx9Z52HVeDVnI7fpabof0WVS3poLnwGUzYrraHm6gRLce+/mkfYtbITRfIPh/YS669HGDOqRLlWeXzXsu7bjiiFubcjjsdSMFu+60+i1ZbjAURRvniJQmfJSqXHPQFA7PcaS7+45wYo84ej2Ad7pTDBKucdTUSxDJKxC8Fj2cC4JIfQbmhyw/ZM6Axp5AyFkCk39mBZVmqMcC19EqeLS5tlWrgfOAVW7it7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TOgZd6VLdZnRsvYndlXC8GHgusDHdMdjS+sKtbYYN6s=;
- b=gZvYaEPJs82gq7xaDWujoE2fRGMStq5GZ69ZnWj9mzX6nTjaz4OBBfhLKMaiX+GJ5AfJpwsANhuBfL0UOJPhL3sDQXTm64JhgtPGT4/rDCny6B8rzM0cJRrGPAQikVOehKpU1OwWmri4xjn78nr4WV7+lVBqduD7d8TeKj478+9tQ9O0wmPJvqfyP0FlnxcM5YyiIUzL3XNBBha/IbD8nR9bOgEwPxCTjqiHl1FoBIXzc4m144DI1WenlmkOSTnXxw0w30iH7kgXNBT3uJh/6G4XOIA8Eg9BFt6sUOIE6ljr53EVA2KKbQGFssrWYLnpUuiKV6d5DQcP2qymVr/z2A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB9045.eurprd04.prod.outlook.com (2603:10a6:20b:440::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
- 2026 16:26:16 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 16:26:16 +0000
-Date: Thu, 1 Oct 2026 11:26:05 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, francesco.dolcini@toradex.com,
-	leonardo.costa@toradex.com, hvilleneuve@dimonoff.com,
-	marex@nabladev.com, stefano.r@variscite.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/7] ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch
- Display 10.1" LVDS
-Message-ID: <ar6JnZp1jBvlc8bx@SMW015318>
-References: <20261001155412.3177428-1-leoreis.costa@gmail.com>
- <20261001155412.3177428-4-leoreis.costa@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001155412.3177428-4-leoreis.costa@gmail.com>
-X-ClientProxiedBy: CY8P222CA0013.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:930:6b::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTVTZ2xh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8371F000FF;
+	Thu,  1 Oct 2026 16:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790872008;
+	bh=1RQ6A9H9zmYcR12FE7rJxiFuAniJqyW14LcDrumbshw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FTVTZ2xhitb5tzoc9cZ1wx9CA0ppwSqT+39G0llCzD3lv5uaWQO+2X1p3NTspAaMT
+	 JPhanSmuoLLxmSOU4ezAyF3uwd5DdK+jsh2LJ0T1UUP3qUvOITwPza5wK1wuNc/oub
+	 0y3w1Np/JFcL91qPpzXJArkSnTARrcLIIigF4z6+c86ADLLcfmXM3gtuKgk5Rcmepo
+	 rQ0FLk0a7E6wksQHzUPnRQQ/8uU9K9UPBc08F573OM/dkRCWoHgUngapbg3T5t8jFd
+	 zrYONIdTQh6P9VKXaCffwcgRcmXl7jrnE/m+5n39WDPHa1pO4EB52QD7wThy9hnVYe
+	 3419sS2GkntSA==
+Date: Thu, 1 Oct 2026 17:26:41 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 08/15] KVM: arm64: Enforce EXLOCK for SPSR and ELR
+Message-ID: <ar5thpZI5GiCfVRR@gremlin>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+ <20260930-arm64-gcs-v21-8-3556644cd927@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB9045:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e8ce04c-4560-49ee-9759-08df1fd8b745
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|7416014|18002099003|22082099003|13003099007|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	83hZjgUj/LY5WXlTYNe9LckLS9MmPS40adl37Z/9e8+lYGwVG9W3VAcdfso1k16cpGtWmltUqtoYdgy3WBh4ruJx6sq5R4rTbjqRMbesOAIEJwNVum6dLKlsaBF49lWTtdnpmgVyPFn2yy/deMuVuULFH/olkG8QeB0lPx6BxCDhHk5tRMNd//LdX9RMft7gdAEOiPmIFP1GsNEhrBoZhl2NC7+7YHHaqB2QuAVrXjjx2KHiadBT3E+j27LPzk2vjdc6l83ZxTJ0gsXasubN4w5NHweG7MxiwO7F87MhUiSfu0HdKsWx3pc9GFf9rvOAh+kQQWovR8ddcL7nK7bi521aDf6uky2fc0f6eykXxhsgkjCMvS+x0MGPg0bokdATf1hlOAVdjVuYNqLK3yDxEPtOv6fG5VfRGpWLFJqKQIcLJITV3A/8rH3AAusDEoJl8TCuNIC6bzrDigqAXyagamdvIElp7UZYQMYPBxcLyD365DB7QuQi8wigFjxsiPTCMqMhoO4ti39tYUv8kK9gfCsFPcXxscoB9uMqGkU2WAm+qSiybHKw6B+BRHPcVuep1PtjGxErQNuDS/ZkPEEaZ0nQvJt5LbLXxec9WM1knpriSgdHuT4wpGrzkUNXGuTT
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(13003099007)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QF2QoQZazHh/6VENqMK4QOm8oaouuMURFq9NvVfEHHFKrXw2jtBkQei4FBpO?=
- =?us-ascii?Q?3JRvObOKAroMSGLlT0yB+fCpPRTGav2ZnD6unhvnzswr/PSMgWbHQg4QZd7/?=
- =?us-ascii?Q?7x3yheaGImoVhfQut3aQ6n208FTtsiIxBdAu4ZAytprzu6XiBjtD8Y6pNjw6?=
- =?us-ascii?Q?daKjOO3omP1YZO2l65JFzBfMZl2y0OFl16rvMpYS2yjVrhliFJGQ+/tko062?=
- =?us-ascii?Q?+YBUfoCM7jy4SKEkKrUxNpiAA366qXxYVz/KLmyPMadM7Bq1Tmm9ghmc/+a6?=
- =?us-ascii?Q?BYEIimtIyk8m6GnnxPMP8tG0Y5zm4M9ECPaTiU5iv/MFeo0/HhS11Dxhvkmh?=
- =?us-ascii?Q?IBTq8M5JlrJ0T3SkAAAeEtwpr/l8eX4iMNze2W4BAKQq4sFbgqQ+AdexNZ27?=
- =?us-ascii?Q?ZsFlFRq7hNpm2hg7TwC07Q4qhMUc0g4aQTdmV0LJk28eU/ja7We7W2AhNUIb?=
- =?us-ascii?Q?JdCi3jGV/1lKqMpQVbOLVP3s7YxyprAsbYurwpPFMP42aPOrjAoJAYIqqMpw?=
- =?us-ascii?Q?2A43DoMMZZgn+xJFjjNnYyB1elUvnZfofip16Wiv9ehHl5KoK0NbR89kCVu4?=
- =?us-ascii?Q?vj7rUIoRdzm3MXGlhFYoUdM+AQD4fUJy2mC5bHpu+zvhJFzljShz9WvC/dNR?=
- =?us-ascii?Q?l6v+1cpvF6vDdtpatQ86gwGKFiHdSd5wLo2k/ddpmJkMmKArkRFBBjPaWN4r?=
- =?us-ascii?Q?VjagO+OBMbljZHPDK0VNaN1N1jl69iHBE06pE2U/Guqow70Ugg5Tg5ZEbHzK?=
- =?us-ascii?Q?7JtGqsLQyROT7ImDAoyyI+J+bUidaJz1JvYWMZPSvwz747/Qh5PC5q8UjH1A?=
- =?us-ascii?Q?2gAui/+x/GcxkXqxwtGZiNvhdK15pBpDdD0d7qVAet4ZPjj/UTP4kvEQzvPY?=
- =?us-ascii?Q?hzZOUVmjCydZpHAGTtcFuehQAED2ugQxImbhkxBbliU12TYJbddwS8b62A3K?=
- =?us-ascii?Q?Xh+bq42ZSBi8+nLABZ8Pr8JMcvqe4ekiWWA9wE76XgrFSugmRm9JioqFVipb?=
- =?us-ascii?Q?GyJZkqa3JY6emmSHLu+F0QtjwHe/8HqYf6igycgwksEQsUdrcMiaE8SAN7DG?=
- =?us-ascii?Q?+NB+3QEfI7osTixs3xeUT1eNihsIzf3VfotMVsi5a8z1MAD1yZa4r4w5M0FN?=
- =?us-ascii?Q?xO+AGZlZCTl61OOdHOoCsM0n4ZfCDxzTCh9IWKRJT8mo25LgOYqJZqE4IZjo?=
- =?us-ascii?Q?7K05dL34hXf0wbhRUSxkoMSKheBsAViOeCIYnkRu8XrrOLEOPCj5DUSF7hsG?=
- =?us-ascii?Q?1MVvhuF3k9xoWRuean179SOysM8WWXK/zPPBnfiL9PCegFK7AgWBhGX92go9?=
- =?us-ascii?Q?SdWPk1YgD52OinvNvnP0P6sX37SWpRdbUDjGQtLHiygvre1v1+NxJ8WqVtDt?=
- =?us-ascii?Q?yJH54Q3UYYsgZ06LqsWfv1u9Xg+bq94FevV8gtSXxtuD2Km9kUam6orwS+uL?=
- =?us-ascii?Q?P+2/ciWWOkh+ngQIvXTpaBvQtD00D7i2UCcnIa3NHtJjd9VO/wZajRBhgHv8?=
- =?us-ascii?Q?ThkkCIxx5OU4zPU6rp9izSpSGMEi7XuCiffUa+Ku/YjtyDhCqKo+Vq4LJ134?=
- =?us-ascii?Q?9dKt1dCT4zStTiuSBG+ko4SN3wl9A8IvwQrrit1w0uEE7oKhKB07wTbZOaR9?=
- =?us-ascii?Q?rbn9aF4qLB0A5FdFjN6vD5DU/unVJPL7DxQagDZ4FlKoU9QsH++yx2/jYz1J?=
- =?us-ascii?Q?zENKEUeV5TBrJPzRB7Ee+clKP+glp3sk20a/GqKKasU8x34pfZJTRKhzE/oS?=
- =?us-ascii?Q?X20dY7ozJlXEZdjeX9KY0R9ehK0OslTXoopukGPdGUfmIasbGZ3K?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e8ce04c-4560-49ee-9759-08df1fd8b745
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 16:26:16.1083
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3CuWYJmYrRBcuQTk3Gl1StTduBeDH6SRZHf1fWnrbT7hBIVUkx5fVX0TmY1XgEdHG+7swXG0Qb8q5WTojBkaa9lLcX7sNZvjCoMJHde6k8+cYSa3iLjPzly9wqENdxVB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9045
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260930-arm64-gcs-v21-8-3556644cd927@kernel.org>
 
-On Thu, Oct 01, 2026 at 12:52:53PM -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
+On Wed, Sep 30, 2026 at 10:48:18PM +0100, Mark Brown wrote:
+> As per I_CFFNS and the pseudocode for the SPSR_ELx and ELR_ELx registers
+> a GCS exception with ExType 1 is generated for attempts to write to
+> those registers when both GCSCR_ELx.EXLOCKEN and PSTATE.EXLOCK are set.
+
+From [4] I see I_CFFNS is defined as:
+
+"When an MSR instruction would write to the relevant ELR_ELx or SPSR_ELx
+for the current Exception level ELy, the Effective value of
+GCSCR_ELy.EXLOCKEN and PSTATE.EXLOCK may prevent the write."
+
+So the lock applies to writes to the current EL's own ELR/SPSR rather than
+to any ELR_ELx/SPSR_ELx the current EL can write to?
+
+> Ensure that this is enforced for guests if access to these registers
+> from the guest is handled by the hypervisor.
 >
-> Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
-> LVDS connected via the Apalis iMX6 LDB.
->
-> The panel is a LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the
-> touch input is provided by an Atmel MaxTouch capacitive touch
-> controller.
->
-> Remove the panel-lvds node from the Apalis iMX6 dtsi, as it is an
-> external component that does not exist at the SoM level.
->
-> The overlay is also combined with the Apalis iMX6 V1.2 Ixora Carrier
-> Board V1.2 device tree to provide a ready-to-use DTB.
->
-> Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 > ---
->  arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++
->  ...6q-apalis-panel-cap-touch-10inch-lvds.dtso | 53 +++++++++++++++++++
->  arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi | 13 -----
->  3 files changed, 59 insertions(+), 13 deletions(-)
->  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
-
-similar 7" case, add panel module name in file
-
-imx6q-apalis-lvds-panel-lt170410.dtso
-
+>  arch/arm64/include/asm/kvm_emulate.h |  8 +++++++
+>  arch/arm64/kvm/sys_regs.c            | 42 ++++++++++++++++++++++++++++++++----
+>  2 files changed, 46 insertions(+), 4 deletions(-)
 >
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-> index 32d77a59c4358..23fcc80d7f309 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -99,6 +99,10 @@ imx6q-apalis-v1.2-ixora-v1.2-hdmi-dtbs := \
->  	imx6q-apalis-v1.2-ixora-v1.2.dtb \
->  	imx6q-apalis-hdmi.dtbo
+> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
+> index 0cd91b3d6c82..e47ab38327de 100644
+> --- a/arch/arm64/include/asm/kvm_emulate.h
+> +++ b/arch/arm64/include/asm/kvm_emulate.h
+> @@ -81,6 +81,14 @@ int kvm_inject_nested_irq(struct kvm_vcpu *vcpu);
+>  int kvm_inject_nested_sea(struct kvm_vcpu *vcpu, bool iabt, u64 addr);
+>  int kvm_inject_nested_serror(struct kvm_vcpu *vcpu, u64 esr);
 >
-> +imx6q-apalis-v1.2-ixora-v1.2-panel-cap-touch-10inch-lvds-dtbs := \
-> +	imx6q-apalis-v1.2-ixora-v1.2.dtb \
-> +	imx6q-apalis-panel-cap-touch-10inch-lvds.dtbo
+> +static inline void kvm_inject_exlock(struct kvm_vcpu *vcpu)
+> +{
+> +	u64 esr = FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_GCS) | ESR_ELx_IL |
+> +		  FIELD_PREP(ESR_ELx_ExType_MASK, ESR_ELx_ExType_EXLOCK);
 > +
->  imx6qdl-dhcom-pdk2-overlay-497-200-x12-dtbs := \
->  	imx6q-dhcom-pdk2.dtb \
->  	imx6qdl-dhcom-pdk2-overlay-497-200-x12.dtbo
-> @@ -233,6 +237,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
->  	imx6q-apalis-ixora-v1.1-hdmi.dtb \
->  	imx6q-apalis-ixora-v1.2.dtb \
->  	imx6q-apalis-ixora-v1.2-hdmi.dtb \
-> +	imx6q-apalis-panel-cap-touch-10inch-lvds.dtbo \
->  	imx6q-apalis-v1.2-eval.dtb \
->  	imx6q-apalis-v1.2-eval-hdmi.dtb \
->  	imx6q-apalis-v1.2-eval-v1.2.dtb \
-> @@ -243,6 +248,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
->  	imx6q-apalis-v1.2-ixora-v1.1-hdmi.dtb \
->  	imx6q-apalis-v1.2-ixora-v1.2.dtb \
->  	imx6q-apalis-v1.2-ixora-v1.2-hdmi.dtb \
-> +	imx6q-apalis-v1.2-ixora-v1.2-panel-cap-touch-10inch-lvds.dtb \
->  	imx6q-apf6dev.dtb \
->  	imx6q-arm2.dtb \
->  	imx6q-b450v3.dtb \
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
-> new file mode 100644
-> index 0000000000000..a84114e1d3fba
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
-> @@ -0,0 +1,53 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
-> +/*
-> + * Copyright (c) Toradex
-> + *
-> + * Toradex Capacitive Touch Display 10.1" connected via Apalis iMX6 LDB
-> + * on carrier boards with a Toradex standard LVDS display connector.
-> + *
-> + * https://docs.toradex.com/105952-10-1-inch-lvds-capacitive-touch-display-1280x800-datasheet.pdf
-> + * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> + * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-> + */
+> +	kvm_inject_sync(vcpu, esr);
+> +}
 > +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +&{/} {
-> +	panel-lvds {
-> +		compatible = "logictechno,lt170410-2whc";
-> +		backlight = <&backlight>;
-> +		power-supply = <&reg_3v3_sw>;
+>  static inline void kvm_inject_nested_sve_trap(struct kvm_vcpu *vcpu)
+>  {
+>  	u64 esr = FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_SVE) |
+> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+> index 823460106de8..faecf4657ec5 100644
+> --- a/arch/arm64/kvm/sys_regs.c
+> +++ b/arch/arm64/kvm/sys_regs.c
+> @@ -2866,14 +2866,42 @@ static bool access_sp_el1(struct kvm_vcpu *vcpu,
+>  	return true;
+>  }
+>
+> +static inline bool sysregs_exlocked(struct kvm_vcpu *vcpu)
 
-use name reg_lvds_panel, it help improve reusablity.
+So if this returns true, an EXLOCKException is raised, otherwise SPSR_EL1
+is set (based on caller below).
 
-Frank
+From [0] the pseudocode for MSR SPSR_EL1, <Xt> is:
+
+elsif PSTATE.EL == EL2 then
+    if IsFeatureImplemented(FEAT_GCS) && GetCurrentEXLOCKEN() && !Halted() && PSTATE.EXLOCK == '1' && ELIsInHost(EL2) then
+        EXLOCKException();
+    elsif ELIsInHost(EL2) then
+        SPSR_EL2() = X{64}(t);
+    else
+        SPSR_EL1() = X{64}(t);
+    end;
+
+Reading [2] and [3], ELIsInHost(EL2) is equivalent to vcpu_el2_e2h_is_set(),
+but the code doesn't check this anywhere?
+
+The calling function only ever writes to SPSR_EL1, which implies
+!ELIsInHost() (I guess because if it is true the writes are just done
+directly to registers?)
+
+But if that's always false, then an exception can never be raised due to
+the first condition being false, and then the whole thing collapses to
+SPSR_EL1() = X{64}(t).
+
+So PSTATE.EL == EL2 is ~ I gather to is_hyp_ctxt() (guest's view of its own
+EL) and thus this would be equivalent to:
+
+if (is_hyp_ctxt())
+	return false;
+
+Wouldn't it?
+
+But for the PSTATE.EL == EL1 branch (what the hardware runs for a vEL2
+guest), also from [0]:
+
+    if IsFeatureImplemented(FEAT_GCS) && GetCurrentEXLOCKEN() && !Halted() && PSTATE.EXLOCK == '1' && !(EffectiveHCR_EL2_NVx() IN {'x11'}) then
+        EXLOCKException();
+    elsif IsFeatureImplemented(FEAT_S1POE2) && EffectiveHCR_EL2_NVx() IN {'x11'} && FGDTState.nH == '1' then
+        AArch64_FGDTSystemAccessTrap(EL1, 0x18);
+    elsif EffectiveHCR_EL2_NVx() == '011' then
+        AArch64_SystemAccessTrap(EL2, 0x18);
+    elsif EffectiveHCR_EL2_NVx() IN {'111'} then
+        NVMem(0x160) = X{64}(t);
+    else
+        SPSR_EL1() = X{64}(t);
+    end;
+
+EffectiveHCR_EL2_NVx() (see [5]) obtains the nested virt configuration
+based on HCR flags.
+
+In __compute_hcr():
+
+static u64 __compute_hcr(struct kvm_vcpu *vcpu)
+{
+	...
+
+	if (is_hyp_ctxt(vcpu)) {
+		...
+		hcr |= HCR_NV | HCR_NV2 | HCR_AT | HCR_TTLB;
+		if (!vcpu_el2_e2h_is_set(vcpu))
+			hcr |= HCR_NV1;
+		...
+	}
+	...
+}
+
+So for a vEL2 guest this is either '101' (guest E2H=1), or '111' (guest E2H=0).
+
+So that leaves us with:
+
+    if IsFeatureImplemented(FEAT_GCS) && GetCurrentEXLOCKEN() && !Halted() && PSTATE.EXLOCK == '1' && !(EffectiveHCR_EL2_NVx() IN {'x11'}) then
+        EXLOCKException();
+    elsif EffectiveHCR_EL2_NVx() IN {'111'} then
+        NVMem(0x160) = X{64}(t);
+    else
+        SPSR_EL1() = X{64}(t);
+
+And from include/asm/vncr_mapping.h:
+
+#define VNCR_SPSR_EL1           0x160
+
+So that's the VNCR write that the hardware does.
+
+So for '101' the hardware does the EXLOCK check and the write
+itself, for '111' the check is skipped and the write goes to the VNCR page.
+
+In both cases, nothing traps to KVM (only '011', NV1 without NV2 would -
+but KVM never configures that as it requires NV2).
+
+So... TL;DR is, shouldn't this function look like:
+
+static inline bool sysregs_exlocked(struct kvm_vcpu *vcpu)
+{
+	if (!kvm_has_gcs(vcpu->kvm))
+		return false;
+
+	if (!(vcpu->arch.ctxt.regs.pstate & PSR_EXLOCK_BIT))
+		return false;
+
+	if (is_hyp_ctxt(vcpu))
+		return false;
+
+	return vcpu_read_sys_reg(vcpu, GCSCR_EL1) & GCSCR_ELx_EXLOCKEN;
+}
+
+?
+
+> +{
+> +	u64 gcscr;
+> +
+> +	if (!kvm_has_gcs(vcpu->kvm))
+> +		return false;
+> +
+> +	if (!(vcpu->arch.ctxt.regs.pstate & PSR_EXLOCK_BIT))
+> +		return false;
+> +
+> +	/*
+> +	 * Note that the EXLOCKEN for the running EL is checked
+> +	 * regardless of the register written to.
+> +	 */
+
+This seems to contradict [4] - the register written to is what decides
+whether the lock applies?
+
+> +	if (is_hyp_ctxt(vcpu))
+> +		gcscr = vcpu_read_sys_reg(vcpu, GCSCR_EL2);
+> +	else
+> +		gcscr = vcpu_read_sys_reg(vcpu, GCSCR_EL1);
+
+GetCurrentEXLOCKEN() is defined in [1] as:
+
+    ...
+    case PSTATE.EL of
+	...
+        when EL1 =>
+            return GCSCR_EL1().EXLOCKEN == ‘1’;
+        when EL2 =>
+            return GCSCR_EL2().EXLOCKEN == ‘1’;
+	...
+    end;
+
+And is_hyp_ctxt() -> PSTATE.EL == 2, else -> PSTATE.EL == 1 so this matches up with:
 
 > +
-> +		port {
-> +			lvds_panel_in: endpoint {
-> +				remote-endpoint = <&lvds0_out>;
-> +			};
-> +		};
-> +	};
-> +};
+> +	return gcscr & GCSCR_ELx_EXLOCKEN;
+
+Where this is the .EXLOCKEN == '1' bit.
+
+> +}
 > +
-> +&atmel_mxt_ts {
-> +	status = "okay";
-> +};
+>  static bool access_elr(struct kvm_vcpu *vcpu,
+>  		       struct sys_reg_params *p,
+>  		       const struct sys_reg_desc *r)
+>  {
+> -	if (p->is_write)
+> +	if (p->is_write) {
+> +		if (sysregs_exlocked(vcpu)) {
+> +			kvm_inject_exlock(vcpu);
+> +			return false;
+> +		}
 > +
-> +&backlight {
-> +	status = "okay";
-> +};
-> +
-> +&ldb {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	status = "okay";
-> +
-> +	lvds-channel@0 {
-> +		reg = <0>;
-> +
-> +		status = "okay";
-> +	};
-> +};
-> +
-> +&lvds0_out {
-> +	remote-endpoint = <&lvds_panel_in>;
-> +};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi
-> index 5fcd7cdb7001f..e52b55a386f7a 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi
-> @@ -95,18 +95,6 @@ lcd_panel_in: endpoint {
->  		};
->  	};
+
+(I assume ELR mirrors SPSR but I haven't checked).
+
+>  		vcpu_write_sys_reg(vcpu, p->regval, ELR_EL1);
+> -	else
+> +	} else {
+>  		p->regval = vcpu_read_sys_reg(vcpu, ELR_EL1);
+> +	}
 >
-> -	panel_lvds: panel-lvds {
-> -		compatible = "panel-lvds";
-> -		backlight = <&backlight>;
-> -		status = "disabled";
-> -
-> -		port {
-> -			lvds_panel_in: endpoint {
-> -				remote-endpoint = <&lvds0_out>;
-> -			};
-> -		};
-> -	};
-> -
->  	poweroff {
->  		compatible = "regulator-poweroff";
->  		cpu-supply = <&vgen2_reg>;
-> @@ -738,7 +726,6 @@ port@4 {
->  			reg = <4>;
+>  	return true;
+>  }
+> @@ -2882,10 +2910,16 @@ static bool access_spsr(struct kvm_vcpu *vcpu,
+>  			struct sys_reg_params *p,
+>  			const struct sys_reg_desc *r)
+>  {
+> -	if (p->is_write)
+> +	if (p->is_write) {
+> +		if (sysregs_exlocked(vcpu)) {
+> +			kvm_inject_exlock(vcpu);
+> +			return false;
+> +		}
+> +
+>  		__vcpu_assign_sys_reg(vcpu, SPSR_EL1, p->regval);
+> -	else
+> +	} else {
+>  		p->regval = __vcpu_sys_reg(vcpu, SPSR_EL1);
+> +	}
 >
->  			lvds0_out: endpoint {
-> -				remote-endpoint = <&lvds_panel_in>;
->  			};
->  		};
->  	};
+>  	return true;
+>  }
 >
+> --
+> 2.47.3
+>
+>
+
+[0]:https://support.arm.com/documentation/111107/2026-09/AArch64-Registers/SPSR-EL1--Saved-Program-Status-Register--EL1-?lang=en
+[1]:https://support.arm.com/documentation/ddi0487/md/-Part-J-Architectural-Pseudocode/-Chapter-J1-A-profile-Architecture-Pseudocode/-J1-2-Pseudocode-for-AArch64-operation/-J1-2-267-GetCurrentEXLOCKEN
+[2]:https://support.arm.com/documentation/ddi0487/md/-Part-J-Architectural-Pseudocode/-Chapter-J1-A-profile-Architecture-Pseudocode/-J1-4-Shared-pseudocode/-J1-4-552-ELIsInHost?lang=en
+[3]:https://support.arm.com/documentation/ddi0487/md/-Part-J-Architectural-Pseudocode/-Chapter-J1-A-profile-Architecture-Pseudocode/-J1-4-Shared-pseudocode/-J1-4-558-EffectiveHCR-EL2-E2H?lang=en
+[4]:https://support.arm.com/documentation/ddi0487/md/-Part-D-The-AArch64-System-Level-Architecture/-Chapter-D11-The-Guarded-Control-Stack/-D11-4-Exception-returns/-D11-4-1-Pushing-and-popping-exception-return-state?lang=en
+[5]:https://support.arm.com/documentation/ddi0487/md/-Part-J-Architectural-Pseudocode/-Chapter-J1-A-profile-Architecture-Pseudocode/-J1-4-Shared-pseudocode/-J1-4-559-EffectiveHCR-EL2-NVx?lang=en
+
+--
+Cheers, Lorenzo
