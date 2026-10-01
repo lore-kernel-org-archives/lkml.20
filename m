@@ -1,73 +1,144 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF624B049F
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:12:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43544AE102;
+	Thu,  1 Oct 2026 09:12:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845927; cv=none; b=Aq3GMCzO+TQoDSH+8CkN1kUWgeWsbsZ7qm/mf3Za3IjmXLFZaJ+UQRL29xb+qCJ17U4sCZ8tOuuKZAFKIyIlfrFxIVl0zdx7Hl1wrfkYNWfvAy6FIWqjzW1ZZQcgas4D90dnGVvslx7skS4B+Q3Gt8gPm2EW2reg0/BOvcF4aQ4=
+	t=1790845945; cv=none; b=E4yy5emR3d6EJjDG0A+9TEE4CP0wgO3wvaYqlCGoVHlHq9VR9xZ5hjwYeuh6mQ11DFTRMltXtUyculgS20v5Jf6mdXro237gXLQ9A64R0eM6sXv9M17n5Y9pj8FlDuxMjTYjzmaXOFnqw/fhklx6AYtWMAy8VnMNrYnhIyWtAUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845927; c=relaxed/simple;
-	bh=rmhrbSnBSUxeKoLNvTbMYWoPlkRTthzk/Q5PK98L5P8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KUF+I9B6Xe6yVkH3jYmdNUaBMBe2lyTy1WTsPZNgMzHXlHXItQnbz+9S9J76y7XvYzQ9ZLPihqDwKcnx3xkNTW36THlrzsOz8Y66VX9oIBxvIW5B/Qe8CKyCj82QCY/i40Q4o/s0xpenMyCRRW5h5ipBwrasrp7hN2RE/slgwjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4dc57e2a3f2so9836755b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:12:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790845924; x=1791450724;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XgJiCdQR0Xmk7ph93rGrgxQB+oBi4FLN+0tyktySXJ0=;
-        b=150BnJki+f9veAf+hcOhgFk8uFq20bqRWECQpfUGZpUz8fBBQPtBGPxRuSKGnC86Kt
-         UEvOJeXB47/2KtShm80eZlHybvZwpbcGZ64jylmDvPYjz5KS3H95orY4zMoxxNdFl6x2
-         fMO3pDa1GZ4h1y2RQCR03rvAoqKpVN3vECMEcO/4UOtZHMc0J2+Ch/1QjZifzbzBH9id
-         QbYtyIEkVEg0UCZaGCFVzvT9zmTzBZT9W1VJL0L7OlFLNYc+fG30fj2LLxB07Vyk62kk
-         uZ98qFAP+DqlKugyRaR5ftskEplSSTHNxdsdZoRvZ6iHD8xqbOBpb65xd/XhhLErKQyY
-         Kf8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy/YrTy++0KgDka5WJTwLErfBUhthDz0dXVoAt3NwsxPpPB5QIZ+BVBKbpy1J6kE6HAkOIE+2SHQKHcz54=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQz6za1csD0UnpHqczyB9pwgazQcfTH6inDmvZsX2SLid7FBFr
-	KLdvUAvqmolU8nvTZiW0OVgDTMrJ008R7YLkyBu4R5s/wFAX7PbOZB4In33UPuu+5x5qz53lENe
-	0TGXZ6RCoN9J5fy0qynjRPNF7rTTLJPcyZLncwBdQz+WUdjqFZ1SRhX0bjug=
+	s=arc-20240116; t=1790845945; c=relaxed/simple;
+	bh=Tvse7y/kiFC4s9yyXtgLc7aSWY67jBWEv43X92o85zU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=esN23yNT7LA3fg5jrj1W55vzEuwnqotIDJjNISfPDps0wMhcTQNBtZ/5TtjwNMT4TfGrziFMrTvazmtbbXtZgL8Ar7VCWdO7H5/V+UASJYmKgWbBqjrLNf136S7HsS+mBycZMrEhS75AONCofh0N4YVyTPsBPyaCmRArbj+LjJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ourWhv3a; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ourWhv3a"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6919BknaE2836515, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790845906; bh=rXW1fD3yKWjJe/bdc7Cp1HYXXo685wbPkaroMZUNX4w=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=ourWhv3a4ggVFtWh3QuWNzD6AGHI3b62A6RvH+Iwq40fm5lB4MDnvkp61tDODIOkR
+	 5PEKUBA6QpnYHjm/daxp/7bohUEjlGRAnuhgxqid4EEXsc+HUDRfbuZT7kOiwhAsCL
+	 N0ERGZqXOLX478aiLB+qf1SEbU8j52juj+epA9MyHXfnqKkS+G6mbdkempjY8wHB4m
+	 zCN09Z8hEPCI2H7m8d0bIfPjjs8nLPxHcIBZ1GzRlQBMwHogjh0crT60aq7q24zKkF
+	 EzIqGCnAfeMIg48v/LOR5wL4vRKIsPiXhasDUhwIbLVSJ1kU3baM1IjIR/DRqgl37t
+	 o2ssUY3i1pkCQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6919BknaE2836515
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 1 Oct 2026 17:11:46 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 17:11:46 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 17:11:46 +0800
+Received: from fc44.realtek.com.tw (172.22.241.7) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server id
+ 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 17:11:46 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: <davem@davemloft.net>, <kuba@kernel.org>
+CC: <netdev@vger.kernel.org>, <nic_swsd@realtek.com>,
+	<linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+	<edumazet@google.com>, <bjorn@mork.no>, <pabeni@redhat.com>,
+	<hsu.chih.kai@realtek.com>, <andrew+netdev@lunn.ch>
+Subject: [PATCH net-next v5 0/9] r8152: refactor and extend RTL8157/8159 support
+Date: Thu, 1 Oct 2026 17:11:35 +0800
+Message-ID: <20261001091144.28191-1-nic_swsd@realtek.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:5189:b0:4c5:bdb8:e582 with SMTP id
- 5614622812f47-4f1b9c386f3mr4074104b6e.41.1790845924766; Thu, 01 Oct 2026
- 02:12:04 -0700 (PDT)
-Date: Thu, 01 Oct 2026 02:12:04 -0700
-In-Reply-To: <CAJnrk1YFKdQfKC6YCsFF17ydjSP076r2K2PYPQiqkceJtn6Yew@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abe23e4.7503fbd6.2d3f6.0003.GAE@google.com>
-Subject: Re: [syzbot] [fuse?] WARNING in fuse_iomap_writeback_range
-From: syzbot <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com>
-To: fuse-devel@lists.linux.dev, joannelkoong@gmail.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	miklos@szeredi.hu, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hello,
+RTL8157 and RTL8159 have different init, enable, up/down, hw_phy_cfg,
+and PHY access sequences from RTL8156.  This series splits the shared
+callbacks into per-chip variants and adds the missing RTL8157/8159
+functionality: dedicated unload and change_mtu callbacks, TGPHY register
+access via phy_read/phy_write pointers in struct rtl_ops, flow control
+patch support through rtl_fc_pause_pkt_en(), and UPS support via
+r8157_ups_en().
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+v5:
+- Patch #1: in r8157_init()/r8159_init(), call
+  r8156b_wait_loading_flash() before wait_autoload_done(). Document
+  in the commit message that the "Bulk In End" bit is cleared in
+  r8157_init(), and drop the claim about the FC-timer block.
 
-Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+- Patch #2: accept the package read only if the full word was returned,
+  warn when a retry was needed, and print an unknown package as
+  0x%04x. Say "firmware" instead of "PHY tuning" in the commit
+  message.
 
-Tested on:
+- Patch #3: make it a pure split with no functional change. Its
+  register fixes move to the new patch #4.
 
-commit:         29b60c6c fuse: make fuse_backing_get() static
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse.git for-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=10e893f5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ed58c7948fc7ee44
-dashboard link: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1199a6c9580000
+- Patch #4 (new): fix up and down register settings for
+  RTL8156/8156B/8157/8159.
 
-Note: testing is done by a robot and is best-effort only.
+- Patch #5: document the new RTL8159 PHY tuning parameters in the
+  commit message.
+
+- Patch #6: add Fixes tags.
+
+- Patch #7:
+  - A TGPHY busy timeout now sets RTL8152_INACCESSIBLE and returns
+    -ENODEV.
+  - sram_write() returns the data-write result.
+  - The PHY firmware version checks, the BMCR reset poll,
+    rtl8152_set_speed(), the pause parameters and the PHY patch
+    handshake handle PHY access failures.
+  - SIOCGMIIREG returns 0 with val_out set on success, or the error.
+  - Commit message rewritten.
+
+- Patch #8: drop the "no link" case, since the caller checks the link.
+  An unknown speed now disarms the pause limit. Commit message
+  rewritten.
+
+- Patch #9: wait for the backup-restore flag with a timeout in
+  r8157_ups_en(). Rename USB_FW_USE_VER to USB_FW_USB_VER.
+
+v4:
+- Patch #1: make wait_autoload_done() bail out immediately on
+  RTL8152_INACCESSIBLE instead of waiting out the full 10 second
+  timeout.
+- Patch #6: propagate PHY access failures instead of ignoring them.
+  ocp_reg_read()/ocp_reg_write() and every helper built on top of them
+  (sram_read/write, sram2_read/write, the ocp_reg_*_bits and MDIO bit
+  helpers) now return int and stop silently operating on stale data
+  when a TGPHY access times out.
+
+v3:
+Rebase on top of latest net-next to resolve merge conflicts.
+
+v2:
+- For patch #1, use read_poll_timeout() to replace the manual
+  for-loop polling.
+- For patch #2 and #3, rewrite the commit message.
+
+Chih Kai Hsu (9):
+  r8152: split r8156_init per chip and add missing init writes
+  r8152: split RTL_VER_17 into QFN68 and QFN100 package variants
+  r8152: split rtl8156_enable/up/down into per-chip-family functions
+  r8152: fix up and down register settings for RTL8156/8156B/8157/8159
+  r8152: split r8157_hw_phy_cfg into RTL8157 and RTL8159 variants
+  r8152: add rtl8157_unload and rtl8157_change_mtu
+  r8152: add TGPHY register access for RTL8157 and RTL8159
+  r8152: extract rtl_fc_pause_pkt_en() and apply it to RTL8156/8157/8159
+  r8152: enable UPS for RTL8157 and RTL8159 QFN68
+
+ drivers/net/usb/r8152.c | 1888 ++++++++++++++++++++++++++++++---------
+ 1 file changed, 1451 insertions(+), 437 deletions(-)
+
+-- 
+2.34.1
+
