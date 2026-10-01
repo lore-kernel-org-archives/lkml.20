@@ -1,106 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC89F1F09A5;
-	Thu,  1 Oct 2026 10:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E02405C35
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790851860; cv=none; b=ImilzA2k2YunX7HCxf+9e7/k8Ox/ahm0lgntQLuR90QmEa1pwPN4hfD6w85KoW+o97NXwLKCBo2WniEOnEQeciT+TMcY/1u5fiXYWe2hdmJxSvlsVFby5lkZFVlYVYOQ96s5K8J8PNtVRxDF0QCkPLU1n2W/Fivl4BphLkqK1a4=
+	t=1790851929; cv=none; b=dzOBKVtL3B5qiiilBWvdMBbXCr55z7l5qYFx9AQYP21T5wzD0CIcvwt1R8uz/CxCrZjep+Zjmgk5ho6cR32em/IG/qcVdNFU4eyvVaVK88hr9OtGxzzfp+CH7Ghx//CylDQoP7wDJpE7ukaPPvmbYtg5YvJmk9VuMF9J5qpZn2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790851860; c=relaxed/simple;
-	bh=i1e5atsAyug6xkqquAcMBMvETVmH2j/Jas3w3W4pt+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l5HiBjOjOjsvRIDGdJc9NiT6Y7m6neiellgLleT1t7s23cW2IcG9BfKyTQV7E3/X9ubdqJEwu9gpqBDGq/TSW+pt9HhYxpkVOBHFtySOjyJd/1I+2CImLqq4le2XvpzRn0VAar0cJ1SZnPClCYIUnmeVqxYJ+V2Y7SyaJsGwWlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/0f4Qi1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790851929; c=relaxed/simple;
+	bh=F7/0Xze85k9s1voAnMLsmJkH6CTMb8VD14ZOkRUh8Js=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eNX24TERQKFAwDiGAKGvacwV6/8/gAWQgidJ5OvzMJ6KIn/0VPpJT1mLGqYguvrfuuuuhS4F6xXNKDbNadIAyS8fuJeh02Nkr/LlyvfOs4P6EOdWTtbVsKQ2JSiZxXhJyoFiDIDa/Qj0e3ex8Sh8YITPSZgqlVj/eU+wg3cKBOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iCPu8ben; arc=none smtp.client-ip=91.218.175.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/0f4Qi1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A46E1F000FF;
-	Thu,  1 Oct 2026 10:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790851858;
-	bh=xHk+A5Sdr78XfGzIL/hT9Sc/BCLMrjVL63nMxl+dTOQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F/0f4Qi1BcZboIFrJ8gvrQdKLcHA689Xa+ziPcEImnPg59/XyNF0X4WCkbq2x3T5T
-	 iOqpbm4jE/zo8FvcldMI9OWZX/ySs/0+U0x/TM+17FS4Q3HwX/fmvlEH7E4TW6Adl8
-	 CcZ6Di5+gzxs8F3M39gsocZJkxPirxl3ldGTV64YQHZLQoCFGdFmbgNdrr5Sx6OG8B
-	 Rf5xq4yWeXQIozISHrooVwHzlA+LOCPZsU0wVIjGHJEazkeDYSA8aNRwFO8psAkHfZ
-	 9jSBMsd5HLL2ZfQf5Gf6O2qYy6a99kc69zR4PKlN3GehsPwVszioku+gciX+bAcdga
-	 JI9wNQYCcOGQA==
-Date: Thu, 1 Oct 2026 11:50:51 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
-	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 02/15] KVM: arm64: Refuse to start a guest with S1PIE
- or S1POE but not TCR2
-Message-ID: <ar4yT297fh45gwM6@gremlin>
-References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
- <20260930-arm64-gcs-v21-2-3556644cd927@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iCPu8ben"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=F7/0Xze85k9s1voAnMLsmJkH6CTMb8VD14ZOkRUh8Js=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790851926; v=1; x=1791456726;
+ b=iCPu8benDN4QFFe+JgStna1GPWcI8VxQ5IxwXnOvpHKBZhbnYreJILZ4xT+N5TxCUmiNCUM5
+ Xu5LSkMSysMoEpcw8LqNH2AYlBVE/AB8HpCQVk28SjlomrGWGKB6swHXnJJwdpnrxgAP4u4Qu1c
+ hpzfqtsXMcmqnYKM3NP2fva0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 4dfc51004a80d778;
+	Thu, 01 Oct 2026 10:52:05 +0000
+X-Mizu-Trace-ID: 4dfc51004a80d778
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: mkp@kernel.org,
+	sathya.prakash@broadcom.com,
+	kashyap.desai@broadcom.com,
+	sumit.saxena@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	mpi3mr-linuxdrv.pdl@broadcom.com,
+	James.Bottomley@HansenPartnership.com,
+	ranjan.kumar@broadcom.com,
+	chandrakanth.patil@broadcom.com,
+	thenzl@redhat.com,
+	hare@suse.de,
+	himanshu.madhani@oracle.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] scsi: mpi3mr: Stop IRQ polling when no reply is ready
+Date: Thu,  1 Oct 2026 03:51:57 -0700
+Message-ID: <20261001105158.3456162-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930145606.2632749-1-usama.arif@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-arm64-gcs-v21-2-3556644cd927@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 10:48:12PM +0100, Mark Brown wrote:
+On Wed, 30 Sep 2026 07:55:47 -0700 Usama Arif <usama.arif@linux.dev> wrote:
 
-> Fixes: 663abf04ee4d ("KVM: arm64: Make PIR{,E0}_EL1 save/restore conditional on FEAT_TCRX")
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Once a reply queue has more than 8 I/Os pending, mpi3mr's IRQ thread
+> polls it every ~20us until nothing is pending or it has processed
+> max_host_ios replies. On busy HDDs that means about 45 seconds of
+> polling at a time, with nearly every wakeup finding nothing. On Meta's
+> HDD storage hosts, these threads used about 15% of the non-idle CPU
+> on polling.
+> 
+> Patch 2 goes back to interrupts once a poll finds the queue empty while
+> owning it. It relies on patch 1: an interrupt that finds the queue owned
+> by another context now hands it to the thread, instead of leaving a
+> reply until the next interrupt or a command timeout.
+> 
+> On a machine configured like those hosts (36 SATA HDDs behind a SAS40xx
+> HBA), HDD random reads now wake the threads twice per I/O instead of 236
+> times, and a co-located CPU-bound task loses 0.6% instead of 30%.
+> Drive-cache reads still reach 270K IOPS, and a single reply queue whose
+> CPU is saturated loses about 5%. With a kthread injected to hold a reply
+> queue, replies waited up to 50ms, and timed out under light load,
+> without patch 1, and at most 233us with it.
 
-Great, this looks like the most sensible way of resolving the issue with
-userland being able to trigger a kernel oops due to the save/restore
-registers optimisations.
+I believe all of the sashiko reviews are pre-existing conditions and not
+introduced by these patches. I have replied in [1] and [2]
 
-It's also entirely sensible to disallow completely broken configurations
-like this.
+[1] https://lore.kernel.org/all/bdf2781e-fbcb-4356-b1eb-ccdbfb39c1b9@linux.dev/
+[2] https://lore.kernel.org/all/0b1bb7ce-4720-4d12-96ff-ab04cd1b85bc@linux.dev/
 
-LGTM so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-> index 44aae52c473d..3ae293798b27 100644
-> --- a/arch/arm64/kvm/sys_regs.c
-> +++ b/arch/arm64/kvm/sys_regs.c
-
-> @@ -5928,6 +5946,9 @@ int kvm_finalize_sys_regs(struct kvm_vcpu *vcpu)
->  		kvm_vgic_finalize_idregs(kvm);
->  	}
->
-> +	if (!kvm_validate_id_regs(vcpu->kvm))
-> +		return -EINVAL;
-> +
-
-Seems like the right place to put it as part of the finalisation process,
-run once per VM and guaranteeing the invariant so it's guaranteed that
-ctx_has_s1pie() -> ctxt_has_tcrx() and ctx_has_s1poe() -> ctxt_has_tcrx().
-
-(Just working it through for my own understanding), tracing through it ends
-up at struct kvm_arch->id_regs[]:
-
-kvm_has_tcr2()
-  -> kvm_has_feat()
-    -> __kvm_has_feat()
-      -> kvm_cmp_feat()
-        -> kvm_cmp_feat_unsigned()
-	  -> get_idreg_field_unsigned()
-	    -> kvm_read_vm_id_reg()
-	      -> __vm_id_reg()
-	        -> ka->id_regs[]
-
-Which will all have been populated by here. however failing at this point
-will stop KVM_ARCH_FLAG_HAS_RUN_ONCE from being set (also obviously your
-other series separately fixes the issue with KVM_ARCH_FLAG_FGU_INITIALIZED
-being set with !KVM_ARCH_FLAG_HAS_RUN_ONCE).
-
---
-Cheers, Lorenzo
+> 
+> Based on mkp/scsi 7.4/scsi-staging (f09d2c7485b32).
+>  
+> Usama Arif (2):
+>   scsi: mpi3mr: Poll a reply queue that an interrupt found busy
+>   scsi: mpi3mr: Stop IRQ polling when no reply is ready
+> 
+>  drivers/scsi/mpi3mr/mpi3mr.h    |  2 +-
+>  drivers/scsi/mpi3mr/mpi3mr_fw.c | 65 ++++++++++++++++++++++++---------
+>  drivers/scsi/mpi3mr/mpi3mr_os.c |  2 +-
+>  3 files changed, 50 insertions(+), 19 deletions(-)
+> 
+> 
+> base-commit: f09d2c7485b32adb82336d0d748935c8237a649e
+> -- 
+> 2.53.0-Meta
+> 
+> 
