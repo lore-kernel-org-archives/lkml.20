@@ -1,285 +1,140 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAC13EF0A0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790890862; cv=pass; b=N9RstiHKThAuNZ0s0f2P02amEtBWCj9xQ05zBW4yf4z4E18tHWaaatQvZ2L88GKoS5IKxd/BX9YgI2DfgI2A7xBva9CCSrKkCNJrSeh7o/Ce0f9d1NgvwTe7PoEKzbxPEKE7EeAHQZ4UGcxC7gZ3r5zUK9Rkb2vk7+LsugW6o78=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790890862; c=relaxed/simple;
-	bh=mJd4W21ehe2gG1oPa82O4mkajM6Oekem7ACig6EyrCM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=RPJL5VBjqzNz8IU6ExJjECFU0jGWhgIvRgBjsuAd/ctuREkGr6rbKfPrvEAEJDIs0Yuym/va4rBhiEpbHeWkgwccVYQAK7WGMahMjO0HZtGHFZUnI8SNRE0FSmmn+b3UgMEDROm4XircG6lGDVNB1eE9EdLsSdnEclJ7KieVatE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eIRilmpZ; arc=pass smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE673363C75
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790890911; cv=none; b=bt9o9yDK1F+VuYYqT19xu1X0GIbTXGmzOef1gFbfTFRxk6lSR8clcUAyOPpI1rNT8Hb9Vtuvfu7J0Pp02AQd0AYuQbSpqhObGVKvJbI+fMRiq8Xo8aHwRZKPFEadh7DkXfATeoA4ZgXiQwPr4nVz2gjBWRGmz381SMW3SzQhY+E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790890911; c=relaxed/simple;
+	bh=fPmxCx4qpK2t/MvuNp/xRsfzossr1PfbTfKiv5o2cf8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T7dk0pgrSetzho2wjYRO7HVI2flgz8o3s3lrSL9b+G+IHFtp6G+8vaVkqvKiUfSBWzN9rM1fTQ01KZf22GzHF0rIv0Vy6QT3ddEOPMVoSTAlr4NzFm9h/p6UUQ75ilVdFJWSagtXZQuhnK43RC4L3+ms0vi/bW1qkyzsjHK4zPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RX++VI9A; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rjOxJ8dO; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eIRilmpZ"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e227422e3so264632966b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:41:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790890859; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CrzdgGfU5zNFqQrUGzHrBuKRttgOhLpN3xXvy5P+no1+AgTrKEousQKEoJ84aUilky
-         YUbQr0zpTVzC9l/Bm38E+5UKqz2u4c3JgMp5fF/h86L7ay4MHiau7pAjOmYWnSR3zXYP
-         //cRrXPC6URZA6FKZX5D28FpP0hOr1zRCJ6rzxrn1z/7d3rUSyJZOb89GYSX0UvDIf/E
-         JWL/3BLiuTaNYKkylPSHZ6mqeetIdhlWkvrIW6N12KZTb7tIry7klpCrU/yY3Apdyevq
-         ebKkHgAY9XpPTA4Sa5SIuCmVtxhWsNIPXDkZ29kzA0evgTMCO4Sr92e8GTeYeij/8xai
-         NURA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Y5VVpxkCw2qSWatTTLuSmXtriX32bvao8AVsrJEur4A=;
-        fh=zOraXkLFlA92r9TwNSYrP/JX2IFQmLe1ljlqOGHoiaI=;
-        b=pcJM/Xl+ZSpbskgC4aiY0oD3IP4uSNUtm1aRVpD46/vJjXXqb6IZ8RRi34khK2eVwT
-         uga9NR5oPscqnNpPQGaW3EG967Uin+5iLjuB/d3/zTFk9Yc36m4Axc1uUo9WflpsghyU
-         I0E3eO6HSqpMLGHYJ+9j8nTTd3vjTxXdmN2ybvfcHoWrg7u2byfu7GQ92VpcWotZzhtR
-         17zxHSYnis9OzAaLrPD+bh0dEZWIu5ydm1fcWE4lYjSxU4Ht4wv4KcoEelITXjjCOZUf
-         hf72H9OYgOIpbE6hdMFAmA4WjzlxlwUPcqAp04LFUIBx+AfMLalm7VBt2zPfKsWasKqj
-         WXPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RX++VI9A";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rjOxJ8dO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790890908;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oaFDnLPAu8Azz5pGOzAaVOnZU0E7BdpohXF2E62Q87s=;
+	b=RX++VI9AHz5vfn1fXYGsJfzS/rX7vXXI4rJuNUvFppKhaITyoLWRLw9omTUWXFJST5ZtyT
+	mzBMzz7ee/JK7/G2jDNF5l+9qMnoyP8PF8+K814IJTwbhBTnsXywQEQfl0OUSmG/d/W+XY
+	7zdvy1hQhQgvTfOPZ0H2mdJOnWcjwvs=
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-636-CY4yF9f-Mp2SeOboxHEpLw-1; Thu, 01 Oct 2026 17:41:47 -0400
+X-MC-Unique: CY4yF9f-Mp2SeOboxHEpLw-1
+X-Mimecast-MFC-AGG-ID: CY4yF9f-Mp2SeOboxHEpLw_1790890906
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so4974735a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:41:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790890859; x=1791495659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y5VVpxkCw2qSWatTTLuSmXtriX32bvao8AVsrJEur4A=;
-        b=eIRilmpZ1+1pJDgueE2ih52EynjguhuzFhTOWyEYeWQKV8VgglCclZSipRosZp8kBg
-         3mVXv91RWMEgGn07d4cSCqQK6F+JKWbFeAzfVrZZHKt3Dq/XQ4JHRALtizpNUsP3wqFD
-         qcydXo0Z1Mo2nDEwZX/WYRBvsnLLlGxqrx2KZxdREOmbcdNns4EBpzqq1VmrQ3aKCUMW
-         aBb1w+vYuFd777wlbivLrxRRkZ8sDCMmV6R11Skv6zghgDxnEcBmURCahgHwyhdWxsrj
-         f+wobHTbSY2ZHpHd42YkL2Pr7i7pZzxyaVPwfC4E6DwCQZUnsx6YI+7I/+z3uJD26Et9
-         F0FA==
+        d=redhat.com; s=google; t=1790890906; x=1791495706; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oaFDnLPAu8Azz5pGOzAaVOnZU0E7BdpohXF2E62Q87s=;
+        b=rjOxJ8dO5ltGvsD28IzEJPTlWVslhMZA3I87ouoh+eHbKd45Qpo5EIr/MGETujaScn
+         +W9w+TZmHWBiPoMMzvJLAbHgKD977QnBgLjgPyOGYjvdM80ipOe7wG4rkrU6oe9he48t
+         HDJHFR4puRanLbzoaV7PLlxSgaTnWz8xojcHIcYSAiFIEiSZVU1UhZVPUcvoJUZfXhFT
+         LQLGsqR2AEQcWsh+GEKFwmg8eJIkx4F/lUa7jDfkJ7U9sruQBII2/HEbXOb9Cvz/LDpi
+         gbuKx9Fhd6m8UjikhLuIE9cnemCFlFKXzLfufF2ovyo01VgRHHIDpS4tEZ/D9yNwYxs3
+         g1cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790890859; x=1791495659;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y5VVpxkCw2qSWatTTLuSmXtriX32bvao8AVsrJEur4A=;
-        b=CYJW83mXF1gi6EWg+Lg9o0X6ukpJ8zmjhZur5YXAO1bPOLUk51Qb2Ovw3yuSP/B2ge
-         thB4Jgry6MCte0klmaZt40+1wzK1mAR4F61IcFToK6CM4Y9w5G9w3+Ia/XzWnqrPkZvO
-         NtT7KYormLxOROlv1WmrzqfspOY7T2Bc1PK21dXbpzYeR842JjIOrDdnj6x/9sKKRKbg
-         j4MPU++hUkHaFpeH3ZL8sQHorB1RWcoSmliOAdKBboq8BNLP2/0hUGgFqe1JiZ7itGnH
-         nl4a1+b8l7HUUHDMqtgCj/bWc5nFboWXV8jYDAsw/kf259vj8baEsoCXASXBcwUxdcP2
-         cLVA==
-X-Forwarded-Encrypted: i=1; AKwUvBywl/P1zWgh97U4ot82484IEjcY3+9BlDYlHhPFobbotVrWGHrNvc8siuW5Vuv1MMy/E7zVkalkMnbm3pE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKIbAtCJS4/k6q0UmVPbu4xR4hLOYp40wuLAKDvkfnRmUZPCll
-	stL/qMvkyTHdhfX1YjwKNh5v+MhqfhYA+u41KwDY0rVX+dNB1OSeLcoVAuCdeNZ7nbBgtWKxtj+
-	/3J54bwPQNvVu+6Tv7JLwvrzfuhd5DwU=
-X-Gm-Gg: AYBFou2I6Kp3IsEa+WUjSQRr657jlLhaGq0YhXqDKaBsm/8+Z98yT0nLU3IQ0GfmTBR
-	mQm/deg8sXa4cMD5Bj8UI3m/Ru2QGXLcJ1H5sjTVG1VeiYFb8qtKPgfY6w6KYL6GvfyC0cyIyPM
-	hzwcvBpLOz8XnmmPNTuOXmEOC9tfntq54GexMGfW9pFNqHDAHwMb7rIRtVmPLnGv8U2aRzfK9no
-	IPjFIuhKs4etp9XqVkDWgbS88LC/4rS6EkVrGI6mcJjqF1uGvpu6ZkojjRIsQUg4mx9jDPa+wUl
-	FDqcmN7sq0ObJWoIbL+qkEtM3T7CDC3qs8BcIg2fkiSYkCcdjqUi/AMOxpqbl3C9uGhGJouOr6J
-	3sgxXatQRsjnEwdwVjUjLl4tRl1kg4ROmwVgP
-X-Received: by 2002:a17:907:3f18:b0:c2a:c793:bdfd with SMTP id
- a640c23a62f3a-c2e4af48856mr71023666b.21.1790890858948; Thu, 01 Oct 2026
- 14:40:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790890906; x=1791495706;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oaFDnLPAu8Azz5pGOzAaVOnZU0E7BdpohXF2E62Q87s=;
+        b=eAOm6vyFpGh+pifMwfA2ThO8M/7gcfqbORaZaSppTWFiRw24cBlKoU9o/7w2FNZEGW
+         xVL/30+Ev3wJyOZJjKj53gfkTgjuHERy1t+qKzSOALb8ppLc6zT4fMVKdg6qkGZmHyWT
+         bLWo1qGgqqAw2noXJ4hkceh/boKJj5AfU06UuGJ2AKfsoR1bYZuF+rPo8Q3GjuoiJw9R
+         EqGFQcfLnS0e4fVQhYcaFYLeFYFRkHo9YMIsbKfMVsiZwkz+mV+6rBe4kbQTYQy9NIeo
+         87XS9FHdgYXTg8SElqKl1TPqmqPlptoedxh7bbpFhnOD4OaCqLHb0Lyf2LbjyczOFkB0
+         xhXA==
+X-Forwarded-Encrypted: i=1; AKwUvBz81z6ZecJQHJevwyYcvmHpKzF6ucgoGL88/aWqfgci7i94Sbx+brnf12Yoz96b+0mZijMK29C6f8tVTk8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyqcIcHMFvnTHnp9SeG1sY6i+C0BfDDaiqjpIzrzMgVTlkfVoZ
+	VX4oZz8YfdE2Y3Vn6qEDHWg/xNwbTy1zgg4rH6YGmxuVCy115CcdFxWrQdO/Vgovsl0m5g7NRfw
+	lZairxCGF+uCIdGv9hQ6epNS+ejRGFOb9iIB8Jk6SrWMDSH4wPzTtIAkLXbEgTJrQiA==
+X-Gm-Gg: AYBFou1K1YS1FQ9he6eDTSk7JvgyA4W0efrUbN7TCKTJ5TxWJdcsygrJhA8Tvjwy6FU
+	Jtn7yqjFmPKGhbKMSUuSrx+hYENgstVAAzfjvildxkXWYlUeb4mQ9p9ZBsW+qP5ZOuRxTSL8H9H
+	CF1miV5drjONx5sv+5CHnNXqYfCJQK6Z30BRjKEqkeMrHv5TqVa7IN4CFyAa0UWU2ELgKAgsETD
+	LlBIQLdTlyPjTreS6XIJRZIvtX30bRKuPZZrdtpnCmgqDbNskDVOYy7K65FoGj3KAsW0wIql919
+	39pR8cFBXc9zRPJ13Bhky8/3mJLFI16lELrgCeaWbFzK33irQ4Tmb9IruUrk/t/FSCpVDXKvg9s
+	nNKimrwJM2Vf/ide63du7lALu9sr64eJQgd9g31SIGA==
+X-Received: by 2002:a05:6a00:409a:b0:882:1b4d:1840 with SMTP id d2e1a72fcca58-88af58d4e46mr745861b3a.24.1790890906208;
+        Thu, 01 Oct 2026 14:41:46 -0700 (PDT)
+X-Received: by 2002:a05:6a00:409a:b0:882:1b4d:1840 with SMTP id d2e1a72fcca58-88af58d4e46mr745848b3a.24.1790890905746;
+        Thu, 01 Oct 2026 14:41:45 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0cb72834sm165561b3a.45.2026.10.01.14.41.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 14:41:45 -0700 (PDT)
+Message-ID: <1ed590aa-a4bf-4980-82e1-185aee205909@redhat.com>
+Date: Fri, 2 Oct 2026 07:41:37 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927154101.122633-1-voytikd@gmail.com> <art6lF6jcHBNHCi3@levanger>
- <CAAX90H1Ma5TkiSSg0CB-Tb__G++h-_P=+kiJbaQ4DtS0c+kVRw@mail.gmail.com> <ar525jXEMt3ZecH_@levanger>
-In-Reply-To: <ar525jXEMt3ZecH_@levanger>
-From: Dmitry Voytik <voytikd@gmail.com>
-Date: Thu, 1 Oct 2026 23:40:32 +0200
-X-Gm-Features: AclHuK-nO2DGm-gU5DRm9Y2ksUCS848YqU3yXcNvK5QLTtIvmU5910yu4CGwmdo
-Message-ID: <CAAX90H0PEoaKWrtNBHuN=M-cgqbP0BX2xd7_vc1+3S30xa-fLw@mail.gmail.com>
-Subject: Re: [PATCH v3] scripts/config: honor $KBUILD_OUTPUT by default
-To: Dmitry Voytik <voytikd@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Rong Zhang <i@rong.moe>, 
-	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 00/23] KVM: arm64: CCA: Add basic plumbing for Realms
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20261001210703.1597150-1-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Nicolas,
+Hi Suzuki,
 
-Thanks for the review!
+On 10/2/26 7:06 AM, Suzuki K Poulose wrote:
 
-On Thu, Oct 1, 2026 at 5:06=E2=80=AFPM Nicolas Schier <nsc@kernel.org> wrot=
-e:
->
-> On Tue, Sep 29, 2026 at 09:15:28PM +0200, Dmitry Voytik wrote:
-> > Hi Nicolas,
-> >
-> > Thank you for taking your time and reviewing the patch.
-> >
-> > On Tue, Sep 29, 2026 at 2:05=E2=80=AFPM Nicolas Schier <nsc@kernel.org>=
- wrote:
-> > >
-> > > On Sun, Sep 27, 2026 at 05:41:01PM +0200, Dmitry Voytik wrote:
-> > > > If $KBUILD_OUTPUT is set, use it by default if --file is not passed=
-.
-> > > >
-> > > > Fix the issue when the script silently updates a stale .config in
-> > > > the root directory, while the user expects ${KBUILD_OUTPUT}/.config
-> > > > to be updated.
-> > > > The problem can be worked around with --file, but this is easy to m=
-iss,
-> > > > and is inconsistent with how the Makefile and other tools work
-> > > > (e.g., scripts/diffconfig).
-> > > >
-> > > > How to reproduce the issue:
-> > > >       rm .config
-> > > >       export KBUILD_OUTPUT=3D.out
-> > > >       make defconfig
-> > > >       ./scripts/config \
-> > > >              -e CONFIG_UBSAN
-> > > >       grep: .config: No such file or directory
-> > > >
-> > > > Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
-> > > > ---
-> > > > v3:
-> > > >  - Added an example in the commit message how to reproduce the issu=
-e
-> > > > v2:
-> > > >  - Addressed comments by sashiko:
-> > > >    - https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%=
-40gmail.com
-> > > >    - use basename when --refresh is used
-> > > >    - remove echo which can be misleading when --file is passed
-> > > > v1:
-> > > >  - https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail=
-.com/
-> > > > ---
-> > > >  scripts/config | 6 +++++-
-> > > >  1 file changed, 5 insertions(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/scripts/config b/scripts/config
-> > > > index 32428ea909c2..cdee67157fe1 100755
-> > > > --- a/scripts/config
-> > > > +++ b/scripts/config
-> > > > @@ -130,6 +130,10 @@ on_exit() {
-> > > >  trap on_exit EXIT
-> > > >
-> > > >  FN=3D.config
-> > > > +if [ -n "${KBUILD_OUTPUT}" ]; then
-> > > > +     FN=3D${KBUILD_OUTPUT}/${FN}
-> > > > +fi
-> > > > +
-> > > >  CMDS=3D()
-> > > >  while [[ $# -gt 0 ]]; do
-> > > >       if [ "$1" =3D "--file" ]; then
-> > > > @@ -229,7 +233,7 @@ while [ "$1" !=3D "" ] ; do
-> > > >               ;;
-> > > >
-> > > >       --refresh)
-> > > > -             yes "" | make oldconfig KCONFIG_CONFIG=3D$FN
-> > > > +             yes "" | make oldconfig KCONFIG_CONFIG=3D$(basename $=
-FN)
-> > >
-> > > Thanks for attempting to fix the '--refresh' option.  But this way,
-> > > this may lead to very unexpected behaviour, as it regardlessly modifi=
-es
-> > > the path to the config file, even if it was specified via --file.
-> > >
-> > > If --file is given, it should take precedence over any KBUILD_OUTPUT
-> > > (or KCONFIG_CONFIG) from the environment and not be changed unrequest=
-ed.
-> >
-> > Thanks. I misunderstood what KBUILD_OUTPUT really means. For some reaso=
-n,
-> > I thought it should be a filename and not a full path. The
-> > documentation entry is a bit vague on it.
-> >
-> > > It would be a tiny bit nicer to just strip the KBUILD_OUTPUT path fro=
-m
-> > > FN, e.g. (untested):
-> > >
-> > >                 yes "" | make oldconfig KCONFIG_CONFIG=3D"${FN#${KBUI=
-LD_OUTPUT}/}"
-> > >
-> > > But I am still not feeling happy with that.
-> >
-> > Thanks for the suggestion! So, what I did - I just completely dropped
-> > the second change hunk, i.e. kept it as is:
-> >       yes "" | make oldconfig KCONFIG_CONFIG=3D$FN
-> >
-> > I tested the following three scenarios and it looks like it works as ex=
-pected:
-> >
-> > make mrproper
-> > export KBUILD_OUTPUT=3D.out
-> > make defconfig
-> > grep "CONFIG_UBSAN=3Dy" $KBUILD_OUTPUT/.config
-> >
-> > # test basic use case:
-> > ./scripts/config \
-> >        -e CONFIG_UBSAN
-> > grep "CONFIG_UBSAN=3Dy" $KBUILD_OUTPUT/.config
-> > ./scripts/config -d CONFIG_UBSAN
-> >
-> > # test --refresh picks up correct config file by using $KBUILD_OUTPUT
-> > ./scripts/config --refresh \
-> >        -e CONFIG_UBSAN
-> > grep "CONFIG_UBSAN=3Dy" $KBUILD_OUTPUT/.config
-> > ./scripts/config -d CONFIG_UBSAN
-> >
-> > # test --file takes precedence over $KBUILD_OUTPUT
-> > cp .out/.config .my_config
-> > grep "CONFIG_UBSAN=3Dy" .my_config
-> > ./scripts/config --file $(pwd)/.my_config --refresh \
-> >        -e CONFIG_UBSAN
-> > grep "CONFIG_UBSAN=3Dy" .my_config
->
-> This one shows one of the problems with scripts/config: while the script
-> itself handles relative paths to --file FILE from the current working
-> directory, a call of Kbuild changes the working directory to
-> $(KBUILD_OUTOUT) and realtive paths in KCONFIG_CONFIG are resolved from
-> there.
+[...]
 
-Indeed, with the patch, if I pass a relative path,
-it creates the config file in an unexpected place:
+> 
+> NOTE: There is a conflict with Fuad's patch to drop the WARN for unknown vm
+> ioctls, that is queued in fixes.
+> 
+>    https://lore.kernel.org/all/20260914093838.1082637-1-fuad.tabba@linux.dev
+> 
+> This series is comprised of (3) and (4) above.
+> 
+> The integration branch has been tested with the following components:
+> 
+>    tf-RMM:   main branch (commit 5e6e2acd) compliant to RMM-v2.0-beta3 [4]
+>    kvmtool: git@git.gitlab.arm.com:linux-arm/kvmtool-cca.git tag:cca-kvm-v20
+> 
+> [0] Arm CCA KVM Support v16 : https://lore.kernel.org/all/20260803134403.80630-1-steven.price@arm.com
+> [1] Linux firmware RMI v22 https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/fw_rmm/v22
+> [2] Linux GPF Host  https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/host-gpf/v19
+> [3] https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/kvm-v21/integration-v3
 
-       make mrproper
-       export KBUILD_OUTPUT=3D.out
-       make defconfig
-       mkdir .out2
-       cp .out/.config .out2/.my_config
-       ./scripts/config --file .out2/.my_config \
-              --refresh \
-              -e CONFIG_UBSAN
-       ls .out/.out2/.my_config
+This branch doesn't exist. I guess it's "cca/cca-host/kvm-v21/integration-v2" instead?
 
-Also, apparently, the following test case with --refresh misbehaves:
-       ./scripts/config --refresh \
-              -e CONFIG_UBSAN
-It creates .out/.out/.config :)
+> [4] https://support.arm.com/documentation/den0137/2-0bet3/
+> 
 
-I decided to always enforce converting $FN to the absolute path:
+Thanks,
+Gavin
 
-       diff --git a/scripts/config b/scripts/config
-       index 4e29c3084fec..0b28fc498195 100755
-       --- a/scripts/config
-       +++ b/scripts/config
-       @@ -147,6 +147,7 @@ while [[ $# -gt 0 ]]; do
-       shift
-       fi
-       done
-       +FN=3D$(realpath "$FN")
-
-       set -- "${CMDS[@]}"
-       if [ "$1" =3D "" ] ; then
-
-With this change, all tests pass, no side effects as it seems.
-
-> I don't have a solution in mind, that fits it all.  But I think it's
-> important to not make things worse (or more unexpected) than before, by
-> accident.
->
-> > If you are fine with the above, I can send v4 with adding the above
-> > testing steps into the commit message.
->
-> yeah, please send a v4 and then let's see what we'll do with it, ok?
-
-I'll send a v4 patch.
-Thanks for the review!
-
-> Thanks and kind regards,
-> Nicolas
-
-Best Regards,
-Dmitry Voytik.
