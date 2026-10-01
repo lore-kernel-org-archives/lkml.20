@@ -1,191 +1,177 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1786C3D2FF7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:10:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2983DD874
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856632; cv=none; b=lbh+be9Bb8atUr2HKRfThewm5dr2CVSDaAUCxSHyXl2zyrzfHQxY2UjW6yPePNx9mwJCyfAZAEoOcIQkTDHyy0T2z/s0Z53cEcP+314BCBSvdHaiPvbeoedjSc5xr+vdklWYScrxKsRQ4aDFLupyd89ZQeMG8sCRZLOg3x+IK2U=
+	t=1790856698; cv=none; b=qIGSCG/PCiNWb3rwLR2swNTl5uh52BiZ6WOvl7JT9oOT9Jvb4z/Pc60zeETI3kqrtjsSXVB7iLQSjfZtI7lSXYY7OhbQ2mU6yaIPGzQLZgdRdrtIP2vB3X9RNqciAhNxW28DhCAMyqEWGlTNYYa9tTu54w2kUggHr9VuqI99XHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856632; c=relaxed/simple;
-	bh=GfzGR1fGsN/V0+j7gvKYifuzwingsnYuNC+55v70W3E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lBB2Det7rlDJg51615PWvs25Mw1BbjiyB5WvjDvUbD3blDDNeLeiLckO2/qPaj7ncQb3Fz6uXzO9NFnuAoMelfKGBzd7XqBclYFnVK9QtXn+jU4GjZb7KtRI1JUuUm5AbRnv5QYzgx1f/GBhLUtoBAEBejBYPtxTdCGq/OuTAPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=s9N4aedE; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790856698; c=relaxed/simple;
+	bh=yCbYjKH+S5QEfiIfZQdjrjC5qwYdJpqahL/rYFDjmls=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=IDxwLQWgEEep4oAxwA7bHhVx/fSlp4if2KMpFK/Kn3mznw+Gkhi48rzv2TnoSMR3sLnw/a2EB7jYm0qoCfSJKYE0viAIiCjoqNSbAk2UWR8wT0XihS8CbObH3aPX/544d6m7zIlvg39Y6yCwDVDWYgK6Kbm4YUC1Rim2IxmznBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=DdZptR14; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MTMJkvNI; arc=none smtp.client-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="s9N4aedE"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71119143D;
-	Thu,  1 Oct 2026 05:10:13 -0700 (PDT)
-Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 184C23F85F;
-	Thu,  1 Oct 2026 05:10:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790856616; bh=GfzGR1fGsN/V0+j7gvKYifuzwingsnYuNC+55v70W3E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=s9N4aedEESWfJQKMgJKYh1Qf9QTqNzfpKMcexbyKaFnIc7ItcimsgjuAz1MB5JZGl
-	 EPHqSxyYU3ZvSwEfbN6O0QLwE2jySodrKKWQAK03fBHcBAwn3b+DegcZ4lcI13xMTC
-	 79ZIzB+ACZqABxYBZIF48V4ozRurrc1t714p4bKg=
-Message-ID: <ce0a72a9-ea08-4899-b282-ea39b195a161@arm.com>
-Date: Thu, 1 Oct 2026 13:10:13 +0100
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="DdZptR14";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MTMJkvNI"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 6C72514000FE
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:11:30 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 01 Oct 2026 08:11:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790856674;
+	 x=1790943074; bh=LrP4wnPTH49w5JcU809MXbLlJcIqsc8CmLzg77Y19Yo=; b=
+	DdZptR14wbpanHzm6uKkKZ0c9hXpIWiEzd/rLBR76KL5KksnHcsvaER2Qu/EZLX2
+	iTysz/+vPCwRIZ35fPbIJu8HtFLcQEOTDdrccmt5LhVUFNujINRMaSkpHpo7Hdk4
+	rJk1InvEJnIw813C43vLa5Qr5CwpHE/r0CO1nvF4hPMtCjKDqMuqMgQJ1svVepYk
+	GvV80ITRAyKcVoU8xpiSTLx2ParbRk2TkJDOZNpqE1tWZjqqJywaEbcGw7S2xgiG
+	8KZbkkO4Smu6Qyr87tB8+t5EYiigRa3FeL/96OLJ2poloiH9igIqDbcqKnpglzuB
+	8PjKYewAK3Dg/3nCBXskvQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790856674; x=
+	1790943074; bh=LrP4wnPTH49w5JcU809MXbLlJcIqsc8CmLzg77Y19Yo=; b=M
+	TMJkvNIJV1H2eTr4uWJq7gIRL4MykfuemTKy3B8qDSQbSo0zIeVIXZKoDMnJ0QeY
+	cRL8+5bXAI54jMaw+DclA5lCIqX8N7DRrMcllnGqJcC5+4aofEPGPXW7wMSUVBkY
+	To8PD1I8mkSFZBr75Np9MWQ8yhQ7NyMQfjuud7GZqLY6i+GBYrKuW8Sika6VR0Mv
+	FM0YqHlrIGa0jUZtikBYE5yZAUqFYZK0dmj7LTgFfh6hRFDVe0w5Q33s6YBmZsM+
+	TsNQrs8hHK8OwprTOFSJwkO/Wf5efJdOkjKdL2qyssfe3qqsNjt8BD/YSfAQcqbx
+	6OOTYNm6IJNHvRgu9BwWA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790856674; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:TPIbfrkYLJ9wUIO0Ie104oLAdmucgivK9R13Kme2ethIGWQ
+	wNmeshR63mCBaBqyvsxCGoOFJ1U0EKdmsivpC8hN4dxHylAQNpTw2iViQFI/XpQt
+	0vcJr/owGjQaf9Mu2Jw0wCo1UJMqUzgTree3Zzr4BmDf9YkIUN66sBFXhfn3IFiv
+	TGN2aezV4KnAQYy1TKrTBpsJ81QsxoAKh6//gxdNOU2ipOkFg1mFssrvginh+gYC
+	oDf0ygHP/LN3rIAKcR8YyJOD11Dm1KvZQs3CkCY/K/DDWIkMa6aLjr/R2lQ1BavN
+	NcPAJl2ENnyuDB9J+33YSlYC/Ld6nBWKFxlaw3w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:0d3aVtmayZTOzeQ+MpEcEkolJRwy5WF92/2k3IpurhQ=:yCbYjKH+S5QEfiIfZQdjrjC5qwYdJpqahL/rYFDjmls=;
+X-ME-Sender: <xms:2k2-aiTRKWbMc107WhYzHUymmXtYgzuL5oAi-X1o6feSNt-MwREVtg>
+    <xme:2k2-aik4c_KL12gKMLv9VYRj5ZxXpw9mV_peTngbibceQZCIiLTLMk7fQXLhxlE0D
+    l_uDmIrMBPDhtxifqu3dqdCAK4IYCNgAH2fZAvJwGy0MZLgLkxHe-hQ>
+X-ME-Proxy-Cause: dmFkZTGKlnIEsaaPd8MjhsmVKAuQGGCkE6iNhqa5cgmJ0cUZLPa4JCOr3xxfefUsNnq5Qu
+    zIlkZrYxyZZ90IF/NlCb7O0gNqwyI0nsaf77oXEqC6rcMe0AJlx1DbPIELICOaraMNVL92
+    6YD4uYwOQjzFJSe68LWxRWl4gKdGiTNLNgpwEuhc4yqMab+1djzPF1FbsLmn6QlxedBlUz
+    QE3A8cLPSz0AE36Lw+kxBpXqqnwRsojToOFL+h3cipO/SFygy55CoVQWctruTKuv4FhoUW
+    vEWWPlLDvbsfaWv1HNFhJsDx1888K0soTkGt1ki4fl2kkn+ckgLKjRJkrYgYxrcGPfHTqO
+    /U6VHuVF8Gl+WbJM6vfMhtApm5BKKwPu2MYVZh/dd/u7pO3yjAtlHdM1OtMZEYxTrQQVgn
+    DOJE4fvSrQqtqQfKX6KzzPM+I3vemYarjMgstK/GlVj5OSnz7pMRx908MvtCOlH4j9SlbA
+    +B7i6gOX2+QOJ9kzn8mVblz3NJfUfzzjFA/7H1F7crEh4epIST19sEeHee+RBIZM9qhvjs
+    85fruzJ6LWf4fJ8aKLau5nkmelaefTXuDwSKfj3H3VNz43iuHRRvFLPxt9TT9eaxq8hLAw
+    p4LOQzewFyYLMGCm3NDh14uUgZGNpbLZ5/ox80hAW52RxUDHGYuVp+yY7MSQ
+X-ME-Proxy: <xmx:3k2-arboxQ7fgmQSr02igr-P_X0AC1jaCz4CHvCFupNkg6NACoELFw>
+    <xmx:3k2-avz2MRDuBo2q7ocXxhEGE4TMtfUeCjRGvXUl7FsZySNYSepcNg>
+    <xmx:3k2-aqaToNTnuqqH1NTAkNGi7kgMn8cmSG4Qomxq2MZqShqXpauA7g>
+    <xmx:3k2-amyTTgKTSRZ_1u8LkWAANhuCjngI3vrEbXzXCK1vz6dQeLne7w>
+    <xmx:4k2-auNCvzqprV9hX_UxKrvj8cfadVF3_geCgaO3KJdhUG4fMXa8qFc4>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3DC4332A008A; Thu,  1 Oct 2026 08:11:06 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] arm64: errata: Factor out broken AMU const counter
- cap
-To: Beata Michalska <beata.michalska@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
- James.Morse@arm.com, xuewen.yan94@gmail.com, seanwang1@lenovo.com,
- linux-kernel@vger.kernel.org
-References: <20261001090050.3849551-1-beata.michalska@arm.com>
- <20261001090050.3849551-2-beata.michalska@arm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261001090050.3849551-2-beata.michalska@arm.com>
-Content-Type: text/plain; charset=UTF-8
+X-ThreadId: AyQhVaDaKSSk
+Date: Thu, 01 Oct 2026 14:10:06 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Steffen Eiden" <seiden@linux.ibm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Cc: "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ "Andreas Grapentin" <gra@linux.ibm.com>,
+ "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>,
+ "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Friedrich Welter" <fritz@linux.ibm.com>,
+ "Fuad Tabba" <tabba@google.com>, "Gautam Gala" <ggala@linux.ibm.com>,
+ "Hariharan Mari" <hari55@linux.ibm.com>,
+ "Heiko Carstens" <hca@linux.ibm.com>,
+ "Hendrik Brueckner" <brueckner@linux.ibm.com>,
+ "Ilya Leoshkevich" <iii@linux.ibm.com>,
+ "Janosch Frank" <frankja@linux.ibm.com>,
+ "Joey Gouly" <joey.gouly@arm.com>, "Marc Zyngier" <maz@kernel.org>,
+ "Nico Boehr" <nrb@linux.ibm.com>,
+ "Nina Schoetterl-Glausch" <oss@nina.schoetterlglausch.eu>,
+ "Oliver Upton" <oupton@kernel.org>,
+ "Paolo Bonzini" <pbonzini@redhat.com>,
+ "Sean Christopherson" <seanjc@google.com>,
+ "Suzuki K Poulose" <suzuki.poulose@arm.com>,
+ "Sven Schnelle" <svens@linux.ibm.com>,
+ "Ulrich Weigand" <Ulrich.Weigand@de.ibm.com>,
+ "Vasily Gorbik" <gor@linux.ibm.com>, "Will Deacon" <will@kernel.org>,
+ "Zenghui Yu" <yuzenghui@huawei.com>, "Lorenzo Stoakes" <ljs@kernel.org>
+Message-Id: <e2742ccb-6b91-463c-a148-30b7e2f41e9a@app.fastmail.com>
+In-Reply-To: <20260930173441.66762-24-seiden@linux.ibm.com>
+References: <20260930173441.66762-1-seiden@linux.ibm.com>
+ <20260930173441.66762-24-seiden@linux.ibm.com>
+Subject: Re: [PATCH v9 23/24] KVM: s390: arm64: Implement basic page fault handler
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 10/1/26 10:00, Beata Michalska wrote:
-> Move the workaround from the erratum 2457168-specific cpucap to a generic
-> broken AMU constant-counter one. This keeps the existing Cortex-A510
-> handling unchanged while allowing other errata with similar AMU constant
-> counter issue to share the capability bit and call sites.
-> 
-> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> ---
->  arch/arm64/Kconfig             |  8 ++++++++
->  arch/arm64/kernel/cpu_errata.c | 20 ++++++++++++++------
->  arch/arm64/kernel/cpufeature.c |  2 +-
->  arch/arm64/kernel/topology.c   |  7 ++++---
->  arch/arm64/tools/cpucaps       |  2 +-
->  5 files changed, 28 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b5a51b0ef9440..3b6c052d46a18 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -1040,9 +1040,17 @@ config ARM64_ERRATUM_1902691
->  
->  	  If unsure, say Y.
->  
-> +config ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> +	bool
-> +	# Targeting errata affecting AMEVCNTR01, the AMU constant counter.
-> +	# On affected CPUs the counter may not increment at the expected rate,
-> +	# making it unreliable. As a result, AMU users should treat it as
-> +	# unavailable rather than relying on misleading counter values.
-> +
->  config ARM64_ERRATUM_2457168
->  	bool "Cortex-A510: 2457168: workaround for AMEVCNTR01 incrementing incorrectly"
->  	depends on ARM64_AMU_EXTN
-> +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
->  	default y
->  	help
->  	  This option adds the workaround for ARM Cortex-A510 erratum 2457168.
-> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-> index 5db8f0619e4bc..8ce559ac073c7 100644
-> --- a/arch/arm64/kernel/cpu_errata.c
-> +++ b/arch/arm64/kernel/cpu_errata.c
-> @@ -381,6 +381,16 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
->  };
->  #endif
->  
-> +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> +static const struct midr_range workaround_amu_constcnt_list[] = {
-> +#ifdef CONFIG_ARM64_ERRATUM_2457168
-> +	/* Cortex-A510 r0p0-r1p1 */
-> +	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-> +#endif
-> +	{}
-> +};
-> +#endif /* CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT */
-> +
->  #ifdef CONFIG_CAVIUM_ERRATUM_23154
->  static const struct midr_range cavium_erratum_23154_cpus[] = {
->  	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
-> @@ -916,14 +926,12 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
->  		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
->  	},
->  #endif
-> -#ifdef CONFIG_ARM64_ERRATUM_2457168
-> +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
->  	{
-> -		.desc = "ARM erratum 2457168",
-> -		.capability = ARM64_WORKAROUND_2457168,
-> +		.desc = "Broken AMU AMEVCNTR01 (const counter)",
-> +		.capability = ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT,
->  		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
-> -
-> -		/* Cortex-A510 r0p0-r1p1 */
-> -		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
-> +		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
->  	},
->  #endif
->  #ifdef CONFIG_ARM64_ERRATUM_2038923
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 17b83a2518a8f..1569f84214763 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -2064,7 +2064,7 @@ static void cpu_amu_enable(struct arm64_cpu_capabilities const *cap)
->  		cpumask_set_cpu(smp_processor_id(), &amu_cpus);
->  
->  		/* 0 reference values signal broken/disabled counters */
-> -		if (!this_cpu_has_cap(ARM64_WORKAROUND_2457168))
-> +		if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT))
->  			update_freq_counters_refs();
->  	}
->  }
-> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> index d28438f8b83f1..64588554e7f76 100644
-> --- a/arch/arm64/kernel/topology.c
-> +++ b/arch/arm64/kernel/topology.c
-> @@ -402,7 +402,7 @@ static void cpu_read_constcnt(void *val)
->  	 * the counter is disabled. A return value of 0 at counter read is
->  	 * properly handled as an error case by the users of the counter.
->  	 */
-> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
-> +	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
->  		      0UL : read_constcnt();
->  }
->  
-> @@ -463,8 +463,9 @@ static void amu_read_core_const_ctrs(void *val)
->  
->  	/*
->  	 * cpu_read_constcnt() incurs slight latency due to the
-> -	 * ARM64_WORKAROUND_2457168 check. Read it first to minimize
-> -	 * the sampling skew between the const and core counters.
-> +	 * ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT check.
-> +	 * Read it first to minimize the sampling skew between the const
-> +	 * and core counters.
->  	 */
->  	cpu_read_constcnt(&ctrs->constcnt);
->  	cpu_read_corecnt(&ctrs->corecnt);
-> diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
-> index 2775ba3359cfe..58b6c084f9f25 100644
-> --- a/arch/arm64/tools/cpucaps
-> +++ b/arch/arm64/tools/cpucaps
-> @@ -105,7 +105,6 @@ WORKAROUND_1902691
->  WORKAROUND_2038923
->  WORKAROUND_2064142
->  WORKAROUND_2077057
-> -WORKAROUND_2457168
->  WORKAROUND_2645198
->  WORKAROUND_2658417
->  WORKAROUND_4193714
-> @@ -132,3 +131,4 @@ WORKAROUND_REPEAT_TLBI_SYNC
->  WORKAROUND_SPECULATIVE_AT
->  WORKAROUND_SPECULATIVE_SSBS
->  WORKAROUND_SPECULATIVE_UNPRIV_LOAD
-> +WORKAROUND_BROKEN_AMU_CONSTCNT
-> -- 2.43.0
-> 
 
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> +		/*
+> +		 * Check for a cache maintenance operation. Assume the guest is
+> +		 * cautious and skip instruction
+> +		 */
+> +		if (kvm_is_error_hva(hva) && kvm_vcpu_dabt_is_cm(vcpu)) {
+> +			kvm_incr_pc(vcpu);
+> +			ret = 1;
+> +			goto out_unlock;
 
-Thanks
-Vladimir
+Hi Steffen,
+
+[Adding Lorenzo Stoakes to Cc]
+
+I see this function fails to build on top of linux-next, as the 
+kvm_vcpu_dabt_is_cm() function was removed by commit 18b94675b1fb
+("KVM: arm64: Use ESR helpers in guest abort handling").
+
+I used this patch to make it build, but I'm not sure if this is
+the correct fix:
+
+diff --git a/arch/s390/kvm/arm64/mmu.c b/arch/s390/kvm/arm64/mmu.c
+index 3c1c8a2def73..7ee157c61d70 100644
+--- a/arch/s390/kvm/arm64/mmu.c
++++ b/arch/s390/kvm/arm64/mmu.c
+@@ -119,6 +119,7 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
+ 	hva = gfn_to_hva_memslot_prot(memslot, gfn, &writable);
+ 	write_fault = kvm_s390_cur_gmap_fault_is_write(vcpu);
+ 	if (kvm_is_error_hva(hva) || (write_fault && !writable)) {
++		unsigned long esr = kvm_vcpu_get_esr(vcpu);
+ 		ret = -ENOEXEC;
+ 		/*
+ 		 * The guest has put either its instructions or its page-tables
+@@ -143,7 +144,7 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
+ 		 * Check for a cache maintenance operation. Assume the guest is
+ 		 * cautious and skip instruction
+ 		 */
+-		if (kvm_is_error_hva(hva) && kvm_vcpu_dabt_is_cm(vcpu)) {
++		if (kvm_is_error_hva(hva) && esr_dabt_is_cm(esr)) {
+ 			kvm_incr_pc(vcpu);
+ 			ret = 1;
+ 			goto out_unlock;
+
+
+      Arnd
