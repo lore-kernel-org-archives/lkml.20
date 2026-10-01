@@ -1,175 +1,211 @@
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74577419302;
-	Thu,  1 Oct 2026 16:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF00C4A3862;
+	Thu,  1 Oct 2026 17:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873878; cv=none; b=V8gM+83Zlmo4w6RCZfxFMgFiZXNIq57gzo09Ztyzx6xX4ovwvA/zIX9E06M8vq2bZzaTIMNa907h+tXwr2A4o3pme6IEZjEp+SLp6mdFOmqbUpuBBp6FLfXOS8J12JW8jDuO+P2QIgpYiPI4vmXwuecq5tjVjPmdRgCs57lqGcc=
+	t=1790874162; cv=none; b=AqrTlfxuNWjc9Krx5KRBjv+wMHroIsB3CKr38GQqRABI9aCH28AyYfYfdROjP4VlOrODr8d3YUD+mR+ckDd9ncEUY+kGV/5WZZ6hos6gN/VyXHVcPNLsi19sJ05krha7QIi3T0wQgk+T4mF+ZBI/5lZnGWRMFIYf8kiGh6sKjEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873878; c=relaxed/simple;
-	bh=bqqcD5uGSPTXpoqMgTDCaAYMvQrQ0DEx0hOijPZIzNI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KCTdJjiaWTAXN/ugT43uUE1LOXSTMu7gWDqy91GHE8JANBIK4c9fxijYkqesmIttHIthZmO6p7NGcwTQhBY6BMYobxUPfinSIYbTpp69o+5vKzjjZVh7fLmXbmWsyszEjosr51p6HaLpsaK5SNJZ/59yxU+P4kEcFt7AI7xK/fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=XS50oMlV; arc=none smtp.client-ip=130.117.225.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1790874162; c=relaxed/simple;
+	bh=l9dUTRwvgqc1WP+4Zk1aYmL4l0jLZasgEBzCwMrMk+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=U+XYjO/186Fjt7jGvWTEBAngUO6LkG7Nuo/hE0emEPUL8NOc43w967jOPrsF0s5n11nzGak2wrbGzB9quyxLMzvEmCrxy9mUb/qEkOg3abIcOW31eEgCPek2JoWPNOdNIubVk4BN1n905DBL8RSHBz4+YdEaEDBA37q1+kTDaeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Gldmk7Qn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="XS50oMlV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=c9nnVi5dNuW58KgB8WVicvJQWfkeCYAVCauaYtGercU=; b=XS50oMlVtfrOTy3xWly
-	AMG7BON7i/3Vw+d0g5s5sgABK664LTS5vuCLV5e/rBh298cvKrZO1BjB6AhGPNpbX8jXK3OzLPv3q
-	A7VVpXGwVwRiFEGZaWyVfM0IjH9NXib1jC4IPVsn0zebq6CWy0Imjj4GZ+HBMSi5GDEEAGmn5D2Zy
-	f23dtE+3f2RhuUW+VlCYhOmiPQsZqgeVkxnIaxg/qxBvNJhJHFX+Ug3UrFNQuj1bLW98funpB9X2Q
-	LRiC6Bty1EuoQBEuLpuDifkwggO6DzsDrpUwku0cb7dKrgsfbNB59wpnk8kXgO5tcyEY2lYpn2lXW
-	eQDmar5mZ0fbPow==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xCK3B-001W2F-28;
-	Thu, 01 Oct 2026 18:57:40 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Thu, 01 Oct 2026 18:57:12 +0200
-Subject: [PATCH 2/2] kbuild: move GCOV flags to scripts/Makefile.gcov
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Gldmk7Qn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B440497;
+	Thu,  1 Oct 2026 10:02:27 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4CE233F85F;
+	Thu,  1 Oct 2026 10:02:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790874150; bh=l9dUTRwvgqc1WP+4Zk1aYmL4l0jLZasgEBzCwMrMk+E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Gldmk7QnRni3aiFeWUUJzLP0btxS+WxJc+KhRKjF95pfna6heJ+SuyuiTsnqZe9WW
+	 u66m1WGr7IK4Ya6urCwRwTegi1ZX+qydSl4wexR4k+xPyiE0FWSSlJ3yJLy0VqWJX2
+	 dMdhcD1y/aXVVETjtrkoiNuKE00k13C9gC/C3WQU=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	David Matlack <dmatlack@google.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Josh Hilke <jrhilke@google.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Wu Fei <wu.fei9@sanechips.com.cn>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/3] KVM: selftests: Check dirty-ring size before enabling
+Date: Thu,  1 Oct 2026 18:02:22 +0100
+Message-ID: <ar6SHjnMYNqiEpVa@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ar5yW30S75THCfdV@LeoBrasDK>
+References: <20260929113711.2064390-1-leo.bras@arm.com> <20260929113711.2064390-3-leo.bras@arm.com> <ar1xne00AHnJ-p_d@google.com> <ar5yW30S75THCfdV@LeoBrasDK>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-b4-prep-gcov-v1-2-794792e06f24@virtuozzo.com>
-References: <20261001-b4-prep-gcov-v1-0-794792e06f24@virtuozzo.com>
-In-Reply-To: <20261001-b4-prep-gcov-v1-0-794792e06f24@virtuozzo.com>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Peter Oberparleiter <oberpar@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Masahiro Yamada <masahiroy@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Mikhail Zaslonko <zaslonko@linux.ibm.com>, linux-kbuild@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4238;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=bqqcD5uGSPTXpoqMgTDCaAYMvQrQ0DEx0hOijPZIzNI=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqvpEFygr8m9YxOLhPf0JMWzH/b8BAo9EFk6Zv5
- aOhb/ca2jmJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCar6RBQAKCRBRlgpH+WFc
- KoltD/9p5Z8jvJRGwn7+O4+xbxNPKbi5Z7rxXdDS3mw8ihd4fO623mlFKvagq9rztO/v+r+1g9H
- QfLkPtSem7wnhYIz2nLIfwNtZbXnx8WWe2JvmjON+LoJqd5DsKPkMmV5urEJl20jAykyYn1FyJ3
- ULqApwLgsvA01elmTrjabBn3mr7YSWgVBIvbgqHHM3ZmVgqVbe2YSvULlwrIpv2P+1FfBt+I0aM
- WV5lmRGXWP2grQGeYdMXgMB8c1r70rpulHM5MVyU45zb4+f3nZoGL2GNOCsB8WQcgGRp4ZhwCVA
- Lj0TYQzPo2yNiRLYrV4uqPmMYJnEm02Eyu2FbDijYhQ+wBD9CizMEVuda20R+nBdWQRzeKMoQC0
- i6bImkHjprFCIlhsB9odMY2dQkzsP5CwPxMbS9emPxgdC0P1HAI9a1KvVFCYSwmFwH+JUrNWRwp
- ja2M748gPbq/3G9/bXS/YyciS6jpT7JoFRE80wZpjZL8Otql6RMcBoWh75EO12/dUfk+8DMQdom
- 97v/tw1K7RSTxkA6MAEFXu5kErUN6CFk10YLWIta/oGrMJhhyPCbQ+UJtNy78bWSer/1NPqyRBY
- 9+LlY47upam6I8IkBFoEdralSmUhDTPT/wOaDYo9WZzW+5i/XHiaP7b2KpzIYZ2Xn3MEmLyvsY3
- /J//ev0seZ2nrXg==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
- * split the CFLAGS_GCOV block out of the top-level Makefile into
-   scripts/Makefile.gcov
- * include it via include-$(CONFIG_GCOV_KERNEL) like neighbour
-   KASAN/KCOV/UBSAN makefiles do
- * keep the include before scripts/Makefile.gcc-plugins: the try-run
-   must not get -fplugin= options, plugins do not exist on clean builds
+On Thu, Oct 01, 2026 at 03:46:51PM +0100, Leonardo Bras wrote:
+> On Wed, Sep 30, 2026 at 01:31:25PM -0700, Sean Christopherson wrote:
+> > On Tue, Sep 29, 2026, Leonardo Bras wrote:
+> > > As of today, trying to enable dirty-ring with a size bigger than the
+> > > maximum will return an "argument list too long" error.
+> > > 
+> > > Change vm_enable_dirty_ring() to get the maximum size, then compare it to
+> > > the desired size before enabling. If the value is invalid, print a more
+> > > precise error message.
+> > > 
+> > > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > > ---
+> > >  tools/testing/selftests/kvm/lib/kvm_util.c | 21 +++++++++++++++++----
+> > >  1 file changed, 17 insertions(+), 4 deletions(-)
+> > > 
+> > > diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+> > > index 9ddc047d5c27..15a671b71553 100644
+> > > --- a/tools/testing/selftests/kvm/lib/kvm_util.c
+> > > +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+> > > @@ -168,24 +168,37 @@ unsigned int kvm_check_cap(long cap)
+> > >  	ret = __kvm_ioctl(kvm_fd, KVM_CHECK_EXTENSION, (void *)cap);
+> > >  	TEST_ASSERT(ret >= 0, KVM_IOCTL_ERROR(KVM_CHECK_EXTENSION, ret));
+> > >  
+> > >  	kvm_free_fd(kvm_fd);
+> > >  
+> > >  	return (unsigned int)ret;
+> > >  }
+> > >  
+> > >  void vm_enable_dirty_ring(struct kvm_vm *vm, u32 ring_size)
+> > >  {
+> > > -	if (vm_check_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL))
+> > > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL, ring_size);
+> > > -	else
+> > > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING, ring_size);
+> > > +	long cap = KVM_CAP_DIRTY_LOG_RING_ACQ_REL;
+> > > +	int max_size = vm_check_cap(vm, cap);
+> > > +
+> > > +	if (!max_size) {
+> > > +		cap = KVM_CAP_DIRTY_LOG_RING;
+> > > +		max_size = vm_check_cap(vm, cap);
+> > > +	}
+> > > +
+> > > +	TEST_ASSERT(max_size > 0,
+> > 
+> > Rather than open code this, which is kinda sorta going to show up in multiple
+> > places, what if we do this as a prep patch?  Then vm_enable_dirty_ring() can use
+> > kvm_get_dirty_ring_cap() (completely untested).
+> 
+> Sure, if you think it's useful :)
 
-CFLAGS_GCOV is no longer defined when CONFIG_GCOV_KERNEL is off:
- * its user in scripts/Makefile.lib is guarded by the CONFIG_GCOV_KERNEL
- * in i915/xe header an empty value is harmless
+Oh, vm_check_cap() is different than kvm_has_cap()/kvm_check_cap():
+IIUC, the vm* version will check if the extension is enabled in the current 
+VM, while the kvm* version will open a new /dev/kvm fd and check the 
+extension there, probably meaning the CAP is available in the system.
 
-The try-run compiler invocations also stop running on builds without
-GCOV.
+So, maybe we would need a slightly different approach?
+I.E. have the kvm_get_dirty_ring_cap() to use the VM version, and 
+have dirty_ring_supported() to start the new /dev/kvm fd and free it later?
 
-Suggested-by: Peter Oberparleiter <oberpar@linux.ibm.com>
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
----
- MAINTAINERS           |  1 +
- Makefile              | 22 +---------------------
- scripts/Makefile.gcov | 21 +++++++++++++++++++++
- 3 files changed, 23 insertions(+), 21 deletions(-)
+What do you think?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 360977678f707..fabf33758351f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10897,6 +10897,7 @@ M:	Peter Oberparleiter <oberpar@linux.ibm.com>
- S:	Maintained
- F:	Documentation/dev-tools/gcov.rst
- F:	kernel/gcov/
-+F:	scripts/Makefile.gcov
- 
- GDB KERNEL DEBUGGING HELPER SCRIPTS
- M:	Jan Kiszka <jan.kiszka@siemens.com>
-diff --git a/Makefile b/Makefile
-index 3b69b973f7598..f3ea94ceb1cec 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1176,27 +1176,6 @@ endif
- # Ensure compilers do not transform certain loops into calls to wcslen()
- KBUILD_CFLAGS += -fno-builtin-wcslen
- 
--CFLAGS_GCOV	:= -fprofile-arcs -ftest-coverage
--ifdef CONFIG_CC_IS_GCC
--CFLAGS_GCOV	+= -fno-tree-loop-im
--# Use atomic counter updates to avoid concurrent-access crashes in GCOV.
--# Only enable if -fprofile-update=prefer-atomic does not introduce new
--# undefined symbols (e.g. libatomic calls that the kernel cannot link).
--CFLAGS_GCOV	+= $(call try-run,\
--	echo 'long long x; void f(void){x++;}' | \
--	$(CC) $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS) -w $(CFLAGS_GCOV) \
--	-x c - -c -o "$$TMP.base" && \
--	echo 'long long x; void f(void){x++;}' | \
--	$(CC) $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS) -w $(CFLAGS_GCOV) \
--	-fprofile-update=prefer-atomic \
--	-x c - -c -o "$$TMP" && \
--	$(NM) "$$TMP.base" | grep ' U ' > "$$TMP.ubase" || true ; \
--	$(NM) "$$TMP" | grep ' U ' > "$$TMP.utest" || true ; \
--	cmp -s "$$TMP.ubase" "$$TMP.utest",\
--	-fprofile-update=prefer-atomic)
--endif
--export CFLAGS_GCOV
--
- # change __FILE__ to the relative path to the source directory
- ifdef building_out_of_srctree
- KBUILD_CPPFLAGS += -fmacro-prefix-map=$(srcroot)/=
-@@ -1214,6 +1193,7 @@ include-$(CONFIG_KCSAN)		+= scripts/Makefile.kcsan
- include-$(CONFIG_KMSAN)		+= scripts/Makefile.kmsan
- include-$(CONFIG_UBSAN)		+= scripts/Makefile.ubsan
- include-$(CONFIG_KCOV)		+= scripts/Makefile.kcov
-+include-$(CONFIG_GCOV_KERNEL)	+= scripts/Makefile.gcov
- include-$(CONFIG_RANDSTRUCT)	+= scripts/Makefile.randstruct
- include-$(CONFIG_KSTACK_ERASE)	+= scripts/Makefile.kstack_erase
- include-$(CONFIG_AUTOFDO_CLANG)	+= scripts/Makefile.autofdo
-diff --git a/scripts/Makefile.gcov b/scripts/Makefile.gcov
-new file mode 100644
-index 0000000000000..16c5b876440c2
---- /dev/null
-+++ b/scripts/Makefile.gcov
-@@ -0,0 +1,21 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+CFLAGS_GCOV	:= -fprofile-arcs -ftest-coverage
-+ifdef CONFIG_CC_IS_GCC
-+CFLAGS_GCOV	+= -fno-tree-loop-im
-+# Use atomic counter updates to avoid concurrent-access crashes in GCOV.
-+# Only enable if -fprofile-update=prefer-atomic does not introduce new
-+# undefined symbols (e.g. libatomic calls that the kernel cannot link).
-+CFLAGS_GCOV	+= $(call try-run,\
-+	echo 'long long x; void f(void){x++;}' | \
-+	$(CC) $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS) -w $(CFLAGS_GCOV) \
-+	-x c - -c -o "$$TMP.base" && \
-+	echo 'long long x; void f(void){x++;}' | \
-+	$(CC) $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS) -w $(CFLAGS_GCOV) \
-+	-fprofile-update=prefer-atomic \
-+	-x c - -c -o "$$TMP" && \
-+	$(NM) "$$TMP.base" | grep ' U ' > "$$TMP.ubase" || true ; \
-+	$(NM) "$$TMP" | grep ' U ' > "$$TMP.utest" || true ; \
-+	cmp -s "$$TMP.ubase" "$$TMP.utest",\
-+	-fprofile-update=prefer-atomic)
-+endif
-+export CFLAGS_GCOV
+Thanks!
+Leo 
 
--- 
-2.43.0
 
+
+
+> 
+> > 
+> > diff --git a/tools/testing/selftests/kvm/dirty_log_test.c b/tools/testing/selftests/kvm/dirty_log_test.c
+> > index af5eb0334a74..558a71d631da 100644
+> > --- a/tools/testing/selftests/kvm/dirty_log_test.c
+> > +++ b/tools/testing/selftests/kvm/dirty_log_test.c
+> > @@ -291,8 +291,7 @@ static void default_after_vcpu_run(struct kvm_vcpu *vcpu)
+> >  
+> >  static bool dirty_ring_supported(void)
+> >  {
+> > -	return (kvm_has_cap(KVM_CAP_DIRTY_LOG_RING) ||
+> > -		kvm_has_cap(KVM_CAP_DIRTY_LOG_RING_ACQ_REL));
+> > +	return kvm_get_dirty_ring_cap();
+> >  }
+> >  
+> >  static void dirty_ring_create_vm_done(struct kvm_vm *vm)
+> > diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+> > index e3b122719262..c08d1581221e 100644
+> > --- a/tools/testing/selftests/kvm/include/kvm_util.h
+> > +++ b/tools/testing/selftests/kvm/include/kvm_util.h
+> > @@ -339,6 +339,17 @@ static inline bool kvm_has_cap(long cap)
+> >  	return kvm_check_cap(cap);
+> >  }
+> >  
+> > +static inline long kvm_get_dirty_ring_cap(void)
+> > +{
+> > +	if (kvm_has_cap(KVM_CAP_DIRTY_LOG_RING_ACQ_REL))
+> > +		return KVM_CAP_DIRTY_LOG_RING_ACQ_REL;
+> > +
+> > +	if (kvm_has_cap(KVM_CAP_DIRTY_LOG_RING))
+> > +		return KVM_CAP_DIRTY_LOG_RING;
+> > +
+> > +	return 0;	
+> > +}
+> > +
+> >  /*
+> >   * Use the "inner", double-underscore macro when reporting errors from within
+> >   * other macros so that the name of ioctl() and not its literal numeric value
+> > 
+> > 
+> > > "Dirty-ring not supported in this kernel\n");
+> > 
+> > "this kernel" could be misleading, some architectures simply don't support the
+> > dirty ring.
+> 
+> So, do you suggest keeping it simple by printing "Dirty-ring not supported"?
+> 
+> 
+> > 
+> > > +	TEST_ASSERT(ring_size <= max_size && is_power_of_2(ring_size) &&
+> > > +		    ring_size >= getpagesize(),
+> > > +		    "Invalid dirty-ring size: Should be a power of two "
+> > > +		    "between %lu and %lu entries\n",
+> > 
+> > Don't wrap strings.  The "Invalid dirty-ring size:" part is redudant with the
+> > expressions, just drop that to shorten things.  This should also spit out the
+> > requested ring_size.  Stating the range as a number of entries is also confusing;
+> > as a debugger, I don't want to have to go look at the size of kvm_dirty_gfn to
+> > understand why ring_size is invalid.
+> > 
+> > And maybe split up the asserts?  If the goal is to make it easier for developers
+> > to know when they messed up, might as well make it as easy as possible.  E.g.
+> > leaning on the above diff, something like this?
+> > 
+> > 	long cap = kvm_get_dirty_ring_cap();
+> > 
+> > 	TEST_ASSERT(cap, "Dirty-ring not supported");
+> > 
+> > 	TEST_ASSERT(is_power_of_2(ring_size),
+> > 		    "Dirty-ring size '0x%x' must be a power-of-2", ring_size);
+> > 	TEST_ASSERT(ring_size >= getpagesize(),
+> > 		    "Dirty-ring size '0x%x' must be at least one (host) page", ring_size);
+> > 	TEST_ASSERT(ring_size >= vm_check_cap(vm, cap),
+> > 		    "Dirty-ring size '0x%x' is larger than KVM's limit of '0x%x'",
+> > 		    ring_size, vm_check_cap(vm, cap));
+> > 
+> > 	vm_enable_cap(vm, cap, ring_size);
+> > 	vm->dirty_ring_size = ring_size;
+> > 
+> 
+> Humm, I see the point. 
+> Will do as suggested then, thanks!
+> 
+> Leo
