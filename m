@@ -1,107 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4763164C5;
-	Thu,  1 Oct 2026 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A1F3164C5;
+	Thu,  1 Oct 2026 12:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858021; cv=none; b=pB7U+hNhlO8qams5gTCnb4DVWUaE5tkdS0JMes57WU/s0FRuggz6ALgTIYFVzRRTbQdn9zh54kxmiH++bawRQVITYc0VxyohnpKKcQcgp2Y7HF74nAbSbysJuys+bh/pzt2KjT1MI+xXZm3yHJOEsF/9K5o3CwMqBI+pf0NHYCU=
+	t=1790858030; cv=none; b=OiwwRYIqjiE6StACXbH5fwnzglGqIxavA6RJ4kvjcD4D912hWN+UbEZcSPhSi/dMmZAFqIooORFy2TVUG3HEQ6eqNcpEfUqYhe9eyN2qpvp90Q8eehJxHrxjw1+EGBrFco3mpFScWBSgo51LnCKahlxuFk+RXwUTQO/++siu42A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858021; c=relaxed/simple;
-	bh=nzWEQLd8cm/7RXm6RT9aGC3CveGaQ9y1IUvkJswlr9Q=;
+	s=arc-20240116; t=1790858030; c=relaxed/simple;
+	bh=4ZT/aROE8xKg0iGYQAiFrLiahjxgLK2Ej4pIM6YTeIU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PFUrr0p8W8xnLV5/iXyfBeIa3Wd0JVwvZA1C9p+GSd3aXtdDyffGVoHeuhRsg4rjVByKw8AFG6WQcxRgwxGBYvH+6sbK3WpBW1GY2CbgRFtmEyR3XzeKyWhyV3VLYRk65Fc7YmGTKWYAIVzIsSdStu9X9iZR57c7u29Ls2eqYhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2LA+kfds; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=l8FbVP1W47DyST0quuOED9JcA2jxoIVemSy+lHco2MTCZCXN7+d/3Bsqo2jmotNQsse8rzduGg8ROWNTwDT5T5xNHSZWUyBcWoX9VhyXr2LS1saThe1Q0uCu3wRs5Asjwn/4Qpbm9dyYBb8Bx8rTOpAjZfcMmj6KebYZbjUvLGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=dTSeTNfu; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2LA+kfds"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721BA1F000FF;
-	Thu,  1 Oct 2026 12:33:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790858019;
-	bh=RB5BiR9bjCyx87byXUpJHukk/w0lEA8U6jYKJduOV7w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=2LA+kfds6VWL3M8ffDeTovQpDKc20miqo9yehVY7U8skEiKvaec9jFfGGYwh7pO/g
-	 YVXd4CtumQgfQcrs7yxwkWFoovRHJ0n7xP/9iBLzMuPh+fldo3zQLxPVHtMbj2N6gv
-	 44GSLpoq1giekyTXM69L+PxGOsAqTakAZPKWnqM0=
-Date: Thu, 1 Oct 2026 14:33:32 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Benno Lossin <lossin@kernel.org>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Danilo Krummrich <dakr@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Lyude Paul <lyude@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Trevor Gross <tmgross@umich.edu>, Waiman Long <longman@redhat.com>,
-	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 4/5] rust_binder: consolidate transaction failure
- prints
-Message-ID: <2026100118-showdown-research-9ebb@gregkh>
-References: <20260803-pr-ratelimited-v5-0-a77d456de974@google.com>
- <20260803-pr-ratelimited-v5-4-a77d456de974@google.com>
- <CANiq72kb=X1igu+pK=KmAxqDncGYF9zpxrihSuSD3WaCUm336Q@mail.gmail.com>
- <2026100130-perjurer-frisk-4af2@gregkh>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="dTSeTNfu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=fFX5htuzSdP4QTu71gx2Fo7hLlalL+bUbhtdUZCmvQA=; b=dTSeTNfu4mWw57xRAqj2KXYDed
+	YEDUHAY22sJ0H+fu3eRfqBo0r8BVCEVPzJTkuCK7N89SgLImyjG+AJzNOXme3KvcHCenViAOvUrYK
+	3X9p4stcw/zu81Bew+6RMXIytub3Oriws32gmWdSXAdBavRYmi+O2wPhNvFjq0ueZvro=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xCFyk-008NX2-Tb; Thu, 01 Oct 2026 14:33:38 +0200
+Date: Thu, 1 Oct 2026 14:33:38 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, hkallweit1@gmail.com, lxu@maxlinear.com,
+	michael@walle.cc, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	luka.perkov@sartura.hr
+Subject: Re: [PATCH 4/5] dt-bindings: net: maxlinear: add MxL86211C lane
+ mapping support
+Message-ID: <a2bcd146-0462-4ab1-b7be-93d6b4e05056@lunn.ch>
+References: <20260930122305.293686-1-robert.marko@sartura.hr>
+ <20260930122305.293686-4-robert.marko@sartura.hr>
+ <20261001-splendid-athletic-coot-1bbbb6@quoll>
+ <CA+HBbNEOiAw+_zzQco13nNzUPdGUgo+kjcRzLFEA4LmnzF8_=A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2026100130-perjurer-frisk-4af2@gregkh>
+In-Reply-To: <CA+HBbNEOiAw+_zzQco13nNzUPdGUgo+kjcRzLFEA4LmnzF8_=A@mail.gmail.com>
 
-On Thu, Oct 01, 2026 at 02:32:41PM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Sep 01, 2026 at 06:15:52PM +0200, Miguel Ojeda wrote:
-> > On Mon, Aug 3, 2026 at 9:30 AM Alice Ryhl <aliceryhl@google.com> wrote:
+> > > +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> > > @@ -22,6 +22,21 @@ allOf:
 > > >
-> > > diff --git a/rust/kernel/error.rs b/rust/kernel/error.rs
-> > > index a56ba6309594..380cd3f7276b 100644
-> > > --- a/rust/kernel/error.rs
-> > > +++ b/rust/kernel/error.rs
-> > > @@ -135,7 +135,7 @@ pub fn from_errno(errno: crate::ffi::c_int) -> Error {
-> > >      /// Creates an [`Error`] from a kernel error code.
-> > >      ///
-> > >      /// Returns [`None`] if `errno` is out-of-range.
-> > > -    const fn try_from_errno(errno: crate::ffi::c_int) -> Option<Error> {
-> > > +    pub const fn try_from_errno(errno: crate::ffi::c_int) -> Option<Error> {
-> > >          if errno < -(bindings::MAX_ERRNO as i32) || errno >= 0 {
-> > >              return None;
-> > >          }
-> > 
-> > Generally speaking, one should know from the context whether an
-> > integer is supposed to be an error or not, and thus it is rare to need
-> > this function instead of the public one (this one is private, and the
-> > two callers are here, not elsewhere in `kernel`).
-> > 
-> > So I wondered if Binder needs this -- I noticed the change when doing
-> > my usual go-through-the-ML exercise and asked Alice about it, since it
-> > seemed to me like Binder could perhaps avoid using the fallible
-> > operation (and maybe even define an `enum` for `BinderError` instead
-> > of a `struct` to be more precise about when a `source` is needed).
-> > 
-> > Alice told me that the `Option` in `BinderError` is just meant for the
-> > zero case, i.e. the raw integer there should not be a random value.
-> > Thus, since the `if` already covers the zero case, it does look like
-> > this could use the infallible operation since we do know statically it
-> > should be an error (modulo a bug).
-> > 
-> > So it sounds like the change can indeed be avoided, which should also
-> > improve the code.
-> > 
-> > In any case, if we keep it, then the `error.rs` change should be
-> > mentioned in the commit message.
-> > 
-> > By the way, I am still happy to take the first three patches unless
-> > Binder is picking this up.
+> > >      then:
+> > >        properties:
+> > > +        maxlinear,lane-asp-map:
+> > > +          description: |
+> > > +            Mapping of the physical TPI lanes A through D to the PHY's
+> > > +            analog signal processing lanes (ASPs). The array index identifies
+> >
+> > Are there other lanes as well? Not ASP? What sort? data-lanes does not
+> > fit here?
 > 
-> I'll just take them all now, thanks.
- 
-Nope, the first patch doesn't apply against my tree, so I can't take
-this :(
+> Hi,
+> I tried to keep it similar to the datasheet, but looking back, a more
+> appropriate
+> name would be ASP instances instead of lanes.
+> 
+> I am not sure if data-lanes describe what it is fully but I am open to ideas.
+
+Analogue front end ports? Or even just analogue from ends?
+
+I do get what you mean with your current description, but i have more
+domain knowledge than your average DT writer.
+
+	Andrew
