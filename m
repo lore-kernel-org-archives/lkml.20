@@ -1,82 +1,111 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB48D3BB677
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 03:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53285418A46;
+	Thu,  1 Oct 2026 03:39:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790825767; cv=none; b=JN/5KpEjjJmORZwAb8qro1aDMDPpCLeeZgrBd2hUlBQaayMBPUkKEx4eUaunmZy1iliBhXG830crWs2E+M31j7kjFz4InU1+dqpR+7njG/kyJvA7p9hQmGI4qXzKC5UfQ1Bca23fIcnmIyZx5q4Z3hmkPQB9SutslSGcS4wmgFY=
+	t=1790825986; cv=none; b=TNFgS+cTA3328QnDXpo02foEiRdVg3fvdehMB6Y76qeMcnHQbzVvUP9+oeh/yHniL7/GAw2sHr4zcrq7A3Cnv5ttbUO+AqmDtq4UG3bHGlDS0F1pYCs7B+cJRvt4/A6bvO2gfIVnWtaF+MIL4Tbt/3UOtW27dIyFMDF3TpB+R2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790825767; c=relaxed/simple;
-	bh=F+cE99e/IoZcBiqybvdTBRrrEvhUAZGIkEo/uvhm6uA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=mJQcJgnKUlsr4FCIJgAJ9ldSVdM+A/LGRsUheOUll3U30WCphJWRNetsfr7QS1yJ7HoIba/0nX283l8XYdylPT1NuNmMocvKJdTZPEzLKRMBEsI9HcWOL/0fMGgJmwoAvU3u0I6SlnuYi1pFYQWcwTa5JGfTJ3iRolDBVe9ZNnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a41f46d629so10250810b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:36:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790825763; x=1791430563;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ArUdhkCHBvqLujlWUFMyF2icv5EZv9kWUaouQO4XIP8=;
-        b=wwK5cvxEuuJLVBNNrR75u20CE+0KEBpqLqO67/gWaFBejlzW/gLuZhZ+S+04JTG4NI
-         BVFYOQxNmXD9CNcULGxYubXhlLSL/mfsqUL1+wEJ1yWC5AvZOnKvEL2lAR680087rshd
-         Gkp7Fo8MW2uYeb/cwhOkBsdwcuTsUusPKhJiNYvGXGt1K/y5eZVXgnmaUmfDvxIn02+7
-         und1OGnZ6dD7R/pzPmI9F0umTAfpcvVPz6EHmL2n7FFG2ifSueDY5TBOqL9q7CNSX+73
-         j3+dZ0/aBuyM3a18oQU1WfcR4l5RJDFWFFzP3RfhZrArmxK55IOnH3SC76V9W3yZRq5G
-         /58Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwsl40EKLCmRj0Q6c01aY9n40oTWvX4iN0kZgAql7ZSQWYJJ6MSDyDBdpVhIBUza+akuwW5scda70t5pTg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/vuCuVcqgzTvlARxP6Ah3SbO+PvkLc9hsC7moXZ/0NT8+xHUM
-	pRrSetH1tyRZ3UTvPGa9gvAglvNFZub5ZCnZgXGGRERU8+sPmjlOi/ByHDO0fGqQXYS/uoyl/I9
-	Utkgd8pg9yQuc8sCSg0E8ZDW1WikSn5Fcch6FZ16hWmBZnxwvGpK80vafuEc=
+	s=arc-20240116; t=1790825986; c=relaxed/simple;
+	bh=alMqR61WSySSHU0R9tOXMDjXKPh/00Egxs2DhJQDTXU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ALIf99t18cKTXvb0NTO2tRr5J6zHEAQPiNc2jDbd7sGzJvftbukJD8NzE52R/3oWQL9FoTzqL0BtMXFJkrw+Nt+Y+EhuxHTDlNAVxTZhrvlLLnltGTb6B0xmW+KmT3yVDX89b9n3G5+yUHjpPwMXo2WumUnEPnPBU3lMRMLOCGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b59f2860bd4911f19a56ed5b684f684d-20261001
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1307d609-ff47-421e-bd4b-67ba0fdce688,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:e687056b9bd124ac6dec0af3955273ce,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b59f2860bd4911f19a56ed5b684f684d-20261001
+X-User: zhangheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1514044689; Thu, 01 Oct 2026 11:39:30 +0800
+From: Zhang Heng <zhangheng@kylinos.cn>
+To: tiwai@suse.com,
+	perex@perex.cz,
+	david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	Harry Nixon <harryanixon@yahoo.com>
+Subject: [PATCH] ALSA: hda: Fix speakers on ThinkBook Plus G3 IAP
+Date: Thu,  1 Oct 2026 11:39:20 +0800
+Message-Id: <20261001033920.111061-1-zhangheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:221c:b0:4c3:4e34:c69e with SMTP id
- 5614622812f47-4f1b2e33ccbmr4286287b6e.8.1790825762867; Wed, 30 Sep 2026
- 20:36:02 -0700 (PDT)
-Date: Wed, 30 Sep 2026 20:36:02 -0700
-In-Reply-To: <6abd40af.fac9d4e5.17396.0008.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abdd522.f32479dd.202a09.0001.GAE@google.com>
-Subject: Re: [syzbot] [openvswitch?] WARNING in set_ipv6_addr
-From: syzbot <syzbot+4cc63fcfb3845e149969@syzkaller.appspotmail.com>
-To: Dai.Ngo@oracle.com, aconole@redhat.com, anna@kernel.org, 
-	chuck.lever@oracle.com, davem@davemloft.net, dev@openvswitch.org, 
-	donald.hunter@gmail.com, echaudro@redhat.com, edumazet@google.com, 
-	fmancera@suse.de, horms@kernel.org, i.maximets@ovn.org, jlayton@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	neil@brown.name, netdev@vger.kernel.org, okorniev@redhat.com, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com, tom@talpey.com, 
-	trondmy@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has bisected this issue to:
+Lenovo ThinkBook Plus G3 IAP shares PCI SSID 17aa:3891 with Yoga Pro
+7 14AHP9, but has a different codec SSID (0x17aa3875). Use
+HDA_CODEC_QUIRK to select ALC287_FIXUP_CS35L41_I2C_2 and add ACPI
+_SUB values 17AA3845/17AA3846 to the CS35L41 property table, since
+the BIOS provides no _DSD.
 
-commit af81cb247ca94e4bcfea31ea862cf3aaf955a503
-Author: Jeff Layton <jlayton@kernel.org>
-Date:   Wed Mar 25 14:40:28 2026 +0000
+Reported-by: Harry Nixon <harryanixon@yahoo.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222053
+Tested-by: Harry Nixon <harryanixon@yahoo.com>
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+---
+ sound/hda/codecs/realtek/alc269.c                   | 4 ++++
+ sound/hda/codecs/side-codecs/cs35l41_hda_property.c | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-    sunrpc: add a generic netlink family for cache upcalls
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index c6ef4fa4ee68..b31d326e5120 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8354,6 +8354,10 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3870, "Lenovo Yoga 7 14ARB7", ALC287_FIXUP_YOGA7_14ARB7_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x3871, "Lenovo ThinkBook 16p Gen 3 ARH", ALC287_FIXUP_YOGA7_14ARB7_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x3874, "Legion 7i 16IAX7", ALC287_FIXUP_CS35L41_I2C_2),
++	/* Lenovo ThinkBook Plus G3 IAP shares PCI SSID 17aa:3891 with Lenovo Yoga
++	 * Pro 7 14AHP9; use codec SSID to distinguish them.
++	 */
++	HDA_CODEC_QUIRK(0x17aa, 0x3875, "ThinkBook Plus G3 IAP", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x3877, "Lenovo Legion 7 Slim 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x3878, "Lenovo Legion 7 Slim 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x387d, "Yoga S780-16 pro Quad AAC", ALC287_FIXUP_TAS2781_I2C),
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+index 416d7bf3e289..bb30bf786818 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+@@ -126,6 +126,8 @@ static const struct cs35l41_config cs35l41_config_table[] = {
+ 	{ "10433A60", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
+ 	{ "17AA3865", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
+ 	{ "17AA3866", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
++	{ "17AA3845", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
++	{ "17AA3846", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
+ 	{ "17AA386E", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
+ 	{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
+ 	{ "17AA3874", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
+@@ -551,6 +553,8 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+ 	{ "CSC3551", "10433A40", generic_dsd_config },
+ 	{ "CSC3551", "10433A50", generic_dsd_config },
+ 	{ "CSC3551", "10433A60", generic_dsd_config },
++	{ "CSC3551", "17AA3845", generic_dsd_config },
++	{ "CSC3551", "17AA3846", generic_dsd_config },
+ 	{ "CSC3551", "17AA3865", generic_dsd_config },
+ 	{ "CSC3551", "17AA3866", generic_dsd_config },
+ 	{ "CSC3551", "17AA386E", generic_dsd_config },
+-- 
+2.25.1
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=120ae3f5580000
-start commit:   47a144672573 Merge branch 'mptcp-misc-improvements-for-v7-4'
-git tree:       net-next
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=110ae3f5580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=160ae3f5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=88147dd7e4cb6a0f
-dashboard link: https://syzkaller.appspot.com/bug?extid=4cc63fcfb3845e149969
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12c35e05580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11908035580000
-
-Reported-by: syzbot+4cc63fcfb3845e149969@syzkaller.appspotmail.com
-Fixes: af81cb247ca9 ("sunrpc: add a generic netlink family for cache upcalls")
-
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
