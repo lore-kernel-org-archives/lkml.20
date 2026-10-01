@@ -1,132 +1,117 @@
-Received: from mail-wr2-f25.google.com (mail-wr2-f25.google.com [74.125.225.89])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE148509EF9
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.89
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862225; cv=pass; b=XadAEwRfmg5M07g15hKLJyztH03Q62eYVXbuO4KHne6GKTSBeyIeqU1m8+L+7YCYTplUnRxYFO6wpxzhh6DAXYJZQsz88e4FPI19WOl1KVbyKnpQW/4eHUD6ntYGzuOc26M5SJo+Tbhahj7FNLXcMEfmv5To29Mc/CQG/mKsKrY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862225; c=relaxed/simple;
-	bh=H942DdgplYjE1m4Z1C25g9bIj6fhk/3ChJ6y1dd69ZA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ne11EME1S1Q7/2RbvsCxEh//vZlmXZQjsXFn50eNwuvOWtkoQ8sI33++9cI7bXcPyq574GYW8YVyQXi/mziF8D3JUC2wQ/iORamQM6B9Fu3yPcm8QoL60UtJd2+publn4+BDLg+s2nSb8nRSsdr7EuJ3FbHg9im6OtvoY+coU0o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=twMmdzeA; arc=pass smtp.client-ip=74.125.225.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2799151589B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790862229; cv=none; b=I9ELiiPrUhIt9XXlMeh5+i1bMZXPKgheiGJjGB8MlSI5r/A2Exucnnrrk0DX5NY0YSdCDjnapKdytUfOBP/0o11kFbs0IS6zZs6WPmzepdZ9COK+1B+dSmW5pmxDO5HA0692ZirlRdRAnbpTNH/EvgmxMPwQfjbZ+y3JccZrSWw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790862229; c=relaxed/simple;
+	bh=k2tGWZBSq6m9m92JJesXcs78oXeXxRsuS4Ph2lEaE88=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qxdQmxJez8Jn6euaCyk09wlTRwa4IiITtPllIWfyV78nWdZu3VV1gf5gRlfyhO2Vl34ayQFaDyL262gTGEmQnFt9M7VmlwinSOm9Os80dtpetkajsNOOb1rdzOIVqZh6BYe2DmVi94KOEzWsK1F3EMImQK2i9vH7zMy4RC1219M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=DqZEzPfD; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="twMmdzeA"
-Received: by mail-wr2-f25.google.com with SMTP id ffacd0b85a97d-48b03eb33b2so624778f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:43:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790862220; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WyCsd0fuiZlGnBK8nzsHUZxe25/GipxOZu3J59pAf4By0AtXl3bfkbmkr4J/0Qq3EW
-         yhSDp3ynHK9VNQZjhlEZkCBqeyeS/BanSAVD0f/ZUk+60JysEZz0G/t5nER7YqvO/pXa
-         eHDnpVldLDu8xjhJunjELBSBniEj8zMnrXSZMXQOlld2W+aNfzZRlfMjD7hVcWDEpUzv
-         nSs8TaK8jY7yEsTGF0AGCL3mH+aS4OCA4bOArDuiJzJO6Z55TgcGLT1bCCR6HV/A7BRu
-         cqKh5mPKyFSj1pW8DQ27s0+pbE7/Mp/EkqxZYQCzCnkMDbj71IP+WGys3Pp2Zd4UD2HH
-         FxEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uc8EFV3gFR6UdowGpvG9mlcPbI0S1kV27i2pdS0bYjI=;
-        fh=qdmR7+gK6VZJI0cyx5qnbvyuoyWiloWi2PH7s5zIc/s=;
-        b=YoalIjzLjIP235PTUGwRO7ecmWRkVibSI1lfKr5smO2FPGIKFhfhZnHPerVeBxKdqj
-         5HU2QyNdjVNBKkNEyswAfc61rKP3m28PTr8eoQG5EfYf+rdnXepp/OJ+mUfC1ccuPAhr
-         kIGZkYWnQSgS5j0iXPVZkeIlAuUknCAbkMYhrltuOR1urtal34qyIsxMAgPbY9OAlwhO
-         xU9BCNpa3zsj7Ji9E3GYx+JZQGkp02gd8xlPqjrtx6+F6qsimJlYO9ThRyguz8qteYZn
-         7VuwnMgeTUNMZ/JvxMRvaxY2gceLF2HPkLEwd3qqu8sI/r18SEdLF0QZ93BvIPLE3bFQ
-         CvUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="DqZEzPfD"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so14056465e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:43:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790862220; x=1791467020; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gourry.net; s=google; t=1790862225; x=1791467025; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=uc8EFV3gFR6UdowGpvG9mlcPbI0S1kV27i2pdS0bYjI=;
-        b=twMmdzeAdWYxHc+aiKUETneDeiDyvtCcG8NMLWGRQ4dtnzBUcm6/TwgJ330SP8ZPnh
-         i5tprmJoXPwDgBCxcD8v+3gOmWTnqKQ864ReFFgTmLRDbhbEWpCjzjZ9Zeys0ApwVgxy
-         7h6mio27RuR/fEMosI68uzDawkuhBeE+aEiDTF5QkF+IgvAK1JCeH5dTrmvKdS/nt83I
-         jSl1VLN7Y88xbXCbGEutWs+tWpDcAdPlPfSBu3MxrQPyOLGpjXwuZePiOQOX/GJYIvmM
-         3m1P4BhkUKOLDK2cOiVziKBCFhnPKVCaKGt7FPohk/KpdUWyix2zrzfvjqhVTdmn443a
-         w2Uw==
+        bh=9GzyFhoA2S7uios3Q3nexzUQFEC9iru05+QnoGlj3hE=;
+        b=DqZEzPfD04fpWPGHpCTt0gkiU5RVPxaVWzIV6kshqTUIZAhsEGYJWau1rm4ilNcOVV
+         kDYECMPqc808q+3S/wlpfy4Zonr5JdeArGZ64LeZuynhvgIMus4R4su8oGglj1Lm7Q/p
+         xxx0t/Ds/HICjF5naZa3MhdYJ2tCIUveTXkT1kUktpAP7fDBee/DrFA6B2C1G9r2Jj2g
+         5eYtQtWNQIU+buEp98MmqzloVUNOrJN0KKDuaFOJuhAIgLy4U+ZO06buaRmY3e9CuhFo
+         Y0rBd+PaERYcDD4xyDCY8m85jdUwuLOCOlAI8xp9OxbIPPERM7P2dkthIqK0cpQLltUy
+         omdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790862220; x=1791467020;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790862225; x=1791467025;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uc8EFV3gFR6UdowGpvG9mlcPbI0S1kV27i2pdS0bYjI=;
-        b=e6rSTAQaCICjFnyMNaqAGYr55jMNbQ+IHwqB+8zrvt/PwcoIMlXPJ+ssQ2dcAUswOp
-         9o+k1x3+BBhLA5YZ2Olx0xOXeb8LA875TVWC5hr4kcAB4XFV/z+YQ3Md5M1TDcj70v80
-         BUgrPgzo19RWmf+cJswS4ymPYEwxXnBPh3KQU/WOXEGiYXklihI+uOViosJV0U1HgKvy
-         visSePHlRHuphfzN4tlQOvuoI4pfytwk07UtHM1WnLexwliR8+scFDLQef1eaOMkcmzr
-         IlP24Wl1PzGP7ZeX5BKLovh2mMs4t2+p4GlYaOkSBniplhxlXXDkEv40z+FjXH5EjKdB
-         8Mww==
-X-Forwarded-Encrypted: i=1; AKwUvBzD/cFXp7USF32oXKiDGuMUEiiG1ABbcgHYOYpIP5HBeK/+/8+4L3Q8gjtRUq9nY4D/YA6+463k1SSAJrY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj4A4pYjkMFLxUeNCprerncndCp9F+pVxfN01m1wh5zt1drWIV
-	5l1nBqWKByI/vZpDTJdILt/lZhVJgzrAzLPrm40CziXgvQHO4XQc4o3JQ+c0qfeevU/IZgIU45s
-	B4+4nLQd+jIo6ZCWXg9N4ilb2m5CTjJ3SEAe55fns
-X-Gm-Gg: AYBFou2KaQul4OuigZEvnHwBMbJnALRZWYP8lqsN83bDOGKT+5aabIUoUo+SChq9bLH
-	amUGp84ON0mMJURYdj4FezVma0neaujqx8JacV5w7O5Cv9dIG9KKuwMOOJl8P6j6twuykItR5Um
-	vpmQl+H3eujke++O4yNQo/p/pypRmDn3lqFs5L+R2jHmLPzlPavRwgtYl5vq/LB7Mh4d9Ya/ERw
-	IdZuIYBYOOQ9muquE588AHu2IS0s8/ho1gnTcVJawbnS+nK4XLcRc2J7sf2NoZykO8b46lO6G29
-	gAN+/RpHt0ta0DkkHJtrdo0jrNfOQrvuLlwIDoiBhvmOoUyvB7A7ZHlImZLve2ms2QMtlBUP23Y
-	E2Ptnmsb+64irBhmgh+qzpneFsBHcyy+9WHTRNNClEUFMrvhVvYQ=
-X-Received: by 2002:a5d:588c:0:b0:488:80bb:d14c with SMTP id
- ffacd0b85a97d-48b067b5c63mr7039150f8f.5.1790862219570; Thu, 01 Oct 2026
- 06:43:39 -0700 (PDT)
+        bh=9GzyFhoA2S7uios3Q3nexzUQFEC9iru05+QnoGlj3hE=;
+        b=mIbSSrHkFNjCc8MgEhmwKZMqXVLhlrYDAm0HifuPdr7k/pCk7gmU65Rkv8WJq226Ij
+         Jo9VoVzkTG8W1egWvnBUQaCcm+E7V2Tn/PStaTt6Js7/aUaHnfew2cT0HgWzAQzPb397
+         EBSqRIIL1I9s9j2f8wZYV0mRoxqwpBl2AdMHLj4HkrgPEYAwPHhAj7oG5gsNcZadxgDL
+         s2Zn3U/2A7NknkeX7pDyOrYcGZ3lw8RRBHB1vIym5/BA/T5zSNn9E7/SyjeFbABrJTqs
+         GF09wuJhYqY2aG6N1LeEaDBgnvx4ifEgFGW9/XawoPJZaYdRE8GuB1ylg+tXuKLZr3Uf
+         PsNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQWetgfMLbMWejJiRjM2oA7CrgyV7I1rAoWmbPQdzbQ1PEsOkvBlH4wB7bbNrOHf617NvmfYCaepGR7vM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ml2Ny4RioMSC3VCfv1RC/edJE1yvOQbyUZKXsajdYsQYasOSfS
+	SiFIev5Byxq7XhrFDWjROcIjac8E+NFLF3v/30Y5tf4ENa+3cDmN8L2qUxKBJ0pXTFQ=
+X-Gm-Gg: AYBFou08QDP3oBHVSsEFK7BYc8aiq9FrIIjp24h3iu4H/IwFkNhVY+y8qUen/eU+wjw
+	IZYzE1zUTg1hbG+o1l+3ms9V/wG5XYbEYhFyvs6RbJ1HlUmxAsRZtSxaiv9YVcjFEhmhMfJz3GV
+	VGqyRRNAoKLdtDLCnVS+8hVth5MTGWI1UtXfOM8OvnaWWXXC3CWUZzSf2rs2hKfchHu1rjr+zM2
+	rgoyzX39PnG4J9rY/K3jcau84PdBdV1Aj/4xXNnYkX+tfpoOBO+MUkAukUKyrjBCzwTVYhaOVcu
+	uY2JCf8QF/AUnm0meKrIWaa3qIDSujxOsQjSvRMxgM54TVpmWkfLDDgRevzs30umjb8VpcNp1Bc
+	pRarY6WhQkSrr1uD3WH5HrrjnVnaALZRfrsc5Jzb46ofFy7v91WTQ2aFPrTabEqmkAl/Kl8tKOO
+	Sw0FChkynJMTMJC2AhpIbA5R/q6GFZGCc7DT2fafGv750FS77leCnJ6b/C89jEPPjG7gg=
+X-Received: by 2002:a05:600c:4f52:b0:4a0:22d5:21af with SMTP id 5b1f17b1804b1-4a022d52255mr32632575e9.15.1790862225048;
+        Thu, 01 Oct 2026 06:43:45 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F ([2620:10d:c092:500::6:7dd1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a023ecef86sm33062845e9.3.2026.10.01.06.43.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 06:43:44 -0700 (PDT)
+Date: Thu, 1 Oct 2026 09:43:42 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	David Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Shuah Khan <shuah@kernel.org>, vannapurve@google.com, erdemaktas@google.com, jxgao@google.com, 
+	rientjes@google.com, fvdl@google.com, jthoughton@google.com, tarunsahu@google.com, 
+	pratyush@kernel.org, fuad.tabba@linux.dev, David Woodhouse <dwmw2@infradead.org>, 
+	yan.y.zhao@intel.com, michael.roth@amd.com, suzuki.poulose@arm.com, 
+	Christian Brauner <brauner@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Nicolin Chen <nicolinc@nvidia.com>, Xu Yilun <yilun.xu@linux.intel.com>, aik@amd.com, 
+	aneesh.kumar@kernel.org, Vlastimil Babka <vbabka@kernel.org>, kernel-team@android.com, 
+	kernel-team@meta.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 00/17] Allow guest_memfd to be created using a
+ resource (pool) fd
+Message-ID: <ar5iaaLcyz9dCXQI@gourry-fedora-PF4VCD3F>
+References: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831052635.42417-1-nenkov2004@gmail.com> <20260831054920.42550-1-nenkov2004@gmail.com>
- <2026100156-strongly-plural-e7f1@gregkh>
-In-Reply-To: <2026100156-strongly-plural-e7f1@gregkh>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 1 Oct 2026 15:43:25 +0200
-X-Gm-Features: AclHuK-JgNuCEKzv_oDPeieF0TCT5U4OIu-QevALTW5aMRozO0q80VSA0jAWOMo
-Message-ID: <CAH5fLgh5MRMRJfym-Cv=P_bqCzZ+jXh=ieTD=hPX4KrktKtBiA@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: binder: Use lower bound for node debug lookup
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: nenkov2004@gmail.com, rust-for-linux@vger.kernel.org, 
-	Miguel Ojeda <ojeda@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
 
-On Thu, Oct 1, 2026 at 2:38=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Mon, Aug 31, 2026 at 07:49:20AM +0200, nenkov2004@gmail.com wrote:
-> > From: Hristos Nenkov <nenkov2004@gmail.com>
-> >
-> > The Binder node debug lookup currently walks the process node RBTree
-> > from the beginning until it finds the first node pointer greater than
-> > the requested pointer.
-> >
-> > Use RBTree::cursor_lower_bound() to start the lookup at the relevant
-> > tree position instead. When the lower-bound key is equal to the
-> > requested pointer, inspect the next node to preserve the existing
-> > strictly-greater-than semantics.
-> >
-> > This changes the tree lookup from a linear scan to an O(log n) search
-> > without changing the returned node semantics.
-> >
-> > Suggested-by: Alice Ryhl <aliceryhl@google.com>
-> > Link: https://github.com/Rust-for-Linux/linux/issues/1249
-> > Signed-off-by: Hristos Nenkov <nenkov2004@gmail.com>
-> > ---
-> >  drivers/android/binder/process.rs | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> This does not apply to the char-misc-testing branch :(
+On Fri, Sep 25, 2026 at 05:50:47PM -0700, Ackerley Tng wrote:
+> + e.g. for tmpfs,
+>     + Use mount page size.
+>     + Respect mount size limits.
+>     + Use guest_memfd mpol and fall back to mount mpol.
+>         + Gregory, now you can set mpol upfront on a mount! [3])
 
-Please check this instead:
-https://lore.kernel.org/all/20260814215145.2050599-1-rafael@rcpassos.me/
+I haven't had time to quite give this the read it deserves yet (have
+been traveling this past week), but I think this mpol/mount issue can
+be solved with a new dax driver (which maybe provides this provider
+interface) without needing to involve numa policy at all.
 
-This one is a duplicate, and I prefer the other one.
+Essentially
 
-Alice
+fd = open("/dev/cxl_dev", ...); /* backed by anondax driver */
+
+then later when a fault on that fd happens, the driver provides an
+anon-memory allocation that explicitly requests the node associated
+with that device - as opposed to trying to jam this into mempolicy.
+
+If you're planning to be at LPC, happy to discuss this in person, but I
+think this provider pattern is likely much cleaner without mempolicy at
+all if you can just make the provider do that allocation path for you.
+
+~Gregory
