@@ -1,124 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CFA4078DC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDDA47F3AC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790891704; cv=none; b=fyH9nmwN6Shqc0lF0o9aFbv6yGz/8H0/Hb+3mnLJRvoQ2WgkGltk6pEsmnFpfPGeBMVPEIV0ojV+Wz5Be63wBhz+MDZMSjOJ9nW36ZwRIhRUy/f0AieIDkIll28GODEJI3BHBsBmhYPF5y4er4U4n2EkCgHnHbucTadbdtaprPo=
+	t=1790891801; cv=none; b=k+ACsezapiOdZxzpuCZI070yVg4BG23LADyiR2LDWoqb2svwbBn+04kQKJy5eDgXdPbM7ncj6azQWWARzM7LOYDXNe8/jtpm9fqStmmAsU8dTS+mKEft2DnLVfC0FnuGovxBGHaZlxbf8b4xvDPtXjeUD5WMJ4RW0/Ml3uYL85U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790891704; c=relaxed/simple;
-	bh=k227Sw7GESYXAbhF/BZM1Xe5SlltP8tDEyv8sVotVGw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=np4NUUbfwN5SsAC43iOXiuOZ+hDTw8Y52uG2azJ45OsRJGT4MGr7kyh8TBFDT0QKptzE5+1HAs3iUfKREPNSogI4OVA04Yq4H64P099ITVvSTC/it3obfF7EbVCA2MXACtpnFQw8FWp4TlRv8DezXcbAUrA9yEjz96ve0svpNFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bYEaujDu; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790891801; c=relaxed/simple;
+	bh=PJkhgsHiHUBvEvna17aTIkDs3O8oEYUtQ4paJax81FY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Xi9uKHhItsadYfHua8bgg0QLrKbHJZxutv+7eZCs9ll9mgP97hvYJXoF1j7mxhh3vxFD2yejhzxKt2eDAC+HXJ53NJdVlsrEE5kcV6nm7z+UdOBFpOVj7RYDqPal+b3dbr2hfx8lEGB0r2TEBdfM73Q8SntxFwdJCXHQ47HuBIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G3V8XTwm; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bYEaujDu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790891703; x=1822427703;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=k227Sw7GESYXAbhF/BZM1Xe5SlltP8tDEyv8sVotVGw=;
-  b=bYEaujDu0hjU7qeH3cWSp7YAQUAGUtsn819KIb6wq9nZYPbq6Aj0w5mI
-   7R2h9ZOKA9BAv+S/b6bxAgA1mJRS8Cg7bKfGM14tUpeTD2yEJyxkQJNub
-   qQFhaKrw7shKQ8xHiE4X03UWIYlnemZV4cwtuWQU3azhVPP5TGhNXV3Zi
-   XWyTaWyFc9fj3UPgjblzmmTX7a5gK5eO/GGdp+qsSKMAU4LRUJGhZFRby
-   9Ekmkr0qNYEdUWaUJiLt3YtdGk3q33FxsLAy2SUN53dFZx/uOG+go72LL
-   cX9g2bYdJhFEnXyPN+341UuV6hNxrP194rioRAgvQpr22U7CTCcXDyVGW
-   A==;
-X-CSE-ConnectionGUID: 6b7NsSfmS/qypX7kaBf8Mg==
-X-CSE-MsgGUID: 5dOQOD8JSZOVPpDLofc3Vg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91683213"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="91683213"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 14:55:02 -0700
-X-CSE-ConnectionGUID: NXiTJDphS26CxbCke+ZFxg==
-X-CSE-MsgGUID: Dyo7jFDJQjCkBQ4rwVk9mg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="276203756"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.6]) ([10.125.108.6])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 14:55:00 -0700
-Message-ID: <88f28ac61e238cef9bcf8bda3adb4326c15ba15e.camel@linux.intel.com>
-Subject: Re: [PATCH 2/3] sched/fair: Rename group_imbalanced to
- group_pinned_task
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Jemmy Wong <jemmywong512@gmail.com>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot	 <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt	
- <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman	
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak	 <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
-Date: Thu, 01 Oct 2026 14:54:59 -0700
-In-Reply-To: <20260928042018.10618-3-jemmywong512@gmail.com>
-References: <20260928042018.10618-1-jemmywong512@gmail.com>
-	 <20260928042018.10618-3-jemmywong512@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G3V8XTwm"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39e3c10ac70so9795515a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:56:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790891800; x=1791496600; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ahstotXE2MD3z7KL/66fsytb53m57t/MSgEl40ciijM=;
+        b=G3V8XTwmGPy6RggkXwfdjzg0CCbRKnLMfCedvQQe9GoVGVBHsa5PRpDnvW+FFC2FZh
+         C5zpULRLxbRUfzVi1vPO2Igdq0xjktfg0+tPzJX9enNTbOdbAiwAEGYvSGwuy2BxKQMu
+         KKrbdOLLx7mT0XGUWpUcGPDTr3uRC7YoQlkrJUb5QzVacgzMwc/GKGiz1JhEH5LOqcxi
+         zeplo3sXYm7q1gkMZ4oaWO26MjpleY/UzVGH4hdfsvWhY+l7xLcnXYIutlIwVDmhsq76
+         432xLSI6v0GluTW2i/Y5ECqsHhAf6KCnizC+NEcNqFE7Vspobt/Ll9zrB6vWkDw2Dh3c
+         kjew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790891800; x=1791496600;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ahstotXE2MD3z7KL/66fsytb53m57t/MSgEl40ciijM=;
+        b=2bBExzOs6UHqkaNyYkOKdQT9wTH8gLQweVrMNUqXszAHfj5TxNMxJTSGcIQ94mHeDn
+         K+kXmPbDv4pmDiCQIrgXCc2IOKU5dEfpWeLlINGXEh93+qQlkGJyNeOILFgeL5bk1hpy
+         LwkIXvFmcuvkaqXvL1mTIaAL3CGTHs9zy+3rIes5QMw7ctWSnL+POkY0MR2C+Q9B47DR
+         lC2PTgxCVfkjunHAobDWT8hdePDsCdaPO6HqklinXCxGa63VlkpjEaLofemMXbZjKyrI
+         WxScxXfX9A2UsQhgiHU44kNOGDmHW4TDcW3uyg+p+/ETBKAzCXifywwZqp9R0Fv+KvYx
+         ACSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdiQ/llItjqM2HYI2oNxsQw5aRHpXDeaGzFfTLfdiXGs74HkKioafAu0pogQ4SkSKkdLAOS2Q4Ld6wdxg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAFv5PpztF9aycuvBI7X7DVODRHyLhR0jzOgYUCydfOLSnA99Q
+	LyAOguGjrafV60ybkKEPmnTBreqfD/VBEB9QzQZtRCVdfARMCr4/5AN1MBZQVawax1wpQPsrWBE
+	Qdz+tqg==
+X-Received: from plad17.prod.google.com ([2002:a17:902:e151:b0:2e2:f199:a1a0])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5281:b0:3a4:9f46:83c3
+ with SMTP id 98e67ed59e1d1-3a6cec4fc8fmr743920a91.45.1790891799435; Thu, 01
+ Oct 2026 14:56:39 -0700 (PDT)
+Date: Thu, 1 Oct 2026 14:56:38 -0700
+In-Reply-To: <ar6SHjnMYNqiEpVa@LeoBrasDK>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260929113711.2064390-1-leo.bras@arm.com> <20260929113711.2064390-3-leo.bras@arm.com>
+ <ar1xne00AHnJ-p_d@google.com> <ar5yW30S75THCfdV@LeoBrasDK> <ar6SHjnMYNqiEpVa@LeoBrasDK>
+Message-ID: <ar7XFr51N_oK7hN-@google.com>
+Subject: Re: [PATCH v1 2/3] KVM: selftests: Check dirty-ring size before enabling
+From: Sean Christopherson <seanjc@google.com>
+To: Leonardo Bras <leo.bras@arm.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
+	David Matlack <dmatlack@google.com>, Ackerley Tng <ackerleytng@google.com>, 
+	Marc Zyngier <maz@kernel.org>, Josh Hilke <jrhilke@google.com>, Oliver Upton <oupton@kernel.org>, 
+	Wu Fei <wu.fei9@sanechips.com.cn>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, 2026-09-28 at 12:20 +0800, Jemmy Wong wrote:
-> The name dates back to the original group_imb heuristic, which flagged
-> a group when the load difference between its busiest and idlest CPU
-> exceeded the average task load. Commit 6263322c5e8f ("sched/fair:
-> Rewrite group_imb trigger") replaced that heuristic: the flag is now
-> set only when a lower domain fails to balance because tasks are pinned
-> by cpus_ptr (LBF_SOME_PINNED), and kept while all tasks are pinned
-> (LBF_ALL_PINNED). The name was carried over unchanged and later became
-> group_imbalanced in commit 0b0695f2b34a ("sched/fair: Rework
-> load_balance()").
->=20
-> Today the name no longer matches the condition:
->=20
->  - group_classify() checks group_overloaded first, so a group whose
->    load really is skewed is usually not classified as imbalanced,
->    while a flagged group may carry a single extra task.
->=20
->  - calculate_imbalance() does not measure any imbalance for this type;
->    it moves one task (migrate_task, imbalance =3D 1).
->=20
->  - Elsewhere in fair.c "imbalance" consistently means the amount of
->    load to move (env->imbalance, imbalance_pct, calculate_imbalance(),
->    the lb_imbalance_* schedstats), and imbalanced_active_balance() uses
->    "imbalanced" for repeated balance failures, unrelated to this flag.
->=20
-> Rename it to group_pinned_task, which describes the condition that
-> raises it and follows the adjective_noun pattern of group_misfit_task.
-> The enum is local to fair.c, so no tracepoint, schedstat or other
-> user-visible interface is affected.
->=20
-> No functional change.
->=20
-> Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
-> ---
->  kernel/sched/fair.c | 30 +++++++++++++++---------------
->  1 file changed, 15 insertions(+), 15 deletions(-)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index f9ddcecfd19d..aa63950976aa 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -10363,7 +10363,7 @@ enum group_type {
->  	 * The tasks' affinity constraints previously prevented the scheduler
->  	 * from balancing the load across the system.
->  	 */
-> -	group_imbalanced,
-> +	group_pinned_task,
+On Thu, Oct 01, 2026, Leonardo Bras wrote:
+> On Thu, Oct 01, 2026 at 03:46:51PM +0100, Leonardo Bras wrote:
+> > On Wed, Sep 30, 2026 at 01:31:25PM -0700, Sean Christopherson wrote:
+> > > On Tue, Sep 29, 2026, Leonardo Bras wrote:
+> > > >  void vm_enable_dirty_ring(struct kvm_vm *vm, u32 ring_size)
+> > > >  {
+> > > > -	if (vm_check_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL))
+> > > > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL, ring_size);
+> > > > -	else
+> > > > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING, ring_size);
+> > > > +	long cap = KVM_CAP_DIRTY_LOG_RING_ACQ_REL;
+> > > > +	int max_size = vm_check_cap(vm, cap);
+> > > > +
+> > > > +	if (!max_size) {
+> > > > +		cap = KVM_CAP_DIRTY_LOG_RING;
+> > > > +		max_size = vm_check_cap(vm, cap);
+> > > > +	}
+> > > > +
+> > > > +	TEST_ASSERT(max_size > 0,
+> > > 
+> > > Rather than open code this, which is kinda sorta going to show up in multiple
+> > > places, what if we do this as a prep patch?  Then vm_enable_dirty_ring() can use
+> > > kvm_get_dirty_ring_cap() (completely untested).
+> > 
+> > Sure, if you think it's useful :)
+> 
+> Oh, vm_check_cap() is different than kvm_has_cap()/kvm_check_cap():
+> IIUC, the vm* version will check if the extension is enabled in the current 
+> VM,
 
-I believe we are trying to fix imbalance due to pinned tasks.
-Perhaps group_pinned_imbalance is more descriptive.
+No, the VM-scoped version checks if the VM *can* support the capability in its
+current configuration, e.g. some capabilities are fundamentally incompatible with
+certain VM types.
 
-Tim
+> while the kvm* version will open a new /dev/kvm fd and check the 
+> extension there, probably meaning the CAP is available in the system.
+> 
+> So, maybe we would need a slightly different approach?
+> I.E. have the kvm_get_dirty_ring_cap() to use the VM version, and 
+> have dirty_ring_supported() to start the new /dev/kvm fd and free it later?
+> 
+> What do you think?
 
+It's not necessary in this case.  All KVM_CHECK_EXTENSION calls feed into
+kvm_vm_ioctl_check_extension_generic(), the only difference is that the @kvm
+pointer will be NULL when called on /dev/kvm.  While some capabilities do behave
+differently if @kvm is valid, the majority do not, including the dirty ring ones:
 
+	case KVM_CAP_DIRTY_LOG_RING:
+#ifdef CONFIG_HAVE_KVM_DIRTY_RING_TSO
+		return KVM_DIRTY_RING_MAX_ENTRIES * sizeof(struct kvm_dirty_gfn);
+#else
+		return 0;
+#endif
+	case KVM_CAP_DIRTY_LOG_RING_ACQ_REL:
+#ifdef CONFIG_HAVE_KVM_DIRTY_RING_ACQ_REL
+		return KVM_DIRTY_RING_MAX_ENTRIES * sizeof(struct kvm_dirty_gfn);
+#else
+		return 0;
+#endif
+
+I.e. the VM version and /dev/kvm version will always yield the same result.  Very
+theoretically that could change, but it's unlikely.  And we can always update
+KVM selftests in the unlikely case a specific VM type comes along that doesn't
+support the dirty ring even when the broader architectures does.
