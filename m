@@ -1,155 +1,175 @@
-Received: from mail-wr2-f19.google.com (mail-wr2-f19.google.com [74.125.225.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161DC48F039
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB5E3C945A;
+	Thu,  1 Oct 2026 16:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873176; cv=none; b=OZZaiYk3UQJMbw+/9p2bYNZ8rZ/6fNnCzdxHAd3KkeXvJsFG2Go9Fgtac9IvTFTyqXe+Jx4y8NFCZMG9Vf3xb8FLzdRbrZY6+gLHlKfd+KDpJhmW7//1rGs5dPtXHui/mbCcynGibo+7OZtyflic/RfVfgW05Higi+88LXn95Dw=
+	t=1790873256; cv=none; b=RkAbU1i8ea9Xq5fCjyzHovVlncfICokoBKBb4T9jbYy1sesQ9z32IXY/S/IAqFCZPa2ij/V7kReVNA3N1wXp1BVWXUz275RNZ+qtv7ZIEqOQV2tNSLpbrgr5DBk+3jLn2h/K5wByX4hYPREHkJBbAI9mpaTmWgA/Dtetra1CiN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873176; c=relaxed/simple;
-	bh=euhlrsmrBeywJCcUP+ix6P+4B+p1oUelXrKdwoX9upI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nrS4MAFdHs5QhzhaFYOgqC5SiVcmz4F6Vqe/6yoOyYMno0rCCZqEDEKqjquzzTmTyH6pYo1Edix8nCnWesIfTo3oQkpEsa1mqllPhF77JmwDx4xQGEL7UO93+XojHuFSgS8ZJeglqIs7YvfNfeV7bkcrWgxd2VKBq56dv9R29As=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HPM+QSTA; arc=none smtp.client-ip=74.125.225.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790873256; c=relaxed/simple;
+	bh=n9XIO+FCtR5RGP2aVIeOzFhviUjwIvMo6NoXrlUrKFo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MNmF/6tGa1xaw2ANF9hQ71d09NisGSLHbJAlslSZMb9jHyroGQvGpuN3rjt0PD8jAhC9Dr90MbKlFjr2Ak+93JjGjG0dze7LzVf5OfapaUBZslWp/keOBNBCqsjhX1usSY3oBDBR4ds/XmXsM5/M3fAjcvTHimchEnRkZoV+9Ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BYBLhdXz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HPM+QSTA"
-Received: by mail-wr2-f19.google.com with SMTP id ffacd0b85a97d-48aff407b13so278637f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:46:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790873173; x=1791477973; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OWpCBOQ0cbDOB2ewDUN6GVUTvWM/2vFCZJ4YyNo1DH0=;
-        b=HPM+QSTAc0RvG3gmZWQaO+BjjfEV3cvbtkltWGHVwnYaONrArn9t7UJZwL7tEWpWW6
-         QA+iXqv6XGe8yodAozOeemB2W76hbAY7bNVtZ6THDIGOacoVeedL9k2+PQ3q46Dc8KST
-         HAm+Mu7stxliLE5tVLQt5Cy/Qpgjeg09VH+YL3jnIPbtwVwzhih8AnjMLoYJSscAoMZk
-         rP8UQcgpOWVtGsT5n8+UWBsOOfPIw1ZPgKDVyplgk4xDIDGXo0h2EcfXSlhWAajb/ods
-         yKWibqstjhfqN8M3LbgZiNe1CzeqsyoV+0k/SoVMttmnld7c7d0hHa6xd+CT4GYK2vFr
-         1Ikg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873173; x=1791477973;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OWpCBOQ0cbDOB2ewDUN6GVUTvWM/2vFCZJ4YyNo1DH0=;
-        b=U56zUycOLu/ifYgz/Kt0QU+ZW+nqBN6NUfIyDC5+k055ssqmo58IgL9XCKFNlLp25y
-         3toinwxA6x2qezqMVoO4SBefK+SPwYo6r0JO21RKR2c2M2CRtO0spMlfOVlumhRzJRf7
-         Li1tZYOdVUqpCuvBUt+h+LyAskBY1xtoi0RbbaXhE6q4OefoTizDJMxcTZgRBxn0/T6Y
-         g2GBqy3WHhskcGvVxTzx+gbYq3CaGSy8HgNnn00KxeUcS7CooivPgerIKuplCfecJpHi
-         OU0tVVsEo7tcfLp/caHcddAVd6RX9o6FYHW3sugJa0++ZB2vlDrGxx8w2nCcFSVkIKZG
-         7Nvg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8vXs+vIXSPRQcteDhr1CHTgFqdHQzHawhaVbTZ1iqzhyoPDmviemcHlTU2kaDUcHfiDoYCUFAMF2OnWM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+t72AXUGPuDC4DwQncv71DXlo5cosbQw50qT+ZW9P3YCv1YBu
-	CzZwO4OwJB9bZoto/Lt+5FJJj+VAUwBKlHhQILFBfbQ6R3o7u5IzOoxOsrYzfA==
-X-Gm-Gg: AYBFou3fm4kde26d/g+ucsptYpZfAHESibJyMADB5SWzukM5COB/Pea51NMsWRu9NWk
-	8VOhUAB4xj5qV1GxAYATN2IhGJ3JEC5b3svCLKTWOEfs3xV+hpVOWPmrgw4Hwb0ONKw9hsbG1bs
-	Z8k71fcU2xP0WRAUGQi3iT8D7zrh2LF/PgeuOcNmTVAfa/T3VyO0nrCX29YqHl5aXCp3X+ml3Q1
-	SyZppW/58r4RtJ281veCfWukzFrMQ2F8lKN+nczEShXKPWiypV5whlcCuHcwCR+gznyd4s8fjbz
-	Dx2m8gvgIEgt+TVHVtiYITVCTGVDkD58hkDtjASttYKDIHL5esBqD6a5U5IOX/crBcb5MsCZK7P
-	PyDDnfXwi+kxxWs1chpgy0xpH2te+TS7SD4UcZE3RLzL+rKtJ6xiwPU0EGUzBbSREc9dKwPkFEc
-	TRohvz8X+89gDemB6CWH2L9q+N2gD0pEJt4br3LGlU3irihNXTL65qkP5BOWzhIhvmo8I4T6EYz
-	nF4EKUWkyDMYUXXJCigh5A+Rab0Ku0=
-X-Received: by 2002:a05:600c:601:b0:4a0:73b:a222 with SMTP id 5b1f17b1804b1-4a02744cc57mr4279555e9.0.1790873172879;
-        Thu, 01 Oct 2026 09:46:12 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02783af28sm2231295e9.15.2026.10.01.09.46.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:46:12 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: christian.loehle@arm.com
-Cc: dietmar.eggemann@arm.com,
-	elif.topuz@arm.com,
-	kayracizmeci@gmail.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	sh@gentwo.org,
-	vincent.guittot@linaro.org
-Subject: Re: [PATCH v2 4/5] sched/eevdf: Keep expired protection expired across reweighting
-Date: Thu,  1 Oct 2026 19:46:08 +0300
-Message-ID: <20261001164609.244156-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001134016.3881268-5-christian.loehle@arm.com>
-References: <20261001134016.3881268-5-christian.loehle@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BYBLhdXz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7F731F000FF;
+	Thu,  1 Oct 2026 16:47:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790873254;
+	bh=FhZ3viI4a+onznOSZ/GgXONA5mgxVXnZIXHP+HAKRZo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BYBLhdXzWw6hX50PjoCkj4DtY7oVXhLI7ajAsCWzwlAs+9X3eTMkcIiKe1tG3DGwU
+	 LFXeQxa6jSPPZuftXGdujfNg8E+UQvgckXKDP7c5SQNG+JrLz2D2zWBRg9/3VBwnGK
+	 ZMRHFIoceGupgZBb/PPdMSP9OAW+TTMOE1RAJHIoDvuKRqWA/8iPVF5KBp3QohyP3X
+	 KHXuDk1ck8M//MJ4U5mupP+oK12skf+/BNgyJoVrE6O+iYBEUYs0N/61N95e4aHwaq
+	 KYLPEI9sZ7B3vF1Ocvru/79l9AgS3Xbfwu4olI/PFBmXnneHz+PTXaDFLVD4mEqTYt
+	 4eVbWIK2oNjGQ==
+Message-ID: <0221445b-92b1-43b3-99e6-d1c57c6a202e@kernel.org>
+Date: Thu, 1 Oct 2026 11:47:33 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] iommu/amd: Make PerfOpt compulsory
+Content-Language: en-US
+To: Vasant Hegde <vasant.hegde@amd.com>, Jason Gunthorpe <jgg@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Alex Deucher <alexander.deucher@amd.com>,
+ Joerg Roedel <joro@8bytes.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev
+References: <20260930162401.273907-1-superm1@kernel.org>
+ <179080801733.122959.2048638492948411360.b4-review@b4>
+ <01dc5f6c-3131-42b6-9aea-23d8c5f19757@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <01dc5f6c-3131-42b6-9aea-23d8c5f19757@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Sorry for being a bit late :-(
+On 10/1/26 06:34, Vasant Hegde wrote:
+> 
+> 
+> On 10/1/2026 4:10 AM, Jason Gunthorpe wrote:
+>>> [ ... 336 lines skipped ... ]
+>>> @@ -2370,7 +2370,7 @@ static int attach_device(struct device *dev,
+>>>   	if (ret)
+>>>   		goto out;
+>>>   
+>>> -	if (dev_data->perfopt)
+>>> +	if (dev_data->perfopt && pdom_is_in_pt_mode(domain))
+>>>   		goto skip_caps;
+>>
+>> This should also disable PASID support since without a gcr3 table
+>> that's broken. Set the max_pasid to zero during probe device.
+> 
+> I think we can add it inside amd_iommu_probe_device().
 
-> @@ -4941,6 +4941,9 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
->  		se->deadline += avruntime;
->  		se->rel_deadline = 0;
->  		se->vruntime = avruntime - se->vlag;
-> +		/* Reweighting must not revive expired slice protection. */
-> +		if (curr && !rel_vprot)
-> +			se->vprot = se->vruntime;
->  
->  		if (!curr)
- 			__enqueue_entity(cfs_rq, se);
-> @@ -8204,7 +8207,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
->  	struct sched_entity *se = &p->se;
->  	struct cfs_rq *cfs_rq = &rq->cfs;
->  	unsigned long weight;
-> -	bool curr;
-> +	bool curr, expired = false;
->  
->  	if (task_is_throttled(p) && enqueue_throttled_task(p))
->  		return;
-> @@ -8237,6 +8240,8 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
->  	 * XXX comment on the curr thing
->  	 */
->  	curr = (cfs_rq->curr == se);
-> +	if (!curr && task_current_donor(rq, p))
-> +		expired = !protect_slice(se);
->   	if (curr)
->  		place_entity(cfs_rq, se, flags);
+OK, I'll rev the patch to do this.
+
+> 
+>>
+>> The flow is weird like this because the driver still hasn't cleaned up
+>> the identity/blocking domain flows. There is no need to track them in
+>> lists and things because they never need invalidation..
+> 
+> Right. attach_device path cleanup is in my list. Now that _probe() path is
+> settled (thanks to Pranjal), this is probably next item to pick up.
+> 
+> 
+>>
+>> This is much nicer if the above could be written in side
+>> amd_iommu_identity_attach().
+> 
+> I'd say for now its fine to keep it in attach_device() as it gets called anyway.
+> When I rework, will make sure its moved under  amd_iommu_identity_attach().
 > 
 
-> @@ -8248,6 +8253,8 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
->  	if (!curr) {
->  		reweight_eevdf(cfs_rq, se, weight, false);
->  		place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
-> +		if (expired)
-> +			se->vprot = se->vruntime;
->  		__enqueue_entity(cfs_rq, se);
->  	}
->  
-> -- 
+I'll leave these two items to Vasant.
 
-There are a few thing here:
+> 
+>>
+>> Also, I'm a little confused, I thought this had to be toggled on and
+>> off so it is only set while in identity, how does the DTE influence
+>> what happens when in this special mode? I was sort of expecting it was
+>> ignored entirely in HW. This version seems to lock it to always on,
+>> but still permits a blocking domain to attach.
+>>
 
-This (!curr) branch has been removed from tip sched/core, here: https://patch.msgid.link/20260911155449.1249726-1-kayracizmeci@gmail.com
-So, heads-up.
+Yeah; AFAICT all the skips of features are mostly symbolic and for 
+consistency when this is enabled.
 
-Also, when we have alive (or live, as y'all call it, I think it's better this way tho :>) 
-protection, and (!expired) reweight_eevdf() doesn't enter the on_rq path and
-alive protection is not reweighted. Not tested tho. And I may be getting something wrong.
-This is not about this patch tho.
+I suppose really we should not permit a blocking domain to attach to 
+make sure it's a clear message what's going on.
 
-Your commit says "Commit ff38424030f9 ("sched/eevdf: Update
-se->vprot in reweight_entity()") subsequently handled live protection,
-but left the expired case unchanged." too. So it's gotta change if I'm not missing something.
-
-If I'm not tho that can mean a patch. :-). 
-
-But IDK if that's intentional or not :-(. I think it's not but I'm not sure.
-
-Anyway,
-
-Thanks,
-
-Regards,
-
-Kayra :>
+> 
+> Mario, Can you check what happens if we move device to BLOCKED domain (DTE[v]=0) ?
+> 
+> -Vasant
 
 
+I tested this on an APU that applies this.
+
+Short answer: with PerfOpt enabled, moving the GPU towards a blocked DTE
+has no effect -- the device keeps doing DMA as if nothing changed. This
+matches Jason's expectation that the DTE is ignored entirely in HW for the
+device once it is in the PerfOpt/identity fast path.
+
+Longer answer below (I had an agent help do this check).
+
+Method
+------
+To keep the normal driver bound and the GPU doing real work, I added a
+small debugfs knob that flips the live DTE in place and back, reusing the
+existing paths:
+
+   clear_dte_entry()  -> V=1, TV=0, IR=IW=0   (same DTE as blocking domain)
+   set_dte_entry()    -> restore passthrough
+
+Note the AMD "blocked" DTE is V=1/TV=0, not V=0 -- make_clear_dte() keeps
+V set, and TV=0 is what is supposed to block DMA. I confirmed the change
+via /sys/kernel/debug/iommu/amd/devtbl:
+
+   passthrough:  QWORD[0] = 0x6000000000000003  (V=1 TV=1 IR=1 IW=1)
+   blocked:      QWORD[0] = 0x0000000000000001  (V=1 TV=0 IR=0 IW=0)
+
+The write goes through update_dte256() + iommu_flush_dte_sync() + a
+completion wait, so the IOMMU re-fetched the entry.
+
+For a guaranteed IOMMU-routed DMA source I used amdgpu_benchmark test 1
+(SDMA VRAM<->GTT copies). The GTT side is system memory, so for an
+identity device it has to traverse the IOMMU DTE.
+
+Result
+------
+With the DTE blocked (TV=0), SDMA still moved 2GB to and from GTT at full
+speed:
+
+   dma 1024 bo moves of 1024 kB from 2 to 4 ...  5890 MB/s  (GTT->VRAM)
+   dma 1024 bo moves of 1024 kB from 4 to 2 ... 10922 MB/s  (VRAM->GTT)
+
+(vs ~10-11 GB/s unblocked, i.e. no change). During the blocked window:
+
+   - mem_target_abort (amd_iommu PMU) = 0
+   - no IO_PAGE_FAULT in the event log
+   - no SDMA error / ring timeout / GPU reset
+
+I also tried to witness the GPU's DMA directly via the amd_iommu PMU
+filtered by devid. The filter itself works (NVMe, in a translating
+domain, shows ~120M mem_trans_total under load), but the GPU reads zero
+on every counter -- mem_trans_total, mem_pass_untrans, mem_target_abort --
+even under the 2GB benchmark. The GPU is the only identity device on this
+system, so I had no non-PerfOpt passthrough device to validate the
+passthrough counters against; hence I am relying on the functional
+benchmark result above rather than the zero counts.
+
+Conclusion
+----------
+Once PerfOpt is enabled and the device is in the identity/pt fast path,
+the DTE is effectively ignored by HW: TV=0 does not block DMA. So a
+blocking-domain attach would not actually stop the device while it is in
+this state.
