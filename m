@@ -1,33 +1,33 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C59A7486E6A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCBC469851;
+	Thu,  1 Oct 2026 12:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856775; cv=none; b=ofYldji7zeUyjcqyCL5UMUMKkViJEgXEbIdL7WtmlDntyk7j4B1RVc4J2pPz71ZJiQJT/m02BisDUB0PUDA1JIe/vWIa782z59HKfm2JmvFYrk70A793gMIYasWt47NckBJpprszD1KEP9Gc5PL17d+9D1DdZTfX7B/Ws5cv4vA=
+	t=1790856775; cv=none; b=cFyAQwQUmHtMONwcLjb5sb+dxa2mT9MMVu93E9x9oSdX+/5DK+OOw0rGhS/GzuBvyq/GEYk3ifxasaEJ1Nsnc+2+Whp3ZR/FeNWkuqyJY442FgELQDlcvndz9AlHDlxBXNeUnOYJaBS5KLDBlVycFn7Kh/QpFNwtGZqLNND/Ns4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790856775; c=relaxed/simple;
-	bh=lIRzzkK1k4nk3ikZ7PiqNu7IU4+fhqAmi6tUa1OnN9k=;
+	bh=4xb3p41kyYi8vMssLV16e7uQm0TXoJo3LVwQN6ksLiM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uaSZbbkkSqkeMRD/aib82+Oi0ftpjrAFl3VAkszZRzyTyqkdcDg1Hr1jMjJO4RbpnQQO+wSX7DCcKC+Ag83u7ITjrBCsPyAd5wfyuOYy1/gopTHfjEWev8KKaGNvF3IcYggLxE5W1cbr4COA0AF25YYiy7eiTV5nuxdR6sbMgb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bjKNRXn7; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=oAcf7JE2thGk6ZBYcPolpL2cHqedbuJJe5aGt+P4QoFtuskNE+gyxDhUUGQCVR6yfgjUOCxqAZXZGFmC7eK2gxehq25AB4GVhcZxxdXtgWjVwQ5zJu4dGFIYvH8hu8JdVUFKIfg/dfPE2tMz+hY+N+Mmtt6GtLcn2f4JZDqgUKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6JQiI+U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bjKNRXn7"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A8084497;
-	Thu,  1 Oct 2026 05:12:44 -0700 (PDT)
-Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBCB73F85F;
-	Thu,  1 Oct 2026 05:12:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790856768; bh=lIRzzkK1k4nk3ikZ7PiqNu7IU4+fhqAmi6tUa1OnN9k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bjKNRXn7yo/UqNgFkcF3IY3sku/lgQnv7xJJVzYk+46XnA4wAlk5OdTu9PnKXdeYN
-	 vXViWtLWHi30C7LI2m58Qt5PdpIFSYBfaLSQI6o7rzhaHMCZdjFvwPaNturdSmpsO2
-	 Uevn/9QA66598RIWWXygq335bWJ2XEVjQu+dqSTE=
-Message-ID: <1575b9c1-872f-4c09-89d7-8b2bd284e770@arm.com>
-Date: Thu, 1 Oct 2026 13:12:44 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6JQiI+U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4C61F00898;
+	Thu,  1 Oct 2026 12:11:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790856756;
+	bh=+WuLX9m+MUB02xFfiB7r8uc2jWJ3VIsViWvPxF/gKXc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=a6JQiI+UQIzMl45ztdh9uVgWHqK25rClvFAUSVH/KUZNvFkPB3bG1rky6339Luyl1
+	 zOWs5xEMeX6VfUPSWlhUTmmZwzDnf4Rf26t+kP4OE9JwamSSrkxaJJ2eWWh7KAq92m
+	 M89qXetR73MFvWZBe1nj6tVajq5QTvqaW+AikI+cWfsCNb3Y1UCP59VVozVC8H59Vm
+	 JihRmE+IxTQs7eAU2uOqjm3UVIp1oRJM2ZSUEAuaZU/0fzUzQtQMVao5/BjGnbp0NN
+	 1BV8Ss73hxCOiI+3Cu2EJghOJElqgArLG1XTMFwpGPUf4Wf4f4wXS6IiheEryjkhul
+	 QbUvcY/YDsLCQ==
+Message-ID: <45af678d-6e13-4b9c-b953-41d1feb0d0de@kernel.org>
+Date: Thu, 1 Oct 2026 14:11:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,135 +35,156 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: errata: Add Cortex-A725 erratum 3821522
- workaround
-To: Beata Michalska <beata.michalska@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
- James.Morse@arm.com, xuewen.yan94@gmail.com, seanwang1@lenovo.com,
- linux-kernel@vger.kernel.org
-References: <20261001090050.3849551-1-beata.michalska@arm.com>
- <20261001090050.3849551-3-beata.michalska@arm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261001090050.3849551-3-beata.michalska@arm.com>
+Subject: Re: [PATCH v3 06/40] mm: make map_kernel_pages_[prepare,complete]
+ internal and unexported
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-6-4583d8a23bca@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-6-4583d8a23bca@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/1/26 10:00, Beata Michalska wrote:
-> Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-> incur a significant increment error when a CPU enters and subsequently
-> exits WFE or WFI, and may no longer track the system counter
-> frequency.
+On 9/17/26 18:22, Lorenzo Stoakes (ARM) wrote:
+> There's no reason to export the symbols for these functions which are only
+> called from internal mm logic, additionally there's no reason for them to
+> be declared in mm.h.
 > 
-> The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-> frequency invariance and CPPC FFH feedback counters. Wire the affected
-> Cortex-A725 range into the shared broken AMU constant-counter capability
-> so the affected counter is treated as unavailable by returning zero in
-> the AMU counter paths. This prevents the broken counter from being used
-> as a reference source.
+> This patch therefore removes the exports and moves the declarations to
+> mm/internal.h.
 > 
-> The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-> but this workaround intentionally does not change PMU event handling.
-> Hiding or rejecting the PMU event from the erratum code would change
-> the perf-visible PMU event interface, including raw event selection,
-> and would need a separate PMU-specific approach rather than being
-> folded into the AMU reference-counter workaround.
+> No functional change intended.
 > 
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
->  Documentation/arch/arm64/silicon-errata.rst |  2 ++
->  arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
->  arch/arm64/kernel/cpu_errata.c              |  4 ++++
->  arch/arm64/kernel/topology.c                |  9 +++++----
->  4 files changed, 33 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-> index ac3248b9f2f3b..99a1eb4b833dd 100644
-> --- a/Documentation/arch/arm64/silicon-errata.rst
-> +++ b/Documentation/arch/arm64/silicon-errata.rst
-> @@ -174,6 +174,8 @@ stable kernels.
->  +----------------+-----------------+-----------------+-----------------------------+
->  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
->  +----------------+-----------------+-----------------+-----------------------------+
-> +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-> ++----------------+-----------------+-----------------+-----------------------------+
->  | ARM            | Cortex-X1       | #1502854        | N/A                         |
->  +----------------+-----------------+-----------------+-----------------------------+
->  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index 3b6c052d46a18..cab741a695f52 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -1081,6 +1081,28 @@ config ARM64_ERRATUM_2645198
->  
->  	  If unsure, say Y.
->  
-> +config ARM64_ERRATUM_3821522
-> +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-> +	depends on ARM64_AMU_EXTN
-> +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> +	default y
-> +	help
-> +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-> +
-> +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-> +	  increment error when entering and subsequently exiting WFx.
-> +	  As a result, the CNT_CYCLES may diverge from the system counter
-> +	  frequency at which it is expected to increment.
-> +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-> +	  being unreliable and unsuitable for use.
-> +
-> +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-> +	  counter return 0 in the relevant paths. This causes users of the counter
-> +	  to treat it as unavailable and is functionally equivalent to firmware
-> +	  disabling the affected counter.
-> +
-> +	  If unsure, say Y.
-> +
->  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
->  	bool
->  
-> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-> index 8ce559ac073c7..40c14e8600ae0 100644
-> --- a/arch/arm64/kernel/cpu_errata.c
-> +++ b/arch/arm64/kernel/cpu_errata.c
-> @@ -386,6 +386,10 @@ static const struct midr_range workaround_amu_constcnt_list[] = {
->  #ifdef CONFIG_ARM64_ERRATUM_2457168
->  	/* Cortex-A510 r0p0-r1p1 */
->  	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-> +#endif
-> +#ifdef CONFIG_ARM64_ERRATUM_3821522
-> +	/* Cortex-A725 r0p0 - r0p2 */
-> +	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
->  #endif
->  	{}
->  };
-> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> index 64588554e7f76..f1bdb49d5d92e 100644
-> --- a/arch/arm64/kernel/topology.c
-> +++ b/arch/arm64/kernel/topology.c
-> @@ -397,10 +397,11 @@ static void cpu_read_corecnt(void *val)
->  static void cpu_read_constcnt(void *val)
->  {
->  	/*
-> -	 * Return 0 if the current CPU is affected by erratum 2457168. A value
-> -	 * of 0 is also returned if the current CPU does not support AMUs or if
-> -	 * the counter is disabled. A return value of 0 at counter read is
-> -	 * properly handled as an error case by the users of the counter.
-> +	 * Return 0 if the current CPU is affected by a HW erratum.
-> +	 * A value of 0 is also returned if the current CPU does not
-> +	 * support AMUs or if the counter is disabled. A return
-> +	 * value of 0 at counter read is properly handled as an error
-> +	 * case by the users of the counter.
->  	 */
->  	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
->  		      0UL : read_constcnt();
-> -- 2.43.0
-> 
 
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Thanks
-Vladimir
+-- 
+Cheers,
+
+David
