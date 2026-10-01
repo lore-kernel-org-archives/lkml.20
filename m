@@ -1,68 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C134F318EC5;
-	Thu,  1 Oct 2026 13:23:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710A8318EC5;
+	Thu,  1 Oct 2026 13:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861016; cv=none; b=l6gqcfwlGL6L48aXnh6ew3YKLYJhdh0kxq3l2DYte6e1kDUnto3BT4YToat6eCi6meL+AZNHO0q60lr29VKx60+9ouvow4WtZ24T2erI9fezQDtbedaFmtRRxbMgZvbe+RzeFw3E3U7BMz5huc7yWI+3ZpFcqbOQD3BS+ZkqWdQ=
+	t=1790861040; cv=none; b=JBpmqXf+KCS1i3a1bccwpthMph3M+TYDWIi3vcy4IQGla/ps5Bhw9BJcZMwJ2VEWz/M5HKOMJrjwoiN+ciQJKFYe7YkoyaB5dYO2V54IPaK+6jlwHtBIDSajrioCtJg884FY6algOrknSWiwn6nW6+HU/xRLV8Pf3uzGLQKK3R0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861016; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=raivRcametrNPEfThIaJw9YOiX8JbFbTo1JkEnoEwYjaIzDzSsad0Jvc6os+P7DqrNiflbtAI9hiPG/gZmXwL1GBZDLQjX1x8aI8EnCTyfk5lA17B4TJVYc4TEvrJxmkyOwXU/iYcSfh6rw5vPy6zOJDm9KzUg9bbwlCqHkaOHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CtK1U6tj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790861040; c=relaxed/simple;
+	bh=wDElpy/TGiRJSn/ziLR4CYi/go52QvZc+rz0PEQ7FBA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cuL+A0+XD3JTbZpdTDAJd8B6oAGP+JRx7jBr7P+VNg9AWlNmsmBio/nJgSs0MfGr15mt6sgN/O7KdVBGIxf+PzzMm/Qkw5a6ulNm15w5kOYi3on9+hFov/yotpt8b/8KARWHMvXri8eH8sGlFcfBYFWv9hNvOGBF2RIQBOVEIl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXYfjsEt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CtK1U6tj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CBF1F00898;
-	Thu,  1 Oct 2026 13:23:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXYfjsEt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA95E1F000FF;
+	Thu,  1 Oct 2026 13:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790861015;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CtK1U6tjipayBbhRqxMgCOx6DgloCpvFJGooNT5Isle/1fwyo9kd1/OmaD8WPqGlc
-	 DJkrQkqcEPg4EzcxruWMhFiSOCYbIVZiHiD/s8dqhzDmjED7OrJbLjwAoL9ZIOf7at
-	 DgG2ycro1euKXPF/V0diWX1KCgTVlzCuLiw083INBB4pe2I3duAe8EWaQju6VYeIQ4
-	 VCuiSuR384SK30Y3XHE6E+Bvsj0zYifboDqMJyb2qeH11Cz4KOM8dbvBvKQysWZ7qb
-	 NeNP1W6xrzZFdyQCesKb57XGnLOjs7bpBYZ2IzthadZTnACdXOpO6c7Rr3pv3epiXf
-	 f++3qFiqGd+Fg==
-From: netdev-bot+sinfo@kernel.org
-To: Artem Novikov <naa@amicon.ru>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, lvc-project@linuxtesting.org, rrv@amicon.ru,
- pchelkin@ispras.ru, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5.10] vxlan: Fix potential null-ptr-deref in
- vxlan_gro_prepare_receive().
-Date: Thu, 01 Oct 2026 13:23:34 +0000
-Message-ID: <179086101460.31693.11225223420004934540@kernel.org>
-In-Reply-To: <20261001132038.21173-1-naa@amicon.ru>
-References: <20261001132038.21173-1-naa@amicon.ru>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1790861039;
+	bh=DXB7tQcfmFfnugtQtf2FqJSIg4yqfN74RxF+rT3OIJ4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KXYfjsEtmBrjOHOpmGcZsAOnEve26Cv9qvbg/YdeO4N92M7jmsbdZHAQsV+evXOLC
+	 9/d9FILtp4cVeZM2Mgv+dKbzN5EsCPootQDurWLu3KDuC2VI50uhLA0bNX/S3INOI7
+	 Hu/kUs7lyr9lgJeHJ8+NfkGx9nD/pjgrwzZclVw4J9BwfBNSe+KFf7RI/PEWJikDak
+	 /S0yPrr7v6Tv5p0DBpjeOQ8luEk04CDL8AvlFy2mQEqDgamJh1dl6HR9Pab08V4w20
+	 0CQLqE9ddLyPuDbW8lugUHOetzvCo2TIgA8hhbfT7AUNqB0GO+Kesc0MJp9lNvIOk8
+	 kTbziUHvX2BrQ==
+Date: Thu, 1 Oct 2026 13:23:49 +0000
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>, Frederic Weisbecker
+ <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Josef Bacik
+ <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, rcu@vger.kernel.org
+Subject: Re: [PATCH] fprobe: Use guard(rcu_sched_notrace) and check
+ rcu_is_watching()
+Message-ID: <20261001132349.472186a7@mhiramat99.roam.internal>
+In-Reply-To: <20260930160325.3f2621ea@fedora>
+References: <179064115227.394389.16910234241400391996.stgit@devnote2>
+	<20260930160325.3f2621ea@fedora>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi!
+On Wed, 30 Sep 2026 16:03:25 -0400
+Steven Rostedt <rostedt@goodmis.org> wrote:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> On Tue, 29 Sep 2026 09:19:12 +0900
+> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+> 
+> > @@ -329,16 +333,14 @@ static void fprobe_ftrace_entry(unsigned long
+> > ip, unsigned long parent_ip, struct fprobe *fp;
+> >  	int bit;
+> >  
+> > +	if (!rcu_is_watching())
+> > +		return;
+> > +  
+> 
+> I'm thinking these should really be:
+> 
+> 	if (WARN_ON_ONCE(!rcu_is_watching()))
+> 		return;
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Hmm, is this for warning users to notice it is out of supported path?
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+If CONFIG_ARCH_WANTS_NO_INSTR=n, we will not prohibit user to set ftrace
+avoiding the function where the RCU is not watching. So maybe it is hit
+by user's operation.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Thank you,
+
+> 
+> -- Steve
+> 
+
+
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
