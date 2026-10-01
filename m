@@ -1,210 +1,171 @@
-Received: from out-2z4y-a144.jellyfish.systems (out-2z4y-a144.jellyfish.systems [198.54.127.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F340C284B2F
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2093149502A;
+	Thu,  1 Oct 2026 20:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884823; cv=none; b=hbTzFwwbA2e8jlE/dJaE8VsY2FYTcHO1KpSTtgPOGYrnvQTrYsErA4BYAdiodCcHueFVXwy1NlL9c65eG5NYKYM7e6GjhZaiTZQNBIOXwT4O72mXRUOIjDTyHOZtf3OkeSfw++ahmTvKnd/8OdTMh4UGOuRlNB+voFxBpBmcq8c=
+	t=1790884831; cv=none; b=ucfCkWr+nWoB7Nbsj5rfoZq00c2Otja5MVw2cqpCtFauf76ceAYcf083r1mw9hF65gMpxerF0dZSQN49d1PGzX9Se6UVqFVZttHpUa5pnK6JkvZVqVeuohfhj+Z5T3ffGRILXDRaNvJaI6GZ3RAR4KUZvAYkz68WdKApI+LkLQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884823; c=relaxed/simple;
-	bh=zBpn8gyRPKXxW/bsabPRRFfQ5KIl27KvSKBAtyKAGEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=imkuJgHP4LWVYuSh6puNmUWtHKa/dyknsKRkHIBcC6R2us7V576sP9igmZtZ6NgIbWRkR3leh1M4K6AyyL3ohtz9Kz8l+hqm5CV9c0kqc4ZL2Znk6Ih6l0qtZ9GeRr9b2G5Z+8Z293qnH8gqjUZaKxRX3IHEIOQ0p4ROMBN036I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org; spf=pass smtp.mailfrom=firmwaredesign.org; dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b=Rivgzosn; arc=none smtp.client-ip=198.54.127.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firmwaredesign.org
+	s=arc-20240116; t=1790884831; c=relaxed/simple;
+	bh=lwkq99MWT5s48kWH9YMiB+4nleL/rEG/UUV3yABKlZM=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=CeApc7wbtSyoYuXTtRp2F5FauOxOt5oPt+z6U7zOv4CRxX9m/0/Po+HG5S6PpIXi+wf6+dloTdw1CCm2HHO/jCa7sd4PU1kDnlF/uF4FfEA/TD2y6dkIwb3EV3Z27awmxHN+m613ElznspZz/M809DTWiVxDYUYTfB/gJ89Jd10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=mxapvqNe; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b="Rivgzosn"
-Received: from mail.privateemail.com (unknown [98.240.242.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hwj9p3qSlz3wYG;
-	Thu, 01 Oct 2026 19:47:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=firmwaredesign.org;
-	s=privateemail; t=1790884047;
-	bh=QAAtwpIcNkjRGp6cAi7qupY31eEBazYUe/Mpb1UZMmQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=RivgzosnFxCgFc4x7ISwUUb6oUMYmHPqUX7H9v/OYXNGUglnHRjNfZMFq0V86uAr7
-	 Qkfo5M8OhkjjeKgSYtnEPy5AvY6vElPiBInERgZosn3n+nwUN8WvN8gO96uhH9NcxB
-	 gJMhijs/0FfqJffTRz8H/vat5eLMZbA6AacHK3XLNhT4ufKFTBm2fqd8AEEUjtf8M9
-	 2DCNLHjquGwrYyqqtPlSrL/dZhiew0pJvA0LOKycy45qIraleIMZc/qPCPZxXcLTGP
-	 4vOIiTjPKS9zRfvc5ols0lhzmse5cIU5bzPtxWyAT3n0zMzRPEsYiVyr/6sZSNWZBD
-	 ldLqYAdhMeZgw==
-From: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
-Subject: [PATCH] staging: rtl8723bs: Rename CamelCase NDIS encryption state enums
-Date: Thu,  1 Oct 2026 14:47:10 -0500
-Message-ID: <20261001194710.144114-1-marinela.selseth@firmwaredesign.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="mxapvqNe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=s+MgTE3OXBsTBgCf7SNKHJD9CWPoxhvXy8xPXrCZJbY=; b=mxapvqNeWcuukz7fIn0FX2TDlj
+	TNSH8gt791Ypxz+8WwcdUx4PHMKuD83qGzClQUK2rDxy1PZbTCD007lrgnGLvCy3bS/hShDf78yiF
+	tNBATzGzbGtUPgNLOrfxNlso+yeY2nyGdDnztFs7nH9JkPRTk57uzYgx5qG2pTJ/7go8=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xCMx2-000000007Zf-1pO5;
+	Thu, 01 Oct 2026 16:00:20 -0400
+Date: Thu, 1 Oct 2026 16:00:20 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Tapio Reijonen <tapio.reijonen@kolumbus.fi>
+Subject: Re: [PATCH v5 4/8] serial: max310x: wait for TX to drain before
+ powering down in shutdown
+Message-Id: <20261001160020.5ba190a2b747f0c66f8b30d7@hugovil.com>
+In-Reply-To: <20260929-max310x-rs485-sw-delay-v5-4-ae46afa583f2@vaisala.com>
+References: <20260929-max310x-rs485-sw-delay-v5-0-ae46afa583f2@vaisala.com>
+	<20260929-max310x-rs485-sw-delay-v5-4-ae46afa583f2@vaisala.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: marinela.selseth@firmwaredesign.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-The identifiers Ndis802_11WEPDisabled and Ndis802_11EncryptionDisabled
-violate the Linux kernel coding style guideline regarding naming
-conventions. Uppercase snake_case is preferred for enum constants.
+Hi Tapio,
 
-Rename both constants to NDIS_802_11_WEP_DISABLED and
-NDIS_802_11_ENCRYPTION_DISABLED across the driver framework to conform
-to standard kernel conventions.
+On Tue, 29 Sep 2026 09:37:58 +0000
+Tapio Reijonen <tapio.reijonen@vaisala.com> wrote:
 
-Signed-off-by: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
----
- drivers/staging/rtl8723bs/core/rtw_ap.c           |  2 +-
- drivers/staging/rtl8723bs/core/rtw_mlme.c         |  8 ++++----
- drivers/staging/rtl8723bs/include/wlan_bssdef.h   |  4 ++--
- drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 12 ++++++------
- drivers/staging/rtl8723bs/os_dep/os_intfs.c       |  2 +-
- 5 files changed, 14 insertions(+), 14 deletions(-)
+> max310x_tx_empty() reports the chip TX FIFO level and nothing else, so
+> both tcdrain() and the tty layer's wait-until-sent on close() return
+> while the final character is still clocking out of the transmit shift
+> register. max310x_shutdown() then powers the port down mid-character
+> and the last byte is truncated on the wire. At 9600 baud the ~1 ms
+> window is easy to miss; at 1200 baud a write()-then-close() reliably
+> corrupts the final byte (observed on the wire: 0x24 transmitted as a
+> 0x04 frame with a framing error).
+> 
+> Wait in shutdown() for the FIFO to drain, bounded by one character
+> duration per FIFO word, plus one more character for the byte in the
+> shift register, before powering the port down. The per-character
+> duration is computed in set_termios() from the frame size and baud
+> rate.
+> 
+> Fixes: f65444187a66 ("serial: New serial driver MAX310X")
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> ---
+>  drivers/tty/serial/max310x.c | 23 +++++++++++++++++++++--
+>  1 file changed, 21 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
+> index f8dad37d017afe5c0b1d36d6239ba05fc5e7aff0..cd3b1913aaadba94805f4728b5eba18e970e34c8 100644
+> --- a/drivers/tty/serial/max310x.c
+> +++ b/drivers/tty/serial/max310x.c
+> @@ -302,6 +302,7 @@ struct max310x_one {
+>  	struct work_struct	md_work;
+>  	struct work_struct	rs_work;
+>  	struct regmap		*regmap;
+> +	unsigned int		one_char_duration_us;
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_ap.c b/drivers/staging/rtl8723bs/core/rtw_ap.c
-index 4728f62a1557..0fdf06cc7226 100644
---- a/drivers/staging/rtl8723bs/core/rtw_ap.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_ap.c
-@@ -1909,7 +1909,7 @@ void stop_ap_mode(struct adapter *padapter)
- 	       0,
- 	       sizeof(struct security_priv));
- 	padapter->securitypriv.ndisauthtype = Ndis802_11AuthModeOpen;
--	padapter->securitypriv.ndisencryptstatus = Ndis802_11WEPDisabled;
-+	padapter->securitypriv.ndisencryptstatus = NDIS_802_11_WEP_DISABLED;
- 
- 	/* for ACL */
- 	spin_lock_bh(&pacl_node_q->lock);
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index d18768a51b19..0860d42b8487 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -605,7 +605,7 @@ static bool rtw_is_desired_network(struct adapter *adapter, struct wlan_network
- 		u8 *p = NULL;
- 		uint ie_len = 0;
- 
--		if ((desired_encmode == Ndis802_11EncryptionDisabled) && (privacy != 0))
-+		if ((desired_encmode == NDIS_802_11_ENCRYPTION_DISABLED) && (privacy != 0))
- 			bselected = false;
- 
- 		if (psecuritypriv->ndisauthtype == Ndis802_11AuthModeWPA2PSK) {
-@@ -621,7 +621,7 @@ static bool rtw_is_desired_network(struct adapter *adapter, struct wlan_network
- 		}
- 	}
- 
--	if ((desired_encmode != Ndis802_11EncryptionDisabled) && (privacy == 0))
-+	if ((desired_encmode != NDIS_802_11_ENCRYPTION_DISABLED) && (privacy == 0))
- 		bselected = false;
- 
- 	if (check_fwstate(pmlmepriv, WIFI_ADHOC_STATE)) {
-@@ -1114,7 +1114,7 @@ void rtw_reset_securitypriv(struct adapter *adapter)
- 		adapter->securitypriv.btkip_countermeasure_time = backupTKIPcountermeasure_time;
- 
- 		adapter->securitypriv.ndisauthtype = Ndis802_11AuthModeOpen;
--		adapter->securitypriv.ndisencryptstatus = Ndis802_11WEPDisabled;
-+		adapter->securitypriv.ndisencryptstatus = NDIS_802_11_WEP_DISABLED;
- 
- 	} else {
- 		/* reset values in securitypriv */
-@@ -1130,7 +1130,7 @@ void rtw_reset_securitypriv(struct adapter *adapter)
- 		psec_priv->dot118021XGrpKeyid = 1;
- 
- 		psec_priv->ndisauthtype = Ndis802_11AuthModeOpen;
--		psec_priv->ndisencryptstatus = Ndis802_11WEPDisabled;
-+		psec_priv->ndisencryptstatus = NDIS_802_11_WEP_DISABLED;
- 		/*  */
- 	}
- 	spin_unlock_bh(&adapter->security_key_mutex);
-diff --git a/drivers/staging/rtl8723bs/include/wlan_bssdef.h b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
-index f4c1456f1476..86e4bf92f14b 100644
---- a/drivers/staging/rtl8723bs/include/wlan_bssdef.h
-+++ b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
-@@ -69,8 +69,8 @@ enum ndis_802_11_authentication_mode {
- enum {
- 	Ndis802_11WEPEnabled,
- 	Ndis802_11Encryption1Enabled = Ndis802_11WEPEnabled,
--	Ndis802_11WEPDisabled,
--	Ndis802_11EncryptionDisabled = Ndis802_11WEPDisabled,
-+	NDIS_802_11_WEP_DISABLED,
-+	NDIS_802_11_ENCRYPTION_DISABLED = NDIS_802_11_WEP_DISABLED,
- 	Ndis802_11WEPKeyAbsent,
- 	Ndis802_11Encryption1KeyAbsent = Ndis802_11WEPKeyAbsent,
- 	Ndis802_11WEPNotSupported,
-diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-index 3468d4114f60..90c822a8ee26 100644
---- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-+++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-@@ -1338,7 +1338,7 @@ static int rtw_cfg80211_set_auth_type(struct security_priv *psecuritypriv,
- 
- static int rtw_cfg80211_set_cipher(struct security_priv *psecuritypriv, u32 cipher, bool ucast)
- {
--	u32 ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+	u32 ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 
- 	u32 *profile_cipher = ucast ? &psecuritypriv->dot11_privacy_algrthm :
- 		&psecuritypriv->dot118021XGrpPrivacy;
-@@ -1352,7 +1352,7 @@ static int rtw_cfg80211_set_cipher(struct security_priv *psecuritypriv, u32 ciph
- 	switch (cipher) {
- 	case IW_AUTH_CIPHER_NONE:
- 		*profile_cipher = _NO_PRIVACY_;
--		ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+		ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 		break;
- 	case WLAN_CIPHER_SUITE_WEP40:
- 		*profile_cipher = _WEP40_;
-@@ -1463,7 +1463,7 @@ static int rtw_cfg80211_set_wpa_ie(struct adapter *padapter, u8 *pie, size_t iel
- 	switch (group_cipher) {
- 	case WPA_CIPHER_NONE:
- 		padapter->securitypriv.dot118021XGrpPrivacy = _NO_PRIVACY_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 		break;
- 	case WPA_CIPHER_WEP40:
- 		padapter->securitypriv.dot118021XGrpPrivacy = _WEP40_;
-@@ -1486,7 +1486,7 @@ static int rtw_cfg80211_set_wpa_ie(struct adapter *padapter, u8 *pie, size_t iel
- 	switch (pairwise_cipher) {
- 	case WPA_CIPHER_NONE:
- 		padapter->securitypriv.dot11_privacy_algrthm = _NO_PRIVACY_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 		break;
- 	case WPA_CIPHER_WEP40:
- 		padapter->securitypriv.dot11_privacy_algrthm = _WEP40_;
-@@ -1568,7 +1568,7 @@ static int cfg80211_rtw_join_ibss(struct wiphy *wiphy, struct net_device *ndev,
- 	ndis_ssid.ssid_length = params->ssid_len;
- 	memcpy(ndis_ssid.ssid, (u8 *)params->ssid, params->ssid_len);
- 
--	psecuritypriv->ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+	psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 	psecuritypriv->dot11_privacy_algrthm = _NO_PRIVACY_;
- 	psecuritypriv->dot118021XGrpPrivacy = _NO_PRIVACY_;
- 	psecuritypriv->dot11_auth_algrthm = dot11_auth_algrthm_open; /* open system */
-@@ -1664,7 +1664,7 @@ static int cfg80211_rtw_connect(struct wiphy *wiphy, struct net_device *ndev,
- 	if (check_fwstate(pmlmepriv, _FW_UNDER_SURVEY))
- 		rtw_scan_abort(padapter);
- 
--	psecuritypriv->ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+	psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 	psecuritypriv->dot11_privacy_algrthm = _NO_PRIVACY_;
- 	psecuritypriv->dot118021XGrpPrivacy = _NO_PRIVACY_;
- 	psecuritypriv->dot11_auth_algrthm = dot11_auth_algrthm_open; /* open system */
-diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-index c15056ee207c..e0d043172819 100644
---- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-+++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-@@ -540,7 +540,7 @@ static void rtw_init_default_value(struct adapter *padapter)
- 	psecuritypriv->dot118021XGrpKeyid = 1;
- 
- 	psecuritypriv->ndisauthtype = Ndis802_11AuthModeOpen;
--	psecuritypriv->ndisencryptstatus = Ndis802_11WEPDisabled;
-+	psecuritypriv->ndisencryptstatus = NDIS_802_11_WEP_DISABLED;
- 
- 	/* registry_priv */
- 	rtw_init_registrypriv_dev_network(padapter);
+char_time_us?
+
+
+>  	unsigned int		baud;
+>  	bool			tx_break;	/* break_ctl() owns the transceiver */
+>  
+> @@ -1020,6 +1021,7 @@ static void max310x_set_termios(struct uart_port *port,
+>  				struct ktermios *termios,
+>  				const struct ktermios *old)
+>  {
+> +	unsigned int frame_bits = tty_get_frame_size(termios->c_cflag);
+>  	unsigned int lcr = 0, flow = 0;
+>  	int baud;
+>  
+> @@ -1132,10 +1134,13 @@ static void max310x_set_termios(struct uart_port *port,
+>  	uart_update_timeout(port, termios->c_cflag, baud);
+>  
+>  	/*
+> -	 * Cache the new baud rate and reprogram the RS485 RTS delays, whose
+> -	 * millisecond-to-bit-time conversion depends on it.
+> +	 * Cache the new baud rate and the time it takes to clock out one
+> +	 * character, then reprogram the RS485 RTS delays, whose
+> +	 * millisecond-to-bit-time conversion depends on the baud rate.
+>  	 */
+>  	to_max310x_port(port)->baud = baud;
+> +	to_max310x_port(port)->one_char_duration_us =
+> +		DIV_ROUND_UP(USEC_PER_SEC * frame_bits, baud);
+
+Would it be a good idea to if you moved these two lines after
+max310x_set_rts_ctl_params(), then you could probably leave the
+original comments and simply add a new comment to indicate "Compute
+time it takes to clock out one character", simplifying the diff
+(review) and readability?
+
+>  	max310x_set_rts_ctl_params(to_max310x_port(port));
+>  }
+>  
+> @@ -1231,6 +1236,20 @@ static int max310x_startup(struct uart_port *port)
+>  
+>  static void max310x_shutdown(struct uart_port *port)
+>  {
+> +	struct max310x_one *one = to_max310x_port(port);
+> +	unsigned int loops = port->fifosize + 1;
+
+tries?
+
+> +
+> +	/*
+> +	 * The tty layer waits for tx_empty() before close(), but tx_empty()
+> +	 * only reflects the chip TX FIFO - the last character may still be in
+> +	 * the transmit shift register. Let the FIFO drain and the final
+> +	 * character clock out before the port is powered down, otherwise
+> +	 * close() truncates the last byte on the wire.
+> +	 */
+
+Based on these comments, does it mean that the FIFO has already been
+validated empty at this point by the tty layer, so you don't need the
+loop at all, just the unconditional last fsleep()?
+
+> +	while (!max310x_tx_empty(port) && loops-- > 0)
+> +		fsleep(one->one_char_duration_us);
+
+For certain combinations of large fifo_sizes and high-baud rates, that
+could mean a lot of I2C/SPI transactions?
+
+
+> +	fsleep(one->one_char_duration_us);
+> +
+>  	/* Disable all interrupts */
+>  	max310x_port_write(port, MAX310X_IRQEN_REG, 0);
+>  
+> 
+> -- 
+> 2.47.3
+> 
+> 
+> 
+
+
 -- 
-2.43.0
-
+Hugo Villeneuve
