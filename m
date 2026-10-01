@@ -1,64 +1,88 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF4745629D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECFB47A876
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838668; cv=none; b=UibXIzDSacQIbdvcQpZxgxRZSxno6NqDy++0hU83Eqv2d9m6h6n+LxZxbCoBL3Fm38YLMp/APO1HZx5Kxy3fFW0KKNDVpHecilDdFQXCRdHCzG7JRwsC/hozxz/8QMo0fiy3V1kgwu2qreQkZe9HJLXnl1w5NRtUaU+G5sIgsZg=
+	t=1790838688; cv=none; b=pSz+2cDsTCUExhBf9p+t4l3YwzLagh1sI9q48FNz8UJyCYBy5SdYBq5A96lPveO5R40BCBRlsCZuLqDI9XjzvsycFop2k9/GfC1fGkz8PRV4geA7GOJG5uUPsmCAqDG2X20JN7mdieSOG/aCJOUcvSypU+fnrQHN1Ba5Lgicfj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790838668; c=relaxed/simple;
-	bh=abZZU1jKLaisQM4jjyNXA2PQ0eo+xVzoWsZTJDHwifo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cer05cDAzRR5IbS6XISjdzqAdVndUtbWdu/IoCFqOr7WfAaS2aM9Mje3HrGWO0fqWmhNBm+ujsmwrRbio40//lxRY8/NkawbrEOO6R7BQQVzLE5Z1OBoMz3MTFhSawa3yqSYAOYYX+FDe/i6QvnfYmiwigackIqlNudjTxBdPIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Fp1uUVnz; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790838688; c=relaxed/simple;
+	bh=iMmFH4lgDHyoNQ1xgQa/pQGhmZVKPSZz5PAimZRmSu8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=qBqAS/5J3yh9TohPkbmhw1jltXZcUOJx6zbITpSJ0obYfIOEToAwYCVyOAXBmVnnv2tzp+rckQ3QwwmXyKfqt9yNmMy0gXQF54KjmqxEVDqh91FijOnBmloJ0jfARuI63N1AOIyVeY3jQvaAXiHTJ0tayjEcYYrEbp6OpTge1+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DAJdvz8h; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Fp1uUVnz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=abZZU1jKLaisQM4jjyNXA2PQ0eo+xVzoWsZTJDHwifo=; b=Fp1uUVnzMVa4VgHRzlbLdsdP+P
-	4sBUBvPUaMc1wDkof1kUiXWwBeTsQr2NhtlAFgSskelC3BTS0glS28gaIbxUKJpUoB2iWoXJSb3cl
-	jeseQQwEkLgctlzKYOmaNZN/VAQF4oKe3tqG66AX2L+5w3Leyb24nJPqfk1o8QplkqQy6uvOKeHvQ
-	ytQcwixj+fX4yYsTXK3fLZxxF5o75Dq8EDERmpVKVxxiaRGyb3N/kgjXp5AzjCzil0UUEthJTwFma
-	IT5tHjJxYGCt5c08bnGq1D9bLeXTbrbmPLH8BqrxOGTXX+H4lMkc+8DY+13OW2KS+UjCphujtDQnf
-	5j9l3ZWg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCAwW-00000005v46-0dGK;
-	Thu, 01 Oct 2026 07:11:00 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9F1AB300390; Thu, 01 Oct 2026 09:10:59 +0200 (CEST)
-Date: Thu, 1 Oct 2026 09:10:59 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Chris Mason <mason@kernel.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, tglx@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] futex: sample poll cookie after publishing new hash
-Message-ID: <20261001071059.GR88198@noisy.programming.kicks-ass.net>
-References: <20260818011036.1138213-1-mason@kernel.org>
- <20260818011036.1138213-2-mason@kernel.org>
- <20260820104015.GE687043@noisy.programming.kicks-ass.net>
- <DLOLBXAIDH5J.2H6LPY4E4Q2RA@kernel.org>
- <5b6fab2a-90e9-42c2-8142-0b0f094559f4@paulmck-laptop>
- <20260930112156.GL88198@noisy.programming.kicks-ass.net>
- <d6e1b8cf-ee16-4a8f-b2e5-abc52908e6e3@app.fastmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DAJdvz8h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790838681;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=sQkhrsRcsWf41Bxxpf2FbhExi0yeXGInF1+JbpCTMxA=;
+	b=DAJdvz8hTaRXdWXUGav8DoibYbmZqn/HnZjrqhf1jwWXD/6ixWS14FiXO1Ogv8S9jMcPc/
+	EdM35tGodbtd9XnWvP4xNYXKj7TOGDuhpTMjo+dkspmbVcgJjtUwCReBqSDcWIKfWZTOJ4
+	hTV8GWgU25lSdD+0H5qWP01Mk8dHry4=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-113-_ntGq0lDP42OwLLTq_lLgg-1; Thu,
+ 01 Oct 2026 03:11:17 -0400
+X-MC-Unique: _ntGq0lDP42OwLLTq_lLgg-1
+X-Mimecast-MFC-AGG-ID: _ntGq0lDP42OwLLTq_lLgg_1790838676
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 86ECD19540D1;
+	Thu,  1 Oct 2026 07:11:16 +0000 (UTC)
+Received: from jstancek-thinkpadt14gen5.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A80AE1956089;
+	Thu,  1 Oct 2026 07:11:14 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jstancek@redhat.com
+Subject: [PATCH] .gitignore: drop Module.markers
+Date: Thu,  1 Oct 2026 09:11:10 +0200
+Message-ID: <8cbe913b9f80dc6fea73a9e3d51429db2b38905f.1790838401.git.jstancek@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d6e1b8cf-ee16-4a8f-b2e5-abc52908e6e3@app.fastmail.com>
+Content-type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Wed, Sep 30, 2026 at 09:23:52AM -0400, Chris Mason wrote:
+commit fc5377668c3d ("tracing: Remove markers") deleted the marker code
+and the modpost output. Follow-up commit 8723eaeff59a ("Kbuild: clean up
+marker") removed it from clean and mrproper targets. Both are from 2009,
+so the file is hopefully no longer in anyone's tree, drop it from
+.gitignore as well.
 
-> Ok, I'll resend against recent git with a better commit message,
-> unless you've already queued up something better suited?
+Fixes: 8723eaeff59a ("Kbuild: clean up marker")
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ .gitignore | 1 -
+ 1 file changed, 1 deletion(-)
 
-If you would, that'd be great!
+diff --git a/.gitignore b/.gitignore
+index 9875120ea7bd..01e6a1f7a49e 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -75,7 +75,6 @@ modules.order
+ /vmlinux-gdb.py
+ /vmlinuz
+ /System.map
+-/Module.markers
+ /modules.builtin
+ /modules.builtin.modinfo
+ /modules.builtin.ranges
+-- 
+2.55.0
+
