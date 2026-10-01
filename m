@@ -1,504 +1,284 @@
-Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DF24BE42B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:52:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F044BA1E6;
+	Thu,  1 Oct 2026 22:52:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790895148; cv=none; b=EZnh0Jkbm0U02ByDnxN+se2Hk4QbWGDIq3tqtWxPLpV0QG+zSq1TKZPWTvSJTDkTJOCdY//9xE2BaF3C0JBLvloMcrq6QXzrdaRr4W7Iw/aw1MjfAoljpl00w6xJfvliwIaNK+rMRa1W+4WYZUx4qilneGwggxgINXXgo38i/L0=
+	t=1790895160; cv=none; b=Qlhzlg6+xQVBtzMS42NrtyVuAZd35rO9jhlib2Wq1BBNw0jmMU7lg50Q8351nTOo/Dy+NflUs9Ekyddu2A36lTkLeBHwfvmm53+5fdXpkGqYrPcmw7hS3KjqfQEKfqxj1hCl5qWekqbpSy1+amV1MpYUkGTv8Sbn5QNAgJTcRf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790895148; c=relaxed/simple;
-	bh=t5EBaXgjCtOlPReSbRxo6xipJNaIHWdHxsirSpF8mEI=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=BE6hOKEEYeFPGsNwASi/2l4rtHD/jY+HXUabMU9P/6CANiDk/AFRE/X6IRPgnJUITk7U9hyS9C6U/9iXFkknivgwT7RixDDf3vEzQo85GezYC1mOrRHEar7NjEGVPMEFyP6sJ9BYnepJRXi/xAG22Vs9qNHcI+f9El9xEfOg2Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HJ5Huim3; arc=none smtp.client-ip=74.125.224.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790895160; c=relaxed/simple;
+	bh=laazS+0ZmSnRyJpgtk+2lHW3yVI64TKOgAOksjv8YWs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c5ElA3bnyHAY3kF3Dn/pu45WXY7k5tAk1jSvwW3c0myD7I8019fxSB46QbNZC21sh6VlT7rqGBfJi+QLopdNUHfEa1UiuuHUtvvF2hq/hJWTcpHmqPNagCy2asOSjtklw4a2O6U+nk16BLxUAH6uJLoJDNN6hVaRAkuJ0VpJMH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=YtucT8pl; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HJ5Huim3"
-Received: by mail-yx2-f38.google.com with SMTP id 00721157ae682-8ab3e848918so37415797b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:52:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="YtucT8pl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790895145; x=1791499945; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1r9R/81H7+7sKSQQACrmcWEff6sVFjsufZ7eFfFqfJM=;
-        b=HJ5Huim326WSrUnTE9TqFlK0ONU7L5iNI8uJ73SJ0hHH63IlmLiQgnksh6IDl99CLv
-         lqoxNZvVH7irgqtzJfPdgf819Mx4xPXbniaMi62zoq6UNYDFw8Qhb+Zp4m9U72mSV/Re
-         g/PrRRHXemU4KRpgVAx0TXOWpjJ7LvARH6VEyjgla1YX8L3Ln/2pndf8bsPBIx5+gpge
-         z2EoTOdGbPEhgkKBP4BtEjvkMaNuPq5KesqDTYelbijOWujRIYOu++KCpfjWqXFhCOMz
-         sP5FAQMRWJEjLFLaYU3/bl9cKTl12Ai9nKrUy1u+OBQL/1UosucqbZLgj3bTEEJzVINi
-         1vTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790895145; x=1791499945;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1r9R/81H7+7sKSQQACrmcWEff6sVFjsufZ7eFfFqfJM=;
-        b=cKVN3R7Dq3DlL56YDA3i1y897Mg+Cxqoj7TmGvZX489qpooYUMM8O/M/AR9Gp+dGib
-         fO1fX9cq3M1s07WV/+Qhwj3t3xXEp6FmPCtMxYkoLJr2W4TSWaI1/Vu4Ra8iRBezlGw+
-         OmGHm/pdLELbFtBgS+nAxk6KiwFs/xvH52bKWM5hlYm8Xb5EhEDFdcF6ElqsnVjTKdmj
-         fY8Yxx/k3d2GZsj82dyKs1n6epbFCUV8zHO4RKRO6mTPGP+cxxgw6BI372iza7XPHeBf
-         RZDalIPZOMCxnMVhrBavWWSUNnPRjMcT35Jycj9rdf0RrHxnoELsqKhy7ZiuDpDL7ZAB
-         XtDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByi79KhFc9oXSHtK7Uolfvs6COZkiNa8n9SS2dpwVEw4pIiQ8I/bLqq2zTIBeDIo12o9H6djY0uRZfbJ94=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKj+sS7aSoNmicWF1/8JtamHHCZQ/kluGNgt5kEGKQoQ1x4/3R6
-	IJAFVI3D9FWGEM04t0j5y/b6WVnBtdsdW90jyHT516rudfQLrvNdnHR2
-X-Gm-Gg: AYBFou0y0MSpIKv/KSVv7FC8b9pRLc8xzQAb1MAirYQjYv+n70hGK90dAqnnvmeyp1f
-	f/8ZUumD8MEDZYXeEpAYo/AJBl5GcsJMiTPr2ZdsXd2j47yOr3aLPq4FECKbwLJsOo9lsUPXost
-	IaAyKIUs7nI7CVeQnyITfcqCs+HtCd9nxmSPCIDDCZc+F8sFVv6qqrdC4IEU9BomA+01mjFoIRm
-	LDTaqrMbv5+BPx3SEK6AVmUM74jbDBjQS8X8cPw2SdpSa3/uSg7wwhFV2VhEIojiGdVO1fQ0Flo
-	RSzrKbQmTXaiR3k9mgj9v4F55MagvyTVTR2yISJ8p9nQwVskFPLtakKc/PLCZ1ytd8vc0q9FM22
-	ItWktDUSUyX6AuvUtt0zJLa9iAdhCRJMPQSt452d0JZDZXeBHYY+NDXNQhCIaDXkyBDlFExPNVX
-	lnE88uV8i4yMOArRTIcebMsZgUtWIxWr3FOWaAboL/IaIUjodwSp/K+roV0AFrBJSmkb9HKfw8Y
-	LkPerscUT0Hp8H6zurjp0/KomdtVicC3QBoDw4Ioj75zmrUoFXy
-X-Received: by 2002:a05:690c:f14:b0:8a9:543c:db7f with SMTP id 00721157ae682-8ae3abe15afmr3055557b3.49.1790895144846;
-        Thu, 01 Oct 2026 15:52:24 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae333e9a0bsm2659807b3.36.2026.10.01.15.52.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 15:52:24 -0700 (PDT)
-Date: Thu, 01 Oct 2026 18:52:23 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Eric Dumazet <edumazet@google.com>
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Paulos Yibelo <habte.yibelo@gmail.com>, 
- netdev@vger.kernel.org, 
- richard@nod.at, 
- anton.ivanov@cambridgegreys.com, 
- johannes@sipsolutions.net, 
- jasowangio@gmail.com, 
- eperezma@redhat.com, 
- xuanzhuo@linux.alibaba.com, 
- andrew+netdev@lunn.ch, 
- pablo@netfilter.org, 
- fw@strlen.de, 
- phil@nwl.cc, 
- razor@blackwall.org, 
- idosch@nvidia.com, 
- dsahern@kernel.org, 
- davem@davemloft.net, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- linux-um@lists.infradead.org, 
- virtualization@lists.linux.dev, 
- netfilter-devel@vger.kernel.org, 
- coreteam@netfilter.org, 
- bridge@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.326d14cfb0ee3@gmail.com>
-In-Reply-To: <20260923081209-mutt-send-email-mst@kernel.org>
-References: <20260922030310.8684-1-habte.yibelo@gmail.com>
- <20260922030310.8684-2-habte.yibelo@gmail.com>
- <willemdebruijn.kernel.259bc7096258d@gmail.com>
- <willemdebruijn.kernel.2cdfef118aa1d@gmail.com>
- <20260923061215-mutt-send-email-mst@kernel.org>
- <CANn89iJaE5UarTdg6FMEp=rZ9mG3g=xrVRLyvMS5S02iE8CwGg@mail.gmail.com>
- <20260923081209-mutt-send-email-mst@kernel.org>
-Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
- network header
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790895158; x=1822431158;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=y+JyH5zIJE3PGSOjUeeYnRuwWQu8TPBpZh3k8A6DDdM=;
+  b=YtucT8plQ/uzE4tYqEmGU1XHFMjPvCI9dnqWZl4MUkNg7Uc+8GGOkKf6
+   0Pyj8kz8cQfges/OTfhnLJhL/wPKX9Is/eAgRWNa8aDQHliDKfT6ITx4L
+   LlIC+ub/WKFiK81REjwko8ZBQnavdPMH+imCadSpHDNYKFXNfcIITtKtB
+   +zpC4sutSX0yko/+yFAe2rqPrLnIqe2a4H1cGdao6lg3kRJgLymrv6q69
+   7437H0fnk6hXN6xvFkZC3ggusImsFGtffAfzjkZKAul7hngRFJCA319la
+   zRL3nbSJ18Qj6loq7/ENxFKNStl75ZDhuaBWPAlq9wWN3ROVZnadMunYs
+   A==;
+X-CSE-ConnectionGUID: R7b7WIeYTPakmuq46PULeg==
+X-CSE-MsgGUID: ClvxUyeBT9yOB1x+sJHB1Q==
+X-IronPort-AV: E=Sophos;i="6.27,135,1787011200"; 
+   d="scan'208";a="30225222"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 22:52:38 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:4205]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.47.21:2525] with esmtp (Farcaster)
+ id bfb080bf-bf6c-489f-85ba-77338b00a77d; Thu, 1 Oct 2026 22:52:38 +0000 (UTC)
+X-Farcaster-Flow-ID: bfb080bf-bf6c-489f-85ba-77338b00a77d
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 1 Oct 2026 22:52:37 +0000
+Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 1 Oct 2026 22:52:37 +0000
+From: Jay Wang <wanjay@amazon.com>
+To: <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+	"Eduard Zingerman" <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi
+	<memxor@gmail.com>
+CC: Alan Maguire <alan.maguire@oracle.com>, Martin KaFai Lau
+	<martin.lau@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+	<jolsa@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>, Quentin Monnet
+	<qmo@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier
+	<nsc@kernel.org>, <linux-kbuild@vger.kernel.org>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>, Christian Heusel
+	<christian@heusel.eu>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu
+	<petr.pavlu@suse.com>, Sami Tolvanen <samitolvanen@google.com>,
+	<linux-modules@vger.kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+	"Masami Hiramatsu" <mhiramat@kernel.org>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, <linux-trace-kernel@vger.kernel.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	<linux-perf-users@vger.kernel.org>, Jiri Kosina <jikos@kernel.org>, "Benjamin
+ Tissoires" <bentiss@kernel.org>, <linux-input@vger.kernel.org>, Tejun Heo
+	<tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi
+	<arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
+	<sched-ext@lists.linux.dev>, Shuah Khan <shuah@kernel.org>,
+	<linux-kselftest@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	<rust-for-linux@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Hazem Mohamed
+ Abuelfotoh" <abuehaze@amazon.com>, Bjoern Doebel <doebel@amazon.de>, "Martin
+ Pohlack" <mpohlack@amazon.de>, <jay.wang.upstream@gmail.com>
+Subject: [PATCH bpf-next v4 01/12] bpf: pass the vmlinux BTF to btf_parse_module() and let it adopt the data
+Date: Thu, 1 Oct 2026 22:52:03 +0000
+Message-ID: <20261001225214.12351-2-wanjay@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261001225214.12351-1-wanjay@amazon.com>
+References: <20261001225214.12351-1-wanjay@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D036UWC001.ant.amazon.com (10.13.139.233) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Michael S. Tsirkin wrote:
-> On Wed, Sep 23, 2026 at 12:46:42PM +0200, Eric Dumazet wrote:
-> > On Wed, Sep 23, 2026 at 12:21=E2=80=AFPM Michael S. Tsirkin <mst@redh=
-at.com> wrote:
-> > >
-> > > On Tue, Sep 22, 2026 at 09:27:26PM -0400, Willem de Bruijn wrote:
-> > > > Willem de Bruijn wrote:
-> > > > > Paulos Yibelo wrote:
-> > > > > > __virtio_net_hdr_to_skb() checks a minimum network-header len=
-gth for
-> > > > > > CHECKSUM_PARTIAL packets. Its checksum start is relative to s=
-kb->data,
-> > > > > > but some callers have not established skb->network_header whe=
-n they
-> > > > > > convert the virtio header.
-> > > > > >
-> > > > > > Pass the data-relative L3 origin explicitly. Ethernet receive=
- paths
-> > > > > > parse the frame and nested VLAN headers without changing skb =
-state.
-> > > > > > AF_PACKET uses the frame's actual L3 origin even when the soc=
-ket
-> > > > > > protocol is ETH_P_IP and the raw frame carries VLAN tags. Non=
--Ethernet
-> > > > > > AF_PACKET devices retain their established skb network offset=
-.
-> > > > > >
-> > > > > > Also pass the actual L3 protocol so IPv6 packets use the 40-b=
-yte base
-> > > > > > header minimum even without TCPv6 GSO. IFF_TUN obtains that p=
-rotocol
-> > > > > > from the packet before skb->protocol is set. Name the Etherne=
-t parser
-> > > > > > accordingly, use the same origin for tunnel validation, and p=
-ropagate
-> > > > > > conversion failures in UML.
-> > > > > >
-> > > > > > The bound remains a minimum; fragmentation paths separately v=
-alidate
-> > > > > > the parsed IPv4 or IPv6 header length before completing a che=
-cksum.
-> > > > > >
-> > > > > > Fixes: 49d14b54a527 ("net: test for not too small csum_start =
-in virtio_net_hdr_to_skb()")
-> > > > > > Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle=
- UDP GSO tunneling.")
-> > > > > > Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > > > > > Link: https://lore.kernel.org/netdev/20260920004733.6473-2-ha=
-bte.yibelo@gmail.com/
-> > > > > > Cc: stable@vger.kernel.org
-> > > > > > Assisted-by: LLM
-> > > > > > Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > > > > > ---
-> > > > > >  arch/um/drivers/vector_transports.c | 13 ++++-
-> > > > > >  drivers/net/tun_vnet.h              | 52 ++++++++++++++++-
-> > > > > >  drivers/net/virtio_net.c            | 10 +++-
-> > > > > >  include/linux/virtio_net.h          | 87 +++++++++++++++++++=
-+++++-----
-> > > > > >  net/packet/af_packet.c              | 24 +++++++-
-> > > > > >  5 files changed, 163 insertions(+), 23 deletions(-)
-> > > > >
-> > > > > The fix may still miss the case IPv4 packets have options.
-> > > > >
-> > > > > This version is a very large patch.
-> > > > >
-> > > > > Untested shorter first suggestion by bot, which looks plausible=
- as a
-> > > > > starting point for discussion.
-> > > >
-> > > > Cleaned up some more:
-> > > >
-> > > >     diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
-> > > >     index f4c652b1fa44..c24607af2aad 100644
-> > > >     --- a/drivers/net/tun_vnet.h
-> > > >     +++ b/drivers/net/tun_vnet.h
-> > > >     @@ -180,6 +180,9 @@ static inline int tun_vnet_hdr_put(int sz=
-, struct iov_iter *iter,
-> > > >      static inline int tun_vnet_hdr_to_skb(unsigned int flags, st=
-ruct sk_buff *skb,
-> > > >                            const struct virtio_net_hdr *hdr)
-> > > >      {
-> > > >     +    if ((flags & TUN_TYPE_MASK) =3D=3D IFF_TUN)
-> > > >     +        skb_reset_network_header(skb);
-> > > >     +
-> > > >          return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_littl=
-e_endian(flags));
-> > > >      }
-> > > >
-> > > >     @@ -199,6 +202,9 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flag=
-s, netdev_features_t features,
-> > > >                  struct sk_buff *skb,
-> > > >                  const struct virtio_net_hdr_v1_hash_tunnel *hdr)=
+Make btf_parse_module() take the vmlinux BTF as an argument instead of
+fetching it with bpf_get_btf_vmlinux(), and add a data_owned flag: when
+set, the passed .BTF data is an already kvmalloc()ed copy that the new
+btf takes ownership of on success (on failure the caller keeps it).
 
-> > > >      {
-> > > >     +    if ((flags & TUN_TYPE_MASK) =3D=3D IFF_TUN)
-> > > >     +        skb_reset_network_header(skb);
-> > > >     +
-> > > >
-> > > >     diff --git a/include/linux/virtio_net.h b/include/linux/virti=
-o_net.h
-> > > >     index c381b916c1b5..02c448de0802 100644
-> > > >     --- a/include/linux/virtio_net.h
-> > > >     +++ b/include/linux/virtio_net.h
-> > > >     @@ -48,6 +48,42 @@ static inline int virtio_net_hdr_set_proto=
-(struct sk_buff *skb,
-> > > >          return 0;
-> > > >      }
-> > > >
-> > > >     +static inline int virtio_net_hdr_nh_min_len(const struct sk_=
-buff *skb,
-> > > >     +                        unsigned int nh_min_len)
-> > > >     +{
-> > > >     +    int thoff =3D skb_transport_offset(skb);
-> > > >     +    __be16 proto;
-> > > >     +    int nhoff;
-> > > >     +
-> > > >     +    if (skb_network_header_was_set(skb)) {
-> > > >     +        nhoff =3D skb_network_offset(skb);
-> > > >     +        proto =3D skb->protocol;
-> > > >     +    } else {
-> > > >     +        if (unlikely(thoff < ETH_HLEN))
-> > > >     +            return -EINVAL;
-> > > >     +        nhoff =3D ETH_HLEN;
-> > > >     +        proto =3D eth_hdr(skb)->h_proto;
-> > > >     +    }
-> > > >     +
-> > > >     +    if (eth_type_vlan(proto)) {
-> > > >     +        proto =3D __vlan_get_protocol(skb, proto, &nhoff);
-> > > >     +        if (!proto)
-> > > >     +            return -EINVAL;
-> > > >     +    }
-> > > >     +
-> > > >     +    if (proto =3D=3D htons(ETH_P_IP)) {
-> > > >     +        const struct iphdr *iph =3D (void *)(skb->data + nho=
-ff);
-> > > >     +
-> > > >     +        if (unlikely(thoff < nhoff + sizeof(*iph)))
-> > > >     +            return -EINVAL;
-> > > >     +        nh_min_len =3D max_t(u32, iph->ihl * 4, sizeof(*iph)=
-);
-> > > >     +    } else if (proto =3D=3D htons(ETH_P_IPV6)) {
-> > > >     +        nh_min_len =3D sizeof(struct ipv6hdr);
-> > > >     +    }
-> > > >     +
-> > > >     +    return nhoff + nh_min_len;
-> > > >     +}
-> > > >     +
-> > > >      static inline int __virtio_net_hdr_to_skb(struct sk_buff *sk=
-b,
-> > > >                            const struct virtio_net_hdr *hdr,
-> > > >                            bool little_endian, u8 hdr_gso_type)
-> > > >     @@ -98,13 +134,15 @@ static inline int __virtio_net_hdr_to_sk=
-b(struct sk_buff *skb,
-> > > >              u32 start =3D __virtio16_to_cpu(little_endian, hdr->=
-csum_start);
-> > > >              u32 off =3D __virtio16_to_cpu(little_endian, hdr->cs=
-um_offset);
-> > > >              u32 needed =3D start + max_t(u32, thlen, off + sizeo=
-f(__sum16));
-> > > >     +        int min_thoff;
-> > > >
-> > > >              if (!pskb_may_pull(skb, needed))
-> > > >                  return -EINVAL;
-> > > >
-> > > >              if (!skb_partial_csum_set(skb, start, off))
-> > > >                  return -EINVAL;
-> > > >     -        if (skb_transport_offset(skb) < nh_min_len)
-> > > >     +        min_thoff =3D virtio_net_hdr_nh_min_len(skb, nh_min_=
-len);
-> > > >     +        if (min_thoff < 0 || skb_transport_offset(skb) < min=
-_thoff)
-> > > >                  return -EINVAL;
-> > >
-> > >
-> > > Certainly looks much better. But I'd like to ask, generally:
-> > > doesn't the net stack need to protect against weird packets?
-> > >
-> > =
+Factor the sysfs file creation out of the module notifier into
+btf_module_sysfs_add() and the teardown into btf_module_free(), and set
+btf_mod->module right after the allocation rather than under the mutex.
 
-> > It does, but csum_start/csum_offset are not "weird packet" material,
-> > they are skb metadata, not bytes on the wire.
-> > =
+No functional change.  This prepares for CONFIG_DEBUG_INFO_BTF=m, where a
+module can be loaded before the vmlinux BTF is available: its .BTF is
+then copied and exposed in sysfs first and parsed later, at which point
+the parser must take the copy as is so that the sysfs file keeps
+pointing at valid data.
 
-> > For essentially every skb in the kernel, this metadata is produced by=
+Signed-off-by: Jay Wang <wanjay@amazon.com>
+---
+ kernel/bpf/btf.c | 105 +++++++++++++++++++++++++++++------------------
+ 1 file changed, 64 insertions(+), 41 deletions(-)
 
-> > the kernel itself,
-> > from headers it has just built or just parsed, and the rest of the
-> > stack (GSO, skb_checksum_help(),
-> > fragmentation, netfilter, and every driver doing TX csum offload)
-> > consumes it as an invariant.
-> > The only producers of attacker/guest controlled CHECKSUM_PARTIAL meta=
-data are
-> > the virtio_net_hdr_to_skb() callers: af_packet, tun/tap, virtio_net,
-> > and the UML vector driver.
-> > =
-
-> > So this is not "virtio specific validation", this is input validation=
-
-> > at the one trust boundary
-> > where the invariant can be violated.
-> =
-
-> =
-
-> Thanks for the explanation Eric!
-> =
-
-> > =
-
-> > > It seems likely that not all drivers validate headers defensively,
-> > > and incoming packets can easily become outgoing ones.
-> > =
-
-> > Packets coming from a real NIC are CHECKSUM_UNNECESSARY,
-> > CHECKSUM_COMPLETE or CHECKSUM_NONE.
-> > They do not carry a remote-provided csum_start.
-> > (Remote checksum offload is the rare exception, and there the offsets=
-
-> > are computed by the stack from headers it just parsed.)
-> > =
-
-> > Incoming packets becoming outgoing ones is precisely the problem here=
-:
-> > a virtio_net RX skb with VIRTIO_NET_HDR_F_NEEDS_CSUM becomes
-> > an skb that can be bridged/forwarded/fragmented and then handed to a =
-real NIC.
-> =
-
-> Well:
-> =
-
-> $ git grep 'skb->csum_start\ =3D'
-> drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:        skb->csum_start=
- =3D (unsigned char *)th - skb->head;
-> drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start=
- =3D (unsigned char *)uh - skb->head;
-> drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start=
- =3D (unsigned char *)uh - skb->head;
-> drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start=
- =3D (unsigned char *)tcp - skb->head;
-> drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start=
- =3D (unsigned char *)tcp - skb->head;
-> drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:         skb->cs=
-um_start =3D skb_transport_header(skb) - skb->head;
-> =
-
-> What did I miss?
-> =
-
-> > =
-
-> > > So do we even need virtio specific validation, or is it enough to
-> > > validate everything in the net stack, where we are poking at the
-> > > header anyway?
-> > =
-
-> > The core stack cannot afford it.
-> > =
-
-> > 1) Drivers program skb->csum_start / skb->csum_offset straight into
-> > the TX descriptor, and the NIC will happily write two bytes wherever
-> > it was told, e.g. into the IP header of the frame we put on the wire.=
-
-> > Auditing/adding checks in every driver is not realistic, and drivers
-> > must not pay for it.
-> > =
-
-> > 2) Catching this in the core would mean re-parsing L2/L3 in
-> > dev_hard_start_xmit()
-> > (or in every place that eventually looks at the transport header) for=
-
-> > the 99.99+%
-> > of packets that were built by the stack and are known to be consisten=
-t.
-> > That is far more expensive than one check at injection time.
-> > =
-
-> > 3) Failing at injection returns -EINVAL to the sendmsg()/writev() cal=
-ler,
-> > which is the correct and testable behavior. Failing later means dropp=
-ing
-> > the packet deep in the xmit path, usually with a splat: the commit be=
-ing fixed
-> > here (49d14b54a527) exists exactly because such a packet reached
-> > skb_checksum_help() from ip_do_fragment() and hit the "offset (-6) >=3D=
-
-> > skb_headlen() (14)" WARN.
-> > =
-
-> > >
-> > > Or maybe it's more a defense in depth thing?
-> > >
-> > > My worries:
-> > > - more poking at the header, more cache misses, where we really
-> > >   do not need that
-> > =
-
-> > I do not expect anything measurable.
-> > =
-
-> > af_packet and tun: we have just copied that header from user space, i=
-t is in L1.
-> > virtio_net: we call eth_type_trans() right after, and GRO parses L3/L=
-4
-> > immediately.
-> > =
-
-> > The whole block is under the CHECKSUM_PARTIAL condition, where we alr=
-eady
-> > do pskb_may_pull() and skb_partial_csum_set(), i.e. we already touch
-> > this cache line.
-> > Reading iph->ihl from a cache line we are about to read anyway is noi=
-se.
-> > =
-
-> > > - future protocol extensions that now will require surgery in
-> > >   virtio, instead of just being passed through to the host
-> > =
-
-> > Fair, and this is an argument about how the check is written, not
-> > about whether it exists.
-> > The rule should be:
-> > =
-
-> > Only tighten the bound for the protocols we already parse (IPv4/IPv6)=
-,
-> > and keep the existing generic minimum for anything else.
-> > =
-
-> > Then an unknown ethertype simply keeps flowing, no surgery is needed.=
-
-> > Willem's version does that. A new protocol would only be impacted if =
-it wanted
-> > csum_start to point inside what we consider the L3 header, and such a=
- packet
-> > would not survive the rest of the stack anyway.
-> > =
-
-> > So: not defense in depth, but validation at the trust boundary, where=
-
-> > it is cheapest
-> > and where we can still report the error to the producer.
-
-Just an update that I have not forgotten about this. Just staging it
-after Eric's related series, which simplifies the challenge, and the patc=
-h.
-https://lore.kernel.org/netdev/20261001191140.2818991-1-edumazet@kernel.o=
-rg/
-
-The main complexity lies in having many callers into this path,
-and whether you can trust
-1. that fields initialized (e.g., skb->dev, network_header, protocol)
-2. that they can be trusted (any coming from userspace: no)
-
-The list of callers and invariants on some of the state:
-
-Caller                  skb->dev       network_hdr  skb->protocol skb->da=
-ta
--------------------------------------------------------------------------=
---
-virtio_net.c            ARPHRD_ETHER   ETH_HLEN     0 (unset)     Etherne=
-t
-vector_transports.c     ARPHRD_ETHER   ETH_HLEN     0 (unset)     Etherne=
-t
-tap.c (macvtap/ipvtap)  ARPHRD_ETHER   ETH_HLEN     eth h_proto   Etherne=
-t
-tun.c (IFF_TAP)         ARPHRD_ETHER   ETH_HLEN     0 (unset)     Etherne=
-t
-tun.c (IFF_TUN)         ARPHRD_NONE    0            pi.proto      Raw L3
-af_packet.c (ETHER)     ARPHRD_ETHER   14 (+vlan)   sll_protocol  Etherne=
-t
-af_packet.c (non-ETHER) !=3D ETHER       hard_hdr_len sll_protocol  Dev L=
-2+L3
-
-After Eric's series skb->dev, skb->network_header, and skb->protocol can
-be assumed to always be set.
-
-Though skb->protocol, for instance, can still not be trusted. Nor can
-gso_type or even iphdr. Let alone that all three agree.
-
-Goal is not to drop inconsistent packets (though I'd love to), but only
-to protect the kernel.
-
-A particularly tricky edge case is af_packet with non-ETHER protocol that=
-
-does set VIRTIO_NET_HDR_F_NEEDS_CSUM. I'm not aware of any non-IP transpo=
-rts
-that use CHECKSUM_PARTIAL. But a realistic use-case is an IP in MPLS pack=
-et,
-for instance.
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index 8cc17a1cd25c..c27b929f84f5 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -6911,16 +6911,20 @@ __u32 btf_relocate_id(const struct btf *btf, __u32 id)
+ 
+ #ifdef CONFIG_DEBUG_INFO_BTF_MODULES
+ 
+-static struct btf *btf_parse_module(const char *module_name, const void *data,
+-				    unsigned int data_size, void *base_data,
+-				    unsigned int base_data_size)
++/*
++ * Parse split module BTF against @vmlinux_btf.  @data is the module's .BTF
++ * section; if @data_owned, it is an already kvmalloc()ed copy that the new
++ * btf takes ownership of on success (on failure the caller keeps it).
++ */
++static struct btf *btf_parse_module(const char *module_name, struct btf *vmlinux_btf,
++				    void *data, unsigned int data_size, bool data_owned,
++				    void *base_data, unsigned int base_data_size)
+ {
+-	struct btf *btf = NULL, *vmlinux_btf, *base_btf = NULL;
++	struct btf *btf = NULL, *base_btf = NULL;
+ 	struct btf_verifier_env *env = NULL;
+ 	struct bpf_verifier_log *log;
+ 	int err = 0;
+ 
+-	vmlinux_btf = bpf_get_btf_vmlinux();
+ 	if (IS_ERR(vmlinux_btf))
+ 		return vmlinux_btf;
+ 	if (!vmlinux_btf)
+@@ -6957,7 +6961,10 @@ static struct btf *btf_parse_module(const char *module_name, const void *data,
+ 	btf->named_start_id = 0;
+ 	strscpy(btf->name, module_name);
+ 
+-	btf->data = kvmemdup(data, data_size, GFP_KERNEL | __GFP_NOWARN);
++	if (data_owned)
++		btf->data = data;
++	else
++		btf->data = kvmemdup(data, data_size, GFP_KERNEL | __GFP_NOWARN);
+ 	if (!btf->data) {
+ 		err = -ENOMEM;
+ 		goto errout;
+@@ -7000,7 +7007,8 @@ static struct btf *btf_parse_module(const char *module_name, const void *data,
+ 	if (!IS_ERR(base_btf) && base_btf != vmlinux_btf)
+ 		btf_free(base_btf);
+ 	if (btf) {
+-		kvfree(btf->data);
++		if (!data_owned)
++			kvfree(btf->data);
+ 		kvfree(btf->types);
+ 		kfree(btf);
+ 	}
+@@ -9005,6 +9013,48 @@ static DEFINE_MUTEX(btf_module_mutex);
+ 
+ static void purge_cand_cache(struct btf *btf);
+ 
++static int btf_module_sysfs_add(struct btf_module *btf_mod, const char *name,
++				void *data, size_t data_size)
++{
++	struct bin_attribute *attr;
++	int err;
++
++	if (!IS_ENABLED(CONFIG_SYSFS))
++		return 0;
++
++	attr = kzalloc_obj(*attr);
++	if (!attr)
++		return -ENOMEM;
++
++	sysfs_bin_attr_init(attr);
++	attr->attr.name = name;
++	attr->attr.mode = 0444;
++	attr->size = data_size;
++	attr->private = data;
++	attr->read = sysfs_bin_attr_simple_read;
++
++	err = sysfs_create_bin_file(btf_kobj, attr);
++	if (err) {
++		pr_warn("failed to register module [%s] BTF in sysfs: %d\n",
++			name, err);
++		kfree(attr);
++		return err;
++	}
++
++	btf_mod->sysfs_attr = attr;
++	return 0;
++}
++
++static void btf_module_free(struct btf_module *btf_mod)
++{
++	if (btf_mod->sysfs_attr)
++		sysfs_remove_bin_file(btf_kobj, btf_mod->sysfs_attr);
++	purge_cand_cache(btf_mod->btf);
++	btf_put(btf_mod->btf);
++	kfree(btf_mod->sysfs_attr);
++	kfree(btf_mod);
++}
++
+ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 			     void *module)
+ {
+@@ -9025,7 +9075,10 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 			err = -ENOMEM;
+ 			goto out;
+ 		}
+-		btf = btf_parse_module(mod->name, mod->btf_data, mod->btf_data_size,
++		btf_mod->module = module;
++
++		btf = btf_parse_module(mod->name, bpf_get_btf_vmlinux(),
++				       mod->btf_data, mod->btf_data_size, false,
+ 				       mod->btf_base_data, mod->btf_base_data_size);
+ 		if (IS_ERR(btf)) {
+ 			kfree(btf_mod);
+@@ -9047,37 +9100,12 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 
+ 		purge_cand_cache(NULL);
+ 		mutex_lock(&btf_module_mutex);
+-		btf_mod->module = module;
+ 		btf_mod->btf = btf;
+ 		list_add(&btf_mod->list, &btf_modules);
+ 		mutex_unlock(&btf_module_mutex);
+ 
+-		if (IS_ENABLED(CONFIG_SYSFS)) {
+-			struct bin_attribute *attr;
+-
+-			attr = kzalloc_obj(*attr);
+-			if (!attr)
+-				goto out;
+-
+-			sysfs_bin_attr_init(attr);
+-			attr->attr.name = btf->name;
+-			attr->attr.mode = 0444;
+-			attr->size = btf->data_size;
+-			attr->private = btf->data;
+-			attr->read = sysfs_bin_attr_simple_read;
+-
+-			err = sysfs_create_bin_file(btf_kobj, attr);
+-			if (err) {
+-				pr_warn("failed to register module [%s] BTF in sysfs: %d\n",
+-					mod->name, err);
+-				kfree(attr);
+-				err = 0;
+-				goto out;
+-			}
+-
+-			btf_mod->sysfs_attr = attr;
+-		}
+-
++		/* not fatal, the module BTF is usable without the sysfs file */
++		btf_module_sysfs_add(btf_mod, btf->name, btf->data, btf->data_size);
+ 		break;
+ 	case MODULE_STATE_LIVE:
+ 		mutex_lock(&btf_module_mutex);
+@@ -9104,12 +9132,7 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 			 */
+ 			btf_free_id(btf_mod->btf);
+ 			list_del(&btf_mod->list);
+-			if (btf_mod->sysfs_attr)
+-				sysfs_remove_bin_file(btf_kobj, btf_mod->sysfs_attr);
+-			purge_cand_cache(btf_mod->btf);
+-			btf_put(btf_mod->btf);
+-			kfree(btf_mod->sysfs_attr);
+-			kfree(btf_mod);
++			btf_module_free(btf_mod);
+ 			break;
+ 		}
+ 		mutex_unlock(&btf_module_mutex);
+-- 
+2.47.3
 
