@@ -1,94 +1,119 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914B44AA1E5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEF447C10F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843134; cv=none; b=jn0JRwB9mSarecza04juiY7UNyLDzV3oUFaWoc+4nUzxQ8Tblgm+tfh+AM7EC9ouQKNxJtHbED2rwMmBrk3vyVVggWhAJ7J/BbR7vBNzFzvs8LaR7ZyGbsIoHXzyxlSniNITuRFBVuc1Hoq7MiGMpoNieWm25vKHEQwn6pIIiTc=
+	t=1790843136; cv=none; b=SwZ2QdOyfeX8+V+VhFFWcwS8HLd28aNdjkXw0meTGK62+hIq8s/S5bKkSJeiV9+kONMd7QQiD7vljrDgqga36xNu/BS9wU8fPrOivUas3zR43JBKIlb2+0nTjA/358BUkzFEAiSSf8bNzkEOn2hBoURoYfVeMaefx2Fg36GBB2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843134; c=relaxed/simple;
-	bh=xj1dH1EQpKkGXXGlMtHjKJEtOVFI6kEk+gGhOxu6rqs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OSYeTtendvCpbNK2/RTkHzvy6UO/FRsAGoEm9xL20+NAUyalfAAriRhW/b9KwrQFT5HxNLzCUvbZg/QiZKb13XwSmJiPKs3IngK6r936lnRodVu1OhOKC+IeQiMwJNtZxHoB3GkjbhMg1IEkLJh3n7oRaidZO3Wj96LxorGhxGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=D6fjaMcb; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790843136; c=relaxed/simple;
+	bh=0uLI8EmIGM/UJgmRdEtfvKPUhmuidVaWSbs8VGXNz2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=scYV9VeoWFL3b9UkpLiiFKojP1w7zYMlAh5p7lc2lJ+fFVaF0c9YUJQgqOGRIBFo2G42SBtP6VGWg/J88yFa2YxytvUII73Zio9XeA34oDaOMFJByVkI3pKJVW4HGbat2h+i31mqVv8M8XqUOZ7bqvUMJZXJJ87gN+uInd/tYmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NdtEl9sL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="D6fjaMcb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790843129;
-	bh=xj1dH1EQpKkGXXGlMtHjKJEtOVFI6kEk+gGhOxu6rqs=;
-	h=From:Subject:Date:To:Cc:From;
-	b=D6fjaMcbDPd57D/1W5bg6E9R2vYMKW8n/R6Sc1wSoQU4BBsiObGX8Fp5JHJ/iAprH
-	 MIH22dKqdoGCdUT7EJS8ee3IFyxuGVyiNmuHm82OrC3/vFpZ3L+WfVEJ2BGjXaYSpN
-	 qaaw5+BP3pKXnciksGnGaj7KZTvPyo2l2rmccvUpEQbg7llJLrmgg/ungrAYlFD7Or
-	 o32E03ElAMGf53DsQjq582im5olF8V7ED3avprtqwekY3mG9JKNxMSc02wqwYG0xQG
-	 6ICWm8ZqcsiIG02IvPr+Kkd0CRkV7FcRH3zWMyuFjxmwUZ4mC+u5wPE/GI+BTlIMD+
-	 C7BJPAzkc6Fhw==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B9BD517E0371;
-	Thu, 01 Oct 2026 10:25:29 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and cleanup
-Date: Thu, 01 Oct 2026 11:25:10 +0300
-Message-Id: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NdtEl9sL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86591F00898;
+	Thu,  1 Oct 2026 08:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790843130;
+	bh=d8QXmPMqSKUhI514+vwdjjfY01Ew+xPLjLxtCyks4po=;
+	h=From:To:Cc:Subject:Date;
+	b=NdtEl9sL5uYlgroWuzBH/OyQOXEVA+bkGOeoKgCqQyFB6K/GIGHJOmpsW5Ee2Qnhg
+	 j8vGJozdA/8h9Yg/LlrsFNanf3vyGBMUKmZctI65mqAuUza2Y8G9Syz5g5Hu5ntFP0
+	 YIgMi053NrUrjZI/GGHJPUOEwtdvqBnE4hP/WV7vFn8SI2ujrw+wQsv0f2rqSlD17X
+	 VjCttwQF7B9oFPThHsp1J+fyX4IlrPBsbU2qdzb5KRrDTd3ZN6D8Pigz1Cj3X7moa0
+	 qpYYfXSzamIcKZCGQy/0yWzyPBWGn5+vzdkU5jOL9TiLnaMcHPor6oo0rO4nIgsLLI
+	 qg1IxJzBl6u+Q==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id B52E0F40066;
+	Thu,  1 Oct 2026 04:25:28 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 01 Oct 2026 04:25:28 -0400
+X-ME-Sender: <xms:-Bi-aupAxUWPhuAIXw3K7DANsB4ZkOo-5Yhg1Xt6zZBUp2-SGH3LmQ>
+    <xme:-Bi-anD0OzgR0sw3rEL_CCvMve_jlg-w2DreXulGyqLa2xK2j3lWjh7H3BmX0u0Yj
+    LtS5DYuTIWXsjKcPnAtXVfUT-AZ4z8CV2L2XPHzLLE-M4Qdo4xgu9E>
+X-ME-Received: <xmr:-Bi-apVTKvMGWQrK1NwyD-KgJtOrEpG5LQKh8pFs7M712KMpQlTZTC3DzdTQ>
+X-ME-Proxy-Cause: dmFkZTELlOCfK7cYSybgukLAwBq81kMJ4O7GrC2emNs0oFQXAp15HE54ocsYmFYnKcd7x+
+    8Iy3eRPstdEZq17oX8nb+YowE7qethTLh4O3lWbuPiCCThplW7DL9U3TMs4ygec3d7JzJB
+    JhZqgIJ5qnaiy8A5JqV6tQGfLbkJ8ZBDhD2KYFiUBE7hb7rAWqlVAZ5K8wN8jteBc6IOzo
+    mA9qnsu9nQlb4ddpBAEP7wqRzBdQ5B/10E7Nd4YgGII3p4LrStvyE/ckLo+icWhPAAV/yw
+    FesjnGxw8qzHnE08EfRdcNleizzEBBaoZSz3OLW6aQzWMgRs7nCGIIzN3Vg6XhP5ADW6aS
+    s/TD5MV6Nb3MpqE6yvK7ITTVVZIj0lb24ncTqvuJ6U+YR+dh9rTBhf5LLkvvqBLVWG3hQS
+    6JGRJ0Ml1cRbegtNkyoAc68dcAI7Sg1hGypt7zJxWVedReCy32Cr+jNppqSt2Me2ncHEol
+    On9MTOOQ/2v1ktmq0Y55UtAgfe9vD8iQ/W20QxyJUYTSI255LVwag6ms27N1uT3eDomDWZ
+    apyyHlQcp7TzAJT2BZ9FlayXe+kJYAImywmP0yizk+Lu7t9mTOtCdPXoMQ1ZBuqdWUzycp
+    acnGruVRYSQYatPy7hfLgRL6YdEO0f+esb1MxIl/VjfbONeRL3uXCFyc6vJA
+X-ME-Proxy: <xmx:-Bi-apCY4O67jICj7fxPe2TTNd4qfuD2nTfOxGPydOOQdgv110ElGw>
+    <xmx:-Bi-amdanZd5BG3nQkJX72nnXrAZiG4k1U6vKoTAsLDS_GzeAzCgdA>
+    <xmx:-Bi-agp71skYuhiU8e7MMs36RdBDidDoYn4SyxGpYcGi9F9bMI8uXw>
+    <xmx:-Bi-anTP-BzKfhudBNHqLNpcX4e5l2brs8Ac1jciyK6nreMW3QiMmw>
+    <xmx:-Bi-agVc1A0eiG9-hAnp-_qtMothMAGpMrCP-L3aTanDrzAOMu-j-zGA>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Oct 2026 04:25:28 -0400 (EDT)
+From: Boqun Feng <boqun@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: "Ingo Molnar" <mingo@kernel.org>,
+	"Will Deacon" <will@kernel.org>,
+	"Boqun Feng" <boqun@kernel.org>,
+	"Waiman Long" <longman@redhat.com>,
+	"Gary Guo" <gary@garyguo.net>,
+	"Alice Ryhl" <aliceryhl@google.com>,
+	"Lyude Paul" <lyude@redhat.com>,
+	"Daniel Almeida" <daniel.almeida@collabora.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	"Miguel Ojeda" <ojeda@kernel.org>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH v2 0/5] Improvements and fixes on SpinLockIrq patch series
+Date: Thu,  1 Oct 2026 10:25:14 +0200
+Message-ID: <20261001082519.16195-1-boqun@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBTG8VfRubbaWSFeRS5szjjSpg0peXfD5
- e+r739BpMAUockuCHRwZO8SMM/ATL0bSfCQDEqqEqVEoQMPae2XxRthvDuELbCytVaFQgvptwa
- yfH7Ntvsddz2T2d4Q3PcDibiebnUAAAA=
-X-Change-ID: 20261001-bridge-alloc-conv-f517f9b2521f
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Bridge drivers are expected to allocate their private data via
-devm_drm_bridge_alloc(), which also initializes the embedded struct
-drm_bridge, including its funcs pointer.  Most drivers were converted by
-commit 9c399719cfb9 ("drm: convert many bridge drivers from
-devm_kzalloc() to devm_drm_bridge_alloc() API"), but a couple of
-leftovers remain.
+Hi Peter,
 
-The first patch converts the rk3066_hdmi driver, which still uses
-devm_kzalloc().  The second one removes a redundant manual assignment of
-the bridge funcs pointer in the lontium-lt8713sx driver, which already
-uses devm_drm_bridge_alloc().
+I realized that v1 [1] was left on the list so I just want to respin it.
+Just to refresh the memory, v1 was requested [2] as separate patches for
+changes between v4 and v5 in the main series. I also include the
+refcount_interrupt kunit test Kconfig change in this version as well.
+Based on v7.3-rc5.
 
-Both changes are trivial and have no functional impact.  The series is
-based on the latest drm-misc-next.
+Please take a look. Thanks!
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
-Cristian Ciocaltea (2):
-      drm/rockchip: rk3066_hdmi: Convert to devm_drm_bridge_alloc() API
-      drm/bridge: lontium-lt8713sx: Drop redundant bridge funcs assignment
+[1]: https://lore.kernel.org/rust-for-linux/20260811041714.27679-1-boqun@kernel.org/
+[2]: https://lore.kernel.org/rust-for-linux/20260810085255.GE1642880@noisy.programming.kicks-ass.net/
 
- drivers/gpu/drm/bridge/lontium-lt8713sx.c | 1 -
- drivers/gpu/drm/rockchip/rk3066_hdmi.c    | 8 ++++----
- 2 files changed, 4 insertions(+), 5 deletions(-)
----
-base-commit: 37b346eab23aead52d17a8fa687056bfc651a416
-change-id: 20261001-bridge-alloc-conv-f517f9b2521f
+Regards,
+Boqun
+
+Boqun Feng (4):
+  irq: Add {over,under}flow detection for
+    local_interrupt_{enable,disable}
+  selftests/bpf: Use the new NMI_BITS definition
+  irq: Explain better on NMI_MASK overflow condition
+  irq: Add max local_interrupt_disable() nesting level kunit test case
+
+Kuan-Wei Chiu (1):
+  irq: Make refcount_interrupt kunit test selectable
+
+ include/linux/hardirq.h                       |  2 +-
+ include/linux/interrupt_rc.h                  | 13 +++++++++++
+ kernel/irq/Kconfig                            | 12 ++++++++++
+ kernel/irq/Makefile                           |  2 +-
+ kernel/irq/refcount_interrupt_test.c          | 22 +++++++++++++++++++
+ .../testing/selftests/bpf/bpf_experimental.h  |  2 +-
+ 6 files changed, 50 insertions(+), 3 deletions(-)
+
+-- 
+2.51.0
 
