@@ -1,115 +1,183 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B579253B42;
-	Thu,  1 Oct 2026 16:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F31C3C0613;
+	Thu,  1 Oct 2026 16:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870522; cv=none; b=EUvGQ9fqeGJQqpnn+kMw16e7+qftypYSOxNPYEDRGzcCOgr0zOs97OMNqkrpj7/dUGnkcWfxt8/sn8ujaOMgIRgv39j7+WPm0HNiLe1jCFhZqgwTIwT2vES4PrzR3/vRztHYH25fM463+jl/RvyrzVt4pC0dF381ucKl5rYlG0w=
+	t=1790870610; cv=none; b=rlbIE/5Ka0bw+701eLrLKx4nbN8RGVIZAOomoAzRiN9TAAgLN1Y7JzxRbSqUS8jGMeTs9FwQnDaxvoiuLAebEwuQFKO53Xg9uN5MZX58HHyCXTTGsvRrMc/5ACw+006rgntEO0honRBnzLS1G0Ak17DqGEkplETMQbnx2nEQgnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870522; c=relaxed/simple;
-	bh=6tzBwYezvCHMFybOlAjAjqSt/P2oNWqJ4vxlblDRPUA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZTovC0IKCcs6sg1WsGODq3fS98kJFIFMU4acLR2gN8woRnT12GprDYgMy/Jrj4NFQ6tCT2FiYEpbi0HFyS7PFW1z2ApY5NjnDl4hZ8BB+JEL3qz7DSqow0xo7uJQYEFKL14IzdC5Z/GpVOzFfd1tPC2aYcZR3zOMyc/LyqE6564=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=V1U7nrc/; arc=none smtp.client-ip=192.19.144.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790870610; c=relaxed/simple;
+	bh=nskYxzRXvoYDqQVGluvdNkiOtftZA5IrMEvhzK+9snQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KaMQqZ13ftueYf6sdiDe/rNBQjT1ZDYlapfBEa7O8lAjIrDN/8BmQIu8iSNWgxj50dtFbMgLwHCp9J8+Goos8iAVPQll3DGZgiEknCPNGlgR2KrlAO6ghqcBBaFI1Wr0KowmqM1wWCcrDYxQLeHUIYu6Kh62Un0vx++QTkI48HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/WOfh/6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="V1U7nrc/"
-Received: from mail-acc-it-01.broadcom.com (mail-acc-it-01.acc.broadcom.net [10.35.36.83])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 22DACC0005C5;
-	Thu,  1 Oct 2026 09:02:00 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 22DACC0005C5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1790870520;
-	bh=6tzBwYezvCHMFybOlAjAjqSt/P2oNWqJ4vxlblDRPUA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=V1U7nrc/UL4pOBZzYnrxjDev2Y1njEPG4ai+m9bUj3zxdkfTzgY5ORVMW0MdIBeay
-	 pTQe07QMLy5Xj2k5EjbgPKYX3hfQ5uMkqdFFEaqnmwZ0p+GdjuipuKzb/sE3mwnjt4
-	 WzduhjuIpI6LCDNHDsEFqV6miaLGK0uKAgK3hW50=
-Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id 5DACEAEA2;
-	Thu,  1 Oct 2026 12:01:59 -0400 (EDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: stable@vger.kernel.org
-Cc: Florian Eckert <fe@dev.tdt.de>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/WOfh/6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D301F000FF;
+	Thu,  1 Oct 2026 16:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790870609;
+	bh=OSUIn2vvgZY9nja7L+v/qJsWqMEJTAmZepfV/Nzm4+g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K/WOfh/6qDstRLC9ZRaNs7cNIQQwjOtWjnTQtkFB6PNQpgptrztf0vSZh4DTnZump
+	 ufgp5zI8dj1FfYTNwcct0yW+pbJ1cnXRsx64fvIJT7k/mTHFbB7QbfmdWqlgA2okEj
+	 MqOQaSGg/aeB4V2gt+drRL1DnXmxFWq04iX9rTbWvptKsLY/gt1wHPRSKfeVtnuziW
+	 ICrWJnbBeXEXGsj90XEOLMUTGz++GUwx2BKWLFPOO3CIMQdxaXRTsMjkVK05zO/J+W
+	 hMhw3abDTOyagZDekqC93G3fX0z6NIHa5uJorfvpgC75831IR/qGvdzjKV+I6P0zg9
+	 xksO8IEdJu0iw==
+Date: Thu, 1 Oct 2026 11:03:27 -0500
+From: Rob Herring <robh@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	linux-pm@vger.kernel.org (open list:THERMAL),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH stable 5.10] tools/thermal/tmon: Fix compilation warning for wrong format
-Date: Thu,  1 Oct 2026 09:01:56 -0700
-Message-Id: <20261001160156.814419-1-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.34.1
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Albert Esteve <aesteve@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+Message-ID: <20261001160327.GA512699-robh@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org>
+ <artyl8fD3zzng8Uh@houat>
+ <20260929222822.GA2933878-robh@kernel.org>
+ <ary8IdL9zVXfS2fA@houat>
+ <CAL_JsqJCoWQmdBKEbekXb5LeLn1KcMiP2iG30r+npssJSZB5LA@mail.gmail.com>
+ <ar4HOuO-vox9VIKZ@houat>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ar4HOuO-vox9VIKZ@houat>
 
-From: Florian Eckert <fe@dev.tdt.de>
+On Thu, Oct 01, 2026 at 09:22:48AM +0200, Maxime Ripard wrote:
+> On Wed, Sep 30, 2026 at 02:07:39PM -0500, Rob Herring wrote:
+> > On Wed, Sep 30, 2026 at 3:04 AM Maxime Ripard <mripard@kernel.org> wrote:
+> > >
+> > > On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
+> > > > On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
+> > > > > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
+> > > > > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
+> > > > > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> > > > > > > regulators and GPIOs, perform a reset pulse with specific timing,
+> > > > > > > send a vendor-supplied sequence of DSI commands, then enable the
+> > > > > > > display. The only truly panel-specific part is the init sequence
+> > > > > > > and power-on/off timing.
+> > 
+> > [snip a bunch of irrelevant shit]
+> > 
+> > > > > So, let's phrase this differently: what's different about the
+> > > > > description than panel-mipi-dsi-spi, or any other binding already in
+> > > > > tree?
+> > > >
+> > > > There's all of 3 panels supported. Compared to all the other panels we
+> > > > have, hardly the rule over the exception. You can always fine "bad"
+> > > > examples or exceptions.
+> > > >
+> > > > That one defines a single supply. Any other MIPI SPI panel with
+> > > > different supplies or GPIO controls probably has its own binding. Trying
+> > > > to parameterize that in DT doesn't work. We've rejected trying to do
+> > > > that in DT over and over. What's your story here for that?
+> > >
+> > > Sigh... Look, I really don't care about an argument DT maintainers use
+> > > at their discretion for this. We both know full well that it's been and
+> > > still is inconsistenly applied, and you also know that it's not like
+> > > I've been playing the DT game since pretty much the beginning (on ARM
+> > > anyway). So it's not like I don't want to make it work, I do. But what I
+> > > care about is enabling that driver to work.
+> > >
+> > > I reused exactly the same binding than the last major binding that was
+> > > merged for panels, and support about the same number of panels. I guess
+> > > that was a mistake, so sorry for that.
+> > >
+> > > I'm fine with reworking the binding any way you want as long as it still
+> > > allows for the same use-case, but I would have hoped for a better
+> > > feedback on how to do so than "oh what a huge pile of shit this is".
+> > 
+> > When you can answer my question above rather than make up shit I
+> > didn't say, maybe I'll reply again on this thread. Otherwise I'm done
+> > here. I don't need this abuse for the thankless job of DT
+> > maintainership.
+> 
+> It's been the whole tone of the reviews, so I'm sorry if you were caught
+> in the crossfire and you didn't mean that. And I'm sorry it made your DT
+> maintainership work harder than it already is.
+> 
+> I do mean what I said before though. I have no problem changing the
+> binding the way you want, but I need to know what to change in the first
+> place, otherwise it's really no better than a NAK, or we're bound to
+> have the same exchange for the v2, and I'd rather not.
+> 
+> I indeed missed your question, but now I'm not sure I understand what
+> you mean by "paremeterize that in DT"? The supplies in the binding are
+> an aggregate of all the possible supplies a panel can take. They are not
+> a wildcard, but they all have their own semantics that are used by
+> panels right now.
 
-commit 9da39ef332c417ce52732564c1c682a6e1209302 upstream.
+I read a bit more of the series and understand it a bit better now.
 
-The following warnings are shown during compilation:
+> I don't expect any new supply to be introduced, unless there's a major
+> panel technology change such as the one we had with the introduction of
+> OLED.
+> 
+> Would you prefer to reduce the number of supplies to the minimum we need
+> right now, and extend it as needed?
 
-tui.c: In function 'show_cooling_device':
- tui.c:216:40: warning: format '%d' expects argument of type 'int', but
-argument 7 has type 'long unsigned int' [-Wformat=]
-   216 |                         "%02d %12.12s%6d %6d",
-       |                                      ~~^
-       |                                        |
-       |                                        int
-       |                                      %6ld
- .....
-   219 |                         ptdata.cdi[j].cur_state,
-       |                         ~~~~~~~~~~~~~~~~~~~~~~~
-       |                                      |
-       |                                      long unsigned int
- tui.c:216:44: warning: format '%d' expects argument of type 'int', but
-argument 8 has type 'long unsigned int' [-Wformat=]
-   216 |                         "%02d %12.12s%6d %6d",
-       |                                          ~~^
-       |                                            |
-       |                                            int
-       |                                          %6ld
- .....
-   220 |                         ptdata.cdi[j].max_state);
-       |                         ~~~~~~~~~~~~~~~~~~~~~~~
-       |                                      |
-       |                                      long unsigned int
+No. You've defined some arbitrary list of supply names not just in the 
+binding, but in the kernel. I think both are a mistake. Can't the BPF 
+prog define the supply names and pass those to the kernel? Then when you 
+have a panel with 'foo' and 'bar' supplies, you don't need a kernel 
+change or some remapping to the existing set of names. The only real 
+exception we have there is if it's a single supply, just use 
+'power-supply'. It's the same issue with GPIOs, but there's generally 
+less variability with them.
 
-To fix this, the correct string format must be used for printing.
+The whole point of requiring specific compatibles and not doing "generic 
+bindings" is that's the only way the OS implementation can evolve 
+without changing the DT. You can have a specific driver or a generic 
+driver or a generic driver using BPF and which one can change over time 
+if needed, but from a DT perspective we don't care.
 
-Signed-off-by: Florian Eckert <fe@dev.tdt.de>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
-Link: https://lore.kernel.org/r/20231204141335.2798194-1-fe@dev.tdt.de
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- tools/thermal/tmon/tui.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So first, make this BPF stuff work with any existing panels (or some 
+defined set). I'm not saying convert everything, only that you could. 
+Otherwise you've failed the test of if the driver implementation 
+changes, does the binding have to change.
 
-diff --git a/tools/thermal/tmon/tui.c b/tools/thermal/tmon/tui.c
-index 031b258667d8..7f5dd2b87f15 100644
---- a/tools/thermal/tmon/tui.c
-+++ b/tools/thermal/tmon/tui.c
-@@ -213,7 +213,7 @@ void show_cooling_device(void)
- 		 * cooling device instances. skip unused idr.
- 		 */
- 		mvwprintw(cooling_device_window, j + 2, 1,
--			"%02d %12.12s%6d %6d",
-+			"%02d %12.12s%6lu %6lu",
- 			ptdata.cdi[j].instance,
- 			ptdata.cdi[j].type,
- 			ptdata.cdi[j].cur_state,
--- 
-2.34.1
+After that, the remaining problem is only how do you make it 
+work with unknown panels (only unknown to the kernel as any new panel 
+still needs a binding). There's 2 ways we can solve that. Either make 
+the kernel be able to bind to a generic driver without a compatible 
+match or have a fallback compatible. The former could be done by 
+userspace (though I saw gregkh added a taint for userspace bind 
+recently) or we could somehow make the kernel bind to any DSI child 
+devices without a match.
 
+Rob
