@@ -1,40 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B3F4DDB38;
-	Thu,  1 Oct 2026 09:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B203A5A79B;
+	Thu,  1 Oct 2026 09:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846361; cv=none; b=WOfz6qSym1A5dmbuzmPprPxcQ1FVh+R3E+5PA4sa3ALgjdyD1QnRU90oXWNesRDyeFV8Mia5u82OdyYjgn8eNS94l/GAcQG9INE58OaL5U5iJCn3No2uY8a4CyXGRH0J0tNP6OiXZTLrbCJBUAmiHWx93qvUqbHPsEDxHq/pMko=
+	t=1790846366; cv=none; b=cJ0pX5vEvg+TDM/BxDMwZ84wf+oBxxRCNb3eW63gwC70rqh0gS1NmD8Z1eBKhFZeCCGK0hUGzx9LBjINZGMJ7S6MclJC06E7ZKiNMY+unHiT2rZpW3ycWveUpqbiKnLaOWF4XrpHnScMEOogB8+a+QqNeosGe1nbS8/wYXpl2U0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846361; c=relaxed/simple;
-	bh=1f3ayNH92AQGA+d6NX/xxygpywxEN7rSWbZQ+o8yCBE=;
+	s=arc-20240116; t=1790846366; c=relaxed/simple;
+	bh=4RBwIr++Yl9TDg/DOmV0XfIAoON26aEenWCykA6bz7g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cISzY9JRm1Lv54hA69E130k15J7JWJVATk707VPhFRKkjFuJHP6swNLykhHW+obi5rVouQ9Q++TNcq5cYq+NRyHNr7Dt+wLnQn9zYUiWvAnha+DYmmha9dPsnBAL9FdjNhoz0beyyuukwCoInr2Rcsnd9YtjGb+S/1drI/UMysg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Fr16Gz5l; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Et/1FxTWdhN2M9D/qaGOcJlI7w+rVC9ZB1/GCwDEJrF3/96XCxG0PSbvA056mLvqsTWT0eVkbnNzceB2ZINLZkkeJUAUzWCAbbIYAw8AdT4z2I9L+nuHIu+A3Bkhes97R4tBAX0/JGul0K3ufTexn7hvyPNtFBx4BAB1Ozv58cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRBctCWV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Fr16Gz5l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8481F000FF;
-	Thu,  1 Oct 2026 09:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790846359;
-	bh=rkBCGv8X8EgsQbqyaFsSMbFPbzcaxb2OzoA7RbNiWdo=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRBctCWV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83BC91F000FF;
+	Thu,  1 Oct 2026 09:19:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790846365;
+	bh=IB/cldJEcsCChjuHmu5N7366XE75RvVggd3avYtDsrM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Fr16Gz5lTOZlHnbl+NqdkswFG6oCnbUyLgm42UIIeuFwPWoNDb7W94rn5ltW+3IuA
-	 ig1a5MtC1dJ+zncgeRD9BqS7VY1SnHioIGZvfkRs9iQFRTuXW7C6LSxeQUlaIYRBO1
-	 mJgb1CO5shddH5na52O/F7R8EZp5Ii61Je+mN2Gk=
-Date: Thu, 1 Oct 2026 11:19:13 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ashutosh Yadav <yadavxashutosh@gmail.com>
-Cc: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: add missing newlines in sysfs_emit
- formats
-Message-ID: <2026100159-hacked-encourage-fe18@gregkh>
-References: <20260925205328.59183-1-yadavxashutosh@gmail.com>
+	b=dRBctCWVe9GhpYruWKH35vFJnHCtb/Ex+CTIRHh1DHeFcT5PaJ6bm7Ug0KvYBvSiy
+	 c2k2mKi81LZJSdisvlOobFdWP8SXo5droweS2PFxdz7YSTMRFJ98Hng1KAhGV/Fuih
+	 Hh1x+0CD/ZadKpDhfRVsHJ+fPxNel7tmfXTn/jds8X2V8/b04FasImvoXHgxuuc0Bs
+	 aNhGU1d16LpWGnxRwBhQR/PdSMzdemK6HJ9HdWn/yihUzDEv45pSU32/uiaoXbdUEx
+	 FgQhfe0+DVxsYYNTySwfTsA3r+WPzHR6FSMmDa4Q4YZeXzxOXCDd4MPnoVpR7wvSn1
+	 QDKVWHaKQmkOQ==
+Date: Thu, 1 Oct 2026 11:19:21 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH v6 4/5] perf scripts: Add perf-stuck, to tell where a
+ running perf is stuck
+Message-ID: <ar4lmUdWLn60UJ-6@x2>
+References: <20260930213716.2633750-1-acme@kernel.org>
+ <20260930213716.2633750-5-acme@kernel.org>
+ <ar4Kuy76IXbmCY2y@z2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,28 +50,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925205328.59183-1-yadavxashutosh@gmail.com>
+In-Reply-To: <ar4Kuy76IXbmCY2y@z2>
 
-On Sat, Sep 26, 2026 at 02:23:28AM +0530, Ashutosh Yadav wrote:
-> According to Documentation/filesystems/sysfs.rst, sysfs attribute show
-> functions should output a single value and terminate with a newline.
+On Thu, Oct 01, 2026 at 12:24:43AM -0700, Namhyung Kim wrote:
+> On Wed, Sep 30, 2026 at 11:37:15PM +0200, Arnaldo Carvalho de Melo wrote:
+> > +    set $perf_die_chain_i = 0
+> > +    while $perf_die_chain_i < $perf_die_chain_n
+> > +      # Pointer type DIEs have no DW_AT_name, so dwarf_diename() can
+> > +      # return NULL: printf %s of it would error out and abort this
+> > +      # batch script, handle it.
+> > +      set $perf_die_chain_name = (char *) dwarf_diename($arg1)
+> > +      printf "chain[%d] die=%p addr=%p cu=%p off=0x%lx tag=%d name=", $perf_die_chain_i, $arg1, $arg1->addr, $arg1->cu, ((Dwarf_Off) dwarf_dieoffset($arg1)), ((int) dwarf_tag($arg1))
 > 
-> Currently, gb_audio_module_name_show(), gb_audio_module_vid_show(),
-> gb_audio_module_pid_show(), gb_audio_module_intf_id_show(),
-> gb_audio_module_ip_devices_show(), and gb_audio_module_op_devices_show()
-> call sysfs_emit() without a trailing newline in their format strings.
-> 
-> Add the missing newline character to each sysfs_emit() format string to
-> comply with the sysfs documentation and silence checkpatch warnings.
-> 
-> Signed-off-by: Ashutosh Yadav <yadavxashutosh@gmail.com>
-> ---
->  drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
+> Nit: can you please break this line?
 
-Please read the archives for why this patch keeps getting rejected :)
+Will do,
 
-thanks,
-
-greg k-h
+- Arnaldo
