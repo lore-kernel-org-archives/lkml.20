@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6434F390D;
-	Thu,  1 Oct 2026 09:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD864F93BC;
+	Thu,  1 Oct 2026 09:13:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846022; cv=none; b=WslGGMr9EsIf10FCD/Dx6qUFkaZiNjQGV5yAHW4SjbAt8FxJSIilLqwNSiqU9q63TFHIhztrjuAyf6VUoPtiyeATpmDy298aCVraVbcut5sJQ2J6zl8IXozfU9OwuZeahZvfhv2VLzH5TBwnvXG8a7F5dyzBHg813ejwJYvSdGQ=
+	t=1790846027; cv=none; b=TpQreE/NZHVd1DCM+Q9wJ/vA5NMm22BnOWuKaInTvBPff7XboOGcqvGGMCKOAdfexktcoKocF5z9VcO7gvC4bs/kOpnaqLxBAn55L1lvMLPKQaxznVChCwVSk5I6XJJ42g0cjQFYqQyreqmpTryaSGbA1M+OVqcI2JiEpnZnO90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846022; c=relaxed/simple;
-	bh=8DBv/yjKRaZ3K7USU2hbQNQEQe8eXe5l0Z2nM1/TESM=;
+	s=arc-20240116; t=1790846027; c=relaxed/simple;
+	bh=iJb0/GiPx2fQ/V0xn3jYOvBuDj8m27Zl4idlr0BwzLo=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hFg83JztyTRhECY72lvG3ucurHFT7SGEZWh34BwNSEbuhlvnTMptOz0rH/8k1rD4ccnnpnrt/6YTcmbL4Sl1b7S7UXcLdDY0iiOP+P9rdR15O3PzavP6NeIB+gw1mFRQG+TRJ4ei3pjPjrvYDIWqiO+N6JwuffddczUzdacsfJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kRnYeGCJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=WxQb/m29TpfBVV3/2PrrndJ/Bbpqzu3S3yDjTdXunDTOa6v11cr7/+zc/6f5eAN2UkCQXIQVlz6ErpYLEoHlu9XayEaUaadu+sn408ZgMRGf0zrHcvSNCKrHwqOJaorNPgpdgXnjeGp0uWI540yCg2pj9N3TAuyu/A9aDPpu4qY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIZ8v3Gv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kRnYeGCJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE471F0089C;
-	Thu,  1 Oct 2026 09:13:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIZ8v3Gv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010F31F00899;
+	Thu,  1 Oct 2026 09:13:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790846016;
-	bh=5AiXA5BsUes4gB3l1heHd7VxwQGpNzubwd12sHXe+Pk=;
+	s=k20260515; t=1790846023;
+	bh=QiTD8jv05CYWp7iTpZxDECEVOMautat1mbtbrx6mmgg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kRnYeGCJgOySEC4LiBWH3hZP+OIQWyi3mWQwu4oEYvn8aGgVqjHihU046+DTaQLAU
-	 wlhe+CllZiNG/MZjcnkFzfAiddKiD/vZn02m1uGG6nNPFWk97zO4wVAW7jnunoycMC
-	 H2SQ9xhG1nnoSQL/OLPctp5XN5FOLdx8TrzcPz1DCrZI4FyQyit5SS/XmaUQivhys5
-	 dpr3L0llGEnqifV+SDsax71BFk88QtaLMGdFSbNCsv7Up/0unNVkk5QcI2VMMZI11J
-	 Afs4ygahMvabJAf+cv88fBkrmHSJ6UggVuSVz8pYacIib893vXg5FJOR0/QlghhX/d
-	 pBy+zdjNFif/g==
-Subject: Re: [net-next, v4 04/10] bnge: add RXFH ethtool support
+	b=HIZ8v3GvuqRT37gnKdEtCeEq5td0bdOqttDwZG9bSBWNtMmLCKBcKKtplwSnXKG48
+	 dKHe0BtbweDwoY4++Avt4oSLMUhkiKzuO1vy1fysuE28ssTqVIFwhGDg+tHKm8uLH2
+	 k9OIvNz9FOEi90BL3XJwBFmXXJ12CZMwIrHM4vEDtv2FHKtes9Ld+tu9LHKWkH9pZe
+	 cb3abc366kHlG+P5qO1DUyQXCqaXv/af3/14/G2jlUcEo212PFewHuTW+8JQX1AGbL
+	 4S+ZA1UXe1h0Wxt5hwdb77P0/+BFDG+sJX9u3cRJvobNv+hCBmEAhgZskGKrSpAQTo
+	 vVVdmP0nvRSKA==
+Subject: Re: [net-next, v4 09/10] bnge: add aRFS flow steering ndo support
 From: netdev-bot+sashiko@kernel.org
 To: vikas.gupta@broadcom.com
 Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
@@ -35,11 +35,11 @@ Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
  bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
  vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
  dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
-Date: Thu, 01 Oct 2026 09:13:35 +0000
-Message-ID: <179084601563.434549.7376080309317733874@kernel.org>
-In-Reply-To: <20260928061307.1172344-5-vikas.gupta@broadcom.com>
-References: <20260928061307.1172344-5-vikas.gupta@broadcom.com>
-X-sashiko-severity: High
+Date: Thu, 01 Oct 2026 09:13:42 +0000
+Message-ID: <179084602255.434549.2468256994128303043@kernel.org>
+In-Reply-To: <20260928061307.1172344-10-vikas.gupta@broadcom.com>
+References: <20260928061307.1172344-10-vikas.gupta@broadcom.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,10 +49,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 3 · Low: 3
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -60,320 +60,212 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] buffer overflow and memset integer underflow when rx_nr_rings >
-  512
-- [Medium] bnge_set_rxfh_fields() reports success for data == 0 (disable
-  hashing) on every flow type except IPV4_FLOW/IPV6_FLOW, but does not…
-- [Medium] In bnge_set_rxfh_fields(), the IPv6 branch of the switch
-  handles tuple == 4 differently from the IPv4 branch.
-- [Medium] The individual AH_V4_FLOW/ESP_V4_FLOW (and
-  AH_V6_FLOW/ESP_V6_FLOW) flow types ignore the SPI-hash bits that…
-- [Low] In this commit, bnge_set_rxfh() (bnge_ethtool.c) lets userspace
-  store a default-context indirection table in bd->rss_indir_tbl while…
-- [Low] bnge_ethtool_ops sets .rxfh_per_ctx_key = 1,
-  .rxfh_max_num_contexts = BNGE_MAX_ETH_RSS_CTX + 1 and .rxfh_priv_size…
-- [Low] The patch changes how the default RSS key is generated, and the
-  commit message does not say so.
+- [Medium] The expire loop in bnge_cfg_ntp_filters()
+  (bnge_filter.c:680-681) ignores the return value of…
+- [Low] Baseline decision: false.
+- [Low] The ethtool rxnfc GET paths disagree about aRFS filters.
+- [Low] In bnge_rx_flow_steer(), when an NTUPLE filter for the same tuple
+  already exists, the callback returns its sw_id without updating…
 
 --
 
-bnge: add RXFH ethtool support
+bnge: add aRFS flow steering ndo support
 
-This commit adds ethtool RXFH operations to bnge for reading and
-programming the RSS hash key, indirection table and hash fields. The set
-operations are only allowed while the interface is down. It also moves
-default RSS key generation to netdev_rss_key_fill() in bnge_netdev_alloc()
-and adds an IPv6 flow label RSS capability bit.
+This adds bnge_rx_flow_steer() as the ndo_rx_flow_steer callback. It
+builds an NTUPLE filter from the dissected flow keys and inserts it into
+the NTUPLE hash table. Firmware programming and aging are deferred to
+bnge_cfg_ntp_filters(), which runs from sp_task.
 
 > diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
-> index 2467e44de291a..6fbda4fc1a0c4 100644
+> index 8e9cfbad98e04..08db761e4ca60 100644
 > --- a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
 > +++ b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
+> @@ -1189,7 +1189,7 @@ static u32 bnge_get_all_fltr_ids_rcu(struct bnge_net *bn,
+>  
+>  		head = &tbl[i];
+>  		hlist_for_each_entry_rcu(fltr, head, hlist) {
+> -			if (!fltr->flags ||
+> +			if (!bnge_is_usr_fltr(fltr) ||
+>  			    test_bit(BNGE_FLTR_FW_DELETED, &fltr->state))
+>  				continue;
+>  			ids[j++] = fltr->sw_id + offset;
+
+[Severity: Low]
+With this change, GRXCLSRLALL uses bnge_is_usr_fltr() to skip aRFS
+filters. Does bnge_get_one_fltr_rcu() need the same change? It still uses
+the old test:
+
+bnge_get_one_fltr_rcu() {
+    ...
+		hlist_for_each_entry_rcu(fltr, head, hlist) {
+			if (fltr->flags && fltr->sw_id + offset == id)
+				return fltr;
+		}
+    ...
+}
+
+bnge_insert_ntp_filter() always sets BNGE_ACT_RING_DST on aRFS filters,
+so their flags are never zero. A GRXCLSRULE query for location
+BNGE_MAX_L2_FLTRS + sw_id (for example ethtool -n <dev> rule <loc>) would
+then report an aRFS filter as a configured classification rule, with its
+5-tuple and ring_cookie.
+
+That same filter is missing from GRXCLSRLALL and is not counted in
+GRXCLSRLCNT (bn->user_fltr_count). bnge_srxclsrldel() also refuses to
+delete it:
+
+	if (!(fltr->base.flags & BNGE_ACT_NO_AGING)) {
+		rcu_read_unlock();
+		return -EINVAL;
+	}
+
+This still seems to be present at the end of the series.
+
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
+> index 764c967c64572..17a837fea79d7 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
 
 [ ... ]
 
-> @@ -740,6 +743,272 @@ static int bnge_set_pauseparam(struct net_device *dev,
-
-[ ... ]
-
-> +static int bnge_get_rxfh_fields(struct net_device *dev,
-> +				struct ethtool_rxfh_fields *cmd)
+> @@ -637,3 +637,48 @@ void bnge_clear_usr_fltrs(struct bnge_net *bn)
+>  		}
+>  	}
+>  }
+> +
+> +void bnge_cfg_ntp_filters(struct bnge_net *bn)
 > +{
 
 [ ... ]
 
-> +	case AH_ESP_V4_FLOW:
-> +		if (bd->rss_hash_cfg &
-> +		    (VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4 |
-> +		     VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4))
-> +			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
-> +				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
-> +		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
-> +		break;
-> +	case SCTP_V4_FLOW:
-> +	case AH_V4_FLOW:
-> +	case ESP_V4_FLOW:
-> +	case IPV4_FLOW:
-> +		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
-> +		break;
+> +	list_for_each_entry_safe(fltr, tmp, &expire_list, base.list_node) {
+> +		list_del_init(&fltr->base.list_node);
+> +		bnge_hwrm_cfa_ntuple_filter_free(bn->bd, fltr);
+> +		bnge_del_ntp_filter_rcu(bn, fltr);
 
 [Severity: Medium]
-Should AH_V4_FLOW and ESP_V4_FLOW report the SPI bits here too?
+Should the return value of bnge_hwrm_cfa_ntuple_filter_free() be
+checked here?
 
-When VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4 and ESP_SPI_IPV4 are set, the
-hardware hashes AH/ESP packets on the SPI, and AH_ESP_V4_FLOW reports that
-as a 4-tuple. AH_V4_FLOW and ESP_V4_FLOW fall into the generic IPv4 case
-instead, and only report RXH_IP_SRC | RXH_IP_DST for the same packets.
+It can fail before anything reaches firmware. For example,
+bnge_hwrm_req_init()->bnge_hwrm_req_create() returns -ENOMEM when
+dma_pool_alloc() fails. bnge_hwrm_req_send() can also return a firmware
+error or a timeout.
 
-The set side splits the same way. In bnge_set_rxfh_fields(), only
-AH_ESP_V4_FLOW reaches the branch that clears the SPI bits:
+In either case the firmware keeps the CFA ntuple rule and keeps steering
+the tuple to the old ring. Meanwhile bnge_del_ntp_filter_rcu() frees the
+only copy of base.filter_id and releases the sw_id bit.
 
-	} else if (cmd->flow_type == AH_ESP_V4_FLOW) {
-		...
-		rss_hash_cfg &= ~(VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4 |
-				  VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4);
+Does this leak the firmware CFA entry until the owning L2 filter or VNIC
+is torn down? If the flow is steered again, a second firmware rule for
+the same tuple would be allocated. bnxt has the same pattern in its
+aging path.
 
-As a result, a 2-tuple or zero request for AH_V4_FLOW or ESP_V4_FLOW
-returns success while SPI hashing stays on.
-
-The ethtool netlink RSS flow-hash attributes expose ah4/esp4 separately
-from ah-esp4. An RSS GET can therefore show ah-esp4 and ah4 disagreeing
-about the same packets.
-
-The IPv6 cases (AH_V6_FLOW and ESP_V6_FLOW versus AH_ESP_V6_FLOW) look the
-same. bnxt_get_rxfh_fields() and bnxt_set_rxfh_fields() follow the same
-pattern.
-
-[ ... ]
-
-> +static int bnge_set_rxfh_fields(struct net_device *dev,
-> +				const struct ethtool_rxfh_fields *cmd,
-> +				struct netlink_ext_ack *extack)
-> +{
-
-[ ... ]
-
-> +	switch (cmd->flow_type) {
-> +	case TCP_V4_FLOW:
-> +	case UDP_V4_FLOW:
-> +	case SCTP_V4_FLOW:
-> +	case AH_ESP_V4_FLOW:
-> +	case AH_V4_FLOW:
-> +	case ESP_V4_FLOW:
-> +	case IPV4_FLOW:
-> +		if (tuple == 2)
-> +			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4;
-> +		else if (!tuple && cmd->flow_type == IPV4_FLOW)
-> +			rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4;
-> +		break;
-
-[Severity: Medium]
-What happens when data == 0 is requested for a flow type other than
-IPV4_FLOW?
-
-With tuple == 0, VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4 is only cleared for
-IPV4_FLOW. For SCTP_V4_FLOW, AH_V4_FLOW and ESP_V4_FLOW nothing changes,
-so this check further down returns success, even while the interface is
-running:
-
-	if (bd->rss_hash_cfg == rss_hash_cfg)
-		return 0;
-
-For TCP/UDP/AH_ESP, only the L4 bit is cleared and the IPv4 2-tuple bit
-stays set.
-
-bnge_get_rxfh_fields() then reports RXH_IP_SRC | RXH_IP_DST for a flow type
-that was just set to 0, and the hardware keeps hashing those packets. The
-default rss_hash_cfg includes VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4, so something
-like this takes the no-op path:
-
-  ethtool -N ethX rx-flow-hash sctp4 ""
-
-The IPv6 branch has the same restriction on IPV6_FLOW.
-
-bnxt_set_rxfh_fields() clears the L3 bit for any !tuple request, which is
-where the two drivers differ. Would it be better to return an error for
-zero requests that can't be applied, instead of returning 0?
-
-> +
-> +	case TCP_V6_FLOW:
-> +	case UDP_V6_FLOW:
-> +	case SCTP_V6_FLOW:
-> +	case AH_ESP_V6_FLOW:
-> +	case AH_V6_FLOW:
-> +	case ESP_V6_FLOW:
-> +	case IPV6_FLOW:
-> +		if (cmd->data & RXH_IP6_FL) {
-> +			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL;
-> +			rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6;
-> +		} else if (tuple == 2 || tuple == 4) {
-> +			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6;
-> +			rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL;
-
-[Severity: Medium]
-Is tuple == 4 meant to change the global IPv6 bits here?
-
-On the IPv4 side, a 4-tuple request leaves VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4
-alone; only tuple == 2 sets it. Here, a 4-tuple tcp6/udp6/ah-esp6 request
-sets VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6 and clears IPV6_FLOW_LABEL.
-
-This sequence turns 2-tuple hashing back on for ip6/sctp6/ah6/esp6:
-
-  ethtool -N ethX rx-flow-hash ip6 ""
-  ethtool -N ethX rx-flow-hash tcp6 sdfn
-
-In the same way, a tcp6 sdfn request after ip6 sdl silently turns off flow
-label hashing.
-
-RXH_4TUPLE already contains RXH_IP_SRC | RXH_IP_DST, so the TCP_V6_FLOW
-readback does not need the IPV6 bit set.
-
-> +		} else if (!tuple && cmd->flow_type == IPV6_FLOW) {
-
-[ ... ]
-
-> +static int bnge_set_rxfh(struct net_device *dev,
-> +			 struct ethtool_rxfh_param *rxfh,
-> +			 struct netlink_ext_ack *extack)
-> +{
-> +	struct bnge_net *bn = netdev_priv(dev);
-> +
-> +	if (rxfh->hfunc && rxfh->hfunc != ETH_RSS_HASH_TOP)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (netif_running(dev)) {
-> +		NL_SET_ERR_MSG_MOD(extack,
-> +				   "RSS configuration can only be changed while the interface is down");
-> +		return -EBUSY;
 > +	}
-> +
-> +	bnge_modify_rss(bn, NULL, NULL, rxfh);
-
-[Severity: High]
-What limits tbl_size here when bd->rx_nr_rings is large?
-
-bnge_modify_rss() copies bnge_get_rxfh_indir_size(bd) entries into
-bd->rss_indir_tbl. That size grows with bd->rx_nr_rings through
-bnge_cal_nr_rss_ctxs(). The table itself only holds
-bd->rss_indir_tbl_entries entries (BNGE_MAX_RSS_TABLE_ENTRIES, 512):
-
-drivers/net/ethernet/broadcom/bnge/bnge_vnic.c:bnge_modify_rss() {
-    ...
-		for (i = 0; i < tbl_size; i++)
-			indir_tbl[i] = rxfh->indir[i];
-		pad = bd->rss_indir_tbl_entries - tbl_size;
-		if (pad && !rss_ctx)
-			memset(&indir_tbl[i], 0, pad * sizeof(*indir_tbl));
-    ...
-}
-
-With more than 512 RX rings, tbl_size is larger than the table. The
-copy loop then writes past the end of bd->rss_indir_tbl. pad is a u32,
-so it wraps around to a value near 4G, and the memset() clears
-gigabytes of kernel memory after the table.
-
-The ethtool core sizes rxfh->indir from get_rxfh_indir_size, so the
-user buffer is fine. It is the driver table that overflows.
-bnge_get_rxfh() has the matching out-of-bounds read, because it
-copies tbl_size entries out of bd->rss_indir_tbl.
-
-bnge_fill_hw_rss_tbl() uses the same tbl_size. It writes two __le16
-values per entry into vnic->rss_table, which would overrun that DMA
-buffer on open. That code predates this patch, but the root cause is
-the same.
-
-Does anything in the ring reservation path keep rx_nr_rings at or
-below BNGE_MAX_RSS_TABLE_ENTRIES? If not, should the RX ring count be
-capped there, or should bnge_get_rxfh_indir_size() be clamped to
-bd->rss_indir_tbl_entries?
-
-[Severity: Low]
-Does the indirection table stored here survive the next open?
-
-bnge_open_core() calls bnge_reserve_rings(), which still resets the table
-without checking netif_is_rxfh_configured():
-
-drivers/net/ethernet/broadcom/bnge/bnge_resc.c:bnge_reserve_rings() {
-    ...
-	if (old_rx_rings != bd->hw_resc.resv_rx_rings)
-		bnge_set_dflt_rss_indir_tbl(bd);
-    ...
-}
-
-The reserved RX ring count can change while the interface is down. For
-example, bnge_is_agg_reqd() can flip after an MTU or LRO/GRO change, or
-firmware can grant a different number of RX rings. In that case the user
-table is silently overwritten while IFF_RXFH_CONFIGURED stays set.
-
-The next patch in the series, "bnge: add ethtool support to manage RSS
-contexts", appears to add a netif_is_rxfh_configured() guard and
-ethtool_rxfh_indir_lost() handling here. If so, only this intermediate
-commit is affected.
-
-[ ... ]
-
-> @@ -757,6 +1026,18 @@ static const struct ethtool_ops bnge_ethtool_ops = {
->  	.get_eth_ctrl_stats	= bnge_get_eth_ctrl_stats,
->  	.get_pause_stats	= bnge_get_pause_stats,
->  	.get_rmon_stats		= bnge_get_rmon_stats,
-> +	/* RXFH */
-> +	.rxfh_per_ctx_key	= 1,
-> +	.rxfh_max_num_contexts	= BNGE_MAX_ETH_RSS_CTX + 1,
-> +	.rxfh_indir_space	= BNGE_MAX_RSS_TABLE_ENTRIES,
-> +	.rxfh_priv_size		= sizeof(struct bnge_rss_ctx),
-
-[Severity: Low]
-This isn't a bug, but rxfh_per_ctx_key, rxfh_max_num_contexts and
-rxfh_priv_size are set here without create_rxfh_context,
-modify_rxfh_context or remove_rxfh_context. At this commit the ethtool core
-rejects every context request with -EOPNOTSUPP, so these fields and
-BNGE_MAX_ETH_RSS_CTX have no effect.
-
-The next patch, "bnge: add ethtool support to manage RSS contexts", adds
-the callbacks. Would these fields fit better in that patch?
+> +#endif
+> +}
 
 [ ... ]
 
 > diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> index c6b9048586b36..ef5d13337e60b 100644
+> index 19ec36b08765c..de7818d2c2af2 100644
 > --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
 > +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> @@ -1739,13 +1739,6 @@ static void bnge_init_vnics(struct bnge_net *bn)
->  				u8 *key = (void *)vnic->rss_hash_key;
->  				int k;
->  
-> -				if (!bn->rss_hash_key_valid &&
-> -				    !bn->rss_hash_key_updated) {
-> -					get_random_bytes(bn->rss_hash_key,
-> -							 HW_HASH_KEY_SIZE);
-> -					bn->rss_hash_key_updated = true;
-> -				}
-> -
->  				memcpy(vnic->rss_hash_key, bn->rss_hash_key,
->  				       HW_HASH_KEY_SIZE);
->  
-> @@ -3398,6 +3391,9 @@ int bnge_netdev_alloc(struct bnge_dev *bd, int max_irqs)
->  	bn->tx_ring_size = BNGE_DEFAULT_TX_RING_SIZE;
->  	bn->rx_dir = DMA_FROM_DEVICE;
->  
-> +	netdev_rss_key_fill(bn->rss_hash_key, sizeof(bn->rss_hash_key));
-> +	bn->rss_hash_key_updated = true;
-> +
+
+[ ... ]
+
+> @@ -3176,6 +3185,121 @@ static int bnge_set_features(struct net_device *dev, netdev_features_t features)
+
+[ ... ]
+
+> +static int bnge_rx_flow_steer(struct net_device *dev, const struct sk_buff *skb,
+> +			      u16 rxq_index, u32 flow_id)
+> +{
+
+[ ... ]
+
+> +	idx = bnge_get_ntp_filter_idx(bn, fkeys, skb);
+> +	rcu_read_lock();
+> +	fltr = bnge_lookup_ntp_filter_from_idx(bn, new_fltr, idx);
+> +	/* Filter already exists; return its id.  A stale filter (queue
+> +	 * changed) is freed later via rps_may_expire_flow() and recreated.
+> +	 */
+> +	if (fltr) {
+> +		rc = fltr->base.sw_id;
+> +		rcu_read_unlock();
+> +		goto err_free;
+> +	}
 
 [Severity: Low]
-This isn't a bug, but the commit message doesn't mention this change to
-the default RSS key.
+Is the "freed later via rps_may_expire_flow() and recreated" part of
+this comment always true?
 
-netdev_rss_key_fill() copies the global netdev_rss_key, so all bnge ports
-now share one key. Before, each port got its own get_random_bytes() key on
-first open.
+bnge_fltr_match() does not compare rxq. Suppose flow F is steered to
+queue B and then moves to a CPU that maps to queue C. set_rps_cpu() calls
+this function with rxq_index C and gets F's sw_id back. F's base.rxq and
+flow_id are left unchanged, and nothing is reprogrammed.
 
-Also, the removed check in bnge_init_vnics() was the only reader of
-bn->rss_hash_key_valid. bnge_init_vnics() still sets it:
+The core then records F in C's rps_dev_flow entry and clears it from
+B's entry, while the hardware still delivers the flow to B.
 
-	bn->rss_hash_key_valid = true;
+On a later pass, bnge_cfg_ntp_filters() calls rps_may_expire_flow() with
+the stale rxq B. It sees that B's entry no longer holds F and frees the
+rule. Packets then arrive on some RSS queue X.
 
-but nothing tests it any more. Can that field be removed?
+When set_rps_cpu() runs for X, C's entry still holds F and can still
+look active:
+
+net/core/dev.c:set_rps_cpu() {
+    ...
+	if (rps_flow_is_active(tmp_rflow, rps_tag_to_log(q_tag_ptr), tmp_cpu)) {
+		if (hash != READ_ONCE(tmp_rflow->hash) ||
+		    next_cpu == tmp_cpu)
+			goto out;
+	}
+    ...
+}
+
+In that case ndo_rx_flow_steer is not called and X's entry gets
+cpu = next_cpu. After that, get_rps_cpu() stops calling set_rps_cpu()
+because tcpu == next_cpu.
+
+Can the flow then stay without a hardware aRFS rule until the application
+moves CPU again? RPS still steers it in software, so the impact is on
+performance. It also depends on timing, namely how far the target CPU's
+input_queue_head has advanced. bnxt_rx_flow_steer() has the same
+existing-filter branch.
+
+Should this branch handle a changed rxq_index instead of returning the
+old sw_id unchanged?
+
+[ ... ]
+
+> @@ -3185,6 +3309,9 @@ static const struct net_device_ops bnge_netdev_ops = {
+>  	.ndo_features_check	= bnge_features_check,
+>  	.ndo_fix_features	= bnge_fix_features,
+>  	.ndo_set_features	= bnge_set_features,
+> +#ifdef CONFIG_RFS_ACCEL
+> +	.ndo_rx_flow_steer	= bnge_rx_flow_steer,
+> +#endif
+>  };
+
+[Severity: Low]
+Can bnge_rx_flow_steer() actually be called at this point in the
+series? set_rps_cpu() in net/core/dev.c skips the callback when there is
+no rx_cpu_rmap:
+
+	if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
+	    !(dev->features & NETIF_F_NTUPLE))
+		goto out;
+
+bnge does not set dev->rx_cpu_rmap yet, so the new aRFS code does not
+run at this commit.
+
+A later patch in this series, "bnge: add cpu_rmap support for IRQ
+affinity", fixes this. It adds alloc_irq_cpu_rmap(bd->rx_nr_rings), calls
+irq_cpu_rmap_add() in bnge_request_irq() for NAPIs that have an rx_ring,
+and frees the map on teardown. So the callback is reachable by the end of
+the series, and nothing breaks at this commit.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928061307.1172344-1-vikas.gupta%40broadcom.com
