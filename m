@@ -1,148 +1,133 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7C2377018
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588D53B95E0;
+	Thu,  1 Oct 2026 07:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838506; cv=none; b=k4sKCfhNJ55OxEekj70NaSn5wC9mySAGV8n7ADGmyTo8By4aQI0HyH4LwigcdAk7hQ3MA3MC9GbJfH1ENmR9W9B+94gvpa3+qZxYyRyxLGiHWnfDNp/LKn2GayPErcVVHUAcjrkHhPVIwJ65yEBI3o3eSN2h9MNO9g3rbX5N8n4=
+	t=1790838581; cv=none; b=KKAncf6Fa9S6Zfi2xvOW1+yRvkEhjHUNH39kH5f6e7F06wKUmz9qCs79L3BNV0Tn0Y87izdOO/p5r7WfdV6tLacVLlHfgg3+Zs77n/zxWSxabZiDMt9H7f11N8e/z994OSeqi+6wdiCTSZkV7qrTm4GYuvc+jV8SLIkkB9ue31Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790838506; c=relaxed/simple;
-	bh=EGJJRokvBeMuto49N6+sTpxm8e0HrHHXkZH0oOqELDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d312KrYbIs+zFrqVovmt8lq2c5C3fWDSCqSSgdZgXfoywdFRj931oZyBqwv66E3XZke4jT8A9kFrA4xsQd6hvTpYpKa+xdu40MYKFwrfDqnDiShaFOKgnML6zFVdSkrEgj8zNsxPlkWoe3LWduRo8ORMC8q0DnlIo8f1mS/8ZIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Il8KRa9I; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790838581; c=relaxed/simple;
+	bh=XFF9m1extKl7fuxmH9zsMDX2E4Ef70rJNPT+E8HnDCk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MpWJBb2xK9qlp9wg3ra1JwOAATVoWNAk4Tigw29HolAvzQpzkgwJuDC6v2ZyNSOp7Bqhf/r37w+nKVsAUaDQnkkGgh99EG0iu9LqG8lXtihgXE6BG6BGpyma1XHNuBWBrlHlJHqIFNdNyOkTxxSkQQmp4kmP8SRgXrGA0/OZFFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8TXv8sn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Il8KRa9I"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so57696545e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:08:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790838503; x=1791443303; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CQNdVgaRBZ+BMSEVZ852Rz0UPaYSaRNjBg4ZUiywQmg=;
-        b=Il8KRa9IAjf/YZupc6QdYJope62runpJmnE5naiM6vHXyKVfwd2f8FiTKzzeAsTqg6
-         w19GuAQ6Vf/lpKtlWyreIyTGs3+n7Kl15hV08nG9LZ66IlUzoRZcB6ME0keaqNaMPBEx
-         kmls7cHBjHTRUDWAn8LyVEQOLLZ+PB/3aVLeB5Yw0E1BUZGje9sqVHcYIgpHmxjsghyb
-         Qe6HtvQ/S7BcxBLuZbfffkoVHX63P1/7zmbQwEIr9ifNqPWpRr4EVUzldh7xLym/VTOA
-         ouG6fNlLMea641z2MwRis94hLYiT9tKSxTEQaI0QdjaLW6dSHoHU9rAco+Rp4znLOP6E
-         gn4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790838503; x=1791443303;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CQNdVgaRBZ+BMSEVZ852Rz0UPaYSaRNjBg4ZUiywQmg=;
-        b=HQCeUPujWE8YrArszBWGFkXCdqEG7v7bF7+tJ46ZU//quO99KPrZJuJLzXbwdVVejW
-         39hcYB8bQtZGYRMqDvCplYlP679YhKY2tpI1ywtf4bmyVkiCUgBNB2LS+MVjlbP6Zu1o
-         cd23k2Tm2T2tQYc7GJG4McMDNvtEoD99xuR1z3ph4ip5jJHYKtbReeVQ5vg1yD/sAQrq
-         x+4G+PxvapbjMDxoi4noMGC2+T0pZmaKO4qwlYPprfsC7KM/16Qz5E1SUySLQJeC4wVf
-         4i0GcCjP21gAAOKzfp3MIDYg9nYUuOE6pZo2sU01UDV3lzAT2fxEWbGQegH71fGBYHG2
-         j/zg==
-X-Forwarded-Encrypted: i=1; AKwUvBzelEYcv8qi9ZBXCj4Gj9NHSY22ALnC0AtOLPbKBxNcHqDZth+ou3hJa9gCRC8gxWhRHH1e70mISEpbbsI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrkMvHopeaPQ8/oAOj5NlL4mivs8HHoDPaN/ocomDfc3pI6l7x
-	SR99Karfayz22a+eCPOddjU7/B2rrcbTb9LvE0BqhmIVN369yV5PPEiB
-X-Gm-Gg: AYBFou3LZGOsyRh1Oa9TKRvqPcedwSP2F0R7kToMPnQuCzmMfJ6wwyC0KMavzR3r8CC
-	uliRK+FnOq9n7g47JnkcgewmFF8TqTddEc0OcIwcQBrCCwKPFgjXqH3oXHeNRuNRRtTjej534hE
-	i6urWaW8nQ2nkMbQrgGz6bSlNfxompubUtsObzCo3w52T1C2lvq7+LMV2fuHe2x6wMTrcYQZGOq
-	XprySW7Bhqu7sSCfPUYflnm6bg0ewW4excLbMw6q3sdr5wUFPXwhDViGbom8gsW5fF7bf6GBCWn
-	750B2gMO3cJkKh8IeOYwCgM/nToOQ/rpKgHQIrwxJk+2fDrqd13sD6jGm7GOVg44lQtk1IDKAle
-	LUASfNhvw/W2+r5C0dMwESnPRfD1g0b0+6FL+NYBrr/Osk0o3882YUUUFoR0oTaSwlWMrR7fL1R
-	tY1E4SNzSeaeJeKO6Gw2oEQdI70aDSUGffITTNjJnu1/v2OxH9EmaZrdWHEFafZmRCfgUbXfAbh
-	hwZdMaoZrJdEKyurzEP+lfh80B4HmLX2b6yu380BhbetFGuy3yXDKKRIcc4lfTzu83dJxGVkhZ1
-	A5c+vLSFX5zkAYlYPLtWAKqFTlQTTELnJWtzMOWQ7hKXgo0iiMY6KCZhUuTSTbGO9hlXbwgMz9M
-	aKmVzzGiE3U9INVdot3Iog7m2g05zNNfxjPrIgtJ19J9+3w9VB5J8QaraN/gS9KP2/YKrIQ0gOK
-	LE9OcZ
-X-Received: by 2002:a05:600c:4691:b0:49e:799a:8951 with SMTP id 5b1f17b1804b1-4a01aff4450mr54837075e9.11.1790838503244;
-        Thu, 01 Oct 2026 00:08:23 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f98224csm39045465e9.3.2026.10.01.00.08.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 00:08:23 -0700 (PDT)
-Date: Thu, 1 Oct 2026 09:08:24 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Archit Anant <architanant5@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
- nuno.sa@analog.com, u.kleine-koenig@baylibre.com,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 02/10] iio: adc: ti-ads1015: sort headers
- alphabetically
-Message-ID: <20261001090824.00002477@gmail.com>
-In-Reply-To: <20260930171204.12863-3-architanant5@gmail.com>
-References: <20260930171204.12863-1-architanant5@gmail.com>
-	<20260930171204.12863-3-architanant5@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8TXv8sn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965BA1F000FF;
+	Thu,  1 Oct 2026 07:09:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790838580;
+	bh=XFF9m1extKl7fuxmH9zsMDX2E4Ef70rJNPT+E8HnDCk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E8TXv8sn/bSpQE+NI1vYkKweFuPd7YNLLIzGNuQ+ceTS6EmKTPqCxr518iNn8GQ9l
+	 aXUKjLMuhGUJ03/7Yzr9S+fIWZC1/dhfZTpt/JUCnlpkuzoOP0PA8m+PKtzWDinIA7
+	 1w9ry8qGjqlCvnmNjIDocjTT7HE39m6sIKGxqAaSBs6nchvWxHnm7Bf8lNmbrRAPFo
+	 9fop9kGm+I65m2iX6nMlQY9fNRlenCMdG2dm4ebBtegIWPnT32Gno/Pol9pgkbnrba
+	 jYftS8MARMUeWwBdPBxrLlqKbfCqb8ssHOr/oNjHzJqstipUmCCbfD/1SrmJJ2uKBJ
+	 3McRuxZ1+Lv6g==
+Date: Thu, 1 Oct 2026 09:09:35 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+Message-ID: <ar4G864IgYTvfNNy@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org>
+ <artyl8fD3zzng8Uh@houat>
+ <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Wed, 30 Sep 2026 22:41:56 +0530
-Archit Anant <architanant5@gmail.com> wrote:
-
-> Reorder include headers alphabetically to comply with the preferred
-> coding style and improve maintainability.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Archit Anant <architanant5@gmail.com>
-> ---
->  drivers/iio/adc/ti-ads1015.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-> index 93a165c5416a..ef03b74bda3e 100644
-> --- a/drivers/iio/adc/ti-ads1015.c
-> +++ b/drivers/iio/adc/ti-ads1015.c
-> @@ -11,24 +11,24 @@
->   *	* 0x4B - ADDR connected to SCL
->   */
->  
-> -#include <linux/module.h>
->  #include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/i2c.h>
->  #include <linux/init.h>
->  #include <linux/irq.h>
-> -#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm_runtime.h>
->  #include <linux/property.h>
->  #include <linux/regmap.h>
-> -#include <linux/pm_runtime.h>
-> -#include <linux/mutex.h>
-> -#include <linux/delay.h>
->  
-> +#include <linux/iio/buffer.h>
-> +#include <linux/iio/events.h>
->  #include <linux/iio/iio.h>
-> -#include <linux/iio/types.h>
->  #include <linux/iio/sysfs.h>
-> -#include <linux/iio/events.h>
-> -#include <linux/iio/buffer.h>
-> -#include <linux/iio/triggered_buffer.h>
->  #include <linux/iio/trigger_consumer.h>
-> +#include <linux/iio/triggered_buffer.h>
-> +#include <linux/iio/types.h>
-
-Small nit, but I'd drop iio/types.h as it is included by iio/iio.h
-(No need to send a new version though, this can be addressed in the
-future).
-
->  #define ADS1015_DRV_NAME "ads1015"
->  
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="s3nqed5trv4kttpt"
+Content-Disposition: inline
+In-Reply-To: <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org>
 
 
+--s3nqed5trv4kttpt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+MIME-Version: 1.0
 
--- 
-Kind regards,
-Joshua Crofts
+On Wed, Sep 30, 2026 at 03:32:19PM +0200, Neil Armstrong wrote:
+> On 9/29/26 10:39, Maxime Ripard wrote:
+> > Hi,
+> >=20
+> >=20
+> <snip>
+>=20
+> >=20
+> > panel-mipi-dsi-spi is a generic panel that will load a firmware, and
+> > quite similar to this one. google,android-pipe and qcom,fastrpc don't
+> > attach to anything and will just open a tunnel to userspace, which is
+> > somewhat equivalent but more dramatic than what this driver is doing.
+> > simple-card or its variations will just instantiate a kernel driver from
+> > the DT and is used pretty much everywhere.
+> >=20
+> > I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
+> > by rob, and acked by a panel maintainer, and 4 years ago, so we're way
+> > past the "oh but we didn't know what we were doing back then" argument.
+> >=20
+> > So, let's phrase this differently: what's different about the
+> > description than panel-mipi-dsi-spi, or any other binding already in
+> > tree?
+>=20
+> The panel-mipi-dsi-spi still describes a class of H/W control interface,
+> not a pure software driver implementation type.
+>=20
+> "panel-mipi-dsi-bpf" or "panel-mipi-dsi-rust" or "panel-mipi-dsi-cplusplu=
+s"
+> would be the same problem.
+
+Rob explicitly said the bpf part wasn't the problem. Also, I don't care
+for the compatible itself, so what would be an acceptable compatible for
+you?
+
+> > If it's the BPF part, BPF is not Linux-only, and there's hardware with
+> > direct BPF support these days, so it can be considered OS-agnostic and
+> > not an implementation detail.
+>=20
+> If somehow panels used a standardized MIPI firmware we could define this
+> in DT, but here we're basically inventing our own type of firmware from
+> thin air.
+
+That's not what panel-mipi-dsi-spi is.
+
+Maxime
+
+--s3nqed5trv4kttpt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4HLwAKCRAnX84Zoj2+
+dl6uAYDovwkc1hvb39koGbGLJWTMCbmYcACHdaVw0R7sPvU3411ITrKE0XW6bqGC
+VstReW0Bf3SPl1Nrf6ImNbY2KvutXe9EvqIRF88l0/bekyLhlDEc+vl+24UFci5P
+jH5weB34Lw==
+=ZDWr
+-----END PGP SIGNATURE-----
+
+--s3nqed5trv4kttpt--
