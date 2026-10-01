@@ -1,37 +1,36 @@
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C842D535FA8;
-	Thu,  1 Oct 2026 22:39:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D19E535FC5;
+	Thu,  1 Oct 2026 22:39:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894363; cv=none; b=ecrO3alhO9KpAz9wH6ZHz4XSV1+r4qyp007P3+8CylJ1+XkPymdfhK2zqdJo7h0RaSXYsBelBlbj9LwVNceC5OA7cqOjDY+3+erRrT6JOTRxj5VpGiXrq8X+BiucTjkLyoJfJtMLmPlVHWn04pwOpKDYTkpGiyJemTjZ26PXHhU=
+	t=1790894365; cv=none; b=qGqXh6UYywIf1bHi7wPj5HeTiVPpWf/ohyuo4FcCLJRePFUFWn/dzd8KNrYi7Dg3GB6XCb5XkCGSvNOEiZxJ7RpYzx2ZsoFnIcAx19eX9cMpJVoabjgPFAip4EkJe/1QfmQ7fweNdc32TyTC1jEojynNv75/sDwuVECtGV0snDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894363; c=relaxed/simple;
-	bh=nUxViLGM7VTHEq2NnrXE86uHtghQzQYcpY/Ui/wtM5A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qwfH7Jj+b2EonwoDS5HSGukUMPVT3jCj2zkdFwYlCUGlEEGBZ+cFcJDUygcUs9a0sOUIfVUra4CG4GzXVM2wMZPx1cYPCl1ZI2E3B3v2tc+kaNGKwFzj6sk41TGdKorj8hm92RzG8CVOikDOEdnJboX/H3+Biq/TejGnYyugnNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=WjO+Ehw7; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=F3BVYk/b; arc=none smtp.client-ip=5.75.144.95
+	s=arc-20240116; t=1790894365; c=relaxed/simple;
+	bh=Ec/ktmytxMU3f8El8FxP74pWK596JZJmVpnNurOP78g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GeZuYoAujsBofgcU3DhpJDiHKlWz9lALvGnNrVTClqw25VRFlzEMCRkSgc6nSNNRKgLu7JOGe5alQewMnGOSYUF3jtR1BdbOEJLQMH7vqUBAl8n07lJaT5DFnA/9ghUN37drLa7AFK87ruU7FiIOGjLSaIB2ieZYgy2vmV2ZWI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=k+QYwA0A; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=LnEBcJGN; arc=none smtp.client-ip=5.75.144.95
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="WjO+Ehw7";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="F3BVYk/b"
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="k+QYwA0A";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="LnEBcJGN"
 DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790894352; bh=yZomCPYLKXEwFbULy4+mNSV
-	7LaBabbqjfwJgdXv2jr8=; b=WjO+Ehw7JKlLizghsoJ/552bjWn8fYGhqKqI89oo2+hXZ7v56z
-	KSb26JEnr9oiz02gL2ZTCw6gSDBcfxTxfkAaAv8rF3SF8HiDKaXGmZ8dsTp3ynM23BzwIMs6M4U
-	1wxeDzeuN+RvGtYh633dz7jwQg258BIJr+sHNgpUJFYZ+dy0pVY3qUbTnr4DOA97uUF/Yp++HPl
-	vy+vAsfILBX2VBAihGmkS8lZO6UAdX2nxc0J+TNmmvbcXzzeDxSpHqF6RdmBqlS1ThIEgGIBEGR
-	sdEYL1BJJun2JkYuhmvijWgfg8Pmadr1T3DUpzFvzKtVUPWplR7huOKZbBeJ/NNn3lw==;
+	h=To:Message-Id:Date:Subject:From; t=1790894347; bh=PmgsvGcizyjhejJ/0taQANE
+	LxYOdQ6satm+6fazHCRA=; b=k+QYwA0AKyXmQ1Gv0u7JbO5jUa3nXdVYnYIMGr3b1iw0qIllCK
+	l6kvAJdqQpZshrmF05McwiWzKod3mwZA/n0cbDDw/ShV3+j2m37Zd6KpNc9kBwYT0VLRWRInuZ4
+	Y0b5zN1AAV1Tpb3GCrKRGn14r4nlccgv+24qRahV9tJ0nsZN7s3M5gTF5M2U7a2hQlsu+oKhDaJ
+	pGpk2hJDFd1cgVMSt3t+uGbnW739Kcrfy5CnK+q0VnIIjSKeuHhOSAjbRU08wTLRiC4Ts5FZWEh
+	v0JdyVpmM9BQ4XVgNFozUxdpXZYam2X2KOuFwRBUcmtvPGKYImW6Mwmw6vCkKnbsIkg==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790894352; bh=yZomCPYLKXEwFbULy4+mNSV
-	7LaBabbqjfwJgdXv2jr8=; b=F3BVYk/bMxl5AQKY/aYICTF0lWMJQbukZLF0CH22mzNeSXJGao
-	v+M/J2n5xYnOHcjxYcjiFT58NmEreYwdx+CQ==;
+	h=To:Message-Id:Date:Subject:From; t=1790894347; bh=PmgsvGcizyjhejJ/0taQANE
+	LxYOdQ6satm+6fazHCRA=; b=LnEBcJGNV8FlCouZZhHB8DuJoFVdnsgpJKM9N9p0zwX+ilfgGR
+	nfLFntsn03oPKKVKhoJVV82ItmKAiO4NTLBQ==;
 From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Date: Fri, 02 Oct 2026 00:38:33 +0200
-Subject: [PATCH v3 5/7] dt-bindings: remoteproc: qcom,msm8916-mss-pil: Add
- SDM632
+Subject: [PATCH v3 0/7] MSM8953/SDM632 rpmpd/mss fixes
+Date: Fri, 02 Oct 2026 00:38:28 +0200
+Message-Id: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,9 +39,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261002-sdm632-rpmpd-v3-5-95c47d0f26cf@mainlining.org>
-References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
-In-Reply-To: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XOTQrCMBCG4avIrI3kx6aJK+8hLtpm2g7YtCQSl
+ NK7mxZB1OX7wTzMDBEDYYTTboaAiSKNPofa76DpK98hI5cbJJeaK2FZdINWkoVpmBxrOCqsi6N
+ pCwP5ZArY0mPjLtfcPcX7GJ6bnsS6viFZfkNJMM40t8Y11pZO6/NQkb+RJ98dxtDBqiX5Eaz8e
+ SXJLNgSW2MKI7So/4RlWV5kLdIL7wAAAA==
+X-Change-ID: 20260319-sdm632-rpmpd-c0e3eb548f58
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Mathieu Poirier <mathieu.poirier@linaro.org>, 
@@ -52,81 +53,81 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
  linux-remoteproc@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790894346; l=2467;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790894346; l=2712;
  i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
- bh=nUxViLGM7VTHEq2NnrXE86uHtghQzQYcpY/Ui/wtM5A=;
- b=shWcYLS9s0d0Rr18DMuuX5+/T+4rt4gDQ/LFuVfQ9VQmR0UBLnRHpHmpACAq7nUy9zPP8j5iF
- Z+5wdXTGVcJBfPmmDK8rpAS3L7S/4DGaC69c58lqnSh/So+rIBkeZsz
+ bh=Ec/ktmytxMU3f8El8FxP74pWK596JZJmVpnNurOP78g=;
+ b=VlSDxlwyAlLwPO5J5RC5bYzHmLL4L0tyagMefMnueOvgrjjZDInxUPLEAYmAcIOOsuIIJ9ZGm
+ dVIYuHoJneGAUa7Dit5lnuWJ+a/nxPHEPRn4Aux3ZC9rD9bUew9IOSG
 X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
  pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 
-SDM632 MSS is very similar for MSM8953 mss the difference is
-mss-supply is a pm domain on SDM632, previously SDM632 MSS
-was represented by MSM8953 MSS. Correct the bindings to
-described it correctly.
+SDM632 pm domains are different from MSM8953 because MSM8953
+is defining pm8953_s1 as regulator but SDM632 is defining it
+as pm domain.
+
+This patch series correcting the pm domains defined in rpmpd
+driver and splitting the MSS resources for the both SoC to match
+the reality.
+
+These changes was discussed in a previous threads:
+https://lore.kernel.org/all/2b057aa5-4416-4fd4-aeab-6bc23acbb53d@oss.qualcomm.com/
 
 Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 ---
- .../devicetree/bindings/remoteproc/qcom,msm8916-mss-pil.yaml     | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Changes in v3:
+- Change RPMPD_VDDMD from 10 to 5.
+- Add back MSM8953_VDDMD_AO and MSM8953_VDDMD.
+- Split qcom,sdm632-rpmpd compatible documentation from VDDMD definition.
+- Link to v2: https://patch.msgid.link/20260929-sdm632-rpmpd-v2-0-97ef8858161b@mainlining.org
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-mss-pil.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-mss-pil.yaml
-index 4049157dd83d..049191cad5f8 100644
---- a/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-mss-pil.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-mss-pil.yaml
-@@ -27,6 +27,7 @@ properties:
-           - qcom,msm8940-mss-pil
-           - qcom,msm8953-mss-pil
-           - qcom,msm8974-mss-pil
-+          - qcom,sdm632-mss-pil
- 
-       - const: qcom,q6v5-pil
-         description: Deprecated, prefer using qcom,msm8916-mss-pil
-@@ -79,14 +80,14 @@ properties:
-                      (not valid for qcom,msm8226-mss-pil, qcom,msm8926-mss-pil
-                      and qcom,msm8974-mss-pil)
-       - description: MSS proxy power domain (control handed over after startup)
--                     (only valid for qcom,msm8953-mss-pil)
-+                     (only valid for qcom,sdm632-mss-pil)
-     minItems: 1
- 
-   power-domain-names:
-     items:
-       - const: cx
-       - const: mx # not valid for qcom,msm8226-mss-pil, qcom-msm8926-mss-pil and qcom,msm8974-mss-pil
--      - const: mss # only valid for qcom,msm8953-mss-pil
-+      - const: mss # only valid for qcom,sdm632-mss-pil
-     minItems: 1
- 
-   pll-supply:
-@@ -219,7 +220,7 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          const: qcom,msm8953-mss-pil
-+          const: qcom,sdm632-mss-pil
-     then:
-       properties:
-         power-domains:
-@@ -241,6 +242,7 @@ allOf:
-               - qcom,msm8917-mss-pil
-               - qcom,msm8937-mss-pil
-               - qcom,msm8940-mss-pil
-+              - qcom,msm8953-mss-pil
-     then:
-       properties:
-         power-domains:
-@@ -287,6 +289,7 @@ allOf:
-               - qcom,msm8917-mss-pil
-               - qcom,msm8937-mss-pil
-               - qcom,msm8940-mss-pil
-+              - qcom,msm8953-mss-pil
-               - qcom,msm8974-mss-pil
-     then:
-       required:
+Changes in v2:
+- Define RPMPD_VDDMD
+- Remove unused MSM8953_VDDMD and MSM8953_VDDMD_AO
+- Squash MSM8953 mss related commits.
+- Rebase on latest next.
+- Link to v1: https://patch.msgid.link/20260327-sdm632-rpmpd-v1-0-6098dc997d66@mainlining.org
 
--- 
-2.56.0
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Ulf Hansson <ulfh@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Stephan Gerhold <stephan@gerhold.net>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Cc: linux-remoteproc@vger.kernel.org
+
+---
+Barnabás Czémán (7):
+      dt-bindings: power: qcom-rpmpd: define RPMPD_VDDMD
+      dt-bindings: power: qcom,rpmpd: Add SDM632
+      pmdomain: qcom: rpmpd: Split SDM632 pm domains from MSM8953
+      remoteproc: qcom_q6v5_mss: Use mss as regulator for MSM8953
+      dt-bindings: remoteproc: qcom,msm8916-mss-pil: Add SDM632
+      remoteproc: qcom_q6v5_mss: Add SDM632 MSS
+      arm64: dts: qcom: sdm632: Correct power domains
+
+ .../devicetree/bindings/power/qcom,rpmpd.yaml      |  1 +
+ .../bindings/remoteproc/qcom,msm8916-mss-pil.yaml  |  9 ++--
+ arch/arm64/boot/dts/qcom/msm8953.dtsi              |  5 +-
+ arch/arm64/boot/dts/qcom/sdm632.dtsi               | 34 +++++++++++++
+ drivers/pmdomain/qcom/rpmpd.c                      | 29 ++++++-----
+ drivers/remoteproc/qcom_q6v5_mss.c                 | 56 ++++++++++++++++++++--
+ include/dt-bindings/power/qcom-rpmpd.h             |  1 +
+ 7 files changed, 113 insertions(+), 22 deletions(-)
+---
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+change-id: 20260319-sdm632-rpmpd-c0e3eb548f58
+
+Best regards,
+--  
+Barnabás Czémán <barnabas.czeman@mainlining.org>
 
