@@ -1,126 +1,159 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013027.outbound.protection.outlook.com [40.93.201.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A24396B8C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790831194; cv=none; b=LVikg5qxXRcIBz15fJSEFkbGqUo54IQ4ozom7nVjwlvf9yeXsv9IyJxbIoYFLYyr+hjXRnf7SwvGoftxINESKeQ08LSnMs/QT2o82uySJmFuirpz7seKBahDTONR0/SrX0u9V6wM8CUSlDLrkj+FGy5n6eEYD2YgzYYqLVGhuWY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790831194; c=relaxed/simple;
-	bh=ow7kKLcYFrvrs9qnlmpj5N6b1Xj04ED7ZQxvCV2Oty0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h944DplJlxzsFLRQVABmGh90SJdxCylbi/l9RoXfgWZNArLGbJOr4E5QJJ8U0MCuAGeODnVbk7HoXlUXvIou9btErFOjvwZFBNrY8bFGjwGNryG8pdRyzjOPC7t28vL3oU4yopdKnWzjutpsHpGz8nPrLVRdzuKCn39q1hIW9ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ck3v3aQL; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B8C2E3FE;
+	Thu,  1 Oct 2026 05:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790831285; cv=fail; b=d72f9wCFcv0utLAzvQdq7FtI/WnY18Ah23/o1OV+aQ2pIR1/LY/vYH61g4lqG9VVpFoLAE8n8wvNalyeo9SVASQmbJuazT1r46PG+TSGgTBGcDz61QdS5ToePZ9CucgjJFTF5AwXCV0P8PDQUs+v1fuYO+4wPSecJ+HgmDvQYo4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790831285; c=relaxed/simple;
+	bh=d3XfaOL6EMur+jlQk9rcunb9Wd53w1CrnVSe6T8lnPs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NTFtN0wVuHoW4fAlTiHNifgQcpHdx3ZMh+2mqgTpJml7iFs3D87gs0lYTdlYmzo4ZMHF9fcICMzW2L0RjwQ5sYhp5jiTQ/589QOEjp4GQaYkhFCy/Qtgv3YnleaBQC8sLUwDu6gAlUjVArwOcS7rOt+rPHGwfhx147YrqcbVg7Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kU0wa8T7; arc=fail smtp.client-ip=40.93.201.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ck3v3aQL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=X7o5t8QzZtgDYOLlmADgtDvY2Bfxj9SJZoEJ6uoU8Xw=;
-	b=ck3v3aQLurermgz+sNJWCi0rYzm+pKoLckxU0eJUK3AnGvSMCStGes3JV/oURS
-	y3xMueZ3tRnYQ37KSkVn/pOA3ypKzLk36dNXHLjK933xmPrbrpfwdSCZ/T84S5pF
-	+0Gie+BNbjdFoSqTfllMjS3NIyZ48wxckCZYo1RJ7wv4Y=
-Message-ID: <ff3a2271-542a-44a0-b5a0-700990119630@163.com>
-Date: Thu, 1 Oct 2026 13:05:39 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kU0wa8T7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tnnggvkjjxU8Y84LYyh1qYsZZvTxufsn1CVgqUToQo0d95X8gKSnJJCcgXovGuiDQ04ZsMZDfyapQzr2yfHmB17KXe1RD78ufOJ7Ne9+Lvju3l/VBI68SqDHJxhnh3Ww+0SfNn5/m1f3YDbrFlcSstqtop+9P97HsNeA00Zat9N/opwFHAocCZPuiFqWHEMcMxUgMS6eOOBDxdnxn45j3ko98p2xowA/hlVs2HR/X0l2VJbScTPJmcxM3wFr0uqoswAdl5cslBjdTul/GrGKRM01Fean2BcZO3y08ji0UQ3oeLaRU/uHEZfs9IbEk5OOPg4A94CV/N8jie9Fl0MYGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8TeYPfSMbZiuozWl0TfRif+DHM6JEgFLFBsrOHOyBcg=;
+ b=Z9vkZ6DDfJ6W6S09/2g/xnuompN1H+wRAIENRVy9bx/OMxciHUiU9jI7J6eFOiUh0PqexrUaJ9XuQJyYT88KfLb3RnwDUdLcPznOK7XyCDtChdjPvoTOVl4eczJtXAuJDNKrx6ti3JGH6/jfL77YkHHGUFLtyu1V1ILTKl5wBo6EM8XU+Ihga7Rd2QYx+4/qq72Qie7EzFSVKUhKqRrR7fdRETt2IYAZ69j7Rs46iJU5dgS37a17dedpt0YEL/ArEUXWsgDQGg9Nj5osmkvL8GPeUDqGYRNo2uCluZNgJoL40LjGmCeTObryftrZnVX98EpKTsGTW9ZOny6b8mhKHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8TeYPfSMbZiuozWl0TfRif+DHM6JEgFLFBsrOHOyBcg=;
+ b=kU0wa8T7JnBlFyouIlLSOeF817NcDGsOCExyOGtNbM0EX2KhxsZBDf5a1/3yXPsVNVRiFfmCGVCa7jritLp9Agrpv3+OL2Q0wKpD70IJWdBGB7E0klb436FyI01TC6oFwbDoKdG+p3mstMUDzx45nOgsU9UH4BL3N5SE6YpJnyMTy/s9gB1Lc7lbFr6+gMoW2KIKgnpzu2z0SSgLp/tEORbpzKLaZQDzwqxl9CMnRtzq1XeAqrrbSeKmddRRA/yJxv6ON+Kp0w1pFmZ9m1M/62/FE4PK0HQPtG4Apn/6usp8mRMY4S7xGLcdqTVpMRKmW+RRLlV/CPjok0reo+7Gow==
+Received: from BY3PR10CA0018.namprd10.prod.outlook.com (2603:10b6:a03:255::23)
+ by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 05:08:00 +0000
+Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
+ (2603:10b6:a03:255:cafe::9a) by BY3PR10CA0018.outlook.office365.com
+ (2603:10b6:a03:255::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Thu, 1
+ Oct 2026 05:08:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 05:07:59 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 22:07:49 -0700
+Received: from build-anrao-noble-20260906.internal (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 30 Sep 2026 22:07:48 -0700
+From: Aniruddha Rao <anrao@nvidia.com>
+To: <thierry.reding@kernel.org>, <jonathanh@nvidia.com>
+CC: <linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Aniruddha
+ Rao" <anrao@nvidia.com>
+Subject: [PATCH] firmware: tegra: bpmp: Allow BPMP debugfs population to be skipped
+Date: Thu, 1 Oct 2026 05:07:16 +0000
+Message-ID: <20261001050716.2256810-1-anrao@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] exfat: mark straddling folio RO for 4K block size
-To: Yuezhang Mo <Yuezhang.Mo@sony.com>, exfat@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linkinjeon@kernel.org,
- sj1557.seo@samsung.com, dxdt@dev.snart.me
-References: <20260930104332.4022207-2-Yuezhang.Mo@sony.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <20260930104332.4022207-2-Yuezhang.Mo@sony.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PSgvCgD3H9gj6r1qEOV8CA--.15950S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCrWxtF1UAF45uFW5Kr1fCrg_yoW5Xw45pF
-	ZxCwn0vrWDWa4UW3Za9F1aqryF934rtr4xJasagw17AFy7tw1I9r4xK34UWFWUtr48Gr40
-	qan5K398u3WDArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRa9aPUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+ATNa2q96iSmXwAA36
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|BL4PR12MB9536:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfba4277-067c-4390-eef1-08df1f79f6b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	17+20tujbSeBAayqFPgo4/QVOrie8zhudz8cUsz6be7ZT2EEjDndX/InsVoD2cY9Bg4LltdayZbCKDt84obhKW/3yCyhVBaYoIxpA6PGFUqDoXQcfUHA8QhZ5yC3nzckZOdpIIwm/96NNIHgtDRtlsWJeRKo4sPuuycxMnEYLp+hvODjw+B6aiP7++GGMCwmJnThndn80ByR/igpyYDmMhLRk8Rc91l9T4kwaIAE1w76x3h2gW3C9dbO/5Nzy4sxAMrmEuZGWxP0dF20D9xQZzolhjVH+mXfTokEGeWfsz1muFjXf+dwoDa2CaBMnr0+bxCZfTwPp8nzMMfh+rzR/hfah7Bj+ufAV8jxJ+J3TNo/fa8h/RP81+NsYkYBEaL5AasnXtkVAsivL0n1Efby1QgDl7xBZknRSL+q7b9gUd0FTvUWQxlX2WdwIYlYWojHg5Sm/VhQGHyI9COl43vg46CIUG5eT+QmMaor6USssJ4B/h8cboltP0+Hqq73YFIZnStiwYWiyOoZv0Jbdc09F5WXS+TskkO7QU7sAQBofDNuxCZFcRWfjOdq5A1kRX9y57ZH2cXMcolTD6QNS12MIQn27l7QOJv0cIUjV8VQZPj/FZWeZttSo4oNF20PXO8VTwTGAUngv7dOcsXI0psZykGqkkzUTwvXZY8aILVcQGsWZlU4XO6T+LRbNpQ8LW0iXowVQdBdZ/jREDjt1H6k4g==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ym+EgGqc9pR6mIv8ifB64FMbOjLk3Pfc/fgm/wTipLo76Ulqx5Gl3Oi4SWyzZ/bOXWWJgFB2akF/cJCStO8EnpFCFRGMGIMrxk8Tt3ERQ0I41DVLqg9O6o43mu4XvgHedxfvAxC58rnhecCD/b59N38U6Ez0h+4YCWpNyzeE7oMFBmOy8z4iG91RJQTePQYz7qgkB+FVEs9nsH/pbd9FhtM6ol1ymRWPG97xFyYSpEayi9SbDgnNIVhJ3pgCCWePGfbc2xohmz9RyiqBMWbSqU0MOtYd9jZ6Kmidp2AfBQgLo2ylh/PCkziC+KKcs1Y3L+9Wcet0KH1fOgEcntEwd7ZS9/s4Pz3WAhgFZRQm/z4SVjXZUWhyE3boYT//Lbq/XXvvFAeGunN4bxVHwTK0la3wauR9jTQzkMbTQfBrblYwGc2O5GGdbAf/B2U04Yk9
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 05:07:59.9852
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfba4277-067c-4390-eef1-08df1f79f6b0
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
 
-On 9/30/26 6:43 PM, Yuezhang Mo wrote:
-> The maximum file system block size supported by exFAT is 4096 bytes.
-> When extending a file whose EOF is not page aligned, the straddling
-> folio must be marked RO so that a subsequent mmap write can trigger
-> ->page_mkwrite() and extend the valid data size.
-> 
-> This is normally handled by pagecache_isize_extended(), which marks
-> the straddling folio RO when the filesystem block size is smaller
-> than 4K. However, pagecache_isize_extended() returns early when the
-> filesystem block size is PAGE_SIZE:
-> 
->      if (from >= to || bsize >= PAGE_SIZE)
->          return;
-> 
-> As a result, on an exFAT filesystem with a 4K block size, the PTE
-> for the straddling folio remains writable after a file extension.
-> A subsequent mmap write operation that modifies the straddling folio
-> beyond the old EOF, will not trigger ->page_mkwrite(), leaving
-> valid_size unchanged.
-> 
-> This was found by running xfstests generic/030 on a block device with
-> a 4096-byte sector size: the test fails without this fix and passes
-> with it.
-> 
-> Fix this by marking the straddling folio RO in exfat_cont_expand()
-> when the filesystem block size is 4K and the old EOF is not page
-> aligned. This mirrors what pagecache_isize_extended() does for smaller
-> filesystem block sizes.
-> 
-> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-> Signed-off-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
-> ---
->   fs/exfat/file.c | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
-> 
-> diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-> index a2a9ee1a20048..390bfae3f3aa4 100644
-> --- a/fs/exfat/file.c
-> +++ b/fs/exfat/file.c
-> @@ -17,6 +17,7 @@
->   #include <linux/fileattr.h>
->   #include <linux/iomap.h>
->   #include <linux/pagemap.h>
-> +#include <linux/rmap.h>
->   
->   #include "exfat_raw.h"
->   #include "exfat_fs.h"
-> @@ -91,6 +92,20 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
->   	 */
->   	pagecache_isize_extended(inode, oldsize, inode->i_size);
->   
-> +	if (i_blocksize(inode) >= PAGE_SIZE && (oldsize & (PAGE_SIZE - 1))) {
-> +		struct folio *folio;
-> +
-> +		folio = filemap_lock_folio(inode->i_mapping,
-> +				oldsize >> PAGE_SHIFT);
-> +		if (!IS_ERR(folio)) {
-> +			if (folio_mkclean(folio))
-> +				folio_mark_dirty(folio);
-> +
-> +			folio_unlock(folio);
-> +			folio_put(folio);
-> +		}
-> +	}
+Populating the BPMP firmware debugfs requires a sequence of synchronous
+firmware transactions during BPMP probe, which impacts the overall boot
+time. Currently, the only way to avoid populating the BPMP debugfs is to
+disable CONFIG_DEBUG_FS completely.
 
-I think fixing this issue specifically for the block size = 4K case may 
-not be thorough enough, because pagecache_isize_extended() may also fail 
-to work when the block size is smaller than 4K.
+Add a tegra_bpmp.debugfs module parameter so systems can skip populating
+the BPMP debugfs with tegra_bpmp.debugfs=0. Keep it enabled by default to
+preserve existing behavior. The parameter is defined in bpmp-debugfs.c,
+so it is available only when CONFIG_DEBUG_FS is enabled.
 
-We should set the folio containing valid_size to RO whenever valid_size 
-!= i_size and valid_size is not page-aligned, regardless of the block size.
+Signed-off-by: Aniruddha Rao <anrao@nvidia.com>
+---
+ drivers/firmware/tegra/bpmp-debugfs.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-> +
->   	inode->i_blocks = round_up(size, sbi->cluster_size) >> 9;
->   	mark_inode_dirty(inode);
->   
+diff --git a/drivers/firmware/tegra/bpmp-debugfs.c b/drivers/firmware/tegra/bpmp-debugfs.c
+index 33c6300af964..2efc48b522ac 100644
+--- a/drivers/firmware/tegra/bpmp-debugfs.c
++++ b/drivers/firmware/tegra/bpmp-debugfs.c
+@@ -6,6 +6,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/dma-mapping.h>
++#include <linux/moduleparam.h>
+ #include <linux/slab.h>
+ #include <linux/uaccess.h>
+ 
+@@ -773,6 +774,11 @@ static int bpmp_populate_debugfs_shmem(struct tegra_bpmp *bpmp)
+ 
+ static DEFINE_MUTEX(bpmp_debugfs_root_lock);
+ static struct dentry *bpmp_debugfs_root;
++static bool bpmp_debugfs_enabled = true;
++
++module_param_named(debugfs, bpmp_debugfs_enabled, bool, 0444);
++MODULE_PARM_DESC(debugfs,
++		 "Populate the BPMP firmware debugfs (default: enabled)");
+ 
+ static struct dentry *bpmp_debugfs_get_root(void)
+ {
+@@ -789,6 +795,9 @@ int tegra_bpmp_init_debugfs(struct tegra_bpmp *bpmp)
+ 	bool inband;
+ 	int err;
+ 
++	if (!bpmp_debugfs_enabled)
++		return 0;
++
+ 	inband = tegra_bpmp_mrq_is_supported(bpmp, MRQ_DEBUG);
+ 
+ 	if (!inband && !tegra_bpmp_mrq_is_supported(bpmp, MRQ_DEBUGFS))
+-- 
+2.43.0
 
