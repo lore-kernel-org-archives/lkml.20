@@ -1,197 +1,211 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012062.outbound.protection.outlook.com [52.101.126.62])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F983769F0;
-	Thu,  1 Oct 2026 07:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838239; cv=fail; b=hj4x8xYBqvxTLH49/Cbk3sZjPQ0gKOruoDEKSsvoVv708lGMNGfikDsVE6evD1lK9gdIMtiFDjULbwnbWc4rE81RHsaZz9uhqsgsW4xjF75/YjEHkt3hYq5aQ1CdFG5O2+ioFJCARMKqTLNjgtaMLJZSbQul2IbWtDZ1ehgEpXA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790838239; c=relaxed/simple;
-	bh=5xOUlg2EMS4D7OGAo5aWyGPRULI6DYHh20Tx5AyRiUE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=IQS5M2plYtx04V1kH2EHR/XghDT2ABdcDbpU0pR84Ry4h0kHEJYqnBtjH5A/jRiYwz3WOIl2F/h/0zxaKktWfEnC/k8pZtgGuOKWUPgylA3+R6sm4tRZh3rRV/tJrKOjbXjZJxJwNTdmbcnn6kd0V+z67mpmSjhJSJNR7cq++Tc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cortina-access.com; spf=pass smtp.mailfrom=cortina-access.com; dkim=pass (1024-bit key) header.d=CORTINA-ACCESS.COM header.i=@CORTINA-ACCESS.COM header.b=o3CeHsUB; arc=fail smtp.client-ip=52.101.126.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cortina-access.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cortina-access.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7DE3D45E5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790838244; cv=none; b=ppJiFHqHR9fsSKdaLmKaABOigUdR5eOvffrRHF12rgivZiTuqhAJJl+cg4Va2m/GkvEZXM3Y1/afFHUJvSkHDi8DkUMv956cBi4xMmqoJDuFyTZEdWB+6c4NuJOqWqNc9nUz+wxihD6rQH9OJLEFI3eYxarElhK3Lg/BgbcWn6Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790838244; c=relaxed/simple;
+	bh=4Dhcuw5tUuTiZQSI15Ese56b5x3LeFF3S0x0Fy/QLEQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F89cXB2imyXXDwVYuc9KbnY8nd6qSnUhPr6GNYbN2i72wJ1qKEju7tEGsNcHl8FtT91EaeiFKX/KBBknQM3y7SdBSsmqxuaJe2OaCr19EvPkSya7bSeqvoL3Yob3NAiIKObpGt4yqaBUQpY+ECxiRsZ5LUE4TMw4NXWJ3bkbr0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VvVGtHo3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d6NimU/y; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=CORTINA-ACCESS.COM header.i=@CORTINA-ACCESS.COM header.b="o3CeHsUB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zWaCxLuD0TRMsTC+k2VvuVtBve4K2JrAB2I/sPO90uPBfLyBaww2V9YTqqEMcW2DmSHOq7jSIWZTWJk9tN+8n70CG/JFn1kFNjKTcAzl8R36vbP3marpKnJVk1BCacJlIfnDTB2AlMmjOu0qnkP5Uh7YWw9SGQhh8Ik3N42MnWUDdzKXQ6RGeFUELL/ewF/olaoM55fRLTo3CyOGkrNo+9Ksp0/9vC4d3SZCKDn//qx9HvFPZN6dvZVYx//sgk5CVthBWQr+MT13atu6S6NIFmaADP0CWBh34l7WTOSoBj1VftrUPRUmbnpUtQ1+/oONhjlv7WPHWiQ6oBz3V9v4hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5xOUlg2EMS4D7OGAo5aWyGPRULI6DYHh20Tx5AyRiUE=;
- b=ZwKJJJf06QMnFNqwy3o+6jUQR9m2koX3qNGVaWvCCnN+SizurNJB3ZKTTRHQvYP3g53XJ2xTWcWTK+v9iIuu1FexzTd28Ai9rtEnC2+AbyoslAWFSapQBxlrKjwscjcOAustoXUlCi20l3Yz0ekL3m6IjK+qMnJ8hoBchokf1lH6JJivSmOZWX8H/szDPStuOnPr/X/hFDJ0xwDpHnCOe83qtwrRVrk/uX2Y9rDjDv40j81CByYx/fDHuQqZpl0XUHJ82T4dFFIMokbZbN9FeOd6odixJh4bnSjQjnlH5MpE9HqwOwh9GwYArZE0qzdfQ9bg/Kfh0nvS6uqdfD27Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cortina-access.com; dmarc=pass action=none
- header.from=cortina-access.com; dkim=pass header.d=cortina-access.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=CORTINA-ACCESS.COM;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5xOUlg2EMS4D7OGAo5aWyGPRULI6DYHh20Tx5AyRiUE=;
- b=o3CeHsUBsPEgHbQj9V3We8KRPzrwC5+PI+xN68gnljxnczVyDmKtN60sKRTZTEbEyrVWxT6lP68aagbqjVZrDzVLGcIPDT694kYjk0nbbnIHcmE0X4xeppm8xJ0nXFr8tl3uJb9m7yGkDgPwAgCGgUOqpIAS++o2dhbfGVkuglk=
-Received: from SEZPR01MB4208.apcprd01.prod.exchangelabs.com
- (2603:1096:101:4e::6) by SEZPR01MB7703.apcprd01.prod.exchangelabs.com
- (2603:1096:101:2a0::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
- 2026 07:03:53 +0000
-Received: from SEZPR01MB4208.apcprd01.prod.exchangelabs.com
- ([fe80::7087:4bde:9129:725c]) by SEZPR01MB4208.apcprd01.prod.exchangelabs.com
- ([fe80::7087:4bde:9129:725c%4]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 07:03:53 +0000
-From: Jason Li <jason.li@cortina-access.com>
-To: Fil Dunsky <filipp.dunsky@gmail.com>, Arnd Bergmann <arnd@arndb.de>
-CC: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Russell King
-	<linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-serial@vger.kernel.org"
-	<linux-serial@vger.kernel.org>
-Subject: RE: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART
- driver
-Thread-Topic: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART
- driver
-Thread-Index:
- AQHdUMwOK5V3y77FgkSOeOEe0ntIqrbm+wWAgAD5pVCAABL4gIAAHcEQgAAD44CAAA6bAIAAAueAgAAERZA=
-Date: Thu, 1 Oct 2026 07:03:53 +0000
-Message-ID:
- <SEZPR01MB4208C11DB288933965D7BF83A28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
- <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
- <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
- <179076749140.3134070.3869742286743401078@gmail.com>
- <SEZPR01MB42087271C56AD1C7E926AF35A28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
- <179082517588.138645.14615134489246049313@gmail.com>
- <SEZPR01MB4208B8B4A5A7F48F7FFE0C9FA28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
- <179083239972.193541.4791387611943615705@gmail.com>
- <3ddf4b8e-14b7-442b-9d4f-5167875e3d64@app.fastmail.com>
- <179083615914.311026.2458351803214458859@gmail.com>
-In-Reply-To: <179083615914.311026.2458351803214458859@gmail.com>
-Accept-Language: en-US, zh-TW, en-AS
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cortina-access.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEZPR01MB4208:EE_|SEZPR01MB7703:EE_
-x-ms-office365-filtering-correlation-id: 2d1a1b8c-91d3-4e7b-fa35-08df1f8a273a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- dwyztSrU/ub77czNAqAWzTfZBKVmVpI72A/agvQgsfqGwC9RL5x2T84a8AbKYet31ovPfJOMhe8VjLIOoVFyLHcyRaCz+7iPDwDQxu1I5fCy6j6aqhm1A2vaYRsTAxVMoTozbZ2fjKm+TJ6jhcF5Q/6EseeRqsYNsXHWcY9JB/XVBMxh/uMRXWZfWZ1gCB9JhIAc8BxnED7xX+WSlfgqqbA8sRnKPuqerSYltK77ZF0g+v6HBku/vb/bTa0rmPgJeRvfySw6L6HjKNygBYnC/JR/lMpUmdko/1cvBf88rpGUT3W5AxMTuwecO7b3DVG/8v6w3VJu8g2q3OWrR7gsWxVFMRmb32Rrb5KgHg35qtBaaEQ3cQb1eHkeVXz9KkP4DpEZxar4vw6RJ5Te7xWnVrtZcLUciSAe5RR25RqrqARcbu59/fmO1XhWRff3ZRIKMIeM/p8qMEUzXTqgFHQR1N+6ApdKuluYy4DvQX5NyiIEkl410K9C4KOgOqWONAaNzS5B0qdBTVbrpaoyUJsgRd6XJBVl1ilqd5Yb9OzMSyAlnyrMaJeWHJe5DjNVECRPU+ZWcxEDXJWoQnk2oBWsdMR+s41FrczdAgaitP6gWDqwWYxYYuzdDktFdHK+RBGapPVdmhZTetOLmn5/qWT7iMBq8jSoDgXHEOku/5mqTBA8Fbz/oWtiw3tFs+EgwqXSx8LH3VujUfmf87AmMPVUSva5mKUMdseZgB8yAdCaMJs=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEZPR01MB4208.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RFVud3RzekdEanQ1NWw5M0lZTENuemRBYTZGamI0NENlcGk3dTlxQVUvOTJs?=
- =?utf-8?B?YXJxRkJQMVF6UG16UXYybi9YMVhEb3U0QVp4K3huRjlaZmlKT2xmam16RE9C?=
- =?utf-8?B?T1k0c3I1S3hteEZWWnZnancrbG8rc3lHakg1Mi9OZ2t5UHN1WHZoQ0lhQ1M4?=
- =?utf-8?B?RzRQQlV4dWJUclVyRXMwVEV2bVJCaUFBOWJ4bERkK0hrd3NFT3J0aTlBM0Yv?=
- =?utf-8?B?RjNVNThZRHRNZEx3ajkyRHVqdlJHYmlWYzJOaU9sRGVXTTFqb2lhcWlBZldC?=
- =?utf-8?B?azY4WkdLQkRuLzdIVzNBR1hFYkExNzRJT2JnUWlDTXhOTVZDMkUzVlkrbnhP?=
- =?utf-8?B?bUhUQlZaNDUydVMwOUdIRm5vTjFVNUdOKzI4N2poOWlNNjJUU2VNa3MwbXBh?=
- =?utf-8?B?YWdkRmtxTk9vUGs4L1ZBK09JdkFxN0FCTGd4WVlaRDlDSW4xVUc4ZDJMMmZG?=
- =?utf-8?B?YjBSZ2lSQzNHWUN2dHU4LzhDQWhWVlhxMWVIbG5TaTNvdk1KYkEzV2U3ODUx?=
- =?utf-8?B?K1FkWkZON2tlZ0tVUTJUeVUyOE1WNFh6QWZwZnVZdHJxWkJ3Q21lVGZTZU4x?=
- =?utf-8?B?L05LOUh1T0RLUlA3WHpFajRKK3dyTDdNZEZIQjhuYUpzVVQxZFZKS3NpNlF5?=
- =?utf-8?B?ZlloY2VBK1VMK2VYbmpJeUUyR2RoU1FSK0Z5YVhTNnJZdm5SY3hNZkVuS2ZQ?=
- =?utf-8?B?ZndJN2llTVd3MStLK0xMM1NLUGZqbFVEV0lNU00wazVUL0dFaGFKOHk2eHZt?=
- =?utf-8?B?eHV2Y252ZGVja2lKWVpxS1VxRWxuWEl1UmYxVzhJdlRMUkJ2NVVMQk5ESlNt?=
- =?utf-8?B?L0VkbnNYRHpXQ3hZNElJVFFHb0wyRXdzUFZiVmMrejNRSThaRnVSanUyUmNU?=
- =?utf-8?B?QUpubG1wWHV4L1lsdXJBSWpqV3VkejVvb0tFMzBpbm5uLzQyUE1kQitLNmVQ?=
- =?utf-8?B?QzlmWkFrT29IVXF4R0F4YU5QaHp1WlhHNEJWNHZoaHd4T1NoK1Bzc1Y4K2pi?=
- =?utf-8?B?UWRHSis0dHd0Sk53MlZCOUVPbld4TVBiOWgxL1lWU2oxTDRPcENHM2tXdHdN?=
- =?utf-8?B?Y2tTU0xzdGJYMjBRUVN6YTVBMSsveko0OXVxMzRyMlZSSmRuZHZ2OEhSQUZX?=
- =?utf-8?B?czk4eEtod1Y5S3daKzFGTTV3VTJNd0MyTVlheFJ5M0J2RGRmY3RBcXZKUFh3?=
- =?utf-8?B?VmRaYlBFN09oQlQ5dSt4Q1E0UE9lTGJ6bjB2dGZoakFVUEdaa0ZQeElBdlFQ?=
- =?utf-8?B?S2czZUJTNGZuSE9BeVdZemVoN1ppZU8yOS9CMnBpY0dsTy9DbVp6Y1ZLYVMx?=
- =?utf-8?B?ZE12a1RtRG1OSGQ1bEw3M0FTQXBLOVZncG9BY2xpUjI3TFRXNWY1VEhDSU00?=
- =?utf-8?B?azhBbksxVUtFdVJvdW1PTXBRUmYwc01jOU1CQ3FxS2pVMi9HT1NSN0xXSjRQ?=
- =?utf-8?B?WVlaTkFreWZkdlNPNUhMVTFBZEhOLzhqU0FTYmIxd0N4VURZVkxrV09Ub0hY?=
- =?utf-8?B?N2pjS1BocjcvTUZ4amRFUzdGMGxtUmorcDdyOHREdTl3WjVIRjJtT1NXR01Q?=
- =?utf-8?B?NmZEMnk0VGZPd1VOdlEyNlVWNFhSTXhCeG1jR05LYlZBMDZreERpdU5tbGlD?=
- =?utf-8?B?VStpM0E2NmRMdm5rMFJtUGYxbndpVE8vc3dGVkloM1AwUitVNlowWm9qMTdX?=
- =?utf-8?B?OEZLR3N2MWxjSktNM2N5TkFudnFPQlFPckk0Z2lUOC9UUDVFb2d0TW9rMmVz?=
- =?utf-8?B?aWpDSk9sNFQxb2p4TEx0b29XbktCNkQ5NXc4T1BNYXlkZXZNcnJtL0Y3ckdo?=
- =?utf-8?B?UzEraUpjTlVxbnRwUlJpRTF3TE9veERCdmdFc2xoay9DellxZXBNeTBMNGxW?=
- =?utf-8?B?MFNJYlU1akNtRXZ1MzhxRUw1Wk14RGRTS2hxRk5wVTY2YllhUHFidU5RdTBZ?=
- =?utf-8?B?MHpyVXQwa2xkbXJqMjhNdER1MStFRGExVGxybjJ1TE9TY1FhQkNxd1FSTEU5?=
- =?utf-8?B?ekJ5SE9BMlVPajQ3cC9TRHU0V3drZ1phTUdnbm4vN3QxejlBV29jY2lHNFhv?=
- =?utf-8?B?WjhRM2ZlREhsZnV3cGFxbUZzSHliU1RwenkxNEdoTTlYRkN0QlNrbXRBb2Zm?=
- =?utf-8?B?Ry9TNzBudldrOU12ZVE5dkt0NjFRMDJSY1ExdndUekZMNHNNbGtnbFpjSlNC?=
- =?utf-8?B?U3lxV01lU3VUQVNVVnh1dDBZdUl5cnJpOVJkNFNqQ3dkSnRsODNXbXl1em1m?=
- =?utf-8?B?c3VKVTRBY0YxYWtOQWMxendmOGYxUjdVNFQ1QisxZ05GdmVTRDdKRlIybDQ2?=
- =?utf-8?B?b2dOak1aN0pJdTUvYjBybHFEYkNoOUJ5OTNqSW80U1FqOU1UdW1sZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VvVGtHo3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d6NimU/y"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xTiK1289182
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 07:04:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	96a7P/fzTBbDLB6LmK2sa0Ytq4psqM6uEcSlt2wX7f8=; b=VvVGtHo3GT6jOBK5
+	OTk4ez7ZiK85rfgHwyVndsoBRvtv7V0N1tKSEccwwJ/33H1KZ0qwFPuhoZnjV9gD
+	ECZUVZHA5DESK7PsUw/OcqEzdUeTCZxzzl/YKEjELgJKYJywRGP1GJLOdVu3mOkV
+	Ym/QFXVgdngluYH47+GU0GLl2Jy3VHXjGAjjASUW0wC+6k0/vuSWCPPSwlcypain
+	etz3SkBiM2F4nWfX1j0Pbg4JU31ZVmfqr3jF+dr7D0AOGRYIqrQzE/kn7JPk2M/E
+	EeN6PotCHtHODpGQWB8Z9C72yXgyuuD3IJybHmxTcoTJ5BCTCPMkCZB0eBTLg6Wj
+	h5Twug==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17pjagn7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:04:01 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a47617a0b3so4293344a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:04:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790838241; x=1791443041; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=96a7P/fzTBbDLB6LmK2sa0Ytq4psqM6uEcSlt2wX7f8=;
+        b=d6NimU/y0cv9RdKqIdjddUtm1Ri2PTcVnFNLd/OuotsJ2yHLix2+D+tRcKt9n449dW
+         VZ7ObvVyUHRoqCyE/dWjXPuW1beQaxyXFvN3Jq8wJrfU9q6x6KB/c7zespo6pEuBcxSw
+         lA/C/3lZl/OjZEa1pZnXeucNlhBV806SMTzA1kTrVTFkngrn/fnYZlVSNpjjAX6P4P+r
+         i9972FqGcAStblWCMTrg+XIr/JsXygg/PTqvBCxKB7xGtNCz0C/qrykSCRMwXUGNeBMP
+         AFxNvx3ZfmyA5vk54aXwBs4F2zszz9RsG7fqCpCf/OVWVeAJNgo1yGZ3g23uzIiS/u7D
+         LmlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790838241; x=1791443041;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=96a7P/fzTBbDLB6LmK2sa0Ytq4psqM6uEcSlt2wX7f8=;
+        b=yxcauzqXIne3dCtfaGPXZY3evJDxLU8wv1qqftnIRu+rZpdRXKLag2dVo+F8LQvQ47
+         l1mz19pxetYknRvmJRKtKcfYNzm/UIclN5sROPZYANJx00f8Iv3qhIiEruhNf9KSE27/
+         IulQ85AGvF0Qkjg/zu/tWwm1sHUTOJoXNsmghJe364iYIiuSxjwIFgRqrpZiIpqT/ghy
+         zJeq40Z2khOu154IgYPSS9E6yPWQxCmKfPoHIlX0sJ/G8xaExzkq0RgK/jOKiI/I2Ho7
+         JefWrq9sZO/lpms9MxiCenW7QEPss0Ull8oxM1IxJ4Pg1upyexZBipNh0WIYl+bMnmOD
+         N4fw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAK63FM5dgbnD96zWXA6GqD2AM+J+kM6jV7cPcYx7uZ062WMGsZ9ww9w05Zv3d9E7lpVI4h48CxeIMh1o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoJAl6VuSur/i5P+LpK1nr3XQjw2urOzhxpObzUB0/drjnF/qZ
+	Spd4FrTVyYrF9QiYNUraUN4E2BkvbZdl2XXTjurcubg7kZXcWGkmrav1i9JxaNU6hYnFYMNRpEJ
+	cyxChbO4reDVIAvUYMa1tEF9rqBD1/HbwiPBXkKYzdTNxfVMzfu4hHqV8OZ9EWWAb+4M=
+X-Gm-Gg: AYBFou0U/nzHmqz9N0TU6xCvzZezNupj1+tQ2l1rc+27m5p7eRHLQiwHtgRVtbUC37P
+	M1bLgqq6YYrA+wzrn94BTjYSGpR9Uze1Y5l8YfqK98Ag1/0FLuPfwSSv8cYSawokuvL3eEZauJF
+	J9M8lkCw7nDE/b5eZUgTETEjnmYgjoLOhd3ctd11hshnXWvfVFhDrRqgKzzFbI3Yvy8Bc1jiTxF
+	+ij+ZRdK1WpvcR31t4pxn+J5R1Y1ooRXIAkwg3tMMWlXHmFH09ognCFAmEcxMDFPfwhQe7uIVHA
+	ecdWsLOCnxDSYvlk0SB13BFrV1+WrQi9vWEhlUNt9FIs9sLiVAN4dle+ALPs1wmIccANkmZiOyu
+	LxV8aagg4oXTzaxBlZDDiZW5l4MsddARb
+X-Received: by 2002:a17:90a:38e2:b0:3a2:b246:be70 with SMTP id 98e67ed59e1d1-3a4e92e5a4emr1279830a91.22.1790838241181;
+        Thu, 01 Oct 2026 00:04:01 -0700 (PDT)
+X-Received: by 2002:a17:90a:38e2:b0:3a2:b246:be70 with SMTP id 98e67ed59e1d1-3a4e92e5a4emr1279794a91.22.1790838240255;
+        Thu, 01 Oct 2026 00:04:00 -0700 (PDT)
+Received: from [192.168.31.121] ([157.50.176.135])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e548992asm918159a12.17.2026.10.01.00.03.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 00:03:59 -0700 (PDT)
+Message-ID: <91c1ce61-a8f5-4da8-9373-46fbde6947e5@oss.qualcomm.com>
+Date: Thu, 1 Oct 2026 12:33:52 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: CORTINA-ACCESS.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR01MB4208.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d1a1b8c-91d3-4e7b-fa35-08df1f8a273a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2026 07:03:53.3116
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0694623c-6669-497c-89c3-3a32a9934313
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YVHVFjpTbJEKwt93ski4GDQyTd3EoZFcKZO1mCx/Sx6xFrvLXyV5YaJ+9lcmkSy4vw5CD5oDED9Mh3pkNzcnKaqsGgYfzkIHUD0KVs1h5AI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB7703
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/arm64: qcom-hamoa-ec: Disable the SCI IRQ during
+ suspend
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Hans de Goede
+ <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260930-qcom-hamoa-ec-suspend-irq-v1-1-ad82713c8d11@oss.qualcomm.com>
+Content-Language: en-US
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+In-Reply-To: <20260930-qcom-hamoa-ec-suspend-irq-v1-1-ad82713c8d11@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=eqpKXYpX c=1 sm=1 tr=0 ts=6abe05e2 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=1jaPZz34DRay/F7TwEaVUg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=nLr9611-85JZXDtJkU0A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: Vbo4kLpJjtAPfIG0uDZJW3QhAAwoYArw
+X-Proofpoint-ORIG-GUID: Vbo4kLpJjtAPfIG0uDZJW3QhAAwoYArw
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyNyBTYWx0ZWRfXxYhcsU1zujkC
+ MJnSJPMDfjqSnB5j5scHHXOFWk5d1TdNxq4ItIdHxspqd+YsbpFz9sJphsqywzHd3D7o8b1zBl8
+ bSC69WO5LXx5fWE+Kpb5LDI1e2KCTIc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyNyBTYWx0ZWRfXwOHa3+My3+aa
+ CFKWjy4DGfW81ouq3RKquYG1Xlx6H8El8F7jjhjMGlRdNBnwZtq9vr28k0PFpWGcrxTmqnv0cAR
+ 1OLBfXjPacrm5seXCYa7WSPSTyGkeXLjH0ugnAARMS5ErR/kMPYfdeEjdZNU3JbYX4Qvb2U7KDU
+ 9UoZ28222pP1L1MhN+Fj9Ng/gjgdr6TjY3Q5imZ3PAfVRQ+81JiGaJkXxh8hIyrlIvIT8c1pbjn
+ mNzSwPxzwV+16Q+1WUec6HDrsIb8hC8tGpFYGkIWt8yT/H6xc3y2c8xjSHOOICc0stWpUiH7lAr
+ q7ov9Wj+Dx24CmueakGucaCWZdxCqnv5PxoL2eoqbzuzfLy5j1N2Oi+FTVJSOj4EwrqwquKgkMZ
+ 3CGVvAm2x5ciXq51SU36FnNvplenzP3kVnlz++PLvljF5wQ4rTGHqLgQuu5j/qKLKAYBgeMxTDo
+ qVRbbkMtbetj8RkJZSA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010027
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBGaWwgRHVuc2t5IDxmaWxpcHAu
-ZHVuc2t5QGdtYWlsLmNvbT4NCj4gU2VudDogVGh1cnNkYXksIE9jdG9iZXIgMSwgMjAyNiAyOjI5
-IFBNDQo+IFRvOiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPg0KPiBDYzogSmFzb24gTGkg
-PGphc29uLmxpQGNvcnRpbmEtYWNjZXNzLmNvbT47IExpbnVzIFdhbGxlaWogPGxpbnVzd0BrZXJu
-ZWwub3JnPjsNCj4gS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6a0BrZXJuZWwub3JnPjsgUm9iIEhl
-cnJpbmcgPHJvYmhAa2VybmVsLm9yZz47DQo+IEtyenlzenRvZiBLb3psb3dza2kgPGtyemsrZHRA
-a2VybmVsLm9yZz47IENvbm9yIERvb2xleQ0KPiA8Y29ub3IrZHRAa2VybmVsLm9yZz47IEdyZWcg
-S3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+Ow0KPiBKaXJpIFNsYWJ5
-IDxqaXJpc2xhYnlAa2VybmVsLm9yZz47IFJ1c3NlbGwgS2luZyA8bGludXhAYXJtbGludXgub3Jn
-LnVrPjsNCj4gQWxleGFuZHJlIEJlbGxvbmkgPGFsZXhhbmRyZS5iZWxsb25pQGJvb3RsaW4uY29t
-PjsgRHJldyBGdXN0aW5pDQo+IDxmdXN0aW5pQGtlcm5lbC5vcmc+OyBMb3JlbnpvIFBpZXJhbGlz
-aSA8bHBpZXJhbGlzaUBrZXJuZWwub3JnPjsNCj4gbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZy
-YWRlYWQub3JnOyBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZzsNCj4gbGludXgta2VybmVsQHZn
-ZXIua2VybmVsLm9yZzsgbGludXgtc2VyaWFsQHZnZXIua2VybmVsLm9yZw0KPiBTdWJqZWN0OiBS
-ZTogW1BBVENIIFJGQyAwNy8xMF0gdHR5OiBzZXJpYWw6IEFkZCBDb3J0aW5hIFN5c3RlbXMgQ1M3
-NXh4IFVBUlQNCj4gZHJpdmVyDQo+IA0KPiBFeHRlcm5hbCBtYWlsIDoNCj4gVGhpcyBlbWFpbCBv
-cmlnaW5hdGVkIGZyb20gb3V0c2lkZSB0aGUgb3JnYW5pemF0aW9uLiBEbyBub3QgcmVwbHksIGNs
-aWNrIGxpbmtzLCBvcg0KPiBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgcmVjb2duaXplIHRo
-ZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMNCj4gc2FmZS4NCj4gDQo+IE9uIFRodSwg
-T2N0IDAxLCAyMDI2IGF0IDA4OjE4OjU2QU0gKzAyMDAsIEFybmQgQmVyZ21hbm4gd3JvdGU6DQo+
-ID4gTm8gb2JqZWN0aW9ucyBmcm9tIG1lIGVpdGhlciB3YXksIGJ1dCBJIGRvbid0IHF1aXRlIHVu
-ZGVyc3RhbmQgd2hhdA0KPiA+IHRoYXQgd2lsbCBtZWFuIGZvciB0aGUgb2xkZXIgcGFydHMgdGhh
-dCB0aGF0IGFyZSBzdGlsbCBzb2xkIGJ5IENvcnRpbmENCj4gPiBBY2Nlc3M6IGNzODAzMiwgY3M4
-MDIyIGFuZCBjczgxMjQuIElmIHNvbWVvbmUgbGF0ZXIgYWRkcyBEVCBzdXBwb3J0DQo+ID4gZm9y
-IHRob3NlLCB3b3VsZCB3ZSB1c2UgJ2NvcnRpbmEsY3M4MDMyJyBvciAnY29ydGluYS1hY2Nlc3Ms
-Y3M4MDMyJz8NCj4gDQo+IEkgd291bGQgZ28gYnkgdGhlIHBhcnQgbnVtYmVyLCB0aGUgd2F5IGZz
-bC9ueHAgaXMgaGFuZGxlZDogdGhlIHBhcnRzIHRoYXQgY2FtZQ0KPiBvdXQgb2YgQ29ydGluYSBT
-eXN0ZW1zIHdpdGggYSBDU3h4eHggbnVtYmVyIGtlZXAgImNvcnRpbmEiLCBzbw0KPiAiY29ydGlu
-YSxjczgwMzIiLCBhbmQgdGhlIENBeHh4eCBwYXJ0cyB0aGF0IENvcnRpbmEgQWNjZXNzIGRlc2ln
-bmVkIHVzZQ0KPiAiY29ydGluYS1hY2Nlc3MiLiBUaGF0IGdpdmVzIGEgcnVsZSBhIGxhdGVyIHN1
-Ym1pdHRlciBjYW4gYXBwbHkgd2l0aG91dCBrbm93aW5nDQo+IHdobyBzZWxscyB0aGUgY2hpcCB0
-b2RheS4NCj4gDQo+IEphc29uLCBpZiBDb3J0aW5hIEFjY2VzcyB3b3VsZCByYXRoZXIgc2VlIGl0
-cyBjdXJyZW50IENTODB4eC9DUzgxeHggcGFydHMNCj4gdW5kZXIgImNvcnRpbmEtYWNjZXNzIiwg
-bm93IHdvdWxkIGJlIHRoZSB0aW1lIHRvIHNheSBzbzsgSSBoYXZlIG5vIHN0YWtlIGluDQo+IHRo
-b3NlIGFuZCBvbmx5IG5lZWQgYSBydWxlIGZvciB0aGUgQ1M3NXh4Lg0KPiANCj4gVGhhbmtzLA0K
-PiBGaWwNCg0KSGkgRmlsL0FybmQsDQpDb3J0aW5hLUFjY2VzcyBDb3J0aW5hLUFjY2Vzc+KAmXMg
-cHJpbWFyeSBwcm9kdWN0IG9mZmVyaW5ncyBhcmUgUE9OIGFuZCBMMyBnYXRld2F5IHNvbHV0aW9u
-cy4NCkF0IHRoYXQgdGltZSwgQ29ydGluYSBTeXN0ZW1z4oCZIHByaW1hcnkgcHJvZHVjdHMgZm9j
-dXNlZCBvbiBoaWdoLXNwZWVkIFNFUkRFUy9QSFkuDQpBbmQgd2UgYXJlIG5vIGxvbmdlciBpbnZv
-bHZlZCBpbiB0aGUgc3VwcG9ydCBvZiBhbnkgQ1N4eHh4LXJlbGF0ZWQgcHJvZHVjdHMuDQpJJ2xs
-IHJlY29tbWVuZCAiY29ydGluYS1hY2Nlc3MsY2F4eHh4IiBmb3IgYWxsIENvcnRpbmEtYWNjZXNz
-J3MgcHJvZHVjdC4NCg0KVGhhbmtzLA0KSmFzb24NCg0K
+
+
+On 9/30/2026 7:48 PM, Abel Vesa wrote:
+> EC SCI events require I2C transfers to retrieve the event information.
+> During system resume, an SCI interrupt can be delivered before the I2C
+> controller is ready to handle transfers, resulting in failed event reads:
+> 
+>   geni_i2c a84000.i2c: error turning SE resources:-13
+>   qcom-hamoa-ec 3-0076: Failed to read EC SCI Event: -13
+> 
+> Keep SCI interrupt handling disabled across system sleep so that EC
+> events are processed only while the I2C controller is available. This
+> prevents event reads from racing with the controller's suspend and
+> resume transitions.
+> 
+> Fixes: 5c44f48e91de ("platform: arm64: Add driver for EC found on Qualcomm reference devices")
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/platform/arm64/qcom-hamoa-ec.c | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
+> index 4d2ad042a7f8..d34afd901324 100644
+> --- a/drivers/platform/arm64/qcom-hamoa-ec.c
+> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+> @@ -331,17 +331,28 @@ static const struct thermal_cooling_device_ops qcom_ec_thermal_ops = {
+>  static int qcom_ec_resume(struct device *dev)
+>  {
+>  	struct i2c_client *client = to_i2c_client(dev);
+> +	int ret;
+>  
+> -	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
+> -					 EC_MODERN_STANDBY_EXIT);
+> +	ret = i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
+> +				      EC_MODERN_STANDBY_EXIT);
+> +	enable_irq(client->irq);
+> +
+> +	return ret;
+>  }
+>  
+>  static int qcom_ec_suspend(struct device *dev)
+>  {
+>  	struct i2c_client *client = to_i2c_client(dev);
+> +	int ret;
+>  
+> -	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
+> -					 EC_MODERN_STANDBY_ENTER);
+> +	/* Keep SCI reads from racing the I2C controller's system sleep. */
+> +	disable_irq(client->irq);
+> +	ret = i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
+> +				      EC_MODERN_STANDBY_ENTER);
+> +	if (ret)
+> +		enable_irq(client->irq);
+> +
+> +	return ret;
+>  }
+>  
+>  static int qcom_ec_probe(struct i2c_client *client)
+> 
+> ---
+> base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+> change-id: 20260930-qcom-hamoa-ec-suspend-irq-464201cadb6c
+> 
+> Best regards,
+> --  
+> Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+Reviewed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+
+-- 
+Best Regards,
+Anvesh
+
