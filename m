@@ -1,83 +1,90 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEC037F8DD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4291A36F414
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790859722; cv=none; b=shB0PXSbGhsuvRhjx1Dr4FTBVs8y0c50MULctuW9X2LyCujwya1Br1BYCAN1cLKx2AZyHc648jPUEuK3pSIyqUxZIwM/MGZgproRbBFVbkQz5N1hLKzt1+7aCDOEo0U9MfvXU/zZEofC1hAoZJKS9m4TvaPZi77u3crs8vKoSGY=
+	t=1790859735; cv=none; b=Ik5/olf/2zx6S1FZmQFSb1H0+I4d03fDGt9Tt9wCdetfKaOe2N8PLd4RyS1uKcBNNkWnIGWISPywF0IsvpDhkdqj1NBX+6nLK6TnvLdioBOaZ3bWiQPy17MxNYEZ3CMEGDN6itEYr12GV1uOCyddX4HAdQCHDZUndzK6aZYCDgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790859722; c=relaxed/simple;
-	bh=tWKv7GcRFD/s3pfJLGTWOhTIn+fwwkJlPNHPxThsAOI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VKRMgyzqiCTmQUr4WOITpY8C8lgLXmy5qC9p475r6IcPk5lpk5pjREQAlYf9pPT3U6QBaFK6HRwFpPXUz9rnf4RKFLrexCSp0pu6Ba7chnsMWFk2Af12jO43irWIQUGeSUtrseezLoXmnjktYHhEoURLoWZPyux+A2vhEAtfkV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ROqpiAjb; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790859735; c=relaxed/simple;
+	bh=pOMhtGt4+2zxv9c1qA9eTQ2O+tf/rKmcvlBHo47DRc4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X+/aVCAYKWDHVUzcRm2wKjvP6Cu1OpTfIq8uQQHy4sn33e0qePXPU9RK2V3pkw1PSFm6Y1l87U6AhBaiarTzVKjvIdw0nUiPH6wfhaLxVUEkk2k2yMm92MeA6E9S5uFYZ/gPektHHEfLHw+lGaQ0SA2QlrXvsZpIJkFUch0k9l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=GIxdEYv1; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ROqpiAjb"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso34304045e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:02:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="GIxdEYv1"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2946aa0d5aso382443466b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:02:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790859719; x=1791464519; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1790859732; x=1791464532; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GMnCn6r1hHPcW/YmSzswujXp3fojK9XsootPRYEtFKY=;
-        b=ROqpiAjbwJnQDlOZjXMapGxgdwfjrsnLDs70axo+0yUWTHEjy4v0iAdUgUnwaPf6Np
-         81hBzYLgtWa0Kc8xSE3VlrkEhOLpvjRZ+pg7/qxp8xBoSpP8nr173XejrN8xMGXvof9j
-         L6N+I739BYQ7PsjcLhI3EDBCypA1RUaf5EtB0CEGxITYwtZVzXvHfL/990Nz3R6wAwJX
-         2tiFn+fxBGa3ZrIxObwhoMciQSPcCYSUX3uuT/ZKUS4/AI/pSs7sZjmpeO8/6qLXWI/K
-         rgdOacna/cEityaNO3ryKa7EnV1nOovS33qjQ5UT+kQ3HlKOkaYjbzvM8BhbrILD5nQT
-         BsgA==
+        bh=ssAgCLNB1hrn9m8PJ+lriduvIQBe6pwTyDTXeIxcaNY=;
+        b=GIxdEYv1DvbvsdjGcwz1COCLNlhwHe64YV7L9CHOsJIioeA9yZx7ZX9u5h49bjhp//
+         +BJos2GyqoKM9OqPWGSYv/Ff4RB3CDILFZZSk5PGIQAwWPvPO3kxTDh3rm2ee7zUhRXZ
+         gylMlwA722JOTG3VOBn+k8ABnwRn+Z3UCE8KITe6qVvgo0OBqeXwEkrBSa8JwLBGXVbS
+         GNVNMlYglAP4wzG+7NHErowlPYNDmpxgy18rTMDCgQScH9nsBldbVCVP+grhBikY0y1p
+         jHk78NOv1ujlbBPqOetgLZ+SnTprMsceGU5/46CcQAAh/Bt1N6x1ceiMgXD9YhSaLi6N
+         kvRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790859719; x=1791464519;
+        d=1e100.net; s=20260707; t=1790859732; x=1791464532;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GMnCn6r1hHPcW/YmSzswujXp3fojK9XsootPRYEtFKY=;
-        b=rmBTNZfY0GN8gwOigNZBjYKdLZFK9r5kzOR745f9VgxlPr+hBRjU8qAa7xU62dmRyZ
-         BtCZs7SNk6+ZVpWfIGbwnPwWK+Rb90302fhTimjTjkq2vvfiVVnqVdtXPKSknwoD6aF4
-         El8Pqrdeq3bFreeXq3jYs9jBZ6sWFY4BI1lUCveyCaQgI8X660sUg/3HN6gR2P7QpSEc
-         iArud9We4Y9AH59mQksqbdQuEtwTMcrpqswp5kZ4bURr9OgF4o2/WddPKBAcCDUUDIdZ
-         gVEH4l4/OM3riji/VIVhPz6f7p/Db+CQ1Q042ZkV9RnQT0Mhp8avvU3XfBYFEMf0wtHf
-         pxeg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+EM1+mJn9Pe2jricJVY01uttwHVZcIVrmruIFrH2P6VQBWuZoaUXIM9oqSWpfHiwA6bpHd1DWW+G3Plc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRVN+BNywJI9AdyjyF1g6cRg7BgU5WICgi63SkaDWj2Yz5IGk2
-	XQEFA7ttJIafIPrWvGjkpcNQS8sqz4JeCRd+4R3gdxVXwuQ+Usnlqk04
-X-Gm-Gg: AYBFou0U6CgAqOUYu8TI0uh3HM64hEGGsXizmZHiNC3HnxDjhnv2vj7ykkXQ3zYTpmA
-	a3FlDOuCXruyjBLk36Z/2P0jZ6lwalXIAEeAVfUZxX8JKKwYjo8eL9QM3L6DQpQDg+vKmc1LbJd
-	GnQIie+cfOAeh1NQp+/Z80+soteo0qvI/ZMjjHT84KbjVmK5yaR+GvtdNhjZSvkV8FWRmafhAqu
-	cXLXH1Voz+8DLVSEYXUffn6FE2g+lzcIjC7tcyhYNsLlKcORpi39mgS1BqThe0qHuXrbCmAhD3H
-	vkqHINDicF16WPVaABOFnYXjtnARQWXHX/2irypTlePZZrEoVrEqDxRxScGrw0hMRBfvrD+ADQQ
-	KdqaSsNWvsvTB/LJfE3QgDfJm5W0t6Zz74AjmVvoxKjYqY20/XBD2YgpU/WGQ/EwkP/Mh13hx9d
-	iRQ8nzaoDFeagZNcZGMqu1WYZoH/Hd4q0jayS2XiXKnJ05piG2eNRw2UCrn1+0KUwPrUr/Y0vJY
-	UmmdrVZ5g2UDIhI
-X-Received: by 2002:a05:600c:6206:b0:4a0:857:a3a5 with SMTP id 5b1f17b1804b1-4a01b11114dmr81828635e9.16.1790859718837;
-        Thu, 01 Oct 2026 06:01:58 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01feb7198sm55311455e9.1.2026.10.01.06.01.56
+        bh=ssAgCLNB1hrn9m8PJ+lriduvIQBe6pwTyDTXeIxcaNY=;
+        b=WKEFeYiuxNWBKdq0h8fxpizMMJX4b6ffmwUaQbIu5wVVMAvG++OugpfO3Ajiaj4pZe
+         9dlwdbF30FcWRWwRsNZA9uok8zfxt4mPBiMXgfTwHEkVpSTCmEveQwWpXGQ8C8Jr0crL
+         swykkepPkvAGfcKqd4pHV9wuHc29nEjHs2QC6YyELSzxOWAmD2K6FCrVs6FSPknFcHxO
+         2xMHHR1hAsldALJM6AOWiK8wurtNEQP7fhakQUwgVLY6jYx1XsJhuZ+vlm5NQcJXcQJZ
+         IMcAJt/8vuBPIgrZ/5Q/y5jAggKihRKOCIMoRbLYhouSS4q3EbzPx73sPFrLgUrk2tUa
+         6rgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdbt02GxcANzDRSTOS1785OFdWJcObViHfuzkFy8Fs2c1gZKPf/+r7on3HAp31Hn6kS2f7uWKO49jZ/Yg=@vger.kernel.org
+X-Gm-Message-State: AFuF++moaq4AUzBeGOqQCuVVH0UMVUXdTeT1QOAcTDjtjIGyQkF16d1B
+	omqAIsV17whXmskEynBajM2pVmF1EadlR4+2iJGzKrAceN/WdZBgxi+5d9XGpa51p00=
+X-Gm-Gg: AYBFou129X/gQBbngpPna+FM3WDIQXih33xjmjhnaSWHOGpwyy067Zr0cyo1czW0HDp
+	JC0NMTPcL0IQN6cOPxVmLjjg6dYOnMMHbaa4R+TSSVXVVFQLa9BhhLTZbYrVRlTkjVcsvs+g/2g
+	AGcivmWnDLBgDBA3QoOcsjBwO880SMr/QqPz3XbEPVA7JTzp79IZS2zm/KaJPwe/kFedKPQC3gA
+	q3VQoVAuAroeOpamQxwo326aVGVKOhbYnoBbf35e3bIJjBeC1nrnG/7k8jquDDPi7FpOjwZDkQ1
+	MI7UZHkGrpctkvKgGVaG5d7juwzSj88a7k6eG5DERt2XTRIN9XTyR1D59xRDyegmwYYZpv9Kkpj
+	/aFBNP7KGCO8txNYhzsnS0oie7bR7o9pvCJ7O1YhpewYCVDj6spl0rIlYhoDWMkVQ2oW/7jAIUu
+	pXLS9cPVAejS8j/YerqjXPWi1XR+iFlN+Tnhk+PjBeKITxyercsQ==
+X-Received: by 2002:a17:907:2da2:b0:c2a:fe4e:61c5 with SMTP id a640c23a62f3a-c2e33ffd009mr234417066b.22.1790859732009;
+        Thu, 01 Oct 2026 06:02:12 -0700 (PDT)
+Received: from remote-01 ([84.17.55.224])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a2cd0fsm5568155f8f.30.2026.10.01.06.02.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:01:58 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
+        Thu, 01 Oct 2026 06:02:11 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	ethantidmore06@gmail.com,
-	guojy.bj@gmail.com,
-	error27@gmail.com,
-	knavaneeth786@gmail.com,
-	dvdh12707@gmail.com,
-	m.steinmoetzger@gmail.com,
-	fliegbert2@gmail.com,
-	enelsonmoore@gmail.com,
-	nikolayof23@gmail.com,
-	khushalchitturi@gmail.com,
-	samasth.norway.ananda@oracle.com,
-	dennylin0707@gmail.com,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-Subject: [PATCH v5] staging: rtl8723bs: Remove manual ifname allocation
-Date: Thu,  1 Oct 2026 16:01:27 +0300
-Message-ID: <20261001130127.3655-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH net-next v5 0/3] net: phylink: wait for a PHY that probes after the MAC
+Date: Thu,  1 Oct 2026 16:02:05 +0300
+Message-ID: <20261001130208.105558-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,129 +93,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The manual ifname allocation via dev_alloc_name() is redundant because
-the networking core handles interface naming automatically during
-register_netdev().
+On the Keenetic KN-1012 (MT7981B with an MT7531 switch), the Airoha
+EN8811H behind lan4 has its PHY driver built as a module on the root
+filesystem. The switch sets up its ports before that filesystem is
+mounted, so the port is validated against the generic driver, fails its
+phy-mode and stays dead for the uptime. DSA does not retry it.
 
-Remove the ifname module parameter, the corresponding field from
-struct registry_priv, and the rtw_init_netdev_name() callpath.
+Patch 1 lets the PHY node say so with needs-host-firmware. Patch 2 makes
+phylink poll for such a PHY instead of giving up, for a MAC that opts
+in. Patch 3 opts in DSA user ports of switch drivers that set a flag,
+and sets it in mt7530.
 
-Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
-Changes in v5:
-- Rebased onto latest staging-testing to resolve merge conflicts caused by recent tree updates.
+The poller can still lose a race against an unbind of the PHY driver,
+between its readiness check and the attach. That window is phylib's:
+any phy_attach_direct() caller racing an unbind has it. The attach
+guard series [1] closes it.
 
-Changes in v4:
-- Rebased onto latest staging-testing branch.
+Tested on that board with the series backported to its OpenWrt 6.18
+kernel, together with a940003f44e7 and 07d995873960 (the mt7530
+.get_stats64 atomic-context fix). The debug kernel used here wedges a
+CPU without that fix, unrelated to this series. Two local debug
+parameters, not part of the series, drove the error paths. One fails
+the connect after a successful attach a given number of times, the
+other ignores the opt-in.
 
-Changes in v3:
-- Added missing changelog.
+ - boot: the switch set up its ports at 3.2 s, the PHY driver loaded
+   its firmware at 8.7 s and lan4 attached at 9.5 s. Link up at 1 Gb/s.
+ - opt-in ignored: the old behaviour. The generic driver took the PHY
+   at switch setup and the port never polled.
+ - two injected failures: "failed to connect late PHY: -EIO" twice, a
+   second apart, and the third attempt attached. Link up at 1 Gb/s.
+ - failures that do not stop: four attempts, then one "giving up on
+   /soc/ethernet@15100000/mdio-bus/ethernet-phy@d after 4 attempts",
+   and no further poll in the 25 s that followed.
+ - switch unbound while the poller waited: the poll stopped, nothing
+   oopsed, and the port attached normally after a rebind.
 
-Changes in v2:
-- Removed rtw_init_netdev_name() and the entire manual naming callpath
-  instead of hardcoding "wlan%d", as suggested by Greg KH.
----
- drivers/staging/rtl8723bs/include/drv_types.h |  2 --
- .../staging/rtl8723bs/include/osdep_intf.h    |  1 -
- drivers/staging/rtl8723bs/os_dep/os_intfs.c   | 26 +++----------------
- 3 files changed, 3 insertions(+), 26 deletions(-)
+No in-tree device tree sets needs-host-firmware yet. The board is
+supported out of tree, in OpenWrt.
 
-diff --git a/drivers/staging/rtl8723bs/include/drv_types.h b/drivers/staging/rtl8723bs/include/drv_types.h
-index 0db276d46b1c..7f7d4fbad4bd 100644
---- a/drivers/staging/rtl8723bs/include/drv_types.h
-+++ b/drivers/staging/rtl8723bs/include/drv_types.h
-@@ -151,8 +151,6 @@ struct registry_priv {
- 
- 	u8 enable80211d;
- 
--	u8 ifname[16];
--
- 	u8 notch_filter;
- 
- 	/* define for tx power adjust */
-diff --git a/drivers/staging/rtl8723bs/include/osdep_intf.h b/drivers/staging/rtl8723bs/include/osdep_intf.h
-index 83a25598e962..f1e7a303a286 100644
---- a/drivers/staging/rtl8723bs/include/osdep_intf.h
-+++ b/drivers/staging/rtl8723bs/include/osdep_intf.h
-@@ -20,7 +20,6 @@ u32 rtw_start_drv_threads(struct adapter *padapter);
- void rtw_stop_drv_threads(struct adapter *padapter);
- void rtw_cancel_all_timer(struct adapter *padapter);
- 
--int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname);
- struct net_device *rtw_init_netdev(struct adapter *padapter);
- void rtw_unregister_netdevs(struct dvobj_priv *dvobj);
- 
-diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-index d11d0cdd023a..d220df325fa9 100644
---- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-+++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-@@ -106,10 +106,6 @@ static int rtw_80211d;
- static int rtw_qos_opt_enable;/* 0: disable, 1:enable */
- module_param(rtw_qos_opt_enable, int, 0644);
- 
--static char *ifname = "wlan%d";
--module_param(ifname, charp, 0644);
--MODULE_PARM_DESC(ifname, "The default name to allocate for first interface");
--
- char *rtw_initmac;  /*  temp mac address if users want to use instead of the mac address in Efuse */
- 
- module_param(rtw_initmac, charp, 0644);
-@@ -249,8 +245,6 @@ static void loadparam(struct adapter *padapter)
- 
- 	registry_par->enable80211d = (u8)rtw_80211d;
- 
--	strscpy(registry_par->ifname, ifname, sizeof(registry_par->ifname));
--
- 	registry_par->notch_filter = (u8)rtw_notch_filter;
- 
- 	registry_par->reg_enable_tx_power_limit = (u8)rtw_tx_pwr_lmt_enable;
-@@ -394,17 +388,6 @@ static const struct net_device_ops rtw_netdev_ops = {
- 	.ndo_get_stats = rtw_net_get_stats,
- };
- 
--int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname)
--{
--	if (dev_alloc_name(pnetdev, ifname) < 0) {
--		pr_err("dev_alloc_name, fail for %s\n", ifname);
--		return 1;
--	}
--	netif_carrier_off(pnetdev);
--
--	return 0;
--}
--
- struct net_device *rtw_init_netdev(struct adapter *old_padapter)
- {
- 	struct adapter *padapter;
-@@ -726,14 +709,12 @@ u8 rtw_free_drv_sw(struct adapter *padapter)
- 	return _SUCCESS;
- }
- 
--static int _rtw_drv_register_netdev(struct adapter *padapter, char *name)
-+static int _rtw_drv_register_netdev(struct adapter *padapter)
- {
- 	int ret = _SUCCESS;
- 	struct net_device *pnetdev = padapter->pnetdev;
- 
--	/* alloc netdev name */
--	if (rtw_init_netdev_name(pnetdev, name))
--		return _FAIL;
-+	netif_carrier_off(pnetdev);
- 
- 	eth_hw_addr_set(pnetdev, padapter->eeprompriv.mac_addr);
- 
-@@ -758,9 +739,8 @@ int rtw_drv_register_netdev(struct adapter *if1)
- {
- 	struct dvobj_priv *dvobj = if1->dvobj;
- 	struct adapter *padapter = dvobj->padapters;
--	char *name = if1->registrypriv.ifname;
- 
--	return _rtw_drv_register_netdev(padapter, name);
-+	return _rtw_drv_register_netdev(padapter);
- }
- 
- static int _netdev_open(struct net_device *pnetdev)
+Changes in v5 (since v4):
+https://lore.kernel.org/r/20260925001209.2334139-1-f@lex.la/
+ - Deferral is opt-in. A deferred connect returns 0 with no PHY
+   attached, and some callers read 0 as a PHY being there. A MAC opts
+   in with phylink_config.phy_may_probe_late. DSA sets it for user
+   ports of drivers that set dsa_switch.phy_may_probe_late, and mt7530
+   does (new patch 3).
+ - Defer only with a known interface mode. The poller no longer fills
+   in PHY_INTERFACE_MODE_NA, so the MAC is never started with NA.
+ - kernel-doc names the opt-in and the state after the retries run out.
+ - Rebased onto current net-next. Patch 1 is unchanged, Acked-by added.
+
+[1] https://lore.kernel.org/r/20261001130120.104628-1-f@lex.la/
+
+Aleksei Sviridkin (3):
+  dt-bindings: net: ethernet-phy: add needs-host-firmware
+  net: phylink: wait for PHYs that are known to probe late
+  net: dsa: let user ports wait for a PHY that probes late
+
+ .../devicetree/bindings/net/ethernet-phy.yaml |   6 +
+ drivers/net/dsa/mt7530.c                      |   1 +
+ drivers/net/phy/phylink.c                     | 221 +++++++++++++++++-
+ include/linux/phylink.h                       |   4 +
+ include/net/dsa.h                             |   5 +
+ net/dsa/user.c                                |   1 +
+ 6 files changed, 230 insertions(+), 8 deletions(-)
+
+
+base-commit: 47a1446725732cd3996edf607e8739334bbf4d78
 -- 
-2.47.3
+2.53.0
 
