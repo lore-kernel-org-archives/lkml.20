@@ -1,33 +1,36 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB9E84BD373;
-	Thu,  1 Oct 2026 09:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633EE49AA24
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846492; cv=none; b=OGh3a8EJnOKAHsqCgb9wRH9vKBmmABvhutKM7CDDJkAmbPK0gq596jYkTCQNSDSFZA+xp7M/hHrVg50nhlbw1MoiF6bI4mESwuUicNl/j3WuM8wGmhu9CPkeGMRiOvuYR3ECBvxLSj99HyvJ/EDhflVJlVJDNKU1WPa3ESEWfGA=
+	t=1790846561; cv=none; b=G7IWrXXkYT7lFUAPSkb9xgzngI3xJR4QYF7gDmLW9oOdbrYwS0QWvgM/bSCcfayjqOwzOSFrj0DVj9p6YdUdHllZeFGaKAJ9jStNiyofye1pjplEgJl8q+sscphB7GInhL8rlYQXKY5ejH2dHNzPnSFMTT54zuZip5QE/dJGy8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846492; c=relaxed/simple;
-	bh=itx6cg5qF4Phs7uk7aKvZIOuwEWTRzAVMUPugNJgUbY=;
+	s=arc-20240116; t=1790846561; c=relaxed/simple;
+	bh=3wNDm0lcFFGOwQzcYeZh2sS7c2q+vGogQy+z9+Z0BTI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tbzAZFkc76DMJhocW2bvIp0/m4bMWUiFZl4LzHsellDxYXk5bt1r/mqs0fLn1JaFzPxuxEwpIGh1GOCjVUemb7EwX2d3FlDxYQLIz6jks6KVQvjLMcVF+16x3grrkuvI5enDLdaoFseNeQpxSTssWcZa17NOBHG2pFST7fF0r4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AJ/AeVQ0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=UOCWL+6FwMhoIaFL6NgUF8n0phxI59b2tbPEjtqaa3MVOq1tGTF4vD8cwVDkbeja9NgzPffVfaB2iFbTuYQBDTvToGutNbDxEF0/vs2PlQ1snfywpLXeS3AWIIQ7cfaMpDmlVm5exo3uPgEeagku2vgZbDARDJ4w8tc1NuNrsO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=gJ1qlBvE; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AJ/AeVQ0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9F063497;
-	Thu,  1 Oct 2026 02:21:25 -0700 (PDT)
-Received: from [10.57.54.170] (unknown [10.57.54.170])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EC7853F86F;
-	Thu,  1 Oct 2026 02:21:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790846489; bh=itx6cg5qF4Phs7uk7aKvZIOuwEWTRzAVMUPugNJgUbY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AJ/AeVQ0yhcreVDbIHMyfPEQNqg8WCn89+CA3IJEow5+s37U6hMg/z8mFMLaQ/q7M
-	 EfVFkHyC28IvgMQPaidSn2v5IgSTKUJBzPtnw+hglTcT2uUHiehe0PmBEkuvaossKS
-	 E9BVG8FIGSsTHcvnj971+AoJpL2qIk9GItzFP0Kg=
-Message-ID: <7a0ae99a-2ee2-4247-b703-8d5922787e40@arm.com>
-Date: Thu, 1 Oct 2026 11:21:25 +0200
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="gJ1qlBvE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=KAS9nccWQxy7wzoQ15glvxQifDTF+AyI7CQ7dcp9lhk=; b=gJ1qlBvEzACCa6Mdid844+KLcI
+	fbNS6zt1QsyDfxRXycWA7N6VqIMZRSh+K81gKN1eoYwrSFwLI5ktpTXLlOPl/kT670yvhWovaSAZl
+	bQvKPqOUJYzVTSjWqYMF/+xVe8RONhygONMkID81A7L44BRyBfk2Pb1AW8jKTzEfHaZH38pJXOmVd
+	1DtjhjbnZdmfbu4TUt4j2r0gzs7XeEc/0TPvBeVxJCM7f286Xv72LghyelI4dozyWWbdTVYyUIQj1
+	904MRMxQhYLnw01U2YZjmxRObfhlhJINepQsRVJaZgyZ2U/h8cM38iCu7BGBv07pbDHWeJfhktIZr
+	icKv2n2g==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xCCzj-009p35-O7; Thu, 01 Oct 2026 11:22:27 +0200
+Message-ID: <04153ee4-0d2a-4499-849d-e3a5ec87e863@igalia.com>
+Date: Thu, 1 Oct 2026 10:22:26 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,244 +38,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] cache: add SMCCC-backed cache invalidate provider
-To: Srirangan Madhavan <smadhavan@nvidia.com>, mark.rutland@arm.com,
- lpieralisi@kernel.org, sudeep.holla@kernel.org, conor@kernel.org,
- jic23@kernel.org
-Cc: catalin.marinas@arm.com, will@kernel.org, treding@nvidia.com,
- jonathanh@nvidia.com, bence.csokas@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org
-References: <20260910082142.1522865-1-smadhavan@nvidia.com>
- <20260910082142.1522865-3-smadhavan@nvidia.com>
+Subject: Re: [RFC v5 2/3] workqueue: Add support for real-time workers
+To: Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
+ Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Breno Leitao <leitao@debian.org>
+References: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
+ <20260923161251.45428-3-tvrtko.ursulin@igalia.com>
+ <3ff40909da4f1510419ac0e2f9f4e6a1@kernel.org>
 Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260910082142.1522865-3-smadhavan@nvidia.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <3ff40909da4f1510419ac0e2f9f4e6a1@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
 
-On 9/10/26 10:21, Srirangan Madhavan wrote:
-> Add a cache maintenance provider for the Arm SMCCC cache clean+invalidate
-> interface.
+On 29/09/2026 01:00, Tejun Heo wrote:
+> Hello,
 > 
-> The provider discovers SMCCC support and attributes at init time,
-> serializes firmware calls, handles transient BUSY and RATE_LIMITED
-> responses with bounded retries, and registers with the generic cache
-> coherency framework used by memregion callers.
+> On Wed, Sep 23, 2026 at 05:12:50PM +0100, Tvrtko Ursulin wrote:
+>> For use cases such as the DRM scheduler submitting work to the GPU on
+>> behalf of low latency userspace applications, where latter have sufficient
+>> privileges to have had successfully obtained realtime Vulkan global
+>> priority, competing with random background CPU load can create large
+>> latency spikes which gets in the way of a smooth user experience.
+> 
+> panthor's group_priority_permit() also allows realtime groups for DRM
+> master without CAP_SYS_NICE. What's the usage model there? Should DRM
+> master be enough to get RT workers?
 
-Is there any chance you could hook this up to the new Arm SMCCC bus? 
-Looks like Aneesh's series[1] is now queued for v7.4. You would just 
-need to pick the first two patches, then replicate the work that's done 
-in patch 2/8.
+Usage model is one active compositor per device with the logind 
+orchestrating on switch. So I'd say yes, it makes sense to allow the 
+compositor RT. I shall improve the commit text to mention this.
 
-The rest looks okay on a first glance, but can you please mention the 
-respective spec document (Arm DEN0028) somewhere, ideally at the top of 
-the file and maybe in the commit message?
+>> @@ -374,8 +374,9 @@ enum wq_flags {
+>>   	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
+>>   	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
+>>   	WQ_HIGHPRI		= 1 << 4, /* high priority */
+>> -	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
+>> -	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
+>> +	WQ_RTPRI		= 1 << 5, /* real-time priority, valid only with WQ_UNBOUND */
+>> +	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
+>> +	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
+> 
+> Can we name it just WQ_RT? Also, I think WQ_RT is closer to WQ_BH. We can
+> reorder the flags later if that helps but for now can you just put it in an
+> empty slot?
 
-Cheers,
-Andre
-
-[1] 
-https://lore.kernel.org/linux-arm-kernel/179026658584.3654431.7189876471375206962.b4-ty@b4/
+Sure, I thought it makes sense to group the related features together 
+but if you prefer a smaller diff I will do that.
 
 > 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Reviewed-by: Jonathan Cameron <jic23@kernel.org>
-> ---
->   drivers/cache/Kconfig           |  11 +++
->   drivers/cache/Makefile          |   2 +
->   drivers/cache/arm_smccc_cache.c | 149 ++++++++++++++++++++++++++++++++
->   3 files changed, 162 insertions(+)
->   create mode 100644 drivers/cache/arm_smccc_cache.c
+>> @@ -127,6 +127,7 @@ enum wq_internal_consts {
+>>   	 */
+>>   	RESCUER_NICE_LEVEL	= MIN_NICE,
+>>   	HIGHPRI_NICE_LEVEL	= MIN_NICE,
+>> +	RTPRI_NICE_LEVEL	= MIN_NICE - 1,
 > 
-> diff --git a/drivers/cache/Kconfig b/drivers/cache/Kconfig
-> index 1518449d47b5..57fd1823dec5 100644
-> --- a/drivers/cache/Kconfig
-> +++ b/drivers/cache/Kconfig
-> @@ -42,6 +42,17 @@ menuconfig CACHEMAINT_FOR_HOTPLUG
->   
->   if CACHEMAINT_FOR_HOTPLUG
->   
-> +config ARM_SMCCC_CACHE
-> +	bool "Arm SMCCC cache maintenance provider"
-> +	depends on ARM64 && HAVE_ARM_SMCCC_DISCOVERY
-> +	help
-> +	  Enable support for the Arm SMCCC cache clean+invalidate
-> +	  interface as a provider for memory hotplug-like cache
-> +	  maintenance operations.
-> +	  The provider registers only when firmware advertises the
-> +	  SMCCC calls and attributes, so systems without firmware support
-> +	  continue without this registered provider.
-> +
->   config HISI_SOC_HHA
->   	tristate "HiSilicon Hydra Home Agent (HHA) device driver"
->   	depends on (ARM64 && ACPI) || COMPILE_TEST
-> diff --git a/drivers/cache/Makefile b/drivers/cache/Makefile
-> index b3362b15d6c1..55736a032d6f 100644
-> --- a/drivers/cache/Makefile
-> +++ b/drivers/cache/Makefile
-> @@ -4,4 +4,6 @@ obj-$(CONFIG_AX45MP_L2_CACHE)		+= ax45mp_cache.o
->   obj-$(CONFIG_SIFIVE_CCACHE)		+= sifive_ccache.o
->   obj-$(CONFIG_STARFIVE_STARLINK_CACHE)	+= starfive_starlink_cache.o
->   
-> +# Providers below depend on CACHEMAINT_FOR_HOTPLUG.
-> +obj-$(CONFIG_ARM_SMCCC_CACHE)		+= arm_smccc_cache.o
->   obj-$(CONFIG_HISI_SOC_HHA)		+= hisi_soc_hha.o
-> diff --git a/drivers/cache/arm_smccc_cache.c b/drivers/cache/arm_smccc_cache.c
-> new file mode 100644
-> index 000000000000..1cfa8f8809d0
-> --- /dev/null
-> +++ b/drivers/cache/arm_smccc_cache.c
-> @@ -0,0 +1,149 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 NVIDIA Corporation
-> + *
-> + * Arm SMCCC cache maintenance provider using cache clean+invalidate calls.
-> + */
-> +
-> +#include <linux/arm-smccc.h>
-> +#include <linux/cache_coherency.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/errno.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/mutex.h>
-> +#include <linux/nmi.h>
-> +
-> +#define SMCCC_CACHE_MAX_RETRIES		5
-> +#define SMCCC_CACHE_DEFAULT_DELAY_US	1000UL
-> +#define SMCCC_CACHE_MAX_DELAY_US	20000UL
-> +
-> +struct smccc_cache {
-> +	/* Must be first member */
-> +	struct cache_coherency_ops_inst cci;
-> +	struct mutex lock; /* Serializes SMCCC cache maintenance calls. */
-> +	u64 rate_limit;
-> +	u32 latency_us;
-> +};
-> +
-> +static int smccc_cache_status_to_errno(s32 status)
-> +{
-> +	switch (status) {
-> +	case SMCCC_RET_SUCCESS:
-> +		return 0;
-> +	case SMCCC_RET_NOT_SUPPORTED:
-> +		return -EOPNOTSUPP;
-> +	case SMCCC_RET_INVALID_PARAMETER:
-> +		return -EINVAL;
-> +	case SMCCC_RET_RATE_LIMITED:
-> +		return -EAGAIN;
-> +	case SMCCC_RET_BUSY:
-> +		return -EBUSY;
-> +	default:
-> +		return -EIO;
-> +	}
-> +}
-> +
-> +static unsigned long smccc_cache_delay_us(const struct smccc_cache *cache)
-> +{
-> +	unsigned long delay_us = 0;
-> +
-> +	if (cache->rate_limit)
-> +		delay_us = DIV_ROUND_UP_ULL(USEC_PER_SEC, cache->rate_limit);
-> +
-> +	if (cache->latency_us)
-> +		delay_us = max(delay_us, (unsigned long)cache->latency_us);
-> +
-> +	/*
-> +	 * Firmware may advertise neither a rate limit nor a latency hint; use
-> +	 * a small bounded backoff instead of retrying in a tight loop.
-> +	 */
-> +	if (!delay_us)
-> +		delay_us = SMCCC_CACHE_DEFAULT_DELAY_US;
-> +
-> +	return min(delay_us, SMCCC_CACHE_MAX_DELAY_US);
-> +}
-> +
-> +static int smccc_cache_wbinv(struct cache_coherency_ops_inst *cci,
-> +			     struct cc_inval_params *invp)
-> +{
-> +	struct smccc_cache *cache = container_of(cci, struct smccc_cache, cci);
-> +	unsigned long delay_us = smccc_cache_delay_us(cache);
-> +	struct arm_smccc_res res = {};
-> +	int ret;
-> +
-> +	if (!invp->size)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Serialize the full retry sequence. With the default bounds, a caller
-> +	 * may hold the mutex across up to five 20ms backoff sleeps.
-> +	 */
-> +	guard(mutex)(&cache->lock);
-> +
-> +	for (unsigned int i = 0; i < SMCCC_CACHE_MAX_RETRIES; i++) {
-> +		/* Long firmware operations can trigger watchdog checks. */
-> +		touch_nmi_watchdog();
-> +
-> +		arm_smccc_1_1_invoke(ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION,
-> +				     invp->addr, invp->size, 0UL, &res);
-> +
-> +		ret = smccc_cache_status_to_errno((s32)res.a0);
-> +		if (!ret)
-> +			return 0;
-> +
-> +		if (ret != -EBUSY && ret != -EAGAIN)
-> +			return ret;
-> +
-> +		fsleep(delay_us);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct cache_coherency_ops smccc_cache_ops = {
-> +	.wbinv = smccc_cache_wbinv,
-> +};
-> +
-> +static int __init smccc_cache_init(void)
-> +{
-> +	struct arm_smccc_res res = {};
-> +	struct smccc_cache *cache;
-> +	int ret;
-> +
-> +	if (arm_smccc_get_version() < ARM_SMCCC_VERSION_1_1)
-> +		return -ENODEV;
-> +
-> +	if (arm_smccc_1_1_get_conduit() == SMCCC_CONDUIT_NONE)
-> +		return -ENODEV;
-> +
-> +	arm_smccc_1_1_invoke(ARM_SMCCC_ARCH_FEATURES_FUNC_ID,
-> +			     ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION, &res);
-> +	if ((s32)res.a0 < 0)
-> +		return -ENODEV;
-> +
-> +	arm_smccc_1_1_invoke(ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES,
-> +			     &res);
-> +	if ((s32)res.a0)
-> +		return -ENODEV;
-> +
-> +	cache = cache_coherency_ops_instance_alloc(&smccc_cache_ops,
-> +						   struct smccc_cache, cci);
-> +	if (!cache)
-> +		return -ENOMEM;
-> +
-> +	mutex_init(&cache->lock);
-> +	cache->latency_us = lower_32_bits(res.a2);
-> +	cache->rate_limit = res.a3;
-> +
-> +	ret = cache_coherency_ops_instance_register(&cache->cci);
-> +	if (ret) {
-> +		mutex_destroy(&cache->lock);
-> +		cache_coherency_ops_instance_put(&cache->cci);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +arch_initcall(smccc_cache_init);
+> Can we match the scheduler's representation instead by replacing
+> attrs->nice with attrs->prio which uses the same encoding as p->prio?
+> Normal pools would be NICE_TO_PRIO(nice) and WQ_RT pools would be in the RT
+> range. create_worker() would then do:
+> 
+> 	if (rt_prio(pool->attrs->prio))
+> 		sched_set_fifo_low(worker->task);
+> 	else
+> 		set_user_nice(worker->task, PRIO_TO_NICE(pool->attrs->prio));
+
+Ack.
+
+>> @@ -7606,7 +7626,10 @@ static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
+>>   	int written;
+>>
+>>   	mutex_lock(&wq->mutex);
+>> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
+>> +	if (wq->attrs->nice == RTPRI_NICE_LEVEL)
+>> +		written = scnprintf(buf, PAGE_SIZE, "rt\n");
+>> +	else
+>> +		written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
+> 
+> Can you also show rt in pr_cont_pool_info() and tools/workqueue/wq_dump.py?
+> 
+> Thanks.
+
+Of course, I wasn't aware of that tool. Do you prefer in the same patch 
+or separate?
+
+Regards,
+
+Tvrtko
 
