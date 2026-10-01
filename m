@@ -1,154 +1,141 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BE9D3EAC71
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D087941168B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:57:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845023; cv=none; b=kfDEaijVUY4Rngbn0NXe7x9/cCP02wpI7575acXvjn0cF/mPuG+RxQxLsMl4ZHBAu7ws5Khmpwowaar7CmJt9xGyNL2KuZecxC5HdnDnqsWbEzr7aFSvyo86QvJTDURcVz1i8dnwHeCaq0S0DPt89lkURDWC9Q80C/vRgD3/ooo=
+	t=1790845027; cv=none; b=cRj4fr63XsszmVakJtDY+NROQhzcXjk4c0OMpopq5J+jtvk21psdMDlAR4yL48o8j0kicAZBy05ytJlMgO964YTllncRBlNBkLeRWbiw45X/CCyV7VzT19DOY/TUO9VbAQEKhVm1ps6W7poFj7hKX29REIx9PPGHk3igy12E7p0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845023; c=relaxed/simple;
-	bh=3zNTBTzTbpwHYWDK0XIAY+iSCQscCOuwOgZRECRF++g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jv0EGxJFvtUjXBdd4CXnlm53jvWsjqsnfyJDRTkxAzSfgdrHEO82CMZHRmKiPYNXBJsWQjkDXlhZtJ0I/UVc+nJ6zdrXfQbWOSRlSlfhgB7RkDnoB52mIiTkFMEOZhZ7dz8fuL4uEXhIv3bJiqQeHUcoCHJ3Uxf2xHJIvZSrQ1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DAaVkpx1; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790845027; c=relaxed/simple;
+	bh=su0DVhDRbgCW6ivk6VcekvGuPKLwR9SF8luDE9CtZfs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fFDaQOA0Tw0/s1gA5ip+h1+SHMQ5sonfta8D6BsowEEKr6yszfcm0nAe8viE7bg35DuGcNzln1iRrquBFeoo7GxEklit1CHORwgcpclKx8PXiY7mk4SIPGd8ZSjSrPlN9VHbJAAZggbG4Aog11PLhlHzboMAtxeTFhw+3/AgROA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QsojwJno; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DAaVkpx1"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2DFA9497;
-	Thu,  1 Oct 2026 01:56:58 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D92233F85F;
-	Thu,  1 Oct 2026 01:57:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790845021; bh=3zNTBTzTbpwHYWDK0XIAY+iSCQscCOuwOgZRECRF++g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DAaVkpx1/jOgpspHxz2Bcpp3BaIEEQQGiZpOP7Ft5D9MvVRn7yixwAw5nEn4Q1kRu
-	 T5pUxEmM/GohIBxlkl+Tel3R5OJDpL1uoYfmIvOV38VA+o6xhEiVFK3Ms/MNt1mR2B
-	 VoAAdBhD0HbDOtfA3qWgdzxbkmYebz5DXCV53miU=
-Date: Thu, 1 Oct 2026 14:26:58 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC] mm: Add KUNIT test for ptval_bytes_to_hex_str()
-Message-ID: <uweoxvlup5ogme5m356uw4mzlfn32a3iqyme5mpsoun6qylh56@dmjvfbey6oqo>
-References: <20260929120530.3394073-1-anshuman.khandual@arm.com>
- <2f7a38e0-1e85-4983-9bc5-adea49f44cbc@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QsojwJno"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 1A8DE1A109C;
+	Thu,  1 Oct 2026 08:57:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DCAED60346;
+	Thu,  1 Oct 2026 08:57:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4008F103290C1;
+	Thu,  1 Oct 2026 10:56:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790845021; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=LlgutliI/KyIKbAEWb5yL2RePu83dUVtZxE0EVUCt+U=;
+	b=QsojwJnojSOEfMmX4qR135/VbWIIEhOft0th6YS8tec7yWEwdHIqr6rzBQWQE0U6FC1Yyh
+	5KMBHklyBG56gY4HnOPODLfeiYlCWBvp7c8cTKzNipyJMCCF6+h7BX/hxGO25SQCuhiWMy
+	4sSnWyqBUQHtpBzVA0KdWeDQKI73GWuSyXi8ex5eig+7M1u3LaUscxBDiAINCOcZ7caphY
+	jOdrr3KEprZfswqFDJOmFfUy6bAy3KiYKpcqXRBX3o/bkReMImkoUe4xAFVRts/m3xV0PK
+	JzoCCkOOl9ED0iwh8LOoTeF56AZSFCSjfCE/x5wWYuuXs7qwnRQ8bvvuC8NErA==
+Message-ID: <d247a15360eb3254ed1ae1f9bad859c3bb0b5c77.camel@bootlin.com>
+Subject: Re: [PATCH v2 6/7] drm/vc4: dsi: stop using deprecated
+ drmm_of_get_bridge()
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
+ <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
+	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Thu, 01 Oct 2026 10:56:44 +0200
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-6-6da431d8f180@bootlin.com>
+References: 
+	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+	 <20260929-drm-fix-of_get_bridge-build-regression-v2-6-6da431d8f180@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2f7a38e0-1e85-4983-9bc5-adea49f44cbc@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 01, 2026 at 09:45:01AM +0200, David Hildenbrand (Arm) wrote:
-> On 9/29/26 14:05, Anshuman Khandual wrote:
-> > Add KUnit tests for ptval_bytes_to_hex_str() to verify conversion of 32-bit
-> > 64-bit, and 128-bit (when supported) page table entry values into printable
-> > hexadecimal strings.
-> > 
-> > Add a new PTVAL_HEX_STR_KUNIT_TEST option to enable the tests.
-> > 
-> > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > Cc: David Hildenbrand <david@kernel.org>
-> > Cc: Lorenzo Stoakes <ljs@kernel.org>
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: linux-mm@kvack.org
-> > Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> > ---
-> > This patch applies on v7.3-rc5 after the following series
-> > 
-> > https://lore.kernel.org/linux-mm/20260831054331.625505-1-anshuman.khandual@arm.com/
-> > 
-> >  mm/Kconfig                        |  11 +++
-> >  mm/Makefile                       |   1 +
-> >  mm/tests/ptval_hex_string_kunit.c | 111 ++++++++++++++++++++++++++++++
-> >  3 files changed, 123 insertions(+)
-> >  create mode 100644 mm/tests/ptval_hex_string_kunit.c
-> > 
-> > diff --git a/mm/Kconfig b/mm/Kconfig
-> > index 604c58199acbf..f68bf26b98c83 100644
-> > --- a/mm/Kconfig
-> > +++ b/mm/Kconfig
-> > @@ -1511,6 +1511,17 @@ config LAZY_MMU_MODE_KUNIT_TEST
-> >  
-> >  	  If unsure, say N.
-> >  
-> > +config PTVAL_HEX_STR_KUNIT_TEST
-> > +	bool "KUnit tests for pgtable entry string conversion" if !KUNIT_ALL_TESTS
-> > +	depends on KUNIT
-> > +	default KUNIT_ALL_TESTS
-> > +	help
-> > +	  Enable this option to check that ptval_bytes_to_hex_str() is able
-> > +	  convert given pgtable entry value in bytes into hex strings which
-> > +	  could be printed.
-> > +
-> > +	  If unsure, say N.
-> 
-> That's a bit fine grained :)
-> 
-> Could we somehow pack this under another existing / more generic test? We don't
-> want one new test for every new function :)
+Hi Luca,
 
-Probably right. We don't need one test for each new function.
+Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
+=C2=A0:
+> drmm_of_get_bridge() is deprecated, switch to
+> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
+ns
+> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+>=20
+> drm_panel.h becomes unused, drop the include.
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+> =C2=A0drivers/gpu/drm/vc4/vc4_dsi.c | 10 ++++------
+> =C2=A01 file changed, 4 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.=
+c
+> index 0148f2befed1..30598738cfcf 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+> @@ -35,7 +35,6 @@
+> =C2=A0#include <drm/drm_edid.h>
+> =C2=A0#include <drm/drm_mipi_dsi.h>
+> =C2=A0#include <drm/drm_of.h>
+> -#include <drm/drm_panel.h>
+> =C2=A0#include <drm/drm_print.h>
+> =C2=A0#include <drm/drm_probe_helper.h>
+> =C2=A0#include <drm/drm_simple_kms_helper.h>
+> @@ -555,7 +554,6 @@ struct vc4_dsi {
+> =C2=A0
+> =C2=A0	struct platform_device *pdev;
+> =C2=A0
+> -	struct drm_bridge *out_bridge;
+> =C2=A0	struct drm_bridge bridge;
+> =C2=A0
+> =C2=A0	void __iomem *regs;
+> @@ -1165,7 +1163,7 @@ static int vc4_dsi_bridge_attach(struct drm_bridge
+> *bridge,
+> =C2=A0	struct vc4_dsi *dsi =3D bridge_to_vc4_dsi(bridge);
+> =C2=A0
+> =C2=A0	/* Attach the panel or bridge to the dsi bridge */
+> -	return drm_bridge_attach(encoder, dsi->out_bridge,
+> +	return drm_bridge_attach(encoder, dsi->bridge.next_bridge,
+> =C2=A0				 &dsi->bridge, flags);
+> =C2=A0}
+> =C2=A0
+> @@ -1749,9 +1747,9 @@ static int vc4_dsi_bind(struct device *dev, struct
+> device *master, void *data)
+> =C2=A0		return ret;
+> =C2=A0	}
+> =C2=A0
+> -	dsi->out_bridge =3D drmm_of_get_bridge(drm, dev->of_node, 0, 0);
+> -	if (IS_ERR(dsi->out_bridge))
+> -		return PTR_ERR(dsi->out_bridge);
+> +	dsi->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node,
+> 0, 0);
+> +	if (IS_ERR(dsi->bridge.next_bridge))
+> +		return PTR_ERR(dsi->bridge.next_bridge);
 
-> 
-> An alternative would be to use mm/debug_vm_pgtable.c to just run 3 tests at
-> runtime as well.
+I had to double-check that it is fine to leave the .next_bridge field as a
+pointer-encoded error. It works because drm_bridge_put() handles this case.
 
-Yes - that could work as well given its printing pgtable entries but
-those tests would not be KUNIT based any more I guess. Although just
-like the existing VM_WARN_ON() check, new tests should be sufficient.
+Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
-> 
-> > +
-> >  source "mm/damon/Kconfig"
-> >  
-> >  endmenu
-> > diff --git a/mm/Makefile b/mm/Makefile
-> > index e7245cb88c665..d08b8bd01917b 100644
-> > --- a/mm/Makefile
-> > +++ b/mm/Makefile
-> > @@ -147,4 +147,5 @@ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
-> >  obj-$(CONFIG_EXECMEM) += execmem.o
-> >  obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
-> >  obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
-> > +obj-$(CONFIG_PTVAL_HEX_STR_KUNIT_TEST) += tests/ptval_hex_string_kunit.o
-> >  obj-$(CONFIG_MEM_ALLOC_PROFILING) += alloc_tag.o
-> > diff --git a/mm/tests/ptval_hex_string_kunit.c b/mm/tests/ptval_hex_string_kunit.c
-> > new file mode 100644
-> > index 0000000000000..45c203cfb49ae
-> > --- /dev/null
-> > +++ b/mm/tests/ptval_hex_string_kunit.c
-> > @@ -0,0 +1,111 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +
-> > +#include <kunit/test.h>
-> > +#include <linux/pgtable.h>
-> > +
-> > +struct ptval_str {
-> > +	u64 val;
-> > +	const char *str;
-> > +};
-> > +
-> > +static struct ptval_str ptval_u32_tests[] = {
-> > +	{ .val = 0x1234abcd,	.str = "1234abcd"},
-> 
-> Isn't a single test like this enough. Why would we need the other ones?
-> 
-> So I think this could all get condensed quite a bit (including the test
-> functions, a single one should be sufficient if we really only end up with 3 tests).
-
-If we continue with KUNIT framework, probably all three tests are still
-required to distingish them but in mm/debug_vm_pgatble.c based approach
-a single test can combine all these tests via VM_WARN_ON().
-
-> 
-> -- 
-> Cheers,
-> 
-> David
+Cheers,
+-Paul
