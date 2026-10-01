@@ -1,119 +1,151 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4114649B217
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8571B515896;
+	Thu,  1 Oct 2026 13:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862233; cv=none; b=HPwvQLTU0/nUGtrL5T60yGzxN8pgBTNy9LO3AYAgPpUDangPxUxazicA6a6V31cE9k4BT0Lrjmn7TQmkOoP+vbmDHtOH8467B5Ppxv2Nb7ZREakNQV4dPrjq+k0xXzXJV83QyPzkQzocDtNtUzT92jWEkzqPThqmzyIRngg28f8=
+	t=1790862352; cv=none; b=BaO6WY1ni+87fMo13oZP5sWd/eo5a+fYjvsA6+uX54av011j4GBeD3XCV2k+oJELVEE+S042zBjvH1lfpDfqF/gGPhLuW62vpGzYwVozZetbXgI4Y2MT/QOax03Sfhh3rBsh99OZuJorhkBYRqgSu+x/8hIdbaCz0wdTJNTRmcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862233; c=relaxed/simple;
-	bh=YtxTa1VgrUAUHV74VfDLuMxfbVAqObQYg4zUaDxY7zM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=qs9+X0vPrkwzE8t0ib2Cun73WZLq7e4pe9sIzaG/jQqIKYU8BhmnW6rsZRex2kFfP63+7FKyvygJGpShQIX2/lbSttfXifD+TAZta9AbZzbIPFPxiXdr7H+RmlXIqXBD+HUvweX+ktZwzuEI0y7dacDOb8H9j11tdxsMFGug8mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VO8F8gxJ; arc=none smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790862352; c=relaxed/simple;
+	bh=NGSMm8PfNE9EuKGA03aikfRRcQ9RlsMinnp33+WTOQg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jqCwETKBOM0FvdAV6s5jXZXT0MP18z9GAfauh5oFIB41hGddiNJdN8YcFnl/U5Usq+QD4jqAs/SANutFYnnsGWHUD9SSHuZsKp71cBWQkvkeZKl0wTujTa9GkgYA6tCHrkgQKwi6YukHBZr2KtD+aFlHPBOVAVbr9IZV4ap7paU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dpBpGDoR; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VO8F8gxJ"
-Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8acdb1ddd96so9922167b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:43:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790862228; x=1791467028; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YtxTa1VgrUAUHV74VfDLuMxfbVAqObQYg4zUaDxY7zM=;
-        b=VO8F8gxJeZ7wLqYG+Xjib+qHJW/Y6FBR6NNGchHrCBPwSgpBsutE2HrOmARDM2yOUP
-         /bL3HhegEC8VPqdGXVeeID1kQW37rrUOubQC3l08KWDc+rbxi/6XbYK55SanMb0zS/YG
-         Axre/w8xRrpZKjROzAhBzgk9TSjLNy6/dZkkWhbCNLhdj2JCYUDz8DmnRKLmwzzjTEtc
-         c2raAbCRf3Li8LribjC2XXd2/ycfEb39fgsoeTiR0VUKiZFl8pRGNrKL7G7K/mYxLPPt
-         ijfpp+XTN8sweFUABZgI4t+Cb2kDen6obENTbXWm0WkRKpFbWzOrhXW8QLe2V834J1HI
-         LqNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790862228; x=1791467028;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YtxTa1VgrUAUHV74VfDLuMxfbVAqObQYg4zUaDxY7zM=;
-        b=uLxboVuKhJaZbGdTsNukCOJ8e5kLQow2yOv1ZvVpJLXzcjLAJ3tT2LKS1LeiClpyPj
-         R6KD4Fw0GeSgW2rUL3Jg+4Njx4NjL2Kok6g++izH/XRMUIn9f96W2j6IH+4TZg3nP+p7
-         GZu5shMm39h5dFKWu835zAn4Dvv+CPtOVxyUALrgjclz2t5zNC0i+MJes9gPH5j2k2u+
-         luFB/gE/HJRAZh1reLUVU6j7zVFFKbBYekFnlllAdimLnCR28TAKKgwkCpGBosbzSWok
-         juD9urZQ4PadZD2oTJXSd/8vGDqImKkK8knxDZ/NtJM7r/ibgp/i+2HC7lEL5YW/eeY5
-         /x0A==
-X-Forwarded-Encrypted: i=1; AKwUvBySt8yl4fCK4sqxTdaudDophxbSe9Shg8PFOJ2G4wJZ1bRqFSu9hPMeJMa4van4NTYF9phPrqdJ6esFuOU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdLldm4G6HuXBwwYTGcQEjvJMI5k8WVDer148SnMANJ1E3OH93
-	IhjedmKHQsVzKgcyPsTpMgOV2ch8dMQ3evPGzSeBl5jrh/FO+PlNqOc=
-X-Gm-Gg: AYBFou2mdvXUB/HaDfsI0dP5FHjYvrXe/xOWy95ePYjjulwbuPtMmA8Jez+sxrqoxyX
-	ZrjHIET4FcnrbhIA65u/9/SHPOiVWaAk+bxTc4SZFHDeeGWcAelRNF888fZWDLgrOTo7/p2Mkua
-	cVTdhHDA4PWwbXTIb1wufqOIsqMG2jBaG6eAtnBW6fFrcjs+5ascRGo/H8P1KtgogNA1Ql3G2t0
-	ZqkeY9+tg63Nl2dNwV1TT/rODXH14+rX68HZKQaEon1Bju6V5j6gN9Gd+KpLHBtTENdTHPag9vi
-	sRMGYF1JB54cgCLc1bvTSh+13wgonjGKgockKe9/en2rf6bfNguHFZmb9DpCRCwdwcHkd0W3oxh
-	gxLQ+ybO5HDfpFdG20wv0ggJ0Ww2YzDQF3Jq6H4PJSyodlbTgYeAGpV4zb21rYq8ei9yj+LTIMT
-	gYaUIMGbY388EykDhMuJqYVwiSs8QVHtP6hWzza1byQffHNynNRfTa54FQ6En7kQtsoV3bq/Zsb
-	0OkY4T4JKrj9T+g+CpKkRWfvVPs10XB3rVrb84896Tx
-X-Received: by 2002:a05:690c:c353:b0:8a9:a268:d719 with SMTP id 00721157ae682-8ac93fe3e62mr20075197b3.66.1790862228362;
-        Thu, 01 Oct 2026 06:43:48 -0700 (PDT)
-Received: from localhost ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdaceb3f6sm10232417b3.25.2026.10.01.06.43.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 06:43:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dpBpGDoR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790862350; x=1822398350;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NGSMm8PfNE9EuKGA03aikfRRcQ9RlsMinnp33+WTOQg=;
+  b=dpBpGDoRcUaMJiJoq5b1lFuaDISwvr5vKAhs+nUzSPMV+m0NT8LCwcFp
+   r+ZRrEBr3ULblxQDxakzQrHWnvh55DmRlwJBYnG3/PYz2Ozs80g5d90cA
+   g0+cMXlBfEzYmscqVizsFsrVq/F1ymtvJfQObHjk2BjwwJlMUOqjo2AOC
+   IW9xZClEhV+7t0tt502g0x0ob0uU5ck+pPhN01/WBbr0F+iBLD7cuP1Fa
+   1K36xQUCmOWX7gFb9/TauPYxluKnOjao6YlUBubKmrvLuUSio+pfnKGdA
+   UToXETY1pY3WQKZpvSt378AkAjwQwwAW0r3kzvr7eTVXRKPRu7wwpN7oJ
+   g==;
+X-CSE-ConnectionGUID: BIkAPYINQtG8gU7HNrksTQ==
+X-CSE-MsgGUID: NIDHVCJAT76bF6HC3caUPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91638283"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="91638283"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 06:45:49 -0700
+X-CSE-ConnectionGUID: UYseu5zYTCKu4Kh0A7r3rw==
+X-CSE-MsgGUID: +S72MK2gTOKtxCwcX+WfkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="279301760"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 06:45:47 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id CDC3A11F84B;
+	Thu, 01 Oct 2026 16:45:42 +0300 (EEST)
+Date: Thu, 1 Oct 2026 16:45:42 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
+	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+	Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
+	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] media: i2c: Add Sony IMX908 image sensor driver
+Message-ID: <ar5kBpv8hdkpldp9@kekkonen.localdomain>
+References: <20260828064843.65047-1-lachlan.michael@sony.com>
+ <20260828064843.65047-3-lachlan.michael@sony.com>
+ <ar5RFpomHbdAAMLx@kekkonen.localdomain>
+ <20261001133138.GM944070@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 01 Oct 2026 10:43:41 -0300
-Message-Id: <DLTJOAQSES8X.3ONDW2BU044FQ@gmail.com>
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Brendan Higgins" <brendan.higgins@linux.dev>,
- "David Gow" <david@davidgow.net>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas Hindborg"
- <a.hindborg@kernel.org>, "Benno Lossin" <lossin@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn1_gh@protonmail.com>, "Boqun Feng"
- <boqun@kernel.org>, "Brigham Campbell" <me@brighamcampbell.com>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Jori Koolstra"
- <jkoolstra@xs4all.nl>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "Rae Moar" <raemoar63@gmail.com>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Tamir Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Yury Norov" <yury.norov@gmail.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>
-Subject: Re: [PATCH 0/3] rust: kunit: support #[should_panic] and same test
- name with different #[cfg(...)]
-X-Mailer: aerc 0.20.0
-References: <20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com>
- <CANiq72k2RfFBncNBCGGdWFEJ-wWZ1MzA8ErrBDAcAvbGSRaS=Q@mail.gmail.com>
-In-Reply-To: <CANiq72k2RfFBncNBCGGdWFEJ-wWZ1MzA8ErrBDAcAvbGSRaS=Q@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001133138.GM944070@killaraus.ideasonboard.com>
 
-On Wed Sep 30, 2026 at 11:41 AM -03, Miguel Ojeda wrote:
-> On Wed, Sep 30, 2026 at 3:23=E2=80=AFPM Nicol=C3=A1s Antinori via B4 Rela=
-y
-> <devnull+nico.antinori.7.gmail.com@kernel.org> wrote:
->>
->> This patch series intends to implement two features for KUnit tests
->> written in Rust. The work is based on a TODO comment made in the
->> `bitmap.rs` module [1].
->
-> I am glad it worked with `b4`! Hopefully no more Gmail issues :)
+Hi Laurent,
 
-Yes! Thank you very much for the suggestion! I'll have it that as a
-fallback mechanism for now on
->
-> (Nit: in cases like this, I would suggest increasing tagging with
-> RESEND or maybe increasing the version to avoid the same subject line
-> in Lore and other clients.)
+On Thu, Oct 01, 2026 at 04:31:38PM +0300, Laurent Pinchart wrote:
+> On Thu, Oct 01, 2026 at 03:24:54PM +0300, Sakari Ailus wrote:
+> > > +static int imx908_set_selection(struct v4l2_subdev *sd,
+> > > +				struct v4l2_subdev_state *sd_state,
+> > > +				struct v4l2_subdev_selection *sel)
+> > 
+> > We don't really have cropping behaviour documented before the common raw
+> > sensor model. I'd just postpone this until we have the common raw sensor
+> > model support
+> > <URL:https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata> merged.
+> 
+> There's real progress on merging the raw camera sensor model, with Jai
+> finalizing the implementation in libcamera. We could drop crop support
+> for the initial version of the IMX908 driver or wait for the raw camera
+> sensor model to be merged. The former is probably better to avoid
+> delays.
+> 
+> Lachlan, sorry about this last-minute request. Hopefully it will be
+> quite simple to drop the .set_selection() handler and hardcode full
+> resolution. imx908_update_framing_limits() will then have no user and
+> could be dropped too. We'll add it back one kernel version later by
+> adding crop support based on the raw camera sensor model.
 
-Sorry about that! I had the intention but forgot to do it
+As an added bonus, it'll be more simple to support that in the driver, too.
 
->
-> Cheers,
-> Miguel
+> > > +static int imx908_disable_streams(struct v4l2_subdev *sd,
+> > > +				  struct v4l2_subdev_state *sd_state,
+> > > +				  u32 pad,
+> > > +				  u64 streams_mask)
+> > > +{
+> > > +	struct imx908 *imx = to_imx908(sd);
+> > > +	int ret;
+> > > +
+> > > +	ret = imx908_stop_streaming(imx);
+> > 
+> > imx908_stop_streaming() is used in a single location only. I think you
+> > should move the code here. Same for imx908_enable_streams() and
+> > imx906_start_streaming(), too.
+> 
+> For imx908_start_streaming() it could make error handling a tiny bit
+> more complex. This is the kind of detail I'd leave to the appreciation
+> of the driver author.
 
+Works for me. In that case I'd move the other function just above the
+caller.
+
+...
+
+> > > +	/* Device is powered; keep it resumed across registration, release at end */
+> > > +	pm_runtime_set_active(imx->dev);
+> > > +	pm_runtime_get_noresume(imx->dev);
+> > > +	ret = devm_pm_runtime_enable(imx->dev);
+> > 
+> > What will happen on error here? PM runtime will be disabled after probe()
+> > exits on error, but you'd need to set the state to suspended after that.
+> > I'm not sure you can correctly use this as things stand currently. This
+> > also conflicts currently with remove() below disabling Runtime PM
+> > explicitly.
+> 
+> I'm not sure to understand what's requested here. Are you saying there's
+> a potential issue that can't be fixed currently ? Or should this code be
+> modified ? In the latter case, could you please tell what should be done
+> ?
+
+I'd just avoid using devm_pm_runtime_enable() here. The problem really is
+that you'll need to set the device to suspended state (as well as power it
+off) *after* devm does its teardown work. You can't do that, at least not
+right now, without introducing devm variant of setting the state active.
+There may be dependencies to some assumptions on how devices are unbound.
+
+-- 
+Regards,
+
+Sakari Ailus
