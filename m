@@ -1,85 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FC03FE640;
-	Thu,  1 Oct 2026 19:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C6B38DC5C;
+	Thu,  1 Oct 2026 19:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884472; cv=none; b=YvilaeXbePQ/BAOuP1OC1pFMyRtZOrspa9+KSus26VHDQytKD6g86tPt7rtfaVS6f4nYdDCMDZjvOFI29Ok/8y33e4uoANmzYsEi+bPdiClxHgVIxoC4CJ6e3jwso989f29lah6l+9nkwOkpWvReTEi5jdvzkm5NtfsP9gILPWc=
+	t=1790884511; cv=none; b=GqlXQ8tfvBM3XtKOi1TTVvTjeO/tD61t3K6bb6++Gmx4+sSZNfcANYVmVYm51vCzLA+LkFazNPbcgHOdbeHkehuaXTGeUPgYS5/2Ht7QCKXuelZxWsEtM04neb8ugATYLe5tsUaJasTYvTuCRyJjUn5rOiUcigYsih12o3+YUO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884472; c=relaxed/simple;
-	bh=JYsLFYkjS6dJGw7qaZ/s+NGEWfI90Kyj+IKVnHzStHo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RsQgs7rXGJECqsAzpt770fdV64g+oGGHtcRryiIy6oqsm8NJqoShMT7JYVxyLvFJFLnEwrgygqHODeGAMrfJACIYsCu01+ZJz+/A/kThigQjV0+m3xQ8WA3fV5Ot6KSHdN2e54drS14RCJ9ULlyhluEugN/vaZKdddAIOVdtDS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rn4SXaRf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790884511; c=relaxed/simple;
+	bh=BAn03zenaHr0MOgnV3RrrNBx+2PlflDO3oYaTmxtGgA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Yp4GX6deeIcdPZIh6G+RBqFYd79XieKws8GCmRXTLZdGrjBTD1HUpuACZn6apM2K3y/qEKSoGUuDVcbnjdtZqe4Fj38JQH4FuAgxpkPxqDTik7S5RAa1dIVPziS7/Lt/I0ZYAmucGb3cIQNXS/w2zonaOWauD0tXlWn698qFSgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NfH27TeW; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=h9YNRJqT; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rn4SXaRf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8211F000FF;
-	Thu,  1 Oct 2026 19:54:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790884469;
-	bh=CsO3dVP1rE+OXCdeZb4O5Da9+5kdAsDL/2r4hLTyU8s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Rn4SXaRfH10u05A1D534ERpHxsGPtlfHGQ8PzRHITyxtpP/uikYQkO09ypRCLYgST
-	 YfOfWe4sNz2CXWcjUG1pHw+CCoiohUzP3ZPApImQ62ccxVNqkhf26WGRzsJTY+1KM9
-	 UD3FfzjSVnIIwRwwbbKX3U046OXTD7XmT1UO3tAZcIBIqW4+PCDsxdbKI5droVnIhY
-	 1AqzOSjGqeR+xgHfR6j1Lou4x3pbCOUpGHtkVFhfimbOoty4/pphs3J0ljfEVfJMxm
-	 /UJ5m47BhEh5Q08HqOsyQQLrUm/wL7iUyJluUoozQiSGreDcPwJKrv2X897dnEhd6U
-	 XSX7SFGj/8DRw==
-From: David Hildenbrand <david@kernel.org>
-To: david@kernel.org, osalvador@suse.de, Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, muchun.song@linux.dev, linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260930160432.5564-1-lance.yang@linux.dev>
-References: <20260930160432.5564-1-lance.yang@linux.dev>
-Subject: Re: [PATCH 1/1] mm/memory_hotplug: fix missing rollback in
- __add_pages()
-Message-Id: <179088446708.3427.17462740264114406030.b4-ty@b4>
-Date: Thu, 01 Oct 2026 21:54:27 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NfH27TeW";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="h9YNRJqT"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790884505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAn03zenaHr0MOgnV3RrrNBx+2PlflDO3oYaTmxtGgA=;
+	b=NfH27TeWZ3BhMGiTvlqoe12wMpI0/J8cChRFmik00U0BHZ0F5L0oTp8lbrxohr7g3ub5yz
+	pOJOjrKJP/RWqbm0dfTg313+wmA9fYaJfDkXqPfTReDnbQ97sl4xwsU8r4ONmIpSsQgrrW
+	vhNuTc6bW0RK7VQyhYfXuEuqB/rDqaFK3pGBdj3vavDiJqN321nkWn8HywPAfZg9u/XmvZ
+	SAy7rHDsr4d6qKOAMS5aKUrqhDUTWrElZIuJy+IuM/KvF8ybtAiP73UMkGwZ9GrX7okDA8
+	eENvT1Q/C52UhlSc+84KR76WkvBDmBbx99SdztBlHMFOsqfFjGayvEfpFenjxA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790884505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAn03zenaHr0MOgnV3RrrNBx+2PlflDO3oYaTmxtGgA=;
+	b=h9YNRJqTLHdr28MdjoLkYkdUAh8RKBwP3s+iPV99H87oii06SkXzC45OYGS/vpZWVZzSiP
+	0mHJerXOtETyoQAw==
+To: Imre Kaloz <kaloz@kernel.org>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, linux-serial@vger.kernel.org, Petr Mladek
+ <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, Sergey
+ Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH v2] MIPS: SGI-IP27: print the NMI dump on an nbcon console
+In-Reply-To: <20261001191938.3256-1-kaloz@kernel.org>
+References: <20261001191938.3256-1-kaloz@kernel.org>
+Date: Thu, 01 Oct 2026 22:01:04 +0206
+Message-ID: <875wzl8acn.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain
 
-On Thu, 01 Oct 2026 00:04:32 +0800, Lance Yang wrote:
-> __add_pages() returns on a sparse_add_section() failure without removing
-> the sections already added in the same request.
-> 
-> For memremap_pages(), the failed range is not counted in pgmap->nr_range,
-> so memunmap_pages() skips it. The sections already added in that range
-> retain their vmemmap mappings and subsection bits. Retrying a
-> section-aligned range can then fail with -EEXIST.
-> 
-> [...]
+On 2026-10-01, Imre Kaloz <kaloz@kernel.org> wrote:
+> Since the 8250 console became nbcon, printk() in nmi_dump() only queues
+> records for a printer thread that never runs, as no CPU leaves the NMI
+> handler. Print from an emergency section and flush pending records
+> before the hub reset.
+>
+> Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 
-Applied, thanks!
-
-tree: mm/core.git
-branch: memhp-7.4.misc
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/memory_hotplug: fix missing rollback in __add_pages()
-      https://git.kernel.org/mm/core/c/c31bb839
-
--- 
-Cheers,
-
-David
-
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
