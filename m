@@ -1,129 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870C33DD52C;
-	Thu,  1 Oct 2026 09:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE034A5EB6;
+	Thu,  1 Oct 2026 09:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847978; cv=none; b=sEDugf0aNPwJ/IpSLNvhJ4/29eQZFLfAujQlnq1LQcjGOinDuR1xYnaXVnxmVnfo76eBE5+9n0NGqnaSxr0srUhrjoHkyiGHLiShPEmJk2Mooj21UlBYDVR/Nf7HoEznqBOyHWoE3/e53yB742FzaLd67VxtrijGUhgBjnzSUD4=
+	t=1790848029; cv=none; b=Wqx8pqZhdzh5wYFfuF+SPKqYVWSMramVx2zCi7XJXiVCNPJZV2QV/sQZ8SoPVTzhdjHsgtJuMbcLp6QOhvIKy0R9f9ccnG4+Q7mkph4tVCcu7C1/8P/eZBN9XZBSJT+DXovKpF4xxqICL4vCjjCfFdBEsnNlo0HssGU7xfvAd9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847978; c=relaxed/simple;
-	bh=aqKyfLjMfoBc3ezdQ5GZeOo7oGDNp+lHe4qj6rHtEnk=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=fEjOyXGuhV/1VGplnio1ceewK8k+BPR5O+jh2nOknKP6DMNu+Ukdt+nDuI6ih9mhf0YCoSqpx2VqH7lHkAgPCjKHPqDz18bfMwfdOlh5proPG5HihmNs7WKTZknYYCiSj9o1+SeJc4ZHdrR/v93E56QF4cWtbBngGNALzK2UXuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fk7tNdQA; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790848029; c=relaxed/simple;
+	bh=LIsI7pJf92ZC8exo8cetPNOBspcx+EJXW8oMIPASwJ4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cgS0TpaIrSjZzfgLxVRSzwLyjvBN+qwrHaKFmn2qUd0bo+HgxYQyX8/yWECkjXqdBYjGcewbGy+UVIaqab4F+g8dzyabNzOlkabMHsrZGipsBIpRtDVStemUa5SDskAg4Bk/nuVPDz9BD1w5cIFwrx1mjvJSoBhVkmwEz6oLLhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJWxzyDP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fk7tNdQA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790847975; x=1822383975;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=aqKyfLjMfoBc3ezdQ5GZeOo7oGDNp+lHe4qj6rHtEnk=;
-  b=Fk7tNdQAUL00nCb92TuiD7n399eGMpbZdOo0sjLW6eMaas97nHd8VaCA
-   THGvwOfKah2akHFKzhKVlehLo4HJHlRBU5gI3ZKeFx6bH4runsbzaQ8YI
-   24l6q72CYZuOT2/EbS60ZcHrTp5LMPGtiDtcOJCtT7EM+0Uw28u/rlxye
-   sKbwh6d/Hgf8ZWoHZywfmUjBuTtLM5jQJ/FNT2mvhlW797ORqFoXTRSx8
-   H4WLnT95xC2ORphE52JIlIKZ8NMyGKrAZVzZD+Vjn2Nxw5r7L1mC8r6ox
-   T/dN9PyywntPZEdMG4/0faT3yKfbpJ4mrOMex64OsjTKFuF8X46+MVUJ6
-   w==;
-X-CSE-ConnectionGUID: w7HQjcGXRuOL71uTxiT8UA==
-X-CSE-MsgGUID: rcFnMOFjQ9iIvLmctavaIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90366666"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="90366666"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 02:46:15 -0700
-X-CSE-ConnectionGUID: X6l3l0FmQZe5k1FwQCaicw==
-X-CSE-MsgGUID: u1giBiXeTC68uOKfUM1Drg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="275156008"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.34])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 02:46:11 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 1 Oct 2026 12:46:05 +0300 (EEST)
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-cc: Hui Peng <benquike@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, 
-    John Ogness <john.ogness@linutronix.de>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] serial: core: fix baud rate fallback in
- uart_get_baud_rate()
-In-Reply-To: <2026100156-watch-balsamic-32db@gregkh>
-Message-ID: <5085df04-f813-8b3f-1d05-87d5bbf00499@linux.intel.com>
-References: <20260930125901.778868-1-benquike@gmail.com> <20260930125901.778868-2-benquike@gmail.com> <2026100156-watch-balsamic-32db@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJWxzyDP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8015F1F000FF;
+	Thu,  1 Oct 2026 09:47:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790848028;
+	bh=v4GqKargadOKFOeTVuHEXINDOBqQTvwvPfjl+C4vh8U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aJWxzyDPdnJdNi2TjUCTK0yhJBzt46zkMU32arEIItoVyd6OsLs9rdL2/KHw/bKVk
+	 NhoB18799FLYONifrXyeku4nuFSlMDusVkEvECBPW3Ghaxy36jJSOeBhKvgHTFMqpP
+	 CdBlRMKIYu0qMGk/zs2DkGlMoSteG4LWfotigkhQq2zpPiOeGUpHqkXSHxnPQKQbMA
+	 KoI3m2rRWuT8iQMvrYfW5j2NswsLTkD+wbEiAHHwYTsJYKp8limOtk9mXMwE6TsqeZ
+	 Lc+UvKef3mi3q16kqYD7xBUqb7E7syPsnOveSYYWRDGTOW/Fbi53NgTzW/KwkLqqRx
+	 WqUQoI1gjEdwQ==
+Message-ID: <9a6a1c15-89aa-4504-8585-0f7861c3377b@kernel.org>
+Date: Thu, 1 Oct 2026 11:47:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: mrelease_test: fix retry limit
+To: Aveline Noir <jm5905938@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Christian Brauner <brauner@kernel.org>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <CANOyQmFzsssM_BXHUDrV+UuVD5SZMBmSkg3UQnmw9Ns1PV7GCQ@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <CANOyQmFzsssM_BXHUDrV+UuVD5SZMBmSkg3UQnmw9Ns1PV7GCQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 1 Oct 2026, Greg Kroah-Hartman wrote:
-
-> On Wed, Sep 30, 2026 at 12:59:00PM +0000, Hui Peng wrote:
-> > When uart_get_baud_rate() is called with a baud rate exceeding the port's
-> > maximum supported speed (port->uartclk / 16), it clips baud to [min,
-> > max - 1] and encodes it into termios via tty_termios_encode_baud_rate().
-> > 
-> > However, because the loop bound is for (try = 0; try < 2; try++), the
-> > loop terminates immediately after try == 1 without re-evaluating
+On 10/1/26 08:00, Aveline Noir wrote:
+> mrelease_test doubles the child allocation when process_mrelease()
+> returns ESRCH.
 > 
-> But try == 1 should keep the loop going as it is < 2, right?  What am I
-> missing here?  Do I need more coffee?
->
-> > baud = tty_termios_baud_rate(termios) for the clipped rate, hitting
-> > WARN_ON(1) and returning 0, which then triggers a fatal divide-by-zero
-> > (Oops: divide error) in uart_get_divisor():
-> > 
-> >   WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_rate+0x136/0x260
-> >   [ ... ]
-> >   divide error: 0000 [#1] PREEMPT SMP KASAN
-> > 
-> > Increase the retry count in uart_get_baud_rate() from 2 to 3 iterations so
-> > that clipped baud rates are re-evaluated in the third iteration.
+> When size is already MAX_SIZE_MB, the current <= check still allows
+> another retry, causing the allocation to grow from 1024 MB to 2048 MB.
 > 
-> What is the magic 2 here, and why turning it into a magic 3 somehow fix
-> things?
+> Use < instead of <= so the largest allocation attempted remains
+> MAX_SIZE_MB.
+> 
+> LLM used in discovering bug. Changes were made and reviewed manually.
+> 
+> Fixes: 33776141b812 ("selftests: vm: add process_mrelease tests")
+> Assisted-by: LLM
+> Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+> ---
+>  tools/testing/selftests/mm/mrelease_test.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/mm/mrelease_test.c
+> b/tools/testing/selftests/mm/mrelease_test.c
+> index 64e8d00ae944..a5124c9e9f43 100644
+> --- a/tools/testing/selftests/mm/mrelease_test.c
+> +++ b/tools/testing/selftests/mm/mrelease_test.c
+> @@ -157,7 +157,7 @@ int main(void)
+>  		 * Retry until we succeed or reach MAX_SIZE_MB.
+>  		 */
+>  		if (errno == ESRCH) {
+> -			retry = (size <= MAX_SIZE_MB);
+> +			retry = (size < MAX_SIZE_MB);
+>  		} else {
+>  			waitpid(pid, NULL, 0);
+>  			ksft_exit_fail_msg("process_mrelease: %s\n", strerror(errno));
 
-Hi Greg & Hui,
+Makes sense
 
-First of all, I'm withdrawing my Reviewed-by from this!!!
-
-Lets hope the submitter can finally get his/her act together and not make 
-unlisted changes between versions or send non-sense.
-
-While the code change is still fine, it seems the submitter (or more 
-likely AI) has changed the changelog from what I read when I reviewed 
-this. And the new one is way worse than it used to be so not being able 
-to follow what's going on is very understandable given the lackluster 
-explanation that remains.
-
-
-What you're missing is that the baud returns happens within the loop, so:
-
-try == 0: use new, if baud is out of bound and old is available, switch to 
-          old
-try == 1: if old is also out of bounds, there's the last resort rule 
-          towards the end of the loop which is applied forcing baud to the 
-          accetable range.
-try == 2: loop exits => WARN_ON(1) triggers.
-
-What we'd want to happen with try == 2, is for it to use the return baud 
-which is within the loop body.
-
-
-Hui, I suggest keeping the previous versions of the patches available as 
-files. And right before sending the next version, go manually throught the 
-diff of diffs to make sure there are ZERO unexpected changes from version 
-to version (has saved me tons of times from making stupid mistakes).
-
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
- i.
+Cheers,
 
+David
