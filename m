@@ -1,150 +1,65 @@
-Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31300518142
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B3C4352003
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863063; cv=none; b=OV6wW/Rt/9lCeoHcGyMEWOo6Z9v4ow5xrBGKAfopE40KGn8yA+pNCpW4QsH0xBwyMlb4o5j3qxA5XuDfyMIKNq2IBGtMGFA86j3BcplO/KNZa/BzE80Q9fm+mnaoJwk88ztSkPApGAewF+Jnv4uqpGwz48QaUFIfUCnngOulWD0=
+	t=1790863078; cv=none; b=qc60DELdZ6+/gmBdbu44oj/0Z9qc0mb+Qu30PQxw2YJhOO57BT55d7EiIPw41ZjNOvrB3Ra2M3HZDns60sWGjJnx4wtU3On+d3osXpBE6Dokwd8rbhEqULxibE8G5DuPB8MrYEGKprwpTiCeq/Dq/HcW2RdyXFAdvqcloZrTBSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863063; c=relaxed/simple;
-	bh=1Ws9n6iE1+OrWs/XcdHuXlvIueQS+tIjV4+vXzqVwmw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GmJCm/352hZQGUU5ECgYZGlVUKt/JnvQnoVKExM6iA/syk7+0Gt72BGTNK+8nkxHHP7g9uaiJWPphhbNK5xGqYrpvgc+TougFzgzuE3Pqe/G7LGQqvLMIxdwvfP6+vsmgaflORBlXjayUewEa7xkqtot9wv9jgiNuVERKrGKsTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vXZh9OT2; arc=none smtp.client-ip=91.218.175.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790863078; c=relaxed/simple;
+	bh=My4BganHp6IwDHnjd7wKkgxseHazF5cioT6HqM73X34=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cOXelCy29A0duzxE5WkqmJQta+jOJXKTWPt8e3BtH3Kg2O5/eVMasBo7ObFYZyoys0wVtrRpzZlRe4o5qBIMVJ93f+wyHqvDpmt8ErN2fMof8w2HhruRuudpEJrj3XivXFSYuSv+MqW4ASBvpibR2/m/Iq7xcTPYdt01BiqQobM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BvfpNAjz; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vXZh9OT2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1Ws9n6iE1+OrWs/XcdHuXlvIueQS+tIjV4+vXzqVwmw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790863055; v=1; x=1791467855;
- b=vXZh9OT2GH+8/cDS93zQVOupF1QRfQWYYgYhatoqfaOJ7tb9uzEPJqYf0u4YZCBQKl95axC+
- x6GhSDoYIFVyicuwED89RnB1HqeIpSuVDD1bt0/j6SYBtUJ9s6d/XUqFv8j59bH9TxYi0LHag+o
- Y5ti5vlC1UxoW0JjZnRsnIzI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e098126e4f2d483f;
-	Thu, 01 Oct 2026 13:57:35 +0000
-X-Mizu-Trace-ID: e098126e4f2d483f
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: [PATCH v4 04/18] KVM: arm64: Disable steal time for protected VMs
-Date: Thu,  1 Oct 2026 14:56:57 +0100
-Message-Id: <20261001135711.1640520-5-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261001135711.1640520-1-fuad.tabba@linux.dev>
-References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BvfpNAjz"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F0F8497;
+	Thu,  1 Oct 2026 06:57:49 -0700 (PDT)
+Received: from [10.0.130.165] (e127648.arm.com [10.0.130.165])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 843BB3F86F;
+	Thu,  1 Oct 2026 06:57:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790863072; bh=My4BganHp6IwDHnjd7wKkgxseHazF5cioT6HqM73X34=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BvfpNAjzBc5oqa7hdB9rNymFmxzw03Hwg2Ulq4pWN0mFEOOoxAawDqsfW+1xHrMRJ
+	 ZTwQ2i9SUg0Riz9LVdjzxorANxWpnUoADwoUCREpFPGNSPuTrvugqOD8uGbnZdrU/P
+	 CtiWptnSCzDKQQ2lDIwdb16F0NBDtioh/PZB1RBY=
+Message-ID: <26c01ef8-03dc-4194-b7dc-68ae12c33560@arm.com>
+Date: Thu, 1 Oct 2026 14:57:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] sched/eevdf: Cap protection when current has the
+ shortest slice
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: linux-kernel@vger.kernel.org, mingo@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+ kayracizmeci@gmail.com, kprateek.nayak@amd.com, elif.topuz@arm.com,
+ sh@gentwo.org
+References: <20261001134016.3881268-1-christian.loehle@arm.com>
+ <20261001134016.3881268-4-christian.loehle@arm.com>
+ <20261001135529.GS2009045@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261001135529.GS2009045@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-pKVM doesn't support steal time for protected guests, and
-KVM_CAP_STEAL_TIME already reads 0 for them on the VM file descriptor,
-but kvm_arm_pvtime_supported() takes no VM, so the host still
-accepts the KVM_ARM_VCPU_PVTIME_CTRL attribute, whose IPA would point
-kvm_update_stolen_time() at the guest's private memory on every vCPU
-load. Pass the VM in and return false for a protected one, so the
-attribute returns -ENXIO as it does where steal time isn't implemented.
+On 10/1/26 14:55, Peter Zijlstra wrote:
+> On Thu, Oct 01, 2026 at 02:40:14PM +0100, Christian Loehle wrote:
+>> Changing a task slice preserves its remaining request. With
+>> PLACE_REL_DEADLINE, the deadline can therefore extend beyond the new
+>> slice after sched_setattr() reduces it.
+> 
+> Or, the new slice is only effective after the current expires.
+> 
+> Is there a reason we care about this? Changelog didn't mention.
 
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/include/asm/kvm_host.h |  2 +-
- arch/arm64/kvm/arm.c              |  2 +-
- arch/arm64/kvm/pvtime.c           | 10 +++++-----
- 3 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 27fe0cd5b2d7a..286489a69dff5 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1346,7 +1346,7 @@ long kvm_hypercall_pv_features(struct kvm_vcpu *vcpu);
- gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu);
- void kvm_update_stolen_time(struct kvm_vcpu *vcpu);
- 
--bool kvm_arm_pvtime_supported(void);
-+bool kvm_arm_pvtime_supported(struct kvm *kvm);
- int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
- 			    struct kvm_device_attr *attr);
- int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 8b080804bc90b..db36815630790 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -447,7 +447,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 		r = system_supports_mte();
- 		break;
- 	case KVM_CAP_STEAL_TIME:
--		r = kvm_arm_pvtime_supported();
-+		r = kvm_arm_pvtime_supported(kvm);
- 		break;
- 	case KVM_CAP_ARM_EL1_32BIT:
- 		r = cpus_have_final_cap(ARM64_HAS_32BIT_EL1);
-diff --git a/arch/arm64/kvm/pvtime.c b/arch/arm64/kvm/pvtime.c
-index 4ceabaa4c30bd..053fe831fa541 100644
---- a/arch/arm64/kvm/pvtime.c
-+++ b/arch/arm64/kvm/pvtime.c
-@@ -67,9 +67,9 @@ gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu)
- 	return base;
- }
- 
--bool kvm_arm_pvtime_supported(void)
-+bool kvm_arm_pvtime_supported(struct kvm *kvm)
- {
--	return !!sched_info_on();
-+	return !!sched_info_on() && (!kvm || !kvm_vm_is_protected(kvm));
- }
- 
- int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
-@@ -81,7 +81,7 @@ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
- 	int ret = 0;
- 	int idx;
- 
--	if (!kvm_arm_pvtime_supported() ||
-+	if (!kvm_arm_pvtime_supported(kvm) ||
- 	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
- 		return -ENXIO;
- 
-@@ -110,7 +110,7 @@ int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
- 	u64 __user *user = (u64 __user *)attr->addr;
- 	u64 ipa;
- 
--	if (!kvm_arm_pvtime_supported() ||
-+	if (!kvm_arm_pvtime_supported(vcpu->kvm) ||
- 	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
- 		return -ENXIO;
- 
-@@ -126,7 +126,7 @@ int kvm_arm_pvtime_has_attr(struct kvm_vcpu *vcpu,
- {
- 	switch (attr->attr) {
- 	case KVM_ARM_VCPU_PVTIME_IPA:
--		if (kvm_arm_pvtime_supported())
-+		if (kvm_arm_pvtime_supported(vcpu->kvm))
- 			return 0;
- 	}
- 	return -ENXIO;
--- 
-2.39.5
-
+Yeah I wasn't sure about this, it does make the tests a little more
+hairy as this obviously races...
