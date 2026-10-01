@@ -1,184 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB854D9F7D;
-	Thu,  1 Oct 2026 09:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4414F0553
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846028; cv=none; b=ELIev0b/+HqmB1qJ+9mYPE06nDCnW8ntNwqyQ3+qhSJIDI4iEzIsc5IdLqcH/0I5IJRpPvhVNhosEKQxAuXac7U3FGwdlMKw65lldeooYRuxHeDpW+49i0+qSCZ58cmOYK2TV8CIyROVVk29pbk+3UNhpueryt60ugOaUXA4EfM=
+	t=1790846029; cv=none; b=ieCVQSXMSoLyXanoLERNzQ7rVMsEY/2Axri85VSxXJaRe6NgOeMUcOt/il/MPQmbqKMZtMY7Pp1EetuvBnoEcnGDrNI3SBqzx7jsGh0y8Cs3c9aj85Y+vdsyv8UYTCH+Is2UK4mxY3meQp/JV+XLxJXdEsct4oHvbTjrjzQoTsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846028; c=relaxed/simple;
-	bh=YmIBog0e+2g8vUNWwqPzJtXRLjbDQesOzRJ10T6vFXQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sNwe9wZTPFzrpNo3gIIf2pWn3SRHxssj1PGeHr4z+JKqbdtSGkFoZHxoMi25ubFSxChU0pXqIfkNw6wmbEMxJVuweb0DcsQEMAQUZ70I8Syg3KhvxV1ZoAKEHni5c+NuREk33ab1LSbqV89p4mAZPZsXpCLZWqJgsTbmwe84ML4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JdP/sYNI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790846029; c=relaxed/simple;
+	bh=0nLPG5HXz7Xo1+MBMhfA45u5paiGKM8kGdpuWz8dExs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OMHB/afejsXbIWj6LvBwuIXqOoMHj90pr+V01vMN6L4cWldgt16b0tqDt22LwDmthKWmmiNkEv81yhGqIMFamH1RTWVh2+2YqAAl0ZbEdzzT1pvtDOQAsF6oPiSwMkCSAB0oHPU325eY9LHz2BIsBs1wfsl0lI5k9U+keEtGAQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Repnf107; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JdP/sYNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A721F000FF;
-	Thu,  1 Oct 2026 09:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790846025;
-	bh=gtf5iw6OP82TU65kkAZVnTp9DHCOwq9ANDoi/A+/X/Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JdP/sYNIaSj3Z6CDXcBWXfrsU0358Rm2+MzLq4yiddX/aqGQTBEshH4owQyZ8/jHD
-	 LGTCSaCGsIiP13aFnMpzvsHl7ib7tV44QGv14sw2f/xDeTAfv4z5v5Nrm972iyEy4N
-	 EFPAPRu9Nv4UZn5VzWlDk57V1/oqdJsywQvFAhc5hFFxjZwM5URY0J/jEHc5/NllK9
-	 7Qih/TQyaBHUJwpiJ8zz1vrKkvPNz1I8yFvIzPsDtiYutxZCEbI/h/x1dj4zljnXd1
-	 3vbnIMi9j387G67PSqol9YcWpq8O7Ype8P3QG7wslsKARrtHq2cjfF73YwRI9WYBcq
-	 hxvcyxR7oZxFQ==
-Subject: Re: [net-next, v4 10/10] bnge: add cpu_rmap support for IRQ affinity
-From: netdev-bot+sashiko@kernel.org
-To: vikas.gupta@broadcom.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
- vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
- dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
-Date: Thu, 01 Oct 2026 09:13:43 +0000
-Message-ID: <179084602395.434549.9769381174533285357@kernel.org>
-In-Reply-To: <20260928061307.1172344-11-vikas.gupta@broadcom.com>
-References: <20260928061307.1172344-11-vikas.gupta@broadcom.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Repnf107"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790846025;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xjdLFx7siNPDsTDeYhNPbuQOG9Ff9GarrMomfKXig4Q=;
+	b=Repnf107vKDy/Rth/ECDdQcACMU0GOyUBEjOi5vztfDQ2/6+lgI3xmR+B15XuujQcTFAZd
+	n8lmM3BCqoWuqduqo2gtniYXhTqPSr+Hhu3efrFI+q6wRHrhV7DuRF4MQo2Rftsuu9Kbj6
+	JMnqk6nLpO8u2lGbe+cbJRyYUmROaII=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-612-oa9qbu1ZMDauYVVpGxAeiw-1; Thu,
+ 01 Oct 2026 05:13:39 -0400
+X-MC-Unique: oa9qbu1ZMDauYVVpGxAeiw-1
+X-Mimecast-MFC-AGG-ID: oa9qbu1ZMDauYVVpGxAeiw_1790846017
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 548671800870;
+	Thu,  1 Oct 2026 09:13:36 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5E42718002B6;
+	Thu,  1 Oct 2026 09:13:29 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Christoph Hellwig <hch@infradead.org>
+Subject: [PATCH v15 06/10] smbdirect: Support ITER_BVECQ in smbdirect_map_sges_from_iter()
+Date: Thu,  1 Oct 2026 10:12:34 +0100
+Message-ID: <20261001091239.3343034-7-dhowells@redhat.com>
+In-Reply-To: <20261001091239.3343034-1-dhowells@redhat.com>
+References: <20261001091239.3343034-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Add support for ITER_BVECQ to smbdirect_map_sges_from_iter().
 
-Low priority / nit picks for your consideration:
+Signed-off-by: David Howells <dhowells@redhat.com>
+Acked-by: Stefan Metzmacher <metze@samba.org>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: Namjae Jeon <linkinjeon@kernel.org>
+cc: Shyam Prasad N <sprasad@microsoft.com>
+cc: Tom Talpey <tom@talpey.com>
+cc: Christoph Hellwig <hch@infradead.org>
+cc: linux-cifs@vger.kernel.org
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
+---
+ fs/smb/smbdirect/connection.c | 67 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
-- [Low] Now that this patch publishes rx_cpu_rmap, the core starts
-  passing target queues to bnge_rx_flow_steer().
+diff --git a/fs/smb/smbdirect/connection.c b/fs/smb/smbdirect/connection.c
+index afd31fa12a36..7cf8e1f8556f 100644
+--- a/fs/smb/smbdirect/connection.c
++++ b/fs/smb/smbdirect/connection.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include "internal.h"
++#include <linux/bvecq.h>
+ #include <linux/folio_queue.h>
+ 
+ struct smbdirect_map_sges {
+@@ -2015,6 +2016,69 @@ static ssize_t smbdirect_map_sges_from_bvec(struct iov_iter *iter,
+ 	return ret;
+ }
+ 
++/*
++ * Extract memory fragments from a BVECQ-class iterator and add them to an RDMA
++ * list.  The fragments are not pinned.
++ */
++static ssize_t smbdirect_map_sges_from_bvecq(struct iov_iter *iter,
++					     struct smbdirect_map_sges *state,
++					     ssize_t maxsize)
++{
++	const struct bvecq *bq = iter->bvecq, *next;
++	unsigned int slot = iter->bvecq_slot;
++	ssize_t extracted = 0;
++	size_t offset = iter->iov_offset;
++
++	maxsize = umin(maxsize, iov_iter_count(iter));
++
++	do {
++		struct bio_vec *bv;
++		size_t bsize;
++
++		while (slot >= bq->nr_slots) {
++			next = bvecq_next(bq);
++			if (!next) {
++				if (WARN_ON_ONCE(maxsize > 0))
++					return -EIO;
++				goto out;
++			}
++			bq = next;
++			slot = 0;
++		}
++
++		bv = &bq->bv[slot];
++		bsize = bv->bv_len;
++
++		if (offset < bsize) {
++			size_t part = umin(maxsize, bsize - offset);
++			bool ok;
++
++			ok = smbdirect_map_sges_single_page(state,
++							    bv->bv_page,
++							    bv->bv_offset + offset,
++							    part);
++			if (!ok)
++				return -EIO;
++
++			offset += part;
++			extracted += part;
++			maxsize -= part;
++		}
++
++		if (offset >= bsize) {
++			offset = 0;
++			slot++;
++		}
++	} while (state->num_sge < state->max_sge && maxsize > 0);
++
++out:
++	iter->bvecq = bq;
++	iter->bvecq_slot = slot;
++	iter->iov_offset = offset;
++	iter->count -= extracted;
++	return extracted;
++}
++
+ /*
+  * Extract fragments from a KVEC-class iterator and add them to an ib_sge list.
+  * This can deal with vmalloc'd buffers as well as kmalloc'd or static buffers.
+@@ -2164,6 +2228,9 @@ static ssize_t smbdirect_map_sges_from_iter(struct iov_iter *iter, size_t len,
+ 	case ITER_BVEC:
+ 		ret = smbdirect_map_sges_from_bvec(iter, state, len);
+ 		break;
++	case ITER_BVECQ:
++		ret = smbdirect_map_sges_from_bvecq(iter, state, len);
++		break;
+ 	case ITER_KVEC:
+ 		ret = smbdirect_map_sges_from_kvec(iter, state, len);
+ 		break;
 
---
-
-bnge: add cpu_rmap support for IRQ affinity
-
-When CONFIG_RFS_ACCEL is enabled, this patch allocates dev->rx_cpu_rmap
-and fills it with the RX IRQ vectors. The kernel's aRFS code can then map
-flows to the RX queue serviced by the nearest CPU and call
-ndo_rx_flow_steer() for that queue.
-
-> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> index de7818d2c2af2..a4156a12c8714 100644
-> --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-
-[ ... ]
-
-> @@ -2437,10 +2438,23 @@ static int bnge_setup_interrupts(struct bnge_net *bn)
->  {
->  	struct net_device *dev = bn->netdev;
->  	struct bnge_dev *bd = bn->bd;
-> +	int rc;
->  
->  	bnge_setup_msix(bn);
->  
-> -	return netif_set_real_num_queues(dev, bd->tx_nr_rings, bd->rx_nr_rings);
-> +	rc = netif_set_real_num_queues(dev, bd->tx_nr_rings, bd->rx_nr_rings);
-> +	if (rc)
-> +		return rc;
-> +
-> +#ifdef CONFIG_RFS_ACCEL
-> +	if (bn->priv_flags & BNGE_NET_EN_NTUPLE) {
-> +		dev->rx_cpu_rmap = alloc_irq_cpu_rmap(bd->rx_nr_rings);
-
-[Severity: Low]
-Once dev->rx_cpu_rmap is set here, the core starts calling
-bnge_rx_flow_steer() with CPU-derived target queues. That function came
-from an earlier patch in this series ("bnge: add aRFS flow steering ndo
-support"), but it can only be reached after this patch.
-
-When bnge_rx_flow_steer() finds an existing filter for the flow, it
-returns that filter's id. It never compares fltr->base.rxq with
-rxq_index:
-
-drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_rx_flow_steer() {
-    ...
-	fltr = bnge_lookup_ntp_filter_from_idx(bn, new_fltr, idx);
-	/* Filter already exists; return its id.  A stale filter (queue
-	 * changed) is freed later via rps_may_expire_flow() and recreated.
-	 */
-	if (fltr) {
-		rc = fltr->base.sw_id;
-		rcu_read_unlock();
-		goto err_free;
-	}
-    ...
-}
-
-set_rps_cpu() counts any non-negative return as success. It stores the id
-in the target queue's flow table and clears the old queue's entry:
-
-net/core/dev.c:set_rps_cpu() {
-    ...
-	rc = dev->netdev_ops->ndo_rx_flow_steer(dev, skb,
-						rxq_index, flow_id);
-	if (rc < 0)
-		goto out;
-
-	old_rflow = rflow;
-	rflow = tmp_rflow;
-	WRITE_ONCE(rflow->filter, rc);
-	WRITE_ONCE(rflow->hash, hash);
-
-	if (old_rflow->filter == rc)
-		WRITE_ONCE(old_rflow->filter, RPS_NO_FILTER);
-    ...
-}
-
-The hardware filter keeps steering to the old queue anyway.
-
-Next, bnge_cfg_ntp_filters() calls rps_may_expire_flow() with
-fltr->base.rxq, which is still the old queue. The core has already cleared
-that slot, so the filter is expired and freed while the flow is still
-active.
-
-Is the "recreated" part of that comment actually guaranteed? The target
-queue's entry still holds the sw_id, with cpu equal to next_cpu. After the
-flow falls back to RSS, set_rps_cpu() can take this branch without calling
-ndo_rx_flow_steer():
-
-		if (READ_ONCE(tmp_rflow->filter) != RPS_NO_FILTER) {
-			if (rps_flow_is_active(tmp_rflow,
-					       rps_tag_to_log(q_tag_ptr),
-					       tmp_cpu)) {
-				if (hash != READ_ONCE(tmp_rflow->hash) ||
-				    next_cpu == tmp_cpu)
-					goto out;
-			}
-		}
-
-That writes next_cpu into the RSS queue's entry. From then on,
-get_rps_cpu() sees tcpu == next_cpu and never calls set_rps_cpu() again.
-
-Could the flow then stay on software RFS, with no hardware filter, until
-the application moves to another CPU?
-
-mlx5 and sfc update the existing rule's queue in this case. bnxt uses the
-same pattern as bnge.
-
-Would it make sense for the existing-filter path to either reprogram the
-filter to rxq_index, or return an error so the core doesn't move the
-filter id to the new queue?
-
-> +		if (!dev->rx_cpu_rmap)
-> +			return -ENOMEM;
-> +	}
-> +#endif
-> +
-> +	return rc;
->  }
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928061307.1172344-1-vikas.gupta%40broadcom.com
