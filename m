@@ -1,218 +1,111 @@
-Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01185442FAE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D26849482F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860347; cv=none; b=k9vWOQONzr9PBIpCS4s1pOGA6UCrr/BIZEsESgFGUt4PjM6OIxrDh/+xXQRyJ9o5D994Iq/MoY7xJfuRGNkIqM1S1A5fsbZdPUXpGURm81ZJwWQysF5DYpql5SfA5AShfOhSoFfcbXaWwygS515GgIoLh3ePrXcQUrPoqOgCcR4=
+	t=1790860386; cv=none; b=cKRyx6I8l9MoFH346zjOY+qFdjGW9zzK2/kh0JpNiV/wsH04QerWn4NSepd7/TGwL6OH5hO9HBwQ7oGc1p5uH5DIRO+61ewBMEudlTCQA7EU9AHsylFWRaBPlHnkuuTOw6talSPbdUZGUg6xtxi/gm8+MCj3JMWrwRdUoxE2OfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860347; c=relaxed/simple;
-	bh=B3W6XYkf8IMjck/j+Qo/yvSpEB83PGFnLWBsCyqgMlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xoc0dM9asZoH3lamS2Px2WFpSUF91gHDedQ0dPTw1ZybCg0HqeLrh1H7YbusOKUsko39NAZroP78nmDUqs7dbbTEBA48Qg4QPCWGCO8EqMub8BOZ6ld3HIlfIOAjiSfkTKxYn8dXtl+EEGgyjr+GJTdqyU0PBSli2fs2iSX1zFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=m/1hpsDn; arc=none smtp.client-ip=185.136.65.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1790860386; c=relaxed/simple;
+	bh=P+YbvSg/zHk4rh/5DoiW/obrjfRyH/ubuevAC6b+9+A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KGNAiUb7kCyHnjs18mAO5J2vIUTJAWl69X+13OayZtJZqYZrrrb2QI1sNZBJxgBC2vsRSCOCtHYiJ2lvyGwdzmozRKrMDHwhae0hosVxF6fBQhz3yPF+RCHkVWD6lT9AGSWIfkeJCa/U5JVvcYz5FgTKZ9P92ZSt5HRjLhl2WI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=DctwH0Ef; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="m/1hpsDn"
-Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 202610011312102bccecca9000020791
-        for <linux-kernel@vger.kernel.org>;
-        Thu, 01 Oct 2026 15:12:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=rpkFEDBN2jUtOhClmlTShroifOQyK+XV7k7p9c4dQTo=;
- b=m/1hpsDnYv+X1NXhbeodHEVTZNfK94Gg0KZTf0tPCdfRo/PMr9lK94NsXjk/31X8a5J4+T
- c0ZEaJ4XCILwQ37ykNEHs4zp+eWynimcq9OAOyYT4gUeqABPuRt0TburpftTG70JbH7pm48C
- etpvn82IFsXNPpx9VAzxpfdz3RD8KGh6mISyrdIRzDdgl3OMPZ0cY05ZiOVtht/c4l/GGkek
- hybzY2DaBs17npNjpAmiiZSmgFy2NGTy7sc4TW7MpV/fiRniuMNtxufbekDGKhK9NDx/+ePM
- KQHXmofHk9s2ZydNU/S9ETRi0Vo7r1AzhGCG4bBXmKK+i8NnAX1692QA==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-leds@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4 4/4] leds: trigger: netdev: Serialize mode/interval stores with trigger lock
-Date: Thu,  1 Oct 2026 15:12:03 +0200
-Message-ID: <20261001131206.2513248-5-alexander.sverdlin@siemens.com>
-In-Reply-To: <20261001131206.2513248-1-alexander.sverdlin@siemens.com>
-References: <20261001131206.2513248-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="DctwH0Ef"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790860382;
+	bh=P+YbvSg/zHk4rh/5DoiW/obrjfRyH/ubuevAC6b+9+A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=DctwH0EfioodF34jYitpL9ufl7e5DZ2C2mJpdEQjl7BOh/N2UWyQ13DZwDI3w9i/7
+	 prcFJhh/k3BEP13ssTomPgqxGOBISf0Sn56puT/PAKzqkwoaVY+7fFjLovtMQ6nsLx
+	 Pgl48BNsgvKLgxj2vCSivM47HgcAfwUQHiuTWOPTM8vHEZDWp4ndh5uufo9R9Chspe
+	 Av3gTKB6aqdiH+LOsWfE0uEqfxT+UD22tttIxajhG0yyNbBZoQdS7tf9h8dCSfadC7
+	 5WFZfXzntGSTAv8mNQIMBFrkO2Jz6UlC89hIyL70qaMwOtbwrKX/hbsKQlf4ULfs6m
+	 4eHZ7bOp5sBtQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7439517E056B;
+	Thu, 01 Oct 2026 15:13:02 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 254C448002F; Thu, 01 Oct 2026 15:13:02 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 01 Oct 2026 15:12:40 +0200
+Subject: [PATCH v2 2/4] phy: rockchip: inno-usb2: drop duplicated update of
+ rport->suspended
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-phy-rockchip-inno-usb2-clock-fix-v2-2-e01bf509359e@collabora.com>
+References: <20261001-phy-rockchip-inno-usb2-clock-fix-v2-0-e01bf509359e@collabora.com>
+In-Reply-To: <20261001-phy-rockchip-inno-usb2-clock-fix-v2-0-e01bf509359e@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Paunovic <royalnet026@gmail.com>, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1243;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=P+YbvSg/zHk4rh/5DoiW/obrjfRyH/ubuevAC6b+9+A=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGq+XF5jSibh9SSHs85/tEuXM4mrYvkxhWQXz
+ qesUuGwvsDt74kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqvlxeAAoJENju1/PI
+ O/qai3MP/17FpQ3tAeT30uQjQU1TyBlJjwIh3agesZ+kJVlzvuHtBAVKIVmmhRcLY5A/fvVBWH6
+ INP/1vM0PT8p78YkLgUgKuJV7xSpN8bbhKBqSG9cK7e4xSDTqD07GdRb+xT/1dJW2JIriU+evd5
+ T8jX3yThyYHljJSFv8JfbA+303N5MUdkcDpqVYfZrd0gH8sFN6v1jJ/VYJVzDmZtihDvWXEgUrf
+ W5Ybt216WkDRA+QVnM7qfTkvHw5L+bw2LJayYa5yJpAGU7TW3SPjoG7C1dNaRwpAmhISVgti8tr
+ 1Zf3AwKJkXkTeurNgX4tmp3srKVkBEo8cw/IEc/rMc7TPCr1+u/nDE0JY/cphBpeeAaqKBaDAZA
+ rMP7lilDQxj3oFXsRRuSzXphvB/xPj5xjjthJcvG1uj1pS92DDURYcN+bgqQ1MEKcFqKK6I3z/T
+ YuJRy/xSUD57iEIx7Walr8YuU543iG6TMhhAOtmmvA4YRzXxO3/+Xx/zZTurVFsEMoqT6AaAwi7
+ 77ZBPJECgghnmK4PuSrJ0smUKhKqWQENfJyS6xUtvcDIgC4Ev0oRPgTYXxfTis74KbymWhangnJ
+ jJ56kZ0G0WNfrCL9Hlr58ZYjLq1ZdjOmZRIqCBBB0qB3XY6QNeEe0UZgm9qo8VEzsRsiCwNJNdp
+ 60qr0WRWBFG41ED5RQWYmMw==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+rockchip_usb2phy_power_on and rockchip_usb2phy_power_off already update
+rport->suspended in their success path. In case of error it's not
+sensible to update rport->suspended. So drop the duplicated update.
 
-netdev_led_attr_store() and interval_store() update ->mode and run
-set_baseline_state() without trigger_data->lock.  kernfs only serializes
-writes to the same file, so two attribute writes race on the non-atomic
-read-modify-write of ->mode:
-
-  CPU0 (echo 1 > link_10)       CPU1 (echo 1 > link_100)
-  -----------------------       ------------------------
-  mode = trigger_data->mode;
-                                mode = trigger_data->mode;
-  set_bit(LINK_10, &mode);
-                                set_bit(LINK_100, &mode);
-  trigger_data->mode = mode;
-                                trigger_data->mode = mode;  // LINK_10 lost
-
-They also race the notifier's link-state and ->hw_control updates.
-
-Take trigger_data->lock in both stores. netdev_trig_work() also holds it,
-so use the async cancel_delayed_work().
-
-The async cancel cannot stop a worker already blocked on the lock: it may
-resume after a store enabled hw_control and keep software-blinking and
-rescheduling itself. Gate the worker and its arming in set_baseline_state()
-on a shared netdev_trig_sw_blink() helper, so it stops once offload is
-active or RX/TX monitoring is off.
-
-Cc: stable@vger.kernel.org
-Fixes: d5e01266e7f5 ("leds: trigger: netdev: add additional specific link speed mode")
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
+ drivers/phy/rockchip/phy-rockchip-inno-usb2.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Changelog:
-v4:
-- introduced netdev_trig_sw_blink() and used it in netdev_trig_work()
-v3:
-- explicit mutex_lock()/mutex_unlock() instead of guard()
-v2:
-- reduced verbosity both in the comments and in commit message
-- dropped sync from cancel_delayed_work() (worker now takes the lock)
+diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+index 0ab054ee84cb..e4d8abf935c1 100644
+--- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
++++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+@@ -994,7 +994,6 @@ static void rockchip_usb2phy_sm_work(struct work_struct *work)
+ 		if (rport->suspended) {
+ 			dev_dbg(&rport->phy->dev, "Connected\n");
+ 			rockchip_usb2phy_power_on(rport->phy);
+-			rport->suspended = false;
+ 		} else {
+ 			/* D+ line pull-up, D- line pull-down */
+ 			dev_dbg(&rport->phy->dev, "FS/LS online\n");
+@@ -1004,7 +1003,6 @@ static void rockchip_usb2phy_sm_work(struct work_struct *work)
+ 		if (!rport->suspended) {
+ 			dev_dbg(&rport->phy->dev, "Disconnected\n");
+ 			rockchip_usb2phy_power_off(rport->phy);
+-			rport->suspended = true;
+ 		}
+ 
+ 		/*
 
- drivers/leds/trigger/ledtrig-netdev.c | 46 +++++++++++++++++++--------
- 1 file changed, 32 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index b27a453bbb859..8aef9991490fb 100644
---- a/drivers/leds/trigger/ledtrig-netdev.c
-+++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -81,6 +81,16 @@ struct led_netdev_data {
- 
- static const struct attribute_group netdev_trig_link_speed_attrs_group;
- 
-+/* True while the software activity worker should keep polling and blinking. */
-+static bool netdev_trig_sw_blink(struct led_netdev_data *trigger_data)
-+{
-+	return trigger_data->net_dev && !trigger_data->hw_control &&
-+	       (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
-+		test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
-+		test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
-+		test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode));
-+}
-+
- static void set_baseline_state(struct led_netdev_data *trigger_data)
- {
- 	int current_brightness;
-@@ -164,10 +174,7 @@ static void set_baseline_state(struct led_netdev_data *trigger_data)
- 		/* If we are looking for RX/TX start periodically
- 		 * checking stats
- 		 */
--		if (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
--		    test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
--		    test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
--		    test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode))
-+		if (netdev_trig_sw_blink(trigger_data))
- 			schedule_delayed_work(&trigger_data->work, 0);
- 	}
- }
-@@ -392,7 +399,7 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- {
- 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
- 	struct led_classdev *led_cdev = trigger_data->led_cdev;
--	unsigned long state, mode = trigger_data->mode;
-+	unsigned long state, mode;
- 	int ret;
- 	int bit;
- 
-@@ -424,6 +431,10 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- 		return -EINVAL;
- 	}
- 
-+	/* async cancel: the worker takes this lock */
-+	mutex_lock(&trigger_data->lock);
-+
-+	mode = trigger_data->mode;
- 	assign_bit(bit, &mode, state);
- 
- 	if (test_bit(TRIGGER_NETDEV_LINK, &mode) &&
-@@ -436,20 +447,26 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- 	     test_bit(TRIGGER_NETDEV_LINK_25000, &mode) ||
- 	     test_bit(TRIGGER_NETDEV_LINK_40000, &mode) ||
- 	     test_bit(TRIGGER_NETDEV_LINK_50000, &mode) ||
--	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode)))
-+	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode))) {
-+		mutex_unlock(&trigger_data->lock);
- 		return -EINVAL;
-+	}
- 
--	cancel_delayed_work_sync(&trigger_data->work);
-+	cancel_delayed_work(&trigger_data->work);
- 
- 	trigger_data->mode = mode;
- 	trigger_data->hw_control = can_hw_control(trigger_data);
- 
- 	if (!led_cdev->brightness_set && !led_cdev->brightness_set_blocking &&
--	    !trigger_data->hw_control)
-+	    !trigger_data->hw_control) {
-+		mutex_unlock(&trigger_data->lock);
- 		return -EOPNOTSUPP;
-+	}
- 
- 	set_baseline_state(trigger_data);
- 
-+	mutex_unlock(&trigger_data->lock);
-+
- 	return size;
- }
- 
-@@ -510,10 +527,14 @@ static ssize_t interval_store(struct device *dev,
- 
- 	/* impose some basic bounds on the timer interval */
- 	if (value >= 5 && value <= 10000) {
--		cancel_delayed_work_sync(&trigger_data->work);
-+		mutex_lock(&trigger_data->lock);
-+
-+		cancel_delayed_work(&trigger_data->work);
- 
- 		atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
- 		set_baseline_state(trigger_data);	/* resets timer */
-+
-+		mutex_unlock(&trigger_data->lock);
- 	}
- 
- 	return size;
-@@ -697,11 +718,8 @@ static void netdev_trig_work(struct work_struct *work)
- 		return;
- 	}
- 
--	/* If we are not looking for RX/TX then return  */
--	if (!test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) &&
--	    !test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) &&
--	    !test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) &&
--	    !test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode)) {
-+	/* Nothing to do under hw offload or without RX/TX monitoring */
-+	if (!netdev_trig_sw_blink(trigger_data)) {
- 		mutex_unlock(&trigger_data->lock);
- 		return;
- 	}
 -- 
-2.55.0
+2.53.0
 
