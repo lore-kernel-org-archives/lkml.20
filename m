@@ -1,88 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD6C3EA957
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D200548F02B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841418; cv=none; b=tPtSmHPtgG4DgKzK8LHAx1fJbLk6aHcwmtlJ8irHAv/NnnEpfw4jy85NTvIE1YAPC7ySf7NUqpdd5sCWlzDqMFwyKvJdYpLjS3feP2tHzjsSCDRu5Cg4GlMcjz37zL/0AaOpuJnKgpspm0NntPiCUMT/UOLH3z/0fbTU9kOY+RE=
+	t=1790841453; cv=none; b=EElQcE07YhKoViDVsDQshXKt+RAvjPxfkH9QhoekY0VViOErHEHtU9UvKF64V7Tyt+bUXmPdDUy83Sti0sf7Xci923f9c41/oUNMlrXfCKn9pnoFkS0938UeYbdPKwkeldM57Px3BYGY7OKBTI0aOEFfaEYobOqM6orHJWFZZzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841418; c=relaxed/simple;
-	bh=A/Xpv/Ld+mjY+s1jwjSTwM7Z2N6DMmA39ET1qM/P03U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EHP7r0ZuSr2ozkt2ixTZQ2obj7V1qrCyL3swv+92864OfJBbA7iGcVgDfxaclLCskw6FMf+Y8rJEPjcnQvbu2fYuv2bjJz/+s4DoZrFLPAhtZ40fLqkJkUojspxldA1dWA3AxBGVx5bKxYIKJiCTUFnuD7OFnIUz51/FFlA4TN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fany3a8H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790841453; c=relaxed/simple;
+	bh=q9gtPF2hDL/OuVu1BG1f1pT6Sj8g4QIlRciGT765Wmw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=LIPy/135zlP5D2wfmEhWR9E8NKSAyqW1H6hW3KjqYAASwq1qBlui/ApoJG0lwvMdW0If1vjv/EEHqJjEq21NOqxxEyUQvN7ffx4nF3me1x00kAMX7rIGO/EXecoS0pdZT1co6xdSyRvE/+9L4Y8rAyGI3dre4aJSYsrzcUAcFNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xhGFSjFe; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fany3a8H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 775E61F0089E
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790841416;
-	bh=A/Xpv/Ld+mjY+s1jwjSTwM7Z2N6DMmA39ET1qM/P03U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Fany3a8Hrfdl8cgiWkQqWcAGusDt67p1Z0IHYWxTvyk86an+cHLwyu+xLvPQzxEVc
-	 ecHKlv5ZwsYCqAQ+hyjt6y6radJlHOKBOkl22sNX78Mhw8fb6Aqj/3Et5havmkUkgU
-	 VbxGwZHkQJqO9uHlZTP3zAZAin67yZxFGVECdqhYUa7jyE3jCh2KMFAjxTBYwKy6Yo
-	 4N0VZzBJ+pkAoTWtH35xw4ACJe2KOYaKW2RdoTsj6E3TNDzocDMDxFJj2I1YdYFeYi
-	 ij7tasuUVt2JA6F1I8L9nDUoGfErzhMUrDlErOeOaAApPjmD0ZmyezyGgY3r4v3vlS
-	 s/j3Kj46bX2rA==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a76b373054so22426541fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:56:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx1UnbZ1mk2V2YgJ/BzNxvqs2eO8rKMDzGWTZLqRXolL0nQ/Z86mjfGpzeMm/cSGW26eRkmtR0iiSpsBoA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEh76BZ240s19XaNJH+kS7LxgNKdcoZxXUKYDtsc/3xLEeU/G0
-	/VM7berv0+DWC2vE98snD1Wv2qZ2cOKJA0pwl1sYQXKaM1rnC783JXpSqTxpW+lt9Yz/8lSzlC/
-	O/Mjn+2FRlRFIP9HreZDWV+PGbA1BgWE=
-X-Received: by 2002:a05:651c:19aa:b0:3a6:7094:b41d with SMTP id
- 38308e7fff4ca-3a779732efamr12637801fa.10.1790841415198; Thu, 01 Oct 2026
- 00:56:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xhGFSjFe"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id EDA9E4E410EC;
+	Thu,  1 Oct 2026 07:57:28 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B57E660346;
+	Thu,  1 Oct 2026 07:57:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C4CB81032989B;
+	Thu,  1 Oct 2026 09:57:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790841447; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ea1fbe+c1Bj2VsRfvIM5hRTESNst+GdPGcpUsHtDn1s=;
+	b=xhGFSjFeLsF3SZONrAZrzTJVCqVwIvWnYEHDHUlJoJmsYayI0bwZsvuZnf3d+LHraIYpd+
+	dEiR+rfJfjqirMbA041CebIgW2HYLZ10HLWzAqOkI3JM3rgwn7LDAgXrqpEwHt9ivewXax
+	it2Qv3MSBzzPJw2imwd32vLJzFZim3vFO1MEQETjsNaEkdfg/bbwBz42wyD2bMUxDZg1yE
+	tJguCgn7hybaTONn2X7pzga6vrDtHbJkKNP3CNuDaTOnFNgSjqIb+7sS4rDKlfbWFhHtCJ
+	/LE7fNMo1bPQzByQ7cL+9x01d5ryHIuqwb5CoI7hHoDnRIw37h47fUswcRb3mg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ dri-devel@lists.freedesktop.org, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
+In-Reply-To: <20260928210326.1526997-1-rdunlap@infradead.org>
+References: <20260928210326.1526997-1-rdunlap@infradead.org>
+Subject: Re: [PATCH] Documentation/gpu: fix location of drm_panel
+ kernel-doc
+Message-Id: <179084144262.1017724.17529088161372803961.b4-ty@b4>
+Date: Thu, 01 Oct 2026 09:57:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917211452.i.365-kees@kernel.org>
-In-Reply-To: <20260917211452.i.365-kees@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 09:56:43 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm=rWBqRT=SQGfj6D0jYoU1H8HSX3Cy+expg17W71xFvA@mail.gmail.com>
-X-Gm-Features: AclHuK9DtT1wfkmby2eLKl-7MGj8F-6aYEGT9yi4ELgmjp-n_Oto8Rs1ZdDaY-s
-Message-ID: <CAD++jLm=rWBqRT=SQGfj6D0jYoU1H8HSX3Cy+expg17W71xFvA@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: s32cc: Remove const from groups allocation type
-To: Kees Cook <kees@kernel.org>
-Cc: Chester Lin <chester62515@gmail.com>, Kees Cook <kees+treewide@kernel.org>, 
-	Matthias Brugger <mbrugger@suse.com>, Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
-	NXP S32 Linux Team <s32@nxp.com>, Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 17, 2026 at 11:14=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
 
-> From: Kees Cook <kees+treewide@kernel.org>
->
-> In preparation for making the devm_kmalloc family of allocators type
-> aware, we need to make sure that the returned type from the allocation
-> matches the type of the variable being assigned. (Before, the allocator
-> would always return "void *", which can be implicitly cast to any
-> pointer type.)
->
-> The assigned type is "const char **", but the converted allocation type
-> would be "const char * const *", as the size was taken from
-> "*func->groups", whose type "const char * const" is const qualified. As
-> there is no general way to remove const qualifiers, take the size from
-> the assignment target instead. No change in allocation size results.
->
-> Build tested ARCH=3Darm64 allmodconfig with GCC aarch64-linux-gnu 16.1.0:
-> drivers/pinctrl/nxp/pinctrl-s32cc.o
->
-> Assisted-by: LLM coccinelle
-> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
+On Mon, 28 Sep 2026 14:03:26 -0700, Randy Dunlap wrote:
+> The source file location was changed, so update the documentation
+> accordingly. Fixes these warnings:
+> 
+> ERROR: Cannot find file ../drivers/gpu/drm/bridge/panel.c
+> ERROR: Cannot find file ../drivers/gpu/drm/bridge/panel.c
+> WARNING: No kernel-doc for file ../drivers/gpu/drm/bridge/panel.c
+> 
+> [...]
 
-Patch applied!
+Applied, thanks!
 
-Yours,
-Linus Walleij
+[1/1] Documentation/gpu: fix location of drm_panel kernel-doc
+      commit: aefb99d4406ee2f3f22b1b4211717a194262e8c8
+
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
