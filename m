@@ -1,111 +1,188 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53285418A46;
-	Thu,  1 Oct 2026 03:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0159A40F74B;
+	Thu,  1 Oct 2026 03:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790825986; cv=none; b=TNFgS+cTA3328QnDXpo02foEiRdVg3fvdehMB6Y76qeMcnHQbzVvUP9+oeh/yHniL7/GAw2sHr4zcrq7A3Cnv5ttbUO+AqmDtq4UG3bHGlDS0F1pYCs7B+cJRvt4/A6bvO2gfIVnWtaF+MIL4Tbt/3UOtW27dIyFMDF3TpB+R2s=
+	t=1790825994; cv=none; b=CUvg8pRcQoksINuqjQjlMQ3U4S5RNacIYSIKXqzskrnXD1JUTW3nBK9q2ciwChiw6hhZMOWYTCa8SZielIVLK8BEpQAc9UzYQi1YdISWlpnmpuyZ/zksgJKsD3QPJKSVeBAbgbz4yn62oCYPAF8gXSzRmN+PyxdOn8MvGQyY8Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790825986; c=relaxed/simple;
-	bh=alMqR61WSySSHU0R9tOXMDjXKPh/00Egxs2DhJQDTXU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ALIf99t18cKTXvb0NTO2tRr5J6zHEAQPiNc2jDbd7sGzJvftbukJD8NzE52R/3oWQL9FoTzqL0BtMXFJkrw+Nt+Y+EhuxHTDlNAVxTZhrvlLLnltGTb6B0xmW+KmT3yVDX89b9n3G5+yUHjpPwMXo2WumUnEPnPBU3lMRMLOCGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b59f2860bd4911f19a56ed5b684f684d-20261001
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1307d609-ff47-421e-bd4b-67ba0fdce688,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:e687056b9bd124ac6dec0af3955273ce,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b59f2860bd4911f19a56ed5b684f684d-20261001
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1514044689; Thu, 01 Oct 2026 11:39:30 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: tiwai@suse.com,
-	perex@perex.cz,
-	david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	Harry Nixon <harryanixon@yahoo.com>
-Subject: [PATCH] ALSA: hda: Fix speakers on ThinkBook Plus G3 IAP
-Date: Thu,  1 Oct 2026 11:39:20 +0800
-Message-Id: <20261001033920.111061-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790825994; c=relaxed/simple;
+	bh=PXtpxArzyY8DZBn1hAMwq3C0nFBP6i8Nu5Ht54jOAPg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EOAhXzzjXUxwktsBH57tWcxqaWNFo4bHc3wdk5qqAk4AM29/5PO2BkGZriXoDDiyvPhaUgn7L4FiTvE47bgU6VwvpQ96vE2U4i7S7vmoxkRyCzO8eN4W2eRkvGU4booo8zRdztRuKaJcYtZZmluMLMs2TJxq39udiBeM/dWo43s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebk56fWY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebk56fWY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24D11F000FF;
+	Thu,  1 Oct 2026 03:39:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790825987;
+	bh=wzFUULoIC8+Lw//RdPJvnNwi9E7VG6sYWNzjrEnFdz0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ebk56fWYEBaJpAweBnVfhkO+omfJ8zRnvJ/XH/Z6IsIpvzjCWMJF2fvcfnpLCAwse
+	 YDvVdUVTQYL9sG0lEEOQhlnRfUYT3Pf2zHhRU/kZOXxXrwzS8vaON8o+YSRG1r8lPB
+	 85eevkVwYK3eWZOgv1mfayq1KnZZYo2uVIKAfqmu32/yqjAuDzA/Sm2s23rA7LRqDy
+	 yHKy/pKsZM7jKfR3LurexQYtxtpzZTgXEv6N4JTIXkan9XOn3n9Qhlsxvg6iwgnbmy
+	 fxRlebrXonsVKEsUSLOA79DLEupylS+x7DLLz+J7W+us0H0uzsnGPAa3P2dtXvguQT
+	 0SyedGnRkycEA==
+Subject: Re: [PATCH net-next v14 1/5] net: rnpgbe: Add interrupt handling
+From: netdev-bot+sashiko@kernel.org
+To: dong100@mucse.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, vadim.fedorenko@linux.dev,
+ u.kleine-koenig@baylibre.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yaojun@mucse.com
+Date: Thu, 01 Oct 2026 03:39:46 +0000
+Message-ID: <179082598618.434549.4975166661631840324@kernel.org>
+In-Reply-To: <6DBF52290D020D66+20260928033821.1033325-1-dong100@mucse.com>
+References: <6DBF52290D020D66+20260928033821.1033325-1-dong100@mucse.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Lenovo ThinkBook Plus G3 IAP shares PCI SSID 17aa:3891 with Yoga Pro
-7 14AHP9, but has a different codec SSID (0x17aa3875). Use
-HDA_CODEC_QUIRK to select ALC287_FIXUP_CS35L41_I2C_2 and add ACPI
-_SUB values 17AA3845/17AA3846 to the CS35L41 property table, since
-the BIOS provides no _DSD.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Reported-by: Harry Nixon <harryanixon@yahoo.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222053
-Tested-by: Harry Nixon <harryanixon@yahoo.com>
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
----
- sound/hda/codecs/realtek/alc269.c                   | 4 ++++
- sound/hda/codecs/side-codecs/cs35l41_hda_property.c | 4 ++++
- 2 files changed, 8 insertions(+)
+Low priority / nit picks for your consideration:
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index c6ef4fa4ee68..b31d326e5120 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8354,6 +8354,10 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3870, "Lenovo Yoga 7 14ARB7", ALC287_FIXUP_YOGA7_14ARB7_I2C),
- 	SND_PCI_QUIRK(0x17aa, 0x3871, "Lenovo ThinkBook 16p Gen 3 ARH", ALC287_FIXUP_YOGA7_14ARB7_I2C),
- 	SND_PCI_QUIRK(0x17aa, 0x3874, "Legion 7i 16IAX7", ALC287_FIXUP_CS35L41_I2C_2),
-+	/* Lenovo ThinkBook Plus G3 IAP shares PCI SSID 17aa:3891 with Lenovo Yoga
-+	 * Pro 7 14AHP9; use codec SSID to distinguish them.
-+	 */
-+	HDA_CODEC_QUIRK(0x17aa, 0x3875, "ThinkBook Plus G3 IAP", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x17aa, 0x3877, "Lenovo Legion 7 Slim 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x17aa, 0x3878, "Lenovo Legion 7 Slim 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x17aa, 0x387d, "Yoga S780-16 pro Quad AAC", ALC287_FIXUP_TAS2781_I2C),
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-index 416d7bf3e289..bb30bf786818 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-@@ -126,6 +126,8 @@ static const struct cs35l41_config cs35l41_config_table[] = {
- 	{ "10433A60", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "17AA3865", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
- 	{ "17AA3866", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
-+	{ "17AA3845", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
-+	{ "17AA3846", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
- 	{ "17AA386E", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
- 	{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
- 	{ "17AA3874", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
-@@ -551,6 +553,8 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
- 	{ "CSC3551", "10433A40", generic_dsd_config },
- 	{ "CSC3551", "10433A50", generic_dsd_config },
- 	{ "CSC3551", "10433A60", generic_dsd_config },
-+	{ "CSC3551", "17AA3845", generic_dsd_config },
-+	{ "CSC3551", "17AA3846", generic_dsd_config },
- 	{ "CSC3551", "17AA3865", generic_dsd_config },
- 	{ "CSC3551", "17AA3866", generic_dsd_config },
- 	{ "CSC3551", "17AA386E", generic_dsd_config },
+- [Low] The patch changes how mucse_obtain_mbx_lock_pf()
+  (drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c) waits for the mailbox…
+- [Low] Three kernel-doc comments in
+  drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c promise more than the…
+
+--
+
+net: rnpgbe: Add interrupt handling
+
+This commit adds MSI-X interrupt setup and teardown for the rnpgbe
+driver. Vector 0 is reserved for the mailbox and the remaining vectors
+drive NAPI for the data path. It also adds mailbox workqueue plumbing
+and sends the firmware powerdown notification from both remove and
+shutdown.
+
+> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
+> new file mode 100644
+> index 0000000000000..97f7aef8e3c2d
+> --- /dev/null
+> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
+> @@ -0,0 +1,579 @@
+
+[ ... ]
+
+> +/**
+> + * rnpgbe_set_interrupt_capability - Set MSI-X interrupt capability
+> + * @mucse: pointer to private structure
+> + *
+> + * Attempt to configure the interrupts using the best available
+> + * capabilities of the hardware.
+> + *
+> + * Return: 0 on success, negative on failure
+> + **/
+> +static int rnpgbe_set_interrupt_capability(struct mucse *mucse)
+> +{
+
+[ ... ]
+
+> +	/* Vector 0 is reserved for mailbox events and must not share NAPI. */
+> +	v_budget = pci_alloc_irq_vectors(mucse->pdev, 2, v_budget,
+> +					 PCI_IRQ_MSIX);
+> +	if (v_budget < 0)
+> +		return v_budget;
+
+[ ... ]
+
+> +/**
+> + * rnpgbe_request_irq - Initialize interrupts
+> + * @mucse: pointer to private structure
+> + *
+> + * Attempts to configure interrupts using the best available
+> + * capabilities of the hardware and kernel.
+> + *
+> + * Return: 0 on success, negative value on failure
+> + **/
+
+[ ... ]
+
+> +/**
+> + * rnpgbe_free_irq - Free interrupts
+> + * @mucse: pointer to private structure
+> + *
+> + * Attempts to free interrupts according initialized type.
+> + **/
+
+[Severity: Low]
+This isn't a bug, but do these kernel-doc comments match what the code
+does?
+
+rnpgbe_set_interrupt_capability() says it uses "the best available
+capabilities of the hardware". It only asks for MSI-X with a minimum of
+two vectors, and it returns the error if that fails. There is no MSI or
+INTx fallback.
+
+rnpgbe_request_irq() makes the same claim. It only calls request_irq()
+on MSI-X vectors 1..N, which are already allocated.
+
+rnpgbe_free_irq() refers to the "initialized type", but only one
+interrupt type exists.
+
+MSI-X only looks intentional: the Kconfig change adds a PCI_MSI
+dependency, and the commit message says "Require at least two MSI-X
+vectors". Could these comments be updated to say MSI-X only?
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c
+> index c464086982632..2310f01df1f50 100644
+> --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c
+> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c
+> @@ -84,7 +84,7 @@ static u32 mucse_mbx_get_lock_pf(struct mucse_hw *hw)
+>   * @hw: pointer to the HW structure
+>   *
+>   * Pair with mucse_release_mbx_lock_pf()
+> - * This function maybe used in an irq handler.
+> + * All mailbox access runs in process context.
+>   *
+>   * Return: 0 on success, negative errno on failure
+>   **/
+> @@ -93,11 +93,11 @@ static int mucse_obtain_mbx_lock_pf(struct mucse_hw *hw)
+>  	struct mucse_mbx_info *mbx = &hw->mbx;
+>  	u32 val;
+>  
+> -	return read_poll_timeout_atomic(mucse_mbx_get_lock_pf,
+> -					val, val & MUCSE_MBX_PFU,
+> -					mbx->delay_us,
+> -					mbx->timeout_us,
+> -					false, hw);
+> +	return read_poll_timeout(mucse_mbx_get_lock_pf,
+> +				 val, val & MUCSE_MBX_PFU,
+> +				 mbx->delay_us,
+> +				 mbx->timeout_us,
+> +				 false, hw);
+>  }
+
+[Severity: Low]
+This isn't a bug, but should the commit message mention this change?
+
+mucse_obtain_mbx_lock_pf() moves from read_poll_timeout_atomic() to
+read_poll_timeout(), which sleeps. Its documented contract also changes
+from "maybe used in an irq handler" to process context only.
+mucse_read_mbx_pf() and mucse_write_mbx_pf() both use this helper, so
+every mailbox transaction is affected.
+
+The callers seem to take mutex_lock(&hw->mbx.lock) first, so sleeping
+looks safe. The commit message, though, only covers the interrupt setup,
+the vector layout, the mailbox work and the powerdown notification.
+
+Could this be called out in the changelog, or split into a separate
+patch?
+
 -- 
-2.25.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0A4D45AD9F6A0F14%2B20260928033701.1033196-1-dong100%40mucse.com
