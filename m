@@ -1,262 +1,182 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010058.outbound.protection.outlook.com [52.101.201.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA65D39A057
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866771; cv=none; b=MjMJ6VKdqsyW6N7vEZ73//fCpthLgcbWhuRzgUjlLNPxMxz7K6++eo6soDLMgQ9QLD79ml3vTW/rtWzaTVzxLLNVrJC5ODnlSr2LMs8sF9kIwVpBjyAdtNgkSxyveqaj+nQC65hAmYFAl4zGCZvV3jsnOB3T7ChQWc1aiu4thZo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866771; c=relaxed/simple;
-	bh=hgWKCOf/eN03RAsxd+30LvVO6OujKBt2mRMA9rl/iUM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type; b=j2kjJlWxPuQEUQNquvqjyEFqRfEiLi+OboyQ4ufgw7UsEDIZoJT3vBUy6LoUafg81FJFeWKA7eoR1hzXsuQt7my5zh74OvdbcU3kZJalv3gyNWaJEtf3evplxW/R5vkg4ryuqe2RkVawpyMgbF40kQavopFLVaakFAT+yEVLYbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b=QRhJ5sVW; arc=none smtp.client-ip=212.227.17.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6525226B1;
+	Thu,  1 Oct 2026 15:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790866821; cv=fail; b=Fu0txunQS90C7UPMEA8O0WZaipDEmsq8A4w3E5Wql67g660l9SDjT3q4NO2NxQ8XqAfsVVRaDen4YrfnMDAWJoLXvGkWI5YiBc/9luYbi4TBtz3/zZzxwrlUKYyDlGjXCh0+GWDWgkx4kpsouDNdc9ylaR+ekwWt6K3gRBlAuwU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790866821; c=relaxed/simple;
+	bh=kVc3EEyw1W64e5OL1fai6+lVX9Jjtm9oY8tin3jqQDI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pP2R7P1Sk07Q9ZeaMbR5Imm54MnrEqPfGj6kLMRyraxQq3yRvi0/2sEJX3K9OurZ7XqkW9ayPS+HSz5qKP9nlNzd+bZQasKENLgAAHvloMcIVznEquHp8U6pCgay/CczqdbUeEEI6jrpSUiCLfdzANjAvzHis5EPoWoTA1jJvv4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ppAq/V4T; arc=fail smtp.client-ip=52.101.201.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b="QRhJ5sVW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
-	s=s31663417; t=1790866766; x=1791471566; i=aros@gmx.com;
-	bh=m3w3HTT/yRiQaqx+wGUKKRI08T9enNuY8yEpZB0zaAw=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:From:Subject:To:
-	 Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=QRhJ5sVWnpvjGISLFtPUZ/R7Ohs5oipuPV3rBr4qoKtF0eDMxQ2fEOBvh0msD8LD
-	 7Gb9isMZWtD4op1MOXpFKRKLL2sb2OdWfwb9lY0tUbvDu8LfKthWabIOAKcivdnAp
-	 ZRFezko6JNWH9obe8oSMlEix6+BE0qaJUaytr3w3+HC9RZoC0qu3tLxuJ67S4jkho
-	 jPUEm2xxIVebDPdg+njS4kn0zwnDTqxEJ59AapupltzfLRtwYkrAT5TyOek3qEY10
-	 4ukE+sGA3CxsiRKtLp6kic0OKZiePz0rjCYZ05xnGQijl+clQjrz/nGzGAE+HQTAJ
-	 9TY5eZz3RYH1i8QmlA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.174]) with ESMTPSA (Nemesis) id 1MbzuB-1wZfFJ1fnL-00jkoE for
- <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:59:26 +0200
-Message-ID: <9eb0461b-491d-4205-83ef-a3ce3ce38c09@gmx.com>
-Date: Thu, 1 Oct 2026 14:59:25 +0000
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ppAq/V4T"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YDh3QCpK/Glq0qWL5p//8N3WMnAnGR7Wn+tYryjGMWZagzPZ6Muz+vpeV9aQ/Bf8XFZ22wwzAGPZfmErjVJnjyCIHvFwxfZquZ+zT/pXBRG8WZTvxTIzfN9hpSe0A6I8XmY/UoFqXDLAFfOP59ZKVkgYm9Y8baiE8tYDArEyPazmtAP41Ehk5ENXs99P/xHtCbIbj2Wol2jjQNm5T0+26J7c4t+d+vHamhi3zJ8FZntpxCwUfl2o7c+scQJw7HEEf0T+n1EEBxArOs6OK16KELpw6aFW9joqjetxQNU17RKihQ/75e6WTy+69n9G4//9frG17G8Yfi+cpmyh/VTF+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0a12GrYiBxbKxIxo+tKFENx39Z7MWzpgmWyb0rbFENM=;
+ b=nvTFZLFRD/PyO3iizBFTgZwmMbB7gFRjzuxrmF7Rjtl9VKTzxgD+2wqF98SomNBmgyUVI4LbPDmiUmDp66WLdgSjeJmbOnmHZlDjLaoa1xMrbtoEp1+G8p9TA7+HgXPKUUWUGHeqASUDAp9NSfBdm38o5fFw92if0EU0AaWBXrfKlDUdXR/LZMp2EeJ996Ee53d5CuomdfKncq7K2X8lslRGR7/txlHjr+ljJbBNNqQpDMABjbUhyxMEyklvgqZECf3SdcNdzMP5z2I4JH8cyy2CagBMA0XB/xIgLEqANYZ4LkBLSqVu27xC8camA/tuXQ73bQ90TGdIYY6B5Fui/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0a12GrYiBxbKxIxo+tKFENx39Z7MWzpgmWyb0rbFENM=;
+ b=ppAq/V4TkXnXhIxvNAyu6rYIm9QjX1c37O6Bd2wRuNvAOzMeNk3X+OcmQxYs3mImsjZjFmfvowM2aVqYsCIcl0pMNA9wIRc36cWae0SX2QxR/JsLGd6NTWiWlmJ9wbzbnkT9b+yKhLvjfw2gS+5XkPsdSMALciIM/yy7jlOnnpFyY29ua6RH7oo57jgTWStwly7Ibei4AUl5R78Xg/ZusiVd+olzv3A5EGBAkPxu2UWAkLbNr3O2cRFQClq8G2ImrcDSvrRg/ZSmTerLkko/7WPiuWFpZnKoS4QZ2i6GuwTUpq8/75H+OVWHZEkQ/h9VrcPkZurI9u1e55OsPHCbaA==
+Received: from SJ0PR05CA0119.namprd05.prod.outlook.com (2603:10b6:a03:334::34)
+ by DS2PR12MB9565.namprd12.prod.outlook.com (2603:10b6:8:279::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
+ 2026 15:00:12 +0000
+Received: from SJ1PEPF00001CE7.namprd03.prod.outlook.com
+ (2603:10b6:a03:334:cafe::a5) by SJ0PR05CA0119.outlook.office365.com
+ (2603:10b6:a03:334::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Thu, 1
+ Oct 2026 15:00:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ SJ1PEPF00001CE7.mail.protection.outlook.com (10.167.242.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 15:00:11 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
+ 2026 07:59:48 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 07:59:47 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 1 Oct 2026 07:59:41 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <andrewjballance@gmail.com>, <daniel.almeida@collabora.com>,
+	<dakr@kernel.org>, <aliceryhl@google.com>, <ojeda@kernel.org>,
+	<boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <ankita@nvidia.com>,
+	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+	<kjaju@nvidia.com>, <alkumar@nvidia.com>, <acourbot@nvidia.com>,
+	<jhubbard@nvidia.com>, <zhiwang@kernel.org>, Zhi Wang <zhiw@nvidia.com>
+Subject: [PATCH v3 0/5] Rust dynamic debug support for pr_debug! and dev_dbg!
+Date: Thu, 1 Oct 2026 17:59:35 +0300
+Message-ID: <20261001145940.1077801-1-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Artem S. Tashkinov" <aros@gmx.com>
-Subject: [RFC] First-class compressed application images for Linux
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:qe2nAl4VTLS5XvApo8QtLLhVPfoACE+la+D1rIte4RjRbw5byob
- ol4sDbboDzfpzNYD/YT406WcIuHUHfiJxo0/pkECUbrv5lRkn3OKdesD/SEOp10huWutrej
- TUx0gjGvsjDnXXRVfDUzh6GlbMw6IP9Qh8DtrfJ0qzypvWZdVUEIsQ7Zup0UnrwrQWlLHQJ
- TBDIKYOH2k5zVCbFBYrkQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:inWe0P5fDe0=;nASyQO0oNs/SG/hw07MUBw9itfD
- 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
- 6IzaUVZbOcLPQ8e1o9Kt6D
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE7:EE_|DS2PR12MB9565:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd7f2564-3f06-4d76-bcf9-08df1fccb12f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|7416014|1800799024|10067099003|11063799006|56012099006|6133799003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	FtVC4fMhvV1V3/tv/PoyDIz2ZQUVfUB6IXZqlhh/PbvYTyNEJofnY28BABa1lixGW4HAPQmJFo4rT0z55RB5kkwwsSDQZrDdJTGUq7N3La0Kq3Vy3tnuMcHMFDLGHq4QLnPNTcdnWkHtgDg5m40FQ7PaECFbBF6mSwmQniiM2S+yroZgGoAsDgBDFrOO2tk5HH4HpYkwErvMkXQSc2S+ROG5QGevMCipDlxZTh3KZ9rc/Iv2VdBAIGofSyA4XHTzWgIF+Er8UqugIQEOvoRl4/Y8ti5qkVus78c+9c1FEH/pKFLedbvjqzuPQy07Qm7c5Xq3z3FEpmEffyfuoIbcA9+h6qUPGQcDroWeeWg7P/QbQfrr1qWnxLKJPCBfGCcqJRYO1GKUTCBsC9zuSrOvgpy0DShm3nhv1qIXvcaWlhy3K4W3pmY+Ut+xBrV/kdfctm2KOerH2du53S8PMGb1YaBwxq9iUtZguBmPSYbRIs+lXBX++xZJx3HHp3Zgmy/nEgBGnC7SYt8dZlp82mDcdS4FwyCuyyenfePGiOeBfIT9/UbsQGoAWCwDhigW7b19AinwkPkGRMTVpicGhjtUrcLStB7iy4t1QDg6uhEtGZFqdu84v2VQoZUEplXb8ZiI2inzmaZA7Dvtm/ScSId/TvZIpuNPq2TgUCUgkt4x5Npyp5df+UtWCRGcD9nO8XoaGnauv/cJSkybbv7kQlh3ug==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(7416014)(1800799024)(10067099003)(11063799006)(56012099006)(6133799003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	y9HL34Oz+XMq22QgfQQKs/i5E80q3hLuyXF5BiJjjIdmcLL2SmdzdMQi8C+b26lmllwV04CRD70nJNdmSlaRsNUBrP3VYXAI8AhUoNG+AGM5cxQdCLUPGueAs4jgcfikNuNLvHVNRjyAib+mGGG9BZVvzdDJfuJwusPo+vIAcTQXkri8q+TbpJQ8U1ukzCmN1HIRbBvkrlmMIuyJ6LjL/TgTJ1YpIvUSa3Z5iFI4q/oOdWtOpM4GNkCtW/K6YQ0ZyLMMETOUYS13p9TdXbjqHxaMPhNimZpYRRcesV+nFimwb3tVNv4slFjTt+yn7axVpOiu3jTb9ikyBNNWCrbRws0jSIgVrDkHAbGZAXMxV9qCdEMpjgM5mjmiAVFo27o9Wbyes/qML2JzCY7FHa4kFI1ku3ivOPiQFFuaVuwxX80YyFnrfcsQCYV/uVSL3NR8
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:00:11.6144
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd7f2564-3f06-4d76-bcf9-08df1fccb12f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CE7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9565
 
-Hi,
+Add runtime dynamic debug control to Rust pr_debug! and dev_dbg!, using
+the existing C control file, boot/module parameters, prefixes and jump
+labels. Callsite flags and static keys always start disabled. Users enable
+messages with dyndbg queries; Rust debug assertions do not affect whether
+a debug message is printed.
 
-I=E2=80=99d like to float an idea for discussion: first-class support for=
-=20
-compressed, read-only application images that can be executed directly,=20
-without explicit mountpoints, systemd units, FUSE runtimes, or=20
-application-specific unpacking.
+This continues Andrew Ballance's RFC v2:
+https://lore.kernel.org/rust-for-linux/20250620210533.400889-1-andrewjballance@gmail.com/
 
-The motivating case is simple.
+This revision retains RFC v2's nested-field static-branch macros and
+static mut descriptors addressed through raw pointers.
 
-Large desktop applications such as Firefox, Thunderbird, Telegram, IDEs,=
-=20
-etc. are mostly immutable application trees. Installing or updating them=
-=20
-traditionally means writing hundreds of megabytes of individual files,=20
-metadata, inodes and directory entries to disk, even though the=20
-application itself is effectively read-only.
+Changes since RFC v2:
 
-Today there are several partial solutions, but none feels like the right=
-=20
-abstraction:
+- Make debug logging independent of Rust's debug_assertions setting.
+  Both pr_debug! and dev_dbg! start disabled and are enabled through
+  dyndbg; without dynamic debug support, both remain disabled.
+- Keep caller expressions outside unsafe blocks and avoid implicit Rust
+  references when reading descriptor flags without jump labels.
+- Correct big-endian bitfield layout and keep module descriptors writable
+  with #[used(compiler)]. This fixes the kernel write fault when
+  static_key_enable_cpuslocked() tries to write the static key.
+- Use Kbuild module names and actual format strings for filtering, preserve
+  the crate log prefix, and support +d stack output.
+- Complete DYNAMIC_DEBUG_CORE-only support with per-crate opt-in.
+- Port to driver-core-testing and preserve Nova's firmware validation when
+  debug logging is disabled.
 
-- **UPX and similar executable packers** reduce disk usage, but they=20
-work against the VM subsystem. They interfere with normal demand paging=20
-and file-backed executable mappings, often increasing memory usage and=20
-startup cost.
-- **AppImage** gets much closer architecturally, but brings a userspace=20
-runtime, FUSE/mount machinery, `AppRun`, integration conventions, and=20
-its own packaging ecosystem. It solves distribution, not merely=20
-compressed execution.
-- **SquashFS/EROFS mounted manually** work extremely well, but require=20
-explicit mount management, namespace-visible mountpoints, boot=20
-integration and external lifecycle logic.
-- **Transparent filesystem compression** would solve the storage=20
-problem, but ext4 still does not provide it, and application deployment=20
-should arguably not depend on which writable filesystem happens to back=20
-`/opt`.
+Limitations:
 
-What I have in mind is something closer to a new executable-container=20
-abstraction.
+- Function metadata deliberately remains <unknown>;
 
-For example:
+Andrew Ballance (3):
+  rust: jump label: add support for nested arguments
+  rust: print: add dynamic debug support to pr_debug!
+  rust: device: add dynamic debug support to dev_dbg!
 
-     Telegram.app
+Zhi Wang (2):
+  gpu: nova-core: validate firmware versions before debug logging
+  dynamic_debug: expose printing declarations with the core enabled
 
-could contain a small metadata header plus a SquashFS/EROFS-like=20
-filesystem image and an entrypoint such as `/Telegram`.
+ .../admin-guide/dynamic-debug-howto.rst       |  41 ++++
+ MAINTAINERS                                   |   2 +
+ drivers/gpu/nova-core/firmware/booter.rs      |   8 +-
+ drivers/gpu/nova-core/firmware/fsp.rs         |   3 +-
+ .../nova-core/firmware/fwsec/bootloader.rs    |   7 +-
+ drivers/gpu/nova-core/firmware/gsp.rs         |   3 +-
+ drivers/gpu/nova-core/firmware/riscv.rs       |   7 +-
+ include/linux/dynamic_debug.h                 |  16 +-
+ rust/Makefile                                 |   3 +
+ rust/bindings/bindings_helper.h               |   1 +
+ rust/helpers/dynamic_debug.c                  |  33 +++
+ rust/helpers/helpers.c                        |   1 +
+ rust/kernel/device.rs                         |  42 +++-
+ rust/kernel/jump_label.rs                     |  17 +-
+ rust/kernel/print.rs                          |  53 ++++-
+ rust/kernel/print/dynamic_debug.rs            | 192 ++++++++++++++++++
+ scripts/Makefile.build                        |   1 +
+ scripts/generate_rust_analyzer.py             |   1 +
+ 18 files changed, 386 insertions(+), 45 deletions(-)
+ create mode 100644 rust/helpers/dynamic_debug.c
+ create mode 100644 rust/kernel/print/dynamic_debug.rs
 
-Then:
 
-     ./Telegram.app
+base-commit: f1850e443b0e4f2429ddf42a8d5033ea54ae8a90
+-- 
+2.53.0
 
-would cause the kernel/binfmt/VFS machinery to instantiate an internal=20
-read-only filesystem view and execute the entrypoint normally.
-
-The important property is that files inside remain real file-backed=20
-objects from the VM subsystem=E2=80=99s perspective. Executable and librar=
-y=20
-pages can still be mmap()ed, shared, reclaimed and faulted back in=20
-normally. Compression exists only below the VFS layer.
-
-Conceptually:
-
-     execve("Telegram.app")
-         -> recognize packaged application
-         -> instantiate internal read-only filesystem
-         -> resolve declared entrypoint
-         -> ordinary ELF execution / mmap / page cache
-
-No visible `/mnt/foo`, no loop-device choreography, no FUSE daemon, no=20
-mandatory systemd unit.
-
-I recently experimented with exactly this model manually by placing=20
-Telegram, Firefox and Thunderbird into SquashFS images and mounting them=
-=20
-under `/opt`. The result is strikingly effective: dramatically less=20
-persistent storage, lower write amplification during upgrades, and much=20
-better runtime behavior than executable packing. In one case, Telegram=E2=
-=80=99s=20
-RSS dropped from over 1 GiB with UPX compression to roughly 400 MiB when=
-=20
-stored in SquashFS, while also starting faster.
-
-That experiment mostly convinced me that the missing piece is not=20
-compression technology; Linux already has excellent compressed read-only=
-=20
-filesystems. The missing piece is a first-class executable-container=20
-interface tying binfmt, VFS and an internal mount together.
-
-I=E2=80=99m not proposing that application distribution policy, update sys=
-tems,=20
-desktop integration or signing formats be baked into the kernel. Those=20
-belong in userspace.
-
-The kernel-side primitive could stay deliberately small:
-
-- recognize a packaged executable format;
-- instantiate its embedded read-only filesystem;
-- expose a declared entrypoint;
-- preserve normal file-backed VM semantics;
-- allow the container file itself to remain the only externally visible=20
-object.
-
-The container ecosystem has independently moved toward directly=20
-mountable, compressed filesystem images=E2=80=94eStargz, Nydus and EROFS=
-=20
-snapshotters exist largely to avoid eagerly unpacking application data.=20
-This suggests that the underlying abstraction is useful beyond=20
-containers. A normal Linux application could potentially benefit from=20
-the same idea without requiring OCI, containerd, FUSE, overlayfs or a=20
-container runtime at all.
-
-Is this something that has been discussed before in a comparable form?
-
-If not, would there be any interest in exploring what the minimal kernel=
-=20
-mechanism could look like?
-
-Regards,
-Artem
