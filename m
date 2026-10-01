@@ -1,66 +1,66 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E700F48A8C6
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBD5496D20
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790890443; cv=none; b=GxsEEofeortEtrUvlbiqe0xUeTM3/w8iWY5HePx2mpKgxQIWx/wtqwG9irEiMtwt7kjE++NGHDu9tAUkbRK2vG6pheTqIgWYPV8K3CVWHepAmsAzvDPJOVZAxBs/i03hVhv4iSnNvTXr5O5aM3pKWc7uMfiXYAt8/gUQLJrPQZk=
+	t=1790890444; cv=none; b=gC1swUWxsCWK7nFhm5rBgjfcW4IOI3OoYrfTk0MakbxX+zeHUpV6V0sTjK2ndZryefcSYl2QK64MjyQ1IeQ3v2vMphD/BG7c4cIpD80FjDYFRIyJ+Icf9wREU1of+9eCjmR0dp4IRBFkORltyOd4q4WapbgE5+GNzqvzKv0ciRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790890443; c=relaxed/simple;
-	bh=aoQY2n7UuHsEBO2b/7mwS2MVg8AzdCvjCqCqmkccQyQ=;
+	s=arc-20240116; t=1790890444; c=relaxed/simple;
+	bh=nT9hMrtZRR/2siI80QtehZ8BnMD1l4DAL83J/BAbUcM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=hgr1RIwH3kTS4FEj1UnhF9dN3QvuHXpYONDRuTXGdD5wJ77VOm+VkXo7ogk7URr6uhAuivH6AUZu5WU9WHwX6YyNIcLhZF5scLhBUqfOoi5QsUcy3RH+ENQE9hwU8vjIkvDEa5NmkOeEZz4l++YsGptwGcX8jtc0yprOmMJew+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C4QyQjR0; arc=none smtp.client-ip=209.85.167.199
+	 To:Cc:Content-Type; b=bhaDgSA4h/B2E3o0rJIDUgtd+/Y8kwXYKXmobuKI0lBswAxgrPZ4+id2Rno6XLRVVVKA5QL6E5WDOM4JUfTCb4+5eYuHlLh1BnoZxgPxau6/QYzDmpqb8yHHikfcW2w6TpgGHIdsSa/zcqz7N7P5onoubRzvPTlVduYkO2b02DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tlM3Lxtc; arc=none smtp.client-ip=209.85.167.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C4QyQjR0"
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so2444424b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tlM3Lxtc"
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cbf700ddccso6996565b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:34:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790890438; x=1791495238; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790890439; x=1791495239; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aoQY2n7UuHsEBO2b/7mwS2MVg8AzdCvjCqCqmkccQyQ=;
-        b=C4QyQjR0Rc92htssClGS1cqTRLuedDdvrMqWrl45sKTSkV0N7gcYIp7AfwzGjfauog
-         k54ep4YtTv9ARaLkAAG00FZn1KXHTbiWTuzxNVRMxBMMUpfNDEiRRGxFTMIbXnPNqxhz
-         AVHFDp81d2Cp7P8PfeTiWIRDTVVgtHYvDN9ATmemT/WycA4RhVbP2jbfpBEOcrQyIf5w
-         CCeisilSmC2G/6AteMCTugplztzABCcUEhr6j5C7AIVnYEdU+8h6eoIa/7AtrBVpscLi
-         /uRVkexGkHLfgEac9r38Df0IiEvryYM4PYXRyKPSmsEB9E9iS7V/pBUge0OmxR0YdY96
-         HOSw==
+        bh=nT9hMrtZRR/2siI80QtehZ8BnMD1l4DAL83J/BAbUcM=;
+        b=tlM3Lxtc3WbIZgWz/Xm+xUadbSBplTug2uUjQgOHf8LqtVeSfHnfzdKEY3MKHG3hIB
+         pGbXeenqxFZMyOIOw5fLqnl4Vc8TXJx+iLR2zhaY3T74vpojbMBPtA+AxIqDsgZeTi1X
+         NHyiSKlysIlTdFyhK8gXAEcGZTg7EPVyQVoYO563WrhvWt1chumYtIMU4q3h5188AFOn
+         8bRz11fSTBgxH7CrBAdROTRTlyIKahNT2RP+bZO6PiBfoY4EVVqI+KrSDNp7Rcfkn70l
+         sdS4UhbqD28R022nca9PFW3THNTgpMqV8e0fnQrSnc+2YHt5drIXwrer7xEAJnUNz/1i
+         DWVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790890438; x=1791495238;
+        d=1e100.net; s=20260707; t=1790890439; x=1791495239;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aoQY2n7UuHsEBO2b/7mwS2MVg8AzdCvjCqCqmkccQyQ=;
-        b=qFdwmW4q3+zbUTZc253DVQ2S1LHI7XVs1HcBagUyRzDpiiyBmj2JRbcc135qWJDyG6
-         vOVtKhhLZFbY1Re1SWZDBzQPIQCkjR43S5cATshibj1NxxqXsQbnP+PPzZJnwhyyX7uB
-         /6Vf/H75Hj8ChKJVIK8Z7Iizh0dwyGQWXJNq3vCvzNmuhqZiUjvtnz8RdqTL+kigYwBP
-         EXhY5smkpv/i3/LzSmXF/xlP5wO4XhChjo3xSoofs6YLqj9NzqDtjQklxnF9SPQdw9XS
-         IA5lEkgn4O+Yfn4jwEvtoPJW7HyBJsnQSShJxmNVGKm7UbBRTAHmnTApyzTjY3t6aFWj
-         3v3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwWuwO/+vpkd85k5fBLlX1+3SR4EXEFE4AhAGnZUl/CI7IokH497Iv/FfIRSP8Va6swEkWwLcl3r1BZvbc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1wkle0/KPJAht5TDJg6WyxI/+b5bLBbYu4pyl5+1IUYBvyOHE
-	471mKP5K1d+oUSZQpotlJuA6LJEb1xSF2fDamHw6gfVqhzy3BBUjHkBKDW3osKqchJ6uk+h80eX
-	7mMnvg3nKLILwW5aY1BjEBafmKw==
-X-Received: from ilbcx6.prod.google.com ([2002:a05:6e02:3c06:b0:50d:b50e:1675])
+        bh=nT9hMrtZRR/2siI80QtehZ8BnMD1l4DAL83J/BAbUcM=;
+        b=YkgIejqn0W+6xjgg1Y00RqDi2/4P8OZM6ReKKNhol9oKWG9Oa9JoPPiUWzG/sMpJT0
+         t+eI8rFK+TPgiDtkucMV1xHaQl8Mvux/di2xH/76iPHlYGA1teeewZvW7Gd87a2YSJmH
+         bNb1h/Sbx12PtHTAk8zHnf13fbFF3iR4tozTnxqziAXtcuxc16wX5hWKrQRc8JdSF1t6
+         KtH9i8y76BEQ536ND4S9wHn5P6DNTNnEz8EtjhAxKza9z51A6J4WjXyJzrxhuO9xj49b
+         0Xt8L7WrptZy2IZ0EiPG3rsueXxEyY2jBi0gPD+jye39c+gWFFEaI0/P/rGwXlzONWPq
+         yK1w==
+X-Forwarded-Encrypted: i=1; AKwUvByOCy2rZygajbtwIgC52OmIMZIWqvfjruyFT905+cy5RmbJTrv71DAjH19j5hACIpeznzsaq9H33dcte/Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxb5sWzP5LdJzx8//Uv2Zug5FFrAdry2PTbUu0Zrgr4ubRolZW
+	M1qqDhCVQRMjgg7FdDWwI92rhfTPlRGryr+4BoxpR4Snwu817OQ0OqHM8hPWtIU/ohAP+938Dga
+	oRBw5AWn123ZjZ45tc5+XoEcpxw==
+X-Received: from ioben34.prod.google.com ([2002:a05:6602:3f62:b0:9af:289c:476c])
  (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:1211:b0:4b9:a829:f015 with SMTP id 5614622812f47-4f529d297bemr430489b6e.33.1790890437780;
- Thu, 01 Oct 2026 14:33:57 -0700 (PDT)
-Date: Thu,  1 Oct 2026 21:33:55 +0000
-In-Reply-To: <8e47bb89-a894-4fd0-9f96-e11b5dea1972@linaro.org>
+ 2002:a05:6808:bc1:b0:4c3:2e7:55bb with SMTP id 5614622812f47-4f52a57e776mr435364b6e.38.1790890438606;
+ Thu, 01 Oct 2026 14:33:58 -0700 (PDT)
+Date: Thu,  1 Oct 2026 21:33:56 +0000
+In-Reply-To: <5750151d-cb99-4f9d-b469-12a7b7796985@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260924172928.2110956-1-coltonlewis@google.com> <8e47bb89-a894-4fd0-9f96-e11b5dea1972@linaro.org>
+References: <20260924172928.2110956-1-coltonlewis@google.com> <5750151d-cb99-4f9d-b469-12a7b7796985@linaro.org>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261001213357.2088894-1-coltonlewis@google.com>
+Message-ID: <20261001213357.2088894-2-coltonlewis@google.com>
 Subject: Re: [PATCH v9 00/22] ARM64 PMU Partitioning
 From: Colton Lewis <coltonlewis@google.com>
 To: James Clark <james.clark@linaro.org>
@@ -83,30 +83,38 @@ Content-Type: text/plain; charset="UTF-8"
 
 Hi James,
 
-On Wed, Sep 30, 2026 at 04:25:36PM +0100, James Clark wrote:
-> Looks good to me, everything seems to be working now:
+On Wed, Sep 30, 2026 at 04:26:23PM +0100, James Clark wrote:
+> On 24/09/2026 18:29, Colton Lewis wrote:
+> > This series creates a new PMU scheme on ARM, a partitioned PMU that
+> > allows reserving a subset of counters for more direct guest access,
+> > significantly reducing overhead. More details, including performance
+> > benchmarks, can be read in the v1 cover letter linked below.
+> >
+> > There is no longer a kernel command line parameter
+> > (`arm_pmuv3.reserved_host_counters`); PMU partitioning is now completely
+> > controlled via the KVM API using `KVM_ARM_VCPU_PMU_V3_ENABLE_PARTITION`
+> > and `KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS` vCPU device attributes. When
 >
-> Tested-by: James Clark <james.clark@linaro.org>
+> As far as I know there isn't a straightforward way to get the number of hw
+> counters from userspace. You have to either parse dmesg or attempt to open
+> incrementally more counters in a group until it fails.
+>
+> This makes doing things like "use all counters for guest" or "reserve two
+> for the host" difficult. Maybe it's time to add a file to the PMU that
+> userspace can use query this.
 
-Thank you for testing and for all the reviews!
+Inside a VMM, userspace can query the default PMCR_EL0.N via
+KVM_GET_ONE_REG(SYS_PMCR_EL0) after KVM_ARM_VCPU_INIT (or
+KVM_ARM_VCPU_PMU_V3_SET_PMU) and before calling
+KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS, since KVM initializes
+nr_pmu_counters to the PMU's max_counters (which is how
+vpmu_counter_access discovers the limit).
 
-> There are still a few Sashiko comments though, and one critical one about
-> racing with pseudo-NMI PMU interrupts that looked reasonable. I tried to
-> test it and reproduce an actual issue but couldn't, so maybe it's bogus.
-
-The "Critical" Sashiko comment on Patch 19/22 (claiming that clearing
-hardware PMOVSSET_EL0 loses overflow bits because the guest has direct
-untrapped access to PMOVSSET_EL0) is a false positive: Patch 09/22 sets
-HDFGRTR_EL2_PMOVS and HDFGWTR_EL2_PMOVS (and without FGT, MDCR_EL2.TPM
-is set), so guest accesses to PMOVSSET_EL0 and PMOVSCLR_EL0 always trap
-to pmu_reg_read() / pmu_reg_write().
-
-The pseudo-NMI race comments on Patch 11/22 and Patch 19/22 are
-theoretically possible in a narrow 2-instruction RMW window because
-local_irq_save() does not mask GICv3 pseudo-NMIs, which explains why it
-wasn't reproducible in practice. In v10 I will make the PMOVSSET_EL0
-shadow updates and vcpu->arch.mdcr_el2 assignment atomic, and address
-the other valid Sashiko findings.
+For users and management tools outside the VMM (e.g. choosing N to pass
+on the QEMU command line), I agree it's awkward that
+/sys/bus/event_source/devices/<pmu>/caps/ exposes slots and bus_width
+but not the number of counters. I will add a patch to expose a caps
+attribute for the number of counters in drivers/perf/arm_pmuv3.c.
 
 Thanks,
 Colton
