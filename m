@@ -1,145 +1,92 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5AD4071E2
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC81F48F03B;
+	Thu,  1 Oct 2026 16:50:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873432; cv=none; b=YkMqh9J9zX+AWIdnKSLgTqQay3WTnnrQtcln/Ow3TExSIcmYpQmvJwaecHTECgiWCN8lh0JdEL1WTm5FNUWl1GQujMDPP3Y7rIKURbr3Pi5clDjs8S8Svk54DYbqROwAuT82byyyWNS44TxpoEtlp1aGix52IEzOy1zuvEYeb5w=
+	t=1790873437; cv=none; b=YrVzNBAZTfJK+subBwEE3Amel71sbFXuUQnlgMJ7BaFqA3kn+2SECihL23lv/I6MgvPlwDuKxvJZv94vmJQ518nDuocIE4YafljbqX2IpaIMiXeQ0izv0xJ5Aqq+qFg1hHIoyRNykzGGhLuqLIFx2MDWK4YgqOWC8iAwiPx+E5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873432; c=relaxed/simple;
-	bh=IAbinRZ4M2KzXcg7hPHU5CD2uG7geyCSf3b1AVvQO/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tll1S/MgEP+xp9kgG3U+UdgUaaLsm8KGezEVfXxBa620SdVajkFbhF2ClyvLPqIZ9x7R6Jh/khUsfJox9axu4z2LdGuofrp3kU9DnpCwpvqAAWmBidhCGw7AI7Ytdf/jv2+1NDgEsXe6jQCceZw5h9XL5AvIeJP/MIAq6ZzgF/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NyevcLBS; arc=none smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790873437; c=relaxed/simple;
+	bh=r8pO6QpQM6dcjnj4TY/yCj0zMb+hk8RoPCR4UJ8xbeE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=p2LeoA1GrLEXzUUz8gumSIx1BZJs7/39IdSXy7QpYAsiSVjIRRKCMLWT3OfEKsql22OJWHVcj8BSSzZs/2aCUt4jHlpEkPJG3t2tnVwhEfpblM6cUV7MoDu5jfGMZ2wGHt0eDJzTScpH9hcdeFtjqT/4NUXwsxrwAn+Ig2dTbAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzllDJMg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NyevcLBS"
-Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8ac8c533385so17999497b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790873428; x=1791478228; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bcyczTOyFmQGlJUwuQpp24xK4T1DNmb0t8/SWaJX2jM=;
-        b=NyevcLBS5Zj3NXNbDbXJkmgK09XwefSCsO1W7TUbAqa+sDazvTB+87DUAcK9uIDKUA
-         o+0gQ9oljn/miwmrcDLBoAI1E3CQsipfqK9fpgFfqt5q1ZX0h2kt4SeI460RUZHAn5JX
-         J0yBLOOsVJdNDj1qOT+8Eo2M4FII5ud/Bb8OtIDtN2iYxY8nyR6Ghr9PUu9DiQNq67qc
-         VOUoZ42cHrTo68IMg/RVhnbGyOmy5kbpl/DkO43ZXTdWR7ZoBCsCKEjCzNqfryQnQh4O
-         N8KYDsY8dQXobXmXaCrv8ovqFkKn/I7VlFXxZ3A3vEggCua7tGvKLNqJ6M+K4Xuii5hY
-         Xa2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873428; x=1791478228;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bcyczTOyFmQGlJUwuQpp24xK4T1DNmb0t8/SWaJX2jM=;
-        b=S9hM/8sNtFwx5Nx0eH5TQBaeZ4t2M/N31xdhmj+2IW71hCA16D5pDrbdBJqd/pOjUS
-         jm7pyG8AJevbpZEXrkEcCS85Mf8HsqNyNerKOW+8T18aYR7zdif65R2aTZg8BF/0Cnbw
-         ZIjnwpVCMTijK6D50YVTOFuQe4CAdYk1CtXMEsw6jgB6Vepx8GZ0A1JwVijgeWT3fJai
-         2h5tSOAPicboSb+wqCXKA3N/utQKWnlqnPWlbwomzCDGSJ/zhmmDzzdb9qWcUZUVt2L1
-         V7bXWCz1iinukv9bIdYVNj8tWewq5THSrBrVy+gdpM3Si8P848H06/Cl0Ie6GssegtIZ
-         +xyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwGH3joCcEWYBMIFsVdP9t1Xkyne4a0rbHHhdwFH3G8BbnZOkUI1vAFA1sPculhaSFNKk/xlPHsXi+wttI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmdHyTH6cWy6lSW+hlWyy1lgt94m3sy0DswY4+B4O7avbRI6P5
-	rGNavbNmuS+cIv9rcXK/0KXYlShHi5BBTJW/KaKVT/6rTo2+nRrLhfgC
-X-Gm-Gg: AYBFou3ccZWurkmg8WtiAHREB0bkaubDlk5uL9JyM+3GnocliMTbCPdsx78YdWx6gtE
-	t2P+ZpJwOib4xOzNgyGudOXFniXJ1B9gC+ehLFjzZABEqk28WUAmX0fAdRsEV8saPzrbu1F2VRe
-	IR+mTCipIRCtPEHQuMcekY677RaFTz9NV6bZkdFznPNRclPzRzspdyfj0x31FSI1BT7jLYmPEWt
-	p++5WWRrD9dpHZktXAkKSMQBvvQCMm0tRWZvvGXW5OPEjKF+lKkWPTP6Lj5YxmjtaYq7ZngiGpR
-	79SWhY4GzPNeDC+b/cVitgUSG5HKm0qKaYe1iBzggyXJ18sp0ICpSjrA3cnUWq1Qoogau0xQejA
-	3cB3wASMP2R22LXlsy/+vogSbU2+ohvbcc2BCjtIgeMHTRBi+ew7jwlINWmg2R8QafQle49L1Le
-	k3R75eEe0OvNiqAZJV2tDHk0PnYKjtelfKr3WIdAweuB7fx+D/tEnYAEmiiE1Yn5AJF8w+vb4=
-X-Received: by 2002:a05:690c:dc8:b0:8a9:97ba:26b9 with SMTP id 00721157ae682-8ac93df5251mr32081527b3.41.1790873428224;
-        Thu, 01 Oct 2026 09:50:28 -0700 (PDT)
-Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdad6d810sm13893127b3.40.2026.10.01.09.50.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:50:26 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-To: linux-alpha@vger.kernel.org
-Cc: Magnus Lindholm <linmag7@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Matt Turner <mattst88@gmail.com>
-Subject: [PATCH 1/4] alpha: replace dead links in Kconfig help text
-Date: Thu,  1 Oct 2026 12:50:15 -0400
-Message-ID: <20261001165018.415526-1-mattst88@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzllDJMg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FBA1F0089A;
+	Thu,  1 Oct 2026 16:50:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790873431;
+	bh=VCE70Xqx0B46vnr+CgpB+vq3RwjgwFf7PBue+DNSBOI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=dzllDJMgP7keums/QpIrPBFbZUgxxJ0pkv9tpS0oRIT3SVNoakktc9eVzcT1SKZxQ
+	 OGCWjFvYY44AA2WyPNV5pTxQzchGRXcxF0qETNNBQviKFoK8kUyx2gzvEv4hhNn/jI
+	 4EkhvJ41S2KZvR1R2XnpRkZ+Avp3ByMSMBf6lBFzrZ52ljv/BFeuv1J9ou9G2fib0m
+	 fTQSGvQ2MDaLZroevT5cRWcmZQDJ5m3XErmD0OJ3ucvqHNMGygh5R45RS7WOr7tKIf
+	 xOZGXblMNpYafKj6vcg75NsLx0qqjEFuEU25oifgAwQUufSgJznMqjnZCkjCLX8P5o
+	 8XE0o9QTjg9Rg==
+Date: Thu, 1 Oct 2026 11:50:30 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] PCI/pwrctrl: generic: Fix leaking array from
+ of_regulator_bulk_get_all()
+Message-ID: <20261001165030.GA2699569@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-pci-pwrctrl-kfree-v1-1-f09bbffd8da3@flipper.net>
 
-The Linux/Alpha FAQ, the unix-ag LX164 overview, the Rawhide install
-HOWTO and the Ruffian FAQ are all gone. Point the "Alpha system type"
-help at the system and motherboard lists on the alphalinux.org wiki
-instead, give LX164 a one-line description in place of its link, and
-drop the others.
+On Wed, Sep 30, 2026 at 08:07:45PM +0400, Alexey Charkov wrote:
+> of_regulator_bulk_get_all() allocates the consumers array and hands it to
+> the caller, who is expected to free it at an appropriate time.
+> PCI pwrctrl never did, leading to a memory leak.
+> 
+> Add an explicit kfree() for the consumers array.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 75996c92f4de ("PCI/pwrctrl: Add pwrctrl driver for PCI slots")
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
 
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- arch/alpha/Kconfig | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+Applied to pci/pwrctrl for v7.4, thanks!
 
-diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-index 92cc7bb8d29a..7c1cc676ddfe 100644
---- ./arch/alpha/Kconfig
-+++ ./arch/alpha/Kconfig
-@@ -127,9 +127,10 @@ choice
- 	  run on any supported Alpha system. However, if you configure a
- 	  kernel for your specific system, it will be faster and smaller.
- 
--	  To find out what type of Alpha system you have, you may want to
--	  check out the Linux/Alpha FAQ, accessible on the WWW from
--	  <http://www.alphalinux.org/>. In summary:
-+	  To find out what type of Alpha system you have, see the system and
-+	  motherboard lists at
-+	  <https://alphalinux.org/wiki/hardware:systems> and
-+	  <https://alphalinux.org/wiki/hardware:motherboards>. In summary:
- 
- 	  Alcor/Alpha-XLT     AS 600, AS 500, XL-300, XL-366
- 	  DP264               DP264 / DS20 / ES40 / DS10 / DS10L
-@@ -184,8 +185,8 @@ config ALPHA_EIGER
- config ALPHA_LX164
- 	bool "LX164"
- 	help
--	  A technical overview of this board is available at
--	  <http://www.unix-ag.org/Linux-Alpha/Architectures/LX164.html>.
-+	  AlphaPC164-LX, a 21164A-based single-board computer using the
-+	  Pyxis chipset.
- 
- config ALPHA_MARVEL
- 	bool "Marvel"
-@@ -224,14 +225,11 @@ config ALPHA_RAWHIDE
- 	select HAVE_EISA
- 	help
- 	  AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machines.
--	  See HOWTO at
--	  <http://www.alphalinux.org/docs/rawhide/4100_install.shtml>.
- 
- config ALPHA_RUFFIAN
- 	bool "Ruffian"
- 	help
--	  Samsung APC164UX.  There is a page on known problems and workarounds
--	  at <http://www.alphalinux.org/faq/FAQ-11.html>.
-+	  Samsung APC164UX.
- 
- config ALPHA_RX164
- 	bool "RX164"
-@@ -372,9 +370,7 @@ config ALPHA_SRM
- 	help
- 	  There are two different types of booting firmware on Alphas: SRM,
- 	  which is command line driven, and ARC, which uses menus and arrow
--	  keys. Details about the Linux/Alpha booting process are contained in
--	  the Linux/Alpha FAQ, accessible on the WWW from
--	  <http://www.alphalinux.org/>.
-+	  keys.
- 
- 	  The usual way to load Linux on an Alpha machine is to use MILO
- 	  (a bootloader that lets you pass command line parameters to the
--- 
-2.54.0
-
+> ---
+> Split out from [1] for easier application per Mark's feedback
+> 
+> [1] https://lore.kernel.org/all/20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net/
+> ---
+>  drivers/pci/pwrctrl/generic.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/pci/pwrctrl/generic.c b/drivers/pci/pwrctrl/generic.c
+> index d56171e0ee24..4b6cbbb52248 100644
+> --- a/drivers/pci/pwrctrl/generic.c
+> +++ b/drivers/pci/pwrctrl/generic.c
+> @@ -63,6 +63,7 @@ static void devm_slot_pwrctrl_release(void *data)
+>  	struct slot_pwrctrl *slot = data;
+>  
+>  	regulator_bulk_free(slot->num_supplies, slot->supplies);
+> +	kfree(slot->supplies);
+>  }
+>  
+>  static int slot_pwrctrl_probe(struct platform_device *pdev)
+> 
+> ---
+> base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+> change-id: 20260930-pci-pwrctrl-kfree-b58621738902
+> 
+> Best regards,
+> --  
+> Alexey Charkov <alchark@flipper.net>
+> 
