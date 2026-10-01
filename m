@@ -1,247 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3309D46A5EE;
-	Thu,  1 Oct 2026 18:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD7E3BED44
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:33:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790879569; cv=none; b=OGc/ku/tBqcwrOWe3ybknv+WC/wcEkUmPKUdkXbe6wDoeA5XGwlA+ui24bg+2Z/X1RE7YpqIHUqLvoLX1AZz9c+zR5XFm5bn0wiKz2MsJy3z0Z/WtT5krDWIJhhGGAkRb5Q9xRe8RQ/r5WHfSVJcXvdPQSExkW6ixG8WNgGCxY0=
+	t=1790879587; cv=none; b=gX0xPJOnHD1AvqElufEbv5g/tipu/j3bTnZ/O9Mjp/EnyEpJg6g6P7XeqjBli1KZKCUfL8XNYYOSv1jUYZpiTAmKUHMiQlts10jZ5xc1JUAgEO2ZKB9E1Sx2wVmDhBymlgm83BGjHTls2vC7Q9pfCJz896+ngKAvGkpuSFaDeRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790879569; c=relaxed/simple;
-	bh=v7HO9sVs1M61klOQEBu9J2z3I8TacHaHmMywiDQe7pA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mP+Shxq95DV9rz+z8aUABry4tXG/8w8CAQ0ACQTmHBJHdy9NneqbJGnd9HG8EPP2nYa5PHfMahML5d3IahJWjWTP/n4zOXD69X0BfyT5sl3GpJ4eQbsQ3OkG4sIT2oJ3Opvgdl3oCreZzOpVk/AzWIe83BdbpNJcf4AHtPY7RDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hO/Gio9C; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790879587; c=relaxed/simple;
+	bh=pmkq2/Yjx493jWyFm9VY9aWkNpSU+yTuvMXC8BtlmPY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G8mhD4Gssvk4ejfkEqtuspw8CL4HyX1wP+4OiqriqZBA2Pz4+f13s0JNfM7sq3TPKn58jhNuttIc8xauoKHlpsUkK/kXpvF+9WKjQ+7T0/szMYhR1CtB5l9Qpeob8qGjLQvijs7KvqiVCwrjxCXYGJ/Cucq3nGGWHwXTqZaXlU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cL2s667C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hO/Gio9C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790879567; x=1822415567;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=v7HO9sVs1M61klOQEBu9J2z3I8TacHaHmMywiDQe7pA=;
-  b=hO/Gio9CvxznwHSk7PwB6z2Z4TiMRZrrxJupd31Vtp3GMDzEF/S+D/7h
-   cG2U4UjfXYva1iS06T9guh8KieJG9eg8mfVe03Bshc7j7AWpdSrm8cOLT
-   p7cbSRkaaQqHkYPBsZbiP9W3u4heOPp8PYp8TfhDvl5on1ZvqSuNuRR+Y
-   y/KZMioPGi9eRbzJa4DP2822IG9DTXKxgFT5uTauf820GEWVTMO1wgbG8
-   vw2Mv8/00wIaSEAbDnMFWdHLEHjyD4vX/o6eLNmxKRceWRj2sjfdmjpbv
-   JbIu1sh3ebZpSe1uHszF2Rv8+ki8pye7dbLvKargfYuXwL9quyKC0gAie
-   w==;
-X-CSE-ConnectionGUID: NWh8RgApTgi6RfdwnNbxpA==
-X-CSE-MsgGUID: 1AbBX8EsRBSb5HOt8US0hA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94135281"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="94135281"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:32:46 -0700
-X-CSE-ConnectionGUID: d6fCbgTXTvi2mzMNbApUcQ==
-X-CSE-MsgGUID: VneUtzyLTACjiqj0SehDMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="274693908"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:32:43 -0700
-Date: Thu, 1 Oct 2026 21:32:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Miguel Vadillo <miguel.vadillo@intel.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	sakari.ailus@linux.intel.com, hansg@kernel.org,
-	laurent.pinchart@ideasonboard.com, mehdi.djait@bootlin.com,
-	mika.westerberg@linux.intel.com, srini@kernel.org, arun.t@intel.com
-Subject: Re: [PATCH] media: i2c: cvs: Add NVMem-based firmware update support
-Message-ID: <ar6nSbS-FpaI6jYp@ashevche-desk.local>
-References: <20260930182142.108744-1-miguel.vadillo@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cL2s667C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8381B1F0089A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790879584;
+	bh=fiwCd0p4aCZ5b37Gh6dfd7FU6o39KITfrw7vCvmWWKg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cL2s667CiszUsk/C++Yl0msi5Rkwtm5mQ8+QGpEqf4ltZlEMFMl8j030BG28rdMJ4
+	 auJ+/4sLY0lNJ7KBLRQX7IiT2i6c2G1mXVvW5iyeTZ1hqz8VuvQYJsM7yMjpgXarEd
+	 +pOVKCU0rF6N+MEwo9OMnGQzqmuZAD3CS7r6BgJMsWGIw6EYKu64uJ/Rru1kd9YdFm
+	 Uyj6TueBNFLCv0Rv8pUnn2BnVdX3KZDIDamUIfhSBobIP6uIRA5aGelSjM1IjCAl3F
+	 PghATtoBaMfypCSAoKOEdxx9Q0dQnnx3S6HpEqZJ8+y92PFN6MGQ1AAluISt8VKNUJ
+	 0KDWORQmrcVZw==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba379d8804so2963013e87.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:33:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx45DzSRY1TpFJtl6POpgGr/leRUJ2mKgSFZ2HGuZQbev0o/+FpWH4iFfR52cLZ2dv4O9AH0AfIEEAcbaU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5zhiMt9i/9q8Dh0md9UAoOS+LDKUYnR6DZumAl9+dvhowd5Xi
+	Vya/y/QMe5ILi7eDr28c1vNVoRtoA2afPo8zgPG7t16vU41sNoLdkYTZdc6wgscXmN935eGz+8P
+	UCwaQMdCEnbbejBTsKD51mD5huDuaU0M=
+X-Received: by 2002:a05:6512:ba5:b0:5b6:1a7c:aa1f with SMTP id
+ 2adb3069b0e04-5bb9bc3a37emr19121e87.55.1790879582937; Thu, 01 Oct 2026
+ 11:33:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930182142.108744-1-miguel.vadillo@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <4766532.LvFx2qVVIh@rafael.j.wysocki> <ar6k1MMzNDTbdLvO@ashevche-desk.local>
+In-Reply-To: <ar6k1MMzNDTbdLvO@ashevche-desk.local>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 1 Oct 2026 20:31:14 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iFtFMZSX4Cjaimh+9Ts2WHpPKuvB3ZpUoNY+2fXSnstA@mail.gmail.com>
+X-Gm-Features: AclHuK8Htf1GRa2AjqjWVVR1Npiv1s0P0ru6iaKF_BXvR2_zIwXL67JNkM9Oy6c
+Message-ID: <CAJZ5v0iFtFMZSX4Cjaimh+9Ts2WHpPKuvB3ZpUoNY+2fXSnstA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/5] ACPI: Replace acpi_get_first_physical_node() with acpi_bus_get_primary_device()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org, 
+	Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, 
+	David Rhodes <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, 
+	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
+	Sen Wang <sen@ti.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 11:21:42AM -0700, Miguel Vadillo wrote:
-> Add firmware update support for the Intel CVS device using the kernel
-> NVMem provider framework.
-> 
-> Two NVMem devices are registered per CVS device:
->  - nvm_active: read-only, exposes the active firmware version by
->    querying the device over I2C.
->  - nvm_non_active: write-only, root-only, accepts an incoming firmware
->    image staged by userspace (e.g. fwupd).
-> 
-> Firmware update is triggered via the nvm_authenticate sysfs attribute,
-> which supports the following write values:
->  1 - Validate staged image, stream to device, and request reset
->  2 - Validate and stream image only (no reset request)
->  3 - Request reset for a previously streamed image
->  0 - Clear update state and reset_pending flag
-> 
-> On a successful write of 1 or 3, a KOBJ_CHANGE uevent is emitted and
-> nvm_reset_pending is set to signal that a device reset is required to
-> activate the new firmware.
-> 
-> The nvm_version attribute exposes the running firmware version in
-> major.minor decimal format. The device_id attribute exposes the device
-> VID:PID for identification by userspace tools.
-> 
-> Firmware images are streamed to the device in 256-byte or 1KB chunks
-> over I2C depending on device quirks. The staging buffer is vmalloc'd
-> on first write and released once the image has been streamed to the
-> device, or on driver remove if no update was performed.
-> 
-> ABI documentation for all new sysfs attributes is added under
-> Documentation/ABI/testing/sysfs-bus-i2c-devices-cvs.
-> 
-> The kernel does not inspect the firmware image contents. Signature
-> verification and anti-rollback enforcement are performed by the CVS
-> device firmware, which rejects images that fail either check.
+On Thu, Oct 1, 2026 at 8:22=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Wed, Sep 30, 2026 at 08:30:47PM +0200, Rafael J. Wysocki wrote:
+> > Hi All,
+> >
+> > This is a partial resend of
+> >
+> > https://lore.kernel.org/linux-acpi/7995179.EvYhyI6sBW@rafael.j.wysocki/
+> >
+> > that only includes patches that have not been ACKed and the last one th=
+at
+> > depends on all of the others.  It is based on linux-next.
+> >
+> > This series replaces acpi_get_first_physical_node(), which is inherentl=
+y racy
+> > and therefore generally unsafe to use, with acpi_bus_get_primary_device=
+(), that
+> > doesn't have this problem, everywhere in the code.
+> >
+> > I will appreciate ACKs from maintainers of the code updated by the patc=
+hes, so
+> > I can pick them up and get rid of the problematic interface in one go.
+>
+> The whole lot is straightforward,
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-...
-
-> +Date:		January 2027
-> +KernelVersion:	7.4
-
-Tough deadline, but if there are nothing to address, you have a chance to land
-it as expected.
-
-...
-
-> +static int cvs_do_fw_download(struct icvs *ctx, const u8 *buf, size_t size)
-> +{
-> +	struct icvs_cmd cmd = { };
-> +	size_t chunk_max, chunk, pos;
-> +	int ret, end_ret;
-> +
-> +	if (ctx->quirks & ICVS_FW_BUF_SIZE_256)
-> +		chunk_max = SZ_256;
-> +	else
-> +		chunk_max = SZ_1K;
-> +
-> +	void *fw_buf __free(kfree) = kmalloc(chunk_max + sizeof(__be16),
-> +					     GFP_KERNEL);
-
-Slightly better to read in a form of
-
-	void *fw_buf __free(kfree) =
-		kmalloc(chunk_max + sizeof(__be16), GFP_KERNEL);
-
-> +	if (!fw_buf)
-> +		return -ENOMEM;
-> +
-> +	cmd.cmd_id = cpu_to_be16(ICVS_FW_LOADER_START);
-> +	ret = cvs_send(ctx, &cmd, sizeof(cmd.cmd_id), ICVS_CMD_TIMEOUT);
-> +	if (ret < 0)
-> +		return ret;
-
-What is the meaning of the positive returned value?
-
-> +	for (pos = 0; pos < size; pos += chunk) {
-> +		chunk = min(chunk_max, size - pos);
-> +		put_unaligned_be16(ICVS_FW_LOADER_DATA, fw_buf);
-> +		memcpy(fw_buf + sizeof(__be16), buf + pos, chunk);
-> +
-> +		ret = cvs_send(ctx, fw_buf, sizeof(__be16) + chunk,
-> +			       ICVS_CMD_TIMEOUT);
-> +		if (ret < 0) {
-> +			dev_err(cvs_dev(ctx),
-> +				"FW data chunk send failed: %d\n", ret);
-> +			break;
-> +		}
-> +	}
-> +
-> +	/* Always send FW_LOADER_END, but keep any earlier DATA error. */
-> +	cmd.cmd_id = cpu_to_be16(ICVS_FW_LOADER_END);
-> +	end_ret = cvs_send(ctx, &cmd, sizeof(cmd.cmd_id), FW_END_TIMEOUT);
-> +
-> +	return ret < 0 ? ret : end_ret;
-> +}
-
-...
-
-> +	mutex_lock(&ctx->lock);
-
-Why not guard()()? Also how ACQUIRE() macros are co-habit with goto:s?
-
-> +	ctx->nvm.auth_status = 0;
-> +
-> +	switch (val) {
-> +	case ICVS_NVM_AUTH_CLEAR:
-> +		ctx->nvm.flushed = false;
-> +		break;
-> +
-> +	case ICVS_NVM_AUTH_WRITE_ONLY:
-> +	case ICVS_NVM_AUTH_WRITE_AND_AUTH:
-> +		ret = cvs_nvm_validate(ctx);
-> +		if (ret)
-> +			goto err_status;
-> +
-> +		ret = cvs_do_fw_download(ctx, ctx->nvm.buf_data_start,
-> +					 ctx->nvm.buf_data_size);
-> +		if (ret)
-> +			goto err_status;
-> +
-> +		ctx->nvm.flushed = true;
-> +		cvs_nvm_release_buf(&ctx->nvm);
-> +
-> +		if (val == ICVS_NVM_AUTH_WRITE_ONLY)
-> +			break;
-> +
-> +		fallthrough;
-> +
-> +	case ICVS_NVM_AUTH_AUTH_ONLY:
-> +		if (!ctx->nvm.flushed) {
-> +			ret = -ENODATA;
-> +			goto err_status;
-> +		}
-> +
-> +		do_uevent = true;
-> +		break;
-> +	}
-> +
-> +	mutex_unlock(&ctx->lock);
-> +
-> +	if (do_uevent)
-> +		kobject_uevent(&dev->kobj, KOBJ_CHANGE);
-> +
-> +	return count;
-> +
-> +err_status:
-> +	ctx->nvm.auth_status = -ret;
-> +	mutex_unlock(&ctx->lock);
-> +
-> +	return ret;
-
-...
-
-> +static const struct attribute_group *cvs_fw_groups[] = {
-> +	&cvs_fw_group,
-> +	NULL
-> +};
-
-__ATTRIBUTE_GROUPS() ?
-
-...
-
->  struct icvs {
->  	struct i2c_client *i2c_client;
-
->  	int irq;
->  	wait_queue_head_t hostwake_event;
->  	bool hostwake_event_arg;
-> +	struct icvs_nvm nvm;
->  };
-
-Is `pahole` happy with the layout?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yes, it is, thank you!
