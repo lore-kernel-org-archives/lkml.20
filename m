@@ -1,72 +1,88 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2ED4D0CD5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846006; cv=none; b=QPE1w/BcRzN8F+sVCmCNpumKTHVu92uGEFUPYd6Rc1c5lOWiLqf1L+HwUWv6orAaSRxmCyOpwn6f2FriBZwMd2SgZnqd1XrbQa9wDMsvheictifPoxwCKxGE4Xb0F7LMIr0BxcVq4buWzIbWXdLRnMU29RW070BQUEhlcRCB1Ww=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846006; c=relaxed/simple;
-	bh=VckK+hm4cI2RJ93/hh9U++X+nvttZ8YSjyXHACMuXrg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nGMoCmExAdd3ELsKHLRxnIBTbqn0/lPW0kbIQKVurcMxiBaUAnxZNUxw6XyTYwfxUWJqZwo2h7wW5QYYHd3ejatmBej5KdyE1L6Rq+g3ifhJgkhLkiLQSYNhwF6mG/kfXvXNXMfT9W1FHRBicLifHkA46sbpJfLpogdmM8i34nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h8vabbG5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CB84BA9F2;
+	Thu,  1 Oct 2026 09:13:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790846011; cv=fail; b=J3h7w96umct+1pZ/R/HQ1Vpa8u4eq/cNCvpg25aPlRmtWtbojWwAseb/lSdg9pTcz86VH56sjOvr2j+S3VydCDsCG/yCXLejlfzvz4dsPGO7hdGKPZ+S8knP3Tbbzsfw1ojfbErBBYuMKa4DQoXgVn2B55fTtXxs89OWFA3tMlE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790846011; c=relaxed/simple;
+	bh=kRgMGN1Yw62r2FthGOhbpUQjMj3csljulOlOx1hAw1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pdDkjEqeceUwNrf/MyRjHMKVI4SLdZVfwPqivF8Gn8jUNnn+pZS3SX9+stUDqH81XJp844ZpSzc+9l9I/XCD6w6BD6MCGVdAjHWhitBt1rBiSbB7O8s/x+Memm+cJBjp76Y5EwQRPj0xfKgQl1rlrVeNuS1c1OYNVCp87pL4MrI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=QvMYmd4A; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=GtXnPV9l; arc=fail smtp.client-ip=67.231.149.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h8vabbG5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790846001;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JwvoN5wl8W1Ocn83q68vasqu8aC8HjbXczmir5xZdmI=;
-	b=h8vabbG5YX1iRIYHQfg9zfKXeOYSVkyjWS6HhlMXGb8UHiJqDVKaOUvPRWprHOv0S9lbT7
-	HjCrA73SmzFerGe/VkNXbXthIu4RXerG5iiBzqj3XR/kc4QAR4CdAOhafFSng2ttZY8tUf
-	Ci+YVjL7vtW+VsrZybBkvXEPLg99uwU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-22-ZJKBd0IaMNeYgUF5NYKw8Q-1; Thu,
- 01 Oct 2026 05:13:17 -0400
-X-MC-Unique: ZJKBd0IaMNeYgUF5NYKw8Q-1
-X-Mimecast-MFC-AGG-ID: ZJKBd0IaMNeYgUF5NYKw8Q_1790845994
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C4D691954198;
-	Thu,  1 Oct 2026 09:13:13 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D0CE318005B3;
-	Thu,  1 Oct 2026 09:13:08 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>
-Subject: [PATCH v15 03/10] netfs: Add some tools for managing bvecq chains
-Date: Thu,  1 Oct 2026 10:12:31 +0100
-Message-ID: <20261001091239.3343034-4-dhowells@redhat.com>
-In-Reply-To: <20261001091239.3343034-1-dhowells@redhat.com>
-References: <20261001091239.3343034-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="QvMYmd4A";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="GtXnPV9l"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6914qidV3043943;
+	Thu, 1 Oct 2026 03:58:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=zDNEH2ZPXJ4zQ1ka
+	d1HTLfwuPKnXI9MMO8bT+1FWvsE=; b=QvMYmd4ABqFgBaCylOhX6YFOUNjiCb+t
+	xLifecgrVbIGvqcnkUoy2bi9TWlxoyY30wk+2AQ/5Py3+mHOQI/6v8/92K1iATNv
+	IFSoP+HfbkGqTbJtauJKk13TaWl56U0HsYpF6iaB9NrUcG/CGxPUSkiqwiXcsduX
+	PO9o+SjWql4OVgzA1Qwa3Mjavn+ff4kK5yGqeHvO8ZDPxxbsfNIx7lskxYlUUZl7
+	3NcVHtsO/jPGdss9HKG8fUTNXcCYWK5aolaVdqORqrVcnfjDzp7UwZlHxAeXvyna
+	w/Uoomm6D+JidhTqyUQxA+Xcg+WS/IJBEp71DRKP1sUpuSCuf/XEhA==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11022083.outbound.protection.outlook.com [40.93.195.83])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4h1gv7g6uv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 03:58:44 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gXgMcr//Kds8LLfqSH91J5O5wsksPEooNFCAKssjiQNRBydHDm6SW3A3OdwVjshEG7d0Xzi7pcEjb2Eek3GWDtj9xBlQpizTbR6Mu3VS1/TUv9S0RR5iMHtUeXRY3ZPPXiayCMfLqx5tj0U8qiCifcMyRjAiBHrKEzTepbF+v/vYVPwbZW6LST42x1hkt2/hyn5E1+rSf7GpCupe6eKLk7xapZ8XYUpymzWzEYtjBboFBGXPWSJwAm+seuZ/q4K/xoGvdpn0AsS5HXDTLY8wEQLLC6yY06IuCzXFiHSWGU2kDnenLGLBwEGcjcJ7YRKGJAks6xK8wc471NNiTht9Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zDNEH2ZPXJ4zQ1kad1HTLfwuPKnXI9MMO8bT+1FWvsE=;
+ b=Z9ScIZprdYmIRT28h0QG43+dGTeJv74aOUb/HVF7adKEdCEn9rW6OV+KwXJ0U1UgI30HTjfaYqOfP+tnNgOWTLy54Rp+Q8P6UYuuIL8XtArZtOBaQ8+fpGqjksJjhzWmMQVXwEwcIFsyEfcSdDuOZciFD80RiJlC2uzoPosKnVgOu4UWuYOTYGUiFP0SZ6K19He6utsEmTznQ8AQcdA8XgSbZpWlxj0abFonEyzAN0snCQ3uBQDWdfetwStg0bGButWVK9Rh6U2dviAK43vI32oPDYEADWCO/mvEfc1xo48Kaa8MSS9uQ24/TBlxMzF0xnZcXC7mdGS8tE+T2gl8dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zDNEH2ZPXJ4zQ1kad1HTLfwuPKnXI9MMO8bT+1FWvsE=;
+ b=GtXnPV9lJUMf+snVw3ZfBo59J9flSApb3LApAYQfz57bmozg442ZJovIyVF5Vgpgm3TmcD1Q4w42vWQ4cPbkCFMcd95WL1adfpcItnVeJ/6VClJ/b6wGNZbUe+nVM0wMSOOVVDJic24XcRcOcoGKPF10d+C3t3wUb4MO5z/znBg=
+Received: from SJ0PR03CA0237.namprd03.prod.outlook.com (2603:10b6:a03:39f::32)
+ by IA1PR19MB7278.namprd19.prod.outlook.com (2603:10b6:208:429::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
+ 2026 08:58:33 +0000
+Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::96) by SJ0PR03CA0237.outlook.office365.com
+ (2603:10b6:a03:39f::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
+ Oct 2026 08:58:33 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Thu, 1 Oct 2026 08:58:32 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 2BBF0406544;
+	Thu,  1 Oct 2026 08:58:31 +0000 (UTC)
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 0D0E582254B;
+	Thu,  1 Oct 2026 08:58:31 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: broonie@kernel.org
+Cc: linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Subject: [PATCH v2] spi: cs42l43: Workaround for wrong speaker ID on Dell XPS 13 DX13260
+Date: Thu,  1 Oct 2026 09:58:30 +0100
+Message-ID: <20261001085830.4014291-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,628 +90,210 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|IA1PR19MB7278:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 14e514e6-5f0f-442b-a32a-08df1f9a2bf6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|61400799027|23010399003|376014|36860700016|82310400026|56012099006|11063799006|10067099003|6133799003|18002099003|13003099007|16102099003;
+X-Microsoft-Antispam-Message-Info:
+	rD6vP4mPTE+wH11FP7UiXxli1PYamxmbHkfDBblvhVBFmwTLH5wvzjGFAWn9qIjpAVbdkLIugQ+1IW77fsOJV7vVVFiOykzvuzNFh3kFdgODL9ur/A5milUbHtUeVs02Ju0cCfEzUxfN5pfiZ7Y0hrjOYki/mxwIj+IptukYfHF/k4iTI9o4+fVtiW1PW8S8KuQxoUtGSrJqiG1iqBX2DcOSkL3XqayqHqQ8Inyf5F4f/iAvOFKDlYgvJc7QlR2K5rsolifLfnFy7wVE3r0bYXGmLxsSYkXB9ibzyN0VVfEYvzLFcI86M5hV7YDDN0g4/GZSEFvN9cMlW9c80v2MSGoofVLYxVjZ/1Vhvk8PndVLAo4jI8XzmwYVZIuaPtlEhVg47CshN9JUUT3f/BTCWCdcpegAz4eZ+7UEIfgkDkctqWyLKlpl5lU0IYpABqF4PiFRYm+R1f9IlCXPngCu3ZrblmEZDUwU5i5Md9brHskiRHsBAn/C/68lQpIO0xL+FWUw2h8rwVSSDaeuvMiYL1DiFF/inqxpruHi6P7c3Qs4pLORXF0cQ0akFcabDAkL7r/50RAJM20IOPHRiuUBuUjFBVWceuuDlR9YT9YtiGZV2jU4ulvifCJNBSRTS+B5SguvmamQkKSA3R445uIxVVD7jGWO+JZnHUDBI+rgJl8=
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(13003099007)(16102099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	5gnPYGTH+OFErDF+Elfe+5DX1bpOAD3mMW5RLPWy9iG4klHIPeUw5DN4XmdswHWaRXZaH5QkYY2RofITPUevhhUtSgvp5XP+b/ngr596SbKupawaTWsMM7kcQzvTPgvA4hj+gPOtCfT4TpBFtsz5B0aWsBoelU+RSC9g69fyLAOXDp6wQ7EhbJRCsjmfaZVhrCS6dzcbZPBdkfDq2ZeAhP0lJ2bhSCNg/yEp60Z+Z79jHl+z62o7d+Y4+DJdqmoxA7zpB4FUVe0T3ZWCEIlPU2hRFFy0yFR9BHFEy558hYqlCaa4V1zkNrRlKzDO9bqxgrri0QWILjeBNql3iZ1CaS+NZGPLGwg1VzzuI+wgR64wEQKJ/0qkJFPnfzzEgKVZ95otv7RikZFjDZH2LsrHZx8tZ6xKNWyHFBwQ2WNIy6UZz7FDHTfqLFHuCW+9tMZG
+X-Exchange-RoutingPolicyChecked:
+	VyP7fzbQhp72ucnbpD3VON1wIhIXEJPbDTs/MN+RWHMoUkJFuqNonGvNXXuqoJhwGr6d7B6VRmeBbF82Dzo3o/gPlcF9V+zRI5pm1GZ/seDWt/7m73iVAP6af2GWfsz2jkxhRKjlafc2pN/rjNAyyaqs5Xv81R1UX4CXuEkknPNKg4udwbDRvJdfjq56rdgAX+j2oI4Sb7GbFL3Ghx3uqAeTFAukV0oYCnOfFeoadH86YlGCVvGPQm8BKOzO6e42gyGxkLqFo8yEGczrIc0gHdL2f0T9dU0/fcQXizrBLtEwi4FBbiSv4czSOKuvc++9ESe45GXmuZ//92aEFgOEgw==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 08:58:32.9713
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14e514e6-5f0f-442b-a32a-08df1f9a2bf6
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF00002327.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR19MB7278
+X-Authority-Analysis: v=2.4 cv=JtBkP84C c=1 sm=1 tr=0 ts=6abe20c4 cx=c_pps
+ a=qXrkyhrtrlo5bn8cMY6OCA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=w1d2syhTAAAA:8 a=781EvAJ9ysGJopcBSz8A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzNSBTYWx0ZWRfX8Bju2/XBKgC+
+ VE5vkIKfZcxKL1w+iWz92WVeV9j8pj7m93e73cJrWyOndjXsj6/QgiVwBhBMpS3GNFNlRgz20g9
+ EGRjr0sopU8uUX6MAVuhsJ2Dy3TRkQFOGaITX79EauK9irv8EmvZkLem0NUZ2Iu+SOcM5yuKKuP
+ FGeI98SxHr74MSuLEmGrea4yMTDe0BHActIA4pKs55SFOGT4MTf+BbK0QzuGuZIVzNjeYr44ppx
+ 8DaPURsGJo7xhJp/SpIbDTcV82pqbH/UKGV7VsOXAjZXrV5Bmp1bGMHXQOxMfgdb3du8JwJWFo+
+ 60MxYGg4XIA2QhpReal6TBEX3rlBywoaeVJMqZKSTtw0LX1GL1B50kUycmcpMgf8ikVZov6Vqfp
+ b4DCgss9GYlaARfkY6WZp30gKt+reLVq6wuzIzqP1uv3VND8y1NwniKRcwJ5mRGfIlXGIxiu/QK
+ EIS9/fH1rIzqHPBD6LQ==
+X-Proofpoint-ORIG-GUID: SegMoQvuJKw-ut2O5RJDx8fUF4U47z3t
+X-Proofpoint-GUID: SegMoQvuJKw-ut2O5RJDx8fUF4U47z3t
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzNSBTYWx0ZWRfX4ZtTdHVaZmG0
+ G0TYouGlb3yb1um4WrQh7H/Ry1onNAhv0fvwkaxNNWSLkF2DwNspLjZZXAocnGjfuPGsaPVW4j3
+ jeduesB3mqpvIHhYDk1/G879Tmrv+0o=
+X-Proofpoint-Spam-Reason: safe
 
-Provide a selection of tools for managing bvec queue chains and a memory
-pool for writeback to draw upon if needed.  The tools include the
-allocation, prepopulation and refcounting of bvecqs and bvecq chains.  When
-a chain is being cleaned up, the memory segments will be appropriately
-disposed off according to the flags on each bvecq in that chain, allowing
-for mixed memory cleanup types.
+On Dell XPS 13 DX13260 create an acpi_gpio_mapping with exactly two
+GPIO entries to point at the two pins in the GpioIo(). Use this to
+read the speaker ID GPIOs.
 
-The main use for this is to replace the use of both folio_queues and
-kvmalloc'd bio_vec arrays in netfslib and creating a structure that allows
-network filesystems to easily build an entire message by gluing bits of
-protocol on either side of the bvecq chains and also glue chains together
-for sparse writes and compound operations.  This allows TCP-based
-transports to pass a message in a single sendmsg() call and avoid corking
-as this makes things more efficient.
+This fixes problems on Dell XPS 13 DX13260:
 
-This will also be used to do things like creating an encryption buffer in
-cifs or a directory content buffer in afs.
+- No speaker audio
+- The wrong firmware was loaded so the speaker protection did not match
+  the speaker characteristics.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Paulo Alcantara <pc@manguebit.org>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: Christoph Hellwig <hch@infradead.org>
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
+The Dell XPS 13 DX13260 has two speaker ID GPIOs, to form a 2-bit ID. The
+ACPI GpioIo() has both pins but the Linux-specific spk-id-gpios property
+only has a mapping to the first pin. This meant that the speaker ID was
+wrong in most cases, and that would lead to the codec driver loading the
+wrong amp firmware, or not finding a firmware (as 0 is not a valid ID on
+this laptop).
+
+Assisted-by: Codex:gpt-6-sol
+Reported-by: Wiza Jalakasi <wjalakasi@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221956
+Tested-by: Wiza Jalakasi <wjalakasi@gmail.com>
+Fixes: f3c605147741e ("spi: cs42l43: Add GPIO speaker id support to the bridge configuration")
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- fs/netfs/Makefile     |   1 +
- fs/netfs/bvecq.c      | 344 ++++++++++++++++++++++++++++++++++++++++++
- fs/netfs/internal.h   |   2 +
- fs/netfs/main.c       |   8 +
- fs/netfs/stats.c      |   4 +-
- include/linux/bvecq.h | 116 ++++++++++++++
- include/linux/netfs.h |   1 +
- 7 files changed, 475 insertions(+), 1 deletion(-)
- create mode 100644 fs/netfs/bvecq.c
+Changes in V2:
+- Rewritten to be a DMI-specific quirk. We need to leave the original
+  GPIO code in place to support a proposed ACPI change for future
+  products.
+- As it's now a quirk for the specific model it is hardcoded to be
+  two GPIOs.
 
-diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
-index 54834cde7e56..b1ea4439c1bb 100644
---- a/fs/netfs/Makefile
-+++ b/fs/netfs/Makefile
-@@ -3,6 +3,7 @@
- netfs-y := \
- 	buffered_read.o \
- 	buffered_write.o \
-+	bvecq.o \
- 	direct_read.o \
- 	direct_write.o \
- 	iterator.o \
-diff --git a/fs/netfs/bvecq.c b/fs/netfs/bvecq.c
-new file mode 100644
-index 000000000000..5b747f6b5938
---- /dev/null
-+++ b/fs/netfs/bvecq.c
-@@ -0,0 +1,344 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Buffering helpers for bvec queues
-+ *
-+ * Copyright (C) 2026 Red Hat, Inc. All Rights Reserved.
-+ * Written by David Howells (dhowells@redhat.com)
-+ */
-+
-+#include <linux/bvecq.h>
-+#include "internal.h"
-+
-+void bvecq_dump(const struct bvecq *bq)
-+{
-+	int b = 0;
-+
-+	for (; bq; bq = bvecq_next(bq), b++) {
-+		int skipz = 0;
-+
-+		pr_notice("BQ[%u] %u/%u\n", b, bq->nr_slots, bq->max_slots);
-+		for (int s = 0; s < bq->nr_slots; s++) {
-+			const struct bio_vec *bv = &bq->bv[s];
-+
-+			if (!bv->bv_page && !bv->bv_len && skipz < 2) {
-+				skipz = 1;
-+				continue;
-+			}
-+			if (skipz == 1)
-+				pr_notice("BQ[%u:00-%02u] ...\n", b, s - 1);
-+			skipz = 2;
-+			pr_notice("BQ[%u:%02u] %10lx %04x %04x %u\n",
-+				  b, s,
-+				  bv->bv_page ? page_to_pfn(bv->bv_page) : 0,
-+				  bv->bv_offset, bv->bv_len,
-+				  bv->bv_page ? page_count(bv->bv_page) : 0);
-+		}
-+	}
-+}
-+EXPORT_SYMBOL(bvecq_dump);
-+
-+/**
-+ * bvecq_alloc_one - Allocate a single bvecq node with unpopulated slots
-+ * @nr_slots: Number of slots to allocate
-+ * @gfp: The allocation constraints.
-+ * @for_writeback: True if allocating for writeback
-+ *
-+ * Allocate a single bvecq node and initialise the header.  The allocation is
-+ * rounded up to the size of the smallest slab granule that will accommodate it
-+ * and all the remaining space is set as an inline slot array with max_slots
-+ * set to the number of slots.  The slot array is not initialised.
-+ *
-+ * If @for_writeback is set, then the emergency mempool may be used for
-+ * allocation.  If it does allocate from that pool, the maximum number of slots
-+ * available will be BVECQ_POOL_SLOTS which may be less than requested.  Also,
-+ * if @for_writeback is set, the function will not fail - though it may have to
-+ * wait.
-+ *
-+ * Return: The node pointer or NULL on allocation failure.
-+ */
-+struct bvecq *bvecq_alloc_one(size_t nr_slots, gfp_t gfp, bool for_writeback)
-+{
-+	struct bvecq *bq;
-+	const size_t pool_size = struct_size_t(struct bvecq, __bv, BVECQ_POOL_SLOTS);
-+	size_t size;
-+	bool from_pool = false;
-+
-+	size = kmalloc_size_roundup(struct_size(bq, __bv, nr_slots));
-+	gfp &= ~(GFP_ZONEMASK | __GFP_THISNODE);
-+
-+	if (for_writeback) {
-+		if (size != pool_size) {
-+			gfp_t gfp_temp = gfp;
-+
-+			gfp_temp |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN;
-+			gfp_temp &= ~(__GFP_DIRECT_RECLAIM | __GFP_IO);
-+			bq = kmalloc(size, gfp_temp);
-+			if (bq)
-+				goto success;
-+		}
-+
-+		bq = mempool_alloc(&netfs_bvecq_pool, gfp);
-+		if (!bq)
-+			return bq;
-+		from_pool = true;
-+		size = pool_size;
-+	} else {
-+		bq = kmalloc(size, gfp);
-+		if (!bq)
-+			return bq;
-+	}
-+
-+success:
-+	*bq = (struct bvecq) {
-+		.ref		= REFCOUNT_INIT(1),
-+		.bv		= bq->__bv,
-+		.inline_bv	= true,
-+		.max_slots	= (size - sizeof(*bq)) / sizeof(bq->__bv[0]),
-+		.from_pool	= from_pool,
-+	};
-+	netfs_stat(&netfs_n_bvecq);
-+	return bq;
-+}
-+EXPORT_SYMBOL(bvecq_alloc_one);
-+
-+/**
-+ * bvecq_alloc_chain - Allocate an unpopulated bvecq chain
-+ * @nr_slots: Number of slots to allocate
-+ * @gfp: The allocation constraints.
-+ * @for_writeback: True if allocating for writeback
-+ *
-+ * Allocate a chain of bvecq nodes providing at least the requested cumulative
-+ * number of slots.  Each node is a maximum of 4KiB in size.
-+ *
-+ * Return: The first node pointer or NULL on allocation failure.
-+ */
-+struct bvecq *bvecq_alloc_chain(size_t nr_slots, gfp_t gfp, bool for_writeback)
-+{
-+	struct bvecq *head = NULL, *tail = NULL;
-+
-+	_enter("%zu", nr_slots);
-+
-+	for (;;) {
-+		struct bvecq *bq;
-+
-+		bq = bvecq_alloc_one(min(nr_slots, BVECQ_4KB_SLOTS), gfp, for_writeback);
-+		if (!bq)
-+			goto oom;
-+
-+		if (tail)
-+			bvecq_append(tail, bq);
-+		else
-+			head = bq;
-+		tail = bq;
-+		if (tail->max_slots >= nr_slots)
-+			break;
-+		nr_slots -= tail->max_slots;
-+	}
-+
-+	return head;
-+oom:
-+	bvecq_put(head);
-+	return NULL;
-+}
-+EXPORT_SYMBOL(bvecq_alloc_chain);
-+
-+/**
-+ * bvecq_alloc_buffer2 - Allocate a bvecq chain and populate with buffers
-+ * @size: Target size of the buffer (can be 0 for an empty buffer)
-+ * @pre_slots: Number of preamble slots to set aside
-+ * @gfp: The allocation constraints.
-+ * @for_writeback: True if allocating for writeback
-+ *
-+ * Allocate a chain of bvecq nodes and populate the slots with sufficient pages
-+ * to provide at least the requested amount of space, leaving the first
-+ * @pre_slots slots unset.  The pre-slots must all fit into the the first
-+ * bvecq.
-+ *
-+ * The pages allocated may be compound pages larger than PAGE_SIZE and thus
-+ * occupy fewer slots.  The pages have their refcounts set to 1 and can be
-+ * passed to MSG_SPLICE_PAGES.
-+ *
-+ * Return: The first node pointer or NULL on allocation failure.
-+ */
-+struct bvecq *bvecq_alloc_buffer2(size_t size, unsigned int pre_slots, gfp_t gfp,
-+				  bool for_writeback)
-+{
-+	struct bvecq *head = NULL, *p = NULL;
-+	size_t nr_per_bq = BVECQ_POOL_SLOTS;
-+	size_t count = pre_slots + DIV_ROUND_UP(size, PAGE_SIZE);
-+
-+	_enter("%zx,%zx,%u", size, count, pre_slots);
-+
-+	if (WARN_ON_ONCE(pre_slots > nr_per_bq))
-+		return NULL;
-+
-+	head = bvecq_alloc_chain(count, gfp, for_writeback);
-+	if (!head)
-+		return NULL;
-+
-+	p = head;
-+	do {
-+		struct page **pages;
-+		size_t unused, want, got, slot;
-+
-+		if (!count)
-+			break;
-+		if (WARN_ON_ONCE(!p))
-+			goto oom;
-+
-+		if (p->nr_slots == 0) {
-+			/* Need to clear pre slots and pages[], so just clear all. */
-+			memset(p->bv, 0, p->max_slots * sizeof(p->bv[0]));
-+			p->mem_type = BVECQ_MEM_ALLOCED;
-+			p->nr_slots = pre_slots;
-+			count -= pre_slots;
-+			pre_slots = 0;
-+			if (!count)
-+				break;
-+		}
-+
-+		if (p->nr_slots >= p->max_slots) {
-+			p = p->next;
-+			continue;
-+		}
-+		unused = p->max_slots - p->nr_slots;
-+
-+		pages = (struct page **)&p->bv[p->max_slots];
-+		pages -= unused;
-+
-+		want = min(count, unused);
-+		got = alloc_pages_bulk(gfp, want, pages);
-+		if (!got)
-+			goto oom;
-+
-+		slot = p->nr_slots;
-+		for (int i = 0; i < got; i++)
-+			bvec_set_page(&p->bv[slot++], pages[i], PAGE_SIZE, 0);
-+
-+		bvecq_filled_to(p, slot);
-+		count -= got;
-+	} while (count > 0);
-+
-+	return head;
-+oom:
-+	bvecq_put(head);
-+	return NULL;
-+}
-+EXPORT_SYMBOL(bvecq_alloc_buffer2);
-+
-+/*
-+ * Free the page pointed to by a slot as necessary.
-+ */
-+static void bvecq_free_slot(struct bvecq *bq, unsigned int slot)
-+{
-+	struct page *page = bq->bv[slot].bv_page;
-+
-+	if (!page)
-+		return;
-+
-+	switch (bq->mem_type) {
-+	case BVECQ_MEM_EXTERNAL:
-+		break;
-+	case BVECQ_MEM_PAGECACHE:
-+		put_page(page);
-+		break;
-+	case BVECQ_MEM_GUP:
-+		unpin_user_page(page);
-+		break;
-+	case BVECQ_MEM_ALLOCED:
-+		__free_pages(page, compound_order(page));
-+		break;
-+	default:
-+		WARN_ON_ONCE(1);
-+		break;
-+	}
-+}
-+
-+/**
-+ * bvecq_put - Put a ref on a bvec queue
-+ * @bq: The start of the folio queue to free
-+ *
-+ * Put the ref(s) on the nodes in a bvec queue, freeing up the node and the
-+ * page fragments it points to as the refcounts become zero.
-+ */
-+void bvecq_put(struct bvecq *bq)
-+{
-+	struct bvecq *next;
-+
-+	for (; bq; bq = next) {
-+		if (!refcount_dec_and_test(&bq->ref))
-+			break;
-+		for (int slot = 0; slot < bq->nr_slots; slot++)
-+			bvecq_free_slot(bq, slot);
-+		next = bq->next;
-+		netfs_stat_d(&netfs_n_bvecq);
-+		if (bq->from_pool)
-+			mempool_free(bq, &netfs_bvecq_pool);
-+		else
-+			kfree(bq);
-+	}
-+}
-+EXPORT_SYMBOL(bvecq_put);
-+
-+/**
-+ * bvecq_expand_buffer - Allocate buffer space into a bvec queue
-+ * @_buffer: Pointer to the bvecq chain to expand (may point to a NULL; updated).
-+ * @_cur_size: Current size of the buffer (updated).
-+ * @size: Target size of the buffer.
-+ * @gfp: The allocation constraints.
-+ *
-+ * Append extra pages to a buffer to increase its capacity to the @size
-+ * specified.  If the current tail has space, but is not of the
-+ * BVECQ_MEM_ALLOCED memory type, a separate bvecq will be allocated to hold
-+ * the new memory.
-+ */
-+int bvecq_expand_buffer(struct bvecq **_buffer, size_t *_cur_size, size_t size, gfp_t gfp)
-+{
-+	struct bvecq *tail = *_buffer;
-+
-+	size = round_up(size, PAGE_SIZE);
-+	if (tail)
-+		while (tail->next)
-+			tail = tail->next;
-+
-+	while (*_cur_size < size) {
-+		struct page *page;
-+		size_t need = size - *_cur_size;
-+		gfp_t gfp_add;
-+		int order = 0;
-+
-+		if (!tail || bvecq_is_full(tail) || tail->mem_type != BVECQ_MEM_ALLOCED) {
-+			struct bvecq *p;
-+
-+			p = bvecq_alloc_one(BVECQ_POOL_SLOTS, gfp, false);
-+			if (!p)
-+				return -ENOMEM;
-+			if (tail)
-+				bvecq_append(tail, p);
-+			else
-+				*_buffer = p;
-+			tail = p;
-+			p->mem_type = BVECQ_MEM_ALLOCED;
-+		}
-+
-+		if (need > PAGE_SIZE)
-+			order = umin(ilog2(need) - PAGE_SHIFT, MAX_PAGECACHE_ORDER);
-+
-+		gfp_add = 0;
-+		if (order > 0)
-+			gfp_add |= __GFP_NORETRY | __GFP_NOWARN;
-+		page = alloc_pages(gfp | __GFP_COMP | gfp_add, order);
-+		if (!page && order > 0) {
-+			page = alloc_pages(gfp | __GFP_COMP, 0);
-+			order = 0;
-+		}
-+		if (!page)
-+			return -ENOMEM;
-+
-+		bvec_set_page(&tail->bv[tail->nr_slots], page, PAGE_SIZE << order, 0);
-+		*_cur_size += PAGE_SIZE << order;
-+		bvecq_filled_to(tail, tail->nr_slots + 1);
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(bvecq_expand_buffer);
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index b8591abc90a9..dd20a9f201be 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -45,6 +45,7 @@ extern struct list_head netfs_io_requests;
- extern spinlock_t netfs_proc_lock;
- extern mempool_t netfs_request_pool;
- extern mempool_t netfs_subrequest_pool;
-+extern mempool_t netfs_bvecq_pool;
- extern mempool_t netfs_folioq_pool;
- 
- #ifdef CONFIG_PROC_FS
-@@ -203,6 +204,7 @@ extern atomic_t netfs_n_wh_retry_write_subreq;
- extern atomic_t netfs_n_wb_lock_skip;
- extern atomic_t netfs_n_wb_lock_wait;
- extern atomic_t netfs_n_folioq;
-+extern atomic_t netfs_n_bvecq;
- 
- int netfs_stats_show(struct seq_file *m, void *v);
- 
-diff --git a/fs/netfs/main.c b/fs/netfs/main.c
-index 609e22e8f76a..5c8517a66dde 100644
---- a/fs/netfs/main.c
-+++ b/fs/netfs/main.c
-@@ -28,6 +28,7 @@ static struct kmem_cache *netfs_request_slab;
- static struct kmem_cache *netfs_subrequest_slab;
- mempool_t netfs_request_pool;
- mempool_t netfs_subrequest_pool;
-+mempool_t netfs_bvecq_pool;
- mempool_t netfs_folioq_pool;
- 
- #ifdef CONFIG_PROC_FS
-@@ -111,6 +112,10 @@ static int __init netfs_init(void)
- 	if (mempool_init_kmalloc_pool(&netfs_folioq_pool, 100, sizeof(struct folio_queue)) < 0)
- 		goto error_folioq_pool;
- 
-+	if (mempool_init_kmalloc_pool(&netfs_bvecq_pool, 100,
-+				      struct_size_t(struct bvecq, __bv, BVECQ_POOL_SLOTS)) < 0)
-+		goto error_bvecq_pool;
-+
- 	netfs_request_slab = kmem_cache_create("netfs_request",
- 					       sizeof(struct netfs_io_request), 0,
- 					       SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT,
-@@ -163,6 +168,8 @@ static int __init netfs_init(void)
- error_reqpool:
- 	kmem_cache_destroy(netfs_request_slab);
- error_req:
-+	mempool_exit(&netfs_bvecq_pool);
-+error_bvecq_pool:
- 	mempool_exit(&netfs_folioq_pool);
- error_folioq_pool:
- 	return ret;
-@@ -177,6 +184,7 @@ static void __exit netfs_exit(void)
- 	kmem_cache_destroy(netfs_subrequest_slab);
- 	mempool_exit(&netfs_request_pool);
- 	kmem_cache_destroy(netfs_request_slab);
-+	mempool_exit(&netfs_bvecq_pool);
- 	mempool_exit(&netfs_folioq_pool);
+ drivers/spi/spi-cs42l43.c | 97 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
+
+diff --git a/drivers/spi/spi-cs42l43.c b/drivers/spi/spi-cs42l43.c
+index 7106a8a4f2805..6772abb483dd3 100644
+--- a/drivers/spi/spi-cs42l43.c
++++ b/drivers/spi/spi-cs42l43.c
+@@ -11,6 +11,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/cleanup.h>
+ #include <linux/device.h>
++#include <linux/dmi.h>
+ #include <linux/errno.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/gpio/machine.h>
+@@ -215,12 +216,108 @@ static size_t cs42l43_spi_max_length(struct spi_device *spi)
+ 	return CS42L43_SPI_MAX_LENGTH;
  }
- module_exit(netfs_exit);
-diff --git a/fs/netfs/stats.c b/fs/netfs/stats.c
-index 9a607c4e62dd..a10d34f88597 100644
---- a/fs/netfs/stats.c
-+++ b/fs/netfs/stats.c
-@@ -47,6 +47,7 @@ atomic_t netfs_n_wh_retry_write_subreq;
- atomic_t netfs_n_wb_lock_skip;
- atomic_t netfs_n_wb_lock_wait;
- atomic_t netfs_n_folioq;
-+atomic_t netfs_n_bvecq;
  
- int netfs_stats_show(struct seq_file *m, void *v)
++/*
++ * Workaround needed for two speaker ID pins in one ACPI GpioIo() but
++ * the Linux-specific _DSD property only contains one pin.
++ * Create a temporary acpi_gpio_mapping pointing at both pins.
++ */
++static const struct acpi_gpio_params cs42l43_2bit_speaker_id_from_one_gpioio_params[] = {
++	[0] = {
++		.crs_entry_index = 0,
++		.line_index = 0,
++	},
++	[1] = {
++		.crs_entry_index = 0,
++		.line_index = 1,
++	},
++};
++
++static const struct acpi_gpio_mapping cs42l43_2bit_speaker_id_from_one_gpioio_mapping[] = {
++	{
++		.name = "spk-id-quirk-gpios",
++		.data = cs42l43_2bit_speaker_id_from_one_gpioio_params,
++		.size = ARRAY_SIZE(cs42l43_2bit_speaker_id_from_one_gpioio_params),
++	},
++	{ }
++};
++
++static int cs42l43_get_2bit_speaker_id_from_one_gpioio(struct cs42l43_spi *priv, int *result)
++{
++	struct fwnode_reference_args args;
++	struct acpi_device *adev;
++	struct gpio_desc *desc;
++	u32 spkid = 0;
++	int i, ret;
++
++	/* Use the _DSD property to get the node containing the GpioIo() */
++	ret = fwnode_property_get_reference_args(dev_fwnode(priv->dev), "spk-id-gpios",
++						 NULL, 3, 0, &args);
++	if (ret)
++		return ret;
++
++	struct fwnode_handle *fwnode __free(fwnode_handle) = args.fwnode;
++
++	/* An acpi_gpio_mapping must be added to the node that contains the GpioIo() */
++	adev = to_acpi_device_node(fwnode);
++	if (!adev)
++		return -EINVAL;
++
++	ret = acpi_dev_add_driver_gpios(adev, cs42l43_2bit_speaker_id_from_one_gpioio_mapping);
++	if (ret)
++		return ret;
++
++	/* gpiod_get_array() can't read from a mapping in a child node */
++	for (i = 0; i < ARRAY_SIZE(cs42l43_2bit_speaker_id_from_one_gpioio_params); i++) {
++		desc = fwnode_gpiod_get_index(fwnode, "spk-id-quirk", i, GPIOD_IN,
++					      dev_name(priv->dev));
++		if (IS_ERR(desc)) {
++			ret = PTR_ERR(desc);
++			goto out;
++		}
++
++		ret = gpiod_get_value_cansleep(desc);
++		gpiod_put(desc);
++		if (ret < 0)
++			goto out;
++
++		spkid |= (u32)ret << i;
++	}
++
++	dev_dbg(priv->dev, "spk-id-gpios = %u\n", spkid);
++	*result = spkid;
++	ret = 0;
++out:
++	acpi_dev_remove_driver_gpios(adev);
++
++	return ret;
++}
++
++static const struct dmi_system_id cs42l43_spk_id_quirks[] = {
++	{
++		.ident = "Dell XPS 13 DX13260",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0E53"),
++		},
++		.driver_data = cs42l43_get_2bit_speaker_id_from_one_gpioio,
++	},
++	{ }
++};
++
+ static int cs42l43_get_speaker_id_gpios(struct cs42l43_spi *priv, int *result)
  {
-@@ -88,9 +89,10 @@ int netfs_stats_show(struct seq_file *m, void *v)
- 		   atomic_read(&netfs_n_rh_retry_read_subreq),
- 		   atomic_read(&netfs_n_wh_retry_write_req),
- 		   atomic_read(&netfs_n_wh_retry_write_subreq));
--	seq_printf(m, "Objs   : rr=%u sr=%u foq=%u wsc=%u\n",
-+	seq_printf(m, "Objs   : rr=%u sr=%u bq=%u foq=%u wsc=%u\n",
- 		   atomic_read(&netfs_n_rh_rreq),
- 		   atomic_read(&netfs_n_rh_sreq),
-+		   atomic_read(&netfs_n_bvecq),
- 		   atomic_read(&netfs_n_folioq),
- 		   atomic_read(&netfs_n_wh_wstream_conflict));
- 	seq_printf(m, "WbLock : skip=%u wait=%u\n",
-diff --git a/include/linux/bvecq.h b/include/linux/bvecq.h
-index 77fd07852c33..b984aaa44908 100644
---- a/include/linux/bvecq.h
-+++ b/include/linux/bvecq.h
-@@ -43,8 +43,124 @@ struct bvecq {
- 	u16		max_slots;	/* Number of elements allocated in bv[] */
- 	enum bvecq_mem	mem_type:3;	/* What sort of memory and how to free it */
- 	bool		inline_bv:1;	/* T if __bv[] is being used */
-+	bool		from_pool:1;	/* T if bvecq from mempool */
- 	struct bio_vec	*bv;		/* Pointer to array of page fragments */
- 	struct bio_vec	__bv[];		/* Default array (if ->inline_bv) */
- };
++	const struct dmi_system_id *dmi_id;
+ 	struct gpio_descs *descs;
+ 	u32 spkid;
+ 	int i, ret;
  
-+/* Number of slots in a 512-byte mempool-backed bvecq. */
-+#define BVECQ_POOL_SLOTS ((512 - sizeof(struct bvecq)) / sizeof(struct bio_vec))
++	dmi_id = dmi_first_match(cs42l43_spk_id_quirks);
++	if (dmi_id) {
++		int (*get_speaker_id)(struct cs42l43_spi *priv, int *result) = dmi_id->driver_data;
 +
-+/* Number of slots in a 4K bvecq. */
-+#define BVECQ_4KB_SLOTS  ((4096 - sizeof(struct bvecq)) / sizeof(struct bio_vec))
++		return get_speaker_id(priv, result);
++	}
 +
-+void bvecq_dump(const struct bvecq *bq);
-+struct bvecq *bvecq_alloc_one(size_t nr_slots, gfp_t gfp, bool for_writeback);
-+struct bvecq *bvecq_alloc_chain(size_t nr_slots, gfp_t gfp, bool for_writeback);
-+struct bvecq *bvecq_alloc_buffer2(size_t size, unsigned int pre_slots, gfp_t gfp,
-+				  bool for_writeback);
-+void bvecq_put(struct bvecq *bq);
-+int bvecq_expand_buffer(struct bvecq **_buffer, size_t *_cur_size, size_t size, gfp_t gfp);
-+
-+/**
-+ * bvecq_alloc_buffer - Allocate a bvecq chain and populate with buffers
-+ * @size: Target size of the buffer (can be 0 for an empty buffer)
-+ * @gfp: The allocation constraints.
-+ * @for_writeback: True if allocating for writeback
-+ *
-+ * Wrapper around %bvecq_alloc_buffer2().
-+ */
-+static inline struct bvecq *bvecq_alloc_buffer(size_t size, gfp_t gfp, bool for_writeback)
-+{
-+	return bvecq_alloc_buffer2(size, 0, gfp, for_writeback);
-+}
-+
-+/**
-+ * bvecq_get - Get a ref on a bvecq
-+ * @bq: The bvecq to get a ref on
-+ */
-+static inline struct bvecq *bvecq_get(struct bvecq *bq)
-+{
-+	refcount_inc(&bq->ref);
-+	return bq;
-+}
-+
-+/**
-+ * bvecq_is_full - Determine if a bvecq is full
-+ * @bvecq: The object to query
-+ *
-+ * Return: true if full; false if not.
-+ */
-+static inline bool bvecq_is_full(const struct bvecq *bvecq)
-+{
-+	return bvecq->nr_slots >= bvecq->max_slots;
-+}
-+
-+/**
-+ * bvecq_filled_to - Release filled slots with release barrier
-+ * @bvecq: The object modified
-+ * @to: The latest slot filled + 1
-+ */
-+static inline void bvecq_filled_to(struct bvecq *bvecq, unsigned int to)
-+{
-+	/* Set the slot counter after filling the slot */
-+	smp_store_release(&bvecq->nr_slots, to);
-+}
-+
-+/**
-+ * bvecq_nr_slots_acquire - Get the number of filled slots with acquire barrier
-+ * @bvecq: The object to query
-+ *
-+ * Return: The number of filled slots
-+ */
-+static inline unsigned int bvecq_nr_slots_acquire(const struct bvecq *bvecq)
-+{
-+	/* Read the slot counter before looking at the slot */
-+	return smp_load_acquire(&bvecq->nr_slots);
-+}
-+
-+/**
-+ * bvecq_acquire_slot - Determine if a slot is valid with acquire barrier
-+ * @bvecq: The object to query
-+ * @slot: The next slot
-+ *
-+ * Return: true if valid; false if might not be valid
-+ */
-+static inline bool bvecq_acquire_slot(const struct bvecq *bvecq, unsigned int slot)
-+{
-+	/* Read the slot counter before looking at the slot */
-+	return slot < bvecq_nr_slots_acquire(bvecq);
-+}
-+
-+/**
-+ * bvecq_append - Get the next bvecq with appropriate barrier
-+ * @to: The bvecq to append to
-+ * @add: The bvecq to append
-+ *
-+ * Attach a new bvecq to a chain using an appropriate barrier to protect the
-+ * write.
-+ *
-+ * [!] Note that this function transfers the caller's ref to the chain.
-+ */
-+static inline void bvecq_append(struct bvecq *to, struct bvecq *add)
-+{
-+	add->prev = to;
-+
-+	/* Make sure the initialisation is stored before the next pointer. */
-+	smp_store_release(&to->next, add);
-+}
-+
-+/**
-+ * bvecq_next - Get the next bvecq with appropriate barrier
-+ * @bq: The bvecq to start from
-+ *
-+ * Return the next bvecq in a chain, using an appropriate barrier to protect
-+ * the access.
-+ */
-+static inline struct bvecq *bvecq_next(const struct bvecq *bq)
-+{
-+	/* Read the contents of the next node after the pointer to it. */
-+	return smp_load_acquire(&bq->next);
-+}
-+
- #endif /* _LINUX_BVECQ_H */
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 67e010b6994b..1723bcda86ba 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -17,6 +17,7 @@
- #include <linux/workqueue.h>
- #include <linux/fs.h>
- #include <linux/pagemap.h>
-+#include <linux/bvecq.h>
- #include <linux/uio.h>
- #include <linux/rolling_buffer.h>
- 
+ 	descs = gpiod_get_array_optional(priv->dev, "spk-id", GPIOD_IN);
+ 	if (!descs)
+ 		return 0;
+-- 
+2.47.3
 
