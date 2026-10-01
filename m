@@ -1,118 +1,138 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449193D300F;
-	Thu,  1 Oct 2026 12:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC513AE71C;
+	Thu,  1 Oct 2026 12:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856501; cv=none; b=RwdZvIG/B1WG4cLkqsqx7YilBDP4JNQHcEgnugWtEaNSGm2FocvGr7OYzkNTcTZM5Z7qwMMCQ723WrFFzxEfyKdbx7E9NFA8KLao2pkgdamG68PPEIa1px4ZTRefG+8ZiHVPLN8gNkYwr8Bg1+QVLUdFVmJnZbmTELgdmCsOoQE=
+	t=1790856503; cv=none; b=sah5GFsPmIkFiw6I8Ahh/EPES/h61GnTDxCXBM80tTdOOAULbJzJ4sH2jYKHYqweudXmgKbyrVsXinh63UDG5aKDB3W8I+muA4XbA6bo2An0d3exbe1rMw8juFLQDUGMaPr0cfyVtnG/YmS1Q4JeoET3+Kiky1ozEzY6pvKbfkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856501; c=relaxed/simple;
-	bh=NxAG3E+5i2MTnKtF8Xprl15RHqzZLg03XMuL48fowLw=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=iesKJ07Kf0kuV8GJbrI2oIVETo6N46cIxj0RfP6Llntk8IN0RCwsEit7NNwHoJgDWvgZ/29LRUnS0wAkc/qjyWLmi2EQfLppPwxzGO6PyQE+rg1sW847MTRy0AMjsjlLbhWho1CFtrx163j8Pu+nNmObLnrwblwBLxvnFdMQxmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3CrtoXI6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tB++LZT8; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790856503; c=relaxed/simple;
+	bh=lQqObY9wJw1ryU4e1iRCcObLBG5wLe+a2s2XLdHBhUE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YTLR4bkRSwTWVPvpay9QbDdxemSRrCNnAm9t/zaV9hRzmtFXFNn15wF7ChupxLxIX7AwamwtZ1GApvk6v/lPMbuyov1hv9kVWV64Ox4W59BeT04IY8JGB6WxvAhrsHjiu99VWw5Ayoq00NDV+HdZWSQKTu9Eyo3VbzCFaBy7lm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jhU2fX0S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3CrtoXI6";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tB++LZT8"
-Date: Thu, 01 Oct 2026 12:08:04 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790856486;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GrjC85FMIMBVnksWH0143c98t8Y54CyDrwAGrXC0VWc=;
-	b=3CrtoXI6u7LdTHn+AmAhoG0HidfXhoQg2ZBu2Tdk/dPTYEOY5+j2tZBAswzuKO6f5E3HZC
-	hXCkGIR76ZVuKXstGLfxRne7MFdB6/V+w2zo1BbWIM0Dn9tUAU9pMCn8tir97jkfPMa/De
-	Fg9tFRq4aXqy2NefePQTprqib/r0+n9yteyWePZaU4y0fOTEt0ntELDFgEDDibqVKtQREZ
-	glr8IOIDPXO960NBVVYtnGZFGQrg+0bXfv8glCnFYwAy8ADHt08K5LTwOSIuQ5y0qRE/Z4
-	PlZaRXGrgsZY/9UL3k+5iJNXTJkQN5TXSxBMxTLMZFAdDF35+78uKx6QLG9J+w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790856486;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GrjC85FMIMBVnksWH0143c98t8Y54CyDrwAGrXC0VWc=;
-	b=tB++LZT8Kpx9Z0MaptSL3Xm7hcyrUDKaSCJcC4z84g9qqFTLNQ+xrHBAld5UIrfMdj1aNG
-	QpT3znb158IRKjCQ==
-From: "tip-bot2 for Lance Yang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/mm] x86/mm: Fix spurious warning on __add_pages() failure
-Cc: David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Lance Yang <lance.yang@linux.dev>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261001081555.35485-1-lance.yang@linux.dev>
-References: <20261001081555.35485-1-lance.yang@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jhU2fX0S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04401F0089C;
+	Thu,  1 Oct 2026 12:08:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790856483;
+	bh=p6LV3W68TcyZMyH7qsUALOR/0REEYV7OftxrXkIXaFo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jhU2fX0S2p03+kVwHCivDDisFZvCwqmENmY/QGJdkRVa5+SWuyz/fBtwS9kUvNFHX
+	 OQOAaH2v+5VPvVH3wYxEXJ+cY4AfsugkfcDs7UfpIdQ7YqfD5lWqSFuyGDfV8fczKj
+	 OgKGFdwFyk6jjvgXejRnafzRYb4NnuW22miBSRpg=
+Date: Thu, 1 Oct 2026 13:52:59 +0200
+From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+To: nirbhayykumarr@proton.me
+Cc: "Usyskin, Alexander" <alexander.usyskin@intel.com>,
+	"rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+	"jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+	"arnd@arndb.de" <arnd@arndb.de>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] misc: mei: prevent reusing disconnecting clients in
+ mei_ioctl_connect_vtag
+Message-ID: <2026100107-handshake-french-7080@gregkh>
+References: <EMSkNBZm4uu_WZkFgR0kROn545GxY2HBpddaVmMEc5GggQEgOo5yFDDeY8r5Imj5te7fffDZwld1HeGzwFBtFZomlgCTvAetlLTaTaHHJQY=@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179085648422.3910103.13897070172924139485.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <EMSkNBZm4uu_WZkFgR0kROn545GxY2HBpddaVmMEc5GggQEgOo5yFDDeY8r5Imj5te7fffDZwld1HeGzwFBtFZomlgCTvAetlLTaTaHHJQY=@proton.me>
 
-The following commit has been merged into the x86/mm branch of tip:
+On Fri, Sep 04, 2026 at 03:59:58AM +0000, nirbhayykumarr@proton.me wrote:
+> This issue was discovered using a custom multi-threaded C fuzzer
+> designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
+> multiplexing over /dev/mei0. By concurrently racing rapid vtag
+> connections against file descriptor closures and streaming I/O, a
+> race condition is triggered during client teardown.
+> 
+> In mei_release(), closing the last file descriptor holding a virtual tag
+> invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(),
+> dev->device_lock is dropped while awaiting the firmware disconnect ACK
+> on cl->wait.
+> 
+> During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTAG
+> call on the same UUID scans dev->file_list. Because
+> mei_ioctl_connect_vtag() only verified pos->me_cl without checking
+> pos->state, it matched the tearing-down client (in
+> MEI_FILE_DISCONNECTING), repointed file->private_data to pos, and added a
+> new vtag to pos->vtag_map.
+> 
+> When the disconnect ACK arrived, __mei_cl_disconnect() called
+> mei_cl_set_disconnected(pos), setting pos->me_cl = NULL and pos->state =
+> MEI_FILE_DISCONNECTED. Because pos->vtag_map now contained the second
+> thread's tag, mei_release() skipped unlinking and freeing pos. The second
+> thread then attempted to reuse this disconnected client, causing packet
+> demuxing mismatches, continuous CSME hardware link resets, and DRM/i915
+> display freezes.
+> 
+> Fix this by:
+> 1. Validating pos->state in mei_ioctl_connect_vtag() to ensure only
+>    active clients (MEI_FILE_CONNECTED or MEI_FILE_CONNECTING) are reused.
+> 2. Setting cb->vtag during callback allocation in mei_io_cb_init() via
+>    mei_cl_vtag_by_fp().
+> 3. Demuxing incoming read packets in mei_cl_irq_read_msg() by matching
+>    vtag against cl->rd_pending rather than blindly dequeuing the head.
+> 
+> Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
+> ---
+>  drivers/misc/mei/client.c    | 24 ++++++++++++-
+>  drivers/misc/mei/client.h    |  1 +
+>  drivers/misc/mei/interrupt.c | 65 +++++++++++++++++++++++-------------
+>  drivers/misc/mei/main.c      | 24 +++----------
+>  4 files changed, 69 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+> index 5f648481024..b10c483673a 100644
+> --- a/drivers/misc/mei/client.c
+> +++ b/drivers/misc/mei/client.c
+> @@ -379,7 +379,7 @@ static struct mei_cl_cb *mei_io_cb_init(struct mei_cl *cl,
+>  	cb->cl = cl;
+>  	cb->buf_idx = 0;
+>  	cb->fop_type = type;
+> -	cb->vtag = 0;
+> +	cb->vtag = mei_cl_vtag_by_fp(cl, fp);
+>  	cb->ext_hdr = NULL;
+>  
+>  	return cb;
+> @@ -1313,6 +1313,28 @@ const struct file *mei_cl_fp_by_vtag(const struct mei_cl *cl, u8 vtag)
+>  	return ERR_PTR(-ENOENT);
+>  }
+>  
+> +/**
+> + * mei_cl_vtag_by_fp - obtain the vtag by file pointer
+> + *
+> + * @cl: host client
+> + * @fp: pointer to file structure
+> + *
+> + * Return: vtag value on success, otherwise 0
+> + */
+> +u8 mei_cl_vtag_by_fp(const struct mei_cl *cl, const struct file *fp)
+> +{
+> +	struct mei_cl_vtag *cl_vtag;
+> +
+> +	if (!cl || !fp)
+> +		return 0;
+> +
+> +	list_for_each_entry(cl_vtag, &cl->vtag_map, list)
+> +		if (cl_vtag->fp == fp)
+> +			return cl_vtag->vtag;
 
-Commit-ID:     d92b5ac5aeba1ffc734576e30a5bca882722de76
-Gitweb:        https://git.kernel.org/tip/d92b5ac5aeba1ffc734576e30a5bca88272=
-2de76
-Author:        Lance Yang <lance.yang@linux.dev>
-AuthorDate:    Thu, 01 Oct 2026 16:15:55 +08:00
-Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-CommitterDate: Thu, 01 Oct 2026 05:04:44 -07:00
+Where is the locking here and elsewhere in this patch?  WHat prevents
+the list from changing while you walk it?  And what prevents this from
+changing right after you get it?
 
-x86/mm: Fix spurious warning on __add_pages() failure
+thanks,
 
-__add_pages() can fail if we run out of memory. Callers already handle
-that. Do not WARN_ON_ONCE() just because an allocation failed.
-
-Return the error instead, and only update the end-of-memory variables
-after __add_pages() succeeds.
-
-[ dhansen: imperative voice changelog fixups ]
-
-Fixes: 10f22dde556d ("x86: arch/x86/mm/init_64.c printk fixes")
-Reported-by: David Hildenbrand <david@kernel.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Link: https://lore.kernel.org/all/d4fac8af-fd71-47a2-bfe9-3c6559b92209@kernel=
-.org/
-Link: https://lore.kernel.org/all/203892F4-B04A-4F69-A1B3-DC1619176C67@linux.=
-dev/
-Link: https://patch.msgid.link/20261001081555.35485-1-lance.yang@linux.dev
----
- arch/x86/mm/init_64.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
-index 70e6821..8b6d86f 100644
---- a/arch/x86/mm/init_64.c
-+++ b/arch/x86/mm/init_64.c
-@@ -970,7 +970,8 @@ int add_pages(int nid, unsigned long start_pfn, unsigned =
-long nr_pages,
- 		return -ERANGE;
-=20
- 	ret =3D __add_pages(nid, start_pfn, nr_pages, params);
--	WARN_ON_ONCE(ret);
-+	if (ret)
-+		return ret;
-=20
- 	/*
- 	 * Special case: add_pages() is called by memremap_pages() for adding device
+greg k-h
