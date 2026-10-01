@@ -1,81 +1,73 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0697C3BE15E
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F713B27D8;
+	Thu,  1 Oct 2026 11:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790854889; cv=none; b=uVHBosRuLFKv1vIMqBClfhGT31H02onahcHFgJDV4xnUFuTh7xmzgKaD1xWTmGV6QfKq52AkBr9SZ4IzLoGiE8OiS7vMvFmFd0iQWgBGw4YKsfivKaaCmRgzVhu7TE1v6yN3m7QXOaT1QC/9RxiZ+iCjT8dkYYBaX+ePnrf3VuQ=
+	t=1790854975; cv=none; b=PxBiCC/+JGIioiMbzYUX3734By5+/j5QboaCNnHEW++ILL0yvhkyVC0zvT5xmNEjDDiXxUKFPq3E8lK8kBRnUCm6ezdf3qUvI+aPZHjl7XTWXB+3TmFBpp9GziwSv3iXHilIt1H7wEenpCdaWD5pPyRocCayPuSsZQ66tnz4n6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790854889; c=relaxed/simple;
-	bh=rJVpR42s22EMse/WNllmwFzMaJfou1erkc0O2YIgazM=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version; b=K6aimmDXwImb5FqJ8a9OKR4FgYwXuTeMQO3VhaQaxbDKg3CKMHhZyaGPL41QwBizLkEcdgieLvl7/XZFv+bZi3+9Kh6l58CCLB62PJbilVFztyeY6FCtjM+NSzFb1e9CvUExGditm0SceKSihRl0aKZlivy2sIorF4Q5SHXp9ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 000d8fd4bd8d11f19a56ed5b684f684d-20261001
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:27e657c9-4e4c-4a28-8e61-6928a2357c7a,IP:10,
-	URL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-15
-X-CID-INFO: VERSION:1.3.19,REQID:27e657c9-4e4c-4a28-8e61-6928a2357c7a,IP:10,UR
-	L:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:NOTI_GNA5D1EA,ACTI
-	ON:release,TS:-15
-X-CID-META: VersionHash:7db8b62,CLOUDID:4e2e73a42f6320d81cb37e347305c8ab,BulkI
-	D:261001193759EC06SWIF,BulkQuantity:1,SF:17|19|38|66|78|102|127|136|850|86
-	5|898,TC:nil,Content:0|15|50|99,EDM:2|-100,IP:-2,URL:0,File:nil,RT:nil,Bul
-	k:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,
-	BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 000d8fd4bd8d11f19a56ed5b684f684d-20261001
-X-User: lienze@kylinos.cn
-Received: from localhost.localdomain [(175.169.70.242)] by mailgw.kylinos.cn
-	(envelope-from <lienze@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 893147695; Thu, 01 Oct 2026 19:41:11 +0800
-From: Enze Li <lienze@kylinos.cn>
-To: ljs@kernel.org,
-	akpm@linux-foundation.org,
-	enelsonmoore@gmail.com,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	enze.li@gmx.com
-Subject: [PATCH] mm/hugetlb_cgroup: add trailing #endif comment for include guard
-Date: Thu,  1 Oct 2026 19:39:57 +0800
-Message-Id: <20261001113957.561304-1-lienze@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790854975; c=relaxed/simple;
+	bh=/ZEMQHkWmcKgXb9n9tm3zJMbwbpKg2VRquvky9560/Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=jo7KLBV5HrSUBp4TZwaCW85+/NM3dQ2U6VBifF+t11PcjRpVXFuHV8wVLooWPcGJFQMEKOtIn5PTqaIB+E7izzc5IP1q01ttVSV1SJMxT41IxAZDZ0b4ZACtxZbI9KIinhnTvxROhjs2bUXSaO2scoHopbArgVwdtisGgUTI1VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7bGx+9Y; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7bGx+9Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28EED1F00898;
+	Thu,  1 Oct 2026 11:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790854974;
+	bh=ezo9AABzihn8v9w+EzLT2Oqew0alnRrS/G6JzrXB5K0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Z7bGx+9YjwQE9mmx5xOfDrWwbuyPcSv80D+JAIMF/rbGp+AAKEwfzI+EPb7nQsdJK
+	 pK0KmwY+OHTVp2I1huCwyQFIXyUXy3IbfwBL6c/P089Bn46pBhVyEYJ5Gfcu1jV1Tp
+	 Vj0QjTMV7Nwb8S6ea+60PhwGOA1LattBvoasIP7H7WZ13C1P/lk2Ydbhk5jyPA/yzM
+	 uttRxmd8TJSFcv9+pQhG+RZrCrHq51nRqfqnuyefDqHLe4qN+xucigLvVBd05DwTRW
+	 e2pjwmZJgo089MtmhNI+1kqpYx5e3KGU28SBQWzwq9A6Beg3t/x2///mazUmVJV+Kj
+	 aE03LVf3B+8ag==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: =?utf-8?q?Marek_Beh=C3=BAn?= <kabel@kernel.org>, 
+ Ridham Khurana <khurana.ridham222@gmail.com>
+Cc: soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, 
+ Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+ Brigham Campbell <me@brighamcampbell.com>, 
+ linux-kernel-mentees@lists.linux.dev
+In-Reply-To: <20260921204204.797294-1-khurana.ridham222@gmail.com>
+References: <20260921204204.797294-1-khurana.ridham222@gmail.com>
+Subject: Re: [PATCH RESEND] platform: cznic: turris-omnia-mcu: Add missing
+ MODULE_DEVICE_TABLE()
+Message-Id: <179085497050.480978.17953690152528059792.b4-ty@b4>
+Date: Thu, 01 Oct 2026 13:42:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-The final #endif that closes the _LINUX_HUGETLB_CGROUP_H include guard
-is left without a comment.  Add the macro name to the comment for
-consistency and easier navigation.
 
-Signed-off-by: Enze Li <lienze@kylinos.cn>
----
- include/linux/hugetlb_cgroup.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon, 21 Sep 2026 20:41:47 +0000, Ridham Khurana wrote:
+> The driver wires of_omnia_mcu_match into the i2c_driver's
+> .of_match_table but never exports it with MODULE_DEVICE_TABLE(), so no
+> module alias is generated and the module is not autoloaded when the MCU
+> is probed from the device tree.
+> 
+> Found by code inspection. Not tested on the hardware itself; with the
+> module built, the alias lookup
+> 
+> [...]
 
-diff --git a/include/linux/hugetlb_cgroup.h b/include/linux/hugetlb_cgroup.h
-index 16d72c8c71f6..b4e0958eabf3 100644
---- a/include/linux/hugetlb_cgroup.h
-+++ b/include/linux/hugetlb_cgroup.h
-@@ -268,4 +268,4 @@ static inline void hugetlb_cgroup_migrate(struct folio *old_folio,
- }
- 
- #endif  /* CONFIG_CGROUP_HUGETLB */
--#endif
-+#endif /* _LINUX_HUGETLB_CGROUP_H */
+Applied, thanks!
 
-base-commit: 21c3620df8ad362e9f2069ac35577c2a2f782f33
+[1/1] platform: cznic: turris-omnia-mcu: Add missing MODULE_DEVICE_TABLE()
+      https://git.kernel.org/soc/soc/c/59797443846bc2451c35816026bbb79d281c9f23
+
+Best regards,
 -- 
-2.25.1
+Krzysztof Kozlowski <krzk@kernel.org>
 
