@@ -1,82 +1,93 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B583A35F8C9
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0DF39CCE0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790828837; cv=none; b=JfVZWYf7V7sb+dkcnPxIAObfrPZUQ+S+Dg1ATh2x8MiyOlvY3fQtFVgL/92EWkkaBhma4EdmjaeqnbQkyVvaI/Ucv+cguGvQlznKVTj4lJMUkJAp4i7vtvvKkFQcB2UZ8clORF2kdyjWTPsQ5Ez5knun0HoplYtBIADI+zVnti4=
+	t=1790828992; cv=none; b=lvpdLlmDtdNmN8ZxVISLQa4jxP/ZkXAGPy5r0lTdj088vmBVAq9No3H719qHuYWeQXnjRSc++LBN/gDnXOd9GvDrX3g2hBeeRtSByoXt6PNUj5qRRRWr0fdA12js82AcKgdbH5CiyT5qAov30VMFnQl8gvi4ePZ+EsA9e8SPhbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790828837; c=relaxed/simple;
-	bh=rPzbXjcoFnVql4gRTl5oLUsjZaMf4eenmRAkOFsr2S4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fUthDamH+BhnLghzbsGHvASQHVwZg84QaHubf8X1gFyLEIhv6AQ04LO9K7DJs8dNvrCkZW6KKHSckH1oq4SOorCOLyEXYdePShII+lzAvGZUiNVIzSWWB+8Vnl6m6dDQ8T1h/gbuqXFdGSeHZjLL/VOENBosw9biI5tXhOgG5NE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Idk3mBrF; arc=none smtp.client-ip=74.125.229.140
+	s=arc-20240116; t=1790828992; c=relaxed/simple;
+	bh=0iE4B+H/PWOqhBQhrVrQf016Oen26cIaR2ItiNH3ox4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oqtF1gdc0MyAKEqCODnLWJprtYAAxUgz/itQ0qmuxlQ2cI5NwbobSl2n9NpZNECLxJuQVU6qdGVcyG7DcN8gOZXWq4czmKwMUxAnSMWggMlJuLPKOCoMjzQM0E0qTIsLSlsGnZHhm51c2aFrsIjr6s8McEKIk+ZIEWnACt7Kca4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YB3/yf5i; arc=none smtp.client-ip=74.125.227.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Idk3mBrF"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04edb5so10185115c88.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:27:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YB3/yf5i"
+Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-39b2ad83680so1698896a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:29:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790828835; x=1791433635; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9A6rq3RuonmAhdkjSfW3Ew3B0bFGrJGb84aoG+EWNd4=;
-        b=Idk3mBrFrorc1gkiTROhhQl/g3ANI6APcpd3kn82RAXZncq3ucZ5mGfW0KK3k9Jx8O
-         KxgdfuLTt3BsdecHqjPwD/WMjmh5MFnkJrMAHyD6qaLYIQc3ewCpZNjQtP/wj+WV5rti
-         6i35GTWaDhnJbgyuVvOGqqIbUpsdPzuVZf+zlC0IyqoZUzQ0yS+0AO6ovb/ZJ60++1qS
-         fQiuR42bdCxs4o9VLg2tERvWaEJ1jlYpbAnnGyf0x6ObyZ/dkFH4vDeIW3ONXxVHqCAQ
-         ryovsoAWAJh470eCFFMgbe39CYiRUkckrGA0YhAU4pPHoCCKg3xRZkTVDqehNYwdf+f5
-         9fRQ==
+        d=gmail.com; s=20251104; t=1790828990; x=1791433790; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B06JoZPLCNF+l0TL779mHjy3Jv2yuL2a2Q/W5oguOB4=;
+        b=YB3/yf5izPetnGw7c4W5BdFlqqiHBlqFFxijosZEuSunuzrQm0h9ChgeT/erCFh+kt
+         /Td/HB7MNjqyUrXFclKZscN80V7vRAK5NnkQw4O1zqMNYSldGXiwM6EcOvkBjtvx3459
+         mPc3st/Y0fUFrQmJc3r0u1tJbj/Z4FUx9bd/ADpkIvkMZiwng/v8V/a03xGgKLufAdhY
+         slDuxVy0N+BGPger96/15/u9gyyWi1MIvVk/ii4wG7WhQJ5bMueJ255ZJF04cEHFCPyn
+         ctEJZGVH4x2LiQ1jEJp2e2yJDrkQE0lvsqoOA6Wp7Jzq8tTI4ghNc15/My99tnMXuihu
+         WG1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790828835; x=1791433635;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9A6rq3RuonmAhdkjSfW3Ew3B0bFGrJGb84aoG+EWNd4=;
-        b=QXATPgbuuUu3ZDFEc5bOP+6d2eKYcr6IFQ83+g9fERvDx3J2UVD9TFZfTOvLEsMOzd
-         TLscGu6z/d56JNK1eYulzM78iDMr5nWEqJgcKKEWh/w8rJHy706Hd9K7gNZi3GbZCtJl
-         WrpSvuskvxBGTqF6PdKENkmopEu93Lz0Y1eCbSwFotsjliRWMEucMqCoEZS93B3XefXx
-         Tgt1VH4SSL76dIKOOxv2S82ZS1lCMgEH2TYN1VgKoo9nUmiEInFFYSG0ht22aUXabQMk
-         kSUKtQFkSGcD7ZNBVA8ksqBo4B43YgSYVynWS3+Zkjjex6lrTLs7we16K5/3UnjEfkO4
-         8vgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpv2785d67hEOeMHOZ0N+3+JRlZBbmNDz1EL5jslDX7PNkGxRb8QRTZZwlarHVkVraNmxnAHMyDs1HVrw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGcw6IWpbooauGudAGFj3F6uqhU8PEDYjR6V2jNvyrSEsblJvY
-	FrAKxooLZVHfM9B93ErNoeiqMMGBsuuuarR+5qLwHDN4x9ZZ9+HidGAy
-X-Gm-Gg: AYBFou1lsGBrc5ZaDDQd4IvBiK57LXDkIsMPuRFhvysFTCVSeOzxrcI3dEBSQYVtRNd
-	u9/ga01JjoGAIiinLXPKn0ADwCIK2nIxy5QPhngndCXixBmA7YMfvB5zTJYFQMCrhTKvpyqNrFN
-	5T8MXmYzA1HAvRpz8U3rcLOSXVjxd1fKSSU4JOy5VimRoAvgFJ2CyjJwq4razIp0pbxTaEVSyBJ
-	ZgWsYjfOAgRPjOplFMI7rHKS8gzdlkpH9qeUGTyNiI0nq4NsQ6V+0FYs0AjEF08zmFpdmlUfNmP
-	BjKiEloQYvI3XTTcilCqX5UBopdogxQbLvWWuaJ7lmgUTncspytrqMLKOv87fpZbA1eucmPY3Ww
-	0DX0RFMc5FmmZ0nA7HM9uzcCTiEhvpYLesuZDDcAamZ4LqOeoWtUsMsjqPhus5EJDonUFkMAXJg
-	OQ3hybHg8TLFNofarDr/CikBQMOQNHaXTaAlemrCF8MdUTd5XGNuZaayV7/Cg+/8XyJJ6q6IJap
-	ywURMVkGRGl+5OmNB7jTGAvAMiPScG0bLrpdfs9y19GEwCFmtTRSDqnwG5tXLs8X3uJdUZVU9e8
-	nc/9rH54wVmiAPMlh2a1V9NP9GqMX79cGnQD
-X-Received: by 2002:a05:701b:2515:b0:13c:ec65:7bca with SMTP id a92af1059eb24-14d31f58017mr4110288c88.13.1790828834553;
-        Wed, 30 Sep 2026 21:27:14 -0700 (PDT)
-Received: from rahuls-x2elite ([157.51.37.69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14df44d4f00sm3637768c88.14.2026.09.30.21.27.08
+        d=1e100.net; s=20260707; t=1790828990; x=1791433790;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B06JoZPLCNF+l0TL779mHjy3Jv2yuL2a2Q/W5oguOB4=;
+        b=1ZsiXZ9qirFSTobzs0KCXySwYWsW/khUQxvQSl8+leKeX7f1Eg6dtODCEmnxct/kkd
+         h4IMpQX7XVLXFGUAdgqAJ/IU/dQkcMVxad6ZrhpIcIw6AHcjFy8WpSULa4hYbThgp0Pf
+         Kht/JnSKbZaRIAwgFNHX2H2l/+oYktzJOsafRFt5Xsch4FCQDzOg7W+6MrbOUykjTm+6
+         9lJ8FAFP/Htyeq8MWLSnruQs1aWVamVLLeLA5cTz+Bn/fR6+/b1BDyo8t4AWyMuQ4D+B
+         VrCqAOlopqTip3GUZ5qGPPZ+VN+F3sIIeVnv+cUPMaFWYjBEF1dTyp7ugsJMC4JvJZE8
+         f1Qw==
+X-Forwarded-Encrypted: i=1; AKwUvBx5RM033ThTe2aOZpj/58K63WFFnL8tnARFpHRgE96tiiOsvbg6HFUhx6nJ7LjzMnJNr6yKCTwFATfAcZQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEjkLlZB7f5MxjrpKtzl3hSrORqD+kYVcEw59g39rWf6VVrrNw
+	tfcAgcgyTVLX3yHXnZ7sWSa3XEAUm3jRhW1ZdDtCcpS4KrsxI9yT5Tg=
+X-Gm-Gg: AYBFou01Kz3+JyitExB9ZJi03/IcrfIZFlY6n7p7hMkjXgOxZleBavwXpJquigvNhzh
+	J4PNErl+LD3VLjqKlFeyzyF8cLJjgyapISE4CfNt9CtX3OxKADgmxJFAkNQ9HrH42UTGiMMQry+
+	K3xDzV5JF33tMrTQtHveIwH3cs12nQu///Njb2QUV6UarzHgjt+7fz1v20ZDf/v9uE06JR+x0pR
+	aFd8QbLRW9zFUW1H24KSSASQq3wR6Z52mkgPLvK53BHNPps5Y9PEUU9wBwvaXFAgmlHHuZWSvnB
+	ytSeSqBDlgNJwWlebfXlZtigRZBX3YzZd/rQo/9wmOUTK5baxAaw5+jxgd6kLFEnSZEG3A+WDyv
+	ZQQ2u8jhrEWp3I6NSyemF2iYD74R8dqZTIjkWwdZyP5ZZNTIBEqqzX18eEOLpGqv5EN87Wlmm78
+	DIdWceMuWGTh1sHH3SQRDxlFZ3r7kJ5XMujijIj1mMI99+cbNkoreYGmwXQJHVSwqersQehkHV+
+	FvnIXuLf/tQyndDHJSbLL30ohouo+wOi5fRyA==
+X-Received: by 2002:a17:90b:5343:b0:3a4:c8d2:6c2c with SMTP id 98e67ed59e1d1-3a4d18e5bfcmr1354421a91.49.1790828989566;
+        Wed, 30 Sep 2026 21:29:49 -0700 (PDT)
+Received: from WIN-2DEDQG69EF6.localdomain ([139.180.198.96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f43a12c9sm2600392a91.2.2026.09.30.21.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 21:27:13 -0700 (PDT)
-From: Rahul Pon <theflyingrahul@gmail.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-acpi@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ACPI: GED: Support GpioInt event resources
-Date: Thu,  1 Oct 2026 09:57:02 +0530
-Message-ID: <20261001042702.2249-1-theflyingrahul@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261001040420.GB176164@black.igk.intel.com>
-References: <20260930111505.1108-1-theflyingrahul@gmail.com> <CAD++jL=45ZdTbHsLDTAmTt3f+=VBVK014TLJyd5Drdba3V=dSQ@mail.gmail.com> <20261001040420.GB176164@black.igk.intel.com>
+        Wed, 30 Sep 2026 21:29:48 -0700 (PDT)
+From: chenhan <chenhan0017.work@gmail.com>
+To: rust-for-linux@vger.kernel.org
+Cc: a.hindborg@kernel.org,
+	boqun@kernel.org,
+	fujita.tomonori@gmail.com,
+	frederic@kernel.org,
+	lyude@redhat.com,
+	tglx@kernel.org,
+	anna-maria@linutronix.de,
+	jstultz@google.com,
+	sboyd@kernel.org,
+	ojeda@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	miguel.ojeda.sandonis@gmail.com,
+	tomo@flapping.org,
+	georgeandrout13@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] rust: time: make Delta division and remainder fail consistently
+Date: Thu,  1 Oct 2026 12:29:42 +0800
+Message-Id: <20261001042942.109012-1-chenhan0017.work@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,115 +96,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Mika,
+Delta's division and rem_nanos() use Rust operators on 64-bit and C
+helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
+a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
+i64::MIN / -1 case also differs, and neither API documents these inputs.
 
-On Thu, Oct 01, 2026 at 06:04:20AM +0200, Mika Westerberg wrote:
-> ACPI GED specifically is supposed to use interrupts only (hence the name,
-> Interrupt -signaled ACPI events). I think this one should really use the
-> GPIO signaled ACPI events instead and probably just has the ACPI0013 there
-> by accident. Can you share the ASL around this device?
+Use Rust's signed division and remainder semantics on both architectures,
+as discussed in the report. Div should behave like i64 division, and
+rem_nanos() supplies the corresponding remainder operation with a 32-bit
+divisor. Both reject zero divisors and i64::MIN with -1, even when Rust
+overflow checks are disabled.
 
-Sure, below. iasl shows the _CRS buffers as raw bytes; the GpioInt
-lines are decoded from them and recompile to the same bytes.
+Check these inputs before entering the architecture-specific code and
+document the panic conditions. This preserves the API signatures and
+valid-input results, but intentionally makes invalid inputs panic on
+32-bit too. No in-tree callers of either API were found at the base
+commit. Correct the rem_nanos() parameter name to divisor as well.
 
-The lid device:
+Tested on x86-64 and ARMv7 QEMU with a built-in Rust module that passes
+runtime operands to both APIs. Separate boots verify each panic case;
+valid-input tests cover mixed signs, signed extrema and full-width
+division operands.
 
-    Device (LIGE)
-    {
-        Name (_HID, "ACPI0013")
-        Name (_UID, One)
-        Name (_DEP, Package (0x03)
-        {
-            \_SB.GIO0, ,
-            \_SB.LID0, ,
-            \_SB.IC10,
-        })
-        Name (EEDP, Buffer (0x03)
-        {
-             0xFF
-        })
-        CreateByteField (EEDP, Zero, STAT)
-        CreateField (EEDP, 0x10, 0x08, DBUF)
-        Name (LIDG, Zero)
-        Method (_CRS, 0, NotSerialized)
-        {
-            Name (RBUF, Buffer (0x25)
-            {
-                /* 0000 */  0x8C, 0x20, 0x00, 0x01, 0x00, 0x01, 0x00, 0x1D,
-                /* 0008 */  0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x17, 0x00,
-                /* 0010 */  0x00, 0x19, 0x00, 0x23, 0x00, 0x00, 0x00, 0xC0,
-                /* 0018 */  0x03, 0x5C, 0x5F, 0x53, 0x42, 0x2E, 0x47, 0x49,
-                /* 0020 */  0x4F, 0x30, 0x00, 0x79, 0x00
-            })
-            /* RBUF decodes to:
-             * GpioInt (Edge, ActiveBoth, SharedAndWake, PullNone, 0x0000,
-             *          "\\_SB.GIO0", 0x00, ResourceConsumer, ,) { 960 }
-             */
-            Return (RBUF)
-        }
+Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
+Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Closes: https://github.com/Rust-for-Linux/linux/issues/1254
+Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-5869573842
+Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-5869925737
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+---
+Changes in v2:
+- Put the checks directly in div() and rem_nanos(), following Tomonori's
+  suggestion. Each proposed helper had only one caller, and no other
+  concrete users were found to justify a math module.
+- Move # Panics onto div(), remove private-helper references, link the
+  integer types, and describe each API's input domain separately.
+- Explain the arithmetic and pointer conditions in the SAFETY comments.
+- Add Georgios' Reported-by and all M:/R: contacts requested by Miguel.
+- Cite the issue discussion establishing the intended panic semantics.
+- Replace the local CONFIG_SAMPLE_RUST_REPRO name with a description of
+  the test; the API calls and expected results are explained below.
+- Base this revision on timekeeping-next at 2ea0119f72db, preserving the
+  new to_jiffies_timeout() method, and rerun x86-64/ARMv7 validation.
 
-        Method (_EVT, 1, NotSerialized)
-        {
-            If ((\_SB.IC10.AVBL == One))
-            {
-                Sleep (0x05)
-                Acquire (\_SB.ECMX, 0xFFFF)
-                EEDP = \_SB.IC10.CMB2
-                Release (\_SB.ECMX)
-                LIDG = DBUF
-                If ((LIDG & 0x04))
-                {
-                    \_SB.LID0.LIDB = One
-                    \_SB.GPU0.LIDB = One
-                    Notify (\_SB.LID0, 0x80)
-                }
-                Else
-                {
-                    \_SB.LID0.LIDB = \_SB.GIO0.LIDR
-                    \_SB.GPU0.LIDB = \_SB.GIO0.LIDR
-                    Notify (\_SB.LID0, 0x80)
-                    If ((\_SB.LID0.LIDB == Zero))
-                    {
-                        \_SB.WMID.GWMT (0x08, One)
-                    }
+Caller audit: no calls to either API outside their definitions were found
+on the base above or rust-next at c82c75ae11fa. This covered tracked Rust
+sources, including drivers, samples and lib, using named-call searches
+and inspection of division expressions in Delta/Instant users, including
+elapsed() results. Time-unit conversions use fixed positive divisors;
+to_jiffies_timeout() uses an unsigned multiply/add/divide helper;
+num/bounded.rs operates on generic integer types. None provides a concrete
+extra user for the proposed signed helpers.
 
-                    If ((\_SB.LID0.LIDB == One))
-                    {
-                        \_SB.WMID.GWMT (0x08, 0x02)
-                    }
-                }
-            }
-            Else
-            {
-                \_SB.LID0.LIDB = \_SB.GIO0.LIDR
-                \_SB.GPU0.LIDB = \_SB.GIO0.LIDR
-                Notify (\_SB.LID0, 0x80)
-            }
-        }
-    }
+I kept the stable Cc as suggested. The 32-bit invalid-input behavior does
+change, and I have not identified an affected in-tree caller or audited
+all stable branches. Please let me know if this consistency fix should
+not be backported.
 
-The EC event device, ECGE, is another ACPI0013 with one GpioInt:
+On the MIN / -1 safety question: div_s64_rem() computes a quotient even
+though the caller discards it. V1 already checked this input before the C
+call; v2 keeps the guard and makes the representable-quotient condition
+explicit in the SAFETY comment. Rust's signed remainder operator panics
+for this input even though the mathematical remainder would be zero.
 
-    GpioInt (Edge, ActiveLow, Exclusive, PullUp, 0x0000,
-             "\\_SB.GIO0", 0x00, ResourceConsumer, ,) { 768 }
+Testing: CONFIG_SAMPLE_RUST_REPRO in v1 was a local Kconfig option for
+samples/rust/rust_repro.rs; neither was included in that submission.
+The built-in module read dividend: i64, divisor: i32 and an operation
+selector from module parameters during init, then evaluated one of:
 
-The GPIO controller (GIO0, QCOM0F0C) does have GPIO-signaled events.
-Its _AEI lists one pin:
+    Delta::from_nanos(dividend) / Delta::from_nanos(i64::from(divisor))
+    Delta::from_nanos(dividend).rem_nanos(divisor).as_nanos()
 
-    GpioInt (Edge, ActiveHigh, Exclusive, PullNone, 0x01F4,
-             "\\_SB.GIO0", 0x00, ResourceConsumer, ,) { 126 }
+For v2, an expanded module passes black_box operands to the actual Delta
+APIs. Each architecture has a valid-input boot with 26 division and 21
+remainder comparisons, and four separate boots for the panic cases.
+The following core cases pass on both x86-64 and ARMv7:
 
-Its _EVT handles that pin (0x7E, a Notify to the GPU) and also pin 0x5C
-with the same EC read and lid Notify as LIGE's _EVT, but _AEI does not
-list 0x5C. So on this firmware the lid is signaled only through LIGE.
+    dividend    divisor    division        remainder (nanoseconds)
+    10          0          panic           panic
+    i64::MIN    -1         panic           panic
+    10          3          3               1
 
-Either way, please drop this patch, and disregard the v2 plan in my
-other reply. Looking at it again, it has no upstream user: GIO0 has no
-ACPI driver in mainline, and my lid test used an out-of-tree bring-up
-driver for it. Mainline supports these laptops through the device tree,
-where the lid is a gpio-keys switch and no GED is involved.
+Further valid cases include mixed signs, i32::MIN divisors,
+i64::MIN/i64::MAX dividends and full-width i64 divisors for division.
+Both configurations have CONFIG_RUST_OVERFLOW_CHECKS=y; I have not
+boot-tested with it disabled. The added checks are unconditional.
 
-Sorry for the noise.
+For the identity question: chenhan is the identity I consistently use,
+and chenhan0017.work@gmail.com is my email address. I also participate
+in issue #1254 as WindDevil on GitHub.
 
-Thanks,
-Rahul
+ rust/kernel/time.rs | 46 +++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 38 insertions(+), 8 deletions(-)
+
+diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+index 5ae377e70dd8..31a1c95bc786 100644
+--- a/rust/kernel/time.rs
++++ b/rust/kernel/time.rs
+@@ -412,8 +412,20 @@ fn mul_assign(&mut self, rhs: i64) {
+ impl ops::Div for Delta {
+     type Output = i64;
+ 
++    /// # Panics
++    ///
++    /// Panics if `rhs` is zero, or if `self` represents [`i64::MIN`] nanoseconds
++    /// and `rhs` represents `-1` nanosecond.
+     #[inline]
+     fn div(self, rhs: Self) -> Self::Output {
++        if rhs.value == 0 {
++            panic!("attempt to divide by zero");
++        }
++
++        if self.value == i64::MIN && rhs.value == -1 {
++            panic!("attempt to divide with overflow");
++        }
++
+         #[cfg(CONFIG_64BIT)]
+         {
+             self.value / rhs.value
+@@ -421,7 +433,7 @@ fn div(self, rhs: Self) -> Self::Output {
+ 
+         #[cfg(not(CONFIG_64BIT))]
+         {
+-            // SAFETY: This function is always safe to call regardless of the input values
++            // SAFETY: The divisor is non-zero and the quotient is representable.
+             unsafe { bindings::div64_s64(self.value, rhs.value) }
+         }
+     }
+@@ -614,16 +626,33 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
+         Delta::<Jiffy>::from_jiffies(jiffies)
+     }
+ 
+-    /// Return `self % dividend` where `dividend` is in nanoseconds.
++    /// Return `self % divisor`, where `divisor` is a number of nanoseconds.
++    ///
++    /// A non-zero result has the sign of `self`, and the magnitude of the result
++    /// is strictly smaller than that of `divisor`.
+     ///
+-    /// The kernel doesn't have any emulation for `s64 % s64` on 32 bit platforms, so this is
+-    /// limited to 32 bit dividends.
++    /// The divisor is an [`i32`] because `div_s64_rem()`, used on 32-bit
++    /// platforms, takes a signed 32-bit divisor. The dividend remains an [`i64`].
++    ///
++    /// # Panics
++    ///
++    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`]
++    /// nanoseconds and `divisor` is `-1`, matching Rust's signed remainder
++    /// operator even though the remainder would be zero.
+     #[inline]
+-    pub fn rem_nanos(self, dividend: i32) -> Self {
++    pub fn rem_nanos(self, divisor: i32) -> Self {
++        if divisor == 0 {
++            panic!("attempt to calculate the remainder with a divisor of zero");
++        }
++
++        if self.value == i64::MIN && divisor == -1 {
++            panic!("attempt to calculate the remainder with overflow");
++        }
++
+         #[cfg(CONFIG_64BIT)]
+         {
+             Self {
+-                value: self.as_nanos() % i64::from(dividend),
++                value: self.as_nanos() % i64::from(divisor),
+             }
+         }
+ 
+@@ -631,8 +660,9 @@ pub fn rem_nanos(self, dividend: i32) -> Self {
+         {
+             let mut rem = 0;
+ 
+-            // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
+-            unsafe { bindings::div_s64_rem(self.as_nanos(), dividend, &mut rem) };
++            // SAFETY: The divisor is non-zero and the quotient is representable.
++            // `&mut rem` provides a valid, aligned pointer to a writable `i32` for this call.
++            unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
+ 
+             Self {
+                 value: i64::from(rem),
+
+base-commit: 2ea0119f72dba597aa8a98cbdb72c564bfc5cb38
+-- 
+2.34.1
