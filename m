@@ -1,56 +1,56 @@
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE4A5335AF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:38:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DBF5349A1
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:38:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790883535; cv=none; b=NJi/JEQouba+Um7c/hL/3HQgRKJh7YhHWF5bAyNmauu9VYxrYrMRm7lsahAaZYTNLJ6dsKAnbYgEF6HRN/7a6GTvXNUSQ8tnVDus8B8f71Y44/S+Fl730AcZzZ8iGiKF4Y1z3Hcpg8S4A4Eb/7D27K4bgtZp6p2Vs63b+BWYLKE=
+	t=1790883536; cv=none; b=aZHQxMKnO7uVmVAN0JksncipWjbwxWJNtIX2coG7S5HGg0ErShWvTO8y6ZefMghMcH/8WPDUxguXJDaRxAHz+gGlyD3+pwJK1PDm3SvT7Bm6ACpCtIaUz6QaFFgaCi2k9zqWWaO3Bv7F84/10LoTU2PJs/2ERuACrh5IBkad1QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790883535; c=relaxed/simple;
-	bh=GD8eVUHbm2E1vh85lROmRD5KVeuFQfSEqLamn6H/rZk=;
+	s=arc-20240116; t=1790883536; c=relaxed/simple;
+	bh=rVoqZdUCo2KLCZ0DuRpcvKXgw+ek6KfWqB9aZuvQsSE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=DsMu0L9LA5aHRFX1aXMHJk+tDfSvg9wPd8a6eSnBVsL14XbC/l97s6g7dggxux6qbFdc6FzWa85ckRJkZg3VjI361PXJefffVZLjuEAOh4t7DfQCDvv2uAqH9iKiI5ijMD2T0VVEQ3i66B7d00X0qS3K1WfIucneHJLgFqXq4RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bsc2/Nh2; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=bjyv+9zvrcrP7oVD5ElXleJ2IVc/4X1Lj1g/Fdnx27PYo4Z7lMv7/tNmSuwY8WKmnU9TWcvvYkjbGwkOtudfNdAuGz8DQG9DhzV0OqS1I1XGOTLQTGPSsGRt1bT8pFj4yF/mgxq8ytOjqqQiOseDSLNQ46+58X7dWVUQy6rzSvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Mker/Wte; arc=none smtp.client-ip=209.85.216.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bsc2/Nh2"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39512608fb1so10849378a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:38:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Mker/Wte"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so6744861a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:38:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790883532; x=1791488332; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790883533; x=1791488333; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TnnRJIDUsVUbLKISIXMcfczhIdduLdshUTyAvRHb9LM=;
-        b=Bsc2/Nh21lfoH+sjjD9eMLdYGRTINOb1Ko0f/T2GXy9fi0O0+yX9pWcw/sVf7Uxyp5
-         kfsunsc/q5wrXk6r1IxS8ZNOwMeclwFNxYymCOdZh03HB4YvBLM7UWmunKixUn+qTrfJ
-         ZcwxDNLRsgHxKntUrShVU8jHXD3c2hHQNLay0qRmuaHd6wudgzygJ+LWuYwvOH4CSnQr
-         a3qcgpK20wpJVPqT5/aKKzfzPLUDlTeFKYqInfN9BZfkPWVmfk7e6+rL+FFKgfuKgW6o
-         bxefJWtvbhXQT/GEDYYHbDeMMznIhz5HcaBmu26TNff3f3HDcDQThgaYH4rRrvH4rWsn
-         jsnA==
+        bh=U9nVGqEblihe3RvMwmuzVW7+thHX4Pda1dDAZe/9upo=;
+        b=Mker/WteagJ7zXK23NoxEsvzjzbtdOr9uj9UDem8o+BqlM2kzQNAUIYN1nodnL6Cbd
+         gZlx5XfCWTz2YsAlmh+GUNiACUx3EJ2BHdkfbRXjb0t8z6Tv7AEcVWgnVt2F24zqJeXp
+         rs1PVgi9us5hHy4+xx2nB/LX50PmUiqUPliBt/xpAeYUbA10OSyfdOBQZiIMoLAmA7tx
+         CJMKpQ5JzScCZdujqFrFQjHcE/WzUVEzmGaSdoxCU2kfnwh33LsW9YZs8mFP2KSnfMqA
+         u5funVVNa6LLQtBu2W0sr8oo961pl7kK79CVa8Lj28wlTOaIIWDrTZT2nOi5wvcwGi6/
+         ysOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790883532; x=1791488332;
+        d=1e100.net; s=20260707; t=1790883533; x=1791488333;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TnnRJIDUsVUbLKISIXMcfczhIdduLdshUTyAvRHb9LM=;
-        b=Vq/nWoyi35VTE2mkVvPV41VueHXru4E3og98b80o82no9rJAojIud591UNwiBZttjg
-         q3So9VgERUxRvF+sYcS+DVrODiXceHakPyCC39WnOFvI+16Wc2L1/7Sr7ikWI89f9nT8
-         PoY2IXiRVLGvf61tXqFpZvfOma/Z0bRCj8HKE5DptNJY60TKcdUE+AQndV4BLJz6XxyJ
-         cIXy7BP68fAY1tosLaD/fP3cxIBc8tM5r1NXiAaF0MuRXieq/hj7tgV4PgoJ9GIBAjpt
-         T7Zn66SQvxDZtQHgy+EK01POF2XG1qMpQBJt+rXBxUNUFKL7h1gxHo2xxchqvRx+Aj8k
-         vb4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwiEoSKJqrjvJT+IeINHQzAcCOi1WH4VlFcoGCPFPTPYUAwzjsW4yyJDfs3FwAa9StZnMHM0kOaJWyex1U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINISDSNLv3W/JZg+1dBvuNY5ycOfeNwN5KTKOmUx0UhlNww973
-	NL2/Nk6/8JX9A11wKtfDGrxBO9w2SM0fIzXaeQH2feev349D7+2QGsw3H/Dz7OJoFpWuXScOBiu
-	jcsIGTw==
-X-Received: from pjbku19.prod.google.com ([2002:a17:90b:2193:b0:3a4:a466:3257])
- (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:33cc:b0:3a4:b6c2:b159
- with SMTP id 98e67ed59e1d1-3a6ceb0535dmr521634a91.34.1790883531608; Thu, 01
- Oct 2026 12:38:51 -0700 (PDT)
-Date: Thu, 01 Oct 2026 19:37:38 +0000
+        bh=U9nVGqEblihe3RvMwmuzVW7+thHX4Pda1dDAZe/9upo=;
+        b=xorayzPKwF1eSmsc18djSpeNFxchZt+C9ZOeEwVSeUpmUajiIE+DrOWtjQ3KmlapCK
+         UXWmwIXEQHKX6AaEVTGNtVmNpTPkHiqpVK5SFs+eWoI3Fdp66jlQYaCcYWKJTrpwyC7U
+         QluAQxaFiT/k+3j94qcC3PhXV6VCAF5xdT6GKv6v+1VedR7pwZHdeRvZJK4zaFgS0jHU
+         kmMfpOtAp+js2lRE942rHPYJqZYNcfkC2XR1g/ETnkw/5bWRfHeIcnu32dOczyDjJpLm
+         CbezU+C007DJQEDb57ta4yzUTgKT2rdsSDgiPXByzgd6oJEIAOuwwbRwOmi4AZoetPQZ
+         u+6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzA8doDWS7Z01jyB2izwhRNl6MTrOIQXEAnomgV3kD84eWueZy6UAEEPTD/3h6mBhEsVANXzGqhZw736JA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaKhOy81YwaNiWOt2IjEFZC7RJJJ9NdiLcuzVPN5tHfnoSMnkD
+	DTqJUdVCQPzmYR/rFtYbHs/D/UKJ7i3IKTdgfkrBx/m3EuV6W5vAI8OF3TcNlb7WzxQ/RdsRngQ
+	5MP8nzA==
+X-Received: from pjbkr14.prod.google.com ([2002:a17:90b:490e:b0:3a0:ab35:7895])
+ (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4c06:b0:3a4:a2f9:f2f9
+ with SMTP id 98e67ed59e1d1-3a6cec2c079mr518533a91.52.1790883532437; Thu, 01
+ Oct 2026 12:38:52 -0700 (PDT)
+Date: Thu, 01 Oct 2026 19:37:39 +0000
 In-Reply-To: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,14 +60,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
 X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790883521; l=1350;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790883521; l=814;
  i=wyihan@google.com; s=20260319; h=from:subject:message-id;
- bh=GD8eVUHbm2E1vh85lROmRD5KVeuFQfSEqLamn6H/rZk=; b=YFYTIoWEgUhf/GRK2Iz6EQaeyq48ljFzlCso0/5WO5ziGBOVCzKutFUrZsehfwngXTev409nj
- dbjMGq6KjkHCDuGuh5TVwHybQ5r3XmlHNWJTQrL1+SKldNctSsNvPJK
+ bh=rVoqZdUCo2KLCZ0DuRpcvKXgw+ek6KfWqB9aZuvQsSE=; b=XlRY7AWBOUyhMCsHhrBnJ4ws7Y0Oy7c2izI2AnJ10Jo7DjZMksQQ6ELZsUa5n5xjQUGWTnd0d
+ 3EVQL/48+8ZD8BDU8W1EV39wxfLZIL3YsuulJzqoEdiwJIcfVgEqUJi
 X-Mailer: b4 0.14.3
-Message-ID: <20261001-tdx-selftests-v15-11-7c62a5d8a992@google.com>
-Subject: [PATCH v15 11/23] KVM: selftests: Set shared attributes for ucall
- guest_memfd pages
+Message-ID: <20261001-tdx-selftests-v15-12-7c62a5d8a992@google.com>
+Subject: [PATCH v15 12/23] KVM: selftests: Require guest_memfd for TDX VMs
 From: Lisa Wang <wyihan@google.com>
 To: Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>, 
 	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
@@ -84,41 +83,27 @@ Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lis
 	linux-kernel@vger.kernel.org, x86@kernel.org, Lisa Wang <wyihan@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-The default attributes for guest_memfd pages without in-place conversion
-is private. However, the ucall pages need to be shared between the host
-and the guest. Thus, set them as shared.
+Force guest_memfd for TDX VMs.
 
 Signed-off-by: Lisa Wang <wyihan@google.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 ---
- tools/testing/selftests/kvm/lib/ucall_common.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ tools/testing/selftests/kvm/lib/kvm_util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/lib/ucall_common.c b/tools/testing/selftests/kvm/lib/ucall_common.c
-index 029ce21f9f2f..c03dfc763172 100644
---- a/tools/testing/selftests/kvm/lib/ucall_common.c
-+++ b/tools/testing/selftests/kvm/lib/ucall_common.c
-@@ -27,6 +27,7 @@ static struct ucall_header *ucall_pool;
- 
- void ucall_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+index 3f559f207408..7625908caf21 100644
+--- a/tools/testing/selftests/kvm/lib/kvm_util.c
++++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+@@ -482,7 +482,7 @@ void kvm_set_files_rlimit(u32 nr_vcpus)
+ static bool is_guest_memfd_required(struct vm_shape shape)
  {
-+	struct userspace_mem_region *region;
- 	struct ucall_header *hdr;
- 	struct ucall *uc;
- 	gva_t gva;
-@@ -37,6 +38,13 @@ void ucall_init(struct kvm_vm *vm, gpa_t mmio_gpa)
- 	hdr = (struct ucall_header *)addr_gva2hva(vm, gva);
- 	memset(hdr, 0, sizeof(*hdr));
- 
-+	region = vm_get_mem_region(vm, MEM_REGION_DATA);
-+	if (region->region.flags & KVM_MEM_GUEST_MEMFD) {
-+		size_t aligned_sz = align_up(sizeof(*hdr), vm->page_size);
-+
-+		vm_mem_set_shared(vm, addr_gva2gpa(vm, gva), aligned_sz);
-+	}
-+
- 	for (i = 0; i < KVM_MAX_VCPUS; ++i) {
- 		uc = &hdr->ucalls[i];
- 		uc->hva = uc;
+ #ifdef __x86_64__
+-	return shape.type == KVM_X86_SNP_VM;
++	return shape.type == KVM_X86_SNP_VM || shape.type == KVM_X86_TDX_VM;
+ #else
+ 	return false;
+ #endif
 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
