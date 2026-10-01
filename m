@@ -1,109 +1,109 @@
-Received: from smtpcmd11117.aruba.it (smtpcmd11117.aruba.it [62.149.156.117])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2404BE434
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762584B8DF2;
+	Thu,  1 Oct 2026 08:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843029; cv=none; b=K2ABmb2FMBmiMbti35L+rGpBzaLwSgVLjioReF169NeE/15SH8FkGUfG62x3JxAZhmBEVIIQRg1xNTZ5Pj7qGPXJ83PiGLs9ownANe2YA6DVP0PNh8vuq791DRUCaad1h8OK0mho13MJluIww/Tbu9eEeEI3jve661Nkl8ZZQK4=
+	t=1790843080; cv=none; b=PjyVI95qiXRax7yVcbdhoeLmQAXdHAXzSWHqX/L4sKqOBir2QccGAE87ID0LjPG7kpWXxf0fi9VNiL6Yiaw5g9RQ+WZ16myWn/DGmnRuiW/Z0pI/5hPQS4QuAZ0pGqiEHFULKG9TKzLKRB9Gv/J2F7s2tcNzgAQNSG6tLHzIspA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843029; c=relaxed/simple;
-	bh=5ii2wsmim5NNuQYKQidppV2R7J5iURxqkVb508DATbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=h7GAyT8Ze69jOdXD62CqDLNTG76ugp4LeYPkVuLyQKAAF8bjfYVCZjdrZj+1lkFzu0X6sjw3hl7OuYV3H1WL8iz/o9xsXQzg4Cll4WcXCntMki3+M03WdvK2iRzGJSRXRyZ8CH52wQU0dYaj8tHGldq8r0Xd7whVx4Fp3+KJMFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=DcRHM2er; arc=none smtp.client-ip=62.149.156.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790843080; c=relaxed/simple;
+	bh=uUxVbAJFD0ONKElLX279ok1VDHKLisqJOgNdYvH1EM8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GmHLwclDfaQLatXsaeb6ib8tb2RUQN/ncum8xZkXj2oz+pA2Gkj+vR68aVUNRg+7IfVnEwB3B5i4r+Vf8F1TWorL+sX6l6mtYqPkiCl/ieKCXXBgrKK1XEUdqURYAeR/DJcEhUPtGRQ3EMtHGMLWRYT3cOfXbUWdn14VBhmngzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=AV/+hu+Y; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="DcRHM2er"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id CC1oxVAz8l4ytCC1oxmhmk; Thu, 01 Oct 2026 10:20:34 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790842834; bh=5ii2wsmim5NNuQYKQidppV2R7J5iURxqkVb508DATbo=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=DcRHM2erSauuABoy5m3lY34wozJdaHok7MToYxoY5xKC5xVxipZY/h8KV+BkNlBhI
-	 R5cZweUWjz9rWhrqwSbc9pep2lHEGwLjqdSlscqxvbHi0plmDFQM9s4AoWr3T36h9G
-	 UJBusN9ZhyfnhjJDsmlFKVSkxpVye4al8ocX6ZH4LqHS02+Mdwlwk18zi8x0vzYYdN
-	 0u/EuVhaH2kauIRM+NFmVgmZcWLiALpMqv9wEcrBSQ/tQ+bGocjvbMm9ffegHquWsT
-	 UdLRGaet8x0gHFDZYk4Z6TBR7+8ySTZg49JO2Rp1PtUFp029oHkNpfrfHhYaLjEKz9
-	 xm/6r6gOs0ECQ==
-Message-ID: <fbc06405-c7a0-441e-af5c-be7d55e732b5@enneenne.com>
-Date: Thu, 1 Oct 2026 10:20:31 +0200
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="AV/+hu+Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1790843074; x=1822379074;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=dwZ6+Ny11M89ZBPSWHCcY4nVqs3E53TyZaHaH2FNxjU=;
+  b=AV/+hu+YSyvhUrq3r+y9vT8WJR/g9cpvdlPGTW2GWDefG3n3x4OHHsgJ
+   J2HKzpfaDWp+krAbe/ksrqlEEh/SyDGrSqGVje7/Yb7QLmRHSQyTb9loj
+   aw3B1/ZXovgqpbS77JEELVu1w1Cw+DXTedQNlvxQ9A1hP+vQsc1R4KC55
+   GAuAs5ye40rHMzzL/yaiDgG5p1TUe8cpdGqRqSj5O/I6/a+OgYu9+TY4J
+   1u2s3pWTSHOSHMk3+vGe3OtgdVH3wHaQHAaF5HJASXe0e4/vN3BsIbnK9
+   ZNxcHyp8/eucanUl2bewyv3yOnkYcJj4X/gy6bgQhni5QWO8DLi5KJLQ/
+   w==;
+X-CSE-ConnectionGUID: Rg9+v9BFRVey2C7lw34VuQ==
+X-CSE-MsgGUID: 2lZptLmrSLOH0UT76MqrXw==
+X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
+   d="scan'208";a="29880503"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:24:26 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:4411]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.131:2525] with esmtp (Farcaster)
+ id 585c572d-5cd2-4dd5-95a8-6793cabf42c1; Thu, 1 Oct 2026 08:24:26 +0000 (UTC)
+X-Farcaster-Flow-ID: 585c572d-5cd2-4dd5-95a8-6793cabf42c1
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 1 Oct 2026 08:24:26 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 1 Oct 2026 08:24:25 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: Christian Brauner <brauner@kernel.org>, Shuah Khan <shuah@kernel.org>
+CC: Jan Kara <jack@suse.cz>, <linux-kselftest@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Bjoern Doebel <doebel@amazon.de>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] selftests/filesystems: Fix idmapped_tmpfile layer dir ownership
+Date: Thu, 1 Oct 2026 08:24:11 +0000
+Message-ID: <20261001082411.1493072-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] pps: Drop the !NO_HZ_COMMON dependency from
- NTP_PPS
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260829210041.40649-1-dwmw2@infradead.org>
- <20260829210041.40649-3-dwmw2@infradead.org>
- <f6e90a49-8c68-42e6-bdff-ea9b3ecbaf7b@enneenne.com>
- <fc1ec38dbc3723f7aed73ebf3413e1d81c161228.camel@infradead.org>
- <7098f5d2-043d-464a-82d9-a105e4000c02@enneenne.com>
- <cb992b22907085c4ced8d9a35cd1c8836aad20ad.camel@infradead.org>
- <decd5d05-1373-4ddc-95bc-46b73d6f6b99@enneenne.com>
- <7f98cef0918465e8d6bc9e76d26afb8b12471773.camel@infradead.org>
- <a174957f-f414-42c9-80f9-5d60f448e044@enneenne.com>
- <37ad7bb611c0e79840dfdb5c3706be3430c34bb4.camel@infradead.org>
- <fc473eab-c72e-4641-b617-8f22389c8f68@enneenne.com>
- <6a529b5fe8c5bbb664748b85be011f5cf2e6c44d.camel@infradead.org>
- <14280dde8487260f4c590d49a0297777b690660d.camel@infradead.org>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <14280dde8487260f4c590d49a0297777b690660d.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfP2FmQHNkKJ0TJLV9n1zHxyQ0nW5TVhkzauVFFpukSMWwqTh5S198FuvYZDzk+JnNYN9aR3n9hbo8jN1tZt/bWI3oAYJrWULkG7Uie38M0nNZIrcOHWf
- Z8EzphhxTgBS2oD4BDB9jSpebexAOvFz59ZeLYDLiawRiAqE13ztPCtxTCy4vWg6/K+HeNJYCTBOZoQNwU2oW3ZiX2qxwSjH9IXboEcj53TT4CjPBADER7tH
- K9rhTHvZCendM9l2utQ7m3Aa6a/2PpMv7id0xGdjSOAju1oaVstrlj/qo2mgkYq9r0iHAJoGUfgQ7gQPDW+skc2lFNiarYru7xw0a28iBFLz5C5hNPfEYJun
- fkGmT+L7COC6z7XP7ffRMH+H/QvO6pEMRsMRYQ6g991S2d6uBbnWiBAuBlwx5n96u1Zh80TlmDMmGw84vGvJTanmu83momVo/xt0rxLKMwp0IxYOzRVEYkM2
- iIessap1RDYqsm5SS2By4G90z/FrUkdtTQ2bxPvyTsAi9o6nKyH5xbFp+CkMUey2tDfhwLT3AjTvsF/CFmwdHUv2elgbdfqqnpAXtEmNdfdh6O+cfvFYhbNc
- etsrLTV2mgrzypWDp25QNZFb
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D039UWB001.ant.amazon.com (10.13.138.119) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi David,
+The recent idmapped_tmpfile selftest creates a new directory in tmpfs
+owned by user ID 0. It then idmaps the mount as caller [0,10000) to disk
+[10000,20000). The original uid 0 owner does not exist in the mapped
+range. As a result, mapped_caller_creates_and_links fails at the
+O_TMPFILE open because inode_permission() rejects MAY_WRITE access:
 
-On 30/09/2026 20:24, David Woodhouse wrote:
-> On Wed, 2026-09-30 at 15:05 +0100, David Woodhouse wrote:
->> [...] But
->> I don't think we're ever going to be allowed to do it that way in
->> entry.S but the *hardware-captured* stamps will want the same handling,
->> so I wanted to prototype it anyway.
+  idmapped_tmpfile.c:145:mapped_caller_creates_and_links:
+  Expected fd (-1) >= 0 (0)
 
-Hardware-captured stamps are something I'd really like to see in the PPS
-subsystem. When you get there, I think it should be its own series,
-discussed together with the raw counter export you mentioned on the
-28th, since both change what a PPS driver hands to the core and what
-userspace gets back. As I said for the export, I'd prefer to agree on
-the interface first.
+Chown the directory into the mapped range to satisfy the UID
+requirement.
 
-> We don't actually do *any* filtering. Even pps_phase_filter_get() is
-> just using the first sample, with a comment:
->
-> 	/* TODO: test various filters */
->
-> Looking closer at the actual captures, even Mills's median-of-three
-> wouldn't save us here when two of the three pulses are outliers. We'd
-> want an ongoing frequency estimation.
->
-> But that's definitely a problem for another day.
+Fixes: d943e68edc5cb ("selftests/filesystems: test O_TMPFILE creation on idmapped mounts")
+Cc: stable@vger.kernel.org # 7.2+
+Assisted-by: kiro:claude-opus-5
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+---
+ tools/testing/selftests/filesystems/idmapped_tmpfile.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Agreed, but I'm interested in it too. Your setup, with the per-pulse
-captures, looks like a good way to evaluate a filter, so if you or
-anyone else picks it up, please Cc me and I'll be glad to review it.
+diff --git a/tools/testing/selftests/filesystems/idmapped_tmpfile.c b/tools/testing/selftests/filesystems/idmapped_tmpfile.c
+index bc411ab8281ea..77b96d0943578 100644
+--- a/tools/testing/selftests/filesystems/idmapped_tmpfile.c
++++ b/tools/testing/selftests/filesystems/idmapped_tmpfile.c
+@@ -91,6 +91,13 @@ FIXTURE_SETUP(idmapped_tmpfile)
+ 	ASSERT_EQ(mkdir(self->dir, 0777), 0);
+ 	/* World-writable so an unmapped caller still passes permission(). */
+ 	ASSERT_EQ(chmod(self->dir, 0777), 0);
++	/*
++	 * The directory itself must be inside the range the mount maps.
++	 * Left owned by 0 it has no mapping in the mount, and
++	 * inode_permission() then fails MAY_WRITE via HAS_UNMAPPED_ID()
++	 * before any of the tmpfile logic is reached, regardless of mode.
++	 */
++	ASSERT_EQ(chown(self->dir, MAP_HOST, MAP_HOST), 0);
+ }
+ 
+ FIXTURE_TEARDOWN(idmapped_tmpfile)
+-- 
+2.50.1
 
-Ciao,
-
-Rodolfo
