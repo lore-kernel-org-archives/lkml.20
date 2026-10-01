@@ -1,122 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B094E5348;
-	Thu,  1 Oct 2026 10:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF184EDCDE
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850460; cv=none; b=HlluY88ai0/5r/HypZJXyEPI5EPNza1/nVJNqy2kaheuMQYQUuFlVVFXq2wrXb2pmBouKOyQ6OxTvdXJTGAY5cF1li55KCLIya/kUyyKzjS5ilUYLas+/5BpascLVdAnH+BqK+k+s+m3iWz97Qrj9O8wpRpbv75jmkAJM6+crBI=
+	t=1790850462; cv=none; b=WsttR3eJL1KF02O4PGE8DLAeO9MvRZzr3piEK1Niqmbh4yYT5O8Fx+9hclGM2B3t6WJdd5jJBM1Hi429mVbN4XPEMF2TtbtKzKv6QgCuqRLrsEhWSMVv/qUtgMfgYhZfSo4zkJUYM1UwFtR62hEzrM7BpXhIpAmZJIMxbWnZSEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850460; c=relaxed/simple;
-	bh=x57VT8SA0pphdWEQEkM/iqc6er++BIDwNdzE0dptaJs=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=dDJQcaRXCaov86wRFEYV8ByU9W0ij7AkzeAEKhl7NUOn9RfAqr5Mx9OubRy8ErmM+7Y6FYnTg5oV4ngCV5LQV1HhmtQMA2Q56UOjG5lYAG1IOPm4OotVP2INGwGVlJLzxvlV3iRAc3g/FwQBDcGUi2VqJdTi2GaEbYiu+q7xynk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLkKj8MV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790850462; c=relaxed/simple;
+	bh=2y4gEjNzgA3MrPbQRg5Ifw5WWUUepc12pSJtVJWCuNk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MD1Unm8GrnXwkJ6iHV0W6dE8lkKZ+LGP8WvUZR5xNHD+Vsawd9wJBQ9igqDfW+QHt1gksfahAFJJGCSCMKGsC3wOXBlGXZXvgn+1ibEa7XywN55yEhzwjF4pOf8S3d/fcqjMrx+9MBxPe/McixdB25diA5mW1X4uP8T2l9ZSQKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Js8hr/gx; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLkKj8MV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C99C1F000FF;
-	Thu,  1 Oct 2026 10:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790850458;
-	bh=XYzs7o+5h0U9Vrf1IvIXwIIUltb94MWDVQUuaUnhbR0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=SLkKj8MVGQsOdD5vsXhNNbPvVbeNGCh3UlaAOIhV4zHQbJoRvbG2VJDQgfGxhzsQs
-	 0vOr5p16ruAgjwKqSohOnvTCCwdw45AkPCvdqcmbc2hXX0hdiA0fD22qUNDEy8KUtP
-	 gO+HrqDCSxvHO7BTeF0MPxQcZM7rAVEH921LkZONFeCsY5JoZeLXydNCdA2pPvYDDa
-	 1kA5fl6noZQ/484lqxgj8PmCNJvN06IWxc/O8w7pghNiCtM3Okk8CCiLtkPz89B1QD
-	 hLUy9ZWgVVdzps66SnCaF7poGAt3ZRm8H+VRc8q91Y25RgfyfZCMwGje0TnDQuT4qK
-	 4OJ5F9AW4CNMw==
-Content-Type: multipart/mixed; boundary="===============5002025029551811504=="
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Js8hr/gx"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-86b90133ae8so3017856b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:27:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790850460; x=1791455260; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zOoZbBrkeSpdFA8vWrJINhow0mO467LA30uvn4Xle+I=;
+        b=Js8hr/gxkm08MeaRvuDgNr+iPda5i6qBPBSUP4g0y9i+FDF8Z4TalxCSF+ZgmaLVo0
+         mCOqmMVQS4iQ5wfblzULoMqXCcV6ZJzCQ+w3+v1UOngMbAcD/qhk9emqRnzCBxPKAff7
+         qJpaxxjyfXiO9jUjTRt1VRr2vv1ar9O8NF4ok=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790850460; x=1791455260;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zOoZbBrkeSpdFA8vWrJINhow0mO467LA30uvn4Xle+I=;
+        b=tNNmodoAiOaMosMdCXa3SrpSD/DVvxj337nsAf/KlLkjIoeDqz0DqqDp9lN7TX+Mkm
+         G7hUl9WwOwkjs1ohmgOHlCONlTpmc3RIpitZyqeTOUYpLUuiIrWb3dbbrGG58MOMrYW1
+         ovqheyiWCQQIYJY7MsK7wGDG6kJe12Acc0f7oS8wk+nnseYTJ5ln5DhaWlCwHN5Iy17+
+         OE3hK8qZRvqhiY9LBel3LPICJx2kcjiZzsOOEAu5ahidLJYw3gZT0sPUliAwOGBbhhbP
+         HBHP1qDH2t9zUGqOZP8pfeN+tXyesWYbwGH9stXqLBus66Ny5IJ7GMIn/0YaDO4L9vd/
+         aWaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLvR2eMIhS5RPKXeEOH/vzNy8Cadckl2KWN4Hq1BC+MIeVjOu8tLdNbe5aaceQyCxwAhFGrKcdD65XY/s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbo/ItM+QU4sra7R43saFK3OHHOM1ZWnRJztmoIjiUZsMWk+GF
+	f2F1s2R0pPrf2DFnflHC4NblJpT4rze2WZ0TNpKuhVO6h2S7XMKR5KHw7CcFRJdIcQ==
+X-Gm-Gg: AYBFou3KnldUYn2ih5CtZGaZmTg1Rv6pBpchtgFYh/3fexrlHHDDATchzhB+KVb9k+h
+	T0j7WQEs4MmeJh0lP0mrYlqrIb9w7dQ69MciGYKFKjHOZoBi2MPsUEzndN0OOEXGqOD+VGYaHLd
+	tXuapoDdm8m5EG6BUIz68KQR+mBaAEjsVT3UMM8pFQwiBI1sGsbz/3ngYwJs0SDMuPUk+O4M4TS
+	MfuZR28URyvbU/JidBsb753+ZfljKvaEyVKgAsdX/vy81QPHKbpWydUgBiaGlH+/gt0QylGuNmI
+	ZMD+xcljriuHudZfMaph5rfeiy5LVF48DIkvH9pqY5i1pjkVuAPwBMoHY1RXdI6BoroSu41D5BB
+	Tci7ZFjfrT4tm7NcpBRX08m1WDW3MFTWD5TNoXCbBMnrnB95G0AvwebPjwd7tH+sP6Mn25mZ8fy
+	dGt88iAKEtWmWhWu9/xBRJ5bbxA5ENpPCKRRNf7TJniGWPDzH1Kl5v+Zhl5r7Wcy/dGgYhmXUIC
+	vpVcyyn14TwDTIApNspQg9AG/kbwZzHjWGPeb8=
+X-Received: by 2002:a05:6a00:b81:b0:874:705d:f64a with SMTP id d2e1a72fcca58-8874bffd4e6mr3058007b3a.44.1790850460353;
+        Thu, 01 Oct 2026 03:27:40 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:d042:b5fa:ebeb:ace6])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88818719cc8sm861475b3a.16.2026.10.01.03.27.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 03:27:39 -0700 (PDT)
+Date: Thu, 1 Oct 2026 19:27:34 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Georgi Djakov <georgi.djakov@oss.qualcomm.com>, andersson@kernel.org, 
+	konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk, 
+	rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org, djakov@kernel.org
+Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
+Message-ID: <ar4070oH8lRCJMRw@google.com>
+References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
+ <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
+ <20261001-dramatic-hasty-pug-68ebfd@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <613bf6afe2483c66dd4b8f057bd7ca3ebf6211589def2a874347f1a2683aa513@mail.kernel.org>
-In-Reply-To: <20261001-bpf-verifier-patch-batch-v1-1-a12df8a09160@gmail.com>
-References: <20261001-bpf-verifier-patch-batch-v1-1-a12df8a09160@gmail.com>
-Subject: Re: [PATCH bpf-next 1/4] bpf: Add a list of deferred instruction patches
-From: bot+bpf-ci@kernel.org
-To: odys.yuan@gmail.com,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org
-Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,odys.yuan@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu,  1 Oct 2026 10:27:37 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-dramatic-hasty-pug-68ebfd@quoll>
 
---===============5002025029551811504==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On (26/10/01 10:51), Krzysztof Kozlowski wrote:
+> On Wed, Sep 30, 2026 at 07:52:13AM -0700, Georgi Djakov wrote:
+> > Add a zcomp backend for the Qualcomm Page Compression Engine (QPaCE) so
+> > zram can expose qpace-lz4 as a selectable compression algorithm when the
+> > QPaCE driver is available.
+> > 
+> > Compress and decompress operations are handled via the QPaCE urgent
+> > synchronous path: each request DMA-maps the source and destination
+> > buffers, issues a blocking hardware command, and returns the result size.
+> > 
+> > Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+> > ---
+> >  drivers/block/zram/Kconfig         |  11 +++
+> >  drivers/block/zram/Makefile        |   1 +
+> >  drivers/block/zram/backend_qpace.c | 134 +++++++++++++++++++++++++++++
+> 
+> So entire qpace should go here, no? Why did you create this entire layer
+> of indirection, singleton management under drivers/soc?
 
-> bpf: Add a list of deferred instruction patches
-
-TL;DR: Nit only: patch_list_adj_aux() duplicates the aux-data propagation
-logic of adjust_insn_aux_data() in fixups.c; the review asks whether a shared
-helper could keep those rules in one place. Not a bug.
-
-> diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
-> index 37cf130ebb57..39566f382510 100644
-> --- a/kernel/bpf/fixups.c
-> +++ b/kernel/bpf/fixups.c
-> @@ -404,6 +404,301 @@ struct bpf_prog *bpf_patch_insn_data(struct bpf_verifier_env *env, u32 off,
-
-[ ... ]
-
-> +/*
-> + * Fill the aux data of the 'p->len' insns at 'slot' from the aux data 'old'
-> + * of the insn they replace, the same way as adjust_insn_aux_data() does.
-> + */
-> +static void patch_list_adj_aux(struct bpf_prog *prog, struct bpf_insn_patch *p,
-> +			       struct bpf_insn *patch,
-> +			       const struct bpf_insn_aux_data *old,
-> +			       struct bpf_insn_aux_data *slot)
-> +{
-> +	struct bpf_insn_aux_data *last = slot + p->len - 1;
-> +	struct bpf_insn *orig = &p->orig;
-> +	u32 i;
-> +
-> +	*last = *old;
-> +	last->zext_dst = bpf_insn_def32(prog, &patch[p->len - 1]) >= 0;
-> +	memset(slot, 0, sizeof(*slot) * (p->len - 1));
-> +
-> +	for (i = 0; i < p->len - 1; i++) {
-> +		slot[i].seen = last->seen;
-> +		slot[i].zext_dst = bpf_insn_def32(prog, &patch[i]) >= 0;
-> +		if (!memcmp(&patch[i], orig, sizeof(*orig))) {
-> +			slot[i].non_stack_access = last->non_stack_access;
-> +			last->non_stack_access = false;
-> +		} else if (bpf_is_mem_insn(&patch[i])) {
-> +			slot[i].non_stack_access = true;
-> +		}
-> +	}
-> +
-> +	if (bpf_is_mem_insn(&patch[p->len - 1]) &&
-> +	    memcmp(&patch[p->len - 1], orig, sizeof(*orig)))
-> +		last->non_stack_access = true;
-> +
-> +	/* indirect jumps to the replaced insn land on the first new one */
-> +	if (last->indirect_target) {
-> +		slot[0].indirect_target = 1;
-> +		last->indirect_target = 0;
-> +	}
-> +}
-
-this isn't a bug, but patch_list_adj_aux() repeats the per-slot aux fill
-that adjust_insn_aux_data() already does for the BPF_PATCH_KEEP_TARGET
-case, as its own comment says.  The seen propagation, the zext_dst
-computation via bpf_insn_def32(), the non_stack_access transfer keyed on
-memcmp() against the original insn, the last-slot bpf_is_mem_insn()
-marking and the move of indirect_target to the first slot are all
-duplicated.
-
-Could adjust_insn_aux_data() and patch_list_adj_aux() share a small helper
-that fills 'len' aux slots from the insns that replaced 'orig' (taking the
-slot base, the patch insns and the mode), so the aux propagation rules live
-in one place?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36845462631
---===============5002025029551811504==--
+qpace seems to be standalone/independent arch/soc specific, and can gain
+users outside of zram (fs compression, zswap, etc.).  zram's backends
+potentially can disappear all together, if we switch to acomp crypto API.
