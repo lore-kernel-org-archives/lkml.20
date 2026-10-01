@@ -1,102 +1,64 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF60E3502A8;
-	Thu,  1 Oct 2026 17:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E81A3B19A9;
+	Thu,  1 Oct 2026 17:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790875847; cv=none; b=O7VX2DZaw8XSxL4c0vberF9knZgRYjbtQCbhy8LT/ajmQqa2VVvEIWNQdJgXdaWDhVaYin/I2Mxui0so/Ennjw2Yru0WuBb9OZC93UJo3NiXU8+ult13VbcD0riqJvQPSgSiM/m2Jlf+HsCm+XToeN0jUM3+UjeREtAGDIDHsuY=
+	t=1790875887; cv=none; b=U4k2yQK9qwF7MOCr6oOhdYQRPtEv0KkhydaXefbfPImlzM80eqPFBn8ZZ/r76pjssBATdRdWdEVq/x+KGLX/dgQARHEsRn4FjTTbaa/XvvEgtfAUo//WcE3BYqMjl0hAW8erGsmbgJVUMIZUcdObIxUjS7hHwqkxGkHM9fwSV7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790875847; c=relaxed/simple;
-	bh=toAioNIiQ6jtfev8hb2IJt5DS40U6qkmjYJw450NlmI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ffZx3QJtUtYfl0JYLUQ+GM3F5evjBoydRRQvBEpCud8201XCdC5KGBFRsrkrqtt2Se3ax9igcydJxuB3SWa+rH2Euj2R+ujX8aeK2sO/YNFD57X9vHdvlnRJDPU3q/ANI6gZ4ZcL1PEEZmzDXCViMCSx3kwAxELSua+sBgeLtlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dwg0IC0P; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790875887; c=relaxed/simple;
+	bh=yCKjm9+h2qCKBCe9AwdN70bhtyt7DGh0hApk/2wTcqY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pqo76fok0wIQarFEsntaNIzhhwNwyM/kkgfZ9Kplv3/9VnIdBVf5DuBsaxRk3XW7cO9xdfR0FBZwcRKAGLz9XYXHuCKTBGZ99JiX9WPW+w1xrV5MUNaAuABelepi8Ho4tTIRxyVfCJ9xMs0lBcEsEYwbDWCXnAJS5stpVK8fgNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OGGEYrlp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dwg0IC0P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790875846; x=1822411846;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=toAioNIiQ6jtfev8hb2IJt5DS40U6qkmjYJw450NlmI=;
-  b=Dwg0IC0PGu2jcI6cy0yzrSD+x/K6RtAHiOF4yWohpHyyvaDJ2DSaAXgd
-   hRnA4nHzW2ZVUX8WQfAzkbUAba1HijgP7iSXGiXD8sro0NJdxUhrveulj
-   aua9YKImQuQrwkGzDhQzfl5ETiYr8O39y/64yDjjxo0FACP9d3z11zi+G
-   r1shbbX1KvLxyfxTkgN6Ri8gJDuKrsS4xBNNpKyn8YIHh+7CzUyl+AJit
-   1pyoq9DAe9pMschn+btRoJiOX6mSu4IYvM34xxdrsCiScHK9f6HdpsfBR
-   xQqbt9urg3Zq16p6XubTm6P+VFU1o+riOTvKheteb00GhSxfz7aleXiBI
-   Q==;
-X-CSE-ConnectionGUID: 97aVCkDlR4aW3c1oQN9CCw==
-X-CSE-MsgGUID: E56oIGeKT2+Hyz1VCe17yw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102316918"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="102316918"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:30:45 -0700
-X-CSE-ConnectionGUID: 2TPq4XInT+GVy/vJhukDiw==
-X-CSE-MsgGUID: GcpQnMiMRY6h1TgGFzPpAg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="302291121"
-Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:30:45 -0700
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: Len Brown <lenb@kernel.org>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] tools/power turbostat: Add rugged Panther Lake support
-Date: Thu,  1 Oct 2026 10:30:39 -0700
-Message-ID: <20261001173039.934398-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OGGEYrlp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5151F000FF;
+	Thu,  1 Oct 2026 17:31:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790875885;
+	bh=1cfhNMvIJDm8Sy+ZsesWLZO/KcA2N7nqorQZPk3LipE=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=OGGEYrlpdId/bc8vtYFCwdNtpy4WCi8en0PvYis4OH29EOKJLRopN/r/Feg9zIO5d
+	 EZ2H3uqaGTZGKrh/ZeoQHB9ArYCsEgXNgEsVYdD7WY364LeXEE+xxgCoQaGbiEnvNx
+	 nSmFg5Fij1fuHLJEwQrUEkVQgLMIW7/S6d5KBpyC2o5c//f7Fu6GV1MrTY8aY+JJ6p
+	 SwglLBaXmStK7vWzGfES62jCbJ/28u0eCsgnqXsdxt1R+BU/LhE55meb9lOAl8Bcc4
+	 kutq9gKdjuXOlut+akg8+spyMX2Ng9X61HdC25CihF2JlWCMvfOFXmvo0vmQvhxtuZ
+	 AkA1NBx6hH84A==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 03F0CCE09FE; Thu,  1 Oct 2026 10:31:25 -0700 (PDT)
+Date: Thu, 1 Oct 2026 10:31:24 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-next@vger.kernel.org
+Subject: Re: Missing signoff in the rcu tree
+Message-ID: <eeb2e29e-8d08-4755-9b34-366b0bcc2847@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <ar5Zd022vYh5cXcI@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar5Zd022vYh5cXcI@sirena.org.uk>
 
-Add CPU model for rugged Panther Lake to the platform and perf model
-tables. It uses the same cores as Panther Lake, so use the same settings.
+On Thu, Oct 01, 2026 at 02:00:39PM +0100, Mark Brown wrote:
+> Commit
+> 
+>   d563f311e7e63 ("doc: RCU: Fix s/strategem/stratagem/ typo in Requirements.rst")
+> 
+> is missing a Signed-off-by from its author
 
-Co-developed-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
----
-Changes since v1:
- * Add rugged Panther Lake to the perf model table (turbostat_perf_model_support[])
-   as suggested by Len Brown.
+Apologies!  Second time, too.  OK, I am dropping this patch entirely.
+If I get an updated version of this patch with a proper Signed-off-by,
+I will pull it back in.
 
-v1: https://lore.kernel.org/all/20260819174154.1184393-1-sathyanarayanan.kuppuswamy@linux.intel.com/
-
- tools/power/x86/turbostat/turbostat.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turbostat/turbostat.c
-index 920694c3c1ec..1a2b8cc469cd 100644
---- a/tools/power/x86/turbostat/turbostat.c
-+++ b/tools/power/x86/turbostat/turbostat.c
-@@ -1229,6 +1229,7 @@ static const struct platform_data turbostat_pdata[] = {
- 	{ INTEL_ARROWLAKE, &adl_features },
- 	{ INTEL_LUNARLAKE_M, &lnl_features },
- 	{ INTEL_PANTHERLAKE_L, &lnl_features },
-+	{ INTEL_PANTHERLAKE_R, &lnl_features },
- 	{ INTEL_NOVALAKE, &lnl_features },
- 	{ INTEL_NOVALAKE_L, &lnl_features },
- 	{ INTEL_WILDCATLAKE_L, &lnl_features },
-@@ -1327,6 +1328,7 @@ static struct perf_model_support turbostat_perf_model_support[] = {
- 	{ INTEL_ARROWLAKE, { PCE(0x00, 0xFF), PCE(0x00, 0x5F)}, { PCE(0x00, 0x07), PCE(0x00, 0x02)}, {} },
- 
- 	{ INTEL_PANTHERLAKE_L, { PCE(0x00, 0xFF), PCE(0x00, 0x5F)}, { PCE(0x01, 0xFF), PCE(0x01, 0xBF)}, {} },
-+	{ INTEL_PANTHERLAKE_R, { PCE(0x00, 0xFF), PCE(0x00, 0x5F)}, { PCE(0x01, 0xFF), PCE(0x01, 0xBF)}, {} },
- 	{ INTEL_WILDCATLAKE_L, { PCE(0x00, 0xFF), PCE(0x00, 0x5F)}, { PCE(0x01, 0xFF), PCE(0x01, 0xBF)}, {} },
- 
- 	{ INTEL_NOVALAKE, { PCE(0x00, 0xFF), PCE(0x00, 0x5F)}, { PCE(0x01, 0xFF), PCE(0x01, 0xBF)}, {} },
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-2.43.0
-
+							Thanx, Paul
