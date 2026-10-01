@@ -1,135 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B924A49A0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860402; cv=none; b=qGVHi+bXWNx6okWmSTnUQLzVFL5Mwi745qwxQLwmjZKN2xplMVq70TV8xuWOR68kcCbqNGMIBn5X39QO78YkRhIpZDXE+lZ5XLQz4CU8zDMZaSCj7XzzDP2nmEglRzmdXanYXZ+LfKsYzYOL7aOpxN+bXzWfofa2A+r0SlpoW5Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860402; c=relaxed/simple;
-	bh=6xbb45Cd7qX8d6Lsscqf/5XrdOkBiBVDs4ulJEDEk5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CFWGfBl32vz9aKBCxWjhTSCCuxaQaBGdu7Ta8VI0a8aDt9beOPnfFb7b1YcqPUnHq+iElFZ/lyLMLbweR8J+7gLKlewWAwJN0dX+eyzphlmt+gkjkB6iGSM3ApCatfxS5TsDNQgUDcKaWJkX4ysTdofr/PobzW508lWUFZsMobM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qh4zaeIq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66436488203;
+	Thu,  1 Oct 2026 13:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790860429; cv=pass; b=Zed8+KIpjvajXRMUra4npz9S3Nn/D3Y6BpoIdvnvILE1eK+dCFkBG0S+3bnGS4/1oHjMMHOirTGyrDP+IEp+xr+4y/zb7rJO4YzC3no7gWnxPbgLA/QKR7AgBRNYQZ9ULToJMcZoYSm6nRj5Gta1k0AzfQXmQT2p+x54OKSuuUQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790860429; c=relaxed/simple;
+	bh=yb9TIGDgeZFCPu4ArY1ZqKK0e4HMHQgLsozLDps0YOQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OnAAy2dCEjguXlOBgevm+vX1ystDcxLXSIVaylFRsRrU/BxIUbkNfhbpwsT4V359uGNaMTv/SO8xA6fAFrgBHJrZP2OClB7W4Da0gRV0t1qCidD/HTsNPziy0cT9+0pHJQpbwSY0GlNzwY+5uizIabyXANVb2fY6FqWjGrcV2CI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=a85NZ1qL; arc=pass smtp.client-ip=165.173.182.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qh4zaeIq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4966A1F0089B;
-	Thu,  1 Oct 2026 13:13:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790860400;
-	bh=0n5tH4utl+lNJ2Z0WOsD+MvspE1oa6n6hfh8YYdfuHM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qh4zaeIqcFKK7k9mefOiVqI0yF8eCB9wgs49rrCJOlPgYEBN6X+6TU+5sthlg8wpY
-	 xCUor/n3qfh7vbn9MI1IqbUZB4+YiH4vyMa1XhwYfj0v6c+8gS6BXvCVAYmr4U/St6
-	 wvsOiBjSrSZx3Jgnp8rq+m0JRnWAncx6mqrfuJFOO9tskS0AIUNIi4K/JNP8gVOZst
-	 NoT5r8rX7zqvCCWf5Btdo/xj5NzaqC2Hsojk2CGqoK7cph2n0P1Ky9eLQRmMD/8A1E
-	 0M4I881dNSVqVPVJrhjG2IA8EJIJGmHcavV95SopTi75ZvfFShaLrJ+o0ftppK2czt
-	 gHxlFQUuIfesA==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 51F05F40066;
-	Thu,  1 Oct 2026 09:13:19 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 01 Oct 2026 09:13:19 -0400
-X-ME-Sender: <xms:b1y-anmo1UpaRpYg6XRqP2CPnR2kxCSda4ELj__J99O3aIaa6kezBw>
-    <xme:b1y-alhKhzKUw2tufLoXpPBmJB8G387XCzm9VQx4uTip6RAsgeSQNkAk7Hfkj6dk_
-    xJLZtk91FeK4LWQPHRfK8iZSmQ_yu0reXBmW-HmcDp5brTRGTr0>
-X-ME-Received: <xmr:b1y-akRqRfbuoWVpGPl0yqJfSdG0hEmfLRmGN0Vd9M6l7gNIXH_e8CcNXAOF>
-X-ME-Proxy-Cause: dmFkZTEDz/wPL61bnt0xT9qymFFCo40y1dH7QHJB0l82uOK/MZKSQe0FLWhrl+2yMWu8AT
-    +cCg5xLoYp1mcYyPJfy5VbLnSfJRXO83x7jG6igLfGRJVc96mxfn76jlDv9wc0xfSP0Q41
-    emqek1MoR3KVqHdbPw5mFuUc1nAniVZbdgAJkHGhO2uhtfqz2Y//0FWyLIX5b8LI5OpsXi
-    8YNsqg7wrdLeoumDnnS/OK9iY/rygeWhCwwGcEMM6iBiV5ZfXdr9dhlNN3f0a4CULVLGqv
-    A0DqacRPXQ1rT11HjJXAI5SKiOYyLtqDTvpIaYW0hVdhu7Zio7M9irLe4KGeMA9xi1yCq7
-    U4GB70ugXTFdSNePDPxVyVBiUerGOEZO4wZ5oqUQT5gavVPr9xoFfGbJ/TQljdd33oDEDp
-    qTgPvXZtGv8sJ4v6JWabNIHcyck7A5Ha3LMJo4FWXx0nSOWcHXgDwaeGYnf1oMSTLZjqvE
-    geD2xJeSixOcrqGScdqY/wUNb0X2nPJ2GU48XACQZLgc0fXF2/FROAaFpfp3+lBGK5dA4b
-    YeGF7S8Eq74bBTvKj88Ocqs8u7B8N5M8/BDrdGbsVycfQe1cNchmcke1zJ3HG5R2J+WGaa
-    i4Zqh1imKLkoVe/kosj9lCwKLZVTIgiJwZP9ATwxzjV6aYK8Ndz0keAh/L0g
-X-ME-Proxy: <xmx:b1y-aqjy38RU21ia2Is7TNv-A_QXMzUIM3GhSKVk0kf0je6YWIi4Lw>
-    <xmx:b1y-aghh3LQ4KY1aR3EQnRU2eKzBStxuEaHZNco3jLqaFgL2jpcDDw>
-    <xmx:b1y-aqYXfcYdxs5drgypvLOTTYDWan0Bf6z7AAHodoTcDKtQn_XxJg>
-    <xmx:b1y-ahX1QEPKaD71V-v9hg5Elp2OY8HyGZPZZLtdOge6TW_a1K5qXg>
-    <xmx:b1y-apjuKyj_MYeFMCfgu8Wdi02gDL0rb5_rVb1Xihwy3AGo32JxtIQw>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 1 Oct 2026 09:13:18 -0400 (EDT)
-Date: Thu, 1 Oct 2026 15:13:16 +0200
-From: Boqun Feng <boqun@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>, Lyude Paul <lyude@redhat.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: Re: [PATCH v2 3/5] selftests/bpf: Use the new NMI_BITS definition
-Message-ID: <ar5cbL_ywJVP9m_s@MacBook-0RXW5>
-References: <20261001082519.16195-1-boqun@kernel.org>
- <20261001082519.16195-4-boqun@kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="a85NZ1qL"
+ARC-Seal: i=1; a=rsa-sha256; t=1790860388; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bawph5s96Kai3wqlDMEC60ATyaNTKtJTHa0WO+6hfiOMm6Z4LC5gBkaYQsJ8vUb4OcuQY0q66/qYABrRwZItYGkYKf0FYu8ZssmmWs7qx6c2FWGZq4nBArYevF3fnU9HGoIOERlEkbWKh2AO4kgeIjAl0Qd6C6nNUbzofz8F6AQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790860388; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yb9TIGDgeZFCPu4ArY1ZqKK0e4HMHQgLsozLDps0YOQ=; 
+	b=MXWI2QAx4o+nUgmIxyzuFOZLecMWCyIYAGgZnidZ1toI4t793Hk0clikWrmVf5dYsZJlbK3eFZVWXUeAelbSY/ffvfBDKdlf9ilmuv8lhd4kVuVl6x3mzg+NzyNzH0FIisF4ak+gWy5sgqcw124Ogu/CnctCZnTFhkH8SA9rehE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
+	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790860388;
+	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=yb9TIGDgeZFCPu4ArY1ZqKK0e4HMHQgLsozLDps0YOQ=;
+	b=a85NZ1qLDVPYiYMxWxaLgRqOmu87ciHLp0gysp+DDKvlqXXaRlL5iXwzDPMV1yci
+	MNKcJvfJxCQhsqVM5wDwlg1IxICuhW9pXL8//s4w/SrlE4b+8TvkPS88pH49mtFpDoV
+	O/YqR9Ez+PnW+S7mhSRNqmTZ5Qki9d/+sIgMGdDE=
+Received: by smtp.zohomail.com with SMTPS id 1790860388058520.321937422743;
+	Thu, 1 Oct 2026 06:13:08 -0700 (PDT)
+Message-ID: <edfe9ef6680fd5de35de0c021302381e63d9e3de.camel@collabora.com>
+Subject: Re: [PATCH net-next v2 1/7] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, Biao Huang
+ <biao.huang@mediatek.com>,  Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue	
+ <alexandre.torgue@foss.st.com>, kernel@collabora.com,
+ netdev@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Date: Thu, 01 Oct 2026 15:13:01 +0200
+In-Reply-To: <20260929-shrewd-rampant-shark-98e87e@quoll>
+References: <20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com>
+	 <20260924-dwmac-mediatek-mt8189-v2-1-430bd74d5ef9@collabora.com>
+	 <20260929-shrewd-rampant-shark-98e87e@quoll>
+Organization: Collabora Ltd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001082519.16195-4-boqun@kernel.org>
+X-ZohoMailClient: External
 
-On Thu, Oct 01, 2026 at 10:25:17AM +0200, Boqun Feng wrote:
-> The definition of NMI_BITS was out of sync after the introduction of
-> HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
-> 
-> Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Signed-off-by: Boqun Feng <boqun@kernel.org>
-> ---
->  tools/testing/selftests/bpf/bpf_experimental.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
-> index 2893bf06ff25..4bf7390994bf 100644
-> --- a/tools/testing/selftests/bpf/bpf_experimental.h
-> +++ b/tools/testing/selftests/bpf/bpf_experimental.h
+Hi Krzysztof,
 
-Per sashiko's report, seems I need the following to make it work:
+On Tue, 2026-09-29 at 09:36 +0200, Krzysztof Kozlowski wrote:
+> On Thu, Sep 24, 2026 at 09:23:24AM +0200, Louis-Alexis Eyraud wrote:
+> > +=C2=A0 - if:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enu=
+m:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 - mediatek,mt8189-gmac
+> > +=C2=A0=C2=A0=C2=A0 then:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: MAC Main clock
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
+escription: PTP clock
+>=20
+> snps,dwmac schema expects the second clock to be the pclk. Why is it
+> missing? This should be explained in the commit msg.
+>=20
+> Best regards,
+> Krzysztof
+>=20
+Indeed, there is something incorrect.
 
-diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
-index 4bf7390994bf..94143cf0ab0d 100644
---- a/tools/testing/selftests/bpf/bpf_experimental.h
-+++ b/tools/testing/selftests/bpf/bpf_experimental.h
-@@ -367,6 +367,9 @@ extern int bpf_cgroup_read_xattr(struct cgroup *cgroup, const char *name__str,
- extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
-                               struct bpf_dynptr *value_p) __weak __ksym;
+I looked again at the MT8189 datasheets and there does not seem to have
+specific peripheral clock for Ethernet MAC in the SoC clock list. The
+paragraph related to clocks also lists the mac main and ptp reference
+clocks as the ones to turn on. There is also another RMII reference
+clock, only needed for RMII case, but I removed from mt8189 clock list
+in the bindings after v1 review ([1]).
 
-+extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __kconfig __weak;
-+#define IS_ENABLED(cfg) (cfg)
-+
- #define PREEMPT_BITS   8
- #define SOFTIRQ_BITS   8
- #define HARDIRQ_DISABLE_BITS   8
+But at the same time, the Ethernet MAC block diagram, present in the
+datasheets, shows this IP is interconnected to the rest of SoC with AXI
+and APB interfaces (and in MT8188 datasheet too).
+There is no APB related clock that is specific to the IP in MT8189,
+contrary to MT8188 or MT819. But since it is on an APB bus (likely
+shared between multiple IPs), then there is a bus clock for peripheral
+access. Describing the IP having it makes sense (and for AXI too).
 
-?
+So, in order to resolve this issue, would it be OK that I rework the
+MT8189 clock list to add "axi" and "apb" clocks and reword the commit
+message with additional details on clocks?
 
-[Cc Leon and Alexi]
+[1]:
+https://lore.kernel.org/all/b810b9cd-8f5e-4c9d-8496-908aae55dac1@lunn.ch/
 
-Regards,
-Boqun
-
-> @@ -371,7 +371,7 @@ extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
->  #define SOFTIRQ_BITS	8
->  #define HARDIRQ_DISABLE_BITS	8
->  #define HARDIRQ_BITS	4
-> -#define NMI_BITS	1
-> +#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
->  
->  #define PREEMPT_SHIFT	0
->  #define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
-> -- 
-> 2.51.0
-> 
+Best regards,
+Louis-Alexis
