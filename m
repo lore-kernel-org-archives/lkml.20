@@ -1,230 +1,391 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012003.outbound.protection.outlook.com [52.101.48.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107FC21E097;
-	Thu,  1 Oct 2026 15:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869149; cv=none; b=XFqdLQgsE6PbGHL4v47hLUDWLGvILq7Xh5Fg80HaBhH+Bp3oplUFN/oFMM87Tuhtn+ApU5hpKfqbb63nYSz57nL5FlwAW7+WZnV3frPW4OzdNWsZxecg6zP3QG5GsJgvOw8v0g12SNWMAy7HDeG3OszM2prJfyl25n1liGXezTw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869149; c=relaxed/simple;
-	bh=Q4T8U4l35+JZfRpQTP67KypiJT5nk3SiZajXKCmMPI0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sWSi/kVSFqbCtO2daGE5OBM1PfK1IpYPTTIR2sj7fb6USLka+rK//kBpMMq6pVE5afHilMidVT9eYTMC3MUQ6Hc4Xs9T3RRJCQFtQ03xWX8PxzfiSyYA5ZyMNg5ht3s0mC8YW7hiUW8J6GNFGJr/Kr0fyjhEQ5SNtHBUVYnkr5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=raOets9C; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AAFF50AC33;
+	Thu,  1 Oct 2026 15:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790869190; cv=fail; b=n3SlCzqhbeHJF/bw6lfbalK4fo5IG1b/Bj9oJtgIXk9fjVGClyYbJdcIWEDC3VkNr+E44yJI94Tk3pdm7ogFMEm+CVW5iQcGHG+3dvz7Onwj/Yxr3fhtjkkPofa3dMRexA6q7INX/oxQQgwkB55nrVUdKrp9glzXzlhuHLlZLHc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790869190; c=relaxed/simple;
+	bh=UnBJ3y8FRe92oba3Tl57f6o/ZIpthmMyRo85oZchM3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PkMDU4jW7mel76ZzMAQ9+aEPV10GfmhMOGI9Uu2RakQyTBC1Qso9tbk6zEdg14qwS3b2sMl8n5vavdNWsNXnetHpTwPFS/b959oUFIuoSG65gUxFMu/1ZIFaA7bW7DTknI4BjUpa1fQylnMqw6izNO/cq5k1bwxSv1Q13ocP+Kc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=HzZ1fnSy; arc=fail smtp.client-ip=52.101.48.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="raOets9C"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=2u37AIR+/A2/tGHWBlQRSR59xKBep++dw5myZn2LtUg=; b=raOets9Cov+DVSbGMva0LRUBd5
-	nvp0XNgebUENef4iZtgdPPtJdb/Qsbmrul/U9Z2U0stE0sZp1N75GWN/5EsxEHsuoXojgs38q9DuB
-	hF1HkZMQaYk+ccH1bRYJcQHHgFXKGqrejD+oI6eVnmWA19kRM++/e63dpCohuFmZWGNwxlrWxjpJc
-	HDlk0Spdrei5awlhdumuow7bfjGX6jnhU6ANrz3ixDJ5qL25xBTKELV9vjKPTEc2DIwwS43qcyH4d
-	RGJOccFuH8piycAG5hjiVfIdEJduS6CbJygJU3o2yR2I4QoaZlMcjkYahYFWcaTxyoj9syh3jv1u3
-	3NstDhTA==;
-Received: from 54-240-197-230.amazon.com ([54.240.197.230] helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCIs7-00000008Mkt-36l3;
-	Thu, 01 Oct 2026 15:38:59 +0000
-Message-ID: <c3cf85915d60576a1a12711c180a242ae017b277.camel@infradead.org>
-Subject: Re: [PATCH v4 3/4] pps: Always use ktime_get_snapshot_id() for
- pps_get_ts()
-From: David Woodhouse <dwmw2@infradead.org>
-To: Miroslav Lichvar <mlichvar@redhat.com>, Rodolfo Giometti
-	 <giometti@enneenne.com>
-Cc: Richard Cochran <richardcochran@gmail.com>, Andrew Lunn	
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet	 <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni	 <pabeni@redhat.com>, John Stultz <jstultz@google.com>, Thomas
- Gleixner	 <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, Alexander Gordeev	
- <agordeev@linux.ibm.com>
-Date: Thu, 01 Oct 2026 16:38:58 +0100
-In-Reply-To: <ar5cq0vslvQ00Pek@localhost>
-References: <20260829210041.40649-1-dwmw2@infradead.org>
-	 <20260829210041.40649-4-dwmw2@infradead.org>
-	 <920a2d70-c1ec-452b-8fc4-aebf1f6af412@enneenne.com>
-	 <d1af17dff1d6f181d74edd3b6358398469d61917.camel@infradead.org>
-	 <4afec82e-9e3d-4615-9657-7d467d8dc3e7@enneenne.com>
-	 <ar5cq0vslvQ00Pek@localhost>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-yAy89XO5Ur2WNK08h/qF"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="HzZ1fnSy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OOPPHNuuJSR7xnMm+/mr7MUTllbWAvKTvm3yKbEVvN2zK5HyVrC3W0589QbZuXNwPdc8XbAI/s4hABNH8y3TuzIe9oe7IJSjsx8Q05EWiGU86AjNqFmMiORSmLu3CetjD254Bn6SG4Ch+37MJVYkVDxQIlBygPirGsKFqbVLk2j8yLIzJd4NiaGYwGL6ZOyOhyw/cwmOPag4ZC7pXz3hmm/oRAbow2YBB2+vj6Pq63Kc66rgLN2Fnhltjd2j7mK+i1NTOFcMDlac59Usqfn49ULtbiRbeXOvk0wiSuAHWenX3KnmPCoBrAjoqC0W+ioo2/koPixYbW5EKZKkTYgpEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qxe+vwedGxpMCfXVWQZqKuNY6MtpNRD99v8QTThvdnE=;
+ b=POds5NANS8g1gUorcmqefjmbljz20/qQeAD8ypNC86xiYiwKxoSPilf//k0N3xWbx1igKMRjLKDBZZ4vOwV3oMiXRvkXeMxDzZobYyLVRjDOD4zCNSUcCD2g3dyKsaTr/7baA6HPoNo3wcxp6QgNkf8XMIUfR/z/S6/8IXhNhek3CL/mTvXcRuQH8o+63jHUQFmspjJj3t+x4ugPq813+sD3LXATPJ4UPoMV7yz0Qssd2aJtWZUPQI6b8LwP9ETiFMwzDqAzTS16e+dx6n+6rVRlJNsjiSLYqhw55i9DN/XT3JJeoSqns0enDZtNMAe6CN+43J9BvSLYS9ZFFDgl9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qxe+vwedGxpMCfXVWQZqKuNY6MtpNRD99v8QTThvdnE=;
+ b=HzZ1fnSyA16SiwaTJlVOy7DiEH1RVhxFuiLjdcl35k0d5LcAuCGaGakpwnDqdzVUIG/xZRCU6hDS+FlGH1Q/Oy0ElUWqLSuD4FeMYj1FLiRrk9YYslACMsA/EKYyFxXHLeejseShhVsECFkU1XSpF68tXeQE0YPUbPK8PEJFUruB3QxsCRsHYEAJySZ2GSX8bvORkgqM4VCDnzyKIJRXDewt/AoxAW6+GmhhyRG/oqowgJfDaqugovRSa4dVCyV7n33Ccke2bh3sjez9n+W4o7dBGY7W2zQ/7R+wsts+nj7i09hNm5V8gJUTc3ItyfszW/fhSXqyV7uROSnhEb/O7A==
+Received: from MW4PR03CA0168.namprd03.prod.outlook.com (2603:10b6:303:8d::23)
+ by LV2PR22MB3584.namprd22.prod.outlook.com (2603:10b6:408:177::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 15:39:41 +0000
+Received: from MWH0EPF000A6730.namprd04.prod.outlook.com
+ (2603:10b6:303:8d:cafe::10) by MW4PR03CA0168.outlook.office365.com
+ (2603:10b6:303:8d::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
+ Oct 2026 15:39:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 165.85.157.49) smtp.mailfrom=gehealthcare.com; dkim=none (message not
+ signed) header.d=none;dmarc=fail action=quarantine
+ header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay1.compute.ge-healthcare.net;
+Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
+ MWH0EPF000A6730.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 15:39:40 +0000
+Received: from zeus (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+	by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id 7EA7E1FD89;
+	Thu,  1 Oct 2026 18:39:37 +0300 (EEST)
+Date: Thu, 1 Oct 2026 18:39:37 +0300
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+	Ulf Hansson <ulfh@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+	Kamal Dasu <kamal.dasu@broadcom.com>, stable@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ian.ray@gehealthcare.com
+Subject: Re: [PATCH] mmc: core: Don't program invalid host driver type for
+ fixed eMMC type
+Message-ID: <ar5-udUwk8JeB-ut@zeus>
+References: <20260926122908.866-1-ian.ray@gehealthcare.com>
+ <CAPx+jO-59V8bg+DB4pOqEmdPZrfLi098YsyzkBRnf2Krb7ufVA@mail.gmail.com>
+ <791c00cf-4f25-423c-b2f3-4cdc2d2c4a2b@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <791c00cf-4f25-423c-b2f3-4cdc2d2c4a2b@intel.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6730:EE_|LV2PR22MB3584:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56b95d31-2cd9-4157-7487-08df1fd23550
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|11063799006|56012099006|4143699003|6133799003|3023799007|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	RGLAIXUAFTSGtTrXCpr4K8zuvh9i3VW7LFfhQKEoOMw1dIJrbOayHIXmv0GOiz5Mh825oGaNp83aBm4XqIet3iGCt0Z4AIFPU9y3lNNnX6UGWCfB27Fb2GM7JBKcgzPygNJJ043764Czalr0BG+/VblPBRcW6CLIk9AVrQ7Y5z5JuYZEI4yfnDiyGs3H0rFh5w7py9BiAnW1mQkW4r8/C/b0ZAEP8v2g0zkIe9LXAAsIsPZT0J/V0XOcKVBe3eRE4/LbMrPZYLmta354njwI4rLE3uQzRvo2pnZJMrSrcZOmMSxcG0C9UYQRmxdscp/RkgaI5KyyECsKIAsizCzGXtAE+OSHFfnOut0mmNHdeoQra6Pmv67grn1TIZm97klHPWPYOWQ7qPLWQiC3icCM9lO1ovEj/z7euvljWWrNUT108MlqGZ59Rhmf1Zmo8ZU6aZ/x+o1NL5hNlZ6iE6+CYjyGLhslzADSrxowSxOEFSzdqapkdizfWxXHDqa2YnTIfFX08o0+SYUONBT5jd0qhO3Nqw7mnehaCURRsABzUYO37RSVQ3gMxFtrAan0uAUXpDP9EMMHCnoG7fK8efAVM3w12JnCjRtOliwlSEhLRULW48m6ZVIAS/eE0813vRufYiSM5GrWQcSryyN032c3v5MnnI8yrxlMIyjz7H5AgRhv3aazod5t/HZc43D9aK6Dmsk+6j1bVssBp48G8qU/5g==
+X-Forefront-Antispam-Report:
+	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(11063799006)(56012099006)(4143699003)(6133799003)(3023799007)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	E3HkO71gudEq4I11/NxlJ4mkyPxrRoQ8JdgkLq4KCK7IZM+fNilTi1z1JO4Pb7nmLhjj6IqwQK8CmA2TKZcybojtMo8eVt989+uXKE7unADvLLplj9oR5jW4db6wNN1qrnlKQ7J1cDDQfcM60WR9uWyqg78LWILf4BTUQwcgO5KT8NazYxXEtQO3KLd9bNbfuWN6FF74uW28gl8w9fxedPr6JA/ZqlNF2F4CJU+WC8R9r52GvDvq6E2bWtZwXqMMbAkO6FQQVdrBiqVGCOtO116XJxig/IY5fSnIjyJU/4eSz7b/t0GJM7Z6Bc4H9ZmRPf4F1jrtJTGEcK8eJ2gRqn5XAyg4p9l2ZLd4/z7teI0DqTcqPm0WDp9Mffz8wgZK/jRFoqeEizA0LxdIeid9LtXyB4R1m4hE6JmxxSXiRCen4DkzH3apzG0x4zJ/Qqn6
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:39:40.3274
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56b95d31-2cd9-4157-7487-08df1fd23550
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MWH0EPF000A6730.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR22MB3584
 
+On Wed, Sep 30, 2026 at 10:00:47PM +0300, Adrian Hunter wrote:
+> On 29/09/2026 16:06, Ulf Hansson wrote:
+> > + Adrian
+> >
+> > On Sat, Sep 26, 2026 at 2:29 PM Ian Ray <ian.ray@gehealthcare.com> wrote:
+> >>
+> >> The host controller driver type value used by the MMC core [1] _mostly_
+> >> overlaps with the eMMC device I/O driver strength value [2] as shown in
+> >> the table below; however, there is _no_ host mapping for eMMC value 4.
+> >
+> > I think the mapping exists only because that is what the SD spec
+> > provided when this was introduced.
+> >
+> > We can certainly add something that corresponds to value 4 from the
+> > eMMC spec as well, to make this complete.
+> >
+> >>
+> >>   host value/type   | eMMC value | nominal impedance | strength
+> >>   ------------------+------------+-------------------+---------
+> >>   0 / Type B        | 0          | 50 Ohm            | x1
+> >>   1 / Type A        | 1          | 33 Ohm            | x1.5
+> >>   2 / Type C        | 2          | 66 Ohm            | x0.75
+> >>   3 / Type D        | 3          | 100 Ohm           | x0.5
+> >>   (none)            | 4          | 40 Ohm            | x1.2
+> >>
+> >> [1] MMC_SET_DRIVER_TYPE_* in include/linux/mmc/host.h
+> >>
+> >> [2] 'fixed-emmc-driver-type', see JESD84-B51 Table 206 and
+> >>
+> >>
+> >> Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
+> >> for fixed driver type"), the selected eMMC driver strength is passed
+> >> directly to mmc_set_driver_type().  For a fixed eMMC driver type of 4
+> >> this reaches sdhci_set_ios(), which only knows types 0..3 and therefore
+> >> complains on every ios update:
+> >>
+> >>   mmc2: invalid driver type, default to driver type B
+> >
+> > Perhaps the print above from sdhci_set_ios() is simply a bit
+> > misleading. For example, it looks like arasan_select_phy_clock()
+> > actually uses the value in ios.drv_type as is.
+> >
+> > To me, it looks like the problem is that mmc_select_drive_strength()
+> > doesn't really do its job correctly, as it should help us to figure
+> > out what is supported by the card *and* by the host, so we can request
+> > a proper driver type when calling the ->set_ios() callback.
+> 
+> mmc_select_drive_strength() returns the card value directly and
+> the host value in *drv_type.
+> 
+> fixed-emmc-driver-type as described by
+> Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> doesn't mention the host controller, and the original commits
+> 6186d06c519e2 "mmc: parse new binding for eMMC fixed driver type"
+> be17f1ce8572d "mmc: core: properly init drv_type" seemingly
+> deliberately left it alone.
+> 
+> 5a52c5701a67d "mmc: core: Fix host controller programming for
+> fixed driver type" introduces a new policy: fixed-emmc-driver-type
+> is a host controller setting also.
+> 
+> If that was done by mmc_select_drive_strength(), it would look
+> something like below ( note it no longer allows fixed_drv_type to override
+> ->select_drive_strength() , and fixed-emmc-driver-type will then hit
+> any nonremovable SD or SDIO ):
+> 
+> int mmc_select_drive_strength(struct mmc_card *card, unsigned int max_dtr,
+>                               int card_drv_type, int *drv_type)
+> {
+>         struct mmc_host *host = card->host;
+>         int fixed_drv_type = host->fixed_drv_type;
+>         int host_drv_type = SD_DRIVER_TYPE_B;
+> 
+>         *drv_type = 0;
+> 
+>         if (!host->ops->select_drive_strength) {
+>                 if (fixed_drv_type >= 0 &&
+>                     (card_drv_type & mmc_driver_type_mask(fixed_drv_type))) {
+>                         *drv_type = fixed_drv_type;
+>                         return fixed_drv_type;
+>                 }
+>                 return 0;
+>         }
+> 
+>         /* Use SD definition of driver strength for hosts */
+>         if (host->caps & MMC_CAP_DRIVER_TYPE_A)
+>                 host_drv_type |= SD_DRIVER_TYPE_A;
+> 
+>         if (host->caps & MMC_CAP_DRIVER_TYPE_C)
+>                 host_drv_type |= SD_DRIVER_TYPE_C;
+> 
+>         if (host->caps & MMC_CAP_DRIVER_TYPE_D)
+>                 host_drv_type |= SD_DRIVER_TYPE_D;
+> 
+>         /*
+>          * The drive strength that the hardware can support
+>          * depends on the board design.  Pass the appropriate
+>          * information and let the hardware specific code
+>          * return what is possible given the options
+>          */
+>         return host->ops->select_drive_strength(card, max_dtr,
+>                                                 host_drv_type,
+>                                                 card_drv_type,
+>                                                 drv_type);
+> }
+> 
+> and:
+> 
+> static void mmc_select_driver_type(struct mmc_card *card)
+> {
+>         int card_drv_type, drive_strength, drv_type = 0;
+> 
+>         card_drv_type = card->ext_csd.raw_driver_strength |
+>                         mmc_driver_type_mask(0);
+> 
+>         drive_strength = mmc_select_drive_strength(card,
+>                                                    card->ext_csd.hs200_max_dtr,
+>                                                    card_drv_type, &drv_type);
+> 
+>         card->drive_strength = drive_strength;
+> 
+>         if (drv_type)
+>                 mmc_set_driver_type(card->host, drv_type);
+> }
+> 
+> But that doesn't help with drivers where the controller does
+> do not support the value passed by fixed-emmc-driver-type even
+> though the card does.  mmc_select_drive_strength() has no way
+> of knowing that.  The ->select_drive_strength() callback
+> allows selecting different values. fixed-emmc-driver-type is
+> one value.
+> 
+> The warning in sdhci.c seems correct.  SDHCI is an SD standard,
+> so doesn't define value 4 (and only has 2 bits for the field).
+> The selected driver strength is not being programmed - deserves
+> a warning.
+> 
+> Perhaps if the affected driver implements
+> ->select_drive_strength():
+> 
+> static int ???_select_drive_strength(struct mmc_card *card,
+>                                      unsigned int max_dtr, int host_drv,
+>                                      int card_drv, int *host_driver_strength)
+> {
+>         struct mmc_host *host = card->host;
+>         int fixed_drv_type = host->fixed_drv_type;
+> 
+>         if (fixed_drv_type >= 0 &&
+>             (card_drv & mmc_driver_type_mask(fixed_drv_type))) {
+>                 if (fixed_drv_type == 4)
+>                         *drv_type = MMC_SET_DRIVER_TYPE_B;
+>                 else
+>                         *drv_type = fixed_drv_type;
+>                 return fixed_drv_type;
+>         }
+>         return 0;
+> }
+> 
+> But that requires the changes to
+> mmc_select_drive_strength() and mmc_select_driver_type()
+> above (with its caveats), so that ->select_drive_strength()
+> overrides fixed-emmc-driver-type.  That would be fine for
+> drivers/mmc/host/sdhci-pci-core.c, and probably
+> amd_select_drive_strength(), but it is starting to get
+> complicated.
+> 
+> A simpler alternative is for the affected driver to hook
+> ->set_ios() and fix up the value.
+> 
+> void ???_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
+> {
+>         if (ios->drv_type == 4)
+>                 ios->drv_type = MMC_SET_DRIVER_TYPE_B;
+> 
+>         return sdhci_set_ios(mmc, ios);
+> }
+> 
+> And in probe (assuming struct sdhci_host *host):
+> 
+>         host->mmc_host_ops.set_ios = ???_set_ios;
+> 
 
---=-yAy89XO5Ur2WNK08h/qF
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thank you for the feedback.
 
-On Thu, 2026-10-01 at 15:14 +0200, Miroslav Lichvar wrote:
-> On Mon, Sep 28, 2026 at 09:58:02AM +0200, Rodolfo Giometti wrote:
-> > On Sat, 2026-09-26 at 21:38 +0100, David Woodhouse wrote:
-> > > So yes, the specific code path you're looking at *does* get slightly
-> > > longer (50ns to the counter read instead of 30ns).
-> > [...]
-> > > However, they are *entirely* in the noise, as there's about 600 ns of
-> > > hardware and 2-4 *microseconds* of software latency before we even ge=
-t
-> > > there.
-> >=20
-> > Thanks for measuring it, and on real hardware with a real edge. That
-> > answers my concern: ~20 ns of constant cost against microseconds of
-> > latency upstream of the handler is not something PPS can see, and
-> > trading it for the removal of a non-constant error is the right
-> > trade.
->=20
-> FWIW, there are some polling versions of the pps-gpio driver (out of
-> tree), which provide much more stable measurements by trading
-> interrupts for higher CPU use and where this additional delay might be
-> visible.
+The "invalid driver type" warning that I originally observed originates
+in sdhci_set_ios_common() which is shared by all SDHCI hosts (IIUC).
 
-Hm, interesting. Got a reference? What does it do, set a timer for when
-it thinks the end of the second is imminent, and spinwait then?
+Thus any SDHCI host configured with `fixed-emmc-driver-type = <4>` would
+log that warning.
 
-I imagine it's something along the lines of:
+The affected driver for my scenario is sdhci-esdhc-imx.c, and the
+proposed change (below) suppresses the warning.
 
-	count2 =3D arch_inlined_clocksource_read();
-	do {
-		count1 =3D count2;
-		pulse =3D gpio_read();
-		count2 =3D arch_inlined_clocksource_read();
-	} while (!pulse && !too_late());
+But I am hesitant to open-code the same fixup in every SDHCI driver.
+And I am unsure whether this belongs per-driver, or whether the right
+fix is in the core / or to the warning itself.
 
-	/* And *now* we can take as long as we like to convert
-	 * avg(count1,count2) into an actual time */
+Comments welcome!
 
-If it *doesn't* have the inlined read as the fast path like that, then
-it isn't even *trying*, and one might argue that it doesn't get to have
-an opinion on the 20ns I just stole from it. (I *did* give most of that
-20ns back, although the arm64 maintainers aren't keen on inlining the
-clocksource; if we do really want it, we'd have to make a real-world
-case that isn't a microbenchmark.)
+drivers/mmc/host/sdhci-esdhc-imx.c
 
---=-yAy89XO5Ur2WNK08h/qF
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+```
+static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
+{
+       /*
+        * A drv_type of 4 reaches this callback only via the eMMC
+        * 'fixed-emmc-driver-type' path: it is the eMMC I/O driver strength
+        * value 4 (40 Ohm, see JESD84-B51 Table 206), which has no equivalent
+        * host driver type in the SD standard that SDHCI implements (only
+        * types B/A/C/D are defined).  Map it to the default Type B here to
+        * avoid an "invalid driver type" warning from sdhci_set_ios().  The
+        * card's HS_TIMING field is programmed separately from
+        * card->drive_strength and is unaffected.
+        */
+       if (ios->drv_type == 4)
+               ios->drv_type = MMC_SET_DRIVER_TYPE_B;
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-FIGy/1dopbxADhhh+qzsJRwAAAAAAAA=
+       sdhci_set_ios(mmc, ios);
+}
 
+static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
+{
+...
+               /*
+                * Support fix up of eMMC driver types which have no SDHCI
+                * host driver type equivalent.
+                */
+               host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
 
---=-yAy89XO5Ur2WNK08h/qF--
+```
+
+> 
+> >
+> >>
+> >> The mmc card itself is still programmed correctly (the HS_TIMING driver
+> >> strength field is set from card->drive_strength independently), so this
+> >> is a spurious, repeated warning for a valid, documented configuration.
+> >>
+> >> Change to only program the host when the eMMC driver type value maps to
+> >> a valid host driver type.
+> >>
+> >> Tested on i.MX8MP (usdhc3, eMMC in HS400) with
+> >> `fixed-emmc-driver-type = <4>`: the warning is no longer logged and the
+> >> HS_TIMING register contains 0x43 as expected.
+> >>
+> >> Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+> >
+> > I have looped in Adrian, to get his opinion on this.
+> >
+> > Kind regards
+> > Uffe
+> >
+> >> ---
+> >>  drivers/mmc/core/mmc.c | 8 +++++---
+> >>  1 file changed, 5 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+> >> index 05444ecf3909..ff5d4b805998 100644
+> >> --- a/drivers/mmc/core/mmc.c
+> >> +++ b/drivers/mmc/core/mmc.c
+> >> @@ -1371,9 +1371,11 @@ static void mmc_select_driver_type(struct mmc_card *card)
+> >>
+> >>         card->drive_strength = drive_strength;
+> >>
+> >> -       if (fixed_drv_type >= 0 && drive_strength)
+> >> -               mmc_set_driver_type(card->host, drive_strength);
+> >> -       else if (drv_type)
+> >> +       if (fixed_drv_type >= 0 && drive_strength) {
+> >> +               /* eMMC driver types >= 4 have no host controller equivalent. */
+> >> +               if (drive_strength <= MMC_SET_DRIVER_TYPE_D)
+> >> +                       mmc_set_driver_type(card->host, drive_strength);
+> >> +       } else if (drv_type)
+> >>                 mmc_set_driver_type(card->host, drv_type);
+> >>  }
+> >>
+> >> --
+> >> 2.49.0
+> >>
+> 
