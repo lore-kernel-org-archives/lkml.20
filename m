@@ -1,208 +1,87 @@
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA0143F0B2
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E427143DEB8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790833297; cv=none; b=U/+oN30CpFP0acHTR9B5xDAxoHEHWqA8vMcVBKZWOeqPg4/JDXoQDk6oyORsgymAXhgBh23iuls1rgVnuXpj9vj4bcaK7LVbDQnwLQJcJllfRPu1hr0FKvVbUb880l9VeIg5KH99gl/5HeVfU6MTyweGBfC6+0SVGvGbbKcJ3Sw=
+	t=1790833310; cv=none; b=OimSrhWS3Wl8WrjK7QdsQ8xNXRnj54K19n1Uf+4cEzXKV1Gw8exUG9pwIaLZt01orjTKbjMC7AyQ54yr92b+BT8rFdLRiqocjqo2qM4b4I0droa4QWmZWZfFbjZ/0Ox1hWXtZy6FBzn34+hNpTaNfehYkOrSnWvyLatkhY9Evy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790833297; c=relaxed/simple;
-	bh=WJck80GJbWlZ6IK+PHNcyI79odQvn6d3F8tCS7ruQmc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=d2j5MrKjStoERCk1uDIecUuexRv74gWLFk9NxdGjAHDT8kBHNNNMrvwje7/xqTxxIMEuqKhJuD+dNSv0uHu2PI67T0FaUx08IFw2HM925yTb54lHZCdjDUq+STaihIK7XQSrxQS88DSTDz8vwhaWnWcf/jHC0KVXfseCP0CVTcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JWzZh6jY; arc=none smtp.client-ip=74.125.82.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1790833310; c=relaxed/simple;
+	bh=XJGZ42AAks+v4ejAqRTKl0CGogzAehzbyzuDcc55rgQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cs7QY68JjwklJzJRLge7ABX1LMGLFE1J6uQbx4kMJxgR1pQlvQs5L4psnjGi6nHRUe/CtDXF3frohpT4/AmeJKPsv8kDwaQgW7iRrC9wJrasWGcXdCy1j6hvIMTb0tMcVrkBo2pQavEAUEMR4X0hN78rxCVDiYAu6NT90j2aeR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oihq4PZU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TEWDmLLR; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JWzZh6jY"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34344599f01so6661353eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:41:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790833294; x=1791438094; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DkPMC7WWjzYDHx6JCTWMQn/89Bm4VcQ5VbZnxeDmdV8=;
-        b=JWzZh6jYErw+CgmIzxSf1Zd9lQzafkfWGPo7bdRAjYc/F0KoQxms6tHPHBipY8nWpD
-         OydF4fjWUgyaXinnQ9qrYKmMF10QXWLl5uBdkcHoHbLplJa6U0cyGn1hERFX3FiCDWYi
-         KI28oSbVNdBZk8OIEzjYQL3QrffE/mKCx7SvcrEV9S2Hx2+Pjne/63JotbfnqS3H4K+1
-         TjfVH8yX1ZnnwC19v0/sQaX08Su7fCaxN9dEXPfqHQ2x+k5OPjGlAlGu2IuDXhqaJSVL
-         lEkL/sXIozA4/ur6W0c6tLz/4NOlrfGDfXppHo+05YTR/uSmzKuGXNik+14nhBUUdDMX
-         qEFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790833294; x=1791438094;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DkPMC7WWjzYDHx6JCTWMQn/89Bm4VcQ5VbZnxeDmdV8=;
-        b=PaUh+SZQ8mzKaqBsygtJU84fZb/Rv5tQzjSPRcGhgPLGk+Fqpx0DWZOqXH6acK99kE
-         pCJXJgtrgCr8RMs1taNwMyDmyxV9raOZlmqQd28noMitULRHXsu5dKZ013/47KmiYtzD
-         sfLSe+HTC1A+vB5xdXvnUnOmgUu6gcSJqxlQ3tUy/2KxkDEa5FidBF/90dxEVXaRT3RU
-         z81pF0iNQTDt1avLjboD7FkAqRCHZxKK/6d1fD5cbNGUj+83NscAaLiWM7GJShJNL7ft
-         OJKLcJdEMNkCtZBOn+6S87E0rgQLX4C6xhtUTwmEJaQNtKBZvzNj/FnCAWC1Tqq+AwBn
-         h4EQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqdQXSKIbXVeXeZh0tQKDDxddAF2TeBOmpRQUay33UORMpzayvnezWHya8CS2nbgIiIoNebDO3nGT2PLY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU3cmF5PmSugmy1MO+fXLV9v0b6oefsL46s7utNhTEw5EiP4K5
-	/OGk8iO4xU/6xQMKaKQ+JfhZ44u3hbjqM6eaZ/Vndrlq93A8q+9wO+h4Xxn1E1MQ0+LcCh6Huoe
-	njMN/54ucDA==
-X-Received: from dycpv1.prod.google.com ([2002:a05:7300:de01:b0:34c:8931:6a4a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:8296:b0:34b:101f:cdb5
- with SMTP id 5a478bee46e88-34cdbfd8bc2mr3968546eec.19.1790833293911; Wed, 30
- Sep 2026 22:41:33 -0700 (PDT)
-Date: Wed, 30 Sep 2026 22:41:20 -0700
-In-Reply-To: <20261001054120.1570943-1-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oihq4PZU";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TEWDmLLR"
+Date: Thu, 1 Oct 2026 07:41:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790833306;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7h0gq7uYdAHxkRv+0+Xed5H9vJRADepCIHmDfn4dN+U=;
+	b=oihq4PZUiUofW7VsizXy6GutADB+k3Foqw7nNG/XTGVIvgGf428HTsP8sOw1HsI4vy3+VC
+	XsioNwEPNzpv8UftBWK2JSoP895LJACWIq/eUYIoVY6imLUYLWLnBeTfuEi6hCxT9kjXJr
+	Qa/prHWP6e0rapiV6J3yMDPVdGhNdmX2ieKzOTJOH6ydSc1jQNXO7kktZx4QW/4FbHd8Fo
+	+VGFODm/VwS+BSKn8LY5tvfpp35swgd/QPyRE3Ktd2ZjfklzMDY5Ts16t8SkS5X7SGpLj+
+	C/iOvAkDcFDWQRVJFkUy/NhSG1E64CN/CinE+OhShNfXD92xEFnbH8cvVEfaWA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790833306;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7h0gq7uYdAHxkRv+0+Xed5H9vJRADepCIHmDfn4dN+U=;
+	b=TEWDmLLRCiO/Cmk9W7bo4GDdr1TRKjayW0dkS3uneyt4n2QAQXlFMbgp5dGDw9ArMM4fFq
+	g+qWhoNT9WkrpYCw==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Andy Lutomirski <luto@kernel.org>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, David Laight <david.laight.linux@gmail.com>, 
+	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: Re: [PATCH v6 4/5] vdso: Move BITS_PER_BYTE and BITS_PER_TYPE() to
+ vdso/bits.h
+Message-ID: <20261001074114-1196ec3c-ab6f-4d70-9518-7a019c5871a0@linutronix.de>
+References: <20260930154500.722828-1-zhanxusheng@xiaomi.com>
+ <20260930154500.722828-5-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261001023423.1225713-1-irogers@google.com> <20261001054120.1570943-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261001054120.1570943-5-irogers@google.com>
-Subject: [PATCH v2 4/4] perf build: Fix clean and install target dependencies
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, leo.yan@arm.com, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260930154500.722828-5-zhanxusheng@xiaomi.com>
 
-Fix several missing dependencies and ordering issues for clean and
-install targets:
+On Wed, Sep 30, 2026 at 11:44:59PM +0800, Zhan Xusheng wrote:
+> lib/vdso/gettimeofday.c is built into the vDSO, where linux/bits.h is not
+> available.  The next patch wants BITS_PER_TYPE() there.
+> 
+> Move BITS_PER_BYTE and BITS_PER_TYPE() from linux/bits.h to vdso/bits.h.
+> linux/bits.h already includes vdso/bits.h, so its users are unaffected, and
+> vdso/datapage.h already pulls vdso/bits.h into the vDSO translation units.
+> 
+> tools/perf/check-headers.sh tracks both headers, so update the tools copies
+> in lockstep to keep that check quiet.
+> 
+> Suggested-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-1. In tools/perf/Makefile, order 'install*' goals (excluding
-   'install-build-deps', which is ordered before build/install goals)
-   after 'all' when both are passed on the command line (e.g.
-   'make -j clean all install') so two concurrent Makefile.perf
-   sub-makes do not race in the same build directory, and mark 'all' and
-   'clean' as .PHONY.
+Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
 
-2. In tools/perf/Makefile.perf, when 'clean' is passed alongside build
-   or install goals (e.g. 'make -f Makefile.perf clean install'), run
-   'clean' sequentially before 'fixdep' and 'sub-make' rather than
-   running 'clean' in parallel with the build inside 'sub-make'.
+> ---
+>  include/linux/bits.h       | 2 --
+>  include/vdso/bits.h        | 2 ++
+>  tools/include/linux/bits.h | 2 --
+>  tools/include/vdso/bits.h  | 2 ++
+>  4 files changed, 4 insertions(+), 4 deletions(-)
 
-3. Ensure '$(OUTPUT)python' is created inside the recipe for
-   '$(OUTPUT)python/perf$(PYTHON_EXTENSION_SUFFIX)' rather than only at
-   Makefile parse time, in case 'clean' removed the directory.
-
-4. Add '$(LANG_BINDINGS)' as a prerequisite of 'install-python_ext' so
-   the Python C extension is built with the proper compiler/linker flags
-   and perf libraries before 'setup.py install' runs.
-
-5. Add 'install-bin', 'install-tools', 'install-tests',
-   'install-python_ext', '$(DOC_TARGETS)', and '$(INSTALL_DOC_TARGETS)'
-   to .PHONY in Makefile.perf.
-
-6. Prefix targets emitted by Documentation/build-docdep.perl with
-   '$(OUTPUT)' so '$(OUTPUT)doc.dep' matches out-of-tree documentation
-   targets when 'O=' is specified.
-
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/Documentation/build-docdep.perl |  2 +-
- tools/perf/Makefile                        | 16 +++++++++++++++-
- tools/perf/Makefile.perf                   | 19 +++++++++++++++----
- 3 files changed, 31 insertions(+), 6 deletions(-)
-
-diff --git a/tools/perf/Documentation/build-docdep.perl b/tools/perf/Documentation/build-docdep.perl
-index ba4205e0302a..f19f5107fe0f 100755
---- a/tools/perf/Documentation/build-docdep.perl
-+++ b/tools/perf/Documentation/build-docdep.perl
-@@ -41,6 +41,6 @@ while ($changed) {
- while (my ($text, $included) = each %include) {
-     if (! exists $included{$text} &&
- 	(my $base = $text) =~ s/\.txt$//) {
--	print "$base.html $base.xml : ", join(" ", keys %$included), "\n";
-+	print "\$(OUTPUT)$base.html \$(OUTPUT)$base.xml : ", join(" ", keys %$included), "\n";
-     }
- }
-diff --git a/tools/perf/Makefile b/tools/perf/Makefile
-index b8d38728306a..c1818bd5f287 100644
---- a/tools/perf/Makefile
-+++ b/tools/perf/Makefile
-@@ -93,6 +93,20 @@ ifeq ($(has_clean),1)
- $(rest): clean
-   endif # rest
- endif # has_clean
-+
-+ifneq ($(filter install-build-deps,$(MAKECMDGOALS)),)
-+  after_deps := $(filter-out clean install-build-deps,$(MAKECMDGOALS))
-+  ifneq ($(after_deps),)
-+$(after_deps): install-build-deps
-+  endif
-+endif
-+
-+ifneq ($(filter all,$(MAKECMDGOALS)),)
-+  install_goals := $(filter-out install-build-deps,$(filter install%,$(MAKECMDGOALS)))
-+  ifneq ($(install_goals),)
-+$(install_goals): all
-+  endif
-+endif
- endif # MAKECMDGOALS
- 
- #
-@@ -130,4 +144,4 @@ check-headers:
- 	$(print_msg)
- 	$(make)
- 
--.PHONY: tags TAGS FORCE Makefile build-test build-test-tarball check-headers
-+.PHONY: all clean tags TAGS FORCE Makefile build-test build-test-tarball check-headers
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index 836225b08649..d90bdd319c72 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -327,9 +327,17 @@ export HOSTCC HOSTLD HOSTAR HOSTCFLAGS SHELLCHECK MYPY PYLINT CONFIG_PERF_BPF_SK
- include $(srctree)/tools/build/Makefile.include
- 
- ifeq ($(force_fixdep),1)
--goals := $(filter-out all sub-make, $(MAKECMDGOALS))
-+goals := $(filter-out all sub-make clean, $(MAKECMDGOALS))
- 
--$(goals) all: sub-make
-+ifneq ($(filter clean,$(MAKECMDGOALS)),)
-+clean-make:
-+	$(Q)$(MAKE) -f Makefile.perf -j1 clean
-+
-+fixdep: clean-make
-+.PHONY: clean-make
-+endif
-+
-+$(goals) all clean: sub-make
- 
- sub-make: fixdep
- 	$(Q)$(MAKE) FIXDEP_BUILT=1 -f Makefile.perf $(goals)
-@@ -565,6 +573,7 @@ $(OUTPUT)python/perf$(PYTHON_EXTENSION_SUFFIX): util/python.c util/setup.py pyth
-         CFLAGS='$(CFLAGS)' LDFLAGS='$(LDFLAGS) $(LIBS_PY)' \
- 	  $(PYTHON_WORD) util/setup.py \
- 	  $(python_setup_quiet) build_ext; \
-+	$(MKDIR) -p $(OUTPUT)python; \
- 	cp $(PYTHON_EXTBUILD_LIB)perf*.so $(OUTPUT)python/; \
- 	if [ "$(abspath python/perf.pyi)" != "$(abspath $(OUTPUT)python/perf.pyi)" ]; then \
- 		cp python/perf.pyi $(OUTPUT)python/; \
-@@ -994,7 +1003,7 @@ install: install-bin try-install-man
- install-build-deps:
- 	$(Q)$(SHELL) $(srctree)/tools/perf/scripts/install-build-deps.sh $(INSTALL_BUILD_DEPS_ARGS)
- 
--install-python_ext:
-+install-python_ext: $(LANG_BINDINGS)
- 	$(PYTHON_WORD) util/setup.py $(python_setup_quiet) \
- 		$(if $(OUTPUT),egg_info --egg-base $(OUTPUT)) \
- 		install --root='/$(DESTDIR_SQ)'
-@@ -1070,7 +1079,9 @@ endif
- 
- FORCE:
- 
--.PHONY: all install install-build-deps clean config-clean strip install-gtk
-+.PHONY: all install install-bin install-tools install-tests install-build-deps
-+.PHONY: install-gtk install-python_ext $(DOC_TARGETS) $(INSTALL_DOC_TARGETS)
-+.PHONY: clean config-clean strip
- .PHONY: shell_compatibility_test please_set_SHELL_PATH_to_a_more_modern_shell
- .PHONY: .FORCE-PERF-VERSION-FILE TAGS tags cscope FORCE prepare bpf-skel-prepare
- .PHONY: python_perf_target
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+(...)
