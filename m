@@ -1,245 +1,321 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011017.outbound.protection.outlook.com [52.101.70.17])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587332F87B;
-	Thu,  1 Oct 2026 14:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864064; cv=fail; b=gG+tH6EmOn9JhTM/nh6vpi2+USq5V41BBTiuzR3cFIzpWrruLmXb8LUIcQxLujRj8RlU/meUayjiV2acizkeUYqJMdIAXdwz85CZHXNxFBqWefS/np6lmF7khvKuLT+3OkNnsYZzDtz2yL6B6Vm8proTyRsQXsqtF85afPQPigc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864064; c=relaxed/simple;
-	bh=WfELk+O7oGm9/7oyZ93Hj9gKlZHuXL2Dg2/mE9Mv0L0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=FRB04B56ZXjwIovhI9sYvBr85y1P2en1lPrU938va/xOhrXw4N4RsceE6CTDGiqQ1pShoXCAMhIrVU0qjjZyfOl12webYkUYki/hKA0p5XsSFVimrLHP5ke1j3AyoPi3Q+uMWg4Tet10qJNXEA1i/pyMpNLsB0QLuLmc283T0WQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=M9metBCs; arc=fail smtp.client-ip=52.101.70.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA91E457E7F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790864261; cv=none; b=JcyKW2U7+WnxB7ws9JvBgx11HUcgcPgULoqGccHaM/cpsqUnSK5Y9JmPWNZ0jFpORMJbbjeLNldm2hpc0hByujnRxwR7YjnGLS7HwTh7Pjl3QcuIU8nWAmKE/LeC8gl9y9rkeQrrAB8gQAHBZ6sxo6E3NOshxZY5kw3HE4xvQDI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790864261; c=relaxed/simple;
+	bh=VVaUMHrP2xl85g9aYJWuYWVkhIrcSZmLbXvxNHL0aI4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rhMclDsTJ0+QQu91KaQ2onhDBuSv5xWYaRUa6sKZ9xT4wVBB0Oo7XIHHY59IUD5b1UfWRBtkbjUQ4ARpRP6o7loN4FPztuZCzhQpYLeuMMEWkq/LI4Or61xf6pwoEimrIxdZzEO9tmhK/i0fn9/eF3CwEk33XnmFcmTS55l76P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=j6ZnfhDQ; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="M9metBCs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LOgF+0PZfK4xTgN9eH5nzuCeXgUteb5EwOUbKTrLbCailospH12JEot46RdvMl0v474RXHyWisPH1AydgLDbAyU6VGswXhN3+MIv7HD3i25zEBSMVHTqGgoQRKRERJHV8i8F7J+iJOUW5f1Ygte8oiaiGvmVvtx9o2fLqxIWEOZTfJnkN4RGSHV+D3Gg9FWvpXmeIFoHOTwESwX6hW30n+rRdNVAxJ7qrpCKUhuCEtpmYBASHAlyGqrDKW5vwGBHIv3gj/AaA35MdrYQYrQGQGyNW/mWfYhbKgG1Enzh5+dls90NnSnOOptU69zV2RYTx0po1cBHS4dlrsL3IQuh6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EiyZBJgbOoYuz5RyNOY2DuPfXiiEPbb+XfqeoO5XTxs=;
- b=rT+O7nfaMSY2Sa5uuZ2Z9Hh7h/UyYMKy8/zt6WLgiUeb8MusUbTPZ/2gqBzgGygd5TOsOFhwPEtHByJ8DTGE3kZmdnq4mnlJgEO9+V7YEFbDawA9ut/mZchX1uDvwmsCJsve2QOXG/eCfaqCumq0u/2vV1n6emX4QeRigQpU2STcloHTjOgfOYDcZG2A967ys1nwjUdVLZ/0CavrDs2AVpoC71IQ0J1y/Ap0HNdxSZ2eQHj/s5ea/PoJ2iOLLeEX0G1cbKH5AqigIQJQ56b0cluhQMie/gYnM3evDEMEbOlpLBOBjJ+ZQv7dOPHvKMgBa8a4WYxOvnywGq8+3MYCfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EiyZBJgbOoYuz5RyNOY2DuPfXiiEPbb+XfqeoO5XTxs=;
- b=M9metBCsxho81frc23hLrdDRQ16SSodus4Jdhs3sLdnvhrAvElTCNvsyeiXEsMto5MTtcCGRPG4wCHXLtqZjuL6/b7UaVPpdYMpUaA58DXG9hHqJQKpRP9vtCTS4IU+/1e7yis1PTcKAnxz+jKY1hv8D932xsCY8z6fagdkzp0FIrVNKMbFnOJ063n3z2ei7hYe9o7V7AnOUkP8MOkzeIiEj7QRXhnploGlTqWiDBngGG9TaorFl78/k+oxVwFao0ML7xefWJx/z3Hmaz3OW6LKbiI7v/FHaIhopZ8fl+vO6YcVFpKWkmFP7RgX08TnwVSgzpuSoJzJxdUClthOZww==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB8302.eurprd04.prod.outlook.com (2603:10a6:102:1ca::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
- 2026 14:14:15 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 14:14:15 +0000
-Date: Thu, 1 Oct 2026 09:14:04 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH v2 3/6] dt-bindings: connector: Add Toradex camera
- connector
-Message-ID: <ar5qrJNqp6pt40vY@SMW015318>
-References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
- <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
-X-ClientProxiedBy: PH0PR07CA0035.namprd07.prod.outlook.com
- (2603:10b6:510:e::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="j6ZnfhDQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=kJb0GmKetf052WcR83rJCSUp5SEhvuEVDD9IdfikSQg=; b=j6ZnfhDQl5Rk5tLfdQpeQezydM
+	MrsgKZnG9A5nsBBXDnvhuHnR53oRTNG6Wm4WCgMOiEhFWK7TmhLlLha5MglXhAiOlk2KfxFTIKva2
+	Hx8i/oZTtXZ6b/uU5idSuxReHOI5tGIkO5tQVVpwjYR+0aDY3/5zj1BYpayZoaCdJF0+BR8pf+Gqr
+	hajIPqYdAAv+5f9cI/n9JS7hvN47j+hZScpORub9Airvq8Dz9A+dQcDUTckmGmCUIL29euLZH4PwV
+	s99dikwyCu1/jU4gWhzkJBeo28y+z2uv4xKLekYLcKAU3xwkVxtNPgfFMRhEq+wu1XNeq0jJljVgj
+	ebSe9Fcw==;
+Received: from [179.190.179.102] (helo=[192.168.1.27])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xCHb8-00A9GK-I0; Thu, 01 Oct 2026 16:17:22 +0200
+Message-ID: <be2b367a-870b-4b93-84dc-eb36542fee82@igalia.com>
+Date: Thu, 1 Oct 2026 11:17:17 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8302:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c11816e-8886-45cc-659b-08df1fc6463a
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|1800799024|7416014|23010399003|366016|10067099003|56012099006|11063799006|3023799007|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Al9TgdSbZgjTMekI33EI+By4MiPgnlmtwaqXrguU1gK27T5RN4+Ube7PvyQ6n34sw2iHX8+YoYZUCtHfa5O272TesorETfi3ezecbIDYA4p4q78eoaXvRx5Od4gSjI6w4G2Zd7AQTYRALhv/CR1FECc+jAJN+MSbdHEVeZj/rsCOUA4qhRrtqmEtfvFJb1Ehkx/7ZnlzgsD4t4UFjeIarqjjWtVfD/MaLK+7MPsZTjO5d9siYt3EwS+qdOHDtXEF40AdXxjYbopWboWCT3r5pNmTxv0MWWRQ/WCRjODEeUXAmizQCESHAp+EummVQ2eO78RuOHkyNt1JwSTwq5hdpOij4FayUGE0uDw47P5c7/1n+z9Vh2jPKPqwYgvyg2cIpTBe9tTrRanhT7U66zQ5i1IQn6BD4Nmqlro95qqEKVrl2DlaD0c521S0/edHygY1lAgUBIOJbEDreGh3js0aCXmoTspx8ATsJDsvggFkhm8eEyk4CdknUYXPc7sqoJ4lucOWINxYI99+i568Y0/oeC9Tx+TzGV3lgq0ndAAln25+uMGKtkZO/pws55E/D5svAgaKK4Z13X/MFEygvR4UDS3i4uoy9MvlM3l1QpvMMS01e150zOiqYMtSPcgEVV6m
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(7416014)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(3023799007)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?X5FhlsZvNBGfb4jo5J/YJiX2dj3e9EPPm2WnkZoGihy8b8uZXd5oxjkzi6IQ?=
- =?us-ascii?Q?+LpsNVUdSlLEV/dHwZTuKjKAhXAm1A7Cqxg7+NVd7Soj6vf4hamhj2n7Ql34?=
- =?us-ascii?Q?ItAd6wxstpbkrfr8Bns+k5dLgF0m29/Ivmq7JkP6Zpe/f8T2MtALqdZh0Lh+?=
- =?us-ascii?Q?5l2WDsHtJo0zDasZUQumBzWR3XXIo+a4uHYTwQawMNuPrOIs63KAe7333dhf?=
- =?us-ascii?Q?/lC54tAcM/61zpEJTXNWUh3sqaOWSerQnmKVAmvOUhBtw6LvdYMy5/PA+O30?=
- =?us-ascii?Q?S6ZPHTLQVjMllppiJaZbOevtahUQEXlILGZzFN+6LBp/Pq9m5i18EcpiLZIk?=
- =?us-ascii?Q?TrBJiGclJNXXFm6mEZF648zVbaExmDOEkAvhcDiF9iiUoBcNeh3RpLtENrvV?=
- =?us-ascii?Q?7OZC/jDlG4Cff69mKhWMJMJsQOveceg1vPcXpt+DHqeNohTabAjScIp0kpI4?=
- =?us-ascii?Q?LjZx2bsBZDrGcuGhfPMXeQCRby0jR9xVXJtVk56mnhmbX5E+z4/s2FnzVnSk?=
- =?us-ascii?Q?BB4wQ87hU1SL3ysGdfQAIA3YtRV7fIOxvizSa4wMMbltbKWWWpMdrnQzyn9u?=
- =?us-ascii?Q?3WDh0GIOOxyshwmhfqvESlX5MYJxaWHZkK72b1dAjd55NEGI5MT38sooJ/q7?=
- =?us-ascii?Q?rgP1HYAB/LTSko2BsxSI5XZZIZT0dUfjp7u6s8dSi3zT2miwpk3Xp4nLzv9W?=
- =?us-ascii?Q?zzohS8bjSYzmrI7VwhiAR7rgmPJ4w9GyjZcILy1v9bWegr9QCicf23GUovOB?=
- =?us-ascii?Q?9EBaDCWZORjIoJGjXxqopCmpbRRYqjheGeruPu/Kcj6KNi8NwEJRlsIDs4AB?=
- =?us-ascii?Q?D4F3yR1cIsa9zYqBZ2oLCwotU0bUh9LHsXmddVXVTPWII3A6D3jUHPMROaGY?=
- =?us-ascii?Q?nszGF83Dy4U0tD3N1sndlxhaB2dtAgwACUkFn/q0Jr0UiZEvFXuGt3yD+sD3?=
- =?us-ascii?Q?WQo9JRtYN4nHsdW42d/Av7W3SX75P0ABU3LVGbC7fldVVO41TzWOePcEFTLj?=
- =?us-ascii?Q?Uq/gEyyHH6HAyaRjArYOgR5KXaL87I21a7wTkDfARESAWhBBOsYyU7kKwlcE?=
- =?us-ascii?Q?oRNQe+sBSsDyBGsM7Rd2U4nF4KmbqMdHDh3zEQgcC6K2ze1cBo06z2t/EKTf?=
- =?us-ascii?Q?WRDdVmKIpW/nAWtbtkmGdspR6cKypuv2vfG6IAkYvwgzOiFRLZBw4rjiSLsJ?=
- =?us-ascii?Q?bo76HRcu3F9iTvi5zv2Q83X5Q478j0s1qUS0xS6Rv7/Dw39ntTbZXETfKB2y?=
- =?us-ascii?Q?8zFYRxF6OH8ggX9rSn4BVAODX4DHcqMmAXmkqoX6wMPxiKL6pcbOgnsA78ud?=
- =?us-ascii?Q?OVPqCDI7Lw9yUN/mmaP5RyDn5k49ByKbPfA0mdNbwT8+CZh8ofugClFCepjI?=
- =?us-ascii?Q?LDpP8DsMrNvjseuEpUPxuEnCxTDW7pJ2jU3wchGLnomqHIYZTTRSTqxZ4ZEq?=
- =?us-ascii?Q?fZ/2rva7yfplMJEIz+LGjpDzrVQXkKX+EDJBFPzf6B4i0To+iV1S/mbAGSXl?=
- =?us-ascii?Q?Yw/sG8xtpGj8pnYFruV/fHlVzGyBaPJDIxXXZnb6NqNeC1N8ZBhXeQqnhVIq?=
- =?us-ascii?Q?C9+jbvbZ228oUpOyG+vyAtCRABhP8E7oNUHKvXhLD0H1pkprZlGteUXDsfHV?=
- =?us-ascii?Q?B1sktPTiis/mH8RSfZQrGNYzre4iZU/QSrLAkyt26dEZRAySAVR0KCgI8jk/?=
- =?us-ascii?Q?zjXBbxoTILtFL8pJcv+TAJnDjSUsWIOMnKB1woiUM86RljA6liTar4/riffX?=
- =?us-ascii?Q?9rlds9cQD796liMfFv47agqrbKY+CaUBejYXODIqJgrVWyD8PSjp?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c11816e-8886-45cc-659b-08df1fc6463a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:14:15.5288
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m+d7zhR0z3uXgXUX375N4C3vrMm/AC2qSfLoLVIpnTBdvBfMhK6VEaumm+nPa3HTR79g7EzrOkxHp3hR9yBDgPlBnhjzkZFGnKPNDCUuvfm3I03nUPn3TiqRe0979NMv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8302
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/xe/lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET
+ programming for ADL
+To: Matt Roper <matthew.d.roper@intel.com>
+Cc: rodrigo.vivi@intel.com, demarchi@kernel.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ tvrtko.ursulin@igalia.com, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com
+References: <20260930170434.317671-1-koike@igalia.com>
+ <20260930232937.GQ730887@mdroper-desk1.amr.corp.intel.com>
+Content-Language: en-US
+From: Helen Koike <koike@igalia.com>
+In-Reply-To: <20260930232937.GQ730887@mdroper-desk1.amr.corp.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 01:44:11PM +0200, Ernest Van Hoecke wrote:
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
-> Toradex boards route the sideband signals of their 24-pin camera
-> connectors to different GPIO controllers. Camera overlays which name
-> those controllers directly must therefore be duplicated for each host
-> board.
->
-> Describe reset, power-down, detection and power-control as
-> connector-local GPIO functions. This lets an accessory overlay remain
-> independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
-> remain described separately because the GPIO nexus does not abstract
-> them.
->
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> ---
+Hi Matt,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Thank you for your reply, please see my comments below.
 
->  .../connector/toradex,camera-connector.yaml        | 81 ++++++++++++++++++++++
->  1 file changed, 81 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> new file mode 100644
-> index 000000000000..27fee3defde7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> @@ -0,0 +1,81 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
-> +$schema: http://devicetree.org/meta-schemas/base.yaml#
-> +
-> +title: Toradex camera connector GPIO nexus
-> +
-> +maintainers:
-> +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
-> +
-> +description: |
-> +  Toradex carrier boards share a common 24-pin, 0.5 mm pitch FFC/FPC camera
-> +  connector carrying MIPI CSI-2, I2C, clock, power, and sideband GPIO signals.
-> +  This binding describes the sideband signals as a GPIO nexus. The other
-> +  connector resources remain described by the surrounding board device tree.
-> +
-> +  The nexus exposes connector-local GPIO function numbers to camera overlays
-> +  and maps the functions wired by a carrier board to their GPIO controllers.
-> +  GPIO specifiers contain a function number followed by standard GPIO flags.
-> +  A board may omit functions which it does not wire.
-> +
-> +  The function numbers are:
-> +    - 0: Camera reset, connector pin 11
-> +    - 1: Camera power-down, connector pin 22
-> +    - 2: Camera identification, connector pin 23
-> +    - 3: Camera power control, connector pin 24
-> +
-> +properties:
-> +  compatible:
-> +    const: toradex,camera-connector
-> +
-> +  "#gpio-cells":
-> +    const: 2
-> +
-> +  gpio-map:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  gpio-map-mask:
-> +    items:
-> +      - const: 0xffffffff
-> +      - const: 0
-> +
-> +  gpio-map-pass-thru:
-> +    items:
-> +      - const: 0
-> +      - const: 0xffffffff
-> +
-> +required:
-> +  - compatible
-> +  - "#gpio-cells"
-> +  - gpio-map
-> +  - gpio-map-mask
-> +  - gpio-map-pass-thru
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    camera-connector {
-> +        compatible = "toradex,camera-connector";
-> +        #gpio-cells = <2>;
-> +        /*
-> +         * 0: Camera reset, connector pin 11
-> +         * 1: Camera power-down, connector pin 22
-> +         * 2: Camera identification, connector pin 23
-> +         * 3: Camera power control, connector pin 24
-> +         */
-> +        gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
-> +                   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
-> +                   <2 0 &gpio1 2 GPIO_ACTIVE_HIGH>,
-> +                   <3 0 &gpio1 3 GPIO_ACTIVE_HIGH>;
-> +        gpio-map-mask = <0xffffffff 0x0>;
-> +        gpio-map-pass-thru = <0x0 0xffffffff>;
-> +    };
-> +
-> +...
->
-> --
-> 2.43.0
->
->
+On 9/30/26 8:29 PM, Matt Roper wrote:
+> On Wed, Sep 30, 2026 at 02:04:30PM -0300, Helen Koike wrote:
+>> CTX_CS_INDIRECT_CTX_OFFSET default value is not retrieved from the GPU
+>> by inhibit+context save mechanism since it is not part of the Engine
+>> Context. Thus, at restore, 0x0 is programed back to the GPU, which is
+>> an invalid value according to the PRM.
+> 
+> I don't follow this explanation, but I don't think this is quite right.
+> For example, CS_INDIRECT_CTX_OFFSET definitely is part of the in-memory
+> context image (the CTX_CS_INDIRECT_CTX_OFFSET is the offet into that
+> context image where it's found). Let me try to explain the relevant
+> flows here.
+> 
+> When hardware first comes up, it contains "hardware default" values for
+> various registers.  For CS_INDIRECT_CTX_OFFSET, the hardware's default
+> value is 0xD, so that's the value the register will have when the
+> hardware first wakes up or powers on.
+> 
+> For registers that are part of an engine's LRC, whenever a regular
+> context switch happens, the current copy of the register gets written
+> out to memory in the outgoing context's LRC image, and a new value is
+> loaded from memory into the register from the incoming context's LRC
+> image.
+ >> "Restore inhibit" is a special case that gets used at one place during
+> initial driver startup where we tell the hardware "switch to this
+> context but do *not* load any register values from memory for the
+> context that we're switching into."  When restore inhibit is used, the
+> currently-present register values remain unchanged by the context
+> switch and the only thing that changes is the hardware's idea of which
+> context is currently "active."
+
+
+The problem is that CTX_CS_INDIRECT_CTX_OFFSET is not inhibit by Restore 
+inhibit.
+
+If you check the documentation on 
+https://www.intel.com/content/www/us/en/docs/graphics-for-linux/developer-reference/1-0/tiger-lake.html 
+, you can find:
+
+PRM Vol 8:
+
+"When a context is submitted for the first time for execution, SW can 
+inhibit engine from restoring engine context by setting the "Engine 
+Context Restore Inhibit" bit in CTXT_SR_CTL register of the
+logical ring context. This will avoid software from populating the 
+Engine Context. Software must program all the state required to 
+initialize the engine in the ring buffer which would initialize the
+hardware state. On a subsequent context save engine will populate the 
+engine context with appropriate values."
+
+And also:
+
+""INDIRECT_CTX" and "INDIRECT_CTX_OFFSET" registers are part of the 
+context image and gets restored as part of the given
+context's context restore flow, these registers are part of the ring 
+context image which are prior to
+engine context restore and hence the requirement of the offset being in 
+engine context restore."
+
+In other words: "INDIRECT_CTX_OFFSET" is not part of the Engine Context 
+(see table on page 49 of the pdf from Vol 8, Engine Context is marked in 
+dark blue), it is part of the Ring Context, so Restore Inhibit doesn't 
+afect this register, which means it programs 0x0 back to the GPU, which 
+is invalid.
+
+
+Without this patch I get the following:
+
+:/ # cat /sys/kernel/debug/dri/0000:00:02.0/tile0/gt0/default_lrc_rcs
+[0x00000000] MI_NOOP (1 dwords)
+[0x11081019] MI_LOAD_REGISTER_IMM: 13 regs
+  - 0x2244 = 0xffff0008
+  - 0x2034 = 0x000000a8
+  - 0x2030 = 0x000000a8
+  - 0x2038 = 0x00530000
+  - 0x203c = 0x00003001
+  - 0x2168 = 0x00000000
+  - 0x2140 = 0x00200094
+  - 0x2110 = 0x00000000
+  - 0x21c0 = 0x00543001
+  - 0x21c4 = 0x00542001
+  - 0x21c8 = 0x00000000 ---> Zeroed
+  - 0x2180 = 0x00000080
+  - 0x22b4 = 0x00000000
+
+
+> 
+> So the overall flow for initialization is:
+> 
+>   * Hardware powers up / comes out of reset; INDIRECT_CTX_OFFSET should
+>     be 0xD.
+> 
+>   * Driver allocates memory to serve as the storage space for the
+>     "default LRC" (aka "golden context"); once initialization is
+>     complete, this will be the template that is copied to create new
+>     LRCs.  The registers/state in the default_lrc should be a copy of the
+>     hardware default values, with various adjustments the driver makes
+>     for things that we want modified for every context by default (e.g.,
+>     register changes requested by various hardware workarounds).
+ > >   * Driver writes (with CPU) a basic LRI with the early register 
+offsets
+>     (but not their values) into the LRC storage space.  This is just so
+>     that the hardware says "yep, this looks like an LRC" when we hand it
+>     over for a context switch.  Although we're only filling in register
+>     offsets and not values, this doesn't actually mean that registers are
+>     being set to 0 or anything like that.  Honestly I'm not sure if the
+>     hardware even truly needs us to do this anymore on modern hardware.
+> 
+>   * Driver submits the default LRC to the hardware with the "restore
+>     inhibit" flag.  This means that the hardware does *not* load any
+>     register values from memory like it usually would (i.e., live
+>     INDIRECT_CTX_OFFSET remains at 0xD)....
+This is not true for INDIRECT_CTX_OFFSET as stated above (unless I 
+missed something).
+
+>     ...The batch buffer submitted on
+>     the context adjusts various registers away from their hardware
+>     defaults if there are non-default settings we want present on every
+>     context in the future (e.g., settings requested by various hardware
+>     workarounds).
+> 
+>   * The batch buffer finishes executing, so the live register values are
+>     now the hardware default values, with a handful of modifications.
+>     Since we don't have any workarounds that adjust INDIRECT_CTX_OFFSET
+>     today, it's still sitting at its default value of 0xD.
+
+This is not true for INDIRECT_CTX_OFFSET as stated above (unless I 
+missed something).
+
+> 
+>   * The driver submits a second context to the hardware with a noop
+>     batch buffer.  This context switch causes the live register values
+>     (including 0xD in INDIRECT_CTX_OFFSET) to get written out to the
+>     the first context (default_lrc)'s memory storage.
+> 
+>   * ...driver finishes initialization and user starts running real
+>     programs...
+> 
+>   * When a userspace process creates a new context, the "default_lrc"
+>     snapshot is copied as the starting point for the new context.  After
+>     that, various registers in the LRC are updated with unique
+>     context-specific values as necessary.  So every context created on
+>     the system should have INDIRECT_CTX_OFFSET set to 0xD.
+> 
+
+This is not true for INDIRECT_CTX_OFFSET as stated above (unless I 
+missed something).
+
+> 
+> So I don't see any way that CTX_CS_INDIRECT_CTX_OFFSET could become 0.
+> Unless there's a hardware bug, the hardware should come up with a value
+> of 0xD, that value winds up getting recorded in the default_lrc
+> snapshot, and then every context we make later on down the road inherits
+> that value.  While we could change it to another value if we wanted the
+> indirect context batchbuffer to run at a different point during the
+> context save/restore process, we don't have a need to do that.
+> 
+> If you're seeing problems related to this register, I'd have a few
+> questions to try to narrow down what's going on:
+> 
+>   * Are you seeing problems on all engines or just a specific one?
+
+I understand gt_engine_needs_indirect_ctx() returns true for Alder Lake 
+only on XE_ENGINE_CLASS_RENDER, so this is the only one I tested.
+
+> 
+>   * Can you provide the contents of
+>     /sys/kernel/debug/dri/0/gt0/default_lrc_* ; the value of this
+>     register should be at dword offset (0x16 + 1), so we can see if it is
+>     getting stored in memory correctly or not.
+> 
+
+pasted above.
+
+> 
+> Do note that Xe1 platforms like ADL aren't officially supported by the
+> Xe driver, so it's quite possible that there might be some hardware
+> workarounds for ADL that we just never implemented on Xe that could be
+> causing a problem.  Xe's force_probe support is just for usage by KMD
+> driver developers, so it was never expected to be fully stable or usable
+> for general end-user use cases.
+
+I see, thanks for the note.
+
+Even so, I believe that writting a default value in the beggining to 
+make ADL happy should't be a problem.
+
+Please let me know if you think I'm missinterpreting things, and thank 
+you again for your review/reply.
+
+Helen
+
+> 
+> 
+> Matt
+> 
+> 
+>>
+>> This causes sporadic hangs on Alder Lake when executing test
+>> IntelAngleEnd2EndTestCases (error VK_DEVICE_LOST).
+>>
+>> Fix it by partially reverting commit c9dfd66cb91e ("drm/xe/lrc: Allow
+>> INDIRECT_CTX for more engine classes"). Re-add the programming of
+>> CTX_CS_INDIRECT_CTX_OFFSET for Alder Lake.
+>>
+>> Fixes: c9dfd66cb91e ("drm/xe/lrc: Allow INDIRECT_CTX for more engine classes")
+>> Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Signed-off-by: Helen Koike <koike@igalia.com>
+>>
+>> ---
+>> v2:
+>>    - according to intel CI results, it seems that this default is not valid for
+>>      LNL and BMG platforms, so limit the change only to ADL.
+>>    - program the default only on ADL.
+>>    - restore the comment, but add note with exception for ADL.
+>>    - update the commit title/message with "for ADL".
+>> ---
+>>   drivers/gpu/drm/xe/regs/xe_lrc_layout.h | 3 +++
+>>   drivers/gpu/drm/xe/xe_lrc.c             | 7 ++++++-
+>>   2 files changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+>> index 4ab86fc369fd..e4c7c3549735 100644
+>> --- a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+>> +++ b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+>> @@ -43,4 +43,7 @@
+>>   #define INDIRECT_CTX_RING_START_UDW	(0x08 + 1)
+>>   #define INDIRECT_CTX_RING_CTL		(0x0a + 1)
+>>   
+>> +#define CTX_INDIRECT_CTX_OFFSET_MASK	REG_GENMASK(15, 6)
+>> +#define CTX_INDIRECT_CTX_OFFSET_DEFAULT	REG_FIELD_PREP(CTX_INDIRECT_CTX_OFFSET_MASK, 0xd)
+>> +
+>>   #endif
+>> diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
+>> index 35b4e8289b5f..923bc1ddc851 100644
+>> --- a/drivers/gpu/drm/xe/xe_lrc.c
+>> +++ b/drivers/gpu/drm/xe/xe_lrc.c
+>> @@ -1451,13 +1451,18 @@ setup_indirect_ctx(struct xe_lrc *lrc, struct xe_hw_engine *hwe)
+>>   
+>>   	/*
+>>   	 * Enable INDIRECT_CTX leaving INDIRECT_CTX_OFFSET at its default: it
+>> -	 * varies per engine class, but the default is good enough
+>> +	 * varies per engine class, but the default is good enough, except on
+>> +	 * Alder Lake.
+>>   	 */
+>>   	xe_lrc_write_ctx_reg(lrc,
+>>   			     CTX_CS_INDIRECT_CTX,
+>>   			     (xe_bo_ggtt_addr(lrc->bo) + state.offset) |
+>>   			     /* Size in CLs. */
+>>   			     (state.written * sizeof(u32) / 64));
+>> +	if (GRAPHICS_VER(lrc_to_xe(lrc)) < 20)
+>> +		xe_lrc_write_ctx_reg(lrc,
+>> +				     CTX_CS_INDIRECT_CTX_OFFSET,
+>> +				     CTX_INDIRECT_CTX_OFFSET_DEFAULT);
+>>   
+>>   	return 0;
+>>   }
+>> -- 
+>> 2.54.0
+>>
+> 
+
