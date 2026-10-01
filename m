@@ -1,179 +1,140 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D233E4506
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74ED83E16A5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870065; cv=none; b=Rg7gqDhCUCV0Y8QXeDMeJ6DT0LKVNUB27Xi94L3GFzs1Wd2DDLg/olPzlj713y4WH+ZLqAsK8xypBkd7Su5SD8coAWZOztPfL1ge9rUPxHgz2BpPB1vS4sRtMGEe44J3RYBUymxESVamtSJDDgqQjZDaXtOdgLv7Pf/lI1NQ2M8=
+	t=1790870066; cv=none; b=ZQjsDcFNQfpMbM1dJKMkDmVvlID3nnS0r2tePnDHhr7NrYpTf9fdHVxoOPXbRGJWUHo9t7fth8bgcrJcPafD4f4bywftKTYF0RgkeGWqFoIVFoBD5vMQXxDUj3sOhiQFKyRcLrBBTuV4Kl4ktrAiD9ERLzn2DZDLktBWW8fs3GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870065; c=relaxed/simple;
-	bh=SOnZRMz6j7Qr1wT9s8CnQrmJR0FcjSPiDVMfG7eXp3Q=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bsMSBkL7i8ctE3M27iSJQJL3JjbmwwE2JFCxQb5+7Wv2WT0QOfBkMqGcFyryaM8eDsqe2rJ32UPLvb81kIgiJN/hsduLMfHQXtiuDmfxDzBhlfTMjpGS9jZg/2Q2OK+BvMWtOQSGXtSCra/zl4HkjebUBTZEZJ4v4CMobdOPl5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ff5QnKFP; arc=none smtp.client-ip=74.125.228.171
+	s=arc-20240116; t=1790870066; c=relaxed/simple;
+	bh=vwAxzOlUPI+Z9xgQ5oVMp/LaI/8upX7ZL6k7ABW4RNk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Po6zoqg+ac5XrD9VIhL9vZIqE6btVuco7JUV6KmR2+cOgr50i0ExRR4BtJqI1oU1FmmPv/YSYlF7jYyFLuNdfYJA7I35qTK/11rrMeCkX9cD2K9wL5h1mTiYpoJESU4z3Uyl5dguaurwpYUhQiidscvoLCpoBnHs1pNTwX/KIT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KABIOk8q; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ff5QnKFP"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e1d2d7dc9so134683566b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:54:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KABIOk8q"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso25986325e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:54:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790870062; x=1791474862; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t/FSvKdD0Rw1UPKEmYKGjjwHZIO5Pn+E96++Oh5YfMs=;
-        b=ff5QnKFPBMhV2vtbn0Zi6XGvF7IxUMfU00eEAwb6U45+OIYOy4gryv0h6w6GJnojyR
-         RRSJWD1K/sK53+asl04YuaSL3Jcg/8OOqypcY6s3PI6ejq/VtQn51jfRrf4KqH8qBelc
-         i6gUEiDfyKMAPMsBnMXho0LAUCmdIhI7B5FQciLUa2fSYqbRN0ydXLWRdJlpRfNvRhKe
-         UbEsGo1/xZ5RepTvYR4u7CcG4dhoW+LKw0ahDHIFHCSPuypdji7miKtkHCexXi6EWgEo
-         DZbrr7NwZTHUXMZBREjuKVkbRRdu+1B1ke3uAEGUJ31wPMObXMiEvcejH8tsdnMEZHNU
-         5u1Q==
+        d=gmail.com; s=20251104; t=1790870063; x=1791474863; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ObWleL9TA7UPO+YvdXrGwmMNTs1BuFhMK+d7zLOGlOo=;
+        b=KABIOk8qfcAXbYF8dUky1/Sle1EVpi9KV/A6CdCdCxZgLgSXnrJgi/t0KoQh9DS7Xx
+         jzBTWRZGtJ3JfTxebvoyzlaPZ6bPFePp5Ui1MMzVysjIVG5ekPYoqPsWsIGneG5/3roQ
+         Dkl3AGLeyYaNXgMcglQ/+fnsphfAlJAEsMy2ZXnTWsS/1iVJvx7J1XWwrhlGxrwvr2YU
+         SOZ6wdzn4NlRa5hi10SSHtCTSh+9HMj9Qyuib+mit9SnmfKvdOkyly4mXfQ2k6zIgNya
+         GigEhwt8nC12JyIuH6ZlWK/IdS/OYyGftcjhwx3JNzDNTRXtnjxPUB+IM2RUmbMRWS+I
+         z16w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790870062; x=1791474862;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t/FSvKdD0Rw1UPKEmYKGjjwHZIO5Pn+E96++Oh5YfMs=;
-        b=C48KtKBp8PgJgFigeiNP7MeSqtnVcBsFtIL6w+9w2AMb2dPe2OEqRSih7V+KPybu2y
-         GMN5NMvwDKZx+k8YLiX92mT+P0S+Fa1AbBcdUqbOlgjGHl/BZQLwx1vgl8UxbkVfzW/I
-         27GSDYcqFxZ0ksW22oX5tOmEzsYR9pbL7FVGxFidagwfVm4t4cJwozrv71956TM+0o3R
-         QYkpA1hAs+AzjiU96tuRUFBSBUeXhsTlO9I5+eE+ZkDWZfNEE3KphEeh61evQ+2GUL34
-         kX9Ua/8pP3OpNSN+pYussD2GHbOf7tWIfvpyHKNTPWq4e0QeNv7RyD7LrtYgXS6b9QeD
-         Dkhg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+UUBL/hXQJxUSh2WZxj4/nWY078eqxr0Y7DedKcjXbBgTXU/07w6VMaBgzH+YVdhyMlgrV0s9lhYve1g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKZlw6cqm+pNfak6pKmYplWRLF6dEU31niPF200ys6F9NK8MVq
-	ZWIIyZK+JhxLy6oxRXyMpoc3QHQRQZHsrSk9e6qf1OdH7UdUjCFLIfdG
-X-Gm-Gg: AYBFou0DD9VrITQQf7Yd+07/M/FlPVFpwzHTz161NXZxTw4920UDCz8D0Mtrj8Jy4Nm
-	APN/F/+UlIllavyqNnfKjTMcs1mhgDhz8Fdjuid74vcOGlAlnf0VX9oObvgb0eccDeRKKpuBfde
-	nyBGjpgDSKIms4Dbl+gAK/Jr+FI27ogPIGQAjuahYhB0NEPe7Mbfn3FaWF8M8vCYKV/6WQ6osDR
-	lLn3xxiab5ANQj2HbDO1rWqkmSAlaAF/QLRl7zXSw/GGhDlcV9xOXnTnSEZ+A0zSQQEm0EFgZGD
-	e3MFc003R2TJ+Na+Dd85QoNX7YBuWXQD2flOQvEnXDhAAtuLEV2lNqmF3IhhOUwvhzcaEy0DgYv
-	dOGUp1WTfwSmXSgzYAwsoI7APUuBZhWbBxlyzzmliKsY8yOLTO29Js7M+hiikIz5p7Gjcir8Vey
-	y/KWDAMzP2MQY512UeLN49GeiWFSZCPukfNeE=
-X-Received: by 2002:a17:907:d87:b0:c2e:4397:7c82 with SMTP id a640c23a62f3a-c2e4aa6562dmr2262966b.6.1790870061590;
-        Thu, 01 Oct 2026 08:54:21 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31cf0d6esm183317366b.37.2026.10.01.08.54.17
+        d=1e100.net; s=20260707; t=1790870063; x=1791474863;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ObWleL9TA7UPO+YvdXrGwmMNTs1BuFhMK+d7zLOGlOo=;
+        b=llKgUV/4HUSsk3EtAgHS4zpBf0CTz3wSge9Z2ja02OeXRo6gDz3j6BQkqhqLmLTpNK
+         lNSE/RnlrrO+HKTgzkj541Sv2bZkA+/RDS0PlXgDEJbJ1TYWoRBpjbWFBIybkhCxqELD
+         XWZEgzq7JDYaza6rU7AUCn50cPsLltdCGuJe4h8VDhGw+lpw8LdM6JzUox4xbMG4mClw
+         dtlbXMTMuL19l5V2zESgJTpvETkdyJ84gFMTL+eSyMDXLyJ0FVPuZxiOQZ3xHER3ZwuA
+         /ag3vBp/xUJgnPMHxM0eNvoKr+gg7ynVe3YZacQtWvRdvSg0tFeuHiPlo8o0mVAAMI4S
+         nbSw==
+X-Forwarded-Encrypted: i=1; AKwUvByHjHjYB2I54X/viSk6oSmULu2Uo2x7D29Iyl9zapVMo60nxAYVmC8P+Kp6cdrv2Vof68xcmjxYhLxX5iQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvvwavsls7eswWu0+BdCiUCb87weSqiG7L8AkYrXlRPsg5Nw1H
+	1VfJtkrs0ZBNucLGVddc4d0ugH0Em7CZV7YoMAE4scCNlQnam+F2S3nMP/J4GpU0wtM=
+X-Gm-Gg: AYBFou06CuPjgFyt1ow0UqeiJthxz1MNjwQLb7OhOO4qBgWB+zmNhodN+AP5S2Fq59o
+	t3L0B+49HPmCuwUVR469Wg6ymXpMOqBE/nYHcQwZvxmhm3g1UlE2dSjvN7/PpPMyMbD/ZwdIIDP
+	KFXi6QfVqpPMu0LFkUVn91fDQzpseNJ+AoR9yfIyCgLPJftV0IJqmHDzAUKSbAFe+NffDtuE4MZ
+	nxPfBWEDR/AciyYcCCBkvFz84etsSjG3qfMK/hGzKitIm2xYkmZlcc9eky1UuPz72tc+U6hb50s
+	MLTeXXGwxBp1QGiqCmHD7iQ6GxsuEpyGUXzjBw3WjBRH+1gteVphXNAlWdcCLtt2HJjYI+l77vr
+	UtgJGq6EtJNGkZK3ZU1oRzndNvjEjWrtQjZPtkWy6jKBs0Tjdm4e71Nlr4KxIkIoRPcKlVrR76J
+	bTJ4MEmbL5dWLdrqh5oO1U60L0r5YK3JGhguR9CPV8qWhGot8aKau6Ecx8OCnDQmb8ruCnq+279
+	xJJrrz/YFZbfA5mdjKiqoS8biE5yRAyEl6GeMOTzd+pszXt5ZYmQcMBmuVVJ9gQBTX+ZWg1PPQR
+X-Received: by 2002:a05:600c:4e4b:b0:4a0:263b:1f77 with SMTP id 5b1f17b1804b1-4a0276a1f28mr643585e9.8.1790870062454;
+        Thu, 01 Oct 2026 08:54:22 -0700 (PDT)
+Received: from leonardoc-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff6eesm6517294f8f.11.2026.10.01.08.54.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:54:18 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Thu, 1 Oct 2026 17:54:15 +0200
-To: Wen Jiang <jiangwenxiaomi@gmail.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, akpm@linux-foundation.org,
-	catalin.marinas@arm.com, linux-mm@kvack.org, will@kernel.org,
-	Xueyuan.chen21@gmail.com, ajd@linux.ibm.com,
-	anshuman.khandual@arm.com, baohua@kernel.org, chleroy@kernel.org,
-	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com,
-	leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-	rppt@kernel.org, ryan.roberts@arm.com
-Subject: Re: [PATCH v9 06/10] mm/vmalloc: extract vmap_set_ptes() to
- consolidate PTE mapping logic
-Message-ID: <ar6CJ9pWSEB8fAcC@milan>
-References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
- <20260923062832.479455-7-jiangwen6@xiaomi.com>
- <ar0fJcjNmGGV6uFu@milan>
- <CAHKocdF43Rqnt8-v0WP-t=Dxz2sSJ9xpyjLAYc2fzzKAW1_N8A@mail.gmail.com>
+        Thu, 01 Oct 2026 08:54:22 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	francesco.dolcini@toradex.com,
+	leonardo.costa@toradex.com,
+	hvilleneuve@dimonoff.com,
+	marex@nabladev.com,
+	stefano.r@variscite.com
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/7] ARM: dts: Add Apalis iMX6 overlays
+Date: Thu,  1 Oct 2026 12:52:50 -0300
+Message-ID: <20261001155412.3177428-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHKocdF43Rqnt8-v0WP-t=Dxz2sSJ9xpyjLAYc2fzzKAW1_N8A@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 03:58:21PM +0800, Wen Jiang wrote:
-> On Wed, 30 Sept 2026 at 22:39, Uladzislau Rezki <urezki@gmail.com> wrote:
-> >
-> > On Wed, Sep 23, 2026 at 02:28:28PM +0800, Wen Jiang wrote:
-> > > Extract the common PTE mapping logic from vmap_pte_range() into a
-> > > shared helper vmap_set_ptes(). This handles both CONT_PTE and regular
-> > > PTE mappings in a single function, preparing for the next patch which
-> > > will extend vmap_pages_pte_range() to also use this helper.
-> > >
-> > > No functional change.
-> > >
-> > > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-> > > Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> > > Tested-by: Leo Yan <leo.yan@arm.com>
-> > > ---
-> > >  mm/vmalloc.c | 36 +++++++++++++++++++++++++++---------
-> > >  1 file changed, 27 insertions(+), 9 deletions(-)
-> > >
-> > > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> > > index fb757d95bde25..d475e52110e4a 100644
-> > > --- a/mm/vmalloc.c
-> > > +++ b/mm/vmalloc.c
-> > > @@ -92,6 +92,29 @@ struct vfree_deferred {
-> > >  static DEFINE_PER_CPU(struct vfree_deferred, vfree_deferred);
-> > >
-> > >  /*** Page table manipulation functions ***/
-> > > +
-> > > +/*
-> > > + * Try contiguous mappings at the PTE level for arches which support them, and if
-> > > + * requested by the caller. Fall back to PAGE_SIZE mappings otherwise.
-> > > + *
-> > > + * Return: mapping size.
-> > > + */
-> > > +static __always_inline unsigned long vmap_set_ptes(pte_t *ptep,
-> > > +             unsigned long addr, unsigned long end, u64 pfn,
-> > > +             pgprot_t prot, unsigned int max_page_shift)
-> > > +{
-> > > +     unsigned long size;
-> > > +
-> > > +     size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
-> > > +     if (size != PAGE_SIZE) {
-> > > +             pte_set_huge(ptep, addr, PFN_PHYS(pfn), prot, size);
-> > > +             return size;
-> > > +     }
-> > > +
-> > > +     set_pte_at(&init_mm, addr, ptep, pfn_pte(pfn, prot));
-> > > +     return PAGE_SIZE;
-> > > +}
-> > > +
-> > >  static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
-> > >                       phys_addr_t phys_addr, pgprot_t prot,
-> > >                       unsigned int max_page_shift, pgtbl_mod_mask *mask)
-> > > @@ -100,6 +123,7 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
-> > >       u64 pfn;
-> > >       struct page *page;
-> > >       unsigned long size;
-> > > +     unsigned int steps;
-> > >
-> > >       if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
-> > >               return -EINVAL;
-> > > @@ -120,15 +144,9 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
-> > >                       BUG();
-> > >               }
-> > >
-> > > -             size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
-> > > -             if (size != PAGE_SIZE) {
-> > > -                     pte_set_huge(pte, addr, PFN_PHYS(pfn), prot, size);
-> > > -                     pfn += PFN_DOWN(size);
-> > > -                     continue;
-> > > -             }
-> > > -             set_pte_at(&init_mm, addr, pte, pfn_pte(pfn, prot));
-> > > -             pfn++;
-> > > -     } while (pte += PFN_DOWN(size), addr += size, addr != end);
-> > > +             size = vmap_set_ptes(pte, addr, end, pfn, prot, max_page_shift);
-> > > +             steps = PFN_DOWN(size);
-> > > +     } while (pte += steps, pfn += steps, addr += size, addr != end);
-> > >
-> > #define PFN_DOWN(x)     ((x) >> PAGE_SHIFT) - how many pages covers the size.
-> > Replace steps by nr_pages or nr_ptes?
-> >
-> 
-> Agreed, I'll use nr_pages. Since vmap_pages_pte_range() in the next patch has
-> the same "step = PFN_DOWN(size)" pattern, I'll rename it there too.
-> 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
---
-Uladzislau Rezki
+This series adds device tree overlays for the Apalis iMX6 SoM. The
+overlays cover HDMI, parallel and LVDS displays, audio configuration and
+OV5640 CSI camera modules.
+
+The series adds support for:
+
+- HDMI Displays
+- Toradex Capacitive Touch Display 10.1" LVDS
+- Toradex Capacitive and Resistive Touch 7" Parallel Displays
+- NAU8822 Bridge Tied Load configuration on the Apalis Evaluation Board V1.2
+- Toradex OV5640 CSI camera variants with 27 MHz and 24 MHz oscillators
+
+The Makefile entries build the standalone overlays as DTBOs, and add
+ready-to-use composed DTBs for selected carrier boards and accessory
+combinations, for build-time coverage.
+
+Leonardo Costa (7):
+  ARM: dts: imx6q-apalis: Add HDMI Overlay
+  ARM: dts: imx6q-apalis-ixora: Add 3.3V_SW power regulator
+  ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch Display 10.1"
+    LVDS
+  ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch Display 7"
+    Parallel
+  ARM: dts: imx6q-apalis: Add Toradex Resistive Touch Display 7"
+    Parallel
+  ARM: dts: imx6q-apalis: Add NAU8822 Bridge Tied Load
+  ARM: dts: imx6q-apalis: Add Toradex OV5640 CSI Cameras
+
+ arch/arm/boot/dts/nxp/imx/Makefile            | 87 +++++++++++++++++++
+ .../imx6q-apalis-eval-v1.2-nau8822-btl.dtso   | 15 ++++
+ .../boot/dts/nxp/imx/imx6q-apalis-hdmi.dtso   | 13 +++
+ .../dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts   |  7 ++
+ .../boot/dts/nxp/imx/imx6q-apalis-ixora.dts   |  7 ++
+ .../nxp/imx/imx6q-apalis-ov5640-24mhz.dtso    | 17 ++++
+ .../boot/dts/nxp/imx/imx6q-apalis-ov5640.dtsi | 68 +++++++++++++++
+ .../boot/dts/nxp/imx/imx6q-apalis-ov5640.dtso | 18 ++++
+ ...6q-apalis-panel-cap-touch-10inch-lvds.dtso | 53 +++++++++++
+ ...apalis-panel-cap-touch-7inch-parallel.dtso | 34 ++++++++
+ ...apalis-panel-res-touch-7inch-parallel.dtso | 30 +++++++
+ arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi | 86 ------------------
+ 12 files changed, 349 insertions(+), 86 deletions(-)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-eval-v1.2-nau8822-btl.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-hdmi.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-ov5640-24mhz.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-ov5640.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-ov5640.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-7inch-parallel.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-res-touch-7inch-parallel.dtso
+
