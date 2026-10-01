@@ -1,92 +1,159 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54640376A00;
-	Thu,  1 Oct 2026 18:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774013FC5B5;
+	Thu,  1 Oct 2026 18:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790880435; cv=none; b=f5GRtmtjLf9G2ECfsldmmUa35ByuF6f8ogxywyZmRhD2r59OzoiR/an1aPAIANR2eEU7M7XuWld9UkXrCfw6Vthe/xekDbMqEUXqRYqXOZskksUZCyrfvdLhPIKHPhwa+/cpuuQOFIHHb+uXakKxG2XovQ1ukV0jkF774WkkgwQ=
+	t=1790880499; cv=none; b=b1XOp7a6Hg9PxYOTHaYsm6tA5x6HpiBIs/TAP6QptbIYKDQX9tTwswRUGsfFJZFI9Uds4K34kVke5UBaIfJFQkAPNF8KFEOdRNRkm9QT+Yw4GBaCGKAi+mJV6gDbRGw4T+Gc/ok0ptNEUQzi73+YfG6GXA2FDbn5mxDOOnVIyR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790880435; c=relaxed/simple;
-	bh=Bb/hRJrBVDzdeBE8y6UEDigIIWGfH1lOT/PhCya8zRM=;
+	s=arc-20240116; t=1790880499; c=relaxed/simple;
+	bh=5V6pvK6dxCq55Oezy8kgCrovlwXfSwfl9gvKaos4TJw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I8uNUTYX9GZFKIhb06ai58xc+t5cBP1LqItn52JuQqXsxkkOIrk6P3WgXIs1k6sud+ZY80jgQF16MdjZvuzFV6uF+cEXm4SZ7/dv2YEoje1AKg3c+jmiGppA8xD5HJxWOgraJCySMqsgyC2KPOvE+jFcPj2NdbFQ45WrMP9jVAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=onVPciYp; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=X9iyW8vohuhfGV0QTrcHoPdfjOYux9i40o+JtYXcyP3UXgdYhw5zOcfyF89ZwcMFSkIBGq4mXRAFd/pFpVArVk72e2Iv5p1EJMjQDLna7TPhGfGbmT4xJevZ5mv0tEpQXkAC9Hy7VjDdkS9iCA1iAV8Y5y2k2wwSPV3nhtBH4/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZ20jGkZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="onVPciYp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=FjP2eJrgBez3sre/vPENwEYU3qn89WadUYvbfIb/XK0=; b=onVPciYpIYETTkDhkP2EQbX9xR
-	Kr6WQlauFGffWoTlcxKkG+Bt57bHK5Xact/hmLX40rI1rvILerkd15l9pL0yAMC0l/dqao35TWHNV
-	wA4SlSKh0SfzNjZaHbODRo3pemXD8y38O37a5ApCLa2PyoWx+cym/+/pK40esBRbj/pc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xCLnn-008Rw2-Tr; Thu, 01 Oct 2026 20:46:43 +0200
-Date: Thu, 1 Oct 2026 20:46:43 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Yongzhao Chen <yongzhao.derek@gmail.com>
-Cc: Christian Marangi <ansuelsmth@gmail.com>, netdev@vger.kernel.org,
-	Heiner Kallweit <hkallweit1@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZ20jGkZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE421F000FF;
+	Thu,  1 Oct 2026 18:48:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790880488;
+	bh=9Lm+M8MVG2/j/DA3KhX8RKq6lO3WVRmuquhIWhMi/v0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bZ20jGkZHznyMIEhpnnAzGW75hk1BQkMfu2cHp8YVOazEL1VlT527GDs4WDbtbh0y
+	 eGsUW5cf5fqfMkoMHPq99wXm8NeWgVNJLPLfto+SxMgFKAkSelYwRn6APWGRrtqVKv
+	 FoJMqu74pwXtGjkMyKOpWCs7Q+wLQPz9AHqfOEKXerCKngzwF+Py90HMmcph5rkuwk
+	 iwhtbxnDmi1L0Xe5kRi56YUJFvUuGumbgWu5E9828OST4/7rKLRgfF/Xb6+8uUBusj
+	 BODm+oo3H2rR/NrOKMBBIqECSWBO787ePM4ojDUCGEgchV+mRsvJH+fz9CajwXRCSq
+	 xOPc6tQVWB1bA==
+Date: Thu, 1 Oct 2026 19:48:03 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
 	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: phy: qca83xx: read resolved QCA8337 link
- status
-Message-ID: <7eed302b-d455-447f-9ce9-f15468b9792b@lunn.ch>
-References: <20260928220749.857-1-yongzhao.derek@gmail.com>
- <01a62e77-6c4e-4665-ba46-26d12b1c77b4@lunn.ch>
- <20260930212348.1919-1-yongzhao.derek@gmail.com>
- <2ea832eb-33f4-4bf3-bdba-5d983038d012@lunn.ch>
- <20261001181634.1508-1-yongzhao.derek@gmail.com>
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Drew Fustini <fustini@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 06/10] dt-bindings: serial: Add Cortina Systems
+ CS7542 UART
+Message-ID: <20261001-depose-jawed-f58674109fe7@spud>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-6-4617c4463529@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1lectGXiRA3UGBbo"
+Content-Disposition: inline
+In-Reply-To: <20260930-b4-cs75xx-v1-6-4617c4463529@gmail.com>
+
+--1lectGXiRA3UGBbo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261001181634.1508-1-yongzhao.derek@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-> This covers the resolved downshift case only.
+On Wed, Sep 30, 2026 at 10:00:05AM +0300, Fil Dunsky wrote:
+> Add the binding for the UART found in the Cortina Systems CS75xx
+> (Goldengate G2) SoCs such as the CS7542.
+>=20
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> ---
+>  .../bindings/serial/cortina,cs7542-uart.yaml       | 50 ++++++++++++++++=
+++++++
+>  1 file changed, 50 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/serial/cortina,cs7542-uart=
+=2Eyaml b/Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
+> new file mode 100644
+> index 00000000000..2f8bda97ff8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
+> @@ -0,0 +1,50 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/serial/cortina,cs7542-uart.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Cortina Systems CS7542 UART
+> +
+> +maintainers:
+> +  - Fil Dunsky <filipp.dunsky@gmail.com>
+> +
+> +description:
+> +  The UART found in the Cortina Systems CS75xx (Goldengate G2) SoCs. It =
+has
 
-It is good testing, thanks.
+Different SoCs need specific compatibles.
+They can fall back to the cs7542.
+pw-bot: changes-requested
 
-> It does not show whether
-> BMSR can report link up while register 0x11 is still unresolved, and
-> it does not change the SPEED_UNKNOWN limitation from my previous reply.
+Thanks,
+Conor.
 
-Greed.
+> +  transmit and receive FIFOs and a 24-bit baud rate divider running from=
+ the
+> +  peripheral (APB) clock.
+> +
+> +allOf:
+> +  - $ref: serial.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: cortina,cs7542-uart
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    serial@f0070110 {
+> +        compatible =3D "cortina,cs7542-uart";
+> +        reg =3D <0xf0070110 0x30>;
+> +        interrupts =3D <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks =3D <&apb_clk>;
+> +    };
+>=20
+> --=20
+> 2.53.0
+>=20
 
-> Given the traffic failure, I would like to target net for v2. Three
-> questions:
-> 
-> 1. Is net appropriate, or should this stay in net-next?
+--1lectGXiRA3UGBbo
+Content-Type: application/pgp-signature; name=signature.asc
 
-The traffic failure was however because of the error with setting the
-DACs?
+-----BEGIN PGP SIGNATURE-----
 
-> 2. Is 272833b9b3b3 ("net: phy: add support for qca8k switch internal
->    PHY in at803x") the right Fixes target? It added the QCA8337 entry
->    without .read_status; I have not checked whether the problem
->    predates it. Christian, as its author, is now on Cc.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar6q4wAKCRB4tDGHoIJi
+0hm0AP94GGT1ED51TBPnDueYYfZC+gGoGhnv3U8yJmaowoaOkAD/Q0gGutHzijrB
+16kj6FFFZcyk14oFJy5rp8uSc9d1vQo=
+=IU4d
+-----END PGP SIGNATURE-----
 
-Reporting the correct downshift has nothing to do with that, as far as
-i understand. Correctly reporting downshift i would put to net-next.
-
-> 3. Compared with genphy_read_status(), the helper takes the forced-mode
->    speed from register 0x11 rather than BMCR and adds MDI-X reporting,
->    and the added genphy_read_master_slave() call runs on every poll. Is
->    that scope acceptable for net, or would you prefer a narrower fix?
-
-net is fixing broken things, especially regressions. net-next is new
-features.
-
-	Andrew
+--1lectGXiRA3UGBbo--
