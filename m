@@ -1,114 +1,108 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A82547059
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4942A547059;
+	Thu,  1 Oct 2026 06:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837661; cv=none; b=InIRt7j6D3QDuObEwP1P8VAwl0edfA2eHuMh0JRKYTX/Wgn2Abe9L8s+b9f4FuRJzojy2q+cvgHrjIAlcyT1SaIe+d/TPD8LzB+8LDILIa4UOEo3q8F6dstQjB1nS7XTSHT1mvCizb8+6Hd6MwQCMLqk8bVPjVTGo7LGlFuDiQg=
+	t=1790837754; cv=none; b=UpvetYoS/dk6g2h/CoY5AJ8mbWfZZnpyL72uuyrLY4j9FQWYGR11it9o8docfO10pSz6thpMALQ0oYgNiA8S7k5ylhZ66ex9+tthAA2npqHGuRqqNV5NJhAQllqZiPM2JVPfN46pdf2qoLtx0gtqqfZb9PwswYRzfXtnCTMCxdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837661; c=relaxed/simple;
-	bh=OQGFboAIgaxsHZXP29Wd9s2vQCVrfmH798k2j+zX9Gs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nNcAxXhS3QOQVa+soYkM2F2UJtqzDhcEFf4H8bQrUT+olm8aEqzDUwW1+4TbPmZKcf6h0fVTK948o18AscQflHl6CCyoRjQo6r/BVFISXagZyBYbV+z4eB1JLmCIuBC9g49y9OuB6OpoIssqIJvm99DtkkM3svOO9+wUY5jMfLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HxtEQIrP; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790837754; c=relaxed/simple;
+	bh=QoLNnGt1QfuA1ANyUEKP/0a+XKjsESBZmtSKcHLf3Ac=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MJaRzDwqCWIM+m2414x5IyBQb3n4I1hPMowdei8Pr/tb6YHs+rbhTJez233yJhs9f81Cf2OAmDrp2K2egi7cuGuWnk+0KoamuaVxptu2PLZnWa8HPwQC/onuwsP9Dovv99KRT3yPGxjenzt53X2KrPZ6qAg7kTH2tot0nvVh+Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhANQ7SV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HxtEQIrP"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so649788f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:54:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790837658; x=1791442458; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=dQM3nzcaHIpaT+Z8HPZx7VZW+Ub3Nz7sGdgKg0hJno4=;
-        b=HxtEQIrPevPbWFEGyq415CdLzCbBgdicvRTVqcjxdTmACiTBZFSvXiehx8qwTGcEME
-         wdw1RWJA1tfBWOTEn5lIpqr/McFl2pTIH1mUb996L4mDsvol2XmBsOjnz1Qm7mEfnRkS
-         V+hsScH9cWAWNS2/ISRy/jse4foUpTnsvFYSt0CChnnx19KiOKvdYmm3gYh2JtZ1xWaZ
-         ICXe2LIESM5oHhnblNqp3a5ulURqW+HU7GiHYaOZ87ItXLqk6rAbneIdw2ZgCYsUbAQs
-         tAN8nkJOSyNkic9oT7TXgHdb/VjVPmM6n1MFPXnKMuXeKSnPTu8a+0hoIjjq8WmMnk94
-         khRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790837658; x=1791442458;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dQM3nzcaHIpaT+Z8HPZx7VZW+Ub3Nz7sGdgKg0hJno4=;
-        b=SqCd3wY6lmK+/oW9cwscN9hwEmtN/fwd0dTvljqjpsInL/co94VR+jD20sQiH+XLcQ
-         ufLazJvHDrTcOTjC2inXAVhQDf/Bb8dUjdCk9ARKRHEtsprQV9ZtCAQrkTHArtQUoEQT
-         KSj1BLSSa4rZ0eEgaLr/WBIjKLoA+yEfjAaETxAcfyjzv8KcWPqJjYAh7sJt6pniZwx3
-         qWZfaEC25ENKgjwtyxOnZydTLOg8rWEQ7zp4c/Mh1te373Wy50qGtCDW/eTCCJU59zDa
-         81+o0DvuxZKcrOfPjUVandMjpytwhnGWFrQ0d527lAFbJZeALHm3C054sXBDcarxUS8w
-         n2jA==
-X-Gm-Message-State: AFq9FYJxvIH5lURKUVG/yM+QbVIgC6u52jFEktdAvdFuzS2bBwNDGmY2
-	Yx9z80hGuBP8scaGWNhePuZ0K1DY/3X9jlWRV8P6fK4ZrXY35+doyoy8
-X-Gm-Gg: AYBFou3c+0BYobIX+I8QtfCsZjVfdneEIi207QnkFf/82T9xyIwjE+LBu58nfWGlFIh
-	nXawoJl1eIl1oh9ogRRRGuUdubJIRvqBZqRbV0KQ4KZH5MXD+LhWU0eOPOZ8fjfQS8TuJ0h6iQC
-	RhVe52zpNKRWvraE9BLSYNY9iYmhuCuYxV9E/SDmyALJTd+smD13JrJMRcwVOWBV2Sl1WajYblV
-	LCKK5UL1D8Flr+/LjD8x72u3uDI+xG7OHbE3E/9W1ITduxNUrv5nX0jMLt4vxxF1JrG3KMGXIsh
-	V288H8ImfK4AH0ZJsAMt29nX43hRFnTie/8l9RUaa0Blaz347iydeobBxzvqnuODcD6o2VTUemX
-	d9yNd9MD1m/eJzTH/KnxXcUGDYGsj20vpxflSZo6Oi/6BcG/+PevL3iNRBVFrGw9fwILUwFivXt
-	ma/DcAdfHXo/pvZp7cAipQeYqK99jkOhlgkjvhZC/khE4RzASaTI4bajIGwSIHwBNqfqexn1dHH
-	koo8OVdRBdqIBIteHXQYEkt4INEwZDouNWO/LZphk0KzBBu+ROuyS/XaKjjjTQRtL2OXtvHVEo6
-	M79k3A==
-X-Received: by 2002:a5d:5e0f:0:b0:486:e9ab:2b88 with SMTP id ffacd0b85a97d-48b02a9f53bmr3865955f8f.24.1790837657921;
-        Wed, 30 Sep 2026 23:54:17 -0700 (PDT)
-Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068bc944sm4283186f8f.3.2026.09.30.23.54.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 23:54:17 -0700 (PDT)
-Message-ID: <a1fb38b1aef69d344d31235fbb4bb55d75aaa1d4.camel@gmail.com>
-Subject: Re: [PATCH v2 2/2] spi: axi-spi-engine: fix stale SYNC IRQ pending
- in trigger_enable
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Mark Brown <broonie@kernel.org>, Jonathan Santos
-	 <Jonathan.Santos@analog.com>
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
-	dlechner@baylibre.com, nuno.sa@analog.com, michael.hennerich@analog.com, 
-	jonath4nns@gmail.com, andriy.shevchenko@intel.com
-Date: Thu, 01 Oct 2026 07:55:45 +0100
-In-Reply-To: <8ba05b99-36ac-4a76-ac11-e6ad92c631d4@sirena.org.uk>
-References: <cover.1790731588.git.Jonathan.Santos@analog.com>
-	 <b1573f16b8e30f22877677026bc2296420a0c527.1790731588.git.Jonathan.Santos@analog.com>
-	 <8ba05b99-36ac-4a76-ac11-e6ad92c631d4@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhANQ7SV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CD01F000FF;
+	Thu,  1 Oct 2026 06:55:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790837752;
+	bh=p4Ts2/n0F4w6WOA2qsy7F0lIPhEi3nzuiwcrYnsLlSQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hhANQ7SVoq0le0p9KfJ3llwvejnoX2UI4LZBbxtgz7Ur+VNrdHTzE6AGlMBQH8E6O
+	 +Exw8YX9KaS0OurzuUIU7huBrw7o+NhnsVzqk5CKPjqJXk2K2l3KV8GG50nD/SCnpj
+	 Iq/KhikYuRPceOvfqv32nVK1NEcymcJBEMNN/v/FwIoQnL+tUBPi+v8N4IPYlpeWah
+	 i89FmLeo/JxUzWQZXc8liLJDHUGEHu1M9k5fC07PJTaTvAWFCrcbKKVB6SxHSK9J5o
+	 BmqF1nbAR1jE64OEhn4rFr427PYJecyX4uKj2JUNbrGP5+0F6lFlJ260kEGNjM+zUU
+	 R0ObaT7Ina3uw==
+Date: Thu, 1 Oct 2026 08:55:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
+Message-ID: <20261001-private-wooden-chachalaca-51aa57@quoll>
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
 
-On Wed, 2026-09-30 at 14:09 +0100, Mark Brown wrote:
-> On Tue, Sep 29, 2026 at 11:17:45PM -0300, Jonathan Santos wrote:
-> > spi_engine_trigger_enable() sends SYNC(1) and polls SYNC_ID, it never
-> > clears the INT_PENDING[SYNC] bit afterward. This leaves a stale pending
-> > interrupt that can fire spuriously when INT_SYNC is later enabled.
->=20
-> > +
-> > +	/* Clear the stale SYNC pending bit so it doesn't fire when the IRQ i=
-s
-> > later enabled */
-> > +	writel_relaxed(SPI_ENGINE_INT_SYNC, spi_engine->base +
-> > SPI_ENGINE_REG_INT_PENDING);
-> > +
-> > =C2=A0	if (ret)
-> > =C2=A0		return ret;
->=20
-> I'm not seeing anything here for the issue with ensuring posted writes
-> are completed before we drop the lock?=C2=A0 The write may not be visible=
- on
-> enother CPU, we need a read from the controller or something.
+On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
+> Some boards drive the ILI7807S panel's backlight from an external
+> WLED driver whose enable input is wired to a GPIO, typically modeled
+> as a fixed regulator (e.g. vreg_wled).
 
-Just for my understanding, why would it be an issue? The trigger register s=
-eems to
-only be accessible from the trigger callbacks which are protected by a lock=
- where we
-have implied barriers. Im sure I'm missing what can go wrong here :)
+You describe something else. What's fixed regulator should not matter
+here. Which pin is it in ILI7807S?
 
-- Nuno S=C3=A1
+It seems you just want to represent GPIO with a regulator. This is just
+confusing and typical downstream workaround.
+
+> 
+> Document the optional wled-supply property for the ILI7807S panel
+> binding. When present, the supply can be used to control the enable
+> input of the external WLED driver.
+> 
+> Platforms without an external WLED enable supply can omit this
+> property and continue to use the existing backlight handling.
+> 
+> Fixes: 447a76a99e24 ("dt-bindings: display: panel: add Ilitek ILI7807S panel controller")
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/display/panel/ilitek,ili7807s.yaml   | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+> index ba8c5bbf8ffc..8d56b74a962a 100644
+> --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+> @@ -34,6 +34,10 @@ properties:
+>      description: Negative LCD bias supply (AVEE), typically -5.5V
+>        (range -6.3V to -4.5V)
+>  
+> +  wled-supply:
+> +    description: Optional Supply for the WLED driver that provides the
+> +      panel backlight
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -49,6 +53,13 @@ examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+>  
+> +    vreg_wled: regulator-wled {
+> +        compatible = "regulator-fixed";
+> +        regulator-name = "vreg_wled";
+> +        gpio = <&tlmm 91 GPIO_ACTIVE_HIGH>;
+> +        enable-active-high;
+> +    };
+
+Irrelevant here
+
+Best regards,
+Krzysztof
+
