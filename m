@@ -1,65 +1,65 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E514490BF7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:58:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0366847535F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:59:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884740; cv=none; b=RVwHYuLaKMxSV2SzWpln2Vli2u7XX9KCxn/1rQ/Csfw6HbRo0uJL5bOIItdg/6f1tAOe7oBKh6/Nj8T/V2jgnivdTZlRDLIx9znekjNSuaOkfowgbbxL3LEsQHrzxkzDImR86V93WxIcJEUapat4schfoVlLSu5UNXNTZ6qy89g=
+	t=1790884744; cv=none; b=D1Kregr/CrargFLyS1Zzmjhl0i398cNEn4c0/VkdW5ADuTBgfsm1OGwH/Yj1iRs33Iskba2DukHV5Mu5hGjdm6VnPTCqXz3GffMzoTP2qzzjEcRmMvg63VV26gFb00DGCZSeAWCtw3HHwCOZphbOlb226Xu51NWjQe3OblF2qKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884740; c=relaxed/simple;
-	bh=S6qMh34KvLbIjfGfRDQ/vaEK1EGhvlMVKSGZLXlQONs=;
+	s=arc-20240116; t=1790884744; c=relaxed/simple;
+	bh=IonqSnhEs4XXh10/twKbHK1qxirAdAbOjc2/pjgee5Y=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SSRIzP1LyTXCXw86jI4htpV4jL1kTaKPzix9DHH5+PlfgJspbnuAc3kyktWebvBNiph0kHRR46oAOK89WrLSx/Kl+0RSLkUTtLgA8AoSoHW6P3K/GhsQhduTc51b/0KgQVwgA8MSpVO5MMb2FZSboIkeL6tub6g9LpcGEQltwLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iKvSOoxw; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version:Content-Type; b=DBifLUa4Qb5j0fDAilctt1OHI2X2/GXlAo0UFTVlin1dsYDbqijVMkG2GK4Dfic05u03HzesxnwbyTrL+BJDIjuAnrlX2KmqCL9woEdFEZYi9h4o0jIUIvwXJgEBTtC8aQpIT9df0btEQOey8gZOaBTRDWI3Oi7gdjKZoqNros4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gMgzg3mc; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iKvSOoxw"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so65672145e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:58:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMgzg3mc"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso37021005e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:59:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790884735; x=1791489535; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790884738; x=1791489538; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1937oKfIRQVCPoNo84DTw0NidOzq8BgSFZcKFKTUzSM=;
-        b=iKvSOoxwhJzdPbnheneehnMScjWTgrS7azEtcoIqarfb5SgcDfs7e705ZdwYF4FD3Z
-         aeTOo0zre6ySTnkuAV7thJqxJ6rCMU0t4AodS/1r12XkDiofxDWmLVpKDumCuFf5K7vG
-         rbXI021QiUUCl8J+5twDgDBkDclH7AwWHHDf7Jb6axOuLfES2tSwDPzELAhYG/e1yCiB
-         sEseKVz5pD1moH+r6C/ol7YMrzopgzcjEHy/I2Ec+ojTmY+mCKtOZiHisgnbZyy5393i
-         SxsTm6J7Kc9XbEMAbcGzN8N1adSQIPflztOOXgTSTh3UtXEG5OrZOxRNI/drr+QqReCQ
-         iPuw==
+        bh=gkbMt1iWPzKqAl5Y1iQuN/ShWwz04PZhQ+M6tBc7F18=;
+        b=gMgzg3mcsdtNNW5sylmu4bcqOqL2TA7DsDHXFfujWK3ZTr2lNlOMryQxcw7Rri09JM
+         uIK/YU6TKTd0nJafvfXyK5m4r4vPX11RgpGi5CXGSH4gQ9d9+O88doZfubti1rr22x/t
+         ZQNsZ0TJP8teaQ/jCN+s6a08pkuHw+rMxlJrjOgPmQRIAzJfE33izVQgDt6TouMaDidl
+         JnDHNY5l0hngwLbEJeGolbQ6OO0hd87W5VG/zGv2aVwqJioE478Q85oz9RbLrO11Durc
+         tu6N+WjsSLXaPD3xkmkUrG5+aWg3bWQmUxQgSFnKdVgCU//7aVvNUZZq7jIgVJFm2mPG
+         LADw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790884735; x=1791489535;
+        d=1e100.net; s=20260707; t=1790884738; x=1791489538;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1937oKfIRQVCPoNo84DTw0NidOzq8BgSFZcKFKTUzSM=;
-        b=vrQ3iLD4p12n/0sI91uxyk8bXZFr0yDRiKG33iJB/I9K+o70VN63jv8tlv1Nj12cPD
-         5I/ZElgmLd8sbMWrFynZK0hPacZPJogTuW6z9NLlPU4TR6xNRq8yI1/3xJxLHv58SSWi
-         6KA/68fWvsxJeU57cZ3k8BAeSpctCOGinSEoNzkET8FdmZbIJHmHTnDnxhscOCM0DhuX
-         ImdI6HSIZYxsi9kPDn456HXH7YJgsRcsUnxpg5Ezx7oj7nGIBj1nqLserRPiG+ykgqtE
-         jrnR/ybM5nqbMVj+jdJ5OsuC/QdyxNsNNaKZwYOdBO1LfGZ+w0PPmApDUPEffIoGifIC
-         +/oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLRT58q+C3j1XRB6nVMOyom6Q2BSns2S0g/Y6VO45NC66ajoB8Qw5SW7D3e6fCDB7Pc/lYhfs0wRWt2Y8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcX9kA2A/XCoN6XhOilh4+vWKkfGRU9I2a2kfIDFbs8YMAYLMK
-	jeJaHhuOrFEFe+W4J3+SA5/NiE2uMc62a7RASUokOGTYKc3kwzNw39OW
-X-Gm-Gg: AYBFou1fd1UCUixPO7UMvn09GM5Rka/IVJ/3r1ytQAWIvufIM0JD3iDVXXJH5VBquT+
-	fnm83H8fVfMeXpdZd0XfxzL2p/EvDoVvyBjHUflCvWUDV19MnA/FVvrci3C/5CCqPKQDGIIlCaQ
-	7DJAvoIIsLdOeimKxo68XJMFs//ScnPgwmlwUqR4VLhRDi7VFXzx9dxLfC2f5VY2Yf3Dq1iIE/y
-	C29WR2dWheCcMXIWWjDv78FWJe5ORHobxeIO0i2bqEWMnUDXQFFSKY4clPTsF+bjkgK65jnZbod
-	BUs0PJ4EzYUiHfMkWfQaoHF4s2Vz132g0JesgDxtYHTGZHINyiUHhFI7l6LXea+a4IFp7rM7Aq5
-	O53+toe/Vt/dULUSLimYdaPs/fkusLrvQs79stDqG0+915pGf5Vt3YLXRbWqTL5VvpG3hfz4sa8
-	0QDN3f8jxPaClGNfWgLX4A04B0Ct01y0CJyvmK4eNTfQZ2MpLUea4TRiyrOabBxOdK9OqKPPsXy
-	XD11nxY/1kZweqCpfJE0qudZg==
-X-Received: by 2002:a05:600c:46ca:b0:49c:edd8:ba35 with SMTP id 5b1f17b1804b1-4a027590091mr11675715e9.6.1790884734605;
-        Thu, 01 Oct 2026 12:58:54 -0700 (PDT)
+        bh=gkbMt1iWPzKqAl5Y1iQuN/ShWwz04PZhQ+M6tBc7F18=;
+        b=UJ1dIL6OiAJL6ycU4Co5EdpxZnUlJkeVFD2y4QT9WURLr0JZFg40h8JX2eMIlUSXcW
+         Zy/rDvqnJ1cm27UJYb5b2S8rvpIw1lvg/PKeF4VcZi/oLjO7Sfv7cgvVbTew5xH2Frq+
+         +S5nOBwxrIKqXMCsQvfLTOyjTpRXLriNzc5w44+Ntofb4ljt9GcLGRMB5POQE+LThnFm
+         ibbCL5EdvOMX02xnq2TvGeWFaNuPpxI46Hf5YLcEcSG4nn1YeyUNI+OFwiBqkXV1WmcJ
+         ot4/xfRiY80krYZXMbx8+tsG6b28U82wLDoX+0X6jEDrK8cMVrUIb0J/RLnr4MYYlI8y
+         sxwQ==
+X-Forwarded-Encrypted: i=1; AKwUvByh7Fba50xk6Qdvg3vbyctBRL5dpcky500LqDs5wSDn7mCTGvxJlaJxSemuqTt9UpMhd+Wua859a1ni5yM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPoneVjMh50tm/xOsouDzWCpPC2mLn1lel3ywA9u4ygOwA5VjH
+	cIBpSIjZ5Vh3EzYFME1MnStMGBIuWhHJJCd+BZFKrld6ph7MnCt9RS8w
+X-Gm-Gg: AYBFou1L5O5X2xAiTIqk4Wk4idSuNZRj/yxKv7RG/t+nYeoCilTZ8/VyJ7vkK7NPGh2
+	MJytBPJkv/stciQpZujhq+5xF/xYM5jB93h0vxYz7Kv9byNfo+APGGZ8EG4MHRSOGuway5iQGO1
+	A8Uyn1AF9jqS+5BH+Wql/cw2fYvakw/F1SWrPRk92QanodQxWoSG+rHxKTUWAODa1O54oi4aoMl
+	O6OryLVvq6fhDvf9fGqIP4IQnePerfdzTpPaT3bz9lqVMSfQKJWQpXUXO8yOZOl/JqJYDumubX4
+	MP2RCSDGeEpo0tgz2rKN1NzMLugZCmxPn5EptVy0KEUSSHNY09zTXgQ71iNOAkkHZcaMksnpSiI
+	xXWKctByiDkbsuq8+833lQLqVok1xjQhBGYX/YktaylkzRoonundNGFavV/5OOs/TaBKZHyIStW
+	ROYy9Rxmu9CRVn6eHh2Gbn5WdpRXwqM3AXhQZwYk+Q27t012RJToVIfGnqXC+0cMGGQ+K5gwdYQ
+	SMI+VkMXZWCLzWaIvHhAIW5yg==
+X-Received: by 2002:a05:600c:6d1:b0:4a0:1d3d:502d with SMTP id 5b1f17b1804b1-4a02755f856mr8010975e9.10.1790884738342;
+        Thu, 01 Oct 2026 12:58:58 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.58.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.58.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 12:58:54 -0700 (PDT)
+        Thu, 01 Oct 2026 12:58:58 -0700 (PDT)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -85,9 +85,9 @@ Cc: Francesco Valla <francesco@valla.it>,
 	linux-doc@vger.kernel.org,
 	linux-embedded@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image size
-Date: Thu,  1 Oct 2026 21:58:36 +0200
-Message-Id: <20261001195847.141192-3-maximpedraza@gmail.com>
+Subject: [PATCH RFC v4 04/13] MAINTAINERS: add entry for DRM splash client
+Date: Thu,  1 Oct 2026 21:58:38 +0200
+Message-Id: <20261001195847.141192-5-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261001195847.141192-1-maximpedraza@gmail.com>
 References: <20261001195847.141192-1-maximpedraza@gmail.com>
@@ -100,39 +100,36 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The DRM splash client reads the boot graphics the firmware left behind
-through bgrt_tab and bgrt_image_size. Built as part of drm_client_lib,
-which can be a module, it then fails to link:
+From: Francesco Valla <francesco@valla.it>
 
-  ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_tab' undefined!
-  ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_image_size' undefined!
+Add myself as maintainer for the DRM splash client.
 
-Export both. They are filled in once, early in boot, and only read
-after that.
-
-Reported-by: Mario Limonciello <mario.limonciello@amd.com>
-Closes: https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b978696482@amd.com/
-Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Francesco Valla <francesco@valla.it>
+[Màxim: add myself as co-maintainer]
 Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 ---
- drivers/firmware/efi/efi-bgrt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/firmware/efi/efi-bgrt.c b/drivers/firmware/efi/efi-bgrt.c
-index 1da451582812..746a8fb3a337 100644
---- a/drivers/firmware/efi/efi-bgrt.c
-+++ b/drivers/firmware/efi/efi-bgrt.c
-@@ -17,7 +17,10 @@
- #include <linux/efi-bgrt.h>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4d108339f44e..44730414e5df 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9155,6 +9155,14 @@ F:	Documentation/gpu/drm-ras.rst
+ F:	drivers/gpu/drm/drm_ras*
+ F:	include/drm/drm_ras*
  
- struct acpi_table_bgrt bgrt_tab;
-+EXPORT_SYMBOL_GPL(bgrt_tab);
++DRM SPLASH
++M:	Francesco Valla <francesco@valla.it>
++M:	Màxim Pedraza Padilla <maximpedraza@gmail.com>
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	drivers/gpu/drm/clients/drm_splash.c
 +
- size_t bgrt_image_size;
-+EXPORT_SYMBOL_GPL(bgrt_image_size);
- 
- struct bmp_header {
- 	u16 id;
+ DRM TTM SUBSYSTEM
+ M:	Natalie Vock <nat@pixelcluster.dev>
+ M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
 -- 
 2.39.5
 
