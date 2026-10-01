@@ -1,284 +1,296 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C9E4D2ED7;
-	Thu,  1 Oct 2026 09:13:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEE94D9540
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846018; cv=none; b=qWS05930ebTA/aRllvImXlORQqzIuYMlJ4/VkXgAoL/o0EZpLNvFs/0ZWomYR5g7P3UjjHwm9aixdBTsCNDUOs9PgGR2DSmfkNQzsVfsAZ4uvoChK81NHrqlRZm7e4adcY6+cTUm+LWQHm+RGHiQcZxcFU/9gacOCLx150Mt8I8=
+	t=1790846020; cv=none; b=S9ZW/EXLai+6c/uVDDz0+NBp3VqhoDgLa/Q0LHXdqjGBdRWiFvYT1YKrCjzuK0ZK51BHhTyOclciOWpwWKebixPwYjsm+1laV04+TyFyWUd9T9rzoBUZfZUsrjBOUTkFcWmtS4kr90jswZ8VafPLKrUdovPiahSgX2qnp7WLYzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846018; c=relaxed/simple;
-	bh=4pZyqCJ5YhsQIyVSiYBsOGWYzPqKgYa4HiND+uLIDtU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eHGukXfmW+ELJIvUWQIvB0pChYkbz8oEcgr42tLgZY2F1dcuVWhzN2bxcSdGQFe0v5vJBeIReAeEIWRRyFMTi2sldKYrERzXZ0B2CQB7GiwmCnG0ZsDvOxB+zwxT1rFqsRjzbqpRYlyuuNtdeGDa2Y0Bli/9LPubB3oaTEA2odk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HreUikyP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790846020; c=relaxed/simple;
+	bh=ddjxOsgZ1GQ49nRgt5kCvn+7ObM/aL5HK1T9S5upFwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nQGVm+prXGR509GApPORKD+0BmlO8F3BcAXFRvLReRR5MOeLRbJe6UiXF6bldN6NUOzrcXlTXZ9+/w6iIzD5uv1UTilbEluN3A0H7stGz1yrLFDGqhN7kWFQ7nk2rZ8lw8BzRt+h7hwSqwNJC85yBX4Pd03FHi9/0QKgiCpuV2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RwFKkG9O; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HreUikyP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69B01F000FF;
-	Thu,  1 Oct 2026 09:13:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790846012;
-	bh=MqS1QtIJieQo69+yO6R1p5ROhvTTvH62rYXwYuKa3TU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HreUikyPOcfKbhSlFiDEScvPOiu1g7PNaeBWsK8CJGfYYG1oO3guRXSzSVS3pErXG
-	 cNv1X40h9gMif9oCDCqWHqDrWzl4ovM6mIMZxUliEjXjNpCwFg3V9VF2X7IQ2GDJEQ
-	 7GnFJf1qmBhY/fqQLnwvENlBKxHLLcS0YvgenyLiBY/rytWooEgqOlmd1wb47zwlX0
-	 eM8gaYO8IpnpefBeGLcuGfmNtyaPKFgYCdJZvTUMwJeXSoa5DH9Q1LELyoCOazi0Xb
-	 F9GdTl5K2kXsHhsHDVCl7hZTXH7mnDroKlusIyKHiefqYhhP9gb4yoi1Vk+wlZqNt3
-	 15HUuo+D3l7bg==
-Subject: Re: [net-next, v4 01/10] bnge: restructure VNIC and filter code
-From: netdev-bot+sashiko@kernel.org
-To: vikas.gupta@broadcom.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
- vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
- dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
-Date: Thu, 01 Oct 2026 09:13:31 +0000
-Message-ID: <179084601149.434549.2509756647246460199@kernel.org>
-In-Reply-To: <20260928061307.1172344-2-vikas.gupta@broadcom.com>
-References: <20260928061307.1172344-2-vikas.gupta@broadcom.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RwFKkG9O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790846015;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HL9NZwwcgGIe9j0P53K4GDSUnsPRBzPV5TCzNGGWrc=;
+	b=RwFKkG9OhpppWdpccSALAVDDp3elKknClw5jy50t5RVPDREt4yqpLbtcIjLagQapjZjISj
+	LT6HQtJw2+tWJlDcMALaa4ZtFMRbg8mXUyii1NUrZGc5K3vnAfcWkLMr53PkX9/stnFjvS
+	bFd3oz2KrWoGQfW2J9qCMaIfNkB9M6U=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-474-dxQlBcwoOK--VZ4W9y_xcg-1; Thu,
+ 01 Oct 2026 05:13:31 -0400
+X-MC-Unique: dxQlBcwoOK--VZ4W9y_xcg-1
+X-Mimecast-MFC-AGG-ID: dxQlBcwoOK--VZ4W9y_xcg_1790846008
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A6CE1843AF1;
+	Thu,  1 Oct 2026 09:13:28 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 19FCD195604D;
+	Thu,  1 Oct 2026 09:13:22 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@infradead.org>
+Subject: [PATCH v15 05/10] cifs: Use a bvecq for buffering instead of a folioq
+Date: Thu,  1 Oct 2026 10:12:33 +0100
+Message-ID: <20261001091239.3343034-6-dhowells@redhat.com>
+In-Reply-To: <20261001091239.3343034-1-dhowells@redhat.com>
+References: <20261001091239.3343034-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Use a bvecq for internal buffering for crypto purposes instead of a folioq
+so that the latter can be phased out.
 
-Low priority / nit picks for your consideration:
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+cc: Namjae Jeon <linkinjeon@kernel.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: Christoph Hellwig <hch@infradead.org>
+cc: linux-cifs@vger.kernel.org
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
+---
+ fs/smb/client/cifsglob.h |  2 +-
+ fs/smb/client/smb2ops.c  | 78 +++++++++++++++++++---------------------
+ 2 files changed, 38 insertions(+), 42 deletions(-)
 
-- [Low] The commit message does not describe everything the patch
-  changes.
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 79e4e84f8985..c8b1c23ef494 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -289,7 +289,7 @@ struct smb_rqst {
+ 	struct kvec	*rq_iov;	/* array of kvecs */
+ 	unsigned int	rq_nvec;	/* number of kvecs in array */
+ 	struct iov_iter	rq_iter;	/* Data iterator */
+-	struct folio_queue *rq_buffer;	/* Buffer for encryption */
++	struct bvecq	*rq_buffer;	/* Buffer for encryption */
+ };
+ 
+ struct mid_q_entry;
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index aa142420dae2..317d10b22966 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -13,7 +13,7 @@
+ #include <linux/sort.h>
+ #include <crypto/aead.h>
+ #include <linux/fiemap.h>
+-#include <linux/folio_queue.h>
++#include <linux/bvecq.h>
+ #include <uapi/linux/magic.h>
+ #include "cifsfs.h"
+ #include "cifsglob.h"
+@@ -4830,19 +4830,18 @@ crypt_message(struct TCP_Server_Info *server, int num_rqst,
+ }
+ 
+ /*
+- * Copy data from an iterator to the folios in a folio queue buffer.
++ * Copy data from an iterator to the pages in a bvec queue buffer.
+  */
+-static bool cifs_copy_iter_to_folioq(struct iov_iter *iter, size_t size,
+-				     struct folio_queue *buffer)
++static bool cifs_copy_iter_to_bvecq(struct iov_iter *iter, size_t size,
++				    struct bvecq *buffer)
+ {
+ 	for (; buffer; buffer = buffer->next) {
+-		for (int s = 0; s < folioq_count(buffer); s++) {
+-			struct folio *folio = folioq_folio(buffer, s);
+-			size_t part = folioq_folio_size(buffer, s);
++		for (int s = 0; s < bvecq_nr_slots_acquire(buffer); s++) {
++			struct bio_vec *bv = &buffer->bv[s];
++			size_t part = umin(bv->bv_len, size);
+ 
+-			part = umin(part, size);
+-
+-			if (copy_folio_from_iter(folio, 0, part, iter) != part)
++			if (copy_page_from_iter(bv->bv_page, bv->bv_offset,
++						part, iter) != part)
+ 				return false;
+ 			size -= part;
+ 		}
+@@ -4854,7 +4853,7 @@ void
+ smb3_free_compound_rqst(int num_rqst, struct smb_rqst *rqst)
+ {
+ 	for (int i = 0; i < num_rqst; i++)
+-		netfs_free_folioq_buffer(rqst[i].rq_buffer);
++		bvecq_put(rqst[i].rq_buffer);
+ }
+ 
+ /*
+@@ -4881,7 +4880,7 @@ smb3_init_transform_rq(struct TCP_Server_Info *server, int num_rqst,
+ 	for (int i = 1; i < num_rqst; i++) {
+ 		struct smb_rqst *old = &old_rq[i - 1];
+ 		struct smb_rqst *new = &new_rq[i];
+-		struct folio_queue *buffer = NULL;
++		struct bvecq *buffer = NULL;
+ 		size_t size = iov_iter_count(&old->rq_iter);
+ 
+ 		orig_len += smb_rqst_len(server, old);
+@@ -4889,17 +4888,16 @@ smb3_init_transform_rq(struct TCP_Server_Info *server, int num_rqst,
+ 		new->rq_nvec = old->rq_nvec;
+ 
+ 		if (size > 0) {
+-			size_t cur_size = 0;
+-			rc = netfs_alloc_folioq_buffer(NULL, &buffer, &cur_size,
+-						       size, GFP_NOFS);
+-			new->rq_buffer = buffer;
+-			if (rc < 0)
++			rc = -ENOMEM;
++			buffer = bvecq_alloc_buffer(size, GFP_NOFS, true);
++			if (!buffer)
+ 				goto err_free;
+ 
+-			iov_iter_folio_queue(&new->rq_iter, ITER_SOURCE,
+-					     buffer, 0, 0, size);
++			new->rq_buffer = buffer;
++			iov_iter_bvec_queue(&new->rq_iter, ITER_SOURCE,
++					    buffer, 0, 0, size);
+ 
+-			if (!cifs_copy_iter_to_folioq(&old->rq_iter, size, buffer)) {
++			if (!cifs_copy_iter_to_bvecq(&old->rq_iter, size, buffer)) {
+ 				rc = smb_EIO1(smb_eio_trace_tx_copy_iter_to_buf, size);
+ 				goto err_free;
+ 			}
+@@ -4989,22 +4987,20 @@ decrypt_raw_data(struct TCP_Server_Info *server, char *buf,
+ }
+ 
+ static int
+-cifs_copy_folioq_to_iter(struct folio_queue *folioq, size_t data_size,
+-			 size_t skip, struct iov_iter *iter)
++cifs_copy_bvecq_to_iter(struct bvecq *bq, size_t data_size,
++			size_t skip, struct iov_iter *iter)
+ {
+-	for (; folioq; folioq = folioq->next) {
+-		for (int s = 0; s < folioq_count(folioq); s++) {
+-			struct folio *folio;
+-			size_t fsize, n, len;
++	for (; bq; bq = bq->next) {
++		for (int s = 0; s < bvecq_nr_slots_acquire(bq); s++) {
++			struct bio_vec *bv = &bq->bv[s];
++			size_t n, len;
+ 
+ 			if (data_size == 0)
+ 				return 0;
+ 
+-			folio = folioq_folio(folioq, s);
+-			fsize = folio_size(folio);
+-			len = umin(fsize - skip, data_size);
++			len = umin(bv->bv_len - skip, data_size);
+ 
+-			n = copy_folio_to_iter(folio, skip, len, iter);
++			n = copy_page_to_iter(bv->bv_page, bv->bv_offset + skip, len, iter);
+ 			if (n != len) {
+ 				cifs_dbg(VFS, "%s: something went wrong\n", __func__);
+ 				return smb_EIO2(smb_eio_trace_rx_copy_to_iter,
+@@ -5026,7 +5022,7 @@ cifs_copy_folioq_to_iter(struct folio_queue *folioq, size_t data_size,
+ 
+ static int
+ handle_read_data(struct TCP_Server_Info *server, struct mid_q_entry *mid,
+-		 char *buf, unsigned int buf_len, struct folio_queue *buffer,
++		 char *buf, unsigned int buf_len, struct bvecq *buffer,
+ 		 unsigned int buffer_len, bool is_offloaded)
+ {
+ 	unsigned int data_offset;
+@@ -5136,8 +5132,8 @@ handle_read_data(struct TCP_Server_Info *server, struct mid_q_entry *mid,
+ 		}
+ 
+ 		/* Copy the data to the output I/O iterator. */
+-		rdata->result = cifs_copy_folioq_to_iter(buffer, data_len,
+-							 cur_off, &rdata->subreq.io_iter);
++		rdata->result = cifs_copy_bvecq_to_iter(buffer, data_len,
++							cur_off, &rdata->subreq.io_iter);
+ 		if (rdata->result != 0) {
+ 			if (is_offloaded)
+ 				mid->mid_state = MID_RESPONSE_MALFORMED;
+@@ -5176,7 +5172,7 @@ handle_read_data(struct TCP_Server_Info *server, struct mid_q_entry *mid,
+ struct smb2_decrypt_work {
+ 	struct work_struct decrypt;
+ 	struct TCP_Server_Info *server;
+-	struct folio_queue *buffer;
++	struct bvecq *buffer;
+ 	char *buf;
+ 	unsigned int len;
+ };
+@@ -5190,7 +5186,7 @@ static void smb2_decrypt_offload(struct work_struct *work)
+ 	struct mid_q_entry *mid;
+ 	struct iov_iter iter;
+ 
+-	iov_iter_folio_queue(&iter, ITER_DEST, dw->buffer, 0, 0, dw->len);
++	iov_iter_bvec_queue(&iter, ITER_DEST, dw->buffer, 0, 0, dw->len);
+ 	rc = decrypt_raw_data(dw->server, dw->buf, dw->server->vals->read_rsp_size,
+ 			      &iter, true);
+ 	if (rc) {
+@@ -5239,7 +5235,7 @@ static void smb2_decrypt_offload(struct work_struct *work)
+ 	}
+ 
+ free_pages:
+-	netfs_free_folioq_buffer(dw->buffer);
++	bvecq_put(dw->buffer);
+ 	cifs_small_buf_release(dw->buf);
+ 	kfree(dw);
+ }
+@@ -5285,12 +5281,12 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 	dw->len = len;
+ 	len = round_up(dw->len, PAGE_SIZE);
+ 
+-	size_t cur_size = 0;
+-	rc = netfs_alloc_folioq_buffer(NULL, &dw->buffer, &cur_size, len, GFP_NOFS);
+-	if (rc < 0)
++	rc = -ENOMEM;
++	dw->buffer = bvecq_alloc_buffer(len, GFP_NOFS, false);
++	if (!dw->buffer)
+ 		goto discard_data;
+ 
+-	iov_iter_folio_queue(&iter, ITER_DEST, dw->buffer, 0, 0, len);
++	iov_iter_bvec_queue(&iter, ITER_DEST, dw->buffer, 0, 0, len);
+ 
+ 	/* Read the data into the buffer and clear excess bufferage. */
+ 	rc = cifs_read_iter_from_socket(server, &iter, dw->len);
+@@ -5348,7 +5344,7 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 	}
+ 
+ free_pages:
+-	netfs_free_folioq_buffer(dw->buffer);
++	bvecq_put(dw->buffer);
+ free_dw:
+ 	kfree(dw);
+ 	return rc;
 
-Pre-existing issues:
-- [Medium] The RSS arrays are sized for at most 8 contexts, but the
-  context count that indexes them has no upper bound.
-- [Medium] bnge_cal_nr_rss_ctxs() returns too few RSS contexts for some
-  ring counts, so some receive queues never appear in the default…
-- [Medium] At this commit, a duplicate unicast MAC shares one refcounted
-  filter, which causes a firmware filter leak and a double firmware free.
-
---
-
-bnge: restructure VNIC and filter code
-
-This patch moves the VNIC and L2 filter code out of bnge_netdev.c, and the
-default RSS indirection table helper out of bnge_resc.c, into new
-bnge_vnic.c/h and bnge_filter.c/h files. The commit message describes it
-as a reorganization with no functional change, in preparation for
-multi-VNIC, RSS context and NTUPLE filter support.
-
-> Move VNIC and L2 filter code out of bnge_netdev.c into dedicated
-> bnge_vnic.c/h and bnge_filter.c/h files in preparation for multi-VNIC,
-> RSS context, and NTUPLE filter support.
->
-> This is a code reorganization with no functional change, which helps
-> centralize the functions into their respective modules.
-
-[Severity: Low]
-This isn't a bug, but does this description cover everything the patch
-changes? Besides moving code out of bnge_netdev.c, the patch also:
-
-- renumbers constants while turning them into enums: BNGE_FLTR_TYPE_L2
-  goes from 2 to 1, BNGE_FLTR_FW_DELETED from 2 to 1,
-  BNGE_VNIC_MCAST_FLAG from 4 to BIT(1) and BNGE_VNIC_UCAST_FLAG from 8
-  to BIT(2)
-
-- renames the struct bnge_filter_base members hash and list to hlist and
-  list_node
-
-- renames bnge_rss_ctxs_in_use() to bnge_get_total_rss_ctxs() and drops
-  the rx_rings argument of bnge_get_total_vnics()
-
-- narrows types: j in bnge_fill_hw_rss_tbl() goes from u32 to u16, the
-  ring ids now go through a u16 temporary, and the loop counter in
-  bnge_set_dflt_rss_indir_tbl() goes from int to u16
-
-- makes bnge_set_dflt_rss_indir_tbl() and bnge_hwrm_vnic_rss_cfg()
-  non-static, and moves bnge_set_dflt_rss_indir_tbl() out of
-  bnge_resc.c, not bnge_netdev.c
-
-All of these values seem to stay inside the driver, so runtime behaviour
-looks unchanged. Even so, the removed and added lines can't be checked
-against each other as a pure move.
-
-Could the commit message list these changes? Another option is to split
-the patch into a pure move followed by a cleanup.
-
-> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-> new file mode 100644
-> index 0000000000000..a8bb441ebef9a
-> --- /dev/null
-> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-> @@ -0,0 +1,113 @@
-
-[ ... ]
-
-> +static struct bnge_l2_filter *bnge_lookup_l2_filter(struct bnge_net *bn,
-> +						    struct bnge_l2_key *key,
-> +						    u32 idx)
-> +{
-> +	struct bnge_l2_filter *fltr;
-> +
-> +	rcu_read_lock();
-> +	fltr = __bnge_lookup_l2_filter(bn, key, idx);
-> +	if (fltr)
-> +		refcount_inc(&fltr->refcnt);
-> +	rcu_read_unlock();
-> +	return fltr;
-> +}
-
-[ ... ]
-
-> +int bnge_hwrm_set_vnic_filter(struct bnge_net *bn, u16 vnic_id, u16 idx,
-> +			      const u8 *mac_addr)
-> +{
-> +	struct bnge_l2_filter *fltr;
-> +	struct bnge_l2_key key;
-> +	int rc;
-> +
-> +	ether_addr_copy(key.dst_mac_addr, mac_addr);
-> +	key.vlan = 0;
-> +	fltr = bnge_alloc_l2_filter(bn, &key, GFP_KERNEL);
-> +	if (IS_ERR(fltr))
-> +		return PTR_ERR(fltr);
-> +
-> +	fltr->base.fw_vnic_id = bn->vnic_info[vnic_id].fw_vnic_id;
-> +	rc = bnge_hwrm_l2_filter_alloc(bn->bd, fltr);
-
-[Severity: Medium]
-This is a pre-existing issue that this patch only moves. What happens when
-a unicast address matches a filter already in bn->l2_fltr_hash_tbl?
-
-For example, "bridge fdb add <own-mac> dev X self" ends up in
-dev_uc_add_excl(). At this commit, bnge_cfg_rx_mode() copies every uc
-entry and does not skip dev_addr.
-
-In that case bnge_alloc_l2_filter() returns the existing object, with an
-extra reference taken in bnge_lookup_l2_filter().
-bnge_hwrm_set_vnic_filter() still calls bnge_hwrm_l2_filter_alloc() on
-that object, and this overwrites its only firmware handle:
-
-bnge_hwrm_l2_filter_alloc() {
-    ...
-    fltr->base.filter_id = resp->l2_filter_id;
-    ...
-}
-
-l2_filters[0] and l2_filters[i] then point to the same object. On
-teardown, is the same filter_id freed twice in firmware while the first
-firmware filter leaks?
-
-This appears to be fixed later in the series by "bnge: remove refcount
-from L2 filter". That commit makes bnge_alloc_l2_filter() return
-ERR_PTR(-EEXIST) on a lookup hit. The final bnge_cfg_rx_mode() also
-skips entries equal to dev->dev_addr.
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-> new file mode 100644
-> index 0000000000000..3a6c8f0a59541
-> --- /dev/null
-> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-> @@ -0,0 +1,100 @@
-
-[ ... ]
-
-> +void bnge_set_dflt_rss_indir_tbl(struct bnge_dev *bd)
-> +{
-> +	u16 max_entries, pad;
-> +	u32 *rss_indir_tbl;
-> +	u16 i;
-> +
-> +	max_entries = bnge_get_rxfh_indir_size(bd);
-> +	rss_indir_tbl = &bd->rss_indir_tbl[0];
-> +
-> +	for (i = 0; i < max_entries; i++)
-> +		rss_indir_tbl[i] = ethtool_rxfh_indir_default(i,
-> +							      bd->rx_nr_rings);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, since the logic is unchanged.
-Still, can max_entries be too small for some ring counts?
-
-bnge_get_rxfh_indir_size() returns bnge_cal_nr_rss_ctxs(rx_nr_rings) * 64.
-bnge_cal_nr_rss_ctxs() calls bnge_adjust_pow_two(rx_rings - 1, 64):
-
-bnge_resc.h:bnge_adjust_pow_two() {
-	u32 blks = total_ent / ent_per_blk;
-
-	if (blks == 0 || blks == 1)
-		return ++blks;
-
-	if (!is_power_of_2(blks))
-		blks = roundup_pow_of_two(blks);
-
-	return blks;
-}
-
-The extra block is added only when blks is 0 or 1. With 129..192 rings,
-blks is 2 and comes back unchanged, which gives a 128-entry table. The
-same thing happens for 257..320 rings (256 entries) and 513..576 rings
-(512 entries).
-
-With 160 RX rings, would queues 128..159 never get default RSS traffic,
-both here and in bnge_fill_hw_rss_tbl()? For comparison, the bnxt helper
-bnxt_calc_nr_ring_pages() always adds one before rounding up.
-
-bnge_net_init_dflt_rings() sets rx_nr_rings to the minimum of
-netif_get_num_default_rss_queues() and the firmware limits, so it does
-not have to be a power of two.
-
-> +
-> +	pad = bd->rss_indir_tbl_entries - max_entries;
-> +	if (pad)
-> +		memset(&rss_indir_tbl[i], 0, pad * sizeof(*rss_indir_tbl));
-> +}
-
-[ ... ]
-
-> +int bnge_setup_vnic(struct bnge_net *bn, struct bnge_vnic_info *vnic)
-> +{
-> +	struct bnge_dev *bd = bn->bd;
-> +	int rc, i, nr_ctxs;
-> +
-> +	nr_ctxs = bnge_cal_nr_rss_ctxs(bd->rx_nr_rings);
-> +	for (i = 0; i < nr_ctxs; i++) {
-> +		rc = bnge_hwrm_vnic_ctx_alloc(bd, vnic, i);
-
-[Severity: Medium]
-This is a pre-existing issue, but is nr_ctxs checked against
-BNGE_MAX_CTX_PER_VNIC anywhere?
-
-bnge_hwrm_vnic_ctx_alloc() writes vnic->fw_rss_cos_lb_ctx[ctx_idx], and
-that array has BNGE_MAX_CTX_PER_VNIC (8) entries. bd->rss_indir_tbl is
-always allocated with BNGE_MAX_RSS_TABLE_ENTRIES (512) entries, and
-vnic->rss_table is sized by BNGE_MAX_RSS_TABLE_SIZE.
-
-With 577 or more RX rings, bnge_cal_nr_rss_ctxs() returns 16. Then:
-
-- this loop writes past fw_rss_cos_lb_ctx[] for i >= 8
-
-- bnge_set_dflt_rss_indir_tbl() writes 1024 entries into the 512-entry
-  rss_indir_tbl, and the u16 pad subtraction wraps
-
-- bnge_fill_hw_rss_tbl() overruns vnic->rss_table
-
-The only limit on rx_nr_rings seems to be in bnge_net_init_dflt_rings().
-It comes from netif_get_num_default_rss_queues() and the firmware ring
-limits, not from BNGE_MAX_RSS_TABLE_ENTRIES. Triggering this needs a very
-large host and matching firmware limits.
-
-Should rx_nr_rings be capped to what these arrays can hold?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928061307.1172344-1-vikas.gupta%40broadcom.com
