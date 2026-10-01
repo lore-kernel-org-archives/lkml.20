@@ -1,160 +1,120 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B17148987B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E77476684;
+	Thu,  1 Oct 2026 06:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837875; cv=none; b=Jw5MeNnsQ8f/92Y/IIoIkd/lOaC6myFf0UHCc09xGOPoe0SmbdEE3btip6hzwzrC2QxC8DfKyvWZec+LroRT9VM8jqTX8UODFKvsRLP7KnzVnM+I78n77N6jE/mC9L/70F+SgV+rkjkeC6i8S58igly5sj41Cnzeqb7gfSzXkIA=
+	t=1790837881; cv=none; b=tGsxGrjUHr/n9Kd3yY0Qfv6M1pJkYVBaHdzp5QjnZVfk/vSw9nwEQL96OqTteSA/3rFnS3VHN7I3Jue/PYkVJXripkunw8IDtNR5+JkgpKbhzOWPAU+XMaiZVezGGEWLWG03Vu1glezR+OvW9DCf3LNH/lBSXbPEh4Lnb+3sPPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837875; c=relaxed/simple;
-	bh=LgGoDxD9QQwhwkXxmY2/np1ME4QMxNQVluFC+Tj0ly0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EVxxw6gKT+CVbJZByKuAL+RXfJcOllQFjH5QEuGoiXJ7PBwNv3mJOFuyHnulkDAlLRgT6Atd2MUlWOCn+O4K1NbhEOJrS2gjnFi/OLPZplmZMYcyChAyhSx8QFUezHvWLxd7hUiMnLRAeH1Ok6yxNeR0MKAWJ6lLXmWUb2cGS9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R7U+2vM5; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790837881; c=relaxed/simple;
+	bh=rCs4Pf0ySG4cZWiq1jdgjCaJ+xDgNQuVOl5Hx+gZ4b4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JVk7r3M897Y+Q3o80C3glVK2fWIYYtWRWmwtQrHs8/i2DcHskawE1p1VVW3ylQUOISdL7DnS9TMDeYAFf0hDgn+geUo/WxhP3z+hxFF64r/NCDrVm8KikhF1UyCGWNon2fxx7ecmojRpgXl6ZIJG1hX5dDVPr/KPFRqjJXDaf5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MDZNw6Up; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R7U+2vM5"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a4c8262465so1602320a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:57:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790837874; x=1791442674; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m1rzJCEn/PqQYXJoEBGqCyOeQp6LYxfEwiJe7Zi6fNM=;
-        b=R7U+2vM5+Ts/+mKuPEznZuKzNRU1LtNxFbbt6sNgCHVsR9lpa1XtHK58XiJBThamir
-         YPzvCkq0jonP7TJPab3XDeEU2QADy0BzzBmoqksSAizsZ3vDlIfc1xSHacoVoUSupVs/
-         C0W8+BA4C17Geh8wEaFexGbBo62T0hHoij0mKLe3w9yv4ygzZSJk1jZmrHxk0eNOACeL
-         +l1SaYeY006EWiQQiSUopQKzCev/mt/ywUFa7pw638xApIl4+RgbQuO6D2y5WQlUM8Kr
-         +/tTT/YKYPssQ3/gHNy0aAExzXtq47u//s+qjKHaDCkuD4SAocTqDlacGhzrBZednR7t
-         UETg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790837874; x=1791442674;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m1rzJCEn/PqQYXJoEBGqCyOeQp6LYxfEwiJe7Zi6fNM=;
-        b=kca+KBcQvT6vYsYK66cTCEaKSkAcMNWPTKjYzZ+H2UbNwOpvKXfJBtvPQwVcCwvJp8
-         QsKul2yTLW00ENiX+O/4JBjoySDXuUtXzhTWyw88QYa75DKxXikItEG3P/VRPYbcwO/F
-         LfQ4Kj11tUi5PjGQFcK3YgoIbhH90aWQG2Ig28SCR5b7/zqeXF4sUOfCjO2SZ/1YYoub
-         XPjzsCre0ScHeZ6jdv8O4jltkyd+yurCI16+tMV22s926smjbYe3TkXHTz6Euv/1LdwH
-         JeUPbexWu+JaF2av+GZQKrL/bqFn5Y8zBdp0A+AW06KJO7z+Q53aiqSSWp2t5KO3PAdp
-         7vUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwoJ/uXT4XSbk9UHcA72FUIWNHWpfPsxe7RljFQnXLBU+U8hYQeRTc1OzEXFMCuHjaeRv69m+uLwUM+Ghk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIy80RopGF7PU2HX7CyB6bqi/4SZZGXJgcgCWKBed5CiS1CYhRv
-	FGLGQW6+k7vl4RKLaheS8S7IKL3b9P+DLxuXSb0qAphltDPliNwIWOmPWscb26Oa
-X-Gm-Gg: AYBFou0cqUpx6olAKRfhRG48HHl6vUrmGSAlmWaIS7XuPCp5htoKiDeei8ghJfi5WDx
-	Qc2QURiz2KSlHzaGUcQ/OpjTUj7J6cNUsuPjRKZMnNw61W7EyEKkkS17INwhUn0dh/YTKfw+v6N
-	odGfaxfGLeYiUAOXXXfXDlhuMHQ5fK3fjB/9Cr80+OmVi9nMbJLxpcMUuU2fZLbhgdQuK7vYzvb
-	ae/guKuOmAX9dyiRnZdXvZ1LMpl6+0KtcP41PBqYofmhqC/ipFGyvWJc6ap+u3zqguHK/+o/Fod
-	lftoJJ8KDXOoM9azJSCXk7eSMc9/H8oCzMqXGnT4IlnwKw4Ddc2sK7dA959q6q84AOydOiTIpYf
-	pqKdlPOCk5kOgSfHY6wNQzWqa5HKJj8XO+0ZLmBbLdmMfOvJXxWHFK5vQ6nmtEfHv2JhmvNiXoA
-	GuPUZZ3RoxzXI+tqfbX1dR8++IDn0wrhKbeDIJVI7tC9dFhTVo2rYM4t32/XX7zTAHgeA68jZBx
-	3LFsIiJQE+66/M/TuJnwHLECI2zNzdljdOU4pVZtygWNL34
-X-Received: by 2002:a17:90b:5283:b0:39e:24ab:9f82 with SMTP id 98e67ed59e1d1-3a4d151e992mr2891716a91.10.1790837873602;
-        Wed, 30 Sep 2026 23:57:53 -0700 (PDT)
-Received: from localhost.localdomain (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f44d0a30sm2873138a91.16.2026.09.30.23.57.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 23:57:53 -0700 (PDT)
-From: cacioandpepe <artem122novak@gmail.com>
-To: ysato@users.sourceforge.jp,
-	dalias@libc.org,
-	glaubitz@physik.fu-berlin.de
-Cc: linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cacioandpepe <artem122novak@gmail.com>
-Subject: [PATCH 2/2] sh: add SH7305 CPU subtype support
-Date: Thu,  1 Oct 2026 00:57:36 -0600
-Message-ID: <20261001065736.753215-3-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001065736.753215-1-artem122novak@gmail.com>
-References: <20261001065736.753215-1-artem122novak@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MDZNw6Up"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F641F000FF;
+	Thu,  1 Oct 2026 06:57:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790837880;
+	bh=81kEnYAelRd0XHmBaUvxl0RHg1sbtHt2E19WInGRtNs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MDZNw6UpJ4RrYVDZlxRVi0yXGd9Sb4FRvsWgrwq1Z6aun26SLmR/88MHKnoNF5l73
+	 kXBOXmbwJll3CYn/Vc3l9uLd+e2CAjjCV3JnRLYmfUn7jbkw1ChV//Kjl2/uJsq5I5
+	 ffJ1y0wnKuAO4OiB/VvrrKUv1h7heGJulSr02F7iGBo0XCaS8/O/RXCsH8LEtSPE1e
+	 DpO4OCT3reAhQDAntXufYrh7ZlUDKwuRbEVtT5wXiAkzSi49zElDEoLGHsC50xVr74
+	 1rmo42KUUvD4yzFpLS0YvEz5kozljYcFi+v3qD2wL4TVT0BduzNl2+oWE5VVwH1DbL
+	 56njWFJrKskXg==
+Message-ID: <997cefa0-384c-466f-b318-077939946768@kernel.org>
+Date: Thu, 1 Oct 2026 08:57:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
+ <20261001-private-wooden-chachalaca-51aa57@quoll>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261001-private-wooden-chachalaca-51aa57@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add the SH7305 as an SH4AL-DSP CPU subtype.
+On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
+> On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
+>> Some boards drive the ILI7807S panel's backlight from an external
+>> WLED driver whose enable input is wired to a GPIO, typically modeled
+>> as a fixed regulator (e.g. vreg_wled).
+> 
+> You describe something else. What's fixed regulator should not matter
+> here. Which pin is it in ILI7807S?
+> 
+> It seems you just want to represent GPIO with a regulator. This is just
+> confusing and typical downstream workaround.
 
-Recognize the SH7305 in the SH-4 CPU probe using the existing
-0x300b PVR family with PRR value 0xc0, and expose the processor
-name through the SH CPU information interface.
+What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
+just sneak the same stuff 3 months after like the review never happened.
 
-Signed-off-by: cacioandpepe <artem122novak@gmail.com>
----
- arch/sh/Kconfig                 | 9 +++++++++
- arch/sh/include/asm/processor.h | 2 +-
- arch/sh/kernel/cpu/proc.c       | 3 ++-
- arch/sh/kernel/cpu/sh4/probe.c  | 3 +++
- 4 files changed, 15 insertions(+), 2 deletions(-)
+NAK
 
-diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
-index d60f1d5a94c0..e71b5476769e 100644
---- a/arch/sh/Kconfig
-+++ b/arch/sh/Kconfig
-@@ -467,6 +467,15 @@ config CPU_SUBTYPE_SHX3
- 
- # SH4AL-DSP Processor Support
- 
-+config CPU_SUBTYPE_SH7305
-+	bool "Support SH7305 processor"
-+	select CPU_SH4AL_DSP
-+	help
-+	  Select this option to build the kernel for systems based on the
-+	  Renesas SH7305 processor. The SH7305 belongs to the SH4AL-DSP
-+	  processor family and is used in embedded systems such as Casio
-+	  graphing calculators.
-+
- config CPU_SUBTYPE_SH7343
- 	bool "Support SH7343 processor"
- 	select CPU_SH4AL_DSP
-diff --git a/arch/sh/include/asm/processor.h b/arch/sh/include/asm/processor.h
-index 2a0b5713ab80..96321c46ce85 100644
---- a/arch/sh/include/asm/processor.h
-+++ b/arch/sh/include/asm/processor.h
-@@ -36,7 +36,7 @@ enum cpu_type {
- 	CPU_SH7723, CPU_SH7724, CPU_SH7757, CPU_SH7734, CPU_SHX3,
- 
- 	/* SH4AL-DSP types */
--	CPU_SH7343, CPU_SH7722, CPU_SH7366, CPU_SH7372,
-+	CPU_SH7343, CPU_SH7305, CPU_SH7722, CPU_SH7366, CPU_SH7372,
- 
- 	/* Unknown subtype */
- 	CPU_SH_NONE
-diff --git a/arch/sh/kernel/cpu/proc.c b/arch/sh/kernel/cpu/proc.c
-index 5f6d0e827bae..b6fbe27742e0 100644
---- a/arch/sh/kernel/cpu/proc.c
-+++ b/arch/sh/kernel/cpu/proc.c
-@@ -25,7 +25,8 @@ static const char *cpu_name[] = {
- 	[CPU_SH7786]	= "SH7786",	[CPU_SH7757]	= "SH7757",
- 	[CPU_SH7722]	= "SH7722",	[CPU_SHX3]	= "SH-X3",
- 	[CPU_MXG]	= "MX-G",	[CPU_SH7723]	= "SH7723",
--	[CPU_SH7366]	= "SH7366",	[CPU_SH7724]	= "SH7724",
-+	[CPU_SH7305]	= "SH7305",	[CPU_SH7366]	= "SH7366",
-+	[CPU_SH7724]	= "SH7724",
- 	[CPU_SH7372]	= "SH7372",	[CPU_SH7734]	= "SH7734",
- 	[CPU_J2]	= "J2",
- 	[CPU_SH_NONE]	= "Unknown"
-diff --git a/arch/sh/kernel/cpu/sh4/probe.c b/arch/sh/kernel/cpu/sh4/probe.c
-index ef4dd6295263..7f77fc64258c 100644
---- a/arch/sh/kernel/cpu/sh4/probe.c
-+++ b/arch/sh/kernel/cpu/sh4/probe.c
-@@ -143,6 +143,9 @@ void cpu_probe(void)
- 		break;
- 	case 0x300b:
- 		switch (prr) {
-+		case 0xc0:
-+			boot_cpu_data.type = CPU_SH7305;
-+			break;
- 		case 0x20:
- 			boot_cpu_data.type = CPU_SH7724;
- 			boot_cpu_data.flags |= CPU_HAS_L2_CACHE;
--- 
-2.55.0
-
+Best regards,
+Krzysztof
