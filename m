@@ -1,106 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646504921B3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D8D2BE034;
 	Thu,  1 Oct 2026 16:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873623; cv=none; b=jskIMdlTCpkTHVT9wsJXC0HokhGZgWSCjNcOcUsUPZ66Bx7zYKDoGO91X6/x2cfjtK1IGtNiA9Bqqu1QLr9Nc8MiYhW6sAkc56ZTS5o84BANKfNP1xIoZOXAMAZCMyuntazmfcbfteCsoN/F7Ic1Vv7l+DaRbba44df5GU2F6Og=
+	t=1790873625; cv=none; b=cgDHd98YI3+pUxCuTLe4ghl7nC4hNohclJw6aCNQ7rc05bMxivykbeUTeGxespssHTfBssLC5Ub9yYSq/V8AIa64f1ji/Tsh69DS5ftqMkx+v6SbQswfskg+3a88oz61axSu6OJx7JfyxBXEsrftd7iuhXJOB7bVRUHhaZ8CsCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873623; c=relaxed/simple;
-	bh=oe3Xy6jZWdxWuutdSaQfH2C+11mQ4msdZfgO5uK4TCU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Q1C/gD5eyNfTdMkc7quHAqvnZuTp+dBSn94Nxy5XUR7gZ321vlZOgS/zddMQYtV6lKasRUFYNOsHLf/eWNFGCQ/Oi9Wg91UwKLSKtUuBjYoTJRx6zgnwYK4CWPu/4in0EXlAkQhZI8dwf4oOh1YNgxD5Cm2lhBB/q4o/X9aJVdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDtGzUTZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790873625; c=relaxed/simple;
+	bh=zklG5ImMiUx6eH5QTW0tdajVG9On698+5Dex3rHDNU0=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=qD8IizMFthpNk3TfmxxA9yoKKnBAqTedAvXMtkEv6lhWDMi8rWC3WtvCV9Dol5Q2eUsiEmE4JiXmX3GHsstnotVdxd3JnSqmxxrJR9XNCMMZcgb9hoj4m/2MkvtrW8KcaPnZfSu/QBrfnKvfF70G0fP3WMSloMW3QepKdASij3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=bIVwCPuu; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TLeS1x+0; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDtGzUTZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C811F000FF;
-	Thu,  1 Oct 2026 16:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790873621;
-	bh=Q1BrRVRpxb+o78Gze7clFuiW7Y5XKDb66T5or0o279w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=PDtGzUTZQTeHKJd7oxqARknbqqKKXhWq662e0txGET5Fyj9RJNo9FG7ZPGClZM9Mq
-	 74zk/YWGgB/hMHYIf03E3Gc7E3N3lz2YNCTBQEGfQhu0fELla832WI9xg4HtzDUJp9
-	 6O8DooODbFYTOEDcOpdw+W27wLVccv/bWRWbG3w3BgP7qtLekbNfYDbXMOoemoaFT1
-	 K7xPOFOTDpQx++eNIrAz/4oeO/AwcGTNvw6oNPxkBrltNil5eMtbvhdvBJSQjBvzp5
-	 ORMfp5JronFGOifzZBTxUZBBgGvtmIQ5QgYrKa1e/oRFnKR8A8y5fiSDT+5QSeMxD0
-	 f+18X382Cp5/w==
-Date: Thu, 1 Oct 2026 18:52:38 +0200 (CEST)
-From: Imre Kaloz <kaloz@kernel.org>
-To: John Ogness <john.ogness@linutronix.de>
-cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org, 
-    Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
-    Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH] MIPS: SGI-IP27: print the NMI dump on an nbcon console
-In-Reply-To: <87ece98je8.fsf@jogness.linutronix.de>
-Message-ID: <55083820-478c-e6a6-b129-467140f161db@kernel.org>
-References: <20261001155013.1694-1-kaloz@kernel.org> <87ece98je8.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="bIVwCPuu";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TLeS1x+0"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790873577; bh=8F9+lpy3V1Yl1wcdKSphAEC
+	SLZz4osJu4uWhm9xA1GU=; b=bIVwCPuuR5boSqT4zIKAfC6BsNl7oH1RWhHSBOK51yxFYQHErm
+	9Ehah0eq1VmKR6s4aQvY7sEEj7dlnGTDPtRBtuJ/3K2QwAgk/th+4ZdmfCE6DVnvKs+vvRFLmoD
+	uFheuOsID8Vs25gZRqSVDX4UyTfLinUFmo8f5Y4k0sj5rnNRRCkXBTgXJgPs6pMgl2w0lvBjvhJ
+	nm6SYHRZp85w5Qf/SdpfUh2qnSunTXvFDDoLrkiGcuih6ICSZelp7rnDYembk0BUOfMz5UUesR3
+	1Ra52dxyoOuFEWQKJiQ+sG6IwWp3cjBGI52Tw8WrS6KBS/pdNCc4Ac+d0aPv/x31pVw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790873577; bh=8F9+lpy3V1Yl1wcdKSphAEC
+	SLZz4osJu4uWhm9xA1GU=; b=TLeS1x+07OKyp7Y41Bv59QHa1ZC5LyUP86OqeRf+MfKBRO8GoF
+	OpHXVuruAiHXRPQtJFqYym+Rej01xqkI2xBA==;
+Date: Thu, 01 Oct 2026 17:52:58 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: shradhagupta@linux.microsoft.com
+CC: akpm@linux-foundation.org, arnd@arndb.de, baoquan.he@linux.dev, bp@alien8.de,
+ catalin.marinas@arm.com, dave.hansen@linux.intel.com, decui@microsoft.com,
+ haiyangz@microsoft.com, kexec@lists.infradead.org, kys@microsoft.com,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ longli@microsoft.com, mhklinux@outlook.com, mingo@redhat.com,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, rppt@kernel.org,
+ tglx@kernel.org, wei.liu@kernel.org, will@kernel.org, x86@kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_0/2=5D_hyperv=3A_Run_VMBus?=
+ =?US-ASCII?Q?_kexec_cleanup_from_syscore_shutdown?=
+In-Reply-To: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
+Message-ID: <C8205996-C913-487A-BB8A-E3DD018AF747@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset=US-ASCII
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi John,
-
-On Thu, 1 Oct 2026, John Ogness wrote:
-
-> On 2026-10-01, Imre Kaloz <kaloz@kernel.org> wrote:
->> Since the 8250 console became nbcon, printk() in nmi_dump() only queues
->> records for the printer thread, which never runs because no CPU leaves
->> the NMI handler before the hub reset. Print the dump from an emergency
->> section.
+On 1 October 2026 14:21:25 BST, Shradha Gupta
+<shradhagupta@linux.microsoft.com> wrote:
+>Kexec reboot fails on ARM64 Hyper-V guests because the VMBus
+>connection and SynIC CPU hotplug state are not torn down before the
+>secondary CPUs are stopped. The kexec kernel consequently starts with
+>the previous kernel's VMBus state still active.
 >
-> Please excuse my ignorance, but could you inform me about the context?
-> When is nmi_dump() called? Does the hardware always reset/reboot/hang
-> from this call?
-
-nmi_dump() has no caller in Linux. install_cpu_nmi_handler() stores
-its address in the per-CPU NMI vector the PROM keeps in low memory,
-and the PROM jumps to it when the system controller asserts NMI on
-the CPUs: the "nmi" command at the L1 (or the MMSC on an Origin
-2000), typically used to get a dump out of a hung machine.
-
-Every CPU that takes the NMI enters nmi_dump(). The first one to get
-nmi_lock waits until all online CPUs have arrived, prints the saved
-state of every CPU and ends with the NI_PORT_RESET write. The others
-spin on nmi_lock, which is never released. No CPU goes back to the
-interrupted context, so the printer kthread never runs, which is why
-the dump never reaches the 8250 console today.
-
-On the IP35 machines I tested the reset write takes effect and the PROM 
-restarts right after the dump.
-
-<snip>
-
->> @@ -183,6 +184,12 @@ static void nmi_dump(void)
->>  	 */
->>  	arch_spin_lock(&nmi_lock);
->>
->> +	/*
->> +	 * No CPU leaves the NMI handler before the hub reset below, so an
->> +	 * nbcon console's printer thread would never print the dump.
->> +	 */
->> +	nbcon_cpu_emergency_enter();
->> +
->>  #ifdef REAL_NMI_SIGNAL
->>  	/*
->>  	 * Wait up to 15 seconds for the other cpus to respond to the NMI.
+>The previous version added an ARM64-specific syscore shutdown
+>implementation. This version follows Michael Kelley's review and moves
+>the cleanup into the existing architecture-independent VMBus syscore
+>operations. This removes the separate x86 handler dispatch and gives
+>x86 and ARM64 the same ordering:
 >
-> The CPU enters an emergency state, but shouldn't it exit the emergency
-> state at some point? Or does the machine always unstoppably
-> reset/reboot/hang after this point?
+>  device_shutdown()
+>  syscore_shutdown()
+>    VMBus UNLOAD and SynIC CPU hotplug teardown
+>  machine_shutdown()
+>
+>On x86, VMBus teardown now runs before hv_stimer_global_cleanup().
+>This ordering is safe after commit be0cfab740e5 ("clocksource: hyper-v:
+>Remove support for stimer interrupts in message mode") removed the
+>VMBus dependency from synthetic timer handling.
+>
+>Patch 1 adds a read-only helper that reports whether a kexec reboot is
+>in progress. The helper is exported because HYPERV_VMBUS is tristate
+>and the common syscore callback must also link when VMBus is a module.
+>Patch 2 moves the cleanup into the common callback and removes the
+>obsolete architecture-specific setup/remove interface.
+>
+>For stable kernels that still support message-mode stimers, an
+>ARM64-specific backport will be needed to preserve the existing x86
+>ordering.
+>
+>Changes in v3:
+>  - Use the existing common VMBus syscore operations on all
+>    architectures, as suggested by Michael.
+>  - Remove the x86 handler pointer and the weak setup/remove interface.
+>  - Add an exported read-only helper for modular VMBus builds.
+>  - Correct the Fixes tag to the commit that enabled Hyper-V on ARM64.
+>
+>Changes in v2:
+>  - Use syscore shutdown instead of an ARM64 machine_shutdown() hook, as
+>    suggested by Catalin.
+>
+>Shradha Gupta (2):
+>  kexec: Add helper to report an active kexec reboot
+>  Drivers: hv: Run VMBus kexec cleanup from syscore shutdown
+>
+> arch/x86/kernel/cpu/mshyperv.c | 17 +----------------
+> drivers/hv/hv_common.c         | 10 ----------
+> drivers/hv/vmbus_drv.c         | 22 ++++++++++++++--------
+> include/asm-generic/mshyperv.h |  2 --
+> include/linux/kexec.h          |  2 ++
+> kernel/kexec_core.c            |  7 +++++++
+> 6 files changed, 24 insertions(+), 36 deletions(-)
+>
+>
+>base-commit: be0cfab740e58b70047ef6e7e3d578f00ed5d258
+>
 
-If the reset write did not take effect, nmi_dump() would return to
-the PROM.
+Wow! Great!!!
 
+Whole series:
 
-Best,
-Imre
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
