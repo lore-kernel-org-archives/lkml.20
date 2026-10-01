@@ -1,67 +1,88 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D494A43E8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90F64CDDEC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847343; cv=none; b=VpWLf2XaOGQ5igO89X545O9ujUfGXCNkc990+jusTQV4SWzUDdSqilcuTaMXb5nzNSvCvJcilpRy9xufLcT0LplJnzAXJp9JVeRp2R8vWBnCJmJ9CNZgPR1qVhMbMTrQ5zIw4xxnJz2G9+MkEeSRmr+6TBZvXwK5+UsCn6Q/JPs=
+	t=1790847343; cv=none; b=QI3FvrGYrjkMBJB3B5zlHnbLKgof/yvaoDty51wWcEkbKC2x+3uTXvK4SpRsYEl6wRldlxpHlGgR8YV6dnusIyFfGrjUNXcCn9w9RYmR+IBxn9pgG+IjqC3T+3T5kvdHzOWD6hL9zYnLTi/Pfebp75tAJ0h2LLfGJBqai4VT234=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790847343; c=relaxed/simple;
-	bh=TAy7SXvodxwIVUeYRCkkRqmpU/1T4vMLfRFjM5CPyIQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cj7PdN/Nb73dqaZWWXkzSiyqunfkPXFv3r0rCjufZFC7+nrGixn3WsTaXJaPg4DX+2bA7eQLGfxuB8kiJfWcTHMxojNOzqPZRCNKqbA1glC/J7MlbMEdxowLQ4cddP7JxDRGSZ9bGAZ1VXE01lVX6vmqzyhA3Hsj2JpZJ4KUmLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kqm180Pb; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=VtJGURlRK9z9gkHpVI4Eua1WcO2BwPzXmAdNyqUinCk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qfZ+nI6yZaQzYF/obfS6pIZeNG8YAxcJiHUyp4gK+NcfoCvCIUa/w8m6jwTsgOfAbqPZzVPl8C11pjHaJscLkpxavRPlm0vHFp8Fys2Zlh5gYZoA3+ZUA6O/w3Vi07g1ESqI1nn7JLRUrSdclwd2FyM11Y3HUqziJ8UXxkrd7TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gl8qhSu8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=POLa0/Xd; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kqm180Pb"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664c2da6so5393172eec.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gl8qhSu8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="POLa0/Xd"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xkTA396181
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 09:35:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jNW5ncIRCv0ucBtC9pMRgOL2NfkSvdDCeec+0onL5xM=; b=gl8qhSu8MeS/Hk8S
+	jsnfJe1qZk49Vf0PY6lIYehhWNU08gwQlD/aUf95+C7W4OOQJRPxCAQs0AvmpsRl
+	9vUbimYTvg6Kw0HTzMr0sPAydctyV1GGg3wu8VHiq0NokB0A4l3y9OhPwxHtjWid
+	qwt7VC1B0EiCJnuAXf+0RKgFb2/5pUNpt+rDKxJfT8t4TuEBM26lt2OBUQ5DNIET
+	vZNGRKDCZMHBgshm8bZUbp+7pwpxv4ApN0c4uoNlRGSjU+0yJ8hNlJ+HPCySv6kh
+	sHWGATgqPK+iGKf5rgKvAm6LmMSdadwWK23Cs/Ztsmm17BME/XmQyptZ26XRGgbv
+	qMDIQQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1bh5a4m0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:35:40 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso9873958a12.3
         for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:35:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790847340; x=1791452140; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LGX/SBLSJlBXSD7ryPBEbi/Uhkcr21PESamwaTOcG4E=;
-        b=kqm180PbmrGS4GnfTdq6usSOjR//PeE7YQJz6u2KzbV2pOZ4X9DeuvPrjj5Q5RvOWy
-         PXbVEgyc67GpgWX2pe0HpwtJL5NLEk5Y/oDM5gd/RlEv2tokNMwDtkj9OAumN+AE1DZW
-         Jvs8tAmJTK+yCKq9fBS2J9DN5n1Nlxxpa61yTBFTXvWx3qjCeYVVdqh4fv2K/aZGQjXt
-         +2TL33XrUX9LcQ9H09aISEyrIhYc4q4ZjCSu4ISGxziQmCbn5OcR//WCjDTknghrHbOB
-         FoiEZDYTK9fj231f1cIyA6v9+no7V7R3J1517FuYm6TlNUzAWiRBoq2FJyy5cXtkJgDC
-         agQw==
+        d=oss.qualcomm.com; s=google; t=1790847340; x=1791452140; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jNW5ncIRCv0ucBtC9pMRgOL2NfkSvdDCeec+0onL5xM=;
+        b=POLa0/XdhuvgN8HZBzn+xn/jpo3n7weJ4zSjw+nDCZdvFwWzFDpd5IoEuj8UpHObwp
+         9AWhyDPOgTaxp3rsSbSz3hQdQ49xuLBQ4B/MtUHNz+lOaSFmlEza+z0tl8WBu7/w8M1t
+         SsOxW7g7dsh0a7FsfMb0V6238Ff+PhU1QgkfTmzTAugghrl/cJ7x98Hpgbuda81JodKf
+         xw3VJGbUoUHTNjdB/oIIfrtd8rmFkX3CstvtU2hFVGVuEyAjxWQfJ6Oi6wzN61lugIzB
+         EeRPaLcwZovNDy6sODkeT+RKxT8IxXXl/h13fgGfFJRiZcvxIdz5r4yi+sbiIZbfPZev
+         jzYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790847340; x=1791452140;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LGX/SBLSJlBXSD7ryPBEbi/Uhkcr21PESamwaTOcG4E=;
-        b=qqixL2tTXG1dAvKp0uSbbQl0qbG1QPPJrrb5XlRktJX3BCVySN42Epa7g86h7mcD9M
-         oNL+M1vXHbhyroOq7hC1L6wqYgboG72BEqfWw65PulISSWYomJ+DDSssqHpxfNbPd+33
-         FOFA3dMWkuLaXpyJ85L2VEsUhqJ7VPGXQYzzN2eawZNOwRyb0k+OX7yV9U3ui+/l2vdh
-         wsRIroc9Hs5iy7cckPzoOvHFy4sXki+OTj6OmsORY9q8pPcDFvSkRJXraf+zaijtpEmc
-         cP2+lT+YObO3zDA9jiBt64/PaztOqA19EiA0rJaDnKCAygqtTwRI698LFJrgjO9QZle7
-         jgBA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwEjorQxK2LAAHL9XNd025xhGcCDlPDYN1aq5Mfa93KO9ULg96yYC/E9Lxi2zIX1YHp2276i+SDhD4JdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVP0nfTmzvq7vmR2vJUenUUP65w7pzT849xKe8APk/f7l9MFeS
-	5tECyFFCZMDubMSNRtRz4+eRVKm+K5Gb9zQhvhHz+Vz/TgbCJhULpLdG
-X-Gm-Gg: AYBFou0oCiqU4vu2pYNRWQ6+I0ZPhRdwT4OHrn56Ib5hea3kg8F5nKq5MCc6WwAxP+P
-	L0S2ZsVl4eGKfHOQonFhj4Va3uNbh08K2mkOW0gYtSgI5GmNac6bb39CQg2xgSuKXjqKhmpjgaY
-	RhP+noHw9s//lK4rL76IJqnK2iI+EGEYKhuUVbK0wOfsH0ek13qWSukWhYQg0NT2WiPH91N8Jve
-	OB8f/Yrfn3e+zbu4lSmkvc1LfK36va2hgCyuHdX6Lez+VQzeRH/uFyUaDbEE98vBTVwtg90sTfa
-	uEqnxh8LrMO60j4od9CfrEKusLPkpxNVTQfZYLHLphJ/lUKjFCZh9inOSi/VX9+iZmBYaG75tgG
-	jWmoCtdSrrbgebojwDXbFi0dsYmNMZlXivQDnfZW4CFZWkbRmzBg17KiowJHOJHcYlpTH84xhFg
-	/Dcc09ImbtMuz9694+j5kI3SJk8ljVZHPk+Bj0Iy1BgqW1RcKYidXfL9G831xwDn4jRw==
-X-Received: by 2002:a05:7301:1928:b0:33b:9540:89c6 with SMTP id 5a478bee46e88-34cdb5f9107mr4257043eec.6.1790847339814;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jNW5ncIRCv0ucBtC9pMRgOL2NfkSvdDCeec+0onL5xM=;
+        b=oW2DCEchnA9fjiAHA9G216FaEAwABr/ojXsbLbIHemi4KRuYUAFoDBASoIXhHkqXAa
+         Tc36YzqLc4omI3aOGwGLssZCdVzKEnS/nzBMpNThSySp6qhowwEjmo93hyEdZEnkEgi3
+         ofM2Luu7YYC6hU4KPfl6UzAddDU17PNJh8lBlT7QSxz/61hA2OfmTzGa/Nr1wbyIr5nS
+         1+iQYKxDD1ML3C7j6yAajYltVHsjPTDv/t3MboUeFOn2N4eHgWBl+6/QrQUup+IgLnzZ
+         foaDm/lEQhF/IFD12QIw6KzbkCWfZX9ka44Js0mpRZYrCKepp5hCeMM9TrIH0DiN3tQn
+         mXJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBBdXZjqO4DGxyU35yQdzTj1QSCn+DDXEon34wAf4gkaBPTiPmHI0Bnaze7yYqui27vipbXk9skXmWK7c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTkxmiYLFGR3YdJEoCmpOpbCMAeVRbs7zHRVUDQuVtpskNUOct
+	Wv/9TUrBD3dM4oHNdRvTdPSnh/67wPpOtg86WZh1AsMqHmyA52l4R/rBJGfT04xDoXhabZ4NgzL
+	GfGBCrlskCXX1zqQwvGKnEJMPyE2ZM6vC0pzTDSMXzaVjl+wzrN3EI/0AXpDOwqC8JwQ=
+X-Gm-Gg: AYBFou380tXSolFmkEdY5uERilFN0DQ7Fg2NGZbZZGd8fGUmfxY627hlZh1dWsXIOwx
+	oI7G+e1BDDcwRrzQYIdOril3mM+EM1384dK3+VMTfG8PC8ac+4q6R/7yX3f5J7WxcD+kELpRDai
+	FCcLcMcw43Gp/MtoSg9qQy0eqq2joplYvF/kw5jHnvED3HbKs8DO8WkLIXL+/VMl2RkL11lqP+E
+	VOplTl/MZieGigPs8PcPE26iQLjmWbk0FUKO11yVmwCQoDaPIuqaAhrO46dthFGYc4nIovdu4iD
+	VwQCs+80NkINU+iJ2T2jgnqw/GMoIvgD7n8/TtOAI6dsyVFZPMSzWPOi/nOnX2OqkEcERu9xvy+
+	Wq/qwIOnmlZtJbj1pBFSeDQxxuJk=
+X-Received: by 2002:a05:6a21:9191:b0:3da:bea4:622c with SMTP id adf61e73a8af0-3de9e7392a3mr4375983637.19.1790847340085;
+        Thu, 01 Oct 2026 02:35:40 -0700 (PDT)
+X-Received: by 2002:a05:6a21:9191:b0:3da:bea4:622c with SMTP id adf61e73a8af0-3de9e7392a3mr4375958637.19.1790847339625;
         Thu, 01 Oct 2026 02:35:39 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db37507a7sm6003982eec.13.2026.10.01.02.35.34
+Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e54bf4c4sm1152944a12.29.2026.10.01.02.35.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 01 Oct 2026 02:35:39 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Subject: [PATCH bpf-next 0/4] bpf: Apply the rewrites of
- bpf_do_misc_fixups() at once
-Date: Thu, 01 Oct 2026 17:35:31 +0800
-Message-Id: <20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com>
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Date: Thu, 01 Oct 2026 15:04:26 +0530
+Subject: [PATCH v5 09/11] phy: qualcomm: qmp-combo: Add per-link-rate
+ auxless/LFPS and drive level for Glymur
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,90 +91,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGMpvmoC/x3MQQqAIBCF4avErBsYTSq6SrSwGms2JhoRRHfP3
- Dz4F997IHEUTjBUD0S+JMnhc6i6gmW3fmOUNTdo0q0iUjgHh1c2TjhisOey41xWG6OpJ+6bboX
- MQ2Qnd7ke4Vee7xOm9/0AhMWZrXQAAAA=
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Message-Id: <20261001-glymur-phy-v3-v5-9-3848c2615d5a@oss.qualcomm.com>
+References: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
+In-Reply-To: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Bjorn Andersson <quic_bjorande@quicinc.com>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790847286; l=4241;
+ i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
+ bh=pUj6b4ENPUA4XLnFIcN8qudRlZzVAcU4OP5AWqGsODk=;
+ b=3LzkAg4XuvVrQ5zzNbfsTiboanmO4HVstA2MStGD3ahJpx3Q2FhJ9IDOS1CXWh04IWCptv6Wf
+ vSOskQupflBDml+MzMeDFYebGG5XnRI4fdDswP6ctNlmcX67ucxUQ6+
+X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
+ pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfX0dXHHMY4zmfs
+ lwQ4rOR4sM4Jqo3mZ3qDnvD1Q96ysxUR6JLE4duuPEWE7/66+k++iUrWPOYcH6OujTojUqc/2mM
+ D3NsbFfavmtBa92YRGfQVC1qon6xUl2krePsfkrEinAnGmkAgJmT7EmWB944pCwzLzdjh3WYqSp
+ 8UM9wYF7dCP9v5BCb+UOHYrl73Zquj02M3cPnpqoaGwaxCm6mScu0QnoKv3ooH2q/C22ZWEBEMS
+ 2xrL5alxBWong8SUxHDeiuupcO26U7+d2wBArBRl2b4UbqcKUmK+t5YYjs0SR1xT8CiaxIVJxRL
+ SKoZdsNd1Oje2dY3ZzjyKmnpGOtcp5ojkN2kvl8aAgnz6xk+A+NBDxN5ihLgE46NofC3IzJ2BFa
+ KqNcugG6pk/Nrx9/NC7/FBZjFQm/ofRuInlm1YBCo1lH1AoZlfuMG7eaEeifKVjB3aMYPWEIq1U
+ KzsUugr85ZSoehjeOrA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfX7d2t8/HHALHt
+ 5WmXbnVOGMYOqI1ZmGWCyAOrrxDCaFyNMl9ZddOSQL7qTMK+VW94dWtzXcFKh++Mvsw7Yv+hQJc
+ WQ8eG37JNyWekP80r8Fy49cWPrVbxHU=
+X-Proofpoint-ORIG-GUID: RkHRcyPJg1AeZmUsednJ-ffsZEb8QFb5
+X-Proofpoint-GUID: RkHRcyPJg1AeZmUsednJ-ffsZEb8QFb5
+X-Authority-Analysis: v=2.4 cv=NrJE4MdJ c=1 sm=1 tr=0 ts=6abe296c cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=tE633ojKFf1lYKHj1RUA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010038
 
-Eduard pointed out that bpf_patch_insn_data() takes a large share of the
-time to load pyperf180 [1]. Every patch moves the tail of the
-instruction and aux data arrays and walks the whole program to fix up
-branches, so a pass that patches M instructions of an N instruction
-program does O(N * M) work. Kumar's commit 261b61d3735b ("bpf: Make
-post-verification instruction rewrites killable") made that work
-preemptible, but its cost is still quadratic.
+From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-On current bpf-next nearly all of it comes from one place in pyperf:
-bpf_do_misc_fixups() inlines each bpf_map_lookup_elem() on a hash map
-into 3 instructions, 930 times in a ~24k instruction program for
-pyperf180 and 1530 times in ~42k instructions for pyperf600.
+Add per-link-rate auxless setup/silence cycle and LFPS period values
+instead of using fixed constants:
+  RBR (1.62 Gbps): setup=0x03, silence=0x06, lfps_period=0x00
+  HBR (2.70 Gbps): setup=0x04, silence=0x08, lfps_period=0x11
+  HBR2 (5.40 Gbps): setup=0x09, silence=0x11, lfps_period=0x33
+  HBR3 (8.10 Gbps): setup=0x0f, silence=0x1a, lfps_period=0x55
 
-Patch 1 adds a list of patches that a pass queues and then applies in
-one O(N + inserted instructions) step. It keeps the semantics of
-bpf_patch_insn_data(): a patched instruction is named by the first
-instruction of its patch, and jumps from a patch out of it are relative
-to the patch in place. Branches, aux data, subprog starts, line info,
-instruction arrays, function pointers and poke descriptors are
-remapped together. Patch 2 moves the main loop of bpf_do_misc_fixups()
-to it, patch 3 drops the delta that is now always 0, and patch 4 adds
-xlated tests for jumps around patches.
+Add per-lane drive level lookup from the ln_drv_lvl tables based on
+the maximum voltage swing and pre-emphasis levels across all active
+lanes, replacing the hardcoded 0x1f value.
 
-The other passes still use bpf_patch_insn_data() and can move over to
-the list one at a time in follow-up series.
+without this change following error can occur:
+- Link training failures or instability at higher rates (HBR2/HBR3)
+- Incorrect LFPS signaling timing, potentially breaking USB3+DP
+combo mode entry/exit
 
-perf stat -B --all-kernel -r30 -- veristat -q <obj>, mean of two rounds,
-x86_64 VM with 32 vCPUs:
-
-                      base      patched
-  pyperf180          0.575 s    0.458 s   -20.4%
-  pyperf600          1.491 s    1.041 s   -30.2%
-  strobemeta         0.531 s    0.532 s
-  test_verif_scale2  0.561 s    0.562 s
-
-For the 1042 objects of the selftests, the 2863 programs that load have
-the same xlated code on both kernels, with the immediates that hold
-kernel addresses or BTF ids masked. test_verifier passes on both. Of
-test_progs, only missed/tp_recursion failed once on the patched kernel
-in a parallel run, it passes when run alone.
-
-On a side note, the largest part of the time to load pyperf180 is the
-arg tracking analysis: analyze_subprog() takes about half of it on base,
-__arg_track_join() alone about 30%.
-
-[1] https://lore.kernel.org/bpf/a714ee96d0ad96bbc9d51037616e5c4e2790a8ec.camel@gmail.com/
-
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Fixes: d10736db98d25 ("phy: qualcomm: qmp-combo: Add DP offsets and settings for Glymur platforms")
+Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 ---
-Qiliang Yuan (4):
-      bpf: Add a list of deferred instruction patches
-      bpf: Queue the rewrites of bpf_do_misc_fixups() and apply them at once
-      bpf: Drop the constant delta from bpf_do_misc_fixups()
-      selftests/bpf: Test jumps around patches of bpf_do_misc_fixups()
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 39 +++++++++++++++++++++++++------
+ 1 file changed, 32 insertions(+), 7 deletions(-)
 
- include/linux/bpf.h                                |   1 +
- include/linux/bpf_verifier.h                       |  26 +
- kernel/bpf/bpf_insn_array.c                        |  18 +
- kernel/bpf/fixups.c                                | 545 ++++++++++++++-------
- kernel/bpf/verifier.c                              |   1 +
- tools/testing/selftests/bpf/prog_tests/verifier.c  |   2 +
- .../selftests/bpf/progs/verifier_patch_list.c      | 120 +++++
- 7 files changed, 546 insertions(+), 167 deletions(-)
----
-base-commit: 6a75c73eebd4d497ded7d08b47894f9ddbebb5a9
-change-id: 20261001-bpf-verifier-patch-batch-2442080e837d
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index 6f5d32afae67..fcbd7b974be0 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -3897,21 +3897,47 @@ static void qmp_v4_configure_dp_tx(struct qmp_combo *qmp)
+ static int qmp_v8_configure_dp_clocks(struct qmp_combo *qmp)
+ {
+ 	const struct phy_configure_opts_dp *dp_opts = &qmp->dp_opts;
+-	unsigned long pixel_freq;
+ 	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	unsigned long pixel_freq;
++	u32 auxless_setup, auxless_silence, lfps_period;
++	unsigned int v_level = 0, p_level = 0;
++	u8 ln_drv_lvl;
++	int i;
++
++	for (i = 0; i < dp_opts->lanes; i++) {
++		v_level = max(v_level, dp_opts->voltage[i]);
++		p_level = max(p_level, dp_opts->pre[i]);
++	}
++
++	if (dp_opts->link_rate <= 2700)
++		ln_drv_lvl = (*cfg->ln_drv_lvl_hbr_rbr)[v_level][p_level];
++	else
++		ln_drv_lvl = (*cfg->ln_drv_lvl_hbr3_hbr2)[v_level][p_level];
+ 
+ 	switch (dp_opts->link_rate) {
+ 	case 1620:
+ 		pixel_freq = 1620000000UL / 2;
++		auxless_setup = 0x03;
++		auxless_silence = 0x06;
++		lfps_period = 0x00;
+ 		break;
+ 	case 2700:
+ 		pixel_freq = 2700000000UL / 2;
++		auxless_setup = 0x04;
++		auxless_silence = 0x08;
++		lfps_period = 0x11;
+ 		break;
+ 	case 5400:
+ 		pixel_freq = 5400000000UL / 4;
++		auxless_setup = 0x09;
++		auxless_silence = 0x11;
++		lfps_period = 0x33;
+ 		break;
+ 	case 8100:
+ 		pixel_freq = 8100000000UL / 6;
++		auxless_setup = 0x0f;
++		auxless_silence = 0x1a;
++		lfps_period = 0x55;
+ 		break;
+ 	default:
+ 		/* Other link rates aren't supported */
+@@ -3921,18 +3947,17 @@ static int qmp_v8_configure_dp_clocks(struct qmp_combo *qmp)
+ 	/* disable core reset tsync */
+ 	writel(0x09, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+ 
+-	writel(0x04, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_AUXLESS_SETUP_CYC);
+-	writel(0x08, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_AUXLESS_SILENCE_CYC);
++	writel(auxless_setup, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_AUXLESS_SETUP_CYC);
++	writel(auxless_silence, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_AUXLESS_SILENCE_CYC);
+ 	writel(0x08, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LFPS_CYC);
+-	writel(0x11, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LFPS_PERIOD);
++	writel(lfps_period, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LFPS_PERIOD);
+ 
+ 	writel(0x3e, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_TSYNC_OVRD);
+ 	writel(0x05, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_TX2_TX3_LANE_CTL);
+ 	writel(0x05, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_TX0_TX1_LANE_CTL);
+ 	writel(0x01, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_AUXLESS_CFG1);
+-	writel(0x11, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LFPS_PERIOD);
+-	writel(0x1f, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LN0_DRV_LVL);
+-	writel(0x1f, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LN1_DRV_LVL);
++	writel(ln_drv_lvl, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LN0_DRV_LVL);
++	writel(ln_drv_lvl, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_LN1_DRV_LVL);
+ 
+ 	clk_set_rate(qmp->dp_link_hw.clk, dp_opts->link_rate * 100000);
+ 	clk_set_rate(qmp->dp_pixel_hw.clk, pixel_freq);
 
-Best regards,
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+2.34.1
 
