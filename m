@@ -1,85 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B76047D951;
-	Thu,  1 Oct 2026 21:05:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6D647D951
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790888715; cv=none; b=XQhYDvsLw5zaTEPO66aUZVPMDTVpNHhKiWvnFhWzKs9PgIaSddmtFnl3r0glHL7thLoANX5kN6bXbymQyFDb88sR25tfxYMtlYpFae822Yv3w4pi6lZpL3X/FGTX0GTnDe9Nc+Y/zDk3H5QFp5hJYtbrFmMUmY3Q5FYC8xDlgbA=
+	t=1790888767; cv=none; b=dyQwjxlT+wwogbZWbYjxnZGQMQWfVuyKk86/Akllcf49QmrlBmlkYg7NDVV6iRa/uAR6IiNjtx/rSoh4qPxQKxIrU6sViI4CxJNaaFbHi1Bo7e5zOM8x8DWDjRhD1mhbrj/erS0VT5JLXpLxC4nfx4ApPBrFuqYZODbkMzbpHxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790888715; c=relaxed/simple;
-	bh=Nz0LSI3aZYawMQnKQbqCra0lDUN5qofWzsmAg68O8io=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gZQwROXy+Ubjh5d0qt0lXtwuGcRDO3eN+L60Wlzepcpaew12b3WmLybEhKdZuHtLNL35f3ZO3QS/ZSZjh42abWHMAXk1gg+Bk0PWiHAeK04OfCTbFNLGRm+6m0taxaxmPBztvkOazRehNvlM53gr+XsuGOuWLvw9eHmoL6Siz5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjgu9TMb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjgu9TMb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB3A1F000FF;
-	Thu,  1 Oct 2026 21:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790888714;
-	bh=MaEMQ5X2bx5FhW9iOXMM3Gs1pceUqUDrW0W/Yi+E1tk=;
-	h=From:To:Cc:Subject:Date;
-	b=mjgu9TMbC00b5ykkzAq9efosTt5Zeec4nGpNGxqj5k6mXxAHZuEOMmlBfZshTTdE0
-	 VUDOeTiCgspL1FcOekGab8a0+mb3GjxDsP2Ye8AIOfs5NJoiDR8KqZA427fA0gCQkk
-	 aZQHr/uBsZ7uqFwWvOZAm5vuF2zmxC9rH3ZPhGyPc4Jz9aqURp4/Z2Tew5GG2wQvW1
-	 uszgajNmWMXgqanOXWwlYAhFO+KT0WSQ9GUGh/0vmUeeipVTaOGNIDkieHyOHRxmO7
-	 lyBfWCdmCIwAcZlFNpXP2Cf1CbaF44Z5yqVMNrjNMwQxAjlthzdKy/EDYC2Ak72vk5
-	 NSvmih+dN5c0A==
-From: Thorsten Blum <blum@kernel.org>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Can Peng <pengcan@kylinos.cn>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: stm32 - use swap() in stm32_rng_probe()
-Date: Thu,  1 Oct 2026 23:04:48 +0200
-Message-ID: <20261001210450.37467-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790888767; c=relaxed/simple;
+	bh=gEqEy1IvBNvHq9K1+2pk2n7dpBrS21pwJwFJkJPERUA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=jhoAQlzv1l1Jxv7R6+Eri4Xb8eHQDWjn8lY7srNxBMwYHFnvkW2eXXZdP0ZObwryFO4F/JvtVm3vZ1d50DY4mtR2Wv8EDg2JQy8Er8iQYKUGdN/GvwSnrtOkezAQoQhqthzLvs25lrQtOYaxPiQsAegMEhDjVqy0MikEgeHt77Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4e778acdbc6so8959879b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:06:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790888765; x=1791493565;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6GchM8Ae/BRSmkFVQE7ui2cHkvGg90ANeE0g6FbMWh8=;
+        b=ZYT2XJ5eeS1IKGUcvE31GleiXcVMgezHPDDfI2d3Sn0ibYmbti1SoaqKOHSav4RKm3
+         eIYFqnVNFW3lznv2/zoE21v3BifPXi4FBxP063CjLrOaPxwLMkeoeUbQNMBiIljo9sf1
+         XnIPG+WRfAcp1rdgjVcTF7EeJN27AZmEfPrqC0WFHIcSEHPjIoy/gPnSofsyF2DjkAH0
+         TPA0SToJqxby3IsTT2Rrcg0rZOUpEtBDV0hUUWjXLn1Z5WjHZcFS4AcYbxFbja75kJTF
+         7kxpZAlDB18Qwc4DjNQ/6SgWwe1kMcbW/u4VjCSP3WvwnGAVkb8JW6xW2pbi6S94Nf2o
+         FlEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCczMFM3JZijM7Ox2LusBlJ9YnTNBhbo836GuqcTXmohem0D/Z6IGVv5+ulOELaJ/ThDIFfUsAwAc05UU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmnxyvKtdRwvnolpiRZIKDl6J+9z/oP05Q7EFNFCCZgRHT4AJg
+	IazfuDr954hHp2kmPGgNbOmzJHb5yTkVmpWRjREDiPTIpfSIclmS+wVdSNTShRpTbB88xqtTvMA
+	OWRL03qDYXY5HNNJfMIc4CGD8Pt9VQLzKhijESftEZMxnBEKse9D61TTjjZA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1197; i=blum@kernel.org; h=from:subject; bh=Nz0LSI3aZYawMQnKQbqCra0lDUN5qofWzsmAg68O8io=; b=kA0DAAoWXqtxINjMdS4ByyZiAGq+yvKireINrPyi0y0O4zRoXZkaH6bDL64tXpx61Rlyk51U5 oh1BAAWCgAdFiEE4Jr4mE11fHmyNFi5XqtxINjMdS4FAmq+yvIACgkQXqtxINjMdS4AOwEA0uqR pwNEUqQcXK7n595liNdI+iJmFG5r9X9nX142apMA/0SKwEZZqEmSEn9+VduY/fA6+u8SXdxR1FQ RPibC7doD
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:f88:b0:4dd:18c7:544d with SMTP id
+ 5614622812f47-4f52a156d64mr412055b6e.31.1790888765295; Thu, 01 Oct 2026
+ 14:06:05 -0700 (PDT)
+Date: Thu, 01 Oct 2026 14:06:05 -0700
+In-Reply-To: <20261001203431.1291004-1-adrianox@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abecb3d.eb639fcc.2b981.0004.GAE@google.com>
+Subject: Re: [syzbot] [ext4?] KASAN: slab-use-after-free Write in do_split
+From: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>
+To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Use swap() to simplify stm32_rng_probe().
+Hello,
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/char/hw_random/stm32-rng.c | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-index d3fc910f674a..b13361dcad12 100644
---- a/drivers/char/hw_random/stm32-rng.c
-+++ b/drivers/char/hw_random/stm32-rng.c
-@@ -569,18 +569,11 @@ static int stm32_rng_probe(struct platform_device *ofdev)
- 		return dev_err_probe(dev, -EINVAL, "Failed to get clocks: %d\n", ret);
- 
- 	if (priv->data->nb_clock == 2) {
--		const char *id = priv->clk_bulk[1].id;
--		struct clk *clk = priv->clk_bulk[1].clk;
--
- 		if (!priv->clk_bulk[0].id || !priv->clk_bulk[1].id)
- 			return dev_err_probe(dev, -EINVAL, "Missing clock name\n");
- 
--		if (strcmp(priv->clk_bulk[0].id, "core")) {
--			priv->clk_bulk[1].id = priv->clk_bulk[0].id;
--			priv->clk_bulk[1].clk = priv->clk_bulk[0].clk;
--			priv->clk_bulk[0].id = id;
--			priv->clk_bulk[0].clk = clk;
--		}
-+		if (strcmp(priv->clk_bulk[0].id, "core"))
-+			swap(priv->clk_bulk[0], priv->clk_bulk[1]);
- 	}
- 
- 	pm_runtime_set_autosuspend_delay(dev, 100);
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Tested-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         d24e8ac7 Merge tag 'net-7.3-rc6' of git://git.kernel.o..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=165673f5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
+dashboard link: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=113953f5580000
+
+Note: testing is done by a robot and is best-effort only.
