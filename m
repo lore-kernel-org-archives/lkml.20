@@ -1,143 +1,122 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB5415A85A;
-	Thu,  1 Oct 2026 11:37:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790854631; cv=pass; b=BS5BxMiBGoAnSNUt0dPZ0CZ3sgOFITOTPaXgdAbvUlFelGtxf/6HyvL4fm3ve4Mwto6rXC1zmY3lhvdCjUgG4Tlc3RPivWbacLcDVVDe5HURB+Ch5gDl9h6931Tfvc2U88UktuhbRCCb8sxG61sbUhImYXnabfdwoGJmg85JO4E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790854631; c=relaxed/simple;
-	bh=H9uUNmZ0k+KejkXXYoBm7GXYSYusYciCKzSZj3WV13Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ht9kUjTit23Nz9W8QiR05EMet7Y6oGeh9dkf+h818oNNbcTPn1e7IU8ofOgc7BU9jQXu/l0nPg7HxyxBlSuWQb3wxNgsx2crg7M7FNhCa3sAkvCTFkIu/Zcn3i5c/56EfVwzfb5BPx6AE0QibazEOL7RosvnShZeZGOi7G7mluw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=d7eu9cQ+; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4B7390990
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790854658; cv=none; b=ahvrxFpBbnfbQOTykacZE4LssqwaZJEEEdC0YiMK7Oc4ghSzuhd44LREigKLbZSOL983yHlY7B9/sLQuWcfLfz1v5kJYmZS5ieAeioA1WZxVaAe5yGqUSXgs1CTD5OnGNc+FHNL2fdHMIDlBxnoUH+4qVOVCVsE77VKXcoW7K9k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790854658; c=relaxed/simple;
+	bh=TEYM6+PtuYWkXQhTR9QkqiB5KRsMFhizznV9v5/jIEk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EdcrsUFgL3p+VTdONKkiDXGxmdxZJFS6rqXgiRztM0euhdnxUowKZddOJgi6SXhicTUrKIVY46xlBZZlK1f8pLNvzSLFneoh13O/aBUb+NZD6zld86xHNNx3JTXV2XngfBXIAD4SDexcRPbMNxV0Cf+21blXyqzoFtgFNrnXUvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O5DR9Kyz; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="d7eu9cQ+"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2D10C200153;
-	Thu, 01 Oct 2026 13:37:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790854623;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ovV+5qXkzIZXND2Fy72/5JdlbthJkV0p9rmtLjQRdkY=;
-	b=d7eu9cQ+qe62tfO9HgGQOuW8DzMy8C8OLULA2HW9PiWNjmHknCYqQqQp3moUVtR6HwMJUa
-	5tKzSOA5L//burei0FkDnPjVxHZpfXL90fmaZUVmwIUeq+3WO5f+XRXU0PKr27XdD6NR4s
-	BvrzfQTibnklZAHnAbqyPREfP5PJhRfWEFT1jBR9LnqctUP7/O63LbziN+utDGrNsw8Q27
-	R34MEQ1iQ5tFlmJfgYb1lhROREUynkZAMXRxk324Q+BkAgsHHyFT6HAj/mUdMcSDAEXK32
-	hx1bwNSOSZM47purqKWE4jrU7eLUbuOuOiZgfFCgkMbptfJLrr9OP2DPw9HUxg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790854623; a=rsa-sha256;
-	cv=none;
-	b=NDavMETnRGZNQzP2c8HQvSZSydZpBhR+S+lsymZYvZAyt+Ty0pL4c8ZhryXR33vhtPyQJ5
-	fxVK7xH5aCldTZzvuaRphX0Di9gQdJFjGO40KiF5CgkgCYQsUF5almgHYGh/s81hTgje0Z
-	vnrnNw4Bc6p16kqZmY+ScxGyju28v30vkxLxnPJ0ZCva+FRr1y0CVocX6zsLoBEeGoqKej
-	dSHcuPc7x24NjzVQeJEaP9LjG/XngGKXM7IScOAU9r6+PRm72PFIwNtTW/se/Aql8n9Etg
-	0zsOBlCNWMQj3y4bavJDpS46BSQmFt/JGkqMJV/cQv1gOHObGflclkUH9edbrw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790854623;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ovV+5qXkzIZXND2Fy72/5JdlbthJkV0p9rmtLjQRdkY=;
-	b=OgFvToJQcBllefpUCpPqn5AbQEHKgzj/VfFl7TLoNgba8lEErqIKN/+tPM2mxiJ/fwaQdU
-	B8VydT5Wfb4jGjUJQdxuttrlU+KoVfB4JQZBJa/sOoIC/Jt/26tL97yJqW7oIQzhIboeFy
-	zfq4Pthu43xcYKaEHuANc80yXR4+VEJIkZ3PDy4gHefj81spaSCqdAYtvFaMvyf/POaLw9
-	nX75MTHWwBD5ktRYURh+YIep4GcttP9m84KSvdAnFK4j9DELvSnuhCzHcO8+yIFj/FF/nY
-	S1lcjUWMt0OYbdwnZXWOBZJ6p1LsuMuGRFNEb0d9ok2B7UYpGlUXKkv4WyXFIQ==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xCF5z-003icc-0G;
-	Thu, 01 Oct 2026 13:37:03 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xCF5y-00000004TBK-47NH;
-	Thu, 01 Oct 2026 13:37:02 +0200
-Date: Thu, 1 Oct 2026 13:37:02 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: =?utf-8?B?SMO2bHpsLA==?= Alexander <alexander.hoelzl@gmx.net>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Markus Koeniger <markus.koeniger87@gmail.com>, robin@protonic.nl,
-	linux-kernel@vger.kernel.org, kernel@pengutronix.de,
-	linux-can@vger.kernel.org
-Subject: Re: [PATCH] can: j1939: fix potential race condition in BAM
- segmentation
-Message-ID: <ar5F3nxH6pvuE_Up@pengutronix.de>
-References: <20260610090619.70626-1-alexander.hoelzl@gmx.net>
- <ar45DX0aPoWBvA_-@LEGNB0874>
- <20261001-bison-of-undeniable-art-5bcb84-mkl@pengutronix.de>
- <9da1ca76-4c89-4109-ba78-c08cfe69ea19@gmx.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O5DR9Kyz"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba31af701aso2398042e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:37:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790854652; x=1791459452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wvNfmKZph53jODrD/P4MGU0KRSsBQvOmztzicnnqzbY=;
+        b=O5DR9KyzKKOfF+JZEhqf/2DY1fskgwo4T5GPQYXNU6FCf3eEObl0Dg5KZr7Bwcmt7t
+         2yogcG0Oin7GXcXmpxQ6tajCqigWzMhhrb2zQZ8hIazo5cyfbiNW38OwHjx6fXQ7RojV
+         9jF09dRVyII/F+Zojb6YUqhXSIHvz5ymrKOva3Upb3+X/1ZiwbRrZFR4/sXNRtFbAGY9
+         tw0wq3+2Xl0HeBgR76k/gY7ReT3dXhmQ7fOMG1gO1mYi5iU+fq/AFd4itk+TpFmAfUTl
+         mrC+nCmKNiUmqhWrq0Xhz80duWZnsVU5LbUgj3q8N8OvdkWyaLAv7dkhnxAC6asR8jn0
+         IYtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790854652; x=1791459452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wvNfmKZph53jODrD/P4MGU0KRSsBQvOmztzicnnqzbY=;
+        b=dQBqfxTx1LmBC36SW7mEM/8mIvBa4orKQIj29QDCt8a37ur4u6DpuHsXZFtKlovKPQ
+         wduX5aWAeWHx79btm9pHYOu8inuW1T1uHmUtKAjRDAnrquh0kOEEJq0jVRoTDcL42GS1
+         vDehA8OKqv0zsae1+AZWdHLQSbYcepoAZNNdmfD+7/9PN/L45af9m+lMFEBUMhbJlV+i
+         ABHoYTCA+We0SZPcSP3zq2j2Vt8c3JlYYvdDZqsa/NuZdSYXwTKV09H2w79He66Oe5CY
+         As0lzVqzWfwuy88ihAsgOwr4wmR22//PxwD+lFemGAoaFYq/lc4DkriTMYo5oFxyb7Zy
+         wyHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVYwTrCPyDh7qZ+n3bc3xi4ZmdXZGC8aokGrbALjXsA57fzdnjNbOxomHORgTBiS7IH58MoevyQcbezYg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWDtxxXskeC5c0dWyiJcYUPIn5dOLAfNvlqJs63Cincbt9fp0C
+	wvl5j4yI7E9MNRVnAQfIMyWgQ8EpIlH2lvyw1Mf148lHTcz2a9pJOEU/
+X-Gm-Gg: AYBFou0vLb9yqR1ZQlUtu28ZOAFsOkABF1dM/GXHnDdRfRCEAJEj1da8MastFCXUwU2
+	YNxvk7j5cNtNz+GJW6n4y7jWIjz1MHIkNCJdVcLVu78eOPKPy8PzmP2uezSJ9n+kDQbIKEWApep
+	8WggVViKtM7PtUQkAYA4ZsVODCv3W3ElZkJhaMSY/GzT9yJA4w7euxngkl88a+iQ1E+1rBK0ayc
+	FKwnjCZuJgKluiR6wF0CLGCH4cxPHOWCQno86cV3N9q8PhAytTB4F6mkwz6yP6aPNsjHGrnvjqD
+	0O2qf4LoyAMcfaDm3/YyfuzQe1lqZuYSX7Gz/bK3Bh4GYbKTQXqJqjgtSK9ZbfVt2N06Xr4yx2e
+	tXjo/ieWhucxUZDmNvZJ1nImpTzQ06WujaAEV6heqHX8AKXomIw6Hi48PL4RxyKlivLlSh0ckmw
+	MQo++FVR2zvg6sgUUsc7ZwOf/qjND9053Dc22JBhOwgEb0wZMt2CmYVxOG/RkAeWXe4Pwubj6YS
+	UFtJ1gX34U3i9Hl
+X-Received: by 2002:a05:6512:65cd:10b0:5ba:3d16:b440 with SMTP id 2adb3069b0e04-5ba4060f8b0mr1423611e87.66.1790854652043;
+        Thu, 01 Oct 2026 04:37:32 -0700 (PDT)
+Received: from localhost.localdomain ([95.31.11.153])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb783a6ff0sm226442e87.27.2026.10.01.04.37.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 04:37:31 -0700 (PDT)
+From: Konstantin Nazarov <qwertyuiopyyy@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konstantin Nazarov <qwertyuiopyyy@gmail.com>
+Subject: [PATCH v3] Bluetooth: btusb: add ASUS 0b05:1825 to QCA Rome quirks
+Date: Thu,  1 Oct 2026 14:35:13 +0300
+Message-ID: <20261001113513.1612-1-qwertyuiopyyy@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9da1ca76-4c89-4109-ba78-c08cfe69ea19@gmx.net>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
 
-Hi,
+The Bluetooth controller with USB ID 0b05:1825 found on ASUS
+systems uses a Qualcomm QCA Rome chipset, but is currently matched
+only by the generic Bluetooth USB entry.
 
-On Thu, Oct 01, 2026 at 01:18:27PM +0200, Hölzl, Alexander wrote:
-> Hello,
-> Am 01.10.2026 um 12:57 schrieb Marc Kleine-Budde:
-> > On 01.10.2026 12:42:21, Markus Koeniger wrote:
-> > > I really appreciate your solution to schedule the TX timer for a BAM
-> > > transfer after receiving the looped-back frame.
-> > 
-> Glad that I could help.
->
-> > > We use external CAN controllers in our system, which introduce some
-> > > jitter into the transmit path. As a result, messages were sent from
-> > > time to time too quickly and violated the 50 ms minimum interval. Your
-> > > patch solves this problem.
-> > > 
-> > > Tested-by: Markus Koeniger markus.koeniger@liebherr.com
-> > 
-> > Thanks for testing, however I'm not sure if we can get this patch
-> > upstream if sashiko complains about it.
-> > 
-> I wasn't planning on letting this patch stall. Next week I'll try to address
-> sashiko comment's as well as the other patch I still have open.
+Without BTUSB_QCA_ROME, the driver does not load the QCA rampatch and
+NVM firmware. BLE scanning also repeatedly reports:
 
-Nice, thx.
+    Bluetooth: hci0: unexpected event for opcode 0x2005
 
-I'm working right now on  j1939 selftests for core functionality. Hope
-it will be ready this week. If not, next week i'll be in Prag on E-OSS
-conference...
+Mark the device as BTUSB_QCA_ROME with wideband speech support, in
+line with the other QCA Rome USB IDs.
 
-> Additionally while I'm at it I just wanted to ask, is it intended behavior
-> that the kernel implementation strictly serializes all J1939 sessions. E.g
-> when sending a segmented message directed to destination address A it is not
-> possible to have a second session open targeting destination address B.
-> According to the standard this is allowed and not
-> being able to do so can result in very low performance in some use-cases.
-> This especially true if one of the sessions is a BAM session transmitting a
-> longer message, as there are 50ms pauses between each frame.
+Similar issue but with different device id. After patching bluetooth is
+working fine, no unexpected events in log.
 
-Is it not working with a separate socket? If I remember it correctly,
-this behavior should be supported if two sockets send to separate
-addresses. Withing one socket, frames should be serialized.
+Link: https://lore.kernel.org/linux-bluetooth/20260928143655.22223-1-qstrydom0@gmail.com
 
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Tested-on: Qualcomm Atheros QCA6174 SoC integrated in motherboard
+ASUS Z170I PRO GAMING, USB device id: 0b05:1825
+
+Signed-off-by: Konstantin Nazarov <qwertyuiopyyy@gmail.com>
+---
+Changes:
+v1->v2: Used wrong repository.
+v2->v3: Fixed code styling issues.
+
+ drivers/bluetooth/btusb_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
+index 3518f92eb..71d8dccb2 100644
+--- a/drivers/bluetooth/btusb_main.c
++++ b/drivers/bluetooth/btusb_main.c
+@@ -272,6 +272,8 @@ static const struct usb_device_id quirks_table[] = {
+ 	{ USB_DEVICE(0x0489, 0xe03c), .driver_info = BTUSB_ATH3012 },
+
+ 	/* QCA ROME chipset */
++	{ USB_DEVICE(0x0b05, 0x1825), .driver_info = BTUSB_QCA_ROME |
++						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0b05, 0x1868), .driver_info = BTUSB_QCA_ROME |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0x535b), .driver_info = BTUSB_QCA_ROME |
+--
+2.43.0
+
