@@ -1,217 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE163EEAC4;
-	Thu,  1 Oct 2026 04:45:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1338F31D72E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829945; cv=none; b=iZsgXjp5KtQjw8MW54Z/IlktFkS4s0krJqszgXk91AYvHLmSdpohyGQpCvwC02hYokwsOcJRy0vDl4BJUT25vtgkBLRccX/dt3iWX5m+1Zgl2+D4kIZL4F1Hms/Mkj+wIBTn92zMGGgF55pDdNz5pNRRaAg2NEZsJcSuISL7Xlk=
+	t=1790829945; cv=none; b=OwkV4o+VjtP7NFR2gonnAd916Ic2atxhfML29UVagstYaoakFgy7m9+rrUccj3stA+DGuPvRFUQCgANqO0wq8uV8GXuxZi1RcXKpnlH77C/rqMKNepC6oxF8HdiC8uZqWnDAjq94A8eCM6dqEuEL0bppozFBKjUtxQ/oHqXYm8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790829945; c=relaxed/simple;
-	bh=hiwg+n+AXTGYJbNrKgjBIHvuQgTU/lcY1Dzt3WBIgOU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ps5IelDeKa0h09npb+66i0ga1ARpAqkghgQTwE53rDCgOhspXLSlpKeb8Ea4nliUZ9+t8+D7ksRHCJWcdRFiSbtJYoCGKgDj1p5vr3bOGp8B8T5N2vzPBUz5lbMiB/1UN9M2EDjelZANxlztCiGfgCQN1+mzpwmsIbk+ZDfbS6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dk/+SbrK; arc=none smtp.client-ip=100.103.45.18
+	bh=Kl59HLPtGA0YGI1jSQ31FQyI2MljJt0I0JDgqMd96vQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GYk8LyoL7jmKPvilmTcZqDkYbRjZoRhaqelz7ZHO3n/YAoyDtw3Vk9j1yP4GOJu0JoQKoig+q0F6T3h3sFXmK7nl//xHWkKfK+yO6KiXf51bfPXIfomCjmDdWkr0LWTRLAqsuqyxxlmBUczujAGzPYEeRExhAt9HiMyV/mFiQ0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtGUEc1M; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dk/+SbrK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2591F00899;
-	Thu,  1 Oct 2026 04:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790829937;
-	bh=9G+kUmxLkeukcMBztETwUt4ngGNy3h2GvEBHr1Zj4Ss=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dk/+SbrKttvo8bO83GzDzsnNpZCMC2SbwQ6foU7CV7/9dAORBOvpP1S1WNheTlNv1
-	 kKXEG+y3X/P31/oTpsuV1SzhZcJofs+hBxk+RKHKNy54MeF0GP2hIBfcHe+DDALfhZ
-	 nsCXzt4oYW/EDaFu4/fThUpbukE4o1qkYWXDNyeof1KfTnwmoyHlRDVPAGzXqsrFFe
-	 8TipYbwyY0VKNrx8Ugf6d6DPjtH76ebwUJyXBtK7QfrhyJS/uQs2XRrM8VtjSN4IP+
-	 w7MmGA1lAuk5RRoITMf3ZdXs+WTDLc7EPe7MzXHv7rONpdIcGIKp4SlZci6DIQKdBa
-	 3Gv2//WstlVRA==
-Subject: Re: [PATCH net-next v24 06/10] net: dsa: tag_mtk: add Airoha variant
- usage of this TAG
-From: netdev-bot+sashiko@kernel.org
-To: ansuelsmth@gmail.com
-Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, olteanv@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- horms@kernel.org, joey@tinyisr.com, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
- mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew@lunn.ch
-Date: Thu, 01 Oct 2026 04:45:35 +0000
-Message-ID: <179082993591.434549.3461650830434233242@kernel.org>
-In-Reply-To: <20260928194511.41878-7-ansuelsmth@gmail.com>
-References: <20260928194511.41878-7-ansuelsmth@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtGUEc1M"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso6963732eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:45:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790829942; x=1791434742; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YUMtS5RjOq3z0OjJOB6QJzFPbiRJk8TU9R7d+42yRmI=;
+        b=KtGUEc1MpzaMNdo0AEU8WdAS4UbLweNXb6eZ6LJPvwu2fuQ12KMrCLQWB3qMOidHUu
+         S/BJPNxFmZg4isUf3JwxrbCmP7NKOr2F/ERwoFSGkuHpEAzXBZ8FOM++VkeVxu6x+LlA
+         yysfDny6CuPAPStbeQde1Gn5oaW8dTpybOUVq7M+03gL9cOs5FOz3ocC0cFOZEisHJWV
+         n2n1HD4qzipBXpQx2tDw46PYEvlF2nCwMhqtGoQRdquPf7xxU0UBJLUiD+/IWzDiqpfB
+         GJYGdg6jSzg9JfX/RmiX9AVoUkbhXC3muRBDsm9uG/gwhhcBScfCwuIDLZvSx8Eca04Y
+         lLoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790829942; x=1791434742;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YUMtS5RjOq3z0OjJOB6QJzFPbiRJk8TU9R7d+42yRmI=;
+        b=rHEarXXp+DRflEgey5kE3nslKOrRDtTqY/EVX+MbemDNGgLNNuXWyHvS3zqIU60aDb
+         5GisYAgv6cIud+pSPz+21EyFtKLBeYXTiBRxU8gvQ5oDBENv/hRymI75QBVUc6F3HLCm
+         K8+y4jbd+9eiR+RaB6vQn0hCkDfYMmMbd+j8j2gvcVSxj25BA0C1uuQ2RntxOsUfm7U8
+         2nnCxUH/Kf78jl8+QUgRG0iUqSUz2b/z5nzeDxSfrg0IfcjuxFvhH5BSOAGKQr7GZxqm
+         wQV5JCF4NSJqgfAtSoWk84oSZdDA4EakK1EQx8oO+du/zxtTMQ+fqCRWcxFWvZgUjM4G
+         I4mA==
+X-Forwarded-Encrypted: i=1; AKwUvBwk0N38t4J9mDZDxJUTOcmyB9OQZPnPCYyStMeGPepSdkwyvtwpk9zZOAMmfey21OpIDFBdMXMelgKICXE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/bqcW95NpOtb6hzKkolu73VevqZccHLWS2qZQlnNUcjMdm9En
+	DbtgfD/dRuUE7j5CaNCwuBC5V5p0PCI7858TalKmzsibM5vmNoCmY1lk
+X-Gm-Gg: AYBFou3a8NgDlxXNud+mnuQd+A6pHNHH4rCHF3p8SH1p/M1trHq6vuEWq2kOlxl0tK6
+	nHNbFo4dsar8aopZf3se5rTpBCQhBprEDHf6KqeGoC7+v2w2hMogxmdTUzxwsb4u7LDyzTEQSym
+	mUFLipwbY6WgKcWHGEKYGF4M9Lpyv/T4UjeO+31wAGk9e2MXT7Ua+1HGy00ju3xxRH9ZZiBqMob
+	e55J6E1lL98YYOFA3synLWBr7R/V2y7gFxixAI7C0f8pV5HxvmfLfiGq4fikhlA2+hJBEV4waVg
+	sYhpcLw/q/mmZm3knDR3/Pdla8BSLne6jU0hkLh7N9Mxhos1aQZAvxGsQ+p/eDFBsWouTQu06/0
+	fdEG9IwLN4FdWS8XcQDv1WfUMM4RSeGHA9e/EM1tScEPnu2mvXhFnrQl2RIpE/lY5aWWYkmuqsr
+	vFvS2N/f4h81rP1CiAT64BP0KJHfTYqEVD5T0zvmzzNXgNqdbFmKf9Tb+qQAlQGoHT1gptYI77x
+	5ygINQBWLxdZRKBjvjFJCKIZ8h2DY+b3n6EIXv4LYO5VLjXfFRYp7huLTQS7u8=
+X-Received: by 2002:a05:7301:730e:b0:34c:d1f2:b56d with SMTP id 5a478bee46e88-34cdc0cd8a4mr3523736eec.25.1790829942306;
+        Wed, 30 Sep 2026 21:45:42 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:9835:e0ad:476f:74a9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e3414asm3891332eec.19.2026.09.30.21.45.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 21:45:41 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Wed, 30 Sep 2026 21:45:31 -0700
+Subject: [PATCH 2/2] wifi: carl9170: Revert "carl9170: devres-ing
+ hwrng_register usage"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-carl9170-reverts-v1-2-7033b5716c14@gmail.com>
+References: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+In-Reply-To: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+To: Christian Lamparter <chunkeey@googlemail.com>, 
+ Kalle Valo <kvalo@kernel.org>
+Cc: Christian Lamparter <chunkeey@gmail.com>, 
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-6c14f
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+This reverts commit 23de0fa0d2a05ff71c7bc8df9d12c9f23be83f13.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+carl9170_register() is invoked asynchronously from the
+request_firmware_nowait() callback after carl9170_usb_probe() has
+already returned, and carl9170_usb_disconnect() calls
+carl9170_unregister() followed immediately by carl9170_free(), which
+frees struct ar9170 (including struct hwrng ar->rng.rng and
+ar->rng.name).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Registering the hardware random number generator via
+devm_hwrng_register(&ar->udev->dev, &ar->rng.rng) ties its
+unregistration to the parent struct usb_device rather than the driver
+lifecycle. Furthermore, if carl9170_rng_get() fails at the end of
+carl9170_register_hwrng(), or when the interface is disconnected and
+carl9170_free() frees struct ar9170 before devres_release_all() runs,
+the embedded struct hwrng remains registered on the global rng_list in
+freed memory, causing a use-after-free.
 
-- [Medium] This patch adds a new tag protocol, DSA_TAG_PROTO_AIROHA
-  ("airoha").
-- [Low] After this patch, tag_mtk.ko can register both the "mtk" and
-  "airoha" tag drivers through…
+Fixes: 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/net/wireless/ath/carl9170/carl9170.h |  1 +
+ drivers/net/wireless/ath/carl9170/main.c     | 29 +++++++++++++++++++++++++---
+ 2 files changed, 27 insertions(+), 3 deletions(-)
 
---
-
-net: dsa: tag_mtk: add Airoha variant usage of this TAG
-
-This commit adds a new DSA_TAG_PROTO_AIROHA tag protocol ("airoha") that
-reuses the existing MTK tag xmit/rcv handlers. It adds a comment noting
-that AN8855 lacks the SA_DIS and Leaky VLAN tag bits. It also reworks
-Kconfig and the Makefile so tag_mtk.o is built through a common
-NET_DSA_TAG_MTK_COMMON symbol and registers either or both taggers.
-
-> diff --git a/net/dsa/tag_mtk.c b/net/dsa/tag_mtk.c
-> index c7dc7731675ec..f8087d768da6d 100644
-> --- a/net/dsa/tag_mtk.c
-> +++ b/net/dsa/tag_mtk.c
-
-[ ... ]
-
-> @@ -107,8 +112,33 @@ static const struct dsa_device_ops mtk_netdev_ops = {
->  	.needed_headroom = MTK_HDR_LEN,
->  };
->  
-> -MODULE_DESCRIPTION("DSA tag driver for Mediatek switches");
-> -MODULE_LICENSE("GPL");
-> +DSA_TAG_DRIVER(mtk_netdev_ops);
->  MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_MTK, MTK_NAME);
-> +#endif
->  
-> -module_dsa_tag_driver(mtk_netdev_ops);
-> +#if IS_ENABLED(CONFIG_NET_DSA_TAG_AIROHA)
-> +static const struct dsa_device_ops airoha_netdev_ops = {
-> +	.name		= AIROHA_NAME,
-> +	.proto		= DSA_TAG_PROTO_AIROHA,
-> +	.xmit		= mtk_tag_xmit,
-> +	.rcv		= mtk_tag_rcv,
-> +	.needed_headroom = MTK_HDR_LEN,
-> +};
-
-[Severity: Medium]
-The wire format here is the same as DSA_TAG_PROTO_MTK. However, the
-conduit drivers that handle the MTK special tag in hardware check the
-protocol ID, not the format. Will they still handle a conduit that uses
-the "airoha" tagger correctly?
-
-Later in the series, an8855_get_tag_protocol() returns
-DSA_TAG_PROTO_AIROHA. No later patch updates these checks, which still
-only match DSA_TAG_PROTO_MTK:
-
-drivers/net/ethernet/mediatek/mtk_ppe_offload.c:mtk_flow_get_dsa_port() {
-	...
-	if (dp->cpu_dp->tag_ops->proto != DSA_TAG_PROTO_MTK)
-		return -ENODEV;
-	...
-}
-
-drivers/net/ethernet/mediatek/mtk_ppe.c:__mtk_ppe_check_skb() {
-	...
-		if (!netdev_uses_dsa(skb->dev) ||
-		    skb->dev->dsa_ptr->tag_ops->proto != DSA_TAG_PROTO_MTK)
-			goto out;
-	...
-}
-
-With an AN8855 behind a mtk_eth_soc conduit, it looks like PPE/flowtable
-offload to the switch user ports would be silently unavailable.
-
-On netsys v1, mtk_uses_dsa() also compares only against
-DSA_TAG_PROTO_MTK:
-
-drivers/net/ethernet/mediatek/mtk_eth_soc.c:mtk_uses_dsa() {
-	return netdev_uses_dsa(dev) &&
-	       dev->dsa_ptr->tag_ops->proto == DSA_TAG_PROTO_MTK;
-}
-
-So mtk_open() skips the dsa_meta allocation and takes the else branch:
-
-	} else {
-		...
-		val &= ~MTK_CDMP_STAG_EN;
-		mtk_w32(eth, val, MTK_CDMP_IG_CTRL);
-
-		mtk_w32(eth, 0, MTK_CDMP_EG_CTRL);
-	}
-
-Meanwhile, mtk_gdm_config() still sets MTK_GDMA_SPECIAL_TAG and
-mtk_tx_set_dma_desc_v2() still sets TX_DMA_SPTAG_V3 for any DSA conduit.
-Does this leave the MAC only partly configured for the special tag?
-
-On Airoha SoCs, airoha_get_dsa_tag() has the same kind of check:
-
-drivers/net/ethernet/airoha/airoha_eth.c:airoha_get_dsa_tag() {
-	...
-	if (dev->dsa_ptr->tag_ops->proto != DSA_TAG_PROTO_MTK)
-		return 0;
-	...
-	default:
-		/* PPE module requires untagged DSA packets to work properly,
-		 * so move DSA tag to DMA descriptor.
-		 */
-		memmove(skb->data + MTK_HDR_LEN, skb->data, 2 * ETH_ALEN);
-		__skb_pull(skb, MTK_HDR_LEN);
-		break;
-	...
-}
-
-With the new protocol, the in-band tag stays in the frame and 0 is
-written to QDMA_ETH_TXMSG_SP_TAG_MASK. airoha_dev_xmit() still requests
-TCO/UCO/ICO checksum offload and TSO for that frame.
-
-On RX, airoha_dev_open() sets GDM_STAG_EN_MASK for any DSA conduit, so
-RX and TX handling of the tag would not match. Whether this corrupts
-checksums or makes the hardware insert a second tag depends on hardware
-behaviour, and the code alone can't show which.
-
-The commit message says the change is about giving external tools like
-libpcap a dedicated name. Should these conduit checks also accept
-DSA_TAG_PROTO_AIROHA? One option is a helper that means "uses the MTK
-special tag format".
-
-> +
-> +DSA_TAG_DRIVER(airoha_netdev_ops);
-> +MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_AIROHA, AIROHA_NAME);
-> +#endif
-> +
-> +static struct dsa_tag_driver *dsa_tag_driver_array[] =	{
-> +#if IS_ENABLED(CONFIG_NET_DSA_TAG_MTK)
-> +	&DSA_TAG_DRIVER_NAME(mtk_netdev_ops),
-> +#endif
-> +#if IS_ENABLED(CONFIG_NET_DSA_TAG_AIROHA)
-> +	&DSA_TAG_DRIVER_NAME(airoha_netdev_ops),
-> +#endif
-> +};
-> +
-> +module_dsa_tag_drivers(dsa_tag_driver_array);
-> +
-> +MODULE_DESCRIPTION("DSA tag driver for Mediatek switches");
-
-[Severity: Low]
-This isn't a bug, but should the module description be updated here?
-The module can now register the "airoha" tagger too. With only
-CONFIG_NET_DSA_TAG_AIROHA enabled, it registers only the Airoha tagger,
-but modinfo still reports "DSA tag driver for Mediatek switches".
-
-> +MODULE_LICENSE("GPL");
+diff --git a/drivers/net/wireless/ath/carl9170/carl9170.h b/drivers/net/wireless/ath/carl9170/carl9170.h
+index e66e3e2ae952..03a94a5a209b 100644
+--- a/drivers/net/wireless/ath/carl9170/carl9170.h
++++ b/drivers/net/wireless/ath/carl9170/carl9170.h
+@@ -454,6 +454,7 @@ struct ar9170 {
+ # define CARL9170_HWRNG_CACHE_SIZE	CARL9170_MAX_CMD_PAYLOAD_LEN
+ 	struct {
+ 		struct hwrng rng;
++		bool initialized;
+ 		char name[30 + 1];
+ 		u16 cache[CARL9170_HWRNG_CACHE_SIZE / sizeof(u16)];
+ 		unsigned int cache_idx;
+diff --git a/drivers/net/wireless/ath/carl9170/main.c b/drivers/net/wireless/ath/carl9170/main.c
+index 702b6d113b18..8ca76e9044de 100644
+--- a/drivers/net/wireless/ath/carl9170/main.c
++++ b/drivers/net/wireless/ath/carl9170/main.c
+@@ -1545,7 +1545,7 @@ static int carl9170_rng_get(struct ar9170 *ar)
+ 
+ 	BUILD_BUG_ON(RB > CARL9170_MAX_CMD_PAYLOAD_LEN);
+ 
+-	if (!IS_ACCEPTING_CMD(ar))
++	if (!IS_ACCEPTING_CMD(ar) || !ar->rng.initialized)
+ 		return -EAGAIN;
+ 
+ 	count = ARRAY_SIZE(ar->rng.cache);
+@@ -1591,6 +1591,14 @@ static int carl9170_rng_read(struct hwrng *rng, u32 *data)
+ 	return sizeof(u16);
+ }
+ 
++static void carl9170_unregister_hwrng(struct ar9170 *ar)
++{
++	if (ar->rng.initialized) {
++		hwrng_unregister(&ar->rng.rng);
++		ar->rng.initialized = false;
++	}
++}
++
+ static int carl9170_register_hwrng(struct ar9170 *ar)
+ {
+ 	int err;
+@@ -1601,14 +1609,25 @@ static int carl9170_register_hwrng(struct ar9170 *ar)
+ 	ar->rng.rng.data_read = carl9170_rng_read;
+ 	ar->rng.rng.priv = (unsigned long)ar;
+ 
+-	err = devm_hwrng_register(&ar->udev->dev, &ar->rng.rng);
++	if (WARN_ON(ar->rng.initialized))
++		return -EALREADY;
++
++	err = hwrng_register(&ar->rng.rng);
+ 	if (err) {
+ 		dev_err(&ar->udev->dev, "Failed to register the random "
+ 			"number generator (%d)\n", err);
+ 		return err;
+ 	}
+ 
+-	return carl9170_rng_get(ar);
++	ar->rng.initialized = true;
++
++	err = carl9170_rng_get(ar);
++	if (err) {
++		carl9170_unregister_hwrng(ar);
++		return err;
++	}
++
++	return 0;
+ }
+ #endif /* CONFIG_CARL9170_HWRNG */
+ 
+@@ -2053,6 +2072,10 @@ void carl9170_unregister(struct ar9170 *ar)
+ 	}
+ #endif /* CONFIG_CARL9170_WPC */
+ 
++#ifdef CONFIG_CARL9170_HWRNG
++	carl9170_unregister_hwrng(ar);
++#endif /* CONFIG_CARL9170_HWRNG */
++
+ 	carl9170_cancel_worker(ar);
+ 	cancel_work_sync(&ar->restart_work);
+ 
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928194511.41878-1-ansuelsmth%40gmail.com
+2.56.0.rc1.315.gc6ed9934b7-goog
+
