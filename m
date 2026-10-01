@@ -1,138 +1,155 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CDA30C147
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D7224195DA;
+	Thu,  1 Oct 2026 13:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861438; cv=none; b=jbJCAUHuGNk2OfJQDRp0k3aeSl4eRFdftZWK5/fYIFG+eV0Qnfo2z7/tTsZSa5Jv+3j3osWHwi9Ch7cX+78/wOM1SJD1HABhDtdpV96ZQwW5gcUFQxEku9sgtauVHn2uf0Us+1QCMndoWdCXVEeE7XfbSIxANVHKUQ32HeVrKOM=
+	t=1790861491; cv=none; b=GkcA8Wo2UbNgNYfuVoaGs8lP3vCt75JWmAn3/0gAJoLSCyduYX0MTL4HT10vNEfZ2XhhgxtYe1J3xJsbZUS7haMeBAf+KlWUYAu0PnoyYV00WR7ct2LwtPlFCWpwVo8C10XUWRtQX5ECYKr/56APA19sLdfGsGy+SXHJ5bie600=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861438; c=relaxed/simple;
-	bh=LZvJdoqMiLFE1kDgHxNdu2ZkOJ6v87aLJyP7tgfMseo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IXsc7bZ0aGxi5oQYlOmavId43YT0LNTkYACSSuE8Xn0R8AQKQ8yDV180/WyukfC8EKD4Fg4v99e7bW+HwdWZduq9AC6sILrQsv/6ECyX0/jQWlD7aW2vLXR8Ob8y4JSwPbi7l7qo6lSAveleJGFqgwS+j9115NXi2YkvBVBbKrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=udp5xLZ5; arc=none smtp.client-ip=74.125.225.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1790861491; c=relaxed/simple;
+	bh=9JUs2LAw7B8Ji/NW+YFWdHTHNXeYLFb0WQgfRlzCUoY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bhyvEYeF5LbssG6lFQYRRO/jjYLUWHVLxDpYAEZKcVtCnUnR//FQElv1OiRRP2+IdPAo21b1grNCnXSJqQmF8OdndlbJ7bECFhCn+VbEwnS2YAqycc51dIBFeeLfR3cLCO6z2rhCES11YMlXwaiOB5I9aPVtnYyVfIWsXpZ4HQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=q82XEx/S; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="udp5xLZ5"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b104f6aa3so232541f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:30:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1790861432; x=1791466232; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qVy4e5OGZI4MlIMiZQzW05oIlOjQRJp2AkRb/z+b38k=;
-        b=udp5xLZ5idx/RlGmp0Kq+91EjxG8f8uSpqp8BJM5/bPxl6g1Y8DMhOMCXnG2jU4VJO
-         nIAiP1+mD5eMGx7Q6hbjONA+7RcyePNx5M5Js8kQmREXRiek0wC8gAmx2WGFQwWPuTAh
-         al7ZSlA9w35Zrt8lTbY2AjbeMq+jo0ZDkqWZwF/mjswq9voA6+GVw9rSdA88P0fOqp4r
-         ShEbAw/XeafaOENRAYlOjwptX0PYYqErQ/iv+z7riGzmLl8XYBGZ/MoA91TUN3cFMMnE
-         fWavtvgEtuqookb5EXYiPkpoIq1G6TTpdirLCKbt17xTT/DbyIUWXoPraW/8ulGjjhBX
-         odBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790861432; x=1791466232;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=qVy4e5OGZI4MlIMiZQzW05oIlOjQRJp2AkRb/z+b38k=;
-        b=gcnf2/EsCC73CPY55m/r9JcdI7weilVNi44CfxooXWAmGY19DEG+Cbh3O0+AXIJuy7
-         5yJcsgkhDyeD3OAQD47bF4IkD5B8UyID6GxEeEkPi/nuLpQ2qgjlPzLoSqfCZkDwLHfy
-         Yh9LR4yy+FonbVcL9YroYPL0fu/3SXq2QC9HDzvdatqEr0i6lT0Szxr4NSOHuxDlcLQy
-         bMM3GoIDEEAwaFCvTvA2mlk25TGdppqi2otoa7nuN5xg5fkJzrpNxbc996y4ipts60zt
-         j2Brg/f1DoPY7s87qDSIU+7T3VGqCrbnWkPYERve1Vi+OQEKjTfqwDN+i0u+jDHmiMRs
-         FiwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByhFJJUTXadT809GHuyIsKFV8/SzxSlpfKQPGN2tR/hqENKr22b54Ri737PzghhXf4Xvx9vo0xswfth/gE=@vger.kernel.org
-X-Gm-Message-State: AFuF++llZvCQS8xvX7S3QQxYXFy6DRF5EcilCKxC4/Fs8WaL807gTfDi
-	slQq2ictfc1kvuTwuG9EITpXfoNJnYqxXfrXNQKzvVTcjVYcgJCmEVEh3CtfhoPRz8Cwx4CEB7U
-	csTuxELBWqA==
-X-Gm-Gg: AYBFou3AMiRu3IrQWo2DgQrb2bkwgamv44NmEj440ftOQJ0ZKoeolli1U99ZK9kE3jX
-	uPmt8ulff5qWvaHYmnZ5WoHaEbRs2xptpjFbtBetEYZ4dyjn9y71+4j/orWrWoWKC8SEfGHlfOJ
-	NSI+4PozxPPua/ShQ8fHulTJRZ53+3RQrlJFpiT6PnBMcSvImEiWCp02LuIT397m+tnC65c9a43
-	QJ1g/UTVQuWr56NBnf4hWoBRoeKs01F5E7boNKEkZelATn2tWgJrCKMCEZGYlfRWx0mchMNPswY
-	hKcIEoEmwOaZ3i2tIqW0WUkBJIiQTitWu4x+hKmIXd/lm06KRAdhtjiiGck1aIGMjEUN3R6udGE
-	SujOxOlcwEn5pW+311DPO+F3pPXttWY78cjh3MmMhPtZJGx8Hv9jEWf+1x4Ag3iU2qi+AU5LLou
-	KSKB8hwwVnLYNYiC3abgNSjnov+K5aYcIwv2X9JZv4O8dtAnZqxhZnV0imCaNerwwk1Ge331q6x
-	+F0NrXG+MCIKlk4
-X-Received: by 2002:a05:600c:46d0:b0:4a0:1a18:b742 with SMTP id 5b1f17b1804b1-4a01ad909e9mr83128855e9.2.1790861432366;
-        Thu, 01 Oct 2026 06:30:32 -0700 (PDT)
-Received: from alchark-surface.localdomain ([5.194.93.183])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0267ab7efsm1603395e9.2.2026.10.01.06.30.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:30:31 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 01 Oct 2026 17:30:23 +0400
-Subject: [PATCH] mfd: bq257xx: Mark self-modifying BQ25792 registers
- volatile
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="q82XEx/S"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E05E3497;
+	Thu,  1 Oct 2026 06:31:19 -0700 (PDT)
+Received: from [10.57.9.178] (unknown [10.57.9.178])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1339C3F86F;
+	Thu,  1 Oct 2026 06:31:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790861483; bh=9JUs2LAw7B8Ji/NW+YFWdHTHNXeYLFb0WQgfRlzCUoY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=q82XEx/SD1LWxYLGdZs4ctb0uFndIPn8h5YMgtGCxWt6Qv6ZOkaKRgvMYwrJzYXgV
+	 OdEpEG0APgHLpsH4K5HmpWVb5Yvh9PwGO5ou0kicw9b6qL+9u9N6u9F0q5y6QU7r82
+	 HAa/kgOIwvn0p4W6VQBErzSiux9Nk8M6jq0kGoYg=
+Message-ID: <289cb9bc-f591-4f53-a710-c86159356213@arm.com>
+Date: Thu, 1 Oct 2026 14:31:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 8/9] firmware: arm_rmm: Add wrappers for Realm related
+ RMI commands
+Content-Language: en-GB
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261001084555.1456543-1-suzuki.poulose@arm.com>
+ <20261001084555.1456543-9-suzuki.poulose@arm.com> <ar5Y_pHBUQHbXr85@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <ar5Y_pHBUQHbXr85@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-bq25792-volatile-v1-1-cb3d4ec8a414@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDQAxA4atI1g5MUqZqryIuNEaNiD8zKgXx7
- p22y2/x3gVBvEqAV3KBl1ODLnMEpgnwUM+9GG2jgSw90Vo0zUYuK8icy1TvOomhll3+cJgxMsR
- s9dLp+7csq7/D0YzC+/cD9/0BwFAEBXQAAAA=
-X-Change-ID: 20261001-bq25792-volatile-2dc583517c1c
-To: Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1778; i=alchark@flipper.net;
- h=from:subject:message-id; bh=LZvJdoqMiLFE1kDgHxNdu2ZkOJ6v87aLJyP7tgfMseo=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtSyidG+MSuFVlk8ieF78spmwt3XHkQPAmS/0DSl9kI
- qWPnM6q75jIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
- DI10jHWMGLg4BWCqe9oZ/tnvSH0YLuSVvK1mllLKjcwi/kN/GZ/M32yvFzfp6crtxZKMDEvOf9O
- 86KsXnPZwIcv5BLObHeuuTrOI1Duw5OO/aaHTDJgA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Some BQ25792 configuration registers change without being written: input
-source detection sets VINDPM and IINDPM at plug-in, plug-in also clears
-EN_HIZ, the FORCE_* bits clear once their operation starts or completes,
-EN_ACDRV1/2 follow input path changes, and ADC_EN clears after a one-shot
-conversion. Reading them from the cache returns stale values.
+On 01/10/2026 13:58, Catalin Marinas wrote:
+> On Thu, Oct 01, 2026 at 09:45:54AM +0100, Suzuki K Poulose wrote:
+>> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+>> index 5d005054f3c6c..e3503aba646e2 100644
+>> --- a/include/linux/arm-rmi-cmds.h
+>> +++ b/include/linux/arm-rmi-cmds.h
+>> @@ -53,6 +53,17 @@ static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *regs)
+>>   	}
+>>   }
+>>   
+>> +/*
+>> + * rmi_smccc_invoke_once: Invoke the RMI call and return the results. Do not
+>> + * retry the command. Let the caller deal with RMI_BUSY or RMI_BLOCKED.
+>> + */
+>> +static inline void rmi_smccc_invoke_once(struct arm_smccc_1_2_regs *regs)
+>> +{
+>> +	struct arm_smccc_1_2_regs args = *regs;
+>> +
+>> +	arm_smccc_1_2_invoke(&args, regs);
+>> +}
+> 
+> Nit: I don't think we need to copy to args since there's no retry here.
+> 
+> That said, the SMCCC call clobbers regs->a0. We should write a comment
 
-Mark these registers volatile, keeping the cache for the rest.
+Ack. I will add the comment, similar to what we have for rmi_smccc_invoke().
 
-Cc: stable@vger.kernel.org
-Fixes: 9adbe53e32cd ("mfd: bq257xx: Add BQ25792 support")
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/mfd/bq257xx.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+> in case the caller thinks it can just retry with the same regs.
+> Alternatively, we could pass args and res structures separately.
 
-diff --git a/drivers/mfd/bq257xx.c b/drivers/mfd/bq257xx.c
-index 054342c60b73..01f5fc97f538 100644
---- a/drivers/mfd/bq257xx.c
-+++ b/drivers/mfd/bq257xx.c
-@@ -52,8 +52,18 @@ static const struct regmap_access_table bq25792_writeable_regs = {
- };
- 
- static const struct regmap_range bq25792_volatile_reg_ranges[] = {
-+	regmap_reg_range(BQ25792_REG05_INPUT_VOLTAGE_LIMIT,
-+			 BQ25792_REG06_INPUT_CURRENT_LIMIT + 1),
-+	regmap_reg_range(BQ25792_REG0F_CHARGER_CONTROL_0,
-+			 BQ25792_REG0F_CHARGER_CONTROL_0),
-+	regmap_reg_range(BQ25792_REG11_CHARGER_CONTROL_2,
-+			 BQ25792_REG11_CHARGER_CONTROL_2),
-+	regmap_reg_range(BQ25792_REG13_CHARGER_CONTROL_4,
-+			 BQ25792_REG13_CHARGER_CONTROL_4),
- 	regmap_reg_range(BQ25792_REG19_ICO_CURRENT_LIMIT,
- 			 BQ25792_REG27_FAULT_FLAG_1),
-+	regmap_reg_range(BQ25792_REG2E_ADC_CONTROL,
-+			 BQ25792_REG2E_ADC_CONTROL),
- 	regmap_reg_range(BQ25792_REG31_IBUS_ADC,
- 			 BQ25792_REG47_DPDM_DRIVER),
- };
+I thought about it, but settled in for copying the arguments.
 
----
-base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-change-id: 20261001-bq25792-volatile-2dc583517c1c
+> 
+>> +/**
+>> + * rmi_rec_destroy() - Destroy a REC
+>> + * @rec: PA of the target REC
+>> + * @sro: Allocated SRO context to be used
+>> + *
+>> + * Destroys a REC. The REC must not be running.
+>> + *
+>> + * Return: 0 on success, positive RMI result code or negative Linux error code
+>> + */
+>> +static inline long rmi_rec_destroy(unsigned long rec,
+>> +				   struct rmi_sro_state *sro)
+>> +{
+>> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_REC_DESTROY, rec);
+>> +}
+>> +
+>> +/**
+>> + * rmi_rec_enter() - Enter a REC
+>> + * @rec: PA of the target REC
+>> + * @run_ptr: PA of RecRun structure
+>> + *
+>> + * Starts (or continues) execution within a REC.
+>> + *
+>> + * Return: RMI return code
+>> + */
+>> +static inline long rmi_rec_enter(unsigned long rec, unsigned long run_ptr)
+> 
+> Nit: should probably be __always_inline. rmi_rec_destroy() and
+> rmi_smccc_invoke_once() as well.
 
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
+Ack.
+
+> 
+> Not for this series but something claude spotted in the integration
+> branch - kvm_rec_enter() is noinstr. On this path, we end up in
+> arm_smccc_1_1_get_conduit() which is not noinstr (again, that's for the
+> other series; here just __always_inline should suffice).
+
+Good point. I will address this in the other series. May be we can
+always do SMC. We don't support CCA over pKVM yet. Even there, may
+be SMC counduit is available ?
+
+i.e., arm_smccc_1_2_smc() instead of arm_smccc_1_2_invoke()
+
+> 
+>> +{
+>> +	struct arm_smccc_1_2_regs regs = {
+>> +		SMC_RMI_REC_ENTER, rec, run_ptr,
+>> +	};
+>> +
+>> +	rmi_smccc_invoke_once(&regs);
+>> +	return regs.a0;
+> 
+> Should this use RMI_RESULT_STATUS(regs.a0)?
+
+No. We should always return the full result.
+
+> 
+> The rest looks fine to me.
+> 
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+
+Thanks Catalin
+
+Suzuki
 
