@@ -1,139 +1,280 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE633164D8;
-	Thu,  1 Oct 2026 08:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843483; cv=none; b=gsB4SGggStOREZ2JZ8EeLW0KL3XMcuZpxFrBmr9aWLqlRjoZT8oCPDequ4vg/n8R0kz945UUhpHn1j32QXPpxMTIkVzJ6FKiRZXE8IAye1WoLMQdV4pTxUC9iIWtVMZOWgz+Tjd98gDcwLYScPDLLCtv+rjsujJ9wwdgfbm2Bj4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843483; c=relaxed/simple;
-	bh=9+N+gmAtMgLHYkLcQGdYJLjC+s7rwmcWD9JNQgFqIkQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W/ttNj0YMu4h+LePIJvrBbm6wvZV/8AKUQEZFZjngJxSxie9FqQ8RqwYgyfYNXg5dXWZeeO0fVqBw26Rt1YtjPr3GU/za04WiE2Bempi3mHs2vFYPfVaqugv3QbRcfZprHohBcgyVEQfCyUdrB1VKVimIrntWTqwK23uUl5r7KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RRPjT6uE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCF031ED83
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790843484; cv=pass; b=Od7bH4+2wJqPgDV0H0MePrKn0qPn04Yb08H947YSRzpXyEbmya74OipjSZXsO76CEImVZGasCSMZYBUyohRE9oAnAooLM/fXrTIdy7eLv6Om0/GW6rxy9IZxNqp5p/j5rprNkyII3bc+fprxpcAfeuMDLeQSYAAYlera/TSwtXs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790843484; c=relaxed/simple;
+	bh=S6nhg02pIj+SO3ygvr7Yf/yjhAnAdUb1rhRonxomtvc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bYER/ahoCMSXgcKICi9HunNaXKLdORyDhRZvhgRl4X5HRA1EmSJkSVZEMx1JARo7Ielz+09yenIpS/uYZpC00pSCED9mfyKrc2rYcyslXVqRx4/uIAo0zg+m4q2f2VaLBxGKY05ZessnWBLUHS/cmJ8hqQM68Xnv1LeoK+1JhKI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ohBu2qHT; arc=pass smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RRPjT6uE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAEE51F000FF;
-	Thu,  1 Oct 2026 08:31:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843481;
-	bh=qCO7FheBb0QtZY1aP+C/CKmQeFmIqEIk287fXx6Tx9k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RRPjT6uEl8jvYU2BQEX4mFlM3STmFQT82C+soXKo2LGVahgTGWVUThfHMRvPVLSrw
-	 gkRuPV5J3G7nfnBo7GaTmqSWBg6+Y4y1ozODB8JODDsqJImXcd7a8GXYHlpLvhsrOk
-	 83PD2HcCLoOTKUIfKR9QY8HSixYK5vKwgnAxqfbd9l4BmO/HRsBFl9ZIjZkqfZJwUG
-	 JJvu/nNuLgKWmnpIgL0ccLbwlU7zZ0lsimVw0BV1ZhyuiUGwDmK/FjdBOkmQdbJ9hT
-	 HsRXF+gRngLgSn+VGcCbD1YqxEVgIYxdn+qCimtDaBmJZMJDs8xjtL1xJ8ghZBt3w6
-	 RxAiOAN2Wq9IA==
-Date: Thu, 1 Oct 2026 09:31:15 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v20 6/9] firmware: arm_rmm: Ensure the RMM has GPT
- entries for memory
-Message-ID: <20261001-military-foxhound-of-conversion-d80e7a@sudeepholla>
-References: <20260929221623.1342076-1-suzuki.poulose@arm.com>
- <20260929221623.1342076-7-suzuki.poulose@arm.com>
- <20260930-judicious-loris-of-will-dea0a3@sudeepholla>
- <210c0b27-c7cb-447a-b6ee-bf6b3fb63acc@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ohBu2qHT"
+Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5cd63c192b9so2343025e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:31:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790843481; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WobweBB8DUkqDzXEmyoGuHCU9KlaxtyNoLTvKymgaw3yBtu4SWephE8uKY536wZYNX
+         i5USFSJeMz5BXbL3lRN9xdMK2LD1VH1QhbRrhrKagQqFWMR6PIfl//tbpqglUTMwIvD4
+         P4yH5QBboexzD/MFneYMbm+81IOOeSIPiZLHVwpTQXBWe2FFbltzxbfFKaLWJ3B08Z+T
+         oayf+Tdv87812xRvtlMLx9zwJ1skm7mEUyW/Qnc3MqdbFv9K2Uf2rFO21klZEGq1boaW
+         VLAP3b10feGxMiW0EfzNpfD6UQ2IsrVlwq1OsDhGPHt4GU0DF3GzJiPBfjm42eW2wuRZ
+         WgtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EU0sYZ/FO/mx2+yJVtb2c4Or0T6adefpzzLzs+MHc/0=;
+        fh=DJEv8BgVBazBIfNF1H648eA5GdoJJ8nNXOShqfIn9UU=;
+        b=W8Kc2cwYPrsUxuJsYYQgP4inPsyxJZ+3X5yJjWNSCjyCWD+k7AHA045IQu/+734vjG
+         RuAr0swKf3wAXZn2TnipPqHdNwuQ9lgcCA2sQ2Jls8DIPn0ZHcY54cCo2Qpp524yrt4F
+         RlH/7q5F96jrkvBgBk4rgwhcgz1yQs4gz5zxl2PUjd92ywclg7ldOIesObLzQg/SUcJ9
+         rGgpXH36cRv/RXfRdR2rWzndBQ8wMbCdTJ+sgPwpl/F+poUJ124jRkYq7LXqF3WqO4Uk
+         Kghl26LkQHehCA5a9mqywcE0Tr3z207ZpIMLGMQ62mWqr/54cMKrgU8QC7OfRa2dqsOx
+         89hw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790843481; x=1791448281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EU0sYZ/FO/mx2+yJVtb2c4Or0T6adefpzzLzs+MHc/0=;
+        b=ohBu2qHToOlHPjPSbXJLKC+gn6Zo2CZFp4Ng/pfIBSC4Ix+hFL27JjLr+8cS8Gr3LW
+         Z85cdsOzXelCiGihBZSv+rcLs/V3AN+Lcaw/bOi0pfF5RJDUODCMdv/TSyBtP1/MW4V4
+         4r6TMtvgRuoIT3dpuxiaDWnxsqh4NS9sjJab8yAY9/XQpxR+adnoS1Mvw7sMsn1gWfoh
+         skmnnp6mx2s0ylXBocAN5hm0clj9KRGl8aQAxLOOaOLNNforhcTJ2XK6FUVtmTgMDPBP
+         wF8IjQhVKblCCiX7hVXi2d+V3U1Z5IgYW+H/9DANFyUxoawd8nFESwXzkOBcL7eJYZ3M
+         raXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790843481; x=1791448281;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EU0sYZ/FO/mx2+yJVtb2c4Or0T6adefpzzLzs+MHc/0=;
+        b=PBFzsGdMmrJoti3AFfznIQoBQNkbrBOi2cHQpUoto6t7YTst+Vf5phkGAn7UIQXJnR
+         fKm0WvyU/7KxPUUY6lkWp0XXRxQHOYM4jJH5Kbs/Kh3VuN8VYBEUevDfvQLANTGH6xnw
+         3ZB9M7ObsJdblbiM3DnQrU4AeUJKCxB45jGHdcjXZh2gCQ+TRtxiSelnLtYKk6f07NrR
+         OdpQSAFSyPOXbkaL8rJ/F56vT2w4oxu45LZCsOniHf9eXz89ELp6Es88BT1SzBCZew1U
+         HHHWblbIol/nK814xhOQEHm9lUtpLxbkOBgqE5PtaD1fcuhoilDBhRPxQ/qzyW3UPsjb
+         oxrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHSEdJaWlPVSFHkDOT/IaKaOhxKLsEWvo0epcjPayB6PU5TZY0sp8Mq20Vlj4CdozKJo4SrWWJ/0pbq2E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5H+pmAd/bbl+tmlz9SJayr/IwGllSWQ3120arPCW0K/U4xxW5
+	tW4FPsXmjcCqKnK3eIf1F0nEu3cYtiBxXK87G1oedYTs3AfJ9E+opODhJBfOZ+4iH35CWxY9Q1m
+	5h7/SfAkhrKlqomWWFrWHH9GZmLWKm1E=
+X-Gm-Gg: AYBFou38MG6w8eJwsInBZaA5DzA0Mgj+CF/WnRFAsuWkNQhF9PflaocoL+6UKhXmcV3
+	hB/D+/qIM3gEFkElOETZGy1xhk9cqLfOaCZ03SCYxggrmqNjJvUpfSYiM9fG0hWBY/wqxFbzOMp
+	u/RSmYkSfd8DLJ6Xxd1iNz9x50R+Bc8cSYPrHpEaR2twogIWq2IoEv8N/PmmEYNwU2YQ1zW+7ah
+	Psd69u0GhXEb8y7hh7suUVHs9rqHRYV0zsRIY5pCN+3lAe+GNVigFMfuPzM0HlAUTM+YgnwZEso
+	HURNWj4DebTuhRHMIrs7qfasRBlMhF7K1OZVhjDs+iZ7ol1FI7O++5brW+mtLpPbV+nKj69q5Bo
+	3KwJ/EGjKSxD7FuwXh88srzeKDFK/FiI0b/3qT/3vs7uQzlP+3iIEXDrb6zUaUfjv7lHNQ32y8D
+	KsdrS7TExS4nXbVWVqrLoqb8NgkdWReHuNy5CBkO3ZTVeh
+X-Received: by 2002:a05:6102:3fa3:b0:7a7:198a:c2bf with SMTP id
+ ada2fe7eead31-7be735975ffmr902214137.29.1790843481357; Thu, 01 Oct 2026
+ 01:31:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <210c0b27-c7cb-447a-b6ee-bf6b3fb63acc@arm.com>
+References: <20260930-stmmac-est-reapply-after-open-v4-0-9d4366587b73@gmail.com>
+ <ar4QgHsclh1vWVHk@lore-desk>
+In-Reply-To: <ar4QgHsclh1vWVHk@lore-desk>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Thu, 1 Oct 2026 02:31:10 -0600
+X-Gm-Features: AclHuK_sh2_y0gAgCI9ChdR_dvfCKXwH4PgjB21fl6342cXclcDVA9-LiyvPKRI
+Message-ID: <CADvTj4rxCuL-BNq1P3KW=1m==0PDMvn7j1=J4WW1yZLJfw5DNw@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 0/4] net: stmmac: preserve and restore the
+ installed EST schedule
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Jose Abreu <Jose.Abreu@synopsys.com>, 
+	Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Serge Semin <fancer.lancer@gmail.com>, 
+	Simon Horman <horms@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Richard Cochran <richardcochran@gmail.com>, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Rayagond Kokatanur <rayagond@vayavyalabs.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 04:55:38PM +0100, Suzuki K Poulose wrote:
-> Hi Sudeep
-> 
-> On 30/09/2026 15:44, Sudeep Holla wrote:
-> > On Tue, Sep 29, 2026 at 11:16:20PM +0100, Suzuki K Poulose wrote:
-> > > From: Steven Price <steven.price@arm.com>
-> > > 
-> > > The RMM maintains the state of all the granules in the system to make
-> > > sure that the host is abiding by the rules. This state can be maintained
-> > > at different granularity, per page (TRACKING_FINE) or per region
-> > > (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
-> > > underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
-> > > all pages in the region must be of the same state, this implies we need to
-> > > have "fine" tracking for DRAM, so that we can delegate individual pages.
-> > > 
-> > > For now we only support a statically carved out memory for tracking
-> > > granules for the "fine" regions. This can be extended in the future to
-> > > allow modifying the tracking granularity and remove the need for a
-> > > static allocation by the firmware.
-> > > 
-> > > Similarly, the firmware may create L0 GPT entries describing the total
-> > > address space. But if we change the "PAS" (Physical Address Space) of a
-> > > granule, then the firmware may need to create L1 tables to track the PAS
-> > > at a finer granularity. Linux therefore checks if the platform firmware
-> > > manages the PAR region. i.e., the firmware is in charge of managing the
-> > > L1 GPTs (creation and the required memory for the GPT tables - via static
-> > > carveouts) without host intervention. Support for dynamic GPT creation by
-> > > the host will be added later.
-> > > 
-> > > If the firmware requires us to manage the tracking or GPT memory,
-> > > deactivate the RMM and reclaim any memory donated at RMM activation.
-> > > 
-> > > Apply the same checks when hotplugged memory is brought online.
-> > > 
-> ...
-> 
-> > > ---
-> > >   drivers/firmware/arm_rmm/rmi.c | 247 ++++++++++++++++++++++++++++++++-
-> > >   include/linux/arm-rmi-cmds.h   |  18 +++
-> > >   2 files changed, 264 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> > > index d982cf158f8da..d4d098448e46e 100644
-> > > --- a/drivers/firmware/arm_rmm/rmi.c
-> > > +++ b/drivers/firmware/arm_rmm/rmi.c
-> > 
-> > [...]
-> > 
-> > > +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
-> > > +{
-> > > +	unsigned long l0gpt_sz;
-> > > +	unsigned long next, par_state;
-> > > +
-> > > +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
-> > > +					  rmi_feat_reg(1)));
-> > > +	start = ALIGN_DOWN(start, l0gpt_sz);
-> > > +	end = ALIGN(end, l0gpt_sz);
-> > > +
-> > 
-> > Is it guaranteed that end with not be = PASZ ? The spec says RMI_GPT_INFO
-> > will return RMI_GPT_INFO when top >= pasz. Unlike start, end for good
-> > reason is aligned up(ceil) instead of aligned down, but that also means
-> > end will become PASZ when we reach end of memory, no ?
-> 
-> Good point. The RMM spec needs to be fixed to make the condition
-> 
->  top > pasz
-> 
-> as the top, is really the top the region and is not inclusive.
-> 
-> This is already a known issue, tracked by FENIMORE-1807. The proposed
-> fix is :
-> 
-> pre: UInt(top) > rmm.static.pasz
-> 
+On Thu, Oct 1, 2026 at 1:49=E2=80=AFAM Lorenzo Bianconi
+<lorenzo.bianconi@oss.qualcomm.com> wrote:
+>
+> > Continue Lorenzo Bianconi's EST replay series with v4 of the unmerged w=
+ork:
+> > https://lore.kernel.org/r/20260902-stmmac-est-reapply-after-open-v3-0-e=
+72a6df5a7ef@oss.qualcomm.com
+>
+> Hi James,
+>
+> My plan is to continue working on this series (the code is available in [=
+0]),
 
-Ah OK, all good here then. Thanks for update.
+I compared your b4/stmmac-est-reapply-after-open branch at
+e7a2792034e0 with the EST v4 I posted. The first two patches
+(embedding the EST state and passing an explicit enable argument)
+are equivalent apart from the additional sign-off.
 
--- 
-Regards,
-Sudeep
+The substantive differences are:
+
+1. Preserving the installed schedule on replacement failure
+
+Both versions validate the gate list before modifying the installed
+schedule, so both preserve it when an entry fails validation.
+
+Your version then overwrites priv->est before programming hardware.
+If EST programming or preemption mapping fails, it disables EST.
+However, TAPRIO keeps its previous schedule when the driver rejects
+the replacement, leaving the driver and qdisc with different state.
+
+My version builds the complete replacement in a separate object and
+publishes it only after programming and preemption mapping succeed.
+On failure, it retains the old configuration and attempts to restore
+it, advancing the old base time by whole cycles against the current
+PHC time.
+
+2. Restoring EST before starting DMA
+
+Your version starts DMA inside stmmac_hw_setup(), before PTP setup
+and EST replay.
+
+Mine moves DMA startup into the open and resume paths, after those
+steps succeed. This keeps DMA stopped if EST restoration fails. I
+wouldn't claim the earlier ordering necessarily transmits an ungated
+packet, but the later startup gives us a stronger initialization
+invariant.
+
+3. Serializing EST across a PHC time adjustment
+
+Your adjtime path releases est_lock between disabling EST and
+adjusting the clock, then reacquires it for replay. It also ignores
+the disable, clock-adjustment and replay errors.
+
+Mine holds est_lock across that entire sequence, so a concurrent
+TAPRIO operation cannot replace or destroy the schedule partway
+through it. It checks the errors and attempts replay even after a
+failed clock adjustment, while preserving the first error.
+
+4. PTP prerequisite version
+
+My series uses the newer PTP error-propagation fix already merged
+as 8181678a92f0. Your branch carries an earlier version below the EST
+series. The merged version also tracks PTP enablement and handles
+platforms without a configured PTP clock rate. This is your newer
+upstream work, rather than an additional change in my EST patches.
+
+One limitation of my version is that rollback remains best-effort:
+if restoring the old schedule also fails, it logs the failure but
+retains the old software configuration. Hardware can therefore
+still differ from the cache. Neither version guarantees recovery
+from that double failure.
+
+I'd suggest retaining the candidate-schedule handling, later DMA
+startup and adjtime serialization when consolidating the series.
+
+> I am just waiting other patches to be merged upstream before reposting in=
+ order
+> to avoid any conflict. I guess it is correct to publicly ask before posti=
+ng
+> other people patches.
+
+I guess I had assumed since it had been nearly a month since your
+last series that you just hadn't gotten around to spinning a new one
+and figured if you were still working on it then my changes might be
+helpful either way since I had reworked a few things while working
+on a series depends on these changes.
+
+Feel free to take back over and incorporate my changes into your
+next revision if/as appropriate.
+
+> Moreover, this is thecnically a fix so this seires should targed net tree=
+.
+
+I think the fixes you may have been waiting on are in net-next, which
+is the reason I did not target the net tree.
+
+>
+> Regards,
+> Lorenzo
+>
+> [0] https://github.com/LorenzoBianconi/net-next/tree/b4/stmmac-est-reappl=
+y-after-open
+>
+> >
+> > The PTP initialization fix from that series is already in the base.
+> > Carry the remaining embedded-state and explicit-enable preparations,
+> > and restore the installed schedule after open and resume reset.
+> >
+> > Build TAPRIO replacements separately so rejected updates cannot
+> > corrupt the installed schedule. Rebase the previous schedule against
+> > the current PHC when rolling back a failed hardware update, and keep
+> > DMA stopped until replay succeeds. These changes do not depend on
+> > the later datapath recovery series.
+> >
+> > Changes in v4:
+> > - Omit the merged PTP initialization patch and adapt the remaining
+> >   changes to probe-time PTP locking and current TAPRIO error handling.
+> > - Separate schedule validation/rollback from open and resume replay.
+> > - Reuse the base-time helper for replacement, PHC adjustment and
+> >   rollback; propagate errors while preserving the installed cache.
+> > - Start DMA only after the installed schedule has been restored.
+> > - Link to v3: https://lore.kernel.org/r/20260902-stmmac-est-reapply-aft=
+er-open-v3-0-e72a6df5a7ef@oss.qualcomm.com
+> >
+> > Changes in v3:
+> > - Guard priv->est.enable update using est_lock mutex.
+> > - Embed stmmac_est in stmmac_priv struct.
+> > - Rework locking in tc_taprio_configure().
+> > - Fix possible divided by zero crash in tc_taprio_configure().
+> > - Add missing reconfiguration during stmmac_resume().
+> > - Honor ptp error code in __stmmac_open() and stmmac_resume().
+> > - Link to v2: https://lore.kernel.org/r/20260829-stmmac-est-reapply-aft=
+er-open-v2-1-5e5ccb185e92@oss.qualcomm.com
+> >
+> > Changes in v2:
+> > - Rename stmmac_est_reconfigure() in stmmac_setup_est().
+> > - Rely on stmmac_setup_est() in tc_taprio_configure().
+> > - Link to v1: https://lore.kernel.org/r/20260825-stmmac-est-reapply-aft=
+er-open-v1-1-dfa80735e0a1@oss.qualcomm.com
+> >
+> > Assisted-by: Codex:gpt-6-astra
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> >
+> > ---
+> > James Hilliard (1):
+> >       net: stmmac: preserve the installed EST schedule on errors
+> >
+> > Lorenzo Bianconi (3):
+> >       net: stmmac: embed struct stmmac_est in stmmac_priv struct
+> >       net: stmmac: pass the desired EST enable state to est_configure()
+> >       net: stmmac: restore EST before starting DMA on open and resume
+> >
+> >  drivers/net/ethernet/stmicro/stmmac/hwif.h        |   2 +-
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac.h      |   2 +-
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_est.c  |  47 ++++++-
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_est.h  |  13 ++
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  38 ++++--
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c  |  59 ++++-----
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c   | 142 +++++++++++---=
+--------
+> >  7 files changed, 176 insertions(+), 127 deletions(-)
+> > ---
+> > base-commit: 1631d79ae57dce2c5f88ad278307028638a8b4d9
+> > change-id: 20260824-stmmac-est-reapply-after-open-181d70a15eb6
+> >
+> > Best regards,
+> > --
+> > James Hilliard <james.hilliard1@gmail.com>
+> >
