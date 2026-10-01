@@ -1,180 +1,219 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CAC548FF9D;
-	Thu,  1 Oct 2026 21:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24085349D4
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790888985; cv=none; b=aQgEv2QDZTDXZtlkerBO081FzpAEBT2Wo3dFAMXUredtS7Tr4uJUy2NKIt0WT0ioinJJjU0XfP5Tk6Td87bHkkOHPnOdPAcN5vtg1HsJc5pFkSL5bXm8/paxs6HQa4srPlTbhU+gXf80024Q8Xp9HAkZ61uTwdghKZjDDMSJszM=
+	t=1790889053; cv=none; b=sx9sLU74G+jqMkIlV1P4kX10SqSp9O0WXOT/Wz9fVRZ2k2DevuP/KsMbWH8njCO3ERt0kRurNR9tn6Iuwdo7NvWh0Lj0Djl89Op6JPbMpYofStm38+T4U/jLAMkS/BpkZXUx4xQaitZAwaYx0NtXSOV5BUaHsfHrwp7IfZRciww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790888985; c=relaxed/simple;
-	bh=6UxZiSMXOZ2G2+H1G1Efxdl+y1iSPxd/HGooq6Ez18w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RWCy27hm+Qy1WVHXF7G5XYSJO4T5QqfK2PZBYWtNv5XZs4qPpU8AHnO7Yj/ukZYzcbkTH2ymB3bqcjhhxxr/jcfNmCMQ3zEy0FxG2/EJOuYHYxqBb9sh5CYribB3BCdApnPZfJE7KR6PCKH9fVhxqnqEslIZRPaDhqMW4ayXY0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dXSalrrG; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790889053; c=relaxed/simple;
+	bh=092/HcEilVmakxy5W8wqV0dSID2JMH7R03jCCFy4RxM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sRh+yyd7TZ2mYvteBm4iA41O11d6EAJnB/SHCQqO5J2W8p2Nx9I4b9LCfPuPi0Ko29pJvpDUk/gXXMiJPV0KwK3V6LZksxwsYK9lSisHoRB8gESWwCo3MORptzvN/ntCT3vh2uDPWPb7gL/HVFjs5lmyfU+IjgB31NG7sxaKKso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddwwBZ84; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dXSalrrG"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2B42C497;
-	Thu,  1 Oct 2026 14:09:40 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 802F93F86F;
-	Thu,  1 Oct 2026 14:09:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790888983; bh=6UxZiSMXOZ2G2+H1G1Efxdl+y1iSPxd/HGooq6Ez18w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dXSalrrGGT+/wYVtpiKsAv3e9vNf4B7zYrCJ2/ujeL3rpHLfJSmO3OeLVAtjoaVaY
-	 J8ZXO6HNNqGRjwaPtFSAK3/hsL5FVHTBDaJVZGCFcqYJkKFVklzyNV69sfi+X395NY
-	 Y7sNaIO28zT6AxELiD9yryQnajhutiuDUk8ySJUk=
-Date: Thu, 1 Oct 2026 22:09:38 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 3/4] kselftest: mm: integrate huge page checks
-Message-ID: <ar7MEl_EBWSNOO5F@e129823.arm.com>
-References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
- <20260924-fix_split-v8-3-cba7359d882a@arm.com>
- <16f16e77-05ab-418e-ad06-8f48fb29375a@kernel.org>
- <aruMgm8UZ_t2V_wh@e129823.arm.com>
- <3e03425b-7962-4c69-93aa-96168fd7168e@kernel.org>
- <ar5lhhdKlK6NwX19@e129823.arm.com>
- <a3a4ae76-c09d-4e9a-a84c-acea6f5fc437@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddwwBZ84"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388D61F008A0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:10:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790889051;
+	bh=Cv/AHEsBbnYG0BEg3b4FxMz/rNctK75WTcep6/1Bhe4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ddwwBZ84yvtt1R2029E/eH4Z+7yntVZy5kecE9fWb7IL/X16zEkvTHQm2s0UHtQcX
+	 Ns3orOrmaydJVkrCWEDl6C806roFrNuPim6F6ENsrWrS7t56jLiQE9VU/lUKpmXFl7
+	 khh93F5bLaJv8wQY13t6bODnKGs5sXQPlUYw6Xo9X/ffULFOENIxyxCtAi3upzuMeb
+	 Ve57/0L90zvXbqCoRR/SvxUZhkXP3Laankhc3W7eAMoQ3YOXShX/MYw8oblcX6CtGr
+	 1NFg6hxgZx/asuCWf+DC13XBQjof4Bvh5Y6nOceYYZYVnHHiuKcIGbDd8sug65MmCx
+	 rpEiVfol3riDw==
+Received: by mail-lr2-f37.google.com with SMTP id 38308e7fff4ca-3a64d20990fso68050821fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:10:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwUl0EulUc9w19v4YC4uXU+9BeONLv2PhJyOIHUpp8xft0+gQNztuMNL8nWAL/UK4SyThjBcj44+hPPLa8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIl6zI+9GKoSq6UpAdL+cmmiujcqOqkb9Pzhp1qThBOoXIxnJbO
+	QtKXqUCVhmQyNRVxFxfIIcT7g/0AeNbOKJd0T76fJ3xVo5kthvHr/RIG9uljuZSr94BHDQLl1FS
+	h9c7GHamJiLyi728czKsnK0M/mDlpdHc=
+X-Received: by 2002:a05:651c:1987:b0:3a5:b187:c7a3 with SMTP id
+ 38308e7fff4ca-3a87f7d8b35mr1130761fa.2.1790889049900; Thu, 01 Oct 2026
+ 14:10:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a3a4ae76-c09d-4e9a-a84c-acea6f5fc437@kernel.org>
+References: <20260930092020.1047221-1-y-abhilashchandra@ti.com> <20260930092020.1047221-2-y-abhilashchandra@ti.com>
+In-Reply-To: <20260930092020.1047221-2-y-abhilashchandra@ti.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 23:10:34 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
+X-Gm-Features: AclHuK_xn_-CKnIZzt8Aiza52a34qEVHcG5dNEDn3VR0fTXp_jLDfo12LQfvZZ0
+Message-ID: <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: Add TI TDA54 pin controller
+To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, 
+	vigneshr@ti.com, kristo@kernel.org, brgl@kernel.org, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, afd@ti.com, 
+	u-kumar1@ti.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On 10/1/26 15:52, Yeoreum Yun wrote:
-> >> On 9/29/26 12:01, Yeoreum Yun wrote:
-> >>>
-> >>> Okay. I'll change like below in next-spin:
-> >>>
-> >>> -------&<-------
-> >>>
-> >>> @@ -411,57 +400,78 @@ static bool check_huge_type(uint64_t categories, enum check_huge_type type)
-> >>>         return false;
-> >>>  }
-> >>>
-> >>> -static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
-> >>> -                 uint64_t hpage_size, enum check_huge_type type)
-> >>> +static bool __check_huge(void *addr, size_t len, int nr_hpages,
-> >>> +               uint64_t hpage_size, enum check_huge_type type)
-> >>>  {
-> >>>  {
-> >>> -       int pagemap_fd;
-> >>> +       bool ret = false;
-> >>> +       int pagemap_fd, kpageflags_fd;
-> >>>         int nr_pmd_mappings = 0;
-> >>> +       uint64_t pmd_pagesize, scan_mapping_size;
-> >>>         uint64_t categories;
-> >>> +       unsigned long pfn;
-> >>> +       bool check_pmd_mapping, allow_nonpresent;
-> >>>         char *start = addr;
-> >>>         char *end = start + len;
-> >>>
-> >>> +       pmd_pagesize = read_pmd_pagesize();
-> >>> +       if (!pmd_pagesize)
-> >>> +               ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> >>> +
-> >>> +       check_pmd_mapping = hpage_size == pmd_pagesize;
-> >>> +       scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
-> >>> +       /* Some mTHP tests check a partially populated PMD-sized range. */
-> >>> +       allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
-> >>> +
-> >>>         pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-> >>>         if (pagemap_fd < 0)
-> >>>                 ksft_exit_fail_perror("open pagemap");
-> >>>
-> >>> -       for (; start < end; start += hpage_size) {
-> >>> +       kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
-> >>> +       if (kpageflags_fd < 0)
-> >>> +               ksft_exit_fail_perror("open kpageflags");
-> >>> +
-> >>> +       for (; start < end; start += scan_mapping_size) {
-> >>>                 categories = pagemap_scan_get_categories(pagemap_fd, start);
-> >>> -               if (!(categories & PAGE_IS_HUGE))
-> >>> +               pfn = pagemap_get_pfn(pagemap_fd, start);
-> >>> +               if (pfn == -1UL) {
-> >>> +                       if (!allow_nonpresent)
-> >>> +                               goto out;
-> >>>                         continue;
-> >>> -               if (check_huge_type(categories, type))
-> >>> +               }
-> >>> +               if (!check_huge_type(categories, type))
-> >>> +                       goto out;
-> >>> +       }
-> >>> +
-> >>> +       if (!check_pmd_mapping) {
-> >>> +               ret = check_large_folios(pagemap_fd, kpageflags_fd,
-> >>> +                               addr, len, nr_hpages, hpage_size);
-> >>> +               goto out;
-> >>> +       }
-> >>> +
-> >>> +       for (start = addr; start < end; start += scan_mapping_size) {
-> >>> +               categories = pagemap_scan_get_categories(pagemap_fd, start);
-> >>> +               if (categories & PAGE_IS_HUGE)
-> >>>                         nr_pmd_mappings++;
-> >>>         }
-> >>> -       close(pagemap_fd);
-> >>>
-> >>> -       return nr_hpages == nr_pmd_mappings;
-> >>> +       if (nr_pmd_mappings != nr_hpages)
-> >>> +               goto out;
-> >>> +       ret = true;
-> >>> +
-> >>> +out:
-> >>> +       close(pagemap_fd);
-> >>> +       close(kpageflags_fd);
-> >>> +       return ret;
-> >>>  }
-> >>>
-> >>
-> >> I'd leave existing __check_huge() mostly alone, and instead have an additional
-> >> function that checks the type.
-> >>
-> >> Essentially a __check_type() or sth that we run after the large folio / pmd check.
-> > 
-> > So, You mean like this?
-> > 
-> > -------&<-------
-> > 
-> > -enum check_huge_type {
-> > -       CHECK_HUGE_ANON,
-> > -       CHECK_HUGE_FILE,
-> > +enum check_type {
-> > +       CHECK_TYPE_ANON,
-> > +       CHECK_TYPE_FILE,
-> >  };
-> > 
-> > -static bool check_huge_type(uint64_t categories, enum check_huge_type type)
-> > +static bool __check_type(void *addr, size_t len, uint64_t page_size,
-> > +               bool allow_nonpresent, enum check_type type)
-> 
-> 
-> As discussed off-list, maybe we can avoid the allow_nonpresent handling!
+Hi Yemike,
 
-Okay. I'll change. Thanks!
+thanks for your patch!
 
+On Wed, Sep 30, 2026 at 11:21=E2=80=AFAM Yemike Abhilash Chandra
+<y-abhilashchandra@ti.com> wrote:
 
--- 
-Sincerely,
-Yeoreum Yun
+> +      ti,debounce-select:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2, 3, 4, 5, 6]
+> +        description:
+> +          Selects which DBOUNCE_CFGn period register in the control modu=
+le
+> +          drives the debounce filter for this pad. 0 disables debouncing=
+,
+> +          1 to 6 select DBOUNCE_CFG1 to DBOUNCE_CFG6.
+
+What's wrong with the existing input-debounce property?
+
+  input-debounce:
+    $ref: /schemas/types.yaml#/definitions/uint32-array
+    description: Takes the debounce time in usec as argument or 0 to disabl=
+e
+      debouncing
+
+Just translate usec:s into your custom format in the code, problem solved.
+
+> +      ti,virt-gpio-instance:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2, 3, 4, 5, 6, 7]
+> +        description:
+> +          Selects which virtual GPIO instance controls this pad, allowin=
+g
+> +          protection between multiple virtual views of the GPIO control
+> +          registers. Has no effect unless the pad is muxed to GPIO mode
+> +          (muxmode 7).
+
+Wow crazy stuff. OK keep it :D
+
+> +      ti,wakeup:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2, 3]
+> +        description: |
+> +          Wakeup event configuration for this pad.
+> +          0 - wakeup disabled
+> +          1 - wakeup triggered by any change of the pin input value
+> +          2 - wakeup triggered by a low value on the pin
+> +          3 - wakeup triggered by a high value on the pin
+
+I just have the feeling this should be a generic property. It seems so usef=
+ul.
+
+Can you just add this as wakeup-mode =3D <custom value> in
+Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+
+> +      ti,retention-bias:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2]
+> +        description: |
+> +          Enables the internal I/O pullup/pulldown resistor when pin ent=
+ers
+> +          TDA54 I/O retention mode, and configures the I/O pull resistor
+> +          direction.
+> +          0 - OFF mode pad pull resistor disable
+> +          1 - Select OFF mode pulldown resistor
+> +          2 - Select OFF mode pullup resistor
+
+Use names inspired by the generic config types and flags instead
+of enums.
+
+ti,retention-bias-disable;
+ti,retention-bias-pull-down;
+ti,retention-bias-pull-up;
+
+> +      ti,retention-offmode:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1]
+> +        description: |
+> +          I/O behaviour when retention mode is active.
+> +          0 - I/O maintains its previous state
+> +          1 - I/O state is forced to the OFF mode value
+
+Behaviour of *what*?
+
+The driver stage?
+
+I suspect you should make two bool flags
+ti,retention-output-hold;
+ti,retention-output-disable;
+
+> +      ti,retention-output:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2]
+> +        description: |
+> +          Output driver behaviour while the pad is in retention mode.
+> +          0 - output driver disabled
+> +          1 - output driver enabled, pad driven low
+> +          2 - output driver enabled, pad driven high
+
+Make three flags:
+ti,retention-output-disable;
+ti,retention-output-low;
+ti,retention-output-high;
+
+> +      ti,retention-force:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1]
+> +        description: |
+> +          I/O retention controls.
+> +          0 - gated by the Device Manager logic
+> +          1 - forced active, overriding the Device Manager gating logic
+
+This is clearly a bool flag. It should contain device-manager as that
+magic entity is involved.
+
+ti,retention-device-manager-enable;
+ti,retention-device-manager-forced-active;
+
+Both seems to be related to the device manager whatever that is.
+
+> +      ti,isolation-bypass:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1]
+> +        description: |
+> +          I/O isolation for this pad.
+> +          0 - isolation preserved
+> +          1 - isolation bypassed
+
+What does this even mean electronically speaking? Explain in a description:
+statement.
+
+ti,isolation-preserve;
+ti.isolation-bypass-enable;
+
+perhaps?
+
+Some of the retention settings seem *very* generic, c.f. this
+from include/dt-bindings/pinctrl/nomadik.h that has been
+around forever:
+
+#define SLPM_DISABLED           0
+#define SLPM_ENABLED            1
+#define SLPM_INPUT_NOPULL       0
+#define SLPM_INPUT_PULLUP       1
+#define SLPM_INPUT_PULLDOWN     2
+#define SLPM_DIR_INPUT          3
+#define SLPM_OUTPUT_LOW         0
+#define SLPM_OUTPUT_HIGH        1
+#define SLPM_DIR_OUTPUT         2
+#define SLPM_WAKEUP_DISABLE     0
+#define SLPM_WAKEUP_ENABLE      1
+
+SLPM means "sleep mode", yeah pretty much retention...
+
+I think the corresponding retention settings for things that are really
+quite generic should just be added to the generic pin config bindings.
+
+Yours,
+Linus Walleij
