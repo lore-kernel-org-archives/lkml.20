@@ -1,130 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B77D3C76AD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:48:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE4B3F1041
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790840932; cv=none; b=Fe9oMJGKJZpQ3D43LplX8oiJ0OFqE+qzm5JObCSBPfgnyZw/c2rsqZBjAmVlhpQakshHEFVD16oNmBWUlRTible9v2+jqIYmI76LFHh/p+lveH8b72CcUlGQuhQOwVolamGcQ718edQPSsDpdn1IsbsSqPcdxLfgBZOBPJ3h1eg=
+	t=1790840963; cv=none; b=r1qeUcDRdJHOHWbNkrT8jOpFX7nrc7pyLuumgMCtRsmbJsY67F5ZEMQ9bSyo3SUBc9BCSQ+trLffjsrsFdc5x2sGE1VqmudzkrEL0CN04JzxP4VIWRLwtCco6bK8pWdOrGdh/hbeMI4Ms3b0HmkRnMSiP9baKFg11GEYR84uh+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790840932; c=relaxed/simple;
-	bh=nr+7QF36vSIUflaxoTuPuB0Fun8v2A6FN6t9an3H6dk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ian+i9UvlcmUeneXo5377cK58oMeShYhr0Ia+oj6cLD6GZPdxZAdssRmHYnFxklOtpYonNYFPKVHyd+pYiMLFGNU6rQzpNDQY4RaJblkOwexIc14CR3dJpmbOmXBrDlF38sCZJq7ANjS8vHxhry/6W9PbtvkbkriCW0eJhz1+SM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qygm2R6W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790840963; c=relaxed/simple;
+	bh=VMgkYTMwlnokU6dZQE3Ao5kciYSZAnjVYhrCiDpeP9M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xvzspq415wH0hmftWSRLe/8rdcJwv6DykklxMCLirpvTUMd9O9jNLg806PNPrLdeToBFvc45b1c/AgBcmeOqVVfd4MCfU6W08qFdDOVjno3OjiENgYu1vEJ1aPTsiB+I+SJjGj4csxuqOGe2v2g41qxIbyCzl/7ym1+/C6zfA6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3Vu0oI5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qygm2R6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579AE1F000FF;
-	Thu,  1 Oct 2026 07:48:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3Vu0oI5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2928B1F0089B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:49:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790840931;
-	bh=mNjIuXpUThvFyotQd9GSbJFtJ0698ZsWlEkeLqDq+J0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qygm2R6WcC4oKwDn9p3fd5ZxtzzH5bVE56ZCY4ydjNT+BVGfjf1B1VfA/6LcKKxnD
-	 fgLc2Ii0Qk1vYBGKiMS96qmJDfepfm6PRk1ZHAR4tc4j3LGDTnbxZaiq+YJwFjnIfr
-	 n/a2pBckpty8tFctrBoQ/Wnzfguno5IwnqdBOVPBx3SAgqgtUnlpSpuzYvsB7o6jDn
-	 Ntw53BUZ5DWbC9EVG9R+a6qMFrI01y74S36eh+kibIoXFmN+T/24B694H2MQVfF2Z3
-	 MOHLkbN/ggiH6IuMJqfIYSI7Q9jpQk5kCHodR/m/MUMeXjbsLR+4k9bgqAu8r5KZ55
-	 fxTrgkQDj6igw==
-Message-ID: <964df3e4-b9a4-4741-b8dc-cb8ef02adeec@kernel.org>
-Date: Thu, 1 Oct 2026 09:48:44 +0200
+	s=k20260515; t=1790840962;
+	bh=XyIJKYtW/j5VljRhmLkukvVpN5gok3I2d7ghV/kcy1E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=I3Vu0oI5eq1gVVYF93rqxGyoRroHzr0LsZRAonM4/0ax5TxlN4C/DEGe7XMWrKMyJ
+	 oEKkgnU7fm3a8/XWcqo7vLUURR/CxJ80mCgdNXt1bkHBDFCRzB+L7EFBqR9A5+egF8
+	 1AEFjSCmavksALbn6p1Nd6pDYqxOvhStZCgZIYVHi0dTH6ZEN7HDRD7tDOwdtK/zHW
+	 NPvzimi2Auqqv1uvsfnj5zHLC7hdeTwqQL+rvcCoSpKcfdM9tYrnfJBEp0zPEbC+/3
+	 cbTpMygUomPs6rtXJbPbMiomMWqrzFIXTovqbCnyKSMTMVZC3ZuzaBMjD7Cmnrgf99
+	 7/ahLzMkfuwUg==
+Received: by mail-lr2-f25.google.com with SMTP id 38308e7fff4ca-3a77141826cso16013341fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:49:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBygrCu+mxqXYaQQncWp4QQlMPTBRiH2SW8EUjznv7sSV0N9bmE1BonRiYYPpHq47RUSb+XyjtcYk+B3YOQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKvinVHENuLbRkseA84KS/cc9EySqMuBuRRKJFZ1YC4plEQKMQ
+	+5ifwKibuVRTKr5lZqCdKrZSVCrUz/GnsZ8DbCxJvdr1oDsl/5ylxMAa6kj4P72XRsR/F+PIQ7g
+	6wTY8pYWLCvfUMSd1NFT4gu7LqXFfnmM=
+X-Received: by 2002:a2e:a99f:0:b0:3a7:60f3:40ab with SMTP id
+ 38308e7fff4ca-3a7791db9d9mr10505361fa.8.1790840960901; Thu, 01 Oct 2026
+ 00:49:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/6] mm: swap support for hugetlb folios
-To: Zongkun Lei <leizongkun@qq.com>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Peter Xu <peterx@redhat.com>, Matthew Wilcox <willy@infradead.org>,
- Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
-References: <tencent_501F9D3CED07B66BAA97D5352FB63EE1A709@qq.com>
- <d8646877-4975-4b2d-9255-9285414d65cb@kernel.org>
- <tencent_FC17069F1AD34F4E65F6C8DB7AD5ACEA4408@qq.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <tencent_FC17069F1AD34F4E65F6C8DB7AD5ACEA4408@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260924111856.622898-1-yaojiale02@163.com>
+In-Reply-To: <20260924111856.622898-1-yaojiale02@163.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 09:49:09 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkTzLm00UKdUZuxWidNUppQM=Fge-dUgDJGB-NdRVEn9w@mail.gmail.com>
+X-Gm-Features: AclHuK94BUrWP3xIZVDdzHiy75M55G8Bf6SCaXSllBatpDtlnoRY7lIcGNcpU_0
+Message-ID: <CAD++jLkTzLm00UKdUZuxWidNUppQM=Fge-dUgDJGB-NdRVEn9w@mail.gmail.com>
+Subject: Re: [PATCH 0/4] pinctrl: free maps on DT mapping failures
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Orson Zhai <orsonzhai@gmail.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/29/26 11:26, Zongkun Lei wrote:
-> On Tue, 29 Sep 2026 10:02:11 +0200, David Hildenbrand wrote:
->> Hugetlb is effectively in a feature freeze. There is no interest in
->> maintaining even more of the special hugetlb sauce, sorry. :/
-> 
-> Understood -- thank you for the direct answer.
-> 
-> My mistake was misreading the subsystem's direction.  I had read the
-> earlier list discussions and concluded that the red line was touching
-> hugetlb's reservation semantics, so I designed the whole series to
-> keep them intact -- user-driven only, no LRU, no reclaim hooks.  I
-> see now that the actual position is a feature freeze: not "new
-> features are welcome if reservations stay sacred", but no new
-> features at all.
-> 
-> Going forward I will stick to work that reduces hugetlb's divergence
-> from generic code rather than adding to it, and I will float ideas
-> on the list before putting serious effort into anything big.
+On Thu, Sep 24, 2026 at 1:19=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wrot=
+e:
 
-Yes, that's usually the best approach: if you intend to do a rather invasive
-and/or likely controversial work, better reach out to the community+maintainers
-early.
+> Several pinctrl drivers reserve map storage before appending mux and
+> configuration entries while translating device tree nodes.  If a later
+> operation fails, their error paths free only temporary configuration data
+> and leave the partially built map allocated.
+>
+> Commit 17007cd700601777d9ee203a13d97e64ece3a10f fixed the same cleanup
+> problem in the generic mapping helper.  These drivers use their own mappi=
+ng
+> callbacks and need equivalent error handling.
+>
+> Free the accumulated map and clear the output parameters on every failure
+> path in the Spreadtrum, Renesas RZ/N1, Tegra XUSB, and Samsung drivers.
+> Each patch changes one driver and remains independently buildable.
 
-Most of us prefer a well written problem statement + high-level design idea, as
-it rather focuses on requirements + exploring solution space vs. a concrete
-solution.
+Patches applied as nonurgent fixes.
 
--- 
-Cheers,
-
-David
+Yours,
+Linus Walleij
