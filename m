@@ -1,127 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0631D5CC9;
-	Thu,  1 Oct 2026 14:44:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A213AE6F3
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:45:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865886; cv=none; b=Y8u6Qzvj8xNgF1y8rlcNIrxuSTBeYDkiN7w5SgpQ+0G73XuBp1lVmo+htL+TnFQa0j1eba8miNanoJwTAn6uFEcaq7AcpTT0n3FucxQK96BWPjV+2JEkXU7/CDdsIxM4PIJBD3gYJny7a5BwAU754FUebhS+K++BqU+wQ/AQWEg=
+	t=1790865913; cv=none; b=meFyaK31lkqH9R7z0eS4bM42uYYEXSf0hzOyJ+eBW95sh5OXvSm6p665MfUpNdjm9fO6MXeRelsLOWrkyYURcFmSPBfsH4n5sdzkSjpXc7K5HkLdl4RoE0s7E9ST79/PgL8bOaILJ1BeIvALQguLenaCZ7KtxF2oiolS1fz2MfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865886; c=relaxed/simple;
-	bh=fPBpKYn3qGwBxh0MvO99B8q2yX+lp0t9f7xtUzlK8Tw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lBEfd17GL+fgXACpCTjW1DPB9RCgwRGq2f1MGiv++EfJ5TKjETHdpQ03MEV/xJPCfidi7iG8iDgd3HioPv5ZFAS+q2w7hoapgZurybMjLbNnLDpZRFrv0KRX9DR5h6uQRJOT1EPaociJGuDe909BNf+m8PNbLlw0kh0kvM/TZ6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TEbHaD9U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790865913; c=relaxed/simple;
+	bh=9L6CH3BNsiAwS+p+KZKfthcFKV4pNXIkhNBnMWLc38U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bGsVemT1nkJIkHZ7ZS8u34xoNi/+WIdJTDM6jU7xKyknAUHCD1Zh+kacRrC9TiI67bf1ebPRH47Kpy+/JA3CzPOuMNAA9zIQfmEcIbmnZtTdZjGEo7xNgh8NUrwbpj0Qz85bvl9nEBb3PFITB6EKOi9BAt0tzq6sm39ZI9P+qKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R40y2+z0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TEbHaD9U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D22E1F000FF;
-	Thu,  1 Oct 2026 14:44:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R40y2+z0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87711F00898
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:45:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790865885;
-	bh=63dxPAt9XcT66Tq82kcXkbDZlj/m4Bx9Zd5XKY1en8U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TEbHaD9URUDeakq+mYH63uXsDoqNiaNTOQEMrBaTXxGpaMlzKWpodH0zd3pdWOKzS
-	 vSSJuDKr0/taNbRXl4ezmx8ohpO2Nw2IPPQYV/xc0VtFgC2dIbo0RU/09UGavws660
-	 IXxArJPosqeMARCusSsf34CyNu1fR9NbX3SZIF62csFABPDCLD2sBNi7vr6yWy+ky1
-	 JnV2kic5MtXISVPw38eLsZPHSugGRZ56iWXT1CD5v2ZTdJTZi+NSuknpsG962qPPs1
-	 2UaWQ7TlQH1TSCCnSaQzayfmHP7ginBqr3FzQWji/BYd8bnmOYzGhKTeCbS0g7FrfF
-	 xF2DTmtUtBUVQ==
-Date: Thu, 1 Oct 2026 15:44:42 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
-Cc: cristian.marussi@arm.com, arm-scmi@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	git@amd.com
-Subject: Re: [RFC PATCH] firmware: arm_scmi: skip empty CLOCK_DESCRIBE_RATES
- replies
-Message-ID: <20261001-persimmon-wallaby-of-popularity-c29bf3@sudeepholla>
-References: <20261001114538.671755-1-jay.buddhabhatti@amd.com>
+	s=k20260515; t=1790865911;
+	bh=9uZ3mVJtvx6p++HOh3FyeX5LdpfEqkU81Hfu+v2ES8Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=R40y2+z0yPoQVl1o5lFeZEka6UC42wpMJflYdk5nvWP5N8Yr2KciXqbqma5DFmRuE
+	 jI6CaMKitg5Z7a37E3MgfBM7C5Q3zsS5/+LVSXyOHhOaa9/LAcDjHpiVS6+LdIIjvK
+	 cgQGPwXteFUyyNGWRMym5rsxPzq3Ip+or//8M3m34jWR8P9N03zhf9zRxbp7FWmALD
+	 hx3HBnyuE5Uk9LTtVagCPr9yLFE+XL788gdkh6QEC3JCWf4Ny0yZvaVMNB76nEGBfT
+	 CJVqUtnREkl91LqqeT+rALZXvRwCjMHj5gNFN5r94qh/aCJKouHRwjxq/XgDyXWqy4
+	 /w3DsCh3b5PrQ==
+Received: by mail-qk2-f37.google.com with SMTP id d75a77b69052e-533342a38ebso62465031cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:45:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz9RjnLHf4JtF519ZuKsLfOqwyMfurM+AHfn5pc7EHKA/EZ274OlHgS/ZuqOtcys1tEH+yu5/WVYOQON3E=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5c8tjR3X1HRtyCEr7oVaB54lDu8weNjR+rtUe0rQ3n6pI2V3g
+	Ostig8TbwD2UqBSk0Z9Jk1vGZGqv8Lcgufo17YBV934OdDBVh8/KD7sFIeu1Mm+v8s5F5XtExmu
+	5fkbgijgGe0bqb1KYAsiASRPZOtsvAEA=
+X-Received: by 2002:a05:622a:e398:20b0:533:8ae0:3a4c with SMTP id
+ d75a77b69052e-5338ae048e0mr29517051cf.47.1790865911012; Thu, 01 Oct 2026
+ 07:45:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001114538.671755-1-jay.buddhabhatti@amd.com>
+References: <20260902065922.1408-1-yanlonglong@kylinos.cn>
+In-Reply-To: <20260902065922.1408-1-yanlonglong@kylinos.cn>
+From: Len Brown <lenb@kernel.org>
+Date: Thu, 1 Oct 2026 10:44:58 -0400
+X-Gmail-Original-Message-ID: <CAJvTdKn3--_KCvGiqJAOySscw+vpT1OnvdVfi3uMUVjJ6L3LiQ@mail.gmail.com>
+X-Gm-Features: AclHuK9iD_6H4G1l1yw-Z14P0ZZrV7zTwx2IT9mIW7X9lkLTzjdgHB29E7kOdQ0
+Message-ID: <CAJvTdKn3--_KCvGiqJAOySscw+vpT1OnvdVfi3uMUVjJ6L3LiQ@mail.gmail.com>
+Subject: Re: [PATCH] tools/power/x86/turbostat: add NULL check after calloc()
+To: longlong yan <yanlonglong@kylinos.cn>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 04:45:38AM -0700, Jay Buddhabhatti wrote:
-> Some platforms advertise reserved or uninstantiated clock IDs that still
-> succeed CLOCK_DESCRIBE_RATES with zero rates. After dynamic rate
-> allocation, kcalloc(0) returns ZERO_SIZE_PTR and protocol init then
-> dereferences rates[0], which panics.
-> 
-> Do not allocate or index the rate array when the firmware reports an
-> empty list, so unused IDs are skipped instead of taking down the SCMI
-> clock provider.
-> 
-> Fixes: 62ba967595e0 ("firmware: arm_scmi: Make clock rates allocation dynamic")
-> Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
+Applied -- thanks!
+
+Len Brown
+Intel Open Source Technology Center
+
+On Wed, Sep 2, 2026 at 2:59=E2=80=AFAM longlong yan <yanlonglong@kylinos.cn=
+> wrote:
+>
+> Three calloc() calls in turbostat lack NULL return checks, leading to
+> potential NULL pointer dereferences on allocation failure:
+>
+> 1. rapl_perf_init(): the allocated `domain_visited` is used later via
+>    memset(domain_visited, 0, ...) without checking for NULL.
+>
+> 2. added_perf_counters_init_(): the allocated `domain_visited` is used
+>    later via memset() and domain_visited[next_domain] without checking
+>    for NULL.
+>
+> 3. pmt_add_counter(): the allocated `pcounter` is dereferenced
+>    immediately via strncpy(pcounter->name, ...) without checking for
+>    NULL.
+>
+> Add NULL checks after each calloc(), using the same error handling
+> style already present in each function: err(-1, ...) for rapl_perf_init()=
+,
+> errx(1, ...) for added_perf_counters_init_(), and return 1 for
+> pmt_add_counter().
+>
+> Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
 > ---
-> The SCMI server is the source of this zero rate and successful response
-> and it should be fixed in SCMI server. This defensive check in Linux is
-> still useful because firmware responses must be validated before
-> de-referencing dynamically allocated data, The panic is a Linux
-> regression introduced by dynamic rate allocation; previous fixed array
-> tolerated the same response and other SCMI implementations could return
-> the same unexpected response.
-> ---
->  drivers/firmware/arm_scmi/clock.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/drivers/firmware/arm_scmi/clock.c b/drivers/firmware/arm_scmi/clock.c
-> index 0278705d809e..8934a95527e2 100644
-> --- a/drivers/firmware/arm_scmi/clock.c
-> +++ b/drivers/firmware/arm_scmi/clock.c
-> @@ -8,6 +8,7 @@
->  #include <linux/math64.h>
->  #include <linux/module.h>
->  #include <linux/limits.h>
-> +#include <linux/slab.h>
->  #include <linux/sort.h>
->  
->  #include "protocols.h"
-> @@ -484,6 +485,13 @@ iter_clk_describe_update_state(struct scmi_iterator_state *st,
->  	if (!st->max_resources) {
->  		unsigned int tot_rates = st->num_returned + st->num_remaining;
->  
-> +		/*
-> +		 * Unused/reserved clock IDs return 0 rates. kmalloc(0)
-> +		 * returns ZERO_SIZE_PTR and must not be dereferenced.
-> +		 */
-> +		if (!tot_rates)
-> +			return 0;
-> +
->  		p->clkd->r.rates = devm_kcalloc(p->dev, tot_rates,
->  						sizeof(*p->clkd->r.rates), GFP_KERNEL);
->  		if (!p->clkd->r.rates)
-> @@ -505,6 +513,9 @@ iter_clk_describe_process_response(const struct scmi_protocol_handle *ph,
->  	struct scmi_clk_ipriv *p = priv;
->  	const struct scmi_msg_resp_clock_describe_rates *r = response;
->  
-> +	if (ZERO_OR_NULL_PTR(p->clkd->r.rates))
-> +		return -EPROTO;
-> +
->  	p->clkd->r.rates[p->clkd->r.num_rates] = RATE_TO_U64(r->rate[st->loop_idx]);
->  
->  	/* Count only effectively discovered rates */
-> @@ -622,6 +633,13 @@ scmi_clock_describe_rates_get(const struct scmi_protocol_handle *ph,
->  	if (ret)
->  		return ret;
->  
-> +	/*
-> +	 * Some platforms expose reserved clock IDs with an empty
-> +	 * CLOCK_DESCRIBE_RATES reply. Do not dereference rates[].
-> +	 */
-> +	if (!clkd->r.num_rates || ZERO_OR_NULL_PTR(clkd->r.rates))
-> +		return 0;
-> +
+>  tools/power/x86/turbostat/turbostat.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turb=
+ostat/turbostat.c
+> index 4ad7cb1df5c5..926dd1422fbe 100644
+> --- a/tools/power/x86/turbostat/turbostat.c
+> +++ b/tools/power/x86/turbostat/turbostat.c
+> @@ -8578,6 +8578,8 @@ void rapl_perf_init(void)
+>  {
+>         const unsigned int num_domains =3D get_rapl_num_domains();
+>         bool *domain_visited =3D calloc(num_domains, sizeof(bool));
+> +       if (!domain_visited)
+> +               err(-1, "calloc domain_visited");
+>
+>         rapl_counter_info_perdomain =3D calloc(num_domains, sizeof(*rapl_=
+counter_info_perdomain));
+>         if (rapl_counter_info_perdomain =3D=3D NULL)
+> @@ -9942,6 +9944,8 @@ int added_perf_counters_init_(struct perf_counter_i=
+nfo *pinfo)
+>         const size_t max_num_domains =3D MAX(topo.max_cpu_num + 1, MAX(to=
+po.max_core_id + 1, topo.max_package_id + 1));
+>
+>         domain_visited =3D calloc(max_num_domains, sizeof(*domain_visited=
+));
+> +       if (!domain_visited)
+> +               errx(1, "%s: alloc %s", __func__, "domain_visited");
+>
+>         while (pinfo) {
+>                 switch (pinfo->scope) {
+> @@ -10333,6 +10337,8 @@ int pmt_add_counter(unsigned int guid, unsigned i=
+nt seq, const char *name, enum
+>         pcounter =3D pmt_find_counter(*pmt_root, name);
+>         if (!pcounter) {
+>                 pcounter =3D calloc(1, sizeof(*pcounter));
+> +               if (!pcounter)
+> +                       return 1;
+>                 new_counter =3D true;
+>         }
+>
+> --
+> 2.43.0
+>
 
-I expect the Clock rate control bit to be unset in the permissions for
-these clock, else it may be dangerous to do this. Please add that check.
 
--- 
-Regards,
-Sudeep
+--=20
+Len Brown, Intel Open Source Technology Center
