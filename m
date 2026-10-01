@@ -1,112 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26FF30C147;
-	Thu,  1 Oct 2026 21:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0123B486419
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790891896; cv=none; b=UewQWtSifS72i8TB927V5t2Y2LsipdmtpV+kuGBO0oIz7XvVxqMuuqBw2/qysFM9QJRQYULDcAlUypDPfKXv0SUQguWZKnTGhzNgS4NmUlwdCLQaOq+Nl5a08v/ZU8gDE561aYBaZxzeX1B7uKhyJMLwxRXVnuzNpGT+D8cV80c=
+	t=1790892005; cv=none; b=GERe98plYecmdL+TsuRJx1QRvuIR7fHxQhQ8o4KCGUyNu7FfBNnbMzu4oHetNTCBMnHyw9mvC9VjlCy2MHVMOiS5n5aUaPuYEowPC56t63wo3K8uDFjV9zWO5edDAA5CY5XkNurKfmtwbO7ANY158fogmVVGucIST7j18cr80Dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790891896; c=relaxed/simple;
-	bh=ZZfa4SIN+PSF1Rrn3m8d7MZfagkknuPMHuc8cUaAr38=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=go4hSJDUSzrq0sD/QuK8R4CjwQqlNJq8NYllXLcHYgS+iUPz8IhU9LO8dMLYNFkIgecRoOPPhGsaOxd3/AjZ9X1wearS8/b79RfomFvrc/WPkPYekdVp5hlKP922XqsCQdFVZHMa+i7rLdj6FMk3m4DnwcZGpGbcYuStZMkpEJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUA8tVkm; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUA8tVkm"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 59388C2BCC7;
-	Thu,  1 Oct 2026 21:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790891895;
-	bh=ZZfa4SIN+PSF1Rrn3m8d7MZfagkknuPMHuc8cUaAr38=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=EUA8tVkm9cUG8PYCzTEp81YqGlAvLWlGlLBOOLQoWa+eWHoCfibowOcxhbV09LoEo
-	 a7viTeKjcWzxLWQ8IAjPdVOjyu4+pAD3rBOdnjBExw/kc43b+ORNmt9q2m1jhQDMC9
-	 yQgacdRjHT4Cf52k0Kt+pWQwpl/a+zR7ywUQzK2SeFaOdl8SfynVJSzb0OjqBCYDq0
-	 epXE1N+umF0ipOopvd19T67hgO90stZx10uObsk3d1+uSecegibqBNejs5k25QbHsp
-	 AwqUMc1G39AjOFeMj732FkqSgC7uAEyRG/zOpHyK5XR+2ZFZVEnfGyow/SpAQieWSO
-	 28IiHmj/LDjpw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35460CA5FCE;
-	Thu,  1 Oct 2026 21:58:15 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Thu, 01 Oct 2026 23:58:14 +0200
-Subject: [PATCH v2] dt-bindings: hwmon: jedec,jc42: add
- #thermal-sensor-cells
+	s=arc-20240116; t=1790892005; c=relaxed/simple;
+	bh=poBND1yecuv2eiYDf8gp3baSNlAAiO5YXdEsCHZ9TaM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=ThB1Pdsta56FXWzXqiqVbSQn8RXxlWo39ZCLtpLiaqG8elYA9MXt7atLfowl8SwlZGYmHnQmFtrM37v9P5nBvvH+0KpRQmw7PL5IzjPiar1kPHB6IX2uzlDXVvVR6k9ipa/tSst2ByYd41Tlekf6ct9BANobV5NeWsMWAkxULhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c307941971so2117134b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:00:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790892003; x=1791496803;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=l2tk95Z/iDkGQoY2hVpQS9BcZ2njQ7BN9coWNLTADME=;
+        b=kLlv0nEXsTRs/vAPK++Ac9n9f0+WtyV9vajqQ2ZknytaPk7sc8OnKHy1atD9XzfXQ2
+         dwk5P1s2C7T+1lJ9DRrssLgo8qcYHJNRg5gFh7SHHamwpmaoosPocen/0sRKjsIFSGIa
+         Vu3bs+ACyRyenMteZxPL8G5kBE5Bpp1PbaZvjuCBy/zAWp0PNJFpOQCcVNB2gNs8aj40
+         SLDI0uGdqsRz2zOpKVJxHZ4O+oUmO9A8f8oS2tFD9EsQhdEYrBKNDQhcjmkMLCxFAHmk
+         D+odr3cu7+RVyaIH/B1r1V8MkydTosiwCg8GauFmX2g9pa/2IlRggT9OLa+OFeDyB3Oj
+         +4Lw==
+X-Forwarded-Encrypted: i=1; AKwUvByKGT/1apDQNoyUuOstGUOicgJyA0EyUts0+E8TYe5U7Z2F319KiTm1h54zRgsf6E64uCbTm3MhYXEWzS4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBxcMKHY1E9t5nN/zf8/Au0G08AE1J+p612xCKdTibk6tdjbqG
+	Winsbo7ILJ/xcYA8/3blh6iEiXywPve69O1txOcdJhzpS9Sr8C5ajLH+QPwS8hMZr4Jq8dMPwKB
+	y7/Nt6dgIuJwn7aMPRU7NDopuoTed1uWclDDlD1pWkofBrWd8ByyLkrOetuQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-for-upstream-dt-jc42-thermal-sensor-cells-v2-1-6edd30b082f3@free.fr>
-X-B4-Tracking: v=1; b=H4sIAHXXvmoC/52NSwrCMBRFt1Iy9kmS2oCO3Id0ENIbG+lH3otFK
- d27sUtweO6Fc1Yl4ARRl2pVjCVJmqcC9lCp0PvpDkpdYWW1dfpca4oz0+spmeFH6jI9wslS7sG
- jH0gwSfkDhkHIdyZAN8Y5E1TxPRkxvffWrS3cJ8kzf/b0Yn7rP5XFkCFEV7smeNga18jAMbJqt
- 237AgxynOHgAAAA
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790891894; l=1440;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=8mjDlcGI3Cj4EQONFKljx6GXc0o6W4X1o0EOPy1FmU4=;
- b=tKsE662/gABLgXKroy1YEXHqY5YCQC7VXTP/I3yUuywSdQriE/UBFNhmEBRoVb/pKmW/i2UfI
- orl/JKz0dw/BoIgFBXa8GdxIaJ5qVpRoS27HfBG/mQeH0AWhgOv6S62
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+X-Received: by 2002:a05:6808:c161:b0:4c4:a240:9c3a with SMTP id
+ 5614622812f47-4f526a4f2eamr566038b6e.4.1790892002959; Thu, 01 Oct 2026
+ 15:00:02 -0700 (PDT)
+Date: Thu, 01 Oct 2026 15:00:02 -0700
+In-Reply-To: <20261001213027.1325703-1-adrianox@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abed7e2.092aa46d.14d54.0006.GAE@google.com>
+Subject: Re: [syzbot] [ext4?] KASAN: slab-use-after-free Write in do_split
+From: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>
+To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Vincent Jardin <vjardin@free.fr>
+Hello,
 
-Since commit 032c1623c9de ("hwmon: (jc42) add HWMON_C_TZ_REGISTER") the
-driver sets HWMON_C_REGISTER_TZ, so the hwmon core calls
-devm_thermal_of_zone_register() for its temperature channel and the
-device can be referenced as a thermal sensor.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-The chip has a single temperature channel, registered as sensor 0, so
-no cell is needed.
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Tested-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
-Changes in v2:
-- fix sentence format (Krzysztof)
-- record Krzysztof's Reviewed-by
-- Link to v1: https://lore.kernel.org/r/20260930-for-upstream-dt-jc42-thermal-sensor-cells-v1-1-ef6365cae23e@free.fr
----
- Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+Tested on:
 
-diff --git a/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml b/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml
-index bf3332153ad8..d835664a926b 100644
---- a/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml
-@@ -59,6 +59,9 @@ properties:
-       supported on all chips.
-     type: boolean
- 
-+  "#thermal-sensor-cells":
-+    const: 0
-+
- required:
-   - compatible
-   - reg
+commit:         d24e8ac7 Merge tag 'net-7.3-rc6' of git://git.kernel.o..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17862035580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
+dashboard link: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10b756c9580000
 
----
-base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
-change-id: 20260930-for-upstream-dt-jc42-thermal-sensor-cells-ad1ce051661c
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
-
+Note: testing is done by a robot and is best-effort only.
