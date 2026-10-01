@@ -1,124 +1,103 @@
-Received: from esa8.hc1455-7.c3s2.iphmx.com (esa8.hc1455-7.c3s2.iphmx.com [139.138.61.253])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29474263F5D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.61.253
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106BB35E1A4
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:36:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790818479; cv=none; b=gXN0/goahycseweyuuafQKTiADb4fOLWCKioyJpiPMMdfv3PbUhDzhlSr0Wj2jwGJiR2t3aFPHKCsZ3zvTOlwgkEziuF9NKdPM0C8VwZPXcqPJfDO9kmf2oMqy7kZKHF0/37BLLuTMuMoO7z9Nl6OYDBfBgHhXEWax/mnE19vjw=
+	t=1790818573; cv=none; b=c2eW350g8Z8yLwJEGF6BoUTcPhdU60H84D/kfFJ2ytsc9C0aRoc0/63sASMpF74DARkep8/OPnj2zX0i28ux0utvINuvrsPajDVMEN9xGrSit9hhN5comWngtSeJGUFevi8hPLAGxxSKaQY+lZFhTTHJNdCQj8fwFZO64uLT6hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790818479; c=relaxed/simple;
-	bh=HutbBCZxS976JcvsbprlXH4c2wa61HyhSHROQf0yIBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OTkypI8CrEy9VMDQTJckPFQvTaPD6NJ0+4ONpaxrZ9dFRHSYubOM55bKXRYyUchINupZ66+YnUaDe24QNOOnX4sHCqpZ9fULi7aKFICyFH6Td/SacBOFxMZif0NmktqujgqoAUwSKTTsuSZBSSEiy9C01QnxnEWzMP+kS+aMbXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=C+HAj5pH; arc=none smtp.client-ip=139.138.61.253
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1790818573; c=relaxed/simple;
+	bh=iLdqu+Ue4IoF3oJ7laKVZUnu6AmDbLf/d6lZ2bT8QRc=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=XBuo44IG/jmjKwzmKL1KaR2r0dZ/tm++Xje0U/1aR4l73A6ciEsao5hWDxs2Tj5l0xTnNIUHpBfsLmbdg8ylMg4YKQ1czORhI4rbQu58oSTr8TfuafENsA4a3S5Lq+XWgsPJxlDRnAh3mZt2CzhS6f/f8Pi+broR/YvfbNBO5yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=eKAgWwx3; arc=none smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="C+HAj5pH"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1790818477; x=1822354477;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HutbBCZxS976JcvsbprlXH4c2wa61HyhSHROQf0yIBc=;
-  b=C+HAj5pHyJ49fQ44lh7gM96QkgjW2x9IxXrhquo2Yxz9/1Qiw3Brslth
-   +PQii2Xgrwp/cprG2T1wmi3DCnkXt2rsbP2NxxJkWWelqPse4PREZTiqx
-   BZF5if6gVtkou8CQrSzo4bO7TIIr0FjmZiQEZtdQ0a0HkE9uRiKKo4Hh8
-   Ef0jLL9ab+r9/uUgyaslFHHO/Oa3ebeuivbagK3w3E7Amo8rgS6p1kb3Q
-   g6NqiLRHhJ/Wcz+4sfcp8ZtCjWDMK5cQmT8zSUJmc6hx6kurtOs3cslyh
-   NOvva2pnndvo0AznYUh4rLV6GiLw3+qHyqcIhf3z838ork2JqXJ9OOTEp
-   A==;
-X-CSE-ConnectionGUID: l4HYh6LDSyujiX7FaESdPA==
-X-CSE-MsgGUID: SHEN38OaRKOeoXuhVXAX1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="244704437"
-X-IronPort-AV: E=Sophos;i="6.27,133,1786978800"; 
-   d="scan'208";a="244704437"
-Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
-  by esa8.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:33:25 +0900
-Received: from az2uksmgm3.o.css.fujitsu.com (unknown [10.151.22.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id A7A671002BA1
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:33:25 +0000 (UTC)
-Received: from az2uksmom1.o.css.fujitsu.com (unknown [10.151.22.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmgm3.o.css.fujitsu.com (Postfix) with ESMTPS id 59B1AC011B8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:33:25 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.8.107.230])
-	by az2uksmom1.o.css.fujitsu.com (Postfix) with SMTP id BD83D1800BB2;
-	Thu,  1 Oct 2026 01:33:20 +0000 (UTC)
-Date: Thu, 1 Oct 2026 10:33:19 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Suzuki Poulose <suzuki.poulose@arm.com>, 
-	Steven Price <steven.price@arm.com>, Sami Mujawar <sami.mujawar@arm.com>, thuth@redhat.com
-Subject: Re: [PATCH v2 3/3] virt: arm-cca-guest: Add support for measurement
- registers
-Message-ID: <ar24JzI4QvVqTL7Y@FCCLS0092175.localdomain>
-References: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
- <20260929-arm_cca_mr-v2-3-1d98bba187fd@arm.com>
- <arx2hnTv3QaFqMn-@FCCLS0092175.localdomain>
- <aryZnqqBAjKw5xaP@e129823.arm.com>
- <arygMte5C5lJDdoi@FCCLS0092175.localdomain>
- <aryuwukTRtmd2Lft@e129823.arm.com>
- <20260930135408.GP163130@ziepe.ca>
- <ar0Y0vsOpu3WKTMM@e129823.arm.com>
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="eKAgWwx3"
+Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5a837375so231368285a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:36:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1790818571; x=1791423371; darn=vger.kernel.org;
+        h=subject:cc:to:from:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B9UI6oGE1TK11TaDQg6HshpZ2UDiz++aB74YJjIRaBc=;
+        b=eKAgWwx3Qi6hcF5thFFlJotvOsg+HGGN5NbvW9Bku6m1s42EK2Srhkcc1pAHlaODOq
+         IARjLEsnSthRNjbm0AJmGbR2sENvVG+hR+PpdHCXcQRCMJDqNBhsgwdi0ur+gyaDHj+n
+         giATvyZRog97naYQ330JOupRbIFbjO9+A0/+b5d6fl/leir/fAF+I3QRg8bha+bjim4M
+         IoZp0TRWKhjGrCFsHllyxHHf24o7pP+YpZoONY5VdGeL/sgYUJsxniIeU2MOaBeffGef
+         isCpwZ7bLG0Ru8pCZSLN8DXFtT588KvjfjkRGvAKXEbuC7ugs4VetQ0BJAMHVI23DKIq
+         0RcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790818571; x=1791423371;
+        h=subject:cc:to:from:message-id:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B9UI6oGE1TK11TaDQg6HshpZ2UDiz++aB74YJjIRaBc=;
+        b=gKOPr6hJFr4GgxpnLJCHeOAPPRtyLJWzBDv0DQmauU7WAVJFoR0w61g7makU220jow
+         1Vn8eLyY+7wvWOR32QeZM8JhY/FYdUZbMDlHUQKk144Sb0D25yqp/1j/1V5GkpRdZd0Z
+         G2wiJEQvXvQ68avYD9T3GZNYf/Jzv6MO8Ybjvfw7LcpzP0LqbW3gnYuA6KGyZyKJ2jiZ
+         Y//3vp0QsSafLeo83UnlS+e35jJij00W/FmEJxmKTDMnjupsP3XoDc6XlAW7s43Uph+P
+         4zMMAvkz5wNp0tpJqo/3UzMKC6qkXFlFAnUjiZxXp3d0W+enDMJTHM87a1BQFQuXvpxE
+         8aSA==
+X-Forwarded-Encrypted: i=1; AKwUvBwMRx5il17AQMX+ohKbh0ksCtLeUNg+koUQkh236wIfma984tZ7rEhqvqJoUS021UfcvUxT4fZTJAej4Vo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAsodTWLMRep7tB9yR7zVgGmqOsGRf9loW7/fUWyMUb2/WQepZ
+	NpEe3XySK0HPEhJJ6sVkLSK6dq2IAdUsjTQIECeSgQ7T7lwvF8TB3P6eTV9d7cbRFw==
+X-Gm-Gg: AYBFou0G/YCEWfUwEPY2beNsHmV7K9UKCSMug8OPlH+EJTHG51aU+nauIhByXk6bGQs
+	xEfwS06ZkqB7CvQmHlEx6luClaqgU/aXZionImQZfPC8JKvw8artdZTM39TJoWJOyJ9xpqrKMa8
+	QJZJP+zfJdHdDkZ8TfirSn25ugTSdGBMkQUhL9+e6HkUOZ7bSqLzxwX6YHEmi6mlNJp+EgsRNZ6
+	t3MqYel8szi81EV8ArTlYUB2PTq8Wc296XVvYUSGQKQ/Xd0XQClrX5kRNMoAT9kVv3wEwoQqZ+Z
+	kZPf/OoAIvScMRX6+xjf9am/GsouC7KZ0+xgeAZYOBsukB02Uv9NfvMbqi1/XYEsWqu8QcVjiMb
+	L7r4+u76dv2fMpwkpp17yMruwBabzLBpcjHqzPX0zrSWCJZFTYqI3NeWvhIuqCsW3XjLP4T6X1a
+	JkKsazXT8LgMB2SXL/wNnrc1Eitz0g2CaxoV5mlbpR88X+uzgtMTQfMXkbfh9Bd6EKOe3SnQEcm
+	imOkAraYty36wH1FRF+ATkaaSK8fX9f160n+sD9MazcfezDaGAn4fflai5iCphJYMF6OcOhh64=
+X-Received: by 2002:a05:620a:2806:b0:939:fb9b:2b4b with SMTP id af79cd13be357-93cb563af87mr286730985a.5.1790818570844;
+        Wed, 30 Sep 2026 18:36:10 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cb64eb59esm101530885a.22.2026.09.30.18.36.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 18:36:10 -0700 (PDT)
+Date: Wed, 30 Sep 2026 21:36:09 -0400
+Message-ID: <ff3a2b285345da0c7aaece963e136aa9@paul-moore.com>
+From: Paul Moore <paul@paul-moore.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] audit/audit-pr-20260930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ar0Y0vsOpu3WKTMM@e129823.arm.com>
 
-On 09/30 15:12, Yeoreum Yun wrote:
-> > On Wed, Sep 30, 2026 at 07:40:02AM +0100, Yeoreum Yun wrote:
-> > > > My remaining concern is that since sysfs_kf_bin_write() truncates
-> > > > oversized writes to the binary attribute size before invoking the
-> > > > callback, tm_digest_write() sees an exact-sized write and extends the
-> > > > MR. The following validation is useless in this case.
-> > > > 
-> > > >   static ssize_t tm_digest_write(struct file *filp, struct kobject *kobj,
-> > > >   			       const struct bin_attribute *attr, char *buffer,
-> > > >   			       loff_t off, size_t count)
-> > > >   {
-> > > >     [...]
-> > > >   	/* partial writes are not supported */
-> > > >   	if (off != 0 || count != attr->size)
-> > > >   		return -EINVAL;
-> > > > 
-> > > > IMO this is not specific to Arm CCA, but do you have any thoughts on
-> > > > this?
-> > > 
-> > > I think this is ultimately a limitation of sysfs. At this layer,
-> > > simply knowing that userspace supplied a larger buffer does not allow us to
-> > > determine whether all of the data in that buffer is valid.
-> > 
-> > sysfs is a bad choice for this interface, it always was, this is one
-> > more example why.
-> > 
-> > We should have learned that from TPM's mistakes, not copied its bad
-> > ideas into tsm_mr.
-> 
-> This sounds you plan to make a dedicate fs (whatever via configfs or
-> other) for attestation subsystem which you mention in [0].
-> 
-> Link: [0] https://lore.kernel.org/all/arwNEWUEEk7jdGir@e129823.arm.com/
+Linus,
 
-I wasn't aware of this thread. Thanks for letting me know that.
+A single audit fix for Linux v7.3-rcX to fix a potential UAF error
+in some audit filter configurations.
 
-Thanks,
-Kohei
+Paul
 
-> 
-> -- 
-> Sincerely,
-> Yeoreum Yun
+--
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/audit.git
+    tags/audit-pr-20260930
+
+for you to fetch changes up to aa650d87a498844060eecb1d336f4d46f4d1b0b3:
+
+  audit: fix exe mark UAF in kill_rules() (2026-09-25 16:18:51 -0400)
+
+----------------------------------------------------------------
+audit/stable-7.3 PR 20260930
+----------------------------------------------------------------
+
+Jérémy Jean (1):
+      audit: fix exe mark UAF in kill_rules()
+
+ kernel/audit_tree.c |   36 ++++++++++++++++++++++++++----------
+ 1 file changed, 26 insertions(+), 10 deletions(-)
+
+--
+paul-moore.com
