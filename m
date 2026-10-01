@@ -1,91 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC955349B6;
-	Thu,  1 Oct 2026 21:13:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E4C5349C3
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889189; cv=none; b=bX0dfibw318uSFA/1whivDNu13iJ/xymuy81CUqG/sIFlGdUgFrncvRcvb2YouXunhwHoJ1wFfo/i5ktYh24fCXLIssbdFwIpD92vPzJAla24RJ+J3ezD6MoKfKA7ql/dCnyV7qjR/hnHgJbAuv5hCRvvQg19Rgc8Al0RHS7y3Y=
+	t=1790889235; cv=none; b=CLtGF8QV9o/77jJLPH+GWurOZZIX7v5Ypat7/fSsSoA19VT7VkUNzNQgve/Zp74+2wTJd5haMYaIdOT2CRZf34azHW/eohjUH0ynoog8yHxJ2F7xLDwAJ7WfvwSVDIuz+o9mzhqE9gGdAKHXhbuQfuSG6NmgZYa1VZmrLtrjok8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889189; c=relaxed/simple;
-	bh=YID4gXHFIqMTtUVppI1nwXzJH3gXMKv2tIPQ6gT5e4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SeEeK8UEUNoma/2X6gCchImHRYXMYdzLmLbcACFygBwGn8ae3PJpT98x7PxdBC2yciPcFsDXX64e7+M8BTmQen1n6/tfvp0v5fnRso1K9bCId3vmgeRXir8yORXQE9oaWaPYRSC9a7re8piE0BtWSsKpLqau/WeMIT4hSc5TZ0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YikII+iy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790889235; c=relaxed/simple;
+	bh=XyDDvvco+d3mYshhwaSSq4pDGDpCB4IF/PEVe4NawGo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TQMykeyIZC5ZYu579gUT9Eb4kDUE3bijjUhxLQQiQ8RyWMjE08dT03i8Vqkj3fpx0u6IYfmIjh7MLJUzX62WfVhnxgdohVMMDCfKUv2ITFWkFvaP7J3XPAwL0WDYIdsZXuBOFGEI8u+bEctD6RAlGXcHVGdFKYxIkEqDlF1he6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VJmeh5ks; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YikII+iy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524B11F000FF;
-	Thu,  1 Oct 2026 21:13:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VJmeh5ks"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EFF01F00893
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:13:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790889188;
-	bh=ozBDR9ihiLQdoV63c/CIH9/DsGrQtAF/ys9gmVy4Urw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YikII+iyAkLSbiEz9+nK24YSMOQ8TYIZJOvFUQ9DfsRFgfTcncjyz+mHZpXoWq1G6
-	 jjMDH86qljrHn8jNlPffZ480UfXtKgguhAim5XnbNQ/lFYOwkDeSs2eKeSuUrrw21K
-	 EhkOkhRwcGpcpKXOZHP8UpViN5eTVCJKu4irieHzelHLqw4E5oW1iW4L28GBUKqULu
-	 MTGJy7RxXE2tVQ3F4z7SL0RhRp7eHpxOrSe0cOetdD82elLMKUICQxOKajSe15dVF5
-	 jKkDJ69RS+6K4t7X4xSvC9DR/b6LH/zB2/2SWtre4Vcz8BFLGBTjoQCtQFlTpKHGRS
-	 nQ7a1In+nA7Qg==
-Date: Thu, 1 Oct 2026 22:13:03 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
-	KBuild Mailing List <linux-kbuild@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Subject: Re: linux-next: manual merge of the random tree with the kbuild tree
-Message-ID: <e7b1d231-f862-4f58-8cf2-3670066f8451@sirena.org.uk>
-References: <ar5-4Yq3wtmXTWnD@sirena.org.uk>
- <20261001192731.GA713751@ax162>
+	s=k20260515; t=1790889233;
+	bh=XyDDvvco+d3mYshhwaSSq4pDGDpCB4IF/PEVe4NawGo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VJmeh5ksyazvF5b+uHiFuo+Fkk6I2oEkomFcTpQ21cV7s7Ezpvo2WgVusFoCZgkcq
+	 0zMsaKO6LO+hSz4EJ60U7PJejykfqbW755h946vLBB6L1w5baFM7MtYHfbgXR7s7Ic
+	 DsNON4VsPVifglKVHnHekmWa1Hm32i3mwLRJlEo78moodMhXS9K15e8KCLX2R2eaL5
+	 jWWTgRAFbdVHjAHmKmJTCU1aazlhC3iWjD8Ovh+PKsZrpknhpTuTwmQ2Z32CUkGIz4
+	 26chOz/4enh/ta858jhMXP5Fok4BYwf53CDVQErWoh0nbDdETeMLinDeFNGQMOQnmo
+	 XDskNRObVbmtw==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a7756096e7so23888221fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:13:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxTSYLo3iJgI8256MyCPmM19Tf1aHBQzYkD5rXgkXvK/QPLDj1lSYf8U1X7/2I9TAy2GVD5mbxKWkUPDQY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgAsWvEZFJF5JU2qxWLzHf4UpkpkBvmWK/y9n5NzOlBWKd6tRY
+	kiUe+UBCMDYE2Pd5d+ggo5ogJYofi66cdQ6qEc9i9cs1VukWgL1AfQtdLLP1jxMXz1G8Gce+yJi
+	nFRKdoLm4CAgd+g1GBeLd2RCyPHr0Ohc=
+X-Received: by 2002:a05:651c:210e:b0:3a6:32a5:efa0 with SMTP id
+ 38308e7fff4ca-3a8877c5ae7mr1272461fa.22.1790889232244; Thu, 01 Oct 2026
+ 14:13:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QAXylKfppE/EbuiC"
-Content-Disposition: inline
-In-Reply-To: <20261001192731.GA713751@ax162>
-X-Cookie: Do not stamp.
-
-
---QAXylKfppE/EbuiC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260926-apple-pinctrl-t8140-v2-0-620bd11cd2a1@cyberchaos.dev>
+In-Reply-To: <20260926-apple-pinctrl-t8140-v2-0-620bd11cd2a1@cyberchaos.dev>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 23:13:39 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm1tFh073xxPx2WzidABvP_fRY0Bhf8DkO64W6VBQ8UYw@mail.gmail.com>
+X-Gm-Features: AclHuK_bJIEK2xjDLFUNw_m3k1RB-KhI2mP3RWR1EocLD8uDhL9bs84JVwEtVgI
+Message-ID: <CAD++jLm1tFh073xxPx2WzidABvP_fRY0Bhf8DkO64W6VBQ8UYw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] pinctrl: apple: Add t8140-pinctrl support
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mark Kettenis <kettenis@openbsd.org>, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 09:27:31PM +0200, Nathan Chancellor wrote:
-> On Thu, Oct 01, 2026 at 04:40:17PM +0100, Mark Brown wrote:
+On Sat, Sep 26, 2026 at 4:52=E2=80=AFPM Yureka Lilian <yureka@cyberchaos.de=
+v> wrote:
 
-> >  -config PAHOLE_VERSION
-> >  -	int
-> >  -	default "$(PAHOLE_VERSION)"
-> >  =20
-> > - source "scripts/Kconfig.toolchain"
-> > -=20
+> This patch series has fixes for probing the pinctrl_ap GPIO controller
+> on the MacBook Neo. The previous code would crash in the regmap_init on
+> this device, since reading the REG_GPIOx for certain pins causes an
+> SError.
+> To mitigate this, we adapt the gpio-reserved-ranges property to describe
+> pins which are unusable and whose REG_GPIOx should not be accessed.
+>
+> Also add the new t8140 base compatible to the dt-bindings, signifying
+> the different behavior of the t8140 pinctrl_ap device, and make the
+> driver accept it since it now respects the gpio-reserved-ranges property.
+>
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 
-> You appear to have dropped this source line, which I believe is the root
-> cause of https://lore.kernel.org/ar5-8C-j_JT5OYQm@sirena.org.uk/.
-> Restore it and the resolution should be correct with no build errors.
+Patches applied!
 
-You're quite right, sorry - I got distracted by the complictated bit
-with having to update a non-conflicting file.
-
---QAXylKfppE/EbuiC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq+zN8ACgkQJNaLcl1U
-h9AJLAf/RRQDWQhKcb3EIrvJsKWP28K081YV9ICO9UPNRYX9wr3cwe+iZIBfGMPW
-fMUzN5Kwn2VWuBWS63BuK4kjpXDhKkCuQRftOoJdyFBgj4t/MrJXC+ir0511DLUF
-KOCYJzt9QJD4KVx5cK55WzuIrsM7T0Rguwt6uvUaXOGUOnlTCDmgFWLhEI3PctDa
-JKI/KlflPr0t1CJS2j+6bjZe2EPZ0+ADh/r8r2QHrSzh6PtAlFyFVXdxyY9L2SIt
-jDe3ccdEKv2zU49IY55ufA9lqnksnM+gCDboJDdImT639u9l6MpFLT13efnOPYXF
-hjoAHzpP0th7h/slrsEyNpkH6/ym1Q==
-=NClQ
------END PGP SIGNATURE-----
-
---QAXylKfppE/EbuiC--
+Yours,
+Linus Walleij
