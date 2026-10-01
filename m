@@ -1,326 +1,89 @@
-Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEF4331A53
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F6A47B43B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889536; cv=none; b=rWh8X3CYfPPREhDlTsbDaIvnPYZAf3lUwMElc0gJRPnvTdRV9uh/xwcW9haXhFWDC5Zu/fIhPSv5Hi+4Cx29hZHSwmekoE3k80xDfx0Oduct6/dXWEAI4N3uR5Yw/YyqqFo7fZLrLWn7Q9HTPQAo8YthcbDAXX6dRxFbtCpek3Y=
+	t=1790889582; cv=none; b=lWevAFL630AEj/DRQySvLNgnaHis+3rgnIkEJkemBU33KamooHmGSCBs8IsRg15JpBbn8bAJHQI95ly9wELof45rbuywQkFUQuahSdtNNWcBbK+9JqflLTqEMkPReabfhoRajT1peWfplshfZ96/RbBArphLS6VIKzoA9x+ByGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889536; c=relaxed/simple;
-	bh=AaMRzA3GwCcruC4vcKsIY/ctppwPd6yHkgn55D5RW4M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QAHdRb0HlKYzBKuCR+93Ljj0vxn3kwrimzIgFXex52Cq2RVoL68g0XbtYn8/CmZOJ/tKCpTHMSpSBCgqclFKraoD6kE8oiyQFatKICUmIvh8gUqJtoNCdB8FN3rJgH/Wg4wlD4xeVyY8oLDJlW0U/pUfdqYbzCAATnPd/ubHX2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=yg8dzKmw; arc=none smtp.client-ip=74.125.224.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790889582; c=relaxed/simple;
+	bh=zqK3hC9Nnu6tS6Qq7DR0DTc8nfHUCBenUfxDCC5HWfY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WeXmlq/KSPjznZvihC2qShFYDW77WbXKil06UuTpQfzKVzA7rTO57cKxoAMz5Oh1K51QBTE0Imzs8VtpEnM+ILJlCN8QaMiaoVI7+bxMUuCe1h3J1sqhUqMSXpI57NpakDtOTpE0oSsxxVB/U1DWo96iYlyx8VrXbWIfrMgfIqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVALaAZk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="yg8dzKmw"
-Received: by mail-yx2-f38.google.com with SMTP id 956f58d0204a3-6768033d654so2397734d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:18:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790889526; x=1791494326; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=npnMeLxosNDOnJqoWDC8WVPBYhMiG2jAQo0sTJwzvWw=;
-        b=yg8dzKmwkWUkKuQiGHIIex5bqFEBz969NfuOjQW2JBHCL7HGLuJPtxiftnM4NNcCt6
-         CFifgGmDNW9zUMV82twIXMI08tmnJvKGAoZ9x5ZMVaHeNKi2Hxccbiiq5d6oPI+1dw6y
-         Zypo+J9MlWjOqfYz7JInvWe9Z/WH8BPwbvR/vJsr6reZRwgakrmCcDdk2h5nrxwj9Cyw
-         wq7Pe3c63OP/pD3PHPU+y2Z5hBdoFaO7Njc6IJI8J7eX0u77FXFnuYabs+vIw7GzSAd9
-         5QDClnyM0DBii04i51gaG45RCzJ6Tm9MBsm9FsuGVEw9WV4pu9Ygo1pawdVTKkrrAEql
-         Owsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790889526; x=1791494326;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=npnMeLxosNDOnJqoWDC8WVPBYhMiG2jAQo0sTJwzvWw=;
-        b=yPMjaa8Luc+PFcKMyfZ9g2g+kinkD1cBGScxCRNgp7/zQujo72d1/9HvyV7XzBQ5lO
-         bUV1T1Hh9DPmCxJbgNze+T6dCESR90b70zh0Ht+8OnB0JPmK5vu/+2ikEC/dfKam/gOc
-         OlyT06bvNAI90LWmQkxChNNBdFCB+2syvNnORlyGtdlcb2PIzCPvRd6/M81pkfYfygs9
-         E7r+kmdgzArpARS9Pkdup6tLJFVJyh3CZl/SLQoTxisO6d6z1whGpbMmnJ852ELAKWV9
-         XyRodG2vwDkV63zYev5dLoPJ27iQ6LVXGjFgLiHAbpttEF1Oq92nogk0Y8rETGoyZsMH
-         XvVw==
-X-Forwarded-Encrypted: i=1; AKwUvByNRM1ZQWodXcz7Gi6nbgZ8B6bjFxCGq9ybrrqtrgEGe6ECl48i41GGmiQVZZNcmB0DyIjhufBXa1KQsi4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTTyeNgCcBU8psINuL8h+1dQBzOpTTzp0/I8BfdXp8kW3kOtq6
-	HZaibxBzeryG1iHO81U6h2n+M+XmjhNZcH9uE/luCPhrs+xYlRJpeZFgvGmUnr8nycA=
-X-Gm-Gg: AYBFou1DytBQfTMHyvPZnIw4507wc/fMHp9EPpFxmsiyvzs4UtqQTmqQ7OJYt4PQYt5
-	pbHHXgeetIhvtY64MuWHfP8UotS/BTxxRRpmuataHdkoaz4jehVOQcxRyg3o0I/+XHU/+RtkADd
-	/GJHyQx37pH2Lcj/rhVdXZWpH4cn/aud7f2LP3PdsibIHoHI0Ui0bdul0KabAKodSJR/pz8f5pF
-	6gylXNGO0ktpit4PT72EHGKP4rj1FJcVVIjXBd/p74zNMrGmVP296r7BL3u/cWaEwU5NvK9hRmA
-	CF6YOq0QcYXpVmdYrtUeEd//+nilJe/QL4gxtODHUrhyGPQHdBvgAEGuq4l0OAMu6q+Q/inBRvk
-	LKVnyvVsA4zgPoF65JGsSReRr7LqKBW3imX/YeJo1UytxW9SsnndwAXNw1cHM7GdiC1P4l6bI/r
-	dihuBI5sRKcQBAkOKyMQcDCJmwYKCdM0mciSlgG39iOdxXMSxhbIKgwyzkw1NVdqj/q4zOCoBUr
-	JnuloQTwjcga4hOVzMUORMSVUPiDzCXBdWM7Ja294vKF6SnBkRoq+/WrAQ6ykFmFskENG89zfas
-	+KcYqggcyKD9fdtCxmGBicxfmoJzxTrS9IpTs+kBMPu0lvVmCAnravq1uZyHz0k3
-X-Received: by 2002:a05:690e:813:20b0:675:38ab:5f0c with SMTP id 956f58d0204a3-677ac03bb78mr277646d50.17.1790889526016;
-        Thu, 01 Oct 2026 14:18:46 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:67c2:3447:e08d:9418? ([2600:1700:6476:1430:67c2:3447:e08d:9418])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677ac5ac1fdsm157307d50.13.2026.10.01.14.18.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 14:18:45 -0700 (PDT)
-Message-ID: <1a1408e2ef7d3e5c27e520958ffa2116b3250ea6.camel@dubeyko.com>
-Subject: Re: [PATCH v2 2/2] hfsplus: validate the wrapper and partition map
- before following them
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 01 Oct 2026 14:18:41 -0700
-In-Reply-To: <2037378c974c98794dcd1d832e3c31628e9801b8.1790689266.git.matthias.goergens@gmail.com>
-References: <cover.1790689266.git.matthias.goergens@gmail.com>
-	 <2037378c974c98794dcd1d832e3c31628e9801b8.1790689266.git.matthias.goergens@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVALaAZk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C115C1F0089E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:19:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790889575;
+	bh=zqK3hC9Nnu6tS6Qq7DR0DTc8nfHUCBenUfxDCC5HWfY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nVALaAZkKoxjGuYBs7z2CLBKhcv2QN0Vh0IW4RiryfD+Xh+nqacUQUSke4pfbDws2
+	 Zw9Zk3nGzgfoXXVVbtB5Bj0dhOWflrOIgR3eMM7M5nuj2H2QX+G1fUXjVP00ZrQGyJ
+	 NZVMn+AkjYZVquE25YNwfUoNp+y6fRVRVPkYIaDr7dNjmSbXsclK5UcmKJvTJtn+ZH
+	 Yml95f2QsRAQJSinv+/6V+H1HLmdDsI/qW0JFuEDfz4qEnPPhj2XRwO42B4bC3062C
+	 gY8kayGE4toBSq9ei5cOGKue28hUnCrBnZSnqyV936KO1dfsD94kBdtDDY8ACGkIEl
+	 c4X8bXKmEPP1g==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5bb6ddbb75dso884322e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:19:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz84MDUKSCkPbNrFYTTB134M4tDNoWKjsrWKmJ+ta9z/xf2/ueCXDSPNHm213f+v2/ydkvZSNTtJ3QeyNY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3pEnml2wfIyqM38H2cf/E+kWEpsGKeuwB72f3JJ4I09FYhtjy
+	Zbw1f9ZqOAN+ki4WHVqJaUIs4kzyPzrPJmhWrAu/5BLMMnSKVRpFXlSvCGup/BKPPlMZQJwxCjl
+	pJp2V9ptwVIUvYQrKxx8QQ3cbdV2oaDs=
+X-Received: by 2002:a05:6512:36c2:b0:5b7:66e6:f5c2 with SMTP id
+ 2adb3069b0e04-5bb9bb20e7amr107379e87.31.1790889574520; Thu, 01 Oct 2026
+ 14:19:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260918161407.2300-1-will@kernel.org> <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
+ <ar4KD6FTZzw2Wq6w@willie-the-truck> <15549877-85ad-49ad-b2f2-843dd506ba0a@arm.com>
+In-Reply-To: <15549877-85ad-49ad-b2f2-843dd506ba0a@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 23:19:22 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn7Hc3w5VitqfvVrA96kaDnOYgWKm6NfuKbjAPshcR5mA@mail.gmail.com>
+X-Gm-Features: AclHuK93OXySQf9irZkdeoUGXwWmC2nbBaDFJmy0pSBCfDth3OhTplJf0dnY0fs
+Message-ID: <CAD++jLn7Hc3w5VitqfvVrA96kaDnOYgWKm6NfuKbjAPshcR5mA@mail.gmail.com>
+Subject: Re: [PATCH v2 00/21] arm64: Move overflow sp into SP_EL1 and kernel
+ sp into SP_EL0
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
+	Ard Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>, 
+	David Hildenbrand <david@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Vladimir Murzin <vladimir.murzin@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Mostafa Saleh <smostafa@google.com>, Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-10-02 at 00:21 +0800, Matthias Goergens wrote:
-> hfsplus_read_wrapper() rereads the volume header through a bare "goto
-> reread", following an HFS wrapper's embedded-volume descriptor or, if
-> the header matches neither signature, the partition map found by
-> hfs_part_find().=C2=A0 hfsplus_read_mdb() does not check the offset it
-> returns, and hfs_part_find() does not check the start of a new-style
-> map
-> entry, so a descriptor or entry with a zero offset leaves part_start
-> where it was and the mount loops forever.
->=20
-> Check both where they are parsed.=C2=A0 TN1150 places the embedded volume
-> in
-> the wrapper's allocation blocks, and the boot blocks, MDB and volume
-> bitmap of an HFS volume are not part of any allocation block.=C2=A0 So
-> hfsplus_read_mdb() now rejects a wrapper whose allocation blocks
-> start
-> at or before its MDB (drAlBlSt <=3D 2), whose embedded volume is empty,
-> or
-> whose embedded volume ends past the wrapper's last allocation block
-> (drNmAlBlks).=C2=A0 hfs_part_find() gets the same check as in hfs: a
-> partition must be non-empty, start inside the device and, for a
-> new-style map, start after the map, which begins at block 1 and whose
-> size the first entry's pmMapBlkCnt gives (TN1189).
->=20
-> A wrapper hop now moves part_start forward by at least three sectors,
-> and a partition-table hop moves it past the map entries it has read.=C2=
-=A0
-> So
-> the loop ends, at the latest when a read goes past the end of the
-> device, and the maps read on the way do not overlap.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
-> v2: check the wrapper in hfsplus_read_mdb() and the entries in
-> hfs_part_find() instead of limiting the hops in
-> hfsplus_read_wrapper().
->=20
-> A wrapper whose embedded-volume descriptor points back at itself
-> hangs
-> the mount without this patch and fails at once with it:
->=20
-> =C2=A0 img=3Dhfsplus-wrapper-loop.img
-> =C2=A0 put() { printf "$2" | dd of=3D$img bs=3D1 seek=3D$1 conv=3Dnotrunc
-> status=3Dnone; }
-> =C2=A0 truncate --size=3D64K $img
-> =C2=A0 put $((1024 + 0x00)) '\x42\x44'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 # drSigWord 'BD'
-> =C2=A0 put $((1024 + 0x0a)) '\x82\x00'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 # drAtrb: SLOCK | SPARED
-> =C2=A0 put $((1024 + 0x14)) '\x00\x00\x02\x00'=C2=A0 # drAlBlkSiz 512
-> =C2=A0 put $((1024 + 0x7c)) '\x48\x2b'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 # drEmbedSigWord 'H+'
-> =C2=A0 put $((1024 + 0x7e)) '\x00\x00\x00\x64'=C2=A0 # drEmbedExtent: sta=
-rt 0,
-> count 100
-> =C2=A0 mount -o ro,loop -t hfsplus $img /mnt
->=20
-> The partition map from the hfs patch hangs an hfsplus mount the same
-> way, with "-t hfsplus".
->=20
-> =C2=A0fs/hfsplus/part_tbl.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 24 ++++++++++=
-+++++++++++++-
-> =C2=A0fs/hfsplus/wrapper.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 16 +++++=
-++++++++++-
-> =C2=A0include/linux/hfs_common.h |=C2=A0 1 +
-> =C2=A03 files changed, 39 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/hfsplus/part_tbl.c b/fs/hfsplus/part_tbl.c
-> index 9ec21664eda6b..ceba3139f1f56 100644
-> --- a/fs/hfsplus/part_tbl.c
-> +++ b/fs/hfsplus/part_tbl.c
-> @@ -67,6 +67,22 @@ struct old_pmap {
-> =C2=A0	}	pdEntry[42];
-> =C2=A0} __packed;
-> =C2=A0
-> +/*
-> + * Check a partition map entry before following it.=C2=A0 The partition
-> must
-> + * be non-empty, start inside the device and start at or after
-> @first:
-> + * after the driver descriptor map in block 0 for an old-style map,
-> and
-> + * after the whole of a new-style map, whose size the first entry's
-> + * pmMapBlkCnt gives (TN1189).=C2=A0 Every hop then moves forward, past
-> the
-> + * map entries just read, so hfsplus_read_wrapper() cannot loop and
-> + * reads each block of a map at most once.
-> + */
-> +static bool hfs_part_valid(struct super_block *sb, sector_t base,
-> +			=C2=A0=C2=A0 u64 first, u32 start, u32 size)
-> +{
-> +	return start >=3D first && size &&
-> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 base + start < bdev_nr_sectors(sb-=
->s_bdev);
-> +}
+On Thu, Oct 1, 2026 at 11:01=E2=80=AFAM Muhammad Usama Anjum
+<usama.anjum@arm.com> wrote:
+> On 01/10/2026 8:21 am, Will Deacon wrote:
+> > On Wed, Sep 30, 2026 at 11:42:51PM +0200, Linus Walleij wrote:
 
-Please, see my comments for HFS patch. I have pretty the same comments
-here.
+> >> Hopefully Usama can test just that part and see if it has a lesser
+> >> performance impact as well.
+> >
+> > I'd like to see those numbers at various points during the series, tbh,
+> > so we can rule out any stack-protector changes etc.
+>
+> Sure, I can trigger runs on different points if you can mention which wou=
+ld be
+> more valuable.
 
-> +
-> =C2=A0static int hfs_parse_old_pmap(struct super_block *sb, struct
-> old_pmap *pm,
-> =C2=A0		sector_t *part_start, sector_t *part_size)
-> =C2=A0{
-> @@ -76,7 +92,9 @@ static int hfs_parse_old_pmap(struct super_block
-> *sb, struct old_pmap *pm,
-> =C2=A0	for (i =3D 0; i < 42; i++) {
-> =C2=A0		struct old_pmap_entry *p =3D &pm->pdEntry[i];
-> =C2=A0
-> -		if (p->pdStart && p->pdSize &&
-> +		if (hfs_part_valid(sb, *part_start, HFS_DD_BLK + 1,
-> +				=C2=A0=C2=A0 be32_to_cpu(p->pdStart),
-> +				=C2=A0=C2=A0 be32_to_cpu(p->pdSize)) &&
-> =C2=A0		=C2=A0=C2=A0=C2=A0 p->pdFSID =3D=3D cpu_to_be32(0x54465331)/*"TFS=
-1"*/
-> &&
-> =C2=A0		=C2=A0=C2=A0=C2=A0 (sbi->part < 0 || sbi->part =3D=3D i)) {
-> =C2=A0			*part_start +=3D be32_to_cpu(p->pdStart);
-> @@ -99,6 +117,10 @@ static int hfs_parse_new_pmap(struct super_block
-> *sb, void *buf,
-> =C2=A0
-> =C2=A0	do {
-> =C2=A0		if (!memcmp(pm->pmPartType, "Apple_HFS", 9) &&
-> +		=C2=A0=C2=A0=C2=A0 hfs_part_valid(sb, *part_start,
-> +				=C2=A0=C2=A0 HFS_PMAP_BLK + (u64)size,
-> +				=C2=A0=C2=A0 be32_to_cpu(pm->pmPyPartStart),
-> +				=C2=A0=C2=A0 be32_to_cpu(pm->pmPartBlkCnt)) &&
-> =C2=A0		=C2=A0=C2=A0=C2=A0 (sbi->part < 0 || sbi->part =3D=3D i)) {
-> =C2=A0			*part_start +=3D be32_to_cpu(pm-
-> >pmPyPartStart);
-> =C2=A0			*part_size =3D be32_to_cpu(pm->pmPartBlkCnt);
-> diff --git a/fs/hfsplus/wrapper.c b/fs/hfsplus/wrapper.c
-> index 30cf4fe78b3d2..35cd2563dfdfe 100644
-> --- a/fs/hfsplus/wrapper.c
-> +++ b/fs/hfsplus/wrapper.c
-> @@ -66,7 +66,7 @@ int hfsplus_submit_bio(struct super_block *sb,
-> sector_t sector,
-> =C2=A0static int hfsplus_read_mdb(void *bufptr, struct hfsplus_wd *wd)
-> =C2=A0{
-> =C2=A0	u32 extent;
-> -	u16 attrib;
-> +	u16 attrib, nmalblks;
-> =C2=A0	__be16 sig;
-> =C2=A0
-> =C2=A0	sig =3D *(__be16 *)(bufptr + HFSP_WRAPOFF_EMBEDSIG);
-> @@ -87,11 +87,25 @@ static int hfsplus_read_mdb(void *bufptr, struct
-> hfsplus_wd *wd)
-> =C2=A0		return 0;
-> =C2=A0	wd->ablk_start =3D
-> =C2=A0		be16_to_cpu(*(__be16 *)(bufptr +
-> HFSP_WRAPOFF_ABLKSTART));
-> +	nmalblks =3D be16_to_cpu(*(__be16 *)(bufptr +
-> HFSP_WRAPOFF_NMALBLKS));
-> =C2=A0
-> =C2=A0	extent =3D get_unaligned_be32(bufptr + HFSP_WRAPOFF_EMBEDEXT);
-> =C2=A0	wd->embed_start =3D (extent >> 16) & 0xFFFF;
-> =C2=A0	wd->embed_count =3D extent & 0xFFFF;
-> =C2=A0
-> +	/*
-> +	 * The boot blocks, MDB and volume bitmap of an HFS volume
-> are not
-> +	 * part of any allocation block, and the embedded volume
-> occupies
-> +	 * allocation blocks of the wrapper (TN1150).=C2=A0 So the
-> embedded
-> +	 * volume starts after the wrapper's MDB and ends inside the
-> +	 * wrapper.
-> +	 */
-> +	if (wd->ablk_start <=3D HFS_MDB_BLK)
-> +		return 0;
-> +	if (!wd->embed_count ||
-> +	=C2=A0=C2=A0=C2=A0 wd->embed_start + wd->embed_count > nmalblks)
-> +		return 0;
-> +
-> =C2=A0	return 1;
-> =C2=A0}
-> =C2=A0
-> diff --git a/include/linux/hfs_common.h b/include/linux/hfs_common.h
-> index d6a615e74b26e..123475efe5b37 100644
-> --- a/include/linux/hfs_common.h
-> +++ b/include/linux/hfs_common.h
-> @@ -44,6 +44,7 @@
-> =C2=A0
-> =C2=A0#define HFSP_WRAPOFF_SIG		0x00
-> =C2=A0#define HFSP_WRAPOFF_ATTRIB		0x0A
-> +#define HFSP_WRAPOFF_NMALBLKS		0x12
+I would say comparison after applying 1 thru
+- patch 12
+- patch 14
+- patch 18 and
+- all patches
 
-Does this value is based on specification? Where does it come from?
+would be interesting to see. Will do you agree?
 
-Thanks,
-Slava.
-
-> =C2=A0#define HFSP_WRAPOFF_ABLKSIZE		0x14
-> =C2=A0#define HFSP_WRAPOFF_ABLKSTART		0x1C
-> =C2=A0#define HFSP_WRAPOFF_EMBEDSIG		0x7C
+Yours,
+Linus Walleij
