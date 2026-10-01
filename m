@@ -1,72 +1,125 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DAC37C916
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D50496D35;
+	Thu,  1 Oct 2026 13:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862609; cv=none; b=TjX3kTyYNtJPg6l2JvT2rknttKrMGHqP8GVetoIg5BBIhWc51ydQT8+ZpTCc3kzV2f+jjwxr8XOAruVCYR/XYoX7EDLJzqwm+y4qjzTeJFbpb9ESTa1IDB7SjD7IwiD60h25LrJ5J6e3XBKiRhKjCfIKY+S97NSrb2wVf4ccsgE=
+	t=1790862603; cv=none; b=EaTGBP9UixiJmwibIgf5Zh9hCXHk0Zh7VPIo/hlhXRn1+EXGdGZRIaLSZGltMoAegLHXCyFOgY08IK82A2+R3UpLtBnniG1QP+TC8wTd4kB07k/GiLnjVSDqUc/cIGE1hsHa1rox8SdI50m78XzRovNmB7NCShIjOZIWnqFLD2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862609; c=relaxed/simple;
-	bh=+WcWye/k67pxeRaYkziHGLb7zUPuLvcwqZnMB9bPEG4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Sn75CkaeJMlg4i8ve+eA8bAD61+0/gq9+IVnzt/PgprulvSFVRds3ocYn6tT5acgl3NKe9DavFrTFP6gnCxKiTJePXm1ahoIQ9JoEH3w6T8VWh0bX2I48YE6wXR2cZm5MKEQo1pssDMLwmXWFhCdO3rQ56tchNqvl2MHygJX5Jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e937c5bd4fso4325602b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:50:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790862605; x=1791467405;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XmlYYCHZPqB+axJXXIS0wnEDQ/N1IVWUVhRzCFxAAcQ=;
-        b=wgBkWkavIz39WPCD0286r/9AKwhm+QF+DV1oDisEcVCmVfCcuZKDKu6CPoIBM5QzB7
-         vzar+qgwZ/XKQbnrGzxev+hdFKGlEZWHWMTUcgyn2PqGg2PQVOfXGx8HLtwVWnpUQL92
-         K2StzPc2ZjbxnRt2xTgh0DdPVyh6jPXRLmHo6JzxLy1CzLSG4QRFdTiqaWLo4CQWbAWB
-         +AaNNcmlQO/3PbopwHXlorKhdnt9VoplL1uVXCPCM6wVIWPJCmT4DbgMvfl8BJjvfs7N
-         StH0Naur66USAZLZE7N/qkbtgl9hNy/QPUCtKuDdLf+e8Yl08vEmKuyFDIhJvet474HI
-         J3Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0oSdVVaoelE/Zy51eZQRjSfWA+gvLROfTLMFbA+lH02Q3R9JH+WgIg0wOq0HNYE7KI22pyNgGhsmJ97E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTM7b3s1pSaIbjeEE14T+j9QQSDchmAwwHUrJ2Z47Mve0a2kOV
-	7NRio1YBMyenw4HTVlqdDjFDtciykSTn9MP5vNaJNQVGmp20c/L8M3uN2HlX5CdaSTMNHFEIuvE
-	d3CDAyyos5kIxnzpJxoUWIDUVr+hsR11gpgvRqHt+K39ZVbPH8xWEsyUxUsc=
+	s=arc-20240116; t=1790862603; c=relaxed/simple;
+	bh=zQ9MtrvJfthHd5Vg84A7ZAy6wwcDhigK3I4PjJDOPMc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=t+zCUiYielXQlJ6QrHf2EouI6fa1vAT71eqwKeAbuu3+QUZPcgk99hGK8oUcLZLqGAdZ5KqNjOw8BZFetRwLUgE1C3zajlhyOcycMEzzeXdx5IVmMXJbeSQ+cHNvuaIUnxEeZi9/ZqobQtqtVy/X80yIJb7sab8jyOoOovUpuP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NO8uIpvr; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NO8uIpvr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285EE1F00898;
+	Thu,  1 Oct 2026 13:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790862598;
+	bh=sXzExsQ7ko37b3Osdz1dvDlhOHBAgHiJiu7t1kn79LQ=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=NO8uIpvrwNZMMO29VNksLG+RliC7ewccbvWQrg1gu2HiClGxxN31B9nPLDzbaU8X8
+	 9ShhxDp1khV1a+mLptUYOfjeYcO1oXEIyrGmA0i1KMqv+HVEWneMBnfEsbZJAwVkb5
+	 mc7kGmp59awUEw8u492ae0CkWUt6ZWHUkk4tuRlDouiAbQ52MzuC+/xTNiTZjsQo6t
+	 cTzEPfzLMdcJPV2el+rVAaKXs6gU17aA/jVZrWrFsa5zgCWJcShSKmJjZov4P2vLyf
+	 fKmnHTO1tkN7ziKwYlA9uDFhJcC116G7u9/7J4XJmbmL/LagmnfrNljz+6fw78ZJ42
+	 op3HUq56R2iMQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:67c2:b0:4b2:b653:87ff with SMTP id
- 5614622812f47-4f1b0043425mr4981304b6e.7.1790862604775; Thu, 01 Oct 2026
- 06:50:04 -0700 (PDT)
-Date: Thu, 01 Oct 2026 06:50:04 -0700
-In-Reply-To: <75a2adf2-8d78-4719-96dd-f86880c8c36d@yandex.ru>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abe650c.9b478af7.e8d7a.0003.GAE@google.com>
-Subject: Re: [syzbot] [media?] general protection fault in mxl111sf_ep4_streaming_ctrl
-From: syzbot <syzbot+3df044e20e6ff1fb3cf5@syzkaller.appspotmail.com>
-To: dmantipov@yandex.ru, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 01 Oct 2026 15:49:54 +0200
+Message-Id: <DLTJT271O5MJ.29DXT8VS9712I@kernel.org>
+Subject: Re: [PATCH v3 0/3] debugfs: make debugfs_create_str() read-only
+Cc: "Yichong Chen" <chenyichong@uniontech.com>, <rafael@kernel.org>,
+ <djakov@kernel.org>, <quic_mdtipton@quicinc.com>, <vkoul@kernel.org>,
+ <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <linux-sound@vger.kernel.org>
+To: "Greg KH" <gregkh@linuxfoundation.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260807100053.1089834-1-chenyichong@uniontech.com>
+ <2026100153-unmanaged-impart-3adf@gregkh>
+ <DLTIZ3CNCQDS.24NN9OMJG7AXA@kernel.org>
+ <2026100139-deviancy-direction-edea@gregkh>
+In-Reply-To: <2026100139-deviancy-direction-edea@gregkh>
 
-Hello,
+On Thu Oct 1, 2026 at 3:19 PM CEST, Greg KH wrote:
+> On Thu, Oct 01, 2026 at 03:10:45PM +0200, Danilo Krummrich wrote:
+>> On Thu Oct 1, 2026 at 2:51 PM CEST, Greg KH wrote:
+>> > On Fri, Aug 07, 2026 at 06:00:50PM +0800, Yichong Chen wrote:
+>> >> debugfs_create_str() has a generic write implementation that replaces=
+ the
+>> >> backing string.  Concurrent writers can race and free the same old st=
+ring
+>> >> twice.
+>> >>=20
+>> >> Instead of adding more locking to the generic helper, convert the exi=
+sting
+>> >> writable in-tree users to local file operations and make
+>> >> debugfs_create_str() read-only.
+>> >>=20
+>> >> Changes since v2:
+>> >> - Use scoped mutex guards in the interconnect and SoundWire conversio=
+ns.
+>> >> - Clarify why GFP_KERNEL is safe in the interconnect conversion after=
+ the
+>> >>   RCU read-side critical section is removed.
+>> >> - Drop the unnecessary firmware_file =3D NULL assignment in the Sound=
+Wire
+>> >>   exit path.
+>> >> - Use WARN() instead of WARN_ONCE() so each writable debugfs_create_s=
+tr()
+>> >>   caller can be reported.
+>> >
+>> > Sorry for the delay, now applied.
+>>=20
+>> This series fell through the cracks on my end. I also reported this issu=
+e in [1]
+>> and I agree making debugfs_create_str() read-only is the best fix for no=
+w.
+>>=20
+>> However, it duplicates code and I think having a proper helper as sugges=
+ted in
+>> [1] would be nice follow-up.
+>>=20
+>> [1] https://lore.kernel.org/driver-core/DLPDB44JJRGJ.3K6JNS746M7QC@kerne=
+l.org/
+>
+> Yes, that would be nice, but for read-only debugfs strings, let's keep
+> writable ones away if at all possible :)
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+The two converted subsystems now have identical code that can easily be
+generalized. And I think we have other users that open code this too.
 
-Reported-by: syzbot+3df044e20e6ff1fb3cf5@syzkaller.appspotmail.com
-Tested-by: syzbot+3df044e20e6ff1fb3cf5@syzkaller.appspotmail.com
+For instance, soundwire would collapse to just:
 
-Tested on:
+In sdw_debugfs_init():
 
-commit:         551c722f Merge tag 'rtc-7.3-fixes' of git://git.kernel..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=160c66c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=3df044e20e6ff1fb3cf5
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=15b693f5580000
+	/* Initialize struct debugfs_string */
+	ret =3D debugfs_string_create(&firmware_file, "");
 
-Note: testing is done by a robot and is best-effort only.
+In sdw_debugfs_exit():
+
+	/* Free struct debugfs_string */
+	debugfs_string_free(&firmware_file);
+
+In sdw_slave_debugfs_init():
+
+	debugfs_create_str("firmware_file", 0600, d, &firmware_file);
+
+In cmd_go():
+
+	scoped_guard(debugfs_string, &firmware_file)
+		ret =3D request_firmware(&fw,
+				       debugfs_string_read_locked(&firmware_file),
+				       &slave->dev);
+
+Thanks,
+Danilo
