@@ -1,144 +1,261 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010052.outbound.protection.outlook.com [52.101.84.52])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B488A5221E6;
-	Thu,  1 Oct 2026 14:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865001; cv=fail; b=EMgoUv2h/u5yaH2hMCLU9Oa5RiyXEkXzaijwCfWssUQ2YJhUXpqqp37AIw9PXh75KvtbDzl/wClvqHM1i5F+OuhVfej2KHY1+7equSZiWxqmnO3bh05QiD1SZFum/gLLMu3v65AshvvsZECtACWLWrsrp9iEdhv9VSYDziHVvFE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865001; c=relaxed/simple;
-	bh=aGjB84hZAsGgjdFGuwelSKlUyOiEXZ4FKiWZtrPEyaw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=sk6Ruc4UBHyKmBZnQAcGTOcjgv5a6sO1tpkbWsKQawEK5DH0Caa1I3WLQoHJIvWUAjEMBEvW+rr9lezkw/bGQjBKiP1UwpAYaQ/5gF5j0ugHQGk5WKl+m1PBTmCheu/G8XAbcKZfqrBiggYYuTiTt8NgmzT0oN8k67w3M5vhW/s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QVcFHXaC; arc=fail smtp.client-ip=52.101.84.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E5A51D521;
+	Thu,  1 Oct 2026 14:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790865010; cv=none; b=FuICZw2I1QGNlK00kYNhex/+2N3ISk63Uo8NQI0l1hs5RIr2Sfnx0iU6WRBEgx503+4mBu7Mhxw/nqtE4DFVS3Zw0Axiwm31B3aFNgTi9WrCKUUNvSmxJKoNexqLdVydSx3HkIDtq3ZjxY6eu3h7RHYGIoO/bC+zXlImNtk1jyI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790865010; c=relaxed/simple;
+	bh=Jd7ZjyfT1Jy7sXz3l2TUFT7uAkdK6nTu3zC4BU9inpU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pKOKFIT4ZWNiMPKqj66qYJsc2YEMjdsI6pm1RU+Cx6OK3Kjr9/EiupLaWrf8mW01WeSW100hUC4VFY6QCh7J4ftgQvv/P4CliYimpBdWqKzq10Tu07/2nRnauknJGCQMCkOxc3rX5u91fqsFly8RhjYBkTJbL2Tw+DH/A0Sb8IY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VAVXhkvL; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QVcFHXaC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AyOWnBpBSKxx9ISQp98bi2cmNDjSDEjLMMHZolx0bptbM4IpXLZv9rEDuHNUnt2GZcGmpBmdPoGqywI9V5vLqnBOrqpCyXVkt8ZAeVSZQR8M8igiAfYNp9BzxcBd0aOSfIk17t4IJCw7YSyM32ZPvqOK+XEgsRX26xtXNm2bbdUHkkpB4CGTdmhBIUVI2HpqLrC6vZCKOgsWJrtEocfCFEEV0AgwblQw5wjkQViFiXLovQ0+WlaR2ZV/+pQeC6EGjKoigzIxXBjJTE3LGfcquISu5sd20AaMjaQ6kxDWLBoKATbtBR/sxzbrqigP/6qnn0ZAQM7BUSLU229blBmc7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aGjB84hZAsGgjdFGuwelSKlUyOiEXZ4FKiWZtrPEyaw=;
- b=aw6lLMfaT2bp0ZNDeFTKPisAniceKRo5s7bBin++QSEc37vnAc5EpWqwjPoAemCVioOQYXHwLeAUE88ctNXrMHl6ZXA086WVVr5pEbrNUQkg19PnXg83TmA/AlnPStwVKdbAztSyLhWDm8hlU5Hb+MmDEgaPFCry5J/qfyfcaoVNq8NHiLt2OfbvRIZAR1OmnVbgYVynxQyajGlJsZlodkDJCIH6iXbYKWaW6bv2Pb4KdtT33ZdbfM4Il2Z60OyHSoskSSW1DShb7I97RKGTei3qnb7rYFLeKJRHayZtEkYa1d+O9D4PzDOBwy2OoWA9atpsCLHDHQRRFk0U8FjgMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aGjB84hZAsGgjdFGuwelSKlUyOiEXZ4FKiWZtrPEyaw=;
- b=QVcFHXaC1A4Q49ZTjO1UG1S4yFD/FInRu7xsHEPIr69zQA+aIYBkyTbJKwpQoTgJGpc3N20OKq9nfdSe6LCaN/GnZ7GCNkxej4x48xqvuuwuNr0w4ULogqmXmbnNVK3mMXZwYxwP3zIGDvzEljx2oJ8CvymubaAnDgWGtxMqyWdISGokZtUiAsvoNiEov+gndehVneii1fRvFJxjok6gYt5X5U4+YV1LDTH/d9VlVC4P9nx38tD7jHrG3a3BbbzDjB37+EGEoPVaA3J0ux1+HSqs6g86SKwtXRyRc0jyst4U+PwO1QrKObfgOpi0X7E1N78fBPext+uRNXqi0OBMFg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB11856.eurprd04.prod.outlook.com (2603:10a6:20b:6ff::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Thu, 1 Oct
- 2026 14:29:45 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 14:29:45 +0000
-Date: Thu, 1 Oct 2026 09:29:35 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VAVXhkvL"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DFCA44E4136A;
+	Thu,  1 Oct 2026 14:29:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B005F60341;
+	Thu,  1 Oct 2026 14:29:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 29BDF10328149;
+	Thu,  1 Oct 2026 16:29:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790864984; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=0Y7Il35wh5W2YG7C50SKv6f4WUuvO6mAZrG/RT2vKJY=;
+	b=VAVXhkvLIi4JU7+P1mVpWT6vungkXOOM93sH6mHyy1rY99a/g2WQ5NrRlT1H4qcZx7plbv
+	iGGsIkxYK5oOQ/Uyw77WIOdW6A3qA4QPGXJtZSiJyFxB9/bAwZT5aUpdwR0kQGhDCzfRco
+	fF/3B0/Q0coB4ekCSPB8LGMZKbY9XIXlyXYtX9NOfwmiftJtKaRkL2qbZbGnMy3V9/K9dv
+	C31wBoLxoD6Dt3WId3Eu6lTIXppacN7zvcYTVwATp9C8KkDgL2+XJNFH+HNJENZz1d7uPY
+	VG0YHjWYPluIuhRIErHrdvf46Eihp/Vy54vtJC3XqF1nfZSH1sA/qDXxTa4KoQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Richard Cheng <icheng@nvidia.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Lizhi Hou <lizhi.hou@amd.com>
+Cc: driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH 0/4] arm64: dts: freescale: Add Verdin iMX8M Plus overlays
-Message-ID: <ar5uT0CLf-pVBCve@SMW015318>
-References: <20260907-verdin-imx8mp-non-camera-overlays-ready-v1-0-ca0c63c2994f@toradex.com>
- <rq5ndq2sqsyoqwhnbdy34etudy4xevdqpm7imgd65uu6gy55nj@wpt6jrgnq2vp>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <rq5ndq2sqsyoqwhnbdy34etudy4xevdqpm7imgd65uu6gy55nj@wpt6jrgnq2vp>
-X-ClientProxiedBy: PH5P222CA0011.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:34b::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	stable+noautosel@kernel.org
+Subject: [PATCH v12 10/10] PCI: of: Avoid np->data usage for the node changeset
+Date: Thu,  1 Oct 2026 16:28:10 +0200
+Message-ID: <20261001142815.277550-11-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001142815.277550-1-herve.codina@bootlin.com>
+References: <20261001142815.277550-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB11856:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5eee9cd1-73a4-4e27-6f87-08df1fc8707d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|19092799006|7416014|376014|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	zyfi+YYsBtCrsj4cWAEfrX10dQpJjcegi20A5pCouP7xBc67QyBh4EKbLcQOVQR5Xbe5yLMSj5T8IPo5ddo+Pr0Ddh7Y5OohyxRprTnDV6tAoQYcq+oSwk8yEC+L0GdUuhkohkPXRFABpe9P8e8xkuOCL/y78o9L6qk99SgBsFqxQDxkV696xqa4yTRu3wxxhoKphq2V06hmGs7p9HlGobbHMO0cb/trHyBqsTMqv7YykqfE9vZdHdktifsi1n8FSnO0WOsqqx3lbpvaPpfHxIKkWME5PjFTk4FgfbcKk0uJCUO11feE2qnWWjjvXEfcZL5atuioNaR21G0P82yuYjoVIgTWWW1UmH/uQsHOiJKXgnkuP2YWKTfgEaaHrjXgqGOIakxX073LsumGhzjAuFgBa27N9jQ7/qh1J/x2eZeZPp3SewyLBLTErOx/QBo9lFuOHLGxYYTCyuq7+/UdZdu5IoH4snT37p4kcraN3Pv7iImggW20UJWhiYcl5Iq/3NPqPIM+bPQlwQO9q4C01pkAR4ipw6u4SNFYxzlRqkItpz4DbSN2kq5Z+Ph9NixKjLAwD5BL0vvKudQn6KH+kOLbqYxQ1jXHa6les7tCMiMvZhXI5Dbednv+XMzJjRJo
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(19092799006)(7416014)(376014)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?8MzTMDdTKGvPbADRV5UwhZoTwTtsLqgNPKkVaoFb9JEc6B6Vnhd5LHJdEDTK?=
- =?us-ascii?Q?g7bpyLR8liFWY+NBoaD17ZNUX0a3DeLOxFDGMSzk+iUlaWiD66rUzHy1GOlQ?=
- =?us-ascii?Q?5NOl0Z6tc6MvVczivdMq97HZS0teQqQQtx4ASa6UFAkxwhWiVqDtyL0P1y0b?=
- =?us-ascii?Q?WbefnQs7rs75hfnctIa/f2MjyjbC4PFG0a7oNb5g2q1P5LJl4bCxHSiDQlR6?=
- =?us-ascii?Q?eb164K0QYh/12Mym22Qakt85xvhXxkk2CESRMzsDUYn4g7l2BFUIlskJNX4q?=
- =?us-ascii?Q?HZ66EnKtAYl1SQ/bIXiB76kleCfVVrXb1mJ+LGX2K9lK+gLBoPPWoGAZmOg1?=
- =?us-ascii?Q?XTNVHGTVU6C3TqMt1wi2Cmt0F9Ww12GlH0Q7ihh+ioirbdwqe03HIAttY+Gb?=
- =?us-ascii?Q?RYTW8QZvyi+Dl+RtvWVO57Db/aDuqIToev7KoMmzP8zLmilX8bunBfsi0TB6?=
- =?us-ascii?Q?60VsF+haqhlOWuWsJ6Jh3gkPtnr+xsX+DIz/DrQprt+kncg/+PxjAnH0ZcM3?=
- =?us-ascii?Q?oNqDhy3PvwLFLCf8wthUAknFUr7sE6tVQlGjFlQew+Nn4umIkj68WjaE0zEZ?=
- =?us-ascii?Q?1JxyzQm9D7tYYqe6pJ8AlUScamSl25GFborXDx15Y77IpyyH7j36RQz7NWsR?=
- =?us-ascii?Q?C7DRK7op89NgXLuZHlnY515l4OEw7972JziPfrFJymGMbWwVK5GDUrkRwyHH?=
- =?us-ascii?Q?tWoGGe9pIYPe9BM6tVP1Pm+IGQ7mmqZhMj3HFOOk/3hIsvqh8a+/jx6zqXOm?=
- =?us-ascii?Q?P7nF5jdoygz2Rpana90oVe+ou8KViJDX3MOwnFEsEpSlitw2ZCOUP+3dovWl?=
- =?us-ascii?Q?BKXFJPzBlRphxdslH6L399hZpZlTkUOcxFdFNa9I22+AP5lRkVxlZ+mawpMx?=
- =?us-ascii?Q?A8/ynng2zHVpoP+5AdUlgtTboGEQ8ZJtancEnADwopvQMGw260TnXJn3zVVm?=
- =?us-ascii?Q?dUplTJXg4suiWYbXxLtpMV2h+K/dxKGhhqNj7yc6ENAIIeurZjNkGOb+Q0oV?=
- =?us-ascii?Q?NDX5c3cY/T2dbGe0e/9JyV4a8i4gEDD2qRmJRepJM8469ls4eie3864nIhJE?=
- =?us-ascii?Q?N1dRkYCEXqlFKGfgyGSQZfJQFg49GUG3Ahmm9UgVAhjPmyohji9aKHQwQsC5?=
- =?us-ascii?Q?qGuH/z8b8e4pagPt3pixQY5Mm2f278e7A/UXoOV0k/w9kHpJHqmfPDvEIjLx?=
- =?us-ascii?Q?KBzXlBMc7wyPLZry73LWCuy3Gm/7HvwMGiAlQ0h4HkF3insK3AGPAcuHLInB?=
- =?us-ascii?Q?LsSvLzMhRLgbwWpJQPRBJHqkaMsMuoE6HGbWkGx5pv9ZlLmLg2epnMpRQUMJ?=
- =?us-ascii?Q?iA3CflxXd9s/QRBMDXlCqJCTKyEFR759RcP/HAlSEIE4f5vaDlvthIXKcoZ/?=
- =?us-ascii?Q?QlLLXDBPvFHtj3DPAkp35Fa5Jy3CRo9PAD5zSJ7cjXSDa+WKFKNA/wDimw4T?=
- =?us-ascii?Q?HoF1KajgVxDq5CR/k7Pu7aEIpzI2fG1zmXIfdYG8nVPGeBA5WCgpcVOsyTY7?=
- =?us-ascii?Q?PXn2n1bmggnyV6BnzKPf2bskdB7+lkftl+qxJi1wFLRxlpfYqK1vphYl8i2d?=
- =?us-ascii?Q?0sneNOBBbI2bGU63WD/A8T2q2UsTgt+07Aw/l9/5Ll3lBZwqRJ4bfsHZdlfX?=
- =?us-ascii?Q?GSGKfHgEAj82+xh5NUOijUra1coY86m7bklYYUwyg1eE3nfbsRtBIl3ISgw2?=
- =?us-ascii?Q?D1wjzafOlBmYFnsasa/j7QsKLm6KLu/1EVgql7xyc6B1efenu1wEBKzTQUV3?=
- =?us-ascii?Q?wpydwcghG3VjWWVP8lvw3OsGEZewEufltvcKv2fCugqH27B+vdRz?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eee9cd1-73a4-4e27-6f87-08df1fc8707d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:29:45.3391
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1H9RTcfZwvMznwTXN7sySS3xJWLZE1JNYoCjygOnZWILqn6vkAUo0Fw+aKT9mY78KB+v0UIiiVTA7cRdVX/3P2b7/owbX+d3+of3EfP7ywEQMEfrWAqLSgHvoHnGmreT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB11856
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 01, 2026 at 10:25:49AM +0200, Ernest Van Hoecke wrote:
-> Hi Frank,
->
-> Is there anything blocking this series from being picked up?
+of_pci_remove_node() and of_pci_remove_host_bridge_node() check
+whether the node is dynamic but not whether it has valid private data.
 
-I defer all display overlay patches because clock nexus node support
-already added.
+During the node creation, an OF changeset is used and this changeset is
+stored in np->data to be available for removal functions.
 
-I hope your ov5460 can move forward. I prefer use this method.
+If, for instance, a PCI host bridge is created using a device-tree
+overlay, the related node will have the dynamic flag set but np->data
+will be NULL. This leads to NULL pointer dereferences.
 
-https://lore.kernel.org/imx/20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com/T/#m00174f8e2edb8c6304011e87551b42732e19f428
+Checking for a non-NULL np->data pointer to determine if the node has
+been created by the PCI node creation process is not enough. Indeed,
+on some platforms like PowerPC, the OF_RECONFIG_ATTACH_NODE notifier
+(e.g., in the pci_dn_reconfig_notifier() function) intercepts node
+additions and populates np->data with its own structure, such as a
+struct pci_dn. In that case, np->data is not NULL but it is not related
+to our changeset stored during the PCI node process creation.
 
-Frank
+Avoid the usage of np->data to store the changeset used during the PCI
+node creation. Store our changeset in a more relevant structure: either
+struct pci_dev when the node is created for a PCI device or struct
+pci_host_bridge when the node is created for the PCI host bridge.
 
->
-> Thank you and kind regards,
-> Ernest
->
+With that done, no ambiguity remains on removal. Indeed, this changeset,
+if non-NULL, is the one used during PCI node creation. Check and use
+this changeset on the removal process.
+
+Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
+Fixes: 1f340724419e ("PCI: of: Create device tree PCI host bridge node")
+Cc: <stable+noautosel@kernel.org> # Issue not triggered but could be a problem
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+---
+ drivers/pci/of.c    | 26 ++++++++++++++------------
+ include/linux/pci.h | 11 +++++++++++
+ 2 files changed, 25 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+index 0a5797652e18..d6339720e710 100644
+--- a/drivers/pci/of.c
++++ b/drivers/pci/of.c
+@@ -733,14 +733,16 @@ void of_pci_remove_node(struct pci_dev *pdev)
+ 	struct device_node *np;
+ 
+ 	np = pci_device_to_OF_node(pdev);
+-	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
++	if (!pdev->cset || !np)
+ 		return;
+ 
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+ 	device_remove_of_node(&pdev->dev);
+-	of_changeset_revert(np->data);
+-	of_changeset_destroy(np->data);
++	of_changeset_revert(pdev->cset);
++	of_changeset_destroy(pdev->cset);
+ 	of_node_put(np);
++	kfree(pdev->cset);
++	pdev->cset = NULL;
+ }
+ 
+ void of_pci_make_dev_node(struct pci_dev *pdev)
+@@ -800,18 +802,17 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
+ 	if (ret)
+ 		goto out_clear_devlink_dev;
+ 
+-	np->data = cset;
+-
+ 	ret = device_add_of_node(&pdev->dev, np);
+ 	if (ret)
+ 		goto out_revert_cset;
+ 
++	pdev->cset = cset;
++
+ 	kfree(name);
+ 
+ 	return;
+ 
+ out_revert_cset:
+-	np->data = NULL;
+ 	of_changeset_revert(cset);
+ out_clear_devlink_dev:
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+@@ -829,15 +830,17 @@ void of_pci_remove_host_bridge_node(struct pci_host_bridge *bridge)
+ 	struct device_node *np;
+ 
+ 	np = pci_bus_to_OF_node(bridge->bus);
+-	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
++	if (!bridge->cset || !np)
+ 		return;
+ 
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+ 	device_remove_of_node(&bridge->bus->dev);
+ 	device_remove_of_node(&bridge->dev);
+-	of_changeset_revert(np->data);
+-	of_changeset_destroy(np->data);
++	of_changeset_revert(bridge->cset);
++	of_changeset_destroy(bridge->cset);
+ 	of_node_put(np);
++	kfree(bridge->cset);
++	bridge->cset = NULL;
+ }
+ 
+ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+@@ -899,8 +902,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+ 	if (ret)
+ 		goto out_clear_devlink_dev;
+ 
+-	np->data = cset;
+-
+ 	/* Add the of_node to host bridge and the root bus */
+ 	ret = device_add_of_node(&bridge->dev, np);
+ 	if (ret)
+@@ -910,6 +911,8 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+ 	if (ret)
+ 		goto out_remove_bridge_dev_of_node;
+ 
++	bridge->cset = cset;
++
+ 	kfree(name);
+ 
+ 	return;
+@@ -917,7 +920,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+ out_remove_bridge_dev_of_node:
+ 	device_remove_of_node(&bridge->dev);
+ out_revert_cset:
+-	np->data = NULL;
+ 	of_changeset_revert(cset);
+ out_clear_devlink_dev:
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index d31a8d107b1e..7b0ba9ec7b5c 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -339,6 +339,9 @@ struct pcie_link_state;
+ struct pci_sriov;
+ struct pci_p2pdma;
+ struct rcec_ea;
++#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
++struct of_changeset;
++#endif
+ 
+ /* struct pci_dev - describes a PCI device
+  *
+@@ -598,6 +601,10 @@ struct pci_dev {
+ 	u8		tph_mode;	/* TPH mode */
+ 	u8		tph_req_type;	/* TPH requester type */
+ #endif
++
++#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
++	struct of_changeset *cset; /* Changeset used for OF node creation */
++#endif
+ };
+ 
+ static inline struct pci_dev *pci_physfn(struct pci_dev *dev)
+@@ -670,6 +677,10 @@ struct pci_host_bridge {
+ 	unsigned int	broken_l1ss_resume:1;	/* Resuming from L1SS during
+ 						   system suspend is broken */
+ 
++#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
++	struct of_changeset *cset; /* Changeset used for OF node creation */
++#endif
++
+ 	/* Resource alignment requirements */
+ 	resource_size_t (*align_resource)(struct pci_dev *dev,
+ 			const struct resource *res,
+-- 
+2.55.0
+
