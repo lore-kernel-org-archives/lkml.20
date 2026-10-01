@@ -1,229 +1,437 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B086519DFD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:07:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F16A493D4D
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863661; cv=none; b=mXLkYNNcVWIMtyKyUBQLQ7SjHatJQDBvteg0XTkK9zfuc7GixUm+Dn1jILhu6jeMXMXzszqL9dGDZ1JIC9IdS+ZYSMABTlZ5PsnyHN1efXVnT0Dg03qYWgTIomtoSuuY0P3Nb6NtvTvuixlpfsO+PDxcf1L2D1zenlomWY3QOiA=
+	t=1790863668; cv=none; b=WR0pVNBtS6FQQrWWa1OIjNNuCjFUX6UPUG6W5TsHQDUcbo4fkDUziJhM9PGlHYYMvk8Bzyqcig1p42comHfOl5y9D7tA4QlLjP37jIz0MDa0xUTCzEG90FHqbYTDn5Fc9uBQQbjDy+1t3n8qvDZN9AzWHDg9+/hmJWTUtj1B8fQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863661; c=relaxed/simple;
-	bh=VQ68KoETTaTbq1W4z1Co0MYsBOlSnBJd0Lr1l+VIGDw=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=UjjM7lldQR+CHXFg8616JOhF0g+xCuKUcDjFET2YCZbHw4EZ6jMA2/IWKRXTrsRfSrPiYx15Sj1TrT6uXV8MAE2UtvnPgK3YLFM2N/m1w383A1mFX86Dmip5kvhk/SZizsAFDpMG4XILd1AcnKFkZXKOOL7KssTW5mPL8VAKJ9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=uRVKb8IQ; arc=none smtp.client-ip=195.121.94.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1790863668; c=relaxed/simple;
+	bh=xx7TkyJRG+4VcccSoHnCwFaqp8q9ieCXLpMXTiQGnBI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xk2zAWSEZb0D/kRaUhfjZwAoWtLFA2HjZXDWt1cBOtuiScT+CJSehX8NU4gZCSmDexP7HeLGCUsY+aRAvzxK/NqYue4ke+68T1od0lZUiPB0/jL7XLSjF5RtC0H83p5qW7qbmF3unc4+dl1TYQWV9XY665kx4xI2tX6SLL4+5ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JDXIgVgC; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="uRVKb8IQ"
-X-KPN-MessageId: 72bfe7b7-bda1-11f1-8f57-005056992ed3
-Received: from mta.kpnmail.nl (unknown [10.31.161.189])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 72bfe7b7-bda1-11f1-8f57-005056992ed3;
-	Thu, 01 Oct 2026 16:07:33 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id 72bf2264-bda1-11f1-a0a2-0050569981f5;
-	Thu, 01 Oct 2026 16:07:33 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JDXIgVgC"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so43201105e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:07:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=ZgfxoLBnUQqnTXJgPuegUZqvtKWrrV2pWURmU7VkNFI=;
-	b=uRVKb8IQVxsJKxqOQwLyElCcT3gLkpsbDsYd+nroZRaL+VgcM3cfZl6XhQayHlFY9KglOxCAMiLvZ
-	 ih6KottRJjrnt1Rd0VbvgzycKjF2yz0JwNcu8FjvNC9Zl9vU7ZW2/80tXvF4ZRy2OdjnuKJvepF3TA
-	 1TRUsqeJlAG2zw1gcRgyqJ+WfFUiVqexkBqXAJD7+IvBr8qL/esF9TQYC79QffNnvHRZvPbjdXJXkX
-	 EUPYz6/JA29qwJk/5/ljBxmqaHUUWW28mItN13t/EDboS9Pcwl7zHvND75pmKkJXOLFj7MjIWmJPAh
-	 qu2AeAkc1hgWB4JxFK1muuqg6qzdKFg==
-X-KPN-MID: 33|hCqb9EvfgAsBlAelse5FgHWECay6opsKoaJd5aW5bcOteOeVQe6WztcfuJ/8eP6
- Va04y049QvnFp62VpHfww7ONXKaCW2xrMEXAfakqpBn8=
-X-CMASSUN: 33|2T5y/5RfUaX/9zLBSWjTZv2zKk5K4+VHnIgFmlQNbszsj4xUYnuJQiNet8GXOuq
- UR2FGXlRFqr6HpEp/wSrCVQ==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh07 (cpxoxapps-mh07.personalcloud.so.kpn.org [10.128.135.213])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id 72b2fd8b-bda1-11f1-916a-005056995d6c;
-	Thu, 01 Oct 2026 16:07:33 +0200 (CEST)
-Date: Thu, 1 Oct 2026 16:07:33 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: NeilBrown <neil@brown.name>, NeilBrown <neilb@ownmail.net>
-Cc: Christian Brauner <brauner@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Aleksa Sarai <aleksa@amutable.com>,
-	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <592021678.912642.1790863653687@kpc.webmail.kpnmail.nl>
-In-Reply-To: <179081642552.37859.15689377825373435277@noble.neil.brown.name>
-References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
- <20260913185016.523376-8-jkoolstra@xs4all.nl>
- <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
- <178972607557.207413.4312278359822083538@noble.neil.brown.name>
- <178977609418.207413.15011378414000392029@noble.neil.brown.name>
- <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl>
- <179072013439.37859.465558431050704411@noble.neil.brown.name>
- <1315372552.791055.1790807597593@kpc.webmail.kpnmail.nl>
- <179080897361.37859.5844379463485936668@noble.neil.brown.name>
- <1755972037.791960.1790810730535@kpc.webmail.kpnmail.nl>
- <179081642552.37859.15689377825373435277@noble.neil.brown.name>
-Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
+        d=suse.com; s=google; t=1790863665; x=1791468465; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kGOFmX7rjCTPXj3AbUWVJx5cDdevq5A7IJ1FffTm9N0=;
+        b=JDXIgVgCllaSqTJMJvZPKeWmeaeSWYDkaHGT7Xn4YWvGnl8lDzxtQfZAcXTu/MxzgA
+         rf4MISgvnxVmMvFZr7zIJSpR/9mkjCkOGXsuZoGTGwU+JljJ5AGr8IegSlc/rZtKKTq2
+         ApreAUkgshmmRvbFnIZuO0h/msxmKMtckDhDEBZgvw/N5PvsqZoIDftcSbooeUPv8jJl
+         cPkPAipXymxt39NOs+QAZ23CUYi2ho7Yaa40cTq/yuN9w0wH1Oaq1sVpsc9YKkBeE51t
+         0RZKx2y0nPrKJDIvFuWS7t5uJ68+zYxuCR/0tSGhq/anA6ML9HJNT4/Pv0X61JvFBMoi
+         4C9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790863665; x=1791468465;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kGOFmX7rjCTPXj3AbUWVJx5cDdevq5A7IJ1FffTm9N0=;
+        b=MhoDw2QjX/406tLWqZKLSVety8FUAAa+NhVn1GPL74EcayGjx6l4KGesyNOyjkg/c6
+         pYoc2fojtT7FGI+UEIz/+42aA3s5Z4PorC+lrK1jG0xSF0dZutVDpunTmWpI1nKMfWQo
+         5ktfeqtn0L/52YwarUTuPAteTSeuBZ7O+ugOrDAA6VdekweLUIppceeXBPlJmIr684HR
+         9VDTehSecz8gCuacViCbw/J2TfypQIEHeeIwwaoO6qvFLE7pIOOnTQRBBdCEtP1goMSG
+         OF5RLJZQ3fzX9OyI+eyabNi9lbBtrhtLINetFGx4rUawQypI5f2FhF1kgtovmSw2Rbfx
+         9HJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwIG8Agfn/LWEdwFM65IrOOBJ79j56yCuQMfhIt5MfBPgFmI4BNHhLLJ1ohdSeEyThQhjB35ysGc37pgGQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHHFcCn75UWz+yD9UV4mH/KVbOWC7FpC2KYETCUcw/nk+vowhx
+	3JtPEvUQLsCIa5Z29aJt9r4SpxgI2RPZoZF/ZN9gFdZFwfy6umt/VhCLaH9BLkKUyMQ=
+X-Gm-Gg: AYBFou03hPVHxSuGo58ozHJhkPYu+juj5a0R3PshuX0RA8E9XDVvKcxbeerAvXOl/p+
+	+CWPxrov1xYWOtCwr0+qMXQ1cC+GuftPTWJcpKOZj3ZDF9HQ36vBl+Y+5HfhzPjJ4LxTNTIskad
+	dmEHA9cWGPs7C5r7e2pyaDdJ+RE0oCGqBvPcRbg7LOYGJSoS06ut+yWSvsHgf9qJ5AO3FeR6vl+
+	0nXz1TRM5Q7wsrr1Ra+E2ABu5C4z/HuCYTVJZB7lzZA2aQ0cMOYubKR1vl4wusAILNpUml+7xUv
+	VACHw4zFSd5DQLSQe+VmhteKqpYCHWD+SAgU5E0g1CABFRteoT+sl6LxeGKEN5q782yLuDKb5CO
+	U0NpmZqVoUUX6FP3yvD0LhZHN5+7l1sP40bL2j55d5sT4X0b8GcujCZufBDodPt0Eappv3HI7Cx
+	Q/VTM5u0/E0v36Dp6QIe57SvTrE6nto/vU7Aj1cf7M+UF8Rw1r6TCS764T6H0fEtcdBR0H/ivX
+X-Received: by 2002:a05:600c:4f8e:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-4a01b00541bmr78662415e9.19.1790863664727;
+        Thu, 01 Oct 2026 07:07:44 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f99b113sm81986175e9.14.2026.10.01.07.07.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 07:07:44 -0700 (PDT)
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Fushuai Wang <wangfushuai@baidu.com>,
+	Kees Cook <kees@kernel.org>,
+	Stepan Ionichev <sozdayvek@gmail.com>,
+	linux-serial@vger.kernel.org,
+	Manuel Lauss <manuel.lauss@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Petr Mladek <pmladek@suse.com>
+Subject: [PATCH v4 1/1] braille: nbcon: Allow to use a serial console with NBCON API as Braille console
+Date: Thu,  1 Oct 2026 16:07:27 +0200
+Message-ID: <20261001140727.124398-2-pmladek@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001140727.124398-1-pmladek@suse.com>
+References: <20261001140727.124398-1-pmladek@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
+Content-Transfer-Encoding: 8bit
 
+The Braille console is not registered in console_list. Instead, it is
+integrated with the virtual terminal (VT) and shows what is displayed
+on the terminal. It writes the data using con->write*() callback
+of the associated serial console driver.
 
-> Op 01-10-2026 03:00 CEST schreef NeilBrown <neilb@ownmail.net>:
-> 
->  
-> On Thu, 01 Oct 2026, Jori Koolstra wrote:
-> > > Op 30-09-2026 18:56 EDT schreef NeilBrown <neilb@ownmail.net>:
-> > > 
-> > >  
-> > > On Thu, 01 Oct 2026, Jori Koolstra wrote:
-> > > > 
-> > > > Err, *derp*, what a stupid suggestion of mine.
-> > > > 
-> > > > > Currently O_DIRECTORY|O_CREAT results in -EINVAL.  I would rather it
-> > > > > remain a -EINVAL on any filesystem which doesn't completely support
-> > > > > the functionality.
-> > > > > 
-> > > > 
-> > > > I don't think that works for the reason I just wrote in my email to Amir:
-> > > > it would make lookup dependent on the dentry cache. If it's in-cache, you get
-> > > > your dir, otherwise suddenly -EINVAL.
-> > > > 
-> > > > > To do that we need some way to detect kernfs and tracefs.  I think
-> > > > > the only way we can do that is to make some change to those two
-> > > > > filesystems.
-> > > > > Maybe a new  SB_I_ flag in sb->s_iflags would be ok in the short term.
-> > > > > 
-> > > > 
-> > > > We can just implement atomic_open() for kernfs/tracefs, do a lookup there,
-> > > > and if negative with O_CREAT return maybe -ENOENT (or really we need a new
-> > > > error that says "the requested create could not be serviced," like -ENOCREATE,
-> > > > or whatever). And if it is positive we do finish_no_open().
-> > > > 
-> > > > It's a bit of a hack because it does not really have anything to do with
-> > > > atomicity, but it does short-circuit the mkdir call in lookup_open(). I guess
-> > > > that would work. Maybe I am confused, but wasn't that what you proposed here
-> > > > earlier?
-> > > 
-> > > Yes, it is what I proposed earlier.  But I think it would require more
-> > > review and probably make it unrealistic to land this cycle.  But I'm not
-> > > thinking it is unlikely to be ready this cycle any way.
-> > > 
-> > 
-> > Not unlikely, so likely that is :)
-> > 
-> > > I'm now wondering if we should keep ->atomic_open out of the loop and
-> > > always use ->mkdir to create a directory.
-> > > Based on your justification you probably always want O_EXCL and I would
-> > > be inclined to require that.
-> > > 
-> > 
-> > I wanted it to work as regular O_CREAT, so no forced O_EXCL per se.
-> 
-> Why?  The whole point is atomicity, and without O_EXCL there is no
-> atomicity.
-> I guess it doesn't hurt to not require O_EXCL, but it is just another
-> combination to test...
-> 
+braille_write() is called from the VT code under console_lock().
+The associated serial console driver can be converted to the NBCON API
+though. The situation is similar to flushing nbcon consoles in the legacy
+loop when some boot consoles are still registered, see
+nbcon_legacy_emit_next_record().
 
-Let me rephrase your point: if you do an O_CREAT without O_EXCL you still
-don't know whether it's your file because it might have been there already.
-So the fact that you immediately get an fd still does not tell you everything.
-Right?
+But there is a big difference though. braille_write() is not directly
+called from the code paths flushing registered consoles. The VT code
+expects that braille_write() succeeds. It does not replay the message
+when it can't acquire the ownership. As a result, braille_write():
 
-But, at least you'll know it's a directory and you still save a syscall.
-On the other hand, maybe that just breeds incorrect use, and if needed the
-O_EXCL-less variant can always be added, so we might as well force its use
-for now. Then again, it might be confusing to do open(O_CREAT|O_DIRECTORY)
-and get an -EINVAL or -EEXISTS, given current O_CREAT semantics for regular
-files.
+  + must try harder to get the ownership.
 
-> > 
-> > > So if the dentry is in-lookup we call ->atomic_open(O_DIRECTORY).  If
-> > > that succeeds - good.  If it reports ENOENT or a negative dentry, then
-> > 
-> > Can ->atomic_open() return a negative dentry?
-> 
-> No reason why not.  It is mapped to  -ENOENT
-> 
-> 			if (unlikely(d_is_negative(dentry)))
-> 				error = -ENOENT;
-> 
-> I'm in favour of ->atomic_open() calling finish_no_open() is all
-> no-error cases where it didn't do something about opening the file.
-> But I don't object to an explicit -ENOENT return.
-> 
+  + has to be synchronized only against non-printk serial console
+    which depend nbcon_device_try_acquire() using NBCON_PRIO_NORMAL.
 
-I don't have LLM access right now: are there any ->atomic_open() implementations
-currently that do return negative dentries? Seems to be a bit strange, just like
-with ->mkdir(). What would be the purpose?
+Let's look at it from another side and try to simulate the original
+locking using the NBCON API:
 
-> > 
-> > > we cal ->mkdir.  If that succeeds with a positive dentry, we call
-> > > through to call ->open.
-> > > If ->mkdir succeeds with a negative dentry - we have the problem of
-> > > kernfs and tracefs.  I'm leaning towards fixing those to do the lookup.
-> > 
-> > Yes, I follow this. But we do need to ask their maintainers then why that
-> > was chosen. Plus, we need to ban negative dentry returns also for future
-> > fses, which may be limiting.
-> 
-> Odds a good that there wasn' a specific reason why leaving the dentry
-> negative was chosen.  I think the better question is "do you have a
-> problem with this patch" where the patch does a lookup.
-> 
-> Putting a WARN_ON(d_really_is_negative()) somewhere in vfs_mkdir would be
-> easy enough. I cannot imagine it really being a burden for any fs.  If
-> that does happen were can solve the problem then.  Being prepared of all
-> possible eventuality is a no-win proposition.  I've tried - I gave up.
-> 
+  1. Take con->device_lock(), aka the port->lock in the legacy serial
+     console driver.
 
-Fair enough. I'll spin this idea up then, to add the lookup to kern/tracefs
-->mkdir() and add that warning to vfs_mkdir(). And I'll CC those maintainers
-on that version.
+  2. Acquire nbcon context to provide some synchronization for a panic()
+     context. Use NBCON_PRIO_NORMAL because it contends only with
+     nbcon_device_try_acquire() users. Do it in a busy loop. It should
+     always succeed when con->device_lock() succeeded because all other
+     users do the same. The only exception is when the context get acquired
+     by a CPU handling panic.
 
-> > 
-> > > 
-> > > I don't think any filesystems *can* combine mkdir with open, so not
-> > > using ->atomic_open for the mkdir doesn't actually lose anything.
-> > > 
-> > 
-> > Yeah, I don't quite understand the specifics of this as I am not familiar
-> > with NFS and the likes. I presume because of things like network traffic
-> > ->atomic_open() was needed as a single call into the underlying fs. But
-> > I have no idea why or why not that would make sense for directories. If
-> > we do it the way you suggest now, we can get rid of all the O_CREAT stripping
-> 
-> ->atomic_open was created specifically for NFSv4 which has a combined
-> lookup/create/open request.  You can do everything with a combination of
-> ->lookup and (exclusive) ->create (providing create returns a
-> non-negative dentry) and ->truncate and open.  Using ->atomic_open means
-> fewer round-trips to the server so less latency.
-> 
-> NFS doesn't have a concept of "open" for directories.  CIFS probably
-> does.  FUSE probably doesn't but could possibly add one.
-> But directories are not opened nearly as often as files, so combining
-> things isn't so important.  And O_TRUNC is not meaningful for
-> directories so that is one fewer thing that could be combined.
-> 
+  3. In panic, disable interrupts and try to acquire the nbcon context.
+     Use NBCON_PRIO_PANIC. And try even an unsafe takeover because
+     otherwise the Braille console won't see the text shown during panic().
+     It is similar to the oops_in_progress/trylock handling in the legacy
+     serial console driver.
 
-OK, if it isn't likely that any ->atomic_open() wants O_CREAT|O_DIRECTORY
-support we can get rid of some of the complexity. Summarize:
+Finally, avoid the newline prepending logic in the existing serial console
+drivers when they are used as a Braille console. As explained above,
+the Braille console shows the last modified line on the terminal (VT).
+braille_write() is called when single characters are added. Most
+messages are not ended by newline. Anyway, the VT code does not have
+logic to reply partially printed messages.
 
-1. use ->atomic_open(O_DIRECTORY) for lookup, no O_CREAT bit passed in.
-2. if positive then done, otherwise (on -ENOENT) we call ->mkdir()
-3. open that dentry in the regular way, WARN_ON negative dentry return
+Fixes: 13189fa73afa ("printk: nbcon: Rely on kthreads for normal operation")
+Signed-off-by: Petr Mladek <pmladek@suse.com>
+---
+ .../accessibility/braille/braille_console.c   | 60 +++++++++++++-
+ drivers/tty/serial/8250/8250_port.c           |  5 +-
+ drivers/tty/serial/amba-pl011.c               |  2 +-
+ drivers/tty/serial/imx.c                      |  2 +-
+ drivers/tty/serial/sifive.c                   |  2 +-
+ include/linux/console.h                       | 15 ++++
+ kernel/printk/nbcon.c                         | 79 +++++++++++++++++++
+ 7 files changed, 159 insertions(+), 6 deletions(-)
 
-Best,
-Jori.
+diff --git a/drivers/accessibility/braille/braille_console.c b/drivers/accessibility/braille/braille_console.c
+index 06b43b678d6e..fc6cd3530b28 100644
+--- a/drivers/accessibility/braille/braille_console.c
++++ b/drivers/accessibility/braille/braille_console.c
+@@ -62,14 +62,50 @@ static void braille_write(u16 *buf)
+ {
+ 	static u16 lastwrite[WIDTH];
+ 	unsigned char data[1 + 1 + 2*WIDTH + 2 + 1], csum = 0, *c;
++	struct nbcon_write_context wctxt = { };
++	unsigned long flags;
+ 	u16 out;
+ 	int i;
+ 
+ 	if (!braille_co)
+ 		return;
+ 
++	/*
++	 * Braille console is not registered in console_list. Instead, it
++	 * is integrated with VT and shows what appears on the graphical
++	 * console under console_lock(). From this POV it is a legacy
++	 * console. But it calls serial console driver which might be
++	 * converted to the NBCON API. It is similar to
++	 * nbcon_legacy_emit_next_record() except that we should try
++	 * harder to get the lock. Otherwise, the Braille device won't show
++	 * everything what is displayed on the terminal.
++	 *
++	 * In short, simulate the original locking using NBCON API.
++	 */
++	if (braille_co->flags & CON_NBCON) {
++		if (panic_on_this_cpu()) {
++			/*
++			 * This should be good enough in practice. Most/all
++			 * serial console drivers have the atomic callback.
++			 */
++			if (!braille_co->write_atomic)
++				return;
++
++			local_irq_save(flags);
++			/* NBCON API strictly requires the ownership. */
++			if (!nbcon_braille_try_acquire(braille_co, &wctxt)) {
++				local_irq_restore(flags);
++				return;
++			}
++		} else {
++			braille_co->device_lock(braille_co, &flags);
++			while (!nbcon_braille_try_acquire(braille_co, &wctxt))
++				cpu_relax();
++		}
++	}
++
+ 	if (!memcmp(lastwrite, buf, WIDTH * sizeof(*buf)))
+-		return;
++		goto unlock_nbcon;
+ 	memcpy(lastwrite, buf, WIDTH * sizeof(*buf));
+ 
+ #define SOH 1
+@@ -102,7 +138,24 @@ static void braille_write(u16 *buf)
+ 	*c++ = csum;
+ 	*c++ = ETX;
+ 
+-	braille_co->write(braille_co, data, c - data);
++	if (braille_co->flags & CON_NBCON) {
++		nbcon_write_context_set_buf(&wctxt, (char *)data, c - data);
++		if (panic_on_this_cpu())
++			braille_co->write_atomic(braille_co, &wctxt);
++		else
++			braille_co->write_thread(braille_co, &wctxt);
++	} else {
++		braille_co->write(braille_co, data, c - data);
++	}
++
++unlock_nbcon:
++	if (braille_co->flags & CON_NBCON) {
++		nbcon_braille_release(&wctxt);
++		if (panic_on_this_cpu())
++			local_irq_restore(flags);
++		else
++			braille_co->device_unlock(braille_co, flags);
++	}
+ }
+ 
+ /* Follow the VC cursor*/
+@@ -353,13 +406,16 @@ int braille_register_console(struct console *console, int index,
+ 	if (!console_options)
+ 		/* Only support VisioBraille for now */
+ 		console_options = "57600o8";
++
+ 	if (braille_co)
+ 		return -ENODEV;
++
+ 	if (console->setup) {
+ 		ret = console->setup(console, console_options);
+ 		if (ret != 0)
+ 			return ret;
+ 	}
++
+ 	console->flags |= CON_ENABLED;
+ 	console->index = index;
+ 	braille_co = console;
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 38fa45e74a37..548fd68ad1fa 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -3417,8 +3417,11 @@ static void __serial8250_console_write(struct uart_8250_port *up,
+ 	 * If the console printer did not fully output the previous line, it
+ 	 * must have been handed or taken over. Insert a newline in order to
+ 	 * maintain clean output.
++	 *
++	 * Braille consoles are an exception. The serial port is not used
++	 * for printk(). The driver is supposed to write exactly what it gets.
+ 	 */
+-	if (!up->console_line_ended) {
++	if (unlikely(!up->console_line_ended && !nbcon_write_context_is_braille(wctxt))) {
+ 		if (use_fifo)
+ 			__serial8250_console_fifo_write(up, wctxt, "\n", 1);
+ 		else
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index c4824c201e1c..e67f2ac454b6 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -2656,7 +2656,7 @@ pl011_console_write_atomic(struct console *co, struct nbcon_write_context *wctxt
+ 				uap, REG_CR);
+ 	}
+ 
+-	if (!uap->console_line_ended)
++	if (unlikely(!uap->console_line_ended && !nbcon_is_braille(co)))
+ 		uart_console_write(&uap->port, "\n", 1, pl011_console_putchar);
+ 	uart_console_write(&uap->port, wctxt->outbuf, wctxt->len, pl011_console_putchar);
+ 
+diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+index 513dbe95f7e9..986fefb45c63 100644
+--- a/drivers/tty/serial/imx.c
++++ b/drivers/tty/serial/imx.c
+@@ -2136,7 +2136,7 @@ static void imx_uart_console_write_atomic(struct console *co,
+ 	imx_uart_writel(sport, ucr1, UCR1);
+ 	imx_uart_writel(sport, old_ucr.ucr2 | UCR2_TXEN, UCR2);
+ 
+-	if (!sport->last_putchar_was_newline)
++	if (unlikely(!sport->last_putchar_was_newline && !nbcon_is_braille(co)))
+ 		uart_console_write(port, "\n", 1, imx_uart_console_putchar);
+ 	uart_console_write(port, wctxt->outbuf, wctxt->len,
+ 			   imx_uart_console_putchar);
+diff --git a/drivers/tty/serial/sifive.c b/drivers/tty/serial/sifive.c
+index 110d67613192..f615701fceb7 100644
+--- a/drivers/tty/serial/sifive.c
++++ b/drivers/tty/serial/sifive.c
+@@ -821,7 +821,7 @@ static void sifive_serial_console_write_atomic(struct console *co,
+ 	ier = __ssp_readl(ssp, SIFIVE_SERIAL_IE_OFFS);
+ 	__ssp_writel(0, SIFIVE_SERIAL_IE_OFFS, ssp);
+ 
+-	if (!ssp->console_line_ended)
++	if (unlikely(!ssp->console_line_ended && !nbcon_is_braille(co)))
+ 		uart_console_write(port, "\n", 1, sifive_serial_console_putchar);
+ 	uart_console_write(port, wctxt->outbuf, wctxt->len,
+ 			   sifive_serial_console_putchar);
+diff --git a/include/linux/console.h b/include/linux/console.h
+index 502d1abe3f50..df23148987ee 100644
+--- a/include/linux/console.h
++++ b/include/linux/console.h
+@@ -615,6 +615,15 @@ extern bool nbcon_allow_unsafe_takeover(void);
+ extern bool nbcon_kdb_try_acquire(struct console *con,
+ 				  struct nbcon_write_context *wctxt);
+ extern void nbcon_kdb_release(struct nbcon_write_context *wctxt);
++extern bool nbcon_write_context_is_braille(struct nbcon_write_context *wctxt);
++extern bool nbcon_braille_try_acquire(struct console *con,
++				      struct nbcon_write_context *wctxt);
++extern void nbcon_braille_release(struct nbcon_write_context *wctxt);
++
++static inline bool nbcon_is_braille(struct console *con)
++{
++	return con && (con->flags & CON_BRL);
++}
+ 
+ /*
+  * Check if the given console is currently capable and allowed to print
+@@ -678,8 +687,14 @@ static inline void nbcon_reacquire_nobuf(struct nbcon_write_context *wctxt) { }
+ static inline bool nbcon_kdb_try_acquire(struct console *con,
+ 					 struct nbcon_write_context *wctxt) { return false; }
+ static inline void nbcon_kdb_release(struct nbcon_write_context *wctxt) { }
++static inline
++bool nbcon_write_context_is_braille(struct nbcon_write_context *wctxt) { return false; }
+ static inline bool console_is_usable(struct console *con, short flags,
+ 				     bool use_atomic) { return false; }
++static inline bool nbcon_braille_try_acquire(struct console *con,
++					     struct nbcon_write_context *wctxt) { return false; }
++static inline void nbcon_braille_release(struct nbcon_write_context *wctxt) { }
++static inline bool nbcon_is_braille(struct console *con) { return false; }
+ #endif
+ 
+ extern int console_set_on_cmdline;
+diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+index d17704fe93ae..8dac9bda4fe0 100644
+--- a/kernel/printk/nbcon.c
++++ b/kernel/printk/nbcon.c
+@@ -1887,6 +1887,7 @@ bool nbcon_device_try_acquire(struct console *con)
+ 
+ 	memset(ctxt, 0, sizeof(*ctxt));
+ 	ctxt->console	= con;
++	/* Keep in sync with nbcon_braille_try_acquire(). */
+ 	ctxt->prio	= NBCON_PRIO_NORMAL;
+ 
+ 	if (!nbcon_context_try_acquire(ctxt, false))
+@@ -2002,3 +2003,81 @@ void nbcon_kdb_release(struct nbcon_write_context *wctxt)
+ 	 */
+ 	__nbcon_atomic_flush_pending_con(ctxt->console, prb_next_reserve_seq(prb));
+ }
++
++/**
++ * nbcon_is_braille - Checks whether the nbcon write context is using Braille console
++ *
++ * @wctxt:	checked nbcon write context
++ *
++ * Return: True when the write context is associated with a Braille console.
++ *	   Othrewise, return false.
++ *
++ * Context: Can be called in any context but only when Braille console is
++ *	registered and the struct console could not disappear.
++ */
++bool nbcon_write_context_is_braille(struct nbcon_write_context *wctxt)
++{
++	struct nbcon_context *ctxt = &ACCESS_PRIVATE(wctxt, ctxt);
++	struct console *con = ctxt->console;
++
++	return con && con->flags & CON_BRL;
++}
++EXPORT_SYMBOL_GPL(nbcon_write_context_is_braille);
++
++/**
++ * nbcon_braille_try_acquire - Try to acquire nbcon console for braille_write()
++ *
++ * @con:	The nbcon console to acquire
++ * @wctxt:	The nbcon write context to be used on success
++ *
++ * Context:	braille_write() for emitting a single buffer on Braille console.
++ *
++ * Return:	True if the console was acquired. False otherwise.
++ *
++ * Braille console is not registered as a proper printk consoles. Instead,
++ * it is integrated with the graphical virtual terminal.
++ *
++ * This function is going to synchronize the Braille write against other
++ * operations on the used serial port. The port can be used also for a user
++ * input but printk() won't emit the messages there directly. It means
++ * the other operations will get synchronized using nbcon_device_try_acquire().
++ */
++bool nbcon_braille_try_acquire(struct console *con,
++			   struct nbcon_write_context *wctxt)
++{
++	struct nbcon_context *ctxt = &ACCESS_PRIVATE(wctxt, ctxt);
++	bool success;
++
++	memset(ctxt, 0, sizeof(*ctxt));
++	ctxt->console = con;
++	/* Keep in sync with nbcon_device_try_acquire(). */
++	if (panic_on_this_cpu())
++		ctxt->prio = NBCON_PRIO_PANIC;
++	else
++		ctxt->prio = NBCON_PRIO_NORMAL;
++
++	success = nbcon_context_try_acquire(ctxt, false);
++	/*
++	 * Try hard in panic, otherwise the Braille console would
++	 * miss a text on the related VT.
++	 */
++	if (panic_on_this_cpu() && !success) {
++		ctxt->allow_unsafe_takeover = true;
++		success = nbcon_context_try_acquire(ctxt, false);
++	}
++
++	return success;
++}
++
++/**
++ * nbcon_braille_release - Release the nbcon console
++ *
++ * @wctxt:	The nbcon write context initialized by a successful
++ *		nbcon_braille_try_acquire()
++ */
++void nbcon_braille_release(struct nbcon_write_context *wctxt)
++{
++	struct nbcon_context *ctxt = &ACCESS_PRIVATE(wctxt, ctxt);
++
++	nbcon_context_release(ctxt);
++}
+-- 
+2.55.0
 
-PS. Maybe I asked already before (in case apologies), but will you be
-at LPC?
