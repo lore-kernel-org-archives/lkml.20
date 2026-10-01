@@ -1,259 +1,269 @@
-Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1819E4949E0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.166
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873443; cv=none; b=Hr+7GZ2TpRAENgVH2MA6ULTqGH678cMpyFuTkFJmrAiil3pDq6IDTheMrzITsyrnjP3qWUH4tO+YivwANh28Ye3YO+8BP28Msy2Rn1zsIa6mLTsR2z+DqrAt0g4HP3POtxohhu001oXq6zeNgsU6nUBOkzfKii7OnbJN6GKdfVg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873443; c=relaxed/simple;
-	bh=X7yRM492Myb/CGOz9422592ZC3di3eL+p6g8TI6/5cQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bED0k6yp/IfaMlE04j4FeOfByULYLjpUXzjkjXz/ypMUlq1aROMCJM9u3Z/x8R2Y6qa+7Q7D8EIstcnwLyQqxy5Za2uBnHbuO3aTjCtqEfrOwfdcgTaFrIhXIHcO1/8yEYLMhxncYzQu4f997oRNKG2IGI9c7FiQ9c+e9WD82QI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OxCMpLgp; arc=none smtp.client-ip=74.125.224.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80414071E2
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790873469; cv=pass; b=SpMR5d2d064+qVqQ0vrSsAo4oQCepfRrTy06o931LPoOSlIfX+pLTu/uxwkD7SlqAFAQ3WGwr9lxqliUjpCca9D64KSoVYp4enju7gon6I6nmTWvhezed1pgSC4RxdAYn7O3mI52grA8pDlkdAQAsKFMwBvNyEw39qkjr+AwXps=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790873469; c=relaxed/simple;
+	bh=Z/Pt4iHzmTGZd8lDgdQqN+liVD+302dlRQrpejVIGb4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S9l+A0VXcvDu5Wjc7OfRIWzscLmq6bJ5GvFirkfaj4gtqT5y309ELnatf4CW2NTbOv8syHQRiN60lj3LHUY2+KNiW9U8sJyEj/Bp0Rm2dm4tDdhqlqTiRxovzQNeXHEydo0ipovvsN/5QKwfwW58d6SL6q40pdjswrJkmmUDZDQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=cgI1RHyt; arc=pass smtp.client-ip=74.125.231.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OxCMpLgp"
-Received: by mail-yx2-f38.google.com with SMTP id 00721157ae682-8ac502960dcso19049387b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="cgI1RHyt"
+Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6d33d80855eso4554585eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790873456; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Xj/9D1qQuk3fZXtbxTCalNpzvFhIdcVbdzZGDS2iG5BYYmhRlSozrgqrzTkjtAXcUR
+         DdfijpQayvCZ2NJaVeiTcojWXRMkAtLawRU9aG6SITlAMIyQeFnZ+Y9/Eku50oGJtBFZ
+         8g09DquYLj1YN0o2ZpmnnSthBSGbi8XyXirpI7pWfb/yRDAZRLc5Ae5VOGSwWgDslPej
+         LBQxg9OP4kdaMMA6gibvfsueesuURb8jepvcfCWNLNgBwowhZazCtIFKoFS8wZwuJUJN
+         iSidhDtaBKTPXxz0mhiIVeG9czgoiIRa7v4K09Qoe99AKTY/ES8KcQzwK6L8y4iQOEPU
+         yTOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=M4UDS/r0ws+k3dZ66A0pvwJmVSCNZ/qISAilbB0LD6s=;
+        fh=liE5OJO5cFIRZFF8eRXd/RoYAbHUHhs4UqpOQwThWKM=;
+        b=IdOqAJ33AkLxoIKbZG16mz+jbLLal3Elqlq1PyOQKLrtlyRKsez8zvhKAGj1YN+ovy
+         jkuI9el+pct1pvZHlVjaj/1lasfnowMp9sxwdSkdnZuQ2PPH9xb1c1bSmA3iJ4j7iRwL
+         dvlgap9R+D21ED1E+sBspu9ZmNB9bEPS51R8yCIvZc142c4MrvJbG/pD5ROAF7IlVKDG
+         RAfHZTa2PoisrfwHWDZNDSVkfFIc9vUI6YdXVfAdTyjmQuIeKnmAtj2MR60YpvJKc73w
+         jNSRucFJYYfUyC85RQ/vIiQpBCmRw+R8vQSRiqj/eeA1VOZiICtwF3c5Vw97AlD33E5k
+         vdYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790873432; x=1791478232; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d6K9PeKbBLz8bvD+V5s6A6I1nwOveAHnKglkwmhB6h4=;
-        b=OxCMpLgpEdqzkT6cW4d14VUEyNRhYDD5mWm4BTTSzUDfwKHLYDHOBcv+vaaPolALO+
-         Jze3sTcgNeGgh0/EdRLYVKJ9eft+NOhTlGDIlevXl/fz26a5exgN5ns6Xf0jx+j+uYeR
-         P1TIstoX67XHeByH1wHvpxjPuhZ3P1HGU6kgPZ8FMt5VdDi37gqUU89LiN5VIETwGD4H
-         gmG0uOM8kR0Ig69vg3B5CIpoXrj8V2sIarqpSuwXZMepnHpnehwbKIDpTsn2XSH99KQB
-         CFVCAeJ/BMFCPVpkGA6QJN3D9bQuCiflA9K0XmPK+hcJZGTyDVgm10kVW16EfPrOlka9
-         OiYQ==
+        d=raspberrypi.com; s=google; t=1790873456; x=1791478256; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M4UDS/r0ws+k3dZ66A0pvwJmVSCNZ/qISAilbB0LD6s=;
+        b=cgI1RHytfVAFFdIdjx/z35eWFWQWtzRSMjH7sTmKcPXA7Lw46jFBmuC+275qFp68CQ
+         dpltNj5cTiiqbr87pw+KnhpWGYPsAwaivigXkhFJPhGQrdmq0O6bpJHqgWYYARuj0N4+
+         pWUFdgmsHwopYfslmuJu0Icn3Eu3upbz3rFm5BKqCd8xEO/ADr4ZYFclEeq5BsDIToqo
+         sWokxBpNzrsqcSj2pYntzyGhsSO3ROwDhkER1nvGLsrBNvgWr5l4fSbQfTsHRQzJ9VKS
+         mc/+4t+9hDCDwaeswf6wgNNilT16sn/V0VOQTnZ2WZVsQHCgbSdh7EIC/W89Y34SLp6F
+         /+1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873432; x=1791478232;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d6K9PeKbBLz8bvD+V5s6A6I1nwOveAHnKglkwmhB6h4=;
-        b=OAQWscVBz1xO2ah45jH+LpJGHyOfJ3z3c7HxEwU9lpUg1ETWp4pCrIcbj0vLT4zLjB
-         wGsYlNidZfSYKqqD9Fou0kOg/v9DCNUAnPdxVg7DeyPHJGY+x8BHsjVV3vs+FdLft+P9
-         DddxrgyTuW/f9vgiRdmjArBXKWLq1DOqpbVqZm0wmmc2MUJWXOuhlkyKQr0urod+brK8
-         7CWAXfFKcFRZZvInArvOOtVzyFEmlgzYSYUxU7C1g0uv7cKSepWJmU+oBMPiqMJHG6FN
-         bDdqAn0of03IyRKtky68c0noSQNQ3/py78sovGdYk+nuAf2ziRitaES8MVgTmT6rsh7M
-         thJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwzR8WaFUDCHLeXXCJRjhF+b1Dn3DWNcbLHXkSyZpmX5Zc0tb9BirGOGHiKIOTotUGbH5Qs9N7/YV5FTpU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjW8Q/P4u+9DZXHk42Vqp8517XlXtJyiTTCaRdHL789thxA40u
-	NEJWDTjglxinl9ycamkFJy/dcEH14pgdT4/8ClfbNO+LkiozdYIcFwOO
-X-Gm-Gg: AYBFou0ni91ckjAoBbhO+qiroP6mDwxO0uMx6XrKYn2RWA6X9U/bANlA7WmDDKV3305
-	jY/Nm4Eybd1Ybi8MI8vBZc6lSlHbxBVjv6luD846YfPINYCtA/w5d8s4/MvE4tsbIzgwKBkAPKF
-	9tq+S6kTOWkVtWnefw0/6VYhPBk0d3teYjvrnDZkG9A0f3yKu6s8W2L4IHDaspU2ZwWU2KRDumE
-	8HJsq9xBI6cLJQ3g6VXjSR3I/uPAKwywUUjpm2QU8uLYlri4tkUdMuroyiWfgyUzttxETmb3VBM
-	XVyJlyPXTuiQmAFR/Veo5kbJHrEE/U3szXu5NVQjRPHpmT/LP1+fHmELJwzyDmEZ7DeLtcxBR5H
-	IcZNJxCsFJekhaq5uus4JRYGJPbWLeIvU2V41V4513W45sbDtV9c3pOQZBftH/cq7qCfgZ/nlgL
-	asbrrzzk2Dppb/ZuZd+LnMWt1FM30aQ5wkMOdBS/mkrZjs1smXMcv97jc2Sj4qbm0hSvWVge0=
-X-Received: by 2002:a05:690c:620b:b0:8ac:d426:105a with SMTP id 00721157ae682-8acd4262479mr17211917b3.39.1790873431602;
-        Thu, 01 Oct 2026 09:50:31 -0700 (PDT)
-Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdad20683sm13782967b3.32.2026.10.01.09.50.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:50:30 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-To: linux-alpha@vger.kernel.org
-Cc: Magnus Lindholm <linmag7@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Matt Turner <mattst88@gmail.com>
-Subject: [PATCH 3/4] alpha: link platform help text to the alphalinux.org wiki
-Date: Thu,  1 Oct 2026 12:50:17 -0400
-Message-ID: <20261001165018.415526-3-mattst88@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261001165018.415526-1-mattst88@gmail.com>
-References: <20261001165018.415526-1-mattst88@gmail.com>
+        d=1e100.net; s=20260707; t=1790873456; x=1791478256;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=M4UDS/r0ws+k3dZ66A0pvwJmVSCNZ/qISAilbB0LD6s=;
+        b=DBvZYpBAOKyvqBukUvOPqNq06ousR1x18TZkcEAKF1RVuKREcupiLFN6U5JLkRhYVZ
+         BAVXsYX1cZT5FMKbB1WM+WCZ0EmweSej4e3nZL+Er4M01smuaotCoGRhFHaxCMk3YpyT
+         s9TDOon/b7HQhsro+V9T4IV3P0XxFf0AhSDcCSR+KQJhcw14K1BPINL6nNaVxPrNDwbA
+         j5KQZ5qis7p9L0PQerV3voD64K9GFw1W7JyDu9/lAKvNJ7TjTrDfy9+lAgq1GHNyVOD9
+         PUNGo13IRWJX+f8PdOAgTUxaDNprhxzeFluZtH5f9VkS+7HWVgCq47GYA1uhD3bMdmYF
+         p8RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySJ0E6bDUEtBB5CA0p1qFdq6ZVEHdyLv3VNRAt05yNUoDBHYzcx4HQB/oo11d6ulXuxfYPnfGI17PP9Dc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9RjaXGESHKow4Uw7YSkO5N2MGHGX8Et3Kk2gEqAxi08vXCZGH
+	MNihWcVXMuficsG+geDyrXpAj1VM/SqTVCXfWk6gS22ihwHc4O8HZOpOPPm8oCPyuJYmXlgZOqj
+	6u1UOrrtR3W+Bk7EzZYYawFEgbtNmzOm7E7Ip685ZUb1GAK3RuDd9
+X-Gm-Gg: AYBFou11f/AFjIbiOo7RmVHH5bgl0covTNRord8gGwXJGMUaGlqheN7BrL/9rhkmkg8
+	q0EYtUPu8k5AHnsujoe5S2wmar5Gw8Q9f/Au4Zf0qyO9WCHW6uGS2SnqNBIN3aoMT91U+k9pGgH
+	JHPLAOqgX6jY9tFLa2zK0nfFBRZkJFODDphvqE5JxXixEVEW3IhMUfU5l2xp7dY1m48FZbi+8i4
+	q6mjO4LrxwHClUjfhBgzn08W45nUVS+v1TRGYMmMpF3F0R0rfvNJ6pzlozJ8o3ALMMyCyIdClSe
+	74T6MUsK6SoMI/Q1e+oF8KtRQvzI4QNz5AYvWjc7Lta6bXobHN60wEuIjzarwS5gPPXoA//kPZL
+	YA1OyBy/o0Q1wXsbiJ032XYHiHx1h+hb63NzwTSXDRrJoDySnLLA4EDo1dRTYDnSq/dGiWRz5
+X-Received: by 2002:a05:6820:4c89:b0:6c9:80d8:a1ec with SMTP id
+ 006d021491bc7-6dcf5b2beb1mr4733964eaf.41.1790873455249; Thu, 01 Oct 2026
+ 09:50:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org> <20261001-v4l2-sensor-detect-v1-3-a45993be17b8@kernel.org>
+In-Reply-To: <20261001-v4l2-sensor-detect-v1-3-a45993be17b8@kernel.org>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 1 Oct 2026 17:50:36 +0100
+X-Gm-Features: AclHuK8bZj6T-wpokTrd8IamyDPA2xXVzcpmrKfxvmyZWiIGgRZgvlAzYjIYUmY
+Message-ID: <CAPY8ntBFTGmGHRZX0QAtbV=fQi4p3Obp19SfNHdFq_DrW3-T7g@mail.gmail.com>
+Subject: Re: [PATCH RFC 3/5] media: imx219: Allow driver probe with missing sensor
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Michael Riesch <michael.riesch@collabora.com>, Maxime Ripard <mripard@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The alphalinux.org wiki has a page for each system and motherboard
-covering its CPUs, firmware, Linux status and known issues. Link each
-platform's help text to the pages for the systems it supports.
+Hi Mattijs
 
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- arch/alpha/Kconfig | 47 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
+<mkorpershoek@kernel.org> wrote:
+>
+> Probe() should complete even when a sensor is disconnected. This would
+> allow the v4l-subdev to be created and improve fault tolerance.
+>
+> Currently, the driver reads the CHIP_ID over i2c in the probe().
+> When we can't read CHIP_ID, the probe errors out - which result in the
+> v4l2-subdev not being created.
+>
+> Remove all i2c communications to allow the driver to probe with a
+> missing sensor.
+>
+> Note: Since we no longer power on the sensor during probe, the driver
+> now starts in suspended mode by default.
+>
+> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+> ---
+>  drivers/media/i2c/imx219.c | 72 +++++++++++++++++++++-------------------------
+>  1 file changed, 33 insertions(+), 39 deletions(-)
+>
+> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> index 7978fee5f4a2..aeac70123b9b 100644
+> --- a/drivers/media/i2c/imx219.c
+> +++ b/drivers/media/i2c/imx219.c
+> @@ -1000,6 +1000,29 @@ static int imx219_init_state(struct v4l2_subdev *sd,
+>         return imx219_set_pad_format(sd, state, &fmt);
+>  }
+>
+> +/* Verify chip ID */
+> +static int imx219_identify_module(struct imx219 *imx219)
+> +{
+> +       struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+> +       int ret;
+> +       u64 val;
+> +
+> +       ret = cci_read(imx219->regmap, IMX219_REG_CHIP_ID, &val, NULL);
+> +       if (ret) {
+> +               dev_dbg(&client->dev, "failed to read chip id %x\n",
+> +                       IMX219_CHIP_ID);
+> +               return ret;
+> +       }
+> +
+> +       if (val != IMX219_CHIP_ID) {
+> +               dev_dbg(&client->dev, "chip id mismatch: %x!=%llx\n",
+> +                       IMX219_CHIP_ID, val);
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static const struct v4l2_subdev_video_ops imx219_video_ops = {
+>         .s_stream = v4l2_subdev_s_stream_helper,
+>  };
+> @@ -1056,6 +1079,14 @@ static int imx219_power_on(struct device *dev)
+>         usleep_range(IMX219_XCLR_MIN_DELAY_US,
+>                      IMX219_XCLR_MIN_DELAY_US + IMX219_XCLR_DELAY_RANGE_US);
+>
+> +       /*
+> +        * If we can't identify the module here, it might be disconnected.
+> +        * Consider power_on() complete and exit early in that case.
+> +        */
+> +       ret = imx219_identify_module(imx219);
 
-diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-index 920dd10e7df0..0fc61d986a7d 100644
---- ./arch/alpha/Kconfig
-+++ ./arch/alpha/Kconfig
-@@ -177,6 +177,8 @@ config ALPHA_ALCOR
- 	  memory coherence when a PCI device DMAs into (or out of) memory.
- 	  It is used by the AlphaStation 500 and the Alpha XL 366 and 433.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:alcor>.
-+
- config ALPHA_DP264
- 	bool "DP264"
- 	help
-@@ -184,23 +186,37 @@ config ALPHA_DP264
- 	  API NetWorks: 264DP, UP2000(+);
- 	  Compaq: DS10, DS10L, XP900, XP1000, DS20, DS20E, ES40.
- 
-+	  See:
-+	  <https://alphalinux.org/wiki/hardware:systems:webbrick>
-+	  <https://alphalinux.org/wiki/hardware:systems:goldrush>
-+	  <https://alphalinux.org/wiki/hardware:systems:clipper>
-+	  <https://alphalinux.org/wiki/hardware:systems:monet>
-+	  <https://alphalinux.org/wiki/hardware:motherboards:pc264dp>
-+	  <https://alphalinux.org/wiki/hardware:motherboards:up2000>
-+
- config ALPHA_EIGER
- 	bool "Eiger"
- 	help
- 	  Apparently an obscure OEM single-board computer based on the
- 	  Typhoon/Tsunami chipset family. Information on it is scanty.
- 
-+	  See <https://alphalinux.org/wiki/hardware:motherboards:eiger>.
-+
- config ALPHA_LX164
- 	bool "LX164"
- 	help
- 	  AlphaPC164-LX, a 21164A-based single-board computer using the
- 	  Pyxis chipset.
- 
-+	  See <https://alphalinux.org/wiki/hardware:motherboards:pc164lx>.
-+
- config ALPHA_MARVEL
- 	bool "Marvel"
- 	help
- 	  AlphaServer ES47 / ES80 / GS1280 based on EV7.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:marvel>.
-+
- config ALPHA_MIATA
- 	bool "Miata"
- 	select HAVE_EISA
-@@ -208,17 +224,26 @@ config ALPHA_MIATA
- 	  The Digital Personal Workstation (PWS 433a, 433au, 500a, 500au,
- 	  600a, or 600au).
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:miata>.
-+
- config ALPHA_MIKASA
- 	bool "Mikasa"
- 	help
- 	  AlphaServer 1000-based Alpha systems.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:mikasa>.
-+
- config ALPHA_NAUTILUS
- 	bool "Nautilus"
- 	help
- 	  UP1000, UP1100 and UP1500 systems based on the AMD 751 or 761
- 	  chipset.
- 
-+	  See:
-+	  <https://alphalinux.org/wiki/hardware:motherboards:up1000>
-+	  <https://alphalinux.org/wiki/hardware:motherboards:up1100>
-+	  <https://alphalinux.org/wiki/hardware:motherboards:up1500>
-+
- config ALPHA_NORITAKE
- 	bool "Noritake"
- 	select HAVE_EISA
-@@ -226,12 +251,16 @@ config ALPHA_NORITAKE
- 	  AlphaServer 1000A, AlphaServer 800, AlphaStation 600A and
- 	  Digital Server 3300 systems.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:noritake>.
-+
- config ALPHA_PC164
- 	bool "PC164"
- 	help
- 	  AlphaPC164, a 21164A-based single-board computer using the CIA
- 	  chipset.
- 
-+	  See <https://alphalinux.org/wiki/hardware:motherboards:pc164>.
-+
- config ALPHA_RAWHIDE
- 	bool "Rawhide"
- 	select HAVE_EISA
-@@ -239,12 +268,16 @@ config ALPHA_RAWHIDE
- 	  AlphaServer 1200, 4000 and 4100 and Digital Server 5300 and 7300
- 	  machines.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:rawhide>.
-+
- config ALPHA_RUFFIAN
- 	bool "Ruffian"
- 	help
- 	  DeskStation RPX164-2, AlphaPC164-UX and AlphaPC164-BX boards.
- 	  They have no SRM console and can only boot Linux through MILO.
- 
-+	  See <https://alphalinux.org/wiki/hardware:motherboards:pc164ux>.
-+
- config ALPHA_RX164
- 	bool "RX164"
- 	help
-@@ -252,41 +285,55 @@ config ALPHA_RX164
- 	  Polaris chipset. It has no SRM console and can only boot Linux
- 	  through MILO.
- 
-+	  See <https://alphalinux.org/wiki/hardware:motherboards:pc164rx>.
-+
- config ALPHA_SX164
- 	bool "SX164"
- 	help
- 	  AlphaPC164-SX, a 21164PC-based single-board computer using the
- 	  Pyxis chipset.
- 
-+	  See <https://alphalinux.org/wiki/hardware:motherboards:pc164sx>.
-+
- config ALPHA_SABLE
- 	bool "Sable"
- 	select HAVE_EISA
- 	help
- 	  Digital AlphaServer 2000 and 2100-based systems.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:sable>.
-+
- config ALPHA_SHARK
- 	bool "Shark"
- 	help
- 	  AlphaServer DS20L and API NetWorks CS20 systems based on the
- 	  Tsunami chipset.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:shark>.
-+
- config ALPHA_TAKARA
- 	bool "Takara"
- 	help
- 	  Alpha 21164-based OEM single-board computer.
- 
-+	  See <https://alphalinux.org/wiki/hardware:motherboards:takara>.
-+
- config ALPHA_TITAN
- 	bool "Titan"
- 	help
- 	  AlphaServer DS15, DS25, ES45 and TS202c based on EV68 and the
- 	  Titan chipset.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:titan>.
-+
- config ALPHA_WILDFIRE
- 	bool "Wildfire"
- 	help
- 	  AlphaServer GS80, GS160 and GS320 SMP based on the EV67 or EV68
- 	  core.
- 
-+	  See <https://alphalinux.org/wiki/hardware:systems:wildfire>.
-+
- endchoice
- 
- # clear all implied options (don't want default values for those):
--- 
-2.54.0
+Do we need to identify the module on every power on? Admittedly it's a
+lightweight operation here, but for imx678 and the other Starvis2
+sensors I'm currently working with you're needing to come out of
+standby and wait 80ms before reading the ID registers.
 
+Looking at the rest of the series, polling of detect would notice if
+the sensor goes away again within a system that cares about it, so
+caching the first successful identify would largely restore the
+behaviour for systems that don't care about fault tolerance.
+Actually I'd be tempted to keep a call to detect/identify from within
+probe so that if the sensor is connected at boot we don't have any
+change in behaviour, nor the reporting of the unknown status.
+
+  Dave
+
+> +       if (ret)
+> +               return 0;
+> +
+>         /*
+>          * Sensor doesn't enter LP-11 state upon power up until and unless
+>          * streaming is started, so upon power up switch the modes to:
+> @@ -1117,27 +1148,6 @@ static int imx219_get_regulators(struct imx219 *imx219)
+>                                        imx219->supplies);
+>  }
+>
+> -/* Verify chip ID */
+> -static int imx219_identify_module(struct imx219 *imx219)
+> -{
+> -       struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+> -       int ret;
+> -       u64 val;
+> -
+> -       ret = cci_read(imx219->regmap, IMX219_REG_CHIP_ID, &val, NULL);
+> -       if (ret)
+> -               return dev_err_probe(&client->dev, ret,
+> -                                    "failed to read chip id %x\n",
+> -                                    IMX219_CHIP_ID);
+> -
+> -       if (val != IMX219_CHIP_ID)
+> -               return dev_err_probe(&client->dev, -EIO,
+> -                                    "chip id mismatch: %x!=%llx\n",
+> -                                    IMX219_CHIP_ID, val);
+> -
+> -       return 0;
+> -}
+> -
+>  static int imx219_check_hwcfg(struct device *dev, struct imx219 *imx219)
+>  {
+>         struct fwnode_handle *endpoint;
+> @@ -1252,21 +1262,9 @@ static int imx219_probe(struct i2c_client *client)
+>                 return dev_err_probe(dev, PTR_ERR(imx219->reset_gpio),
+>                                      "failed to get reset gpio\n");
+>
+> -       /*
+> -        * The sensor must be powered for imx219_identify_module()
+> -        * to be able to read the CHIP_ID register
+> -        */
+> -       ret = imx219_power_on(dev);
+> -       if (ret)
+> -               return ret;
+> -
+> -       ret = imx219_identify_module(imx219);
+> -       if (ret)
+> -               goto error_power_off;
+> -
+>         ret = imx219_init_controls(imx219);
+>         if (ret)
+> -               goto error_power_off;
+> +               return ret;
+>
+>         /* Initialize subdev */
+>         imx219->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> @@ -1288,7 +1286,7 @@ static int imx219_probe(struct i2c_client *client)
+>                 goto error_media_entity;
+>         }
+>
+> -       pm_runtime_set_active(dev);
+> +       pm_runtime_set_suspended(dev);
+>         pm_runtime_enable(dev);
+>
+>         ret = v4l2_async_register_subdev_sensor(&imx219->sd);
+> @@ -1298,7 +1296,6 @@ static int imx219_probe(struct i2c_client *client)
+>                 goto error_subdev_cleanup;
+>         }
+>
+> -       pm_runtime_idle(dev);
+>         pm_runtime_set_autosuspend_delay(dev, 1000);
+>         pm_runtime_use_autosuspend(dev);
+>
+> @@ -1315,9 +1312,6 @@ static int imx219_probe(struct i2c_client *client)
+>  error_handler_free:
+>         imx219_free_controls(imx219);
+>
+> -error_power_off:
+> -       imx219_power_off(dev);
+> -
+>         return ret;
+>  }
+>
+>
+> --
+> 2.55.0
+>
