@@ -1,35 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5540A411693;
-	Thu,  1 Oct 2026 11:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A1F3D170E;
+	Thu,  1 Oct 2026 11:11:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790853012; cv=none; b=R42aBT7z9/J0wc3lMn6sgnjDcI4U1wxbK1BB0b+seSdsyvwBHQ7bxt7rjLdhKlOl6zGguwwK0UEL5CSxkwcD7itkhBCxLrqtE9h/z0zc1r3Hvcdq3AhJKe6Mk4qNvx0Ac1bvYOIZc0WC0JuqOuBhLiwo+LmRdwTajDid8VOupkA=
+	t=1790853090; cv=none; b=pErv55DvKL12iXbr3bBACRbXgNPhsNhw8xP7LWoq6Jk8Y1cM6MYC2ID4o22jrrbOtHkoX9u/X3B7+sDlZGrc2PczmcvPSBa730xq4GJ7wYEhpthdnfk9BSl1UH608kRXxPwgDVEhTEssp2DB02tnFE7ys3+64/TAped9cfeubgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790853012; c=relaxed/simple;
-	bh=oP73pYnE/Ymuhv+H9GNlTZPtIusJoT+15TuzUuGVDcI=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=PE8/BQESxBEhqvuK8VaVXVhYmjwACYCIYYJZbk86SiFZphUuwws0Sgl2bawvAq7qFKsIcQpLipf3fFSUWoMncwoWK31/a1NIEPuABjp/LuRHU2qqQ4MuxTl12M+wRXkUS6qZpd+u1so3TuTEdlOgsphryfriVuduzH8xHUpci/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTSBAMh3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790853090; c=relaxed/simple;
+	bh=flEK+IeJVkPacX1VndNFiZetnTzPLBS58+Y5ErBc/I8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SYsa/BNwXluxvheyAeBHRNi0RHQncMmd60uHTuMrgqsEaqZIlp6O8UkZLks/nj1NA4RWiDMfLBXEAKgT3k+VXadZjlRfdmqwdjqmKvL7fZiYvJCiRnG2rV62cti3eUzZ7rmFxGBzo6upgUJlqfRolE4brKDh8+xz3ab3MEKUWcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUZze17i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTSBAMh3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071D11F000FF;
-	Thu,  1 Oct 2026 11:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUZze17i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52EB11F000FF;
+	Thu,  1 Oct 2026 11:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790853011;
-	bh=sr5fdXa3blQoQQui696yWghZgpQvKfEw+QmV5N/f+L8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=YTSBAMh3kroI9188ZRyM5LDzx8Lep1oe6V6PxVOIH3NltXLLXvanbrT0NbXv1IQmY
-	 J+JtGX1xkw6MEAQ+gvXR2EwAN6UWQXirTEOP53liO1pANIIrhkcFcMPQl1sX0BXkXI
-	 aJAwpyCZUXNArsW/gEM2oT4rj4QRiaOdJEkmTbIm0V0ds1EC7s3n962fM2FK+C3War
-	 /Lb0DhLGRW2Gip1Jm+YD4Bn1Zim7UdOhlutU91o7ysUojtKxhwB7/6EDs594qp9Gu1
-	 coPuMiRGH1JTVJwSXDpg/aeixZHZ/TnT1nbaw+L6Yd3ouf6LY0CR878o2VbElXVY+t
-	 9IwFf5PQu589w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1600380DBE7;
-	Thu,  1 Oct 2026 11:10:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790853089;
+	bh=CvfvUweryOppl7aK+oFZNP34x9vDH+YaR6jF7Qa5dm8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gUZze17ipvfMAVxXYTqm4JcaUyw32MqjIXBWw4MqPnfNfPq3iv516xd656CmSpkWm
+	 c80zfKU9mPOcXTAQaOBLXKnz3O6WCQS9g2Rcy2PGlWMOUMfKvsBWGDVTACCstoNhrP
+	 9o8k4gO1CRRkHjpZ1PXRn2qTYMzcUCuj1nkE3pdoLf67RyOR11jR/ggqRKSlTlK3+x
+	 JrpUJWrb7FmAuggFMQ+odMT7VdKmW5afdn6FgQ7kVK4uiu4n73HcVbRU2feTbDju75
+	 dgawTiBlJv3aF12mB70sa/dJrOMt1tF4KKu1zDeUdu0hh0K8jZpy7V4WcerFX/kBIb
+	 OAmQSS4wQbw9w==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 6.6 0000/1193] 6.6.158-rc1 review
+Date: Thu,  1 Oct 2026 13:11:19 +0200
+Message-ID: <20261001111119.60591-1-ojeda@kernel.org>
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+References: <20260930152434.301151190@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,42 +60,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] amt: pull the AMT header behind the transport header
- in
- amt_parse_type()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179085300952.2398446.10198636902442122300.git-patchwork-notify@kernel.org>
-Date: Thu, 01 Oct 2026 11:10:09 +0000
-References: <20260928181557.85796-1-omar@blockcast.net>
-In-Reply-To: <20260928181557.85796-1-omar@blockcast.net>
-To: Omar Ramadan <omar@blockcast.net>
-Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Mon, 28 Sep 2026 21:15:57 +0300 you wrote:
-> A gateway's encap socket passes ICMP errors to amt_err_lookup(), which
-> calls amt_parse_type() on the quoted datagram to see which AMT message
-> failed. On that path skb->data points at the quoted IP header and the
-> transport header at the quoted UDP header, and icmp_socket_deliver()
-> only guarantees the quoted IP header plus 8 bytes, that is, up to the
-> end of the UDP header.
+On Wed, 30 Sep 2026 17:11:24 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.6.158 release.
+> There are 1193 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> [...]
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
 
-Here is the summary with links:
-  - [net] amt: pull the AMT header behind the transport header in amt_parse_type()
-    https://git.kernel.org/netdev/net-next/c/eb0c18404c89
+Boot-tested under QEMU for Rust x86_64:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
+Thanks!
 
+Cheers,
+Miguel
