@@ -1,112 +1,146 @@
-Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE404DAFB5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.199
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855822; cv=pass; b=j4LZC6epDXKXhJj/nSXhMF17LCqRCg3lsBwe+IPovvIqvMauFawm4S0yK+OmoqcL1Ep/OqINPPjHD2xL1w6D8cyvHY3lqtowR4PODVQhQwPLpnaZE1dv5fz3xROi+ReoKDYUza8/mAWXhjh/Xho+kd6nOQUXuZahkWBqXo8nGNY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855822; c=relaxed/simple;
-	bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qh+MXVY9xu866a5ccowv02EZbmrMJwBHSznuuNziBz/+Wzrf6LhnAgIZgAFfgkv4mEpny0u8akmPY26tfRqgNTo4qLeHlJB3o8SEvMU7049boZfBL6TJ/PLR9h7ByqLfUaGk2+noFmVHwkxoGEjsjL2c79e5CXtJF8kQvCwiFZ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QHMXbwfU; arc=pass smtp.client-ip=74.125.231.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FF849A3AB
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790855860; cv=none; b=BZwLpcIn/iwhqoUaubbv8pLkzLNuPQVCYfoV4nlUdWy4CjBOENoFHt3WQjkI6Ly5X/a/dXev0S2KJqTWJ78cDeWktvR7lddkzErHvfM+gMu7JLZfZ6oRaumH5nH8QTJWCWI9B2cg1PKOdJLgGk7UgAZVJLQpLkofn8avvg2eQ4A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790855860; c=relaxed/simple;
+	bh=M46JAbLnX2gNU+KWoLW9TN/UIqrb6nO54gaEr6iAptE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W0d4CKg16fNHCL8M2lr/ZjBobTQqS+5QIDf6g1bgT04Wui/NdFjo7eTXjDJX2lRplrG17Gal1j8fZT7jVU92qA3SDEIjLMEYQ6EPhI3fHfOCICjbPlr332FYS0UISxBSlJ8c9XCEMPpiuWIjUH6sT01KEmuuJcNPEfRtEJEVxfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qXxcQqvk; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QHMXbwfU"
-Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so2023421b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:56:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790855815; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Sc1XBdt8wjyKq+ymEuyq+WTHmaMxC6Cm8+M5nVhtquTfjb/GKsW9ENmfuePtuPzBsh
-         muj3vgWZDKeenkW48N5Hvr0KrzNW77vbTMUd/rjXZ5vIEju1jxBy9gF4ZImMDCbTL+tK
-         As5gMXOzCK0eLgG5aHKgHAIi5sA1ouhRjnk63top+p8XZBWPsXo8rDShhqiJpSyLYcHC
-         QFW2/gcnAPJfHlJHj7kszX0WkfSPrFqrpgoawejz2Dy/sfm4BKApWDUYm2Lw3h7AK09h
-         QpPIZ3ondxazjtAZOuZ1sEgSWCQKF5tXKRxKzOrtUl0PGwqotIlodFwn9awcz4mCjX/1
-         KZIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
-        fh=FAHY3X3Y3I3yodi/FjYnwAy5xP4ax+hsDIpNAi7ifV8=;
-        b=OELi0I+S2LeXGXtu6ZodkPdbGjofFMzZnTpBiaNzXB4zGMGjVAY/BSfA6IlUfkIS9m
-         KiFHiTFm1WgbroBjo/yahJSDTCVrNpeZmdo2ZCpPDZ5tkS1TBkQc0uRYfQDJ0KuLm2ZX
-         UcIcGmn+526qxK6zrnM/jc3fy3fMxLQmc1b0agUKyINoFDJX1CCr/DxAAlBkXxP/O9pR
-         oZQF6gNhAxHs0s0VxAGcmwjdDBvvPt4cc1aipFZIM3w5lN20DbB7NO0bukkg51Era+u1
-         yNYTtIQRiS9Nv/aXZIka8fgBj8roPv+ITUIXgEMK+37wxxYaDXm5lf2Eiqi9Ryw6aP4t
-         UBVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790855815; x=1791460615; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
-        b=QHMXbwfUVU4aZXY/r+NsW0XImAryb/KaQ8SHPU5h4lizXJRcS2ciEGTZ1a92BfIwq9
-         BlolDaek7NhjIdPQlQ+9TW3YP+0QqiDFqxpUteoQcUOls44ceXqsXtVF4qzLEOmLqTtc
-         g3yrYeOZTHTnpoSgT8R0g9YVpVIa5tFl7nJP1u7XsWGpIvP6mhdtxFasChkuWwUi5d+Y
-         3ahqeXKo8bKBR0iOk9YNuh9C7HsOVL6GL7omi7bdIDsnvesnKbGWX8n7GxJBzoZljOtW
-         Cc6gXTReQutZHaMc2YbPWdlzdqiS4RN98txguPkLuuPamIyUg8P3GZMArYmVdG7MOOcy
-         vZOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790855815; x=1791460615;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
-        b=2Zpnrg/RCOe3YhPXRc6sxvL/cjEUAiPD1F+b0H/3yLXCTUIqbHlBRR7R2A5IIeolOK
-         XHXw4w3CKByATCIPznYWjjK7VcTyD7QeM5jOJMcsB5aRWKjjjunAdJ7SXUCkEOkImqML
-         3LiOg7hYVjMAKhb7JXoh2lrvAGhgCBYXMD3rZ5RPCutoHnVOeU7bfqOHTre2XJoQlfnL
-         Xlss3ZAgml8LGyTv2YwHRC+KMr6pXLC7BFigYECoYL4ZtLcrB9jVq9bVhLH3KzwCjTbv
-         +GhBB1Gyy+5gHeKfFKzu4H8dM7/D5ujFxz5vYbw+HJpc373bGOfrWkrAYSH4rbprQ68E
-         cZMg==
-X-Forwarded-Encrypted: i=1; AKwUvBxiDcBgohkg4TLW+SjXeH1XSKJ3BxugsZeurxv6KUWjEP1DJt0eTXx54eeoAt1R25KQPm027i4aQ05lTWQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsWy70sRGpwcf5tnH6NDQrH3o46ySAnjaG5yhgPpgiRh11JCZZ
-	BrQhfOAgqCPU4DhFcGrxTtHNPY2UYhqPdYQ+gWixchbahs8UMJsIv2O2RPLayG49WhqtUWYpyJR
-	rDAdfGJ3Sdomo+ea8uN2ky5CiMQm8qRI=
-X-Gm-Gg: AYBFou14sLn8lXkeaHwfJKqYWVlUpS6J3NwOylAz3jnfRLZDcxdJEyIGHhwDbhUV69X
-	RR9cke7kdC8xKBTGKbykgajqE9rFmZUGtgPPiZSOY2VumOLosim6WoXsjXrltG/1QZTe/vv5Rpf
-	ZN7wPYY+iyF/L1aV8SZgQvmgd5STUH8HqyCUIgLXijKOnVa5OnybogU9ZvT8rDc7KY7NanIWEXI
-	64xqAHJDt4i6vCXcQU4+DcclrLUawFAnDXEIx9uWlsWy2O+p/IPHlM3ywZFmdVVnL71sSdApRWB
-	MQRvmSj2RJ2FahZ5BRnrXu0VQD0nem7FrFD8lIezMa30K9nHLAZLAYl5OQxhVMr+27tEXbJHd+9
-	XcGtIqpo2iZdnAT4=
-X-Received: by 2002:a05:6808:c194:b0:4d6:93c3:1aef with SMTP id
- 5614622812f47-4f1b7e044efmr5667033b6e.58.1790855814672; Thu, 01 Oct 2026
- 04:56:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qXxcQqvk"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175WwJ4040785;
+	Thu, 1 Oct 2026 11:57:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=CvNbsq
+	uruOc7qEZ2NvFsddIhHZwet6Cb1bCGMc846eU=; b=qXxcQqvkSn6t1W/hg9qWiR
+	XtywVYxF55NGQROtBNGoxEVhV2dy0nQg5EfFRUw1YoWfjKvzlwGG7ViIVLvkiUpz
+	Dtx+ZJzeXrjioU88Web/nPbpefV4HtH9Ssg+Ks08Pkd2oDglGaWDgfP7qBXvdo1C
+	arsCxQdP10Tx+ivBg3mXH7xmFSR76uxDlQc6gV3yMvLPc5jZupFyQbf+mnHh76C0
+	aCFHS7eW/JtVxzEHM39tscgofKgR4+SyPXOVfr4RYRbBri3voK3XrIkYNHRahXdp
+	Qi+5VzMbv776Cd9YSCI1tUkxCOEtbr86d65neA+tluS8xEDeXAreRgIUUtiqtRNA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4feht4h-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 11:57:12 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 691BQUGT3460531;
+	Thu, 1 Oct 2026 11:57:11 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0q4pf72c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 11:57:11 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691Bv8S239125278
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 1 Oct 2026 11:57:08 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 27CEA20043;
+	Thu,  1 Oct 2026 11:57:08 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5166D20040;
+	Thu,  1 Oct 2026 11:57:05 +0000 (GMT)
+Received: from [9.123.5.233] (unknown [9.123.5.233])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  1 Oct 2026 11:57:05 +0000 (GMT)
+Message-ID: <091e21dc-6403-426f-a849-aa392385d4d4@linux.ibm.com>
+Date: Thu, 1 Oct 2026 17:27:04 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001100319.6228-1-dennylin0707@gmail.com> <2026100153-barber-financial-29f4@gregkh>
-In-Reply-To: <2026100153-barber-financial-29f4@gregkh>
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Thu, 1 Oct 2026 04:56:43 -0700
-X-Gm-Features: AclHuK8rLBMsJtiKPmc67dCARhCBIiOvVaJT7B67MBAw-F65lmlRrAuW0I1lNKo
-Message-ID: <CAGEkeHcpZeHhpF2omgRx1wgLRxVoJJ90H-1t8FEJohMr_59b6Q@mail.gmail.com>
-Subject: Re: [PATCH v2] staging: rtl8723bs: use errno in rtw_register_tx_alive()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Dan Carpenter <error27@gmail.com>, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] KVM: PPC: Replay pending interrupts before entering
+ the guest
+To: Narayana Murty N <nnmlinux@linux.ibm.com>, maddy@linux.ibm.com,
+        linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+        linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
+        harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
+        venkat88@linux.ibm.com
+References: <20260928110411.844582-1-sshegde@linux.ibm.com>
+ <20260928110411.844582-3-sshegde@linux.ibm.com>
+ <3d342788-b99e-447e-a664-8385c2b55475@linux.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <3d342788-b99e-447e-a664-8385c2b55475@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abe4a99 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=RqXkqaLFJHWaQp_LflUA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0NiBTYWx0ZWRfX2hhzQOrjKjF0
+ zDGn99ef7POV+PPTg5WXTD/28NWxUXpGA/YvGtLKSQop1TLoh1d8OqiXuXpF2oS4b4A5U626usw
+ kHMQS6TDWWVLU+hQcS/bJ9iLCe5jenc=
+X-Proofpoint-ORIG-GUID: _w-1tvCJ-NJuhPjFjng6uK8HShi8gW8R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0NiBTYWx0ZWRfX4fEogC51CBpg
+ rh9O/5DzDOAuv6kY8lVbwvItVdJ+DqAStOZqXYxc5Gkqlv9WGSDMpUT+MG9WE4HOhgBCj5ZR4Ux
+ HNKov7tyAaWZdRUkd5e0GiuzN7zEY9B2BpXS5UCjsJEHrZzmkDR6OHW11SFi4vHGWzVWaGHSYxu
+ usxhpQdXRWLkKuwIWSpc9UrdfNhYnnhd8GdVhCbh3846l0vyQwkoAkU83oWYuWtWJyiXkCydW+U
+ fX9h43Ti1K+2i/F3q9UsPQbTfNNroodFM4CYB8CtrWjT2VFFYFhHb7nmwFy9eAVabfIuJ2mxBTc
+ yz2/ULJVqH9Rp0LqdghCVeujQy7gxZJ075hvcU12DwQb5YG1g3P+gsMAZn0C9uHrF7Y5jkqvNIw
+ SNkPK+ab9qZ7leRjuQWrWkRWVPKoM6akkakzqhOcCZP9C1eJdFEMbHL+U7Qqdmx1kpoqfrjmZW9
+ TQa0KRjOnKI7qVgxlbw==
+X-Proofpoint-GUID: ZUmTRd6CjINWXQgZ15rHiDPADRlnp9sI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010046
 
-> Why are we returning success if there is an error?
+Hi Narayana,
 
-The original _FAIL means the firmware is not ready for TX yet.
-XMIT_ALIVE has already been set, and the buffers stay queued.
-cpwm_int_hdl() uses that bit to wake the TX thread once the power
-state reaches S2.
+>> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
+>> index 9194cf492d1c..847ff07c364b 100644
+>> --- a/arch/powerpc/kvm/powerpc.c
+>> +++ b/arch/powerpc/kvm/powerpc.c
+>> @@ -147,6 +147,19 @@ int kvmppc_prepare_to_enter(struct kvm_vcpu *vcpu)
+>>               continue;
+>>           }
+>> +#ifdef CONFIG_PPC64
+>> +        /*
+>> +         * Interrupt arrived between the soft and hard
+>> +         * disable. Replay it and retry guest entry.
+>> +         */
+>> +        if (unlikely(local_paca->irq_happened != PACA_IRQ_HARD_DIS)) {
+>> +            local_irq_enable();
+>> +            local_irq_disable();
+>> +            hard_irq_disable();
+>> +            continue;
+>> +        }
+>> +#endif
+>> +
+>>           guest_enter_irqoff();
+>>           return 1;
+>>       }
+> 
+> It look good to me.
 
-_SUCCESS here lets rtw_xmit_thread() go back to waiting on xmit_comp.
-Returning -EAGAIN instead would stop the thread.
+Thanks.
 
-I should have explained this in the commit message. Would handling
--EAGAIN explicitly here, with a comment explaining the retry, be
-appropriate?
+> 
+> Thanks,
+> Narayana
+> 
 
-Thanks,
-Hungyu Lin
+Do you want me to consider the above as rwb tag? If yes, I prefer to see explicit tag.
