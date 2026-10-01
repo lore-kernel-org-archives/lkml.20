@@ -1,170 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934A647C0F2;
-	Thu,  1 Oct 2026 11:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822C04EF14B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790853897; cv=none; b=rfrCSM+PPnOjvyws8VHoEBTUFNtJyPycDibe4sMrzYnlajYjbjjBmV0m6INgKphfXGBjpQX8rMlR8nAfDFv92/Wy5CEDX90mGwosgqaBVbgGhw7D1M3brF4v0rdEjkbhWyCbHVj2JBzzFT/F1xvh1FOQy0LS46NxV0cmVuZaBbk=
+	t=1790853928; cv=none; b=qVg0dN0pjhseRg8uv0JezbhMvt4+TPfzbL4I+PvyhP+a8SJ8zHuAT4WLGRjq0A+DZtJSd97AZrmigdB7dc+S2KSFIGNUBSyKzs9GPWXPQGUGbqdhpsOs1WzR7LiiHwKrLdSzUNya+uChG9X1yrrYGlfnBjKiUN5AYH7xikBOaAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790853897; c=relaxed/simple;
-	bh=4UBlCAqQ3rS06NtuuGIOV2+KH8KAU7v8WSfk0LzPNUI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zb4mgv9tzyYEcHDXtxeqReBUIuxrfHS57Aoy8MXzBHAhoQTmPgUwRcGvxbCByFN3l7EzD/b/c7dNwKGq3ark2j7qiTCubJlcBR4T3KTjVI9HmcQbuiNm1CNEcdk14NTJd8DjTEJtV4PAbR01nNlRyJIM2JB6Rsn8ZIhEIS3x4aY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HLd6Zyta; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790853928; c=relaxed/simple;
+	bh=NVPVnzit2/uGIGdxSpxQwWe1ivfTnMdq3apCPukstrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GEcvudkFxsqoGbl9ZWx/nUi1j2pG9v6G0UtPOnU2uDHniNZRkpusWtEZs7WzY9CW1uj2krUIJ5LT6cz6f8bekcCa1Pl5XgqM3sKYkzOwjqH86cD3ECx8PKOSkGZAXQgOtKg8IDOOlhV3A5TFPidl5VwzwLdQET4k6nsnFGAMczI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SX6rLOsa; arc=none smtp.client-ip=74.125.227.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HLd6Zyta"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6BE1F000FF;
-	Thu,  1 Oct 2026 11:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790853896;
-	bh=OEsjZu9pCpcCr8EB0aUturWNWuV7FWxewuwQYtNdc3Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HLd6ZytaONgcOlSzOhFnlQrczv91JhiZybTmAY3u05iS4ayseO+5Yx2VI45gfH68f
-	 mXtnRYNGaqZLs733sKIWSmsT/TbTok+iiekr8NPLYf79nh6ARU02xgvH/ohonwP3eo
-	 fETOL6iAjIxGEgoSPQobLYfo/Pzi78di1CBooBn4V2h2MI7S5tztfoznGBKtNplWg4
-	 eE+r5b2np7RtR7+yCaYzoZA4Lnf38OWea5/zFEHAYkRHQkMtrW1jiFt5EvED5gS914
-	 LqZITTH/DuzuhMUXkjsJtLA+anz87SER33y0MFu+awJN5mNP2XIoerPKjoK2r13Kqz
-	 aX2KDjXmrqxoA==
-Message-ID: <48123600-5843-4c71-9ca3-1a9f3062af67@kernel.org>
-Date: Thu, 1 Oct 2026 13:22:28 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SX6rLOsa"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a4805e15cfso2276269a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:25:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790853926; x=1791458726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=//gf7bI0yTCYHEFPmzcRJoGvW3+pX9ivwTK6Ov0SZY8=;
+        b=SX6rLOsaFSk8F1KPSUBvgfhGozgfAKOehEzBLcaThUGLW+YlZveswcrnyD4tzHlaA7
+         LqEjMY9WqiyjyzfFSNIE70h6xATKhclVRWvb7bbxhgvrAGVKZmIoG0TiygMET/T1dl8D
+         XNzwenCFP+ZUvclIE/H6PH702lSAVd9ALAMCcV1N66WPb84mmS7kQm0gZpyIyhXD9ZRT
+         KA1bX/aO7JAikiw98yxQFuwy6IpxprT7Ou7w4TKfRF5e2XHr+FcBVyyW7d0qqsQ0K9U2
+         ItV8ziAb5QjqVqjwhcExaZX4MuvTKdTjbxPlTSLUdJ21Gz+J3uDnehjDZZTp6+4s04G5
+         9EBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790853926; x=1791458726;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=//gf7bI0yTCYHEFPmzcRJoGvW3+pX9ivwTK6Ov0SZY8=;
+        b=tVf0xOsKFmHs9V0XPd9XOgmmrDs/n9jFythlmAEHXapxtkVauiZnNJ7pxjwgjWLver
+         EuSWj679G0nixEetFHRH+HZu5l57tYvJc+xD7JZByPHgdP1JJPjsaGWkmDlcPpeGczL5
+         EUMxs0s1Qmdb+I7U59lzO13ZrVL1Qipu0jkcEiHQQd9GKP+jDr/7jjA8apffr1VqATZP
+         +gBjE+CXuHGqcewNlaLdBxu7VFc3JjQbJNO0fJch8dA1qclcOWSiEcPE8iN2IPB2MlUV
+         6Eg3cLvKB8hH5Hv2+Mt+4/vuGub1hqA2RnPu7UXs6Xs5Plo2yZ1bXJzJZSurwTSFfNTC
+         FyLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWrMuEJS/7uur6uIuOFQ4abox5SqO8NXm8CmMHGknc7T1aqt7Sg/Mq8cWKJLcmxVif/hocMSgfaYxP2fg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJp/FigDdkSJXNV4T2wm873s8EYl3MpLX+XWAORzFSa5idzx8TA
+	2p2vXmkDkfp6hSe2w6iDgEehQnlTgN0qGx9AgkpkApE9/pfQB2g8IDtL
+X-Gm-Gg: AYBFou2QRPVS7SdxC5rv96agwBBHBrJ/EOM2nnyOo3bp0WPUh/sQn3eHblzPQxvx2pL
+	UE9sPkJwyCrxOtyZ4IjmB7q445hz+5WmOQGnGbmSXnZQrk7ipDxf249WdfpJ+Au+6wDrftS4cyd
+	UIFfmgAKa/GtQs3KCAzSBl0HY6C+xtvGZrknuXYW9r/YZPr7GGaOsPWt9akqFmQTtQlrFJ9RyRw
+	zZ/Rkj2vnjZHozNE9MDLd8KIPtczTgr1tw00JgHMpbB8cu8DJhVWQJcNzWL9wqGNag68EtN/C0R
+	ObSVAwsdEwAmFOsbIYEpSrZ3K9EOKmG7uRl+rvFe1IzpFCHLZjWnz89KdDKlen85PS00w1jvhz+
+	pHBJgoEeCdDqWvcPm2r5yGAtC8JL9LcN8vmnJ5qkhZfne7CaM1RNCtWZZRh1uJGfgYynUaf/PVo
+	oq2mZNZHq7x1Qh/BNjjytY9AsiUU74YtrDuPZuB1khlQV01WMfe73XNd+uXC2g33tQz8Lp0cmEE
+	CWv4NtTVM4kXoZpGRfzOecjxuKH+MrYnERzRrSDBKh6I4axs3GQ/n6kHOIw3G9jfbuc86GVV9CV
+	dNeewr81oCMkbwfjTDu+cVZAMiEFg4btB7V5ucVEypmFlUmlguKI/O37ndk=
+X-Received: by 2002:a17:90a:c10f:b0:3a5:a5:8509 with SMTP id 98e67ed59e1d1-3a500a5875fmr1338694a91.24.1790853925603;
+        Thu, 01 Oct 2026 04:25:25 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f44018c1sm4092571a91.8.2026.10.01.04.25.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 04:25:25 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: name the gregkh/tty tty-next branch
+Date: Thu,  1 Oct 2026 19:25:22 +0800
+Message-ID: <20261001112522.3822619-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026092800-clustered-unlighted-a54a@gregkh>
+References: <20260928105940.2186243-1-matthias.goergens@gmail.com> <2026092800-clustered-unlighted-a54a@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 9/9] xen: use hw_pte_t for PTE range callbacks
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
- kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
-References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-9-5670b8cb9059@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260922-pte0-v3-9-5670b8cb9059@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/22/26 19:12, Muhammad Usama Anjum wrote:
-> Generic PTE range and remapping helpers now pass pointers to PTE table
-> storage as hw_pte_t *. Update the Xen callbacks to match those interfaces.
-> 
-> Keep software PTE values as pte_t and continue to access them through the
-> existing PTE helpers. This is required when Xen is built for an
-> architecture that selects the distinct hw_pte_t wrapper.
-> 
-> Reviewed-by: Juergen Gross <jgross@suse.com>
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Hi Greg,
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Hint, -linus is for bugfixes "now" and -next is for the next release.
+> So why pick just one for this entry?  50% of the chance of getting it
+> right?
 
--- 
-Cheers,
+Fair point: one branch cannot describe a tree with both, so please drop
+this one, and sorry for the noise.
 
-David
+The motivation was Sashiko, which used to review against the default
+branch of the tree in T:.  Since 28 September it skips a default branch
+that mainline already contains and uses linux-next instead, which has
+both tty-linus and tty-next.  That makes the patch unnecessary.
+
+Thanks,
+Matthias
