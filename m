@@ -1,109 +1,110 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762584B8DF2;
-	Thu,  1 Oct 2026 08:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9AA442FAA
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843080; cv=none; b=PjyVI95qiXRax7yVcbdhoeLmQAXdHAXzSWHqX/L4sKqOBir2QccGAE87ID0LjPG7kpWXxf0fi9VNiL6Yiaw5g9RQ+WZ16myWn/DGmnRuiW/Z0pI/5hPQS4QuAZ0pGqiEHFULKG9TKzLKRB9Gv/J2F7s2tcNzgAQNSG6tLHzIspA=
+	t=1790843135; cv=none; b=m2HkyuHrOalJVSVffFCFFnt+bbomAeNZL7KSLKlMoXGy9D4uc+u0nw87Q5pRmfXswV6lzDhoq9HxqgRhzEjIkbKhuSc4wBu8VFFyJs5yR/YKe/ykFjqI35HmyHht7N+2uq0waymyE9kv7C+O4VSnKivGrRmI2e/CFkwFWuNUUbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843080; c=relaxed/simple;
-	bh=uUxVbAJFD0ONKElLX279ok1VDHKLisqJOgNdYvH1EM8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GmHLwclDfaQLatXsaeb6ib8tb2RUQN/ncum8xZkXj2oz+pA2Gkj+vR68aVUNRg+7IfVnEwB3B5i4r+Vf8F1TWorL+sX6l6mtYqPkiCl/ieKCXXBgrKK1XEUdqURYAeR/DJcEhUPtGRQ3EMtHGMLWRYT3cOfXbUWdn14VBhmngzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=AV/+hu+Y; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1790843135; c=relaxed/simple;
+	bh=XmnQzRPAA9UtiMcHbTgbsicWkfFAuGNu46pm6UCxaj4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eW35o0k70eqPdOl2IeWkVeEIvle8dF+Pd4zWC2mL6C5oJKBvlTAf8Lx8PbZZxBNmytratKEYMzQCvQuJJ9Mszi1mFzSmqyvyLy6LQTWhqUqkmm1QwLK2HRJ2myEUbG3YoaARR/zUxeXmQbP3h61mpZAnZw6yDURSTDZEW7UkeFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=DxulFU/i; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="AV/+hu+Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1790843074; x=1822379074;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=dwZ6+Ny11M89ZBPSWHCcY4nVqs3E53TyZaHaH2FNxjU=;
-  b=AV/+hu+YSyvhUrq3r+y9vT8WJR/g9cpvdlPGTW2GWDefG3n3x4OHHsgJ
-   J2HKzpfaDWp+krAbe/ksrqlEEh/SyDGrSqGVje7/Yb7QLmRHSQyTb9loj
-   aw3B1/ZXovgqpbS77JEELVu1w1Cw+DXTedQNlvxQ9A1hP+vQsc1R4KC55
-   GAuAs5ye40rHMzzL/yaiDgG5p1TUe8cpdGqRqSj5O/I6/a+OgYu9+TY4J
-   1u2s3pWTSHOSHMk3+vGe3OtgdVH3wHaQHAaF5HJASXe0e4/vN3BsIbnK9
-   ZNxcHyp8/eucanUl2bewyv3yOnkYcJj4X/gy6bgQhni5QWO8DLi5KJLQ/
-   w==;
-X-CSE-ConnectionGUID: Rg9+v9BFRVey2C7lw34VuQ==
-X-CSE-MsgGUID: 2lZptLmrSLOH0UT76MqrXw==
-X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
-   d="scan'208";a="29880503"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:24:26 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:4411]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.131:2525] with esmtp (Farcaster)
- id 585c572d-5cd2-4dd5-95a8-6793cabf42c1; Thu, 1 Oct 2026 08:24:26 +0000 (UTC)
-X-Farcaster-Flow-ID: 585c572d-5cd2-4dd5-95a8-6793cabf42c1
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 08:24:26 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 08:24:25 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Christian Brauner <brauner@kernel.org>, Shuah Khan <shuah@kernel.org>
-CC: Jan Kara <jack@suse.cz>, <linux-kselftest@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Bjoern Doebel <doebel@amazon.de>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] selftests/filesystems: Fix idmapped_tmpfile layer dir ownership
-Date: Thu, 1 Oct 2026 08:24:11 +0000
-Message-ID: <20261001082411.1493072-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="DxulFU/i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790843130;
+	bh=XmnQzRPAA9UtiMcHbTgbsicWkfFAuGNu46pm6UCxaj4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=DxulFU/ifCwsNUBKjfTwKkRyJwqZO69nw694CpR206B0FIgnm5AiCYUH9ZPXQZpkS
+	 kjB0oZV0fv53Nl5jktJdRqHSD1zL4EyHrpqWCsN/tDXM5ijEtGYdjJ4YZq0VPNQgtt
+	 7lpTuQj+g+25Z+sHdpZ4S48jBe400oST+c5OBUfdCNIMaT3k6bj32a6gW7bXlVJq0U
+	 Z4Gxta4HCyzUpOgGlE0rTiXsLtNHKELuo/Tgm5XXXMBDtfbA8TkqXWYmaPUsrJ0124
+	 MCTy8MoZf78bwlG+loKxEN9tOfenlfHVBaOPcTvmUy/sBDp9hNJM0UZpfYZyrlMnks
+	 Yg3ATsHJqYkhw==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 78C0E17E0524;
+	Thu, 01 Oct 2026 10:25:30 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Thu, 01 Oct 2026 11:25:11 +0300
+Subject: [PATCH 1/2] drm/rockchip: rk3066_hdmi: Convert to
+ devm_drm_bridge_alloc() API
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D039UWB001.ant.amazon.com (10.13.138.119) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-bridge-alloc-conv-v1-1-f0a1fe040a86@collabora.com>
+References: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
+In-Reply-To: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-The recent idmapped_tmpfile selftest creates a new directory in tmpfs
-owned by user ID 0. It then idmaps the mount as caller [0,10000) to disk
-[10000,20000). The original uid 0 owner does not exist in the mapped
-range. As a result, mapped_caller_creates_and_links fails at the
-O_TMPFILE open because inode_permission() rejects MAY_WRITE access:
+Bridge drivers are expected to use devm_drm_bridge_alloc() instead of
+devm_kzalloc() for allocating and partially initializing a private
+driver struct embedding a struct drm_bridge.
 
-  idmapped_tmpfile.c:145:mapped_caller_creates_and_links:
-  Expected fd (-1) >= 0 (0)
+Perform the API conversion and drop the now redundant manual
+initialization of the drm_bridge funcs pointer, following the pattern
+established by commit 9c399719cfb9 ("drm: convert many bridge drivers
+from devm_kzalloc() to devm_drm_bridge_alloc() API").
 
-Chown the directory into the mapped range to satisfy the UID
-requirement.
-
-Fixes: d943e68edc5cb ("selftests/filesystems: test O_TMPFILE creation on idmapped mounts")
-Cc: stable@vger.kernel.org # 7.2+
-Assisted-by: kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- tools/testing/selftests/filesystems/idmapped_tmpfile.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/filesystems/idmapped_tmpfile.c b/tools/testing/selftests/filesystems/idmapped_tmpfile.c
-index bc411ab8281ea..77b96d0943578 100644
---- a/tools/testing/selftests/filesystems/idmapped_tmpfile.c
-+++ b/tools/testing/selftests/filesystems/idmapped_tmpfile.c
-@@ -91,6 +91,13 @@ FIXTURE_SETUP(idmapped_tmpfile)
- 	ASSERT_EQ(mkdir(self->dir, 0777), 0);
- 	/* World-writable so an unmapped caller still passes permission(). */
- 	ASSERT_EQ(chmod(self->dir, 0777), 0);
-+	/*
-+	 * The directory itself must be inside the range the mount maps.
-+	 * Left owned by 0 it has no mapping in the mount, and
-+	 * inode_permission() then fails MAY_WRITE via HAS_UNMAPPED_ID()
-+	 * before any of the tmpfile logic is reached, regardless of mode.
-+	 */
-+	ASSERT_EQ(chown(self->dir, MAP_HOST, MAP_HOST), 0);
- }
+diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+index f28d6a883e09..39c65ee07caa 100644
+--- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
++++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+@@ -703,7 +703,6 @@ rk3066_hdmi_register(struct drm_device *drm, struct rk3066_hdmi *hdmi)
+ 			 DRM_MODE_ENCODER_TMDS, NULL);
  
- FIXTURE_TEARDOWN(idmapped_tmpfile)
+ 	hdmi->bridge.driver_private = hdmi;
+-	hdmi->bridge.funcs = &rk3066_hdmi_bridge_funcs;
+ 	hdmi->bridge.ops = DRM_BRIDGE_OP_DETECT |
+ 			   DRM_BRIDGE_OP_EDID |
+ 			   DRM_BRIDGE_OP_HDMI |
+@@ -747,9 +746,10 @@ static int rk3066_hdmi_bind(struct device *dev, struct device *master,
+ 	int irq;
+ 	int ret;
+ 
+-	hdmi = devm_kzalloc(dev, sizeof(*hdmi), GFP_KERNEL);
+-	if (!hdmi)
+-		return -ENOMEM;
++	hdmi = devm_drm_bridge_alloc(dev, struct rk3066_hdmi, bridge,
++				     &rk3066_hdmi_bridge_funcs);
++	if (IS_ERR(hdmi))
++		return PTR_ERR(hdmi);
+ 
+ 	hdmi->dev = dev;
+ 	hdmi->drm_dev = drm;
+
 -- 
-2.50.1
+2.55.0
 
