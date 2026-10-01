@@ -1,152 +1,109 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC8EA53161B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:35:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61FD52ED49
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868930; cv=none; b=Q86XbPjsh7KqUEMpxfqK/8/chIVpfDB5/KjeNSDb4d3oMwIIcQAZbipzSpip5rNulZc7nkD3EBACHdNqOEHhlc+GJEPhkfE5gMRjGECyu0ASwdqdna6iee3UBj9Qf59zaubpwnW6ZFWNHt9jxXfaiVwXZ2qLCxysrFIIWfCYUuc=
+	t=1790868932; cv=none; b=L/1L98r40jCHQG1V4fW4VVeln0skTHIj12wo1DNyEpElttdC51TUQku/F56y5ujvXDLlvWABEvwm44Yaakad+4Q4x66OUJi+itfd4MwzPzxiDwXPySa86eqoNkkdzexSEhvkbfOusmjDKg99yB6feHyBE0KhfQA9Q7XcoxGwkrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868930; c=relaxed/simple;
-	bh=NiJDzWveMIkvZw75izO1egz+aEAX6DONLRpNMItQL9k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UAqwS+zMjODAuGocbOV1akErWdO/zIiFB8imiylgSbBknAgXgi14wipK+8EKaenZvpNeLC8FnJdcjCsFY8uYe0CvPEsGBW/C6eYcP5YImZJ3FS8+r0Y1t2l5syR9Gv9jh6c2CUL4mByB607WgoDPKoGlHXSnC5YiARk4ieJh6Iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qiFpuaU6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790868932; c=relaxed/simple;
+	bh=kjrBaOIQzRodXYyVE29/glCVcdUU681z5IQunrw2auU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LhPxIR3amhrqQhRkdzqy+RiHiIOPu7Uz+Qaer/K3zC8jcrufpHQyYNZD6kAoKs6b6QxHTxmwxhnBLylkWBHnnbFU/r/FEGmo7nxf+V3LVpnL4A85C4tJJaeu2K1DM/bqBc44cyxVoGAeIiLnprK8htoK1NN/Ua4eO/8EwZECeqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fDQcMqrA; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qiFpuaU6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7BD711476;
-	Thu,  1 Oct 2026 08:35:24 -0700 (PDT)
-Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 434893F86F;
-	Thu,  1 Oct 2026 08:35:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790868927; bh=NiJDzWveMIkvZw75izO1egz+aEAX6DONLRpNMItQL9k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qiFpuaU6XiMQ/kXy6XnLO1cQ21VwhMnggQN+3/Klf8I7I/iyY0aWnPkle5ioYDWWr
-	 DRRFc6Kg7YCDjGGtbnFYPW8ODA13o3fVpqiaQMOar87bo0Wgo05IOPt3U0DhKRcVjP
-	 eqalrYWAfmAuz85YwJhFaciSz42D1Pw344pD7PhI=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-	Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
-	Trilok Soni <tsoni@quicinc.com>,
-	Srinivas Ramana <sramana@qti.qualcomm.com>,
-	Niyas Sait <niyas.sait@arm.com>,
-	Lee Trager <lee@trager.us>,
-	Ritwick Sharma <ritwick.sharma@arm.com>,
-	Gavin Shan <gshan@redhat.com>,
-	linux-acpi@vger.kernel.org--cc,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v12 09/13] arm_mpam: propagate MSC access errors in mpam_reset_class_locked()
-Date: Thu,  1 Oct 2026 17:34:34 +0200
-Message-ID: <20261001153439.3295416-10-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001153439.3295416-1-andre.przywara@arm.com>
-References: <20261001153439.3295416-1-andre.przywara@arm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fDQcMqrA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790868930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DRkuIUECUxJhe8ANm3v3u37Ui3/ef2M1wF0nlt+w2i8=;
+	b=fDQcMqrA2SPr3+kyTkdPQCvk56jwhNfgH/nEHBEWZOP0rL0B42fQa5S4udSYmoScNctYbs
+	lNqZaqOpe/ZHJZWOJIvvgactnF5Ga78SaE3TN1X/eMeoaaA3z4ZcVVKyATErgWQViD/JhE
+	lN5gfaHtjMBP1XKLRNSr+AhYsV6YihQ=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-641-nz2JhCNpPSGjempuhP8A-Q-1; Thu,
+ 01 Oct 2026 11:35:26 -0400
+X-MC-Unique: nz2JhCNpPSGjempuhP8A-Q-1
+X-Mimecast-MFC-AGG-ID: nz2JhCNpPSGjempuhP8A-Q_1790868925
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3AA1D1955F0B;
+	Thu,  1 Oct 2026 15:35:25 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id CF38E1800361;
+	Thu,  1 Oct 2026 15:35:22 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Thu,  1 Oct 2026 17:35:24 +0200 (CEST)
+Date: Thu, 1 Oct 2026 17:35:21 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Aviv Vaknin <vaknins33@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
+Message-ID: <ar59uapn1SrPXlWe@redhat.com>
+References: <20261001121254.883973-1-vaknins33@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001121254.883973-1-vaknins33@gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-The mpam_reset_ris() function can return an error, propagate this up
-through mpam_reset_component_locked() to mpam_reset_class_locked(),
-which is exported. The external caller is a void function, so cannot
-really handle the error at the moment, but at least we report everything
-on the MPAM interface side.
+Hi Aviv,
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
----
- drivers/resctrl/mpam_devices.c  | 24 ++++++++++++++++++------
- drivers/resctrl/mpam_internal.h |  2 +-
- 2 files changed, 19 insertions(+), 7 deletions(-)
+Thanks, at first glance your patch makes sense... but for some reasons
+I can't read the source code today and perhaps tomorrow.
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 60f6a39176ea1..c639aaa5f38e1 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -3007,7 +3007,7 @@ static void mpam_enable_once(void)
- 	       mpam_partid_max + 1, mpam_pmg_max + 1);
- }
- 
--static void mpam_reset_component_locked(struct mpam_component *comp)
-+static int mpam_reset_component_locked(struct mpam_component *comp)
- {
- 	struct mpam_vmsc *vmsc;
- 
-@@ -3021,26 +3021,38 @@ static void mpam_reset_component_locked(struct mpam_component *comp)
- 				 srcu_read_lock_held(&mpam_srcu)) {
- 		struct mpam_msc *msc = vmsc->msc;
- 		struct mpam_msc_ris *ris;
-+		int ret;
- 
- 		list_for_each_entry_srcu(ris, &vmsc->ris, vmsc_list,
- 					 srcu_read_lock_held(&mpam_srcu)) {
--			if (!ris->in_reset_state)
--				mpam_touch_msc(msc, mpam_reset_ris, ris);
-+			if (!ris->in_reset_state) {
-+				ret = mpam_touch_msc(msc, mpam_reset_ris, ris);
-+				if (ret)
-+					return ret;
-+			}
- 			ris->in_reset_state = true;
- 		}
- 	}
-+
-+	return 0;
- }
- 
--void mpam_reset_class_locked(struct mpam_class *class)
-+int mpam_reset_class_locked(struct mpam_class *class)
- {
- 	struct mpam_component *comp;
-+	int ret;
- 
- 	lockdep_assert_cpus_held();
- 
- 	guard(srcu)(&mpam_srcu);
- 	list_for_each_entry_srcu(comp, &class->components, class_list,
--				 srcu_read_lock_held(&mpam_srcu))
--		mpam_reset_component_locked(comp);
-+				 srcu_read_lock_held(&mpam_srcu)) {
-+		ret = mpam_reset_component_locked(comp);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
- }
- 
- static void mpam_reset_class(struct mpam_class *class)
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index 68a6cf2b9cc73..09f8168fb4d2c 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -465,7 +465,7 @@ void mpam_enable(struct work_struct *work);
- void mpam_disable(struct work_struct *work);
- 
- /* Reset all the RIS in a class under cpus_read_lock() */
--void mpam_reset_class_locked(struct mpam_class *class);
-+int mpam_reset_class_locked(struct mpam_class *class);
- 
- int mpam_apply_config(struct mpam_component *comp, u16 partid,
- 		      struct mpam_config *cfg);
--- 
-2.43.0
+let me ask a couple of questions right now.
+
+On 10/01, Aviv Vaknin wrote:
+>
+> @@ -243,6 +244,11 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+>  	do {
+>  		clear_thread_flag(TIF_SIGPENDING);
+>  		rc = kernel_wait4(-1, NULL, __WALL, NULL);
+> +		/*
+> +		 * The freezer's fake signal ends the wait with -ERESTARTSYS;
+> +		 * freeze here, or one stuck pid namespace blocks suspend.
+> +		 */
+> +		try_to_freeze();
+
+Well, I don't really like this another callsite of try_to_freeze(). Perhaps
+we can change the kernel_wait4() paths to use schedule(INTERRUPTIBLE | FREEZABLE)
+instead? Not sure, please recheck...
+
+>  	for (;;) {
+> -		set_current_state(TASK_INTERRUPTIBLE);
+> +		/*
+> +		 * TASK_IDLE: no hung task warning or load for a wait that can
+> +		 * last as long as a tracer keeps a zombie, and a pending signal
+> +		 * (e.g. the freezer's fake one) can't turn it into a busy loop.
+> +		 * TASK_FREEZABLE: let the freezer freeze us while we wait.
+> +		 */
+> +		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+>  		if (pid_ns->pid_allocated == init_pids)
+>  			break;
+>  		schedule();
+
+Looks "obviously good", but I need to recall why this code uses TASK_INTERRUPTIBLE,
+not TASK_IDLE.
+
+Oleg.
 
