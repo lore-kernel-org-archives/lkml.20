@@ -1,140 +1,74 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE673363C75
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA7240927A;
+	Thu,  1 Oct 2026 21:43:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790890911; cv=none; b=bt9o9yDK1F+VuYYqT19xu1X0GIbTXGmzOef1gFbfTFRxk6lSR8clcUAyOPpI1rNT8Hb9Vtuvfu7J0Pp02AQd0AYuQbSpqhObGVKvJbI+fMRiq8Xo8aHwRZKPFEadh7DkXfATeoA4ZgXiQwPr4nVz2gjBWRGmz381SMW3SzQhY+E=
+	t=1790891029; cv=none; b=u6j/me17til5CtPCt+aT3Uy6BW4S5KHqgDcIcKloVHU0qxAylIhY332fQ3n9mzG9oBc/NzH8Exnw+lDFY2RQglxYL6MB8RkUKqGD9CUswwDDTK5U8nqfoirg7e4w29aDh6o5g0Oefic/oWIvtdnhekOtx3xAUaLjC2M11ej1e6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790890911; c=relaxed/simple;
-	bh=fPmxCx4qpK2t/MvuNp/xRsfzossr1PfbTfKiv5o2cf8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T7dk0pgrSetzho2wjYRO7HVI2flgz8o3s3lrSL9b+G+IHFtp6G+8vaVkqvKiUfSBWzN9rM1fTQ01KZf22GzHF0rIv0Vy6QT3ddEOPMVoSTAlr4NzFm9h/p6UUQ75ilVdFJWSagtXZQuhnK43RC4L3+ms0vi/bW1qkyzsjHK4zPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RX++VI9A; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rjOxJ8dO; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790891029; c=relaxed/simple;
+	bh=Zy5DgYfKJ2Jvbz3nfTQhgnKyY+5AE4qgyM0EigO3rm8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TKarec3DvXBnoJHpwZyQCnU9Fte/bdBPI3MzjcWhScFPr5u0m3+80d+7jAVBTOwOz3d9YanlwWcXMewem8pRB1ew7wrPZQY8uDN25qdRzknMzNKRdV7g/JaMgXQPmBs0+0/t5CmO4eZCP0mpR4g/1M8skTp6YnRf+Aeofv+l/dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=VRzvYwnB; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RX++VI9A";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rjOxJ8dO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790890908;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oaFDnLPAu8Azz5pGOzAaVOnZU0E7BdpohXF2E62Q87s=;
-	b=RX++VI9AHz5vfn1fXYGsJfzS/rX7vXXI4rJuNUvFppKhaITyoLWRLw9omTUWXFJST5ZtyT
-	mzBMzz7ee/JK7/G2jDNF5l+9qMnoyP8PF8+K814IJTwbhBTnsXywQEQfl0OUSmG/d/W+XY
-	7zdvy1hQhQgvTfOPZ0H2mdJOnWcjwvs=
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-636-CY4yF9f-Mp2SeOboxHEpLw-1; Thu, 01 Oct 2026 17:41:47 -0400
-X-MC-Unique: CY4yF9f-Mp2SeOboxHEpLw-1
-X-Mimecast-MFC-AGG-ID: CY4yF9f-Mp2SeOboxHEpLw_1790890906
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so4974735a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:41:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790890906; x=1791495706; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oaFDnLPAu8Azz5pGOzAaVOnZU0E7BdpohXF2E62Q87s=;
-        b=rjOxJ8dO5ltGvsD28IzEJPTlWVslhMZA3I87ouoh+eHbKd45Qpo5EIr/MGETujaScn
-         +W9w+TZmHWBiPoMMzvJLAbHgKD977QnBgLjgPyOGYjvdM80ipOe7wG4rkrU6oe9he48t
-         HDJHFR4puRanLbzoaV7PLlxSgaTnWz8xojcHIcYSAiFIEiSZVU1UhZVPUcvoJUZfXhFT
-         LQLGsqR2AEQcWsh+GEKFwmg8eJIkx4F/lUa7jDfkJ7U9sruQBII2/HEbXOb9Cvz/LDpi
-         gbuKx9Fhd6m8UjikhLuIE9cnemCFlFKXzLfufF2ovyo01VgRHHIDpS4tEZ/D9yNwYxs3
-         g1cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790890906; x=1791495706;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oaFDnLPAu8Azz5pGOzAaVOnZU0E7BdpohXF2E62Q87s=;
-        b=eAOm6vyFpGh+pifMwfA2ThO8M/7gcfqbORaZaSppTWFiRw24cBlKoU9o/7w2FNZEGW
-         xVL/30+Ev3wJyOZJjKj53gfkTgjuHERy1t+qKzSOALb8ppLc6zT4fMVKdg6qkGZmHyWT
-         bLWo1qGgqqAw2noXJ4hkceh/boKJj5AfU06UuGJ2AKfsoR1bYZuF+rPo8Q3GjuoiJw9R
-         EqGFQcfLnS0e4fVQhYcaFYLeFYFRkHo9YMIsbKfMVsiZwkz+mV+6rBe4kbQTYQy9NIeo
-         87XS9FHdgYXTg8SElqKl1TPqmqPlptoedxh7bbpFhnOD4OaCqLHb0Lyf2LbjyczOFkB0
-         xhXA==
-X-Forwarded-Encrypted: i=1; AKwUvBz81z6ZecJQHJevwyYcvmHpKzF6ucgoGL88/aWqfgci7i94Sbx+brnf12Yoz96b+0mZijMK29C6f8tVTk8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyqcIcHMFvnTHnp9SeG1sY6i+C0BfDDaiqjpIzrzMgVTlkfVoZ
-	VX4oZz8YfdE2Y3Vn6qEDHWg/xNwbTy1zgg4rH6YGmxuVCy115CcdFxWrQdO/Vgovsl0m5g7NRfw
-	lZairxCGF+uCIdGv9hQ6epNS+ejRGFOb9iIB8Jk6SrWMDSH4wPzTtIAkLXbEgTJrQiA==
-X-Gm-Gg: AYBFou1K1YS1FQ9he6eDTSk7JvgyA4W0efrUbN7TCKTJ5TxWJdcsygrJhA8Tvjwy6FU
-	Jtn7yqjFmPKGhbKMSUuSrx+hYENgstVAAzfjvildxkXWYlUeb4mQ9p9ZBsW+qP5ZOuRxTSL8H9H
-	CF1miV5drjONx5sv+5CHnNXqYfCJQK6Z30BRjKEqkeMrHv5TqVa7IN4CFyAa0UWU2ELgKAgsETD
-	LlBIQLdTlyPjTreS6XIJRZIvtX30bRKuPZZrdtpnCmgqDbNskDVOYy7K65FoGj3KAsW0wIql919
-	39pR8cFBXc9zRPJ13Bhky8/3mJLFI16lELrgCeaWbFzK33irQ4Tmb9IruUrk/t/FSCpVDXKvg9s
-	nNKimrwJM2Vf/ide63du7lALu9sr64eJQgd9g31SIGA==
-X-Received: by 2002:a05:6a00:409a:b0:882:1b4d:1840 with SMTP id d2e1a72fcca58-88af58d4e46mr745861b3a.24.1790890906208;
-        Thu, 01 Oct 2026 14:41:46 -0700 (PDT)
-X-Received: by 2002:a05:6a00:409a:b0:882:1b4d:1840 with SMTP id d2e1a72fcca58-88af58d4e46mr745848b3a.24.1790890905746;
-        Thu, 01 Oct 2026 14:41:45 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0cb72834sm165561b3a.45.2026.10.01.14.41.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 14:41:45 -0700 (PDT)
-Message-ID: <1ed590aa-a4bf-4980-82e1-185aee205909@redhat.com>
-Date: Fri, 2 Oct 2026 07:41:37 +1000
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="VRzvYwnB"
+Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:4527:74e2:2212:f171])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 95136780331;
+	Thu,  1 Oct 2026 23:43:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790891017;
+	bh=Zy5DgYfKJ2Jvbz3nfTQhgnKyY+5AE4qgyM0EigO3rm8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VRzvYwnBWyOC8npDt2yJ6xqN3dLliujSUshcwjEhONV5GUb24lV2jZHSXh8RkhIMH
+	 rNDAfwXL620ADzTmEwlEAQJRuU5EvScSxBm46VxfoN40cicS3+ivpP1S+5/c3KpGAk
+	 KH2pSG8wWopMiDI/9fqwXwMHYC+mntd4NIUxtGeXRj6IaYSuJjbb/jkLfAaG4TP6Dh
+	 l4FKqxCp41CLJUfvgZNTJ5KMgyM7YwgftbRIwTrOwq/HXgsDQPbSFT8AMLXUFv6/Zg
+	 WrJhLbQ5aCRR2g4LVe/1dUgga5+AlwKyPAtKBplMSCvgth5NZPkFLaAdESE8sFEBhJ
+	 SKtIr2RpJKHvw==
+Date: Thu, 1 Oct 2026 23:43:26 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Conor Dooley <conor@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Charles Hsu <ythsu0511@gmail.com>,
+	Eduardo Valentin <eduval@amazon.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
+Message-ID: <ar7T_u5RPVLc_MVh@L30177.local>
+References: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-0-07d368dcc662@free.fr>
+ <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-2-07d368dcc662@free.fr>
+ <20261001-hash-husband-663954aed7b0@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 00/23] KVM: arm64: CCA: Add basic plumbing for Realms
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20261001210703.1597150-1-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-hash-husband-663954aed7b0@spud>
 
-Hi Suzuki,
+Hi Conor,
 
-On 10/2/26 7:06 AM, Suzuki K Poulose wrote:
-
-[...]
-
+> I don't understand this, if it has multiple sensors, each could be
+> referenced by something and it would need cells. It only has single
+> input, then that's the justification that needs to be provided here.
+> What software does, especially in generic code, should not be used to
+> justify a binding change.
 > 
-> NOTE: There is a conflict with Fuad's patch to drop the WARN for unknown vm
-> ioctls, that is queued in fixes.
-> 
->    https://lore.kernel.org/all/20260914093838.1082637-1-fuad.tabba@linux.dev
-> 
-> This series is comprised of (3) and (4) above.
-> 
-> The integration branch has been tested with the following components:
-> 
->    tf-RMM:   main branch (commit 5e6e2acd) compliant to RMM-v2.0-beta3 [4]
->    kvmtool: git@git.gitlab.arm.com:linux-arm/kvmtool-cca.git tag:cca-kvm-v20
-> 
-> [0] Arm CCA KVM Support v16 : https://lore.kernel.org/all/20260803134403.80630-1-steven.price@arm.com
-> [1] Linux firmware RMI v22 https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/fw_rmm/v22
-> [2] Linux GPF Host  https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/host-gpf/v19
-> [3] https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/kvm-v21/integration-v3
+> I checked the devices supported by the mpq8785 driver and none of them
+> actually appear to have temperature inputs at all?
 
-This branch doesn't exist. I guess it's "cca/cca-host/kvm-v21/integration-v2" instead?
+Right, none of them has a temperature input pin: the sensor is
+internal, not an input. Each device measures the temperature of its
+own die.
 
-> [4] https://support.arm.com/documentation/den0137/2-0bet3/
-> 
-
-Thanks,
-Gavin
-
+I hope it avoids the confusion, I'll update the commit log,
+  Vincent
