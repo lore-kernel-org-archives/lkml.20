@@ -1,164 +1,131 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 170214AD4D6
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AF24ABBA9
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:01:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845266; cv=none; b=P4o2Ss9hVYmIBB5YMULmSz0QWBhCnHxS406keFh07yIOANKcaTdEFwfJZ55cpWxV0rb3gOlwz4HJsj7hZHgUepNdjKDRwjzc781OY3az8U1M5hRmYyqIJCGwqdduF2di+7uFpGlt4vveXh4hH4Z3pQAnkJOuXLFu2RbU3VcHqDc=
+	t=1790845274; cv=none; b=lA73M3NSihTvmHdQW8N2XQdwi7mN5ERL95ChwtvSmWp1j5J0DO2ExU0kq3pBjm7Ro2BOSyRtE9ss9pYTvzOPWTxBShSBGgWDcidCrJWCIkKzfug1zOTsDjseCLKoZXil/gVtTaaEsrzcTaFQySRw8Cf0hRP4gw7Ps90A45zcjms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845266; c=relaxed/simple;
-	bh=ToXKGxs2LrZ9zE0JvDN1qC6HPAAAfIqqEMJiKGlklWI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aDEp97xhum+RPLDFz6rup8ALmG/HzrFPE91E61FIoqva3VnMx5J/2uva3kYayPgLDIH06HYdrj0YaxrplXoJFa5Otp71f7KYYLFj5p0ylB1hpqibWcovsvopNOx2ghVWiDBBQ593BI4jP0TmmnuTyC9YhsaEKIXXjpjMQ2J7K34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IJgZfc3y; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790845274; c=relaxed/simple;
+	bh=pOSX/j8PxFaPmggryR7fHd8+GwlggHCzqHguU39pkiU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XmhtZAuOBsh4hNBOhCzJNSu+Mu2aHZ8m88ExAUXja+r7Pe2k/uknlK6WwZdN+DIA8ZAJ9z2HXn/Ixd0l2YkCEpaVy8T4IKWY2HDZQCa6tI4dNMIeU5DQT2O6yzG+O3hHm58vyyY9SuCPc+tmqPB8Yr6GJKEm7XixPQskMtbJFjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eFAAfenp; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IJgZfc3y"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E1678497;
-	Thu,  1 Oct 2026 02:01:00 -0700 (PDT)
-Received: from e143943.arm.com (unknown [10.57.77.101])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id EF8233F85F;
-	Thu,  1 Oct 2026 02:01:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790845264; bh=ToXKGxs2LrZ9zE0JvDN1qC6HPAAAfIqqEMJiKGlklWI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IJgZfc3y20b6S9dMZYFUZC3HV9hiTqOEcZjjS7eqqbzz5al4AUj/YKWu2TvbimICf
-	 P0L/lmVclDCo1wxxD7osws9VfYubqHV3rAJxNkdu1c+x9zdd+TS6Kyrg3ymbT+7oZd
-	 xLXuFsGbdMTxD4/VEosrJ2+zpu4v9OHFd5u1SUF8=
-From: Beata Michalska <beata.michalska@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Vladimir.Murzin@arm.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	suzuki.poulose@arm.com,
-	James.Morse@arm.com,
-	xuewen.yan94@gmail.com,
-	seanwang1@lenovo.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
-Date: Thu,  1 Oct 2026 11:00:32 +0200
-Message-ID: <20261001090050.3849551-3-beata.michalska@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001090050.3849551-1-beata.michalska@arm.com>
-References: <20261001090050.3849551-1-beata.michalska@arm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eFAAfenp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 421BE1A109C;
+	Thu,  1 Oct 2026 09:01:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 134E260341;
+	Thu,  1 Oct 2026 09:01:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A2529103297EB;
+	Thu,  1 Oct 2026 11:00:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790845263; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rHHej9yH4XOkeqe7HQOUFBElNtKlXqD/p/0et4Eq7R4=;
+	b=eFAAfenpgJOe2xIhdUHmHAesTdEsRZoiGi+WTbKNKG7qX7brGr4vDD4GyzKQdu0RqwZqzZ
+	zaKmMh1y8IDr6xG6DzSDzKw3BSSZ4xYxfkW1qr9fzEVtu7hrleahNhk3/q8qYdWBq/7zdr
+	8ViJ1SBMZAYskH04L4dB5FOS8P5fqKiyenKj+35uoUiGMvZxzOLygCkd9r11UakuzAqgeJ
+	HOSEmxBuMGnXf7PBafa82grUcAw34ucnCtiXwNrfbNPzt1k+giAt+pleGicJLx9+4r3Jzv
+	RLYb6FbNCHK64az4xJVPMO3MsGh8EAuecr7otze70SgsrarbcMa5Bex6sqNleQ==
+Message-ID: <78bd3e3e0fcd20f012c3b01f7f595376f7a6173d.camel@bootlin.com>
+Subject: Re: [PATCH v2 7/7] drm: renesas: shmobile: stop using deprecated
+ devm_drm_of_get_bridge()
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
+ <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
+	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Thu, 01 Oct 2026 11:00:53 +0200
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-7-6da431d8f180@bootlin.com>
+References: 
+	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+	 <20260929-drm-fix-of_get_bridge-build-regression-v2-7-6da431d8f180@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-incur a significant increment error when a CPU enters and subsequently
-exits WFE or WFI, and may no longer track the system counter
-frequency.
+Hi Luca,
 
-The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-frequency invariance and CPPC FFH feedback counters. Wire the affected
-Cortex-A725 range into the shared broken AMU constant-counter capability
-so the affected counter is treated as unavailable by returning zero in
-the AMU counter paths. This prevents the broken counter from being used
-as a reference source.
+Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
+=C2=A0:
+> devm_drm_of_get_bridge() is deprecated, switch to
+> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
+ns
+> a refcounted bridge, ensure it is put.
+>=20
+> drm_panel.h becomes unused, drop the include.
+>=20
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-but this workaround intentionally does not change PMU event handling.
-Hiding or rejecting the PMU event from the erratum code would change
-the perf-visible PMU event interface, including raw event selection,
-and would need a separate PMU-specific approach rather than being
-folded into the AMU reference-counter workaround.
+Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Beata Michalska <beata.michalska@arm.com>
----
- Documentation/arch/arm64/silicon-errata.rst |  2 ++
- arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
- arch/arm64/kernel/cpu_errata.c              |  4 ++++
- arch/arm64/kernel/topology.c                |  9 +++++----
- 4 files changed, 33 insertions(+), 4 deletions(-)
+Cheers,
+-Paul
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index ac3248b9f2f3b..99a1eb4b833dd 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -174,6 +174,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #1502854        | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 3b6c052d46a18..cab741a695f52 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1081,6 +1081,28 @@ config ARM64_ERRATUM_2645198
- 
- 	  If unsure, say Y.
- 
-+config ARM64_ERRATUM_3821522
-+	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-+	depends on ARM64_AMU_EXTN
-+	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-+	default y
-+	help
-+	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-+
-+	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-+	  increment error when entering and subsequently exiting WFx.
-+	  As a result, the CNT_CYCLES may diverge from the system counter
-+	  frequency at which it is expected to increment.
-+	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-+	  being unreliable and unsuitable for use.
-+
-+	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-+	  counter return 0 in the relevant paths. This causes users of the counter
-+	  to treat it as unavailable and is functionally equivalent to firmware
-+	  disabling the affected counter.
-+
-+	  If unsure, say Y.
-+
- config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
- 	bool
- 
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index 8ce559ac073c7..40c14e8600ae0 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -386,6 +386,10 @@ static const struct midr_range workaround_amu_constcnt_list[] = {
- #ifdef CONFIG_ARM64_ERRATUM_2457168
- 	/* Cortex-A510 r0p0-r1p1 */
- 	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-+#endif
-+#ifdef CONFIG_ARM64_ERRATUM_3821522
-+	/* Cortex-A725 r0p0 - r0p2 */
-+	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
- #endif
- 	{}
- };
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 64588554e7f76..f1bdb49d5d92e 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -397,10 +397,11 @@ static void cpu_read_corecnt(void *val)
- static void cpu_read_constcnt(void *val)
- {
- 	/*
--	 * Return 0 if the current CPU is affected by erratum 2457168. A value
--	 * of 0 is also returned if the current CPU does not support AMUs or if
--	 * the counter is disabled. A return value of 0 at counter read is
--	 * properly handled as an error case by the users of the counter.
-+	 * Return 0 if the current CPU is affected by a HW erratum.
-+	 * A value of 0 is also returned if the current CPU does not
-+	 * support AMUs or if the counter is disabled. A return
-+	 * value of 0 at counter read is properly handled as an error
-+	 * case by the users of the counter.
- 	 */
- 	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
- 		      0UL : read_constcnt();
--- 
-2.43.0
-
+> ---
+> =C2=A0drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c | 5 ++---
+> =C2=A01 file changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
+> b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
+> index 328a36215e39..51bae2008cc6 100644
+> --- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
+> +++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
+> @@ -28,7 +28,6 @@
+> =C2=A0#include <drm/drm_gem_dma_helper.h>
+> =C2=A0#include <drm/drm_modeset_helper.h>
+> =C2=A0#include <drm/drm_modeset_helper_vtables.h>
+> -#include <drm/drm_panel.h>
+> =C2=A0#include <drm/drm_probe_helper.h>
+> =C2=A0#include <drm/drm_vblank.h>
+> =C2=A0
+> @@ -447,7 +446,6 @@ static const struct drm_encoder_funcs shmob_encoder_f=
+uncs
+> =3D {
+> =C2=A0int shmob_drm_encoder_create(struct shmob_drm_device *sdev)
+> =C2=A0{
+> =C2=A0	struct drm_encoder *encoder =3D &sdev->encoder;
+> -	struct drm_bridge *bridge;
+> =C2=A0	int ret;
+> =C2=A0
+> =C2=A0	encoder->possible_crtcs =3D 1;
+> @@ -463,7 +461,8 @@ int shmob_drm_encoder_create(struct shmob_drm_device
+> *sdev)
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	/* Create a panel bridge */
+> -	bridge =3D devm_drm_of_get_bridge(sdev->dev, sdev->dev->of_node, 0, 0);
+> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D
+> +		of_drm_get_bridge_by_endpoint(sdev->dev->of_node, 0, 0);
+> =C2=A0	if (IS_ERR(bridge))
+> =C2=A0		return PTR_ERR(bridge);
+> =C2=A0
