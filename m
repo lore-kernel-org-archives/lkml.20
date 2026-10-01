@@ -1,211 +1,85 @@
-Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com [74.125.231.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA81E425872
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A69843F090;
+	Thu,  1 Oct 2026 04:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790827982; cv=none; b=PCPbitdeFkdzMwItZu2CW849IqANZm16BCizK42LnHMo/F8cY8oImyznpA5tqSZ4gPMC8Nr+DpLSSZ6PgQvfALBYbqjWNqGhzLP9oF9oipJs/CDdKgCmTxXlk5aUXI2rfM48yBjX/0EV1oIYhfHFxkOcPjECV6gvLkAUp7FPyT0=
+	t=1790827993; cv=none; b=SgdwrmGoQ/4m5djPkONKqMDMosUy5wxu8RGceYlmSZQ68bqGwrKYZTVHNpsWdhP8XUoY/4GiFRxu5YRUcsSvum51kCimMjt9Ox8VkakfjGCUOWWWarnY84QCVWRTaeWvoG8HBoxjwpmW4+hJgnVRArsSM0JXDV5oREK2WlTJp9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790827982; c=relaxed/simple;
-	bh=Hx5UJuxKjwprvSGWaXQVjVJ0w0ttNwljukD9w8lrWm4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cq7IXNgmt/9Jo1zCAcJTSLlP8Okq7FBAkSI/xbPwO4/PTatI/kU0rLNVbVJqkiMRAOuprVCfJ8jypueL2BOBLwRwziFkdZQ8eL6Bo/rgBwuefEsRgwcuhSoUqaQDSEGgp1sIVQ2IrzELL5dL/mA28yO1LKPTckZeHsoqqmASKeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CcUWHp7j; arc=none smtp.client-ip=74.125.231.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790827993; c=relaxed/simple;
+	bh=0gAxlKmIA6K1VhObkwtDYhb08ccS4/II8Y1SYR8k3+s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cd/z9j8iaNJ9DwdMZ+FVwn7by6HSxwOfH47uKnsnZR0xvzFN9O4+KnPAnmZ6ZD5MtVRp7cOcL1yxsVVBehujxojZB3+EzProJZOjqGLnQBbiTH8pVHQjRwoPAEPvhGN0sF7AYuh4gkeV0CI7KXNs1B7kZSjeV4s19Ib0ktxUUKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I0mhHuxK; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CcUWHp7j"
-Received: by mail-oo2-f36.google.com with SMTP id 46e09a7af769-81a8d9a166fso2548334a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:13:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790827980; x=1791432780; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KfjvWDlH74aBokTz23r7fE1Dwv67vVeYYEoQzFsEUhQ=;
-        b=CcUWHp7j9E+nNdSpLM5zkVVFJQT6pv9pYo04SvWma+tRmIjiRQWaaBYH0VFap1A6Li
-         EGMa2dmmioyO6bj7p6Yt1ac2h7KReEXu92kyTi5e47rJtsYwy2M6YvyWRQ6lo/LlUXPC
-         vSgufNyzMw2vQ2UsM6wDreK6BU/Ib/KikvHVp4aOuTTAto2H7Gyn6vp/X8XYMZAcXzbp
-         JlWxQvBarZM1d9KkKxNxZF4aCX93WTHL4wY9HaAJWHWZI1R8iofOtBe5uD/DjY74cHQj
-         wyt1ZHT3II8zUnFmuaXBMaciNvUkspp4xUZm4O/Lhd8VRxZukG2YdWcZNbaaaoIduI+c
-         uJgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790827980; x=1791432780;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KfjvWDlH74aBokTz23r7fE1Dwv67vVeYYEoQzFsEUhQ=;
-        b=kY6I7fyyNCCJ0+P3LCuYTnT5oIX2KFFLoiLZEqkxRKrMamvQrTU4VamxYFW2eBsBBD
-         M+eZXsDFyegLCgSbfagYlHXgieDaMpgc/6UgvDeFUHgD8Nss9hyDQpTprShZ9ECP7bnr
-         Ad17pSrNWJ9fnbaun69/nw57tHc1ttxa9QFe3ddusWndWVi3YduVL+bLWAlu92rpdkwg
-         9efQNN8bBRcDmrpFZBcp7NEYNfKp8jMW61Mu9R7vIdN2ZPvd91eVPLFLAwiUdW/DRvnx
-         aKnj46i2X9TxWcQt8VN/SkUnwFXFYjVPku1VoFUKcNRunEfQr6lApNtbougBruS0weRF
-         MXYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMjjue+G+VU5VsnJv4WPBJq5T77PXHIAjD1HGoqUGdeAui3JU/wChBO3PkCoAv9zuQDAYoBLx+IREimJ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg2qN7EM5QoV5Q/RLc+f8QtDdH8DonaclXVY0CHfO2Dni2sLKS
-	6ECkSFePVZ5vBZbe5r6MH9ncfl9LEL/R1ywNirnTJWJh6paO3aVyT8DT
-X-Gm-Gg: AYBFou0vkjRPC8HugWmqhlsfjCajtkHYNDq3xgsaakq6Ti8nmqt8jJHqXshi0RW+1fh
-	nxUYlzvN5XFT2dfZfD9a5PvdwTAVbC1lHQkw6JhMpl9ZRykJcTZrqSavAsYVveMCSPGeGtdENOm
-	rtwjxvR1sPguBz8tBIcIwaMVEfC0J/HaJRzHOG1IAEHCZ5skannw8H1nmgRgGdrZE6/QymDD/GG
-	My3wuzUrc6NzmFOWMdaOzpAtINfODe32izsH4kFOHDq8yB5Nrgf7lgmpdRuVHLKuSc/wXi5IFRh
-	8/TI1bk+oWSu2XWZijMyn99KdbFlhs1LoOvQ1X0R69tcrxQIklLJ3QdIhAR8kp5zX758OM4zF1o
-	dKszuI1o2QzVJF4ZILv9YkeIz0EkDwWoD5mktagGHQ4mGyL6fsb++anHtYfOXshX6QzsPKM5cUS
-	3l1L9/Wu6vFmcRJciGJZCTULE/c70kc5540CRTRonILhEQm/W98ekH/Ld42VD40y8tVANe07+r+
-	E3Q/NvjuExKDj8SAAP6UBZoYymwGkZLesQDv9mhm8yaLzFsgZIRW95m9D+NzODdu7SLI06DPWYB
-	zSk9O1JX1MzdVKy3698btkeUn6jDdvnc81RW1wIzJeF2ULWgrHofG1BaDPPZAslGx7ad10CrPOS
-	xSAvFFkM+vCraUXJqyvju
-X-Received: by 2002:a05:6830:398b:b0:7f8:4ebe:2854 with SMTP id 46e09a7af769-82046ebb400mr4300712a34.4.1790827979789;
-        Wed, 30 Sep 2026 21:12:59 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8212af3c1ecsm1708657a34.21.2026.09.30.21.12.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 21:12:59 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 30 Sep 2026 22:12:50 -0600
-Subject: [PATCH net-next v4 2/4] net: stmmac: pass the desired EST enable
- state to est_configure()
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I0mhHuxK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790827985; x=1822363985;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0gAxlKmIA6K1VhObkwtDYhb08ccS4/II8Y1SYR8k3+s=;
+  b=I0mhHuxKr8NjV//7+9ILkTwBjLwOlV6UOJUKXTzCwO5YBSzS0jzpX9PP
+   LeMG/t4piXrpEsizyoNOrQfSIGP6yrGm2SU/HirOrg6XQ79txaFggOezT
+   QCzutDPVcm0eecPxHP1ukdrD3BGkrGn0CeTKwmETZp9OU5OpbLyfPIhom
+   MlA7tkZQFVWgjK713G0gCkBxic8tmyA7fsYWa60Gn85kdsvwFTZl9VUqB
+   v2syl+IUhrysGT7ASnbpCv0+pYrkFSp66WXhpIxrq2LVE+xyLnszqH0uB
+   qWRaV8naX1uLYkuAzxtc6ty1vfESE0eJdYYheMmiJ8ODMPCahQ4EV55To
+   Q==;
+X-CSE-ConnectionGUID: +TeTIIghRi2bscvQ6rMGtw==
+X-CSE-MsgGUID: /5nBk55PS9ebXxwB8Kx93A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90436460"
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="90436460"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 21:13:05 -0700
+X-CSE-ConnectionGUID: 75Xo4f+JTciNDNdQJjJe1Q==
+X-CSE-MsgGUID: tzhl8O0RTK+E2xq0gYHgsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="280629052"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa004.fm.intel.com with ESMTP; 30 Sep 2026 21:13:02 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 3C1A299; Thu, 01 Oct 2026 06:13:01 +0200 (CEST)
+Date: Thu, 1 Oct 2026 06:13:01 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Shih-Yuan Lee <fourdollars@debian.org>
+Cc: Mark Brown <broonie@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>, Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v17 5/6] spi: pxa2xx-pci: restore LPSS private register
+ state across S3 resume
+Message-ID: <20261001041301.GC176164@black.igk.intel.com>
+References: <20260930160629.1822-1-fourdollars@debian.org>
+ <20260930160629.1822-6-fourdollars@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-stmmac-est-reapply-after-open-v4-2-9d4366587b73@gmail.com>
-References: <20260930-stmmac-est-reapply-after-open-v4-0-9d4366587b73@gmail.com>
-In-Reply-To: <20260930-stmmac-est-reapply-after-open-v4-0-9d4366587b73@gmail.com>
-To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Jose Abreu <Jose.Abreu@synopsys.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: Eric Dumazet <edumazet@google.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Serge Semin <fancer.lancer@gmail.com>, Simon Horman <horms@kernel.org>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930160629.1822-6-fourdollars@debian.org>
 
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Hi,
 
-Pass the desired EST enable state explicitly to est_configure() instead
-of having it derive the EEST/EST_INT_EN bits from cfg->enable. This
-decouples the hardware programming state from the priv->est.enable
-flag, which records whether the taprio offload is attached.
+On Thu, Oct 01, 2026 at 12:06:28AM +0800, Shih-Yuan Lee wrote:
+> On platforms where Intel LPSS SPI is enumerated as a bare PCI device
+> (such as the Apple MacBook8,1 on Lynxpoint-LP), the LPSS power island
+> loses power during system sleep and powers up with the controller held
+> in reset. Because the device lacks ACPI companion objects or MFD
+> binding, neither drivers/acpi/x86/lpss.c nor drivers/mfd/intel-lpss.c
+> restore the private register context across S3 resume.
 
-No functional change intended: the callers keep toggling
-priv->est.enable around the EST programming, as before.
-
-Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/hwif.h       | 2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_est.c | 6 +++---
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 4 ++--
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c  | 4 ++--
- 4 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index a8a5c8fdd5ed..1fd9f1ab316e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -617,7 +617,7 @@ struct stmmac_mmc_ops {
- 
- struct stmmac_est_ops {
- 	int (*configure)(struct stmmac_priv *priv, struct stmmac_est *cfg,
--			 unsigned int ptp_rate);
-+			 unsigned int ptp_rate, bool enable);
- 	void (*irq_status)(struct stmmac_priv *priv, struct net_device *dev,
- 			   struct stmmac_extra_stats *x, u32 txqcnt);
- };
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
-index afc516059b89..f15d4d046aa7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
-@@ -26,7 +26,7 @@ static int est_write(void __iomem *est_addr, u32 reg, u32 val, bool gcl)
- }
- 
- static int est_configure(struct stmmac_priv *priv, struct stmmac_est *cfg,
--			 unsigned int ptp_rate)
-+			 unsigned int ptp_rate, bool enable)
- {
- 	void __iomem *est_addr = priv->estaddr;
- 	int i, ret = 0;
-@@ -62,7 +62,7 @@ static int est_configure(struct stmmac_priv *priv, struct stmmac_est *cfg,
- 		ctrl |= ((NSEC_PER_SEC / ptp_rate) * EST_GMAC5_PTOV_MUL) <<
- 			 EST_GMAC5_PTOV_SHIFT;
- 	}
--	if (cfg->enable)
-+	if (enable)
- 		ctrl |= EST_EEST | EST_SSWL | EST_DFBS;
- 	else
- 		ctrl &= ~EST_EEST;
-@@ -70,7 +70,7 @@ static int est_configure(struct stmmac_priv *priv, struct stmmac_est *cfg,
- 	writel(ctrl, est_addr + EST_CONTROL);
- 
- 	/* Configure EST interrupt */
--	if (cfg->enable)
-+	if (enable)
- 		ctrl = EST_IECGCE | EST_IEHS | EST_IEHF | EST_IEBE | EST_IECC;
- 	else
- 		ctrl = 0;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index 2a4099fe470c..64d890664421 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -74,7 +74,7 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
- 		mutex_lock(&priv->est_lock);
- 		priv->est.enable = false;
- 		stmmac_est_configure(priv, priv, &priv->est,
--				     priv->plat->clk_ptp_rate);
-+				     priv->plat->clk_ptp_rate, false);
- 		mutex_unlock(&priv->est_lock);
- 	}
- 
-@@ -104,7 +104,7 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
- 		priv->est.btr[1] = (u32)time.tv_sec;
- 		priv->est.enable = true;
- 		ret = stmmac_est_configure(priv, priv, &priv->est,
--					   priv->plat->clk_ptp_rate);
-+					   priv->plat->clk_ptp_rate, true);
- 		mutex_unlock(&priv->est_lock);
- 		if (ret)
- 			netdev_err(priv->dev, "failed to configure EST\n");
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 357d1eaf0d7d..67c6fc32d0ea 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -1082,7 +1082,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	tc_taprio_map_maxsdu_txq(priv, qopt);
- 
- 	ret = stmmac_est_configure(priv, priv, &priv->est,
--				   priv->plat->clk_ptp_rate);
-+				   priv->plat->clk_ptp_rate, true);
- 	mutex_unlock(&priv->est_lock);
- 	if (ret) {
- 		netdev_err(priv->dev, "failed to configure EST\n");
-@@ -1100,7 +1100,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	mutex_lock(&priv->est_lock);
- 	priv->est.enable = false;
- 	stmmac_est_configure(priv, priv, &priv->est,
--			     priv->plat->clk_ptp_rate);
-+			     priv->plat->clk_ptp_rate, false);
- 	/* Reset taprio status */
- 	for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
- 		priv->xstats.max_sdu_txq_drop[i] = 0;
-
--- 
-2.53.0
-
+Hmm, how is that possible? The LPSS is a single PCI device that only the
+the LPSS MFD driver binds to. I don't think it is any different in Apple
+platforms than any other regular PC platforms in that sense. What does
+lspci -vv show on this system?
