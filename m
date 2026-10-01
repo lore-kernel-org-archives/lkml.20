@@ -1,114 +1,115 @@
-Received: from vsvhrvbk.outbound-mail.sendgrid.net (vsvhrvbk.outbound-mail.sendgrid.net [134.128.88.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6CB4E50DC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.128.88.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E4C4E36F3
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849149; cv=none; b=V32yyrkEV7Csy5li0VObdOaaBXJ53BgJQpC0TT5sMmA06kjyFmlkyz3KPJz0GQtzmxrgoK14tV3YxyR1L2NEOepnUFKlkowBlVZk+7uEmBOMj1Wfl6Fr5krffr6C3dnChGKx06kbItdfAvck0JtSHI1T4ATRKyVN/cLNvyyYHak=
+	t=1790849205; cv=none; b=ugWtsjt4pNN2UlicrEGfJmO+kDVJvGdSZwWylrH+ibCM92iwxgHakYsUgJAdjrWhZQQ3ggM3Jl6xBmgctiwsW2atpdiu2IVWEzCd/sE0IsnMQQ+tuGyqJilAUvmRN6QnjpFojcaaoXHApwmNmb2TjuEkN8hh/m3V8DXT/orJq3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849149; c=relaxed/simple;
-	bh=JayDvb+NMe0QFgGgdXJR+wsVQ6GU/3Ar1ygT39VoP7c=;
-	h=From:Subject:Date:Message-Id:MIME-Version:To:Cc:Content-Type; b=edTxXwX5z4zwficDUtIzXl12z89JVcfpdmPvYc37UZThnOQtO3jwE4bF03Mx0NHiFLqX8rxgAkF3sdn6m/hWD77cEDugRsccXq4sNVAFNftC9Y7dht17PESRMZ8JatziqJ259BVoumiW1u5IoWlcTYTU049IHnbwfwbhHyR8ycg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flowbird.group; spf=pass smtp.mailfrom=em8284.flowbird.group; dkim=pass (2048-bit key) header.d=flowbird.group header.i=@flowbird.group header.b=EMPyaBfe; arc=none smtp.client-ip=134.128.88.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flowbird.group
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em8284.flowbird.group
+	s=arc-20240116; t=1790849205; c=relaxed/simple;
+	bh=ZK9TttDiNF4YjKf0cgn7ppTK9O9oj8za/sQdUKR0nLY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RzMl6aK/1yeWj0u/fmE8X1FIc9hCA+gVByh8/ue0sXISzfcIzlbGFKVmO+po3Xut3D3QKWqF0XOMTzmaqlGVyYtgHD/dRU2qYztQkYMKnycCCAu3OlWhZTQwuD7Nu/a1FSmp5cFKquP+YusPknq2pFAQ3pPgicqh0ruNzas7wHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=a9UpO6M+; arc=none smtp.client-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flowbird.group header.i=@flowbird.group header.b="EMPyaBfe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flowbird.group;
-	h=from:subject:date:mime-version:to:cc:content-transfer-encoding:
-	content-type:cc:content-type:date:from:subject:to;
-	s=s1; t=1790849135;
-	bh=dkh+iQGMnw9T+8ze7wszRjMKumqhhWgFa9I9djiFz1Y=;
-	b=EMPyaBfervbdr3JATG+AyELV9hfoKl/IlypTz8Qx6AVI9gd5l9YESR0Z/R63wPdoq8iS
-	sjhlFOdfQb9sbJ8KHJKixHpv5rgmqdgZ1yMFPNlfPRBOwtFiO3bA9rOotkf3P16idwx+yD
-	mZvBphVZFuFkGpE1SrVG0PQc1KK9LXX1ss4OJv0ym9fuQtariiWq/Iwu1/DdZOaN8/ZTrE
-	n4PFDRo17e8rINsYVXftxqjT0QyzK5b6k/TB3s97uHnMFIWWDQS5lSqpdnv+ho9jS4/2LJ
-	c8UQCiqdKyOcQ0Hq1kEGKtmo30fkgolxw4VHpOWEV5KWiIbP/OX0TbXJeqGw+q6w==
-Received: by recvd-5bb5b9cb76-dn8gx with SMTP id recvd-5bb5b9cb76-dn8gx-1-6ABE306F-75
-	2026-10-01 10:05:35.701443327 +0000 UTC m=+147873.877541912
-Received: from FR-BES-DKT15120.home (unknown)
-	by geopod-ismtpd-5 (SG)
-	with ESMTP
-	id BCf2UazxRLSlh73RSXbOIg
-	Thu, 01 Oct 2026 10:05:35.455 +0000 (UTC)
-From: Martin Fuzzey <martin.fuzzey@flowbird.group>
-Subject: [PATCH v2] serial: sc16is7xx: fix data corruption due to unexpected
- xon/xoff
-Date: Thu, 01 Oct 2026 10:05:35 +0000 (UTC)
-Message-Id: <20261001100534.1225894-1-martin.fuzzey@flowbird.group>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="a9UpO6M+"
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id C0N6x45neaC0UCDgTxF2KO; Thu, 01 Oct 2026 10:06:37 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id CDgSxYXrsirxPCDgSxgzri; Thu, 01 Oct 2026 10:06:36 +0000
+X-Authority-Analysis: v=2.4 cv=FqoF/3rq c=1 sm=1 tr=0 ts=6abe30ac
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=cQwE5TCehGVgXj1d63kA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=zPQhjhK1+Ka07Rrc5WFMGDvPTt9n4eaqJNvBRAVMQ8k=; b=a9UpO6M+h7C3JTunQYs3EK2tKk
+	5vZgLLyJvunp3gSgUT/0N40oUJNZW7XzQ+GP8vM5bO7uU6aMm5tb7aw8XXdgubP/gwwXD/G9Q7CWa
+	s0aiQuYksmPvP0nQD264czlW4bRLWpLzo64oEhC+4eNeaEsajfrGpRkjHtVKg12nvmXWVU99KH3F0
+	Z4FLr0da/YkeOmIh7ik1PSmescADfI+PGn31wVFt+zJ9xaETVNv6n7MxY3Yrv46i4ce4M5STHne/g
+	eh16TRZmNmHgJTdkhtcl06qdiirip1yP3o283B5EgEzmib/ICj74pflP5UfxQ9IE9/tsNlsnmM5GL
+	TwB7tQAw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33908 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xCDgR-000000022HJ-2srk;
+	Thu, 01 Oct 2026 04:06:35 -0600
+Message-ID: <90ecfd23-33c8-405d-9ebb-05ac019d28c1@w6rz.net>
+Date: Thu, 1 Oct 2026 03:06:34 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2EmxcfyuLMH4=2Fbg2doT3ED5Nkn+NRIhYpRg=2FjjzcGJxXskVm5GzbVM6ryOL?=
- =?us-ascii?Q?ZDTHCknSk3Bx4wVetjJrUM6AGHj5hDGo6NZ5Elh?=
- =?us-ascii?Q?umy6VTycgROQXZu1cPemWML4O1jP1wVI8AfgxFJ?=
- =?us-ascii?Q?ClY0Rnb4GCFdsA5jGZ65krRICS9MGZDP3BwOpUY?=
- =?us-ascii?Q?5qkaLXLgRwoYa7a3t+VT1mizJF0B2so9agRW8pV?=
- =?us-ascii?Q?J5OGXcUlDOI4K7nMCG65kq6mrZ8l+q8Jl=2FNONPA?=
- =?us-ascii?Q?pYKh5Hi9eF4KgN=2FlRqQdDkr1AQ=3D=3D?=
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Hugo Villeneuve
-	<hvilleneuve@dimonoff.com>, Jon Ringle <jringle@gridpoint.com>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-X-Entity-ID: u001.LMXSJIKpad5A1O6egCWHyQ==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/877] 6.12.112-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152414.738996857@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=us-ascii
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xCDgR-000000022HJ-2srk
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33908
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDP7AMgoxdSLdKLEV18M9XkqWBkn4NI4DoYISCmL9t/p4bKqNcof28gTn/ZvL5Y33wLtH70hJcMUss9AVnRL96D5qZ6NzmDwPBUCbLszJodLMmjKwt4z
+ /hZS0NqhqpppnFl4Pi0UJcHO24376HHWQ8jEefn6wGxVAsDl0W8Wk8mNamzG5DT5hUP6ZoFRGs/9KdZan8W9sez6IY53oQtyd6Y=
 
-The hardware supports automatically sending XON/OFF based on the
-FIFO status and that is already implemented by the driver.
-However that capability was not announced with the UPF_SOFT_FLOW bit.
+On 9/30/26 08:15, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.112 release.
+> There are 877 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.112-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-When the port is opened with the default of XON enabled the driver
-configures that in the hardware.
-If userspace does not want XON/OFF (which is normally the case) it will
-use TCSETS to disactivate it. However the serial core optimises this
-to only notify the driver if someting imporant has changed, and for
-XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-So we end up with unwanted XON/XOFF in the data stream.
-
-The problem only occurs if nothing else needed to be set by termios,
-ie if the user space requested values are the same as the default values,
-except for XON/XOFF.
-Since the default speed is 9600 this means that the problem only occurs
-when requesting 9600, otherwise the call to the driver will be made to
-change the speed, and that will also clear the XON/XOFF.
-As 9600 is quite rare these days that probably explains why this hasn't
-already been seen.
-
-It also only occurs on the first port open after boot since the subsequent
-opens will use the "logical state" set by TCSETS but not communicated to
-the driver the first time.
-
-Signed-off-by: Martin Fuzzey <martin.fuzzey@flowbird.group>
-Fixes: dfeae619d781 ("serial: sc16is7xx")
-Cc: stable@vger.kernel.org
----
-
- V2: rebase to correct tree, add Fixes tag
-
- drivers/tty/serial/sc16is7xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index 296079c16fdb..7ddc8a38adab 100644
---- a/drivers/tty/serial/sc16is7xx.c
-+++ b/drivers/tty/serial/sc16is7xx.c
-@@ -1516,7 +1516,7 @@ static int sc16is7xx_setup_channel(struct sc16is7xx_one *one, int i,
- 	/* Initialize port data */
- 	port->type	= PORT_SC16IS7XX;
- 	port->fifosize	= SC16IS7XX_FIFO_SIZE;
--	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
-+	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
- 	port->iotype	= UPIO_BUS;
- 	port->rs485_config = sc16is7xx_config_rs485;
- 	port->rs485_supported = sc16is7xx_rs485_supported;
--- 
-2.25.1
+Tested-by: Ron Economos <re@w6rz.net>
 
