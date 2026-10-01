@@ -1,133 +1,82 @@
-Received: from sender-pp-o93.zoho.in (sender-pp-o93.zoho.in [103.117.158.93])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A60334CFDE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.93
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839649; cv=pass; b=e2mfKJphaJ1Gazh2VVtrM6h/kNZK3pX2qpUOES5HrP1uSJqXGVUv7wyxM0w+XCWAWl/bjgY+WXPVPNRv/KAqn/l3sT5O0z9/hf+eY4DfZI3Z8t2L8Nj1ywEfCocmvAd0sp0iAS3BUrRbf4Ahq2201l45WqwbQx/72k2SY01RxT8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839649; c=relaxed/simple;
-	bh=eJWJB0H9VEmdFvt7JdLn1cb+jNxA3rfMaBb9MNEK8Pw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CDZ2xrxUSEyBEUDjpH1ZTkIvm1yYM8tVaz522dW0+Mchv0sLO4xdSHsYrGwWfLMl0IT4XNgcal2YcxGsUtc0+1TouXURXPUhOerPYP0KfHGNCotW5TngQD69kkuU0ZQ0bJVGkvcjvVyPHnBkDsvoz0duVy+jpswAYmzw1uWuyfI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in; spf=pass smtp.mailfrom=zohomail.in; dkim=pass (1024-bit key) header.d=zohomail.in header.i=adi.sharma@zohomail.in header.b=Em4/zbh7; arc=pass smtp.client-ip=103.117.158.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B74D48E0C6
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790839662; cv=none; b=WGaZFMMsLgxZxLRAVKRcXpjef/ymwLILTfceKExvhqw57FLZ2Fiwk0/YuMoTpT1HCdf/7Z0nUXwoci4qAg6igoUtrin9pLQ44ILpVRGruGaeOvwKfQ6pMMoIjYmd4NDv8A6ROSkZGpGXrBJtpzQNnh2aZ7jYH7CM2eJv/P4ok8Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790839662; c=relaxed/simple;
+	bh=SmobSyFddogGFeY7M2R8q3FfXAqnnVco+qzB3Pyn1So=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J+NAnMzMNCxZ8HXiN70DGut6f/3MA/7ZWkNxpo35zYBF/EMlahQi9zUaOh+yVQKhvjRM1P7OJ4ZjF8z2CaexV4fz1jmVjxrXJ67G47ifQeF0xn9CML/z3M7t4MmxHc1N/UFHGeRd1yPd05IaWyVn6Occ+U6ix6yDz+mvA2HbiRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2/aphZq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.in header.i=adi.sharma@zohomail.in header.b="Em4/zbh7"
-ARC-Seal: i=1; a=rsa-sha256; t=1790839548; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=Js5gv1tKRCvM5GZJ48x18kZfc1ILec3CSoaoEXg6Jv8aJYA44pfQuNWmvogNL3Ro1B4D/w07GKu2bq8dZhke+JheaxdRM5B9rrjK47x5QNGjQYdikf1oOUzrQvI3eEceufCmYMyltaYsKTnxTjUpvpJHMtuy5DJpvyXiVA5MVUE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1790839548; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pyWpbR5qhAlwkofjRKC2L8fa2LYDr/4E5RqDvdpLEM0=; 
-	b=NmaznjWntl9KVEe2TmJvZwx57xK2PyqdMg/zAtZfTh/qE8Wc7QUXM/SVesHO8eFAMaLVMWhUJnNbc3S2MiHsFIz3D4wn4PY9kIIVIPTBX/tWLrhdYDoZj+5GrdR2uz2PaoFATPqU7B9+iFnaVif760VgsfepuvD3kPqn7Ay+rJA=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=zohomail.in;
-	spf=pass  smtp.mailfrom=adi.sharma@zohomail.in;
-	dmarc=pass header.from=<adi.sharma@zohomail.in>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790839548;
-	s=zoho; d=zohomail.in; i=adi.sharma@zohomail.in;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=pyWpbR5qhAlwkofjRKC2L8fa2LYDr/4E5RqDvdpLEM0=;
-	b=Em4/zbh7bltJFiDOJNpuNKBJu6QtGJ6QLrdStMK81z0B85vIGLPAZOX1ESrFIb5b
-	xlCFi5aJ3gE9GvMJw7Qfj0DhsgsZfNvrDHYQdzOsvUIOyayKoGRVz5JjB+ftENRsPST
-	xJblg0zexbniNZWjP8S3rHYHl+2IfEjPOIa+5fDo=
-Received: by smtp.zoho.in with SMTPS id 1790839546031530.9137311836425;
-	Thu, 1 Oct 2026 12:55:46 +0530 (IST)
-From: Aditya Sharma <adi.sharma@zohomail.in>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	kpsingh@kernel.org,
-	matt@bobrowski.net,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	shuah@kernel.org,
-	puranjay@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Aditya Sharma <adi.sharma@zohomail.in>
-Subject: [PATCH bpf-next v2 1/2] bpf: Remove nmi_uaccess_okay() check in bpf_send_signal_common()
-Date: Thu,  1 Oct 2026 12:54:48 +0530
-Message-Id: <20261001072449.1377267-2-adi.sharma@zohomail.in>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261001072449.1377267-1-adi.sharma@zohomail.in>
-References: <20261001072449.1377267-1-adi.sharma@zohomail.in>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2/aphZq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832F41F000FF;
+	Thu,  1 Oct 2026 07:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790839646;
+	bh=Yn+BNDD3uVIMrlfbHqtIvEfB4qrTW1vWxSV7SfUpzfM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P2/aphZqkksPSqU/+moRoc+UVy5ITbdkRSYXR5ZLi7chDLk5ojqaffNC1+Nqb/ufg
+	 wK0phOBnoqb6kh0AY/49lpEGUnfmoIkmt/PcRo+dN0l9md6pAqftJuAItzVJREdjVA
+	 Uvf8uLD7XdycfIQumf51oZf7XgvgQbuDBTwUJc3LFO33Wm6IRxKUyz3Uk/EQb1IUfT
+	 OZ2qtE/9XfwYoiohbcGL8TmnWJXszOmhtmZ/QNrkaDnJUkSv9NgOBRIPphSqR9NMMl
+	 nIh9aGL9lGEGNXzIc8LOqx1c+HZZm6Nyf4KN4EcbxetPjXj5xwq6ZlNf5GsVpHn+nl
+	 5kLi7X75MKkTw==
+Date: Thu, 1 Oct 2026 08:27:20 +0100
+From: Will Deacon <will@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH v2 19/21] arm64: entry: The great stack switcheroo
+Message-ID: <ar4LWGJ_qfV71_Ia@willie-the-truck>
+References: <20260918161407.2300-1-will@kernel.org>
+ <20260918161407.2300-20-will@kernel.org>
+ <CAD++jLm=9RyVXf+hqFCMir2dBFbwysR5g8Tp2_14H48xtLx8Uw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+In-Reply-To: <CAD++jLm=9RyVXf+hqFCMir2dBFbwysR5g8Tp2_14H48xtLx8Uw@mail.gmail.com>
 
-nmi_uaccess_okay() takes no task argument and is a statement about
-current. When commit 6280cf718db0 ("bpf: Implement bpf_send_signal_task()
-kfunc") made the PF_KTHREAD/PF_EXITING and is_global_init() test the
-supplied task, nmi_uaccess_okay() was left testing current.
+On Wed, Sep 30, 2026 at 11:36:35PM +0200, Linus Walleij wrote:
+> On Fri, Sep 18, 2026 at 6:15 PM Will Deacon <will@kernel.org> wrote:
+> 
+> > With the kernel stack pointer in SP_EL1 and the overflow stack pointer
+> > in SP_EL0, it is now straightforward to switch between the two on
+> > exception entry from EL1 by writing to SPSel. However, since exception
+> > entry sets PSTATE.SP to 1 (selecting SP_EL1 as the stack pointer),
+> > repurposing the overflow stack as a more general kernel exception stack
+> > would require writing to SPSel on every exception entry from the kernel.
+> >
+> > Switch things around so that the overflow stack resides in SP_EL1, with
+> > the kernel stack residing in SP_EL0.
+> >
+> > Signed-off-by: Will Deacon <will@kernel.org>
+> 
+> This patch gives me panic, and as can be seen from the review
+> comments need some love...
 
-As a result bpf_send_signal_task() returns -EPERM whenever the
-calling context happens to be a kernel thread, regardless of which task
-the signal is aimed at. The same call with the same target succeeds or
-fails depending only on what the CPU was running:
+Please can you share the panic message? I'll definitely be reworking
+this based on the review comments, but if there's a bug it would be
+great to see the details now!
 
-  bpf_send_signal_task() from tp_btf/workqueue_execute_start : -EPERM
-  bpf_send_signal_task() from tp_btf/sys_enter               : 0
+Thanks,
 
-The check was carried over from bpf_probe_write_user() when
-bpf_send_signal() was added in commit 8b401f9ed244 ("bpf: implement
-bpf_send_signal() helper"). There it guards a user memory write, but
-bpf_send_signal_common() does no user memory access, so the check has
-nothing to guard here. It is also already a no-op outside x86.
-
-Remove it, and drop the part of the comment above it that described
-the memory access checks, as none remain.
-
-Fixes: 6280cf718db0 ("bpf: Implement bpf_send_signal_task() kfunc")
-Suggested-by: Andrii Nakryiko <andrii@kernel.org>
-Link: https://lore.kernel.org/bpf/20260819124324.43162-1-adi.sharma@zohomail.in/T/#u
-Signed-off-by: Aditya Sharma <adi.sharma@zohomail.in>
----
- kernel/trace/bpf_trace.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-index 195f78db9bda..f6e335a37a91 100644
---- a/kernel/trace/bpf_trace.c
-+++ b/kernel/trace/bpf_trace.c
-@@ -864,15 +864,12 @@ static int bpf_send_signal_common(u32 sig, enum pid_type type, struct task_struc
- 		siginfo = &info;
- 	}
- 
--	/* Similar to bpf_probe_write_user, task needs to be
--	 * in a sound condition and kernel memory access be
--	 * permitted in order to send signal to the current
--	 * task.
-+	/*
-+	 * Similar to bpf_probe_write_user, task needs to be
-+	 * in a sound condition.
- 	 */
- 	if (unlikely(task->flags & (PF_KTHREAD | PF_EXITING)))
- 		return -EPERM;
--	if (unlikely(!nmi_uaccess_okay()))
--		return -EPERM;
- 	/* Task should not be pid=1 to avoid kernel panic. */
- 	if (unlikely(is_global_init(task)))
- 		return -EPERM;
--- 
-2.34.1
-
+Will
