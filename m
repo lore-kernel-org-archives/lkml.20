@@ -1,323 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f40.google.com (mail-dy2-f40.google.com [74.125.229.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD5D3793DF;
-	Thu,  1 Oct 2026 07:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9E33EC691
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790840563; cv=none; b=msugB8hWPqr18H9fqBxxbawokIYjCTH4FNLeDmsymnvUog6HvMPofEUhqHZV4OGaf16dFm4ssQBXfKe1oksyCAv6VcSBbeYjZA5pdSD3EA2wKFUWyvoyusRoxlm7HdO85+vSuA05jUUAh7eYBmrGwO63Yr5UPV1rWuR2LOPf/Mc=
+	t=1790840630; cv=none; b=uSsyE0DlNHDMNmGW1IXvTBwWI+C4aCP5c8UVn52tPtMZxzPN+Dvt8f6GmHRjNuI5fLVQL5BS1kA7NwVU8QQc6mEMsE7PGHYTbQ/HSznHAZaqgq1isY5BjvduiT1HLEyjTcnwEByGGBBPWnx+QU8TsdPYreU6h94Gmj2Yq9kZDdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790840563; c=relaxed/simple;
-	bh=kEbYz9lKtt8SL8bR22g2pgg1XGmY3h47dOpgVtAIoMc=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=oO4Jf9gXvcK7we9u4dFEJtIl8czT4KAvUio5guQlbTmBO3gF5rij+ftqoOyEarWR5OrCYdQnsthhIkjL0Mh1Ntl/Xxt6TheXb2d6ohLr3nHYN74SuVcGZ3Eu8Md3xB7vOc9G4cYrgLj3lqDb1xWqSiigXFdedjE6zOjngMmRr7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C7AdpxLE; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790840630; c=relaxed/simple;
+	bh=SSwCzyX87gRH7hW4GI560tjujgur5XBXYAVfLJ2Z25E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AKkKIx57kdYTb3dscTZCEifKH6UBybr8abYMr5s0dtDJDqNsrGelU7YuLUthEgYNumcJXVUs8wL4gwlvhO9VeKEeEzsuJSru7LgP+xCIzFO+MPNTt5orS8SZV8KRJUYC0n7gTOK+mn+1qinhV2CnX7iapj9d8mHcUXQLYWsyIOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OSz0R5CQ; arc=none smtp.client-ip=74.125.229.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C7AdpxLE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790840561; x=1822376561;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=kEbYz9lKtt8SL8bR22g2pgg1XGmY3h47dOpgVtAIoMc=;
-  b=C7AdpxLEKfXKzAT6oIE8m3/638vOq7bjr9W+klO2ZJppzve/2PjblW13
-   +l4Es4HNiiFwEsaL8d5DETpXJKqGirZY+3qHQ0hI78mLWXSULXIbHL4Gi
-   3wXDc3Ks2si8z0CWUT1UJnBYvLua0z0yFfDFFbhyMCvRRWdwthZJarUL6
-   moQjzcuci88cmEJR91JPybYmacBrVMi7hyy7FpufHnvrg2Mjqf7ijRLb4
-   vZztFsbUlQqI7Ew6y75dgdoH6XDtPXo/9C/zHUhXWgblY6nqFE2iIQVqW
-   5sq0V6lBKxPqRlgtCqyTUC30UYiq4CPY1qcWkkDoKyqJfJEHJQdR5m+aC
-   A==;
-X-CSE-ConnectionGUID: Dy/cE0LETMishfjVLnvo4A==
-X-CSE-MsgGUID: 9Ow4pFsvThe9jCVNdyduqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="101750110"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="101750110"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:42:40 -0700
-X-CSE-ConnectionGUID: aW5NiRZkSNGs/jcW+GJb3A==
-X-CSE-MsgGUID: KXpVgJN/TL+cEyAbPwt/YQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="275962587"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.34])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:42:34 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 1 Oct 2026 10:42:27 +0300 (EEST)
-To: Mingyou Chen <qby140326@gmail.com>
-cc: Hans de Goede <hansg@kernel.org>, 
-    Ilya Gladyshev <ilya.gladyshev@linux.dev>, KentoNion <kento@kekto.ru>, 
-    platform-driver-x86@vger.kernel.org, ted eric <ericted8810@gmail.com>, 
-    Armin Wolf <W_Armin@gmx.de>, LKML <linux-kernel@vger.kernel.org>, 
-    Chris Taraszka <chris@miget.com>, 
-    Matias Civadda <matias.civadda2342001@gmail.com>, 
-    =?ISO-2022-JP?Q?=1B$B9b=1B=28J_=1B$B=3DSJ8=1B=28J?= <btx342@gmail.com>, 
-    powerfullz <wleizc7319@gmail.com>, 
-    =?GB2312?B?y+8g0/7D+g==?= <wolf109909@outlook.com>, 
-    =?ISO-8859-15?Q?Milo=A8_Vlku?= <vlku.milos.fun@gmail.com>, 
-    Rsplwe <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>, 
-    Anton Karasev <uselessfire@gmail.com>, Nika Krasnova <nika@nikableh.moe>
-Subject: Re: [PATCH v7 2/5] platform/x86: bitland-mifs-wmi: Merge the function
- of redmi-wmi into the bitland driver
-In-Reply-To: <20261001002239.31461-3-qby140326@gmail.com>
-Message-ID: <341535eb-4942-48bb-daf4-a3e2817932d2@linux.intel.com>
-References: <20261001002239.31461-1-qby140326@gmail.com> <20261001002239.31461-3-qby140326@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OSz0R5CQ"
+Received: by mail-dy2-f40.google.com with SMTP id 5a478bee46e88-34ea9118159so98eec.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:43:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790840628; x=1791445428; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ILJGyWA9cCx1Ar1Qgl+/EPmfWI2kJKAy/oM+W8KfewE=;
+        b=OSz0R5CQUVFxw5kL7jht1KYZ2LsCg07zhBzA2M5p/2jdd1OI652P4Jpr3ljJE9UOL5
+         R5qFLWs5MibuXvtuyySTM6dvK5hpB3GkbRvjDY5p9bMKaIUMMrKDHtzpplkn4oFA4FF3
+         0MldKxmvzyBQ69u9H/E9Y5y44v9RbSZm8XJOoGXdK1L6SbpclVfzfdBJpK1Ms4DNdftx
+         I95538SBuWMUpS3YCNBopCDQlUCM40pRR2aF7UpFAK7+7A7t1zkIYeiNBwv7X4FCzC9d
+         NHUn19z35s3Z6lenyLGECpehDZdYQ0SoRf2ip38PrE5D/25TlIPTsqyasbOUPqX8mOiS
+         Zasg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790840628; x=1791445428;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ILJGyWA9cCx1Ar1Qgl+/EPmfWI2kJKAy/oM+W8KfewE=;
+        b=gAY+6STB6mdv9ETdVK9KozCdtkArs7rLtfGrVc4sHCqGYPYPbVR3tcGA2DySCKTYtq
+         3LMfXiWdwJ8iJT9J35/yvKvikPK1mNdVk2ZUiYfa8pwu+Z/MDPpQhHy57J+82DJRCIxa
+         OgSpe8QK5zRHZsPe1LLn3MKZCNhdEim0O9KVkmeCIgDmv9vPns51by84U7oeeCFqF7tz
+         6egoX+wcKr9xrloWGanwV/I7ktSFFjaFrMK5P+bxmxUpNyNW64tzLmnhmd0cTvX80a5u
+         QSOJz8qHNKxLdo7NGAC+4kerprwTEs/XIRQJICuvk7vT3mpiVVNqiaV7kQG8SvHEPVjv
+         1vcw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRTM8taF9GiJFepGu4ByeMSh3WrWl959L+T6RNc3FWDEkvI404s600IX27DuIQiYgxpod8dY4p5MFJ5pI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIL2aipLyCZcsWKTrjcAwtL++UfP3BrDrTqUUk7oE7xnm0Kw6o0
+	gXE8jlpA0exidKQEp8pPEu61v8GisvqQ1ss13eEqqZCYWL9NguZUKq9J
+X-Gm-Gg: AYBFou0r9pOlEHKbn7gHQLjVrhh6DY6UteWu2i1oZcJHl5qQYY2l9aULLjAeGbukVSc
+	r9HyG1837HKWacPFAnZ9IHGVjUfiCr9bEHL+inVTaVlSofU138aw+cRdkpHgK7gANV6PayowGb8
+	+Qtj57nLFHIouYQWpHr1pVu1k/j2+EveJ+m5OyPekZYZWkhXgDWMAiWRHk70872xekL5i3tmvF8
+	fe5KYX7P9NNLv3GWT8+bE8VrWDuUZY2VkIAylzUXTXDGN6naWWubPF8pr0mTs4ZRsnTj4GYrB+Z
+	QHbIhf+o+RbtdO+qyKDxoNZpXZcJUL0PACfPKwRIhJJ+hCLKrRA6LJzvh+8YPZUwMVBy8ZpwpdB
+	qfZlSMGbIaFCt7YH/2BP7iAPKrI8RLrYxuTsFBBF/mBXEvxhmQa3mc7OKiDXf5TuLcLpEkwQPiJ
+	w5EOCd+EA48jc6SPHneyPiwaQpcfUOZDRF00xqOD/aXDImkxeMjAfCbCrHHLk3RBAp3Q==
+X-Received: by 2002:a05:7300:b507:b0:34c:8c69:5294 with SMTP id 5a478bee46e88-34cdd68f6fcmr6014635eec.35.1790840627612;
+        Thu, 01 Oct 2026 00:43:47 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db5016cd1sm4587555eec.31.2026.10.01.00.43.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 00:43:47 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 01 Oct 2026 15:43:43 +0800
+Subject: [PATCH v5] jbd2: fix shrinker scan budget accounting in
+ jbd2_journal_shrink_scan()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-fix-jbd2-shrink-scan-nr-scanned-v5-1-5348b51efce2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAC4PvmoC/5XPwW7CMAwG4FdBOeMpcdJAOO09EIfgODQbpFOCK
+ ibUd1/aE+IyOFm/JX+/fBeVS+Iqdqu7KDymmobcQrdeCep9PjGk0LJAiVY63EJMN/g6BoTal5S
+ /oZLPkMsyMwcgLd2WgpOKUTTlp3A7WRr2h5b7VK9D+V0KRzVvX7dHBQrYRiOVZbLOfZ4uPp0/a
+ LiI2R7xTQ+bt2HFkUn7GOKzp9/0dPOcsuS977RB+eyZB0/L/z0z/3t0XhMRdmgevWma/gC42b5
+ AvgEAAA==
+To: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>, 
+ Jan Kara <jack@suse.cz>
+X-Mailer: b4 0.13.0
 
-On Thu, 1 Oct 2026, Mingyou Chen wrote:
+do_shrink_slab() reads count_objects() once per invocation to derive
+a one-shot scan budget, then calls scan_objects() repeatedly until
+that budget is exhausted or scan_objects() returns SHRINK_STOP.
+include/linux/shrinker.h documents that scan_objects() "should track
+its actual progress" in sc->nr_scanned, so do_shrink_slab() can tell
+when there is nothing left to examine and stop early.
 
-> The bitland-mifs-wmi and legacy redmi-wmi drivers both attempt to bind
-> to the same WMI GUID (46C93E13-EE9B-4262-8488-563BCA757FEF). This
-> overlap causes a device registration conflict, preventing one of the
-> drivers from loading properly depending on the module initialization
-> order.
-> 
-> Merge the event handling logic from redmi-wmi into bitland-mifs-wmi. By
-> handling both device layouts within a single driver, we eliminate the
-> GUID ownership conflict.
-> 
-> Tested-by: Nika Krasnova <nika@nikableh.moe>
-> Tested-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-> Reviewed-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
-> ---
->  drivers/platform/x86/bitland-mifs-wmi.c | 147 ++++++++++++++++--------
->  1 file changed, 101 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-> index dd1648b7de77..85683eb116c9 100644
-> --- a/drivers/platform/x86/bitland-mifs-wmi.c
-> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
-> @@ -35,6 +35,11 @@
->  #include <linux/units.h>
->  #include <linux/wmi.h>
->  
-> +#define BI_HOTKEY_CODE(id, low, high) \
-> +	(((u32)(high) << 24) | ((u32)(low) << 16) | ((u32)(id) << 8) | WMI_EVENT_TYPE_HOTKEY)
-> +
-> +#define AI_KEY_VALUE_MASK    BIT(8)
-> +
->  #define DRV_NAME		"bitland-mifs-wmi"
->  #define BITLAND_MIFS_GUID	"B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B"
->  #define BITLAND_EVENT_GUID	"46C93E13-EE9B-4262-8488-563BCA757FEF"
-> @@ -80,9 +85,9 @@ enum bitland_mifs_power_profile {
->  };
->  
->  enum bitland_mifs_event_id {
-> -	WMI_EVENT_RESERVED_1		= 1,
-> -	WMI_EVENT_RESERVED_2		= 2,
-> -	WMI_EVENT_RESERVED_3		= 3,
-> +	WMI_EVENT_SWITCHVIDEOMODE	= 1,
-> +	WMI_EVENT_SELECTIVE_SCREENSHOT	= 2,
-> +	WMI_EVENT_ALL_APPLICATIONS	= 3,
->  	WMI_EVENT_AIRPLANE_MODE		= 4,
->  	WMI_EVENT_KBD_BRIGHTNESS	= 5,
->  	WMI_EVENT_TOUCHPAD_STATE	= 6,
-> @@ -104,6 +109,7 @@ enum bitland_mifs_event_id {
->  	WMI_EVENT_FN_5			= 24,
->  	WMI_EVENT_REFRESH_RATE		= 25,
->  	WMI_EVENT_CPU_FAN_SPEED		= 26,
-> +	WMI_EVENT_CONFIG		= 27,
->  	WMI_EVENT_GPU_FAN_SPEED		= 32,
->  	WMI_EVENT_WIN_KEY_LOCK		= 33,
->  	WMI_EVENT_RESERVED_23		= 34,
-> @@ -607,18 +613,60 @@ static const struct attribute *const laptop_attrs[] = {
->  ATTRIBUTE_GROUPS(laptop);
->  
->  static const struct key_entry bitland_mifs_wmi_keymap[] = {
-> -	{ KE_KEY, WMI_EVENT_OPEN_APP, { KEY_PROG1 } },
-> -	{ KE_KEY, WMI_EVENT_CALCULATOR_START, { KEY_CALC } },
-> -	{ KE_KEY, WMI_EVENT_BROWSER_START, { KEY_WWW } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_J, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_F, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_0, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_1, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_2, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_3, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_4, { KEY_RESERVED } },
-> -	{ KE_IGNORE, WMI_EVENT_FN_5, { KEY_RESERVED } },
-> -	{ KE_END, 0 }
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_OPEN_APP, 1, 0), { KEY_PROG1 } },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_CALCULATOR_START, 1, 0), { KEY_CALC } },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_BROWSER_START, 1, 0), { KEY_WWW } },
-> +
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_J, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_4, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 0, 0), {} },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_SELECTIVE_SCREENSHOT, 0, 0),
-> +		{ KEY_SELECTIVE_SCREENSHOT } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_ALL_APPLICATIONS, 0, 0), { KEY_ALL_APPLICATIONS } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_CONFIG, 0, 0), { KEY_CONFIG } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_CONFIG, 1, 0), { KEY_CONFIG } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_SWITCHVIDEOMODE, 1, 0), { KEY_SWITCHVIDEOMODE } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH_RATE_TOGGLE } },
-> +
-> +	/* AI button has code for each position */
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(0x19, 1, 0), { KEY_ASSISTANT } },
-> +
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x80, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 5, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x0a, 0), {} },
-> +
-> +	/* Xiaomi G Command Center */
-> +	{ KE_KEY, BI_HOTKEY_CODE(0x0a, 1, 0), { KEY_VENDOR } },
-> +
-> +	/* OEM preset power mode */
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 1, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 2, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 3, 0), {} },
-> +	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 4, 0), {} },
-> +
-> +	/* Fn Lock state */
-> +	{ KEY_FN_ESC, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 0, 0), {} },
-> +	{ KEY_FN_ESC, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 1, 0), {} },
-> +
-> +	/* Fn+`/1/2/3/4 */
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 1, 0), { KEY_F13 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 1, 0), { KEY_F14 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 1, 0), { KEY_F15 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 1, 0), { KEY_F16 } },
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 1, 0), { KEY_F17 } },
-> +
-> +	{ KE_END }
+jbd2_journal_shrink_scan() never updates sc->nr_scanned, so it
+defaults to the full sc->nr_to_scan on every call. do_shrink_slab()
+therefore always believes a full batch was examined, regardless of
+what jbd2_journal_shrink_checkpoint_list() actually did, and keeps
+calling scan_objects() until the budget derived from the (possibly
+stale) percpu checkpoint count is drained, even after the checkpoint
+list has already been fully drained.
 
-Does this end up dropping handling for the keys added in e0d6312578e1 
-("platform/x86: redmi-wmi: report EC state change events").
+jbd2_journal_shrink_checkpoint_list() already tracks examined
+buffers accurately: it decrements its nr_to_scan in/out parameter
+for every journal_head walked, whether or not it gets freed. Derive
+sc->nr_scanned from the difference, and return SHRINK_STOP once it
+comes back zero, since that only happens when the checkpoint list
+had nothing left to walk. Key this off sc->nr_scanned rather than
+nr_shrunk: a batch can find every buffer in its transactions busy
+and free none, while later transactions may still hold buffers
+whose writeback has completed; sc->nr_scanned reflects that real
+work either way.
 
---
- i.
+Tested by creating 20000 small files, running sync, and letting
+checkpointing settle for a few seconds (with systemd-journald and
+cron stopped, since their own writes to the same filesystem keep
+re-populating the checkpoint list and mask the effect being
+measured), then triggering "echo 2 > /proc/sys/vm/drop_caches" while
+tracing jbd2_shrink_scan_enter/exit:
 
->  };
->  
->  static void bitland_notifier_unregister(void *data)
-> @@ -736,13 +784,36 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
->  				       &drv_data->notifier);
->  }
->  
-> +static void bitland_mifs_wmi_report_key(struct wmi_device *wdev, u32 payload)
-> +{
-> +	struct bitland_mifs_wmi_data *data = dev_get_drvdata(&wdev->dev);
-> +	struct key_entry *entry;
-> +	bool autorelease = true;
-> +	int value = 1;
-> +
-> +	entry = sparse_keymap_entry_from_scancode(data->input_dev, payload);
-> +	if (!entry) {
-> +		dev_dbg(&wdev->dev, "Unknown WMI hotkey with payload 0x%08x\n", payload);
-> +		return;
-> +	}
-> +
-> +	/* AI key quirk */
-> +	if (entry->keycode == KEY_ASSISTANT) {
-> +		value = !(payload & AI_KEY_VALUE_MASK);
-> +		autorelease = false;
-> +	}
-> +
-> +	guard(mutex)(&data->lock);
-> +	sparse_keymap_report_entry(data->input_dev, entry, value, autorelease);
-> +}
-> +
->  static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->  				    const struct wmi_buffer *buffer)
->  {
-> -	struct bitland_mifs_wmi_data *data = dev_get_drvdata(&wdev->dev);
->  	const struct bitland_mifs_event *event = buffer->data;
->  	struct bitland_fan_notify_data fan_data;
->  	u8 brightness;
-> +	u32 payload;
->  
->  	/* Validate event type */
->  	if (event->event_type != WMI_EVENT_TYPE_HOTKEY)
-> @@ -758,24 +829,13 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->  		blocking_notifier_call_chain(&bitland_notifier_list,
->  					     BITLAND_NOTIFY_KBD_BRIGHTNESS,
->  					     &brightness);
-> -		break;
-> +		return;
->  
->  	case WMI_EVENT_PERFORMANCE_PLAN:
->  		blocking_notifier_call_chain(&bitland_notifier_list,
->  					     BITLAND_NOTIFY_PLATFORM_PROFILE,
->  					     NULL);
-> -		break;
-> -
-> -	case WMI_EVENT_OPEN_APP:
-> -	case WMI_EVENT_CALCULATOR_START:
-> -	case WMI_EVENT_BROWSER_START: {
-> -		guard(mutex)(&data->lock);
-> -		if (!sparse_keymap_report_event(data->input_dev,
-> -						event->event_id, 1, true))
-> -			dev_warn(&wdev->dev, "Unknown key pressed: 0x%02x\n",
-> -				 event->event_id);
-> -		break;
-> -	}
-> +		return;
->  
->  	/*
->  	 * The device has 3 fans (CPU, GPU, SYS),
-> @@ -783,6 +843,14 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->  	 */
->  	case WMI_EVENT_CPU_FAN_SPEED:
->  	case WMI_EVENT_GPU_FAN_SPEED:
-> +		/* Redmi refresh rate toggle quirk */
-> +		if (event->event_id == WMI_EVENT_CPU_FAN_SPEED &&
-> +		    event->value_low == 0 && event->value_high == 0) {
-> +			payload = BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0);
-> +			bitland_mifs_wmi_report_key(wdev, payload);
-> +			return;
-> +		}
-> +
->  		if (event->event_id == WMI_EVENT_CPU_FAN_SPEED)
->  			fan_data.channel = 0;
->  		else
-> @@ -793,27 +861,14 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->  		blocking_notifier_call_chain(&bitland_notifier_list,
->  					     BITLAND_NOTIFY_HWMON,
->  					     &fan_data);
-> -		break;
-> -
-> -	case WMI_EVENT_AIRPLANE_MODE:
-> -	case WMI_EVENT_TOUCHPAD_STATE:
-> -	case WMI_EVENT_FNLOCK_STATE:
-> -	case WMI_EVENT_KBD_MODE:
-> -	case WMI_EVENT_CAPSLOCK_STATE:
-> -	case WMI_EVENT_NUMLOCK_STATE:
-> -	case WMI_EVENT_SCROLLLOCK_STATE:
-> -	case WMI_EVENT_REFRESH_RATE:
-> -	case WMI_EVENT_WIN_KEY_LOCK:
-> -		/* These events are informational or handled by firmware */
-> -		dev_dbg(&wdev->dev, "State change event: id=%d value=%d\n",
-> -			event->event_id, event->value_low);
-> -		break;
-> +		return;
->  
->  	default:
-> -		dev_dbg(&wdev->dev, "Unknown event: id=0x%02x value=0x%02x\n",
-> -			event->event_id, event->value_low);
->  		break;
->  	}
-> +
-> +	payload = get_unaligned_le32(buffer->data);
-> +	bitland_mifs_wmi_report_key(wdev, payload);
->  }
->  
->  static const struct wmi_device_id bitland_mifs_wmi_id_table[] = {
-> 
+                      total scan_objects()   calls with
+                      calls                  nr_scanned == 0
+  before this patch   22                     10 (45%)
+  after this patch     8                      1 (12%)
+
+Fixes: 4ba3fcdde7e3 ("jbd2,ext4: add a shrinker to release checkpointed buffers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+---
+V4 -> V5:
+- Revert to keying SHRINK_STOP off sc->nr_scanned (buffers actually
+  examined) rather than nr_shrunk (buffers actually freed), as v1
+  originally did. Jan Kara rejected the nr_shrunk-based v4, pointing
+  out that failing to reclaim the buffers in one batch doesn't mean
+  later transactions won't have freeable ones; Sashiko AI review
+  independently flagged the same issue. Restore Jan Kara's v1
+  Reviewed-by: the diff in jbd2_journal_shrink_scan() is unchanged
+  from what he reviewed there (only the explanatory comment reads
+  differently).
+- Redesign the test: the old methodology (no sync, buffers kept busy
+  by design) exercises exactly the busy-but-productive case Jan Kara
+  describes, so it isn't a useful before/after comparison for this
+  change. Replace it with one that lets the checkpoint list actually
+  drain via sync, then measures scan_objects() calls wasted after
+  draining due to percpu-counter staleness.
+
+V3 -> V4:
+- Shorten the SHRINK_STOP comment; no functional change (the trigger
+  has been nr_shrunk == 0 since v2, not sc->nr_scanned).
+- Carry forward Jan Kara's v3 Reviewed-by.
+
+V2 -> V3:
+- Rebase onto v7.3-rc5. It already includes Max Kellermann's
+  "jbd2: bound shrinker scans by examined checkpoint buffers"
+  (15cb16496446), which independently fixes the busy-buffer
+  accounting in journal_shrink_one_cp_list()/
+  jbd2_journal_shrink_checkpoint_list() that v2 also touched. Drop
+  the now-redundant checkpoint.c changes; this revision only touches
+  journal.c, reusing the accurate nr_to_scan tracking Kellermann's
+  fix already provides.
+- Add a Fixes: tag for the commit that introduced
+  jbd2_journal_shrink_scan() without ever setting sc->nr_scanned.
+- Re-measure test data against the new baseline (176 -> 8 calls,
+  vs the old baseline's 168 -> 7).
+
+V1 -> V2:
+- Count examined buffers, not just freed ones, in
+  journal_shrink_one_cp_list() (Sashiko AI review finding).
+- Trigger SHRINK_STOP on nr_shrunk == 0 instead of
+  sc->nr_scanned == 0.
+
+v4: https://lore.kernel.org/r/20260930-fix-jbd2-shrink-scan-nr-scanned-v4-1-eb9a3ccc2524@gmail.com
+v3: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v3-1-916caaa53420@gmail.com
+v2: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v2-1-7e1efec3afdf@gmail.com
+v1: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v1-1-e6f4016ec699@gmail.com
+---
+ fs/jbd2/journal.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index 00f5a98f3d4fe..eac5f84a1afc5 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -1263,10 +1263,22 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ 	trace_jbd2_shrink_scan_enter(journal, sc->nr_to_scan, count);
+ 
+ 	nr_shrunk = jbd2_journal_shrink_checkpoint_list(journal, &nr_to_scan);
++	sc->nr_scanned = sc->nr_to_scan - nr_to_scan;
+ 
+ 	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
+ 	trace_jbd2_shrink_scan_exit(journal, nr_to_scan, nr_shrunk, count);
+ 
++	/*
++	 * Key SHRINK_STOP off sc->nr_scanned (buffers actually examined),
++	 * not nr_shrunk (buffers actually freed): a batch can find every
++	 * buffer in its transactions busy and free none, while later
++	 * transactions may still hold buffers whose writeback has
++	 * completed. sc->nr_scanned only comes back 0 when the checkpoint
++	 * list had nothing left to walk.
++	 */
++	if (sc->nr_scanned == 0)
++		return SHRINK_STOP;
++
+ 	return nr_shrunk;
+ }
+ 
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260928-fix-jbd2-shrink-scan-nr-scanned-c3098cd901e2
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
+
