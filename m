@@ -1,210 +1,135 @@
-Received: from mta1.migadu.com (out-129.mta1.migadu.com [95.215.58.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9B94F3ED7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDF74F4021
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846330; cv=none; b=cpzvuQWJ/IiDLLAAZpM5/9loUCZOj+Sg8n23MESiuIdp+lLGEjTuYdGwnDPRwIeVwNa1FMDBwKQucOizCrU5NxkYyEMr2+uvH3sRD26Mq6uTvpuTt4pNI5/PcLzX9bOwYi80VP2wPNBksDOwLQV/RxdHpCHm8k5Nl9KIgiEbTnc=
+	t=1790846331; cv=none; b=nnBD7dFufKKi3/jw6dJAyGqpspnDcKfHHaUCHrRXAmqAbnz2sKTtSLAOVvA0g5jQ1tMmciE1HwxfC/KI10QjIwIElHW9m2DmYPiqUz6uiCKJKIU9k1eAPhM3EsLsOCLSbylL4ZPhQkHEssrOXHtUbRQlY1oqW5FxTgr0ZQz7Wbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846330; c=relaxed/simple;
-	bh=J2XNiKbHwo+NoskCXkX/ICLGyx/2EEg8o+1tuZd1c7A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gQz5eEemPTL7bJHNvTssWiqxt0Kq6stw+MozqrCvL64JWjz/Me9mLvz7vAIxronRrgtXr8RQsWRK35gl4HuyKo/LmpnD0mPV32BIc7Y3GZjYl+sjykKVrIhNB65OBycyUQZC/2WS6b2W8PZ23/dxrys6EOVFhXIAsksLFYpoeWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NQvSesy3; arc=none smtp.client-ip=95.215.58.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790846331; c=relaxed/simple;
+	bh=JBnMyusVHVvC2aoo0+BM3BndoISvY4x9bprjjSPUysQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jUnZjaLRllHOjHOrX8FGk0ibN6WZjygk6Emf/IvsoxhB0T9xhjuHFLi8sMRpZazc4hJP3lQN3LGLUBRoQtO8M9UUF68ZJnJxsNG51kEE4sqMoo5VEYVOMwTRmbgviDhM9lX8jxmNk20Q0m00JWzkx2+QaW3oJIA56srM/VvtU7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YryeaWqR; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UjfYmEk2; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NQvSesy3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J2XNiKbHwo+NoskCXkX/ICLGyx/2EEg8o+1tuZd1c7A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790846325; v=1; x=1791451125;
- b=NQvSesy3TEBkM4iv4ygctdMZ6KLgH0E79ozZE7SrkU2CadEFu2U670axeR+XHpnWVhbHqQnn
- h6fztk/Q/rhLR9rmy+W0wVWTTtt1kvREv2D5kHitCxCgJRxPkn28SOBkRVZk1p2sDmMvGj+ZD2w
- a4dKaeXSn6G9fl9C5tHUviSE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0cfc9993cf8eebf4;
-	Thu, 01 Oct 2026 09:18:45 +0000
-X-Mizu-Trace-ID: 0cfc9993cf8eebf4
-X-Migadu-Flow: FLOW_OUT
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Straube <straube.linux@gmail.com>,
-	Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>
-Subject: [PATCH rtw-next v6 2/6] wifi: rtw88: 8723b: add the RTL8723B register definitions
-Date: Thu,  1 Oct 2026 11:18:31 +0200
-Message-ID: <20261001091835.67909-3-luka.gejak@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001091835.67909-1-luka.gejak@linux.dev>
-References: <20261001091835.67909-1-luka.gejak@linux.dev>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YryeaWqR";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UjfYmEk2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790846328;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=taG+MN3du7wj7jcNpPA84ZR57hK9GIPZJrpMAEYpafc=;
+	b=YryeaWqR/fuvScjvAWdFyyRvewR0QnbyF2Z90VxUiucJGl1y5hyTs3OIwww6Xp4rMdBBHY
+	ZlxUxj3qO+if3IihaQ4/c7pWj+JGdMnqacdxj5HFnQ9X/OUd8fsAKwK/TrQkUts7ezzq62
+	ap2gETvIR/1V8MOUEBRHQI3jzSbVk88=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-686-uW9I11kHNGa5vC90B-2naw-1; Thu, 01 Oct 2026 05:18:47 -0400
+X-MC-Unique: uW9I11kHNGa5vC90B-2naw-1
+X-Mimecast-MFC-AGG-ID: uW9I11kHNGa5vC90B-2naw_1790846326
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6aaa4535b3bso7079859a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:18:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790846326; x=1791451126; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=taG+MN3du7wj7jcNpPA84ZR57hK9GIPZJrpMAEYpafc=;
+        b=UjfYmEk2a6QTOTB7eeagwCcSv2WVwUG7ol56IwlNM8q48a1FgCOOXFJiSOTzKeOJbM
+         pWmjEwnpvLJsgZLAwfhgS48HmqUcecuInmYeA0kbJSooDjnqAsud1NBeuNPyNSnxpzF7
+         uk0XYd32k/Dsk42bgQHCokOtHrJijE5aCkh7gVZ+cBtuEteVxlluYKpRGYSSlw9/H+Xc
+         U1k2O2NP4jZOhjMzGg9cB5ft/31NKRXaPZhgZKzKeqLY//NIS5jIzqnpP4jMcvyAd4pS
+         T3+voC+N+d5avaJx1Es5RHtZGlfK3c21Dya9GWe+FLB+/6vLCKcQHqigKujnTFkMNNOm
+         UREQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790846326; x=1791451126;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=taG+MN3du7wj7jcNpPA84ZR57hK9GIPZJrpMAEYpafc=;
+        b=09LapXqJaYzEraWE7bFfg2rof6dKOJmxP2NnhrJ/xF4RwJuS0jytOFti/gvCcBUVdW
+         lqOLeM3bpoksVqn7Efh22VONVb0xZtgKpvZUEAqjkCCfwDx10QHER+fJV4MZKJ2xfZ9P
+         CRy0883jdRR6ttlhNej/g1axTreMJ32gAqaa1sqK5+p4xMj/geQC4aJQquYnaMBUvE73
+         2mZYxBFb0dmuMcJy0i/V6qeMJmbziKYd2oQc2JphpiZGGVV70BCx7znWvtMDtdr6fzDF
+         HtCfM1Fc9Y1pcaujKn3wKc0sMDX3FN8zW69zruupt4A1QpJrCQr1YpQTc3R4RoExqX+Y
+         JihQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRsWIeUU8oGKUHJXt+uHwQr+W4lg0zVCZY5505ozAlSl0JBNxM4eBAIa/bccngWav/L43ss8zMpQ6M5yk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLx3ZkPwSuNwPaL26PIeq6fhcNE+W0ZXiMXO+UzirdNJKQoDH30
+	jHtxPmX+m2oIySkfAs8vnBPMm4xZ51FhI9fnm/xy/EwfFFdW48U1BP3XTPOzBz5peenRC/epInp
+	Y0ZDeCCNhAyhXEjoQKEVbJBBw7Wr3QNnC0SRilEiGSr2wY1kbOxEJAU4C0jdEoZNOyg==
+X-Gm-Gg: AYBFou1u5HUmatJjoQzxnl6QaNhiTuR6hA2Bqb7AsHzIqLlW8M94+ObME1QH2WPaq1H
+	Ouw7smB/LJp6/gP6Yc5LdLpGlk7bl1FF4dXCAyCzQmw2Vp8frRF6p4gVpDqI/sBNVINWZVLq9c6
+	/qx/5oKNNJen34mTbSbmR7eN13TUB3hgBpeAk8v4gyW2s8OktIVEJfm42pkmiBjlp3Re0ZFfM6r
+	AqonoJ5MZTKRYvUvXzL8dAOTGqJnUR+JqtHpDINDhhWKoUSNLI17s2oZb+YBTjP+cVxYQMO3XhW
+	xJzhcSqjuTlb3V8KLZZmxRGs0SWhepwL5goIXezAGzs2wwequMDV3YmUqZ4VG0tswCU+YUkiCu0
+	7qS3DVFuFypjQnSxOE1FsO7bVpaMiGy0vVqMA+3qucFH9cF6SwMAKJCT2CGxOHOQxrUiXxBCKMA
+	==
+X-Received: by 2002:a05:6402:20d3:10b0:6ae:19c2:bae8 with SMTP id 4fb4d7f45d1cf-6ae19c2c1e8mr2528473a12.26.1790846326291;
+        Thu, 01 Oct 2026 02:18:46 -0700 (PDT)
+X-Received: by 2002:a05:6402:20d3:10b0:6ae:19c2:bae8 with SMTP id 4fb4d7f45d1cf-6ae19c2c1e8mr2528460a12.26.1790846325893;
+        Thu, 01 Oct 2026 02:18:45 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae5ca64e84sm721879a12.21.2026.10.01.02.18.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 02:18:45 -0700 (PDT)
+Message-ID: <804cd85f-21d0-4fd9-9e53-cdcbfed27e9f@redhat.com>
+Date: Thu, 1 Oct 2026 11:18:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 0/2] rxrpc: RACK-TLP fixes
+To: David Howells <dhowells@redhat.com>, netdev@vger.kernel.org
+Cc: Marc Dionne <marc.dionne@auristor.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260925191520.2206700-1-dhowells@redhat.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260925191520.2206700-1-dhowells@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add the register offsets and bit definitions the RTL8723B driver uses,
-including the power and system function bits, the BT antenna and efuse
-control registers, the packet lifetime and MAC ID drop registers, the
-FPGA0 HSSI and RF switch control registers, and the RFE antenna path
-registers.
+On 9/25/26 21:15, David Howells wrote:
+> Here are some fixes for AF_RXRPC's RACK-TLP implementation.  It's split
+> into two patches: the first just fixes the RFC number in comments but has
+> no actual code changes; the second does the actual fixing, including:
+> 
+>   - Making the in/exiting fast/RTO recovery flags available to RACK-TLP code
+>     after the Reorder timer expires.
+> 
+>   - Arming the RTO timer if no other timer is running and there is unacked
+>     data.
+> 
+>   - Initialising the TLP state in the correct place.
+> 
+>   - Not resetting the xmit timestamp when marking a packet lost.
+> 
+>   - Correctly checking the flight size.
+> 
+>   - Correctly tracking the number of packets in the Tx window that have been
+>     re-sent and thus correctly estimating the flight size.
+I'm not sure if the sashiko feedback is worth addressing, or could be a
+follow-up. Also Linus is pushing back quite a bit on fixes this late in the
+cycle; we are trying to defer things to 'next', where appropriate.
 
-Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
----
- drivers/net/wireless/realtek/rtw88/reg.h | 34 ++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+I think patch 1/2 will not pass Linus' filter, and possibly even patch 2/2
 
-diff --git a/drivers/net/wireless/realtek/rtw88/reg.h b/drivers/net/wireless/realtek/rtw88/reg.h
-index 0b9ba6f37680..afcdb66fdb9a 100644
---- a/drivers/net/wireless/realtek/rtw88/reg.h
-+++ b/drivers/net/wireless/realtek/rtw88/reg.h
-@@ -8,7 +8,9 @@
- #define REG_SYS_FUNC_EN		0x0002
- #define BIT_FEN_EN_25_1		BIT(13)
- #define BIT_FEN_ELDR		BIT(12)
-+#define BIT_FEN_PPLL		BIT(7)
- #define BIT_FEN_PCIEA		BIT(6)
-+#define BIT_FEN_DIO_PCIE	BIT(5)
- #define BIT_FEN_CPUEN		BIT(2)
- #define BIT_FEN_USBA		BIT(2)
- #define BIT_FEN_BB_GLB_RST	BIT(1)
-@@ -19,6 +21,7 @@
- #define BIT_PFM_WOWL		BIT(3)
- #define BIT_APFM_OFFMAC		BIT(9)
- #define REG_APS_FSMCO		0x0004
-+#define BIT_EN_PDN		BIT(4)
- #define APS_FSMCO_MAC_ENABLE	BIT(8)
- #define APS_FSMCO_MAC_OFF	BIT(9)
- #define APS_FSMCO_HW_POWERDOWN	BIT(15)
-@@ -67,6 +70,9 @@
- #define BIT_SHIFT_LDO25_VOLTAGE	4
- #define BIT_LDO25_EN		BIT(7)
- 
-+#define REG_PWR_DATA		0x0038
-+#define BIT_EEPRPAD_RFE_CTRL_EN	BIT(11)
-+
- #define REG_ACLK_MON		0x3e
- 
- #define REG_GPIO_MUXCFG		0x0040
-@@ -105,6 +111,12 @@
- #define BIT_BTGP_SPI_EN		BIT(20)
- #define BIT_LED1DIS		BIT(15)
- #define BIT_SW_DPDT_SEL_DATA	BIT(0)
-+#define REG_BT_ANT_SEL		0x0067
-+#define BIT_BT_SEL_BY_WIFI	BIT(5)
-+/* 0x006b is the high byte of the 16 bit register at 0x006a. */
-+#define REG_BT_EFUSE_CTRL	0x006b
-+#define BIT_BT_PWR_CUT		BIT(6)
-+#define BIT_BT_OUT_ISO		BIT(7)
- #define REG_WL_BT_PWR_CTRL	0x0068
- #define BIT_BT_FUNC_EN		BIT(18)
- #define BIT_BT_DIG_CLK_EN	BIT(8)
-@@ -301,6 +313,8 @@
- #define REG_HMEBOX3		0x01DC
- #define REG_LLT_INIT		0x01E0
- #define BIT_LLT_WRITE_ACCESS	BIT(30)
-+#define REG_RFK_FW_ACK		0x01E7
-+#define BIT_RFK_FW_ACK		BIT(0)
- #define REG_HMEBOX0_EX		0x01F0
- #define REG_HMEBOX1_EX		0x01F4
- #define REG_HMEBOX2_EX		0x01F8
-@@ -429,6 +443,8 @@
- #define REG_ARFRH5		0x04A8
- #define REG_SW_AMPDU_BURST_MODE_CTRL 0x04BC
- #define BIT_PRE_TX_CMD		BIT(6)
-+#define REG_PKT_VO_VI_LIFE_TIME	0x04C0
-+#define REG_PKT_BE_BK_LIFE_TIME	0x04C2
- #define REG_QUEUE_CTRL		0x04C6
- #define BIT_PTA_WL_TX_EN	BIT(4)
- #define BIT_PTA_EDCCA_EN	BIT(5)
-@@ -437,6 +453,8 @@
- #define REG_PROT_MODE_CTRL	0x04C8
- #define REG_MAX_AGGR_NUM	0x04CA
- #define REG_BAR_MODE_CTRL	0x04CC
-+#define REG_MACID_PKT_DROP0	0x04D0
-+#define REG_MACID_PKT_SLEEP	0x04D4
- #define REG_PRECNT_CTRL		0x04E5
- #define BIT_BTCCA_CTRL		(BIT(0) | BIT(1))
- #define BIT_EN_PRECNT		BIT(11)
-@@ -520,6 +538,7 @@
- #define BIT_UC_MD_EN		BIT(16)
- #define BIT_RXSK_PERPKT		BIT(15)
- #define BIT_HTC_LOC_CTRL	BIT(14)
-+#define BIT_AMF			BIT(13)
- #define BIT_RPFM_CAM_ENABLE	BIT(12)
- #define BIT_TA_BCN		BIT(11)
- #define BIT_RCR_ADF		BIT(11)
-@@ -546,6 +565,7 @@
- #define REG_ACKTO		0x0640
- #define REG_EIFS		0x0642
- #define REG_NAV_CTRL		0x0650
-+#define REG_NAV_UPPER		0x0652
- #define REG_WMAC_TRXPTCL_CTL	0x0668
- #define BIT_RFMOD		(BIT(7) | BIT(8))
- #define BIT_RFMOD_80M		BIT(8)
-@@ -581,6 +601,7 @@
- #define REG_BT_COEX_V2		0x0762
- #define BIT_GNT_BT_POLARITY	BIT(12)
- #define BIT_LTE_COEX_EN		BIT(7)
-+#define REG_BT_CONTROL		0x0764
- #define REG_GNT_BT		0x0765
- #define BIT_PTA_SW_CTL		GENMASK(4, 3)
- #define REG_BT_COEX_ENH_INTR_CTRL	0x76E
-@@ -606,12 +627,20 @@
- #define BIT_RX_PSEL_RST		(BIT(28) | BIT(29))
- #define REG_TXPSEL		0x080C
- #define REG_RX_GAIN_EN		0x081c
-+#define REG_FPGA0_XA_HSSI_PARM2	0x0824
-+#define HSSI_3WIRE_ADDR_LEN	0x400
-+#define HSSI_3WIRE_DATA_LEN	0x800
- #define REG_CCASEL		0x082C
-+#define REG_FPGA0_XB_HSSI_PARM2	0x082C
- #define REG_PDMFTH		0x0830
- #define REG_BWINDICATION	0x0834
- #define REG_CCA2ND		0x0838
- #define REG_L1PKTH		0x0848
- #define REG_CLKTRK		0x0860
-+#define REG_FPGA0_XA_RF_INT_OE	0x0860
-+#define REG_FPGA0_XB_RF_INT_OE	0x0864
-+#define REG_FPGA0_XA_RF_SW_CTRL	0x0870
-+#define RFSI_RFENV		0x10
- #define REG_CSI_MASK_SETTING1	0x0874
- #define REG_NBI_SETTING		0x087c
- #define BIT_NBI_ENABLE		BIT(13)
-@@ -630,6 +659,9 @@
- #define REG_PSD			0x0910
- #define BIT_PSD_INI		GENMASK(23, 22)
- #define REG_SINGLE_TONE_CONT_TX	0x0914
-+#define REG_RFE_CTRL_ANTA_SRC	0x0930
-+#define REG_RFE_CTRL_ANT_SW	0x0944
-+#define BIT_RFE_CTRL_ANT_SW_SEL	GENMASK(1, 0)
- #define REG_AGC_TABLE		0x0958
- #define REG_RFE_CTRL_E		0x0974
- #define REG_2ND_CCA_CTRL	0x0976
-@@ -649,6 +681,7 @@
- #define REG_CCA_MF		0x0a20
- #define BIT_MBC_WIN		GENMASK(5, 4)
- #define REG_CCK0_TX_FILTER1	0x0a20
-+#define REG_CCK_SWING		0x0a22
- #define REG_CCK0_TX_FILTER2	0x0a24
- #define REG_CCK0_DEBUG_PORT	0x0a28
- #define REG_CCK0_FAREPORT	0x0a2c
-@@ -683,6 +716,7 @@
- #define REG_RX_IQC_AB_A		0x0c10
- #define REG_RX_IQC_CD_A		0x0c14
- #define REG_TXSCALE_A		0x0c1c
-+#define REG_B_RXIQI		0x0c1c
- #define BB_SWING_MASK		GENMASK(31, 21)
- #define REG_TX_AGC_A_CCK_11_CCK_1		0xc20
- #define REG_TX_AGC_A_OFDM18_OFDM6		0xc24
--- 
-2.55.0
+WDYT about targeting net-next here?
+
+If sashiko is deferrable, no need to repost.
+
+/P
 
