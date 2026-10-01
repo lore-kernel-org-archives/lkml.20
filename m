@@ -1,69 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B203A5A79B;
-	Thu,  1 Oct 2026 09:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8DE4DE725;
+	Thu,  1 Oct 2026 09:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846366; cv=none; b=cJ0pX5vEvg+TDM/BxDMwZ84wf+oBxxRCNb3eW63gwC70rqh0gS1NmD8Z1eBKhFZeCCGK0hUGzx9LBjINZGMJ7S6MclJC06E7ZKiNMY+unHiT2rZpW3ycWveUpqbiKnLaOWF4XrpHnScMEOogB8+a+QqNeosGe1nbS8/wYXpl2U0=
+	t=1790846390; cv=none; b=fv77cZFgdO4dvQwNYyQBYn0PMXCZcl17meXnfZTbqllvA1gYjxaMWDvd1GkuPq9UI8u1UspXW92TJPrFnYQ4TZy2KjPePyEZod9Xd2fVSMD9f3Y5VeYXwfQ53hTSPfS2evLh0xjRz9NIQirQzLjGUQbbH7NJGQOBHmVxNAxZC8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846366; c=relaxed/simple;
-	bh=4RBwIr++Yl9TDg/DOmV0XfIAoON26aEenWCykA6bz7g=;
+	s=arc-20240116; t=1790846390; c=relaxed/simple;
+	bh=ueDCokzGdRQI9NFHfM+BrFdBkLHfXYfSU3xqoWcJEJI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Et/1FxTWdhN2M9D/qaGOcJlI7w+rVC9ZB1/GCwDEJrF3/96XCxG0PSbvA056mLvqsTWT0eVkbnNzceB2ZINLZkkeJUAUzWCAbbIYAw8AdT4z2I9L+nuHIu+A3Bkhes97R4tBAX0/JGul0K3ufTexn7hvyPNtFBx4BAB1Ozv58cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRBctCWV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bV6ghBF3OvdYy6qyhcZmVvg2bn7PAyuTk6uZSXudeWNr9gFj8aPyDFfa+I4tznLmriv0ov9FxCgyRcUWqRH/d0Ad7K7bCerpX6vIJYJV3l0kWT9sMm/07Z+6FRaLIfF1451LeicOL4cD+mdGDem03HcHrA0cIhxkbL3Sff9giz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=AmgEY82K; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRBctCWV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83BC91F000FF;
-	Thu,  1 Oct 2026 09:19:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790846365;
-	bh=IB/cldJEcsCChjuHmu5N7366XE75RvVggd3avYtDsrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dRBctCWVe9GhpYruWKH35vFJnHCtb/Ex+CTIRHh1DHeFcT5PaJ6bm7Ug0KvYBvSiy
-	 c2k2mKi81LZJSdisvlOobFdWP8SXo5droweS2PFxdz7YSTMRFJ98Hng1KAhGV/Fuih
-	 Hh1x+0CD/ZadKpDhfRVsHJ+fPxNel7tmfXTn/jds8X2V8/b04FasImvoXHgxuuc0Bs
-	 aNhGU1d16LpWGnxRwBhQR/PdSMzdemK6HJ9HdWn/yihUzDEv45pSU32/uiaoXbdUEx
-	 FgQhfe0+DVxsYYNTySwfTsA3r+WPzHR6FSMmDa4Q4YZeXzxOXCDd4MPnoVpR7wvSn1
-	 QDKVWHaKQmkOQ==
-Date: Thu, 1 Oct 2026 11:19:21 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH v6 4/5] perf scripts: Add perf-stuck, to tell where a
- running perf is stuck
-Message-ID: <ar4lmUdWLn60UJ-6@x2>
-References: <20260930213716.2633750-1-acme@kernel.org>
- <20260930213716.2633750-5-acme@kernel.org>
- <ar4Kuy76IXbmCY2y@z2>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="AmgEY82K"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6B0A1072C5;
+	Thu, 01 Oct 2026 11:19:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790846382;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=al8yYmNzgfo44B2CbppMCS2FYI+o8KH/af9OxWoWssQ=;
+	b=AmgEY82KUNHfXO9ia/8uokGIUrKuxZxMVYg/kjq2YY8thA+HBHgRq0Lc+kAi0PNYd2rHd7
+	wQgVGGElPF2455JM94O6AlFFdiH7scgL4sbMtnqE6yC4up1HbC/BlYf5HUjm6j0jnsVmUC
+	kVAfvRQ02K+UXTCGN4SMQd5YdXzNgJn/5Q4Xss0lF8aKQZGWZi8xE6afWRxIcbTu7sZIox
+	XakSNN8TdniwbeyYiiWKKiHWap0X2ResxFlwu83rlaDrSm8Ui1Vwv7npr0LP0vRTQHhP8N
+	gGEK+YqoKIm6UuASFZf8X5eiZitczNU/427Me3f6OwbivMvpzLSPceFcB9nFDA==
+Date: Thu, 1 Oct 2026 11:19:40 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
+Message-ID: <ar4lrAAUaCn0Y7Je@duo.ucw.cz>
+References: <20260930152346.024115587@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="Wt1fC7oSeOJDf3OH"
+Content-Disposition: inline
+In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
+
+
+--Wt1fC7oSeOJDf3OH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ar4Kuy76IXbmCY2y@z2>
 
-On Thu, Oct 01, 2026 at 12:24:43AM -0700, Namhyung Kim wrote:
-> On Wed, Sep 30, 2026 at 11:37:15PM +0200, Arnaldo Carvalho de Melo wrote:
-> > +    set $perf_die_chain_i = 0
-> > +    while $perf_die_chain_i < $perf_die_chain_n
-> > +      # Pointer type DIEs have no DW_AT_name, so dwarf_diename() can
-> > +      # return NULL: printf %s of it would error out and abort this
-> > +      # batch script, handle it.
-> > +      set $perf_die_chain_name = (char *) dwarf_diename($arg1)
-> > +      printf "chain[%d] die=%p addr=%p cu=%p off=0x%lx tag=%d name=", $perf_die_chain_i, $arg1, $arg1->addr, $arg1->cu, ((Dwarf_Off) dwarf_dieoffset($arg1)), ((int) dwarf_tag($arg1))
-> 
-> Nit: can you please break this line?
+Hi!
 
-Will do,
+> This is the start of the stable review cycle for the 7.2.9 release.
+> There are 457 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-- Arnaldo
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.2.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--Wt1fC7oSeOJDf3OH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCar4lrAAKCRAw5/Bqldv6
+8kP5AJ0Qe2EN7lLKZ2r2M8Z88haelfG7zwCdHsEUHG5h3BQPar+Gi8soZ49cZec=
+=G/hk
+-----END PGP SIGNATURE-----
+
+--Wt1fC7oSeOJDf3OH--
