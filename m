@@ -1,148 +1,222 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68651381EB3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34F938333C;
+	Thu,  1 Oct 2026 01:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790816429; cv=none; b=PwPaI94BHABo7gbFLto3/zkQ5n6pkQmeZxCjvZSlC3yQoSLKenenhEjfpdci2nrkPlsRgWMJ8rW/CJXek4JVir/SuMxoUSBEb4dU5nG2zdIShE0XIYju9QLJWWqhfHMhOye4J7SPOUpO/bvQad8bM6RmSJ0QI0cNHjZa2xqUzAI=
+	t=1790816437; cv=none; b=Y34I7pxDHp5ozw1mg+bADStECmZOnkZTzNEIJdjrIu0B9rpeeavSiXRwXbF13iNgt4CHO+xr3J0T2J6Dfl/z9ovoUYdihfKQwtV6fMr4Cd5Nk8/pu/K+dg2l/5Bl08RisKe4pkquXDNTb92lYA4zgd8y0V50Kr1hcQvHcoqspjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790816429; c=relaxed/simple;
-	bh=FpRLzAKoQOj2WK4r99t/gINqZRlyhEfxA8D8qFGtIrE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=MCwck808PnwlFzkTNXVdIbPkAlIHrhX3mn/UJglNoymCXsJ6fSh6WP2Wl04tjoo65ZM8K52Lp9vnK4qGv1/2J7ROXvkbWJ3ghQ4DBQRUtwj7O2X+uIGXVQ75huRj7ty9K1teeInNQxOELDLohUZfztd8XLeBuMcSXa3eIlAD80w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b2d1eb484aso9351483b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:00:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790816424; x=1791421224;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yoqFpuJO/gKkgQW+Vs4ZZWyR9d6Arw0t8Tm3FIXdJPI=;
-        b=ZYYYr3e/D6tSxoeJjIyqPbtbG5Q84lkvvXkl9XaSCgJXpwXZO0/AWGt2FMinxAcUnf
-         MdNGkQnPJFx29Co2+tzQbgkRpyVFC2V6ifbbopl4mQmeqH0QFCqlh6Y/iCILLJaE9ZTL
-         G5Lw+BNSjZcP5jyfZ39FLN2QCRG9fzXCiT0ATCDR7kWKg4DKjwyCTqS1RiB4TdS2SK44
-         EgVC6QJDVm0RicsHWJYPp1LLx44rNgzsQfbBB/LkDe8jW5zOU6AlESt4xjSrObz93nr+
-         VnRF1aG6AvotYr6P0CXtmEx6JzeF2bOm7z0/Vlz+95jCJWzoFMPm4amDVRYWv1rnTQWT
-         HWZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHdKMhU0211qWAOerg4nJcBXPvVJIkc5HI3AhP1p2fZ529jk4s0fnCspztNQ/ewEag7FmHa55yEeLpRXY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kK/ybP1RzDQZyYVsCLHEUjyVxath0gIiKgU6lUo7Zk+ryHS98B
-	H65yihHCwL2d6BBOY4i/v61Vc89rXWvOj8KHvKmLAiR5pOPPysBnT6KsdOCbodjGLFT2EkikNmL
-	BbzQqmrr+TOx7yF555jxKENBEJky5mjpJ5y+c6hxJnh5A2SPei70dR6SGcAk=
+	s=arc-20240116; t=1790816437; c=relaxed/simple;
+	bh=zcYKqYXkGZepib97Gcn3q7+lD63QZeO9TLJgzGhL+eI=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
+	 References:Date:Message-id; b=C8gqM3K675CqFkQU10/p2cPVRoepybTibVLbRSZRBb+nTdhh5v/G7R3+zQMRtdJf5HnLkywrj3q4S07Bgk00n7H6Sjp6WtIP4bYy6lL/nHNfmUqZEvvtnKZNaZEyvkO6uTXWe+l44qlOg7s35TRpw95hajSeXZH5RgdFIkdQPEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=U+TY0PLt; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=l5QfdAkl; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="U+TY0PLt";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="l5QfdAkl"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id A35A414000E9;
+	Wed, 30 Sep 2026 21:00:32 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 30 Sep 2026 21:00:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
+	1790816432; x=1790902832; bh=rDLuCjt9UmJtQ+S8KqwRJ3F5z+++KsERpOC
+	1NwMqUYU=; b=U+TY0PLtXTy5crh14ANJk6O3+LVvo3Y3POHHMBx4Rd8QAVIOSw+
+	8JjMRipyuUly3T9wquFhhbMv5VhlxCSONhWZ2bAj+Gz053xxXZ7LASDEAga1UAyL
+	B4AZRRXilqMi/NiGWkEU0JHThfc26R6rvqln0piAlcodwd6uMm+uIM0cDNZ2TrZ1
+	5aZ3zCcH2E3e5PqtPHREjutLZ0ITz8ZIOjkvMzkzhV8lDPxfpCW+LMxr+NNrLiFE
+	rcVi2mrSFke7yx7uvwr0oyE01a5l1DjU9vSJvKLO0M7T01ot3pRUeNXVQ9BLkBGP
+	X/9OSYcSp6LrEf1JMOD4+BcaU5HS/yixtPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790816432; x=
+	1790902832; bh=rDLuCjt9UmJtQ+S8KqwRJ3F5z+++KsERpOC1NwMqUYU=; b=l
+	5QfdAklZPPT/cvIShtU4+frNI6L8dX+S/79Cm8T28J3sa4WfUpc9zdrBukLzn/Bc
+	yYFLTHPNJpMGnCdYdqtDY8TZz4LtfXKIzlByyTtm4YBJXotHu4vE5T9hG4OSovzK
+	dIS1ubPRJMjJLOKnZhSqdVzQXN+TocMaBa4pLzHEBUNcxuQF6dTQ4wV5OPGC1ea6
+	pIIXYLczfzLo/8eriGMEoI/mo7y/fIPrNmXP7oAscIJMnnYPzcPD6avISurjNokE
+	0yI8FL+IG16OMN79DAR3HhquFA1d8AUDfRIjcirWgaq7O/eZrveCA40dSYpPzGc6
+	oJRHiB20zo+ymotO3A2Vg==
+X-ME-Sender: <xms:sLC9ampi_XStXBmGzvGwJlifbZuD6qkJ0Vlpti8xhKI8CQQj-YZ45g>
+    <xme:sLC9ahMK0pPNcrFCLNgm6mvTHWQztSGr-m7ngMdkRk9vafsHNAnZrRU2-xBYecV-g
+    NdGp3k0kbIrnV_bpGylEK41NuMaHXZDV7WGoBdF53XehN3DQjU>
+X-ME-Received: <xmr:sLC9avqUpdzNM9jxktIBTA7LUffUvlTwn5xHQYHAr5SsFA69POTZ3b_k5m7maCcHP5N88P66_kVPLiRoZVgvpZWXrxDL4I4>
+X-ME-Proxy-Cause: dmFkZTFfLuaJZ5O/pGqqdwevqBOTM8Y5OvdzSzISGxNljqZf4VQ6rO6OSVWP13lQHuz8IL
+    0t7kRInDLldPhc6cPJzxCvVBt8Xjc3TSXUFGlpB9QzPVIw3yBcHA4G0Qe0HTCZTxq242jj
+    YD2gYcfgOXd2gE3CgZwQ5nCv5Q57aYxzu6poTTaQsyxEicaCogKWiDTFuhhCB1Au68BH4P
+    RL1JG4H/J28WYp18lDft3s5xMoUCK7nPXg4CZI1ZDV+XEzQPFFTmv4n3wPY7FwS8bS7EFk
+    TK6aD1NDgXxW9oNPLWHS5i45BP/IFTU8yhOs8Zp4txHZI8x59SHmYgTc+vRqVK4LWuyEJn
+    hff7CrecyTjm/GwTrgmuSQns+k39nL+KUiBTpx4/rGVJaVE/wrkmG/iZVa8Z/KwzFYcplZ
+    wuQLfbx+wvjLJvT36GbpF29V/FBVCcUKovgONAB0akxE2DWEEv9XASVknJUkOScvQsJ7aR
+    qjhcYm+DMdhCelnFQPxXfUdfD+0hGyZfSfyhh5kqlL08vu6qXoiwRUv+evnVSsxop4faQG
+    eugqyInz2yDJu2xPZEMgM4l5kCKuJHuOQNaDcBX+U5DcpHAoz6ptcpqUg9Y0g2kgqxdC/n
+    IhzRXCDQTLIo0UMF8glXMR7onROHRuuQ3mQpNqrCpKXWXKItqbR4Hbk1Gkhg
+X-ME-Proxy: <xmx:sLC9assLRglPnOrQU5OC2VeLdqbKtzsbrigt-6FSNIrKsn7S_DbuFQ>
+    <xmx:sLC9am0_rSbdn1GJ74tmO5coje3Ub4AxARv7FR2UriD3rKZ_rC4Gfg>
+    <xmx:sLC9avFmPvZfBbdQKrIdpA10Cgyih2BQjCa0KpDqUSKRyRkFyUipQw>
+    <xmx:sLC9apvD-mCEnq5vI0KHEQ1s2z3Q9Ik9SbuL8HdFcOmKCAFdl678qA>
+    <xmx:sLC9ag8nuel9FZJkIYJgsJesayG_V9OksmVxO5HgP3ALfqMPkAlK6zuO>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 21:00:29 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4444:b0:4d6:85d4:8499 with SMTP id
- 5614622812f47-4f1b2e3534bmr3646607b6e.7.1790816424773; Wed, 30 Sep 2026
- 18:00:24 -0700 (PDT)
-Date: Wed, 30 Sep 2026 18:00:24 -0700
-In-Reply-To: <6a68b182.4c659fcc.19cd90.0021.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abdb0a8.b50370da.302ea9.0002.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: global-out-of-bounds Read in usb_copy_descriptors
-From: syzbot <syzbot+debc5c305403f180c01c@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, paritosh.potukuchi@amd.com, 
-	paritoshpotukuchi@gmail.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+From: NeilBrown <neilb@ownmail.net>
+To: "Jori Koolstra" <jkoolstra@xs4all.nl>
+Cc: "Christian Brauner" <brauner@kernel.org>,
+ "Jeff Layton" <jlayton@kernel.org>, "Al Viro" <viro@zeniv.linux.org.uk>,
+ "Aleksa Sarai" <aleksa@amutable.com>, "Amir Goldstein" <amir73il@gmail.com>,
+ "Jan Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
+In-reply-to: <1755972037.791960.1790810730535@kpc.webmail.kpnmail.nl>
+References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
+  <20260913185016.523376-8-jkoolstra@xs4all.nl>
+  <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
+  <178972607557.207413.4312278359822083538@noble.neil.brown.name>
+  <178977609418.207413.15011378414000392029@noble.neil.brown.name>
+  <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl>
+  <179072013439.37859.465558431050704411@noble.neil.brown.name>
+  <1315372552.791055.1790807597593@kpc.webmail.kpnmail.nl>
+  <179080897361.37859.5844379463485936668@noble.neil.brown.name>
+  <1755972037.791960.1790810730535@kpc.webmail.kpnmail.nl>
+Date: Thu, 01 Oct 2026 11:00:25 +1000
+Message-id: <179081642552.37859.15689377825373435277@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-syzbot has found a reproducer for the following issue on:
+On Thu, 01 Oct 2026, Jori Koolstra wrote:
+> > Op 30-09-2026 18:56 EDT schreef NeilBrown <neilb@ownmail.net>:
+> >=20
+> > =20
+> > On Thu, 01 Oct 2026, Jori Koolstra wrote:
+> > >=20
+> > > Err, *derp*, what a stupid suggestion of mine.
+> > >=20
+> > > > Currently O_DIRECTORY|O_CREAT results in -EINVAL.  I would rather it
+> > > > remain a -EINVAL on any filesystem which doesn't completely support
+> > > > the functionality.
+> > > >=20
+> > >=20
+> > > I don't think that works for the reason I just wrote in my email to Ami=
+r:
+> > > it would make lookup dependent on the dentry cache. If it's in-cache, y=
+ou get
+> > > your dir, otherwise suddenly -EINVAL.
+> > >=20
+> > > > To do that we need some way to detect kernfs and tracefs.  I think
+> > > > the only way we can do that is to make some change to those two
+> > > > filesystems.
+> > > > Maybe a new  SB_I_ flag in sb->s_iflags would be ok in the short term.
+> > > >=20
+> > >=20
+> > > We can just implement atomic_open() for kernfs/tracefs, do a lookup the=
+re,
+> > > and if negative with O_CREAT return maybe -ENOENT (or really we need a =
+new
+> > > error that says "the requested create could not be serviced," like -ENO=
+CREATE,
+> > > or whatever). And if it is positive we do finish_no_open().
+> > >=20
+> > > It's a bit of a hack because it does not really have anything to do with
+> > > atomicity, but it does short-circuit the mkdir call in lookup_open(). I=
+ guess
+> > > that would work. Maybe I am confused, but wasn't that what you proposed=
+ here
+> > > earlier?
+> >=20
+> > Yes, it is what I proposed earlier.  But I think it would require more
+> > review and probably make it unrealistic to land this cycle.  But I'm not
+> > thinking it is unlikely to be ready this cycle any way.
+> >=20
+>=20
+> Not unlikely, so likely that is :)
+>=20
+> > I'm now wondering if we should keep ->atomic_open out of the loop and
+> > always use ->mkdir to create a directory.
+> > Based on your justification you probably always want O_EXCL and I would
+> > be inclined to require that.
+> >=20
+>=20
+> I wanted it to work as regular O_CREAT, so no forced O_EXCL per se.
 
-HEAD commit:    6c2cb8b8b843 Add linux-next specific files for 20260930
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=1190e3f5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6f425a2650355dac
-dashboard link: https://syzkaller.appspot.com/bug?extid=debc5c305403f180c01c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=112a43f5580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=152a43f5580000
+Why?  The whole point is atomicity, and without O_EXCL there is no
+atomicity.
+I guess it doesn't hurt to not require O_EXCL, but it is just another
+combination to test...
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/d79eefc0c62e/disk-6c2cb8b8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/d661335b4b7a/vmlinux-6c2cb8b8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e2aeb28cdc89/bzImage-6c2cb8b8.xz
+>=20
+> > So if the dentry is in-lookup we call ->atomic_open(O_DIRECTORY).  If
+> > that succeeds - good.  If it reports ENOENT or a negative dentry, then
+>=20
+> Can ->atomic_open() return a negative dentry?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+debc5c305403f180c01c@syzkaller.appspotmail.com
+No reason why not.  It is mapped to  -ENOENT
 
-==================================================================
-BUG: KASAN: global-out-of-bounds in usb_copy_descriptors+0x1b8/0x320 drivers/usb/gadget/config.c:94
-Read of size 128 at addr ffffffff9ad9cd80 by task syz-executor273/5627
+			if (unlikely(d_is_negative(dentry)))
+				error =3D -ENOENT;
 
-CPU: 1 UID: 0 PID: 5627 Comm: syz-executor273 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
- usb_copy_descriptors+0x1b8/0x320 drivers/usb/gadget/config.c:94
- usb_assign_descriptors+0xcf/0x290 drivers/usb/gadget/config.c:131
- f_audio_bind+0x1b5e/0x34b0 drivers/usb/gadget/function/f_uac1.c:1443
- usb_add_function+0x2e1/0x9f0 drivers/usb/gadget/composite.c:333
- configfs_composite_bind+0xde0/0x1410 drivers/usb/gadget/configfs.c:1802
- gadget_bind_driver+0x2ca/0x9e0 drivers/usb/gadget/udc/core.c:1662
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __driver_attach+0x339/0x600 drivers/base/dd.c:1292
- bus_for_each_dev+0x23b/0x2c0 drivers/base/bus.c:386
- bus_add_driver+0x38f/0x6e0 drivers/base/bus.c:771
- driver_register+0x23a/0x320 drivers/base/driver.c:174
- usb_gadget_register_driver_owner+0xf9/0x270 drivers/usb/gadget/udc/core.c:1752
- gadget_dev_desc_UDC_store+0x1c9/0x2f0 drivers/usb/gadget/configfs.c:300
- flush_write_buffer fs/configfs/file.c:207 [inline]
- configfs_write_iter+0x337/0x430 fs/configfs/file.c:229
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc3b3d71df9
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff154ebbf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 0000200000000400 RCX: 00007fc3b3d71df9
-RDX: 000000000000000c RSI: 0000200000000480 RDI: 0000000000000003
-RBP: 0000200000000000 R08: 0000555581694060 R09: 0000555581694060
-R10: 0000555581694060 R11: 0000000000000246 R12: 00007fff154ebef8
-R13: 0000000000000002 R14: 00007fff154ebc30 R15: 0000200000000008
- </TASK>
+I'm in favour of ->atomic_open() calling finish_no_open() is all
+no-error cases where it didn't do something about opening the file.
+But I don't object to an explicit -ENOENT return.
 
-The buggy address belongs to the variable:
- ac_header_desc+0x0/0x20 f_uac1_legacy.c:-1
+>=20
+> > we cal ->mkdir.  If that succeeds with a positive dentry, we call
+> > through to call ->open.
+> > If ->mkdir succeeds with a negative dentry - we have the problem of
+> > kernfs and tracefs.  I'm leaning towards fixing those to do the lookup.
+>=20
+> Yes, I follow this. But we do need to ask their maintainers then why that
+> was chosen. Plus, we need to ban negative dentry returns also for future
+> fses, which may be limiting.
 
-The buggy address belongs to the physical page:
-page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1ad9c
-flags: 0xfff00000002000(reserved|node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000002000 ffffea00006b6708 ffffea00006b6708 0000000000000000
-raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner info is not present (never set?)
+Odds a good that there wasn' a specific reason why leaving the dentry
+negative was chosen.  I think the better question is "do you have a
+problem with this patch" where the patch does a lookup.
 
-Memory state around the buggy address:
- ffffffff9ad9cc80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffffffff9ad9cd00: 00 00 00 00 00 00 00 00 00 00 00 00 f9 f9 f9 f9
->ffffffff9ad9cd80: 00 f9 f9 f9 00 f9 f9 f9 00 f9 f9 f9 00 00 f9 f9
-                      ^
- ffffffff9ad9ce00: 00 00 f9 f9 00 00 f9 f9 00 00 f9 f9 00 00 00 00
- ffffffff9ad9ce80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-==================================================================
+Putting a WARN_ON(d_really_is_negative()) somewhere in vfs_mkdir would be
+easy enough. I cannot imagine it really being a burden for any fs.  If
+that does happen were can solve the problem then.  Being prepared of all
+possible eventuality is a no-win proposition.  I've tried - I gave up.
 
+>=20
+> >=20
+> > I don't think any filesystems *can* combine mkdir with open, so not
+> > using ->atomic_open for the mkdir doesn't actually lose anything.
+> >=20
+>=20
+> Yeah, I don't quite understand the specifics of this as I am not familiar
+> with NFS and the likes. I presume because of things like network traffic
+> ->atomic_open() was needed as a single call into the underlying fs. But
+> I have no idea why or why not that would make sense for directories. If
+> we do it the way you suggest now, we can get rid of all the O_CREAT strippi=
+ng
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+->atomic_open was created specifically for NFSv4 which has a combined
+lookup/create/open request.  You can do everything with a combination of
+->lookup and (exclusive) ->create (providing create returns a
+non-negative dentry) and ->truncate and open.  Using ->atomic_open means
+fewer round-trips to the server so less latency.
+
+NFS doesn't have a concept of "open" for directories.  CIFS probably
+does.  FUSE probably doesn't but could possibly add one.
+But directories are not opened nearly as often as files, so combining
+things isn't so important.  And O_TRUNC is not meaningful for
+directories so that is one fewer thing that could be combined.
+
+NeilBrown
+
