@@ -1,115 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A559951614B;
-	Thu,  1 Oct 2026 13:45:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A6B509EE4;
+	Thu,  1 Oct 2026 13:47:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862355; cv=none; b=lN5vfoexXx+poL1H8goeXOh5nnyi8qTOso886kkCh86LbhHxXmGj/fNWZmGWJCiUmdWvB7Ia41vyz0iiQogwsMKm4MgINLZlOHGTnYa8Q3NkCJ7+oue+NxcP3BKhQcMmLiV6oWrVA9RRWh5+1GV58HGvh+JqDE/0Str/VjxN+Fk=
+	t=1790862435; cv=none; b=icueJBr6kLMaN/utWDlvYXfcDFk6xhQc0KTX0/8GCI27kCrMTU2hjIBKdn2em8Yp+tvuLt+PH9cbh5akdOdXDOXmloZxjmaLCk3X+40oR/BnNYKzlB9i2vDNmgWptzWN/5eFXzPVxbGMFoBmgv2Wx98SiwKwy4jh86QDGU25CWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862355; c=relaxed/simple;
-	bh=apKzEwDGvm39faDzm+9FLwjhohGrNW4I7Dxp/WKtP3E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KaCRBWR9zJ9fJ+2vrqzSwNeNewCWxIVmHsV4Wn05v0E5ssFsLMJo9v7tb/Vo1+rrhOlguqL4L3HJ+vIeSsD1+fR9WzQTiYiYdVfg5z9H/QGPKtrr3m4lkpwv5kumfHIbRbdhZjx0vzHkBEejMUFrO1deDtGkp2ypoU+E6E3pH1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUpcTBxM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790862435; c=relaxed/simple;
+	bh=LRHJAJ//qK4zk5OywvnZY+1YB/70Tz1Iq3n2t0jyays=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MwgODolvkV9/YBsJoJyCRmzMTDVEAJy46D7Q9k4l0n7xO9Mu5638d8uXqcibwlZRqKpzj7hJP5DqmDUfXFyonhUcSV3ib6eIivikRKP6htK3IWXCqh03OedJthNxxUer3bNEm0KDnjqbUvgcbFr/FmpDlYntpJm8WjKu3guQg6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O5s1UsAr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUpcTBxM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853BA1F000FF;
-	Thu,  1 Oct 2026 13:45:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O5s1UsAr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202351F000FF;
+	Thu,  1 Oct 2026 13:47:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790862354;
-	bh=O+hFdg3vTjqlHkFtIZYWlUtyOb9Pvlpw/KTbPdqgDfg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=oUpcTBxMhif+OuMIVz8sidLgmOIuLLDYM4tgCbE/esDRHUbLHc5qX1g9G99Lreogr
-	 AlwwRNOfNwhOLY9Hz+nuvtMydy+dTbcGCR/3YfOv/90CQpCFJNi61lzTujMAx5iars
-	 Dkw6MXnmjstPNNytcANXASuU+x67gVlJsLXHRwWYeapBuWw/U30V6IXO6eUE/4fFlA
-	 AokpQP4jOLHj0cl8Ab+LHg5ECRM3u0kAm8YdTQCy6myVmSx7O840oMRFhEa6X1BXdi
-	 MW4uHxlZzwfy3DBn8WiyBTyDDCXh9yPclNB6AI5Zlt23y+46IoccSrs6qFECHm/tsD
-	 mpA83Ymdc+Vrw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Gary Guo <gary@garyguo.net>, Gary Guo <gary@garyguo.net>, Andreas
- Hindborg <a.hindborg@kernel.org>, Anna-Maria Behnsen
- <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross
- <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>,
- Jani Nikula <jani.nikula@linux.intel.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lyude
- Paul <lyude@redhat.com>, John Stultz <jstultz@google.com>, Stephen
- Boyd <sboyd@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, FUJITA
- Tomonori <fujita.tomonori@gmail.com>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/6] hrtimer: add expiry injecting callback variant
-In-Reply-To: <DLT1I5F55U3W.2N237BGZ1EDF1@garyguo.net>
-References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
- <20260825-expires-v2-v1-1-90411c6217c7@kernel.org> <877bk3ixp5.ffs@fw13>
- <DLSOFOGGZC92.12KYHEALX1271@garyguo.net> <87qziah0uo.ffs@fw13>
- <DLT1I5F55U3W.2N237BGZ1EDF1@garyguo.net>
-Date: Thu, 01 Oct 2026 15:45:50 +0200
-Message-ID: <87fqyph6up.ffs@fw13>
+	s=k20260515; t=1790862434;
+	bh=bnMoeykuBZptdA3ds37XtwuD8lIdtRVgD7fPQTAPgf8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O5s1UsArXOSPxdyHpqke7ocbx389Ztd7tE2kzQudZOuwWhvh5K1trVpaCYfiVbBvi
+	 o0oWe0B0quz5w/JnezKzkYeeoGm1qtPAKVaMXUiZkWA66YjVjWnkyxtcScGe0KSDwk
+	 KbPaHigeWOh4loRna77wiA8sLl7MKotQ4XjGjtoLe4wp8kp7Hco3H3UxGlG9fYJp0/
+	 IiGV/15KHQxF8QDe2C7e2KKghI06cEkfHv9otCW2rkCYTajU/Csb4PNHqLoZFybKV2
+	 V8MD7+C+cBYHp2QiIpBXBnRBI2GhxF36exeVzgLa/qSIhkLe5Exard8gr2xluK01cB
+	 +Yf9tbhF1IHZQ==
+Message-ID: <ca33c615-e429-49b1-b1f5-fa25a879a6fa@kernel.org>
+Date: Thu, 1 Oct 2026 08:47:12 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] cpufreq/amd-pstate: Get Highest Freq for a CPU
+Content-Language: en-US
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, K Prateek Nayak <kprateek.nayak@amd.com>,
+ x86@kernel.org, Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?Q?Rafael_J_=2E_Wysocki_=E2=8F=8E?= <rafael@kernel.org>
+References: <20260924160052.2858456-1-superm1@kernel.org>
+ <20260924160052.2858456-4-superm1@kernel.org>
+ <5b748ac7-26da-4010-bfc8-014a0c97abe2@arm.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <5b748ac7-26da-4010-bfc8-014a0c97abe2@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01 2026 at 00:29, Gary Guo wrote:
-> On Wed Sep 30, 2026 at 10:43 PM BST, Thomas Gleixner wrote:
->> So what's your actual argument that you can't build a "safe" Rust API
->> around this?
->
-> Sure, if all expiry read/update functions have their _safe_from_callback
-> variant.
-
-Why do you need more than the safe forward variant to solve
-the problem of preventing that a callback forward and a concurrent start
-collide and create inconsistent state?
-
-Just to take a step back. We have two sorts of hrtimer usage:
-
-  1) a simple "start, wait or cancel, done" sequence, e.g. nanosleep()
-
-  2) a more complex scenario which has to take care of concurrency,
-     e.g. POSIX interval timers
-
-#1 does not need any of this
-
-#2 has almost always a related data structure, which needs to be kept
-   consistent by some form of serialization. The embedded hrtimer is
-   just a small low level detail of the overall use case logic.
-
-   The base lock _cannot_ provide the required serialization and any
-   amount of 'callback safe' addons will not change that.
-
-I completely understand that you want to create a fool proof hrtimer
-Rust API, but honestly that's just creating an illusion of correctness.
-
-If the core provides you a get_expiry_safe() variant, which takes the
-lock before reading, then what is the return value?
-
-  It's a snapshot which might be invalid at the time of usage already.
-
-Ergo, if you need consistent state across concurrent contexts including
-the callback, then the only solution for that is external serialization.
-
-I'm not against hardening the core implementation against API misuse
-where it makes sense. But that's hardening and cannot solve the other
-problems which are solely in the scope of the usage sites.
-
-Thanks,
-
-        tglx
-
-
-
-
-
+On 10/1/26 05:03, Christian Loehle wrote:
+> On 9/24/26 17:00, Mario Limonciello (AMD) wrote:
+>> From: Mario Limonciello <mario.limonciello@amd.com>
+>>
+>> If the highest frequency is known for a CPU, use this instead of
+>> trying to calculate by linear interpolation.
+>>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>>   drivers/cpufreq/amd-pstate.c | 6 ++++--
+>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+>> index 496e0342c1c90..2a0cbfe21a67d 100644
+>> --- a/drivers/cpufreq/amd-pstate.c
+>> +++ b/drivers/cpufreq/amd-pstate.c
+>> @@ -1102,8 +1102,10 @@ static int amd_pstate_init_freq(struct amd_cpudata *cpudata)
+>>   
+>>   	WRITE_ONCE(cpudata->nominal_freq, nominal_freq);
+>>   
+>> -	/* max_freq is calculated according to (nominal_freq * highest_perf)/nominal_perf */
+>> -	max_freq = perf_to_freq(perf, nominal_freq, perf.highest_perf);
+>> +	/* try to look up from BIOS/quirk first, fall back to (nominal_freq * highest_perf)/nominal_perf */
+>> +	max_freq = amd_get_max_frequency(cpudata->cpu) * 1000;
+>> +	if (!max_freq)
+>> +		max_freq = perf_to_freq(perf, nominal_freq, perf.highest_perf);
+> 
+> Don't you need to align freq_to_perf() (or the callers) for the BIOS-overwrite case too?
+> amd_pstate_update_min_max_limit() still uses the nominal-based conversion for policy->max,
+> so the new maximum frequency maps back to highest_perf on each core type?
+> (and we end up with max_limit_perf < highest_perf if the BIOS-overwrite values are below
+> the interpolation result.)
+> 
+> 
+That's an excellent finding, thanks.
