@@ -1,58 +1,46 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CBAE448B9B;
-	Thu,  1 Oct 2026 13:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 04D1149E153
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:22:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860952; cv=none; b=Snh+v32cxHrE2P6AwJk7/nnVAYGwnSsXEnyulqbS/Yb2k2Kh5zKY0wsdyQsNPb2hEY79jR/VRaDl374u48eKQuqi5+iniG0jflmSv/b5oo/NL2pqvomPbD3/yZ2aGZWZ30b0sBmbExOI6pnTRqoYSJBdyskNmu+NunH72u4nrU8=
+	t=1790860963; cv=none; b=ucfb2Iqnxm3QgkE8hFTje1hRPraPiFYUKokLtowafQUxMBbIbPzim7cYCv7ekyVW1sW2UNiMSg8sii155awmpaRK3r/ktCP1uzUwy+eHSi3D1NCxw1gQA3kopEUYjTSWh+dGCTXoF9gLsQ7iDiCVuN3Qtepxodnhu11PIGXE+oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860952; c=relaxed/simple;
-	bh=KaScK6HZ++/LOz2Gmmuj6RJvMoW430IBJLE7+9YkYGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MIjMrgmcuBY6z4MtOsm0m5QjK2JHQwb0ZCP4AoA2h0CI2Mj5h4zDVH7E7TQGc/bsvijJ2HjIkZ6bAUWi4TpNaPmUNi9btivOX4ppCQBkRHISq50cuC64y98YWBPH/LsVwzYrJ02UFBZJ9Xej33NKWVbPLNEQtwmGKTYanKOd5DI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=jBPcGxp4; arc=none smtp.client-ip=13.77.154.182
+	s=arc-20240116; t=1790860963; c=relaxed/simple;
+	bh=EwI2GMeLr7NGmBn3bi3YUvUUpF0IxEv9vIN7XOIhjBo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GSHhyCjDxN8ht4UDAGBIfuhTI3Z6IQYcJlphDUkcU5pQyidfWbmnju2zbY3sknSfIzqe7edYU8/jHxh+Jb18N4Z7+SVr1Hu8+ggRAJEcj7GGDJdI4vFvFJIlv4BXmHd6l2Azy8AO4f9T66wvJTCJZ7BICRP/N+WyLTGj+0oO518=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=TDmSABuf; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="jBPcGxp4"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="TDmSABuf"
 Received: by linux.microsoft.com (Postfix, from userid 1134)
-	id 2A36720B7167; Thu,  1 Oct 2026 06:21:38 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2A36720B7167
+	id 0062D20B7168; Thu,  1 Oct 2026 06:21:48 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0062D20B7168
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790860898;
-	bh=EjlOJ/OcDiSNWbB30Bul6Eomt2gGaGyv7txR7jxF0iQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=jBPcGxp4n4AL4jR6mv2YVvUBaMT7eoAQ0cdBGb+WIR1kTvSM1AjhvPMauIMe5sdfJ
-	 Lm8uF823+SCZWFRggYrIXfBNUUbR2XS6f6sGK/1G+/P3O/Rtr5WZp9Yd6fFYI2t/Rc
-	 mJOThD2cSzQLTihor/xm3aUC3QH7UyXxKZzNZdmE=
+	s=default; t=1790860909;
+	bh=GISBfCNPceIZSjVaURcaK2XPuYCZTPOv4jPbHJzoivY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=TDmSABufyhX1yZ1RR4wJ2LCnh2cL6ZgHS7YPAIQcLYNot3Y2Ljzc7exn+pd6dLj4z
+	 SNli2qg4G8RNSzyZzOLJH5eu7VNcEQA9uvjAaCZ3YooNxum55H6LkU7touRKSf0vt0
+	 hrCP1Rd5135XHBp3B5sLwjNuRJAmWgaUW7gWkhAI=
 From: Shradha Gupta <shradhagupta@linux.microsoft.com>
-To: Michael Kelley <mhklinux@outlook.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Baoquan He <baoquan.he@linux.dev>
-Cc: Shradha Gupta <shradhagupta@linux.microsoft.com>,
-	Will Deacon <will@kernel.org>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
 	Mike Rapoport <rppt@kernel.org>,
 	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-hyperv@vger.kernel.org,
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Mark Brown <broonie@kernel.org>,
+	Kees Cook <kees@kernel.org>,
 	kexec@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org
-Subject: [PATCH v3 0/2] hyperv: Run VMBus kexec cleanup from syscore shutdown
-Date: Thu,  1 Oct 2026 06:21:25 -0700
-Message-ID: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] kexec: Add helper to report an active kexec reboot
+Date: Thu,  1 Oct 2026 06:21:44 -0700
+Message-ID: <20261001132147.1703600-1-shradhagupta@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
+References: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,61 +49,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Kexec reboot fails on ARM64 Hyper-V guests because the VMBus
-connection and SynIC CPU hotplug state are not torn down before the
-secondary CPUs are stopped. The kexec kernel consequently starts with
-the previous kernel's VMBus state still active.
+A shutdown callback in a loadable module may need to distinguish a
+kexec reboot from a normal restart, halt, or poweroff. The Hyper-V
+VMBus driver needs this distinction when moving its kexec cleanup into
+a common syscore shutdown callback.
 
-The previous version added an ARM64-specific syscore shutdown
-implementation. This version follows Michael Kelley's review and moves
-the cleanup into the existing architecture-independent VMBus syscore
-operations. This removes the separate x86 handler dispatch and gives
-x86 and ARM64 the same ordering:
+Add kexec_is_in_progress() and export it to GPL modules so the callback
+can remain guarded when VMBus is built as a module. Provide a false
+inline implementation when CONFIG_KEXEC_CORE is disabled.
 
-  device_shutdown()
-  syscore_shutdown()
-    VMBus UNLOAD and SynIC CPU hotplug teardown
-  machine_shutdown()
+The helper reports only the normal kexec reboot path. Crash kexec and
+preserve-context kexec do not set this state.
 
-On x86, VMBus teardown now runs before hv_stimer_global_cleanup().
-This ordering is safe after commit be0cfab740e5 ("clocksource: hyper-v:
-Remove support for stimer interrupts in message mode") removed the
-VMBus dependency from synthetic timer handling.
+Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+---
+ include/linux/kexec.h | 2 ++
+ kernel/kexec_core.c   | 7 +++++++
+ 2 files changed, 9 insertions(+)
 
-Patch 1 adds a read-only helper that reports whether a kexec reboot is
-in progress. The helper is exported because HYPERV_VMBUS is tristate
-and the common syscore callback must also link when VMBus is a module.
-Patch 2 moves the cleanup into the common callback and removes the
-obsolete architecture-specific setup/remove interface.
-
-For stable kernels that still support message-mode stimers, an
-ARM64-specific backport will be needed to preserve the existing x86
-ordering.
-
-Changes in v3:
-  - Use the existing common VMBus syscore operations on all
-    architectures, as suggested by Michael.
-  - Remove the x86 handler pointer and the weak setup/remove interface.
-  - Add an exported read-only helper for modular VMBus builds.
-  - Correct the Fixes tag to the commit that enabled Hyper-V on ARM64.
-
-Changes in v2:
-  - Use syscore shutdown instead of an ARM64 machine_shutdown() hook, as
-    suggested by Catalin.
-
-Shradha Gupta (2):
-  kexec: Add helper to report an active kexec reboot
-  Drivers: hv: Run VMBus kexec cleanup from syscore shutdown
-
- arch/x86/kernel/cpu/mshyperv.c | 17 +----------------
- drivers/hv/hv_common.c         | 10 ----------
- drivers/hv/vmbus_drv.c         | 22 ++++++++++++++--------
- include/asm-generic/mshyperv.h |  2 --
- include/linux/kexec.h          |  2 ++
- kernel/kexec_core.c            |  7 +++++++
- 6 files changed, 24 insertions(+), 36 deletions(-)
-
-
-base-commit: be0cfab740e58b70047ef6e7e3d578f00ed5d258
+diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+index 8a22bc9b8c6c..827a5311d97a 100644
+--- a/include/linux/kexec.h
++++ b/include/linux/kexec.h
+@@ -468,6 +468,7 @@ bool kexec_load_permitted(int kexec_image_type);
+ 
+ /* flag to track if kexec reboot is in progress */
+ extern bool kexec_in_progress;
++bool kexec_is_in_progress(void);
+ 
+ #ifndef page_to_boot_pfn
+ static inline unsigned long page_to_boot_pfn(struct page *page)
+@@ -544,6 +545,7 @@ static inline void *kimage_map_segment(struct kimage *image, int idx)
+ { return NULL; }
+ static inline void kimage_unmap_segment(void *buffer) { }
+ #define kexec_in_progress false
++static inline bool kexec_is_in_progress(void) { return false; }
+ #endif /* CONFIG_KEXEC_CORE */
+ 
+ #ifdef CONFIG_KEXEC_SIG
+diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
+index dc770b9a6d05..282c7b3c6c35 100644
+--- a/kernel/kexec_core.c
++++ b/kernel/kexec_core.c
+@@ -23,6 +23,7 @@
+ #include <linux/hardirq.h>
+ #include <linux/elf.h>
+ #include <linux/elfcore.h>
++#include <linux/export.h>
+ #include <linux/utsname.h>
+ #include <linux/numa.h>
+ #include <linux/suspend.h>
+@@ -54,6 +55,12 @@ atomic_t __kexec_lock = ATOMIC_INIT(0);
+ /* Flag to indicate we are going to kexec a new kernel */
+ bool kexec_in_progress = false;
+ 
++bool kexec_is_in_progress(void)
++{
++	return kexec_in_progress;
++}
++EXPORT_SYMBOL_GPL(kexec_is_in_progress);
++
+ bool kexec_file_dbg_print;
+ 
+ /*
 -- 
 2.43.0
