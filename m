@@ -1,160 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ECC49BD7F;
-	Thu,  1 Oct 2026 21:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E4D533588;
+	Thu,  1 Oct 2026 21:12:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889117; cv=none; b=h0WGeUGOEqqZiW5ax8iJl1bs8QfQNGY92/1SWlOIL05nnO2LfBns89TbUw/Xd8Gq/3diCFA+VFjxF+ufn1zp3fQ3UlOkiS5ulvrTNNw3oLshybkryFYoHa21T28wTkguwz2z/xAiOb43g7ZOkSiDewWZU7N5HDiVUDCyPCgnzdM=
+	t=1790889148; cv=none; b=u/wp13QfXl+OZpmwpf8qKhLKBQBnfDNSyyVj2OvjaVdLCcApa7gREXTXfGBIonoP1Zj99Mx9CgUENC2iJ44SnRd0pdDPoiwxyIqNw3HPib1zh+Nr0QLELbQECEfdfndomKk2GHmx0FhNbNIj2QfhKP2G8w8Vxt0gnF7HF1FW8bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889117; c=relaxed/simple;
-	bh=3Zx7mZTcZxBEPzyMjLgv3nmr1xCwyHk4Zs8Em19mPuw=;
+	s=arc-20240116; t=1790889148; c=relaxed/simple;
+	bh=ByJYRNs/FCtsobJF+WoAZvVdL5F7+r8bTWjj8PMgqVs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NcGGEJZ7tsOuqcIvpW60ujdBvPc3UBIJIwkeOVW/CNTxNXRBYAxhxo4U6spV7DH+QzXdZbUI47JMUeInC11DNtuxCGpv4Po72jXm/Pw3jCWBzUfezh/hdeMZsgqZCctTwMUmgwCPwE8NLyJOIp93ziXGVsNgLCGZ006vjyN8GZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLvG3LAB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QtR/qAZ+f5LqGEh2l6fvzdxVYXWbR50ZxWlvLMIJBoceC6IOtWEQLNGABLf6kq5CSA45uzJn8uxLn5oZSffNuCd7lkLyPCAnze0QfKfXKYoXJ0Gmi8hx9+SZGaScxmv0JfNIrLFMzy0ihZncryMr3SvmRT3lHMc4X5PzvkTGDZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=N3eGFqkw; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLvG3LAB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92AC51F000FF;
-	Thu,  1 Oct 2026 21:11:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790889116;
-	bh=ZRl45zOulKSzHu0gpa5gJKuaLYcXh2vCa43UARtQmaM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VLvG3LABMRXOFV0rgrekJzhEHgOaAUj51pCohlr6tbG0Kfz2+O31tpT/VOJmKa2qv
-	 aoqtWaO1OHmw6NEuOwkkzH+ITshRx/cFcvuH30U6Z3Z+1f5M2XRpJW5j0kZQMfBpNm
-	 aDJiV/OkpNSN247u+74LZ2vH1rAJrHOISVEvOLsSU/SkHlDUq8HY1dMdUOolhLzS4O
-	 mNj00cw/HyADcX5F9EhC+DfLOsZJiBgJnAxDjXk7eheCEFsSCfLQQ8G0dWHfPfNsvP
-	 XfEfksywZyaJ74TR0NoPtMy+hlIkUHjIHexpIJSmCzCsK9XTgP8DkePoYwHX0nhJjT
-	 /zuYeQ4/jGOFw==
-Date: Thu, 1 Oct 2026 22:11:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Leonardo Bras <leo.bras@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 08/15] KVM: arm64: Enforce EXLOCK for SPSR and ELR
-Message-ID: <659cba01-3c53-4eb8-9124-7c62d266a64f@sirena.org.uk>
-References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
- <20260930-arm64-gcs-v21-8-3556644cd927@kernel.org>
- <ar5thpZI5GiCfVRR@gremlin>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="N3eGFqkw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=yV3OoqhhTOyvLfdzMAWwmTNQmt2i01UTi3FCUoHNWiw=; b=N3eGFqkw2bH2ZVrnw5+je4uWhZ
+	J+5Vt4ELsqK0nd7/5K0Dd3phpnJ11mcwHS9Ckj3NnVfMsk3pJIqKyXmFaO6aqqA1wUOjjbfAe5arF
+	TXtggCg1hUKUMga2W9gTs9o/sg+Zks2X3RF48SVs0T94Jmo+mUUucCvXppgBF7+LGEeIqIZshggBe
+	Uj12hMsorknpIKgwpTe1E0upzf6OQpQnfPN4W6l1K6OQ73Y+dEepsFpKQcPnSMS5u6W9c74ZrdYyK
+	xX8PEkyeFYpBoW7g/MrJJK8Xb3/ePcA+lpljARA7IhJfalxxtq5SGY3d0Y5fDh4Aq7VYWlkLzvhKy
+	s/2qqAIQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xCO4e-0000000A0JS-34rA;
+	Thu, 01 Oct 2026 21:12:16 +0000
+Date: Thu, 1 Oct 2026 22:12:16 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Barry Song <baohua@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Hongru Zhang <zhanghongru06@gmail.com>, akpm@linux-foundation.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, surenb@google.com,
+	david@kernel.org, liam@infradead.org, mhocko@suse.com,
+	rppt@kernel.org, shakeel.butt@linux.dev, vbabka@kernel.org,
+	zhaonanzhe@xiaomi.com, linux@armlinux.org.uk,
+	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	linux-arm-kernel@lists.infradead.org, chenhuacai@kernel.org,
+	kernel@xen0n.name, loongarch@lists.linux.dev, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+	linuxppc-dev@lists.ozlabs.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr,
+	linux-riscv@lists.infradead.org, agordeev@linux.ibm.com,
+	gerald.schaefer@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+	borntraeger@linux.ibm.com, svens@linux.ibm.com,
+	linux-s390@vger.kernel.org, dave.hansen@linux.intel.com,
+	luto@kernel.org, peterz@infradead.org, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+	Hongru Zhang <zhanghongru@xiaomi.com>
+Subject: Re: [PATCH v6] mm: retry page faults once under the per-VMA lock
+Message-ID: <ar7MsOb6IJLt4eLo@casper.infradead.org>
+References: <20260911025613.1220845-1-zhanghongru@xiaomi.com>
+ <arFYRAa-i7CIwmHL@gremlin>
+ <arF-E3Nsw9ZliH0t@casper.infradead.org>
+ <arI_w2wTfA00Mgy9@gremlin>
+ <armexcXDiG8ryZd6@casper.infradead.org>
+ <CAGsJ_4xuFi7K+crAcFQ998SxXS0xPM6QeA34JV+6+Sy005rXLg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q9J3ZXhLEIPLOZjy"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ar5thpZI5GiCfVRR@gremlin>
-X-Cookie: Do not stamp.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4xuFi7K+crAcFQ998SxXS0xPM6QeA34JV+6+Sy005rXLg@mail.gmail.com>
 
+On Mon, Sep 28, 2026 at 10:48:41AM +0800, Barry Song wrote:
+> On Mon, Sep 28, 2026 at 6:55 AM Matthew Wilcox <willy@infradead.org> wrote:
+> > So while doing my slides, I realised that what we need to avoid doing
+> > is (a) sleeping while holding the mmap_lock (b) returning RETRY while
+> > holding the VMA lock
+> >
+> > And that turns out to be as simple as this patch:
+> >
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index dd09c438fa23..94ed2333f8d8 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -723,6 +723,8 @@ enum {
+> >   */
+> >  static inline bool fault_flag_allow_retry_first(enum fault_flag flags)
+> >  {
+> > +       if (flags & FAULT_FLAG_VMA_LOCK)
+> > +               return false;
+> >         return (flags & FAULT_FLAG_ALLOW_RETRY) &&
+> >             (!(flags & FAULT_FLAG_TRIED));
+> >  }
+> >
+> > OK, this is a hack.  The function is spectacularly badly named, and
+> > needs to be renamed before a patch can go upstream.  But this should
+> > fix the contention on mmap_lock.
+> 
+> Thanks for your suggestion.
+> This is exactly what we did in Android Common Kernel before we had
+> Lorenzo's proposal (bypassing `fault_flag_allow_retry_first()`):
+> 
+> https://android.googlesource.com/kernel/common/+/1b9b045a586245cc1c29b2747c6586234c7f5bad%5E%21/#F2
 
---q9J3ZXhLEIPLOZjy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Looks like that one didn't cover __folio_lock_or_retry(), but that
+doesn't invalidate your point.
 
-On Thu, Oct 01, 2026 at 05:26:41PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Sep 30, 2026 at 10:48:18PM +0100, Mark Brown wrote:
-> > As per I_CFFNS and the pseudocode for the SPSR_ELx and ELR_ELx registers
-> > a GCS exception with ExType 1 is generated for attempts to write to
-> > those registers when both GCSCR_ELx.EXLOCKEN and PSTATE.EXLOCK are set.
+> Note that Lorenzo's proposal avoids mmap_lock contention without
+> introducing any new VMA lock contention. It also doesn't require a new
+> flag that would break KMI. So this is clearly the preferred approach.
 
-> From [4] I see I_CFFNS is defined as:
+But it does retry multiple times in cases where we know the fault
+will always fail (eg the fault is on a device-private VMA)
 
-> "When an MSR instruction would write to the relevant ELR_ELx or SPSR_ELx
-> for the current Exception level ELy, the Effective value of
-> GCSCR_ELy.EXLOCKEN and PSTATE.EXLOCK may prevent the write."
+> > Could somebody try it?  I've verified it boots and runs some userspace
+> > fine, but I don't have the workload to test the contention.
+> 
+> Both Nanzhe and Hongru tested it before and reported the fork issue.
 
-> So the lock applies to writes to the current EL's own ELR/SPSR rather than
-> to any ELR_ELx/SPSR_ELx the current EL can write to?
+So what I didn't realise is that fork() waits for page faults to finish.
+I don't think that's necessary, so we can just stop doing that (whitespace
+damaged):
 
-VHE and NV complicate things so "own" isn't just the same ELx, but my
-text above definitely oversimplifies too much and so is wrong.
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 4bf26b0f1e6e..e79555247d3a 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -1739,9 +1739,6 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+        for_each_vma(vmi, mpnt) {
+                struct file *file;
 
-For example refering to the pseudocode for ELR_EL1 and SPSR_EL1 we see
-in the MSR handling:
+-               retval = vma_start_write_killable(mpnt);
+-               if (retval < 0)
+-                       goto loop_out;
+                if (vma_test(mpnt, VMA_DONTCOPY_BIT)) {
+                        retval = vma_iter_clear_gfp(&vmi, mpnt->vm_start,
+                                                    mpnt->vm_end, GFP_KERNEL);
 
-  elsif PSTATE.EL =3D=3D EL2 then
-      if IsFeatureImplemented(FEAT_GCS) && GetCurrentEXLOCKEN() && !Halted(=
-) && PSTATE.EXLOCK =3D=3D '1' && ELIsInHost(EL2) then
-          EXLOCKException();
+I think this is safe.  I've booted a kernel with this change, and
+everything seems to run fine.  Of course I don't have any multithreaded
+applications which call fork() because that's a stupid way to write an
+application, so it's not really tested.
 
-and note the use of ELx for ELR/SPSR and ELy for the current exception
-level and GCSCR in I_CFFNS (ie, ELx vs ELy).  My interpretation here is
-that the use of "the relevant" rather than just using ELx throughout is
-an effort to cover the complications resulting from VHE and NV.  With
-the above pseudocode writes to the EL1 register from EL2 are also
-covered when we're in host mode - the fact that we're in host mode makes
-the EL1 access relevant.
+My argument for why it's safe is that a thread which takes a page
+fault during fork() might have taken the page fault either before or
+after fork().  The faults will definitely happen in the parent process.
+They may or may not have happened in the child process, which can't
+possibly care whether or not they've happened.
 
-I'll reword what I've written in the commit log, like I say it's wrong.
-
-> So... TL;DR is, shouldn't this function look like:
->=20
-> static inline bool sysregs_exlocked(struct kvm_vcpu *vcpu)
-> {
-> 	if (!kvm_has_gcs(vcpu->kvm))
-> 		return false;
->=20
-> 	if (!(vcpu->arch.ctxt.regs.pstate & PSR_EXLOCK_BIT))
-> 		return false;
->=20
-> 	if (is_hyp_ctxt(vcpu))
-> 		return false;
->=20
-> 	return vcpu_read_sys_reg(vcpu, GCSCR_EL1) & GCSCR_ELx_EXLOCKEN;
-> }
-
-I think so, but I'll check through again.
-
-The confusions you identified in the bit of your mail above this were
-the result of me doing some but on all of the simplifications.  I was
-trying to make things clearer by including some code that couldn't run
-so it was more obvious that things correspond to the pseudocode, but
-really that shouldn't have had any simplifications in it - we should
-either have all the simplifications or none of them.  I'll add more
-comments instead.
-
-> > +	/*
-> > +	 * Note that the EXLOCKEN for the running EL is checked
-> > +	 * regardless of the register written to.
-> > +	 */
->=20
-> This seems to contradict [4] - the register written to is what decides
-> whether the lock applies?
-
-[4] is section D11.4.1 of DDI0487 M.d, containing rule I_CFFNS discussed
-above.  My intent there is to express that if EXLOCK exceptions might be
-generated we check EXLOCKEN for the running EL, not one influenced by
-the written register.  Some combinations of register, EL and system
-state do not generate exceptions but those that do use the current EL's
-EXLOCKEN rather than an _ELx register using GCSCR_ELx.EXLOCKEN.
-
---q9J3ZXhLEIPLOZjy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq+zJUACgkQJNaLcl1U
-h9BVtAf+PDpVuQacuftSkXtdJrBZMHKg8vNuetDKBvz9KvhrxoYoWQjRmPVuAoX2
-OcGHpNojxajl33f7aKUa28MSH8eOOSZuypPQ1cvORyeyrLK7fTnN7r/MVRpccdQl
-VgMAgLADQyNtyXisrzEFNQorksK5ns7ifIN7qsf6hRMZM11ZMHhxQ0jM4EdhmLX2
-OmHFYM3ynGbTgwltOCO3mXd4DWQOw/QFxzBXc7Y83BNhW7oWphPC0qw098y7WbRo
-pTQnmDtpms4njthjpsM8eSwsTJ+geholf5xtxuI9ssE3JhR1tuN5Su3E3hKjQM5y
-Livc7aiNwu7yvT6t0SYfIcx3omJ/Tg==
-=yzBf
------END PGP SIGNATURE-----
-
---q9J3ZXhLEIPLOZjy--
+The only difference I can think of being observable is that the child
+may observe some later faults to have occurred, while some earlier faults
+to have not occurred.  I have a hard time believing any application can
+possibly depend on it.
