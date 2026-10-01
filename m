@@ -1,160 +1,131 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011062.outbound.protection.outlook.com [52.101.57.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0955F3C060F;
-	Thu,  1 Oct 2026 22:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894636; cv=fail; b=QTgU7Ye+eQO+sBIa+cxqLGHS5Syywo6iExeKwx8Kpst3EIw/thCGCwBFjifOPKis4PE1/MPwOTLuJ1xsrgoJuqO+WGWdRHvITswG8QOuWgTINzAqwPAcNhu2Tqu8AmQMRd5dM+4bDEJteCzAdv5igwMMmOqNLIeRtmIMTa/0Bo0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894636; c=relaxed/simple;
-	bh=ObrV6WYXfg/sb4eo/XSNCXTmXxRXCZyZx3Cp86KzTVk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=DkXgb/aiKLOkiQC/c8jiBxSS0xYaswpqYY/KxMptyHTV7ILa3JX3AC/+pWjjLHHY5+sk8JEvDK0UBERVsLKcbwUguIKPN50DJ+HJ0/mpsTkZZcZyknzmLhdnY8KWqEN5E4RFXlg1kVXUaWURCz3EVZE9BWYI8Z0Pt2lAWerU3a0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Tmg4R2By; arc=fail smtp.client-ip=52.101.57.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0BB41D114
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790894750; cv=none; b=AR2ggFqQoYAFwk1TSWeCdiG39qywI5KwX8VRmhwn+PioGPv3E7mAQr3C8JjdQdezNzncFh4GHWZ96l12BNAl2hi6JFlL0wMQ/md+rrC/xzFEeF3pEMlehEc52Q8WraIYsZ6kGkC1HCk3mil+51TlRzgoYQezIQW7f+galJx2S1c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790894750; c=relaxed/simple;
+	bh=cNVcbuAwiuPvbW7gIOTu7dEHjAhHHDNmMOS8HQkVoFU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tPEIXlBeNGJSklcUDgsP9vGzETlLhMAFSEcuV3SttiZbAT3VyhTHbze3u7O7rD5Kju231QIfMLxjmgJZ0lZSuNC1V7mmnHx/QmilzGi419G/0/DaPRvtpfMnFXLUmydG8NUCgslVgENHt7N30FJUmqUNY5b1hA9pwwPoSh5B1Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rwLqrN+S; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Tmg4R2By"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k+D1LNgRDY+6VIJQ6RV4Y/LIf7EueNsLaDk0PbItYdWQhFQYd7YcSXowAwVrEa9NDBoZtpVstP8ZCJuynqGu0Fij6v+8iWKvB8jBx6S4ksYNvOHB4ZHSM+OAZHodKnRxjbyayyQPlrFVw9/gA1VrBg0jJTqA95rKorTDUdmgZbujR8jINK5KLySasY19Lf3xbItXebVpn8agQB70rEdO8zzgnaKdWTiyG+Zi79AIMu89J13sAPAl7EtAcvumpCDKkiF02H4+R5alUWjgmuJ6pAZKXC0efNftVsWUIEH4DQ1IQ094aJoy5RVQrNo09JQCvy58TJED7hkxBUh4IbXUtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C57Nye64/taxtKO7TO5Ivx1bHqULjjHzg2oY0Cw3Mik=;
- b=V07/GCMDT2knbNe6zj+JevhpFnSxcQVRHxPTEKLj+FksvZDSHTdAKVGrnJQCvEaYp5PirMoqlV8FdBt37TPn/xO5E3lcZpzNuY8rzQJwZYpVBNIUTGj2vRsfV+nZSGYG+wVA24M9gbE5Cifeo9d9lYt0tRFMKyZcU9ywX4oMVmMPRpJbSGeAUjp4PujFjuKvoi1pC47hIlazOGDEDFPwzjtzBNxOJn7iahRMo+faiVyrK9ohIutRhuAC8Wo8My6NZcnNr5FrMxJtqfPv+Sftp3o5uZDsTM3d649wKpcVP9H/CzXKZrJzbGh/Lb8Wmk0KBywlOudXswA2M9Obm/PLDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C57Nye64/taxtKO7TO5Ivx1bHqULjjHzg2oY0Cw3Mik=;
- b=Tmg4R2BysRroX2DE016srlEiLv1cC1YvtM5iUVKXHNZ3fl/sOhX6yGc+dREnrWNBVg2b8d/te8M98iBNNfkxVQfd7HjuT8EJVsi1Metfj8KGinc3UVvCKCitkX0wchEu1owSHrSE8EU3YGb52qVjIu+kQLq5Aa+N8B9QEzL7VL4oZPQVhmcpIsbIhD306P69Xs9BfsGvRm/NWlKVBIZVispp5BAOYlqHo0IqHRRZPJjrOVeXZNzwcmrqhtBi5nvPhs6TCz7CuvhSp6mmcUpSR3gC5IUnld3ToOWEodPSnmxdLoJMVc1+UQlDhLFsL8Ey3bKi4KPL9tSfonmVW2s/wg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5) by LV8PR12MB9450.namprd12.prod.outlook.com
- (2603:10b6:408:202::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
- 2026 22:43:51 +0000
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 22:43:51 +0000
-Message-ID: <9cb698aa-a733-4a0f-99e9-da200ebb18c7@nvidia.com>
-Date: Thu, 1 Oct 2026 15:43:48 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 05/15] cxl: Introduce reusable HDM decoder settings
-To: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20260922083924.2451158-1-smadhavan@nvidia.com>
- <20260922083924.2451158-6-smadhavan@nvidia.com>
- <389514f1-6e6c-42d7-a4a8-7bbb9032473f@amd.com>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <389514f1-6e6c-42d7-a4a8-7bbb9032473f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH7P220CA0129.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:327::23) To LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rwLqrN+S"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so5001477a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:45:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790894748; x=1791499548; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IisvBifMmb2UUMDo1HteD5AGTapgBqr+NugNWMv+c3A=;
+        b=rwLqrN+SPTOAHAJGJxAYUDIdo8ysq0rlTQgHnPbbMHsRDVHDW0WGWZX7YwB96zNafy
+         jAVkdw9tz92d6uNCRdzFA54w7sIEQ0YkoA4cMxk+n+PIf+7ZwOwGqKNBph18dz10JKgf
+         LC4cijSyN5IsVl83aCwEEuFkYWsHUCdj/oP3O8dFdp9G5w+xDav3gop/RT7mWER6jyVQ
+         RY6/MtzINs16NcIxS+bbwVOaHT5iKU02XmArnS4q/QtYTgE8M48tIRZJ17tLa9casUXA
+         1QX6QcVhBjaGu1taq4QVv8sJBCMbtWgSDbgTieUO+xh+4Bui1Hr5OcLT7INo1Rq3BXqZ
+         QBfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790894748; x=1791499548;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IisvBifMmb2UUMDo1HteD5AGTapgBqr+NugNWMv+c3A=;
+        b=W8Gjo8u3SvqrZnGVszqqXpfTTIGDpPEc82brJ7te4GyFPudYWhe1gIFKbxQ8x+lfmX
+         yfvRP0P7af2VgBIZAge7yhgKMvGn69h+YoAUZgFNxO8n0RtevkKbWw2Xe6u0lQqexZga
+         3O/SqHFqzewgger3PFUXe/dq86C1NS/26GjANlZDjEtaB5GJri55WIU0nVGJex5pkyTi
+         JMz07VB3uoyPpRT3zoGhZmRfosrO+zJ/bpRw3GkwsRpQOZzMR11zaUdO27V1vllHJREb
+         2wExSsSSaMCHyo0dRiiAtQa4tfHtA7SQudcNLLVfe40gG6P9g9uapXhUa5z3jrQXmU/G
+         ef2w==
+X-Forwarded-Encrypted: i=1; AKwUvBw+gTIn+a2nG+jAx+ct6mRruLpD4IBzmMBwgUa0FWc34r9J4dEJRWrnlCuPUnzL+NQdzfN0GhbPfALMbsA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0wqiZUzgBZSLRqnTPDoFXTgPA0lmdvrlLroEISon1mNlfY9Jz
+	9gzd09wt3vlErzpK6s2Rj0WtCYgiIQXX/3t6TtPBw3q2yfWrbTOrKVbx5auXrYdkCLOplMDwR6w
+	9ZA==
+X-Received: from pgbcw4.prod.google.com ([2002:a05:6a02:4284:b0:cc7:91e8:1fab])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:a122:b0:3de:6172:e33d
+ with SMTP id adf61e73a8af0-3e0bcf2949cmr852824637.20.1790894747533; Thu, 01
+ Oct 2026 15:45:47 -0700 (PDT)
+Date: Thu,  1 Oct 2026 22:45:25 +0000
+In-Reply-To: <20261001224531.765278-1-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|LV8PR12MB9450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f991565-bdf1-4100-094e-08df200d76ee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|7416014|1800799024|10067099003|4143699003|18002099003|56012099006|11063799006|921020|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	QH57R8yg5/0/fpth1H3Bitj3fUZJBtDtPlI8v4Dw14H9OqRRPqbKe32Gv8aL71rLDX0S5faU3GTmlMTj3s+E3jZmZQeHoZB6oKdzvoNQE/y4gkx5nuSlsvDmQRFYtxt+qJv454QK83PbXBgXTXwiuU6Pd5d1fVkLybeN3P2IDGE3MVLVeBus48V3qMXwZGJhL9/H4ICo3+zM/E0ChQ1QotX4dMMZgRq74hDKgUfeRUek2owo9Niqc5f/4PhfnDeJzee8QtI55HVJmPs5QKghs/4P6r8aJQRtejSUu2UnxNTWO1PMMhI57YA/5h6JiKkSO8JUTaG1+5u+kxZsPOELlA7hryB+1z0Rhv2oNZi6UxT19BGj/fZ0pkU1+3V7jeUH84kXgDtSK8PmhRQj940IgQ+mxT9wChKDWkCXkj2MMrWgOdMQBLRF02YDWfZihB9lv4Anp+UIJ8kJ0g4VXbSWsjPsqP41LrdjdPXpnspMq2Y1y2voO3wL/SCeOj3cFxI8HguS3RyB03Ge/RLGqCQ05NoPKCV1mNKsTrmPc51nA/j1sbU7YSqAnv0FcvzmTnrD3/xaShj8DArW0PdCGswHzsYU0SZjiCkHANIvl0G7kLMk9uDZRPCORSGZ0l1EEzdX6fJ9ymAosXmKzvgUiXfyVkwaSo76vR9kQEZyyjsrWtZmRI0iLpC2BYuedMjVtmMVgcCF3/fZ4HBRecoRDzGLtw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(7416014)(1800799024)(10067099003)(4143699003)(18002099003)(56012099006)(11063799006)(921020)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YTNaSm1oWkZsa2RKUFQ5UHVoZFNmUGdGblc1VHM1THVnN1VhUVZmTzg3dHpr?=
- =?utf-8?B?ajhPN3pYTExVbHZieGlablU1WUMzanF6aU9LSUE3UjYvcVh5c2ZWMHh6bC9z?=
- =?utf-8?B?aE1HVTdpcUxEOXN4L3g3by9oYnlmNis2eDRRSTMrY3pCZXhCbWIxZEErL3gx?=
- =?utf-8?B?QzB0OEtRZzRaSzRGT3lUVmRmbWtUdVJkWDRpWWZKekNqZEpZcWtBUW9vZzI2?=
- =?utf-8?B?elN2blpjQklaWHNrRjVFRm1LY2hYWUMrNUtXTm91UFFsK29WWHd3MGxRaHdJ?=
- =?utf-8?B?VkwyalN0L05PdG9PQW9ML21kWmxCbDJGK1dlRWZ5bFphVTlUOXM2WU8wcW4v?=
- =?utf-8?B?YnNhS1RLRzVuYnkxdVZUWkNORk5oejhQajFqMUNGU2lQQ0RKaGJkd3NSR1N1?=
- =?utf-8?B?L1JTZ2pKOENsNTh6RXBLUnprenpleHBqdnhKM1pOaENtWEhHdzV1ZVk2M1E1?=
- =?utf-8?B?anA1NnhHcWVrNEZkWlQ0cVBQZUJxVy9OdTNUTXFiL2tRR1lzbkJiRjBQUzMv?=
- =?utf-8?B?UXcxT21YclNtY2k1YWx3TWd1RnA0WlBNLzJ5OFhPZDZFSFFla2NwbUErUW1u?=
- =?utf-8?B?bXR5VlQxRkJoeTZ3K1o2MHVvM3JKd0ZBa25vK21nNjF6VEdMdWNXM2lSUnZa?=
- =?utf-8?B?RUxiU3Z4K3dqM05PSGh2R2ZQT2ZEZlJxZ3FnRkxPN3dQMjZ4dXA0c292bHAw?=
- =?utf-8?B?U3YvZ0JQVWxReGEzYXVVRTNzM2NNYWZLbEYrNnRNUDdNQ2ZOYXF4UkVXaENv?=
- =?utf-8?B?enM0UTA1WDRQalFiT2RzbVh2bzFZc09TaEk0Z0pubEpsa2RkWElOaVVtZVNW?=
- =?utf-8?B?RXRrR1N6RWhYcFZiQ0w2V1p6bDA2MWZUTU5NSW01Mm94dCt5d1ArTWpXbS9z?=
- =?utf-8?B?MjZPVU94V1ZXK2NMYkRqZzFtejB6cm5Qc2Y3Zml4WEtad2JHUFIwVU1MdldY?=
- =?utf-8?B?SVI0bEpZY3dNOWUxUE1FdW5xanBUVnJkenBpNE1HVXNrajJTTVF1UHN5dFdy?=
- =?utf-8?B?dmZRdkZTcHdzY3JJbFBidW8vemRYV2NickdvOHBXRXZsTkZFZnlnNmFKaGwv?=
- =?utf-8?B?OUEzR25ORGp2V1puZE9Pc08vR1F3WU0vQ1VWVjZiaHVrcWpKT284aER4Q1ho?=
- =?utf-8?B?cTUwMnFzdnI1ZHJnaVk1SEdjbXg5akNyOXlOTnJwaWFBVnhUeG40ZGVzUmNS?=
- =?utf-8?B?dk9JTXVvQ2Q2bkNPS2prUTdCMjFKWHcrS3Zsd0RwZXpLWC9XNkVzdHlNblZS?=
- =?utf-8?B?WFJOc2FlWk9QalM4NEhrTDJPRTd4NG52OEVRSklYTzY3L3ZNQ2RmWWI1clBy?=
- =?utf-8?B?bWdDRVh0cHZ2eUx3QThhUVlzWFdENjZ6MmxWOTR1Qm9zcXJzOHovODFURHJS?=
- =?utf-8?B?Y3RXK2U1ZGNLdyt5Y2h5K0xMZ2pwa25XTzVLVW5yb2JldEk2Q3k3Tm1OV2hD?=
- =?utf-8?B?bTNkcFdEQm9NM2ZVWDJIcmUxQzFjckxjSXo3VU1maDhPRFpyRUt0Q0FMRFI0?=
- =?utf-8?B?NUNSTlNzNks4Z1hraWoreDNFL0NrbndkSGNpa2VMUjFCV005N2QxajYvaFhn?=
- =?utf-8?B?My9uQ205cmlxR1RGbm1pY3RLVGcyNmtGeHpqZTd2eEh6VmlrSWxSa1BNRW9S?=
- =?utf-8?B?SkxFc2lBZTVlcWNXYTFSYU13cVNXMWsrSVprcG5QbXJnMjBJVGw5bDh6aGF1?=
- =?utf-8?B?NW5WQk05TldyVEVLbGkvRG5Ob01NdXJHVzNtYTZaUUpUa3Q1ZHVqb3c3YjNH?=
- =?utf-8?B?OFI5ZDM1MDVWSUdNcTY4Lys5MTdvczZLUCtENkxZZnN4OGZDRmgrVmRBaGZN?=
- =?utf-8?B?cEtsTyt4amxYRThYMUNKNkloY3RrZVg4SlV0SFJHRG9qTFNyZklFbjl5UWt1?=
- =?utf-8?B?UnF6RXJqOE5NaEFFQk1ZM2RYMGxZcEhmSTRiRU5xdjQ4Wmt3bVYxODdzaDFV?=
- =?utf-8?B?TnVRNHJCbFh2S1g4Z3FDUHVoNjJINnpLRk5mNkdheDQzWVVyemRjMnUxZXAz?=
- =?utf-8?B?UlFDQnFLb0UyYjVzRGRpSVR6YWNHdmFCNCtaR0ZFWnBOM0xRT0I5Qng5L3B3?=
- =?utf-8?B?S2w0eUFtSFBSVHoxYXNJOHhOdzRrMU8wbHc5bGh0SUxLK2d3allFMnJvbWRw?=
- =?utf-8?B?OWkzdzhVUnE1NVA0L0xORE1TNDBtZnRvN0pGUE9Rb3pyd3FTTi9ZNnRRTzNx?=
- =?utf-8?B?czQ0cmJSNkFNdkdLbVVnSWhpMVJCM3V0NjN3Lzl2QnpOMjU0MGRESmY4V0k3?=
- =?utf-8?B?UVVield1ZWd0amRQazU5ZlVzc0xRNE1neHBHY0pMRTJHMG9ORkdZdmc3aUIv?=
- =?utf-8?B?MnNPZStmUGE1R01saGJXNHJ6WGVIbGlSUmZxUW1Fa2dMbG1WUmZUdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f991565-bdf1-4100-094e-08df200d76ee
-X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 22:43:51.3312
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 016hWNY759nbyDXww2psxNVsadf4gxthcCmdvax+6JF1evMUuh+GCqw6zSJeL2jbl/apneVRXkdZXbz2TBG1+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9450
+Mime-Version: 1.0
+References: <20261001224531.765278-1-praan@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261001224531.765278-2-praan@google.com>
+Subject: [RFC PATCH 1/7] iommu: Add infrastructure for per-domain IOPT accounting
+From: Pranjal Shrivastava <praan@google.com>
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: Mostafa Saleh <smostafa@google.com>, Daniel Mentz <danielmentz@google.com>, 
+	Samiullah Khawaja <skhawaja@google.com>, iommu@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Logan Odell <loganodell@google.com>, Pranjal Shrivastava <praan@google.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/23/26 2:39 PM, Cheatham, Benjamin wrote:
->> +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings)
->> +{
->> +     lockdep_assert_held(&cxl_rwsem.dpa);
->> +     setup_hw_decoder(hdm, settings);
->> +}
->>
->> -     writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->> +int cxl_commit_wait(void __iomem *hdm, struct cxl_decoder_settings *settings)
-> No reason to rename this. Either just use cxld_await_commit() directly, or just
-> change the signature of cxld_await_commit().
+Currently, the IOMMU subsystem tracks the total number of pages
+allocated for IO page tables globally via nr_iommu_pages, but lacks the
+ability to attribute these allocations to specific domains / users.
 
-Done in v14. I dropped cxl_commit_wait() and now call 
-cxld_await_commit() directly.
+Add an atomic `nr_pages` counter to struct iommu_domain and introduce an
+anon union to store the iommu_domain (aliased with private) in ioptdesc
+for the accounting infra. The union ensures that the ioptdesc layout
+remains identical to struct page, maintaining the integrity of existing
+static_assert checks. Utilizing the `private` field is safe here as IOMMU
+page table memory is exclusively owned by the IOMMU subsystem and is not
+managed by other core MM subsystems that typically claim this slot.
 
+Co-developed-by: Logan Odell <loganodell@google.com>
+Signed-off-by: Logan Odell <loganodell@google.com>
+Signed-off-by: Pranjal Shrivastava <praan@google.com>
+---
+ drivers/iommu/iommu-pages.h | 8 +++++++-
+ include/linux/iommu.h       | 2 ++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iommu/iommu-pages.h b/drivers/iommu/iommu-pages.h
+index e9e605b5fa3a..edf75c81054f 100644
+--- a/drivers/iommu/iommu-pages.h
++++ b/drivers/iommu/iommu-pages.h
+@@ -25,7 +25,13 @@ struct ioptdesc {
+ 		u8 incoherent;
+ 		pgoff_t __index;
+ 	};
+-	void *_private;
++	/*
++	 * Alias iommu_domain with page->private for IOPT memory accounting.
++	 */
++	union {
++		void *_private;
++		struct iommu_domain *domain;
++	};
+ 
+ 	unsigned int __page_type;
+ 	atomic_t __page_refcount;
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index ac43b8b93f14..478b64f4084f 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -231,6 +231,8 @@ struct iommu_domain {
+ 	struct iommu_domain_geometry geometry;
+ 	int (*iopf_handler)(struct iopf_group *group);
+ 
++	atomic_long_t nr_pages;
++
+ 	union { /* cookie */
+ 		struct iommu_dma_cookie *iova_cookie;
+ 		struct iommu_dma_msi_cookie *msi_cookie;
 -- 
-Regards,
-Srirangan
+2.56.0.rc1.315.gc6ed9934b7-goog
+
