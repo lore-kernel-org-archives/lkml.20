@@ -1,162 +1,209 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC0D3BFE2B;
-	Thu,  1 Oct 2026 19:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DAA449B2F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790883450; cv=none; b=mZH4I3gERdUOfQdpEe2JxFsTnyHIvWPOIKBLoKB/Va8D7zWrtUEf4i/YTDD/iK32n6GtDY4nLVxPutLMvu20Z6Fk1aocozuv/qZ0oO88FNOyqwzV6ts7Ff2+tSHK30XqBCmYhGW0PyRmcTcqxzzXRRR8wa6awIgne8eDGxse+r4=
+	t=1790883525; cv=none; b=C/ZfLdccAwDu365zOKl5ZMa3UZrOAAzcTM+ZM8mo5HFsJMLixJO8rDdJEelgn+knm0bbtcmNaQc9LKx5aeax/Kq5xQZHwUJnEgVskgcxmOAnGG0O6R0gAH5sfhNh1rPAHsyJTEOHj++RIXS/gnssoa+h43YD3Izy2wlNspq9pJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790883450; c=relaxed/simple;
-	bh=IwlDC8wn5b8kCP6Z/TFT1NMXwzbGOW7GKSvw2JJYln4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B6qgytD/VzHvEeeApgnweU0KnIA54xWJB/f7WYHl07v47bZp06yeBf0v2o/ByQEYjgeEoDgR3qwEVE9lQXQGKQe5Bb9vWql7RCozZvt/pbnejjdqSRFTOk1LIdb/NGkrFcSnWXVsdHO0GlOr94AYVA7in2wr9SX2SfnVJXydlh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YsyRrOev; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790883525; c=relaxed/simple;
+	bh=X1iKfg+PR3aGtis6dzyOimEIL1qrv94z0dqqbBNo7SM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=srzkcWdGXi8V68NiADh9tly3R+3vb5dEFLwfEMcDfdV1snWc2D4ooKnxtV4V4BD23fe4mLOQ5HYRIpsmlyiCHcf+jgcseMVP2vXhMXZS/lkoXNm8KDFb0oUn5qFvZGDgBPcMxvEsO9WnptxNYSMe7xdDkcyhxpnUeEIK8BHSsnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GgymDAnr; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YsyRrOev"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790883449; x=1822419449;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IwlDC8wn5b8kCP6Z/TFT1NMXwzbGOW7GKSvw2JJYln4=;
-  b=YsyRrOev2ZbWt2pk1rzhKRGabeFOwhlmeXCSz7sSM476fNOGUKyFfabD
-   VpTC1WN7sL5GVtkBjwEm83JB6OVgU+6wL//hKSLa4mcSjk40qrz8/KOGt
-   InRTxbMRBwTx4lsyjAtkHo7EUCr0VvHh6o8URIm4wt7bE58jM94Eq9PQl
-   pQ0fucYB11d/OhZIJC4g8PZoCCO/N8i3yrPo/eJSE1mcaHz3jyyAE/MhS
-   QaBwPVmdSGtEtI1yBNk/1NtdmoZisatruvP5pbgcphVSkLP4KUs6sLKHu
-   dirOdZ9kKb/aEgWYnDZV+njFrflf1CHP+tK2BGkPqDCdn4V5RV7sJT3Px
-   A==;
-X-CSE-ConnectionGUID: zv0dbStlQzyoYTD/wfMG9g==
-X-CSE-MsgGUID: 1Szc+1izSCKygmcVz/FIdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="113439128"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="113439128"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 12:37:28 -0700
-X-CSE-ConnectionGUID: 5saRle/kR5GVopSKB8UEhQ==
-X-CSE-MsgGUID: drHUxuAESCitOMFVcMcoBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="279837423"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 12:37:18 -0700
-Date: Thu, 1 Oct 2026 22:37:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Richard Cheng <icheng@nvidia.com>, Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>, Len Brown <lenb@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>, Lizhi Hou <lizhi.hou@amd.com>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable+noautosel@kernel.org
-Subject: Re: [PATCH v12 10/10] PCI: of: Avoid np->data usage for the node
- changeset
-Message-ID: <ar62bJzBEAhGL2iu@ashevche-desk.local>
-References: <20261001142815.277550-1-herve.codina@bootlin.com>
- <20261001142815.277550-11-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GgymDAnr"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd7d0751efso10240045ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:38:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790883522; x=1791488322; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lvIpe4THwU2429Vg5PUWauuEjS4O/VrneOOpXPs58Tg=;
+        b=GgymDAnrmq7YI7uUistSCv/0iYqLVeWA0ALYEcTRF0WsYsL/fYdDC0k0aH606edW8I
+         nMu8u+SdIMNgrCAau+zUEqaLbxfB79KQTgWGHQaS9TZ6T9aGwoIaMx4BjxyQQiDlHVXb
+         2Es2TeOVHn4tmyUzShflZZ78aC6TJSoAUsm0kTJ5tZ1FE1jRwc/68g9S/dxxn2v1u0e6
+         9Ssos7El2+EwqYhbXNjTehh4J10e48Pbxs+LBiXX4BmBNFWA/M16biISh5Y3itDaarun
+         IhyRY22athgs3Wcw28f+TWg87wcHp0DxNcNbqWllTMnA/VgNgqZD5x5zUDPuq8cuODr4
+         btYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790883522; x=1791488322;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lvIpe4THwU2429Vg5PUWauuEjS4O/VrneOOpXPs58Tg=;
+        b=PwJVjGfGgBtu3P3FlMAf2V7pzL4LgGN8ucVU2VE0ie/rR+XuQRD9IzSkJtirFzJThY
+         2TNC2Vfco2UMtuxIKSCG62tc7oRNJxY6VT1m4SFBbi/9jbEWr4DZQv6GlT2m8FMJplPy
+         3eYzibn3b5Fa0VdBhnAnF9UmtlWX0+HTMlZHVWsBLQ6+ERIi27QXsci9NCVstRCEacax
+         QXf0rEIDrDHsQTlwpNS0dyBZhETqtmLy8Yzui551T4vQadTacq0CZucRe9YErXyPWxOm
+         TVWA1HJfc5nj0df2FZtJQee77GJacRLPjcR4PDFF+NICshQmy7VoNc3AApTco/FO0jjg
+         VbxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxIcTmuaDU+AjgzpqwP//6Ih/qsJ8bkSjD468WCcGBsVRt7RXCaI+VL+wB9EOxYAFUTl4R6NexKROZAZgQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0Aytk5IA2ICxbzovoyuyMkqfZmmeK23FwgSuf+ZU4C4Vw4x6m
+	pXaopcH9tVJrwsrLcN3AUVIQSqC6ChBLSdmD1ZAs4LF650BpfxxK4KNiAgQtSjV0My7fB/Vg2wd
+	TMbJ60w==
+X-Received: from plae3.prod.google.com ([2002:a17:902:e0c3:b0:2e2:d9e8:ae73])
+ (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ccd0:b0:2dd:c100:2518
+ with SMTP id d9443c01a7336-2e49b6d1bb0mr2469165ad.33.1790883521992; Thu, 01
+ Oct 2026 12:38:41 -0700 (PDT)
+Date: Thu, 01 Oct 2026 19:37:27 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001142815.277550-11-herve.codina@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAHe2vmoC/3WMwQrDIBAFfyXsuRaVGEtP/Y+Qg9XVCGksroSU4
+ L/X5t7jzOPNAYQ5IsG9OyDjFimmtYFQlw7sbNaALLomQHI5cC0lK25nhIsvSIWYcEapm7ae9xr a553Rx/0MjlPjOVJJ+XP2N9H/9L9UmxlnQhk3qN4o7p6PkFJY8GrTC6Za6xd5lZsorgAAAA==
+X-Change-Id: 20260722-tdx-selftests-1da5587cf047
+X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790883521; l=5897;
+ i=wyihan@google.com; s=20260319; h=from:subject:message-id;
+ bh=X1iKfg+PR3aGtis6dzyOimEIL1qrv94z0dqqbBNo7SM=; b=l/5GFGD72CM1/CgLtFPipw5V21iGFJJDaH5jiAH12gZUY6RpYUX6ZX7p0cdXJtdoaokQTFxHc
+ Shyg2kgBxXyAWVeaAl2i2til3vbDZuxe+Yo3+hGcF0RRAJ4L59ynJBT
+X-Mailer: b4 0.14.3
+Message-ID: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
+Subject: [PATCH v15 00/23] TDX KVM selftests
+From: Lisa Wang <wyihan@google.com>
+To: Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
+	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
+	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
+	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Oliver Upton <oupton@kernel.org>
+Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, x86@kernel.org, Lisa Wang <wyihan@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Ira Weiny <iweiny@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, Oct 01, 2026 at 04:28:10PM +0200, Herve Codina wrote:
-> of_pci_remove_node() and of_pci_remove_host_bridge_node() check
-> whether the node is dynamic but not whether it has valid private data.
-> 
-> During the node creation, an OF changeset is used and this changeset is
-> stored in np->data to be available for removal functions.
-> 
-> If, for instance, a PCI host bridge is created using a device-tree
-> overlay, the related node will have the dynamic flag set but np->data
-> will be NULL. This leads to NULL pointer dereferences.
-> 
-> Checking for a non-NULL np->data pointer to determine if the node has
-> been created by the PCI node creation process is not enough. Indeed,
-> on some platforms like PowerPC, the OF_RECONFIG_ATTACH_NODE notifier
-> (e.g., in the pci_dn_reconfig_notifier() function) intercepts node
-> additions and populates np->data with its own structure, such as a
-> struct pci_dn. In that case, np->data is not NULL but it is not related
-> to our changeset stored during the PCI node process creation.
-> 
-> Avoid the usage of np->data to store the changeset used during the PCI
-> node creation. Store our changeset in a more relevant structure: either
-> struct pci_dev when the node is created for a PCI device or struct
-> pci_host_bridge when the node is created for the PCI host bridge.
-> 
-> With that done, no ambiguity remains on removal. Indeed, this changeset,
-> if non-NULL, is the one used during PCI node creation. Check and use
-> this changeset on the removal process.
+This patch series focuses on setting up a TDX VM and adding all code
+necessary to run a basic lifecycle test.
 
-...
+Unlike standard KVM selftests can set up the VM through guest registers,
+TDX module protects TDs' register state from the host. This feature of
+TDX causes problems on VM boot state initialization and the ucall
+implementation.
 
->  void of_pci_remove_node(struct pci_dev *pdev)
+In standard KVM selftests, the host directly initializes the guest state
+by manipulating Special Registers (SREGs) and General Purpose Registers
+(GPRs) via IOCTLs (KVM_SET_SREGS, etc.) before the first KVM_RUN.
 
->  	struct device_node *np;
->  
->  	np = pci_device_to_OF_node(pdev);
-> -	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
-> +	if (!pdev->cset || !np)
->  		return;
+To bypass direct register initialization by the host, we utilize the
+standard x86 reset vector as the default entry point.
 
-Wouldn't be better to split this conditional to two?
+The mechanism works as follows:
+1. The host places register values into a specific memory region and
+   inserts boot code at the VM's default starting point.
+2. When the VM starts, it executes this boot code to "pull" values from
+   memory and manually set up its own SREGs and GPRs.
+3. Once the environment is ready, the boot code jumps to the guest code.
 
-	if (!pdev->cset)
-		return;
+The standard x86 ucall() implementation uses PIO, but it does not
+actually transmit data through the 4-byte PIO data. Instead, it relies
+on the host reading the ucall address directly from the guest's RDI
+register.
 
-	np = pci_device_to_OF_node(pdev);
-	if (!np)
-		return;
+TDX selftests cannot utilize the standard x86 ucall implementation
+because the host is unable to access the guest's RDI register. Between
+the two alternatives, TDVMCALL_MMIO and TDVMCALL_REPORT_FATAL_ERROR,
+TDVMCALL_MMIO has fragility concerns and requires hardcoding a magic
+address while ignoring mmio_gpa. Therefore, the Report Fatal Error
+TDVMCALL is the cleanest and most efficient solution for TDX ucalls.
 
->  	fw_devlink_set_device(&np->fwnode, NULL);
->  	device_remove_of_node(&pdev->dev);
-> -	of_changeset_revert(np->data);
-> -	of_changeset_destroy(np->data);
-> +	of_changeset_revert(pdev->cset);
-> +	of_changeset_destroy(pdev->cset);
->  	of_node_put(np);
-> +	kfree(pdev->cset);
-> +	pdev->cset = NULL;
->  }
+Main Changes from v14[1]:
+1. Include patches from Sean to transition TDX ucalls from TDVMCALL_MMIO
+   to TDVMCALL_REPORT_FATAL_ERROR, and update the rest of the series to
+   support this change.
+2. Rename TDCALL to TDVMCALL and leaf to fn.
+3. Update the commit message to clarify workflow of CPUIDs.
+4. Replace manual JMP rel8 offset calculations with an assembly
+   trampoline.
 
+Thanks review from Ackerley, Binbin, Peter, Rick, Sean and Xiaoyao !
+
+Series is organized by:
+1. Patches 1 - 3: Initialize the TDX VM
+2. Patches 4 - 7: Add the TDX boot code
+3. Patches 8 - 13: Set up the boot region
+4. Patches 14 - 17: Set up the vCPU
+5. Patches 18 - 19: Finalize the TDX VM
+6. Patches 20 - 23: Implement the ucall and run the TDX test
+
+[1]: https://lore.kernel.org/all/20260722-tdx-selftests-v14-0-15ad654a50db@google.com/
+
+Signed-off-by: Lisa Wang <wyihan@google.com>
+---
+Ackerley Tng (1):
+      KVM: selftests: Add helpers to init TDX memory and finalize VM
+
+Erdem Aktas (2):
+      KVM: selftests: Add TDX boot code
+      KVM: selftests: Add a helper to issue TDVMCALLs from the TDX vm
+
+Isaku Yamahata (1):
+      KVM: selftests: Update kvm_init_vm_address_properties() for TDX
+
+Lisa Wang (3):
+      KVM: selftests: Set shared attributes for ucall guest_memfd pages
+      KVM: selftests: Require guest_memfd for TDX VMs
+      KVM: selftests: Support guest_memfd in-place conversion
+
+Sagi Shahar (13):
+      KVM: selftests: Initialize the TDX VM
+      KVM: selftests: Expose segment definitions to assembly files
+      tools: include: Add kbuild.h for assembly structure offsets
+      KVM: selftests: Introduce structures for TDX guest boot parameters
+      KVM: selftests: Expose functions to get default sregs values
+      KVM: selftests: Set up TDX boot code region
+      KVM: selftests: Set up TDX boot parameters region
+      KVM: selftests: Expose function to allocate vCPU stack
+      KVM: selftests: Call KVM_TDX_INIT_VCPU when creating a new TDX vcpu
+      KVM: selftests: Load per-vCPU guest stack in TDX boot parameters
+      KVM: selftests: Set entry point for TDX guest code
+      KVM: selftests: Finalize TDX VM in kvm_arch_vm_finalize_vcpus()
+      KVM: selftests: Add TDX lifecycle test
+
+Sean Christopherson (3):
+      KVM: selftests: Add macros to simplify creating VM shapes for non-default types
+      KVM: selftests: Add support for per-VM ucall ops on x86
+      KVM: selftests: Add support for TDX ucalls, via TDVMCALL_REPORT_FATAL_ERROR
+
+ tools/include/linux/kbuild.h                       |  11 +
+ tools/testing/selftests/kvm/.gitignore             |   3 +-
+ tools/testing/selftests/kvm/Makefile.kvm           |  39 ++-
+ tools/testing/selftests/kvm/include/kvm_util.h     |  27 +-
+ .../testing/selftests/kvm/include/x86/processor.h  |  44 ++++
+ .../selftests/kvm/include/x86/processor_asm.h      |  12 +
+ tools/testing/selftests/kvm/include/x86/sev.h      |   2 -
+ .../selftests/kvm/include/x86/tdx/td_boot.h        |  81 ++++++
+ tools/testing/selftests/kvm/include/x86/tdx/tdx.h  |  16 ++
+ .../selftests/kvm/include/x86/tdx/tdx_util.h       |  83 ++++++
+ tools/testing/selftests/kvm/include/x86/ucall.h    |   6 +-
+ tools/testing/selftests/kvm/lib/kvm_util.c         |  22 +-
+ tools/testing/selftests/kvm/lib/ucall_common.c     |   8 +
+ tools/testing/selftests/kvm/lib/x86/processor.c    | 147 ++++++++---
+ tools/testing/selftests/kvm/lib/x86/sev.c          |  16 --
+ tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S  |  71 +++++
+ .../selftests/kvm/lib/x86/tdx/td_boot_offsets.c    |  21 ++
+ tools/testing/selftests/kvm/lib/x86/tdx/tdx.S      |  39 +++
+ tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c | 292 +++++++++++++++++++++
+ tools/testing/selftests/kvm/lib/x86/ucall.c        |  54 +++-
+ tools/testing/selftests/kvm/x86/sev_dbg_test.c     |  13 +-
+ tools/testing/selftests/kvm/x86/sev_smoke_test.c   |  40 +--
+ tools/testing/selftests/kvm/x86/tdx_vm_test.c      |  33 +++
+ 23 files changed, 965 insertions(+), 115 deletions(-)
+---
+base-commit: 37e0791600e5f1e2837a270c885296a172f5825e
+change-id: 20260722-tdx-selftests-1da5587cf047
+
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Lisa Wang <wyihan@google.com>
 
