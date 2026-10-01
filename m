@@ -1,81 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D303E168C;
-	Thu,  1 Oct 2026 04:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85455367F4A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829782; cv=none; b=GkbRBLC0qw19HwKqLyTXbleqVpjehyIkLJWvrMo1jZN/9ve5JtPJV1dkii56QPcL8yW6EtfEHnSne4Sb3ujhxk+GqXMSPVXxHvVVAmxKk/aLbUkk6K/nghOTq353tVgN2qpJsfTmSCV0qTmSInbhPmk3dT940HeevdMWnf1l8+E=
+	t=1790829839; cv=none; b=gsZPLQaw9uxHi/aE8xISUK4WULOXS9lKzyKGxxb8DyUxHh5YdNo3GOhWU5hny+nFXlxOb6GNOfWFVZlybRWIPw35Y0/A7ReWET17MqbZjJ3QLsrnM91eChs2fkpu8yyy3CCQz/w7tTAzDOGiudGFIm/lTJGN15bluBWGJU84faU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829782; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OoVwcJqk9tTXICMUMSlpgLtQUz4K85a5EGTLMYmgqp9/+o1Q1H3aQzh6wRHeNoAPP62xIxvDfyjjh5k7zHUwyvC2h4DvEmNnaPRRbcuF4rVGpLbeba1YddRW/E53ucXLTf2bCEt5ghYCtUCD3bllqPUvBYJvRU4V1G9Yvxlj4dM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m6CibyAp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790829839; c=relaxed/simple;
+	bh=DRvGXUCMIjeh/9VhqM+s6ct6XK4U6QY+Oz8+r+QHpvA=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=Pc1LLmvVhVyT3dHwdaN4sUOYJYbaIr7wYOQKPrLIvZrugdKazX/cd+KL2ewoLlFtZud7AGwofoFf/GIIW2Rj5TvE9OwsHLj+T+NbPJAsrKM5MVBnls33YUkiDZp/0tLcMrYeBJ/kliN53grRLOyBmEan5+h3Yd1syjeK6MFXaKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu; spf=pass smtp.mailfrom=bitvisir.nu; dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b=DberjlxL; arc=none smtp.client-ip=194.63.252.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitvisir.nu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m6CibyAp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9D71F000FF;
-	Thu,  1 Oct 2026 04:42:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790829780;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m6CibyApBhAxklukMkRmJRcb+rDQ5COKx2k0QaLVZFuQ6FxrZch/teyQgqBUHZwQM
-	 yqfQRxqNjCxW+bsi7WBfamGrQ3jJrKv04U7ul5ODigb3btbGf9cU7RfnEyVwDBXzVc
-	 6PTaiexJQpUFpRROVnayfxo7zsI6xFlghfW/t6KtMQ+mwB2lRh7BrRCEWlNexNCng7
-	 YPsUUQxeBOIjKSYkVqxFXl5svGqgVNHGtShcu0ATTvh/u6M2EXKBBc2t0QDGoeYaQT
-	 k4hYx9PUatnkNsYstjzuynltt2rf7N1eInBa48CAFhbNjVLfgvB5y9r8dM+AGTCZ9v
-	 91Ol//i0HTV+g==
-From: netdev-bot+sinfo@kernel.org
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Marangi <ansuelsmth@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: leave the datapath running for
- normal-size MTU changes
-Date: Thu, 01 Oct 2026 04:42:59 +0000
-Message-ID: <179082977927.31693.14994198839172125816@kernel.org>
-In-Reply-To: <20260930-stmmac-mtu-fastpath-v1-1-fd73f378c071@gmail.com>
-References: <20260930-stmmac-mtu-fastpath-v1-1-fd73f378c071@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b="DberjlxL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitvisir.nu
+	; s=ds202607; h=Content-Transfer-Encoding:Content-Type:Subject:From:To:
+	MIME-Version:Date:Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:
+	Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=2SkZJ9lHykR1QrxQ5L6l2PDc4/fz8sLS/IBtjHRzbNo=; b=DberjlxLRPJBJoS5HXbjcHtzIM
+	N7ugX/HBliXHhYQYM2fWte+dChX1WkY+a5pRr/nQl4zogwHmNJCzbJK/mdbQawkV8a2BmQefedRON
+	gzRhb/rmyMsw/cyqtV1XVd9hwOuHNF0c6JXfw5g5tp5Qhw5YL53Eu5WwzNF7QohnHQVcjhiHb80PI
+	dSsqxwEJF7FkdSBrTIY0UWGMeBqYXKDOQvj/YeJTqhyjPghh9RFjHxgIfXkadLwYiCSSMmU6Vpp6l
+	HBRaT4tlUkNfUnS3DVRe3VBi/8yEueOWTj4kktGgvgaHDmh4U1RII18niIu19DY8Kl1yBM9lAOP2V
+	Wf29Io5w==;
+Received: from smtp
+	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	id 1xC8eB-00CQXg-7E
+	for linux-kernel@vger.kernel.org;
+	Thu, 01 Oct 2026 06:43:55 +0200
+Message-ID: <5c9186ec-e795-401e-81ac-335317321fba@bitvisir.nu>
+Date: Thu, 1 Oct 2026 06:43:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: linux-kernel@vger.kernel.org
+From: =?UTF-8?Q?Ywe_C=C3=A6rlyn?= <yn@bitvisir.nu>
+Subject: Philosophy Iterations (..Fair Pay, Low JItter)
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi!
+Updating to Bitumen and Emerald possibilities (Zener / Schottky) for CPU 
+/ Transistor , for a potential of 7 GHZ, which also is a philosophical 
+perfection and ultimate.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+My research is also available in pop format here:
+https://www.youtube.com/@Bitum_Bitstreams_Bitstars
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Bitcoin aligned with NZDollar is Bitum.	
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Earlier:
+https://bitvisir.nu/Visir_3-Bit_D_A.png
+https://bitvisir.nu/Visir_Desktop.png
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Serenity,
+https://bitvisir.nu/
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
