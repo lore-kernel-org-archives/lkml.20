@@ -1,73 +1,169 @@
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F9093B71CC;
-	Thu,  1 Oct 2026 12:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C59A7486E6A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856778; cv=none; b=cJLFxiZ6qXJVLl+4ESmfY/mgWLYMKy/9gjrMJO+tAxWfW2bNBvK1YvYmGLXBaEa94qDf6it4QWn/kMOhXN7Vldj3P/vCJwhhBQrF6QKyIodZ07FByzj5NteZYcuBLvcDplmG5UiR9AuLte+UkVDyB5nkshXJmw+6ZUeI1SkwEC0=
+	t=1790856775; cv=none; b=ofYldji7zeUyjcqyCL5UMUMKkViJEgXEbIdL7WtmlDntyk7j4B1RVc4J2pPz71ZJiQJT/m02BisDUB0PUDA1JIe/vWIa782z59HKfm2JmvFYrk70A793gMIYasWt47NckBJpprszD1KEP9Gc5PL17d+9D1DdZTfX7B/Ws5cv4vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856778; c=relaxed/simple;
-	bh=o18IV4zOtC20tUpw2bNMBkrDUv8rwqxXfGNlGHNF5zY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QfimSSu8QhKFgNlMIPx00ZpfVM+NlAeWtbcIy5oGLjQG99JGTd7bNFtpFIsGQuPYKPuew0jGjy06tj8lzuD7UEIdBqEQ+TNzLOXQ/KUTY8cS6da4AH3bVeobLlmekvdILfVfcBIxW9zgqXyxGPCm95TlGfl4gdDbATCfZ6ypMGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xCFeU-00010i-00; Thu, 01 Oct 2026 14:12:42 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id 5BDF3C02BE; Thu,  1 Oct 2026 14:11:53 +0200 (CEST)
-Date: Thu, 1 Oct 2026 14:11:53 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Aristo Chen <aristo.chen@canonical.com>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MIPS: GT64120: Remove duplicate GT_PCI1M1LD_OFS and
- GT_PCI1M1HD_OFS
-Message-ID: <ar5OCUOixCsB1hD_@alpha.franken.de>
-References: <20261001053016.76578-1-aristo.chen@canonical.com>
+	s=arc-20240116; t=1790856775; c=relaxed/simple;
+	bh=lIRzzkK1k4nk3ikZ7PiqNu7IU4+fhqAmi6tUa1OnN9k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uaSZbbkkSqkeMRD/aib82+Oi0ftpjrAFl3VAkszZRzyTyqkdcDg1Hr1jMjJO4RbpnQQO+wSX7DCcKC+Ag83u7ITjrBCsPyAd5wfyuOYy1/gopTHfjEWev8KKaGNvF3IcYggLxE5W1cbr4COA0AF25YYiy7eiTV5nuxdR6sbMgb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bjKNRXn7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bjKNRXn7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A8084497;
+	Thu,  1 Oct 2026 05:12:44 -0700 (PDT)
+Received: from [10.0.153.43] (e121487-lin.cambridge.arm.com [10.0.153.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBCB73F85F;
+	Thu,  1 Oct 2026 05:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790856768; bh=lIRzzkK1k4nk3ikZ7PiqNu7IU4+fhqAmi6tUa1OnN9k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bjKNRXn7yo/UqNgFkcF3IY3sku/lgQnv7xJJVzYk+46XnA4wAlk5OdTu9PnKXdeYN
+	 vXViWtLWHi30C7LI2m58Qt5PdpIFSYBfaLSQI6o7rzhaHMCZdjFvwPaNturdSmpsO2
+	 Uevn/9QA66598RIWWXygq335bWJ2XEVjQu+dqSTE=
+Message-ID: <1575b9c1-872f-4c09-89d7-8b2bd284e770@arm.com>
+Date: Thu, 1 Oct 2026 13:12:44 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001053016.76578-1-aristo.chen@canonical.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] arm64: errata: Add Cortex-A725 erratum 3821522
+ workaround
+To: Beata Michalska <beata.michalska@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
+ James.Morse@arm.com, xuewen.yan94@gmail.com, seanwang1@lenovo.com,
+ linux-kernel@vger.kernel.org
+References: <20261001090050.3849551-1-beata.michalska@arm.com>
+ <20261001090050.3849551-3-beata.michalska@arm.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20261001090050.3849551-3-beata.michalska@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 05:30:15AM +0000, Aristo Chen wrote:
-> The GT_PCI1M1LD_OFS and GT_PCI1M1HD_OFS register offsets are defined
-> twice in a row with identical values. Identical macro redefinitions are
-> valid C, so the compiler never warned about it. Drop the second copy.
+On 10/1/26 10:00, Beata Michalska wrote:
+> Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
+> incur a significant increment error when a CPU enters and subsequently
+> exits WFE or WFI, and may no longer track the system counter
+> frequency.
 > 
-> No functional change.
+> The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
+> frequency invariance and CPPC FFH feedback counters. Wire the affected
+> Cortex-A725 range into the shared broken AMU constant-counter capability
+> so the affected counter is treated as unavailable by returning zero in
+> the AMU counter paths. This prevents the broken counter from being used
+> as a reference source.
 > 
-> Signed-off-by: Aristo Chen <aristo.chen@canonical.com>
+> The erratum can also affect PMUv3 users of the CNT_CYCLES event,
+> but this workaround intentionally does not change PMU event handling.
+> Hiding or rejecting the PMU event from the erratum code would change
+> the perf-visible PMU event interface, including raw event selection,
+> and would need a separate PMU-specific approach rather than being
+> folded into the AMU reference-counter workaround.
+> 
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
 > ---
->  arch/mips/include/asm/gt64120.h | 2 --
->  1 file changed, 2 deletions(-)
+>  Documentation/arch/arm64/silicon-errata.rst |  2 ++
+>  arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
+>  arch/arm64/kernel/cpu_errata.c              |  4 ++++
+>  arch/arm64/kernel/topology.c                |  9 +++++----
+>  4 files changed, 33 insertions(+), 4 deletions(-)
 > 
-> diff --git a/arch/mips/include/asm/gt64120.h b/arch/mips/include/asm/gt64120.h
-> index 5d68d726598a..2ad770ff3c56 100644
-> --- a/arch/mips/include/asm/gt64120.h
-> +++ b/arch/mips/include/asm/gt64120.h
-> @@ -45,8 +45,6 @@
->  #define GT_PCI1M0HD_OFS		0x0a8
->  #define GT_PCI1M1LD_OFS		0x0b0
->  #define GT_PCI1M1HD_OFS		0x0b8
-> -#define GT_PCI1M1LD_OFS		0x0b0
-> -#define GT_PCI1M1HD_OFS		0x0b8
+> diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+> index ac3248b9f2f3b..99a1eb4b833dd 100644
+> --- a/Documentation/arch/arm64/silicon-errata.rst
+> +++ b/Documentation/arch/arm64/silicon-errata.rst
+> @@ -174,6 +174,8 @@ stable kernels.
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
+>  +----------------+-----------------+-----------------+-----------------------------+
+> +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
+> ++----------------+-----------------+-----------------+-----------------------------+
+>  | ARM            | Cortex-X1       | #1502854        | N/A                         |
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index 3b6c052d46a18..cab741a695f52 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -1081,6 +1081,28 @@ config ARM64_ERRATUM_2645198
 >  
->  #define GT_SCS10AR_OFS		0x0d0
->  #define GT_SCS32AR_OFS		0x0d8
+>  	  If unsure, say Y.
+>  
+> +config ARM64_ERRATUM_3821522
+> +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
+> +	depends on ARM64_AMU_EXTN
+> +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> +	default y
+> +	help
+> +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
+> +
+> +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
+> +	  increment error when entering and subsequently exiting WFx.
+> +	  As a result, the CNT_CYCLES may diverge from the system counter
+> +	  frequency at which it is expected to increment.
+> +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
+> +	  being unreliable and unsuitable for use.
+> +
+> +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
+> +	  counter return 0 in the relevant paths. This causes users of the counter
+> +	  to treat it as unavailable and is functionally equivalent to firmware
+> +	  disabling the affected counter.
+> +
+> +	  If unsure, say Y.
+> +
+>  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+>  	bool
+>  
+> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+> index 8ce559ac073c7..40c14e8600ae0 100644
+> --- a/arch/arm64/kernel/cpu_errata.c
+> +++ b/arch/arm64/kernel/cpu_errata.c
+> @@ -386,6 +386,10 @@ static const struct midr_range workaround_amu_constcnt_list[] = {
+>  #ifdef CONFIG_ARM64_ERRATUM_2457168
+>  	/* Cortex-A510 r0p0-r1p1 */
+>  	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
+> +#endif
+> +#ifdef CONFIG_ARM64_ERRATUM_3821522
+> +	/* Cortex-A725 r0p0 - r0p2 */
+> +	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
+>  #endif
+>  	{}
+>  };
+> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+> index 64588554e7f76..f1bdb49d5d92e 100644
+> --- a/arch/arm64/kernel/topology.c
+> +++ b/arch/arm64/kernel/topology.c
+> @@ -397,10 +397,11 @@ static void cpu_read_corecnt(void *val)
+>  static void cpu_read_constcnt(void *val)
+>  {
+>  	/*
+> -	 * Return 0 if the current CPU is affected by erratum 2457168. A value
+> -	 * of 0 is also returned if the current CPU does not support AMUs or if
+> -	 * the counter is disabled. A return value of 0 at counter read is
+> -	 * properly handled as an error case by the users of the counter.
+> +	 * Return 0 if the current CPU is affected by a HW erratum.
+> +	 * A value of 0 is also returned if the current CPU does not
+> +	 * support AMUs or if the counter is disabled. A return
+> +	 * value of 0 at counter read is properly handled as an error
+> +	 * case by the users of the counter.
+>  	 */
+>  	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
+>  		      0UL : read_constcnt();
+> -- 2.43.0
 > 
-> base-commit: f552e14f77bfce3e7ee0bb268ab023951baec3ff
-> -- 
-> 2.53.0
 
-applied to mips-next
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
 
-Thomas.
-
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+Thanks
+Vladimir
