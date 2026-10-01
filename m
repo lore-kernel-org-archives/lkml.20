@@ -1,121 +1,93 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D0D44AB7A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528953EC684;
+	Thu,  1 Oct 2026 08:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844525; cv=none; b=ZjZVFlrtAO6GANfafb45rZH6VbPR9rHEpdqvL7iKRzpK5xTafNFM22Ps/khhgfTS+RUHmuk9fSzjlu8P26YsLO9AECo9gduSyWkOinRZRlPYDJneF7t0By+50g2H8IU8aVnVS03o3W/Y33RTaHkYyyTYv2kve4u84zEldHCbMto=
+	t=1790844613; cv=none; b=m6Dq0Z1A8D8wlsWwkkfu+1ZkKW4rvsH3Lebkvcw3HyZX3l9vv3lO5QOIBd2C5E4bzm84OMkJ+9LLzCZfpTnTKkegh0++McFD6fFl1HdAuRS0U8NT4pBiAYAINOLl3R8veeQimiCo8tyW3NKCtkbqmMUpqmj5M2hDG7xv7cxZUas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844525; c=relaxed/simple;
-	bh=nr+YQ7N1k8qNgaWp+FXDvJKF1MvgrJIxfO3fL5291fk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JGff76B/p4gP8P8QxwAHc4Uo4t5ETE7VcujnGZY/7QT5fD4iDqHDexfIg1b26nfJHQ3gbFidnkJUaqLHqCi6YK6COqHd/nguZejy/Oz16wPELbwTwmLsE2MfPE4JAf/gm6MjAOt8pQtRd9pzd0x/7lEOV6WJbtEc8NRaRl93Nus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EuWgErga; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790844613; c=relaxed/simple;
+	bh=pxUzKT425ODQD3RlKjWqvW2ou19MMC+s5ZTzGwRIumk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hco7CZzM7oC1h6XB0tB6ot7fWb/zX2Z/sN52dZ8w7ioBg3T6AjNMpN6tqHu2K8X/lpgsm1OItHMD2vhhMfBuuPLRSPBGtDrOSI9wvLeXoBgvpOq8vIhHusKlLnsqWjDerXJJCtLUalKUN0J01T1nkzPqF1UA6HVzfcIyKmEmpNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JPTyr9/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EuWgErga"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc78dd54610so2286629a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:48:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790844523; x=1791449323; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xkYtUBxUyQXi2wHjivuAC69Sw5c4fAlKZiLrX6CMriA=;
-        b=EuWgErgaYuOiZ5ZEaQb3fXHHDjdms5ZpY+RYYBeBFVq5EuTebKSdGjwRvcsV7C2Rzg
-         8+my/DHwbmEKrXPrh5GvEkEDKl1xU9MpSSplFPERMqXx445Wkk1p/Vw2O56p4WRdKZaA
-         Eoj51JZsnRZ/GLFRWfUkU5W34yB8acQ7eJbmlQtJOoyi12fNj7howR2ewNZ9o6LgFOJi
-         tAnutz4J2cAKQQlw0Ah8ubuvU1gxehdCetvO7XEr1N+TOlWcnM5ebhSuuYRjK5bQzwXu
-         RhIFyvNE5KQt3dsQ7hJPDHQ0HC+vniJxcNVmSRiJgxf4DxN9y91+tXknasbNgFyNluT2
-         hhfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790844523; x=1791449323;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xkYtUBxUyQXi2wHjivuAC69Sw5c4fAlKZiLrX6CMriA=;
-        b=HGHlgMl2OImEPyOmiykn0pAspkYzsuTBOBLc6sI9nS6aviSVwCnUs5FyzOC3KY/I3C
-         TePjm7Miwyr6BbLYLySrtMxYVI3GcZqsSFYF0GJy7WA1KkQzjPirxhX0MCfEWrYzbAsE
-         +8/45Dj2KnqZv5vQ+bT8A6u3BeGWOCG4/6xeyLagN/DPvQDUESMkEvz8gOci2TBTWs7/
-         LieXqIgSWvyQLjYYqN0w+udkt4VX5OTW/C0+U1PnqveZoBbVbSbn7SXNQQ4AOQiPj9Fk
-         z4jLMG/Jozou89doYwnSEBMmXfkezdag2w3OtHyJIucVrOVKvJwFsJjic4IW88RgNb4b
-         M/uA==
-X-Forwarded-Encrypted: i=1; AKwUvBz1SCCLlpvF0zecHPizhD89IovZw7iAcoo6Rjz00lNQzT4zbvUIHlVO5jBGTka3Yqwg9Up6ccouWTpt5sA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5RYsJWXHSosTmO5vubjzxaU5j5G2Xefc9g9ViuHd8vlZkLylC
-	ta1btSFf0dHAz7HG6/mB8vVcoIN0/r+EEXeTP0tSvro80vmlZUhkA+OL
-X-Gm-Gg: AYBFou1aGjnJ3E0G2Y9BHkXHxj31mkqR/sH5nh45r/mRd27IPVqqtXfkv2Z6rAUpOtL
-	noN2T4hCzt9IUCcvURpByQaz6r1On5n5GLVPqyHiNICq03LUSxU+WQ1bJTBL/5jy3MiSRyEO8pP
-	6EGwjntOcmvEyl0fYSTTE3png8aEdDHte/HMcgq6cIn0j9ZJCT49Wes7QIm2UBfPHUH/uLRXCax
-	AX0a206fSaQP3DkhlRVEHl3QSdQJALWHA9l0pGp2TiH1V1mioEMhabgvhYCZ5Kx3H85zpZKmz2Z
-	nzzWKvcRx6mz5JfISK68WSW5ZUdoGi5laOPNPlMUb3Qk8aubN0vH6QgfpgSyW9+M3XVAliEfu1y
-	o8RyPwaz8JQLGPusuuGFWG4tKtnCXzfL9IFIWeBRpmr8oyoa3XcxjaS3UcDsudVDRPOuFKizhfv
-	VCHgx2hD2JSzitg0HGz+Wk31QEv0ZjBq8p+Q6xiSCvFagXQcoYrbsHScET8RoZJIgQh3wYinKyf
-	DUKsSvSex5IEiIGm6NP6Wpo7ZvsUtXEFi+H5Rw2V3lpVNCrWuSBogk=
-X-Received: by 2002:a05:6a21:9218:b0:3dd:85a8:cacb with SMTP id adf61e73a8af0-3de9e8a898fmr4391298637.34.1790844523436;
-        Thu, 01 Oct 2026 01:48:43 -0700 (PDT)
-Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e546039dsm1125695a12.8.2026.10.01.01.48.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 01:48:42 -0700 (PDT)
-Message-ID: <92216f9b-6c8a-430d-9bca-eaf583106a3e@gmail.com>
-Date: Thu, 1 Oct 2026 16:48:37 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JPTyr9/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483741F000FF;
+	Thu,  1 Oct 2026 08:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790844611;
+	bh=Xt/qPIC7xIUoeVEu27a44z9OYbE4U4n6riy6EtW3WXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JPTyr9/aIwPTkz4BBavBehl9c6+SMAmta7nZXlP5rIMrUOPDJ9CB3oVC/N1bSrvtR
+	 Erop4lMBBua+FO9L7ZpRb6DJctUYIZdobq6Bv718mqAgqsPGo/oog0a6qj5U3ETXw1
+	 28rgiw//yXKj7DH5rYFQuIcfSekiGpW6y/6xDyh0=
+Date: Thu, 1 Oct 2026 10:50:05 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v7 0/2] serial: core: fix baud rate fallback loop and
+ baud_base overflow
+Message-ID: <2026100102-retract-colonial-3ceb@gregkh>
+References: <20260930125901.778868-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] arm64: dts: nuvoton: ma35d1: add USB controllers
- and dual-port PHY node
-To: Joey Lu <a0987203069@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Catalin Marinas <catalin.marinas@arm.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Hui-Ping Chen <hpchen0nvt@gmail.com>, Joey Lu <yclu4@nuvoton.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260929020854.1282339-1-a0987203069@gmail.com>
- <20260929020854.1282339-3-a0987203069@gmail.com>
-Content-Language: en-US
-From: Jacky Huang <ychuang570808@gmail.com>
-In-Reply-To: <20260929020854.1282339-3-a0987203069@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930125901.778868-1-benquike@gmail.com>
 
+On Wed, Sep 30, 2026 at 12:58:59PM +0000, Hui Peng wrote:
+> This series addresses two issues in serial core:
+> 1. Division-by-zero WARN/Oops during baud rate fallback in uart_get_baud_rate().
+> 2. 32-bit unsigned overflow in uart_set_info() when multiplying new_info->baud_base by 16.
+> 
+> Note on v6 1/3:
+> Patch 1/3 from v6 ("serial: 8250: fix deadlock in serial8250_register_ports")
+> has been dropped. The hash_mutex race condition was originally found and
+> reproduced on Linux 6.18.14 (where guard(mutex)(&hash_mutex) was dropped
+> inside serial_get_or_create_irq_info() before serial_link_irq_chain() linked
+> the port). We did not realize that it was already fixed in mainline by
+> commit b339809edda1 ("serial: 8250: use guard()s"), which refactored to
+> serial_get_or_create_irq_info_locked() with guard(mutex)(&hash_mutex) moved
+> into serial_link_irq_chain(). Apologies for the noise in v6 1/3.
+> 
+> All remaining patches are ported to the latest tip of mainline (551c722f4080)
+> and dynamically verified in QEMU KVM with CONFIG_KASAN=y.
+> 
+> Changes in v7:
+> - Dropped patch 1/3 (already resolved in mainline).
+> - Clarified in cover letter that 1/3 was found and reproduced on 6.18.14 and
+>   we did not realize it was already fixed in mainline.
+> - Retained patch 1/2 and patch 2/2 using check_mul_overflow() as requested
+>   by Jiri Slaby.
+> 
+> Hui Peng (2):
+>   serial: core: fix baud rate fallback in uart_get_baud_rate()
+>   serial: core: reject baud_base values that overflow port->uartclk in
+>     uart_set_info()
+> 
+>  drivers/tty/serial/serial_core.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> -- 
+> 2.47.3
 
+You have sent 3 versions of this series in one day.  Please relax and
+slow down.  I've now deleted all of these patches from my review queue.
+Please wait a few days, take the time to make sure the submission is
+correct, and then send a new version.  Don't overwhelm reviewers without
+helping them with review of other submissions, to do otherwise is not
+very kind.
 
-> Add the USB subsystem nodes for the MA35D1 SoC and boards:
->
->    - usb_phy: standalone PHY node with #phy-cells = <1>, covering both
->      the OTG port (PHY0, index 0) and the host-only port (PHY1, index 1).
->      Uses nuvoton,sys phandle and HUSBH0_GATE clock per the binding.
->
->    - usb (DWC2 gadget, USB0): phys = <&usb_phy 0>, dr_mode = peripheral.
->    - ehci0/ohci0 (USB0 host): phys = <&usb_phy 0>, companion pairing.
->    - ehci1/ohci1 (USB1 host): phys = <&usb_phy 1>.
->
-> Board files (ma35d1-som-256m.dts, ma35d1-iot-512m.dts) add pinctrl for
-> VBUSVLD, PWREN and OVC signals and enable all USB nodes.
->
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
->   .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 36 ++++++++++
->   .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 36 ++++++++++
->   arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 65 +++++++++++++++++++
->   3 files changed, 137 insertions(+)
-[...]
+thanks,
 
-
-Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
-
-Best regards,
-Jacky Huang
-
-
+greg k-h
