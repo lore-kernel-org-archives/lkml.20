@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
+Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C071F5834
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31300518142
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863059; cv=none; b=j2gRDuv0Vml0cYc8SdGpQJxg2M2xXwlAl9761s4jAt/JhQzHojZZreJkuY1gT7QEGU0sB2dWvfC094GlJNBEL6g2y9+AHauP4Pgy+ozaiFLJE9jxH/TGGODbWdF1uHauat1sBj1TWfEuzqn+vxSdqbe8mgL9fMov2Pp9RjbD/WU=
+	t=1790863063; cv=none; b=OV6wW/Rt/9lCeoHcGyMEWOo6Z9v4ow5xrBGKAfopE40KGn8yA+pNCpW4QsH0xBwyMlb4o5j3qxA5XuDfyMIKNq2IBGtMGFA86j3BcplO/KNZa/BzE80Q9fm+mnaoJwk88ztSkPApGAewF+Jnv4uqpGwz48QaUFIfUCnngOulWD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863059; c=relaxed/simple;
-	bh=AhxiS1VQqXfslZ1woXmLPHR26jIknE+fBWoUb0tiCYQ=;
+	s=arc-20240116; t=1790863063; c=relaxed/simple;
+	bh=1Ws9n6iE1+OrWs/XcdHuXlvIueQS+tIjV4+vXzqVwmw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=L9XO0WctbB4zagKXUuXQFUC6SyGaeyjF4R/6PG5ktqrfPQWaoFWeFmgF12mgxRPRQwjyEZjrXLTomjF0IViGUx4SkiuvSTUvrafmSPbqMGPAcNpgLcNYfc/TiDZ2wN4b2gj4DngKUuWOrmRl1jJYkyC6NpZjIRrweCQzNlpovEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=E6KqyELw; arc=none smtp.client-ip=95.215.58.160
+	 MIME-Version; b=GmJCm/352hZQGUU5ECgYZGlVUKt/JnvQnoVKExM6iA/syk7+0Gt72BGTNK+8nkxHHP7g9uaiJWPphhbNK5xGqYrpvgc+TougFzgzuE3Pqe/G7LGQqvLMIxdwvfP6+vsmgaflORBlXjayUewEa7xkqtot9wv9jgiNuVERKrGKsTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vXZh9OT2; arc=none smtp.client-ip=91.218.175.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="E6KqyELw"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vXZh9OT2"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AhxiS1VQqXfslZ1woXmLPHR26jIknE+fBWoUb0tiCYQ=;
+DKIM-Signature: a=rsa-sha256; bh=1Ws9n6iE1+OrWs/XcdHuXlvIueQS+tIjV4+vXzqVwmw=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790863050; v=1; x=1791467850;
- b=E6KqyELwfS11eeZOyXv10RVpsuYVJYR/rjZ86QFSvLbcfg4OgGC350a7FDiAQpd01X88gIJ3
- sQZiIWCtIR9WPhTmD+CGbdX7MBDVDjdVCgWQKfCj8bCLsCwULLxDNSDnpyDN+F1tWbbuhvpkYlX
- s/OpkGshWdBG+thUAy/xM7cM=
+ t=1790863055; v=1; x=1791467855;
+ b=vXZh9OT2GH+8/cDS93zQVOupF1QRfQWYYgYhatoqfaOJ7tb9uzEPJqYf0u4YZCBQKl95axC+
+ x6GhSDoYIFVyicuwED89RnB1HqeIpSuVDD1bt0/j6SYBtUJ9s6d/XUqFv8j59bH9TxYi0LHag+o
+ Y5ti5vlC1UxoW0JjZnRsnIzI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 508d8d1a05bef4c8;
-	Thu, 01 Oct 2026 13:57:30 +0000
-X-Mizu-Trace-ID: 508d8d1a05bef4c8
+Received: by smtp.migadu.com with ESMTPS id e098126e4f2d483f;
+	Thu, 01 Oct 2026 13:57:35 +0000
+X-Mizu-Trace-ID: e098126e4f2d483f
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: maz@kernel.org,
@@ -46,9 +46,9 @@ Cc: catalin.marinas@arm.com,
 	vdonnefort@google.com,
 	qperret@google.com,
 	tabba@google.com
-Subject: [PATCH v4 03/18] KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM
-Date: Thu,  1 Oct 2026 14:56:56 +0100
-Message-Id: <20261001135711.1640520-4-fuad.tabba@linux.dev>
+Subject: [PATCH v4 04/18] KVM: arm64: Disable steal time for protected VMs
+Date: Thu,  1 Oct 2026 14:56:57 +0100
+Message-Id: <20261001135711.1640520-5-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261001135711.1640520-1-fuad.tabba@linux.dev>
 References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
@@ -60,59 +60,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Under pKVM, a page the host shares with EL2 is mapped at EL2 only while
-it's pinned, and the host vCPU is pinned at its first KVM_RUN.
-KVM_SET_VCPU_EVENTS with ext_dabt_pending reaches __kvm_adjust_pc() at
-EL2 before that, and dereferencing the unmapped host vCPU panics the
-hypervisor. Any process holding /dev/kvm on a pKVM host can trigger it.
+pKVM doesn't support steal time for protected guests, and
+KVM_CAP_STEAL_TIME already reads 0 for them on the VM file descriptor,
+but kvm_arm_pvtime_supported() takes no VM, so the host still
+accepts the KVM_ARM_VCPU_PVTIME_CTRL attribute, whose IPA would point
+kvm_update_stolen_time() at the guest's private memory on every vCPU
+load. Pass the VM in and return false for a protected one, so the
+attribute returns -ENXIO as it does where steal time isn't implemented.
 
-Pin the host vCPU around the adjustment when no hyp vCPU is loaded for
-it. A loaded hyp vCPU implies it's pinned. A pin fails only for memory
-the host isn't sharing, and the request is then dropped like any other
-bad host pointer.
-
-Fixes: efa1368ba9f4b ("KVM: arm64: Commit exceptions from KVM_SET_VCPU_EVENTS immediately")
 Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
-Cc: stable@vger.kernel.org
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ arch/arm64/include/asm/kvm_host.h |  2 +-
+ arch/arm64/kvm/arm.c              |  2 +-
+ arch/arm64/kvm/pvtime.c           | 10 +++++-----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index b6bfe502bcd04..8b9d76e5336bb 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -546,8 +546,27 @@ static void handle___pkvm_host_mkyoung_guest(struct kvm_cpu_context *host_ctxt)
- static void handle___kvm_adjust_pc(struct kvm_cpu_context *host_ctxt)
- {
- 	DECLARE_REG(struct kvm_vcpu *, vcpu, host_ctxt, 1);
-+	struct pkvm_hyp_vcpu *hyp_vcpu;
-+	struct kvm_vcpu *host_vcpu;
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 27fe0cd5b2d7a..286489a69dff5 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1346,7 +1346,7 @@ long kvm_hypercall_pv_features(struct kvm_vcpu *vcpu);
+ gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu);
+ void kvm_update_stolen_time(struct kvm_vcpu *vcpu);
  
--	__kvm_adjust_pc(kern_hyp_va(vcpu));
-+	host_vcpu = __get_host_hyp_vcpus(vcpu, &hyp_vcpu);
-+	if (host_vcpu) {
-+		__kvm_adjust_pc(host_vcpu);
-+		return;
-+	}
-+
-+	/*
-+	 * With no hyp vCPU loaded for it, the host vCPU may be unpinned,
-+	 * and so unmapped at EL2: its first run pins it. A pin fails only
-+	 * for memory the host isn't sharing, a bad pointer, so the request
-+	 * is dropped.
-+	 */
-+	host_vcpu = kern_hyp_va(vcpu);
-+	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
-+		return;
-+
-+	__kvm_adjust_pc(host_vcpu);
-+	hyp_unpin_shared_mem(host_vcpu, host_vcpu + 1);
+-bool kvm_arm_pvtime_supported(void);
++bool kvm_arm_pvtime_supported(struct kvm *kvm);
+ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
+ 			    struct kvm_device_attr *attr);
+ int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 8b080804bc90b..db36815630790 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -447,7 +447,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+ 		r = system_supports_mte();
+ 		break;
+ 	case KVM_CAP_STEAL_TIME:
+-		r = kvm_arm_pvtime_supported();
++		r = kvm_arm_pvtime_supported(kvm);
+ 		break;
+ 	case KVM_CAP_ARM_EL1_32BIT:
+ 		r = cpus_have_final_cap(ARM64_HAS_32BIT_EL1);
+diff --git a/arch/arm64/kvm/pvtime.c b/arch/arm64/kvm/pvtime.c
+index 4ceabaa4c30bd..053fe831fa541 100644
+--- a/arch/arm64/kvm/pvtime.c
++++ b/arch/arm64/kvm/pvtime.c
+@@ -67,9 +67,9 @@ gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu)
+ 	return base;
  }
  
- static void handle___kvm_flush_vm_context(struct kvm_cpu_context *host_ctxt)
+-bool kvm_arm_pvtime_supported(void)
++bool kvm_arm_pvtime_supported(struct kvm *kvm)
+ {
+-	return !!sched_info_on();
++	return !!sched_info_on() && (!kvm || !kvm_vm_is_protected(kvm));
+ }
+ 
+ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
+@@ -81,7 +81,7 @@ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
+ 	int ret = 0;
+ 	int idx;
+ 
+-	if (!kvm_arm_pvtime_supported() ||
++	if (!kvm_arm_pvtime_supported(kvm) ||
+ 	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
+ 		return -ENXIO;
+ 
+@@ -110,7 +110,7 @@ int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
+ 	u64 __user *user = (u64 __user *)attr->addr;
+ 	u64 ipa;
+ 
+-	if (!kvm_arm_pvtime_supported() ||
++	if (!kvm_arm_pvtime_supported(vcpu->kvm) ||
+ 	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
+ 		return -ENXIO;
+ 
+@@ -126,7 +126,7 @@ int kvm_arm_pvtime_has_attr(struct kvm_vcpu *vcpu,
+ {
+ 	switch (attr->attr) {
+ 	case KVM_ARM_VCPU_PVTIME_IPA:
+-		if (kvm_arm_pvtime_supported())
++		if (kvm_arm_pvtime_supported(vcpu->kvm))
+ 			return 0;
+ 	}
+ 	return -ENXIO;
 -- 
 2.39.5
 
