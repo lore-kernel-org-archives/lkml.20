@@ -1,64 +1,64 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1BB4A99BD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:49:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E280A4E9C2B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:49:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790887758; cv=none; b=ZNyVBGD/I55eLg3RgJA7+M+8XVtuL37wG+F7/l02hJ20yyI0lS6Yuy1pZ50hBT1oJvatiC8c53u3tXybymq+4LhewagTr5X359wsaIxO92pwIE9bmMBXRHMxdj0Pi3aClrs1prBVn38cWTlVFtzbmZdyFPM2mcl1d4TJZ86gTcc=
+	t=1790887759; cv=none; b=ZXy5c39e0B7MO6mGhcL4OadomKN78xtwlRQfCqeyyY8dbe2XVu7jH8I5hFir7vS8QPvEUkOw/TZAqDY/zQ6YQE7iel8yEChgGm0XPO/ielL+yALAetF0kEfvgOQRW8vFjsYkY9LfRxNUYX6VAZ+2CKWUGoNMiBIpogN0tlHc6bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790887758; c=relaxed/simple;
-	bh=0XJw1AkribrZprw43sRQovMIMAVF9isNAWHN5pVcvNE=;
+	s=arc-20240116; t=1790887759; c=relaxed/simple;
+	bh=vhT735CP1zUBAuIVgLTwWci2pb832b509vduj4K0xSs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c9ZRLYnEDQichVAuS7uMY7uZgCInkwDP/df8vy9UUif/j9fFvcFPumpTtlMTFprQPCW0TDfwzLCosoQ//kjZI61VqTG6Q//reia6vN/PIkWeIRJWOQu+KNDxUl8JBPM/Xy0szbltGtqXU4KxDV9LCchc/HFQBIFrhdSg2lJE2PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sw+nWo3M; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=OT57wCfllBLBcQTdLZvAoszkWZJei0P3IfxmxJuQ1YiI2gtUaQ+jQNq01V/O6DzVryLeKH4n1PW0eFQ+HdH4G8ApQndVUkGBIZ3FBOVk2nNdi5o2BoAlEFJUeSVZWavmoz57q0v6HOH+JVc0UDlnp2rGw3TKu3D+QoIVBu4ozqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vvu9q2G1; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sw+nWo3M"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so4677943a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:49:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vvu9q2G1"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eefae4so17975735ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:49:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790887754; x=1791492554; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790887757; x=1791492557; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oksDFv5EfYGEzZP3EAnPpafltHufUup7laAhvHxqCig=;
-        b=sw+nWo3M/cIrjV92bvy8Y8e35lEWm8zXZfM3ejYIOZMv4yktFafNutH9eIO1GnHnSo
-         DOUORH+sk3+4nKGggTUKLYGueM3Ee/Q3pZfNdIRqaY+enYQrsL7kwW+G8vOx828jLU3j
-         wADIOqbU7kJfuXh9g1UI2KD9OmfvRJTMYJl5m1Xrh0BLd0QN3n53T/DjdVIafrdzQjQf
-         CeQoCh6z16Nc4J+SpRT9KXrrxo8zL5wYsC0cXc/0RtIibDUn1B0lJUC0YyhisGTeEPs4
-         2M0PxV3eoUn9GHquiR3inREiqngNZqLiCz3/EgXwBwNXVKDal+6+ONrGo+mR045MDOl2
-         giGA==
+        bh=4PFOrX1mp/Oj8PsaIheJm1P3LBaRwQo8cTbd+H//gDU=;
+        b=Vvu9q2G1c+W3y9G3XSJMe3qT1+FropwjqPbOe1lguwTdrDJbpvmqYUU5k+wHsgY3En
+         l/GfGk5DVguDjSiaF/a03bdTz23+qXNVsYZ04rK+ATB7D6zkJXD6kRzlxsw2AzsBGIRH
+         zZyjO6yFqKUhJmrE+IXeAwWjum5xyQaOC9KxM6OGWzBuAsZ6XHIWW0Ok588seCSicit/
+         00u0k6zhl7H+QeRQKJt9ucvu99qPTJoM908KmBCo7aoIbL7SDZtoyU6vRzK/Xz98ryk8
+         ZukupAqz1K+0i/xfkdhnRiVQd449oTMK8KA5nnBnj/qCbf9I3VClGlCpucVvQdgB09ab
+         BuRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790887754; x=1791492554;
+        d=1e100.net; s=20260707; t=1790887757; x=1791492557;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oksDFv5EfYGEzZP3EAnPpafltHufUup7laAhvHxqCig=;
-        b=ujqw2eYzf5se9mjC9ApBscWA2mfQ2Qx9idXtjPwYpFm42CrWsgn+iTs5/hzWKY4oUt
-         Q8Zr5LwFxirEtTqfaHIVfhPEBCageLT7oRJGdddfMaO6/oqtT4zdnnl2bpHTgL8wCJjj
-         1PhcdyEkF23KAObsGmpckajdN7gimB+n+yUT4AVFcNEDCbyvTQlQOtgCxS074tGMyT0T
-         jVuMwAB/g6oRIY1tSOWZmptvBkjnfgA8VZ7E9+/zISlgYmIO2dosFxc4YTNo8/WKJhGE
-         57Of7MwB20dSOqwTEVp+uZqtIPLp18g1VuD1zlWog4Cb6n4aOZIYGOaQ3lDr8ERx7Fjs
-         vSxg==
-X-Forwarded-Encrypted: i=1; AKwUvBwF4FoWcAgpP7Ei3K6VGBBEiV6SYZ5VZOK1u+K+OJHPMadLW3bG49XVZlIkVuQpb9LcDl0jkTrgvgaUk0Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqxB85ZurAU/vVID75Qm70uk3DM466NRzlEusD81PiIBZpVe8b
-	usWM0Nx+rrwICaz5pfFlocBLw9Dlzu2KcwngtXjB2sRdOwVOBXbZM0kc
-X-Gm-Gg: AYBFou15nkbFER3S/Xf9h2R+mfxxQ+C0sG1fP4E2LRfbAgKP0osRzJifrPPokp6eWFq
-	Voshm24H1AQ4yW+9p3x3jf2OjxEhKkuzR6ksi7kJcGUhqOZK9NUIl9swYRuA7Fqa5bL9yIkxKAu
-	2uiZnez5K/GJjHls4BYyA6sBwyn9/mAAP9rf295xmLi5rzyS/j2H6TtBcpg9UtWos/9GZmpSTFs
-	TYujoo48n2XRQs5HJ8xjXW9h9V93TYvMbwIoAdfxJHh4iZ/BSvqk8W5zpqExC90gI95aFLMGpvC
-	aDuzk/4Imo7Z4/AyBcMPG4cokqIIVpRzDz6DQFAvM3MKH22cxJpEMHuoubCOAif7X0awVQ7jJy2
-	ADg2qyu85MLLb8Jw69+7jxuJLEmIJ751H9GTRFJ7khJTlJeDK3DjxIg1RtbyIyDNfSjrT65eVPY
-	EgPXSKl9MZlPVrbLGo9vpRrNc/LWzq0diNQKBibGKH3U9C2rjX5Ia/sM9I0z8TI/BRQB1BPkHLM
-	KwCHFaqqe6gmGmg3bzh2ueMnQ==
-X-Received: by 2002:a17:90b:1642:b0:3a4:a1f1:fea4 with SMTP id 98e67ed59e1d1-3a6ce761d36mr625284a91.26.1790887753935;
-        Thu, 01 Oct 2026 13:49:13 -0700 (PDT)
+        bh=4PFOrX1mp/Oj8PsaIheJm1P3LBaRwQo8cTbd+H//gDU=;
+        b=TdPL00oC0+fVhwvSR+6XKfaMCilYXlsaFg7n6FQuEw58gqknsib7WSVF//gymJe3Dp
+         Dr5Zp3lVeqeaqoBsDEJwIO5CfAgPN9yeWBq490Vt8D2uhWuICZlog0ds6GfV82biWct0
+         rPH2sq2QHLVGM+PjgJo2z5LFZ4T7tbWskAN5lTwZzFENJFGynKSXh6ikLMCAabLGyPPE
+         MpIGIGE1yWvGWwW1FncHTyN7yRrLxlEZmL5hEP6dO19fpeBlTxcSE+s2rwCLWZoQuHZK
+         4jXOt9crFOn3qEdOlHHq2oAtCGeGefn1TUuv1bDUcDiepDBrg1eP0BQbEZUH2qF3Eyu1
+         x97w==
+X-Forwarded-Encrypted: i=1; AKwUvBx2qASdOrwPwkUnFVBTV1Ki4t10lbWSlWZErkewsaBZE49kTgM1UZdmku0ZJiPL/HlK1ZaTcyErSGevueY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUWEnwUdaMtO0/3+riwetc6pYO3Ie5In+kVVXcSceHTcmZJTdz
+	T2XuaCzuVE1K4+LBSThVIAGXKb9xOjcmD76l8DYUMc+PuVpJcrMuJ714
+X-Gm-Gg: AYBFou0DkKZNTWlozuChzye+ArOVmxsq9ePbUFqDlJ0H/0O98nucT+rO/EI3uJdoHKk
+	dHkAqYE9YePRgMrmmMVwtTF1Z+ruvIe2L5k3byNSyIlIlzjXXVNEHEpBtD4bIToh//wYH16kk4A
+	Jwbiq1m/oO66EZ04KCZjwK1zK6nl4+pIS+eRG4iF5Ns5u8c3xKOXEjNcfVkbnIURRk2Iqaqx3iy
+	qgcIOOI48gZNCKXJmWte2dW0AvooSZBOmP85MztDtwxNePSGQZm6ZSubpfX8ItFJXMXDpPF6W81
+	UDGq+ToWX8p8ZwPTaREOYw3QkFQkRZaJ1jw33uhUOh/gi2xZRp8J8qaeCeAYlXijnF+GJkXXq9/
+	oHH6Q1NxgqBJBgBN7OjaRvsifB8htuOVL19e+3e5cf3fV5ogr6aQIto3KIRtRLkz3SyFbsi0/75
+	oaJ60zRhpMf8J72Rz1jVwBh+4s0bICManXu8Ic1I4wx2duyWkTyabVGWO6DFTuE9sXQPjFIRdyZ
+	uWt++3Lo08RZ1dcFbs7v4nSLw==
+X-Received: by 2002:a17:90b:224f:b0:39e:6a7f:6187 with SMTP id 98e67ed59e1d1-3a6ceaeec8cmr408036a91.24.1790887757199;
+        Thu, 01 Oct 2026 13:49:17 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac5:661e:3050::4d0:26])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f478e9c6sm5658797a91.14.2026.10.01.13.49.09
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f478e9c6sm5658797a91.14.2026.10.01.13.49.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 13:49:12 -0700 (PDT)
+        Thu, 01 Oct 2026 13:49:16 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -70,9 +70,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Russell King <linux@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 3/5] net: dsa: motorcomm: Use NSEC_PER_SEC
-Date: Fri,  2 Oct 2026 04:48:46 +0800
-Message-ID: <20261001204851.2576101-4-mmyangfl@gmail.com>
+Subject: [PATCH net-next v2 4/5] net: dsa: motorcomm: Enable ACL on demand
+Date: Fri,  2 Oct 2026 04:48:47 +0800
+Message-ID: <20261001204851.2576101-5-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261001204851.2576101-1-mmyangfl@gmail.com>
 References: <20261001204851.2576101-1-mmyangfl@gmail.com>
@@ -84,43 +84,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Get rid of magic numbers.
+Track the usage of ACL rules and enable it per port only when it is
+actually used.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/dsa/motorcomm/tc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/dsa/motorcomm/chip.c |  3 +-
+ drivers/net/dsa/motorcomm/chip.h |  2 +
+ drivers/net/dsa/motorcomm/tc.c   | 63 +++++++++++++++++++++++++++++---
+ 3 files changed, 61 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index 5be198d9e5cd..4b8cb2ba28b7 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -2686,8 +2686,7 @@ static int yt921x_chip_setup_acl(struct yt921x_priv *priv)
+ 	if (res)
+ 		return res;
+ 
+-	ctrl = YT921X_ACL_PORT_PORTS_M;
+-	res = yt921x_reg_write(priv, YT921X_ACL_PORT, ctrl);
++	res = yt921x_reg_write(priv, YT921X_ACL_PORT, 0);
+ 	if (res)
+ 		return res;
+ 
+diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
+index 40ab5187f774..68cbbc9b9b78 100644
+--- a/drivers/net/dsa/motorcomm/chip.h
++++ b/drivers/net/dsa/motorcomm/chip.h
+@@ -581,6 +581,8 @@ struct yt921x_port {
+ 	u64 rx_frames;
+ 	u64 tx_frames;
+ 
++	unsigned short acl_cnt;
++
+ #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
+ 	unsigned char led_duty;
+ 	unsigned short led_cycle;
 diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index 84abc2ef8b61..0e5f19a39d0c 100644
+index 0e5f19a39d0c..95ed0f245b1f 100644
 --- a/drivers/net/dsa/motorcomm/tc.c
 +++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -25,14 +25,14 @@ static u32 rate2token(u64 rate, unsigned int slot_ns, int unit, int C)
- {
- 	int e = 2 * unit + C + YT921X_TOKEN_RATE_C;
- 
--	return div_u64(ldexpu64(slot_ns * rate, -e), 1000000000);
-+	return div_u64(ldexpu64(slot_ns * rate, -e), NSEC_PER_SEC);
+@@ -1055,6 +1055,17 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
+ 	return 0;
  }
  
- static u64 token2rate(u32 token, unsigned int slot_ns, int unit, int C)
++static u16 yt921x_acl_activated_ports(const struct yt921x_priv *priv)
++{
++	u16 mask = 0;
++
++	for (int port = 0; port < YT921X_PORT_NUM; port++)
++		if (priv->ports[port].acl_cnt)
++			mask |= BIT(port);
++
++	return mask;
++}
++
+ static unsigned int
+ yt921x_acl_find(const struct yt921x_priv *priv, enum tc_setup_type type,
+ 		unsigned long tag)
+@@ -1199,10 +1210,15 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
  {
- 	int e = 2 * unit + C + YT921X_TOKEN_RATE_C;
+ 	struct yt921x_acl_rule *aclrule;
+ 	struct yt921x_acl_blk *aclblk;
++	bool refresh_en = false;
+ 	unsigned int binid;
+ 	unsigned int blkid;
+ 	unsigned int entid;
++	unsigned long m;
++	unsigned int o;
++	u32 ctrl;
+ 	int res;
++	int ret;
  
--	return div_u64(ldexpu64(mul_u32_u32(1000000000, token), e), slot_ns);
-+	return div_u64(ldexpu64(mul_u32_u32(NSEC_PER_SEC, token), e), slot_ns);
+ 	entid = yt921x_acl_find(priv, type, tag);
+ 	if (entid == UINT_MAX)
+@@ -1214,9 +1230,27 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
+ 	aclrule = aclblk->rules[binid];
+ 
+ 	aclblk->rules[binid] = NULL;
+-	res = yt921x_acl_commit(priv, entid, aclrule->mask);
++	ret = yt921x_acl_commit(priv, entid, aclrule->mask);
+ 	/* the kernel never rolls back on failure */
+ 
++	m = FIELD_GET(YT921X_ACL_KEYb_SPORTS_M, aclrule->entries[0].key[1]);
++	for_each_set_bit(o, &m, YT921X_PORT_NUM) {
++		struct yt921x_port *pp = &priv->ports[o];
++
++		if (!WARN_ON(!pp->acl_cnt)) {
++			pp->acl_cnt--;
++			if (pp->acl_cnt)
++				continue;
++		}
++		refresh_en = true;
++	}
++	if (refresh_en) {
++		ctrl = yt921x_acl_activated_ports(priv);
++		res = yt921x_reg_write(priv, YT921X_ACL_PORT, ctrl);
++		if (res)
++			ret = res;
++	}
++
+ 	if (aclrule->action[0] & YT921X_ACL_ACTa_METER_EN)
+ 		clear_bit(FIELD_GET(YT921X_ACL_ACTa_METER_ID_M,
+ 				    aclrule->action[0]),
+@@ -1227,7 +1261,7 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
+ 		kvfree(aclblk);
+ 		priv->acl_blks[blkid] = NULL;
+ 	}
+-	return res;
++	return ret;
  }
  
- /* burst = 2^C * token * 4^unit */
-@@ -83,7 +83,7 @@ yt921x_marker_tfm(struct yt921x_marker *marker, u64 rate, u64 burst,
+ static int
+@@ -1240,11 +1274,12 @@ yt921x_acl_add(struct yt921x_priv *priv,
+ 	struct yt921x_acl_blk *aclblk;
+ 	bool use_trap = false;
+ 	unsigned int meterid;
+-	unsigned long mask;
+ 	unsigned int binid;
+ 	unsigned int blkid;
+ 	unsigned int entid;
++	unsigned long m;
+ 	unsigned int o;
++	u32 ctrl;
+ 	int res;
+ 
+ 	/* Allocate resources */
+@@ -1293,8 +1328,8 @@ yt921x_acl_add(struct yt921x_priv *priv,
+ 
+ 	/* Replace the placeholder resource IDs */
+ 	aclrule->mask = 0;
+-	mask = priv->acl_masks[blkid];
+-	for_each_clear_bit(o, &mask, YT921X_ACL_ENT_PER_BLK) {
++	m = priv->acl_masks[blkid];
++	for_each_clear_bit(o, &m, YT921X_ACL_ENT_PER_BLK) {
+ 		aclrule->mask |= BIT(o);
+ 		entscnt--;
+ 		if (!entscnt)
+@@ -1312,6 +1347,19 @@ yt921x_acl_add(struct yt921x_priv *priv,
+ 	else
+ 		aclrule->action[0] &= ~YT921X_ACL_ACTa_METER_EN;
+ 
++	/* Activate ACL if needed */
++	ctrl = 0;
++	m = FIELD_GET(YT921X_ACL_KEYb_SPORTS_M, ruleext->r.entries[0].key[1]);
++	for_each_set_bit(o, &m, YT921X_PORT_NUM)
++		if (!priv->ports[o].acl_cnt)
++			ctrl |= YT921X_ACL_PORT_PORTn(o);
++	if (ctrl) {
++		ctrl |= yt921x_acl_activated_ports(priv);
++		res = yt921x_reg_write(priv, YT921X_ACL_PORT, ctrl);
++		if (res)
++			return res;
++	}
++
+ 	/* Write rules */
+ 	aclblk->rules[binid] = aclrule;
+ 	res = yt921x_acl_commit(priv, entid, aclrule->mask);
+@@ -1321,6 +1369,11 @@ yt921x_acl_add(struct yt921x_priv *priv,
+ 		goto err;
  	}
  
- 	/* Check for matching burst */
--	burst_est = div_u64(slot_ns * rate, 1000000000);
-+	burst_est = div_u64(slot_ns * rate, NSEC_PER_SEC);
- 	burst_sug = burst_est;
- 	if (flags & YT921X_MARKER_PKT_MODE)
- 		burst_sug++;
++	/* Bookkeeping */
++	m = FIELD_GET(YT921X_ACL_KEYb_SPORTS_M, ruleext->r.entries[0].key[1]);
++	for_each_set_bit(o, &m, YT921X_PORT_NUM)
++		priv->ports[o].acl_cnt++;
++
+ 	if (meterid < YT921X_METER_NUM)
+ 		set_bit(meterid, priv->meters_map);
+ 	priv->acl_masks[blkid] |= aclrule->mask;
 -- 
 2.53.0
 
