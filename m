@@ -1,67 +1,68 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C08736F414
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473324BB287
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861998; cv=none; b=Xex7oI6KH4Wgk7l1rfIP4YxpHuV5EplU7Zx8rMpx9Ojbr8/dVA7Rx57tjwQ7hZYJq4aW8FG6u7+H3BhfiGqRtDkjtYijhgGH3defed/5joMOV2J9cF8O2re5VHmHUSjOy77HdQ1y4Qjm+XyMy4Hoyq3SXJBMzKwbTzjmTVf29vw=
+	t=1790862003; cv=none; b=T8neHRXZbTdJgdHMpBD6DEyFjzjppGpCWj6Nm/ozYGCh+zUY6ZFZBrrybV83rb/qRnvuu223zXYL0skz5rVj/hRu8XMwiBHP1AJzhVV+YvX6U8SUdsrpRS5v9ouu2FR5EmwthlKKkEKetcSpF7IoiM8pLT2dQjZAa8MoYyYULJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861998; c=relaxed/simple;
-	bh=O/D7ffGv777cg8gylV68kHjlhKPHuL3PjmlsKjvsJRE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fyWleps0Q24x2a3LBcUJBPK4c/VxQK8qlGSWldLX3CH9pBHrVNG+bPlaSfRHej4STp9+SwMuZDvVxay8LHsWgdBQmNvUW8uiC4+d7Liy+6Rwa26KgQng0iXcnrEi9Q7+2mPFMMXjAytuQV9H5dDdWtQDOxRVDE97aL8PNa+LdRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gcxA20px; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790862003; c=relaxed/simple;
+	bh=0cTQV9BkyRSiJsbfvVc6+NMXizqsSVjyP0Ot0996dd0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=INcBhxdkkPsYPj7mUYqONmszNG109yLDYgvlUdTXQSyiTTVxzvZ58CGI2LyPfnUwzsVQgfA4p6Q9KltG6t/F1sj0BzbV1RtucmtvCIFwzmzwpVaLBHYhKmhtqDwSEIpXJyNtk+jdIwpolYHaj0C0Hjh4zJ58hU/nAC9FTGFhU2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EMX7t2v2; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gcxA20px"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so3868239a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:39:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EMX7t2v2"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so3659993a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:40:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790861997; x=1791466797; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3/yY7EGLa578fMnsnENYv1TYQDj2Pi2TjDEnt2TLl9Y=;
-        b=gcxA20px55erCNJBbIsMCZyqhWBwCjO4eqQMNmndp/w2voFxENmAvB0XcprDuzGPPY
-         S+XauZlJVZyWTKdtX1MnMZYv9zYKPgmqB8uSNSTYtjGYBqXDiq6N4fvMw9BXaVvtQpn6
-         dSwwEdh82YrBNeZ3c3qBVzQd277LLN3FBRfdP2DMGELYn+rCEJTD9LEKrEjEKam0ID+J
-         mH4jxLS+IqUU8nt5grtt2xV5cyLlGHwXY11Bs094RhRQYkqZW+/07IM//I/QQccsoOdU
-         mmYJajWsDZqkzEw693xn5iFZt653M+PBedxd5ZBx44ElNyX5L4BboqY05AnqX5MskeI9
-         I+Ug==
+        d=gmail.com; s=20251104; t=1790861999; x=1791466799; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RMOf9/GogbibFylj3xpGTq6kKy08fEk3RcF0K8Q5mJc=;
+        b=EMX7t2v2buiZw4vJ2r7EW3Z4R44Mx3+LiKXsFc1DpDYJp4t/J/rZIIcfFCVHUgQb3e
+         1Miln0xNOG3NYMYUroGjfwZ+W0g27VGf64UFgfYKfKU+cc41TlGqRBx/QeprmdErcah0
+         cAXpXFFL13dzQ8Ull06J186uOS993uSLxhBgPTjSYvbLyJ3VCWOYTRy/LN9SwF/m6A9g
+         UawQ/LMc4x829lbozs8UZTgCxfRT+rXTQvSMwIcFfrNC/V3ze03UMhei/3NjZjJyxWJY
+         mGheu+jROhUqcelbtGiJo72E+nvKtpajT+RPuB9f+KLJ/dyBvwaJ96kQeTqUPEoFBinD
+         xiNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790861997; x=1791466797;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3/yY7EGLa578fMnsnENYv1TYQDj2Pi2TjDEnt2TLl9Y=;
-        b=BMTDYtV3nu4elMD7bXdDETTWth/biy2pfsMISPwmXUBreniI3TLMy0osGVsCRGHz6W
-         Z102ktfvTvx2UQaVJI/N+BMkLWE8CUW+AnktEXqseozODBj47zFS88fLkw8IWOToDOWN
-         0eothcs4dezl2a7MjOhKJX/ARUSgWjDCXFEgSh9u6q6GWrY+rXpGikuMiu7MxeJO5hvQ
-         tYjJVLw2ifKY48LXNU2bu6dmfKvkhMmCKB8ErVicunVhF5mr6XWmibhwBCg39ICwYOBs
-         8253jq7da0594xWMUJopu6k9iBJnvIaeapExee/u2uLrp1izAehmdkOz2kRFy4HUj1wz
-         4zDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxudehrGXyye/xt+2nFhKdktVsO5SePfmuIWpYbwMgusNGKiM2eBca3D8S0PoQXY8YHiUKLY5aPOkZMvj0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/DT7y5si4VgtSkZDbggg+nz58iOMY+4p+KOw8i/LiTMrwam+0
-	eDKhlisTHDwGXCDNN8k5oM3DKaJnK8sK7siQoIVNNoC8EiFLO4esxXae
-X-Gm-Gg: AYBFou2x6M/1cBm6jA/TmruYHfBckJcV3msNO/SJ5ZjTncQgxc0y8uJ5JNlvrqy+zm2
-	DlnGGf5Z/JLUZanM68pNoQ/PjogS+hUOrHHzcaBryuX9gfmEhCsWRvhnfZ2ZHiRoBUtYBcg7iTF
-	bmGyNkzAX5D4hKXevCtqhkNa9ETeuy24QwVfG+cBGUeFelQ+1VjBHsamYuEoki9hc5tXR9K5xbH
-	RbxbjYrCuRysUsvJZrMzPnpaKNimTvEBuuamH9/1igpHITqGLywUmqMY56Y0+C2b7ZyFeGVAybL
-	aGdnVCKXDwWLUuG1Wh+IG6fM0fVyJLDxo8yJS1uuPs3d/XDgZWtR1bGOlUuTaUiX320U6lPFP1p
-	tRHHK7PfbzRjWGgBb0l0olh8UznM2UbVOSD5JGnh/gRDi0sxmvMjubu/+3BQHaa9uaKwTkBiXu1
-	1VxFXuFku+i2e4yIBqUpZs9re69u0Hk87tXwa4rRBL+y3DrEZAnp2JYzoeugcGlWY=
-X-Received: by 2002:a17:90b:1c85:b0:3a0:ab20:9e97 with SMTP id 98e67ed59e1d1-3a4d197a3f7mr3920815a91.15.1790861996631;
-        Thu, 01 Oct 2026 06:39:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790861999; x=1791466799;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RMOf9/GogbibFylj3xpGTq6kKy08fEk3RcF0K8Q5mJc=;
+        b=kGzO/Isk5EaoGyqJKamBNc2hHdDYRcwXTeN+VuheYIVMCc3Z0mIJlUUs8wr8rgoPPM
+         8g1XvjKYjc2HXEna3ZkHrG1e3OG9pSnHfVErkqIOKLFMAmS+N9Dm0hJm+CwOLXNaQcMn
+         wibk2CEZk5yhGFonluKL2kyOxkYfETcqx7lHTOOtFf8ioRqFSxmgXrJ8wFHM7nka73ic
+         QZHma4q4S1K6aiaePKSKg2nytsVtViYICkPxpPkvDF7WtDXbUGF1i0tkHMn2ND8h04w9
+         QeE9xhNA87cwvcab20N8EeqQ3LGEH7ni7iv4xOL3tdp0yUI0gOZ9sVD+bf+vq3bP6p00
+         j2VA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXAHEFzWqX+0TpjzRDjyM+pxa8bI41duksK52iGcZS30nf9vYYWkTsEjX9npuiTRjqBmm3oVT7I4InYGc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/FYjUXUGM0r2wRYuIwpj12Y1DT8JgwjyR70oeFC5ix0AkO6YC
+	T4IyzDnwPTrAUIEFvWrOmPdq0RfU5YB/N/Z6FyXtISU6/P/I6obRJik+
+X-Gm-Gg: AYBFou2z7pTzYpy3MEJCA/3fwOtSG8xCOk0aVrS71LwKVgiYfUR5tBXt5Z0BSO85ubz
+	mjzBT2SwjCmV5uXMJiqnzL/aZBePb+kVukvgyicEG+yqDC7RjjH2ott9vinu0YGuWbf/7VwmBg9
+	tn23B8Zo+RlzPp58V/jMpjYYCY0yWGF15LcO0SN3HLg19FzJrnNWRv7fG8npW3fDJjRZJZCUkig
+	8gSdXqbNG/WDQU/FqfKRK6Fy2DjHD0yoifb8SMCQ3lCvUU4juQE2RuwNfsa6EQVoGQyIwyAVLgc
+	DrgANphRc3zBJQBQOXU/3Kgdgg0wFgU4c2/a3z2BpHhzzRFe4PTIsNQwXQeUewj0cZvwXGjG8+n
+	3xPhIs/GmbxSWTfEy6n+7DxjQQ8g1xXX2wKvR8GEelhB571lmLKZhkMgoX0hmL1R9hVzQO1NLhU
+	1ZYzPEHXbht4jJ2WgsXKCcmLT8UTfnZodd8R/7ZIYU1ixa+hNcQrDBFq9k7AMAbkg=
+X-Received: by 2002:a17:90b:4b0d:b0:3a0:ddd6:896c with SMTP id 98e67ed59e1d1-3a6c2276bcfmr375685a91.17.1790861999525;
+        Thu, 01 Oct 2026 06:39:59 -0700 (PDT)
 Received: from [127.0.1.1] ([1.243.227.27])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f47cb357sm4673435a91.17.2026.10.01.06.39.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f47cb357sm4673435a91.17.2026.10.01.06.39.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:39:56 -0700 (PDT)
+        Thu, 01 Oct 2026 06:39:58 -0700 (PDT)
 From: Gyeyoung Baek <gye976@gmail.com>
-Subject: [PATCH v2 0/2] drm/imagination: Fix pre-existing bugs flagged by
- Sashiko's review of a VM_BIND series
-Date: Thu, 01 Oct 2026 22:39:11 +0900
-Message-Id: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
+Date: Thu, 01 Oct 2026 22:39:12 +0900
+Subject: [PATCH v2 1/2] drm/imagination: Fix reference and vm_bo handling
+ in remap()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,11 +71,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAH9ivmoC/22OTQ6CMBCFr0K6drQ0AsWV9zAsOqXCGAukxUZDu
- LstxJ27+eb95C3MG0fGs0u2MGcCeRqHCOKQMd2roTNAbWQmuCh5LSqYgoM7vY0HBWcuq7KViCg
- KFhOTM5sUA7dmZ//Ch9FzqkgOVN4AOjXoPr1aZ8GS16ffsVcnZ09+Ht1nGxby1Ph/Q8iBQ3UvM
- JcKa1mra2cVPY96tKxZ1/ULWJP9MuIAAAA=
-X-Change-ID: 20260927-pvr-fixes-a-40876d8bbb25
+Message-Id: <20261001-pvr-fixes-a-v2-1-f58254e5dfb8@gmail.com>
+References: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
+In-Reply-To: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
  Luigi Santivetti <luigi.santivetti@imgtec.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -86,42 +85,78 @@ Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Gyeyoung Baek <gye976@gmail.com>
 X-Mailer: b4 0.15.1
 
-These two patches fix pre-existing bugs in this driver that a VM_BIND
-series depends on. They address what Sashiko flagged while reviewing
-that series (see Link below).
+When a map overlaps part of an existing mapping, pvr_vm_gpuva_remap()
+splits the mapping into prev/next parts covering what the request did
+not take, instead of creating something new. It gets two things wrong.
 
-This series is based on drm-misc-fixes, which already includes the
-"Fixes for map() path" series (see Link below). Patch 2 is built on top
-of 0a8224058a58 from that series.
+- A GEM reference is taken for each part but it's never needed and never
+  dropped, so it leaks one reference per split (remap-next-in-2m in
+  tests/imagination/pvr_vm_map.c):
 
-tests/imagination/pvr_vm_map.c, sent separately to igt-dev (see Link
-below) and not yet merged, tests these paths and passes with this
-series applied.
+    CRITICAL: 33558528 bytes of shmem still held after close
 
-Link: https://lore.kernel.org/all/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com/ # VM_BIND series Sashiko reviewed
-Link: https://lore.kernel.org/all/20260926152341.783867-1-gye976@gmail.com/ # IGT reproducer (not yet merged)
-Link: https://lore.kernel.org/all/20260922-mmu_fix-v4-0-12f1a871456a@imgtec.com/ # "Fixes for map() path" v4
+- The parts still belong to the original object being split, but
+  pvr_vm_gpuva_remap() links them to ctx->gpuvm_bo, the new object's
+  vm_bo:
+
+    prev_va --obj--> BO_A          BO_B <--obj-- vm_bo (ctx->gpuvm_bo)
+            \___________link___________/  (mismatch: BO_A != BO_B)
+
+  drm_gpuva_link() catches the mismatch:
+
+    WARNING: drivers/gpu/drm/drm_gpuvm.c:2108 at drm_gpuva_link+0x2ec/0x310
+      drm_WARN_ON(obj != vm_bo->obj)
+    Call trace:
+     drm_gpuva_link
+     pvr_vm_gpuva_remap
+     __drm_gpuvm_sm_map
+     pvr_vm_map
+     pvr_ioctl_vm_map
+
+  Link them to op->remap.unmap->va->vm_bo instead.
+
+The locking of the GPUVA lists of the other objects touched by a split is
+not addressed here; it is handled by switching the GPUVM to immediate
+mode.
+
+Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
 Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
-Changes in v2:
-- Drop v1 patch 2, already fixed by 7b824c293a6b ("drm/imagination:
-  Propagate map failures correctly from pvr_mmu_map_sgl()").
-- Patch 2: add 0a8224058a58 to Fixes, as requested by Brajesh.
-- Link to v1: https://patch.msgid.link/20260927-pvr-fixes-a-v1-0-7f5b18ab989a@gmail.com
+ drivers/gpu/drm/imagination/pvr_vm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
----
-Gyeyoung Baek (2):
-      drm/imagination: Fix reference and vm_bo handling in remap()
-      drm/imagination: Size page table preallocation by device address
+diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
+index 55cc999f370..cbdd15ed74f 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm.c
++++ b/drivers/gpu/drm/imagination/pvr_vm.c
+@@ -418,6 +418,8 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_ctx)
+ static int
+ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+ {
++	/* The split parts belong to the object of the mapping being split. */
++	struct drm_gpuvm_bo *vm_bo = op->remap.unmap->va->vm_bo;
+ 	struct pvr_vm_bind_op *ctx = op_ctx;
+ 	u64 va_start = 0, va_range = 0;
+ 	int err;
+@@ -433,14 +435,12 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+ 	drm_gpuva_remap(&ctx->prev_va->base, &ctx->next_va->base, &op->remap);
+ 
+ 	if (op->remap.prev) {
+-		pvr_gem_object_get(gem_to_pvr_gem(ctx->prev_va->base.gem.obj));
+-		drm_gpuva_link(&ctx->prev_va->base, ctx->gpuvm_bo);
++		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
+ 		ctx->prev_va = NULL;
+ 	}
+ 
+ 	if (op->remap.next) {
+-		pvr_gem_object_get(gem_to_pvr_gem(ctx->next_va->base.gem.obj));
+-		drm_gpuva_link(&ctx->next_va->base, ctx->gpuvm_bo);
++		drm_gpuva_link(&ctx->next_va->base, vm_bo);
+ 		ctx->next_va = NULL;
+ 	}
+ 
 
- drivers/gpu/drm/imagination/pvr_mmu.c | 25 ++++++++++++-------------
- drivers/gpu/drm/imagination/pvr_vm.c  |  8 ++++----
- 2 files changed, 16 insertions(+), 17 deletions(-)
----
-base-commit: 4d0e2704118511e37790641d591454354e7c0d6c
-change-id: 20260927-pvr-fixes-a-40876d8bbb25
-
-Best regards,
---  
-Gyeyoung Baek <gye976@gmail.com>
+-- 
+2.43.0
 
