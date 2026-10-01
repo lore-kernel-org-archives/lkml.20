@@ -1,152 +1,83 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580523CB8E6
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790857562; cv=pass; b=DD2DFZuFGu97iitbe6iHtM8d8uv18+0Gv8N8OYF1u4MiIydKauaLgq1iMaqkxqE93fgo7XitYdudPIv1A9XJTQixu+VhkKk1UfgjkX/HdrfDOGQ+2J8o4ffWryecF/kVcvnvzRdNC6NX5sYr+zEaIA4/omFUUjzvZb24OYWsq7M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790857562; c=relaxed/simple;
-	bh=x+RqhDEFCJlDmSwDf7GB3PDW2yVZPJ21uczV8t+z28A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=evWDyNUXHJ3wgjH86j9XpNlZUGSrNkB2upBZDzO7kFm5pKTAXRWxt2+9Fwhz681sBNGhoGCpir7dIbjaUC3/qqlG8KJMf0hv4JBP/jydK4jm94vsl9xGWUTpQQc5hYBW1ZuyHPIhdJ2brQqb6x30wTyH0QwV9S+s2hlOCj+a6Ts=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Nq+DxrKU; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCE638DC62;
+	Thu,  1 Oct 2026 12:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790857625; cv=none; b=cegLsvZ4GCyYPg34nsqVvGaxHFWXi1aS4kOCk5OBR3ZCVaDACuWu2srauVPmvkjMFuIKmKAUz6DbIeklc72+PMA9kwKG153q8idRtNdNqXM3VXDx74583ufPrVAe/jaPM/Kp9jmRUigV9XJ51sprz85Hey++9gC7UZWEz2IHivQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790857625; c=relaxed/simple;
+	bh=CispzldoetnvLa8M6XB1V/uiqHkZ0um1GBQTaNPG/ys=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sc9esnDeUWdhMPceCDR6jrrr5EZqGrucj3tI15RQ4NQMHmm6opJDatN80uEX2XA3ut8yP4uO0iVAO4CbJxragmOvZ+Xu/e8eWBOL1dPq1aCulN6UIN4bIxzQGnfBbxshUZhW/6zXSgK6zMKxoGnkzjIDQ0DIayE1Y7NFl9WxNCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ECv3xFLH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Nq+DxrKU"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so3732809a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:26:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790857561; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mC6zBLyB+2MSPYLo2W9aZb4MAW3d0kHMPoyIj2WP34S+suH+lo5XmfhUr2hkbLOtFW
-         hfU8T55GKxOMUUjZ3ROU/ViCFGgdcQQMsES5UWudmkkiDyJHIx73vpav2PV2mNh6etWI
-         +4Tduaj6UmKSMTi57dG5FNsgpiEM01lH7NunixGOfqpwhx0xejoO3KJcMAyXt4ZrdcfI
-         3vhKTc2sokV/TbZbgnE9K4ZPPiWgWTiEcOGDrWQpwvEou2cafR9Zj3kx2N+N+uHv3nO9
-         Ni1CyA1XRef1iyuR75sdRBbxVSvCm1CbrZiCdtxbxOaxxLludykMuwGCRdSA5eGNX+zz
-         puMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sHNsjDTZpfGR2H1l2JsSr6KfRDIP/MhvrrYNRy/u2yY=;
-        fh=T348ZK3Dq7/bE3ZlKxZzW47obS2xyxMJHneh6GIshnM=;
-        b=cfxISwzfCcKN4eUPFVxbJ05dD9DjTioWwxztTYJLKRPAq9n8I4eldadYAyIiwzMZfI
-         HM5YpoaNQWpiArXDehQI+6nWHnWCXsNqvdQNLZNeJP7i19cNr8BLKivNIBy1CYeNT20P
-         I56nHWKvZ14075O8jtkXvImLVsX2mV6GGmQQfttr1RwFmx585/M3tjX7ITWI01sGj6y0
-         /V/VAAfDLIxwCkL7IPahUenJzWf8pTv/hGZ67zbhT3ROxF4Sy3BiB6htjW+2gDCUeHQ0
-         JaCXXykqaJ6lBu3GKtWqGCKeCKe5wdp3AhcWScMnP+k7Px5Wu4zybiBeGsExiZSmhKwi
-         2E4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790857561; x=1791462361; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sHNsjDTZpfGR2H1l2JsSr6KfRDIP/MhvrrYNRy/u2yY=;
-        b=Nq+DxrKUGKvNs17iv6Sgu9y/wyowD8TUW2b8lFLAfbZ6EKrhC3y36R3f4S0FWC1l9h
-         HgB4JDn6J7yeS5Zf+HcChijIPxP0YhzWy3L8u1DKpaXSEhCe88XuuTzo21cAgmCJ0E12
-         5Zj2+N2vg5ysSbyGQKKfAO01O1hYSX7ogzA0c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790857561; x=1791462361;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sHNsjDTZpfGR2H1l2JsSr6KfRDIP/MhvrrYNRy/u2yY=;
-        b=fH0DzYQcC2gcyOIB1u+PlkTXt4kCOS0nES4MFRYKsS7Klv4UK9PPt1mB/+jUEYwUkH
-         iXG8zSQWegWR/sjXISU4MuH/ggLw+cU0MW7djISo33BAB7hyGcnOHn9jP0IdBW2mZ7n/
-         sgC8dgYiMVaW0N5U5wwdH7gmws6jDWxNf1zmhyyGF11yDfxj7tZ+GkZwPSilfDpoAYmh
-         cmmRzKjiwytIpXJuTm43wR13Nir75wqWPEhmT8j6teJcwAxoQGPjCd+7M1Cag1YpB3Ev
-         sxpT9TKCgQjcXY72lx5MJkSMK6FINdNnXNjcG15W7AmZuG69ttXx2r1iRWufeQQV+fO+
-         wezw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXf3NNQjpLfuIMgbI0D2pQTbA/hJRPSuyIzvOhSpNyYktUZ5EATGmLMQXEgTy+alYdkYZ5XCuJS/vJFjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7cP2jDK4J6VGfyERT1z9Q8ZSWoxBrSMIcMcudHph3pyVvs31t
-	kNo1Jf8w4R9jS7/xDfNK1a5sboNOl/XjMX9SvBdFzeaJp89zCaH7p5F+MdHlCpr9F3w2PuQFtzB
-	DsWUyEpH+6Uzbkitxud3Clprixzc8k0nPy2F3FoSp
-X-Gm-Gg: AYBFou0uzL4oLW8AgDpjfWOKaPXkffgcy+3FOVg8WZbFOfmw6ejwGJxe7/RfsDXYzgD
-	4IIhABo4llqii3GhtklRSHxByocZu3V30wOMRRHAVNzgPoM5tFb6548BWubkQkhhA9wq7Vgxzzq
-	JWRhrfvFY5d3AzUzdy5bCuPTty5VtXSx86eV3ZeLHGXf6G4nUHNudsWVOxU1QpkhvodB1rR3ZFA
-	gMVFPZVKYE9xVht/7MdE4DoS9YWBkBfnlTijDZgCpiixWUn4KgBknlvByJG2lXBqz4M5JB/XREr
-	EJYS5dPqPOd8jLCo+v5tg2xAjMg0DnEzZsvgfLcyu+13SZCUiukHpdXtRqL2D9gmJLGv6nupWUx
-	mmxOGB4E=
-X-Received: by 2002:a17:90b:2787:b0:3a0:bbd8:5ba7 with SMTP id
- 98e67ed59e1d1-3a4d19263b8mr3982449a91.62.1790857560613; Thu, 01 Oct 2026
- 05:26:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ECv3xFLH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFD31F000FF;
+	Thu,  1 Oct 2026 12:27:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790857624;
+	bh=A1GlyA95RuwpgDZTidpTzGiVDdLSXw/xWP+W9swCYz4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ECv3xFLHwUYwTPYNoI9LE3XeFQKoe0rp1cLeLu335/iUKcP0A+cEVgJ9pqYyIusN0
+	 Ut9N0wQc+AQq6G2Zodv991OaY6AcMXf7Uy1gGDBrvjbg2hMa1tPRhXBFLJtfcwzWZR
+	 9bRrjq2T8nnd8CCmRrGwUidYUQGXdcWtDfqflqNI=
+Date: Thu, 1 Oct 2026 14:26:58 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Timo Joannin <timo.joannin@gmail.com>
+Cc: Jennifer Guo <guojy.bj@gmail.com>,
+	Michael Straube <straube.linux@gmail.com>,
+	Michael =?iso-8859-1?Q?Steinm=F6tzger?= <m.steinmoetzger@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Atharv Margur <atharvmargur@gmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: rename phy_status_rpt_8192cd_t to
+ rtl8723bs_phy_status_rpt.
+Message-ID: <2026100112-impotent-undiluted-d9de@gregkh>
+References: <20261001121700.143861-1-timo.joannin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930234611.468765-2-cnfourt@gmail.com>
-In-Reply-To: <20260930234611.468765-2-cnfourt@gmail.com>
-From: Andrei Kuchynski <akuchynski@chromium.org>
-Date: Thu, 1 Oct 2026 12:25:49 +0000
-X-Gm-Features: AclHuK-BxU7MmUHAcZP4PHaPh5sL3Kfkf4dW_oEhBdzZNS6_OoOhRdYuvai3_LY
-Message-ID: <CAMMMRMe1Nph0cOtVsJcKGJgsnNarj+9fEizMh50RqXZP+cHoPQ@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: ucsi: Skip CAM query when partner has no
- alt modes
-To: Gris Ge <cnfourt@gmail.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
-	Benson Leung <bleung@chromium.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Pooja Katiyar <pooja.katiyar@intel.com>, Jameson Thies <jthies@google.com>, 
-	Hsin-Te Yuan <yuanhsinte@chromium.org>, Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001121700.143861-1-timo.joannin@gmail.com>
 
-On Wed, Sep 30, 2026 at 11:46=E2=80=AFPM Gris Ge <cnfourt@gmail.com> wrote:
->
-> Since Thunderbolt alternate mode support was added,
-> `ucsi_altmode_update_active()` is called on every Connector Partner
-> Changed event.  This made the driver send `UCSI_GET_CURRENT_CAM` to
-> PPMs even when the partner had no alternate modes registered. Firmware
-> that does not support the optional alternate mode details answered Not
-> Supported, which produced a spurious error on every partner change:
->
-> ```
-> ucsi_acpi USBC000:00: GET_CURRENT_CAM command failed
-> ```
->
-> Fixed by skipping the command when there is nothing to update.
->
-> Fixes: da87d45b1951 ("usb: typec: ucsi: Add Thunderbolt alternate mode su=
-pport")
-> Cc: stable@vger.kernel.org # v7.0+
-> Assisted-by: Codex:deepseek-v4.1-flash
-> Signed-off-by: Gris Ge <cnfourt@gmail.com>
-
-Reviewed-by: Andrei Kuchynski <akuchynski@chromium.org>
-
+On Thu, Oct 01, 2026 at 02:17:00PM +0200, Timo Joannin wrote:
+> The struct identifier references the 8192CD chip while being in a
+> rtl8723bs codebase. Additionally, the identifier uses the _t suffix,
+> while being generally reserved for typedef identifiers.
+> 
+> Rename the struct to rtl8723bs_phy_status_rpt
+> across the rtl8723bs driver to accurately
+> reflect the codebase and clean up the naming.
+> 
+> Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
 > ---
-> v2:
->   - skip the invoke of `ucsi_altmode_update_active()` in
->     `ucsi_handle_connector_change()`
-> v1: https://lore.kernel.org/linux-usb/20260927021649.8967-1-cnfourt@gmail=
-.com/
->
->  drivers/usb/typec/ucsi/ucsi.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.=
-c
-> index bef3f9b71d71..c392afdc27ae 100644
-> --- a/drivers/usb/typec/ucsi/ucsi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi.c
-> @@ -1519,7 +1519,8 @@ static void ucsi_handle_connector_change(struct wor=
-k_struct *work)
->
->         if (con->partner && (change & UCSI_CONSTAT_PARTNER_CHANGE)) {
->                 ucsi_partner_change(con);
-> -               ucsi_altmode_update_active(con);
-> +               if (con->partner_altmode[0])
-> +                       ucsi_altmode_update_active(con);
->
->                 /* Complete pending data role swap */
->                 if (!completion_done(&con->complete))
-> --
-> 2.55.0
->
+>  drivers/staging/rtl8723bs/hal/odm_HWConfig.c | 3 ++-
+>  drivers/staging/rtl8723bs/hal/odm_HWConfig.h | 2 +-
+>  2 files changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/hal/odm_HWConfig.c b/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+> index 34b0369a7936..bf2479c01873 100644
+> --- a/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+> +++ b/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+> @@ -105,7 +105,8 @@ static void odm_rx_phy_status_parsing(struct dm_odm_t *dm_odm,
+>  	bool is_cck_rate = false;
+>  	u8 rf_rx_num = 0;
+>  	u8 lna_idx, vga_idx;
+> -	struct phy_status_rpt_8192cd_t *phy_sta_rpt = (struct phy_status_rpt_8192cd_t *)phy_status;
+> +	struct rtl8723bs_phy_status_rpt *phy_sta_rpt =
+> +		(struct rtl8723bs_phy_status_rpt *)phy_status;
+
+Why is this pointer being cast from a structure type, to a u8 *, and now
+back to the real structure again?  That's a mess, please propagate the
+real structure type all the way through the call chain so that there is
+no more casts needed.
+
+thanks,
+
+greg k-h
