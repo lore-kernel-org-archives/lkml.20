@@ -1,125 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D50496D35;
-	Thu,  1 Oct 2026 13:50:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135BA50AC15
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:50:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862603; cv=none; b=EaTGBP9UixiJmwibIgf5Zh9hCXHk0Zh7VPIo/hlhXRn1+EXGdGZRIaLSZGltMoAegLHXCyFOgY08IK82A2+R3UpLtBnniG1QP+TC8wTd4kB07k/GiLnjVSDqUc/cIGE1hsHa1rox8SdI50m78XzRovNmB7NCShIjOZIWnqFLD2E=
+	t=1790862625; cv=none; b=Bk7sp4kcy0QAjl1xf2go7+yA09iVwUITEhopWTtpfFXzgmm4M4ZkqhMP+LVQonm7/QQHg/8/qXuae7gNvfd0aOqR0cHqGB0dmiFG6E1qNRNl3ofmJYgQZLQm7yYJJtKPJJOk2BxYyzcG6FVNwNMjBX+1uoUnyF6GmIMbjQMx8Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862603; c=relaxed/simple;
-	bh=zQ9MtrvJfthHd5Vg84A7ZAy6wwcDhigK3I4PjJDOPMc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=t+zCUiYielXQlJ6QrHf2EouI6fa1vAT71eqwKeAbuu3+QUZPcgk99hGK8oUcLZLqGAdZ5KqNjOw8BZFetRwLUgE1C3zajlhyOcycMEzzeXdx5IVmMXJbeSQ+cHNvuaIUnxEeZi9/ZqobQtqtVy/X80yIJb7sab8jyOoOovUpuP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NO8uIpvr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790862625; c=relaxed/simple;
+	bh=THLDyu66aba4rvHy0c0GIPxVV4sjXGGXtKSwb85msMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JO7Kwgi1UPZqVg4SXDsySL5CF8Ef7IuyjDqoiCb4KG4tdx22EdrnjTjSc/kCiMmuyFzRTZ0TZIMa/ZuYzCJbW4R2tPlNDc+x0Tlez8O3kSCqLjDcDKiQ5WLsIXjCG9FsVLBJ7YUIJ+9/othDXJenneLvxRMQCbiSb3QQpVGvqDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nFfLAaLH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NO8uIpvr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285EE1F00898;
-	Thu,  1 Oct 2026 13:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nFfLAaLH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ECDB1F000FF;
+	Thu,  1 Oct 2026 13:50:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790862598;
-	bh=sXzExsQ7ko37b3Osdz1dvDlhOHBAgHiJiu7t1kn79LQ=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=NO8uIpvrwNZMMO29VNksLG+RliC7ewccbvWQrg1gu2HiClGxxN31B9nPLDzbaU8X8
-	 9ShhxDp1khV1a+mLptUYOfjeYcO1oXEIyrGmA0i1KMqv+HVEWneMBnfEsbZJAwVkb5
-	 mc7kGmp59awUEw8u492ae0CkWUt6ZWHUkk4tuRlDouiAbQ52MzuC+/xTNiTZjsQo6t
-	 cTzEPfzLMdcJPV2el+rVAaKXs6gU17aA/jVZrWrFsa5zgCWJcShSKmJjZov4P2vLyf
-	 fKmnHTO1tkN7ziKwYlA9uDFhJcC116G7u9/7J4XJmbmL/LagmnfrNljz+6fw78ZJ42
-	 op3HUq56R2iMQ==
+	s=k20260515; t=1790862623;
+	bh=x4NN7WYia8jHS5OzfI7U2jmkAt+5f+XE/0rGvZiMqpE=;
+	h=From:To:Cc:Subject:Date;
+	b=nFfLAaLHTeMiwyhcHpwpRU2IXniSzmNgOZ9MII1LHn4XA+sjYl0s7kTKtN6s9KheP
+	 iVD0Fmabio0KwITCPAWapqVsy44ArTKxewZVgmcjkhJrKKbSxCw4OcSVfHBIPrXHIK
+	 I5Y2wIyn4zOQPAmqC1EzZZnusrqZgWu7OJGtvy0J8m2XGYZSW5cSkLsVcdF01Gez7k
+	 qx05jgmUHmlF/9n8kfRtJQjgbPQp2bxS9QbhEaokbym4i96xZpT1S4KKqoU2ElrbGb
+	 tJZl9W/ybW31KK7M7C9QTaQfK9dWgEXojNzDA3bbjyo4a/8JPK3c8j/fjepWU9YAlg
+	 ap0IqyRpAaC/g==
+From: Chris Mason <mason@kernel.org>
+To: peterz@infradead.org,
+	tglx@kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: paulmck@kernel.org
+Subject: [PATCH v2] futex: Fix private hash use-after-free on resize
+Date: Thu,  1 Oct 2026 13:50:22 +0000
+Message-ID: <20261001135022.2220288-1-mason@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 01 Oct 2026 15:49:54 +0200
-Message-Id: <DLTJT271O5MJ.29DXT8VS9712I@kernel.org>
-Subject: Re: [PATCH v3 0/3] debugfs: make debugfs_create_str() read-only
-Cc: "Yichong Chen" <chenyichong@uniontech.com>, <rafael@kernel.org>,
- <djakov@kernel.org>, <quic_mdtipton@quicinc.com>, <vkoul@kernel.org>,
- <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <linux-sound@vger.kernel.org>
-To: "Greg KH" <gregkh@linuxfoundation.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260807100053.1089834-1-chenyichong@uniontech.com>
- <2026100153-unmanaged-impart-3adf@gregkh>
- <DLTIZ3CNCQDS.24NN9OMJG7AXA@kernel.org>
- <2026100139-deviancy-direction-edea@gregkh>
-In-Reply-To: <2026100139-deviancy-direction-edea@gregkh>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 1, 2026 at 3:19 PM CEST, Greg KH wrote:
-> On Thu, Oct 01, 2026 at 03:10:45PM +0200, Danilo Krummrich wrote:
->> On Thu Oct 1, 2026 at 2:51 PM CEST, Greg KH wrote:
->> > On Fri, Aug 07, 2026 at 06:00:50PM +0800, Yichong Chen wrote:
->> >> debugfs_create_str() has a generic write implementation that replaces=
- the
->> >> backing string.  Concurrent writers can race and free the same old st=
-ring
->> >> twice.
->> >>=20
->> >> Instead of adding more locking to the generic helper, convert the exi=
-sting
->> >> writable in-tree users to local file operations and make
->> >> debugfs_create_str() read-only.
->> >>=20
->> >> Changes since v2:
->> >> - Use scoped mutex guards in the interconnect and SoundWire conversio=
-ns.
->> >> - Clarify why GFP_KERNEL is safe in the interconnect conversion after=
- the
->> >>   RCU read-side critical section is removed.
->> >> - Drop the unnecessary firmware_file =3D NULL assignment in the Sound=
-Wire
->> >>   exit path.
->> >> - Use WARN() instead of WARN_ONCE() so each writable debugfs_create_s=
-tr()
->> >>   caller can be reported.
->> >
->> > Sorry for the delay, now applied.
->>=20
->> This series fell through the cracks on my end. I also reported this issu=
-e in [1]
->> and I agree making debugfs_create_str() read-only is the best fix for no=
-w.
->>=20
->> However, it duplicates code and I think having a proper helper as sugges=
-ted in
->> [1] would be nice follow-up.
->>=20
->> [1] https://lore.kernel.org/driver-core/DLPDB44JJRGJ.3K6JNS746M7QC@kerne=
-l.org/
->
-> Yes, that would be nice, but for read-only debugfs strings, let's keep
-> writable ones away if at all possible :)
+poll_state_synchronize_rcu(mm->futex.phash.batches) is used by
+futex_ref_drop() to check that a grace period has passed since the
+current hash was published. This relies on batches referencing a grace
+period which started after the hash pointer was assigned.
 
-The two converted subsystems now have identical code that can easily be
-generalized. And I think we have other users that open code this too.
+__futex_pivot_hash() sets mmph->batches before it replaces mmph->hash:
 
-For instance, soundwire would collapse to just:
+    scoped_guard(rcu) {
+            mmph->batches = get_state_synchronize_rcu();
+            rcu_assign_pointer(mmph->hash, new);
+    }
 
-In sdw_debugfs_init():
+The scoped_guard(rcu) doesn't stop new grace periods from starting, and
+if one starts between those two assignments, futex_ref_drop() can move
+forward while a reader still holds a pointer to the old hash.
 
-	/* Initialize struct debugfs_string */
-	ret =3D debugfs_string_create(&firmware_file, "");
+Fix things by setting mmph->batches after assigning mmph->hash.  The
+scoped_guard(rcu) isn't needed, so let's drop that as well.
 
-In sdw_debugfs_exit():
+Fixes: 56180dd20c19 ("futex: Use RCU-based per-CPU reference counting instead of rcuref_t")
+Assisted-by: kres
+Signed-off-by: Chris Mason <mason@kernel.org>
+---
+ kernel/futex/core.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-	/* Free struct debugfs_string */
-	debugfs_string_free(&firmware_file);
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index a061f54b606d..095f9fe440e3 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -213,10 +213,12 @@ static bool __futex_pivot_hash(struct mm_struct *mm, struct futex_private_hash *
+ 		futex_rehash_private(fph, new);
+ 	}
+ 	new->state = FR_PERCPU;
+-	scoped_guard(rcu) {
+-		mmph->batches = get_state_synchronize_rcu();
+-		rcu_assign_pointer(mmph->hash, new);
+-	}
++	rcu_assign_pointer(mmph->hash, new);
++	/*
++	 * mmph->batches must reference a grace period which started after
++	 * mmph->hash was assigned. See futex_ref_drop().
++	 */
++	mmph->batches = get_state_synchronize_rcu();
+ 	kvfree_rcu(fph, rcu);
+ 	return true;
+ }
+-- 
+2.54.0
 
-In sdw_slave_debugfs_init():
-
-	debugfs_create_str("firmware_file", 0600, d, &firmware_file);
-
-In cmd_go():
-
-	scoped_guard(debugfs_string, &firmware_file)
-		ret =3D request_firmware(&fw,
-				       debugfs_string_read_locked(&firmware_file),
-				       &slave->dev);
-
-Thanks,
-Danilo
