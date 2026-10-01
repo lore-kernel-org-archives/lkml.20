@@ -1,125 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8A8352020;
-	Thu,  1 Oct 2026 07:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A520C4963DB
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839245; cv=none; b=iy4h2AK41w1yCujjhq6BlkSY44LHvVxDreiNCaOjB5Vu8j7xaJsh2aWMRDDyTNG7Pfw3S/155PG8/sQiYRiBUBT04fPbiV5tISOS8pU3WmEtTzMnN+1yVifyU4NsWi+FUkm4TAFs5FBCjjgDR/Nj8O2Ckc1jqfDlzAniME9/kwg=
+	t=1790839331; cv=none; b=MhV/rpZAFa0AtB2dnCgRXdDVQLrJgtsqfNHrsQy3C5Fvube1nXZUfhqDZLansmeU/WNWUwNJgnxySrePoH197I6dxJgif9ALOT3j0dVSn3MAz69IFEnkj10UTierx/RvGNGVMtxUitsX4ft3VmVDKx7oOSC/buqhi41LF4CIfwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839245; c=relaxed/simple;
-	bh=U5oEqkdeg9YvpX/JVhCgWCo74NzUlC5YA5Ynfjw7rP4=;
+	s=arc-20240116; t=1790839331; c=relaxed/simple;
+	bh=SjmYf9Qdhg7oBmMt8/I2Zxl5WShz70amt7g1/v8ktCg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lt3hSlGLq2D5ETB/Znum3pQO7drSWYZjphO7dQOVN+BiVIqtt/JIf4M1QrRt9RR2Bt1lB16I1t5GsW95FkNUNGSyIGLlVWCfbSwFwqdN6supN/mnpbj9XrkU/YyIF+MnVgbGIbwJDaGX+lKrnRlshhfc77lkMDVhoWpaVdh7tDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fxzGljNc; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=HZtpjvbPhSDyNh3BldyvYJ3AILY0Twrf2MnGwsZwR0PTSavvHy0ITCrArM/C62ovf/nVIM48WyUKvKALDMFIPLksEwNohFigAxD7jaqx12JzHncyYnQ9Jro4m6A1tIkW9uyGJZS3wT50VBkQmwHTDuktV4xTPMwPZTj/VF5Dfwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eqMOrzaj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fxzGljNc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790839238; x=1822375238;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=U5oEqkdeg9YvpX/JVhCgWCo74NzUlC5YA5Ynfjw7rP4=;
-  b=fxzGljNcaoC3/Y2wrkSRSOldQ/La2Kxez1zD04gHRxq+O7DHaJaToV01
-   g8qtiWToB8tSzqpORcHV2JsilyJR9+M4IH0ChxQ05IFoOWO3SockQW0n4
-   rnT+7aGJ7jvGEuwxqoaLkqs499DPJp4RQFpzVMOyzTR6acaFXKcsFEB4i
-   Vbz64RZYdgVEF8l1PF9gpeL93V/s2ZGj7I+Nnt/D/xbTZpzX9v7jUwWLV
-   J7xPfjuKTgfbZCmA1Y3KQPiZFgXNSiBhy6Maj1OXP7YLl0+NYM40iMM7H
-   lGMSU+2VRdIdu5c0eKb2lrL2J6rauVji43pDx3ETiY7saj5iWDZGTq/WE
-   A==;
-X-CSE-ConnectionGUID: GZ9nzamXS9GtJFOGiK6GgQ==
-X-CSE-MsgGUID: zCeKZmbASO+iWV8FpnqjTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="95396581"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="95396581"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:20:32 -0700
-X-CSE-ConnectionGUID: R8cZksT4SGyr7eFGfnLaAQ==
-X-CSE-MsgGUID: bpltgbzmR/6D/vwvT0LK8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="302171307"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:20:30 -0700
-Date: Thu, 1 Oct 2026 10:20:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Shih-Yuan Lee <fourdollars@debian.org>
-Cc: Mark Brown <broonie@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v17 5/6] spi: pxa2xx-pci: restore LPSS private register
- state across S3 resume
-Message-ID: <ar4Ju6oGkWGCOlct@ashevche-desk.local>
-References: <20260930160629.1822-1-fourdollars@debian.org>
- <20260930160629.1822-6-fourdollars@debian.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eqMOrzaj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62F91F000FF;
+	Thu,  1 Oct 2026 07:21:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790839317;
+	bh=gEGoSrNeNp8LVSAih/jv9NghjCp3BZmPnibUPhtyTQM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eqMOrzajN1ZB666iTc/dHkzEvg7SaX7jMlegP5YIoR/fvW63b/5BoKzRBaJiIJCro
+	 IuKNcv3UZOi/vmgA4dDme7QsNlOIOwqPWJO7YfBZsTT9zkrvNSfNyXFU0rUHbOi/4J
+	 rKCXnRYHRF5DKJYXbTBfYNwAUMQ/fFtkZUbvI7x2x0jT/Bslu12jD9cumBxgSBcNI0
+	 Z2YN9goxR0qxMSYEB6MnQ6HvPFSa9rCaLHppDidBaWb0/9jFEy5XMLUhflj3lwfmLV
+	 8uApljev46DXP1RmbwRtcC/4xB54trw4BuJGAkjrGBLchcjLxPWDszrizcVFiiPxwD
+	 CWBKjicZtf0iQ==
+Date: Thu, 1 Oct 2026 08:21:51 +0100
+From: Will Deacon <will@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Usama Anjum <usama.anjum@arm.com>, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH v2 00/21] arm64: Move overflow sp into SP_EL1 and kernel
+ sp into SP_EL0
+Message-ID: <ar4KD6FTZzw2Wq6w@willie-the-truck>
+References: <20260918161407.2300-1-will@kernel.org>
+ <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260930160629.1822-6-fourdollars@debian.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jL=O30YiraMzpe=wd-s-ZHoiMWkXcr3B_qb_dp3TUk2A7g@mail.gmail.com>
 
-On Thu, Oct 01, 2026 at 12:06:28AM +0800, Shih-Yuan Lee wrote:
-> On platforms where Intel LPSS SPI is enumerated as a bare PCI device
-> (such as the Apple MacBook8,1 on Lynxpoint-LP), the LPSS power island
-> loses power during system sleep and powers up with the controller held
-> in reset. Because the device lacks ACPI companion objects or MFD
-> binding, neither drivers/acpi/x86/lpss.c nor drivers/mfd/intel-lpss.c
-> restore the private register context across S3 resume.
+On Wed, Sep 30, 2026 at 11:42:51PM +0200, Linus Walleij wrote:
+> On Fri, Sep 18, 2026 at 6:14 PM Will Deacon <will@kernel.org> wrote:
 > 
-> This causes memory-mapped I/O reads on resume to return ~0, resulting
-> in PCIe Completion Timeouts, missing interrupts, and dead
-> keyboard/touchpad.
+> > This is version two of the kernel stack juggling patches I previously
+> > posted here:
+> >
+> >   https://lore.kernel.org/r/20260907164247.17223-1-will@kernel.org
+> >
+> > Changes since v1 include:
+> >   * Fixed suspend/resume paths to handle the stack pointers properly
+> >   * Fixed restoration of ptrauth keys on resume
+> >   * Added tags
 > 
-> Restore LPSS private registers and deassert functional, APB, and iDMA
-> resets in the PCI glue layer:
-> 1. In suspend, quiesce the controller queue via spi_controller_suspend()
->    so no transfers remain in flight and chip select is deasserted.
->    Then save the LPSS private registers (LPSS_PRIV_REG_COUNT 9 covering
->    up to offset 0x20 including reg_cs_ctrl at 0x18). Ensure the clock is
->    active for reading MMIO registers using pm_runtime_resume_and_get(),
->    balanced by pm_runtime_put_noidle(), before calling
->    pm_runtime_force_suspend().
-> 2. In resume, restore LPSS private registers and deassert functional,
->    APB, and iDMA resets via pxa2xx_spi_pci_lpss_restore_ctx() before
->    calling pm_runtime_force_resume(). Because the controller clock
->    remains gated (clk_enabled is false) during this restoration, any
->    interrupt arriving on a shared line bails out early in ssp_int()
->    without accessing registers on a controller held in reset. Once
->    resets are deasserted and private registers are restored, call
->    pm_runtime_force_resume() to enable the clock and mark the device
->    active, and restart the queue with spi_controller_resume().
-> 3. In probe, call pci_d3cold_disable() for Lynxpoint-LP (is_lpt) to
->    ensure the PCI device cannot enter D3cold during runtime PM,
->    guaranteeing that LPSS private registers are retained during S0 idle
->    periods and only require restoration across S3 system sleep. Set
->    DPM_FLAG_NO_DIRECT_COMPLETE to prevent PCI subsystem direct-complete
->    bypassing system sleep callbacks.
-> 4. Scope LPSS context restoration specifically to Lynxpoint-LP
->    (PCI_DEVICE_ID_INTEL_LPT*) devices to avoid perturbing other LPSS
->    PCI platforms (BYT, BSW) or non-LPSS platforms.
-> 
-> Export lpss_ssp_setup() and core runtime PM ops so the PCI glue layer
-> can invoke them around private register restoration.
+> Overall I like what I see, but can we split it in two... like first the patches
+> up to fixing the overflow handling using SP_EL0 and finalize that?
 
-No, as I told earlier please find a way how to not add a code duplication.
+Yes, that makes sense (and thanks for going through it). The whole thing
+is bisectable, so lemme go through the feedback I've got so far and send
+out a prefix that we could consider merging as preparatory work.
 
-> Assisted-by: Antigravity:gemini-3.8-flash sparse
+> Hopefully Usama can test just that part and see if it has a lesser
+> performance impact as well.
 
-Assisted-by: LLM
+I'd like to see those numbers at various points during the series, tbh,
+so we can rule out any stack-protector changes etc.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Will
