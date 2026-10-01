@@ -1,75 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9DC38423B;
-	Thu,  1 Oct 2026 18:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036623B7B7A;
+	Thu,  1 Oct 2026 18:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878145; cv=none; b=PVmpO/tHG4dzjL1q9wPUcNcZU7dxt5gT04bDwb0EBrKmmknavTHOpiuOJBuaE7k32f9GJlIrc/EOEIV3xQ3X1sIJXW9FphQE/K2cNWDv5YTygfM6jNAV3bnyNs/3Gb9gssg5wwP6UFFs4A/kmEGdEcJKoxb/iGgq0qLX5MLP8/0=
+	t=1790878162; cv=none; b=ktkvawGFCmirBpkn55dlxfQLmXhvjGCsZPYPNR2kjFPvBUntBWZTMwHO2eQmFgcehs3cNMAryx8GesIlxxXj0nVnUIRbKD4LBfCkGZgJfkjpGW8lSuwm/K5iH9UZqMrsPr6cgYcfuoVvhfRtS+oMwg5eXJCsR2EHt5fwuI/P1Xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878145; c=relaxed/simple;
-	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Iax3Bqs1UemRT4N8KQGPNsSu8x5Q4mAyavDXKdH2gPlQXH6s+pXHrlYyMDnMVThjF8yFIOptXw5JC3+2wLFymQKot105MstQQokNgd6T1c4ykf9MNoCKbxS9NdMmuMIPChbjOtbyTzPbQN02jlz+XHFYD7WSSSdm+IuDYgRIYWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQHctUju; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790878162; c=relaxed/simple;
+	bh=IYuK6YAms+4kFmsbw+S5vuVJXL+sdI0R9kmmnkuRFqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KxEcVAA1rJ/ZxBrxNEFDsjzeG58umKntPiUuHVp2PZV97p04b135w/A43HV0WMPDULMwb/jTfau0ipfxLzEe+eQiyg5PPysJctvyhU2wYd1k26gQyS2tAO49JVoWKYtekRzoLalQsgdQIXN2KBCVY3dFftLHsTyDsiu5D+ZjFAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OIx/d4jX; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQHctUju"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0C41F000FF;
-	Thu,  1 Oct 2026 18:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790878141;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UQHctUjuUNpw6LkyASUZ9HSFteDzJeR38iaU80Gktw1pGFWCLZSYF/YGGSZzkMish
-	 CI0kKn39Tn2wmkI+JdM9cAL2ebawL6a2NJ098qLlJdRUahDEfM6lZIJ2T7cKU2GPdw
-	 0NXWPu6qcC6lC27LkOhpl1kvAZnWG931UKFlZcorvNlFUWm7/G1eFEAK7fLlnc/7fJ
-	 bxompRVWn6MverJHcn5hr7Mr9YOD8mHDYQfyQ30PHDkvD66s9hpK9WFw6pnT0nrHtV
-	 Z6y6MF57oKO9tCDgYWbN7c8PKgyS1Tt2yub8EUxI6/JVTGEnkgZXKRPXyw9eL3m3l5
-	 dA0HXVrqpGBlw==
-From: netdev-bot+sinfo@kernel.org
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Wei Fang <wei.fang@nxp.com>, netdev@vger.kernel.org,
- Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH net RESEND] net: fec: drain PEROUT requests before
- canceling the timer
-Date: Thu, 01 Oct 2026 18:09:00 +0000
-Message-ID: <179087814030.1402591.9699379066974975442@kernel.org>
-In-Reply-To: <20261001180258.4054391-1-mhun512@gmail.com>
-References: <20261001180258.4054391-1-mhun512@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OIx/d4jX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790878160; x=1822414160;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IYuK6YAms+4kFmsbw+S5vuVJXL+sdI0R9kmmnkuRFqM=;
+  b=OIx/d4jXT6yXOeAnoClGg0tsOChCaO928DDObQvhVZ4wha5BwfY/YikJ
+   4V70cZJ6ndkDob0Of6KLkS3L9wSMC26PCxhKWwC919+nB4ynw3ep+DXdl
+   N0KvbQ4Zd7lrfUoRTl0KN37lLoVeQDsQb3ApsYcuFPSPF122n+MVhvMjJ
+   jeJsM3K0eVeVId3TBhDTfQPsAUWB839lMNXjM1urCJMt58Sa1dSOUBcr1
+   5KS+gWXvgo03+M99RaMd0FsZhWGt3JdY2OUWQDONOGiG7bLDo+aE/ovaG
+   hRp+agYu5L/UF1oow4C3qCoyZEVz/7Nz8O0H4eEXsy92yWGH7rweFpTEj
+   w==;
+X-CSE-ConnectionGUID: /LKDm+eESfCCE5e3aonVuw==
+X-CSE-MsgGUID: 8WfGCCXeTE6UVdqHpMQF/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90505927"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="90505927"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:09:19 -0700
+X-CSE-ConnectionGUID: DXl+d7HWS5etwLq22oI+6g==
+X-CSE-MsgGUID: OD0jrt1FTG+GKs+DUhwbgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="279359370"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:09:17 -0700
+Date: Thu, 1 Oct 2026 21:09:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 18/20] platform/x86/intel/tpmi: Use DEFINE_RES_MEM()
+ for the feature resources
+Message-ID: <ar6hyp0E7VdwEEut@ashevche-desk.local>
+References: <20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20260930172918.743656-19-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930172918.743656-19-sathyanarayanan.kuppuswamy@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi!
+On Wed, Sep 30, 2026 at 10:29:15AM -0700, Kuppuswamy Sathyanarayanan wrote:
+> tpmi_create_device() fills in each feature resource field by field,
+> deriving the end from the start and setting IORESOURCE_MEM by hand.
+> That is what DEFINE_RES_MEM() exists for, so use it.
+> 
+> The resources come from kzalloc_flex(), so the fields the macro sets
+> that the open coded version left alone, name and desc, were already
+> zero.
+> 
+> No functional change intended.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+-- 
+With Best Regards,
+Andy Shevchenko
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
