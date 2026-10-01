@@ -1,154 +1,132 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB1020E702
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092B93B7B7A;
+	Thu,  1 Oct 2026 18:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790877675; cv=none; b=AwodgK82/tP7wYu4bmDQrztoRTDeyUpyfMjvw4eGTso7zdkjJUpzJhDgiUo6HWdOI+vQ9TGe3rTrIIWFtWE55AItTZY9PHzDOpkCUHUUDG4doqRQAW1Fhit815PkJ7+kuZj/pIDjRq0rOmKbODk0bfz26cX5fThejadNFM7oO+4=
+	t=1790877695; cv=none; b=ZRkchrZPkD/8bAymV8HN054x8nyZ/qnxgM2BSxs7bBQ1RZEE4fHnaEdrdUqIp177jlc5ChYar4RXYsaNaDa4udtUBFizxFGNEDu98aht+H0IaluaxN9W0JUeLvoyj6dSprdGORjf5uiKKdYftwNAOjqEezkWhXijXQ0yI0kQxHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790877675; c=relaxed/simple;
-	bh=d1j8gb2qOLMFZ82Cae3ZIiQgAGcCfTySYiTh6vo2Hv8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Zu1/vWPTHgqFCl/LwfMnmMTmcmEevwSQtXaC6i9dEDVovSnpD4s1i8tnfybLAXB9D1PKybSbNPRRNF4VlqJQ5GMjlCaqXr+7BuA9cWLcQZrLP0B53ZHDGiGzXm0P+Q5QKYYVuaDtObfH36Xne8t0DW5xWJVaGdxFRBA0WfVwXzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=bbapBWYJ; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790877695; c=relaxed/simple;
+	bh=6C/lxn3E34F+gLTSJBLswB5cV2SJg4yCj/dUkhP+HV8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WZoD4Zn/TH/1N+e655btBQiBVuqZFJ0V8wbDEF9+ZKOLXoYEqCx/BiFCXpmIG1cy8kg1nu2zMKH3zYsrbVynMRAFav1/u4Ej75XLootEK84bH4GD8+R0ncVGh6axf0I9Pp3wHhblTFNYDDD2spgi4rtB+ehmO51+xdQLnZvxiYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BfRXZWZ6; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="bbapBWYJ"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261001180058euoutp01d93fcc93272c9ef3a7d4d4200fe36d4a~aeb3zBxql1466014660euoutp01r
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:00:58 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261001180058euoutp01d93fcc93272c9ef3a7d4d4200fe36d4a~aeb3zBxql1466014660euoutp01r
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790877658;
-	bh=gQkTa+2Uo3OACPSQX7bm2CZcFqbnX/8IeP5vIuor0Ng=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=bbapBWYJUKQjTryRXf/MRuhP70FKTNET3C7JuydO0RhWDbtk9NFm5LS9zt6LX+Bks
-	 Ep0kL6J9rB3wKrZlaKM9iDYxmy0sxakZDPuJ7h3dAaFdEMUYSgLEHr8sTycz7o8kOq
-	 bZHMHeZafFM7JBq1Hz2zbX6QU9PdIZ7+pSpSgJQI=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261001180058eucas1p1506f92fdf0e1417404bb8025f181ae30~aeb3hNyDO1569615696eucas1p1G;
-	Thu,  1 Oct 2026 18:00:58 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261001180056eusmtip29a2ceb3cd88b6599c4377c9182bfa693~aeb2LaVai0953409534eusmtip2H;
-	Thu,  1 Oct 2026 18:00:56 +0000 (GMT)
-Message-ID: <ce84d3d2-e78b-4939-aecf-9ef7267bd42a@samsung.com>
-Date: Thu, 1 Oct 2026 20:00:56 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BfRXZWZ6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790877691; x=1822413691;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6C/lxn3E34F+gLTSJBLswB5cV2SJg4yCj/dUkhP+HV8=;
+  b=BfRXZWZ60yzqXRdasj6JfD90bSW3q2ibrD4ojjkT6HeFL8syiTB+R7bd
+   pvxB9TjCgGwTjLsGlf8/TIcv3RBjoB6FvcwOpfhYQNTj8NwMrKZ8O4ag2
+   k8Tkda8hE2DkZKAfBJA3r7j7bvceiujvUV7+Y+AtjFlEc5ED6dKHR55rI
+   1rqOIqHrKaCaMtA6+lzO0wMyms4WMc/oKLagw5ThrbG5GeNL4qLSqa3sW
+   THa5QLU8dCdXfM+XT3CtBzw45etX/Dh+Kj7w6NTwUsOox4f+egz2YY2jR
+   IpGFgSW4oWT1ZEZDgw/ZjOXJ6/+WiQ5CaZ4Zbo86UawvEJjjOFTO7PJAg
+   Q==;
+X-CSE-ConnectionGUID: wE3p+NZuR9uz9JmYkDcUsQ==
+X-CSE-MsgGUID: DUpyZjpkQwuvqOnxWoM1uw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102166951"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="102166951"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:01:22 -0700
+X-CSE-ConnectionGUID: oJ6Qse4mREKPNBF1cpoynQ==
+X-CSE-MsgGUID: UK4EEDa6St+is3dFFzcp0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="274689692"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:01:19 -0700
+Date: Thu, 1 Oct 2026 21:01:17 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Archit Anant <architanant5@gmail.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
+	nuno.sa@analog.com, u.kleine-koenig@baylibre.com,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 10/10] iio: adc: ti-ads1015: replace custom shift
+ macros with FIELD_PREP/GET
+Message-ID: <ar6f7Zg_-ensItvm@ashevche-desk.local>
+References: <20260930171204.12863-1-architanant5@gmail.com>
+ <20260930171204.12863-11-architanant5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] drm/virtio: Add pixel blend mode property to cursor
- plane
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, oushixiong1025@163.com,
-	David Airlie <airlied@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, Gurchetan Singh
-	<gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Maarten
-	Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter
-	<simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, Shixiong Ou
-	<oushixiong@kylinos.cn>, Ye Liu <liuye@kylinos.cn>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <c627ced6-1bdb-4508-b010-46df53eab2b3@collabora.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261001180058eucas1p1506f92fdf0e1417404bb8025f181ae30
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261001180058eucas1p1506f92fdf0e1417404bb8025f181ae30
-X-EPHeader: CA
-X-CMS-RootMailID: 20261001180058eucas1p1506f92fdf0e1417404bb8025f181ae30
-References: <20260828090123.784944-1-oushixiong1025@163.com>
-	<c627ced6-1bdb-4508-b010-46df53eab2b3@collabora.com>
-	<CGME20261001180058eucas1p1506f92fdf0e1417404bb8025f181ae30@eucas1p1.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930171204.12863-11-architanant5@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 20.09.2026 20:21, Dmitry Osipenko wrote:
-> On 8/28/26 12:01, oushixiong1025@163.com wrote:
->> From: Shixiong Ou <oushixiong@kylinos.cn>
->>
->> The cursor plane exposes a format with an alpha channel
->> (DRM_FORMAT_ARGB8888) without a pixel blend mode property. Since
->> commit 860e748bddcc ("drm: ensure blend mode supported if pixel
->> format with alpha exposed") this triggers a warning during
->> drm_mode_config_validate():
->>
->> [    0.649020] ------------[ cut here ]------------
->> [    0.649040] [PLANE:36:plane-1] pixel format with alpha exposed but blend mode not setup
->> [    0.649081] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
->> ......
->> [    0.649761] Call trace:
->> [    0.649764]  drm_mode_config_validate+0x398/0x558 [drm] (P)
->> [    0.649912]  drm_dev_register+0x1cc/0x2a0 [drm]
->> [    0.650058]  virtio_gpu_probe+0xd4/0x1c0 [virtio_gpu]
->> [    0.650088]  virtio_dev_probe+0x1c8/0x310
->> ......
->> [    0.650261] ---[ end trace 0000000000000000 ]---
->>
->>
->> Create the property with the only supported blend mode,
->> DRM_MODE_BLEND_PREMULTI, which is also the property's default and
->> matches what userspace had to assume before the property existed.
->>
->> Reported-by: Ye Liu <liuye@kylinos.cn>
->> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
->> ---
->>  drivers/gpu/drm/virtio/virtgpu_plane.c | 14 ++++++++++++++
->>  1 file changed, 14 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
->> index 1d1b27ece62a..11771c943ea6 100644
->> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
->> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
->> @@ -24,6 +24,7 @@
->>   */
->>  
->>  #include <drm/drm_atomic_helper.h>
->> +#include <drm/drm_blend.h>
->>  #include <drm/drm_damage_helper.h>
->>  #include <drm/drm_fourcc.h>
->>  #include <drm/drm_gem_atomic_helper.h>
->> @@ -588,6 +589,7 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
->>  	struct drm_plane *plane;
->>  	const uint32_t *formats;
->>  	int nformats;
->> +	int ret;
->>  
->>  	if (type == DRM_PLANE_TYPE_CURSOR) {
->>  		formats = virtio_gpu_cursor_formats;
->> @@ -610,5 +612,17 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
->>  	if (type == DRM_PLANE_TYPE_PRIMARY)
->>  		drm_plane_enable_fb_damage_clips(plane);
->>  
->> +	if (type == DRM_PLANE_TYPE_CURSOR) {
->> +		/*
->> +		 * The cursor plane exposes a format with an alpha channel,
->> +		 * which requires a blend mode property. The host blends
->> +		 * premultiplied alpha, matching the property's default.
->> +		 */
->> +		ret = drm_plane_create_blend_mode_property(plane,
->> +							   BIT(DRM_MODE_BLEND_PREMULTI));
->> +		if (ret)
->> +			return ERR_PTR(ret);
->> +	}
->> +
->>  	return plane;
->>  }
-> Applied to misc-fixes, thanks!
+On Wed, Sep 30, 2026 at 10:42:04PM +0530, Archit Anant wrote:
+> The driver currently uses custom _SHIFT macros and manual bitwise
+> operations to read and write to the configuration register.
+> 
+> Modernize the bitwise logic by replacing all manual shifts with the
+> standard FIELD_PREP() and FIELD_GET() macros from <linux/bitfield.h>.
+> This improves readability and prevents potential bitwise errors.
+> 
+> Remove the now-unused _SHIFT macros from the top of the file.
 
+...
 
-This duplicates commit f2e64f450c16 ("drm/virtio: create blend mode property on cursor
-plane") merged a bit earlier, what in turn results in double call to
-drm_plane_create_blend_mode_property() what confuses userspace (modetest tool crashes).
+> int ads1015_get_adc_result(struct ads1015_data *data, int chan, int *val)
 
-Best regards
+>  	dr = data->channel_data[chan].data_rate;
+>  	mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
+>  		ADS1015_CFG_DR_MASK;
+> -	cfg = chan << ADS1015_CFG_MUX_SHIFT | pga << ADS1015_CFG_PGA_SHIFT |
+> -		dr << ADS1015_CFG_DR_SHIFT;
+> +	cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
+
+> +	      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
+> +	      FIELD_PREP(ADS1015_CFG_DR_MASK, dr);
+>  
+>  	if (ads1015_event_channel_enabled(data)) {
+>  		mask |= ADS1015_CFG_COMP_QUE_MASK | ADS1015_CFG_COMP_MODE_MASK;
+> -		cfg |= data->thresh_data[chan].comp_queue <<
+> -				ADS1015_CFG_COMP_QUE_SHIFT |
+> -			data->comp_mode <<
+> -				ADS1015_CFG_COMP_MODE_SHIFT;
+> +		cfg |= FIELD_PREP(ADS1015_CFG_COMP_QUE_MASK,
+> +				  data->thresh_data[chan].comp_queue) |
+> +		       FIELD_PREP(ADS1015_CFG_COMP_MODE_MASK,
+> +				  data->comp_mode);
+>  	}
+
+Personally I would go with if-else with full initialisations of mask and cfg.
+
+	if (ads1015_event_channel_enabled(data)) {
+		mask = ADS1015_CFG_COMP_QUE_MASK | ADS1015_CFG_COMP_MODE_MASK |
+		       ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
+		       ADS1015_CFG_DR_MASK;
+		cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
+		      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
+		      FIELD_PREP(ADS1015_CFG_DR_MASK, dr) |
+		      FIELD_PREP(ADS1015_CFG_COMP_QUE_MASK,
+				  data->thresh_data[chan].comp_queue) |
+		      FIELD_PREP(ADS1015_CFG_COMP_MODE_MASK,
+				  data->comp_mode);
+	} else {
+		mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
+		       ADS1015_CFG_DR_MASK;
+		cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
+		      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
+		      FIELD_PREP(ADS1015_CFG_DR_MASK, dr);
+	}
+
+// also note the broken indentation
+
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+With Best Regards,
+Andy Shevchenko
+
 
