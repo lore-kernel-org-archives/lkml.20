@@ -1,278 +1,231 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A3929BD8C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 01:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790817401; cv=none; b=GsiiV00V95BwoAsuiR8mUvF4cPlobVH/7zKbcj1Nj1qpPK7ZsqtfxWSDFUoyOxsnzsgiBexJlyv6PtJdkx9ZSa9MWr4Ww+4O1z3ZxMxZNxNFU95/jYLb8Z5O1V1yxEqic3DOFS/c45E98X/akoResbjHLKQA6TZbAgTj04vsd/k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790817401; c=relaxed/simple;
-	bh=tjcWt2seiedt957fPkP3qjPCH/MwWJfOxFdhOfaqiNM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NwF30TITYs9HWjASGXGPDUm0SfwB3eHZX6hh9YEwXEoQOYnyNjG11tNQMYwSUpyoRHgptJxvuaI+n9/hWRE4OQgAfi+z/WI/DhZMV8qYYgBcsVfxEhJABVhPvgorzcqJR3OwXJ10JFKxiYowKKhOyj1cEuGbOKnDrhG7riU3ZS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c9G1vDL0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gmRZHJOx; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AA83655FC;
+	Thu,  1 Oct 2026 01:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.147.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790817694; cv=fail; b=kH1j/V1mfO0Pgu81MebnnURP3XPb/fJRqlR+4HD0bHSzLLbKNCqwIC+YfGjbLGe3D7KLn9VZibThcTH5Et27lDsTMjV5zS85YFI1Mw2S5ru5f5g/UpUPYaN0zCQnUfVxAxIrTNWAV+r1MPnSiZ9BnpSAdkHNhixeZuSCjOMcXVM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790817694; c=relaxed/simple;
+	bh=nVPjTq5VTrr264IXiomrsgzA73YevZMEelzAZe/RjSo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V+wGrnhu0uBeSyUOZG05AsA+qTz4OiZFBSi7loTW7+77UIs7swCRH3wqpHunP2vvH9ivSguB/xwW/SmomwbkvvpB3dEC6HkFQQQqrfBeN5PR5qPmjHEDh5473rnlxiewBrGOrQSHFfgGa+AgXy2ZAVjlCZkDb5NGGAS9iOzp2wo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=juniper.net; spf=fail smtp.mailfrom=junipernetworks.onmicrosoft.com; dkim=pass (2048-bit key) header.d=juniper.net header.i=@juniper.net header.b=XAvs7L8k; dkim=pass (2048-bit key) header.d=juniper.net header.i=@juniper.net header.b=AKZdK0qY; arc=fail smtp.client-ip=148.163.147.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=juniper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=junipernetworks.onmicrosoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c9G1vDL0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gmRZHJOx"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6910jo4F1140892
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 01:16:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=8LTwY7IbNj9bE+34TwGiIF
-	xUUUMboXxjX5o58rh98Fg=; b=c9G1vDL003HrgYM8gEmL6SUiRKFm2A714lEBNV
-	OJEDmdFIlPkZL2Zv0JJDX7imO17aDtQexMn2dCSsC8OFpDZ5BRM4tkD0XpGBSReN
-	s/Ba5fu3GV2JQeOazEZUvRvO+nivSgvsbu/Scn478LwbN9q+2ZKzI73JQpgO9GqE
-	NqW5hsyJxKNkbPbBIsK17yBO0yjhWnLoYYKynfe25drtd0oVP1qLhMFg+3l3iGrH
-	zI5mmOKGBt4EYa1ZjsMjIg+OYncJW3Hcr8iWPfUuINlJssA0MFJCEtdqJeZv6Gtg
-	RKJwCefomM2J6CiYq+uA9vKgST+YMkXayORlc5D5BtzVfmjQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h10bkbkjb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:16:36 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so11813116eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 18:16:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790817396; x=1791422196; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8LTwY7IbNj9bE+34TwGiIFxUUUMboXxjX5o58rh98Fg=;
-        b=gmRZHJOxDG3/iPYaddzeyzSpDhYT0RPvsb99Ov507i9xD66YBqRmEC5wOQCxRAiBS2
-         fccLLGP5Y0vFiiqDmMJUJn+vNwyyW1wBGMNfDxkwa7T8BQgaMqi1WHyaksE/W6cmBADM
-         J90Zw8N2SOBhmrFH0mtkcyMYBap2p+ULTZC0zQEv7RR9hnrKixbgkMZLgKpEgqjfKc6x
-         +N9ctJPuIEevarUF125PClJRvzjbHqa16y7g4va767xxFtUZhxfNFiTBnOJb8m0Uc5tx
-         iKgXPMfkPZvTldnXfMY77ADe2dNE85noxs58X9w3oohrCwicrka8A0I9ctQGorXS2ldO
-         WDXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790817396; x=1791422196;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8LTwY7IbNj9bE+34TwGiIFxUUUMboXxjX5o58rh98Fg=;
-        b=PWuSs4m4AdhNKoIbWatIV/RaOdKyx+IOpZn8tZ2Ha+y3VlfpJd32guafISfb82gsAE
-         K+osajWEl3K+PEKU8/+F1kqdgzFG1tIsC0nl6UPRNYjoyVxbYKqusrlcvqUxYAkBlF7r
-         wQA5PV+S4T1M8OPING7/rai1258OG0bxDxzulPrk/vuJVQ30AwAVvbuLgLWOsxEdItBz
-         sNAH7qIw/W9ReTF6TfhXAisnHudLETuVwWsfiNqNo0f29Q9jopqh4XPzzcRW7mN8FItL
-         s/+bgPEGelrHP9/pNzsIuFC91pyK/4c9gb7jAqGFVYgWA08yOsMs0LIdRXC6e1Sw9FoH
-         Mzow==
-X-Forwarded-Encrypted: i=1; AKwUvBz6mSYTeR+vpwiUfb3FWyMjqPwUXo4WF28hZ+7XqyjFf2y0mCFbXISYrHpkq8OyiPSuOugAnUBwdTwIWpA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcj0+reBZrCOnT7RmVDCrpyS1SmEx3oUdXrP4DKsuyF7iIWE+2
-	wEOCHkYJ31LtAm/YuoV2rlUp7x5qx+ITUQkeuOde538HEKOsgkzGQ/PwLgl0KMasrvf4bWpxyXY
-	jKED+yKfoboHlMkrW8DGqIlzF10fSJAETB9Jy5loyNf6/EEXZiV40ILFiCGddAoPt+Vo=
-X-Gm-Gg: AYBFou03KagUNd7b2ACxXcjTgSx1bbkr4i3y7cSmy1WdZdU9GEINqNZjXJzHRqgVM6N
-	2tQTmNxT8W1bgGkZopW0xbq1wgVrXlXBlkZ0l7ht+faHUfXPWVogCxvkG4cAUYu9lPF3Q9aTcZb
-	JpGVKcBIzwX1t31UT3NJzxuQuuxWSds+oHTa8exveabulUQtIVuY2U2sajsMdDFmSlsXy5xnh9l
-	T4s54eMOxPYo/876NenKB7fLOSReVfzgn+OJg+p3bt+rG5BxqytGkUYAn6o8h9sA3jjFynyD7yF
-	3tw9x6cTEn/WlPb/qTeGoy/yhk1eL9KtH7pCE5brAXoCSfPu08rdPwUHpyzrLPO1Q2RrMZTNlOf
-	RDwvJygq0dUBGyo6JpibFKYasONuTO+7kML03pQAfPRTFPp1SanKw
-X-Received: by 2002:a05:7022:3a89:b0:14d:b813:852d with SMTP id a92af1059eb24-14db822c86emr1313984c88.6.1790817395632;
-        Wed, 30 Sep 2026 18:16:35 -0700 (PDT)
-X-Received: by 2002:a05:7022:3a89:b0:14d:b813:852d with SMTP id a92af1059eb24-14db822c86emr1313954c88.6.1790817394799;
-        Wed, 30 Sep 2026 18:16:34 -0700 (PDT)
-Received: from hu-wcheng-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3750765sm2190286eec.12.2026.09.30.18.16.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 18:16:34 -0700 (PDT)
-From: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 18:16:31 -0700
-Subject: [PATCH] phy: qualcomm: qmp-combo: Differentiate clocks related to
- the USB block
+	dkim=pass (2048-bit key) header.d=juniper.net header.i=@juniper.net header.b="XAvs7L8k";
+	dkim=pass (2048-bit key) header.d=juniper.net header.i=@juniper.net header.b="AKZdK0qY"
+Received: from pps.filterd (m0134421.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6910oVNB1860400;
+	Thu, 1 Oct 2026 01:20:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=juniper.net; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=jnprhpepp0429;
+	 bh=VHL6UmsGmT0HZPR/4KSjhSreaHw4t/XWFUSTSAJUBOk=; b=XAvs7L8kQ25F
+	SN3ivJWyAC05aMa98rNkB+mP6k76T77te0tcJXiox5t67DSu0c0OCNIYZarQxrx6
+	9iD23zbFTP9doew9A9Cd+bzfWUDprSmGaCtqzE8pJjB19aI1U3mUbU6kkYCpMNzR
+	arHPCrOcJidAGBn+W9mUxE3s9nA4aucLQa55k/zldzMELiWM/gaQjSNypOg0hr3a
+	TSDYaPAkfx9cIUtJeEjv1klXC/RUqEIC59/RU8Auf+ilxYJvOiwC925+0cI5Bj0+
+	iJ1d/gXFbxQ40Gzb542Ke96NpKPxAvoz2MLoGDE0E7ng+cyyJZkss43Equ7shoAX
+	Iv8nhg2BTw==
+Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012003.outbound.protection.outlook.com [40.107.200.3])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4h1a7y2p3y-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 01:20:22 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n1A6LqATO6A0a3uMj3yG+wovfYmv9+Fq1qUPis1H/93f78JZc21PhCEokYVS0NLPd+HLXuSD1SwyaF2pu18ZbU2izZ8BhYMBIv9JyKSl71GZNRRZSq2PgBQ+bcu52VPSFHrnynA3xXOTER4Xc6ErUeErReP3cKSgOnqiIAnOHhyFa1EyQbLbgZqQ6keqnct5RYVOrynHCCMe3TjVAXTDdv5IpMa6p1c8/DWNDN9oa9lwySAV59CitbIZZL4sgYGNOtxr6OUVzYgh97TUXrNHMvjU8Gw31kY2Vjdl5/pWK/fnv86xfPtholh+cwCbDQkG7wqgipb8PCh/NDZ8Jc+0pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=VHL6UmsGmT0HZPR/4KSjhSreaHw4t/XWFUSTSAJUBOk=;
+ b=qwJjaLzZNwUa4UHD6s6w3z/7QUjfbGCJIy4CTZeTe5LIlVpA+BAIfnPDSfNSN6BqCQ2ukB02IaL6PT2YCOtJt+L4PWOXGHKrpIIiz32tgh4TCL0HKqcFMa0gL1KmdiUNu3lUdi1IhxECGFC6hij54bz8H/5t+0tILuxfyPKd6uGw+ezvctrAnK45dc8f1XrPurh+3oGnXUrSD/lR8LNZjFs/EzpU9ANAHqYlmReNBo2JTox8aJlzVq8UZQ1KRw9MTg/CNX6uCn8vbJKeqZtegnq0AN7ia/fj6T6ru1wuLgKoiiATQVaFzgT+1kzbDAOKWqK0kryDVUyrsrK355bEZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 66.129.239.19) smtp.rcpttodomain=debian.org
+ smtp.mailfrom=ebf951f79306.juniper.net; dmarc=fail (p=reject sp=reject
+ pct=100) action=oreject header.from=juniper.net; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=juniper.net;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VHL6UmsGmT0HZPR/4KSjhSreaHw4t/XWFUSTSAJUBOk=;
+ b=AKZdK0qY5WSb/DdG9EhsV8ZaHjV+2wa2st2F3wcBCVE4csZobv0sY3ldZaUokI33eZeRFWwm4SRL2CK51wsgqcpApH7Ti89xHsv3GCF3ZA8qXyu/DZBDGR/Re8povH267uPtnyqwKeSwXvRv+WMpndR5Lfba4KH3b46CiVxhQhBEj2gtbs5ODwWSWQR+jZaZeWYP60QVMIc/W1F3grvhvQrj5+wRexAPlptp48iY4c1swA1CSlql2mu06ZhfxcAffU7EZOi9TfwSeorcQpjF/xHYiC75nQI8osZPd4dxDst+r0HgmJK2CCU7KfxCsFPgu/vq2LgpiFekiJ1J2byTFQ==
+Received: from BN9PR03CA0665.namprd03.prod.outlook.com (2603:10b6:408:10e::10)
+ by DS0PR05MB9054.namprd05.prod.outlook.com (2603:10b6:8:ce::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 01:20:16 +0000
+Received: from BL6PEPF00020E62.namprd04.prod.outlook.com
+ (2603:10b6:408:10e:cafe::2e) by BN9PR03CA0665.outlook.office365.com
+ (2603:10b6:408:10e::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Thu, 1
+ Oct 2026 01:20:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=none (sender IP
+ is 66.129.239.19) smtp.mailfrom=ebf951f79306.juniper.net; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject header.from=juniper.net;
+Received-SPF: None (protection.outlook.com: ebf951f79306.juniper.net does not
+ designate permitted sender hosts)
+Received: from juniper.net (66.129.239.19) by
+ BL6PEPF00020E62.mail.protection.outlook.com (10.167.249.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 01:20:16 +0000
+Received: from p-exchbe-eqx-04.jnpr.net (10.104.9.87) by
+ p-exchfe-eqx-04.jnpr.net (10.104.9.52) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 30 Sep 2026 18:20:15 -0700
+Received: from p-exchbe-eqx-04.jnpr.net (10.104.9.87) by
+ p-exchbe-eqx-04.jnpr.net (10.104.9.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 30 Sep 2026 18:20:15 -0700
+Received: from ebf951f79306.juniper.net (10.104.20.6) by
+ p-exchbe-eqx-04.jnpr.net (10.104.9.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 30 Sep 2026 18:20:15 -0700
+Received: by ebf951f79306.juniper.net (Postfix, from userid 14867)
+	id 67EA91444BA9; Wed, 30 Sep 2026 18:20:15 -0700 (PDT)
+From: Prashant Singh <singhpra@juniper.net>
+To: <bigeasy@linutronix.de>
+CC: <ardb@kernel.org>, <jk@ozlabs.org>, <clrkwllms@kernel.org>,
+        <rostedt@goodmis.org>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+        <rdunlap@infradead.org>, <lgoncalv@redhat.com>, <93sam@debian.org>,
+        <linux-efi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <linux-rt-devel@lists.linux.dev>
+Subject: Re: [PATCH v4] efivarfs: add nostatfs mount option to skip QueryVariableInfo()
+Date: Wed, 30 Sep 2026 18:20:11 -0700
+Message-ID: <20261001012011.30525-1-singhpra@juniper.net>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260930063217.eWGJ_JpZ@linutronix.de>
+References: <20260928203445.72318-1-singhpra@juniper.net>  <20260929074312.v3jT8uel@linutronix.de>  <59d5452c-42b1-4784-a593-5e549a2a0f12@app.fastmail.com>  <20260929151401.doOQX7D0@linutronix.de>  <20260930013500.10273-1-singhpra@juniper.net>  <20260930063217.eWGJ_JpZ@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-qmp_phy_usb_clks_v1-v1-1-d4dccc9eb263@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAG60vWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS2MD3cLcgviCjMr40uKk+OSc7OL4MkNdI9MkS2NzEwMLsyQjJaDOgqL
- UtMwKsKnRsRB+cWlSVmpyCcgopdpaADC08D53AAAA
-X-Change-ID: 20260930-qmp_phy_usb_clks_v1-25b9374086b2
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org, jason.pettit@oss.qualcomm.com,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: GWhn-1vQrUUmRHwEvN9aoOm9oEyc163O
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAwNCBTYWx0ZWRfX8jdXJ2CA4Rh5
- 01+PsEYyU1yCbv3kx+Aa4YfCIuojSd3QswCOhDBdv9M4xFAIhvj8fjTirauJMEV1C8KkNFNlouO
- 9xX013cEzAMiEytCSAAkz4OFoZBflhDi19Vv20qjdmod/Rvovt3SAupOgiTXOX7xi8jP1Gbn7X0
- FV9jzgQWHbvL5csyjT0+toRPeQj4E95itSUz1gKRsnlCNGQ5kCG6w6l/EOmpjeEHMmKSiO6o4Ll
- ngNFe3V0ijIolKRNzzsd3MWbEBUFy8NOUDwKyS+W1XygCbToHiHwWrcWdrQAvTwp3CoxtSW89g8
- HvlFKu0EodIFXzx4eyLGD9sQxmeuUzbG1PLn1hy7gQbBNbgDS3KrW78Zp9x8oU6LCQ4eW6Du3VM
- jpptBQ1d08mFTAvLEM7DutLrIUdQCmSllRX18MEcWtgxS8Y21CQxteayu3O/VqrhhPgjYaTHM+A
- 2Pn0VgEwH0FhSTj7MZw==
-X-Authority-Analysis: v=2.4 cv=MZn5KJ/f c=1 sm=1 tr=0 ts=6abdb474 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=KCRQXf5DRPPkNQcuQH4A:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAwNCBTYWx0ZWRfX2lIMnATjPL9Z
- FaMc0/ctWv9F7Lmo77UTbgouZ39lxt18ESkzUiqEVVoEYYmC6AYf8kj0Ol2vKCz9odEhfEEgo7a
- uACdKynCpAlPcD6Id35syztBsC+khp4=
-X-Proofpoint-ORIG-GUID: GWhn-1vQrUUmRHwEvN9aoOm9oEyc163O
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|DS0PR05MB9054:EE_
+X-MS-Office365-Filtering-Correlation-Id: e766820c-ce6a-4008-5ce3-08df1f5a26be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|35950700016|7416014|1800799024|82310400026|22082099003|18002099003|4143699003|6133799003|10067099003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	CyvgfQ1pN6BtlScIK4v7xC9qX+IjzqhNBxvsT3YfrBtLPHxEhULCprRMjJvvFCA+pcx1aDeXRsDVSx6HwJ6O6ZRpnxMkikvdPFC7BzXkndg2rQY/9g8Jm1EBKvYZZ5EKUmURSbR5uq4p/dnSJNclR8Bjr2IFWtjg4hFnjWk4MA5GkLfcLKvFtq8mZ8wSLGzmy+GianvyJoNLdyQfT3NjFgQ8if/sw6/9HGf/SO7tDQvHJvLRS8+E6Ilrev749d1O39ab6YGAWdeiZeZRda5mEoD7uAqhpF8xOpwx0RPDL/dgWeZJYG6bhjqSWvaGunyL4FQ2W0NpeqAfPclF4xrY85Z02zjkkuXDAR6TgvYFJtC5opouXfZ/SdQAjbmXrGGguER10gkmLIHwSdwdjyzMtxE/7h9oJc281MlhKrbAjbJwQ/1Jek4N3zJ3CHhemQV6HwDe40VXLda38biHTv9ho06OI5sHdgCGdfbXshDIA8UrK4mA6l696drjnYN23eZsiqks5ehoZbf7YV7Z220gKvXWrqMONrS21+jA4NvjJUm/G2+8A0Tafl2WJapOwZZdFardQsfUG2UPcmXW37X31aTvqKS05YDlvXWbRNxBlYcwr4BKlvRb9ls78RzvYghRvb6l/8Niqc+eTE+Yh2vcGM/f7EeR7J9tHp+s0x0I+hdcUdsqLD/8zknDOYqkNo3fdoaAhDQ6HstCha+GHQZwWg==
+X-Forefront-Antispam-Report:
+	CIP:66.129.239.19;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:juniper.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(35950700016)(7416014)(1800799024)(82310400026)(22082099003)(18002099003)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9XHv26lfUdwUI2wueOW3olF5XnLMx1/HLx/WspvrqbNSxgQiqvNOWML8+9vmjGxksV9cSBtPbSPeL2RmVYYiltAtvYl+4iQZ8A7Zj7Ry0PBK801/4rzcux0o1GuuoambWi3ESnLekq7hOfmNF5FsnAmnZIBIRiB6k3nVL5LibVvOC1gkT9E+kBs1zL37BZm+ErJQY0lVO3TqAIgBstP+mwc6YsCTUb4lIkfwYDvfnoBP2nJ8+hLwCvo3Ho33+DV35QXcav+IsxGyeRN7CjskhnBOQeW6VkTHBCpfgE7agrSIEGs1aeLuFu/zNBzxKbFPYTK62HPs2Byxq4njsZ8E1XoD/wGBiHoza1MOt7gE5qtd31r8SgoUzkLjYPwrdH5GUMH4qxT9oAYI1OAb1PRsJ6PYHm8BnOtWR38UCUCBMHULwv9SaEt81suCFVIXKuKo
+X-Exchange-RoutingPolicyChecked:
+	fpmJVNk6Yc1wkp7ddDODsUdIBtyCNtSPOg8CHikqe+yiaJwG10/MPnp6I+HBlbn0K+BQ+oGlfZOmvEL2p4SFOIMw04GwHiaT9mlLR3LwzOR2tmkrFH3suF5skrEU6FFNTyGv3cZ9e4R/SBYMRhA3X06sO/rBzgHqciKTtXUVejoCRgdVE1wdE+HP8JZnznCJ+K21EVcC0+tUIEWQszO0MphlzcbdCov89x8MerBeUZh8cEhCPco+2kj/4PkpT5eDQ/zi5ZzK2FIpsg666nP56TawlU5enNVRnX8UdwhdpBF2NHY+u6z9pO/eBJ8phIkH0O4UPn7xg9YFYdN13ZYQWA==
+X-OriginatorOrg: juniper.net
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 01:20:16.5996
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e766820c-ce6a-4008-5ce3-08df1f5a26be
+X-MS-Exchange-CrossTenant-Id: bea78b3c-4cdb-4130-854a-1d193232e5f4
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bea78b3c-4cdb-4130-854a-1d193232e5f4;Ip=[66.129.239.19];Helo=[juniper.net]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E62.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR05MB9054
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAwNCBTYWx0ZWRfXzSkPTKvaFQI8
+ 90WGnRcuxBzzMl8vlRdHJb8DRKAbI1eIp7aC7Zviy+J6sq9DDGswDaJkFspwvPfAdpzh6Rzj+kx
+ 8+5kc3CmXHrSMslXeKFBYHxJZRdX85ccFn7Q75U1snh+S4Kr9SlzHE8GLvbfw3d+KA4kUq6pHx6
+ OjUkqxQDjvOYklGdgxCMLvbfWrFjE/ef58N5/qGBU7IZ7yUTxXwD289UcSVdJq0StAzKmr3sLyE
+ UTr2ubkeHRdQaoHuwLNjP+V/8B0UtulxhQzbo1XuY2zGoUHvGilq6dx4i+PJs2831D9CRoT0dXw
+ T0geqgubEpYnkLGUFlY4q7//byxJPAgTKagPJ9QyOnDxExB1ZEANOlLFe/YMbdQHPerAsnYQVPG
+ cBKcsWEHdXEe1KQHonPv8g/gbkssWRH29sh/qGl2l/RavgAaXDsrxKRfB9NbSeSiCPl36+NqqxY
+ 4rvtynD0R8lnoX56qHg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAwNCBTYWx0ZWRfX0cD0wlAQT3AP
+ 3b9pNiWFe4T0WN+k4owlpwWbhxkOZT8Z/Vwzhmcp4Z1p8FsIr3D5pN8HFSuEdZr4jhjnxy3Rr8p
+ jMJkzS7m6PsbVgGPDHB7Y0iTEIMzzNc=
+X-Authority-Analysis: v=2.4 cv=We2Z+EhX c=1 sm=1 tr=0 ts=6abdb556 cx=c_pps
+ a=QsHTWkejXhsF4jLr7vu2uQ==:117 a=SKdRtqzh2DBFgDMvUaaGnA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10
+ a=f7IdgyKtn90A:10 a=rhJc5-LppCAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=gQcMVamqm3wCPoSYhaRC:22 a=ay80y3fxfMS_JZZz1qJy:22 a=28hbXIuJbkYIf9WHxNwA:9
+X-Proofpoint-ORIG-GUID: 9aPCytUNlSVI5tmOzuYq7yM81GnKANQt
+X-Proofpoint-GUID: 9aPCytUNlSVI5tmOzuYq7yM81GnKANQt
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+X-Proofpoint-Spam-Reason: orgsafe
+X-Proofpoint-Spam-Details: rule=outbound_safe policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=orgsafe scancount=1 engine=8.22.0-2609040000
  definitions=main-2610010004
 
-The Qualcomm QMP combo PHY has a USB and Displayport block that is
-sourced with different clocks.  In situations where the USB path is not
-utilized, and only Displayport is active, unnecessary clocks are enabled
-and not used.  Split the current clock list into USB specific clocks,
-which will be enabled whenever the USB initialization routine is
-executed.
-
-In addition, move autonomous mode control specifically when USB is
-active, as its primary purpose is to detect RX detection and LFPS
-signals, which occurs only when USB is active.
-
-Signed-off-by: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
----
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 56 ++++++++++++++++++++++++++-----
- 1 file changed, 47 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index a4f130fc33e3..f14fb8ef9028 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -2607,6 +2607,8 @@ struct qmp_combo {
- 	struct clk_bulk_data *clks;
- 	struct clk *p2rr2p_pipe_clk;
- 	int num_clks;
-+	struct clk_bulk_data *usb_clks;
-+	int num_usb_clks;
- 	struct reset_control_bulk_data *resets;
- 	struct regulator_bulk_data *vregs;
- 
-@@ -2678,7 +2680,11 @@ static inline void qphy_clrbits(void __iomem *base, u32 offset, u32 val)
- 
- /* list of clocks required by phy */
- static const char * const qmp_combo_phy_clk_l[] = {
--	"aux", "cfg_ahb", "ref", "com_aux",
-+	"cfg_ahb", "ref",
-+};
-+
-+static const char * const qmp_combo_usb_phy_clk_l[] = {
-+	"aux", "com_aux",
- };
- 
- /* list of resets */
-@@ -4403,13 +4409,20 @@ static int qmp_combo_usb_init(struct phy *phy)
- 		return 0;
- 	}
- 
--	ret = qmp_combo_com_init(qmp, false);
-+	ret = clk_bulk_prepare_enable(qmp->num_usb_clks, qmp->usb_clks);
- 	if (ret)
- 		return ret;
- 
-+	ret = qmp_combo_com_init(qmp, false);
-+	if (ret) {
-+		clk_bulk_disable_unprepare(qmp->num_usb_clks, qmp->usb_clks);
-+		return ret;
-+	}
-+
- 	ret = qmp_combo_usb_power_on(phy);
- 	if (ret) {
- 		qmp_combo_com_exit(qmp, false);
-+		clk_bulk_disable_unprepare(qmp->num_usb_clks, qmp->usb_clks);
- 		return ret;
- 	}
- 
-@@ -4440,6 +4453,8 @@ static int qmp_combo_usb_exit(struct phy *phy)
- 	if (ret)
- 		return ret;
- 
-+	clk_bulk_disable_unprepare(qmp->num_usb_clks, qmp->usb_clks);
-+
- 	qmp->usb_init_count--;
- 
- 	return 0;
-@@ -4670,7 +4685,10 @@ static int __maybe_unused qmp_combo_runtime_suspend(struct device *dev)
- 		return 0;
- 	}
- 
--	qmp_combo_enable_autonomous_mode(qmp);
-+	if (qmp->usb_init_count) {
-+		qmp_combo_enable_autonomous_mode(qmp);
-+		clk_bulk_disable_unprepare(qmp->num_usb_clks, qmp->usb_clks);
-+	}
- 
- 	clk_disable_unprepare(qmp->pipe_clk);
- 	clk_bulk_disable_unprepare(qmp->num_clks, qmp->clks);
-@@ -4701,7 +4719,12 @@ static int __maybe_unused qmp_combo_runtime_resume(struct device *dev)
- 		return ret;
- 	}
- 
--	qmp_combo_disable_autonomous_mode(qmp);
-+	if (qmp->usb_init_count) {
-+		ret = clk_bulk_prepare_enable(qmp->num_usb_clks, qmp->usb_clks);
-+		if (ret)
-+			return ret;
-+		qmp_combo_disable_autonomous_mode(qmp);
-+	}
- 
- 	return 0;
- }
-@@ -4736,19 +4759,34 @@ static int qmp_combo_reset_init(struct qmp_combo *qmp)
- static int qmp_combo_clk_init(struct qmp_combo *qmp)
- {
- 	struct device *dev = qmp->dev;
--	int num = ARRAY_SIZE(qmp_combo_phy_clk_l);
-+	int num_clks = ARRAY_SIZE(qmp_combo_phy_clk_l);
-+	int num_usb_clks = ARRAY_SIZE(qmp_combo_usb_phy_clk_l);
- 	int i;
-+	int ret;
- 
--	qmp->clks = devm_kcalloc(dev, num, sizeof(*qmp->clks), GFP_KERNEL);
-+	qmp->clks = devm_kcalloc(dev, num_clks, sizeof(*qmp->clks), GFP_KERNEL);
- 	if (!qmp->clks)
- 		return -ENOMEM;
- 
--	for (i = 0; i < num; i++)
-+	for (i = 0; i < num_clks; i++)
- 		qmp->clks[i].id = qmp_combo_phy_clk_l[i];
- 
--	qmp->num_clks = num;
-+	qmp->num_clks = num_clks;
-+
-+	qmp->usb_clks = devm_kcalloc(dev, num_usb_clks, sizeof(*qmp->usb_clks), GFP_KERNEL);
-+	if (!qmp->usb_clks)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < num_usb_clks; i++)
-+		qmp->usb_clks[i].id = qmp_combo_usb_phy_clk_l[i];
-+
-+	qmp->num_usb_clks = num_usb_clks;
-+
-+	ret = devm_clk_bulk_get_optional(dev, num_clks, qmp->clks);
-+	if (ret)
-+		return ret;
- 
--	return devm_clk_bulk_get_optional(dev, num, qmp->clks);
-+	return devm_clk_bulk_get_optional(dev, num_usb_clks, qmp->usb_clks);
- }
- 
- static void phy_clk_release_provider(void *res)
-
----
-base-commit: c7f2322431cb6d108b18fb4154606b49e2bc50f7
-change-id: 20260930-qmp_phy_usb_clks_v1-25b9374086b2
-
-Best regards,
---  
-Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-
+Thanks Ard and Sebastian for the comments.=0D
+=0D
+>Yeah you can trim it a bit but git commit log space is cheap and=0D
+>only people that care about the patch will read it anyway.=0D
+=0D
+Will do.=0D
+=0D
+>As for the docs and code comment changes themselves, please make=0D
+>those a bit more to the point. People can go and find the commit=0D
+>that introduced/updated them to know more about the background.=0D
+=0D
+Will do.=0D
+=0D
+>>                        used/ available. Disabling it skips the EFI runti=
+me=0D
+>>                        service call, which might block the CPU for a few=
+ milliseconds,=0D
+>=0D
+>might block all CPUs for a few milliseconds.=0D
+>=0D
+>>                        reporting 0 for used and capacity. Enabled by def=
+ault on=0D
+>=0D
+>Instead, report 0/0 for used/available.=0D
+=0D
+Will take care of this.=0D
+=0D
+>AFAICT, that would potentially leave KCSAN instrumentation on the reboot=0D
+>path, which might trigger and interfere with the reboot. So instead,=0D
+>I'd like to put this in efi_reboot_required if we can. If it is needed=0D
+>in more places to address an actual KCSAN splat, I don't mind. If it is=0D
+>just to make Sashiko happy, then we shouldn't bother.=0D
+=0D
+Could you please clarify what you mean by efi_reboot_required here? nostatf=
+s=0D
+is only read in efivarfs_statfs(), efivarfs_show_options() and=0D
+efivarfs_init_fs_context(), none of which run on the reboot path, so I'm=0D
+not sure how it would apply.=0D
+=0D
+On the annotation itself: an internal review flagged a potential KCSAN=0D
+data race rather than an observed splat -- statfs() can run concurrently=0D
+with a remount updating the flag, so it is a genuine (benign) concurrent=0D
+access. I ran concurrent statfs/remount loops on separate CPUs under=0D
+KCSAN and didn't trigger a report in a bounded run, which could be=0D
+expected given KCSAN samples accesses, so it doesn't disprove the race.=0D
+Since KCSAN only needs one side of the pair marked, data_race() on the=0D
+write covers both readers and the reads stay plain. I'm happy to drop it=0D
+entirely if you'd prefer to keep the benign race unannotated.=0D
+=0D
+>Please keep this description _here_ where you have it. Once this is=0D
+>merged, you could send another patch, extending the documentation with=0D
+>the statfs option (I think the workqueue change is in).=0D
+=0D
+Sure -- I'll keep it in Documentation/filesystems/efivarfs.rst for now=0D
+and send a follow-up extending Documentation/core-api/real-time/hardware.rs=
+t=0D
+once this is merged.=0D
+=0D
+>You still have the problem that someone reading the variable leads to=0D
+>the same problem but this requires a privileged user. And if I am not=0D
+>mistaken, someone sent patches to have efi-runtime runtime disabled/=0D
+>enabled.=0D
+=0D
+Agreed -- the variable-read path is the same, but needs a privileged=0D
+user unlike the unprivileged statfs()/df trigger.=0D
+=0D
+Thanks,=0D
+Prashant=0D
