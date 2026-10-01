@@ -1,184 +1,140 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57C3521221
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790877203; cv=pass; b=Pvq/ulAgMcsrrWs7t1dBcXpz1Gjq1CPtCfyF7csERii+/ZRSsjPM5HP68c1Pujsqle76KoXl5qZe0daplUrIxwBBSLaPVV+yPVqIxpoTqUCN++bRcuYaCx8gQXYEtyt962H1VaSmO1YlryMziOywwgJ/+MA6rJJG2vgFiDcwb5c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790877203; c=relaxed/simple;
-	bh=cco+5oXzl9OcKLeS1epBbONJTaKK6GrymQgbT7xYtAQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JcZlrs32qXxwUG8G3SZlgKmshOXjc+9e3j/sPxgKen/goor1GuZRq4rio7CObrh/GprYfT0UJ7p13H8iBm/DLJelOsrgnEEy1N7VOLYuVTksVYzO//THlohz5edj9uBfQZCfhlGn42WKKXY4dniRcqbHoEQ6rLhpg1VMow+h7UE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rfkpvHrJ; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3C1533D6;
+	Thu,  1 Oct 2026 17:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790877278; cv=none; b=fc2Mxvv3M9c74wpKx+CChwH2zzAflUqQyb8+pht02lHr8mv8VrszqYK6mU+Rr6fHlV2ImNx9Oe1wUlgGsQiO7n3pIgeE6FzVVw1wGiXXRwVGx2E07urY8mkXehOcY67iu8XCnu2F6qy8jeXnnugncUgA+egN8SC9i+9NG5pFPZM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790877278; c=relaxed/simple;
+	bh=la9qHOo90ZXE4QAE7e1+jWOcwIBXtaaVWRjS7f5TWzQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UZot8MvPTxnuiZk1+XH+JVEkW9jVo77P+tiEvwN962t81oNQhJ1KH5ouA7VUsY1AiL7lFam7Sf+LFQ596zBkr1PR8+k/aTHeHW+TT3EByXsNGIh3qa65oNx7V8CXAICgEfo8u1FJECl9oy9K2aueTEYilaJLCl7p83fcomRT5Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R0W1E9bG; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rfkpvHrJ"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e0f2c945eso347107366b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:53:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790877194; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WypZr3LQaMTd4cxEHBuLzZmDfH1fyk6BT+0ELr2qplnv67UFuamPbRm9jdPHPCd2kM
-         0O8WPj6L7iHWkbATz78GjtZbYz1BZUS+9BrJtmFRAbJtgDoLILqDiImHNz002Bq/mRzO
-         jSEXeMB2H0ZDOjvGbuenno39Q85r/vdGIXKDJqLlfifiRi5Og0ptNuo6OORkRJGz1cne
-         lT5Q6LdPivX4ZwmFiKBzwM7cQi4APMiycYI4jphhGC0Y9vy4XSvKL85rMjusahFRwpzs
-         Kq6sQCcNyYPHU+2aW0SNws1vJ2LcK81coIz6p1k/2YJ7OOktgmRl3dB7EjD235PgvByl
-         k+PQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5FPwXskimTV5Cm3JlZNRWRS1UDu2MkqsLKRMDAqBuMc=;
-        fh=b/RE7B4ysVwHNbz8Y662yW4EFi99Frh3Ks7dGAV/k+Q=;
-        b=NEr0+wOVZxdWW60gKkkFbDqC5FwqEA97nd4F7JZRX3HLR0+Qh20PHFd0YeyA5HyMIn
-         9R2lRq79cIhkEE1kXQMOW+AyMudXn0uBqnCxrF2Ptna96cFuYUMjn/owwI24XAXRIQNq
-         fX+He7DiPqrWNGutjk7MVPKyZzanswK50OogILMDXi+siNyIF8xCOaVGkqpQLQAXOFVr
-         hfjAXZgwUXpMRfKf4GTP4DJqoMrTGDbVdpPtUXI7qAjGW1FGMWxUmN2DN997ebrlFDl9
-         kwAptFQ55Wn4him7RRdQ+YdPK5Os36TKhwD6Qix6whyvLMiKDsNoHNRq6EDPKYLS1AXH
-         PFrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790877194; x=1791481994; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5FPwXskimTV5Cm3JlZNRWRS1UDu2MkqsLKRMDAqBuMc=;
-        b=rfkpvHrJyQuLfNvHC5aC0YHh/881B3p/r8WTUOCn2CLIo+epVr9lqd1Ae3uVQGb44m
-         gR1w2PbvWWhG9IMd3dAyhC4sc+CfwYG+Mh3eOWbvXvNksnA6ZrDXcIBjgZMZYyYHBZ4d
-         CntSibIGjFuERrk3yzM+C5E7ijWTlawGH/bK/RKcBmYlVSpydYixha6vqi7Pb2PrYZtz
-         4iB7ZD8pqJ5qUSEGcREeygJ4nE6OzTSKhPk0UUB9wBvrBmAiJnec/TyweVX4npJPgPhS
-         p1N6xbq3h2gKmcjGktLXvpr61LxQYB4yEQAIdTm7eY3zlXwOqwUIMShZhFNCHFZ+GBAO
-         uz6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790877194; x=1791481994;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5FPwXskimTV5Cm3JlZNRWRS1UDu2MkqsLKRMDAqBuMc=;
-        b=H/qmtpNwgvig4h7kVVcZrNB17obqHNgginw9F1XG18QxmhmLOvkqxI8cxOe3tbqgsl
-         xJmshExyvfqNXyVJPRzhNhKoNI+xhMzdzujW8nJYCHKBOiLuk/iUpRNF50RX7pbPWLUX
-         M/goXaRat2ojDZuTvWcM3EJzGr/lXgwciXr3duYhiQbKgUoSpQ4A9zXVhzzAbqeOwKb1
-         bdARhzd/yydU9+dBh7fdYPEW9UYax9KhNIvb2t85k5H87fl2rdyFA7f1dBOk/P3qAesJ
-         iQPOzFwVAzDEb3cACksilmHxctF/73YdTKg/43o5cIb4pUtAW09SKRNILrhfcDbDzfYb
-         g7TA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcLbcbzM7vyDi+GM3h6D3k5BJxalarecGBxR8U/bQo337UO96Ns164ccoBzrX7OxyPc221Ca67eNtPSDM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKheugpJ9aA+sjggONO+smVFELQd35baNXGJKYN5A+3/CR9uvH
-	5k1A04/3d2/NyJfLizsEUR3xQH9QRgHZu3vuSPZcsKmPnXTCTrg1bjaVc+ksB7YELQqt5cUMo6r
-	B5xY1rIkLa7TpIGJL93GtnF4WoWSKNaU=
-X-Gm-Gg: AYBFou0ke1PVUXvoUQ+AQTjCk2fohAVrVsG7VaMq2lldqiGCyZrgNtiArzeq2qmFQjV
-	SR14P/GMt0W74HgNqSyExEm7v/Nc4vSnUXlYPTEoVAM2AsXJtMRwF+/qqSdt8R0fZPzRf0mHBdT
-	WVRPKYuc0pI7ok0Kk1QFw/YqxWyRHqK0VHjyMPo/TatLmaC8bUoOBmjxeXfxUuI+ZB94QZE0Zh3
-	ftHEqdEtbf/zKu0X1NhMW4oIgFYVrM3HaNAedixdwc29qFyIyg3625DC36gmtUVrTAw2aRT4Yae
-	HzWmto57WJEngp+deosSNU2Z4qdGOwZob7O2ytlHWia6migiJXbnJj9xIaiSTaBznII=
-X-Received: by 2002:a17:907:2d8f:b0:c29:5d41:dfe8 with SMTP id
- a640c23a62f3a-c2e4b443e7emr30126866b.43.1790877193384; Thu, 01 Oct 2026
- 10:53:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R0W1E9bG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790877270; x=1822413270;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=la9qHOo90ZXE4QAE7e1+jWOcwIBXtaaVWRjS7f5TWzQ=;
+  b=R0W1E9bGVheX3p3yEigJ3aktEPV0TCilejZqYOdx7a+UkXjOgam0wIli
+   wpPJaz8CWlkyaMP4baTD/m3QFseX1BO0fsNb8WwbfXSGYQv6bTv+461A+
+   4/n8Ye2t+MHQoxjYhE8wQtjEqhLAd64aI5jFBIh4m1mZxEVWCkdnefMc2
+   GcUDpNLsxVAGLVuqH1EIIMBN87Vrb84kD892PtJQuaYNRRJ55UGlDiI9Z
+   ACjxyv7nuTSqGJorYgBR0BOYuT2k3Q/1sO8ZA1cy3BHXC1690FtCVz3bD
+   SmkjJfmcvRtAtMiUCvHwf2vv4Jdx3ByQC5dpaJ7/6RzL1ZQg35u9E+AZe
+   g==;
+X-CSE-ConnectionGUID: X/lSccBxSRamThmfUPDzgQ==
+X-CSE-MsgGUID: BAh1hMO8QeeTPWg9G5NqfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90546656"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="90546656"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:54:24 -0700
+X-CSE-ConnectionGUID: 5sgnGtXFRx2YYtkdtROv/w==
+X-CSE-MsgGUID: dTI9oM1aTxGiVHiqPC3iwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="279356611"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:54:23 -0700
+Date: Thu, 1 Oct 2026 20:54:20 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Archit Anant <architanant5@gmail.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
+	nuno.sa@analog.com, u.kleine-koenig@baylibre.com,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 09/10] iio: adc: ti-ads1015: inline
+ ads1015_set_conv_mode()
+Message-ID: <ar6eTN422AoPkeV6@ashevche-desk.local>
+References: <20260930171204.12863-1-architanant5@gmail.com>
+ <20260930171204.12863-10-architanant5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913185016.523376-1-jkoolstra@xs4all.nl> <20260913185016.523376-8-jkoolstra@xs4all.nl>
- <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
- <178972607557.207413.4312278359822083538@noble.neil.brown.name>
- <178977609418.207413.15011378414000392029@noble.neil.brown.name>
- <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl> <179072013439.37859.465558431050704411@noble.neil.brown.name>
- <CAOQ4uxis4tsea6fx+9iAffVX+qwBC9KzHg5GcP7ahthKd1T9KQ@mail.gmail.com>
- <1910540525.790746.1790806610320@kpc.webmail.kpnmail.nl> <CAOQ4uxhYHf-gAkjdhs37vZREOcNds5a_6c3nBX0Lva3resofmw@mail.gmail.com>
- <1000409963.929534.1790869356300@kpc.webmail.kpnmail.nl> <CAOQ4uxism8-zwCDgGjO4Rxz6DqOkZJeZOeYKHf3QaBDFZHpcFg@mail.gmail.com>
- <563229463.934215.1790871823693@kpc.webmail.kpnmail.nl>
-In-Reply-To: <563229463.934215.1790871823693@kpc.webmail.kpnmail.nl>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 1 Oct 2026 19:53:01 +0200
-X-Gm-Features: AclHuK_pfqjYtJsEEhZFVwP00mJld4bjVtzKfR6264nsENJOPN0vxrbfYWt5b0I
-Message-ID: <CAOQ4uxiZBgg6WNRCNifsMRkuhX0176oef10TyhzdmTvqkEVnUw@mail.gmail.com>
-Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
-To: Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Aleksa Sarai <aleksa@amutable.com>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Theodore Tso <tytso@mit.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930171204.12863-10-architanant5@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 1, 2026 at 6:23=E2=80=AFPM Jori Koolstra <jkoolstra@xs4all.nl> =
-wrote:
->
->
-> > Op 01-10-2026 17:59 CEST schreef Amir Goldstein <amir73il@gmail.com>:
-> >
-> >
-> > > > Maybe I am missing something, but I think you misunderstand me.
-> > > > What I mean is - if directory inode has a ->atomic_open() op,
-> > > > bail early with -EINVAL/-EOPNOTSUPP, because this is a network
-> > > > filesystem that does not support atomic O_CREATE|O_DIRECTORY
-> > > > and in most likelihood never will support it.
-> > > >
-> > > > This gating criteria is not dependent on cache state,
-> > > > which is what we wanted.
-> > > >
-> > >
-> > > No in that case I think I've understood you (or maybe still not?) My
-> > > point is that we can't do that if we want to be able to individually
-> > > support O_CREAT|O_DIRECTORY for some ->atomic_open fs. If we bail ear=
-ly
-> > > the how can say only NFS support it at some point? You get into the
-> > > situation where everybody needs to have support or no one.
-> > >
-> > > Does that make sense, or do I still misunderstand you point?
-> > >
-> >
-> > If we gate on an existing criteria now like ->atomic_open()
-> > and/or ->d_revalidate(), we keep semantics simple and it
-> > does not limit us to change the criteria in the future.
-> >
-> > But I don't insist on this criteria - it's just a suggestion.
-> >
->
-> Oh no, I don't think it's a bad idea.
+On Wed, Sep 30, 2026 at 10:42:03PM +0530, Archit Anant wrote:
+> The ads1015_set_conv_mode() helper function is a single-line wrapper
+> around regmap_update_bits().
+> 
+> Since the function is simple and only called during initialization and
+> power management state transitions, the wrapper is unnecessary. Remove
+> it and inline the regmap_update_bits() logic directly at the call sites
+> to improve code readability and traceabilty.
+> 
+> Where applicable, introduce a local 'map' pointer to keep the
+> inlined function calls concise.
 
-It probably is though..
+...
 
-> I was just trying to understand.
-> And like I mentioned, I don't understand the detail of ->d_revalidate()
-> usage.
->
-> What do you think about Neil's suggestion to keep ->atomic_open out
-> of directory creation for the time being with:
->
-> 1. use ->atomic_open(O_DIRECTORY) for lookup, no O_CREAT bit passed in.
-> 2. if positive then done, otherwise (on -ENOENT from atomic_open()) we
->    call ->mkdir
-> 3. open that dentry in the regular way, WARN_ON negative dentry return
->
+> -	ret = regmap_update_bits(data->regmap, ADS1015_CFG_REG,
+> +	ret = regmap_update_bits(map, ADS1015_CFG_REG,
+>  				ADS1015_CFG_COMP_QUE_MASK,
+>  				ADS1015_CFG_COMP_DISABLE <<
+>  					ADS1015_CFG_COMP_QUE_SHIFT);
 
-I don't know enough about network filesystems to say, but it sounds fishy.
-I think we want consistent defined behavior for O_CREAT|O_DIRECTORY
-for filesystems that support it and my understanding is that this
-suggestion is not going in that direction?
+The indentation is broken even in the original code.
 
-> But I don't know if the kind of atomicity I care about is affected by
-> ->d_revalidate() filesystems.
+>  static void ads1015_power_down(void *p)
+>  {
+>  	struct ads1015_data *data = p;
+> +	struct regmap *map = data->regmap;
+>  	int ret;
+>  
+> -	ret = ads1015_set_conv_mode(data, ADS1015_SINGLESHOT);
+> +	ret = regmap_update_bits(map, ADS1015_CFG_REG,
+> +				 ADS1015_CFG_MOD_MASK,
+> +				 ADS1015_SINGLESHOT << ADS1015_CFG_MOD_SHIFT);
 
-It is not directly related. It is circumstantially related.
-->d_revalidate() *could* mean, in the worst case, that holding the ref
-on the dentry gives no guarantee on keeping the object behind it alive.
-In the worst case, maybe a new object with same inode number could
-be created in the same name.
+>  	if (ret)
+>  		dev_warn(regmap_get_device(data->regmap),
 
-I am not sure this can happen in many filesystems for real, but I
-am pretty sure that it can happen with FUSE.
+At some point (may be even in this patch) it makes sense to switch to use 'map'
+in all applicable cases.
 
-> With O_CREAT|O_DIRECTORY we just want provide
-> the mechanism to ensure that the process actually did the create you get
-> the fd for.
+>  			 "Failed to power down (%pe)\n", ERR_PTR(ret));
 
-Yes. And I don't know if you can get this guarantee from all network
-filesystems. Requires an audit.
+...
 
-Thanks,
-Amir.
+> static int ads1015_probe(struct i2c_client *client)
+
+>  
+> -	ret = ads1015_set_conv_mode(data, ADS1015_CONTINUOUS);
+> +	ret = regmap_update_bits(data->regmap, ADS1015_CFG_REG,
+
+Can you also use 'map' here?
+
+> +				 ADS1015_CFG_MOD_MASK,
+> +				 ADS1015_CONTINUOUS << ADS1015_CFG_MOD_SHIFT);
+>  	if (ret)
+>  		return ret;
+
+...
+
+> +	ret = regmap_update_bits(map, ADS1015_CFG_REG,
+> +				 ADS1015_CFG_MOD_MASK,
+
+This is now perfectly a single line, same for the cases above.
+
+> +				 ADS1015_CONTINUOUS << ADS1015_CFG_MOD_SHIFT);
+>  	if (!ret)
+>  		data->conv_invalid = true;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
