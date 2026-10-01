@@ -1,92 +1,309 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC81F48F03B;
-	Thu,  1 Oct 2026 16:50:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D019C3D47A0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873437; cv=none; b=YrVzNBAZTfJK+subBwEE3Amel71sbFXuUQnlgMJ7BaFqA3kn+2SECihL23lv/I6MgvPlwDuKxvJZv94vmJQ518nDuocIE4YafljbqX2IpaIMiXeQ0izv0xJ5Aqq+qFg1hHIoyRNykzGGhLuqLIFx2MDWK4YgqOWC8iAwiPx+E5Q=
+	t=1790873439; cv=none; b=Gb14NxPlYFvVejblN+j6ssQVMuyTDJSrbkvu8KjpoIIs21zmKAOJmftyUSOVc7nmsLfdHvsyM52PdR4hrUQPYvwbPvF/zfbdnhOLb8LvqglnfxaAOKoK3QCWmlMjNK9rfWvmC5Qf4oehMA5NL5C8uGnlJUUClrfNDAqaTmFUICI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873437; c=relaxed/simple;
-	bh=r8pO6QpQM6dcjnj4TY/yCj0zMb+hk8RoPCR4UJ8xbeE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=p2LeoA1GrLEXzUUz8gumSIx1BZJs7/39IdSXy7QpYAsiSVjIRRKCMLWT3OfEKsql22OJWHVcj8BSSzZs/2aCUt4jHlpEkPJG3t2tnVwhEfpblM6cUV7MoDu5jfGMZ2wGHt0eDJzTScpH9hcdeFtjqT/4NUXwsxrwAn+Ig2dTbAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzllDJMg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790873439; c=relaxed/simple;
+	bh=lU3K9pGo/W1NbqAeyAsXzTP1FoAAi40pfJTDGwKVOl0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SnKWbweJwC2dn0cCM1scnWpNC9tRPHqRrdaMyVjh+J3hywNTFTTk7IymypzZpbIv03gIUuppqvgCFxAzUt2GR5K6OiBH/P1GeiECbulgDjJfpLV39Qg2/ilZUrQq4u32yC/gAUNsI2E+L11tLeRKZ7MQq1o+R6kvq+9FL6GYEJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/B2Q0RP; arc=none smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzllDJMg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FBA1F0089A;
-	Thu,  1 Oct 2026 16:50:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790873431;
-	bh=VCE70Xqx0B46vnr+CgpB+vq3RwjgwFf7PBue+DNSBOI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=dzllDJMgP7keums/QpIrPBFbZUgxxJ0pkv9tpS0oRIT3SVNoakktc9eVzcT1SKZxQ
-	 OGCWjFvYY44AA2WyPNV5pTxQzchGRXcxF0qETNNBQviKFoK8kUyx2gzvEv4hhNn/jI
-	 4EkhvJ41S2KZvR1R2XnpRkZ+Avp3ByMSMBf6lBFzrZ52ljv/BFeuv1J9ou9G2fib0m
-	 fTQSGvQ2MDaLZroevT5cRWcmZQDJ5m3XErmD0OJ3ucvqHNMGygh5R45RS7WOr7tKIf
-	 xOZGXblMNpYafKj6vcg75NsLx0qqjEFuEU25oifgAwQUufSgJznMqjnZCkjCLX8P5o
-	 8XE0o9QTjg9Rg==
-Date: Thu, 1 Oct 2026 11:50:30 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] PCI/pwrctrl: generic: Fix leaking array from
- of_regulator_bulk_get_all()
-Message-ID: <20261001165030.GA2699569@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/B2Q0RP"
+Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-671563fb8beso6883927d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790873430; x=1791478230; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JEuY+mWfJ5DBo0XNbvjPXjn4WUTJAE+IIEAOZGPeij4=;
+        b=A/B2Q0RPBNhohvqflLwyIl0euJ63TbO5JNmunKNSGF+6LEjy12Eho71mJPe6m08EXP
+         YCK7hDCKWXlEV6EBLyQEAUi18n332tyk08O1V4716MFNSkJqj0UYEwLhRCMc9sR5YBXP
+         KTGUXJ7Q38lERunZZJj71T6qrO+p2ciGHqd/piXtZg0YqIwFBgRlJ5dmxf9KaSNif2AY
+         nipp18dXfi1e2UXNQ03ih54WVUgC/2vR8VO2ieYZuH/7p9JdG8BBgc2FDd6PbuWqLyAP
+         rN1MIENbwSBrVDqDGIeLZEcxMISKdHpIJRlheEALsW8TFY75hVbosuAfxKy0w/BELy/z
+         Ou4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790873430; x=1791478230;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JEuY+mWfJ5DBo0XNbvjPXjn4WUTJAE+IIEAOZGPeij4=;
+        b=Wrt955tfWCNOT1jYZjl8JkFH++fQf1jSoZSMlWocV4KlqOFIa4L3xxUU7OM8vQs+Rc
+         EnGW0zzo7TKFkPpLYLTyxm4Qmdm4a5IMbKaEWx7+4KmG9wiFMKcXLZYxrR8442h5r450
+         U45KvvHuBtihVqCni1OoIt8seScZocxEEeNgc49Tc+JYtedGVujLhGByCJP/P3N29+J3
+         BW9P2R+TpKgcgDZNQRq/04EEt43j4TJK23eCaCB0VC59ujFBNohcjXKi64MTx6YN6+wB
+         wb/M2zZOtP29aPqGp02bDmz25cwN2v+7OnqVOl00XIAbhZRqcl8z3uorFypEKfjxKLnF
+         oVrA==
+X-Forwarded-Encrypted: i=1; AKwUvBynWnmElLxIV/mvzgJGGUshY/qux5T+BYcV/ykwSIQoLwEly8l158X3UANGvNx8WViuzu+WtAZZIpECQhE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINUKVexYhAIlsXg0nA7tWeAj5WnXB8G4qYTrtEJBUZERCDlXG0
+	9fYSkWs9g9n8dk4giTFuNI31XxMo+e2nBvEQ4sRuF98WqHHgEP8v1iyR
+X-Gm-Gg: AYBFou2CJTEaeR06MzSqES9W7LY/HrG1Df2BqTndQXKQdad/lFN4zLiYcU0xPhTfR4g
+	pEFCbNKxs0tkHl0OIJy475+B2f+278Y5YMwMsq1HsJpAYS37NwcyS7G7OqFENS+FagwJg37VlZD
+	Rnrp+FNMDnvGbf3+c33xwZJ2pzCUGKUnxvsse6D7nhK6dzC+e384fB4ruxr5n1aQH/GD13x3WBD
+	DeRrmemF1ev7gVrX+fdYXH3ARkCuaRCUjgk+WCUrMaP6n8YJJIfMWdecChvmLUtBcmJ+ezLB7Kp
+	5sZNdAvf/7xQKaCEUX1rFi9L+QVsb2s683AGPkbVsozLv/Sdoi3tv+2G2SZS4rZRH++E17fjw5V
+	gnCezB/dG/39hebc4P2Yk5dkCdk9cR/At8H2FzBx7FcmB3Iw/5Y/D+c2oO3Bsz50gkn/ee5wWQp
+	VrfOXw2OY9sjA79U1PBd+DUqxgdb6LSoUHQj7+8QL76Ud/qiQP/2zZZeitgGFLTfh/LfPLDRc=
+X-Received: by 2002:a05:690e:1389:b0:672:9c30:bd0e with SMTP id 956f58d0204a3-676834f5edbmr3308432d50.84.1790873430134;
+        Thu, 01 Oct 2026 09:50:30 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67691839a07sm1324641d50.11.2026.10.01.09.50.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 09:50:28 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+To: linux-alpha@vger.kernel.org
+Cc: Magnus Lindholm <linmag7@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 2/4] alpha: correct system descriptions in Kconfig help text
+Date: Thu,  1 Oct 2026 12:50:16 -0400
+Message-ID: <20261001165018.415526-2-mattst88@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261001165018.415526-1-mattst88@gmail.com>
+References: <20261001165018.415526-1-mattst88@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-pci-pwrctrl-kfree-v1-1-f09bbffd8da3@flipper.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 08:07:45PM +0400, Alexey Charkov wrote:
-> of_regulator_bulk_get_all() allocates the consumers array and hands it to
-> the caller, who is expected to free it at an appropriate time.
-> PCI pwrctrl never did, leading to a memory leak.
-> 
-> Add an explicit kfree() for the consumers array.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 75996c92f4de ("PCI/pwrctrl: Add pwrctrl driver for PCI slots")
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Fix the system lists in the "Alpha system type" choice and the platform
+help texts, cross-checked against the alphalinux.org wiki and the
+kernel sources:
 
-Applied to pci/pwrctrl for v7.4, thanks!
+ - There is no AlphaServer GS40 or DS10E. Wildfire also shipped with
+   EV68 (21264C) CPUs.
+ - "AS" means AlphaServer elsewhere in the list, but the Alcor "AS 600,
+   AS 500" are AlphaStations, as is the Noritake "AlphaServer 600A".
+ - Takara is 21164-based, not "11164".
+ - Linux 6.10 dropped support for CPUs before EV56, which took the
+   AlphaStation 600 and Alpha XL 300 with it. Say once that EV56 or
+   later is required rather than qualifying every entry.
+ - Add systems missing from their entries: the UP1500 (Nautilus), DS15
+   and TS202c (Titan), Digital Server 3300 (Noritake), Digital Server
+   5300 and 7300 (Rawhide), and the Ruffian boards in place of
+   "Samsung APC164UX".
+ - Add Eiger, Nautilus and RX164 to the summary list and help text to
+   PC164, RX164, SX164 and Shark, which had none. Note that the Ruffian
+   and RX164 boards have no SRM console.
 
-> ---
-> Split out from [1] for easier application per Mark's feedback
-> 
-> [1] https://lore.kernel.org/all/20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net/
-> ---
->  drivers/pci/pwrctrl/generic.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/pci/pwrctrl/generic.c b/drivers/pci/pwrctrl/generic.c
-> index d56171e0ee24..4b6cbbb52248 100644
-> --- a/drivers/pci/pwrctrl/generic.c
-> +++ b/drivers/pci/pwrctrl/generic.c
-> @@ -63,6 +63,7 @@ static void devm_slot_pwrctrl_release(void *data)
->  	struct slot_pwrctrl *slot = data;
->  
->  	regulator_bulk_free(slot->num_supplies, slot->supplies);
-> +	kfree(slot->supplies);
->  }
->  
->  static int slot_pwrctrl_probe(struct platform_device *pdev)
-> 
-> ---
-> base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-> change-id: 20260930-pci-pwrctrl-kfree-b58621738902
-> 
-> Best regards,
-> --  
-> Alexey Charkov <alchark@flipper.net>
-> 
+Also drop the Jensen and EV4/EV5 references removed in 6.10, and the
+claim that SRM cannot boot from IDE, which is not true of SRM in
+general. NR_CPUS can be set to 32 on any platform, so say what the
+hardware supports instead of implying a per-platform kernel limit.
+
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+ arch/alpha/Kconfig | 85 ++++++++++++++++++++++++++++++----------------
+ 1 file changed, 55 insertions(+), 30 deletions(-)
+
+diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
+index 7c1cc676ddfe..920dd10e7df0 100644
+--- ./arch/alpha/Kconfig
++++ ./arch/alpha/Kconfig
+@@ -126,28 +126,35 @@ choice
+ 	  This is the system type of your hardware.  A "generic" kernel will
+ 	  run on any supported Alpha system. However, if you configure a
+ 	  kernel for your specific system, it will be faster and smaller.
++	  Only EV56 (21164A) and later CPUs are supported.
+ 
+ 	  To find out what type of Alpha system you have, see the system and
+ 	  motherboard lists at
+ 	  <https://alphalinux.org/wiki/hardware:systems> and
+ 	  <https://alphalinux.org/wiki/hardware:motherboards>. In summary:
+ 
+-	  Alcor/Alpha-XLT     AS 600, AS 500, XL-300, XL-366
+-	  DP264               DP264 / DS20 / ES40 / DS10 / DS10L
++	  Alcor/Alpha-XLT     AlphaStation 500, Alpha XL 366, 433
++	  DP264               DP264, UP2000(+), DS10, DS10L, DS20, DS20E,
++	                      ES40, XP900, XP1000
++	  Eiger               Eiger (OEM)
+ 	  LX164               AlphaPC164-LX
++	  Marvel              AlphaServer ES47, ES80, GS1280
+ 	  Miata               Personal Workstation 433/500/600 a/au
+-	  Marvel              AlphaServer ES47 / ES80 / GS1280
+-	  Mikasa              AS 1000
+-	  Noritake            AS 1000A, AS 600A, AS 800
++	  Mikasa              AlphaServer 1000
++	  Nautilus            UP1000, UP1100, UP1500
++	  Noritake            AlphaServer 1000A, 800, AlphaStation 600A,
++	                      Digital Server 3300
+ 	  PC164               AlphaPC164
+-	  Rawhide             AS 1200, AS 4000, AS 4100
++	  Rawhide             AlphaServer 1200, 4000, 4100,
++	                      Digital Server 5300, 7300
+ 	  Ruffian             RPX164-2, AlphaPC164-UX, AlphaPC164-BX
++	  RX164               AlphaPC164-RX
+ 	  SX164               AlphaPC164-SX
+-	  Sable               AS 2000, AS 2100
+-	  Shark               DS 20L
++	  Sable               AlphaServer 2000, 2100
++	  Shark               AlphaServer DS20L, API NetWorks CS20
+ 	  Takara              Takara (OEM)
+-	  Titan               AlphaServer ES45 / DS25 / DS15
+-	  Wildfire            AlphaServer GS 40/80/160/320
++	  Titan               AlphaServer DS15, DS25, ES45, TS202c
++	  Wildfire            AlphaServer GS80, GS160, GS320
+ 
+ 	  If you don't know what to do, choose "generic".
+ 
+@@ -168,13 +175,14 @@ config ALPHA_ALCOR
+ 	  controller (256-bit memory bus) and a PCI interface.  It also does
+ 	  all the work required to support an external Bcache and to maintain
+ 	  memory coherence when a PCI device DMAs into (or out of) memory.
++	  It is used by the AlphaStation 500 and the Alpha XL 366 and 433.
+ 
+ config ALPHA_DP264
+ 	bool "DP264"
+ 	help
+ 	  Various 21264 systems with the tsunami core logic chipset.
+-	  API Networks: 264DP, UP2000(+), CS20;
+-	  Compaq: DS10(E,L), XP900, XP1000, DS20(E), ES40.
++	  API NetWorks: 264DP, UP2000(+);
++	  Compaq: DS10, DS10L, XP900, XP1000, DS20, DS20E, ES40.
+ 
+ config ALPHA_EIGER
+ 	bool "Eiger"
+@@ -197,8 +205,8 @@ config ALPHA_MIATA
+ 	bool "Miata"
+ 	select HAVE_EISA
+ 	help
+-	  The Digital PersonalWorkStation (PWS 433a, 433au, 500a, 500au, 600a,
+-	  or 600au).
++	  The Digital Personal Workstation (PWS 433a, 433au, 500a, 500au,
++	  600a, or 600au).
+ 
+ config ALPHA_MIKASA
+ 	bool "Mikasa"
+@@ -208,34 +216,47 @@ config ALPHA_MIKASA
+ config ALPHA_NAUTILUS
+ 	bool "Nautilus"
+ 	help
+-	  Alpha systems based on the AMD 751 & ALI 1543C chipsets.
++	  UP1000, UP1100 and UP1500 systems based on the AMD 751 or 761
++	  chipset.
+ 
+ config ALPHA_NORITAKE
+ 	bool "Noritake"
+ 	select HAVE_EISA
+ 	help
+-	  AlphaServer 1000A, AlphaServer 600A, and AlphaServer 800-based
+-	  systems.
++	  AlphaServer 1000A, AlphaServer 800, AlphaStation 600A and
++	  Digital Server 3300 systems.
+ 
+ config ALPHA_PC164
+ 	bool "PC164"
++	help
++	  AlphaPC164, a 21164A-based single-board computer using the CIA
++	  chipset.
+ 
+ config ALPHA_RAWHIDE
+ 	bool "Rawhide"
+ 	select HAVE_EISA
+ 	help
+-	  AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machines.
++	  AlphaServer 1200, 4000 and 4100 and Digital Server 5300 and 7300
++	  machines.
+ 
+ config ALPHA_RUFFIAN
+ 	bool "Ruffian"
+ 	help
+-	  Samsung APC164UX.
++	  DeskStation RPX164-2, AlphaPC164-UX and AlphaPC164-BX boards.
++	  They have no SRM console and can only boot Linux through MILO.
+ 
+ config ALPHA_RX164
+ 	bool "RX164"
++	help
++	  AlphaPC164-RX, a 21164PC-based single-board computer using the
++	  Polaris chipset. It has no SRM console and can only boot Linux
++	  through MILO.
+ 
+ config ALPHA_SX164
+ 	bool "SX164"
++	help
++	  AlphaPC164-SX, a 21164PC-based single-board computer using the
++	  Pyxis chipset.
+ 
+ config ALPHA_SABLE
+ 	bool "Sable"
+@@ -245,21 +266,26 @@ config ALPHA_SABLE
+ 
+ config ALPHA_SHARK
+ 	bool "Shark"
++	help
++	  AlphaServer DS20L and API NetWorks CS20 systems based on the
++	  Tsunami chipset.
+ 
+ config ALPHA_TAKARA
+ 	bool "Takara"
+ 	help
+-	  Alpha 11164-based OEM single-board computer.
++	  Alpha 21164-based OEM single-board computer.
+ 
+ config ALPHA_TITAN
+ 	bool "Titan"
+ 	help
+-	  AlphaServer ES45/DS25 SMP based on EV68 and Titan chipset.
++	  AlphaServer DS15, DS25, ES45 and TS202c based on EV68 and the
++	  Titan chipset.
+ 
+ config ALPHA_WILDFIRE
+ 	bool "Wildfire"
+ 	help
+-	  AlphaServer GS 40/80/160/320 SMP based on the EV67 core.
++	  AlphaServer GS80, GS160 and GS320 SMP based on the EV67 or EV68
++	  core.
+ 
+ endchoice
+ 
+@@ -378,10 +404,9 @@ config ALPHA_SRM
+ 	  loaded either from ARC or can be installed directly as a permanent
+ 	  firmware replacement from floppy (which requires changing a certain
+ 	  jumper on the motherboard). If you want to do either of these, say N
+-	  here. If MILO doesn't work on your system (true for Jensen
+-	  motherboards), you can bypass it altogether and boot Linux directly
+-	  from an SRM console; say Y here in order to do that. Note that you
+-	  won't be able to boot from an IDE disk using SRM.
++	  here. If MILO doesn't work on your system, you can bypass it
++	  altogether and boot Linux directly from an SRM console; say Y here
++	  in order to do that.
+ 
+ 	  If unsure, say N.
+ 
+@@ -414,8 +439,8 @@ config NR_CPUS
+ 	default "32" if ALPHA_GENERIC || ALPHA_MARVEL
+ 	default "4" if !ALPHA_GENERIC && !ALPHA_MARVEL
+ 	help
+-	  MARVEL support can handle a maximum of 32 CPUs, all the others
+-	  with working support have a maximum of 4 CPUs.
++	  The kernel supports at most 32 CPUs. Only Marvel and Wildfire
++	  systems have more than 4.
+ 
+ config ARCH_SPARSEMEM_ENABLE
+ 	bool "Sparse Memory Support"
+@@ -439,8 +464,8 @@ config ALPHA_WTINT
+ 	  For emulation under QEMU, definitely say Y here, as we have other
+ 	  mechanisms for measuring time than the cycle counter.
+ 
+-	  For EV4 (but not LCA), EV5 and EV56 systems, or for systems running
+-	  MILO, sleep mode is not supported so you might as well say N here.
++	  For EV56 systems, or for systems running MILO, sleep mode is not
++	  supported so you might as well say N here.
+ 
+ 	  For SMP systems we cannot use the cycle counter for timing anyway,
+ 	  so you might as well say Y here.
+-- 
+2.54.0
+
