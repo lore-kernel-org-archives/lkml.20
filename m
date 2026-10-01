@@ -1,239 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5623EF0A0;
-	Thu,  1 Oct 2026 16:35:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22925470134;
+	Thu,  1 Oct 2026 16:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790872510; cv=none; b=cFTyaWAJjEfqFmfAnWhDsAxB5tEK8YNvd/w9OyEB5axU2AM+6zIOu69fg6xFKT6JXQ2/h7Ql9hTJzAHjdjklfdI0/dMXr51zq3YiVye0+C9ifR3KQyMZ4G2J4jdrYOi0IkxocnAb7OGlmQkc86+re8bvuxiNsBOxzRbZassU80A=
+	t=1790872551; cv=none; b=OGcXTFPd2JEw5vqe/s/X9JBTa6ALIoSjpgnK3yUUyTeHz8Qm301LxM98Ew20RihlQppZ7S1SyTBdJLAMNBpR8DaUYymBtuv8m0BIVAINO/o+vAuYZG4SNw9L8LCapWadYhUpBAc2yMkSOiy4LfpR2m6IcUnwSk5am0xbXAj57fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790872510; c=relaxed/simple;
-	bh=K9ipQYhDUImEGFkWItdOFON/xTYTCacdhdBcgKQDA/Y=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pSNHNEfqed3OWRUqUKP9eJoIUCUrAI2GMHoqbzHgW7eUV9QEtEBPR5AlmVFBkEgLALrTjFjTZ/F0loxS/TgdQgi7fZoHh/ak//cVI00cM1w2P4JiBeJjzu4rtNpm180JkJby9A6P22n8dKziB5nKZCmcntpIYorlBJC8rGCPFLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebApsIb2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790872551; c=relaxed/simple;
+	bh=MJNEyOZ8qYgtnDiZUqrJQxZoBIQwm2zkfC0tQotwqvk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ov7T2jEfky6imww30tesRMmKj5F2blzGAIwhsscc3iPhK76oITnybRDRF1QBgWlr+LwqTCD1nrBaIf+hm8OJc38fVDpQKkRWfOqVZHjiWbRpfGeCobtGsTRM1Bbr7dux5410VpicDLYdg+SvfZvUFQ0j8Qe01rqeZa9/puQ7fkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTrcsHxL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebApsIb2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1151F000FF;
-	Thu,  1 Oct 2026 16:35:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTrcsHxL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7932B1F000FF;
+	Thu,  1 Oct 2026 16:35:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790872508;
-	bh=u32X4VpgmHbk5ebw0Pu1w8aVte2ZcN+S8G/K2mFCaiU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ebApsIb2FOL2jH3V++g/q73QKPEF+WeYpfs7qNi/FzMfzD28r3sXO7LqFtPKaonKW
-	 V6G2lKCJBjnacRYaemv80x0CpjdbKe2hMaVP1goEJ/ySyhy12ANiPtQIRjKPGt6tZj
-	 niGv0ceupVDlwUpqDtRPLWjWoB0H2OT+ILS6z/1pPTDrEJE5jhwOVtw4bMuvolR/uN
-	 mp4+Y8+Gj2ugVa4XR6hcbLYvAU5oQioinGZwlmpmdnLb6e9ZKT5PRXz3tx3ZpMgGVC
-	 0whZkjwgqhV9enCE3oNy192dzfed+X+rVquXnHk1ZGFdUyHPv1BfIZp7etd46i6XRq
-	 TR3gfWdYgHHPg==
-Subject: Re: [PATCH net] vsock/bpf: release sock lock while waiting for data
- in recvmsg
-From: netdev-bot+sashiko@kernel.org
-To: jrmmhm.kernel@eldare.de
-Cc: sgarzare@redhat.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- bobby.eshleman@bytedance.com, mst@redhat.com, virtualization@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- stable@vger.kernel.org
-Date: Thu, 01 Oct 2026 16:35:07 +0000
-Message-ID: <179087250713.434549.8388772928991296342@kernel.org>
-In-Reply-To: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
-References: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790872549;
+	bh=IN28dDZAe3K3lZfF9l0NcUjkfaMwwyHxEzgGdlfdeXA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QTrcsHxLZfdUzd6ODa3W8s7j3stVcwcHmwFTAYHF3VmC+oZmCppphB/aUNnA8p2sD
+	 NF1a8gRKtWbGWw6QOC4C6eWmwR6FnhmXZudN5GOfcUg2THMXCT9FGQ+NH6NGSvVedU
+	 J1Wb+cOAMN+ghusW1AuzeEpLmjzuG77iChkIXQrAIZolPZONjUa52XuNJmN6Z6gBMP
+	 AQrsFWjWKANiuKw6uDKO0IrbtAIXNkvYN+lkcTJqOas84YO6eonrUwkIjOUYmDRusM
+	 PG6X93IAIm54Uv8qvuNgLSukcuVKAYnizP42ticMm4jbrMSmHQbqBnv880IFBh1AMN
+	 f6xzeYYMtkrLw==
+Date: Thu, 1 Oct 2026 17:35:42 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 10/15] KVM: selftests: arm64: Check that invalid
+ feature combinations are rejected
+Message-ID: <ar6LVCUSUILd8K_d@gremlin>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+ <20260930-arm64-gcs-v21-10-3556644cd927@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-arm64-gcs-v21-10-3556644cd927@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Wed, Sep 30, 2026 at 10:48:20PM +0100, Mark Brown wrote:
+> In order to optimise fast paths KVM explicitly rejects configurations with
+> S1PIE or S1POE but not TCR2, add coverage of this in the set_id_regs test.
+> We have a list of invalid configurations, for each of them we try to run a
+> VM and fail the test if it succeeds. We do feature detection by validating
+> that we can write the fields with failing values.
+>
+> Since this misfiring can disrupt some of the other tests due to the kernel
+> refusing to start guests we run the new tests first, improving diagnostics
+> in the failing case.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+Ah so this reflects the changes done to enforce the arch-valid s1pie/poe -> tcr
+requirement it seems.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
-- [Medium] Because the patch releases the socket lock around wait_woken()
-  in vsock_msg_wait_data() (net/vmw_vsock/vsock_bpf.c:52-57), the virtio…
+Everything seems sensible, so:
 
-Pre-existing issues:
-- [High] In net/vmw_vsock/vsock_bpf.c, vsock_msg_wait_data() stops
-  waiting only when the local socket has RCV_SHUTDOWN set (line 43: `if…
-- [High] vsock_bpf_recvmsg() in net/vmw_vsock/vsock_bpf.c has no zero-
-  length early return.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  tools/testing/selftests/kvm/arm64/set_id_regs.c | 87 +++++++++++++++++++++++++
+>  1 file changed, 87 insertions(+)
+>
+> diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> index 7429a1055df5..cb5e6358c59c 100644
+> --- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> +++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> @@ -803,6 +803,89 @@ static void test_reset_preserves_id_regs(struct kvm_vcpu *vcpu)
+>  	ksft_test_result_pass("%s\n", __func__);
+>  }
+>
+> +struct reg_ftr_val {
+> +	u64 reg;
+> +	u64 mask;
+> +	u64 val;
+> +};
+> +
+> +#define REG_FTR_VAL(r, f, v)					\
+> +	{ .reg = ARM64_SYS_REG(sys_reg_Op0(SYS_ ## r),		\
+> +			       sys_reg_Op1(SYS_ ## r),		\
+> +			       sys_reg_CRn(SYS_ ## r),		\
+> +			       sys_reg_CRm(SYS_ ## r),		\
+> +			       sys_reg_Op2(SYS_ ## r)),		\
+> +	  .mask = r ## _ ## f ## _MASK,				\
+> +	  .val = (r ## _ ## f ## _ ## v  << r ## _ ## f ## _SHIFT) }
+> +
+> +static const struct reg_ftr_val s1pie_no_tcr2[] = {
+> +	REG_FTR_VAL(ID_AA64MMFR3_EL1, TCRX, NI),
+> +	REG_FTR_VAL(ID_AA64MMFR3_EL1, S1PIE, IMP),
+> +	{ }
+> +};
+> +
+> +static const struct reg_ftr_val s1poe_no_tcr2[] = {
+> +	REG_FTR_VAL(ID_AA64MMFR3_EL1, TCRX, NI),
+> +	REG_FTR_VAL(ID_AA64MMFR3_EL1, S1POE, IMP),
+> +	{ }
+> +};
+> +
+> +struct ftr_config {
+> +	const char *name;
+> +	const struct reg_ftr_val *regs;
+> +};
+> +
+> +static const struct ftr_config invalid_configs[] = {
+> +	{ .name = "S1PIE without TCRX", .regs = s1pie_no_tcr2 },
+> +	{ .name = "S1POE without TCRX", .regs = s1poe_no_tcr2 },
+> +};
+> +
+> +static void test_invalid_config(const struct ftr_config *config)
+> +{
+> +	struct kvm_vcpu *vcpu;
+> +	struct kvm_vm *vm;
+> +	const struct reg_ftr_val *field;
+> +	u64 val;
+> +	int ret;
+> +
+> +	vm = vm_create(1);
+> +	vm_enable_cap(vm, KVM_CAP_ARM_WRITABLE_IMP_ID_REGS, 0);
+> +	vcpu = vm_vcpu_add(vm, 0, guest_code);
+> +	kvm_arch_vm_finalize_vcpus(vm);
+> +
+> +	/*
+> +	 * If we don't manage to set any of the fields assume the
+> +	 * system does not support the feature and skip the test.
+> +	 */
+> +	for (field = config->regs; field->reg; field++) {
+> +		val = vcpu_get_reg(vcpu, field->reg);
+> +		val &= ~field->mask;
+> +		val |= field->val;
+> +		__vcpu_set_reg(vcpu, field->reg, val);
+> +
+> +		if (vcpu_get_reg(vcpu, field->reg) != val) {
+> +			ksft_print_msg("Test setup not supported\n");
+> +			ksft_test_result_skip("refuse %s\n", config->name);
+> +			goto out;
+> +		}
+> +	}
+> +
+> +	ret = _vcpu_run(vcpu);
+> +	ksft_test_result(ret < 0 && errno == EINVAL, "refuse %s\n",
+> +			 config->name);
+> +out:
+> +	kvm_vm_free(vm);
+> +}
+> +
+> +static void test_invalid_configs(void)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(invalid_configs); i++) {
+> +		test_invalid_config(&invalid_configs[i]);
+> +	}
+
+VERY NITTY: This is insanely pedantic and I don't mind too much _really_
+but in theory should be no {}'s :)
+
+> +}
+> +
+>  int main(void)
+>  {
+>  	struct kvm_vcpu *vcpu;
+> @@ -829,12 +912,16 @@ int main(void)
+>  	ksft_print_header();
+>
+>  	test_cnt = 3 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
+> +	test_cnt += ARRAY_SIZE(invalid_configs);
+>  	for (i = 0; i < ARRAY_SIZE(test_regs); i++)
+>  		for (j = 0; test_regs[i].ftr_bits[j].type != FTR_END; j++)
+>  			test_cnt++;
+>
+>  	ksft_set_plan(test_cnt);
+>
+> +	/* Do this first in case a break interferes with other tests */
+> +	test_invalid_configs();
+> +
+>  	test_vm_ftr_id_regs(vcpu, aarch64_only);
+>  	test_vcpu_ftr_id_regs(vcpu);
+>  	test_vcpu_non_ftr_id_regs(vcpu);
+>
+> --
+> 2.47.3
+>
+>
 
 --
-
-vsock/bpf: release sock lock while waiting for data in recvmsg
-
-This commit drops the socket lock around wait_woken() in
-vsock_msg_wait_data(). The transport rx path, virtio_transport_recv_pkt(),
-can then take lock_sock() and deliver data while a sockmap reader sleeps.
-Before this change, a blocking recv() and the shared vsock delivery worker
-deadlocked on the same socket lock.
-
-> diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-> index 9049d26486460..bb7d81a95baa6 100644
-> --- a/net/vmw_vsock/vsock_bpf.c
-> +++ b/net/vmw_vsock/vsock_bpf.c
-> @@ -50,7 +50,9 @@ static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long ti
->  	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
->  	ret = vsock_has_data(sk, psock);
->  	if (!ret) {
-> +		release_sock(sk);
->  		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
-> +		lock_sock(sk);
->  		ret = vsock_has_data(sk, psock);
-
-[Severity: Medium]
-With the lock dropped here, virtio_transport_recv_pkt() can run while the
-reader sleeps. Can it wake the reader for events that carry no data?
-
-The reader sleeps on sk_sleep(sk) with woken_wake_function(), which
-ignores the poll key. virtio_transport_recv_pkt() calls sk_write_space()
-for every packet when space is available:
-
-net/vmw_vsock/virtio_transport_common.c:virtio_transport_recv_pkt() {
-    ...
-	if (space_available)
-		sk->sk_write_space(sk);
-    ...
-}
-
-OP_CREDIT_UPDATE in virtio_transport_recv_connected() does the same. For
-vsock this is sock_def_write_space(), which calls
-wake_up_interruptible_sync_poll() on the same wait queue.
-
-OP_SHUTDOWN and RST call sk_state_change(). An SK_DROP verdict or a
-redirect to another socket also wakes the reader through
-sk_psock_data_ready(), without queuing anything for it.
-
-After such a wakeup, vsock_has_data() returns false. vsock_msg_wait_data()
-then returns false without waiting again for the rest of timeo, and
-vsock_bpf_recvmsg() does this:
-
-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
-			copied = -EAGAIN;
-			break;
-		}
-
-Would a blocking recv() with no SO_RCVTIMEO then fail with -EAGAIN as
-soon as the peer sends a credit update?
-
-For comparison, vsock_connectible_wait_data() loops until one of these
-happens: data arrives, sk_err is set, RCV_SHUTDOWN or peer SEND_SHUTDOWN
-is seen, the timeout expires, or a signal is pending. On a signal it
-returns sock_intr_errno().
-
-The BPF path also returns -EAGAIN when a signal is pending. That part
-existed before this patch.
-
-Should vsock_msg_wait_data() loop the same way that
-vsock_connectible_wait_data() does?
-
->  	}
->  	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can a
-blocking recv() still hang after the peer shuts down or resets?
-
-The only exit condition vsock_msg_wait_data() checks is a local shutdown:
-
-	if (sk->sk_shutdown & RCV_SHUTDOWN)
-		return true;
-
-The virtio, vhost and loopback transports report a peer shutdown only
-through vsk->peer_shutdown:
-
-- virtio_transport_recv_connected() sets it for OP_SHUTDOWN.
-- virtio_transport_do_close() sets peer_shutdown = SHUTDOWN_MASK and
-  SOCK_DONE for RST or a full close.
-
-sk->sk_shutdown changes only on a local shutdown().
-
-Suppose the peer has shut down and the receive and psock queues are
-empty:
-
-- vsock_bpf_recvmsg() skips the native fallback.
-- sk_msg_recvmsg() returns 0.
-- vsock_msg_wait_data() sleeps in wait_woken().
-
-vsock_remove_sock() has already removed the socket, so no further wakeups
-will arrive. The recv() sleeps until a signal arrives or a finite
-SO_RCVTIMEO expires.
-
-Meanwhile vsock_poll() reports EPOLLIN | EPOLLRDNORM on peer
-SEND_SHUTDOWN. poll() says the socket is readable while recv() blocks.
-
-If the reader is already asleep when the shutdown arrives, the
-sk_state_change() wakeup that this patch now allows makes recv() return
--EAGAIN instead of 0. A retry then hangs as described above.
-
-The native vsock_connectible_wait_data() handles this case:
-
-		if (sk->sk_err != 0 ||
-		    (sk->sk_shutdown & RCV_SHUTDOWN) ||
-		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
-			break;
-		}
-
-__vsock_connectible_recvmsg() also returns 0 for a socket that is not
-TCP_ESTABLISHED and has SOCK_DONE set.
-
-After this fix, this is the remaining case where a blocking recv() hangs
-until a signal arrives. Could it be handled while aligning with
-vsock_connectible_wait_data()?
-
-[Severity: High]
-This is also a pre-existing issue and was not introduced by this patch.
-Can vsock_bpf_recvmsg() spin forever with the socket lock held when len
-is 0?
-
-tcp_bpf, udp_bpf and unix_bpf all return early with "if (!len) return 0;",
-and __vsock_connectible_recvmsg() handles len == 0 explicitly.
-vsock_bpf_recvmsg() does neither.
-
-If psock->ingress_msg is not empty, for example after SK_PASS or an
-ingress redirect, sk_psock_queue_empty() is false. The native fallback is
-then skipped:
-
-	if (vsock_has_data(sk, psock) && sk_psock_queue_empty(psock)) {
-
-With len == 0, __sk_msg_recvmsg() never enters its
-"while (copied != len)" loop. It returns 0 without consuming anything, so
-the loop in vsock_bpf_recvmsg() repeats:
-
-	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
-	while (copied == 0) {
-		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
-
-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
-			copied = -EAGAIN;
-			break;
-		}
-		...
-		copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
-	}
-
-vsock_msg_wait_data() sees that vsock_has_data() is true and returns true
-without sleeping, so the loop never reaches the new release_sock(). The
-loop never calls cond_resched() or checks for signals, and it keeps
-ownership of lock_sock(sk) the whole time.
-
-Would the vsock-loopback worker or the vhost/virtio rx path then block in
-lock_sock() on this socket? That would stop rx for every socket on the
-transport, which is the symptom this commit sets out to fix.
-
-Would adding the same "if (!len) return 0;" check that the other *_bpf
-recvmsg implementations have be enough here?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929-kbh3-1-022-fix-v1-1-cc97cc95d269%40eldare.de
+Cheers, Lorenzo
