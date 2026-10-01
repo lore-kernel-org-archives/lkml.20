@@ -1,116 +1,157 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C2F51DAEE
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA132521894
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865036; cv=none; b=qqdziJ/RBPYhvb2mtVFiRmQPLzwRn1dxtPefgLBE9c53a/+h9QYbaReRSAKTn04nNoVdUTs4tYqNHrmnp4C4gqWXEaWlxzpICUGh1DxohYAvgJVWeWws2+S/srT5YuWleHcH+4QJQXvUrHGZyo/YTIClGptaxKLf40qAxWkJOG0=
+	t=1790865057; cv=none; b=ZWUutcoGwS9LiY9fj83cYhQ9w77/TQ4dTK4GlzvdoT5iDfufxluJndDzhDZ4OmLBWo1ZLvUBJuHTxRD9ePJzApHK7eY3R/1Nxs9KU5ajhkjs+pXLPO58UsdxCzEHqFaFtXxpPACYsD/UDu9YcJ9ip7qmZJCiaCdaFnHEODTWqJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865036; c=relaxed/simple;
-	bh=ACbJxeoK+tQ0jwduxNk/3YbWQ2yNLFDFuyI87ek85gE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EnAhk+lFCfbspym0yF+RMDO3qTt1cHnEyYSuMdnXDZtP/g57wqZ+SrZ47AD7HSPRikT8ofFhCZLwkg63o+GF2pPPq069e3WWlrCu43PFi0OBWAvdh2xnf8GvQxXzYxm4CsHCSUj/iPwOvE5G0tfrHkIE2N5yUIZdDXibE69tj6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YUqO3d06; arc=none smtp.client-ip=74.125.225.98
+	s=arc-20240116; t=1790865057; c=relaxed/simple;
+	bh=3RzvX1xwFMFMNAEqMuJeEGt+6r6CRUg6jWWr1XoulkA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fTe+3GtXFeXZjKbFJyQWwFCAd72b7J4P/bCgMxVa9wmGM5xoqRloVeEgqSSCPMoJGsA72RjG+3ZL66Z9W/XdQz8Gu8/XT+9ZkLwYO8eB5UfCrTtiGtNHklhABPLu8AEizEiap7nsL6uOGycoKViigMEH91IC2ryLl2szvrOP7Ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qI+u7BWs; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YUqO3d06"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so1626997f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:30:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qI+u7BWs"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a01ff8c098so5682715e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:30:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790865030; x=1791469830; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6uQT/hE7wfllb+ZxQNIrp7uXtAUN7ODmert/inI1vO8=;
-        b=YUqO3d06tWFjInOiBkYIK96bHknJpRQ0HKRZ4JbmTcUxVoLWNOWC1Gg0QhZkbnTCQe
-         Zb9yHnl3xKEU/3Zri7lEv5ugWoYrbnORetZWBsX6+Xr2TikHLxSU27KUF8VFz5Rt29Yx
-         ftOp1MPnFn2s9vY4+spDKaOeKq51/4acH0vKaZ0pqJTe8iZA99LCIGrbNOBW9lXYvyu6
-         ZtUp3ZUYI9l0c5bdyTl5br87Umi4cin0VI0N5qRlJA8qS++FFD4fU18MHmiJVmRxm2j1
-         PME5HVrqUwz05+RyPMSXH56z6zJCoQw461tcDC4fIRB+YXnqzsvUucFvO3WLS6J0fdUQ
-         4b3g==
+        d=gmail.com; s=20251104; t=1790865050; x=1791469850; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vQ/xYcU6XZ5xLlPB/q/5AjykoyECyGBCjj320diGJdI=;
+        b=qI+u7BWsEGJ2y8R5917LB6Ws+LRvDTkmWGROE2Zsn1eN2TLKlbZDyVBStYurxE9+lK
+         IA1tEACvGR+jHccnZnqmuFhg8qtzMwiPcslK06xd05ZVXSZezM2v3gqkwWUBbyOQ/Sf2
+         4j42pD+iHuC1/gYdmV3PkfEg9MEERpm5HO73GQ/gSKw/wZhGei6DqLL7xyibrPZ+GrFY
+         svscmlsBEUb9eK1G7vQo48eEH8LPWUMcPj0Fkf4kH+O19QB+y0fqt2NfX24x2ixyKRUp
+         kyHMckzwbFo03vITHChL/9b7hL7UjVhkYDs49WYAVE0NODEvCAqom80iMOd3tNaBn445
+         tcNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790865030; x=1791469830;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6uQT/hE7wfllb+ZxQNIrp7uXtAUN7ODmert/inI1vO8=;
-        b=zqUfsjEe1NTwA/7DUIuCva8JmIHuyfPmw8ffKQjeulmsz+k9SEoCTR9atlrHV0TrD0
-         pSjRY4d7Ibfl/dfWCrGscUnjPraZ3+qREBN/jGa2HIJwq3Nuzgsnv4CUTK7M4oySTjAb
-         e6dUwD2Furw4Ch+Ql8BKr8SdOLivuYOj635BydUbV9fksDJ7GTOzeFc0gva9QAHRYId9
-         a8LdDxvW4S6tAX1OB+nwB6G/sEMp4xSRij/9fGGKpTwK9wUWrZ0XF4TF5lpeJp2eFR6l
-         u4qSs4mPyhyjmLtcS6RDVcpY8M/mDnaUZU7ZYqZK31N5noeLIyQfN0Rg0rjuCrTdOZVT
-         vg0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxYy95eIwRoGgvOvq/4g4Cu7/oVln+fOOe0kV+aR0BKxDZMMpPAkGGLC1GSfAIs7ZI3UUS0Gy09tKEbgSI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL44jZtZkvKGGZIRlhLK3QKelEz52aC7bpMfXAaaxr6Ae3BLRET
-	x/WkU4OEz9c+cHI1m83D7BXbSNYLfkY/F2etsd1dKprcQ3tNezdfWZQz
-X-Gm-Gg: AYBFou2tq7VrV2y8aiMB+GzxfbklK/GNpo6ep5VQhFPnUCpx6JjVvXSWJcPzBGbgKdc
-	5Z9tGw27/iyLhunoWyHccslT0ju68jPl3BFWhtaL1OwSNETCTW3wgRNoE0xgo/hjfdIpxzgSOOM
-	cKE9Yd+caxGhD2GrHgeOLFpck7larAy00KBcPPcCLcQCPT0vq+bXeKl7c/N4IKmHvtO2qBvIEwS
-	ZS2CVa9aw2xn5PH+tJLBmNu94cxR/GM2GA2ZJlaSNJaxrazLtnoqywcsspMlH4iCgiMCjELMvhY
-	9kIkeIdGo1djb28uhLJwM/CDFRvIE7yL/QRefLu+aBIkjcjpYfrpzNWbGqgndXSzFB2MqAfzPGX
-	E/2LGvcJSN2LhBBrj9Z+Yy9g0zIW+enKAZIeJSojIGADWDeCmiGxh//MNFt+mCZF1YbZ/cKL1vW
-	fZfACtlGL5vUW/+8jfJIp9EkWejAS4nHExx0Qzv9IXk1z8Rgc2y61JQKrOusQrOA7opI/eDXeJ3
-	nwJUIc=
-X-Received: by 2002:a05:6000:40ca:b0:48a:f571:7b50 with SMTP id ffacd0b85a97d-48b024d7284mr8291147f8f.27.1790865029297;
-        Thu, 01 Oct 2026 07:30:29 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0691c4c4sm7548232f8f.22.2026.10.01.07.30.28
+        d=1e100.net; s=20260707; t=1790865050; x=1791469850;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vQ/xYcU6XZ5xLlPB/q/5AjykoyECyGBCjj320diGJdI=;
+        b=SVr1PR+UktMYAC+ks2hcEWl+NgNqY/cBlViQ7SetpTnn6zkMAgs2WuihrdhGBFNAsD
+         KAi7KmsgYaEXz2APbpYa9ReZcNftVAO7vTTiAW2pYAMf6lZ4apcjs/J6o14psGWMxnkK
+         aK12yRtcJ2Lo6Knv84StcftOwtpbmisUZNJPecYfeZHFS7JdpqnCyUErCkWwZ1RCboGm
+         JWya+ZhoQxLqhiAeS1UlB6NP6+lYkrW70O4YrFRe230eDmH+v8F/DOhS1rAxVaTszC4P
+         ITSrdZYfXmzkLcjDCCvbawwTXBmDdqU7383vSGzcXMSZQg1iopfsYI4ccWydWjAZ9q/R
+         IduQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzmSBNAYKWoCHOFhUY9CUgM+CLiemNPkfJ0mT0Ug8ZfIyc+YkArZF9Y0lx7ol3+Y1VDaoChCbXGL8kb3jc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+3IdPBx4rgZIFcM7AIyYRXv78Fy4a2y50cElbse6+C7aDYyhI
+	dWXRfdlyqmoaUGeIuzxEyDiHuketH3Gzugo8IGsIHNU51KKivk0KcCWu
+X-Gm-Gg: AYBFou32+X+axABx7Ir/ZwxrsiYGRULN/r3/Uybbodjpk7Vd0G71/PZwhXXoct7it5w
+	N4xl1liodyUcqNPWYvcOlJFaWziY1y+5YslCbsF5KiAfomBDY5TjBInLeMsjF4gG6xoz/wmoi+d
+	T3P49TYYiF+KzKMaSQQsCbjeQOYx/ll0cQVU4Q3oTdyZ+2dP6OmEC8gD7nllZdGHkNNFe5DOQ8B
+	8bNoDJ9QnRwd3w345eg+gKplOwfeEs0RGPA2du7jB+Al903qFSNUgdRovkIHdS8gjhmIaTQkpBr
+	O8/u5V4IJSc/JVIHygicBjQJNaUUGM2+x83CHqHTMNGcuIbiq/BT1BRo+ogRK5Aay+hTmtOPDQr
+	venBrC/BMAv3llbsULzhNQiPl9aVwBDN0spHxDETLRUuCAtbnUcVLXKcBSfPY72wJpb/YR0W85n
+	19v5PNapZ18ev4eSSdsLTrAtrIGSl4J6Q3Nfo82YMIn4iXRCK+5z6rByAkYkooSAtnRsVgzw9Kr
+	fNZBrzWcy3pxVI4r3J1iDj4DnRmNtRGZO/vRnL5ZwQ=
+X-Received: by 2002:a05:600c:46d0:b0:4a0:1a18:b742 with SMTP id 5b1f17b1804b1-4a01ad909e9mr86412115e9.2.1790865049941;
+        Thu, 01 Oct 2026 07:30:49 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.27.30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a360c2sm6035921f8f.36.2026.10.01.07.30.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:30:28 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: axboe@kernel.dk
-Cc: io-uring@vger.kernel.org,
+        Thu, 01 Oct 2026 07:30:49 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH] io_uring: fix out-of-bounds bvec access in io_vec_fill_kern_bvec
-Date: Thu,  1 Oct 2026 17:23:54 +0300
-Message-ID: <20261001143003.755790-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	stable@vger.kernel.org
+Subject: [PATCH net v2] rtnetlink: wait for RCU readers in rtnl_link_unregister()
+Date: Thu,  1 Oct 2026 16:30:39 +0200
+Message-ID: <20261001143040.28467-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-for_each_mp_bvec() dereferences src_bvec[bi_idx] in the loop condition
-before the body is entered, with no guard against bi_idx reaching
-imu->nr_bvecs. iov_kern_bvec_size() stops iterating when i reaches
-imu->nr_bvecs even if bi_size is still non-zero, so the fill loop can
-walk past the end of the bvec array and overrun res_bvec[].
+rtnl_link_ops_get() finds ops on link_ops under rcu_read_lock() and only
+then takes ops->srcu. rtnl_link_unregister() unlinks ops, then calls
+synchronize_srcu() and cleanup_srcu_struct() without first waiting for
+RCU readers. A reader that found ops before list_del_rcu() and has not yet
+taken ops->srcu is not waited for.
 
-Open-code the loop with an explicit bi_idx < imu->nr_bvecs check before
-the dereference, matching the termination condition in
-iov_kern_bvec_size().
+Such a reader then locks a cleaned-up srcu_struct and keeps using ops
+after the module that owns it is gone. rtnl_newlink() and
+rtnl_dump_ifinfo() both look up ops without RTNL, the latter for any
+user that dumps links filtered by kind.
 
-Fixes: 1045afae4b88 ("io_uring: support vectored kernel fixed buffer")
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+With delays added between the lookup and srcu_read_lock() in
+rtnl_link_ops_get(), and before rtnl_link_ops_put() in
+rtnl_dump_ifinfo(), running "ip link show type dummy" alongside
+"rmmod dummy" on a KASAN kernel gives:
+
+  BUG: KASAN: vmalloc-out-of-bounds in __srcu_read_unlock+0x57/0x70
+  Read of size 8 at addr ffffffffc02ff318 by task ip/147
+  Call Trace:
+   __srcu_read_unlock+0x57/0x70
+   rtnl_dump_ifinfo.cold+0x30/0x3b
+   rtnl_dumpit+0x7a/0x1b0
+   netlink_dump+0x486/0x11b0
+   __netlink_dump_start+0x661/0x910
+   rtnetlink_rcv_msg+0x611/0x9e0
+   netlink_rcv_skb+0x126/0x380
+   netlink_unicast+0x605/0x830
+   netlink_sendmsg+0x6d0/0xbb0
+   __sys_sendto+0x335/0x3a0
+
+Call synchronize_rcu() before synchronize_srcu(), as
+rtnl_af_unregister() already does. This should be enough because
+rtnl_link_ops_get() is the only RCU walker of link_ops, and it takes
+ops->srcu before rcu_read_unlock(), so every reader that found ops is
+covered by synchronize_srcu() once the RCU grace period ends. The extra
+grace period only costs time at module unload.
+
+Readers and the writer were serialized by RTNL until link_ops got its
+own mutex, which is why the missing RCU wait did not matter before.
+
+Fixes: 6b57ff21a310 ("rtnetlink: Protect link_ops by mutex.")
+Cc: stable@vger.kernel.org
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- io_uring/rsrc.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+v2:
+- Add a comment above synchronize_rcu() (Eric)
+- Add Eric's Reviewed-by
 
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 51b46e624..3d29a0c7b 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -1614,8 +1614,13 @@ static int io_vec_fill_kern_bvec(int ddir, struct iov_iter *iter,
- 		struct bio_vec bv;
+v1: https://lore.kernel.org/netdev/20260929170444.218093-1-parri.andrea@gmail.com/
 
- 		bvec_iter_advance(src_bvec, &bi, offset);
--		for_each_mp_bvec(bv, src_bvec, bi, bi)
-+		while (bi.bi_size) {
-+			if (bi.bi_idx >= imu->nr_bvecs)
-+				return -EFAULT;
-+			bv = mp_bvec_iter_bvec(src_bvec, bi);
- 			res_bvec[res_idx++] = bv;
-+			bvec_iter_advance_single(src_bvec, &bi, bv.bv_len);
-+		}
- 		total_len += iov_len;
- 	}
- 	iov_iter_bvec(iter, ddir, res_bvec, res_idx, total_len);
---
-2.55.0
+ net/core/rtnetlink.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
+index be9d1625bac31..580101b5ab585 100644
+--- a/net/core/rtnetlink.c
++++ b/net/core/rtnetlink.c
+@@ -707,6 +707,10 @@ void rtnl_link_unregister(struct rtnl_link_ops *ops)
+ 	list_del_rcu(&ops->list);
+ 	mutex_unlock(&link_ops_mutex);
+ 
++	/* Wait for rtnl_link_ops_get() readers that found ops but have
++	 * not yet taken ops->srcu.
++	 */
++	synchronize_rcu();
+ 	synchronize_srcu(&ops->srcu);
+ 	cleanup_srcu_struct(&ops->srcu);
+ 
+
+base-commit: 54518e0e827f4ca9229ae657022c60bf60f5c1bf
+-- 
+2.53.0
 
