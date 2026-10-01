@@ -1,291 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FA94C150C;
-	Thu,  1 Oct 2026 11:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855822; cv=none; b=rdaN1VeRDQl7btq50/o5nlXMBaBEs66zHITQZmk0dpg/3wDYuggHMPPqhD5yZ1inFpp+YwIY0IsouBNgJZ8Y4ecnW7RHhbh0UIvDSYIb21hmWX2O4pWjTGSebi5YyPpJpLUWjdhZj8lLrpHjC5o7qBMyB6YufCV+u0Nk+Qtl/nA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE404DAFB5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.199
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790855822; cv=pass; b=j4LZC6epDXKXhJj/nSXhMF17LCqRCg3lsBwe+IPovvIqvMauFawm4S0yK+OmoqcL1Ep/OqINPPjHD2xL1w6D8cyvHY3lqtowR4PODVQhQwPLpnaZE1dv5fz3xROi+ReoKDYUza8/mAWXhjh/Xho+kd6nOQUXuZahkWBqXo8nGNY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790855822; c=relaxed/simple;
-	bh=qMFDGWO8T8rFnlZH5zEdWBCmQ3eAYnLT2YaeHu0sank=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XQZzQUdegnkM5CvRQTmWwhVPA7NUlVBSI15JIiBHSNjQAtdo12nmgQt8w+/nYaGJItCY3I4mYNY4PyRv6LJ9Bohr2gtSL296L3Ct0tXiTKlC5Cb6OjxRz2KE2rnTqd3LA5+mhxPpZxyG3x6kC3xYt7A+eMjYoi+bgZntUHspk1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mnX/q5ZG; arc=none smtp.client-ip=100.103.45.18
+	bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qh+MXVY9xu866a5ccowv02EZbmrMJwBHSznuuNziBz/+Wzrf6LhnAgIZgAFfgkv4mEpny0u8akmPY26tfRqgNTo4qLeHlJB3o8SEvMU7049boZfBL6TJ/PLR9h7ByqLfUaGk2+noFmVHwkxoGEjsjL2c79e5CXtJF8kQvCwiFZ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QHMXbwfU; arc=pass smtp.client-ip=74.125.231.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mnX/q5ZG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6631F00899;
-	Thu,  1 Oct 2026 11:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790855816;
-	bh=b8xMLV7p9JhteAfTAaXYXGWAPPpzeBoIObqNjYHNZZc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mnX/q5ZGh9QvoKViirbZ+0zoCYxQCU+qGhCAeUJMpcagryn+sDJAnarzkPMf6klND
-	 fw2oxioFH3OspfgLXlsNrqSPhEv/28440YQT1iM/XZJD1BGZ2OW4JfuwgYjsBFGAQC
-	 n5qNwrPFqG8Hq5Eamz3XDh2hnRqkdb7Lyce917X6CQUyGn/foj5YIX2CjbWznsIuqb
-	 Qicl+1f7WYFxwI9V9IrAB7d9Xazllb1otM2X3UCzVSvYGDHqtmJfb1PAM8Zontty0e
-	 /wLhGtBmaFrt4Q8KGKXOwavjBWGTlYfKOGJM/QJvhBack0KE6VMIWmNCy1+3wVpBIf
-	 GAnVID1Z9H5fg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v9 18/18] PCI/P2PDMA: Test the routing of clients with ATS enabled
-Date: Thu,  1 Oct 2026 14:55:26 +0300
-Message-ID: <20261001-fix-p2p-acs-v4-0-v9-18-1a8e0f50ddd9@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
-References: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QHMXbwfU"
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so2023421b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:56:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790855815; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Sc1XBdt8wjyKq+ymEuyq+WTHmaMxC6Cm8+M5nVhtquTfjb/GKsW9ENmfuePtuPzBsh
+         muj3vgWZDKeenkW48N5Hvr0KrzNW77vbTMUd/rjXZ5vIEju1jxBy9gF4ZImMDCbTL+tK
+         As5gMXOzCK0eLgG5aHKgHAIi5sA1ouhRjnk63top+p8XZBWPsXo8rDShhqiJpSyLYcHC
+         QFW2/gcnAPJfHlJHj7kszX0WkfSPrFqrpgoawejz2Dy/sfm4BKApWDUYm2Lw3h7AK09h
+         QpPIZ3ondxazjtAZOuZ1sEgSWCQKF5tXKRxKzOrtUl0PGwqotIlodFwn9awcz4mCjX/1
+         KZIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
+        fh=FAHY3X3Y3I3yodi/FjYnwAy5xP4ax+hsDIpNAi7ifV8=;
+        b=OELi0I+S2LeXGXtu6ZodkPdbGjofFMzZnTpBiaNzXB4zGMGjVAY/BSfA6IlUfkIS9m
+         KiFHiTFm1WgbroBjo/yahJSDTCVrNpeZmdo2ZCpPDZ5tkS1TBkQc0uRYfQDJ0KuLm2ZX
+         UcIcGmn+526qxK6zrnM/jc3fy3fMxLQmc1b0agUKyINoFDJX1CCr/DxAAlBkXxP/O9pR
+         oZQF6gNhAxHs0s0VxAGcmwjdDBvvPt4cc1aipFZIM3w5lN20DbB7NO0bukkg51Era+u1
+         yNYTtIQRiS9Nv/aXZIka8fgBj8roPv+ITUIXgEMK+37wxxYaDXm5lf2Eiqi9Ryw6aP4t
+         UBVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790855815; x=1791460615; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
+        b=QHMXbwfUVU4aZXY/r+NsW0XImAryb/KaQ8SHPU5h4lizXJRcS2ciEGTZ1a92BfIwq9
+         BlolDaek7NhjIdPQlQ+9TW3YP+0QqiDFqxpUteoQcUOls44ceXqsXtVF4qzLEOmLqTtc
+         g3yrYeOZTHTnpoSgT8R0g9YVpVIa5tFl7nJP1u7XsWGpIvP6mhdtxFasChkuWwUi5d+Y
+         3ahqeXKo8bKBR0iOk9YNuh9C7HsOVL6GL7omi7bdIDsnvesnKbGWX8n7GxJBzoZljOtW
+         Cc6gXTReQutZHaMc2YbPWdlzdqiS4RN98txguPkLuuPamIyUg8P3GZMArYmVdG7MOOcy
+         vZOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790855815; x=1791460615;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y+tEtnQzS5pdOb7X/5WJzbpmudgE/kqYUx9jMaDlfOk=;
+        b=2Zpnrg/RCOe3YhPXRc6sxvL/cjEUAiPD1F+b0H/3yLXCTUIqbHlBRR7R2A5IIeolOK
+         XHXw4w3CKByATCIPznYWjjK7VcTyD7QeM5jOJMcsB5aRWKjjjunAdJ7SXUCkEOkImqML
+         3LiOg7hYVjMAKhb7JXoh2lrvAGhgCBYXMD3rZ5RPCutoHnVOeU7bfqOHTre2XJoQlfnL
+         Xlss3ZAgml8LGyTv2YwHRC+KMr6pXLC7BFigYECoYL4ZtLcrB9jVq9bVhLH3KzwCjTbv
+         +GhBB1Gyy+5gHeKfFKzu4H8dM7/D5ujFxz5vYbw+HJpc373bGOfrWkrAYSH4rbprQ68E
+         cZMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiDcBgohkg4TLW+SjXeH1XSKJ3BxugsZeurxv6KUWjEP1DJt0eTXx54eeoAt1R25KQPm027i4aQ05lTWQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsWy70sRGpwcf5tnH6NDQrH3o46ySAnjaG5yhgPpgiRh11JCZZ
+	BrQhfOAgqCPU4DhFcGrxTtHNPY2UYhqPdYQ+gWixchbahs8UMJsIv2O2RPLayG49WhqtUWYpyJR
+	rDAdfGJ3Sdomo+ea8uN2ky5CiMQm8qRI=
+X-Gm-Gg: AYBFou14sLn8lXkeaHwfJKqYWVlUpS6J3NwOylAz3jnfRLZDcxdJEyIGHhwDbhUV69X
+	RR9cke7kdC8xKBTGKbykgajqE9rFmZUGtgPPiZSOY2VumOLosim6WoXsjXrltG/1QZTe/vv5Rpf
+	ZN7wPYY+iyF/L1aV8SZgQvmgd5STUH8HqyCUIgLXijKOnVa5OnybogU9ZvT8rDc7KY7NanIWEXI
+	64xqAHJDt4i6vCXcQU4+DcclrLUawFAnDXEIx9uWlsWy2O+p/IPHlM3ywZFmdVVnL71sSdApRWB
+	MQRvmSj2RJ2FahZ5BRnrXu0VQD0nem7FrFD8lIezMa30K9nHLAZLAYl5OQxhVMr+27tEXbJHd+9
+	XcGtIqpo2iZdnAT4=
+X-Received: by 2002:a05:6808:c194:b0:4d6:93c3:1aef with SMTP id
+ 5614622812f47-4f1b7e044efmr5667033b6e.58.1790855814672; Thu, 01 Oct 2026
+ 04:56:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+References: <20261001100319.6228-1-dennylin0707@gmail.com> <2026100153-barber-financial-29f4@gregkh>
+In-Reply-To: <2026100153-barber-financial-29f4@gregkh>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Thu, 1 Oct 2026 04:56:43 -0700
+X-Gm-Features: AclHuK8rLBMsJtiKPmc67dCARhCBIiOvVaJT7B67MBAw-F65lmlRrAuW0I1lNKo
+Message-ID: <CAGEkeHcpZeHhpF2omgRx1wgLRxVoJJ90H-1t8FEJohMr_59b6Q@mail.gmail.com>
+Subject: Re: [PATCH v2] staging: rtl8723bs: use errno in rtw_register_tx_alive()
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Dan Carpenter <error27@gmail.com>, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Leon Romanovsky <leonro@nvidia.com>
+> Why are we returning success if there is an error?
 
-A client that enables ATS for the whole device must never be handed a
-bus address, and Translation Blocking must reject its peer-to-peer
-traffic even when the caller asks for the default class. That has to
-hold for answers taken from the cache as well.
+The original _FAIL means the firmware is not ready for TX yet.
+XMIT_ALIVE has already been set, and the buffers stay queued.
+cpwm_int_hdl() uses that bit to wake the TX thread once the power
+state reaches S2.
 
-Cover those on the fabricated fabric, together with a client that
-declared per-mapping ATS keeping the per-class answers and a client
-without ATS answering for the Untranslated Requests it will issue.
+_SUCCESS here lets rtw_xmit_thread() go back to waiting on xmit_comp.
+Returning -EAGAIN instead would stop the thread.
 
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/p2pdma.c       |   8 +--
- drivers/pci/pci.h          |   5 ++
- drivers/pci/pci_acs_test.c | 123 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 133 insertions(+), 3 deletions(-)
+I should have explained this in the commit message. Would handling
+-EAGAIN explicitly here, with a comment explaining the retry, be
+appropriate?
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 9d17a3d2bf1f..38c712d77f15 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -1595,14 +1595,15 @@ void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
- }
- EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
- 
--static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
--						unsigned int tlp_flags)
-+VISIBLE_IF_KUNIT unsigned int
-+pci_p2pdma_client_tlp_flags(struct pci_dev *client, unsigned int tlp_flags)
- {
- 	if (client->ats_enabled)
- 		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
- 
- 	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_tlp_flags);
- 
- /*
-  * A client that translates every address it is handed cannot be handed a bus
-@@ -1611,7 +1612,7 @@ static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-  * translation carries the IOVA to the host bridge, so that route has to work
-  * as well.
-  */
--static enum pci_p2pdma_map_type
-+VISIBLE_IF_KUNIT enum pci_p2pdma_map_type
- pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 			   bool per_mapping, enum pci_p2pdma_map_type type)
- {
-@@ -1629,6 +1630,7 @@ pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 
- 	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_map_type);
- 
- /**
-  * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index a4a07f31f744..8b10965ab536 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1144,6 +1144,11 @@ enum pci_p2pdma_map_type calc_map_type_and_dist(struct pci_dev *provider,
- 						int *dist,
- 						unsigned int tlp_flags,
- 						bool verbose);
-+unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-+					 unsigned int tlp_flags);
-+enum pci_p2pdma_map_type
-+pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
-+			   bool per_mapping, enum pci_p2pdma_map_type type);
- #endif
- 
- #ifdef CONFIG_PCI_QUIRKS
-diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
-index 6a2cd38d968f..a9a3b80ea0ac 100644
---- a/drivers/pci/pci_acs_test.c
-+++ b/drivers/pci/pci_acs_test.c
-@@ -698,6 +698,125 @@ static void acs_walk_unreadable_control_test(struct kunit *test)
- 			PCI_P2PDMA_MAP_NOT_SUPPORTED);
- }
- 
-+/*
-+ * Route the way pci_p2pdma_map_type_tlp() does once it has a client: the
-+ * client decides which flags apply, and the answer is then checked against
-+ * what the client can be handed.
-+ */
-+static enum pci_p2pdma_map_type acs_client_map(struct acs_fabric *f,
-+					       bool per_mapping,
-+					       unsigned int tlp_flags)
-+{
-+	enum pci_p2pdma_map_type type;
-+	int dist;
-+
-+	if (!per_mapping)
-+		tlp_flags = pci_p2pdma_client_tlp_flags(f->client, tlp_flags);
-+	type = calc_map_type_and_dist(f->provider, f->client, &dist, tlp_flags,
-+				      false);
-+	return pci_p2pdma_client_map_type(f->provider, f->client, per_mapping,
-+					  type);
-+}
-+
-+/*
-+ * A client with ATS enabled for the whole device translates whatever it is
-+ * handed, so it never gets bus addresses even on a direct route, and
-+ * Translation Blocking rejects it even when its caller asks for the default
-+ * class.
-+ */
-+static void acs_client_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * The cache holds what the topology allows, filled when the client first
-+ * asked. A client whose ATS was enabled after that must still be kept off the
-+ * bus addresses the cache recorded.
-+ */
-+static void acs_client_ats_cached_test(struct kunit *test)
-+{
-+	enum pci_p2pdma_map_type type[PCI_P2PDMA_TLP_CLASSES], hit;
-+	struct acs_fabric f = {};
-+	unsigned long cached;
-+	unsigned int flags;
-+	int dist;
-+
-+	acs_build_fabric(test, &f);
-+	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
-+		type[flags] = calc_map_type_and_dist(f.provider, f.client,
-+						     &dist, flags, false);
-+	cached = pci_p2pdma_map_types_pack(type);
-+
-+	f.client->ats_enabled = 1;
-+	flags = pci_p2pdma_client_tlp_flags(f.client, 0);
-+	hit = pci_p2pdma_map_types_unpack(cached, flags);
-+
-+	KUNIT_EXPECT_EQ(test,
-+			pci_p2pdma_client_map_type(f.provider, f.client, false,
-+						   hit),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
-+/*
-+ * A client that declared per-mapping ATS picks the Address Type per mapping,
-+ * so it keeps the per-class answers even with ATS enabled.
-+ */
-+static void acs_client_ats_per_mapping_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * A client with ATS disabled cannot issue Translated Requests, so a caller
-+ * asking about them gets the answer for the Untranslated ones it will issue.
-+ */
-+static void acs_client_no_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.dn1->acs_cap = 0x100;
-+	f.dn1->acs_capabilities = PCI_ACS_RR | PCI_ACS_DT;
-+	f.dn1_cfg.ctrl = PCI_ACS_RR | PCI_ACS_DT;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, false, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
- static struct kunit_case pci_acs_test_cases[] = {
- 	KUNIT_CASE_PARAM(pci_acs_p2pdma_request_test,
- 			 acs_request_gen_params),
-@@ -723,6 +842,10 @@ static struct kunit_case pci_acs_test_cases[] = {
- 	KUNIT_CASE(acs_walk_tb_above_divergence_test),
- 	KUNIT_CASE(acs_walk_unreadable_control_test),
- 	KUNIT_CASE(acs_map_types_pack_test),
-+	KUNIT_CASE(acs_client_ats_test),
-+	KUNIT_CASE(acs_client_ats_cached_test),
-+	KUNIT_CASE(acs_client_ats_per_mapping_test),
-+	KUNIT_CASE(acs_client_no_ats_test),
- 	{}
- };
- 
-
--- 
-2.55.0
-
+Thanks,
+Hungyu Lin
