@@ -1,139 +1,96 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0610738D6B8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 03:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790824253; cv=none; b=WZ++o0jyC0dFjH43jNOTPYhIbje5UG/MtoQvLBbIYYhvq1zowUweksWJmbxsbrznKoSJQbkqvPtPsRriUHilELX5S/qrGLFGhyLnbnHZecZPmfacfXoMR6LQMn9vzU6dNzgfpoktNE3fnule8/xfriT7PUQuaW0Rk5bo5iLwiPk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790824253; c=relaxed/simple;
-	bh=TAte18zOMn93bR8XRFFWxm1cVoOW/U+R0wMOuUoYc0g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h6cSxSP+MpwVVUdEIELL7+dmRLCX4SuPo/vDwVPZKqN5LndjsASiteyx/qI8+dRyqA72gueKA9/RFFN0hABxBqK59s0a768n5kW5nSQsQuxJkQ1Sck9wawNdyc4OGJrONQnqgMTCbJLB4OAk5DXiGP7xh71/pwQ1GLI2Hk01i54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKor5eIm; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C9F3911DC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 03:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790824337; cv=pass; b=Uf93hHgRAInI3knZPRt/E/iFFWyq9CWgVS14W3aMuKt+Zp2o6GfJinpjXNXd4bkffW9jBFyH19Uy6PRsG+hEE7h+VZYpwICrAlaBrStdvMTOagcMZJK6nv0krcQsTdTuRpfWiKKibkuYt8c/sXl2hIOlpOOPFFRIhYcQ4+sc850=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790824337; c=relaxed/simple;
+	bh=SYd2eZNTTjbXE4pCMExkA3U+Sr74a01zLGfHC1ZABrU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Yv+J/GHDPgPHmq+edb/qM4UTVDm744GVdQUh3ALZHviwE8jBt16V8XbMUT70iUYEwo0nXh5nDc1k0SxH6+s15pwI+IMJcrqNFrVEIRnJHy1etDum8ei5EkHu2whpf9TX9hGECZ6nUlNyCOiCFOMIxuZLkqYjsMjBuJJnWjf35iE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=RN+2+W7w; arc=pass smtp.client-ip=136.143.169.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKor5eIm"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b590a5b5eso2862084eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 20:10:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790824251; x=1791429051; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RjqjSmJYD2hGrFXmbh8r2sbLcORlAU84VyhXxxLNgFA=;
-        b=JKor5eImY7XQFwLFOdnohyopCiYLhha+Bvf9eEBGFjf7jjTPMJNz47UNBn5263l8+L
-         wXaCFrcSKR3QCS7ifhCkbMrUb1WoS1JfX2piO1YJTIUAPpI+sDZaqUHuJPFyVsK2Mv0V
-         zgi0NBovSBjXJHtvuuFrwioyChb+xfvFG52eQ1zBooAj2zYNhN5bBpIaw9DdHxzmsPOg
-         /cRJvkRcN1C32y1fpz7c/aJPACikJ9SWL5bQoy7WPnxbuSLNwghwVO9SThkOhPOk+6rb
-         SJgDkybNV8cyUk8RUaqKIihYKLN/zOq9lHvYHHSgKBNUhQA5vnEFg8rpIVTm6sDgJMYn
-         TP2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790824251; x=1791429051;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=RjqjSmJYD2hGrFXmbh8r2sbLcORlAU84VyhXxxLNgFA=;
-        b=PqYn8bMVUMofdlOTRsrKO5Tk22OPRuE3BGc3tIrkSigDLN8CosuaOQEp7odx7zSotY
-         SgOfx69TidQ2KRZtG6JiHW2akycrwCVZUkoPcko7APazZsuY9hkMglHjDFdzzdTTwblD
-         7vjl3P3SoiTSxBkQAVX8PKqdS9c/c4eJds+oKYGoGx93ZuDqTuWalNeeUJv2ktO838N9
-         eirAfNJdBGE6SdoPBhy8l+JJP14jFyo2GOzNoK+FcTf/eLmlBGuCWML83y+DvpYhrEme
-         jf1avshMmURBpiS56O4CZLwFuvEDNC+PdfT42dje9fxrvs4a5eiphpG9RIn9G2IDM4Dp
-         1YTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6TcCnm97YYg8eabAL1SMoNBcUSW0oLCUrrBJ31eVxN2QCZQmyWyAPSpwWDkBV9u6VWuek/e9FIJU40yM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3QSxDhASQ8rdmL2ag4w0zWjDBNpZbBYScmJmaahKMEdz6jtY7
-	c+/R9RqxjijieXB4WWNlp/mivIez36Pi+dpYPUqr4eEOVaYrLd/L2HzZOdeMsVEV
-X-Gm-Gg: AYBFou17veeIzH37W6Wb9xLw6VB/uL8ZObhv5MxVAwhNparRv506MeTjmpLpenMjCe+
-	+LgBqqx87TlMdyMbyV4nEBGUfcWmCl3aNAa+QJC+MweZl1TuIwXrEm1cBk7NTZ+Q8GDbxpbryTQ
-	5M58axDpu8lJ1Jj2NKAv+qqAz+mxlzJYmWwWOFK+zjgTnP0ivwpUxaBIp4abHq5/2U/EpVJNNx/
-	dRJWPVpavQC8/Au4xkC7oS0DY/dzXYHkCKzTfGL1iMuL1b+uwXeyoDxCxnGwaw21M4cyLEpWUW9
-	x/H7YCMcoo8D28xt9fiwkwrmsgH5fH8hm0PDS35k4kw0NYv6I19UB2flNdcjHMoU+ConizBEMKf
-	BmY5f1WkaqfXV7iC/8MRsGKVVzv6WI1bUS3NM0EPxVYRUCqLQ3na3f2vmRKCIgdCDicUA+dqAdH
-	9Iu6Le/hC3oSDLf9HBPkyTKKroD+1z6JBB9JaHhlStfZ4xxcpPXbS1calND2H4GvQagw==
-X-Received: by 2002:a05:7301:2624:b0:34c:7d49:35cd with SMTP id 5a478bee46e88-34cdbbd5d9dmr3934437eec.11.1790824250861;
-        Wed, 30 Sep 2026 20:10:50 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db4c1ef93sm3249517eec.28.2026.09.30.20.10.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 20:10:50 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 01 Oct 2026 11:10:47 +0800
-Subject: [PATCH] ublk: drop the device reference outside ublk_ctl_mutex in
- DEL_DEV
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="RN+2+W7w"
+ARC-Seal: i=1; a=rsa-sha256; t=1790824275; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=TA98rY7jTz2jj7alFAwPg1bklk78328w21pi6qQAyFcve7JVLpa6vDve2UHWF2KXEIseb/cnKMuRm9+cbm2O3nBBvdHMdAC7tieAFh++j4b+dmx7zBpMWLxsKEVJ+lpQWAgNRjTgSiT8lMhPuIuQAsP0cc8P9/tq4LXsjKwroAs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1790824275; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=SYd2eZNTTjbXE4pCMExkA3U+Sr74a01zLGfHC1ZABrU=; 
+	b=Ts4aE4gcocfsQ3oshOOYSOxDCcIWH3nFTzsDIObiVKNVX+RWr/NiQ9Z5gfMEzwFsDgc8EUADaAa5rZDTOS+DlQ8rCzbCYhojP7MDKgvvWmdjRO42h4xIsHQdQpXhNA0D/oUsRmtP1U0Rk8ia25wkPO44jsut9iUv7k4SX7cgoT8=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790824275;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=Date:Date:Message-ID:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=SYd2eZNTTjbXE4pCMExkA3U+Sr74a01zLGfHC1ZABrU=;
+	b=RN+2+W7w+CfQBqJmePn5t6EBN2gvfJdzdhKxJpw6IKvYDYsJiPa35YWkj7tg1qv8
+	XN1VZqovdOVRcoAyhnZD/NZdBnl4GOqKlIoV06+W9MQoZ9SpdmViouOmL9P0G9Aa5+1
+	TP/Kf7Z4fA683oO6LXiWllHR1AEh+P71hX2SBl5M=
+Received: by smtp.zoho.eu with SMTPS id 1790824271591284.1136497752825;
+	Thu, 1 Oct 2026 05:11:11 +0200 (CEST)
+Date: Thu, 01 Oct 2026 06:11:09 +0300
+Message-ID: <ab67bccd76b55d7252c5380a37809656.iav@iav.lv>
+From: Igor Velkov <iav@iav.lv>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Eric Dumazet <edumazet@kernel.org>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: dwmac-rk: keep the GMAC powered when
+ the PHY wakes the system
+In-Reply-To: <1799630a-945e-49ca-b9d5-9e068c482cea@lunn.ch>
+References: <20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4@iav.lv>
+ <1799630a-945e-49ca-b9d5-9e068c482cea@lunn.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-bug-ublk-del-dev-put-unlocked-v1-1-18e9bb9be727@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADbPvWoC/x3MMQqAMAxA0atIZgOpQ1GvIg61jRosVVorgnh3i
- 8Mf3vIfSByFE/TVA5EvSbKHAlVXYFcTFkZxxdBQoxWRwikvmCe/oWNfuvDIJ+bgd7uxQ9NZq4g
- 1mbaD8jgiz3L//2F83w9M2O9ybwAAAA==
-To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-ublk_ctrl_del_dev() drops its reference to the device while holding the
-global ublk_ctl_mutex. When this is the last reference, ublk_cdev_rel()
-frees the tag set, and blk_mq_free_tag_set() waits for the pending SRCU
-callbacks of the tag set with srcu_barrier(). Every DEL_DEV thus waits
-for an SRCU grace period with the mutex held, and deleting devices from
-several threads serializes on it.
+On Wed, Sep 30, 2026 at 11:51:45PM +0200, Andrew Lunn wrote:
+> You have not answered the question why is hangs? Given the current
+> description, this just sounds like a workaround, not a fix.
 
-The release path doesn't need ublk_ctl_mutex. The device number is freed
-under ublk_idr_lock, and the last reference is already dropped without
-the mutex when the ublk server still has the char device open at
-DEL_DEV time, from ublk_ch_release_work_fn().
+It hangs because the PHY interrupt handler accesses the powered-down MAC.
 
-Drop the reference after unlocking ublk_ctl_mutex.
+stmmac sets mac_managed_pm, so mdio_bus_phy_suspend() returns before
+setting irq_suspended and phy_interrupt() runs the handler at once.
+rtl8211f_handle_interrupt() reads INSR over this GMAC's MDIO bus.
+From rk_gmac_suspend() to suspend_late, and from resume_early to
+rk_gmac_resume(), runtime PM is still enabled and that read reaches
+the MAC with aclk_mac/pclk_mac gated.
 
-ublk null target, 4000 single-queue devices, STOP_DEV + DEL_DEV issued
-from N threads, 16 vCPU KVM guest:
+On RK3399 such a read never completes: a test readl() right after
+rk_gmac_powerdown() hung the board with no soft-lockup panic until
+the hardware watchdog reset it (>5 min with the watchdog off).
+Refusing MDIO access to the powered-down MAC: 10/10 suspends without
+a hang; the same cycle script without it hung in 4 of 5 runs, each
+time within three cycles. With the GMAC kept powered (v1): 45/45.
 
-  threads     before      after
-        1     77.6 s     77.6 s
-        4     20.1 s     19.4 s
-        8     19.3 s      9.0 s
-       16     19.2 s      4.1 s
+v2 will use device_wakeup_path(), and its Fixes tag will be
+d65cb2e27e6e: that commit, not 6911308d7d11, stopped setting the MAC
+wakeup flag.
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- drivers/block/ublk_drv.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+pw-bot: cr
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 66eb55e7162e5..5d237aae51b7b 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -4901,10 +4901,15 @@ static int ublk_ctrl_del_dev(struct ublk_device **p_ub, bool wait)
- 		set_bit(UB_STATE_DELETED, &ub->state);
- 	}
- 
--	/* Mark the reference as consumed */
-+	mutex_unlock(&ublk_ctl_mutex);
-+
-+	/*
-+	 * Drop the reference outside ublk_ctl_mutex: if it is the last one,
-+	 * the release frees the tag set, which waits for an SRCU grace period,
-+	 * and holding the mutex would serialize concurrent deletions on it.
-+	 */
- 	*p_ub = NULL;
- 	ublk_put_device(ub);
--	mutex_unlock(&ublk_ctl_mutex);
- 
- 	/*
- 	 * Wait until the idr is removed, then it can be reused after
-
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20261001-bug-ublk-del-dev-put-unlocked-a9cc10e60a89
-
-Best regards,
--- 
-Qiliang Yuan <odys.yuan@gmail.com>
-
+--
+Igor Velkov
