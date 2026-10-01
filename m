@@ -1,219 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24085349D4
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889053; cv=none; b=sx9sLU74G+jqMkIlV1P4kX10SqSp9O0WXOT/Wz9fVRZ2k2DevuP/KsMbWH8njCO3ERt0kRurNR9tn6Iuwdo7NvWh0Lj0Djl89Op6JPbMpYofStm38+T4U/jLAMkS/BpkZXUx4xQaitZAwaYx0NtXSOV5BUaHsfHrwp7IfZRciww=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889053; c=relaxed/simple;
-	bh=092/HcEilVmakxy5W8wqV0dSID2JMH7R03jCCFy4RxM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sRh+yyd7TZ2mYvteBm4iA41O11d6EAJnB/SHCQqO5J2W8p2Nx9I4b9LCfPuPi0Ko29pJvpDUk/gXXMiJPV0KwK3V6LZksxwsYK9lSisHoRB8gESWwCo3MORptzvN/ntCT3vh2uDPWPb7gL/HVFjs5lmyfU+IjgB31NG7sxaKKso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddwwBZ84; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD9C53445F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790889077; cv=fail; b=CZxuQSvoOlEJ73A5srC0p2Rird/avCt4Sb2KrU6ukv1Y7aLo2ZhyHCTmXi9z1nZ1Fi/bAg7sSUvrnelH4IYbpFR/w3ZHewg/WpZjsro4buvlWLN+r2641WGLYSv/E7kPkGSbs1DqCp4h4j8S55bjf9Lon+CvCxfawCgU7w4yjM0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790889077; c=relaxed/simple;
+	bh=+zAbcQzmgSCCwbMutZ8xmHW7QUfD9A9vBLKczC9VpGs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jJQcW3DSffSRW/vxTsecmYH17WvZMknNUir1eDIfeNksxki/euVtWEUhdbZeLp8oDPxYRdGw9QznHsaYC5JiCG18qNKVEeUf/9dgW0zPfiH/1TNK290SNkSp+HdFKCro9HblCj+CjeICfETXYtT0JL8KlkV0vEF+1OMdVI7GLQY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PXdgQzLR; arc=fail smtp.client-ip=52.101.85.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddwwBZ84"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388D61F008A0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:10:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790889051;
-	bh=Cv/AHEsBbnYG0BEg3b4FxMz/rNctK75WTcep6/1Bhe4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ddwwBZ84yvtt1R2029E/eH4Z+7yntVZy5kecE9fWb7IL/X16zEkvTHQm2s0UHtQcX
-	 Ns3orOrmaydJVkrCWEDl6C806roFrNuPim6F6ENsrWrS7t56jLiQE9VU/lUKpmXFl7
-	 khh93F5bLaJv8wQY13t6bODnKGs5sXQPlUYw6Xo9X/ffULFOENIxyxCtAi3upzuMeb
-	 Ve57/0L90zvXbqCoRR/SvxUZhkXP3Laankhc3W7eAMoQ3YOXShX/MYw8oblcX6CtGr
-	 1NFg6hxgZx/asuCWf+DC13XBQjof4Bvh5Y6nOceYYZYVnHHiuKcIGbDd8sug65MmCx
-	 rpEiVfol3riDw==
-Received: by mail-lr2-f37.google.com with SMTP id 38308e7fff4ca-3a64d20990fso68050821fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:10:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwUl0EulUc9w19v4YC4uXU+9BeONLv2PhJyOIHUpp8xft0+gQNztuMNL8nWAL/UK4SyThjBcj44+hPPLa8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIl6zI+9GKoSq6UpAdL+cmmiujcqOqkb9Pzhp1qThBOoXIxnJbO
-	QtKXqUCVhmQyNRVxFxfIIcT7g/0AeNbOKJd0T76fJ3xVo5kthvHr/RIG9uljuZSr94BHDQLl1FS
-	h9c7GHamJiLyi728czKsnK0M/mDlpdHc=
-X-Received: by 2002:a05:651c:1987:b0:3a5:b187:c7a3 with SMTP id
- 38308e7fff4ca-3a87f7d8b35mr1130761fa.2.1790889049900; Thu, 01 Oct 2026
- 14:10:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PXdgQzLR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pmdmheafCFTMP2DKnJlUnJ/64iC5IV+lqVbVvv0gRjb5uRi6J9kgMxjOYwUvqkno+HU0aBEw6TUAWzhOhTQDx9SoMbe4X+K4H8Z7RBtp/17vCl5UuVZVNIJoeVDgx4w3/35BxbllJoomDuffPIB7RhTQ+HUGpc590Mq5b8vfDhOGBb936MZNum0I5IaXIdJsoTLtW+hFu1kP7SiysIIPov+Iz36NOBnEAu+p4gsQ0unYjwcmcWKjPqrmiHF26zpDP8FBCjKPgDnyWXsre+RkmahiLvm7K1E3f5LXHYPBE3FCtdiMucUvTbrZ3BijSqd7hkobiJwHOVvvb4y2441nlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+zAbcQzmgSCCwbMutZ8xmHW7QUfD9A9vBLKczC9VpGs=;
+ b=tDJvECfHJ6GtoHxOvekkCq6uLa5I3ImoUY9xtyPlLC63hkQUBwe/yuN2IuALjNq7r7vg16FShpG5IghvJjWvF/eD/Hy6LRS/1IY9t9nY3+6TKLorrLnTqDDD5bq7bHy/jXaJA+uKZ6pkfCGMstUYVNrOq2Ko/cdzOBuRO6JMtgOTN+vVV5LUmmsrY0dkUU2mHh6kHdIDZD2uc46LCN/dRnEw67xFIvGzUWgmGeqHBuwm0UJM9teG0sVn7ijn0dRgifDzIJSrX8CPV/+RkJ4m4b08yiL+gOldb4sl/4iU7t4orcp/MuYH9fOANmSOMLi+D5kv50uFxoJx0Thyq3eqtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+zAbcQzmgSCCwbMutZ8xmHW7QUfD9A9vBLKczC9VpGs=;
+ b=PXdgQzLRr/NsmNhO/nlXOR5vVUWVUN9hA9qGg/uaoyeESo834q5Pe+uFbgSr34DgQ19o4lMdQgX+KSqGAQMKsmFtl0cTi1RHLn1UoZApgjWPqRetlUqFnx1JADLQnO7v6FeQhSm+jj0jouEESsc7nMTcPP7PEIwp+Oj5WU/vNlXRo3/0XQmidA/gjrUNKfkRX4jgAKREuHjNvH9EfJcK3xIGfcA5nE3KwUKcniykA19eH/TvW06Ts3dl3gOTbBlDiuIFClkW7jF0HeMGuZwsrl8ezQNiSdizZLB8hTtqgokZc2Qbh15nkApLqBhbSr7Jupc2qLhIj160uZ107NHt1A==
+Received: from MN6PR12MB8568.namprd12.prod.outlook.com (2603:10b6:208:471::19)
+ by DM3PR12MB9435.namprd12.prod.outlook.com (2603:10b6:0:40::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.15; Thu, 1 Oct 2026 21:11:00 +0000
+Received: from MN6PR12MB8568.namprd12.prod.outlook.com
+ ([fe80::f13:fa29:e7b3:4d3a]) by MN6PR12MB8568.namprd12.prod.outlook.com
+ ([fe80::f13:fa29:e7b3:4d3a%5]) with mapi id 15.21.0451.026; Thu, 1 Oct 2026
+ 21:11:00 +0000
+From: Timur Tabi <ttabi@nvidia.com>
+To: Zhi Wang <zhiw@nvidia.com>, "dakr@kernel.org" <dakr@kernel.org>, Alexandre
+ Courbot <acourbot@nvidia.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"lossin@kernel.org" <lossin@kernel.org>, "ojeda@kernel.org"
+	<ojeda@kernel.org>, "boqun.feng@gmail.com" <boqun.feng@gmail.com>,
+	"a.hindborg@kernel.org" <a.hindborg@kernel.org>, Neo Jia <cjia@nvidia.com>,
+	"simona@ffwll.ch" <simona@ffwll.ch>, "tmgross@umich.edu" <tmgross@umich.edu>,
+	"alex.gaynor@gmail.com" <alex.gaynor@gmail.com>, Shameer Kolothum Thodi
+	<skolothumtho@nvidia.com>, Kirti Wankhede <kwankhede@nvidia.com>,
+	"alex@shazbot.org" <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
+	Aniket Agashe <aniketa@nvidia.com>, Surath Mitra <smitra@nvidia.com>,
+	"nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>, "kevin.tian@intel.com"
+	<kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>, Krishnakant Jaju
+	<kjaju@nvidia.com>, "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
+	"Alok Kumar (SW-GPU - alkumar)" <alkumar@nvidia.com>, "Tarun Gupta (SW-GPU)"
+	<targupta@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
+	"zhiwang@kernel.org" <zhiwang@kernel.org>, Eliot Courtney
+	<ecourtney@nvidia.com>, "airlied@gmail.com" <airlied@gmail.com>,
+	"aliceryhl@google.com" <aliceryhl@google.com>, Yishai Hadas
+	<yishaih@nvidia.com>, "gary@garyguo.net" <gary@garyguo.net>
+Subject: Re: [PATCH v3 07/31] gpu: nova-core: vgpu: reserve the 48-VM WPR2
+ heap
+Thread-Topic: [PATCH v3 07/31] gpu: nova-core: vgpu: reserve the 48-VM WPR2
+ heap
+Thread-Index: AQHdTzSXgsS98OFkyUCwVxEirQuNOLbpNE2A
+Date: Thu, 1 Oct 2026 21:11:00 +0000
+Message-ID: <538203f1d7ec5963d57319a32a8e24476c08bd82.camel@nvidia.com>
+References: <cover.1790580105.git.zhiw@nvidia.com>
+	 <e6334d750c07fef971f48f517449fc8d70be75b3.1790580105.git.zhiw@nvidia.com>
+In-Reply-To:
+ <e6334d750c07fef971f48f517449fc8d70be75b3.1790580105.git.zhiw@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.56.2-9 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN6PR12MB8568:EE_|DM3PR12MB9435:EE_
+x-ms-office365-filtering-correlation-id: 829cd56f-e36a-4ac8-7000-08df20007e71
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|18002099003|38070700021|4143699003|11063799006|10067099003|56012099006;
+x-microsoft-antispam-message-info:
+ vkXPZ3PkAoCp9z43Dfb3VV+zlondvpUOxn7KAxQ/tAHfBtj7XbYeN69iO/g6fjGRBWOVewlO4igEyTC/3HuW2+JMBoXsTu/u0pvY8INfgWKzJ99zXNk+nyfm3eINr6rMClTD/+aHKkH/EXK0ziZHhwOn1bHUntMeEyE82rZ3QhdnDaCdF+jNP7S8bg0pnTx2KFw0KMmwEVZRyxHubwzBmyxqDqqIIse5/g4g4uTW9Uw8xzuydMwl7yKPf2CaMftdzkpdoDxOalMr+kiXNlut9ipViYkexwY3Y5XPf4FNy6ofr4T+JBFng4yz/ux0v/igWyPskMEFZSrAx8ONSHM9s3XYPYVtsLCNORPHbnyIcznwnJ11YxglGkHiJgktdRx9DypWpA6y3PV3Su0BU/qjN4To/Ypz/nHynmfwxUtoge8+tFDgGsTKsqePD/KjOI4sFEd+SuMrCOyQyQ9mQRSN7ufyIMudXZJaOzgIEr91PqMBuRRmz9rMVDG+MZjlHEJlqVFk8r8sYWBmEgX74wp/zuedhOoSHY402I9jIu99VRE7qRgzgEr0X86QD5R0PCoxULPc+1btDnHO1lfgwZHAw6tY1KPMCy7GWrh9tUQH3Q96gZ3kBlhXxglQlV9sIelcrcfXtacjgSNNo/bXfLAeWRKu109HuuJ6NoJGywTPwB0SF85Whl5cnivcqJu0UgHEwnCHmxLnnZrEm5wDH3h6hSs0GjgrV+VmHMGpmQiJS5U=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN6PR12MB8568.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18002099003)(38070700021)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?UktPTU90UjdiNkkvdHB4NFJSa00wUDM4cm02WFN6bngydjE0bit0UDFTM3pi?=
+ =?utf-8?B?UG5lbDJmN2FndnhLY2xYNGhQK1FjaXVUcHoxUG5xUVN0ZHlpdGRaUU9MU3l3?=
+ =?utf-8?B?QWpLUjFCV0t5ZlZoWVJRWndzeHFsd0U1dFFtd3h2b2sxS1Z0WENsVWFETnBK?=
+ =?utf-8?B?TmhGei9OR2JaVllMNEpwUHFmSkJmZGpLUVhjVU91NnYvY3o5WXNaUXBuL3di?=
+ =?utf-8?B?M0dQbWgxSERuTXVHYnYyTjBBN1NpRmE3RjRsdGdMOVdCQ244RzRjZWJxeEtR?=
+ =?utf-8?B?U2Ywc3ZueitTQTFoenZwQ29rODdDODlkbmk4cEFMcFJlbmFNZEJwQkhUR3E4?=
+ =?utf-8?B?a1JqS2VqMDBWY0JIOWNRaG5OK3lMTEcyQkI1VVFvOVN6NEhHYjVTaWpnWnhV?=
+ =?utf-8?B?QXFwSEV4QVFqenI0d0VhenQ3aStNU05lYnRiQ01vT3p1YUltMjJPcHgvR0sw?=
+ =?utf-8?B?ekc0RTIvSWF0c3MyZkhpV00yakx4eEJaUDNYV2tya0h5dDhPZjZKc1hyUkZY?=
+ =?utf-8?B?QkE2STVvOTlwUXBpd2t4NGVVSFI2NW4wYTVKdHhzRG95enhzaktlUlBxb1J3?=
+ =?utf-8?B?REZsMnM5cWE0NlhqeVRHaHpoYVN2NlVNOERvcnRsUzRhbER3a3hGOS9MKy8v?=
+ =?utf-8?B?QThFK3lOcFc5UUpqVlNIeGVIS1J5TWg3YmNMRnVURXlKT1NJaEhnTDE2bCs0?=
+ =?utf-8?B?bW51bmV5NjVhdG94SjN5em9ZeU9Hd1Z5WFRZZENIVW9xM0JYRnVPQ29uRGhG?=
+ =?utf-8?B?RzN1MXhwaG51cVdKdkJYbVNib01qNU9PUmNPaDBIUWlMQXRMeTl6b1N4S3Nm?=
+ =?utf-8?B?YnNROWE0bmtJQWNmd244Y2dRRHBuYnl2b21YUTFja0N5KzdjaW01WWF1cW9Q?=
+ =?utf-8?B?MUt4WGw0OFFCVXBMY1lvcHRPckhWVC91c0toYkl1a1M5bEhlalJhaFlRUXQv?=
+ =?utf-8?B?cEM4YzdGaVZZOGNtVGZIamt0Z0R4bnNUSTF5OHlEdHZWUFFlUFArRVlCTVNZ?=
+ =?utf-8?B?ZXYvVyswcjhlRFdDZ0ZtMU5ENEJPd0VUYkNtVm4zSzBHYmt2OExWbkZXRW0z?=
+ =?utf-8?B?V2VqNG1DMHFuZWVyck1rUCtDcUN2c1J4aVlFK1VNeDNZTDdTaGQ2Q1prWUN0?=
+ =?utf-8?B?Rk83KzJwcG1kV0V3ZHk1L1dock9RNko4L2xyWWdBWjB1SDNuclNvYWFidTdR?=
+ =?utf-8?B?cWd0dzdSczlEeEs0eUxDNU1NZWptQllEMUdFcE5CZzA5dlQxT2V4SkhadXZH?=
+ =?utf-8?B?YlE2TENYeDU0Nlp1c1NGWjgxZVdod2VEQ2pQOXVZaXMyM3ZGazc0MEhEZVBq?=
+ =?utf-8?B?N3J5SDEvamQzVjcyZGxLeFA4WDZ3d3dCdW5GalVvNkRsQ3JNSjBIbnpaNFJm?=
+ =?utf-8?B?WXloT3JVQktmK21uNW4zREY1UDdIQ3VOOWZGcDJzU2hKMG1BYXM5S2ovYjVs?=
+ =?utf-8?B?U0F0Qzk2NU9oemVlMlJFWHZTUTRPQmZ2c2thMDQxQkNDbEY2d1NFK05reDRp?=
+ =?utf-8?B?NFFQRlpZYmlwaFFCcUxOZHV3SnFxYjhZaDVBNUFDSmMyN0RFVVF0VWN4c0Jm?=
+ =?utf-8?B?Q1N6U28vVHlnUm85d0xOeEppQ1RUOUI1Z0pmQlhRN240NXMvdlhBb1NDSUhG?=
+ =?utf-8?B?dW5EZG9CdFkrUlQ3aENvSGQ5cjd3M0czQnBKN25FZGNqQ2dBNm9JRkZjSlAx?=
+ =?utf-8?B?SEkwVTJPWlg3OEp0U0JoSWRvbW9pY0VvVmJCN0p5Y2xtc0JUZ1ltTUJoZnZZ?=
+ =?utf-8?B?YjZDUmM2MUpFSjlOd0F3aHE0TG1LdUZNbldYSkljbWZ6bUFjUG9uRy84eVFN?=
+ =?utf-8?B?WUU3UmU5Z2o0K3JndjkzZVlpOEZldU9vZXdQa0M2Nk5Idzh2dGRRbUUyMnZ4?=
+ =?utf-8?B?TmozQjQ4dklNTkpPay85emNhb2UzanBFR1dyakllVGh3NEE0aVVyK0FBQWcw?=
+ =?utf-8?B?VUtmVVEvdCsxY2UrM3NNUUpDZXg0NzRpK2pMcWk5dlFENi9rUW92aDJnYnh2?=
+ =?utf-8?B?ZGVIMDU5NHQ0anNOZUdYc1RPdExHRGNvcUJSNnFaOWwvV2JRVWR1NjBlbXZC?=
+ =?utf-8?B?UkMxVlRwY1BVRHZPbjBNMTlucnd2N25ZczRSYThRVmhRWmRiT3kwWU5rdHpZ?=
+ =?utf-8?B?Wm1hc1U4dlZmdkZmbjVBUStrUVhaN0ZNWlZaVUxGLzIxK2dKVm1hd3FsMkdt?=
+ =?utf-8?B?NXJzdHcybjdFRTcyTTVmVWJxSDZ1MW9WNXh0MDZISElEOXhWUXRtVzZ0TGRO?=
+ =?utf-8?B?dVlYTkZKOExRTW5kVzh6M1dsVEFkUkJ5MkNoQTl5UENmWFFTR1lueERrejV4?=
+ =?utf-8?B?d0FObG9zYjMzWGNGUFZoZlgycTZzZXFqSVN6TndybFRxQzJRSDlUQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CEE9D97EECC2F041AACCD81B71A11AE0@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930092020.1047221-1-y-abhilashchandra@ti.com> <20260930092020.1047221-2-y-abhilashchandra@ti.com>
-In-Reply-To: <20260930092020.1047221-2-y-abhilashchandra@ti.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 23:10:34 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
-X-Gm-Features: AclHuK_xn_-CKnIZzt8Aiza52a34qEVHcG5dNEDn3VR0fTXp_jLDfo12LQfvZZ0
-Message-ID: <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: Add TI TDA54 pin controller
-To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, 
-	vigneshr@ti.com, kristo@kernel.org, brgl@kernel.org, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, afd@ti.com, 
-	u-kumar1@ti.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN6PR12MB8568.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 829cd56f-e36a-4ac8-7000-08df20007e71
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2026 21:11:00.3281
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eyToeckm3f7CE/9QedElYN2bLN8AmeA8rzO78Zarw7pXK7Sj3AdsJwE8w9s/rhmWzezrdtZOc2RE0At0quqctw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9435
 
-Hi Yemike,
-
-thanks for your patch!
-
-On Wed, Sep 30, 2026 at 11:21=E2=80=AFAM Yemike Abhilash Chandra
-<y-abhilashchandra@ti.com> wrote:
-
-> +      ti,debounce-select:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3, 4, 5, 6]
-> +        description:
-> +          Selects which DBOUNCE_CFGn period register in the control modu=
-le
-> +          drives the debounce filter for this pad. 0 disables debouncing=
-,
-> +          1 to 6 select DBOUNCE_CFG1 to DBOUNCE_CFG6.
-
-What's wrong with the existing input-debounce property?
-
-  input-debounce:
-    $ref: /schemas/types.yaml#/definitions/uint32-array
-    description: Takes the debounce time in usec as argument or 0 to disabl=
-e
-      debouncing
-
-Just translate usec:s into your custom format in the code, problem solved.
-
-> +      ti,virt-gpio-instance:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3, 4, 5, 6, 7]
-> +        description:
-> +          Selects which virtual GPIO instance controls this pad, allowin=
-g
-> +          protection between multiple virtual views of the GPIO control
-> +          registers. Has no effect unless the pad is muxed to GPIO mode
-> +          (muxmode 7).
-
-Wow crazy stuff. OK keep it :D
-
-> +      ti,wakeup:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3]
-> +        description: |
-> +          Wakeup event configuration for this pad.
-> +          0 - wakeup disabled
-> +          1 - wakeup triggered by any change of the pin input value
-> +          2 - wakeup triggered by a low value on the pin
-> +          3 - wakeup triggered by a high value on the pin
-
-I just have the feeling this should be a generic property. It seems so usef=
-ul.
-
-Can you just add this as wakeup-mode =3D <custom value> in
-Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
-
-> +      ti,retention-bias:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2]
-> +        description: |
-> +          Enables the internal I/O pullup/pulldown resistor when pin ent=
-ers
-> +          TDA54 I/O retention mode, and configures the I/O pull resistor
-> +          direction.
-> +          0 - OFF mode pad pull resistor disable
-> +          1 - Select OFF mode pulldown resistor
-> +          2 - Select OFF mode pullup resistor
-
-Use names inspired by the generic config types and flags instead
-of enums.
-
-ti,retention-bias-disable;
-ti,retention-bias-pull-down;
-ti,retention-bias-pull-up;
-
-> +      ti,retention-offmode:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description: |
-> +          I/O behaviour when retention mode is active.
-> +          0 - I/O maintains its previous state
-> +          1 - I/O state is forced to the OFF mode value
-
-Behaviour of *what*?
-
-The driver stage?
-
-I suspect you should make two bool flags
-ti,retention-output-hold;
-ti,retention-output-disable;
-
-> +      ti,retention-output:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2]
-> +        description: |
-> +          Output driver behaviour while the pad is in retention mode.
-> +          0 - output driver disabled
-> +          1 - output driver enabled, pad driven low
-> +          2 - output driver enabled, pad driven high
-
-Make three flags:
-ti,retention-output-disable;
-ti,retention-output-low;
-ti,retention-output-high;
-
-> +      ti,retention-force:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description: |
-> +          I/O retention controls.
-> +          0 - gated by the Device Manager logic
-> +          1 - forced active, overriding the Device Manager gating logic
-
-This is clearly a bool flag. It should contain device-manager as that
-magic entity is involved.
-
-ti,retention-device-manager-enable;
-ti,retention-device-manager-forced-active;
-
-Both seems to be related to the device manager whatever that is.
-
-> +      ti,isolation-bypass:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description: |
-> +          I/O isolation for this pad.
-> +          0 - isolation preserved
-> +          1 - isolation bypassed
-
-What does this even mean electronically speaking? Explain in a description:
-statement.
-
-ti,isolation-preserve;
-ti.isolation-bypass-enable;
-
-perhaps?
-
-Some of the retention settings seem *very* generic, c.f. this
-from include/dt-bindings/pinctrl/nomadik.h that has been
-around forever:
-
-#define SLPM_DISABLED           0
-#define SLPM_ENABLED            1
-#define SLPM_INPUT_NOPULL       0
-#define SLPM_INPUT_PULLUP       1
-#define SLPM_INPUT_PULLDOWN     2
-#define SLPM_DIR_INPUT          3
-#define SLPM_OUTPUT_LOW         0
-#define SLPM_OUTPUT_HIGH        1
-#define SLPM_DIR_OUTPUT         2
-#define SLPM_WAKEUP_DISABLE     0
-#define SLPM_WAKEUP_ENABLE      1
-
-SLPM means "sleep mode", yeah pretty much retention...
-
-I think the corresponding retention settings for things that are really
-quite generic should just be added to the generic pin config bindings.
-
-Yours,
-Linus Walleij
+T24gTW9uLCAyMDI2LTA5LTI4IGF0IDEzOjI4ICswMzAwLCBaaGkgV2FuZyB3cm90ZToNCj4gDQo+
+ICAgICAgLy8vIFJldHVybnMgdGhlIFdQUiBoZWFwIHNpemUgdG8gcmVzZXJ2ZSB3aGVuIHZHUFUg
+aXMgZW5hYmxlZC4NCj4gLSAgICBwdWIoY3JhdGUpIGZuIHZncHVfd3ByX2hlYXBfc2l6ZSgpIC0+
+IHU2NCB7DQo+IC0gICAgICAgIHU2NDo6ZnJvbShiaW5kaW5nczo6R1NQX0ZXX0hFQVBfU0laRV9W
+R1BVX0RFRkFVTFQpDQo+ICsgICAgcHViKGNyYXRlKSBmbiB2Z3B1X3dwcl9oZWFwX3NpemUodG90
+YWxfdmZzOiB1MTYpIC0+IHU2NCB7DQo+ICsgICAgICAgIHU2NDo6ZnJvbShtYXRjaCB0b3RhbF92
+ZnMgew0KPiArICAgICAgICAgICAgMi4uPTMyID0+IGJpbmRpbmdzOjpHU1BfRldfSEVBUF9TSVpF
+X1ZHUFVfREVGQVVMVCwNCj4gKyAgICAgICAgICAgIF8gPT4gcjAwMF8wMDo6R1NQX0ZXX0hFQVBf
+U0laRV9WR1BVXzQ4Vk1TLA0KPiArICAgICAgICB9KQ0KDQpXaGF0IGFib3V0IGlmIHRvdGFsX3Zm
+cyBpcyAxPyAgU2hvdWxkbid0IHlvdSBhbHNvIGhhdmU6DQoNCgkxID0+IEdTUF9GV19IRUFQX1NJ
+WkVfVkdQVV8xVk0sDQo=
