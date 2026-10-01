@@ -1,151 +1,211 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B346D442135
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:58:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7283C442135;
+	Thu,  1 Oct 2026 10:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852290; cv=none; b=EsNSOcrNTMyhy4mNeKmGgx5g3LDVpcK/Yx6pzeE7rMSD+T0+ry6s6CeWq1bnh4OxyJpBA2srBjzpTbwjygyWaZXJBnCu/ofTjvj4FvIpV4PlcvXdRo7BOpciWQ09Whh+jG+/vWncqZVR7eyzrMYMhocVf2jyYzY7vKwUpqnu2k4=
+	t=1790852299; cv=none; b=OWekzRvYzr+mdsA0TKpwFIo7BL1zYiNUNZm/lA3Bimx+fiETS6opRuQJBptdyHA5OPTVAhaiZxHU0LjM5/jjexKE8dzH6tOTsM7CAZJp/PLJAlq6i5p5Xx79jCv7doMrrVjj5LNY5k1RN1lKKS0wYL2/Nq88gK5eJaqreiPXM6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852290; c=relaxed/simple;
-	bh=0R0/gTRYYSmxRnH5ZVk7sblCpxH+EKsEaD3El+V8yes=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rXUmjcQam5sMmJDI1pBw01lOHTQC86aYNaX6hjKhes9bR2m2n2HmVkhguj3kUd86R1ZaLdu5CzEFbo6Gs7thnhciV2Sa6bZ9XVNoXxcHu0QVNcoJN+KmwEnXtTN1eJmnt4n9mRFz5g1slVNy3NPvdB6LpLe02qzgBEj16aCtFzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KNjOkIQU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ry5H9keO; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790852299; c=relaxed/simple;
+	bh=RqRxynyai8pcaz/HuEMQJirMhdcOCbstIy/jm0yIGmU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nq2u5zluRs8+jumuqxcyD8lVWxZli9Yd88mLQk/x3vyjD2YEhupQ0GxlBPyWc+H4+NmHmNchEK9FNFLIfQbXUrFRzYvjy9jAX5grHqyapowWV0qaiKWV881VtrHF9jpUmm1s9TTWBFhoWMbuwmI+8zb1iZssm3b6L54nOI6/3lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fTSDu/Kq; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KNjOkIQU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ry5H9keO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790852287;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Tt5IAt6vMqsCLYkrQdskETSZXcKhulecCkm4FRkZlO8=;
-	b=KNjOkIQUUeHXGEyMPYPsMqfe15x4qfwoqcxaFj5kgkqcYWZwZY6oCbr2vediMKN/X7l8Ha
-	LqQuk5Ip499xjbvuo/4hOtiCGq/6nxcULmc1zU++Ru0hCH5NfBd0BVzAttY8kh6XD4SKVP
-	4guHq9uw4WOZJ6Ngpy5fUZ3moTkjung=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-644--fBub-pgMRqAB9yU6DZEIQ-1; Thu, 01 Oct 2026 06:58:06 -0400
-X-MC-Unique: -fBub-pgMRqAB9yU6DZEIQ-1
-X-Mimecast-MFC-AGG-ID: -fBub-pgMRqAB9yU6DZEIQ_1790852285
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so97062555e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790852285; x=1791457085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tt5IAt6vMqsCLYkrQdskETSZXcKhulecCkm4FRkZlO8=;
-        b=Ry5H9keOJaa9gb6/zQS+ujB4zAnrRddRxDcVAbUnnwoU7RovyQ6FM0M0j9V4Nx7xvQ
-         2NMAea/c1ctHpUSKhQszVYU7MuGo+e9yejIxfHm1n/p/e7HC0mfots5ukoIMhNrlUj+U
-         wVWh98CE3v21LbTCPemjzsaCmIKfGTw3EfUhjq3GYAAhrkWkQJQRTtmXwzdyfkFTp1nJ
-         SR5X4ruxpDVScYjVXEXBNzKFpIpgQO/ySxschNCi+9HJaml3cBLVkorPzKGcOjfLoROd
-         cHi870AXYw2kSUhQ99/eHp8j7HRdIfQocY75yA40OWxzCPajpnTOhFM4oU4qb7NmHtQ7
-         Ibbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790852285; x=1791457085;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Tt5IAt6vMqsCLYkrQdskETSZXcKhulecCkm4FRkZlO8=;
-        b=Vg8gRaRSDL22mVpH8qDsk3m5q7uiQGvOHGwaUQRsx3wtSMFiIjYfcePjWjklggnZz6
-         llgPPRhIfQJYvSnK29sT+aW2qYYbS020kOP4neHKzOIAKMuvTt2oLA3yprkYlHMcDWCX
-         TFsMAfORmdJOeLui1WUzjmJeHEeZquP2cLyM0w14UuJjeyZFMMiknhUbJSNrsMqUYD2o
-         eNpDshk6d+ZhjmAfkivXNDsCCuh6/8YG7MtFhqAtVJ37ynfBiEMtWeEtHYvBqL1OeNpL
-         f3pNPlv0pJNtojYUabTvQaqzM/cn0dhe8raaO/gFpKuALyEaQPstbYNMGs/BaGCcFBh0
-         X0ow==
-X-Forwarded-Encrypted: i=1; AKwUvBzQMs/THDcGwSWP9lqp7+idB2M+2r++kCh1RAM583j2GR301aB/6/sipm3iLDna7wpKXLg7kxB59HpY3pk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nusfyi2LruM1+y2JV1VZMcLAskj2Zw6aY6Xsznj9Qk1C/GqoYl
-	8LohDa5OjS3wdGdfLvNTOPhUs93YBLsTq8DvQrYkxkPNvzF67Tz5l4hJECKrEKDz/epKNM+r3P2
-	nNYLaEE7u3e15F9le4EbLE5NZXdttZ8sdplqKmlwcVe0WvlMRgFsoYmPD4D6cjVLwpw==
-X-Gm-Gg: AYBFou2sPpW2dN08lnG9LmZjFN3LyUYrJOJoYG5RkUb0ne5FqlJIagVML48Lq4dYVIf
-	8luMJxdfr3nyT/tMJCX00Ztv4xnNa24OAvz3f/0Hf61rByXk7CIi0U4WXXbUoH/KjSoVHt7DTbQ
-	NCfoBMX96YpvopZ4UHCv1E9lsawQCmxGqfdGCKRI9Tcg7ubanDEyGW9r69CUJKfV7N6BJEHYi4l
-	qHVRAq/Vwbc2qD/STeLzv6WMaWZZlD+tlkEaUim3LVlljTPeGqiXfl6/eY31ttQ8DOLKuQPmu9x
-	F4J1xC+zNRSf9E7oiw5FqZM+s81CGeAdmzT5N1lStQqud2+fIwt7p2G7ivirooDJg8suGrrSBjU
-	uw/6ZkUcilw8uXn+BmJqahKnyZjjJBclJGJEIkRKugjSlgh6PoBpJStGCSmUEvV7Ru5789B9rTA
-	==
-X-Received: by 2002:a05:600c:4e56:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-4a01b00ef27mr80088115e9.33.1790852285132;
-        Thu, 01 Oct 2026 03:58:05 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e56:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-4a01b00ef27mr80087715e9.33.1790852284618;
-        Thu, 01 Oct 2026 03:58:04 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a023ebe694sm33186845e9.10.2026.10.01.03.58.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 03:58:04 -0700 (PDT)
-Message-ID: <83bba48e-7f0f-44b6-a7ff-b64c3ba96f70@redhat.com>
-Date: Thu, 1 Oct 2026 12:58:02 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fTSDu/Kq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790852297; x=1822388297;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RqRxynyai8pcaz/HuEMQJirMhdcOCbstIy/jm0yIGmU=;
+  b=fTSDu/KqITgK47qA2Dumtty5pW2+paMNXE8P0ArCo+KIiM6W33FhZCwN
+   Os+Q02XIdZ7redmzjGX7N/d2p0H+rKq4W9k3aN6i8Y5EB/0lxYiHTOlM0
+   O64YkLq0wG0XZWsC5c0hujqDa5okszvnEj8poZKXmZkFO9DWhMZ4WZbMy
+   T+zkOUMZliesh9QwwCatLSmWXPywTRUHD4NyW97QSwn8yl2SBBct8t2xd
+   eTMXTZHmBCEHBOVnZ49gWH3tQASIhKHXxiej073GO8abl+pjyeqHLnQ/I
+   5JcltEFw/S/0oeJcM6sU2GPXty6EMMrEYqTjS1UyJ91bLTqvRDPrQepXX
+   w==;
+X-CSE-ConnectionGUID: CiIf6tHcTF2xND/MB1Q3Lw==
+X-CSE-MsgGUID: xsP18LmvQHSTBE5HH26BiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91702417"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="91702417"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:58:15 -0700
+X-CSE-ConnectionGUID: keXulf5wSTCfmwb1+qeL+w==
+X-CSE-MsgGUID: lWw6cLGCSrGK4wTFXYhUKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="276007649"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:58:13 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3FA01121BA0;
+	Thu, 01 Oct 2026 13:58:10 +0300 (EEST)
+Date: Thu, 1 Oct 2026 13:58:10 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ar48wuZ5ExmCXyY7@kekkonen.localdomain>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] seg6: fix HMAC validation when an extension header
- precedes the SRH
-To: Yuya Kusakabe <yuya.kusakabe@gmail.com>,
- Andrea Mayer <andrea.mayer@uniroma2.it>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- David Lebrun <david.lebrun@uclouvain.be>,
- Ahmed Abdelsalam <amsalam20@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260926-b4-seg6-hmac-transport-header-v2-1-8087b76f6375@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260926-b4-seg6-hmac-transport-header-v2-1-8087b76f6375@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
 
-On 9/26/26 13:19, Yuya Kusakabe wrote:
-> seg6_hmac_validate_skb() derived the SRH from skb_transport_header().
-> That only holds while the two coincide, which is not true on the
-> seg6_local input path.
-> 
-> ip6_rcv_core() leaves the transport header just past the IPv6 header.
-> A Hop-by-Hop options header is consumed before the route lookup and
-> advances it, but a Destination Options header is not: the seg6_local
-> lwtunnel is entered through an input redirect from the route lookup,
-> which bypasses the extension header handlers. The transport header
-> then still points at the Destination Options header while
-> seg6_get_srh() has located the real SRH further down the chain.
-> 
-> The HMAC is therefore computed over the Destination Options header,
-> and a packet carrying a valid HMAC TLV is dropped when
-> seg6_require_hmac is set. Such a packet is legitimate: RFC 8200 allows
-> Destination Options before a routing header, and get_srh() has walked
-> the header chain since commit 5829d70b0b6c ("ipv6: sr: fix get_srh() to
-> comply with IPv6 standard "RFC 8200"").
-> 
-> With a Fragment or an Authentication header in front of the SRH, the
-> same mistake also reads past the data pulled by seg6_get_srh(). This
-> happens before seg6_require_hmac is read, so the default configuration
-> is affected.
-> 
-> Reproduce by giving a node a seg6local End SID with
-> net.ipv6.conf.<dev>.seg6_require_hmac=1 and a key installed with
-> "ip sr hmac set <keyid> sha1", then sending
-> 
->    IPv6 -> Destination Options -> SRH (carrying a valid HMAC TLV) -> payload
-> 
-> to that SID: it is dropped, while the same packet without the
-> Destination Options header passes.
-> 
-> Fixes: 5829d70b0b6c ("ipv6: sr: fix get_srh() to comply with IPv6 standard "RFC 8200"")
-> Assisted-by: LLM
-> Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-FTR applying this to net-next, as it looks really an always broken
-corner-case, and Linus is asking for really critical fixes only at
-this point of the cycle.
+Hi Jacopo,
 
-/P
+One more small issue...
 
+On Wed, Sep 30, 2026 at 12:51:20PM +0200, Jacopo Mondi wrote:
+
+...
+
+> +static int mira016_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct mira016 *mira016;
+> +	int ret;
+> +
+> +	mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
+> +	if (!mira016)
+> +		return -ENOMEM;
+> +
+> +	mira016->dev = &client->dev;
+> +
+> +	ret = mira016_parse_endpoint(dev, mira016);
+> +	if (ret)
+> +		return ret;
+> +
+> +	v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
+> +
+> +	mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(mira016->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(mira016->regmap),
+> +				     "failed to initialize CCI\n");
+> +
+> +	mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
+> +	if (IS_ERR(mira016->xclk))
+> +		return dev_err_probe(dev, PTR_ERR(mira016->xclk),
+> +				     "failed to get xclk\n");
+> +
+> +	mira016->xclk_freq = clk_get_rate(mira016->xclk);
+> +	if (mira016_validate_xclk_freq(mira016)) {
+> +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
+> +			mira016->xclk_freq);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = mira016_get_regulators(mira016);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> +
+> +	mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+> +						      GPIOD_OUT_HIGH);
+> +	if (IS_ERR(mira016->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
+> +				     "failed to get reset gpio\n");
+> +
+> +	/*
+> +	 * Calculate the PLL configuration based on the link frequency
+> +	 * selected by .dts and compute the sensor timing bases.
+> +	 *
+> +	 * Initialize row_length to a value matching the default format for
+> +	 * exposure and frame time limits calculations.
+> +	 */
+> +	mira016_pll_calc(mira016);
+> +	mira016_timings_calc(mira016);
+> +	mira016->timings.row_length = 1262;
+> +
+> +	ret = mira016_power_on(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Enable runtime PM and power on the device */
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +
+> +	ret = mira016_identify_module(mira016);
+> +	if (ret)
+> +		goto error_power_off;
+> +
+> +	ret = mira016_init_controls(mira016);
+> +	if (ret)
+> +		goto error_power_off;
+> +
+> +	/* Initialize subdev */
+> +	mira016->sd.internal_ops = &mira016_internal_ops;
+> +	mira016->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	mira016->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> +
+> +	/* Initialize source pads */
+> +	mira016->pad.flags = MEDIA_PAD_FL_SOURCE;
+> +
+> +	ret = media_entity_pads_init(&mira016->sd.entity, 1, &mira016->pad);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to init entity pads\n");
+> +		goto error_handler_free;
+> +	}
+> +
+> +	mira016->sd.state_lock = mira016->ctrl_handler.lock;
+> +	ret = v4l2_subdev_init_finalize(&mira016->sd);
+> +	if (ret < 0) {
+> +		dev_err_probe(dev, ret, "subdev init error\n");
+> +		goto error_media_entity;
+> +	}
+> +
+> +	ret = v4l2_async_register_subdev_sensor(&mira016->sd);
+> +	if (ret < 0) {
+> +		dev_err_probe(dev, ret,
+> +			      "failed to register sensor sub-device\n");
+> +		goto error_subdev_cleanup;
+> +	}
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, 1000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_idle(dev);
+> +
+> +	return 0;
+> +
+> +error_subdev_cleanup:
+> +	v4l2_subdev_cleanup(&mira016->sd);
+> +error_media_entity:
+> +	media_entity_cleanup(&mira016->sd.entity);
+> +error_handler_free:
+> +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
+> +error_power_off:
+> +	pm_runtime_disable(dev);
+> +	if (!pm_runtime_status_suspended(&client->dev))
+> +		mira016_power_off(dev);
+> +	pm_runtime_set_suspended(dev);
+
+These two come in pairs effectively. The sensor has been powered on earlier
+and not powered off, so you can omit the suspended check above.
+
+> +	return ret;
+> +}
+
+-- 
+Regards,
+
+Sakari Ailus
