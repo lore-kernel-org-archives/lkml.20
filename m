@@ -1,33 +1,33 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A885D38655D;
-	Thu,  1 Oct 2026 16:48:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F231F1534;
+	Thu,  1 Oct 2026 16:48:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873309; cv=none; b=WjLiHxFKdgGFG1p+L+KN9ob+7Q3hkOjzMAC73Bhuh1qqiuMtdx/UpFLvpvKpV5pMDTJBH6cgOYgZKpgUDUqjLohM6eNm7kGpu4oKwOX3pU7RNBw5t/rivnSaIQb7og8m2RDvjCUXRhgG+T8TTAbBsHL4Uwc/49c0b4tAZ40riSw=
+	t=1790873308; cv=none; b=WaLlFQDOBkEsLa6tg+iKX1b8q/tcCEtJJ8GKPj02uvWpsEjzcwHK4IPBrKP+oWbBzbyfedx3cSrltnkhLS738tL5FVCicvnWYH+hiFXAhlKIG3HTabGqno6vRpNwQud/8QZyJD1v/lP7eQ4c/SLBtGnxUgLsRf0FcLYKDcbxc2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873309; c=relaxed/simple;
-	bh=Lv3btq2EGsU7Wn1XXUO7wSR+eVwYrG7aogtL0T/1OQ8=;
+	s=arc-20240116; t=1790873308; c=relaxed/simple;
+	bh=G7+3lU9wDqbL1f7kEQNF55c8hkpXobunfFEQgFVURbE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Iu3WodDk2SOJL2uyXRx07SsPIYyZvvQy/rwrhtZocwjPJojUAgj2uFG0QenMk56Tila0QvN/8v7q7LSMNoAb2OlCML6BT45pHGbWG+varpFIOdIk0CsVZ9YWkK/C61Z0yuStOEU9V9XeaY5EimWwjq6xnZG61gX5AX1yFHzpd4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=l8oZ7vXI; arc=none smtp.client-ip=213.97.179.56
+	 MIME-Version; b=XWay1MryCK0NS+hqZmhcBYMl2l7RTzmRZeehOKxcgNeNEbzj1kdBJT04fqY4n4rA1xYejhfn4On0pAnjZL/jivCZDBbw08SIXEyaDmtiMtpd77UMvxZPIWDv7EtHwboKiKYXsk9vyxrZZrKtQ4HdoR7TZ4DFOH1ygLgDUlS0hRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=XX6xIhT6; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="l8oZ7vXI"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="XX6xIhT6"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=8s1ti3JiFZj5zS1GR99Sb86oAE3gBM21MOxBMbGrTnQ=; b=
-	l8oZ7vXI8BESRXASBnAJ3qrr2Hx95Yus0Wmse0qnBJRloyiLvYbvEyuSuQJus3GmHMhXTfLToLxve
-	PHWvGtccAr+WTxEm3aFj94umu/fMMzxLCVc52yZD7KwZ4/nRGTgiqUydnGgzldOL3diujI/Hhjz2z
-	qrkFpLylqJElIqLeRvwVQkhRypHvzfOpENNKFX9YgWlg4s89/NOiBi9uhJtQ0JhUbAoeOqA2h43jU
-	PKMAEEJ8pzbdsiG+8v99EvDcgx2ze3hJV9E+WLRKTs8JVMylHcwArsuxlw7ja3GoUPKXQSMsEZgEK
-	2pOsnAJKhB6r+jTPjS2Ukv8tmCcKuHHwIQ==;
+	Cc:To:From:From:Reply-To; bh=KuGNjjze5ppp4adzfjDEGKPUvGCVYboh+QSIjRO3fUk=; b=
+	XX6xIhT6zPGav4Ote/gB2A6Y9UIXhSrQMRnCFR+eDyqHpFqZxbcKxOd3zhkiQcwnT7Vi2zAfHT3h9
+	jyZawxAjIgIlVmXRMcqmwC9YgrNrHMAWILvv7Q0WACFud8hIsJcVQ/a/sxZJx5aZQTlEZBq2dvUaP
+	rHYYMVr/z3YrpIGV99mB6zAg79+O4QHqUrsGyG5u+28+ZcHinPX0G9Op9aPQ6V1odRSf8jT3F8/DY
+	8PBe2bWBA+U/Vr1+2iunnqFEZDH2yPOrvkMgE0jDgXaPIOlUCSm87qinBITrwBzupRhXdy3XyUs81
+	r8RzUEcfZKGRDgc5ichcdprkWWfbeYzZ9Q==;
 Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xCJxB-00AD0n-M9; Thu, 01 Oct 2026 18:48:17 +0200
+	id 1xCJxB-00AD0l-7O; Thu, 01 Oct 2026 18:48:17 +0200
 From: Luis Henriques <luis@igalia.com>
 To: Miklos Szeredi <miklos@szeredi.hu>,
 	Amir Goldstein <amir73il@gmail.com>,
@@ -40,9 +40,9 @@ Cc: fuse-devel@lists.linux.dev,
 	Matt Harvey <mharvey@jumptrading.com>,
 	kernel-dev@igalia.com,
 	Luis Henriques <luis@igalia.com>
-Subject: [RFC PATCH v5 5/8] selftests/fuse: use dynamically allocated memory to store ACLs
-Date: Thu,  1 Oct 2026 17:49:13 +0100
-Message-ID: <20261001164916.15311-6-luis@igalia.com>
+Subject: [RFC PATCH v5 4/8] selftests/fuse: factor-out test fixture setup/teardown
+Date: Thu,  1 Oct 2026 17:49:12 +0100
+Message-ID: <20261001164916.15311-5-luis@igalia.com>
 In-Reply-To: <20261001164916.15311-1-luis@igalia.com>
 References: <20261001164916.15311-1-luis@igalia.com>
 Precedence: bulk
@@ -53,107 +53,255 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of directly using static arrays for the ACL value, allocate memory
-for storing it.  This will make it easier to implement ACL tests that also
-set the xattr dynamically.
+In order to reduce new tests setup/teardown code duplication, factor-out
+these functions from the existing acl_cache test into a new fuse_common.c
+file that can be reused in other tests.
+
+While there, also move some of the FIXTURE members into a fuse_common_ctx
+structure that can be passed into setup/teardown instead of passing them by
+reference.
 
 Signed-off-by: Luis Henriques <luis@igalia.com>
 Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 ---
- .../filesystems/fuse/fuse_acl_cache_test.c    | 32 ++++++++++++++++---
- 1 file changed, 27 insertions(+), 5 deletions(-)
+ .../selftests/filesystems/fuse/Makefile       |  8 ++-
+ .../filesystems/fuse/fuse_acl_cache_test.c    | 70 ++++---------------
+ .../selftests/filesystems/fuse/fuse_common.c  | 58 +++++++++++++++
+ .../selftests/filesystems/fuse/fuse_common.h  | 33 +++++++++
+ 4 files changed, 110 insertions(+), 59 deletions(-)
+ create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_common.c
+ create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_common.h
 
+diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/testing/selftests/filesystems/fuse/Makefile
+index a3ee9b3a2f5d..7744f796eb06 100644
+--- a/tools/testing/selftests/filesystems/fuse/Makefile
++++ b/tools/testing/selftests/filesystems/fuse/Makefile
+@@ -21,8 +21,12 @@ ifeq ($(VAR_LDLIBS),)
+ VAR_LDLIBS := -lfuse3 -pthread
+ endif
+ 
++CFLAGS += $(VAR_CFLAGS)
++LDLIBS += $(VAR_LDLIBS)
++
+ $(OUTPUT)/fuse_mnt: CFLAGS += $(VAR_CFLAGS)
+ $(OUTPUT)/fuse_mnt: LDLIBS += $(VAR_LDLIBS)
+ 
+-$(OUTPUT)/fuse_acl_cache_test: CFLAGS += $(VAR_CFLAGS)
+-$(OUTPUT)/fuse_acl_cache_test: LDLIBS += $(VAR_LDLIBS)
++$(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
++
++EXTRA_CLEAN := fuse_common.o
 diff --git a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-index 91ad41cc92b6..8485df64e7cc 100644
+index 2411a6e285f1..91ad41cc92b6 100644
 --- a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
 +++ b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-@@ -80,7 +80,7 @@ static const uint8_t acl_b[] = {
+@@ -33,23 +33,15 @@
+  */
  
- struct daemon_state {
- 	pthread_mutex_t lock;
--	const uint8_t  *acl;
-+	uint8_t		*acl;
- 	size_t          acl_size;
- 	int             getxattr_count;
+ #define _GNU_SOURCE
+-#include <errno.h>
+ #include <fcntl.h>
+ #include <linux/limits.h>
+-#include <pthread.h>
+ #include <stdint.h>
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <string.h>
+-#include <sys/stat.h>
+ #include <sys/xattr.h>
+-#include <unistd.h>
+-
+-#define FUSE_USE_VERSION 31
+-#include <fuse_lowlevel.h>
+ 
+ #include "kselftest_harness.h"
+ 
++#include "fuse_common.h"
++
+ /* ---- ACL binary encoding ------------------------------------------------ */
+ /*
+  * POSIX ACL v2 xattr format (little-endian):
+@@ -176,69 +168,33 @@ static const struct fuse_lowlevel_ops fs_ops = {
+ 	.getxattr = fs_getxattr,
  };
-@@ -142,15 +142,26 @@ static void fs_getattr(fuse_req_t req, fuse_ino_t ino,
- static void fs_getxattr(fuse_req_t req, fuse_ino_t ino, const char *name,
- 			size_t size)
+ 
+-/* ---- Daemon thread ------------------------------------------------------- */
+-
+-static void *run_daemon(void *arg)
+-{
+-	fuse_session_loop((struct fuse_session *)arg);
+-	return NULL;
+-}
+-
+ /* ---- kselftest harness --------------------------------------------------- */
+ 
+ FIXTURE(acl_cache) {
+-	struct fuse_session *se;
+-	char                 mountpoint[PATH_MAX];
+-	char                 file_path[PATH_MAX];
+-	pthread_t            thread;
++	struct fuse_common_ctx ctx;
++	char file_path[PATH_MAX];
+ };
+ 
+ FIXTURE_SETUP(acl_cache)
  {
-+	uint8_t *acl = NULL;
-+	size_t acl_size;
-+
- 	if (ino != FILE_INO ||
- 	    strcmp(name, "system.posix_acl_access") != 0) {
- 		fuse_reply_err(req, ENODATA);
- 		return;
- 	}
+-	char *fuse_argv[] = { "fuse_acl_cache_test", NULL };
+-	struct fuse_args args = FUSE_ARGS_INIT(1, fuse_argv);
++	char err[MAX_ERR_MSG];
  
-+	if (size) {
-+		acl = malloc(size);
-+		if (!acl) {
-+			fuse_reply_err(req, ENOMEM);
-+			return;
-+		}
-+	}
- 	pthread_mutex_lock(&g_ds.lock);
--	const uint8_t *acl      = g_ds.acl;
--	size_t         acl_size = g_ds.acl_size;
-+	acl_size = g_ds.acl_size;
-+	if (acl && (size >= acl_size))
-+		memcpy(acl, g_ds.acl, acl_size);
- 	g_ds.getxattr_count++;
- 	pthread_mutex_unlock(&g_ds.lock);
+-	g_ds.acl            = acl_a;
+-	g_ds.acl_size       = sizeof(acl_a);
++	pthread_mutex_lock(&g_ds.lock);
++	g_ds.acl = acl_a;
++	g_ds.acl_size = sizeof(acl_a);
+ 	g_ds.getxattr_count = 0;
++	pthread_mutex_unlock(&g_ds.lock);
  
-@@ -160,6 +171,8 @@ static void fs_getxattr(fuse_req_t req, fuse_ino_t ino, const char *name,
- 		fuse_reply_err(req, ERANGE);
- 	else
- 		fuse_reply_buf(req, (const char *)acl, acl_size);
-+
-+	free(acl);
+-	strcpy(self->mountpoint, "/tmp/acl_cache_test_XXXXXX");
+-	if (!mkdtemp(self->mountpoint))
+-		SKIP(return, "mkdtemp: %s", strerror(errno));
++	if (fs_setup(&fs_ops, &self->ctx, err))
++		SKIP(return, err);
+ 
+ 	snprintf(self->file_path, sizeof(self->file_path),
+-		 "%s/" FILE_NAME, self->mountpoint);
+-
+-	self->se = fuse_session_new(&args, &fs_ops, sizeof(fs_ops), NULL);
+-	if (!self->se) {
+-		rmdir(self->mountpoint);
+-		SKIP(return, "fuse_session_new failed");
+-	}
+-
+-	if (fuse_session_mount(self->se, self->mountpoint)) {
+-		fuse_session_destroy(self->se);
+-		rmdir(self->mountpoint);
+-		SKIP(return, "fuse_session_mount failed "
+-			     "(missing fusermount3 or insufficient privileges)");
+-	}
+-
+-	if (pthread_create(&self->thread, NULL, run_daemon, self->se)) {
+-		fuse_session_unmount(self->se);
+-		fuse_session_destroy(self->se);
+-		rmdir(self->mountpoint);
+-		SKIP(return, "pthread_create: %s", strerror(errno));
+-	}
+-
+-	fuse_opt_free_args(&args);
++		 "%s/" FILE_NAME, self->ctx.mountpoint);
  }
  
- static const struct fuse_lowlevel_ops fs_ops = {
-@@ -180,8 +193,10 @@ FIXTURE_SETUP(acl_cache)
- 	char err[MAX_ERR_MSG];
- 
- 	pthread_mutex_lock(&g_ds.lock);
--	g_ds.acl = acl_a;
- 	g_ds.acl_size = sizeof(acl_a);
-+	g_ds.acl = malloc(g_ds.acl_size);
-+	ASSERT_NE(g_ds.acl, NULL);
-+	memcpy(g_ds.acl, acl_a, g_ds.acl_size);
- 	g_ds.getxattr_count = 0;
- 	pthread_mutex_unlock(&g_ds.lock);
- 
-@@ -195,6 +210,7 @@ FIXTURE_SETUP(acl_cache)
  FIXTURE_TEARDOWN(acl_cache)
  {
- 	fs_teardown(&self->ctx);
-+	free(g_ds.acl);
+-	fuse_session_exit(self->se);
+-	fuse_session_unmount(self->se);
+-	pthread_join(self->thread, NULL);
+-	fuse_session_destroy(self->se);
+-	rmdir(self->mountpoint);
++	fs_teardown(&self->ctx);
  }
  
  static int do_force_statx(const char *path)
-@@ -210,6 +226,7 @@ TEST_F(acl_cache, stale_after_force_sync)
- 	char    buf[512];
- 	ssize_t sz;
- 	int     count;
-+	uint8_t *acl;
- 
- 	/*
- 	 * Step 1: two getxattr calls before any statx(FORCE_SYNC).
-@@ -270,8 +287,13 @@ TEST_F(acl_cache, stale_after_force_sync)
- 	 * !fc->posix_acl mounts (it skips forget_all_cached_acls in that case).
- 	 * On a fixed kernel the ACL was never cached, so this is moot.
- 	 */
-+	acl = malloc(sizeof(acl_b));
-+	ASSERT_NE(acl, NULL);
-+	memcpy(acl, acl_b, sizeof(acl_b));
+diff --git a/tools/testing/selftests/filesystems/fuse/fuse_common.c b/tools/testing/selftests/filesystems/fuse/fuse_common.c
+new file mode 100644
+index 000000000000..d1d3dfd2ea67
+--- /dev/null
++++ b/tools/testing/selftests/filesystems/fuse/fuse_common.c
+@@ -0,0 +1,58 @@
++// SPDX-License-Identifier: GPL-2.0
 +
- 	pthread_mutex_lock(&g_ds.lock);
--	g_ds.acl      = acl_b;
-+	free(g_ds.acl);
-+	g_ds.acl      = acl;
- 	g_ds.acl_size = sizeof(acl_b);
- 	pthread_mutex_unlock(&g_ds.lock);
- 	TH_LOG("step 4: daemon switched to ACL_B (%zu bytes)", sizeof(acl_b));
++#include "fuse_common.h"
++
++static void *run_daemon(void *arg)
++{
++	fuse_session_loop((struct fuse_session *)arg);
++	return NULL;
++}
++
++int fs_setup(const struct fuse_lowlevel_ops *fs_ops,
++	     struct fuse_common_ctx *ctx, char *err)
++{
++	char *fuse_argv[] = { "fuse_test", NULL };
++	struct fuse_args args = FUSE_ARGS_INIT(1, fuse_argv);
++
++	strcpy(ctx->mountpoint, MOUNTPOINT_TEMPLATE);
++	if (!mkdtemp(ctx->mountpoint)) {
++		snprintf(err, MAX_ERR_MSG, "mkdtemp: %s", strerror(errno));
++		return -1;
++	}
++
++	ctx->se = fuse_session_new(&args, fs_ops, sizeof(*fs_ops), NULL);
++	if (!ctx->se) {
++		rmdir(ctx->mountpoint);
++		snprintf(err, MAX_ERR_MSG, "fuse_session_new failed");
++		return -1;
++	}
++
++	if (fuse_session_mount(ctx->se, ctx->mountpoint)) {
++		fuse_session_destroy(ctx->se);
++		rmdir(ctx->mountpoint);
++		snprintf(err, MAX_ERR_MSG, "fuse_session_mount failed "
++			"(missing fusermount3 or insufficient privileges)");
++		return -1;
++	}
++
++	if (pthread_create(&ctx->thread, NULL, run_daemon, ctx->se)) {
++		fuse_session_unmount(ctx->se);
++		fuse_session_destroy(ctx->se);
++		rmdir(ctx->mountpoint);
++		snprintf(err, MAX_ERR_MSG, "pthread_create: %s", strerror(errno));
++		return -1;
++	}
++
++	fuse_opt_free_args(&args);
++
++	return 0;
++}
++
++void fs_teardown(struct fuse_common_ctx *ctx)
++{
++	fuse_session_exit(ctx->se);
++	fuse_session_unmount(ctx->se);
++	pthread_join(ctx->thread, NULL);
++	fuse_session_destroy(ctx->se);
++	rmdir(ctx->mountpoint);
++}
+diff --git a/tools/testing/selftests/filesystems/fuse/fuse_common.h b/tools/testing/selftests/filesystems/fuse/fuse_common.h
+new file mode 100644
+index 000000000000..5beb6bf89425
+--- /dev/null
++++ b/tools/testing/selftests/filesystems/fuse/fuse_common.h
+@@ -0,0 +1,33 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#ifndef __SELFTEST_FUSE_COMMON_H__
++#define __SELFTEST_FUSE_COMMON_H__
++
++#define _GNU_SOURCE
++#include <errno.h>
++#include <pthread.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++#include <limits.h>
++
++#define FUSE_USE_VERSION 31
++#include <fuse_lowlevel.h>
++
++#define MAX_ERR_MSG 256
++
++#define MOUNTPOINT_TEMPLATE "/tmp/fuse_test_XXXXXX"
++#define MOUNTPOINT_SZ 64
++
++struct fuse_common_ctx {
++	struct fuse_session *se;
++	char mountpoint[MOUNTPOINT_SZ];
++	pthread_t thread;
++};
++
++int fs_setup(const struct fuse_lowlevel_ops *fs_ops,
++	     struct fuse_common_ctx *ctx, char *err);
++void fs_teardown(struct fuse_common_ctx *ctx);
++
++#endif /* __SELFTEST_FUSE_COMMON_H__ */
