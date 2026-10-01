@@ -1,183 +1,121 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1012E3264E0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790885109; cv=pass; b=T6T8HlhpgmnL1fidkPGCYBbWJyqmwHqCpQvXhqje1LloWKUMcdulf1vVGy8fq2RzRDmuglysDM9oj8h6kUW3wGKqe92pnecaqsJCUN13GH9qvRr8im/7GvRgm1NN7TVpG+q54FNwNH91AYpEM25C4Qxii7g/HljfDVU+vPQum0M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790885109; c=relaxed/simple;
-	bh=D5b2njgM22Yn9YX8W7fqgN5Wxt0Lao05fQOXJfkjPyc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=isMTrZxGOfA0JktRYwWAozNnpLu2PXTh6P6gOviKGuhEy+P8PlHHL5kNSTkCAs8+vPcqyxMkwevg2u4amBWz6W2U5jDiN87jycRUbG/e1DWjfzVlGTlWIs6aOgv7WVHvWZbxeac5QDljOum40pO8nzSdUYezM1f1m9Flot1nfOc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o7S0rT/4; arc=pass smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642D749893F;
+	Thu,  1 Oct 2026 20:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790885127; cv=none; b=WwJwEJEgpaJ0NnkS3wU0+IsgLTXvLX3bWRh/7Lb9dHCGStg0oBrHhbRGYBjhkQoaQSIsc48iGeyjy+FdejR6KlvbUzvzk4KfqoCh0RybgLc4mYTXNfeEJSIHXtUaPGFHf+FCXtVP3yXwbvKF7c9BDgXPDKtftlZrPSQo5v3PEdg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790885127; c=relaxed/simple;
+	bh=DbgtQTxtoi4dbtoGQjZXokyB0YP78CbS6kNqpYZ50L4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TLjPdyhn3ybRqa6TfTkao67LQb7Wh+3xBrdY4PZ+y4j+OMH0eWQVH/Y0grWQl/YSHzIIgpDbTFxlOrICukhj9H5WJ94rWu2l2yUDzq8B49CsVSN3tv7jqacB2wRpqxcYv2OY6UjZ87e1B60KtyCZVnOzZmE8IBh7h4mJmN9llVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFkvLWac; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o7S0rT/4"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7bf18d0c220so701799137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:05:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790885106; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lzCdAaL+6bOXO6ccoS7I3elC7pXjKSAM/qhod/tAT7IavL/Q/1Gg1VWzP1VZkJSwtq
-         6p2k3inSFPBuoDwWj8VOsZBDl73vt9QC7L2w0wt7SAL977IYJ57/Gj/DZrz8PGQeT/aF
-         FfZB58hD2zMyDq5170TiGBjpN9R3OI2Uwd3P6rJ6RIBeIts90RPmmaZ2efTv05BiuDmx
-         K83WFnjJxUZflkd8uZYUduk7PfLQLrzbIWSV8G5Tsz13N2uKd+LejQFbGMGfHNOXZKDR
-         QuSa0XrGp8rLY19VwATKp3i8zaL4c14bzq5LCqB1BmxbE6x1jf0/CnkasVj+6ARipRe9
-         senA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Pp6TH4DCeYfMYH0YGkv0J3I5da3ZUSWKwlkhgwd0Jrw=;
-        fh=ILlYTktbpbt0qN9Y2naQqq+0YJBtPsVKdRwN1ncqKDo=;
-        b=hcUN9vozJF1G2sZiC7j5gYNuOVl1gb4p2MkCmzi95U5p3ynGWYzMp+CUAEj6blL/Ll
-         fgRufjBcg6Jzyj3lQ83l4l202rY2+lRf45Hxj88AvuOuJVR/vFVq85fnJgPF1L7nL0Q5
-         AFWB0bQ2zFcq6MNHXz6ynjdQEFtsA8fy1hOxe/AqSoMv65XNNf2TgR6fZzHSJVshYS4U
-         eTrm/6gfwIolj5aRz6jMLIMjqGKWwk6WcVqMz5f0fFnjH3gFJPzAawP2xfK3gp5TyPmG
-         AJ+7/a4wsFblI8IeckCOZ2CnH9UXZeVt5MU89/GOZaD1aYkd1/yS4KanjkjX+WiRkVNT
-         61PQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790885106; x=1791489906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pp6TH4DCeYfMYH0YGkv0J3I5da3ZUSWKwlkhgwd0Jrw=;
-        b=o7S0rT/4dnEMH/8OGhYSyi2BKAi26YomRtp8jMtE8rNeWIP82oLZugcLL/mf+FVcKP
-         B83QvB39qrM3f2vJYX4vmhW4JsTWV16eYihyxB2q4IC93EIW0PTUxHQA7H82ZQTQrNy8
-         hQQljV/m9UpMFstnoqePlJcjbxSCXNum6K1nlGGy485PT+EsAisyXL7VFh1DAg2dkM6R
-         oPZaihKttRJzpSKi4hoHV8VARzbnRqU2AMyK7FxJA0ess/xaa0CjcOvdoy/yipGAyley
-         Tpyi4X8rkEsMdUrR5zk5uVvCGp1dBVXgM1VeovbF1SAfX9CULXal8NWYRdwKdgeibhhc
-         dCcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790885106; x=1791489906;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pp6TH4DCeYfMYH0YGkv0J3I5da3ZUSWKwlkhgwd0Jrw=;
-        b=De7KpeWx/8UQdof7hZr/+7DbObQOR2lOkeRtCTjFB/DC4CyvbQjgoHOkh+tw427WoF
-         0rAfdZz5KDGAG/xo0Dm3r5C7o8AFzsQhrVk0BgAx9UMNh19SrRMrqnpMFE4m6rfPZvDH
-         614pWqiEmUNpG/WqYpU2jZhG0EWfZN/XThhMSEk+Oq+PnhLDE5bbtAonArgcJdj0mco5
-         qs9RczIy9bJmnQXHEgKEcbk6Bzh6K12JsO9Fn+Mc+tT66KnEA7VMsyqdHawpi+5k2q0x
-         zx8/ZDiwIRtdEQgeWT29A7p4y/GidyHfgccXSBKemPHoXMduA1COJtTc8LdcFrRMX4wT
-         e78Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwXOLWjtJnP46YuM9g7FChZ/E0LZMCrYlrsnwGwuntd2n0t7f14od9z5QEi+//dfFoGGXKDZ5G2CsbXIyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIakdyKpacdLGLF4zvAzVuP6ycjI1NiS38U6sdWg4lkCUjMOq+2
-	YynzGiD1k0ezWt6lBpMCYS0uhVpbk7m28Z45qTMwKQNnjnE4iefZ5U2yLkaagto/jmI921Ylbm4
-	2+BUTE9Psg8ukRbCtt8VtbyV7/+akBOnm0a/SxOo=
-X-Gm-Gg: AYBFou01AzZqrMGC7Dp3YzC/q3KM1SxDZxLSTJiPTbNatLel33ZS8r/4K51sxWqGgys
-	Ti7C6rq7+mTRa586N/Ca+ywIDbdLFE4b9pU4ZPnjnd9BsDmx2OevjylVyCPPrwbkMufy/fmvo2R
-	M3uONZw91506CsBhxj+Y8872VlNxHkyIIS3QdcQL1ZQEbPPBvWAl/Tmn1g81eOUeN6yuvKwaSlW
-	iosqxQL+ODL33C8TT7AfHHwZPFqaCE3TKfpjnuYNkj71u+itGRDHfhQUpWtpwoWZJ5BE/osg8gE
-	DA3M/9org2cn6PSbteDvbZVGYhSx2oL6y6IYIMHU1GWlPuQm5djCcnvUAuLQ2/HFz8vilDBKQD6
-	K6EXdq0tlBSTqYuMbTilg
-X-Received: by 2002:a05:6102:162c:b0:7a8:6ffc:1c25 with SMTP id
- ada2fe7eead31-7c0f48951dcmr137774137.18.1790885104867; Thu, 01 Oct 2026
- 13:05:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFkvLWac"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D974B1F00893;
+	Thu,  1 Oct 2026 20:05:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790885123;
+	bh=gFa6HvAarHDlIrjmTAUOJ7RLBY11icZwWxARmx5iXy8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oFkvLWac2KsZh3NfUjCP/h7/HaiDSvHH7LZO0D+Iifpk/isoYSSxhI2v3BWzn3FE3
+	 ezPWKN5dBMirfln9QwBABBts0lU4yCJGluJ9V/VhUTd+ZBBRDwsyzZLXDcKCmbvuHn
+	 weSfehPmwqdfc0w/3m30Pxs66Mivq+g5gBaMq+pOoNTzFy0lYhkbSwj3FX6Qk5MyiN
+	 SQLtwwBKnaT1X8J1Z1sMhAHSdQsrac6gpvJIlWjBeFXj4V7HwE7EL6+tumL9iaeWb/
+	 cViDa1SdbWNXvATKsmMJmiE7FSMKp018IxkjR135SkAFeLIVLA08eFdCVezKskDigm
+	 WfgD1TkfwukMw==
+Date: Thu, 1 Oct 2026 22:05:15 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Marcel Holtmann <marcel@holtmann.org>
+Cc: Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
+	Chris Lew <christopher.lew@oss.qualcomm.com>, Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/4] net: qrtr: Assign unique node id for MHI endpoints
+Message-ID: <6isrx67suid5qcha47ihlphxmmeiiapdl57h57hejkwchwtfdb@i3g2cwz6oavn>
+References: <20260922-qrtr-multi-ep-v3-2-c00831e88957@oss.qualcomm.com>
+ <7aed969d-0868-4c9c-967e-7766dbba427e@oss.qualcomm.com>
+ <13BFC5B0-77E6-48F2-B857-37686EA1DB2C@holtmann.org>
+ <05e539f8-bb7c-4038-8a83-8ab0d1a5b917@app.fastmail.com>
+ <m657dtesuagn7vdajsuzjb4mfysf5xabsu3s6n6lujj7yb3z4p@m2e7e3n4zyev>
+ <10091679-7567-42C2-B77E-EFD95CEDD649@holtmann.org>
+ <6e0ed085-07d0-46f0-97dd-b8d942842e1f@app.fastmail.com>
+ <0A4EB216-06E0-4A7D-A0FD-821DD371773B@holtmann.org>
+ <19433f85-4cf1-4ec1-a26f-0eab7df062df@app.fastmail.com>
+ <A709172A-40F7-4986-B7D3-02A422F6584A@holtmann.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928063824.1386524-1-morbo@google.com> <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
- <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
-In-Reply-To: <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
-From: Bill Wendling <morbo@google.com>
-Date: Thu, 1 Oct 2026 13:04:47 -0700
-X-Gm-Features: AclHuK_OsmZsgIWlUXnGIOeGgxR5RkcvYLN5aGCG1e6Tds9_TT0UwWgbTocjZcw
-Message-ID: <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <A709172A-40F7-4986-B7D3-02A422F6584A@holtmann.org>
 
-On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
-rote:
-> On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@google.com> =
-wrote:
-> > On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@google.co=
-m> wrote:
-> > >
-> > > The 'data' pointer field in 'struct acpi_gpio_mapping' is associated
-> > > with the 'size' field, which represents the number of elements of
-> > > type 'struct acpi_gpio_params' allocated for 'data'.
-> > >
-> > > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
-> > > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
-> > > attribute.
-> > >
-> > > Analysis of allocation, assignment, and access points shows that the
-> > > pointer is never accessed before the count is set, which guarantees t=
-hat
-> > > this annotation is safe and will not cause runtime panics or
-> > > false-positive bounds checks.
-> > >
-> > > Cc: codemender-patching+linux@google.com
-> > > Assisted-by: LLM
-> > > Signed-off-by: Bill Wendling <morbo@google.com>
-> > > ---
-> > >  include/linux/gpio/consumer.h | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/consu=
-mer.h
-> > > index fceeefd5f893..2b80cf7aa7e7 100644
-> > > --- a/include/linux/gpio/consumer.h
-> > > +++ b/include/linux/gpio/consumer.h
-> > > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
-> > >
-> > >  struct acpi_gpio_mapping {
-> > >         const char *name;
-> > > -       const struct acpi_gpio_params *data;
-> > > +       const struct acpi_gpio_params *data __counted_by_ptr(size);
-> > >         unsigned int size;
-> > >
-> > >  /* Ignore IoRestriction field */
-> >
-> > There's a problem with 'drivers/firmware/efi/libstub/Makefile'. Clang
-> > needs a compiler flag to support the "__counted_by_ptr" attribute
-> > referencing a field *after* the pointer, like in this patch. However,
-> > the Makefile blasts the flag away for x86 platforms. Below is a hack
-> > that copies the part of the top-level Makefile that adds the flag. I
-> > don't think that's a good solution. The comment in the driver's
-> > Makefile says that the stub code executes before the kernel does,
-> > which I assume is why a lot of the flags are blown away... In any
-> > event, I'm not sure how best to address this.
->
-> But is this a problem with the current patch?
->
-> Does libefistub use <linux/gpio/consumer.h> in any way, shape
-> or form?
->
-It's being #included transitively:
+On Thu, Oct 01, 2026 at 05:39:47PM +0200, Marcel Holtmann wrote:
+> Hi Juha-Matti,
+> 
+> >>> Well, in defense of Manivannan's patchset it currently works for PCI+AHB
+> >>> setups better than the last version of that by Denis/Mihai/me (although 
+> >>> I could easily fix that), and it may be simpler for userspace to
+> >>> continue using nid than having to bind to an endpoint, which requires
+> >>> more changes in userspace code.
+> >>> 
+> >>> The userspace just needs to know the nid.
+> >> 
+> >> and existing userspace? You can _NOT_ break existing userspace.
+> >> 
+> >> Don’t you need to re-write all existing QRTRIPC packets to actually even make this work?
+> > 
+> > Well, from what I understand this rewriting is the plan.
+> > 
+> > It is true that if someone has a single card, the nid changes, thus
+> > maybe breaking userspace if the userspace has hardcoded nid.
+> > 
+> > But if someone has multiple cards, the breakage to userspace is less
+> > with this patch, since userspace can keep on using the same code and
+> > just change the nid, whereas with the endpoint_id patch, the userspace
+> > needs code changes to bind to an endpoint.
+> 
+> the general rule for Linux is to _not_ break existing userspace.
+> 
 
-In file included from drivers/firmware/efi/libstub/efi-stub-helper.c:12:
-In file included from ./include/linux/efi.h:20:
-In file included from ./include/linux/rtc.h:18:
-In file included from ./include/linux/nvmem-provider.h:16:
-./include/linux/gpio/consumer.h:670:55: error: use of undeclared
-identifier 'size'; did you
-      mean 'ksize'?
-  670 |         const struct acpi_gpio_params *data __counted_by_ptr(size);
-      |                                                              ^~~~
-      |                                                              ksize
-././include/linux/compiler_types.h:392:64: note: expanded from macro
-'__counted_by_ptr'
-  392 | #define __counted_by_ptr(member)
-__attribute__((__counted_by__(member)))
-      |
-       ^~~~~~
-./include/linux/slab.h:602:8: note: 'ksize' declared here
-  602 | size_t ksize(const void *objp);
-      |        ^
+The rule is that the kernel must not break ABI and the node id is not ABI.
 
-> Yours,
-> Linus Walleij
+Node ids are assigned dynamically and discovered at runtime through qrtr lookup.
+They are not a fixed property of a device. For an AUTO endpoint, the id is
+simply whatever the firmware advertised and nothing guarantees it stays
+constant.
+
+I internally checked with the other uses of QRTR, ModemManager and QAIC teams:
+
+- ModemManager never computes or hardcodes node ids. It discovers them live over
+AF_QIPCRTR (via libqrtr-glib) and groups ports into modems by physdev_uid, not
+by node id. It is not affected by this series.
+
+- The QAIC userspace queries the device's serial number over its own control
+channel and then assumes that BHI serial number is same as node id. That
+assumption is what breaks. The kernel never guaranteed it. QAIC devices just
+happened to advertise the serial as the node id, so only QAIC userspace had this
+assumption.
+
+So I don't agree this is an ABI break.
+
+To give QAIC a proper interface to migrate to, I will expose the assigned node
+id via sysfs entry in next version, and the QAIC team has agreed to update their
+userspace to read it from there. That sysfs attribute will become the documented
+stable ABI, the specific node id value never was.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
