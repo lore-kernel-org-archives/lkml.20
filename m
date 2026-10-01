@@ -1,92 +1,123 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9603B3895
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079553B19C6;
+	Thu,  1 Oct 2026 23:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790896718; cv=none; b=ibmXTRlYrwTJU9U0kBMBw4QEROzZJv9kGsNzV/5nuI/EVfVZY+taOXLHZBDw6Hfh3oAIvTq5zYGoI1LaEMeo8tUQ0bKDbKTIjwgfd03aflAz5oFyTdcZycbFqK0rDwSxMrRoXQooRN1mgAkFx7eoJH/l91s/oAnYfiF4XsSS6XE=
+	t=1790896741; cv=none; b=AJPN+p95+l81oqqosQRLJ+Fx+/b8hlfX0A/BjKBr8qmXCh/8DjTXP+l8ZeZYx/v6YFMVRSsEJjWQg2nU8p70r6Q3w3esnkBql7o3FvT2WMGh1+CTrVhRadW23r4m8+CNEZ0/3bMUhEoONp7/afKo9JLo1xf+K33G7VoPjy4ZyIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790896718; c=relaxed/simple;
-	bh=LGswsnZXJUBGkrzTvqTSLcIHT6gzuUHjJgJwgvTE8fM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=MbQRGjdGFGkCS5wLV2mEEpZyppipu032Uypd0lcOSmyuUvZe67uIL9DjkB1NvPdIVFoqePRubeK7KoOkZ/X3bDJOz5vCyu32ApCeGbxKRwaSab6dWuviEGvkQqrXHXIhbh0HEA/9uXwcfz9UzC7LAdcvXisd49K8xlxzPKIq6Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GB6KYFb5; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790896741; c=relaxed/simple;
+	bh=9bxrtY3tr7ZzsH0K2o2kuH8XrbHlRax04WUJ0CoyNVE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NuMWQPQydUQOjiXZQWkFjDCYY3ekqg4ehQuZvAofDKlUgjNbcBh5WJfVVCNc9iG1NNSkUBmOGRV3HCgzyfRs/a5M5DpWpmPfoSKlUlLva6pF4//ttFaLmHZaiu29GDoe1LnEFNc74s3EUqg1ZVqyc5tlmJVHyrLEtjceOd5cYyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Oy4mzuYI; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GB6KYFb5"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfc52ddc55so67460855ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:18:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790896716; x=1791501516; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Bt4FBOS0I71ZeNU1qvl7TVnImsqea9TvROCXfNFv7c=;
-        b=GB6KYFb5OU5KAXaieAWtPW9+eZVxGHI3jLY2OVL4FuPWCUoUtnpGmCzM91pHEfTCMD
-         blI2zKr8HxssevsDsIPu/RINqwx1MB+Yq1XRe1x6hP/omS2JisYjZxtbzMuTgeT5FrX5
-         eHbb74KQPzVMuh6XuIBpvxY7q4vXW5rpmdCKEmvbG04rthycnGxr15sTN9k1UkfkV1oR
-         Gy528AW1i0YUPRl6lF/SIh+3ix6YBcgBI/NadtlMrYDhQdE8eqI7HKIFC/JxZ97n1gew
-         DHWKLgiTu9JGMPx2IwwCSF08HYmgir1S/pYoWsFdF8ffK7N5tU40myZuvkv7kAO9Sy3a
-         gCeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790896716; x=1791501516;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7Bt4FBOS0I71ZeNU1qvl7TVnImsqea9TvROCXfNFv7c=;
-        b=SRGPgP/AyJUtagCbpaHM7tMDtP1oSW0TYjvPZa8fAzoiZG4G8sUJZu8xyBwYqj+See
-         yYn08HlGYJQg0iOXlxKOj2bYQanRXTykL/Gn4g2y4PqpAGJfhK79K837jY2wRFWPRS61
-         O9pNsTESFuvU8I13erRk2AXjx5MkGLEEFHYrlzX84dOkFMnQbsnY9SlEWf/NY1F2Wdml
-         GZL7U2BK/6W71YGdbc1lgPBBcg7OGvjFZOfsDZZ6RTAaqdJr90xBEUn3ILV4jpyXf5lg
-         CooBonbdTck6BbE0LE6omMBIK7vixOH72KsGMNW+HBZbYt2jmXk7AB0MCuu1rXUnPbUu
-         9ohA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGjWqRdFu+GxCkSLLd142+gaoVylOJZ/tXk0AMzbv8OQu6CeE2YQPvP4+6kMViVnjDmC1D3noNKRDknvg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbhmHlJB7ckwjYV2OBcrb8hDcv2JhO3YGIax3K0NmshjWEOY64
-	1MwxT/xs9j0D/o8U5zUr/DITC/Gk8HRbXI1mo2tC5Qk3X9xmzeyBUceoWnQikhHkmcKyu09dRae
-	vaU6luw==
-X-Received: from pjsc18.prod.google.com ([2002:a17:90a:bf12:b0:3a6:dda6:5b44])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:58e8:b0:39d:fd82:de0c
- with SMTP id 98e67ed59e1d1-3a6ce3be283mr769245a91.2.1790896716130; Thu, 01
- Oct 2026 16:18:36 -0700 (PDT)
-Date: Thu, 1 Oct 2026 16:18:35 -0700
-In-Reply-To: <ar5yW30S75THCfdV@LeoBrasDK>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Oy4mzuYI"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8B7FCC23;
+	Fri,  2 Oct 2026 01:17:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790896624;
+	bh=9bxrtY3tr7ZzsH0K2o2kuH8XrbHlRax04WUJ0CoyNVE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Oy4mzuYI6RFrAuQe1XYfN1o4ZZplirUHF8wDM+gQqINDr0qNzj8HPLq7hOG0+2Y6P
+	 fY+fZ1WLbc9utx5kzFcwyFf72ecgYLzF3RtaSjqJohwzhzjaUv93fifZN+xODPJ86B
+	 yNMA3PgY7nw+aIItWrRGVPJ26QznS3ygNcvamBoM=
+Date: Fri, 2 Oct 2026 02:18:56 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: raoxu <raoxu@uniontech.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
+Message-ID: <20261001231856.GB9061@killaraus.ideasonboard.com>
+References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260929113711.2064390-1-leo.bras@arm.com> <20260929113711.2064390-3-leo.bras@arm.com>
- <ar1xne00AHnJ-p_d@google.com> <ar5yW30S75THCfdV@LeoBrasDK>
-Message-ID: <ar7qS3PeV_zo93iT@google.com>
-Subject: Re: [PATCH v1 2/3] KVM: selftests: Check dirty-ring size before enabling
-From: Sean Christopherson <seanjc@google.com>
-To: Leonardo Bras <leo.bras@arm.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-	David Matlack <dmatlack@google.com>, Ackerley Tng <ackerleytng@google.com>, 
-	Marc Zyngier <maz@kernel.org>, Josh Hilke <jrhilke@google.com>, Oliver Upton <oupton@kernel.org>, 
-	Wu Fei <wu.fei9@sanechips.com.cn>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
 
-On Thu, Oct 01, 2026, Leonardo Bras wrote:
-> On Wed, Sep 30, 2026 at 01:31:25PM -0700, Sean Christopherson wrote:
-> > > "Dirty-ring not supported in this kernel\n");
-> > 
-> > "this kernel" could be misleading, some architectures simply don't support the
-> > dirty ring.
+On Thu, Aug 13, 2026 at 03:46:32PM +0800, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> usb_fill_int_urb() takes an endpoint interval value and stores the
+> period expected by usb_submit_urb() in urb->interval. For high-speed
+> and SuperSpeed interrupt endpoints, it converts the logarithmic
+> descriptor encoding to the corresponding microframe period.
+> 
+> The UVC status URB is initialized once in uvc_status_init(), including
+> the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
+> that report bInterval using the old full-speed convention. The first
+> submission therefore carries the intended interval.
+> 
+> Both status resubmit paths, however, overwrite urb->interval with the
+> raw endpoint bInterval before submitting the same URB again. On
+> high-speed and SuperSpeed devices this mixes the descriptor encoding
+> with the already converted URB interval representation. For devices
+> using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
+> quirk adjustment after the first status completion, making the
+> workaround effective only for the initial submission.
+> 
+> This has been easy to miss because the initial status submission is
+> correct, full-speed interrupt endpoints do not have the same
+> logarithmic encoding mismatch, and the status endpoint carries
+> relatively infrequent control and streaming notifications rather than
+> the video payload itself. The problem only appears after the status URB
+> has completed and is resubmitted, and the externally visible effect
+> also depends on how the host controller handles the resulting period.
+> 
+> Do not restore bInterval when resubmitting the status URB. Reuse the
+> interval established by usb_fill_int_urb() and usb_submit_urb(), which
+> also preserves the quirk-adjusted value. No additional state or
+> interval conversion is needed because the same URB is being reused.
+> 
 
-Hmm, the counter argument is that this is actually accurate if those architectures
-were to gain support in the future, but someone ran this on an older kernel...
+This commit message is also very long and has a large amount of
+irrelevant, when not borderline incorrect, information. Is this missing
+an Assisted-by tag ?
 
-> So, do you suggest keeping it simple by printing "Dirty-ring not supported"?
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
+>  drivers/media/usb/uvc/uvc_status.c | 1 -
+>  2 files changed, 2 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index 3ca108b83f1d..6552f541aa0d 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
+>  		return;
+> 
+>  	/* Resubmit the URB. */
+> -	w->urb->interval = dev->int_ep->desc.bInterval;
+>  	ret = usb_submit_urb(w->urb, GFP_KERNEL);
+>  	if (ret < 0)
+>  		dev_err(&dev->intf->dev,
+> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
+> index b632cf5e3fe9..680c6c7f4ad7 100644
+> --- a/drivers/media/usb/uvc/uvc_status.c
+> +++ b/drivers/media/usb/uvc/uvc_status.c
+> @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
+>  	}
+> 
+>  	/* Resubmit the URB. */
+> -	urb->interval = dev->int_ep->desc.bInterval;
+>  	ret = usb_submit_urb(urb, GFP_ATOMIC);
+>  	if (ret < 0)
+>  		dev_err(&dev->intf->dev,
 
-Yeah, unless you have a better idea.  Actually, even though Kconfig isn't user-
-controllable, it's still there in the .config.  So maybe something like this?
+-- 
+Regards,
 
-	TEST_ASSERT(cap, "Dirty-ring not supported, check CONFIG_HAVE_KVM_DIRTY_RING?");
-
-That would at least give the user a breadcrumb to start with.
+Laurent Pinchart
