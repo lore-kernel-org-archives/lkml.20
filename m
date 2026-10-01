@@ -1,128 +1,244 @@
-Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com [74.125.229.164])
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7913C1F41
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.164
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790893368; cv=pass; b=HT1PN5Jyc7LoT8Mo7KyCxccYrXA7rhyaM2G8+p79bSZiju/gmwDlJECuGr52k/4TzM8stF2eWykc2Z4rGWXtCdNyZXAGkDpVE9AvxlueLUwVKZzAIambPJedEJLe+PTtek43XZHv/VSRrnIEOm6Ek46Jk98mWcoUFdPGFP2cBnI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790893368; c=relaxed/simple;
-	bh=jRjHDbuXKLMn6PiuB+tFuhgDq4MLCM9aKggiyanaEng=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kbECDQOitEptSwdxJJYZXkbTpxo5FAQdPBlQvlvYYBb5g7HBXxa1bqup4LTzHjyW2T+rnXtOvZhpG1O/X3UERuIdK0trqxmZi0l4+YdoHaAWjZFLWHOOoOiNgBBwnbECn0FRDYCArFDC46K8/j0KWeirxt/0vHJxvKnuWlsVBOw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P+zscGa9; arc=pass smtp.client-ip=74.125.229.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DDD3655E7
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790893426; cv=none; b=aKazVjVvbwsRB3Ot+p++FrHHGSEoX1ARy4aKyj72jowc6mZY4pYMGWxHKQI+hAYeNRwt5Mk87DQfO8xbs6cgNs7RIDmQ6TJnc2D23o6nYEKBNWO1EleV/F5dwJIeaalu1IE2kviVdWcWCnl/cyPLoSYKqrRCl4Islsq+AZ0MUFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790893426; c=relaxed/simple;
+	bh=mYU0svSnfzB3erw1GhulDfxdQe7HII9Himyq/LKdwWY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rF05hEo7x5Nl7DZ5g/KjlFONKwjftAbpqcRM008Ja9DvCjJSuQs+OmV4lerNwyrurVtz49vqil3DPLP0pqP/+xSo1Ny1saDJunaBd9G2bpeRSKyfOPf4YsANPTETtN4fYGi/ywGcXl299w/qBOtyWpzo+E8S42TP4ywqfO+6gF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UcKZmerM; arc=none smtp.client-ip=74.125.228.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P+zscGa9"
-Received: by mail-dl2-f36.google.com with SMTP id a92af1059eb24-14373bcc010so6349804c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:22:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790893365; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VJTHxjY7l2uybztw/ozSDeUZjOBkPgusKMyOClNyI8tMmTlLQu8xxhxRkh/t0RWqMd
-         UrCNK8EHwRfTiI8wXZXcMIIzxfWufKBZAcgXUso6ta4Maa4MSc+l50IgoVysPqokX/i4
-         5zT5oJCPVGu4clBMMiX98gmR9Y9pc2v52iCp9BSTZbbZWIM/R8nLYh1aCmiQM8sEocDT
-         nDedtsi84RWTAFbSw4EfA4FX5vvhprQgl6NVeDMSYr6jdB134PpKGedONxL4kDhjnx8e
-         u8KSsaPW/mBQME2pdzB1l1+lNHSynmebYdtByRqUrBoZaHAj3MD2Av9ep9m1iIRK/Dkf
-         tj1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wfKwgJtYMsEYEWlSf+SsfhmhLRaFUNim0MEAFnPkGYc=;
-        fh=4czdxzocsnFfi8ULMyPlji2ZxgvywKEejm0X/nnv2wk=;
-        b=AeBLHqvaTrVpPQj8ory5CzhXCUmzc3Bh07P23RI8wgnJmMKTec3Ggo5WPcdpwXfokB
-         9ya89E1qwjMucgDqxEQ5obWyzTkSL9kE0fcahjLIM84AS/Fp/CzFQfKBKI5+F46E8h2j
-         zE5KmWlZ2ZrUAh6r/flWM30wRpo1AnjNMDz/BaPELw6xRbIkNoQ4vL7sC0gDx/TUgxZi
-         ctHs/ySbyNvV0FJRnyx9p8pNf8g87LlPTbi/lwfW5ywO5m3W54Q21zkulNtFFZOq7G+p
-         gXAfNdG7S5EjhXhEMv5HNjsczSNDxYlIgSKOZscMR2uXNP5ho3VNDADLJsWsexkSW8S4
-         9CJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UcKZmerM"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6ab01dda422so7889203a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:23:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790893365; x=1791498165; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wfKwgJtYMsEYEWlSf+SsfhmhLRaFUNim0MEAFnPkGYc=;
-        b=P+zscGa9lQEWDDYzQH23tCBhk8SY7Ae9UmEpjPY5QIrju00GARaRJ4jGspFw+ZYPPA
-         +1ivdAVizgRuh0RiNMK2Y/otBtNTzouMToemHllyQ78DhXj050UoZWla7IyN/xgyux/m
-         lkfAqOWJMQki+1Ys2UaSdeuqA8KmpWOyPE1L+muBoLj3g8G7dTVcoUgRJxDQiMHMI8xa
-         gXcnBeBW73fX6RG4gedP01jr8KPoScfH3m5YcJulwxeMy2FT11jeMHEs0QaPZBjQDH61
-         UxeU6b+2peD14qoDOQOpUCzadDioxFwvHTG4Dp3wsuUVAnttWCuyvEHEmSdK5gGpYP/J
-         GkTg==
+        d=gmail.com; s=20251104; t=1790893423; x=1791498223; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VXS32F0Rce0o7RoG3p8pF3LK2S/LnFEZJXBeGjqi9eA=;
+        b=UcKZmerMkQg+K3Y9aMhPEkUDOIvifxQEnZUb1xuqYbE7/p2gDGTAIxx+/4BB4aPgub
+         Zl+Vms0YNfrJJbmFY0r7ssbqXGuXjvoyGm2MR9fcYb7UVtXKKI9462XuC72L+erCvlmn
+         dK8cH7iSVW6MeM8mjjzMIlbQRNX0oGoMEJduYcYdpWD3jOvu6oORiBFroyDfq/mwiy9I
+         0LIAfB9ieVmP3l94Ah6KPmO1ecnXFgDNCOhnTEryc5mtxhXyhw4VR/NqtHWPPNIKeMxp
+         shUOHVtf6AJOasasFIxVm11X8il0foZDkUurpAVua6wMbO00aqP/9fA/+yavxmaZbeoe
+         Q/uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790893365; x=1791498165;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wfKwgJtYMsEYEWlSf+SsfhmhLRaFUNim0MEAFnPkGYc=;
-        b=25q9GtUwUy1vPNbgSIp/iy7TeiYF+1oglcLVb+ISQeUgeMgkwv+n09C5fxHs3a685g
-         GAi8eenZIjpgLMW7FkT4/F8cectIklM65oCz2673kzc7FTXzf4SrB3/TEs1NdIoWjnns
-         imVQpMuZDH0758gISuLjInVx7ZPxODbgRpXO5n/oQ+kuib8D2hAd+nDZCx+yKnrr/XeA
-         BDgv7ZmrG2a57Td/d1mtfR90nGrFeH80K8sphhF0TkZDDOwngWDQH6QKwZMfvQoYDrsU
-         8E8Zi7ORC+HsZ19p9MCFlpcJcrNVWr3RDVZ36nzYJ9WR3UVLsJwtbj8Z/twibxQPxhzx
-         j7ZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwj/bL4aQEfcBYTBQWcrErAmcvgaK1CC2f7ejaeVRJaPWXEj4tSTGRhSwpE1bY6ueZE1+wgUSvuIi0Qsho=@vger.kernel.org
-X-Gm-Message-State: AFuF++mT3FsESkd5pssFBHZAbfpTe1G5wq+q9/McIKJ6yhYfYEJeMIOI
-	P3vOlw28KrQ/rmOuLiD1ANOepAa3jiuKZwaoqSlnC4CYpfbG9gSRMM+4DViWEZlAaQJ1Va9AxUf
-	gME4SxkzcG87zk2Y5cdy+qHy+QUaDs22myCY1lDhh
-X-Gm-Gg: AYBFou23kWweMuKNxEXmkfQsd7RKlb1sdbGcdk43TGOYzFon96uVMFAnYTH/Wv1LOoG
-	CKg5FJ0UcE0cB/k5MR0yVZqW6FYOZQ5HPqzgVB0IwGO0kaATfRpgoQ+Ao+5XyR6HKblq+F7hOcl
-	1RJoyln4UFyXrcZQsEDK9Vy3OTQl8W3XWz8cxWqJAS4cBKhuZ5QyLWZGXtMtKwBIvQBbZbo80Mo
-	/nb8wzveT6LKp3xhT/SAjhydqJpaO6X0bxgwBqLleZQ0G8W7Ypu8sd8+Zl1qiHwl/yLW6+OufuV
-	nSyEWJB9Ir0bvMjU565cq1btaIUH5V1nrRPr2m82GthiZ4mY54+yb7DUG5u4bSbv
-X-Received: by 2002:a05:701b:42d3:20b0:143:72b1:9004 with SMTP id
- a92af1059eb24-14f5cbd2c4bmr587221c88.45.1790893363916; Thu, 01 Oct 2026
- 15:22:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790893423; x=1791498223;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VXS32F0Rce0o7RoG3p8pF3LK2S/LnFEZJXBeGjqi9eA=;
+        b=LdUwE+P4jYdNq9uC4Qhr1RkaO79/sVHwfv7JHDCdPmtTiU7b8otlUvCDGnP5sHoWFN
+         HXg77KkAiK+V6Bt0zlw3Ns75x13o0l5oA1oLhbl1IQmaTNJvx9GVcDoMmMF5sWbdy3wE
+         vjcMCGJo/z3Ga2fMtPmCia6jq6UjrtpMe7xyv/E5F3CFFrUMzbzkwN2+JcVNmIrnTO17
+         H64vud0gdEj4pxFvFv7PJIACuCc61XdI/iLs68hgw+q1lKu1iMqXHAi2GQyNulAxk5ts
+         3MAc2hxNXwBviGdYoguNCQLOMjB1t7ei8xF+7vCB4/HSfz1hydiT0JFK/tjEp3fWMK2+
+         TAKA==
+X-Forwarded-Encrypted: i=1; AKwUvBx7fPN7HkWZL5ebgr+7dILe2xbn3e+ufXO4Xtx+2Nb0b2I/E5GGVXbCEU4O49zFnmATVfCy3fVApVcfM8Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLW9GNfC08bWxcBpIg3umVPJx6YL+GAQCrMA2nYV/pbF1KL9lir
+	jkgR/ONDZxrYJq6abuXARQEj98ljDIs3C8KqVxBETQBjG+N9YtlRmyU8
+X-Gm-Gg: AYBFou1a8Qdcev2gYmhPSHKS5tLw5ogXfIUvZzV9ZNi3QAFOKTk9e845lTzRcb9BIDH
+	wNj2zoINuf9eyid3wm0TWac+4AXzA8rqr3xAuAQ4hi5CeypXW3UwI1ZhYMW1pvNmTczNWqxXv0H
+	c7ICfkN13WM9OolW9nKuFX7FNOHiQu/GgZzq/tUi48/B9TRqfvCk0nPl3q9NxnXN6x+QBpAYtOT
+	QpTZtq1gIfG24TBXa7wilfZqkj3iWVw6KVamKQe4bD51J2Mv1h7IZZ3O7EG5idLjt52fAbVv9BK
+	om4XcNllQkGawwAUwh0ZqFOXCdCf6ywRe1kAubAH81VoHvckcbLfLFO4xAKIH78aGdpXQ64rq4J
+	GR4f/KECYFWYO6h2tElVk4SbqXcDmfi5jLy3LKK8HDwy/vauUdvy/nXhKbjDygl33GvbQmh8uKZ
+	jz9yk6IQQPgTZY57EBClYjhAo0U1dXy+Fb9IKJR+/TWluVMNJrmgO9YZSRpViqD+H4nOA4zRR4B
+	WBVEUVdKYtH+DnMlpM5KitUOf8CRP5TMF8Tae1aDXEV
+X-Received: by 2002:a05:6402:2790:b0:6ac:9a44:d404 with SMTP id 4fb4d7f45d1cf-6af9de99262mr412774a12.0.1790893422537;
+        Thu, 01 Oct 2026 15:23:42 -0700 (PDT)
+Received: from [192.168.86.89] (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d87399esm238935a12.9.2026.10.01.15.23.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 15:23:40 -0700 (PDT)
+From: =?utf-8?q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>
+Subject: [PATCH RFC 0/4] HID: logitech: add Bolt support with HID++ input
+ handling
+Date: Fri, 02 Oct 2026 00:23:34 +0200
+Message-Id: <20261002-bolt-input-rfc-v1-0-333e1f350586@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260517114026.6817-1-vasant.hegde@amd.com> <amc-s_W_TjLYnbw0@8bytes.org>
-In-Reply-To: <amc-s_W_TjLYnbw0@8bytes.org>
-From: Chun-Tse Shao <ctshao@google.com>
-Date: Thu, 1 Oct 2026 15:22:07 -0700
-X-Gm-Features: AclHuK_pUfvqEqlIhxon9tDrY8mIgK0Ky_lHDUxAV5-XvBm5W49T2B5l4bbA0VI
-Message-ID: <CAJpZYjVRRsof8KsgOfGL1ZBE8zM5hTY1+U5PHdz9=gkSfeRw9A@mail.gmail.com>
-Subject: Re: [PATCH] x86/events/amd/iommu: Fix cpumask of IOMMU events
-To: =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-Cc: Vasant Hegde <vasant.hegde@amd.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, peterz@infradead.org, mingo@redhat.com, 
-	acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com, 
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, 
-	adrian.hunter@intel.com, james.clark@linaro.org, x86@kernel.org, 
-	dave.hansen@linux.intel.com, tglx@kernel.org, bp@alien8.de, hpa@zytor.com, 
-	iommu@lists.linux.dev, suravee.suthikulpanit@amd.com, sandipan.das@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAwND3aT8nBLdzLyC0hLdorRkXUtzEwszA/PkZLMkIyWgpoKi1LTMCrC
+ B0UpBbs5KsbW1ABlipOVlAAAA
+X-Change-ID: 20261001-bolt-input-rfc-9748607cc6b2
+To: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>, 
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Bastien Nocera <hadess@hadess.net>
+Cc: Rafael Passos <rafael@rcpassos.me>, 
+ =?utf-8?q?Gr=C3=A9goire_Stein?= <greyxor@protonmail.com>, 
+ Alexey Zagorodnikov <xglooom@gmail.com>, 
+ Oleksandr Natalenko <oleksandr@natalenko.name>, 
+ Roman Stingler <roman.stingler@gmail.com>, 
+ Lovekesh Solanki <lovekeshsolanki00@gmail.com>, 
+ =?utf-8?q?Kate=C5=99ina_Medv=C4=9Bdov=C3=A1?= <k8ie@mcld.eu>, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790893419; l=8027;
+ i=erikhakan@gmail.com; s=20260922; h=from:subject:message-id;
+ bh=mYU0svSnfzB3erw1GhulDfxdQe7HII9Himyq/LKdwWY=;
+ b=e7o2aIRBrR45FSIy/M9EPXqtUv1wvSbQ9G5166WySvyAVmtGFSPpgknENYgTrMiG1EhRw29Rf
+ gvqOe/NPX0DASH4nntIESMmNRzI1hvSnElRxCnrfSNZcyT0JDu+3mKU
+X-Developer-Key: i=erikhakan@gmail.com; a=ed25519;
+ pk=brCZX79/H6Z7mPgiNX6TDY45ZjODPth0eXRDUgh1mNI=
 
-Ping for attention.
+This series is posted as an RFC for review and hardware testing since the
+previous patch had some issues and had to be reverted. It is not ready for
+merging pending testing and discussion of defaults.
+The series adds Bolt receiver support to the Logitech HID++ and DJ drivers,
+with revised native input handling and HID++ wheel diversion.
 
-Thanks,
-CT
+Original patch: https://lore.kernel.org/linux-input/20260712003051.338194-1-erikhakan@gmail.com/
 
-On Mon, Jul 27, 2026 at 4:26=E2=80=AFAM J=C3=B6rg R=C3=B6del <joro@8bytes.o=
-rg> wrote:
->
-> On Sun, May 17, 2026 at 11:40:26AM +0000, Vasant Hegde wrote:
-> > IOMMU performance counters are accessed via MMIO space. Currently IOMMU
-> > PMUs uses a single global cpumask (iommu_cpumask) shared across all AMD
-> > IOMMU PMU instances. This prevents collecting per-socket numbers
-> > (ex: perf stat --per-socket).
-> >
-> > Fix this by adjusting cpumask based on IOMMUs NUMA node.
-> >
-> > Signed-off-by: Vasant Hegde <vasant.hegde@amd.com>
-> > ---
-> >  arch/x86/events/amd/iommu.c | 29 +++++++++++++++++++++++------
-> >  drivers/iommu/amd/init.c    |  7 +++++++
-> >  include/linux/amd-iommu.h   |  1 +
-> >  3 files changed, 31 insertions(+), 6 deletions(-)
->
-> Acked-by: Joerg Roedel <joerg.roedel@amd.com>
->
->
+The original approach failed to use the correct descriptor for the virtual
+Bolt mouse device, which may have caused mouse reports to be incorrectly
+interpreted. In an attempt to fix that, the second approach was to not let
+the DJ driver claim interfaces 0 and 1, and thus let the generic HID
+handler handle native keyboard and mouse reports. This had the side effect
+of incorrect scroll scaling for 0x2121 (hi-res scroll) devices, and
+attempts to fix that caused various side-effects, especially when used
+together with user-space settings for scrolling.
+Attempts to fix everything failed to account for the fact that we were
+treating Bolt devices differently than other non-DJ devices.
+
+Further, some attempts of fixing tried to rely on storing user settings
+on-device, but these do not seem to survive reconnect or turning off and on
+when tested in the Bolt MX Keys or Lightspeed G502.
+
+This series aims to fix all of this, while also preferring HID++ reports
+for Bolt mice to allow for device identification, despite the fact that
+Bolt receivers do not support DJ mode. Regular mouse and keyboard events
+will still be native HID events and can't be identified per device.
+
+- Handle Bolt mice the same way as e.g. Lightspeed mice are handled, i.e.
+  let the DJ driver claim interfaces 0-2 and use the existing 16-bit mouse
+  descriptor for the virtual mouse.
+- Fix diverted 0x2121 HID++ wheel movement, including resolution and
+  software-side inversion when scroll direction is inverted. Also, handle
+  both low- and high-resolution reports coming over HID++. Bolt devices
+  have HID++ diversion enabled by default.
+- Add HID++ 0x2150 thumbwheel handling, with device-provided scaling and
+  direction. Bolt devices have HID++ diversion enabled by default.
+- Extend the M650 Back/Forward diversion quirk to devices connected through
+  the Bolt receiver.
+- Add HID++ 0x2130 ratchet-wheel handling. Bolt devices have HID++
+  diversion enabled by default.
+
+HID++ diversion supplies a device index, allowing supported wheel events to
+be attributed and scaled per device. Ordinary native mouse and keyboard
+reports still lack that index. Their source remains ambiguous when several
+devices share a receiver; this series does not solve that limitation.
+
+Non-Bolt wheel-reporting defaults remain unchanged, however the 0x2121
+general behaviour has been changed. Instead of first setting
+high-resolution mode and then attempting to fetch 0x2121 capabilities (and
+thus scale) from the device, we now get the capabilities first.
+Previously, in case of failure to fetch, high-resolution scroll reports
+would be scaled as low-resolution, or whichever scale already existed. Now,
+if we fail to fetch capabilities, we request low-resolution native HID and
+set the scale to 1.
+
+All settings are applied at device connect (or driver load), and userspace
+may override afterwards. Solaar is known to apply its settings a few
+seconds after the kernel driver is loaded for a device.
+Userspace changes to wheel resolution, diversion and inversion should now
+be handled correctly. These combinations still require hardware testing.
+
+A risk with this series is that for testing I only have access to an MX
+Keys for Business over Bolt and a G502 over Lightspeed. The series has been
+tested with both and works as expected, but it needs testing with as many
+devices as possible to ensure none of the previous issues remain.
+
+The following items need to be tested:
+1. First and foremost, the 16-bit descriptor finding was based on looking
+   at the native descriptor from the Bolt receiver and not something I
+   could test myself without a Bolt mouse.
+   Hence, just regular mouse movement needs to be verified with a few
+   different devices.
+2. Further, scrolling with a 0x2121-supporting device (i.e. high-resolution
+   scrolling) needs to be tested with Solaar set to all four combinations
+   of HID++ diversion + resolution, and all four combinations of HID++
+   diversion + scroll direction inversion.
+3. MX Master 4 thumbwheel (0x2150, or any other mouse with this), diversion
+   on and off in Solaar.
+4. M650 Back/Forward clicks when connected over Bolt.
+5. Ratchet wheel (0x2130, I think Signature M650 and M750 support this,
+   from issue reports online) with diversion on and off in Solaar.
+6. For all devices, testing so everything works after turning off and on,
+   after reconnecting, after reboot, after switching to Bluetooth and back.
+7. There was previously one report of scrambled keyboard input for a Logi
+   POP Icon Keys when letting the keyboard interface be claimed by the DJ
+   driver. This issue was never traced to a root cause and may have been
+   unrelated. It has not been replicated on MX Keys. It should be retested.
+
+Besides testing, a few decisions need to be made:
+
+A. Currently, no HID++ diversion is enabled for keyboards, but at least MX
+   Keys for Business supports diverting some keys over HID++. These include
+   e.g. media keys, brightness control, etc. Some proprietary keys ONLY go
+   over HID++ and do not support native HID at all.
+   However, the use case for diverting only some keys seems small. Without
+   diverting the entire keyboard, it can't be used for e.g. separate
+   layout, or remapping all keys on only one keyboard, etc. The only
+   possible use case is for special treatment of only those few divertable
+   keys.
+   However, the downside is that not all keycodes map to native HID
+   keycodes so a list of all diverted key mappings needs to be maintained.
+   Further, it might interfere with keyboards that support reprogramming
+   keys.
+   I could add it anyway though, either in this series or in a future
+   patch?
+   On the MX Keys S, a few keys seem to only work when diverted, or are
+   diverted always, such as FN lock, mute microphone, backlight up/down,
+   etc. These HID++ events currently have no handler in this driver.
+
+B. Bolt devices now default to diverting the various scroll events to
+   HID++. This is to be able to separate those events by originating
+   device, in case their settings or support differ, so e.g. scroll
+   resolution scaling will be applied correctly per device, instead of
+   scaling different-resolution devices according to one device's scaling.
+   But the use case of having multiple mice on the same Bolt receiver is
+   rare, and perhaps it's better to let Bolt devices default to native HID
+   and let the user override with Solaar if necessary?
+
+   tshark captures of a Windows guest using MX Keys for Business suggest
+   that the Windows driver enables HID++ diversion for keys, but this is
+   not verified for mice.
+
+Finally, thanks to Rafael Passos for the original Bolt HID++ wheel-event
+work. The related Magnetar-OS patches were also used as inspiration:
+https://github.com/Magnetar-OS/logitech-bolt-hidpp-dkms/tree/main/patches
+
+Signed-off-by: Erik Håkansson <erikhakan@gmail.com>
+---
+Erik Håkansson (4):
+      HID: logitech: add Bolt receiver support
+      HID: logitech: handle HID++ thumbwheel reports
+      HID: logitech: divert M650 side buttons over Bolt
+      HID: logitech-hidpp: support ratchet wheel
+
+ drivers/hid/hid-logitech-dj.c    |  33 ++-
+ drivers/hid/hid-logitech-hidpp.c | 471 ++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 464 insertions(+), 40 deletions(-)
+---
+base-commit: d72f75f1d9c038ead2588b42de6c2531e3b80bea
+change-id: 20261001-bolt-input-rfc-9748607cc6b2
+
+Best regards,
+-- 
+Erik Håkansson <erikhakan@gmail.com>
+
