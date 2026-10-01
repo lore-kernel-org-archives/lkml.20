@@ -1,163 +1,127 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732554A206E
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0594F52E07C;
+	Thu,  1 Oct 2026 18:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878441; cv=none; b=HmQ8pMwmhwwKf3CHVqmnpY0ikVD/yRa5orVhatZEJ6asN5uYXyCAfxVD44wI2TKv2N4vnzJeBbHsyDYa3oGkj5QJw2m32cDnsP787K4nsKoZ6tUEKbxsNiHmBXLT/UIqoT65pTS9SWP4MhiDBVoxWu6KyPRo11coDv2Zqa4+Yjo=
+	t=1790878456; cv=none; b=FEn1T5aCy/ZEvmL36AvC8bEwBC8y2/ivSYgpL05mTzFVI6DLbrfgwdmL3kk8Aam97FCGMEO0cZLo0KnUkjm5pZlKBjlj6em93PEri7qA8/J1v1j7ltcffbom1tAifMPBvzLvkOcgd+tiWJSl38BUJAArZPWXnDJFRCNLTGjQ81g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878441; c=relaxed/simple;
-	bh=2XOoaBawLjbMqXkjs7Dxr/8UeBMSq7cEksbLVDPeip0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GZ5AXel5a9zFqstNnzMOXPisLip9r9OV1Ri1SXzc388/cVcbVj58bPmOOk65UZJmvOKoj8obp6qFRMN7IX8PmcG1btTIFl/q5dyMzJ2e/raM3nC2qu/1FCjWcRr1autqa4O5/ObRGfp6j2YD9hrUkeWONezErSL7hXjZxroeJng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=htU7wn7N; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790878456; c=relaxed/simple;
+	bh=8x1td/bO0MFGIiAGR33yYHh+jhdLixFm7/QOZsiKWb4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=a3+dz+ScBHqGNRz0CdssV8eDPsWGV1WhijyyHN1inNSannErsjk6OONlv/v5Y9ZHgS/zKM+14l5Q8FJkoqvUn5jkZxVOF58z89Fe2IbWWEB8P6DNGJFR8yk8r3n/cBshYsTDIlX0mi8GTv0YGntB27s0WJzL9PLmFytY4gGEOl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BsClG17+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="htU7wn7N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790878435;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=2K6+AjrHHCLY+3zXw5HOJ91vX9fbZQsVpcAGubvt7/o=;
-	b=htU7wn7N4KJHwqLKPnpzuxGjNZNEIPYIHRn1nXHg9IkkYGouvgRkChD/fv96k5jUAr7A69
-	UVjZq7PHtO9uObGSU3bTEUrE478xxD0hNl7rZ22WmEQJzJ5B/xRr87MKaA+Kz5Fa3NAH+r
-	iJyAA11pTpdGQnhJ24nzswOm0G1tte0=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-l93d_TTfNca1FqR8r5n-pA-1; Thu,
- 01 Oct 2026 14:13:50 -0400
-X-MC-Unique: l93d_TTfNca1FqR8r5n-pA-1
-X-Mimecast-MFC-AGG-ID: l93d_TTfNca1FqR8r5n-pA_1790878429
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B36B218009D3;
-	Thu,  1 Oct 2026 18:13:48 +0000 (UTC)
-Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A4CED180059F;
-	Thu,  1 Oct 2026 18:13:44 +0000 (UTC)
-From: Luiz Capitulino <luizcap@redhat.com>
-To: stable@vger.kernel.org,
-	sashal@kernel.org
-Cc: rppt@kernel.org,
-	sayalip@linux.ibm.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6.18.y v3] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
-Date: Thu,  1 Oct 2026 14:13:30 -0400
-Message-ID: <20261001181330.684841-1-luizcap@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BsClG17+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86557C4AF14;
+	Thu,  1 Oct 2026 18:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790878455;
+	bh=8x1td/bO0MFGIiAGR33yYHh+jhdLixFm7/QOZsiKWb4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BsClG17+9YyIUwpHNudlDpN0RAhUeVoTxOcZVSDDF+OW5rlwNY+JgqXuMzuMo0kmn
+	 kluyQ2W5yvYHitNEB2fXvUTz3s2sVnqzjtZ18CsC/mEWlFhX7seXSTVrzR3LQGYbRB
+	 oSys2FyHDH7ihna6YXUS8IQj1EHUjt1scdowqDjafrOrA1qOTC7N9TIOnJGMz8+Eo4
+	 qK/uNk23t0OJUeZJUXpl551kUtLx5PiXWKBwfDewcfKg8WBoxZLrSMvDiC5fMOoq1p
+	 QLFLIeqc1R9hU+ao21nhjUDdsWy4JmQU1FzRpKhXJX5KeMghLtPqv+yezuOnxT7Czu
+	 yXqd+WrQa4fJw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70973CA5FE0;
+	Thu,  1 Oct 2026 18:14:15 +0000 (UTC)
+From: Miao Wang via B4 Relay <devnull+shankerwangmiao.gmail.com@kernel.org>
+Date: Fri, 02 Oct 2026 02:13:22 +0800
+Subject: [PATCH RFC v2 4/4] gpio: loongson-64bit: remove gpio_to_irq()
+ handler
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-loongsongpio-v2-4-6e3eb150a4ef@gmail.com>
+References: <20261002-loongsongpio-v2-0-6e3eb150a4ef@gmail.com>
+In-Reply-To: <20261002-loongsongpio-v2-0-6e3eb150a4ef@gmail.com>
+To: Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Miao Wang <shankerwangmiao@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1990;
+ i=shankerwangmiao@gmail.com; s=20250715; h=from:subject:message-id;
+ bh=sOxZDjuak2otTPg7s201cfEhwPgcvSVkWzQzISyXx+0=;
+ b=owEBbQKS/ZANAwAKAbAx48p7/tluAcsmYgBqvqL051MJZjWbgpRLaG3qnkIH7q0Je6cF5Kcgi
+ Dajz6BQqrSJAjMEAAEKAB0WIQREqPWPgPJBxluezBOwMePKe/7ZbgUCar6i9AAKCRCwMePKe/7Z
+ bjsKD/43DDfSficR85QAF3BrkHy6vjoQBnSVl2F+9Zi5Hctoktc0PcRJoy26zv+4wC4Ac3I451O
+ +4HD/xVi3a4up/tNiOhPE8APQ5xRDyfVwswsQo4DU47iwaabOsvO0fd47utsEULnZn+CZDeOvTR
+ HtZpLkZccrjbDZ/7By3hn4dTdcMpIhEga8q5DZ3kIu2aF4DeQArJZceV2BOnguA4FDU7st48PBT
+ jvSf5EHG2wRc8Md8+Q4j+XOTSuArdeqpGG2Oo7hn40P+PdC25nqrlRizUKSszZ0yuJSB6NRINYo
+ NGxrWAHfl+k9PgRWVYoDGbWbb+Knrtgh51MlI3BAVZz870qE3+ngn+6/plRZHGB/gX5dpm05e06
+ W1N2e/+rokAdL4czd2MHJ8YnmnCKCndQk9uk1n6+Fh5WlMErkkKI6jzuZ12x4wkpE1pAgM8uJ95
+ XrpZf82ji6CG7CCHeA0+hz6lvoEiOoXxhMeiMi9L7Smi9QHxpqpnOn5wb1wBLDNLhLcAq4Ft553
+ +R/6GoKq1kjZFjk+ZLYIeTAj7AzJLm7blx0rg6AXS1wHdWmWAYQVKmx7HiZkk662H6uEYsQg7nN
+ is6DUnFaX/Oy/+n1tEAVwQFImmAKWpRvv6K66FKJielAcWMO+ll5/aYXlum6pPG4rMeUziJ49g4
+ GdnRp+24FJZKnig==
+X-Developer-Key: i=shankerwangmiao@gmail.com; a=openpgp;
+ fpr=6FAEFF06B7D212A774C60BFDFA0D166D6632EF4A
+X-Endpoint-Received: by B4 Relay for shankerwangmiao@gmail.com/20250715
+ with auth_id=462
+X-Original-From: Miao Wang <shankerwangmiao@gmail.com>
+Reply-To: shankerwangmiao@gmail.com
 
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+From: Miao Wang <shankerwangmiao@gmail.com>
 
-commit a914785f6349da754e1226420bf4e51961956769 upstream.
+As pointed out in the previous commit, gpio_to_irq() should not be used
+because it should not be used to manipulate the registers to enable
+interrupts.
 
-hugetlb-mremap test fails if there are no free huge pages prepared by a
-wrapper script.
-
-Add setup of HugeTLB pages to the test and make sure that the original
-settings are restored on the test exit.
-
-Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Luiz Capitulino <luizcap@redhat.com>
-Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Donet Tom <donettom@linux.ibm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Liam Howlett <liam@infradead.org>
-Cc: Li Wang <li.wang@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-[ Backport-notes: this is a partial backport containing only the aligning
-of 'length' to the hugepage size. The hugepage_settings.h include line and
-the hugetlb_setup_default() call are omitted. Without this fix, the
-uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
-default HugeTLB page size causing the test to fail with the error below as
-'length' is 10 MiB and not aligned to the HugeTLB page size.
-
-  # -------------------------
-  # running ./hugepage-mremap
-  # -------------------------
-  # TAP version 13
-  # 1..1
-  # # Map haddr: Returned address is 0x7eaa40000000
-  # # Map daddr: Returned address is 0x7daa40000000
-  # # Map vaddr: Returned address is 0x7faa40000000
-  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
-  # # Planned tests != run tests (1 != 0)
-  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-  # [FAIL]
-  not ok 1 hugepage-mremap # exit=1
-  # NOTE: These hugetlb tests provide minimal coverage.  Use
-  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
-  #       hugetlb regression testing.
-  # SKIP ./uffd-wp-mremap
-]
-Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+Signed-off-by: Miao Wang <shankerwangmiao@gmail.com>
 ---
- tools/testing/selftests/mm/hugepage-mremap.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpio/gpio-loongson-64bit.c | 20 --------------------
+ 1 file changed, 20 deletions(-)
 
-v3
-- Preserved original changelog & subject
-- Small code style difference from v2 due to git cherry-pick usage which
-  preserved the original commit style
-
-v2
-- Added "commit <sha1> upstream" line to changelog
-
-diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
-index 928c1045e295..d6caa075a86a 100644
---- a/tools/testing/selftests/mm/hugepage-mremap.c
-+++ b/tools/testing/selftests/mm/hugepage-mremap.c
-@@ -97,6 +97,7 @@ static void register_region_with_uffd(char *addr, size_t len)
+diff --git a/drivers/gpio/gpio-loongson-64bit.c b/drivers/gpio/gpio-loongson-64bit.c
+index 40ff845e21db18fa513d2d3b328bcb7ad16baf6a..4e6a490d524ef107e51729abd26cc4d2cbb00c41 100644
+--- a/drivers/gpio/gpio-loongson-64bit.c
++++ b/drivers/gpio/gpio-loongson-64bit.c
+@@ -141,24 +141,6 @@ static int loongson_gpio_set(struct gpio_chip *chip, unsigned int pin, int value
+ 	return 0;
+ }
  
- int main(int argc, char *argv[])
+-static int loongson_gpio_to_irq(struct gpio_chip *chip, unsigned int offset)
+-{
+-	unsigned int u;
+-	struct platform_device *pdev = to_platform_device(chip->parent);
+-	struct loongson_gpio_chip *lgpio = to_loongson_gpio_chip(chip);
+-
+-	if (lgpio->chip_data->mode == BIT_CTRL_MODE) {
+-		/* Get the register index from offset then multiply by bytes per register */
+-		u = readl(lgpio->reg_base + lgpio->chip_data->inten_offset + (offset / 32) * 4);
+-		u |= BIT(offset % 32);
+-		writel(u, lgpio->reg_base + lgpio->chip_data->inten_offset + (offset / 32) * 4);
+-	} else {
+-		writeb(1, lgpio->reg_base + lgpio->chip_data->inten_offset + offset);
+-	}
+-
+-	return platform_get_irq(pdev, offset);
+-}
+-
+ static void loongson_gpio_irq_ack(struct irq_data *data)
  {
-+	unsigned long hugepage_size;
- 	size_t length = 0;
- 	int ret = 0, fd;
+ 	struct gpio_chip *chip = irq_data_get_irq_chip_data(data);
+@@ -943,8 +925,6 @@ static int loongson_gpio_init(struct platform_device *pdev, struct loongson_gpio
+ 			dev_warn(&pdev->dev, "no parent IRQs ha been found, GPIO IRQs will not be available\n");
+ 			gpio_irq_chip_set_chip(&lgpio->chip.gc.irq, NULL);
+ 		}
+-	} else if (lgpio->chip_data->inten_offset) {
+-		lgpio->chip.gc.to_irq = loongson_gpio_to_irq;
+ 	}
  
-@@ -114,7 +115,11 @@ int main(int argc, char *argv[])
- 	else
- 		length = DEFAULT_LENGTH_MB;
- 
-+	hugepage_size = default_huge_page_size();
-+	if (!hugepage_size)
-+		ksft_exit_skip("Could not detect default hugetlb page size\n");
- 	length = MB_TO_BYTES(length);
-+	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
- 	fd = memfd_create(argv[0], MFD_HUGETLB);
- 	if (fd < 0)
- 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
+ 	return devm_gpiochip_add_data(&pdev->dev, &lgpio->chip.gc, lgpio);
+
 -- 
 2.55.0
+
 
