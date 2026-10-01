@@ -1,246 +1,219 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64013457E7F
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EB44FDA67
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864028; cv=none; b=rTDzbSa7xxN0LTlpCpxSLxdmhaGz1v2aGt1s7EeR9xAHVnyNnWHKEiNAKsgdwdUKuKHTA9Bol4lLTR7yZrzlFec6go2YKUfnUauCrF4fgoSgnol/tjWJXBNEY2wTU5JaRw/7KDNi8/334rfIFXHD9h/0V5lyEgEl8aQaDk1NBRY=
+	t=1790864039; cv=none; b=oBD/XgG4S1blFidmtxUeIphrA0MYaxQ26/uwuNsiu84bBu2LiOtVmF3MM4qeiFKff5vquBwdhFIRiBBWmE5XqrHvssttT39BRUJxEvZOW/7xu0JwNwnDMQK/oeDuSGuOyT9/SgsKIhdP6sLHPsTmUUS9hqZrAHWL4ZALiw1wq6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864028; c=relaxed/simple;
-	bh=nrWB1YhXYfZ6RlyHW1bj3QabbANbrHmwurPMkQjKvRI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n4DcKj5+3OLlZQsjrwRWMSNPrIjnl7R7oktxO4PFHRjivSPdmXa4ODaeqSb4Eyw5stYp4j006NRzWw+5kmUwhutkQeEKPYG+sNK/CgAezBnxMO+7AB6kRxP/8phevle7SwLpRDIVmr78MWaRoCt1YE1YEU9OyvY7AgBXtU3oXzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=DUfHsRKw; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790864039; c=relaxed/simple;
+	bh=IEXUskiaguTB4Otopyr6gaLDiGGpDYbBgosBuNngyxA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dUSHps/0V95sIGpn44aBfmLQHxEEQlqe795Pk4vQcVVL3eQZnBD8tmlax9/IyQTqniKDn0TnFJKiDR0BembX2wneWw1LrBa1emS1hm9QNDRaN5H73njMwhC8BaF54zCcrvxtSVIolDdTgJEiuT9tZZ4APGzvHncXmWQoW4UydQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qN0oa8rh; arc=none smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DUfHsRKw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=MFOsTIkJGCvkWXfmhJPsKgyWFC1Mu0pasSBpSV+Domw=; b=DUfHsRKws9iHV7XAhdxBh0P7ZF
-	Ad8UCecjhoAgYVttZ5lZVpePZBZnu+llZQmgv+eVv3DcbCJy4k5b4oSBl+LjwY28B9yqgLer72yyO
-	9v8yUwy3NNlflLw46mqyCk5Id9/5QiN1ofwqK9n4D01GOZ7aJZ5LNlnkUnaT2Jdf0ayeZUc3ekr5h
-	7Rn2Rxaw1HHg3dFAU5SAEY7uvHVq+loNxZS59VwbYsJMyMYk8VNfWDuY6w0CaNKkneLYPqlB1ZXf7
-	uI60ayI393IGu1t1hoGTV+up5ePrIGwh2LmcWq4UOp0gG+pr1oRHsQdzMjM/WqiAq1rHBeTAISrcS
-	MZi6KJTA==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCHXS-00000009LHx-0b7a;
-	Thu, 01 Oct 2026 14:13:34 +0000
-Date: Thu, 1 Oct 2026 10:13:30 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
-	Suren Baghdasaryan <surenb@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	maple-tree@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] maple_tree: fix maple_range_64 crashes in RCU mode
-Message-ID: <xenbug3emyr4h4c25zgtrqu44xiayf2kpe7mtvhtoivipeesp5@kdpcd72xwrri>
-References: <20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qN0oa8rh"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e0b486d91so340664066b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:13:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790864036; x=1791468836; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hCWRto5ZbEKJLVpd5fclw/bB6bh5Fpi2NNDb+Pnb0AI=;
+        b=qN0oa8rhjBr6MQv0oUJI3kQ+hpIO6h0deVt0HqrXZRtpWKmr3qABYQuiwzX3j39QOj
+         /G8Cf3jGA2j9SwPjfYwBH5q0Vq1AQ++kPothYClG23U/aJcWZGdhj/E4880SM7PzvtwI
+         tE7CvdoYKRs/jch7LFi58q6j99vlWReaXL01b++YsrbxjD3S+5IyzW9p/Ay59u/PO4KJ
+         2uGlXjEtWzadrY00yYokImjNBeBHdBQVCuh/XFu0o7eaDnlOHNXKIZSDe4GKxxLS7A9F
+         GVJ+uju/h3XCG1TzzmxOOuy+6PNGJsM9pOdvRlO9L+Y1EAXnwU0tGz8/7Nc12rJTHWnq
+         EWeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790864036; x=1791468836;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hCWRto5ZbEKJLVpd5fclw/bB6bh5Fpi2NNDb+Pnb0AI=;
+        b=D+XgMgPBdhrqZq5T+gLyuC0WLH/5e0vHgRO8+9ef8LPpiD7EQoPnxb0P6rQWCJFd4U
+         Wl7rFB7oKlusC+YnvS5ViWmVE5cWkxV8nT+xXvSTCE5plAKPJR8jPM/jTs22GfQmO/7b
+         5vvE0dJqa3S5ujaM6Ab+FAZXJ4N+EOhA26EtfaQs9FgxLnmXVKYMI1BLQ+A3Y0AHMtAK
+         j+ldvYPIHhrCrPL7Ur5Ai/RD+I9FUyNr2ZVd5Ahv5jTIeUIHilFzjTbzlSjgoW4ee9VV
+         H5Hu9t0u+b7nZSu6iSdoh/qmV2DGcJ9ISWPJg5MgPWutyy1O2i+0umX2at3XLRau5Tn0
+         NvPA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0fOd+6a08aLV1iTw/CV16JwwiNaCdeYtujh/n9DP3+h6so6z/BX2mHQA7v8gbWmCxaNx89s8LfvWaff0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKh4EbOGReo/4PFuECV82LaLLWwbSwjDNQ53CBhA60L6qnADXl
+	YjFd/Ef9QfEWN29Wjj9ZKVT6lUhpddQXZKeFJb1Op5W0pcnI+6YS93Ty
+X-Gm-Gg: AYBFou3k5UjXJ9RuxcQ0AN51AeDdHbDkCeO8EQEWwhWqkDU8EWSow33Kfn7h76WZJWD
+	i3oG4ZXL8LJ2cDMf2xJiO2U2jiJh19jh9B26JBdtQhJlpNoJ2kLEjin5WC/drZJ1RjDgJKcc4fc
+	R1bO9jQkDDZnCEUh0r1YryLtBxwGyjeUUzf6dZZD+RbAvztfDPWIEOHQpsnq6RFiPWNw4r2u1K9
+	XCFhl9bx4llYmLvVHOo1v6h50Vwf1v8wM6Fl/sMqp4BW7WCMnmWRCzLLu54PtiMeM3qxngjq7nq
+	HOz4yWGVzdNEpCtRc5yASFrkqxjmhzAQOROGLcoaiP4YwBNkArR9qmvwyXWGRHVHg+3dKxIjmmM
+	hIaaCFn/wzByCYvboI7Wq3Sgh0ZK2J6LsO+st/14bbi48aOtwYjouHgS9lHhfpVHTCv2JBOhqzB
+	0pDLz2/4PfhdkQ9Z4vVePmcP4Na8M6UDp2oTz1aZKTFFjc7PqdqLYjZJ23FOKIDakrqYHSRT/Cy
+	tXDKwpTK97hBvCL
+X-Received: by 2002:a17:907:7284:b0:c2e:a9:57f4 with SMTP id a640c23a62f3a-c2e23d2e342mr391143966b.22.1790864035909;
+        Thu, 01 Oct 2026 07:13:55 -0700 (PDT)
+Received: from localhost.localdomain ([94.240.182.136])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31d96628sm167372766b.62.2026.10.01.07.13.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 07:13:54 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: ethantidmore06@gmail.com,
+	error27@gmail.com,
+	guojy.bj@gmail.com,
+	dvdh12707@gmail.com,
+	enelsonmoore@gmail.com,
+	khomenkov@mailbox.org,
+	fliegbert2@gmail.com,
+	m.steinmoetzger@gmail.com,
+	knavaneeth786@gmail.com,
+	nikolayof23@gmail.com,
+	serhatkumral1@gmail.com,
+	samasth.norway.ananda@oracle.com,
+	dennylin0707@gmail.com,
+	adrishbora@gmail.com,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Subject: [PATCH v6] staging: rtl8723bs: Remove manual ifname allocation
+Date: Thu,  1 Oct 2026 17:12:41 +0300
+Message-ID: <20261001141242.2763-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr>
+Content-Transfer-Encoding: 8bit
 
-On 26/09/16 11:38AM, Dimitris Charisis wrote:
-> The patch series fixes two RCU destroy path issues on maple_range_64
-> nodes. Both arising from the fact that a maple_range_64 node repurposes
-> the last slot to hold metadata when the node is not full. Patches 1 and
-> 3 address each issue, and patches 2 and 4 add the tests used to catch
-> them.
-> 
-> Currently there is no in-tree user of maple_range_64 nodes in RCU mode.
-> All in-tree users of MT_FLAGS_USE_RCU also set MT_FLAGS_ALLOC_RANGE
-> which makes the internal nodes maple_arange_64.
+The manual ifname allocation via dev_alloc_name() is redundant because
+the networking core handles interface naming automatically during
+register_netdev().
 
-Dimitris,
+Remove the ifname module parameter, the corresponding field from
+struct registry_priv, and the rtw_init_netdev_name() callpath.
 
-Sorry for the delayed response.
+Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+---
+Changes in v6:
+- Rebased one more time. Should be working now. I'm so sorry for it.
 
-Thanks for adding the tests to the patches.
+Changes in v5:
+- Rebased onto latest staging-testing to resolve merge conflicts caused by recent tree updates.
 
-Right now the mt_clear_metadata() will avoid descending into an invalid
-child (metadata being detected as node on mt_free_walk()).  Your first
-fix made the second fix necessary.  Both are needed, but the ordering is
-wrong.
+Changes in v4:
+- Rebased onto latest staging-testing branch.
 
-If we use them in the order you sent, then a bisect hole is crated where
-we may descend into the metadata thinking it is a node.  So testing
-between the two may cause a crash otherwise not seen.
+Changes in v3:
+- Added missing changelog.
 
-Considering how tightly bound these fixes are, I would consider them to
-be two parts of the same issue; they should be combined into a single
-fix.
+Changes in v2:
+- Removed rtw_init_netdev_name() and the entire manual naming callpath
+  instead of hardcoding "wlan%d", as suggested by Greg KH.
+---
+ drivers/staging/rtl8723bs/include/drv_types.h |  2 --
+ .../staging/rtl8723bs/include/osdep_intf.h    |  1 -
+ drivers/staging/rtl8723bs/os_dep/os_intfs.c   | 26 +++----------------
+ 3 files changed, 3 insertions(+), 26 deletions(-)
 
-Thanks for the testing patches, please keep them for v3.
+diff --git a/drivers/staging/rtl8723bs/include/drv_types.h b/drivers/staging/rtl8723bs/include/drv_types.h
+index 0db276d46b1c..7f7d4fbad4bd 100644
+--- a/drivers/staging/rtl8723bs/include/drv_types.h
++++ b/drivers/staging/rtl8723bs/include/drv_types.h
+@@ -151,8 +151,6 @@ struct registry_priv {
+ 
+ 	u8 enable80211d;
+ 
+-	u8 ifname[16];
+-
+ 	u8 notch_filter;
+ 
+ 	/* define for tx power adjust */
+diff --git a/drivers/staging/rtl8723bs/include/osdep_intf.h b/drivers/staging/rtl8723bs/include/osdep_intf.h
+index 83a25598e962..f1e7a303a286 100644
+--- a/drivers/staging/rtl8723bs/include/osdep_intf.h
++++ b/drivers/staging/rtl8723bs/include/osdep_intf.h
+@@ -20,7 +20,6 @@ u32 rtw_start_drv_threads(struct adapter *padapter);
+ void rtw_stop_drv_threads(struct adapter *padapter);
+ void rtw_cancel_all_timer(struct adapter *padapter);
+ 
+-int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname);
+ struct net_device *rtw_init_netdev(struct adapter *padapter);
+ void rtw_unregister_netdevs(struct dvobj_priv *dvobj);
+ 
+diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+index ab291792459b..d220df325fa9 100644
+--- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
++++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+@@ -106,10 +106,6 @@ static int rtw_80211d;
+ static int rtw_qos_opt_enable;/* 0: disable, 1:enable */
+ module_param(rtw_qos_opt_enable, int, 0644);
+ 
+-static char *ifname = "wlan%d";
+-module_param(ifname, charp, 0644);
+-MODULE_PARM_DESC(ifname, "The default name to allocate for first interface");
+-
+ char *rtw_initmac;  /*  temp mac address if users want to use instead of the mac address in Efuse */
+ 
+ module_param(rtw_initmac, charp, 0644);
+@@ -249,8 +245,6 @@ static void loadparam(struct adapter *padapter)
+ 
+ 	registry_par->enable80211d = (u8)rtw_80211d;
+ 
+-	snprintf(registry_par->ifname, 16, "%s", ifname);
+-
+ 	registry_par->notch_filter = (u8)rtw_notch_filter;
+ 
+ 	registry_par->reg_enable_tx_power_limit = (u8)rtw_tx_pwr_lmt_enable;
+@@ -394,17 +388,6 @@ static const struct net_device_ops rtw_netdev_ops = {
+ 	.ndo_get_stats = rtw_net_get_stats,
+ };
+ 
+-int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname)
+-{
+-	if (dev_alloc_name(pnetdev, ifname) < 0) {
+-		pr_err("dev_alloc_name, fail for %s\n", ifname);
+-		return 1;
+-	}
+-	netif_carrier_off(pnetdev);
+-
+-	return 0;
+-}
+-
+ struct net_device *rtw_init_netdev(struct adapter *old_padapter)
+ {
+ 	struct adapter *padapter;
+@@ -726,14 +709,12 @@ u8 rtw_free_drv_sw(struct adapter *padapter)
+ 	return _SUCCESS;
+ }
+ 
+-static int _rtw_drv_register_netdev(struct adapter *padapter, char *name)
++static int _rtw_drv_register_netdev(struct adapter *padapter)
+ {
+ 	int ret = _SUCCESS;
+ 	struct net_device *pnetdev = padapter->pnetdev;
+ 
+-	/* alloc netdev name */
+-	if (rtw_init_netdev_name(pnetdev, name))
+-		return _FAIL;
++	netif_carrier_off(pnetdev);
+ 
+ 	eth_hw_addr_set(pnetdev, padapter->eeprompriv.mac_addr);
+ 
+@@ -758,9 +739,8 @@ int rtw_drv_register_netdev(struct adapter *if1)
+ {
+ 	struct dvobj_priv *dvobj = if1->dvobj;
+ 	struct adapter *padapter = dvobj->padapters;
+-	char *name = if1->registrypriv.ifname;
+ 
+-	return _rtw_drv_register_netdev(padapter, name);
++	return _rtw_drv_register_netdev(padapter);
+ }
+ 
+ static int _netdev_open(struct net_device *pnetdev)
+-- 
+2.47.3
 
-> 
-> Below is the minimal reproducer used during debugging:
-> 
-> static DEFINE_MTREE(tree);
-> static int __init maple_fix_init(void)
-> {
->         unsigned long i, j;
-> 
->         for (i = 10; i < 4000; i++) {
->                 mt_init_flags(&tree, MT_FLAGS_USE_RCU);
-> 
->                 for (j = 0; j < i; j++) {
->                         mtree_insert_range(&tree, j * 10, j * 10 + 9,
->                                         xa_mk_value(j), GFP_KERNEL);
->                 }
-> 
->                 mtree_destroy(&tree);
->                 rcu_barrier();
->         }
->         return 0;
-> }
-> 
-> Patch 1 fixes the first issue. The splat is shown below. mt_clear_meta()
-> runs after the slots have been rewritten with raw pointers by
-> mte_dead_leaves(), so it cannot recognize a valid last pointer because
-> the type information is stripped. On my 64-bit LE machine, it clears
-> bytes 248 and 249 of the maple_range_64 which are the two least
-> significant bytes of the last pointer. The lowest byte is already zero,
-> since nodes are 256-byte aligned, but zeroing byte 249 corrupts the
-> pointer.
-> 
-> KASAN catches it as a double-free, because that corrupted pointer
-> happens to land on a node that was freed previously. The splat appears
-> at 226 insertions in the reproducer. This is when the tree has a full
-> root node on a 64-bit build.
-> 
->   ==================================================================
->   BUG: KASAN: double-free in mt_free_walk+0x138/0x3a0
->   Free of addr ffff0000f3d40000 by task swapper/2/0
->   [...]
->   Call trace:
->    [...]
->    kmem_cache_free_bulk+0x5b8/0xc18
->    mt_free_walk+0x138/0x3a0
->    rcu_core+0x5d0/0x1638
->    rcu_core_si+0x18/0x30
->    [...]
-> 
->   Allocated by task 1218:
->    [...]
->    kmem_cache_alloc_from_sheaf_noprof+0xa8/0x2f0
->    dst_setup+0x210/0x630
->    mas_wr_split+0x568/0x26e0
->    mas_wr_store_entry+0x98c/0x1de0
->    mas_insert.isra.0+0x3d0/0x5d8
->    mtree_insert_range+0xec/0x1c8
->    maple_fix_init+0x94/0xff8 [maple_fix_obj]
->    [...]
-> 
->   Freed by task 0:
->    [...]
->    __kasan_slab_free+0x88/0xb8
->    __rcu_free_sheaf_prepare+0x94/0x360
->    rcu_free_sheaf+0x30/0x138
->    rcu_core+0x5d0/0x1638
->    rcu_core_si+0x18/0x30
->    [...]
-> 
->   The buggy address belongs to the object at ffff0000f3d40000
->    which belongs to the cache maple_node of size 256
->   The buggy address is located 0 bytes inside of
->    256-byte region [ffff0000f3d40000, ffff0000f3d40100)
-> 
->   [...]
->   Memory state around the buggy address:
->    ffff0000f3d3ff00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->    ffff0000f3d3ff80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->   >ffff0000f3d40000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                      ^
->    ffff0000f3d40080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->    ffff0000f3d40100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->   ==================================================================
-> 
-> Patch 3 fixes the second issue. mt_free_walk() descends by checking if
-> the corresponding slot[offset] entry is non-zero. In a maple_range_64
-> node that has MAPLE_RANGE64_SLOTS-1 valid pointers to child nodes, all
-> slots will be non-zero, since the last slot holds the metadata. Thus,
-> mte_dead_walk() dereferences the metadata as if it were a node and hits
-> the null-ptr-deref as shown in the splat below.
-> 
-> After applying patch 1, the reproducer reaches this case at 3166
-> insertions. The affected node is the root on a tree with height 3 and it
-> has 15 valid child nodes on a 64-bit machine.
-> 
-> Patch 1 does not introduce this bug, but it exposes it for the root node
-> because it no longer clears the root metadata. On an unmodified kernel
-> before patch 1, the same bug exists and is reachable when such a
-> maple_range_64 node appears below the root, where mt_clear_meta() is not
-> called.
-> 
-> Second KASAN splat:
-> 
->   Unable to handle kernel paging request at virtual address dfff800000000006
->   KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
->   [...]
->   Call trace:
->    mte_dead_walk+0x78/0x140 (P)
->    mt_free_walk+0x1f8/0x3a0
->    rcu_core+0x5d0/0x1638
->    rcu_core_si+0x18/0x30
->    [..]
-> 
-> Both splats are from an arm64 QEMU guest. The test_maple_tree and the
-> userspace suite pass after each patch in the series.
-> 
-> ---
-> Note for reviewers:
-> 
-> * Before commit 790e1fa86b34 ("maple_tree: add RCU lock checking to rcu
->   callback functions") mas_clear_meta() was called while descending the
->   tree, so metadata was cleared on every node. That commit removed the
->   call from the descend path leaving only the final call for the root
->   node, and renamed it to mt_clear_meta().
-> 
->   An alternative fix would be to restore metadata clearing for every
->   node and fix mt_clear_meta() for full maple_range_64 nodes. I
->   preferred removing the clearing and use slot_len to identify the valid
->   slots directly.
-
-
-> 
-> Signed-off-by: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-> 
-> ---
-> Changes in v2:
-> - Add one test after each fix.
-> - Reword the cover letter.
-> - Link to v1: https://lore.kernel.org/r/20260913-fix-maple-tree-range64-rcu-v1-0-31a130bb8cbf@cslab.ece.ntua.gr
-> 
-> ---
-> Dimitris Charisis (4):
->       maple_tree: remove mt_clear_meta() to fix a pointer corruption
->       test_maple_tree: test a full maple_range_64 node in RCU mode
->       maple_tree: fix invalid memory access in mt_free_walk()
->       test_maple_tree: test a maple_range_64 metadata slot in RCU mode
-> 
->  lib/maple_tree.c      | 43 +------------------------------------------
->  lib/test_maple_tree.c | 32 ++++++++++++++++++++++++++++++++
->  2 files changed, 33 insertions(+), 42 deletions(-)
-> ---
-> base-commit: e2e54005e20fb42d4a5e140d70a65be4a2363045
-> change-id: 20260912-fix-maple-tree-range64-rcu-02fa3d2e59a7
-> 
-> Best regards,
-> -- 
-> Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-> 
-> 
-> -- 
-> maple-tree mailing list
-> maple-tree@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/maple-tree
