@@ -1,74 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF813B5E15;
-	Thu,  1 Oct 2026 08:36:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DA93E0C44
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:38:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843819; cv=none; b=dsc8VyyHBTAmFmka3PsaxH7C2BI3QBzQsF0oqbL6gajn0hyifG55rFwpKMuCo7dXtjfh8AYHqW4NcA93o9BFdCbfCAtuog8xFnhQUFrmjerN3LKYLvWcNLp2TGfP/SUT9GDF7qDDgBjB68Ak9CRyPxOJtLj6tiwpVNFUWBK/s/Y=
+	t=1790843910; cv=none; b=kNtwqkxlZCnLsVbGLIhb5P1EJsVbyMtivNOYi0m//62D4fg2e2R1uf7hMnDO/XSOxh3BLDhqr1rcYYb7RtRk3gDool+Gcy866h3+jRICosfI+XT9FHczC4mBwfRGH/NkvWfYQ3FGAyw7tlMYQ3TnTz8d5i9Fb5x/tHCWssDs5og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843819; c=relaxed/simple;
-	bh=cIM859v8l/YEVYNXIO5l1REe+92jXs5WPfwdoE1/Uiw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qk8u+pX3lEqcH8MBjPxv52ZOgQaYwcRK0NtTC0rZD1AbMWerwHx4Li+0af82KOsdShgg02oOPzUeSb9CaQHerztqqvTEP8Lj/SjZXZCRJ02KVjeBQzMRlSglTsGcVOYPujwBSumVLM2ky0W2Nu+DCLDCwtSNf3gs+SjpNj216yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8kRElng; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790843910; c=relaxed/simple;
+	bh=NJBH9/Cuky1ZdSB2IwXB3IwQ+0259U9vIfeSjDYAFOo=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G0NfPFOGQ4bPoq5NGtwYWAkdh3MD0yEq0r/1xOJHiF8srsN5SOEeVWlhH5DYUrAimFQyWI0S9kQXQQcVeBqmoe/Z6RKvbtjv0OnFZkolk/pc/0kJet6B1AZljSpNq7dUtrrdyX2qLFodFWi6eR/q9cE5BT32xUK/6PtOQhkJnvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJdR9k1n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8kRElng"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221871F000FF;
-	Thu,  1 Oct 2026 08:36:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJdR9k1n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903F71F0089B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:38:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843814;
-	bh=KFp1EFM+xEQMVEncLC7aw+WLs5REGk74Ynj58s9psyc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z8kRElngCeqzl9IWS9g7BePDVYFljJgI9r9jpgezmpsDFXPtMPZQMoFNi6PZhL0jj
-	 cWgCEx52fkrdGafIi2ridMuG1mJWHFufdBsFcxmyZSeIcr9yzsfYX3rZRjNCOKnEIW
-	 vfdqVA2jDTor0bHABQ5BNAaTEdgGaevpbU+8EUXM87FFf7PojnbsxkfKyNwcuGZmxT
-	 F4oOcD9n1FuuDwxi1C/TR5mzjp1pcJjM1IPOt5jA+212/y4kvpzXPogjNoXYozYdvH
-	 W9qeNmXmlRcRVgAEWPbzZOIF+I4esPTn4BkDcb7o5SmRwCqovlDopUAWvTwl+XtOsp
-	 QTmyZyrWUuxjg==
-Date: Thu, 1 Oct 2026 10:36:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: hwmon: jedec,jc42: add #thermal-sensor-cells
-Message-ID: <20261001-icy-wealthy-centipede-be0cf0@quoll>
-References: <20260930-for-upstream-dt-jc42-thermal-sensor-cells-v1-1-ef6365cae23e@free.fr>
+	s=k20260515; t=1790843908;
+	bh=1mlI7eCbOHta9+T200ctjAiyq0mkMCIM7oHWkQJ9H50=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=CJdR9k1nB8B2pGCkOMihcUbnsJNBPDNSGgrm49fMHvzyFRObRk7dfu+h4Y6AcCkMD
+	 s1yy8y/3NXo1SE/EYW1FzdkZzFTzy4jZkSNX6FTU+ONkMbK1pFIBIgRf3oMFj26xHJ
+	 yXB8EJd5M8VgKk7/cj2V3DPZbuolO4IBosLGRVuS/+7thH+ra6kBKcE4w727nUbKe5
+	 khOIhgq6ypwa+57XdiYyJtGO26a75DjTMgkWZOmdPbxF8N9bNHWzRHg8KqitJ0I/JL
+	 dJLdF/h0XS2O4IplIxeRKdkqPRVdds7jMx21pYlzqOsRXTgQSiEXInqNmyY2zGD/NQ
+	 BykRe1bVLLiAQ==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a77da28307so11856181fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:38:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByMwW22qRw6ovonBeb+/KywKanU0YmT353UTnhRtbupIUsjJbY3RQ4qiqbrLdHGVd+JfBFj+76Mq+UckTk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLN774xb+e5oG1AwS7BUNMJTeOeB7cGMYz8VOufCXOqfdrHlLYH
+	w8N9o0MZRG8K7yLWhkEcDT2s9JggvbGJ3wzdtTkYrI70VYrnGLsQNC6CbmGT6+GUVB4I3SnYhFH
+	FZ+dWCFfJlowBCDfeEQVDToTmgaqfwRh6JwRkldGKMw==
+X-Received: by 2002:a2e:be9d:0:b0:3a6:5951:c0b8 with SMTP id
+ 38308e7fff4ca-3a7792530d4mr10672311fa.19.1790843907345; Thu, 01 Oct 2026
+ 01:38:27 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 1 Oct 2026 11:38:24 +0300
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 1 Oct 2026 11:38:24 +0300
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260930020745.1940933-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930-for-upstream-dt-jc42-thermal-sensor-cells-v1-1-ef6365cae23e@free.fr>
+References: <20260930020745.1940933-1-shengchao.guo@oss.qualcomm.com>
+Date: Thu, 1 Oct 2026 11:38:24 +0300
+X-Gmail-Original-Message-ID: <CAMRc=MfBfcRKHVoGDUViLEftEaMXP8x+25r-7dWgvA9yVdDTtQ@mail.gmail.com>
+X-Gm-Features: AclHuK9-uNXzyKt8BCmk4U_e3Igbon-NNMUoMOO6zAsq98gB4Oj4BJ9fltTnFPQ
+Message-ID: <CAMRc=MfBfcRKHVoGDUViLEftEaMXP8x+25r-7dWgvA9yVdDTtQ@mail.gmail.com>
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_pas: Drop early_boot flag for Nord ADSP
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 30, 2026 at 03:44:51PM +0200, Vincent Jardin wrote:
-> Since the commit
->   032c1623c9de ("hwmon: (jc42) add HWMON_C_TZ_REGISTER")
-
-Odd formatting. This is one sentence.
-
-> the driver sets HWMON_C_REGISTER_TZ, so the hwmon core calls
-> devm_thermal_of_zone_register() for its temperature channel and the
-> device can be referenced as a thermal sensor.
-> 
-> The chip has a single temperature channel, registered as sensor 0, so
-> no cell is needed.
-> 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+On Wed, 30 Sep 2026 04:07:45 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> Qualcomm NHLOS team changes XBL for Nord IOT/Embedded variant, leaving
+> ADSP to be powered up by Linux remoteproc, so that Nord IQ10 Qualcomm
+> Linux (QLI) behavior gets aligned with IQ8/9. Drop early_boot flag from
+> Nord ADSP for that purpose.
+>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
+>  drivers/remoteproc/qcom_q6v5_pas.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index 2e1e39826ffa..9e7fb5c5610e 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -1582,7 +1582,6 @@ static const struct qcom_pas_data nord_adsp_resource = {
+>  	.dtb_pas_id = 36,
+>  	.minidump_id = 5,
+>  	.auto_boot = true,
+> -	.early_boot = true,
+>  	.proxy_pd_names = (char*[]){
+>  		"cx",
+>  		"mx",
+> --
+> 2.43.0
+>
+>
 
-With commit msg fixed:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
