@@ -1,166 +1,154 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 143434AB1BB
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914384A688D;
+	Thu,  1 Oct 2026 08:51:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844651; cv=none; b=QuNeI7wLKwrrqKl53iykDZmZ5NTIGDhjZpQ+XBpClUFLYAXDQDYB56H7gsIHUep0IdD3tmPoD1AijscU3SEybdULWIQnfpfXfBEUlNbmcR+Iz3ca2K5tiTjy0fVXEjk0ctpbgbP7o32+UYCETn1wZgKd6LrfzMge6ZfdSKpctQw=
+	t=1790844698; cv=none; b=or4I1q110NZFngBJMjIMulGoSiImCEd4nzggPMS2OVu6fPbfoNxu9t8l5hS4a4X4STp2P1YZnKzzPo41mgeb8DqNTqc33xxhKIcS33hl4Gvj4WZBwHqMXB4PyAjVbY+AvzsX1Gzo9WQ2ThVlG6FvclxAu1BdN85JGQg071hCIBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844651; c=relaxed/simple;
-	bh=2kY249iXK1XN+Jzjq1WLtXqjbaLI/K1j1QQJaBsCd30=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JKAb2uFKwLqsvUTmvZOXSWhifcPVV5KQtlbixbmKm0L14rK+xvFTlmIyrY4lRJAlM8Tkxd4smSasUxSYa8tqIoa1X5VGEUaj5yTmMkkM9sC5rw8okR4VYYUInR13+5rLqnyuqTC03VEB93/Yt2sw43HNrIz2GRFtIYUhFjgbY58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mPIkQhDY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790844698; c=relaxed/simple;
+	bh=Gf/erM2X4bMMBKjxD99nHhhCql2UqvHfnorRhXFDxRA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hH/iD488fkG1ZbV1wu6DGAbu7Nu/3QbLKBtWEYtiwRt7qDZvoAe/2yytrerL1z9F+uiARN07QelS0fpwY1FYqeYOqcmwBSySOObz2nokcc09Lnz8BD6l/jo4mQXPzv0dcJqiF5beWSq/O8fLRla5oCq9wuKA4mf5tn865sRq/6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QkAvxNnS; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mPIkQhDY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1712143D;
-	Thu,  1 Oct 2026 01:50:45 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24C843F85F;
-	Thu,  1 Oct 2026 01:50:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790844649; bh=2kY249iXK1XN+Jzjq1WLtXqjbaLI/K1j1QQJaBsCd30=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mPIkQhDY1Ob6l+HM5YeoQ/kvYHLCPf55eGtkqabmyP5H8Cv7at7+ZtLBnZfwWHORs
-	 GsgRNDQODM4ceParSgw1N/9Brx8nvydEWGeKuJoFPSLuecz74uDBvYepaBq1USulMh
-	 1BW7kKcuYpvRv/zOADhVcE/iSXy+9rdJmpop6CFU=
-Date: Thu, 1 Oct 2026 10:50:44 +0200
-From: Beata Michalska <beata.michalska@arm.com>
-To: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
-	will@kernel.org, suzuki.poulose@arm.com, James.Morse@arm.com,
-	xuewen.yan94@gmail.com, seanwang1@lenovo.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] arm64: errata: Factor out broken AMU const
- counter cap
-Message-ID: <ar4e5A5tytSaTWg5@arm.com>
-References: <20260929154325.3416271-1-beata.michalska@arm.com>
- <20260929154325.3416271-2-beata.michalska@arm.com>
- <0dc8a173-2d8f-4a05-9624-6d95c2fdb622@arm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QkAvxNnS"
+Received: from pb-laptop.local (185.182.214.55.nat.pool.zt.hu [185.182.214.55])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5EDE0593;
+	Thu,  1 Oct 2026 10:49:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790844581;
+	bh=Gf/erM2X4bMMBKjxD99nHhhCql2UqvHfnorRhXFDxRA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=QkAvxNnSGg+8btw1IXCMEClUjdOCGdoeqGW+MhpDZXUfFl9gR8TJea23BI3D3rmBx
+	 j4czvOO5AFhK2vAyMXKrFX0k5jyyGM+EIoW83wBzimpE4Xmx0JQ80c3RClYTJgTUzx
+	 GO159Rpo5chsPYUDFDlbUf4bfX9/5GiG6lDQHcc0=
+From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Subject: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
+Date: Thu,  1 Oct 2026 10:51:30 +0200
+Message-ID: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0dc8a173-2d8f-4a05-9624-6d95c2fdb622@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 10:21:28AM +0100, Vladimir Murzin wrote:
-> Hi Beata,
-Hi Vladimir,
-> 
-> On 9/29/26 16:42, Beata Michalska wrote:
-> > Move the workaround from the erratum 2457168-specific cpucap to a generic
-> > broken AMU constant-counter one. This keeps the existing Cortex-A510
-> > handling unchanged while allowing other errata with similar AMU constant
-> > counter issue to share the capability bit and call sites.
-> > 
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> > ---
-> >  arch/arm64/Kconfig             |  8 ++++++++
-> >  arch/arm64/kernel/cpu_errata.c | 23 +++++++++++++++++------
-> >  arch/arm64/kernel/cpufeature.c |  2 +-
-> >  arch/arm64/kernel/topology.c   |  7 ++++---
-> >  arch/arm64/tools/cpucaps       |  2 +-
-> >  5 files changed, 31 insertions(+), 11 deletions(-)
-> > 
-> > diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> > index b5a51b0ef9440..3b6c052d46a18 100644
-> > --- a/arch/arm64/Kconfig
-> > +++ b/arch/arm64/Kconfig
-> > @@ -1040,9 +1040,17 @@ config ARM64_ERRATUM_1902691
-> >  
-> >  	  If unsure, say Y.
-> >  
-> > +config ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> > +	bool
-> > +	# Targeting errata affecting AMEVCNTR01, the AMU constant counter.
-> > +	# On affected CPUs the counter may not increment at the expected rate,
-> > +	# making it unreliable. As a result, AMU users should treat it as
-> > +	# unavailable rather than relying on misleading counter values.
-> > +
-> >  config ARM64_ERRATUM_2457168
-> >  	bool "Cortex-A510: 2457168: workaround for AMEVCNTR01 incrementing incorrectly"
-> >  	depends on ARM64_AMU_EXTN
-> > +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> >  	default y
-> >  	help
-> >  	  This option adds the workaround for ARM Cortex-A510 erratum 2457168.
-> > diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-> > index 5db8f0619e4bc..f18683e56184b 100644
-> > --- a/arch/arm64/kernel/cpu_errata.c
-> > +++ b/arch/arm64/kernel/cpu_errata.c
-> > @@ -381,6 +381,18 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
-> >  };
-> >  #endif
-> >  
-> > +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> > +static const struct arm64_cpu_capabilities arm64_repeat_amu_constcnt_list[] = {
->                                                     ^^^^^^
->                                            There is nothing to repeat :)
-> 
-> > +#ifdef CONFIG_ARM64_ERRATUM_2457168
-> > +	{
-> > +		/* Cortex-A510 r0p0-r1p1 */
-> > +		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
-> > +	},
-> > +#endif
-> > +	{}
-> > +};
-> > +#endif /* CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT */
-> > +
-> >  #ifdef CONFIG_CAVIUM_ERRATUM_23154
-> >  static const struct midr_range cavium_erratum_23154_cpus[] = {
-> >  	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
-> > @@ -916,14 +928,13 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
-> >  		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
-> >  	},
-> >  #endif
-> > -#ifdef CONFIG_ARM64_ERRATUM_2457168
-> > +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> >  	{
-> > -		.desc = "ARM erratum 2457168",
-> > -		.capability = ARM64_WORKAROUND_2457168,
-> > +		.desc = "Broken AMU AMEVCNTR01 (const counter)",
-> > +		.capability = ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT,
-> >  		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
-> > -
-> > -		/* Cortex-A510 r0p0-r1p1 */
-> > -		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
-> 
-> I think it should be
-> 
->                 CAP_MIDR_RANGE_LIST(amu_broken_constcnt_cpus)
-True, that's more appropriate here.
-Thanks
+`risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
+step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
+to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
 
+So move these constants into macros to avoid the repetition, and with that,
+use 4 as the step size everywhere.
+
+Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
+Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 ---
-BR
-Beata
-> 
-> where amu_broken_constcnt_cpus is
-> 
-> static const struct midr_range amu_broken_constcnt_cpus[] = {
-> #ifdef CONFIG_ARM64_ERRATUM_2457168
->        /* Cortex-A510 r0p0-r1p1 */
->        MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-> #endif
->        {}
-> };
-> 
-> so in the next patch you would add new entry
-> 
-> #ifdef CONFIG_ARM64_ERRATUM_3821522
->        /* Cortex-A725 r0p0 - r0p2 */
->        MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
-> #endif
-> 
-> 
-> Cheers
-> Vladimir
-> 
+changes in v2:
+  * fix typo
+
+v1: https://lore.kernel.org/linux-media/20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com
+---
+ .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
+ 1 file changed, 24 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
+index 820af506f896c..b60b91f43d42d 100644
+--- a/drivers/media/platform/renesas/rcar-isp/core-io.c
++++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
+@@ -15,6 +15,12 @@
+ 
+ #include "risp-core.h"
+ 
++#define RISP_MIN_WIDTH 128
++#define RISP_MAX_WIDTH 5120
++#define RISP_MIN_HEIGHT 128
++#define RISP_MAX_HEIGHT 4096
++#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
++
+ #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
+ 
+ static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
+@@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
+ {
+ 	unsigned int bpp = 0;
+ 
+-	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+-			      &pix->height, 128, 4096, 2, 0);
++	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
++			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
++			      0);
+ 
+ 	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
+ 		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
+@@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
+ 
+ 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+ 
+-	fsize->stepwise.min_width = 128;
+-	fsize->stepwise.max_width = 5120;
+-	fsize->stepwise.step_width = 2;
++	fsize->stepwise.min_width = RISP_MIN_WIDTH;
++	fsize->stepwise.max_width = RISP_MAX_WIDTH;
++	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+ 
+-	fsize->stepwise.min_height = 128;
+-	fsize->stepwise.max_height = 4096;
+-	fsize->stepwise.step_height = 2;
++	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
++	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
++	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+ 
+ 	return 0;
+ }
+@@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
+ static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
+ 				       struct v4l2_pix_format_mplane *pix)
+ {
+-	v4l_bound_align_image(&pix->width, 128, 5120, 2,
+-			      &pix->height, 128, 4096, 2, 0);
++	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
++			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
++			      0);
+ 
+ 	pix->field = V4L2_FIELD_NONE;
+ 	pix->colorspace = V4L2_COLORSPACE_SRGB;
+@@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
+ 
+ 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+ 
+-	fsize->stepwise.min_width = 128;
+-	fsize->stepwise.max_width = 5120;
+-	fsize->stepwise.step_width = 2;
++	fsize->stepwise.min_width = RISP_MIN_WIDTH;
++	fsize->stepwise.max_width = RISP_MAX_WIDTH;
++	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
+ 
+-	fsize->stepwise.min_height = 128;
+-	fsize->stepwise.max_height = 4096;
+-	fsize->stepwise.step_height = 2;
++	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
++	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
++	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
+ 
+ 	return 0;
+ }
+-- 
+2.55.0
+
