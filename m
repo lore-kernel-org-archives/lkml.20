@@ -1,251 +1,215 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5F24EDCB3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433724BE43D
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847363; cv=none; b=pPC0hSCkrJWnut4CbRevx1RmfRWBp28QcBGc482IFgUQHThpu0/ZxDBSE5UQzUzLwOYXKSPBo+QchZ9AKg0EfYENU/xl2s+PdUwVJoCA0PRTFrZ3/EQvhL6FrVkIvFqyGVXhBIsVvU5nyzugJC9bqgeupPFtavG56IE0+LQCdWs=
+	t=1790847400; cv=none; b=s2gMVBtASAHj9dKtdT4tvZ6TNZohXpBDdYhZCZMoYWRdiU+e8cnE1hUsI2LKu5R1YPh+04RCWM1glyg/jpiajqx7CeQf/9TNKHURBevN/FYa4YEg09IbqLDJLqydQlLEM/i6rOemz9OqFj41t7ckGAssb+okHUQQhxklcasKAiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847363; c=relaxed/simple;
-	bh=qm//W2ACASQMMeGfzC6o5JYQ2elhZbrpfT6Jvt75e2E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W5Y4TDBTE4Kr3U/TJraVk0L5eQ5qWrA6YTAwTWuMqa+vn36z9zJ/iT4ND3weyy4BVEAEs/fkGhemZVefhoxkXLtfvS4s7gSpS+1QdnPn+EQDRuVagSGFy/Moj5O8VpOZkRSo8wgCdYX+lDFKf5W8fo6D0HH+F9PGynxtUvTjSbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K08kD4ow; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790847400; c=relaxed/simple;
+	bh=nDsPrs6hnGx0JcUP1jewvJFplt1q3U/HxABhh4zREmU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=uz2F6paihLYtQLwqs2WxLPyuuGkOVgf8yd5rI5YaxH0VrSzd5xPF6CjNDyJ5xAQUgBsEDvlazv1qjNByrahA52pPUwE/Xpfl/nF64/evVWZ+j1YufNdJ3DIdbkEQH8dfuOXVl0v0gbGd8mc8xsadSbaXJ+WtNtVytJCJ3vIprls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oHDqxbGL; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K08kD4ow"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-3396cec93b6so7171500eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:36:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oHDqxbGL"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a022e9cbebso2583655e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:36:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790847360; x=1791452160; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MwUOMTspkkXHgX9A+hS2Ljvlb6FdIM56gQO1o7QfI6I=;
-        b=K08kD4owIGCZSbX/GAUzwlgyWGXmOdXGiJdGMk+yu3NqfNrIqOLS6b+beDng63YN4G
-         P37Z3Ty/oERaKdbLGX4Ms86ksSwSyDNe6ouFl5YJb0IOW2xx90QmtIUDeZxoc9B+d730
-         MiAd1fhNI6cCaMv1m4yYh1Q32HsEFbvMgzWOMXGNamK6DHdK52fB4T4lEBLmnkjY1Tqp
-         MUSKwnVdtFVD2BW6YKFU9raURf5ujgAPc0cqL7RxNUPeCVec62TWqDwU0tmLYi0rftU0
-         XHDa0MpSktZlHSlCElYmpOYAhm22kfRtayPHVqth7gro9Vlt4B+JCyEuD3k6soTg9uUv
-         c9kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790847360; x=1791452160;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1790847395; x=1791452195; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MwUOMTspkkXHgX9A+hS2Ljvlb6FdIM56gQO1o7QfI6I=;
-        b=fdAUFYRjKPPXUmT0CK9yiZYTyjl3d1sNyjz+5Z8bt3C7GbKqm/waQoXC5f5/nUy7OR
-         RMHgp1N/0mRoSS4q3pApRPXdO+Wr+Bxgdqi8sauW7jVp2f28BrNMlifYXCxe8hIGelc+
-         QGT/6jO2HJSpb9SyrynkpgkzoRmdjKK6VJkMDb7tn6fjCS3lE0VGKQgUyduTRqCJZBki
-         yAPFu8GdUJahvGOiqbmsp50M9ObJBhNw4nMfMVyy0K3KJdE7oqJB5ZXKWLSMOTdkexUm
-         +snoyCpegAbse4bXGE2LFwWlReDpbhHJvOH2itkLpEPqDuB7SnWnG9sH35cAnyMDRU8H
-         lIgA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/raHpjGMGICi0YpjZIu68bwARw/dlJhwlspbif3/qghxdFL8nV0V7D7AYcvonK5N/hcn4mJXAQVmUV/A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIaxa7rXhz8T4d1XJGqM/VU35MXalJLck8yXr+Ph9v+sgZjYvl
-	Ks119p78k8sYByHzNDNwv44sMaCcZrsfWlRpjLZjdq4AyzZ+8cUlhXt5
-X-Gm-Gg: AYBFou2enQPAQxreJT/Qja7DWrsEzbUG9ANfnhzt6BIEj7YIGtJe9f03oIkDncmXvem
-	DJM83eHGd27c2ZGwv+rzWVNym/+d9brSSdhDTKBc/KlRjwaL2dPDU5rvC6EqcIZ5zR48DYDbEyw
-	EU4M6zljLZ45NKuWjV1M864nOvpP5kN54lDeEkv9WPxK2KgAQpH4lCQMZ0kviv8sj4C8KufJ62m
-	2pdzaSqP+aAVm8+O08jQhAnWGnlPuek0Kmp2dLtaHacPW0qdbw97nKo7WuKSzEqhVrobPAnLobW
-	wCl/RKJfSD1Q9ZJQOAAYFkGrE8zzhfghUxH+2oubZafnzjijU2LdV2W3GlQteisrmrnl494du9o
-	PafjFcnK4q+U797aegTu23U3Wcx6PVFrIFQypN9U9VALiDh9FSjme9pDQCQvAERRsVwhd2xLUTY
-	yUeHtDDTXApV+ULUG/ZewwXFU6JU5JTnNpVaJLDHlYT5VPoRQzXhzQWgXDUxtLq9CZq3la6ipeq
-	J9y
-X-Received: by 2002:a05:7301:6196:20b0:34b:7e89:9a7 with SMTP id 5a478bee46e88-34ce0156f04mr4369034eec.20.1790847360332;
-        Thu, 01 Oct 2026 02:36:00 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db37507a7sm6003982eec.13.2026.10.01.02.35.55
+        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
+        b=oHDqxbGLSUaXFAVTykGDD+ISX63gQAxTVihQbowAtrZ81s2hlMxspqY0mwWQa/aHPo
+         fRaY+supR8nOFw5tbFHUlglUjIFHb5CNSshs/5vXyV4yO5ZLIvA7RiVUzEAaln7DuEnt
+         M06WOBi6CDUyb03rLelAJqWYzLJj6xwXXsd31mKP6q50WH8tGDUs2TBNNkxKxuRAIJNZ
+         znowzwmrW4ywmg3v16KDV694kVJ47lawwVRs9SWjtpVLjWMnIwr+tDKeyyd3yP/5nfGA
+         nmZHfJt/aNvolMMg/9q9pkAzzPxGLZpvjQ3tDWT/AsZ3I1pJTh7AnIa+LYrlzYrtv5bj
+         4Vag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790847395; x=1791452195;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
+        b=NI2fXLLuPFuOb5gvcAeecgM/1mbECsuN70ux1/7m99v+bJGeDwrLZItT/tqyy7kZGE
+         nsgenBpZcPmIA/X5UXPHcx0N5YnUq5Q6Sg68rpZLeAfWR3DaabeSxWwfCfW8BMzXmPG6
+         t0oFeReoRBhwgxczvefQOq4cCiTu1m2TTNK+b09np93xe4sft7hFqEIKASh9A1LuF/ei
+         H6YbRMgnK7vD6o+Tgfk+adIjDDUkiRANIXe/FoovfS7LEPUD9fOsuDAsLZLQ5xLHYFDS
+         fVbEboLdELwue84QuF05EDihfdy/YyRsJHEhnXDSU8mlSwqxO7im03dTyWrrtKkTPo3S
+         n44Q==
+X-Forwarded-Encrypted: i=1; AKwUvByiupEmC+6e2KCdWZ4Jiftld+tFyKL/Lq9dBUD73ZVdoIcwxAtP5tzW9d3YbOCcTi1uvdRAljYo1nthdt8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFDNcl59d1A+oqDqFxbQK/KED25xMvsWGS8WkbzUd0Eqyd4izP
+	9SfoS4HSaRz8Vgf8eClLBZrYFQem2eqz7UZqad8iYKot71JhDF1dqRU+NTyQugEvqCM=
+X-Gm-Gg: AYBFou3n2LL29OJTDNZxCn6oHzPAtwAgNQIsho3jxxA0oUBNF6qqzrLPL3EdS5e/938
+	0JVR2JsbRwcF1K5lLBsQPtY4SF/Mk+2RAqphiD5qjhatceZP8f7PnCfAuXK6/YZadc83Eyk1J7j
+	9G6lt1tz4AoOA0QrLXcQAu1fUdpNF/qFBShHijcadaDuix5rsU1FhWMAskOz7uL2U6rio/sIUH6
+	JxgU8uxAY9nvQCwH0DShOE3dPpXaTD5135yvzOVU9HtT8UuEiK7AODc+FXvn2ZpV8wcYuhm6nZ4
+	VtsIDD9whYDLxAoWwTY+YYfsFQiKhH5yEUvrnKyi75h6YmzwO7/Sc9c9+oeXVvmY8DtIAY9ELqH
+	M3O0tWWGWY1rgB0Pj/WpAgRkt1katm0c6dQ0iEODY8qLp2SPpqAZZrMt7P8XGu+m3CpDqlHSNz7
+	o4E5kN+7jAJO2W2UwusZhMqM856ZJRi+iAi9knFj3w3vR8vF12tl0mWy9/kYQTZpHfEkMAuKOrW
+	u7qfEgxGy7E0XYNtpXM3yd/K5RF
+X-Received: by 2002:a05:600c:3144:b0:4a0:1c0e:b2a8 with SMTP id 5b1f17b1804b1-4a01c0ecb6fmr59256415e9.28.1790847395168;
+        Thu, 01 Oct 2026 02:36:35 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f220sm57243775e9.5.2026.10.01.02.36.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:36:00 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 01 Oct 2026 17:35:35 +0800
-Subject: [PATCH bpf-next 4/4] selftests/bpf: Test jumps around patches of
- bpf_do_misc_fixups()
+        Thu, 01 Oct 2026 02:36:34 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, Jacky Huang
+ <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin
+ <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
+ Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, Miquel Raynal
+ <miquel.raynal@bootlin.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
+ <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+Date: Thu, 01 Oct 2026 11:36:33 +0200
+Message-ID: <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-bpf-verifier-patch-batch-v1-4-a12df8a09160@gmail.com>
-References: <20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com>
-In-Reply-To: <20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain
 
-bpf_do_misc_fixups() now queues its patches and applies them at once.
-Check the xlated code for forward and backward jumps to a patched insn,
-jumps over patches, and a may_goto whose jump leaves its own patch and
-crosses another one.
+On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- tools/testing/selftests/bpf/prog_tests/verifier.c  |   2 +
- .../selftests/bpf/progs/verifier_patch_list.c      | 120 +++++++++++++++++++++
- 2 files changed, 122 insertions(+)
+> HXT and LXT are crystal oscillator inputs of the clock controller, they
+> are described in the DT, so retrieve them, in order, and store them in
+> their respective HXT/LXT hw table entries.
+>
+> Since old DTs reference the HXT fixed-clock without naming it and do not
+> describe LXT at all, we assume that HXT must be present, and fallback to
+> creating a fixed clock for LXT if it is not described (for backward
+> compatibility purposes).
+>
+> The downstream gate clocks can directly use the hw clocks as parents,
+> instead of relying on string matching.
+>
+> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+>  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++--------
+>  1 file changed, 35 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+> index ceebcbd8c18b..d955d79abdd2 100644
+> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+> @@ -4,6 +4,7 @@
+>   * Author: Chi-Fang Li <cfli0@nuvoton.com>
+>   */
+>  
+> +#include <linux/clk.h>
+>  #include <linux/clk-provider.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
+>  				    reg, shift, 0, &ma35d1_lock);
+>  }
+>  
+> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const char *name,
+> +					     struct clk_hw *parent,
+> +					     void __iomem *reg, u8 shift)
+> +{
+> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
+> +						   CLK_SET_RATE_PARENT,
+> +						   reg, shift, 0, &ma35d1_lock);
+> +}
+> +
+>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
+>  {
+>  	const char *of_str;
+> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+>  	struct device_node *clk_node = pdev->dev.of_node;
+> +	struct clk_bulk_data *clks;
+>  	void __iomem *clk_base;
+>  	static struct clk_hw **hws;
+>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
+>  	u32 pllmode[PLL_MAX_NUM];
+> +	int num_clks;
+>  	int ret;
+>  
+>  	ma35d1_hw_data = devm_kzalloc(dev,
+> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+> -	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
+> -					clk_base + REG_CLK_PWRCTL, 0);
+> -	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+> -	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
+> -					clk_base + REG_CLK_PWRCTL, 1);
+> +	num_clks = devm_clk_bulk_get_all(dev, &clks);
+> +	if (num_clks < 0)
+> +		return num_clks;
+> +
+> +	if (!num_clks) {
+> +		dev_err(dev, "missing crystal input clocks\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	hws[HXT] = __clk_get_hw(clks[0].clk);
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/verifier.c b/tools/testing/selftests/bpf/prog_tests/verifier.c
-index 8a6d341b754ac..af107b0c1595e 100644
---- a/tools/testing/selftests/bpf/prog_tests/verifier.c
-+++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
-@@ -90,6 +90,7 @@
- #include "verifier_netfilter_retcode.skel.h"
- #include "verifier_bpf_fastcall.skel.h"
- #include "verifier_or_jmp32_k.skel.h"
-+#include "verifier_patch_list.skel.h"
- #include "verifier_percpu_addr.skel.h"
- #include "verifier_precision.skel.h"
- #include "verifier_prevent_map_lookup.skel.h"
-@@ -273,6 +274,7 @@ void test_verifier_netfilter_ctx(void)        { RUN(verifier_netfilter_ctx); }
- void test_verifier_netfilter_retcode(void)    { RUN(verifier_netfilter_retcode); }
- void test_verifier_bpf_fastcall(void)         { RUN(verifier_bpf_fastcall); }
- void test_verifier_or_jmp32_k(void)           { RUN(verifier_or_jmp32_k); }
-+void test_verifier_patch_list(void)           { RUN(verifier_patch_list); }
- void test_verifier_percpu_addr(void)          { RUN(verifier_percpu_addr); }
- void test_verifier_precision(void)            { RUN(verifier_precision); }
- void test_verifier_prevent_map_lookup(void)   { RUN(verifier_prevent_map_lookup); }
-diff --git a/tools/testing/selftests/bpf/progs/verifier_patch_list.c b/tools/testing/selftests/bpf/progs/verifier_patch_list.c
-new file mode 100644
-index 0000000000000..268cebd179984
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/verifier_patch_list.c
-@@ -0,0 +1,120 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/bpf.h>
-+#include <bpf/bpf_helpers.h>
-+#include "../../../include/linux/filter.h"
-+#include "bpf_misc.h"
-+
-+/*
-+ * bpf_do_misc_fixups() guards each division by a register against division
-+ * by zero with a 4 insn patch. Jumps to a patched insn must land on the
-+ * first insn of its patch, other jumps must follow the insns they target.
-+ */
-+
-+SEC("raw_tp")
-+__description("patch list: forward jumps to and over patched insns")
-+__arch_x86_64
-+__arch_arm64
-+__success
-+__xlated("0: call")
-+__xlated("1: r1 = r0")
-+__xlated("2: r0 = 7")
-+__xlated("3: if r1 > 0x5 goto pc+1")
-+__xlated("4: r0 = 9")
-+__xlated("5: if r1 != 0x0 goto pc+2")
-+__xlated("6: w0 ^= w0")
-+__xlated("7: goto pc+1")
-+__xlated("8: r0 /= r1")
-+__xlated("9: if r0 > 0x3 goto pc+4")
-+__xlated("10: if r1 != 0x0 goto pc+2")
-+__xlated("11: w0 ^= w0")
-+__xlated("12: goto pc+1")
-+__xlated("13: r0 /= r1")
-+__xlated("14: exit")
-+__naked void patch_list_forward(void)
-+{
-+	asm volatile (
-+	"call %[bpf_get_prandom_u32];"
-+	"r1 = r0;"
-+	"r0 = 7;"
-+	"if r1 > 5 goto l0_%=;"
-+	"r0 = 9;"
-+"l0_%=:"
-+	"r0 /= r1;"
-+	"if r0 > 3 goto l1_%=;"
-+	"r0 /= r1;"
-+"l1_%=:"
-+	"exit;"
-+	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
-+SEC("raw_tp")
-+__description("patch list: backward jump to a patched insn")
-+__arch_x86_64
-+__arch_arm64
-+__success
-+__xlated("0: call")
-+__xlated("1: r1 = r0")
-+__xlated("2: r2 = 0")
-+__xlated("3: if r1 != 0x0 goto pc+2")
-+__xlated("4: w0 ^= w0")
-+__xlated("5: goto pc+1")
-+__xlated("6: r0 /= r1")
-+__xlated("7: r2 += 1")
-+__xlated("8: if r2 < 0x3 goto pc-6")
-+__xlated("9: exit")
-+__naked void patch_list_backward(void)
-+{
-+	asm volatile (
-+	"call %[bpf_get_prandom_u32];"
-+	"r1 = r0;"
-+	"r2 = 0;"
-+"l0_%=:"
-+	"r0 /= r1;"
-+	"r2 += 1;"
-+	"if r2 < 3 goto l0_%=;"
-+	"exit;"
-+	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
-+/* The jump of may_goto leaves its own patch and crosses another one. */
-+SEC("raw_tp")
-+__description("patch list: may_goto between patched insns")
-+__arch_x86_64
-+__success
-+__xlated("0: *(u64 *)(r10 -16) = 65535")
-+__xlated("1: *(u64 *)(r10 -8) = 0")
-+__xlated("2: call")
-+__xlated("3: r1 = r0")
-+__xlated("4: if r1 != 0x0 goto pc+2")
-+__xlated("5: w0 ^= w0")
-+__xlated("6: goto pc+1")
-+__xlated("7: r0 /= r1")
-+__xlated("8: r12 = *(u64 *)(r10 -16)")
-+__xlated("9: if r12 == 0x0 goto pc+9")
-+__xlated("...")
-+__xlated("15: if r1 != 0x0 goto pc+2")
-+__xlated("16: w0 ^= w0")
-+__xlated("17: goto pc+1")
-+__xlated("18: r0 /= r1")
-+__xlated("19: exit")
-+__naked void patch_list_may_goto(void)
-+{
-+	asm volatile (
-+	"call %[bpf_get_prandom_u32];"
-+	"r1 = r0;"
-+	"r0 /= r1;"
-+	".8byte %[may_goto];"
-+	"r0 /= r1;"
-+	"exit;"
-+	:
-+	: __imm(bpf_get_prandom_u32),
-+	  __imm_insn(may_goto, BPF_RAW_INSN(BPF_JMP | BPF_JCOND, 0, 0, 1 /* offset */, 0))
-+	: __clobber_all);
-+}
-+
-+char _license[] SEC("license") = "GPL";
+Don't open code it. use .fw_name
+
+> +
+> +	if (num_clks > 1)
+> +		hws[LXT] = __clk_get_hw(clks[1].clk);
+> +	else
+> +		/* Old DTs do not describe the low-speed crystal */
+> +		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+
+I'd give it another name so you can clearly see the difference between the
+DT one and the manually registered one.
+
+> +
+
+Don't need to open code this either.
+provide both .fw_name and .name - CCF will fallback to the name.
+
+When you want to conditionally register the fixed is up to you.
+
+> +	hws[HXT_GATE] = ma35d1_clk_gate_parent(dev, "hxt_gate", hws[HXT],
+> +					       clk_base + REG_CLK_PWRCTL, 0);
+> +	hws[LXT_GATE] = ma35d1_clk_gate_parent(dev, "lxt_gate", hws[LXT],
+> +					       clk_base + REG_CLK_PWRCTL, 1);
+>  	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
+>  	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
+>  					 clk_base + REG_CLK_PWRCTL, 2);
+> @@ -632,8 +659,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  	hws[UART16_GATE] = ma35d1_clk_gate(dev, "uart16_gate", "uart16_div",
+>  					   clk_base + REG_CLK_APBCLK0, 28);
+>  
+> -	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt",
+> -					clk_base + REG_CLK_APBCLK0, 29);
+> +	hws[RTC_GATE] = ma35d1_clk_gate_parent(dev, "rtc_gate", hws[LXT],
+> +					       clk_base + REG_CLK_APBCLK0, 29);
+>  	hws[DDR_GATE] = ma35d1_clk_gate(dev, "ddr_gate", "ddrpll",
+>  					clk_base + REG_CLK_APBCLK0, 30);
+>  
+>
+> -- 
+> 2.55.0
+>
 
 -- 
-2.43.0
-
+Jerome
