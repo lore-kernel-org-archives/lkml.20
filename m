@@ -1,91 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DA93E0C44
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:38:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F702457E70
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:38:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843910; cv=none; b=kNtwqkxlZCnLsVbGLIhb5P1EJsVbyMtivNOYi0m//62D4fg2e2R1uf7hMnDO/XSOxh3BLDhqr1rcYYb7RtRk3gDool+Gcy866h3+jRICosfI+XT9FHczC4mBwfRGH/NkvWfYQ3FGAyw7tlMYQ3TnTz8d5i9Fb5x/tHCWssDs5og=
+	t=1790843920; cv=none; b=u/cP5Z4QXlkvVTyMoGUbHJDfC+htnrBkAjZe+nR1KRkyzcmHYXlkexEbEXt0GysL66+cDq4v0qsGrDYAWf21VzUwgmpDO6tXBJAWpVjdpNwnPxxXPXDCqWEHVRXHR1hWQOTAY9Zji++89pGFshPR42ULYyZazASNBX7cZINcei0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843910; c=relaxed/simple;
-	bh=NJBH9/Cuky1ZdSB2IwXB3IwQ+0259U9vIfeSjDYAFOo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G0NfPFOGQ4bPoq5NGtwYWAkdh3MD0yEq0r/1xOJHiF8srsN5SOEeVWlhH5DYUrAimFQyWI0S9kQXQQcVeBqmoe/Z6RKvbtjv0OnFZkolk/pc/0kJet6B1AZljSpNq7dUtrrdyX2qLFodFWi6eR/q9cE5BT32xUK/6PtOQhkJnvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJdR9k1n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790843920; c=relaxed/simple;
+	bh=is/ngq975mUjUBzTdIqiNV/aCl6skLZgP+5C7ZZcfo4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bJCt5xto/xRLUEGfH6aFKTsNmJ8jx6Xwp8E5IZn+lPaF33lLmyhLKAEUxJ1pyCzzvM3DnArRugzgjo4W5pR8G9P+6z41NQZHBMcw71Wyn+jgN50Gu87nV/dm+ctcRfnwlzNHk76FmuszN2RTvWYlTvnZEuf0mNAek35UuoxU5JU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXx/PLNR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJdR9k1n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903F71F0089B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:38:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXx/PLNR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79ED1F0089C
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843908;
-	bh=1mlI7eCbOHta9+T200ctjAiyq0mkMCIM7oHWkQJ9H50=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=CJdR9k1nB8B2pGCkOMihcUbnsJNBPDNSGgrm49fMHvzyFRObRk7dfu+h4Y6AcCkMD
-	 s1yy8y/3NXo1SE/EYW1FzdkZzFTzy4jZkSNX6FTU+ONkMbK1pFIBIgRf3oMFj26xHJ
-	 yXB8EJd5M8VgKk7/cj2V3DPZbuolO4IBosLGRVuS/+7thH+ra6kBKcE4w727nUbKe5
-	 khOIhgq6ypwa+57XdiYyJtGO26a75DjTMgkWZOmdPbxF8N9bNHWzRHg8KqitJ0I/JL
-	 dJLdF/h0XS2O4IplIxeRKdkqPRVdds7jMx21pYlzqOsRXTgQSiEXInqNmyY2zGD/NQ
-	 BykRe1bVLLiAQ==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a77da28307so11856181fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:38:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByMwW22qRw6ovonBeb+/KywKanU0YmT353UTnhRtbupIUsjJbY3RQ4qiqbrLdHGVd+JfBFj+76Mq+UckTk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLN774xb+e5oG1AwS7BUNMJTeOeB7cGMYz8VOufCXOqfdrHlLYH
-	w8N9o0MZRG8K7yLWhkEcDT2s9JggvbGJ3wzdtTkYrI70VYrnGLsQNC6CbmGT6+GUVB4I3SnYhFH
-	FZ+dWCFfJlowBCDfeEQVDToTmgaqfwRh6JwRkldGKMw==
-X-Received: by 2002:a2e:be9d:0:b0:3a6:5951:c0b8 with SMTP id
- 38308e7fff4ca-3a7792530d4mr10672311fa.19.1790843907345; Thu, 01 Oct 2026
- 01:38:27 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 11:38:24 +0300
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 11:38:24 +0300
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260930020745.1940933-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1790843918;
+	bh=is/ngq975mUjUBzTdIqiNV/aCl6skLZgP+5C7ZZcfo4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DXx/PLNR9NqnLC//mCAWY7SvbPVzN9mfq49qG89mVN0TfrXV0kuS9EyELgzXqMYAh
+	 Uk8cbxTo5s1FgIPUFJa+JoN7BZ3NvCv308v7z+01wFzBOAB/uNWnJ3SbjxwaCc1Ld1
+	 A1fgmFU6fm3tFtrCbgp8RkvPoAK1F8Ce/VL8JbL16bAi8ANRemcKTL2IDSKp/a6qN+
+	 l1I88K2Q0eUhehJYOnWqMwDtESK6CC0B/U2TCf5E6PPxS9gIAXID1RfG3QIyLEe8mU
+	 5FVpXaIALhbXY9prgI7QkNwFJ2SJXsJeV9bAP6n96OXi/S4HWrj254KUxw4LdKbxH5
+	 stKAyn+TJm9YA==
+Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6de6b4c50f3so130154eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:38:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxd48TCZtii5uiSrnwxnC8p8SylCcrckIxpcXEGIumZPBAdDgozVKgQ3L8r4JSVkGxePKkzvlH1NgRVPhw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdVsKl1FSMdp4XZH2tMXhvCn+T1knxOyWyEtU7g2mZphRVrz48
+	3Cx7ntzqPGHzdkAfkZx21HVZXvjFaIdlh3WzazaeZRFNw5ZPIVMmhU2en+yIxp5LIihx/FTdpL4
+	fAbFUEXp8VthEW+e9jH/UicHb+vjN7n0=
+X-Received: by 2002:a05:6820:1806:b0:6d9:bad0:8374 with SMTP id
+ 006d021491bc7-6dcf1fa428amr3428672eaf.10.1790843918052; Thu, 01 Oct 2026
+ 01:38:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930020745.1940933-1-shengchao.guo@oss.qualcomm.com>
-Date: Thu, 1 Oct 2026 11:38:24 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MfBfcRKHVoGDUViLEftEaMXP8x+25r-7dWgvA9yVdDTtQ@mail.gmail.com>
-X-Gm-Features: AclHuK9-uNXzyKt8BCmk4U_e3Igbon-NNMUoMOO6zAsq98gB4Oj4BJ9fltTnFPQ
-Message-ID: <CAMRc=MfBfcRKHVoGDUViLEftEaMXP8x+25r-7dWgvA9yVdDTtQ@mail.gmail.com>
-Subject: Re: [PATCH] remoteproc: qcom_q6v5_pas: Drop early_boot flag for Nord ADSP
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>
+References: <20260918161407.2300-1-will@kernel.org> <20260918161407.2300-20-will@kernel.org>
+ <CAD++jLm=9RyVXf+hqFCMir2dBFbwysR5g8Tp2_14H48xtLx8Uw@mail.gmail.com> <ar4LWGJ_qfV71_Ia@willie-the-truck>
+In-Reply-To: <ar4LWGJ_qfV71_Ia@willie-the-truck>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 10:38:22 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkipuU0PcEvr=Bqy86Av_y9YBuVFsw6dtgy9zbkAWNU=g@mail.gmail.com>
+X-Gm-Features: AclHuK9bZYHoY_AXjKZDaH1MPRes_W7KUtKQxFuh8xG-8gqtKY6GBTng2OBvj8Q
+Message-ID: <CAD++jLkipuU0PcEvr=Bqy86Av_y9YBuVFsw6dtgy9zbkAWNU=g@mail.gmail.com>
+Subject: Re: [PATCH v2 19/21] arm64: entry: The great stack switcheroo
+To: Will Deacon <will@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 30 Sep 2026 04:07:45 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> Qualcomm NHLOS team changes XBL for Nord IOT/Embedded variant, leaving
-> ADSP to be powered up by Linux remoteproc, so that Nord IQ10 Qualcomm
-> Linux (QLI) behavior gets aligned with IQ8/9. Drop early_boot flag from
-> Nord ADSP for that purpose.
+On Thu, Oct 1, 2026 at 9:27=E2=80=AFAM Will Deacon <will@kernel.org> wrote:
+> On Wed, Sep 30, 2026 at 11:36:35PM +0200, Linus Walleij wrote:
+> > On Fri, Sep 18, 2026 at 6:15=E2=80=AFPM Will Deacon <will@kernel.org> w=
+rote:
+> >
+> > > With the kernel stack pointer in SP_EL1 and the overflow stack pointe=
+r
+> > > in SP_EL0, it is now straightforward to switch between the two on
+> > > exception entry from EL1 by writing to SPSel. However, since exceptio=
+n
+> > > entry sets PSTATE.SP to 1 (selecting SP_EL1 as the stack pointer),
+> > > repurposing the overflow stack as a more general kernel exception sta=
+ck
+> > > would require writing to SPSel on every exception entry from the kern=
+el.
+> > >
+> > > Switch things around so that the overflow stack resides in SP_EL1, wi=
+th
+> > > the kernel stack residing in SP_EL0.
+> > >
+> > > Signed-off-by: Will Deacon <will@kernel.org>
+> >
+> > This patch gives me panic, and as can be seen from the review
+> > comments need some love...
 >
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  drivers/remoteproc/qcom_q6v5_pas.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> index 2e1e39826ffa..9e7fb5c5610e 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -1582,7 +1582,6 @@ static const struct qcom_pas_data nord_adsp_resource = {
->  	.dtb_pas_id = 36,
->  	.minidump_id = 5,
->  	.auto_boot = true,
-> -	.early_boot = true,
->  	.proxy_pd_names = (char*[]){
->  		"cx",
->  		"mx",
-> --
-> 2.43.0
->
->
+> Please can you share the panic message? I'll definitely be reworking
+> this based on the review comments, but if there's a bug it would be
+> great to see the details now!
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Haha. I was not referring to the kernel function but the emotion ;D
+
+Yours,
+Linus Walleij
