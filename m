@@ -1,157 +1,79 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C8B372EDB
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 00:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101241A3160;
+	Thu,  1 Oct 2026 00:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790814970; cv=none; b=o6xi+BLLydNoBAQ5wrWEhE/Aaorb1o2porTOSJHbhviZw/2wNQAxXvf3bHug0fpoMl68EChYluCIphr/qexmR94vg8aEotKD4hvZh4GipPqMAtpynPhGNbpazDXU+eY0rHyIisoLQHNKemJumvp57ZJ4xTsvsAllmDxNaO5bZyg=
+	t=1790815222; cv=none; b=TF8Rgip4cvSkP3dK81zq6DB00JLQLjLQ1+EeOiw1r9B8ztJt/d9A8Rdo09svkM323FtXEDIPbXpTbnY1YALsTbjwtKD9wtRBB/XmCYbTNf157UOJ9sNwDGXt6Ya0Z/+dOFnBo2xcp3KjQR8eoa10XECRTPU9TVqJAmeQMnuoTHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790814970; c=relaxed/simple;
-	bh=mEiOxK6qgL2knbgWwksX7Taq8hLellRiYQOPrC1ldZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N77VOvsRi97OxK6ryOHrYMEYQo/cupukiQBfDEgo30X0hgenvr5qXznUEQIfF9GuH+2lFTROJB9v8a9domE2KuVJm+yLSTIofw3YtHaORYiep1RrV6Rtw9gOD2R4+riEDstEFSlrrPU4DK4uMTDp8YQh82k+/AZNCuQJLHYbN24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CdO6XnWQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Df0W+jSx; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790815222; c=relaxed/simple;
+	bh=oMIaEeEoP4t05NtYSsN9pnpsf/KG6qmo5wQqzyQTWWQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Z/H+Dkmxylxt/Wx1WcACYc9rphSE6mQx7B+t4dSy5eD7DA34wAfWuYlV9TC0x6qSgrqQ9xxKktRzsaTe7dsz3FLYoL72XTDaimcb+INGR9vTWGflZWVASVbWfVemkEMeO1PosccMLPNn9UiSgsrqk9LkImJj1OdnsfVtTn63YFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZnT8NEjG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CdO6XnWQ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Df0W+jSx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790814966;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YsV5MN4aFpGUFvwk6vrhGH7My89v8MB96omgdQVAOpM=;
-	b=CdO6XnWQtublw8+NsoRQljqcdY6oVACGKb7CQEUdxd0f2yM5aOYmuWxteAic9INbqD2cbt
-	Lyfwu/20GdXHxP9SUAQU7/5zU+jxOyJqcsTX8tdNSDesili5ffl4J7hl3B+x08U8DUxJ9t
-	Va/t9ZuK/wUH4NywO4swlGsvug0YAXk=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-66-ZW4-zvetMjCUG8qBZzrCzQ-1; Wed, 30 Sep 2026 20:36:04 -0400
-X-MC-Unique: ZW4-zvetMjCUG8qBZzrCzQ-1
-X-Mimecast-MFC-AGG-ID: ZW4-zvetMjCUG8qBZzrCzQ_1790814963
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-916cc44720aso65680176d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 17:36:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790814963; x=1791419763; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YsV5MN4aFpGUFvwk6vrhGH7My89v8MB96omgdQVAOpM=;
-        b=Df0W+jSxP/qtfW9CLTJSk+3Tr77clbFB2kSBPkbTFDn2fGeSr2hJzb+XykVdipXble
-         JKcI3mJHR83c/JrD7Ps+hkCcNP+kqnbUaNmPYF/8Sc5GLgkZwqJyPfkozt28Rsh75+dP
-         ZvxDtYRJ9VYfO3sVTkf5x3FCI1eokLt/JESSaI2aPArfEdXLweihm+ZPGpUuyVL+/iu3
-         SbN0/pG+A7BdLwbAtVgNvon+QS+fDnI9QFK3hhHrSSMuNkLyMbCg/mHdYN3J73Oaltfb
-         iltpPwlJjT1F8diK8Ae6sFnaJSIOoAWVT2R8vbRhCSY0sMqj8eqXVHHsT2Jki4fo7eBG
-         ndLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790814963; x=1791419763;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YsV5MN4aFpGUFvwk6vrhGH7My89v8MB96omgdQVAOpM=;
-        b=cSqR2LYyetGTsl503fdLPNY8s1HKsKG64G2qZQsvlD8m6ewxMbYNlTACsC4xxkOE64
-         xPKHVkFPu7ppTh85IPMW8f2FjxpZU9YHtBgpH9H27j9U6d7Hhr0L6lXjFSIEiXMlYujc
-         Y6+/YQcUY8KEcmBUUamR+0iAUAhO+fZL4Eap8Z1Y9sp85RFChkU8KdaFH40GDLnx8UNF
-         j+BhZYM8wP6+a2BAlnC29rxSiO7Ddh4E/vXsR5TS/ZK1uZcEIALdlUDoMmgEsUUw2re8
-         js24whUECeJOZLX/9BzLyVswpDsp53xY45TetZepXaDM1FNk1asLxnhvQtulQLfhFmCc
-         rfCA==
-X-Gm-Message-State: AFq9FYI84xHFetlqRNmy/UqQAEhuaNO8OC4Jin2/XGJJMxOaSJWRd7P6
-	GrOV+IYZAQ+zpOKnkOgbj4HaZ3JyDG2YtjNEaEqWaA921KVBmh41rlLCO/MBfKXvoRw1vRZgkbr
-	GaaKHxCSRoxLkUxNYsnjBf9sUbJW44dvIlAFoBAhNLukTsvwvByKIS0/YRTcDJ1SL8w==
-X-Gm-Gg: AYBFou2GoPATv0mhpJlwpu9tbJG/QQsIh1/ttrkkjfJZwVgBkrJ6CzLwHzqQXxtwZSr
-	yeSi14QAEk59aWRRLkjY2OQJveSDuVXweOT/PVYyXzWycH4JB5Q5+4E6MKECspLZx5pgz9CCRE6
-	2ChOcqWGF4CzfEZA81qrU6Zam/K9URytKyqZCsbiMF0jrU+/ZFePU5cw6X2hJK21xjy22mJcxhY
-	SCcSIrfMcQYra0CNlmAmo7KH4pLKUKTZYWVbjOetLoTYh9p9teoyTGelEUxW+VydyuUgMWz1hgu
-	H/bjAP/VGE4PrTnAHsxWaQKcGEuQ/Mobag0+fSqk+a+mhn0Zk3xdKImXG5x/7Wv7ZXF+3TUhMY6
-	VaMe9dwUmf1pnADAKGH7x1OQI/zIcYpUqAbI=
-X-Received: by 2002:ad4:5aa5:0:b0:915:e58c:9036 with SMTP id 6a1803df08f44-917a0a02e72mr59189326d6.6.1790814963482;
-        Wed, 30 Sep 2026 17:36:03 -0700 (PDT)
-X-Received: by 2002:ad4:5aa5:0:b0:915:e58c:9036 with SMTP id 6a1803df08f44-917a0a02e72mr59188656d6.6.1790814962863;
-        Wed, 30 Sep 2026 17:36:02 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917a881aba3sm12432406d6.2.2026.09.30.17.36.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 17:36:02 -0700 (PDT)
-Date: Wed, 30 Sep 2026 20:36:00 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Cc: linux-kernel@vger.kernel.org, michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com, Abel Vesa <abelvesa@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Sebin Francis <sebin.francis@ti.com>,
-	Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Subject: Re: (subset) [PATCH v14 0/4] Support spread spectrum clocking for
- i.MX8M PLLs
-Message-ID: <ar2q8M7Sn9DccVBI@redhat.com>
-References: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
- <179070048452.199845.10870046832708018931.b4-ty@b4>
- <CABGWkvojte=RG=BJ=jvcq5HfUcYUZNsWNN+c5zDh-449VJ8Svg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZnT8NEjG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052BF1F000FF;
+	Thu,  1 Oct 2026 00:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790815207;
+	bh=fUtbI7rZ9fegY1v3Djr5d50iTf6BrLJeMWhDfB4fX2c=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ZnT8NEjGanW77Wkv0CBg90+CYTJh+ReUQMVdwadreY2SmDXue5fOw67R2Wp6Xs5so
+	 lZvIk8uWJN/tK6wz7oog7m5Y/Wn9piMZdTypk0K5nZe83jkFF+zzENd/v9CMYVw1E7
+	 j+zlWDuDs/hm9AEwUWOsuteADMyqXzuW6wt8MJsP4RVK4+pO5SeUC2QDi3tHpH3uZn
+	 T6SzyUB80yLE8LmJ9hY+4ql+fus3vvF/vPRJWUm2PoruxXMviRibEr0gu9GbOfAZeG
+	 m/RHmYniDG/Hj8UodVy8lLcY70q6Lp8nbxh3zeYtdz5TNbia1lVq7l2oilSfyidRxx
+	 GgUXRETa2rc/w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F145E3AA6A61;
+	Thu,  1 Oct 2026 00:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABGWkvojte=RG=BJ=jvcq5HfUcYUZNsWNN+c5zDh-449VJ8Svg@mail.gmail.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+Subject: Re: [PATCH net v2] s390/ism: Zerorize dmb at allocation
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179081520578.2192623.15327890080313694045.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Oct 2026 00:40:05 +0000
+References: <20260928151420.383105-1-wintera@linux.ibm.com>
+In-Reply-To: <20260928151420.383105-1-wintera@linux.ibm.com>
+To: Alexandra Winter <wintera@linux.ibm.com>
+Cc: aswin@linux.ibm.com, gbayer@linux.ibm.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
+ andrew+netdev@lunn.ch, julianr@linux.ibm.com, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, hca@linux.ibm.com,
+ gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+ svens@linux.ibm.com, horms@kernel.org, stable@vger.kernel.org
 
-+ Sudeep
+Hello:
 
-Hi Dario,
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, Sep 30, 2026 at 11:01:28AM +0200, Dario Binacchi wrote:
-> On Tue, Sep 29, 2026 at 6:48 PM Brian Masney <bmasney@redhat.com> wrote:
-> >
-> >
-> > On Fri, 04 Sep 2026 12:06:29 +0200, Dario Binacchi wrote:
-> > > Support spread spectrum clocking for i.MX8M PLLs
-> > >
-> > > The series adds support for spread spectrum clocking for i.MX8M{M,N,P}
-> > > PLLs (audio, video and DRAM). It has been tested for the video PLL on
-> > > boards using i.MX8MN and i.MX8MP.
-> > >
-> > > While at it, it validates the spread spectrum configuration in the clk
-> > > core before it reaches the providers, and fixes the i.MX SCMI OEM
-> > > extension, which converted the spread to the wrong unit.
-> > >
-> > > [...]
-> >
-> > Applied, thanks!
-> >
-> > [2/4] clk: validate spread spectrum configuration
-> >       commit: 109124b8ff43fb911d5b8790bb5e4c5684f72d88
+On Mon, 28 Sep 2026 17:14:20 +0200 you wrote:
+> Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
+> uninitialized kernel memory to be exposed in the receive message buffer'.
+> An ism dmb is receive-only, so the data is not leaked to a remote peer. In
+> general the smc kernel module (dibs client) will only push newly received
+> data to userspace. We still should not have uninitialized data in a receive
+> buffer.
 > 
-> Thanks for picking up patch 2/4.
-> 
-> I put the two fixes at the head of the series expecting them to go in together.
-> Am I missing something for 1/4?
-> 
-> And how should 3/4 and 4/4 be handled?
+> [...]
 
-I can pick up the other SCMI patches, however I am waiting for a
-Reviewed-by or an Acked-by from Sudeep for the SCMI changes in patches 1
-and 3. It looks like Sudeep wasn't CCed on the original series so I added
-him.
+Here is the summary with links:
+  - [net,v2] s390/ism: Zerorize dmb at allocation
+    https://git.kernel.org/netdev/net-next/c/a0227fa24e8a
 
-Abel is the maintainer for imx in patch 4. I can take this as well,
-however I'd need an Acked by from Abel.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Brian
 
