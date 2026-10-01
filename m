@@ -1,85 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E951C46A618
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537924A0F1E;
+	Thu,  1 Oct 2026 08:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842303; cv=none; b=QN8cCctc1Dv9vmbxQA4wZxG61hXCWKw9uAF3/g8lQuJzu2YdNCZP3UwC2th/RT0O9SCJ9znOeprIjOUu0RjeCSAFPVJ/Nx5PIkwHNW5d38BWaQh0H3wVofwMxyyM4PBLlzZrzCLX/n+laWGgpSjWnSH0EEkxmMHcyXuD2H57SqQ=
+	t=1790842307; cv=none; b=oATldMRjItFPtnXgB+BbotayeFyosmYFDfRcSnjOEJaeubuLSSWyudTox8/rsWUSPJQLMg6FMPVeQiURYt2XMdUw2NZ/dRuWf1/elO5w867Q4o7t7oNXamtL8cBJMDMRteof4AHpA8eb9D3yBjFxYoE0SKp2wYmdzxu6yj+cQWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842303; c=relaxed/simple;
-	bh=mxQOGnxEw0Hj7D3xY0/AE0U9P/h6afoAJA7aMA+z8WA=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nlGvyP5cZREGxQ/y9WTY/h1klZEKSsV3tPdrVwDFtUyzKqOEDxx/SiGjIPPz4kdSWmUeLE3Q7GXEqsW9LMmK5UkKbXl62koCY5YSvXMdKDvEvmJny0mUs1/E6N4Z02PGl8UBYgBvkAfRcD0D9c1hvqpHT1A12JnZkWDINI7d078=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RlSvPtx4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790842307; c=relaxed/simple;
+	bh=rR9lDXurt2uwdSssWIyJRChYiHMIHeLvlylC9nmS+Lo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pg5AbOOkLfjfAqxQ1FlXjLiEOeXfnM8+YExLvrcW2jjsWRVKbj2iPd4/7D9elg9pWMj90fBOeuanHwUVTdxxZpHD2dg3to4DPPT8rY+R0wVnJpGW/7yp9nOnm6Xdwtty8xwt4E0eMf1n+qD7vNcohhPfUONt8xsOKJ1Anz1BHUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=uc6DfGZT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=H/2NkGyA; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=SOrkK6cR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=MyEt24Om; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RlSvPtx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA6D1F0089A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:11:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790842292;
-	bh=mxQOGnxEw0Hj7D3xY0/AE0U9P/h6afoAJA7aMA+z8WA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=RlSvPtx4uSnAdNzCRgF19kK27sZHZ4BHH/Nu6O2Jdes1bfzGlFnVXLDk8P/lYm7ly
-	 3HkbEFTocsAmDF2BAi8dkggqoOZ7rU+LZI2tsu+tfgCQNuAe9uhBQwrHmPcMLPmQwp
-	 RFsiRqTeglrrQCkOrTnR8285C0EhR75Y4ooMh/CE1DDuKq+wXXTsEOv4B0k63Eo398
-	 Ab0cxntgSXYsiXJgNf9Ltoqyn9fUCMpG5NPULK/MPvus/mNHXPHCGQrg2IdmZvW45Z
-	 UH5H/DjtYcvD1P1fMskTp+bkllMi9e3Fk9G+i0HzEqgDwV4v9meC8iBaqlvUuRuMdC
-	 EVT12H1Ru8TaQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8ede3ab7aso2194902e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:11:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByz+KS+gTg+K7np8J22s0e0R3n58aIn7hYFwUvoEL9tU+FTO41VI389oyQPU5NlOczUjWd+dfhvO1N1j/Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISlaRRvFSmQEUIcvIu69RtdhDkxwCWJVY6M9CZmK7RW7EZhcB8
-	4Ig1GgkbbeF0MLVjMHjKHh9/VE6OfQo5mFG4AXwuzyKo+IbvHhGSwAOvDJxescZFzYA6woDUHNe
-	E7/Is5Fn7ehUIPuq/LeftpSzESenpfeLCAnxuM5xdOA==
-X-Received: by 2002:ac2:4e8b:0:b0:5b8:f379:eab5 with SMTP id
- 2adb3069b0e04-5ba406196f2mr1133308e87.52.1790842291219; Thu, 01 Oct 2026
- 01:11:31 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 11:11:29 +0300
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 11:11:29 +0300
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260929191446.21127-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="uc6DfGZT";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="H/2NkGyA";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="SOrkK6cR";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="MyEt24Om"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1E66721EBF;
+	Thu,  1 Oct 2026 08:11:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790842296; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
+	b=uc6DfGZTarOhRPxv+k5N9rt79wwCHp4Iiv6x8pgxig1jZA30VtvPt/1NopC4aREzjvQbE8
+	XbbsSLAOimDb+u8TFRnLaIihQhaFlK/HxLaDePVJPj14bIlaXDeeL2zVlge3y3gk7TurI6
+	/6pH4PhyDIIaSrbSP1f27C3oaiDiOHU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790842296;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
+	b=H/2NkGyAPLaGAOrc1GzI9q+gDZXhx/et9FILtqpuvMc0sE/seC5N5/djaBtK34Uy9v2k6i
+	uETDNXLiS4GDqFAw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=SOrkK6cR;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=MyEt24Om
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790842292; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
+	b=SOrkK6cR2Yr/qeqhBQfHd6hdbg+a3TxxWaHLY9qRYlDfK7JWfWBV04B7qe6mVwX81wpxF1
+	tCbNvOPqeYSvS8pMbH9YRT90+PfKHoPcMhBNxG4eXPV42fh9JNCJPfQOAFaZ9VyePm8quZ
+	N+jd3EC5BUIwzMtkiEC8+XOIk7vDOFc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790842292;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
+	b=MyEt24OmUnE3HQj6uSDFye77cMEE982a2eJ0oaJ7ncH+QdeCfhJHPdhhEMKT4QRJIjJNFK
+	viXetoNGrLJnSxAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E228B134B3;
+	Thu,  1 Oct 2026 08:11:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zhNOLrMVvmp7UAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 01 Oct 2026 08:11:31 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 67D84A13F7; Thu, 01 Oct 2026 10:11:16 +0200 (CEST)
+Date: Thu, 1 Oct 2026 10:11:16 +0200
+From: Jan Kara <jack@suse.cz>
+To: Hui Peng <benquike@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, 
+	Matthias Goergens <matthias.goergens@gmail.com>, Anders Larsen <al@alarsen.net>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] isofs: bound empty directory blocks in
+ isofs_read_level3_size()
+Message-ID: <gwglszf5mvb2n4mor235v5752rsohm3b2zs6msiolir7hqqiq2@73uzvzj2rmim>
+References: <20260930042148.169831-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929191446.21127-1-rosenp@gmail.com>
-Date: Thu, 1 Oct 2026 11:11:29 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MfpR0OWH-JfV_752PbkZmSnsuC_vK4ztzBqHnZebCsbkQ@mail.gmail.com>
-X-Gm-Features: AclHuK9H8II8fwd91FeQrUgEaZrZQbe6I8cFGSC1rZS_rmUyyGHHvy74mXE_2UI
-Message-ID: <CAMRc=MfpR0OWH-JfV_752PbkZmSnsuC_vK4ztzBqHnZebCsbkQ@mail.gmail.com>
-Subject: Re: [PATCH v3] gpio: mvebu: fix Armada XP per-CPU mask register save/restore
-To: Rosen Penev <rosenp@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, 
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>, 
-	open list <linux-kernel@vger.kernel.org>, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930042148.169831-1-benquike@gmail.com>
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 1E66721EBF
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,alarsen.net,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:email,suse.cz:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
+X-Spam-Level: 
 
-On Tue, 29 Sep 2026 21:14:46 +0200, Rosen Penev <rosenp@gmail.com> said:
-> The Armada XP variant keeps the per-CPU edge/level mask registers in a
-> second I/O window (percpu_regs) rather than in the main GPIO window.
-> The suspend and resume paths however read and wrote them through
-> mvchip->regs with the per-CPU offsets, which hits the global
-> GPIO_EDGE_MASK / GPIO_LEVEL_MASK registers instead. Per-CPU mask state
-> was therefore lost across suspend/resume, so a level line could end up
-> unmasked behind genirq's back and trigger an interrupt storm once
-> interrupts are re-enabled.
->
-> Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
-> both the suspend save and the resume restore paths, matching the
-> mask/unmask handlers and the probe-time masking.
->
-> Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
+On Wed 30-09-26 04:21:48, Hui Peng wrote:
+> isofs_read_level3_size() walks the sections of a level-3 (multi-extent)
+> directory record and, on encountering a zero length byte (de_len == 0),
+> moves on to the next block without bound. A crafted image with a long run
+> of empty blocks between two sections of a multi-extent file can force the
+> walk to read every block to the end of the device.
+> 
+> Count empty blocks (de_len == 0 at offset == 0) towards the existing
+> 100-section limit. Track empty_blocks in a separate variable from section
+> count 'i' rather than incrementing 'i' directly, because 'if (i == 1)'
+> records the start of the second section (ei->i_next_section_block/offset);
+> incrementing 'i' on empty blocks before the second section is read would
+> cause 'i' to jump past 1, leaving the next-section pointer uninitialized
+> (0) and reading past the first extent into unrelated disk data.
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled using a crafted
+> ISO image containing 150 consecutive empty blocks between two extents:
+> on the unfixed kernel the loop reads all 150 blocks; whereas with this fix
+> applied, the loop aborts with "isofs_read_level3_size: More than 100 file
+> sections/empty blocks ?!?".
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
+> Suggested-by: Jan Kara <jack@suse.cz>
+> Co-developed-by: Matthias Goergens <matthias.goergens@gmail.com>
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 > Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+
+Sorry Hui, I already have a patch from Matthias for this in my tree.
+
+								Honza
+
 > ---
-
-This doesn't apply on top of current gpio/for-next.
-
-Bart
+> Changes in v2:
+> - Document in code comment why empty_blocks is tracked separately from
+>   section count 'i' rather than incrementing 'i' directly (preserving
+>   the 'if (i == 1)' check for the second section pointer), answering Jan
+>   Kara's reviewer feedback.
+> 
+> Changes in v1:
+> - Combined section and empty-block bounds check into i + empty_blocks > 100.
+> 
+>  fs/isofs/inode.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
+> index 184350d2e6ad..d7b324029a1b 100644
+> --- a/fs/isofs/inode.c
+> +++ b/fs/isofs/inode.c
+> @@ -1173,6 +1173,7 @@ static int isofs_read_level3_size(struct inode *inode)
+>  	struct buffer_head *bh = NULL;
+>  	unsigned long block, offset, block_saved, offset_saved;
+>  	int i = 0;
+> +	int empty_blocks = 0;
+>  	int more_entries = 0;
+>  	struct iso_directory_record *tmpde = NULL;
+>  	struct iso_inode_info *ei = ISOFS_I(inode);
+> @@ -1200,6 +1201,17 @@ static int isofs_read_level3_size(struct inode *inode)
+>  		de_len = *(unsigned char *) de;
+> 
+>  		if (de_len == 0) {
+> +			/*
+> +			 * A zero length byte at the start of a block (offset == 0)
+> +			 * means the whole block is empty. Count that towards the
+> +			 * same 100 limit as file sections, or a chain of empty
+> +			 * blocks could be walked without bound.
+> +			 * Track empty_blocks separately from section count 'i'
+> +			 * so that 'if (i == 1)' correctly identifies the start of
+> +			 * the second section even if an empty block precedes it.
+> +			 */
+> +			if (offset == 0 && ++empty_blocks + i > 100)
+> +				goto out_toomany;
+>  			brelse(bh);
+>  			bh = NULL;
+>  			++block;
+> @@ -1241,7 +1253,7 @@ static int isofs_read_level3_size(struct inode *inode)
+>  		more_entries = de->flags[-high_sierra] & 0x80;
+> 
+>  		i++;
+> -		if (i > 100)
+> +		if (i + empty_blocks > 100)
+>  			goto out_toomany;
+>  	} while (more_entries);
+>  out:
+> @@ -1258,7 +1270,7 @@ static int isofs_read_level3_size(struct inode *inode)
+>  	return -EIO;
+> 
+>  out_toomany:
+> -	printk(KERN_INFO "%s: More than 100 file sections ?!?, aborting...\n"
+> +	printk(KERN_INFO "%s: More than 100 file sections/empty blocks ?!?, aborting...\n"
+>  		"isofs_read_level3_size: inode=%llu\n",
+>  		__func__, inode->i_ino);
+>  	goto out;
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
