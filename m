@@ -1,177 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D7348424B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B1F23B47C4;
+	Thu,  1 Oct 2026 12:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856760; cv=none; b=NE7UJq1cCHIUx2os+LhnRPkCrN6dOPe7DnFiaDYH5rawHqs5euKu4lypLBC/HaPDrngQg1Ud+Zq7YRr/F8y5B/yGAmm+ssDNqkbnIJXXzO42iIvmZI/KdAVMAbzprc4sIVP0W55TUACGBboH+wx4iGOBC49bawG471PUG/4seG8=
+	t=1790856778; cv=none; b=W9EbFC7pWUipFZoGTWi+dgkHEUpncaAE1T1hS/hXvAONF6YH2VyD5jWtsB0Nnt+vBSxZJz+twWXz+xzm5DnoeX3YC0DBVI5MsR2urMRohW0+8d4aewQmjbku0mKdhqNxOKedWvpk09oEPd6Vvb99+j87KYUDxlD1q8xB3jSdCKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856760; c=relaxed/simple;
-	bh=ZxCdFAWOLjxobLBrBzF661B0SGWR9qyPAncoZzYhjH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p7L+TX/XtZLtZtpTGYrErUzm8U8XQpgoFCapfF+N80TUbCtHcCGTZJ0zyd9l0qxiXXIld11o/426t1jCV21ue6B/r0F/CPwtZOA4oK5D+EMTiDVvDBPuqdTgv5/aQdoIe1OKnK46DANFX1TUNBdWha/0SmS09erayUgGYMdqokw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FsQbnDoj; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FsQbnDoj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790856756; x=1822392756;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ZxCdFAWOLjxobLBrBzF661B0SGWR9qyPAncoZzYhjH8=;
-  b=FsQbnDojUFd3xtvvxvW0cMg2rnOxCBjii9XGcvlJBlFOv6zXoxZoBj0Q
-   1Oetj7kjFc+d7+qLJEl5Wehf7/mGSTYKRQ7k6KgPOM3DPODXa5AXfqVqW
-   fXuiX7MdBOGUg0PtQYc7QnWqZhd16Y3IvMbGBR76nMmeuUAl7JZqHoPQ3
-   4ViYu79qa2YkvpPmJy4jNGBaQw0rzZBi8jcKDh//796oXb4hEQKIxwsr8
-   aRS+eRKvfIALXcQw8RR/nKvh1u3ncnI5xegCquHPKcthOzHrnY6KyXCQ5
-   wbPLYLwf6i0NzblUcdUQG678bFY3HH3j/HZoqylpaEczxnlhlHMtN4juY
-   Q==;
-X-CSE-ConnectionGUID: n+82jyEiRuiO+yb9YBL84A==
-X-CSE-MsgGUID: jf/xchTZSmu1iby2rRq8sA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="94092091"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="94092091"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 05:12:32 -0700
-X-CSE-ConnectionGUID: pM/eqZF2Q+GzBtWytpXk0g==
-X-CSE-MsgGUID: bl/fAGK8R8SX7BWvdSzOtw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="302222527"
-Received: from gklab-103a-104.igk.intel.com ([10.91.103.104])
-  by fmviesa002.fm.intel.com with ESMTP; 01 Oct 2026 05:12:30 -0700
-From: michal.camacho.romero@linux.intel.com
-To: Baolu Lu <baolu.lu@linux.intel.com>,
-	Ning Sun <ning.sun@intel.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org,
-	iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>,
-	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Subject: [PATCH v4 2/2] iommu/vt-d: Disable PMRs and skip force-IOMMU when TXT TPRs are active
-Date: Thu,  1 Oct 2026 14:12:29 +0200
-Message-ID: <20261001121229.1486711-1-michal.camacho.romero@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <c88f7c82-1b48-4ab2-95d6-73f920879f76@linux.intel.com>
-References: <c88f7c82-1b48-4ab2-95d6-73f920879f76@linux.intel.com>
+	s=arc-20240116; t=1790856778; c=relaxed/simple;
+	bh=g4Wl+3Z2B6ZJND8LP/rqERwhTJNrK5/yaAsX7QqEjnE=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u5jnA7d9rL3p2m7RxPlUCis/H7jgInVgWKO4CWCThctfsBwWOdtTuWPkTevGKZDZW93Ixwo4eAmntl8zLGBrUDau2KR0UcDS7BzzkSePVt7ni0a2eYCDenOlzTkDrl6Xhu6iUeDP4OE9wMFDL2hCSK27NQDN/38//kVIPVxRl7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xCFeU-00010k-00; Thu, 01 Oct 2026 14:12:42 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id 5F348C0955; Thu,  1 Oct 2026 14:12:12 +0200 (CEST)
+Date: Thu, 1 Oct 2026 14:12:12 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] MIPS: octeon: Use MIPS_MACHINE for boards without
+ provided device tree
+Message-ID: <ar5OHHZw7arItBEf@alpha.franken.de>
+References: <20260927091512.117046-1-tsbogend@alpha.franken.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927091512.117046-1-tsbogend@alpha.franken.de>
 
-From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+On Sun, Sep 27, 2026 at 11:15:10AM +0200, Thomas Bogendoerfer wrote:
+> There are older Octeon boards with ld U-Boots, which don't use and pass
+> a device tree to the kernel. Use MIPS_MACHINE mechanism to get a device
+> tree.
+> 
+> Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+> ---
+>  arch/mips/cavium-octeon/setup.c | 29 +++++++++++++++++++++++------
+>  1 file changed, 23 insertions(+), 6 deletions(-)
 
-When Intel TXT Protection Regions (TPRs) are present in the DTPR table,
-hardware-level DMA protection is already enforced by the SINIT ACM.
-In this case:
+applied to mips-next
 
-- Skip forcing IOMMU enablement in tboot_force_iommu(), since TPRs
-  already provide DMA protection.
-- Tear down PMRs during intel_iommu_init() when TPRs are active,
-  while PMRs are redundant with TPR-based protection.
-- Call tboot_disable_tprs() from parse_dmar_table() to disable
-  TPR regions early, allowing the kernel to manage DMA protection
-  prior to the OS boot.
+Thomas.
 
-Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
-Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
-Signed-off-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
----
-Thanks for the careful review. Summary of how each point is handled:
-
-Answer for Question No.1:
-   The DTPR handling is now invoked only after dmar_walk_dmar_table()
-   returns success. If DMAR parsing fails, parse_dmar_table() returns the error
-   and IOMMU initialization aborts before any TPR teardown, so the TPRs stay
-   active and DMA protection is retained. They are disabled only, if DMAR parse
-   succeeds.
-
-Answer for Question No.2:
-   I've replaced tboot_parse_dtpr_table function with the tboot_disable_tprs(),
-   which is defined in the Kernel patch
-   "[PATCH v5 1/2] x86/tboot: Add support for parsing DTPR table and disabling TPRs".
-   It is void type function. It verifies now, both if the DTPR Table is
-   present and if TXT Heap exists. If not then function prints a proper warning
-   message and returns.
-
-The rest of your suggestions (including the stale txt_heap = NULL cleanup) have
-been applied in the current patch version.
-
-Regards,
-Michal Camacho Romero
-
- drivers/iommu/intel/dmar.c  | 18 ++++++++++++++++--
- drivers/iommu/intel/iommu.c |  9 ++++++++-
- 2 files changed, 24 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-index ba675b08cd20..e8ec2dfe3e33 100644
---- a/drivers/iommu/intel/dmar.c
-+++ b/drivers/iommu/intel/dmar.c
-@@ -672,8 +672,22 @@ parse_dmar_table(void)
- 
- 	pr_info("Host address width %d\n", dmar->width + 1);
- 	ret = dmar_walk_dmar_table(dmar, &cb);
--	if (ret == 0 && drhd_count == 0)
--		pr_warn(FW_BUG "No DRHD structure found in DMAR table\n");
-+	if (ret == 0) {
-+		/* After DMAR Table successful parsing disable TPRs if necessary */
-+		void __iomem           *txt_heap;
-+		struct acpi_table_dtpr *dtpr = tboot_get_dtpr_table(&txt_heap);
-+
-+		if (dtpr) {
-+			/*
-+			 * TPRs are enabled. This will also tell not to establish IOMMU
-+			 * PMRs. It is necessary to parse DTPR Table and disable active TPRs.
-+			 */
-+			tboot_disable_tprs(dtpr, &txt_heap);
-+		}
-+
-+		if (drhd_count == 0)
-+			pr_warn(FW_BUG "No DRHD structure found in DMAR table\n");
-+	}
- 
- 	return ret;
- }
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 2e3b3ab216f8..ce40b1bf0296 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2563,6 +2563,13 @@ static __init void tboot_force_iommu(void)
- 	if (!tboot_enabled() || intel_iommu_tboot_noforce)
- 		return;
- 
-+	/*
-+	 * If TPR is enabled we don't need to force IOMMU, TPR set by SINIT
-+	 * ACM will take care of DMA protection.
-+	 */
-+	if (tboot_is_tpr_enabled())
-+		return;
-+
- 	if (!dmar_can_force_on(DMAR_FORCEON_TBOOT))
- 		panic("tboot: Failed to force IOMMU on\n");
- 
-@@ -2623,7 +2630,7 @@ int __init intel_iommu_init(void)
- 		 * calling SENTER, but the kernel is expected to reset/tear
- 		 * down the PMRs.
- 		 */
--		if (intel_iommu_tboot_noforce) {
-+		if (intel_iommu_tboot_noforce || tboot_is_tpr_enabled()) {
- 			for_each_iommu(iommu, drhd)
- 				iommu_disable_protect_mem_regions(iommu);
- 		}
 -- 
-2.55.0
-
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
