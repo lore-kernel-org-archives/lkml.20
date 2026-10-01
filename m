@@ -1,136 +1,127 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2482F42C500;
-	Thu,  1 Oct 2026 08:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE1B43CE6A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841783; cv=none; b=UEORuxU2tpdxe6MULwWa0XXYsZJqrADvKsN5It0BL85A3C/eoh2HgnBT6AlqXNu4ich9IJNr0DlS4WMSnskVRZf83nIAdEgDU05tRJU9AF0hvkK2WAcWpXAk3oATWAEorBBgAYqO6tpxMJ5LGYMwrg5UCUz5j07P1RujwYx2TTk=
+	t=1790841790; cv=none; b=Asc3HMxQm5JG/nIXHGVf/3RaKWs9Os4fW518Pr5ni9kWUA/J1tTla+Z/pk/lHG6+22wT59SeVWdXKO1QafET1Pd9VV/DaOkUZqGpiTJ/hSUy+P0BHPuw+TBAeqtXQ/GymKV9OaSnR+wt7wliNyr6VBec75T0JgU8pUUfa+VCb/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841783; c=relaxed/simple;
-	bh=PFgVSXxApSPCiBUKltrKyIrGC+VrNvWkqed+5crv62M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=M7VFxrWGjYNH/VTzFqnkTo0vMlD4T6iVpC1DBa/nz/RUErmOw7AlAyRGxCUgVckOr2LYRXUVGOYO4sVLA/PE/s7WuWxu8ge/wygBZCpld2n/TRWYhLqieWCUtZJ8mgtG66Ssy0x2f5Rx+/qLLbximIgpEjI7tTZna0mwQni55dI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=XGSHWGCI; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1790841790; c=relaxed/simple;
+	bh=KWtWUyO5e31E29X7kJUK67PTu3io/akqw94hdUPa2/A=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZfPbw82+SMl4VqC2Ucs1o8tErtdtm9cs79zp/Stx23p21dgbWbFdcElh7lG36klkI0mrJsw9yLs5/JOh3N2aaQA2KvHow9RR86k0BzOdGjrIi8ansddxbsOEbmSLR04s99cbA/XKLVsj1cjJughvi6oibinUtcIyiRGv8UzrVRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MG5n5IPR; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="XGSHWGCI"
-Received: from localhost.localdomain (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 5687678050A;
-	Thu,  1 Oct 2026 10:02:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1790841777;
-	bh=PFgVSXxApSPCiBUKltrKyIrGC+VrNvWkqed+5crv62M=;
-	h=From:To:Cc:Subject:Date:From;
-	b=XGSHWGCIoROlitWBd0BAJjMy7OqabJbXT3/T6zajNJ1be8zW/FEHFK65/RZPs6Laf
-	 yHDROq+bVwo0I28jS9xTqO0nWDsBYS4dTsHhPF3X3eYrlC3Gep/OxEbN85dKKUTAjg
-	 Uy9Db4pOaBsxjE1/DPfma7oscG7W4wIl4tdCYP7qyYjSZfcR/lIWkp2nL0CUtN1tKb
-	 Q/yVC54GWl96vptguVcCmDYa5BoeCqCQj6K62KgKA9FZurztsVvEaMPLkP7GbAFcxI
-	 OP+si4g4ktLxozwX6tfrR+UjUsIZ+BYQmeCeFLNEONUxAIKPMpwU5a7Bf7/kP3COLH
-	 N8EuANeB49Bzw==
-From: =?UTF-8?q?St=C3=A9phane=20Grosjean?= <stephane.grosjean@free.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?St=C3=A9phane=20Grosjean?= <s.grosjean@peak-system.fr>
-Subject: [PATCH] can: peak_usb: Sort CAN_CTRLMODE flags by value
-Date: Thu,  1 Oct 2026 10:02:39 +0200
-Message-ID: <20261001080241.30151-1-stephane.grosjean@free.fr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MG5n5IPR"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 3F5F04E410EE;
+	Thu,  1 Oct 2026 08:03:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0CAAB60341;
+	Thu,  1 Oct 2026 08:03:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E319103292AE;
+	Thu,  1 Oct 2026 10:02:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790841779; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=bBnYNPx0m93XbkdYJmwrk/PdDLQ8lp47f6etNXtdmtI=;
+	b=MG5n5IPRudGzRrmo8ILDJDWYoecFzTS0SG5Pj68X1y0b04+2YpsJIH//yybBHJhI+y+AtC
+	5pMeaxML0tMeFxax6tyAu+LzwoDoQ/c/Ah0PkiwYB28ckeY49nocfOg/a/WqtSABY3QZu0
+	5dticPDGy2Um1s2hSW0775Oluy3hNAKx+IZtru3r40kkA10tbG9o3CxLOC2vH/9reQwCaE
+	foJ1gnJY4fZCSlBTVS3bJE4jECObDVBX9sCymzvRuZ8w7tT/lSd8l3M4NZ007dO41l1aHu
+	L/lIqeuW8sQ6UWKOhQ374hDboAQFhi9uYFcx5erlR0oDpCFxyNKucgPpquU6yQ==
+Message-ID: <78ca2d861e27bb5712db12de83a199b52e5dbae5.camel@bootlin.com>
+Subject: Re: [PATCH v2 1/7] drm/imx/lcdc: stop using deprecated
+ devm_drm_of_get_bridge()
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
+ <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
+	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Thu, 01 Oct 2026 10:02:45 +0200
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-1-6da431d8f180@bootlin.com>
+References: 
+	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+	 <20260929-drm-fix-of_get_bridge-build-regression-v2-1-6da431d8f180@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Hi Lucas,
 
-Sort the CAN_CTRLMODE flags in ctrlmode_supported by ascending bit value.
+Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
+=C2=A0:
+> devm_drm_of_get_bridge() is deprecated, switch to
+> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
+ns
+> a refcounted bridge, ensure it is put.
+>=20
+> Fixes build failure when CONFIG_OF is disabled.
+>=20
+> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
+> Reported-by: Arnd Bergmann <arnd@kernel.org>
+> Link: https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-No functional change intended.
+Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb_fd.c | 40 +++++++++++++---------
- 1 file changed, 24 insertions(+), 16 deletions(-)
+Cheers,
+-Paul
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-index 5840623662af..9081f30e3d35 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-@@ -1263,10 +1263,12 @@ const struct peak_usb_adapter pcan_usb_fd = {
- 	.name = "PCAN-USB FD",
- 	.device_id = PCAN_USBFD_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
--			CAN_CTRLMODE_BERR_REPORTING,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_BERR_REPORTING |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
-@@ -1340,10 +1342,12 @@ const struct peak_usb_adapter pcan_usb_chip = {
- 	.name = "PCAN-Chip USB",
- 	.device_id = PCAN_USBCHIP_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--		CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--		CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
--		CAN_CTRLMODE_BERR_REPORTING,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_BERR_REPORTING |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
-@@ -1417,10 +1421,12 @@ const struct peak_usb_adapter pcan_usb_pro_fd = {
- 	.name = "PCAN-USB Pro FD",
- 	.device_id = PCAN_USBPROFD_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
--			CAN_CTRLMODE_BERR_REPORTING,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_BERR_REPORTING |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
-@@ -1494,10 +1500,12 @@ const struct peak_usb_adapter pcan_usb_x6 = {
- 	.name = "PCAN-USB X6",
- 	.device_id = PCAN_USBX6_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
--			CAN_CTRLMODE_BERR_REPORTING,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_BERR_REPORTING |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
--- 
-2.43.0
-
+> ---
+> =C2=A0drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> index c67fe80b8115..805a659e3f85 100644
+> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> @@ -385,7 +385,6 @@ static int imx_lcdc_probe(struct platform_device *pde=
+v)
+> =C2=A0{
+> =C2=A0	struct imx_lcdc *lcdc;
+> =C2=A0	struct drm_device *drm;
+> -	struct drm_bridge *bridge;
+> =C2=A0	int irq;
+> =C2=A0	int ret;
+> =C2=A0	struct device *dev =3D &pdev->dev;
+> @@ -401,7 +400,8 @@ static int imx_lcdc_probe(struct platform_device *pde=
+v)
+> =C2=A0	if (IS_ERR(lcdc->base))
+> =C2=A0		return dev_err_probe(dev, PTR_ERR(lcdc->base), "Cannot get IO
+> memory\n");
+> =C2=A0
+> -	bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D
+> +		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
+> =C2=A0	if (IS_ERR(bridge))
+> =C2=A0		return dev_err_probe(dev, PTR_ERR(bridge), "Failed to find
+> bridge\n");
+> =C2=A0
