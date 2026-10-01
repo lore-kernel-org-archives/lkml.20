@@ -1,236 +1,139 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647973C988B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843439; cv=pass; b=ExuC3pMhEPZYa4S9Nso0f7DNzi0Pvx4OOSWg+VjqYw1u9fdmncB/mNTdvnmoIn+kTgkiZQy5RoP8VfhlB9r+Rmmm8vR+70ixJFHA8OQ5C0lNCmtKvqsopv4/beukf+O1caw9aby4VKGE2NdeUa09VD6lrOBWB+Ga8/Ez9wokiZg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843439; c=relaxed/simple;
-	bh=f/QYvaCRJtIDNV62Q+0YxWNu5SfxT8Rcvr9ifUxU690=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XcZNmoQnQ09z5S5Ff1ldN46TyrWwxReBspQfEHN/yAUl+OKaWGwSvgL1suoFcNOfaNYrWXwNmCxyBytIkPS+CqjL1dIIpBcWsO98BtSin3T5mZQcxLjdYPWu5m1h+Rk44S63foj89ClmRFqpSC3UZPTHqR0JrPF7akKzRb2w8GM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L39CP0Wl; arc=pass smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE633164D8;
+	Thu,  1 Oct 2026 08:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790843483; cv=none; b=gsB4SGggStOREZ2JZ8EeLW0KL3XMcuZpxFrBmr9aWLqlRjoZT8oCPDequ4vg/n8R0kz945UUhpHn1j32QXPpxMTIkVzJ6FKiRZXE8IAye1WoLMQdV4pTxUC9iIWtVMZOWgz+Tjd98gDcwLYScPDLLCtv+rjsujJ9wwdgfbm2Bj4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790843483; c=relaxed/simple;
+	bh=9+N+gmAtMgLHYkLcQGdYJLjC+s7rwmcWD9JNQgFqIkQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W/ttNj0YMu4h+LePIJvrBbm6wvZV/8AKUQEZFZjngJxSxie9FqQ8RqwYgyfYNXg5dXWZeeO0fVqBw26Rt1YtjPr3GU/za04WiE2Bempi3mHs2vFYPfVaqugv3QbRcfZprHohBcgyVEQfCyUdrB1VKVimIrntWTqwK23uUl5r7KA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RRPjT6uE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L39CP0Wl"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488811c9ebaso3209848f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:30:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790843436; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YomclvEKbWf3cTK1mO/B7MV36EMqpfBqvuw/rQH03lFADcsMQ3DxYDEB/WOtmhX971
-         c0ai/DQn+vGR3KJ2E/ZIwSpn8BP1RiDDE//MyJmFlOnm997DPzhrQcifZcax/gwkbPl3
-         SW1dKpdAOgv0/B+8MLYvG/hAnsHm3keMe8VEHhueoBZbQR+sQv53KPSTA57lEqbLvMlT
-         YI2fOjh08MUm0mUT34nPAdBjZB+h/IouOa6zg2SJ7fmJPYfVTl7EjjMnxl0qsdNzIaPk
-         XHvmFba1H5pZ02Hu3rPh9MAFLGjHiKxsHNc6szFhrhoL0Gq9UOB7ImFcjRlAsKoAFdr2
-         2xgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5ZYv6il2HdcwUZ9E5tG2pbf5ctdWL/nyovqOfI473uU=;
-        fh=+PyfCfQc5qPvWQKb7hbmx8R9MLGJJ3YW990vCLJBOTM=;
-        b=CwFmVw1h9fpa9NlpBE2M0HWF56g5QLblGMIHrGsArzleopLtN/NjshUAVddwYFID7U
-         /MzoWgH7FmRtccMcCpCKvrAH/g199OO5ZfURowo1LeHRynm8mO+B82Uqima4pV493sRG
-         4JtEd7mbRofF07tCNZEaQTQ+v6zx7WGH+7od2d/G34bUU/u33wvLKLQAhXHthqzTdT4H
-         XM/YLKgick31Eu/Rfj78+HupW2quIzz+RCnf/rdfj8g7G9+deif9c/MPBeYzPDFUc+FZ
-         jHYw7Qbf8pqTbTh07ZF7lAPtPV4q9rsk6Prf5UnbRuWs1HDW98wstwT5a22THgJBm+Rs
-         tXpQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790843436; x=1791448236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5ZYv6il2HdcwUZ9E5tG2pbf5ctdWL/nyovqOfI473uU=;
-        b=L39CP0WlJt+t6U4yIe3NBaTqin78ceeTKeG2aYqsUhTYCsxjZ5GxdN6TdDgQXz45LJ
-         6cibJhJ5Dy9VCa9eeAiO1hdTOryN3wayq8GzUUCtQQ/60D/VROP9geH7vnwNZ2P0WxOv
-         D4C1XAAGgIu/nKVoBtaPOXpfn+MiUPV8xk3sOg6WDydYp+02plP3mEFc/VL2TcX6NpYP
-         +l83cZIaf0naK1GCo0mHIxjbbQcMM1aogGkEwS1h1dg81FfNuP+hDsLrybtjO48ppTCq
-         0n3qv1Yr5iZQq7KUwXzG/RUV3KkeBmJY0350OT8rOIEdaT5jhsdWJ56tmUiUD3xvvtDE
-         nm+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790843436; x=1791448236;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5ZYv6il2HdcwUZ9E5tG2pbf5ctdWL/nyovqOfI473uU=;
-        b=WOgm7TMWx3zfqBB/s0BF/yJ2nGvLnY3xiQf39oKaIKrbgJNxNr09knOiQaE1Mvxc75
-         OfNJnsnZpSqyZb5vRc8iQcLeCXulhpRoBpssycENcVjTRJgUlcuAcB7GjUj2seP0FfhD
-         jtwxRpAEN4ao8rihW6KvplBoaN27n/rZAckWuV8S5YCmw+USmL+aV8mgXFwWx7uPnbzR
-         xCV/xdRW6kWMIHXd0PFOjYgYJSWpiWrW5Yq/4vM/Z9VLnih3sCSH0iF7oshX5Dp1m/Tv
-         iP5oF+FqiT6dmdoroVC2JAGlCx4DTndMchemIJvnXwoCkQgXcmsxZB3iAJnwG+RkJArQ
-         u/+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwietoLrBNBQhdgwBAa085Hcnw2qcKSsgiETvZ22HhpOehu8cqo1GNs4iNYVgjziwew0NJ2vhMlujKNT98=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImj0uDW92hA3I/Auh3ppEf5t4j93cXGjxFHn5gyTZSrnes52Pk
-	VzEvOvZUfQNGoXpSNfcFGxTo41V2RjR5hqKzP6NhhYSzwisx2JHF4yjVLpqsXcyZafmChgBx1PW
-	cO+IdWSGEiDDFXsmq8tFTXPu20r4YikptAyVfwAw=
-X-Gm-Gg: AYBFou2uCdlcP/56IKHlB6rEGj27CNB95G2J5QTwM27a+nDbyT1NHwreEnr0KR8eQHv
-	1L2e4rDpKkuXviT8MT1bLnLwW24Vs2jSwTctFAi7QaumT/MP9nw6+NVUet24Gallo0ws75SuNUK
-	4It6BRuGahj7FOBMmYOoDZEinoCPKuUPpAWOOcV25mQk5f2H6P+1CpFEp5oGoBry7gOegfEFlCC
-	hUcZOzyBbptA20jQ9kvoBkhcL1QIpQQMdCR68DtEpLy6dIz/pcXnOS2yC8I71Hnhi/IhFqxACxe
-	sQxcysZC7Rn2I2fw5Ir1E/xhgS7kp4S0Op9eoCw2DesK9YsHTowJbtmmkLQ7GFMJ/gJQ053YErF
-	+mWNTe0fWZw4l44s6tbNZfVQS4Kj2Ij1/FPLF+VSprW18JpYBVSjf
-X-Received: by 2002:adf:e18f:0:b0:488:7b80:f2d0 with SMTP id
- ffacd0b85a97d-48b0254cb62mr6486309f8f.52.1790843435449; Thu, 01 Oct 2026
- 01:30:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RRPjT6uE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAEE51F000FF;
+	Thu,  1 Oct 2026 08:31:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790843481;
+	bh=qCO7FheBb0QtZY1aP+C/CKmQeFmIqEIk287fXx6Tx9k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RRPjT6uEl8jvYU2BQEX4mFlM3STmFQT82C+soXKo2LGVahgTGWVUThfHMRvPVLSrw
+	 gkRuPV5J3G7nfnBo7GaTmqSWBg6+Y4y1ozODB8JODDsqJImXcd7a8GXYHlpLvhsrOk
+	 83PD2HcCLoOTKUIfKR9QY8HSixYK5vKwgnAxqfbd9l4BmO/HRsBFl9ZIjZkqfZJwUG
+	 JJvu/nNuLgKWmnpIgL0ccLbwlU7zZ0lsimVw0BV1ZhyuiUGwDmK/FjdBOkmQdbJ9hT
+	 HsRXF+gRngLgSn+VGcCbD1YqxEVgIYxdn+qCimtDaBmJZMJDs8xjtL1xJ8ghZBt3w6
+	 RxAiOAN2Wq9IA==
+Date: Thu, 1 Oct 2026 09:31:15 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+	jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v20 6/9] firmware: arm_rmm: Ensure the RMM has GPT
+ entries for memory
+Message-ID: <20261001-military-foxhound-of-conversion-d80e7a@sudeepholla>
+References: <20260929221623.1342076-1-suzuki.poulose@arm.com>
+ <20260929221623.1342076-7-suzuki.poulose@arm.com>
+ <20260930-judicious-loris-of-will-dea0a3@sudeepholla>
+ <210c0b27-c7cb-447a-b6ee-bf6b3fb63acc@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6ab7dca9.80e1c6cc.1e8e5f.0046.GAE@google.com> <6ab8cfe8.dc2998a4.2261f5.0062.GAE@google.com>
- <CAJnrk1Y8+P5W-6ETYuVDb2xk=GkP5o0XoDyDtvEPw+sC3GA-fQ@mail.gmail.com>
-In-Reply-To: <CAJnrk1Y8+P5W-6ETYuVDb2xk=GkP5o0XoDyDtvEPw+sC3GA-fQ@mail.gmail.com>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Thu, 1 Oct 2026 09:30:22 +0100
-X-Gm-Features: AclHuK83_ifVqqKZGZgWksTmrstL8fLSiCbSWwvwncfkRTOgE6x5W7i6vQNHWDY
-Message-ID: <CAJnrk1YFKdQfKC6YCsFF17ydjSP076r2K2PYPQiqkceJtn6Yew@mail.gmail.com>
-Subject: Re: [syzbot] [fuse?] WARNING in fuse_iomap_writeback_range
-To: syzbot <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com>
-Cc: fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, miklos@szeredi.hu, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <210c0b27-c7cb-447a-b6ee-bf6b3fb63acc@arm.com>
 
-On Wed, Sep 30, 2026 at 2:01=E2=80=AFPM Joanne Koong <joannelkoong@gmail.co=
-m> wrote:
->
-> On Sun, Sep 27, 2026 at 9:15=E2=80=AFAM syzbot
-> <syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com> wrote:
-> >
-> > syzbot has found a reproducer for the following issue on:
-> >
-> > HEAD commit:    fd179f8a05be Merge tag 'ata-7.3-rc5' of git://git.kerne=
-l.o..
-> > git tree:       upstream
-> > console+strace: https://syzkaller.appspot.com/x/log.txt?x=3D13490605580=
-000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=3D9d4242cb1c5=
-4cdf7
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=3De8200299b0556=
-976e13c
-> > compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e=
-255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D1523f2c95=
-80000
-> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D14385315580=
-000
-> >
-> > Downloadable assets:
-> > disk image: https://storage.googleapis.com/syzbot-assets/c4cebd01ff3c/d=
-isk-fd179f8a.raw.xz
-> > vmlinux: https://storage.googleapis.com/syzbot-assets/9fd8641fa35c/vmli=
-nux-fd179f8a.xz
-> > kernel image: https://storage.googleapis.com/syzbot-assets/c6e8e6332600=
-/bzImage-fd179f8a.xz
-> >
-> > IMPORTANT: if you fix the issue, please add the following tag to the co=
-mmit:
-> > Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-> >
-> > ------------[ cut here ]------------
-> > !ff
-> > WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043=
- [inline], CPU#0: syz-executor122/5774
-> > WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0=
- fs/fuse/file.c:2227, CPU#0: syz-executor122/5774
-> > Modules linked in:
-> > CPU: 0 UID: 0 PID: 5774 Comm: syz-executor122 Not tainted syzkaller #0 =
-PREEMPT(full)
-> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS=
- Google 07/24/2026
-> > RIP: 0010:fuse_write_file_get fs/fuse/file.c:2043 [inline]
-> > RIP: 0010:fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
-> > Code: fe 48 83 3b 00 74 5b e8 e6 f0 6c fe 4c 8b 3c 24 e9 08 0b 00 00 e8=
- d8 f0 6c fe eb 5c e8 d1 f0 6c fe 4c 89 f7 e8 39 63 8e 08 90 <0f> 0b 90 48 =
-b8 00 00 00 00 00 fc ff df 48 8b 4c 24 58 80 3c 01 00
-> > RSP: 0018:ffffc90003e172b8 EFLAGS: 00010286
-> > RAX: 8000000000000000 RBX: ffff88806e4ea880 RCX: ffffffff9a9ec501
-> > RDX: 0000000000000001 RSI: 0000000000000004 RDI: 00000000ffffffff
-> > RBP: 0000000000001000 R08: ffff88806e4eae63 R09: 1ffff1100dc9d5cc
-> > R10: dffffc0000000000 R11: ffffed100dc9d5cd R12: ffff88806e4ead08
-> > R13: 0000000000001000 R14: ffff88806e4eae60 R15: ffff88806e4ead08
-> > FS:  00007f6a3f53e6c0(0000) GS:ffff888124cc8000(0000) knlGS:00000000000=
-00000
-> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 000020000000b000 CR3: 0000000078090000 CR4: 00000000003526f0
-> > Call Trace:
-> >  <TASK>
-> >  iomap_writeback_range fs/iomap/buffered-io.c:1896 [inline]
-> >  iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
-> >  fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
-> >  folio_launder mm/truncate.c:612 [inline]
-> >  folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
-> >  invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
-> >  fuse_open+0x5a6/0x770 fs/fuse/file.c:297
-> >  do_dentry_open+0x816/0x1380 fs/open.c:996
-> >  vfs_open+0x3b/0x340 fs/open.c:1101
-> >  do_open fs/namei.c:4837 [inline]
-> >  path_openat+0x1443/0x1d60 fs/namei.c:5000
-> >  do_file_open+0x23e/0x4a0 fs/namei.c:5029
-> >  do_sys_openat2+0x115/0x200 fs/open.c:1417
-> >  do_sys_open fs/open.c:1423 [inline]
-> >  __do_sys_openat fs/open.c:1439 [inline]
-> >  __se_sys_openat fs/open.c:1434 [inline]
-> >  __x64_sys_openat+0x138/0x170 fs/open.c:1434
-> >  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-> >  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > RIP: 0033:0x7f6a3f58fae9
-> > Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89=
- f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 =
-ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
-> > RSP: 002b:00007f6a3f53e1d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-> > RAX: ffffffffffffffda RBX: 00007f6a3f644b98 RCX: 00007f6a3f58fae9
-> > RDX: 0000000000000040 RSI: 000020000000c380 RDI: 00000000ffffff9c
-> > RBP: 00007f6a3f644b90 R08: 31203a6b63617473 R09: 31203a6b63617473
-> > R10: 0000000000000000 R11: 0000000000000246 R12: 00007f6a3f6117f4
-> > R13: 000020000000e3c0 R14: 00002000000062c0 R15: 00007ffe0b2d2af8
-> >  </TASK>
-> >
-> >
-> > ---
-> > If you want syzbot to run the reproducer, reply with:
-> > #syz test: git://repo/address.git branch-or-commit-hash
-> > If you attach or paste a git patch, syzbot will apply it before testing=
-.
-> >
->
-> diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-> index 6d707f2b3bff..0ef46f6e0267 100644
-> --- a/fs/fuse/file.c
-> +++ b/fs/fuse/file.c
-> @@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
->                 .wb_ctx =3D &data,
->         };
->
-> +       if (fuse_is_bad(wpc.inode))
-> +               return -EIO;
-> +
->         if (folio_clear_dirty_for_io(folio)) {
->                 err =3D iomap_writeback_folio(&wpc, folio);
->                 err =3D fuse_iomap_writeback_submit(&wpc, err);
+On Wed, Sep 30, 2026 at 04:55:38PM +0100, Suzuki K Poulose wrote:
+> Hi Sudeep
+> 
+> On 30/09/2026 15:44, Sudeep Holla wrote:
+> > On Tue, Sep 29, 2026 at 11:16:20PM +0100, Suzuki K Poulose wrote:
+> > > From: Steven Price <steven.price@arm.com>
+> > > 
+> > > The RMM maintains the state of all the granules in the system to make
+> > > sure that the host is abiding by the rules. This state can be maintained
+> > > at different granularity, per page (TRACKING_FINE) or per region
+> > > (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
+> > > underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
+> > > all pages in the region must be of the same state, this implies we need to
+> > > have "fine" tracking for DRAM, so that we can delegate individual pages.
+> > > 
+> > > For now we only support a statically carved out memory for tracking
+> > > granules for the "fine" regions. This can be extended in the future to
+> > > allow modifying the tracking granularity and remove the need for a
+> > > static allocation by the firmware.
+> > > 
+> > > Similarly, the firmware may create L0 GPT entries describing the total
+> > > address space. But if we change the "PAS" (Physical Address Space) of a
+> > > granule, then the firmware may need to create L1 tables to track the PAS
+> > > at a finer granularity. Linux therefore checks if the platform firmware
+> > > manages the PAR region. i.e., the firmware is in charge of managing the
+> > > L1 GPTs (creation and the required memory for the GPT tables - via static
+> > > carveouts) without host intervention. Support for dynamic GPT creation by
+> > > the host will be added later.
+> > > 
+> > > If the firmware requires us to manage the tracking or GPT memory,
+> > > deactivate the RMM and reclaim any memory donated at RMM activation.
+> > > 
+> > > Apply the same checks when hotplugged memory is brought online.
+> > > 
+> ...
+> 
+> > > ---
+> > >   drivers/firmware/arm_rmm/rmi.c | 247 ++++++++++++++++++++++++++++++++-
+> > >   include/linux/arm-rmi-cmds.h   |  18 +++
+> > >   2 files changed, 264 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> > > index d982cf158f8da..d4d098448e46e 100644
+> > > --- a/drivers/firmware/arm_rmm/rmi.c
+> > > +++ b/drivers/firmware/arm_rmm/rmi.c
+> > 
+> > [...]
+> > 
+> > > +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
+> > > +{
+> > > +	unsigned long l0gpt_sz;
+> > > +	unsigned long next, par_state;
+> > > +
+> > > +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
+> > > +					  rmi_feat_reg(1)));
+> > > +	start = ALIGN_DOWN(start, l0gpt_sz);
+> > > +	end = ALIGN(end, l0gpt_sz);
+> > > +
+> > 
+> > Is it guaranteed that end with not be = PASZ ? The spec says RMI_GPT_INFO
+> > will return RMI_GPT_INFO when top >= pasz. Unlike start, end for good
+> > reason is aligned up(ceil) instead of aligned down, but that also means
+> > end will become PASZ when we reach end of memory, no ?
+> 
+> Good point. The RMM spec needs to be fixed to make the condition
+> 
+>  top > pasz
+> 
+> as the top, is really the top the region and is not inclusive.
+> 
+> This is already a known issue, tracked by FENIMORE-1807. The proposed
+> fix is :
+> 
+> pre: UInt(top) > rmm.static.pasz
+> 
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse.git
-for-next
+Ah OK, all good here then. Thanks for update.
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 6d707f2b3bff..0ef46f6e0267 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
-                .wb_ctx =3D &data,
-        };
-
-+       if (fuse_is_bad(wpc.inode))
-+               return -EIO;
-+
-        if (folio_clear_dirty_for_io(folio)) {
-                err =3D iomap_writeback_folio(&wpc, folio);
-                err =3D fuse_iomap_writeback_submit(&wpc, err);
+-- 
+Regards,
+Sudeep
