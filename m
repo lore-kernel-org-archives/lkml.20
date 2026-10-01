@@ -1,159 +1,114 @@
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from vsvhrvbk.outbound-mail.sendgrid.net (vsvhrvbk.outbound-mail.sendgrid.net [134.128.88.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654BB4E5327
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6CB4E50DC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:05:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.128.88.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849131; cv=none; b=jYkdJFW6Gzz/1lKdOo1W3xYcP05kFg1uOLof8MyK/lYPdxAeiTum9YZl+1iu+FeuPglsSCKb5d/++JseerQOIaOUQH5UsSIayZez717H8fQuoXRlDh7XihOIxvjcvd+nNfKR/T2lZHVIZaX8WGNv0LPROZzV2bQjV7wgrhj4cP0=
+	t=1790849149; cv=none; b=V32yyrkEV7Csy5li0VObdOaaBXJ53BgJQpC0TT5sMmA06kjyFmlkyz3KPJz0GQtzmxrgoK14tV3YxyR1L2NEOepnUFKlkowBlVZk+7uEmBOMj1Wfl6Fr5krffr6C3dnChGKx06kbItdfAvck0JtSHI1T4ATRKyVN/cLNvyyYHak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849131; c=relaxed/simple;
-	bh=DerGXAZ3spBoyOwkwpqSsc+3+sR+l//ZrsEygTFZHAY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eR9nILIGJ1WDndbVTnpBejckSHl2j+b3Mw8DSSqhiRKztvqX2VxbqmiytvQSqC/abKuEolOZ2bcn0QcSnW348IZAyssS+4bhLrtUNsd0R5CdO+wrIEk2iRnuFOh8igpCmvO1Wzh8hp/giJTH5tkGl7CU/HSf2FiKvxDtLyYivls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=WI9R9880; arc=none smtp.client-ip=143.54.11.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	s=arc-20240116; t=1790849149; c=relaxed/simple;
+	bh=JayDvb+NMe0QFgGgdXJR+wsVQ6GU/3Ar1ygT39VoP7c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To:Cc:Content-Type; b=edTxXwX5z4zwficDUtIzXl12z89JVcfpdmPvYc37UZThnOQtO3jwE4bF03Mx0NHiFLqX8rxgAkF3sdn6m/hWD77cEDugRsccXq4sNVAFNftC9Y7dht17PESRMZ8JatziqJ259BVoumiW1u5IoWlcTYTU049IHnbwfwbhHyR8ycg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flowbird.group; spf=pass smtp.mailfrom=em8284.flowbird.group; dkim=pass (2048-bit key) header.d=flowbird.group header.i=@flowbird.group header.b=EMPyaBfe; arc=none smtp.client-ip=134.128.88.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flowbird.group
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em8284.flowbird.group
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="WI9R9880"
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [186.210.30.235])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 9DC121210A4;
-	Thu,  1 Oct 2026 07:05:16 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1790849116;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=uAuiJ21sjMSF2VoYxg9v9w9M/Ff5Oa973YahYJGLS3I=;
-	b=WI9R9880TPU6j/M6iK2HDqbqeRHz8hP4whys9Yq5XEXvs3QnNyrCjHHHLZlXWcourDfaAS
-	8rkMk3XOFLmbu4kRDqlDdrhwSwiLDZy9HSeXK6e1DqAksFyzL6DfwiPjiIRfOgR8IIjQ+V
-	B3KmkO1yzrg5wb0qk9zUn8dp97scDJsFISyQFn9cjT2VdHxEBBtBMn6SU0+SsEwSrHRTPH
-	v6gOsohZgzNvi/HbFSSJKJTTbvXlCgJHoI6yFEDCyOVurErnUSfgstSLiJg60W5CobXfjb
-	hR3/1DppyshycfGvoOhqHypWQbIllekx0YCSBycWN3LUs6yI3VOgWcfgrldekg==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [PATCH v3] staging: rtl8723bs: return bool from check_pending_xmitbuf
-Date: Thu,  1 Oct 2026 07:04:41 -0300
-Message-ID: <20261001100441.102765-1-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=flowbird.group header.i=@flowbird.group header.b="EMPyaBfe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flowbird.group;
+	h=from:subject:date:mime-version:to:cc:content-transfer-encoding:
+	content-type:cc:content-type:date:from:subject:to;
+	s=s1; t=1790849135;
+	bh=dkh+iQGMnw9T+8ze7wszRjMKumqhhWgFa9I9djiFz1Y=;
+	b=EMPyaBfervbdr3JATG+AyELV9hfoKl/IlypTz8Qx6AVI9gd5l9YESR0Z/R63wPdoq8iS
+	sjhlFOdfQb9sbJ8KHJKixHpv5rgmqdgZ1yMFPNlfPRBOwtFiO3bA9rOotkf3P16idwx+yD
+	mZvBphVZFuFkGpE1SrVG0PQc1KK9LXX1ss4OJv0ym9fuQtariiWq/Iwu1/DdZOaN8/ZTrE
+	n4PFDRo17e8rINsYVXftxqjT0QyzK5b6k/TB3s97uHnMFIWWDQS5lSqpdnv+ho9jS4/2LJ
+	c8UQCiqdKyOcQ0Hq1kEGKtmo30fkgolxw4VHpOWEV5KWiIbP/OX0TbXJeqGw+q6w==
+Received: by recvd-5bb5b9cb76-dn8gx with SMTP id recvd-5bb5b9cb76-dn8gx-1-6ABE306F-75
+	2026-10-01 10:05:35.701443327 +0000 UTC m=+147873.877541912
+Received: from FR-BES-DKT15120.home (unknown)
+	by geopod-ismtpd-5 (SG)
+	with ESMTP
+	id BCf2UazxRLSlh73RSXbOIg
+	Thu, 01 Oct 2026 10:05:35.455 +0000 (UTC)
+From: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Subject: [PATCH v2] serial: sc16is7xx: fix data corruption due to unexpected
+ xon/xoff
+Date: Thu, 01 Oct 2026 10:05:35 +0000 (UTC)
+Message-Id: <20261001100534.1225894-1-martin.fuzzey@flowbird.group>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SG-EID: 
+ =?us-ascii?Q?u001=2EmxcfyuLMH4=2Fbg2doT3ED5Nkn+NRIhYpRg=2FjjzcGJxXskVm5GzbVM6ryOL?=
+ =?us-ascii?Q?ZDTHCknSk3Bx4wVetjJrUM6AGHj5hDGo6NZ5Elh?=
+ =?us-ascii?Q?umy6VTycgROQXZu1cPemWML4O1jP1wVI8AfgxFJ?=
+ =?us-ascii?Q?ClY0Rnb4GCFdsA5jGZ65krRICS9MGZDP3BwOpUY?=
+ =?us-ascii?Q?5qkaLXLgRwoYa7a3t+VT1mizJF0B2so9agRW8pV?=
+ =?us-ascii?Q?J5OGXcUlDOI4K7nMCG65kq6mrZ8l+q8Jl=2FNONPA?=
+ =?us-ascii?Q?pYKh5Hi9eF4KgN=2FlRqQdDkr1AQ=3D=3D?=
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Hugo Villeneuve
+	<hvilleneuve@dimonoff.com>, Jon Ringle <jringle@gridpoint.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+X-Entity-ID: u001.LMXSJIKpad5A1O6egCWHyQ==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 
-check_pending_xmitbuf() returns only true or false. Use bool as its
-return type to accurately describe the function's behavior and
-propagate the return type through one of the call chains.
+The hardware supports automatically sending XON/OFF based on the
+FIFO status and that is already implemented by the driver.
+However that capability was not announced with the UPF_SOFT_FLOW bit.
 
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+When the port is opened with the default of XON enabled the driver
+configures that in the hardware.
+If userspace does not want XON/OFF (which is normally the case) it will
+use TCSETS to disactivate it. However the serial core optimises this
+to only notify the driver if someting imporant has changed, and for
+XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
+
+So we end up with unwanted XON/XOFF in the data stream.
+
+The problem only occurs if nothing else needed to be set by termios,
+ie if the user space requested values are the same as the default values,
+except for XON/XOFF.
+Since the default speed is 9600 this means that the problem only occurs
+when requesting 9600, otherwise the call to the driver will be made to
+change the speed, and that will also clear the XON/XOFF.
+As 9600 is quite rare these days that probably explains why this hasn't
+already been seen.
+
+It also only occurs on the first port open after boot since the subsequent
+opens will use the "logical state" set by TCSETS but not communicated to
+the driver the first time.
+
+Signed-off-by: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@vger.kernel.org
 ---
-v2: Add missing "staging: " prefix to commit message.
-v3: Change one of the call chains to also return bool.
 
- drivers/staging/rtl8723bs/core/rtw_xmit.c         | 6 +++---
- drivers/staging/rtl8723bs/hal/hal_intf.c          | 2 +-
- drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c    | 2 +-
- drivers/staging/rtl8723bs/include/hal_intf.h      | 2 +-
- drivers/staging/rtl8723bs/include/rtl8723b_xmit.h | 2 +-
- drivers/staging/rtl8723bs/include/rtw_xmit.h      | 2 +-
- 6 files changed, 8 insertions(+), 8 deletions(-)
+ V2: rebase to correct tree, add Fixes tag
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-index 57b3690bc48af..78caf6f243ab5 100644
---- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-@@ -2463,10 +2463,10 @@ struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpri
- 	return pxmitbuf;
- }
- 
--signed int check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
-+bool check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
- {
- 	struct __queue *pqueue;
--	signed int	ret = false;
-+	bool ret = false;
- 
- 	pqueue = &pxmitpriv->pending_xmitbuf_queue;
- 
-@@ -2482,7 +2482,7 @@ signed int check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
- 
- int rtw_xmit_thread(void *context)
- {
--	s32 err;
-+	bool err;
- 	struct adapter *padapter;
- 
- 	err = _SUCCESS;
-diff --git a/drivers/staging/rtl8723bs/hal/hal_intf.c b/drivers/staging/rtl8723bs/hal/hal_intf.c
-index 1443875d13694..9653ab3ad893d 100644
---- a/drivers/staging/rtl8723bs/hal/hal_intf.c
-+++ b/drivers/staging/rtl8723bs/hal/hal_intf.c
-@@ -229,7 +229,7 @@ void beacon_timing_control(struct adapter *padapter)
- 	rtl8723b_SetBeaconRelatedRegisters(padapter);
- }
- 
--s32 rtw_hal_xmit_thread_handler(struct adapter *padapter)
-+bool rtw_hal_xmit_thread_handler(struct adapter *padapter)
- {
- 	return rtl8723bs_xmit_buf_handler(padapter);
- }
-diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-index dec9d4d53de7a..eab5962a60eb2 100644
---- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-+++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-@@ -115,7 +115,7 @@ static s32 rtl8723_dequeue_writeport(struct adapter *padapter)
-  *_SUCCESS	ok
-  *_FAIL		something error
-  */
--s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter)
-+bool rtl8723bs_xmit_buf_handler(struct adapter *padapter)
- {
- 	struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
- 	u8 queue_empty, queue_pending;
-diff --git a/drivers/staging/rtl8723bs/include/hal_intf.h b/drivers/staging/rtl8723bs/include/hal_intf.h
-index 7b63116525cab..763ff6f3cb535 100644
---- a/drivers/staging/rtl8723bs/include/hal_intf.h
-+++ b/drivers/staging/rtl8723bs/include/hal_intf.h
-@@ -222,7 +222,7 @@ void rtw_hal_set_chnl_bw(struct adapter *padapter, u8 channel, enum channel_widt
- void rtw_hal_dm_watchdog(struct adapter *padapter);
- void rtw_hal_dm_watchdog_in_lps(struct adapter *padapter);
- 
--s32 rtw_hal_xmit_thread_handler(struct adapter *padapter);
-+bool rtw_hal_xmit_thread_handler(struct adapter *padapter);
- 
- void rtw_hal_notch_filter(struct adapter *adapter, bool enable);
- 
-diff --git a/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h b/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
-index d02ead67777a0..acf0ac9e5a755 100644
---- a/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
-+++ b/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
-@@ -406,7 +406,7 @@ void rtl8723bs_free_xmit_priv(struct adapter *padapter);
- s32 rtl8723bs_hal_xmit(struct adapter *padapter, struct xmit_frame *pxmitframe);
- s32 rtl8723bs_mgnt_xmit(struct adapter *padapter, struct xmit_frame *pmgntframe);
- s32	rtl8723bs_hal_xmitframe_enqueue(struct adapter *padapter, struct xmit_frame *pxmitframe);
--s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter);
-+bool rtl8723bs_xmit_buf_handler(struct adapter *padapter);
- int rtl8723bs_xmit_thread(void *context);
- 
- u8 BWMapping_8723B(struct adapter *Adapter, struct pkt_attrib *pattrib);
-diff --git a/drivers/staging/rtl8723bs/include/rtw_xmit.h b/drivers/staging/rtl8723bs/include/rtw_xmit.h
-index c5cb814789d86..68fe47dcceec4 100644
---- a/drivers/staging/rtl8723bs/include/rtw_xmit.h
-+++ b/drivers/staging/rtl8723bs/include/rtw_xmit.h
-@@ -432,7 +432,7 @@ void enqueue_pending_xmitbuf(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmit
- void enqueue_pending_xmitbuf_to_head(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
- struct xmit_buf *dequeue_pending_xmitbuf(struct xmit_priv *pxmitpriv);
- struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpriv);
--signed int	check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
-+bool check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
- int	rtw_xmit_thread(void *context);
- 
- u32 rtw_get_ff_hwaddr(struct xmit_frame	*pxmitframe);
+ drivers/tty/serial/sc16is7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 296079c16fdb..7ddc8a38adab 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -1516,7 +1516,7 @@ static int sc16is7xx_setup_channel(struct sc16is7xx_one *one, int i,
+ 	/* Initialize port data */
+ 	port->type	= PORT_SC16IS7XX;
+ 	port->fifosize	= SC16IS7XX_FIFO_SIZE;
+-	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
++	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
+ 	port->iotype	= UPIO_BUS;
+ 	port->rs485_config = sc16is7xx_config_rs485;
+ 	port->rs485_supported = sc16is7xx_rs485_supported;
 -- 
-2.43.0
+2.25.1
 
