@@ -1,124 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B273F51AECC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD92651A156;
+	Thu,  1 Oct 2026 14:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865535; cv=none; b=sSubENvJ3/bUHJcx0l497UTOruxc5GsVgupex8UYdhA0VOLejk37REmdPKHamayTz3cVDtdQlZmw3KqhaEf9L3xFUFKRocXEct0nUFazjK6mIl0IEjvGtFkeCYUvYtkD7AzmeD6uhp7A3p2kQPdnDYDoCrFkqv2m9hI4dErMbfA=
+	t=1790865565; cv=none; b=PB5EPPEcgIVKAVwljMW9Nc6O9mT+OXj75Chz8Fr6hYBXtLZ/hW3G89e05EtWwadlFb9o9APaFUxm9UYilWtTrpfRKm/M2IagI5DgpPTA9wgcNMXut1GxZnJAPHlAlxLj8EouIUSPXrAvqzEc4Kzed5K8TyYX0FNvlDuOcORz1Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865535; c=relaxed/simple;
-	bh=TP4jI+wG6PBqBKAosooF+4rrhoc5hNQtPHbUvJ/nxic=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DUgSMGuhyJEA4H0wlvaJj7FUFsGegN4OwGvMscpZJTGpmRD9erbCGjuL2mgf1Np44eowTDAc5d3hsF96F4YNIOWt/hsNvUcTzG+k4wsJeR8Gq547COaFS+dbpZ3TuyUzktcb/jEay9VXUmTwmL5W+s22GXA35CefSwbcfEDqv8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J5TPUfqt; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=VjIBUJ8J; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790865565; c=relaxed/simple;
+	bh=x1mcmFODorlLOxx+KdY14jTTfjS03g+7143QHJaWdUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MHxPst7jsQdRjzvNFhLQR+eoMRagxmX/IIPCP9GV6PcbyyDaY8Evf/2CYdx/2bs2mrhOmiYCorNC9u/TxLFfPyNWuXVkM/7ucuQrF0nwVUtaV6PgTpeErVPxI3mfd0L3oJS8DYbRGdphFcP2TaslwJEfhckWf84TS6o6uTEdkjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYH1C9yi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J5TPUfqt";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="VjIBUJ8J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790865529;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i4xhRQFt/bWT6UALcOITRzeSEDfb1ACELZHI8/ear74=;
-	b=J5TPUfqtrtqpeS8SlQLjzv3vhrZQdFt09DaMBP94eK/YbQB2f0TRRn7Uw/OTIzX1pxI5r3
-	ZLumVB0WwfmL9B+zV394FspL1wqlVAwXGDUJ75ujzTrNlSTUh3cY+APEITL89jeovZUJKY
-	piixZs0h17ThkR5Mm/lqlJhsvUjvd6k=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-626-QLKPUSaIPke0x1C-9yyfrg-1; Thu, 01 Oct 2026 10:38:47 -0400
-X-MC-Unique: QLKPUSaIPke0x1C-9yyfrg-1
-X-Mimecast-MFC-AGG-ID: QLKPUSaIPke0x1C-9yyfrg_1790865526
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49ff43a1ecbso39122075e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:38:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790865526; x=1791470326; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i4xhRQFt/bWT6UALcOITRzeSEDfb1ACELZHI8/ear74=;
-        b=VjIBUJ8J2/ysa0wVuaeMXcYQmXgkrijhtQC3hjYnFW1AYHsbqDtu8gxrYLSne0ydJU
-         3kcFo83XDha4TQkYIeEXOo34MyYzWLRwJfo4qnXzvM4SxfNpqFhbw0LlaC6LcRpzeG+Z
-         Pkv57cIxRfZmCpIyzCUZ3K7a0wzR++nDoxrTkTUJVrh300B+haIS+CYT1l1+r4e67raV
-         kXTNy9otKtGR6tmARhV/kCv/JZecFrx1gW6QJtQFf9tjY01GGL7iIQEqInYI5u+DKatA
-         Fik4lDASNG8V/0R7pdFL/mQzYIJ+GJZ0638PHcIectETw18Q4KS6UtJgwXCaDNKwgj1Q
-         bheg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790865526; x=1791470326;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i4xhRQFt/bWT6UALcOITRzeSEDfb1ACELZHI8/ear74=;
-        b=fWh4gPi3xBOpmDIQQJr5S7pLtAURRG1Tu+Kku3CdXUluUUIIWiwOmnN4uDtpuPX5su
-         pfWDtEYYg2yMBkXVElOofMZ0nhoyf/vXDM01NY0FbNLIFFq9lSGhz1ZQjgPcihcY5WEz
-         dYmfUbQQDkg6hSqgqy5sKbpXCqDy02ZsvH1ZX1fxsvvoZSapFRHNgAmH/ydQKyr2Q1xQ
-         Ur6GBWvHs6S8rCPXRMbiRSiYWdIdwIvTHzVut2L03PpyBhX2XQNbYSoITlRHYNlThQnu
-         iWQqRb17Hwgq/8xXaRBZ/mFaUjO7LXW3JYvY3IVytjMEkWaUhWRIVFy/LxFT1phBJyaS
-         wqsA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7iZwha/VqSTjT+GDvpCxJypA5BjRZBoMDDxa6SmAStLf0HMVBmBTD+k5u9O+JIGqxvARiylee6fs16aQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDVzM2Hnt8qElnDiK+DGKimEgV/+Bu517pXhWO9yOIH5G8RjUo
-	jpzTpuYs4NsoNE1mD47Omq0qdXuUptw/2lElBSmvq8/bACRZq6fHeNbb57/lwAtdgRNZYq9jMAt
-	gIeCKycr0Khfk0lf58uwv/iwHYcvBldfoz3eEdWezISyaE3XzY8E2paOgKowZ9nOf9g==
-X-Gm-Gg: AYBFou0VndpN5lns8qbCVApKABa/9+IWfmT59yXTwiFlX2X+hVp1Bf89bt9Rf90wct7
-	RYDGaHg9PropbD1gDSpxqgFpYrk4RgPV0uGOoEsecj6KWyqlgRl2NQtlYN/zfmAEBOzg5aZW24O
-	nmhkaTO2xtB63zXQ9nINpunXZRSEJ8FST+XSOBhLnH4LSfJDYaw3Z/gew0fqupA9pUnSfC3B2yu
-	Fw4ZcbAesa7vSY/b5eDIT21taDelANMOlLhlyT+HwxKFN1PWfVMy1ndNfS64dBAO5xAIf31v8n0
-	pIvfXOI32Ba9Em8ZSwPj3h4p54se91Kuq9D3ueBibW6Ymy61gLCWyjc3gbQxck+DWULY+nusc8M
-	kWZLf0nGMbg6kVV+bZCu9dxqIrCKdgjoDDBaW8r8jHYI8fhsEYL8mmxCwDrWuwB6pRA==
-X-Received: by 2002:a05:600c:1f86:b0:4a0:13ea:2ec3 with SMTP id 5b1f17b1804b1-4a01b135eccmr80506855e9.35.1790865526375;
-        Thu, 01 Oct 2026 07:38:46 -0700 (PDT)
-X-Received: by 2002:a05:600c:1f86:b0:4a0:13ea:2ec3 with SMTP id 5b1f17b1804b1-4a01b135eccmr80506425e9.35.1790865525833;
-        Thu, 01 Oct 2026 07:38:45 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a023ebe694sm51117505e9.10.2026.10.01.07.38.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:38:45 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, decui@microsoft.com, longli@microsoft.com,
- ssengar@linux.microsoft.com, andy@kernel.org, gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 2/2] drm/kms-helper: Remove struct
- drm_simple_display_pipe and helpers
-In-Reply-To: <20261001133736.802604-3-tzimmermann@suse.de>
-References: <20261001133736.802604-1-tzimmermann@suse.de>
- <20261001133736.802604-3-tzimmermann@suse.de>
-Date: Thu, 01 Oct 2026 16:38:44 +0200
-Message-ID: <xlv1mrsxfpu3.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYH1C9yi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A66A1F0089A;
+	Thu,  1 Oct 2026 14:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790865558;
+	bh=Zqr944MUTAng9/MUwJsTayj4y5qkmHFfqWFHtS30VEc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mYH1C9yikVsWqYZcRr/xTb/7iPJPFiAjgPh3IhJyLg2gI13xZp3Zgip6BnnRfGtiw
+	 MnwipDi/KDvYR4PkVyEv5ptUCB+0RCd4aXh/Mj3g6gHRjyvwbeQoIKdqX5uxYKuAb5
+	 gXxGttwLeM0uKEfo117eD7PQaJ8OYpASgDoaMSbMhIrM2Z03UtJrDGDwEmNSvqESct
+	 SFwthINgMsxzSGELdHWOtYdZCKR8wkH4j7wgdIfghEhkEtOvTq3tn0vgiTiYIeTSXQ
+	 yhiB6t6xy2goS89vqL89nxYzRTJg3m5NMOKX2Is+y43CEU5xP9lO29apa0TYB3zSGb
+	 WV/WuPxG6IKoQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Ajit Pandey <quic_ajipan@quicinc.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Imran Shaik <quic_imrashai@quicinc.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 00/42] clk: qcom: Tie CX power domains to GCCs
+Date: Thu,  1 Oct 2026 09:39:04 -0500
+Message-ID: <179086553016.3495936.2028744481705242969.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
+References: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-> There are no drivers using struct drm_simple_display_pipe. Remove
-> the data type and all related helpers.
->
-> The idea behind struct drm_simple_display_pipe was to provide an
-> easier way for writing DRM drivers besides regular atomic helpers.
-> It turned out to be more complicated. With all drivers being updated
-> to use atomic helpers, it's time to remove simple-pipe. Also clean
-> up the related TODO items.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
+On Thu, 24 Sep 2026 13:39:16 +0300, Abel Vesa wrote:
+> Tie the CX power domain to GCC clock controllers for SDM670,
+> SM8150, SM8250, SM8350, SM8450, SM8550, SM8650, SM8750, SM6350,
+> SM4450, QCS8300, SDX75, SAR2130P, SC7180, SC7280, SA8775P,
+> X1E80100, Eliza, Kaanapali, and QCS615.
+> 
+> Enable runtime PM for GCC providers without critical clocks, allowing CX to
+> power down when their consumers release clocks and GDSCs.
+> 
+> [...]
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Applied, thanks!
 
--- 
+[28/42] arm64: dts: qcom: kaanapali: Add GCC CX power domain
+        commit: 9339897ad7eded77adf834e032482f7609911448
+[29/42] arm64: dts: qcom: monaco: Add GCC CX power domain
+        commit: f5d35c78bcb6b96a4ad9b60e31657a9a389c8de5
+[30/42] arm64: dts: qcom: sar2130p: Add GCC CX power domain
+        commit: 787e304c81502bdf6993270d746d482891b91f70
+[31/42] arm64: dts: qcom: sdm670: Add GCC CX power domain
+        commit: 56002ee061ac5a73fb280065369133bfde40396e
+[32/42] arm64: dts: qcom: sdx75: Add GCC CX power domain
+        commit: dbd1f3e15714b470cd5801122d6a81e02fda92bb
+[33/42] arm64: dts: qcom: sm4450: Add GCC CX power domain
+        commit: f1579fca044a69dae2e134b315d4ee10ca5ccdde
+[34/42] arm64: dts: qcom: sm6350: Add GCC CX power domain
+        commit: b00fe15b094e8d50f24d43431de5486257b2b756
+[35/42] arm64: dts: qcom: sm8150: Add GCC CX power domain
+        commit: b1542c3e23012ffce3b5d7a5b6e87f0faf3a015a
+[36/42] arm64: dts: qcom: sm8250: Add GCC CX power domain
+        commit: 389a0144c511316cf21d5dc2aa30028de87f9d00
+[37/42] arm64: dts: qcom: sm8350: Add GCC CX power domain
+        commit: fb1adf2ef0574dd1f9d4481dbeb0d443300d779c
+[38/42] arm64: dts: qcom: sm8450: Add GCC CX power domain
+        commit: f1586048fb1dabb91c82fbe11557e505587973d3
+[39/42] arm64: dts: qcom: sm8550: Add GCC CX power domain
+        commit: df50f5c5690a472d750a0e327ac4d05a4a9c8b79
+[40/42] arm64: dts: qcom: sm8650: Add GCC CX power domain
+        commit: 108a8d51fba8432c5d5253dec1c565ffe7c1edbc
+[41/42] arm64: dts: qcom: sm8750: Add GCC CX power domain
+        commit: ee35c132956f4797ed6be33c451decb94d1752af
+[42/42] arm64: dts: qcom: talos: Add GCC CX power domain
+        commit: 5ad7eb6a944eea8471f496442c9a3609a286437f
+
 Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+-- 
+Bjorn Andersson <andersson@kernel.org>
