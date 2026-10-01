@@ -1,131 +1,153 @@
-Received: from mail-ej2-f31.google.com (mail-ej2-f31.google.com [74.125.228.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB47035C1AD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.159
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889796; cv=pass; b=C2L9YxbFXuWM+KhGBV4ML7lHDUve2SqxAw15+Qr8wJxaggviXtvPDTeEEWroP8blhm/2bOhgnI/jGl+cmNl4FC26o2XJoktmQ07+5OXBXYoM5VrlqARY9f8m14XpQK1yzfLdQUBXZ3FQXuTVW8sdlRe2sL1ewtM/HhM5AILcSOg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889796; c=relaxed/simple;
-	bh=DLs/KIZ5/ycwSa0SN3niPNJWgFMiQFCmcvqsb0nclfY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AD635C1AD
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790889911; cv=none; b=fXUm3N4UoAYcC6K9VIMX1Q6sBOHyEcEMkvXGxIKPmQjRr2PQ2+vqTq56egy4yT+z8CmpXRJk/t3P+5dctVn/NT+MVdZhgYeVMuQYyLDO39fTxOmdkbRnYlai4HHSToZBVovSNFNgKf+fkEQewoL1vh9oXX4vpnBgxN5Jv4/3+jQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790889911; c=relaxed/simple;
+	bh=H56gwjziJywH3m5Bz2P+G9ZTWG7bfHpXRO40aJaL4hA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uoADeiiv7Jz0Q4aSS6B6BVpCfYh1Lwt7JyU01QMVaHqi4XaWwRUtykMo6hUD+E4AYBJQkb8F8kXsUg8E/CrMa6Gpi2Rfaa1YpFzfejgcgs5CqkxbbJVLuz07GIf/EpxIXt6rd4a4BxVHhKPsoq8eyGZDXlBk/G/WLc1RYZIehYQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TLUBHtM4; arc=pass smtp.client-ip=74.125.228.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=NNLL8bIpNnH1GkmYtjuz/+by0tn+QacFhCw/dhssPbMVUG2cZEI3uFeyvaH0e5DdXe7g/p+D/wSHrTlcNYhp4fIKNwgXCvZbl00Msbjn+D6mseIoo85SQXIRVayS+R+qQFJraugPpffpgE+nrbbZvcGPtxvYuP2h36a3jCm5f34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JSR6adbr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TLUBHtM4"
-Received: by mail-ej2-f31.google.com with SMTP id a640c23a62f3a-c29703cb796so999378466b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:23:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790889792; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gP7gvmWCBLlUD/scjJRdpwPStrLNcXBh8d4Fk3+mYpsidV293L3pJmmIYMLZ5MIN3e
-         eHxYlN+ah1paCKsIYIufLK8oGRZxIJgUAiWnmcvBUkbuWOrneZMk11i21R/MLTfp3XjQ
-         N/VUQDl8IVfhrjuQ1JZfFc0MSPa2Q4qg4xF5IVvAeiq4p4/8ydW0JoVVxLhWyjv55278
-         b/7pUnsqc5NtEzTnLzwkUZ3XvMepVDdWfZJGpMQ5YDJU7CoEJ07WqidcXnRRe1LRbxTj
-         oYLhlM8jHSjrsue0mJbjaiJ+TpKn8oVPHu2xE9Orka+38oeTbHMxtSfQ/ms2HHQxv+0o
-         nk0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bGDIIilh263XLFQkrjj0HvyT95v71lu9sg14IVq4dQQ=;
-        fh=CAhqSgaJprAm7KsmIDgmtY263kL+tjBA4tuqP6RyWxg=;
-        b=Q4YNU9AdIhSfnld3kTLceC2GYGM7H07vEQrJ7eiMXR2foMfFwi9DmeqBcCtSffrRHU
-         EjSZQgqT6C/HcwvsDdz5gQ9wRwMf/mFW/j6XULU7v5BsElkJulJHkPSaU0cXHPo/Pens
-         jUHIC1FObwoZIz88pYoQ9J17iVdefOo+g1Qk9Ay/JP1V2ma1eFhNgQdZAjWF9csysr5L
-         RH59NfsTtX5byvOIvQ1iIk9hiGEGHqq7I0u8fLk1z9lCvnGzOxSoFsXfYQjXFeSCU70x
-         +Z/At5lI80LUy+cTFgBk+ptkjAp1P4lpHC0VmCci0+1Fqn+4tgGR59ZOfy5NPeASHWuV
-         i6Pg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790889792; x=1791494592; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bGDIIilh263XLFQkrjj0HvyT95v71lu9sg14IVq4dQQ=;
-        b=TLUBHtM4X9DfCuZ+6UdOl6Pymyz9MySlWXhFPcefNzL8k2Gq8fs+jKPTLkk0Sv4vWe
-         TUHEzMiqAqdbdFmatWRgOhwKRlrqN207xBYbZ/R19XlEKJoOmFCuj4A/cU3y1wXDGgMb
-         Vq7LOg2k2JSXkwHKZuyngZqcsAn14vS5eZtj1w9M5Y6oWQowL7z5wpQJ0PRVR17N4IcW
-         ky2ZGWnqpeKVQBri8a3SkK4xTareftW5LaJetdwtXbW37sDgTWqC130B7o+gD4s/FD88
-         ak7U3SUgN251Ey66LpsgCLt0xPdEYfovtlK1wb/X2RtE5zpETwrLlpu/CTxnXdsz7clu
-         zB0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790889792; x=1791494592;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bGDIIilh263XLFQkrjj0HvyT95v71lu9sg14IVq4dQQ=;
-        b=rYSFFq4R5VLeugErrvts839ffSQawMW2jo4kJNLZ6TXZxly6G4TWCXg3W+G0aVaaB7
-         Qv724gSl+l9ktoZx9y5qRJytyuPTUiAxrQooKdK04pcgOQB1t0gjirhm5f6Yu0iPoYfV
-         EcHPghicmsXDao6Xhq4NtG5IQVdmGi/d4ggFrakeAUPgr9DhrWmJtOptDhGqDMkqLtSG
-         Xel3hCGH/cWHahecgHh/L4tiVhWM6dRJ/Qv9YgIkLDotR4x1uXDfLiT0F2zYVqjOMIPM
-         B+Yqjz/BVqyEpdDDOxFfJuHb7II0kt3ufOgQGTEOPsmjbTmXTOyk8l6TOXlP9wNY4DMD
-         POYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxdNc3SRBA8GJ3fMnWkCjthlVEUE3OTZwrXvpFhQyDuslD6wQm3KFzt+OoasNKVt/eb8vMJFVVOB0a2kJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIL23pM0EcsZ+16jCnz/zvPv/9xHux/Nq907FiADVgVDgsqa5nV
-	n8VNcHJeePBz6SYVBCR1D/EkI9StGWfV9ZmFVszZhkkl6YuDPffh72SbZrOV9dpbuL6EPGHwuYR
-	8ZavYTYmFRNTsutVwKAgUoxKjV39ipTdtD7jMn4Wy
-X-Gm-Gg: AYBFou0nkS1UTFV8T0n4WpcxeUcai9cIdGsHsruzdLdRScUeow6QqhiUv2IqRkxWV2K
-	2di2BvX6OtqvyvADMTXOMU2QKQsbRZ/PVkK51S4hPdprLG4pfFhP+305Xm05UfZ9sB1tMrE/dfM
-	L4KguZm5CHQu9syLDEuKV+bNn5Q9kHQWOHMuESq0qwOUWi0qQ8I5PgxiLE6ppOE8HLLnwoqlr1m
-	vp0Vr+0Tac6nEKS1A+w1iwotwQ6XcVX/emeuOD9HAD5pEnTuvI2ye4y89kxhmWqZBHv1EJXiMPj
-	UJwZLEbjJXjCtQDBFVQb55KdZkng3MmKkyuJIQkH4D8sACXtMDRaE5ShQTG15mgmRAx5nElPUsy
-	FvweHWsBPw+oKLT6iKNH8
-X-Received: by 2002:a17:907:7282:b0:c25:977e:5377 with SMTP id
- a640c23a62f3a-c2e4ad7cbf6mr69097466b.10.1790889791661; Thu, 01 Oct 2026
- 14:23:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JSR6adbr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9801D1F0089F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:25:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790889910;
+	bh=Tvs6fkP3/Le/Tutf9udarKKG9JiN4dlqSpw4nvMlQag=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JSR6adbr+/D+zLJm/9W+9CMYKU6h73aJ5gKupkKP9hpTDpJD6RsQKbYMmu9euWDGJ
+	 h15Sa90syJKnJwFC5PAemEmtRcuIHbVUEUFb7DqnitfRmAFm5WiTzH2tygsnFcWURR
+	 esinUCy9eT24BclYaO9HOVjvmBc+ifETiwk+LEumVDifx9mh8ECOJriOs5wNzLhObq
+	 uXpMcZ9YEboKTbijNPZDdmjZxHScAizu4O66PsDW+irDMf2p/MIJ39Y6hGYqTG6TZU
+	 Z1/JX4EK5Z8hxWKWWbmVmO/1DshMw199ZMxnqPw9C9x99Vp0o7nu7kHdxDRt01e2WZ
+	 4KEd5PQbqMyfQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba330dbd67so2977182e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:25:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz83V9v6YYz7dfjtVJyMbGQ6WqOJ+klI5VBWCMG/8VfurPVgxnaGRHHkUaFqVKujfPwsqDXDs5xsc7WMuA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuJLr1gNzf/QPmcPbY/8evK6bL0S2HpSNqGZGUUcHaoXXZNsAM
+	zEpC1kfImB6Cf+b23q18zmCgvdZeFPmHJnETvodVJvzSyEH6mS+ipkrCxtFa77bRO5ugLhIPChm
+	qtzqDZFgghHK5Rld+FzsNmgB1UH8heUg=
+X-Received: by 2002:ac2:4898:0:b0:5b6:4ad:77b3 with SMTP id
+ 2adb3069b0e04-5bb9bb0c0d4mr124079e87.27.1790889909323; Thu, 01 Oct 2026
+ 14:25:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001171349.81454-1-ebiggers@kernel.org>
-In-Reply-To: <20261001171349.81454-1-ebiggers@kernel.org>
-From: Sandeep Dhavale <dhavale@google.com>
-Date: Thu, 1 Oct 2026 14:23:00 -0700
-X-Gm-Features: AclHuK8XgZOhRUaL3sAt7Iljpz3t_TC6CLjoxsnzy8OUuuVA4aEvXm2un4VWkDk
-Message-ID: <CAB=BE-TsYHMdwKbVPmEQZXENL1gVcwUa7Sde=e1wgGuVLKWnEA@mail.gmail.com>
-Subject: Re: [PATCH] fsverity: RCU-delay the freeing of struct fsverity_info
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: fsverity@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, stable@vger.kernel.org
+References: <20260928063824.1386524-1-morbo@google.com> <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
+ <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com> <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
+In-Reply-To: <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 23:24:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
+X-Gm-Features: AclHuK_3CuY_lvP3v92lNOvBLIMvkbfO2hErlC_rqJvappsJIFQnzmPZMMVY-s8
+Message-ID: <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
+Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
+To: Bill Wendling <morbo@google.com>, Ard Biesheuvel <ardb@kernel.org>, Jeremy Kerr <jk@ozlabs.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	codemender-patching+linux@google.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 10:13=E2=80=AFAM Eric Biggers <ebiggers@kernel.org> =
-wrote:
+On Thu, Oct 1, 2026 at 10:05=E2=80=AFPM Bill Wendling <morbo@google.com> wr=
+ote:
+> On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@kernel.org>=
+ wrote:
+> > On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@google.com=
+> wrote:
+> > > On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@google.=
+com> wrote:
+> > > >
+> > > > The 'data' pointer field in 'struct acpi_gpio_mapping' is associate=
+d
+> > > > with the 'size' field, which represents the number of elements of
+> > > > type 'struct acpi_gpio_params' allocated for 'data'.
+> > > >
+> > > > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
+> > > > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
+> > > > attribute.
+> > > >
+> > > > Analysis of allocation, assignment, and access points shows that th=
+e
+> > > > pointer is never accessed before the count is set, which guarantees=
+ that
+> > > > this annotation is safe and will not cause runtime panics or
+> > > > false-positive bounds checks.
+> > > >
+> > > > Cc: codemender-patching+linux@google.com
+> > > > Assisted-by: LLM
+> > > > Signed-off-by: Bill Wendling <morbo@google.com>
+> > > > ---
+> > > >  include/linux/gpio/consumer.h | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/con=
+sumer.h
+> > > > index fceeefd5f893..2b80cf7aa7e7 100644
+> > > > --- a/include/linux/gpio/consumer.h
+> > > > +++ b/include/linux/gpio/consumer.h
+> > > > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
+> > > >
+> > > >  struct acpi_gpio_mapping {
+> > > >         const char *name;
+> > > > -       const struct acpi_gpio_params *data;
+> > > > +       const struct acpi_gpio_params *data __counted_by_ptr(size);
+> > > >         unsigned int size;
+> > > >
+> > > >  /* Ignore IoRestriction field */
+> > >
+> > > There's a problem with 'drivers/firmware/efi/libstub/Makefile'. Clang
+> > > needs a compiler flag to support the "__counted_by_ptr" attribute
+> > > referencing a field *after* the pointer, like in this patch. However,
+> > > the Makefile blasts the flag away for x86 platforms. Below is a hack
+> > > that copies the part of the top-level Makefile that adds the flag. I
+> > > don't think that's a good solution. The comment in the driver's
+> > > Makefile says that the stub code executes before the kernel does,
+> > > which I assume is why a lot of the flags are blown away... In any
+> > > event, I'm not sure how best to address this.
+> >
+> > But is this a problem with the current patch?
+> >
+> > Does libefistub use <linux/gpio/consumer.h> in any way, shape
+> > or form?
+> >
+> It's being #included transitively:
 >
-> __fsverity_get_info() calls rhashtable_lookup_fast(), which just uses
-> rcu_read_lock() and doesn't directly synchronize with
-> fsverity_remove_info().
->
-> For the same inode this isn't a problem: its fsverity_info is removed
-> only at inode eviction time or upon failure to enable verity, when the
-> inode no longer needs its fsverity_info and it will no longer be
-> accessed via that inode.
->
-> However, this is broken and can cause a use-after-free for concurrent
-> __fsverity_get_info() for *different* inodes.  Those rely on following
-> fsverity_info::rhash_head in the rhashtable under rcu_read_lock() only.
-> They also use fsverity_info::inode to do the key comparison.
->
-> Fix this by RCU-delaying the freeing of 'struct fsverity_info' after
-> it's been removed from the rhashtable.
->
-> Fixes: f77f281b6118 ("fsverity: use a hashtable to find the fsverity_info=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
->  fs/verity/fsverity_private.h | 15 ++++++++++++++-
->  fs/verity/open.c             | 13 ++++++++++++-
->  2 files changed, 26 insertions(+), 2 deletions(-)
+> In file included from drivers/firmware/efi/libstub/efi-stub-helper.c:12:
+> In file included from ./include/linux/efi.h:20:
+> In file included from ./include/linux/rtc.h:18:
+> In file included from ./include/linux/nvmem-provider.h:16:
+> ./include/linux/gpio/consumer.h:670:55: error: use of undeclared
+> identifier 'size'; did you
+>       mean 'ksize'?
+>   670 |         const struct acpi_gpio_params *data __counted_by_ptr(size=
+);
+>       |                                                              ^~~~
+>       |                                                              ksiz=
+e
+> ././include/linux/compiler_types.h:392:64: note: expanded from macro
+> '__counted_by_ptr'
+>   392 | #define __counted_by_ptr(member)
+> __attribute__((__counted_by__(member)))
+>       |
+>        ^~~~~~
+> ./include/linux/slab.h:602:8: note: 'ksize' declared here
+>   602 | size_t ksize(const void *objp);
+>       |        ^
 
-Reviewed-by: Sandeep Dhavale <dhavale@google.com>
+Hm I see.
 
-Thanks,
-Sandeep.
+Certainly Jeremy or Ard will have an idea about how to solve this,
+so paging them in.
+
+Yours,
+Linus Walleij
