@@ -1,44 +1,46 @@
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE833B5301;
-	Thu,  1 Oct 2026 15:14:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97F35226A0;
+	Thu,  1 Oct 2026 15:14:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790867697; cv=fail; b=t73kXbR15EIXszVgmIi8ejxN2oDXCDJKDZqvA8vT2XnDPu3NNGQLXOLgk0TB3YXncgPo20JGA5xdH0R7Gcw6lKWZ+4ZWWOJP/sZGGAxDbxLsKBv5LmShFUAoTyoPuQbCvnhhA/zrP+/9e1lUJnw0gTCl+y1rJhWHEFg+c722IG0=
+	t=1790867698; cv=fail; b=CdbV7jqI73GbejfztfQp1Pi+P/RAkSNwjLqlLspSrDBswyWzsfICm7jZpddpaEEMRUy3o9g0u+DD74tqr51fF6nZjC4GjDZ+WktJM+6X91M2MssZI8c04+N5fe/u11souFcsOttK9vNAqB9xNgplZouy24lpcRAI3oPZQkiUtwo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790867697; c=relaxed/simple;
-	bh=TCdncEkL8jqMEesj39+xSBo4UQVevWGSTEWyjV8wlHo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pocs1mytpYbR2UmGIxe33q8pfDMbD53hTMeyLc2RHZvGFyXOk7wu4hn1lHLPHoseoeS7hNKC3LUSy3Iq/f+l+oeD3ICZ/F9YzSeLncyf4UBMYVIpO/rK2hVSMX2j6P8+hKJ5Ek1NJJ1SjRxsKmSI7KGzh8+aEYGb9to2PDArGzk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=Y106Wn4a; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=x6K+nSPr; arc=fail smtp.client-ip=67.231.149.25
+	s=arc-20240116; t=1790867698; c=relaxed/simple;
+	bh=xWGexfdeJU+BkfuGm0OidwsADPJz0o3pzdxLhPxtmJU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rTCo90MxZekwPTIcu7vrmATiYi3HMuaRVk9piwPzNCFM3W56ooDP3sot1N7AYqyZu0y+SfJ3GNelA/B0uOqyPbCel+blumt6mUqViQ7raJJecQqU4LoQzolL7Z0+HL8Saa1Om7mtVGbC/gSfgZLElh26hvgLckrvaKV4bO8gDFs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=pjZVyYUI; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=TSXqyhJk; arc=fail smtp.client-ip=67.231.149.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="Y106Wn4a";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="x6K+nSPr"
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="pjZVyYUI";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="TSXqyhJk"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691D26JR3843571;
-	Thu, 1 Oct 2026 10:14:44 -0500
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691D27ZY3843582;
+	Thu, 1 Oct 2026 10:14:47 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=DfIwWb66FJ3hASPm
-	KqVNuK+nIFKuBybw01erJHIIIqg=; b=Y106Wn4akG4rr4kK5YqhglM3HnSn32DI
-	6/Yy3EwCMT9uJ2Gn5L+vFUdE813GvQWRWLFbBmzkEbggUQouSsvBD3lzO+b7kHbg
-	d6FVA6tD5YfF3wFQpgPck8BohQk+Icsm+uIAWkgjlBXnCWV/q80/oQ+hQXmx49sX
-	t9kSHWeHEJ2XyM9VqlzqOqDH7qEFECTR7PUH9UMQJqf3rna9orMWbUhAOsCBioCV
-	MJef5cSmMy0T0Nkfe2twI6cxG3eHzURZLfWEg8FDtTA+3Xzo7zfw/2gMcTNq3zHd
-	nksJptMCfkfMBZIccnqQYIHYFEFCU01Z8BiBp9+v0ayHgVjqZFjIvg==
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11021086.outbound.protection.outlook.com [52.101.57.86])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4h1gv7gq1g-1
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=n3ivcgTWP6XVHNZKUzS7IekMzHgZPUSCNXZXzSZXbHE=; b=
+	pjZVyYUI1/w5z8t+9g08fTqPWchVmVUgf7y2Al5XuygzSpEgTDi4/8e7KV6ufH5N
+	BaH5Se1rvkSFQkKcGrd1xr30yH2ygmFSyOxmQUvqo2Bng/eGiPnj1RdKOwNLVkSA
+	CrjXIfRIl1YiCR0+G3cxCDd8tj0/1ORVYfOvhpRRWRgEGfzKnS7LKvWAPYlkgzqc
+	4yxmgFcOrupN8e+KZ3DlyF5ernhP6hA3jk8iOICwuCoUGHFHKWfCj+L5uQYZL0FT
+	Qld8/6bSCTVrrJ3Zbxa12twKfpELVKgdvYLfEGs6jD+m5Mp96imqw/Qh+Ipyzp8q
+	IZc7pcr8SsPNwVgiyVLAxA==
+Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11021098.outbound.protection.outlook.com [52.101.57.98])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4h1gv7gq1m-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 10:14:43 -0500 (CDT)
+	Thu, 01 Oct 2026 10:14:47 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cez2YJIJaMGT2JyRHkTdAFg3bxEV6NnVNvDVoz6FjpQpMmFYTjcKdHWpukCT8e7RLbawWCkDxwC6CdQALf709VrLgmo73esr+fZycYSbgJlzhZIXWsoaavxtS4bAo8P61D3zsCHaiC87LWm3wsVsIk8WemjQqySO8zn1ncsBpMIJXOG3W59yfHrDyf7nfkzjBoLjyntFUugRCQ3NmAEAtTBVVzTTbRwRUTT29ui9dv9RGj7Sz+UbKRyTsxSAAEwVINww1BiAgV7spzzkdk88oWuw56tAdM7HC5/3zd31I6pVlmtXQOpoTfBbIMd/TVm83Js1dhqY/UZBPSW9xORd+g==
+ b=w90Evp19Qt9xPuMwCFrz+fvMCumlmioz3/tkFeX9ieRxNVs2Tze3yVvPPV4gk4iZ+PMmADxqDIK7/sJxP778hOH8huPX2PdBGjlQuXbH0bnEwvrPbc8QSRiSlue12EnQGPERSpSjJ+pFEuvYKOW2olzS92MN05Tfh3h+UvveOeRs6yBdtAa+EI8vEzRTaLXXCVZbMGceS5pDVt+voWcJmSYAPDjMtomvKnoUYFdFc2wuaUkyBuxGPEvsstRLpvxP0Zrg0TXBZ+Bh1ZVPdtph31EmFzqFKNJW/yDeCH/IlaGwswmzHQvOY5fYMOg7FVRJDiD6vCeVuxEl8APCPuvd8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DfIwWb66FJ3hASPmKqVNuK+nIFKuBybw01erJHIIIqg=;
- b=IJof9EcOiceHou8XoXh7WurpiGslcJyd5Ed1Lkcs+iWFYmlfzrBKs7L90AHZLt/rPn7Y7mBHW39f0ujp8D3p3B9mY78PLn+CZQ4CH1lht+dE7l3szBMKffSfOG7fQYDHjUt6zw6pUL4rLwmtPg9UT7qF5alpaR/THDfurBnMyL4s04Ivvr0G+LpFhH4MYr3IJSLNJ0wzgyBQ8X3h6obBFpv0PYf+xrZ6DGC2+dO8TYu+7BVgK8DbYYp28d3kwwRNuYi49k9bmzHAMBJtKscO2qIWp5EZ8m2KZSP0DdVhIUZITXI6HDQqKp682oPGyp152du9Cx5UTPjYmzQov4xjIA==
+ bh=n3ivcgTWP6XVHNZKUzS7IekMzHgZPUSCNXZXzSZXbHE=;
+ b=FwEhDfYgCJFvWi5B/evLWlAslzNco/mjN/hBwYgbtihodnCpTttyWqAcIlexEMc7n1SabhvOUR5Iuwehj/hBueMRQK8+to/KOcQBirFOIjTvNlcsGuaiO4cdhqrN9UFrbzI62Sgl+XYQ66fgYp5dFTbfAQAX55NfMZicpOVrve13wmD3niU20s4NNdl94PeFeAbtiV0oeRO9agR66cqrCLc6Kj0MG26eEzFtX3pmUhQpRO6M8mUzAYpxdJ0oEl0Nxyaoc/9XnZrWNvUQj62uvdloXOqfyxi6fxcYsCFlpDHo5HqpV/zcE60deoYwJJQcITz9VWQCg5GD93zgzI1yvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 84.19.233.75) smtp.rcpttodomain=cirrus.com
  smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
@@ -47,18 +49,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DfIwWb66FJ3hASPmKqVNuK+nIFKuBybw01erJHIIIqg=;
- b=x6K+nSPrK4gA052zzQAJqsYKbxeNJsxCBU9+FY78b03flKwkjd5uSWwQZS6Ja6FutEGr2pTZOzWgKcnjnxJuQPUKgl9RVqtW5BD+1iVBrE9DEy8ZIjEH0e6rUOmegLZCIr5JDST1rAOoApCZQzq9Bob6wkyhWU7fxhh7Da4SvuQ=
-Received: from DM6PR02CA0110.namprd02.prod.outlook.com (2603:10b6:5:1b4::12)
- by PH8PR19MB7740.namprd19.prod.outlook.com (2603:10b6:510:25f::8) with
+ bh=n3ivcgTWP6XVHNZKUzS7IekMzHgZPUSCNXZXzSZXbHE=;
+ b=TSXqyhJkCqPV4/g2wf/eYLaS0HW89aG8P+DYqiiQlNguoMPDcPDf/fln97NL4JIP7GEfG4RXRqT63bnRk24SexpXhmWr35gDiuqIdE3NjU2WPQRp+BZCO7UfOKiR3XT0i+JpfJ6Fz86phWHSlFXWyuukDFAxS0hrmY/BT4dB+8Q=
+Received: from CH3P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1e7::34)
+ by LV1PR19MB108256.namprd19.prod.outlook.com (2603:10b6:408:503::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Thu, 1 Oct
- 2026 15:14:38 +0000
-Received: from CH2PEPF00000099.namprd02.prod.outlook.com
- (2603:10b6:5:1b4:cafe::6d) by DM6PR02CA0110.outlook.office365.com
- (2603:10b6:5:1b4::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 15:14:40 +0000
+Received: from BN1PEPF00018073.namprd04.prod.outlook.com
+ (2603:10b6:610:1e7:cafe::ac) by CH3P221CA0014.outlook.office365.com
+ (2603:10b6:610:1e7::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Thu, 1
- Oct 2026 15:14:38 +0000
+ Oct 2026 15:14:40 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
  IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
  not signed) header.d=none;dmarc=fail action=oreject
@@ -66,19 +68,18 @@ X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
 Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- CH2PEPF00000099.mail.protection.outlook.com (10.167.244.20) with Microsoft
+ BN1PEPF00018073.mail.protection.outlook.com (10.167.245.201) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Thu, 1 Oct 2026 15:14:37 +0000
+ via Frontend Transport; Thu, 1 Oct 2026 15:14:40 +0000
 Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id A424B40654A;
-	Thu,  1 Oct 2026 15:14:36 +0000 (UTC)
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 2DE7540654B;
+	Thu,  1 Oct 2026 15:14:39 +0000 (UTC)
 Received: from [172.17.0.2] (unknown [141.131.82.140])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 7327882254F;
-	Thu,  1 Oct 2026 15:14:34 +0000 (UTC)
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id DC37D82254F;
+	Thu,  1 Oct 2026 15:14:36 +0000 (UTC)
 From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-Subject: [PATCH 0/2] ASoC: cs35l45: Adds support for LDPM feature
-Date: Thu, 01 Oct 2026 10:14:26 -0500
-Message-Id: <20261001-cs35l45-ldpm-v1-0-545787a5afe5@opensource.cirrus.com>
+Date: Thu, 01 Oct 2026 10:14:27 -0500
+Subject: [PATCH 1/2] ASoC: dt-bindings: cs35l45: Adds LDPM settings
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,10 +88,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANJ4vmoC/3XM0Q6CIBiG4VtxHIcDQkOPuo/WAeP/STYVB8lqz
- nsP7aTaOny/7XsWEjE4jKQtFhIwuej8mIMfCmI6Pd6QOshNBBM1U6KiJh6rXla0h2mgVp9qg1w
- qrYHkyxTQusfOXa65OxfvPjx3PfFtfUMNl99Q4pRRVABgmUItzNlPOEY/B4OlcSHMsTR+IBuax
- Ack1A8kMiSV1By0xYbBP2hd1xeT5QY7/QAAAA==
+Message-Id: <20261001-cs35l45-ldpm-v1-1-545787a5afe5@opensource.cirrus.com>
+References: <20261001-cs35l45-ldpm-v1-0-545787a5afe5@opensource.cirrus.com>
+In-Reply-To: <20261001-cs35l45-ldpm-v1-0-545787a5afe5@opensource.cirrus.com>
 To: David Rhodes <david.rhodes@cirrus.com>,
         Richard Fitzgerald <rf@opensource.cirrus.com>,
         Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -102,112 +102,221 @@ Cc: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
         linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790867674; l=2011;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790867674; l=5628;
  i=rriveram@opensource.cirrus.com; s=20260821; h=from:subject:message-id;
- bh=TCdncEkL8jqMEesj39+xSBo4UQVevWGSTEWyjV8wlHo=;
- b=xQ8JHCuvxo89llbNAU3RsEbvFiRddHF4qXqOA6vLg+5yW25S4pKFOj/hoSQobZmWJSMJduXCe
- HqbC7a/XROFAmwX0cNC5zlfJ2DGubmWtH8XliWu8lH8rFqUGXu6jZHP
+ bh=xWGexfdeJU+BkfuGm0OidwsADPJz0o3pzdxLhPxtmJU=;
+ b=nXfo0kyoozzSeon+4nKqnPe++PQjk8nXajNWQ4VYnpMV6iMquz5Y19pO+eM9MraJVMbq2POaW
+ 1FAvJjUJOu+CYJtalkreJA10jYeABEYsO7/EraGxDgaw0evLaURJlJa
 X-Developer-Key: i=rriveram@opensource.cirrus.com; a=ed25519;
  pk=PWYAqW73jQepp6ORjx3V81remQilskf6ccMx0Wc1wUA=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000099:EE_|PH8PR19MB7740:EE_
-X-MS-Office365-Filtering-Correlation-Id: b315ef4f-c2b2-4fdd-6073-08df1fceb582
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018073:EE_|LV1PR19MB108256:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0aaa353f-2f62-4de4-1075-08df1fceb6e8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|23010399003|7416014|376014|36860700016|82310400026|3023799007|10067099003|11063799006|56012099006|18002099003|16102099003;
+	BCL:0;ARA:13230040|82310400026|36860700016|61400799027|7416014|376014|23010399003|10067099003|260925021311599003|260925022911599003|260925021911599003|56012099006|6133799003|3023799007|11063799006|16102099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	SxpF+JUn7WOvTrxRk8jeWlqnqc/RjtxmjSTZputCaXfvy/j8DsYnvpoA5iPg6EIsZ0HgZHxkWl3cytVdeNTK7e1077MGyKyoRuAeO8GiJuI24QnI9uzN2YBr58+3VDJOwBWi7FiAkbL3I1Q8j3PY2X8Z961TLeZ25AehHJPn71UZrRqb6X6aAkm/qb6x15J9s/1xmf9mWTvAaFLczVkPW/iOp2c5bVcj8qin+jyfF3qMqliuaLgJd86UbHMnoE8aU/A2xqjIGzkdVdgUOkRssZ5AKRjX7GO2WQn+8Cgng24iqudLEcBkWVUiWO4ShvGRKOgxOI2UC6zj+zHxnC9cejs33tmF5bxSJy7Qqh2M0gQtB+WlqaB2rrOxqXW/oFgac0BMP1pltWOrS7J10P77vZBdc50nr0SRZ1WfDteV9RJ98EKRigOUfRr8w2X++63PtjcMJCPRx9RQ3/wENRy+eJlt2Leu4gxIyPEicSgf/xBZjSn1TmY9UclDzpLgi8Q7a/bcrPSfbcU7nztr/7MdDfXIvmAB8zn5XdoEjpRlmua+Cl3Qfr3FNGd8+t7n0iZ0HniiEE+vv6LbWsrfPRScy5/1qYzDWlr2xGsKBV0+zlCEb20HpuCb09IgbxV74oE4MBTKagm8lQpfbXgmA5mku1OjRHvuMfHAfhZmF0/qW3AbYpFdhi0/Cq/R4srxGwb6dhpoO21xUepyG9fLdXN4rA==
+	oWigJcL8/ZGdYkyFCIBLy7vUqnxUOcFpgjPViyKBT25/wrznyp1WQZYkSiv/qLnG3onJf1gcJZ/Cjaq0/PMv35zn+yqRYsUldUdGFl6d6FPjUVl0wtwK4haK6+I6YljtNNpK76/AxFCSFp9GqaCaxXxvaWebG1WAPKZ7M0+wcbf0RJEk7UXuAuyw4GTdBcY8ZHeHL77fbXndG95uubRNOupiqDDx7CmKZpXfiDutxcC7FUjd6YD/ZgMsjNJwrdhGzYl1Xz6nOC+UzjKZoCj7mhoWYf+EAq4hCkSPrt7cP14cKncyik9h7HE9260js9MztvGAVX0Hd87NQ2ZatdZolyyEyuEHHjjIoIX8eAm5WzDcXd027jey6Z9UaURCAZ+TJpFH4c/Bz+6EWxxd4aBopectdrenoaIhqXhMZzDz4JZT1Gt8J5i0VYXbT4vgic74+547dsi9bXij3yhz7orc3kZ0n81JFoOx9M37LLF/nlWt8rxsNCL86+Q56Xz0ltTTQN8P7FnHJZKcMbkvwQ7YlxfcW5bAJ5unvWpdJn1MrwVMr0FRFATIVbgEzTzbelZ2K19Nu8oFyKuVxzqNVB7qyguuxc7z7A5H2XrBof5QgGLBZk3m3oH0eGX9IUvkOzUlTpuHIFCCT85CywhsjG7PTL8eIHXT+37Hm5lXnA79Aqr18PA6NHDvFk0PrMfG1rTe4k4rDIW9TIm6TpUaviRstg==
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(7416014)(376014)(36860700016)(82310400026)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003)(16102099003);DIR:OUT;SFP:1102;
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(61400799027)(7416014)(376014)(23010399003)(10067099003)(260925021311599003)(260925022911599003)(260925021911599003)(56012099006)(6133799003)(3023799007)(11063799006)(16102099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	v3fV46bs77ohu9cBaNtdtRa9PoSvaxN7hIqw3od5RTRC2Z9v/nRlc6dhyhZKZrVEu+qNo7thd+5MwK7OdFT9wjnuWZ4k6bY87PzsJAZ7dbaWm378eQTQiTdim4KmKqiN9ZcZ6vTffDF+k0CCFDLnVDOKY3dyqu8tZz8QZL90AecigP9ekxWwp5Hg2M/Ttg3GM5PSoppw6KmbwcxHtanyrcXEs65Bj0ZM3vjtT9OK60AyCPsjxyiEcWNDoXuZoNSskGzDHasgjbGPep1+d5k57ELHUX6b+xmvzJmBH6z5CzliJNva2oraF1EBSHwepBgzBWhtJCxFW+i/S628SoFJN5PVPMzgNzKdCIxHJzYmQy042Nm7YEmxlaYb9FRhxpd2zpEkv5gxWZlRXRkmZ23eKVtTUeY+zjE7UpimzMrMF4/OEB4uPAm/TzAkFJtYatKd
+	aRkqla8Ronn7loMtx7+Lh/UAp16+8XtuZ3aRjduOBnZjJSAYpL97q6bDrSQVsWL6kAGP3NWIHXvfLMSPcajWxatOBoMfUNgmU6d1bOr52rqProTpE4CCmHdGS32NG5UT1FKSy0mK0jQZBWaBqZpT6Q3HY6SRZ+VrdTYsXdM6JvwgKKgjvFinjZZEV2XmQigdVjHKFQ+a3ysl/8/FkVUzSLt+DR3jdJTYBNpi42sG2HK/NY/daHuO+xv0a3tUofJZUdWoCLPvU4ayI/H9mO23cqDBsXTxVJgYHSF7BBmQ8CWWrKG3lp4S33ZWLCSvc9KoIBN+QQJ1lv0W8bHHkhTg6wqkXbBwzugpwrxgR/f4dzzGxgowlielvm5/B3h1xyy1gu+cxsJ9L8/Jzv6ngDP5M4WIVTEVJ4ifISBCZlu4gvUCXeDMFV/IQ7dHLkPDuhPV
 X-Exchange-RoutingPolicyChecked:
-	dGlWkwWS3x9OFiXJpUqn073+hnUg7+AJuKe4QQ3J89AyaErZSm1ygEpqmM20rvHtNRIMMMOqhNMuxN3LPPvq+AdYHLOAt2zLrGAOTKFs5kHE2S1xGUkhIsb5fZor0k+vWPyhb5VioF+ScbEs6bg2IRhe6DEYlqI13qIAW7+EOLFm8sq+1lI2iuwpOGl0ekYG4jIhGZPdqqtS70F7AGp/ZqWndlPG9QE17WGxWHyYGAlyKlxkkHGBm6NHLP275P5QjUjYRSfve0rf1ZalsZlhxDt+eMX471c+vVJF0FfIvyMtsU2K2bApBgf+8BMg3G81eaV3TWFTBUzA8c8N51CnfA==
+	tDcTlviMDs8Qm/LYpiDl1pjgLHqheoOcaqWNK+YD7KeAOs44OrIVGa6Ks+CYAyeggIEhkLGUF5A/2mxrwu3wgk2lSUFO9aZBPoPfrFnTa9q8r6W8hDdZ2zP2hXJ5HMcybWwtHF4huR8WthGqC6aBb5oY75Nqp66/TmIAIeMCDfuBMunBgp87A1VswSdRJydIxyDM/W5o2wgc3Zk6miZCIT6S3a310L1yeqxBcnC3GW9An+nXiX/fDW+3utCSUuAU9a2VlXp8bA7lSU3gnDf8mtpnlZtyQ5VUghGE1bS/jC5RI6FR2x6aMKiTwfxYbW+sVtKBkdIrSGi4jAmm0Eq0Cg==
 X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:14:37.6569
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:14:40.0144
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b315ef4f-c2b2-4fdd-6073-08df1fceb582
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0aaa353f-2f62-4de4-1075-08df1fceb6e8
 X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CH2PEPF00000099.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN1PEPF00018073.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR19MB7740
-X-Authority-Analysis: v=2.4 cv=JtBkP84C c=1 sm=1 tr=0 ts=6abe78e3 cx=c_pps
- a=h6WcP6+I8dJy5ByhVghsJg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR19MB108256
+X-Authority-Analysis: v=2.4 cv=JtBkP84C c=1 sm=1 tr=0 ts=6abe78e7 cx=c_pps
+ a=zHc5ipMoJZhVMviFMUShKw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=w1d2syhTAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=iox4zFpeAAAA:8
- a=TeXvpLUcEHyDPP9jO_0A:9 a=QEXdDO2ut3YA:10 a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfXwJPPUHKWnE51
- cZXGWrNKYOVtoZM9jiMkhEyrpJhHhLDbwJh3A5WX5Zej1AmEu+q7JqU+BXuTyaRwdmHTDuOGSiI
- JUODA9NsKzVeLRwcv6DHaL8wj9dQSJe0n657SKUmvcnq9SXd+JfLs/nY/ay1UnPh8fPubQ9HpAb
- Dit+UpQXUWycao0T+ueSfBieUem0+XoOlPowSRM/Z5qdmSfPz8R/reIRV9wNKYWT07ayyNd2prN
- w2TRh1qERxlmhtAUK9dhlJearSB+iTQwx7FQOkt9uG4Q/Z4E7gwYw6FusSH4Dp2lIUrAiLl+/Rx
- d86y1HGuK4Tu1T6YkESPaeVIrv/bZk1pGtzryUgY/+yOerOHxpxR+n8ogAYwMfOt1Q8NqQBJvpR
- t8IBVyezHv+KyUBs2OCE7TpuwKnp0AEphFAcPG8tNxrBrgZUUtrpiykp9TUc7rUzxCCWPvSsUPB
- 6dqnIgM/RpkreacfHww==
-X-Proofpoint-ORIG-GUID: iLDT0unIOVcBPuTjM47cYxzrkFD_ykLd
-X-Proofpoint-GUID: iLDT0unIOVcBPuTjM47cYxzrkFD_ykLd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfX6KPCXE2f+jzj
- SE6LgVmF2LqmTo250gNi8ZSVVe/qsXpNhl1P/gb9f5/edJA0tgwHj6ZviXHlND8NPYuMpNLYM7I
- eGmWvC9NeYH4a4alcN/sZC7zjMhgR7I=
+ a=w1d2syhTAAAA:8 a=Xcpt3CKX0tbDe7Y3ht8A:9 a=QEXdDO2ut3YA:10
+ a=t30qsMHlJzOsgWiHt2r7:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfXz+cg8azsPfOa
+ K9C83sm6l1ZWm4SEfi/g/9TyLXdPajzabe06EbEsTRrgWMzdYoJIDCo/DMeBhBR9SnfackzeTAE
+ YudqQ8by3YEIoy6p7gy2f8qwcfojP8gFOoBzI8cLVgy5zn0Qjpibjkg+EsagBCQV4zy6dOBdkss
+ CWAr2VThkOOjdZDnKysRj03pmaG5Doj5S8A++NF3TuSgkM8HPfo2HZaadXQJlfh972+sYN+be6J
+ bHFSyrjd11JioVUv8hsFeQOsq8HbfrOXO+/h0dC/rCGgGqtR/kjsOibaLlsLwcn+l1IZ9a/I12m
+ 1zqunHeZxxjsRmX6IA2y83lW/0E4PPGv+aIPcKWqiC7QU4OvzZsommKW0MX+7NWj5IYlaEiQdg0
+ Wmx39Fqe3/PozAp2vUqjfT87x0H4ZrVnyv9ES52YqAYgrdyKRPq1/eKJ5OApZmC/Hs5ORRoLQPe
+ pTfaQ36uagttHkxiZow==
+X-Proofpoint-ORIG-GUID: VRsUJCzFvH4bOUzh4LGwYJ4TEK0iiae2
+X-Proofpoint-GUID: VRsUJCzFvH4bOUzh4LGwYJ4TEK0iiae2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfX0+6B5/MMbLdp
+ 9j80chVkEE7xo1b1XfuvQ7UC4eq1y8HMs6nPmal3oM659tNgvzjBF0rXIOzM5j9p7d05Bugu0Cc
+ piZ3chGSwnAuifPdnRP+A8pnKyYAQBA=
 X-Proofpoint-Spam-Reason: safe
 
-The CS35L45 has an input signal level dependent power
-management (LDPM) feature. The feature is used to reduce
-power consumption when the amplifier is playing sustained
-low amplitude audio. This feature is made up of two
-responding groups each with a distinct threshold level and
-entry time delay.
-
-Group 1 can issue a low power request to either or both the
-integrated boost converter and amplifier output stage
-functional blocks.
-
-Group 2 can issue a low power request to either or both the
-VMON and IMON functional blocks.
-
-This patch series introduces support for this feature as
-devicetree properties applied at boot time.
+Introduce devicetree properties for configuring level
+dependent power management (LDPM) functionality.
 
 Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
 ---
-To: David Rhodes <david.rhodes@cirrus.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org
-Cc: patches@opensource.cirrus.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Ricardo Rivera-Matos (2):
-      ASoC: dt-bindings: cs35l45: Adds LDPM settings
-      ASoC: cs35l45: Adds support for LDPM feature
-
  .../devicetree/bindings/sound/cirrus,cs35l45.yaml  | 86 ++++++++++++++++++++++
  include/dt-bindings/sound/cs35l45.h                | 27 +++++++
- sound/soc/codecs/cs35l45-tables.c                  | 58 +++++++++++++++
- sound/soc/codecs/cs35l45.c                         | 80 ++++++++++++++++++++
- sound/soc/codecs/cs35l45.h                         | 30 ++++++++
- 5 files changed, 281 insertions(+)
----
-base-commit: ce6fa61a2681c73b48123bace344d984b917e623
-change-id: 20260825-cs35l45-ldpm-fa76ce148aad
+ 2 files changed, 113 insertions(+)
 
-Best regards,
+diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+index 1ba809888a88..e674811b22b2 100644
+--- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
++++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+@@ -71,6 +71,58 @@ properties:
+     maximum: 7
+     default: 0
+ 
++  cirrus,ldpm-group1-boost-select:
++    type: boolean
++    description:
++      When in a valid group 1 level dependent power management (LDPM) state
++      the integrated boost converter will enter the configured low power mode.
++
++  cirrus,boost-low-power-mode:
++    description:
++      Configures the integrated boost converter reaction to a low power mode
++      request.
++      0 = No reaction
++      1 = Force boost DCM low power mode
++      2 = Force boost static bypass
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 2
++    enum:
++      - 0
++      - 1
++      - 2
++
++  cirrus,ldpm-group1-amp-select:
++    type: boolean
++    description:
++      When in a valid group 1 level dependent power management (LDPM) state
++      the amplifier will enter the configured low power mode.
++
++  cirrus,amplifier-low-power-mode:
++    description:
++      Configures the amplifier output stage reaction to a low power mode
++      request.
++      0 = Stop output switching (noise gate mode)
++      1 = Noise floor reduction mode
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 1
++    enum:
++      - 0
++      - 1
++
++  cirrus,ldpm-group2-vmon-select:
++    type: boolean
++    description:
++      When in a valid group 2 level dependent power management (LDPM) state
++      the voltage monitor (VMON) circuit is put into a low power operational
++      state.
++
++  cirrus,ldpm-group2-imon-select:
++    type: boolean
++    description:
++      When in a valid group 2 level dependent power management (LDPM) state
++      the current monitor (IMON) circuit is put into a low power operational
++      state.
++
+ patternProperties:
+   "^cirrus,gpio-ctrl[1-3]$":
+     description:
+@@ -139,6 +191,30 @@ patternProperties:
+         minimum: 0
+         maximum: 7
+         default: 0
++
++  "^cirrus,ldpm-group[1-2]-pcm-threshold-db$":
++    description:
++      Amplifier level dependent power management (LDPM) threshold. Input
++      referred threshold of the PCM audio signal in which the level is low
++      enough for the LDPM group to engage after entry delay. A value of dB
++      -2147483648 is assumed to mean true zero data with an LSB dither.
++    $ref: /schemas/types.yaml#/definitions/int32-array
++    minItems: 1
++    maxItems: 1
++    items:
++      enum: [-2147483648, -102, -96, -90, -84, -78, -72, -66]
++
++  "^cirrus,ldpm-group[1-2]-delay-ms$":
++    description:
++      Amplifier level dependent power management (LDPM) state entry delay.
++      Time that the incoming audio signal must be below the PCM threshold
++      before the LDPM group engages.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 1
++    items:
++      enum: [5, 10, 25, 50, 100, 250, 500, 1000]
++
+ required:
+   - compatible
+   - reg
+@@ -165,6 +241,16 @@ examples:
+                                           CS35L45_ASP_TX_HIZ_DISABLED)>;
+             cirrus,sync-lsw-txid = <0x1>;
+             cirrus,sync-sw-txid = <0x1>;
++            cirrus,ldpm-group1-pcm-threshold-db = <(-66)>;
++            cirrus,ldpm-group1-delay-ms = <500>;
++            cirrus,ldpm-group1-boost-select;
++            cirrus,boost-low-power-mode = <CS35L45_BST_LPMODE_DCM_MODE>;
++            cirrus,ldpm-group1-amp-select;
++            cirrus,amplifier-low-power-mode = <CS35L45_AMP_LPMODE_NFR_MODE>;
++            cirrus,ldpm-group2-pcm-threshold-db = <(-102)>;
++            cirrus,ldpm-group2-delay-ms = <1000>;
++            cirrus,ldpm-group2-vmon-select;
++            cirrus,ldpm-group2-imon-select;
+             cirrus,gpio-ctrl1 {
+                 gpio-ctrl = <0x2>;
+             };
+diff --git a/include/dt-bindings/sound/cs35l45.h b/include/dt-bindings/sound/cs35l45.h
+index 25386af18445..5cb77d48b0b8 100644
+--- a/include/dt-bindings/sound/cs35l45.h
++++ b/include/dt-bindings/sound/cs35l45.h
+@@ -17,6 +17,33 @@
+ #define CS35L45_ASP_TX_HIZ_UNUSED	0x1
+ #define CS35L45_ASP_TX_HIZ_DISABLED	0x2
+ 
++/*
++ * cirrus,boost-low-power-mode
++ *
++ * BST_LPMODE_NO_REACTION:   No reaction
++ * BST_LPMODE_DCM_MODE:      Force boost DCM low power mode
++ * BST_LPMODE_STATIC_BYPASS: Force boost static bypass
++ */
++#define CS35L45_BST_LPMODE_NO_REACTION		0x0
++#define CS35L45_BST_LPMODE_DCM_MODE		0x1
++#define CS35L45_BST_LPMODE_STATIC_BYPASS	0x2
++
++/*
++ * cirrus,amplifier-low-power-mode
++ *
++ * AMP_LPMODE_NG_MODE:  Noise gate mode
++ * AMP_LPMODE_NFR_MODE: Noise floor reduction mode
++ */
++ #define CS35L45_AMP_LPMODE_NG_MODE		0x0
++ #define CS35L45_AMP_LPMODE_NFR_MODE		0x1
++
++/*
++ * cirrus,ldpm-groupX-pcm-threshold-db
++ *
++ * LDPM_PCM_THLD_TRUE_ZERO:
++ */
++#define CS35L45_LDPM_PCM_THLD_TRUE_ZERO	-2147483648
++
+ /*
+  * Optional GPIOX Sub-nodes:
+  *  The cs35l45 node can have up to three "cirrus,gpio-ctrlX" ('X' = [1,2,3])
+
 -- 
-Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+2.43.0
 
