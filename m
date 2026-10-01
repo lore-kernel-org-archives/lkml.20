@@ -1,117 +1,119 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2799151589B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:43:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4114649B217
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862229; cv=none; b=I9ELiiPrUhIt9XXlMeh5+i1bMZXPKgheiGJjGB8MlSI5r/A2Exucnnrrk0DX5NY0YSdCDjnapKdytUfOBP/0o11kFbs0IS6zZs6WPmzepdZ9COK+1B+dSmW5pmxDO5HA0692ZirlRdRAnbpTNH/EvgmxMPwQfjbZ+y3JccZrSWw=
+	t=1790862233; cv=none; b=HPwvQLTU0/nUGtrL5T60yGzxN8pgBTNy9LO3AYAgPpUDangPxUxazicA6a6V31cE9k4BT0Lrjmn7TQmkOoP+vbmDHtOH8467B5Ppxv2Nb7ZREakNQV4dPrjq+k0xXzXJV83QyPzkQzocDtNtUzT92jWEkzqPThqmzyIRngg28f8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862229; c=relaxed/simple;
-	bh=k2tGWZBSq6m9m92JJesXcs78oXeXxRsuS4Ph2lEaE88=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qxdQmxJez8Jn6euaCyk09wlTRwa4IiITtPllIWfyV78nWdZu3VV1gf5gRlfyhO2Vl34ayQFaDyL262gTGEmQnFt9M7VmlwinSOm9Os80dtpetkajsNOOb1rdzOIVqZh6BYe2DmVi94KOEzWsK1F3EMImQK2i9vH7zMy4RC1219M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=DqZEzPfD; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790862233; c=relaxed/simple;
+	bh=YtxTa1VgrUAUHV74VfDLuMxfbVAqObQYg4zUaDxY7zM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=qs9+X0vPrkwzE8t0ib2Cun73WZLq7e4pe9sIzaG/jQqIKYU8BhmnW6rsZRex2kFfP63+7FKyvygJGpShQIX2/lbSttfXifD+TAZta9AbZzbIPFPxiXdr7H+RmlXIqXBD+HUvweX+ktZwzuEI0y7dacDOb8H9j11tdxsMFGug8mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VO8F8gxJ; arc=none smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="DqZEzPfD"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so14056465e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:43:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VO8F8gxJ"
+Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8acdb1ddd96so9922167b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:43:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790862225; x=1791467025; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9GzyFhoA2S7uios3Q3nexzUQFEC9iru05+QnoGlj3hE=;
-        b=DqZEzPfD04fpWPGHpCTt0gkiU5RVPxaVWzIV6kshqTUIZAhsEGYJWau1rm4ilNcOVV
-         kDYECMPqc808q+3S/wlpfy4Zonr5JdeArGZ64LeZuynhvgIMus4R4su8oGglj1Lm7Q/p
-         xxx0t/Ds/HICjF5naZa3MhdYJ2tCIUveTXkT1kUktpAP7fDBee/DrFA6B2C1G9r2Jj2g
-         5eYtQtWNQIU+buEp98MmqzloVUNOrJN0KKDuaFOJuhAIgLy4U+ZO06buaRmY3e9CuhFo
-         Y0rBd+PaERYcDD4xyDCY8m85jdUwuLOCOlAI8xp9OxbIPPERM7P2dkthIqK0cpQLltUy
-         omdA==
+        d=gmail.com; s=20251104; t=1790862228; x=1791467028; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YtxTa1VgrUAUHV74VfDLuMxfbVAqObQYg4zUaDxY7zM=;
+        b=VO8F8gxJeZ7wLqYG+Xjib+qHJW/Y6FBR6NNGchHrCBPwSgpBsutE2HrOmARDM2yOUP
+         /bL3HhegEC8VPqdGXVeeID1kQW37rrUOubQC3l08KWDc+rbxi/6XbYK55SanMb0zS/YG
+         Axre/w8xRrpZKjROzAhBzgk9TSjLNy6/dZkkWhbCNLhdj2JCYUDz8DmnRKLmwzzjTEtc
+         c2raAbCRf3Li8LribjC2XXd2/ycfEb39fgsoeTiR0VUKiZFl8pRGNrKL7G7K/mYxLPPt
+         ijfpp+XTN8sweFUABZgI4t+Cb2kDen6obENTbXWm0WkRKpFbWzOrhXW8QLe2V834J1HI
+         LqNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790862225; x=1791467025;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790862228; x=1791467028;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9GzyFhoA2S7uios3Q3nexzUQFEC9iru05+QnoGlj3hE=;
-        b=mIbSSrHkFNjCc8MgEhmwKZMqXVLhlrYDAm0HifuPdr7k/pCk7gmU65Rkv8WJq226Ij
-         Jo9VoVzkTG8W1egWvnBUQaCcm+E7V2Tn/PStaTt6Js7/aUaHnfew2cT0HgWzAQzPb397
-         EBSqRIIL1I9s9j2f8wZYV0mRoxqwpBl2AdMHLj4HkrgPEYAwPHhAj7oG5gsNcZadxgDL
-         s2Zn3U/2A7NknkeX7pDyOrYcGZ3lw8RRBHB1vIym5/BA/T5zSNn9E7/SyjeFbABrJTqs
-         GF09wuJhYqY2aG6N1LeEaDBgnvx4ifEgFGW9/XawoPJZaYdRE8GuB1ylg+tXuKLZr3Uf
-         PsNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQWetgfMLbMWejJiRjM2oA7CrgyV7I1rAoWmbPQdzbQ1PEsOkvBlH4wB7bbNrOHf617NvmfYCaepGR7vM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ml2Ny4RioMSC3VCfv1RC/edJE1yvOQbyUZKXsajdYsQYasOSfS
-	SiFIev5Byxq7XhrFDWjROcIjac8E+NFLF3v/30Y5tf4ENa+3cDmN8L2qUxKBJ0pXTFQ=
-X-Gm-Gg: AYBFou08QDP3oBHVSsEFK7BYc8aiq9FrIIjp24h3iu4H/IwFkNhVY+y8qUen/eU+wjw
-	IZYzE1zUTg1hbG+o1l+3ms9V/wG5XYbEYhFyvs6RbJ1HlUmxAsRZtSxaiv9YVcjFEhmhMfJz3GV
-	VGqyRRNAoKLdtDLCnVS+8hVth5MTGWI1UtXfOM8OvnaWWXXC3CWUZzSf2rs2hKfchHu1rjr+zM2
-	rgoyzX39PnG4J9rY/K3jcau84PdBdV1Aj/4xXNnYkX+tfpoOBO+MUkAukUKyrjBCzwTVYhaOVcu
-	uY2JCf8QF/AUnm0meKrIWaa3qIDSujxOsQjSvRMxgM54TVpmWkfLDDgRevzs30umjb8VpcNp1Bc
-	pRarY6WhQkSrr1uD3WH5HrrjnVnaALZRfrsc5Jzb46ofFy7v91WTQ2aFPrTabEqmkAl/Kl8tKOO
-	Sw0FChkynJMTMJC2AhpIbA5R/q6GFZGCc7DT2fafGv750FS77leCnJ6b/C89jEPPjG7gg=
-X-Received: by 2002:a05:600c:4f52:b0:4a0:22d5:21af with SMTP id 5b1f17b1804b1-4a022d52255mr32632575e9.15.1790862225048;
-        Thu, 01 Oct 2026 06:43:45 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([2620:10d:c092:500::6:7dd1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a023ecef86sm33062845e9.3.2026.10.01.06.43.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:43:44 -0700 (PDT)
-Date: Thu, 1 Oct 2026 09:43:42 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	David Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <shuah@kernel.org>, vannapurve@google.com, erdemaktas@google.com, jxgao@google.com, 
-	rientjes@google.com, fvdl@google.com, jthoughton@google.com, tarunsahu@google.com, 
-	pratyush@kernel.org, fuad.tabba@linux.dev, David Woodhouse <dwmw2@infradead.org>, 
-	yan.y.zhao@intel.com, michael.roth@amd.com, suzuki.poulose@arm.com, 
-	Christian Brauner <brauner@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Nicolin Chen <nicolinc@nvidia.com>, Xu Yilun <yilun.xu@linux.intel.com>, aik@amd.com, 
-	aneesh.kumar@kernel.org, Vlastimil Babka <vbabka@kernel.org>, kernel-team@android.com, 
-	kernel-team@meta.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 00/17] Allow guest_memfd to be created using a
- resource (pool) fd
-Message-ID: <ar5iaaLcyz9dCXQI@gourry-fedora-PF4VCD3F>
-References: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
+        bh=YtxTa1VgrUAUHV74VfDLuMxfbVAqObQYg4zUaDxY7zM=;
+        b=uLxboVuKhJaZbGdTsNukCOJ8e5kLQow2yOv1ZvVpJLXzcjLAJ3tT2LKS1LeiClpyPj
+         R6KD4Fw0GeSgW2rUL3Jg+4Njx4NjL2Kok6g++izH/XRMUIn9f96W2j6IH+4TZg3nP+p7
+         GZu5shMm39h5dFKWu835zAn4Dvv+CPtOVxyUALrgjclz2t5zNC0i+MJes9gPH5j2k2u+
+         luFB/gE/HJRAZh1reLUVU6j7zVFFKbBYekFnlllAdimLnCR28TAKKgwkCpGBosbzSWok
+         juD9urZQ4PadZD2oTJXSd/8vGDqImKkK8knxDZ/NtJM7r/ibgp/i+2HC7lEL5YW/eeY5
+         /x0A==
+X-Forwarded-Encrypted: i=1; AKwUvBySt8yl4fCK4sqxTdaudDophxbSe9Shg8PFOJ2G4wJZ1bRqFSu9hPMeJMa4van4NTYF9phPrqdJ6esFuOU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdLldm4G6HuXBwwYTGcQEjvJMI5k8WVDer148SnMANJ1E3OH93
+	IhjedmKHQsVzKgcyPsTpMgOV2ch8dMQ3evPGzSeBl5jrh/FO+PlNqOc=
+X-Gm-Gg: AYBFou2mdvXUB/HaDfsI0dP5FHjYvrXe/xOWy95ePYjjulwbuPtMmA8Jez+sxrqoxyX
+	ZrjHIET4FcnrbhIA65u/9/SHPOiVWaAk+bxTc4SZFHDeeGWcAelRNF888fZWDLgrOTo7/p2Mkua
+	cVTdhHDA4PWwbXTIb1wufqOIsqMG2jBaG6eAtnBW6fFrcjs+5ascRGo/H8P1KtgogNA1Ql3G2t0
+	ZqkeY9+tg63Nl2dNwV1TT/rODXH14+rX68HZKQaEon1Bju6V5j6gN9Gd+KpLHBtTENdTHPag9vi
+	sRMGYF1JB54cgCLc1bvTSh+13wgonjGKgockKe9/en2rf6bfNguHFZmb9DpCRCwdwcHkd0W3oxh
+	gxLQ+ybO5HDfpFdG20wv0ggJ0Ww2YzDQF3Jq6H4PJSyodlbTgYeAGpV4zb21rYq8ei9yj+LTIMT
+	gYaUIMGbY388EykDhMuJqYVwiSs8QVHtP6hWzza1byQffHNynNRfTa54FQ6En7kQtsoV3bq/Zsb
+	0OkY4T4JKrj9T+g+CpKkRWfvVPs10XB3rVrb84896Tx
+X-Received: by 2002:a05:690c:c353:b0:8a9:a268:d719 with SMTP id 00721157ae682-8ac93fe3e62mr20075197b3.66.1790862228362;
+        Thu, 01 Oct 2026 06:43:48 -0700 (PDT)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdaceb3f6sm10232417b3.25.2026.10.01.06.43.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 06:43:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 01 Oct 2026 10:43:41 -0300
+Message-Id: <DLTJOAQSES8X.3ONDW2BU044FQ@gmail.com>
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Brendan Higgins" <brendan.higgins@linux.dev>,
+ "David Gow" <david@davidgow.net>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas Hindborg"
+ <a.hindborg@kernel.org>, "Benno Lossin" <lossin@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn1_gh@protonmail.com>, "Boqun Feng"
+ <boqun@kernel.org>, "Brigham Campbell" <me@brighamcampbell.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Jori Koolstra"
+ <jkoolstra@xs4all.nl>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Rae Moar" <raemoar63@gmail.com>, "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Yury Norov" <yury.norov@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>
+Subject: Re: [PATCH 0/3] rust: kunit: support #[should_panic] and same test
+ name with different #[cfg(...)]
+X-Mailer: aerc 0.20.0
+References: <20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com>
+ <CANiq72k2RfFBncNBCGGdWFEJ-wWZ1MzA8ErrBDAcAvbGSRaS=Q@mail.gmail.com>
+In-Reply-To: <CANiq72k2RfFBncNBCGGdWFEJ-wWZ1MzA8ErrBDAcAvbGSRaS=Q@mail.gmail.com>
 
-On Fri, Sep 25, 2026 at 05:50:47PM -0700, Ackerley Tng wrote:
-> + e.g. for tmpfs,
->     + Use mount page size.
->     + Respect mount size limits.
->     + Use guest_memfd mpol and fall back to mount mpol.
->         + Gregory, now you can set mpol upfront on a mount! [3])
+On Wed Sep 30, 2026 at 11:41 AM -03, Miguel Ojeda wrote:
+> On Wed, Sep 30, 2026 at 3:23=E2=80=AFPM Nicol=C3=A1s Antinori via B4 Rela=
+y
+> <devnull+nico.antinori.7.gmail.com@kernel.org> wrote:
+>>
+>> This patch series intends to implement two features for KUnit tests
+>> written in Rust. The work is based on a TODO comment made in the
+>> `bitmap.rs` module [1].
+>
+> I am glad it worked with `b4`! Hopefully no more Gmail issues :)
 
-I haven't had time to quite give this the read it deserves yet (have
-been traveling this past week), but I think this mpol/mount issue can
-be solved with a new dax driver (which maybe provides this provider
-interface) without needing to involve numa policy at all.
+Yes! Thank you very much for the suggestion! I'll have it that as a
+fallback mechanism for now on
+>
+> (Nit: in cases like this, I would suggest increasing tagging with
+> RESEND or maybe increasing the version to avoid the same subject line
+> in Lore and other clients.)
 
-Essentially
+Sorry about that! I had the intention but forgot to do it
 
-fd = open("/dev/cxl_dev", ...); /* backed by anondax driver */
+>
+> Cheers,
+> Miguel
 
-then later when a fault on that fd happens, the driver provides an
-anon-memory allocation that explicitly requests the node associated
-with that device - as opposed to trying to jam this into mempolicy.
-
-If you're planning to be at LPC, happy to discuss this in person, but I
-think this provider pattern is likely much cleaner without mempolicy at
-all if you can just make the provider do that allocation path for you.
-
-~Gregory
