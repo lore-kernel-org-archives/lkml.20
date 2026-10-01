@@ -1,234 +1,180 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0740B4F68DD
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790854164; cv=pass; b=p+RXLNMZtMiC1eVzdSrMbWGYSAF9u4dgGAud1fLtI/1gcLcMP2zsT9/YoMOzER73EzN2kTc5eVYvJ7Wd1FiDaht4CKSMhuy+M/3GkCppjgcpJ2ropbZUHSe9aD/9YrGN0G4SwgrDaKe6OJezwJ/9uRun2Yd+W6wPeH1la13vL7I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790854164; c=relaxed/simple;
-	bh=Ot1+xCJHzq0e02e3Cyh06QAAuD68wjvmC/Hp2Hqnjv8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PdrHkn2eFIuCXJp5Vs4pooYEiwl6ctDrohjzCNd1Lgf3cE7nkAZhXfvM9Pvbf7kqta5Yto9gX4c8sFiFW/skTLrsXxNbz30Zb0U35awvWe5PW1MFMDEvNKE3goIaaPYjdY7Nlr04ZiGfPGdCHqmS/eiak45xIBaN5+6Qjyh5chc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lK9BTSGK; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334D8471249
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790854175; cv=none; b=qKCrMfX1+uA1GhyZ2a2atXuAjJFJW6XsuDT0bLEtANH85YCMtOzcDyWqnZaHQF41/9yFoPZ+PEyAapU0LhAkevCNCXUQPJcZGKf/XyVR+nkRp5Bpw7BfDdnX6/bZEzA08HTsF5fEhe9c+mCTnzkvV623/deZSYmrou/xu/30GW0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790854175; c=relaxed/simple;
+	bh=8kqJ0FJTIhuhCS0GJfM+uqdC9jx9zPUDptaeKbT/R+s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SWnuwNu3SArdZYXz4JHR9wcuTEEyvtpdkH1S9/GIMnoym9GM+wvh3/X8pt/BiB2QsGB7jsp5aBqyC4o7RK2c2Rry/Cy8bLkQRky+OUbxwBApUFJzz2Mb/ZdBYP+JuX4wP/tj36OkUqO/sJjA1CZMU8gMYGxQixMCD/CPOC/i3RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OtKbZ+eg; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lK9BTSGK"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a8038a9f10so8841094a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:29:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790854156; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i02DWGPsO6+UKmJ42OQgDEgBPg2jl1eOcTQIrmChHgoJciO14UoNNGujFFO1KAywR6
-         QKt5cSfNiN3lLMYVXSabBDBdu46FMxZwSY51FVn+KxQqgL/IryCy61VoeS14NK94ZpVd
-         iLh2p4zciiJaBBfElZAIQc2sucGJJBJtPL3qbKFYTMqN5pelaQkRlAxAxKNbCUCxERn3
-         PwSp3ldYj+NbK8PQ1biqQ5RON2Mxll2kFTjbFRI7OgtpFKm3CGYM0dvapd3NlWB+bQ6K
-         5JW9hQVFas0H9fI8fZlyBUYcFFg+8MHWKVptY01dlxv1vVul3ZxxhcdymDxxnt+nnLkT
-         QBNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RmUrB8DoICBbcpN5AXnNeG9QLbqxZWqBz7y7VYPLydw=;
-        fh=Ag5dEHb/u847F1gdRj8xXx1A+TewMkIzIknKGYGjyNY=;
-        b=iNLtkEpH51OALbPT7Nu1l/PzKDJyFPSoGjDUb/w9PTO90NFOOwYdtLnacP2wmUYa5o
-         3HXGmympsrcou1bAxsGnAeCOoXojUqqDLR80aQwuY/MCBzJJiZWZJG+7jsDLhxfolPJx
-         c5Xlyu9d7Lr0d/uqeghgc1V3sj+aYwbJzLT4xl2wIHIr2E96JCDPgT5ptR9QKAXaUrt5
-         GAQUK1KqoKduBDLoVbF4gRFwC516ehGJPTz0hnCCjR/X3r+u3Y5LrQiwNoK5WTKFRcSD
-         ZopDmYXSe+8/uhLAGHAHYlMO7yqnrlVIlUrw0XE5WgLlDOWR6pulgFtYMJoBqhtdkSoW
-         ymBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790854156; x=1791458956; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RmUrB8DoICBbcpN5AXnNeG9QLbqxZWqBz7y7VYPLydw=;
-        b=lK9BTSGKwiblSiz/mizW948fGsD3gAFBTSoQCy8JrRIaHOJfpP9rjdTHnBtAaU8dYV
-         HvesHu2KyEtZigjSGOz3c/0KzNFQyNwuycConmFRBxj28ZvrADyWw/ZIJiBBJLLBZTOE
-         nAALkx7ooMm179gdNsj+7rMfNBh76ioI7dZGhbrQ5m8Wk35ABrsoZoDWaSHH4qO76z6z
-         EERjO/Wc72cQNP+zhxF5Z/f2pg+fxKdoLLB7pIMO5AdcarVRxreJe8kNrBHWZUOnRvGl
-         lk3ZFHayF2xQuSEnlaTQPzjgnAUcxP0/Gegu64CUvIlLamSDJ+M3XvYL7wLmFOTebtyL
-         x7gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790854156; x=1791458956;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RmUrB8DoICBbcpN5AXnNeG9QLbqxZWqBz7y7VYPLydw=;
-        b=cq0an9qa4p6xEjnlhI/0G1ngVYi9P5WC4czvwuJlg5Rt2/EB90EC5uzAjWB79LNz9/
-         2h1MEQmLK9Re+keaJdz5bY+6da6iP0zDvdI0KRQi1ArQkcu8Ksfgep0OXvdPe63yAVv3
-         UOqQFr26KML9XJs3ka4ujSrEm/3ZmHUXUzILpVZ7cjR4ar+7sMVzebIvdlMAesorJxNk
-         2F0uKU8yB7NuRmZbxJdttnr3EqW5WhfrG0TRSrWB79zohYpY8pm/6mH/qNHueNt822Vf
-         ylo0htwwKmUamIDzxsFDPb2FtXjzyuJyH68FywKhyv7Apl7gvGV6gt7oG5rsHT5YOAQO
-         uciA==
-X-Forwarded-Encrypted: i=1; AKwUvByPHXTXpMvYUCdFxGPCASID5sVUEnYNiu9Mz6dApPxvJ4wb8ydbmPDS44Jw4F4MfAtuge4ZidC8EiS4QbU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYQkkQbZ1RPZxr+3UNIiYCrugtcY5eCtHa2E9j0KnvdOAkcrxD
-	S8lsC2stNp6Q3ZbAxBRPZJDVIL9MIWNBcKBpSibzgLpRR4/4dzr+BC/kXJRDtlRIS/rSV1gTkM4
-	NYHsM07UpyPSrENn/M22RyKn+6P08S7nipAf7vfs=
-X-Gm-Gg: AYBFou2q1ognfcHPse0OF9JjXYo03Ieygkv7max0rmdymaSsn8+dr/+//EBTcZ5mX/4
-	1PBbFq/VkO+GKyDTMjzkccHoke8nwk1iBlE8TeQrOkJo+yk/p6vq+Gqp9wSLT2UuHsNrVvqXMJb
-	t46Wl/M/DPBkYakpyl4r2zGeZOfyhEc8kccvnns7OGAJ8b+jE7AKUiaD4mQX7mAvEO1aU3d4VEj
-	+82HtVOZi07SZL1sT2uD+bqmEZ047Q5jpvjqnyhvqrleEE0YWeqVFuA/17GhP9TNThXgI0jIWK5
-	moEDtwhWSqv79z5UpWK4H5+bbx0byN2RMciSV/smdRAMaAowK74Heydv
-X-Received: by 2002:a05:6402:a544:20b0:6af:92a6:97df with SMTP id
- 4fb4d7f45d1cf-6af92a6a414mr43983a12.0.1790854155697; Thu, 01 Oct 2026
- 04:29:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OtKbZ+eg"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175i9u4041025;
+	Thu, 1 Oct 2026 11:29:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=2mqT5f
+	fLuTlAsQJJawrRUp+sTMvsiAITxlpxQQHyt38=; b=OtKbZ+egwgzL0pdl+U+tJd
+	SqMYCLQZ+65cjzZGcojGgWhH/y0e762CCg/uaNO/ZFXm7r3GaKI+nAbl4OjT2QlP
+	Ga6OqfAyIqVJ2bH+2ayMa8VdgdGr86oA8STPpID0wff/d3UqqePyhbXDENtFB+dk
+	RqYHzbyR/ebHRHwTLK/zqUGbw3//8VPFcoIVsVd6HG7guldDozDy4hSPD/u+DpKc
+	m8LqEb2+EUibK3qdFspKE3MUJWIlutMU1iJBWlGMsWncbqRUsOtXKgXQWyhv1MtE
+	TduMumsOjyrqoqXExA5KDnLJVYh2+UlQxzMBQ67CgKgqlYcokCIVoS/+FiNrjwJg
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fehpc4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 11:29:04 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 691BDKEY520693;
+	Thu, 1 Oct 2026 11:29:03 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpgg2m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 11:29:03 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691BSxl747120786
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 1 Oct 2026 11:29:00 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DF74C20043;
+	Thu,  1 Oct 2026 11:28:59 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CBAD520040;
+	Thu,  1 Oct 2026 11:28:56 +0000 (GMT)
+Received: from [9.124.216.115] (unknown [9.124.216.115])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  1 Oct 2026 11:28:56 +0000 (GMT)
+Message-ID: <3d342788-b99e-447e-a664-8385c2b55475@linux.ibm.com>
+Date: Thu, 1 Oct 2026 16:58:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913185016.523376-1-jkoolstra@xs4all.nl> <20260913185016.523376-8-jkoolstra@xs4all.nl>
- <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
- <178972607557.207413.4312278359822083538@noble.neil.brown.name>
- <178977609418.207413.15011378414000392029@noble.neil.brown.name>
- <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl> <179072013439.37859.465558431050704411@noble.neil.brown.name>
- <CAOQ4uxis4tsea6fx+9iAffVX+qwBC9KzHg5GcP7ahthKd1T9KQ@mail.gmail.com>
- <1910540525.790746.1790806610320@kpc.webmail.kpnmail.nl> <CAOQ4uxhYHf-gAkjdhs37vZREOcNds5a_6c3nBX0Lva3resofmw@mail.gmail.com>
- <179084933040.37859.13445625413196658440@noble.neil.brown.name>
-In-Reply-To: <179084933040.37859.13445625413196658440@noble.neil.brown.name>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 1 Oct 2026 13:29:04 +0200
-X-Gm-Features: AclHuK_pcBihlxtanRskirK29rw2qS74wFNrXL56cTDsIdZmgFEUTJL-6VkpUbc
-Message-ID: <CAOQ4uxhryRbKojbMDA2Y9u4o0sNUVTt8KshacWqqEJYb-EYnzw@mail.gmail.com>
-Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
-To: NeilBrown <neil@brown.name>
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>, Christian Brauner <brauner@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Aleksa Sarai <aleksa@amutable.com>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Theodore Tso <tytso@mit.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] KVM: PPC: Replay pending interrupts before entering
+ the guest
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
+        linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+        linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
+        harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
+        venkat88@linux.ibm.com
+References: <20260928110411.844582-1-sshegde@linux.ibm.com>
+ <20260928110411.844582-3-sshegde@linux.ibm.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <20260928110411.844582-3-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abe4400 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=lKvXAlz5IkXwsUspWBoA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0NCBTYWx0ZWRfXw9/+6EqeT6Ij
+ C2yJNE35URdOIM/0C3lZN43tVmB4ti9s9NsrOTo3gi4fBSZVi6179T5nzsSxvaVBdbq4ekEE6rD
+ KtLlK/VNag+XtEBPMtSwINVycLCmK/g=
+X-Proofpoint-ORIG-GUID: jp92skmyR67JEnv7gFRpdh3c4Wyh4Ghr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0NCBTYWx0ZWRfXwuxv1aiVA2vE
+ +kFfLyTiMC7dJefO6jefJnav4s49FK0mUU0lzYN/ZMIyrqFu4P9Gkqwh3QINRUtMzQH1gBKgf/x
+ /0Gv9YCEmtV73+f4B3gZSUeaiu9QLLiMQzRPY3ZxWNV7WAyD6OZvxmLZcmsGb3IdBXk44O3RO+i
+ pg+Vtud9KcisCvXjrtetonDnkRK5ghjo97XQXBVlqTc5+UD86NRs0EeMcaZvMME8RGanmQM64Q3
+ 28NFMlhyEoyBp/FdmUXe2qq8m1FhTULP2S/LZlcu0IZ05ZYYuPIVQtNDbC3Y+Qzsl3nkFCZkKBo
+ J+qLSp65KfRVERNy6MnfEpgTG5k/4VY+DGgz9Skky6uLDsxEeI8XWKdqT+iFJeeXL4epeMpj9CN
+ 2JwVXY4oJPLPLv0PZY5yOALBV8MiD3v7B1lgIEpcYi7jJDexppxdeATY8bV5XCB+yYGKQhvAXtc
+ GcctmKuAmpFgbERNnbw==
+X-Proofpoint-GUID: yl8-jb3vmJh9rDSn6oa1hOG0sWypVJIE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010044
 
-On Thu, Oct 1, 2026 at 12:08=E2=80=AFPM NeilBrown <neilb@ownmail.net> wrote=
-:
->
-> On Thu, 01 Oct 2026, Amir Goldstein wrote:
-> > On Thu, Oct 1, 2026 at 12:16=E2=80=AFAM Jori Koolstra <jkoolstra@xs4all=
-.nl> wrote:
-> > >
-> > >
-> > > > Op 30-09-2026 05:45 EDT schreef Amir Goldstein <amir73il@gmail.com>=
-:
-> > > >
-> > > >
-> > > > On Wed, Sep 30, 2026 at 12:15=E2=80=AFAM NeilBrown <neilb@ownmail.n=
-et> wrote:
-> > > > >
-> > ...
-> > > > > The problem with this approach is that open(.., O_CREAT|O_DIRECTO=
-RY)
-> > > > > might create the directory, then return -EOPNOTSUPP.  This is wei=
-rd and
-> > > > > I'd rather it not be visible.
-> > > > >
-> > > > > Currently O_DIRECTORY|O_CREAT results in -EINVAL.  I would rather=
- it
-> > > > > remain a -EINVAL on any filesystem which doesn't completely suppo=
-rt
-> > > > > the functionality.
-> > > > >
-> > > >
-> > > > Joining late to this party so apologies in advance if my questions
-> > > > have already been addressed.
-> > > >
-> > > > I agree with Neil's statement above, but IMO, the atomic_open() fs
-> > > > match the description of "doesn't completely support the functional=
-ity."
-> > > > Therefore, I think that rather than success if directory exists, th=
-ey
-> > > > should also return -EINVAL/-EOPNOTSUPP consistently (see below).
-> > > >
-> > >
-> > > The issue with this is that if you want per fs atomic_open() opt-in (=
-in
-> > > contrast to either implementing all instances in one release or disab=
-ling
-> > > all), you have the issue that your lookup now depends on the caching =
-status
-> > > of the directory dentry.
-> > >
-> > > If that dentry is in cache, and positive, d_lookup() earlier in looku=
-p_open()
-> > > makes it return early:
-> > >
-> > >         if (dentry->d_inode) {
-> > >                 /* Cached positive dentry: will open in do_open(). */
-> > >                 goto out;
-> > >         }
-> > >
-> > > So you get your lookup. But if the same dentry is not in cache, now y=
-ou
-> > > suddenly get -EINVAL. I thought that behavior was more unwanted then
-> > > what I eventually settled on, namely to strip the O_CREAT bit.
-> > >
-> >
-> > Maybe I am missing something, but I think you misunderstand me.
-> > What I mean is - if directory inode has a ->atomic_open() op,
-> > bail early with -EINVAL/-EOPNOTSUPP, because this is a network
-> > filesystem that does not support atomic O_CREATE|O_DIRECTORY
-> > and in most likelihood never will support it.
->
-> NFS can certainly support O_CREATE|O_DIRECTORY.  The MKDIR request
-> creates a directory and returns the file-handle of the directory that
-> was created.  I think other network filesystems return the identity of
-> the created thing - or fail if it already existed.  That is enough for
-> full support.
->
-> The only cases where I think I think there is any doubt of support is
-> kernfs and tracefs because they don't return the inode.  tracefs is
-> interesting because it drops and retakes the parent lock so it isn't
-> immediately clear what atomicity is available, though it doesn't support
-> rename at all so maybe there is no interesting race.
->
-> >
-> > This gating criteria is not dependent on cache state,
-> > which is what we wanted.
-> >
-> > The justification of using ->d_revalidate() as another opt-out
-> > is that existence of ->d_revalidate() means that the state known
-> > to dcache is only semi-reliable, so making atomic create/open
-> > promises is problematic (O_EXCL for example).
->
-> The idea of using ->d_revalidate as a gate is certainly interesting.
-> Apart from the interaction with case-insensitivity, if we initially only
-> supported filesystems that don't have ->d_revalidate, I think we would ge=
-t
-> coverage for enough filesystems to be interesting.  We could then take a
-> bit more time to think through the rest of the picture.
->
-> I don't think O_EXCL is at all problematic.  ->mkdir() is already
-> required to return -EEXIST if the directory already exists.
->
-> >
-> > The problem is that some fs (overlayfs/ext4/f2fs) register
-> > a mostly-noop  ->d_revalidate() so I proposed how to deal with those.
->
-> Presumably the fs would provide two dentry_operations structures and
-> choose which to pass to set_default_d_op() when creating the superblock.
+Hi Shrikanth,
 
-Yes, either that or clear sb->s_d_flags & DCACHE_OP_REVALIDATE
-when d_revalidate is not going to be used.
+On 28/09/26 4:34 PM, Shrikanth Hegde wrote:
+> After applying preempt disable patch, i.e PATCH 1/2, Christian reported
+> a subsequent warning stopping his board to boot properly.
+> 
+> WARNING: at .kvmppc_fix_ee_before_entry+0x10/0x28, CPU#0: qemu-system-ppc/4667
+> CPU: 0 UID: 1000 PID: 4667 Comm: qemu-system-ppc Tainted: G        W           7.3.0-rc4-2-powerpc64-smp #1 PREEMPT
+> Tainted: [W]=WARN
+> Hardware name: varisys,CYRUS5040 e5500 0x80240012 CoreNet Generic
+> NIP [c00000000005dc3c] .kvmppc_fix_ee_before_entry+0x10/0x28
+> LR [c00000000005f298] .kvmppc_handle_exit+0x5b4/0x5e8
+> Call Trace:
+> [c000000086587780] [c00000000005ee10] .kvmppc_handle_exit+0x12c/0x5e8 (unreliable)
+> [c000000086587830] [c000000000062068] .kvmppc_resume_host+0xb8/0x10c
+> 
+> It triggers below warning...
+> 
+> static inline void kvmppc_fix_ee_before_entry(void)
+> {
+>          trace_hardirqs_on();
+> 
+>          /*
+>           * To avoid races, the caller must have gone directly from having
+>           * interrupts fully-enabled to hard-disabled.
+>           */
+>          WARN_ON(local_paca->irq_happened != PACA_IRQ_HARD_DIS);
+> 
+> This happens since kvmppc_prepare_to_enter does first local_irq_disable
+> followed by hard_irq_disable. This leaves a small window where interrupt
+> may occur and it could set the irq pending bit in PACA. When that
+> happens replay that interrupt before entering the guest.
+> 
+> Fixes: 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
+> Reported-by: Christian Zigotzky <chzigotzky@xenosoft.de>
+> Closes: https://lore.kernel.org/all/b8f82519-9ae5-c247-e020-e79c627e57df@xenosoft.de/
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+>   arch/powerpc/kvm/powerpc.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
+> index 9194cf492d1c..847ff07c364b 100644
+> --- a/arch/powerpc/kvm/powerpc.c
+> +++ b/arch/powerpc/kvm/powerpc.c
+> @@ -147,6 +147,19 @@ int kvmppc_prepare_to_enter(struct kvm_vcpu *vcpu)
+>   			continue;
+>   		}
+>   
+> +#ifdef CONFIG_PPC64
+> +		/*
+> +		 * Interrupt arrived between the soft and hard
+> +		 * disable. Replay it and retry guest entry.
+> +		 */
+> +		if (unlikely(local_paca->irq_happened != PACA_IRQ_HARD_DIS)) {
+> +			local_irq_enable();
+> +			local_irq_disable();
+> +			hard_irq_disable();
+> +			continue;
+> +		}
+> +#endif
+> +
+>   		guest_enter_irqoff();
+>   		return 1;
+>   	}
 
-> Doing that would even provide slightly better performance in the
-> case where no d_revalidate is needed.
->
-
-Very slightly, so this should not be a reason, but advertising corrects
-contracts to vfs.
-
-For example, if overlayfs would want to install:
-
-static const struct dentry_operations ovl_dentry_real_operations =3D {
-        .d_real =3D ovl_d_real,
-};
-
-It needs to know that none of the underlying dentries is expected to have
-a d_revalidate op at super fill time.
+It look good to me.
 
 Thanks,
-Amir.
+Narayana
+
