@@ -1,68 +1,68 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAA947D449
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3519146D2B5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790893429; cv=none; b=qUhqrZyIGMYIbMXiJ8NybBDI5XrYYUr6Ky84hlH/iUVTirsSkxJqDyFbARbcA+aeWkxtqKMg5M9IHX6y5fqjSNZ8eUotbjPIXyTjlatT+8sxfVd07tDefdk9oZI0s08M/6Ky15NnSJR4PSUqD0CCIGLaXrF0za6IT+Ws4ZGvwpM=
+	t=1790893433; cv=none; b=PhzjVzH4RZAJQPMW1+ZVqemrfybOJR+roib+5BcEx20T3vKqEub/cDeTE6JUlmdZpp0zXGVgOw28sKDXbzr0qGO/FpIm0QalfdHHrwAyFLBPod/ETu24popichZg3DJhJ7TeRh0AlZu0mofmuas/GenvxTqw63hZlDwJkRXJ9sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790893429; c=relaxed/simple;
-	bh=EApQxXc5dbW5RjUDZcAqxqTjvKPO05LDpgDUyURUDbU=;
+	s=arc-20240116; t=1790893433; c=relaxed/simple;
+	bh=ZsSOdw0mvnKnNrqf7YTUmfeQgEjmG9CIuBVp0jUlpmA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YIXh7/xqC6AkTwacXJ9IVlxFYe415G8aJonr1ynZoGXM4BQyPK9PTdIxvQJXKGdWuZpxq6KAQ3/8Vfd7yrWqfKLTEO0nTgqBY3I6kLgTFuEijqFC+Ket0GvCdGrzaGAwrIIOoegkMumQ0qbAg/lu7rFDGv6wxaScf8gJJBEO8i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GtIAFyXX; arc=none smtp.client-ip=74.125.228.96
+	 In-Reply-To:To:Cc; b=gODGon4WeQuEFSK2Ah19NFfpEi0hYId55KuLJKx6MUQt9ajcpKU4tWESQUPlceLx7JP2qKSFWeVYHkhMAwXvh1CyR1ax7lyiqOLScSl0Q3vNB0h0uBjnGyBfaZUAFjPAOCnQJDS/Xlr3vGnBFM8OQZTWIKQXI60Su7dlm2UrLjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fMKidErK; arc=none smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GtIAFyXX"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6ad186afdf4so5014963a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:23:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fMKidErK"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so9163733a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:23:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790893425; x=1791498225; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790893430; x=1791498230; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mfS2cfWmds0Y11TiQVtwStV3lengQMkN7F/hQmnyrAA=;
-        b=GtIAFyXX6RnABYkOmORFQhK/sOgiCPjsD3P1Lk3jv+o4EaDOjhecMjUUAxEf+DKO8j
-         QQjdEi09vhIuuHspdXtr1fgBFuEwp9SIs9ZGa9ROEeXT3wy9rc4BGhIW9YN4CMXGGDQH
-         TgYZXCdHgLxss7GS7/TB5iKn1eS5u6Dpx1hXKRbimDwbWYLQpv+Hdk9q2ahVbvk0QiXN
-         eravX9W94XleCB0EvqqNFDkb2mpjUKiF4E7aycCN9VyRhp3D6M2IDcMm47ZRDPssU9zD
-         pPROWVFiY/NagTxqZ2i148Mk0lBVEIsoZxq7ZZQFING4zl+ukmXbtc8hl1/lzD+Ul90v
-         Slqg==
+        bh=MTg3MSL1K+Unl/9lI2krjRczONr/gPCmYuq5ydnuWNc=;
+        b=fMKidErKlSHl3sVY7tXnSYAc7zG+FTrU7JyUKy7fBh3yS+XgakpSYs+lHU33je8W7N
+         ckYg1e9vbHHqtFQMn4QmnqwYTtYx2d0Qh58SUwVnhYLtur3l5Krk6SYngx4qHQMKUHQk
+         RrcGeXNOkvV33jLsugFYGk4A+pevUlX1aAo4vRDuxn2L1/UDhnDZjvWHczbJ/emO0It4
+         6Y6YACe+VZ7ZHgwJRsYDfdmC3uIBw5CdG3KZUGb4QYUrPftZt9o6k6AhePxrsKlb/Ats
+         bur0FNM8kGKdoGmB/8LGa2911sW6VebTCj257JbXRgiHh0iDGT7BWugWwLYSbmyX/pP4
+         P+YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790893425; x=1791498225;
+        d=1e100.net; s=20260707; t=1790893430; x=1791498230;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mfS2cfWmds0Y11TiQVtwStV3lengQMkN7F/hQmnyrAA=;
-        b=mv5iey/PiYtYcv37YMj5nv8PIQAQowE3mzsA8rDX7zoS7GcYBM0DDFCQXijTVjhuLR
-         o4nw/DT+TuWFxWRmx77nEW673V/7dXvFKQOGUhvq36uel5Au4XU2KB2NnxDtA6pTAb2l
-         bE52bxeO6qp8rDTwzDukhIiKNeTtbNTfsQNSkcCwfqnadvR5rfNNWN8g33H+6H+jQV5Q
-         l8zs+tO6PU+ulvWOPLIUi9b3SeaLMQ8rpaZkalvbIUVOznfWsiRSnD0bsS3mFe0c1rvG
-         3qF8yzW4NSHL6XMMRyh0ezi5cYBD6Hhi3tFXDHV0yGuJjHHZIs9JYIEnH1w36q+kfz9L
-         g6+g==
-X-Forwarded-Encrypted: i=1; AKwUvByFTP82cYRBZEZ/QLGkVZUmqFg+BibhL+ZZlyDMIf88J4kLSXBzB7v+20PxwFT1Lmn/RrCf1OOpt3on10Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKh4MKq2ZXykafY9gJmntxWTYE0t7iv44AbIUF2Zw+Tl/OardgH
-	0WWlzBaK8P+fVyagvt3YrX3Wm6EtNLnvcUBFcnGT1XyxQQrv3/QfLtCM
-X-Gm-Gg: AYBFou0GBs2zhyQWT+4SI32hYLP3c5pATJnH1qcJDI72tJnWd9fkPEtQuDiG3ne5R65
-	lKS4VzTqHLQRr40nbyaXSaVbHfDXi/hjlM3fJc7Kg75BLUWP2tSLN/MS8q7lJNf8ou2QmCvKDlW
-	/IuxWTH/j6YnyJlBOLdixphotY4e0uyc9bXKa/HfFuZ+EISI0e79UTiDWyOOj/xFmHFvaukKFEw
-	ojn7fpzZLTMt36ibNqjaIOrhcMt+I9gC84V0QW2dhGTh8yaOZB2FM8uUwEbVxIyCZLfIHD6VQZT
-	PZPFP21NbcOviPJ67YubQNJ82Pt0OAYa8clfBLy5NUisd7/Qg5IGJ1yDf4k7vqRME2eSKdXfcuw
-	9gOXAnlQNyT6XGPWzOCEDeIT1bhrUivXzBIM5Q9jYUmz5dNr4etqPRDuO6gzte21h1MqVhSKm4m
-	xVFnDm0oNrxOBfGE0fKaxH/HvvT/NAby3+bbZOVQx3F3bDzPBK5tcZL2elxw74RBRWkfH8fb/iN
-	xFR4pkTTOOGsgTKdj013AEaFhvFVmFPXB3SPLqiJfz8qa1WSHvItA==
-X-Received: by 2002:a05:6402:4019:b0:6aa:f260:b851 with SMTP id 4fb4d7f45d1cf-6af9e30ec5dmr417794a12.33.1790893425261;
-        Thu, 01 Oct 2026 15:23:45 -0700 (PDT)
+        bh=MTg3MSL1K+Unl/9lI2krjRczONr/gPCmYuq5ydnuWNc=;
+        b=Gcl9UTSSHhFg0SO/KmeHZ4RO5P+QFfmeONQQ/JU4Nw3/A97kIfyM1GkVW42ibyN3Ov
+         mmVbPypm45pN5NtyWeCLF5Evp7Oqo+WaLwEF6D/6fVW+0UsbmNNg1ZDkupz1SBxQ7KFZ
+         JFQbuK19mG969iUsGsiecdGsM1icyn2XEXz5gnTsNj/8AKONowloXHcT9u50sHHzqwuD
+         OFZIzSxbbXRZiWUEgfsiXEu4zRBpbuQzciDy1qUcJPTA1rF8dtk5mmAgUz+PGi5hHPug
+         h/GQt7uf020gPwHu+7saMVBBhu3eC90lk9VE973CmBR15iRwuBkyvcpFOyV8NMdRnyHF
+         ojXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwyVb9yzwCwfbpMyYmgxK9JV1vAguVb0DyKZV4whcoYH7fFmVXeap763AtvhnK5ePqWxkA5h0MPg6aPM84=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH5T//gUL4pbPeun/NU914u9utC4+ruYcYvCuHVy1J3bJNZp8U
+	e+TGg7HOdKEIsdLFSJQCWKjLwUPAxvrJCa1mBLYMobAjgUevsEwD1AfP
+X-Gm-Gg: AYBFou0l2p0bJfQxVFiyeGA8zCtJ5oKscyUPylmUxVhwlJiGFDTFLDxgbTUgSnCCO16
+	yEXdVc+aUJctPMnK40E8YepXIFa/PwTVc76/h0B6VnN1J9MjvMMmV09j89G2gW+SMHY3LKZlmS1
+	tG1X9lwTlMQ8kKOZLK6fu8w5HWuQidtyW82jhQYpagmLfvJ27GCgyiMeigwjTf0atUIfX4FCY5o
+	4M0OzkZipdEBpEwrzcFqzAVzM+23/kwLI6jwEtUhby5nCwYPFaofJDu0BSw1JRlF+BSKV9anIP6
+	jWwvZSKLN9Z3VXthcCJAic7evpdKbYD97i/rwZsoNtFY9N2Ub1rNFPqY4w7hyYbiTZT7xSLAUtY
+	QBzGgzkjP8AE0/S5fMW+UqXiyuKdHOeoiF7jiEc69mcRffDMydXi2JBaEdTpjoep8BEqg2eLbEO
+	jOrSL+FSU08XTmlzkZPOgKwj6W6lkq1uQaJBjNLf2EthEU2WxiXbTL3W6S7J49ybey0pLKA6/NS
+	IY62RF/eSnGmXnmCyikmDRRKOnKa99BvkOXjvlMnrA=
+X-Received: by 2002:a05:6402:1ed0:b0:6ac:b0fb:57b5 with SMTP id 4fb4d7f45d1cf-6af9e2de21fmr435519a12.26.1790893430423;
+        Thu, 01 Oct 2026 15:23:50 -0700 (PDT)
 Received: from [192.168.86.89] (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d87399esm238935a12.9.2026.10.01.15.23.42
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d87399esm238935a12.9.2026.10.01.15.23.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 15:23:44 -0700 (PDT)
+        Thu, 01 Oct 2026 15:23:50 -0700 (PDT)
 From: =?utf-8?q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>
-Date: Fri, 02 Oct 2026 00:23:35 +0200
-Subject: [PATCH RFC 1/4] HID: logitech: add Bolt receiver support
+Date: Fri, 02 Oct 2026 00:23:37 +0200
+Subject: [PATCH RFC 3/4] HID: logitech: divert M650 side buttons over Bolt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261002-bolt-input-rfc-v1-1-333e1f350586@gmail.com>
+Message-Id: <20261002-bolt-input-rfc-v1-3-333e1f350586@gmail.com>
 References: <20261002-bolt-input-rfc-v1-0-333e1f350586@gmail.com>
 In-Reply-To: <20261002-bolt-input-rfc-v1-0-333e1f350586@gmail.com>
 To: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>, 
@@ -87,393 +87,37 @@ Cc: Rafael Passos <rafael@rcpassos.me>,
  linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
  =?utf-8?q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790893419; l=14084;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790893419; l=952;
  i=erikhakan@gmail.com; s=20260922; h=from:subject:message-id;
- bh=EApQxXc5dbW5RjUDZcAqxqTjvKPO05LDpgDUyURUDbU=;
- b=nIzoNV7V9FaDvLch6tTy3rSAX4JITwNl/r3onn9nasIdOUEqOlYMCCuvWxYBFI+pIWAqk7cHI
- FQJJzgPclIyCYB/JERxoa3ZMpjET/MbBH0Whup+ewYXmYq94jzhcLi4
+ bh=ZsSOdw0mvnKnNrqf7YTUmfeQgEjmG9CIuBVp0jUlpmA=;
+ b=Q2UyUZAba41E/J9wgKKqQYHl2yRpR80S65HkVUYnvCh/Ak3vrIaURf9+ZbpNKTs+taSqoA00z
+ UvZuT6ESMbgB24UnBLVMyrZfY+EshMTvibr50BabCnOsnjIwm2D1yy/
 X-Developer-Key: i=erikhakan@gmail.com; a=ed25519;
  pk=brCZX79/H6Z7mPgiNX6TDY45ZjODPth0eXRDUgh1mNI=
 
-Add Logitech Bolt receiver support to the Logitech HID receiver and HID++
-drivers.
-
-This allows Bolt-connected HID++ devices to expose battery information
-through the kernel power_supply path, so userspace tools can report their
-battery status with the correct device model.
-
-Have hid-logitech-dj claim Bolt interfaces 0-2 and use the
-mse_high_res_descriptor for virtual mice, instead of the default
-mse_descriptor, to properly handle reports as 16-bit instead of 12-bit.
-
-Since Bolt receivers do not support DJ mode, reroute supported reports for
-Bolt devices over HID++, so device identification is possible through the
-HID++ device index. Ordinary mouse and keyboard reports still use native
-HID, and are not possible to divert to HID++, and since native HID reports
-lack device index, it will still not be possible to identify which device
-sent them.
-Extend 0x2121 high resolution scroll to work over HID++, including software
-inversion for inverted scrolling, and make Bolt devices default to HID++
-diversion for 0x2121 reports.
-
-Also, treat HIDPP_ERROR_CONNECT_FAIL like other disconnected-device errors
-when retrieving protocol version to avoid protocol error messages when a
-Bolt device powers off.
-
-Tested with:
-- Logitech MX Keys for Business via Bolt receiver
+The M650 uses the 0x1B04 reprogrammable-controls handler for Back and
+Forward over Bluetooth by assigning a quirk. Make sure M650 gets the same
+quirk when connected through a Bolt receiver too.
 
 Signed-off-by: Erik Håkansson <erikhakan@gmail.com>
 ---
- drivers/hid/hid-logitech-dj.c    |  33 +++++++-
- drivers/hid/hid-logitech-hidpp.c | 160 ++++++++++++++++++++++++++++++++++-----
- 2 files changed, 173 insertions(+), 20 deletions(-)
+ drivers/hid/hid-logitech-hidpp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/hid/hid-logitech-dj.c b/drivers/hid/hid-logitech-dj.c
-index 390d106d5dc1..8a53e631f476 100644
---- a/drivers/hid/hid-logitech-dj.c
-+++ b/drivers/hid/hid-logitech-dj.c
-@@ -121,6 +121,7 @@ enum recvr_type {
- 	recvr_type_27mhz,
- 	recvr_type_bluetooth,
- 	recvr_type_dinovo,
-+	recvr_type_bolt,
- };
- 
- struct dj_report {
-@@ -637,8 +638,6 @@ static const u8 hid_reportid_size_map[NUMBER_OF_HID_REPORTS] = {
- };
- 
- 
--#define LOGITECH_DJ_INTERFACE_NUMBER 0x02
--
- static const struct hid_ll_driver logi_dj_ll_driver;
- 
- static int logi_dj_recv_query_paired_devices(struct dj_receiver_dev *djrcv_dev);
-@@ -1156,6 +1155,10 @@ static void logi_hidpp_recv_queue_notif(struct hid_device *hdev,
- 		logi_hidpp_dev_conn_notif_equad(hdev, hidpp_report, &workitem);
- 		workitem.reports_supported |= STD_KEYBOARD;
- 		break;
-+	case 0x10:
-+		device_type = "Bolt";
-+		logi_hidpp_dev_conn_notif_equad(hdev, hidpp_report, &workitem);
-+		break;
- 	}
- 
- 	/* custom receiver device (eg. powerplay) */
-@@ -1540,7 +1543,8 @@ static int logi_dj_ll_parse(struct hid_device *hid)
- 	if (djdev->reports_supported & STD_MOUSE) {
- 		dbg_hid("%s: sending a mouse descriptor, reports_supported: %llx\n",
- 			__func__, djdev->reports_supported);
--		if (djdev->dj_receiver_dev->type == recvr_type_gaming_hidpp ||
-+		if (djdev->dj_receiver_dev->type == recvr_type_bolt ||
-+		    djdev->dj_receiver_dev->type == recvr_type_gaming_hidpp ||
- 		    djdev->dj_receiver_dev->type == recvr_type_mouse_only)
- 			rdcat(rdesc, &rsize, mse_high_res_descriptor,
- 			      sizeof(mse_high_res_descriptor));
-@@ -1745,6 +1749,24 @@ static int logi_dj_hidpp_event(struct hid_device *hdev,
- 
- 	dj_dev = djrcv_dev->paired_dj_devices[device_index];
- 
-+	/*
-+	 * Bolt receivers send explicit unpair notifications as HID++ events;
-+	 * queue device removal when we receive one.
-+	 */
-+	if (djrcv_dev->type == recvr_type_bolt &&
-+	    hidpp_report->report_id == REPORT_ID_HIDPP_SHORT &&
-+	    hidpp_report->sub_id == REPORT_TYPE_NOTIF_DEVICE_UNPAIRED) {
-+		struct dj_workitem workitem = {
-+			.device_index = device_index,
-+			.type = WORKITEM_TYPE_UNPAIRED,
-+		};
-+
-+		kfifo_in(&djrcv_dev->notif_fifo, &workitem, sizeof(workitem));
-+		schedule_work(&djrcv_dev->work);
-+		spin_unlock_irqrestore(&djrcv_dev->lock, flags);
-+		return false;
-+	}
-+
- 	/*
- 	 * With 27 MHz receivers, we do not get an explicit unpair event,
- 	 * remove the old device if the user has paired a *different* device.
-@@ -1894,6 +1916,7 @@ static int logi_dj_probe(struct hid_device *hdev,
- 	case recvr_type_27mhz:		no_dj_interfaces = 2; break;
- 	case recvr_type_bluetooth:	no_dj_interfaces = 2; break;
- 	case recvr_type_dinovo:		no_dj_interfaces = 2; break;
-+	case recvr_type_bolt:		no_dj_interfaces = 3; break;
- 	}
- 	if (hid_is_usb(hdev)) {
- 		intf = to_usb_interface(hdev->dev.parent);
-@@ -2103,6 +2126,10 @@ static const struct hid_device_id logi_dj_receivers[] = {
- 	  HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
- 		USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_3),
- 	 .driver_data = recvr_type_gaming_hidpp_ls_1_3},
-+	{ /* Logitech Bolt receiver (0xc548) */
-+	  HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
-+			 USB_DEVICE_ID_LOGITECH_BOLT_RECEIVER),
-+	 .driver_data = recvr_type_bolt},
- 	{ /* Logitech lightspeed receiver (0xc54d) */
- 	  HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
- 		USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_4),
 diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 9646380febac..ff6a1095e7ba 100644
+index 464685ad21bb..9217ad4a97f4 100644
 --- a/drivers/hid/hid-logitech-hidpp.c
 +++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -213,6 +213,8 @@ struct hidpp_device {
+@@ -5150,6 +5150,9 @@ static const struct hid_device_id hidpp_devices[] = {
+ 	{ /* Logitech G502 Lightspeed Wireless Gaming Mouse */
+ 	  LDJ_DEVICE(0x407f),
+ 	  .driver_data = HIDPP_QUIRK_RESET_HI_RES_SCROLL },
++	{ /* Signature M650 over Bolt */
++	  LDJ_DEVICE(HIDPP_PRODUCT_SIGNATURE_M650),
++	  .driver_data = HIDPP_QUIRK_HIDPP_REPROG_CONTROLS_BTNS },
  
- 	int hires_wheel_multiplier;
- 	u8 hires_wheel_feature_index;
-+	bool hires_wheel_has_invert;
-+	bool hires_wheel_invert;
+ 	{ LDJ_DEVICE(HID_ANY_ID) },
  
- 	bool connected_once;
- };
-@@ -988,7 +990,8 @@ static int hidpp_root_get_protocol_version(struct hidpp_device *hidpp)
- 	}
- 
- 	/* the device might not be connected */
--	if (ret == HIDPP_ERROR_RESOURCE_ERROR ||
-+	if (ret == HIDPP_ERROR_CONNECT_FAIL ||
-+	    ret == HIDPP_ERROR_RESOURCE_ERROR ||
- 	    ret == HIDPP_ERROR_UNKNOWN_DEVICE)
- 		return -EIO;
- 
-@@ -2044,9 +2047,15 @@ static int hidpp_hrs_set_highres_scrolling_mode(struct hidpp_device *hidpp,
- 
- #define CMD_HIRES_WHEEL_GET_WHEEL_CAPABILITY	0x00
- #define CMD_HIRES_WHEEL_SET_WHEEL_MODE		0x20
-+#define EVENT_HIRES_WHEEL_MOVEMENT		0x00
-+#define HIRES_WHEEL_CAPABILITY_HAS_INVERT	BIT(3)
-+#define HIRES_WHEEL_MODE_USE_HIDPP		BIT(0)
-+#define HIRES_WHEEL_MODE_HIGH_RESOLUTION	BIT(1)
-+#define HIRES_WHEEL_MODE_INVERT			BIT(2)
-+#define HIRES_WHEEL_EVENT_HIGH_RESOLUTION	BIT(4)
- 
- static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
--	u8 *multiplier)
-+	u8 *multiplier, bool *has_invert)
- {
- 	u8 feature_index;
- 	int ret;
-@@ -2064,6 +2073,8 @@ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
- 		goto return_default;
- 
- 	*multiplier = response.fap.params[0];
-+	*has_invert = response.fap.params[1] &
-+		HIRES_WHEEL_CAPABILITY_HAS_INVERT;
- 	return 0;
- return_default:
- 	hid_warn(hidpp->hid_dev,
-@@ -2084,9 +2095,9 @@ static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
- 	if (ret)
- 		return ret;
- 
--	params[0] = (invert          ? BIT(2) : 0) |
--		    (high_resolution ? BIT(1) : 0) |
--		    (use_hidpp       ? BIT(0) : 0);
-+	params[0] = (invert          ? HIRES_WHEEL_MODE_INVERT : 0) |
-+		    (high_resolution ? HIRES_WHEEL_MODE_HIGH_RESOLUTION : 0) |
-+		    (use_hidpp       ? HIRES_WHEEL_MODE_USE_HIDPP : 0);
- 
- 	return hidpp_send_fap_command_sync(hidpp, feature_index,
- 					   CMD_HIRES_WHEEL_SET_WHEEL_MODE,
-@@ -3903,15 +3914,58 @@ static int hidpp10_consumer_keys_raw_event(struct hidpp_device *hidpp,
- /* High-resolution scroll wheels                                              */
- /* -------------------------------------------------------------------------- */
- 
-+static bool hidpp_is_bolt_child(struct hid_device *hdev)
-+{
-+	struct device *parent = hdev->dev.parent;
-+	struct hid_device *receiver_hdev;
-+
-+	if (hdev->group != HID_GROUP_LOGITECH_DJ_DEVICE || !parent)
-+		return false;
-+
-+	receiver_hdev = to_hid_device(parent);
-+	return receiver_hdev->vendor == USB_VENDOR_ID_LOGITECH &&
-+	       receiver_hdev->product == USB_DEVICE_ID_LOGITECH_BOLT_RECEIVER;
-+}
-+
-+static void hidpp_hrw_update_wheel_mode(struct hidpp_device *hidpp,
-+	bool invert, bool high_resolution)
-+{
-+	hidpp->hires_wheel_invert = invert;
-+	hidpp->vertical_wheel_counter.wheel_multiplier =
-+		(high_resolution && hidpp->hires_wheel_multiplier > 0) ?
-+		hidpp->hires_wheel_multiplier : 1;
-+}
-+
- static int hi_res_scroll_enable(struct hidpp_device *hidpp)
- {
--	int ret;
-+	int ret, fallback_ret;
- 	u8 multiplier = 1;
-+	bool has_invert = false;
- 
- 	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
--		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true, false);
--		if (ret == 0)
--			ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
-+		/* Check capabilities before setting mode, to guard against
-+		 * enabling high res and then failing to read multiplier.
-+		 */
-+		ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier,
-+						     &has_invert);
-+		if (ret) {
-+			/* Avoid diverting wheel reports without a known
-+			 * multiplier.
-+			 */
-+			fallback_ret = hidpp_hrw_set_wheel_mode(hidpp, false,
-+							 false, false);
-+			if (fallback_ret)
-+				hid_dbg(hidpp->hid_dev,
-+					"Could not restore native wheel reporting: %d\n",
-+					fallback_ret);
-+			hidpp->hires_wheel_multiplier = 1;
-+			hidpp->hires_wheel_has_invert = false;
-+			hidpp_hrw_update_wheel_mode(hidpp, false, false);
-+			return ret;
-+		}
-+		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true,
-+					      hidpp_is_bolt_child(
-+					       hidpp->hid_dev));
- 	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_SCROLL) {
- 		ret = hidpp_hrs_set_highres_scrolling_mode(hidpp, true,
- 							   &multiplier);
-@@ -3933,6 +3987,10 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
- 
- 	hidpp->hires_wheel_multiplier = multiplier;
- 	hidpp->vertical_wheel_counter.wheel_multiplier = multiplier;
-+	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
-+		hidpp->hires_wheel_has_invert = has_invert;
-+		hidpp_hrw_update_wheel_mode(hidpp, false, true);
-+	}
- 	hid_dbg(hidpp->hid_dev, "wheel multiplier = %d\n", multiplier);
- 	return 0;
- }
-@@ -3975,6 +4033,10 @@ static int hidpp_initialize_hires_scroll(struct hidpp_device *hidpp)
- 	return 0;
- }
- 
-+/*
-+ * The low nibble of data[3] is the software ID: 0 for wheel
-+ * notifications, nonzero and echoed from the request for replies.
-+ */
- static int hidpp20_hires_wheel_raw_event(struct hidpp_device *hidpp,
- 						u8 *data, int size)
- {
-@@ -3988,12 +4050,47 @@ static int hidpp20_hires_wheel_raw_event(struct hidpp_device *hidpp,
- 	    data[2] != hidpp->hires_wheel_feature_index)
- 		return 0;
- 
-+	/* This checks only the function nibble, not software ID, so in theory
-+	 * an event with ID 0x20 would also apply here, but there is none in
-+	 * the 0x2121 specification.
-+	 */
- 	if ((data[3] & 0xf0) == CMD_HIRES_WHEEL_SET_WHEEL_MODE) {
- 		u8 mode = data[4];
--		bool hires = (mode & 0x02) != 0;
--		int new_multiplier = (hires && hidpp->hires_wheel_multiplier > 0)
--			? hidpp->hires_wheel_multiplier : 1;
--		hidpp->vertical_wheel_counter.wheel_multiplier = new_multiplier;
-+
-+		hidpp_hrw_update_wheel_mode(hidpp,
-+			mode & HIRES_WHEEL_MODE_INVERT,
-+			mode & HIRES_WHEEL_MODE_HIGH_RESOLUTION);
-+		return 1;
-+	}
-+
-+	/* Match wheelMovement (function 0, software ID 0). */
-+	if (data[3] == EVENT_HIRES_WHEEL_MOVEMENT) {
-+		int delta;
-+
-+		if (size < 7 || !hidpp->input ||
-+		    hidpp->hires_wheel_multiplier <= 0)
-+			return 1;
-+
-+		/* The event flag describes whether the event is high resolution
-+		 * or not.
-+		 */
-+		hidpp->vertical_wheel_counter.wheel_multiplier =
-+			(data[4] & HIRES_WHEEL_EVENT_HIGH_RESOLUTION) ?
-+			hidpp->hires_wheel_multiplier : 1;
-+
-+		delta = (s16)get_unaligned_be16(&data[5]);
-+		if (!delta)
-+			return 1;
-+
-+		/* HID++ 2.0 does not invert scroll regardless of setting,
-+		 * hence do so in driver
-+		 */
-+		if (hidpp->hires_wheel_has_invert && hidpp->hires_wheel_invert)
-+			delta = -delta;
-+
-+		hidpp_scroll_counter_handle_scroll(hidpp->input,
-+			&hidpp->vertical_wheel_counter, delta);
-+		input_sync(hidpp->input);
- 		return 1;
- 	}
- 
-@@ -4295,7 +4392,7 @@ static int hidpp_event(struct hid_device *hdev, struct hid_field *field,
- 	/* A scroll event may occur before the multiplier has been retrieved or
- 	 * the input device set, or high-res scroll enabling may fail. In such
- 	 * cases we must return early (falling back to default behaviour) to
--	 * avoid a crash in hidpp_scroll_counter_handle_scroll.
-+	 * avoid consuming an event that we cannot scale.
- 	 */
- 	if (!(hidpp->capabilities & HIDPP_CAPABILITY_HI_RES_SCROLL)
- 	    || value == 0 || hidpp->input == NULL
-@@ -4404,8 +4501,37 @@ static int hidpp_initialize_battery(struct hidpp_device *hidpp)
- 	return ret;
- }
- 
-+static int hidpp_bolt_init(struct hidpp_device *hidpp)
-+{
-+	struct hid_device *hdev = hidpp->hid_dev;
-+	char *name;
-+	int ret;
-+
-+	ret = hidpp_serial_init(hidpp);
-+	if (ret)
-+		return ret;
-+
-+	name = hidpp_get_device_name(hidpp);
-+	if (!name)
-+		return -EIO;
-+
-+	snprintf(hdev->name, sizeof(hdev->name), "%s", name);
-+	dbg_hid("HID++ Bolt: Got name: %s\n", name);
-+
-+	kfree(name);
-+	return 0;
-+}
-+
-+static int hidpp_receiver_init(struct hidpp_device *hidpp)
-+{
-+	if (hidpp_is_bolt_child(hidpp->hid_dev))
-+		return hidpp_bolt_init(hidpp);
-+
-+	return hidpp_unifying_init(hidpp);
-+}
-+
- /* Get name + serial for USB and Bluetooth HID++ devices */
--static void hidpp_non_unifying_init(struct hidpp_device *hidpp)
-+static void hidpp_non_receiver_init(struct hidpp_device *hidpp)
- {
- 	struct hid_device *hdev = hidpp->hid_dev;
- 	char *name;
-@@ -4757,9 +4883,9 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 	/* Get name + serial, store in hdev->name + hdev->uniq */
- 	if (id->group == HID_GROUP_LOGITECH_DJ_DEVICE)
--		hidpp_unifying_init(hidpp);
-+		hidpp_receiver_init(hidpp);
- 	else
--		hidpp_non_unifying_init(hidpp);
-+		hidpp_non_receiver_init(hidpp);
- 
- 	if (hidpp->quirks & HIDPP_QUIRK_DELAYED_INIT)
- 		connect_mask &= ~HID_CONNECT_HIDINPUT;
 
 -- 
 2.55.0
