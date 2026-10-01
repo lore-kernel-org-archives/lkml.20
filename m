@@ -1,219 +1,245 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011017.outbound.protection.outlook.com [52.101.70.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EB44FDA67
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864039; cv=none; b=oBD/XgG4S1blFidmtxUeIphrA0MYaxQ26/uwuNsiu84bBu2LiOtVmF3MM4qeiFKff5vquBwdhFIRiBBWmE5XqrHvssttT39BRUJxEvZOW/7xu0JwNwnDMQK/oeDuSGuOyT9/SgsKIhdP6sLHPsTmUUS9hqZrAHWL4ZALiw1wq6g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864039; c=relaxed/simple;
-	bh=IEXUskiaguTB4Otopyr6gaLDiGGpDYbBgosBuNngyxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dUSHps/0V95sIGpn44aBfmLQHxEEQlqe795Pk4vQcVVL3eQZnBD8tmlax9/IyQTqniKDn0TnFJKiDR0BembX2wneWw1LrBa1emS1hm9QNDRaN5H73njMwhC8BaF54zCcrvxtSVIolDdTgJEiuT9tZZ4APGzvHncXmWQoW4UydQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qN0oa8rh; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587332F87B;
+	Thu,  1 Oct 2026 14:14:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790864064; cv=fail; b=gG+tH6EmOn9JhTM/nh6vpi2+USq5V41BBTiuzR3cFIzpWrruLmXb8LUIcQxLujRj8RlU/meUayjiV2acizkeUYqJMdIAXdwz85CZHXNxFBqWefS/np6lmF7khvKuLT+3OkNnsYZzDtz2yL6B6Vm8proTyRsQXsqtF85afPQPigc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790864064; c=relaxed/simple;
+	bh=WfELk+O7oGm9/7oyZ93Hj9gKlZHuXL2Dg2/mE9Mv0L0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=FRB04B56ZXjwIovhI9sYvBr85y1P2en1lPrU938va/xOhrXw4N4RsceE6CTDGiqQ1pShoXCAMhIrVU0qjjZyfOl12webYkUYki/hKA0p5XsSFVimrLHP5ke1j3AyoPi3Q+uMWg4Tet10qJNXEA1i/pyMpNLsB0QLuLmc283T0WQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=M9metBCs; arc=fail smtp.client-ip=52.101.70.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qN0oa8rh"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e0b486d91so340664066b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:13:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790864036; x=1791468836; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hCWRto5ZbEKJLVpd5fclw/bB6bh5Fpi2NNDb+Pnb0AI=;
-        b=qN0oa8rhjBr6MQv0oUJI3kQ+hpIO6h0deVt0HqrXZRtpWKmr3qABYQuiwzX3j39QOj
-         /G8Cf3jGA2j9SwPjfYwBH5q0Vq1AQ++kPothYClG23U/aJcWZGdhj/E4880SM7PzvtwI
-         tE7CvdoYKRs/jch7LFi58q6j99vlWReaXL01b++YsrbxjD3S+5IyzW9p/Ay59u/PO4KJ
-         2uGlXjEtWzadrY00yYokImjNBeBHdBQVCuh/XFu0o7eaDnlOHNXKIZSDe4GKxxLS7A9F
-         GVJ+uju/h3XCG1TzzmxOOuy+6PNGJsM9pOdvRlO9L+Y1EAXnwU0tGz8/7Nc12rJTHWnq
-         EWeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790864036; x=1791468836;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hCWRto5ZbEKJLVpd5fclw/bB6bh5Fpi2NNDb+Pnb0AI=;
-        b=D+XgMgPBdhrqZq5T+gLyuC0WLH/5e0vHgRO8+9ef8LPpiD7EQoPnxb0P6rQWCJFd4U
-         Wl7rFB7oKlusC+YnvS5ViWmVE5cWkxV8nT+xXvSTCE5plAKPJR8jPM/jTs22GfQmO/7b
-         5vvE0dJqa3S5ujaM6Ab+FAZXJ4N+EOhA26EtfaQs9FgxLnmXVKYMI1BLQ+A3Y0AHMtAK
-         j+ldvYPIHhrCrPL7Ur5Ai/RD+I9FUyNr2ZVd5Ahv5jTIeUIHilFzjTbzlSjgoW4ee9VV
-         H5Hu9t0u+b7nZSu6iSdoh/qmV2DGcJ9ISWPJg5MgPWutyy1O2i+0umX2at3XLRau5Tn0
-         NvPA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0fOd+6a08aLV1iTw/CV16JwwiNaCdeYtujh/n9DP3+h6so6z/BX2mHQA7v8gbWmCxaNx89s8LfvWaff0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKh4EbOGReo/4PFuECV82LaLLWwbSwjDNQ53CBhA60L6qnADXl
-	YjFd/Ef9QfEWN29Wjj9ZKVT6lUhpddQXZKeFJb1Op5W0pcnI+6YS93Ty
-X-Gm-Gg: AYBFou3k5UjXJ9RuxcQ0AN51AeDdHbDkCeO8EQEWwhWqkDU8EWSow33Kfn7h76WZJWD
-	i3oG4ZXL8LJ2cDMf2xJiO2U2jiJh19jh9B26JBdtQhJlpNoJ2kLEjin5WC/drZJ1RjDgJKcc4fc
-	R1bO9jQkDDZnCEUh0r1YryLtBxwGyjeUUzf6dZZD+RbAvztfDPWIEOHQpsnq6RFiPWNw4r2u1K9
-	XCFhl9bx4llYmLvVHOo1v6h50Vwf1v8wM6Fl/sMqp4BW7WCMnmWRCzLLu54PtiMeM3qxngjq7nq
-	HOz4yWGVzdNEpCtRc5yASFrkqxjmhzAQOROGLcoaiP4YwBNkArR9qmvwyXWGRHVHg+3dKxIjmmM
-	hIaaCFn/wzByCYvboI7Wq3Sgh0ZK2J6LsO+st/14bbi48aOtwYjouHgS9lHhfpVHTCv2JBOhqzB
-	0pDLz2/4PfhdkQ9Z4vVePmcP4Na8M6UDp2oTz1aZKTFFjc7PqdqLYjZJ23FOKIDakrqYHSRT/Cy
-	tXDKwpTK97hBvCL
-X-Received: by 2002:a17:907:7284:b0:c2e:a9:57f4 with SMTP id a640c23a62f3a-c2e23d2e342mr391143966b.22.1790864035909;
-        Thu, 01 Oct 2026 07:13:55 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31d96628sm167372766b.62.2026.10.01.07.13.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:13:54 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: ethantidmore06@gmail.com,
-	error27@gmail.com,
-	guojy.bj@gmail.com,
-	dvdh12707@gmail.com,
-	enelsonmoore@gmail.com,
-	khomenkov@mailbox.org,
-	fliegbert2@gmail.com,
-	m.steinmoetzger@gmail.com,
-	knavaneeth786@gmail.com,
-	nikolayof23@gmail.com,
-	serhatkumral1@gmail.com,
-	samasth.norway.ananda@oracle.com,
-	dennylin0707@gmail.com,
-	adrishbora@gmail.com,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-Subject: [PATCH v6] staging: rtl8723bs: Remove manual ifname allocation
-Date: Thu,  1 Oct 2026 17:12:41 +0300
-Message-ID: <20261001141242.2763-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="M9metBCs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LOgF+0PZfK4xTgN9eH5nzuCeXgUteb5EwOUbKTrLbCailospH12JEot46RdvMl0v474RXHyWisPH1AydgLDbAyU6VGswXhN3+MIv7HD3i25zEBSMVHTqGgoQRKRERJHV8i8F7J+iJOUW5f1Ygte8oiaiGvmVvtx9o2fLqxIWEOZTfJnkN4RGSHV+D3Gg9FWvpXmeIFoHOTwESwX6hW30n+rRdNVAxJ7qrpCKUhuCEtpmYBASHAlyGqrDKW5vwGBHIv3gj/AaA35MdrYQYrQGQGyNW/mWfYhbKgG1Enzh5+dls90NnSnOOptU69zV2RYTx0po1cBHS4dlrsL3IQuh6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EiyZBJgbOoYuz5RyNOY2DuPfXiiEPbb+XfqeoO5XTxs=;
+ b=rT+O7nfaMSY2Sa5uuZ2Z9Hh7h/UyYMKy8/zt6WLgiUeb8MusUbTPZ/2gqBzgGygd5TOsOFhwPEtHByJ8DTGE3kZmdnq4mnlJgEO9+V7YEFbDawA9ut/mZchX1uDvwmsCJsve2QOXG/eCfaqCumq0u/2vV1n6emX4QeRigQpU2STcloHTjOgfOYDcZG2A967ys1nwjUdVLZ/0CavrDs2AVpoC71IQ0J1y/Ap0HNdxSZ2eQHj/s5ea/PoJ2iOLLeEX0G1cbKH5AqigIQJQ56b0cluhQMie/gYnM3evDEMEbOlpLBOBjJ+ZQv7dOPHvKMgBa8a4WYxOvnywGq8+3MYCfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EiyZBJgbOoYuz5RyNOY2DuPfXiiEPbb+XfqeoO5XTxs=;
+ b=M9metBCsxho81frc23hLrdDRQ16SSodus4Jdhs3sLdnvhrAvElTCNvsyeiXEsMto5MTtcCGRPG4wCHXLtqZjuL6/b7UaVPpdYMpUaA58DXG9hHqJQKpRP9vtCTS4IU+/1e7yis1PTcKAnxz+jKY1hv8D932xsCY8z6fagdkzp0FIrVNKMbFnOJ063n3z2ei7hYe9o7V7AnOUkP8MOkzeIiEj7QRXhnploGlTqWiDBngGG9TaorFl78/k+oxVwFao0ML7xefWJx/z3Hmaz3OW6LKbiI7v/FHaIhopZ8fl+vO6YcVFpKWkmFP7RgX08TnwVSgzpuSoJzJxdUClthOZww==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB8302.eurprd04.prod.outlook.com (2603:10a6:102:1ca::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 14:14:15 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 14:14:15 +0000
+Date: Thu, 1 Oct 2026 09:14:04 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v2 3/6] dt-bindings: connector: Add Toradex camera
+ connector
+Message-ID: <ar5qrJNqp6pt40vY@SMW015318>
+References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
+ <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
+X-ClientProxiedBy: PH0PR07CA0035.namprd07.prod.outlook.com
+ (2603:10b6:510:e::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8302:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c11816e-8886-45cc-659b-08df1fc6463a
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|1800799024|7416014|23010399003|366016|10067099003|56012099006|11063799006|3023799007|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Al9TgdSbZgjTMekI33EI+By4MiPgnlmtwaqXrguU1gK27T5RN4+Ube7PvyQ6n34sw2iHX8+YoYZUCtHfa5O272TesorETfi3ezecbIDYA4p4q78eoaXvRx5Od4gSjI6w4G2Zd7AQTYRALhv/CR1FECc+jAJN+MSbdHEVeZj/rsCOUA4qhRrtqmEtfvFJb1Ehkx/7ZnlzgsD4t4UFjeIarqjjWtVfD/MaLK+7MPsZTjO5d9siYt3EwS+qdOHDtXEF40AdXxjYbopWboWCT3r5pNmTxv0MWWRQ/WCRjODEeUXAmizQCESHAp+EummVQ2eO78RuOHkyNt1JwSTwq5hdpOij4FayUGE0uDw47P5c7/1n+z9Vh2jPKPqwYgvyg2cIpTBe9tTrRanhT7U66zQ5i1IQn6BD4Nmqlro95qqEKVrl2DlaD0c521S0/edHygY1lAgUBIOJbEDreGh3js0aCXmoTspx8ATsJDsvggFkhm8eEyk4CdknUYXPc7sqoJ4lucOWINxYI99+i568Y0/oeC9Tx+TzGV3lgq0ndAAln25+uMGKtkZO/pws55E/D5svAgaKK4Z13X/MFEygvR4UDS3i4uoy9MvlM3l1QpvMMS01e150zOiqYMtSPcgEVV6m
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(7416014)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(3023799007)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?X5FhlsZvNBGfb4jo5J/YJiX2dj3e9EPPm2WnkZoGihy8b8uZXd5oxjkzi6IQ?=
+ =?us-ascii?Q?+LpsNVUdSlLEV/dHwZTuKjKAhXAm1A7Cqxg7+NVd7Soj6vf4hamhj2n7Ql34?=
+ =?us-ascii?Q?ItAd6wxstpbkrfr8Bns+k5dLgF0m29/Ivmq7JkP6Zpe/f8T2MtALqdZh0Lh+?=
+ =?us-ascii?Q?5l2WDsHtJo0zDasZUQumBzWR3XXIo+a4uHYTwQawMNuPrOIs63KAe7333dhf?=
+ =?us-ascii?Q?/lC54tAcM/61zpEJTXNWUh3sqaOWSerQnmKVAmvOUhBtw6LvdYMy5/PA+O30?=
+ =?us-ascii?Q?S6ZPHTLQVjMllppiJaZbOevtahUQEXlILGZzFN+6LBp/Pq9m5i18EcpiLZIk?=
+ =?us-ascii?Q?TrBJiGclJNXXFm6mEZF648zVbaExmDOEkAvhcDiF9iiUoBcNeh3RpLtENrvV?=
+ =?us-ascii?Q?7OZC/jDlG4Cff69mKhWMJMJsQOveceg1vPcXpt+DHqeNohTabAjScIp0kpI4?=
+ =?us-ascii?Q?LjZx2bsBZDrGcuGhfPMXeQCRby0jR9xVXJtVk56mnhmbX5E+z4/s2FnzVnSk?=
+ =?us-ascii?Q?BB4wQ87hU1SL3ysGdfQAIA3YtRV7fIOxvizSa4wMMbltbKWWWpMdrnQzyn9u?=
+ =?us-ascii?Q?3WDh0GIOOxyshwmhfqvESlX5MYJxaWHZkK72b1dAjd55NEGI5MT38sooJ/q7?=
+ =?us-ascii?Q?rgP1HYAB/LTSko2BsxSI5XZZIZT0dUfjp7u6s8dSi3zT2miwpk3Xp4nLzv9W?=
+ =?us-ascii?Q?zzohS8bjSYzmrI7VwhiAR7rgmPJ4w9GyjZcILy1v9bWegr9QCicf23GUovOB?=
+ =?us-ascii?Q?9EBaDCWZORjIoJGjXxqopCmpbRRYqjheGeruPu/Kcj6KNi8NwEJRlsIDs4AB?=
+ =?us-ascii?Q?D4F3yR1cIsa9zYqBZ2oLCwotU0bUh9LHsXmddVXVTPWII3A6D3jUHPMROaGY?=
+ =?us-ascii?Q?nszGF83Dy4U0tD3N1sndlxhaB2dtAgwACUkFn/q0Jr0UiZEvFXuGt3yD+sD3?=
+ =?us-ascii?Q?WQo9JRtYN4nHsdW42d/Av7W3SX75P0ABU3LVGbC7fldVVO41TzWOePcEFTLj?=
+ =?us-ascii?Q?Uq/gEyyHH6HAyaRjArYOgR5KXaL87I21a7wTkDfARESAWhBBOsYyU7kKwlcE?=
+ =?us-ascii?Q?oRNQe+sBSsDyBGsM7Rd2U4nF4KmbqMdHDh3zEQgcC6K2ze1cBo06z2t/EKTf?=
+ =?us-ascii?Q?WRDdVmKIpW/nAWtbtkmGdspR6cKypuv2vfG6IAkYvwgzOiFRLZBw4rjiSLsJ?=
+ =?us-ascii?Q?bo76HRcu3F9iTvi5zv2Q83X5Q478j0s1qUS0xS6Rv7/Dw39ntTbZXETfKB2y?=
+ =?us-ascii?Q?8zFYRxF6OH8ggX9rSn4BVAODX4DHcqMmAXmkqoX6wMPxiKL6pcbOgnsA78ud?=
+ =?us-ascii?Q?OVPqCDI7Lw9yUN/mmaP5RyDn5k49ByKbPfA0mdNbwT8+CZh8ofugClFCepjI?=
+ =?us-ascii?Q?LDpP8DsMrNvjseuEpUPxuEnCxTDW7pJ2jU3wchGLnomqHIYZTTRSTqxZ4ZEq?=
+ =?us-ascii?Q?fZ/2rva7yfplMJEIz+LGjpDzrVQXkKX+EDJBFPzf6B4i0To+iV1S/mbAGSXl?=
+ =?us-ascii?Q?Yw/sG8xtpGj8pnYFruV/fHlVzGyBaPJDIxXXZnb6NqNeC1N8ZBhXeQqnhVIq?=
+ =?us-ascii?Q?C9+jbvbZ228oUpOyG+vyAtCRABhP8E7oNUHKvXhLD0H1pkprZlGteUXDsfHV?=
+ =?us-ascii?Q?B1sktPTiis/mH8RSfZQrGNYzre4iZU/QSrLAkyt26dEZRAySAVR0KCgI8jk/?=
+ =?us-ascii?Q?zjXBbxoTILtFL8pJcv+TAJnDjSUsWIOMnKB1woiUM86RljA6liTar4/riffX?=
+ =?us-ascii?Q?9rlds9cQD796liMfFv47agqrbKY+CaUBejYXODIqJgrVWyD8PSjp?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c11816e-8886-45cc-659b-08df1fc6463a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:14:15.5288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: m+d7zhR0z3uXgXUX375N4C3vrMm/AC2qSfLoLVIpnTBdvBfMhK6VEaumm+nPa3HTR79g7EzrOkxHp3hR9yBDgPlBnhjzkZFGnKPNDCUuvfm3I03nUPn3TiqRe0979NMv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8302
 
-The manual ifname allocation via dev_alloc_name() is redundant because
-the networking core handles interface naming automatically during
-register_netdev().
+On Thu, Oct 01, 2026 at 01:44:11PM +0200, Ernest Van Hoecke wrote:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> Toradex boards route the sideband signals of their 24-pin camera
+> connectors to different GPIO controllers. Camera overlays which name
+> those controllers directly must therefore be duplicated for each host
+> board.
+>
+> Describe reset, power-down, detection and power-control as
+> connector-local GPIO functions. This lets an accessory overlay remain
+> independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
+> remain described separately because the GPIO nexus does not abstract
+> them.
+>
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
 
-Remove the ifname module parameter, the corresponding field from
-struct registry_priv, and the rtw_init_netdev_name() callpath.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
-Changes in v6:
-- Rebased one more time. Should be working now. I'm so sorry for it.
-
-Changes in v5:
-- Rebased onto latest staging-testing to resolve merge conflicts caused by recent tree updates.
-
-Changes in v4:
-- Rebased onto latest staging-testing branch.
-
-Changes in v3:
-- Added missing changelog.
-
-Changes in v2:
-- Removed rtw_init_netdev_name() and the entire manual naming callpath
-  instead of hardcoding "wlan%d", as suggested by Greg KH.
----
- drivers/staging/rtl8723bs/include/drv_types.h |  2 --
- .../staging/rtl8723bs/include/osdep_intf.h    |  1 -
- drivers/staging/rtl8723bs/os_dep/os_intfs.c   | 26 +++----------------
- 3 files changed, 3 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/include/drv_types.h b/drivers/staging/rtl8723bs/include/drv_types.h
-index 0db276d46b1c..7f7d4fbad4bd 100644
---- a/drivers/staging/rtl8723bs/include/drv_types.h
-+++ b/drivers/staging/rtl8723bs/include/drv_types.h
-@@ -151,8 +151,6 @@ struct registry_priv {
- 
- 	u8 enable80211d;
- 
--	u8 ifname[16];
--
- 	u8 notch_filter;
- 
- 	/* define for tx power adjust */
-diff --git a/drivers/staging/rtl8723bs/include/osdep_intf.h b/drivers/staging/rtl8723bs/include/osdep_intf.h
-index 83a25598e962..f1e7a303a286 100644
---- a/drivers/staging/rtl8723bs/include/osdep_intf.h
-+++ b/drivers/staging/rtl8723bs/include/osdep_intf.h
-@@ -20,7 +20,6 @@ u32 rtw_start_drv_threads(struct adapter *padapter);
- void rtw_stop_drv_threads(struct adapter *padapter);
- void rtw_cancel_all_timer(struct adapter *padapter);
- 
--int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname);
- struct net_device *rtw_init_netdev(struct adapter *padapter);
- void rtw_unregister_netdevs(struct dvobj_priv *dvobj);
- 
-diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-index ab291792459b..d220df325fa9 100644
---- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-+++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-@@ -106,10 +106,6 @@ static int rtw_80211d;
- static int rtw_qos_opt_enable;/* 0: disable, 1:enable */
- module_param(rtw_qos_opt_enable, int, 0644);
- 
--static char *ifname = "wlan%d";
--module_param(ifname, charp, 0644);
--MODULE_PARM_DESC(ifname, "The default name to allocate for first interface");
--
- char *rtw_initmac;  /*  temp mac address if users want to use instead of the mac address in Efuse */
- 
- module_param(rtw_initmac, charp, 0644);
-@@ -249,8 +245,6 @@ static void loadparam(struct adapter *padapter)
- 
- 	registry_par->enable80211d = (u8)rtw_80211d;
- 
--	snprintf(registry_par->ifname, 16, "%s", ifname);
--
- 	registry_par->notch_filter = (u8)rtw_notch_filter;
- 
- 	registry_par->reg_enable_tx_power_limit = (u8)rtw_tx_pwr_lmt_enable;
-@@ -394,17 +388,6 @@ static const struct net_device_ops rtw_netdev_ops = {
- 	.ndo_get_stats = rtw_net_get_stats,
- };
- 
--int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname)
--{
--	if (dev_alloc_name(pnetdev, ifname) < 0) {
--		pr_err("dev_alloc_name, fail for %s\n", ifname);
--		return 1;
--	}
--	netif_carrier_off(pnetdev);
--
--	return 0;
--}
--
- struct net_device *rtw_init_netdev(struct adapter *old_padapter)
- {
- 	struct adapter *padapter;
-@@ -726,14 +709,12 @@ u8 rtw_free_drv_sw(struct adapter *padapter)
- 	return _SUCCESS;
- }
- 
--static int _rtw_drv_register_netdev(struct adapter *padapter, char *name)
-+static int _rtw_drv_register_netdev(struct adapter *padapter)
- {
- 	int ret = _SUCCESS;
- 	struct net_device *pnetdev = padapter->pnetdev;
- 
--	/* alloc netdev name */
--	if (rtw_init_netdev_name(pnetdev, name))
--		return _FAIL;
-+	netif_carrier_off(pnetdev);
- 
- 	eth_hw_addr_set(pnetdev, padapter->eeprompriv.mac_addr);
- 
-@@ -758,9 +739,8 @@ int rtw_drv_register_netdev(struct adapter *if1)
- {
- 	struct dvobj_priv *dvobj = if1->dvobj;
- 	struct adapter *padapter = dvobj->padapters;
--	char *name = if1->registrypriv.ifname;
- 
--	return _rtw_drv_register_netdev(padapter, name);
-+	return _rtw_drv_register_netdev(padapter);
- }
- 
- static int _netdev_open(struct net_device *pnetdev)
--- 
-2.47.3
-
+>  .../connector/toradex,camera-connector.yaml        | 81 ++++++++++++++++++++++
+>  1 file changed, 81 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> new file mode 100644
+> index 000000000000..27fee3defde7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> @@ -0,0 +1,81 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
+> +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> +
+> +title: Toradex camera connector GPIO nexus
+> +
+> +maintainers:
+> +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
+> +
+> +description: |
+> +  Toradex carrier boards share a common 24-pin, 0.5 mm pitch FFC/FPC camera
+> +  connector carrying MIPI CSI-2, I2C, clock, power, and sideband GPIO signals.
+> +  This binding describes the sideband signals as a GPIO nexus. The other
+> +  connector resources remain described by the surrounding board device tree.
+> +
+> +  The nexus exposes connector-local GPIO function numbers to camera overlays
+> +  and maps the functions wired by a carrier board to their GPIO controllers.
+> +  GPIO specifiers contain a function number followed by standard GPIO flags.
+> +  A board may omit functions which it does not wire.
+> +
+> +  The function numbers are:
+> +    - 0: Camera reset, connector pin 11
+> +    - 1: Camera power-down, connector pin 22
+> +    - 2: Camera identification, connector pin 23
+> +    - 3: Camera power control, connector pin 24
+> +
+> +properties:
+> +  compatible:
+> +    const: toradex,camera-connector
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +  gpio-map:
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  gpio-map-mask:
+> +    items:
+> +      - const: 0xffffffff
+> +      - const: 0
+> +
+> +  gpio-map-pass-thru:
+> +    items:
+> +      - const: 0
+> +      - const: 0xffffffff
+> +
+> +required:
+> +  - compatible
+> +  - "#gpio-cells"
+> +  - gpio-map
+> +  - gpio-map-mask
+> +  - gpio-map-pass-thru
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    camera-connector {
+> +        compatible = "toradex,camera-connector";
+> +        #gpio-cells = <2>;
+> +        /*
+> +         * 0: Camera reset, connector pin 11
+> +         * 1: Camera power-down, connector pin 22
+> +         * 2: Camera identification, connector pin 23
+> +         * 3: Camera power control, connector pin 24
+> +         */
+> +        gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
+> +                   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
+> +                   <2 0 &gpio1 2 GPIO_ACTIVE_HIGH>,
+> +                   <3 0 &gpio1 3 GPIO_ACTIVE_HIGH>;
+> +        gpio-map-mask = <0xffffffff 0x0>;
+> +        gpio-map-pass-thru = <0x0 0xffffffff>;
+> +    };
+> +
+> +...
+>
+> --
+> 2.43.0
+>
+>
