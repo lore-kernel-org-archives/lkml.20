@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD7B4E77FB
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B905F379EDA
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852544; cv=none; b=uAVXBTS/e5Qpjn4GqG3cS8LhuMKOmf2mrBjBXFqZdNdI5tcy+mZewpS5ZR05Uqt6NVSBq9LoIP0zQAZhzcnNN6vEPWoOcuSGFxIFmd8E7Qa8/DF1D6ij8dGvahSkW14yeXLvD86fXqsAL7cATsRVBCNuRwIIvxEx+3Unn5cuf0g=
+	t=1790852595; cv=none; b=QVQMqdSx1sRjlLje7DHCp4v3xs1VE6PZyzI9X1gukx+XlzG+xgPif3Q6DBhkOzkcEFRAk8f8KRjafaotHrY6ks6LnSfl4FJqJNBgpQbDdtg+3PaMswYnhNvPzUjNIpNXGHiIObpg7hRz9rIkqDyjeHUssE4a+rgHXiz35iKUIrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852544; c=relaxed/simple;
-	bh=AAlmuP7Zbq46cR3jlCBUJN55F+/3OqGdgksKttWnW20=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fzt0BIf9rAD1pBbxYw4J0Zj7RpYTqBWclrQIPlG2WhFwy7t4ZsbucLuqdzNNX+FhowEw3IYO0mXkD4qAIDUihMIcg+eVF5fxcx3PaCuQjBg6yvBaSq5i+5EByxG5/8XeP8lc/UcLHer2aH7V17O8T1qtmqutPkv7dua93jQow38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T2VLeLXZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=caSoe1w2; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1790852595; c=relaxed/simple;
+	bh=rCkHgUNzH5D5IlD/fepvc6TL+xU2CyAfDB+iAEDgnQc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fNeu2Bx+NosULCcaogRr5mYHTE29rMvWVKtIjoTHR8wTVeIXqMGLZDaWdtIeR8aRcfbNQ1/W/mCFstjcxWH3ZjQOI0kKVCOU1vg/JvL6Trb2RX3g2rWLI7ILoyVSChzL7MEj6P28RNwlUxb5ZMjm+uMTpXnDyKt246x89oj1em8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gIquDs/S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cWgY/wmB; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T2VLeLXZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="caSoe1w2"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xeQr2176984
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 11:02:18 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gIquDs/S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cWgY/wmB"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xNTb1062199
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 11:03:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KiHrKYHs1q0NoEg2GeDpcNzoHKZ7xEAHie7JhW8mVJw=; b=T2VLeLXZphN0RH6C
-	2R6fLQ28PdKnWSttxWCnlQQHNmG4gXZW7JLIEtvbCnLKAX2akFoz46yIjx4JqVTk
-	8rXWsc+3QNZm1onb/YwI0ZrgID1bfvw7M9ZpqemMQofiuD0hfuSeR7APj+8f+7bh
-	lGsGE0qa4fQbw/Y/txXzdyCPNQvuA+z0g2uSDTYebALEDPf014fD6Nec4T6o4/0u
-	7ov71h0fMKGrOUohigIS1UXpRWnQ0tvtRcs5ynTA06OfjFHDb7D8zxdXC91OAgkc
-	eny4ex4YdnKVORBVN5p3u4b6OCajk8QQM2ZlkyIcIoDZRgt+Lyw2bE3QPAvqdiml
-	BvMLhQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1h7nsg6p-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=QRdRmNwwFb4C3q3OKptwmD
+	oUiwXrWNwUfk5/d9yGdI4=; b=gIquDs/S1b8XApmIW/3KT4fJpQvaZZIj+y2rrh
+	oZwXhZfU90rbkDIfx4FonZblBaX1RpbEQqrwcm7f+a8nyOB3ksVcI9BFmvV2Ot69
+	fQRyX7RbbbP37jSAfdnDpXlv9uJiOMeTwdE++oDChLQGhebfVyX9r/kTa2mX5oSQ
+	uPLczGQ8eU/EbJmrAHCLLeO1SRbSz296Fc4gx1l0WyX8SAUT7viwh7LjHANS9Ry+
+	Puj5zg9t4Lmr8ZZ/Walwdta2p1M+RnW4ufSGoHrqIMbYAOGeaH4/3Z3zdEmU9Zxt
+	EMRGUGIIgY79abLgRxdk+K504AwoF747A6oCyeOFR9V05GXQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvuhaa-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:02:18 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86261e66700so4866198b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:02:18 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:03:01 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a47617a0b3so4505745a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:03:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790852537; x=1791457337; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KiHrKYHs1q0NoEg2GeDpcNzoHKZ7xEAHie7JhW8mVJw=;
-        b=caSoe1w2oj+UxOBZfrkqkRLwlxKTYyE9VwbnZ3n/ZS/mPx1VG/CMGXBUE+aTFP9A/+
-         JadBg2EKAqVA4opgk9af8QE89LtiDU63cJsJfDEFkq13b5RrJH/c9VUBZPcyI+L3DueM
-         WoQTIeEQ4pONxu7Qiev4hpkjv2TS+80NADQ9jZneC2RBPohu5XZ7DyJFuO3A6w3rqoOo
-         WA626/sFuJZ5o73SnedGb710LxU+W2IAiRu5TUoXhHKsk/loW+uIoBek19ARdCiXiC2d
-         bJmOzq2sqEDXSURxR9E/f3gNkXUFYSAY3ZXs5pmEELplv9Unog43ZuXzs5G1zVtWNfwk
-         7dWQ==
+        d=oss.qualcomm.com; s=google; t=1790852581; x=1791457381; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QRdRmNwwFb4C3q3OKptwmDoUiwXrWNwUfk5/d9yGdI4=;
+        b=cWgY/wmBYhZk6Ctl0YAyJMu4HnXZ6WftGqIqhC5CZ0PI3GpizsbjQUtvuZqBieV9VC
+         VtUyfSqFMU2eG5WjpC1g1wttrfI6w71eonFeJ7Ku81mztczVGreGYgRbwY+3JJQEp9QJ
+         9EkvJrSwjuNrQYaIthmenJnq9cZJr5InBwaJVC1KDnwAdmzQOqzOAFFpVcDJpDIk7Xnf
+         9WABWSUE5OR/4LbVDYNqhCVfll6b+m0ax9l0CBnvPN3Vy1Yj5b/k91eTxVgl93VTPAzW
+         BmIc9xdaDqrOM+Sw6fQ2hF7i+Qe+yzp2B+39NednsCdduHtO8vx/ro9ITglho/ws5Fk+
+         c85g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790852537; x=1791457337;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KiHrKYHs1q0NoEg2GeDpcNzoHKZ7xEAHie7JhW8mVJw=;
-        b=Xs/0eTHwglxxaFQmuTROp0Np1Fts/pBheWZu0EtsdcJRjqQ8BtA4zdJwS7qka0R/OO
-         HJgaaD2dfs1/20fw1LENTxorB9qW26JoXPt/E4o2J2Q3KmZzP/5IiDksftTqVsDVI46W
-         LPiHZLyYJ8Y40hq9xOdAjnwt1yES/L8WMZFnLc+yvWnJSG9bGc4r6xBxkgGt74rCftUn
-         bfoZARuOG+AsjYOwqe5DKPm5aDiha4EMBAyWlqn0JPXyClWPaUawppQJIJIA8aTI2d1i
-         u84wKmDXuCaQUOofPTEBFepJRELp/EsCilwmSWCRp4RlGKDwBWvmbNplx3r/KhU40wSO
-         9RIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxOfJ5KOK+VCpFptSmN67kWoGUbwHmdmxQP8hsjdrf0k6rKY1IuoMGTM0htroY+mtASK0HP+XUva08f/s8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYAR34cWIPnEW9i0SrNmRy9cz73pVORI7WPskV45YruBp03tul
-	PzCa7kdbZDzLZUGeUzcBPEE15ZLvskkU8HPydCEAhoF0XeODfdVW/XBe02B+rru1hA9kX+y+grz
-	hu0d/VTRRy4TeAtvIEJIN1pLIXwzPH3YlrOlAYGUWupC0Ha7v0O28apoQo4i4dNfLMsA=
-X-Gm-Gg: AYBFou2WIsaaqSl5Xhw16QBC71+4xXsW4Y10AMUbed92LDi3oz0oX852w53u5T0s7Zy
-	3lT+E0sF0MoG/RXvl7EJOy/FQC/qw37Z3lMXWve+vXc2YMfVMrzYSC3FvFtqY9gunEfoR9tkmi8
-	eburFr2aAdQuHvaSCXRglgD4rnRNYOJCLhnUNdY0MpG1ZSTab1ADUY6l3MzhHtq+NefE+GhGLVr
-	ip5SLkrygrYKjWTBv3qrvsLBSdN+MgaPL7xolYxmRXThCYtmZ7epKfc2xml8Rk3sMNJN7dvTrSo
-	Wo+WIR7GDNCRhI9mLJ/23Y4nOyZEi4dercD4N1Y8UUmrjwSXaBHOrWNbX1+FbHO3YLaTG0LnQU9
-	3Y4aol4swGN5iKDq6uIDE406d6F5tiJ0L+Q==
-X-Received: by 2002:a05:6a00:9296:b0:87d:d878:5eb1 with SMTP id d2e1a72fcca58-8874d29ffc1mr3623348b3a.56.1790852537107;
-        Thu, 01 Oct 2026 04:02:17 -0700 (PDT)
-X-Received: by 2002:a05:6a00:9296:b0:87d:d878:5eb1 with SMTP id d2e1a72fcca58-8874d29ffc1mr3623306b3a.56.1790852536584;
-        Thu, 01 Oct 2026 04:02:16 -0700 (PDT)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-888197ced69sm886049b3a.48.2026.10.01.04.02.12
+        d=1e100.net; s=20260707; t=1790852581; x=1791457381;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QRdRmNwwFb4C3q3OKptwmDoUiwXrWNwUfk5/d9yGdI4=;
+        b=eMa3NeeMICH0iElO+8YbVOirn7qnECgfug79VrzvTe66q3/4my3xXDwMLs0zdHFPBK
+         MNcTirQXxZ+mihynSt+gMOM07LDqNV+NbCn+0u7IkWau9B8WNYuJ3LVOPiWbT3DK0xVe
+         2yAwUpv6HFmiNEGZ4TKHrCDKMGfHAhcYBL0zRkuSd4t2BzNiVmxQjlmxqhXZRcIUEA/n
+         XGOsTDR3wylMlmlkR3UE98QKoVDjloCb0+WGYH6PI0E4t+yPYgsM4RpBJ3zw14psesqK
+         3oajuuWfq4VI0/BClInbEuTjhqBanTVwNPZWNjTFK0rvyB+Z2c0gh5pDvw4DLExtih0+
+         gALg==
+X-Forwarded-Encrypted: i=1; AKwUvBxn2yyUCyRDkw0FgRR6oKj112i0UILiO8HPbfeRCo9wvdHATgu2VH8gsVy0VQOe/qIHk++kMM4Cbj33cuc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbca+8Fm8DvBEFq4Ayk2iikMxnUhndCAJvyrzkFVd3GHvJ+/YY
+	QAMxjsYFHThjVnAERHMEeGbAspV6cbTXFKKkz5ZiHYDm1ZidDfDFU1RRCoujMzY1pjKyQKfVhLf
+	Sm+ZNXfnXYELEE9MKCyVg5U48VYHiyLPn3/wot6e/sGsXtmDj3EgJPFjzVF3bWEXIXqg8DCNvNG
+	c=
+X-Gm-Gg: AYBFou3pTlK0i1heSoKevGCWdFRF9Ow1PZIcmXQ1JLrH3dSJzf6pob0TLoMihe5QhJG
+	oRzQKMfV8RiavMA/Ddqh5IAaHgt1R+CgUmBKAvZSJ4uBuTQy6V/HlbxUPFxXNyJeSOamHZfEBWd
+	OGTJHXoIrlxqotR6e+4mVFbyHEBgKFinM3i+mYYKCWVr/+4mzFG2wRxdOfqGwSEFe+NxHZaq4Rj
+	OOkAShq+RIYOPXiMVX82KJeEB3CTQMRO/IZZJin9s6vQ+rOh40UCN0pjvWXqJdRHeuph/flZDQB
+	oRCt1C+SPM7f1jL/feWtjvUJZzFvUdt7lva2CRGGV94H5gfq3W5pt9j3+pvdvM4obYLLkN9KiPY
+	njoFe0LLJwG1FevVBfHS6kVkjTQ==
+X-Received: by 2002:a17:90b:5101:b0:3a4:71b7:eb63 with SMTP id 98e67ed59e1d1-3a4d14ed8a4mr2545173a91.10.1790852580392;
+        Thu, 01 Oct 2026 04:03:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:5101:b0:3a4:71b7:eb63 with SMTP id 98e67ed59e1d1-3a4d14ed8a4mr2545134a91.10.1790852579558;
+        Thu, 01 Oct 2026 04:02:59 -0700 (PDT)
+Received: from hu-hdev-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f4371383sm4076810a91.2.2026.10.01.04.02.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 04:02:16 -0700 (PDT)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Thu, 01 Oct 2026 16:31:26 +0530
-Subject: [PATCH 2/2] misc: fastrpc: fix init ordering race in rpmsg probe
+        Thu, 01 Oct 2026 04:02:59 -0700 (PDT)
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Subject: [PATCH v3 0/6] Add TEE based client driver for UEFI Secure
+ Application
+Date: Thu, 01 Oct 2026 16:32:32 +0530
+Message-Id: <20261001-qcom_uefisecapp_migrate_qcomtee-v3-0-13df5c20c2e3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,191 +90,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-fastrpc-probe-fixes-v1-2-1376d93b8b3e@oss.qualcomm.com>
-References: <20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com>
-In-Reply-To: <20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Thierry Escande <thierry.escande@linaro.org>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMk9vmoC/4XNTQqDMBAF4KtI1o0kMf511XuUIjEZNVCNJhpax
+ Ls32k0XBTcDb3h8b0UOrAaHrtGKLHjttBlCSC4Rkp0YWsBahYwYYRnhpMCTNH21QKMdSDGOVa9
+ bK2ao9v8MgGlSZKXiKRDKUVBGG7qvY+H+CLnTbjb2fQx6un+/dk7yU9tTTHCTpaWsVaoIlzfjX
+ Dwt4hkKfRwO2ic8+2EZO2dZYOtCFI2sgTNK/7Dbtn0AovHekSwBAAA=
+X-Change-ID: 20260408-qcom_uefisecapp_migrate_qcomtee-13869d45e014
+To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@kernel.org>,
+        Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Basant Kumar <basantk@qti.qualcomm.com>,
+        Apurupa Pattapu <apurupa@qti.qualcomm.com>,
+        Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
+        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790852523; l=5052;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=AAlmuP7Zbq46cR3jlCBUJN55F+/3OqGdgksKttWnW20=;
- b=lozHwIEDFFZck/CjJ7xyGQT6NncRY+b1WMRhFBpg9GI4ZSkRrs/aczQl/1+vo98+1u6oLCcY5
- G4dthWGsZ/QDCo9iLfyFsL+g4P3OmoiERG8ZvCWEalWZA5h9dsblH4T
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Authority-Analysis: v=2.4 cv=OI6yTiaB c=1 sm=1 tr=0 ts=6abe3dba cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790852574; l=7438;
+ i=harshal.dev@oss.qualcomm.com; s=20251124; h=from:subject:message-id;
+ bh=rCkHgUNzH5D5IlD/fepvc6TL+xU2CyAfDB+iAEDgnQc=;
+ b=7nX9LIGWYk1iH32OLso01l16H7t7GogmKOIdd6tNot+33kEpBu9tLBU49IQquxLL8s/r+/Xkh
+ gOF7SbpV+E1CZIY/BVatdb991kme4b9qlBIXCsyI27E2QnTe4po4T6w
+X-Developer-Key: i=harshal.dev@oss.qualcomm.com; a=ed25519;
+ pk=SHJ8K4SglF5t7KmfMKXl6Mby40WczSeLs4Qus7yFO7c=
+X-Proofpoint-ORIG-GUID: U3fehzW8TjM7sm54w0gwFeFjlnCXUOxc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfX7C9+//xyxIU2
+ x9n3vieTFkJxzchx2KTmdZyYunzB94WF1dIq6vxRzbc0eBGDVpXrIUL0un3g0QhHVN5VaZ/+OBe
+ RxTmyV2XZ7dl9nhb8xaVIL2/eUK/Ho+xz0rFQiNDUtoONimNPHvpoelg7doDWkPECJSrAB41YRM
+ WravDMsWA9SwMHr8YevowE28LkI0QwdNeIJ0xe2xYT+VUzfpxD5Ve7GEbdzPAnazm7nd0/BCYNq
+ 8/HzEb0QQd/gmelxSXce/hov9taf7Sog/4XU3HEnSqRK4wokdPQKS1ZrELDBhKEOU6ETm2qtcfh
+ etk1/5vjl4Yxd6XBRMwl5PUQiuwHzWjxOfyAUyCvBYKQY6f8SfeoE9BQ7pwUe3WJfOnAs2NUNWH
+ Dh8opXU+QGyCtFsDawGzwsKkepa3ksRFrIhSF26j/1E/Qh7xwJlvtvPAkRI8FX03rBiKniRv/Vj
+ obs9IM7ocZxGgSS2j3g==
+X-Proofpoint-GUID: U3fehzW8TjM7sm54w0gwFeFjlnCXUOxc
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfX9KZUjCyhomUx
+ 4WXLQdjeIbhE3u1elYg66SGk+S0WNF8JnERyE/EqIYXmPpOoFi0cE8eIq5kyAhxc3X9Qcujsc/D
+ Y2uLaqAW09nygyLk8w8BBMFRvh5MaeM=
+X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abe3de5 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=KWbisqpt0Nw2-B9i3BEA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfX6U3vEeC0qfG1
- 8HxmdR/705UV+nvAPTUXTvAW5qE4yeK9fM8XxpoEouYjAowChVyDSJtCnRTNG5L1zz98ez+A63T
- F+NzD9d7lNXwqLAkHEUcboyS3yiocns=
-X-Proofpoint-ORIG-GUID: 8zVlLyjnO7jXWX9VN6RPYfpw9DnqDXdf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfXzKZeTbQ57zW+
- CvH64HoMh5+2joz05//p4B3VZJ7kqGya6ckeC251ZIn/8UzPBEIzJ45b4mxWMjxZhz6bDI7wbvw
- 0NYWTxGz3+ZDBE+wNHhO65zIUD6tHoqIe8IrbjjFWw74gLR+zGq+038OMeKeWfcGyeBUNhxb95M
- 3tHQDVQm3Zp/nglvpijN9xXN3lwsVdQzYrJwfJSMiS1i0hzWSwrNxIUnS1nyozg+6Vr+8JYT3er
- TCCwb9f9La/KTWO5zVPPAyKRBZgZ4CiYdNl0bKAOyODVjL31eqrF/t7nZKGUqYVPWX4baBUwth4
- IkRPR2WwfXPivyE7HCoOgBikl4iokCYgS5Qs+NaiMdFLpIwkOuKCFniRtVZ8Ck/4z7nPR6EsBIe
- 0/CkdwxRjqTJPBAoxLm9OByZC68jqj4WMXJ1UtPf8DZdu+sygt+/xNj+X8h+GjkPGyKDSRrCIBf
- /THZF7HmEOK6CdL+QUw==
-X-Proofpoint-GUID: 8zVlLyjnO7jXWX9VN6RPYfpw9DnqDXdf
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=NEAV23lmAAAA:8 a=EPKcpx9xAAAA:20 a=EUspDBNiAAAA:8 a=P-IC7800AAAA:8
+ a=VwQbUJbxAAAA:8 a=_oFDGg79Q7pfAgulZHUA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=d3PnA9EDa4IxuAV0gXij:22 a=ZT_8zCgGubuJgGonBfBE:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010043
+ bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010043
 
-fastrpc_device_register() calls misc_register() which makes the device
-node visible to userspace. However, kref_init(), spin_lock_init(),
-INIT_LIST_HEAD(), dev_set_drvdata() and fastrpc_cb_devices_create()
-were all called after the switch/misc_register block, leaving a window
-where userspace can open the device and call fastrpc_device_open() on
-a partially initialised channel context.
+On Qualcomm SoC based platforms, UEFI stores EFI variables within the
+Replay Protected Memory Block (RPMB) located within either the UFS,
+eMMC or SPI-NOR storage. The RPMB key which is one-time programmed into
+the storage controller to allow authentication of the RPMB frames is
+generated by and only available to the Qualcomm Trusted Execution
+Environment (QTEE). Thus, only QTEE can prepare the RPMB frames which
+will be accepted by the storage controller.
 
-On a concurrent open(), fastrpc_channel_ctx_get() calls kref_get() on
-a kzalloc-zeroed, never kref_init()'d refcount of 0, triggering:
+The legacy QSEECOM protocol used for communicating with the QTEE is
+deprecated and replaced with the use-case agnostic SMCInvoke protocol
+starting with the Qualcomm SM8x50 series. On platforms where the QSEECOM
+protocol still works (the QSEECOM driver probes) the driver does not
+support a listener interface with QTEE to enable writing of non-volatile
+EFI variables (via listener requests to Linux from QTEE) to the RPMB
+for UFS and eMMC storage. (Qualcomm Compute platforms with SPI-NOR storage
+are an exception to this and work with QSEECOM, see the NOTE below)
 
-  refcount_t: addition on 0; use-after-free.
-  Call trace:
-   refcount_warn_saturate+0x120/0x148 (P)
-   fastrpc_device_open+0x204/0x258 [fastrpc]
-   misc_open+0xd8/0x1a0
+Therefore on such platforms, a TEE client driver (which communicates with
+QTEE via the SMCInvoke protocol implemented by the QCOMTEE driver
+registered with the TEE subsystem) must be used to update such EFI variables
+through the RPMB service hosted in the QTEE supplicant user-space daemon
+[1] which forwards RPMB packets to the RPMB device.
 
-Additionally, fastrpc_cb_devices_create() not having run means
-sesscount is still 0, so fastrpc_session_alloc() returns NULL and
-fastrpc_device_open() hits the error path which calls
-fastrpc_channel_ctx_put() on the already-bogus refcount. This
-triggers the free callback, kfree()-ing the channel context. A
-subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
-freed spinlock:
+This series introduces such a uefisecapp TEE client driver for the
+aforementioned Qualcomm platforms which installs efi-var operations _if_
+the QCOMTEE driver registers support for an object-IPC based uefisecapp
+service on the TEE bus during its probe. Only new QTEE firmware versions
+available at [2] provide access to the uefisecapp service via the SMCInvoke
+protocol.
 
-  Unable to handle kernel paging request at virtual address ffffcd5841510ca0
-  Internal error: Oops: 0000000096000047 [#1] SMP
-  Call trace:
-   queued_spin_lock_slowpath+0x414/0x5e0 (P)
-   _raw_spin_lock_irqsave+0x74/0x90
-   fastrpc_rpmsg_callback+0x4c/0xf0 [fastrpc]
-   qcom_glink_native_rx+0x6c4/0xf10
-   qcom_glink_smem_intr+0x1c/0x38 [qcom_glink_smem]
-  Kernel panic - not syncing: Oops: Fatal exception in interrupt
+Thus, QCOMTEE now maintains a static list of always-available object-IPC
+based secure services exposed by QTEE. These services are implemented either
+within the QTEE kernel or within a pre-loaded Trusted Application (TA)
+usually loaded by the bootloader. The uefisecapp TA is an example of a
+preloaded TA loaded by UEFI. A static list is required since QTEE does not
+yet expose any way to dynamically query and enumerate the services exposed
+by it.
 
-Fix by moving all channel context initialisation (kref_init,
-spin_lock_init, INIT_LIST_HEAD, idr_init, dev_set_drvdata) and
-fastrpc_cb_devices_create() before fastrpc_device_register(), ensuring
-the struct is fully ready before the device node is visible to
-userspace.
+To facilitate object-IPC interactions from the kernel-space, this
+series also introduces a tee_client_object_invoke_func() to allow
+invocation of TEE objects similar to the existing tee_client_invoke_func()
+API exported by the TEE subsystem which allows invocation of TEE functions.
+Some suporting changes are also introduced to track and handle operations
+for TEE contexts opened from the kernel-space in the back-end QCOM-TEE
+driver.
 
-Add err_depopulate label in the error path since
-fastrpc_cb_devices_create() now runs before misc_register(); a
-fastrpc_device_register() failure must call fastrpc_cb_devices_destroy()
-to clean up the compute-cb children before freeing data.
+Finally and as previously mentioned, access to the object-IPC based uefisecapp
+service is restricted on older QTEE firmware versions. A new QTEE firmware
+release must be picked up from QArtifactory [2] for all upstream supported
+Qualcomm SoCs to enable access to uefisecapp service via the TEE client
+driver.
 
-Fixes: 3abe3ab3cdab ("misc: fastrpc: add secure domain support")
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+This patch series has been validated on Kodiak RB3Gen2 platform with UFS
+storage by attempting to read/write EFI variables via the efivar tool [3]
+after mounting the efivarfs filesystem. See [4] for an example.
+
+NOTE: Since Compute platforms do not have a firmware running on their SPI-NOR
+storage controller which must be programmed with a RPMB key, QTEE has a
+SPI-NOR driver which holds the key, and so the QSEECOM driver can be used
+for updating EFI variables on these platforms because QTEE never makes a
+listener request to Linux (QTEE doesn't need the Linux SPI-NOR driver).
+Such platforms are outlined in the following static list [5].
+
+Merge Strategy:
+
+This patch series could either be taken from the OP-TEE tree or the
+QCOM soc tree. I would prefer it to be picked by the OP-TEE tree since
+all except the uefisecapp TEE client driver patch in this series make
+changes relevant to the TEE subsystem. It would be great if the QCOM soc
+tree maintainers can Ack the uefisecapp driver patch.
+
+[1] https://github.com/qualcomm/minkipc
+[2] https://shorturl.at/zQU07
+[3] https://github.com/rhboot/efivar
+[4] https://docs.qualcomm.com/doc/80-70020-27/topic/manage_uefi_environment_variables_using_efivar_tool.html
+[5] https://elixir.bootlin.com/linux/v7.3-rc5/source/drivers/firmware/qcom/qcom_scm.c#L2302
+
+Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
 ---
- drivers/misc/fastrpc.c | 43 +++++++++++++++++++++++--------------------
- 1 file changed, 23 insertions(+), 20 deletions(-)
+Changes in v3:
+- Updated the cover letter and commit messages to highlight the following:
+  1. Only QTEE has the ability to prepare RPMB frames since it generates and
+     holds the RPMB key.
+  2. The QSEECOM protocol is deprecated on new platforms and so this series
+     migrates the uefisecapp to SMCInvoke which is a use-case agnostic, transport
+     focused and easier to maintain protocol.
+- Use single if statement to update both flags and addr/uaddr.
+- Remove redundant use of new error variable in qcomtee_get_qtee_feature_list().
+- Minor fixes such as concise error prints and use of better error codes.
+- Fix a double free in qtee_enumerate_service().
+- Re-org the qcomtee_enumerate_services() function to re-use the same oic and
+  client_env object.
+- Remove depends on !QCOM_QSEECOM_UEFISECAPP from Kconfig since both drivers
+  can co-exist even on platforms that support both QSEECOM and SMCInvoke protocols.
+- Update the Kconfig description to better help the user understand when to enable
+  the TEE based uefisecapp driver.
+- Removed qcom_tee_uefisecapp.h file and inline the header in qcom_tee_uefisecapp.c
+- Rebased patch series onto the latest linux next tag: next-20260930.
+- Link to v2: https://lore.kernel.org/r/20260722-qcom_uefisecapp_migrate_qcomtee-v2-0-b8a8fcbe4211@oss.qualcomm.com
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 7ab1cbbf19bb..93d07d28a0f1 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2614,6 +2614,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	data->poll_mode_supported = soc_data->poll_mode_supported ||
- 		of_machine_get_match(fastrpc_poll_supported_machines);
- 
-+	kref_init(&data->refcount);
-+	atomic_set(&data->ctx_seq, 0);
-+
-+	rdev->dma_mask = &data->dma_mask;
-+	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
-+	INIT_LIST_HEAD(&data->users);
-+	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
-+	spin_lock_init(&data->lock);
-+	idr_init(&data->ctx_idr);
-+	data->domain_id = domain_id;
-+	data->rpdev = rpdev;
-+	dev_set_drvdata(&rpdev->dev, data);
-+
-+	err = fastrpc_cb_devices_create(rpdev);
-+	if (err)
-+		goto err_free_data;
-+
- 	switch (domain_id) {
- 	case ADSP_DOMAIN_ID:
- 	case MDSP_DOMAIN_ID:
-@@ -2622,7 +2639,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		data->unsigned_support = false;
- 		err = fastrpc_device_register(rdev, data, secure_dsp, domain);
- 		if (err)
--			goto err_free_data;
-+			goto err_depopulate;
- 		break;
- 	case CDSP_DOMAIN_ID:
- 	case GDSP_DOMAIN_ID:
-@@ -2630,7 +2647,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		/* Create both device nodes so that we can allow both Signed and Unsigned PD */
- 		err = fastrpc_device_register(rdev, data, true, domain);
- 		if (err)
--			goto err_free_data;
-+			goto err_depopulate;
- 
- 		err = fastrpc_device_register(rdev, data, false, domain);
- 		if (err)
-@@ -2638,26 +2655,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		break;
- 	default:
- 		err = -EINVAL;
--		goto err_free_data;
-+		goto err_depopulate;
- 	}
- 
--	kref_init(&data->refcount);
--	atomic_set(&data->ctx_seq, 0);
--
--	rdev->dma_mask = &data->dma_mask;
--	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
--	INIT_LIST_HEAD(&data->users);
--	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
--	spin_lock_init(&data->lock);
--	idr_init(&data->ctx_idr);
--	data->domain_id = domain_id;
--	data->rpdev = rpdev;
--	dev_set_drvdata(&rpdev->dev, data);
--
--	err = fastrpc_cb_devices_create(rpdev);
--	if (err)
--		goto err_deregister_fdev;
--
- 	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
- 		struct fastrpc_session_ctx *last_sess;
- 		struct fastrpc_session_ctx *dup_sess;
-@@ -2682,6 +2682,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	if (data->secure_fdevice)
- 		misc_deregister(&data->secure_fdevice->miscdev);
- 
-+err_depopulate:
-+	fastrpc_cb_devices_destroy(rpdev);
-+
- err_free_data:
- 	kfree(data);
- 	return err;
+Changes in v2:
+- Drop using MSB of the object_id to distingush kernel and user object invoke contexts.
+- Introduce enum tee_object_invoke_origin to check the context of object invocation.
+- Link to v1: https://lore.kernel.org/r/20260707-qcom_uefisecapp_migrate_qcomtee-v1-0-f659cbd5d04c@oss.qualcomm.com
 
+---
+Amirreza Zarrabi (2):
+      tee: Add kernel client object invoke helper
+      tee: qcomtee: Allow object invokes from kernel clients
+
+Harshal Dev (4):
+      tee: qcomtee: Track the object invocation context
+      tee: Export uuidv5 generation for TEE backends
+      tee: qcomtee: Add support for registering QTEE services on TEE bus
+      firmware: qcom: Add support for TEE based EFI-var client driver
+
+ MAINTAINERS                                 |   6 +
+ arch/arm64/configs/defconfig                |   1 +
+ drivers/firmware/qcom/Kconfig               |  31 ++
+ drivers/firmware/qcom/Makefile              |   1 +
+ drivers/firmware/qcom/qcom_tee_uefisecapp.c | 636 ++++++++++++++++++++++++++++
+ drivers/tee/qcomtee/call.c                  | 206 ++++++++-
+ drivers/tee/qcomtee/core.c                  |   9 +-
+ drivers/tee/qcomtee/qcomtee.h               |  12 +
+ drivers/tee/qcomtee/qcomtee_msg.h           |   1 +
+ drivers/tee/qcomtee/qcomtee_object.h        |  16 +-
+ drivers/tee/tee_core.c                      |  24 +-
+ include/linux/tee_core.h                    |  23 +-
+ include/linux/tee_drv.h                     |  18 +-
+ 13 files changed, 952 insertions(+), 32 deletions(-)
+---
+base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+change-id: 20260408-qcom_uefisecapp_migrate_qcomtee-13869d45e014
+
+Best regards,
 -- 
-2.34.1
+Harshal Dev <harshal.dev@oss.qualcomm.com>
 
