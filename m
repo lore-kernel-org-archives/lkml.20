@@ -1,547 +1,423 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011058.outbound.protection.outlook.com [52.101.57.58])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2446481246;
-	Thu,  1 Oct 2026 15:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866857; cv=fail; b=VaIPxl3uFo6Wz0SjLDzYpu/wZwG91A02eJpgPnGNd7wwKN5tD9b3gD9phAvG8j5Jz9oKSbu68eVLJdWno/+1Bh+8mtdgCr9hPB0+oHd9A2zf18r1kAFxjcKV/EvUbjcyH4lXiGg8c1KUhSUoyBEitjt5qtoyu8WDwzGTx+y1T1s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866857; c=relaxed/simple;
-	bh=qYl6yJy7DzIHP9hzh3w0fHo2iVIuK2zntPjGB8WOM1c=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qdbZZoUx2/XFD20Znk1AN2+D+JG/rAzCOzaKe9SiLrA3brhbEHGtR2ltsZUWM2ZDMWs/hS5tiwqzsW8vQWzNWtPmZOByUgYezW9qvTn5Yw8u7p1uKU1GdH/mrxiDmDoKu1/G2P4/NWrIH2YEyDF7ThMVVnv6B3G41WzlrXW0L4k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dRyVjgzo; arc=fail smtp.client-ip=52.101.57.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1045852E042
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790866864; cv=none; b=G+9TxIIgtxyPzm4YvRPyv2b1wpSrNtNSt2qQOgJfNqYu5lc2sTGzlfL9Pj08a+cMI8CFOksgeyPluKuTXptnhyK4lkLRh7iqmpaneg4jfpQkjulBQEU0jJlkCdkdPbnpo/MkZ6eHLQUBIBE4iUxLckgsw5NOgKqiJR7L8yGNJVw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790866864; c=relaxed/simple;
+	bh=sXpuH20fyOsY4luYBrH4B4yDXtYJ0SXMp/0xlGA88MA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gAgVIfxQt+gtSdzE2YlVcbHbGxxeteHCSVY2/zxIub/KI2SOSnhM3XrP5Slwa+2MrSrYYpeuaODfmDT67IE3QtvHolbSbWMqxlQSVbXT0LQoVG8rzWRZqLE58N2NxD77sjR97YsIO5hc8zvxpZlHbP98+LzfRkb0ifFZZX7nR74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Kf6rJcWY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f6VmYKwH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dRyVjgzo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x3w5X3T8/67BYDteDtQQjBOuHXwRe6sgixxGeJgKRkJk6OnM9QXd8NhmBO4S9obFSnpbPhDqXgN8QZfWdUQb60sjUOW+oAyC3QD0D9FggdRfSRJMHIWAM8AgyYYfa6V+UZZXy4boAKHIiB97RPNarZMj14tqPLdBbgEFEZQ1vdvxMLPR8yZovlXZ8Ln3vaL6W3kEcUh9XC1oYh1TjCId6EV7adaelUJfIwu2ILtJC2uVJVKacwmfpn9+4MUXux4Bu4WMvWkz9OQJs+iJaZMMhsqrxp1ib2qa/och7Vtag4TD+b7KySM94IM7sijILJY/CFF5/GKOTgVj7u7SnSZ1og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3m9uCKtP9rZHUiSp5/rIywpZTLc0+6ANCS+INLx8p8M=;
- b=l2KZ33+BQlzf6rzw/S9You1eqUVLAuFNKc/ZyjEcvdMTpwOo7+ns22F0Lh0pONccO2Im1WYPHUjpjK5xaif+1d4l2BmHrgFTzLAIUiikkXZAyl8P6LaDWPhf8sp6se1rfZYzVVjnNlVG3ZAqQmOTB1/g3URD/4lJa5girvt1osJy2rQQLhWNhrsFMn4BVeYvkvM/8PXzHaoa5QWGpWtmgNzE36zBG/8nq8nASWMYEO6gHh1cD3ksi+hEFnb4jRX6t2JYukQYEbnNJq36XGA2sOdgaXk/a7Qd4NuzNOlqL3Fzl6MOolfo6o8jL622zuJe5gelnrG6XAJ47wvcNMrNTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3m9uCKtP9rZHUiSp5/rIywpZTLc0+6ANCS+INLx8p8M=;
- b=dRyVjgzo4+IwCx0AsKeJ98YcI2AGMzdAX0HWxRJzd9TpR106FEv+jFzXXO6gyQlvB8czF5pkAg9kDnMTB/2COT0ok/kChSuCUHwADCn1nytt8BVxJj8catT4XMd1ClBjRAE2DSJOORBfZwTgSpkE3UfC97J92nB4eykglnkMVXGXBmv0Q+xzpVD5hmB/lpPtdgHLNaCkl5ZUUWLv3tRACrupNJ0WsPWNU90K0c/srDZBUs6NBdLlCEDeZ4YBbKOL37NzL2B1TZ/4SHa7jEZvhFdhXEEsNOCzwXIZZs3jz0qxknBeat4+zOaN1+S0HuLZ9ojMYby9bjE6loInsFIT/A==
-Received: from PH0PR07CA0022.namprd07.prod.outlook.com (2603:10b6:510:5::27)
- by IA0PR12MB8254.namprd12.prod.outlook.com (2603:10b6:208:408::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Thu, 1 Oct
- 2026 15:00:39 +0000
-Received: from BY1PEPF000264B3.namprd02.prod.outlook.com
- (2603:10b6:510:5:cafe::87) by PH0PR07CA0022.outlook.office365.com
- (2603:10b6:510:5::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Thu, 1
- Oct 2026 15:00:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- BY1PEPF000264B3.mail.protection.outlook.com (10.167.242.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 15:00:38 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
- 2026 08:00:12 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 08:00:11 -0700
-Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com
- (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 1 Oct 2026 08:00:06 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <andrewjballance@gmail.com>, <daniel.almeida@collabora.com>,
-	<dakr@kernel.org>, <aliceryhl@google.com>, <ojeda@kernel.org>,
-	<boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <ankita@nvidia.com>,
-	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<kjaju@nvidia.com>, <alkumar@nvidia.com>, <acourbot@nvidia.com>,
-	<jhubbard@nvidia.com>, <zhiwang@kernel.org>, Zhi Wang <zhiw@nvidia.com>
-Subject: [PATCH v3 4/5] rust: print: add dynamic debug support to pr_debug!
-Date: Thu, 1 Oct 2026 17:59:39 +0300
-Message-ID: <20261001145940.1077801-5-zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001145940.1077801-1-zhiw@nvidia.com>
-References: <20261001145940.1077801-1-zhiw@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kf6rJcWY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f6VmYKwH"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DirMd3071074
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 15:01:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5bAcYGIy8jeI69YAlNTN0l
+	uYORkRy+CXm8QV/D8mVoQ=; b=Kf6rJcWYegaDp3jf1LFrlEekIm8E3HGo4HFZD9
+	rFDaOuewIJHuP0ht4l3tOWqs60ZsMZIrKD9pKJNymlvt4OT46mWm5YwYObpL5qyS
+	ODOTUoRxfZurjBvRUa8gZ84R9pEsqJX21/XvdKD9qN9/+jlK4Zr5kE0pTjt4mfX5
+	NXLaAI+DAlGxbpwPmu55xILYVcNQo1gSZV+QMyasWMFS2lymZXZktyXkmtqvCnmz
+	a74ZZHVBkG1lVkUKfXFC1btAXPHrtsTMlX0sDsRUvPzIp1yMIxGyU1CKN/Sg+bLM
+	3pDs81pC7AjbfxzzHU1hhh/FbrGET9Gc6XM9Id1kmf+kB1IA==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1h7ntfvx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:01:01 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-46524220c5aso7385153fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:01:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790866861; x=1791471661; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5bAcYGIy8jeI69YAlNTN0luYORkRy+CXm8QV/D8mVoQ=;
+        b=f6VmYKwHwVFHmm1LNTqkNMBc3K6JiOO1Z6hmm9tfKUi/3zVJCNJLijvE8HEyCA1lIm
+         r0bxiMEES4z5Rl4emuqtVn+MKrE3xD+TDx6PvUWCzpeBtlIcVWYfsTPACNQxaJi4NN4o
+         WdCIPZpbMphszwqtvihAftsDMHpyeMvAxyHaigsThhEQEZsP9M5dUNjqddTubpv2jxwP
+         scFCfMdnjS+6d32jibFvzJ1baErZVAKVcE2ZSss4GqEsm7ZJkGCo5EEz4rMNY5DAxmh2
+         IdkYsWt9mi1hCBqTRAjymjvcUM2GO+2VuPWTyPB0G6zUvIDKvbG4D91H5cSWnNz2BQ1z
+         pHRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790866861; x=1791471661;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5bAcYGIy8jeI69YAlNTN0luYORkRy+CXm8QV/D8mVoQ=;
+        b=P5XbyCFBf3lm0p72jq8OHFGpe98vmkIf9YnPS2sMmrtcVq6CCz917vjxMpXOMeZl74
+         285NoEvW0+NXh8fLwO4OwF+eybXLe9lV3PviYLiiCw+yked0nawVWq3v/XsYjnBvHxZ4
+         CziACwBC3FPaoZ3L3fn7sVSTkh0LhLGSPk+AoeoyxRiV99/7q9k0U1ki9EKw2UUxwOOX
+         qwtGplNfLDF7CHLjUVEx5Bg6ChzDii71DBDBNSPiuQnpZPoCDpTQ28Vsue0DziUGYQpl
+         /4bjkN0I107/4ieKaoRmOvP5FqGnNux6eVHGiXRtj/vztDcwOxSqFwOUwThXPWhfC5Sv
+         mSlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQ1y2MJ7WN66UgiPC0NJYaAIm2frEP0X+5sRaK38xTuK6sfflVLA5EqyGbW61I8gYPq2a+Anha/q7w5ms=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEK3wnjBZXwwPJQWaxJHMnLOyoinGbaRl/vNWRuuw3zUtbFL+Q
+	mWDz+Vd50L5ntJZADouvKeramttd5QQRTOEJcLkp7CcglPl1QWWUb/s3KQSNXa4yC9JQ/zloB0e
+	gquzfhCaXZlQ5cSs4Rw6djXkHh8D6maK0QDnlj0b25fMt9vR5uqC6O7ZoZUVfccqw7SY=
+X-Gm-Gg: AYBFou17YpNwep7r5LF2e0+cwU29Zt6cfBfvyC9fRd7vJbixAIklnGhiylrSxqB/TIP
+	7DVjFnoR2kTYDtizMFLsb4HEAoAwBkqNO9P2h+Rqcvy5U1ZPVfGvzSEmiiBI+hYkOeRwQ3bsyoy
+	/qn2HO4dnDZkkYtx5x6NgCixV0OBncjTpzcGDR/MQE8CTaK3xkAzLxcmmX/zO5mHG1jYtF5BIDX
+	3j1/8fY/sChsBplAj6foDwaGEAnidvY4jSgNGVGCTIvREIfDgO/pRukiXTkdcFQSxXHrL0RfwFZ
+	1KdowbC2Xi2ZsO+6dbZF8truSXqKP9whPpCYfY8AxGUhgYS9nMaFL/zfiwtvxoasfBDn7lGIgn2
+	ziuM/ER5Hxw==
+X-Received: by 2002:a05:6820:1501:b0:6d7:a325:35f7 with SMTP id 006d021491bc7-6dcf68163a3mr5166260eaf.81.1790866860492;
+        Thu, 01 Oct 2026 08:01:00 -0700 (PDT)
+X-Received: by 2002:a05:6820:1501:b0:6d7:a325:35f7 with SMTP id 006d021491bc7-6dcf68163a3mr5166181eaf.81.1790866859513;
+        Thu, 01 Oct 2026 08:00:59 -0700 (PDT)
+Received: from [10.213.99.236] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6dd982ed764sm2590712eaf.11.2026.10.01.08.00.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 08:00:59 -0700 (PDT)
+From: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+Date: Thu, 01 Oct 2026 20:30:49 +0530
+Subject: [PATCH v2] misc: fastrpc: map ADSP remote heap into remoteproc
+ IOMMU domain
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B3:EE_|IA0PR12MB8254:EE_
-X-MS-Office365-Filtering-Correlation-Id: af617e14-0401-433d-2aaf-08df1fccc130
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|82310400026|36860700016|23010399003|3023799007|6133799003|11063799006|10067099003|5023799004|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	4FcPqHEmhLect77XdaJJ08VVB1TPsmnUVKmlAEMMewOIJSZyTW22IKMVGq0NLKrsyrd8WuNcJVawLpcF/b/E8puz7ZTB24FnWPPTSXTCjk+yDrY4GFhlVtx/PYucOf0zOv/6hdMO+ql9DtMlO1UjUDokPV/dIE96ZIpLWvxXOvgbRxnTolCKwsVFUq+Q+CoYBSo6XaCnSi/vcqniu84RWg71WZ8HUbmV/C3xojUerneNEjJS7y3PJ9QhXXY4rj5wceSOwCmyhhsQPhLYNtBqCJ+lUDnyWY4fnKGEG88q+QYxSyL2LUkGzX5sRatDc7UV+6tSOOmUW8asDVTEqffq6o+j1XPXbeBd10/ShfbKrf/45vG6VHArf7lGxVeFJiv454AyCKinqB1Ak7zzJVXHDONiEJeGmOQvHtogfNAs4/cPOSw7Q2EAek994TrXuPHzCH/OzipGKm56OMSLwloz4h/RAV6b7wwU9hmaktiubh4k4QA3IHbojU/4brYCDtv1Fhs/1f4cKwGmAnn3c2I+WSrlW7QwMwbUDpZwq+nr7/hliRM7qFKhuiM4AZUHR+6u+P+25Pf9v1OHsAQIrzVG7jxGKW+Kw0otqLWF5a1cqWdfppbYOqlkQpK/12EUPXCkVYFeVebuxPnZ4WoKEL09CbCf+Um2h3leLsrMH7bFQa+7xY2k8MxAKj/jmTxdQZBMpYYMeLepkaR5rj8zYNbF0w==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(82310400026)(36860700016)(23010399003)(3023799007)(6133799003)(11063799006)(10067099003)(5023799004)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	S8xwa+CYpOdEQufpAD5aYSlRfmyumJzCKOW3RarQ5ZEww1g5YrhOJUzMulo3HWLTOC+lnQzP1i3BjGgNJGIoSoBBn783Juv2fvYHEXGGzFCCRdqYiRuYWCLaxpjmxLctxT4dbsocNxL6R7faP904Q1GSRzeizdZRwpQA/hJvVEDM00PHUpxHJkU9144gelRTvlykHpgnuBdgmfGU+NlhSi9YRPgC3mFarWuCVEsxaud32z9wpBcPjHgZFUnQXjG4lM57+Qv6saWYUjFA4GVEAoK/lC8IEjGbia+Ef+MkJiCrrpwyeQ/fpgu2YzNxcVaxRNEaE7V2Nuse2VFgPpZhZpoVjgtn4yMUN4cTNeDEVW2TjC26BnpADjprpLIK93ywKYuZezYvRRPVEK4ZR2zHewjp+fumMmuE9oZa+r2+jdG4IZFZBpEHQtat5Io3/P5Q
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:00:38.4578
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: af617e14-0401-433d-2aaf-08df1fccc130
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B3.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8254
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-fastrpc-kvm-iommu-v2-v2-1-6c32ad6f662f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKF1vmoC/yXMQQ6CMBBA0auQWTtJnRpEr2Jc1HaQ0RRIBxoTw
+ t2psHyL/xdQTsIK92qBxFlUhr6AThX4zvVvRgnFQIZqc7MGW6dTGj1+c0QZYpwxE57dNdiL5dA
+ YgpKOiVv57dvH87DOrw/76f+Cdd0A9/+rPXgAAAA=
+X-Change-ID: 20260930-fastrpc-kvm-iommu-v2-1a7d343ed802
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+        Amol Maheshwari <amahesh@qti.qualcomm.com>, quic_bkumar@quicinc.com,
+        quic_chennak@quicinc.com
+X-Mailer: b4 0.15.2
+X-Authority-Analysis: v=2.4 cv=OI6yTiaB c=1 sm=1 tr=0 ts=6abe75ad cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ag1SF4gXAAAA:8 a=e5mUnYsNAAAA:8
+ a=COk6AnOGAAAA:8 a=Mo4pmYlT2hf4TzH739EA:9 a=QEXdDO2ut3YA:10
+ a=eBU8X_Hb5SQ8N-bgNfv4:22 a=Yupwre4RP9_Eg_Bd0iYG:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX4HwQEcdTGRCq
+ 4F7PNGG6jBeUOkJHzhS4p+Ge67/oMk9VwlXplP2G0WCodHy7/Es0mUTjO0v8lFyaO+rNEKVj7DJ
+ E3qpMdnetotghU1Fe8UucVJJY2Sr1cY=
+X-Proofpoint-ORIG-GUID: 1WZjV4caigEZCr20Olj8oNhpFeVz51BH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX5oyVXp9IKLLu
+ 5N5ieuTK5n78W48ik16KZnoLrJgRlbAmd7g44fwqBEOtEhWdKtr+2Vj9m4J5nbTR+ZuhyGv7Dtu
+ k+GDB+2ahtZu/T9m9ahSaQ+PQYMiw/hFP6m6XD8IIXHDDFls2/glVvEceqYSnpcPKldwV12Cu4G
+ pXMLa2BjvlrubB2vnEo6AgPtvZUYKKaUwbAZYsHog3STXnkFBJMihF9NmZawvgH1F+g9vWnvZQb
+ AyyTlsupggv0VCu2ZEiV9CkcsVS22tF+bEperYmQfvd3jt6n13zwqdlSsEaSfuOWsBIsOZnQlBL
+ yLSfJmLDdxogBCa2Dkg/KQQm4mUxMnif0FstptZv59Lt+91zlnozil713bACHb9oXD80m1qu0T/
+ IaIq1t1ePcuOk8C3pWuOIf0moczZ/pbsM7lFiby+YH7Lj8ZBJWPzNvTDmuvoj+15Gh2FZH/2mCf
+ RubZs9PYcITfqnRmmEg==
+X-Proofpoint-GUID: 1WZjV4caigEZCr20Olj8oNhpFeVz51BH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010059
 
-From: Andrew Ballance <andrewjballance@gmail.com>
+On KVM-based targets the kernel runs at EL2 without a separate
+hypervisor to manage inter-VM memory access control.  In this
+configuration the remoteproc is assigned its own IOMMU domain, and
+any memory carveout the DSP must access requires an explicit mapping
+into that domain before the DSP can reach it.
 
-Register Rust callsites in __dyndbg and use the existing C dynamic debug
-core for selection, prefixes, stack output and module lifetime handling.
-Keep the original Rust format string in the catalogue and format actual
-arguments through %pA, preserving the module prefix.
+The existing code calls qcom_scm_assign_mem() to transfer ownership
+of the ADSP remote heap carveout from HLOS to the DSP VM.  This SCM
+call is only meaningful when a separate hypervisor (e.g. Gunyah) is
+present to enforce inter-VM memory access control.  On KVM-based
+targets no such hypervisor exists, so the carveout must instead be
+mapped into the remoteproc's IOMMU domain via an identity mapping
+(IOVA == PA) using iommu_map().  Without this mapping the DSP
+triggers an SMMU translation fault when accessing the remote heap
+during audio PD static process creation.
 
-Keep the descriptor in static mut storage and access it through raw
-pointers, following the RFC v2 design. Use the nested-field static
-branch when jump labels are enabled; otherwise read the print flag via a
-C helper. Initialize every callsite as disabled, independently of Rust
-debug assertions, and let dynamic debug control its print state. Without
-dynamic debug for the crate, keep messages disabled while type-checking
-their arguments. Evaluate arguments only when enabled, and keep user
-expressions outside the macro's unsafe block. Use match scrutinees to
-keep formatting temporaries alive through the synchronous printing call.
+Detect whether the remoteproc has an IOMMU by checking for the
+"iommus" property on the remoteproc DT node and store the result in
+a new use_iommu_map flag in fastrpc_channel_ctx.  When the flag is
+set, map the carveout into the remoteproc's IOMMU domain instead of
+calling qcom_scm_assign_mem().  Introduce fastrpc_remote_heap_map()
+and fastrpc_remote_heap_unmap() helpers to encapsulate the IOMMU
+domain lookup and map/unmap operations.
 
-Use used(compiler) for the descriptor: the GNU retain flag emitted by
-plain used collides with the module loader's SHF_RO_AFTER_INIT flag.
-Provide a host-test stub matching the existing printing macros.
-
-Pass Kbuild's normalized module name through RUST_MODNAME for callsite
-identity, independently of the existing module! log prefix. Keep metadata
-items in a separate scope so implicit argument captures cannot be
-shadowed by macro-internal names.
-
-Function names are deliberately recorded as <unknown>; module, file,
-line and original-format selection remain available without inferred
-function names or compiler-specific name extraction.
-
-Link: https://lore.kernel.org/rust-for-linux/20250620210533.400889-4-andrewjballance@gmail.com/
-Signed-off-by: Andrew Ballance <andrewjballance@gmail.com>
-[Zhi: Rebase onto driver-core-testing; retain raw-pointer descriptor access;
- revise bitfield initialization, configuration gates, Kbuild
- module identity, macro hygiene and synchronous printing; retain
- <unknown> function metadata and add maintainer routing.]
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+To: Amol Maheshwari <amahesh@qti.qualcomm.com>
+To: Arnd Bergmann <arnd@arndb.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: ekansh.gupta@oss.qualcomm.com
+Cc: quic_bkumar@quicinc.com
+Cc: quic_chennak@quicinc.com
 ---
- MAINTAINERS                        |   2 +
- rust/Makefile                      |   3 +
- rust/bindings/bindings_helper.h    |   1 +
- rust/helpers/dynamic_debug.c       |  25 +++++
- rust/helpers/helpers.c             |   1 +
- rust/kernel/print.rs               |  53 +++++++--
- rust/kernel/print/dynamic_debug.rs | 165 +++++++++++++++++++++++++++++
- scripts/Makefile.build             |   1 +
- scripts/generate_rust_analyzer.py  |   1 +
- 9 files changed, 246 insertions(+), 6 deletions(-)
- create mode 100644 rust/helpers/dynamic_debug.c
- create mode 100644 rust/kernel/print/dynamic_debug.rs
+Changes in v2:
+- Rebase onto the fastrpc-for-next tree, which now has the remote
+  heap allocation and reserved-memory handling changes.
+- Rename has_iommu to use_iommu_map for clarity.
+- In fastrpc_rpmsg_remove(), the IOMMU unmap path now mirrors the
+  qcom_scm_assign_mem() path exactly, so the two are handled
+  consistently instead of leaving the IOMMU case with different
+  cleanup semantics.
+- Add fastrpc_get_rproc_node() to fix a device_node refcount leak:
+  the previous of_get_parent(of_get_parent(node)) pattern never put
+  the intermediate parent node.
+- Unmap the remote heap from the remoteproc's IOMMU domain if probe
+  fails after the mapping succeeds, instead of leaking the mapping
+  and causing -EEXIST on every subsequent probe attempt.
+- Log a warning in fastrpc_remote_heap_unmap() on each failure path
+  (remoteproc node/platform device/IOMMU domain not found, or a
+  partial iommu_unmap()), instead of silently leaving the mapping in
+  place with no diagnostic.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index aec32deef0a1..ecd1312ab35a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9262,6 +9262,8 @@ S:	Maintained
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-+F:	rust/helpers/dynamic_debug.c
-+F:	rust/kernel/print/dynamic_debug.rs
- 
- DYNAMIC INTERRUPT MODERATION
- M:	Tal Gilboa <talgi@nvidia.com>
-diff --git a/rust/Makefile b/rust/Makefile
-index da1a7409d984..b8be882be0e0 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -173,6 +173,7 @@ quiet_cmd_rustdoc = RUSTDOC $(if $(rustdoc_host),H, ) $<
-       cmd_rustdoc = \
- 	$(rustc_target_envs) \
- 	OBJTREE=$(abspath $(objtree)) \
-+	RUST_MODNAME=$(call name-fix-token,$(subst rustdoc-,,$@)) \
- 	$(RUSTDOC) $(filter-out $(skip_flags) --remap-path-scope=%,$(if $(rustdoc_host),$(rust_common_flags),$(rust_flags))) \
- 		$(rustc_target_flags) -L$(objtree)/$(obj)$(if $(rustdoc_host),/host) \
- 		-Zunstable-options --generate-link-to-definition \
-@@ -388,6 +389,7 @@ quiet_cmd_rustdoc_test_kernel = RUSTDOC TK $<
- 	mkdir -p $(objtree)/$(obj)/test/doctests/kernel; \
- 	$(rustc_target_envs) \
- 	OBJTREE=$(abspath $(objtree)) \
-+	RUST_MODNAME=kernel \
- 	$(RUSTDOC) --test $(filter-out --remap-path-scope=%,$(rust_flags)) \
- 		-L$(objtree)/$(obj) --extern ffi --extern pin_init \
- 		--extern kernel --extern build_error --extern macros \
-@@ -647,6 +649,7 @@ quiet_cmd_rustc_library = $(if $(skip_clippy),RUSTC,$(RUSTC_OR_CLIPPY_QUIET)) L
-       cmd_rustc_library = \
- 	$(rustc_target_envs) \
- 	OBJTREE=$(abspath $(objtree)) \
-+	RUST_MODNAME=$(call name-fix-token,$(modname)) \
- 	$(if $(skip_clippy),$(RUSTC),$(RUSTC_OR_CLIPPY)) \
- 		$(filter-out $(skip_flags),$(rust_flags)) $(rustc_target_flags) \
- 		--emit=dep-info=$(depfile) --emit=$(if $(link_helper),llvm-bc=$(patsubst %.o,%.bc,$@),obj=$@) \
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 4b31aa7f432f..385d04090628 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -54,6 +54,7 @@
- #include <linux/device/faux.h>
- #include <linux/dma-direction.h>
- #include <linux/dma-mapping.h>
-+#include <linux/dynamic_debug.h>
- #include <linux/dma-resv.h>
- #include <linux/errname.h>
- #include <linux/ethtool.h>
-diff --git a/rust/helpers/dynamic_debug.c b/rust/helpers/dynamic_debug.c
-new file mode 100644
-index 000000000000..0ede4ee2eb79
---- /dev/null
-+++ b/rust/helpers/dynamic_debug.c
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/dynamic_debug.h>
-+#include <linux/printk.h>
-+
-+#ifdef CONFIG_DYNAMIC_DEBUG_CORE
-+#ifndef CONFIG_JUMP_LABEL
-+__rust_helper bool rust_helper_ddebug_enabled(struct _ddebug *descriptor)
-+{
-+	/* Match the C dynamic debug branch without creating a Rust reference. */
-+	return descriptor->flags & _DPRINTK_FLAGS_PRINT;
-+}
-+#endif
-+
-+/* The printing helpers receive Rust fmt::Arguments for the %pA bridge. */
-+__rust_helper void rust_helper_ddebug_print(struct _ddebug *descriptor,
-+					    const char *prefix,
-+					    const void *args)
-+{
-+	__dynamic_pr_debug(descriptor, "%s: %pA", prefix, args);
-+	if (descriptor->flags & _DPRINTK_FLAGS_INCL_STACK)
-+		dump_stack();
-+}
-+
-+#endif
-diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-index 440fb7638e3c..9730ab7fa143 100644
---- a/rust/helpers/helpers.c
-+++ b/rust/helpers/helpers.c
-@@ -62,6 +62,7 @@
- #endif
- #include "drm.c"
- #include "drm_gpuvm.c"
-+#include "dynamic_debug.c"
- #include "err.c"
- #include "fs.c"
- #include "fwctl.c"
-diff --git a/rust/kernel/print.rs b/rust/kernel/print.rs
-index 0d62beeedca5..60502f2e614e 100644
---- a/rust/kernel/print.rs
-+++ b/rust/kernel/print.rs
-@@ -18,6 +18,10 @@
-     },
+Link to v1: https://lore.kernel.org/r/20260618-audio_fix_clean_v3-v1-1-ec1ee66fe455@oss.qualcomm.com
+---
+ drivers/misc/fastrpc.c | 149 ++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 128 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 5ac7b3e78ba7..89f4a80ad9be 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -21,6 +21,7 @@
+ #include <linux/slab.h>
+ #include <linux/firmware/qcom/qcom_scm.h>
+ #include <uapi/misc/fastrpc.h>
++#include <linux/iommu.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
+@@ -317,6 +318,8 @@ struct fastrpc_channel_ctx {
+ 	/* Audio PD reserved remote heap region */
+ 	phys_addr_t remote_heap_addr;
+ 	u64 remote_heap_size;
++	/* set when remoteproc has an IOMMU; use iommu_map instead of hyp_assign */
++	bool use_iommu_map;
+ 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+ 	struct fastrpc_device *secure_fdevice;
+ 	struct fastrpc_device *fdevice;
+@@ -2507,9 +2510,90 @@ static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unuse
+ 	{},
  };
  
-+#[cfg(CONFIG_DYNAMIC_DEBUG_CORE)]
-+#[doc(hidden)]
-+pub mod dynamic_debug;
++static struct device_node *fastrpc_get_rproc_node(struct device_node *node)
++{
++	struct device_node *parent, *rproc_node;
 +
- // Called from `vsprintf` with format specifier `%pA`.
- #[expect(clippy::missing_safety_doc)]
- #[export]
-@@ -376,13 +380,24 @@ macro_rules! pr_info (
- ///
- /// Use this level for debug messages.
- ///
--/// Equivalent to the kernel's [`pr_debug`] macro, except that it doesn't support dynamic debug
--/// yet.
-+/// Equivalent to the kernel's [`pr_debug`] macro.
-+///
-+/// Supports [dynamic debug] when `CONFIG_DYNAMIC_DEBUG` is enabled, or when
-+/// `CONFIG_DYNAMIC_DEBUG_CORE` is enabled and the crate is built with
-+/// `--cfg DYNAMIC_DEBUG_MODULE`. Messages can then be enabled and disabled at runtime,
-+/// starting disabled. Rust's `debug_assertions` setting does not affect debug logging.
-+/// Without dynamic debug for the crate, messages stay disabled. Disabled messages do not
-+/// evaluate their formatting arguments, but the arguments are still checked at compile time.
-+///
-+/// Dynamic debug callsites can be selected by module, file, line, or format. Their function name
-+/// is recorded as `<unknown>`, so selecting a Rust function by its name is not supported.
-+/// The module selector uses Kbuild's module name, independently of the crate's log prefix.
- ///
- /// Mimics the interface of [`std::print!`]. See [`core::fmt`] and
- /// [`std::format!`] for information about the formatting syntax.
- ///
- /// [`pr_debug`]: https://docs.kernel.org/core-api/printk-basics.html#c.pr_debug
-+/// [dynamic debug]: https://docs.kernel.org/admin-guide/dynamic-debug-howto.html
- /// [`std::print!`]: https://doc.rust-lang.org/std/macro.print.html
- /// [`std::format!`]: https://doc.rust-lang.org/std/macro.format.html
- ///
-@@ -393,12 +408,38 @@ macro_rules! pr_info (
- /// ```
- #[macro_export]
- #[doc(alias = "print")]
-+#[expect(clippy::crate_in_macro_def)]
- macro_rules! pr_debug (
--    ($($arg:tt)*) => (
--        if cfg!(debug_assertions) {
--            $crate::print_macro!($crate::print::format_strings::DEBUG, false, $($arg)*)
-+    ($($arg:tt)*) => ({
-+        #[cfg(any(CONFIG_DYNAMIC_DEBUG, all(CONFIG_DYNAMIC_DEBUG_CORE, DYNAMIC_DEBUG_MODULE)))]
-+        {
-+            $crate::dynamic_debug!(__descriptor, ($($arg)*), {
-+                match (
-+                    const {
-+                        match $crate::str::CStr::from_bytes_with_nul(crate::__LOG_PREFIX) {
-+                            Ok(prefix) => prefix,
-+                            Err(_) => panic!("the module log prefix must be a C string"),
-+                        }
-+                    },
-+                    $crate::prelude::fmt!($($arg)*),
-+                ) {
-+                    // SAFETY: `dynamic_debug!` supplies a live, initialized static descriptor.
-+                    // Its mutable fields are accessed only by the C dynamic debug code.
-+                    (prefix, args) => unsafe {
-+                        $crate::print::dynamic_debug::Descriptor::print(__descriptor, prefix, args)
-+                    },
-+                }
-+            });
-         }
--    )
++	parent = of_get_parent(node);
++	if (!parent)
++		return NULL;
 +
-+        #[cfg(not(any(CONFIG_DYNAMIC_DEBUG, all(CONFIG_DYNAMIC_DEBUG_CORE, DYNAMIC_DEBUG_MODULE))))]
-+        {
-+            // Keep checking arguments even when dynamic debug is unavailable.
-+            if false {
-+                $crate::print_macro!($crate::print::format_strings::DEBUG, false, $($arg)*)
-+            }
-+        }
-+    })
- );
++	rproc_node = of_get_parent(parent);
++	of_node_put(parent);
++
++	return rproc_node;
++}
++
++static int fastrpc_remote_heap_map(struct device *rdev,
++				   struct device_node *rproc_node,
++				   phys_addr_t addr, u64 size)
++{
++	struct platform_device *rproc_pdev;
++	struct iommu_domain *domain;
++	int ret;
++
++	rproc_pdev = of_find_device_by_node(rproc_node);
++	if (!rproc_pdev) {
++		dev_err(rdev, "failed to find remoteproc platform device\n");
++		return -ENODEV;
++	}
++
++	domain = iommu_get_domain_for_dev(&rproc_pdev->dev);
++	if (!domain) {
++		put_device(&rproc_pdev->dev);
++		dev_err(rdev, "no IOMMU domain for remoteproc\n");
++		return -ENODEV;
++	}
++
++	ret = iommu_map(domain, addr, addr, size, IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
++	if (ret)
++		dev_err(rdev, "failed to map remote heap phys=0x%llx size=0x%llx err=%d\n",
++			(u64)addr, size, ret);
++
++	put_device(&rproc_pdev->dev);
++	return ret;
++}
++
++static void fastrpc_remote_heap_unmap(struct rpmsg_device *rpdev,
++				      phys_addr_t addr, u64 size)
++{
++	struct device_node *rproc_node;
++	struct platform_device *rproc_pdev;
++	struct iommu_domain *domain;
++	size_t unmapped;
++
++	rproc_node = fastrpc_get_rproc_node(rpdev->dev.of_node);
++	if (!rproc_node) {
++		dev_warn(&rpdev->dev, "failed to find remoteproc node for heap unmap\n");
++		return;
++	}
++
++	rproc_pdev = of_find_device_by_node(rproc_node);
++	of_node_put(rproc_node);
++	if (!rproc_pdev) {
++		dev_warn(&rpdev->dev, "failed to find remoteproc platform device for heap unmap\n");
++		return;
++	}
++
++	domain = iommu_get_domain_for_dev(&rproc_pdev->dev);
++	if (!domain) {
++		dev_warn(&rpdev->dev, "no IOMMU domain for remoteproc during heap unmap\n");
++		put_device(&rproc_pdev->dev);
++		return;
++	}
++
++	unmapped = iommu_unmap(domain, addr, size);
++	if (unmapped != size)
++		dev_warn(&rpdev->dev, "partial/failed heap unmap: requested=0x%llx unmapped=0x%zx\n",
++			 size, unmapped);
++
++	put_device(&rproc_pdev->dev);
++}
++
+ static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
+ 				     struct device *rdev, u32 domain_id)
+ {
++	struct device_node *rproc_node;
+ 	struct resource res;
+ 	u64 src_perms;
+ 	int err;
+@@ -2536,6 +2620,19 @@ static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
+ 	if (domain_id == ADSP_DOMAIN_ID) {
+ 		cctx->remote_heap_addr = res.start;
+ 		cctx->remote_heap_size = resource_size(&res);
++
++		rproc_node = fastrpc_get_rproc_node(rdev->of_node);
++		if (rproc_node)
++			cctx->use_iommu_map = of_property_present(rproc_node, "iommus");
++
++		if (cctx->use_iommu_map) {
++			err = fastrpc_remote_heap_map(rdev, rproc_node, res.start,
++						      resource_size(&res));
++			of_node_put(rproc_node);
++			return err;
++		}
++
++		of_node_put(rproc_node);
+ 	}
  
- /// Continues a previous log message in the same line.
-diff --git a/rust/kernel/print/dynamic_debug.rs b/rust/kernel/print/dynamic_debug.rs
-new file mode 100644
-index 000000000000..da4c40ed8fcc
---- /dev/null
-+++ b/rust/kernel/print/dynamic_debug.rs
-@@ -0,0 +1,165 @@
-+// SPDX-License-Identifier: GPL-2.0
+ 	if (!cctx->vmcount)
+@@ -2611,7 +2708,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		data->unsigned_support = false;
+ 		err = fastrpc_device_register(rdev, data, secure_dsp, domain);
+ 		if (err)
+-			goto err_free_data;
++			goto err_unmap_heap;
+ 		break;
+ 	case CDSP_DOMAIN_ID:
+ 	case GDSP_DOMAIN_ID:
+@@ -2619,7 +2716,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		/* Create both device nodes so that we can allow both Signed and Unsigned PD */
+ 		err = fastrpc_device_register(rdev, data, true, domain);
+ 		if (err)
+-			goto err_free_data;
++			goto err_unmap_heap;
+ 
+ 		err = fastrpc_device_register(rdev, data, false, domain);
+ 		if (err)
+@@ -2627,7 +2724,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		break;
+ 	default:
+ 		err = -EINVAL;
+-		goto err_free_data;
++		goto err_unmap_heap;
+ 	}
+ 
+ 	kref_init(&data->refcount);
+@@ -2655,6 +2752,11 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	if (data->secure_fdevice)
+ 		misc_deregister(&data->secure_fdevice->miscdev);
+ 
++err_unmap_heap:
++	if (data->use_iommu_map && data->remote_heap_size)
++		fastrpc_remote_heap_unmap(rpdev, data->remote_heap_addr,
++					  data->remote_heap_size);
 +
-+//! Callsite metadata and printing for dynamic debug.
-+//!
-+//! C header: [`include/linux/dynamic_debug.h`](srctree/include/linux/dynamic_debug.h).
-+//!
-+//! The printing macros place descriptors in `__dyndbg`. The existing C dynamic debug core
-+//! discovers them at boot or module load and removes them before the module is freed.
+ err_free_data:
+ 	kfree(data);
+ 	return err;
+@@ -2695,24 +2797,29 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+ 		list_del(&buf->node);
+ 
+-	if (cctx->remote_heap_size && cctx->vmcount) {
+-		u64 src_perms = 0;
+-		int err, i;
+-		struct qcom_scm_vmperm dst_perms;
+-
+-		for (i = 0; i < cctx->vmcount; i++)
+-			src_perms |= BIT(cctx->vmperms[i].vmid);
+-
+-		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+-		dst_perms.perm = QCOM_SCM_PERM_RWX;
+-
+-		err = qcom_scm_assign_mem(cctx->remote_heap_addr,
+-					  cctx->remote_heap_size, &src_perms,
+-					  &dst_perms, 1);
+-		if (err)
+-			dev_err(&rpdev->dev,
+-				"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
+-				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
++	if (cctx->remote_heap_size) {
++		if (cctx->use_iommu_map) {
++			fastrpc_remote_heap_unmap(rpdev, cctx->remote_heap_addr,
++						  cctx->remote_heap_size);
++		} else if (cctx->vmcount) {
++			u64 src_perms = 0;
++			int err, i;
++			struct qcom_scm_vmperm dst_perms;
 +
-+use crate::{
-+    fmt,
-+    prelude::*,
-+    str::as_char_ptr_in_const_context, //
-+};
++			for (i = 0; i < cctx->vmcount; i++)
++				src_perms |= BIT(cctx->vmperms[i].vmid);
 +
-+/// A dynamic debug callsite descriptor.
-+///
-+/// The [`crate::dynamic_debug!`] macro places descriptors at stable addresses in `__dyndbg`.
-+#[repr(transparent)]
-+pub struct Descriptor {
-+    /// The C descriptor, exposed for static-branch field addressing.
-+    pub inner: bindings::_ddebug,
-+}
++			dst_perms.vmid = QCOM_SCM_VMID_HLOS;
++			dst_perms.perm = QCOM_SCM_PERM_RWX;
 +
-+impl Descriptor {
-+    /// Creates an initially disabled descriptor.
-+    pub const fn new(
-+        module: &'static CStr,
-+        file: &'static CStr,
-+        format: &'static CStr,
-+        line: u32,
-+    ) -> Self {
-+        // SAFETY: `_ddebug` contains raw pointers, integers and, with jump labels, a static key.
-+        // All accept zero; the pointers and bitfields are filled in before publication.
-+        let mut descriptor: bindings::_ddebug = unsafe { core::mem::zeroed() };
-+        descriptor.modname = as_char_ptr_in_const_context(module);
-+        descriptor.function = as_char_ptr_in_const_context(c"<unknown>");
-+        descriptor.filename = as_char_ptr_in_const_context(file);
-+        descriptor.format = as_char_ptr_in_const_context(format);
-+
-+        // C packs `lineno:18`, `class_id:6` and `flags:8` into an unsigned int. Bindgen's setters
-+        // are not const, so encode the target's bitfield ordering explicitly. Truncate line numbers
-+        // as the C bitfield assignment does.
-+        let line = line & ((1 << 18) - 1);
-+        let class = bindings::_DPRINTK_CLASS_DFLT;
-+        let flags = bindings::_DPRINTK_FLAGS_NONE;
-+        #[cfg(target_endian = "little")]
-+        let bits = (line | (class << 18) | (flags << 24)).to_le_bytes();
-+        #[cfg(target_endian = "big")]
-+        let bits = ((line << 14) | (class << 8) | flags).to_be_bytes();
-+        descriptor._bitfield_1 = bindings::__BindgenBitfieldUnit::new(bits);
-+
-+        #[cfg(CONFIG_JUMP_LABEL)]
-+        // An all-zero key is `STATIC_KEY_INIT_FALSE`.
-+        static_assert!(bindings::JUMP_TYPE_FALSE == 0);
-+
-+        Self { inner: descriptor }
-+    }
-+
-+    /// Checks the print flag when jump labels are unavailable.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `descriptor` must point to an initialized descriptor valid for this call. Concurrent access
-+    /// to its fields must follow the C dynamic debug and jump label synchronization rules, without
-+    /// conflicting Rust accesses.
-+    #[cfg(not(CONFIG_JUMP_LABEL))]
-+    #[inline]
-+    pub unsafe fn enabled(descriptor: *mut Self) -> bool {
-+        // SAFETY: The pointer is valid by the caller's guarantee. The helper uses the same flag
-+        // access as the C dynamic debug branch, without forming a Rust reference to it.
-+        unsafe { bindings::ddebug_enabled(&raw mut (*descriptor).inner) }
-+    }
-+
-+    /// Prints arguments with the crate's log prefix and the dynamic debug prefixes.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `descriptor` must point to an initialized descriptor valid for this call, whose string
-+    /// pointers refer to valid NUL-terminated C strings. Concurrent access must follow the C
-+    /// dynamic debug and jump label synchronization rules, without conflicting Rust accesses.
-+    pub unsafe fn print(descriptor: *mut Self, prefix: &CStr, args: fmt::Arguments<'_>) {
-+        // SAFETY: The descriptor is valid by the caller's guarantee. The helper uses the C string
-+        // `prefix` and consumes `args` through `%pA` synchronously, so their borrows remain valid.
-+        unsafe {
-+            bindings::ddebug_print(
-+                &raw mut (*descriptor).inner,
-+                prefix.as_char_ptr(),
-+                core::ptr::from_ref(&args).cast(),
-+            )
-+        };
-+    }
-+}
-+
-+/// Extracts only the format string for the callsite catalogue.
-+///
-+/// The original tokens are separately passed to `fmt!`, preserving implicit argument capture.
-+#[doc(hidden)]
-+#[macro_export]
-+macro_rules! dynamic_debug_format {
-+    ($format:expr $(, $($rest:tt)*)?) => {
-+        // The C catalogue ends at the first NUL; Rust formatting still uses the full string.
-+        match $crate::str::CStr::from_bytes_until_nul(concat!($format, "\0").as_bytes()) {
-+            Ok(format) => format,
-+            Err(_) => panic!("the format string must be NUL-terminated"),
-+        }
-+    };
-+}
-+
-+/// Defines a callsite and evaluates a printing expression only when it is enabled.
-+#[doc(hidden)]
-+#[macro_export]
-+#[cfg(not(testlib))]
-+macro_rules! dynamic_debug {
-+    ($descriptor:ident, ($($arg:tt)*), $body:block) => {{
-+        // Keep item names out of the user's scope, including implicit format captures.
-+        let (descriptor, enabled) = {
-+            // `used(compiler)` avoids `SHF_GNU_RETAIN`, which the module loader interprets as
-+            // `SHF_RO_AFTER_INIT`.
-+            #[used(compiler)]
-+            #[unsafe(link_section = "__dyndbg")]
-+            static mut DESCRIPTOR: $crate::print::dynamic_debug::Descriptor =
-+                $crate::print::dynamic_debug::Descriptor::new(
-+                    $crate::c_str!(env!("RUST_MODNAME")),
-+                    $crate::c_str!(file!()),
-+                    $crate::dynamic_debug_format!($($arg)*),
-+                    line!(),
-+                );
-+
-+            #[cfg(CONFIG_JUMP_LABEL)]
-+            // SAFETY: `DESCRIPTOR` contains an initialized false key at the specified field and
-+            // remains valid until the C core unregisters the module's jump label entries.
-+            let enabled = unsafe {
-+                $crate::jump_label::static_branch_unlikely!(
-+                    DESCRIPTOR,
-+                    $crate::print::dynamic_debug::Descriptor,
-+                    inner.key.dd_key_false
-+                )
-+            };
-+
-+            #[cfg(not(CONFIG_JUMP_LABEL))]
-+            // SAFETY: The static descriptor is initialized and accessed only by the C helpers
-+            // and dynamic debug core, which use the C synchronization rules.
-+            let enabled = unsafe {
-+                $crate::print::dynamic_debug::Descriptor::enabled(&raw mut DESCRIPTOR)
-+            };
-+
-+            (&raw mut DESCRIPTOR, enabled)
-+        };
-+
-+        if enabled {
-+            let $descriptor = descriptor;
-+            $body
-+        }
-+    }};
-+}
-+
-+/// Stub for host doctests, matching [`crate::print_macro!`].
-+#[cfg(testlib)]
-+#[macro_export]
-+macro_rules! dynamic_debug {
-+    ($descriptor:ident, ($($arg:tt)*), $body:block) => {
-+        ()
-+    };
-+}
-diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 4349108e75e1..19ed7f2a2d49 100644
---- a/scripts/Makefile.build
-+++ b/scripts/Makefile.build
-@@ -325,6 +325,7 @@ rust_allowed_features := arbitrary_self_types,asm_goto,generic_arg_infer,used_wi
- # modules case.
- rust_common_cmd = \
- 	OBJTREE=$(abspath $(objtree)) \
-+	RUST_MODNAME=$(call name-fix-token,$(modname)) \
- 	RUST_MODFILE=$(modfile) $(RUSTC_OR_CLIPPY) $(rust_flags) \
- 	-Zallow-features=$(rust_allowed_features) \
- 	-Zcrate-attr=no_std \
-diff --git a/scripts/generate_rust_analyzer.py b/scripts/generate_rust_analyzer.py
-index dc1219736f77..5c9cb4df6e48 100755
---- a/scripts/generate_rust_analyzer.py
-+++ b/scripts/generate_rust_analyzer.py
-@@ -104,6 +104,7 @@ def generate_crates(
-         edition = edition if edition is not None else "2021"
-         crate_env = {
-             "RUST_MODFILE": "This is only for rust-analyzer",
-+            "RUST_MODNAME": display_name.replace("-", "_"),
-             **crates_envs.get(display_name, {}),
-         }
-         return {
--- 
-2.53.0
++			err = qcom_scm_assign_mem(cctx->remote_heap_addr,
++						  cctx->remote_heap_size, &src_perms,
++						  &dst_perms, 1);
++			if (err)
++				dev_err(&rpdev->dev,
++					"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
++					&cctx->remote_heap_addr, cctx->remote_heap_size, err);
++		}
+ 	}
+ 
+ 	of_platform_depopulate(&rpdev->dev);
+
+---
+base-commit: ef071c4906eb45d16b60f09154cf0bc6ec8f5435
+change-id: 20260930-fastrpc-kvm-iommu-v2-1a7d343ed802
+
+Best regards,
+--  
+Anandu Krishnan E <anandu.e@oss.qualcomm.com>
 
