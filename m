@@ -1,92 +1,219 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE363D1715;
-	Thu,  1 Oct 2026 03:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD3E370AE4
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 03:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790825378; cv=none; b=lNbKhwAfujn+M0kvO19CBweNEJ6RJQGcn9ZvqkY7sGncUpdO2T/Hp07XSJWnbdAUIRKK2tz8r3EoWw6K7NediMqC/4PC4OjgaAg1ewjcoeRnY6k7P7fD43k6+dYP2pSN1S/Q/atABiNQCmv81PyREFMGcJZVylCjKCzzqwyRWMQ=
+	t=1790825486; cv=none; b=YpSu9u2Kj5Cb9eKyt4QopcySudyBTqxXaftX90mmfeWbLRANbHSNktQxHoUnSbr24tetBELtjt9sovuBMekfkqmHLgL1ZoNVh9FwqA68gP+DRdCsGlwhdO7ny7eYbvMajjIYjSzYsH4p8C+IGG2hvceTi4FUx1YHVnrtRinS7MQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790825378; c=relaxed/simple;
-	bh=Efyja0txl/66WV+lz753WdzkL4tiz5+OqqKjmEnE3Rc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=NfkqU8cj9PVO2+6cXnruXYSkhInPB34K/bi5yyp1miQKhxK+0OnN1XSczxhSloTjab1LGYSFuSoC5ljfasoHpw91+9N/kXBvTeMK8aXkSBBodAAESd9uPvSgX5SY0+FL5/oRJGWvjzuGuSYRcO2fXECZnFwR/KkdcGWEMVHau9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 1 Oct
- 2026 11:28:46 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Thu, 1 Oct 2026 11:28:46 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Thu, 1 Oct 2026 11:28:46 +0800
-Subject: [PATCH 3/3] arm64: dts: aspeed: Add syscon phandle to AST2700 ADC
- nodes
+	s=arc-20240116; t=1790825486; c=relaxed/simple;
+	bh=kiqP4fIfiQeE7OF12jqtrDdxIck+2wiFOZoD/0TeAbQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R5VFCBRzbAG8MOF7WQCp31o/Ty8TOjO4z0heoFNwk3Y0RhvQtASTfb+cJ20N3PwZdf0PNN9lZWErtVy90hN8XErN8V/AFomue6bPaO/Qjoe7H1+ycmnT6GzQlJ5Tk0JCKTX9WQVqvSjCZKtvSV3OSMWDQxnn4P7GFTzb2cCsqSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PLKtQ3wp; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PLKtQ3wp"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69115jgv3277089;
+	Thu, 1 Oct 2026 03:30:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=pjmlAd
+	veYXAzNf8tFX47S408AIcY7O3Z0jzNl8ioBIU=; b=PLKtQ3wpHOrn2hzixnww/B
+	kzqyz9rWrpbjrjTphvKO17xeSjC5c53OLaKbB07MD6e6XMiXqqI4k/cp/+TWDMLh
+	qi2bIDCEGsSlJ8J2F6kzU3P7f7go7ROsMrGqR7gk42X1tUJumWmUMDJR1sqeBvx0
+	UsPo5C4+6701TYgKeMUjHvvCDohzCBBmePBWgH2ouRFjwaK4ZtN6Ij3M+8to6g28
+	ZuYXg7X0kn8iEZj/G/0PJmDQGg4fG8CMiUFo5K0Ger093Z+4paIPbo1+fqCtijCp
+	V7sYZj66amPbVEkqBvWQ1xKGdS1/+HCp8a2k9VC+IYkhRxvYYtE9B6i+g+w4+KAg
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fefu57-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 03:30:51 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6910ltsm180421;
+	Thu, 1 Oct 2026 03:30:51 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h1aa7s2ud-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 03:30:51 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6913UlTr48890122
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 1 Oct 2026 03:30:47 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6226D20040;
+	Thu,  1 Oct 2026 03:30:47 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9525C20043;
+	Thu,  1 Oct 2026 03:30:43 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  1 Oct 2026 03:30:43 +0000 (GMT)
+Message-ID: <0b918888-502d-4388-ab54-2c7ae9f4ccbb@linux.ibm.com>
+Date: Thu, 1 Oct 2026 09:00:42 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261001-ast27xx-adc-upstream-v1-3-5ace57533418@aspeedtech.com>
-References: <20261001-ast27xx-adc-upstream-v1-0-5ace57533418@aspeedtech.com>
-In-Reply-To: <20261001-ast27xx-adc-upstream-v1-0-5ace57533418@aspeedtech.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
- Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	"Ryan Chen" <ryan_chen@aspeedtech.com>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>,
-	Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790825325; l=1190;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=Efyja0txl/66WV+lz753WdzkL4tiz5+OqqKjmEnE3Rc=;
- b=SgzgZ4wlAzPIAqLhOcEZ3MhdMXqUwhAP0JTEq66ya5R06NtsVkK8v+ZBROIu9FQ2NnHqoLbZ3
- RtxNjtbSehDAGwJhkkEQ5iGLe8W6+uitnZ8hxnGku7hatjanUPVDUcx
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] kho: check scratch vs CMA alignment at runtime
+To: sashiko-reviews@lists.linux.dev
+Cc: Aditya Gupta <adityag@linux.ibm.com>, Baoquan He <baoquan.he@linux.dev>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Mahesh Salgaonkar <mahesh@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Hari Bathini
+ <hbathini@linux.ibm.com>,
+        Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        linuxppc-dev@lists.ozlabs.org,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Alexander Graf <graf@amazon.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Shivang Upadhyay <shivangu@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+References: <20260928083226.107807-1-sourabhjain@linux.ibm.com>
+ <20260928083226.107807-2-sourabhjain@linux.ibm.com>
+ <20260928084152.B52D21F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <20260928084152.B52D21F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abdd3ec cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=toarFsSee3Oy4yUGmnsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMiBTYWx0ZWRfX/Jh3EjbZ8wxv
+ Sv7TFll1B2s6sVRIU9krAsz97CCAiwokjotgx4PwyarIPLEmt8ZFcHRYIuZmQ9+m26hB67NrUNQ
+ 7vaogvq1+XSmOTYzSsxDKdzBKEfstFk=
+X-Proofpoint-ORIG-GUID: pcyTEcOYXhbYSqPpZGgCGCNE4alEzn6r
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMiBTYWx0ZWRfX/Ofk6lSTNnIH
+ y6OZe+dVah2hVq0Hfo6fyH6wj4VuEsH/KvSiMeNKEYnmywh0eAQrxO9R02Qvsc5XjrD+YHTM3YU
+ 4NEQjHJ3bPdOrKZdvTuImKkzmaj8ETS2dHIB9qQ6cdBB8DOtjt4sGXhsy1g5szXvvKI1jlsmPWo
+ lcmmGACLia15sQCYqF0VEeGlVlGoko32JWy7Co5KWBSmCjpFm92D7krmrMN63lfB174gJcaMC6J
+ sG9XqmQfjWeHraEnQPigFz3SezG0RHt12p+pmzRXSlljgvtZ/TwjAxTRQKb7/XE9K6nTQmya/lV
+ 1LIKbyXtGJhnYNc6kBE6vu/l+hWi8uzlbje4YBBEEL39zK1tIwKAh6ZvlApmtbVJ8YP1lTIQILE
+ fIYFuaZcr9gkAK2+bQWxGkEVSkZvHL70Z0/DigSw7PErZaccrrdXEm/hXMMzdggtl1fBHfVw5Jh
+ H2rFzmV6LyLy882N1ug==
+X-Proofpoint-GUID: _7CZYJNCwE8Er-J640OwR5Oqwxj4uV0H
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010012
 
-Point the ADC nodes at their own syscon1 so the driver can correctly
-locate the reference-voltage trimming data on AST2700, where syscon0
-and syscon1 share the same device-tree node name and would otherwise
-resolve to the wrong SCU.
 
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-Assisted-by: Claude:claude-sonnet-5
----
- arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
-index bc990f79e693..cd25fa191806 100644
---- a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
-+++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
-@@ -246,6 +246,7 @@ adc0: adc@14c00000 {
- 		clocks = <&syscon1 SCU1_CLK_AHB>;
- 		resets = <&syscon1 SCU1_RESET_ADC>;
- 		interrupts-extended = <&intc1 80>;
-+		syscon = <&syscon1>;
- 		#io-channel-cells = <1>;
- 		status = "disabled";
- 	};
-@@ -256,6 +257,7 @@ adc1: adc@14c00100 {
- 		clocks = <&syscon1 SCU1_CLK_AHB>;
- 		resets = <&syscon1 SCU1_RESET_ADC>;
- 		interrupts-extended = <&intc1 80>;
-+		syscon = <&syscon1>;
- 		#io-channel-cells = <1>;
- 		status = "disabled";
- 	};
+On 28/09/26 14:11, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] kho: bypassed scratch alignment check during resume causes memory corruption
+> --
+>
+> commit cbd7cb7f008e704b389d8dfe3306e1e83e49e8a8
+> Author: Sourabh Jain <sourabhjain@linux.ibm.com>
+>
+> kho: check scratch vs CMA alignment at runtime
+>
+> KHO requires the scratch alignment to be at least CMA_MIN_ALIGNMENT_BYTES,
+> which was previously enforced with a static_assert(). This commit replaces
+> the static_assert() with a runtime check in kho_reserve_scratch() to allow
+> KHO on configurations where the minimum alignment is not a constant.
+>
+>> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+>> index 7c4d86daf86d5..dc76dd6b74da7 100644
+>> --- a/kernel/liveupdate/kexec_handover.c
+>> +++ b/kernel/liveupdate/kexec_handover.c
+> [ ... ]
+>
+>> @@ -836,6 +828,21 @@ static void __init kho_reserve_scratch(void)
+>>   	if (!kho_enable)
+>>   		return;
+>>   
+>> +	/*
+>> +	 * This is the minimal alignment required by deferred struct page init.
+>> +	 * deferred_init_memmap_chunk frees memory to the buddy allocator, which looks
+>> +	 * at the neighboring pages (up to MAX_PAGE_ORDER) to merge them.
+>> +	 * If KHO scratch is not aligned to that value, buddy can access uninitialized
+>> +	 * struct pages, which can cause a crash.
+>> +	 */
+>> +	if (WARN_ON_ONCE(SCRATCH_ALIGNMENT_BYTES < CMA_MIN_ALIGNMENT_BYTES)) {
+>> +		pr_err("scratch alignment %lu < CMA minimum %lu, disabling\n",
+>> +		       (unsigned long)SCRATCH_ALIGNMENT_BYTES,
+>> +		       (unsigned long)CMA_MIN_ALIGNMENT_BYTES);
+>> +		kho_enable = false;
+>> +		return;
+>> +	}
+>> +
+> [Severity: High]
+> Does this new runtime check get bypassed during a KHO resume?
+>
+> During a KHO resume, kho_memory_init() skips kho_reserve_scratch():
+>
+> kernel/liveupdate/kexec_handover.c:kho_memory_init() {
+> 	if (kho_in.scratch_phys)
+> 		kho_mem_retrieve();
+> 	else
+> 		kho_reserve_scratch();
+> }
+>
+> If a predecessor kernel passes a scratch region with a smaller alignment,
+> and the successor kernel has a larger pageblock_order, bypassing this check
+> means kho_init() will iterate over the provided scratch memory using the
+> successor kernel's larger pageblock_nr_pages:
+>
+> kernel/liveupdate/kexec_handover.c:kho_init() {
+> 		for (pfn = base_pfn; pfn < base_pfn + count;
+> 		     pfn += pageblock_nr_pages)
+> 			init_cma_reserved_pageblock(pfn_to_page(pfn));
+> }
+> Can this lead to init_cma_reserved_pageblock() overwriting state for pages
+> outside the actual scratch region bounds, or cause a crash in the buddy
+> allocator if __free_pages() is called on an unaligned PFN?
 
--- 
-2.34.1
+Yes, if the kexeced kernel has a higher pageblock_order than the
+kernel that initiated the kexec with KHO, this can cause problems when
+the code above hands scratch-memory pages back to the buddy allocator
+in the kexeced kernel.
+
+Would it make sense to handle this by keeping only the unaligned pages
+reserved and handing the remaining pages back to the buddy?
+
+Something like this:
+
+diff --git a/kernel/liveupdate/kexec_handover.c 
+b/kernel/liveupdate/kexec_handover.c
+index 2e3a36054851..dea6e7790972 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -1928,7 +1928,8 @@ static __init int kho_init(void)
+
+         for (int i = 0; i < kho_scratch_cnt; i++) {
+                 unsigned long base_pfn = PHYS_PFN(kho_scratch[i].addr);
+-               unsigned long count = kho_scratch[i].size >> PAGE_SHIFT;
++              unsigned long count = ALIGN_DOWN(kho_scratch[i].size >> 
+PAGE_SHIFT,
++ pageblock_nr_pages);
+                 unsigned long pfn;
+
+
+Thanks,
+Sourabh Jain
+
 
