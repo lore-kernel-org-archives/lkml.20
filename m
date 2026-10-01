@@ -1,43 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03453E51FC;
-	Thu,  1 Oct 2026 23:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD303C9890;
+	Thu,  1 Oct 2026 23:07:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790896040; cv=none; b=DHrBvarTdEjiqvqhWvT43BYLVSUny41qTPH3qdO+1kVq36gLd/FUSOl7Quf18zSsyjpmXWpsLowUB7ttXDl+JYNwURp1OptiW7yprmcl7INnZlLIq5TUmOVgf30YjkXjES7j5OIt/tsCBy89kGEJcHxH4tCj3XvhjtHkqSCn6Pc=
+	t=1790896062; cv=none; b=ljjw0zDcHeT9A9k2jGHz3JydPVgkFriSXVCxq0DrCyp5ZgivVR1vxwMTZuPTuvH6c+n3R+L5SK48DLyeZWBggtmllYlpI8FXRYf5zRpvw8bb7Lvb8zjvhdgTvl92qusztOmWCs9cehjo5+3UTfwz9ect27Tf7q3Bj+HIix9GpBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790896040; c=relaxed/simple;
-	bh=PqJ80S6Vs8Wg5pX65UgwrGW/vOcciXfmy+v16R1QBZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=aFhBFKXToHUzFdatGz0iFTf41KT+KFJfqt0DxZjlehJqVngYk1PjTA8R2axD+CO2RIYbugCLslln5O4nENqq+xXZzyixkj9Gx1iG7TDlRal4nCOJFU/llHT2vc11sTkVvfoW6OgKzh2/cEn9mxm2AEGHOdiTyoKYN/0umZLB6IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4MC/xRJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790896062; c=relaxed/simple;
+	bh=hPsT2rD+T6t9TWyk1ozUjxlkY7MJlsgqlItJs/TjqiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rgDHrUIp5X8xvvqPaQyOZUJ70MT/TWSuacp8B13gz31Kh26l7EO0SXBnVZNuzxyLCTaV+NIu+3CS8ItVdpBRvnZjj6SFagt/Hti7i/EdR7cPEA3n08uzpYdI09nxZZfTzZUWE5Q4xufyhq67LODVldRr/C+9of30aHpbmVIyK7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=u4bgXdo8; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4MC/xRJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7ECB1F000FF;
-	Thu,  1 Oct 2026 23:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790896039;
-	bh=lYDN2EBTMqVMIwPcPNFaRe6IY/Q4nRv3WEjn49Ix3aA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=R4MC/xRJSxcbXpvObFnBkQY3uBp5iyJ8NHdLiZtJfPZTDVbB+32qsrgbom+lZwHDG
-	 ysSxG/KPS9Hha9XS0NxAhqX/Isyec6XuaR5YptUFide6IvrAEFeTccwKp/d3XiaxLG
-	 rNJFwF6e4Hj8v7zeA95HbTYKELnAQoh/1mXrJPqEAYDMSLm0e0dxScBJno01qDdiHu
-	 nr0J5cyJn5Lip9FVSTjaao3bIvCsqoVSmMUFKsosp9N+aAtP5l2Ef/Bkudk7ufN5xI
-	 uh69jnzZj+Drh/g8AWftmXKTRvY+ll2xDZKc+hJ5gZwAEwovEqT1UMJyz4lIQMXpJr
-	 dRAU+qxmkmVsA==
-Date: Thu, 1 Oct 2026 18:07:17 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Vladimir Nedoshivin <gvozd188@mail.ru>
-Cc: Nirmal Patel <nirmal.patel@linux.intel.com>, linux-pci@vger.kernel.org,
-	Jonathan Derrick <jonathan.derrick@linux.dev>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Rickey Bartlett <subtexel@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: vmd: Enable interrupt ordering quirk for Arrow Lake
-Message-ID: <20261001230717.GA2742668@bhelgaas>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="u4bgXdo8"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 95B9F6A6;
+	Fri,  2 Oct 2026 01:05:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790895945;
+	bh=hPsT2rD+T6t9TWyk1ozUjxlkY7MJlsgqlItJs/TjqiY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u4bgXdo8FZvyVw/gsKkJTXoXSzOYvbH8daY+XocbDZ/fBRKodTUn1cham5cFP5i/T
+	 UKNaCM4WSHJqmJaHHIYT4kGJbn1lDjMl/MLEULVXESGFDEHrbeFiB7qlmykhWyW3Nk
+	 emMK6+toVR9ztoUSK2ojBBX+2rHxCLey7Y2U2sSo=
+Date: Fri, 2 Oct 2026 02:07:37 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: raoxu <raoxu@uniontech.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: fix output terminal type check for ID
+ namespace
+Message-ID: <20261001230737.GA9061@killaraus.ideasonboard.com>
+References: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,92 +43,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260910200539.10862-1-gvozd188@mail.ru>
+In-Reply-To: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
 
-On Fri, Sep 11, 2026 at 12:05:39AM +0400, Vladimir Nedoshivin wrote:
-> Intel Arrow Lake VMD device 0xad0b is affected by ARL004. The VMD may
-> signal an MSI before preceding posted writes from the child device have
-> reached memory, which can cause the demuxed handler to observe stale
-> completion data.
+On Mon, Aug 10, 2026 at 05:16:24PM +0800, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
 > 
-> The existing VMD_FEAT_INTERRUPT_QUIRK implements Intel's documented
-> workaround by issuing a configuration-space read to the MSI initiator
-> before dispatching the interrupt.
+> Commit 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for
+> streaming output terminals") added a separate internal ID namespace for
+> streaming output terminals.  The namespace is only valid for those
+> terminals because their descriptor IDs are used by streaming interface
+> bTerminalLink fields, and uvc_stream_for_terminal() intentionally masks
+> the internal namespace bit when matching that link.
 > 
-> Enable the existing quirk for 0xad0b as well as 0x7d0b and make the
-> comments describe both MTL016 and ARL004.
+> The parser currently decides whether to use the namespace with
+> `type & UVC_TT_STREAMING`.  Terminal types are values, not bitmasks.
+> Since UVC_TT_STREAMING is 0x0101, standard non-streaming output terminal
+> types such as UVC_OTT_VENDOR_SPECIFIC, UVC_OTT_DISPLAY and
+> UVC_OTT_MEDIA_TRANSPORT_OUTPUT also make the test true through their
+> 0x0100 bits.
 > 
-> Tested on an MSI Vector 17 HX AI with Intel VMD 8086:ad0b and an NVMe
-> device behind VMD. With the quirk enabled, the NVMe completion stalls
-> observed without the workaround are no longer reproduced.
+> Those terminals can then receive an internal ID that differs from their
+> descriptor ID even though normal UVC descriptor references still use the
+> 8-bit descriptor ID.  This can make later entity lookups fail or hide an
+> entity ID collision that should be handled as a regular UVC descriptor
+> collision.
 > 
-> Link: https://bugs.launchpad.net/bugs/2166325
-> Signed-off-by: Vladimir Nedoshivin <gvozd188@mail.ru>
+> Use an equality check so that only UVC_TT_STREAMING output terminals
+> enter the separate namespace.  The issue was easy to miss because real
+> streaming output terminals make both the bitwise and equality tests true,
+> so the devices targeted by the original change keep working.
 
-Applied on pci/controller/vmd, thanks!
+That's a long commit message, and a large part of it is quite
+irrelevant. Is this patch missing an Assisted-by tag ?
 
-I added the erratum source and text to the commit logs of both the
-Meteor Lake quirk and this one:
-
-  PCI: vmd: Flush DMA writes before handling MSI on Arrow Lake
-
-  Per the Intel Core Ultra Processors (Series 2) Specification Update
-  (ID 834774 of 9/1/2026), the Arrow Lake VMD device 0xad0b is affected by an
-  MSI erratum:
-
-    ARL004: MSI from VMD-Owned Device May Pass Memory Write
-
-    Problem      When the storage subsystem is configured to operate in RAID
-		 0 or 1 mode, a Message Signaled Interrupt (MSI) from an
-		 Intel® Volume Management Device (Intel® VMD) owned device
-		 may interrupt a core before a previous write from the device
-		 is completed.
-
-    Workaround   None identified. The VMD MSI interrupt-handler should
-		 initially perform a dummy register read to the MSI initiator
-		 device prior to any writes to ensure proper PCIe ordering.
-
-  ...
-
+> Fixes: 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for streaming output terminals")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 > ---
->  drivers/pci/controller/vmd.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+>  drivers/media/usb/uvc/uvc_driver.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
-> index e45ef8cb16e..9d97a832785 100644
-> --- a/drivers/pci/controller/vmd.c
-> +++ b/drivers/pci/controller/vmd.c
-> @@ -94,7 +94,8 @@ enum vmd_features {
->  	VMD_FEAT_USE_BIOS_INFO		= (1 << 6),
->  
->  	/*
-> -	 * Meteor Lake VMD (device ID 0x7d0b) is affected by erratum MTL016:
-> +	 * Some Intel VMD devices are affected by interrupt ordering errata,
-> +	 * including MTL016 (0x7d0b) and ARL004 (0xad0b):
->  	 * the VMD may signal its MSI before the posted writes that carry the
->  	 * child device's DMA data have landed in memory.  The demuxed handler
->  	 * then runs against a not-yet-coherent completion queue and misses the
-> @@ -131,7 +132,7 @@ static DEFINE_RAW_SPINLOCK(list_lock);
->   * @enabled:	true if driver enabled IRQ
->   * @virq:	the virtual IRQ value provided to the requesting driver.
->   * @flush_addr:	config space address of the initiating device, read before
-> - *		demuxing to flush its posted writes (MTL016); NULL if the
-> + *		demuxing to flush its posted writes; NULL if the
->   *		VMD is not affected.
->   *
->   * Every MSI/MSI-X IRQ requested for a device in a VMD domain will be mapped to
-> @@ -1300,7 +1301,7 @@ static const struct pci_device_id vmd_ids[] = {
->  	{PCI_VDEVICE(INTEL, 0x7d0b),
->  		.driver_data = VMD_FEATS_CLIENT | VMD_FEAT_INTERRUPT_QUIRK,},
->  	{PCI_VDEVICE(INTEL, 0xad0b),
-> -		.driver_data = VMD_FEATS_CLIENT,},
-> +		.driver_data = VMD_FEATS_CLIENT | VMD_FEAT_INTERRUPT_QUIRK,},
->  	{PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_VMD_9A0B),
->  		.driver_data = VMD_FEATS_CLIENT,},
->  	{PCI_VDEVICE(INTEL, 0xb60b),
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..acfc5797a1c2 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -1130,7 +1130,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+>  		 * so limit usage of this separate namespace to streaming output
+>  		 * terminals.
+>  		 */
+> -		if (type & UVC_TT_STREAMING)
+> +		if (type == UVC_TT_STREAMING)
+>  			id |= UVC_TERM_OUTPUT;
 > 
-> base-commit: 95ac22dd4bf13373f90bb6d51bcd1fd1d8f5db54
-> -- 
-> 2.53.0
-> 
+>  		term = uvc_alloc_new_entity(dev, type | UVC_TERM_OUTPUT,
+
+-- 
+Regards,
+
+Laurent Pinchart
