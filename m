@@ -1,124 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A115035A38C;
-	Thu,  1 Oct 2026 02:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1397828E0;
+	Thu,  1 Oct 2026 02:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790820995; cv=none; b=Jy90DQQQ42xF97Z+xcM36Hdr3EToYHhYEmsoa+TLGWPo3bO4X8SOpwCCaQU2FGqVTtY13roTzTYZy9vKGqkpUNBIJAO1T8INYugsS/Dyc/F8YAdY6+b0tek0Ep8vNBIX3WeootefnaiJ0iVmuNCAyagLmvhXBZ7WLaXGCfN8IMM=
+	t=1790821076; cv=none; b=bcfigVK2nscKxn5tdqgueBBAVdL1Fqr/TuHxRcKKKHuS/MUWavYiP+b0srpB9mxBMkTyt3Df+Ceb68H4v3l1orfYI4uLlC6RYpCs/if2ptRYZXVkh1idJkFIaFGpWR0bMBpb8Tgoo8RbuWWURHBGTkXn3F9PthjyG0K1TnHGjSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790820995; c=relaxed/simple;
-	bh=KgHMBYu/wBnHRRfL66hCBCt8gdwfkcxVNGW+zQ7v4F8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iI8sA69YS2D3o3LJQ4TcsKKxwmBZLJrvaxRzaRRXGcRyWsssV5OLRIV5w1moUddZQ1pP5vUn4Uvv82bRdE4edjqyx0YPNxejD49LmXW0HVZZNQV2tRVG2JFzXPzcFTnqecNh83I7CBR8pUeDInVJuIhnNTGwowTNOG8nQbRtnsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f48PeRUH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790821076; c=relaxed/simple;
+	bh=Gd/qQIUaP6lcuejR3No/uE5nT0/NKD67EUf/NMG3q00=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f2VTl5a62SRc7hYIL6bNjERPNHYzYavFHi8zK/GXjdEYKbwgpTpJx03bOz43L3vrdzhDa61mzlqdPgD5MNco1ulWKhdvtMFce9RJzIF1aB87+6Ozs1ESJJ2Z/20naM3OYeBFfcNf7bYc4Ton2qyXW9NAdnXp7RWj3ooTjajMA9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Rwocds+A; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f48PeRUH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 34830C4AF0B;
-	Thu,  1 Oct 2026 02:16:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790820995;
-	bh=KgHMBYu/wBnHRRfL66hCBCt8gdwfkcxVNGW+zQ7v4F8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=f48PeRUHTkp13keQYqPIJyIk0rWMHhXpSwQaI+rQA5+dRjpXxpn8UQWnmhUTwd5qR
-	 EVX8xJcCC9O3MzxESpf8jOJhxY6gQc8hu4lZtNdRN30lwNTkRJiL7gGGaon2yMlljh
-	 T5i4erzL2bdagjnuc4cDtKW/Uvv/C3HRbbEodJhIY/hV6D+GrmFyvCsoYJvpiFVMIi
-	 VpMXyrNOtq8o1RHDSHl2JHohfIYvVabIHy/5bsql6DIdZp6i2h2QqOTK5A6Gkosd72
-	 QRiUgYir55rade4FwNKjiwRFgGB449QiQNDB9PqI3goiBmZGKUMK45Px3045s+JgK5
-	 ue9EqPXFFu30w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FE8ACA5FC4;
-	Thu,  1 Oct 2026 02:16:35 +0000 (UTC)
-From: David Medina via B4 Relay <devnull+b2amedina.gmail.com@kernel.org>
-Date: Wed, 30 Sep 2026 22:16:35 -0400
-Subject: [PATCH] thunderbolt: Fix domain reference leak on DPRX work cancel
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Rwocds+A"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=lO/IozwWM9cMGiFtGYhrUTFCJclvAMMd7gfbaxtHYYw=; b=Rwocds+AGpm9XGoXxnOxhHrf5Q
+	vQkyvKwJXB/5iI5jzord4507G8hpkyrvMQfO5Ymjo92b4ZDobOAasizCkZXVYFoTsRH5KelesXcmd
+	I/rjqBCVkl0tmJLrOaX8JcfZwhiFPZ8g1T6ShKNOJLcVu0l92STByvomSNONeHzSpXj5e9DHxYjfL
+	GVbRO4brHvI08+tDEErrP1S7ACw4IBOYu+cucS6s8FqT3sMrv1P0qcnSPhCsDe/UPWcC2EVS1E794
+	xm6zp0Lt6e0FgSySSitBOgzL30J55Pt0LHZD7uTy+N1KE+Pbb6IbNJ/iKAkxhpk/pBAKbPyqn2dEa
+	mww9HMLg==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xC6Mk-00000007bJi-281u;
+	Thu, 01 Oct 2026 02:17:46 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	NeilBrown <neil@brown.name>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v3] VFS: d_duplicate: repair comments to avoid kernel-doc warnings
+Date: Wed, 30 Sep 2026 19:17:45 -0700
+Message-ID: <20261001021745.2160005-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-tb-dprx-fix-v1-1-da92659e491a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWZukbnV5FbHQdjAWSItIpO+uW
- H4nOf8NjiyTgya6wdLJjtclIIkj0FO/jIRsgiEVqRR1JnBXaDZ74cAX1loUJlNVlZcSwmOzFOa
- v1na/3aFm0vubAO8fECnXpG8AAAA=
-X-Change-ID: 20260930-tb-dprx-fix-9c05d3b88476
-To: Andreas Noever <andreas.noever@gmail.com>, 
- Mika Westerberg <westeri@kernel.org>, 
- Yehezkel Bernat <YehezkelShB@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, David Medina <b2amedina@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790820994; l=2131;
- i=b2amedina@gmail.com; s=20261001; h=from:subject:message-id;
- bh=N8/YAAUcHuskyY/Gie1TL1XIy2476JrAqEJaOFmRRrU=;
- b=TCRFKCeg5ofWVYbk5OpAhIrcYrd5MK+qE+Z9h/7mQ9IZUVN9fq16lRw8CHqJDntHt+Df2S0yl
- Hey3r9Xz7eGBsuuCJvSzBd6qEVbXHzakZ5ak+V1YrqXboinMlHvP7OT
-X-Developer-Key: i=b2amedina@gmail.com; a=ed25519;
- pk=6kajg3wsf4T4/+F2W+hj7g5W4lTch1OgfXS+6o1FsFY=
-X-Endpoint-Received: by B4 Relay for b2amedina@gmail.com/20261001 with
- auth_id=1091
-X-Original-From: David Medina <b2amedina@gmail.com>
-Reply-To: b2amedina@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: David Medina <b2amedina@gmail.com>
+Use a typical list style for comments to prevent kernel-doc warnings:
 
-tb_dp_dprx_start() takes an additional reference to the domain with
-tb_domain_get() and passes it as callback_data to tb_tunnel_alloc_dp().
-That reference is only released by the callback, tb_dp_tunnel_active(),
-which tb_dp_dprx_work() invokes once the DPRX capabilities read completes
-or times out.
+Documentation/filesystems/api-summary:20: ../fs/dcache.c:2029: ERROR: Unexpected indentation. [docutils]
+Documentation/filesystems/api-summary:20: ../fs/dcache.c:2030: WARNING: Block quote ends without a blank line; unexpected unindent. [docutils]
 
-If the tunnel is deactivated before the DPRX work runs to completion,
-tb_dp_dprx_stop() cancels the still pending work. The callback is then
-never called and the domain reference held in callback_data leaks. The
-domain's reference count never reaches zero, so tb_domain_release() never
-runs and a subsequent shutdown/reboot hangs waiting for the domain to be
-released.
+Also, modify the spelling of "whiteout" to match all other uses in
+the kernel source tree and to be consistent on the same line.
 
-Release the callback_data domain reference in tb_dp_dprx_stop() when the
-DPRX work is canceled, mirroring the release done by the callback.
-
-Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Medina <b2amedina@gmail.com>
+Fixes: 33d76519f0cc ("VFS: add d_duplicate()")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
- drivers/thunderbolt/tunnel.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+v3: use one colon for the list, not "::" for a literal block (Neil).
+    Add linux-doc etc. to Cc: list.
+v2: dropped Jan's Reviewed-by since the patch changed.
 
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index 7e8284575dff..971e9a5f8c5c 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -1139,8 +1139,18 @@ static void tb_dp_dprx_stop(struct tb_tunnel *tunnel)
- 	if (tunnel->dprx_started) {
- 		tunnel->dprx_started = false;
- 		tunnel->dprx_canceled = true;
--		if (cancel_delayed_work(&tunnel->dprx_work))
-+		if (cancel_delayed_work(&tunnel->dprx_work)) {
-+			/*
-+			 * The DPRX work was canceled before it ran to
-+			 * completion, so the callback (tb_dp_tunnel_active)
-+			 * never got a chance to release the domain reference
-+			 * passed in callback_data. Release it here to keep the
-+			 * reference balanced.
-+			 */
-+			if (tunnel->callback_data)
-+				tb_domain_put(tunnel->callback_data);
- 			tb_tunnel_put(tunnel);
-+		}
- 	}
- }
- 
+Cc: NeilBrown <neil@brown.name>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
 
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20260930-tb-dprx-fix-9c05d3b88476
+ fs/dcache.c |   11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Best regards,
---  
-David Medina <b2amedina@gmail.com>
-
-
+--- linux-next-20260930.orig/fs/dcache.c
++++ linux-next-20260930/fs/dcache.c
+@@ -2025,11 +2025,12 @@ EXPORT_SYMBOL(d_alloc);
+  * @dentry: the dentry to duplicate
+  *
+  * Some rename operations need to be combined with another operation
+- * inside the filesystem.
+- * 1/ A cluster filesystem when renaming to an in-use file might need to
+- *   first "silly-rename" that target out of the way before the main rename
+- * 2/ A filesystem that supports white-out might want to create a whiteout
+- *   in place of the file being moved.
++ * inside the filesystem:
++ *
++ * 1. A cluster filesystem when renaming to an in-use file might need to
++ *    first "silly-rename" that target out of the way before the main rename
++ * 2. A filesystem that supports whiteout might want to create a whiteout
++ *    in place of the file being moved.
+  *
+  * For this they need two dentries which temporarily have the same name,
+  * before one is renamed.  d_duplicate() provides for this.  Given a
