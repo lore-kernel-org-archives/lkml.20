@@ -1,211 +1,170 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E498511E8C
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF784B7A21
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862573; cv=none; b=N9a0+Nt9F2cn99WbDhTr8B09V7EbP+n2i2rWK7GdrLaIjK2cSO08HFvYzZSoWaS8edtELdDhiQFZ8AOIoAFv9PKXqdlgO7d59DB3mg4zXnBvKiCb3tvYjDqfiLSP+WfQmM27sh0bMFlBQmvexj+5ZKcQyzupPpQf1yMi1Tlwitg=
+	t=1790862601; cv=none; b=utn5ItOHgDTGpA/71iEaVkIucA35j0jBzR4Fb7DIJ3yCjBKS50ZEeU5a/RHJC97ZGTQpo4AEcgbwE57KiM3AmvMDUkDZ7UDIYrlzd5CbuqC5JZPrsYfsrhAH9sL1i1YVXd+OjQS0IjtGoB2Lg3Xai+wSkT8XifVuw4ZcvUHuwX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862573; c=relaxed/simple;
-	bh=jzLbBGVCMQNw9atKruX89CioZowzDy3zfpgXzSDgV9k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RIFo4a/QZj+1/J+VBOjsOE3h1vCJKh0c6lz5g2fj3E7pxypBYijCshX4SNEs7PVXFMIMnwI4nC5E54uKUvTBTofq3OsfrHXLn+7AQoqrwT3oRQ03WgC35AfJsR+cIJTEnr4+8+ws9E4UUhgKHISuFWA9l/zFMKMkvYJ4F9PBYUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AYeydzLn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YPr3UEbs; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790862601; c=relaxed/simple;
+	bh=rZtlDwhko5broPuTQRUomxt+kCO9PaXGWs1q1878AFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AuoJyQZJJnr0bX9Aji9AIc1vDL/HNdhDPbgvL0QwUKSO20Y35jwi9WU28JfEJOZOtVtTtOg7z9bG0oWK18N3k0DbjZ3dALB/32iHCXV9B+habk1tdZxr71wNm4+wObXf0ERt6XRNznWJmAXupvyKCol5zJMUFmqvuzEpQjG3w48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DwWuCnme; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hFFmJ0gb; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AYeydzLn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YPr3UEbs"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691Djfm22570719
-	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 13:49:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=W4VCobRhLa/HlEd2PVZkof
-	cVwcQj7/GsereQGC6YFic=; b=AYeydzLnXC+oTLkIGPGoLxpK6JpkGAiVuml8fT
-	RfL0iOuEfEMrcquZUDvtfSAi3el33YtjiQN/ay7vvQX6YmxIJAcACmQYIgq6XoM9
-	EfbAQ3EfykWW7yfxiAvbpPUS/5aMPgvJQ/VHOzG3qTgcyIzGa/l+pYkcFhQ+mJDz
-	xjPKsKBbpV/9PoHHwE/y1pOVSxB2iqfVFM82Kumw25NdnO33bSeRGz07EE9DnLiM
-	ziHpG2A31UQNKFHZWqT4WVLhzGg9aOR5D+MbOMMPWCFUSRbqtMQ6T5ipzo5azPKL
-	Ln1y/vjjIuMpY42szfceaAcnXrwKwXBx3WNFPMGG+Bx6s4Sg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h167pn27s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:49:27 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d001671a54so66253895ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:49:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DwWuCnme";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hFFmJ0gb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790862596;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gK6srUdUcH5LY8A6vI2W+4Q7jKIowtaiZ4fg9Nv2bCc=;
+	b=DwWuCnme/fAhfMYkjqrrguYBQ7fzlxAmQpILxUC4XPEO+och3ayhIj3iVzHrko81CDJFaq
+	F5uLrUNa7WFyg/jPIPYpG6CX2rv52qcarE7TT9he0EUbi6GurDbvisuGtGHlEu+d+BLDJW
+	3EZhO9PeSAFgpkY5oyvzdDfOHX6gmzo=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-138-b57VLkpJMiugebH6eTHm1Q-1; Thu, 01 Oct 2026 09:49:53 -0400
+X-MC-Unique: b57VLkpJMiugebH6eTHm1Q-1
+X-Mimecast-MFC-AGG-ID: b57VLkpJMiugebH6eTHm1Q_1790862593
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b01a74792so1375043f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:49:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790862567; x=1791467367; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=W4VCobRhLa/HlEd2PVZkofcVwcQj7/GsereQGC6YFic=;
-        b=YPr3UEbsofbjOceo3tuO1P+BwG0NbFsAIeDBoaIGhltR552ofpse8D4AN3m34oMdvn
-         OiTvXzkVVdueCpa+Ux3m1GuQCgMZmhhx7RmSxKxN2332Ld1Xy55L4GlfYTsUWEZU7JdM
-         X9gpp6Tby0GmMNW5HEuUcXKMkrNd8+aOqmo/rL0MOzEyX7gterzeRHlhJ7AmVgiv+pKK
-         Q8aRJQ9gaI5Xb4TIR3PBt7v2pg0r2Ej2kCZxuvlWeEAXMmX7h1ghehVO3n/YvwkgLbpd
-         +rUD8BRLJ5Zt+9LZDuOQiuDGYxek7qhZMrKjMI+Vsd77TzTz2AXfyoUPJJ6DLXHGB5de
-         cnXA==
+        d=redhat.com; s=google; t=1790862592; x=1791467392; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gK6srUdUcH5LY8A6vI2W+4Q7jKIowtaiZ4fg9Nv2bCc=;
+        b=hFFmJ0gbCZ2i8x3kFidEJosIcDV/hT/UNlDHPELPRlVUFuImIeao7KBI36OVC7YSwK
+         xq9ZDTZ+zR3EdEmIiHnU13ozWUaGRO6eTt7+6W0//STy/eMI+iiwSSUj7M5q4qFG3s9c
+         ls/zmQwcJNbgEIV0mTqinkjqhUwSgvQlgO166B3oAILNbTpgoigrvPRQ9gUKEu6XQpc/
+         nNYvkVwgidBcwOIHodVjd2xtvjHoB5o/RvsmZ0o4jpVfRhJA5MAHtK49tB/ekyk6jYTB
+         zUSyf9lDDI0ySBw6cPvey5A/e+rR+3aA1UGzL89ZUDYbMbhhg5B1jHMETTcJL6anqDSH
+         A0Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790862567; x=1791467367;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=W4VCobRhLa/HlEd2PVZkofcVwcQj7/GsereQGC6YFic=;
-        b=g5CTTXA38DH+7qCvRz1seAES9sCbGmz/oMeKnIhl+xr/pss8KsHJC4LAHDdZLsRNWa
-         IcyDzWh/EpUUzhOEfdXejp9yFYrf3M/DDwvzwUpcpz6jq892Y+UPQRbHMqt79Ie86X2L
-         aOQhfYLZukorl6BppnN9ruXQ0L3kZP1WWspLs3agYgZOmEUe0BlSwTm1X3DMkfJ4BEMs
-         9hh5oX+lOMH7ABHg0WCVXz2aBUpBjzIGgSEbiczKEOMYRDE3R7s4Y7zA1Q20PHc43zjm
-         9vLkZKN+gRVU2fTNDPm2VErqDnwIc2pxzuqGFhzIqZU6Jnb5+Ji4A7luawSbNoYrH7T0
-         9HAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7M4yuUeSHXAeDWmlb4ygaEom7lS6YCj2gcHR2GUkz/asdvlzxDbJQUTqRo3RVSOLAxviz/2nojkf6r28=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsO1rdG/3fqI2647FZa7ubuwXmlHs7ZdpHSvT2AV2EQbp/FSyI
-	aDgoqShvI5iulbrV+hrjfszqkPBcOGRJoebSWs+oxqRrQTtbcxn7f+Pi3Is7WvEDEjDJ9DMuKr4
-	Z2CXLpgGvShjh+pdw5hWzVTy1OJboLXYIU9QgwbVO3RSGlpadaXPt8vZfhjKWUIGI+w8=
-X-Gm-Gg: AYBFou3Qy6572d9Q7eCsdpBD31K8kV5Ni72OtKcoC8JpEMRvw6MfcXn/dXq80v8wmi5
-	o5/9M8Fi2m4OIe4V8ai4pAey24QUMMzIzLTYtUyYpImsFybqrbNGvmCDS5ZaJImjajkxzr0A5v0
-	KcnqCkJ77viV7uIAdZbUCDHyp9z/YATMMT7IdVW70xEu4dQXu31v9xUz3ut47M4KuBJGNkek5FS
-	e/38+D8y6uRaPvR4F81w6fAh4GBijZNqDsnMxn/kackQDRCbuloi+GtRYCLzfPc1XlCpf0+/kXu
-	l6YQNwEITyRFRDK/r4g4NcWC3H2Isma1KIcrJDR7GhiMLUKj+1b2VUOj9/idiIg5GcbUx6dln6X
-	tMDmYwIUfEPVSog==
-X-Received: by 2002:a17:902:ecd2:b0:2d8:d4d0:792c with SMTP id d9443c01a7336-2e2e49fb7f9mr36367265ad.16.1790862566903;
-        Thu, 01 Oct 2026 06:49:26 -0700 (PDT)
-X-Received: by 2002:a17:902:ecd2:b0:2d8:d4d0:792c with SMTP id d9443c01a7336-2e2e49fb7f9mr36367065ad.16.1790862566431;
-        Thu, 01 Oct 2026 06:49:26 -0700 (PDT)
-Received: from [10.213.101.118] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e300b6f9d3sm10714805ad.75.2026.10.01.06.49.22
+        d=1e100.net; s=20260707; t=1790862592; x=1791467392;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gK6srUdUcH5LY8A6vI2W+4Q7jKIowtaiZ4fg9Nv2bCc=;
+        b=ir6pFMRZjFrzbRg/xUpJXmfXVgRLOaWt+jfeKHBCt+mo7oRg/Qf/D0v1V1HGEiladt
+         HhNRJ2W3I9Kc0GHoP8nDqfO/yr+4BLf7xFUivYhEpom/y1EMiqGdYBcw2ng6h//LAwCV
+         1t63DkgEB4dqO9JkCS5n5Zg5Wx5ULlvdX2v/63DMxW+A+BJqlseQ12W78VvXdUfnk6lD
+         ESYh1ziNO1uW0nIiDtXwP39JZQXfRUqFjexfTDGezTVrcDeCv4mHknjWrVl7otH8Db0o
+         W6WtEdr/cczhh54EI0kvEprvuRi19AMYfpSjLNhuFhc7HjurE9FJzvIkcX+0FcharQx2
+         tDhA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHkfBLPMef6Z/E393JcCc6SocNe4JJDINmnQPXqV80fc1J/eDPWiY2HqGweWFwCK3wWTmQhZTM9v+KCjE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+dTbrI1IFmHQatfmEHxPTEDBaNYhYp6itzLDG7+0oLQP3DY/B
+	Q+Mb3iTXsRte9Qm3XGq6BaeMwtVYwx0xcMsXSt1af5JG5zwbIOJi9GNOOLZawViqBmVeBC1hiqO
+	2S7pysMXXFIARBXVyx/Cw6huPfIZXngojpmnXd9/yn+KDRLUPcvhGW54+qZcFxCx3dg==
+X-Gm-Gg: AYBFou1c0B4Ex4M4DTVjnvSaxcQGUOzcWZpfnJm1yfV0WY47gK+kLox3LnOW7p7vEsq
+	a1tUjJpMtaY576xFLYT0Vlv99Q+xsrDzgNui89omln0zacJf/ZvIkcreCrbqXdSLSk3dtQb7I4Y
+	OiAtSxJdmgEMeSmQZcit66dHalhI6iT5p0mvmb/iPnL0EPUae+fScN/34yUuEeuf9THbL8bDrSx
+	iRcJVCq5/EOZ7i2bRakZ0ZTu1orQ/75u6FRy1so9zKU+WSv1+1stbZW0YywrJGEzVM2YrHFUUoB
+	QIVM5wN8E1Pjp73sd2JZDq27G9HKj5bQ19BUtuNNqEbrE3DzrkeJX+r728WeAgeQOoMNnwl6EsB
+	zTjUVdQFl7MhHjzT1KA0epEX4V/5C
+X-Received: by 2002:a05:6000:1a8a:b0:48b:10c8:2181 with SMTP id ffacd0b85a97d-48b10c8229fmr1532378f8f.27.1790862592634;
+        Thu, 01 Oct 2026 06:49:52 -0700 (PDT)
+X-Received: by 2002:a05:6000:1a8a:b0:48b:10c8:2181 with SMTP id ffacd0b85a97d-48b10c8229fmr1532334f8f.27.1790862592197;
+        Thu, 01 Oct 2026 06:49:52 -0700 (PDT)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.14.6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0690c47dsm6381511f8f.15.2026.10.01.06.49.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:49:25 -0700 (PDT)
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Date: Thu, 01 Oct 2026 19:19:19 +0530
-Subject: [PATCH v3] arm64: dts: qcom: shikra-evk: Add GPIO expanders
+        Thu, 01 Oct 2026 06:49:51 -0700 (PDT)
+Date: Thu, 1 Oct 2026 15:49:49 +0200
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>,
+	mingo@redhat.com, peterz@infradead.org, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	arighi@nvidia.com, linux-kernel@vger.kernel.org,
+	dhaufe@simplextrading.com, create0818@163.com,
+	frn1furkan10@gmail.com
+Subject: Re: [PATCH v2] sched/deadline: Make dl-server nohz full aware
+Message-ID: <ar5k_SmqKTmYKJvh@jlelli-thinkpadt14gen4.remote.csb>
+References: <20260513-upstream-fix-dlserver-nohzfull-b4-v2-1-d3e9cbe5c845@redhat.com>
+ <20260924170402.521623-1-ionut.nechita@windriver.com>
+ <araOR8aTAU_R5lwQ@jlelli-thinkpadt14gen4.remote.csb>
+ <ar5YqUCMbhZyjvtn@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-shikra-gpio-expander-v3-1-d30c1e8067db@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAN5kvmoC/4XNwQ6CMAyA4VchOzvC6sDNk+9hPCyjQKMw3HTBE
- N7dwcmDxkuTv0m/ziygJwzsmM3MY6RAbkix32XMdmZokVOdmkEBVaFB8tDR1RvejuQ4TqMZavQ
- cyqaRBrRVUrF0OnpsaNrY8yV1R+Hh/Gv7EsW6/QNGwQU/CA1aaoVGypMLIb8/zc26vs/TYKsb4
- dPSPyxI1qqUqlBWmuqLtSzLG7UxEecLAQAA
-X-Change-ID: 20260924-shikra-gpio-expander-25ff4a29c848
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790862562; l=1966;
- i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=jzLbBGVCMQNw9atKruX89CioZowzDy3zfpgXzSDgV9k=;
- b=lGhVbOZ5syqCHUY/f27Ro3DsfRdLuGuSmvFXyHiNb4TpI9OUBVu9aAE+4AKQxAaYMehV4PvGo
- fUSr8MoncQgCIQzh8S2jOTWn6ATxj2qsl4+aClAumW7WsOvUa7rK1ed
-X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
- pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
-X-Proofpoint-ORIG-GUID: Kpg75kav8OSTSkiiixc1hjy-jb7ovYnX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1NSBTYWx0ZWRfX2WAdw7mgdvjq
- 7xv0XhzvdemqgHu7Alz5DcFtohtLFYCD5yNQE9ZZthDK5/hOP8JsYECRxffXeEyFQI420/IA1h9
- WcS8GxRMhD22crnVnDdzZhpMSK2VULA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1NSBTYWx0ZWRfXwHDxrTHNeFTe
- 7Qv92P0b0nqnEz6gIdFG+shOcWWRVBWUo7SwhkgOF9Ypublrm/GSKLvxZheSGz6JLVeQ58haaH9
- lhewapG0mYumU0Wm0+hKKnwsfFL1XFBGdnUbkZ13WbdvJhV7+YhPZXw+ke8HKWUcSPCtXMo5Xaz
- kSwSgv0IThANndCIHLwDj7shw265/GvKdbF5GleWgLuu2SVtdJJ/qamw4MAoDDOdfLcbRD9W/ZQ
- 6VDlM+H5CbdVSYD84q+htHObq0TgumBhQCHpW6zA//zwkrwg4AKIWRHxNvmxMqtSaEov/DDmk62
- VNiX/bipvQlIGiVkgXT8EP9ybqETDBaVy5TaBSc4g/6GswurMu2Gd7yhJsrGc7TaObps286Vfon
- A6/0cDZvxoyEUlh/ZwFi7oRxSfbGx/bcSUa/op2VteENUsXBhf0tnb6PuuywesGsutzxk/2EYDG
- ysEzzriXOXqq3+MgM0g==
-X-Proofpoint-GUID: Kpg75kav8OSTSkiiixc1hjy-jb7ovYnX
-X-Authority-Analysis: v=2.4 cv=WpC+otfv c=1 sm=1 tr=0 ts=6abe64e8 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ELGJhN323uyAj9mGEkYA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010055
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ar5YqUCMbhZyjvtn@localhost.localdomain>
 
-Add the EVK GPIO expander definitions on the I2C3 bus. Describe the
-TCA9538 and TCA9539 expanders used by EVK boards.
+On 01/10/26 14:57, Frederic Weisbecker wrote:
+> Le Fri, Sep 25, 2026 at 05:07:51PM +0200, Juri Lelli a écrit :
+> > Hi Ionut,
+> > 
+> > On 24/09/26 20:02, Ionut Nechita (Wind River) wrote:
+> > > Hi Juri,
+> > > 
+> > > I have been chasing timer noise on isolated nohz_full cores for an RT
+> > > product and ended up on this patch. It does restore the CFS bandwidth
+> > > guarantee, but on the isolated core itself it trades the dl-server's
+> > > timers for a full CONFIG_HZ tick, which for us is the more expensive of
+> > > the two.
+> > > 
+> > > Below are measurements from two machines, a variant that keeps the core
+> > > tickless, and a hazard in the dl_servers_stop_all() call sites that an
+> > > equivalent change of mine ran into. The variant is not a replacement for
+> > > your patch as it stands, since it does not address the housekeeping
+> > > wakeups you are fixing, so this is more a "can we get both?" than a
+> > > counter-proposal.
+> > 
+> > Thanks for the detailed analysis!
+> > 
+> > I believe my v2 was never picked up, so I'm happy for you to send a v3
+> > modified with your approach. Keeping the tick stopped during the
+> > server's throttled window sounds reasonable to me. Having a proper
+> > single patch will make it easier to evaluate. Please do include the
+> > ext_server handling as well so we have the complete picture.
+> > 
+> > ...
+> > 
+> > > A separate observation
+> > > ======================
+> > > 
+> > > Independently of either patch, the CFS wakeup pattern changed between
+> > > v6.12 and v6.18. With the same workload, v6.12 serves the periodic CFS
+> > > task every ~50ms (199 wakeups in 10s), while both v6.18 variants on that
+> > > machine serve it once per server period (10 wakeups in 10s, ~1s worst
+> > > case). The bandwidth is the same, but it arrives in one burst per period
+> > > instead of being spread out. For an isolated core running a periodic
+> > > housekeeping task next to an RT application, that is a user-visible
+> > > change. Is the deferred activation expected to behave this way, or is it
+> > > worth looking at separately?
+> > 
+> > I think what you see is the deferred server model at work. The server
+> > now defers activation until zero-laxity. The dl-server is primarily a
+> > safety net to prevent complete CFS starvation under RT, not a latency
+> > guarantee, so the bandwidth being correct (5%) is what matters and how
+> > it's distributed within the period is a secondary concern. That said, if
+> > I understand your example correctly, that periodic housekeeping CFS task
+> > you have on the same isolated core of the RT application is relying on
+> > dl-server to be able to run? It doesn't seem a safe approach to me, the
+> > RT application should better ensure to sleep at times leaving space for
+> > CFS housekeeping task to execute w/o activating the dl-server?
+> 
+> I'm not sure I understand everything in this matter but in general
+> sched bandwidth is incompatible with nohz_full. It's about a single task
+> running so there shouldn't need to limit access to the CPU. And therefore
+> there should be no dl_server running there, right?
 
-Co-developed-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
----
-Changes in v3:
-- Sorted the child nodes by their unit address (sashiko, Konrad)
-- Change node name to gpio from pca953x (sashiko)
-- Link to v2: https://lore.kernel.org/r/20260929-shikra-gpio-expander-v2-1-98ea5808c4a6@oss.qualcomm.com
-
-Changes in v2:
-- Moved GPIO expander nodes to i2c3 (sashiko)
-- Link to v1: https://lore.kernel.org/r/20260924-shikra-gpio-expander-v1-1-71929498ea44@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/shikra-evk.dtsi | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-index 7fbd6d1de19a..1c49cb52ce12 100644
---- a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-@@ -11,6 +11,38 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/shikra/a704_zap.mbn";
- };
- 
-+&i2c3 {
-+	status = "okay";
-+
-+	expander0: gpio@20 {
-+		compatible = "ti,tca9539";
-+		reg = <0x20>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander1: gpio@21 {
-+		compatible = "ti,tca9539";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander2: gpio@38 {
-+		compatible = "ti,tca9538";
-+		reg = <0x38>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander3: gpio@3c {
-+		compatible = "ti,tca9538";
-+		reg = <0x3c>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+};
-+
- &qupv3_0 {
- 	firmware-name = "qcom/shikra/qupv3fw.elf";
- 
-
----
-base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-change-id: 20260924-shikra-gpio-expander-25ff4a29c848
-
-Best regards,
--- 
-Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+But dl-server gets activated in case a fair task gets enqueued on a cpu
+in nohz_full mode currently running a FIFO task (so that that fair task
+will get a chance to run in case the FIFO task won't sleep).
 
