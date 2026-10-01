@@ -1,112 +1,104 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D551A43F08C;
-	Thu,  1 Oct 2026 15:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CAE52BE3E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868990; cv=none; b=Dwv+gB39mt2TIbLqqzvPMQUM964Nmb1lPY3W7caXr0pO/PDDdwhPsGwi/gqcFRAD4PB5jyKs8AvEUvYS7EEg5BAiMLUtjojPi7LzZo1Ra0r/kPzvIsR07Hi/eCT8HvGK9P4ZrroHJ+VYLDJoxnon2B5jmecLIgzCJeY1n40wSHk=
+	t=1790869060; cv=none; b=r+r/y/1DmZmmeYzEuOdGVVADf7H7jCaBQk3Jp+Ff0mmMoEck1YaenEuz5Y4K5lN1mNHhUpT17KJfFShTZ6jSrgfKs9IUW0HYPAF6QR5aNVjyuIY3bUVfj+d5UtXnG0HYQ6is7i0Woqqt64Mapo0+5aa3HgIQlI6kfe3YITztvkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868990; c=relaxed/simple;
-	bh=yJ/LhFqPl8CjtIlZHtaborY4hBzMtXGYUhD5qs/EPWw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=r63lRGq4Vem65k0nh0O1zajhMwae6nBmemfP0ajBzatd1k3GUImcrHXGVn4mtT0XXZo/qbqZNTbL21Pl9A0BDKcRnO7y0HMZV+Dlxygiz1KVo4IOSCINP4C6l1OExaRBuy4VU0RLanPQYT1Xfu+2Odqo9OV5KTN3/uUsuynRKA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be; spf=pass smtp.mailfrom=krisman.be; dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b=f9KGlwlK; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krisman.be
+	s=arc-20240116; t=1790869060; c=relaxed/simple;
+	bh=ZV5k7XLNeQRvY2kL+aVAIvdviOxTBcUNWnKVwMThcc8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WGPX5Ym7CaHmPzxMEHzbk4TslzNG3jhe5zVOza36AAeqiedVgxYVMJ6lQxU6VVi4dHl5cIpmpgBfq/aeEatcL5DKfyzAHcp6hGnDnuxMCEjsM5iyHqv8fMZbnICoa+bZosswmJvYhSv5g5cjVoVxTVbdu2wiL0sX1nuJ7vFx04A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=on8Tmi/1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b="f9KGlwlK"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hwbc71KyJzKpDS;
-	Thu, 01 Oct 2026 17:36:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=krisman.be; s=MBO0001;
-	t=1790868983;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vi1fnMnSyEd4oeHJPdGtovvWeng1BWn+XwgU/ARKPko=;
-	b=f9KGlwlKfy0bPgY5BN8KxY8ZAPZSu9BzZ4bvpdhaVzgHViPw0+QCcGVLbOAx2w1iP+2lGp
-	Y27P7t+lazC6sq6dh76mvxdNnqHgG16LaeIxCSGcXiRnNnUnkgDeX6QclTchHs2fZdcFu4
-	C+O0/yJyI8CzJQoZLWYvunWr4GPFB7jThDmIj34HOUuOBNnykhhHiTyak57AwKIv+6qZG0
-	Dvqz47m+2rWiugbDVx3jX2Ui4CjH5YkxujlDjeRRkelwGcU9o/JFO5BkaQn8Cdac+pDTVZ
-	QJkln+qldQTv63IhmL1DsxhLyTQ4FwpU087AP4yd4vzrszjpWJGAyysFUjeypA==
-From: Gabriel Krisman Bertazi <gabriel@krisman.be>
-To: =?utf-8?Q?=C3=96mer?= Mete Kaya <omermetekaya0@gmail.com>,
- axboe@kernel.dk
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?utf-8?Q?=C3=96mer?= Mete Kaya
- <omermetekaya0@gmail.com>
-Subject: Re: [PATCH] io_uring: fix out-of-bounds bvec access in
- io_vec_fill_kern_bvec
-In-Reply-To: <20261001143003.755790-1-omermetekaya0@gmail.com>
-References: <20261001143003.755790-1-omermetekaya0@gmail.com>
-Date: Thu, 01 Oct 2026 11:36:18 -0400
-Message-ID: <87se2pwhzh.fsf@mailhost.krisman.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="on8Tmi/1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE43C1F0089E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:37:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790869058;
+	bh=wqtp53NhoEXOE3A3uQ7lUOxV6++k6ilQB8Dm5sB59Cs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=on8Tmi/1cTvxNpYBgLIeqYwvaobQQg4Oeo9tgOzrQTMfFi91Y+en82uNLte+UVM5p
+	 jHZwo8Pjj4WAPXvV/8yxrv/tvvExDWAh14TImEZJzH96TObSvoUyB4zVf/UlA5CHvU
+	 nYYg34RoG2CSM1QM0WnRWbvNquNOFblolx0aY1uUsEXd9nWQtusPjbuiuGWU3pLdqv
+	 1H4lJaOKGHTqWmkMPkgGBMP9ou5OPXS5x151KCAOcSBLClSgbXk6hTC4JOA2MDIn6m
+	 tEyXWXcpOz2XGGD5lyKrnAXwXyUzR4yYFRoExZE5AUSHNKC8SzwThPbVLT6akkRp4Z
+	 FQswmTw5Q35cg==
+Received: by mail-oa2-f17.google.com with SMTP id 586e51a60fabf-466cc88a0d7so4436867fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:37:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzmUWnAlZzsKmdQJJJF6fxJIrCs7qLX6tNctQvxo8qoIZuGI4rk71JzNf3/OqOBr+Rr2H42Dy9Vu5Jus6g=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3PP6vUhaqs2rvlKDCvGmgWYaz7WOaKhA16avdVntLBftewk0W
+	IsaqX8Dsf6ijI46PZRqjc5f4Hsgt2wn0JZ+ElgNWJTPHFxuZlnEQHGC8CRmochhA44aiJoTbeh/
+	SCGCjOP16YAPGyg6PMwcoqx4E1OnRRBg=
+X-Received: by 2002:a05:6870:209:b0:47c:f23c:31ff with SMTP id
+ 586e51a60fabf-49ddd5ce304mr5284347fac.11.1790869057994; Thu, 01 Oct 2026
+ 08:37:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261001112948.322463-1-jiayuan.chen@linux.dev> <20261001112948.322463-4-jiayuan.chen@linux.dev>
+In-Reply-To: <20261001112948.322463-4-jiayuan.chen@linux.dev>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 1 Oct 2026 17:37:26 +0200
+X-Gmail-Original-Message-ID: <CAL4WiioHiJz=Vn+ijB8=W2Da8Qd6TfPP3b-=rzBw8xmXprpZfw@mail.gmail.com>
+X-Gm-Features: AclHuK_LDImheS2CWkYzJQy0gn8QaU8tQLJFwMsvfmQvUj66CC6f8_1c8eX6nzM
+Message-ID: <CAL4WiioHiJz=Vn+ijB8=W2Da8Qd6TfPP3b-=rzBw8xmXprpZfw@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 3/3] tcp_cubic: fix divide by zero and endless
+ loop on bad module params
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Stephen Hemminger <stephen@networkplumber.org>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=C3=96mer Mete Kaya <omermetekaya0@gmail.com> writes:
-
-> for_each_mp_bvec() dereferences src_bvec[bi_idx] in the loop condition
-> before the body is entered, with no guard against bi_idx reaching
-> imu->nr_bvecs. iov_kern_bvec_size() stops iterating when i reaches
-> imu->nr_bvecs even if bi_size is still non-zero, so the fill loop can
-> walk past the end of the bvec array and overrun res_bvec[].
+On Thu, Oct 1, 2026 at 1:30=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.dev=
+> wrote:
 >
-> Open-code the loop with an explicit bi_idx < imu->nr_bvecs check before
-> the dereference, matching the termination condition in
-> iov_kern_bvec_size().
-
-Do you have a reproducer?  This should be checked in iov_kern_bvec_size.
-We make sure it doesn't go through imu->len which should match bv_len,
-IIUC.
-
+> beta_scale and cube_factor are computed once at module init. They need
+> 1024 - beta to be positive and bic_scale * 10 to neither be 0 nor
+> overflow: beta =3D=3D 1024 or bic_scale =3D=3D 0 crash right there, and o=
+ther
+> out of range values give garbage. Negative beta can also make
+> beta_scale 0. Reject them.
 >
-> Fixes: 1045afae4b88 ("io_uring: support vectored kernel fixed buffer")
-> Signed-off-by: =C3=96mer Mete Kaya <omermetekaya0@gmail.com>
+> A small beta also gives a small beta_scale, and (cwnd * beta_scale) >> 3
+> truncates to 0 for a tiny cwnd, so the TCP friendliness loop never
+> ends. Make sure beta_scale is at least 8 at init, so this is always
+> >=3D 1 with cwnd >=3D 1 and the fast path is untouched.
+> This also caps alpha_cubic at 1 for beta < 512, which only affects
+> such unusual settings.
+>
+> Fixes: df3271f3361b ("[TCP] BIC: CUBIC window growth (2.0)")
+> Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 > ---
->  io_uring/rsrc.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+> Target net-next since it is not a big problem.
+> ---
+>  net/ipv4/tcp_cubic.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 >
-> diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-> index 51b46e624..3d29a0c7b 100644
-> --- a/io_uring/rsrc.c
-> +++ b/io_uring/rsrc.c
-> @@ -1614,8 +1614,13 @@ static int io_vec_fill_kern_bvec(int ddir, struct =
-iov_iter *iter,
->  		struct bio_vec bv;
+> diff --git a/net/ipv4/tcp_cubic.c b/net/ipv4/tcp_cubic.c
+> index 119bf8cbb007c..33b383e1307fb 100644
+> --- a/net/ipv4/tcp_cubic.c
+> +++ b/net/ipv4/tcp_cubic.c
+> @@ -504,12 +504,21 @@ static int __init cubictcp_register(void)
 >
->  		bvec_iter_advance(src_bvec, &bi, offset);
-> -		for_each_mp_bvec(bv, src_bvec, bi, bi)
-> +		while (bi.bi_size) {
-
-bi.bi_size is the first condition of for_each_mp_bvec.  Do you really
-need an open coded loop?  If there is an issue, can we just add the
-check below?
-
-> +			if (bi.bi_idx >=3D imu->nr_bvecs)
-> +				return -EFAULT;
-
-> +			bv =3D mp_bvec_iter_bvec(src_bvec, bi);
->  			res_bvec[res_idx++] =3D bv;
-> +			bvec_iter_advance_single(src_bvec, &bi, bv.bv_len);
-> +		}
->  		total_len +=3D iov_len;
->  	}
->  	iov_iter_bvec(iter, ddir, res_bvec, res_idx, total_len);
-> --
-> 2.55.0
+>         BUILD_BUG_ON(sizeof(struct bictcp) > ICSK_CA_PRIV_SIZE);
 >
 
---=20
-Gabriel Krisman Bertazi
+A READ_ONCE(beta) is needed to close a race when/if TCP_CONG_CUBIC is a mod=
+ule.
+
+This can be done later as a follow up, the window is extremely tiny
+and most builds
+have CONFIG_TCP_CONG_CUBIC=3Dy (and CONFIG_DEFAULT_CUBIC=3Dy)
+
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
