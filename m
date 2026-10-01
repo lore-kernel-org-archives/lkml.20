@@ -1,188 +1,237 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93B734F46D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832124; cv=none; b=Sj/1kqI36N2CQVQxYApX/w3SQiGPr/+wmNudq21gm9pIAtd1OGn3/paVDTbWq0rhFAYfoBdrdIC8nbbRrlCEDLl2+pSD961MznuWVQ6ydCLFKU0kvC35ZnatJJKxj4+uG96iK6ciRZssnlmlCyourwby5qtbUK7kJ8nLiKWckek=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832124; c=relaxed/simple;
-	bh=6zQ/dGVekAKk4Ygn9pvYX2mxUUI5q0Qrh3Z4u8De64U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RV1hPE6eJvT75laveM82A5NgZwiQWkLoqrpXLJMES2iio/emFSPyZgao7djtrxJArg8zYzA/orWfKrbpggvxOKvIQowwt8jJT29SyA6e+P0t2sBxb7Dj1KOf/7Ll8nRUEpU6EADM/911iZ7HQCyJsf4GwqD+Y488sRtP7jEKB+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h4kUH1Vm; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5483911DC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:22:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790832137; cv=pass; b=Gk+GikW48fR0heqkj2L1Eu3MqbiyIzBC3ptrCvbH/5ZWd9VMatEsOGMm3ZlfQKdje4gAfAcOnZcvZqavfm8L8cQdknQ2eWax9iAXuOj68BGasWLhpLNWEAk+1xR3gpIKQHX1ej3w47B8oe/jKJpOWYopIZp8nbMPMGRfeUtUPaE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790832137; c=relaxed/simple;
+	bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=si/M9wWls6ZMnPx4AlruhxV93HPf7+B44Nqu/vrYNDEav7T+EmMTijj+g+LRDlseJB4Fc7BHnFEkVb+hx48+V/dzkjLh0E89gXlFNYo8HVA9CRu/ZMb3MBDaFhboFKw1ucQG2VUYlx2zARXFT7P7WPykbM7FgumTrCH+Ae12+7Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=qeOpMIHq; arc=pass smtp.client-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h4kUH1Vm"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso3038815b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:22:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790832122; x=1791436922; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=drcBlhp1loCKFpHE49qLsszBsMwUy6/00G+FHSsCpkE=;
-        b=h4kUH1VmE42UdcYrg11gtXQ/lhNyR5YAYXEptIbhoeW++yQszCm8GgXdXK0b46FdzC
-         9xUFLzCneA5XwLk/oLLLhLxP/Eg8iLhc7cJH0oIC797QxjAe2NTeR6aYza2sljOscqa7
-         S/fo0hC86xhofaTWBisCx31UWiqlLPYuW8tOzRnLjaPhnxBe8E5mLoFceHiWKJoSDzX5
-         PG4Q49IJbLXtlXkGOMWv2olcjWEoilArz2rYMCI+ES8DNt09//v1M5Nvzv0vNvW/hzDb
-         UxRkPVSTjxyM6PL+GaSpiXuowMu7j5FdOAzGpoR0adW+1TrBS9uONmoVE76bHHmxwRqL
-         uv/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790832122; x=1791436922;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=drcBlhp1loCKFpHE49qLsszBsMwUy6/00G+FHSsCpkE=;
-        b=dnEFcDPckweIMgProNFJGb6UxGmWjiJlUDCgdWsnDEhZGweJT5VUmacer/fJavvECw
-         730RP9klamOKCg9D74wj8TMFcgV0FE9cV2nynkJEqqBWy2EZ9otJB33/dCXU+4aahMm9
-         WKWJfb+ofD+f++3L9hyEesBJszoe5ZK1j6GZMzvXvWIlJdWRnpGgSLiawckE4kiTE72D
-         YfdklR+GkheAfp0jZOBoBl8WQn133c14XQrBS/gJNZ0Qr6jOj33STTHyDQ5UQA4ktzxO
-         MB3UOBmT87CirLPLPeM//pQvMT5bTpLfu9Hg35ZkYVJZ7vZKHXXJWOlYYZEzEL0j0GQ/
-         PBVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSARXUSXYnaG6Q5asX1LTROF6ycMyQ5LCpFbW0lYToKNrMB8QsMZEhiRNf2RClRGOkxhBkvIvfbRio+kI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKXqkVFDtynr79yz/l/LoKLrScw0nCiwcDO+dtPSdwG3KvJciQ
-	rmEo7eRiHYGChOok0XbeLLUyn1bPaDEwMiKxr3l6BZl3w7fAZZ5sCCO4
-X-Gm-Gg: AYBFou2TMNei+LBt9Gf0upnDN9TB0ktNEUkKRhfI6/Vjc/WhWojdE3SvVZaJjsik/NE
-	fnWRG0EkIPxj0uLm5AXCRzOYwf/4/HiinMuYAvTR9tQX14rnl5WDVOO/0Jz0SUd1sWy9SEkP9h5
-	BWf09NNlVF9byWGYnyPFcYsD/0e4+uQPZbuGB53+SLO6WElPeR3slIsgpQ/LcR0BBgZjiVS0mNR
-	6XJ51A/Se2TMrAvx9JpDd2qtVLjWXrCMFeRI7JFvZX/+3kOsjlp7mQ1pvzQ1CrLk0nQ6GrKUvur
-	G7/gRZ88yiAA9P/72FRwc7LyjEIl9eum2wYcAuZGA5bT8T5ALTEjh9ZasyxU02igRIPceJE2Z3v
-	Ums8v4V1pp6pXPcOxcNrSMor60m5DPyxFfXxxkuwKi9Y/I+//z0DfLBQSlkTv3gIgGFBxdO7p3n
-	iwtE46QNVii0thjLatj96cPyaMDpyjWhcwgdMd8pYChBA/4PRkk2kWiOspWbzYKdTs1BeFFnDuI
-	E0Ts43pvzY=
-X-Received: by 2002:a05:6a00:1415:b0:881:7ff5:6061 with SMTP id d2e1a72fcca58-8874c6d6e74mr2623126b3a.24.1790832121957;
-        Wed, 30 Sep 2026 22:22:01 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88819bbc6basm461851b3a.55.2026.09.30.22.21.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 22:22:01 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net] ipv6: serialize address publication with addrconf_ifdown
-Date: Thu,  1 Oct 2026 14:21:50 +0900
-Message-ID: <20261001052150.136559-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="qeOpMIHq"
+ARC-Seal: i=1; a=rsa-sha256; t=1790832099; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mMFw8cCuCMzUEVMfJF3aKZ1neIlbin6WcRqxVN2oUpSmY3mthZUi3rbTPVw4LXqJrmpYw2e6f8Je8I9Eb+CaGshT6YlFRYiHY+8exwpRiSo3J4RYwhDUdJqJe+gqiPv1uKy8myK3nqZH/8LDXLfSVLvOGJwpAIGNrqb4ieLuuoc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790832099; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=; 
+	b=EFxTNTjLePxt3iHQb2Ba0jJeFfoP96hTmNrDCC05/pM31i33xwSi3Ax8SOMikyRYZaT+FPoI+bWmRMxKbtE6SVMV1wnMdE1P/lULXCoz6wNswJepj/CnIJa26tMk7ssXYRAqthXRcre1gHhbr6Hn5soDfwiYTUKXuybhSq+Uggo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790832099;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=;
+	b=qeOpMIHqj1lSX3vGn5zRrQcXblWXrJn6zCXKct6mSEhyE3JIpF/41Snh0wFP3YeK
+	rSBzgz53J4Fr7Za9KWvSY9gTbD6EW48oHJGicSgQfI9rgVI2gCp8PHyx+bZZRd6Ga1p
+	+NfdDnuYYb97D3bDwoh5c9zNxjBJTeCCgYbn5c6DY6qUPvJJ9CB8qd7oeoZMVjtYdd+
+	/u733hGh6GKkT4WHZY8mlAG4QGQ96vA4EafqEm1T5X6Z65k69t5wot50HeGbLY+wW6y
+	Sb252PWO9qGeoF+hwHxoL6DjHJeOvpaWyUf5kjOd3Sy23wcsf/2u1FVKK2+aozJW5G8
+	trKoR2xWSg==
+Received: by smtp.zohomail.com with SMTPS id 1790832098016772.1720132572663;
+	Wed, 30 Sep 2026 22:21:38 -0700 (PDT)
+Message-ID: <3e8bc62a01f5b0162373cb8016d7409c6a4c269b.camel@icenowy.me>
+Subject: Re: [RFC PATCH 0/2] drm: add a noncoherent mapping checking helper
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Conor Dooley <conor@kernel.org>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Paul Walmsley <pjw@kernel.org>, Samuel
+ Holland <samuel.holland@sifive.com>, Dominique Belhachemi	
+ <domibel@debian.org>, Michal Wilczynski <m.wilczynski@samsung.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org
+Date: Thu, 01 Oct 2026 13:21:32 +0800
+In-Reply-To: <20260930-reoccupy-pupil-6a5d0cace243@spud>
+References: <20260930073528.3369325-1-zhengxingda@iscas.ac.cn>
+	 <20260930-zippy-container-d48f72432c1f@wendy>
+	 <32baa664ee2f66618a54c260849b311c581febfc.camel@icenowy.me>
+	 <20260930-reoccupy-pupil-6a5d0cace243@spud>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-ipv6_add_addr() inserts an inet6_ifaddr into the per-net hash before
-linking it into idev->addr_list. addrconf_ifdown() clears the hash first
-and snapshots the device list later. A nonblocking add can therefore
-enter between the two teardown observations.
+=E5=9C=A8 2026-09-30=E4=B8=89=E7=9A=84 17:30 +0100=EF=BC=8CConor Dooley=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Wed, Sep 30, 2026 at 10:38:07PM +0800, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-09-30=E4=B8=89=E7=9A=84 15:18 +0100=EF=BC=8CConor Dooley=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Wed, Sep 30, 2026 at 03:35:26PM +0800, Icenowy Zheng wrote:
+> > > > This patchset tries to address the lack of uncached mapping
+> > > > support
+> > > > on
+> > > > several SiFive-core-based SoCs, currently targeting JH7110 but
+> > > > EIC7700
+> > > > would have the same problem (although it uses DC8000 display
+> > > > controller
+> > > > instead of DC8200 and real display support is pending).
+> > > >=20
+> > > > Because other users (either SoCs with Xuantie cores, which have
+> > > > Xtheadmae extensions or non-RISC-V SoCs) of the driver have
+> > > > proper
+> > > > writecombine support, a helper is added to check whether
+> > > > coherent
+> > > > (cache-bypassing) mapping is available. This helper currently
+> > > > returns
+> > > > true for all architectures except RISC-V, and checks whether
+> > > > pgprot_writecombine() is a no-op on RISC-V.
+> > > >=20
+> > > > The patch really enabling manual cache maintenance for the
+> > > > verisilicon
+> > > > driver is picked from Dominique, and reworked to check both
+> > > > dma-noncoherent property and the platform's mapping
+> > > > capaibility.
+> > > >=20
+> > > > Tested on VisionFive 2 with the display enablement patchset at
+> > > > [1]
+> > > > (and
+> > > > its dependency).
+> > > >=20
+> > > > Also tested on Lichee Pi 4A (TH1520, which has Xtheadmae),
+> > > > operation is
+> > > > not affected, map_noncoherent isn't set and Xorg says kernel
+> > > > dirty
+> > > > updates aren't required.
+> > > >=20
+> > > > [1]
+> > > > https://patch.msgid.link/20260929-jh7110-clean-send-v5-0-82b4d8e3c6=
+c7@samsung.com
+> > >=20
+> > > Out of curiosity, have you seen Bo Gan's series from a few months
+> > > ago
+> > > that creates an extension/erratum to get these devices working?
+> > > https://lore.kernel.org/linux-riscv/20260316060328.1173634-1-ganboing=
+@gmail.com/
+> > >=20
+> > > I've been meaning to reply to it over and over again for the last
+> > > number
+> > > of months, but I just haven't had the time to actually understand
+> > > the
+> > > detail of the EIC7700 solution or check whether it works yet. I
+> > > know
+> > > this is just one driver because the JH7110 only has this problem
+> > > for
+> > > the=20
+> >=20
+> > I personally think his EIC7700 solution unacceptable -- it's not
+> > running directly on EIC7700, but some custom hypervisor (because
+> > the
+> > uncached offset of EIC7700 doesn't behave as a simple OR
+> > opertaion),
+> > which requires 3rd party code and prohibits KVM usage of the
+> > kernel.
+>=20
+> I was actually reading through Bo Gan's patchset when I noticed this
+> series, trying to get my thoughts in order and figured a second set
+> of
+> eyes and thoughts would be helpful to me.
+>=20
+> I've got a similar opinion to yours about the EIC7700 solution, it's
+> quite invasive (it'd only be 3rd party if it wasn't accepted) but I
 
-When a non-loopback device's MTU falls below IPV6_MIN_MTU, teardown
-marks and detaches the idev. A late add can then link the ifaddr into the
-dead idev. On v7.2, a deterministic interleaving left the object
-hash-visible with idev->dead=1. ipv6_get_ifaddr() returned it, and later
-device deletion waited indefinitely with usage count 3. During network
-namespace exit that wait can stall the single-thread netns cleanup
-workqueue.
+It'd always be 3rd party if Eswin doesn't accept it. The Linux kernel
+cannot deliver such a hacked firmware.
 
-MTU changes require CAP_NET_ADMIN in the affected network namespace.
-Where unprivileged user namespaces are permitted, a local user can
-obtain that capability in a new user and network namespace.
+> would consider something invasive firmware wise to be worthwhile if
+> no
+> peripheral on the device worked without it.
+>=20
+> > > display pipeline, but according to Bo Gan this applies to all
+> > > peripherals on the EIC7700.=20
+>=20
+> And, as I said, Bo Gan was of the opinion that all of the peripherals
+> require it. Of course I suspect that actually meant all DMA capable
+> peripherals require it, not all peripherals (especially given there's
+> been patchsets adding simpler peripherals).
 
-Publish the hash and device-list memberships while holding
-addrconf_hash_lock followed by idev->lock. Recheck idev->dead and
-disable_ipv6 before either publication. If teardown wins, the add fails
-before publishing the object or taking a list reference.
+All DMA peripherals on EIC7700 is non-coherent, but some of them will
+still work without uncached mapping.
 
-The same forced interleaving now returns -ENODEV and device deletion
-completes without a KASAN or LOCKDEP diagnostic. A real Router
-Advertisement separately reached ipv6_add_addr() with can_block=false;
-bounded natural stress did not reproduce the full race. A reproducer is
-available on request.
+Only peripherals that really share the same buffer between CPU and the
+device will be affected, because otherwise the coherency is kept by
+cache maintenance instead of uncached mapping. (Display framebuffer is
+a borderline situation -- it is accessed by the CPU and the DC in the
+same time, but the DC does read-only access, so manual cache
+maintenance is still doable although with price).
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- net/ipv6/addrconf.c | 37 ++++++++++++++++++++-----------------
- 1 file changed, 20 insertions(+), 17 deletions(-)
+>=20
+> That said, Samuel's solution does exist and if the feedback was
+> implemented by someone that cared about the eic7700 it'd be much more
+> acceptable. The fact that you've got a solution here at at least
+> works
+> on an interim basis for the JH7110 (although I have no idea what the
+> DRM
+> folks will think of it) is another point in Samuel's method's favour.
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index c90ee6dd7446c..899e9a47f7585 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -1047,8 +1047,9 @@ static bool ipv6_chk_same_addr(struct net *net, const struct in6_addr *addr,
- 	return false;
- }
- 
--static int ipv6_add_addr_hash(struct net_device *dev, struct inet6_ifaddr *ifa)
-+static int ipv6_add_addr_hash(struct inet6_dev *idev, struct inet6_ifaddr *ifa)
- {
-+	struct net_device *dev = idev->dev;
- 	struct net *net = dev_net(dev);
- 	unsigned int hash = inet6_addr_hash(net, &ifa->addr);
- 	int err = 0;
-@@ -1060,7 +1061,23 @@ static int ipv6_add_addr_hash(struct net_device *dev, struct inet6_ifaddr *ifa)
- 		netdev_dbg(dev, "ipv6_add_addr: already assigned\n");
- 		err = -EEXIST;
- 	} else {
--		hlist_add_head_rcu(&ifa->addr_lst, &net->ipv6.inet6_addr_lst[hash]);
-+		write_lock(&idev->lock);
-+		if (idev->dead || idev->cnf.disable_ipv6) {
-+			err = idev->dead ? -ENODEV : -EACCES;
-+		} else {
-+			hlist_add_head_rcu(&ifa->addr_lst,
-+					   &net->ipv6.inet6_addr_lst[hash]);
-+			ipv6_link_dev_addr(idev, ifa);
+I think the major problem of Samuel's method is that it's invasive to
+other kernel subsystems, which would make the review time much much
+longer; but I still expect it.
+
+(A minor problem is that his mail server is too strict -- on SPF rules,
+which prevented his mails to be forwarded by mailing lists.)
+
+Thanks,
+Icenowy
+
+>=20
+> Thanks. I've got a much better idea of what to say to Bo Gan now.
+>=20
+> Conor.
+>=20
+> > In fact JH7100 suffers from the same problem too, so JH7110 put
+> > some
+> > DMA peripherals to the L2 front AXI bus; however although this bus
+> > keeps coherency with the CPU, its bandwidth is questionable (I
+> > think
+> > the bottleneck could be exhibited if you attach a not-too-bad NVMe
+> > SSD
+> > on JH7110's PCIe).
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > >=20
+> > > >=20
+> > > > Dominique Belhachemi (1):
+> > > > =C2=A0 drm: verisilicon: support non-coherent DMA framebuffers
+> > > >=20
+> > > > Icenowy Zheng (1):
+> > > > =C2=A0 drm: add a helper function to check availbility of coherent
+> > > > mapping
+> > > >=20
+> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c |=C2=A0 9 +++++=
 +
-+			if (ifa->flags & IFA_F_TEMPORARY) {
-+				/* manage_tempaddrs() relies on addresses being added to the head */
-+				list_add(&ifa->tmp_list, &idev->tempaddr_list);
-+				in6_ifa_hold(ifa);
-+			}
-+
-+			in6_ifa_hold(ifa);
-+		}
-+		write_unlock(&idev->lock);
- 	}
- 
- 	spin_unlock_bh(&net->ipv6.addrconf_hash_lock);
-@@ -1168,26 +1185,12 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
- 
- 	rcu_read_lock();
- 
--	err = ipv6_add_addr_hash(idev->dev, ifa);
-+	err = ipv6_add_addr_hash(idev, ifa);
- 	if (err < 0) {
- 		rcu_read_unlock();
- 		goto out;
- 	}
- 
--	write_lock_bh(&idev->lock);
--
--	/* Add to inet6_dev unicast addr list. */
--	ipv6_link_dev_addr(idev, ifa);
--
--	if (ifa->flags&IFA_F_TEMPORARY) {
--		/* manage_tempaddrs() relies on addresses being added to the head */
--		list_add(&ifa->tmp_list, &idev->tempaddr_list);
--		in6_ifa_hold(ifa);
--	}
--
--	in6_ifa_hold(ifa);
--	write_unlock_bh(&idev->lock);
--
- 	rcu_read_unlock();
- 
- 	inet6addr_notifier_call_chain(NETDEV_UP, ifa);
-
-base-commit: 7375d38364a9aa66fb31716bcefef38aecad75d8
+> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 32
+> > > > ++++++++++++++++++-
+> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 ++++
+> > > > =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 =
+|=C2=A0 9 ++++++
+> > > > =C2=A0include/drm/drm_cache.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 21
+> > > > ++++++++++++
+> > > > =C2=A05 files changed, 77 insertions(+), 1 deletion(-)
+> > > >=20
+> > > > --=20
+> > > > 2.55.0
+> > > >=20
