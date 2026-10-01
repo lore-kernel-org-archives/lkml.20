@@ -1,159 +1,240 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013027.outbound.protection.outlook.com [40.93.201.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B8C2E3FE;
-	Thu,  1 Oct 2026 05:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790831285; cv=fail; b=d72f9wCFcv0utLAzvQdq7FtI/WnY18Ah23/o1OV+aQ2pIR1/LY/vYH61g4lqG9VVpFoLAE8n8wvNalyeo9SVASQmbJuazT1r46PG+TSGgTBGcDz61QdS5ToePZ9CucgjJFTF5AwXCV0P8PDQUs+v1fuYO+4wPSecJ+HgmDvQYo4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790831285; c=relaxed/simple;
-	bh=d3XfaOL6EMur+jlQk9rcunb9Wd53w1CrnVSe6T8lnPs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NTFtN0wVuHoW4fAlTiHNifgQcpHdx3ZMh+2mqgTpJml7iFs3D87gs0lYTdlYmzo4ZMHF9fcICMzW2L0RjwQ5sYhp5jiTQ/589QOEjp4GQaYkhFCy/Qtgv3YnleaBQC8sLUwDu6gAlUjVArwOcS7rOt+rPHGwfhx147YrqcbVg7Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kU0wa8T7; arc=fail smtp.client-ip=40.93.201.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FD82E3FE
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790831398; cv=none; b=QfWtzn8cPBZW4zCC2UXURelotlxWHc66XC9zF+3EfGon4ha/pdhDOZvaKha+TLsHf3C1jvckfhTTwqWEq1sdCOT+ctj7aK1wAlpT9aa0iNX+1O9zO4HObpC/JhdcpFARmCS8zUqt/832GHlLLLeFG5ahWwlDyiDQXdAvQEpSsjs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790831398; c=relaxed/simple;
+	bh=sPjVdw1f77ips9Nv6NBG0khCAgJAVWi3BPUZ+Zq/VB0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ghJQp7M1lns1TtmpXsTFMejdG4pz5T2i2gNH5scZfNPLB78gDdPF/9iSj08wShVi8mZbYeVPcvKwPNsynpqtFcKXXA46t2QbDuQRKYblPWL+SxTIRnzifdIDcVtqxclZj+mX8OPiSJJnclAdgVJdQe6ul2G+xXqeeb0yQS4oKVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e6C7fC5x; arc=none smtp.client-ip=74.125.231.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kU0wa8T7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tnnggvkjjxU8Y84LYyh1qYsZZvTxufsn1CVgqUToQo0d95X8gKSnJJCcgXovGuiDQ04ZsMZDfyapQzr2yfHmB17KXe1RD78ufOJ7Ne9+Lvju3l/VBI68SqDHJxhnh3Ww+0SfNn5/m1f3YDbrFlcSstqtop+9P97HsNeA00Zat9N/opwFHAocCZPuiFqWHEMcMxUgMS6eOOBDxdnxn45j3ko98p2xowA/hlVs2HR/X0l2VJbScTPJmcxM3wFr0uqoswAdl5cslBjdTul/GrGKRM01Fean2BcZO3y08ji0UQ3oeLaRU/uHEZfs9IbEk5OOPg4A94CV/N8jie9Fl0MYGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8TeYPfSMbZiuozWl0TfRif+DHM6JEgFLFBsrOHOyBcg=;
- b=Z9vkZ6DDfJ6W6S09/2g/xnuompN1H+wRAIENRVy9bx/OMxciHUiU9jI7J6eFOiUh0PqexrUaJ9XuQJyYT88KfLb3RnwDUdLcPznOK7XyCDtChdjPvoTOVl4eczJtXAuJDNKrx6ti3JGH6/jfL77YkHHGUFLtyu1V1ILTKl5wBo6EM8XU+Ihga7Rd2QYx+4/qq72Qie7EzFSVKUhKqRrR7fdRETt2IYAZ69j7Rs46iJU5dgS37a17dedpt0YEL/ArEUXWsgDQGg9Nj5osmkvL8GPeUDqGYRNo2uCluZNgJoL40LjGmCeTObryftrZnVX98EpKTsGTW9ZOny6b8mhKHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8TeYPfSMbZiuozWl0TfRif+DHM6JEgFLFBsrOHOyBcg=;
- b=kU0wa8T7JnBlFyouIlLSOeF817NcDGsOCExyOGtNbM0EX2KhxsZBDf5a1/3yXPsVNVRiFfmCGVCa7jritLp9Agrpv3+OL2Q0wKpD70IJWdBGB7E0klb436FyI01TC6oFwbDoKdG+p3mstMUDzx45nOgsU9UH4BL3N5SE6YpJnyMTy/s9gB1Lc7lbFr6+gMoW2KIKgnpzu2z0SSgLp/tEORbpzKLaZQDzwqxl9CMnRtzq1XeAqrrbSeKmddRRA/yJxv6ON+Kp0w1pFmZ9m1M/62/FE4PK0HQPtG4Apn/6usp8mRMY4S7xGLcdqTVpMRKmW+RRLlV/CPjok0reo+7Gow==
-Received: from BY3PR10CA0018.namprd10.prod.outlook.com (2603:10b6:a03:255::23)
- by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
- 2026 05:08:00 +0000
-Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
- (2603:10b6:a03:255:cafe::9a) by BY3PR10CA0018.outlook.office365.com
- (2603:10b6:a03:255::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Thu, 1
- Oct 2026 05:08:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 05:07:59 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 22:07:49 -0700
-Received: from build-anrao-noble-20260906.internal (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 30 Sep 2026 22:07:48 -0700
-From: Aniruddha Rao <anrao@nvidia.com>
-To: <thierry.reding@kernel.org>, <jonathanh@nvidia.com>
-CC: <linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Aniruddha
- Rao" <anrao@nvidia.com>
-Subject: [PATCH] firmware: tegra: bpmp: Allow BPMP debugfs population to be skipped
-Date: Thu, 1 Oct 2026 05:07:16 +0000
-Message-ID: <20261001050716.2256810-1-anrao@nvidia.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e6C7fC5x"
+Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-805c194bc92so7141793a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:09:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790831395; x=1791436195; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mqnzs/KFgxAQZBlRueuZBHGS1PFSBmZsF4oNkvqm8Dc=;
+        b=e6C7fC5xlMALjezIka3j4b0qNbz6zPC5e6KdyBrOHRquapWMsdNTuF6IVg+Wjihn4z
+         +mODX1q9KyQtcj6Ebr76rMpHGmGuj4H3nGBNUAYTl7s4OrPbSRWiyMiC2dxHk1GjxY4z
+         QyuFTpBUWD/jgcofVcXjSQyKgGbZ3ZiynMO/nv/NpEVoC78Mi2ESwFUzkVV3EUua38ly
+         hC0WRpGkNsfcBOqZ82kcuD6TDLqM2HO9DIUsEdl+f5hKSo0aEhLFu3TMcCVX7j2/79D9
+         xRLq2/XtXfB9eWEVzb7uDsY9TGI6MVcwbFhse25ZDq6nmOvAVqI4Fg+TSP4Z4+xLnZQj
+         X3gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790831395; x=1791436195;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=mqnzs/KFgxAQZBlRueuZBHGS1PFSBmZsF4oNkvqm8Dc=;
+        b=sVuYPKY3s+MSdqC+ghAg1C3bykzY3rbIHU2J/bEENYTyqqGofF0N0zoyke21JNAxD+
+         SbAEIHJ0fLBB3c5Dgveqwiej219rIeQS29D3zF4tLWEPDwDTTw1mtfkEsetjZnl+4Czs
+         J9iJbc+1ZhO+kyD8D4huF4ZecHbZiYEeSJocjSY8+dZwgn1eX4HnYYAeJbeOsjsrBR+u
+         7bDXx45q2+UyexCvxDCXanqBBXY5/vf4o/mXRfPVjhqJrkTSqpZorvBXIofOX3H9Rvyg
+         6jF8CQZvF/ySWh/z52sDcEF02xvzjUdBCRzjs0n5RHtGECaSIR0np5FT91oHlng7tf/j
+         dqCA==
+X-Forwarded-Encrypted: i=1; AKwUvBx2P32paJVPXbrd2xpXcVEULQaz37MPuqxklNrd0S7C6WT7LjNzerpqc9xAAPdodkLeBj2l6/9dkruvQac=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3kafhKGWRQmdH9ptcJvCJc5b3OpsY1JWzD0hdWFPEBdLEN3IG
+	3jTZxBLg9I9d0VbonuNfVlShAGdvH0LNh71A1Nh3cISwD5KxoiCOfc/1
+X-Gm-Gg: AYBFou3XNv3XuAJcO/RF5lbIf5P+hBC8pJCCI5BzfcYIgvpRaTMI8YuV7Edmc2SDzeD
+	+yN+kg84FRJgrim9ejcm6+ryfQq3RUCXcwZL0vlYGuaxIr7ZKTVEp3ao/ejgFrRvtTcFFv6UO1l
+	P9SqkWYij3RmvvncsfrI9AFHgI0NWEQuDtN4Qo0OqJjE2S2l0hQDambpigu/Rie8qruTOj3hMcb
+	s6TGKXqPZyoZuiLYeFSHbfsKNxDmZlnJG9Tt1dyRcUROqqyMame2/pdlcwAsJjc3mgiD+r97a2R
+	DkP69Dh5ha44DbPC1aabWYhy0ciMu+r7aWZ/U4Ii5dKvzScHlff1PwWYe0K6k6jAiuO5aS1KGlm
+	GwzBJ02QiIw3eLtBSHYjV1WKdScWhgUYXg2nnrRBurQZdr9s28bKHMFsmZ8sPUMJK9jErweXs3G
+	IEoDIdDY8FYbIpfuUpzSYDL0N16xls29tb5Q+GJjoemWl3RKiMFarMEO00kQY/oEOLIY8DGYRAU
+	q1YfYjwP7hySKoVKr794Ys0iQ/a3HHmJqd8io/HX3mYJMWJ0dXX6ZgzWBNxTFmXMHz0emfvLawn
+	mhqXDNb4bJCOPdyEkaHhGH9kDH+0rV2EwuYdxi7YmfPMW/6YwQkDZrOXGP5Adj1sZgKKoBJiWlR
+	7gHEznT5PLluLx4HiRxxl4w==
+X-Received: by 2002:a05:6830:3915:b0:812:3ec6:58a2 with SMTP id 46e09a7af769-8204980b242mr4353460a34.12.1790831395157;
+        Wed, 30 Sep 2026 22:09:55 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8212a4139c7sm1821296a34.7.2026.09.30.22.09.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 22:09:54 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 30 Sep 2026 23:09:50 -0600
+Subject: [PATCH net] xsk: freeze deferred pool teardown without blocking
+ unregister
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|BL4PR12MB9536:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfba4277-067c-4390-eef1-08df1f79f6b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	17+20tujbSeBAayqFPgo4/QVOrie8zhudz8cUsz6be7ZT2EEjDndX/InsVoD2cY9Bg4LltdayZbCKDt84obhKW/3yCyhVBaYoIxpA6PGFUqDoXQcfUHA8QhZ5yC3nzckZOdpIIwm/96NNIHgtDRtlsWJeRKo4sPuuycxMnEYLp+hvODjw+B6aiP7++GGMCwmJnThndn80ByR/igpyYDmMhLRk8Rc91l9T4kwaIAE1w76x3h2gW3C9dbO/5Nzy4sxAMrmEuZGWxP0dF20D9xQZzolhjVH+mXfTokEGeWfsz1muFjXf+dwoDa2CaBMnr0+bxCZfTwPp8nzMMfh+rzR/hfah7Bj+ufAV8jxJ+J3TNo/fa8h/RP81+NsYkYBEaL5AasnXtkVAsivL0n1Efby1QgDl7xBZknRSL+q7b9gUd0FTvUWQxlX2WdwIYlYWojHg5Sm/VhQGHyI9COl43vg46CIUG5eT+QmMaor6USssJ4B/h8cboltP0+Hqq73YFIZnStiwYWiyOoZv0Jbdc09F5WXS+TskkO7QU7sAQBofDNuxCZFcRWfjOdq5A1kRX9y57ZH2cXMcolTD6QNS12MIQn27l7QOJv0cIUjV8VQZPj/FZWeZttSo4oNF20PXO8VTwTGAUngv7dOcsXI0psZykGqkkzUTwvXZY8aILVcQGsWZlU4XO6T+LRbNpQ8LW0iXowVQdBdZ/jREDjt1H6k4g==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Ym+EgGqc9pR6mIv8ifB64FMbOjLk3Pfc/fgm/wTipLo76Ulqx5Gl3Oi4SWyzZ/bOXWWJgFB2akF/cJCStO8EnpFCFRGMGIMrxk8Tt3ERQ0I41DVLqg9O6o43mu4XvgHedxfvAxC58rnhecCD/b59N38U6Ez0h+4YCWpNyzeE7oMFBmOy8z4iG91RJQTePQYz7qgkB+FVEs9nsH/pbd9FhtM6ol1ymRWPG97xFyYSpEayi9SbDgnNIVhJ3pgCCWePGfbc2xohmz9RyiqBMWbSqU0MOtYd9jZ6Kmidp2AfBQgLo2ylh/PCkziC+KKcs1Y3L+9Wcet0KH1fOgEcntEwd7ZS9/s4Pz3WAhgFZRQm/z4SVjXZUWhyE3boYT//Lbq/XXvvFAeGunN4bxVHwTK0la3wauR9jTQzkMbTQfBrblYwGc2O5GGdbAf/B2U04Yk9
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 05:07:59.9852
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfba4277-067c-4390-eef1-08df1f79f6b0
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001CA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-xsk-suspend-teardown-v1-1-a6cac8c030be@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ7CIBREr9L8tSS/gFC8iukC6EeJKa1AtUnTu
+ 9uoyzeTN7NBoRypwKXZINMrljilA9pTA/5u041YHA4GjlyhEcjW8mBlKTOlgVWyeZjeiRnkwXQ
+ SO28EHOqcKcT1O3uFRBX6X5jpuRwX9d84W4j5aRxjvTRWu2CdlR0XJHyrzs5xROm1pBC0R6OU5
+ s5r6Pf9A6Z5Mmm3AAAA
+X-Change-ID: 20260930-xsk-suspend-teardown-902f98408c93
+To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, bpf@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Populating the BPMP firmware debugfs requires a sequence of synchronous
-firmware transactions during BPMP probe, which impacts the overall boot
-time. Currently, the only way to avoid populating the BPMP debugfs is to
-disable CONFIG_DEBUG_FS completely.
+Deferred pool destruction calls ndo_bpf() under RTNL. system_wq is
+not frozen during system sleep, so that callback can run after a
+device has suspended and gated its clocks. Use system_freezable_wq
+so running destruction finishes before device suspend and new work
+waits until process thaw.
 
-Add a tegra_bpmp.debugfs module parameter so systems can skip populating
-the BPMP debugfs with tegra_bpmp.debugfs=0. Keep it enabled by default to
-preserve existing behavior. The parameter is defined in bpmp-debugfs.c,
-so it is available only when CONFIG_DEBUG_FS is enabled.
+Keep assigned pools visible to NETDEV_UNREGISTER independently of
+the socket list. A released socket has already left that list, but
+its final pool put can queue destruction after workqueues freeze.
+A resume-time unregister would then wait for a device reference
+whose release cannot run until the resume completes.
 
-Signed-off-by: Aniruddha Rao <anrao@nvidia.com>
+Track assigned pools under RTNL and detach remaining pools after the
+notifier socket walk, including copy-mode pools. Remove the entry on
+assignment failure and normal teardown. The deferred worker still
+owns the pool and later observes the cleared device pointer, avoiding
+a second driver detach or device put.
+
+Fixes: 1c1efc2af158 ("xsk: Create and free buffer pool independently from umem")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/firmware/tegra/bpmp-debugfs.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ include/net/xsk_buff_pool.h |  3 +++
+ net/xdp/xsk.c               |  4 ++++
+ net/xdp/xsk_buff_pool.c     | 25 ++++++++++++++++++++++++-
+ 3 files changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/tegra/bpmp-debugfs.c b/drivers/firmware/tegra/bpmp-debugfs.c
-index 33c6300af964..2efc48b522ac 100644
---- a/drivers/firmware/tegra/bpmp-debugfs.c
-+++ b/drivers/firmware/tegra/bpmp-debugfs.c
-@@ -6,6 +6,7 @@
- #include <linux/cleanup.h>
- #include <linux/debugfs.h>
- #include <linux/dma-mapping.h>
-+#include <linux/moduleparam.h>
- #include <linux/slab.h>
- #include <linux/uaccess.h>
+diff --git a/include/net/xsk_buff_pool.h b/include/net/xsk_buff_pool.h
+index a7df573784fd..cea6e883f7cd 100644
+--- a/include/net/xsk_buff_pool.h
++++ b/include/net/xsk_buff_pool.h
+@@ -48,6 +48,8 @@ struct xsk_buff_pool {
+ 	struct device *dev;
+ 	struct net_device *netdev;
+ 	struct list_head xsk_tx_list;
++	/* Assigned pools, including deferred releases; protected by RTNL. */
++	struct list_head dev_list;
+ 	/* Protects modifications to the xsk_tx_list */
+ 	spinlock_t xsk_tx_list_lock;
+ 	refcount_t users;
+@@ -119,6 +121,7 @@ bool xp_put_pool(struct xsk_buff_pool *pool);
+ void xp_clear_dev(struct xsk_buff_pool *pool);
+ void xp_add_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
+ void xp_del_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
++void xp_clear_dev_all(struct net_device *dev);
  
-@@ -773,6 +774,11 @@ static int bpmp_populate_debugfs_shmem(struct tegra_bpmp *bpmp)
+ /* AF_XDP, and XDP core. */
+ void xp_free(struct xdp_buff_xsk *xskb);
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 33475b180ea6..a2ae0e10d893 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -2145,6 +2145,10 @@ static int xsk_notifier(struct notifier_block *this,
+ 			mutex_unlock(&xs->mutex);
+ 		}
+ 		mutex_unlock(&net->xdp.lock);
++		/* A released socket is no longer on xdp.list. Its pool can still
++		 * hold a device reference on the frozen release workqueue.
++		 */
++		xp_clear_dev_all(dev);
+ 		break;
+ 	}
+ 	return NOTIFY_DONE;
+diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+index 9d2d94f1fb75..b5fd0850db5b 100644
+--- a/net/xdp/xsk_buff_pool.c
++++ b/net/xdp/xsk_buff_pool.c
+@@ -12,6 +12,11 @@
  
- static DEFINE_MUTEX(bpmp_debugfs_root_lock);
- static struct dentry *bpmp_debugfs_root;
-+static bool bpmp_debugfs_enabled = true;
+ #define ETH_PAD_LEN (ETH_HLEN + 2 * VLAN_HLEN  + ETH_FCS_LEN)
+ 
++/* Socket removal precedes the final pool put. Keep assigned pools visible to
++ * NETDEV_UNREGISTER even while their release work is waiting for process thaw.
++ */
++static LIST_HEAD(xsk_dev_pools);
 +
-+module_param_named(debugfs, bpmp_debugfs_enabled, bool, 0444);
-+MODULE_PARM_DESC(debugfs,
-+		 "Populate the BPMP firmware debugfs (default: enabled)");
- 
- static struct dentry *bpmp_debugfs_get_root(void)
+ void xp_add_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs)
  {
-@@ -789,6 +795,9 @@ int tegra_bpmp_init_debugfs(struct tegra_bpmp *bpmp)
- 	bool inband;
- 	int err;
+ 	if (!xs->tx)
+@@ -204,6 +209,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+ 	pool->cached_need_wakeup = XDP_WAKEUP_TX;
  
-+	if (!bpmp_debugfs_enabled)
-+		return 0;
+ 	dev_hold(netdev);
++	list_add_tail(&pool->dev_list, &xsk_dev_pools);
+ 
+ 	if (force_copy)
+ 		/* For copy-mode, we are done. */
+@@ -265,6 +271,8 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+ 		err = 0; /* fallback to copy mode */
+ 	if (err) {
+ 		xsk_clear_pool_at_qid(netdev, queue_id);
++		list_del(&pool->dev_list);
++		pool->netdev = NULL;
+ 		dev_put(netdev);
+ 	}
+ 	return err;
+@@ -291,17 +299,29 @@ void xp_clear_dev(struct xsk_buff_pool *pool)
+ {
+ 	struct net_device *netdev = pool->netdev;
+ 
++	ASSERT_RTNL();
+ 	if (!pool->netdev)
+ 		return;
+ 
+ 	netdev_lock_ops(netdev);
+ 	xp_disable_drv_zc(pool);
+ 	xsk_clear_pool_at_qid(pool->netdev, pool->queue_id);
++	list_del(&pool->dev_list);
+ 	pool->netdev = NULL;
+ 	netdev_unlock_ops(netdev);
+ 	dev_put(netdev);
+ }
+ 
++void xp_clear_dev_all(struct net_device *dev)
++{
++	struct xsk_buff_pool *pool, *next;
 +
- 	inband = tegra_bpmp_mrq_is_supported(bpmp, MRQ_DEBUG);
++	ASSERT_RTNL();
++	list_for_each_entry_safe(pool, next, &xsk_dev_pools, dev_list)
++		if (pool->netdev == dev)
++			xp_clear_dev(pool);
++}
++
+ static void xp_release_deferred(struct work_struct *work)
+ {
+ 	struct xsk_buff_pool *pool = container_of(work, struct xsk_buff_pool,
+@@ -337,7 +357,10 @@ bool xp_put_pool(struct xsk_buff_pool *pool)
  
- 	if (!inband && !tegra_bpmp_mrq_is_supported(bpmp, MRQ_DEBUGFS))
--- 
-2.43.0
+ 	if (refcount_dec_and_test(&pool->users)) {
+ 		INIT_WORK(&pool->work, xp_release_deferred);
+-		schedule_work(&pool->work);
++		/* Teardown calls ndo_bpf(), which may need powered hardware.
++		 * RTNL alone does not exclude the device's system PM callbacks.
++		 */
++		queue_work(system_freezable_wq, &pool->work);
+ 		return true;
+ 	}
+ 
+
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20260930-xsk-suspend-teardown-902f98408c93
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
