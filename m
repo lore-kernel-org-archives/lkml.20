@@ -1,128 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA3930D3EE;
-	Thu,  1 Oct 2026 19:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B48293458
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790881295; cv=none; b=KLVuTpWKfCrThSnd8o4+dUwC51h7wdvuorv0WgY10eDcjvjaZ/BPsDzy2AdBoXvkUHAz/vmJxiHKveWOYbPBtzUtnBbxRAOiNqk1MaNAPUh6WieiFI1R0MywPPAjz24Jf9J9Ra37TbgQJ0Xi013YkC1w9kOr3IAcf92AQ68FIIA=
+	t=1790881435; cv=none; b=DvaHg7/xJSepormJu8eBoxA+dBmlJFDOSQfUX4gSWmqYeD2UlK7VFMlEw9S0CkJ/2fzLGZwxn9Q7PlBdpdQdtGpJdSbrbfVWWg93E32eJlB9tHybTbUHdHpt2Ne122guWa+hZR56myWVAnkRAZ025kSn5/WRnBOfniRMu5F+BTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790881295; c=relaxed/simple;
-	bh=naaofPLz+eVZUA5dRqQnlQXrYE+NvgiNN9jc6qs1v2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C2wQ1WxPVyo8F7I1/L3SYlDS/z5myYu8Aq8AJh+vVdKlOBeH8pKEK7L+okfPFJwW136Ihpg1QekHO/bbrcT4Rawzg/Kz65lBuwlpnoVx707r+v6terKKSf1+ookj37VWVEYkOqD4ZfCdhFGXiBw7Js/+0m6xf6rIbwRJX9CYi7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3gslfp0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790881435; c=relaxed/simple;
+	bh=GTQrB6fHqvL+6UsnsGE2F005nwTcDsoCe/TNBa4j+gM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=SrRLYVMM7ICWOuqFUbpsq5CV7iqP7GxoTUv5mnBlmZxectboZ7OjT1aqzwgRUHNezb6gutaN1+Y9jN505l/NdA3EYJjPNHu+JuRNPwoC9waumy8976ATyIrBdPFwcAp1zI+ENbIifLOsXRB6kDVEN66UovZV9YbGef4lfxzWsns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djH2I1YX; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3gslfp0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142861F000FF;
-	Thu,  1 Oct 2026 19:01:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790881294;
-	bh=GWNWpQ2eHdazpKjdnJTkioc9xf2U5wFkrBfmQYi2Wn4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m3gslfp0pVwiFOtPqrzJ2hGy3n1/SsMs2p94OoTiwgeg9pMsuEMF6KF1JwonAO/nn
-	 f+9S2kANDJIw6zQHUyjjdL9WVmVELKsXe885fdK2Yi9wvTW4Lomr9mJXkdxf8VkzdN
-	 goU6WgZ9HwO2/JipU3DdO8kuYuiHxXWEWCJ3L7QbQZXKQmOBF7JwdtZ1IlKWSf3riy
-	 Q6QhIxgVujOCXzTQ9vCufyCB+uE1MvwYIKD4qKv3ArrrPAZuh8hzLHRAiwM+af7kIp
-	 wWvBfHFqVy1j8IvPdaR7Vd7m2l41qXgOiFp8b3zAQX9Xv82F25gKeyNPQmBWFgC2et
-	 2i9+v+WvZncgA==
-Date: Thu, 1 Oct 2026 20:01:30 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Oleh Kuzhylnyi <kuzhylol@gmail.com>, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Chad Monroe <chad@monroe.io>, John Crispin <john@phrozen.org>
-Subject: Re: [PATCH 1/4] dt-bindings: input: touchscreen: hynitron,cst816x:
- configure axes
-Message-ID: <20261001-roundup-variably-0113ae7c21cd@spud>
-References: <cover.1790851590.git.daniel@makrotopia.org>
- <d18629ede3f2fd5a08d0cbdaf82f4254e89500ed.1790851590.git.daniel@makrotopia.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djH2I1YX"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b0f4efe31so566674f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:03:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790881432; x=1791486232; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JH8rWq/AytgPhFoS61LuGcNOLtYiANYYgdfeoHCVlD4=;
+        b=djH2I1YXE0D9+SOJ1sNcUzmwLybWDm6PRB/Y+vVxkHMYiomhSWVMqwLTWrgxb9y+An
+         ryLVm67r8jpGpQhvntTzhiAFwrcp9wKaOPgclWvDaaD+fQPD72AcghCjavUtlOoCbCST
+         cw6thV5gEZfdsl08/95/vDnsamvmcCER8TKqnePbqJY11fE4V7fR02nZaYuOMDI3gOuV
+         UD8+9aKh1mxufH8BwzmMZzeJ+k1+CDKh1rhfBGaBSWpeebmsqE9m8CE+6pM6adFYFFWd
+         biyS2ajqNIg7mQgBBmcbkw8bk7ojZJbEE1TYmLENcs5AKvVV7PKahk2fAirkImoOo6PA
+         2RGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790881432; x=1791486232;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JH8rWq/AytgPhFoS61LuGcNOLtYiANYYgdfeoHCVlD4=;
+        b=2bKjPiSgjxOMcsanvY8FNdOl+tJzTNe8D0pqfeKxBZny04PkkBWJ5qR23kdjjJh2JW
+         P+ZvvMzhrC0ig03Y8sQF7tz/AJOlrZFOUd8+kZ8XCz+vJ5dYDezkybhoi/5cXe0qCCba
+         911bh01Rz7SKdWDjKsk2wdNFPhFo+7bPfxfMcZLmiHxYW/uGx6NRMGW4sHnUDULX2+QQ
+         r80i/MUw7JP+EK9bQFeuifpQO/HKun2SD4wIk7Z37Zs6Yp5DdSW7sFjNQgHfz+zLGRve
+         IMxcdfdVo90Z1igX+n/ayljeAN0pY5+g4LGrjEQlQ1qsTQ6bgELUiATp8WpRyBJ7o8HT
+         Dr6g==
+X-Forwarded-Encrypted: i=1; AKwUvBz8Nty8/V9IsLkv4d5ZWnZ67J8EnmHEkBnzDo2B/eq/NIJD9/taHTCgC9VmdpMhS3OYlvLxpPCeKRB1r8o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxFqa0nIowqgYT9oJEjAr1ahl2YBDMpXO7auF0aCo2xf299bYS
+	nmsFG/b3yS4329DEm1SlFMJAhtqt4cLZBWpV0BD/272kjSZqOBy7kvEV
+X-Gm-Gg: AYBFou1hyL/dSCLp3FiMi+ZNbHUIYsYhOJhHJgsELSRZN3frgwOAeiF2lATgcgsAouf
+	A8zhoNA+XCN8+I+MrqV5jCY4JpZQMtsNmWMoZZ+K4YukGose1+f4BOzuqjS+YyNVrvutSbV0gS9
+	8BV+hsTEgLJMcfUTLoVD5g6RPE0FrM2jmp2oz9O+VFmxQxKwxsoe63PpqQzeto5ujL+F5ejQfZW
+	I5FqGvv2edST4P59z+W+KHb+OotwJvGEYcZQOTlp/MDkOHodcTDL3iYB6N413a/zOPNZfOZne6v
+	6bH21WZBkYDpzOwkdz+G43ElBxlLjT63I3WIhdL29qBvFy/bYwF9tuFJdlIhapTLffYO4+LKQU4
+	lnILCafI1ZcO7m7xg4rLxKgV4au64rb4N0PH9Il3/F60FL9wBz5RziyD6Ra3IOthq7qAY5aviGZ
+	v78PWfMZIV7tRwZiACD6Udd8fCXmjA4LOKvVBWU2ZzUU/dkb1vyB4Fj2/VMohP15N2kOa2dGRac
+	Jb00hFH/b3Geglc1CwSosLlYsxOwSH7EA==
+X-Received: by 2002:a05:6000:491b:b0:487:da0:df5a with SMTP id ffacd0b85a97d-48b12729938mr853133f8f.42.1790881432191;
+        Thu, 01 Oct 2026 12:03:52 -0700 (PDT)
+Received: from [127.0.1.1] ([92.241.23.201])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fada5sm222539f8f.24.2026.10.01.12.03.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 12:03:51 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject:
+ Re: [PATCH RFC 06/10] dt-bindings: serial: Add Cortina Systems CS7542 UART
+In-Reply-To: <20261001-depose-jawed-f58674109fe7@spud>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-6-4617c4463529@gmail.com>
+ <20261001-depose-jawed-f58674109fe7@spud>
+Date: Thu, 01 Oct 2026 22:03:49 +0300
+Message-ID: <179088142900.827715.5924606072568297915@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QS45YFD/wi4jfYsw"
-Content-Disposition: inline
-In-Reply-To: <d18629ede3f2fd5a08d0cbdaf82f4254e89500ed.1790851590.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
---QS45YFD/wi4jfYsw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, Oct 01, 2026 at 07:48:03PM +0100, Conor Dooley wrote:
+> > +description:
+> > +  The UART found in the Cortina Systems CS75xx (Goldengate G2) SoCs. It has
+>
+> Different SoCs need specific compatibles.
+> They can fall back to the cs7542.
 
-On Thu, Oct 01, 2026 at 11:52:31AM +0100, Daniel Golle wrote:
-> Reference touchscreen.yaml and allow properties
-> 'touchscreen-inverted-x', 'touchscreen-inverted-y' and
-> 'touchscreen-swapped-x-y'.
+Right, the text reads as if the one compatible covered the whole
+family. The binding only describes the CS7542, which is the only part
+I can test, so in v2 the description says just that, and that the
+other CS75xx parts and the Cortina Access ones (the same block, see
+the discussion on patch 7) are to be added with their own compatible
+and "cortina,cs7542-uart" as the fallback. The compatible stays a
+single const until one of them is added.
 
-This is a useless commit message, it just says what the diff does.
-Please provide a justification for why this is the right thing to do.
-pw-bot: changes-requested
+Thanks,
+Fil
 
->=20
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> ---
->  .../bindings/input/touchscreen/hynitron,cst816x.yaml      | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/hynitron=
-,cst816x.yaml b/Documentation/devicetree/bindings/input/touchscreen/hynitro=
-n,cst816x.yaml
-> index 72d4da636881e..ba56bf61038c5 100644
-> --- a/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816=
-x.yaml
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816=
-x.yaml
-> @@ -36,6 +36,10 @@ properties:
->        - description: Slide right gesture
->        - description: Long press gesture
-> =20
-> +  touchscreen-inverted-x: true
-> +  touchscreen-inverted-y: true
-> +  touchscreen-swapped-x-y: true
-> +
->  required:
->    - compatible
->    - reg
-> @@ -43,6 +47,9 @@ required:
-> =20
->  additionalProperties: false
-> =20
-> +allOf:
-> +  - $ref: touchscreen.yaml#
-> +
->  examples:
->    - |
->      #include <dt-bindings/gpio/gpio.h>
-> @@ -59,6 +66,7 @@ examples:
->              reset-gpios =3D <&gpio 17 GPIO_ACTIVE_LOW>;
->              linux,keycodes =3D <KEY_UP>, <KEY_DOWN>, <KEY_LEFT>, <KEY_RI=
-GHT>,
->                               <BTN_TOOL_TRIPLETAP>;
-> +            touchscreen-swapped-x-y;
->          };
->      };
-> =20
-> --=20
-> 2.55.0
-
---QS45YFD/wi4jfYsw
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar6uCQAKCRB4tDGHoIJi
-0uj+AQCvn0YDvZEvx4tzA6Gh2ziefjsofjBQWtlVr8PoKmPgVgEA20jfQAaeSg4k
-emQh/LYYUXBoj/+8pg+Kk+kt/s+xMQ0=
-=TeEk
------END PGP SIGNATURE-----
-
---QS45YFD/wi4jfYsw--
