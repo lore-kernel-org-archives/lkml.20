@@ -1,108 +1,230 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A6F38A718
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE744908D4;
+	Thu,  1 Oct 2026 20:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790887201; cv=none; b=ReFxeSf28vIhFjSr1YCWAiVcXWKdaR29NiGpFoYMgux3rnSARuK3WqEUnwQLDrw6XP49iM/iM5ZJeh75BlVhePXfUHoy/CRM80rCJkCPGDIq2TFjPdHB7AAoMBnLjeC1B7kJEn00uMIJFWYLh4Nbe6j+dis+WWLbmCKhR+du+/0=
+	t=1790887219; cv=none; b=Oe2jCBSWbf3tC90kAyl1CtVsJBEO+x99GaVWvAB/dc9kYNR61Va1Ay3UT4MY4hv+UhxlKMubOaVKP3jUsm1q5USB6wZ09vWAVDkOsBHbYxnoqZh+5d2Gc4S+cA3/p+M8mKm4g6HH/VBgW0ZHDcgTtO26VUWzJS1Pvf9KK/Nvs/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790887201; c=relaxed/simple;
-	bh=GLiKEQIDSQN0nNYFYxZ6HgI/x6d2Zprs9FU1tkrK7FQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=VmZ6RO2D6Ky91Q7z2HnpP2Pi3Q3+HOTiQ0tAwnvPNbe8gO7Cn8z/OVEghcqeLwXZcs8Q6HHilGPzkt0z70Tyf//gxc2r1ewBLlVniRHpAMnm0aniUZsGe6rihbhNrkT87SYZ0eCEcDtNKIzB4wyGgVAdZlooMwwwwDZyDMJuPHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e4dso10598668b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:39:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790887198; x=1791491998;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=a6IMbtmsX9VNtWj9A+lxAahVgkoUvFDDeDzK5Joep70=;
-        b=C1rZjG5+Hlg17pE2IJ+sDGU68fGFeehGRfIad+HMsE9LygQsXwaDnvtrsJ0xjzoxHX
-         2YszlaZJ6R2FyBWT9/2UkC3ijuQvg44AjoBcNBHQsqoU8KWPDxl/VYbBiQhbpyREQ5hK
-         +hsH3hJZsBJcE638thKvbtPtprIdYxhOOCQFjDTjSRpfdO5b3SnolZu7RVlyavVIMr5c
-         IckKYqz4guciy+D9j06592kb65JfqzI4xFAdK5dfaD0A0tpEu0ob2iPtnm2K+ny3y8Yk
-         ljnB/2ApZk0ZG0jZGkOjw2WulMsmVTPXcdbHiVZvzd8S08J5+nfqZ65PWOf9wkbcs+MA
-         y4wg==
-X-Forwarded-Encrypted: i=1; AKwUvByYPDZWgprKQ4WhyT5D4zC8zKI9nswG3vBiA09WVycbkCkMXfS8+qL4izT9S5pb0sUyUnDn2YoRSc33ZAI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJBR72Ix8TOM58FkBFMY1RoUmsg2Mn4QuZU58w6Hmf+HVr2E/2
-	O5pHjsjlrdPeGqDQx1kCJsU4DZUVq0vg1RKsA8O626OBkVwrB4lFslQRMcyska2gyTQGlep0qK7
-	vjJjJCqSGe5vKG7N1f/gRmyr6PeJvLrob44zX8M0b6DFNAaRcVtIWB87psgU=
+	s=arc-20240116; t=1790887219; c=relaxed/simple;
+	bh=KQ6ZfjFWSfJPxMbbdWra6JHqIu6BRucKBV2Bznmxau4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DEuDhF7TM9og11zgpJPk3gvstyCj7mwPcMTSIq3ibweTRgWwynC2uh3FdNbeNiGVAEG+FmaoTELCZ5j8xTxsvDMq7FJn2BV3ZZyhLUu1R0PaIETLls1XUPD70tu3LkOERyKzrsjahbabWwgTUkl74qbWHbTi5/A4+wXccGTkhAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pEYh/0Lx; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pEYh/0Lx"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7386BC2BCC7;
+	Thu,  1 Oct 2026 20:40:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790887218;
+	bh=KQ6ZfjFWSfJPxMbbdWra6JHqIu6BRucKBV2Bznmxau4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=pEYh/0LxfeVLTXDpDRz4IFoALKnass4lDMhWoj/quK54b5kGT3JaOvSLRudsrXg6q
+	 S8HsjCM1GVWlCPsgA+ITF6MHsXsQ8SzwGiXhTHPcLHHbkkYbuKEgMvo4P8QNBdvLQr
+	 Y4MSO1QKL3NpzwG9nztd7sLtEY4eCTRv6ZkPmSb4Oy110fAtO8q17cYgQVAyzcdpUM
+	 /48d4CSZzOY7KdOUYdnoIa6zHjWnbtP+O85F0Dg1HYYT+wlUhKsxtjsf6qgvooRx0b
+	 UCvsR9S3dkdlky6J+ENwiS7UxpDKN5oYrpLuCnITEGDT5Wo6x5jg61QVQQJlizQlOG
+	 HTPHI58+HPwhA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4713BCA5FD4;
+	Thu,  1 Oct 2026 20:40:18 +0000 (UTC)
+From: Haseeb Malik via B4 Relay <devnull+haseebulhaq55.gmail.com@kernel.org>
+Date: Thu, 01 Oct 2026 16:40:18 -0400
+Subject: [PATCH net v2] macsec: check the resolved SCI for duplicates
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:158a:b0:4ea:18f:64b0 with SMTP id
- 5614622812f47-4f52b4c5ab8mr283630b6e.67.1790887198684; Thu, 01 Oct 2026
- 13:39:58 -0700 (PDT)
-Date: Thu, 01 Oct 2026 13:39:58 -0700
-In-Reply-To: <20261001203952.1294581-1-adrianox@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abec51e.7503fbd6.2d3f6.000b.GAE@google.com>
-Subject: Re: [PATCH] ecryptfs: validate auth tok payload and sKEK size
-From: syzbot <syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com>
-To: adrianox@gmail.com
-Cc: adrianox@gmail.com, syzkaller-bugs@googlegroups.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-fix-macsec-duplicate-sci-v2-1-330311abe5ec@gmail.com>
+X-B4-Tracking: v=1; b=H4sIADHFvmoC/3WOzQ6CMBCEX4Xs2VVa5M+T72E4lGWFTaCQFomG8
+ O4W4tXjTGa+mRU8O2EPt2gFx4t4GW0Q+hQBdca2jNIEDTrWWVzqDJ/yxsGQZ8LmNfVCZmb0JMh
+ NniWpIUVJCqE+OQ7ZA/0AyzNUwayNZ6ydsdTt1GBfBiN2z3fi59F9jieLOlq/0fz/6KJQYVykd
+ ZNfNRVc3tvA6880DlBt2/YFnlctB+AAAAA=
+To: Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Shuah Khan <shuah@kernel.org>, 
+ Hannes Frederic Sowa <hannes@stressinduktion.org>, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Haseeb Malik <haseebulhaq55@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790887217; l=6483;
+ i=haseebulhaq55@gmail.com; s=default; h=from:subject:message-id;
+ bh=nYPANP9B1BqxqdorLNrgdc2Ap2uzdmIKhfaFC2ZuQIg=;
+ b=IjTxLgQADBOZwXSGnsFvnt/hWKeJZXq9xylveS10WiPanUKi9rG0v4amlpZ1koovS4lfCTXED
+ cRpNdLZSGXyClXzTZ93FEGwirI+4GpCe2bqTtcNhireV2TKolQ8gdBb
+X-Developer-Key: i=haseebulhaq55@gmail.com; a=ed25519;
+ pk=U/yCVc6cTsqDqxWLzvoONZ7DUA3EfRU+rfO9Xxo4p2w=
+X-Endpoint-Received: by B4 Relay for haseebulhaq55@gmail.com/default with
+ auth_id=1026
+X-Original-From: Haseeb Malik <haseebulhaq55@gmail.com>
+Reply-To: haseebulhaq55@gmail.com
 
-> #syz test
+From: Haseeb Malik <haseebulhaq55@gmail.com>
 
-"" does not look like a valid git branch or commit.
+An all-ones IFLA_MACSEC_SCI selects the default SCI derived from the
+MACsec device's MAC address and port 1. macsec_init_secy() resolves this
+value and stores the result in secy.sci, but macsec_newlink() checks for
+duplicates using the unchanged local sci argument.
 
->  fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
->  fs/ecryptfs/keystore.c        | 7 +++++++
->  2 files changed, 13 insertions(+)
->
-> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
-> index 58165928ed1e..4315c18ba1cd 100644
-> --- a/fs/ecryptfs/ecryptfs_kernel.h
-> +++ b/fs/ecryptfs/ecryptfs_kernel.h
-> @@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
->  	if (!payload)
->  		return ERR_PTR(-EKEYREVOKED);
->  
-> +	if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
-> +		return ERR_PTR(-EINVAL);
-> +
->  	return (struct ecryptfs_auth_tok *)payload->payload_data;
->  }
->  
-> @@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
->  	if (!ukp)
->  		return ERR_PTR(-EKEYREVOKED);
->  
-> +	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
-> +		return ERR_PTR(-EINVAL);
-> +
->  	return (struct ecryptfs_auth_tok *)ukp->data;
->  }
->  
-> diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
-> index 51651314b7a6..7f2dbc81fcbc 100644
-> --- a/fs/ecryptfs/keystore.c
-> +++ b/fs/ecryptfs/keystore.c
-> @@ -477,6 +477,13 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
->  		rc = -EINVAL;
->  		goto out;
->  	}
-> +	if ((*auth_tok)->token_type == ECRYPTFS_PASSWORD
-> +	    && (*auth_tok)->token.password.session_key_encryption_key_bytes
-> +	       > ECRYPTFS_MAX_KEY_BYTES) {
-> +		printk(KERN_ERR "Invalid password auth_tok sKEK size\n");
-> +		rc = -EINVAL;
-> +		goto out;
-> +	}
->  out:
->  	return rc;
->  }
-> -- 
-> 2.51.0
->
+Consequently, an all-ones request can create a second MACsec device with
+the same transmit SCI on the same lower device, while requesting that
+SCI explicitly returns -EBUSY.
+
+Resolve an undefined SCI in macsec_newlink() before initializing the
+SecY, so initialization and duplicate detection use the same value.
+Preserve the all-ones fallback when the resulting SCI is available.
+
+Add regression tests for duplicate rejection using default, explicit and
+all-ones SCI requests, and for valid fallback and reuse after deletion.
+Skip these local tests when iproute2 lacks MACsec support.
+
+Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
+Link: https://lists.openwall.net/netdev/2026/09/16/11
+Assisted-by: LLM
+Signed-off-by: Haseeb Malik <haseebulhaq55@gmail.com>
+---
+Changes in v2:
+- Resolve undefined SCI in macsec_newlink(), as suggested by Sabrina.
+- Check local iproute2 MACsec support in the new tests, as Sashiko noted.
+
+Link to v1: https://lore.kernel.org/netdev/20260927-fix-macsec-duplicate-sci-v1-1-085bd742c8e9@gmail.com/
+
+Tested on arm64/virtme with KASAN and lockdep: the new regression
+tests go from 5 pass/2 fail to 7 pass/0 fail. The full MACsec selftest
+passes all 15 cases without skips.
+---
+ drivers/net/macsec.c                          |  8 ++--
+ tools/testing/selftests/drivers/net/macsec.py | 57 +++++++++++++++++++++++++--
+ 2 files changed, 57 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
+index 78a19b134632..69686f22eda8 100644
+--- a/drivers/net/macsec.c
++++ b/drivers/net/macsec.c
+@@ -4143,9 +4143,6 @@ static void macsec_init_secy(struct net_device *dev, sci_t sci, u8 icv_len)
+ 	struct macsec_dev *macsec = macsec_priv(dev);
+ 	struct macsec_secy *secy = &macsec->secy;
+ 
+-	if (sci == MACSEC_UNDEF_SCI)
+-		sci = dev_to_sci(dev, MACSEC_PORT_ES);
+-
+ 	secy->netdev = dev;
+ 	secy->operational = true;
+ 	secy->key_len = DEFAULT_SAK_LEN;
+@@ -4178,7 +4175,7 @@ static int macsec_newlink(struct net_device *dev,
+ 	u8 icv_len = MACSEC_DEFAULT_ICV_LEN;
+ 	struct net_device *real_dev;
+ 	int err, mtu;
+-	sci_t sci;
++	sci_t sci = MACSEC_UNDEF_SCI;
+ 
+ 	if (!tb[IFLA_LINK])
+ 		return -EINVAL;
+@@ -4231,7 +4228,8 @@ static int macsec_newlink(struct net_device *dev,
+ 		sci = nla_get_sci(data[IFLA_MACSEC_SCI]);
+ 	else if (data && data[IFLA_MACSEC_PORT])
+ 		sci = dev_to_sci(dev, nla_get_be16(data[IFLA_MACSEC_PORT]));
+-	else
++
++	if (sci == MACSEC_UNDEF_SCI)
+ 		sci = dev_to_sci(dev, MACSEC_PORT_ES);
+ 
+ 	/* Registration can notify listeners before returning. */
+diff --git a/tools/testing/selftests/drivers/net/macsec.py b/tools/testing/selftests/drivers/net/macsec.py
+index 9a83d9542e04..81003bda9b0d 100755
+--- a/tools/testing/selftests/drivers/net/macsec.py
++++ b/tools/testing/selftests/drivers/net/macsec.py
+@@ -34,9 +34,10 @@ def _get_features(dev):
+     return ethtool(f"-k {dev}", json=True)[0]
+ 
+ 
+-def _require_ip_macsec(cfg):
+-    """SKIP if iproute2 on local or remote lacks 'ip macsec' support."""
+-    for host in [None, cfg.remote]:
++def _require_ip_macsec(cfg=None):
++    """SKIP if iproute2 lacks MACsec locally or on cfg.remote, when given."""
++    hosts = [None, cfg.remote] if cfg is not None else [None]
++    for host in hosts:
+         out = cmd("ip macsec help", fail=False, host=host)
+         if "Usage" not in out.stdout + out.stderr:
+             where = "remote" if host else "local"
+@@ -263,6 +264,54 @@ def test_offload_state(cfg) -> None:
+             "features should match first offload-on snapshot")
+ 
+ 
++@ksft_variants([
++    KsftNamedVariant("default", "", ""),
++    KsftNamedVariant("explicit", "", "sci {sci}"),
++    KsftNamedVariant("undefined", "", "sci ffffffffffffffff"),
++    KsftNamedVariant("undefined_default", "sci ffffffffffffffff", ""),
++    KsftNamedVariant("undefined_explicit", "sci ffffffffffffffff", "sci {sci}"),
++    KsftNamedVariant("undefined_twice", "sci ffffffffffffffff",
++                     "sci ffffffffffffffff"),
++])
++def test_duplicate_sci(cfg, first, second) -> None:
++    """Reject duplicate transmit SCIs, including the undefined-SCI fallback."""
++
++    _require_ip_macsec()
++    ms0 = _macsec_name(0)
++    ms1 = _macsec_name(1)
++    sci = _get_mac(cfg.ifname).replace(":", "") + "0001"
++
++    ip(f"link add link {cfg.ifname} {ms0} type macsec {first}")
++    defer(ip, f"link del {ms0}")
++    with ksft_raises(CmdExitFailure):
++        ip(f"link add link {cfg.ifname} {ms1} type macsec "
++           f"{second.format(sci=sci)}")
++        # Clean up if the kernel incorrectly accepted the duplicate.
++        defer(ip, f"link del {ms1}")
++
++
++def test_undefined_sci(cfg) -> None:
++    """An undefined SCI still selects the default when it is available."""
++
++    _require_ip_macsec()
++    ms0 = _macsec_name(0)
++    ms1 = _macsec_name(1)
++    sci = _get_mac(cfg.ifname).replace(":", "") + "0001"
++
++    # A different port on the same lower device must not block the fallback.
++    ip(f"link add link {cfg.ifname} {ms0} type macsec port 2")
++    defer(ip, f"link del {ms0}")
++    ip(f"link add link {cfg.ifname} {ms1} type macsec sci ffffffffffffffff")
++    cleanup = defer(ip, f"link del {ms1}")
++    info = ip(f"-d link show dev {ms1}", json=True)[0]
++    ksft_eq(info["linkinfo"]["info_data"]["sci"], sci)
++
++    # Deleting a device must make its SCI available again.
++    cleanup.exec()
++    ip(f"link add link {cfg.ifname} {ms1} type macsec sci ffffffffffffffff")
++    defer(ip, f"link del {ms1}")
++
++
+ def _check_nsim_vid(cfg, vid, expected) -> None:
+     """Checks if a VLAN is present. Only works on netdevsim."""
+ 
+@@ -333,6 +382,8 @@ def main() -> None:
+                   test_max_secy,
+                   test_max_sc,
+                   test_offload_state,
++                  test_duplicate_sci,
++                  test_undefined_sci,
+                   test_vlan,
+                   test_vlan_toggle,
+                   ], args=(cfg,))
+
+---
+base-commit: 11536ee3d3e0b1bd35b6f3f8df55a6053eb0c71d
+change-id: 20260926-fix-macsec-duplicate-sci-ed7635ac1c35
+
+Best regards,
+-- 
+Haseeb Malik <haseebulhaq55@gmail.com>
+
+
