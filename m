@@ -1,182 +1,210 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34D853D0C7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4016542ECC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:39:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790883548; cv=none; b=Y5ylVkkBrsud9qkjct6E8ZqiPl1HLXpxVebyGbhOVnNnMIDUPgp2FDv9XLrpwPLJKeYWsOnORP0kmM8edyLYLLpWHOsWBfFqTQS9esQvfyYjNl3V66532HQ40+4FW11PiMOlMdajV/rzXnB7xKgZGYPnt8XLDe0Ie7OYC7G47Eg=
+	t=1790883563; cv=none; b=QfuWjFb4dLZSpvn2/3XR0AZGfjtGGdyS9bUDBFKXpokm1gvjec5CO9vVaWjykFf/U9wkXulUi/W8vMzkioLCZ0acmjmk9iI9E+5fQmI+KnkegU1YenTWBE/Tlt8QH5p+6WBYv55F/a/ZJtKQfbcGfPOsja+fQWBA5iMflWrxhTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790883548; c=relaxed/simple;
-	bh=M4dXSBge5+OeGOkEPm8tEyn1V45XLSawDxNn3M/5cP8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YFIfd7ohrZHnGiKug0Z+Uf8nXsMJ5dL0Mr3YXZRvoBMivOqWtU6NuSQMBRRYoqhpKrj6urTTaiGMDeb9hzh7j7bfO0FI3cPGnARmb5392XDdhkGOEAn/alHpksxRt4eTpegoKKeSzY7Uq7zt4mNNi740fq1EMbHsDu1IWgwsAJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FsgPbx7E; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
+	s=arc-20240116; t=1790883563; c=relaxed/simple;
+	bh=vbmhm88/noJ83Q6vm4aEWqcAzBi/47a/QSvIx7WVrCA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=R7Crg1uuT+tqqJHPfpXmtliNVfBnjn7Xp8VVS040dAJWiC3LNGA+7ye9xc7ZmFQcnRIygrHEPx8lVsjisesANzGzrh1AoubB9XfMr4kzT3E+MS9yJ+/9N4WseCWRlitHMzzdVs2IYHVzQ8nGDob60zf/U8OgG4PzijmzJSRGOC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=iTB6Gqiw; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FsgPbx7E"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so14167364a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:39:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="iTB6Gqiw"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7bf18d0c220so693102137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:39:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790883543; x=1791488343; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kWuVYqccoZ0xuvlXXUJd1igxfZmdeqLxo/EcY9b25x0=;
-        b=FsgPbx7EGcmCQEtmqs8CaWUXQtxOnfFoyzsyffPBnuDBb4mIzofE1i82PiLbSuDtZ6
-         lx1XbgCDij3DiTfRT2CG0wWeyJYNhdzlPE9quNk2ytGhmpz3OSYBcSRREs3s0/n/09Pf
-         zGGqN9KKCia5ZDo6iCuVvecYLMESxwpQK9zQoU1mVbM8OAmv6JvN4n0RSH+H55+bAvtz
-         c+/IVqD2jlqyHoUsSXqheE0opTZtJxzdff5iwiFiojUDsjpYpTGaQZLVUKrH+iWwDunC
-         ykO9MdiHpLQC3UdrhP3Y7PyIa41FctMcQHs/fPfurPrZpYmyU24ooPophNsVGkpUcrWG
-         nJqw==
+        d=baylibre.com; s=google; t=1790883552; x=1791488352; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qwRtr1D4uvDf2NM6dCLPnk+e61bN3tdOAsVS/ij5Mfc=;
+        b=iTB6GqiwY7CgsDW1uurVW6+uz/tODJs3czE49haWci7X6xGHsJwl/M1f+rGA3Nb6Zw
+         ilM5b2BXUUewpiTlmfWGa57U3x5aMGujx7v9s8SPuZ9mtltCyRaN71xfrWWMSe36AVK7
+         9s+3rZVCcSC7Mg7XqBBF8gL3sL0FUs6DpUdB4XhESpNmBjxqo8gNozdOvwUr7EmCK1G/
+         vw4q86aNkkjekzle5lUUq0D6ICzUiSKoBhv8RUSpM7K2H+QItvpOjP37YZUj2Cprz0j3
+         K5i9VMxPIFfPCCMV3wBgI5brwntK2IrzwviS209XS9rt5rOKUh+TtfId52703wQs072z
+         LyGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790883543; x=1791488343;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kWuVYqccoZ0xuvlXXUJd1igxfZmdeqLxo/EcY9b25x0=;
-        b=xXw4LCtZX3HR5pY/GqgpANXnFqrnGTtuodM6toKd82TWppdGWarw2H+VPuSmf0ZwNt
-         Ith5+yXo1DIUI8XnPuVdZ7YkxM8906sqTRcIdW/V07dSPo/7MJP6U3cHWZEMUF+9khYF
-         clrB5BcEOOKbA0D5Y6yyY5yTuO1+iwmvB+cBrU8aIKhy2UIRuTH324wbdHP6LgTuNRcR
-         P92ygES48pTMLrF7iREybaY34wKjDk9jHs5vZr35PZIOi+4cyyT385Pm11bE1mJkNCJr
-         nQSo6M4fRKWhITyqZuRJLAC+hvPVKnTIYDvMHkYd0wAfR17OgKknizazz7Kvw8rSqpin
-         Ucfw==
-X-Forwarded-Encrypted: i=1; AKwUvBz4LsJo0ejJLgKattw+P6MpfmTdcW5AIJTGIWSWls9/Hloh7SkjfkzUwowgBdwntzTQ0F6AkLfM4wOiAVw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVmsxyogeYR3k8B7muHyihqKMs+4yKeC7t3hDo/g+5BQneqeCW
-	WlDTyM7+jwAELYdSWzZlVejbzn0V+UXhzIczQ9TMX/oRP9CQdjOZqDuyM8RhpvV3SI8lUsxRZBP
-	w1bj2Og==
-X-Received: from pjbdt7.prod.google.com ([2002:a17:90a:fa47:b0:3a4:f73c:50c4])
- (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2585:b0:3a4:b418:94ce
- with SMTP id 98e67ed59e1d1-3a6ce5fa387mr579569a91.1.1790883542430; Thu, 01
- Oct 2026 12:39:02 -0700 (PDT)
-Date: Thu, 01 Oct 2026 19:37:50 +0000
-In-Reply-To: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
+        d=1e100.net; s=20260707; t=1790883552; x=1791488352;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=qwRtr1D4uvDf2NM6dCLPnk+e61bN3tdOAsVS/ij5Mfc=;
+        b=jVbEB7R6S+oJ8PAlNa09aFrpQjpQu//Dn9+FkVAfmLKfFlLe4XlUsMHO9+paQqHRDE
+         ba7hbmoJZa+031neSIdZiaHi70i51xlSYNCQANz4LP4i4NuQ6jzqfzIPePIMx+1HjdlX
+         Ec0CmMRB6VF5PiUO1oNiZuyAwnWolRjnXOXoaOj3yyU5Ecj5m58nNhbveG5dg4SIB78E
+         nVFXj4QS/XEPgyvNpbVQh/0YWyN+d9/lx9SvKx/CQEQv3UCZScslvoMHT2L1Lli0bv+v
+         hrnvpdSS2Hh5gQW7hnOx/ET8TwLQtATjfgLupw86Kw8vqqEDfpaMMQN+RvqX/hZ9LdWN
+         uLZw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4LE9dochq0p6VrEBGmkv4rbg8kuoMKGyU0L9zrLOVm2ywGpPpg2R1z200tVfXhZ4kEazeRav/1OvHpQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmTwa0qIuZdSPhas98yr4fkT+TOw3QrWeXKWEmn5bbTlaJI+tU
+	GwElBI9Vh1oN2oNoDmFIj2UNICUSIam2D7z1JkxEvXmcbE8DwZCQFt1E5VkVvu1YG30=
+X-Gm-Gg: AYBFou0hIDCgighQI4zBjRnFoKIMteDfqtDTq16CU93I/d8jAHZhy85SgK3f6+Drfea
+	Vijutz2MrF0IolCo5mPCKDiYXTfdYnHOfc6EGEJaHjUvZ2vEdGjCgEsnXxY99SQp/4QdVoQRdUl
+	ryzt4vgvjmAfDYCyYKMMzLvUhmaQIKvHS5PGSFam/yXxrlBrPRL+lY8uuIL5G3/sjUo0SN5bqqM
+	V4SOJQPXyP6GHdfv+zqp+dEieDwKJcQsNqvpWFwTPKCTiM7fInDhW+eInZrslueQr58aDSRZhP6
+	kTltK/Edb1O0woAU97CNH22wY1HYkFm40G4H/CnWMUoJWoNI4KRVPCxObhdHGufCg66Hdvkz/Qb
+	9qLpQmJUn5B6Q+98X8h76dom81R2v/61IqWStdfxPeLm34wzKuhbgNkbjLvKDOcKs+xbpdaXkTc
+	erZNeAE5Xe5MZotpd6kFObUzc/Nu6cYBcW3m4KW4bYZ0DKcM3sDvVUBP7rm4719MVBEHReFzI58
+	fT204+8fhKZbbmevLtqlKis5H2wINqIclVAJVYAajxpCDET
+X-Received: by 2002:a05:6102:3fa8:b0:7b5:4f3e:70ac with SMTP id ada2fe7eead31-7c0f4c9e8d6mr134416137.24.1790883552571;
+        Thu, 01 Oct 2026 12:39:12 -0700 (PDT)
+Received: from [127.0.1.1] ([2804:14c:4c5:8bf0::ffae])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da612086f4sm921797e0c.5.2026.10.01.12.39.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 12:39:12 -0700 (PDT)
+From: Hiago De Franco <hfranco@baylibre.com>
+Date: Thu, 01 Oct 2026 16:38:30 -0300
+Subject: [PATCH] riscv: dts: sophgo: add cv1800b ethernet support overlay
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
-X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790883521; l=3341;
- i=wyihan@google.com; s=20260319; h=from:subject:message-id;
- bh=eahQ/Qg0Jjy4E99ZAgvlDKelpVaZbNc+WKsobSaVqcE=; b=Dwk024wKMQMop0ug36RFw+ZisT1Gxgnh7qxnlmzhTrCyBGcmUvBqXFBld4BObW7rX4ebrGJpP
- Mwwe+dWVRoIC8u0q73KBSPTwOEnU7St2O7f139XS6ZpyMq6h8yR7nMc
-X-Mailer: b4 0.14.3
-Message-ID: <20261001-tdx-selftests-v15-23-7c62a5d8a992@google.com>
-Subject: [PATCH v15 23/23] KVM: selftests: Add TDX lifecycle test
-From: Lisa Wang <wyihan@google.com>
-To: Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org, Lisa Wang <wyihan@google.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-milkv-duo-eth-overlay-v1-1-78bc1454f35b@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6DIBBA0auYWTsJKNHaqxgXiGOdasWAEo3x7
+ tJ2+Rb/n+DJMXl4Jic4CuzZzhEyTcAMen4RchcNmcgKKYTED09jwG6zSOuANpCb9IGmL8v8oVS
+ llYDYLo563n/fuvnbb+2bzPqdwXXdIrIOGHkAAAA=
+X-Change-ID: 20261001-milkv-duo-eth-overlay-cf7738449a40
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
+ Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: Chen-Yu Yeh <chenyou910331@gmail.com>, 
+ Andrei Lalaev <andrey.lalaev@gmail.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, sophgo@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-From: Sagi Shahar <sagis@google.com>
+The CV1800B SoC has a DWMAC controller connected to an internal 10/100
+Ethernet PHY. Both the MAC (gmac0) and the MDIO multiplexer used to
+reach the internal PHY are already described in cv180x.dtsi, but are
+disabled by default.
 
-Add a test to verify TDX lifecycle by creating a simple TDX VM.
+Enable gmac0 and the MDIO multiplexer to make ethernet work.
 
-Signed-off-by: Sagi Shahar <sagis@google.com>
-Signed-off-by: Lisa Wang <wyihan@google.com>
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Tested on a Milk-V Duo (CV1800B) with its IO base board. The link comes
+up at 100Mbps/Full and the interface gets an address via DHCP.
+
+This can not be enabled by default as others may want to use the same
+pins as GPIO, that is the reason an overlay is being used.
+
+Signed-off-by: Hiago De Franco <hfranco@baylibre.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm           |  1 +
- .../testing/selftests/kvm/include/x86/processor.h  |  1 +
- .../selftests/kvm/include/x86/tdx/tdx_util.h       |  5 ++++
- tools/testing/selftests/kvm/x86/tdx_vm_test.c      | 33 ++++++++++++++++++++++
- 4 files changed, 40 insertions(+)
+Hi,
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 495de8ef8166..14cff95cf291 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -161,6 +161,7 @@ TEST_GEN_PROGS_x86 += x86/triple_fault_event_test
- TEST_GEN_PROGS_x86 += x86/recalc_apic_map_test
- TEST_GEN_PROGS_x86 += x86/aperfmperf_test
- TEST_GEN_PROGS_x86 += x86/guest_memfd_conversions_test
-+TEST_GEN_PROGS_x86 += x86/tdx_vm_test
- TEST_GEN_PROGS_x86 += access_tracking_perf_test
- TEST_GEN_PROGS_x86 += coalesced_io_test
- TEST_GEN_PROGS_x86 += dirty_log_perf_test
-diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-index 1eb380dd216c..61ae02d927c1 100644
---- a/tools/testing/selftests/kvm/include/x86/processor.h
-+++ b/tools/testing/selftests/kvm/include/x86/processor.h
-@@ -393,6 +393,7 @@ static inline unsigned int x86_model(unsigned int eax)
- #define VM_SHAPE_SEV		VM_TYPE(KVM_X86_SEV_VM)
- #define VM_SHAPE_SEV_ES		VM_TYPE(KVM_X86_SEV_ES_VM)
- #define VM_SHAPE_SNP		VM_TYPE(KVM_X86_SNP_VM)
-+#define VM_SHAPE_TDX		VM_TYPE(KVM_X86_TDX_VM)
- 
- #define PHYSICAL_PAGE_MASK      GENMASK_ULL(51, 12)
- 
-diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-index dcfc62ffbaeb..85791fe16f68 100644
---- a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-+++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-@@ -11,6 +11,11 @@ static inline bool is_tdx_vm(struct kvm_vm *vm)
- 	return vm->type == KVM_X86_TDX_VM;
- }
- 
-+static inline bool is_tdx_supported(void)
-+{
-+	return !!(kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_TDX_VM));
-+}
-+
- /*
-  * TDX ioctls
-  * Use underscores to avoid collisions with struct member names.
-diff --git a/tools/testing/selftests/kvm/x86/tdx_vm_test.c b/tools/testing/selftests/kvm/x86/tdx_vm_test.c
+This is a continuation of patch [1]. The same patch was sent before [2],
+and an overlay was suggested, altought it was not sent. Therefore I am
+sending this overlay now.
+
+U-Boot logs:
+
+milkv_duo# setenv fdtoverlay_addr_r 0x82480000
+milkv_duo# boot
+** Booting bootflow 'mmc@4310000.bootdev.part_1' with extlinux
+1:	Poky (Yocto Project Reference Distro)
+Retrieving file: /Image.gz
+append: root=/dev/mmcblk0p2 ro rootwait console=ttyS0,115200 earlycon=sbi
+Retrieving file: /cv1800b-milkv-duo.dtb
+Retrieving file: /cv1800b-milkv-duo-eth.dtbo
+   Uncompressing Kernel Image to 0
+\## Flattened Device Tree blob at 82200000
+   Booting using the fdt blob at 0x82200000
+Working FDT set to 82200000
+   Loading Device Tree to 0000000083560000, end 0000000083568fff ... OK
+Working FDT set to 83560000
+
+Kernel logs:
+
+root@milkv-duo:~# ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq qlen 1000
+    link/ether 22:9c:5e:8d:3b:0c brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.124/24 brd 192.168.0.255 scope global eth0
+       valid_lft forever preferred_lft forever
+root@milkv-duo:~# dmesg | grep stmmaceth
+[    0.580448] stmmaceth 4070000.ethernet: IRQ eth_wake_irq not found
+[    0.587750] stmmaceth 4070000.ethernet: IRQ sfty not found
+[    0.594165] stmmaceth 4070000.ethernet: Hash table entries set to unexpected value 0
+[    0.604856] stmmaceth 4070000.ethernet: User ID: 0x10, Synopsys ID: 0x37
+[    0.612359] stmmaceth 4070000.ethernet: 	DWMAC1000
+[    0.617641] stmmaceth 4070000.ethernet: DMA HW capability register supported
+[    0.625189] stmmaceth 4070000.ethernet: Active PHY interface: RMII (4)
+[    0.632191] stmmaceth 4070000.ethernet: RX Checksum Offload Engine supported
+[    0.639720] stmmaceth 4070000.ethernet: COE Type 2
+[    0.644915] stmmaceth 4070000.ethernet: TX Checksum insertion supported
+[    0.651995] stmmaceth 4070000.ethernet: Normal descriptors
+[    0.657911] stmmaceth 4070000.ethernet: Ring mode enabled
+[    0.663737] stmmaceth 4070000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+[    0.671939] stmmaceth 4070000.ethernet: device MAC address 22:9c:5e:8d:3b:0c
+[   13.104870] stmmaceth 4070000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+[   13.125037] stmmaceth 4070000.ethernet eth0: PHY [mdio_mux-0.0:01] driver [Generic PHY] (irq=POLL)
+[   13.172421] stmmaceth 4070000.ethernet eth0: No Safety Features support found
+[   13.203664] stmmaceth 4070000.ethernet eth0: IEEE 1588-2002 Timestamp supported
+[   13.229963] stmmaceth 4070000.ethernet eth0: configuring for phy/internal link mode
+[   15.278278] stmmaceth 4070000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+
+[1] https://lore.kernel.org/sophgo/20260930-milkv-duo-ethernet-v1-1-428ff137f5d3@baylibre.com/
+[2] https://lore.kernel.org/sophgo/20260803163323.74414-1-chenyou910331@gmail.com/
+---
+ arch/riscv/boot/dts/sophgo/Makefile                   |  3 +++
+ arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso | 17 +++++++++++++++++
+ 2 files changed, 20 insertions(+)
+
+diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
+index d5c80d4ff005..adea990ad912 100644
+--- a/arch/riscv/boot/dts/sophgo/Makefile
++++ b/arch/riscv/boot/dts/sophgo/Makefile
+@@ -1,5 +1,8 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
++cv1800b-milkv-duo-eth-dtbs := cv1800b-milkv-duo.dtb cv1800b-milkv-duo-eth.dtbo
++dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo-eth.dtb
++dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo-eth.dtbo
+ dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
+ dtb-$(CONFIG_ARCH_SOPHGO) += sg2000-milkv-duo-s.dtb
+ dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
+diff --git a/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso
 new file mode 100644
-index 000000000000..7cdcaf33b585
+index 000000000000..52c85b4e0155
 --- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/tdx_vm_test.c
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Enable ethernet support on Milk-V Duo (CV1800B).
++ *
++ * Copyright (c) 2026, Hiago De Franco <hfranco@baylibre.com>
++ */
 +
-+#include "processor.h"
-+#include "kvm_util.h"
-+#include "tdx/tdx_util.h"
-+#include "ucall_common.h"
-+#include "kselftest_harness.h"
++/dts-v1/;
++/plugin/;
 +
-+static void guest_code_lifecycle(void)
-+{
-+	GUEST_DONE();
-+}
++&gmac0 {
++	status = "okay";
++};
 +
-+TEST(verify_td_lifecycle)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+
-+	vm = vm_create_shape_with_one_vcpu(VM_SHAPE_TDX, &vcpu,
-+					   guest_code_lifecycle);
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_EQ(get_ucall(vcpu, &uc), UCALL_DONE);
-+
-+	kvm_vm_free(vm);
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	TEST_REQUIRE(is_tdx_supported());
-+	return test_harness_run(argc, argv);
-+}
++&mdio {
++	status = "okay";
++};
 
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+---
+base-commit: d24e8ac715de2e16a53c144005b1863660a5fbea
+change-id: 20261001-milkv-duo-eth-overlay-cf7738449a40
+
+Best regards,
+--  
+Hiago
 
