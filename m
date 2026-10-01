@@ -1,143 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A9941D114;
-	Thu,  1 Oct 2026 22:51:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D2C4BB26E;
+	Thu,  1 Oct 2026 22:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790895081; cv=none; b=Sawvzaht+Mp+xohcq451pkrHh72KIARA0zYLj1dpvtO4NU86wsPrz9cTB7Hy59tPgoxMyVYJ2DJx8+/yLGPR8Eceb0/Zg3ZIbrAGXHTefiGUqfLzbGq30Ze3psTIw/qE8tKXyWjjKVB9PefSx+a6DcrvKbY0J0gamxgTvltFGAQ=
+	t=1790895092; cv=none; b=O9+Bg21wLO31R0utc4n7nz4k6u4rxJGfnve4tmoIx+kFe83DRhyFQFltTakSXuCm8jDnfEUG5eWhC9Mpy9l6xYh2RFQj6WJ+0jZgJNV7Zhok7VycPs6rNbdE1YXnPpcrS2a+BL+ujAQHKy4aeo/I30lgKzulIVBSCPIvAffLdwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790895081; c=relaxed/simple;
-	bh=mchLrNoWFgVWPBPuOZhm6Rko/RDC2kkNxlyzACQcdEU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hgExr4LTuI8Tl7RHkQporipjMTWTfWwuVmn9uOFdoyf2ohku0KtvQ4/XrNRYEw3TO2EUlgswvz+H5LqsFJs8PytsGe4AKrF3qRo0trFNGPghQTmoo1l3w80gBpb4vTZ5z2yX5xG0j/bQjHj4u7e7JPnAB7TVNEStxXxZf8RxHpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gCDULjgv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790895092; c=relaxed/simple;
+	bh=n4kx9jeehwxg2SXhnRjk2B0JeREdKHfzS9FXM+qPXRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=av2mvKP1H8xtQ/AgJzpiTY1GZjB+trlowdULQ01D2gsWAp9OM/4QdjLqsieujj0zZAeRTW/f01mrofM4TOFWYINNVJiB304g12rDG5kPRrqK/PjmQ+hy7ghcOscLGeWhLw0zwY8b32y/dpd5nOwWVoAim5nRb4awlxoWM3fE+gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ldjR3A7p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gCDULjgv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 793F1C4AF13;
-	Thu,  1 Oct 2026 22:51:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790895081;
-	bh=mchLrNoWFgVWPBPuOZhm6Rko/RDC2kkNxlyzACQcdEU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gCDULjgvkZ9SOQCb640NDl6PjIW2+hzM6tTO9FeMdJkwnl+7VAgU6aEIBS3WKVIL+
-	 hD4MTNT9bRUlSRsuSjZIu2ckhSDj1e4ryDxYtgAmaU6Ye3PJ7YuHHFlmEl9/zSPmZS
-	 KFcnr+f95RHyPEM8Cp0msDy+jr+JRQICabB/08m6ZbV0v/y9n4Tnk7li51gLOWG3gu
-	 rt70I+4B4oJhKTWDcGOnbHo+PtqTksWimGclA/xTZK8/utpO7N2ptzhiaD7sLif6QA
-	 kc8OTYVaWIotTC+xHYX9ZLBAsZf4v4wsA1z8mGqF8yFF8FCZwkfK+YQ1bRUeY/S1Hc
-	 72AKO6PF3lp1g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D4CACA5FD9;
-	Thu,  1 Oct 2026 22:51:21 +0000 (UTC)
-From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
-Date: Thu, 01 Oct 2026 22:51:14 +0000
-Subject: [PATCH 2/3] usb: typec: tcpci: implement get_current_limit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ldjR3A7p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2581F000FF;
+	Thu,  1 Oct 2026 22:51:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790895090;
+	bh=n4kx9jeehwxg2SXhnRjk2B0JeREdKHfzS9FXM+qPXRU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ldjR3A7pnRAQQQFSIBCDJJfOnukvn+v7m1w0K+PrOV6TNV4OjKiPT7LKDO51fHQOJ
+	 FY/caVymwUjpkuqIPLzfNEzQtGREVRdzVjAzyiivRzzzgJYkdtYUrz7ZeNDDwY7/ta
+	 +jorPlh1ihquMjgiT8Oo4S4O1a1KoZD61GqsLiBC33v57DyrohNTfx9py5F6KHPYcW
+	 yAZVVmNShu/kMpJDaxJueguZpb8bAkqfTnC1kq0+n+nlsXQf3nROy7Z/kdbAF/4/k+
+	 A/pK112Jz1v+DnCrUyNkocodGtiRzqRKw1Csyh++yeZ9dZWckrxZW+owUtITFxOYzj
+	 saGY9SWkuv3eA==
+Date: Thu, 1 Oct 2026 15:51:29 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>, Claudiu
+ Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Subject: Re: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
+Message-ID: <20261001155129.51ea9930@kernel.org>
+In-Reply-To: <e7f574ab-5fcf-484a-a5bf-fc94d45b2311@nabladev.com>
+References: <20260924180607.60932-1-marex@nabladev.com>
+	<AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+	<af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
+	<AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+	<b4addd8f-43ba-417e-85ad-a78391c8f2fb@nabladev.com>
+	<AS4PR04MB9338E76DB4A59D70F1D6AB2F888A2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+	<e7f574ab-5fcf-484a-a5bf-fc94d45b2311@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-max77759-icl-typec-v1-2-99ada1f65ced@google.com>
-References: <20261001-max77759-icl-typec-v1-0-99ada1f65ced@google.com>
-In-Reply-To: <20261001-max77759-icl-typec-v1-0-99ada1f65ced@google.com>
-To: Badhri Jagan Sridharan <badhri@google.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>, 
- Amit Sunil Dhamne <amitsd@google.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790895080; l=2828;
- i=amitsd@google.com; s=20241031; h=from:subject:message-id;
- bh=8gEXKafzYzCAyr8sjZjUE87dWY/Y625Rw6Tffnk7d5U=;
- b=cGUp52cbQR5MlpMG8YfhKhm5C+KxUMIZ5RYa39qzbveUgbdPIxewqFIo9fXRhjiXwOQhYaKCv
- tuswV5u899ZCaw/wFCYoUuHxMzCdpkeViI2j3LKl3RRq8qUvqQRkkSN
-X-Developer-Key: i=amitsd@google.com; a=ed25519;
- pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
-X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
- auth_id=262
-X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
-Reply-To: amitsd@google.com
 
-From: Amit Sunil Dhamne <amitsd@google.com>
+On Thu, 1 Oct 2026 03:34:09 +0200 Marek Vasut wrote:
+> Jakub, do you want a revert of this one, fix, or follow up patch ?
 
-Implement a callback for tcpc_dev::get_current_limit. This acts like a
-conduit to relay the current limit information from chip level tcpc
-drivers.
-
-This does not introduce any functional changes for chip level drivers
-that do not implement tcpci_data::get_current_limit.
-
-Assisted-by: LLM
-Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
-Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
----
- drivers/usb/typec/tcpm/tcpci.c | 14 ++++++++++++++
- include/linux/usb/tcpci.h      |  6 ++++++
- 2 files changed, 20 insertions(+)
-
-diff --git a/drivers/usb/typec/tcpm/tcpci.c b/drivers/usb/typec/tcpm/tcpci.c
-index 6717ac914c6a6..f1bc1ac0a5561 100644
---- a/drivers/usb/typec/tcpm/tcpci.c
-+++ b/drivers/usb/typec/tcpm/tcpci.c
-@@ -250,6 +250,19 @@ static int tcpci_get_cc(struct tcpc_dev *tcpc,
- 	return 0;
- }
- 
-+static int tcpci_get_current_limit(struct tcpc_dev *tcpc)
-+{
-+	struct tcpci *tcpci = tcpc_to_tcpci(tcpc);
-+	int ret;
-+
-+	if (!tcpci->data->get_current_limit)
-+		return 0;
-+
-+	ret = tcpci->data->get_current_limit(tcpci, tcpci->data);
-+
-+	return ret < 0 ? 0 : ret;
-+}
-+
- static int tcpci_set_polarity(struct tcpc_dev *tcpc,
- 			      enum typec_cc_polarity polarity)
- {
-@@ -861,6 +874,7 @@ struct tcpci *tcpci_register_port(struct device *dev, struct tcpci_data *data)
- 	tcpci->tcpc.set_cc = tcpci_set_cc;
- 	tcpci->tcpc.apply_rc = tcpci_apply_rc;
- 	tcpci->tcpc.get_cc = tcpci_get_cc;
-+	tcpci->tcpc.get_current_limit = tcpci_get_current_limit;
- 	tcpci->tcpc.set_polarity = tcpci_set_polarity;
- 	tcpci->tcpc.set_vconn = tcpci_set_vconn;
- 	tcpci->tcpc.start_toggling = tcpci_start_toggling;
-diff --git a/include/linux/usb/tcpci.h b/include/linux/usb/tcpci.h
-index 9b46a6bc762cc..580fbdac7ede0 100644
---- a/include/linux/usb/tcpci.h
-+++ b/include/linux/usb/tcpci.h
-@@ -205,6 +205,11 @@ struct tcpci;
-  *		swap following Discover Identity on SOP' occurs.
-  *		Return true when the TCPM is allowed to request a Vconn swap
-  *		after Discovery Identity on SOP.
-+ * @get_current_limit:
-+ *		Optional; Called when the port is a sink and CC=Rp-def to obtain
-+ *		the current limit. Chip level drivers can implement their own
-+ *		detection and return the limit in mA, or 0 when it cannot be
-+ *		determined.
-  * @set_orientation:
-  *		Optional; Enable setting the connector orientation
-  *		CONFIG_STANDARD_OUTPUT (0x18) bit0.
-@@ -228,6 +233,7 @@ struct tcpci_data {
- 					     bool capable);
- 	void (*check_contaminant)(struct tcpci *tcpci, struct tcpci_data *data);
- 	bool (*attempt_vconn_swap_discovery)(struct tcpci *tcpci, struct tcpci_data *data);
-+	int (*get_current_limit)(struct tcpci *tcpci, struct tcpci_data *data);
- };
- 
- struct tcpci *tcpci_register_port(struct device *dev, struct tcpci_data *data);
-
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
-
+FWIW the answer was follow up, thanks for sending it!
