@@ -1,46 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from server.couthit.com (server.couthit.com [162.240.164.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25C9485938;
-	Thu,  1 Oct 2026 13:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E363264D2;
+	Thu,  1 Oct 2026 13:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.240.164.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860261; cv=none; b=ppo+MhEqYLqQYgtrh3fbwsfBMHeqK28k1+gd1wDX+e+k5BNk/dGElRejP6t6w2rtsVE6WrIT3Jjr/uF0AedoxeaveV32lxY1f1qWcaayRDNH4+bI4B8bV2o3TBD7VkiO1zp6JIpk00UVh0U54ehsjRkf6MLx1LSHhR3A+iv3DLI=
+	t=1790860265; cv=none; b=duthJlSaVRu1FRvTkHrlBDru7gxPhuXgAhCcK9ZuUoZojzB3gxnk6Wqcb6pkvZEPOWxiHXCK6DNL+2DvIqfpELjXJPi7Rm1X7y2CXjWkZ2+7xQf7quOS+S+ZvUwwgOeKCIPtXVQhwwofbi5H7mGws56AcWCxav/rtVw50AI1OfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860261; c=relaxed/simple;
-	bh=lrJ6bWZlZ+SkO5abb70lQvJDg+Akmz4elKCMyxRr+mQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ovq8yyEGOgRDvzmXoup2FM3m+g4JQvjQE0eEgJHrHY+cUA7Ky3VofM5wTpHZi9tc+PHtr7YLFYHO0p0iCMyhyTlYozQbqbpj+C0tUDeaXe60AiEZG0C27xU2tcqLdaLy6TCuEHWCU0TQSHH/KaNJreFAx5W9SDU7IizfTh05AdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aA5blC3L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790860265; c=relaxed/simple;
+	bh=Pa6GRL5xb/2R4M/aLYve8miceUGft23vf5SDoLi9e8M=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=L+/8lqJVPRBAiHOUzQntaBxThNxraphBThmqcRVOljxJL07G9WgvxQBXSiOnZMwB2JMKRMG+p2Se96sUhjxNCbBhrks+Akh7vePcZyYiyTBaaAjVC9LRu2N7etU2xNO5Hxa270W2ROHH+ZROQkCRfPvzy8cDOrX2RcwAp/C+6Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com; spf=pass smtp.mailfrom=couthit.com; dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b=tXfNsmpq; arc=none smtp.client-ip=162.240.164.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=couthit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aA5blC3L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143E81F000FF;
-	Thu,  1 Oct 2026 13:10:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790860260;
-	bh=S3zb7dffDO05ofATCMsz7RTakXrVtCiOoBFhworE6Ss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aA5blC3LMESqT3U7KX0JtL6c3VyicVX9wKk0HX9Mu6UVegTQN7D8v22lohJ8KVPsT
-	 h6h+FHXPNe+9ScK4EB1lD6LXp6TpOYH9ctORuxjVHCZi9VPL1OMP4ppfL6dlkhwZPr
-	 Px63YWH9S4uQsuPCh7YNuAFaVl4hZcWYtIglN7ktsRgyjylFeeacF6s+R1H1Coswjo
-	 NSNKSm+UAdkfR+1KdAZ69nHwqEByWfiwi8MON4Czkopwfa7cC0YFIlxOvWEMnbNe1y
-	 M6hq88W2VLGKAywHm73wIkMg3oECjBP8WhRAX0zyP6lv69Zy3tWNUW3EQSr7ve9dyE
-	 aakqpmldf3vTg==
-Date: Thu, 1 Oct 2026 14:10:53 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
-	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 06/15] KVM: arm64: Validate GCS exception lock when
- emulating ERET
-Message-ID: <ar5GKCNx4XOpRnHl@gremlin>
-References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
- <20260930-arm64-gcs-v21-6-3556644cd927@kernel.org>
+	dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b="tXfNsmpq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=couthit.com
+	; s=default; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:
+	References:In-Reply-To:Message-ID:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=GL7ZDdP4Fbo0/jHz9SylqsQ2xSeu+fLePqrzmsWP+8c=; b=tXfNsmpq3wAAFO3JIipdwGPpZL
+	dFxygGX3Wi39Xv4x5dfPL0f604sc+4ipFIrwUQ3YxYj10MUzn1d9IHcqP520JRRXnkGoxCJwBROTl
+	jN5TjoR887SOhh6k17kEIktCwiJ35G1QUylKOIR7hno1/JUkNIpGZTvI1kNCER8nTLjTTY1kNTgUW
+	mYwddTkvlEzQW1AO9UFvapEY6Icir7zRPFkLZK+GvBfTNiKUR5LRpPWcXVDILTAT5VzC4mvO69N6a
+	dKbDs0ULhIMW+OdQN+M0+ezJNZCUe9cblXjGGP8iUgI8wVAt8fEW0MML5wHAzcXHgTEorUcVk+vcW
+	CcQhHc9Q==;
+Received: from [115.246.246.98] (port=38216 helo=zimbra.couthit.local)
+	by server.couthit.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <parvathi@couthit.com>)
+	id 1xCGYu-00000000upB-35wd;
+	Thu, 01 Oct 2026 09:11:00 -0400
+Received: from localhost (localhost [127.0.0.1])
+	by zimbra.couthit.local (Postfix) with ESMTP id BCE431A08960;
+	Thu,  1 Oct 2026 18:40:57 +0530 (IST)
+Received: from zimbra.couthit.local ([127.0.0.1])
+ by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id NCaKiwFU2_z3; Thu,  1 Oct 2026 18:40:55 +0530 (IST)
+Received: from localhost (localhost [127.0.0.1])
+	by zimbra.couthit.local (Postfix) with ESMTP id 9184F1A0895F;
+	Thu,  1 Oct 2026 18:40:55 +0530 (IST)
+X-Virus-Scanned: amavis at couthit.local
+Received: from zimbra.couthit.local ([127.0.0.1])
+ by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id YqyNMpkImhzc; Thu,  1 Oct 2026 18:40:55 +0530 (IST)
+Received: from zimbra.couthit.local (zimbra.couthit.local [10.10.10.103])
+	by zimbra.couthit.local (Postfix) with ESMTP id 6A6231A08960;
+	Thu,  1 Oct 2026 18:40:55 +0530 (IST)
+Date: Thu, 1 Oct 2026 18:40:55 +0530 (IST)
+From: Parvathi Pudi <parvathi@couthit.com>
+To: Simon Horman <horms@kernel.org>
+Cc: parvathi <parvathi@couthit.com>, andrew+netdev <andrew+netdev@lunn.ch>, 
+	davem <davem@davemloft.net>, edumazet <edumazet@google.com>, 
+	kuba <kuba@kernel.org>, pabeni <pabeni@redhat.com>, 
+	danishanwar <danishanwar@ti.com>, rogerq <rogerq@kernel.org>, 
+	pmohan <pmohan@couthit.com>, afd <afd@ti.com>, 
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>, haokexin@gmail.com, 
+	basharath <basharath@couthit.com>, arnd <arnd@arndb.de>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	netdev <netdev@vger.kernel.org>, 
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
+	pratheesh <pratheesh@ti.com>, j-rameshbabu <j-rameshbabu@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, praneeth <praneeth@ti.com>, 
+	srk <srk@ti.com>, rogerq <rogerq@ti.com>, 
+	m-malladi <m-malladi@ti.com>, krishna <krishna@couthit.com>, 
+	mohan <mohan@couthit.com>
+Message-ID: <61177290.492777.1790860255343.JavaMail.zimbra@couthit.local>
+In-Reply-To: <20260925163944.721179-1-horms@kernel.org>
+References: <20260921134343.200426-4-parvathi@couthit.com> <20260925163944.721179-1-horms@kernel.org>
+Subject: Re: [PATCH net-next v4 3/3] net: ti: icssm-prueth: Support
+ duplicate HW offload feature for HSR and PRP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,122 +80,191 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260930-arm64-gcs-v21-6-3556644cd927@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Zimbra 9.0.0_ZEXTRAS_20240927 (ZimbraWebClient - GC150 (Linux)/9.0.0_ZEXTRAS_20240927)
+Thread-Topic: icssm-prueth: Support duplicate HW offload feature for HSR and PRP
+Thread-Index: Li9uaJOhO8YSLEr4VnoTnJWJqE6+bw==
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - server.couthit.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - couthit.com
+X-Get-Message-Sender-Via: server.couthit.com: authenticated_id: smtp@couthit.com
+X-Authenticated-Sender: server.couthit.com: smtp@couthit.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Sep 30, 2026 at 10:48:16PM +0100, Mark Brown wrote:
-> As per DDI0487 R_TYTWB GCS adds an additional case where an illegal
-> exception return can be generated. If all of:
->
->  - PSTATE.EXLOCK is 0.
->  - The EL is not being changed by the ERET.
->  - GCSCR_ELx.EXLOCKEN is 1.
+Hi,
 
-Ack can see from [0] in D.1.4.4.2 (M.d):
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> Full review at:
+> https://sashiko.dev/#/patchset/20260921134343.200426-4-parvathi@couthit.com?part=3
+> ---
+> net: ti: icssm-prueth: Support duplicate HW offload feature for HSR and PRP
+> 
+> This commit introduces hardware duplication offloading for HSR and PRP in
+> the PRU Ethernet driver. It uses a shared queue to write frames into OCMC
+> RAM once, replicating transmission in firmware, and adds receive-side
+> handling for duplicate frames.
+> 
+>> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth.c
+>> b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
+>> --- a/drivers/net/ethernet/ti/icssm/icssm_prueth.c
+>> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
+> [ ... ]
+>> @@ -656,6 +725,57 @@ static int icssm_prueth_tx_enqueue(struct prueth_emac
+>> *emac,
+>>  	if (PRUETH_IS_HSR(prueth))
+>>  		wr_buf_desc |= BIT(PRUETH_BD_HSR_FRAME_SHIFT);
+>>  
+>> +	if (prueth_is_lre(prueth)) {
+>> +		ethhdr = (struct ethhdr *)skb_mac_header(skb);
+>> +		proto = ethhdr->h_proto;
+>> +
+>> +		if (proto == htons(ETH_P_8021Q)) {
+>> +			vlan_hdr = (struct vlan_ethhdr *)ethhdr;
+>> +			proto = vlan_hdr->h_vlan_encapsulated_proto;
+>> +			is_vlan = true;
+>> +		}
+>> +
+>> +		/* Check if the SKB has HSR tag */
+>> +		if (PRUETH_IS_HSR(prueth) && proto == htons(ETH_P_HSR)) {
+>> +			hdr = skb_mac_header(skb);
+>> +
+>> +			if (is_vlan) {
+>> +				hsr_ethhdr =
+>> +					(struct hsr_txopt_ethhdr *)(hdr +
+>> +								    VLAN_HLEN);
+>> +			} else {
+>> +				hsr_ethhdr = (struct hsr_txopt_ethhdr *)hdr;
+>> +			}
+>> +
+>> +			/* PTP frames (ETH_P_1588) carry no LAN ID
+>> +			 * in the HSR tag
+>> +			 */
+>> +			if (hsr_ethhdr->hsr_tag.encap_proto !=
+>> +			    htons(ETH_P_1588)) {
+>> +				wr_buf_desc |= PRUETH_BD_LAN_INFO_MASK;
+> 
+> [Severity: Medium]
+> Is it expected to unconditionally duplicate the frame here?
+> 
+> The driver exposes NETIF_F_HW_HSR_DUP as a toggleable ethtool feature, but
+> this data path checks PRUETH_IS_HSR() and always performs duplication. If a
+> user disables hw-hsr-dup, the software HSR core will duplicate packets and
+> send two copies. The hardware will then duplicate them again, causing a
+> broadcast storm.
+> 
+> Should this check the active ndev features instead?
+> 
 
-"If the Effective value of GCSCR_ELx.EXLOCKEN is 1 and PSTATE.EXLOCK is 0, the
-execution of an exception return instruction to return to the current Exception
-level ELx."
+No. The HSR offload features can only be turned on or off together, and they cannot
+be changed while the port is an HSR slave or running. The firmware enters HSR mode
+only if these features are enabled when both ports join the HSR device. Otherwise the
+device stays in EMAC mode and this path is never taken. So PRUETH_IS_HSR() here always
+means hw-hsr-dup is enabled, and frames are never duplicated twice.
 
-[0]: https://support.arm.com/documentation/ddi0487/md/-Part-D-The-AArch64-System-Level-Architecture/-Chapter-D1-The-AArch64-System-Level-Programmers--Model/-D1-4-Exceptions/-D1-4-4-Exception-return?lang=en
+>> +			} else {
+>> +				wr_buf_desc |= (txport <<
+>> +						PRUETH_BD_LAN_A_SHIFT);
+>> +			}
+>> +			wr_buf_desc |= PRUETH_BD_RED_PKT_MASK;
+>> +		} else if (PRUETH_IS_PRP(prueth)) {
+>> +			/* Check if the SKB has PRP tag */
+>> +			struct prp_txopt_rct *rct =
+>> +				(struct prp_txopt_rct *)(skb_tail_pointer(skb) -
+>> +							 ICSSM_LRE_TAG_SIZE);
+>> +
+>> +			if (rct->prp_suffix == htons(ETH_P_PRP)) {
+> 
+> [Severity: Medium]
+> Could this lead to unaligned memory accesses?
+> 
+> Since skb->len can be odd for arbitrary payloads like ICMP packets, the
+> tail pointer may be unaligned. The struct prp_txopt_rct contains __be16
+> fields and is not marked as __packed. Dereferencing rct->prp_suffix
+> directly from an unaligned address can cause unaligned access exceptions on
+> some ARM architectures.
+> 
 
->
-> are true then the return is illegal. Emulate this behaviour when
-> emulating ERET for nested guests, while we're at it using the symbolic
-> definition for EXLOCK in SPSR.
->
-> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+We will address this in the next version.
 
-Some comments below. In general LGTM so:
+>> +				wr_buf_desc |= PRUETH_BD_LAN_INFO_MASK;
+>> +				wr_buf_desc |= PRUETH_BD_RED_PKT_MASK;
+>> +			} else {
+>> +				wr_buf_desc |= (txport <<
+>> +						PRUETH_BD_LAN_A_SHIFT);
+>> +			}
+>> +		} else {
+>> +			wr_buf_desc |= (txport << PRUETH_BD_LAN_A_SHIFT);
+>> +		}
+>> +	}
+> [ ... ]
+>> @@ -741,11 +871,36 @@ int icssm_emac_rx_packet(struct prueth_emac *emac, u16
+>> *bd_rd_ptr,
+> [ ... ]
+>> +	actual_pkt_len = pkt_info->length;
+>> +
+>> +	if (has_hsr_tag)
+>> +		actual_pkt_len -= ICSSM_LRE_TAG_SIZE;
+> 
+> [Severity: Medium]
+> Does this unconditionally strip the HSR tag regardless of the netdev feature
+> configuration?
+> 
+> Similar to the duplication offload, NETIF_F_HW_HSR_TAG_RM is exposed via
+> ethtool but not checked in this data path. If a user disables tag removal in
+> hardware, the host stack might fail to parse the packet since the driver
+> still forcibly strips the tag.
+> 
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+No. The tag is stripped only when the device is in HSR mode, and HSR mode is entered
+only when both ports join the HSR device with the HSR offload features enabled. These
+features can only be turned on or off together, and cannot be changed while the port
+is an HSR slave or running. If they are disabled, the device stays in EMAC mode, this
+path is not taken, and the HSR core removes the tag in software.
 
-> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-> index 1ed708335809..9e595e8e7642 100644
-> --- a/arch/arm64/include/asm/kvm_nested.h
-> +++ b/arch/arm64/include/asm/kvm_nested.h
+>>  
+>>  	/* Allocate a socket buffer for this packet */
+>>  	skb = netdev_alloc_skb_ip_align(ndev, actual_pkt_len);
+> [ ... ]
+>> @@ -1309,17 +1473,31 @@ static enum netdev_tx icssm_emac_ndo_start_xmit(struct
+>> sk_buff *skb,
+>>  						struct net_device *ndev)
+>>  {
+>>  	struct prueth_emac *emac = netdev_priv(ndev);
+>> +	/* Spinlock for Tx Queues */
+>> +	spinlock_t *lock_queue;
+>> +	unsigned long flags;
+>>  	int ret;
+>>  	u16 qid;
+>>  
+>>  	qid = icssm_prueth_get_tx_queue_id(emac->prueth, skb);
+>> +	/* Select the TX queue spin lock for this queue ID */
+>> +	if (prueth_is_lre(emac->prueth))
+>> +		lock_queue = &emac->prueth->lre_host_queue_lock[qid - 2];
+>> +	else
+>> +		lock_queue = &emac->host_queue_lock[qid - 2];
+>> +
+> 
+> [Severity: High]
+> Could a race condition occur here when the interface mode changes?
+> 
+> Because icssm_prueth_change_mode can modify the eth_type (which changes the
+> result of prueth_is_lre) and calls ndo_stop directly without waiting for
+> in-flight ndo_start_xmit calls to complete, there is a time-of-check to
+> time-of-use vulnerability.
+> 
+> If eth_type changes between this lock selection and the lock acquisition
+> below, one thread could acquire host_queue_lock while another acquires
+> lre_host_queue_lock. Both might then evaluate prueth_is_lre() as true inside
+> icssm_prueth_tx_enqueue, concurrently modifying the exact same shared LRE
+> queue descriptors and causing queue corruption.
+> 
 
-> +#ifdef CONFIG_ARM64_GCS
-> +/* See IllegalExceptionReturn() pseudocode */
+We will address this in the next version.
 
-Ack I see that at [1].
-
-[1]: https://support.arm.com/documentation/ddi0487/md/-Part-J-Architectural-Pseudocode/-Chapter-J1-A-profile-Architecture-Pseudocode/-J1-4-Shared-pseudocode/-J1-4-647-IllegalExceptionReturn?lang=en
-
-> +static inline bool kvm_check_illegal_exlock_return(struct kvm_vcpu *vcpu,
-> +						   u64 spsr)
-> +{
-> +	u64 pstate, cur_mode, target_mode;
-> +
-> +	if (!kvm_has_gcs(vcpu->kvm))
-> +		return false;
-> +
-> +	if (vcpu->arch.ctxt.regs.pstate & PSR_EXLOCK_BIT)
-> +		return false;
-> +
-> +	/* Check the EL only, ignore thread mode */
-> +	pstate = vcpu->arch.ctxt.regs.pstate;
-> +	cur_mode = (pstate & PSR_MODE_MASK) | PSR_MODE_THREAD_BIT;
-> +	target_mode = (spsr & PSR_MODE_MASK) | PSR_MODE_THREAD_BIT;
-> +
-> +	if (cur_mode != target_mode)
-> +		return false;
-> +
-> +	return vcpu_read_sys_reg(vcpu, GCSCR_EL2) & GCSCR_ELx_EXLOCKEN;
-
-This seems identical, logically, to the psuedocode:
-
-    if (IsFeatureImplemented(FEAT_GCS) && PSTATE.EXLOCK == ‘0’ &&
-          PSTATE.EL == target && GetCurrentEXLOCKEN()) then
-        return TRUE;
-    end;
-    return FALSE;
-
-So LGTM.
-
-> diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-> index 625604019fb3..5aa26384720a 100644
-> --- a/arch/arm64/kvm/emulate-nested.c
-> +++ b/arch/arm64/kvm/emulate-nested.c
-> @@ -2748,10 +2748,13 @@ static u64 kvm_check_illegal_exception_return(struct kvm_vcpu *vcpu, u64 spsr)
->  	 * - trying to return to an illegal M value
->  	 * - trying to return to a 32bit EL
->  	 * - trying to return to EL1 with HCR_EL2.TGE set
-> +	 * - GCSCR_ELx.EXLOCKEN is 1 and PSTATE.EXLOCK is 0 when attempting
-> +	 *   to return from ELx the same EL.
-
-This seems a little unclear, 'when attempting to return to the same EL'
-perhaps?
-
-> @@ -2778,7 +2781,7 @@ static u64 kvm_check_illegal_exception_return(struct kvm_vcpu *vcpu, u64 spsr)
->
->  		mask = PSR_MODE_MASK | PSR_MODE32_BIT;
->  		if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, GCS, IMP))
-
-Could use kvm_has_gcs()?
-
-> -			mask |= BIT_ULL(34);	/* PSTATE.EXLOCK */
-> +			mask |= PSR_EXLOCK_BIT;
-
-Ah nice to not hard code that any more!
-
-> diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
-> index 7875911c0506..af59d1bf51ad 100644
-> --- a/arch/arm64/kvm/hyp/vhe/switch.c
-> +++ b/arch/arm64/kvm/hyp/vhe/switch.c
-> @@ -383,6 +383,10 @@ static bool kvm_hyp_handle_eret(struct kvm_vcpu *vcpu, u64 *exit_code)
->  		return false;
->  	}
->
-> +	/* Push GCS exception lock failures into the slow path */
-> +	if (kvm_check_illegal_exlock_return(vcpu, spsr))
-> +		return false;
-> +
-
-Ah yeah because false -> slow path and illegal exceptions shouldn't be fast path
-:)
-
---
-Cheers, Lorenzo
+Thanks and Regards,
+Parvathi.
