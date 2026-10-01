@@ -1,124 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71E3372ECE;
-	Thu,  1 Oct 2026 01:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3800734F24E;
+	Thu,  1 Oct 2026 01:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790816868; cv=none; b=sKTq4ezE5JBd69ZG0PcBo4HMiEnSlaLXCz5JN+wrTX+VTAIa56dH5iQW3uq7pKNzcZI73LtgFRp+T81oAmZIqvn1cB93vIkp3mt43rFzMf2keXqYiXVnMMq3ZKgcaGML8SwaGaQklloAiG68rJqshstoABhfbTIm8qFdpaMZSdA=
+	t=1790817015; cv=none; b=b020v2YxjCYEiDuQVlC3CqET5WtLhG4IWeKWVNzbWh+kCPNZbJyp7j5Z+kyJV2JcF3WD0MSiO/Z3uZx2ZqMfMwrOI2npaPGFJmRkL61IXqoqZ4sVAaYVnZv4pE7ZaFvBlH6JzAXczjuTuDC1oLWP6ZsC2cPTziF7GyP1ndCQrh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790816868; c=relaxed/simple;
-	bh=RT5A/9HMue+O1wWjxQ4Pjn4DNG4xsbTmgAuu0oIfJCo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=JJ+CVtZhauM+z2JroeSK7O7+35BbrXxOlBmNPjrL43JKRCEHgOT4JV+FZEgIhFXaMM6hMGp2IAlzxkugt4wu0r89wGDV725tS5qF2Cf2nnFqtMe7RG3M+acRbXeMIN8hOGbKZREHDvBvyHgNQzk8K2oegStJ66N5Er+65LHIqh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFgJ3oXx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790817015; c=relaxed/simple;
+	bh=g+8LN7aRVEwIB/kJEhZmt4SF+4i3wUn30jchAukfEko=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=SE1o8YMihQVYIUyDT7XKvyf95IwbsrqVY+cwqL8Q1HPqlXWzFptY/K+RehPJVCj1gfZplBUCCpCz4HDT7Vv554OZWpivE+YOPL562y3gKu/+ZSgLWIeLEKPUm0QAWIUsi5VGdfFFLsD8X0lC8N+h4OGqGCvqD5lxAggiZPA7Sa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mW32Rwpx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFgJ3oXx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB351F00898;
-	Thu,  1 Oct 2026 01:07:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mW32Rwpx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44F8D1F000FF;
+	Thu,  1 Oct 2026 01:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790816864;
-	bh=CwGxd9g4HHs/84Ge8XmhcajbmFBf0YozaOvMHk6FYmU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=LFgJ3oXx9MSfEpsQSHbl4GynYqe+Qtnoc27HQH0v3epUoDivaGRy+emKM1oIRQQeN
-	 2l43p7i0I7+o7fx2MVmD2XfAgf8uIh2FWChL+7EYeG4qA7HTMkx9dimkNMDDlCVAv5
-	 ERP83MNm4WFGldYdh3XXStQW5lHml78EwpwvjYXTTJdIL+ywScvkJ13heqodzIVNYE
-	 ACr6KZOyBUSIJf2T2YUeGyKTaRHKcHbQ9UWDqBT6SJy4zX0uUCOHLei1CLSI9wkhAo
-	 tjK9SaXj7LZr3AfA6n2Id90b5vJG3VRaAUGm/CJvEcej7TAyg+/FXZZTZPVdGXVood
-	 rAvQyHXZp14hQ==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 6D97AF40068;
-	Wed, 30 Sep 2026 21:07:43 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Wed, 30 Sep 2026 21:07:43 -0400
-X-ME-Sender: <xms:X7K9agIdF9tRWgveFzyyfEuUnDVk3iXGPzBiBqboEg_ooU6WOlzn8A>
-    <xme:X7K9aq_5TWJE-hWCwmg9zWl01ylfAIHY16oiVQzLJrL-CZaki7EZI40WkX1n_r12A
-    FLlUsg59Jvy2lMnMH6PTH1crnA2vIYjGB8xmaZmNI9KgGabdLe4BKH20Q>
-X-ME-Proxy-Cause: dmFkZTEV/a2fjBtwvOeO/zFaNy52ZxTsEZH1L0We3+jzDQcLzqY5tCsX3mQtn/I9WA99/8
-    w3zcW93Vpp59fRkTUzBDjlNFLWfnh1NSc3muGBYHpV9FWSoxgJ2wycM6lkJds8A40LSLO1
-    Re0SSxugGsc9miYclrDglYx6X+/UivPAsTeRj7o4KLBXlrmCiJxCXs/P660KAHByI5OcLe
-    ZvNap1Lh6BnOXmNSIN0IGRR9EqhSFQ/C+1VdqfFBOgaXOTeA6frV34UL+aed0NEWsol8ln
-    Jg6NoHr7fPtY0YTv3FB8mbEvR8pu+txLOgW6fmcRfOgRYXOfZDfVxPDyb4GMjwaIw9a9ks
-    58tyMw6G2PVKcRF6Ctz45j/3bYgqQJQlmv/j17ClqnZcuSMb8tFRRQz3628Mc+ZMfs8gqW
-    3liianVqpV3pz1zprE+Ma+1YPPNkBI4KSi5ZTSFUbSSs6QasVteoVZK6eU2tn4wP6/9ZZs
-    NLzCRPfa7bJM3gxuoOsW4oPtEOiuUg9AHN3tUnYOY8RjvgK6ytWL3kyrBZ7H6d1+VZegb2
-    slIjjNh4lRpfnAGSuB0xgNwjFHkQZ9u4sqFTlNqUpX75eq/rLmnxV/E4mBp2rDT9jGr+M1
-    aLYAYCjb/k3cYZMWhdZlI/NIpq1sefSPWPqXZAAuk0EjRGVzNf0GeEVyrh7Q
-X-ME-Proxy: <xmx:X7K9aiq65aDhsoKw-D7VuUbJHbQaVXbtbLAli5kQAKdRUGbTZ_38Yg>
-    <xmx:X7K9atPmlWn0Brsrd-dgIHAtxKE880UbP3HxlUCDzkaxKQQGGzgspw>
-    <xmx:X7K9aroSX9q4glimWV5AuYONP_j9WQf6Zt7s2ckPRoOM1QLnHwsTng>
-    <xmx:X7K9aosWOyWU_I_Ezb-TLHjdajWPBY3qSg6FX5FUizySHk0yvLOd3Q>
-    <xmx:X7K9ai1Tq56RRpi7_egbaGGWYfdbY0ayVIwz0xSjh_F1F7_c_ueohLBv>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 4B985780070; Wed, 30 Sep 2026 21:07:43 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1790817011;
+	bh=5ZzwpWnJAA51L6P5ZLDGxna7Zxy3b1JYMInm0UP1QOg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=mW32RwpxPoDvUcKskTofevvtzVj1EuQYtkZhHB7fGmtZ+Pvky9TQmvgVh3NznO9V1
+	 Ybk8w6XWbVIGhC8tpCZHkkaqV2rS+btG9t13NLHTln5C329Fcyxi86DFkUk/4ou0uF
+	 BFA8vHTSrYkuZzrLTaENU8eGrrPWeMkBJaikzO+Eo+zVitfU7gWQzrNd/rIRl723eJ
+	 fDwHZe2NGqoD9XSf6W6SeqVW1+87AHv58YyRvM5+ujJQoz88fj09gmCtykJRdnwldB
+	 IEYCzLbkLlIqzWo8BgdPBAr56Bf88SkEVkMqI/8Zz8CrR8iJ96xWiW69sZQSQwfLvR
+	 A/jFV50MuOkbQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A2BD3AA6A61;
+	Thu,  1 Oct 2026 01:10:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: APE9iFNf_byJ
-Date: Wed, 30 Sep 2026 18:07:23 -0700
-From: "Chuck Lever" <cel@kernel.org>
-To: "Abdifatah Suruur" <suruurism@gmail.com>
-Cc: jlayton@kernel.org, linux-nfs@vger.kernel.org,
- NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
- "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-Id: <6dbeec76-a55d-4e41-9115-99d199997497@slotpi15m67>
-In-Reply-To: <20260930202212.1482-1-suruurism@gmail.com>
-References: <20260930202212.1482-1-suruurism@gmail.com>
-Subject: Re: [PATCH] lockd: fix use-after-free in nlmsvc_retry_blocked()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next 0/4] net: mana: Add support for the CDX bus
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179081700977.2200095.10074995671789811332.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Oct 2026 01:10:09 +0000
+References: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
+In-Reply-To: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
+To: Manish Awasthi <mawasthi@linux.microsoft.com>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, longli@microsoft.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ kotaranov@microsoft.com, horms@kernel.org, linux-hyperv@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, bpf@vger.kernel.org, nipun.gupta@amd.com,
+ nikhil.agarwal@amd.com, gargaditya@linux.microsoft.com,
+ ernis@linux.microsoft.com, kees@kernel.org, paulros@microsoft.com,
+ mawasthi@microsoft.com
 
-Hi Abdifatah,
+Hello:
 
-Thanks for looking at this code. I'm not going to take this patch,
-for the reasons below.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, Sep 30, 2026 at 11:22:12PM +0300, Abdifatah Suruur wrote:
-> Pin the block before dropping the spinlock in nlmsvc_retry_blocked()
-> and release the pin after processing, so the block cannot be freed
-> while it is in use.
+On Thu, 24 Sep 2026 17:30:50 +0000 you wrote:
+> This series adds CDX bus support to the MANA driver.
+> 
+> The shared GDMA and Ethernet code currently builds together with the PCI
+> transport. To add another bus without duplicating the driver or adding
+> configuration checks throughout the shared code, this series separates the
+> bus-specific operations and builds each transport independently.
+> 
+> [...]
 
-This part is already fixed. The nfsd-testing branch carries
+Here is the summary with links:
+  - [net-next,1/4] net: mana: Introduce gdma_bus_ops for bus-specific operations
+    https://git.kernel.org/netdev/net-next/c/c03e69c95a18
+  - [net-next,2/4] net: mana: Move PCI transport code into gdma_pci.c
+    https://git.kernel.org/netdev/net-next/c/34520ae5dd57
+  - [net-next,3/4] net: mana: Build the PCI transport as a separate module
+    https://git.kernel.org/netdev/net-next/c/445927de07cd
+  - [net-next,4/4] net: mana: Add support for CDX device ID 0x00C2
+    https://git.kernel.org/netdev/net-next/c/3d6792ea4605
 
-  lockd: Fix use-after-free in nlmsvc_retry_blocked
-  lockd: Serialize block retries against host teardown
-
-The first takes the same reference in the same place, so your patch
-no longer applies there. For lockd and NFSD work, please base patches
-on the nfsd-testing branch of
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git
-
-> nlmsvc_notify_blocked() has the same problem: it moves the block to
-> the head of the list and then calls svc_wake_up(block->b_daemon)
-> after dropping nlm_blocked_lock.  Keep that wake-up under the
-> spinlock, as nlmsvc_grant_deferred() already does.
-
-This one appears to be unreachable.
-
-nlmsvc_notify_blocked() is the lm_notify callback. It is called from
-__locks_wake_up_blocks() with blocked_lock_lock held, and that
-function clears waiter->flc_blocker only after lm_notify returns.
-
-The block is on nlm_blocked when the callback finds it, so the list
-holds a reference. A block whose file_lock is waiting comes off that
-list through nlmsvc_unlink_block(), which calls locks_delete_block()
-on the block's file_lock before it calls nlmsvc_remove_block(). That
-covers GRANT_RES, CANCEL, nlmsvc_traverse_blocks(), and
-nlmsvc_grant_blocked().
-
-While the callback is running, flc_blocker is still set, so
-locks_delete_block() cannot take its lockless early return. It has to
-acquire blocked_lock_lock, and it waits there until the callback has
-returned. The list reference therefore cannot be dropped between the
-spin_unlock() and the svc_wake_up().
-
-
+You are awesome, thank you!
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
