@@ -1,145 +1,125 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFEE385535
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8A8352020;
+	Thu,  1 Oct 2026 07:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839211; cv=none; b=rTdQ1DTFZnfp/Y9BUxYKZ2VHcnAh1iq+Y7gDIDIqJHjGMB/evTnx22tA0DwbU0E8smYUTJC2cZI4yk1cbmOXvsSBcL9cKo9q5aveTBiRIUUJ4gwwT0Wid9M1hP/BBcS9WdsYPEVPxcfy6RyQY5cmdsgF/ai0dt8TAP1HEeF8I7g=
+	t=1790839245; cv=none; b=iy4h2AK41w1yCujjhq6BlkSY44LHvVxDreiNCaOjB5Vu8j7xaJsh2aWMRDDyTNG7Pfw3S/155PG8/sQiYRiBUBT04fPbiV5tISOS8pU3WmEtTzMnN+1yVifyU4NsWi+FUkm4TAFs5FBCjjgDR/Nj8O2Ckc1jqfDlzAniME9/kwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839211; c=relaxed/simple;
-	bh=v9FOpcXK4LkHcbJyyNWDWuCMQhtIwmwjXV3fOKhmq0I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o7o4poogM4eMckDqwFVsWB5YD2esbanGPz7lQ2ei1pQ7Vtue/hQ3CpiXptciqpZmePacFdN2XoZuzH/0M/vY20uKZJuXFQLClXrKI5A1p/EyRIAj0HZQCFLpOO2r3dvqrYyB+H9qSCmkVXZdfqyw9fcd3yJK1ooG1Q/xTR5EYBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hapbG2Y2; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790839245; c=relaxed/simple;
+	bh=U5oEqkdeg9YvpX/JVhCgWCo74NzUlC5YA5Ynfjw7rP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lt3hSlGLq2D5ETB/Znum3pQO7drSWYZjphO7dQOVN+BiVIqtt/JIf4M1QrRt9RR2Bt1lB16I1t5GsW95FkNUNGSyIGLlVWCfbSwFwqdN6supN/mnpbj9XrkU/YyIF+MnVgbGIbwJDaGX+lKrnRlshhfc77lkMDVhoWpaVdh7tDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fxzGljNc; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hapbG2Y2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790839199;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Bmie9JTdC7GvOREgQKIaVbNDMTF41K5ZHDK/CLSZFA=;
-	b=hapbG2Y2Q7VQbIk4kwLl9G7tsxcPe2rw6SZAlqkp+RuzKZbPewLJ8AyI7R6F1+MgvLjAIJ
-	h1DI7AOer/53P1eQjwBvPMKXR5vrO9z/jMWq2ZMyZvk+l9o8mdCTs0zI761p5MZ10Menry
-	xcGXGfLANExdkaEpFH9pyPBUEXdYpDY=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-361-3KcQEm1XMWOnIp_ceFAq8Q-1; Thu,
- 01 Oct 2026 03:19:55 -0400
-X-MC-Unique: 3KcQEm1XMWOnIp_ceFAq8Q-1
-X-Mimecast-MFC-AGG-ID: 3KcQEm1XMWOnIp_ceFAq8Q_1790839193
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 502561953977;
-	Thu,  1 Oct 2026 07:19:52 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 59D061956089;
-	Thu,  1 Oct 2026 07:19:47 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jgg@ziepe.ca
-Cc: alex@shazbot.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	bhelgaas@google.com,
-	jjohnson@kernel.org,
-	johannes@sipsolutions.net,
-	jtornosm@redhat.com,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	mani@kernel.org,
-	skolothumtho@nvidia.com,
-	yishaih@nvidia.com
-Subject: Re: [PATCH 3/7] vfio/pci: Add qcom-vfio-pci variant driver
-Date: Thu,  1 Oct 2026 09:19:45 +0200
-Message-ID: <20261001071945.83116-1-jtornosm@redhat.com>
-In-Reply-To: <20260930151229.GR163130@ziepe.ca>
-References: <20260930151229.GR163130@ziepe.ca>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fxzGljNc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790839238; x=1822375238;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=U5oEqkdeg9YvpX/JVhCgWCo74NzUlC5YA5Ynfjw7rP4=;
+  b=fxzGljNcaoC3/Y2wrkSRSOldQ/La2Kxez1zD04gHRxq+O7DHaJaToV01
+   g8qtiWToB8tSzqpORcHV2JsilyJR9+M4IH0ChxQ05IFoOWO3SockQW0n4
+   rnT+7aGJ7jvGEuwxqoaLkqs499DPJp4RQFpzVMOyzTR6acaFXKcsFEB4i
+   Vbz64RZYdgVEF8l1PF9gpeL93V/s2ZGj7I+Nnt/D/xbTZpzX9v7jUwWLV
+   J7xPfjuKTgfbZCmA1Y3KQPiZFgXNSiBhy6Maj1OXP7YLl0+NYM40iMM7H
+   lGMSU+2VRdIdu5c0eKb2lrL2J6rauVji43pDx3ETiY7saj5iWDZGTq/WE
+   A==;
+X-CSE-ConnectionGUID: GZ9nzamXS9GtJFOGiK6GgQ==
+X-CSE-MsgGUID: zCeKZmbASO+iWV8FpnqjTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="95396581"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="95396581"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:20:32 -0700
+X-CSE-ConnectionGUID: R8cZksT4SGyr7eFGfnLaAQ==
+X-CSE-MsgGUID: bpltgbzmR/6D/vwvT0LK8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="302171307"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:20:30 -0700
+Date: Thu, 1 Oct 2026 10:20:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Shih-Yuan Lee <fourdollars@debian.org>
+Cc: Mark Brown <broonie@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>, Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v17 5/6] spi: pxa2xx-pci: restore LPSS private register
+ state across S3 resume
+Message-ID: <ar4Ju6oGkWGCOlct@ashevche-desk.local>
+References: <20260930160629.1822-1-fourdollars@debian.org>
+ <20260930160629.1822-6-fourdollars@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930160629.1822-6-fourdollars@debian.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Jason,
+On Thu, Oct 01, 2026 at 12:06:28AM +0800, Shih-Yuan Lee wrote:
+> On platforms where Intel LPSS SPI is enumerated as a bare PCI device
+> (such as the Apple MacBook8,1 on Lynxpoint-LP), the LPSS power island
+> loses power during system sleep and powers up with the controller held
+> in reset. Because the device lacks ACPI companion objects or MFD
+> binding, neither drivers/acpi/x86/lpss.c nor drivers/mfd/intel-lpss.c
+> restore the private register context across S3 resume.
+> 
+> This causes memory-mapped I/O reads on resume to return ~0, resulting
+> in PCIe Completion Timeouts, missing interrupts, and dead
+> keyboard/touchpad.
+> 
+> Restore LPSS private registers and deassert functional, APB, and iDMA
+> resets in the PCI glue layer:
+> 1. In suspend, quiesce the controller queue via spi_controller_suspend()
+>    so no transfers remain in flight and chip select is deasserted.
+>    Then save the LPSS private registers (LPSS_PRIV_REG_COUNT 9 covering
+>    up to offset 0x20 including reg_cs_ctrl at 0x18). Ensure the clock is
+>    active for reading MMIO registers using pm_runtime_resume_and_get(),
+>    balanced by pm_runtime_put_noidle(), before calling
+>    pm_runtime_force_suspend().
+> 2. In resume, restore LPSS private registers and deassert functional,
+>    APB, and iDMA resets via pxa2xx_spi_pci_lpss_restore_ctx() before
+>    calling pm_runtime_force_resume(). Because the controller clock
+>    remains gated (clk_enabled is false) during this restoration, any
+>    interrupt arriving on a shared line bails out early in ssp_int()
+>    without accessing registers on a controller held in reset. Once
+>    resets are deasserted and private registers are restored, call
+>    pm_runtime_force_resume() to enable the clock and mark the device
+>    active, and restart the queue with spi_controller_resume().
+> 3. In probe, call pci_d3cold_disable() for Lynxpoint-LP (is_lpt) to
+>    ensure the PCI device cannot enter D3cold during runtime PM,
+>    guaranteeing that LPSS private registers are retained during S0 idle
+>    periods and only require restoration across S3 system sleep. Set
+>    DPM_FLAG_NO_DIRECT_COMPLETE to prevent PCI subsystem direct-complete
+>    bypassing system sleep callbacks.
+> 4. Scope LPSS context restoration specifically to Lynxpoint-LP
+>    (PCI_DEVICE_ID_INTEL_LPT*) devices to avoid perturbing other LPSS
+>    PCI platforms (BYT, BSW) or non-LPSS platforms.
+> 
+> Export lpss_ssp_setup() and core runtime PM ops so the PCI glue layer
+> can invoke them around private register restoration.
 
-Thank you for the review.
+No, as I told earlier please find a way how to not add a code duplication.
 
-You're right that the commit message should better explain the current
-driver behavior. The flow today is:
+> Assisted-by: Antigravity:gemini-3.8-flash sparse
 
-1. Linux allocates MSI-X vectors (standard PCI MSI-X table)
-2. The Qualcomm firmware has its own interrupt controller with
-   private registers that need to be programmed with MSI addr/data
-3. The ath11k/ath12k driver extracts the addr/data from the MSI
-   descriptor and programs the firmware's private registers
-4. In a VM, the driver only sees virtual (IOVA) addr/data, but
-   the firmware's private writes bypass the IOMMU, so they need
-   the physical host values
+Assisted-by: LLM
 
-I'll improve the commit message.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Regarding platform_device_msi_init_and_alloc_irqs(), I agree that
-moving the driver to device MSI domains would be cleaner on the
-driver side. However, even with that change, I think the VM problem
-remains exactly the same: the device MSI domain in the VM would
-allocate virtual addr/data pairs, and the firmware's private interrupt
-controller still needs the physical host values. The problem is not
-how the driver allocates MSI vectors, but that the firmware writes
-to its own registers bypassing the IOMMU.
-
-Also, the VFIO variant driver scheme would not fully break if the
-driver moved to device MSI domains. The variant driver caches host
-MSI values from the MSI descriptor, regardless of the allocation
-method. The hook point may need adaptation, but the fundamental
-approach (host caches physical values, VM reads them) remains valid.
-
-Regarding the hypercall idea for device MSI domains, I think that
-would be an interesting direction worth exploring as a generic
-solution, but that's a multi-subsystem effort that will take time to
-design and land. If there is any existing work or design discussion
-in this direction, I'd be happy to look into it and contribute.
-In the meantime, the VFIO variant driver provides an immediate path
-for users with deployed hardware, using an established kernel
-pattern. For now, it could coexist and be replaced later on when
-everything is ready.
-
-I completely agree that this could theoretically affect any device
-with private MSI registers. However, in practice, I'm only aware of
-this specific behavior in Qualcomm ath11k/ath12k firmware, where the
-device's interrupt controller requires the host physical MSI
-addresses to be programmed directly. I haven't seen this in other
-devices, which is why I think a device-specific approach seems
-appropriate, and the VFIO variant driver pattern fits well for this,
-following the same pattern as mlx5-vfio-pci and nvgrace-gpu for
-their own device-specific needs. I'd be happy to incorporate any
-ideas or suggestions to improve the approach, make it acceptable,
-and allow finally to use these devices from VMs.
-
-It's also worth noting that the PCI reset support for these devices
-has already landed in linux-next (commit 290153d46d1a "PCI: Add
-device-specific reset for Qualcomm devices") [1], solving the
-device reset path for VFIO passthrough. This MSI series is the
-remaining piece, with both in place, these Qualcomm WiFi devices
-would be fully operational in VMs for the first time.
-
-[1] https://lore.kernel.org/all/20260721081301.205374-1-jtornosm@redhat.com/
-
-Thanks
-
-Best regards
-Jose Ignacio
 
