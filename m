@@ -1,172 +1,114 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210494825DB;
-	Thu,  1 Oct 2026 06:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637684848A5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790835729; cv=none; b=hVWvNDQuSI3QYNtiScoHoMX4Flm4ZWtZMch+jOVYBv8JFNDN7OCFXjxSHI7G47G9Hp492La0q5B0K6LAbcdBNDBZl4bupndfv0t1tYNHacDl6OVPu6duN6RgKBW2DSktoqhauGsD4SinNR2w9Xg3X1jGvyGkZER13cyu6g5I2Hk=
+	t=1790835730; cv=none; b=j0t3J6UO7Jh/QN2K99eNW7cJH9u4Bjy9ECuY3cwvqoA8rsew/Lo5dLnvYoAxHvz8d5OdI/HRVLuJPrwGRBUvSEPKeJB/V5Pt2IpX5vFNz0DmCk03wO3ribTqEwV0Sh33eQREsKRuw/c4a1pK2zo6/9H4iPhvL2maZqdyrvLU5JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790835729; c=relaxed/simple;
-	bh=JLVfBy4PHGJcEXFtlZjO4AUqTcGC3kK+OYZ+6qwyXzc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tPpyCZZDwzGOOfoYdtgvA/on9cnRQzk6SlxA7jOeHmnGxmWMEgtc1Wue95RmCCIegELUpE5mYmmlQb8tquipeUD8k3U6bpWYe+Ol+SAYQ5uSLGYID05duPq3JVaCOSuCH5uoLtIcr/oJGsGJpXA+8HFBC6xBuLUYD/h4cH/dcJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RCG3wBH7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yQVNmWeg; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Von0o+4F; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jRo71syp; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790835730; c=relaxed/simple;
+	bh=jK8YcmgULqcX6JVEZ4kRXjt5tovYz/f4IYFMschjLGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JCQy8r/AiuI/FabuBMyzVqQlQ1udQ3DTh0jpRxAl5UttIFTZcKQKbmVgXa5b/nU4X7Q9TjUKE9zprRyPkTN4iWK2JmQtQ0O7bVTVqikJPUfClrjE8loYaafqWTsmDKP9MMKAwNgX9liXIjJNvajPPlqIN11eg+arAKSLCCg5hZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=K2iA6g8w; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RCG3wBH7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yQVNmWeg";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Von0o+4F";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jRo71syp"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E38BD21F47;
-	Thu,  1 Oct 2026 06:21:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790835722; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KxxiZzxGZtQ8dDeTk0eXVZPKYhiMQRKmZl768e9bcnY=;
-	b=RCG3wBH7ZIBH7ayF9NFLIPS+N6xcHrRcW9VIgjVuBRi8uwTUP/wNU3YpgXy5bU5sVS484k
-	D5dY08bCkqTPG84zogJFBsiNv8qRia0RjolotJcynlJEBCepKJFXsGnRdqx+2nxkikEO/+
-	e1nqPuOXWMrIHxc8oGl/c1U2NtOwUI0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790835722;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KxxiZzxGZtQ8dDeTk0eXVZPKYhiMQRKmZl768e9bcnY=;
-	b=yQVNmWeg/u9xr6T0GTRr1ZNG081meJgF3ZbGctj0aANClaeIM4skr91VjY2Zgc7v6v27dH
-	uYVCkQanyQzTRnCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Von0o+4F;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jRo71syp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790835717; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KxxiZzxGZtQ8dDeTk0eXVZPKYhiMQRKmZl768e9bcnY=;
-	b=Von0o+4Ft6+iTVsOUFDw9cx2GkVBZT2RUH30hS7UXQRZK0tkHg43lH4Pp5eqi2yosKFd/K
-	GF1uEpF1x++KJrlUEjpIobs5Q+uBjpgwOiFp67K54FCNVfNoszjtGveqGAwlE02lcRpKpH
-	7PCqKHGg2gnDaShMnMGMSJGwPKQkvBo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790835717;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KxxiZzxGZtQ8dDeTk0eXVZPKYhiMQRKmZl768e9bcnY=;
-	b=jRo71syp0Kw3ym1aQ17uSom5aDCHEFaPziWSbSKyygsIrzLjUSZ4IyMXlDcyPk9jCEFmAe
-	nOpJt8cMZwsj9jBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3392B1368E;
-	Thu,  1 Oct 2026 06:21:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BatoBQX8vWovXgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 01 Oct 2026 06:21:57 +0000
-Date: Thu, 01 Oct 2026 08:21:56 +0200
-Message-ID: <87y0ci2b5n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	linux-sound@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	linux-efi@vger.kernel.org,
-	Will Deacon <will@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	iommu@lists.linux.dev,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	patches@opensource.cirrus.com,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>
-Subject: Re: [PATCH v2 4/5] ALSA: hda: tas2781: Switch to use acpi_bus_get_primary_device()
-In-Reply-To: <8782185.NyiUUSuA9g@rafael.j.wysocki>
-References: <4766532.LvFx2qVVIh@rafael.j.wysocki>
-	<8782185.NyiUUSuA9g@rafael.j.wysocki>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="K2iA6g8w"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso7040213eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:22:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790835727; x=1791440527; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y7zcw/ukAiD8lLlXAKYppSFNCW4crk+K0J8KwggLYx4=;
+        b=K2iA6g8wbvHkPECXpwO+9T5iw0NOSqhMYLQOuAHXigUm862xvqbeGZu4i8dLYBUpcG
+         BREAAMQlLV6Fzr65uxxxGpJW7MZO6bePGyhaWcdliPm4F8hwSIjjnEj+cUK6t1jtjFEL
+         3fkKekmeRDumBmBjlWm7erxBFqMpkt6iT1XX/8bd/v+RWZ1/HLwbnkESlHDRSHN+pgf1
+         4TUZ/AiXPw5ngly4xlsylLo4F6IjfDE+g0IZEXKgpWjj3xLf7aZmsOMnLO7ySiLTvicy
+         PwfL+AUsncVtgJz0Zrb/5zvqVdcfpxUFhyIslxTJIdYaJ4iikwZLNcJc9DP66CcMFwHT
+         +pkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790835727; x=1791440527;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y7zcw/ukAiD8lLlXAKYppSFNCW4crk+K0J8KwggLYx4=;
+        b=0wFNElldR+XYQDrO7oy74aXIYdflOYLPImdP+hz7s73LlsWa7ioYUNXD44Zvqbzl/s
+         chJ4+ESX3Xj8dELBSR2wixsiNSJEKbuny1Ba+YSZ+wbaONZIz14HCeQFnEy4l5Hfjes8
+         BGoRBsjaOpB2FaOBMuNXGsg7RgfN+4ZICO/pxtc4qcX4kBDJqwSKU736piXTbFD3DNn3
+         8q/Dz7JKmA2ssM3hnvNG5rCAa/hYu0OTL5EhZqqfjiawOH55E0V41rTFkIJdcTHMR8i0
+         ZsbqvQe1CpjeV6P2LSO4JBKaSUfomAzLj1heDuBp7SUf8IFoCf6/m16MDQIOxYYRet81
+         WiSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxvF/fTqnA57ID4LILFjQs9c2koGQ/U3fDfgaJOHLvrKjAVZcHSwdke4OO4BJS+m2Ur44p33YebB66PBgE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWpeDb+7R59cMRqztoBrf+JM5d22uXt2ZNwxYIrXJYlj0vIdNq
+	1AOhxdM/yVCPIOahnGTv89PvcTuknCNesefm+cjQ6MFBD374W4v8IsOhQOfLX7lZaUY=
+X-Gm-Gg: AYBFou3ObqhBPoi3N/odndZN8D63rU85bQ5RalbvszqlOaftNQ3sbr8/OguFGUpIcC0
+	AWKZ2b3JOWSmqHoKMPrTVM4xao3KjAzLiqYiMBACvrL6C9+Pgv8bYHOnHtl3gtNLd580Opb3l2M
+	cno/aTYFObLuue3o0SOlXi2U+zUp3I80IvIZRCUi67P2xKZY6JZTwxCAjadw9ztYJplsoRsXpGS
+	zdPTKlY8JOcPxISfGRlx8mzAmX7b7kAmwyQKLZCjZfTy//cZaeYggLEEahVBZq+v5445V/aYkmw
+	kK6Mqsux9U/FNpumWR/vdyIwZCZ76EdjZi4oso0kfkcViOFoElfWz5u+dHCvcVZX5RWVLlZ+a1L
+	nFFko/7zUxAsw3nzjWw1BEJ7tdp4hsIRWylekNr19zxRKNd9ZUxjAl8EmGPjVKkT8BtFMTvQGZe
+	PV8PJxA90TghyMq1Wp095mKrmGhxWN1IfmLwEi8FKxTDPgSi169bhA5bHcQwbY3M+txpd5cFk+
+X-Received: by 2002:a05:7300:d947:b0:34b:101f:cda2 with SMTP id 5a478bee46e88-34cdc1ce13amr3929856eec.27.1790835727212;
+        Wed, 30 Sep 2026 23:22:07 -0700 (PDT)
+Received: from localhost ([122.172.87.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3750765sm4040631eec.12.2026.09.30.23.22.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 23:22:06 -0700 (PDT)
+Date: Thu, 1 Oct 2026 11:52:03 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ilia Lin <ilia.lin@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] cpufreq: qcom-nvmem: add support for QCF3211 &
+ IPQ5211
+Message-ID: <ar38C5omDdaXQAID@vireshk-B250M-D3H>
+References: <20260922-ipq52xx_new_ids-v2-0-4b1a0f3d04b2@oss.qualcomm.com>
+ <20260922-ipq52xx_new_ids-v2-3-4b1a0f3d04b2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E38BD21F47
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.993];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:email,suse.de:dkim,intel.com:email];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:email,suse.de:dkim];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-ipq52xx_new_ids-v2-3-4b1a0f3d04b2@oss.qualcomm.com>
 
-On Wed, 30 Sep 2026 20:42:36 +0200,
-Rafael J. Wysocki wrote:
+On 22-09-26, 10:03, Kathiravan Thirumoorthy wrote:
+> Like all other SoCs in IPQ5210 family, cpufreq for QCF3211 & IPQ5211 is
+> also determined by the eFuse. Add support for the same.
 > 
-> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-> 
-> Replace acpi_get_first_physical_node() that is slated for removal
-> with acpi_bus_get_primary_device() that takes a reference to the
-> device it is about to return.
-> 
-> This addresses a potential use-after-free that may occur if the
-> device returned by acpi_get_first_physical_node() is removed right
-> after dropping its ACPI companion's physical_node_lock in that
-> function.
-> 
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 > ---
+>  drivers/cpufreq/qcom-cpufreq-nvmem.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> This patch depends on new material in linux-next.
-> 
-> If you maintain the code updated by it, please consider ACKing it, so I can
-> pick it up and remove the problematic API replaced by it during the 7.4
-> merge window.
-> 
-> In the absence of feedback, it will be resent again when 7.4-rc1 is out.
-> 
-> Thanks!
+> diff --git a/drivers/cpufreq/qcom-cpufreq-nvmem.c b/drivers/cpufreq/qcom-cpufreq-nvmem.c
+> index efa766e98d86..9f2e6e6c0905 100644
+> --- a/drivers/cpufreq/qcom-cpufreq-nvmem.c
+> +++ b/drivers/cpufreq/qcom-cpufreq-nvmem.c
+> @@ -205,6 +205,8 @@ static int qcom_cpufreq_kryo_name_version(struct device *cpu_dev,
+>  	case QCOM_ID_QCF2200:
+>  	case QCOM_ID_QCF3200:
+>  	case QCOM_ID_QCF3210:
+> +	case QCOM_ID_QCF3211:
+> +	case QCOM_ID_IPQ5211:
+>  		drv->versions = (*speedbin == 0xcd) ? BIT(1) : BIT(0);
+>  		break;
+>  	case QCOM_ID_IPQ5424:
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-
-thanks,
-
-Takashi
+-- 
+viresh
