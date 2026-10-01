@@ -1,118 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021A53793DF
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C994848AE;
+	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841200; cv=none; b=XdW6uznuddXxLpeP97/nde5599qzoMtGsMYe2liiVAmG394F75XBJ0ubSrNX6vc4wTjgHe/2HeG60LOnh5fOQXr6jz1FxPzcU44y73S37pQW0F/6JkoLgbL2wNoy9YeyN6q/81D+G6brDF5I4q5uKskp2g3qapSDszbTFqG2LdA=
+	t=1790841227; cv=none; b=FWa5wN4CKgvAilyIRbgg1OLBXuCrCIajF+Vq6HYaZHYP2q7Ssznf8GsbetfS5vV5eifxojvzXse+ubbb8JKHQmZArXMqUAS9ta4jloQ9OdObLHf3qeNgdKjPzhoa7hYrpJQBs8oC7eZEGMj8Hl/2sPVdynG4a82j6uzGrLQfkBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841200; c=relaxed/simple;
-	bh=BnyoYXlx48o6LiKRnqfSaEEHyc90mBDXq3VnD8GdE04=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YPegYohG8GYHm1mXkqynMLoQfLUeX9Ul3QGI0WzfdIG6Na6UNvcCT4FYNSXv9HURxT6WC4AgLj0aIIaBfjNBsEJEnXvO8HKzeTlKZ9yu/741yNtFpAUNWnOWzoJptb3gpzHKK27pgLPXSxb/rTLMOTBydCO9xoEDePEHBH5gtq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sg2vrAZR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790841227; c=relaxed/simple;
+	bh=9pmRrRaam6uEO70GJ2x0UYYo3WY1EcxCPvDft4ZE35k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FWWBnizm6SOctpRm1LNZ88LwGC2EYtvUJ36ZB/aa8+oyRMzmOuFA783smzba5W+TWvNyYVILiU7SO0zTT+4BmIa8fnBH18vTAwphOAV9EZbn0Hi2m+JCoahaoFSQeCSKbpW6yBfftHozMfy6/ye1KCjkdP9W/DvhuT/RvYpRUPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgG56o+W; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sg2vrAZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7751F008A0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790841198;
-	bh=BnyoYXlx48o6LiKRnqfSaEEHyc90mBDXq3VnD8GdE04=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Sg2vrAZRhe/78hv0dYmb8hkAH8i9ibDdhHfcXEyQMYIVYscVxwFzhHgQ+CGKd6tMc
-	 ssqugj+waRHcJmf42M55QGVldecfKWWRn87c07aLfIlLQeKgor0EHznDZol5QTEQx6
-	 RuJT0ltdjjD6jzHnoafcdFXvfL2x2I9yIfPrfRCxvnLTWZhCZwM+pZ9rvkw1KnrWqR
-	 vmH8CnbA2wwgObo/GTeBoUwJGJ6t//7K0fW6AhoTlAzrJoP5+Ss+4qtwQi9hY6Kyvy
-	 nejgOlpTQ7HLmhreZ/mN/3Gg0476G4VM6Dlzc81bay/EkDdtzDble4pOPuxXGLjDrr
-	 fA6gY0H7hjO9A==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a76cedd9baso21511291fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:53:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwPa3NlUMD05s7zQHFYShXnVVNcjske0IqhqUOfrcM94L7IiOdPYg3jagGRAefAxfwCLsW5pvojjCE1+vE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJ+yEwhfnNFspifY3qrLQY97YRyHWYyWFP2iruGYv20byaRIvL
-	p+u7g+E/HGGH3ixfXSPhljtBLxe4gtnQsVa1SBUBtUJQp4VMG389nfVTscQquVB0zU62ljWkobR
-	22WIHR7zzpJF0QfaG9gFyijfFK9PS998=
-X-Received: by 2002:a05:651c:418d:b0:3a7:6d4a:1c9f with SMTP id
- 38308e7fff4ca-3a779208624mr10185991fa.15.1790841197261; Thu, 01 Oct 2026
- 00:53:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgG56o+W"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 53DA2C4AF15;
+	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790841227;
+	bh=9pmRrRaam6uEO70GJ2x0UYYo3WY1EcxCPvDft4ZE35k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=CgG56o+WEhrNwJ6W/R5pP8sKlUl7EkmlNbGio8npN5c/m95gh4XLZg6Dba2gEGnHG
+	 Bu8q+Qmi2KXlss76hcfiDYgV+YoUAoLx9xo0ZetRPXYS+neFzdGvmDhZlfHVG9+/e4
+	 86mFSvNOfUck1NVxrFjzitQL8UPz+IO27qnIotL9h6/1xqfVMivuGGbjKa3t3Pbbm8
+	 QSdwem+eWjABCZq6YR3ACeomQgvuqu/i/UCNWXFFRqMe8q5vmaisSZxmHxRfz5gAbO
+	 45lAZboC3JMzRYgCmIcortFUY3N1M2OfPMV7P88YucTorg7wexP12WIjZq79oISJ0H
+	 w3/K4DzkCAgIA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D300CA5FCF;
+	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Date: Thu, 01 Oct 2026 11:53:47 +0400
+Subject: [PATCH v4 4/8] arm64: dts: qcom: ipq6018: move DR mode to board
+ DTS
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922103051.5257-1-farbere@amazon.com> <20260923182243.41060-1-farbere@amazon.com>
- <20260923182243.41060-5-farbere@amazon.com>
-In-Reply-To: <20260923182243.41060-5-farbere@amazon.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 09:53:05 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=cPZ1vEDgXodbmHAGd2jr+X8DdaH7yxbfN7OJMBojSpA@mail.gmail.com>
-X-Gm-Features: AclHuK96XSBtmlDHjUjVB2CCIFY5lwq0-m1jdyvq1z87aPg8ZZ_e7N-RjYFed7c
-Message-ID: <CAD++jL=cPZ1vEDgXodbmHAGd2jr+X8DdaH7yxbfN7OJMBojSpA@mail.gmail.com>
-Subject: Re: [PATCH v6 4/4] pps: clients: gpio: release pins to an inactive
- state on remove and shutdown
-To: Eliav Farber <farbere@amazon.com>
-Cc: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-ipq-flatten-usb-v4-4-486a4d5ede30@outlook.com>
+References: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
+In-Reply-To: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+ Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
+ George Moussalem <george.moussalem@outlook.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790841224; l=1489;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=izI5IcQk6NKbrqzHGrnCk168sTzcVUyTXS4Zk6Lx0GY=;
+ b=/a6MJvhoJuRDDhmzvzqWyacVUACg184zaP/cx7mzsN2clofo2IEWGO8WEo0ZzvVrmk59TJUyW
+ mb5hMtc8RjlCkZ4ZBbGLQWszH+yJTmflCH2s0e3rmdfzE/R0S1mqqZb
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
-On Wed, Sep 23, 2026 at 8:23=E2=80=AFPM Eliav Farber <farbere@amazon.com> w=
-rote:
+From: George Moussalem <george.moussalem@outlook.com>
 
-> Some boards route the PPS input GPIO through a pin controller and need to
-> mux it to another function when pps-gpio is not driving PPS. The driver
-> core applies the "default" pinctrl state before probe, so the pins are
-> muxed for GPIO/PPS use while the driver is bound. Nothing, however, hands
-> the pins back when the driver is unbound or the system is shut down, so
-> they stay stuck in the GPIO function for whatever runs next, kexec
-> included.
->
-> Look up an optional "inactive" pinctrl state in probe via
-> devm_pinctrl_get() and pinctrl_lookup_state(), and select it with
-> pinctrl_select_state() in remove() and shutdown(). The state is looked up
-> and selected by the driver itself rather than reusing the runtime-PM
-> "idle"/"sleep" states, so its meaning is unambiguous and it does not
-> depend on CONFIG_PM. Boards that do not describe an "inactive" state are
-> unaffected.
->
-> Since "inactive" is only meaningful as the mux to restore after the
-> core-applied "default" state, reject an "inactive" state that is not
-> paired with a "default" one rather than releasing pins that were never
-> put into a defined PPS state.
->
-> Look up the pinctrl states first in probe(), before pps_gpio_setup(), and
-> route every subsequent failure through a common err_release_pins label.
-> The driver core applies the "default" mux before probe(), so a probe that
-> fails after this point would otherwise leave the pins stuck in "default";
-> releasing them to "inactive" on the error path is the symmetrical
-> counterpart to what the core did on the driver's behalf. A failure in
-> pps_gpio_get_pins() itself returns directly, as no state was taken yet;
-> pps_gpio_release_pins() is a no-op when no "inactive" state was found.
->
-> Convert the pps_register_source() failure path to dev_err_probe() too,
-> so all three probe error paths that share err_release_pins log the same
-> way. This path already returned PTR_ERR(data->pps), so this is a logging
-> change, not a fix.
->
-> The mux must not change while something can still drive the pins. On
-> shutdown() the requested IRQ and the echo timer would otherwise outlive
-> the mux change -- device_shutdown() is not the end of the road, the
-> kernel keeps running to load and start the kexec image -- so a timer
-> callback or the PPS handler could poke a line that by then belongs to
-> another function. Tear down in the same order as remove(): free_irq()
-> first, then the echo timer (only when the board has an echo GPIO, as in
-> remove()), and the mux change last. shutdown() does not unregister the
-> PPS source, which is a remove-time concern.
->
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
+The controller is DRD capable, but it's currently set to host mode in
+the SoC dtsi. Unset it in the SoC dtsi and set it as host mode in the
+cp01-c1 board DTS file.
 
-v6 looks reasonable to me!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+ arch/arm64/boot/dts/qcom/ipq6018-cp01-c1.dts | 4 ++++
+ arch/arm64/boot/dts/qcom/ipq6018.dtsi        | 2 --
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-Yours,
-Linus Walleij
+diff --git a/arch/arm64/boot/dts/qcom/ipq6018-cp01-c1.dts b/arch/arm64/boot/dts/qcom/ipq6018-cp01-c1.dts
+index 9c69d3027b43..a366be17c251 100644
+--- a/arch/arm64/boot/dts/qcom/ipq6018-cp01-c1.dts
++++ b/arch/arm64/boot/dts/qcom/ipq6018-cp01-c1.dts
+@@ -48,6 +48,10 @@ flash@0 {
+ 	};
+ };
+ 
++&dwc_1 {
++	dr_mode = "host";
++};
++
+ &tlmm {
+ 	i2c_1_pins: i2c-1-state {
+ 		pins = "gpio42", "gpio43";
+diff --git a/arch/arm64/boot/dts/qcom/ipq6018.dtsi b/arch/arm64/boot/dts/qcom/ipq6018.dtsi
+index 0701517275d4..c02110ad9cb0 100644
+--- a/arch/arm64/boot/dts/qcom/ipq6018.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq6018.dtsi
+@@ -460,7 +460,6 @@ dwc_1: usb@7000000 {
+ 				snps,hird-threshold = /bits/ 8 <0x0>;
+ 				snps,dis_u2_susphy_quirk;
+ 				snps,dis_u3_susphy_quirk;
+-				dr_mode = "host";
+ 			};
+ 		};
+ 
+@@ -716,7 +715,6 @@ dwc_0: usb@8a00000 {
+ 				snps,hird-threshold = /bits/ 8 <0x0>;
+ 				snps,dis_u2_susphy_quirk;
+ 				snps,dis_u3_susphy_quirk;
+-				dr_mode = "host";
+ 			};
+ 		};
+ 
+
+-- 
+2.53.0
+
+
