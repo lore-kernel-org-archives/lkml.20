@@ -1,93 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092AC5304B0;
-	Thu,  1 Oct 2026 18:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5135F4AD4B5;
+	Thu,  1 Oct 2026 18:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878481; cv=none; b=QKm8QaJCxErNbQBqq/5Z1BeRN7WxwqpT1Zn11YTu9INWDTAmoztF0qu42pZhVKt/nt9o/vMDtrFYAjUwNTryDwkoEbIq6VAxd0i2LYxXpewVgJWzDJ8R4GNaMJBFeQtNHQuByQyBcbYoqplVGJ83pzd3BspKDumMEAI1jApsXB8=
+	t=1790878530; cv=none; b=t595WYTmiTsSd/ZTz+6FFDQMur6W+z9HiF90LVQOtBLlSFdcTvHjRJmqJHNwlnO+bN5oWijrXfZRVBb3nJ6Uop+Tg+s9n9tkFbIBdh6SoBcTF9xtjBaq5cfTGtxmxhy8W0V/cf8/z9Ejv3xCLLAv2Wn2C66A0/vm33kqtqZacFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878481; c=relaxed/simple;
-	bh=8EXPyjCLnT0u6Y3Aw1qgMDaoecca6+CurIO2hSBvPAE=;
+	s=arc-20240116; t=1790878530; c=relaxed/simple;
+	bh=50s2Qv0GNgNGN/PAeJ//wTD0DLgmTftx13CRNmJZOX0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XNgN6I7Zxe6FT5tW6b4iFJj9TMHvoah0gjG9pzT/VduF7caGaPVmXSvSKDJN5fmZ4ehAWwxZksdmwISmcVsjfxCJiL5NM6dEa5s99SKMYCkblKLdkervgj06oOutuZVXcjAlgLPqQ0JBNyve/RJ/azXmGB+x753nBesYd7pE+bE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0YVCfY2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NUj6srAILCB9MPnZrr1fVrMpfJsauOr102QRYyUlbE2/w/jUBmG7CDqm7kFPITMjPZCcGpCpEg7yKy0tXyOyUjPEH7RKQJxgv3xPXN7jcfS5rZVgrPe4/coRHD0EeKOleahOzxp9QSLZidWzBdh7RpWwldf2/IWBqCoRHrfnx64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CrA51B+f; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0YVCfY2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA111F000FF;
-	Thu,  1 Oct 2026 18:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790878472;
-	bh=8EXPyjCLnT0u6Y3Aw1qgMDaoecca6+CurIO2hSBvPAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K0YVCfY2IDUaC4Vt4tc6UsXJc2uHpFjZ8QQVRtHbwXnLVQqg+u5EW9RW5MrX/HhQt
-	 aBsJd+I6q0vpz1wNylTgBOsPVkpnW2j+cvZENvcBD/lZ77oY3EszViUH6kkOwBetVZ
-	 H9VGfiGECqOwiSeuB2jonVQsYNAMtKKI3/q4s6kzPVf87jTYbNAd4pPl9T4ACPIPek
-	 LtFtHRGA6IIl2pBMyHvMWHQMUeqkiMrPxHmN8sH+OuFoedNzkmC7ZM9/iQztEMXzzH
-	 NmCq/uXXPLYoUpwEva61QltarOEgoeojcabxt2AbJn61YJxlS/VrguUjw6ri9wGNBX
-	 vbDa2ZJ5fJvBQ==
-Date: Thu, 1 Oct 2026 19:14:26 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Leonardo Bras <leo.bras@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CrA51B+f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790878528; x=1822414528;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=50s2Qv0GNgNGN/PAeJ//wTD0DLgmTftx13CRNmJZOX0=;
+  b=CrA51B+fMGkzk3k0V2363W0f9ksXSeMYwCuXDWk4LVS4LhDdPmelq+Jd
+   9Ah69ZOEkOCzXdKuUB7O2gbdOxEI8rJv0rF1QmIcW1lVIs+QKNeMHPEiw
+   vGEdQHAvy/iAMW53yJp66vHn4l/SByI5LjcFA6nx0dYL3HvOZXluGcTU4
+   0bSv9jgrMq/l1UzjC8jQU/OtvPJ0l39YYtbKcyG1J7krLd5bGPv48JhsK
+   I6U57eugNAXhH4UfTj5LEpaT2OaOVjmLNmcTqlnPemHEGjN5pTJoKUeH7
+   HRSOz8+PutSP0KaBE1m50lHeyeERE+DXdjbIRO26Op2GjmrtTLmcCH9pA
+   A==;
+X-CSE-ConnectionGUID: 8/3nI9daQGOV7xZDW3uMCg==
+X-CSE-MsgGUID: JGoqlRvcR6ibIT5yOIjiGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90506354"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="90506354"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:15:24 -0700
+X-CSE-ConnectionGUID: F2CkvQq/Sr+ntoWJunaitw==
+X-CSE-MsgGUID: zpbmy6ppT+uC9lG0ERv/KA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="279360229"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:15:22 -0700
+Date: Thu, 1 Oct 2026 21:15:18 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Rahul Pon <theflyingrahul@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 12/15] KVM: selftests: arm64: Add GCS to set_id_regs
-Message-ID: <8eb4d0f8-3080-4efa-afaf-bbe2a16eaa37@sirena.org.uk>
-References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
- <20260930-arm64-gcs-v21-12-3556644cd927@kernel.org>
- <ar6MIFW2vfM893yd@gremlin>
+Subject: Re: [PATCH] ACPI: GED: Support GpioInt event resources
+Message-ID: <ar6jNo7-Wgx2ZLty@ashevche-desk.local>
+References: <20260930111505.1108-1-theflyingrahul@gmail.com>
+ <CAD++jL=45ZdTbHsLDTAmTt3f+=VBVK014TLJyd5Drdba3V=dSQ@mail.gmail.com>
+ <20261001041856.1984-1-theflyingrahul@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hLSHdAw0xQgYgBov"
-Content-Disposition: inline
-In-Reply-To: <ar6MIFW2vfM893yd@gremlin>
-X-Cookie: Do not stamp.
-
-
---hLSHdAw0xQgYgBov
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261001041856.1984-1-theflyingrahul@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 01, 2026 at 05:38:54PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Sep 30, 2026 at 10:48:22PM +0100, Mark Brown wrote:
+On Thu, Oct 01, 2026 at 09:48:56AM +0530, Rahul Pon wrote:
+> On Thu, Oct 1, 2026 at 1:52 AM Linus Walleij <linusw@kernel.org> wrote:
+> > I don't understand the patch at all, but I understand that Andy or Mika must
+> > review it otherwise it's not going anywhere, so looping them in.
+> 
+> Thanks, Linus.
+> 
+> Andy, Mika: some context that should have been in the commit message.
+> 
+> ACPI 6.6 section 5.6.9.2 says a GED _CRS contains only Interrupt
+> resource descriptors, so this firmware is outside the spec. It is still
+> the only source of lid events here: LIGE's _CRS is a single GpioInt on
+> the GPIO controller (pin 960), and the controller's _AEI lists one
+> other, unrelated pin. ECGE is the same, with pin 768. On Windows, the
+> in-box ACPI device driver (acpidev.inf) binds both GED devices, and the
+> lid works there.
+> 
+> For _EVT, section 5.6.9.3 passes the GSI number, which a GpioInt does
+> not have. The patch passes the pin number from the GpioInt descriptor,
+> as section 5.6.5.3 does for _EVT under _AEI. Both _EVT methods on this
+> laptop ignore Arg0.
+> 
+> If the approach is acceptable, v2 will state the spec deviation in the
+> commit message.
 
-> > Now that GCS is configurable via the ID registers update set_id_regs to
-> > cover ID_AA64PFR1_EL1.GCS.
+Is vendor of the firmware / platform being informed? Do they accept their
+mistake? Are they going to fix their crap?
 
-> Should maybe also mention adding the GCS-without-S1PIE test?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-I'd have said that was part of the coverage the test now has for
-bitfields TBH.
 
---hLSHdAw0xQgYgBov
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq+owEACgkQJNaLcl1U
-h9AK6Af8CW+PewA41u22GjCm2K4HWJprbzV/mTkY5qCL0xX8i+fFZwjBEGuDg++l
-1WZRIYTi4kqI5ofqkLVG8zllv9dSAW+DXcsH7TJjs5wyZDO9bNqbbBeqFZswxGMh
-ZYdKcZLYTg7gs9EGJ5eEPyIgNYjjJga9ABn6hZTFsDEM+VKDL7GcjpO6WXW+JPZg
-cc2IlLt9eQTZcjwpvtnT9xwnHsbCppAuuVqV8tU+ZuTQ94TMixXsDTTltMvolgvB
-9ZDUkJtJD9k4vuBdXiyh/UmkgMf+b9hoDlJwshmwjziFwY25asoZUM5LNZcJhC8t
-E5Dked3ERLcN6MVu6njP5Qxr0XEW5A==
-=ZnLt
------END PGP SIGNATURE-----
-
---hLSHdAw0xQgYgBov--
