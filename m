@@ -1,103 +1,76 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC005494A1E;
-	Thu,  1 Oct 2026 07:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5F73C9EE6
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839495; cv=none; b=f1tbLijWggpqkTmqteaTkJTjGwxlD85LdvTePSXfyE7vUaKUvZcCV1H0WkTLIZkqRmviyYyimp9Ss8dJmfZqjMWmlfnXl8BC3pp8LkRGmTap0EGEocZxZv9OayOV5lvRkvQU3dBbw8eX7DG4XrbvE+A5u/gExelQJOiR0+1Mz+c=
+	t=1790839500; cv=none; b=dzpAoli++NVLnJ3imJr1o8pqo9biinYbtM2Obh03EfSom59wCTG1yvVenHVUzaz2BYJZnQzvTbhfwG6pI1DxSLid1xDwqbYI410L7oGOFjd182I3o3135T3j68cbUqJFm5Zvgak5EhFTALRPmWmBDwHKSG4Vo+a2/7RNJgdJ8cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839495; c=relaxed/simple;
-	bh=+faFofoXegG1ISn4JdgrenSzmfNeFHWdLH+k76ut1b0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VzGgH11C9+n3ZUtB/jQ1ibACbGNiudyNaSwkmkuh0CjAHoh6hI+eil8MdMUlsoP+p+lq/HjB5LaGsvtqg1U1LIGYvH/TpXk4l54lVILOXeoHNG1obHlFSTeWUelvXGLbMNuXA5gMaRQC5kwFRrGchglqAdPtTvwjMKt1jGWFvbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jnGpHP9c; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790839500; c=relaxed/simple;
+	bh=6bQuJchSgqUSLBdzanf6l6vSqrBYCP3u4E6cN9VZZdw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PVZAFxJv+TY5ujGbd0WUEs+2s2Wmyjb5pDHxW82YZypzrezpADBmmqWehuPztL7XtXrsz9Zix/dTavjF717oAxuKIJZOgcAAk0pQqwdWFSDGDQBtUxyWfLf4G93YCdptrvGWyH4xoyuWhajpjKmqCqnDMysh+/NR/cP3NGAn9jI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WUObueRP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jnGpHP9c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790839492; x=1822375492;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+faFofoXegG1ISn4JdgrenSzmfNeFHWdLH+k76ut1b0=;
-  b=jnGpHP9cEyM0w7J/fZqxUzfm/tvhbY7PjQxeM69WNbCqvChr49e97cRa
-   fnkJqIZQez5FqqyBpI08O7KLUgtsBPvnNmGJsbF9GUluWhiFkkhABKK1J
-   Hc67H8Oa2eYe0fJaL3qJE7bG62sifBgNDJQsMF4gzuhQsuSsZIxq8BGWC
-   xh6PF62XxObHTVjQqtH8QdszT1I0SPzsncV3C7PTR2blwHzwFHgwV5ieA
-   c0XZM3ZAPvey9HD5bWTX0qbqI3vw85JqNMQi4yH7UwgG3S8pzy2aVAKMp
-   09t1fqTYSraZpTU+dtN3TLNDFzJPEBipiDL4TgDKq/4HAnWddubz/RLiN
-   Q==;
-X-CSE-ConnectionGUID: YJVFRrTqSs61CfWBS2LjJQ==
-X-CSE-MsgGUID: jzrwqDrwS0WBsx7x6wFWwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="95397169"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="95397169"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:24:43 -0700
-X-CSE-ConnectionGUID: sDUsQiW8QE6pHHPgfA+SFQ==
-X-CSE-MsgGUID: ny6zVMXCQVmOsxpabN/rWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="303856866"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 00:24:40 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 7D958121D05;
-	Thu, 01 Oct 2026 10:24:37 +0300 (EEST)
-Date: Thu, 1 Oct 2026 10:24:37 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Thierry Chatard <tchatard@gmail.com>, linux-kernel@vger.kernel.org,
-	hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, dan.scally@ideasonboard.com,
-	linux-media@vger.kernel.org, mchehab@kernel.org,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com, dmanresa@gmail.com
-Subject: Re: [PATCH v11 1/9] mfd: intel-lpss: add resource conflict quirk for
- Dell Latitude 5285
-Message-ID: <ar4KtbRTyJR0Bo-b@kekkonen.localdomain>
-References: <20260930214321.600863-1-tchatard@gmail.com>
- <20260930214321.600863-2-tchatard@gmail.com>
- <ar4GIfvaxGiykYKX@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WUObueRP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B946D1F00898
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790839492;
+	bh=6bQuJchSgqUSLBdzanf6l6vSqrBYCP3u4E6cN9VZZdw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WUObueRPZ7NFQjzzVgKruFFZQ3ZgvqaCzv8iK7E3iPsfnNYccGKmUp6oTAVHTxMZu
+	 SgD45CtKZTjugY1t6rSbX0lDq5+lFFo9HtBnFTbwQRXCKarfqrqvqph14V0lHRTO4u
+	 hgJPNVjMBYpTq+l+7c/4l0rsihyjKLAx9Mx6GArQzHKHNyiu2TL2jzzqt2WPM2XKwT
+	 kGJjUmcqZZp1PrAwztiEuQcXeIPMSNEhs6aBKvb7oIklI+EnO+YE31YmCp/V+78+BE
+	 wnnTB/uVHBNTKgps3IzNKNz2RO9VJWkMA/fEgcAKDNMJGkvEP/yxwtlPyzlFEWUh9B
+	 ktpjRK1VY51Ew==
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b15bca7e0so3542441a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:24:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwk3Crr7htTmDJC0nJAttoYZ9oO0XFqTXP9STWnPqYf7G6W/3lvUqng7X3Rekk75XcAWlAW7rvJDt5Sqfw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mI3h30Mc6Yh3i9qYLrsJSDixapuR2AvZk3y8oreOCL++/WFYAI
+	OFz+YDDw0TehgqmIdU+DLapi8hqQdM85et6ZVyaIunJoLjpC9KztB+zQJdWO/eFZO870wFuT7YF
+	REbPVJ4iFY139QXd7/QqJfOUOoqDGcoY=
+X-Received: by 2002:a05:6830:270a:b0:811:4f31:c1 with SMTP id
+ 46e09a7af769-8204b6c7ca2mr4657707a34.30.1790839492163; Thu, 01 Oct 2026
+ 00:24:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar4GIfvaxGiykYKX@ashevche-desk.local>
+References: <20260925-mptcp-sk-err-net-v5-0-0cac04d6ea48@proton.me>
+ <20260925-mptcp-sk-err-net-v5-1-0cac04d6ea48@proton.me> <20260930172116.42e1ec0f@kernel.org>
+In-Reply-To: <20260930172116.42e1ec0f@kernel.org>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 1 Oct 2026 09:24:40 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiocWZf5fXGURGAomSmJnuC2Jn-izGJibxDtncYucE4gZg@mail.gmail.com>
+X-Gm-Features: AclHuK-I_kflPmKn3gFrhoDGOJs1zq_vLXf_Gu9ceYMkIh7omYXy0vjV126WHhc
+Message-ID: <CAL4WiiocWZf5fXGURGAomSmJnuC2Jn-izGJibxDtncYucE4gZg@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 1/2] tcp: annotate lockless access to sk->sk_err
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>, quanyeyang@proton.me, 
+	Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+	Mat Martineau <martineau@kernel.org>, Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andy,
+On Thu, Oct 1, 2026 at 2:21=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wro=
+te:
+>
+> On Fri, 25 Sep 2026 05:47:56 -0700 Quanye Yang via B4 Relay wrote:
+> > Subject: [PATCH net-next v5 1/2] tcp: annotate lockless access to sk->s=
+k_err
+>
+> Updating Eric's email just in case this isn't ignored intentionally :)
+> https://lore.kernel.org/all/20260925-mptcp-sk-err-net-v5-1-0cac04d6ea48@p=
+roton.me/
 
-On Thu, Oct 01, 2026 at 10:05:05AM +0300, Andy Shevchenko wrote:
-> On Wed, Sep 30, 2026 at 02:43:13PM -0700, Thierry Chatard wrote:
-> > The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
-> > and the I2C4 controller (INT3446) both claim the same MMIO region via the
-> > shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
-> > with -EBUSY, preventing the front camera (OV5670) sensor from being
-> > registered.
-> > 
-> > Match the affected machine by DMI and the affected device by ACPI ID,
-> > carrying QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data and
-> > applying it to the per-device info in probe. This follows the quirk
-> > organisation used by the PCI counterpart.
-> 
-> > Assisted-by: Claude Code:claude-opus-4-8
-> 
-> Assisted-by: LLM
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 
-While coding-assistants.rst does indeed suggest to just use "LLM", I think
-more specific information is worth having, too. Specifying this seems
-commonplace elsewhere. I have to admit I haven't followed the related
-discussions.
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks!
