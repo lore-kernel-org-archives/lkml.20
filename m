@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C20549D5B2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D2949E5F3;
 	Thu,  1 Oct 2026 12:41:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858461; cv=none; b=i0YM4vmMIEL1U3Y9nHnD6OkwGdSGHoCyzzyDewK5dF9HQRCeBjVasVgdmsQojPXA/5I73L8AQJcJZypwK2g6DHM14cwjMSY4XWojw7wCO+sMOVTNFEZLIfXeHhh7Uve/cFG9vV7nnaMUktfZGzVl7vAkeLT5XzJruaujpNxn2tM=
+	t=1790858461; cv=none; b=dZfLlx3K6FxRXQ7cUalrfK3KniC2sVS+TxscAHxs6954nqMmjoKaj04KSr3iXqUi8WA05UvwJDl6UD+Cnj9BmeKpXc3DdN/FaxH5Ce/gVOnN+bDh/mI+Oz65vn5z0W5VKBQL3Zd6+MUHf3c/+G4iSAro2qQG9mndc7km8/WAcuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790858461; c=relaxed/simple;
-	bh=vqJg9MCrHhTQ3dSYeAuOSHwl+5KNi8MVa3c/QFLqYsE=;
+	bh=LuLtqROKn6v/5SnLPl2pLsf8PEM9ZZqa2Vqie0OeXL4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ViIThDATovVL9BCaZs0QoqGgnmPXCWf3oT7szDZ1MVG4RDUCxG5Z0WCGojJUZWRMbvsxUxGrJV1nKcrUyx0hEKGo1Y894W+j16le+tQ1FmC2ZBfFU2MCgI/wC+MxSlQfLS1ogdZkjxUmqpYYitXWSNwegwbgLz7VsOjgSjA3tQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s5wE65ky; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=I5pznUmgX6OJ0XAiD0sa4bfu+2fj+umrBBkePmGAst47DNd2g5snGMFkoosERKkbHrpbshlTpWdBSApewyRzMH2DCv3VGsPSCUt0GTxGuhUU4eF4r+4p56pD1NbdeJ02Pz961f5duY7cCxhXpEG+xnTzoZG9FgGyPJpjTuyol4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yz84WtxF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s5wE65ky"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D2B4C4DDE4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yz84WtxF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E960CC4AF15;
 	Thu,  1 Oct 2026 12:41:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790858460;
-	bh=vqJg9MCrHhTQ3dSYeAuOSHwl+5KNi8MVa3c/QFLqYsE=;
+	s=k20201202; t=1790858461;
+	bh=LuLtqROKn6v/5SnLPl2pLsf8PEM9ZZqa2Vqie0OeXL4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=s5wE65kyk31TVBG0Do9N+KjySvKQUyeg84o3ZmEWqCZUblV3Q7TInuzPmvrhmSCeS
-	 8vSbi2BWtrnbl2XKBufgeEWvd1A+ofgbBlf2CfdSPfY79XX2qMz/A0Wi9KDrFudeox
-	 wXS4caWFyvEhpCb5r/DbFpuQsiXWnXaf39p3dx6hOzmzD+Q6Cer1U6bblR2zdt7vkl
-	 VXlhg3komckzGtC/Q4FYB7yN4o8JUkqcf4FEkThbgf5USBC2qrwuXdeEoHMtBAeCzV
-	 nf95fIxlgjJ/2cnM039gWHDgCtY3XFTQN3Bpa52PepLB6L7p4sc2ClvUR/4hES7oU6
-	 SiweN4mCE83Dg==
+	b=Yz84WtxF78PvN5z7FXTlu8th8yS/gS80c+41pkk3dPMgAUEFMUF9WvX//pHiPWl2o
+	 dMKC+Z/r50ZKxJC8cWvkMhntnK9YlLvV8iHXR8F1czgynv2i514kmodFIZByxvLoYg
+	 cG+yp0Jt1PGl3n3aOcJT7iPvejAutLWkc8Cj0tKea+W6evLP9yyURLDFaypvpyvhbs
+	 fFd6JS3uXcqHHRwwXzIJL6Gd88+ZClxhfmiALYKojcUCCCPryr5LJzjA/Sv5PNmKIZ
+	 OZNfGrduAvYK7P57+7Mf48bbQRBFSTnz5ocB7YOMsBJo36X7UJ/vM5pbJM9R5zCfmm
+	 EyDgO7GDngTfw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76F3CCA5FD6;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D039FCA5FD2;
 	Thu,  1 Oct 2026 12:41:00 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Thu, 01 Oct 2026 20:40:54 +0800
-Subject: [PATCH v9 05/15] dt-bindings: serial: snps-dw-apb-uart: add
- ambarella,cv75-uart
+Date: Thu, 01 Oct 2026 20:40:58 +0800
+Subject: [PATCH v9 09/15] gpio: pl061: use IRQ_TYPE_LEVEL_MASK and
+ IRQ_TYPE_EDGE_BOTH
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-cv75-v5-v9-5-486cc289a4b8@ambarella.com>
+Message-Id: <20261001-cv75-v5-v9-9-486cc289a4b8@ambarella.com>
 References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
 In-Reply-To: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
 To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -62,14 +62,13 @@ Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
  Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>, 
  mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
  linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790858457; l=1072;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790858457; l=1367;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=aI42/QWFrT0q/wEmjSA5wdZvhIPXU9faQz3G+ySJ344=;
- b=GJyR08f2m1KBM40itHZIVPxg3lvd9r9y6CUpV2Ai8ClGQ/FUWgpQIFuuO90FvVU3YnUMMEkj6
- 4oYVmJRfounAKLKknYAZ1rifH3WZ48+AGulMe0TOCQR3pIqHkUpwlPD
+ bh=U1oCsZKXHVZucP03LrQEhXlOSCt4fTuqBZIwSw3whzE=;
+ b=oISmmqpKlMHmBfYFuNu7aVod0hPkDafFoFPAccJZKcSf0O39lInAb+3XmP60uGUCD5bTh7Uy/
+ R9+cRpsyABHCow/ECwU51tuSweEnUBwxd7m1aanD7hza/wMfkUym3P+
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -79,29 +78,39 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
-binding. The block is Ambarella IP with a DW-like register map, so it
-is described as a DW APB UART variant.
+Use the standard IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH helpers
+instead of open-coded edge and level comparisons.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpio/gpio-pl061.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-index 49f51b002879..cec5c679f1a9 100644
---- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-@@ -51,6 +51,7 @@ properties:
-           - const: renesas,rzn1-uart
-       - items:
-           - enum:
-+              - ambarella,cv75-uart
-               - anlogic,dr1v90-uart
-               - brcm,bcm11351-dw-apb-uart
-               - brcm,bcm21664-dw-apb-uart
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index 66aea0856bc4..2913daf46aff 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -167,9 +167,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 	if (offset < 0 || offset >= PL061_GPIO_NR)
+ 		return -EINVAL;
+ 
+-	if ((trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) &&
+-	    (trigger & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING)))
+-	{
++	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
+ 		dev_err(gc->parent,
+ 			"trying to configure line %d for both level and edge "
+ 			"detection, choose one!\n",
+@@ -184,7 +182,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 	regmap_read(pl061->regmap, GPIOIS, &gpiois);
+ 	regmap_read(pl061->regmap, GPIOIBE, &gpioibe);
+ 
+-	if (trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) {
++	if (trigger & IRQ_TYPE_LEVEL_MASK) {
+ 		bool polarity = trigger & IRQ_TYPE_LEVEL_HIGH;
+ 
+ 		/* Disable edge detection */
 
 -- 
 2.34.1
