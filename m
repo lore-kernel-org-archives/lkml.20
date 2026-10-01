@@ -1,153 +1,182 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13489480DD4
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F033537FB
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861687; cv=none; b=lMGOJbq6WjvyDmTS3mWl8ZkPwigk7TXn7H9MjPMRLY0+xN/6i1bCmHw6pVSOCSRpJYbMoIN/vRtFmBKmMMVQYYDyWtVQbGZ5dt2h0egUnnmDImsYAFGeitLiXVoEwDwPBu0TBFFBlJei5QQ8Z4DqmsZ71TlSw8CJw3NGihr/edo=
+	t=1790861789; cv=none; b=IyiBBfmmNGR8O5b3rTtCT1QWGs7w1kYRSAdPwkqZZmR7v8POmeZDqx6aKKXGWAvbjQ5JwCbxm5i5R698nZP7puLkKMBuVIOnWNtktKr0dcxjHAclwZl3kuzmaqY2ZwLlscWYsV6rmXxjErEp6uZXlhOxtbMJqkOiR94EOxEtnvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861687; c=relaxed/simple;
-	bh=nXKoilSfFWDF4/K4PvmG8KxDr8EMs4iR0AwNfbBJKmk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DeuORhJetDS1/t1lPFA+yokSihZ0TM1S2UCRh5tBOujpD04QGz1urGLpU7tiEqcRN/x39o8C8P4i5s2Z1j1eD0sVFwSCaRx7UwbaVGUrsZVc2tAdrUd3d4V/gaDrfMS1BWySxrwew6s7ebr4ZxIBZ3CYx6oH+y3zx7Yp7WWO4Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OcfhS1Sq; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790861789; c=relaxed/simple;
+	bh=NV65feXFflscWUMvK/htMYfD00+MlH5rJ5rvLdyVtmU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=mbEez5ImxH8Zd3sm3IB0El3K/C61qZBnagVueLsTQzTanzcJfxp9Aeb1vvxRn7o3F9SYGkmmcCfyHF+ezZnYuC+YeOp1hVEaAJAvs72z2RvoOklPixR+kySXaGTh9D0b77Ugn4QdIRMji1M3O1gl9Tg1cjhIPeG8/FUHI/irsvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=VvDRdSZt; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IDAYof3a; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OcfhS1Sq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790861685; x=1822397685;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nXKoilSfFWDF4/K4PvmG8KxDr8EMs4iR0AwNfbBJKmk=;
-  b=OcfhS1Sq+BflKngwPfQE+dl7aKSU6C2udi0A3Lq+OqWJdsN6T43Engta
-   KAWOV3e9hPUQCzFQYmpV5JukojI7gmV6SKGF1rOmqwN6Jw6f38I2YpBw7
-   vAgXXM1wvxac+pteljODHkuucYDlat98DFlnvjWXLLU1dasDfH2YWCt7J
-   1mgJPROi063nl826/zPCC2H3jETkb/Cjf6N7VqFEF3YFYorf1xxNS+k3i
-   86p5gIIgM4M9HkCfHbavyvzIueM/evPPL968JoJpp8S3Xz8W0jQYC/B7G
-   OxsRELPFPzbgd+0a7XYtIsD0FIJ1YTgmlwuobuNq6XV82QIfViFeZ7378
-   g==;
-X-CSE-ConnectionGUID: s5+07GT8QhKGNCkZG1iHqA==
-X-CSE-MsgGUID: MI3kwNJ0SwWX3R3/QRKg9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91716199"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="91716199"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 06:34:45 -0700
-X-CSE-ConnectionGUID: VZ/5qvkBSx2KcpVQ9efMWQ==
-X-CSE-MsgGUID: fiMP0bUuS36IDk6Yq8D25w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="279223548"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 01 Oct 2026 06:34:42 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id F1BAC99; Thu, 01 Oct 2026 15:34:40 +0200 (CEST)
-Date: Thu, 1 Oct 2026 15:34:40 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: Fan Wu <fanwu01@zju.edu.cn>, lucas.demarchi@intel.com,
-	matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/xe/i2c: cancel the client work on remove
-Message-ID: <ar5hcBKGhZDcNSKz@black.igk.intel.com>
-References: <20260928013030.612592-1-fanwu01@zju.edu.cn>
- <artYHzEMGPu26x3r@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="VvDRdSZt";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IDAYof3a"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 3D746EC00B5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:36:27 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 01 Oct 2026 09:36:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790861771;
+	 x=1790948171; bh=SKUYNiypai7kLrBWG3nD+p6XOiO4JTXe2gBJkoMuZZs=; b=
+	VvDRdSZtUJ91YFd04mz9RUzz35HNlZUh7TEw7YzOHVekM1BW6tcLtInHbfvdQiqA
+	XhdxD7P+uAATqx5X8hqHZcattbfj6uZ9/fl17LhooVQNK1AV9CUFb1xI7ZxaXfCD
+	Z7tWguPZnZY3FChQU8XgErS0hYWDaStHU3zInGmhFibwTefUi8APey9Rs9EK+qKs
+	Y46ld5M4tPhuvi23ohHBunc7P5w/LW6xTKacwzQSneV1+aDTaNQ0qCTYx110TF4m
+	hDhFnctmCxVE0WwT1X9BX8pYIFyKYuu581X3tYGwnm8tXVuEcCnP1z1mnWe7Mg+D
+	GEeoxoLgjLGC+TweEJbIRQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790861771; x=
+	1790948171; bh=SKUYNiypai7kLrBWG3nD+p6XOiO4JTXe2gBJkoMuZZs=; b=I
+	DAYof3aoUb1jIWC0aE7GpF8K2uqSIVxjo7lR1P4DYnO9c7ucxq4b3z3KmYo9Ja33
+	zxSQ1it6vUi5BS2u/Zh5g46OX4WjbPssVEoCuPuPxhrKPOuu+ZaKj/9IfmO/IQUU
+	eWMD3xWTOpfv3lCTbnL6F7725IADO/WlJcLWALVPsUVKcfLr+L2YwzASn4TPo/tX
+	k6z0kB94arXCDWXaGpchzDzbrJ5pkwqJ9jsc+gUSwSYqVfkh71OPu8NylpkDTyv3
+	RQBVCjZaEYNHZSsRffHa9RwIIiSQdcuBS+jo7WqHKFHSFU3JXQwq7Ejx9eq0Jwfp
+	ZH9CiWU0TZthCDENY1ftw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790861771; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Co2A5xX6ZG2He7exVNI33myiP64dZZboMTwHYUVA6DRvQQg
+	SwXESnT4LaCYsEJ6cfwg+4vSdlVowrRXIq61cKVpbQQdz1yWpEaNhYqE7W/knvm5
+	Lz2p+ZHecUnniX6zsoTT93+t5y2O9TMgNaokXkG8FNZQEQHtaYgZ3W8jfj6a4BDs
+	y1m9CWeZqAPfEzP2yoR1Oc9epcJUOyef2Fr00NjLlCs+oHjWa+wtI72VsZ769fK3
+	Tjr9HOXj1wnSZM9g6T3vCGI1e+7DOgzYo7AEc1+C28pthJ9ZKmE6G72o0uO7EKkM
+	Sw92mqgBpVLrDT/Me+QdFWrRDDfX+gpChfhPbLg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Vf6G2uFBt5g/SMqwNP1CQ5JKkLzHs7yx0Is8nFPjNr8=:NV65feXFflscWUMvK/htMYfD00+MlH5rJ5rvLdyVtmU=;
+X-ME-Sender: <xms:w2G-as3FOW5Su9ixLtcYD2rizq6FSZnQ1UzlpWpcGFYeRAtD_148Fg>
+    <xme:w2G-ah462tCUOmZ27e7BC8S9pTm3uHr36TOSAkW0VeGSAVM-4gVgBdeFd1cdSLlPq
+    5RmuiZRhYVz-zTW6w6CODADo1zHDO2z8et3MpIHsNylGdorAqJqvwSH>
+X-ME-Proxy-Cause: dmFkZTGOjuD4Y2plX0P83V6Oh1JxLOsSaQVxEWXGa5YbUaA5+HvZPZ82BQbF5Zjgzi9sgB
+    UslrslXyN6k1DbI5c7nK0czpyuNNXX6wzsaI57x3XsL3dqPiqv6fTMECn4PIwhTKKpOdzq
+    Y3afhC5OWpNg2aGxIDIITKmQYEr59iMhpJZl7xD5f6RR1q1Yh04F19rPQKSsWOfnbOg2FQ
+    8mQiGXxU4v86rv+SylJN+oD2GTi3jne/kEAdQQY8GU7ZXUExySPeYy1T70GXGtON08eoek
+    l3Yemz/+KbymyUOuICi+nfZBqUGHAdcYhDHVWA/Jht+f7HJcN6ZSJ6hMhwEPQ2cypQfUdT
+    LVr76rRISq50YkOpyqT/0aUU5mUfcEBl2kRCQ6mLd8xv97YjzHZ1hakavcpF9Qg/xo4dXS
+    B7QnYOQr81nx+ehCilb7FZyxlais2+2GY0Z6pCtlesyxTyZulEzCAhglYGcnxOamSnCpOa
+    oi2v6kCESKsB3ie9p16OU+xVosguu5ZcQDzvfXm+in4rGAm1lE0cAEkJLKQhLFiBeSQwo4
+    wKYpmZPJd3yLYQ1u8zOfR0yM7xj71kIOp2cfXi473VZxM3M/j8Bu6ODOOxFq6qWWCcTzn5
+    07JOocNansEb05HvK0bhrF4NhyiLfMY3TfYy97VmFJbYU7ITueRmAwWWxJzg
+X-ME-Proxy: <xmx:x2G-alMk9K-u2tHb9j1ke0jLVLRnQBP5c7aIT-0NpInRWPb5NFOOuQ>
+    <xmx:x2G-apN972XZhHFqIoXCLnFJQitPfczuoFtk99EAIpUwOH0lIIvdvQ>
+    <xmx:x2G-ahXnYGouXYdfr4IM52XOfLLkBog4Rc-aZiJZCzoeOJ00ER738w>
+    <xmx:x2G-aktEX2sUeC6E92aAPr93jXWY9viSl_BxstL0TjlljgxFSDFnmA>
+    <xmx:y2G-avFJwlk2epnRG-kkO3KD7wavpP5bXOEvcXeTopAqBbHRU8I5ftTK>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 037EB32A008E; Thu,  1 Oct 2026 09:36:03 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <artYHzEMGPu26x3r@black.igk.intel.com>
+X-ThreadId: AyQhVaDaKSSk
+Date: Thu, 01 Oct 2026 15:35:37 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Steffen Eiden" <seiden@linux.ibm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Cc: "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ "Andreas Grapentin" <gra@linux.ibm.com>,
+ "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>,
+ "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Friedrich Welter" <fritz@linux.ibm.com>,
+ "Fuad Tabba" <tabba@google.com>, "Gautam Gala" <ggala@linux.ibm.com>,
+ "Hariharan Mari" <hari55@linux.ibm.com>,
+ "Heiko Carstens" <hca@linux.ibm.com>,
+ "Hendrik Brueckner" <brueckner@linux.ibm.com>,
+ "Ilya Leoshkevich" <iii@linux.ibm.com>,
+ "Janosch Frank" <frankja@linux.ibm.com>,
+ "Joey Gouly" <joey.gouly@arm.com>, "Marc Zyngier" <maz@kernel.org>,
+ "Nico Boehr" <nrb@linux.ibm.com>,
+ "Nina Schoetterl-Glausch" <oss@nina.schoetterlglausch.eu>,
+ "Oliver Upton" <oupton@kernel.org>,
+ "Paolo Bonzini" <pbonzini@redhat.com>,
+ "Sean Christopherson" <seanjc@google.com>,
+ "Suzuki K Poulose" <suzuki.poulose@arm.com>,
+ "Sven Schnelle" <svens@linux.ibm.com>,
+ "Ulrich Weigand" <Ulrich.Weigand@de.ibm.com>,
+ "Vasily Gorbik" <gor@linux.ibm.com>, "Will Deacon" <will@kernel.org>,
+ "Zenghui Yu" <yuzenghui@huawei.com>, "Lorenzo Stoakes" <ljs@kernel.org>
+Message-Id: <e1569c6e-94df-4609-8d94-d6319b4171cf@app.fastmail.com>
+In-Reply-To: <e2742ccb-6b91-463c-a148-30b7e2f41e9a@app.fastmail.com>
+References: <20260930173441.66762-1-seiden@linux.ibm.com>
+ <20260930173441.66762-24-seiden@linux.ibm.com>
+ <e2742ccb-6b91-463c-a148-30b7e2f41e9a@app.fastmail.com>
+Subject: Re: [PATCH v9 23/24] KVM: s390: arm64: Implement basic page fault handler
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 08:18:07AM +0200, Raag Jadav wrote:
-> + Heikki to comment on this.
-> 
-> On Mon, Sep 28, 2026 at 01:30:30AM +0000, Fan Wu wrote:
-> > xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-> > schedules i2c->work when the adapter is registered under the xe I2C
-> > platform device, and xe_i2c_client_work() then instantiates the AMC
-> > client device on that adapter.
-> > 
-> > xe_i2c_remove() tears down the AMC, unregisters the client devices,
-> > the bus notifier and the adapter platform device, but it never drains
-> > i2c->work. A work item that is still queued or running when the
-> > adapter is unregistered dereferences i2c->adapter in
-> > i2c_new_client_device() after platform_device_unregister() has
-> > released the adapter. The work item is also embedded in the
-> > devm-allocated struct xe_i2c, so a work item still queued after the
-> > drm device devm unwind frees that allocation runs its callback on
-> > freed memory.
-> > 
-> > The bus notifier is the only thing that schedules this work, and it is
-> > unregistered after the client devices. An instance that is still queued
-> > when the teardown runs can therefore write
-> > i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
-> > clearing the same array, and an AMC client it instantiates late is only
-> > cleaned up by the adapter's own child sweep in i2c_del_adapter().
-> > 
-> > Move bus_unregister_notifier() in front of the client teardown loop
-> > and cancel the work right after it, so no new instance can be
-> > scheduled and a queued instance is drained before the client array is
-> > touched. A running instance still finds a live adapter, since the
-> > adapter is unregistered later.
-> > 
-> > This issue was found by an in-house static analysis tool.
-> > 
-> > Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-> > Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Codex:gpt-5.6
-> > Co-developed-by: Song Li <songl@zju.edu.cn>
-> > Signed-off-by: Song Li <songl@zju.edu.cn>
-> > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+On Thu, Oct 1, 2026, at 14:10, Arnd Bergmann wrote:
+>> +		/*
+>> +		 * Check for a cache maintenance operation. Assume the guest is
+>> +		 * cautious and skip instruction
+>> +		 */
+>> +		if (kvm_is_error_hva(hva) && kvm_vcpu_dabt_is_cm(vcpu)) {
+>> +			kvm_incr_pc(vcpu);
+>> +			ret = 1;
+>> +			goto out_unlock;
+>
+> Hi Steffen,
+>
+> [Adding Lorenzo Stoakes to Cc]
+>
+> I see this function fails to build on top of linux-next, as the 
+> kvm_vcpu_dabt_is_cm() function was removed by commit 18b94675b1fb
+> ("KVM: arm64: Use ESR helpers in guest abort handling").
 
-LGTM
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Another ones: after 34cfa9b3af17 ("KVM: arm64: Implement
+KVM_PRE_FAULT_MEMORY"), we are now missing a kvm_arch_pre_fault_allowed()
+definition in arch/s390/kvm/arm64/mmu.c:
 
-> > ---
-> > 
-> > Changes in v3:
-> > - rebase onto drm-xe-next, after "drm/xe/i2c: Disable IRQ on unbind"
-> > - discussion: Link: above points at the v2 thread
-> > - unregister the bus notifier before the client teardown loop and
-> >   cancel the work before the loop as well: v2 cancelled the work only
-> >   after the loop, so an event arriving during the loop could still
-> >   schedule the work to race with the array teardown and leak a freshly
-> >   instantiated AMC client
-> >  drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> > index f4f3819..b82caaf 100644
-> > --- a/drivers/gpu/drm/xe/xe_i2c.c
-> > +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> > @@ -324,12 +324,15 @@ static void xe_i2c_remove(void *data)
-> >  	xe_i2c_irq_reset(xe);
-> >  	xe_amc_exit(i2c);
-> >  
-> > +	/* Stop the notifier from arming the client work before teardown. */
-> > +	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-> > +	cancel_work_sync(&i2c->work);
-> > +
-> >  	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
-> >  		i2c_unregister_device(i2c->client[i]);
-> >  		i2c->client[i] = NULL;
-> >  	}
-> >  
-> > -	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-> >  	xe_i2c_unregister_adapter(i2c);
-> >  	xe->i2c = NULL;
-> >  }
-> > 
+ERROR: modpost: arch/s390/kvm/arm64/kvm-arm64.ko: symbol 'kvm_arch_pre_fault_allowed' undefined!
 
--- 
-heikki
+I copied the arm64 version without the pkvm reference to make it
+build for me.
+
+     Arnd
+
+diff --git a/arch/s390/kvm/arm64/mmu.c b/arch/s390/kvm/arm64/mmu.c
+index 7ee157c61d70..be16351acaae 100644
+--- a/arch/s390/kvm/arm64/mmu.c
++++ b/arch/s390/kvm/arm64/mmu.c
+@@ -179,6 +179,14 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
+ 	return ret;
+ }
+ 
++int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
++{
++	if (!kvm_vcpu_initialized(vcpu))
++		return -ENOEXEC;
++
++	return 0;
++}
++
+ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu, struct kvm_pre_fault_memory *range)
+ {
+ 	struct guest_fault f = { .gfn = gpa_to_gfn(range->gpa), };
