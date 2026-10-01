@@ -1,58 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F101E3E00B5;
-	Thu,  1 Oct 2026 15:55:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF54936E46F;
+	Thu,  1 Oct 2026 15:55:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870102; cv=none; b=Mt4BOPZLr44ih+Ed8nZGfW+9bDO9Pb1evhZd4/YJiFrt7EI7rMcX5lSnUMl8qLq7s5vOfyLZ4GX2la0ADp0VPtsGsypvE8k2kEKH47l5oHL1eTFhkKdseT+KaNl69WXQ8vz3wfMBLnsjvcnbseXITZyRXL02vB6ow6x2qiMBYZA=
+	t=1790870139; cv=none; b=Kp1YHwxtpt5BunGadejquzNkqTp06XsWf6VM9fvTdi4oeN7rQwsaDHLtlNYhV70Y1xKqzBhVyqlNVHHi73q5urLpIikl80NesO47BIWQbFwtgw3vvC3g/VwzXM+fU4A6MBv4R+4vlhTEtP8yOW4RI6eDHVSCM0AIy1sRVP0kf4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870102; c=relaxed/simple;
-	bh=SNuCZLyhrL/dvOwZDXcJDyoGYMKO1kRmJvc6DGGLrGk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JKCAOA1iQHggWovzupfcY1afv9n+YfN6g2EpA4cRVw6XCA1eAm4qKXDxGaCyabE8THbwjqVu+vcydxKiaD7hEcA31bS2G3SIjrwaW2w6UussK5v5qZG8VL83EtV2HrSLEm61oPmRNkZRUJ/lurFYWZ7Tb2i5eCbOPp8UnNQ6S4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUG6n2iq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790870139; c=relaxed/simple;
+	bh=MTDQXGGxc+pTRKwaAkP0qLnrnlaZ///2l3xPH4xaIfQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mB6NjArID7BzGJplad2lN3LObUyXu3gjxIMKRnUwfv0c+KtR7S0rVvIRiwMPweb6uUXHMK8F1Hwscr1+1MISuzqaAEvI0pFEX1rpcC3qs+XlinRc/O1SzjxyUnCh7PeyEfHLwoukzr3aYsEbzQgnH4LfknzLJp8t36JwJqDuPoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aq0t82JN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUG6n2iq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6BA1F000FF;
-	Thu,  1 Oct 2026 15:54:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aq0t82JN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBC91F000FF;
+	Thu,  1 Oct 2026 15:55:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790870100;
-	bh=SNuCZLyhrL/dvOwZDXcJDyoGYMKO1kRmJvc6DGGLrGk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oUG6n2iqJqbQJn/VMqxsqkmSt4ec9MpyWYfvsakBk4kuq7xqggrhfA09Y0qIaiHbf
-	 FEdYAGZ4o+axe4PxUioVz6h2aJnmqKdEzmnucvfvOkXfR7pBkPftuDUTyZTF+hfN7Z
-	 R4Ml29XJcXHA+oiqW5r2ZFqgD1KTgtrzEgCtRQn4VeMvupe8uNQmR6BVxjyK8XqsFP
-	 Vnl2s77AkBmZ/L6ZDPNNTTSwC9+NO+EFB6NSxuGIzqDZvsIVBmQ4IdRqckOBYGsSMs
-	 TYzH8/IgK8qFSbbEC2lfN+8aJXinxRVzYWFmthhNUArlhiEe2DjEfdOo1pKehexqb+
-	 0Un2DAmdoJ6zQ==
-Date: Thu, 1 Oct 2026 17:54:56 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: leo.yan@arm.com, namhyung@kernel.org, adrian.hunter@intel.com,
-	james.clark@linaro.org, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org
-Subject: Re: [PATCH v2 0/4] perf build: Linter parallelism and clean/install
- dependency fixes
-Message-ID: <ar6CUGUl4ihlJvDd@x2>
-References: <20261001023423.1225713-1-irogers@google.com>
- <20261001054120.1570943-1-irogers@google.com>
+	s=k20260515; t=1790870132;
+	bh=RygbB9xBwuwMTP2siLgkMsDYObD6FWwDnpI0v/7Py6s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Aq0t82JNtkB3bEN1VurwYQcVg0usZrJLklPFSSATxkHXH6H20+EAWAFrHciqqFQtP
+	 8OgL3Bw8W60LJ7na4ir5IsqWmhJdVUajjGlLOeHQoqb76I0rz6rh4bv7ScsDacHQJG
+	 eM5riXQvahIBewz4a+kxmTx3W1/okGp+/ZwIb3w8XHwyFLYyPmySONv50pZxuVG3Rl
+	 0ec98tE/QDYWYffJp8+aD6izPAJi1kkflqc8muyVa2Z8/j88repRaB7pq97t4vbS7z
+	 7MkgctxQCQCQgRW6+6owBKJPir0SADAMkTsYJJ0BMs00zpKBMK1lONzdsCBf6vSYZ9
+	 TFBHVaU8MOGGQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Shuah Khan <shuah@kernel.org>, Bjoern Doebel <doebel@amazon.de>
+Cc: linux-rdma@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260930135530.881281-1-doebel@amazon.de>
+References: <20260930135530.881281-1-doebel@amazon.de>
+Subject: Re: [PATCH] selftests/rdma: Skip rxe_sent_rcvd_bytes when rdma_rxe
+ is missing
+Message-Id: <179087012977.374812.13144988487105376279.b4-ty@kernel.org>
+Date: Thu, 01 Oct 2026 11:55:29 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001054120.1570943-1-irogers@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On Wed, Sep 30, 2026 at 10:41:16PM -0700, Ian Rogers wrote:
-> This series includes a small Python test cleanup alongside build system
-> improvements for linter parallelism and clean/install target
-> dependencies:
 
-Thanks, applied to perf-tools-next, for v7.4.
+On Wed, 30 Sep 2026 13:55:30 +0000, Bjoern Doebel wrote:
+> On a kernel built without CONFIG_RDMA_RXE the test exits 1 instead of
+> skipping:
+> 
+>   # modprobe: FATAL: Module rdma_rxe not found in directory ...
+>   not ok 467 selftests: rdma: rxe_sent_rcvd_bytes.sh # exit=1
+> 
+> Every other test in this directory probes with modinfo and exits
+> $KSFT_SKIP. Apply the same guard, identical to the one in the otherwise
+> near-identical rxe_socket_with_netns.sh.
+> 
+> [...]
 
-- Arnaldo
+Applied, thanks!
+
+[1/1] selftests/rdma: Skip rxe_sent_rcvd_bytes when rdma_rxe is missing
+      https://git.kernel.org/rdma/rdma/c/d2c08575500145
+
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
+
