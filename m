@@ -1,255 +1,209 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7453E40E8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 20:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E500547074;
+	Thu,  1 Oct 2026 20:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790885377; cv=none; b=bUI/UfCpixZHVbmCC0sL7an3hk4LXMojNTafmMpxG2u9xwmX8nHqqyMpa5WoFPwIUiz/xCxZ2oL0g8QDae9VlqVA5wSYU44Gij3Jm1PizoKWpZLwmKbV52YqV+oVAC7HYbjAfFv7ps7nTc6dB0cdZ0BS4qmAQrcHVN7VGOiO444=
+	t=1790885456; cv=none; b=A8edQCEaOr3LP1J+80ZsY7q6AV7Cn/iwfcTxphbmIe7YmeABQpNuNDbBFHNrIERLChvFvdUQ39I7KeKiY8Kpa+dqnUWI+AlWb3sNuwKKajzBWophIZfP3cltDgJPHbavTqdmGJ0NtOVjLu+mVn42ymrS4qD/NHLi5M2ZgCQ25Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790885377; c=relaxed/simple;
-	bh=VahqGADbt5fuK3JlL4oEwwlE+u4deUseRKS0PGeHNoM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=j9srG8IKjAS4v8b3wIbQwCLFi0xkediwsm8CK+Jgz4Z+qWiwVP5jX7bfUWSnGgyn9WwKhOXlxFOlpuiuKWtYBhz+MgsUBcG56/mCIo7jCTi1n2/ccMADrGYzTvLKzCKBSiNwOxPfZyDK7tKHakrAHMNz2L9HxrThOh+ODfxYPJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-482966c4f4fso2537143fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 13:09:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790885374; x=1791490174;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Mg3Z0ilu9klqB8OJi0Z+pxt4D4ewmjhUamshblmHZY=;
-        b=1h/gatbzuYJORNydA28+JpyiCUhgvCGLLLR9UE9Rdv7A/TSn2RYDXdVd1LROgz8iiZ
-         mri/Rsv7Crn/pYoYe/NUJYLxaMod7UtzzinyNTyAwqUoH9m7gXg//VxbNkjU7DRv1CLp
-         V8uumCr2wyJJj+b5PAbYReS6Zd8qb3/6TFR2cYTM3+vOzBD+sjq57z1xw/m/nQGpbW0G
-         FUKePGz+PlehT2GANDlsUiuTbVvxfgilG1Hb2sZlNEAHtnV8IVraJ1TmxylhdYCSGUjL
-         +XD6mPKE38+HBZ9ZPe79nHY8n6p8o8iyoicEE+H+GBvAXQH44gzDo4s5RvFOZvssKPic
-         6uNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwXNcj8BCDgwF7IQ4a/p3FiF+ftBUbCWAeMz2H6ftbhA5IeEZKdJR1H1GHwi9nAN0NeCzetEPM1Jveh5fk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4LyhY/6LbAftt05CZ9OJDrmHizq2UaUt7CcUTyys2JrFivNiY
-	bLheNa5+rr6nWbBbXbcq7+EeRwhhezjLma0IQO4dW0v5HlmaEDvQ2VF2nLwJdi1DTQJV6MlHdCI
-	skFgub73nuYCbl8xU/WOx0JjLXlo+V+zwUY1QpGQ0lRnUzRUBEFgvqVs/D0E=
+	s=arc-20240116; t=1790885456; c=relaxed/simple;
+	bh=eqlalWEACgHVJxaJJINEXXgUmnExZVGD96ZPJQYAGoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HhSc1cIqvJLCYEw/0d9xMUcHAoGgWjE1ErYp7poIYmVA4tj6mMsJM4NwaObTSrx87bg4JVc6thyCr7OOJ9CiNZW3wQ7suRwOLj3+v5Z70AOb3TZNxAbYKfCezQhuU+AWp9PU+2ow7ASvvZ4h6YJnP89TgMeTp/UWNT0lkqCv5/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RiljaSLz; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RiljaSLz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC80C1F00893;
+	Thu,  1 Oct 2026 20:10:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790885454;
+	bh=Emgg1hEsTegrNFwf0i6etQNx21yoM37aHkx9/z0TU/4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RiljaSLzEKKK1iEQRgaD2Fo2dglKP531VxzLAsUCwsQStAN3k/HIV6t9iwxZn/83/
+	 0kB+HM0mjBZ0tDc85eKU+LClNqWPODUs+Bgc5a0zH/2COGIRm85Rfs81wfDilzqMRc
+	 U+kYzgePDFfIWtFZIUKzkOfDVbCrrJ1lEqGwVOnaY3T7yF24kzCjmyMeAXe3L6AOaU
+	 6vIUxIT93w5V7c3jWl0ZTB5LY6Q28MoCZOEOhBvNpjG5DFpOEJiXt16GPYaNw0KnU7
+	 LAgAXJptB73isAB84zsuarhmHKrt11GD4YCAdu4qa9SR+OthcxJYbVvVmGaetK+Tox
+	 aMOhMfqWeBcxw==
+Message-ID: <74c10fee-bfb1-4225-af5b-fc2b3ce664a9@kernel.org>
+Date: Thu, 1 Oct 2026 21:10:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1648:b0:4d6:9133:cfdf with SMTP id
- 5614622812f47-4f30b02378fmr3239079b6e.36.1790885374315; Thu, 01 Oct 2026
- 13:09:34 -0700 (PDT)
-Date: Thu, 01 Oct 2026 13:09:34 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abebdfe.7503fbd6.2d3f6.0009.GAE@google.com>
-Subject: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in md5_block
-From: syzbot <syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com>
-To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] media: venus: disable recovery work before HFI
+ teardown
+To: Myeonghun Pak <mhun512@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>
+References: <20260925191653.3144006-1-mhun512@gmail.com>
+ <20261001175502.4045853-1-mhun512@gmail.com>
+ <IUKxO70u7tuzfobwy7veeNHbvyK5WtlYFOliAToGsdPncgmwXfbd95-SoyBBUj0AUENfcYLnsh4qaFj4AEkeKA==@protonmail.internalid>
+ <20261001175502.4045853-3-mhun512@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261001175502.4045853-3-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 01/10/2026 18:55, Myeonghun Pak wrote:
+> venus_remove() cancels core->work before the IRQ is disabled. An IRQ
+> thread can queue the work again after cancellation. The work can then
+> access HFI state after venus_hfi_destroy() frees it. The work also
+> requeues itself when recovery fails, so cancelling an already running
+> instance alone does not close the race.
+> 
+> Disable and drain the work at the start of remove, before other resources
+> are dismantled. Do the same in venus_hfi_destroy() for paths that bypass
+> remove, including probe unwind. Disabling the work prevents both IRQ
+> handlers and the work itself from requeuing it. Drain the work before
+> disabling the IRQ so an active recovery can finish any IRQ based
+> completion waits. Then synchronize the IRQ before freeing HFI state.
+> 
+> Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/20260730153912.BAC5E1F00A3D@smtp.kernel.org/
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>   drivers/media/platform/qcom/venus/core.c      | 2 +-
+>   drivers/media/platform/qcom/venus/hfi_venus.c | 1 +
+>   2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
+> index 7087af32060f..6e495bc04691 100644
+> --- a/drivers/media/platform/qcom/venus/core.c
+> +++ b/drivers/media/platform/qcom/venus/core.c
+> @@ -596,7 +596,7 @@ static void venus_remove(struct platform_device *pdev)
+>   	struct device *dev = core->dev;
+>   	int ret;
+> 
+> -	cancel_delayed_work_sync(&core->work);
+> +	disable_delayed_work_sync(&core->work);
+>   	ret = pm_runtime_get_sync(dev);
+>   	WARN_ON(ret < 0);
+> 
+> diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
+> index e7e4e78a186a..20b8ba1e62f1 100644
+> --- a/drivers/media/platform/qcom/venus/hfi_venus.c
+> +++ b/drivers/media/platform/qcom/venus/hfi_venus.c
+> @@ -1689,6 +1689,7 @@ void venus_hfi_destroy(struct venus_core *core)
+>   {
+>   	struct venus_hfi_device *hdev = to_hfi_priv(core);
+> 
+> +	disable_delayed_work_sync(&core->work);
+>   	disable_irq(core->irq);
+>   	core->priv = NULL;
+>   	venus_interface_queues_release(hdev);
+> --
+> 2.53.0
+> 
 
-syzbot found the following issue on:
+You shouldn't have to disable the work queue twice.
 
-HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=15154035580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=03c68e42ce4b33f7ce9b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13154035580000
+Does a path actually exist where hfi_destroy() runs but venus_remove() 
+does not ?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
+The commit text is vague about that - sure hfi_destroy() may be callable 
+from the error path of probe() but is any work scheduled in that case ?
 
-==================================================================
-BUG: KASAN: slab-out-of-bounds in md5_block+0x95/0x8d0 lib/crypto/md5.c:40
-Read of size 64 at addr ffff8880310c0ce0 by task syz-executor265/6033
+I mean lets just look at venus_hfi_destroy()
 
-CPU: 1 UID: 0 PID: 6033 Comm: syz-executor265 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:186 [inline]
- kasan_check_range+0x10f/0x1e0 mm/kasan/generic.c:200
- __asan_memcpy+0x23/0x60 mm/kasan/shadow.c:105
- md5_block+0x95/0x8d0 lib/crypto/md5.c:40
- md5_blocks lib/crypto/md5.c:126 [inline]
- md5_update+0xf7/0x210 lib/crypto/md5.c:161
- md5+0xc7/0x120 lib/crypto/md5.c:202
- ecryptfs_write_tag_70_packet+0x880/0x1410 fs/ecryptfs/keystore.c:741
- ecryptfs_encrypt_filename fs/ecryptfs/crypto.c:1378 [inline]
- ecryptfs_encrypt_and_encode_filename+0x428/0xa60 fs/ecryptfs/crypto.c:1789
- ecryptfs_lookup+0x1f7/0x830 fs/ecryptfs/inode.c:402
- __lookup_slow+0x155/0x320 fs/namei.c:1919
- lookup_slow+0x50/0x70 fs/namei.c:1936
- walk_component fs/namei.c:2282 [inline]
- lookup_last fs/namei.c:2789 [inline]
- path_lookupat+0x5e8/0xc40 fs/namei.c:2813
- filename_lookup+0x202/0x590 fs/namei.c:2842
- __do_sys_chdir fs/open.c:557 [inline]
- __se_sys_chdir fs/open.c:550 [inline]
- __x64_sys_chdir+0xc8/0x280 fs/open.c:550
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f62183c3537
-Code: 00 00 75 14 48 83 c4 28 5b 5d c3 0f 1f 84 00 00 00 00 00 8b 04 24 eb dc e8 c6 14 00 00 66 0f 1f 44 00 00 b8 50 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc52514f68 EFLAGS: 00000206 ORIG_RAX: 0000000000000050
-RAX: ffffffffffffffda RBX: 00007f621841c0a9 RCX: 00007f62183c3537
-RDX: 0000000000000000 RSI: 00007f621841e348 RDI: 00007f621841c0bd
-RBP: 00007f621841c09e R08: 00007f621841e2b8 R09: 66615f7961727073
-R10: 0000000000000000 R11: 0000000000000206 R12: 00007ffc52514f90
-R13: 00007f621841c049 R14: 00007f621841c08f R15: 0000000000000002
- </TASK>
 
-Allocated by task 5567:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_flags_noprof+0x370/0x8e0 mm/slub.c:5602
- _kmalloc_flags_noprof mm/slab.h:55 [inline]
- __alloc_empty_sheaf mm/slub.c:2822 [inline]
- alloc_empty_sheaf mm/slub.c:2842 [inline]
- __pcs_replace_empty_main+0x3fa/0x650 mm/slub.c:4769
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
- __skb_ext_alloc+0x1a/0x80 net/core/skbuff.c:7152
- skb_ext_add+0x40b/0x810 net/core/skbuff.c:7256
- nf_bridge_alloc include/net/netfilter/br_netfilter.h:12 [inline]
- br_nf_pre_routing_ipv6+0xc7/0x8b0 net/bridge/br_netfilter_ipv6.c:171
- br_nf_pre_routing+0x90f/0x1560 net/bridge/br_netfilter_hooks.c:513
- nf_hook_entry_hookfn include/linux/netfilter.h:165 [inline]
- nf_hook_bridge_pre net/bridge/br_input.c:291 [inline]
- br_handle_frame+0xd59/0x1670 net/bridge/br_input.c:451
- __netif_receive_skb_core.constprop.0+0x6c5/0x3530 net/core/dev.c:6152
- __netif_receive_skb_one_core+0xb0/0x1e0 net/core/dev.c:6263
- __netif_receive_skb+0x1f/0x120 net/core/dev.c:6378
- process_backlog+0x487/0x1600 net/core/dev.c:6729
- __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7798
- napi_poll net/core/dev.c:7861 [inline]
- net_rx_action+0xa40/0xf20 net/core/dev.c:8018
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- do_softirq kernel/softirq.c:546 [inline]
- do_softirq+0xaf/0xf0 kernel/softirq.c:533
- __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
- __dev_queue_xmit+0xa27/0x4970 net/core/dev.c:4961
- dev_queue_xmit include/linux/netdevice.h:3461 [inline]
- neigh_hh_output include/net/neighbour.h:544 [inline]
- neigh_output include/net/neighbour.h:558 [inline]
- ip6_finish_output2+0x102d/0x1d50 net/ipv6/ip6_output.c:138
- __ip6_finish_output+0x357/0xdf0 net/ipv6/ip6_output.c:210
- ip6_finish_output net/ipv6/ip6_output.c:221 [inline]
- NF_HOOK_COND include/linux/netfilter.h:314 [inline]
- ip6_output+0x2aa/0xa60 net/ipv6/ip6_output.c:248
- dst_output include/net/dst.h:471 [inline]
- NF_HOOK include/linux/netfilter.h:325 [inline]
- NF_HOOK.constprop.0+0x115/0x5a0 include/linux/netfilter.h:319
- mld_sendpack+0x8f7/0xec0 net/ipv6/mcast.c:1890
- mld_send_initial_cr+0x219/0x320 net/ipv6/mcast.c:2308
- ipv6_mc_dad_complete+0xa7/0x1d0 net/ipv6/mcast.c:2316
- addrconf_dad_completed+0xd91/0xff0 net/ipv6/addrconf.c:4376
- addrconf_dad_work+0x83c/0x1360 net/ipv6/addrconf.c:4304
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+static void venus_remove(struct platform_device *pdev)
+{
+         struct venus_core *core = platform_get_drvdata(pdev);
+         const struct venus_pm_ops *pm_ops = core->pm_ops;
+         struct device *dev = core->dev;
+         int ret;
 
-The buggy address belongs to the object at ffff8880310c0c00
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 224 bytes inside of
- allocated 256-byte region [ffff8880310c0c00, ffff8880310c0d00)
+         cancel_delayed_work_sync(&core->work);
+         ret = pm_runtime_get_sync(dev);
+         WARN_ON(ret < 0);
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x310c0
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 39, tgid 39 (kdevtmpfs), ts 10593768918
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
- security_inode_init_security+0x113/0x370 security/security.c:1347
- shmem_mknod+0x2ce/0x480 mm/shmem.c:3841
- vfs_mknod+0x3a5/0x7f0 fs/namei.c:5269
- handle_create drivers/base/devtmpfs.c:232 [inline]
- handle drivers/base/devtmpfs.c:384 [inline]
- devtmpfs_work_loop+0x48d/0xae4 drivers/base/devtmpfs.c:399
- devtmpfsd+0x3f/0x50 drivers/base/devtmpfs.c:441
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
+         ret = hfi_core_deinit(core, true);
+         WARN_ON(ret);
 
-Memory state around the buggy address:
- ffff8880310c0c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff8880310c0c80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->ffff8880310c0d00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-                   ^
- ffff8880310c0d80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff8880310c0e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-==================================================================
+         venus_shutdown(core);
+         of_platform_depopulate(dev);
 
+         venus_firmware_deinit(core);
+
+         venus_remove_dynamic_nodes(core);
+
+         pm_runtime_put_sync(dev);
+         pm_runtime_disable(dev);
+
+         if (pm_ops->core_put)
+                 pm_ops->core_put(core);
+
+         v4l2_device_unregister(&core->v4l2_dev);
+
+         hfi_destroy(core);
+
+         mutex_destroy(&core->pm_lock);
+         mutex_destroy(&core->lock);
+         venus_dbgfs_deinit(core);
+}
+
+Your patch will call disable_delayed_work_sync() twice on this path once 
+in venus_remove() per your patch and then again in hfi_destroy()...
+
+NAK - can't be right.
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+bod
