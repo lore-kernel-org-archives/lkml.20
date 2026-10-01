@@ -1,33 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1204F0538;
-	Thu,  1 Oct 2026 09:13:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ACE14D797D;
+	Thu,  1 Oct 2026 09:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846021; cv=none; b=HhRpQBax209XnkNZgDot32v2tpqHaceJeol2ouVF9St7BdHmrJbe25V09Xz6UMtd+L8uBL4BuIgK+4NGXNfOp+vAqPDU8zlRJvCeVOPhiPVdXzE4XCng7O4j8zHTv/cV/9Y7sbzn0hWIhNBPTxOYtsHZchR1hBUZV6tj2Vo0Hn8=
+	t=1790846023; cv=none; b=SbJarxuJBDhghvYLD/EECQNKtpoD5tNJde9YNq77ayPBKo5pGzrCNtjZVB28j+8n6+/Q6folfYQfsIz7xJAZcoFp1ex22Pih+X9PtOZKUaTl6UprE6iIc5O4OKQkcutRMtC1ZhtpBVpL676mX8ryc9jOCKhF9Q8HZmEbauh156U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846021; c=relaxed/simple;
-	bh=LUS1MqanMPwRDZPaUs1q7Y4qTGN4Jg8HUwIGVCJF4Ok=;
+	s=arc-20240116; t=1790846023; c=relaxed/simple;
+	bh=AleCVZmVzS2wkWzpfoYiipdQw93Ato0t2LjdPdLNEGY=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Zpa1SQJ/T/RnO+aICjILEcDtnddt1TZX+QhtRDBROx/gdD7WCHszrzjh+KyArS+iB0Qw6aBNlwUsvwn2Steu7rH8pQOfpErp2cEmwUZRfK3Q+8XNxxOlk10D/qh6c7lNlKUSr3nUuD3SLdTXlkYCFSzfHeKrLV4ZqeYuA9RObQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3Zc2nK6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=ISlv7Ugp2cqHgjxiuFWyBQnxIUoz9BQummSEYQQGURaqYt0dlHshfYwPDLBYwOh3NHabQIrATiEIM6UNyrMtYxNYtWZv9wULCH9gZJ1lOf4tkjlMfI4Am6Q5Q7NG3XHEXwkUNNF26YWfgYj1bLnFdMZjR9l1YG01LF9QjeqBTnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lltRzzG/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3Zc2nK6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7AA01F00899;
-	Thu,  1 Oct 2026 09:13:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lltRzzG/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CEB1F0089D;
+	Thu,  1 Oct 2026 09:13:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790846015;
-	bh=k96p3lu4PSO/loHaVjE2TR0yZO2Dp0AphTiytdENBx0=;
+	s=k20260515; t=1790846019;
+	bh=U3nzgn0ImTE7+vVGTRgi9s+Cfc9Ehmo1qpyqHNResU8=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=R3Zc2nK6e6Bh9sKbispEJ0QIa/OXbjVpYY+NqYK9UswiRFN9GfnSEAaDsDhaeuvge
-	 CgzBZ3Yhe7abeobj0e0MuuBkpQSQH4A6ao2cTAVhvXhJvl1haLmAK1HPqqBt0Xoj/e
-	 lPQhX+IoUQyw9DZlZyFP4RrJgy1pNtPYiAf3mAy3Uoj6WgwtGLVqjGYq9Ppicl5bG7
-	 KQLFOYYLby8VDpMrwLnmyfKmni1o+my+9gvCRZUCcnEfLKa+9WUq4lvXFjceWtWVXq
-	 rMcnnWr7WsFPfmQ1bLYiYky6feSOr/aRcJ6hj9qfmf4LDcHGcVQlMhom71hBxa2XTJ
-	 IG3uvhW+Q+0jA==
-Subject:
- Re: [net-next, v4 03/10] bnge: add helper functions for multi RSS contexts
+	b=lltRzzG/e6JCrXO+E+1DebqSc/Ei7YGL9ppLNYuP/z/iMpsE0rh/5h8plL9dT4vQO
+	 LqBXeXy/i2SAfOtT0IogFA5W63TVULG6LoAOtwurN8NiMjBHAv/9yKijToKyXfXhFt
+	 LIRVz483U7eIZLNCbKPAfkk/WV2ZOXtqmH/8dUDKpIj84KLKEA7qfIkyFti6NJ4teh
+	 x4eRfTlAeGxp8/HtfxKUS1R0OEJlJj9juekAbxu+eSGTB5P0o1ZD27f25AoGmE4ut3
+	 7kv4u1Rt9yAcRGy/5uznpf7w7iVEBTKqGx/2FyqAMPWy1bBnxeT/B0bERjiV8V0uvl
+	 MjmyeT2YPypKA==
+Subject: Re: [net-next, v4 06/10] bnge: remove refcount from L2 filter
 From: netdev-bot+sashiko@kernel.org
 To: vikas.gupta@broadcom.com
 Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
@@ -36,10 +35,10 @@ Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
  bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
  vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
  dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
-Date: Thu, 01 Oct 2026 09:13:34 +0000
-Message-ID: <179084601433.434549.5967913046506071040@kernel.org>
-In-Reply-To: <20260928061307.1172344-4-vikas.gupta@broadcom.com>
-References: <20260928061307.1172344-4-vikas.gupta@broadcom.com>
+Date: Thu, 01 Oct 2026 09:13:38 +0000
+Message-ID: <179084601825.434549.14598090355667152020@kernel.org>
+In-Reply-To: <20260928061307.1172344-7-vikas.gupta@broadcom.com>
+References: <20260928061307.1172344-7-vikas.gupta@broadcom.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -50,10 +49,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -61,163 +60,123 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] bnge_get_total_vnics()
-  (drivers/net/ethernet/broadcom/bnge/bnge_resc.c) adds bn->num_rss_ctx…
-- [Medium] At this commit, bnge_modify_rss() writes a user context's
-  indirection table into ethtool_rxfh_context_indir(ctx), but…
-- [Medium] For a user context, bnge_modify_rss() copies tbl_size entries
-  and then zero-pads up to bd->rss_indir_tbl_entries (512) into…
+- [Medium] The commit message does not describe what the patch actually
+  changes.
+- [Low] In bnge_cfg_rx_mode()
+  (drivers/net/ethernet/broadcom/bnge/bnge_netdev.c), the patch now…
 
 --
 
-bnge: add helper functions for multi RSS contexts
+bnge: remove refcount from L2 filter
 
-This commit adds helpers to create, modify, restore and delete
-user-defined RSS contexts in the bnge driver, with one VNIC per context.
-It also adds a num_rss_ctx counter to struct bnge_net and includes it in
-the VNIC count that bnge_get_total_vnics() returns.
+This commit removes the refcount from struct bnge_l2_filter, because a
+filter will now only be removed by the context that created it.
+bnge_alloc_l2_filter() now returns -EEXIST for a duplicate key. The unicast
+rx-mode code now skips uc entries that match dev->dev_addr.
 
-> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-> index c7024e75f9257..e0744e59c6aea 100644
-> --- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-> @@ -209,8 +209,16 @@ static u16 bnge_get_total_rss_ctxs(struct bnge_dev *bd,
->  
->  static u16 bnge_get_total_vnics(struct bnge_dev *bd)
->  {
-> -	if (bnge_is_arfs_cap(bd))
-> -		return 2;
-> +	if (bnge_is_arfs_cap(bd)) {
-> +		u16 vnics = 2;
-> +
-> +		if (bd->netdev) {
-> +			struct bnge_net *bn = netdev_priv(bd->netdev);
-> +
-> +			vnics += bn->num_rss_ctx;
-> +		}
-> +		return vnics;
-> +	}
->  
->  	return 1;
->  }
-
-[Severity: Medium]
-bn->num_rss_ctx is only counted while bnge_is_arfs_cap(bd) is true. Can
-that flag be cleared while user RSS contexts still exist?
-
-bnge_init_chip() clears it when the aRFS VNIC allocation fails, and it
-does not check netdev->ethtool->rss_ctx first:
-
-drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_init_chip() {
-    ...
-	if ((bn->priv_flags & BNGE_NET_EN_NTUPLE) && bnge_is_arfs_cap(bd)) {
-		rc = bnge_alloc_rfs_vnic(bn);
-		if (rc) {
-			...
-			bd->flags &= ~BNGE_EN_ARFS_CAP;
-			bn->priv_flags &= ~BNGE_NET_EN_NTUPLE;
-			bn->netdev->features &= ~NETIF_F_NTUPLE;
-		}
-	}
-    ...
-}
-
-After this, bnge_get_total_vnics() returns 1. bnge_need_reserve_rings()
-and bnge_reserve_rings() then ask firmware for one VNIC and one VNIC's
-worth of RSS contexts. Each remaining user context still needs its own
-VNIC.
-
-On the next bnge_open_core(), bnge_reserve_rings() runs before
-bnge_hwrm_realloc_rss_ctx_vnic(). Could the context VNIC allocations
-fail at that point? Each context would then be torn down through
-bnge_del_one_rss_ctx() and ethtool_rxfh_context_lost(). I haven't
-confirmed that firmware enforces the lower reservation on later VNIC
-allocs, so this step is partly speculative.
-
-Also, bnge_init_chip() clears BNGE_NET_EN_NTUPLE directly. That bypasses
-the -EBUSY check that later patches in the series add to
-bnge_set_features(). That check stops NTUPLE from being disabled while
-bn->num_rss_ctx is non-zero.
-
-The capability is only set again in bnge_net_init_dflt_config(). While
-it is clear, bnge_fix_features() strips NETIF_F_NTUPLE. So the remaining
-contexts can't be modified, because bnge_rxfh_context_check() requires
-BNGE_NET_EN_NTUPLE. Their VNICs also drop out of resource accounting.
-This is still the case at the end of the series.
-
-Should num_rss_ctx be counted whether or not aRFS is available? Or
-should the aRFS fallback in bnge_init_chip() take existing contexts into
-account?
-
-> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-> index d98a6196c859c..a44971a7c74d3 100644
-> --- a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-> @@ -129,3 +129,116 @@ int bnge_alloc_rfs_vnic(struct bnge_net *bn)
->  	vnic = &bn->vnic_info[BNGE_VNIC_NTUPLE];
->  	return bnge_alloc_and_setup_vnic(bn, vnic, bn->bd->rx_nr_rings);
->  }
-> +
-> +void bnge_modify_rss(struct bnge_net *bn, struct ethtool_rxfh_context *ctx,
-> +		     struct bnge_rss_ctx *rss_ctx,
-> +		     const struct ethtool_rxfh_param *rxfh)
-> +{
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
+> index a8bb441ebef9a..3b26939b04578 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
 
 [ ... ]
 
-> +	if (rxfh->indir) {
-> +		u32 i, pad, tbl_size = bnge_get_rxfh_indir_size(bd);
-> +		u32 *indir_tbl = bd->rss_indir_tbl;
+> @@ -75,9 +58,10 @@ static struct bnge_l2_filter *bnge_alloc_l2_filter(struct bnge_net *bn,
+>  
+>  	idx = jhash2(&key->filter_key, BNGE_L2_KEY_SIZE, bn->hash_seed) &
+>  	      BNGE_L2_FLTR_HASH_MASK;
 > +
-> +		if (rss_ctx)
-> +			indir_tbl = ethtool_rxfh_context_indir(ctx);
+>  	fltr = bnge_lookup_l2_filter(bn, key, idx);
+>  	if (fltr)
+> -		return fltr;
+> +		return ERR_PTR(-EEXIST);
 
 [Severity: Medium]
-At this commit, is anything reading the per-context table written here?
+Should the commit message describe this change? It only says:
 
-For non-NTUPLE VNICs, bnge_fill_hw_rss_tbl() only reads the default
-table:
+    However, going forward, the filter will only be removed by the same
+    context that created it, making refcount unnecessary.
 
-    j = bd->rss_indir_tbl[i];
+The patch also makes two behaviour changes that depend on each other:
 
-struct bnge_vnic_info also has no link back to the ctx. Used as they are
-in this patch, wouldn't bnge_hwrm_realloc_rss_ctx_vnic()->bnge_setup_vnic()
-program the default table into a context VNIC?
+- bnge_alloc_l2_filter() now fails a duplicate key with -EEXIST. Before,
+  it shared the existing filter.
+- bnge_cfg_rx_mode() and bnge_uc_list_updated() now skip uc entries equal
+  to dev->dev_addr.
 
-The helpers have no callers yet. The next patch, "bnge: add ethtool
-support to manage RSS contexts", adds BNGE_VNIC_RSSCTX_FLAG and a
-vnic->rss_ctx back-pointer. It also changes bnge_fill_hw_rss_tbl() to
-read ethtool_rxfh_context_indir(vnic->rss_ctx). Could the reader side
-move into this patch so these helpers are consistent on their own?
+Without the skip, opening the device with dev_addr in dev->uc would now
+fail with -EEXIST.
 
-> +		for (i = 0; i < tbl_size; i++)
-> +			indir_tbl[i] = rxfh->indir[i];
-> +		pad = bd->rss_indir_tbl_entries - tbl_size;
-> +		if (pad)
-> +			memset(&indir_tbl[i], 0, pad * sizeof(*indir_tbl));
+Together these two changes seem to fix a bug that dates back to commit
+9afad4a17174 ("bng_en: Configure default VNIC"). Before this patch, dev->uc
+could hold the device's own MAC, for example after "bridge fdb add
+<own-mac> dev X self". In that case the open path did:
 
-[Severity: Medium]
-Can this memset() overflow the ctx indirection table when rss_ctx is
-non-NULL?
+bnge_init_chip()
+    bnge_hwrm_set_vnic_filter(bn, 0, 0, dev_addr)
+    bnge_cfg_rx_mode()
+        bnge_hwrm_set_vnic_filter(bn, 0, 1, dev_addr)
+            bnge_alloc_l2_filter()
+                returns l2_filters[0] with refcount bumped
+            bnge_hwrm_l2_filter_alloc()
+                fltr->base.filter_id = resp->l2_filter_id;
 
-The pad runs up to bd->rss_indir_tbl_entries, which
-bnge_alloc_rss_indir_tbl() sets to BNGE_MAX_RSS_TABLE_ENTRIES. That is
-the device-wide capacity, not the size of the ctx allocation.
+After this, l2_filters[0] and l2_filters[1] pointed at the same object.
+The original firmware ID for filter 0 was overwritten and leaked.
 
-ethtool_rxfh_ctx_alloc() sizes the ctx indirection area as
-max(indir_size, ops->rxfh_indir_space). bnge doesn't set rxfh_indir_space
-at this commit. The pad would then write past the indirection table,
-into the key area and beyond the end of the kzalloc'd ctx.
+The next rx-mode update freed the new ID through l2_filters[1]. Later,
+bnge_hwrm_clear_vnic_filter() freed that same ID a second time through
+l2_filters[0]. If the firmware rejected the duplicate alloc instead,
+bnge_init_chip() failed the open.
 
-This can't be reached yet because bnge_modify_rss() has no caller. Later
-in the series the pad is guarded with "if (pad && !rss_ctx)", and
-bnge_ethtool_ops sets .rxfh_indir_space = BNGE_MAX_RSS_TABLE_ENTRIES.
-Could those changes be folded into this patch?
+Could the commit message describe the -EEXIST and dev_addr skip changes?
+Could it also carry a Fixes: tag, so this can be considered for stable?
 
-> +	}
-> +}
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> index ac77ba813f01c..29a271f50e044 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
 
 [ ... ]
+
+> @@ -2058,6 +2063,12 @@ static int bnge_cfg_rx_mode(struct bnge_net *bn, struct netdev_hw_addr_list *uc,
+>  		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+>  	} else {
+>  		netdev_hw_addr_list_for_each(ha, uc) {
+> +			/* dev_addr is already installed as L2 filter 0; a uc
+> +			 * entry equal to it hashes to the same key and would be
+> +			 * rejected as a duplicate, so skip it here.
+> +			 */
+> +			if (ether_addr_equal(ha->addr, dev->dev_addr))
+> +				continue;
+
+[Severity: Low]
+Should the overflow check just above this loop also leave out the dev_addr
+entry? It still counts every entry in uc:
+
+	if (netdev_hw_addr_list_count(uc) > (BNGE_MAX_UC_ADDRS - 1)) {
+		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+
+uc_list has room for BNGE_MAX_UC_ADDRS - 1 entries, which is 3. A skipped
+dev_addr entry now takes neither a uc_list slot nor an l2_filters[] slot.
+
+Take uc = {dev_addr, A, B, C}. The check sees 4 > 3 and turns on
+promiscuous mode, although A, B and C would fit in exact-match filters.
+
+In that state uc_filter_count stays at 1. So in bnge_uc_list_updated(),
+the first entry that is not dev_addr hits:
+
+		if (count >= vnic->uc_filter_count - 1)
+			return true;
+
+As a result, every ndo_set_rx_mode call redoes the uc rebuild and the
+promiscuous rx mask setup over HWRM.
+
+The same input also went promiscuous before this patch. Back then,
+though, dev_addr did take a slot, so the count and the fill loop agreed.
+
+The fill and compare loops now count only entries that are not dev_addr.
+Could the threshold count the same way?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928061307.1172344-1-vikas.gupta%40broadcom.com
