@@ -1,69 +1,68 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B485C51B163
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC1251B188
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864498; cv=none; b=T6OPFsEXwuwlby/k+KJAFRc1HgCf/XCdYCkWq283c/o1D2I3NSyZfxo+9lE4calrUURUHgrRDO6TcU/5EeFT5G7L4Vi429LAQjjdT3F1cMHGsT6k0XEcHficCpvL98eAOxV+zKg9vdJbN9t7qcckheVGIULAkx+UN8MZDZ0rjxE=
+	t=1790864499; cv=none; b=EciyEqhx4grMCrPpkQ9Go5jnlT+LmRK9R05qogn6S1JGxnuC75FHNc55aqFYafyj3eD2MQuSMCO7OJvCTN1qwB3qBZl2dVwSN5AjN2YQLdslUdwSjH/g0FdTM4WCl4x5VsJmERNTho/FJ1sD7ik6CHVwDq9cEfkYJ6iAMCbr+C8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864498; c=relaxed/simple;
-	bh=Yv/xmdpOF6BM35fDfDz6GZPVYeNpS2zgLO6H9ajzwFY=;
+	s=arc-20240116; t=1790864499; c=relaxed/simple;
+	bh=n0cgsO9T0aWAUHgU6i5/oUZCDpuLAw/MjEqJwe2CU2I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nk8DLFIYBZpSsvhaMQYLWRuF4X/aVqzOMEi81xJ/7XgTjeRiyi+cZvKh/QmvqjZMAh/cIQgr0v+e/EFqgnO00YpJ3kVAe60+KqvZIu00SUoPqXioBXNbUoVGTQhZu8813++EbD/Dxafx3gTn3JqyqL6OTy9Q4Ji1DiGfedx1keI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZP4It3B6; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=lL+FBB75Rl8mDzqFAybBZtwDOW7iQcQn9jTmgVCXGLjfSCsWAPN7d5tC2/zciAZGFyzzAtdq+tXXa8okwYns3IaRgRBz0o3JRd8AomVOIAuWlq+Fibi3m/Q4Q0Jh0oajEEKbIzT4oBAhAUTg167x4rmCc24SpTnWMKwoUbrvFH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AuxVfQzF; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZP4It3B6"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso67950805e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:21:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AuxVfQzF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso60251405e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:21:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790864495; x=1791469295; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790864496; x=1791469296; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K7TkIz3XcNZzBFScIUbNy9ytIHILZUanUufywGu/Sn8=;
-        b=ZP4It3B6n7cocF6xxVG6pDYkmRZxScpI5O8tb30mURgQPt6+p2HkhxvCzdzVY5Nc2b
-         9KbrpomBjwrjuykqP1AajM0EMPwJqOCffu0q67NwMBNxvZ+KnbtBkLiZlvw7SbDUSuQo
-         V9ZfKF/3U5TAYKDurMf3U6U/IK3SP6Vu1NeuJtbiWG6FyNqZ4jzQGTf21DWNAbCHcRxH
-         wvX7NtMl2EsW0kIa7KvEE+MAWlFbtw7UYiEcfxTq2Kyy/JvtXlv0DCs0eo6WOtmTJibc
-         mB4Ss3wmNtDu+gG6YlM3F/adv1r3vwegg7oRlm0GPVJKA7uPTR32+lEnLH4pxET1U4Nu
-         nXgg==
+        bh=m/XzKic3mIkTxbK/Zld2/LgmkZ+m7jvrTtGlJe2zmg8=;
+        b=AuxVfQzFFvCiAo8nv35+gbCN+jcwRReCKsdVNphD64gwx9GuA7yontWyaQCyGBZvCf
+         PIA67Y2BFRFzuRof2UKQ4mpkJ8TX0m9xrCCb0R58YnpTi0RhInlbAVzNCw3a1HRB/ETX
+         lqi8sIAWPhn8meEXZKYnUh5RRVqalqRhjudpavefwamWXVA5GXQRpC9JmE4m3M+nylSB
+         MgZKzDtD8eEGgiszUODjCceOb4GTOTR+XxUqoQfa0MKDjl90SHr86yF14IS2q4CZY9uz
+         WL9deHtfkuY3jxEqOZMSqxwnVVdpOZSapv0v4GCLN5yagtMIjAquXDru2BFniMnH+L44
+         bVXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790864495; x=1791469295;
+        d=1e100.net; s=20260707; t=1790864496; x=1791469296;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K7TkIz3XcNZzBFScIUbNy9ytIHILZUanUufywGu/Sn8=;
-        b=UPgVGCA6PTp+PS3UTxhgOYwGrcbsVbNDJHxG4O1qteq9LhD48KqwgJu+ZNBvcknKat
-         KG6QmIoEf6n57zVfmHRpP/+dmHBC1owh2n+g2ImJsqQm2cG9Oa6D5LsITVE/I5mSH263
-         5+VTCPg9Y4cdL2hqndlqEQEQFaHXqhpRcpTH0K4unptatL+3OJEuyBJTPFLIaiGtS7XJ
-         SUT/N7viTZi9FWlfSyhDWFsMjVPUSlewTGwVy/B4+9j5Lt265XtpE7uozAJBBh5rWpln
-         BjsqfbveMxpi8DnGVNxqzDd4oqIFomUCE2f/XjvJ3f9cucrdxF02+mZ8QgTmHOzWzaqK
-         tNHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxR3vQli2J/DPFR5ZovtUeuDgvhRCfSUHCv54puxdz+Q527e9HTqiWm6TAOWivFVDyKUrAEZE+V1tjPWm8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4S43SLrRLxGt5y/le6TCjBLtKFegQmNuqM1bTwAnBXAIXFWam
-	b8RCSbeoZh7pIY5hLNG8qn1SSCUte/vA44Y2VWc3Eexywp5vOhAnyz+aRBGv3SpSs7o=
-X-Gm-Gg: AYBFou25cJxWaYUyZhdl4eWHUVcTkY7rBTV7iOp2yCypLJbR2TbMrM2yikNqC9cPeAC
-	pyYG8mDF4c3Zi0H19qo8xrY7JOPY1QkGTtiBhjAwHcqLNE1Py/SfjIgvxjGruYYv1eGnbDV7HNV
-	6q6z+sXQ78iqbjrCZ11noQsG8yfgMHDeNGm3+V7Xx7vt2Q+nkpjpBFDEiEWrdzwD/0xdQuXhuK+
-	LG2zjmT/ShQEL2eJAwEjJd7Sj0l3K7HRGASy7jwOKB9wkpWgl8dJSGr8AlQHicBILesLh7Zk1vy
-	k9xjcU9oqkxCxbjGJkr0m6hjOYEjMCD8J1jEq/u8hxgrDLt/J6BwCz43xplwJbGm456PmMknwPs
-	ezsQswwo5rl+Sa1bJ5CzlX6tWSu5/MsC6vYu2DlVbg5tSeZTwn6yhtPk3W2td7ah/3ZxyzzHqyK
-	uPBjxM92vG8Namazf723oF7oj8CyLCrw51eXeGKBFaYgZp/oY3eQWh7Ficqh01rsUoxsX1cMVwf
+        bh=m/XzKic3mIkTxbK/Zld2/LgmkZ+m7jvrTtGlJe2zmg8=;
+        b=jKO1MI2EIfY+WcCfKssq9Vho5mnxiN866p3WDoqja/4rdiX7LsBUJp/QtMcf/w8KQ3
+         A5mgjOqJ4Xl9G/NtuqLwv6H/0/m3cez7QeDT9DiY5zT0RTXNKANmu8ROkrybImIeOO0z
+         kPNUcacB3kb0fO+ZtwPzuXVDIsc+eqswVe5BjwEnLeApnFmVw3pwuP/4lf2C7qIpOoQA
+         mlgTmXiZWoWwjrPA1I5aauJkAiV0LvyVnCnK+Tq/WQFvdncdoiOC6WF9ASG49ZV8kREt
+         MKA8i7HDWwDGRmLxEQzE26PGY9mWv355wUe1QlxiLQhaBVoFM7zRmi1n2rxdwRKcb4cO
+         fysQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNTYPWUVWeIA1XGRSRpOLlok0rYqW/UWqv6MYQsqZmOco4Gfass6cpj4Xp4MoVBavyNPitEysnxb0wUP0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mI5DA4l0WcNoFcC2fP33HyCz7NONV76O+WeiYO3RQBKiWbKo0v
+	zG1LGBTlnHdCXIJvxHEfBuLEU2QUqKg2rbyn+8BkIbe3lK5m1e4aP+JlSZhmiYWYZUc=
+X-Gm-Gg: AYBFou2OIWOi8eQzQAp4M179H7xMpaZG84y7A5UntVK7Ds46x2Dlm3UecxpxhFNBV4J
+	atF6x2+FZC9HkuxbJGtKfAHeD4KpW6XbFa36QS1RKSORDLfPQ/gA3dwjJ2qVvsgCPgXvL7gwDm5
+	RQVe/6qXQ8h+hysS/2eoWK3Tjqm7t050wqlBP5IWOtEl22yqT7TniwA0YOVF+IysDHIdd8jrlRY
+	zde7lxnVqpNS4YYd+ngby7h8OFM2lgGGwWOPcfosYEbw8i3QL+mx/R4fXv950aew0CamjS4k7r9
+	tybNT6vRZEeBTLHWjVhQ0wWO2tRjokqgBrsk0pMKd5KP8/2J5x8hpVbbJcsg0X8TNMCDl6J+za9
+	0JUwM4IuCM+kkYbGwqpNIJja/CU/vQxcd/CHyfVunlKQ1kxT7UW1Ob3dS6TdfLQ9KAfavosUNKG
+	9yLUURqrixJG76BUictq3zTbMxGB3HopUVJpvcN3gU9xFd+gioGVQBEiZ35u2+qAtKaqOig6ofq
 	Q==
-X-Received: by 2002:a05:600c:638d:b0:4a0:21b9:a55c with SMTP id 5b1f17b1804b1-4a021b9a5f4mr42960425e9.29.1790864494791;
-        Thu, 01 Oct 2026 07:21:34 -0700 (PDT)
+X-Received: by 2002:a05:600c:6206:b0:49f:eddb:bcb1 with SMTP id 5b1f17b1804b1-4a01b11cb33mr86968865e9.25.1790864495929;
+        Thu, 01 Oct 2026 07:21:35 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f1c2sm34783975e9.2.2026.10.01.07.21.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f1c2sm34783975e9.2.2026.10.01.07.21.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:21:34 -0700 (PDT)
+        Thu, 01 Oct 2026 07:21:35 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Date: Thu, 01 Oct 2026 15:21:15 +0100
-Subject: [PATCH 1/2] perf/core: Return errors from
- perf_report_aux_output_id()
+Date: Thu, 01 Oct 2026 15:21:16 +0100
+Subject: [PATCH 2/2] coresight: Retry failed HW_ID writes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-james-cs-retry-hw_id-v1-1-4d45ab46cde7@linaro.org>
+Message-Id: <20261001-james-cs-retry-hw_id-v1-2-4d45ab46cde7@linaro.org>
 References: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
 In-Reply-To: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -88,57 +87,108 @@ Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
  James Clark <james.clark@linaro.org>
 X-Mailer: b4 0.15.2
 
-It's useful to know if this failed or not so a retry can be attempted
-later. Return the error code or success.
+Don't set the aux_hwid_done bit when writes fail so that it can be
+retried later if the ring buffer was full. Add a second attempt on stop,
+which will always succeed if the stop's AUX output also has enough space
+to be written. If there is no AUX record then there will be no decoding,
+so the missing HW_ID isn't important.
 
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- include/linux/perf_event.h | 2 +-
- kernel/events/core.c       | 6 ++++--
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ drivers/hwtracing/coresight/coresight-etm-perf.c | 50 +++++++++++++++---------
+ 1 file changed, 31 insertions(+), 19 deletions(-)
 
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 48d851fbd8ea..01d318a4de50 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -1896,7 +1896,7 @@ static inline struct fasync_struct **perf_event_fasync(struct perf_event *event)
+diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+index 09b21a711a87..9238a12628fb 100644
+--- a/drivers/hwtracing/coresight/coresight-etm-perf.c
++++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+@@ -536,6 +536,31 @@ static int etm_event_resume(struct coresight_path *path)
+ 	return ret;
  }
  
- extern void perf_event_addr_filters_sync(struct perf_event *event);
--extern void perf_report_aux_output_id(struct perf_event *event, u64 hw_id);
-+extern int perf_report_aux_output_id(struct perf_event *event, u64 hw_id);
- 
- extern int perf_output_begin(struct perf_output_handle *handle,
- 			     struct perf_sample_data *data,
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index d7f3e2c2ecb1..232da3b6f393 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -10563,7 +10563,7 @@ static void perf_log_itrace_start(struct perf_event *event)
- 	perf_output_end(&handle);
- }
- 
--void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
-+int perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
- {
- 	struct perf_output_handle handle;
- 	struct perf_sample_data sample;
-@@ -10585,12 +10585,14 @@ void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
- 	ret = perf_output_begin(&handle, &sample, event, rec.header.size);
- 
- 	if (ret)
--		return;
-+		return ret;
- 
- 	perf_output_put(&handle, rec);
- 	perf_event__output_id_sample(event, &handle, &sample);
- 
- 	perf_output_end(&handle);
++static void etm_output_hw_id(struct perf_event *event,
++			     struct etm_event_data *event_data,
++			     struct coresight_path *path,
++			     struct coresight_device *sink)
++{
++	int cpu = smp_processor_id();
++	u64 hw_id;
 +
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(perf_report_aux_output_id);
++	/*
++	 * output cpu / trace ID in perf record, once for the lifetime
++	 * of the event.
++	 */
++	if (!cpumask_test_cpu(cpu, &event_data->aux_hwid_done)) {
++		hw_id = FIELD_PREP(CS_AUX_HW_ID_MAJOR_VERSION_MASK,
++				CS_AUX_HW_ID_MAJOR_VERSION);
++		hw_id |= FIELD_PREP(CS_AUX_HW_ID_MINOR_VERSION_MASK,
++				CS_AUX_HW_ID_MINOR_VERSION);
++		hw_id |= FIELD_PREP(CS_AUX_HW_ID_TRACE_ID_MASK, path->trace_id);
++		hw_id |= FIELD_PREP(CS_AUX_HW_ID_SINK_ID_MASK, coresight_get_sink_id(sink));
++
++		if (!perf_report_aux_output_id(event, hw_id))
++			cpumask_set_cpu(cpu, &event_data->aux_hwid_done);
++	}
++}
++
+ static void etm_event_start(struct perf_event *event, int flags)
+ {
+ 	int cpu = smp_processor_id();
+@@ -544,7 +569,6 @@ static void etm_event_start(struct perf_event *event, int flags)
+ 	struct perf_output_handle *handle = &ctxt->handle;
+ 	struct coresight_device *source, *sink;
+ 	struct coresight_path *path;
+-	u64 hw_id;
  
+ 	if (flags & PERF_EF_RESUME) {
+ 		path = etm_event_get_ctxt_path(ctxt);
+@@ -596,22 +620,7 @@ static void etm_event_start(struct perf_event *event, int flags)
+ 	if (coresight_enable_source(source, event, CS_MODE_PERF, path))
+ 		goto fail_disable_path;
+ 
+-	/*
+-	 * output cpu / trace ID in perf record, once for the lifetime
+-	 * of the event.
+-	 */
+-	if (!cpumask_test_cpu(cpu, &event_data->aux_hwid_done)) {
+-		cpumask_set_cpu(cpu, &event_data->aux_hwid_done);
+-
+-		hw_id = FIELD_PREP(CS_AUX_HW_ID_MAJOR_VERSION_MASK,
+-				CS_AUX_HW_ID_MAJOR_VERSION);
+-		hw_id |= FIELD_PREP(CS_AUX_HW_ID_MINOR_VERSION_MASK,
+-				CS_AUX_HW_ID_MINOR_VERSION);
+-		hw_id |= FIELD_PREP(CS_AUX_HW_ID_TRACE_ID_MASK, path->trace_id);
+-		hw_id |= FIELD_PREP(CS_AUX_HW_ID_SINK_ID_MASK, coresight_get_sink_id(sink));
+-
+-		perf_report_aux_output_id(event, hw_id);
+-	}
++	etm_output_hw_id(event, event_data, path, sink);
+ 
+ out:
+ 	/* Tell the perf core the event is alive */
+@@ -679,6 +688,7 @@ static void etm_event_pause(struct coresight_path *path,
+ 		if (!size)
+ 			return;
+ 
++		etm_output_hw_id(event, event_data, path, sink);
+ 		perf_aux_output_end(handle, size);
+ 		perf_aux_output_begin(handle, event);
+ 	} else {
+@@ -769,10 +779,12 @@ static void etm_event_stop(struct perf_event *event, int mode)
+ 		 * But we should never get a non-zero size with
+ 		 * an invalid handle.
+ 		 */
+-		if (READ_ONCE(handle->event))
++		if (READ_ONCE(handle->event)) {
++			etm_output_hw_id(event, event_data, path, sink);
+ 			perf_aux_output_end(handle, size);
+-		else
++		} else {
+ 			WARN_ON(size);
++		}
+ 	}
+ 
+ 	/* Disabling the path make its elements available to other sessions */
 
 -- 
 2.43.0
