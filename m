@@ -1,59 +1,62 @@
-Received: from mail-dl2-f33.google.com (mail-dl2-f33.google.com [74.125.229.161])
+Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8333C9EE4
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA76E3D9672
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869908; cv=none; b=b0JtfM/Tx/0zl7yP6gzYNK92g/mpp+2S9leDL5TuE5QgVzp9JG0gpZC4sSv5lSbUkKgNC4fhQIAba6tzKlDeCTKGC4YJHkCoRlBtkN5U9bQNWUyj/xo2h+uoC4kAhjJN08Nz7OYsszrGx9OdvpUNGu6DAv+w0o7WqbEUGS9UcGs=
+	t=1790869911; cv=none; b=W4SZ4bvi2XTwUWosMunoeAamrt7d/K40ez9zwiBt12i5vWREuhiiQ0TFPnt3xwzyrubQjnZsjM2xHLFHcM7rQmRmheygEoi9fPe1bnUPiBL786qrTe0jPr6Q/C/ylJLiQjYVmppD+53dREWShifbKe2fg/WcO2031MNYlKArcTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869908; c=relaxed/simple;
-	bh=OF2UpoVYoX410mc1SzzOypl8KSOO/KvZWjbPCC/0g54=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TbHpBr9ccc536keo9+OAOyqxpevVbie+UWzZsAO+KOwJLXEPgvqOIQddC5brIP8FU2U0oo9PGMl2i6ma2gD/flVqQuu46oePa7SMYww9+7P0hvvI77My7pDs6JWXuFcnNkhVMh+0jtSHa0DIbZ6txSBw4qMsQD9wz8PtRsHQVt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AhPM8Lsb; arc=none smtp.client-ip=74.125.229.161
+	s=arc-20240116; t=1790869911; c=relaxed/simple;
+	bh=DRuYS6nJzbisklEmG9VGpJMv7OLXZREiWlNAEOs4Cto=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V4u7kTmDz8XqErr8HKD5AI4jJPbwQnW0ilSuqrCl5ynsvpjr8+avw6jKZf1oIq/DL8xaaXhr3Ne1T/4jE7s45oqd9sPtRE3p2L5YyuF4HuIxu9V4dqe+PLRwiklDxcJC3sSYRjIc/WetjMPGnP0Dllz2ea4CfJMPUPM5nbdzrLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=oPMwj9/c; arc=none smtp.client-ip=74.125.229.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AhPM8Lsb"
-Received: by mail-dl2-f33.google.com with SMTP id a92af1059eb24-1438e88300cso6934308c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:51:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="oPMwj9/c"
+Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-14d7cc24630so492796c88.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:51:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790869905; x=1791474705; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9SSVxD8Q50vKAGJw1dPQdeHHdj1MbKb779CFMeOXNtI=;
-        b=AhPM8LsbVad94+zbA2lzdNWS7cmrAbRUZUTKHYSpn8ECtOWLh9wZbr7OuEMpN/17pE
-         aRReW2uAR4S6ND238PjWx6eipDWIOFMrhFgQc2BymCAr5d3/rN5rLz9SbPHAMEAMtee+
-         mGz/oZFaPmkBXU2f78UHQaXLOxS2r21eW/3No=
+        d=chromium.org; s=google; t=1790869908; x=1791474708; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sn8QPD06wSFfERXpwi+AgvKn9yQXziTJ5mHNKrwW3Nk=;
+        b=oPMwj9/cuc1PfASFUw4gfLBobO4RJh5DAXCSXHXVC+HtFQurpL8ASvMvR7AigbT9CI
+         vW0BXFJHe6F3XbUHfztrz/Ce7swiGajNMOiAONehloixBYzva3TSQqiPjjT1h7RnQXbs
+         fxacdPVQ0Exe+TL7GZfLPqZoS00Tuv/+I+dWw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790869905; x=1791474705;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9SSVxD8Q50vKAGJw1dPQdeHHdj1MbKb779CFMeOXNtI=;
-        b=2HraXUq0Z1FMQBy2E5SQIbTrXI+wG5xQL0VFZnnTU0Ywsk3Qm/WlBcxwFaUXQoIAkd
-         6p8P8cIZjxMSKvIoO1yw7Yj7MrgtVq9dpnobhtqSmlJUktBfmRIw4OpMy8/E5devbVz0
-         NZ5TahFr6iBaV8DGoDlELV1dzNi1Ry2dwAadNBTIaq+s4Ma2EdKbcuzuiAM83OHTGY5o
-         qF05/aF2ujVBXe8B/NgzrvE8dFvh95TXJZqUITFuBcAGmkIfEjQpFOajADvjTbm3rRfh
-         GGYLFD0vWavVN7/Xj99V+SWtRf1yt6qs8xUhsZLfV5arDuG91524+O2unekglR7oVOo7
-         P5Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBzPMYwld+nPF8Ejdj63bUxBwSt+Bn9MiW+3mjWIHTspQtSNE4NkrmC6SpaPUaPoUW80DjENIrSdfJQeSSI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKWaVpMwxGHELQtCpYsBoRSa3ETG2VMeR7PKP+A9qSiv7yf78+
-	Ty4mz4PVID1hN1fS6ea65QR+8xpATsdHX/4v+26QWV32QR60fKZSPv9aHqWA+gZ6yw==
-X-Gm-Gg: AYBFou0/A/pTVraY9I2t/nl8w5/JWa13baBBPV0n08RRIr+DiaVuIoGFlIi9gi0QsBS
-	2QYjXlF676gPgONWd1Qx5LUY73ePZ+vxanu9MtbjrGb76P5Ad8Bhek8f9lMyso2mMvLd5/e4z+b
-	ZbkqaxtZWhHoOudnsBqwHAaC+NXlAAM3QIlEBrbmTI331O0WU34GSmXY2pwoSuF4xw4Bt6IBSsS
-	ee1ocLG6GEW18P1dVHzLFYrzTcj1MnLsmlEyxEnYfxvcSzYsBhG/kopMf68BlMaNLt5jL8rz+RC
-	/15oCF6zYWNWChH4sii0uAfOlYaiMPw0GgdhpLMWPkU+HJlwLd1+Iz+wWylSdL70Z88JFhO1RnU
-	lteUHVDLkUO87Cj0pQOG70vLmPLA9EvObKLDlt77s43rW8chyOazqHas8dVJThK6zxLJyPUPK1g
-	8X27OOnvad3HVKawUkzBLZJnZu5zaN40Sc6XUiaLxNqLN2GupdVsjGWm2zyy5PzPJQUGcAymUMJ
-	zsw3uhY7GJ73QqeWlik8h+NGWtag7MqpzG7zTQ=
-X-Received: by 2002:a05:7300:b2af:b0:34b:354b:79b9 with SMTP id 5a478bee46e88-34cdbadb190mr5134704eec.12.1790869890202;
-        Thu, 01 Oct 2026 08:51:30 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790869908; x=1791474708;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sn8QPD06wSFfERXpwi+AgvKn9yQXziTJ5mHNKrwW3Nk=;
+        b=RG7e4K9wjUAzxVsmZA8U5W7H4HTTkJOdJNYHJhnJPI8YHZ5uqZv8r9nxHF/IKmqHDT
+         9rnYXsfDDrSCw8DI507Vesx16UKjl+t7GNaFGhEeWfOZShK4WPgaqK2i0gc0KnKVby2F
+         utSeRXhVHDxCQKJDQDCA1sDg4mG9erk/+zYfPWD8YP0B4w+Hq1nT+41kNRKuu2El2Om/
+         GVIuJpeAS5+i1OyGUfdugpjjTWxNWVeL39AoMDPjcpvIWpreY/Ymo49tvYQt+ryGDvGp
+         BCpGvCp7jgNFYPAIESD0H6oxeRbKik148PngBu/vUf1Rpf2jN6Jk7e44UNZj0JADtbra
+         5hew==
+X-Forwarded-Encrypted: i=1; AKwUvBwMDN0MRWaYhyp1NxitMHrobQ4VfsLUacnlKZMJFhseWzU4aJwU9f0lGjswiDr8y84f0gvEIPy1ss53UZY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kms5n4u/1sJRZlTyh40B3gB4xLRzJ5M9FotMk9c7VqcMGyVStZ
+	AtKfty1eEb4YZxIUnZntdNUxErYmrEB/DxLOWLH1QjPq5zMMVNf+rNKKGGuqDnZ7aQ==
+X-Gm-Gg: AYBFou1IOpsvD8FBXj3N2JzLkUoo5k5KxdiVvmWsIiapeWY8iJpnBYA8SU1oJAZq9CA
+	9E+sQrGUjAwdvWI9B8/PeO8l4BSw9Y9w98fExZcl097tnqEwu8fO8L03TeBoUNZ/rmEIu+r/imY
+	SAH4IVe5JgyhidZoZbUvrkwRbyaBmjXfUxsqQgBq0yzIFw1UdtxUJt6QKJIFntvXb2GQohYXEGj
+	xSFTQTUxIGFcruyFQLTHqa15AHDBegdQLF7d91i5/0prdVnsqTlDcLxloAZ38PB0/zja1KFbAQe
+	OxC5rh3C3HaN++9F7jfOxu+3pt1XOYKqCDE9uHFOno1yfUdcx2xgQdXZpgwSqL1MD7L5izjEk3W
+	KEPLynlw5Yh74eOmNb0JFrIOp8zAtjGDnw9vQQnL5EQXrSnkECDq5ZGS9nPEjfdZCjTokV8ZFJV
+	7OsZrySEfLJPfc/wubrKoHkmh+nh6Zz4mNlsd6Pets2nvEdTnKAaqNQrmtEmRoUqg17v1mpuEsu
+	x3E4i1nblVIjtQdOvMpurjDRA83CAmCfu0QjIdGUG1+eAu/
+X-Received: by 2002:a05:7022:7f03:b0:136:c443:80e5 with SMTP id a92af1059eb24-14d2f6ec4b9mr4842692c88.6.1790869907570;
+        Thu, 01 Oct 2026 08:51:47 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:7cf1:ee59:f140:7be9])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-34db3750765sm7796452eec.12.2026.10.01.08.51.28
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-14f266d1156sm228201c88.6.2026.10.01.08.51.46
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 08:51:29 -0700 (PDT)
+        Thu, 01 Oct 2026 08:51:47 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>
 Cc: Pavel Machek <pavel@kernel.org>,
@@ -64,83 +67,52 @@ Cc: Pavel Machek <pavel@kernel.org>,
 	Len Brown <lenb@kernel.org>,
 	Ulf Hansson <ulfh@kernel.org>,
 	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH v4 0/2] PM: runtime: Overhaul kerneldoc, runtime_pm.rst docs
-Date: Thu,  1 Oct 2026 08:50:07 -0700
-Message-ID: <20261001155118.1750028-1-briannorris@chromium.org>
+Subject: [PATCH v4 1/2] PM: runtime: Expand introduction with core concepts and structure
+Date: Thu,  1 Oct 2026 08:50:08 -0700
+Message-ID: <20261001085009.v4.1.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20261001155118.1750028-1-briannorris@chromium.org>
+References: <20261001155118.1750028-1-briannorris@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The runtime PM documentation could use some improvements and additions,
-to help guide people less familiar with the main runtime PM concepts and
-its internal implementation details.
+I commonly see people have difficulty learning how runtime PM works
+because of the following key points [*]:
 
-v1 is here:
-https://lore.kernel.org/all/20260904212000.4167880-1-briannorris@chromium.org/
+ 1) there are several boolean concepts in runtime PM, with somewhat
+    similar meanings:
 
-v2 is here:
-https://lore.kernel.org/all/20260923174711.1283986-1-briannorris@chromium.org/
+     enabled / disabled
+     active / suspended
+     allowed / forbidden
 
-v3 is here:
-https://lore.kernel.org/all/20260930025044.104824-1-briannorris@chromium.org/
+ 2) if these concepts are documented at all, they're scattered across
+    the kerneldoc or Documentation/
 
-Most of the v1-v3 series has been applied already. For the remaining
-work:
+ 3) the runtime_pm.rst docs don't make any attempt to ease a reader into
+    understanding the concepts, and instead jump straight into how it's
+    implemented (queues, 'struct device' fields, helpers).
 
- - Clarifying core concepts in the Introduction. (Pretty much all new
-   readers I encounter have a hard time with the difference between
-   "enabled", "allowed", and "active".)
+Let's try to remedy this a bit by discussing the core concepts and
+highlights at the top of the introduction, and introduce a few
+sub-headings, so it's easier to navigate different aspects of the
+introduction.
 
- - Adding Example driver patterns -- because the API is so large and
-   complicated, it can help to try to walk people through standard
-   practices, and what everything means in context.
+While shuffling the intro around, I also see that the existing text
+largely mirrors the layout of the following sections (2, 3, and 4), but
+does so out of order. Reorder those, and point to section numbers.
 
-Feel free to add suggestions! Within reason, I'm open to tackling more
-here, as I think many people have many valid perspectives on exactly why
-and how the docs do or don't serve people well today. Or I can tackle
-less, if you think some of my choices are not improvements.
+[*] In addition to API complexity. I count 61 pm_*() helpers, 7 of which
+    are variations of put() and 8 of which are variations of get().
 
-Some possible follow-ups I'm toying with:
-
- * Slimming down the API might be better than heavily documenting it. A
-   smaller API is a more digestible API.
-
-   My only concrete next step: drop __pm_runtime_put_autosuspend(). Its
-   last user is nearly gone:
-   https://lore.kernel.org/all/20260806-smmu-rpm-v4-1-8183d007331c@oss.qualcomm.com/
-
-   I could also see deprecating one of
-   pm_runtime_put_sync{,_suspend,_autosuspend}(). They all do slightly
-   different things, but I'm not sure every difference is actually fully
-   intentional (or at least, not necessary).
-
- * Tweaking some of the behavior on pm_runtime_barrier(). Today, it's
-   very asymmetric, as it prefers resume. But I believe there may be
-   value in making it flush (not just cancel) pending suspend too. That
-   may be in a future proposal; for now, I just try to make its
-   asymmetry more clear in the docs.
-
- * Sand down some more rough edges on return codes. For example, it's
-   very difficult to get any useful meaning out of pm_runtime_put_sync()
-   return codes. There's a high chance that anyone trying to treat
-   return codes as errors is inviting bugs. (Is -EAGAIN a failure?)
-
-   Of course, the answer there is not "document it better" -- we can
-   make it easier to use.
-
- * Adjust the way devm_pm_runtime_enable() works, specifically for
-   remove()/teardown. Currently, this is very hard to use correctly --
-   some common driver patterns may assume that a device will tear down
-   while RPM_SUSPENDED; but that's not actually guaranteed. Notably,
-   this makes some of the "Examples" section fairly tricky/subtle.
-
-Regards,
-Brian
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
 
 Changes in v4:
  * Significantly overhaul introduction, based on Rafael's
@@ -149,32 +121,153 @@ Changes in v4:
    intro
  * Expand the "in use" and dependencies concepts in the introduction
 
-Changes in v3:
- * Rewrite Examples to avoid devm_* at first, to highlight correct
-   approaches
- * Include error-handling and remove() in any probe() Examples
- * Advise more caution when using devm_*, as ordering issues are subtle
-
 Changes in v2:
- * Major rework on Introduction section, especially regarding "enabled"
-   and "active"
- * Add appropriate teardown to "Probe with Hardware Powered Off"
-   Example, as the remove() + power-off behavior is subtle here, and
-   easy to get wrong
- * Drop changes that are already applied
- * Add a few new fix patches, noticed while reviewing the rest
- * Move Introduction patch near the end of the series, as it is a likely
-   target for further discussion and modification.
- * Correct Ulf's email address
- * CC linux-doc
+Address review feedback around descriptions of "enabled" and "active". I
+know not every point of discussion was settled, but I hope this updated
+version resolves many of them and provides a better basis for further
+improvement.
+ * Avoid calling enabled and active "orthogonal"
+ * Describe more of their inter-relationship
+ * Prioritize talking about "enabled" first, since that's the first
+   concept a reader should know about
+ * Brief mentions of parent/child and supplier/consumer, and dependency
+   handling
+ * Other tweaks
 
-Brian Norris (2):
-  PM: runtime: Expand introduction with core concepts and structure
-  PM: runtime: Add Example Driver Patterns section
+ Documentation/power/runtime_pm.rst | 114 ++++++++++++++++++++++++-----
+ 1 file changed, 95 insertions(+), 19 deletions(-)
 
- Documentation/power/runtime_pm.rst | 589 ++++++++++++++++++++++++++++-
- 1 file changed, 568 insertions(+), 21 deletions(-)
-
+diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
+index 68903d93a3e7..e4407b687f8b 100644
+--- a/Documentation/power/runtime_pm.rst
++++ b/Documentation/power/runtime_pm.rst
+@@ -13,31 +13,107 @@ Runtime Power Management Framework for I/O Devices
+ 1. Introduction
+ ===============
+ 
+-Support for runtime power management (runtime PM) of I/O devices is provided
+-at the power management core (PM core) level by means of:
+-
+-* The power management workqueue pm_wq in which bus types and device drivers can
+-  put their PM-related work items.  It is strongly recommended that pm_wq be
+-  used for queuing all work items related to runtime PM, because this allows
+-  them to be synchronized with system-wide power transitions (suspend to RAM,
+-  hibernation and resume from system sleep states).  pm_wq is declared in
+-  include/linux/pm_runtime.h and defined in kernel/power/main.c.
+-
+-* A number of runtime PM fields in the 'power' member of 'struct device' (which
+-  is of the type 'struct dev_pm_info', defined in include/linux/pm.h) that can
+-  be used for synchronizing runtime PM operations with one another.
++Runtime power management (or runtime PM, sometimes also referred to as RPM)
++allows individual I/O devices that are not in active use to be put into
++low-power states, in which they may not be operational or even accessible, and
++go back to the fully operational state as needed.  Power can be reduced this
++way without waiting for a transition into a system-wide sleep state.
++
++Core Concepts
++-------------
++
++Runtime PM operates around a few device-level concepts — whether a device is
++**active** or **suspended**; whether runtime PM is **enabled** or **disabled**;
++whether runtime PM is **allowed** or **forbidden**; and whether a device is
++**in use**.
++
++* **Active**: Runtime PM tracks whether or not devices are in active use, which
++  generally means that they are accessible and operational, and may be depended
++  on by something (for example, other devices or user space).  This is
++  represented by the **active** meta-state.  By contrast, the **suspended**
++  meta-state represents a promise that the given device will not be accessed.
++  This covers devices in low-power states, but it also may include devices that
++  are not fully operational.  There are also two transient meta-states,
++  **suspending** and **resuming**, representing transitions between **active**
++  and **suspended** often referred to as *runtime suspend* and *runtime
++  resume*, or just *suspend* and *resume*, respectively.  Every device handled
++  by runtime PM is in one of these four meta-states at any time, and its
++  meta-state is expected to reflect its actual physical configuration (that is,
++  for instance, if the device is not accessible, it must not be **active**).
++  The term "runtime PM status" used in what follows refers to the meta-states
++  described above.
++
++* **Enabled**: In order to track the runtime PM status and carry out
++  transitions between **active** and **suspended**, runtime PM needs to be
++  **enabled** for the given device.  If it is **disabled**, runtime PM
++  generally leaves the device alone.  This means in particular that the runtime
++  PM status of a device and its actual physical configuration may get out of
++  sync after disabling runtime PM for it.  Additionally, the runtime PM status
++  of a device may need to be explicitly adjusted to reflect its current
++  physical configuration before enabling runtime PM for it (e.g., during device
++  probe).  Once runtime PM is **enabled**, it begins managing PM status —
++  performing *runtime suspend* and *runtime resume* transitions based on its
++  understanding of whether a device is in use.
++
++  As a rule, all devices are initialized with runtime PM **disabled**, though
++  some bus types (such as PCI) manage some RPM initialization automatically,
++  and therefore probe devices in an **enabled** state.  For other devices,
++  drivers must enable runtime PM on their own to opt in.
++
++* **Allowed**: Runtime PM may be **forbidden** even though it has been enabled.
++  Doing so causes the given device to transition into the **active** meta-state
++  and prevents it from being suspended.  In other words, a device with
++  forbidden runtime PM remains **active** at least until runtime PM is
++  **allowed** for it again.  This mechanism can be managed by in-kernel APIs,
++  but more importantly, it is also available to user space via the
++  ``/sys/devices/.../power/control`` sysfs attribute of the given device.
++  Namely, writing ``on`` to that attribute forbids runtime PM, and writing
++  ``auto`` allows it.  User space may modify that attribute at any time, so the
++  ability to transition a device into the **suspended** meta-state via runtime
++  PM must not be relied on for correctness.
++
++* **In use**: Runtime PM determines whether a device should be transitioned to
++  an **active** state by its understanding of whether a device is in use.  The
++  first way a device is considered **in use** is by its own usage count — a
++  reference counter driven by a variety of get()/put() APIs.  Additionally, a
++  device may be considered **in use** by having active dependents — either
++  child devices, or device-linked consumers.  When a device is no longer in
++  use, runtime PM may choose to transition it to the **suspended** state.
++
++  Thus, when a device moves from **suspended** to **active**, it may also cause
++  its dependencies to resume, unless they are **active** already.  Conversely,
++  suspending a device may also cause its otherwise-unused dependencies to
++  suspend.
++
++* **Autosuspend**: Runtime PM also supports a feature called "autosuspend."
++  This is different than the ``control`` notion of "auto" (i.e., **allowed**).
++  Autosuspend is covered in `Section 9`_.
++
++Implementation Structure
++------------------------
++
++Support for runtime power management is provided at the power management core
++(PM core) level by means of:
+ 
+ * Three device runtime PM callbacks in 'struct dev_pm_ops' (defined in
+-  include/linux/pm.h).
++  include/linux/pm.h). See `Section 2`_.
++
++* A number of runtime PM fields in the 'power' member of 'struct device' that
++  can be used for synchronizing runtime PM operations with one another. These
++  are covered in `Section 3`_.
+ 
+ * A set of helper functions defined in drivers/base/power/runtime.c that can be
+   used for carrying out runtime PM operations in such a way that the
+-  synchronization between them is taken care of by the PM core.  Bus types and
+-  device drivers are encouraged to use these functions.
++  synchronization between them is taken care of by the PM core. Bus types and
++  device drivers are encouraged to use these functions. They are covered in
++  `Section 4`_.
+ 
+-The runtime PM callbacks present in 'struct dev_pm_ops', the device runtime PM
+-fields of 'struct dev_pm_info' and the core helper functions provided for
+-runtime PM are described below.
++* The power management workqueue pm_wq in which bus types and device drivers can
++  put their PM-related work items. It is strongly recommended that pm_wq be
++  used for queuing all work items related to runtime PM, because this allows
++  them to be synchronized with system-wide power transitions (suspend to RAM,
++  hibernation and resume from system sleep states). pm_wq is declared in
++  include/linux/pm_runtime.h and defined in kernel/power/main.c.
+ 
+ .. _Section 2:
+ 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
