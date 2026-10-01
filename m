@@ -1,66 +1,62 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011011.outbound.protection.outlook.com [40.107.74.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3337497385
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790867438; cv=none; b=HYiC0OYqBkcy5hkSdgTUuICiI3SVsXyuG+tuTEZY4KPdyxN6bJRp8WXQcSDwexFecJYdQqwHHGg6qgn+OuGUvH0ro3bBX0da3W/Ga8hmTuLRdWtMAzAtQvT7L/ysUDG2Qa7t185dGrwLCC8SyVRhPh/tdVBwGAq5vW6t/0RSmIg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790867438; c=relaxed/simple;
-	bh=BDHlP6KRGdFjTtK4GxRmpe0oZI27PY6tDJm5on4PkDU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iGtdnGZuQB2D6WBgEPF1xzG1mffnGlb2ZABju1Sh+KnGqm4wC1ibLL7EQQl6xJRJxmBtWc7Fi2n3Ej8oUnHMC3hT8tjt3bg4LUb21J3SVKkjdbTZA56mKNvOdjOu0rVXGSaVxy2x8hXRl69XF3Kg5iVowSA2WyOUCls7uFc2+zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jDIwrdoE; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169D137B025;
+	Thu,  1 Oct 2026 15:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790867449; cv=fail; b=FvC9rGiZ3qdxJMY5kOE7VKaPWPk+M4fKlmcwWxjZcXpCLth6vAuiFdVN87H2nhYLyjFaUziDgRodKOdl6dqPo9sHDnqiko/gZ8Tqm8YvUIgC3DM7OT8E/BCUZn42+IG1uJ6+enl/EJKJagTK6MPJKbiBAQ0znqpccBf2aRcciLk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790867449; c=relaxed/simple;
+	bh=wv7762Vw3kyU7N9t3ithImA7odeDga0RuFmopKvDLsg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pgkOh/Rep4kVwqAxIC2gfPXAkuiijRmailDwDWzTaUsJYWA49JMX8FwB+7nqMskwGKdmhN8/QF7horstqJVEY8IRdFxR4jI/Zj3FWrZt9SKBXcyWLLPw5ATVmXBay+G+7GE+pJatT5OWAVdMb+mIuDDAAsKPiMQyJPGNAPDxlHA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=JJBrBVvz; arc=fail smtp.client-ip=40.107.74.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jDIwrdoE"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1450541ab18so7313136c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:10:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790867435; x=1791472235; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7HO9HjcV+veIH/3O4cu1aJQGXCcymcqVyGYdv+R+ZPE=;
-        b=jDIwrdoE/SuCx4nESAPqyb28UtQM24McsscoA256ziMEiTfMQn6NDoD/qH9Qo/jjZ7
-         QUfktUpQUzeE8vrizZybSl8Io0mhTNz+b7UwM/W1bS1Hf+3UPD84m+fAJzWFL9uTVyuE
-         5+MBSFrP/gzKpGnZju7Bf477CwKq0DXG7UgnvqipKJmJICP2RnbRc1/ADGBxYwqrhhfw
-         AU0TdjY+Py0QfafC/BRO0APOSiw1wmP+y5mJnMr5g7EaEjxH+CM+uFV8uZTFMVo52K31
-         syshSTZt/5jNCvzyBCP1PYUlrBvXaBmZDeKtd2oYQMlh2c60qsTNmI7rueAoVMHJ940N
-         tHWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790867435; x=1791472235;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=7HO9HjcV+veIH/3O4cu1aJQGXCcymcqVyGYdv+R+ZPE=;
-        b=kHe6RA4WA8yygy354pUm3KYmirhcISzx3JL24JzrF/vg87QpsQ+4+MVRpu/2CtpBU9
-         sK9FA3JIlkebfbCWsrSO6XTTVsY0US5Y9z/2pYyPCWzVMf1Gt3iztH9aMAZHTIm68Siq
-         v1uHdPBwL2QcECmwg/257QR6lgFmAbUOkIyTt+3x2q8tjcHb/7EsfGA/PUusbCcLdsYD
-         hav0jDfwOIJbdKlLHIAzhJZhgUGzzjokzEc6vlAHwnuK2CaqhJyTIBdVVHNYCEkB/Vvq
-         0GlQOT/EimkNFLxkPBQ9fLEY8LFOoK5eeFNFQz1sUjVnv8G8idbl1xmf+MLjU4wEeFgB
-         5EVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzXzahm2xY+3QHe64rW72KV3rV1DSbUY/9M9sF3/DVSK3QpcGqS/taxkYik/rs4B3CTp9M3kYeHaoiWQj8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kShUet1/CxW4zJAnKuGul4IwhYLyFDbj9aqB22MW/ZJl0s0spO
-	y8+VcNKesk7FJMtzQHelVBOH+zGrSUdBuUzpsMcfkceUTXTTTfTkUG7kgEaPfg8o
-X-Gm-Gg: AYBFou21EYlUmWri/Wgg5TkOnnwMr6Mv8zg9GCrneNad+eiCjb7r+uueNpRValbTgjO
-	IDFnPY+lfaOVoYSNseHOI5zNoy7kZsH0tuHd75QGS98tJfIE51KUphqRyFmI/qgoQNEci9xE8R9
-	DnEO/G4BLPsJbnK+fz0QV0yGy1i3c+KLAC+EfSEdLsAvK5kcIFwz4DGgxC4jy5V/ygmcYxVaiYu
-	v02k86ZcPn7yJwbeEUoc5tfw74XXU2HgjlqwZSS3kj3hTqF+Pp07rdS7swhkoncnai8WPJOLeH8
-	Trkb606yzbokcQYDV/SKOif/pWXmpkoi8+s1dINF4WSJOtNGrlkqZd3pHED4mAZYQyjpncQMjDM
-	oUte1t0JbNN6KwgFV5MC4RRq8rw/YPqm3sEErwGEHYlh7Q/ICdeM2Os6LNUivutiD9kiR50SzMJ
-	nMa+SL3pLhs79pIEP5Ss861yYtxs9aMj+GfyiiLeyUkrlddJE2QzdPByfCu1ZSJyyMkQ==
-X-Received: by 2002:a05:701b:465d:b0:143:26eb:18ea with SMTP id a92af1059eb24-14d330b0e85mr4662029c88.29.1790867433781;
-        Thu, 01 Oct 2026 08:10:33 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f2766157bsm37986c88.12.2026.10.01.08.10.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:10:33 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 01 Oct 2026 23:10:26 +0800
-Subject: [PATCH] mm/migrate: look up consecutive pages together in
- do_pages_stat_array()
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="JJBrBVvz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SbK/KlGlBgfuvnRAPtUIk3t5sIdy21FZ6eWOr4Eks6Of8OC5z5YQflCBLa4U2/1RqMhBxIlDLXZFZQdvc0nU5iVFJYrkcxOOLsQPVa89px+/cGBpUaBfKq/pcQc2Ys6crvo/CDuMlhRmOuvCgG2+fHsTBh/Xh7U4Xp2McfwDRZe2tIz/eiZAI153wUHDUN9vTz90qD15lkEyqQJNRMyu0g0vJQFa0avTppNHtYvm9P1VVS3bLRdvjk+EmISmjzHnVZ/V+komGyuZda4JVZM1K86VKyh3YJOUzOja0Iz8P5rRdeeDCsC6trTaCdrDN9kahyAJd+BeO7GteZBG2Xd1aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j739L7rUCmNjaLKZN1985XO0CsCsdoJrePR3yrJ2/J0=;
+ b=lEOMdtuagbFSCq4ayYwxGjn6gDxwzmb8hTiR+4i/mmoprZK4rBBWFtx47dxOe/tkKAU1CjwwZpz9C/F7C990yF1H1uaZ3ddBNRtmgl7Zf0UqTqfp03ld6L36VeaJvDlM8r9hGiC4aNcqFzSTAz7TafrdinW42JxpCGXcBn909zR/FXRfp7I8kuc8J+18OrsX1/h8idaa5/vf/S15e/GUl5sHz4UmP5tKdtF2ZZU020B6qYI2tP9KPeLb87rO3OMn1BwAXsawFvqiSVsNWRVB+3vEEonZd7dZXiY5IIGTJkP47ZBQo6G0eZTIwld3En0sLNt2+Mv8yHzKHTIy8FYLEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=bootlin.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j739L7rUCmNjaLKZN1985XO0CsCsdoJrePR3yrJ2/J0=;
+ b=JJBrBVvz8kyl+zjO/zI86+EdT8n0AfskzRZigMnGAdw5cduUt4Yn/PnV57kQM850ub5yyYsBMJ3mVWTWc8bqrNd1VCi4XBXaSi45pH6Kx4CUDRd0y0Uf7Qtk3swOE4NfQMu+exae64i6Bgb4wDLfRG5MGjwI9r0JWQ5AjgbFPMo=
+Received: from TYCPR01CA0127.jpnprd01.prod.outlook.com (2603:1096:400:26d::12)
+ by TYYPR01MB13985.jpnprd01.prod.outlook.com (2603:1096:405:1a6::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 15:10:42 +0000
+Received: from TYO1EPF0000501F.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:26d:cafe::42) by TYCPR01CA0127.outlook.office365.com
+ (2603:1096:400:26d::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
+ Oct 2026 15:10:42 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
+Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
+ TYO1EPF0000501F.mail.protection.outlook.com (10.167.240.4) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Thu, 1 Oct 2026 15:10:40 +0000
+Received: from [192.168.1.82] (DEU-5CG4161SZR.adwin.renesas.com [10.226.92.88])
+	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id D48293000255;
+	Fri,  2 Oct 2026 00:10:37 +0900 (JST)
+From: Diogo Ivo <diogo.ivo.sx@renesas.com>
+Date: Thu, 01 Oct 2026 16:10:09 +0100
+Subject: [PATCH] i3c: renesas: Fix MDYAD(x) field length
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,165 +64,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-bug-mm-move-pages-stat-batch-v1-1-255b7e915744@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOF3vmoC/x3MQQqEMAwAwK9IzgbagnXXr4iHqLHmUJWmiiD+f
- cse5zIPKCdhha56IPElKvtWYOsKppW2wChzMTjjvDXG4ngGjBHjfjEeFFhRM2UcKU8rLt6R+zI
- 1H99CKY7Ei9z/vh/e9wfq4ZDzbgAAAA==
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXN0QrCMAxA0V8ZeTbQVqjUXxGRLokzottodDjG/
+ n1VH8/LvQuYFBWDY7NAkUlNh77C7xqgW+47QeVqCC5E75xH1mlAs648RrJCGFKMqHu6PHnOjK7
+ NB+cpZeYENTIWuernNzid/7Z3exd6fauwrhtSO+vjggAAAA==
+X-Change-ID: 20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-0ba701c9add9
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Frank Li <Frank.Li@nxp.com>
+Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Diogo Ivo <diogo.ivo.sx@renesas.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790867437; l=1100;
+ i=diogo.ivo.sx@renesas.com; s=20240529; h=from:subject:message-id;
+ bh=p7deA08Qe7Ys+za7Smwz2XnGR9jNHZdyiazT91+7k/c=;
+ b=b639q54jB7mWBOFE+yaGhke88acOOiwSLBr54/zfhli38SYwaxQVW2wxnnEH8NoZDTjBYPqnf
+ rt3nUkFGJ+SAQhB9Rc+J+JOLkIYoFCxIs+nZDB6iBzi+npUSlW04b22
+X-Developer-Key: i=diogo.ivo.sx@renesas.com; a=ed25519;
+ pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYO1EPF0000501F:EE_|TYYPR01MB13985:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c167102-8eb0-4d95-9bd1-08df1fce2831
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	FelJWm4UbruUhG4pWzfqBn9xcLwAhBI5c03hr4wIzz7YX5u70Jm56IJWmYMmRPZqTONywm/5f/Ho8HqhtkKKrI8lzda+ljUDMsRKJzmEK6mIui0WYtntrXGiwruAIOocw3TMJIsDjKGjVAhX1VbAf8Ce3tL+AiJd3CtT6IFcdlIPTt5HOKid7EwwqiIo+dLKbVgJsz5S3QF8nViOpPfi1/Cmmm+mVy207p1263xKuxVCZeow+IglbVvngzA94+lXkYm0T6L4YsuUtXaaN6r9bx6Z3bicsiU1EX7eH7UOZQx1rBRE+hVT8odcsjObnDTCh3OBACxpWSor7KMxeu2vv7+0EY96zcb1YDx/TfNslRgH4uofyXLZ5Iyiu2/FCLxUFocohVQbhfNMljFZjSRXtMxQ1Y9GDmwoALLg3v22jcQfx4mKZd9E9VTkR2NwdoAq+rZ/pDmdHD3F3N+YTItpjZuM4g36wi5HgPCpneu3aDEMKD8ruKnZyDMHv1lZcqHS9hCXOa72HhogjUhxgHJm4SaUu2x5i6r+FWj4CYWPMKHTY7OCONkRhpDLVviMxuCmIw7e3TYzx0KD2wGFUJ4BctmaYhZaaCf839xNxHai12G44Phl85iz0EiAtqMPMmA1V2Dmf9mR6URlEeYnJAKSkQAx3yYwXlmtPld1JOyk10oTj0nl4b5UpjVXX+0W4/0rnKcN3iyRuGaRR1c3JD4BoA==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	j+ZyAS+8zFxRxXZ69oKY63qd0CitV7yeGAv6Dp23785UQtCtj63kBHJ4BlMmwJxrGIALRTf5fBsFU4eaRU+kLrjfM2VoC8aY5sIcRVQ4cSglX01AiIxh4Q2nu0Fty7SKFcKqSpnpgsKqatEJJA1a5rPxG/oYufozF4fiAMFah9NFTotw31iCXRtWnpD3IxOd45HjKkrYKhBCLT4CB/l6m59oJ31oAAD0M0bQETR1s3felrg+EnSCCYp26XLXLFWIblRhA2ut6Dxpxc78Z890KXMXW0C8QjpzCS/zZ1HBc60XuZlmF19Zsn19UMg7sOQ3h7aad7rcYCehiif+AuTQct1H2x6GiQ/5MlwdSpC2VFOfL7qTfeCrhmc5SEdYHUH0o4FyRON/iZf6i+j1rSfbMPRtatjbKW+YWzC5kNzoLCIGpt379ApkqrlffqlwULrd
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:10:40.7475
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c167102-8eb0-4d95-9bd1-08df1fce2831
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF0000501F.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB13985
 
-move_pages() with a NULL node list reports the node of each page. RDMA
-and KV-cache transfer engines use it to find where large registered
-buffers live, querying every 4K page of buffers that span hundreds of
-gigabytes.
+Fix the length of the MDYAD(x) macro to be 7 bits as it represents an
+I3C address, which is 7 bits. The length of this field was confirmed on
+the documentation of the RZ/G3{E,L,S} SoCs.
 
-do_pages_stat_array() looks up the VMA and walks the page tables from
-the top for every address, taking and dropping the PTE lock each time.
-That costs about 105 ns per page, so a 16 GiB buffer takes 440 ms.
-
-Callers almost always pass consecutive addresses. Reuse the VMA while
-the address stays inside it. After folio_walk_start() locks a PTE table
-or a PMD-mapped folio, answer the following addresses under the same
-PMD from that table or folio before releasing the lock. Other
-addresses still take the existing path.
-
-On 7.3-rc5 in a 16-vCPU VM, querying every page of a populated buffer:
-
-                       before       after
-  4K pages, per page   105 ns       22.7 ns
-  THP, per page        92 ns        13.1 ns
-  16 GiB, 4K pages     439 ms       95 ms
-
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Fixes: d028219a9f148 ("i3c: master: Add basic driver for the Renesas I3C co=
+ntroller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
 ---
- mm/migrate.c | 83 ++++++++++++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 61 insertions(+), 22 deletions(-)
+ drivers/i3c/master/renesas-i3c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 15b45832bcfa7..5f470dc7dc746 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -2451,44 +2451,83 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
- 	return err;
- }
- 
-+static int folio_stat(struct folio *folio)
-+{
-+	if (is_zero_folio(folio) || is_huge_zero_folio(folio))
-+		return -EFAULT;
-+	if (folio_is_zone_device(folio))
-+		return -ENOENT;
-+	return folio_nid(folio);
-+}
-+
-+/* Look up a PTE in a locked page table the way folio_walk_start() does. */
-+static int pte_stat(struct vm_area_struct *vma, unsigned long addr,
-+		    pte_t *ptep)
-+{
-+	pte_t pte = ptep_get(ptep);
-+	struct page *page;
-+
-+	if (!pte_present(pte))
-+		return -ENOENT;
-+	page = vm_normal_page(vma, addr, pte);
-+	if (page)
-+		return folio_stat(page_folio(page));
-+	if (is_zero_pfn(pte_pfn(pte)))
-+		return -EFAULT;
-+	return -ENOENT;
-+}
-+
- /*
-  * Determine the nodes of an array of pages and store it in an array of status.
-  */
- static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
- 				const void __user **pages, int *status)
- {
--	unsigned long i;
-+	struct vm_area_struct *vma = NULL;
-+	unsigned long i = 0;
- 
- 	mmap_read_lock(mm);
- 
--	for (i = 0; i < nr_pages; i++) {
--		unsigned long addr = (unsigned long)(*pages);
--		struct vm_area_struct *vma;
-+	while (i < nr_pages) {
-+		unsigned long addr = (unsigned long)pages[i];
-+		unsigned long next, end;
- 		struct folio_walk fw;
- 		struct folio *folio;
--		int err = -EFAULT;
-+		pte_t *ptep;
- 
--		vma = vma_lookup(mm, addr);
--		if (!vma)
--			goto set_status;
-+		if (!vma || addr < vma->vm_start || addr >= vma->vm_end)
-+			vma = vma_lookup(mm, addr);
-+		if (!vma) {
-+			status[i++] = -EFAULT;
-+			continue;
-+		}
- 
- 		folio = folio_walk_start(&fw, vma, addr, FW_ZEROPAGE);
--		if (folio) {
--			if (is_zero_folio(folio) || is_huge_zero_folio(folio))
--				err = -EFAULT;
--			else if (folio_is_zone_device(folio))
--				err = -ENOENT;
--			else
--				err = folio_nid(folio);
--			folio_walk_end(&fw, vma);
--		} else {
--			err = -ENOENT;
-+		if (!folio) {
-+			status[i++] = -ENOENT;
-+			continue;
- 		}
--set_status:
--		*status = err;
-+		status[i++] = folio_stat(folio);
- 
--		pages++;
--		status++;
-+		/*
-+		 * Callers usually pass consecutive pages. Answer those that
-+		 * fall under the entry or page table we already hold locked
-+		 * instead of walking the page tables again for each of them.
-+		 */
-+		end = pmd_addr_end(addr, vma->vm_end);
-+		ptep = fw.ptep;
-+		for (next = addr + PAGE_SIZE; i < nr_pages && next < end;
-+		     next += PAGE_SIZE, i++) {
-+			if ((unsigned long)pages[i] != next)
-+				break;
-+			if (fw.level == FW_LEVEL_PMD)
-+				status[i] = status[i - 1];
-+			else if (fw.level == FW_LEVEL_PTE)
-+				status[i] = pte_stat(vma, next, ++ptep);
-+			else
-+				break;
-+		}
-+		folio_walk_end(&fw, vma);
- 	}
- 
- 	mmap_read_unlock(mm);
+diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-=
+i3c.c
+index 28c0927a0179..8b264f72e55c 100644
+--- a/drivers/i3c/master/renesas-i3c.c
++++ b/drivers/i3c/master/renesas-i3c.c
+@@ -37,7 +37,7 @@
+ #define  BCTL_BUSE             BIT(31)
+
+ #define MSDVAD                 0x18
+-#define  MSDVAD_MDYAD(x)       FIELD_PREP(GENMASK(21, 16), x)
++#define  MSDVAD_MDYAD(x)       FIELD_PREP(GENMASK(22, 16), x)
+ #define  MSDVAD_MDYADV         BIT(31)
+
+ #define RSTCTL                 0x20
 
 ---
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20261001-bug-mm-move-pages-stat-batch-f62a29ea5867
+base-commit: 66b734f67a4a0a4c2313afb89033d5ab8b8f7523
+change-id: 20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-0ba701c9add9
 
 Best regards,
--- 
-Qiliang Yuan <odys.yuan@gmail.com>
+--
+Diogo Ivo <diogo.ivo.sx@renesas.com>
 
+________________________________
+
+Renesas Electronics Europe GmbH
+Registered Office: Arcadiastrasse 10
+DE-40472 Duesseldorf
+Commercial Registry: Duesseldorf, HRB 3708
+Managing Director: Carsten Jauch
+VAT-No.: DE 14978647
+Tax-ID-No: 105/5839/1793
+
+Legal Disclaimer: This e-mail communication (and any attachment/s) is confi=
+dential and contains proprietary information, some or all of which may be l=
+egally privileged. It is intended solely for the use of the individual or e=
+ntity to which it is addressed. Access to this email by anyone else is unau=
+thorized. If you are not the intended recipient, any disclosure, copying, d=
+istribution or any action taken or omitted to be taken in reliance on it, i=
+s prohibited and may be unlawful.
