@@ -1,180 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF253126C0;
-	Thu,  1 Oct 2026 23:28:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521B62F7EE0;
+	Thu,  1 Oct 2026 23:29:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790897284; cv=none; b=kEtH3AkQQPJsZ453j0Zg4AqM0H+03BYSQpg8PAzvwmvgOI2ruCLJt9lJPStRfOoOUxzvitQjnTdVlrgHIMV0w5j4O46XaejiG+cpXGsGLQMxiDTLQO81s8BtrWvsYibTNobYVjXuTL0k8OULLsdooff2ibMj9KweLrgzIrnaeNk=
+	t=1790897354; cv=none; b=KeHE9TVj1QBJ9Sqmd5P2vuxAgRC9yPbEcwUopJeZlFvhMuwZViCYQiFdkr3gjzz0n8lqrYAtn+akNCUu5aeIEJ3qonctMw8eDOLzplCq5D1AnHwVnYR3q0Kb/vBiMpqDbAJ3NMFfvTqKidOKznOEFEwBntJHaHRuW7a/YDtoIAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790897284; c=relaxed/simple;
-	bh=MIi/beoN2C2LmeLrmSclps3kf9tF0OWCYNqsXq2Oa30=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=siSaBkWPh7+ZPrY6ST+WZMu6EQejqUDmxrVP5ei8G8gormDtiyyvakfnuoRRNw38u3PzmU7Wx54/hPyfk1RHf9fag36y0yt7BxogPMlHRNvQjGf4JCCxXzS80xj7jexF/pI3AJrGm0kF3vFdjuUAJMw3OaSFdvPx5Y8QbKtRzBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+lPJ2ou; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790897354; c=relaxed/simple;
+	bh=F9sNR8uDTG36T1yCX+2t3qyQu6bPwVnlyLuwhWIk1YM=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=uDGpMsRmFHRY3mCK1fHpVdUZhsvjcDV2i+uQF8A1GK28nK7nc8Wo2i26HToCvFq3XnxMpmWdsbaPKx5AICHZnjSNiiJ17hffrs+XA1X06RwBN3zHHSVL0Ey/qbRQSWyC5cf3Syq5Lrk1oVlKEFSS7eS1hDltGR0O9Ihjg3MoHFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CpeBFHqH reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+lPJ2ou"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAEB1F000FF;
-	Thu,  1 Oct 2026 23:28:01 +0000 (UTC)
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CpeBFHqH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE651F000FF;
+	Thu,  1 Oct 2026 23:29:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790897282;
-	bh=NxJLfvlrAiUPHuPT+4nMqczjBQ0Hw9rw7hqR0HavCWs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=W+lPJ2ouLTHHFJ5TSnvav4NHl04+YEniB9AWWrNzXhGf5+z58ZYNARiAaLz7rusj5
-	 H8fzufDOttnboCeWY/sFL9hSOuq83KJzbFC8pi1NqtnUuiSaCZAPmbyDIliLBth6kp
-	 XfKJ6Z8w/Hvyr+j4Arx9CE8MYuWyj9uX5eMuJ49aotdDMLs3VellWsnw30sbldoiPT
-	 1qxqH+SNYxPS7TI0MAgQ6mfxkV3xUUkN9VU1BouPl6JCnyyv2g3u0E4LCNkZmLLTH+
-	 l2bDM4CmoSrMdWEMqNlId53wpIiKE68ZLMtkblxtGScnhCMU+T/wbbF+3VqmhafyjC
-	 JcpCaVNARV5hg==
-Subject:
- Re: [PATCH net-next v1 1/1] eea: Drop temporary buffer by using %pEp directly
-From: netdev-bot+sashiko@kernel.org
-To: andriy.shevchenko@linux.intel.com
-Cc: xuanzhuo@linux.alibaba.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, guwen@linux.alibaba.com,
- lulie@linux.alibaba.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
-Date: Thu, 01 Oct 2026 23:28:01 +0000
-Message-ID: <179089728102.434549.12368098081790653201@kernel.org>
-In-Reply-To: <20260929082722.3368741-1-andriy.shevchenko@linux.intel.com>
-References: <20260929082722.3368741-1-andriy.shevchenko@linux.intel.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790897353;
+	bh=UCp1D+bv7tlX4Dr/jntNO+4AHuP9rt2modE0wkIcwtc=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=CpeBFHqHmryldip33VnRdbzF7UDAkLGKgPdQ9lHYGrW6rtOepKTkX10IheVlSV68s
+	 zP0+ZgJcG6bJNHQ09dSoiIdm4t4Q2z8WoOAAtjBk0k7/hl4Md2ZyvgW3poockTNLH2
+	 NaSj4VRTTucIRopc40Fe4twHCke9Vh2jXEzblEZ2qOYNojWt8POe7HzKlwHhLj7wD2
+	 NerpPQWJ3T/qkqRnZP6EaMXe+ywenBpGPOz4vFuzDM5605Fuz9abCJM58rGHBQDe4C
+	 ml6DhqhVjbS1yy2XEBmIPvgjYCC6tdMC0fEwobsoCpL99DTeXhZka9b3v7UpLTruYk
+	 3SBAUkOKC/JnA==
+Content-Type: multipart/mixed; boundary="===============6923769064512196432=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-Id: <562cbc38006e96e7fed9d935db2dbf4849bb20353f3fc86be22980680557d9d3@mail.kernel.org>
+In-Reply-To: <20261001225214.12351-11-wanjay@amazon.com>
+References: <20261001225214.12351-11-wanjay@amazon.com>
+Subject: Re: [PATCH bpf-next v4 10/12] resolve_btfids: add --btf_link to fill in .BTF.link records
+From: bot+bpf-ci@kernel.org
+To: wanjay@amazon.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: alan.maguire@oracle.com,martin.lau@linux.dev,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,qmo@kernel.org,nathan@kernel.org,nsc@kernel.org,linux-kbuild@vger.kernel.org,linux@weissschuh.net,christian@heusel.eu,mcgrof@kernel.org,petr.pavlu@suse.com,samitolvanen@google.com,linux-modules@vger.kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,linux-trace-kernel@vger.kernel.org,acme@kernel.org,namhyung@kernel.org,irogers@google.com,linux-perf-users@vger.kernel.org,jikos@kernel.org,bentiss@kernel.org,linux-input@vger.kernel.org,tj@kernel.org,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,sched-ext@lists.linux.dev,shuah@kernel.org,linux-kselftest@vger.kernel.org,ojeda@kernel.org,rust-for-linux@vger.kernel.org,arnd@arndb.de,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,abuehaze@amazon.com,doebel@amazon.de,mpohlack@amazon.de,jay.wang.upstream@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kern
+ el.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu,  1 Oct 2026 23:29:10 +0000 (UTC)
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+--===============6923769064512196432==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+> resolve_btfids: add --btf_link to fill in .BTF.link records
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+TL;DR: Not a bug: patch_btf_link() duplicates most of patch_btfids()'s ELF
+open/find-section/update code, so each --btf_link reopens and rewrites the
+file; suggests a shared helper or a single ELF handle.
 
-- [Medium] In eea_adminq_config_host_info()
-  (drivers/net/ethernet/alibaba/eea/eea_adminq.c), the patch swaps…
+> diff --git a/tools/bpf/resolve_btfids/main.c b/tools/bpf/resolve_btfids/main.c
+> --- a/tools/bpf/resolve_btfids/main.c
+> +++ b/tools/bpf/resolve_btfids/main.c
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the escape
-  flags used in eea_adminq_config_host_info() do not escape anything.
+[ ... ]
 
---
+> +static int patch_btf_link(const char *elf_path, const struct btf_link *link)
+> +{
 
-eea: Drop temporary buffer by using %pEp directly
+[ ... ]
 
-In eea_adminq_config_host_info(), this commit replaces the
-string_escape_str() call followed by "%s" with a direct "%pEp" specifier.
-It also drops the on-stack temporary buffer that held the escaped copy of
-the device reply string.
+> +	elf_version(EV_CURRENT);
+> +	fd = open(elf_path, O_RDWR);
+> +	if (fd < 0) {
+> +		pr_err("FAILED to open %s: %s\n", elf_path, strerror(errno));
+> +		goto out_data;
+> +	}
+> +	elf = elf_begin(fd, ELF_C_RDWR_MMAP, NULL);
+> +	if (!elf) {
+> +		pr_err("FAILED cannot create ELF descriptor: %s\n", elf_errmsg(-1));
+> +		goto out_close;
+> +	}
+> +	elf_flagelf(elf, ELF_C_SET, ELF_F_LAYOUT);
 
-> diff --git a/drivers/net/ethernet/alibaba/eea/eea_adminq.c b/drivers/net/ethernet/alibaba/eea/eea_adminq.c
-> index 73d0caf257006..d17575a768900 100644
-> --- a/drivers/net/ethernet/alibaba/eea/eea_adminq.c
-> +++ b/drivers/net/ethernet/alibaba/eea/eea_adminq.c
-> @@ -522,16 +522,8 @@ void eea_adminq_config_host_info(struct eea_net *enet)
->  			dev_warn(dev, "The hardware-driven state validation may be abnormal.\n");
->  
->  		if (rep->has_reply) {
-> -			char buf[EEA_HINFO_MAX_REP_LEN] = {0};
-> -
->  			rep->reply_str[EEA_HINFO_MAX_REP_LEN - 1] = '\0';
-> -
-> -			string_escape_str(rep->reply_str, buf, sizeof(buf),
-> -					  ESCAPE_NP, NULL);
-> -
-> -			buf[EEA_HINFO_MAX_REP_LEN - 1] = '\0';
-> -
-> -			dev_warn(dev, "Device replied: %s\n", buf);
-> +			dev_warn(dev, "Device replied: %pEp\n", rep->reply_str);
+[ ... ]
 
-[Severity: Medium]
-Will this print only the first byte of rep->reply_str?
+> +	if (elf_getshdrstrndx(elf, &shdrstrndx)) {
+> +		pr_err("FAILED cannot get shdr str ndx\n");
+> +		goto out_elf;
+> +	}
+> +	while ((scn = elf_nextscn(elf, scn))) {
+> +		if (gelf_getshdr(scn, &sh) != &sh) {
+> +			pr_err("FAILED to get section header\n");
+> +			goto out_elf;
+> +		}
+> +		name = elf_strptr(elf, shdrstrndx, sh.sh_name);
+> +		if (name && !strcmp(name, section))
+> +			break;
+> +	}
 
-%pE does not look for a NUL terminator. It takes the buffer length from
-the field width, and when no width is given it uses 1 byte:
+[ ... ]
 
-lib/vsprintf.c:escaped_string() {
-    ...
-	len = spec.field_width < 0 ? 1 : spec.field_width;
-    ...
-}
+> +	elf_flagdata(data, ELF_C_SET, ELF_F_DIRTY);
+> +	if (elf_update(elf, ELF_C_WRITE) < 0) {
+> +		pr_err("FAILED to update ELF file %s: %s\n", elf_path, elf_errmsg(-1));
+> +		goto out_elf;
+> +	}
 
-Documentation/core-api/printk-formats.rst says the same:
+[ ... ]
 
-    If field width is omitted then 1 byte only will be escaped.
+> @@ -1773,21 +1974,28 @@ int main(int argc, const char **argv)
+[ ... ]
+> -	if (btfids_path)
+> -		return patch_btfids(btfids_path, obj.path);
+> +	if (btfids_path) {
+> +		err = patch_btfids(btfids_path, obj.path);
+> +		for (i = 0; !err && i < btf_links.cnt; i++)
+> +			err = patch_btf_link(obj.path, &btf_links.links[i]);
+> +		goto out;
+> +	}
 
-The removed code escaped the whole string, because string_escape_str()
-calls string_escape_mem(src, strlen(src), ...).
+This isn't a bug, but patch_btf_link() repeats most of what patch_btfids()
+does just above it: elf_version(), open(O_RDWR), elf_begin(ELF_C_RDWR_MMAP),
+elf_flagelf(ELF_F_LAYOUT), the elf_getshdrstrndx() plus elf_nextscn() /
+gelf_getshdr() / elf_strptr() / strcmp() loop that finds a section by name,
+and the elf_flagdata(ELF_F_DIRTY) / elf_update() / elf_end() / close()
+teardown.  Only the section name and what gets written into data->d_buf
+differ.
 
-With this change, a reply of "abc" would be logged as "Device replied: a".
-If reply_str[0] is NUL, the NUL byte is copied raw into the log record,
-because ESCAPE_NP alone passes it through unchanged.
+With the loop in main(), a --patch_btfids run with N --btf_link options
+opens, maps and rewrites the same ELF file N + 1 times.
 
-The commit message describes this as a like-for-like conversion. Should
-the length be passed explicitly, for example:
+Could the two share a small helper that opens the ELF and returns the
+Elf_Data of a named section, or could the .BTF.link records be written while
+.BTF_ids is being patched, using the same ELF handle?
 
-	dev_warn(dev, "Device replied: %*pEp\n",
-		 (int)strnlen(rep->reply_str, EEA_HINFO_MAX_REP_LEN),
-		 rep->reply_str);
 
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but
-does ESCAPE_NP on its own actually escape anything here?
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-The old string_escape_str(..., ESCAPE_NP, NULL) and the new %pEp both
-select only ESCAPE_NP. The 'p' makes flags non-zero, so escaped_string()
-never falls back to its ESCAPE_ANY_NP default:
-
-lib/vsprintf.c:escaped_string() {
-    ...
-		case 'p':
-			flags |= ESCAPE_NP;
-			break;
-    ...
-	if (!flags)
-		flags = ESCAPE_ANY_NP;
-    ...
-}
-
-In string_escape_mem(), printable bytes pass through at the ESCAPE_NP
-check. A non-printable byte skips the ESCAPE_SPACE, ESCAPE_SPECIAL,
-ESCAPE_NULL, ESCAPE_OCTAL and ESCAPE_HEX branches, because none of those
-flags is set. The final escape_passthrough() then copies it raw:
-
-lib/string_helpers.c:string_escape_mem() {
-    ...
-		if (!(is_append && in_dict) && isprint(c) &&
-		    flags & ESCAPE_NP && escape_passthrough(c, &p, end))
-			continue;
-    ...
-		escape_passthrough(c, &p, end);
-	}
-    ...
-}
-
-The kernel-doc for string_escape_mem() also notes that "It doesn't make
-much sense to use either of them without %ESCAPE_OCTAL or %ESCAPE_HEX".
-
-The device fills rep->reply_str through the admin queue response, and the
-driver only forces the last byte to NUL. As a result, CR/LF, ANSI escape
-sequences and high-bit bytes from the device reach the kernel log
-unescaped.
-
-Since this line is being rewritten anyway, could it use a flag set that
-does escape, such as %*pE (ESCAPE_ANY_NP), %*pEhp or %*pEop, along with
-an explicit width?
-
->  		}
->  	}
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929082722.3368741-1-andriy.shevchenko%40linux.intel.com
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36938681172
+--===============6923769064512196432==--
