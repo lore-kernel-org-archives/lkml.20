@@ -1,177 +1,137 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B05174A6892
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta-64-225.siemens.flowmailer.net (mta-64-225.siemens.flowmailer.net [185.136.64.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7C73EAC71
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844719; cv=none; b=qR5Z08AfmlNsuYE0yb5b9KIpUECQ6kl1CLcI4WdKKZ39+nsTcNPTk2ProUOhB4zcLHKh5EH+Lm0io19G7UIP1V3F56o9bkadePL11ME+jmnq1G3Bf6DvDOlaNw+BU8hOoYxHbXg2TLMUS9I3zRjZRnspjoE+2m9pcwtAP/XnR/g=
+	t=1790844749; cv=none; b=YtVuN8OlwP+1Al6yjGDElDvFCs3BOU3jDZeWaEvldRGA8iSg+U4oHJ63CgCg4gGFL2imNWoK3x5pO5JznGFohrCGKgI207xjJFsytuvf2bKVHIHnocYm1kJ0blyw/c803H7KVAz2ObXJfAXxIwXu+dBNHk3dSxD299z+MMA8kL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844719; c=relaxed/simple;
-	bh=nJL7T4f/rD7vUdshMIpvkv7tiy8BM+mA0Cdh9NJZBSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b+SWsF8OvFVpS7bkaj4siUqOoKP2E6+2+NtgxW++AH9kpq2uDaMNqrHXDNuJKW/Bw8Um20DFIKiAM2CVN0uXeTNIiTkTk+9HRtNXIXnm60uME6ToCJstz4JGPsM84ZwtwxFwkROrg1xqnlvVAHGS45OgbIHRM4UrWh4AffNQsOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uOdtAXVw; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790844749; c=relaxed/simple;
+	bh=RlqtlBFhPg06afJ92qggTnt+yEqEPz3nq3KHOnNigr0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IUTN2kPgSHo0tdXsad2MI/0O662NI0JYBwLs+govv5wQV42xx63MhO4Efsx+j8lyCHQUHjzNKnA4QLAFPpq5WfxTqTmD7lg7zPuLR6QWydrHCk1gvxvSWWMS6SxgNVG1FKFsEiJoDcJJyURkGPmV8myM/FHdnQg92gW08rUfL48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=T4l8+OdX; arc=none smtp.client-ip=185.136.64.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uOdtAXVw"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E4D27497;
-	Thu,  1 Oct 2026 01:51:53 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2D2D33F85F;
-	Thu,  1 Oct 2026 01:51:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790844717; bh=nJL7T4f/rD7vUdshMIpvkv7tiy8BM+mA0Cdh9NJZBSI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uOdtAXVwG1CjvKZBLroFUoIbNiy8hgKXS0rg7CdbG/NM8bzQNKpQWULM/1F4aInWd
-	 qDDGOyeL9CYMNL7BC7sPw15KiYawbPxE7wvJxpuAr/w2QGde//a2+unNs0Tuufq2u+
-	 r6jQeR8MTTkcRibz0mFjhLxha1GVPiQvgxYZE9XI=
-Date: Thu, 1 Oct 2026 10:51:52 +0200
-From: Beata Michalska <beata.michalska@arm.com>
-To: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
-	will@kernel.org, suzuki.poulose@arm.com, James.Morse@arm.com,
-	xuewen.yan94@gmail.com, seanwang1@lenovo.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] arm64: errata: Add Cortex-A725 erratum 3821522
- workaround
-Message-ID: <ar4fKMzA-tdITsxH@arm.com>
-References: <20260929154325.3416271-1-beata.michalska@arm.com>
- <20260929154325.3416271-3-beata.michalska@arm.com>
- <d0a20ba6-2d1f-4169-9188-15b954c377b4@arm.com>
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="T4l8+OdX"
+Received: by mta-64-225.siemens.flowmailer.net with ESMTPSA id 202610010852219eda98efac00020723
+        for <linux-kernel@vger.kernel.org>;
+        Thu, 01 Oct 2026 10:52:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=sFhlXac10taL9GRiPG1OiySDTuQT7u4lUJZQUv9yULA=;
+ b=T4l8+OdXpWdIgKOEnajlP4ZIqmXamFlekn3vhNnE6ViuL8TJ0ag2r8aa9/Fh0u2APpKyGj
+ jbBWyi3AceVAsUpn6nDlgjPtNsFwRIp0/3fHq4UdIIp3xZ/BrPVIwotgskNUhCu8waHTUyGM
+ mL4Iaqs34/NiRupOZOnhXqewElqzXE18Kvi7LMs/dfCPyK4jNNlkRYSLVinyutmG1CMsRnUk
+ WxQqYjcz/qwb9CVZNoctixH5m3nizkVfMdUGg31f8RF2tdxNO4EVeYrK4D/tAUf2+bmqYX4k
+ 1GoMMcMpptnY479/kxMTp0fYV/YPTAoAwqA8K9c4v2Tcha89y6VsuZPQ==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-gpio@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Haojian Zhuang <haojian.zhuang@linaro.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Lokesh Vutla <lokeshvutla@ti.com>,
+	Nishanth Menon <nm@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] pinctrl: ti-iodelay: fix memory leaks on consumer re-probe
+Date: Thu,  1 Oct 2026 10:52:11 +0200
+Message-ID: <20261001085217.1778645-3-alexander.sverdlin@siemens.com>
+In-Reply-To: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
+References: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d0a20ba6-2d1f-4169-9188-15b954c377b4@arm.com>
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-On Wed, Sep 30, 2026 at 10:27:27AM +0100, Vladimir Murzin wrote:
-> Hi Beata,
-Hi Vladimir
-> 
-> On 9/29/26 16:42, Beata Michalska wrote:
-> > Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-> > incur a significant increment error when a CPU enters and subsequently
-> > exits WFE or WFI, and may no longer track the system counter
-> > frequency.
-> > 
-> > The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-> > frequency invariance and CPPC FFH feedback counters. Wire the affected
-> > Cortex-A725 range into the shared broken AMU constant-counter capability
-> > so the affected counter is treated as unavailable by returning zero in
-> > the AMU counter paths. This prevents the broken counter from being used
-> > as a reference source.
-> > 
-> > The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-> > but this workaround intentionally does not change PMU event handling.
-> > Hiding or rejecting the PMU event from the erratum code would change
-> > the perf-visible PMU event interface, including raw event selection,
-> > and would need a separate PMU-specific approach rather than being
-> > folded into the AMU reference-counter workaround.
-> > 
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> > ---
-> >  Documentation/arch/arm64/silicon-errata.rst |  2 ++
-> >  arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
-> >  arch/arm64/kernel/cpu_errata.c              |  6 ++++++
-> >  arch/arm64/kernel/topology.c                |  9 +++++----
-> >  4 files changed, 35 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-> > index ac3248b9f2f3b..99a1eb4b833dd 100644
-> > --- a/Documentation/arch/arm64/silicon-errata.rst
-> > +++ b/Documentation/arch/arm64/silicon-errata.rst
-> > @@ -174,6 +174,8 @@ stable kernels.
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> > +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-> > ++----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-X1       | #1502854        | N/A                         |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-> > diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> > index 3b6c052d46a18..cab741a695f52 100644
-> > --- a/arch/arm64/Kconfig
-> > +++ b/arch/arm64/Kconfig
-> > @@ -1081,6 +1081,28 @@ config ARM64_ERRATUM_2645198
-> >  
-> >  	  If unsure, say Y.
-> >  
-> > +config ARM64_ERRATUM_3821522
-> > +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-> > +	depends on ARM64_AMU_EXTN
-> > +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-> > +	default y
-> > +	help
-> > +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-> > +
-> > +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-> > +	  increment error when entering and subsequently exiting WFx.
-> > +	  As a result, the CNT_CYCLES may diverge from the system counter
-> > +	  frequency at which it is expected to increment.
-> > +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-> > +	  being unreliable and unsuitable for use.
-> > +
-> > +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-> > +	  counter return 0 in the relevant paths. This causes users of the counter
-> > +	  to treat it as unavailable and is functionally equivalent to firmware
-> > +	  disabling the affected counter.
-> > +
-> > +	  If unsure, say Y.
-> > +
-> >  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
-> >  	bool
-> >  
-> > diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-> > index f18683e56184b..42a6fff8c3f44 100644
-> > --- a/arch/arm64/kernel/cpu_errata.c
-> > +++ b/arch/arm64/kernel/cpu_errata.c
-> > @@ -388,6 +388,12 @@ static const struct arm64_cpu_capabilities arm64_repeat_amu_constcnt_list[] = {
-> >  		/* Cortex-A510 r0p0-r1p1 */
-> >  		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
-> >  	},
-> > +#endif
-> > +#ifdef CONFIG_ARM64_ERRATUM_3821522
-> > +	{
-> > +		/* Cortex-A725 r0p0 - r0p2 */
-> > +		CAP_MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2)
-> > +	},
-> >  #endif
-> >  	{}
-> >  };
-> > diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> > index 64588554e7f76..fc5d3abd12905 100644
-> > --- a/arch/arm64/kernel/topology.c
-> > +++ b/arch/arm64/kernel/topology.c
-> > @@ -397,10 +397,11 @@ static void cpu_read_corecnt(void *val)
-> >  static void cpu_read_constcnt(void *val)
-> >  {
-> >  	/*
-> > -	 * Return 0 if the current CPU is affected by erratum 2457168. A value
-> > -	 * of 0 is also returned if the current CPU does not support AMUs or if
-> > -	 * the counter is disabled. A return value of 0 at counter read is
-> > -	 * properly handled as an error case by the users of the counter.
-> > +	 * Return 0 if the current CPU is affected by either erratum 2457168
-> > +	 * or erratum 3821522. A value of 0 is also returned if the current
-> 
-> Perhaps wording it generically like:
-> 
->   Return 0 if the current CPU is affected by a HW erratum.
-> 
-> would save us from having to change the comment next time we encounter a broken AMU :)
-Indeed. Will change that.
-Thanks.
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
+ti_iodelay_dt_node_to_map() allocates a pinctrl_map, a group, a pin array
+and a config array per mapping with devres on the controller, and registers
+the group via pinctrl_generic_add_group(). The core deduplicates groups by
+name and keeps the first for the controller's lifetime, so on a repeated
+mapping of the same node (consumer re-probe) the freshly built group, pins
+and configs are dropped and leaked. The pinctrl_map leaked too: the driver
+never implemented pinctrl_ops::dt_free_map, so nothing released it.
+
+Reuse the deduplicated group and free the redundant copy (repointing the
+map at the retained group), and add dt_free_map() to release the map.
+
+Fixes: 003910ebc83b ("pinctrl: Introduce TI IOdelay configuration driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
-BR
-Beata
-> 
-> Thanks
-> Vladimir
-> 
+ drivers/pinctrl/ti/pinctrl-ti-iodelay.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/pinctrl/ti/pinctrl-ti-iodelay.c b/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
+index 019b302db2b00..9a8865ce0bbab 100644
+--- a/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
++++ b/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
+@@ -497,6 +497,7 @@ static int ti_iodelay_dt_node_to_map(struct pinctrl_dev *pctldev,
+ 	struct ti_iodelay_device *iod;
+ 	struct ti_iodelay_cfg *cfg;
+ 	struct ti_iodelay_pingroup *g;
++	struct group_desc *grp;
+ 	const char *name = "pinctrl-pin-array";
+ 	int rows, *pins, error = -EINVAL, i;
+ 
+@@ -553,6 +554,19 @@ static int ti_iodelay_dt_node_to_map(struct pinctrl_dev *pctldev,
+ 	if (error < 0)
+ 		goto free_data;
+ 
++	/*
++	 * The core deduplicates groups by name and keeps the first for the
++	 * controller's lifetime; on a repeated mapping (consumer re-probe)
++	 * reuse it and free our now-redundant copy.
++	 */
++	grp = pinctrl_generic_get_group(iod->pctl, error);
++	if (grp->data != g) {
++		devm_kfree(iod->dev, cfg);
++		devm_kfree(iod->dev, pins);
++		devm_kfree(iod->dev, g);
++		g = grp->data;
++	}
++
+ 	(*map)->type = PIN_MAP_TYPE_CONFIGS_GROUP;
+ 	(*map)->data.configs.group_or_pin = np->name;
+ 	(*map)->data.configs.configs = &g->config;
+@@ -722,6 +736,15 @@ static void ti_iodelay_pinconf_group_dbg_show(struct pinctrl_dev *pctldev,
+ }
+ #endif
+ 
++static void ti_iodelay_dt_free_map(struct pinctrl_dev *pctldev,
++				   struct pinctrl_map *map, unsigned int num_maps)
++{
++	struct ti_iodelay_device *iod;
++
++	iod = pinctrl_dev_get_drvdata(pctldev);
++	devm_kfree(iod->dev, map);
++}
++
+ static const struct pinctrl_ops ti_iodelay_pinctrl_ops = {
+ 	.get_groups_count = pinctrl_generic_get_group_count,
+ 	.get_group_name = pinctrl_generic_get_group_name,
+@@ -730,6 +753,7 @@ static const struct pinctrl_ops ti_iodelay_pinctrl_ops = {
+ 	.pin_dbg_show = ti_iodelay_pin_dbg_show,
+ #endif
+ 	.dt_node_to_map = ti_iodelay_dt_node_to_map,
++	.dt_free_map = ti_iodelay_dt_free_map,
+ };
+ 
+ static const struct pinconf_ops ti_iodelay_pinctrl_pinconf_ops = {
+-- 
+2.55.0
+
