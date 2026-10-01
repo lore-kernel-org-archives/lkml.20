@@ -1,141 +1,155 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B3B633C108B;
-	Thu,  1 Oct 2026 15:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC8E3AE6F4
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790869960; cv=none; b=tLi7DG65q6VZ8LVhI8r2KIfNwcOh1u+RkwIf0rE4KDeX26pByO42FN52DDzcOr/MS0AFRsYAFfvUznbtf9PzvGp7Iv6xLljg7mcJ9azdc+4fCHmN8HFO+C0hxA8qBipsNhSeGbNbO0aBvTseWNBUn/LxCDWQmq2hV3dremRvb7w=
+	t=1790869973; cv=none; b=lG1i8WpMnzX6k3NEbK5AK9yvQDSTUmMNEOmlUwIKS/nThgg1W/PfbtFPegxd6R/A61aRH94mBV8rSpQbIMuWYSkaqheP+KxRVDiAN3623VCg1xedqU8tFCWmZ5/bbi66r76urLB8ncuPsjfXJu8KA0NJWFqL1eQInK8Z/pBFzL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790869960; c=relaxed/simple;
-	bh=iRll88XJRYa0MX5ujQ5942/v8a+o7zU9rcHGD+lG1mY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ew/kThpL8+GfKdq2VyJKPXG+xd7hLPfOdKaCBgNW+lyliBE/jefpbQSxZcs4egmpFkFyAhAxLkkvuiXDmkHmBFMV2w5wqyEEtewodjsJwGDlUlSzWBld0d2uKn2kALWKIgiLiwTeVwmb+f1aqX2XdUhVodP+LOl56B6RSI1Ymck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HN/99gdb; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790869973; c=relaxed/simple;
+	bh=kaNu7z1TX0bwxEwyrraDkhe2s4wnQ6UHjmcotMdHGrU=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LCsd9IRFIYA+GYHtEOyr5pVreVQd9WeIigmPwzaq8KRDgPPnmKvMta0Jzxv/BMYBFl5HpkAKOC3fJ40q4qRqiaZmhmxP+WMZx1EYDbZC+lbxYq7NrYGd88VKVSYVLcQZnHvyKs3UBJw07zSHVPpU3Jr9LSMKsiXpmm1dUg+Plyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bvkKpc5Y; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HN/99gdb"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8DBC8497;
-	Thu,  1 Oct 2026 08:52:34 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DAB1A3F86F;
-	Thu,  1 Oct 2026 08:52:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790869958; bh=iRll88XJRYa0MX5ujQ5942/v8a+o7zU9rcHGD+lG1mY=;
-	h=From:Date:Subject:To:Cc:From;
-	b=HN/99gdbaVRpIPL7b/5ZCpT0kdlnv1pc0EplrOoRYUpnY85FK4B8i1tF+yBzL7JMK
-	 rXUuOLu9JTSFNGXbE7Nketvns6FuZCqJ2MJWdE3JN99IgXvxiMbm3ppsf3Agbn+hwO
-	 a5s2ePoYdhFG3ieeNF6Q+9Hv/B/camEUFAl9NUUs=
-From: Leo Yan <leo.yan@arm.com>
-Date: Thu, 01 Oct 2026 16:52:20 +0100
-Subject: [PATCH] perf test: Replace optparse with argparse in attr.py
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bvkKpc5Y"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so1035687866b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:52:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790869970; x=1791474770; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fSlkzBUmp3M8NJ8QezoWTcsem1pj+Ihncq28ei+hc8U=;
+        b=bvkKpc5Yxej9pxsjBZ7lvhaGi6Cul2XDvnZAcaE63k4OS+i3SSzk6ubwmbs/yfuQjF
+         RbBHj7GLYVIWSohFvHbBh3hNs2aF0RCWACHFD+l32GLpdY7vLo2E+kmxzgyxSBNbkMqJ
+         iHIH8pu7UGgepGADNOJvRVbXvrzFhdcvvkb95Odt0D3tRlkj+6YIHqTwVR8ei5ARPynW
+         DMbmP4M673Z7NBqHTw4QQInILv10SOK0b2zIBIVCmDadOAF9rPPRSluSfsg8TgwL/UP/
+         6kJz+FbArozzdQJBg/3BBfDD9FIWL20T0E8t7Fl4Bw0XKoNIkU7JVpKOHH7N/c+PB3fO
+         bAiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790869970; x=1791474770;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSlkzBUmp3M8NJ8QezoWTcsem1pj+Ihncq28ei+hc8U=;
+        b=YeTanenUIgzNhk1J344EfyQ4h15vBe98dWMyTZb5SgYgkdkMex8CszvpJPe5U63Bll
+         qwPnRMxo3txt3NutrBgNcqH2vSLSr+Y1KMN/gbcaca/UCKQ4qe/xDkTbauD4TdpvoWOB
+         Sej6yJG8BeczyN4Ga/ItBo6RKpZQ+wNgHzoJJEcYqPa4eMw7pc2mUdTJyPCMAKVmLe5U
+         hqdnIPctT97sE+gE6H/5ZJfr/VykOgCO0lo51lht+UTwfTCRPffg8Lav0yrV6/4Hb1UO
+         eCC4ODujJ53z9H469w2d+prjr6Y+ZgpZA+eQMOS430eei0j3oA4ud6wALpia+jKAXXy7
+         ybzA==
+X-Forwarded-Encrypted: i=1; AKwUvBws6tLjy2th0MXGCtKGECBJMrd1BQPc/H0+1ManblaQ/Edm254bCcE/LWCz1NilxCq72jIJcTOkj6sqXu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPaMTPJy/y3Ia+m15PNgezEMPznVe9IIPA/3XyIZRlqYyQDUkA
+	dBMmvnsFMOebVMiXPxEwert/AVzcljS69fyEp9mUJVTqESgoW8mwKkQt
+X-Gm-Gg: AYBFou0vduCVV0yLIBO272Zdue+0lQ/kdLuf0n6dBWddx4V0C/R8x6FvfCpFefRombp
+	uo2ZqmYbto7RpPOfO0udW6Stlvx+VpSA7r1XT5+ex+zWPi83/VQLUjO73sJEcZ1Bt2tWRAF3XSP
+	VuUzCuFTc1TSEmctYYQcrScwNtrh1QGkkm+jP7nMrE2xq9VOVUSovzexr+9IkNto/GWrtXXLqln
+	GNtDdo9eQM0r00v7aMY7tWRVC+ANN11gTz/N8wAPdIsE/s6ggrpcVCSTYrpF8Xk6zNv3dH2mU7f
+	/UFeVI4JK7gy//ckce6j8hZLIKcz9SLWp6MXPodPOs8iAxcfTjtAqigXiq/OKq5wt/Z8qyKb190
+	sF9vqutaHUw65gAnsIOH1svx5e/6OeDxcjkDxLAzx+UKR/ItOTkp/iyB9lLeWKkZHLbJ2fkJ5OY
+	OGAH9xciSwWxXyiYHZwHjjqlh0Vk0eXFKCzbTOfurQgWi+lw==
+X-Received: by 2002:a17:907:9406:b0:c2d:23af:5fcd with SMTP id a640c23a62f3a-c2e23e1fcd8mr487499166b.44.1790869969629;
+        Thu, 01 Oct 2026 08:52:49 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31dc7393sm179858266b.65.2026.10.01.08.52.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 08:52:49 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Thu, 1 Oct 2026 17:52:46 +0200
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>, akpm@linux-foundation.org,
+	catalin.marinas@arm.com, linux-mm@kvack.org, will@kernel.org,
+	Xueyuan.chen21@gmail.com, ajd@linux.ibm.com,
+	anshuman.khandual@arm.com, baohua@kernel.org, chleroy@kernel.org,
+	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com,
+	leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+	rppt@kernel.org, ryan.roberts@arm.com
+Subject: Re: [PATCH v9 07/10] mm/vmalloc: extend page table walk to support
+ larger page_shift sizes and eliminate page table rewalk
+Message-ID: <ar6BzubFrn46vuTu@milan>
+References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
+ <20260923062832.479455-8-jiangwen6@xiaomi.com>
+ <ar0nuJ7ocTMgbiMu@milan>
+ <CAHKocdH-NeWYJBrCVfGctuDyh=D4a2YrzUf1VxB3cG7Di-EAMw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-perf_replace_optparse_with_argparse-v1-1-268b604f8e55@arm.com>
-X-B4-Tracking: v=1; b=H4sIALOBvmoC/x3NQQqDMBBG4avIrBtIxLa2VyklDOkfHSg6TMQK4
- t0bXH6b93YqMEGhZ7OTYZUi81QRLg2lkacBTj7V1Pr2FrwPTmE5GvTLCXHWRdkK4k+WMbINpxz
- u+Rr67sG+T1RLasiynZfX+zj+2/0CP3UAAAA=
-X-Change-ID: 20261001-perf_replace_optparse_with_argparse-e7f51849a08c
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790869956; l=2814;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=iRll88XJRYa0MX5ujQ5942/v8a+o7zU9rcHGD+lG1mY=;
- b=hYqelCieuFMdF30mTEKD33ZM+f6QuKHnVTk7WXrBGlb8jfGcdu4gqb4b4JFkn7HipKPOfaA35
- UKnQCPzIeDrDzXm+leCnYkfmh2kRIZLHnbcAsybMB3M24FtiGIGGqjX
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHKocdH-NeWYJBrCVfGctuDyh=D4a2YrzUf1VxB3cG7Di-EAMw@mail.gmail.com>
 
-Depending on the Python and pylint versions, pylint can report that
-optparse is deprecated and fail the lint check. Use argparse to avoid
-this potential warning.
+> > > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> > > index d475e52110e4a..6e0dec73107a7 100644
+> > > --- a/mm/vmalloc.c
+> > > +++ b/mm/vmalloc.c
+> > > @@ -558,8 +558,10 @@ void vunmap_range(unsigned long addr, unsigned long end)
+> > >
+> > >  static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
+> > >               unsigned long end, pgprot_t prot, struct page **pages, int *nr,
+> > > -             pgtbl_mod_mask *mask)
+> > > +             pgtbl_mod_mask *mask, unsigned int shift)
+> > >  {
+> > > +     unsigned long pfn, size;
+> > > +     unsigned int steps;
+> > >       int err = 0;
+> > >       pte_t *pte;
+> > >
+> > > @@ -590,9 +592,10 @@ static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
+> > >                       break;
+> > >               }
+> > >
+> > > -             set_pte_at(&init_mm, addr, pte, mk_pte(page, prot));
+> > > -             (*nr)++;
+> > > -     } while (pte++, addr += PAGE_SIZE, addr != end);
+> > > +             pfn = page_to_pfn(page);
+> > > +             size = vmap_set_ptes(pte, addr, end, pfn, prot, shift);
+> > > +             steps = PFN_DOWN(size);
+> > > +     } while (pte += steps, *nr += steps, addr += size, addr != end);
+> > >
+> > nr_mapped_pages?
+> >
+> 
+> As noted in the patch 6 reply, I'll rename steps to nr_pages here as well.
+> 
+Thank you!
 
-Preserve the existing options and defaults, and let argparse handle
-help and unexpected positional arguments.
+> > > +
+> > > +                     if (vmap_try_huge_pmd(pmd, addr, next, phys_addr, prot, shift)) {
+> > > +                             *mask |= PGTBL_PMD_MODIFIED;
+> > > +                             *nr += 1 << (PMD_SHIFT - PAGE_SHIFT);
+> > >
+> > *nr += 1 << (PMD_SHIFT - PAGE_SHIFT); --->  *nr += 1U << (PMD_SHIFT - PAGE_SHIFT);
+> > as it used to be?
+> >
+> 
+> Agreed, I'll use 1U.
+> 
+Thank you. With noted modifications:
 
-Tested with:
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 
-  # ./perf test -v 'Perf attribute expectations test'
-  78: Perf attribute expectations test              : Ok
+> > >
+> > This is not about this patch but probably on that WARN_ON we should bail out
+> > early.
+> >
+> 
+> I'll send a separate cleanup patch changing it to:
+> 
+>         if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
+>                 return -EINVAL;
+> 
+Sounds good.
 
-Suggested-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- tools/perf/tests/shell/lib/attr.py | 37 ++++++++++++++-----------------------
- 1 file changed, 14 insertions(+), 23 deletions(-)
-
-diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/lib/attr.py
-index 7f3d5b64b00dd7de45baff4f7d9baff89e003147..68f06df9565a081174c788b964a5b051fdedf626 100644
---- a/tools/perf/tests/shell/lib/attr.py
-+++ b/tools/perf/tests/shell/lib/attr.py
-@@ -4,7 +4,7 @@ import configparser
- import os
- import sys
- import glob
--import optparse
-+import argparse
- import platform
- import tempfile
- import logging
-@@ -426,29 +426,20 @@ def setup_log(verbose):
-     ch.setFormatter(formatter)
-     log.addHandler(ch)
- 
--USAGE = '''%s [OPTIONS]
--  -d dir  # tests dir
--  -p path # perf binary
--  -t test # single test
--  -v      # verbose level
--''' % sys.argv[0]
--
- def main():
--    parser = optparse.OptionParser(usage=USAGE)
--
--    parser.add_option("-t", "--test",
--                      action="store", type="string", dest="test")
--    parser.add_option("-d", "--test-dir",
--                      action="store", type="string", dest="test_dir")
--    parser.add_option("-p", "--perf",
--                      action="store", type="string", dest="perf")
--    parser.add_option("-v", "--verbose",
--                      default=0, action="count", dest="verbose")
--
--    options, args = parser.parse_args()
--    if args:
--        parser.error('FAILED wrong arguments %s' %  ' '.join(args))
--        return -1
-+    parser = argparse.ArgumentParser()
-+
-+    parser.add_argument("-t", "--test",
-+                        action="store", dest="test", help="single test")
-+    parser.add_argument("-d", "--test-dir",
-+                        action="store", dest="test_dir", help="tests dir")
-+    parser.add_argument("-p", "--perf",
-+                        action="store", dest="perf", help="perf binary")
-+    parser.add_argument("-v", "--verbose",
-+                        default=0, action="count", dest="verbose",
-+                        help="verbose level")
-+
-+    options = parser.parse_args()
- 
-     setup_log(options.verbose)
- 
-
----
-base-commit: 705da5b15ab89ba97b11eedbe507c2fd83d31cb9
-change-id: 20261001-perf_replace_optparse_with_argparse-e7f51849a08c
-
-Best regards,
--- 
-Leo Yan <leo.yan@arm.com>
-
+--
+Uladzislau Rezki
