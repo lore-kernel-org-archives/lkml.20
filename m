@@ -1,79 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3204E48595F;
-	Thu,  1 Oct 2026 19:56:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBE846D571
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:56:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884588; cv=none; b=FI7PUrskeVe/0rBtm5OgcscTeUBtDlMj+vKsoGXqtoIvB75dyZjifj6GQKzHB66N5XAkjqgRmnEfOkbOBl9t151stdPmAqC7ZOs4PG3AmpIXPX2X9DQq0ya8yJJ1v3cNpKJmL/mWXvuZx6fSK8UfkMqg6r1jONIcP0dKwUe8EOA=
+	t=1790884602; cv=none; b=aGx7zMh7UDd196/zPiRcCyp0OBiDt0wRdwfQMd1SMrw9+2Q2WOIJqunxR+6j2AKg/a/IrG/CHRn3i2l7obVIz/XClIcdHpwPTKvAYdtO496ufsrpxsl6E3PbNiGV50d8h41quhb/Bd3XeYfZ9r758D2tkamFQOH5Sfs0u4Wm/TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884588; c=relaxed/simple;
-	bh=96SR5j2AyAd6GLJx99EmZKC848MIXPiG9LioUTpt2JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CeVlQRYOOuZ9jsqCpuuDiAy4Uf3UEXeB4vCKKBH1u8tFZcm31YpKRNkfI45PSZugA/RpuQBtaWkgC8e6YOg7M76btMn1ylOH21qaqI1v7AM2W+KxRQeRjCeJPWYCPlzjwL81fElyt3HslSPtnF99Bmqrc7KNutUXW91Gn/YKIwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9Lu+1dY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790884602; c=relaxed/simple;
+	bh=+TSzO1Oud8M29DYbZ1dSt/XDqgpcjgR0kBmiqzdh85c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O0tQz3xrRm7zZ9Kdpvcg4/7M1Tr8JhvVzmHr0DvYxcs1ld8kpp+eBM0Ib5sHvB/cMcQnkxMTchc0judmKqkRLNmZmk1Vbse/L1u8roRFKaAD/f5ZgMaizmvffrmGTYap9FYdQWxHwuPofevzEdmNkFPc7mynxhg0rDHqse/i8G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oSxkjuT5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9Lu+1dY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6D11F00893;
-	Thu,  1 Oct 2026 19:56:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oSxkjuT5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22361F0089D
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:56:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790884583;
-	bh=92ga4Iz3j8x7GlpylAlfsxH7cPY4XKVXE2sDHBbEkeg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F9Lu+1dYrWw6ZDDOSjuVgBj4L7eUefm2oBDtd3KVydFK4O/mfXPyC8i1NQQstPGyn
-	 AZevgLvTVtFwaLDpEZwAETcjmo9BVNiBKRo7MxioliSz9AJ/tQvg7vDaT8Efh+jWL+
-	 UQyYKlb8xvncceC1wXINP6CXZJfcij57Nz8Ak4H/czofGPyAn7K1Dy+B4tQ556WMB2
-	 XXeP0UURYpTY132xMEuPX/xusEP5XeUSQDjvdMgaRHI+70/V1hteTm8C3s/kCRQx1t
-	 ErhUL4fDJpGDj1GOlg/Lf0oeUczDYZunExdGQa0ZGa0gaEl6x1wJ8ZWaYhRrLF6S6Y
-	 4pf0L543UcPzg==
-Date: Thu, 1 Oct 2026 14:56:21 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: devicetree@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	linux-tegra@vger.kernel.org, mfd@lists.linux.dev,
-	Mark Brown <broonie@kernel.org>,
-	Thierry Reding <treding@nvidia.com>, linux-sound@vger.kernel.org,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
-	Laxman Dewangan <ldewangan@nvidia.com>
-Subject: Re: [PATCH v2 2/3] dt-bindings: sound: tegra-ahub: Convert to
- json-schema
-Message-ID: <179088458131.1733966.5515900378497319415.robh@kernel.org>
-References: <20260930-as3722-bindings-v2-0-a3bba649ebf9@nvidia.com>
- <20260930-as3722-bindings-v2-2-a3bba649ebf9@nvidia.com>
+	s=k20260515; t=1790884600;
+	bh=RqFuQUcoULCnWt4HCqIQWB5CTIYtbfgDUYFNXv+Jrkk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oSxkjuT5L9DOnhqNvik4oLZHTB8vGxF28AlivmFvCjcxelX73QhKYEs+rBxBwoifl
+	 ukfCoIGMXTsKtJtdM+lFPES6brPTIOfV8BbFH21dZ0jEqcOhmMTugvKfbn4296Vt1H
+	 9X4CeyHQS8+OglSREEpjXOlLqQEOsNRDIuLr8k/KN9PUPblNfaHuEAQssoGkrqmlI9
+	 pCtOv3+bOtQ+Dp9eVcyz0dX//k71Q+tNWPD1odEj+lx+FwtDOPBwQaOkoIq1BfC6qf
+	 l6Mrs2SONB+Zc8iUOKiWRR6YOq/6JZQrPz0TcTANR815xvwc3WN/S4o4SsboY1ibUZ
+	 LenlxxYHLmhmg==
+Received: by mail-lr2-f33.google.com with SMTP id 38308e7fff4ca-3a872cadb93so9791221fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:56:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByY/m9CrDgGUaTf7ST/cBGfGmOoGmbdFIw0cyvpkGA+49IfEAkJmzQQgYWaDc3WIDrjSS8gAMbV/njQRo8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnOb5tKD2km8Sbf3TG/4YWihLkQBnvc0Ji4W4Ves5SNDlGatLQ
+	2qkiwxFMmorkjygDQParWNANkuK9giggG+oeo0t+rquS8dJ49fCJFNekfdHk2Sajnman5jMqm4a
+	bKD+sIlVK5c4yEiYyrm9DfTrCtupL0o0=
+X-Received: by 2002:a2e:b8c3:0:b0:3a7:d217:3b22 with SMTP id
+ 38308e7fff4ca-3a8828d87a6mr910541fa.1.1790884598724; Thu, 01 Oct 2026
+ 12:56:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-as3722-bindings-v2-2-a3bba649ebf9@nvidia.com>
+References: <20260928063824.1386524-1-morbo@google.com> <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
+In-Reply-To: <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 21:56:25 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
+X-Gm-Features: AclHuK8IEImV4NsE_nvLp6iR6ObXgp229xXfDlfrNR7zmTMQOJK4axWXfRI78vU
+Message-ID: <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
+Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
+To: Bill Wendling <morbo@google.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@google.com> wr=
+ote:
+> On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@google.com>=
+ wrote:
+> >
+> > The 'data' pointer field in 'struct acpi_gpio_mapping' is associated
+> > with the 'size' field, which represents the number of elements of
+> > type 'struct acpi_gpio_params' allocated for 'data'.
+> >
+> > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
+> > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
+> > attribute.
+> >
+> > Analysis of allocation, assignment, and access points shows that the
+> > pointer is never accessed before the count is set, which guarantees tha=
+t
+> > this annotation is safe and will not cause runtime panics or
+> > false-positive bounds checks.
+> >
+> > Cc: codemender-patching+linux@google.com
+> > Assisted-by: LLM
+> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > ---
+> >  include/linux/gpio/consumer.h | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/consume=
+r.h
+> > index fceeefd5f893..2b80cf7aa7e7 100644
+> > --- a/include/linux/gpio/consumer.h
+> > +++ b/include/linux/gpio/consumer.h
+> > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
+> >
+> >  struct acpi_gpio_mapping {
+> >         const char *name;
+> > -       const struct acpi_gpio_params *data;
+> > +       const struct acpi_gpio_params *data __counted_by_ptr(size);
+> >         unsigned int size;
+> >
+> >  /* Ignore IoRestriction field */
+>
+> There's a problem with 'drivers/firmware/efi/libstub/Makefile'. Clang
+> needs a compiler flag to support the "__counted_by_ptr" attribute
+> referencing a field *after* the pointer, like in this patch. However,
+> the Makefile blasts the flag away for x86 platforms. Below is a hack
+> that copies the part of the top-level Makefile that adds the flag. I
+> don't think that's a good solution. The comment in the driver's
+> Makefile says that the stub code executes before the kernel does,
+> which I assume is why a lot of the flags are blown away... In any
+> event, I'm not sure how best to address this.
 
-On Wed, 30 Sep 2026 16:01:24 +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> Convert Tegra AHUB bindings from the free-form text format to
-> json-schema.
-> 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
-> Changes in v2:
-> - add compatible to the list of required properties for i2s child nodes
-> - use consistent style for description properties
-> - add correct set of possible compatible strings
-> - add per-SoC constraints for resets and dmas
-> - wrap overly long lines
-> - fix yamllint warnings
-> ---
->  .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
->  .../bindings/sound/nvidia,tegra30-ahub.yaml        | 288 +++++++++++++++++++++
->  2 files changed, 288 insertions(+), 88 deletions(-)
-> 
+But is this a problem with the current patch?
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Does libefistub use <linux/gpio/consumer.h> in any way, shape
+or form?
 
+Yours,
+Linus Walleij
