@@ -1,67 +1,69 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB3051A73A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B485C51B163
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:21:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864497; cv=none; b=Ey5cKu6DLFGFjwrHTOE3BjcH2GgAJum9S4Fnc+FkRF6P4k1VRGV30jvMjhM3wFuL8PLUo4A9RSLkZ42/+oAi6wmAN++2uUQvpzh/rMMHxOtAvku+iEOGvq1DGrlPwhya3fsYjSUmm/imucKtZqsj9ZTMiz3C91MRsQ0Nn5kXgpk=
+	t=1790864498; cv=none; b=T6OPFsEXwuwlby/k+KJAFRc1HgCf/XCdYCkWq283c/o1D2I3NSyZfxo+9lE4calrUURUHgrRDO6TcU/5EeFT5G7L4Vi429LAQjjdT3F1cMHGsT6k0XEcHficCpvL98eAOxV+zKg9vdJbN9t7qcckheVGIULAkx+UN8MZDZ0rjxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864497; c=relaxed/simple;
-	bh=znDGNmYS3o91MES6yjKJMlSzUYv2kb9QpctdsCLHqro=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ofdG3qF2/Lp9olgFNBSfp9XTnBDuIj6sdizrf2xFEpnZDlCFGD+5TRJONx1y0uQPjzmCgb1eYs8R854tk/PgD0MSf4iWF6eIevL2VN5dNUyZEKqrn0QbIukJY5eP0Ifor3I4d8NpblL88J1xifCmpAgM92QV4hX3bLOSh6/KmRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YLjWcveK; arc=none smtp.client-ip=74.125.225.99
+	s=arc-20240116; t=1790864498; c=relaxed/simple;
+	bh=Yv/xmdpOF6BM35fDfDz6GZPVYeNpS2zgLO6H9ajzwFY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nk8DLFIYBZpSsvhaMQYLWRuF4X/aVqzOMEi81xJ/7XgTjeRiyi+cZvKh/QmvqjZMAh/cIQgr0v+e/EFqgnO00YpJ3kVAe60+KqvZIu00SUoPqXioBXNbUoVGTQhZu8813++EbD/Dxafx3gTn3JqyqL6OTy9Q4Ji1DiGfedx1keI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZP4It3B6; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YLjWcveK"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887840c529so2288951f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:21:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZP4It3B6"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso67950805e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:21:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790864493; x=1791469293; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=S33UzsYXrhxOtgRyb+fkmOHpk0z2PGLJbFC6/Ufui6U=;
-        b=YLjWcveKMl7+IZd7c+6zXvlMgSDOKHNWJ4Id+61csENu9Y9TAww71xQMW5PymlzZY/
-         YF+U2Xej5Jyoz5Q696OAiCQOlA+FLcWrjMIKMlRYPkyclSmXG5D5PkBpLB5cSsJYpq39
-         2B+kg7SXYbCwGjtkGttYnC/kBRbzZ+d6EVvCmiEZ4qCHSB04ZoP8BTCnyEtMNaCAmQpb
-         4KzWm0LtQzU6qDonjHjwgzS9rnB9H5eIRZ0/IaRuGn92o0ERP9yOfRj8NeutCRaFq4m2
-         8t6fgtKRuTxMwIGk/LZl1z3ulQj89+W8qalb6W/nRD+UPWXuJHx/yk9KNhQC2+UhbqhC
-         6cXQ==
+        d=linaro.org; s=google; t=1790864495; x=1791469295; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K7TkIz3XcNZzBFScIUbNy9ytIHILZUanUufywGu/Sn8=;
+        b=ZP4It3B6n7cocF6xxVG6pDYkmRZxScpI5O8tb30mURgQPt6+p2HkhxvCzdzVY5Nc2b
+         9KbrpomBjwrjuykqP1AajM0EMPwJqOCffu0q67NwMBNxvZ+KnbtBkLiZlvw7SbDUSuQo
+         V9ZfKF/3U5TAYKDurMf3U6U/IK3SP6Vu1NeuJtbiWG6FyNqZ4jzQGTf21DWNAbCHcRxH
+         wvX7NtMl2EsW0kIa7KvEE+MAWlFbtw7UYiEcfxTq2Kyy/JvtXlv0DCs0eo6WOtmTJibc
+         mB4Ss3wmNtDu+gG6YlM3F/adv1r3vwegg7oRlm0GPVJKA7uPTR32+lEnLH4pxET1U4Nu
+         nXgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790864493; x=1791469293;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S33UzsYXrhxOtgRyb+fkmOHpk0z2PGLJbFC6/Ufui6U=;
-        b=XppoZMozyWhrzimUdmeo5HXh1mNeahhDnvyKlEgW+Rcpo4cH1iX3qLIwJSDhPV+ZTJ
-         kiA9vA/+fodPJEwuPKlFNBy8mnj+jlD6ZAL8ckL085POI+tbwWItztVOzzE4AOEL0NeV
-         S2+F7+gpMxxmr8cWM0K/IDhjZpUh4oowpS9GBG9j8MBLAsf9QeebXqPcQatqYPOdAxag
-         12flRIz/pBYuLBYGP9Sa+slFlTL4f9Yi/ISqZWn7YcR/aOvUn/76V4MQiy2h1w6J0Hwy
-         pW8TSRH2RWB8700ZaO46TSBtC1Sf3hWeXJ6SbQLh3rUQSwJWHsQin+XlQgw5FSZqiFgq
-         Hbhg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3p0SH9BJDBxDFzb8bwECq77e6xCQ9hr8UbVP1+RU8P2rmXTFKt5IWI9r0Pcfo7xflCOPWXA2cS4ncuf0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtq0FcZmTDGOdDtimU/3N/Zhm6T8bn/iDuzDWnIpdVNCEaP+ea
-	7K32Ub4HQ3d7sgTehcOlpkK/c95v0lvEOq3CfPnxKe4H5rFpYQlaRhBCOcSasslKGlM=
-X-Gm-Gg: AYBFou3OzqAQYZlbnSoT66sQcOA8gf3KcsG3GRVu79bNsmWixcLf2xMXxHlJ8eqk2GY
-	Nf+paWtZnsIL0mT4NiR4fH+Fe5TiwsMVj9IEJZloF+7lMMNuDVA0Vg5zLn5XEWet0vAgR+RwgL4
-	LmGMBykj4pO3l2gqxl3TJhuEM+UsiMsjao7CtCGlaWvi2o7oWNfAoBmy0+0/YYKBfKeyc29SHbA
-	YtOWBL9ixcwBnpUgAegHShhI51xXcE8ck3eGwGZszgT0HKR3tduWmzf2uvOFyyeiX8SIy0w3Kn0
-	H9hBzwNk5yDjMBNqYZQJ2ZxyCIzXHutemjZyP9mPHJYbG8q9XKV0+AprPJOqrzDIyBas2AJwGH8
-	+Flvfmsl5fQMQfFWJWoLNUmFR7mPaYvIy9/Gx32dI4V4BxegLm6+OtJUrYZmlMT13Uk7rydrhh6
-	bQwHqfbJs0rmFAcqYVd8+G35JJNuDuWdkDpmVRO0VL6ULvFourTFKbNuV7mAi+ostqYICuT5Nrc
-	AJdlhXcWrhdrw==
-X-Received: by 2002:a05:600c:a107:b0:4a0:1ef1:b62b with SMTP id 5b1f17b1804b1-4a01ef1b7ebmr38500685e9.10.1790864493549;
-        Thu, 01 Oct 2026 07:21:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790864495; x=1791469295;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K7TkIz3XcNZzBFScIUbNy9ytIHILZUanUufywGu/Sn8=;
+        b=UPgVGCA6PTp+PS3UTxhgOYwGrcbsVbNDJHxG4O1qteq9LhD48KqwgJu+ZNBvcknKat
+         KG6QmIoEf6n57zVfmHRpP/+dmHBC1owh2n+g2ImJsqQm2cG9Oa6D5LsITVE/I5mSH263
+         5+VTCPg9Y4cdL2hqndlqEQEQFaHXqhpRcpTH0K4unptatL+3OJEuyBJTPFLIaiGtS7XJ
+         SUT/N7viTZi9FWlfSyhDWFsMjVPUSlewTGwVy/B4+9j5Lt265XtpE7uozAJBBh5rWpln
+         BjsqfbveMxpi8DnGVNxqzDd4oqIFomUCE2f/XjvJ3f9cucrdxF02+mZ8QgTmHOzWzaqK
+         tNHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxR3vQli2J/DPFR5ZovtUeuDgvhRCfSUHCv54puxdz+Q527e9HTqiWm6TAOWivFVDyKUrAEZE+V1tjPWm8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4S43SLrRLxGt5y/le6TCjBLtKFegQmNuqM1bTwAnBXAIXFWam
+	b8RCSbeoZh7pIY5hLNG8qn1SSCUte/vA44Y2VWc3Eexywp5vOhAnyz+aRBGv3SpSs7o=
+X-Gm-Gg: AYBFou25cJxWaYUyZhdl4eWHUVcTkY7rBTV7iOp2yCypLJbR2TbMrM2yikNqC9cPeAC
+	pyYG8mDF4c3Zi0H19qo8xrY7JOPY1QkGTtiBhjAwHcqLNE1Py/SfjIgvxjGruYYv1eGnbDV7HNV
+	6q6z+sXQ78iqbjrCZ11noQsG8yfgMHDeNGm3+V7Xx7vt2Q+nkpjpBFDEiEWrdzwD/0xdQuXhuK+
+	LG2zjmT/ShQEL2eJAwEjJd7Sj0l3K7HRGASy7jwOKB9wkpWgl8dJSGr8AlQHicBILesLh7Zk1vy
+	k9xjcU9oqkxCxbjGJkr0m6hjOYEjMCD8J1jEq/u8hxgrDLt/J6BwCz43xplwJbGm456PmMknwPs
+	ezsQswwo5rl+Sa1bJ5CzlX6tWSu5/MsC6vYu2DlVbg5tSeZTwn6yhtPk3W2td7ah/3ZxyzzHqyK
+	uPBjxM92vG8Namazf723oF7oj8CyLCrw51eXeGKBFaYgZp/oY3eQWh7Ficqh01rsUoxsX1cMVwf
+	Q==
+X-Received: by 2002:a05:600c:638d:b0:4a0:21b9:a55c with SMTP id 5b1f17b1804b1-4a021b9a5f4mr42960425e9.29.1790864494791;
+        Thu, 01 Oct 2026 07:21:34 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f1c2sm34783975e9.2.2026.10.01.07.21.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f1c2sm34783975e9.2.2026.10.01.07.21.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:21:32 -0700 (PDT)
+        Thu, 01 Oct 2026 07:21:34 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Subject: [PATCH 0/2] coresight: Retry failed HW_ID writes
-Date: Thu, 01 Oct 2026 15:21:14 +0100
-Message-Id: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
+Date: Thu, 01 Oct 2026 15:21:15 +0100
+Subject: [PATCH 1/2] perf/core: Return errors from
+ perf_report_aux_output_id()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,10 +72,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFpsvmoC/yXMWwrCQAxG4a2UPBuYmYKIWxGRNvOPTcEqSb1Ru
- ndHffwezlnIYQqnfbOQ4aGu16kibhqSoZvOYM3VlELaxhAij90FzuJsmO3Nw/OkmXclQlopKfc
- t1fRmKPr6bQ/Hv/3ej5D5+6J1/QAt3Ef0eAAAAA==
-X-Change-ID: 20261001-james-cs-retry-hw_id-8f1ec3cf2db3
+Message-Id: <20261001-james-cs-retry-hw_id-v1-1-4d45ab46cde7@linaro.org>
+References: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
+In-Reply-To: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
  Arnaldo Carvalho de Melo <acme@kernel.org>, 
  Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
@@ -87,27 +88,58 @@ Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
  James Clark <james.clark@linaro.org>
 X-Mailer: b4 0.15.2
 
-Extracted from the last two commits from [1] as they were only
-conceptually related to that patchset, not functionally. This can be
-safely applied to the driver separately.
-
-[1] https://lore.kernel.org/linux-perf-users/20260821-james-cs-hw_id-output-failure-v1-0-9d532ddabcc3@linaro.org/
+It's useful to know if this failed or not so a retry can be attempted
+later. Return the error code or success.
 
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
-James Clark (2):
-      perf/core: Return errors from perf_report_aux_output_id()
-      coresight: Retry failed HW_ID writes
+ include/linux/perf_event.h | 2 +-
+ kernel/events/core.c       | 6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
- drivers/hwtracing/coresight/coresight-etm-perf.c | 50 +++++++++++++++---------
- include/linux/perf_event.h                       |  2 +-
- kernel/events/core.c                             |  6 ++-
- 3 files changed, 36 insertions(+), 22 deletions(-)
----
-base-commit: 75ba5c486ea071d44d3f61318c88a7793bc768d4
-change-id: 20261001-james-cs-retry-hw_id-8f1ec3cf2db3
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index 48d851fbd8ea..01d318a4de50 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -1896,7 +1896,7 @@ static inline struct fasync_struct **perf_event_fasync(struct perf_event *event)
+ }
+ 
+ extern void perf_event_addr_filters_sync(struct perf_event *event);
+-extern void perf_report_aux_output_id(struct perf_event *event, u64 hw_id);
++extern int perf_report_aux_output_id(struct perf_event *event, u64 hw_id);
+ 
+ extern int perf_output_begin(struct perf_output_handle *handle,
+ 			     struct perf_sample_data *data,
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index d7f3e2c2ecb1..232da3b6f393 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -10563,7 +10563,7 @@ static void perf_log_itrace_start(struct perf_event *event)
+ 	perf_output_end(&handle);
+ }
+ 
+-void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
++int perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
+ {
+ 	struct perf_output_handle handle;
+ 	struct perf_sample_data sample;
+@@ -10585,12 +10585,14 @@ void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
+ 	ret = perf_output_begin(&handle, &sample, event, rec.header.size);
+ 
+ 	if (ret)
+-		return;
++		return ret;
+ 
+ 	perf_output_put(&handle, rec);
+ 	perf_event__output_id_sample(event, &handle, &sample);
+ 
+ 	perf_output_end(&handle);
++
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(perf_report_aux_output_id);
+ 
 
-Best regards,
---  
-James Clark <james.clark@linaro.org>
+-- 
+2.43.0
 
