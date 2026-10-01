@@ -1,259 +1,146 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 060673EFFC0;
-	Thu,  1 Oct 2026 21:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638964C33C8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889502; cv=none; b=qA2eL0pZJiriv4M+huLZu1mHzHws6VaNvvxHk/fC4cmldVVlrc2WLFcHnCm2wMN5tEwamuooItI9E58V4N9Pv8hzCWZCAROX4fBZWajAOhPUO/BJAoxZJI7j1vIgzWfybI+ltljU+UcMq+63kRT1AY2IVnE8j7UM0ziupdhKfS8=
+	t=1790889531; cv=none; b=bzzqIrK7NVbd9Chxmg8TKuUc26uQj4d0cSYB9bUXikXhMFdbL5gy/RFzPPTRvQYi6ChDvs81D1WlAkSljP1g9K3TGhEObnZx5bmK/yGyrmLIysUAKNH16xYdTkgvsAs6ir6kzyQP8wFNJsPMeQdVEttO9Y4UJDC0Rh0sDXdfQw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889502; c=relaxed/simple;
-	bh=qoSGrwNQRKGNb/DAYUjsOgnGJWv8gpOg0lOua4ceY5Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MiCfEy8p6MIxW8gb31noy5mThW1Dwcd43msm+SAMEHV8o+ohJNkILybDSaK3EjoyjV4BQ8QupvaTtQP3FX1Fuy3AS2FbYuF21aj8UlWFNG0+Jc61lMNDigYOwqKsoolLBv/zhinbm4hrJhfNu/3JuP95lnBRMr6XYCaHrTjDwwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DIP8yhKw; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790889531; c=relaxed/simple;
+	bh=Lc8DU1zkrMg4neucucQ1pvHXt1SoMZbVX5FyEcJUZ2o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ie+PKQQ9uezkwEuStt2PWxjEUNy9hHuvA8I2t32XnBr/v1GnIeIYLUXPZ72QhgzPk6IK2o1WJeVde7a1soA+Dn9OGQ9vJ5zCy2hQLuw9me9noytLTb67fhMP9zbsnTUBg3xrRBDHdrQm7Igm5O3D9gwd0bWsuudgJpvNLPh3H2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gbpxrOov; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DIP8yhKw"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3081E175D;
-	Thu,  1 Oct 2026 14:18:16 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C1763F86F;
-	Thu,  1 Oct 2026 14:18:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790889499; bh=qoSGrwNQRKGNb/DAYUjsOgnGJWv8gpOg0lOua4ceY5Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=DIP8yhKwwptsra6oSVnxGZpBOypKKHGXsnlcotdwJ75CoHaWHgQ+7PKoFvxaTHKgr
-	 AgVCMesE4WBcStB/VOzkUpiWPFtM6Kf31M0OFH55qdUKfhdGwMrrVhGTa3fmncztPj
-	 MFQdj4b9Jx/lY0BLCa4q6bJM9nI50EVBL1rzMp0U=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Thu, 01 Oct 2026 22:17:54 +0100
-Subject: [PATCH v9 4/4] kselftest: mm: remove check_huge_shmem()
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gbpxrOov"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7e6720b31so1116053a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:18:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790889524; x=1791494324; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4UWY4lqIbXW0hgSoFKxOQDY3goBYarydfObAA0sKuMg=;
+        b=gbpxrOovYg0TALiTkiOZ3vqqTpmRl9Ah/lbHaOlHZixoVq9QbJaB9Avxx45x+l8f7r
+         r3OUkizwBtlqdPvgvOg7qMczXMzlHIUVjA4eirq1AIzm8JlCOTDiECDBpnByIYKIwvxK
+         NjLXyudwsDrqP2mJvKxudhHtRLAzSUGbEOpZ6BttNS0Wu17B621AvLUOi+ffK9uCsFOa
+         oTs5uxxClGzCyDdHqnS24W8LOw8m2gQQ18kdVeju/ekVT5LEJwNAXTHre2qbqqdnt8aK
+         7PCP68ix4ZNd1Jxx++i3cy357YacXO4ZIVg+BN8ttT6ciOYIBqfwMNmboDLyDlkm6cW1
+         g0pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790889524; x=1791494324;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4UWY4lqIbXW0hgSoFKxOQDY3goBYarydfObAA0sKuMg=;
+        b=OBFpyvL+XvFrtbyvUFIxlwT4M5MQiINdT9DL5d5xPGypLvEUTnPijYUXah1tHFQD1r
+         jv6bnwtNl+1pMYfuucVxMOtYg7+nMwzz0WdJ4LMStaP4EBhdoxX1llyrZ5536x4Y5d3V
+         D6fHSkMMRnPV8/iO5l+mnvEjmv7HMMwCuJdhKq2rinBrQecI5MyrLS2HfnPayGUQ4qvf
+         RmGArxMdVKG3QVrMon2hkxfoQlG+hahY39T4v9rlsmnLEgsbPz9Hmi9lF0+MN/4XhtLh
+         67sWW8CSImwRRBFYjuIPyMpK7DJG5LgW4afqYZ5BkoXA6KCXfuaOEPizDryogd4Rciix
+         lkHw==
+X-Forwarded-Encrypted: i=1; AKwUvBynFTrLagGjJJ6YK5RI73hP+AqXEeAvGlEDC/pjr5yznHiRg4YNdJkh0ff3betChEd+A1+saWAQWswAhe8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzoRFhalbqvMoBb6B7e4jldB5y4o89vrvj6d9uHtv0ZtTUKDwt
+	7wAIOjQWLCHyuyJcAncNCCAGmFCrktrT2Y1gWvDOfWz+EAqEYIeQhZOwMIKd30kGFLEHjD9GvID
+	q7/6rcg==
+X-Received: from pga7.prod.google.com ([2002:a05:6a02:4f87:b0:cc7:ac0b:f49d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:a121:b0:3dd:659e:5db2
+ with SMTP id adf61e73a8af0-3e0bce8431cmr525636637.16.1790889524390; Thu, 01
+ Oct 2026 14:18:44 -0700 (PDT)
+Date: Thu, 1 Oct 2026 14:18:43 -0700
+In-Reply-To: <CADrL8HWDy64UH0N4RCtvgL6zP93jnwr91xjkWerEs1MBV9JH_w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261001202234.3794060-1-seanjc@google.com> <20261001202234.3794060-2-seanjc@google.com>
+ <CADrL8HWDy64UH0N4RCtvgL6zP93jnwr91xjkWerEs1MBV9JH_w@mail.gmail.com>
+Message-ID: <ar7OMwkZ9bc0tbzC@google.com>
+Subject: Re: [PATCH v2 01/10] KVM: Reject user accesses to guest memory if
+ current->mm != kvm->mm
+From: Sean Christopherson <seanjc@google.com>
+To: James Houghton <jthoughton@google.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261001-fix_split-v9-4-0f4ba8bbdbdf@arm.com>
-References: <20261001-fix_split-v9-0-0f4ba8bbdbdf@arm.com>
-In-Reply-To: <20261001-fix_split-v9-0-0f4ba8bbdbdf@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>, 
- Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7460; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=qoSGrwNQRKGNb/DAYUjsOgnGJWv8gpOg0lOua4ceY5Q=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqvs4KEEnqiON+I3Gd3mz6SPdJmpeKMqoQZSCSr
- VpJh7nj9qGJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCar7OCgAKCRBt1cPRWsUx
- M0DRDADOZW52MN1wbgEqIJKQc0Q+UqYUnv1ItUiJbFIbrHUS9z/Jnl0g4Caa1agRolvBsut/+Ik
- i5Bi82AcUuUaP4632u8/HU2vqkfhNwDLfMSdcoN17SkngFlv1QRZoaOrGadXEsVgSve0zH+p0su
- nrxWlkJOgl2oHKN481Nk24L2YKE7l2mkKkFUcxFG3P0KOG52DJRpitaVN90n9X4Q0qkQc+mljZm
- QACLrFEdSqdxmoPSEXZqJS6zY/9Zeex9BU/xcyKFUEPP/5k2v/NQs5KpJn1ggYwJAA1eQcYzdGq
- /Ad0h5By83rNRWuY/v5zCsvojGdgWL40ralvP1/vPZsBY5YicON3GjH5aqsHMYXnDS0BG5StcgR
- i+nG7waFmYWgBdJDGJJFFVPGxxOYKkDlFB4+z+0qmJI1JHGNhCf94LrnAtmJ6vhXwc1ldu5KeU0
- i3VrI6afLDZvEbLRXIOhpbuMSOxWGQXQhhV0OOcGcv9uCjqRPTMUYa2j3r+BbtqB6tZM4=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Content-Transfer-Encoding: quoted-printable
 
-check_huge_shmem() was required to distinguish shmem huge pages because
-/proc/self/smaps reports them using a dedicated “ShmemPmdMapped” entry,
-as opposed to “FilePmdMapped” for file-backed huge pages.
+On Thu, Oct 01, 2026, James Houghton wrote:
+> On Thu, Oct 1, 2026 at 1:24=E2=80=AFPM Sean Christopherson <seanjc@google=
+.com> wrote:
+> >
+> > Reject user accesses to guest memory, which are supposed to be done onl=
+y
+> > in the context of KVM_RUN or similar operations, if the current address
+> > space is not the VM's (host userspace) address space.  If KVM writes to
+> > guest memory after the owning host process has exited, or if the VM is
+> > being destroyed in the context of a different process, then writing usi=
+ng
+> > the wrong address space will corrupt a different process' memory.
+> >
+> > Reject the access but don't WARN() or KVM_BUG_ON() event though attempt=
+ing
+> > to access guest memory with a mismatched address space is a blatant KVM
+> > bug, because unfortunately KVM is buggy.  On KVM VMX, when a vCPU is
+> > destroyed while L2 is active, KVM synthesizes a nested VM-Exit to force=
+ the
+> > vCPU out of L2 in order to free the nested VMX assets, and a side effec=
+t of
+> > a nested VM-Exit is that it flushes the cached shadow VMCS12 back to gu=
+est
+> > memory:
+> >
+> >   vmx_vcpu_free()
+> >   |-> nested_vmx_free_vcpu()
+> >       |-> vmx_leave_nested()
+> >           |-> nested_vmx_vmexit(vcpu, -1, 0, 0)
+> >               |-> nested_flush_cached_shadow_vmcs12()
+> >                   |-> kvm_write_guest_cached()
+> >                       |-> __copy_to_user(ghc->hva, ...)
+> >
+> > Fix the bug broadly even though the "real" bug is that KVM abuses the
+> > nested VM-Exit flow for non-architectural purposes, as there may be oth=
+er
+> > such violations lurking.  For now, punt on fixing individual bugs and
+> > hardening the common flows, e.g. with WARNs.
+> >
+> > Opportunistically provide wrappers in anticipation of adding more check=
+s
+> > and hardening, i.e. growing the logic beyond checking current->mm.
+> >
+> > Fixes: 61ada7488ffd ("KVM: nVMX: Cache shadow vmcs12 on VMEntry and flu=
+sh to memory on VMExit")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Jim Mattson <jmattson@google.com>
+> > Closes: https://lore.kernel.org/all/20260908132838.2116068-1-jmattson@g=
+oogle.com
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+>=20
+> Thanks, Sean. Feel free to add:
+>=20
+> Reviewed-by: James Houghton <jthoughton@google.com>
+>=20
+> I wonder if it makes sense to add similar hardening to kvm_faultin_pfn().
+> What do you think?
 
-Now that /proc/self/smaps is no longer used to detect huge pages and
-/proc/kpageflags is used instead, it is sufficient to distinguish
-between file-backed and anonymous pages since the ShmemPmdMapped is also
-kind of file-backed.
-
-Therefore, remove check_huge_shmem() and use check_huge_file() instead
-and cleanup khugepaged's check_huge operation in mem_ops.
-
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- tools/testing/selftests/mm/folio_split_race_test.c |  2 +-
- tools/testing/selftests/mm/khugepaged.c            | 38 ++++------------------
- tools/testing/selftests/mm/uffd-common.c           |  4 +--
- tools/testing/selftests/mm/vm_util.c               |  5 ---
- tools/testing/selftests/mm/vm_util.h               |  1 -
- 5 files changed, 9 insertions(+), 41 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/folio_split_race_test.c b/tools/testing/selftests/mm/folio_split_race_test.c
-index e4660bf89b62..1a9840b73e61 100644
---- a/tools/testing/selftests/mm/folio_split_race_test.c
-+++ b/tools/testing/selftests/mm/folio_split_race_test.c
-@@ -181,7 +181,7 @@ static uint64_t run_iteration(void)
- 	for (i = 0; i < TOTAL_PAGES; i++)
- 		fill_page(mmap_base, i);
- 
--	if (!check_huge_shmem(mmap_base, FILE_SIZE, NR_PMD_PAGE, pmd_pagesize))
-+	if (!check_huge_file(mmap_base, FILE_SIZE, NR_PMD_PAGE, pmd_pagesize))
- 		ksft_exit_fail_msg("No shmem THP is allocated\n");
- 
- 	if (pthread_barrier_init(&ctl.barrier, NULL, NUM_READER_THREADS + 1) != 0)
-diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-index b0cb02bf1a73..61bd69d604d2 100644
---- a/tools/testing/selftests/mm/khugepaged.c
-+++ b/tools/testing/selftests/mm/khugepaged.c
-@@ -57,7 +57,7 @@ struct mem_ops {
- 	void *(*setup_area)(int nr_hpages);
- 	void (*cleanup_area)(void *p, unsigned long size);
- 	void (*fault)(void *p, unsigned long start, unsigned long end);
--	bool (*check_huge)(void *addr, size_t len, int nr_hpages, unsigned long hpage_size);
-+	bool (*check_huge)(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- 	const char *name;
- };
- 
-@@ -343,12 +343,6 @@ static void anon_fault(void *p, unsigned long start, unsigned long end)
- 	fill_memory(p, start, end);
- }
- 
--static bool anon_check_huge(void *addr, size_t len, int nr_hpages,
--		unsigned long hpage_size)
--{
--	return check_huge_anon(addr, len, nr_hpages, hpage_size);
--}
--
- static void *file_setup_area_common(int nr_hpages, enum file_setup_ops setup)
- {
- 	const int open_opt = setup == FILE_SETUP_READ_ONLY_FS ? O_RDONLY : O_RDWR;
-@@ -444,20 +438,6 @@ static void file_fault_write(void *p, unsigned long start, unsigned long end)
- 		ksft_exit_fail_perror("madvise(MADV_POPULATE_WRITE)");
- }
- 
--static bool file_check_huge(void *addr, size_t len, int nr_hpages,
--		unsigned long hpage_size)
--{
--	switch (finfo.type) {
--	case VMA_FILE:
--		return check_huge_file(addr, len, nr_hpages, hpage_size);
--	case VMA_SHMEM:
--		return check_huge_shmem(addr, len, nr_hpages, hpage_size);
--	default:
--		ksft_exit_fail_msg("Unknown VMA type\n");
--		return false;
--	}
--}
--
- static void *shmem_setup_area(int nr_hpages)
- {
- 	void *p;
-@@ -481,17 +461,11 @@ static void shmem_cleanup_area(void *p, unsigned long size)
- 	close(finfo.fd);
- }
- 
--static bool shmem_check_huge(void *addr, size_t len, int nr_hpages,
--		unsigned long hpage_size)
--{
--	return check_huge_shmem(addr, len, nr_hpages, hpage_size);
--}
--
- static struct mem_ops __anon_ops = {
- 	.setup_area = &anon_setup_area,
- 	.cleanup_area = &anon_cleanup_area,
- 	.fault = &anon_fault,
--	.check_huge = &anon_check_huge,
-+	.check_huge = &check_huge_anon,
- 	.name = "anon",
- };
- 
-@@ -499,7 +473,7 @@ static struct mem_ops __read_only_file_ops = {
- 	.setup_area = &file_setup_read_only_area,
- 	.cleanup_area = &file_cleanup_area,
- 	.fault = &file_fault_read,
--	.check_huge = &file_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "file",
- };
- 
-@@ -507,7 +481,7 @@ static struct mem_ops __read_write_file_read_ops = {
- 	.setup_area = &file_setup_read_write_fs_read_area,
- 	.cleanup_area = &file_cleanup_area,
- 	.fault = &file_fault_read_and_flush,
--	.check_huge = &file_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "file",
- };
- 
-@@ -515,7 +489,7 @@ static struct mem_ops __read_write_file_write_ops = {
- 	.setup_area = &file_setup_read_write_fs_write_area,
- 	.cleanup_area = &file_cleanup_area,
- 	.fault = &file_fault_write,
--	.check_huge = &file_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "file",
- };
- 
-@@ -523,7 +497,7 @@ static struct mem_ops __shmem_ops = {
- 	.setup_area = &shmem_setup_area,
- 	.cleanup_area = &shmem_cleanup_area,
- 	.fault = &anon_fault,
--	.check_huge = &shmem_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "shmem",
- };
- 
-diff --git a/tools/testing/selftests/mm/uffd-common.c b/tools/testing/selftests/mm/uffd-common.c
-index 1fb967ef4985..a76851aced4d 100644
---- a/tools/testing/selftests/mm/uffd-common.c
-+++ b/tools/testing/selftests/mm/uffd-common.c
-@@ -196,8 +196,8 @@ static void shmem_check_pmd_mapping(uffd_global_test_opts_t *gopts, void *p, int
- {
- 	size_t len = expect_nr_hpages * read_pmd_pagesize();
- 
--	if (!check_huge_shmem(gopts->area_dst_alias, len, expect_nr_hpages,
--			      read_pmd_pagesize()))
-+	if (!check_huge_file(gopts->area_dst_alias, len, expect_nr_hpages,
-+			     read_pmd_pagesize()))
- 		err("Did not find expected %d number of hugepages",
- 		    expect_nr_hpages);
- }
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index 65c06e17c326..515031b8283d 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -486,11 +486,6 @@ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
- 	return __check_type(addr, len, scan_mapping_size, CHECK_TYPE_FILE);
- }
- 
--bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
--{
--	return check_huge_file(addr, len, nr_hpages, hpage_size);
--}
--
- int64_t allocate_transhuge(void *ptr, int pagemap_fd)
- {
- 	uint64_t ent[2];
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 072a6c756c51..b5d59729d432 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -96,7 +96,6 @@ uint64_t read_pmd_pagesize(void);
- unsigned long rss_anon(void);
- bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
--bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- int64_t allocate_transhuge(void *ptr, int pagemap_fd);
- int pageflags_get(unsigned long pfn, int kpageflags_fd, uint64_t *flags);
- int gather_folio_orders(char *vaddr_start, size_t len,
-
--- 
-2.43.0
-
+I'm not opposed to explicitly hardening kvm_faultin_pfn(), but I don't thin=
+k it
+would add much value in practice.  Far more arch code uses __kvm_faultin_pf=
+n()
+directly, and that doesn't have a @vcpu or @vm pointer to do the check.  We=
+ could
+obviously "fix" that, but nuking the memslots (patches 3-5) will prevent al=
+l but
+the most ridiculous bugs.  Getting anywhere near __kvm_faultin_pfn() with t=
+he
+wrong mm would either mean KVM is doing something amazingly stupid during V=
+M
+teardown, or I guess maybe the scheduler or preempt notifiers went off the =
+rails?
