@@ -1,164 +1,188 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA0E4FD269
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C73501291
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858586; cv=none; b=BP9MmvVLDJ2jGc24olYeGhT/DzpCq8Msmwyg7Wm2wzYielcgQYIKfxONf0DjmMFWkMiSgj7AUko93cF6XntJpej3NpyYLbOgopkOxJWjPtAkDryLkbfjc+zpEmUltTGkQXsmF5+VyBOwtoffyczQXuR3Jm2tccWEOWVoVudirdw=
+	t=1790858592; cv=none; b=u0+wqZNu56i/+EFo8TQYLSUBjqK7rVbIhY1v8EaOTusCNeYtZZkpIAefTrAemIYWLHfzZLWtPeJDb3dM9g+DdAGzRxBEERSWvpPvQrRBERKIz+/WXo9rLw2XwywfuyKFO7cK2FJZ2TkYpFE20iqkxRLWpzyNRwT8Bn5HJ7aOGHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858586; c=relaxed/simple;
-	bh=KF/Qu/0gsfa33ntx/RWczeDGw4/dEfXenXdAb2o5o1s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=p5Zv3SjdWJMhMFiHoNCooYy/lizBJJTIviNqo8Jx0UWJ/gZSZ6rOlGRMoLfeZ53f9IMir/JspRFsA4oq2z5PDrY0/2hzXURBChnybOn2vsTGCKr2lnSQr/KJxYt63YYJBUgN+GO344s7dHnBBAjSFdv6rW0LyJHyzH1eWk5L6bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YAuT9Wp3; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790858592; c=relaxed/simple;
+	bh=rt6ZcRAoG0leWw0cNBVbjahgnsaNWPYY+3SkGYS+apg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JxEV0DyAdcZrEiBJLOJIJHAvvOjOkIFkL6BTpRf5gjnRmnbJvKF4GxHJ+NhflnqWUfTXMgo75DhN7mF6dzuVf6kroHFuhICOLQ6LEBfOXvF7TRLqRLXzZDnX9VV3HWUAJuspzrvYCPkVwQcGDxM2Mw7Q59htPY3a1e5LheA+9pU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Joo+rgYv; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YAuT9Wp3"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 435B91A18DE;
-	Thu,  1 Oct 2026 12:43:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 083E260341;
-	Thu,  1 Oct 2026 12:43:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5930710328112;
-	Thu,  1 Oct 2026 14:42:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790858577; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=i5Z3bJt46CPEmDU7cFKYbz4SNeEy4GjbkdDR4/WWzvg=;
-	b=YAuT9Wp3cfXOBkE+gTazN0+HCqHYvNj2scp5Mul69TeqDXSt7EUg+E/OGZb88mzr/F3nF2
-	RLxKzWvEeJKoa4I3gbW+Mdx4DqO6Vp22k07NmAoG1RqN7IsqcI+IoxJUXj4Y9+oHekgAC1
-	E/KnqnnMcU7t/+8R5mSivpg79K/0xFa/2Eu2tVYrYBT9q56wD7KlRVME/VVAiU9N4iRBKp
-	J9SfTAf/ir/6dKiB4myDV4FUgatnn5HsMUDrZdnXwn0IU+DxsfbkBuAe6iH4viAJ9kwA5E
-	esPdi5rOhd0hkGJp0SXTgDVkdtKxfkpnPDsd8zdySSQtu4yZlM6/mD8UO/3aDQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:24 +0200
-Subject: [PATCH RFC v2 02/24] drm/connector: add
- drm_connector_hdmi_dynamic_init()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Joo+rgYv"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34bb8b31660so1739424eec.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:43:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790858589; x=1791463389; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5dwzlKPpjQST3hzuqqsiWTFX3s8Rj/ZNthU50nSHSvo=;
+        b=Joo+rgYvO6qGz5/Yi2G7rJ9s8UaW7sT/MEk5eMhd1bfRAmhnRWxOLZ2gTkD4Uo+hFg
+         QHRUHlg4zeOcvLN5Nq61wcKiffF994CqEi9+rT+GlQN0bazkAnt3OHoE1/BebXhNmD/7
+         rYyltq0gKXcwNCfw2A1I9un7sn0roTBJTWN1lm4vY6vnCPjj6lphjx5m5O3f3HNL/zs8
+         zuzqWIefxIQvbm5FaSw9tMvy8uV1uO1Dv8gdJi941KFCjC6nQfkfGIOMcrphe+qXkcao
+         azLTvcW7IudhiXokesD3cbxc7fr2GZ7NaZnZbrB28whbteLNu2zxVScyCYBRWhQGxm9F
+         +l+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790858589; x=1791463389;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5dwzlKPpjQST3hzuqqsiWTFX3s8Rj/ZNthU50nSHSvo=;
+        b=xDq3V6DlEdNrdJGlArVjJC356ODwWONxht/RBw+CFFfPrgmjYu6Z2q6AE3XKZhmYdS
+         SLAV0mBuCF+ZM4FXPdkNr9BgH1GUfaMyUEreIsEXzOngXSGObNdX3vF0/oq+RDPJsRze
+         tVB5B/B51a/BOj96F12Io3JTucZ59yyw7av+Ro6UYRxO+6oA0awRf0fTvICZGFXntMAl
+         u02UZhIePRj3hDsGd1XXR9mQY9/55vFxgnZqRqtJmEyNt0m1G/8CkkPNAzak4pwar3Ji
+         R2xY76y5NBx0ipQ0Mi6RqQ+cdEE6tlx9cVAcLgXubKhZuaUFFRteayU45h4w1ZhLVqev
+         mPaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwfB3fWsXw2854aGOIaRfa5Zb6Cscpepigm0wo1aFmdT0KPSdPY9cX8kq11KAlRNZG5axBPuvtGUcXoIUg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWXxBoT7OSzrMGcPqE2CTRavglz9yeJo9AOenUffUtNsbfrgvv
+	fVv4lgxDGiH9ogN94XGRFr8AiDTblSrHEVcB4V5qsARotiTAgEQFifzY
+X-Gm-Gg: AYBFou21NUP+pJyKrbgxNSr5Pawnz5sFyHIfeYop9c25iYhGgkzjCKkdtMYqPfTE5gm
+	dFzGN5EccQqXWT9Gwt9lUX7DTCWI2OYriVvfTSNcnP7ejc1ltFm2CtD6llkFoS3K3xf57P/xsNc
+	TH0zy1cbZ4kChOwkRVZufOrjPjsPnMhTnkwD0MxcM0TZetNog2R3Ln3pG6YcT/vLV7GixcQdePI
+	Q+s9JFAp7VXdfpJt7W0aTadcTLGaLDeLA3eBbcs1M4e+kp5NPaI7dXOsAxLz8ByPO1LQFOZOe7c
+	BSgINhBcZa2Sd8mpqc1smu/a2fxiSHAPw89fHUTt8PkLYWHAPNYugkdGR87Gzrkaj/6chCKfRa7
+	PkCk+IlhEEgBVYrBOiG9kBZ8+i4ghhWDt5XCnKuI5EwgH5zdxBHnnI37Wjm8DP74DfLgi+s8qXL
+	1JWL5W6DHWa8K3JMEANDYvfWS8WK34uyKik/r9/+n00HalvQnZaDkqUrrwcG5lsA+bq03Cwjt2K
+	XnwSLFAMqOxiWZhQYQi4QhBPj4=
+X-Received: by 2002:a05:7301:4290:b0:34c:c5e8:6dc5 with SMTP id 5a478bee46e88-34cdbfd838cmr4745293eec.12.1790858588684;
+        Thu, 01 Oct 2026 05:43:08 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e33b73sm7324176eec.18.2026.10.01.05.43.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 05:43:08 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Dan Carpenter <error27@gmail.com>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v3] staging: rtl8723bs: use errno in rtw_register_tx_alive()
+Date: Thu,  1 Oct 2026 12:42:52 +0000
+Message-ID: <20261001124252.7563-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-2-8e34986dcb68@bootlin.com>
-References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
-In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Douglas Anderson <dianders@chromium.org>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-In preparation for adding hotpluggable bridges into the
-drm_bridge_connector, we need connectors to be created dynamically, both
-regular connectors and HDMI ones. drm_connector_init() already has a
-dynamic variant, add one for HDMI connectors too.
+Replace the driver-specific _SUCCESS and _FAIL return values with
+0 when TX can proceed and -EAGAIN when the firmware is not ready yet.
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Handle -EAGAIN explicitly in rtl8723bs_xmit_buf_handler(). The buffers
+remain queued and XMIT_ALIVE remains set so cpwm_int_hdl() can wake
+the TX thread for another attempt. Return _SUCCESS in this case to
+keep rtw_xmit_thread() running and waiting on xmit_comp; propagating
+-EAGAIN would terminate the thread.
 
+No functional change.
+
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
+Changes in v3:
+- Handle -EAGAIN explicitly in rtl8723bs_xmit_buf_handler(), as
+  suggested by Greg.
+- Explain why the deferred TX case returns _SUCCESS to keep the
+  transmit thread running for a later retry.
 
 Changes in v2:
-- rebased on current drm-misc-next: now drm_connector_hdmi_init() can fail,
-  so call drm_connector_cleanup(connector) if that happens
----
- drivers/gpu/drm/drm_connector.c | 42 +++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h     |  6 ++++++
- 2 files changed, 48 insertions(+)
+- Use the standard 0/-errno return convention instead of bool, as
+  suggested by Greg.
+- Return -EAGAIN when the transmit path cannot proceed yet.
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index f5bd08640d25..f264cab0d184 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -708,6 +708,48 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drmm_connector_hdmi_init);
+ drivers/staging/rtl8723bs/core/rtw_pwrctrl.c    | 13 ++++++-------
+ drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c  |  9 ++++++++-
+ drivers/staging/rtl8723bs/include/rtw_pwrctrl.h |  2 +-
+ 3 files changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
+index 448611ad8237..00d64b2ff89e 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
++++ b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
+@@ -771,13 +771,12 @@ void rtw_unregister_task_alive(struct adapter *padapter, u32 task)
+  * _SUCCESS	rtw_xmit_thread can write fifo/txcmd afterwards.
+  * _FAIL		rtw_xmit_thread can not do anything.
+  */
+-s32 rtw_register_tx_alive(struct adapter *padapter)
++int rtw_register_tx_alive(struct adapter *padapter)
+ {
+-	s32 res;
++	int ret = 0;
+ 	struct pwrctrl_priv *pwrctrl;
+ 	u8 pslv;
  
-+/**
-+ * drmm_connector_hdmi_init - Init a preallocated dynamic HDMI connector
-+ * @dev: DRM device
-+ * @connector: A pointer to the HDMI connector to init
-+ * @funcs: callbacks for this connector
-+ * @hdmi_funcs: HDMI-related callbacks and capabilities for this connector
-+ * @connector_type: user visible type of the connector
-+ * @ddc: optional pointer to the associated ddc adapter
-+ *
-+ * Initialises a preallocated dynamic HDMI connector. Connectors can be
-+ * subclassed as part of driver connector objects.
-+ *
-+ * See drm_connector_dynamic_init(), the same constraints apply here. This
-+ * is just the HDMI version.
-+ *
-+ * Returns:
-+ * Zero on success, error code on failure.
-+ */
-+int drm_connector_hdmi_dynamic_init(struct drm_device *dev,
-+				    struct drm_connector *connector,
-+				    const struct drm_connector_funcs *funcs,
-+				    const struct drm_connector_hdmi_funcs *hdmi_funcs,
-+				    int connector_type,
-+				    struct i2c_adapter *ddc)
-+{
-+	int ret;
-+
-+	ret = drm_connector_hdmi_sanity_checks(dev, connector, hdmi_funcs, connector_type);
+-	res = _SUCCESS;
+ 	pwrctrl = adapter_to_pwrctl(padapter);
+ 	pslv = PS_STATE_S2;
+ 
+@@ -788,7 +787,7 @@ s32 rtw_register_tx_alive(struct adapter *padapter)
+ 	if (pwrctrl->fw_current_in_ps_mode) {
+ 		if (pwrctrl->cpwm < pslv) {
+ 			if (pwrctrl->cpwm < PS_STATE_S2)
+-				res = _FAIL;
++				ret = -EAGAIN;
+ 			if (pwrctrl->rpwm < pslv)
+ 				rtw_set_rpwm(padapter, pslv);
+ 		}
+@@ -796,11 +795,11 @@ s32 rtw_register_tx_alive(struct adapter *padapter)
+ 
+ 	mutex_unlock(&pwrctrl->lock);
+ 
+-	if (res == _FAIL)
 +	if (ret)
-+		return ret;
-+
-+	ret = drm_connector_dynamic_init(dev, connector, funcs, connector_type, ddc);
+ 		if (pwrctrl->cpwm >= PS_STATE_S2)
+-			res = _SUCCESS;
++			ret = 0;
+ 
+-	return res;
++	return ret;
+ }
+ 
+ /*
+diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+index 0441e84ea87d..47f71e3ec633 100644
+--- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
++++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+@@ -140,9 +140,16 @@ s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter)
+ 		return _SUCCESS;
+ 
+ 	ret = rtw_register_tx_alive(padapter);
+-	if (ret != _SUCCESS) {
++	if (ret == -EAGAIN) {
++		/*
++		 * Leave the buffers queued and XMIT_ALIVE registered so
++		 * cpwm_int_hdl() can wake this thread for another attempt.
++		 * Return success to keep the TX thread running.
++		 */
+ 		return _SUCCESS;
+ 	}
 +	if (ret)
-+		return ret;
-+
-+	if (ret)
-+		drm_connector_cleanup(connector);
-+
-+	return drm_connector_hdmi_initialize(dev, connector, hdmi_funcs);
-+}
-+EXPORT_SYMBOL(drm_connector_hdmi_dynamic_init);
-+
- /**
-  * drmm_connector_hdmi_ini2 - Init a preallocated HDMI connector
-  * @dev: DRM device
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 2ee7c59329aa..48bbbc365c93 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2743,6 +2743,12 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
- 			     int connector_type,
- 			     struct i2c_adapter *ddc);
-+int drm_connector_hdmi_dynamic_init(struct drm_device *dev,
-+				    struct drm_connector *connector,
-+				    const struct drm_connector_funcs *funcs,
-+				    const struct drm_connector_hdmi_funcs *hdmi_funcs,
-+				    int connector_type,
-+				    struct i2c_adapter *ddc);
- int drmm_connector_hdmi_ini2(struct drm_device *dev,
- 			     struct drm_connector *connector,
- 			     const char *vendor, const char *product,
-
++		return _FAIL;
+ 
+ 	do {
+ 		queue_empty = rtl8723_dequeue_writeport(padapter);
+diff --git a/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h b/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h
+index 49f19b6ee329..a14da6c18201 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h
++++ b/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h
+@@ -217,7 +217,7 @@ void rtw_free_pwrctrl_priv(struct adapter *adapter);
+ 
+ s32 rtw_register_task_alive(struct adapter *adapter, u32 task);
+ void rtw_unregister_task_alive(struct adapter *adapter, u32 task);
+-s32 rtw_register_tx_alive(struct adapter *padapter);
++int rtw_register_tx_alive(struct adapter *padapter);
+ void rtw_unregister_tx_alive(struct adapter *padapter);
+ s32 rtw_register_cmd_alive(struct adapter *padapter);
+ void rtw_unregister_cmd_alive(struct adapter *padapter);
 -- 
-2.55.0
+2.43.0
 
