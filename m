@@ -1,67 +1,68 @@
 Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CF052BE47
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790B252BE47
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:34:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868841; cv=none; b=e4KDqjHWNR75egMTrPjUyFbeQZ3YqHZi6lcuRdsfQytNucAtuUhM5OwczYP5Q9tCAwKmUjQWgWpzTjkQAPr6UL8FdDA960wxzP5NU/pj+tdHXHVu0ersc/QXs8OwaV2bOTICYJdBVlPyYCnScrWByamivrEoO0TAYahZYYeMWpM=
+	t=1790868852; cv=none; b=LPP37VlIwvaZasaxDtD9aJE8Hp8asP7MZ7O/mke9Ho1ysv9ZqjZSkRVBKygb0mwRWNEQ+X7tt4wbLdwdpnPaL8nVPEE4YgeQgYz5RL4m8gRYB6ZXlP+rU8L2F3Yw8/ylMUggEKGz4ew2uWwQhZK6C3LGnVEpCNI3ObcgUu/Ugiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868841; c=relaxed/simple;
-	bh=vE5rYraDDztxsN+DverCVDxINK++fhi24ILP7gENH+E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ASBjYAR1An6HuaLNlWL2hrTvNukk7gMyavH5ePEqnAZTfMATHipN4F4wh+2LzQ8XfvWEgoDLXyW7gtHU2fIARhphkTir84VK8uCHhMA/2314SjRPbBb9j88Y5bpDCMI4Cb3fpSJ92XtZNKtqYxUIhptS2Hm1DpJIF8XfDptmoNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mhydnY3u; arc=none smtp.client-ip=74.125.229.168
+	s=arc-20240116; t=1790868852; c=relaxed/simple;
+	bh=8Xx9VfYG62UoO2GXS5nYNhxLNevnF/o9z7mW7adsmMw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IVVVScFyy+4ksrdN32h5j3f6nQRqB+yS1J4gmGaEpKR8hLitV+Hopye24Clq6/T1yeh8P6g7euaeRPU3SqID66SAXOk4NdArvqwtOYyV+NkY3Z+Bf/5e0HpVxPO0I+eC07RMstv7moX8Xm73uggzswv1Q/k/O6jrXrFhBMxLllk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NlrYggjZ; arc=none smtp.client-ip=74.125.229.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mhydnY3u"
-Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-14e1fe551c3so737005c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NlrYggjZ"
+Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-142dd04be84so7857015c88.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:34:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790868838; x=1791473638; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7R/8/9AITUujGUpkgkK/lwuX+Zqo9Tj1z8OfLHWk1D8=;
-        b=mhydnY3u53y8s9AHlRQ8h9yODcJxJUofiX6onfTS1D7kKyJxShPKPEXYjYi4XyCA1W
-         EpN7B0GP95G6otxJ6gwAOD7tpabWj2szoWb7qWISEULBPuU8tQGQdt2JeJIZztKVjZGk
-         /MFWZn+8Cbc9uY8HRf30dWd8oaMxDUDuNCC8ulOKN11L7Sp2I3D0yVADI7gFWrXt8KH+
-         WTI0jK2ufNZJxJmJKW1emK2w17SsdytR8cOx7aLSErfMyhvotEQ0kdie+JHCoR6xWSUr
-         GY/Nh/XPm1ocs6fVs3sYBUxck1OvVXvQN6pR1XQvy+AuT80FJNIc+Ajs/do17FxY6nJm
-         uLnA==
+        d=gmail.com; s=20251104; t=1790868849; x=1791473649; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KQILXCbNTg3uilRJywVvrlkBNpYRNdVSU/c2Q3udK90=;
+        b=NlrYggjZFEhLNbU+tStCHljv2StKUaTi45qHCJZCx4I9fK9wJ/8urTtbEkT/V6qN6x
+         MqyFet3UUaCyk8mGCd4lf/ovnT0vKI+M/ueF2WlDn6nSUQ5Oo9CPK4owLifUEB9IPrPJ
+         yAp+KsiONuoVVr2TFx0QjqkvHIgDjc5FU8UGAfK9XLYTKkfOfvoGKgtsz4Cc14loJ15u
+         dMQMXopNcfpeJrwDH6cZezNS1O5AlWheRuSlT8RUcK+GIQPIO02bMi3JWcrMeSIAsX7D
+         msOlHoRzhyUQMPNVbtBYT7xTEJe+lIsMPv0k92xQrLar5kxpN9xbYThT6MejkSnicyr2
+         pSXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790868838; x=1791473638;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7R/8/9AITUujGUpkgkK/lwuX+Zqo9Tj1z8OfLHWk1D8=;
-        b=v+E5FqXsniOH8vOTuekaAqcS+IBtEIC1pTeBc7MCjQeJLK1ansW7M8dbPA/EV2/uvc
-         4Y8kgP51NoVc88ViJSttu1trSbVS4Mcgz/mbPbZ3CSNuDzlIFXuErHc7x2toQ2purcEH
-         ZoF+4PR8WA1enbn4U9OF40gfgr36v/d0i854RJ2uEtsXcxOUZtr14jOI5DA1qvLeuqlx
-         UXjeBOgrB4+/vnOrbtOC9oBoqEnsdV00qdSb7MKfq1cvQtS1kiOV+LQtAr8Dl87Wf9C3
-         86JV7KjV1veG5SLV5DYpqpDXHB+fEhj0EKAEjFVyTUVDCAu6iJF8eZ9iM5Y1JbMujexG
-         YfdA==
-X-Forwarded-Encrypted: i=1; AKwUvBx509+T477IXvhPt/VvOvOf9aS4YtbmgR66L5s/dTAGVdayAKOl6FvGhh1PYHMZbyHBp5wXTxjtuS2Qw2k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIvx2UIXLXJwldRvsrjGApS7QsBbb7v1fqJvFisua7qbCfOaS4
-	9uMYmAtkYKXXjwQXoDXy7dUgj32np//FL6/baUFQbn0DE0JsIQN5sRgA0qqMT6by
-X-Gm-Gg: AYBFou2/kKcR7rqyFah0LA/zNTm4nspFzZ7kXT1W8TP90VaLX3fegXp2Dk2nQP2CJ6q
-	bnBeBN8N5Yw7oYTGS097PsPQgeDCxH2ydWqSSR4gw4MB+Lz3oVlTBZ1tBHGygVKwaIVRV28x3Za
-	fMqn4h/pTz1/whEPix+6T2SkPwfSetLQlAZbLFXOFIJ05eImp5XoVvUzSMWhU4EaOFqMx4pcW9o
-	KixL/Y7T5h91T+DW6W0mJ/XAX1i3pqG8/JMIxKvqiVH4/SMYdTuq/UJt1BeEXEV7t5w+afk9B43
-	24Sm2DW5JIFcPtP4Rkm93dAsg0r3mRWOfcoYZ4BkhYP0pdzB0oB0xvARZMyBtAymBXzcjUMmyOd
-	gB98PNcB8s9K432HlyaogAq9fsSSsP5OqFsaubhiWXXNlk+VIyx4ZFg7LbwMQ/lAjVuqoyuOrd2
-	Y+6JNG4cUtvGXlfuymPzNyPgZ9/s5rYcny6oCB7eWuYsMkx7apidkFnieF1Ms+zBLc+Q==
-X-Received: by 2002:a05:7022:eb57:10b0:143:50a0:56be with SMTP id a92af1059eb24-14d31c6d41fmr5203438c88.14.1790868838309;
-        Thu, 01 Oct 2026 08:33:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790868849; x=1791473649;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KQILXCbNTg3uilRJywVvrlkBNpYRNdVSU/c2Q3udK90=;
+        b=tnYsWIMyx02NtkL19a1vNi2T0BMiS+Aiw5AYtHtZk0wKCgpvm+IcuzJXt0pG0oEgqB
+         mRVhqw+410VcRckzFAZyU/iBS1qClbwC9sGOczBxpaOaddtQnvc3WFn+dTipz3D/Obsq
+         XPsCFRGLADepNrpkGICBjceNyGHi1LqUVxWb9WTQ5+ZCr5eWUC7g62/NYfCuaYV0GOGl
+         SHQ789TzZ6zO2FuemoQsRpCPohLbhwEEimEKYoz+N8Y4BESIVmLE054lnPaLGMLgPOX0
+         6VTifWx9xVk4XGv+jI+4limUebF/zFDNAz3jkMhBr/XNVnwaA0DAujzywUzpYnfGpusV
+         LQBg==
+X-Forwarded-Encrypted: i=1; AKwUvByXzcoFT/FMlJQIS2jY/1BGTmeyxFhJLPVXOxrWbGdRxispszPzMdb6+lf17ASyWkMsKoJA+QBtX61d7nw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzAfLYxnjnqRgpeYfgT+w9o96FUHbTPl0ksC2ljn+rtFCTZv63
+	WEFAfvSL3TibxP3A8ySm04SmF+XwzHN2+ouAWnDpQifAaEHKDvjPcd9qFNsiQzbw
+X-Gm-Gg: AYBFou1FKfwpjCSvbOJeAKv6Q2y24/VRHjvh0fxuunTkSTngwkwTKULMj7818CPEEWf
+	z0poNHvTnuSJwol4NkbjuZl6XmpIKqin/JhDCwA4P3umBV48H51tOiJdOy4pOWqTtYLuqzTqUR1
+	sZs7zO7LD0FHWhWlD3MdDYhZGn+ILRsg6yftV6wgYc5A7yhZy/rOouo6NTYle89Q+Ur81FESZ6u
+	LPSKcVHR2QDOv6k/Xp1c8MR47vICrTH16mVmDvUjYjQJeUuBXAypiEFNyfRnc4/Ljg66yY8bwkX
+	Hjf30IeN2w4KYNbyTJQoA7bEA5KLCfsizkITkwVJElQdNyiGZqOAfwvQA/kvgGOreApfZ84CY1C
+	Es+Plu+YlvU39/dlHyRlr9klOrd3S53+kQq3nRc4uv1u/hoF0HUbm3zGfm7DWGpLlFM8Q9NHoQa
+	kpBApliyEO+oYbXdLCD8rf9STwf+iScowcJ0qvEhDSV5deEUNoF3hAXYQxO/Qy7IzBig==
+X-Received: by 2002:a05:7022:7e0b:b0:14a:5d07:9b with SMTP id a92af1059eb24-14d3641df3fmr5352454c88.28.1790868849303;
+        Thu, 01 Oct 2026 08:34:09 -0700 (PDT)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f266d1156sm146683c88.6.2026.10.01.08.33.49
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f266d1156sm146683c88.6.2026.10.01.08.33.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:33:57 -0700 (PDT)
+        Thu, 01 Oct 2026 08:34:08 -0700 (PDT)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Subject: [PATCH 0/2] mm/compaction: stop repeating failed async compaction
- on every THP fault
-Date: Thu, 01 Oct 2026 23:33:47 +0800
-Message-Id: <20261001-bug-mm-thp-async-compact-defer-v1-0-0174c7923430@gmail.com>
+Date: Thu, 01 Oct 2026 23:33:48 +0800
+Subject: [PATCH 1/2] mm/compaction: keep compaction deferral state per
+ migration mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,9 +71,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFt9vmoC/x3NSQqEMBBA0atIrS3IgNL0VcRFhorWIjEkKjbi3
- Tu4fJv/b6hUmCp8uxsKnVx5Sw2y78CtJi2E7JtBCTVKISTaY8EYcV8zmvpLDt0Ws3E7egpU0H6
- 0HqQNVg0eWiQXCny9g2l+nj92WGescAAAAA==
+Message-Id: <20261001-bug-mm-thp-async-compact-defer-v1-1-0174c7923430@gmail.com>
+References: <20261001-bug-mm-thp-async-compact-defer-v1-0-0174c7923430@gmail.com>
+In-Reply-To: <20261001-bug-mm-thp-async-compact-defer-v1-0-0174c7923430@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
  Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
@@ -91,37 +92,248 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-A THP fault on a MADV_HUGEPAGE VMA tries the local node first with a
-single round of async direct compaction. A failed async run is never
-deferred, so when the local node is fragmented by memory that can't be
-migrated, such as long-term RDMA pins, every 2M fault scans the zone
-again before falling back to another node.
+try_to_compact_pages() defers a zone only after sync compaction fails,
+so a failed async direct compaction is never deferred and repeats the
+same futile zone scan on the next attempt. Deferring async compaction
+needs state of its own: sync compaction may still succeed on the
+pageblocks async skips, so it mustn't be deferred along with it.
 
-Patch 1 splits the deferral state by migration mode. Patch 2 defers
-async compaction on its own state after it fails, leaving sync
-compaction as it is.
-
-Populating a 4 GiB MADV_HUGEPAGE buffer on a node fragmented by pinned
-memory, direct compactions drop from 735 to 15 and the time spent in
-compaction from 122.7 ms to 3.6 ms. Fewer of the THPs are allocated on
-the local node, 1126 instead of 1313; the rest come from the other
-node. Details and the movable-memory case are in patch 2.
+Turn compact_considered, compact_defer_shift and compact_order_failed
+into arrays indexed by sync, like compact_cached_migrate_pfn, and pass
+the mode to the deferral helpers and tracepoints. All callers use the
+sync state for now and a reset clears both. The deferral tracepoints
+gain a sync field telling which state they report.
 
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
-Qiliang Yuan (2):
-      mm/compaction: keep compaction deferral state per migration mode
-      mm/compaction: defer failed async direct compaction
+ include/linux/mmzone.h            |  7 +++--
+ include/trace/events/compaction.h | 27 ++++++++++--------
+ mm/compaction.c                   | 60 +++++++++++++++++++++------------------
+ 3 files changed, 51 insertions(+), 43 deletions(-)
 
- include/linux/mmzone.h            |  7 ++--
- include/trace/events/compaction.h | 27 ++++++++------
- mm/compaction.c                   | 77 ++++++++++++++++++++++-----------------
- 3 files changed, 63 insertions(+), 48 deletions(-)
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20261001-bug-mm-thp-async-compact-defer-b83351bfb25d
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index 94f9c3ff54160..91fbaa7aec6f9 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -1140,10 +1140,11 @@ struct zone {
+ 	 * are skipped before trying again. The number attempted since
+ 	 * last failure is tracked with compact_considered.
+ 	 * compact_order_failed is the minimum compaction failed order.
++	 * Indexed by sync, like compact_cached_migrate_pfn.
+ 	 */
+-	unsigned int		compact_considered;
+-	unsigned int		compact_defer_shift;
+-	int			compact_order_failed;
++	unsigned int		compact_considered[ASYNC_AND_SYNC];
++	unsigned int		compact_defer_shift[ASYNC_AND_SYNC];
++	int			compact_order_failed[ASYNC_AND_SYNC];
+ #endif
+ 
+ #if defined CONFIG_COMPACTION || defined CONFIG_CMA
+diff --git a/include/trace/events/compaction.h b/include/trace/events/compaction.h
+index d05759d185389..23ac6e1750623 100644
+--- a/include/trace/events/compaction.h
++++ b/include/trace/events/compaction.h
+@@ -238,14 +238,15 @@ DEFINE_EVENT(mm_compaction_suitable_template, mm_compaction_suitable,
+ 
+ DECLARE_EVENT_CLASS(mm_compaction_defer_template,
+ 
+-	TP_PROTO(struct zone *zone, int order),
++	TP_PROTO(struct zone *zone, int order, bool sync),
+ 
+-	TP_ARGS(zone, order),
++	TP_ARGS(zone, order, sync),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(int, nid)
+ 		__field(enum zone_type, idx)
+ 		__field(int, order)
++		__field(bool, sync)
+ 		__field(unsigned int, considered)
+ 		__field(unsigned int, defer_shift)
+ 		__field(int, order_failed)
+@@ -255,15 +256,17 @@ DECLARE_EVENT_CLASS(mm_compaction_defer_template,
+ 		__entry->nid = zone_to_nid(zone);
+ 		__entry->idx = zone_idx(zone);
+ 		__entry->order = order;
+-		__entry->considered = zone->compact_considered;
+-		__entry->defer_shift = zone->compact_defer_shift;
+-		__entry->order_failed = zone->compact_order_failed;
++		__entry->sync = sync;
++		__entry->considered = zone->compact_considered[sync];
++		__entry->defer_shift = zone->compact_defer_shift[sync];
++		__entry->order_failed = zone->compact_order_failed[sync];
+ 	),
+ 
+-	TP_printk("node=%d zone=%-8s order=%d order_failed=%d consider=%u limit=%lu",
++	TP_printk("node=%d zone=%-8s order=%d sync=%d order_failed=%d consider=%u limit=%lu",
+ 		__entry->nid,
+ 		__print_symbolic(__entry->idx, ZONE_TYPE),
+ 		__entry->order,
++		__entry->sync,
+ 		__entry->order_failed,
+ 		__entry->considered,
+ 		1UL << __entry->defer_shift)
+@@ -271,23 +274,23 @@ DECLARE_EVENT_CLASS(mm_compaction_defer_template,
+ 
+ DEFINE_EVENT(mm_compaction_defer_template, mm_compaction_deferred,
+ 
+-	TP_PROTO(struct zone *zone, int order),
++	TP_PROTO(struct zone *zone, int order, bool sync),
+ 
+-	TP_ARGS(zone, order)
++	TP_ARGS(zone, order, sync)
+ );
+ 
+ DEFINE_EVENT(mm_compaction_defer_template, mm_compaction_defer_compaction,
+ 
+-	TP_PROTO(struct zone *zone, int order),
++	TP_PROTO(struct zone *zone, int order, bool sync),
+ 
+-	TP_ARGS(zone, order)
++	TP_ARGS(zone, order, sync)
+ );
+ 
+ DEFINE_EVENT(mm_compaction_defer_template, mm_compaction_defer_reset,
+ 
+-	TP_PROTO(struct zone *zone, int order),
++	TP_PROTO(struct zone *zone, int order, bool sync),
+ 
+-	TP_ARGS(zone, order)
++	TP_ARGS(zone, order, sync)
+ );
+ 
+ TRACE_EVENT(mm_compaction_kcompactd_sleep,
+diff --git a/mm/compaction.c b/mm/compaction.c
+index a049415512c67..7f8845d1990aa 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -124,35 +124,35 @@ static unsigned long release_free_list(struct list_head *freepages)
+  * allocation success. 1 << compact_defer_shift, compactions are skipped up
+  * to a limit of 1 << COMPACT_MAX_DEFER_SHIFT
+  */
+-static void defer_compaction(struct zone *zone, int order)
++static void defer_compaction(struct zone *zone, int order, bool sync)
+ {
+-	zone->compact_considered = 0;
+-	zone->compact_defer_shift++;
++	zone->compact_considered[sync] = 0;
++	zone->compact_defer_shift[sync]++;
+ 
+-	if (order < zone->compact_order_failed)
+-		zone->compact_order_failed = order;
++	if (order < zone->compact_order_failed[sync])
++		zone->compact_order_failed[sync] = order;
+ 
+-	if (zone->compact_defer_shift > COMPACT_MAX_DEFER_SHIFT)
+-		zone->compact_defer_shift = COMPACT_MAX_DEFER_SHIFT;
++	if (zone->compact_defer_shift[sync] > COMPACT_MAX_DEFER_SHIFT)
++		zone->compact_defer_shift[sync] = COMPACT_MAX_DEFER_SHIFT;
+ 
+-	trace_mm_compaction_defer_compaction(zone, order);
++	trace_mm_compaction_defer_compaction(zone, order, sync);
+ }
+ 
+ /* Returns true if compaction should be skipped this time */
+-static bool compaction_deferred(struct zone *zone, int order)
++static bool compaction_deferred(struct zone *zone, int order, bool sync)
+ {
+-	unsigned long defer_limit = 1UL << zone->compact_defer_shift;
++	unsigned long defer_limit = 1UL << zone->compact_defer_shift[sync];
+ 
+-	if (order < zone->compact_order_failed)
++	if (order < zone->compact_order_failed[sync])
+ 		return false;
+ 
+ 	/* Avoid possible overflow */
+-	if (++zone->compact_considered >= defer_limit) {
+-		zone->compact_considered = defer_limit;
++	if (++zone->compact_considered[sync] >= defer_limit) {
++		zone->compact_considered[sync] = defer_limit;
+ 		return false;
+ 	}
+ 
+-	trace_mm_compaction_deferred(zone, order);
++	trace_mm_compaction_deferred(zone, order, sync);
+ 
+ 	return true;
+ }
+@@ -165,24 +165,28 @@ static bool compaction_deferred(struct zone *zone, int order)
+ void compaction_defer_reset(struct zone *zone, int order,
+ 		bool alloc_success)
+ {
+-	if (alloc_success) {
+-		zone->compact_considered = 0;
+-		zone->compact_defer_shift = 0;
++	int sync;
++
++	for (sync = 0; sync < ASYNC_AND_SYNC; sync++) {
++		if (alloc_success) {
++			zone->compact_considered[sync] = 0;
++			zone->compact_defer_shift[sync] = 0;
++		}
++		if (order >= zone->compact_order_failed[sync])
++			zone->compact_order_failed[sync] = order + 1;
+ 	}
+-	if (order >= zone->compact_order_failed)
+-		zone->compact_order_failed = order + 1;
+ 
+-	trace_mm_compaction_defer_reset(zone, order);
++	trace_mm_compaction_defer_reset(zone, order, true);
+ }
+ 
+-/* Returns true if restarting compaction after many failures */
++/* Returns true if restarting sync compaction after many failures */
+ static bool compaction_restarting(struct zone *zone, int order)
+ {
+-	if (order < zone->compact_order_failed)
++	if (order < zone->compact_order_failed[true])
+ 		return false;
+ 
+-	return zone->compact_defer_shift == COMPACT_MAX_DEFER_SHIFT &&
+-		zone->compact_considered >= 1UL << zone->compact_defer_shift;
++	return zone->compact_defer_shift[true] == COMPACT_MAX_DEFER_SHIFT &&
++		zone->compact_considered[true] >= 1UL << zone->compact_defer_shift[true];
+ }
+ 
+ /* Returns true if the pageblock should be scanned for pages to isolate. */
+@@ -2855,7 +2859,7 @@ enum compact_result try_to_compact_pages(gfp_t gfp_mask, unsigned int order,
+ 				continue;
+ 
+ 		if (prio > MIN_COMPACT_PRIORITY
+-					&& compaction_deferred(zone, order)) {
++					&& compaction_deferred(zone, order, true)) {
+ 			rc = max_t(enum compact_result, COMPACT_DEFERRED, rc);
+ 			continue;
+ 		}
+@@ -2893,7 +2897,7 @@ enum compact_result try_to_compact_pages(gfp_t gfp_mask, unsigned int order,
+ 			 * so we defer compaction there. If it ends up
+ 			 * succeeding after all, it will be reset.
+ 			 */
+-			defer_compaction(zone, order);
++			defer_compaction(zone, order, true);
+ 
+ 		/*
+ 		 * We might have stopped compacting due to need_resched() in
+@@ -3111,7 +3115,7 @@ static void kcompactd_do_work(pg_data_t *pgdat)
+ 		if (!populated_zone(zone))
+ 			continue;
+ 
+-		if (compaction_deferred(zone, cc.order))
++		if (compaction_deferred(zone, cc.order, true))
+ 			continue;
+ 
+ 		ret = compaction_suit_allocation_order(zone,
+@@ -3141,7 +3145,7 @@ static void kcompactd_do_work(pg_data_t *pgdat)
+ 			 * We use sync migration mode here, so we defer like
+ 			 * sync direct compaction does.
+ 			 */
+-			defer_compaction(zone, cc.order);
++			defer_compaction(zone, cc.order, true);
+ 		}
+ 
+ 		count_compact_events(KCOMPACTD_MIGRATE_SCANNED,
 
-Best regards,
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+2.43.0
 
