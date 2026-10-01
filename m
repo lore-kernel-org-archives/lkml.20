@@ -1,76 +1,59 @@
-Received: from mail-ej2-f40.google.com (mail-ej2-f40.google.com [74.125.228.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273EB547044
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78523BE14A;
+	Thu,  1 Oct 2026 17:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790876832; cv=none; b=En02kcad9cw6BW3iJM2JTjNlH6qqlTY4CWKRmM0MNC2uLH04Pbo7vYLD8Q8F1BdHkSFHpm/hX081rpiMJyON929JjgF6uCMznn1LGpt7DV5nscWYXFemCbE5CP/gC6qmXRMl82GF0QrWZgjPrma6XiQhcS9bIeU8CBnAtUX6e28=
+	t=1790876857; cv=none; b=WtmNPsxkT5miVWluyHdPunKpk+QtHhPtx+9pI20UZWtM2pCik6BQreNv2aelPseh3N4nfj29CyU59+KOcjFEZCzkUKm316StgmRlgQB4yGaqBv+nEG6E87iyWX1gt/M8EG9xzZnp88jG2XpVZugUAyxRkWweJHcFttY1oHEf5gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790876832; c=relaxed/simple;
-	bh=yrsdKmL2y9lPPr18nFAgKM0SX9Dw5bHdA3om1AWFKw8=;
+	s=arc-20240116; t=1790876857; c=relaxed/simple;
+	bh=7voojWOMzczVI2BSIIUP5OhPO3p1coMAM8Ssv2dHW5I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rqyjxHQqLAnh+v9wrPCqTeaE9K3LJ7TNHoJzVzN9wBtvN1bKTGAde5RyjTTkIKKF8sOOGkEHExRvE4N77XC/N+HnFdMnIZS9JshoiIlbd8EuOTchpTQ8vZAY3PE/RVDYcd/xQzrQVVd4kFLw9WfCNGhLKxRhD2cbi4dLl3EFCW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P4jpHaqr; arc=none smtp.client-ip=74.125.228.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Iz3iVGFVddGSrhy/bah2WwaDlyIPr2zqldmUNl7BFdIXVg3m6W0qJIN2CMe4lnAwoL3cE6YviDldq5NdPUyk89jXi/JUwo3Y+NcAodmfdSrLFj4b+FpGowJUCDf7yKjEFSjOT7cv9hNytul/xjhggj+x3sPwM/OOiFWHQTNwVqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AL0rU+dM; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P4jpHaqr"
-Received: by mail-ej2-f40.google.com with SMTP id a640c23a62f3a-c2e417a5a81so112983466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:47:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790876827; x=1791481627; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H6z/w//LhWCZLSKNntdvRXZK6X4eFaUVprUdafE2INY=;
-        b=P4jpHaqrECxfhSyGh8+WcasiSIs15/F8kZPkFbW/vZTjCMSuoGc6NFRkvkwjePixum
-         /jKkW1nY1FKPBjJsYIi0s33OezquFWXwf6VbGm3cYPlApS9DtQXZkwia71WThCqazHm6
-         SQuZH7bRe6x5UhQPu3xzQ92rPDjcuLW78LhSUm7hS52tsb2iBdgUYkvtLx3L1b7LoCT0
-         SZ7e58zo0ab2mwVWJYLjai9ALgPhpvyGonLDoYGW9qxo3YhNA9XhFlOJF7wmhMdu30S7
-         y3GPj3LtDBqsxHmLkmrxvd9g5YRpV96krU8LhwVGOGlQCRxlwsDGRjm4nSukLAdZpKIE
-         s44w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790876827; x=1791481627;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H6z/w//LhWCZLSKNntdvRXZK6X4eFaUVprUdafE2INY=;
-        b=ZUwTYCJTS+N56cvG/SrJn/FAItxO85Wrow8p5vEc214b7fnv53jh1ojDJVoCl+qz3u
-         FkHQm5C0aRBSrnYh0ySL1rwTdHXHNbkBAwSLZGevB0T+dXUmFtmneNhxfq2KFcYqlacF
-         YuOOMpuR06mc1jKMcvK3pwqnbmcUaOql16Dgylp6KiUGSUQR0eOYBPopOkq498Cn8hNF
-         snHVMamslk61thewyY0a/2coKFW0Nti1DUmgLDm/YyTBqI+EzJlnFwm2nfXMOSIegedH
-         5JsIaVAsgVk55wobuHFjDUVmjqao5S3dQffM9GwKdXsu0hqRJCuOU2wCVM44cde8GQQq
-         luag==
-X-Forwarded-Encrypted: i=1; AKwUvBzZz4gJsRUy27pm+qHBVq7/7ggN8SywVhPbHrym74fC4r+DAfYVLYfq5yuFygEM2vVjJH6KyXeP6RZ27X4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ+Bsdi2CENSrvAEXXA0JX176m9FSpNAk/Uq/hvLxtlIHvhJjD
-	mpftWz4REUjojVwSpgmkPZoMkznob3R1jYlO6BCd4/ybhkxuG8gmRst3LFoXNaXPyWyL5g==
-X-Gm-Gg: AYBFou3ft8tLwkmBEuogMS4y5bAwYs9IDTIE38OR1yD4eL+N1fPhw3z7x6IlcBKEI0B
-	bOSgFTrk8MrGh+ZVfArFZ02lSa8O6DwAVsZfI7VOhRhKBAQYW3xNE00GZatigDCHauFjCBBdQtT
-	T2ZcFXYDVIPt8q0aJpUt+IzEjL9iZx4oFb+bbZ2jeevEFS1nLb+xn7bHvwqrgEMAbJF0Lkzvts9
-	arRREr5omHu4rMP0r2DmBbymMMJgaHit3TZS3VhTuQ7gzmmPyV0IGBiUqEfGb/rzXe9XFjVPEDH
-	tLX4K54wy+1IMGL+VIYNGqQ4BbTWwkLMxuha2jyikDrQDahwdFQgk+BRlPi10YOpxXDKreZpvGv
-	eGAt0QB+RRkPYhW/fwYZ3WTLgnkqlb1SdFSLn+D6q77QW1Zd7hj1QLajKUKUfBh00R8jmirl0ja
-	pzKHbpxBCPCc1VKAeomNIjVC9755mQXgRpIHdcW0r7j4LUxFuv8lYCM6uPij/Y/02X9flVucf0r
-	eOX3Q==
-X-Received: by 2002:a17:907:ea8f:b0:c25:6c9a:88bc with SMTP id a640c23a62f3a-c2e4ad565f4mr28222466b.19.1790876826406;
-        Thu, 01 Oct 2026 10:47:06 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4b9b1f4csm11560766b.69.2026.10.01.10.47.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 10:47:05 -0700 (PDT)
-Date: Thu, 1 Oct 2026 20:47:00 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Amirhossein Hajimohammadi <info@hajimohammadi.net>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] staging: rtl8723bs: stop overreading monitor
- interface name
-Message-ID: <ar6clK3N4by6EN0O@stanley.mountain>
-References: <3B4B0B72-4DCE-4E40-9E87-732DCBAA4EAF@hajimohammadi.net>
- <2026092915-luxury-shush-6b29@gregkh>
- <ar4vH3F5lLFijgTU@stanley.mountain>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AL0rU+dM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790876854; x=1822412854;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7voojWOMzczVI2BSIIUP5OhPO3p1coMAM8Ssv2dHW5I=;
+  b=AL0rU+dMHxe1AJ+Ky14kg1zoR4//7bQ3efTex8kEoZN4PJ5L+TiPxB3G
+   hexLN+hy8fEhDR1QJdaJiarqzVvvg6BTSCdwHLI7F31d36sQ2AOZaI7nq
+   sqSga9jxgGouLdmahuIpmBkrM9cZrI/Bv/UFSqEX8TgANVw0jpLOjw6Be
+   CTTDOs0zoPRXE2ldSlRR7hs62YFStBCm6trONb5/DtjuBsY904agqIigg
+   O0u3KkWupdNKdCGThK0IKafUR4cVgSBw4ZsC4PWbS16OzSQyc9Eb33VRO
+   KKpStY6/79ud/pCq2QxrBMABiXt5yGOUxW8+kyl9Z+4+sxxf2bL82Jt3B
+   A==;
+X-CSE-ConnectionGUID: TgQYkOFFSdGs9i0t/wITGw==
+X-CSE-MsgGUID: Oqliq2ZlRXWCqdjG127CxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91743839"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="91743839"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:47:31 -0700
+X-CSE-ConnectionGUID: ylsKbScuRQimhot5MgXtZA==
+X-CSE-MsgGUID: KssXjwJjQLm7dI3/6nJaXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="272475602"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:47:29 -0700
+Date: Thu, 1 Oct 2026 20:47:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Archit Anant <architanant5@gmail.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
+	nuno.sa@analog.com, u.kleine-koenig@baylibre.com,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 03/10] iio: adc: ti-ads1015: return -ENODATA when
+ match data is missing
+Message-ID: <ar6crrfViwIIMB-u@ashevche-desk.local>
+References: <20260930171204.12863-1-architanant5@gmail.com>
+ <20260930171204.12863-4-architanant5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,45 +62,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ar4vH3F5lLFijgTU@stanley.mountain>
+In-Reply-To: <20260930171204.12863-4-architanant5@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 01, 2026 at 12:59:59PM +0300, Dan Carpenter wrote:
-> > > diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-> > > index 4416d0ec1..8f5032844 100644
-> > > --- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-> > > +++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-> > > @@ -2158,7 +2158,7 @@ static int rtw_cfg80211_add_monitor_if(struct adapter *padapter, char *name, str
-> > >  		goto out;
-> > >  
-> > >  	*ndev = pwdev_priv->pmon_ndev = mon_ndev;
-> > > -	memcpy(pwdev_priv->ifname_mon, name, IFNAMSIZ + 1);
-> > > +	strscpy(pwdev_priv->ifname_mon, name);
-> > 
-> > But we are replacing str*() calls in the kernel with memcpy() calls
-> > where it can happen, so why go backwards here?
-> > 
-> > What caused you to notice this change is needed?  Have you measured a
-> > speed up in throughput with this change applied?  How was it tested?
+On Wed, Sep 30, 2026 at 10:41:57PM +0530, Archit Anant wrote:
+> When i2c_get_match_data() returns NULL, it indicates that driver match
+> data is absent rather than an invalid argument being provided.
 > 
-> This seems like a legit patch to me, although it's probably AI generated.
-> 
-> net/wireless/nl80211.c
->   5199          wdev = rdev_add_virtual_intf(rdev,
->   5200                                  nla_data(info->attrs[NL80211_ATTR_IFNAME]),
->                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> This means that it is a string up to IFNAMSIZ (16) bytes long counting
-> the NUL terminator, but it could be less.  So doing a memcpy() is a
-> read overflow.
-> 
->   5201                                  NET_NAME_USER, type, &params);
-> 
+> Return -ENODATA instead of -EINVAL to more accurately reflect the failure.
 
-I tasked ChatGPT with writing a Smatch check for this and it noticed
-that the "+ 1" in "IFNAMSIZ + 1" is wrong as well.  "name" can only
-be 16 characters long (counting the NUL terminator).
+If you arrange this patch after the next one, you may reduce the churn by
+switching to local 'dev' variable at the same time. It might be even not
+needed to describe as it's just a small detail that doesn't change anything
+in the behaviour of the code.
 
-drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c:2164 rtw_cfg80211_add_monitor_if()
-warn: buffer 'name' too small user_len=1-16 for 17 byte copy
+But no need to resend just for that.
 
-regards,
-dan carpenter
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
