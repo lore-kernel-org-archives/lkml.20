@@ -1,102 +1,167 @@
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBEF486430;
-	Thu,  1 Oct 2026 08:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.248.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BB73EB81B;
+	Thu,  1 Oct 2026 09:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845148; cv=none; b=bELIaJ+B/6NWbvTudWuNxp3ebbGnTpRJRXomrqHYiTUs6sY4u1V2XUptgTa9buhDvBSkkk4y5RdJkogsTIvK864YFr+qZIn7ZIF3DUNW6cusyY/TU5bI+vZmPB/r3in/dr8EgLPT0X8B1aNS6fxVb9RiO0qp+AHqcM0/CplKgP4=
+	t=1790845257; cv=none; b=EOSUYKHKMS7LFmz1GHRa7NoFYucAwsv9u8HCZGuISPF9mwH1o8EpC5nTFHn/IS4yYc9alq4ktEZNBZHS2Gi/ZU0ytYrUyXZxnPlY+cbIBkm1WMXXamb42hs5dGzwIMGi3ulnsbuRu+/qZWvHLe03YLyFvWqN1mHMM4jT/AJ+rGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845148; c=relaxed/simple;
-	bh=USU15RAmkIfypqza9ahT9tglspbbxsALKGaI/8Ch51E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XZ0AZz165q32mhhjXNqGOHvlrdPPuX8eAsURWCQY2WHARmhVefv64hvvFCDFCrXd/cE9vRIgKNAJB/JmsD30T2c2M8B24ZaPusNFcunFdBD8XwU9z7jE7RcW60jKmDcns9C8VaSrl5DneG4ZN9o+06jc1tXLZy/7usauRihMDI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks; spf=none smtp.mailfrom=deq.rocks; dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.b=WS3SxfXM; arc=none smtp.client-ip=91.216.248.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	s=arc-20240116; t=1790845257; c=relaxed/simple;
+	bh=hUhPUJte1ZSwzAyT4Y1MkM9QOSL5TLUyYCuDiTv2ArI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=n8XSU3FhRkLQuY3EhkExZsoBaljXAFCvCT30SVgRvVNwlB6ToWsDm3EH7gmBFJFiE3yRY2rPxAlVwIz3PDqHvPQygqGHgndyZVTb7/+e9AkHyOCJ9/7K9mSXL+tR346eIDsCPS69MktiyvLvzcHqSfKqe4sLK/Zb/LchQkKzpd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVqACOK0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.b="WS3SxfXM"
-From: Andre Eikmeyer <dev@deq.rocks>
-X-Lima-ML-UUID: 394562be-8666-4d0b-9712-3cb345edd73b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1790844791;
-	bh=USU15RAmkIfypqza9ahT9tglspbbxsALKGaI/8Ch51E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WS3SxfXMmIfSaoz+QnojdeplGZBGq9KBowKNA/6QB+tLyMmwkne2uZIgUUQdBZa2f
-	 Qm/CbqOn+HPF9iT/A72izu7jZH2/v0M5OZ4eAl+N+lZtJajrgdZHVuoyHK4AkmWgiU
-	 T0bsAE9Jxp+EXJ+hZroQGA9MaVXQil92/2NYHhoyNUyd+JPUUKv9uuRLvUHTA9Fay4
-	 8u2A6OWX0PuhJKTm92U6Ml9mL46p2uL2iJxKUn/8CowP7WL+r2FSltLjFVxkg+WkcT
-	 rjKOQthAQ7aBN7cCFy32mVVNTsgoih47wKCoLd8FWPzzVZNmn5b9AnhkEq5WYuJ077
-	 6yBvahid6/nLw==
-To: Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Cc: Aditya Garg <gargaditya08@live.com>,
-	kernel test robot <lkp@intel.com>,
-	oe-kbuild-all@lists.linux.dev,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH v2] wifi: brcmfmac: handle missing D3 ACK on BCM4377 T2 Macs
-Date: Thu,  1 Oct 2026 10:53:08 +0200
-Message-ID: <20261001085308.1688049-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918213014.1890677-1-dev@deq.rocks>
-References: <20260918213014.1890677-1-dev@deq.rocks>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVqACOK0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709361F000FF;
+	Thu,  1 Oct 2026 09:00:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790845256;
+	bh=7FpohZnEJYDgmU3T2u3ttgjSXvyGDDs6PkImJs9o6pU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dVqACOK07bbhAenRNC/oZaTcIg1CxR80jNHldj9FJJFYr0nAHd2CqzO4w4177AUWj
+	 FhteCpg08Peo+nKHXdmDm/y0ydmiJ7A12mAN1DYlOR5KKvzXeGaFyc8uxQWLav5zjE
+	 HstOpX/9YSvxynP2n5Ey1HVCH5zFZV2mX+dv2JCyR0wi4jE5gu5urW8uJw7gK8V7tE
+	 eYrHlzIlS4uxeT91hn5NvilyNzcshMjU8vFho+6JH5NJZ27guds0JW4buDjNzQSNNr
+	 YLToY5CUKEV39bJevHoYb41RxL2goThzv7f+zZAaKHf7lV/lYzE5AZlGLI6ZXcxPDf
+	 87ncap2Ix/DeQ==
+Subject: Re: [PATCH net-next 3/4] netconsole: avoid printing partially updated
+ target attributes
+From: netdev-bot+sashiko@kernel.org
+To: gustavold@gmail.com
+Cc: leitao@debian.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, mpm@selenic.com,
+ bonbons@linux-vserver.org, stephen@networkplumber.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 01 Oct 2026 09:00:54 +0000
+Message-ID: <179084525499.434549.454029290243818186@kernel.org>
+In-Reply-To: <20260928-netcons-fixes-v1-3-bb5ffe5e698a@gmail.com>
+References: <20260928-netcons-fixes-v1-3-bb5ffe5e698a@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-BCM4377 on the affected T2 Macs does not acknowledge HOST_D3_INFORM.
-The current PCIe suspend callback treats this as fatal and aborts system
-suspend.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-When this happens on BCM4377, mask the mailbox interrupt, preserve the
-bus-down state, and let generic PCI/ACPI suspend proceed. On resume the
-existing recovery path tears down and probes the device again instead of
-relying on a D0 mailbox transaction.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-Tested-on: MacBookAir9,1, MacBookPro15,4, MacBookPro16,3
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
-Changes in v2:
-- Drop the redundant DMI allowlist; BCM4377 is Apple-exclusive and only
-  appears in the three affected MacBook models.
-- Keep the device check inside CONFIG_PM, fixing the CONFIG_PM=n unused
-  function warning reported by the kernel test robot.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+- [High] The fix is incomplete for dev_name.
+- [Low] The commit 'netconsole: avoid printing partially updated target
+  attributes' fixes a user-visible race: configfs *_show() callbacks can…
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-index 55f4d7b97..e2e050395 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-@@ -2652,11 +2652,18 @@ static int brcmf_pcie_pm_enter_D3(struct device *dev)
- 	wait_event_timeout(devinfo->mbdata_resp_wait, devinfo->mbdata_completed,
- 			   BRCMF_PCIE_MBDATA_TIMEOUT);
- 	if (!devinfo->mbdata_completed) {
-+		if (devinfo->pdev->device == BRCM_PCIE_4377_DEVICE_ID) {
-+			dev_info(dev, "D3 ACK missing; masking PCIe mailbox interrupt\n");
-+			brcmf_pcie_intr_disable(devinfo);
-+			goto done;
-+		}
-+
- 		brcmf_err(bus, "Timeout on response for entering D3 substate\n");
- 		brcmf_bus_change_state(bus, BRCMF_BUS_UP);
- 		return -EIO;
- 	}
- 
-+done:
- 	devinfo->state = BRCMFMAC_PCIE_STATE_DOWN;
- 
- 	return 0;
+--
 
-base-commit: 1631d79ae57dce2c5f88ad278307028638a8b4d9
+netconsole: avoid printing partially updated target attributes
+
+This patch takes dynamic_netconsole_mutex in the configfs show callbacks
+for dev_name, local_ip, remote_ip, remote_mac and the userdatum value.
+Readers are then serialized against the store callbacks and should no
+longer see partially updated values.
+
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
+
+> Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
+> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+
+[Severity: Low]
+Should this have a Fixes: tag?
+
+These show callbacks have read the fields without dynamic_netconsole_mutex
+for a long time. dev_name_show() and local_ip_show() date back to
+0bcc1816188e ("[NET] netconsole: Support dynamic reconfiguration using
+configfs").
+
+The IPv6 rework (for example 56ddc8d48e75f, 46b3f9e7e761d, f6e96d72f64a8)
+made the window larger by adding the separate family field.
+
+The other two fixes in this series, "netconsole: finish enabling the
+target before releasing RTNL" and "netconsole: read np.dev under the RTNL
+in local_mac_show()", both carry Fixes: tags.
+
+> diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+> index 5f4311726d11..627475f16383 100644
+> --- a/drivers/net/netconsole.c
+> +++ b/drivers/net/netconsole.c
+> @@ -861,7 +861,14 @@ static ssize_t release_show(struct config_item *item, char *buf)
+>  
+>  static ssize_t dev_name_show(struct config_item *item, char *buf)
+>  {
+> -	return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
+> +	struct netconsole_target *nt = to_target(item);
+> +	int ret;
+> +
+> +	dynamic_netconsole_mutex_lock();
+> +	ret = sysfs_emit(buf, "%s\n", nt->np.dev_name);
+> +	dynamic_netconsole_mutex_unlock();
+
+[Severity: High]
+Does this fully close the torn read for dev_name?
+
+dynamic_netconsole_mutex only excludes dev_name_store(). The netdev
+notifier path has two other writers of np.dev_name, and neither of them
+takes this mutex.
+
+For an enabled target, the NETDEV_CHANGENAME case rewrites the name in
+place. It holds RTNL, target_cleanup_list_lock and target_list_lock:
+
+drivers/net/netconsole.c:netconsole_netdev_event() {
+    ...
+		if (nt->np.dev == dev) {
+			switch (event) {
+			case NETDEV_CHANGENAME:
+				strscpy(nt->np.dev_name, dev->name, IFNAMSIZ);
+				break;
+    ...
+}
+
+For MAC-bound targets on unregister, release or join, the notifier calls
+netconsole_process_cleanups_core()->netcons_release_dev(). That zeroes the
+name with only RTNL and target_cleanup_list_lock held:
+
+drivers/net/netconsole.c:netcons_release_dev() {
+	do_netpoll_cleanup(&nt->np);
+	if (bound_by_mac(nt))
+		memset(&nt->np.dev_name, 0, IFNAMSIZ);
+}
+
+dev_name_store() refuses to write while the target is enabled, so it
+never overlaps these writers. dev_name_show() has no such state check.
+
+So a read of /sys/kernel/config/netconsole/<target>/dev_name can still
+race with "ip link set eth0 name ..." or with deleting the device. The
+read could return a mix of old and new bytes, or a partly zeroed name.
+The buffer stays NUL terminated within IFNAMSIZ, so the result is wrong
+output, not an out of bounds read.
+
+This looks the same at the tip of the series. The other fields this patch
+touches (local_ip, remote_ip, remote_mac and the userdatum value) have no
+writers outside the mutex, so the gap only affects dev_name.
+
+local_mac_show() in this same series already takes rtnl_lock() to
+serialize with this notifier. Could dev_name_show() also take RTNL inside
+the mutex? That would follow the existing dynamic_netconsole_mutex -> RTNL
+order used by enabled_store().
+
+> +
+> +	return ret;
+>  }
+
+[ ... ]
+
 -- 
-2.55.0
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-netcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
