@@ -1,44 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B96435CB7B;
-	Thu,  1 Oct 2026 15:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7E4390CB2;
+	Thu,  1 Oct 2026 15:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866987; cv=none; b=tPCxjB0FlglQIdvRip2rD4rFLPNT5jPTS5lqge0GAjWUr0b/ZweaARFfZVAjfyHABU8fCpDeexvB4iLLrPiPNkuurNvZjoPrZ1cuAutWne+Y2FqQ7KHHxoWFtOgu3XUzk2d/C8LwuLS44h4+Nko8BM1kRHDn968bkJZ28RTNd14=
+	t=1790867008; cv=none; b=nBZjyNlMN8vPI2IAp090bzTA9FIqGisQd7UXsMV8z99o6kVt3yplUjWTGk2NZvbtdNzEzkF5epcRcBuj8h4I+ASGDT7gFAdIA+mLPoM8Pf6WqlU7aItMVwLpeJsS6FJdeMipp0fDGVMXc/pKMZsjCTurGuM4WIg08qJAlwLeq7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866987; c=relaxed/simple;
-	bh=Ps0IohhcSVFMZ94E6lMO57KL2g3NAQEKfY+vRw413qM=;
+	s=arc-20240116; t=1790867008; c=relaxed/simple;
+	bh=1EqSiLx5dSjBa66Tqq/wYdWWTzDQ/alZTbfqUq/odxk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D+dUKcCDbsawOy8obBhdFXkrVhL0YlMuCHgDP/r+R6qCEcZXqjbl/4ubv8V62LbhNtUgWvNQJiURsrkoDBm3vOe8Wxm5RL+Hdk0KHv9qz29FOJevWblDSeSH2+7NwFZ8vSEU4E1T3oDTmtl0EefxWB5EpMIqP09zjYy4U7Glkbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NY4Q6nhe; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=cCRSu70axFpGvtqG3WaHCBeqzlgLAvY37zLzGZ11xtgy9aIZ9GoV3nbn24VaL7SBtEOVd9lDCWIzx4stCWIsWJaVDSZXlkaQVYBgjMu+PtXujUa7kewk5qPaDQlgZvNmXaAMf81RlDjA1alceT8G9ASEPUP+9qlhX5dAzw+agdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=O4h9FMpL; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NY4Q6nhe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0D81F000FF;
-	Thu,  1 Oct 2026 15:03:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790866985;
-	bh=0QmbxN4VfLYHzSRB2Qq2UmgbuXRr7oTK33xCNS7m8dM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NY4Q6nhebDqD2A3j9re4F3C/oMnryFA8M44NGEI8CeVOoyPzCfaEEN2jvjNwA5D2S
-	 MheIlnQO+bLaNAXEYwzn5pB31DRGwfNA7+pwg/Y148ipAKLi0Fn5DHwxtN0fQUXGqd
-	 sb/58McJCPC+Aji7n5MdVONncM/mrxr5/bVQ1ToeBW+YpY5oPHtGiv3A1z+agEGHw0
-	 T3tb5qJPdH41IXhZ5mOQio9cJdlQ9FiHkj1RO6u8EiThM5aKzTCeHnRPpg/HH1d2XD
-	 VuaTwQpNz8tEQ6LXJmalMGWM1ngrmXXnFSivVFD66pZuto7W9NJYz4zS6BfMj/Jx+h
-	 FVL4HBD2EDBTw==
-Date: Thu, 1 Oct 2026 16:03:02 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Alex Tran <alex.tran@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] pinctrl: scmi: Replace pinmux ops get function
- info with generics
-Message-ID: <20261001-authentic-dove-of-enthusiasm-bd7ebd@sudeepholla>
-References: <20260917-scmi-pinctrl-generics-v2-0-3eeee364257f@oss.qualcomm.com>
- <20260917-scmi-pinctrl-generics-v2-1-3eeee364257f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="O4h9FMpL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=G8nZSzlpByEXSixSPWBp/SZ71oCw5T7BXwZXVJgREQc=; b=O4h9FMpLc1mXe7O18OKZCozpPC
+	sRtkNSv9SU+gopY3PWqva1UBf0t6VtFZTENwOZ/l7Z6rERwCqLvp3PDQ89+hycxk/BeI/BmZUwcAw
+	EfF1AkzRiYjLkHVp+GQ117URRtbu5EsV1GglxiuzS1hOZdHafvnlT1CGDF6Zbcr580mevYeFJQaR6
+	8n9jlEfeVClFOawNSN3BHVTtFY5zkeq8AMXQhVHu4ZbPHcn/THq0z7j10RD4Qym2gwtrKrtvi/3UZ
+	Vc1OQ9pYhDWcsIrRGJ39w37WYnXEQquKXeAkGb5DShztQB1JNDNkC9ZicnZqbaJfBpjYZsgSuGyzl
+	6q0nsvMA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xCIJO-000AhN-1c;
+	Thu, 01 Oct 2026 15:03:06 +0000
+Date: Thu, 1 Oct 2026 08:03:01 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Gustavo Luiz Duarte <gustavold@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Matt Mackall <mpm@selenic.com>, 
+	Bruno =?utf-8?Q?Pr=C3=A9mont?= <bonbons@linux-vserver.org>, Stephen Hemminger <stephen@networkplumber.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/4] netconsole: finish enabling the target
+ before releasing RTNL
+Message-ID: <ar51wR0vG6QL2egY@gmail.com>
+References: <20260928-netcons-fixes-v1-0-bb5ffe5e698a@gmail.com>
+ <20260928-netcons-fixes-v1-1-bb5ffe5e698a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,200 +53,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917-scmi-pinctrl-generics-v2-1-3eeee364257f@oss.qualcomm.com>
+In-Reply-To: <20260928-netcons-fixes-v1-1-bb5ffe5e698a@gmail.com>
+X-Debian-User: leitao
 
-On Thu, Sep 17, 2026 at 03:55:55PM -0700, Alex Tran wrote:
-> During probe, populate the pinctrl device with function info
-> so that the generic callbacks can be used to fetch function
-> count, name, and groups. Remove locally stored functions
-> since caching them in this driver is no longer needed.
+On Mon, Sep 28, 2026 at 07:00:03PM +0100, Gustavo Luiz Duarte wrote:
+> netcons_netpoll_setup() publishes nt->np.dev inside __netpoll_setup(),
+> then releases the RTNL and waits for an RCU grace period before
+> returning. Only after that does its caller store STATE_ENABLED:
 > 
-> Signed-off-by: Alex Tran <alex.tran@oss.qualcomm.com>
-> ---
->  drivers/pinctrl/pinctrl-scmi.c | 151 +++++++++++++++++------------------------
->  1 file changed, 61 insertions(+), 90 deletions(-)
+> A NETDEV_UNREGISTER event landing in that window tears the target down
+> and we end up storing STATE_ENABLED with a NULL np->dev, leading to a
+> null-ptr-deref in netconsole_write():
 > 
-> diff --git a/drivers/pinctrl/pinctrl-scmi.c b/drivers/pinctrl/pinctrl-scmi.c
-> index 1bb36ca477b7..1d85a16f300d 100644
-> --- a/drivers/pinctrl/pinctrl-scmi.c
-> +++ b/drivers/pinctrl/pinctrl-scmi.c
-> @@ -24,6 +24,7 @@
->  #include "pinctrl-utils.h"
->  #include "core.h"
->  #include "pinconf.h"
-> +#include "pinmux.h"
->  
->  #define DRV_NAME "scmi-pinctrl"
->  
-> @@ -37,8 +38,6 @@ struct scmi_pinctrl {
->  	struct scmi_protocol_handle *ph;
->  	struct pinctrl_dev *pctldev;
->  	struct pinctrl_desc pctl_desc;
-> -	struct pinfunction *functions;
-> -	unsigned int nr_functions;
->  };
->  
->  static int pinctrl_scmi_get_groups_count(struct pinctrl_dev *pctldev)
-> @@ -84,86 +83,6 @@ static const struct pinctrl_ops pinctrl_scmi_pinctrl_ops = {
->  #endif
->  };
->  
-> -static int pinctrl_scmi_get_functions_count(struct pinctrl_dev *pctldev)
-> -{
-> -	struct scmi_pinctrl *pmx = pinctrl_dev_get_drvdata(pctldev);
-> -
-> -	return pinctrl_ops->count_get(pmx->ph, FUNCTION_TYPE);
-> -}
-> -
-> -static const char *pinctrl_scmi_get_function_name(struct pinctrl_dev *pctldev,
-> -						  unsigned int selector)
-> -{
-> -	int ret;
-> -	const char *name;
-> -	struct scmi_pinctrl *pmx = pinctrl_dev_get_drvdata(pctldev);
-> -
-> -	ret = pinctrl_ops->name_get(pmx->ph, selector, FUNCTION_TYPE, &name);
-> -	if (ret) {
-> -		dev_err(pmx->dev, "get name failed with err %d", ret);
-> -		return NULL;
-> -	}
-> -
-> -	return name;
-> -}
-> -
-> -static int pinctrl_scmi_get_function_groups(struct pinctrl_dev *pctldev,
-> -					    unsigned int selector,
-> -					    const char * const **p_groups,
-> -					    unsigned int * const p_num_groups)
-> -{
-> -	struct pinfunction *func;
-> -	const unsigned int *group_ids;
-> -	unsigned int num_groups;
-> -	const char **groups;
-> -	int ret, i;
-> -	struct scmi_pinctrl *pmx = pinctrl_dev_get_drvdata(pctldev);
-> -
-> -	if (!p_groups || !p_num_groups)
-> -		return -EINVAL;
-> -
-> -	if (selector >= pmx->nr_functions)
-> -		return -EINVAL;
-> -
-> -	func = &pmx->functions[selector];
-> -	if (func->ngroups)
-> -		goto done;
-> -
-> -	ret = pinctrl_ops->function_groups_get(pmx->ph, selector, &num_groups,
-> -					       &group_ids);
-> -	if (ret) {
-> -		dev_err(pmx->dev, "Unable to get function groups, err %d", ret);
-> -		return ret;
-> -	}
-> -	if (!num_groups)
-> -		return -EINVAL;
-> -
-> -	groups = kcalloc(num_groups, sizeof(*groups), GFP_KERNEL);
-> -	if (!groups)
-> -		return -ENOMEM;
-> -
-> -	for (i = 0; i < num_groups; i++) {
-> -		groups[i] = pinctrl_scmi_get_group_name(pctldev, group_ids[i]);
-> -		if (!groups[i]) {
-> -			ret = -EINVAL;
-> -			goto err_free;
-> -		}
-> -	}
-> -
-> -	func->ngroups = num_groups;
-> -	func->groups = groups;
-> -done:
-> -	*p_groups = func->groups;
-> -	*p_num_groups = func->ngroups;
-> -
-> -	return 0;
-> -
-> -err_free:
-> -	kfree(groups);
-> -
-> -	return ret;
-> -}
-> -
->  static int pinctrl_scmi_func_set_mux(struct pinctrl_dev *pctldev,
->  				     unsigned int selector, unsigned int group)
->  {
-> @@ -190,9 +109,9 @@ static int pinctrl_scmi_free(struct pinctrl_dev *pctldev, unsigned int offset)
->  static const struct pinmux_ops pinctrl_scmi_pinmux_ops = {
->  	.request = pinctrl_scmi_request,
->  	.free = pinctrl_scmi_free,
-> -	.get_functions_count = pinctrl_scmi_get_functions_count,
-> -	.get_function_name = pinctrl_scmi_get_function_name,
-> -	.get_function_groups = pinctrl_scmi_get_function_groups,
-> +	.get_functions_count = pinmux_generic_get_function_count,
-> +	.get_function_name = pinmux_generic_get_function_name,
-> +	.get_function_groups = pinmux_generic_get_function_groups,
->  	.set_mux = pinctrl_scmi_func_set_mux,
->  };
->  
-> @@ -487,6 +406,60 @@ static const struct pinconf_ops pinctrl_scmi_pinconf_ops = {
->  	.pin_config_config_dbg_show = pinconf_generic_dump_config,
->  };
->  
-> +static int pinctrl_scmi_get_functions(struct scmi_pinctrl *pmx)
-> +{
-> +	unsigned int nr_funcs, nr_groups, i, j;
-> +	const unsigned int *group_ids;
-> +	const char *fname;
-> +	const char **gnames;
-> +	int ret;
-> +
-> +	nr_funcs = pinctrl_ops->count_get(pmx->ph, FUNCTION_TYPE);
-> +
-> +	for (i = 0; i < nr_funcs; i++) {
-> +		ret = pinctrl_ops->name_get(pmx->ph, i, FUNCTION_TYPE,
-> +					    &fname);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = pinctrl_ops->function_groups_get(pmx->ph, i,
-> +						       &nr_groups,
-> +						       &group_ids);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (!nr_groups)
-> +			dev_warn(pmx->dev,
-> +				 "Function %s contains no groups\n",
-> +				 fname);
-> +
-> +		gnames = devm_kmalloc_array(pmx->dev, nr_groups,
-> +					    sizeof(*gnames), GFP_KERNEL);
-> +		if (!gnames)
-> +			return -ENOMEM;
-> +
-> +		for (j = 0; j < nr_groups; j++) {
-> +			ret = pinctrl_ops->name_get(pmx->ph, group_ids[j],
-> +						    GROUP_TYPE, &gnames[j]);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		ret = pinmux_generic_add_function(pmx->pctldev, fname, gnames,
-> +				  nr_groups, NULL);
-> +		if (ret < 0)
-> +			return ret;
+>   BUG: KASAN: null-ptr-deref in netconsole_write+0xb9/0x7f0
+>   Read of size 8 at addr 00000000000000a8 by task pr/netcon_ext0/135
+>    netconsole_write+0xb9/0x7f0
+>    nbcon_emit_next_record+0x501/0x550
+>    nbcon_emit_one+0x10e/0x170
+>    nbcon_kthread_func+0x2ff/0x3b0
+>    kthread+0x199/0x1e0
 
-Since this will fail the probe, don't we have to pinmux_generic_remove_function()
-for all the added functions ? I don't know if devm_* takes care of it, just
-thought I have check as I don't have much deeper knowledge of pinctl
-sub-system.
+Oh gosh. Thanks for hte fix.
 
-If the above cleanup is needed, with that added, else w/o it:
+> Store STATE_ENABLED before dropping the RTNL lock to avoid racing with
+> netconsole_netdev_event().
+> 
+> Fixes: 2382b15bcc39 ("netconsole: take care of NETDEV_UNREGISTER event")
 
-Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
+This should go to `net` instead of netdev.
+>
+> @@ -552,13 +552,16 @@ static int netcons_netpoll_setup(struct netconsole_target *nt)
+>  	err = __netpoll_setup(np, ndev);
+>  	if (err)
+>  		goto put;
+> -	rtnl_unlock();
+>  
+>  	/* Make sure all NAPI polls which started before dev->npinfo
+>  	 * was visible have exited before we start calling NAPI poll.
+>  	 * NAPI skips locking if dev->npinfo is NULL.
+> +	 * Hold RTNL until enable is finished so we don't race with
+> +	 * netconsole_netdev_event()
+>  	 */
+> -	synchronize_rcu();
+> +	synchronize_net();
+> +	nt->state = STATE_ENABLED;
+> +	rtnl_unlock();
 
-It is a nice cleanup to avoid unnecessary duplication and move to reuse of
-functionality provided already by the core pinctl.
+Why do you need to synchornize-rcu with the RTNL held? Why not enabling
+nt->state, releasing the lock and than synchronizing RCU?
 
--- 
-Regards,
-Sudeep
+--breno
