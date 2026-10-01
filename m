@@ -1,157 +1,75 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mta1.migadu.com (out-18.mta1.migadu.com [95.215.58.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1C74052AC
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6019744E64F
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 11:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855068; cv=none; b=lpCDm7etb8OCG2RnxIe3tNQ/HHHwvWKYOvA27cfu2CGq7WD/nuhnQGFPP+xia4KxOKzXZOwq2JdPl/5ElLg+3MQz9Adsq+9AfXwB3+EbaQNYC0nLBgI5OpaVjECllK1twc+O3gJbM/Wz1eT09DGLysUUyzJuHtg2WpBAanwg+jQ=
+	t=1790855069; cv=none; b=AqmPZ4w19YVOHPZhFtlDu9slmrtSFoOYgVKkYoBxc30wrh94l/aZEBWRXD4eg+M+81Ruq0W5oB8WTk2skTVbMZie7nXXOWSgzysiFEs/nBcWRh3oL8K7AY3xLoADEeuJfzHyp+QDJzzXH+PKZLpndOKeKHoRE/5niQJgvxYZjs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855068; c=relaxed/simple;
-	bh=rN6PhppOBP+U+H2IVozaLpFZ8gj89uW2aTagm28cAZs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tmVu6Hm5u8kpftvvMqpisyJePVy3HtXZ4413FQgWV+O5ZolBTyFQdQdcmTmtL815/LTML4dobRlqH3VvuLyaSguKBLw80fFFhY2UmJPP8K7gr+m09idPsxrohrCmCVRbQVWXi2ofzZzFwH1USDcAk/jmGbvMuDYzujaDgt8dJOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tFH5f6qG; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790855069; c=relaxed/simple;
+	bh=peXh9c6xAd6ckv+sJNrdXLiSAIKk1mP6MG42SI/sR/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jU9XOZ6iYIY63poITL1Te/J/Ml3X+9n3x5pZFmcQxtZrwBChbjC4ZRJAkJlQK1XAmrbGcyXxg3ByoQV7jCOG4A6r2f0DbUJ/xUaHfcpoqEXBlZGgXe9X3l1kchpSstYlFSp1vAviWRlCNcDc8HKgwNVfQGHxrr45Y9YCn1fuiUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pQ812e+g; arc=none smtp.client-ip=95.215.58.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tFH5f6qG"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b03eb33b2so573118f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 04:44:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790855057; x=1791459857; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ysAADyX7pTvl47KCk7d/xYWK0poDe65ojjsRPrIY4mw=;
-        b=tFH5f6qG9gGq5GbPP6LutvjNXhSNrhzHzuZJddGnSdmf0MYuAHSGqc2I5kx8cSvtA8
-         gfFzi5eAtkRB3hh0A5UG6NxU23r1ZbrIUNcmTU9ygCDBf4lkFjp/9moqXt2N5uBp0ZGq
-         I8yKieqXLmyWg2hXuFSfp36uf50b0NarWxg7Js4CyVzEIKzPIItqwU388hMofAGHGgWP
-         NX1U+guxQsFDdLaWsMTor+CchiAr35UUwTNrnAcp1mtwmhXfZeBHFxPsZqsrLYWvvWF9
-         oiMfrZC4Pf7dTXbK+LUbykCp6i4eLil4/ua4QUL5WsGn6Xz/gb49/nWUE1b5yJTDWYmZ
-         wUsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790855057; x=1791459857;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ysAADyX7pTvl47KCk7d/xYWK0poDe65ojjsRPrIY4mw=;
-        b=R2lfyCvWus7tlRYE4LYal7pTqlE9gjpIvI0Y8V9Y6mBzZ7nXLYwmHynvjgpSeXLihm
-         Dv8DFjSjbmxc9axX6HHy2EgDuVwK263umzYw8dyIv/tPv5fIu1uRyQamIw4nNGSUjULN
-         zZMzuW7aoJDJvqkAyJ5/pTRxwdA35gSOV2gLad9ntsTKH11+fluVoUdoQK0pBT0aUj/R
-         i66MntZ2d1jIP3uhQuGUEMbR9Qo9FTkJ5Dy9YFVjM8zgCoJKwxUzU0ggc8cKErHDdqwp
-         pZA5E3UyglcUJ6EZ8HAhlShQt07acwwh4Q0dlGnrVwWZB+fG6pOYcdB+nJ+xFRdNGJ8P
-         o4UA==
-X-Forwarded-Encrypted: i=1; AKwUvBzz2WwRA1+4QpVuSfuMplSIZBl0ImemSdct0v/QGu7HEVAbGXOedibV+enzYDzOc2aZMuHtpnlaKE6Uj4s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6ii+YMI9sfYSHN93n/9YBTQKt6LtbIxaPdMHTOhYqmJXy9mTf
-	j98dIRzwPlBEs7CJYZ20pgn0/h3JjvvHqMT7UVkUuRnGTpBT36Qfj21o
-X-Gm-Gg: AYBFou2VD82m7D0M+ucW0BzSRKC1AfrtZOLfNO8pN8ZdwlbsyGemI9cDfbuOLS5T9R7
-	bjqhFHPoumGLh8FWr03ip8ljRNOW8ldlu8k6F6nvtBTW4spP9BTxztRg9/NY2JxBl8vp0+EYej6
-	kA3gx1MJ8bzDDqlQQyX+rYlCJRlbAWU6FVH3G//29VHu+SBp9D9h5boetGi3wGCPCLIeXLtFR3A
-	AOU2e5+eXlMJNOarWHqCQ0o19EsbVJ3RA/X4dwSFYFLMQIwOkL4lzD7dws3IJSgFsoKQml9MCRM
-	y1UYY1Bsz4KSYENPViXXm9TjRxpz0Q2YY9i+M5ObZ2hYq6Zg+qAM3fz1J9t89cyiO/p1BOl6Ydf
-	pYg2d+E/QCqI/l554912zMZqPjsao7b3hvoduwlmef6+DZ9EBzL6Ykm6mh6z4qpFOkcphHSHy3b
-	PrmsaM0TrNVB8gKBj3jKdCfH9Lz6MedfQHD7z/ZRpocsz84nu3wMK4MzdRevBadsAeLm8olFrVT
-	RDo5HVRxQmr+Phjf4PS6OhgpnWBy7snhUacp3TMmTsvyR/Fu7ytp6TxYDU77OAJdbxEtr/nrQ==
-X-Received: by 2002:a5d:5601:0:b0:488:5468:c23a with SMTP id ffacd0b85a97d-48b068c8ed3mr4376902f8f.17.1790855057014;
-        Thu, 01 Oct 2026 04:44:17 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b1035eff8sm1243705f8f.7.2026.10.01.04.44.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 04:44:16 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 01 Oct 2026 13:44:10 +0200
-Subject: [PATCH v2 2/6] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7
- UART_4 overlay
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pQ812e+g"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=peXh9c6xAd6ckv+sJNrdXLiSAIKk1mP6MG42SI/sR/A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790855062; v=1; x=1791459862;
+ b=pQ812e+gn3XmD5FZfEdcCS7cLDb7IJ98i87AUUpS80yJaLQAaeUptEAMO6fN4yq0BWYb6/oi
+ KYyBzcrUE6f6L9LplCy4bSWWqmXB5SlUqdx6EWuNi/KON6CwEu2QS8wOjAVDpFxBbvT3ODS7WJF
+ ruM3k3vc57GNMQk6XpsFkawM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bde4632800327e3b;
+	Thu, 01 Oct 2026 11:44:22 +0000
+X-Mizu-Trace-ID: bde4632800327e3b
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 1 Oct 2026 04:44:16 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tejun Heo <tj@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+	Paul McKenney <paulmck@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Christian Brauner <christian@brauner.io>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND 0/7] locking: opt-in tracking of sleeping lock
+ holders
+Message-ID: <ar5GDz-NSJBWX3j9@linux.dev>
+References: <20260924155025.949998-1-shakeel.butt@linux.dev>
+ <10b93dce66eb13a23fbab563df259092@kernel.org>
+ <20261001104154.GJ4121339@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-verdin-imx8mp-hmp-camera-ready-v2-2-7d1343ecd3ec@toradex.com>
-References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
-In-Reply-To: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001104154.GJ4121339@noisy.programming.kicks-ass.net>
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Thu, Oct 01, 2026 at 12:41:54PM +0200, Peter Zijlstra wrote:
+> On Mon, Sep 28, 2026 at 01:34:30PM -1000, Tejun Heo wrote:
+> > Hello, Shakeel.
+> > 
+> > On Thu, Sep 24, 2026 at 08:50:18AM -0700, Shakeel Butt wrote:
+> > > The answer is a count in task_struct. Only the locks that ask to be
+> > > tracked are counted. The mechanism introduced here is planned to be used
+> > > by solutions for shared lock isolation scenarios [1].
+> > ...
+> > > [1] https://lore.kernel.org/20260921192559.2619635-1-shakeel.butt@linux.dev/
+> > 
+> > Let's resolve the discussion on the overall approach first.
+> 
+> So I must admit to absolutely hating these patches.
 
-Verdin UART_4 can be assigned to Cortex-M7 firmware. Add an overlay
-that marks the UART as reserved so Linux does not claim the port.
-
-The overlay is also combined with the Verdin iMX8M Plus Development
-Board device tree to provide a ready-to-use DTB for the non-WiFi SoM
-variant. UART_4 carries Bluetooth on WiFi SoMs.
-
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
----
- arch/arm64/boot/dts/freescale/Makefile                     |  3 +++
- arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso | 14 ++++++++++++++
- 2 files changed, 17 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 23e2684d6923..649be5b6aab4 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -736,6 +736,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dev-dsi-to-hdmi.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dev-uart4-mcu.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-mallow.dtb
-@@ -744,6 +745,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-uart4-mcu.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia.dtb
-@@ -761,6 +763,7 @@ imx8mp-verdin-nonwifi-dahlia-dsi-to-hdmi-dtbs := imx8mp-verdin-nonwifi-dahlia.dt
- imx8mp-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := imx8mp-verdin-nonwifi-dahlia.dtb \
- 	imx8mp-verdin-panel-cap-touch-10inch-dsi.dtbo
- imx8mp-verdin-nonwifi-dev-dsi-to-hdmi-dtbs := imx8mp-verdin-nonwifi-dev.dtb imx8mp-verdin-dsi-to-hdmi.dtbo
-+imx8mp-verdin-nonwifi-dev-uart4-mcu-dtbs := imx8mp-verdin-nonwifi-dev.dtb imx8mp-verdin-uart4-mcu.dtbo
- imx8mp-verdin-nonwifi-yavia-dsi-to-hdmi-dtbs := imx8mp-verdin-nonwifi-yavia.dtb imx8mp-verdin-dsi-to-hdmi.dtbo
- imx8mp-verdin-wifi-dahlia-dsi-to-hdmi-dtbs := imx8mp-verdin-wifi-dahlia.dtb imx8mp-verdin-dsi-to-hdmi.dtbo
- imx8mp-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := imx8mp-verdin-wifi-dahlia.dtb \
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso
-new file mode 100644
-index 000000000000..74d90b39faec
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Verdin iMX8M Plus UART_4 for Cortex-M7
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+/* Verdin UART_4 */
-+&uart4 {
-+	status = "reserved";
-+};
-
--- 
-2.43.0
-
+I think I should have started a conversation/discussion email before sending out
+the multiple patch series which kind of doing multiple overlapping things and it
+is causing confusion. Let me actually do that and I will CC relevant folks.
