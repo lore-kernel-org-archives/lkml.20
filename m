@@ -1,146 +1,326 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638964C33C8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEF4331A53
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889531; cv=none; b=bzzqIrK7NVbd9Chxmg8TKuUc26uQj4d0cSYB9bUXikXhMFdbL5gy/RFzPPTRvQYi6ChDvs81D1WlAkSljP1g9K3TGhEObnZx5bmK/yGyrmLIysUAKNH16xYdTkgvsAs6ir6kzyQP8wFNJsPMeQdVEttO9Y4UJDC0Rh0sDXdfQw0=
+	t=1790889536; cv=none; b=rWh8X3CYfPPREhDlTsbDaIvnPYZAf3lUwMElc0gJRPnvTdRV9uh/xwcW9haXhFWDC5Zu/fIhPSv5Hi+4Cx29hZHSwmekoE3k80xDfx0Oduct6/dXWEAI4N3uR5Yw/YyqqFo7fZLrLWn7Q9HTPQAo8YthcbDAXX6dRxFbtCpek3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889531; c=relaxed/simple;
-	bh=Lc8DU1zkrMg4neucucQ1pvHXt1SoMZbVX5FyEcJUZ2o=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ie+PKQQ9uezkwEuStt2PWxjEUNy9hHuvA8I2t32XnBr/v1GnIeIYLUXPZ72QhgzPk6IK2o1WJeVde7a1soA+Dn9OGQ9vJ5zCy2hQLuw9me9noytLTb67fhMP9zbsnTUBg3xrRBDHdrQm7Igm5O3D9gwd0bWsuudgJpvNLPh3H2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gbpxrOov; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790889536; c=relaxed/simple;
+	bh=AaMRzA3GwCcruC4vcKsIY/ctppwPd6yHkgn55D5RW4M=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QAHdRb0HlKYzBKuCR+93Ljj0vxn3kwrimzIgFXex52Cq2RVoL68g0XbtYn8/CmZOJ/tKCpTHMSpSBCgqclFKraoD6kE8oiyQFatKICUmIvh8gUqJtoNCdB8FN3rJgH/Wg4wlD4xeVyY8oLDJlW0U/pUfdqYbzCAATnPd/ubHX2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=yg8dzKmw; arc=none smtp.client-ip=74.125.224.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gbpxrOov"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7e6720b31so1116053a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:18:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="yg8dzKmw"
+Received: by mail-yx2-f38.google.com with SMTP id 956f58d0204a3-6768033d654so2397734d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:18:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790889524; x=1791494324; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4UWY4lqIbXW0hgSoFKxOQDY3goBYarydfObAA0sKuMg=;
-        b=gbpxrOovYg0TALiTkiOZ3vqqTpmRl9Ah/lbHaOlHZixoVq9QbJaB9Avxx45x+l8f7r
-         r3OUkizwBtlqdPvgvOg7qMczXMzlHIUVjA4eirq1AIzm8JlCOTDiECDBpnByIYKIwvxK
-         NjLXyudwsDrqP2mJvKxudhHtRLAzSUGbEOpZ6BttNS0Wu17B621AvLUOi+ffK9uCsFOa
-         oTs5uxxClGzCyDdHqnS24W8LOw8m2gQQ18kdVeju/ekVT5LEJwNAXTHre2qbqqdnt8aK
-         7PCP68ix4ZNd1Jxx++i3cy357YacXO4ZIVg+BN8ttT6ciOYIBqfwMNmboDLyDlkm6cW1
-         g0pA==
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790889526; x=1791494326; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=npnMeLxosNDOnJqoWDC8WVPBYhMiG2jAQo0sTJwzvWw=;
+        b=yg8dzKmwkWUkKuQiGHIIex5bqFEBz969NfuOjQW2JBHCL7HGLuJPtxiftnM4NNcCt6
+         CFifgGmDNW9zUMV82twIXMI08tmnJvKGAoZ9x5ZMVaHeNKi2Hxccbiiq5d6oPI+1dw6y
+         Zypo+J9MlWjOqfYz7JInvWe9Z/WH8BPwbvR/vJsr6reZRwgakrmCcDdk2h5nrxwj9Cyw
+         wq7Pe3c63OP/pD3PHPU+y2Z5hBdoFaO7Njc6IJI8J7eX0u77FXFnuYabs+vIw7GzSAd9
+         5QDClnyM0DBii04i51gaG45RCzJ6Tm9MBsm9FsuGVEw9WV4pu9Ygo1pawdVTKkrrAEql
+         Owsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790889524; x=1791494324;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4UWY4lqIbXW0hgSoFKxOQDY3goBYarydfObAA0sKuMg=;
-        b=OBFpyvL+XvFrtbyvUFIxlwT4M5MQiINdT9DL5d5xPGypLvEUTnPijYUXah1tHFQD1r
-         jv6bnwtNl+1pMYfuucVxMOtYg7+nMwzz0WdJ4LMStaP4EBhdoxX1llyrZ5536x4Y5d3V
-         D6fHSkMMRnPV8/iO5l+mnvEjmv7HMMwCuJdhKq2rinBrQecI5MyrLS2HfnPayGUQ4qvf
-         RmGArxMdVKG3QVrMon2hkxfoQlG+hahY39T4v9rlsmnLEgsbPz9Hmi9lF0+MN/4XhtLh
-         67sWW8CSImwRRBFYjuIPyMpK7DJG5LgW4afqYZ5BkoXA6KCXfuaOEPizDryogd4Rciix
-         lkHw==
-X-Forwarded-Encrypted: i=1; AKwUvBynFTrLagGjJJ6YK5RI73hP+AqXEeAvGlEDC/pjr5yznHiRg4YNdJkh0ff3betChEd+A1+saWAQWswAhe8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzoRFhalbqvMoBb6B7e4jldB5y4o89vrvj6d9uHtv0ZtTUKDwt
-	7wAIOjQWLCHyuyJcAncNCCAGmFCrktrT2Y1gWvDOfWz+EAqEYIeQhZOwMIKd30kGFLEHjD9GvID
-	q7/6rcg==
-X-Received: from pga7.prod.google.com ([2002:a05:6a02:4f87:b0:cc7:ac0b:f49d])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:a121:b0:3dd:659e:5db2
- with SMTP id adf61e73a8af0-3e0bce8431cmr525636637.16.1790889524390; Thu, 01
- Oct 2026 14:18:44 -0700 (PDT)
-Date: Thu, 1 Oct 2026 14:18:43 -0700
-In-Reply-To: <CADrL8HWDy64UH0N4RCtvgL6zP93jnwr91xjkWerEs1MBV9JH_w@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1790889526; x=1791494326;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=npnMeLxosNDOnJqoWDC8WVPBYhMiG2jAQo0sTJwzvWw=;
+        b=yPMjaa8Luc+PFcKMyfZ9g2g+kinkD1cBGScxCRNgp7/zQujo72d1/9HvyV7XzBQ5lO
+         bUV1T1Hh9DPmCxJbgNze+T6dCESR90b70zh0Ht+8OnB0JPmK5vu/+2ikEC/dfKam/gOc
+         OlyT06bvNAI90LWmQkxChNNBdFCB+2syvNnORlyGtdlcb2PIzCPvRd6/M81pkfYfygs9
+         E7r+kmdgzArpARS9Pkdup6tLJFVJyh3CZl/SLQoTxisO6d6z1whGpbMmnJ852ELAKWV9
+         XyRodG2vwDkV63zYev5dLoPJ27iQ6LVXGjFgLiHAbpttEF1Oq92nogk0Y8rETGoyZsMH
+         XvVw==
+X-Forwarded-Encrypted: i=1; AKwUvByNRM1ZQWodXcz7Gi6nbgZ8B6bjFxCGq9ybrrqtrgEGe6ECl48i41GGmiQVZZNcmB0DyIjhufBXa1KQsi4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTTyeNgCcBU8psINuL8h+1dQBzOpTTzp0/I8BfdXp8kW3kOtq6
+	HZaibxBzeryG1iHO81U6h2n+M+XmjhNZcH9uE/luCPhrs+xYlRJpeZFgvGmUnr8nycA=
+X-Gm-Gg: AYBFou1DytBQfTMHyvPZnIw4507wc/fMHp9EPpFxmsiyvzs4UtqQTmqQ7OJYt4PQYt5
+	pbHHXgeetIhvtY64MuWHfP8UotS/BTxxRRpmuataHdkoaz4jehVOQcxRyg3o0I/+XHU/+RtkADd
+	/GJHyQx37pH2Lcj/rhVdXZWpH4cn/aud7f2LP3PdsibIHoHI0Ui0bdul0KabAKodSJR/pz8f5pF
+	6gylXNGO0ktpit4PT72EHGKP4rj1FJcVVIjXBd/p74zNMrGmVP296r7BL3u/cWaEwU5NvK9hRmA
+	CF6YOq0QcYXpVmdYrtUeEd//+nilJe/QL4gxtODHUrhyGPQHdBvgAEGuq4l0OAMu6q+Q/inBRvk
+	LKVnyvVsA4zgPoF65JGsSReRr7LqKBW3imX/YeJo1UytxW9SsnndwAXNw1cHM7GdiC1P4l6bI/r
+	dihuBI5sRKcQBAkOKyMQcDCJmwYKCdM0mciSlgG39iOdxXMSxhbIKgwyzkw1NVdqj/q4zOCoBUr
+	JnuloQTwjcga4hOVzMUORMSVUPiDzCXBdWM7Ja294vKF6SnBkRoq+/WrAQ6ykFmFskENG89zfas
+	+KcYqggcyKD9fdtCxmGBicxfmoJzxTrS9IpTs+kBMPu0lvVmCAnravq1uZyHz0k3
+X-Received: by 2002:a05:690e:813:20b0:675:38ab:5f0c with SMTP id 956f58d0204a3-677ac03bb78mr277646d50.17.1790889526016;
+        Thu, 01 Oct 2026 14:18:46 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:67c2:3447:e08d:9418? ([2600:1700:6476:1430:67c2:3447:e08d:9418])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677ac5ac1fdsm157307d50.13.2026.10.01.14.18.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 14:18:45 -0700 (PDT)
+Message-ID: <1a1408e2ef7d3e5c27e520958ffa2116b3250ea6.camel@dubeyko.com>
+Subject: Re: [PATCH v2 2/2] hfsplus: validate the wrapper and partition map
+ before following them
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
+	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 01 Oct 2026 14:18:41 -0700
+In-Reply-To: <2037378c974c98794dcd1d832e3c31628e9801b8.1790689266.git.matthias.goergens@gmail.com>
+References: <cover.1790689266.git.matthias.goergens@gmail.com>
+	 <2037378c974c98794dcd1d832e3c31628e9801b8.1790689266.git.matthias.goergens@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261001202234.3794060-1-seanjc@google.com> <20261001202234.3794060-2-seanjc@google.com>
- <CADrL8HWDy64UH0N4RCtvgL6zP93jnwr91xjkWerEs1MBV9JH_w@mail.gmail.com>
-Message-ID: <ar7OMwkZ9bc0tbzC@google.com>
-Subject: Re: [PATCH v2 01/10] KVM: Reject user accesses to guest memory if
- current->mm != kvm->mm
-From: Sean Christopherson <seanjc@google.com>
-To: James Houghton <jthoughton@google.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 
-On Thu, Oct 01, 2026, James Houghton wrote:
-> On Thu, Oct 1, 2026 at 1:24=E2=80=AFPM Sean Christopherson <seanjc@google=
-.com> wrote:
-> >
-> > Reject user accesses to guest memory, which are supposed to be done onl=
-y
-> > in the context of KVM_RUN or similar operations, if the current address
-> > space is not the VM's (host userspace) address space.  If KVM writes to
-> > guest memory after the owning host process has exited, or if the VM is
-> > being destroyed in the context of a different process, then writing usi=
-ng
-> > the wrong address space will corrupt a different process' memory.
-> >
-> > Reject the access but don't WARN() or KVM_BUG_ON() event though attempt=
-ing
-> > to access guest memory with a mismatched address space is a blatant KVM
-> > bug, because unfortunately KVM is buggy.  On KVM VMX, when a vCPU is
-> > destroyed while L2 is active, KVM synthesizes a nested VM-Exit to force=
- the
-> > vCPU out of L2 in order to free the nested VMX assets, and a side effec=
-t of
-> > a nested VM-Exit is that it flushes the cached shadow VMCS12 back to gu=
-est
-> > memory:
-> >
-> >   vmx_vcpu_free()
-> >   |-> nested_vmx_free_vcpu()
-> >       |-> vmx_leave_nested()
-> >           |-> nested_vmx_vmexit(vcpu, -1, 0, 0)
-> >               |-> nested_flush_cached_shadow_vmcs12()
-> >                   |-> kvm_write_guest_cached()
-> >                       |-> __copy_to_user(ghc->hva, ...)
-> >
-> > Fix the bug broadly even though the "real" bug is that KVM abuses the
-> > nested VM-Exit flow for non-architectural purposes, as there may be oth=
-er
-> > such violations lurking.  For now, punt on fixing individual bugs and
-> > hardening the common flows, e.g. with WARNs.
-> >
-> > Opportunistically provide wrappers in anticipation of adding more check=
-s
-> > and hardening, i.e. growing the logic beyond checking current->mm.
-> >
-> > Fixes: 61ada7488ffd ("KVM: nVMX: Cache shadow vmcs12 on VMEntry and flu=
-sh to memory on VMExit")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Jim Mattson <jmattson@google.com>
-> > Closes: https://lore.kernel.org/all/20260908132838.2116068-1-jmattson@g=
-oogle.com
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+On Fri, 2026-10-02 at 00:21 +0800, Matthias Goergens wrote:
+> hfsplus_read_wrapper() rereads the volume header through a bare "goto
+> reread", following an HFS wrapper's embedded-volume descriptor or, if
+> the header matches neither signature, the partition map found by
+> hfs_part_find().=C2=A0 hfsplus_read_mdb() does not check the offset it
+> returns, and hfs_part_find() does not check the start of a new-style
+> map
+> entry, so a descriptor or entry with a zero offset leaves part_start
+> where it was and the mount loops forever.
 >=20
-> Thanks, Sean. Feel free to add:
+> Check both where they are parsed.=C2=A0 TN1150 places the embedded volume
+> in
+> the wrapper's allocation blocks, and the boot blocks, MDB and volume
+> bitmap of an HFS volume are not part of any allocation block.=C2=A0 So
+> hfsplus_read_mdb() now rejects a wrapper whose allocation blocks
+> start
+> at or before its MDB (drAlBlSt <=3D 2), whose embedded volume is empty,
+> or
+> whose embedded volume ends past the wrapper's last allocation block
+> (drNmAlBlks).=C2=A0 hfs_part_find() gets the same check as in hfs: a
+> partition must be non-empty, start inside the device and, for a
+> new-style map, start after the map, which begins at block 1 and whose
+> size the first entry's pmMapBlkCnt gives (TN1189).
 >=20
-> Reviewed-by: James Houghton <jthoughton@google.com>
+> A wrapper hop now moves part_start forward by at least three sectors,
+> and a partition-table hop moves it past the map entries it has read.=C2=
+=A0
+> So
+> the loop ends, at the latest when a read goes past the end of the
+> device, and the maps read on the way do not overlap.
 >=20
-> I wonder if it makes sense to add similar hardening to kvm_faultin_pfn().
-> What do you think?
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+> ---
+> v2: check the wrapper in hfsplus_read_mdb() and the entries in
+> hfs_part_find() instead of limiting the hops in
+> hfsplus_read_wrapper().
+>=20
+> A wrapper whose embedded-volume descriptor points back at itself
+> hangs
+> the mount without this patch and fails at once with it:
+>=20
+> =C2=A0 img=3Dhfsplus-wrapper-loop.img
+> =C2=A0 put() { printf "$2" | dd of=3D$img bs=3D1 seek=3D$1 conv=3Dnotrunc
+> status=3Dnone; }
+> =C2=A0 truncate --size=3D64K $img
+> =C2=A0 put $((1024 + 0x00)) '\x42\x44'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 # drSigWord 'BD'
+> =C2=A0 put $((1024 + 0x0a)) '\x82\x00'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 # drAtrb: SLOCK | SPARED
+> =C2=A0 put $((1024 + 0x14)) '\x00\x00\x02\x00'=C2=A0 # drAlBlkSiz 512
+> =C2=A0 put $((1024 + 0x7c)) '\x48\x2b'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 # drEmbedSigWord 'H+'
+> =C2=A0 put $((1024 + 0x7e)) '\x00\x00\x00\x64'=C2=A0 # drEmbedExtent: sta=
+rt 0,
+> count 100
+> =C2=A0 mount -o ro,loop -t hfsplus $img /mnt
+>=20
+> The partition map from the hfs patch hangs an hfsplus mount the same
+> way, with "-t hfsplus".
+>=20
+> =C2=A0fs/hfsplus/part_tbl.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 24 ++++++++++=
++++++++++++++-
+> =C2=A0fs/hfsplus/wrapper.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 16 +++++=
+++++++++++-
+> =C2=A0include/linux/hfs_common.h |=C2=A0 1 +
+> =C2=A03 files changed, 39 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/fs/hfsplus/part_tbl.c b/fs/hfsplus/part_tbl.c
+> index 9ec21664eda6b..ceba3139f1f56 100644
+> --- a/fs/hfsplus/part_tbl.c
+> +++ b/fs/hfsplus/part_tbl.c
+> @@ -67,6 +67,22 @@ struct old_pmap {
+> =C2=A0	}	pdEntry[42];
+> =C2=A0} __packed;
+> =C2=A0
+> +/*
+> + * Check a partition map entry before following it.=C2=A0 The partition
+> must
+> + * be non-empty, start inside the device and start at or after
+> @first:
+> + * after the driver descriptor map in block 0 for an old-style map,
+> and
+> + * after the whole of a new-style map, whose size the first entry's
+> + * pmMapBlkCnt gives (TN1189).=C2=A0 Every hop then moves forward, past
+> the
+> + * map entries just read, so hfsplus_read_wrapper() cannot loop and
+> + * reads each block of a map at most once.
+> + */
+> +static bool hfs_part_valid(struct super_block *sb, sector_t base,
+> +			=C2=A0=C2=A0 u64 first, u32 start, u32 size)
+> +{
+> +	return start >=3D first && size &&
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 base + start < bdev_nr_sectors(sb-=
+>s_bdev);
+> +}
 
-I'm not opposed to explicitly hardening kvm_faultin_pfn(), but I don't thin=
-k it
-would add much value in practice.  Far more arch code uses __kvm_faultin_pf=
-n()
-directly, and that doesn't have a @vcpu or @vm pointer to do the check.  We=
- could
-obviously "fix" that, but nuking the memslots (patches 3-5) will prevent al=
-l but
-the most ridiculous bugs.  Getting anywhere near __kvm_faultin_pfn() with t=
-he
-wrong mm would either mean KVM is doing something amazingly stupid during V=
-M
-teardown, or I guess maybe the scheduler or preempt notifiers went off the =
-rails?
+Please, see my comments for HFS patch. I have pretty the same comments
+here.
+
+> +
+> =C2=A0static int hfs_parse_old_pmap(struct super_block *sb, struct
+> old_pmap *pm,
+> =C2=A0		sector_t *part_start, sector_t *part_size)
+> =C2=A0{
+> @@ -76,7 +92,9 @@ static int hfs_parse_old_pmap(struct super_block
+> *sb, struct old_pmap *pm,
+> =C2=A0	for (i =3D 0; i < 42; i++) {
+> =C2=A0		struct old_pmap_entry *p =3D &pm->pdEntry[i];
+> =C2=A0
+> -		if (p->pdStart && p->pdSize &&
+> +		if (hfs_part_valid(sb, *part_start, HFS_DD_BLK + 1,
+> +				=C2=A0=C2=A0 be32_to_cpu(p->pdStart),
+> +				=C2=A0=C2=A0 be32_to_cpu(p->pdSize)) &&
+> =C2=A0		=C2=A0=C2=A0=C2=A0 p->pdFSID =3D=3D cpu_to_be32(0x54465331)/*"TFS=
+1"*/
+> &&
+> =C2=A0		=C2=A0=C2=A0=C2=A0 (sbi->part < 0 || sbi->part =3D=3D i)) {
+> =C2=A0			*part_start +=3D be32_to_cpu(p->pdStart);
+> @@ -99,6 +117,10 @@ static int hfs_parse_new_pmap(struct super_block
+> *sb, void *buf,
+> =C2=A0
+> =C2=A0	do {
+> =C2=A0		if (!memcmp(pm->pmPartType, "Apple_HFS", 9) &&
+> +		=C2=A0=C2=A0=C2=A0 hfs_part_valid(sb, *part_start,
+> +				=C2=A0=C2=A0 HFS_PMAP_BLK + (u64)size,
+> +				=C2=A0=C2=A0 be32_to_cpu(pm->pmPyPartStart),
+> +				=C2=A0=C2=A0 be32_to_cpu(pm->pmPartBlkCnt)) &&
+> =C2=A0		=C2=A0=C2=A0=C2=A0 (sbi->part < 0 || sbi->part =3D=3D i)) {
+> =C2=A0			*part_start +=3D be32_to_cpu(pm-
+> >pmPyPartStart);
+> =C2=A0			*part_size =3D be32_to_cpu(pm->pmPartBlkCnt);
+> diff --git a/fs/hfsplus/wrapper.c b/fs/hfsplus/wrapper.c
+> index 30cf4fe78b3d2..35cd2563dfdfe 100644
+> --- a/fs/hfsplus/wrapper.c
+> +++ b/fs/hfsplus/wrapper.c
+> @@ -66,7 +66,7 @@ int hfsplus_submit_bio(struct super_block *sb,
+> sector_t sector,
+> =C2=A0static int hfsplus_read_mdb(void *bufptr, struct hfsplus_wd *wd)
+> =C2=A0{
+> =C2=A0	u32 extent;
+> -	u16 attrib;
+> +	u16 attrib, nmalblks;
+> =C2=A0	__be16 sig;
+> =C2=A0
+> =C2=A0	sig =3D *(__be16 *)(bufptr + HFSP_WRAPOFF_EMBEDSIG);
+> @@ -87,11 +87,25 @@ static int hfsplus_read_mdb(void *bufptr, struct
+> hfsplus_wd *wd)
+> =C2=A0		return 0;
+> =C2=A0	wd->ablk_start =3D
+> =C2=A0		be16_to_cpu(*(__be16 *)(bufptr +
+> HFSP_WRAPOFF_ABLKSTART));
+> +	nmalblks =3D be16_to_cpu(*(__be16 *)(bufptr +
+> HFSP_WRAPOFF_NMALBLKS));
+> =C2=A0
+> =C2=A0	extent =3D get_unaligned_be32(bufptr + HFSP_WRAPOFF_EMBEDEXT);
+> =C2=A0	wd->embed_start =3D (extent >> 16) & 0xFFFF;
+> =C2=A0	wd->embed_count =3D extent & 0xFFFF;
+> =C2=A0
+> +	/*
+> +	 * The boot blocks, MDB and volume bitmap of an HFS volume
+> are not
+> +	 * part of any allocation block, and the embedded volume
+> occupies
+> +	 * allocation blocks of the wrapper (TN1150).=C2=A0 So the
+> embedded
+> +	 * volume starts after the wrapper's MDB and ends inside the
+> +	 * wrapper.
+> +	 */
+> +	if (wd->ablk_start <=3D HFS_MDB_BLK)
+> +		return 0;
+> +	if (!wd->embed_count ||
+> +	=C2=A0=C2=A0=C2=A0 wd->embed_start + wd->embed_count > nmalblks)
+> +		return 0;
+> +
+> =C2=A0	return 1;
+> =C2=A0}
+> =C2=A0
+> diff --git a/include/linux/hfs_common.h b/include/linux/hfs_common.h
+> index d6a615e74b26e..123475efe5b37 100644
+> --- a/include/linux/hfs_common.h
+> +++ b/include/linux/hfs_common.h
+> @@ -44,6 +44,7 @@
+> =C2=A0
+> =C2=A0#define HFSP_WRAPOFF_SIG		0x00
+> =C2=A0#define HFSP_WRAPOFF_ATTRIB		0x0A
+> +#define HFSP_WRAPOFF_NMALBLKS		0x12
+
+Does this value is based on specification? Where does it come from?
+
+Thanks,
+Slava.
+
+> =C2=A0#define HFSP_WRAPOFF_ABLKSIZE		0x14
+> =C2=A0#define HFSP_WRAPOFF_ABLKSTART		0x1C
+> =C2=A0#define HFSP_WRAPOFF_EMBEDSIG		0x7C
