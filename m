@@ -1,190 +1,66 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4414F0553
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D374DE725;
+	Thu,  1 Oct 2026 09:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846029; cv=none; b=ieCVQSXMSoLyXanoLERNzQ7rVMsEY/2Axri85VSxXJaRe6NgOeMUcOt/il/MPQmbqKMZtMY7Pp1EetuvBnoEcnGDrNI3SBqzx7jsGh0y8Cs3c9aj85Y+vdsyv8UYTCH+Is2UK4mxY3meQp/JV+XLxJXdEsct4oHvbTjrjzQoTsM=
+	t=1790846035; cv=none; b=N8HytIMrWK6hdLhS2yr19ZFnc7tVghea+elnsZPL3XudDGn2y6cN17yDXyaA0ITzlPoGG2yq00hxOkIHsu+PcKoHsf9gjVxfJ9mM3WWHorPIHffhjeCQ3kW1AphStDzOcOqEcSYi3XnFmjAIiW/j3pRirmm0wTRf61sbHpJTHHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846029; c=relaxed/simple;
-	bh=0nLPG5HXz7Xo1+MBMhfA45u5paiGKM8kGdpuWz8dExs=;
+	s=arc-20240116; t=1790846035; c=relaxed/simple;
+	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OMHB/afejsXbIWj6LvBwuIXqOoMHj90pr+V01vMN6L4cWldgt16b0tqDt22LwDmthKWmmiNkEv81yhGqIMFamH1RTWVh2+2YqAAl0ZbEdzzT1pvtDOQAsF6oPiSwMkCSAB0oHPU325eY9LHz2BIsBs1wfsl0lI5k9U+keEtGAQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Repnf107; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:MIME-Version; b=HXzlw6B2iMaIz52Z3NOqmGbik6d+l0vH2iDbzxEw+SUDQ/IZsy4peB3MUlDPCk6Vxvaq52PIPpdcYh+yCm7Fmga2KnQ4jOa2CqL9+SQyRnMbvl9LTfppQ77p5Vdz73smuj4NqTdtH4fizotH/1O+7L2j9zlUP50lwMyEH9/7edY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VM90FEjn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Repnf107"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790846025;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xjdLFx7siNPDsTDeYhNPbuQOG9Ff9GarrMomfKXig4Q=;
-	b=Repnf107vKDy/Rth/ECDdQcACMU0GOyUBEjOi5vztfDQ2/6+lgI3xmR+B15XuujQcTFAZd
-	n8lmM3BCqoWuqduqo2gtniYXhTqPSr+Hhu3efrFI+q6wRHrhV7DuRF4MQo2Rftsuu9Kbj6
-	JMnqk6nLpO8u2lGbe+cbJRyYUmROaII=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-612-oa9qbu1ZMDauYVVpGxAeiw-1; Thu,
- 01 Oct 2026 05:13:39 -0400
-X-MC-Unique: oa9qbu1ZMDauYVVpGxAeiw-1
-X-Mimecast-MFC-AGG-ID: oa9qbu1ZMDauYVVpGxAeiw_1790846017
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 548671800870;
-	Thu,  1 Oct 2026 09:13:36 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5E42718002B6;
-	Thu,  1 Oct 2026 09:13:29 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Christoph Hellwig <hch@infradead.org>
-Subject: [PATCH v15 06/10] smbdirect: Support ITER_BVECQ in smbdirect_map_sges_from_iter()
-Date: Thu,  1 Oct 2026 10:12:34 +0100
-Message-ID: <20261001091239.3343034-7-dhowells@redhat.com>
-In-Reply-To: <20261001091239.3343034-1-dhowells@redhat.com>
-References: <20261001091239.3343034-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VM90FEjn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7641F00898;
+	Thu,  1 Oct 2026 09:13:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790846032;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VM90FEjnH1Jc/my4/6WFOt3N4X3uPhqaVrkqxrJAOlTNE+TubfWQHDrS+IBJPEeFM
+	 RYjoDuQZwJOQRK3zUV4V7Cq/pEAXJeUpFBXdpDhY6sYL5mzsxf5xiBGBlqWr5pRn6m
+	 WiSMvVt6f+b0+C35rsI4vSDDZUBlQfWf6skln9yrkHSqwq9KXx0jaDcc3mEkirEOub
+	 O2JfzuVeDgDADjA0gdWXaksfkO966GjnSb137RbFS0jPKaOhFPC6rzRnh5jvKbb931
+	 /2ISGXswKrx6BjuVrUS5uiCHXF9I7ZsmuHpmSTWAV8yyot6TJsf4xsCCgjPwf5S6iE
+	 z/PPSE3pNax0g==
+From: netdev-bot+sinfo@kernel.org
+To: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+Cc: davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org,
+ nic_swsd@realtek.com, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ edumazet@google.com, bjorn@mork.no, pabeni@redhat.com, andrew+netdev@lunn.ch
+Subject: 
+ Re: [PATCH net-next v5 0/9] r8152: refactor and extend RTL8157/8159 support
+Date: Thu, 01 Oct 2026 09:13:51 +0000
+Message-ID: <179084603160.31693.9503439666123508587@kernel.org>
+In-Reply-To: <20261001091144.28191-1-nic_swsd@realtek.com>
+References: <20261001091144.28191-1-nic_swsd@realtek.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Add support for ITER_BVECQ to smbdirect_map_sges_from_iter().
+Hi!
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Acked-by: Stefan Metzmacher <metze@samba.org>
-Reviewed-by: Paulo Alcantara <pc@manguebit.org>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: Namjae Jeon <linkinjeon@kernel.org>
-cc: Shyam Prasad N <sprasad@microsoft.com>
-cc: Tom Talpey <tom@talpey.com>
-cc: Christoph Hellwig <hch@infradead.org>
-cc: linux-cifs@vger.kernel.org
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
----
- fs/smb/smbdirect/connection.c | 67 +++++++++++++++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-diff --git a/fs/smb/smbdirect/connection.c b/fs/smb/smbdirect/connection.c
-index afd31fa12a36..7cf8e1f8556f 100644
---- a/fs/smb/smbdirect/connection.c
-+++ b/fs/smb/smbdirect/connection.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include "internal.h"
-+#include <linux/bvecq.h>
- #include <linux/folio_queue.h>
- 
- struct smbdirect_map_sges {
-@@ -2015,6 +2016,69 @@ static ssize_t smbdirect_map_sges_from_bvec(struct iov_iter *iter,
- 	return ret;
- }
- 
-+/*
-+ * Extract memory fragments from a BVECQ-class iterator and add them to an RDMA
-+ * list.  The fragments are not pinned.
-+ */
-+static ssize_t smbdirect_map_sges_from_bvecq(struct iov_iter *iter,
-+					     struct smbdirect_map_sges *state,
-+					     ssize_t maxsize)
-+{
-+	const struct bvecq *bq = iter->bvecq, *next;
-+	unsigned int slot = iter->bvecq_slot;
-+	ssize_t extracted = 0;
-+	size_t offset = iter->iov_offset;
-+
-+	maxsize = umin(maxsize, iov_iter_count(iter));
-+
-+	do {
-+		struct bio_vec *bv;
-+		size_t bsize;
-+
-+		while (slot >= bq->nr_slots) {
-+			next = bvecq_next(bq);
-+			if (!next) {
-+				if (WARN_ON_ONCE(maxsize > 0))
-+					return -EIO;
-+				goto out;
-+			}
-+			bq = next;
-+			slot = 0;
-+		}
-+
-+		bv = &bq->bv[slot];
-+		bsize = bv->bv_len;
-+
-+		if (offset < bsize) {
-+			size_t part = umin(maxsize, bsize - offset);
-+			bool ok;
-+
-+			ok = smbdirect_map_sges_single_page(state,
-+							    bv->bv_page,
-+							    bv->bv_offset + offset,
-+							    part);
-+			if (!ok)
-+				return -EIO;
-+
-+			offset += part;
-+			extracted += part;
-+			maxsize -= part;
-+		}
-+
-+		if (offset >= bsize) {
-+			offset = 0;
-+			slot++;
-+		}
-+	} while (state->num_sge < state->max_sge && maxsize > 0);
-+
-+out:
-+	iter->bvecq = bq;
-+	iter->bvecq_slot = slot;
-+	iter->iov_offset = offset;
-+	iter->count -= extracted;
-+	return extracted;
-+}
-+
- /*
-  * Extract fragments from a KVEC-class iterator and add them to an ib_sge list.
-  * This can deal with vmalloc'd buffers as well as kmalloc'd or static buffers.
-@@ -2164,6 +2228,9 @@ static ssize_t smbdirect_map_sges_from_iter(struct iov_iter *iter, size_t len,
- 	case ITER_BVEC:
- 		ret = smbdirect_map_sges_from_bvec(iter, state, len);
- 		break;
-+	case ITER_BVECQ:
-+		ret = smbdirect_map_sges_from_bvecq(iter, state, len);
-+		break;
- 	case ITER_KVEC:
- 		ret = smbdirect_map_sges_from_kvec(iter, state, len);
- 		break;
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
