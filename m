@@ -1,33 +1,80 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D7224195DA;
-	Thu,  1 Oct 2026 13:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D6B386426
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861491; cv=none; b=GkcA8Wo2UbNgNYfuVoaGs8lP3vCt75JWmAn3/0gAJoLSCyduYX0MTL4HT10vNEfZ2XhhgxtYe1J3xJsbZUS7haMeBAf+KlWUYAu0PnoyYV00WR7ct2LwtPlFCWpwVo8C10XUWRtQX5ECYKr/56APA19sLdfGsGy+SXHJ5bie600=
+	t=1790861526; cv=none; b=gkeeoTSWxwjjejr9OnMNBW+Q4Jg3rTVS/uK3cMy6QEbxnZbM1osMb0tYMRvT3HbMIj3keQVOyn50SxBjLjy2TGZssGfRIOkpd17DMqh4+90IOO1GnRlDVSBbkftKUuSKgaBJgahKGcRnliPAwUqBOWv180cdRI6wMR12vlAqv0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861491; c=relaxed/simple;
-	bh=9JUs2LAw7B8Ji/NW+YFWdHTHNXeYLFb0WQgfRlzCUoY=;
+	s=arc-20240116; t=1790861526; c=relaxed/simple;
+	bh=VvJRAGgJtTAVdV8lZhiI7PYtJOHw9+Qde5Abnh4cGcw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bhyvEYeF5LbssG6lFQYRRO/jjYLUWHVLxDpYAEZKcVtCnUnR//FQElv1OiRRP2+IdPAo21b1grNCnXSJqQmF8OdndlbJ7bECFhCn+VbEwnS2YAqycc51dIBFeeLfR3cLCO6z2rhCES11YMlXwaiOB5I9aPVtnYyVfIWsXpZ4HQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=q82XEx/S; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=pTImEKCAoPAZuSdIUQnGw74pcu3gS3NxP5oIJ1iZldFNIwSXUOA6WN6LDT2zhSPEXWaDfjNXvSrmIqdXDhkma66F+PdffgOTRTUUaqpOIiB/S3k/oVaphg6ejYWOqGV9iCnxJ30NTBtgOdxcSkI1I2ar01o+WczKUnzVHZtxFDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kaL7u6iW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=djilZshW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ej3W9TlK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=o2uZgkBj; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="q82XEx/S"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E05E3497;
-	Thu,  1 Oct 2026 06:31:19 -0700 (PDT)
-Received: from [10.57.9.178] (unknown [10.57.9.178])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1339C3F86F;
-	Thu,  1 Oct 2026 06:31:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790861483; bh=9JUs2LAw7B8Ji/NW+YFWdHTHNXeYLFb0WQgfRlzCUoY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=q82XEx/SD1LWxYLGdZs4ctb0uFndIPn8h5YMgtGCxWt6Qv6ZOkaKRgvMYwrJzYXgV
-	 OdEpEG0APgHLpsH4K5HmpWVb5Yvh9PwGO5ou0kicw9b6qL+9u9N6u9F0q5y6QU7r82
-	 HAa/kgOIwvn0p4W6VQBErzSiux9Nk8M6jq0kGoYg=
-Message-ID: <289cb9bc-f591-4f53-a710-c86159356213@arm.com>
-Date: Thu, 1 Oct 2026 14:31:18 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kaL7u6iW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="djilZshW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ej3W9TlK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o2uZgkBj"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D20CB21E12;
+	Thu,  1 Oct 2026 13:31:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790861519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+	b=kaL7u6iWf8sotKKPaoe6fU8Sb1XKx21Pf79Iv2dRTK9PvQT/8LttQ9AgKiYb12HQ6TGxUF
+	ZSs2kKxyLiKPJ7+A+vLe3wKHR9oXi9xMG7E19qp/kPo5rKooWhU5DA/YvvHMrCz7fLbKIb
+	kSgnfn2LGQNCkueLw/zYZ1oX78eEXmA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790861519;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+	b=djilZshWooWkUUp/BBTA46AWBtaJ2hsf5bieBJv6h5VJLtweuF8V4pCoNwLvpRB8yJLBc1
+	NqIjjsq/Ekff/ECg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790861514; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+	b=ej3W9TlKotkEQfzPZLbIRy5zjKrFFCIe3mVTnp2tUPEjVk2y+N1skbS3cHTewyY3rWrwJa
+	zXnWqqEzg0a+HroLdgGOqQyXiQsa2jOYVQc5qzF0qVenkOTzIt3jEX4Q7IE8klMWHdsSCM
+	EiJqF/nHo6PDHRqEGP2IAmKBI2O/t0Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790861514;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+	b=o2uZgkBjUxaMuvIUaYIWxeX3L6dzp4w9hzvCrhYSBp1MZ71H9J05IrMgXAX/U2ByL9fv/x
+	gxFn4tVZuavMGJDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6355E13B78;
+	Thu,  1 Oct 2026 13:31:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id RzS0EMpgvmoENAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 13:31:54 +0000
+Message-ID: <067c22f6-206a-421f-8837-1f8a88f55299@suse.de>
+Date: Thu, 1 Oct 2026 15:31:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,121 +82,126 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 8/9] firmware: arm_rmm: Add wrappers for Realm related
- RMI commands
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20261001084555.1456543-1-suzuki.poulose@arm.com>
- <20261001084555.1456543-9-suzuki.poulose@arm.com> <ar5Y_pHBUQHbXr85@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <ar5Y_pHBUQHbXr85@arm.com>
+Subject: Re: [PATCH] drm/virtio: add ARGB8888 support for primary planes
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Dorinda Bassey <dbassey@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev
+Cc: kraxel@redhat.com, airlied@redhat.com, slp@redhat.com, mhrica@redhat.com,
+ gurchetansingh@chromium.org, mripard@kernel.org, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+References: <20260930132707.500748-1-dbassey@redhat.com>
+ <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
+ <b8064104-99dd-472d-883d-56b362d60371@collabora.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <b8064104-99dd-472d-883d-56b362d60371@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.29 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.19)[-0.950];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 01/10/2026 13:58, Catalin Marinas wrote:
-> On Thu, Oct 01, 2026 at 09:45:54AM +0100, Suzuki K Poulose wrote:
->> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
->> index 5d005054f3c6c..e3503aba646e2 100644
->> --- a/include/linux/arm-rmi-cmds.h
->> +++ b/include/linux/arm-rmi-cmds.h
->> @@ -53,6 +53,17 @@ static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *regs)
->>   	}
->>   }
->>   
->> +/*
->> + * rmi_smccc_invoke_once: Invoke the RMI call and return the results. Do not
->> + * retry the command. Let the caller deal with RMI_BUSY or RMI_BLOCKED.
->> + */
->> +static inline void rmi_smccc_invoke_once(struct arm_smccc_1_2_regs *regs)
->> +{
->> +	struct arm_smccc_1_2_regs args = *regs;
->> +
->> +	arm_smccc_1_2_invoke(&args, regs);
->> +}
-> 
-> Nit: I don't think we need to copy to args since there's no retry here.
-> 
-> That said, the SMCCC call clobbers regs->a0. We should write a comment
+Hi
 
-Ack. I will add the comment, similar to what we have for rmi_smccc_invoke().
+Am 01.10.26 um 12:46 schrieb Dmitry Osipenko:
+> On 9/30/26 18:03, Thomas Zimmermann wrote:
+>> Hi
+>>
+>> Am 30.09.26 um 15:27 schrieb Dorinda Bassey:
+>>> Add DRM_FORMAT_HOST_ARGB8888 to the list of supported formats for
+>>> virtio-gpu primary planes. Without this, glmark2-drm fails at
+>>> startup because it selects ARGB visual configs by default, which
+>>> don't match the XRGB-only plane capabilities. This causes
+>>> drmModeSetCrtc to fail with EINVAL.
+>> But does the host also support ARGB on the primary plane? We usually
+>> don't export formats that are not available in (virtual) hardware.
+>>
+>> Best regards
+>> Thomas
+>>
+>>> The virtio_gpu_translate_format() function already handles
+>>> ARGB8888 translation to VIRTIO_GPU_FORMAT_B8G8R8A8_UNORM,
+>>> so this just exposes the existing capability to userspace.
+>>>
+>>> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
+>>> ---
+>>>    drivers/gpu/drm/virtio/virtgpu_plane.c | 1 +
+>>>    1 file changed, 1 insertion(+)
+> For primary plane, alpha channel often doesn't matter as primary has
+> fixed z=0 order and a usual alpha blending mode would account only
+> overlay's alpha channel. Many real hw drivers expose alpha-channel
+> formats for primary plane for compatibility with userspace, even though
+> for them the alpha has no meaning for the primary plane.
 
-> in case the caller thinks it can just retry with the same regs.
-> Alternatively, we could pass args and res structures separately.
+We decidedly do not offer formats that are not native to the hardware; 
+except for adding XRGB888.
 
-I thought about it, but settled in for copying the arguments.
 
-> 
->> +/**
->> + * rmi_rec_destroy() - Destroy a REC
->> + * @rec: PA of the target REC
->> + * @sro: Allocated SRO context to be used
->> + *
->> + * Destroys a REC. The REC must not be running.
->> + *
->> + * Return: 0 on success, positive RMI result code or negative Linux error code
->> + */
->> +static inline long rmi_rec_destroy(unsigned long rec,
->> +				   struct rmi_sro_state *sro)
->> +{
->> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_REC_DESTROY, rec);
->> +}
->> +
->> +/**
->> + * rmi_rec_enter() - Enter a REC
->> + * @rec: PA of the target REC
->> + * @run_ptr: PA of RecRun structure
->> + *
->> + * Starts (or continues) execution within a REC.
->> + *
->> + * Return: RMI return code
->> + */
->> +static inline long rmi_rec_enter(unsigned long rec, unsigned long run_ptr)
-> 
-> Nit: should probably be __always_inline. rmi_rec_destroy() and
-> rmi_smccc_invoke_once() as well.
+>
+> QEMU is most popular VMM using virtio-gpu, but there are others. For a
+> stricter compatibility we can translate B8G8R8A8 to X8R8G8B8 for the
+> primary plane in the driver code, but I assume in practice it's very
+> unlike this will be necessary and we can always do it later on if will
+> be needed.
 
-Ack.
+No in-kernel format conversion please; again except for adding XRGB8888.
 
-> 
-> Not for this series but something claude spotted in the integration
-> branch - kvm_rec_enter() is noinstr. On this path, we end up in
-> arm_smccc_1_1_get_conduit() which is not noinstr (again, that's for the
-> other series; here just __always_inline should suffice).
+Best regards
+Thomas
 
-Good point. I will address this in the other series. May be we can
-always do SMC. We don't support CCA over pKVM yet. Even there, may
-be SMC counduit is available ?
 
-i.e., arm_smccc_1_2_smc() instead of arm_smccc_1_2_invoke()
+>
+> The change looks okay, will apply after testing.
+>
 
-> 
->> +{
->> +	struct arm_smccc_1_2_regs regs = {
->> +		SMC_RMI_REC_ENTER, rec, run_ptr,
->> +	};
->> +
->> +	rmi_smccc_invoke_once(&regs);
->> +	return regs.a0;
-> 
-> Should this use RMI_RESULT_STATUS(regs.a0)?
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-No. We should always return the full result.
-
-> 
-> The rest looks fine to me.
-> 
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-
-Thanks Catalin
-
-Suzuki
 
