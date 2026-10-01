@@ -1,504 +1,253 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13347526AA5;
-	Thu,  1 Oct 2026 14:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866494; cv=fail; b=o+39+aC2ACHAweWVvZaM71djJv7cIK3c1PFtCt2HtkncJi8KTxK0X030EZrzudyQ7fz6U1GwY4jT0oAuELQF2ojFtFD9n18zvg3MfsXuk2veR6EZXam0Ea9/tfUnYInVlU1mgnrcd+2RJDkQtyArb1Zbcfr5/NSRu4xY+3eSUXc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866494; c=relaxed/simple;
-	bh=pbFMtB64KobQEbYWZAKhMrE0JtJy9tdk7tFScpXSDpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=peVFaUCWYIIhBISbw+4CSRtKnBDAYdoDRsNuuYh1XYbs14iNQE+cVVhTVldxZCXXSeLoCMtUtbUzmEifymvyGQv+X00iwTXuFtpSfyEerx+vPLSI1AjqjASTfEZ/rBWfrXFpSCglcuUC/dhwFrgX0ia3Gw7Sc6z+qLdEPEcUOJU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=ShXeKebZ; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=hAU5Ck9w; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C326A523792
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790866542; cv=none; b=VMVpgOzyz+cLLYqBFrpS5xn0xcu7bUCU7UpRe04JUgURRPfUXibhIW8LNXuD7gFp28vvXwEvlrD+Bpi5XreohjFYpXykJYmCQ/d268yAl2Ba7ic6+I4qt3DRR7RdY/5HJmWfOuPssStnorf+t6bALbh4kJ0II4+9BYqOvq60CuU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790866542; c=relaxed/simple;
+	bh=C4gaeTZalsqtkZFdJtQZggrTdbmWPAbpjwOdRZN5sUI=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=u4nQAefJPI8xNB5bcvijUaG58S1nI/rci/mtL/ByxBWV/fwFQLw18n7xmqpSwJIzJXeFWW0AgJ1iRu5oQ+HAgC/FdcBmGx3lz8iGMy0HbvyN42qT0LokXl46rz/zn4BofGtE11cLKrblNRtYFfBA4T7EQ9AmD8XBvElYPSejlMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b=qa1QR7pP; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="ShXeKebZ";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="hAU5Ck9w"
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMW88624303;
-	Thu, 1 Oct 2026 14:54:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=sLuPoJojYXcLLNbDS/YDBRuyCf46kxo28+6Rmjasoa4=; b=
-	ShXeKebZNDxu7FdEr1ut2emLAeF0VIK4crjjbzMxfPIZ/sJtYwDKK1ZQhH167yAq
-	lAHldtnzNyT7pcYcR5xKOgAfEVbDlf43I0o5csZyIQrEk7wiBIw1eu7GIH2p2M+2
-	FIYHULiBGruehu+N9NwZY4dd1KEpCDySx7CgyA7xoZEv7Xs64a01IzYTeZdLCXra
-	Sw286N9qv7g1GL8/KxXHpqOuutQto1cnzi9+DIex+5DTTIYmABnZ8fjc2y6wB5KZ
-	zRZuJz1NAMDv25FLJIXovkvceapj/m/HLXpTKBfh9UcBmbVApK1zTjx1ojYvclhd
-	Kr1qvnbvaFlV8RuHaAd5mw==
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx5ns109u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 01 Oct 2026 14:54:47 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691EnpYw017265;
-	Thu, 1 Oct 2026 14:54:46 GMT
-Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gey2tt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 01 Oct 2026 14:54:46 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OcFPQrYPz6jkdD8RMTPy7Q6552qJdkdeAnTPJHTBopV7ko8hcGNl/+2eFnOG9T0AqQehjLNlS0yj06Aw5ryhyr1XfaBTRPoeRyGVWy2lFjPFdjE2kahbu+/w1UgGPWhKr8hfqkjHVUfyIIpvMyMoRTv4UPk1l359/BUFIqubu7ajaXmYJFCW9PNOvES3zuzp2A6uhYLglpPZ7KaaVYga4WYpiANXdC/s2alS7V8UwsMZEcpkQy6FGdbdRpYdQVkN0aNntu3I5jJrYq5iZcZVZte1m/ZJ/v/79Y7rOlwWWdjk0lMtWcx80sG6Lz5ffChHf66lq2N8aZOxVJ2yIqncjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sLuPoJojYXcLLNbDS/YDBRuyCf46kxo28+6Rmjasoa4=;
- b=VVtkLPdwnUJiI6b3XkoyiLCz/mSSc1zhqzlQeWGQ/kdXDTBrbzlTnDqkoUtGlK+Bg+pAy7YHXk3/MqUZe8NuchhECH7054NTtDqtW6Z6fXmsOjWu5z9nFDPcndt78DvmLHadRypXTsDoUZRm/gGVd5+cVvRwZfzzKIbTPUpXr6feSSZBFjhv0GthwayFLR/3ylHr9jS7upg0tlB+eAyzzOFM6GycI+q1ovhVfhsCOExBJtXFbrtpuoRSdLBOxaEqY6B2zA5/fbPIA3VGg45mg7PpXQxJtFt80qNqCSIfaFIWeiJd+g76Gm4qQyR0er2yGWiQ5KqamkMtjGc6u7qcOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sLuPoJojYXcLLNbDS/YDBRuyCf46kxo28+6Rmjasoa4=;
- b=hAU5Ck9wUXfe4Z5fE68tkqFEBsMW4JcmXtPPJLbtqakDCz4vevqrNISvnW8hqLz4p2A33bnFe9ru2oDtGFxGojfgh5Heyv6wrUpKG+kAVrrduVNLx4uKDPe97GDPXC+sKZlgC0m6Q0rsFVc/yT2HXqLJJDxlAVX0LpoepzxHhVA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
- CH2PR10MB4118.namprd10.prod.outlook.com (2603:10b6:610:a4::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.12; Thu, 1 Oct 2026 14:54:40 +0000
-Received: from DM4PR10MB7505.namprd10.prod.outlook.com
- ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
- ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 14:54:40 +0000
-From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-To: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
-        "Darrick J . Wong" <djwong@kernel.org>,
-        Dave Chinner <dchinner@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Mark Tinguely <mark.tinguely@oracle.com>
-Subject: [PATCH 5.15 11/11] xfs: fix unmount hang with unflushable inodes stuck in the AIL
-Date: Thu,  1 Oct 2026 20:21:26 +0530
-Message-ID: <4ade20822d804bf7ea8ca1ea2943a1c1a07ede1a.1790864545.git.siddh.raman.pant@oracle.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790864545.git.siddh.raman.pant@oracle.com>
-References: <cover.1790864545.git.siddh.raman.pant@oracle.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0024.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::12) To DM4PR10MB7505.namprd10.prod.outlook.com
- (2603:10b6:8:18a::7)
+	dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b="qa1QR7pP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1790866535; x=1791471335; i=aros@gmx.com;
+	bh=byFucyrrsVsJvQFPbn5EhHVlCXuV0fBLxBDwf7HnpTo=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:From:Subject:
+	 Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=qa1QR7pPif778OQtV+TqdptMiTF4e6OV4iVTDv7Eytj8MXZxliN1Z5e2GikVai/7
+	 wvckfKD5P3SWVpr7iKC/TJqX+G8fan8gkMQSVGu1gzMDz95obKWwa8tYVmU36OyZg
+	 X1dYUd2+REKey0NvmaFDuJ9e3fK9obn1uIwKZcT3wc9Ywb1J6ykBwjEjqHBva7C0y
+	 b4SdSFSUfDjjgbXu16g8u6BLW4ecJ+pmlft2Un+cSkhgOG/q8objT5l22upEnEf2O
+	 y5rMMDrVplHhD0zWe6h2KwGX0t2mbo9GegTay46IqK1lMoPDV/bygsqhXHmWfPWzL
+	 Mu3cHb95+2u1Gle1oA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MZCbB-1xGqc33kaP-00OMwZ for
+ <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:55:35 +0200
+Message-ID: <1ff919c7-cec5-4e24-a196-709c0707cca4@gmx.com>
+Date: Thu, 1 Oct 2026 14:55:34 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|CH2PR10MB4118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0850ba6d-255b-4874-10b1-08df1fcbebd0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|376014|1800799024|23010399003|22082099003|18002099003|6133799003|10067099003|56012099006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	lIDtxRzENvpXCnq+GWrXQHpg+5+o0r/NHy/cMcxY7/iOIaRoyKmWx3OQbObWZPgGr9/RbUN0otouHm2RTxet2IPWkjKN5yvtOD5iWZLeyW5A3VD+SjIgqSIwGLepyy3pxd66wApU4PEfo9LMnqzMvE8C1DoWKoxmPx9MrP7j8B/G8ENlE2076nRGaOZOssV/F5pEn/Is8g50UcWPLzJswEUohZZ8Wggi9Q5e3Q58RQLqGLzJU0DePASv+a9gSwAukgSRie/bJGW6SqLiHx9l3noXJDYhTkg0EgTjkOLftOF/SUE47SU0xP5x/OeI/ZRghS1Nt4DkfpZHFmCXBrSfMHcm9C5xrHXrSmOajXVDjDXw62nmI+MJxHQDH0DHsvN780GdkiO1ZDV632ELxjFbQpYL6fqN5wmIaAZ9HWbc/L/nRfFuuZUNo2kEeKOIgOA0jZEkb7CXH58lxlUWusr7k6Spn+vSx2jyG8Q9UDrx1l9B5EQcNbnq8pbbrFqRcHgxXoGyAziDh745Ks6SBFrsC0PGlFHrZ8q9OdiDNCBY/bjpipBbYLdpsdsn8G2L3ByACxqeWDV3dRTOqmA4i40nscLRizQGakn4qsCFf+uH0e41AHSvsjYBRGQyjhtOCl3eF0WzJRse0M52y56u9Ye0g5m/0TcKSGmyISt5XTDpzhc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+Y/H0PUNctEimlzGlMW6wBZKo09rpACJZOsFU3Ky20md9BN5H7AZYuBez3Ec?=
- =?us-ascii?Q?u5ctmUkXuMxmDpQNVNI4wz4z0whhxU25Y5ZxWqS+R1LV75eYX8yFUGxJ+z9I?=
- =?us-ascii?Q?PVyz2RE/T2AsmeC2UD5/wK15WUaWB286RGbvBs8JHKIcAM8JUhnAirvEiQKI?=
- =?us-ascii?Q?BkuTjONwuleZb50Wy9tL3GvwRcuWqKCOAvdt/Rm2ZSE68oJ3mnJ4+ByrO2iK?=
- =?us-ascii?Q?ny4gxvbSrlbU8Kab4MLrF4l2V1OIJ0XXMBK89Yq9CP/o94xBbiaSiwAXKJG6?=
- =?us-ascii?Q?WWay4Cntg2Yzd0w0lZfdKULrl1pm1ouQ86rPYD6O/nWJu6J4fyA39/S/tJKS?=
- =?us-ascii?Q?W4RJZAyimY7yaYu/KrRd2LLdOUnaA44ihOUoBaJ4UGeImgLE2R7MrAOZ/NEF?=
- =?us-ascii?Q?LuPf+nx6WZQpr80n/rfgHs7lzSzLkoODe982Gtr4tc+Y/nGNO5P7XdKgB2l8?=
- =?us-ascii?Q?ZHKdYksC91/9Kqk4OjGPEjUp9nqTGbOB9Sq4n9lZ9l83s9i0Ua6++LwYSBte?=
- =?us-ascii?Q?boZ8oxODzOSbOVXYv3TVUDAtDwGeSHbWmmRs8UqWNlvykhTMkSsRQ1cT7bS0?=
- =?us-ascii?Q?V2XHYY+MqyGVTRkfYLg72DaKr++/0Y36tqjVb31o/tKV4lNoKFg4nbYCs1f2?=
- =?us-ascii?Q?pFz3pTvRnmSOO2iLO0vjtuElyi+9+P+rc96MSWMLbaRTU8Kn20w0thxmmcDv?=
- =?us-ascii?Q?PiV6Sjdc3AxGd/GTMFwpFqM1EJfEhIZAKDS6UHxKavqwP1E4Pqfy2KL78jdm?=
- =?us-ascii?Q?1E4KT/8Fqirh9oUfQ8l3nd6KmsrxxmtFKDdaNqo50PFu0Y+e7Q9xZNGoqvG6?=
- =?us-ascii?Q?MtKdcjHMSed254GZtLmtf5Ild4iutiZQlcT1sgj7DxeW34+xXUdvoRUC3f0r?=
- =?us-ascii?Q?4Da0nsPU3bCO3SsINC4ui5dtrPvNrElhXeK3s+u8C5EKbmtAVEd/j9pIK7pE?=
- =?us-ascii?Q?Z/ZZD0vZTQbckyp1cgfOlR0ff5YqmA8RtlbhIu9Ci9wzfpqqIvSssc8IPzh7?=
- =?us-ascii?Q?Q+g4i+NT6UQFwPWEBr28meBhTLWlXyUy3L7/uzkhr02qYFwNqUj4Z1Q+QOP5?=
- =?us-ascii?Q?MS9eDayUUUR+1PD6JBGT5zEx/7wVDKZ1n6LzfDsE2K2JflfLXvU6IGZ8vBER?=
- =?us-ascii?Q?K17vctS7SLKjU55aMc6/HUF5kS0cuwVMngFO8S0pm1r5vzkSbN/zc5+AreGr?=
- =?us-ascii?Q?+mSV8B13vcHpeMeJYnqEVwqNSWFpP+Oexf3BW8mHU9ct8vrZet3reIW4+dVS?=
- =?us-ascii?Q?4ZS/mSuqCy535XUhYgf4SUMRipdhvTy45xSPlrVMRgO74blAmEGo9RJH19HS?=
- =?us-ascii?Q?AjfQkIksB9UP5FSYjhJ4cAmKbBUrA5q8IJ5KdaASHEaKjeUk86XuBN86mU3v?=
- =?us-ascii?Q?VgiyBgvVin6H1lSfAWpAYtfxOOBAfDPSubycXikwhFCwoEgsqY24abnZbdMF?=
- =?us-ascii?Q?JZsBuy1aevGVaaJd6AVFHXynueX6cq+MqJLXnYPJiR/DeFVJHvB/Cq0jn9IA?=
- =?us-ascii?Q?n9csSlqSTSm1eaKXlpFHWFKYGu+dtCuiMVC9H77qplvpIS7wRrrwE++YGJGc?=
- =?us-ascii?Q?vG8/ih0zcQSHuErVzD2lQgfC7Sn89AuyBl+cYPRb4Jt8hLZMSUOl2Wd+HANb?=
- =?us-ascii?Q?kXLpP0bBpvXXpfAuWRAUiPrs147l5SaSFYI76TJqHoxHlvLZyHzJNSnibYVX?=
- =?us-ascii?Q?U1hZK3sLz6xPWJ2UPBQGIkjio8SJQyzR9k4F6d1Tc9F9AkHZKRQW5nEeQS+Z?=
- =?us-ascii?Q?yxA/vEJzWu+Q8/vR9vca9lmolz4vCfBxvEuxrpiSSJDIaICImayF+OU/Ezi2?=
-X-MS-Exchange-AntiSpam-MessageData-1: +BEzPh3ryjef9Hjq3Dmy1cdIYcnl0zKoJRM=
-X-Exchange-RoutingPolicyChecked:
-	YKsr1KacuhlRx0yFQXwDyQsLg2tT2Jwp0bEPfR0XlewQGG0vNNAoKdLgLD0fH1mVTJx5JVS/cqwUQU0jXs7czaXA00z9XDircBzXaEKG3LIFR6c6vFaloLAKQ7xVHeXx8M3hQZP+zzLXYiHjkXP30/VR27rkBVwyCYiqTKFR5PAtEaoYJCqYKOZbNAF5LyYiLAVFC+0UPUFs87udprXLjeOnbMbzEhLhQK+BoJkipc0Ia8CbPzja7YEzsKaeFt5FeeJuEwjD2sIPjWpRK/7gpmge8+g9bdIinOzH7nbVPfwqL0SbuYIW9B14Y9d4+3vRw2GPkNbjYbXOjn1calffmQ==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	G+BFxe1UvcM1Ifwm8dPw/bnOtz0TDDnjyf8i21pvgIvYcE5njPfkqHiRojQWHMZ9/p3sr2dyc5fFg8uH5lRNzJkwAAUwZDWZxWrPFdAVdO7sI+mAjTAWMTL9Xmcv/g+8gpATKLrY9A8XvSX9IygrzmaPqEbsgpkL9ZPNnOn1xUvpjEI10PiiUfA297sDrwe93pTXInAAD8ZoQ32/J05vRqkhfs+H4KeRW7wXn7OiEqsNvl8rUKloYq+MygvPUEiuLG364z2RdCAOTgB8yTPPf9llp598q6ie064p0mrHGbUji6UWEHaCiaeH2iWWAP+zj5mFwYwFczs00Or4R1bvN039VYhccyaDhGBRi80Q4ONNP3+XybBLv6eOIxrSSfue4OozVKTz+xCkQSeh54exDIKfbgIly4MdTUZ43ILXuL5nusK7kAMkjnDsz7QDuqWdAShhmcUOjLRWmbsxsq58YgkR/lszp3m/8lYpANN02mnUxIYlc+tc6w9qrzv3qxiuSalTLVm1dv/UTHo3N/2AxxZw5wy+kCxr1NXWjuMLU6m+ARbZPWE74EkMqeOtUUzSsDVxqDYpry5nVBg+b1+wf146AM74HXUAvmbHca18ZSw=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0850ba6d-255b-4874-10b1-08df1fcbebd0
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:54:40.7011
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1tjioDija2OhssxCV0Opd4VPjfyqrF0h8DHHVuTLjhx8YGE33sWSDzVIKoHsc9l5zMTiyNvm/nywnppMMeNtAf4wx7n6dwSoPp3bp1komT8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB4118
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- lowpriorityscore=0 mlxlogscore=999 suspectscore=0 mlxscore=0 bulkscore=0
- spamscore=0 adultscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2609040000 definitions=main-2610010059
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX1cYhu+Vg5tJ1
- E1Mckg4zUfT7GpOfA7i4PYGAMWYPDr7mXs/IBthceuV3KRrFWZGXZZCECPklOlydhf6yeJ/HSRZ
- H+F1wc2F53zhKY1x+HK2z3xHEztUX23+kdFJZMUugWnfFBrn8LzTU9qloCZBCk+8mVhqVuqxMmi
- 3BIz5fRtnrI5AjgW2E0z4ip5qHw0UpIhdrCOHxMuydyLYrlbxVJv6powBhzzyQVtuJqNtc4eBdW
- kVzuaYvvmCOuGcO7oEkjsJ2bmmkekcPTTt9a5mvnzKbdIqnbj8pvXbDE+5DCqlvu87uM100iuIh
- EBMM6MPAs4GTTQdKLnJTH5QwsK+bzfNE7ZI/bnJckSe/lYeQcvWiTfDZ9ZXtpwYed80AorXqIkY
- QP3PrrnUg+/Lhlgq84hTIIAH6HOmKFZthxXKoBsT8M5pWmJwn6V+UTCdvx07gpou2EzQXddJvCy
- 4FYc6NWNiqxgkKxEG7Q==
-X-Proofpoint-GUID: ic9rrpIsTfxLo5wsfGWbxEWDdig-PW-r
-X-Authority-Analysis: v=2.4 cv=T8QZ3PKQ c=1 sm=1 tr=0 ts=6abe7437 cx=c_pps
- a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
- a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=3I1J8UUJPc9JN9BFgKH3:22 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
- a=kGPDooFuvBrjL3bSUbYA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX8JkUjwSOa4ZT
- o5JL9manv5+QQXhDCJWMYlA/XlNcKuDSica+mGBUQGVREFse3w3QYsqQO1sE9bUhuwCgt1uRnDi
- VtZsdMrJEHjUGM4cl9MRZhjfHmHVf1zcXCrSXtUNqeYNjVmwM40x
-X-Proofpoint-ORIG-GUID: ic9rrpIsTfxLo5wsfGWbxEWDdig-PW-r
+To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+From: "Artem S. Tashkinov" <aros@gmx.com>
+Subject: [RFC] First-class compressed application images for Linux
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ifYLz0IsnOaEXUVq7ENhr6h95AoytfJXVr4xgPok/jXLOh5vRet
+ 5oq7InR79Ta/WwOtmWCEz5pQInJlklFCb+5wF0bW09KkaHhlYPxlCoyCx92v7pOxCFi0ZcB
+ WGqb1DPuyxFHv0stdmUHkxB0si57HkVBszprsHM6HuneQkHtltIwcuOHoDBKOR9eQTJ1M2G
+ reh9DDcA8oglo6VONsitQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:6ID2IW/96jQ=;JdNpkAetJkJFKXp15zUG8AyNwMi
+ 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
+ HCd68QmjgH8enBHMkDdPcW
 
-From: Dave Chinner <dchinner@redhat.com>
+Hi,
 
-Unmount of a shutdown filesystem can hang with stale inode cluster
-buffers in the AIL like so:
+I=E2=80=99d like to float an idea for discussion: first-class support for=
+=20
+compressed, read-only application images that can be executed directly,=20
+without explicit mountpoints, systemd units, FUSE runtimes, or=20
+application-specific unpacking.
 
-[95964.140623] Call Trace:
-[95964.144641]  __schedule+0x699/0xb70
-[95964.154003]  schedule+0x64/0xd0
-[95964.156851]  xfs_ail_push_all_sync+0x9b/0xf0
-[95964.164816]  xfs_unmount_flush_inodes+0x41/0x70
-[95964.168698]  xfs_unmountfs+0x7f/0x170
-[95964.171846]  xfs_fs_put_super+0x3b/0x90
-[95964.175216]  generic_shutdown_super+0x77/0x160
-[95964.178060]  kill_block_super+0x1b/0x40
-[95964.180553]  xfs_kill_sb+0x12/0x30
-[95964.182796]  deactivate_locked_super+0x38/0x100
-[95964.185735]  deactivate_super+0x41/0x50
-[95964.188245]  cleanup_mnt+0x9f/0x160
-[95964.190519]  __cleanup_mnt+0x12/0x20
-[95964.192899]  task_work_run+0x89/0xb0
-[95964.195221]  resume_user_mode_work+0x4f/0x60
-[95964.197931]  syscall_exit_to_user_mode+0x76/0xb0
-[95964.201003]  do_syscall_64+0x74/0x130
+The motivating case is simple.
 
-$ pstree -N mnt |grep umount
-	     |-check-parallel---nsexec---run_test.sh---753---umount
+Large desktop applications such as Firefox, Thunderbird, Telegram, IDEs,=
+=20
+etc. are mostly immutable application trees. Installing or updating them=
+=20
+traditionally means writing hundreds of megabytes of individual files,=20
+metadata, inodes and directory entries to disk, even though the=20
+application itself is effectively read-only.
 
-It always seems to be generic/753 that triggers this, and repeating
-a quick group test run triggers it every 10-15 iterations. Hence it
-generally triggers once up every 30-40 minutes of test time. just
-running generic/753 by itself or concurrently with a limited group
-of tests doesn't reproduce this issue at all.
+Today there are several partial solutions, but none feels like the right=
+=20
+abstraction:
 
-Tracing on a hung system shows the AIL repeating every 50ms a log
-force followed by an attempt to push pinned, aborted inodes from the
-AIL (trimmed for brevity):
+- **UPX and similar executable packers** reduce disk usage, but they=20
+work against the VM subsystem. They interfere with normal demand paging=20
+and file-backed executable mappings, often increasing memory usage and=20
+startup cost.
+- **AppImage** gets much closer architecturally, but brings a userspace=20
+runtime, FUSE/mount machinery, `AppRun`, integration conventions, and=20
+its own packaging ecosystem. It solves distribution, not merely=20
+compressed execution.
+- **SquashFS/EROFS mounted manually** work extremely well, but require=20
+explicit mount management, namespace-visible mountpoints, boot=20
+integration and external lifecycle logic.
+- **Transparent filesystem compression** would solve the storage=20
+problem, but ext4 still does not provide it, and application deployment=20
+should arguably not depend on which writable filesystem happens to back=20
+`/opt`.
 
- xfs_log_force:   lsn 0x1c caller xfsaild+0x18e
- xfs_log_force:   lsn 0x0 caller xlog_cil_flush+0xbd
- xfs_log_force:   lsn 0x1c caller xfs_log_force+0x77
- xfs_ail_pinned:  lip 0xffff88826014afa0 lsn 1/37472 type XFS_LI_INODE flags IN_AIL|ABORTED
- xfs_ail_pinned:  lip 0xffff88814000a708 lsn 1/37472 type XFS_LI_INODE flags IN_AIL|ABORTED
- xfs_ail_pinned:  lip 0xffff88810b850c80 lsn 1/37472 type XFS_LI_INODE flags IN_AIL|ABORTED
- xfs_ail_pinned:  lip 0xffff88810b850af0 lsn 1/37472 type XFS_LI_INODE flags IN_AIL|ABORTED
- xfs_ail_pinned:  lip 0xffff888165cf0a28 lsn 1/37472 type XFS_LI_INODE flags IN_AIL|ABORTED
- xfs_ail_pinned:  lip 0xffff88810b850bb8 lsn 1/37472 type XFS_LI_INODE flags IN_AIL|ABORTED
- ....
+What I have in mind is something closer to a new executable-container=20
+abstraction.
 
-The inode log items are marked as aborted, which means that either:
+For example:
 
-a) a transaction commit has occurred, seen an error or shutdown, and
-called xfs_trans_free_items() to abort the items. This should happen
-before any pinning of log items occurs.
+     Telegram.app
 
-or
+could contain a small metadata header plus a SquashFS/EROFS-like=20
+filesystem image and an entrypoint such as `/Telegram`.
 
-b) a dirty transaction has been cancelled. This should also happen
-before any pinning of log items occurs.
+Then:
 
-or
+     ./Telegram.app
 
-c) AIL insertion at journal IO completion is marked as aborted. In
-this case, the log item is pinned by the CIL until journal IO
-completes and hence needs to be unpinned. This is then done after
-the ->iop_committed() callback is run, so the pin count should be
-balanced correctly.
+would cause the kernel/binfmt/VFS machinery to instantiate an internal=20
+read-only filesystem view and execute the entrypoint normally.
 
-Yet none of these seemed to be occurring. Further tracing indicated
-this:
+The important property is that files inside remain real file-backed=20
+objects from the VM subsystem=E2=80=99s perspective. Executable and librar=
+y=20
+pages can still be mmap()ed, shared, reclaimed and faulted back in=20
+normally. Compression exists only below the VFS layer.
 
-d) Shutdown during CIL pushing resulting in log item completion
-being called from checkpoint abort processing. Items are unpinned
-and released without serialisation against each other, journal IO
-completion or transaction commit completion.
+Conceptually:
 
-In this case, we may still have a transaction commit in flight that
-holds a reference to a xfs_buf_log_item (BLI) after CIL insertion.
-e.g. a synchronous transaction will flush the CIL before the
-transaction is torn down.  The concurrent CIL push then aborts
-insertion it and drops the commit/AIL reference to the BLI. This can
-leave the transaction commit context with the last reference to the
-BLI which is dropped here:
+     execve("Telegram.app")
+         -> recognize packaged application
+         -> instantiate internal read-only filesystem
+         -> resolve declared entrypoint
+         -> ordinary ELF execution / mmap / page cache
 
-xfs_trans_free_items()
-  ->iop_release
-    xfs_buf_item_release
-      xfs_buf_item_put
-        if (XFS_LI_ABORTED)
-	  xfs_trans_ail_delete
-	xfs_buf_item_relse()
+No visible `/mnt/foo`, no loop-device choreography, no FUSE daemon, no=20
+mandatory systemd unit.
 
-Unlike the journal completion ->iop_unpin path, this path does not
-run stale buffer completion process when it drops the last
-reference, hence leaving the stale inodes attached to the buffer
-sitting the AIL. There are no other references to those inodes, so
-there is no other mechanism to remove them from the AIL. Hence
-unmount hangs.
+I recently experimented with exactly this model manually by placing=20
+Telegram, Firefox and Thunderbird into SquashFS images and mounting them=
+=20
+under `/opt`. The result is strikingly effective: dramatically less=20
+persistent storage, lower write amplification during upgrades, and much=20
+better runtime behavior than executable packing. In one case, Telegram=E2=
+=80=99s=20
+RSS dropped from over 1 GiB with UPX compression to roughly 400 MiB when=
+=20
+stored in SquashFS, while also starting faster.
 
-The buffer lock context for stale buffers is passed to the last BLI
-reference. This is normally the last BLI unpin on journal IO
-completion. The unpin then processes the stale buffer completion and
-releases the buffer lock.  However, if the final unpin from journal
-IO completion (or CIL push abort) does not hold the last reference
-to the BLI, there -must- still be a transaction context that
-references the BLI, and so that context must perform the stale
-buffer completion processing before the buffer is unlocked and the
-BLI torn down.
+That experiment mostly convinced me that the missing piece is not=20
+compression technology; Linux already has excellent compressed read-only=
+=20
+filesystems. The missing piece is a first-class executable-container=20
+interface tying binfmt, VFS and an internal mount together.
 
-The fix for this is to rework the xfs_buf_item_relse() path to run
-stale buffer completion processing if it drops the last reference to
-the BLI. We still hold the buffer locked, so the buffer owner and
-lock context is the same as if we passed the BLI and buffer to the
-->iop_unpin() context to finish stale process on journal commit.
+I=E2=80=99m not proposing that application distribution policy, update sys=
+tems,=20
+desktop integration or signing formats be baked into the kernel. Those=20
+belong in userspace.
 
-However, we have to be careful here. In a shutdown state, we can be
-freeing dirty BLIs from xfs_buf_item_put() via xfs_trans_brelse()
-and xfs_trans_bdetach().  The existing code handles this case by
-considering shutdown state as "aborted", but in doing so
-largely masks the failure to clean up stale BLI state from the
-xfs_buf_item_relse() path. i.e  regardless of the shutdown state and
-whether the item is in the AIL, we must finish the stale buffer
-cleanup if we are are dropping the last BLI reference from the
-->iop_relse path in transaction commit context.
+The kernel-side primitive could stay deliberately small:
 
-Signed-off-by: Dave Chinner <dchinner@redhat.com>
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-(cherry picked from commit 7b5f775be14ac1532c049022feadcfe44769566d)
-Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
----
- fs/xfs/xfs_buf_item.c | 121 +++++++++++++++++++++++++++++-------------
- fs/xfs/xfs_buf_item.h |   2 +-
- 2 files changed, 86 insertions(+), 37 deletions(-)
+- recognize a packaged executable format;
+- instantiate its embedded read-only filesystem;
+- expose a declared entrypoint;
+- preserve normal file-backed VM semantics;
+- allow the container file itself to remain the only externally visible=20
+object.
 
-diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
-index cc667d4e173d..fde02c3a228c 100644
---- a/fs/xfs/xfs_buf_item.c
-+++ b/fs/xfs/xfs_buf_item.c
-@@ -706,43 +706,42 @@ xfs_buf_item_push(
-  * Drop the buffer log item refcount and take appropriate action. This helper
-  * determines whether the bli must be freed or not, since a decrement to zero
-  * does not necessarily mean the bli is unused.
-- *
-- * Return true if the bli is freed, false otherwise.
-  */
--bool
-+void
- xfs_buf_item_put(
- 	struct xfs_buf_log_item	*bip)
- {
--	struct xfs_log_item	*lip = &bip->bli_item;
--	bool			aborted;
--	bool			dirty;
-+
-+	ASSERT(xfs_buf_islocked(bip->bli_buf));
- 
- 	/* drop the bli ref and return if it wasn't the last one */
- 	if (!atomic_dec_and_test(&bip->bli_refcount))
--		return false;
-+		return;
- 
--	/*
--	 * We dropped the last ref and must free the item if clean or aborted.
--	 * If the bli is dirty and non-aborted, the buffer was clean in the
--	 * transaction but still awaiting writeback from previous changes. In
--	 * that case, the bli is freed on buffer writeback completion.
--	 */
--	aborted = test_bit(XFS_LI_ABORTED, &lip->li_flags) ||
--			xlog_is_shutdown(lip->li_log);
--	dirty = bip->bli_flags & XFS_BLI_DIRTY;
--	if (dirty && !aborted)
--		return false;
-+	/* If the BLI is in the AIL, then it is still dirty and in use */
-+	if (test_bit(XFS_LI_IN_AIL, &bip->bli_item.li_flags)) {
-+		ASSERT(bip->bli_flags & XFS_BLI_DIRTY);
-+		return;
-+	}
- 
- 	/*
--	 * The bli is aborted or clean. An aborted item may be in the AIL
--	 * regardless of dirty state.  For example, consider an aborted
--	 * transaction that invalidated a dirty bli and cleared the dirty
--	 * state.
-+	 * In shutdown conditions, we can be asked to free a dirty BLI that
-+	 * isn't in the AIL. This can occur due to a checkpoint aborting a BLI
-+	 * instead of inserting it into the AIL at checkpoint IO completion. If
-+	 * there's another bli reference (e.g. a btree cursor holds a clean
-+	 * reference) and it is released via xfs_trans_brelse(), we can get here
-+	 * with that aborted, dirty BLI. In this case, it is safe to free the
-+	 * dirty BLI immediately, as it is not in the AIL and there are no
-+	 * other references to it.
-+	 *
-+	 * We should never get here with a stale BLI via that path as
-+	 * xfs_trans_brelse() specifically holds onto stale buffers rather than
-+	 * releasing them.
- 	 */
--	if (aborted)
--		xfs_trans_ail_delete(lip, 0);
-+	ASSERT(!(bip->bli_flags & XFS_BLI_DIRTY) ||
-+			test_bit(XFS_LI_ABORTED, &bip->bli_item.li_flags));
-+	ASSERT(!(bip->bli_flags & XFS_BLI_STALE));
- 	xfs_buf_item_relse(bip);
--	return true;
- }
- 
- /*
-@@ -763,6 +762,15 @@ xfs_buf_item_put(
-  * if necessary but do not unlock the buffer.  This is for support of
-  * xfs_trans_bhold(). Make sure the XFS_BLI_HOLD field is cleared if we don't
-  * free the item.
-+ *
-+ * If the XFS_BLI_STALE flag is set, the last reference to the BLI *must*
-+ * perform a completion abort of any objects attached to the buffer for IO
-+ * tracking purposes. This generally only happens in shutdown situations,
-+ * normally xfs_buf_item_unpin() will drop the last BLI reference and perform
-+ * completion processing. However, because transaction completion can race with
-+ * checkpoint completion during a shutdown, this release context may end up
-+ * being the last active reference to the BLI and so needs to perform this
-+ * cleanup.
-  */
- STATIC void
- xfs_buf_item_release(
-@@ -770,18 +778,19 @@ xfs_buf_item_release(
- {
- 	struct xfs_buf_log_item	*bip = BUF_ITEM(lip);
- 	struct xfs_buf		*bp = bip->bli_buf;
--	bool			released;
- 	bool			hold = bip->bli_flags & XFS_BLI_HOLD;
- 	bool			stale = bip->bli_flags & XFS_BLI_STALE;
--#if defined(DEBUG) || defined(XFS_WARN)
--	bool			ordered = bip->bli_flags & XFS_BLI_ORDERED;
--	bool			dirty = bip->bli_flags & XFS_BLI_DIRTY;
- 	bool			aborted = test_bit(XFS_LI_ABORTED,
- 						   &lip->li_flags);
-+	bool			dirty = bip->bli_flags & XFS_BLI_DIRTY;
-+#if defined(DEBUG) || defined(XFS_WARN)
-+	bool			ordered = bip->bli_flags & XFS_BLI_ORDERED;
- #endif
- 
- 	trace_xfs_buf_item_release(bip);
- 
-+	ASSERT(xfs_buf_islocked(bp));
-+
- 	/*
- 	 * The bli dirty state should match whether the blf has logged segments
- 	 * except for ordered buffers, where only the bli should be dirty.
-@@ -797,16 +806,56 @@ xfs_buf_item_release(
- 	bp->b_transp = NULL;
- 	bip->bli_flags &= ~(XFS_BLI_LOGGED | XFS_BLI_HOLD | XFS_BLI_ORDERED);
- 
-+	/* If there are other references, then we have nothing to do. */
-+	if (!atomic_dec_and_test(&bip->bli_refcount))
-+		goto out_release;
-+
-+	/*
-+	 * Stale buffer completion frees the BLI, unlocks and releases the
-+	 * buffer. Neither the BLI or buffer are safe to reference after this
-+	 * call, so there's nothing more we need to do here.
-+	 *
-+	 * If we get here with a stale buffer and references to the BLI remain,
-+	 * we must not unlock the buffer as the last BLI reference owns lock
-+	 * context, not us.
-+	 */
-+	if (stale) {
-+		xfs_buf_item_finish_stale(bip);
-+		xfs_buf_relse(bp);
-+		ASSERT(!hold);
-+		return;
-+	}
-+
-+	/*
-+	 * Dirty or clean, aborted items are done and need to be removed from
-+	 * the AIL and released. This frees the BLI, but leaves the buffer
-+	 * locked and referenced.
-+	 */
-+	if (aborted || xlog_is_shutdown(lip->li_log)) {
-+		ASSERT(list_empty(&bip->bli_buf->b_li_list));
-+		xfs_buf_item_done(bp);
-+		goto out_release;
-+	}
-+
-+	/*
-+	 * Clean, unreferenced BLIs can be immediately freed, leaving the buffer
-+	 * locked and referenced.
-+	 *
-+	 * Dirty, unreferenced BLIs *must* be in the AIL awaiting writeback.
-+	 */
-+	if (!dirty)
-+		xfs_buf_item_relse(bip);
-+	else
-+		ASSERT(test_bit(XFS_LI_IN_AIL, &lip->li_flags));
-+
-+	/* Not safe to reference the BLI from here */
-+out_release:
- 	/*
--	 * Unref the item and unlock the buffer unless held or stale. Stale
--	 * buffers remain locked until final unpin unless the bli is freed by
--	 * the unref call. The latter implies shutdown because buffer
--	 * invalidation dirties the bli and transaction.
-+	 * If we get here with a stale buffer, we must not unlock the
-+	 * buffer as the last BLI reference owns lock context, not us.
- 	 */
--	released = xfs_buf_item_put(bip);
--	if (hold || (stale && !released))
-+	if (stale || hold)
- 		return;
--	ASSERT(!stale || aborted);
- 	xfs_buf_relse(bp);
- }
- 
-diff --git a/fs/xfs/xfs_buf_item.h b/fs/xfs/xfs_buf_item.h
-index e3ccbf3ca801..c39202c0135a 100644
---- a/fs/xfs/xfs_buf_item.h
-+++ b/fs/xfs/xfs_buf_item.h
-@@ -51,7 +51,7 @@ struct xfs_buf_log_item {
- 
- int	xfs_buf_item_init(struct xfs_buf *, struct xfs_mount *);
- void	xfs_buf_item_done(struct xfs_buf *bp);
--bool	xfs_buf_item_put(struct xfs_buf_log_item *);
-+void	xfs_buf_item_put(struct xfs_buf_log_item *bip);
- void	xfs_buf_item_log(struct xfs_buf_log_item *, uint, uint);
- bool	xfs_buf_item_dirty_format(struct xfs_buf_log_item *);
- void	xfs_buf_inode_iodone(struct xfs_buf *);
--- 
-2.53.0
+Is this something that has been discussed before in a comparable form?
 
+If not, would there be any interest in exploring what the minimal kernel=
+=20
+mechanism could look like?
+
+Regards,
+Artem
