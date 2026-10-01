@@ -1,75 +1,88 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E2483DDAE6;
-	Thu,  1 Oct 2026 15:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DFF36E46F;
+	Thu,  1 Oct 2026 15:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870041; cv=none; b=bnRbNudXdHo4dgIak9cVdCwfr/Nd63FMHXpe+D+OT14crx+bTlTxc/x9ky//gnWsMgOIp935SRys3a0FfTmfMoMACw6QF0hYaFxFgeIa63YiDfgPcAOLIx204K7XWE4MU/q5AWx3j2YipPNm337FH7QYyEaR7OIO2gf6mbeh9o4=
+	t=1790870060; cv=none; b=P1Lp5fMTMwvJsgvCoU8rtvfqIv4kMT/SNV9mZLlMsNcTkROaZ5qH3s0ANBKXuhYbe6iCcccAAEZpWsMVWEPXkN097pdJZv9q0YJug0Jtcs1uUPwnt+Z/knhfBIUU4iclfWjMXV1+WvBcmb2axlQFBSQcio8bg27GrwsjMr9n9Ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870041; c=relaxed/simple;
-	bh=brRPLivSgp8jybcJZM5iSl0Fx44Zqh0P2ZiJmBX1NY8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O/bueafcXMOoMrc+mWHkPkRJT/OMS0o0vGD5uf4QDNCkhjNba2+O9LLhoqYlQLb66AeJDSST/IHjETCaBaRxIsafxEYYNMYPEHem/fUxLZsH2yhueQU9zJCTRuzNeveg9VnKkv1hZ35xM80q0MVNwesGTKy8rTcukMlK9+zpaL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=icz1EVIw; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790870060; c=relaxed/simple;
+	bh=ix8nICvBT374Y/QB/3GkTamjuBUG7RryzTuo+eyvWuA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a2ySKU3iTm0fatUPA1CXUriVJTN38GzEV4nze/G7ewkrmtWPk1RAfoytJQjUZoJL18k7xcN0QCvOdz7FaYr5qjHzudCF/s4QwJbkoy23T18mfDqQIdWghkNzKBBabkeWSBxUzCf4MLnhBqqndh8i5QdAZ5TiM6u5parx8eTdeyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=fwJM1d2o; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="icz1EVIw"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 84B8D497;
-	Thu,  1 Oct 2026 08:53:55 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0D9613F86F;
-	Thu,  1 Oct 2026 08:53:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790870038; bh=brRPLivSgp8jybcJZM5iSl0Fx44Zqh0P2ZiJmBX1NY8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=icz1EVIwOxQcL/dRlhcFbwaGgJVDPf80GpsgcCQIEVxmntd+cxXCmGFMpyhH6Dt7x
-	 wJ4dmg1XSGLRP1OmqWrupvvlDQZque9l0VC0PMngzTd18jTryaimkSgOQCSlv5EJI/
-	 1C9QbeeaLIaqeMZHTlRUAEfyPRQlLLAutMOOrYwU=
-Date: Thu, 1 Oct 2026 16:53:53 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>
-Subject: Re: [PATCH v20 22/22] KVM: arm64: CCA: Control user register access
- for Realms
-Message-ID: <ar6CEXfo-AIYtq1J@arm.com>
-References: <20260924160504.853911-1-suzuki.poulose@arm.com>
- <20260924160504.853911-23-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="fwJM1d2o"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 378CC1FB9A;
+	Thu,  1 Oct 2026 17:54:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790870049;
+	bh=3x2bn/a8NdA4CWa2j0Vm5z91bqnEClcg+9EX4z8Tomk=; h=From:To:Subject;
+	b=fwJM1d2oe3D8wDuUVQSPv143aWXTdBPoKPcn7bcmOn/9QXaCfVbFEGK4seHPDWrEF
+	 GbyIrKvz89E0Jobio5EwcpSb8JpbxTDAzur3fDjDW3+K6S7LTmhK+HUG34O8EF72lv
+	 pfUw6IQnKTr7J6lnmaEho+OHwDx7BNZT/hu3uSavPez9Pre7F+kzPqrond9J6hh7/u
+	 u1sZD/Zce+4v0k9jtalaBwpBfXuuTiCyAFsB1iP1YRVw3f5vtgpgjtuLB4isVXJ6RP
+	 dQ3Kf8Fx956eYfBtVfqN1zlkvNKjKq1KW87J8ajOgCCfxofnrgsUFj5ACukO0wPUCV
+	 5W3fChay/1vRw==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 2/2] ARM: dts: imx6ull-colibri-iris: enable SPI
+Date: Thu,  1 Oct 2026 17:53:59 +0200
+Message-ID: <20261001155401.2584935-3-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261001155401.2584935-1-francesco@dolcini.it>
+References: <20261001155401.2584935-1-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924160504.853911-23-suzuki.poulose@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 05:05:04PM +0100, Suzuki K Poulose wrote:
-> From: Jean-Philippe Brucker <jean-philippe@linaro.org>
-> 
-> The RMM restricts the access to the register states that the host can
-> read/modify for a given Realm.
-> 
-> e.g., At VCPU creation, can modify GPRS (x0-x30) and PC.
->       While servicing SMCCC calls via RSI_HOST_CALL or servicing PSCI
->       requests.
->       MMIO emulation in the unprotected space.
-> 
-> Additionally we use the sysreg configuration to advertise/configure the
-> following Realm parameters, which are required before the Realm Descriptor
-> :w
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Should use Emacs ;)
+The Colibri SSP is routed to the X16 extension connector on the Iris
+carrier board, and a device can be instantiated from user space through
+the spi_master new_device sysfs interface, so enable the controller here
+too, as the Colibri iMX7 Iris device tree already does.
 
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+---
+ arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi
+index bce6fbf230b3..5e408e54b335 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi
+@@ -52,6 +52,11 @@ &adc1 {
+ 	status = "okay";
+ };
+ 
++/* Colibri SSP */
++&ecspi1 {
++	status = "okay";
++};
++
+ &gpio1 {
+ 	/*
+ 	 * uart25_tx_on turns the UART transceiver on. If one wants to turn the
 -- 
-Catalin
+2.47.3
+
