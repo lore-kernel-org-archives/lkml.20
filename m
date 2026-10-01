@@ -1,153 +1,180 @@
-Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C165349D5
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.233
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790888947; cv=pass; b=VdHvydta/r0hSGwO4G+gz/qUpG7EC3GGzDzefj9vzt9Ej8hGbMS2Y5GCZ8Vw4EumFAUkZkOPxeW80K/m8fER18wopm3hJcqR+kPHpcWiVwNEAu80vq44hkGRd6+jOdxK8XHaBgs6BrcbUNrUsd4B5K1Wnxk3nEPXLGnyZDYoqRU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790888947; c=relaxed/simple;
-	bh=msNjM8JCH160FpndWx5PPKjxcUatum5lPEo2xPvWifA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YqIf8XLnk20NaFJxuN6HVs7Sx02gi2scKt3eq2tC7VE5O9BWafO6mT8NQeF404HfzQ6QmETaWkgfwRM1CEBtPjorwRwCWx86BrYNCCxGop4FitF4ofOa9EUEvax8gwpGU+RbsAn8dpKpTNpsflErzGK+z4LF9pbbZxHXsjuA1Rw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hvUjgrPy; arc=pass smtp.client-ip=74.125.231.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CAC548FF9D;
+	Thu,  1 Oct 2026 21:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790888985; cv=none; b=aQgEv2QDZTDXZtlkerBO081FzpAEBT2Wo3dFAMXUredtS7Tr4uJUy2NKIt0WT0ioinJJjU0XfP5Tk6Td87bHkkOHPnOdPAcN5vtg1HsJc5pFkSL5bXm8/paxs6HQa4srPlTbhU+gXf80024Q8Xp9HAkZ61uTwdghKZjDDMSJszM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790888985; c=relaxed/simple;
+	bh=6UxZiSMXOZ2G2+H1G1Efxdl+y1iSPxd/HGooq6Ez18w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RWCy27hm+Qy1WVHXF7G5XYSJO4T5QqfK2PZBYWtNv5XZs4qPpU8AHnO7Yj/ukZYzcbkTH2ymB3bqcjhhxxr/jcfNmCMQ3zEy0FxG2/EJOuYHYxqBb9sh5CYribB3BCdApnPZfJE7KR6PCKH9fVhxqnqEslIZRPaDhqMW4ayXY0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dXSalrrG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hvUjgrPy"
-Received: by mail-oi2-f41.google.com with SMTP id 5614622812f47-4f50193fd21so256282b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 14:09:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790888945; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LAs8qI/QjyBY6kry/YlY9EfqqOVuGeqPxa5K1q7b/hTmlwTmfoxjZgGNLIDVKPK2M6
-         GpUbHaizi5DtBf/cz3kdEijCT9EMkPaNLsq6/sFu+yBPi4vBu+INFF88RzA/mQISWYfO
-         687yaEZ1fVzk3Hgqxu9xXww78Hw7p13a+FNZCuhr5E4jcrLXkKhqT/6MkpL8k+7FRtdB
-         lTsjtqK4jvBftQ/5S5wMr35tXZ4YKup4eYcUb4MiUPuqP7Odc3InzCEohCE5ourjmn3n
-         jN3XBSNgis4v5Wd0UNfsfG+xGX875D0wEK7WoU4JyfX2cIFuJAgWroDz7WkXQR4Bda0l
-         IR5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aFokuiRNz9wJ8Ezep4PHoXeKqh3XHPyJk48utuNejfc=;
-        fh=5WAKhECTbmn+w/oTmhZDKUyoHWJ7VlVxwKoj6wA9Kpg=;
-        b=aXIZzlK4HQ/bcmn0oMBzX4NpQ3cI8fNCaq+PCYGuyIdyxHI9TvNbJECwSUjHDGkiSY
-         vdtu+++ZnumBSDHqkSeTODZ2GAojJr52XYriHU7SLx/32xAWYyQ+k6UAB41Lqq9qEY8M
-         NOTltJcZ0lfpazpVxGgMIl8tqsC6sAzMBiP4WEjXqkOHv6pIUVk/YrTqW1/pOm5655wS
-         xHf9QuPsa2PCyd3/Wy918JbWNfx5b+8hGAXH9tj6+Xo5t9yc/wrgNqh9EpnELkhog7u5
-         ir3rgVYLsWecvFwPJ18pB/il5VSQeoXI3mWiCv59oAEbBqM9cTqbftk254FsD1uAaSSq
-         1Niw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790888945; x=1791493745; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aFokuiRNz9wJ8Ezep4PHoXeKqh3XHPyJk48utuNejfc=;
-        b=hvUjgrPy7vbTN57RSm6OJJFLJUEcN4EDY5ruHEhA0OuSiqnlqFs1ZksILOUPy8pS5i
-         +fhRMmFqE4HLRIecedefa/zdSpEURtPpw1yewQzgBx6FFdcoUiNfMJ9bK/KqpyBjC4H7
-         LuQ3hd5zmFr17bFsi02hPc2f2YXUbr1sntjRxyYRFqPMDladbHiKCCwdKIrjai9hgx6L
-         2Rfy07F2bgjHPt70LZU/F5tCaXR5L1DwPAipT2IlVLfpi2w5JWMUiDSTSlXyzEVLFDbL
-         8A3Hs0K5dR3yQrAEnkRbj27DrwaSgyKIaqcw/iX7WPnRMLEue9DV/eSrIgy+G+VO7OmA
-         fe2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790888945; x=1791493745;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aFokuiRNz9wJ8Ezep4PHoXeKqh3XHPyJk48utuNejfc=;
-        b=DQOjH+3Eg7QJZRvjTBvMohRz5rRnJQT6GZsBthMn/t+lz7RDemMDfxbEOAaOCuY6pO
-         Tvd3lj8izNAc6b5e9WNK9pzBnmA8CTYiTOCSn/SMovlTprxQr1z3ECv2/T/vtjUuhjj4
-         NIQxr0hMcwI1n9gZdYKWXoBOUhk6aw3sEwmQUPgAnSkUkTdLFHYrqGpOjSw5SkFbFuuu
-         XQqS/32jd/09SHpwTEtQMr+0XsqW8ZjpHsWX+OZvUPOm+GBHiRLZlPVeUZkNgcNQmWRU
-         B0huUrQdua96iXi6s9HyR10P1FbJgI9R7zdbEuz+7D2rIVnyN3ZhF2pDQ77RcT6F1klg
-         avRA==
-X-Forwarded-Encrypted: i=1; AKwUvBzzfURtkgMKCEvoXQ0zCbtqMSlfHpmSR2ecyjB4ccnnn63WAYyEUAOxygVa4ee2LlnnwkgVnM0tjU9NTbI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWhqAWMWi1CheBw7ewJUnq8/54Xdm8W8wL7IpAbVmGfCE7B161
-	fEhY0y1As8ybW5tPiewX6vicLhtU5Yjo8LWVxbehF7mlaO7P4ETXMl53bl0rtGRqtIc18/RiNHd
-	2yet62dsMad7EIPrCWwB9yhAbmH9334IEkBfDA2JQJ6OmTBu72Itfn7Co
-X-Gm-Gg: AYBFou2wTdNZC9B0k6OqV8HEgXT2heRBlvUuDIqu8bShYGvCHCgh1d5Cc0VBm4mU+um
-	q9gDklveo6bd2/B4HUjoSTqlgAyS4RxZUOythzmCrvyWo9DzsCiAhh0z6HqDIZLf6pE2b/CxSoy
-	bGW9p4PRf04es/ZvQYubH5Bawh+fvRRnl56s/+8qH0mrJT3v38XyftqIlyKBe2lxvBCITwaFKYA
-	g0JruKST/ZDOY4Fs7Vcq2/6YXKtYCy4ZSavrBRmZ+45RilPnrFuPnxW8wOax/rwxkG81kMDIuO0
-	6/43b0G+ZpXBKlV7eeWq7uW1TMCtttFUl6SqW4mbMDAQm5r9aRYDUo5d6hrRPm0bbGkctF+aoPX
-	SOXq5Pzt2oZ1KpNYebnRDpN6TZuQ/Cb9YZ27XSwGWppViSzzTtxBqjPhJE5QrB2XY5qjhm0wjoK
-	efcLQmk+YqfGkd4Gv9kncNuJUk0LRsQFP+kw==
-X-Received: by 2002:a05:6808:178f:b0:4d6:93e2:5bc1 with SMTP id
- 5614622812f47-4f52bac82a4mr335961b6e.66.1790888943910; Thu, 01 Oct 2026
- 14:09:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dXSalrrG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2B42C497;
+	Thu,  1 Oct 2026 14:09:40 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 802F93F86F;
+	Thu,  1 Oct 2026 14:09:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790888983; bh=6UxZiSMXOZ2G2+H1G1Efxdl+y1iSPxd/HGooq6Ez18w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dXSalrrGGT+/wYVtpiKsAv3e9vNf4B7zYrCJ2/ujeL3rpHLfJSmO3OeLVAtjoaVaY
+	 J8ZXO6HNNqGRjwaPtFSAK3/hsL5FVHTBDaJVZGCFcqYJkKFVklzyNV69sfi+X395NY
+	 Y7sNaIO28zT6AxELiD9yryQnajhutiuDUk8ySJUk=
+Date: Thu, 1 Oct 2026 22:09:38 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 3/4] kselftest: mm: integrate huge page checks
+Message-ID: <ar7MEl_EBWSNOO5F@e129823.arm.com>
+References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
+ <20260924-fix_split-v8-3-cba7359d882a@arm.com>
+ <16f16e77-05ab-418e-ad06-8f48fb29375a@kernel.org>
+ <aruMgm8UZ_t2V_wh@e129823.arm.com>
+ <3e03425b-7962-4c69-93aa-96168fd7168e@kernel.org>
+ <ar5lhhdKlK6NwX19@e129823.arm.com>
+ <a3a4ae76-c09d-4e9a-a84c-acea6f5fc437@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001202234.3794060-1-seanjc@google.com> <20261001202234.3794060-2-seanjc@google.com>
-In-Reply-To: <20261001202234.3794060-2-seanjc@google.com>
-From: James Houghton <jthoughton@google.com>
-Date: Thu, 1 Oct 2026 14:08:26 -0700
-X-Gm-Features: AclHuK9qRTMsBWUaBrJsyydGSs8bKMO-n0iK8nixdC2P8OF7DD2-ohxFc2SMwec
-Message-ID: <CADrL8HWDy64UH0N4RCtvgL6zP93jnwr91xjkWerEs1MBV9JH_w@mail.gmail.com>
-Subject: Re: [PATCH v2 01/10] KVM: Reject user accesses to guest memory if
- current->mm != kvm->mm
-To: Sean Christopherson <seanjc@google.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a3a4ae76-c09d-4e9a-a84c-acea6f5fc437@kernel.org>
 
-On Thu, Oct 1, 2026 at 1:24=E2=80=AFPM Sean Christopherson <seanjc@google.c=
-om> wrote:
->
-> Reject user accesses to guest memory, which are supposed to be done only
-> in the context of KVM_RUN or similar operations, if the current address
-> space is not the VM's (host userspace) address space.  If KVM writes to
-> guest memory after the owning host process has exited, or if the VM is
-> being destroyed in the context of a different process, then writing using
-> the wrong address space will corrupt a different process' memory.
->
-> Reject the access but don't WARN() or KVM_BUG_ON() event though attemptin=
-g
-> to access guest memory with a mismatched address space is a blatant KVM
-> bug, because unfortunately KVM is buggy.  On KVM VMX, when a vCPU is
-> destroyed while L2 is active, KVM synthesizes a nested VM-Exit to force t=
-he
-> vCPU out of L2 in order to free the nested VMX assets, and a side effect =
-of
-> a nested VM-Exit is that it flushes the cached shadow VMCS12 back to gues=
-t
-> memory:
->
->   vmx_vcpu_free()
->   |-> nested_vmx_free_vcpu()
->       |-> vmx_leave_nested()
->           |-> nested_vmx_vmexit(vcpu, -1, 0, 0)
->               |-> nested_flush_cached_shadow_vmcs12()
->                   |-> kvm_write_guest_cached()
->                       |-> __copy_to_user(ghc->hva, ...)
->
-> Fix the bug broadly even though the "real" bug is that KVM abuses the
-> nested VM-Exit flow for non-architectural purposes, as there may be other
-> such violations lurking.  For now, punt on fixing individual bugs and
-> hardening the common flows, e.g. with WARNs.
->
-> Opportunistically provide wrappers in anticipation of adding more checks
-> and hardening, i.e. growing the logic beyond checking current->mm.
->
-> Fixes: 61ada7488ffd ("KVM: nVMX: Cache shadow vmcs12 on VMEntry and flush=
- to memory on VMExit")
-> Cc: stable@vger.kernel.org
-> Reported-by: Jim Mattson <jmattson@google.com>
-> Closes: https://lore.kernel.org/all/20260908132838.2116068-1-jmattson@goo=
-gle.com
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> On 10/1/26 15:52, Yeoreum Yun wrote:
+> >> On 9/29/26 12:01, Yeoreum Yun wrote:
+> >>>
+> >>> Okay. I'll change like below in next-spin:
+> >>>
+> >>> -------&<-------
+> >>>
+> >>> @@ -411,57 +400,78 @@ static bool check_huge_type(uint64_t categories, enum check_huge_type type)
+> >>>         return false;
+> >>>  }
+> >>>
+> >>> -static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> >>> -                 uint64_t hpage_size, enum check_huge_type type)
+> >>> +static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> >>> +               uint64_t hpage_size, enum check_huge_type type)
+> >>>  {
+> >>>  {
+> >>> -       int pagemap_fd;
+> >>> +       bool ret = false;
+> >>> +       int pagemap_fd, kpageflags_fd;
+> >>>         int nr_pmd_mappings = 0;
+> >>> +       uint64_t pmd_pagesize, scan_mapping_size;
+> >>>         uint64_t categories;
+> >>> +       unsigned long pfn;
+> >>> +       bool check_pmd_mapping, allow_nonpresent;
+> >>>         char *start = addr;
+> >>>         char *end = start + len;
+> >>>
+> >>> +       pmd_pagesize = read_pmd_pagesize();
+> >>> +       if (!pmd_pagesize)
+> >>> +               ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> >>> +
+> >>> +       check_pmd_mapping = hpage_size == pmd_pagesize;
+> >>> +       scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+> >>> +       /* Some mTHP tests check a partially populated PMD-sized range. */
+> >>> +       allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
+> >>> +
+> >>>         pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> >>>         if (pagemap_fd < 0)
+> >>>                 ksft_exit_fail_perror("open pagemap");
+> >>>
+> >>> -       for (; start < end; start += hpage_size) {
+> >>> +       kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> >>> +       if (kpageflags_fd < 0)
+> >>> +               ksft_exit_fail_perror("open kpageflags");
+> >>> +
+> >>> +       for (; start < end; start += scan_mapping_size) {
+> >>>                 categories = pagemap_scan_get_categories(pagemap_fd, start);
+> >>> -               if (!(categories & PAGE_IS_HUGE))
+> >>> +               pfn = pagemap_get_pfn(pagemap_fd, start);
+> >>> +               if (pfn == -1UL) {
+> >>> +                       if (!allow_nonpresent)
+> >>> +                               goto out;
+> >>>                         continue;
+> >>> -               if (check_huge_type(categories, type))
+> >>> +               }
+> >>> +               if (!check_huge_type(categories, type))
+> >>> +                       goto out;
+> >>> +       }
+> >>> +
+> >>> +       if (!check_pmd_mapping) {
+> >>> +               ret = check_large_folios(pagemap_fd, kpageflags_fd,
+> >>> +                               addr, len, nr_hpages, hpage_size);
+> >>> +               goto out;
+> >>> +       }
+> >>> +
+> >>> +       for (start = addr; start < end; start += scan_mapping_size) {
+> >>> +               categories = pagemap_scan_get_categories(pagemap_fd, start);
+> >>> +               if (categories & PAGE_IS_HUGE)
+> >>>                         nr_pmd_mappings++;
+> >>>         }
+> >>> -       close(pagemap_fd);
+> >>>
+> >>> -       return nr_hpages == nr_pmd_mappings;
+> >>> +       if (nr_pmd_mappings != nr_hpages)
+> >>> +               goto out;
+> >>> +       ret = true;
+> >>> +
+> >>> +out:
+> >>> +       close(pagemap_fd);
+> >>> +       close(kpageflags_fd);
+> >>> +       return ret;
+> >>>  }
+> >>>
+> >>
+> >> I'd leave existing __check_huge() mostly alone, and instead have an additional
+> >> function that checks the type.
+> >>
+> >> Essentially a __check_type() or sth that we run after the large folio / pmd check.
+> > 
+> > So, You mean like this?
+> > 
+> > -------&<-------
+> > 
+> > -enum check_huge_type {
+> > -       CHECK_HUGE_ANON,
+> > -       CHECK_HUGE_FILE,
+> > +enum check_type {
+> > +       CHECK_TYPE_ANON,
+> > +       CHECK_TYPE_FILE,
+> >  };
+> > 
+> > -static bool check_huge_type(uint64_t categories, enum check_huge_type type)
+> > +static bool __check_type(void *addr, size_t len, uint64_t page_size,
+> > +               bool allow_nonpresent, enum check_type type)
+> 
+> 
+> As discussed off-list, maybe we can avoid the allow_nonpresent handling!
 
-Thanks, Sean. Feel free to add:
+Okay. I'll change. Thanks!
 
-Reviewed-by: James Houghton <jthoughton@google.com>
 
-I wonder if it makes sense to add similar hardening to
-kvm_faultin_pfn(). What do you think?
+-- 
+Sincerely,
+Yeoreum Yun
