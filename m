@@ -1,158 +1,205 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011029.outbound.protection.outlook.com [52.101.57.29])
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CC851120F
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863614; cv=fail; b=sczUfS0oihemPatT4wheGlClxW7A8QYh+e8rpnzsQVPOzQk0P8eF+V1Pxx2XOag6pbGM+nwxy/77/UPtKnDLeTbGeg9CycuQ6P9VniQ4Lz1h9wP3zb0QjZHMFZLMVK+TYQhpRVgRpu7DAmLnE8W6fAnR7aqbGzNiOO2m5gMf1Cs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863614; c=relaxed/simple;
-	bh=7OScRDFe3v6Wz5ObFG8JFDfPVbQnZhJoQOGhWhPe9yY=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=VRxkHq1sXvV6DGKXf3B6Vz2DwSHqBwUHsTGZC6Q0hCXOLm5RUKEhH20wx1khq2Bt0H3V798nYkXx5Zl5ppSeN/hDoNWuxIFXuAXkVdA6e97H2O9qKXVwI6qh8aP6OOyFifPrSjkOiBkWShwM3qbA0iPlpc4+dmcbpkKBH0PWoA8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dBadmdyY; arc=fail smtp.client-ip=52.101.57.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE3845C704
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790863647; cv=none; b=qidA8pE6vXQ4V1CmxTI0b1eG0u0IfvvDAmBds24z/1cZIEgqlitsBkrXdUKR5izLhCNon5MTnFtNtyFp4Exz69N+5GOaKZ32bv4qoTzobjHop/WXwGOzJPYRKVC5PxCHPVdL2kMejicxTqKhM0P15MCYAJ0GF2qnwNiWJaXvEEI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790863647; c=relaxed/simple;
+	bh=OFjwM0+unV/WDl3M7TKvuY4YhvRhVl3+z8p2gEpH3Hc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iIMGr3emZbnKCT6UTTKss7sIhxHnGV4J0V8OFUCnS+nL16jrYS5tmKlds6J4Z2d0Tz0fGDSNZCDaS1Sda2tUSd7vf7DjQinq9Kw3eg2+efVR/5dk2TelTJzWYorknJxkngBsH9CN1/IO+odt0KpabB249hDBTqltjgpUap1xEpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=udtHAzpX; arc=none smtp.client-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dBadmdyY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=obV81c04wguvqZMrUb/Rco8akTQwW0sytlpXlwomjngLwxXVFmngnE/wFOJ+9YxDYdMR0hrBFuYRU8DJ3NWNUVZqgID4E/B3L10jWr+4Kua4Dk6Hp0gKMA3u051ZYySDrvFuriX0EZ+9vwfVxQvtlrKFFc2aEPg8e88TDFxdplNuJEGKbKPxFXTc23iEAiOyPzKIGRy9AvTmGm9Su+zeJwJNz6oTahm0URNAkqovOSAY/81vfqx+8/UZmEulkI3mInRig9GGWkLnzgnqdl4cnkTPsOl2+Vt7fKp5X6K9qxAwxrFXaI/FQcHYo2Yomft3+Djb/ioiBZVHMIL/t3Pqqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7OScRDFe3v6Wz5ObFG8JFDfPVbQnZhJoQOGhWhPe9yY=;
- b=gdJtdpaPKBxsyzYAriJYHi9/1OXJIwRx10p13AGD7OhWqmH3Y24OMvnE3DG/kbUeCGcxnMX6nnSHiJSCQH3DE0/m07RrUI94UEjDDGSlaeR4wqM5wFrO1Hg/rwQBXnGBGGz/UjhviVehGdcpFXYuZFAzxNHrZw1ZQczKRUnG7yDa07yrn1fdly7jUYTLE85avRROa+ZhNlRf6NkfLUz06qg+z46P2ybuJap7zDqiS1NxIkQz+GUDx/GMG//Z0UK1XyLLNJn7Mm2Z29N5HCEarA1RQ2B1XXHR01uYHDDVLrll8czWVM1VPvZFmMHyir8Y+1bc7du/nA9vTf4iOzT9hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7OScRDFe3v6Wz5ObFG8JFDfPVbQnZhJoQOGhWhPe9yY=;
- b=dBadmdyYgcHN01UoPm9/HuJXnx8xVN6M1z03WQzIPUPrdPEE1Yfl0DIAInu/Bqsku07YmQvdZ7LqPRXjpPbGSwpnHgmELNGBeAmxK2gEcqnYQRdClSvAWy5ylz5FzVwlaz/6mD+TnMONtcU4sfskWRlKX5ySwNNc2cviRlOtKGqcmL22DbJb3blHawNAfcEgEpK+qv6HP5TKKFmU5u+hYoeJKNCHH4+viClNbeNu8qm41yxDkWuvA+nr+krtMmxmafP2US0VBTv39PzvdjSVNLXz4LQUUKfAXb9i6HvXnKfSyDehLxfTQpGjyk3HtwQhX5e10E3Wp1CfZqCHn8f1jg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DM6PR12MB4298.namprd12.prod.outlook.com (2603:10b6:5:21e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
- 2026 14:06:45 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Thu, 1 Oct 2026
- 14:06:45 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 01 Oct 2026 23:06:41 +0900
-Message-Id: <DLTK5WY2S61J.OHM7AVTC58FB@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 01/15] rust: pci: declare IrqType and IrqTypes with
- impl_flags
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>
-References: <20260930034148.590687-1-jhubbard@nvidia.com>
- <20260930034148.590687-2-jhubbard@nvidia.com>
-In-Reply-To: <20260930034148.590687-2-jhubbard@nvidia.com>
-X-ClientProxiedBy: OS3PR01CA0010.jpnprd01.prod.outlook.com
- (2603:1096:604:dc::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="udtHAzpX"
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [186.210.30.235])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id C0F351210F3;
+	Thu,  1 Oct 2026 11:07:18 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1790863639;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EzYEfSTqwj4l3/1vCnWUrEThLH48cqyyvXXOmKbk34M=;
+	b=udtHAzpX8MikBYBAgqECXWIiXtz4FO2DCUBv1nzl15fON6sadgk9Ru08JFBdn1i9E7sNfQ
+	anGn3YZy9d5M0Htny0cfo4K2UV34sv+VzFfFyxsaXS80F88o9KC4+AVmTVmvxx6QHMwmdW
+	Ri4Q3lG/la7x9BtlNn/G1gyCn5XDApJJhp0RLNwQ/wBYokmS5d+Yn4POw8WeAVpghemSYI
+	JMW2/fpgj1mBLQTQZZiCdqaf8iJtYpjhD/wbqolVoK+eCuXmWYiBGWLyH2QAmRp2zNxvvG
+	vrWVPf6R8czbAvE7mZMPCG4/eucGStCvbHaQnNgrM9uGLyT3Zkus+qb1A4JoUQ==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Dan Carpenter <error27@gmail.com>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH v4] staging: rtl8723bs: return bool from check_pending_xmitbuf
+Date: Thu,  1 Oct 2026 11:06:40 -0300
+Message-ID: <20261001140640.107536-1-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM6PR12MB4298:EE_
-X-MS-Office365-Filtering-Correlation-Id: 838dd0cf-ae5c-4caa-0af4-08df1fc539ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|23010399003|376014|7416014|1800799024|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	zzfUhCqTVdEqUtAYy5p+wFz/QwX0Lx4QLR0Ffg/dD3ahvWriIU3TME/+vlr0IyUWMwlbC5IIkBrPTzvu5GrI6ETHpEWsZ7o3myJCIneqT/uVy/te/RuMC4MrTzHacxVtaTPKDNcuemyt3nkuaPmRJ8vEkOmgs6S42e1GpGsTCHwkEhLsPJ5gnaOe4CJ0lHguEDXGiajlrDzodlqZtP2IuD581OixjxiRaCg5oFm4IsD+n6LhWWdNP/oIBFX1YsfGAQVKYO7HUPgMPjNl2pYYq+GvGssROgXIcTU9IQ4gLGv3kZqBdUSa9oJtULMexPxlwxrjBvwDadOOaw7LaoFhoTMDQcBEJDGLGNMAf6YHCf7J2rlTG1dgVhY3ofqiUIGnRiUatjD7ekzDW2Q3TJ6iKokfMF46IlmSfWQ9VfYgrGDgzLu6mujoY7BJUjWFgHyrvGM/xrlJzJ9arZiQ9Rte2X7eV2I17NsJlW2ktiKZ3nzn3cP/RWB99SMBkvLQxHopw+u3g/BhoADkDfZfOPIqzNha7z8KFybFlZ5UNlUtBW259y1hT4VOFqRR5H7TOME76YNmefELrdM43vU+wYwwpHFzsGpX8IR+aZgjxyWXxYT0CJK/sjMn+HJACUolHVByi7SOR1u044aZpJtZSWwMBVFTUsVDheyS6+ATC1RvT0M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ajRqbzhSYmpqcUY5Skd6Wllpc3V3Z2daY2FEU1FXc3RzaE1pOGtnZVVvWnZM?=
- =?utf-8?B?VEVzclRuUHkySFJjTmRZNG5vbkwrdnp4YVBRSFVCamZxUFFLWWpvWGRvVE4z?=
- =?utf-8?B?R20yYWhzeWVaaEoyN2NuNFNoT2draUV0VVZRTUNYSFp1Ym1IemJXM3BwOUdO?=
- =?utf-8?B?bkhORGxvWDNVTFZuK3p5RkFVT3B6SVpkbVFIeUltcGMzS3ZUK2tJUSs3VWU5?=
- =?utf-8?B?NExmRkNFYnJvZXVETGtVRUNYckFnK0tFTFI5d1JlTHdDOTVIN0N5OE1IVGgz?=
- =?utf-8?B?MEdvUml2WDQvbk5wNWJVY2tham9mOFY1WSsweUgvdk1IZlFOMjVrOFpOY2lj?=
- =?utf-8?B?eDNQZ3FIeDJUWUxFSVpPUlB2UENRTk9tMWZsRk5yTGxWak5XdzRPeGhIWm9V?=
- =?utf-8?B?ZWFmT080K1RCSmo2VHNqYVJMTTl6VjZYWS9VeFFYOXRZcnNEK291UGNvYXlC?=
- =?utf-8?B?UzBPd3JjcVdyK1doYnZ0RFFscVZYS1dteFd6QXJpMExlbnNCdk1QcC9jc2kv?=
- =?utf-8?B?SXQyUlc5bTM1MWxUYm05N0pXa09EaWkrd0dxRHE5UnU1NjJaVlI1STZGTjUv?=
- =?utf-8?B?REl4a2dlMkhndVIwN01DcnRzS2NOV1pCMTBjdlpUSnhSOHBLYk9XUEhPaVpJ?=
- =?utf-8?B?NWRTZDAxZ2taVG5hZmpEZ05ONndIQ3VqbmxlbFVDUHhGNTV0Y0NodXBORkZP?=
- =?utf-8?B?eHJrTzVlUURzeWk3SGVWQkxWdGdwQUhYMURtbnlMWUFWS1hpaEhPaUhmMWho?=
- =?utf-8?B?S3lKWHRhdHB3MkIrWlRZREJjRHh0RWxkOS9FbVFNRTFyRXA2NUM1dWZjUnp0?=
- =?utf-8?B?eExxenhuTFNSbWJaK05FbnRNMTZxa3ZOWkVBdGZjU2RWbkNQaCtVSUlrT2Rk?=
- =?utf-8?B?aDg0cC9LbWtkbXoxNjRrb0NhcG8wa282Sjh5K2dHRm41bTVYcjNEekk4RE1x?=
- =?utf-8?B?eTk1VlVGR3RBcFZUUU5lQTh4aTI0V2ZPYVJQcnN0blJRcXkxeWlob0N4REp4?=
- =?utf-8?B?UnQydS9HaGRpa2ZBY1Buc21iWFFjNWpUS2hGcnRVMHlTM2V0Z3JoaEVET3Nu?=
- =?utf-8?B?Q3E2RDI0M3hjdFJRZnBrL1NJdXB0RC9KOFFxdjhLdE11SXRRSjRNMTMxWWpS?=
- =?utf-8?B?a3JxMEFnZiswQ0tZRXJNVGRKVkN2cEhSQmlLaUN6bUNMMG1GY1Ribnl3NG5i?=
- =?utf-8?B?ZzJTRElVL1E3U1d6V2cvMG1vMmZqM05rS20zL1VwLzJVWFgrRFF1TEFEMDY4?=
- =?utf-8?B?T3JSSU1PZlp0Mlp5SVhoV3dKU3Q3L3QzMnlWWHd5L3Z2SEtKYXByWGhid2FN?=
- =?utf-8?B?ZHRCMk5DNTM1TnpNbTdpZmJvUlphcmo3cGNWR0IyOU0vY2FOaEMraDAxK085?=
- =?utf-8?B?djlqME13WjRDMG11MVk2Q3lnaW9mOERMUHZwbGlQTlpvb1RmOVo3dUs5SVJ3?=
- =?utf-8?B?MHdBVDJNYzR6Z2NCV29WSDZPblV1czVsNjNOalhVV2NFcmRkc2JrbGpQK0t2?=
- =?utf-8?B?bWNzNTdDWHVMK3ZlSVc3ZUNISFczek1pcjRXTkU0clBucGFyblV2M2JPUGx1?=
- =?utf-8?B?bkZBZU9BS2IxR1RBUERFb2ZETG9rdHNvRWRvbkNxYmxLbUczY2J0WW9WK0Zk?=
- =?utf-8?B?NE5tUnVQRzRnTFhaeElTY3NHMmdINHUyZ3Z4N256LzFLYnJ5dmNqUjMvYmpP?=
- =?utf-8?B?NEpQclZzbzVJRFMxdytseVJ1eE4rbnZiU0h3YXRFRmlIQmpyRlNQL1k4QWVL?=
- =?utf-8?B?RGNyanVYeERvVFAvRW9sR3V3RjRtYjdNTzAzWHhMZEs0OHlRREFWQnIzdXND?=
- =?utf-8?B?RWowZ3RGLzZYSk93b1VtNktEUDQ3dE5hdFVCcS9qRzJkcFIrZWlBbU0rSDBY?=
- =?utf-8?B?WmxuWWxpMnpZK2NOVGdlUmhrdjN5V0M2VXBieFh0Mmw4NG9FMXRJZnZSSmEy?=
- =?utf-8?B?T1FycHFqYzJKbnJxeWlBQVhBc0ZaaWJ5QUJFcWNMQjQ3M1hFK2NhVGlsTG01?=
- =?utf-8?B?b2xHelUwakIxN3ZHWEhCRWxIQ0xIVHZVTHFNUzNKVFdvOW1LMjBWUWFBdFAv?=
- =?utf-8?B?NFV5N2RQcHVuSVVHZ29UQnBVWlR5T3lZTXAyUVA5N29rbkRHTzBUREpzWkZK?=
- =?utf-8?B?SDVIdlBLVnl0eE9lRzBoQXByUjBEMHRhVXhIak1kYk1CZ3ljZDQ2UzUvc0lH?=
- =?utf-8?B?SU1jN3RIR3p4aU5WQ3FMZC9lODNlakVmZHdPd0dNcVZlMytpT3BEMHQ3bUtt?=
- =?utf-8?B?YzQvMG8zZXJMV2VJVnQ2RmlZR3hxUGdWQTZGS05nVVQ0Mk1GdjhMQVlqUTkz?=
- =?utf-8?B?TitZWDkvSGZoa2Z6L2Q1aGpaMXFEVFNBaEd2Vm1TaW9iTS9TS1ZhS1RvTE04?=
- =?utf-8?Q?dyVMomCHbcdmMYA3Vnq5H1Q9icb8mpxASDCz3yuHCtaaA?=
-X-MS-Exchange-AntiSpam-MessageData-1: /RtOHFNuLQhYeA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 838dd0cf-ae5c-4caa-0af4-08df1fc539ca
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:06:45.0159
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: txZMqXGPyMd/Sop5Irc4CjTZtaK6P8CgodhETc7Bg2pEPZO6ZbYaHSMCg3HOhos9zEBix15qK+dIqkpzleNpdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4298
+Content-Transfer-Encoding: 8bit
 
-On Wed Sep 30, 2026 at 12:41 PM JST, John Hubbard wrote:
-> The kernel provides impl_flags! for declaring a bitmask type alongside
-> the enum of its individual flags, generating the bit operators and the
-> containment queries.
->
-> IrqTypes open-coded that pattern with a with() builder, so a caller
-> naming two interrupt types chained two calls onto IrqTypes::default().
->
-> Declare both types through impl_flags!, so the same set reads as
-> IrqType::Msi | IrqType::MsiX.
->
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+check_pending_xmitbuf() returns only true or false. Use bool as its
+return type to accurately describe the function's behavior and
+propagate the return type through one of the call chains.
 
-Danilo, is this ok if we take this patch through drm-rust-next?
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+---
+v2: Add missing "staging: " prefix to commit message.
+v3: Change one of the call chains to also return bool.
+v4:
+    - rtw_transmit_thread(): rename err -> xmit_status and remove
+      unnescessary initialization.
+    - check_pending_xmitbuf(): rename ret -> xmitbuf_pending and remove
+      unnescessary if statement.
+    - rtl8723bs_xmit_buf_handler(): remove queue_pending and directly
+      check the value returned by check_pending_xmitbuf() instead.
+
+ drivers/staging/rtl8723bs/core/rtw_xmit.c        | 16 +++++++---------
+ drivers/staging/rtl8723bs/hal/hal_intf.c         |  2 +-
+ drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c   |  8 +++-----
+ drivers/staging/rtl8723bs/include/hal_intf.h     |  2 +-
+ .../staging/rtl8723bs/include/rtl8723b_xmit.h    |  2 +-
+ drivers/staging/rtl8723bs/include/rtw_xmit.h     |  2 +-
+ 6 files changed, 14 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+index 57b3690bc48af..513a4934ab599 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
++++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+@@ -2463,37 +2463,35 @@ struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpri
+ 	return pxmitbuf;
+ }
+ 
+-signed int check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
++bool check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
+ {
+ 	struct __queue *pqueue;
+-	signed int	ret = false;
++	bool xmitbuf_pending;
+ 
+ 	pqueue = &pxmitpriv->pending_xmitbuf_queue;
+ 
+ 	spin_lock_bh(&pqueue->lock);
+ 
+-	if (!list_empty(&pqueue->queue))
+-		ret = true;
++	xmitbuf_pending = !list_empty(&pqueue->queue);
+ 
+ 	spin_unlock_bh(&pqueue->lock);
+ 
+-	return ret;
++	return xmitbuf_pending;
+ }
+ 
+ int rtw_xmit_thread(void *context)
+ {
+-	s32 err;
++	bool xmit_status;
+ 	struct adapter *padapter;
+ 
+-	err = _SUCCESS;
+ 	padapter = context;
+ 
+ 	allow_signal(SIGTERM);
+ 
+ 	do {
+-		err = rtw_hal_xmit_thread_handler(padapter);
++		xmit_status  = rtw_hal_xmit_thread_handler(padapter);
+ 		flush_signals_thread();
+-	} while (err == _SUCCESS);
++	} while (xmit_status == _SUCCESS);
+ 
+ 	complete(&padapter->xmitpriv.terminate_xmitthread_comp);
+ 
+diff --git a/drivers/staging/rtl8723bs/hal/hal_intf.c b/drivers/staging/rtl8723bs/hal/hal_intf.c
+index 1443875d13694..9653ab3ad893d 100644
+--- a/drivers/staging/rtl8723bs/hal/hal_intf.c
++++ b/drivers/staging/rtl8723bs/hal/hal_intf.c
+@@ -229,7 +229,7 @@ void beacon_timing_control(struct adapter *padapter)
+ 	rtl8723b_SetBeaconRelatedRegisters(padapter);
+ }
+ 
+-s32 rtw_hal_xmit_thread_handler(struct adapter *padapter)
++bool rtw_hal_xmit_thread_handler(struct adapter *padapter)
+ {
+ 	return rtl8723bs_xmit_buf_handler(padapter);
+ }
+diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+index dec9d4d53de7a..2918a8e50f3d6 100644
+--- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
++++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+@@ -115,10 +115,10 @@ static s32 rtl8723_dequeue_writeport(struct adapter *padapter)
+  *_SUCCESS	ok
+  *_FAIL		something error
+  */
+-s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter)
++bool rtl8723bs_xmit_buf_handler(struct adapter *padapter)
+ {
+ 	struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
+-	u8 queue_empty, queue_pending;
++	u8 queue_empty;
+ 	s32 ret;
+ 
+ 	if (wait_for_completion_interruptible(&pxmitpriv->xmit_comp)) {
+@@ -131,9 +131,7 @@ s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter)
+ 	if (ret)
+ 		return _FAIL;
+ 
+-	queue_pending = check_pending_xmitbuf(pxmitpriv);
+-
+-	if (!queue_pending)
++	if (!check_pending_xmitbuf(pxmitpriv))
+ 		return _SUCCESS;
+ 
+ 	ret = rtw_register_tx_alive(padapter);
+diff --git a/drivers/staging/rtl8723bs/include/hal_intf.h b/drivers/staging/rtl8723bs/include/hal_intf.h
+index 7b63116525cab..763ff6f3cb535 100644
+--- a/drivers/staging/rtl8723bs/include/hal_intf.h
++++ b/drivers/staging/rtl8723bs/include/hal_intf.h
+@@ -222,7 +222,7 @@ void rtw_hal_set_chnl_bw(struct adapter *padapter, u8 channel, enum channel_widt
+ void rtw_hal_dm_watchdog(struct adapter *padapter);
+ void rtw_hal_dm_watchdog_in_lps(struct adapter *padapter);
+ 
+-s32 rtw_hal_xmit_thread_handler(struct adapter *padapter);
++bool rtw_hal_xmit_thread_handler(struct adapter *padapter);
+ 
+ void rtw_hal_notch_filter(struct adapter *adapter, bool enable);
+ 
+diff --git a/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h b/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
+index d02ead67777a0..acf0ac9e5a755 100644
+--- a/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
++++ b/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
+@@ -406,7 +406,7 @@ void rtl8723bs_free_xmit_priv(struct adapter *padapter);
+ s32 rtl8723bs_hal_xmit(struct adapter *padapter, struct xmit_frame *pxmitframe);
+ s32 rtl8723bs_mgnt_xmit(struct adapter *padapter, struct xmit_frame *pmgntframe);
+ s32	rtl8723bs_hal_xmitframe_enqueue(struct adapter *padapter, struct xmit_frame *pxmitframe);
+-s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter);
++bool rtl8723bs_xmit_buf_handler(struct adapter *padapter);
+ int rtl8723bs_xmit_thread(void *context);
+ 
+ u8 BWMapping_8723B(struct adapter *Adapter, struct pkt_attrib *pattrib);
+diff --git a/drivers/staging/rtl8723bs/include/rtw_xmit.h b/drivers/staging/rtl8723bs/include/rtw_xmit.h
+index c5cb814789d86..68fe47dcceec4 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_xmit.h
++++ b/drivers/staging/rtl8723bs/include/rtw_xmit.h
+@@ -432,7 +432,7 @@ void enqueue_pending_xmitbuf(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmit
+ void enqueue_pending_xmitbuf_to_head(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
+ struct xmit_buf *dequeue_pending_xmitbuf(struct xmit_priv *pxmitpriv);
+ struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpriv);
+-signed int	check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
++bool check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
+ int	rtw_xmit_thread(void *context);
+ 
+ u32 rtw_get_ff_hwaddr(struct xmit_frame	*pxmitframe);
+-- 
+2.43.0
+
