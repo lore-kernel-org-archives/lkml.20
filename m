@@ -1,110 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C163BD241;
-	Thu,  1 Oct 2026 07:16:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B4B3C3443
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790838984; cv=none; b=dSEeqGqfGs1EliqQjrvguUB90rdoQVKiJjjPpvzMavKr9Dpa6pB70uJWlv4tGw072Bs4P8YrCCc3CDlMvSZlfctv3YRL/4xWewkJn3D/7tKBQSn9IPpn9gDEs6GQPU66EiWpxDxgQ2OU7lUtA+upooXl9jw6ItmsRC0Iy1x7TEY=
+	t=1790838995; cv=none; b=i0DNUCEPymgJe7KZY/1hLwloSGlqe3LdlxOkhBmflbfyxESIC7ZHZ5WFUJYWgQJuct0nXOU7WAiHHGDKEw6ZfH6PyZDLmg9igm9qXQWdDa8IlnJA19SILv36VWwZXD1XuCY2uC1otqGFRF3AZMnPVvA50OgUkaDY2kMghn4Yk9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790838984; c=relaxed/simple;
-	bh=7616dSR0C2vuwuOm07V3UdWHY26IRi0xhf8L+Y9kvx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I9ya15+NrTiImIb4uPJ8xOxpI6b3heE4lvd3ha4yOXRjbpa7lFqoFRYM6fafINxeijeQrq/d+KJ/ayLDamNNYYGTrtsAXpXW9ljEvziilEfXr7arh607tzk6qf+u2dssHFOHho3xHvNLuUSkup8QO0NGmgY1TW4gtIClnmsO09A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGmiUefp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790838995; c=relaxed/simple;
+	bh=Pc4G3dOZrc4gtia9HfeDdf03/kdnNOxdtkGl342iPbo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HTLkICIH4XKRAvkAcrn6X6atk2xRqn3us1Dsa1ND9MvkgRnFBsgIEbq2EwPa9CyUoqWs+RyqbzNnz5SeGazxCBWjoiLk6H0LAS37akawuOCi0ipIU5kZHodaepplzRlYiRjWykRPn6Ye+T3NN1HCNbv9QYs0oDnhpkgFd/zT8dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NUDHIJCx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGmiUefp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977581F000FF;
-	Thu,  1 Oct 2026 07:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NUDHIJCx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0401F0089A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:16:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790838976;
-	bh=wXGrqQD9809RW+EIr/bRf710tUjrok9k7DNn43iscUM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AGmiUefpQ6l75QZK6aeQlp9UPq1InEMepRYnLgKRKneJbssdvdgA0t6TjDBM6kQpZ
-	 RvPaddId0hCVvOkKMb7AnE/Hm9Jslt4H0RSGIonOTjh2MhRHvFl5+LtyvxBvZFzfzf
-	 3gqTiz6bvOdQjIX/37l2f7t5d4FeITcb5glYcxF/5WXerC4BGs/1KB8kX88zNeZfwJ
-	 fsEzZDtnAKyMB1o3pKWJxNCeiSQTLmsfYniy9NGi+WQFVMnJB9BYoWukb/CLMek6pR
-	 mN8rfZ6btQS8GV+5jxdc15FeCNMObU56CMgzMxynhW1d4NUrI/X19BPINawEoge6zT
-	 6LszC3Cp6gx8A==
-Date: Thu, 1 Oct 2026 08:16:09 +0100
-From: Will Deacon <will@kernel.org>
-To: Leo Yan <leo.yan@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Tamas Petz <tamas.petz@arm.com>,
-	Tamas Zsoldos <tamas.zsoldos@arm.com>,
-	Michiel van Tol <michiel.vantol@arm.com>,
-	Dev Jain <dev.jain@arm.com>, David Hildenbrand <david@kernel.org>,
-	Yabin Cui <yabinc@google.com>, James Morse <james.morse@arm.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 2/2] perf: arm_spe: Prefer large AUX mappings
-Message-ID: <ar4Iuanz_vA4twGP@willie-the-truck>
-References: <20260810-perf_aux_trace_large_granule-v1-0-03306c9339e3@arm.com>
- <20260810-perf_aux_trace_large_granule-v1-2-03306c9339e3@arm.com>
- <annp-BdTviQoH6vy@willie-the-truck>
- <20260930164311.GK14479@e132581.arm.com>
+	s=k20260515; t=1790838985;
+	bh=Pc4G3dOZrc4gtia9HfeDdf03/kdnNOxdtkGl342iPbo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NUDHIJCxBOLRU3ANfcGDlJ7FYpLEopSaYdlQzmmSeOhG3o4qykTC4LVOdqs02t4tG
+	 6ptStaq3AW/+iqnLMNrjMr6W0rDz4I+U0kCbScCPLCTueaAeqc54UavWI78KB9QsHK
+	 1abHrv/hcudBW2XvKeRVkETgDd1c1QErOSVV1XozK+8F2jqcflkPcEE785d/KEsJCO
+	 qw2TAmfltS+uoInrcUeYKshEWEAvgBGyQqKi2xwKfdZq/3v6MSuJLXYjYKavipu8Lu
+	 2O2WK+nvsIA8MTFIsAE9Y9y9mAl9qwX+veLxCs4tW/U0WHEpRWhkx0UD9xjUdyBm5w
+	 P7rFj9fSdCXCQ==
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc88a9b9so4145691fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:16:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzT/jSzWXYkHO/moIvRswWGC/XtP40phxJngVdHdruD5VG5yI/mLFPE9f73LUpz7jlGSpqWm0KTXTtB0Vg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIyNDo0uq0ZG3ULBXpLpGDaEQf690gmoWeJMeI/+wOqy5tPdlw
+	0UjgX9Jjlic5JHzvW3Wj/vtztXQVRBarad8Uae14c4mL/eUy0yTVSByrzCEAeeUJAt2aFg5bviV
+	GtOfgr4S33RsEM9nQzKLAzGRMO0Uf5Wg=
+X-Received: by 2002:a05:6871:2b25:b0:48f:e0f6:c036 with SMTP id
+ 586e51a60fabf-49dddb7bad1mr4057749fac.52.1790838984306; Thu, 01 Oct 2026
+ 00:16:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930164311.GK14479@e132581.arm.com>
+References: <20260928181557.85796-1-omar@blockcast.net> <CAL4WiirokTFzOqFNr0eOWucpqkJoGR_4s19cBAEN3O7E7ydm5Q@mail.gmail.com>
+In-Reply-To: <CAL4WiirokTFzOqFNr0eOWucpqkJoGR_4s19cBAEN3O7E7ydm5Q@mail.gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 1 Oct 2026 09:16:12 +0200
+X-Gmail-Original-Message-ID: <CAL4Wiio2oJr_z-2AMHnu200eYjrjBcLUKvsqvx04O+J4_z1tfQ@mail.gmail.com>
+X-Gm-Features: AclHuK-gU8aHmcLRBscoSTSuBISnGa9yJikzoAiWbEj471LriSP7CUyzVaVF7xU
+Message-ID: <CAL4Wiio2oJr_z-2AMHnu200eYjrjBcLUKvsqvx04O+J4_z1tfQ@mail.gmail.com>
+Subject: Re: [PATCH net] amt: pull the AMT header behind the transport header
+ in amt_parse_type()
+To: Omar Ramadan <omar@blockcast.net>
+Cc: Taehee Yoo <ap420073@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 05:43:11PM +0100, Leo Yan wrote:
-> On Mon, Aug 10, 2026 at 04:10:48PM +0100, Will Deacon wrote:
-> > On Mon, Aug 10, 2026 at 03:44:42PM +0100, Leo Yan wrote:
-> > > Commit 18049c8cff9c ("perf/aux: Allocate non-contiguous AUX pages by
-> > > default") made the AUX allocator use order-0 pages by default unless a
-> > > PMU explicitly asks for contiguous allocations.
-> > 
-> > But that commit specifically calls out SPE as benefitting from
-> > non-contiguous pages:
-> > 
-> >   "For instance, ARM SPE and TRBE operate with virtual pages, and
-> >    Coresight ETR allocates a separate buffer. For these PMUs,
-> >    allocating contiguous AUX pages unnecessarily exacerbates memory
-> >    fragmentation. This fragmentation can prevent their use on
-> >    long-running devices."
-> > 
-> > so why doesn't passing PERF_PMU_CAP_AUX_PREFER_LARGE reintroduce the
-> > problems that 18049c8cff9c was trying to solve?
-> 
-> How about adding a field to struct pmu to specify a preferred maximum
-> page order for the AUX buffer? The perf core could try that order first
-> and fall back to smaller orders if the allocation fails.
+On Thu, Oct 1, 2026 at 9:15=E2=80=AFAM Eric Dumazet <edumazet@kernel.org> w=
+rote:
+>
+> On Mon, Sep 28, 2026 at 8:16=E2=80=AFPM Omar Ramadan <omar@blockcast.net>=
+ wrote:
+> >
+> > A gateway's encap socket passes ICMP errors to amt_err_lookup(), which
+> > calls amt_parse_type() on the quoted datagram to see which AMT message
+> > failed. On that path skb->data points at the quoted IP header and the
+> > transport header at the quoted UDP header, and icmp_socket_deliver()
+> > only guarantees the quoted IP header plus 8 bytes, that is, up to the
+> > end of the UDP header.
+> >
+> > amt_parse_type() pulls sizeof(struct udphdr) + sizeof(struct amt_header=
+)
+> > bytes from skb->data, which on this path stays inside the quoted IP
+> > header, and then reads the AMT header behind udp_hdr(skb). An ICMP erro=
+r
+> > that quotes only the IP and UDP headers of a Request, the minimum RFC 7=
+92
+> > asks for, therefore makes it read past the pulled data, and past the en=
+d
+> > of the packet when nothing follows.
+> >
+> > Pull up to the transport header plus the UDP and AMT headers, as
+> > vxlan_err_lookup() does. amt_rcv() is called with the transport header
+> > at skb->data, so the pull on the receive path does not change.
+> >
+> > Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+> > Signed-off-by: Omar Ramadan <omar@blockcast.net>
+> > ---
+>
+> Reviewed-by: Eric Dumazet <edumazet@@google.com>
 
-I'm not sure that's thr right place for it, really. The driver has no
-clue about whether it makes sense to use large contiguous mappings or
-not, so I'd have thought that decision should be driven from userspace
-(e.g. like MADV_HUGEPAGE) because it really depends on the user's
-preference and isn't a fixed property of the hardware.
+This was meant to be:
 
-> For example, the Neoverse V2 TRM documents:
-> 
->   L1 Trace Buffer Extension (TRBE) TLB: 1 entry
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 
-Wow, they really pulled out the stops for that implementation. I bet
-we're supposed to be grateful for that entry!
-
-> Given the single L1 TRBE TLB entry, the TRBE driver could prefer
-> PMD_ORDER (2 MiB with 4 KiB pages) to reduce TLB pressure. This reflects
-> the hardware characteristic.
-> 
-> This could be a trade-off instead of using PERF_PMU_CAP_AUX_PREFER_LARGE,
-> avoiding large contiguous allocations that could reintroduce the Android
-> OOM issue. I did a quick test with this approach and the results look
-> positive.
-
-I really don't want the driver to second-guess userspace based on whatever
-information it happens to have hard-coded about the specific CPU it's
-running on.
-
-Will
+>
+> Please read https://lore.kernel.org/netdev/20260928181557.85796-1-omar@bl=
+ockcast.net/
