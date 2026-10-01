@@ -1,147 +1,96 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221CD416856
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 17:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48852515983;
+	Thu,  1 Oct 2026 17:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790875682; cv=none; b=cB1y+ZIwKZpHXLOOB9Rpz+ruKe8lZ8QxKgboE6i7TPp5fmSK+l+czQkwihGZ9zbQMyEebTcXI3sRIOLifsMnHnroxWYUz/ClyPX4G8xgAwWbkjif6xl4p30roc1exuZD57RTd4kdFYCb2xbo2rK501hCtWRsGg4mnGtTtuCRo8I=
+	t=1790875684; cv=none; b=LrPZF0m0DJnUb+ZvaZUDmdVwCBEMyrg1iHhXDiDbOiGlRYCA0tkTE9AqSqDzSHgjfLd9NkadsUC/Qx2iszhALXcxKcY0R1zS9Jw/tRAbCe2JaEI1Gwvvxfzxn1/tpXhRJqtaWcJ6CaB2sE4VvsVc5mPpzm4+7PsEd7kgAcDPW4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790875682; c=relaxed/simple;
-	bh=ZOUUoIgSOYNRh1kmukHuKPa6RYTQ4ZP1M72nJBr9Oew=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cdPxJKkC4rQKXLZlUlZrGJKuI7garKgW7//EFRX9hO/7phKzDL+lKynX1dAxTtH26ScLsEQrTmxYWBCuWek0UsTnvd6hlA8U8S4mLLlyu1qo9iV9VdHnWVajXe870oRf0a0sZCerstthN4jZEvQg6259k6CribUmFHnlqcJkr6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i7XN7TN3; arc=none smtp.client-ip=74.125.229.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790875684; c=relaxed/simple;
+	bh=2WHrAWI44umCgo5dA1afQgqYa6TJwqxBCWXf73OqFms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J7DU6J68Vz47BX5lVuHhXQowhVee6LG0e5qEbrnZuwuFpBjzS6cmjqcjFfHrpRsouadzHNN0PAjPNQWGXfnvGeJSiNPTatpf7fxbjqm4eD9DTBGwrLdbUoeoAwmrJ0eJgw9sz49XgeitpI0CdpXBSvDViau9Gou6K56mQcBq71Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cAb0Gw1r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i7XN7TN3"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-1497f78ebc6so743200c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 10:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790875680; x=1791480480; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TF47lKOzbiPoHuusFqdrcEwF1pR+p+hIyKAY+xDTuFs=;
-        b=i7XN7TN3WYcEGVDQrYOUc//pv4qZh4XJZ6N4H2dzoWn04vRjdz7iV1cWdGL27JXzG5
-         P4VeXx44T+jLGjstKZEkkHxUp/QmgnJLjyPK3quukQ6cosCjIc5fZquNiig5h6+VzJ0u
-         JuEm/ONkXKLrA74cgCHDrXLwrcPGV97j4+IyuQwSwfzAtzbYh7sFrongCbZCvwEoFcDF
-         3X3LfRofaalpm6rgndmOnaErx14O9BOZx5JkgSY5628NRXsEEVbPcpNMrNRSL3jiYbE8
-         J+nqpVjVkT5OCejNI4Q76YiBUNL3tGnOn/OVJPNf+25kKOoqJVebr3GuLm7757xnSaIk
-         GAUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790875680; x=1791480480;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TF47lKOzbiPoHuusFqdrcEwF1pR+p+hIyKAY+xDTuFs=;
-        b=vpISQqW45GHTDqzLmMYeDbe+rawHnRg5fZmFu87Sw0CaLNZaqD2gn1AuBBAw4Bc46W
-         H52BGAUrKMUk6WVhAK65qfwmvXQb98AqcJF6U1zlxf/zSC7mvr2y1cLwqP/UDFRj0GPV
-         N8Ycvh3s9VtkjNswzwtFdhRCfm65R0oXaA6ZkbeyaRRv7EpAlYYu59FwBsGK+7wCiimw
-         /cz6k0goxmfXr91Y3BSf/wf5Qgb95HQLZOUMRZgCQn9yXL904Gknq+nllLResnEwxlng
-         rjNL3iNs0mTOII3U71HH7+sUI5+qCzYKppPicLxKvELQ1Ue8h6UXR2W5zmSiIDW7Rq1j
-         01Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZACSkptkRK1Iz8BerM/LL0v4EMMl2AbKR/UhiG4blqWNpI9yGkHaR7RLGRZLztjj8POHoPz3niVgyFHQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkpZwbX6DAy6W65qvQpAQ1LB5V6uKWTwXXmjCbPxav4CbD0R+L
-	gUxdRIpBuwA+shLH1Rr/vyHXABFAUqynoOiFVJTOzzyavhYO42o2HHiD
-X-Gm-Gg: AYBFou2Y4EsG5XwS2BbcItJgkDRqJ3jhYvUFvC37j0iLkiMokDl6mPp6/BsSNKTCqkE
-	04hquB4fqo8ixO3gr4WJxyhNamEV7PVoHZo+6PlZtwq4eKwbjUjQWLWn/GF3RfzecddpYs4snfU
-	7DPlhAUE07F6hlnmdeh+VIv3P9NL2ck4tfEHd5ty1mn4OwXapva3Xu+UngsaJUK0AanlswKAyE7
-	ijXS8bjbyxmQTq8dSCmWcN9ZiSryK//wGSbY+wURgxwqNcXlURtUSJqqLvyXcMsDVAwpqFypU7M
-	iZfLGdrWf56CUKacrlcDwkKsnFXVQ5QteWYVRhnTM4Nb4+b8dsahlY4kY3UIyJMNh9LkEDVjMfE
-	zbbMWDEU6yopz8quGWcrfH4qDfrPvAWML4R3H+HbCvZ6Jt1HWUBKFfQNZNQHhL/zWresEuufUof
-	hhvBDV5RfLs/CB8WdBm8UwlK+pAGmNhRrbuq8NH0BkjI7b/hv0RwQFaUHqRiKpgvLj5GnuyIoyR
-	vLQXIF8iIBd/g==
-X-Received: by 2002:a05:701b:4586:20b0:143:2974:bb04 with SMTP id a92af1059eb24-14d331a6ee8mr4881718c88.30.1790875679612;
-        Thu, 01 Oct 2026 10:27:59 -0700 (PDT)
-Received: from operator.. ([203.194.102.173])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f468c08absm53051c88.8.2026.10.01.10.27.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 10:27:59 -0700 (PDT)
-From: Ashutosh Yadav <yadavxashutosh@gmail.com>
-To: corey@minyard.net
-Cc: openipmi-developer@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Ashutosh Yadav <yadavxashutosh@gmail.com>
-Subject: [PATCH v1] char: ipmi: Replace deprecated strcpy with strscpy
-Date: Thu,  1 Oct 2026 22:52:09 +0530
-Message-ID: <20261001172209.52028-1-yadavxashutosh@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cAb0Gw1r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E73A1F000FF;
+	Thu,  1 Oct 2026 17:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790875682;
+	bh=W58m5D1Qq04GgCBROcqOqYr4uS4iCeytTxLxmDkHG/g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cAb0Gw1rbEm2vy6R+OXcDxHJqLX/4dmDQcOkQOkVwveQJWdcaZ0N+F15BE8YTm4YT
+	 Glf9iGP+lxwwQvq2jxCl/Xx+TtkSIDjhxy3CWeps7DVPvQnVIkrw1dIX0PZp2jdx9g
+	 RV4fjje8yt90XBnu1P22JXo9aeoHjNVm3vQEcRyCCrsqXztIEXx5icf/ale1T762W9
+	 +xDyp/LZ8MZvXK4IxwhmPwNTpdX8IAeLDRAVm8OMhLHBV382GYG6E9I4QOx1gQPqMd
+	 v/S3bGMoYpHgkjPJH6gb6IjI4bzYgbRaCjS1BqiwFat+FHnNVGtxua0wZzNV7WzK7M
+	 R2RC6kyZdJcvg==
+Date: Thu, 1 Oct 2026 18:27:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 14/15] tools: Synchronise the kernel esr.h
+Message-ID: <680fe21e-beca-4056-84e3-f501fdfed902@sirena.org.uk>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+ <20260930-arm64-gcs-v21-14-3556644cd927@kernel.org>
+ <ar6NXWzQ1rMb1aId@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DprvDADVm2j3tP+g"
+Content-Disposition: inline
+In-Reply-To: <ar6NXWzQ1rMb1aId@gremlin>
+X-Cookie: Do not stamp.
 
-strcpy() has been deprecated because it is generally unsafe and can lead
-to buffer overflows. It is actively being removed from the kernel.
 
-In action_op() and preop_op() (and related functions), strings are copied
-into fixed-size buffers. Replace the strcpy() calls with strscpy() using
-the sizeof() the destination buffers to guarantee NUL-termination and
-prevent any potential bounds issues, ensuring compliance with safe string
-APIs.
+--DprvDADVm2j3tP+g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Link: https://github.com/KSPP/linux/issues/88
-Signed-off-by: Ashutosh Yadav <yadavxashutosh@gmail.com>
----
- drivers/char/ipmi/ipmi_watchdog.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+On Thu, Oct 01, 2026 at 05:47:42PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Sep 30, 2026 at 10:48:24PM +0100, Mark Brown wrote:
+> > To pick up definitions for GCS.
+> >
+> > Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+> > Signed-off-by: Mark Brown <broonie@kernel.org>
+>=20
+> This seems to be out of date, with your series applied to next:
 
-diff --git a/drivers/char/ipmi/ipmi_watchdog.c b/drivers/char/ipmi/ipmi_watchdog.c
-index a013ddbf1466..79d4958df6ef 100644
---- a/drivers/char/ipmi/ipmi_watchdog.c
-+++ b/drivers/char/ipmi/ipmi_watchdog.c
-@@ -1166,13 +1166,13 @@ static int action_op(const char *inval, char *outval)
- 	int rv;
- 
- 	if (outval)
--		strcpy(outval, action);
-+		strscpy(outval, action, sizeof(action));
- 
- 	if (!inval)
- 		return 0;
- 	rv = action_op_set_val(inval);
- 	if (!rv)
--		strcpy(action, inval);
-+		strscpy(action, inval, sizeof(action));
- 	return rv;
- }
- 
-@@ -1198,13 +1198,13 @@ static int preaction_op(const char *inval, char *outval)
- 	int rv;
- 
- 	if (outval)
--		strcpy(outval, preaction);
-+		strscpy(outval, preaction, sizeof(preaction));
- 
- 	if (!inval)
- 		return 0;
- 	rv = preaction_op_set_val(inval);
- 	if (!rv)
--		strcpy(preaction, inval);
-+		strscpy(preaction, inval, sizeof(preaction));
- 	return 0;
- }
- 
-@@ -1226,14 +1226,14 @@ static int preop_op(const char *inval, char *outval)
- 	int rv;
- 
- 	if (outval)
--		strcpy(outval, preop);
-+		strscpy(outval, preop, sizeof(preop));
- 
- 	if (!inval)
- 		return 0;
- 
- 	rv = preop_op_set_val(inval);
- 	if (!rv)
--		strcpy(preop, inval);
-+		strscpy(preop, inval, sizeof(preop));
- 	return 0;
- }
- 
--- 
-2.43.0
+Yeah, though some of those are changes that are in -next only so
+possibly slightly premature.  I'll resync with mainline, really this
+shouldn't be a manual sync :/
 
+--DprvDADVm2j3tP+g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq+mBsACgkQJNaLcl1U
+h9AFugf+Psag1H7XxGuG3D4J0/kGv/EHHZDmwkNPNqHh4/wspf175JUlhs6i7NeS
+Y38pNSWL3cKJn0FLw7hI+vi4i92gbgTQSVVa3kaJlydpTYpyotb22WgoU73NchNL
+yTTVA7wbyAC1doxMCSTTuYweTipV+TMrZMlDJ+D7S+0vCYG23NrQgPo6rbB+LCDw
+Fqq9aZEcGFOEDcIR+FNSw+jDD2lGg3xv+fngs/LBmUmIXPFA7wdZPXSyNie2S7QB
+6eTPT6HOtTcY6lxfDAsuqvuW+f/O9v3pC5ITzRFuEqKEODOBbtBADTITjuF6osqd
+pfVyCXWgX4SyvytiMyoI1EYtFdIT6w==
+=lSPU
+-----END PGP SIGNATURE-----
+
+--DprvDADVm2j3tP+g--
