@@ -1,83 +1,80 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FBD4D0CF7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487BF4CCDC1
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847656; cv=none; b=UHJ9m+UxGMNVaT2jMwXBbHCsXJ9GLN1ZUplpU4caTGOTbLng8rLk+6vfKj394643urYGBzpEIbxN7JDc3j7TtaH2oF6V0yDUyBqBsSgtM9hS0mDtNIZJGHZdo9Yj3X60d/CuzvZ8pJkA+sehQUe7QPodIa/hc3h1bbaaVT4ddBo=
+	t=1790847657; cv=none; b=OLEsPkyO2Bni+Psh0H1z5z72K45G807skQBya6K7u0ZO8xUv2IYjx8YMgah1MWGu3nL5CksIIlsf/UpFKL3Gt4EFfxGtrWjlFJliQnlPd8QAxeTEyyFmczRT2lMa+9yGs2gB/+od+R/FxbdmODQuQ5K0lXTfZwBqfEo43RnC6as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847656; c=relaxed/simple;
-	bh=tVLavnniL4ftxwqmT4gLyOj7j/kLe0zIc/Q7qsoTNtc=;
+	s=arc-20240116; t=1790847657; c=relaxed/simple;
+	bh=TRz2DwylTI9EkOx4yFanIR6wvF1GNRS/VXxzoubwEO0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aln/tC09Vq9rAV3nGVHmF8g86BOWA+X/lQY2Btqq+conYucvNfUP0ULEdd8L9tuNAgl/+PB1YZFiet7hSe6OB7exU76jhmHUqKLH9tfseyfIsr6GUJpmj1uJ5kV/uoDmwekxd4kFuxZ8EIemdsUA2wXIVZS0AtT3NtPng2027cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f8gtoq1F; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=hxc4n/vnnY2cwA6neB/twRZS1GPmlPZW9IqA7rJ5agQGyEAPZ4r3Hg8ARyOyqni+ZT+1PZhnlz8VeLm249PIiffTiphIsXcws78k7InRwidVwqdtgNpgBcF5EUGgV+lZ8mINxI50s2bxhlyRfGq5Z5047E/hB5s0ZZNb0f/slrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4caqy03; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f8gtoq1F"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so33933815e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:40:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4caqy03"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so46374045e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:40:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790847650; x=1791452450; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790847652; x=1791452452; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fskw90E+QGlw02aD4pq00FSiBnVtB9B+RDo+X91DPIo=;
-        b=f8gtoq1FXYrtWjL7X7vm3M5uqqiP+fhReWSaBTuVfCrJ+vX9tVzvpyb0ybBGlRh5Ym
-         NVNRW0MAVnfLyuID6fOUJ2JqRKlRhhl//zB6M0ws9WTnOViKFtCPNtxtOfqSkBrv+hPN
-         JRBNc3dO5vD6VjO5aeNAjZa8Qjl81n+wUwuYrxY+RRNw9Uoh50khx/8VD8jWF8vtE6BS
-         XfN2DDZ1bYVSvbkA/mBjC2rk+4DK+G92pOlBcLONk/W4/joIlzyxhjDyefAO9ch9dta0
-         YA4HXanJiV5xc0sXvirsotuFY7Gv+BKPMuth/1V96C7zfY4bdpF6XtIvgx7iBesi1pAS
-         2s0g==
+        bh=5pDb1ODAn/l81iwN3Qc6cy4OcyCcwlhUk7coh/2BDko=;
+        b=I4caqy03+e+ZgEFZfl9XS5MvXiqTTbdhxgrrnfz3mbgNY+50GuJmEeK22wboP9/z7W
+         hDGCaO2kZT92PloOnq6dYf2c05wVRRuA9yL950bwfP9paLbLY743MDHzCGzqxuABBCpu
+         KxtC94hiw+svqJ3epNvKhm2/vwzpgeS6Ux8u3CkszOJKGreqnMwcaH6EYqU14Q9A9fjC
+         upmsWwCG9LCX48s0MMnW6CLo1+lSwRFqG25WJTChS+53D94ZviyqRZf0mves8OPXpuU+
+         Uj+c2xdold8ilXFmy9BeHJgZ6prIbcNvVBEJKgPfXJH7+rQTOpkzGIVxags1uxV/hrQr
+         xsrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790847650; x=1791452450;
+        d=1e100.net; s=20260707; t=1790847652; x=1791452452;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fskw90E+QGlw02aD4pq00FSiBnVtB9B+RDo+X91DPIo=;
-        b=fkWf8c+IsOr0yxysaXJ47WDqR28P9lT6msd3xJbnfwdMGuyD0QOhsTf31PZ0FvQHY9
-         0F3cwiEMXlCtWJKUGT4c9Yk2tqDdD1v2eHwG3P5BcjxXh+MKV9z5ION3SimxDDVEt2Qt
-         ZK35NzoAUiqPOKFv6IUSFDVTGeuF/IqCMgDjjqYN1NHloQ66XD0sULXH+YIA9rFGTLW6
-         50Fqwc15Kyb8Y/TvCl3pAuGvskoFgNJ/c8Dhp+WKzcWtNJSwNoa8I9mqTLTm2RgfyRqV
-         5CgupMN665tgkdB7MqWozm3xj/Q3z7wTvAne+/hZdXIv55PemDnetEJa+tYEDYEdPcDJ
-         2pjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+5c9CmiYW8Uyru89rkOr7UEK3boogJV6FrgAzEtKW7H4eqjiMu2xNIbqop0zFn/q83AH3jnHWK6j7sTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSAWdg+SOJlZM+jpgdv5gVUQHXkbqu0wZqoB0B23wRCnhIyDbo
-	pcpXF/tHZljCPRgV36xH7cA2kwLPQUSJZ3oKRKQ3SBnp8KylC1pm3t6z
-X-Gm-Gg: AYBFou2FRxJkzKrL1qLIWlmsW2HZSCehb7sj6Rq3aVfBt8eZFYFEbaO54DbUO1gGSSE
-	tmybULcyQmei7RnjfIQaWvP48ojcZUt/83Ef7qQrpQQ/ggYka/LsvCHZGmndKYBhXukIoM8xgul
-	DIiOjIUQ2gk9DZ+hfpoU5J6tdbUa/I9bhaNQDyN/80crWP9eedR12jllXjs3ugZLzZDwe5ZZWCF
-	ZNMVRMxilEqus5va5fKGaZTm/p6bG59I+0sN5pfTlkfGuEpJxeM8bgIf/zdPRe5bVlAuOFcfEFC
-	pX1MLRV4zBpu/mF0uqXAVzPLPaWRI0IG7j93tz4yv6g0ZXmDmWaNpadE4nOonXL9YQgiY2Jwkuo
-	Vbnc/8ugXk0MgxqSJo/wjXFUlq00E7UTQBy+CAdTskzkl+u06+bm8YRMnMDDuBAmhjsqVyjPfgF
-	7DibhQOl46UWReJ8yNncU7PCTvEC+tSJP7WLHC9mLWWxL6wBYS2wBrnWl5aRe7nlzVozc6ysczK
-	sHYT619d2AggBQ=
-X-Received: by 2002:a05:600c:8b88:b0:4a0:62d:4424 with SMTP id 5b1f17b1804b1-4a01addebd5mr62080285e9.8.1790847649889;
-        Thu, 01 Oct 2026 02:40:49 -0700 (PDT)
+        bh=5pDb1ODAn/l81iwN3Qc6cy4OcyCcwlhUk7coh/2BDko=;
+        b=fRYEDJUrqDXyFK7G1meCZzfr2DX7PgvX6yRQGvbcddElGx5TKI8mWa2yINljrnpQgA
+         bF6ZQaoPi4+3+KgdJTB/TOohjhJzwQUYrwfSHw1jPUTWEffjg+ocNrAKJ5pUvrRsWgCv
+         yu3aYPRAywjiguZwJq27FX1JoaaJm4QcqaPGfqy2nFt7aGv5wqCjNVkF85apyfLPNpgX
+         MzA/f4BRg70mxYgyOEbX8/DK5cijWdAMUHbIr8Cqbtw3hcvbpTmt2RNkWS96tAeMLny3
+         7jWJMiBwsqF5e80ZHyf9t+fTNv+HQazjV9HgIlJDzdfANSq+jahB2Irb5dsyog3iZDxO
+         AWAQ==
+X-Forwarded-Encrypted: i=1; AKwUvByPjoD4RHlfDgwXjV1LFDuO+vcwdEwxmXcIdS+4Glg4hX50GNX8wR2Me3KyuAJKEAxQzXZKyqipgzE6x38=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7gMAtMHJ9EOoPOXj/P+TNU9gawQ2lRB5TLNxAnj9j2Do/uFqO
+	5DgKmO1Ki253ILYtWxeTwA5Y4e9aA66pRmldfKnL0UwS3UeqjZDRy+XD
+X-Gm-Gg: AYBFou0kNuUkmgJi3I1bXZwR6vqslIKwxjhXdHD2P7GM6yOcutEbpqTqT8cxEHOhS/y
+	MwgZZD/oyuy3cxHuo15yfB8Ae4UmxpWarO6SjvOyMtLESAfEtHJ/1p6P4LINBQrEi42EbQbvbQ4
+	7Adj2Cca61xa7oHi9nreX6CMmJlMKXS+ZXBQKrazbz8c7pj7JaYOgUfbzpq27azsE+naK2vx4LQ
+	xjL7TuQQzDUM2jUmlW8JNzXucOkvG80wda0jRsPjm5kYJ7gnOtgqqwdFDJ4WpyeOZxPx+35lrZv
+	ihwlAIFzJ8BFEZvhkZ+sKE4EST3xKhFMnany4FCnIPwfcax+5wcCn7RdEDPceEbhRZjw9tIaDKl
+	lvstCQqY11KgY7cipS+EMCsLdO7SGeLmi+ogznF4RJAsN/YwadiMO4Pw5lBqDRTPk0umW9AoHbT
+	QtSgjHqsfHvT7wj782RkpdIyqkwgeBW3O+97Dqmhn5QkouaRZTEiybOOtT8P604FFCw3gt/5JqC
+	krD
+X-Received: by 2002:a05:600d:82d1:b0:49f:dcc8:c735 with SMTP id 5b1f17b1804b1-4a01b004e50mr77364385e9.18.1790847651525;
+        Thu, 01 Oct 2026 02:40:51 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a702:d301:5563:a938:8fc:9dc5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0226201aasm38937725e9.6.2026.10.01.02.40.49
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0226201aasm38937725e9.6.2026.10.01.02.40.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:40:49 -0700 (PDT)
+        Thu, 01 Oct 2026 02:40:51 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH v5 6/9] drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
-Date: Thu,  1 Oct 2026 10:40:21 +0100
-Message-ID: <20261001094041.135697-7-biju.das.jz@bp.renesas.com>
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v5 8/9] arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
+Date: Thu,  1 Oct 2026 10:40:23 +0100
+Message-ID: <20261001094041.135697-9-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
 References: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
@@ -91,151 +88,192 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add Display Unit support for the Renesas RZ/G3L SoC (R9A08G046). It is
-similar to the one found on RZ/G2L, but has LVDS support.
+Add a Device Tree overlay (r9a08g046l48-smarc-dsi-adv7535.dtso) for the
+RZ/G3L (R9A08G046) SMARC EVK board to support DSI-to-HDMI output via the
+Analog Devices ADV7535 HDMI transmitter.
 
-Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+The overlay enables the DSI controller with a 4-lane data path, the
+display unit (DU/LCDC), HDMI audio and configures the ADV7535 on I2C2.
+
+Update the Makefile to build the overlay as both a standalone .dtbo and
+a composite .dtb (base DTB + overlay).
+
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v4->v5:
- * Restored mode_clock_min to 5440 kHz.
+ * No change.
 v3->v4:
- * Updated mode_clock_min from 5440->5400 kHz.
- * Collected tag.
+ * Updated commit description.
+ * Updated license header.
+ * Added HDMI audio support.
 v2->v3:
- * Set duty cycle handling in DU encoder
- * Added min/max frequencies for DPI.
+ * No change.
 v1->v2:
- * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS.
- * Dropped the variable rcdu from struct rzg2l_du_encoder.
- * Dropped the variable lvds from struct rzg2l_du_device.
+ * No change.
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 24 ++++++++++++++++++-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |  3 ++-
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  | 24 +++++++++++++++++++
- 3 files changed, 49 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/renesas/Makefile          |   3 +
+ .../r9a08g046l48-smarc-dsi-adv7535.dtso       | 138 ++++++++++++++++++
+ 2 files changed, 141 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-index 3d13f61d3c97..6c2dc86abc7d 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-@@ -55,6 +55,26 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info = {
- 	.mode_clock_max = 83500,
- };
+diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
+index c6f3718cd19f..b9dad3f44ac0 100644
+--- a/arch/arm64/boot/dts/renesas/Makefile
++++ b/arch/arm64/boot/dts/renesas/Makefile
+@@ -264,6 +264,9 @@ r9a08g045s33-smarc-pmod1-type-3a-dtbs := r9a08g045s33-smarc.dtb r9a08g045s33-sma
+ dtb-$(CONFIG_ARCH_R9A08G045) += r9a08g045s33-smarc-pmod1-type-3a.dtb
  
-+static const struct rzg2l_du_device_info rzg2l_du_r9a08g046_info = {
-+	.channels_mask = BIT(0),
-+	.routes = {
-+		[RZG2L_DU_OUTPUT_DSI0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 0,
-+		},
-+		[RZG2L_DU_OUTPUT_DPAD0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 1,
-+		},
-+		[RZG2L_DU_OUTPUT_LVDS0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 2,
-+		},
-+	},
-+	.mode_clock_min = 5440,
-+	.mode_clock_max = 87000,
+ dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc.dtb
++dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtbo
++r9a08g046l48-smarc-dsi-adv7535-dtbs := r9a08g046l48-smarc.dtb r9a08g046l48-smarc-dsi-adv7535.dtbo
++dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtb
+ 
+ dtb-$(CONFIG_ARCH_R9A09G011) += r9a09g011-v2mevk2.dtb
+ 
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
+new file mode 100644
+index 000000000000..1e1ebafe2439
+--- /dev/null
++++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
+@@ -0,0 +1,138 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++/*
++ * Device Tree overlay for the RZ/G3L SMARC EVK with ADV7535
++ * connected to DSI and LCDC enabled.
++ *
++ * Copyright (C) 2026 Renesas Electronics Corp.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/clock/renesas,r9a08g046-cpg.h>
++#include <dt-bindings/pinctrl/renesas,r9a08g046-pinctrl.h>
++
++&{/} {
++	osc1: cec-clock {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <12000000>;
++	};
++
++	dsi-to-hdmi-out {
++		compatible = "hdmi-connector";
++		type = "d";
++
++		port {
++			dsi_to_hdmi_con_out: endpoint {
++				remote-endpoint = <&adv7535_out>;
++			};
++		};
++	};
++
++	sound-card {
++		compatible = "audio-graph-card";
++		label = "HDMI-Audio";
++		dais = <&i2s2_port>;
++	};
 +};
 +
- static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
- 	.channels_mask = BIT(0),
- 	.routes = {
-@@ -81,6 +101,7 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
- static const struct of_device_id rzg2l_du_of_table[] = {
- 	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
- 	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
-+	{ .compatible = "renesas,r9a08g046-du", .data = &rzg2l_du_r9a08g046_info },
- 	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
- 	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
- 	{ /* sentinel */ }
-@@ -92,7 +113,8 @@ const char *rzg2l_du_output_name(enum rzg2l_du_output output)
- {
- 	static const char * const names[] = {
- 		[RZG2L_DU_OUTPUT_DSI0] = "DSI0",
--		[RZG2L_DU_OUTPUT_DPAD0] = "DPAD0"
-+		[RZG2L_DU_OUTPUT_DPAD0] = "DPAD0",
-+		[RZG2L_DU_OUTPUT_LVDS0] = "LVDS0"
- 	};
- 
- 	if (output >= ARRAY_SIZE(names))
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-index baf076d69cda..e9626ef37cde 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-@@ -25,6 +25,7 @@ struct drm_property;
- enum rzg2l_du_output {
- 	RZG2L_DU_OUTPUT_DSI0,
- 	RZG2L_DU_OUTPUT_DPAD0,
-+	RZG2L_DU_OUTPUT_LVDS0,
- 	RZG2L_DU_OUTPUT_MAX,
- };
- 
-@@ -33,7 +34,7 @@ enum rzg2l_du_output {
-  * @possible_outputs: bitmask of possible outputs
-  * @port: device tree port number corresponding to this output route
-  *
-- * The DU has 2 possible outputs (DPAD0, DSI0). Output routing data
-+ * The DU has 3 possible outputs (DPAD0, DSI0, LVDS0). Output routing data
-  * specify the valid SoC outputs, which CRTC can drive the output, and the type
-  * of in-SoC encoder for the output.
-  */
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-index 3d0999e4fcfd..a1b48973aa8e 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-@@ -7,6 +7,7 @@
-  * Based on rcar_du_encoder.c
-  */
- 
-+#include <linux/clk.h>
- #include <linux/export.h>
- #include <linux/of.h>
- 
-@@ -15,6 +16,7 @@
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_panel.h>
- 
-+#include "rzg2l_du_crtc.h"
- #include "rzg2l_du_drv.h"
- #include "rzg2l_du_encoder.h"
- 
-@@ -64,8 +66,30 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encoder,
- 	return MODE_OK;
- }
- 
-+static void rzg2l_du_encoder_atomic_mode_set(struct drm_encoder *encoder,
-+					     struct drm_crtc_state *crtc_state,
-+					     struct drm_connector_state *conn_state)
-+{
-+	struct rzg2l_du_encoder *renc = to_rzg2l_encoder(encoder);
-+	struct rzg2l_du_crtc *rcrtc = to_rzg2l_crtc(crtc_state->crtc);
-+	struct clk *clk_parent;
++&dsi {
++	status = "okay";
 +
-+	clk_parent = clk_get_parent(rcrtc->rzg2l_clocks.dclk);
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
 +
-+	/*
-+	 * Request appropriate duty cycle
-+	 * - LVDS path has DUTY H/L=4/3, 4/7 duty cycle.
-+	 * - DSI/RGB path has symmetric 50% duty cycle.
-+	 */
-+	if (renc->output == RZG2L_DU_OUTPUT_LVDS0)
-+		clk_set_duty_cycle(clk_parent, 4, 7);
-+	else
-+		clk_set_duty_cycle(clk_parent, 1, 2);
-+}
++		port@1 {
++			reg = <1>;
++			dsi_out: endpoint {
++				data-lanes = <1 2 3 4>;
++				remote-endpoint = <&adv7535_in>;
++			};
++		};
++	};
++};
 +
- static const struct drm_encoder_helper_funcs rzg2l_du_encoder_helper_funcs = {
- 	.mode_valid = rzg2l_du_encoder_mode_valid,
-+	.atomic_mode_set = rzg2l_du_encoder_atomic_mode_set,
- };
- 
- int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
++&du {
++	status = "okay";
++};
++
++&i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	adv7535: hdmi@3d {
++		compatible = "adi,adv7535";
++		reg = <0x3d>;
++
++		interrupts-extended = <&pinctrl RZG3L_GPIO(K, 3) IRQ_TYPE_EDGE_FALLING>;
++		clocks = <&osc1>;
++		clock-names = "cec";
++		avdd-supply = <&reg_1p8v>;
++		dvdd-supply = <&reg_1p8v>;
++		pvdd-supply = <&reg_1p8v>;
++		a2vdd-supply = <&reg_1p8v>;
++		v3p3-supply = <&reg_3p3v>;
++		v1p2-supply = <&reg_1p8v>;
++
++		adi,dsi-lanes = <4>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				adv7535_in: endpoint {
++					remote-endpoint = <&dsi_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++				adv7535_out: endpoint {
++					remote-endpoint = <&dsi_to_hdmi_con_out>;
++				};
++			};
++
++			port@2 {
++				reg = <2>;
++				codec_endpoint: endpoint {
++					remote-endpoint = <&i2s2_cpu_endpoint>;
++				};
++			};
++		};
++	};
++};
++
++&pinctrl {
++	ssi2_pins: ssi2 {
++		pinmux = <RZG3L_PORT_PINMUX(7, 0, 9)>, /* SSIF2_RXD */
++			 <RZG3L_PORT_PINMUX(7, 1, 9)>, /* SSIF2_BCK */
++			 <RZG3L_PORT_PINMUX(7, 2, 9)>, /* SSIF2_RCK */
++			 <RZG3L_PORT_PINMUX(7, 3, 9)>; /* SSIF2_TXD */
++	};
++};
++
++&ssi2 {
++	clocks = <&cpg CPG_MOD R9A08G046_SSI2_PCLK2>,
++		 <&cpg CPG_MOD R9A08G046_SSI2_PCLK_SFR>,
++		 <&versa3 2>, <&versa3 3>;
++	pinctrl-0 = <&ssi2_pins>;
++	pinctrl-names = "default";
++
++	status = "okay";
++
++	i2s2_port: port {
++		i2s2_cpu_endpoint: endpoint {
++			remote-endpoint = <&codec_endpoint>;
++			dai-format = "i2s";
++
++			bitclock-master = <&i2s2_cpu_endpoint>;
++			frame-master = <&i2s2_cpu_endpoint>;
++		};
++	};
++};
 -- 
 2.43.0
 
