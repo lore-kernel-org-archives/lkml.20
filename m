@@ -1,173 +1,202 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF543395D99;
-	Thu,  1 Oct 2026 14:33:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD4B3955E8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:34:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865229; cv=none; b=LQMglWo/Bvwi8w8QeG7O1cAV0kEAdfB0U9oiSm7AO+NTQvx9gIxqQR3o/0w5KLjRfgJ31yDU2mwEuPLRo/BaPvxSfChUPlcXk61HedtT9cUbspvaeLmZVWRiW69APQM1FfmP2CIO50G3KTI1xF72KsxEfcuTbCL8GmUWcTn9iVU=
+	t=1790865283; cv=none; b=aqvcl5ajKpnBtQd3Nod8g6e2b1LXK1WXHQW0BlAxAx9oDmKl3bqUuORnS2ULdmO8/j45DmxyPG6Xg1tTPgZ2QOhwx/AZ8fKEV7IDMsFMtdoivFCQhtArZivQhFFwsZk5TKiKgKk+xNgINUUqSpHTVBCOGv/POZpZTkYh3CLUdUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865229; c=relaxed/simple;
-	bh=WddxleOzRrtHtUxEsaO59tONVuiOsP/Fs87jT7uu3rI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=UUlaeJzOcdCG6HiMkKqGaf6Ukk4fshYwMAtJWMagCW2M2g808kq+K+mIc+O8iiycgDN23W9DfDWrtvHjgHGIykrsPs5+9jcl/oTKeF+etM+yZOdy72SCciNuR43/e+DHcFmQYoFLdCOGme0DuwyflbFHZfhT/59EiX7NnCGllxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLDPOn1u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790865283; c=relaxed/simple;
+	bh=EqMbMECS/t3vccpilsRChSaq7nHSoFEt06+pq6s7Wug=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XfKobiEMXl3caev8B4e61LLSUUOCbhaP1MSOoOt21dOTExmgEKuO9qA74G9cpGLKMvqmHsJbazhy6tMxij1lU/Nk7Oezv5Z0EgMjrOtZbZOgC88JoKRjP/0jj8mQVQYF9Ob924jcGqgp89c421NBd2XxZTzVOQZbsVaklHB+zNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aNj6BWYR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLDPOn1u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853A91F000FF;
-	Thu,  1 Oct 2026 14:33:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aNj6BWYR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADED41F00898
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:34:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790865223;
-	bh=r1olU9nsDlbRnbfF0Z2aZofH79Z6O5j05m7u9kjnR/4=;
-	h=Date:From:To:Cc:Subject;
-	b=oLDPOn1uDk2Kz/Fwlyngl/V0q6cXn9McaakqT1o6Z20e9sll3cejQRpfUXhEpr3sG
-	 +ZSZsQxOcSXYBlVIsOVqEYkXK6bVBpbLfpueUCZSIChTd05dtXIu6UZbNPzJKzD/gf
-	 w3GUw7jFry3mD6UIIROTbDpikYFdmKBYmz2clIJHHeliJEjtODvcMfrqtVgo9QLuWs
-	 ySo8W1GIvYbZFgKOocq9tpc41sYM5Wr6Qtp2yINzWZuAgyeFllJ3TALsrsFpRuqt8F
-	 87ewD5EzRJ15TeUFFl4ZWhbJJzc5t+LaWL1qtpHlNj41f7/WtBaRp+iH+FcD6G8JvV
-	 GIPFlhR8fD4vA==
-Date: Thu, 1 Oct 2026 15:33:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Steffen Eiden <seiden@linux.ibm.com>, Will Deacon <will@kernel.org>
-Subject: linux-next: manual merge of the kvm-arm tree with the arm64 tree
-Message-ID: <ar5vQt0-amiSYUdQ@sirena.org.uk>
+	s=k20260515; t=1790865278;
+	bh=fPM/4SeHch6pzXrCpR9Y27L1SZ7b9gGTaXj74w9Jua8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aNj6BWYR3olZkAJJnj8BRriVmf9zOM1axIBqSY61jnXKoGzR3LcfendxV7QQ6SuOx
+	 w86a68MYHh8ZA1skTW9K+qe1wzrftdm7QQaMrl4p2nRMf0b87ON61KMIikwfjgMxZT
+	 yBmTEcClpC3W5ekda335eE3f/0wPUStID6ciGg03qYyhs6Lc16QsB//cLYxak4DjR6
+	 hhb+55hMOJFR/1JRMaT46sUpOh4ygENcsopUXWJhbs2DmFpEyA5WSzGVWDM0ThrdcF
+	 LWnsmxdXceoKD9mauwPVeAEPYsF6pK/VCY9N2s5KlCiuwb0qHhIWsDAKNY4tD2INb5
+	 4QHN/HLpgEP3A==
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93ca50c8ba6so249288085a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 07:34:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxE52OldfgoRbOiUNaoz90Ykub2PRaRjiXOY5slwQ1HDRBiYgGoYubOQlOI1ACDENZ0KBbjTmEuweFS3YU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKX/z8sJoyRbSG3hiIl1ce4rdNvRh9v8fV5EqYBlQrAFj4mWXl
+	0QtGo2bUFTtw8Ku9HDGTYMvA0N3Nx24YjemlNCQROP4/uc4vLy9jsN1LK2Ep+TB4f/JIvfOc7AI
+	tY9nnURZTHHWbCRlXwY10n6Q3kZ2Vqg4=
+X-Received: by 2002:a05:620a:2550:b0:93c:3d7e:6e90 with SMTP id
+ af79cd13be357-93ca96e9ddemr860429585a.32.1790865278068; Thu, 01 Oct 2026
+ 07:34:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DEyKikEuJ6F04K97"
-Content-Disposition: inline
-
-
---DEyKikEuJ6F04K97
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260730030031.28678-1-ali@iusegentoo.com>
+In-Reply-To: <20260730030031.28678-1-ali@iusegentoo.com>
+From: Len Brown <lenb@kernel.org>
+Date: Thu, 1 Oct 2026 10:34:25 -0400
+X-Gmail-Original-Message-ID: <CAJvTdKn_OrEQNBH=uW6exhW8Y3GoqGGujBNxU36GTqwQy92myg@mail.gmail.com>
+X-Gm-Features: AclHuK_OaFtvuk_AMu9BzLHuUYBE8rlL8qthlcNrdVlLY-j_DpowU_julj-x06Y
+Message-ID: <CAJvTdKn_OrEQNBH=uW6exhW8Y3GoqGGujBNxU36GTqwQy92myg@mail.gmail.com>
+Subject: Re: [PATCH] tools/power turbostat: Read complete CPU lists
+To: Ali Ahmet Memis <ali@iusegentoo.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Applied -- thanks!
 
-Today's linux-next merge of the kvm-arm tree got conflicts in:
+-Len Brown
+Intel Open Source Technology Center
 
-  arch/arm64/include/asm/sysreg.h
-  arch/arm64/include/asm/ptrace.h
+On Wed, Jul 29, 2026 at 11:00=E2=80=AFPM Ali Ahmet Memis <ali@iusegentoo.co=
+m> wrote:
+>
+> CPU_SUBSET_MAXCPUS accepts CPU IDs through 8191, but the sysfs and
+> cgroup CPU-list readers stop at 1024 bytes. A fragmented cpuset or
+> hybrid PMU CPU list can exceed that size and be truncated.
+> initialize_cpu_set_from_sysfs() can also pass a full, non-NUL-terminated
+> buffer to parse_cpu_str(), causing an out-of-bounds read.
+>
+> Additionally, initialize_cpu_set_from_sysfs() returns with the file
+> still open on success. It is now called once per CPU for
+> thread_siblings_list, so large systems can leak thousands of descriptors
+> during topology discovery.
+>
+> Use getline() so both readers receive a complete, NUL-terminated line.
+> Close and free the sysfs CPU-list resources on every path, and report
+> malformed input from the correct buffer.
+>
+> Fixes: eb187540d13a ("tools/power turbostat: Increase CPU_SUBSET_MAXCPUS =
+to 8192")
+> Fixes: 58839fdbd441 ("tools/power turbostat: Process HT siblings in CPU o=
+rder")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+> ---
+>  tools/power/x86/turbostat/turbostat.c | 44 +++++++++++++++------------
+>  1 file changed, 25 insertions(+), 19 deletions(-)
+>
+> diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turb=
+ostat/turbostat.c
+> index 920694c3c..cec3f2fbb 100644
+> --- a/tools/power/x86/turbostat/turbostat.c
+> +++ b/tools/power/x86/turbostat/turbostat.c
+> @@ -6311,33 +6311,35 @@ int for_all_proc_cpus(int (func) (int))
+>
+>  #define PATH_EFFECTIVE_CPUS    "/sys/fs/cgroup/cpuset.cpus.effective"
+>
+> -static char cpu_effective_str[1024];
+> +static char *cpu_effective_str;
+>
+>  static int update_effective_str(bool startup)
+>  {
+>         FILE *fp;
+> -       char *pos;
+> -       char buf[1024];
+> +       char *buf =3D NULL;
+> +       size_t size =3D 0;
+>         int ret;
+>
+> -       if (cpu_effective_str[0] =3D=3D '\0' && !startup)
+> +       if (!cpu_effective_str && !startup)
+>                 return 0;
+>
+>         fp =3D fopen(PATH_EFFECTIVE_CPUS, "r");
+>         if (!fp)
+>                 return 0;
+>
+> -       pos =3D fgets(buf, 1024, fp);
+> -       if (!pos)
+> +       if (getline(&buf, &size, fp) < 0)
+>                 err(1, "%s: file read failed", PATH_EFFECTIVE_CPUS);
+>
+>         fclose(fp);
+>
+> -       ret =3D strncmp(cpu_effective_str, buf, 1024);
+> -       if (!ret)
+> +       ret =3D cpu_effective_str ? strcmp(cpu_effective_str, buf) : 1;
+> +       if (!ret) {
+> +               free(buf);
+>                 return 0;
+> +       }
+>
+> -       strncpy(cpu_effective_str, buf, 1024);
+> +       free(cpu_effective_str);
+> +       cpu_effective_str =3D buf;
+>         return 1;
+>  }
+>
+> @@ -8529,13 +8531,16 @@ int add_rapl_perf_counter(int cpu, struct rapl_co=
+unter_info_t *rci, const struct
+>         return ret;
+>  }
+>
+> -char cpuset_buf[1024];
+> -int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, char *sysfs_path, =
+char *sysfs_file)
+> +int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, const char *sysfs_=
+path,
+> +                                 const char *sysfs_file)
+>  {
+>         FILE *fp;
+> +       char *cpuset_buf =3D NULL;
+> +       size_t size =3D 0;
+>         char path[128];
+> +       int ret =3D -1;
+>
+> -       if (snprintf(path, 128, "%s/%s", sysfs_path, sysfs_file) > 128)
+> +       if (snprintf(path, sizeof(path), "%s/%s", sysfs_path, sysfs_file)=
+ >=3D (int)sizeof(path))
+>                 err(-1, "%s %s", sysfs_path, sysfs_file);
+>
+>         fp =3D fopen(path, "r");
+> @@ -8543,19 +8548,20 @@ int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_=
+set, char *sysfs_path, char *sy
+>                 warn("open %s", path);
+>                 return -1;
+>         }
+> -       if (fread(cpuset_buf, sizeof(char), 1024, fp) =3D=3D 0) {
+> +       if (getline(&cpuset_buf, &size, fp) < 0) {
+>                 warn("read %s", sysfs_path);
+> -               goto err;
+> +               goto out;
+>         }
+>         if (parse_cpu_str(cpuset_buf, cpu_set, cpu_possible_setsize)) {
+> -               warnx("%s: cpu str malformat %s\n", sysfs_path, cpu_effec=
+tive_str);
+> -               goto err;
+> +               warnx("%s: cpu str malformat %s\n", sysfs_path, cpuset_bu=
+f);
+> +               goto out;
+>         }
+> -       return 0;
+> +       ret =3D 0;
+>
+> -err:
+> +out:
+>         fclose(fp);
+> -       return -1;
+> +       free(cpuset_buf);
+> +       return ret;
+>  }
+>
+>  void print_cpu_set(char *s, cpu_set_t *set)
+> --
+> 2.54.0
+>
 
-between commit:
 
-  eab76a8e18803 ("arm64: Remove all usage of CONFIG_CPU_BIG_ENDIAN")
-
-=66rom the arm64 tree and commit:
-
-  c7e18ba462536 ("arm64: Share arm64 headers with s390")
-
-=66rom the kvm-arm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc arch/arm64/include/asm/ptrace.h
-index bd291bd6cfac7,4d88ed5cc4259..0000000000000
---- a/arch/arm64/include/asm/ptrace.h
-+++ b/arch/arm64/include/asm/ptrace.h
-@@@ -66,6 -68,14 +68,8 @@@
-  #define PSR_AA32_IT_MASK	0x0600fc00	/* If-Then execution state mask */
-  #define PSR_AA32_GE_MASK	0x000f0000
- =20
-+ #endif /* ARM64_S390_COMMON =3D=3D 1 */
-+=20
- -#ifdef CONFIG_CPU_BIG_ENDIAN
- -#define PSR_AA32_ENDSTATE	PSR_AA32_E_BIT
- -#else
- -#define PSR_AA32_ENDSTATE	0
- -#endif
- -
-  /* AArch32 CPSR bits, as seen in AArch32 */
-  #define COMPAT_PSR_DIT_BIT	0x00200000
- =20
-diff --cc arch/arm64/include/asm/sysreg.h
-index cec36606f6a43,b4f5dedff5ae8..0000000000000
---- a/arch/arm64/include/asm/sysreg.h
-+++ b/arch/arm64/include/asm/sysreg.h
-@@@ -826,27 -838,43 +829,30 @@@
-  #define SCTLR_ELx_A	 (BIT(1))
-  #define SCTLR_ELx_M	 (BIT(0))
- =20
-+ #endif /* ARM64_S390_COMMON =3D=3D 1 */
-+=20
- -#ifdef CONFIG_CPU_BIG_ENDIAN
- -#define ENDIAN_SET_EL2		SCTLR_ELx_EE
- -#else
- -#define ENDIAN_SET_EL2		0
- -#endif
- -
-  #define INIT_SCTLR_EL2_MMU_ON						\
-  	(SCTLR_ELx_M  | SCTLR_ELx_C | SCTLR_ELx_SA | SCTLR_ELx_I |	\
- -	 SCTLR_ELx_IESB | SCTLR_ELx_WXN | ENDIAN_SET_EL2 |		\
- -	 SCTLR_ELx_ITFSB | SCTLR_ELx_EIS | SCTLR_ELx_EOS | SCTLR_EL2_RES1)
- +	 SCTLR_ELx_IESB | SCTLR_ELx_WXN | SCTLR_ELx_ITFSB |		\
- +	 SCTLR_ELx_EIS | SCTLR_ELx_EOS | SCTLR_EL2_RES1)
- =20
- -#define INIT_SCTLR_EL2_MMU_OFF \
- -	(SCTLR_EL2_RES1 | ENDIAN_SET_EL2)
- +#define INIT_SCTLR_EL2_MMU_OFF	(SCTLR_EL2_RES1)
- =20
-  /* SCTLR_EL1 specific flags. */
- -#ifdef CONFIG_CPU_BIG_ENDIAN
- -#define ENDIAN_SET_EL1		(SCTLR_EL1_E0E | SCTLR_ELx_EE)
- -#else
- -#define ENDIAN_SET_EL1		0
- -#endif
- -
-  #define INIT_SCTLR_EL1_MMU_OFF \
- -	(ENDIAN_SET_EL1 | SCTLR_EL1_LSMAOE | SCTLR_EL1_nTLSMD | \
- -	 SCTLR_EL1_EIS  | SCTLR_EL1_TSCXT  | SCTLR_EL1_EOS)
- +	(SCTLR_EL1_LSMAOE | SCTLR_EL1_nTLSMD | SCTLR_EL1_EIS  |		\
- +	 SCTLR_EL1_TSCXT  | SCTLR_EL1_EOS)
- =20
-  #define INIT_SCTLR_EL1_MMU_ON \
- -	(SCTLR_ELx_M      | SCTLR_ELx_C      | SCTLR_ELx_SA    | \
- -	 SCTLR_EL1_SA0    | SCTLR_EL1_SED    | SCTLR_ELx_I     | \
- -	 SCTLR_EL1_DZE    | SCTLR_EL1_UCT    | SCTLR_EL1_nTWE  | \
- -	 SCTLR_ELx_IESB   | SCTLR_EL1_SPAN   | SCTLR_ELx_ITFSB | \
- -	 ENDIAN_SET_EL1   | SCTLR_EL1_UCI    | SCTLR_EL1_EPAN  | \
- -	 SCTLR_EL1_LSMAOE | SCTLR_EL1_nTLSMD | SCTLR_EL1_EIS   | \
- -	 SCTLR_EL1_TSCXT  | SCTLR_EL1_EOS)
- +	(SCTLR_ELx_M      | SCTLR_ELx_C      | SCTLR_ELx_SA     | \
- +	 SCTLR_EL1_SA0    | SCTLR_EL1_SED    | SCTLR_ELx_I      | \
- +	 SCTLR_EL1_DZE    | SCTLR_EL1_UCT    | SCTLR_EL1_nTWE   | \
- +	 SCTLR_ELx_IESB   | SCTLR_EL1_SPAN   | SCTLR_ELx_ITFSB  | \
- +	 SCTLR_EL1_UCI    | SCTLR_EL1_EPAN   | SCTLR_EL1_LSMAOE | \
- +	 SCTLR_EL1_nTLSMD | SCTLR_EL1_EIS    | SCTLR_EL1_TSCXT  | \
- +	 SCTLR_EL1_EOS)
- =20
-+ #if ARM64_S390_COMMON =3D=3D 1
-  /* MAIR_ELx memory attributes (used by Linux) */
-  #define MAIR_ATTR_DEVICE_nGnRnE		UL(0x00)
-  #define MAIR_ATTR_DEVICE_nGnRE		UL(0x04)
-
---DEyKikEuJ6F04K97
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq+b0IACgkQJNaLcl1U
-h9AdSQf/Qk/Y2fBZZeroMGuIxMcw6/mpYqbuF/ibqLUttQAV7hIePC5QA9HSDPOI
-kiZqsqvkfyY7m2dlaOyoLJS3VMadEuL8rXqoizweUkx3tVULtkIB6QExaWhuZjo4
-+XukaZNIGP9Oc8BV/x+xBx0TqcoVGxmQO3MhX3cK3gSML9WidRJxDOa+qGXTY0dw
-ypvFn0a5qLK9km+6qwFWtaj5ZjquPSSTVqcshJQybswRZ/HaM1q47qpVCfECzuQz
-FgAHc2awz4zirsC7PgdjdJNsaQWpYjUUKjDwz9RxtFhOj21jHSXBYTixJ/rhBc1D
-6zDDQ3cGI22Fk/3VznTSVEMcsobdpQ==
-=D+Px
------END PGP SIGNATURE-----
-
---DEyKikEuJ6F04K97--
+--=20
+Len Brown, Intel Open Source Technology Center
