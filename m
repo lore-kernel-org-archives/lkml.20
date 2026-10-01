@@ -1,121 +1,124 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF22371D11;
-	Thu,  1 Oct 2026 12:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0B5492E29;
+	Thu,  1 Oct 2026 12:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858419; cv=none; b=jbZEEa1Q6eYW+ZJdOYA+mZCVQob/TNPUQmPgfrVuAfucf/LzGAcLxhmbf2eqqV+K8mrY3JG/QYtEtCbq6+lYRqqKuewooZl2Wcj+f7ZgEjaarTIPDjlMcqm+/tdd1yvT6mC+ybbzeyNPFtbW1P78636c3gt+B6EKzZoItFr5H/4=
+	t=1790858425; cv=none; b=nPuM5ZLiRnsPdw/TCi5T9iTM3V4EBKDo38Di2zZ2Y6x0NFNEC4LQaiJklTcuTfWGXIZO3Kz+OSl21VW9yTHh557stqGTgruDLz5Z5MI4k4jsQhFmgk2V53UN3nT6GlRHkwa3/RWP5pEohOHt/6svYlGMaSwoPv9D9ZhAelntsXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790858419; c=relaxed/simple;
-	bh=gLqblHCn0+YwQDfFcGJsfXpbJ0y+P7fK7Am4ryV7fh8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IKBXd2//4i2019NyO28x/0p8mvrk7CVrIucbN6tksiHScpZD90unLeWYBl/lxdxCg2zDDDEqyz14IJdpGECEhUWzPIOkJtlKdPRGBVkFtSNeXRbJmNcgXZleGQAPD/gvvgNC1fWhFwQVrIVKdNkOTywbF0D6i5AaqWvnzjiMdsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vNaTELMc; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pAZafPjW; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790858425; c=relaxed/simple;
+	bh=aUlHMEAl5tANrzBjM4nHfN4L9GztS/KYB/IOKuuRItk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Lv9v02d/8BqW1/tfey36CSWLYgZcgwHYtRTkMVEuY6RXHIvKHw6fB6rj+3xnh3+LzxWyfD+59DkeqHRkNcC+EEn0vbEY+V1uwGv6WyVp68+MuO6+LT0M7sFXCZFRcmXSqNmaWxYGSVI8kyh2tvih8wL0T28AZX/Kcgc/W7yBh3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCRnnyX8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vNaTELMc";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pAZafPjW"
-Date: Thu, 1 Oct 2026 14:40:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790858415;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1IYPn7YfrvPH70i6iIWikqwHZmBwJ1LMaRivmCTeR70=;
-	b=vNaTELMcGtZilr3kGDKfaocYqzlhPhhj4xUL8tc8l010QOAzqE1gfbhxJxRwY/CJQP2iNN
-	dHH9FpmfCdOtt3+N3ScPLclEH64H0HxXM0XyxMXuAR4+tua64mSsXSPvBxry0xTcvdbkgm
-	KPRAZxR5XGVY81qLZ13LeTCgnXQJ8G/pcZnnyr1fQKL3ADxyj2/P+q44R5p5vwJEURPdve
-	lDaLdKElLZTBjIqC6N6SL4+K/9BV7zd5iVpAb4rYcJyYrsh5EVPwtridKE5DW3m8G1VJLC
-	Umo9drwa6UmjTEY4g0S+6CJYedQIHJzFOepjcyObBpIb6WpgFvmNXH1pzeKY4g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790858415;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1IYPn7YfrvPH70i6iIWikqwHZmBwJ1LMaRivmCTeR70=;
-	b=pAZafPjW5uf+ns5DVLvxgNdHgjcPnL7GKMJPYR3Qva+5gI6njuOLuPRYsAYBNuVlPHuNQB
-	PI483XSZ/izTLNCg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	David Dai <david.dai@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Daniel Jordan <daniel.m.jordan@oracle.com>,
-	Hao Lee <haolee.swjtu@gmail.com>, kernel-team@meta.com,
-	cgroups@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/7] cgroup: charge kernel work to the cgroup it is
- done for
-Message-ID: <20261001124013.UZsWvi4g@linutronix.de>
-References: <20260924184714.912181-1-shakeel.butt@linux.dev>
- <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
- <20261001105909.GL4121339@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCRnnyX8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B14C1F000FF;
+	Thu,  1 Oct 2026 12:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790858423;
+	bh=2yqV/Awvfmtsj6q/00BzdhQQlByccag34Ejy1niliro=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ZCRnnyX8s+71IPbGhb8/YT80JuAIidJq2MhvpK0OmnrhU8tM+2O/S/Bl9VgbeSrPX
+	 3yUSMWSDbh1RXwypspIpwjZ/Z1PM3duR4aqQ5YFaM18wqtZpQby0D1EYtE8k0QSZ8e
+	 DoX3iA65giwjlB+w0u+rUBIopt0ZKF8dcOZLwjiJykmgjKICYBg4gER6dAUCEQaqZ5
+	 PZoZQFXgI1hXXsF9qPOv4feQbT7MXXMdRjvhizrHrFEkp+CUlPa5hfyyQyv7ZuAGWk
+	 2kP8fPcf8yDi1q6BuPrC+UIeF2Cb1AbHsbQvgbgAFl2g7EjyyKHiScRLdrGa3q4/RR
+	 N5Mf3T94WTuVg==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: soc@lists.linux.dev, Arnd Bergmann <arnd@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
+ Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Robert Jarzmik <robert.jarzmik@free.fr>, 
+ Kristoffer Ericson <kristoffer.ericson@gmail.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
+ Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org
+In-Reply-To: <20260914140821.1805449-1-arnd@kernel.org>
+References: <20260914140821.1805449-1-arnd@kernel.org>
+Subject: Re: [PATCH v2 00/14] ARM: deprecated platform removal
+Message-Id: <179085840863.602414.17097032215174834953.b4-ty@b4>
+Date: Thu, 01 Oct 2026 14:40:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001105909.GL4121339@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On 2026-10-01 12:59:09 [+0200], Peter Zijlstra wrote:
-> On Thu, Sep 24, 2026 at 10:28:10AM -1000, Tejun Heo wrote:
-> > Hello, Shakeel.
-> > 
-> > On Thu, Sep 24, 2026 at 11:47:04AM -0700, Shakeel Butt wrote:
-> > > This series lets a kernel thread say which cgroup it is working for.
-> > > That cgroup then sees the CPU time in its cpu.stat and the stalls in
-> > > its memory.pressure, and the CPU time comes out of its cpu.max quota.
-> > > The first user is the memcg reclaim that runs from high_work.
-> > 
-> > This doesn't translate to net rx, which is another major source of
-> > displaced CPU usage. Switching membership on each packet isn't going to
-> > work there. Attribution can't happen that way. We'd much rather count
-> > per-cgroup received packets and prorate the CPU consumption. If at all
-> > possible, I think it'd be better to adopt an approach which can cover
-> > both use cases.
+
+On Mon, 14 Sep 2026 16:08:02 +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Ideally RX would be split for each network queue, rather than lumped
-> into the one giant softirq that nobody owns.
+> In the 7.3 kernel, I marked a number of platforms and features as
+> deprecated, with the plan to keep these around for the LTS kernel, but
+> remove them in 7.4, see [1].
 > 
-> I know PREEMPT_RT has been wanting something like that for ages. Not all
-> queues are created equal. Some might want RT priority while others
-> should definitely not.
-
-What currently kind of works is threaded NAPI. The interrupt wakes the
-NAPI thread rather than adding NET_RX to the global flag softirq flags.
-
-I was thinking about making the softirq flags per-thread rather than
-per-CPU. This avoid the "catch up" of other raised but unrelated
-softirqs.
-
-For now a painless setup is to have "bulk queues" and "real-time" queues
-and what gets where is configured via hardware filters.
-
-> Furthermore, without ingress throttling, your RX back charge could
-> completely deplete the actual cgroup time quota.
+> Cleaning out the deprecated platform code has turned into a larger effort
+> than I expected, currently standing at 300 patches, with a lot of them
+> still in need of being split up into smaller ones, see [2] for a current
+> snapshot.
 > 
-> Anyway, if you get per queue RX processing threads, then you can move
-> them into cgroups where so desired.
+> [...]
 
-Sebastian
+Applied, thanks!
+
+[01/14] ARM: remove sa1100 platform
+        https://git.kernel.org/soc/soc/c/95664df86fdf6e70e411ad9e3910b402489a22c3
+[02/14] ARM: remove footbridge
+        https://git.kernel.org/soc/soc/c/21b5f207cb8b1d0a819dd1799ef8c56178d5b1d7
+[03/14] ARM: remove legacy pxa board files
+        https://git.kernel.org/soc/soc/c/538532cd1532f44e7c2519ecd3dfbcbed08061e2
+[04/14] ARM: orion/dove/mv78xx0: remove all board files
+        https://git.kernel.org/soc/soc/c/f98cb2a43e0efa32ed8723df8d687acdb69dab06
+[05/14] ARM: orion5x: fold plat-orion/pcie.c and hw_pci into pci.c
+        https://git.kernel.org/soc/soc/c/4fa61946d7c3e6da57a6db11551fa2ac17078370
+[06/14] ARM: omap2: remove omap24xx support
+        https://git.kernel.org/soc/soc/c/cbd33c61480b8fa64046d956f4f68bca5cf68fbe
+[07/14] ARM: imx: remove i.MX31 SoC support
+        https://git.kernel.org/soc/soc/c/104a7a07163962fe259a2e5272fb70446f19793b
+[08/14] ARM: versatile: remove Integrator/CM1136JF-S option
+        https://git.kernel.org/soc/soc/c/1fbbfb51f20f3d0a1da6b542d7f29acc29815403
+[09/14] ARM: imx: remove nommu support
+        https://git.kernel.org/soc/soc/c/2e1031df3c5f64f96660074f695e3b24e4bd3018
+[10/14] ARM: lpc18xx: remove entire platform
+        https://git.kernel.org/soc/soc/c/31431dc97977003efbd4fb25e77aec8744338280
+[11/14] ARM: stm32: remove stm32f4/f7/h7 MCU support
+        https://git.kernel.org/soc/soc/c/6fa463cad26fed984b62a764345e65a98fd0a30a
+[12/14] ARM: versatile: remove mps2 support
+        https://git.kernel.org/soc/soc/c/1b983b0549163d4016574b0043664cdb47eea8cd
+[13/14] ARM: at91: remove samv7 support
+        https://git.kernel.org/soc/soc/c/1b9867b95e1e4a88c80b2e5612b7092b90ae3f88
+[14/14] ARM: axxia: remove entire platform
+        https://git.kernel.org/soc/soc/c/af4f7acd7b73780c7fece5d156e7d9a7791a60af
+
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
+
