@@ -1,205 +1,141 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B524FDE55
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4681451B161;
+	Thu,  1 Oct 2026 14:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864729; cv=none; b=F14jUqYRRUuajGvNAoPdoUrRn3tCYj+5hPB/4plQ3VXH14xpkXzFZNVPrTjCq0EOycUzxGBeX3Xn4QxuulYR++qLAIzWE4yV4Arxg3rv5Hp0OaXI8u7Hf3+buhApVvGV1CmFU3N3J8ReHB0oHatNh0MTaiJTvbezZekivpheR1Y=
+	t=1790864740; cv=none; b=JIq1HbTk8hil0b0ysK9WdbiiXfoA3OyAsVL1cuhFoGIvoMzFht0CPkmwukO8G5X/miCzctEMa19PMFnksEWROmH87GYtmll4C4Lz58lppT2RD2btJUq9hmDw5V5FFjfWEOUnvydEav/mXtuSb9S6D9j7+y9a6YC60N7306CN+lI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864729; c=relaxed/simple;
-	bh=nAXCB2HbY7Mf+wmDfZkiXREuGwS2H6D9YJ4ox3hdyYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SasbmAExDK5VM6btyQjFzmGa9QIkF6iPdNW0C0bactrkK0s+7FkFnBbvbBY6GbEUWZEUNq5wpQMnycuw6vqDPX8XYJVNyPFOkwOBS6aMGLlNoqcoRwWUPyETpPsIpqV4FddZkm1WPJK/Iaz1UoZzKi3KNogkEiOAhDrqWtOyLSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PXECmK3k; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790864740; c=relaxed/simple;
+	bh=tasnBJ8YHzAnG8bpbSBn1fYDAHBXFheRjY3+fuPdFIQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=crPJxWpjeYgBNvnP/DHnnLUtzgO9v4KjgrKwA+8qUEcoY/vHSGv1EDSpLX23saN9nT7YD14ofwvqROkEEAjnr+z1srE+bICZtKyXnfkwx/yeXPiUEJdoipZaOfPOP3uVE7kAO5TlEDFvvaQLzByO2f4jygl/UCEk2Sqd2rq+HJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iehR+JhN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PXECmK3k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790864726;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+RQauoITMstIPGsYZHrV59o4U7Nh5j8XAKzdsfn+Yig=;
-	b=PXECmK3khYnAAIYL7LQm3a4ptt01U1uXXjDVfNS5W5CzThrXw6bOu652SNj7O6HnjLmfCY
-	n0otvT0AOyhkDbpd4JHUbwFboeWssTIU30aNBtynnLxkNexz8GNNfRDKTe21BQKadTAkyk
-	ayi5MwdiIftRYfDJecRUHACk9fweXcE=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-685-9m2QvmfuMBeug2vV4AyS8A-1; Thu,
- 01 Oct 2026 10:25:23 -0400
-X-MC-Unique: 9m2QvmfuMBeug2vV4AyS8A-1
-X-Mimecast-MFC-AGG-ID: 9m2QvmfuMBeug2vV4AyS8A_1790864721
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8513B18007FD;
-	Thu,  1 Oct 2026 14:25:20 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3B16B30000E4;
-	Thu,  1 Oct 2026 14:25:18 +0000 (UTC)
-From: Vaibhav Nagare <vnagare@redhat.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nagarevaibhav@gmail.com,
-	Vaibhav Nagare <vnagare@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] bnxt_en: don't leave an XDP program installed when the open fails
-Date: Thu,  1 Oct 2026 19:55:16 +0530
-Message-ID: <20261001142516.1386525-1-vnagare@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iehR+JhN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B1F1F000FF;
+	Thu,  1 Oct 2026 14:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790864738;
+	bh=8AC7GbvuCCMMbO7MKRkTJUZ5RNbtzx9lp9nn1lg0M9w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iehR+JhNmWti4pt7pfdUdJ6fePSYT//2YUHfiZ2GH0gFzcTvh2uujKnreTPbdh9f3
+	 InAhVQJauuzfMtHOROac9Sn4iUr2Jjiuf/5dsLjq+np/OXGSrrfwX4FbkLGWaOEwfC
+	 SOpmvaH9GBGPE7YYvV9OX4mhXFOzAmcIiyqd3r6AOysyHvWbfeLFc2ZN2fxsGDwJvI
+	 CfLvGrDiLGkpHpn67BrpwfZtN31KPXLEsyAzyDfQ616aG4PbKBiqPXJWGqwoKE4NuS
+	 0/uH67EaBvXRO9WWtTh8DTHR41EpXacsiDhks8IoOxdDPuBTu6237B3FfonEih7AmT
+	 kVO94jhXn8CRw==
+Date: Thu, 1 Oct 2026 15:25:31 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 07/15] KVM: arm64: Forward GCS exceptions to nested
+ guests
+Message-ID: <ar5cHWMczKd6yw7n@gremlin>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+ <20260930-arm64-gcs-v21-7-3556644cd927@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-arm64-gcs-v21-7-3556644cd927@kernel.org>
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+On Wed, Sep 30, 2026 at 10:48:17PM +0100, Mark Brown wrote:
+> For nested guests where HFGITR_EL2.nGCSSTR_EL1 is clear or when there are
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+I see at [0] that, if HFGITR_EL2.nGCSSTR_EL1 is clear:
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
+"If EL2 is implemented and enabled in the current Security state, and
+either EL3 is not implemented or SCR_EL3.FGTEn == 1, then execution at EL1
+using AArch64 of any of the specified instructions generates a GCS
+exception with EC syndrome value 0x2D, unless the instruction generates a
+higher priority exception."
 
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
+For:
 
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
+GCSSTR.
+GCSSTTR when PSTATE.UAO is 1.
+GCSSTTR when the Effective value of HCR_EL2.{NV, NV1} is {1, 1}.
 
-Restore the previous program and its ring and feature configuration
-when an attach or a replace fails, and release the old program only
-once the change has been committed.  The configuration matters because
-bnxt_init_one_rx_ring() only assigns rxr->xdp_prog in page mode, and
-__bnxt_set_rx_skb_mode() derives dev->max_mtu from the installed
-program.
+So privileged GCS stores.
 
-A detach is not undone: dev_xdp_detach_link() releases the core's
-reference whether or not the driver returns an error, so putting the
-program back would leak it and leave the driver running a program the
-core has already detached.
+[0]: https://support.arm.com/documentation/111107/2026-09/AArch64-Registers/HFGITR-EL2--Hypervisor-Fine-Grained-Instruction-Trap-Register?lang=en
 
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
----
-  v3:
-   - don't undo a detach when the reopen fails.  dev_xdp_detach_link()
-     releases the core's reference whether or not the driver returns an
-     error, so restoring the program leaked it and left the driver running
-     a program the core had already detached (Sashiko AI review)
-   - v2: https://lore.kernel.org/netdev/20260930070901.1218980-1-vnagare@redhat.com/
-   - v1: https://lore.kernel.org/netdev/20260928131458.1012180-1-vnagare@redhat.com/
+> L2 GCS data check exceptions we need to forward the exception to the guest.
+> Add handling to do so.
+>
+> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
- 1 file changed, 33 insertions(+), 16 deletions(-)
+(A bunch of commentary here, just reasoning out loud for my own
+understanding.)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index 9e5009be8e98..430272fc0594 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
- 	return nxmit;
- }
- 
-+static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
-+{
-+	struct net_device *dev = bp->dev;
-+	int tc = bp->num_tc ? : 1;
-+
-+	if (bp->xdp_prog) {
-+		bnxt_set_rx_skb_mode(bp, true);
-+		xdp_features_set_redirect_target_locked(dev, true);
-+	} else {
-+		xdp_features_clear_redirect_target_locked(dev);
-+		bnxt_set_rx_skb_mode(bp, false);
-+	}
-+	bp->tx_nr_rings_xdp = tx_xdp;
-+	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
-+	bnxt_set_cp_rings(bp, true);
-+	bnxt_set_tpa_flags(bp);
-+	bnxt_set_ring_params(bp);
-+}
-+
- static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- {
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
- 
- 	netdev_assert_locked(dev);
- 
-@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
--
--	if (prog) {
--		bnxt_set_rx_skb_mode(bp, true);
--		xdp_features_set_redirect_target_locked(dev, true);
--	} else {
--		xdp_features_clear_redirect_target_locked(dev);
--		bnxt_set_rx_skb_mode(bp, false);
-+	bnxt_xdp_apply_cfg(bp, tx_xdp);
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* dev_xdp_detach_link() drops the ref even if we fail */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
-+			return rc;
-+		}
- 	}
--	bp->tx_nr_rings_xdp = tx_xdp;
--	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
--	bnxt_set_cp_rings(bp, true);
--	bnxt_set_tpa_flags(bp);
--	bnxt_set_ring_params(bp);
- 
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
- }
--- 
-2.55.0
+All LGTM, so:
 
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
+> index db37678dcb05..a8198e96fcb4 100644
+> --- a/arch/arm64/kvm/handle_exit.c
+> +++ b/arch/arm64/kvm/handle_exit.c
+
+> +/*
+> + * We might get GCS exceptions that need to be forwarded to the
+> + * hypervisor when a nested guest has HFGITR_EL2.nGCSSTR_EL1 clear, or
+> + * for a GCS data check exception for a L2 guest.
+> + */
+
+OK so I see this is used as a handler in:
+
+static exit_handle_fn arm_exit_handlers[] = {
+	...
+	[ESR_ELx_EC_GCS]	= kvm_handle_gcs,
+};
+
+And as per the arm ref page, 0x2D == ESR_ELx_EC_GCS.
+
+And it's always something being injected, so returning 1 (handled) is fine.
+
+>  static int kvm_handle_gcs(struct kvm_vcpu *vcpu)
+>  {
+> -	/* We don't expect GCS, so treat it with contempt */
+> -	if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, GCS, IMP))
+> -		WARN_ON_ONCE(1);
+> +	if (!kvm_has_gcs(vcpu->kvm)) {
+> +		kvm_inject_undefined(vcpu);
+> +		return 1;
+> +	}
+
+OK so make it not-a-kernel-warning if unsupported...
+
+>
+> +	if (vcpu_has_nv(vcpu)) {
+> +		kvm_inject_nested_sync(vcpu, kvm_vcpu_get_esr(vcpu));
+
+...And this is the L0 at physical EL2 -> vEL2 (in physical EL1) injecting a
+synchronous exception.
+
+So it seems to me the key point of the patch is to forward to nested
+guests, hence the subject line :>)
+
+> +		return 1;
+> +	}
+> +
+> +	WARN_ON_ONCE(1);
+
+And this is an 'impossible' case because it should have been handled
+natively otherwise. So it's a bug in KVM if it ever happened.
+
+--
+Cheers, Lorenzo
