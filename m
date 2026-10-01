@@ -1,118 +1,117 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9B14ED196
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307D4415B7A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871433; cv=none; b=K9tCMvaSAM0iHmZuU9fz5sey6clSfS5zjis/uvlJolhzx73Prjb/U0dnYNLuKgSpvcF5JwE8OBTxCDoUoRBn5eHBgdiwHSNWLMBqBrP8DlcQ6usKSfozTER+yHWiD/lds4P3G4cXjl9zCzJlQmsmn6kxw+4K2nPHPXxTomSy+7s=
+	t=1790871461; cv=none; b=O7u/rm8bVJe37XKtKdPZKP1PhWowSWEl+alUiDf3q5UkS898GNXpdI5VT46iOCJGMkR9xKDBrjyempzWGZfdGG4q/QXjruw6f6UTXQsZbteEUEXUr3/BRyKwCDCXztQiy7+Mix39jTYdQfzv0O85jLdYiL6UJPLgZJPlXSrWI7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871433; c=relaxed/simple;
-	bh=t03pAhrg8sAsoDFq8EgjjQCuTuHoKMxcqPqjdHAt6W8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kKa4HOSkw4jgyYK2xZJmLuEiXUkwUhb9tE3XWNMs/Mr090YPgER7EeB1qvfn4rNX46A40BuQG2QCGE/5fu8Xi6uu/Wv0VDvuTkNWTpPM0GNoPfxh/WbKxMiOEo7LaPCTFZiYiVzYW0nlG83uXyrOmt+V4OBvZIOjYBMbU+3QBX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=du+HeX4s; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790871461; c=relaxed/simple;
+	bh=k/5ig5ONwsnkdgPMJ5jhFJBX5ppFH9cc/Uo9rdAI8a0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UoCMhoaa4fcfUsgt7p+67G8TD9FH5zozEHL1MmL9EyTViDHjmC7azpLlkfLVAGo43LNEjEDY0uCmtG2x26PhtDWy7CvgZ5NwBVgE/SpV+msvMEKjrblfl+98fTrhlGxObpbFeHtY1PjPyOZV3kl50bcJWIXEYDPpiPtXyzlg0PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aFvXF4Ul; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="du+HeX4s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790871431;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IaWzhPI/4ga7lB6AzlBwiqIvEeBTon/cp7AmGF2eujE=;
-	b=du+HeX4su0hZ7nLDHSt+6w48ftMafjwZGKm+IENKTd7WxTQDRSNkAtRvRpIjIv9nsOa7J3
-	oHlxA1XbYBxXETaRNQv/dimIPh7n3uS2mxeNlH7hq/iJ72ut2SU5CAiNpr7TDLks9EOLD/
-	aoXgQ3GFRCHvQPMVrzE/xMcMcI7KsDY=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-306-ME-69OrSOs-kA_iiKjdjQw-1; Thu,
- 01 Oct 2026 12:17:04 -0400
-X-MC-Unique: ME-69OrSOs-kA_iiKjdjQw-1
-X-Mimecast-MFC-AGG-ID: ME-69OrSOs-kA_iiKjdjQw_1790871422
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB5241865DAB;
-	Thu,  1 Oct 2026 16:17:02 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8254D1956089;
-	Thu,  1 Oct 2026 16:17:00 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Thu, 01 Oct 2026 18:16:49 +0200
-Subject: [PATCH v3 2/2] firmware: qcom: scm: Allow the SMC request to
- freeze
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aFvXF4Ul"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04be84so7918206c88.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:17:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790871459; x=1791476259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NUuxBELaGQbgmCKkI/Vu7XcacxWn6YEXtbMh1ZJI2Ps=;
+        b=aFvXF4UlmTUbW/BmS8FoDg8O8NGXYDKnxsLBltb5kOtRRmdauMmFxSUK4N3N8pNh4u
+         azvSeTvrO8Yq/QWLXiwsXBHVDsGGqjJabH7DJfITPtFtJHwmlglwN6zeDkaXR24ncwow
+         a75LQe+JVuYLsf7dSslIj4MtJC384jtgqnPX2OyEqRgSJBjPv13P77Ewu288NHAV1+VR
+         uS/tuhO/eCYcmdZUT4A6qFZQoJLIo2aghsCuBYNimtvhkqrjnlFMGtNqAne3fgRTUJFX
+         KDQAPkVYawCNDa/UgjICt807tDQEITZcvRhxFER6KCUGqE+iQX8Cgpr0RRqv30D5G7Xr
+         cHYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790871459; x=1791476259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NUuxBELaGQbgmCKkI/Vu7XcacxWn6YEXtbMh1ZJI2Ps=;
+        b=1LgNrs8mdyy+fvZJxPt03UfNFaxII7v8M5GtL4MKr6Byy4pdTdViKBR7zT9ZY/wPKd
+         Gd3Qz0V07liGjHCE1Q/fMcoFkYv7A4W1Yn3PjZq2UuzbpZA842fSgiZiau91P71JMKKC
+         44nwNpVVP4PUBuCp3qTfzHqUHgAlWY2CU/8cafShRHGdlvnnPPqo7cFKzb7IUNkj+qUR
+         S4dAUdFp4nlZNIjAcuxTQAJvdbNcvTnLz2mB8ozlY+Osffw4ELtPf3JTHpfenCWrQnE1
+         Tq5njtOAgcIQDJfBj1kL9biE4L0a4Yp0QrfFzDi6qI7DRynCKMxd9IELYDrnWj3PAOb0
+         0JVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzl5hqZuYn3/rl8e38+1ntQj9VRSHF+pskr6m6oC/2JPKNDtp5sewI4ACGAFXr6OU6fJxFWGoTzZfrs0bU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k52PBDFGcLejbhmuADYVr5M9qEwFSEzmsUYuEMbv4DwzsPoLV6
+	V0Xju7r+uNX9tI7i/0apFzP7sKo37iYJcgirSt/8QPFCPga4rgZyYpTq
+X-Gm-Gg: AYBFou0FMp4/keG8yA4r+vwKGZ0UPsxSPHKOGOAUz0aPyqDLhpnlbeEW4JUPCj7AXGp
+	36rMBCIBjl4dt7QIAvWAzdjtv1PfDfdyhXgi0F/R14Pc8vBamYUDbvmLZ42EK8tsFIuqdEpLu8R
+	zmMWU94J/UYFDRyjSIp0Bt5mEg3s8SJWz1fGeUo26CrH+XopmLnTIRbPXyuXE23/y92/E2DPxGG
+	juzujK252Bd9I+w2kGTzTN3ZeezVLmmodtN/Ug5leXXtfI/6NDt/Jorbv1X76NF2fapYnsduqY6
+	r4Zvfn/1W1u1MLfe9vyeGy45qC0lvHYK6oqra7NIKY6f0UGh13Ynf2tgDhSQOatR80Dci+2nOnd
+	LvAOCA9yGf0KHSW5SRxxyi/DmwGTweYm/rUEW6SYwFMmKpTnVWWLUe5/MDNhTTuuk+F67n0QfRh
+	v4dyCkpXiYlQLvAXgkGH9jzPXZsWM8JiQyRf/Xd3EtaSN8PGKBxVDUZM3bzwPFz6YIh81syOPN+
+	/wd9BiT8cJ+pq5PO7vcBx95LouaR3bFyisHsRwFciwHgU5TAEFBG4xh1TSO87rWYEBmx/3A
+X-Received: by 2002:a05:7022:b889:b0:145:f4:1401 with SMTP id a92af1059eb24-14d36cf68ddmr4922780c88.46.1790871458840;
+        Thu, 01 Oct 2026 09:17:38 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:a4cd:e25d:fdef:4a3b])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f27d322d9sm369601c88.16.2026.10.01.09.17.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 01 Oct 2026 09:17:38 -0700 (PDT)
+From: techyminati <sinha.aryan03@gmail.com>
+X-Google-Original-From: techyminati <techyminati@outlook.com>
+To: Jeff Chen <jeff.chen_1@nxp.com>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH wireless] wifi: nxpwifi: fix NULL deref and leak in authenticate
+Date: Thu,  1 Oct 2026 21:47:13 +0530
+Message-ID: <20261001161730.49134-1-techyminati@outlook.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-port-scm-patches-v3-2-17520fa3c541@redhat.com>
-References: <20261001-port-scm-patches-v3-0-17520fa3c541@redhat.com>
-In-Reply-To: <20261001-port-scm-patches-v3-0-17520fa3c541@redhat.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Unnathi Chalicheemala <unnathi.chalicheemala@oss.qualcomm.com>, 
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>, 
- Yuvaraj Ranganathan <yrangana@qti.qualcomm.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790871413; l=1435;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=Tki6WuF5Bd2kjmDxtI05kkaLnTRE19oCA3VmssMCIp8=;
- b=jOSG7EbPs5F6nzTezckgMAcoyFjJSgMjWdSpHRJclhZJfSbDefg1vLOWuZXgbfYje8WaoxgMp
- kFsI6pnvOmKC8I7JBaUEhwLkMYrAaGA0SjxBYNPo7C6dF28AHiUwD0k
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
 
-From: Yuvaraj Ranganathan <yrangana@qti.qualcomm.com>
+From: Aryan Sinha <sinha.aryan03@gmail.com>
 
-qcom_scm_wait_for_wq_completion() waits in TASK_IDLE. That is
-uninterruptible, so a thread parked on a firmware waitq cannot be
-frozen or killed. A long wait then blocks suspend, and shutdown
-cannot tear the task down.
+mgmt is allocated but never checked, and the auth frame is filled in
+right after, so a failed kzalloc ends up dereferencing NULL. The skb
+error path also returns without freeing mgmt.
 
-Wait with TASK_IDLE | TASK_FREEZABLE so the freezer can freeze the
-waiter during suspend; after resume it is still waiting
-for the same waitq completion.
+Hence, Check the allocation, and free mgmt when the skb alloc fails.
 
-TASK_KILLABLE is not added. If a fatal signal aborts the wait, the
-driver returns early without issuing QCOM_SCM_WAITQ_RESUME, leaking
-the TrustZone execution context.
-
-Fixes: 366f05e348b2 ("firmware: qcom_scm: Use TASK_IDLE state in wait_for_wq_completion()")
-Signed-off-by: Yuvaraj Ranganathan <yrangana@qti.qualcomm.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
 ---
- drivers/firmware/qcom/qcom_scm.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/net/wireless/nxp/nxpwifi/cfg80211.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index ea4481385412..92cee2263ed4 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -2664,9 +2664,7 @@ int qcom_scm_wait_for_wq_completion(struct device *dev, u32 wq_ctx)
- 	if (IS_ERR(wq))
- 		return PTR_ERR(wq);
+diff --git a/drivers/net/wireless/nxp/nxpwifi/cfg80211.c b/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
+index 86304ea33..9eb809caa 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
++++ b/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
+@@ -3403,6 +3403,8 @@ nxpwifi_cfg80211_authenticate(struct wiphy *wiphy,
+ 		pkt_len -= 4;
  
--	wait_for_completion_state(wq, TASK_IDLE);
--
--	return 0;
-+	return wait_for_completion_state(wq, TASK_IDLE | TASK_FREEZABLE);
- }
+ 	mgmt = kzalloc(pkt_len, GFP_KERNEL);
++	if (!mgmt)
++		return -ENOMEM;
  
- static int qcom_scm_waitq_wakeup(struct qcom_scm *scm, unsigned int wq_ctx)
-
+ 	skb = dev_alloc_skb(NXPWIFI_MIN_DATA_HEADER_LEN +
+ 			    NXPWIFI_MGMT_FRAME_HEADER_SIZE +
+@@ -3410,6 +3412,7 @@ nxpwifi_cfg80211_authenticate(struct wiphy *wiphy,
+ 	if (!skb) {
+ 		nxpwifi_dbg(adapter, ERROR,
+ 			    "allocate skb failed for management frame\n");
++		kfree(mgmt);
+ 		return -ENOMEM;
+ 	}
+ 
 -- 
-2.55.0
+2.46.0
 
