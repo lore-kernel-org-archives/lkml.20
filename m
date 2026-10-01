@@ -1,81 +1,51 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F894052B3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C41B3C0637;
+	Thu,  1 Oct 2026 10:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790848717; cv=none; b=lqPUkPvu8ve8ib8YUlQ+n0BsbaW0HE2rJJfQIfdxkejKMAKcqEf4z1ilcX5Do3q+4yJ2KV5g2c8eeSFKbKivSgApkXlRCnaTOk62E2UpWfi71maQjjnH++9xptMODRpdttW00Ij6mtpYrJMZJQWfMh4ra4aUDl6LYp0qIe3VM+Q=
+	t=1790848812; cv=none; b=XPDjRIobAFGqsrCX/Q/uiw5V4ks+mu9tRBH9L1rzTK8PVInTPM0+aiUahipE33/uv7/RX7nCrZ96XiBWvyhkFejw/D8C7w6EgENy1pCOzC7sF85SEDjYZgrpZLwROMibMs7ZaqdVS0DcrvqOCg88Ya22LUalofL9gOcnqQLdJjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790848717; c=relaxed/simple;
-	bh=FXxGXjkhNGEXZqrrH/byp0zQnsvjNHJfBhA+a5G296U=;
+	s=arc-20240116; t=1790848812; c=relaxed/simple;
+	bh=6J4QBj254gydO97EKA078vV4wdcXrgnYk2HaO082i5I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kboZ+g6VBIuA+iz7MAeTNtKiX4zMq7QN1VvIR08wRuORxF8vZ2QCfQ5kgyoQ74wg1d6sHV6iN0XfPSMlePbBQShJ71aDWLXBtR87jO4aVP7LmkgXQjWHBgBfEaKM2eBtJ6gFuZX18AIxc17tjZCzqBUtN14szKCip6cRP8EvWvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MKYToTiV; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=C+EQbbvci1gYCqyGyXQHjfPlt+V2LJuXpdUOaVDXv7yeCsJCNPw9jVXeurLEcwq9kdJb+tXuJFiKkhnjM15W4C9wt3iteM9Loz1kemwRbnU6yDeYJ2NF8eea2q4kaB5061rVhU4BjjoUMUgpfi5h4srjjv67wMOAaTmpv3G7aFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=q5KiaogD; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MKYToTiV"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c2a97ec17so1535006eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:58:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790848715; x=1791453515; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0p+G5kuRzezJoiYkU/GdI56ndmvFnKYEbf7hSebGh+Q=;
-        b=MKYToTiVEsqTAiQw0n6uKeKMAUiGdXYozWjBpltXt7kzFzvwcbCaorisH7ByiCpayq
-         n1deHFq3vJ/sf4B6dQO8UqLy7D/QC9VsSAx+5yFZrrxdrPJYqA27gsDgtIt56uEIaTif
-         G/w/Dtsx/NIRx5fQiu7qCvkfQYbejOZtbm4+HzGG8Ra6WRJv9Hi/3/l1+wiSFXgYN26Z
-         eSPFdPvZJp5oFRYkZm5lRaLKNKh96kYpIznrnVNrUA52TdS7kZwwPQCK7z48QA/D4oBU
-         9mPHNGq9Hqj2gYGf7TF7ARUQrmW3PF6s+p1mFWAizaIWjOk/KqegDZ/MppaMGWNhQa4y
-         hirA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790848715; x=1791453515;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0p+G5kuRzezJoiYkU/GdI56ndmvFnKYEbf7hSebGh+Q=;
-        b=pSLqRhd5LySW9BLQBm2/+y0r9u0PZhYZbOWd/VnukeAILfzHDfrh3zs5zxmwNTYrB9
-         2CJO79DP8BkrFhXwS54VduJyXi76Dv9wsORcCDm70kLQfwIItwYlujJVl5x1Bp9rp+f1
-         x9Y9+VQ4HeoFGNPeDgvtK5Vf9GtjsA+ELl7sIxUEPfVjnJ0ZcN+LyrI1FWsV9W0nIPjW
-         jodnJd/B7RKXzVi3h+vVnujj0iRs6YDOT28HWGXGIW0MivaQO+ERREC7HbH8fynMqs1b
-         MPPcLv3UuisQhy6ZT1lZv19Uolg/Jf5hpsPkm3kqYQbgRVbuY8fgIciyGQdXE3yWYuln
-         jgYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcIX1I3vvjFvjZzdeTD/p13J2yfbER2CXNlA63HKUdT8O3vugZuXtgRhTqr8ggLlI0vzFs8Gb0vj6ozns=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOu96alxI2TOX7wUKvGHEamlSxeAag4gvDscJvMKQ7nfhDMSUm
-	RVnzn8vPTjor7oSlKAOBmbhcsrDPaAW5+B/qeiw0F51bil3x4pubrti4kXGj/DARYzY=
-X-Gm-Gg: AYBFou2OFypGKfr/uqrp9bTBzrHvy7jov8/TrpyuhZieaLkXkPD2YA3FJD30qY6DI87
-	cVIIe4NiK1IpFalXAomgoYgMM+7bMQZ79dj8Kymzr9ry0Rhjyt+vA6mdJePqc9E98GsNafkB3Cs
-	SEPMJ/wic19lsQ119hF0w5ycxz4/TNVAOo1XZWPaAD0bP5uuY9YV5xh8hlw5lQySbi9CU6GY7Rb
-	UBO5FXoD5OXi7oswHVijGpI2MkD0YyS70MhixtApsKXcbQp9+IpyMcP9HACmAbMJ89fhpThRx8G
-	nz6x4C858xB8T12gvWSiuEu8OMRx7NN3+zSxcjxIrVWNOFWR0W/kXQvsSfrEvI7mRNRAFYGxST7
-	niaVuykJg4xv/Hf6CnpenJTzuSz4yJVKFwArUE4Tt+U2m80bwgFzLeRO23UXvxEj3U8hB/zn7IS
-	uGbFebPPeWrV5JDK9gsRRcowbLNh0D5LVAvcdAgXiPwE3+WwdnTnCFgbrfrkLT14lRDy6jvcNl
-X-Received: by 2002:a05:693c:884f:b0:34e:6ffa:ad6c with SMTP id 5a478bee46e88-34e6ffab5b3mr769959eec.40.1790848714758;
-        Thu, 01 Oct 2026 02:58:34 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db491fae1sm6397324eec.24.2026.10.01.02.58.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:58:33 -0700 (PDT)
-Date: Thu, 1 Oct 2026 15:28:31 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-Cc: spidermana <xuyiwen14@gmail.com>, miguel.ojeda.sandonis@gmail.com,
-	a.hindborg@kernel.org, acourbot@nvidia.com, aliceryhl@google.com,
-	bjorn3_gh@protonmail.com, boqun@kernel.org, dakr@kernel.org,
-	daniel.almeida@collabora.com, gary@garyguo.net,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	lossin@kernel.org, ojeda@kernel.org, rafael@kernel.org,
-	rust-for-linux@vger.kernel.org, tamird@kernel.org,
-	tmgross@umich.edu, work@onurozkan.dev
-Subject: Re: [PATCH v3] rust: cpufreq: reject NULL from cpufreq_cpu_get()
-Message-ID: <ar4ux5SVxjlzTGvL@vireshk-B250M-D3H>
-References: <CANiq72ki8M1KmxhO4vSkMUfLcuqOMvZtuTNdDpS-UcJy8rqWpA@mail.gmail.com>
- <20260929095539.1398671-1-xuyiwen14@gmail.com>
- <ar38vCqqekY7T3SZ@vireshk-B250M-D3H>
- <DLTEONSHWRPQ.1U2Y6GDBRURFX@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="q5KiaogD"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6071E4E40ECD;
+	Thu,  1 Oct 2026 10:00:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 344C460341;
+	Thu,  1 Oct 2026 10:00:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3E84610329611;
+	Thu,  1 Oct 2026 12:00:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790848805; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=dY76eQFJFbcYtTtHCHhdoCdyDWIvzzfDE47J+yUIxXE=;
+	b=q5KiaogDA3ek6cAs+uG7cZ4CePZVBmJ52xqL7kEvFNBOcY421S3HVNlzyPaw9UKexYAw+W
+	KlSq5KHMtBcXa1jCK8pzcW+nY72n5Y/yb3/mI+3uYozc2kpmc7fD7DYdgwa8ThokLg7aKB
+	E5+iht4/uhKSG5fYwh2Z+WJ5/OtnrbqqpSixFRXcTzJsSF8RnzdZNSbX3AIF+egeVevFuf
+	bIURk6g0zRtgDxeySFJg4FlRV0lGJ+LH9kNzKyLTAGw2bu3wKgQcYAxzaYPssh6yNmwFEp
+	cru6mBaK71yTu0Y28N+bGFzp1doORDs+EgpwKUaNddnP0K46Ug8lwizhG/DazA==
+Date: Thu, 1 Oct 2026 12:00:00 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Liu Dalin <liudalin@kylinsec.com.cn>
+Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>,
+	Qin Yungao <qinyungao@kylinsec.com.cn>,
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Subject: Re: [PATCH v2 0/3] rtc: ftrtc010: fix resource management and
+ integer overflow
+Message-ID: <179084877097.656441.12706042901770671456.b4-ty@b4>
+References: <B61B30904C7ACEEF+20260827080320.3351155-1-liudalin@kylinsec.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,17 +54,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DLTEONSHWRPQ.1U2Y6GDBRURFX@gmail.com>
+In-Reply-To: <B61B30904C7ACEEF+20260827080320.3351155-1-liudalin@kylinsec.com.cn>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 01-10-26, 12:49, Mehmet Koseoglu wrote:
-> I see that v3 was already applied as 0ba1ee052b3f. Would you prefer
-> a follow-up patch updating the SAFETY comment, or a v4 of the original
-> patch with the comment update and collected review tags?
+On Thu, 27 Aug 2026 16:03:17 +0800, Liu Dalin wrote:
+> This series fixes three issues in the Faraday FTRTC010 RTC driver
+> found by Sashiko AI static analysis:
+> 
+> Patch 1: Fixes a clock resource leak when devm_rtc_register_device()
+> fails in ftrtc010_rtc_probe().
+> 
+> Patch 2: Replaces manual clock management with devm APIs to fix a
+> use-after-disable vulnerability in ftrtc010_rtc_remove(). The RTC
+> device is registered via devm_rtc_register_device() but clocks are
+> manually disabled in .remove() before devres cleanup, creating a
+> window where MMIO reads on clock-gated hardware can cause a
+> synchronous external abort.
+> 
+> [...]
 
-Oops, I thought I haven't applied it yet. I did that couple of week ago before I
-went on vacation :(
+Applied, thanks!
 
-You can resend the patch and I will apply the new one and drop the old one.
+[1/3] rtc: ftrtc010: fix clock resource leak on probe failure
+      https://git.kernel.org/abelloni/c/c60478875a44
+[2/3] rtc: ftrtc010: use devm clock APIs to fix use-after-disable in remove
+      https://git.kernel.org/abelloni/c/d41ee317c990
+[3/3] rtc: ftrtc010: fix integer overflow in time calculation
+      https://git.kernel.org/abelloni/c/8ef8e9839a23
+
+Best regards,
 
 -- 
-viresh
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
