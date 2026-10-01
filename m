@@ -1,637 +1,371 @@
-Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FA34052AA
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.171.57
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 205693C09E5;
+	Thu,  1 Oct 2026 18:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878822; cv=none; b=qi6gIM+gAc50XSon6OobFyZfy2mVTLW/7so52TaCfHWXv1E39n7v+MRFriMR8bHgSeamtd6z/RP80oF+qmX1zFXBZB/6tyG06lFXkpzQqARGByVUUCNF1U/9Ujbxx4bV93Tc9oZ19bccKAwpgqmFaHWvAl+wGIMBNhq8I0GERUs=
+	t=1790878876; cv=none; b=VoJp9dvXsz86wJMl1rFyTYtOf9tsBDLmBqtE5F3xZhy5ol1bQ+DolwHZqZZwLCUV8GSDuH0zSodC2w0RZ197uw734ttBpW52WkjudflRH/n4IM9nJrilrmuo5+v+Crp9j3dr9YfVL0/MIGMJ7HcfoykyvBNpOwTBULgaPjaZ3lE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878822; c=relaxed/simple;
-	bh=76M8PeAYRXZAoudREfd/wDvxChAmlVXIb5YiiAGNcJ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DJK6VZV6kA+hlOz+OnPL720O4FPR1foACsAhAZ5V/7RG1ZQnstvyohvqBVHgFB1O49Zf1GKrlEq2VhkGevq1z6382wbEwT2kkEeobVMiwv3hKaai17+QmTS5Ndh9AFxWp0v3UzoIki1RUEuxdpxS5hbvpYmjipRb/PhiaceDVP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=Ffz27USs; arc=none smtp.client-ip=78.46.171.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790878876; c=relaxed/simple;
+	bh=w7T4TgZEMxDDsR33E7oSNg2ClGxE181mTVJPt0RXX9w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CBqjgQQglKGMfmvLnq61CAvSfVxay6mrKwAsAlSK7txyu/GqPpSJgzfolIVClP7+RH9pLI/6FjOKKBjZXvNUaw1g7z0TGuvSfCSOef/sAy3klcD4ROrlp4f3PE7CGD/aTe8i2cHSUhYTidQZiXzLf5TVsp+tjnGgNr/AkHg35Kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=eaUP7guJ; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="Ffz27USs"
-Received: from relay11 (localhost.localdomain [127.0.0.1])
-	by relay11.grserver.gr (Proxmox) with ESMTP id B2B0EC6256
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:20:04 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay11.grserver.gr (Proxmox) with ESMTPS id C6619C5D46
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:20:02 +0300 (EEST)
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 2D9001FFAD3
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 21:20:01 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790878802;
-	bh=7PVl7ukSY0Wt2w1rMeOxs79c+/HtIKUmcBJ0K9o2zkY=;
-	h=Received:From:Subject:To;
-	b=Ffz27USs0PXJTGWLFwcoZxsrbpapJ5AsrLgobpkdNo1DHCaNNwhLsxRb1b/URo7X2
-	 ut4iOi1NsI9SaSQk7cWwhaFqgPIRRH976Glf15PiBlfHVkUr5+qRZdIo6ddnzGelm9
-	 qTHDwHbe+UBl/7l34Wzw7z0AREgKYyt0E9n/r4MKsLzDjV8nw7Wwo8qzTO0E94ydCv
-	 VkN0qonazWoVWQb5By5XPibaK/Ry43x0xA1x4QAd0XnbTtajoezz29AeCuv8SRXyPJ
-	 I1Ht7uIHnzOKt0aQHAuYfx0h0Ck7cNPaBB6poyGGbXuSaEYN/TY/K/7wqzoYGMUSTF
-	 AtZDbwoRMjLqw==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.227.141) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f13.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pj2-f13.google.com with SMTP id
- d9443c01a7336-2d747ed9866so48514445ad.2
-        for <linux-kernel@vger.kernel.org>;
- Thu, 01 Oct 2026 11:20:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBz7FupAVxQp+wFO+MdvNP2lQkdkbvYIainslY2FKNcD0kRf21UMWjkmU/Qb9pVvePYJSakJpeNGCi7wyuE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ58EwceYeMiLVmIJYKw8ZsrcwXhyqAtDlgDqzypHFzwruu8MQ+
-	EFmoTFgOJkNGHgnT33y5kffy7cNr4M1ihHGw6PrIu+NeVU8gRkyYOK19uyfO3q9DOh9Od1JpaEh
-	63W9lUf3hIB8u8M3ydFeVbuFTZOLK0hQ=
-X-Received: by 2002:a17:902:d506:b0:2df:accf:e873 with SMTP id
- d9443c01a7336-2e499f0d05cmr3477865ad.4.1790878799112; Thu, 01 Oct 2026
- 11:19:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="eaUP7guJ"
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id 1276420B7167; Thu,  1 Oct 2026 11:20:16 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1276420B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790878816;
+	bh=Vi7J2mRnaCIbh8EX8PYz3V3ilGPzqSgRmlD508TWGt8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=eaUP7guJDMf26vYXRMPKPFCcvugUvvhBjgcA2Y91xZogsmePc+9MAw95AV5jOER7s
+	 5lZcJ1f10Nk3OR5M0hS4VgVive9+3+r27nSTVCK4iSGvdnRQ+4OEpv1bl4AOL3Daiw
+	 3qOptQKlUHImLwgErxXxqq2Y/BdgvgkMY2jKP0Nw=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next 01/10] RDMA/mana_ib: Allocate and map fast-registration MRs
+Date: Thu,  1 Oct 2026 11:20:06 -0700
+Message-ID: <20261001182015.1757203-2-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261001182015.1757203-1-kotaranov@linux.microsoft.com>
+References: <20261001182015.1757203-1-kotaranov@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930222650.1883805-1-jordan@brough.org>
- <20260930222650.1883805-2-jordan@brough.org>
- <fe57f538-5663-4fd9-aa3b-2fb77942f4b6@app.fastmail.com>
-In-Reply-To: <fe57f538-5663-4fd9-aa3b-2fb77942f4b6@app.fastmail.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Thu, 1 Oct 2026 20:19:47 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwEGk-B+7k4A2PXYxb_XoV-iaAa0LtXcO9ovpwoUN9+ypQ@mail.gmail.com>
-X-Gm-Features: AclHuK_mIl-Kzs-NevMXNRBeI_xUk6YWZ44vBT0LmVVz6MnycT7OQa38A9d_N8Y
-Message-ID: 
- <CAGwozwEGk-B+7k4A2PXYxb_XoV-iaAa0LtXcO9ovpwoUN9+ypQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] ACPI: battery: add acpi_ prefix to the battery
- hook API
-To: Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: Jordan Brough <jordan@brough.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Corentin Chary <corentin.chary@gmail.com>,
- "Luke D . Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>, Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Matthew Garrett <mjg59@srcf.ucam.org>,
- =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
-	Armin Wolf <W_Armin@gmx.de>, Jonathan Woithe <jwoithe@just42.net>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
- Ike Panhc <ikepanhc@gmail.com>,
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
- Matan Ziv-Av <matan@svgalib.org>, Nikita Kravets <teackot@gmail.com>,
-	=?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
-	Joshua Grisham <josh@joshuagrisham.com>, Jeremy Soller <jeremy@system76.com>,
-	System76 Product Development <productdev@system76.com>,
- Azael Avalos <coproscefalo@gmail.com>,
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
-	Sebastian Reichel <sre@kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
-	linux-kernel@vger.kernel.org,
-	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- ibm-acpi-devel@lists.sourceforge.net,
-	chrome-platform@lists.linux.dev, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179087880167.2619284.10188024761008442577@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: 8bit
 
-On Thu, 1 Oct 2026 at 15:20, Mark Pearson <mpearson-lenovo@squebb.ca> wrote:
->
-> On Wed, Sep 30, 2026, at 6:26 PM, Jordan Brough wrote:
-> > Rename battery_hook_register(), battery_hook_unregister() and
-> > devm_battery_hook_register() to acpi_battery_hook_register(),
-> > acpi_battery_hook_unregister() and devm_acpi_battery_hook_register(), so
-> > that the exported ACPI battery hook API has a consistent namespace, and
-> > update all in-tree callers.
-> >
-> > No functional change.
-> >
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-For ayaneo ec and oxpec
+Implement alloc_mr and map_mr_sg for memory-registration MRs.
 
-Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+---
+ drivers/infiniband/hw/mana/device.c  |  2 +
+ drivers/infiniband/hw/mana/main.c    |  3 +-
+ drivers/infiniband/hw/mana/mana_ib.h | 46 +++++++++++++++
+ drivers/infiniband/hw/mana/mr.c      | 84 +++++++++++++++++++++++++++-
+ include/net/mana/gdma.h              | 15 +++++
+ 5 files changed, 148 insertions(+), 2 deletions(-)
 
-
-> > Signed-off-by: Jordan Brough <jordan@brough.org>
-> > ---
-> >  drivers/acpi/battery.c                       | 30 ++++++++++----------
-> >  drivers/platform/x86/asus-wmi.c              |  4 +--
-> >  drivers/platform/x86/ayaneo-ec.c             |  2 +-
-> >  drivers/platform/x86/dell/dell-laptop.c      |  4 +--
-> >  drivers/platform/x86/dell/dell-wmi-ddv.c     |  2 +-
-> >  drivers/platform/x86/fujitsu-laptop.c        |  4 +--
-> >  drivers/platform/x86/huawei-wmi.c            |  4 +--
-> >  drivers/platform/x86/lenovo/ideapad-laptop.c |  4 +--
-> >  drivers/platform/x86/lenovo/thinkpad_acpi.c  |  4 +--
-> >  drivers/platform/x86/lenovo/wmi-other.c      |  4 +--
-> >  drivers/platform/x86/lg-laptop.c             |  4 +--
-> >  drivers/platform/x86/msi-ec.c                |  4 +--
-> >  drivers/platform/x86/oxpec.c                 |  2 +-
-> >  drivers/platform/x86/samsung-galaxybook.c    |  3 +-
-> >  drivers/platform/x86/samsung-laptop.c        |  4 +--
-> >  drivers/platform/x86/system76_acpi.c         |  4 +--
-> >  drivers/platform/x86/toshiba_acpi.c          |  4 +--
-> >  drivers/platform/x86/uniwill/uniwill-acpi.c  |  2 +-
-> >  drivers/power/supply/cros_charge-control.c   |  2 +-
-> >  include/acpi/battery.h                       |  7 +++--
-> >  20 files changed, 50 insertions(+), 48 deletions(-)
-> >
-> > diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-> > index 8599949f8786..306bb2088ca6 100644
-> > --- a/drivers/acpi/battery.c
-> > +++ b/drivers/acpi/battery.c
-> > @@ -821,7 +821,7 @@ static LIST_HEAD(acpi_battery_list);
-> >  static LIST_HEAD(battery_hook_list);
-> >  static DEFINE_MUTEX(hook_mutex);
-> >
-> > -static void battery_hook_unregister_unlocked(struct acpi_battery_hook
-> > *hook)
-> > +static void acpi_battery_hook_unregister_unlocked(struct
-> > acpi_battery_hook *hook)
-> >  {
-> >       struct acpi_battery *battery;
-> >
-> > @@ -838,7 +838,7 @@ static void battery_hook_unregister_unlocked(struct
-> > acpi_battery_hook *hook)
-> >       pr_info("hook unregistered: %s\n", hook->name);
-> >  }
-> >
-> > -void battery_hook_unregister(struct acpi_battery_hook *hook)
-> > +void acpi_battery_hook_unregister(struct acpi_battery_hook *hook)
-> >  {
-> >       mutex_lock(&hook_mutex);
-> >       /*
-> > @@ -847,13 +847,13 @@ void battery_hook_unregister(struct
-> > acpi_battery_hook *hook)
-> >        * adding a new battery.
-> >        */
-> >       if (!list_empty(&hook->list))
-> > -             battery_hook_unregister_unlocked(hook);
-> > +             acpi_battery_hook_unregister_unlocked(hook);
-> >
-> >       mutex_unlock(&hook_mutex);
-> >  }
-> > -EXPORT_SYMBOL_GPL(battery_hook_unregister);
-> > +EXPORT_SYMBOL_GPL(acpi_battery_hook_unregister);
-> >
-> > -void battery_hook_register(struct acpi_battery_hook *hook)
-> > +void acpi_battery_hook_register(struct acpi_battery_hook *hook)
-> >  {
-> >       struct acpi_battery *battery;
-> >
-> > @@ -874,7 +874,7 @@ void battery_hook_register(struct acpi_battery_hook *hook)
-> >                        * hooks.
-> >                        */
-> >                       pr_err("hook failed to load: %s", hook->name);
-> > -                     battery_hook_unregister_unlocked(hook);
-> > +                     acpi_battery_hook_unregister_unlocked(hook);
-> >                       goto end;
-> >               }
-> >
-> > @@ -884,22 +884,22 @@ void battery_hook_register(struct acpi_battery_hook *hook)
-> >  end:
-> >       mutex_unlock(&hook_mutex);
-> >  }
-> > -EXPORT_SYMBOL_GPL(battery_hook_register);
-> > +EXPORT_SYMBOL_GPL(acpi_battery_hook_register);
-> >
-> > -static void devm_battery_hook_unregister(void *data)
-> > +static void devm_acpi_battery_hook_unregister(void *data)
-> >  {
-> >       struct acpi_battery_hook *hook = data;
-> >
-> > -     battery_hook_unregister(hook);
-> > +     acpi_battery_hook_unregister(hook);
-> >  }
-> >
-> > -int devm_battery_hook_register(struct device *dev, struct
-> > acpi_battery_hook *hook)
-> > +int devm_acpi_battery_hook_register(struct device *dev, struct
-> > acpi_battery_hook *hook)
-> >  {
-> > -     battery_hook_register(hook);
-> > +     acpi_battery_hook_register(hook);
-> >
-> > -     return devm_add_action_or_reset(dev, devm_battery_hook_unregister, hook);
-> > +     return devm_add_action_or_reset(dev, devm_acpi_battery_hook_unregister, hook);
-> >  }
-> > -EXPORT_SYMBOL_GPL(devm_battery_hook_register);
-> > +EXPORT_SYMBOL_GPL(devm_acpi_battery_hook_register);
-> >
-> >  /*
-> >   * This function gets called right after the battery sysfs
-> > @@ -928,7 +928,7 @@ static void battery_hook_add_battery(struct
-> > acpi_battery *battery)
-> >                        */
-> >                       pr_err("error in hook, unloading: %s",
-> >                                       hook_node->name);
-> > -                     battery_hook_unregister_unlocked(hook_node);
-> > +                     acpi_battery_hook_unregister_unlocked(hook_node);
-> >               }
-> >       }
-> >       mutex_unlock(&hook_mutex);
-> > @@ -961,7 +961,7 @@ static void __exit battery_hook_exit(void)
-> >        * need to remove the hooks.
-> >        */
-> >       list_for_each_entry_safe(hook, ptr, &battery_hook_list, list) {
-> > -             battery_hook_unregister(hook);
-> > +             acpi_battery_hook_unregister(hook);
-> >       }
-> >       mutex_destroy(&hook_mutex);
-> >  }
-> > diff --git a/drivers/platform/x86/asus-wmi.c
-> > b/drivers/platform/x86/asus-wmi.c
-> > index a65090429ca7..c274f456863c 100644
-> > --- a/drivers/platform/x86/asus-wmi.c
-> > +++ b/drivers/platform/x86/asus-wmi.c
-> > @@ -1681,14 +1681,14 @@ static void asus_wmi_battery_init(struct
-> > asus_wmi *asus)
-> >       asus->battery_rsoc_available = false;
-> >       if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_RSOC)) {
-> >               asus->battery_rsoc_available = true;
-> > -             battery_hook_register(&battery_hook);
-> > +             acpi_battery_hook_register(&battery_hook);
-> >       }
-> >  }
-> >
-> >  static void asus_wmi_battery_exit(struct asus_wmi *asus)
-> >  {
-> >       if (asus->battery_rsoc_available)
-> > -             battery_hook_unregister(&battery_hook);
-> > +             acpi_battery_hook_unregister(&battery_hook);
-> >  }
-> >
-> >  /* LEDs
-> > ***********************************************************************/
-> > diff --git a/drivers/platform/x86/ayaneo-ec.c
-> > b/drivers/platform/x86/ayaneo-ec.c
-> > index 41a24e091248..3ba87bd16c9a 100644
-> > --- a/drivers/platform/x86/ayaneo-ec.c
-> > +++ b/drivers/platform/x86/ayaneo-ec.c
-> > @@ -493,7 +493,7 @@ static int ayaneo_ec_probe(struct platform_device
-> > *pdev)
-> >               data->battery_hook.add_battery = ayaneo_add_battery;
-> >               data->battery_hook.remove_battery = ayaneo_remove_battery;
-> >               data->battery_hook.name = "Ayaneo Battery";
-> > -             ret = devm_battery_hook_register(&pdev->dev, &data->battery_hook);
-> > +             ret = devm_acpi_battery_hook_register(&pdev->dev,
-> > &data->battery_hook);
-> >               if (ret)
-> >                       return ret;
-> >       }
-> > diff --git a/drivers/platform/x86/dell/dell-laptop.c
-> > b/drivers/platform/x86/dell/dell-laptop.c
-> > index 89e85c7f7132..cad2bd06f28a 100644
-> > --- a/drivers/platform/x86/dell/dell-laptop.c
-> > +++ b/drivers/platform/x86/dell/dell-laptop.c
-> > @@ -2446,13 +2446,13 @@ static void __init dell_battery_init(struct
-> > device *dev)
-> >       battery_supported_modes = battery_get_supported_modes();
-> >
-> >       if (battery_supported_modes != 0)
-> > -             battery_hook_register(&dell_battery_hook);
-> > +             acpi_battery_hook_register(&dell_battery_hook);
-> >  }
-> >
-> >  static void dell_battery_exit(void)
-> >  {
-> >       if (battery_supported_modes != 0)
-> > -             battery_hook_unregister(&dell_battery_hook);
-> > +             acpi_battery_hook_unregister(&dell_battery_hook);
-> >  }
-> >
-> >  static int __init dell_init(void)
-> > diff --git a/drivers/platform/x86/dell/dell-wmi-ddv.c
-> > b/drivers/platform/x86/dell/dell-wmi-ddv.c
-> > index f8903ced461b..6f0504d7519e 100644
-> > --- a/drivers/platform/x86/dell/dell-wmi-ddv.c
-> > +++ b/drivers/platform/x86/dell/dell-wmi-ddv.c
-> > @@ -972,7 +972,7 @@ static int dell_wmi_ddv_battery_add(struct
-> > dell_wmi_ddv_data *data)
-> >       data->eppid_attr.attr.mode = 0444;
-> >       data->eppid_attr.show = eppid_show;
-> >
-> > -     return devm_battery_hook_register(&data->wdev->dev, &data->hook);
-> > +     return devm_acpi_battery_hook_register(&data->wdev->dev, &data->hook);
-> >  }
-> >
-> >  static int dell_wmi_ddv_buffer_read(struct seq_file *seq, enum
-> > dell_ddv_method method)
-> > diff --git a/drivers/platform/x86/fujitsu-laptop.c
-> > b/drivers/platform/x86/fujitsu-laptop.c
-> > index ea543deef68f..96e74c4fdb29 100644
-> > --- a/drivers/platform/x86/fujitsu-laptop.c
-> > +++ b/drivers/platform/x86/fujitsu-laptop.c
-> > @@ -267,7 +267,7 @@ static int
-> > fujitsu_battery_charge_control_add(struct device *dev)
-> >               return -ENODEV;
-> >
-> >       priv->charge_control_supported = true;
-> > -     battery_hook_register(&battery_hook);
-> > +     acpi_battery_hook_register(&battery_hook);
-> >
-> >       return 0;
-> >  }
-> > @@ -277,7 +277,7 @@ static void
-> > fujitsu_battery_charge_control_remove(struct device *dev)
-> >       struct fujitsu_laptop *priv = dev_get_drvdata(dev);
-> >
-> >       if (priv->charge_control_supported)
-> > -             battery_hook_unregister(&battery_hook);
-> > +             acpi_battery_hook_unregister(&battery_hook);
-> >  }
-> >
-> >  /* Hardware access for LCD brightness control */
-> > diff --git a/drivers/platform/x86/huawei-wmi.c
-> > b/drivers/platform/x86/huawei-wmi.c
-> > index d6aaf14d66a5..8cc0e900e984 100644
-> > --- a/drivers/platform/x86/huawei-wmi.c
-> > +++ b/drivers/platform/x86/huawei-wmi.c
-> > @@ -512,7 +512,7 @@ static void huawei_wmi_battery_setup(struct device
-> > *dev)
-> >               return;
-> >       }
-> >
-> > -     battery_hook_register(&huawei_wmi_battery_hook);
-> > +     acpi_battery_hook_register(&huawei_wmi_battery_hook);
-> >       device_create_file(dev, &dev_attr_charge_control_thresholds);
-> >  }
-> >
-> > @@ -521,7 +521,7 @@ static void huawei_wmi_battery_exit(struct device *dev)
-> >       struct huawei_wmi *huawei = dev_get_drvdata(dev);
-> >
-> >       if (huawei->battery_available) {
-> > -             battery_hook_unregister(&huawei_wmi_battery_hook);
-> > +             acpi_battery_hook_unregister(&huawei_wmi_battery_hook);
-> >               device_remove_file(dev, &dev_attr_charge_control_thresholds);
-> >       }
-> >  }
-> > diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> > b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> > index 8213524504ee..1d90d4591641 100644
-> > --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> > +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> > @@ -2197,8 +2197,8 @@ static int ideapad_check_features(struct
-> > ideapad_private *priv)
-> >                       priv->battery_hook.remove_battery = ideapad_battery_remove;
-> >                       priv->battery_hook.name = "Ideapad Battery Extension";
-> >
-> > -                     err = devm_battery_hook_register(&priv->platform_device->dev,
-> > -                                                      &priv->battery_hook);
-> > +                     err = devm_acpi_battery_hook_register(&priv->platform_device->dev,
-> > +                                                           &priv->battery_hook);
-> >                       if (err)
-> >                               return err;
-> >               }
-> > diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> > b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> > index 1661f070c571..eb5ad18855db 100644
-> > --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> > +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> > @@ -10021,13 +10021,13 @@ static int __init tpacpi_battery_init(struct
-> > ibm_init_struct *ibm)
-> >                                       battery_quirk_table,
-> >                                       ARRAY_SIZE(battery_quirk_table));
-> >
-> > -     battery_hook_register(&battery_hook);
-> > +     acpi_battery_hook_register(&battery_hook);
-> >       return 0;
-> >  }
-> >
-> >  static void tpacpi_battery_exit(void)
-> >  {
-> > -     battery_hook_unregister(&battery_hook);
-> > +     acpi_battery_hook_unregister(&battery_hook);
-> >  }
-> >
-> >  static struct ibm_struct battery_driver_data = {
-> > diff --git a/drivers/platform/x86/lenovo/wmi-other.c
-> > b/drivers/platform/x86/lenovo/wmi-other.c
-> > index fbb32bf404f2..0450634ac1dd 100644
-> > --- a/drivers/platform/x86/lenovo/wmi-other.c
-> > +++ b/drivers/platform/x86/lenovo/wmi-other.c
-> > @@ -946,7 +946,7 @@ static void lwmi_om_psy_ext_init(struct
-> > lwmi_om_priv *priv)
-> >       priv->battery_hook.name = "Lenovo WMI Other Battery Extension";
-> >       priv->bh_registered = true;
-> >
-> > -     battery_hook_register(&priv->battery_hook);
-> > +     acpi_battery_hook_register(&priv->battery_hook);
-> >  }
-> >
-> >  /**
-> > @@ -960,7 +960,7 @@ static void lwmi_om_psy_remove(struct lwmi_om_priv *priv)
-> >       if (!priv->bh_registered)
-> >               return;
-> >
-> > -     battery_hook_unregister(&priv->battery_hook);
-> > +     acpi_battery_hook_unregister(&priv->battery_hook);
-> >       priv->bh_registered = false;
-> >  }
-> >
-> > diff --git a/drivers/platform/x86/lg-laptop.c b/drivers/platform/x86/lg-laptop.c
-> > index 36ad1e269443..e788671307c4 100644
-> > --- a/drivers/platform/x86/lg-laptop.c
-> > +++ b/drivers/platform/x86/lg-laptop.c
-> > @@ -1053,7 +1053,7 @@ static int acpi_probe(struct platform_device *pdev)
-> >       if (ret)
-> >               goto out_platform_device;
-> >
-> > -     battery_hook_register(&battery_hook);
-> > +     acpi_battery_hook_register(&battery_hook);
-> >
-> >       return 0;
-> >
-> > @@ -1068,7 +1068,7 @@ static void acpi_remove(struct platform_device *pdev)
-> >  {
-> >       sysfs_remove_group(&pf_device->dev.kobj, &dev_attribute_group);
-> >
-> > -     battery_hook_unregister(&battery_hook);
-> > +     acpi_battery_hook_unregister(&battery_hook);
-> >       platform_device_unregister(pf_device);
-> >       pf_device = NULL;
-> >       platform_driver_unregister(&pf_driver);
-> > diff --git a/drivers/platform/x86/msi-ec.c b/drivers/platform/x86/msi-ec.c
-> > index 566dfc73cb67..cb30a1d5b546 100644
-> > --- a/drivers/platform/x86/msi-ec.c
-> > +++ b/drivers/platform/x86/msi-ec.c
-> > @@ -1428,13 +1428,13 @@ static int __init msi_ec_init(void)
-> >       if (result < 0)
-> >               return result;
-> >
-> > -     battery_hook_register(&battery_hook);
-> > +     acpi_battery_hook_register(&battery_hook);
-> >       return 0;
-> >  }
-> >
-> >  static void __exit msi_ec_exit(void)
-> >  {
-> > -     battery_hook_unregister(&battery_hook);
-> > +     acpi_battery_hook_unregister(&battery_hook);
-> >  }
-> >
-> >  MODULE_LICENSE("GPL");
-> > diff --git a/drivers/platform/x86/oxpec.c b/drivers/platform/x86/oxpec.c
-> > index 34bb17fca148..318f194e72b5 100644
-> > --- a/drivers/platform/x86/oxpec.c
-> > +++ b/drivers/platform/x86/oxpec.c
-> > @@ -956,7 +956,7 @@ static int oxp_platform_probe(struct platform_device *pdev)
-> >               return PTR_ERR(hwdev);
-> >
-> >       if (oxp_psy_ext_supported()) {
-> > -             ret = devm_battery_hook_register(dev, &battery_hook);
-> > +             ret = devm_acpi_battery_hook_register(dev, &battery_hook);
-> >               if (ret)
-> >                       return ret;
-> >       }
-> > diff --git a/drivers/platform/x86/samsung-galaxybook.c
-> > b/drivers/platform/x86/samsung-galaxybook.c
-> > index 99f72b204a51..a4f7dbb76214 100644
-> > --- a/drivers/platform/x86/samsung-galaxybook.c
-> > +++ b/drivers/platform/x86/samsung-galaxybook.c
-> > @@ -549,7 +549,8 @@ static int galaxybook_battery_threshold_init(struct
-> > samsung_galaxybook *galaxybo
-> >       galaxybook->battery_hook.remove_battery = galaxybook_battery_remove;
-> >       galaxybook->battery_hook.name = "Samsung Galaxy Book Battery
-> > Extension";
-> >
-> > -     return devm_battery_hook_register(&galaxybook->platform->dev,
-> > &galaxybook->battery_hook);
-> > +     return devm_acpi_battery_hook_register(&galaxybook->platform->dev,
-> > +                                            &galaxybook->battery_hook);
-> >  }
-> >
-> >  /*
-> > diff --git a/drivers/platform/x86/samsung-laptop.c
-> > b/drivers/platform/x86/samsung-laptop.c
-> > index 710f3d5bf84c..43fa1dc2773c 100644
-> > --- a/drivers/platform/x86/samsung-laptop.c
-> > +++ b/drivers/platform/x86/samsung-laptop.c
-> > @@ -1142,8 +1142,8 @@ static int __init
-> > samsung_battery_hook_init(struct samsung_laptop *samsung)
-> >               samsung->battery_hook.add_battery = samsung_battery_add;
-> >               samsung->battery_hook.remove_battery = samsung_battery_remove;
-> >               samsung->battery_hook.name = "Samsung Battery Extension";
-> > -             retval = devm_battery_hook_register(&samsung->platform_device->dev,
-> > -                                                 &samsung->battery_hook);
-> > +             retval =
-> > devm_acpi_battery_hook_register(&samsung->platform_device->dev,
-> > +                                                      &samsung->battery_hook);
-> >       }
-> >
-> >       return retval;
-> > diff --git a/drivers/platform/x86/system76_acpi.c
-> > b/drivers/platform/x86/system76_acpi.c
-> > index dd7b1b07c316..33968b61f0b2 100644
-> > --- a/drivers/platform/x86/system76_acpi.c
-> > +++ b/drivers/platform/x86/system76_acpi.c
-> > @@ -288,12 +288,12 @@ static struct acpi_battery_hook
-> > system76_battery_hook = {
-> >
-> >  static void system76_battery_init(void)
-> >  {
-> > -     battery_hook_register(&system76_battery_hook);
-> > +     acpi_battery_hook_register(&system76_battery_hook);
-> >  }
-> >
-> >  static void system76_battery_exit(void)
-> >  {
-> > -     battery_hook_unregister(&system76_battery_hook);
-> > +     acpi_battery_hook_unregister(&system76_battery_hook);
-> >  }
-> >
-> >  // Get the airplane mode LED brightness
-> > diff --git a/drivers/platform/x86/toshiba_acpi.c
-> > b/drivers/platform/x86/toshiba_acpi.c
-> > index a0b8060836d0..4cc879bc267a 100644
-> > --- a/drivers/platform/x86/toshiba_acpi.c
-> > +++ b/drivers/platform/x86/toshiba_acpi.c
-> > @@ -3301,7 +3301,7 @@ static void toshiba_acpi_remove(struct
-> > platform_device *pdev)
-> >       }
-> >
-> >       if (dev->battery_charge_mode_supported)
-> > -             battery_hook_unregister(&battery_hook);
-> > +             acpi_battery_hook_unregister(&battery_hook);
-> >
-> >       if (toshiba_acpi)
-> >               toshiba_acpi = NULL;
-> > @@ -3566,7 +3566,7 @@ static int toshiba_acpi_probe(struct
-> > platform_device *pdev)
-> >        * set, this must be done after toshiba_acpi is assigned.
-> >        */
-> >       if (dev->battery_charge_mode_supported)
-> > -             battery_hook_register(&battery_hook);
-> > +             acpi_battery_hook_register(&battery_hook);
-> >
-> >       return 0;
-> >
-> > diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c
-> > b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> > index 7a2eeaec4c96..d76695c2c765 100644
-> > --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-> > +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> > @@ -2165,7 +2165,7 @@ static int uniwill_battery_init(struct
-> > uniwill_data *data)
-> >       data->hook.add_battery = uniwill_add_battery;
-> >       data->hook.remove_battery = uniwill_remove_battery;
-> >
-> > -     return devm_battery_hook_register(data->dev, &data->hook);
-> > +     return devm_acpi_battery_hook_register(data->dev, &data->hook);
-> >  }
-> >
-> >  static int uniwill_notifier_call(struct notifier_block *nb, unsigned
-> > long action, void *dummy)
-> > diff --git a/drivers/power/supply/cros_charge-control.c
-> > b/drivers/power/supply/cros_charge-control.c
-> > index e0f168624807..1901bbcffd73 100644
-> > --- a/drivers/power/supply/cros_charge-control.c
-> > +++ b/drivers/power/supply/cros_charge-control.c
-> > @@ -315,7 +315,7 @@ static int cros_chctl_probe(struct platform_device
-> > *pdev)
-> >       if (ret < 0)
-> >               return ret;
-> >
-> > -     return devm_battery_hook_register(dev, &priv->battery_hook);
-> > +     return devm_acpi_battery_hook_register(dev, &priv->battery_hook);
-> >  }
-> >
-> >  static const struct platform_device_id cros_chctl_id[] = {
-> > diff --git a/include/acpi/battery.h b/include/acpi/battery.h
-> > index c93f16dfb944..08c7e37996bf 100644
-> > --- a/include/acpi/battery.h
-> > +++ b/include/acpi/battery.h
-> > @@ -18,8 +18,9 @@ struct acpi_battery_hook {
-> >       struct list_head list;
-> >  };
-> >
-> > -void battery_hook_register(struct acpi_battery_hook *hook);
-> > -void battery_hook_unregister(struct acpi_battery_hook *hook);
-> > -int devm_battery_hook_register(struct device *dev, struct
-> > acpi_battery_hook *hook);
-> > +void acpi_battery_hook_register(struct acpi_battery_hook *hook);
-> > +void acpi_battery_hook_unregister(struct acpi_battery_hook *hook);
-> > +int devm_acpi_battery_hook_register(struct device *dev,
-> > +                                 struct acpi_battery_hook *hook);
-> >
-> >  #endif
-> > --
-> > 2.56.0
->
-> For the lenovo/* changes:
->
-> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
->
-> Mark
->
+diff --git a/drivers/infiniband/hw/mana/device.c b/drivers/infiniband/hw/mana/device.c
+index 62c7803ca6c6..cdaada7f6e8a 100644
+--- a/drivers/infiniband/hw/mana/device.c
++++ b/drivers/infiniband/hw/mana/device.c
+@@ -19,6 +19,7 @@ static const struct ib_device_ops mana_ib_dev_ops = {
+ 
+ 	.add_gid = mana_ib_gd_add_gid,
+ 	.alloc_mw = mana_ib_alloc_mw,
++	.alloc_mr = mana_ib_alloc_mr,
+ 	.alloc_pd = mana_ib_alloc_pd,
+ 	.alloc_ucontext = mana_ib_alloc_ucontext,
+ 	.create_ah = mana_ib_create_ah,
+@@ -40,6 +41,7 @@ static const struct ib_device_ops mana_ib_dev_ops = {
+ 	.get_dma_mr = mana_ib_get_dma_mr,
+ 	.get_link_layer = mana_ib_get_link_layer,
+ 	.get_port_immutable = mana_ib_get_port_immutable,
++	.map_mr_sg = mana_ib_map_mr_sg,
+ 	.mmap = mana_ib_mmap,
+ 	.modify_qp = mana_ib_modify_qp,
+ 	.modify_wq = mana_ib_modify_wq,
+diff --git a/drivers/infiniband/hw/mana/main.c b/drivers/infiniband/hw/mana/main.c
+index 672bd3f650dd..ceb4ec58023a 100644
+--- a/drivers/infiniband/hw/mana/main.c
++++ b/drivers/infiniband/hw/mana/main.c
+@@ -133,7 +133,7 @@ int mana_ib_alloc_pd(struct ib_pd *ibpd, struct ib_udata *udata)
+ 			     sizeof(resp));
+ 
+ 	if (!udata)
+-		flags |= GDMA_PD_FLAG_ALLOW_GPA_MR;
++		flags |= GDMA_PD_FLAG_ALLOW_GPA_MR | GDMA_PD_FLAG_ALLOW_FMR_MR;
+ 
+ 	req.flags = flags;
+ 	err = mana_gd_send_request(gc, sizeof(req), &req, sizeof(resp), &resp);
+@@ -647,6 +647,7 @@ int mana_ib_query_device(struct ib_device *ibdev, struct ib_device_attr *props,
+ 	props->max_ah = INT_MAX;
+ 	props->max_pkeys = 1;
+ 	props->local_ca_ack_delay = MANA_CA_ACK_DELAY;
++	props->max_fast_reg_page_list_len = MANA_MAX_FMR_PAGES;
+ 	if (!mana_ib_is_rnic(dev))
+ 		props->raw_packet_caps = IB_RAW_PACKET_CAP_IP_CSUM;
+ 
+diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
+index 74edb6e707a1..ceb7830b8da1 100644
+--- a/drivers/infiniband/hw/mana/mana_ib.h
++++ b/drivers/infiniband/hw/mana/mana_ib.h
+@@ -39,6 +39,8 @@
+  */
+ #define MANA_IB_MAX_MR		0xFFFFFFu
+ 
++#define MANA_MAX_FMR_PAGES	504
++
+ /*
+  * The CA timeout is approx. 260ms (4us * 2^(DELAY))
+  */
+@@ -51,6 +53,8 @@
+ 
+ #define MANA_GSI_QPN		(1)
+ 
++#define MANA_PTE_VALID_MASK	0x1ULL
++
+ struct mana_ib_adapter_caps {
+ 	u32 max_sq_id;
+ 	u32 max_rq_id;
+@@ -150,10 +154,44 @@ struct mana_ib_mw {
+ 	mana_handle_t mw_handle;
+ };
+ 
++struct mana_fmr_mst_entry {
++	u32 reserved1;
++	u32 reserved2		: 8;
++	u32 page_size		: 5;
++	u32 reserved3		: 3;
++	u32 access_right	: 8;
++	u32 addr_type		: 2;
++	u32 reserved4		: 6;
++	u32 reserved5[2];
++	u64 start_va;
++	u64 length;
++	u32 reserved6[8];
++}; /* HW DATA */
++
++static inline u32 mana_ib_fmr_header_offset(u32 num_ptes)
++{
++	/* the header is located after the PTEs and aligned to mst entry */
++	return ALIGN(sizeof(u64) * num_ptes, sizeof(struct mana_fmr_mst_entry));
++}
++
++static inline u32 mana_ib_fmr_buf_sz(u32 num_ptes)
++{
++	return mana_ib_fmr_header_offset(num_ptes) + sizeof(struct mana_fmr_mst_entry);
++}
++
++struct mana_ib_fmr {
++	u64 *ptes;
++	dma_addr_t dma_handle;
++	size_t size;
++	u32 max_ptes;
++	u32 pte_count;
++};
++
+ struct mana_ib_mr {
+ 	struct ib_mr ibmr;
+ 	struct ib_umem *umem;
+ 	mana_handle_t mr_handle;
++	struct mana_ib_fmr fmr;
+ };
+ 
+ struct mana_ib_dm {
+@@ -840,8 +878,16 @@ int mana_ib_create_rwq_ind_table(struct ib_rwq_ind_table *ib_rwq_ind_table,
+ 
+ int mana_ib_destroy_rwq_ind_table(struct ib_rwq_ind_table *ib_rwq_ind_tbl);
+ 
++enum gdma_mr_access_flags
++mana_ib_verbs_to_gdma_access_flags(int access_flags);
++
+ struct ib_mr *mana_ib_get_dma_mr(struct ib_pd *ibpd, int access_flags);
+ 
++struct ib_mr *mana_ib_alloc_mr(struct ib_pd *ibpd, enum ib_mr_type mr_type,
++			       u32 max_num_sg);
++int mana_ib_map_mr_sg(struct ib_mr *ibmr, struct scatterlist *sg, int sg_nents,
++		      unsigned int *sg_offset);
++
+ struct ib_mr *mana_ib_reg_user_mr(struct ib_pd *pd, u64 start, u64 length,
+ 				  u64 iova, int access_flags,
+ 				  struct ib_dmah *dmah,
+diff --git a/drivers/infiniband/hw/mana/mr.c b/drivers/infiniband/hw/mana/mr.c
+index 1233685b4b89..34dcc50d0be9 100644
+--- a/drivers/infiniband/hw/mana/mr.c
++++ b/drivers/infiniband/hw/mana/mr.c
+@@ -10,7 +10,7 @@
+ 
+ #define VALID_DMA_MR_FLAGS (IB_ACCESS_LOCAL_WRITE)
+ 
+-static enum gdma_mr_access_flags
++enum gdma_mr_access_flags
+ mana_ib_verbs_to_gdma_access_flags(int access_flags)
+ {
+ 	enum gdma_mr_access_flags flags = GDMA_ACCESS_FLAG_LOCAL_READ;
+@@ -55,6 +55,11 @@ static int mana_ib_gd_create_mr(struct mana_ib_dev *dev, struct mana_ib_mr *mr,
+ 		req.gva.virtual_address = mr_params->gva.virtual_address;
+ 		req.gva.access_flags = mr_params->gva.access_flags;
+ 		break;
++	case GDMA_MR_TYPE_FMR:
++		/* page_size is deprecated field and must be 0. */
++		req.fmr.page_size = 0;
++		req.fmr.rsvd_pte_count = mr_params->fmr.rsvd_pte_count;
++		break;
+ 	case GDMA_MR_TYPE_ZBVA:
+ 		req.zbva.dma_region_handle = mr_params->zbva.dma_region_handle;
+ 		req.zbva.access_flags = mr_params->zbva.access_flags;
+@@ -294,6 +299,77 @@ err_free:
+ 	return ERR_PTR(err);
+ }
+ 
++struct ib_mr *mana_ib_alloc_mr(struct ib_pd *ibpd, enum ib_mr_type mr_type,
++			       u32 max_num_sg)
++{
++	struct mana_ib_pd *pd = container_of(ibpd, struct mana_ib_pd, ibpd);
++	struct gdma_create_mr_params mr_params = {};
++	struct gdma_context *gc;
++	struct mana_ib_dev *dev;
++	struct mana_ib_mr *mr;
++	int err;
++
++	dev = container_of(ibpd->device, struct mana_ib_dev, ib_dev);
++	gc = mdev_to_gc(dev);
++
++	if (mr_type != IB_MR_TYPE_MEM_REG)
++		return ERR_PTR(-EOPNOTSUPP);
++
++	mr = kzalloc_obj(*mr);
++	if (!mr)
++		return ERR_PTR(-ENOMEM);
++
++	mr->fmr.max_ptes = max_num_sg;
++	mr->fmr.size = mana_ib_fmr_buf_sz(max_num_sg);
++	mr->fmr.ptes = dma_alloc_coherent(gc->dev, mr->fmr.size, &mr->fmr.dma_handle,
++					  GFP_KERNEL);
++	if (!mr->fmr.ptes) {
++		err = -ENOMEM;
++		goto err_free;
++	}
++
++	mr_params.pd_handle = pd->pd_handle;
++	mr_params.mr_type = GDMA_MR_TYPE_FMR;
++	mr_params.fmr.rsvd_pte_count = max_num_sg;
++
++	err = mana_ib_gd_create_mr(dev, mr, &mr_params);
++	if (err)
++		goto err_dma;
++
++	return &mr->ibmr;
++
++err_dma:
++	dma_free_coherent(gc->dev, mr->fmr.size, mr->fmr.ptes,
++			  mr->fmr.dma_handle);
++
++err_free:
++	kfree(mr);
++	return ERR_PTR(err);
++}
++
++static int mana_ib_set_page(struct ib_mr *ibmr, u64 addr)
++{
++	struct mana_ib_mr *mr = container_of(ibmr, struct mana_ib_mr, ibmr);
++
++	if (mr->fmr.pte_count >= mr->fmr.max_ptes)
++		return -ENOMEM;
++
++	mr->fmr.ptes[mr->fmr.pte_count] = addr | MANA_PTE_VALID_MASK;
++	mr->fmr.pte_count++;
++
++	return 0;
++}
++
++int mana_ib_map_mr_sg(struct ib_mr *ibmr, struct scatterlist *sg, int sg_nents,
++		      unsigned int *sg_offset)
++{
++	struct mana_ib_mr *mr = container_of(ibmr, struct mana_ib_mr, ibmr);
++
++	mr->fmr.pte_count = 0;
++
++	return ib_sg_to_pages(ibmr, sg, sg_nents, sg_offset, mana_ib_set_page);
++}
++
+ static int mana_ib_gd_create_mw(struct mana_ib_dev *dev, struct mana_ib_pd *pd, struct ib_mw *ibmw)
+ {
+ 	struct mana_ib_mw *mw = container_of(ibmw, struct mana_ib_mw, ibmw);
+@@ -352,6 +428,7 @@ int mana_ib_dereg_mr(struct ib_mr *ibmr, struct ib_udata *udata)
+ {
+ 	struct mana_ib_mr *mr = container_of(ibmr, struct mana_ib_mr, ibmr);
+ 	struct ib_device *ibdev = ibmr->device;
++	struct gdma_context *gc;
+ 	struct mana_ib_dev *dev;
+ 	int err;
+ 
+@@ -360,11 +437,16 @@ int mana_ib_dereg_mr(struct ib_mr *ibmr, struct ib_udata *udata)
+ 		return err;
+ 
+ 	dev = container_of(ibdev, struct mana_ib_dev, ib_dev);
++	gc = mdev_to_gc(dev);
+ 
+ 	err = mana_ib_gd_destroy_mr(dev, mr->mr_handle);
+ 	if (err)
+ 		return err;
+ 
++	if (mr->fmr.ptes)
++		dma_free_coherent(gc->dev, mr->fmr.size, mr->fmr.ptes,
++				  mr->fmr.dma_handle);
++
+ 	if (mr->umem)
+ 		ib_umem_release(mr->umem);
+ 
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index 2a28fcaa637d..332f394b82e1 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -865,6 +865,8 @@ enum gdma_mr_access_flags {
+ 	GDMA_ACCESS_FLAG_REMOTE_WRITE = BIT_ULL(3),
+ 	GDMA_ACCESS_FLAG_REMOTE_ATOMIC = BIT_ULL(4),
+ 	GDMA_ACCESS_FLAG_BIND_MW = BIT_ULL(5),
++	GDMA_ACCESS_FLAG_INVALIDATE = BIT_ULL(6),
++	GDMA_ACCESS_FLAG_FMR = BIT_ULL(7),
+ };
+ 
+ /* GDMA_CREATE_DMA_REGION */
+@@ -917,6 +919,7 @@ struct gdma_destroy_dma_region_req {
+ 
+ enum gdma_pd_flags {
+ 	GDMA_PD_FLAG_ALLOW_GPA_MR = BIT(0),
++	GDMA_PD_FLAG_ALLOW_FMR_MR = BIT(1),
+ 	GDMA_PD_FLAG_SHORT_PDN = BIT(2),
+ };
+ 
+@@ -953,6 +956,11 @@ enum gdma_mr_type {
+ 	 * address that is set up in the MST
+ 	 */
+ 	GDMA_MR_TYPE_GVA = 2,
++	/* Fast Memory - MRs are initially put in the free state,
++	 * and the specified number of PTEs are reserved for future fast
++	 * memory registrations
++	 */
++	GDMA_MR_TYPE_FMR = 3,
+ 	/* Guest zero-based address MRs */
+ 	GDMA_MR_TYPE_ZBVA = 4,
+ 	/* Device address MRs */
+@@ -982,6 +990,9 @@ struct gdma_create_mr_params {
+ 			u64 length;
+ 			enum gdma_mr_access_flags access_flags;
+ 		} da;
++		struct {
++			u32 rsvd_pte_count;
++		} fmr;
+ 	};
+ };
+ 
+@@ -1006,6 +1017,10 @@ struct gdma_create_mr_request {
+ 			u64 offset;
+ 			enum gdma_mr_access_flags access_flags;
+ 		} __packed da;
++		struct {
++			u32 page_size;
++			u32 rsvd_pte_count;
++		} __packed fmr;
+ 	} __packed;
+ 	u32 reserved_2;
+ 	union {
+-- 
+2.43.0
 
