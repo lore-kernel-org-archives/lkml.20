@@ -1,131 +1,183 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AF24ABBA9
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9801F3F104D
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845274; cv=none; b=lA73M3NSihTvmHdQW8N2XQdwi7mN5ERL95ChwtvSmWp1j5J0DO2ExU0kq3pBjm7Ro2BOSyRtE9ss9pYTvzOPWTxBShSBGgWDcidCrJWCIkKzfug1zOTsDjseCLKoZXil/gVtTaaEsrzcTaFQySRw8Cf0hRP4gw7Ps90A45zcjms=
+	t=1790845300; cv=none; b=jVjIp+bw2iCZyTYquHfyfncq6f7uz9kXZ23wCHRlZ+mJxTCSmK/IvULbBiI8oXNFz6zo+YX61BzUkG9z2QyI/001MNZmOL1vjUi4TJ7SBDPy14M/JxmPZ8ilji6pm3NAtHl3tv+0tu2g335D0JIuyzJcb9ZHqQ5GxyPuuFI0QLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845274; c=relaxed/simple;
-	bh=pOSX/j8PxFaPmggryR7fHd8+GwlggHCzqHguU39pkiU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XmhtZAuOBsh4hNBOhCzJNSu+Mu2aHZ8m88ExAUXja+r7Pe2k/uknlK6WwZdN+DIA8ZAJ9z2HXn/Ixd0l2YkCEpaVy8T4IKWY2HDZQCa6tI4dNMIeU5DQT2O6yzG+O3hHm58vyyY9SuCPc+tmqPB8Yr6GJKEm7XixPQskMtbJFjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eFAAfenp; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790845300; c=relaxed/simple;
+	bh=ZT6ldM6Rero3wx3eaj6hdpLUx6fVOW1BsVRzAoran5k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uh6np2wLDGXPMKXzH6kQ36aLiVxsF2FF6oyUXUj7BDTCI8aPiAlR+fWVbgbgpPVOcp33k8K+A/GvZvXwEkeFf1qb+YmiGcNuIAERIFsGw7+syNyRiqRah4c4UxHIeJcpU33c/EB/9hYKSAD6FGsLhgh2nYN7cW1gkQmVrdN4Zf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NhT2GLcL; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gTn09Egc; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eFAAfenp"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 421BE1A109C;
-	Thu,  1 Oct 2026 09:01:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 134E260341;
-	Thu,  1 Oct 2026 09:01:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A2529103297EB;
-	Thu,  1 Oct 2026 11:00:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790845263; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=rHHej9yH4XOkeqe7HQOUFBElNtKlXqD/p/0et4Eq7R4=;
-	b=eFAAfenpgJOe2xIhdUHmHAesTdEsRZoiGi+WTbKNKG7qX7brGr4vDD4GyzKQdu0RqwZqzZ
-	zaKmMh1y8IDr6xG6DzSDzKw3BSSZ4xYxfkW1qr9fzEVtu7hrleahNhk3/q8qYdWBq/7zdr
-	8ViJ1SBMZAYskH04L4dB5FOS8P5fqKiyenKj+35uoUiGMvZxzOLygCkd9r11UakuzAqgeJ
-	HOSEmxBuMGnXf7PBafa82grUcAw34ucnCtiXwNrfbNPzt1k+giAt+pleGicJLx9+4r3Jzv
-	RLYb6FbNCHK64az4xJVPMO3MsGh8EAuecr7otze70SgsrarbcMa5Bex6sqNleQ==
-Message-ID: <78bd3e3e0fcd20f012c3b01f7f595376f7a6173d.camel@bootlin.com>
-Subject: Re: [PATCH v2 7/7] drm: renesas: shmobile: stop using deprecated
- devm_drm_of_get_bridge()
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
- <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
-	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Thu, 01 Oct 2026 11:00:53 +0200
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-7-6da431d8f180@bootlin.com>
-References: 
-	<20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
-	 <20260929-drm-fix-of_get_bridge-build-regression-v2-7-6da431d8f180@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NhT2GLcL";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gTn09Egc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790845297;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3KLyDgLq+sWfesxSNS4ik2xszHhIAyJ1EGfG6IG1kIs=;
+	b=NhT2GLcLb3q13laHZKmUUFj3PFyuS+pchklnpxTpkaWQ3r4z2kYWvML59Oz/LSkKRxo2mK
+	Umng8mGKRs2f4urSV7HXQvfZXbewIrE2csKplHMYzob7zdmPk80TedEolh0iC+AxO/lXp0
+	zF+2yyRTNyMeUNGVcL1N/p9c3CBpmhg=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-75-nDCDZQeTMzmzBpQpkwW0Lg-1; Thu, 01 Oct 2026 05:01:36 -0400
+X-MC-Unique: nDCDZQeTMzmzBpQpkwW0Lg-1
+X-Mimecast-MFC-AGG-ID: nDCDZQeTMzmzBpQpkwW0Lg_1790845295
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a021b1b561so2991205e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:01:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790845295; x=1791450095; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3KLyDgLq+sWfesxSNS4ik2xszHhIAyJ1EGfG6IG1kIs=;
+        b=gTn09EgcaPcic7Yk2kjCwv7/csOhuVmQtbaIBnZgLzLxvN//yxhv2IT+5Yl2LpFiCV
+         10huUsIIONtncO5qCExIwVwNL0MAQmcSLSxPQo/4tfk7y7n+hzotL/WygY7Nv4uAuHHR
+         C6+jz7e/ZaNBFQSJdK7xP+GMHh3+3VJcJD0CsBW6Za29p+vvSmOQkODCTewFhCRyDZM2
+         nlJxT6h5YQauDdy4n74YXxH9LT6o6w9/v2ZdPwjsBhvw4BY86IEidjGVIzForOBmfcNy
+         0ByDtPuoJ+D2CyzdvUESE6dnEYHPeqOhJTkHn0WYUbEnZKxjCZdRQTR936ICz80zUUMe
+         4cVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790845295; x=1791450095;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3KLyDgLq+sWfesxSNS4ik2xszHhIAyJ1EGfG6IG1kIs=;
+        b=mMp9F8B47ZFNJ35JsIkPrirETitRUGXmlxw+VDVKgef6USjlSOBnUmv6e5hB5aggaN
+         sZQbcs0OpxLDDeDbu2xT2FDqUuKusgF8Ko/YKYCmpC30SnTNoQqOOb1q4HfpyJWoJJiH
+         zu99sKw9Hb4bWJO2ig2WVAzb0LNRkzoKlUvapk3YBMpGwWiFLjDi/mWR3zT2riV4I5gI
+         AstdbOz7eJhYGJHF6wL/5AD1nmLf0HLQk+jxvh8dpMvNm4gnWthHA4yhfFlGRceWgz32
+         3cyXHytalFI0c0PZpweXLBkR4oj2hyHVu2Y3wNqiGswkRolyR/nOKJZuRXukiRmdxYXn
+         4TbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxa8ktsSN+0pdPSYMC7SwuOqcc2Z55Pznqm/J8ypTTpFg0Q3HPo8+lyH0ODavyeg2fa+FxD5xBeEAke+B0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuhmUL/zNHfpdCrmQ1NeN62yXFtPCRHm0ih84U1lDSEAzxMFgh
+	R23JkytTXXN3G7bd3DYXqYBrKtxDso7uSf9VAiR6dz6yqO2oqDc7EZR8m3QrHLTPLBg2G4tTwI9
+	jxtXxLYBzrF4Smo8lfZIMCbbEWr8m3e8mUSpwYQbUf+Qqc4tRzL18sXLshTbXS3W7Rw==
+X-Gm-Gg: AYBFou3dsA28vsRCHJ+QZJcHEJVw8p1DXhiW9YKxIxWJ+NKC456rrTwundmNgAVDcnc
+	BHF3IuQU5l8ZnsDY3u1F1P6IuHnvQ7N54MlMqtCw2BEwxQb/IXzPycHYoAx3+esiEQ1/jO1qCAO
+	ttSsw2BzJJ28G1QWbb2Cypq3FmJ1M1xryiyNpyz/LEG07VJ8+8mOtF3AFlJsnBUncLnesKJDzgZ
+	/Kv/FZMSxROh6HTw+ibcNrLkK88E/GXMAdtjv39mg2u89a2mTTy75XnZJ5tVP02FhmEB9YoUmN/
+	9oZTzWGRrEf/0Fdiq+v1RYI2V4iq2ji7wmxgae9VHg+5UFCyM7lLgcM8iiGP4e9JiJjljx0YgI5
+	G
+X-Received: by 2002:a05:600c:4e42:b0:4a0:1d:3ac4 with SMTP id 5b1f17b1804b1-4a01aff06d5mr64713565e9.6.1790845295065;
+        Thu, 01 Oct 2026 02:01:35 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e42:b0:4a0:1d:3ac4 with SMTP id 5b1f17b1804b1-4a01aff06d5mr64713135e9.6.1790845294456;
+        Thu, 01 Oct 2026 02:01:34 -0700 (PDT)
+Received: from sgarzare-redhat ([5.77.112.40])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01feb7198sm42199885e9.1.2026.10.01.02.01.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 02:01:33 -0700 (PDT)
+Date: Thu, 1 Oct 2026 11:01:24 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: jrmmhm.kernel@eldare.de, Michal Luczaj <mhal@rbox.co>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Bobby Eshleman <bobby.eshleman@bytedance.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] vsock/bpf: release sock lock while waiting for data
+ in recvmsg
+Message-ID: <ar4gvlZL1JyPycg1@sgarzare-redhat>
+References: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
 
-Hi Luca,
++cc Bobby and Michal who touched this code recently
 
-Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
-=C2=A0:
-> devm_drm_of_get_bridge() is deprecated, switch to
-> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
-ns
-> a refcounted bridge, ensure it is put.
->=20
-> drm_panel.h becomes unused, drop the include.
->=20
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Tue, Sep 29, 2026 at 06:33:04PM +0200, Jerome Mohm via B4 Relay wrote:
+>From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>
+>vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the whole
+>receive loop, including vsock_msg_wait_data(), which sleeps in
+>wait_woken() without dropping the lock. When data arrives, the
+>transport's delivery context (the vsock-loopback worker, or the
+>virtio/vhost rx path) calls virtio_transport_recv_pkt() -> lock_sock()
+>on the same socket and blocks. That context is the only one that would
+>queue the skb and call sk_data_ready() to wake the reader, so neither
+>side makes progress. A blocking recv() hangs until a signal arrives (a
+>finite SO_RCVTIMEO also breaks it); while it lasts the shared delivery
+>worker is stalled, so all vsock rx on that transport stops, not only
+>the affected socket. The hung-task watchdog reports the worker blocked
+>in D state:
+>
+>  INFO: task kworker/1:3:107 blocked for more than 5 seconds.
+>  task:kworker/1:3 state:D Workqueue: vsock-loopback vsock_loopback_work
+>  Call Trace:
+>   __schedule
+>   schedule
+>   __lock_sock
+>   lock_sock_nested
+>   virtio_transport_recv_pkt
+>   vsock_loopback_work
+>
+>The reader holds the same sk_lock-AF_VSOCK it is waiting on, taken in
+>vsock_bpf_recvmsg().
+>
+>This code is based on net/unix/unix_bpf.c, whose unix_msg_wait_data()
+>drops u->iolock around wait_woken() and re-takes it afterwards. The
+>vsock port substituted lock_sock() for that serialisation lock but
+>omitted the unlock and relock. tcp_bpf and the native
+>vsock_connectible_wait_data() both drop the lock across the wait;
+>vsock_bpf is the only one that does not.
+>
+>Release the socket lock around the wait and re-acquire it before
+>re-checking for data, so the caller's locking is unchanged.
+>
+>Fixes: 634f1a7110b4 ("vsock: support sockmap")
+>Cc: stable@vger.kernel.org
+>Assisted-by: LLM
+>Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>---
+> net/vmw_vsock/vsock_bpf.c | 2 ++
+> 1 file changed, 2 insertions(+)
+>
+>diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+>index 9049d2648646..bb7d81a95baa 100644
+>--- a/net/vmw_vsock/vsock_bpf.c
+>+++ b/net/vmw_vsock/vsock_bpf.c
+>@@ -50,7 +50,9 @@ static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long ti
+> 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+> 	ret = vsock_has_data(sk, psock);
+> 	if (!ret) {
+>+		release_sock(sk);
+> 		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>+		lock_sock(sk);
+> 		ret = vsock_has_data(sk, psock);
+> 	}
+> 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+>
+>---
+>base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+>change-id: 20260929-kbh3-1-022-fix-340aa3f7f071
+>
+>Best regards,
+>--
+>Jerome Mohm <jrmmhm.kernel@eldare.de>
+>
 
-Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+LGTM, but I'd like also Bobby and Michal opinion:
 
-Cheers,
--Paul
+Acked-by: Stefano Garzarella <sgarzare@redhat.com>
 
-> ---
-> =C2=A0drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c | 5 ++---
-> =C2=A01 file changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-> b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-> index 328a36215e39..51bae2008cc6 100644
-> --- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-> +++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-> @@ -28,7 +28,6 @@
-> =C2=A0#include <drm/drm_gem_dma_helper.h>
-> =C2=A0#include <drm/drm_modeset_helper.h>
-> =C2=A0#include <drm/drm_modeset_helper_vtables.h>
-> -#include <drm/drm_panel.h>
-> =C2=A0#include <drm/drm_probe_helper.h>
-> =C2=A0#include <drm/drm_vblank.h>
-> =C2=A0
-> @@ -447,7 +446,6 @@ static const struct drm_encoder_funcs shmob_encoder_f=
-uncs
-> =3D {
-> =C2=A0int shmob_drm_encoder_create(struct shmob_drm_device *sdev)
-> =C2=A0{
-> =C2=A0	struct drm_encoder *encoder =3D &sdev->encoder;
-> -	struct drm_bridge *bridge;
-> =C2=A0	int ret;
-> =C2=A0
-> =C2=A0	encoder->possible_crtcs =3D 1;
-> @@ -463,7 +461,8 @@ int shmob_drm_encoder_create(struct shmob_drm_device
-> *sdev)
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	/* Create a panel bridge */
-> -	bridge =3D devm_drm_of_get_bridge(sdev->dev, sdev->dev->of_node, 0, 0);
-> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D
-> +		of_drm_get_bridge_by_endpoint(sdev->dev->of_node, 0, 0);
-> =C2=A0	if (IS_ERR(bridge))
-> =C2=A0		return PTR_ERR(bridge);
-> =C2=A0
+Thanks,
+Stefano
+
