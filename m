@@ -1,64 +1,64 @@
-Received: from mail-dy2-f18.google.com (mail-dy2-f18.google.com [74.125.229.18])
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0FE3C873B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E4547989A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790879378; cv=none; b=R6so4XtQnPoh2u1BbOD7ojwz4ZrzL/lVs0u/Aowrb4L/S9L974F4l5BpUV/ko2GD12ypPlgMP4Hvz6U3ed72WO98DgR8G8iRKMKJ4ucBkonr1u2X4BINeI9GiOyxc8VBVWWkHSdjlHXF4NoqyoH2DhGHzGq2MA1WaSqr+DdndpU=
+	t=1790879385; cv=none; b=qpEmGEIjDA5Z8CiETFVVrDCbQlM12es2qapSfhuAlU7UD3a04dqizj5lwdW6RAJinSYG0oRLqtRzYZCyQ22UCq0M92+dIc3VmFcUJQE33zjz6kS+UFGbQQhhHxVzbXoJp/SNA61h8GJ7dkXRo06lnxSMmj7KL1wIX/+TDvQQ9V0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790879378; c=relaxed/simple;
-	bh=i39JXqmYvD+XNNv0Kh8aPCXHi6VrE/TIaE02ID95wWA=;
+	s=arc-20240116; t=1790879385; c=relaxed/simple;
+	bh=+tSKOGm+RD0TxPAiimCSasZvCi4oE54RpY0Sh3kgh3Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=boc8t+P8ae6xyo6D8kgW2FnLKlXYwl3DWm/65s8PDrJiubHOpjMwcOSUsKmxcaqgeDsfTvQMiVave+x/ihlhxSufDBasXiVc81NQAX1GXbhAr8yMwqgg85UaGawU4edml7LOr70cwXjZJgMlOZpLvoKtVelUwnCKstx/nLt+yAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YeNBTDpF; arc=none smtp.client-ip=74.125.229.18
+	 MIME-Version; b=M6xpI8KUKye80WqA3c6K/a8gLjH0PYfs64ZkAwBZVbERJbov7J0w2cxy9EPotWU5glfGgpKxxuCaOOCVNKywymkCuOSN07rsF9k5gcF1jF4N+1WQLp+8D+M0tPsvNapuWaW7HM57wZPbu2PDXbbOWsYCwXKhsomHvwNGLmn0NXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gQQ8zgEY; arc=none smtp.client-ip=74.125.229.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YeNBTDpF"
-Received: by mail-dy2-f18.google.com with SMTP id 5a478bee46e88-34ef63eda66so40575eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:29:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gQQ8zgEY"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144ef651963so158834c88.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:29:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790879376; x=1791484176; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790879382; x=1791484182; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lyCdVKYeqbUD2FjDh2ZaOn3IuqAWBAvX9Y8VJFP48H8=;
-        b=YeNBTDpFoHjZBpskPgjztw0WomC6uAqInB3e6tzoeUcBshBtrjz9tygbja4KF5iR/B
-         lFsuqjFkDTkR3vTARBkLb0mzG8gc3xfgHsNkyms04GKByQUIOR0nJjPSLb4DIsZViq4X
-         TB95aGFv0DP5iVl3xqAeWe/yB/CyLXtGHL7XdaI5/0d2/zUdpzv9qaVKacPSoEc/2rzA
-         WEd0wJPqnQcXEagF4Hx/68caO1ePicicTg8jvuWcNfGjQfDX0ro0rRFMi+U3WZd1vL6j
-         jBv/8935ROe5BIK8LyzVvEfOFgoiqlJ3q+LdiRS4J9PLOZmMKf5FKobL9CZ/qAEmd4rp
-         0C+g==
+        bh=5md9S1nVYWF/VDlHTUOI2Swr9RpR1ryzS2tAkBfaDN0=;
+        b=gQQ8zgEYi3Ekt2Y0j4KorHNF2cfYL1Aizo9zdiETyqged9Oiv83RYlkm8O8E/syBLP
+         UwJHraenzA5lcXaFTi43IVfwJhQHeX+T4TUiAHK5cYR66nXX8ZvUZ+6JtZEeLQFMOp+T
+         yhi+vZsrXdXXm1HIkdStXMgYgzL2Tt+lw17v9ZyTciHmQ9GwV7a4gffu4nY6ciCBP/9l
+         5kvOUgqa5NbiV0sPCYbCutzGVhRH7PpvrHJN/LtonTLBxNDQI4kbdPb+Q17JN7yO3hqj
+         FscAuTUpe9t0mFdySDt3vPWBuG4HWn1+KKa7BGr3DA5ujxHVjeQcCC9fengKYxoe6n3M
+         byeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790879376; x=1791484176;
+        d=1e100.net; s=20260707; t=1790879382; x=1791484182;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lyCdVKYeqbUD2FjDh2ZaOn3IuqAWBAvX9Y8VJFP48H8=;
-        b=sh+lDJWBpgjy+U4ZDrk1O4tQMJDS7C+VbBWZOuEbHKdETdBRm8XkytWIkQm14hyJ7O
-         sEvlbx10TANk01h5JZS18MUVfiUU1iBlkq1Sc52tg13fVp5vj0SjGBUHPu+7hYl+JKkL
-         8/LkbtMlNXLtGrHNpwok7eZ9AybDc3S+PNHpKoM+rwwbtdQSlDFkAAbC9sVtJzXMOl6F
-         NUDlAMzJ2xM5M7+bMk0RLNQSQD7b3UflOvcnb56i0ocnbGLrbD/AyerZCUD54H/DD7/F
-         gQ2Z9AYDurb4nLkDiWFwyy1mABIGsdGy17s2Zx13porqh3gFUTK0dAHuYldVRGN6Y6Bm
-         qgWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxli+eL2WoYZJEy7C4fla3P9rJQyY7Of/jdTl7DEnn0jmq9Q/toY+NQdqvYBQmyovmflAoopIwb/5U0IBM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYAy7aQ2nS73ZouYfG7sp2YGf8UTPmfG7qIygTL2ujHNzG3qcC
-	4dm9kGXr2bhvtLC1HU8VGeoFIZn52RTugogDEtzKYJzxI81Vj/Cf8KOaADPCOcWc4ynBbQ==
-X-Gm-Gg: AYBFou27dtj+ISl50sPOdijc1MS8ELLeBlglLyHPCuKl5A8VNoizaWwumDDFUbv43Fx
-	XsjtuKukAl0lBiUXv1aY5E6E4W51uF1xlazjQ/Ek0KE7l2cVXSZ5bFJTmvfJ066Hp1aNfgi5z7b
-	HuAIzkkOkpmyhtwYyzEYOlKA6JYQENaQcS4d1Y9UYhKyVZCxZlysjmYjZdDR3Cg16ljV4PnLBwP
-	96eW87NXd4Mn5rAfb4Hid1MMnPJxg2p2kLBe3a9AH9Px4OFSaTWspLmVeGlBYIyjfOd/+OI3qtz
-	mLit7lJd2yP3CoFyGyAb06nLr3EwK1el/TwdDk+Uoj++bMfhPr+mkr3QpBg8o+ROpteGKpa1c2V
-	x6E7+Dn0Z2wmG85Fn3/v7nsaZzDlPNDXLIkaQ9I952FiSJYzd+sJ6g7t4I77Cguau0dmj8C+sgO
-	p2eh7PoOz88UdsIjmJbYB+c/HmwUhfUdZ8R3ZKwFfTI6cqv/lo2FOJ665+ygqL2BgGXXDl2BEVQ
-	Gh2qyx5WkVpPcg1D2Wb3KaiBT6f9s7jsMs0A6glrR61rQq+tJ+w44z7vmJbdHp/jiGCbg==
-X-Received: by 2002:a05:693c:8858:b0:33e:8552:6e06 with SMTP id 5a478bee46e88-34f06674f4fmr266687eec.0.1790879375908;
-        Thu, 01 Oct 2026 11:29:35 -0700 (PDT)
+        bh=5md9S1nVYWF/VDlHTUOI2Swr9RpR1ryzS2tAkBfaDN0=;
+        b=ajqau9c/o6Yxu2ycoN9I9YXtleo0ETSJGAQb2wXheAMyfBmRdvrFPfALJCyaRmQCYm
+         0aySxDKfDoZsY4q+H6pj6vxKfru4Ax+2GJFtW8xWrWQLweqj9DcucumX6+MVj2MlZ+8L
+         ZB8M5EMPaFdnRFcsbPmvHgA8/lyZ+Tw5s539e0YDQhPGpmG7BEHlVdiisU70nkgeF4eg
+         1h7CTwiVh70daZbo7Ha7aTChB/z1XcjX3NJ6oAbKEAogfDCojaQUK7tLBR9SONQHn54c
+         anIqjmTGjUR7DpIjKPhe4yAgsZYeZL0lS8+VRj9Us53aUeKTZx4hnhwvXIPw9G0uGCg9
+         8G2w==
+X-Forwarded-Encrypted: i=1; AKwUvBxzOHhJi3/q9Be+C4v338WrcAX/bJ+oWNphF/T0Ci2P6xqlva+WGGjm+98wvr9URNwtCklQsS+yQC0Z2fQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkx2VVDO+UdCygjWjDM2nAEOPpNT5P0uM2zBq7+IWb3t+zMJaO
+	e575m5TfV8ExhxwE0m5/41XBPRJck53hP03bodgW3crwhO+gv7RHCMr6
+X-Gm-Gg: AYBFou3K7W0gdcDfGv+vJFa0t98IgcZhNKb6Raxjush/5WweqvqqJYr3wo5MW1UzslJ
+	kVqfbm31hEUeYF6Sbt8vkXOBwSEv8zXGL2dfBSuVlja7rGMPyRZIItGHkY8sF9LnVDh046Lfc0C
+	jgNDb/a12HnuX6exuB22cT+lvZah95ivSeEthICUW5oUSTU08Lif3fWr4bN7f9JHGJX65TQvWNR
+	ON+2k0ooYYWuagU3FKKIjWkIerGfA2hIH5ev/G76wkgFiEb5yYParb5lhYV2nFdLiIv+lFaKbL9
+	QqIvApmbAmnHBFzB/jtmuP9VUBsjQ5X73B2KiWRbC9HZe+AeHtYujzH28RSgBdKk8irm5H7M+ud
+	SZEAcT4e65CKeALwIIuGkumJI3olD7CuvoyHLDZ6bSE1dTH1kelUQmfjgXdFuIpLVsiQi/U4s1F
+	uNo9QpBb4O5ngBwUhlWhzyrZ3AhdY08AO1/UIwlTHgi+8YQfu7c36dZ/lgnwsE1ufMrkY07N2V4
+	P1AlkWfWMRrFBi6eC3LnPqHTQPRzvCL0keFk1FgkhlD89GL6aWWbjNAMcXkJDTUHWnfLA==
+X-Received: by 2002:a05:701b:4519:10b0:144:ff51:2d73 with SMTP id a92af1059eb24-14d34dbc801mr8355239c88.2.1790879380890;
+        Thu, 01 Oct 2026 11:29:40 -0700 (PDT)
 Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f43eba13bsm390711c88.2.2026.10.01.11.29.32
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f43eba13bsm390711c88.2.2026.10.01.11.29.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 11:29:35 -0700 (PDT)
+        Thu, 01 Oct 2026 11:29:40 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
 To: Jon Maloy <jmaloy@redhat.com>,
 	Tung Quang Nguyen <tung.quang.nguyen@est.tech>
@@ -70,13 +70,15 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	netdev@vger.kernel.org,
 	tipc-discussion@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>
-Subject: [PATCH net v2 0/2] tipc: fix publication lifetime races
-Date: Fri,  2 Oct 2026 02:29:22 +0800
-Message-ID: <20261001182924.3928331-1-nicoyip.dev@gmail.com>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] tipc: unlink publications without a node lookup
+Date: Fri,  2 Oct 2026 02:29:23 +0800
+Message-ID: <20261001182924.3928331-2-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260927180806.1315902-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20261001182924.3928331-1-nicoyip.dev@gmail.com>
 References: <20260927180806.1315902-1-nicoyip.dev@gmail.com>
+ <20261001182924.3928331-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,44 +87,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two races can leave the publication lists referring to objects with an
-invalid lifetime.
+The two remote-publication removal paths remove a publication from the
+name table and call tipc_node_unsubscribe() before scheduling it for
+freeing.
 
-First, tipc_node_unsubscribe() looks up the publishing node before
-unlinking a publication. If the node has already been removed from the
-hash, the lookup fails and the caller frees the publication while its
-binding_node remains linked.
+tipc_node_unsubscribe() looks up the publishing node by address and returns
+without unlinking when the node has already disappeared from the hash. The
+publication is then freed while its binding_node remains linked, so a later
+publication-list traversal can access freed memory.
 
-Second, tipc_publ_notify() retains the next publication from a failed
-node's list across an unlocked interval. A concurrent withdrawal can
-unlink and schedule that publication for freeing before the purge
-iterator advances to it.
+Both paths already run under nametbl_lock. Unlink binding_node directly
+under that lock instead of performing another node lookup. For a valid
+remote publication, binding_node is either on the node publication list or
+is initialized as an empty list when subscription failed. Remove the
+now-unused helper and address arguments.
 
-Patch 1 unlinks successfully removed remote publications directly under
-nametbl_lock. Patch 2 moves the failed node's publications to a private
-list and selects each publication under the same lock, so no publication
-pointer is retained across an unlocked interval.
-
-Changes in v2:
-- Split the original fix into two patches.
-- Add patch 1/2 to address the unlink-before-free issue reported by
-  Sashiko and remove the now-unused tipc_node_unsubscribe() helper.
-- Add the decoded causal call trace requested by Tung Quang Nguyen.
-- Explain the ordering of name-table updates around the node-down
-  publication snapshot.
-
-v1:
-https://lore.kernel.org/netdev/20260927180806.1315902-1-nicoyip.dev@gmail.com/
-
-Chengfeng Ye (2):
-  tipc: unlink publications without a node lookup
-  tipc: serialize publication purging with name table updates
-
- net/tipc/name_distr.c | 36 ++++++++++++++++++++++++------------
+Fixes: a8f48af587b0 ("tipc: remove node subscription infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/tipc/name_distr.c | 11 +++++------
  net/tipc/name_distr.h |  2 +-
  net/tipc/node.c       | 20 +-------------------
  net/tipc/node.h       |  1 -
- 4 files changed, 26 insertions(+), 33 deletions(-)
+ 4 files changed, 7 insertions(+), 27 deletions(-)
 
+diff --git a/net/tipc/name_distr.c b/net/tipc/name_distr.c
+index ba4f4906e13b..acf96562608b 100644
+--- a/net/tipc/name_distr.c
++++ b/net/tipc/name_distr.c
+@@ -227,12 +227,11 @@ void tipc_named_node_up(struct net *net, u32 dnode, u16 capabilities)
+  * tipc_publ_purge - remove publication associated with a failed node
+  * @net: the associated network namespace
+  * @p: the publication to remove
+- * @addr: failed node's address
+  *
+  * Invoked for each publication issued by a newly failed node.
+  * Removes publication structure from name table & deletes it.
+  */
+-static void tipc_publ_purge(struct net *net, struct publication *p, u32 addr)
++static void tipc_publ_purge(struct net *net, struct publication *p)
+ {
+ 	struct tipc_net *tn = tipc_net(net);
+ 	struct publication *_p;
+@@ -243,14 +242,14 @@ static void tipc_publ_purge(struct net *net, struct publication *p, u32 addr)
+ 	spin_lock_bh(&tn->nametbl_lock);
+ 	_p = tipc_nametbl_remove_publ(net, &ua, &p->sk, p->key);
+ 	if (_p)
+-		tipc_node_unsubscribe(net, &_p->binding_node, addr);
++		list_del_init(&_p->binding_node);
+ 	spin_unlock_bh(&tn->nametbl_lock);
+ 	if (_p)
+ 		kfree_rcu(_p, rcu);
+ }
+ 
+ void tipc_publ_notify(struct net *net, struct list_head *nsub_list,
+-		      u32 addr, u16 capabilities)
++		      u16 capabilities)
+ {
+ 	struct name_table *nt = tipc_name_table(net);
+ 	struct tipc_net *tn = tipc_net(net);
+@@ -258,7 +257,7 @@ void tipc_publ_notify(struct net *net, struct list_head *nsub_list,
+ 	struct publication *publ, *tmp;
+ 
+ 	list_for_each_entry_safe(publ, tmp, nsub_list, binding_node)
+-		tipc_publ_purge(net, publ, addr);
++		tipc_publ_purge(net, publ);
+ 	spin_lock_bh(&tn->nametbl_lock);
+ 	if (!(capabilities & TIPC_NAMED_BCAST))
+ 		nt->rc_dests--;
+@@ -307,7 +306,7 @@ static bool tipc_update_nametbl(struct net *net, struct distr_item *i,
+ 	} else if (dtype == WITHDRAWAL) {
+ 		p = tipc_nametbl_remove_publ(net, &ua, &sk, key);
+ 		if (p) {
+-			tipc_node_unsubscribe(net, &p->binding_node, node);
++			list_del_init(&p->binding_node);
+ 			kfree_rcu(p, rcu);
+ 			return true;
+ 		}
+diff --git a/net/tipc/name_distr.h b/net/tipc/name_distr.h
+index c677f6f082df..8debe23469b2 100644
+--- a/net/tipc/name_distr.h
++++ b/net/tipc/name_distr.h
+@@ -74,6 +74,6 @@ void tipc_named_rcv(struct net *net, struct sk_buff_head *namedq,
+ 		    u16 *rcv_nxt, bool *open);
+ void tipc_named_reinit(struct net *net);
+ void tipc_publ_notify(struct net *net, struct list_head *nsub_list,
+-		      u32 addr, u16 capabilities);
++		      u16 capabilities);
+ 
+ #endif
+diff --git a/net/tipc/node.c b/net/tipc/node.c
+index bd91378b7540..0e333f952c4f 100644
+--- a/net/tipc/node.c
++++ b/net/tipc/node.c
+@@ -422,7 +422,7 @@ static void tipc_node_write_unlock(struct tipc_node *n)
+ 	write_unlock_bh(&n->lock);
+ 
+ 	if (flags & TIPC_NOTIFY_NODE_DOWN)
+-		tipc_publ_notify(net, publ_list, node, n->capabilities);
++		tipc_publ_notify(net, publ_list, n->capabilities);
+ 
+ 	if (flags & TIPC_NOTIFY_NODE_UP)
+ 		tipc_named_node_up(net, node, n->capabilities);
+@@ -671,24 +671,6 @@ void tipc_node_subscribe(struct net *net, struct list_head *subscr, u32 addr)
+ 	tipc_node_put(n);
+ }
+ 
+-void tipc_node_unsubscribe(struct net *net, struct list_head *subscr, u32 addr)
+-{
+-	struct tipc_node *n;
+-
+-	if (in_own_node(net, addr))
+-		return;
+-
+-	n = tipc_node_find(net, addr);
+-	if (!n) {
+-		pr_warn("Node unsubscribe rejected, unknown node 0x%x\n", addr);
+-		return;
+-	}
+-	tipc_node_write_lock(n);
+-	list_del_init(subscr);
+-	tipc_node_write_unlock_fast(n);
+-	tipc_node_put(n);
+-}
+-
+ int tipc_node_add_conn(struct net *net, u32 dnode, u32 port, u32 peer_port)
+ {
+ 	struct tipc_node *node;
+diff --git a/net/tipc/node.h b/net/tipc/node.h
+index 154a5bbb0d29..a5f060b622a7 100644
+--- a/net/tipc/node.h
++++ b/net/tipc/node.h
+@@ -104,7 +104,6 @@ int tipc_node_distr_xmit(struct net *net, struct sk_buff_head *list);
+ int tipc_node_xmit_skb(struct net *net, struct sk_buff *skb, u32 dest,
+ 		       u32 selector);
+ void tipc_node_subscribe(struct net *net, struct list_head *subscr, u32 addr);
+-void tipc_node_unsubscribe(struct net *net, struct list_head *subscr, u32 addr);
+ void tipc_node_broadcast(struct net *net, struct sk_buff *skb, int rc_dests);
+ int tipc_node_add_conn(struct net *net, u32 dnode, u32 port, u32 peer_port);
+ void tipc_node_remove_conn(struct net *net, u32 dnode, u32 port);
 -- 
 2.43.0
