@@ -1,43 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10A2535FB4;
-	Thu,  1 Oct 2026 16:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C55535FD4;
+	Thu,  1 Oct 2026 16:14:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871254; cv=none; b=JYmVD+d3p8KNl4HBc39+OYn1qTdppgT3/8Ko7sgCaptdwsfhq+OjALDA8sAJPXMmcoDOqw2bopyrQpMJSCKyWBdVPGk7fj02XKwBDxeUGbXJ2hvmRuHv+cyFkAA7OjMo+E1a+mhtZ6jhrJmIRnwA0jMulsRUeUr5uPlQSes1IJE=
+	t=1790871257; cv=none; b=rgnQMimghZEkDj61KXRxHxRF/us7tgNardg4V6CA1hfs3FFLFSEuRtW08cNqGlruRBrB4tA69R1e/nhMJDNeeMZvZu0A2odNSn+1WMxy/DlH4ITYQr4o9DhfiD2ykRzlvQk5kTHpz4QDLi/Qz1LfsPhu/SbDNNo6zlyRuVb6+Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871254; c=relaxed/simple;
-	bh=w9QhDpExnLWj+Lke/G3ANzzNVqs/QZ8gjWYwW+M9PzU=;
+	s=arc-20240116; t=1790871257; c=relaxed/simple;
+	bh=zOnXEWmcLNVhZwiacf0mV4aS0Nov+ky4PdgDHfXeXCs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qY2JUom6X/yYKJIO7DPK3/Itiqhyw1Ty9JnWbEbW96K9R13t44STSMd6S+kqSTPrebRzVTLAsSavO4A9jcG8NjNQLh1bhGZmYNAhFHOuE3HvE52KYv8yvxYfGJsQvjJLm6KTxg8wz3G28tO7mipOeG027HsJ/eMwCOHdKJHwQr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=blaJFvGE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mIlCLiZ0YJQP/rdpULScUEivjn6KA/xNDDJGh3MPmE6+XOo5XKVvpwU8dLF+O6j6sOhre/eSHKgYr7ZpvmPUclxhaLEVDQjCyD+avgPHVfDBp55Ok4xg1TiJ93aDgVuapX2ldCIzjT8IMsjRJZGk5/tfv8+ufpB1vWtCeHryDDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PH03Q5M4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="blaJFvGE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D3A1F00898;
-	Thu,  1 Oct 2026 16:14:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PH03Q5M4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0B51F00898;
+	Thu,  1 Oct 2026 16:14:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790871251;
-	bh=z0GrtR5UAue39jOT1fH/TeHzLI702MMBqP+KzuLb9ms=;
+	s=k20260515; t=1790871255;
+	bh=6J5G6s1kVzGeLB3NlSDeYr0j/6KR66H98mTRXN8rHhA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=blaJFvGEwLoEy7txva2yW2GHxvv9kPtdfoBk1tW67B0UswBaLO9SPHDTZsR5CjFYt
-	 vAImOQXQdUk/wyPUTBc0QUCM34Zz8tSuYmIIwrwZrt4kuNv+57/V35Vj6rlHMpT4TA
-	 EEULh9HEPGWpcRM5mBqflG73NXRl0A2oTzNmderCMlNihJMdU1XCxPt9BLmfIq/LUD
-	 4st9LoBcgPWZNwcfzLPhgHnXHXfcHL7bJpiDa/Gi6F14qj3dxjkopcsj+7JwM6k5IB
-	 bf8yAK4TZovPzwG0+8aJj+i0nr3u3pWL2Q1+4iS7iWRexE8QsYKhqTc3u98AmGR7Ah
-	 sfu0pXAnBPMuQ==
+	b=PH03Q5M4c0uBf1hbAoWsUtpzg1l5s6TbT64wNBT7DiXLzjHl69c81e6SebZ6GRO9W
+	 TqJkGdCxtZbuH4axVbrQv+mExndYCsa7FQts6coEbrL6QMBUzpVWB/TUrVzNfORnFm
+	 ZA2v7B0z9xW1dgNL47VP+MLLfr0dxtg68shx6cnihUc6/wCUpqFXV1o+aVaNvCcfap
+	 kravmNGPaLgowwPRM1Rq4hb7Axh6th2Xwsb29046ypnwiBCig7xeHls1ApcgxyQ9uE
+	 cucAUryEEiJCk61YKd7BWyP2s2IdfD8EhL07yLYwSrX0yrf9dAH2ceh5nyuTmIGXzP
+	 4df1sqzTBDWFQ==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	mfd@lists.linux.dev,
-	linux-serial@vger.kernel.org
-Subject: [PATCH 26/38] mfd: ioc3: add support for IOC4
-Date: Thu,  1 Oct 2026 18:12:01 +0200
-Message-ID: <ceef655fed6e8fdc2f7d34a82fd3e4eb21b64855.1790857966.git.kaloz@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 28/38] MIPS: SGI-IP27: add L1 system controller support
+Date: Thu,  1 Oct 2026 18:12:03 +0200
+Message-ID: <0672388c6c673dbed1d1f1047ab03d7d474739f6.1790857966.git.kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790857966.git.kaloz@kernel.org>
 References: <cover.1790857966.git.kaloz@kernel.org>
@@ -49,683 +44,500 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IOC4 is IOC3's successor on IP35 Origin 350-class boards. Its serial and
-PS/2 cores reuse IOC3's drivers and its interrupt status splits into two
-banks.
+IP35-family (Bedrock hub) machines carry an L1 system controller on a
+polled UART with RFC 1662 async-HDLC framing. Add the transport, the
+request/response core and l1_exec_command(); on a Hub every request
+fails with -ENODEV.
 
-The serial, interrupt and GPIO register definitions in asm/sn/ioc4.h
-follow include/linux/ioc4.h and drivers/tty/serial/ioc4_serial.c, removed
-by commit f7bc6e42bf12 ("drivers: remove the SGI SN2 IOC4 base support")
-and commit a017ef17cfd8 ("tty/serial: remove the ioc4_serial driver").
+Ported from OpenBSD sys/arch/sgi/sgi/l1.c and licensed ISC like it,
+keeping its notice.
 
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- arch/mips/include/asm/sn/ioc4.h               | 130 ++++++++
- drivers/mfd/ioc3.c                            | 289 +++++++++++++++---
- drivers/tty/serial/8250/8250_ioc3.c           |   5 +-
- include/linux/platform_data/sgi-ioc3-serial.h |  13 +
- 4 files changed, 391 insertions(+), 46 deletions(-)
- create mode 100644 arch/mips/include/asm/sn/ioc4.h
- create mode 100644 include/linux/platform_data/sgi-ioc3-serial.h
+ arch/mips/Kconfig             |   1 +
+ arch/mips/include/asm/sn/l1.h |  14 ++
+ arch/mips/sgi-ip27/Makefile   |   4 +-
+ arch/mips/sgi-ip27/ip27-l1.c  | 423 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 440 insertions(+), 2 deletions(-)
+ create mode 100644 arch/mips/include/asm/sn/l1.h
+ create mode 100644 arch/mips/sgi-ip27/ip27-l1.c
 
-diff --git a/arch/mips/include/asm/sn/ioc4.h b/arch/mips/include/asm/sn/ioc4.h
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+index 20212194e763..348217328c9d 100644
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -764,6 +764,7 @@ config SGI_IP27
+ 	select FW_ARC64
+ 	select ARC_CMDLINE_ONLY
+ 	select BOOT_ELF64
++	select CRC_CCITT
+ 	select DEFAULT_SGI_PARTITION
+ 	select FORCE_PCI
+ 	select SYS_HAS_EARLY_PRINTK
+diff --git a/arch/mips/include/asm/sn/l1.h b/arch/mips/include/asm/sn/l1.h
 new file mode 100644
-index 000000000000..fca363c10035
+index 000000000000..e61935e2fac8
 --- /dev/null
-+++ b/arch/mips/include/asm/sn/ioc4.h
-@@ -0,0 +1,130 @@
++++ b/arch/mips/include/asm/sn/l1.h
+@@ -0,0 +1,14 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * IOC4 -- SGI's I/O ASIC on Tezro/Origin 350-class boards.
++ * Entry points into the SGI L1 system controller driver.
 + *
-+ * Copyright (C) 2003-2006 Silicon Graphics, Inc.
++ * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
 + */
-+#ifndef MIPS_SN_IOC4_H
-+#define MIPS_SN_IOC4_H
++#ifndef __ASM_SN_L1_H
++#define __ASM_SN_L1_H
 +
 +#include <linux/types.h>
 +
-+struct ioc4_serialregs {
-+	u32	sscr;
-+	u32	stpir;
-+	u32	stcir;
-+	u32	srpir;
-+	u32	srcir;
-+	u32	srtr;
-+	u32	shadow;
-+};
++int l1_exec_command(const char *cmd);
 +
-+struct ioc4_uartregs {
-+	u8	i4u_lcr;
-+	union {
-+		u8	i4u_iir;	/* read only */
-+		u8	i4u_fcr;	/* write only */
-+	};
-+	union {
-+		u8	i4u_ier;	/* DLAB == 0 */
-+		u8	i4u_dlm;	/* DLAB == 1 */
-+	};
-+	union {
-+		u8	i4u_rbr;	/* read only, DLAB == 0 */
-+		u8	i4u_thr;	/* write only, DLAB == 0 */
-+		u8	i4u_dll;	/* DLAB == 1 */
-+	};
-+	u8	i4u_scr;
-+	u8	i4u_msr;
-+	u8	i4u_lsr;
-+	u8	i4u_mcr;
-+};
-+
-+struct ioc4_serioregs {
-+	u32	km_csr;
-+	u32	k_rd;
-+	u32	m_rd;
-+	u32	k_wd;
-+	u32	m_wd;
-+};
-+
-+/* Register layout of IOC4 in PCI BAR0. */
-+struct ioc4 {
-+	u32	pci_err_addr_l;	/* 0x00000 */
-+	u32	pci_err_addr_h;	/* 0x00004 */
-+	u32	sio_ir;		/* 0x00008 */
-+	u32	other_ir;	/* 0x0000c */
-+	u32	sio_ies;	/* 0x00010 */
-+	u32	other_ies;	/* 0x00014 */
-+	u32	sio_iec;	/* 0x00018 */
-+	u32	other_iec;	/* 0x0001c */
-+	u32	sio_cr;		/* 0x00020 */
-+	u32	pad0;		/* 0x00024 */
-+	u32	int_out;	/* 0x00028 */
-+	u32	pad1;		/* 0x0002c */
-+	u32	gpcr_s;		/* 0x00030 */
-+	u32	gpcr_c;		/* 0x00034 */
-+	u32	gpdr;		/* 0x00038 */
-+	u32	pad2;		/* 0x0003c */
-+	u32	gppr[8];	/* 0x00040 */
-+
-+	u32	pad3[(0x200 - 0x60) / 4];
-+
-+	struct ioc4_serioregs	serio;	/* 0x00200, IOC4_KBC_BASE */
-+
-+	u32	pad4[(0x300 - 0x214) / 4];
-+
-+	u32	sbbr01_l;	/* 0x00300 */
-+	u32	sbbr01_h;	/* 0x00304 */
-+	u32	sbbr23_l;	/* 0x00308 */
-+	u32	sbbr23_h;	/* 0x0030c */
-+
-+	struct ioc4_serialregs	port[4];	/* 0x00310 */
-+	struct ioc4_uartregs	uart[4];	/* 0x00380 */
-+};
-+
-+/* Bytebus device 0, where the TOD chip sits. */
-+#define IOC4_BYTEBUS_DEV0	0x80000L
-+
-+/* sio_ir carries serial events only, one 8-bit group per port. */
-+#define IOC4_SIO_IR_TX_MT	0x01	/* TX ring buffer empty */
-+#define IOC4_SIO_IR_RX_FULL	0x02	/* RX ring buffer full */
-+#define IOC4_SIO_IR_RX_HIGH	0x04	/* RX high-water exceeded */
-+#define IOC4_SIO_IR_RX_TIMER	0x08	/* RX timer has triggered */
-+#define IOC4_SIO_IR_DELTA_DCD	0x10	/* DELTA_DCD seen */
-+#define IOC4_SIO_IR_DELTA_CTS	0x20	/* DELTA_CTS seen */
-+#define IOC4_SIO_IR_INT		0x40	/* UART pass-through interrupt */
-+#define IOC4_SIO_IR_TX_EXPLICIT	0x80	/* TX, MCW, or delay complete */
-+
-+#define IOC4_SIO_IR_PORT_SHIFT(port)	((port) * 8)
-+#define IOC4_SIO_IR_PORT_INT(port) \
-+	(IOC4_SIO_IR_INT << IOC4_SIO_IR_PORT_SHIFT(port))
-+
-+/* Bit index of IOC4_SIO_IR_INT; DEFINE_RES_IRQ() needs a constant. */
-+#define IOC4_SIO_IR_INT_BIT		6
-+#define IOC4_SIO_IR_PORT_INT_BIT(port) \
-+	(IOC4_SIO_IR_PORT_SHIFT(port) + IOC4_SIO_IR_INT_BIT)
-+
-+#define IOC4_OTHER_IR_ATA_INT		0x00000001	/* ATA passthru */
-+#define IOC4_OTHER_IR_ATA_MEMERR	0x00000002	/* ATA PCI error */
-+#define IOC4_OTHER_IR_S0_MEMERR		0x00000004	/* port 0 PCI error */
-+#define IOC4_OTHER_IR_S1_MEMERR		0x00000008	/* port 1 PCI error */
-+#define IOC4_OTHER_IR_S2_MEMERR		0x00000010	/* port 2 PCI error */
-+#define IOC4_OTHER_IR_S3_MEMERR		0x00000020	/* port 3 PCI error */
-+/* The IX-brick wires this bit to the PS/2 ports. */
-+#define IOC4_OTHER_IR_KBD_INT		0x00000040
-+#define IOC4_OTHER_IR_RT_INT		0x00800000	/* INT_OUT latch */
-+#define IOC4_OTHER_IR_GEN_INT		0xff000000	/* generic pins */
-+
-+#define IOC4_OTHER_IR_KBD_INT_BIT	6	/* bit index */
-+
-+#define IOC4_SSCR_DMA_EN	0x10000000	/* enable ring buffer DMA */
-+
-+/* GPIO pins 4-7 select RS232 or RS422 mode for the four UARTs. */
-+#define IOC4_GPCR_UART_MODESEL(port)		(0x10 << (port))
-+#define IOC4_GPPR_UART_MODESEL_PIN(port)	(4 + (port))
-+
-+/* The serial core runs off the PCI bus clock, 66MHz in the IX-brick. */
-+#define IOC4_UARTCLK	66666667
-+
-+#endif /* MIPS_SN_IOC4_H */
-diff --git a/drivers/mfd/ioc3.c b/drivers/mfd/ioc3.c
-index 5f8ac364b610..fd50bae0f10b 100644
---- a/drivers/mfd/ioc3.c
-+++ b/drivers/mfd/ioc3.c
-@@ -19,11 +19,13 @@
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/platform_device.h>
-+#include <linux/platform_data/sgi-ioc3-serial.h>
- #include <linux/platform_data/sgi-w1.h>
- #include <linux/rtc/ds1685.h>
++#endif /* __ASM_SN_L1_H */
+diff --git a/arch/mips/sgi-ip27/Makefile b/arch/mips/sgi-ip27/Makefile
+index 9877fcc512b1..4b6aa641ccc6 100644
+--- a/arch/mips/sgi-ip27/Makefile
++++ b/arch/mips/sgi-ip27/Makefile
+@@ -4,8 +4,8 @@
+ #
  
- #include <asm/pci/bridge.h>
- #include <asm/sn/ioc3.h>
-+#include <asm/sn/ioc4.h>
+ obj-y	:= ip27-berr.o ip27-irq.o ip27-init.o ip27-klconfig.o \
+-	   ip27-klnuma.o ip27-memory.o ip27-nmi.o ip27-reset.o ip27-timer.o \
+-	   ip27-xtalk.o
++	   ip27-klnuma.o ip27-l1.o ip27-memory.o ip27-nmi.o ip27-reset.o \
++	   ip27-timer.o ip27-xtalk.o
  
- #define IOC3_IRQ_SERIAL_A	6
- #define IOC3_IRQ_SERIAL_B	15
-@@ -37,9 +39,33 @@
- /* 1.2 us latency timer (40 cycles at 33 MHz) */
- #define IOC3_LATENCY	40
- 
-+struct ioc3_priv_data;
+ obj-$(CONFIG_EARLY_PRINTK)	+= ip27-console.o
+ obj-$(CONFIG_SMP)		+= ip27-smp.o
+diff --git a/arch/mips/sgi-ip27/ip27-l1.c b/arch/mips/sgi-ip27/ip27-l1.c
+new file mode 100644
+index 000000000000..da3095b66cf1
+--- /dev/null
++++ b/arch/mips/sgi-ip27/ip27-l1.c
+@@ -0,0 +1,423 @@
++// SPDX-License-Identifier: ISC
++/*
++ * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
++ *
++ * SGI L1 system controller communication, ported from OpenBSD/sgi's
++ * l1.c:
++ *
++ * Copyright (c) 2009 Miodrag Vallat.
++ *
++ * Permission to use, copy, modify, and distribute this software for any
++ * purpose with or without fee is hereby granted, provided that the above
++ * copyright notice and this permission notice appear in all copies.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
++ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
++ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
++ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++ *
++ * The L1 is the IP35-family (Bedrock hub) system controller, reached
++ * over a polled UART with async-HDLC (PPP) framing. Every request fails
++ * with -ENODEV on an IP27 (Hub) machine.
++ */
++#include <linux/kernel.h>
++#include <linux/errno.h>
++#include <linux/serial_reg.h>
++#include <linux/spinlock.h>
++#include <linux/stdarg.h>
++#include <linux/string.h>
++#include <linux/types.h>
++#include <linux/unaligned.h>
++#include <linux/crc-ccitt.h>
++#include <linux/io.h>
++
++#include <asm/sn/addrs.h>
++#include <asm/sn/agent.h>
++#include <asm/sn/l1.h>
++#include <asm/sn/types.h>
++
++/* packet types */
++#define L1PKT_REQUEST		0x00
++#define L1PKT_RESPONSE		0x20
++
++/* packet subchannels */
++#define L1CH_MISC		0x10	/* available for operating system */
++
++/* argument encoding */
++#define L1_ARG_INT		0x00	/* followed by 32 bit BE value */
++#define L1_ARG_ASCII		0x01	/* followed by NUL terminated string */
++#define L1_ARG_BINARY		0x80	/* length in low 7 bits */
++
++/* command types and destination addresses */
++#define L1_ADDRESS(type, addr)	(((type) << 28) | (addr))
++
++#define L1_TYPE_L1		0x00
++
++#define L1_ADDRESS_RACK_LOCAL	0x3ff
++#define L1_ADDRESS_RACK_SHIFT	18
++#define L1_ADDRESS_BAY_LOCAL	0x3f
++#define L1_ADDRESS_BAY_SHIFT	12
++
++#define L1_ADDRESS_LOCAL \
++	((L1_ADDRESS_RACK_LOCAL << L1_ADDRESS_RACK_SHIFT) | \
++	 (L1_ADDRESS_BAY_LOCAL << L1_ADDRESS_BAY_SHIFT))
++
++#define L1_TASK_COMMAND		0x03
++
++/* response codes */
++#define L1_RESP_OK		((u32)0)
++#define L1_RESP_NXDATA		((u32)-0x68)
++#define L1_RESP_INVAL		((u32)-0x6b)
++
++/* L1_TASK_COMMAND requests */
++#define L1_REQ_EXEC_CMD		0x0000	/* interpret plaintext command */
++
++/* Async-HDLC framing bytes; linux/ppp_defs.h would drag in skbuff.h. */
++#define L1_FLAG			0x7e
++#define L1_ESC			0x7d
++#define L1_TRANS		0x20
++#define L1_FCS_INIT		0xffff
++#define L1_FCS_GOOD		0xf0b8
++
++/* A raw iteration count, not a time bound: this can run before jiffies. */
++#define L1_POLL_ITERATIONS	1000000
 +
 +/*
-+ * One interrupt bank: an ir/ies/iec register triplet covering 32 hwirqs.
-+ * IOC3 has a single bank. IOC4 keeps only the four serial ports in
-+ * sio_ir and moves ATA, memory-error, keyboard, RT and generic-pin
-+ * events into a second bank, other_ir.
++ * The L1 UART sits in the HSPEC "local register" window, reached
++ * through the "remote HSPEC" indirection even for the local node.
 + */
-+struct ioc3_irq_bank {
-+	u16 ir, ies, iec;	/* BAR0 offsets */
-+	u32 lvl_mask;		/* hwirqs needing level-triggered handling */
-+};
++#define L1_RHSPEC_OFFSET	0x20000000	/* remote-HSPEC indirection */
++#define L1_LREG_OFFSET		0x10000000	/* local register window */
++#define L1_UART_REG(r)		(L1_LREG_OFFSET + 0x80 + ((r) << 3))
 +
-+struct ioc3_variant {
-+	const char *name;
-+	struct irq_chip *chip;
-+	const struct ioc3_irq_bank *banks;
-+	unsigned int nr_banks;
-+	unsigned int nr_irqs;
-+	u16 pci_command;	/* extra PCI_COMMAND bits to set at probe */
-+	int (*setup)(struct ioc3_priv_data *ipd);
-+};
++#define L1_UART_ADDRESS(nasid, r) \
++	((u64 *)(NODE_HSPEC_BASE(nasid) + L1_RHSPEC_OFFSET + L1_UART_REG(r)))
 +
- struct ioc3_priv_data {
- 	struct irq_domain *domain;
--	struct ioc3 __iomem *regs;
-+	void __iomem *base;
-+	const struct ioc3_variant *var;
- 	struct pci_dev *pdev;
- 	int domain_irq;
- };
-@@ -48,24 +74,27 @@ static void ioc3_irq_ack(struct irq_data *d)
- {
- 	struct ioc3_priv_data *ipd = irq_data_get_irq_chip_data(d);
- 	unsigned int hwirq = irqd_to_hwirq(d);
-+	const struct ioc3_irq_bank *bank = &ipd->var->banks[hwirq / 32];
- 
--	writel(BIT(hwirq), &ipd->regs->sio_ir);
-+	writel(BIT(hwirq % 32), ipd->base + bank->ir);
- }
- 
- static void ioc3_irq_mask(struct irq_data *d)
- {
- 	struct ioc3_priv_data *ipd = irq_data_get_irq_chip_data(d);
- 	unsigned int hwirq = irqd_to_hwirq(d);
-+	const struct ioc3_irq_bank *bank = &ipd->var->banks[hwirq / 32];
- 
--	writel(BIT(hwirq), &ipd->regs->sio_iec);
-+	writel(BIT(hwirq % 32), ipd->base + bank->iec);
- }
- 
- static void ioc3_irq_unmask(struct irq_data *d)
- {
- 	struct ioc3_priv_data *ipd = irq_data_get_irq_chip_data(d);
- 	unsigned int hwirq = irqd_to_hwirq(d);
-+	const struct ioc3_irq_bank *bank = &ipd->var->banks[hwirq / 32];
- 
--	writel(BIT(hwirq), &ipd->regs->sio_ies);
-+	writel(BIT(hwirq % 32), ipd->base + bank->ies);
- }
- 
- static struct irq_chip ioc3_irq_chip = {
-@@ -75,16 +104,25 @@ static struct irq_chip ioc3_irq_chip = {
- 	.irq_unmask	= ioc3_irq_unmask,
- };
- 
-+static struct irq_chip ioc4_irq_chip = {
-+	.name		= "IOC4",
-+	.irq_ack	= ioc3_irq_ack,
-+	.irq_mask	= ioc3_irq_mask,
-+	.irq_unmask	= ioc3_irq_unmask,
-+};
++static int l1_serial_getc(nasid_t nasid)
++{
++	unsigned int n;
++	u64 lsr;
 +
- static int ioc3_irq_domain_map(struct irq_domain *d, unsigned int irq,
- 			      irq_hw_number_t hwirq)
- {
--	/* Set level IRQs for every interrupt contained in IOC3_LVL_MASK */
--	if (BIT(hwirq) & IOC3_LVL_MASK)
--		irq_set_chip_and_handler(irq, &ioc3_irq_chip, handle_level_irq);
-+	struct ioc3_priv_data *ipd = d->host_data;
-+	const struct ioc3_irq_bank *bank = &ipd->var->banks[hwirq / 32];
++	for (n = L1_POLL_ITERATIONS; n != 0; n--) {
++		lsr = __raw_readq(L1_UART_ADDRESS(nasid, UART_LSR));
++		if (lsr & UART_LSR_DR)
++			break;
++		cpu_relax();
++	}
++	if (n == 0)
++		return -ETIMEDOUT;
 +
-+	if (BIT(hwirq % 32) & bank->lvl_mask)
-+		irq_set_chip_and_handler(irq, ipd->var->chip, handle_level_irq);
- 	else
--		irq_set_chip_and_handler(irq, &ioc3_irq_chip, handle_edge_irq);
-+		irq_set_chip_and_handler(irq, ipd->var->chip, handle_edge_irq);
- 
--	irq_set_chip_data(irq, d->host_data);
-+	irq_set_chip_data(irq, ipd);
- 	return 0;
- }
- 
-@@ -103,17 +141,21 @@ static void ioc3_irq_handler(struct irq_desc *desc)
- {
- 	struct irq_domain *domain = irq_desc_get_handler_data(desc);
- 	struct ioc3_priv_data *ipd = domain->host_data;
--	struct ioc3 __iomem *regs = ipd->regs;
--	u32 pending, mask;
-+	unsigned int i;
- 
--	pending = readl(&regs->sio_ir);
--	mask = readl(&regs->sio_ies);
--	pending &= mask; /* Mask off not enabled interrupts */
-+	for (i = 0; i < ipd->var->nr_banks; i++) {
-+		const struct ioc3_irq_bank *bank = &ipd->var->banks[i];
-+		u32 pending = readl(ipd->base + bank->ir) &
-+			      readl(ipd->base + bank->ies);
- 
--	if (pending)
--		generic_handle_domain_irq(domain, __ffs(pending));
--	else
--		spurious_interrupt();
-+		if (pending) {
-+			generic_handle_domain_irq(domain,
-+						  i * 32 + __ffs(pending));
-+			return;
++	return __raw_readq(L1_UART_ADDRESS(nasid, UART_RX)) & 0xff;
++}
++
++static int l1_serial_putc(nasid_t nasid, u8 val)
++{
++	unsigned int n;
++	u64 lsr;
++
++	for (n = L1_POLL_ITERATIONS; n != 0; n--) {
++		lsr = __raw_readq(L1_UART_ADDRESS(nasid, UART_LSR));
++		if (lsr & UART_LSR_THRE)
++			break;
++		cpu_relax();
++	}
++	if (n == 0)
++		return -ETIMEDOUT;
++
++	__raw_writeq(val, L1_UART_ADDRESS(nasid, UART_TX));
++	return 0;
++}
++
++static int l1_serial_ppp_write(nasid_t nasid, u16 *crc, u8 data, bool escape)
++{
++	int rc;
++
++	if (crc)
++		*crc = crc_ccitt_byte(*crc, data);
++
++	if (escape && (data == L1_FLAG || data == L1_ESC)) {
++		rc = l1_serial_putc(nasid, L1_ESC);
++		if (rc)
++			return rc;
++		data ^= L1_TRANS;
++	}
++
++	return l1_serial_putc(nasid, data);
++}
++
++static int l1_packet_put(nasid_t nasid, const u8 *packet, size_t len)
++{
++	u16 crc = L1_FCS_INIT;
++	int rc;
++
++	rc = l1_serial_ppp_write(nasid, NULL, L1_FLAG, false);
++	if (rc)
++		return rc;
++
++	while (len-- != 0) {
++		rc = l1_serial_ppp_write(nasid, &crc, *packet++, true);
++		if (rc)
++			return rc;
++	}
++
++	crc ^= L1_FCS_INIT;
++	rc = l1_serial_ppp_write(nasid, NULL, crc & 0xff, true);
++	if (rc)
++		return rc;
++	rc = l1_serial_ppp_write(nasid, NULL, (crc >> 8) & 0xff, true);
++	if (rc)
++		return rc;
++
++	return l1_serial_ppp_write(nasid, NULL, L1_FLAG, false);
++}
++
++static int l1_packet_get(nasid_t nasid, u8 *buf, size_t buflen, size_t *rlen)
++{
++	u16 crc;
++	size_t rcvlen;
++	int data;
++
++	for (;;) {
++		data = l1_serial_getc(nasid);
++		if (data < 0)
++			return data;
++		if (data == L1_FLAG)
++			break;
++	}
++
++	rcvlen = 0;
++	crc = L1_FCS_INIT;
++	for (;;) {
++		data = l1_serial_getc(nasid);
++		if (data < 0)
++			return data;
++		if (data == L1_FLAG)	/* end of packet */
++			break;
++		if (data == L1_ESC) {
++			data = l1_serial_getc(nasid);
++			if (data < 0)
++				return data;
++			data ^= L1_TRANS;
++		}
++		if (rcvlen < buflen)
++			buf[rcvlen] = data;
++		rcvlen++;
++		crc = crc_ccitt_byte(crc, data);
++	}
++
++	if (rcvlen > buflen)
++		return -EMSGSIZE;	/* did not fit the buffer */
++	if (rcvlen < 2)
++		return -EBADMSG;	/* short packet */
++
++	rcvlen -= 2;			/* crc bytes */
++	if (crc != L1_FCS_GOOD)
++		return -EBADMSG;	/* CRC error */
++
++	*rlen = rcvlen;
++	return 0;
++}
++
++/*
++ * Returns the would-be length even when the buffer is too small, and
++ * SIZE_MAX for an unknown argument type.
++ */
++static size_t l1_command_build(u8 *buf, size_t buflen, u32 address,
++			       u16 request, int nargs, va_list ap)
++{
++	u32 data;
++	size_t len = 0;
++	int argtype;
++	const char *str;
++
++	if (buflen >= 1) {
++		*buf++ = L1PKT_REQUEST | L1CH_MISC;
++		buflen--;
++	}
++	len++;
++
++	if (buflen >= 4) {
++		put_unaligned_be32(address, buf);
++		buf += 4;
++		buflen -= 4;
++	}
++	len += 4;
++
++	if (buflen >= 2) {
++		put_unaligned_be16(request, buf);
++		buf += 2;
++		buflen -= 2;
++	}
++	len += 2;
++
++	if (buflen >= 1) {
++		*buf++ = nargs;
++		buflen--;
++	}
++	len++;
++
++	while (nargs-- != 0) {
++		argtype = va_arg(ap, int);
++		switch (argtype) {
++		case L1_ARG_INT:
++			data = va_arg(ap, u32);
++			if (buflen >= 5) {
++				*buf++ = L1_ARG_INT;
++				put_unaligned_be32(data, buf);
++				buf += 4;
++				buflen -= 5;
++			}
++			len += 5;
++			break;
++		case L1_ARG_ASCII:
++			str = va_arg(ap, const char *);
++			data = strlen(str);
++			if (buflen >= data + 2) {
++				*buf++ = L1_ARG_ASCII;
++				memcpy(buf, str, data + 1);
++				buf += data + 1;
++				buflen -= data + 2;
++			}
++			len += data + 2;
++			break;
++		case L1_ARG_BINARY:
++			data = (u32)va_arg(ap, size_t);	/* size */
++			str = va_arg(ap, const char *);	/* data */
++			if (buflen >= 1 + data) {
++				*buf++ = L1_ARG_BINARY | data;
++				memcpy(buf, str, data);
++				buf += data;
++				buflen -= data + 1;
++			}
++			len += data + 1;
++			break;
++		default:
++			WARN_ON_ONCE(1);
++			return SIZE_MAX;
 +		}
 +	}
 +
-+	spurious_interrupt();
- }
- 
- /*
-@@ -134,11 +176,12 @@ static int ioc3_irq_domain_setup(struct ioc3_priv_data *ipd, int irq)
- 	struct irq_domain *domain;
- 	struct fwnode_handle *fn;
- 
--	fn = irq_domain_alloc_named_fwnode("IOC3");
-+	fn = irq_domain_alloc_named_fwnode(ipd->var->name);
- 	if (!fn)
- 		goto err;
- 
--	domain = irq_domain_create_linear(fn, 24, &ioc3_irq_domain_ops, ipd);
-+	domain = irq_domain_create_linear(fn, ipd->var->nr_irqs,
-+					  &ioc3_irq_domain_ops, ipd);
- 	if (!domain) {
- 		irq_domain_free_fwnode(fn);
- 		goto err;
-@@ -182,21 +225,19 @@ static struct mfd_cell ioc3_serial_cells[] = {
- 
- static int ioc3_serial_setup(struct ioc3_priv_data *ipd)
- {
-+	struct ioc3 __iomem *regs = ipd->base;
- 	int ret;
- 
- 	/* Set gpio pins for RS232/RS422 mode selection */
--	writel(GPCR_UARTA_MODESEL | GPCR_UARTB_MODESEL,
--		&ipd->regs->gpcr_s);
-+	writel(GPCR_UARTA_MODESEL | GPCR_UARTB_MODESEL, &regs->gpcr_s);
- 	/* Select RS232 mode for uart a */
--	writel(0, &ipd->regs->gppr[6]);
-+	writel(0, &regs->gppr[6]);
- 	/* Select RS232 mode for uart b */
--	writel(0, &ipd->regs->gppr[7]);
-+	writel(0, &regs->gppr[7]);
- 
- 	/* Switch both ports to 16650 mode */
--	writel(readl(&ipd->regs->port_a.sscr) & ~SSCR_DMA_EN,
--	       &ipd->regs->port_a.sscr);
--	writel(readl(&ipd->regs->port_b.sscr) & ~SSCR_DMA_EN,
--	       &ipd->regs->port_b.sscr);
-+	writel(readl(&regs->port_a.sscr) & ~SSCR_DMA_EN, &regs->port_a.sscr);
-+	writel(readl(&regs->port_b.sscr) & ~SSCR_DMA_EN, &regs->port_b.sscr);
- 	udelay(1000); /* Wait until mode switch is done */
- 
- 	ret = mfd_add_devices(&ipd->pdev->dev, PLATFORM_DEVID_AUTO,
-@@ -270,10 +311,11 @@ static struct mfd_cell ioc3_eth_cells[] = {
- 
- static int ioc3_eth_setup(struct ioc3_priv_data *ipd)
- {
-+	struct ioc3 __iomem *regs = ipd->base;
- 	int ret;
- 
- 	/* Enable One-Wire bus */
--	writel(GPCR_MLAN_EN, &ipd->regs->gpcr_s);
-+	writel(GPCR_MLAN_EN, &regs->gpcr_s);
- 
- 	/* Generate unique identifier */
- 	snprintf(ioc3_w1_platform_data.dev_id,
-@@ -539,14 +581,12 @@ static struct {
- 
- static int ioc3_setup(struct ioc3_priv_data *ipd)
- {
-+	struct ioc3 __iomem *regs = ipd->base;
- 	u32 sid;
- 	int i;
- 
--	/* Clear IRQs */
--	writel(~0, &ipd->regs->sio_iec);
--	writel(~0, &ipd->regs->sio_ir);
--	writel(0, &ipd->regs->eth.eier);
--	writel(~0, &ipd->regs->eth.eisr);
-+	writel(0, &regs->eth.eier);
-+	writel(~0, &regs->eth.eisr);
- 
- 	/* Read subsystem vendor id and subsystem id */
- 	pci_read_config_dword(ipd->pdev, PCI_SUBSYSTEM_VENDOR_ID, &sid);
-@@ -565,8 +605,11 @@ static int ioc3_setup(struct ioc3_priv_data *ipd)
- static int ioc3_mfd_probe(struct pci_dev *pdev,
- 			  const struct pci_device_id *pci_id)
- {
-+	const struct ioc3_variant *var = (void *)pci_id->driver_data;
- 	struct ioc3_priv_data *ipd;
--	struct ioc3 __iomem *regs;
-+	void __iomem *base;
-+	unsigned int i;
-+	u16 cmd;
- 	int ret;
- 
- 	ret = pci_enable_device(pdev);
-@@ -576,6 +619,12 @@ static int ioc3_mfd_probe(struct pci_dev *pdev,
- 	pci_write_config_byte(pdev, PCI_LATENCY_TIMER, IOC3_LATENCY);
- 	pci_set_master(pdev);
- 
-+	if (var->pci_command) {
-+		pci_read_config_word(pdev, PCI_COMMAND, &cmd);
-+		pci_write_config_word(pdev, PCI_COMMAND,
-+				      cmd | var->pci_command);
-+	}
-+
- 	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
- 	if (ret) {
- 		pr_err("%s: No usable DMA configuration, aborting.\n",
-@@ -591,24 +640,31 @@ static int ioc3_mfd_probe(struct pci_dev *pdev,
- 		goto out_disable_device;
- 	}
- 	ipd->pdev = pdev;
-+	ipd->var = var;
- 
- 	/*
- 	 * Map all IOC3 registers.  These are shared between subdevices
- 	 * so the main IOC3 module manages them.
- 	 */
--	regs = pci_ioremap_bar(pdev, 0);
--	if (!regs) {
-+	base = pci_ioremap_bar(pdev, 0);
-+	if (!base) {
- 		dev_warn(&pdev->dev, "ioc3: Unable to remap PCI BAR for %s.\n",
- 			 pci_name(pdev));
- 		ret = -ENOMEM;
- 		goto out_disable_device;
- 	}
--	ipd->regs = regs;
-+	ipd->base = base;
- 
- 	/* Track PCI-device specific data */
- 	pci_set_drvdata(pdev, ipd);
- 
--	ret = ioc3_setup(ipd);
-+	/* Clear IRQs */
-+	for (i = 0; i < var->nr_banks; i++) {
-+		writel(~0, base + var->banks[i].iec);
-+		writel(~0, base + var->banks[i].ir);
-+	}
-+
-+	ret = var->setup(ipd);
- 	if (ret) {
- 		/* Remove all already added MFD devices */
- 		mfd_remove_devices(&ipd->pdev->dev);
-@@ -619,7 +675,7 @@ static int ioc3_mfd_probe(struct pci_dev *pdev,
- 			irq_domain_free_fwnode(fn);
- 			free_irq(ipd->domain_irq, (void *)ipd);
- 		}
--		pci_iounmap(pdev, regs);
-+		pci_iounmap(pdev, base);
- 		goto out_disable_device;
- 	}
- 
-@@ -633,12 +689,15 @@ static int ioc3_mfd_probe(struct pci_dev *pdev,
- static void ioc3_mfd_remove(struct pci_dev *pdev)
- {
- 	struct ioc3_priv_data *ipd;
-+	unsigned int i;
- 
- 	ipd = pci_get_drvdata(pdev);
- 
- 	/* Clear and disable all IRQs */
--	writel(~0, &ipd->regs->sio_iec);
--	writel(~0, &ipd->regs->sio_ir);
-+	for (i = 0; i < ipd->var->nr_banks; i++) {
-+		writel(~0, ipd->base + ipd->var->banks[i].iec);
-+		writel(~0, ipd->base + ipd->var->banks[i].ir);
-+	}
- 
- 	/* Release resources */
- 	mfd_remove_devices(&ipd->pdev->dev);
-@@ -649,12 +708,152 @@ static void ioc3_mfd_remove(struct pci_dev *pdev)
- 		irq_domain_free_fwnode(fn);
- 		free_irq(ipd->domain_irq, (void *)ipd);
- 	}
--	pci_iounmap(pdev, ipd->regs);
-+	pci_iounmap(pdev, ipd->base);
- 	pci_disable_device(pdev);
- }
- 
-+static const struct ioc3_irq_bank ioc3_irq_banks[] = {
-+	{
-+		.ir = offsetof(struct ioc3, sio_ir),
-+		.ies = offsetof(struct ioc3, sio_ies),
-+		.iec = offsetof(struct ioc3, sio_iec),
-+		.lvl_mask = IOC3_LVL_MASK,
-+	},
-+};
-+
-+static const struct ioc3_variant ioc3_variant = {
-+	.name = "IOC3",
-+	.chip = &ioc3_irq_chip,
-+	.banks = ioc3_irq_banks,
-+	.nr_banks = ARRAY_SIZE(ioc3_irq_banks),
-+	.nr_irqs = 24,
-+	.setup = ioc3_setup,
-+};
-+
-+#define IOC4_NUM_PORTS		4
-+
-+/* hwirqs 0-31 are sio_ir's, 32-63 other_ir's. */
-+#define IOC4_IRQ_OTHER_BASE	32
-+#define IOC4_NUM_IRQS		64
-+
-+/* Only the four ports' UART pass-through bits are level triggered. */
-+#define IOC4_LVL_MASK \
-+	(IOC4_SIO_IR_PORT_INT(0) | IOC4_SIO_IR_PORT_INT(1) | \
-+	 IOC4_SIO_IR_PORT_INT(2) | IOC4_SIO_IR_PORT_INT(3))
-+
-+#define IOC4_UART_RES(port) {						\
-+	DEFINE_RES_MEM(offsetof(struct ioc4, uart[port]),		\
-+		       sizeof_field(struct ioc4, uart[port])),		\
-+	DEFINE_RES_IRQ(IOC4_SIO_IR_PORT_INT_BIT(port)),			\
++	return len;
 +}
 +
-+static const struct resource ioc4_uart_resources[][2] = {
-+	IOC4_UART_RES(0),
-+	IOC4_UART_RES(1),
-+	IOC4_UART_RES(2),
-+	IOC4_UART_RES(3),
-+};
-+
-+static const struct resource ioc4_kbd_resources[] = {
-+	DEFINE_RES_MEM(offsetof(struct ioc4, serio),
-+		       sizeof_field(struct ioc4, serio)),
-+	DEFINE_RES_IRQ(IOC4_IRQ_OTHER_BASE + IOC4_OTHER_IR_KBD_INT_BIT)
-+};
-+
-+static const struct resource ioc4_rtc_resources[] = {
-+	DEFINE_RES_MEM(IOC4_BYTEBUS_DEV0, M48T35_REG_SIZE)
-+};
-+
-+static const struct ioc3_serial8250_platform_data ioc4_serial_pdata = {
-+	.uartclk = IOC4_UARTCLK,
-+};
-+
-+#define IOC4_SERIAL_CELL(port) {					\
-+	.name = "ioc3-serial8250",					\
-+	.resources = ioc4_uart_resources[port],				\
-+	.num_resources = ARRAY_SIZE(ioc4_uart_resources[port]),		\
-+	.platform_data = &ioc4_serial_pdata,				\
-+	.pdata_size = sizeof(ioc4_serial_pdata),			\
-+}
-+
-+static struct mfd_cell ioc4_cells[] = {
-+	IOC4_SERIAL_CELL(0),
-+	IOC4_SERIAL_CELL(1),
-+	IOC4_SERIAL_CELL(2),
-+	IOC4_SERIAL_CELL(3),
-+	{
-+		.name = "ioc3-kbd",
-+		.resources = ioc4_kbd_resources,
-+		.num_resources = ARRAY_SIZE(ioc4_kbd_resources),
-+	},
-+	{
-+		.name = "rtc-m48t35-ip35",
-+		.resources = ioc4_rtc_resources,
-+		.num_resources = ARRAY_SIZE(ioc4_rtc_resources),
-+	},
-+};
-+
-+static int ioc4_setup(struct ioc3_priv_data *ipd)
++/* The L1 multiplexes unsolicited event and console traffic onto one wire. */
++static int l1_receive_response(nasid_t nasid, u8 *pkt, size_t *pktlen)
 +{
-+	struct ioc4 __iomem *regs = ipd->base;
-+	int ret, i;
++	size_t rcvlen;
++	int rc;
 +
-+	ret = ioc3_irq_domain_setup(ipd, ipd->pdev->irq);
-+	if (ret)
-+		return ret;
++	for (;;) {
++		rc = l1_packet_get(nasid, pkt, *pktlen, &rcvlen);
++		if (rc == -ETIMEDOUT)
++			return rc;
++		if (rc)		/* bad packet */
++			continue;
++		if (pkt[0] != (L1PKT_RESPONSE | L1CH_MISC))
++			continue;
 +
-+	/* Set gpio pins for RS232/RS422 mode selection */
-+	writel(IOC4_GPCR_UART_MODESEL(0) | IOC4_GPCR_UART_MODESEL(1) |
-+	       IOC4_GPCR_UART_MODESEL(2) | IOC4_GPCR_UART_MODESEL(3),
-+	       &regs->gpcr_s);
-+
-+	for (i = 0; i < IOC4_NUM_PORTS; i++) {
-+		/* Select RS232 mode, and switch the port to 16650 mode */
-+		writel(0, &regs->gppr[IOC4_GPPR_UART_MODESEL_PIN(i)]);
-+		writel(readl(&regs->port[i].sscr) & ~IOC4_SSCR_DMA_EN,
-+		       &regs->port[i].sscr);
++		*pktlen = rcvlen;
++		return 0;
 +	}
-+	udelay(1000); /* Wait until mode switch is done */
-+
-+	ret = mfd_add_devices(&ipd->pdev->dev, PLATFORM_DEVID_AUTO,
-+			      ioc4_cells, ARRAY_SIZE(ioc4_cells),
-+			      &ipd->pdev->resource[0], 0, ipd->domain);
-+	if (ret)
-+		dev_err(&ipd->pdev->dev, "Failed to add IOC4 subdevs\n");
-+
-+	return ret;
 +}
 +
-+static const struct ioc3_irq_bank ioc4_irq_banks[] = {
-+	{
-+		.ir = offsetof(struct ioc4, sio_ir),
-+		.ies = offsetof(struct ioc4, sio_ies),
-+		.iec = offsetof(struct ioc4, sio_iec),
-+		.lvl_mask = IOC4_LVL_MASK,
-+	},
-+	{
-+		.ir = offsetof(struct ioc4, other_ir),
-+		.ies = offsetof(struct ioc4, other_ies),
-+		.iec = offsetof(struct ioc4, other_iec),
-+	},
-+};
++static int l1_response_to_errno(u32 response)
++{
++	switch (response) {
++	case L1_RESP_OK:
++		return 0;
++	case L1_RESP_INVAL:
++		return -EINVAL;
++	case L1_RESP_NXDATA:
++		return -ENXIO;
++	default:
++		return -EIO;
++	}
++}
 +
-+static const struct ioc3_variant ioc4_variant = {
-+	.name = "IOC4",
-+	.chip = &ioc4_irq_chip,
-+	.banks = ioc4_irq_banks,
-+	.nr_banks = ARRAY_SIZE(ioc4_irq_banks),
-+	.nr_irqs = IOC4_NUM_IRQS,
-+	/* Parity and SERR# reporting, as the SN2 IOC4 core enabled them. */
-+	.pci_command = PCI_COMMAND_PARITY | PCI_COMMAND_SERR,
-+	.setup = ioc4_setup,
-+};
-+
- static struct pci_device_id ioc3_mfd_id_table[] = {
--	{ PCI_VENDOR_ID_SGI, PCI_DEVICE_ID_SGI_IOC3, PCI_ANY_ID, PCI_ANY_ID },
-+	{ PCI_VENDOR_ID_SGI, PCI_DEVICE_ID_SGI_IOC3, PCI_ANY_ID, PCI_ANY_ID,
-+	  0, 0, (kernel_ulong_t)&ioc3_variant },
-+	{ PCI_VENDOR_ID_SGI, 0x100a, PCI_ANY_ID, PCI_ANY_ID,
-+	  0, 0, (kernel_ulong_t)&ioc4_variant },
- 	{ 0, },
- };
- MODULE_DEVICE_TABLE(pci, ioc3_mfd_id_table);
-@@ -669,5 +868,5 @@ static struct pci_driver ioc3_mfd_driver = {
- module_pci_driver(ioc3_mfd_driver);
- 
- MODULE_AUTHOR("Thomas Bogendoerfer <tbogendoerfer@suse.de>");
--MODULE_DESCRIPTION("SGI IOC3 MFD driver");
-+MODULE_DESCRIPTION("SGI IOC3/IOC4 MFD driver");
- MODULE_LICENSE("GPL v2");
-diff --git a/drivers/tty/serial/8250/8250_ioc3.c b/drivers/tty/serial/8250/8250_ioc3.c
-index 28e28076782b..5d3c0190f19e 100644
---- a/drivers/tty/serial/8250/8250_ioc3.c
-+++ b/drivers/tty/serial/8250/8250_ioc3.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/errno.h>
- #include <linux/io.h>
-+#include <linux/platform_data/sgi-ioc3-serial.h>
- #include <linux/platform_device.h>
- 
- #include "8250.h"
-@@ -33,6 +34,7 @@ static void ioc3_serial_out(struct uart_port *p, unsigned int offset, u32 value)
- 
- static int serial8250_ioc3_probe(struct platform_device *pdev)
- {
-+	const struct ioc3_serial8250_platform_data *pdata;
- 	struct ioc3_8250_data *data;
- 	struct uart_8250_port up;
- 	struct resource *r;
-@@ -56,9 +58,10 @@ static int serial8250_ioc3_probe(struct platform_device *pdev)
- 		irq = 0; /* no interrupt -> use polling */
- 
- 	/* Register serial ports with 8250.c */
-+	pdata = dev_get_platdata(&pdev->dev);
- 	memset(&up, 0, sizeof(struct uart_8250_port));
- 	up.port.iotype = UPIO_MEM;
--	up.port.uartclk = IOC3_UARTCLK;
-+	up.port.uartclk = pdata ? pdata->uartclk : IOC3_UARTCLK;
- 	up.port.type = PORT_16550A;
- 	up.port.irq = irq;
- 	up.port.flags = (UPF_BOOT_AUTOCONF | UPF_SHARE_IRQ);
-diff --git a/include/linux/platform_data/sgi-ioc3-serial.h b/include/linux/platform_data/sgi-ioc3-serial.h
-new file mode 100644
-index 000000000000..ae4690f33125
---- /dev/null
-+++ b/include/linux/platform_data/sgi-ioc3-serial.h
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * SGI IOC3/IOC4 8250-compatible UART cells
++ * One request and its response are a single transaction on the wire,
++ * so every entry point holds this.
 + */
++static DEFINE_SPINLOCK(l1_lock);
 +
-+#ifndef PLATFORM_DATA_SGI_IOC3_SERIAL_H
-+#define PLATFORM_DATA_SGI_IOC3_SERIAL_H
++/*
++ * Run one request/response exchange in pkt, which has to be large enough
++ * for both; returns the response's argument count.
++ */
++static int l1_transact(nasid_t nasid, u8 *pkt, size_t pktsize, u32 address,
++		       u16 request, u8 **rargs, size_t *rarglen, int nargs, ...)
++{
++	va_list ap;
++	size_t pktlen;
++	int rc;
 +
-+struct ioc3_serial8250_platform_data {
-+	unsigned int uartclk;
-+};
++	if (!system_is_ip35)
++		return -ENODEV;
 +
-+#endif /* PLATFORM_DATA_SGI_IOC3_SERIAL_H */
++	va_start(ap, nargs);
++	pktlen = l1_command_build(pkt, pktsize, address, request, nargs, ap);
++	va_end(ap);
++	if (pktlen > pktsize)
++		return -ENOMEM;
++
++	rc = l1_packet_put(nasid, pkt, pktlen);
++	if (rc)
++		return rc;
++
++	pktlen = pktsize;
++	rc = l1_receive_response(nasid, pkt, &pktlen);
++	if (rc)
++		return rc;
++
++	if (pktlen < 6)
++		return -EIO;
++
++	rc = l1_response_to_errno(get_unaligned_be32(&pkt[1]));
++	if (rc)
++		return rc;
++
++	if (rargs) {
++		*rargs = pkt + 6;
++		*rarglen = pktlen - 6;
++	}
++
++	return pkt[5];
++}
++
++/*
++ * Send a plaintext command to the L1's own console command parser, the
++ * same strings a human types at the L1 console. Such a command can reset
++ * the Hub, or cut power to it, before the L1 answers, so an error here
++ * means "no response", never "retry".
++ */
++int l1_exec_command(const char *cmd)
++{
++	u32 address = L1_ADDRESS(L1_TYPE_L1,
++				 L1_ADDRESS_LOCAL | L1_TASK_COMMAND);
++	u8 pkt[64 + 64];	/* command and response packet buffer */
++	unsigned long flags;
++	bool locked;
++	int rc;
++
++	/*
++	 * Reset and poweroff reach this after smp_send_stop(), so a stopped
++	 * CPU may hold the lock for good; go to the wire either way.
++	 */
++	locked = spin_trylock_irqsave(&l1_lock, flags);
++
++	rc = l1_transact(get_nasid(), pkt, sizeof(pkt), address,
++			 L1_REQ_EXEC_CMD, NULL, NULL, 1,
++			 L1_ARG_ASCII, cmd);
++
++	if (locked)
++		spin_unlock_irqrestore(&l1_lock, flags);
++
++	if (rc < 0)
++		return rc;
++
++	/* nothing is expected back besides the response code */
++	return rc == 0 ? 0 : -EIO;
++}
 -- 
 2.47.3
 
