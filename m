@@ -1,94 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f32.google.com (mail-ej2-f32.google.com [74.125.228.160])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8596C4E01E8;
-	Thu,  1 Oct 2026 10:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516564E9C02
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850860; cv=none; b=be783qNRQ7s3VpZiyzp4ox5tdxkcUY3sgDHx/V9EBwVjvK4e+1yvT5B95ITGc4hgrjF6JDARQ55vp+u04ZgpLE5YOSpBMhZPbsY5lRJvXrOq9dGTxJAj25+H5OvyZMzte8VKyi9M+rfwKS0TcYhLwkclePMIcOReN2bZ0ClxwaE=
+	t=1790850860; cv=none; b=kEmP+4iS9qKDUcSOV0M6rPEa7CsUbEEKW6YhNaIq818Nbbgj1w5T1Q8+E/37deMnFIfpo23AEWVSlIj6ulyfT8nq3GEcIeGIRjnVCdwog1oIweO1IHQRM2xmKuRJN1qKHPU2AYgxdgKkOsurSJqhrNK6GsRyVOS9g4B8vK4wfM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790850860; c=relaxed/simple;
-	bh=xjVMW3aXX1KCF37mr2VmMH/GPb4/XV4kex/2mMgZ8vg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t3vG5NMFu2CMpX3RVXHDE3GBzOF39ci8E/OpA2en7pyfKjj3jF/SolCIawl4B2OCQ8o6npgcnN2LSyzwj7FIId4qw0QgcnRADqPO8nywLDy8kVkvWiaY8TiwxpUm+ZYbQOtppgQF41hA8PfcaIYU9frNz3RBfF0Oya9rVVdEl8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mRIe2UAT; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	bh=VEfnYd8hTZyWgfCATX2hNdW7HMso3ZFyFWxEXtxRroY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RL/torUxW7gS7+cpptfOSRg3Y6MuDhKbgjhA4NkV3wC7OX3rzezI3iRTkJtOuL92iwhGbEESbEqLuwRqtFZpwEliYYrVHDNUtLFAr3GsbEXYg/n6mtKwe/v3QIj41TSx6poV6cINbEey6ihSmnBR0INgP5wuE+CHf7/d5M89xTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BIPnsqBz; arc=none smtp.client-ip=74.125.228.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mRIe2UAT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790850856; x=1822386856;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=xjVMW3aXX1KCF37mr2VmMH/GPb4/XV4kex/2mMgZ8vg=;
-  b=mRIe2UATDSdZaLmFvFN6OGLwz+5EIW0R/B+IYI79mYBa+/QlPOJNyjIQ
-   sTUCVRidPTXscavljCMnHbchDOfmdTrYuujAWVHxV/ixh2R1ExCC4DsEQ
-   EykxqelgOhSXggU+HSaIfd97ee0Eki/vupzllvVgSwWZ7LqfRVb15ZzFk
-   eJ0wjlvE3TCDIuBhpOIjanrXxyB46fRrGWOPEtMWKBkn3pSjrGHfRUTxh
-   FT89Pbs+UdOn/yXhvyyc5DGzpzFbUSEfriQLVz6OlEGp/hWsMjRDXCp/Q
-   Wm3hY4nxS+mD2Mc0FpQlR1dGFVH4FT9nMuJAQwWO5TwAKKSmvLdWBymxk
-   A==;
-X-CSE-ConnectionGUID: H11a5I/DQie8aIBLQSsMSA==
-X-CSE-MsgGUID: Yy8gKO7+QnG9F8Jgk+eJKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="113390217"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="113390217"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:34:10 -0700
-X-CSE-ConnectionGUID: 7S1VmvmGRveXsMyrE3BPbA==
-X-CSE-MsgGUID: Guu9ITM9RUmISY1TW2anfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="274044840"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:34:07 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id B52BD121BA0;
-	Thu, 01 Oct 2026 13:34:03 +0300 (EEST)
-Date: Thu, 1 Oct 2026 13:34:03 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Cc: Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
-Message-ID: <ar43Gx4cm_bKLC0b@kekkonen.localdomain>
-References: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BIPnsqBz"
+Received: by mail-ej2-f32.google.com with SMTP id a640c23a62f3a-c2e27d11f43so94991066b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 03:34:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790850853; x=1791455653; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fsEC2ObM81Hk4wNSJw0hwoJxDbidZYEWvF/d0koOBjc=;
+        b=BIPnsqBza8eF3mRVs8mkgCTmAHmV4c9sy2pH25NOe5CILjR4HlEHvmmVqy1QYyQn2q
+         +yRU1PXf/7yYdLJASXH4kqgCsnVosD73K9kg7LOMpJDN1JIDHQVUvPjp8TL4FFfcIPY+
+         cm+qvJ8UUNCWVZFDBbMgkjQatlpjk921SkJ8OIS/QvNI43eye4YW7H+1kvUqnGLzemF7
+         RQVkPYdJuRpXieIUXnsSzX9DE7VB5cHO5SQvLMoI0ASEZbePDgGFaiHfvioRntJdxBx7
+         GJWDccOzd8ejgl4wFiL8ljqR8dAYEsHw79EaiZtum0uhVBCxxSXJ5y9gYWIKWMJjgG7n
+         Cfyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790850853; x=1791455653;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fsEC2ObM81Hk4wNSJw0hwoJxDbidZYEWvF/d0koOBjc=;
+        b=PHV0vCUyvPIpGpnbtDbeG9AaQ4WbgOkeMNVzzdXa3vvsryuZzNDkBJnL6UtGw1jHLg
+         n1iKTwpxn0PiRWZ4lTEHbaqwzJTien340vcMw8bjCAUqRBqHeeY446g1BC182AdvHyyf
+         +VREVh8mlJPbfz0VhQZAYc0BLueHq3nReNXgHjUFQ5ZksOqq53Wxl+MBfmFNq3t+c1Tt
+         5VKGUsFtfJdNtsFWPZV4vPTi9pRziiuqSzn5YPayUbQ7/s8RoUjJrQWP+/VNn/tAJq3K
+         Bvusa/SMuCpxDWwOJSJbNtTIY3jFwb/aITJlSOMS3ElNDqzNjFHeQcZ3aidJjVpqso6Y
+         JZZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySGyJKObbmWo1WfU122UzdQ2h/xIdBCVlI27Qbo5NEAB8onYBqy1fdlWxaTr2kwptFr+Gs7EZhOvw2fHU=@vger.kernel.org
+X-Gm-Message-State: AFuF++neYzSA+QD7BifMBb+LdEz4IBRdCXtuu8uDAJhBhdHV5g0U6cBI
+	XozzVLCMPcZ7CRhYfD8r2dlKbcxrJpbbRAuynyUJbbmMXc1JK0aRkSYItdmoPF+XUxY=
+X-Gm-Gg: AYBFou0f7stwMxUzZjxyIw063JNjdU/SeDafwtv+ep2GR58i4n1gHUCkRUjK5kn8dDq
+	ehh1xIBGqYA/xFpJKA3NwljXinbi9XhFsD51kBpEMrtAXQp2Iu6n6UnnxDIU3R9scPrA5JJ4dHf
+	Cf46bqTRhAIis518A7v/Sf+5ymiCGbHr8+3Zpro3KW9ZbOJ45x2L4IXdsCXp5CR+NRnnWQUEgxu
+	F3YGxEXsCSqhUFrHyEVhTcZ458GgvjhQw3L3AxjVyQOClfmdZQS7V3EB+Qbo2V06ufDwxLWNkOZ
+	WqExtvQlL300AJ6XRFLSLejmhpP84VnWbMhhOIaa3LpL3w3xaVTNp5/jnw1gQMxITLoU+86D3lA
+	Mss9aBE+cU5GYU8uSksU742IZfzrBM/1PX+s3dgCIdXtUTGnBKyxgIBhxzxIyZd/2P6eoDwopID
+	tpgMbf1Q+DkS8pxqaMrZnEhpCuv9o+0mnLMVKbYpwrd/pitqMlyXRljGoyKVtx0Ewx+M0iAyRDQ
+	d4=
+X-Received: by 2002:a17:907:7287:b0:c2d:d4dd:8b5 with SMTP id a640c23a62f3a-c2e33e610bdmr207503066b.19.1790850853125;
+        Thu, 01 Oct 2026 03:34:13 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31a3eb32sm135974866b.3.2026.10.01.03.34.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 03:34:12 -0700 (PDT)
+Message-ID: <dc7a2922-bee7-42d1-b4a0-7469cd06f4b5@linaro.org>
+Date: Thu, 1 Oct 2026 11:34:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] perf: cs-etm: Don't add global v0 HW_IDs to
+ unformatted queues
+To: Leo Yan <leo.yan@arm.com>
+Cc: John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Suyash Mahar <smahar@meta.com>,
+ Amir Ayupov <aaupov@fb.com>, Arnaldo Carvalho de Melo <acme@redhat.com>,
+ linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260821-james-cs-hw_id-output-failure-v1-0-9d532ddabcc3@linaro.org>
+ <20260821-james-cs-hw_id-output-failure-v1-1-9d532ddabcc3@linaro.org>
+ <20260904164309.GZ8904@e132581.arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260904164309.GZ8904@e132581.arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Barnabás,
 
-On Thu, Oct 01, 2026 at 10:51:30AM +0200, Barnabás Pőcze wrote:
-> `risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
-> step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
-> to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
+
+On 04/09/2026 17:43, Leo Yan wrote:
+> On Fri, Aug 21, 2026 at 10:50:29AM +0100, James Clark wrote:
+>> In the case of mixed formatted and unformatted trace with v0 HW_IDs, or
+>> no HW_IDs at all resulting in the cs_etm__map_trace_ids_metadata()
+>> fallback, formatted queues will write their HW_IDs to unformatted
+>> queues.
 > 
-> So move these constants into macros to avoid the repetition, and with that,
-> use 4 as the step size everywhere.
+> I understand a session can support multiple sinks, but I don't expect
+> to mix up formatted and unformatted trace (see sinks_compatible()).
 > 
-> Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
-> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-I already have v1 in my tree and I don't think there's a need to fix that
-tiny typo just for the typo itself.
+But sinks_compatible() is only called multiple times for per-thread 
+sessions. For per-CPU, userspace opens separate events per-CPU. If the 
+user doesn't specify a sink then the default one is chosen which can be 
+a different type for each CPU/path.
 
--- 
-Regards,
+> For the mentioned fallback, I am also struggling to establish a case.
+> Even AUX_OUTPUT_HW_ID records are absent randomly, I don't think this
+> impacts the queue's format initalization, no?
 
-Sakari Ailus
+The fallback uses the metadata only, without sink information, which is 
+equivalent to v0 records. So it's just another way to trigger the same 
+problem.
+
+If you're using global v0 mappings, then we assume that all trace IDs 
+are possible in all queues, which results in multiple decoders being 
+created and triggers an error in OpenCSD once it sees that being 
+combined with unformatted.
+
