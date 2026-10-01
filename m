@@ -1,36 +1,36 @@
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC2D443C28;
-	Thu,  1 Oct 2026 05:51:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A349434991;
+	Thu,  1 Oct 2026 05:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790833909; cv=none; b=qnOR+tz9RT0XPiGMCq+daneZdeSWIcYHSNs8c2Td25wXysdohHHJ5/larhg1YJxe4WU7L5sume7f/2Is1DmFHri81nlk7XBkfE5854GpfSQyPiHZJJHCwHP1jRXkT6Cs0wfcgC9ROedYI3IrfUF3M40vjpiVCp1HaTDCTvPuOSA=
+	t=1790833923; cv=none; b=KzlmP+Q+mxbzYq3d27uchCbI7QWz3D510RL63p9MUomLRU1ZhsVZai/0sE6rEimzspfZnEkoAmr+fM328wOh1TkI8OucShI3Y3/jnbOR6S2fpDWr6s1AcXCwiFY5AIWFyYUgzJ/dN1p0diV1TEpd1Bb1ooQOGRCEAVncaYvCXY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790833909; c=relaxed/simple;
-	bh=ElSsC2B0eZI/IeLTLfLCgftCt9rze4Nuq105uFAKiKc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KWdALOgRS50Azh3jW6+HyQZ0/9ENuopNhPcHLLzEr2snEUkuiRQFKuVfCO1036PoQBMILh8d+ST81C4cDbJBA8YqpQRI581D0Jm2ydSct5d6Q/fz8+n7ZEVaGrumI4kD4FfvSdJMrM2LkbpikImD7+vhCC6OBgE3wCfIVgl/QQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=mfgLBwzw; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=PoBSDO/s; arc=none smtp.client-ip=5.75.144.95
+	s=arc-20240116; t=1790833923; c=relaxed/simple;
+	bh=TPTaSAt1pUieHAQqgCf/NQNWlQC/6rdA0i3BHm9fIJQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sQEhAkDRRwJy6mkXPyMvNZ4rPRpVzSk2SKoYDGNiGcylM+Yp8Nr7KROfB62JHtB0pf3i8GqwdDqlT5hcPpNEy6A/GLdXPcA43BpRngZw82Hm5y/63xOmPIg1Y96ahhO/NSaqaaQe6fU3WDQTww1+Me2kyjQc5mX60E4JVu9qdeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=h3vRrJ10; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=MknIhSw4; arc=none smtp.client-ip=5.75.144.95
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="mfgLBwzw";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="PoBSDO/s"
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="h3vRrJ10";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="MknIhSw4"
 DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Date:Subject:From; t=1790833900; bh=l2j1jyjoIXYtKyNd5RwcnBH
-	rdwgZUembyWJL72rxe4E=; b=mfgLBwzwZsUbEwwj0G2QbdSgKWZUVG8oLF3Kk75GdrbZ7Bg5OO
-	EKaqZEYo9V5o2BryXaZUStbh5QdCOnd8Yg6HozMSb/Nb3NLt7qcGwsnKHH8V51f4GxW44XGssVh
-	W4V2FnwkCUEtrdue6UStZYElsmvxKKCxCPMr6XDjzOZEmUXFME5oQYoWU75oyHriJFSSWC0LmJQ
-	F/1zkd5HP33JqCYMRFppdY/h3RvEZlsyeZr6D4+Y6Yqyg7adYFRwSAGiFYtlzUtjgvaRk1zk48d
-	tTj3kqcZKmz48mHwKXKrSkSkYeL1YtyXTNnNZPjPchfJ+CoE337lZnriE0g7zy6zfUw==;
+	h=To:Message-Id:Subject:Date:From; t=1790833902; bh=iDNs80Bq+W9JGZq8tbrtfgo
+	dc4aIKlwiJU2OAx7v3k0=; b=h3vRrJ104jJX1Ah5c8yXL8SILH0TfXpZzQ3Gwsz5i6WSfVGGS0
+	RXJJd3gbeLsvL+m6oNsaKh52AI31jFoxhGZpDfVADvFtD2ERkmFnzNnbP2/h+rw+zf/BvrqzDGj
+	vT050uPIX7b1H8q2zRur78q5BSzAqyZ5kFdVNeIBMR0pFLK+36kxDOMKDwZYGBXOjiLgoFktP+W
+	EZUOAAJYW3Kh30Pn2YCzpx0qprm1uo4q/CluHJvqiccLBc/yRjFwxbLSO+rTa1k+p9+4S89r49F
+	tT2iq7PsgsOMLMM6Gv0vxc2UxD7aVapmjrqVc/nkNqbgU+KMm6gktEHQ3MMjxlLeBwA==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Date:Subject:From; t=1790833900; bh=l2j1jyjoIXYtKyNd5RwcnBH
-	rdwgZUembyWJL72rxe4E=; b=PoBSDO/sw8lxke+QulsBStr+2VswHyGqO79EMbGTfbD+Bj+X73
-	k93pBBb8VsvST9CsOYW0lL8BrWjUMwjmAJBA==;
+	h=To:Message-Id:Subject:Date:From; t=1790833902; bh=iDNs80Bq+W9JGZq8tbrtfgo
+	dc4aIKlwiJU2OAx7v3k0=; b=MknIhSw4KSOeZuA8LHAaseV7UzXEcOM0gIO9xi9NVxaYkxXc7q
+	TRYOONMVrTlaKp8VSY8Pu69DXlEakOsrzMBw==;
 From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Subject: [PATCH 0/3] MSM8917/MSM8937/MSM8953 fix prng
-Date: Thu, 01 Oct 2026 07:51:37 +0200
-Message-Id: <20261001-prng-fix-v1-0-72f924527465@mainlining.org>
+Date: Thu, 01 Oct 2026 07:51:40 +0200
+Subject: [PATCH 3/3] arm64: dts: qcom: msm8953: change prng compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,10 +39,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5AMBAE0F+RPWuyJSr8ijgUq9ahpEUkTf9dc
- XyTmQngyTF5aLMAji72vNkEmWcwLtoaEjwlQ4GFkohS7M4aMfMtqlIpjdWkmxoh1XdHKf6uuv6
- 3P4eVxuPdQ4wPCuEM+mwAAAA=
-X-Change-ID: 20261001-prng-fix-5366a05da970
+Message-Id: <20261001-prng-fix-v1-3-72f924527465@mainlining.org>
+References: <20261001-prng-fix-v1-0-72f924527465@mainlining.org>
+In-Reply-To: <20261001-prng-fix-v1-0-72f924527465@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -57,50 +56,38 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, 
  =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790833899; l=1302;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790833899; l=898;
  i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
- bh=ElSsC2B0eZI/IeLTLfLCgftCt9rze4Nuq105uFAKiKc=;
- b=UlakbsmDfoDFjsFwuqFiEFDLavlXcEaSxIw3TvmYg7Sn14otoxc5xuOr/EJD0PlGCWlOc8dbx
- K+TZGWHJKipD7UMo3kqYMeSUPuLbCTBgoOtagZbYaYqa4LyNd2Myf3C
+ bh=TPTaSAt1pUieHAQqgCf/NQNWlQC/6rdA0i3BHm9fIJQ=;
+ b=XyC7GgsxZjTUdFZLJXv3cxrvBekgdW2/gM988eIporEBRxyy24T2/5igxuqpIYZChstdixd8K
+ 6E1pa6Rc7uXDjkmrh0t6u5cmgExObqzVYzHfcIGk8zY9ocK+OfDoaTk
 X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
  pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 
-On MSM8917/MSM8937/MSM8953 HW QRNG is configured by TZ.
-qcom-rng driver will not have access to the configuration registers.
+On MSM8953 HW QRNG is configured by TZ. qcom-rng driver
+will not have access to the configuration registers.
 Change the compatible to qcom,prng-ee for skip the initialization sequence.
 
-Compatbile changes are fixing this issue:
-Call trace:
- qcom_rng_init+0x6c/0xe8 [qcom_rng] (P)
- crypto_create_tfm_node+0x154/0x198
- crypto_alloc_tfm_node+0xa4/0x1b4
- crypto_alloc_rng+0x34/0x48
- rng_bind+0x60/0xa8 [algif_rng]
- alg_bind+0x15c/0x1f4 [af_alg]
- __arm64_sys_bind+0xb8/0x120
- invoke_syscall+0x6c/0x11c
- el0_svc_common+0x98/0xe8
- do_el0_svc+0x2c/0x3c
- el0_svc+0x40/0x9c
- el0t_64_sync_handler+0x88/0x134
- el0t_64_sync+0x1a0/0x1a4
-
+Fixes: 9fb08c801923 ("arm64: dts: qcom: Add MSM8953 device tree")
 Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 ---
-Barnabás Czémán (3):
-      arm64: dts: qcom: msm8917: change prng compatible
-      arm64: dts: qcom: msm8937: change prng compatible
-      arm64: dts: qcom: msm8953: change prng compatible
-
- arch/arm64/boot/dts/qcom/msm8917.dtsi | 2 +-
- arch/arm64/boot/dts/qcom/msm8937.dtsi | 2 +-
  arch/arm64/boot/dts/qcom/msm8953.dtsi | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
----
-base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-change-id: 20261001-prng-fix-5366a05da970
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
---  
-Barnabás Czémán <barnabas.czeman@mainlining.org>
+diff --git a/arch/arm64/boot/dts/qcom/msm8953.dtsi b/arch/arm64/boot/dts/qcom/msm8953.dtsi
+index 753167c3f861..99a1bca8e13a 100644
+--- a/arch/arm64/boot/dts/qcom/msm8953.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8953.dtsi
+@@ -483,7 +483,7 @@ hsusb_phy: phy@79000 {
+ 		};
+ 
+ 		rng@e3000 {
+-			compatible = "qcom,prng";
++			compatible = "qcom,prng-ee";
+ 			reg = <0x000e3000 0x1000>;
+ 			clocks = <&gcc GCC_PRNG_AHB_CLK>;
+ 			clock-names = "core";
+
+-- 
+2.56.0
 
