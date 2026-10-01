@@ -1,120 +1,90 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0EC486BA7
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 12:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EEE4B95BA;
+	Thu,  1 Oct 2026 12:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790859118; cv=none; b=Ulf6WAlWKHUEMInnMijdVJONJG+ms4Bpt0RLEYZZTMVaJPfqihTBYamD6OURPTqQ1VuUOjbSQGb1ifgHAXVqs5sF+rCsSM6+3QhK/RaR/6+6eKgCVtZvfUprtfqQ1tyQ3C/4mtyMpg5sc+0rDJfVCipq022BlG5wkPA8fL76xMU=
+	t=1790859139; cv=none; b=W3vrnJVBy9tyiXy0IMWGa/xC0EFfYo2Xa+7n9Qp1kevRCKUhE2E1PqLrQZy6AVLSTKbVW+DdRdpApLzVbr2Aimp7bv10McXpSucBqnvQ9fZlUdC6xyXu9YyTUmjeSQTqgLB+ALcHnB6LWkdFR0R/zwsdwapH3VJwc9KV5nos1YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790859118; c=relaxed/simple;
-	bh=P+0fABIIowzGr1w/6A5biYqXvfWe0LAjx/+VO8P9K1Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l5ULJgPEdgkFV8lZxLZZQ2EOpByjNzBkrTIU2XLBegj/QOzaWFgMTk5wnFift2vVqnCLnx3V8lrkiAc8rU/ye98xWIfwH53ccIf1WFUVL563gqVI7fORxgVb3PM6rmCcqhOQLF0QnX1LSil6W1/7wF1BofRfVH4/JyPmJHFX8pQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=Cn1xLRW6; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	s=arc-20240116; t=1790859139; c=relaxed/simple;
+	bh=wzwl3gw5e+db5oZR4+r5voy+RDCC4J5Putz8q+zjj7c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eJ1/5uFKqrly3P6vCPG0lfN737p3GSN7zppJoLgTjkZuvJUIuayYOXXa/uB2TrPQac2tRhMoOJFbo5OaRaNMeIAziONOMhFzjwCN/tXYv3HP3ha1SnatqQWT19Hgf2ZGx82CpiiAkeNU26JDVnZSfb0Z+8tVCp4f90o9dcqObok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K2poqIT9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="Cn1xLRW6"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01d89b23so1045340f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 05:51:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1790859115; x=1791463915; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JFHIUwh0+wACn8HyR7pIgJ6JFS4Bsa6+XC798jCUgkA=;
-        b=Cn1xLRW6DQccPYQ9D2hIIY0jpJBfE/xc+J6Y+Ixorqh2QJ1Wtci4yYesqAAq6HL64B
-         iwUJH1Vj4U8W+zawSSOs6XgvddidPRvGv1dnkhJt9nuhv4sioBSwqxmP3QxKa6P7ONHe
-         eGwhdvtGVKHx6ryUnWbQFhbPXuN7wdxzoQmdn8ic8tD/Vh4LceIseu7ok4VNuOZ2Vy9i
-         FDITQvU3/8yP+z6eRM05J/f6M93Af7RWAdCFiWCvnmW/0RhWloVUTz7WNO9jZgUVtGYI
-         yVz1ZA5ABF0I5cjhXUgD03Tqv6TTEQC5OV56zL/jK5cZp/qugO7VSCYf/cHzC/+XiAa8
-         7UAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790859115; x=1791463915;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JFHIUwh0+wACn8HyR7pIgJ6JFS4Bsa6+XC798jCUgkA=;
-        b=oBouqeisgo8KBfpTomRf/dQaVTjy4cK7PkTUWsL7d3+3akdc4eFeZY3a5iP5bQTrps
-         Pfv98bSYjosqJj8YTJOMZ29DdMnRcu5mTNd79DQHt0aBNqcjiIZIInU+NQ3Tec9M4uw6
-         F/gVNl5tfsHH0pTp/6fW4pQFFzqd4B1drAFbuzABmDZow6Jm0L10IXwLYZp+UL1XFsig
-         wPGl+x8WEcBQ768LJgfql2B8HGp8gKvBQWen2EGbFJlgAZAFEisNMIE40twJ+1EZldoi
-         r5+H+wbxqsOuzm4DMMqQDXYHCE9r0y5k9cbfcwC+cbDVgiR4PuvHOvLGPqUy4u2kcnex
-         OHFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9CEVMRSbhMZcU8BQJbghg2CSH3ah8pwsZGSNPOFPiZYUXCGjy7iVZsApBka41G8yHOho8aJyzsgEd8HU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv9PJwAPMP2JmnvfjA27A8QRycmAr5+AgmaRJJPPWe+HG2uXi4
-	l63/N1s2vKRO2pK9x6TewgohOq4qkM/yfjkutGEpS1PLx/Ar9oNFMFeTrOTtrWTEP9/4Jz6ds/f
-	qinc9RHin+Q==
-X-Gm-Gg: AYBFou3UPfwOs437u6Hw+vGMft8nj3hKVrK4z5QPgJ+EP7MFAE3qUc4/VJki815ws8M
-	0HyQTEK810gE4ORa+7lddHtpgnPe371c/6MWXbPbpMtjUhcRq1s66Gwx17lE0+DfNc6EHxGsx9i
-	6gpVsgqNuxtwhnbdNzCnI0+n3L6GaTVlRBLhgPxDbN6V93Qf4259b07unQTSxiottDsvx/AmhSn
-	k+clAoFbxT/rFYl8HujcboZEoP/Jbqw/dccqJwygfSZkCVbIxbSLEIOhB5OvqVBgQcjNEKO+Rzk
-	VvsTqto++o+AT20BDPeQuQKAUUNk30aLTpupmSWY724he/Ka73OqDvVcLtVavBwuqZqifoSybBS
-	1u/TyDXlVcYV8YQYzuNPf8YbiPnu5mLZfIbCsl21rxztK95P6ivGlqhW+B4Mf74EdG3TFiFOBnT
-	V34ZpaxCPVgJ2IVwemPUKGY86dhKwIJSS0BSB+zB56mhHo8746T7o7kwBY+oDh0ELAwE8MFpZuO
-	Vn9vyftX+KUsx1SGQvyeRsTiV2XHh+Xmmu+DgemKME8kX4YP4LXN/7xQ4MlY82zie7ya6MwSmv8
-	wZcwRnYuzK0X+Z6o
-X-Received: by 2002:a05:6000:989:b0:48b:174:eab1 with SMTP id ffacd0b85a97d-48b02511718mr8174236f8f.36.1790859114851;
-        Thu, 01 Oct 2026 05:51:54 -0700 (PDT)
-Received: from localhost.localdomain ([197.51.130.226])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a2d12fsm5832698f8f.31.2026.10.01.05.51.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 01 Oct 2026 05:51:54 -0700 (PDT)
-From: Omar Ramadan <omar@blockcast.net>
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: netdev-bot+sinfo@kernel.org,
-	Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K2poqIT9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D3E1F000FF;
+	Thu,  1 Oct 2026 12:52:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790859135;
+	bh=tec5FQuLPRbdVVuUIDCytMknbBana/Hua8s4K23aD0c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K2poqIT9ceZq6Ra4TaTezpspNG6viPMERp45zFObidAykvZxZAxoOQIIzK3ssGp/Q
+	 CcwazjuaWGcA0ukfuqOP8DNdB4JdI9P43/U/uh6t4wGs5l1U5D3VfcJsaZHbxjZUgv
+	 I1xPQL6NDREljq3owZtVIHgwzvv9UWf6XJUC1uWY=
+Date: Thu, 1 Oct 2026 14:52:09 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] amt: do not offer software GSO on the amt device
-Date: Thu,  1 Oct 2026 15:51:36 +0300
-Message-ID: <20261001125139.17059-1-omar@blockcast.net>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CAL4Wiiqw_7Mxa5W1EQgw2=KpJNNxG=cBLXsHvpio29GvD1UKZg@mail.gmail.com>
-References: <20260928181554.85766-1-omar@blockcast.net> <179061959167.31693.11895969550331516671@kernel.org> <20260930222700.45470-1-omar@blockcast.net> <CAL4Wiiqw_7Mxa5W1EQgw2=KpJNNxG=cBLXsHvpio29GvD1UKZg@mail.gmail.com>
+Subject: Re: [PATCH v9 13/15] serial: 8250_dw: add Ambarella CV75 quirks
+Message-ID: <2026100140-overbite-mundane-fc79@gregkh>
+References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+ <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
 
-(Resending with the list and Cc's restored; my first copy went to
-Eric only by mistake.)
+On Thu, Oct 01, 2026 at 08:41:02PM +0800, Long Zhao via B4 Relay wrote:
+> From: Long Zhao <longzhao@ambarella.com>
+> 
+> The Ambarella CV75 UART is Ambarella IP, not a Synopsys DesignWare
+> licensed block. At the register level it is close enough to DW APB UART
+> that a full custom UART driver is unnecessary: reuse 8250_dw with a
+> small platform quirk.
+> 
+> Quirks:
+> - keep IER ETOI (bit 5) set for RX timeout behaviour
+> - skip set_rate; baud clock is managed outside the UART block
+> 
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
+>  drivers/tty/serial/8250/8250_dw.c | 32 ++++++++++++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
 
-On Thu, Oct 1, 2026, Eric Dumazet wrote:
-> 1)  Note that tx checksum offload is off by default on amt, so the bug
-> would not trigger by default.
+When you submit lots of different subsystem patches all in one series,
+it's hard, if not impossible, for subsystem maintainers to take them :(
 
-You're right, and I should have checked that before sending. With
-tx-checksum-ip-generic off, netdev_fix_features() drops GSO_UDP_L4
-from amt's features, so validate_xmit_skb() segments any UDP GSO skb
-before amt_dev_xmit() sees it. It takes "ethtool -K <amt> tx on" first.
+thanks,
 
-The commit message, and my reply to the bot, also overstate the
-symptom. Even with tx on, the per-tunnel copy keeps csum_start on the
-inner UDP header, so where it is segmented in software,
-__udp_gso_segment() rejects it and the copy is dropped, rather than
-being cut into malformed AMT messages. That is from reading the code,
-not from a reproducer.
-
-> 2) Please take a look at Documentation/process/coding-assistants.rst
-
-Thanks, I have. Anything further I send that an LLM helped with will
-carry an Assisted-by: tag and say what was and was not reproduced.
-
-> 3) A better fix would be (for net-next) to call udp_tunnel_handle_offloads()
-> in amt_send_multicast_data() like other UDP tunnels do
-
-Agreed, please drop this patch. I'll do it that way for net-next,
-with an amt.sh case that sends a UDP_SEGMENT burst through the relay
-with tx on.
-
-pw-bot: cr
+greg k-h
