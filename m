@@ -1,62 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-203.mta1.migadu.com [95.215.58.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E39F5187EC;
-	Thu,  1 Oct 2026 13:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53D137647E
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863076; cv=none; b=pUbeU3dRJkdYP6dAwtfjTRmfOOuMyorIGpXCGYQhEbuyjY1msdBbu4yfhA/H/QO+wJSmfHw5vksfgFtSVpudk6O9xgZIvX0fgiA8Sn2LMafPQji3FDN+a5OmJM4qpICaJCh1vZ5oDDl59mxjOvfJKeFgXXf8F7K7+th460bsD8M=
+	t=1790863085; cv=none; b=FXx9QZr+pV6q61K8PpTIOJ0zhoZoksQGX4KTxrxUP2kKavL+CwClWQirOuOYQD3dvND/a6F6jxbwDVqOp9KwB2bsOuGCbFclmnnN3fB59LwwzJWee+aXsTODan20vsWMrZAysGSppn0OC8hxhDnIr7XiSKlbBgpaCQzZwh+Nal8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863076; c=relaxed/simple;
-	bh=QWITNb2sEnPsh76qCAHF8CFydqgx3OgM09tGbSN1KdA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aJVh5gmmqqf0JH2zGUeDOFhouUb+0NAO+xQh5QtIk0uOk+TexBorcJFUTvSMa10MHlo+RCY2EA50HFRxwWSUY1uJH5cBpGVaKCzI9Oh8Y4jqTxgMlY4Owd1dWBzGCWCRGeCLUnL8AvXgBC8q8VXYwYXwcSjTyLbKYI+PwAnfMKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUC4HvnX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790863085; c=relaxed/simple;
+	bh=g2Xpuci6s/G0snGB/49noNoT1Evuyowz5hRqXAbGtyc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Y9xibtspFG0p1wS2aNsHv78jh6rYvdlXW1gauXtARJlzSFrRr5Vfp3+zSoFYeg7Pqp45Hdu9m5mDpfJDkB+mM3a6fiqzqTkEe7m9gqcoMu4BgdmLemIlwArnSpngQY4MIF0T4Yndh/AqJ0LHDgljDFAv8uNCoi2MSjjr7WHAeMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m1pygxC8; arc=none smtp.client-ip=95.215.58.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUC4HvnX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77A441F00898;
-	Thu,  1 Oct 2026 13:57:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790863069;
-	bh=If/g5eWVXEk8uWe8EjIkbefr7shLTwmjTLxNFVeJQ3s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DUC4HvnXfguUTVi3ZmRucTIqbrGTKHvwYOd3Ta2LtgH3u+GgAO4VtYRW1uR9D4d0h
-	 LsvgSxSqEgdy+XF0Nqj2BG1TUG6tHh37nnn+C+HXrmtBqyZJ6vfILG7PN78gwGj8UB
-	 3dhmNCtHaUt44NHQZ6CBMu3d5caXM0NxXTilckvKhVfOMMiLDLLwDjFL0ArLdb4LVD
-	 iHerbOm+WJZZgW93Ct7kcSe7bDpiirhZ/rm1711ne7Sujrrw89wd0L78P+cR6WbjIW
-	 PNpwOeyA2aRrQWczRi2CI8FBvhFNewf0OusdGndwmh3NJzxioDyQ71OPUHTMKfwIIW
-	 kcqSMF4IGN9fg==
-Date: Thu, 1 Oct 2026 14:57:45 +0100
-From: Simon Horman <horms@kernel.org>
-To: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: usb: asix: remove redundant PHY address
- short-read check
-Message-ID: <20261001135745.GF13925@horms.kernel.org>
-References: <20260928192119.73351-1-xinsheng.zhu.ny@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m1pygxC8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g2Xpuci6s/G0snGB/49noNoT1Evuyowz5hRqXAbGtyc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790863075; v=1; x=1791467875;
+ b=m1pygxC8GbK0XSS5ScvnRxiWU7xjjiZPCgNsqe5n+ydgYzOcivrUOCb7gioL8+WcFNdrJc0M
+ y9JFl0gBMQAVMFsSjBxLHvi+QuT3F9HQAJh94nnAaODtyGFSnVN+2ODfz7/4CmDiiLIt0GZ0FPq
+ 3W2dfljApQahqslmB87PaU5A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 402fb4e270821fd7;
+	Thu, 01 Oct 2026 13:57:55 +0000
+X-Mizu-Trace-ID: 402fb4e270821fd7
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: maz@kernel.org,
+	oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	mark.rutland@arm.com,
+	steven.price@arm.com,
+	vdonnefort@google.com,
+	qperret@google.com,
+	tabba@google.com
+Subject: [PATCH v4 05/18] KVM: arm64: Introduce per-EC entry handlers for pKVM
+Date: Thu,  1 Oct 2026 14:56:58 +0100
+Message-Id: <20261001135711.1640520-6-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928192119.73351-1-xinsheng.zhu.ny@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 03:21:19PM -0400, Xinsheng Zhu wrote:
-> Short-read handling was added to asix_read_cmd() by commit
-> 920a9fa27e78 ("net: asix: add proper error handling of usb read errors").
-> The helper converts short reads to -ENODATA while preserving negative
-> errors from the underlying USB read operation.
-> 
-> Remove the redundant short-read check in asix_read_phy_addr()
-> and its unreachable -EIO assignment. The existing negative-return check
-> handles both short reads and underlying USB read errors.
-> 
-> Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+From: Marc Zyngier <maz@kernel.org>
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Add an ESR_EL2.EC-indexed handler table, entry_hyp_vm_handlers[],
+read from flush_hyp_vcpu() on re-entry when the previous exit was
+a trap: sync_hyp_vcpu() records the exit reason in the hyp vCPU as
+exit_code, and the trap's exception class comes from its ESR_EL2. Its
+single generic handler stands in until the per-EC marshalling patch
+replaces the table with protected-only ones.
+
+Entry carries the host's requested PC updates to the hyp vCPU: add
+vcpu_copy_flag() to copy a masked set of flags between the two vCPU
+structures, with PC_UPDATE_REQ covering INCREMENT_PC and the
+pending-exception flags. The wholesale iflags copy moves into the
+non-protected branch; a protected vCPU takes only PC_UPDATE_REQ.
+
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/include/asm/kvm_host.h      | 19 +++++++++++++
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  3 ++
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c     | 39 +++++++++++++++++++++++---
+ 3 files changed, 57 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 286489a69dff5..37d0721d39a45 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1033,11 +1033,28 @@ struct kvm_vcpu_arch {
+ 		set;						\
+ 	})
+ 
++#define __vcpu_copy_flag(vt, vs, flagset, f, m)			\
++	do {							\
++		typeof(vs->arch.flagset) tmp, val;		\
++								\
++		__build_check_flag(vs, flagset, f, m);		\
++								\
++		val = READ_ONCE(vs->arch.flagset);		\
++		val &= (m);					\
++		__vcpu_flags_preempt_disable();			\
++		tmp = READ_ONCE(vt->arch.flagset);		\
++		tmp &= ~(m);					\
++		tmp |= val;					\
++		WRITE_ONCE(vt->arch.flagset, tmp);		\
++		__vcpu_flags_preempt_enable();			\
++	} while (0)
++
+ #define vcpu_get_flag(v, ...)	__vcpu_get_flag((v), __VA_ARGS__)
+ #define vcpu_set_flag(v, ...)	__vcpu_set_flag((v), __VA_ARGS__)
+ #define vcpu_clear_flag(v, ...)	__vcpu_clear_flag((v), __VA_ARGS__)
+ #define vcpu_test_and_clear_flag(v, ...)			\
+ 	__vcpu_test_and_clear_flag((v), __VA_ARGS__)
++#define vcpu_copy_flag(vt, vs, ...) __vcpu_copy_flag((vt), (vs), __VA_ARGS__)
+ 
+ /* KVM_ARM_VCPU_INIT completed */
+ #define VCPU_INITIALIZED	__vcpu_single_flag(cflags, BIT(0))
+@@ -1055,6 +1072,8 @@ struct kvm_vcpu_arch {
+ #define INCREMENT_PC		__vcpu_single_flag(iflags, BIT(1))
+ /* Target EL/MODE (not a single flag, but let's abuse the macro) */
+ #define EXCEPT_MASK		__vcpu_single_flag(iflags, GENMASK(3, 1))
++/* Cover both PENDING_EXCEPTION and EXCEPT_MASK for global operations */
++#define PC_UPDATE_REQ		__vcpu_single_flag(iflags, GENMASK(3, 0))
+ /* Host-set: the hyp flushes the non-protected vCPU state in on entry */
+ #define PKVM_HOST_STATE_DIRTY	__vcpu_single_flag(iflags, BIT(4))
+ 
+diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+index 5ddb407149667..ad42abaf31c5c 100644
+--- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
++++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+@@ -26,6 +26,9 @@ struct pkvm_hyp_vcpu {
+ 	 * per-cpu pointer tracking us. Otherwise, NULL if not loaded.
+ 	 */
+ 	struct pkvm_hyp_vcpu **loaded_hyp_vcpu;
++
++	/* The previous exit's ARM_EXCEPTION_* code. */
++	u32 exit_code;
+ };
+ 
+ /*
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index 8b9d76e5336bb..e3f4bbb623492 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -31,6 +31,17 @@ unsigned int hyp_gicv3_nr_lr;
+ 
+ void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
+ 
++typedef void (*hyp_entry_exit_handler_fn)(struct pkvm_hyp_vcpu *);
++
++static void handle_vm_entry_generic(struct pkvm_hyp_vcpu *hyp_vcpu)
++{
++	vcpu_copy_flag(&hyp_vcpu->vcpu, hyp_vcpu->host_vcpu, PC_UPDATE_REQ);
++}
++
++static const hyp_entry_exit_handler_fn entry_hyp_vm_handlers[] = {
++	[0 ... ESR_ELx_EC_MAX]		= handle_vm_entry_generic,
++};
++
+ static void __hyp_sve_save_guest(struct kvm_vcpu *vcpu)
+ {
+ 	__vcpu_assign_sys_reg(vcpu, ZCR_EL1, read_sysreg_el1(SYS_ZCR));
+@@ -216,6 +227,8 @@ static void sync_debug_state(struct pkvm_hyp_vcpu *hyp_vcpu)
+ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ {
+ 	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
++	hyp_entry_exit_handler_fn ec_handler;
++	u8 esr_ec;
+ 
+ 	fpsimd_sve_flush();
+ 	flush_debug_state(hyp_vcpu);
+@@ -228,6 +241,7 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+ 		if (vcpu_get_flag(host_vcpu, PKVM_HOST_STATE_DIRTY))
+ 			flush_hyp_vcpu_state(hyp_vcpu);
++		hyp_vcpu->vcpu.arch.iflags = host_vcpu->arch.iflags;
+ 	} else {
+ 		hyp_vcpu->vcpu.arch.ctxt = host_vcpu->arch.ctxt;
+ 	}
+@@ -245,16 +259,31 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
+ 						 (HCR_TWI | HCR_TWE | HCR_VSE);
+ 
+-	hyp_vcpu->vcpu.arch.iflags	= host_vcpu->arch.iflags;
+-
+ 	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
+ 
+ 	flush_hyp_vgic_state(hyp_vcpu);
+ 
+ 	hyp_vcpu->vcpu.arch.pid = host_vcpu->arch.pid;
++
++	switch (ARM_EXCEPTION_CODE(hyp_vcpu->exit_code)) {
++	case ARM_EXCEPTION_IRQ:
++	case ARM_EXCEPTION_EL1_SERROR:
++	case ARM_EXCEPTION_IL:
++		break;
++	case ARM_EXCEPTION_TRAP:
++		esr_ec = ESR_ELx_EC(kvm_vcpu_get_esr(&hyp_vcpu->vcpu));
++		ec_handler = entry_hyp_vm_handlers[esr_ec];
++		if (ec_handler)
++			ec_handler(hyp_vcpu);
++		break;
++	default:
++		BUG();
++	}
++
++	hyp_vcpu->exit_code = 0;
+ }
+ 
+-static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
++static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu, u32 exit_reason)
+ {
+ 	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+ 
+@@ -281,6 +310,8 @@ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	host_vcpu->arch.hcr_el2 |= hyp_vcpu->vcpu.arch.hcr_el2 & HCR_VSE;
+ 
+ 	sync_hyp_vgic_state(hyp_vcpu);
++
++	hyp_vcpu->exit_code = exit_reason;
+ }
+ 
+ static void handle___pkvm_vcpu_load(struct kvm_cpu_context *host_ctxt)
+@@ -395,7 +426,7 @@ static void handle___kvm_vcpu_run(struct kvm_cpu_context *host_ctxt)
+ 
+ 		ret = __kvm_vcpu_run(&hyp_vcpu->vcpu);
+ 
+-		sync_hyp_vcpu(hyp_vcpu);
++		sync_hyp_vcpu(hyp_vcpu, ret);
+ 	} else {
+ 		/* The host is fully trusted, run its vCPU directly. */
+ 		fpsimd_lazy_switch_to_guest(host_vcpu);
+-- 
+2.39.5
 
