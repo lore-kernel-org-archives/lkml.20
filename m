@@ -1,151 +1,287 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EEC43498B;
-	Thu,  1 Oct 2026 05:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B579243498B
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 05:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832989; cv=none; b=ciaAf+F8mJae75/szzkoSHx18uKVq/UpYhvy+c+8zLg+baXbhClwtUCgn9p5uimdrmpepnKtXqOCK/TQj5hnMVBu8TL3qYbzM4+v4en9EbY/S8I8sf+HT9TXyC611aEHQO5lIjmvpxcj5zTYtCBTM5dD7DKQciIB/U3sKz2UN4M=
+	t=1790832995; cv=none; b=S7Jk817bhmYtcgicu3qp66Ci8w1IpbkshSsz69iZpkgtg8f/zDB7SYX/VRjagR8pHpw3ZFxuDVknRI+Nzg4iPJksrEJ7ec8Huz5jEvGdBu80+G32Mp6+6CSypOispmE0vhd48jwPF5QOtBhu5f68c8jSiIIQryK/b4B0WZzbkTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832989; c=relaxed/simple;
-	bh=ASdaN2clb1YF14M1GqaEa+GHElHwaWXI9/tgO24M8pM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CLYPelzlFArWfFABhASRTN2tUYx8QQX2ZhvqEvDg58dvzRFHaL7dyi59P37qJzCGhNNjgd/ZHLiZmNNAM7TTj+qnLci16xF0/5G5Kpb7MXBoG+LmWsVB/kzlaxpDILa8yn5AupQ1rcOnC8CNNxZECD6yhVeNjE5SD9THm96+rpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adaosqML; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790832995; c=relaxed/simple;
+	bh=17IbOXgpu5qvWpe9DfmWVZGYpsQSD8J7hEMJ7OZBgJE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rnb+UR1CSfurrbhhs77iCsu3cA6GKkSt0rrX3A97z7hBxJTvTUWdJUazVkQmnr3gpcEBcSOc8c2FFnSIJQZkWB5RVxyF5L5e0X6/afP+SZzBOJa49eZs7c+7WsIh3G6IU/HSwr7LgxmLZOfV5iAHoWOyxpFX7QxVqw9BW3ODmmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ApodtGjW; arc=none smtp.client-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adaosqML"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03EC81F000FF;
-	Thu,  1 Oct 2026 05:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790832988;
-	bh=0zd8+lKttm78z4L+ooc6EYQgXG2k+ZJfGDrIK6Reg4M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=adaosqMLS7JiN2S2jwxP7F7kg+esAoJOGQnSBwYnhcJFzmvSXHX+oNrOQ22hkT+GL
-	 typqDp+U8TZ6a/nP2wph24E2veJ0183FB1XLrH35N63A8KQeY6JuOe+9TBa+6mp++e
-	 6CMtLH4GS1bJ9eTSfnLZq7FvLwkHAr53+b5ASghwSrvq/HnJ/8dJlpLXL2G1xy8I1r
-	 BhO+OiKBUfI4NuOnnKDu99s0n3Vs4+ARYSIwEBgdPHYwEFUICwIhGykREqKSgLCypZ
-	 6is0PDIB7ozBTY2fM2cUN7zCoLQ1PbLy0ZuyAoznlD5Hov3SKj4tcVCZMN3YcrFFmJ
-	 q+PMEqExoIvxA==
-Message-ID: <85ce7089-1d6c-4862-b88a-b47e078f74f2@kernel.org>
-Date: Thu, 1 Oct 2026 07:36:21 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ApodtGjW"
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6c8f6a53fabso2025702eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 22:36:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790832992; x=1791437792; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ImG2NcKaeowgbT7GRdQdhpYB5WGVuiPpUhMg0VIHXxc=;
+        b=ApodtGjWVsBnPYbVbKbjqd0gc89wGHVHRySRWHW+kpkKA5TwpkT+In8/v2Rowq2AZb
+         GM1PuHgbUszsUz+WLSkJZAVyvZBL02Wug0v4XBl+o3gSydrEN7c2nVDxbde8irO9cskV
+         i7sX8Fvhn+yENNllGnkXHKHL44cFkyiHawhwNYuRU71QfCU1uL4cMEqB9iEqYpwt5GSS
+         51UlhmeTzfKF1pLn/oLy2r15iPd9vzaA9xXSxhzUjE46uN+xkYKWDrSUbRKx1izmNmIS
+         Bj7O8kDxvEg9YK9zFYRc3+Qyj7lOzrHoLZosgmytgqpllwiTxrgDY7f+vrtwxBJ2KZYR
+         J56g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790832992; x=1791437792;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ImG2NcKaeowgbT7GRdQdhpYB5WGVuiPpUhMg0VIHXxc=;
+        b=AcKptzUzGyfbK3ApuQ+8SGRFoziKLHlEKS27LgYg1Sohp/gC6a6Rkb8TyKFRbVloVn
+         fvFsHVA/3EqxMsjxRbH1LNCYNwrHqSoll7hwRPHTmU+v8milW4vOLtpFvz67wBo87A+K
+         /+Ai8p/Expopvhgl6aONIi111lRYHUZjCig08Lnz5ibfaOM+D3pWYidUaxAselkCZVMQ
+         FN1Y9mxtnBjXwiKVao44VV32qF8f+RchdmdqvS+x3r5937y8QtgT/RUWbkpFTPHHp31e
+         X8CExF/2wvLDsP+k8V9LXttpo3v31LHMdr6qKZERgjhlJYvhH+RNvRkBt+O5EkcnMwJw
+         +ofQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwD4BYN5xXFhNlxixpx1l/ESEvGg34Abd0ljoW/XLvXbNkXUZdfXHrWTpCPNy20ugKCF9eWFxfmsQxY/sk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lC+yBOLWJMNP1pBEMRIAcyfykk7nji3zTBkwW/XZkAV52y1oU0
+	IKD6Wc4PQMtB/SJVXlaRqPe8+N14Wt706E24KGfA7Ij6XY8fQQKo/ZWX
+X-Gm-Gg: AYBFou3YctN6D5Xw9mqUz/zrQPJmiGvHgIrMNb4/QYQeKqlhPs0jfObTPoUmNRfDtOZ
+	0febAl8NeeoUiurbbj2EM2lWXMFEgp4imalByHE22EFnTkykhB67s0+ng1IYtwRAxLrvz7Ur3Nw
+	OW/NA5/yTXL58tCou7+675Jjd05ktuvDy6kaOkx1FeEih2IkTUtxd2/pqdSPMcC2MS8ZVfHEWvr
+	MpW6epyCIS0/xDCIRlvOkH/z8DoDdpgdK6TeyHMVU+o891p46yUPYzX60N2Z7+842w92RIUZaWv
+	DYisefFnWpNyw9c0M7MyWT8e5IIRUBQfUy3lK0YfpjhmSmv0wK0do5oyyVZ1/qEr1jQHahQTvyG
+	uV4E7xPRoqU6/qpl4ymhnPu28UGcSjKR3qvOwu6+LZWo1g4vxbjm0Yje6wucQDYXSYhgAzWERTe
+	E4Qsu7WTj/m7o6CquKqhD0dQ8e3NMTWB2qANar6DUaa5ThA22alJyb+zjCGzJ9NdfieXaSoALhN
+	3EczJnhpHFq+gF7j7YPoWH00k8pWoRqQBJ9hbHVhJJoElsTeLWQv9qwEzPK+iNn9AeRTEMVOxCv
+	qMBLekD//ip5Jrs7ubdVLF2ylJu9NZMBtbwngUcBFM+HEQPjcUN3HE5u7hu0fZwu+e/ebYCBimM
+	1MDWquZ4+NWspTcOKwhA8RQ==
+X-Received: by 2002:a05:6820:150b:b0:6d9:5232:1774 with SMTP id 006d021491bc7-6ddbb1b07cemr1677261eaf.28.1790832992092;
+        Wed, 30 Sep 2026 22:36:32 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8212a4139c7sm1860223a34.7.2026.09.30.22.36.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 22:36:31 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 30 Sep 2026 23:36:30 -0600
+Subject: [PATCH net] ptp: vclock: reject failed physical clock samples
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: riscv: thead: add Milk-V Meles
-To: Drew Fustini <fustini@kernel.org>, Han Gao <rabenda.cn@gmail.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Jisheng Zhang <jszhang@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
- <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
- <20260930-bulky-miraculous-rattlesnake-b58357@quoll>
- <CAAT7Ki90CLoWwauNDShNFt4LS+3+nC-6tV1UqwAJP=KD0E56pQ@mail.gmail.com>
- <ar1AlKUs9gwTDWWR@thelio>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ar1AlKUs9gwTDWWR@thelio>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-ptp-vclock-sampling-v1-1-c11bc16691ae@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2N2w7CIBBEf6XZZ0m2UKH4K6YPsC6V2AtCbUya/
+ ruN+nhmcmY2KJwjF7hUG2ReY4nzdEB9qoDubupZxNvBIFFqtApFWpJYaZjpIYob0xCnXliUwbY
+ NtmQVHGbKHOL7u3qFiRfofmHm5+t4WP6Nd4UFzeMYl0vljA/Ou6aVihXV+uy9RGzINByCIbRaG
+ +nJQLfvH4nkS1i2AAAA
+X-Change-ID: 20260930-ptp-vclock-sampling-902f98408c93
+To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Yangbo Lu <yangbo.lu@nxp.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 30/09/2026 19:02, Drew Fustini wrote:
-> On Wed, Sep 30, 2026 at 10:37:28PM +0800, Han Gao wrote:
->> On Wed, Sep 30, 2026 at 7:51 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>
->>> On Tue, Sep 29, 2026 at 06:22:45PM +0800, Han Gao wrote:
->>>> Document the Milk-V Meles board compatible with the TH1520 fallback.
->>>>
->>>> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
->>>> ---
->>>>  Documentation/devicetree/bindings/riscv/thead.yaml | 4 ++++
->>>>  1 file changed, 4 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
->>>> index 301912dcd290e60f816d380152591106de9415b4..5361021b8dcc9897803a5915665c6bb83309fe53 100644
->>>> --- a/Documentation/devicetree/bindings/riscv/thead.yaml
->>>> +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
->>>> @@ -21,6 +21,10 @@ properties:
->>>>          items:
->>>>            - const: beagle,beaglev-ahead
->>>>            - const: thead,th1520
->>>> +      - description: Milk-V Meles single board computer
->>>> +        items:
->>>> +          - const: milkv,meles
->>>
->>> Why isn't this enum with the previous entry?
->>
->> Merging will result in the loss of SBC manufacturer information.
->> Milk-V is an independent manufacturer.
->>
->> Thanks,
->> Han
-> 
-> I think the feedback is that BeagleV Ahead and Milk-V Meles have the
-> same pattern and it could be changed to:
-> 
->       - description: TH1520 single board computers
->         items:
->           - enum:
->               - beagle,beaglev-ahead
->               - milkv,meles
->           - const: thead,th1520
-> 
-> Is that right, Krzysztof?
+The cyclecounter read callback cannot report errors. Passing an
+unsuccessful PHC read through it consumes an invalid sample, and a zero
+sample followed by the real counter can add an extra 32-bit wrap to
+virtual time.
 
-Yes, that's easier to maintain pattern. Entry per single  board means 3
-redundant lines and a lot of bloat. Only one or two SoCs follow such
-approach.
+Read the parent clock before updating or initializing the timecounter,
+propagate failures from clock operations, and leave its state unchanged
+on failure. Cache only the successful sample for the infallible
+cyclecounter callback. Initialize this state before publishing a newly
+registered virtual clock.
+
+The initial sample can also fail partway through a sysfs request to create
+multiple virtual clocks. Unregister any clocks created by that request
+and clear their index entries, preserving the previously installed clocks
+and count. Otherwise the failed request leaves registered children that
+are not included in n_vclocks. This cleanup also handles existing
+allocation and registration failure paths.
+
+Fixes: 5d43f951b1ac ("ptp: add ptp virtual clock driver framework")
+Fixes: 73f37068d540 ("ptp: support ptp physical/virtual clocks conversion")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/ptp/ptp_private.h |  1 +
+ drivers/ptp/ptp_sysfs.c   |  8 ++++++-
+ drivers/ptp/ptp_vclock.c  | 56 +++++++++++++++++++++++++++++++++++------------
+ 3 files changed, 50 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/ptp/ptp_private.h b/drivers/ptp/ptp_private.h
+index db4039d642b4..4ff22adda652 100644
+--- a/drivers/ptp/ptp_private.h
++++ b/drivers/ptp/ptp_private.h
+@@ -75,6 +75,7 @@ struct ptp_clock {
+ #define dw_to_vclock(d) container_of((d), struct ptp_vclock, refresh_work)
+ 
+ struct ptp_vclock {
++	u64 cycles;
+ 	struct ptp_clock *pclock;
+ 	struct ptp_clock_info info;
+ 	struct ptp_clock *clock;
+diff --git a/drivers/ptp/ptp_sysfs.c b/drivers/ptp/ptp_sysfs.c
+index dc398c6b7528..9c25d897be19 100644
+--- a/drivers/ptp/ptp_sysfs.c
++++ b/drivers/ptp/ptp_sysfs.c
+@@ -225,7 +225,7 @@ static ssize_t n_vclocks_store(struct device *dev,
+ 		for (i = 0; i < num - ptp->n_vclocks; i++) {
+ 			vclock = ptp_vclock_register(ptp);
+ 			if (!vclock)
+-				goto out;
++				goto err_register;
+ 
+ 			*(ptp->vclock_index + ptp->n_vclocks + i) =
+ 				vclock->clock->index;
+@@ -257,6 +257,12 @@ static ssize_t n_vclocks_store(struct device *dev,
+ 	mutex_unlock(&ptp->n_vclocks_mux);
+ 
+ 	return count;
++err_register:
++	num = i;
++	if (num)
++		device_for_each_child_reverse(dev, &num, unregister_vclock);
++	for (num = 0; num < i; num++)
++		ptp->vclock_index[ptp->n_vclocks + num] = -1;
+ out:
+ 	mutex_unlock(&ptp->n_vclocks_mux);
+ 	return err;
+diff --git a/drivers/ptp/ptp_vclock.c b/drivers/ptp/ptp_vclock.c
+index 84cb527f59cc..6378e9a8cd80 100644
+--- a/drivers/ptp/ptp_vclock.c
++++ b/drivers/ptp/ptp_vclock.c
+@@ -42,21 +42,41 @@ static void ptp_vclock_hash_del(struct ptp_vclock *vclock)
+ 	synchronize_srcu(&vclock_srcu);
+ }
+ 
++/* Sample before changing the timecounter. Its read callback cannot return an
++ * error, so passing a failed PHC read through it would fabricate a wraparound.
++ * The caller holds vclock->lock, or has not published the clock yet.
++ */
++static int ptp_vclock_sample(struct ptp_vclock *vclock)
++{
++	struct ptp_clock *ptp = vclock->pclock;
++	struct timespec64 ts;
++	int err;
++
++	err = ptp->info->getcycles64(ptp->info, &ts);
++	if (!err)
++		vclock->cycles = timespec64_to_ns(&ts);
++	return err;
++}
++
+ static int ptp_vclock_adjfine(struct ptp_clock_info *ptp, long scaled_ppm)
+ {
+ 	struct ptp_vclock *vclock = info_to_vclock(ptp);
+ 	s64 adj;
++	int err;
+ 
+ 	adj = (s64)scaled_ppm << PTP_VCLOCK_FADJ_SHIFT;
+ 	adj = div_s64(adj, PTP_VCLOCK_FADJ_DENOMINATOR);
+ 
+ 	if (mutex_lock_interruptible(&vclock->lock))
+ 		return -EINTR;
+-	timecounter_read(&vclock->tc);
+-	vclock->cc.mult = PTP_VCLOCK_CC_MULT + adj;
++	err = ptp_vclock_sample(vclock);
++	if (!err) {
++		timecounter_read(&vclock->tc);
++		vclock->cc.mult = PTP_VCLOCK_CC_MULT + adj;
++	}
+ 	mutex_unlock(&vclock->lock);
+ 
+-	return 0;
++	return err;
+ }
+ 
+ static int ptp_vclock_adjtime(struct ptp_clock_info *ptp, s64 delta)
+@@ -76,14 +96,18 @@ static int ptp_vclock_gettime(struct ptp_clock_info *ptp,
+ {
+ 	struct ptp_vclock *vclock = info_to_vclock(ptp);
+ 	u64 ns;
++	int err;
+ 
+ 	if (mutex_lock_interruptible(&vclock->lock))
+ 		return -EINTR;
+-	ns = timecounter_read(&vclock->tc);
++	err = ptp_vclock_sample(vclock);
++	if (!err) {
++		ns = timecounter_read(&vclock->tc);
++		*ts = ns_to_timespec64(ns);
++	}
+ 	mutex_unlock(&vclock->lock);
+-	*ts = ns_to_timespec64(ns);
+ 
+-	return 0;
++	return err;
+ }
+ 
+ static int ptp_vclock_gettimex(struct ptp_clock_info *ptp,
+@@ -115,13 +139,16 @@ static int ptp_vclock_settime(struct ptp_clock_info *ptp,
+ {
+ 	struct ptp_vclock *vclock = info_to_vclock(ptp);
+ 	u64 ns = timespec64_to_ns(ts);
++	int err;
+ 
+ 	if (mutex_lock_interruptible(&vclock->lock))
+ 		return -EINTR;
+-	timecounter_init(&vclock->tc, &vclock->cc, ns);
++	err = ptp_vclock_sample(vclock);
++	if (!err)
++		timecounter_init(&vclock->tc, &vclock->cc, ns);
+ 	mutex_unlock(&vclock->lock);
+ 
+-	return 0;
++	return err;
+ }
+ 
+ static int ptp_vclock_getcrosststamp(struct ptp_clock_info *ptp,
+@@ -174,12 +201,8 @@ static const struct ptp_clock_info ptp_vclock_info = {
+ static u64 ptp_vclock_read(struct cyclecounter *cc)
+ {
+ 	struct ptp_vclock *vclock = cc_to_vclock(cc);
+-	struct ptp_clock *ptp = vclock->pclock;
+-	struct timespec64 ts = {};
+-
+-	ptp->info->getcycles64(ptp->info, &ts);
+ 
+-	return timespec64_to_ns(&ts);
++	return vclock->cycles;
+ }
+ 
+ static const struct cyclecounter ptp_vclock_cc = {
+@@ -214,6 +237,12 @@ struct ptp_vclock *ptp_vclock_register(struct ptp_clock *pclock)
+ 
+ 	mutex_init(&vclock->lock);
+ 
++	if (ptp_vclock_sample(vclock)) {
++		kfree(vclock);
++		return NULL;
++	}
++	timecounter_init(&vclock->tc, &vclock->cc, 0);
++
+ 	vclock->clock = ptp_clock_register(&vclock->info, &pclock->dev);
+ 	if (IS_ERR_OR_NULL(vclock->clock)) {
+ 		kfree(vclock);
+@@ -222,7 +251,6 @@ struct ptp_vclock *ptp_vclock_register(struct ptp_clock *pclock)
+ 
+ 	ptp_vclock_set_subclass(vclock->clock);
+ 
+-	timecounter_init(&vclock->tc, &vclock->cc, 0);
+ 	ptp_schedule_worker(vclock->clock, PTP_VCLOCK_REFRESH_INTERVAL);
+ 
+ 	ptp_vclock_hash_add(vclock);
+
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20260930-ptp-vclock-sampling-902f98408c93
 
 Best regards,
-Krzysztof
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
