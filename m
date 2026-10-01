@@ -1,87 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A0D374A0E;
-	Thu,  1 Oct 2026 14:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC327401A14
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863230; cv=none; b=BCLiGwFbEWEEDbmgusdKcD0rILG3+VfMU5yv+v4UjHKRi0Q+1G1VBMczAiK02p/Mmn4Dtyz7cGtMskdz4kJJaCEWQDMRMtKr/5fg1xAdHJLDD0QGHBy15PCKwqeCuQuQZJLl1ivKvIli5QEhQqQrmoHMpWnGIoAizEndWS3/dHI=
+	t=1790863281; cv=none; b=nOAYTbplRqrNp8kWdbFOcO4KotmqoWZLN559+L29iy7DK+HKkjtruWvIe4k27Y1LiTvkdzM2h5fMy9ACTYLpnfzTfO1HSiC0slvdphIcywkQ/yPTYsUT2ahl6INzEt1WHdIO/0RP8D3BaWTmclTE3k7RycTWeTvpA3Xjj6rJV6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863230; c=relaxed/simple;
-	bh=AcGFaAWMJog91BkmxiEKa9EgggF0tj82X5+IprY3G/c=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TyqW3TzzsxtlwTO8u+UuIruqOoqlT2k4SUXI93cn1nerVqjuunQ3M32RjRj5fKRY5mgJOhu3BNWhefPiMXbPsQ2aTi9FJsrvpvoSvqCffDky05g5w6u25C4z0q5icJbCVsNpWarx8ZbHup6zdOiMBUX24CM8PNluCqrDBRdUTh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sp6736PK; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790863281; c=relaxed/simple;
+	bh=n5aWS0ULpOL2AhyssTaA1Cyp54vlbwJfgUJL3xmyGf8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pFJRd6v1okOpWJUYW6NG80OlgeWQHqK1+ulD8pmopAM15YiqNmJopqM9icGgctz0X2kgyssDNP2+oOSqdUGyn1AsrWyLLGpCRPI/Rn8q9QWDyHq3RixOTMKdKv0GF3cqxY+OBgR0SBWPFBQuV+vg8Fd7vzUcCmIQ+ImLmc1i9uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GGtGHLmH; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sp6736PK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790863229; x=1822399229;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=AcGFaAWMJog91BkmxiEKa9EgggF0tj82X5+IprY3G/c=;
-  b=Sp6736PKtxl3aiuSzSene9Ugt30SYKmt6Uq361v6KI0yWbQdhSTd52fq
-   2nUatgi6Taq4Ru3Co8liXGKMsEO169rC20S5I+yQmdHewV5uDYxJRn4ca
-   BFavdq+5pbxXl3PddqW4SmmLYlpUSBK9s5K/SxtEUINEIHLY5JvEeHv5b
-   tyBwpL5ALWoYgO4R2tufAhzad2YVaxMllPjyU09kS4eMjiRogYx0zxq9w
-   buusG4KzGSRjGB3C3lD7eBdgdTMmAfTnD5rdAwZzW29q3je8/ZlCFKP21
-   ONWNf0EIegYQwOlB9OaCF0YnaZzreVSuDTwtRjsfXoXNeB11XyMVa90vh
-   A==;
-X-CSE-ConnectionGUID: 8+MqRzbgR+uE+WkYR2zDoA==
-X-CSE-MsgGUID: q2SemrfZTjOtw4RcNZfk3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90834350"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="90834350"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 07:00:28 -0700
-X-CSE-ConnectionGUID: ZdwFH+w8S4mkkxYd3KUrXA==
-X-CSE-MsgGUID: Xgw++lmJRXKuWjmUgI0Bxw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="303936278"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.111])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 07:00:25 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: =?utf-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, wy@wyuan.org,
- si.yanteng@linux.dev, srcres258@furdevs.cn, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Vegard Nossum <vegard.nossum@oracle.com>
-Subject: Re: [PATCH 4/4] docs/zh_TW: add missing :Original: fields
-In-Reply-To: <CAKspUhKCpXGKb7zpz9MbtpixVMUWKXMJtK-z6CcrezGA6e+ETA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260929131020.266120-1-chenyou910331@gmail.com>
- <20260929131020.266120-5-chenyou910331@gmail.com>
- <c719c6756f345c6c39db483654578ef09de1948f@intel.com>
- <CAKspUhKCpXGKb7zpz9MbtpixVMUWKXMJtK-z6CcrezGA6e+ETA@mail.gmail.com>
-Date: Thu, 01 Oct 2026 17:00:23 +0300
-Message-ID: <22fdd310dfb0946bbe58ed71308e58d936cbed53@intel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GGtGHLmH"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B45F2497;
+	Thu,  1 Oct 2026 07:01:15 -0700 (PDT)
+Received: from [10.0.130.165] (e127648.arm.com [10.0.130.165])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4E8143F86F;
+	Thu,  1 Oct 2026 07:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790863279; bh=n5aWS0ULpOL2AhyssTaA1Cyp54vlbwJfgUJL3xmyGf8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GGtGHLmHzzR/6LhExjkZmhycifHVPY23UIW/e6IHgoSbFPDwLKOoBzl1CKlMzCQNo
+	 LLzEcrLyE8obY4ogt/OktJJi8IhLQ5TYOzHNV491oxV8SZ6U0czmSHoD6L6rq7CcBv
+	 K/pHUdlY7apO5s4j5iUpPnQwvSkchlydwlLFSXlw=
+Message-ID: <9c7570ca-7d26-4497-ad11-bf5ce16cea83@arm.com>
+Date: Thu, 1 Oct 2026 15:01:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] sched/fair: Take slice protection into account
+ when arming HRTICK
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: linux-kernel@vger.kernel.org, mingo@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+ kayracizmeci@gmail.com, kprateek.nayak@amd.com, elif.topuz@arm.com,
+ sh@gentwo.org
+References: <20261001134016.3881268-1-christian.loehle@arm.com>
+ <20261001134016.3881268-2-christian.loehle@arm.com>
+ <20261001134320.GR2009045@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261001134320.GR2009045@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 30 Sep 2026, =E8=91=89=E5=AE=B8=E4=BD=91 <chenyou910331@gmail.com> =
-wrote:
-> You are right, and I should have seen it -- the rest of this series is
-> built on that same expectation. checktransupdate.py also finds the
-> original purely from the path, which is why 1/4-3/4 move the files
-> rather than fix their :Original: fields. By the same token, at their old
-> paths the language switcher cannot pair them with their originals
-> either, which is a better argument for the moves than the one I gave.
+On 10/1/26 14:43, Peter Zijlstra wrote:
+> On Thu, Oct 01, 2026 at 02:40:12PM +0100, Christian Loehle wrote:
+>> EEVDF can end a task's slice protection before its virtual deadline when
+>> shorter requests compete on the runqueue. update_curr() requests a new
+>> selection once protection expires, but hrtick_start_fair() still arms the
+>> timer for the virtual deadline. Without an intervening scheduling event,
+>> the next opportunity to reconsider the task can therefore arrive much
+>> later than the protection boundary.
+>>
+>> Arm the fair hrtick for the earlier of the virtual deadline and live
+>> slice protection. Keep the deadline fallback once protection expires.
+>> With RUN_TO_PARITY disabled, vprot remains the minimum progress quantum,
+>> so the timer must reconsider current at that boundary too. A same-task
+>> repick restarts the timer without renewing protection, so newly eligible
+>> tasks can compete without waiting for another protected quantum.
+>>
+>> A wakeup can shorten protection without preempting current. The enqueue
+>> path calls hrtick_update() before wakeup_preempt_fair() updates protection,
+>> and hrtick_update() leaves an active timer alone. Recompute the fair
+>> hrtick after update_protect_slice() changes vprot, including when a timer
+>> is already active. If the new protection boundary has already passed,
+>> request lazy rescheduling, as update_curr() does on protection expiry,
+>> instead of falling back to the later deadline.
+>>
+> 
+> Right, so I don't much like this. This wrecks the steady state behaviour
+> in favour of our 'dodgy' wakeup heuristics.
+> 
+> I would much rather we stick to the paper for steady state, and let
+> wakeups be wakeups.
 
-Oh, by the way, I do think the series as a whole is worthwhile cleanup,
-and having the :Original: fields is the current practice. Removing them
-should be a separate change.
-
-BR,
-Jani.
-
---=20
-Jani Nikula, Intel
+Alright, I guess the same reasoning then for 5/5?
+Again these are all just from throwing a bunch of artificial rt-app tests
+against Vincent's patchset and seeing what sticks...
