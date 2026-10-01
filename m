@@ -1,225 +1,178 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D5B3D5673
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6255F4052A9
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790897375; cv=none; b=PXw9qyJ7vl4G/IG700Hh3s+d/99h66XRuVEzGD80Rh5YwZtgiHrM9oBxUFvm95mTCvo1GqyUtZU69WGe30X2LnGpmcb61QA8e1cG7Mr0zCylZLMlSRhfMsVUteT+dMtpjaT1l3L0ILVvtEiTUJspBG1UpAUjeefbVf+ZX7iEC8M=
+	t=1790897439; cv=none; b=dmmD+zGF7WAYgC3a9qp1SoqKJfe4fW8LxQreibI/6NDs8Fgj4R4aaXlDlTo4tfN2crmkiAf/9laGC1dtwbPyYZaYUupg7Ilantu/5MPxAOVND7j70z2N3x57uWZfdxow0Kl/uQF0yJdxZCHTcyq6zlD/9XiJKwWNA9sTKViE8c0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790897375; c=relaxed/simple;
-	bh=lulebXRJYgCMf2sepGhL7uwJpGuNxICxTGjtx3e9IlI=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rDZEVJi3HoH8T8/IJivO8ZuIlzxBCp120Cy4K45T5sqXAV1Oe3XEKcY/VGaTdPdBe6TFrqPKPnYjW2CR5M7MTtzrNrQ9PHqUFyzMvwKJ8QumM+oQRJeur+LvnEo+ilKvUHn/4aHl+Qy3AoEj7CG9OQoRSBVPa5DaksT9saKShkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4eb0b989f0eso2457910b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:29:33 -0700 (PDT)
+	s=arc-20240116; t=1790897439; c=relaxed/simple;
+	bh=D97DedcSn+Zwer4yckX0JWjfX+0T9Kq8fzLFq/N9bJo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ONZKfXUGTKTKhtNqD2TVtsmlToqNjzOUzdevrLQRpgF+SgDH7fYfUBCbujw0nT7wnuaC3QFwS/CL/1OfOzxXD+CUFJ+w5t2UYrGED31qEwTj0CxktOw/d6RHAeL4K+LhjJy+SbPSPvfyT3U3GSAYG5tcLvabxxq967QfL0M8ftg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dDDE+JBP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PGiPiAwb; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dDDE+JBP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PGiPiAwb"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691NFSdT3829670
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 23:30:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=4AbQ8DsiqRNyKzuYux5OlMD/
+	rfuVBocWRxUHqNysAxE=; b=dDDE+JBPep5SyEc8jlf1fw7rJFKRDS/np2bW2+Z+
+	pGEZxB35h0PtXlY59A8Negt0Zdpqr4V2g7rW5isDPxzY7g39Z+t0KTIjhaGIfY/z
+	uShHC7pKtX0bLvZK5948jIsB55+n7INtJwZuaiYZw3F2werpTUQl7oxl2j1OR/yY
+	tsXLIxYd//LhsQc1eXzSE7bkrNc5ruL+qluMcvti+/dMwmNOg1bQlocY0vdxPVp1
+	wIZMtrMIfzohSQJdhJlVeyxmL/T2jhOlOddCp9KXBWlwbz49tMekLe/E6r1ezrcl
+	g8q4IS3XzfNddY63Ntvf1sJS2x5N+lpvohK5szrSeJu0OQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1sdcj891-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:30:36 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cc0b31ecaso176266285a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:30:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790897435; x=1791502235; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4AbQ8DsiqRNyKzuYux5OlMD/rfuVBocWRxUHqNysAxE=;
+        b=PGiPiAwbMC6Vxm4sp1gwlg0Mdxzz4Jo/2lgtQZgy6WRJTr8kmCrBiaaYJA8OqyNOwf
+         p8KiffA80OrhFtnMlqyYWZ1ze9WgMj8fyngFKFeR+9Kvyn79tGaI86TqD/LI9VJk+tv/
+         K3QMNoG/DexSLYKG3v8El4wV5KjWSqmUuuipZz8jas894M9UnYzPDzPjA3+UVpusIZe0
+         7L3ttAYTYNv/ESQSkqsIut6mvIXBBIAj3eWzjK42NwyYMuAf+owlM/Q4sQ9ZEapnXYIx
+         A2IUSVWkYAEmZ+fmEM+LuSpucICvT9lIbd5YUGCV2FoJ0kH1HbfxQREiJtlvR76yGaPe
+         RSDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790897372; x=1791502172;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1790897435; x=1791502235;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Jm8A7dbfF6HWsE7A81+LRliaab1wzvv5kbVtrXeQkyk=;
-        b=WVrt5nppdxfRFakfcCc1HgBhoWxw4iOT1EZWnXgXKkbWFqR/ky0t7TOPMEFQnDdoUc
-         LlTmQRH96W7p+jHrbKI0xg//d7cVn9eFkRblU46fFFxbWve2xCiAiANIykGJHkzJxCt9
-         qD032itIah0K1UUGBtmLRIvGS5q3HEBoGHk0CSBbcw7XvelFuJWQX1MXFimlkUC/RNZN
-         Lzr5mCl8wuYxQQz3IjAnh2Z4mQICLK5ExjRDObR3bDAEUrV4HaOfNraNlKnRb+NSS/9R
-         9m1hUKWL9Vl8uskvC1HuXIKOG4ifl0cjES9lP+t0M6lfj7Owb/3qHn5fo5z+xm0HZTGl
-         yvAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzo7yWSKGwPoPA3ikCKZyv8rADARhgx9u0giJnDmrom2F/TyU0rMvmTHuHKj69obYfwJ788zijFLc2m7Nk=@vger.kernel.org
-X-Gm-Message-State: AFuF++koADnV//xTXbqhwFjVuNjC8c14XNaQI+7bvh3eWi+Z4KjLBltt
-	fG+sEXN6U336w3fQSbkeWXKoBjV/vL2m3R4l4sKdIU6fZ2LC+qwTRoUgUxDIPh1skpcJKO0reAD
-	9GrumlmJT608YGDtknC6nQObU81el5CJSX/TSpaR+2GPFPdcVa/IEr5ZD59U=
+        bh=4AbQ8DsiqRNyKzuYux5OlMD/rfuVBocWRxUHqNysAxE=;
+        b=y8OBJGts3hSah9/MnvQoMABOgrnq7LE0JA9RF9M1he0U446QmwzEP3763IuNTPvQer
+         Uvh4TbkQE/0pvL0RBjHMpB187rrN7fV4RA2ZaU5+rbFuBVb/pGNVmRx7lI8BIKGaH32U
+         U8g1u4upP/6Tar1R6DibTC3pZnSz4gYfj0PFu2WqI7Yr9pSq8XpN4M2/bFyGWuHPW12h
+         3I98uT21Cy9w9hQeP2yP/6nWSkRxVbeA9KR28tDvONcpjpgOzZ2ApwxgScN+Ut6OauTO
+         subpW0cbX13xSHI5rij/BvmWIG75GdjzAyL+Dd8YLJ9WtyHxYavB580arD0yCODky22G
+         mB8A==
+X-Forwarded-Encrypted: i=1; AKwUvByM3MZ55nUJ0c9OoCzQHPEOF7yQksuYRcah/G1F29h9Xc1yoqW2Wp/5vPO0xtOTvZwUk3PoUbOLizn4SJk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNKnnVaKU7WQFzdims9M3SBO0elo1Y1+Mow7xxt+OoQIgfr7OE
+	Maw0fGYzXLxExl84wNMyUvypRBcJOv6DDUh5yECiLYP8TnpM8NidHNBM31SqLSrP8T3C+EmI70r
+	wjDjEMXKh8r2lGpaD7i5TGR5qzWdkxOBNKVtyVz4F4T9CXpJL+nCwKVGQzvwDDHiKDxo=
+X-Gm-Gg: AYBFou263+MXMeSGJz8icix6k95nVXp4KyQMmwUFzXLECVq54ivF/NhLE65Gi+6IytT
+	Xu7BljOwNF2jBJwtjrcROUALGVYjv2bIcN/i/qJaTzV1LURZTcN679/Dc4z4cLDkOy3rbmHd9YJ
+	3Cp8J21ok+/RPTolxueAbKwC7ICPqlv24ntnZalyCS6TngoBCgV8z9uBufYGdPPVFmQlhKPI7Nw
+	b3Tpg/7ij41dNmZ66jGvf/bcJ5b8uP/0Fex1X0EUb6AxFK0kV0CwVMhkNgeAzbOOotf4d2eyEWY
+	5G3UoyIiOgSuaZfD9iQAfMy4aSGetctcjMuhWgKSM+ar3r73BBkD8FqA+GSOsvZfXc3PVwVP3Vq
+	NBu6m5zpgBOQCZrme1mIiMXC5Gh/0uelLD8VuEDlvUvgWGQpwRObasGzgnIV2G5aiUQs5m5cktT
+	WfVbbueStcDU9V
+X-Received: by 2002:a05:620a:444f:b0:93c:6450:9cf2 with SMTP id af79cd13be357-93cf16e70f1mr157178785a.28.1790897435251;
+        Thu, 01 Oct 2026 16:30:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:444f:b0:93c:6450:9cf2 with SMTP id af79cd13be357-93cf16e70f1mr157164785a.28.1790897434369;
+        Thu, 01 Oct 2026 16:30:34 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c78bec9sm224988e87.27.2026.10.01.16.30.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 16:30:33 -0700 (PDT)
+Date: Fri, 2 Oct 2026 02:30:31 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jonathan Marek <jonathan@marek.ca>, Val Packett <val@packett.cool>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi/phy: power up the digital top before
+ starting the 7nm PLL
+Message-ID: <f6w6anqecd27vgvu74ykjnd3smwhiji6uzejtj4geoe2kupiyh@v7spur2rtwqi>
+References: <20260924-dsi-7nm-pll-digtop-v1-1-c2b24c8e218d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:16a5:b0:4d6:9133:cfe6 with SMTP id
- 5614622812f47-4f30bcdf81amr3861437b6e.43.1790897372471; Thu, 01 Oct 2026
- 16:29:32 -0700 (PDT)
-Date: Thu, 01 Oct 2026 16:29:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abeecdc.7503fbd6.2d3f6.0010.GAE@google.com>
-Subject: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in md5_blocks
-From: syzbot <syzbot+46bbbe175b7eea8036b8@syzkaller.appspotmail.com>
-To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-dsi-7nm-pll-digtop-v1-1-c2b24c8e218d@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: EfvoscxgOLPei-10R-gDw_SJhkiJoP1E
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA5MyBTYWx0ZWRfXyFyXo/x2GZ02
+ ukghgC0OTS2ARWACVaH2nSrlZxKeySB5sLxYi90EygzO36rEpHOjsrs7NMwVTkysJjZfkdmurfZ
+ 7hCYGmZpYuVcJRSYOQyO/7tc+nlxJr8=
+X-Proofpoint-GUID: EfvoscxgOLPei-10R-gDw_SJhkiJoP1E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA5MyBTYWx0ZWRfX/kaAou2Gftx/
+ 4xzawMe802kCfSqwms/R2+u6S4pQemyBviR8eEOqnW0bvtQmNhAjMlo1i6qjKiIPB/Ol34/uSsq
+ Xv68fmtuP2nQuTmsOWIHu4rtLwfercJyyZulb/Xac0UnM048/CmGVvJ+zAuTtf7YzSqd7McXcOb
+ NYyOQGJKxk3zvYJz/DkriJCKMA93B0DZAYNyPbz4ActE+Duo62G+oR3b0vppj1xBDQqPuOxc35f
+ hxFLmIN/0ORb9yZd9JrH89BxzQzGKf1AmBhNyQu7cfhgPpFaadr7EGl2sS0RsXEQ+Gyp9SBq6Y4
+ bS+JVDXd6NiB5gtBlpGIBbaqbB5RCgvN6/h3E5rlIeaCsVaczZYpV9jFKrpj7Xn2MoQ0cCLZQ3x
+ 11e77E0vDTECyN3thftBVKcJ9/0Hn8f8ygVcXeZMAnzZbGITa2OJbR1nH5iMo3oVaMt2/ibKFrb
+ Tb35EtLvpqm2Gvfv3yg==
+X-Authority-Analysis: v=2.4 cv=D87SufRj c=1 sm=1 tr=0 ts=6abeed1c cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=GMMiCQSux9nJ0xNYgbgA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_05,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 malwarescore=0
+ adultscore=0 impostorscore=0 bulkscore=0 spamscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010093
 
-Hello,
+On Thu, Sep 24, 2026 at 03:51:03AM +0300, Dmitry Baryshkov wrote:
+> dsi_pll_7nm_vco_prepare() de-asserts PLL_SHUTDOWNB and starts the PLL,
+> but leaves the PHY digital top powered down; only dsi_7nm_phy_enable()
+> sets DIGTOP_PWRDN_B.  The PLL cannot lock in that state.  This went
+> unnoticed for as long as the PLL was only ever prepared from the DSI
+> host's enable path, after the PHY had been enabled.
+> 
+> Since commit acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for
+> pixel clocks") the clock framework enables the PHY PLL on its own while
+> applying the DT's assigned-clock-parents from of_clk_set_defaults(), at
+> probe time, before the PHY has been touched.  The lock fails, the failed
+> enable leaves the pixel clock with an unbalanced enable count, and the
+> retries on every probe attempt stall the boot for tens of seconds:
+> 
+>   DSI PLL(0) lock failed, status=0x00000000
+>   PLL(0) lock failed
+>   dsi0_phy_pll_out_dsiclk already disabled
+>   WARNING: drivers/clk/clk.c:1188 at clk_core_disable+0x244/0x24c
+>    clk_core_disable
+>    __clk_set_parent_after
+>    clk_core_set_parent_nolock
+>    clk_set_parent
+>    of_clk_set_defaults
+>    platform_probe
+> 
+> CMN_CTRL_0 reads 0x20 at the failing attempt: PLL_SHUTDOWNB set,
+> DIGTOP_PWRDN_B clear.  Setting DIGTOP_PWRDN_B alone makes the same PLL
+> lock, with no rate change and no other register touched.
+> 
+> Power up the digital top together with the PLL bias, and power it down
+> again with it.  The normal enable path is unaffected: dsi_7nm_phy_enable()
+> holds the bias reference and writes CMN_CTRL_0 in full anyway.
+> 
+> Fixes: 1ef7c99d145c ("drm/msm/dsi: add support for 7nm DSI PHY/PLL")
+> Fixes: acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for pixel clocks")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-syzbot found the following issue on:
+For the reference, picking up this patch breaks the boot on SM8350 HDK
+with the disconnected HDMI display output. I'll try debugging it later.
 
-HEAD commit:    6375e61c01e9 Add linux-next specific files for 20260928
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=17231325580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1dae85014253be90
-dashboard link: https://syzkaller.appspot.com/bug?extid=46bbbe175b7eea8036b8
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=138ff605580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13d21ac9580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/dac817cfa9ca/disk-6375e61c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e503a06f8d7e/vmlinux-6375e61c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6a6051b849cb/bzImage-6375e61c.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+46bbbe175b7eea8036b8@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-out-of-bounds in md5_block lib/crypto/md5.c:40 [inline]
-BUG: KASAN: slab-out-of-bounds in md5_blocks+0x120/0xbd0 lib/crypto/md5.c:126
-Read of size 64 at addr ffff88803236dce0 by task syz.1.18/5953
-
-CPU: 0 UID: 0 PID: 5953 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Call Trac
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
- md5_block lib/crypto/md5.c:40 [inline]
- md5_blocks+0x120/0xbd0 lib/crypto/md5.c:126
- md5_update+0xef/0x150 lib/crypto/md5.c:161
- md5+0xed/0x180 lib/crypto/md5.c:202
- ecryptfs_write_tag_70_packet+0x820/0x12e0 fs/ecryptfs/keystore.c:741
- ecryptfs_encrypt_filename fs/ecryptfs/crypto.c:1378 [inline]
- ecryptfs_encrypt_and_encode_filename+0x576/0x1580 fs/ecryptfs/crypto.c:1789
- ecryptfs_lookup+0x20e/0x780 fs/ecryptfs/inode.c:402
- lookup_one_qstr_excl+0x12d/0x360 fs/namei.c:1810
- __start_dirop fs/namei.c:2920 [inline]
- start_dirop fs/namei.c:2942 [inline]
- filename_create+0x20e/0x370 fs/namei.c:5103
- filename_mkdirat+0xd2/0x510 fs/namei.c:5449
- __do_sys_mkdirat fs/namei.c:5477 [inline]
- __se_sys_mkdirat+0x35/0x150 fs/namei.c:5474
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe5ba99e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffeb47b2408 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
-RAX: ffffffffffffffda RBX: 00007fe5bac25fa0 RCX: 00007fe5ba99e159
-RDX: 0000000000000080 RSI: 0000200000000100 RDI: 0000000000000003
-RBP: 00007fe5baa3506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fe5bac25fac R14: 00007fe5bac25fa0 R15: 00007fe5bac25fa0
- </TASK>
-
-Allocated by task 5953:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5531 [inline]
- __kmalloc_flags_noprof+0x52d/0x790 mm/slub.c:5719
- _kmalloc_flags_noprof mm/slab.h:55 [inline]
- __alloc_empty_sheaf+0x28/0x40 mm/slub.c:2854
- alloc_empty_sheaf mm/slub.c:2874 [inline]
- __pcs_replace_empty_main+0x43b/0x6c0 mm/slub.c:4806
- alloc_from_pcs mm/slub.c:4887 [inline]
- slab_alloc_node mm/slub.c:5021 [inline]
- kmem_cache_alloc_noprof+0x394/0x600 mm/slub.c:5047
- ecryptfs_init_fs_context+0x70/0x1b0 fs/ecryptfs/main.c:617
- alloc_fs_context+0x99e/0xd00 fs/fs_context.c:295
- do_new_mount+0x17f/0xdc0 fs/namespace.c:3841
- do_mount fs/namespace.c:4194 [inline]
- __do_sys_mount fs/namespace.c:4407 [inline]
- __se_sys_mount+0x31d/0x420 fs/namespace.c:4384
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88803236dc00
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 224 bytes inside of
- allocated 256-byte region [ffff88803236dc00, ffff88803236dd00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3236c
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88813ff22b40 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88813ff22b40 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 29, tgid 29 (kdevtmpfs), ts 16571924726
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1854
- prep_new_page mm/page_alloc.c:1862 [inline]
- get_page_from_freelist+0x220f/0x2280 mm/page_alloc.c:3933
- __alloc_frozen_pages_noprof+0x1fc/0x400 mm/page_alloc.c:5441
- alloc_slab_page mm/slub.c:3384 [inline]
- allocate_slab+0x7d/0x5e0 mm/slub.c:3499
- new_slab mm/slub.c:3550 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7539
- refill_sheaf mm/slub.c:2917 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
- alloc_from_pcs mm/slub.c:4887 [inline]
- slab_alloc_node mm/slub.c:5021 [inline]
- __do_kmalloc_node mm/slub.c:5530 [inline]
- __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
- security_inode_init_security+0x102/0x3e0 security/security.c:1386
- shmem_mknod+0x1ea/0x340 mm/shmem.c:4042
- vfs_mknod+0x448/0x610 fs/namei.c:5282
- handle_create drivers/base/devtmpfs.c:283 [inline]
- handle drivers/base/devtmpfs.c:435 [inline]
- devtmpfs_work_loop+0x861/0xdf0 drivers/base/devtmpfs.c:450
- devtmpfsd+0x4d/0x50 drivers/base/devtmpfs.c:492
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88803236dc00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff88803236dc80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->ffff88803236dd00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-                   ^
- ffff88803236dd80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88803236de00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- 
+With best wishes
+Dmitry
