@@ -1,148 +1,127 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2654752B1D7;
-	Thu,  1 Oct 2026 15:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CF052BE47
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 15:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868818; cv=none; b=mjymrGnuogtj7RY7s+IZWw0xDHslfAAo4akRa02VDdJWWd2+d5zDxoBA8nsvwqFxsAiJ/ku5tvkEl1b4pwaYplglNHzp9RR3V6F8J6CvxzRWf9THFg6jyykmjqi704777Vy3evxQhknv+Ss79Y42E8pTmrtaI/Mjr0GYuitIjS8=
+	t=1790868841; cv=none; b=e4KDqjHWNR75egMTrPjUyFbeQZ3YqHZi6lcuRdsfQytNucAtuUhM5OwczYP5Q9tCAwKmUjQWgWpzTjkQAPr6UL8FdDA960wxzP5NU/pj+tdHXHVu0ersc/QXs8OwaV2bOTICYJdBVlPyYCnScrWByamivrEoO0TAYahZYYeMWpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868818; c=relaxed/simple;
-	bh=2hx8QpOvVg+2EnX0QRVoJobooEJ0DOO2G5CBBvSKlPI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=om5aKHyyuEzhiCOriEwVAWBky79I2/0cXfaOJ9eflBHx9ZS//AyCtaqwHenqdCU0qx+kb4AI2YWuSXfw0YGFk3/rrRG6illhfXNr1S9VCnFtndv4ceuJauz96JiKY6QANZf908r1cM0ZBKd8qQPiDB5QuxELaHWcbtLExRo5AAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=cZ/hamC8; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790868841; c=relaxed/simple;
+	bh=vE5rYraDDztxsN+DverCVDxINK++fhi24ILP7gENH+E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ASBjYAR1An6HuaLNlWL2hrTvNukk7gMyavH5ePEqnAZTfMATHipN4F4wh+2LzQ8XfvWEgoDLXyW7gtHU2fIARhphkTir84VK8uCHhMA/2314SjRPbBb9j88Y5bpDCMI4Cb3fpSJ92XtZNKtqYxUIhptS2Hm1DpJIF8XfDptmoNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mhydnY3u; arc=none smtp.client-ip=74.125.229.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="cZ/hamC8"
-Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.corp.microsoft.com (unknown [52.167.112.163])
-	by linux.microsoft.com (Postfix) with ESMTPSA id E37D820B7168;
-	Thu,  1 Oct 2026 08:32:40 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E37D820B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790868763;
-	bh=Gl19LhtWLKjfcWFniW5fiNkolXSpsFJsnrsmyFVH1q0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cZ/hamC8umn0spRY/J9y8JezNfPCWT31hurpmlA7bpJhXsB7rbEtlOczIJ9IgD5ki
-	 DQUFZKgNroCLsA4WmmLh72Pahbh2xOp5hYRpsBSEzyBn678LaUGN6qOlSNWu5hDGQ3
-	 tiMpxWpqtJFgt/naaUNw8msDURvZcdOGerzo/ekw=
-From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-To: linux-pci@vger.kernel.org
-Cc: Frank.li@oss.nxp.com,
-	minghuan.Lian@nxp.com,
-	mingkai.hu@nxp.com,
-	roy.zang@nxp.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	Zhiqiang.Hou@nxp.com,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] Revert "PCI: layerscape: Change default error response behavior"
-Date: Thu,  1 Oct 2026 11:33:23 -0400
-Message-ID: <20261001153323.1965074-1-jeffbarnes@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <0FEA6868-5A7C-4955-9FBB-BE9A1AE8D3F7@getmailspring.com>
-References: <0FEA6868-5A7C-4955-9FBB-BE9A1AE8D3F7@getmailspring.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mhydnY3u"
+Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-14e1fe551c3so737005c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 08:33:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790868838; x=1791473638; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7R/8/9AITUujGUpkgkK/lwuX+Zqo9Tj1z8OfLHWk1D8=;
+        b=mhydnY3u53y8s9AHlRQ8h9yODcJxJUofiX6onfTS1D7kKyJxShPKPEXYjYi4XyCA1W
+         EpN7B0GP95G6otxJ6gwAOD7tpabWj2szoWb7qWISEULBPuU8tQGQdt2JeJIZztKVjZGk
+         /MFWZn+8Cbc9uY8HRf30dWd8oaMxDUDuNCC8ulOKN11L7Sp2I3D0yVADI7gFWrXt8KH+
+         WTI0jK2ufNZJxJmJKW1emK2w17SsdytR8cOx7aLSErfMyhvotEQ0kdie+JHCoR6xWSUr
+         GY/Nh/XPm1ocs6fVs3sYBUxck1OvVXvQN6pR1XQvy+AuT80FJNIc+Ajs/do17FxY6nJm
+         uLnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790868838; x=1791473638;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7R/8/9AITUujGUpkgkK/lwuX+Zqo9Tj1z8OfLHWk1D8=;
+        b=v+E5FqXsniOH8vOTuekaAqcS+IBtEIC1pTeBc7MCjQeJLK1ansW7M8dbPA/EV2/uvc
+         4Y8kgP51NoVc88ViJSttu1trSbVS4Mcgz/mbPbZ3CSNuDzlIFXuErHc7x2toQ2purcEH
+         ZoF+4PR8WA1enbn4U9OF40gfgr36v/d0i854RJ2uEtsXcxOUZtr14jOI5DA1qvLeuqlx
+         UXjeBOgrB4+/vnOrbtOC9oBoqEnsdV00qdSb7MKfq1cvQtS1kiOV+LQtAr8Dl87Wf9C3
+         86JV7KjV1veG5SLV5DYpqpDXHB+fEhj0EKAEjFVyTUVDCAu6iJF8eZ9iM5Y1JbMujexG
+         YfdA==
+X-Forwarded-Encrypted: i=1; AKwUvBx509+T477IXvhPt/VvOvOf9aS4YtbmgR66L5s/dTAGVdayAKOl6FvGhh1PYHMZbyHBp5wXTxjtuS2Qw2k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIvx2UIXLXJwldRvsrjGApS7QsBbb7v1fqJvFisua7qbCfOaS4
+	9uMYmAtkYKXXjwQXoDXy7dUgj32np//FL6/baUFQbn0DE0JsIQN5sRgA0qqMT6by
+X-Gm-Gg: AYBFou2/kKcR7rqyFah0LA/zNTm4nspFzZ7kXT1W8TP90VaLX3fegXp2Dk2nQP2CJ6q
+	bnBeBN8N5Yw7oYTGS097PsPQgeDCxH2ydWqSSR4gw4MB+Lz3oVlTBZ1tBHGygVKwaIVRV28x3Za
+	fMqn4h/pTz1/whEPix+6T2SkPwfSetLQlAZbLFXOFIJ05eImp5XoVvUzSMWhU4EaOFqMx4pcW9o
+	KixL/Y7T5h91T+DW6W0mJ/XAX1i3pqG8/JMIxKvqiVH4/SMYdTuq/UJt1BeEXEV7t5w+afk9B43
+	24Sm2DW5JIFcPtP4Rkm93dAsg0r3mRWOfcoYZ4BkhYP0pdzB0oB0xvARZMyBtAymBXzcjUMmyOd
+	gB98PNcB8s9K432HlyaogAq9fsSSsP5OqFsaubhiWXXNlk+VIyx4ZFg7LbwMQ/lAjVuqoyuOrd2
+	Y+6JNG4cUtvGXlfuymPzNyPgZ9/s5rYcny6oCB7eWuYsMkx7apidkFnieF1Ms+zBLc+Q==
+X-Received: by 2002:a05:7022:eb57:10b0:143:50a0:56be with SMTP id a92af1059eb24-14d31c6d41fmr5203438c88.14.1790868838309;
+        Thu, 01 Oct 2026 08:33:58 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f266d1156sm146683c88.6.2026.10.01.08.33.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 08:33:57 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH 0/2] mm/compaction: stop repeating failed async compaction
+ on every THP fault
+Date: Thu, 01 Oct 2026 23:33:47 +0800
+Message-Id: <20261001-bug-mm-thp-async-compact-defer-v1-0-0174c7923430@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFt9vmoC/x3NSQqEMBBA0atIrS3IgNL0VcRFhorWIjEkKjbi3
+ Tu4fJv/b6hUmCp8uxsKnVx5Sw2y78CtJi2E7JtBCTVKISTaY8EYcV8zmvpLDt0Ws3E7egpU0H6
+ 0HqQNVg0eWiQXCny9g2l+nj92WGescAAAAA==
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-This reverts commit 84d897d69938
-("PCI: layerscape: Change default error response behavior").
+A THP fault on a MADV_HUGEPAGE VMA tries the local node first with a
+single round of async direct compaction. A failed async run is never
+deferred, so when the local node is fragmented by memory that can't be
+migrated, such as long-term RDMA pins, every 2M fault scans the zone
+again before falling back to another node.
 
-The Layerscape PCIe driver programs the DesignWare
-AMBA_ERROR_RESPONSE_DEFAULT register at offset 0x8d0 with 0x9401.
+Patch 1 splits the deferral state by migration mode. Patch 2 defers
+async compaction on its own state after it fails, leaving sync
+compaction as it is.
 
-For AXI, the documented default with AMBA_ERROR_RESPONSE_GLOBAL cleared
-returns OKAY with all-ones data for errors on non-posted requests.
-Setting AMBA_ERROR_RESPONSE_GLOBAL causes an AXI error response instead,
-with AMBA_ERROR_RESPONSE_MAP selecting SLVERR or DECERR for individual
-PCIe completion errors.
+Populating a 4 GiB MADV_HUGEPAGE buffer on a node fragmented by pinned
+memory, direct compactions drop from 735 to 15 and the time spent in
+compaction from 122.7 ms to 3.6 ms. Fewer of the THPs are allocated on
+the local node, 1126 instead of 1313; the rest come from the other
+node. Details and the movable-memory case are in patch 2.
 
-The value 0x9401 sets AMBA_ERROR_RESPONSE_GLOBAL and maps Unsupported
-Request, Completer Abort, and Completion Timeout to SLVERR.
-
-A PCI configuration access can race with the link going down after
-dw_pcie_other_conf_map_bus() checks the link but before
-pci_generic_config_read() performs the MMIO access. If the transaction
-results in a Completion Timeout, the Layerscape error response setting
-propagates it to AXI as SLVERR, resulting in an asynchronous SError and
-kernel panic.
-
-Reproduce the race by obtaining the configuration-space mapping while
-the link is up, then disabling the link from another CPU immediately
-before performing the MMIO configuration read.
-
-With the error response override enabled, the overlapping configuration
-read results in an asynchronous SError and kernel panic. With the
-DesignWare default behavior restored, the same test returns 0xffffffff.
-AER reports a non-fatal Completion Timeout, and no SError or kernel
-panic occurs.
-
-Restore the documented DesignWare default error response behavior so a
-failed non-posted PCIe transaction does not become a fatal AXI error.
-
-Fixes: 84d897d69938 ("PCI: layerscape: Change default error response behavior")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-
-Changes in v2:
-- Change the subject to identify this as a revert, as requested by
-  Frank Li.
-- Document the DesignWare AMBA_ERROR_RESPONSE_DEFAULT behavior and
-  decode the 0x9401 setting used by Layerscape.
-- Clarify that the setting propagates Completion Timeout as AXI SLVERR
-  rather than causing the underlying PCIe transaction failure.
-
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- drivers/pci/controller/dwc/pci-layerscape.c | 12 ------------
- 1 file changed, 12 deletions(-)
+Qiliang Yuan (2):
+      mm/compaction: keep compaction deferral state per migration mode
+      mm/compaction: defer failed async direct compaction
 
-diff --git a/drivers/pci/controller/dwc/pci-layerscape.c b/drivers/pci/controller/dwc/pci-layerscape.c
-index 14d6ac4fc53f..d333f1ae8a41 100644
---- a/drivers/pci/controller/dwc/pci-layerscape.c
-+++ b/drivers/pci/controller/dwc/pci-layerscape.c
-@@ -28,8 +28,6 @@
- 
- /* PEX Internal Configuration Registers */
- #define PCIE_STRFMR1		0x71c /* Symbol Timer & Filter Mask Register1 */
--#define PCIE_ABSERR		0x8d0 /* Bridge Slave Error Response Register */
--#define PCIE_ABSERR_SETTING	0x9401 /* Forward error of non-posted request */
- 
- /* PF Message Command Register */
- #define LS_PCIE_PF_MCR		0x2c
-@@ -103,14 +101,6 @@ static void ls_pcie_drop_msg_tlp(struct ls_pcie *pcie)
- 	iowrite32(val, pci->dbi_base + PCIE_STRFMR1);
- }
- 
--/* Forward error response of outbound non-posted requests */
--static void ls_pcie_fix_error_response(struct ls_pcie *pcie)
--{
--	struct dw_pcie *pci = pcie->pci;
--
--	iowrite32(PCIE_ABSERR_SETTING, pci->dbi_base + PCIE_ABSERR);
--}
--
- static u32 ls_pcie_pf_lut_readl(struct ls_pcie *pcie, u32 off)
- {
- 	if (pcie->big_endian)
-@@ -180,8 +170,6 @@ static int ls_pcie_host_init(struct dw_pcie_rp *pp)
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
- 	struct ls_pcie *pcie = to_ls_pcie(pci);
- 
--	ls_pcie_fix_error_response(pcie);
--
- 	dw_pcie_dbi_ro_wr_en(pci);
- 	ls_pcie_clear_multifunction(pcie);
- 	dw_pcie_dbi_ro_wr_dis(pci);
+ include/linux/mmzone.h            |  7 ++--
+ include/trace/events/compaction.h | 27 ++++++++------
+ mm/compaction.c                   | 77 ++++++++++++++++++++++-----------------
+ 3 files changed, 63 insertions(+), 48 deletions(-)
+---
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+change-id: 20261001-bug-mm-thp-async-compact-defer-b83351bfb25d
+
+Best regards,
 -- 
-2.43.0
+Qiliang Yuan <odys.yuan@gmail.com>
 
