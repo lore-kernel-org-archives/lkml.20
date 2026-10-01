@@ -1,90 +1,175 @@
-Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82923CD8B8
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBC831ED83;
+	Thu,  1 Oct 2026 08:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842580; cv=none; b=pv3pdGl7DNOjqAr3RoBIOAp4ehUqnFfl/cv4L7KvGpZUlg/dqHoTbC/Stg3JVap8/9QHLue44AaExxliruG6wrGnRFJTwqPzC/CkXUb2d07NaiJlKwJlLB/RnEWS65dFLgLjmZPQX8PyQkY8N0Sp1osU4jQwUYNcu1FjwO8QRhU=
+	t=1790842655; cv=none; b=diZ9BNDJb0sIClo8MCYo68UhG1BGhru0UhGzrWifLKMucv5wGe8rW2ZPZB47ryWY0Mu7fZ94Qzl+ey06gkjDzzJC9t7N8m8hwRZk67ctrTqeWxuQ2INSYe8a1fW9E2bgM1mYeaNTRg+Mx/7pST/bd3MWlXfUfRiZdDgbhLVQSTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842580; c=relaxed/simple;
-	bh=c+DPVphSAp7/zj1M/w64+ydC3uV12W1BTIYcaSRdGYA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XJz9FtoMLKGwrUQuft30LrpvTSM9voAoPJjP1Mb6oKcxEAnTnBjkfCUpeA7CRPPPsnCEUTWi9yLEUQaEmVSApcFLPxVZ4uoL7bXe5uCBhpyqMSZDLibyCCcomj10kEuXgU/bMmVXxJzzsen4PWaK8hFvxTvpxMom1Yj81JR30Rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=etmsx21B; arc=none smtp.client-ip=91.218.175.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790842655; c=relaxed/simple;
+	bh=C8h6OI3UO/Zgrmh9+n/8orlJGde7REXnfxQAFIosoMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I2qfs0K4/tLW4HqhoAvYmMSZEU+YY/BA7P3DVk7DLRklAUpkWV6GTfRGDVsqORC67z+goYkHvbCHXSBPmrNWAHOUoMD3Oi19820JX6zt49yk8BtwSIu2QPBrHsk0NGQ39rw5S2RWWTi7WEXdu+lK6p0JfSekE2dK63zayDU0dd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hbjWOMJe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="etmsx21B"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=c+DPVphSAp7/zj1M/w64+ydC3uV12W1BTIYcaSRdGYA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790842570; v=1; x=1791447370;
- b=etmsx21B3p9TDxz9Zs7sS1mQ0e8Q9g/SOC6YsJrQvtJpHECx2QiB4FjodfhWMjjyInSi+bzj
- XnoG1DQaE9RLslbz84HCTMxUJSVb1mItgSnaS1kRLOOKx8Hvm7c5sqJBRJDKMy/uZuv2ccWccmq
- LYmMnemxq/S7igFuXnFC1/f4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id de19fbd9b491b7ab;
-	Thu, 01 Oct 2026 08:16:10 +0000
-X-Mizu-Trace-ID: de19fbd9b491b7ab
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: dave.hansen@linux.intel.com
-Cc: luto@kernel.org,
-	peterz@infradead.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	x86@kernel.org,
-	hpa@zytor.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	Lance Yang <lance.yang@linux.dev>
-Subject: [PATCH 1/1] x86/mm: fix spurious warning on __add_pages() failure
-Date: Thu,  1 Oct 2026 16:15:55 +0800
-Message-ID: <20261001081555.35485-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hbjWOMJe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8440A1F000FF;
+	Thu,  1 Oct 2026 08:17:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790842645;
+	bh=Boaufn0aUnE5Zt5cwsradz7FLIyOzXYWO6yRvZuwmi0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hbjWOMJejQy0Csbox2Kbp3EiZmGTA3RWUep+6/wMyLRMmgCNQ/vKJeOhgfoGVTXEf
+	 upi5ZD79bwZdL73Cfh0po6b7vkEU98es4VK8ReoCFyPsn1/YUAmBdFKJM4rG8fPn6J
+	 xWJeZMX+bzrv4YxzNgCHTVrCbjM6/57XoRICIITa2TQfCMyGlzQpOm2YyS+lYAiUM/
+	 /QGtYt0gULYXZU+D9wjpI0ZIvzwWxILqunUMq4wu4oIkOD2Xzdf0CAhp7dVrfnwnOz
+	 CdmaLQq3bnBa6i8hJjcJULoucs6LggsupZwCP3p6dsFliOZioROuTWWHhBq9XmfPcW
+	 h5SpNc2gYOOZw==
+Date: Thu, 1 Oct 2026 10:17:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Luna Hart <lhart.opensource@witekio.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Flaviu Nistor <flaviu.nistor@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: Add TI
+ TPS389004/TPS389006/TPS389008
+Message-ID: <20261001-greedy-skink-from-sirius-b13f9e@quoll>
+References: <20260929-lhart-dev-tps38900x-v1-0-7045c5894152@witekio.com>
+ <20260929-lhart-dev-tps38900x-v1-1-7045c5894152@witekio.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-lhart-dev-tps38900x-v1-1-7045c5894152@witekio.com>
 
-__add_pages() can fail if we run out of memory. The caller already
-handles that, so we shouldn't WARN_ON_ONCE() just because an allocation
-failed.
+On Tue, Sep 29, 2026 at 04:04:04PM -0700, Luna Hart wrote:
+> Add a binding for the TI TPS389004, TPS389006, and TPS389008 I2C
+> voltage supervisors and monitors, which provide 4, 6, and 8 voltage
+> inputs respectively. Each input may be described by an optional child
+> node, containing additional properties including the label and ADC
+> scaling factor.
+> 
+> Based on an earlier binding by Flaviu Nistor.
+> 
+> Signed-off-by: Luna Hart <lhart.opensource@witekio.com>
+> ---
+>  .../devicetree/bindings/hwmon/ti,tps38900x.yaml    | 137 +++++++++++++++++++++
 
-Let's return the error instead, and only update the end-of-memory
-variables after __add_pages() succeeds.
+Preference is to name after compatible, so ti,tps389004
 
-Fixes: 10f22dde556d ("x86: arch/x86/mm/init_64.c printk fixes")
-Reported-by: David Hildenbrand <david@kernel.org>
-Link: https://lore.kernel.org/all/d4fac8af-fd71-47a2-bfe9-3c6559b92209@kernel.org/
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Link: https://lore.kernel.org/all/203892F4-B04A-4F69-A1B3-DC1619176C67@linux.dev/
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
----
- arch/x86/mm/init_64.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+>  1 file changed, 137 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tps38900x.yaml b/Documentation/devicetree/bindings/hwmon/ti,tps38900x.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..cdd74ddd03e748f271628f1cd2f2551b9c983785
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/ti,tps38900x.yaml
+> @@ -0,0 +1,137 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwmon/ti,tps38900x.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TPS38900x voltage monitor
+> +
+> +maintainers:
+> +  - Luna Hart <lhart.opensource@witekio.com>
+> +
+> +description: |
+> +  Voltage monitor from TI (TPS389008, TPS389006, TPS389004) on I2C bus.
+> +
+> +  Datasheets:
+> +    https://www.ti.com/lit/ds/symlink/tps389006.pdf
+> +    https://www.ti.com/lit/ds/symlink/tps389006-q1.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,tps389004
+> +      - ti,tps389006
+> +      - ti,tps389008
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#address-cells":
+> +    description: Required only if a child node is present.
 
-diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
-index 70e682180291a..8b6d86fb5a42e 100644
---- a/arch/x86/mm/init_64.c
-+++ b/arch/x86/mm/init_64.c
-@@ -970,7 +970,8 @@ int add_pages(int nid, unsigned long start_pfn, unsigned long nr_pages,
- 		return -ERANGE;
- 
- 	ret = __add_pages(nid, start_pfn, nr_pages, params);
--	WARN_ON_ONCE(ret);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * Special case: add_pages() is called by memremap_pages() for adding device
--- 
-2.49.0
+Drop description, obvious. Schema and DT spec tells that.
+
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    description: Required only if a child node is present.
+
+Ditto
+
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^vmon@[0-7]$":
+
+How is this called for other devices? "channel"?
+
+> +    description: |
+
+Do not need '|' unless you need to preserve formatting.
+
+> +      The node may have optional child nodes for each voltage channel.
+> +      There are either 4, 6, or 8 available depending on the specific part
+> +      being used.
+
+Drop sentence, schema will tell that.
+
+> +      If no child nodes are present, all channels will be exposed for
+> +      monitoring. Otherwise, only the provided nodes will be created.
+
+That's a bit odd behavior. Is it expected for hwmon?
+
+> +    type: object
+> +    additionalProperties: false
+
+Blank line
+
+> +    properties:
+> +      reg:
+> +        description: |
+
+Do not need '|' unless you need to preserve formatting.
+
+> +          Must be 0 to 7, corresponding to respective
+> +          ports of the TPS38900x.
+> +        enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+> +
+> +      label:
+> +        description: Name of the input source.
+> +
+> +      ti,4x-scaling:
+> +        description: |
+
+Same, drop |
+
+> +          Enables the high range ADC voltage monitoring range. Default ADC
+> +          settings will read from 0.2V to 1.475V using 5mV steps. In the 4x
+> +          mode, the valid range is 0.8V to 5.9V using 20mV steps.
+> +        type: boolean
+> +
+> +    required:
+> +      - reg
+> +
+> +required:
+> +  - compatible
+> +  - reg
+
+Best regards,
+Krzysztof
 
