@@ -1,141 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4681451B161;
-	Thu,  1 Oct 2026 14:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA72A51B19A
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 14:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.91
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864740; cv=none; b=JIq1HbTk8hil0b0ysK9WdbiiXfoA3OyAsVL1cuhFoGIvoMzFht0CPkmwukO8G5X/miCzctEMa19PMFnksEWROmH87GYtmll4C4Lz58lppT2RD2btJUq9hmDw5V5FFjfWEOUnvydEav/mXtuSb9S6D9j7+y9a6YC60N7306CN+lI=
+	t=1790864850; cv=none; b=XMz0YCsIhsUVQR4Srgi4T55kXA4k5kjkigUnYdYg3GfFBNgrxmAKOaxwsh4tfa3X8CJeRhL6uqN4fAc/coFp6rAtmHiEMvlNqt01OOpKe2XpFCXv3z3dDhzlumQDawSs7FEjRrQSi+IaCZlJvIt2NG98XLnievn42GpqqbHckTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864740; c=relaxed/simple;
-	bh=tasnBJ8YHzAnG8bpbSBn1fYDAHBXFheRjY3+fuPdFIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=crPJxWpjeYgBNvnP/DHnnLUtzgO9v4KjgrKwA+8qUEcoY/vHSGv1EDSpLX23saN9nT7YD14ofwvqROkEEAjnr+z1srE+bICZtKyXnfkwx/yeXPiUEJdoipZaOfPOP3uVE7kAO5TlEDFvvaQLzByO2f4jygl/UCEk2Sqd2rq+HJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iehR+JhN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790864850; c=relaxed/simple;
+	bh=LJMXlOX6G72KgzwR6NBXyCt54iCm9KoR+tZW/E7WXfU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=a+f6kB+iZ7XiCC6uL3he+1ErYUQqLQb/oRPxSn0bqePhCQIR3MnyfRVAGPaXTUwOcusZkKHGxz0C99R+9seIJ8Gg6hysZKo8jJlSGUPnJCVfJSYAB1VBoZYn8G0wekztrm6v9t2Rsi7Ykk7EJJXngZ7w5KhvLntOh5j4F7QjdZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LVTy4xtf; arc=none smtp.client-ip=95.215.58.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iehR+JhN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B1F1F000FF;
-	Thu,  1 Oct 2026 14:25:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790864738;
-	bh=8AC7GbvuCCMMbO7MKRkTJUZ5RNbtzx9lp9nn1lg0M9w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iehR+JhNmWti4pt7pfdUdJ6fePSYT//2YUHfiZ2GH0gFzcTvh2uujKnreTPbdh9f3
-	 InAhVQJauuzfMtHOROac9Sn4iUr2Jjiuf/5dsLjq+np/OXGSrrfwX4FbkLGWaOEwfC
-	 SOpmvaH9GBGPE7YYvV9OX4mhXFOzAmcIiyqd3r6AOysyHvWbfeLFc2ZN2fxsGDwJvI
-	 CfLvGrDiLGkpHpn67BrpwfZtN31KPXLEsyAzyDfQ616aG4PbKBiqPXJWGqwoKE4NuS
-	 0/uH67EaBvXRO9WWtTh8DTHR41EpXacsiDhks8IoOxdDPuBTu6237B3FfonEih7AmT
-	 kVO94jhXn8CRw==
-Date: Thu, 1 Oct 2026 15:25:31 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
-	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 07/15] KVM: arm64: Forward GCS exceptions to nested
- guests
-Message-ID: <ar5cHWMczKd6yw7n@gremlin>
-References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
- <20260930-arm64-gcs-v21-7-3556644cd927@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LVTy4xtf"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LJMXlOX6G72KgzwR6NBXyCt54iCm9KoR+tZW/E7WXfU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790864841; v=1; x=1791469641;
+ b=LVTy4xtfopRyUlAYWDLVtKCMj+4EgWXO1nQ0fG46RqRJUjp7fIqMLXmqhthN8jMJf1/v7612
+ u9rC6eAzFrlpDUf1pKXbolfDhx9//AQxU/kwLWzht8cVvDU7g1MdZm+gCxheL1w846vXQGwKpW2
+ 4KX1fUZwDb+3jUNdDVZ1rTH4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 37d698b651d6e08d;
+	Thu, 01 Oct 2026 14:27:21 +0000
+X-Mizu-Trace-ID: 37d698b651d6e08d
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: songmuchun@bytedance.com
+Cc: maddy@linux.ibm.com,
+	rppt@kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	muchun.song@linux.dev,
+	Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH v3 3/6] mm/sparse-vmemmap: drop Device DAX-specific population path
+Date: Thu,  1 Oct 2026 22:27:14 +0800
+Message-ID: <20261001142714.17172-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260929053231.66085-4-songmuchun@bytedance.com>
+References: <20260929053231.66085-4-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-arm64-gcs-v21-7-3556644cd927@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 10:48:17PM +0100, Mark Brown wrote:
-> For nested guests where HFGITR_EL2.nGCSSTR_EL1 is clear or when there are
 
-I see at [0] that, if HFGITR_EL2.nGCSSTR_EL1 is clear:
-
-"If EL2 is implemented and enabled in the current Security state, and
-either EL3 is not implemented or SCR_EL3.FGTEn == 1, then execution at EL1
-using AArch64 of any of the specified instructions generates a GCS
-exception with EC syndrome value 0x2D, unless the instruction generates a
-higher priority exception."
-
-For:
-
-GCSSTR.
-GCSSTTR when PSTATE.UAO is 1.
-GCSSTTR when the Effective value of HCR_EL2.{NV, NV1} is {1, 1}.
-
-So privileged GCS stores.
-
-[0]: https://support.arm.com/documentation/111107/2026-09/AArch64-Registers/HFGITR-EL2--Hypervisor-Fine-Grained-Instruction-Trap-Register?lang=en
-
-> L2 GCS data check exceptions we need to forward the exception to the guest.
-> Add handling to do so.
+On Tue, Sep 29, 2026 at 01:32:28PM +0800, Muchun Song wrote:
+>The common vmemmap path selects the shared page for optimized mappings
+>itself, so Device DAX no longer needs vmemmap_populate_compound_pages()
+>to find a shared tail page and pass its backing PFN through the generic
+>population helpers.
 >
-> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-
-(A bunch of commentary here, just reasoning out loud for my own
-understanding.)
-
-All LGTM, so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
-> index db37678dcb05..a8198e96fcb4 100644
-> --- a/arch/arm64/kvm/handle_exit.c
-> +++ b/arch/arm64/kvm/handle_exit.c
-
-> +/*
-> + * We might get GCS exceptions that need to be forwarded to the
-> + * hypervisor when a nested guest has HFGITR_EL2.nGCSSTR_EL1 clear, or
-> + * for a GCS data check exception for a L2 guest.
-> + */
-
-OK so I see this is used as a handler in:
-
-static exit_handle_fn arm_exit_handlers[] = {
-	...
-	[ESR_ELx_EC_GCS]	= kvm_handle_gcs,
-};
-
-And as per the arm ref page, 0x2D == ESR_ELx_EC_GCS.
-
-And it's always something being injected, so returning 1 (handled) is fine.
-
->  static int kvm_handle_gcs(struct kvm_vcpu *vcpu)
->  {
-> -	/* We don't expect GCS, so treat it with contempt */
-> -	if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, GCS, IMP))
-> -		WARN_ON_ONCE(1);
-> +	if (!kvm_has_gcs(vcpu->kvm)) {
-> +		kvm_inject_undefined(vcpu);
-> +		return 1;
-> +	}
-
-OK so make it not-a-kernel-warning if unsupported...
-
+>Remove the Device DAX-specific population path and let section memmap
+>population always use vmemmap_populate(). The powerpc retains an
+>architecture-specific compound-page implementation, so select it directly
+>from radix__vmemmap_populate() for optimizable sections.
 >
-> +	if (vcpu_has_nv(vcpu)) {
-> +		kvm_inject_nested_sync(vcpu, kvm_vcpu_get_esr(vcpu));
+>Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>Acked-by: Qi Zheng <qi.zheng@linux.dev>
+>---
 
-...And this is the L0 at physical EL2 -> vEL2 (in physical EL1) injecting a
-synchronous exception.
+LGTM! Feel free to add:
 
-So it seems to me the key point of the patch is to forward to nested
-guests, hence the subject line :>)
-
-> +		return 1;
-> +	}
-> +
-> +	WARN_ON_ONCE(1);
-
-And this is an 'impossible' case because it should have been handled
-natively otherwise. So it's a bug in KVM if it ever happened.
-
---
-Cheers, Lorenzo
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
