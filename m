@@ -1,182 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215553B42C5;
-	Thu,  1 Oct 2026 13:10:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25C9485938;
+	Thu,  1 Oct 2026 13:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860251; cv=none; b=CslkmtscMTqcrIrY24AVJRMtPZZwj3co0stKsGGdv+dnjwBYADCpMjfS8voHgLTatj2pNALytPjbiRZPdzwmyCrXa+zv56UgZTAT4epd9oc77t2uJHzV8HqxNmniKnvBGw9J/lJEQbiI+8el6/NoRdDe25pgVCPIDM4KPzi/Yik=
+	t=1790860261; cv=none; b=ppo+MhEqYLqQYgtrh3fbwsfBMHeqK28k1+gd1wDX+e+k5BNk/dGElRejP6t6w2rtsVE6WrIT3Jjr/uF0AedoxeaveV32lxY1f1qWcaayRDNH4+bI4B8bV2o3TBD7VkiO1zp6JIpk00UVh0U54ehsjRkf6MLx1LSHhR3A+iv3DLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860251; c=relaxed/simple;
-	bh=kxXQogOeUX3Kx04xBLOlYQwwK6FzYp2p5MuWKhYkquc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rhekMhP/v6J0e6zA8ApErBVSbU0n1qG6v+7zCezFUGrt3Z8jnuXbJcCEaCuKkT0bvlb43eODCDmXei7oNiYJCU6Xg7CtSZRNE8Z1IMEmRaQ1pDIL1bqzvCTHn3DUMPXCII1ghdymlmUzsdrV+HvcQs3m7VK4HDKzDGrtxpCtK28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuHfhS3T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790860261; c=relaxed/simple;
+	bh=lrJ6bWZlZ+SkO5abb70lQvJDg+Akmz4elKCMyxRr+mQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ovq8yyEGOgRDvzmXoup2FM3m+g4JQvjQE0eEgJHrHY+cUA7Ky3VofM5wTpHZi9tc+PHtr7YLFYHO0p0iCMyhyTlYozQbqbpj+C0tUDeaXe60AiEZG0C27xU2tcqLdaLy6TCuEHWCU0TQSHH/KaNJreFAx5W9SDU7IizfTh05AdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aA5blC3L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuHfhS3T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC071F00898;
-	Thu,  1 Oct 2026 13:10:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aA5blC3L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143E81F000FF;
+	Thu,  1 Oct 2026 13:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790860249;
-	bh=T9vy0uBKibmsftiUhNEkFh/F7dlFoe2+T067/9pVxVU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YuHfhS3Tap08NELR+YntHiUMyIY0MTwERQWvHUAmefD0RBMmluxssqWM12+CHVNeY
-	 fhCATlhX80YkR4aHJgyLI6fgmlwUqeuaSu4N7Zd7bWGurs+GxNOG7rS2K/IMKI15Ve
-	 w3lDlHUWbncxiAVvkv7bifCkQ8WH7H1PZn3u1+FD4Q2rwSeQ1LJKFaxw26UsRAdsF6
-	 jkpjzpBsqr0MiK0JZGEeBu33WPatSG1rXVphmKkhnIku9Nqz0440IXK5x9rar5fbjQ
-	 3Sp3fq9BvDiP06KCjjhMQV/ULl9yolysHB+TUBtu3xs7GLDpa4eNsA32OWv6lSLVo2
-	 qaTldB5EJmBLA==
-Subject: Re: [PATCH net-next 3/3] tcp_cubic: fix divide by zero and endless
- loop on bad module params
-From: netdev-bot+sashiko@kernel.org
-To: jiayuan.chen@linux.dev
-Cc: netdev@vger.kernel.org, edumazet@google.com, ncardwell@google.com,
- kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, stephen@networkplumber.org, linux-kernel@vger.kernel.org
-Date: Thu, 01 Oct 2026 13:10:48 +0000
-Message-ID: <179086024885.434549.7181506584049266209@kernel.org>
-In-Reply-To: <20260930100937.206377-4-jiayuan.chen@linux.dev>
-References: <20260930100937.206377-4-jiayuan.chen@linux.dev>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790860260;
+	bh=S3zb7dffDO05ofATCMsz7RTakXrVtCiOoBFhworE6Ss=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aA5blC3LMESqT3U7KX0JtL6c3VyicVX9wKk0HX9Mu6UVegTQN7D8v22lohJ8KVPsT
+	 h6h+FHXPNe+9ScK4EB1lD6LXp6TpOYH9ctORuxjVHCZi9VPL1OMP4ppfL6dlkhwZPr
+	 Px63YWH9S4uQsuPCh7YNuAFaVl4hZcWYtIglN7ktsRgyjylFeeacF6s+R1H1Coswjo
+	 NSNKSm+UAdkfR+1KdAZ69nHwqEByWfiwi8MON4Czkopwfa7cC0YFIlxOvWEMnbNe1y
+	 M6hq88W2VLGKAywHm73wIkMg3oECjBP8WhRAX0zyP6lv69Zy3tWNUW3EQSr7ve9dyE
+	 aakqpmldf3vTg==
+Date: Thu, 1 Oct 2026 14:10:53 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 06/15] KVM: arm64: Validate GCS exception lock when
+ emulating ERET
+Message-ID: <ar5GKCNx4XOpRnHl@gremlin>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+ <20260930-arm64-gcs-v21-6-3556644cd927@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260930-arm64-gcs-v21-6-3556644cd927@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Wed, Sep 30, 2026 at 10:48:16PM +0100, Mark Brown wrote:
+> As per DDI0487 R_TYTWB GCS adds an additional case where an illegal
+> exception return can be generated. If all of:
+>
+>  - PSTATE.EXLOCK is 0.
+>  - The EL is not being changed by the ERET.
+>  - GCSCR_ELx.EXLOCKEN is 1.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+Ack can see from [0] in D.1.4.4.2 (M.d):
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+"If the Effective value of GCSCR_ELx.EXLOCKEN is 1 and PSTATE.EXLOCK is 0, the
+execution of an exception return instruction to return to the current Exception
+level ELx."
 
-- [Medium] cubictcp_register() checks the global `beta` at line 507 and
-  reads it again for the beta_scale division at lines 516-517…
-- [Low] The commit message says cube_factor and cube_rtt_scale need
-  `bic_scale * 10` to be positive.
+[0]: https://support.arm.com/documentation/ddi0487/md/-Part-D-The-AArch64-System-Level-Architecture/-Chapter-D1-The-AArch64-System-Level-Programmers--Model/-D1-4-Exceptions/-D1-4-4-Exception-return?lang=en
 
-Pre-existing issues:
-- [Medium] The new check in cubictcp_register()
-  (net/ipv4/tcp_cubic.c:507) rejects beta < 0 and beta >=…
+>
+> are true then the return is illegal. Emulate this behaviour when
+> emulating ERET for nested guests, while we're at it using the symbolic
+> definition for EXLOCK in SPSR.
+>
+> Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
---
+Some comments below. In general LGTM so:
 
-tcp_cubic: fix divide by zero and endless loop on bad module params
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This patch adds a check to cubictcp_register(). Before the scale factors
-are precomputed, it rejects a beta outside [0, BICTCP_BETA_SCALE) and a
-bic_scale that is not positive. It also clamps the TCP friendliness delta
-in bictcp_update() to at least 1, so the ack_cnt loop always ends.
+> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+> index 1ed708335809..9e595e8e7642 100644
+> --- a/arch/arm64/include/asm/kvm_nested.h
+> +++ b/arch/arm64/include/asm/kvm_nested.h
 
-> diff --git a/net/ipv4/tcp_cubic.c b/net/ipv4/tcp_cubic.c
-> index 119bf8cbb007c..2f04dca5be095 100644
-> --- a/net/ipv4/tcp_cubic.c
-> +++ b/net/ipv4/tcp_cubic.c
+> +#ifdef CONFIG_ARM64_GCS
+> +/* See IllegalExceptionReturn() pseudocode */
 
-[ ... ]
+Ack I see that at [1].
 
-> @@ -504,6 +504,11 @@ static int __init cubictcp_register(void)
->  
->  	BUILD_BUG_ON(sizeof(struct bictcp) > ICSK_CA_PRIV_SIZE);
->  
-> +	if (beta < 0 || beta >= BICTCP_BETA_SCALE || bic_scale <= 0) {
-> +		pr_err("tcp_cubic: invalid beta %d or bic_scale %d\n", beta, bic_scale);
-> +		return -EINVAL;
-> +	}
+[1]: https://support.arm.com/documentation/ddi0487/md/-Part-J-Architectural-Pseudocode/-Chapter-J1-A-profile-Architecture-Pseudocode/-J1-4-Shared-pseudocode/-J1-4-647-IllegalExceptionReturn?lang=en
+
+> +static inline bool kvm_check_illegal_exlock_return(struct kvm_vcpu *vcpu,
+> +						   u64 spsr)
+> +{
+> +	u64 pstate, cur_mode, target_mode;
+> +
+> +	if (!kvm_has_gcs(vcpu->kvm))
+> +		return false;
+> +
+> +	if (vcpu->arch.ctxt.regs.pstate & PSR_EXLOCK_BIT)
+> +		return false;
+> +
+> +	/* Check the EL only, ignore thread mode */
+> +	pstate = vcpu->arch.ctxt.regs.pstate;
+> +	cur_mode = (pstate & PSR_MODE_MASK) | PSR_MODE_THREAD_BIT;
+> +	target_mode = (spsr & PSR_MODE_MASK) | PSR_MODE_THREAD_BIT;
+> +
+> +	if (cur_mode != target_mode)
+> +		return false;
+> +
+> +	return vcpu_read_sys_reg(vcpu, GCSCR_EL2) & GCSCR_ELx_EXLOCKEN;
+
+This seems identical, logically, to the psuedocode:
+
+    if (IsFeatureImplemented(FEAT_GCS) && PSTATE.EXLOCK == ‘0’ &&
+          PSTATE.EL == target && GetCurrentEXLOCKEN()) then
+        return TRUE;
+    end;
+    return FALSE;
+
+So LGTM.
+
+> diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
+> index 625604019fb3..5aa26384720a 100644
+> --- a/arch/arm64/kvm/emulate-nested.c
+> +++ b/arch/arm64/kvm/emulate-nested.c
+> @@ -2748,10 +2748,13 @@ static u64 kvm_check_illegal_exception_return(struct kvm_vcpu *vcpu, u64 spsr)
+>  	 * - trying to return to an illegal M value
+>  	 * - trying to return to a 32bit EL
+>  	 * - trying to return to EL1 with HCR_EL2.TGE set
+> +	 * - GCSCR_ELx.EXLOCKEN is 1 and PSTATE.EXLOCK is 0 when attempting
+> +	 *   to return from ELx the same EL.
+
+This seems a little unclear, 'when attempting to return to the same EL'
+perhaps?
+
+> @@ -2778,7 +2781,7 @@ static u64 kvm_check_illegal_exception_return(struct kvm_vcpu *vcpu, u64 spsr)
+>
+>  		mask = PSR_MODE_MASK | PSR_MODE32_BIT;
+>  		if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, GCS, IMP))
+
+Could use kvm_has_gcs()?
+
+> -			mask |= BIT_ULL(34);	/* PSTATE.EXLOCK */
+> +			mask |= PSR_EXLOCK_BIT;
+
+Ah nice to not hard code that any more!
+
+> diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
+> index 7875911c0506..af59d1bf51ad 100644
+> --- a/arch/arm64/kvm/hyp/vhe/switch.c
+> +++ b/arch/arm64/kvm/hyp/vhe/switch.c
+> @@ -383,6 +383,10 @@ static bool kvm_hyp_handle_eret(struct kvm_vcpu *vcpu, u64 *exit_code)
+>  		return false;
+>  	}
+>
+> +	/* Push GCS exception lock failures into the slow path */
+> +	if (kvm_check_illegal_exlock_return(vcpu, spsr))
+> +		return false;
 > +
 
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. This
-check only runs at module init, so can beta still be set out of range
-after the module loads?
+Ah yeah because false -> slow path and illegal exceptions shouldn't be fast path
+:)
 
-beta is registered as writable and uses the plain int setter:
-
-net/ipv4/tcp_cubic.c:
-    /* Note parameters that are used for precomputing scale factors are read-only */
-    module_param(fast_convergence, int, 0644);
-    ...
-    module_param(beta, int, 0644);
-
-After load, root can write any int to
-/sys/module/tcp_cubic/parameters/beta. That includes values this patch
-now rejects at load time.
-
-cubictcp_recalc_ssthresh() reads the live beta on every loss event:
-
-    return max((tcp_snd_cwnd(tp) * beta) / BICTCP_BETA_SCALE, 2U);
-
-With beta = -1 the multiplication is done in u32 and ssthresh comes out
-at around 4M packets, so there is no multiplicative decrease. With
-beta >= 1024, ssthresh ends up >= cwnd. beta_scale also keeps the
-init-time beta, while the loss path uses the new value.
-
-Runtime writes can't bring back the divide-by-zero or the endless loop.
-beta_scale is only computed in the __init function, and bictcp_update()
-now has the max(..., 1U) clamp.
-
-Would it make sense to make beta 0444 so it matches the comment? Another
-option is a module_param_cb() setter built on
-param_set_int_minmax(val, kp, 0, BICTCP_BETA_SCALE - 1), like the one
-tcp_bic.c uses to bound max_increment.
-
-[Severity: Low]
-The commit message says the scale factors "need 1024 - beta and
-bic_scale * 10 to be positive". However, this check only enforces the
-lower bound of bic_scale. What happens when bic_scale > INT_MAX / 10?
-
-Further down in cubictcp_register():
-
-    cube_rtt_scale = (bic_scale * 10);	/* 1024*c/rtt */
-    ...
-    do_div(cube_factor, bic_scale * 10);
-
-bic_scale * 10 is a signed int multiplication, so any bic_scale above
-214748364 overflows it. For example, bic_scale = INT_MAX gives -10
-(0xFFFFFFF6 as a u32). That produces exactly the same cube_rtt_scale and
-cube_factor as bic_scale = -1, which is one of the cases the patch is
-meant to reject.
-
-This can't produce a zero divisor, so there is no crash, but every CUBIC
-flow gets the wrong scaling. Could the check also reject values above an
-upper bound such as INT_MAX / 10?
-
-[Severity: Medium]
-Can beta change between this check and the division that follows it?
-
-beta is 0644. load_module() calls mod_sysfs_setup() before
-do_init_module(), so the parameter file is already writable while
-cubictcp_register() runs.
-
-param_attr_store() takes kernel_param_lock() and calls the setter without
-checking module state. cubictcp_register() does not take that lock and
-does not keep a local copy of beta.
-
-The check and the use are separate plain loads:
-
-    if (beta < 0 || beta >= BICTCP_BETA_SCALE || bic_scale <= 0) {
-    ...
-    beta_scale = 8*(BICTCP_BETA_SCALE+beta) / 3
-        / (BICTCP_BETA_SCALE - beta);
-
-Suppose the compiler reloads beta and a write of 1024 lands between the
-two loads. Then (BICTCP_BETA_SCALE - beta) is zero, and the
-divide-by-zero this patch fixes comes back.
-
-This only affects CONFIG_TCP_CONG_CUBIC=m. It also needs the compiler to
-emit a second load of beta.
-
-Would it close the window to read beta once with READ_ONCE() into a
-local, then use that local for both the check and the beta_scale
-calculation?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930100937.206377-1-jiayuan.chen%40linux.dev
+--
+Cheers, Lorenzo
