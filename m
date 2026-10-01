@@ -1,150 +1,158 @@
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738623C1D66
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F473C1081;
+	Thu,  1 Oct 2026 10:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850731; cv=none; b=RN2zymUTRAZGsvWtXRcUvxAg5XXxzOjkCBkA8AF2+lsx8jrB1AyoF0nEgHu9BhxD6al8x06G3zAnpER2aP0vBzs+uG228y24J26uAFS5xNPpkd2C55qhlQ22sjirzIJOMiM1jzHXsXxFGAmzBIurQgcT6Dbnem20nU+DpaDCdJo=
+	t=1790850778; cv=none; b=LiGiUHzclMpN3z8nB8C1EBCWk4K4l4MO9sLoJDG89DY820HI+c6XOKLtEeaJnuN9gcYVUGZR+OkgqT5M832R2py/fk5iDBbNu/AnmWEHHNVfrUt0DiKECLGN29hgvWGfC/MBM5DtnGIPOyhOS4II2AMPNvh6MfArMmRaZRyeSyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850731; c=relaxed/simple;
-	bh=qADmssOUqnrMjBgBqUywgXK8LLBb3PEeljOq4IAjtTY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fJbtiwshV9CWu4eTUjLkDQxnsz6B1C5LldALeabKTjVOzWr/FV+OF3cJImczUhoFsk/g6uyyFIb4QrdeB1mAFCGdDLsPMJKcpUDZBem/09HZwQVc6rTVUf55nZLmRrH6MNNgCJXNAyz1X7/Oj0zZjKmWzR5IL36UJTkacna4Mcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PrZVqwkn; arc=none smtp.client-ip=91.218.175.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790850778; c=relaxed/simple;
+	bh=WkfFe6MMLUO5Sp7DTruNgOqS0qngh321wx3bCAi6u5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RbsYaiGSE/1mGDR3nEN0F5IHAT8iwMvXs6POjGAU0/ZY30QYfggxaHGEnWvBeqH+XXuNhaEfRjUp1VUVpyXL/HVJwQrT5Ga7o04QY2TKVaIco1W5AIIs3q0+L+cbZkTqJyqAQi9NIFv9AH37yvEDFIRJ4RlbxnYWqvf/qTqwuaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iBdGAMpX; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PrZVqwkn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qADmssOUqnrMjBgBqUywgXK8LLBb3PEeljOq4IAjtTY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790850726; v=1; x=1791455526;
- b=PrZVqwkn066mQaTaWb3/atsUNbsZY49GZVmGNJAc5neKuU7mPWgXMlE1AabOi9kyRbGA5ZZy
- E/rQPgiDiEvp6opufn1a9GXvdyhFDWV3/GwqwYnd60F86h+kDCBfoBl2j2kJ6sT0GGn2UDdWYhd
- 1t++5jjl9GMPOTTGKykIsa9s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cc3e7d3ec6f85194;
-	Thu, 01 Oct 2026 10:32:05 +0000
-X-Mizu-Trace-ID: cc3e7d3ec6f85194
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a10ad8db-c344-4c24-bab6-88e9f7055f10@linux.dev>
-Date: Thu, 1 Oct 2026 03:32:05 -0700
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iBdGAMpX"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69175uSw1119705;
+	Thu, 1 Oct 2026 10:32:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=CHNVikhCNEIrGSAyW
+	gxfm61aAlJ+9isMAzKHzaaf+hg=; b=iBdGAMpXy6wOOvA8siJ0030E1GU2yDRwf
+	QC2O2BsdWTsoBoa2yMq+IE3Q3iytiWrhMpMuHlAaBbt1ZU6VgQvlWGihZWsrQncG
+	XUHwMMErBl1bg7kNil1Q0ATerQO0X0MlVzXqGVc2zyn6rtMl0NfaJBgVKdNsTkik
+	esP2KgABrYBEKaGd5SVYp3ngeq4d/GpPiEpq2HA87NQQpJy37Iy3N2xN1VC0LnHN
+	JpSupESnxdeAE6frFPFQOcP/2/Og0jwqNh4l8pQIe8myUO1NJ10GNpgXdywR+ACZ
+	FF4PWViFJ+DDU1JNkXNmO2fyJdACGGVKzpBYRoXNx5Ch/MEYR6jGQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j5jrag-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 10:32:53 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69172W6X520707;
+	Thu, 1 Oct 2026 10:32:52 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpga5g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 10:32:52 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691AWmY942336718
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 1 Oct 2026 10:32:48 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C8A4D20043;
+	Thu,  1 Oct 2026 10:32:48 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 89FDA2004B;
+	Thu,  1 Oct 2026 10:32:48 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  1 Oct 2026 10:32:48 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH 02/32] s390/early: Fix early warning handling
+Date: Thu,  1 Oct 2026 12:32:17 +0200
+Message-ID: <20261001103247.1989111-3-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261001103247.1989111-1-hca@linux.ibm.com>
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] tracing: fgraph: allocate shadow stacks inline
- with GFP_NOWAIT
-To: bot+bpf-ci@kernel.org, rostedt@goodmis.org, mhiramat@kernel.org
-Cc: mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- peterz@infradead.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kernel-team@meta.com,
- stable@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
- martin.lau@kernel.org, eddyz87@gmail.com, yonghong.song@linux.dev,
- mason@kernel.org, ihor.solodrai@linux.dev
-References: <20260929005411.4105448-2-vineet.gupta@linux.dev>
- <2dc04cf6f1e0c474da152cb4afcd0e264930b4d1d9b969de1b7cfbdd50b1bd35@mail.kernel.org>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <2dc04cf6f1e0c474da152cb4afcd0e264930b4d1d9b969de1b7cfbdd50b1bd35@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfX0NJXRI0Rv4oo
+ YJxxXtCbhtNIqI4X3fWoUSuVi13kd3SLA48B9MSU8RZTu/6uWAOq6Wdp3yb9xRCc8GuX5BSUj3s
+ lbQLn1mq1ffMNqNb7PTcnTwK0D2HxSQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MCBTYWx0ZWRfX/beetAuEBpXL
+ bKiavfbCuEZQELXatnkgdR84A541AhF8127VjXn3tMYZLxQKrdXGpaa4+UadBkNxZSmLR/Tp+fB
+ u1g4PvXB+egPCP/P7C8GLUZzMnYIzzwRSd2Nj+iLH9bwz6mJe4BD2szIGmo7w8djHjwNEJK7ZyS
+ J9SOdP3kAStfHalLrqFRzWMI4B7y92+nqPJK4/kUP54FOxuEmap3ukzUcAF0a+2pOJ0DyLS6hzC
+ 2z0+tTQew7j9mPZhtaQvtWOvKDRwREu3bH0sYYPzMkFyKWMlLyE8gp8EP6mSDAs6Fs1kHewOrAk
+ DV19aKOVSZTyuUfg8voREcpsXwZFXHteKA7/Q2s5apnskQLP6xUwODs/xBYYbXQRtiGaOqStoai
+ HgT8UUo7+r5dMdMdddWSXpjXPuK7WsB6NfE1w9CXNGxYiV92UBHT51eyJm57yAPDvxjYzT4ii1U
+ yQY6oej7eR8Q4iFW75g==
+X-Proofpoint-GUID: tuV6EuP57UDqkx_QQcqWryTu_g0Be44S
+X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abe36d5 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=VxC_P-UtoQCekwcQ100A:9
+X-Proofpoint-ORIG-GUID: tuV6EuP57UDqkx_QQcqWryTu_g0Be44S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010040
 
+When adding support for __WARN_printf() the early program check handler was
+not taken into account. Add the missing support to the early program check
+handler. This avoids that the kernel crashes instead of printing a warning.
 
+Fixes: 04dabb4261c3 ("s390/bug: Implement __WARN_printf()")
+Fixes: 79996065cfa2 ("s390/bug: Skip __WARN_trap() in call traces")
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+ arch/s390/kernel/early.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-On 9/29/26 4:46 PM, bot+bpf-ci@kernel.org wrote:
->> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
->> index ed455b53513b..336f40dc6618 100644
->> --- a/kernel/trace/fgraph.c
->> +++ b/kernel/trace/fgraph.c
->> @@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
->>   /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
->>   static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->>   {
-> Does this comment still match the function's behavior? Before the patch,
-> alloc_retstack_tasklist() assigned at most FTRACE_RETSTACK_ALLOC_SIZE
-> stacks per call and returned -EAGAIN to trigger another batch. After the
-> patch, it walks every thread in one pass, allocating inline with
-> GFP_NOWAIT. The FTRACE_RETSTACK_ALLOC_SIZE pre-allocated entries are now
-> only a fallback when GFP_NOWAIT fails, and in the normal case they're all
-> freed at the free: label.
-
-Posted v3 [1] with comment fix.
-
-Thx,
--Vineet
-
-[1] 
-https://lore.kernel.org/bpf/20261001102909.1152572-1-vineet.gupta@linux.dev/T/#t
-
->
->> -	int i;
->> -	int ret = 0;
->>   	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
->>   	struct task_struct *g, *t;
->> +	int i, ret = 0;
->>
->>   	if (WARN_ON_ONCE(!fgraph_stack_cachep))
->>   		return -ENOMEM;
->> @@ -1054,26 +1053,37 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->>   		}
->>   	}
->>
->> -	rcu_read_lock();
->> -	for_each_process_thread(g, t) {
->> -		if (start == end) {
->> -			ret = -EAGAIN;
->> -			goto unlock;
->> -		}
->> +	scoped_guard (rcu) {
->> +		for_each_process_thread(g, t) {
->> +			unsigned long *rs;
->> +
->> +			if (t->ret_stack)
->> +				continue;
->> +
->> +			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
->> +			if (!rs) {
->> +				/*
->> +				 * Returning from inside scoped_guard() drops
->> +				 * the RCU read lock, but skips the free loop
->> +				 * below. That is only safe because start ==
->> +				 * end here, which leaves that loop nothing to
->> +				 * free. Keep the two in step if this
->> +				 * exhaustion check ever changes.
->> +				 */
->> +				if (start == end)
->> +					return -EAGAIN;
->> +				rs = ret_stack_list[start++];
->> +			}
->>
->> -		if (t->ret_stack == NULL) {
->>   			atomic_set(&t->trace_overrun, 0);
->> -			ret_stack_init_task_vars(ret_stack_list[start]);
->> +			ret_stack_init_task_vars(rs);
->>   			t->curr_ret_stack = 0;
->>   			t->curr_ret_depth = -1;
->>   			/* Make sure the tasks see the 0 first: */
->> -			smp_wmb();
->> -			t->ret_stack = ret_stack_list[start++];
->> +			smp_store_release(&t->ret_stack, rs);
->>   		}
->>   	}
->>
->> -unlock:
->> -	rcu_read_unlock();
->>   free:
->>   	for (i = start; i < end; i++)
->>   		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36644771324
+diff --git a/arch/s390/kernel/early.c b/arch/s390/kernel/early.c
+index b27239c03d79..1fc153d8385b 100644
+--- a/arch/s390/kernel/early.c
++++ b/arch/s390/kernel/early.c
+@@ -153,16 +153,25 @@ static __init void setup_topology(void)
+ void __init __do_early_pgm_check(struct pt_regs *regs)
+ {
+ 	struct lowcore *lc = get_lowcore();
+-	unsigned long ip;
+ 
+ 	regs->int_code = lc->pgm_int_code;
+ 	regs->int_parm_long = lc->trans_exc_code;
+ 	regs->last_break = lc->pgm_last_break;
+-	ip = __rewind_psw(regs->psw, regs->int_code >> 16);
++	regs->monitor_code = lc->monitor_code;
+ 
+ 	/* Monitor Event? Might be a warning */
+ 	if ((regs->int_code & PGM_INT_CODE_MASK) == 0x40) {
+-		if (report_bug(ip, regs) == BUG_TRAP_TYPE_WARN)
++		enum bug_trap_type btt;
++		unsigned long ip;
++
++		if (regs->monitor_code == MONCODE_BUG_ARG) {
++			regs->psw.addr = regs->gprs[14];
++			btt = report_bug_entry((struct bug_entry *)regs->gprs[2], regs);
++		} else {
++			ip = __rewind_psw(regs->psw, regs->int_code >> 16);
++			btt = report_bug(ip, regs);
++		}
++		if (btt == BUG_TRAP_TYPE_WARN)
+ 			return;
+ 	}
+ 	if (fixup_exception(regs))
+-- 
+2.53.0
 
