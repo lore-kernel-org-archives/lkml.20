@@ -1,88 +1,69 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE22C517BB2
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BC23B52EE;
+	Thu,  1 Oct 2026 13:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862737; cv=none; b=X5o7B2BcFNboZc7w0FE7byYD4HM/Thga1ZAwTfuwQpQaxwjVhtr6RG93djU5pjzZgVLQ61TLaKVn4kv7WPi126QvuHUAauEiscr0Rg/hJLm9p6JJPvaWpDx6/GURKZ/pFY0zZuJPKidZ6RRMeGzX5iVxOGqkfZB70lqFKyji4co=
+	t=1790862746; cv=none; b=uvfO4171JWNerxvRKP+rgxnQIrVD9Xq9Ix7cx6T7m23TMjBUqWm7eLOwIHM9J6YROPh2NlZWK4eOlO4GOa4761uUH3vjiW5UoyaXI8kuVGlaSosgn0CgyApcUC04PQHT5fcwP6qmf4WWWoBOYOyS2UBT96qvA1DyCFfturGp0Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862737; c=relaxed/simple;
-	bh=0geIIBAtChqx0SPrXodBDN0wwm8n774sD/kCINfRRVI=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=jNz+wYViI6ONpPeuAN1ra6X62j/cIyhFCgWwSz7r0d8l6/flCiJw92+38Q08YQZdh0DqZW8AGf3I3qL0F4T7XZRFMpUDDcfeU0yQsCFsVM03Q+Dr9C8anDL45aapiEoQF/mSZlwcKM4p3JdZ7PDNrKOVfL+2Ivydp32nB2O/jKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hq6WlbEb; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790862746; c=relaxed/simple;
+	bh=AEQJ3btd6krJ3wgq4GaR63IDiNx1Wj8BLrgp1ziR5uY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s9r9PwHt1pUBqiNM3CXhHW+zLvqSdZN0TzHdXi8E3H8sjgdyDTnaSRmNCHLhJz9ZXkfZfBxyeTuGrSrksYtw2xJD6+vX0lmzDrQDBfBxGbskCAZuOk1fhEc0bQqNEcstz6CMxfFOJC7Hgh6RS7zePXgftbjZchOqOsoLrhHeSRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R+XpBbbx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hq6WlbEb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790862734;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JjcPPUA2+KSJwXDBVE75ZLKJDqcpCkUXLHxsXrz7loQ=;
-	b=Hq6WlbEbp1x2bgS8LbXHu4mY4HXPKpe4u+UkHKeYMraLSOe+onGn17CpgilLYQ8TFanzJb
-	yk5+sKnfKlLRh2TKEmLKcdXxgzBDmr5yZS85jW8+EA+pEHbTqlpv8k+MIF6Ot7Gqt2A3/d
-	5jMBTYVZOqvyF8IG6Yb28Gp67fSirb8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-677-uJbyo1fROuqS7vWfhzcp3A-1; Thu,
- 01 Oct 2026 09:52:08 -0400
-X-MC-Unique: uJbyo1fROuqS7vWfhzcp3A-1
-X-Mimecast-MFC-AGG-ID: uJbyo1fROuqS7vWfhzcp3A_1790862726
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 26FDD18011FE;
-	Thu,  1 Oct 2026 13:52:05 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.54])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CC61E1800299;
-	Thu,  1 Oct 2026 13:51:57 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20261001091239.3343034-4-dhowells@redhat.com>
-References: <20261001091239.3343034-4-dhowells@redhat.com> <20261001091239.3343034-1-dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: dhowells@redhat.com, Paulo Alcantara <pc@manguebit.org>,
-    Matthew Wilcox <willy@infradead.org>,
-    Namjae Jeon <linkinjeon@kernel.org>,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Stefan Metzmacher <metze@samba.org>,
-    Eric Van Hensbergen <ericvh@kernel.org>,
-    Dominique Martinet <asmadeus@codewreck.org>,
-    Ilya Dryomov <idryomov@gmail.com>, netfs@lists.linux.dev,
-    linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-    linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
-    v9fs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH v15 03/10] netfs: Add some tools for managing bvecq chains
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+XpBbbx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171B81F000FF;
+	Thu,  1 Oct 2026 13:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790862745;
+	bh=482YBBk0sZV98ECNDE6HHN/1C7/DQ1ojqfY7/UTrLzE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=R+XpBbbxscuTnO6vLFzWf1nuvfrskQY4TdzlS926JFfXpBAaYOwO9dn2BXGQFWzHp
+	 iaSqjP5tZA6CZLvwZvb8NdLn8FLbR+pfG/wGhljHpPuZ1d/hBJKCNDLOEtjzeTYzf4
+	 yVGHtafh7UGBk1YaHYnJ9TepBY/1CL95njUYsAA+lxCrdliZ+Yo2t1U3sGRl7MknSz
+	 cfGtoNQ23zZx/W1k1NP9tIkglZlRplCLUEzY1vTGNWZ1gT7YHH28kQ+CF1v7OdaeDv
+	 3IYcC+RIxUCOAvNfrCZPO+shJDLm4pnf3TBx3aTpXrFjEFhskYvY+BUT07hra6Ih2O
+	 TRISsoNj+s3Pw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	raminwo0202@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	apais@linux.microsoft.com,
+	Tahera Fahimi <taherafahimi@linux.microsoft.com>
+Subject: Re: [PATCH v2] xfrm: prevent policy_hthresh.work from racing with netns teardown
+Date: Thu,  1 Oct 2026 09:52:05 -0400
+Message-ID: <2026-09-30-1-daily-reply-0001-xfrm-policy-hthresh-v2-6-6@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929235256.1398309-1-taherafahimi@linux.microsoft.com>
+References: <20260929235256.1398309-1-taherafahimi@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <3609011.1790862716.1@warthog.procyon.org.uk>
-Date: Thu, 01 Oct 2026 14:51:56 +0100
-Message-ID: <3609012.1790862716@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+> Mainline commit 29fe3a61bcdc ("xfrm: prevent policy_hthresh.work
+> from racing with netns teardown") fixes this issue using
+> disable_work_sync(). That API is not available in Linux 6.6, so the
+> mainline change cannot be directly backported.
 
-Could you add:
+Queued for 6.6, thanks.
 
-	#include <linux/mempool.h>
+6.1, 5.15 and 5.10 have the same bug and also lack disable_work_sync().
+Could you send tested backports for those trees as well?
 
-to fs/netfs/internal.h if you apply this?  One of the headers I'm using must
-bring it in conditionally because it's not pulled in when Paulo builds it.
-
+-- 
 Thanks,
-David
-
+Sasha
