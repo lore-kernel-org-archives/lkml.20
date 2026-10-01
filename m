@@ -1,68 +1,50 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDA73CF204
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5B22BD022;
+	Thu,  1 Oct 2026 16:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790871867; cv=none; b=lAq6ZNwKOl9n9fWk0Mur5ZjkuJlfa713xSG4yOnu8oROAWeAk32KNUPro3C/f32YmbpLDzr35alBO+Mk7dBm5oWpv+OBqSqH5RgVpXFQDAoBUdLbh/eFm+h3RNAkFqrESj/hUqlomUei09cFXUxoLKyUzvZUBF/JRwz6MnpohZ8=
+	t=1790871882; cv=none; b=YhAoGMbIscJHBaqBKbxk+bnHMreIPkXrzLAVkIjle9cW1uC88/JjXzxVlPuBGJqae1UvN742k5NlPsx4JUAWEvyU3zxFvMYtzMO2w+NxJcRQ6YxrSHsKVzj250Tq5wJMOsM6jhxnDgEkMPVQg1gXVh5MGGqjE167sTBhxDSCnSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790871867; c=relaxed/simple;
-	bh=ZI9o4bTwAFLSUvqfJtnYi+jk/zWeAfwkgSPzM3bOjNU=;
+	s=arc-20240116; t=1790871882; c=relaxed/simple;
+	bh=LdA11I/nUewSl4reDrAPjEkS9+UNNAsC7hhq6mX0lXw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CQEmqj27Ifw2KY0Ps6rI1/LM/QMA3s6b7TKSkhfDFvLeHc359fy2SvmywETX20kpvRQFMAD8dNhHz3mB6tcoryALgRK6a6S+dG+Q0OAbsTLjKUFFcJ9FCJsj/7ccaa0nbcwBLgOqPrD7JIEx9AjIvEa2Xsp8oALBg/K9+Iiofvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AX7JMAx/; arc=none smtp.client-ip=74.125.225.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 In-Reply-To:Content-Type; b=U/4qJvdyjPhnctYbtJ8WjHmvUIkIsxMr3vO7V9ZF+nXmNnJJqYHVr3b77/zHwXf/dVQZPMvbJcz5s21/RwWlbmX4al/joRH8Leqvaqm5U3Sq69arMUCRZObNn087JW0Xrgsh+206S0P/4uZJsYe5mMyTWJfT/xCsmQ6ENmALMSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A4xfcYQu; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AX7JMAx/"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b0fc598f8so453584f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:24:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790871864; x=1791476664; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HYtyNDhTMSzL7NauOy9LXxOvJvUf8XAKFvjtNEOO43Q=;
-        b=AX7JMAx/iCCKy3KBYoqCVV8ttcZlBtbKECoCfWd6I1RK75t0ZbLSWNRMJuxtrMy6D2
-         UXQS5qWcldf4sDAIiozHBI2lAAdNDlYfkgTCTEyXDLe4PzqNmABLLsp/1aicPxEfkxEZ
-         wXEMPPqE+VTT8CEpEEXyQ0Ho+lE0dl33zOhX6gUWU8QU3DhWqIwjAXEyKHd/VUxppFOD
-         R4NAuZTwYbl1IDHrAe9VHGF8LEnhR+oO38cjG7RNj7OONNQ4Q21jnCtRkUHdXN4BYbdO
-         UJk3ILue2hWlo2PEUhh05xF/g5ndi/0OQBNkPORAFz+/C2fc5owCRnrS7vOSmS6Zsn4p
-         A+ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790871864; x=1791476664;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HYtyNDhTMSzL7NauOy9LXxOvJvUf8XAKFvjtNEOO43Q=;
-        b=siUze+nuKiuQ8b/Z53XKmyxwghrPeWvJebwvwZ6CFeUPqS1YyhzKko+KCsLQNAbN5S
-         EwELBamit3qHE1Xt8q8l7dgL/B//0NyJevtn3WenwtrDCaubmvfQXoIAzaKc7aWx7X3K
-         Ns5j5m/T3EEVEMkD3z89llkleqQrzMTA50b5hAb/UdBiPnU58H9UwTHAUUdvJviSb9tM
-         dj2YhSbEHtjgG+fwKEM1GQ5UdN2q5MW9tKcML5pYd5MFXN6NjpbN4LwBur4WjeRRSOb/
-         B5FSRWq5Voukaq3gileT4k0d0BemgrHTrVCL8yIbaChzfHC7YJlI2pmaXSsLORPsGATB
-         FJ4A==
-X-Forwarded-Encrypted: i=1; AKwUvBxa55Z6Cd/LSt/lfgBfegIHAGVLrmkwox8amAZC2xyoWSeEOdotN1XNd1rwThcLtycvD3BAV2mw6MJNGCY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJ06yMMG811ofXyRpTHxlcEA28PV50WvRERjHSUWg+AsILf4VL
-	fZuK7JuYUCcKq67NA/dYZWBC7ntYWJSGfVXqRenqfRnri/jc2caqXD26dEfxiZH4GCI=
-X-Gm-Gg: AYBFou29UMD5/xGD0jzVCz8JKZBCbnJ2acpq4SnAqeu5TquRv8Ji7eEhiRLm1n2Zdop
-	sqGqDOvfQmsxLqm8EK338Zo6ZEaCT25X9/mThtumSMtvTx/MXVHMScqqZxhekUbhFTLz2D254Kx
-	c8XK/1vtVyW8e8lWK+mwLSL3uJVzpiagDqTMHTJJjNeUs4Ex0Vjd7BN32Z/2u1MBH+eKRmjgwaU
-	hLYC+3qT+Yz/2fQuT3E0G7nuCcBMD/elrWXvzDMyprEdN6LEK635Zy1qpJXljuQFhWUfWIvROUG
-	B1nKKVTy8xF3r+i1xmyN0wCOzm+O0J76HzldmPcqfq1jz1EE8MzY0Q2mYUa6f52xDghvnj+BD1M
-	/6XgWH793sXMedFtg+LPTN9YBCs1O3k8c/IsE1F4mloL99UlirzK9eNnCtsy01rnUVWPl8ViqVt
-	hzeDRJWBUmvWc7ORcOUmIkVKYnv0ohnyJVDy0r89bhbSlLdRIoNtCpwKK9XVlt2m6RBs+HmXLt9
-	xXYLz3zzNilKRuPjV7sfJw=
-X-Received: by 2002:a05:600c:34cb:b0:49f:c199:e1e2 with SMTP id 5b1f17b1804b1-4a0276ab18amr2182265e9.28.1790871863905;
-        Thu, 01 Oct 2026 09:24:23 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02752aeb3sm3061465e9.0.2026.10.01.09.24.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 09:24:23 -0700 (PDT)
-Message-ID: <5fe666c8-55ad-4f06-b853-a532d73c35be@suse.com>
-Date: Thu, 1 Oct 2026 19:24:22 +0300
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A4xfcYQu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790871880; x=1822407880;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=LdA11I/nUewSl4reDrAPjEkS9+UNNAsC7hhq6mX0lXw=;
+  b=A4xfcYQuuZ09DTesGjaBmh/OyTdT28ML+ge1jiPV8LS1MpaoZ0jp2Px2
+   0nZoQUbpcP9Cup4Rdt7A5XWcvnrsAGwGoujKTRUaXPX2mXwi9TU/CHgvl
+   VIPSBCHVyOioKzktDBQyIY/eTKwZkAS0Gi9JG9Vibg4SXJiha6vyFyJat
+   ypZo6Ez8P6pLl4+xB8w2mUmEx0ZQwBOLapUaVRklU9T/++3VV2CLFntwr
+   C/mZSodqNquOU4uxuMDaVaDk2/ekfMvj9acT51XWxGk2GC5Jxh1HT+y3o
+   LMj8fUC236ulTWt+PlR2f4Tep3bNuGwE2+DZWpQ2UWODyhJStP2p60zWn
+   A==;
+X-CSE-ConnectionGUID: E+CynqiBThO3EQ8SQZt6qw==
+X-CSE-MsgGUID: OyDFrVOkSN6q/TssnCSxcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="103011532"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="103011532"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 09:24:37 -0700
+X-CSE-ConnectionGUID: kex1FDhVSja/AyOfsNxdnw==
+X-CSE-MsgGUID: yz97lrRpR7aCNRjNQ6LfTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="279338349"
+Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 09:24:36 -0700
+Message-ID: <aa1d85c2-cd19-4c18-9a6c-85f83c6c18fa@linux.intel.com>
+Date: Thu, 1 Oct 2026 09:24:20 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,132 +52,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/10] x86/virt/tdx: Convert the version metadata
- reader
-To: Chao Gao <chao.gao@intel.com>, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>
-Cc: yilun.xu@linux.intel.com, binbin.wu@linux.intel.com,
- tony.lindgren@linux.intel.com, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
-References: <20260930053901.22528-1-chao.gao@intel.com>
- <20260930053901.22528-3-chao.gao@intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
+Subject: Re: [PATCH v1] tools/power turbostat: Add rugged Panther Lake support
+To: Len Brown <lenb@kernel.org>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+References: <20260819174154.1184393-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <CAJvTdKm5g2-rLjSXNPkGqUU3BD-PUbSbNJecBn2-CA29O3WJvQ@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <20260930053901.22528-3-chao.gao@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <CAJvTdKm5g2-rLjSXNPkGqUU3BD-PUbSbNJecBn2-CA29O3WJvQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Hi Len,
 
+On 10/1/2026 7:49 AM, Len Brown wrote:
+> perf_model_support() also should be updated.
 
-On 30.09.26 г. 8:38 ч., Chao Gao wrote:
-> With the helper to read a table of metadata fields in place, the
-> existing metadata readers can be standardized on it.
+Thanks. Will submit a patch to update it.
+
 > 
-> Convert the version metadata reader: add a table that pairs each field ID
-> with the 'struct tdx_sys_info_version' member that holds its value, and
-> read all version fields by walking that table.
+> thanks,
+> -Len
 > 
-> Name the field IDs for readability, so the table entries don't carry raw
-> hex literals.
+> On Wed, Aug 19, 2026 at 1:41 PM Kuppuswamy Sathyanarayanan
+> <sathyanarayanan.kuppuswamy@linux.intel.com> wrote:
+>>
+>> From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+>>
+>> Add CPU model for rugged Panther Lake.
+>>
+>> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+>> ---
+>>  tools/power/x86/turbostat/turbostat.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turbostat/turbostat.c
+>> index 920694c3c1ec..f5b3afa050bf 100644
+>> --- a/tools/power/x86/turbostat/turbostat.c
+>> +++ b/tools/power/x86/turbostat/turbostat.c
+>> @@ -1229,6 +1229,7 @@ static const struct platform_data turbostat_pdata[] = {
+>>         { INTEL_ARROWLAKE, &adl_features },
+>>         { INTEL_LUNARLAKE_M, &lnl_features },
+>>         { INTEL_PANTHERLAKE_L, &lnl_features },
+>> +       { INTEL_PANTHERLAKE_R, &lnl_features },
+>>         { INTEL_NOVALAKE, &lnl_features },
+>>         { INTEL_NOVALAKE_L, &lnl_features },
+>>         { INTEL_WILDCATLAKE_L, &lnl_features },
+>> --
+>> 2.43.0
+>>
 > 
-> AI was used under supervision to review code and workshop logs.
 > 
-> Signed-off-by: Chao Gao <chao.gao@intel.com>
-> ---
-> v3:
->   - Drop the get_tdx_sys_info_*() wrappers to remove an unnecessary layer
->     of abstraction. [Rick, Dave]
->   - Shorten the field ID defines from TDX_MD_FIELD_ID_* to TDX_FIELD_*
->     [Rick]
-> ---
->   arch/x86/virt/vmx/tdx/tdx.c                 | 15 ++++++++++++---
->   arch/x86/virt/vmx/tdx/tdx.h                 | 10 ++++++++++
->   arch/x86/virt/vmx/tdx/tdx_global_metadata.c | 17 +----------------
->   3 files changed, 23 insertions(+), 19 deletions(-)
-> 
-> diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-> index 67a80ed86bd3..9d8a55a5da31 100644
-> --- a/arch/x86/virt/vmx/tdx/tdx.c
-> +++ b/arch/x86/virt/vmx/tdx/tdx.c
-> @@ -408,8 +408,8 @@ struct field_mapping {
->   };
->   
->   /* Read each metadata field listed in @mappings[] into @data. */
-> -static int __maybe_unused __read_sys_metadata_table(const struct field_mapping *mappings,
-> -						    int num_mappings, void *data)
-> +static int __read_sys_metadata_table(const struct field_mapping *mappings,
-> +				     int num_mappings, void *data)
->   {
->   	int i, ret;
->   	u64 val;
-> @@ -434,6 +434,15 @@ static int __maybe_unused __read_sys_metadata_table(const struct field_mapping *
->   	.size		= sizeof_field(_type, _member),		\
->   }
->   
-> +#define TDX_SYSINFO_MAP_VERSION(_field_id, _member) \
-> +	TDX_SYSINFO_MAP(_field_id, struct tdx_sys_info_version, _member)
 
-nit: I personally dislike adding this level of indirection, albeit 
-rather shallow just so you don't have to repeat 'struct xxxx' in every 
-TDX_SYS_INFO_MAP. Same goes for the rest of the patches. In the past I 
-remember TDX code also suffered from, in my opinion, excessive macro 
-nesting.
-
-Dave, what's your take on this?
-
-> +
-> +static const struct field_mapping version_mappings[] = {
-> +	TDX_SYSINFO_MAP_VERSION(TDX_FIELD_MINOR_VERSION,  minor_version),
-> +	TDX_SYSINFO_MAP_VERSION(TDX_FIELD_MAJOR_VERSION,  major_version),
-> +	TDX_SYSINFO_MAP_VERSION(TDX_FIELD_UPDATE_VERSION, update_version),
-> +};
-> +
-
-<snip>
+-- 
+Sathyanarayanan Kuppuswamy
+Linux Kernel Developer
 
