@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D31365A0B;
-	Thu,  1 Oct 2026 12:55:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8BC43B3DA;
+	Thu,  1 Oct 2026 12:55:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790859333; cv=none; b=NgmzQrIuU+0NZzxWdJRFPh9b4E+QsPzl5lRYDf9kzERyA2xe7IdMo+HD3VDtN1wSKjs/KtzXIo7TBVVPGfMoNidYiDrh1fEmlYSKAmlYzXwxMbNYqpiT4dQXjxRBQAzWKlfxtjyJtdm1rqroTaNc/7mwA2DcNS1aOF4PxmnV+PA=
+	t=1790859335; cv=none; b=IOdoNbMjbKmD4EXcaZOjp5zT2gMfUZmJcAmXEiI3DhJQHr3LXePLUzqmD7Yy+EW7TXKWAoD76SqfVdFE3g1CiKdt9+X5zZoacxFkMTzgg6oOp9/EJWjKYeAAXy6I7FXdh3HW7V3JkronLf/hCbQlGrqJ0HqS1g1nl2E6k/ronYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790859333; c=relaxed/simple;
-	bh=nHUcQKEhg5F7eEtFgQyhKTIv/j0ZgjNJD/3JwdefJFY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Es1Yg7CtJOzfqx+Uwo0+LkPo3Y7KgjmXlE6n+ccvVPvgYTk9j9hYwhKjJBhGgUQ9VfTwjBmL4p6vHSjM42RlXrBE0xeyW9+i31oIzSW9p1ZepdI3Kv3qWhc1f8LYCP84Y8L6kn4QKvyBmNdrEfQB+Pl8lJ1ufIDlTmBRi2BKKa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLP0IIkL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790859335; c=relaxed/simple;
+	bh=gINosgRoghcNXxlyfp9MdCuF0jgTn0VBcymjZRURfWY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hlz8EzxDavW1Di9CcIsJd/aAPiBowtuYMbsRqxpNo49Myj155A6J4wMgY095YvrC4btXHTA+AJZy2/fxWUlIqe4edSpfNt+0j4L3emZJAevDChvUrhzCHvRsTvevqzzPLpbEswDEv9dsyXOVhyeGHL/ntZATMW7LKJUUPwBzXF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwlMiI/2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLP0IIkL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6601F00898;
-	Thu,  1 Oct 2026 12:55:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwlMiI/2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16FD1F00899;
+	Thu,  1 Oct 2026 12:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790859330;
-	bh=4LjABiJyToG4cLHRKipSfjV59PeKloY3ckldoBmynKA=;
-	h=From:Subject:Date:To:Cc;
-	b=MLP0IIkLcIrjtTYyj2CNxyUeYYST7BZXZ+HYtP91QBubTa5FbMyZeLKBxuZT//KeG
-	 kzlVGTDHG0KjV1+azuASfMCSafIyHs7FPqUzDzU81xfSHkpavLa0OGzBk2s/McSsAL
-	 rlZ4NRVY3q/xEvfAWGnh36JzyXkhPdTZiNRfKe+mbJ4pZwE7GxiWxX9+GBR0me6xLE
-	 VMtDirDKHysOWYGEDpnT3OAHjI0ibh5Fg3OTJCIfyaNsTUpnQS1R4FuhaXB9XfteGG
-	 6Lmwn5zDkVDux2ZeNmTeCgO63l02I9HZFoTbNe1XBMG2RjAiLal/awQpfnXOCHzvjt
-	 rYUBpLtPMHdvQ==
+	s=k20260515; t=1790859333;
+	bh=5BAxBf/Dgd5ST9ziPCU4toBRaqSjzJd80hHEzMBZ058=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=FwlMiI/2J5GvjxE2ac5WmmrYTzcRfMwR59XXt/cjKq+IH2UagtUNjAb+a+OesrYOV
+	 7sBYIf7J4/nqcHtgXpPqxaLNeck2P47vbTCuzmM37EZfl7gqM8/0D+WYYNQtw7igjQ
+	 tvNgd83mHbPi3WUBX63pQlZVh1Tg1yVPiJACJKLNN1HaOswMsPs4+4Phq7SS/ft+Pe
+	 ByE/xeayddScN8tCfr5ou8PlqW1MNKEyhafgb05MSysjN5xpRP+jQn0INMTJqwQWVM
+	 PQVl1etLuIhWMfwXuZle2nDnhOW9uoP5QQsA2zACg4mRsCHtAYFP7gUl/jGqR5VQro
+	 o+yQfJ+3bDH2w==
 From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-Date: Thu, 01 Oct 2026 14:55:18 +0200
-Message-Id: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+Date: Thu, 01 Oct 2026 14:55:19 +0200
+Subject: [PATCH RFC 1/5] media: imx219: Move LP-11 state switch to
+ power_on()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,10 +38,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQpAQBCA4VfRnE2tWSmuygO4yoE1mNLSjqTk3
- W2O3+H/H1AOwgpV8kDgS1R2H5GlCbh18AujTNFAhgpTksUr3wiVve4BJz7ZnWhpMCOVtnAugxg
- egWe5/2kHbVND/74fXIH3RGkAAAA=
-X-Change-ID: 20260923-v4l2-sensor-detect-32a0b2936cc1
+Message-Id: <20261001-v4l2-sensor-detect-v1-1-a45993be17b8@kernel.org>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+In-Reply-To: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Kieran Bingham <kieran.bingham@ideasonboard.com>, 
  Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -50,144 +50,98 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Mattijs Korpershoek <mkorpershoek@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5629;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2448;
  i=mkorpershoek@kernel.org; h=from:subject:message-id;
- bh=nHUcQKEhg5F7eEtFgQyhKTIv/j0ZgjNJD/3JwdefJFY=;
- b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBqvlg+cpa9RS7ywOQ9cYpQpF/W4WqVuPKcP77vn
- 6on+IrQZTOJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCar5YPgAKCRAZDR20Zk4Z
- NW7wB/453YOMozWY/zEDAXuPSxNipj7NuQ/XtPAUVnSCg/kxD6FWR5QbJ1WKRh5f52+pB8k4GLw
- rVyrVSBbP80THx2hQfVGnI+nUVHtHNECK5gKokVd1+OLd81aRPPbrVmkZTNPwzfXg8Dg9FKbFZC
- BvddHkpt+pAtWR2t1posa5OMAJxYEUSmI9uetTJVzfMKV9JzjNs097yk55TtpmbC91XmCCALnF6
- 8J90g9lNM9f5JHb3G5gY1NyMuznEiENsFzKs+lGkOlK/d+4jooNwDURSr3JB9QM6XUL0xclGBuC
- FK6pQwSvL1VDM3FmHODdma6WzbVNsKJTZCp+J5N8qNkErFv9
+ bh=gINosgRoghcNXxlyfp9MdCuF0jgTn0VBcymjZRURfWY=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBqvlg+SIbQvULgbR8KIdpAnC9nThodr/iJAcTPa
+ SvMYO5MefuJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCar5YPgAKCRAZDR20Zk4Z
+ Ndc9CACVAVnNDBmdujakehFRaiVxkpae0Zmo7w4sqbr7JqKvmiRmp/wRWu67ANk0gH2ztgfdwPK
+ Qz2jZ2nFSFdisIgcBRuQnouFdqXbKMLjZ4Kh99Q2EoFXIFJLfk/Al4xZNCU9ZggqtLtChUWv65R
+ CXZREBEuOtMF8IuHETc+I/vOBnou43jzBWdinfjkfYkgytPiH7xt2UzV3IKOmRlDDqaTkma9/NH
+ XtZqRake3qgKGZx374GJjWD02/jgThXvqmhddX3NMI3Z2SyRe5hNhoDmzpQZOe0h5MQ8hDl5JcH
+ XTWbIsU9udz5/nkaUFWA8Zulhe+5WzdZ62X5GlsmFcqM9Ta4
 X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
  fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-On media-centric camera pipelines, every entity is known at boot time
-and described statically (for example via device-tree).
+During probe(), we write the IMX219_MODE_STREAMING register to
+transition from streaming -> standby to force LP-11 state.
 
-The V4L2 framework assumes that every entity of the camera
-pipeline is always present. This is a reasonable assumption for
-integrated cameras in laptops or phones. However, in automotive systems,
-cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
-When the framework assumes all sensors are present, a single missing
-camera can prevent the entire pipeline from operating.
+This should be done at each power-up of the sensor, but is only
+done *once* for the driver lifecycle (at probe).
 
-This is a known problem and has been discussed at media summit a couple of times:
-https://www.linuxtv.org/downloads/presentations/media_summit_2026/Michael%20-%20The%20Butterfly%20Effect.pdf
-https://www.linuxtv.org/news.php?entry=2022-11-14-0.hverkuil
+Move the LP-11 sequence to power_on() to ensure that it's always put
+into standby mode whenever the pm framework detects it's a power up.
 
-For example, in the following pipeline:
-"""
-  imx219  9-0010 -> ds90ub953 7-0044 -> ds90ub960 pad0 -+
-                                                        |-- pad4 -> cdns_csi2rx -> ticsi2rx
-  imx219 10-0010 -> ds90ub953 7-0045 -> ds90ub960 pad1 -+
-"""
-
-If imx219 9-0010 fails to probe, media-ctl -p will show:
-"""
-                    ds90ub953 7-0044 -> ds90ub960 pad0 -+
-                                                        |-- pad4 -> cdns_csi2rx -> ticsi2rx
-  imx219 10-0010 -> ds90ub953 7-0045 -> ds90ub960 pad1 -+
-"""
-
-Now, if ds90ub953 7-0044 fails to probe(), media-ctl -p will only show the
-following topology:
-"""
-                                                                    cdns_csi2rx -> ticsi2rx
-"""
-
-Which is unexpected - we should be able to use the imx219 10-0010 sensor
-if it's connected.
-Also, the media graph should reflect the hardware topology, not just
-what's currently working. This way, userspace can distinguish
-"camera X is disconnected" from "camera X does not exist".
-
-Applications thus need to know if a sensor or an entity is missing, and
-to react when it becomes available, or when an available one becomes
-missing.
-
-To solve this, we chose to go for a simple solution inspired by
-DRM connectors: we created an ioctl for subdevs to report their
-current connection status.
-This allows applications to discover a sensor state when discovering
-the graph.
-The current status is then polled or updated on a regular basis and
-reported as a uevent every time it changes, allowing applications to
-react.
-This mandates that the sensor driver can probe even when the device is
-not connected.
-
-This has the benefits of being fairly simple to implement, understand
-and support in drivers.
-
-The major downside however is that it will require to modify every
-driver since we're breaking away from the current pattern of not
-probing if the device isn't available.
-
-The last three patches implement this pattern switch for the
-imx219 driver.
-
-With this, we can hot-plug the sensor and get notified via a udev
-script to start a capture:
-
-Oct 01 12:02:38 am69-sk run_capture[1463]: /dev/v4l-subdev6 is disconnected
-[   69.258616] imx219 10-0010: Error reading reg 0x0000: -121
-[   69.264182] imx219 10-0010: Error reading reg 0x0000: -121
-[   71.306593] imx219 10-0010: Error reading reg 0x0000: -121
-[   71.312158] imx219 10-0010: Error reading reg 0x0000: -121
-Oct 01 12:02:44 am69-sk run_capture[1480]: /dev/v4l-subdev6 is connected
-Oct 01 12:02:44 am69-sk run_capture[1481]: /dev/v4l-subdev6: Setting up routes
-Oct 01 12:02:44 am69-sk run_capture[1487]: /dev/v4l-subdev6: Setting up format for imx219 10-0010
-Oct 01 12:02:44 am69-sk run_capture[1489]: /dev/v4l-subdev6: Setting up format for remaining entities
-Oct 01 12:02:44 am69-sk run_capture[1506]: /dev/v4l-subdev6: Starting capture on /dev/video5
-
-The code for this demo is available at:
-https://gitlab.com/-/snippets/6064180
-
-Current known limitations:
-- Only leaf entities (typically sensor nodes) are covered. We should
-  also address entities that are in the middle of the media graph
-
-- We don't handle the case where we attempt to stream on a disconnected
-  sensor.
-
-- The media graph is not updated to reflect the sensor's presence/absence.
-  I have assumed that the media graph must reflect the hardware
-  description (i.e. the device-tree) of the pipeline, not the actual
-  real state (when a sensor is missing for example). Is that a wrong
-  assumption?
-
-I don't expect this approach to be useable or mergeable as is but rather
-to use this as a starting point for discussions at Plumbers and on the
-mailing list.
-
-This has been tested on a SK-AM69 board on top of the following series:
-https://lore.kernel.org/all/20260824121451.3348583-1-sakari.ailus@linux.intel.com/
-
-Thanks,
-Mattijs
-
+Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 ---
-Mattijs Korpershoek (5):
-      media: imx219: Move LP-11 state switch to power_on()
-      media: v4l2-subdev: Add new ioctl for connection status
-      media: imx219: Allow driver probe with missing sensor
-      media: imx219: Implement .detect() sensor operation
-      media: imx219: Add status polling using .detect()
+ drivers/media/i2c/imx219.c | 44 ++++++++++++++++++++++++--------------------
+ 1 file changed, 24 insertions(+), 20 deletions(-)
 
- .../userspace-api/media/v4l/user-func.rst          |   1 +
- .../v4l/vidioc-subdev-g-connection-status.rst      |  89 ++++++++++
- drivers/media/i2c/imx219.c                         | 191 ++++++++++++++-------
- drivers/media/v4l2-core/v4l2-subdev.c              |   8 +
- include/media/v4l2-subdev.h                        |   3 +
- include/uapi/linux/v4l2-subdev.h                   |  12 ++
- 6 files changed, 245 insertions(+), 59 deletions(-)
----
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
-change-id: 20260923-v4l2-sensor-detect-32a0b2936cc1
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 9571f3622d2d..7978fee5f4a2 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -1056,8 +1056,32 @@ static int imx219_power_on(struct device *dev)
+ 	usleep_range(IMX219_XCLR_MIN_DELAY_US,
+ 		     IMX219_XCLR_MIN_DELAY_US + IMX219_XCLR_DELAY_RANGE_US);
+ 
++	/*
++	 * Sensor doesn't enter LP-11 state upon power up until and unless
++	 * streaming is started, so upon power up switch the modes to:
++	 * streaming -> standby
++	 */
++	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
++			IMX219_MODE_STREAMING, NULL);
++	if (ret < 0)
++		goto gpio_off;
++
++	usleep_range(100, 110);
++
++	/* put sensor back to standby mode */
++	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
++			IMX219_MODE_STANDBY, NULL);
++	if (ret < 0)
++		goto gpio_off;
++
++	usleep_range(100, 110);
++
+ 	return 0;
+ 
++gpio_off:
++	gpiod_set_value_cansleep(imx219->reset_gpio, 0);
++	clk_disable_unprepare(imx219->xclk);
++
+ reg_off:
+ 	regulator_bulk_disable(IMX219_NUM_SUPPLIES, imx219->supplies);
+ 
+@@ -1240,26 +1264,6 @@ static int imx219_probe(struct i2c_client *client)
+ 	if (ret)
+ 		goto error_power_off;
+ 
+-	/*
+-	 * Sensor doesn't enter LP-11 state upon power up until and unless
+-	 * streaming is started, so upon power up switch the modes to:
+-	 * streaming -> standby
+-	 */
+-	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
+-			IMX219_MODE_STREAMING, NULL);
+-	if (ret < 0)
+-		goto error_power_off;
+-
+-	usleep_range(100, 110);
+-
+-	/* put sensor back to standby mode */
+-	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
+-			IMX219_MODE_STANDBY, NULL);
+-	if (ret < 0)
+-		goto error_power_off;
+-
+-	usleep_range(100, 110);
+-
+ 	ret = imx219_init_controls(imx219);
+ 	if (ret)
+ 		goto error_power_off;
 
-Best regards,
 -- 
-Mattijs Korpershoek <mkorpershoek@kernel.org>
+2.55.0
 
