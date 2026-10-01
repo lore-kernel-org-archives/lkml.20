@@ -1,75 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53F9488D8F;
-	Thu,  1 Oct 2026 08:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD084A5EDA
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842801; cv=none; b=F1cq43o5Qqm0WLwit8onEQTQTNuoJkKriL4aYu6ibzOBOBLmj0x5ZJgHob2GOofKcEat/JIXwvdDrMnXoOVICrzt+5o3jfqKjd6kz68AaPe4CSpQ/5me0Sod2Xj4UwnJ1cKXthR2yJYR5o/Z7YXhwBnjFQhYZTgrSjdiUEbXvWE=
+	t=1790842918; cv=none; b=ORGG4L5baMr8Inm1N9/viS6HoOSWojjtmlcbygGfAAZKakNDODvsO8g5axpv0QC10+uAocGBUqUFFvC9+9U3/ooRmxUb7L1Q9sWPrf1s8HqRiFkmjhcyMvS3qQ8L1xCzYGkqBnbS/a6/y2whYVuwEEexJNe4+I2F6Lf82iSiSS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842801; c=relaxed/simple;
-	bh=zlyFFjejngvXF1ave2mJfMXwAVP3aKiXUf5dCuQCpOE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bYJlwxrKWYlZeb7CKdEH8PLOaZ90krboKlF+YqdGP0k0mc5jrQa0pxi6ESskuNgGIiCuj8t3nXao3j60Exrn0laXjE2rePMD9q3aLFuUXIpCAdymjCVWRgRl5WuGXUSarBAVrrUoAUlgo7PrELoZemWx1qJNvDQaG5NKYrJmTSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahDjnw4l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790842918; c=relaxed/simple;
+	bh=SFWYPhaEGj3UnxBHEe2gf32Y8aVtv6hsGGY2LkfRXaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=No5nkT2v5kNAmrYq26Kw/V+h8zWMcgO+MunE2ZW3j9si+zn405rvCDcOFGmKOst6Cuz7rz3yQ50/ijCnt5h3uN5hNJLyvDGDFyu8RxjFRSVbSeLQogtfSpFWCmE0oDavCCUgeJnA6/sMw9gcwqRHRKsCagvckt6QQY5u5icEXMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DQw6RjaV; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahDjnw4l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250C31F000FF;
-	Thu,  1 Oct 2026 08:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790842799;
-	bh=uWlRlKwjmnD4I6cyH0/2gWNn9Gk9MgEpVZ167tZzQ2g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ahDjnw4lIzjXojP3kLolkzopA3KR0nbOAojHgJeMpIW+02EOekuvLqXyp2vqp1sed
-	 37vbqE0qMY5Fx2hqsOiBFPxVVrQOWwL4hY1eSka2B0aKNzoK5Lwbh8LuLnziAS1HyJ
-	 Sui5ezjAnzGqS3uIRdmS9WclNx1tw25baKLcvnPg7zNWHWH5KP5+Wr2KEFqMAaz1+H
-	 AICiBa9a2Dwg/qRux2d4OW8iJ845bMnZhtngaCIo7IDjWkaTvAjVk6Bswmp4+uKgjI
-	 qTiZ43gwsq7B2PtBB3gB++rEPXTuXRZRUge5nWTezshaujLzISQPfiSU/7RExKu3Xz
-	 IhiH78rFYMH9g==
-Date: Thu, 1 Oct 2026 10:19:55 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luna Hart <lhart.opensource@witekio.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Flaviu Nistor <flaviu.nistor@gmail.com>
-Subject: Re: [PATCH 2/2] hwmon: (tps38900x) Add driver for TI
- TPS389004/TPS389006/TPS389008
-Message-ID: <20261001-judicious-oyster-from-atlantis-ec18aa@quoll>
-References: <20260929-lhart-dev-tps38900x-v1-0-7045c5894152@witekio.com>
- <20260929-lhart-dev-tps38900x-v1-2-7045c5894152@witekio.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DQw6RjaV"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso64265895e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:21:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790842911; x=1791447711; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YVIqIlAeBaodz/jKHUPLRi2NF2+TX33O2kKv6cYqX/g=;
+        b=DQw6RjaVQHBZD01xAfg/34C4S9kUsnymCITopTWkK9FRLcMGXcipdx63ivh514e586
+         eNWWjdYaP2szyyTiOMqYPDSXoPMBGByEKLhflxEyPrips8OdDqjubb5pjv8UCuRHY75N
+         nwo8TCbXUQTYuzCAqnjs9dTR02O4jxlKoxlEw5BA6iKH8w6nhl3hkzsHJyJLVtcU7fNw
+         aqFgzqx5/cS+IYMbYENy0/fUVb1m1p68cY07E98HnL6YdPHr4AE4dJSvjabpVQ5qNLJ2
+         0ThM9fzOzPhwsDeqVV9txmNF7teeK6nfpBdt6pZS3cO8KCg/+NZbfxWpgq59j1EYZKM3
+         +0dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790842911; x=1791447711;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YVIqIlAeBaodz/jKHUPLRi2NF2+TX33O2kKv6cYqX/g=;
+        b=zT25phRFoH0W1cup8ZucvZeKhDydbfwt5QKXAl9x8PAoHBkvCR6S/o7gIzS+GDkvyv
+         xN6JwI3G7GDmT2RC8dzj46JBIFFRhkBnhuo8YHCOQbC6LpKbQuqXRgcSKoVDSy5XQp76
+         iCH7Z9/QWGEN8yUVRvmjwCLEYsvRSr4KSvd0ZSAikDROUur56U7VdskmErWvlwDrYtro
+         ydZHEsme22XLj7YE4UB9/xaFSQFWJg7NbNebNH2dm9dm808teEFsx1ddrXfu05egXXCW
+         BwYxIMSkxRIvl5DctEQlhrGgiTGxf81u1pTrgnIcIW5FFQOOfci3Q5i4DpgqKSG/9g8n
+         qVbA==
+X-Forwarded-Encrypted: i=1; AKwUvByGSVgYQ4o0Ovs1yoXYe7ICQkPHU3vZIyubY6PaOOyuYAC6l1mvTDRyOCiUfiwRtZfkqUs35MIIh8KTOj0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnU2wTZ1WQiwteJu6knZKDoWWjtowI8WY0wwOFT4kw6qKlebQB
+	Y+yeHg0oXbAxkS/93kvjyYnZUkh4mrbe4rARBI4AnUEFFVTv765iydpG
+X-Gm-Gg: AYBFou3MJvgGmRQgMZaBoeXj3xJjzYmeiSNqj1MI5FwF5yJG0Gpl2/nbKbfJtkWEU+9
+	OCmEXdIApQjMuLGGj8wtJuwHfIHqdWZSeb2lghCp3rLrVORF+pO86XA98kOsrZM+7ixAEK1ayyn
+	aQID9S6pk1kOW+Uv197wHOt7OkKGvD4GIU9XKnU9sXeJ8IiBln6FaqWmMHq4dM6uoxm9hYYCEMi
+	P826u/Sgu3gn0Oi2aPc13OPgqeQbUFgs75Po4tkKggYhSNAT6dwvMWoyt+/NnyEs9drPiNPUgkk
+	f16weKp7uAH7Osth7CczvZ3XhQAnlWVn3+zAar/QEwNcrf7TO9K6Y8Y2g08B8UxOKrqvJzS0Cz4
+	MWbnzWs/ROzUA0raEJFQLV+0QDJJ4uzbjx+dnV8VoVqDiVdHALiFxxmaRjQuYCyE9dtkHgDGJWL
+	5lnCOUGt1GtAqlNfyOVs/EaDjrvEgo4ADoqhHebMreo4LM1iG3EBRdFvVMBVoyiJUMu9LT6Ey33
+	JB13MhPLiD8ILvO4qJmNnO+wAkKfr8Yqdk=
+X-Received: by 2002:a05:600c:4e56:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-4a01b00ef27mr71316935e9.33.1790842910996;
+        Thu, 01 Oct 2026 01:21:50 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f6ef459sm36030645e9.1.2026.10.01.01.21.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 01:21:50 -0700 (PDT)
+Date: Thu, 1 Oct 2026 09:21:49 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: bot+bpf-ci@kernel.org
+Cc: akpm@linux-foundation.org, pmladek@suse.com, kees@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ bpf@vger.kernel.org, jim.cromie@gmail.com, ljs@kernel.org,
+ thunder.leizhen@huawei.com, mcgrof@kernel.org,
+ andrey.grodzovsky@crowdstrike.com, rostedt@goodmis.org, ast@kernel.org,
+ andrii@kernel.org, daniel@iogearbox.net, martin.lau@kernel.org,
+ eddyz87@gmail.com, yonghong.song@linux.dev, mason@kernel.org,
+ ihor.solodrai@linux.dev
+Subject: Re: [PATCH 2/2] kallsyms: Optimise symbol name search
+Message-ID: <20261001092149.22e07e90@pumpkin>
+In-Reply-To: <c26e2afbfa2cd71b2cf8bb0e963bb1d67dc5519bb5c4307c96b826ae5fdce269@mail.kernel.org>
+References: <20260930132109.260597-3-david.laight.linux@gmail.com>
+	<c26e2afbfa2cd71b2cf8bb0e963bb1d67dc5519bb5c4307c96b826ae5fdce269@mail.kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929-lhart-dev-tps38900x-v1-2-7045c5894152@witekio.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 04:04:05PM -0700, Luna Hart wrote:
-> +static const struct i2c_device_id tps38900x_id[] = {
-> +	{ .name = "tps389004", .driver_data = 4 },
-> +	{ .name = "tps389006", .driver_data = 6 },
-> +	{ .name = "tps389008", .driver_data = 8 },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, tps38900x_id);
-> +
-> +static const struct of_device_id tps38900x_of_match[] = {
-> +	{ .compatible = "ti,tps389004", .data = (void *)4 },
-> +	{ .compatible = "ti,tps389006", .data = (void *)6 },
-> +	{ .compatible = "ti,tps389008", .data = (void *)8 },
+On Thu,  1 Oct 2026 00:45:19 +0000 (UTC)
+bot+bpf-ci@kernel.org wrote:
 
-Does this mean programming model is exactly the same for all of them,
-just additional channels?
+> > kallsyms: Optimise symbol name search  
+> 
+> TL;DR:
+> - kallsyms 24-bit table struct may be padded to 4 bytes on ARM OABI, giving
+>   wrong offsets and a possible out-of-bounds read
 
-If so, then these could be made compatible in the binding - use
-fallback, to the ti,tps389004. I don't insist, though.
+I hate ARM OABI :-)
+I think it is the only architecture Linus still supports that aligns
+structures on 32bit boundaries.
 
-Best regards,
-Krzysztof
+> - weak table symbols may not read as NULL on relocatable x86-32, so the wrong
+>   table may be chosen
 
+I'm not entirely happy with that bit of the code.
+There is a conditional in every table index.
+It is crying out for either a static branch or just compiling the file
+(or selecting between two object files) once the symbol table size is known.
+Either removes the need for weak symbols.
+
+Anyone know if there is 'prior art' for a late compilation?
+
+David
