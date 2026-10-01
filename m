@@ -1,93 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703DA26ED40;
-	Thu,  1 Oct 2026 19:36:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C0B50B8D4
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790883364; cv=none; b=Vox0m2go4ThcIruU2mxSiGpidsgGqwz7+3xzrY1oHrWeaRGQLJ3Hq7u/krepaVLtaNWQS4a3a88rTPM6hezy/gMOOY+kkz+vd2ljBnz8/VfxNJwvOjHpAscIcdvIrmvXnYvAzdTql2oKzt89osaJslHd2n//8IRrWvPdM3kia9w=
+	t=1790883430; cv=none; b=ZIfy8ljqhHuCZAXhtkMa1RxD33Pw+syqWY3CKI5zZYPgPRF0lD6XHERYorKtPb1oG/BNwTsOBckxCT304EWEnt2ZZBjITWQTzgbY7DmH7Sxg73aMWUcgxIWmhImeAwrE5h+Kb7+XuuSvzyuWe0pSr80lBIktiEbgeZ+kerdMzlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790883364; c=relaxed/simple;
-	bh=fKs4SGsppJWUftH/vs9/UIx/4B1sMiRPSR5uEmjJ4TY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=iZN7GIwRkGaaNT0v92AJkyo30A4PTdHcoHvAGHrUI8Ia//ltjBLtXcnt01DQELFYrfELu8kLq6toj8y84DfZfGP4v7HZpcsmm9eTul2Ng2TNHiD4pXsYIaxJEqL/onuvA9xkTW7Ga76iipovvUc9bfQQVXykjT0tXHfzSbsRci8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcKLQdsU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790883430; c=relaxed/simple;
+	bh=qvwz9H5czi1T2bET1rcGtlq0MACGNFWYAMQiSkHpdX8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pj5p6MyqAwHRwS2XM+YPCWuMZdgYyKy4MAiGodSK/oIqhBbc8oLHoJ5KgMkULxtDra3BYMoMR1prK/7V9mCTErIwlC9jMgoaN2Wi4i7wo76qB8HrB/0llNyTNV+bg9jlgzf/uRmTdy4Sv8gErdocOmK+ncrPUtSTkE3Qk81W0vY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYEkWZSG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcKLQdsU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900D01F000FF;
-	Thu,  1 Oct 2026 19:36:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYEkWZSG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448041F008A0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 19:37:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790883362;
-	bh=kHWRsuTfZjw8tWGrOeY/8OgFuHVLZCaCBl2Cx3jPC9A=;
-	h=Date:From:To:Cc:Subject;
-	b=FcKLQdsUAklZKMCyJfTx/cpqflRgYvMiMja2OvWQRSUBsV4xixbbL8mxNdWq8WdcU
-	 ugftHXc4L1oDy4mOfqTlQ/0HlIJ3/Pxq0txHqeB5OAg8sMFp4xWYMbJMtqQFDPVcih
-	 XRq3E2PR37RxzN+9RW+FvSAiqHQjewTmVvEuJcx99HZZdY9FdHiKxSqAnsbN599keZ
-	 ey7pn583Wza6eVHpPkHYUKthRYptjqZj3jwqXoIoMWPDk5TJ3bB0X3qIPFBG7fYcgC
-	 h1atbaUjVLaUNcdhb3bTq80PXm8/zRRkvqvghFiUV+sbc0FGdY0NF5UIdibHn/lJyv
-	 bS1DfPu3t1tpw==
-Date: Thu, 1 Oct 2026 14:35:46 -0500
-From: Rob Herring <robh@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [GIT PULL] Devicetree fixes for v7.3, part 2
-Message-ID: <20261001193546.GA1670288-robh@kernel.org>
+	s=k20260515; t=1790883425;
+	bh=qvwz9H5czi1T2bET1rcGtlq0MACGNFWYAMQiSkHpdX8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OYEkWZSGIPm9u5E7vvPyKgWBtWXoYDM0EGPIKCETLZ8/uJTQU6+6fMwQSj1CEDMG9
+	 FEEP8B3Z/9kj0+e2SotAzqmeMPnIBCHDFQOFg0xrbc0jJCUxSPgWEOcUbRie4b8j5c
+	 9RR+PHZ9l26jsi2i043ZuZn3uXED1Mm6U72f7Wijc09/6J0y8vHBHdIG+USOiIeFYj
+	 WC2zyQWU2k7Jb9PHARWTCN6M6FeE34OaK28p/Q8j2R9egjckrpBv7vM0mfRN6kDiDO
+	 yqsl0jruXuftKkvxc23FjyHcIjhLyHLPY+6FKwA1j8tONQgQTIt7IgO9/dMkXJJsOc
+	 PxPefttg9aAyw==
+Received: by mail-lr2-f14.google.com with SMTP id 38308e7fff4ca-3a783ec301dso10042701fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 12:37:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByKE5+GXZzoCKf6odn8K8vpiQGmyU3karrnKBR7W3kRp6+ZlkvFly+Oy+uHF2B08fWBJBDtvHZSkp2E8Yc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbSFqqThJ4PQ9B3KkpUwS9RzfD60BS9PyhCQD7VKmpzxRTEg8l
+	HbXTHfxhf1JLFIH5dPL4reQ9rCjuXdFcDwKO+QpLQEPgaug4WChjD3dnE4/3qLrNLgYBUumfKPh
+	cBxvYhCcyhXA5XvMLGPO4Fi4g8gL6WII=
+X-Received: by 2002:a05:6512:3a8e:b0:5ba:3db3:66d6 with SMTP id
+ 2adb3069b0e04-5bb9bc3baeemr71428e87.38.1790883423882; Thu, 01 Oct 2026
+ 12:37:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+ <20261001-cv75-v5-v9-4-486cc289a4b8@ambarella.com> <20261001-attempt-savior-5d4a0eed4320@spud>
+In-Reply-To: <20261001-attempt-savior-5d4a0eed4320@spud>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 21:36:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=tsETOFvC-AdethTdrGtet5neVanj3KyyB4EtEOpJ_Gg@mail.gmail.com>
+X-Gm-Features: AclHuK8gO_d9ZPMvc-1W1f079XpNQoWfhmnQkIh3LHrwFtzhfvV51TArzhkyp58
+Message-ID: <CAD++jL=tsETOFvC-AdethTdrGtet5neVanj3KyyB4EtEOpJ_Gg@mail.gmail.com>
+Subject: Re: [PATCH v9 04/15] dt-bindings: gpio: pl061: add Ambarella CV75 variant
+To: Conor Dooley <conor@kernel.org>
+Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Michael Walle <mwalle@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+On Thu, Oct 1, 2026 at 9:23=E2=80=AFPM Conor Dooley <conor@kernel.org> wrot=
+e:
+> On Thu, Oct 01, 2026 at 08:40:53PM +0800, Long Zhao via B4 Relay wrote:
+> > From: Long Zhao <longzhao@ambarella.com>
+> >
+> > The CV75 GPIO banks sit on the AMBA PrimeCell bus but are not
+> > register-compatible with the ARM PL061. Each bank is 32-bit and 32
+> > lines, with extra mask/enable registers, so arm,pl061 must not be used
+> > as a fallback compatible.
+>
+> What has this got in common with the pl061 beyond using the PrimeCell
+> bus? Current reason for putting them together is a bit tenuous to me.
 
-Please pull a few more DT fixes for 7.3.
+It was determined in early review that this is very clearly a modified
+PL061 block. The basic registers are even named the same.
+https://lore.kernel.org/linux-arm-kernel/CAD++jLk0LoOJk=3DTXin42AL3_z_7eVVk=
+vMnYr1S8090C6A_B+dQ@mail.gmail.com/
 
-Rob
+PL061 is different and quirky and could not use gpio-mmio, while
+with these changes to gpio-regmap it can handle its pecularities
+and use a library which is a good thing on its own.
 
-
-The following changes since commit 5bb01c657ff9fc807c2c592ca18af34c4fc3bc6f:
-
-  of: fix out-of-bounds read in of_alias_scan() stem parser (2026-08-27 09:36:05 -0500)
-
-are available in the Git repository at:
-
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.3-2
-
-for you to fetch changes up to 30724547b221e0e670ddfef140fc7d816b2aaec6:
-
-  of/irq: Fix remaining refcount leaks in of_irq_init() (2026-09-30 16:09:13 -0500)
-
-----------------------------------------------------------------
-Devicetree fixes for v7.3, part 2:
-
-- Fix another case of refcount leaks in of_irq_init()
-
-- Avoid refcount leak in coreboot node check
-
-- Fix overlay handling of a root node target path
-
-- Various error path fixes in the overlay code
-
-----------------------------------------------------------------
-Abdurrahman Hussain (4):
-      of/overlay: put property on deadprops only after changeset add succeeds
-      of/overlay: only treat a positive changeset id as registered
-      of/overlay: don't leak fragment references when changeset init fails
-      of/overlay: don't create "//" paths for fragments targeting the root
-
-Wentao Liang (1):
-      of/irq: Fix remaining refcount leaks in of_irq_init()
-
-Yuho Choi (1):
-      of: Put coreboot node after compatibility check
-
- drivers/of/base.c    | 10 +++++++++-
- drivers/of/irq.c     |  2 ++
- drivers/of/overlay.c | 17 +++++++++++++----
- 3 files changed, 24 insertions(+), 5 deletions(-)
+Yours,
+Linus Walleij
