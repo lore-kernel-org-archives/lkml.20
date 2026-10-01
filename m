@@ -1,106 +1,94 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-209.mta1.migadu.com [95.215.58.209])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1724E0B86;
-	Thu,  1 Oct 2026 10:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985F44BD0F8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 10:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850550; cv=none; b=J8UvhmmtFsWGklqGXSSz5EcQyiFLTAZJ6ORWj6XU5BiSBBfA5AWy3Xvtbz79IJBTVx0GiAE+zeAljLKY+lEBtIzf3KJWH8DrYJ17f/Zc5kwZrnSMM1Q+04l3MVeKS6tbXamM9Pn2Dpz05FHdNl+esaIDiKGnhLalrZMNn0UEd5w=
+	t=1790850575; cv=none; b=ZjRYLeMWseJON8+Gl1fNWSD346UWXCFbj3VOUbhqiXIR/3s56+uhpg5th9iOPyJVSRISAk7muot6RVg5kLDy8ZRaRnTRpnntKhZMwEqtatmu2zWg8Er/ai6E/QcYhGash/ugTWEFHPEPW/RxfFrHn129jZdxjyARgBGKHEh2uhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850550; c=relaxed/simple;
-	bh=73oSwkKCYqWzzExevAPff4fr/D8xpltdYO1PZSPHRqY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AwftDkXLC/le13XYXXHhXkUrQR9dBS9RNQSuHhpqQDVbEL/Bm6vB6rY+DI4KNRsB1UqPlwCHt0B6wwiXl+qvrG6SImOKg+8xo3fe+A7pslnraTZtkvXYGND06r7PSCs2uIvluRHthaDNns0iYP3BU2zv1p1ZkliGBo2wRm3ZaW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:50044 helo=[192.168.69.116])
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1xCE2B-00000001mDp-120F;
-	Thu, 01 Oct 2026 12:29:00 +0200
-Message-ID: <8a9299bf-4b92-4df2-89e5-eb8363e361b8@norik.com>
-Date: Thu, 1 Oct 2026 12:28:58 +0200
+	s=arc-20240116; t=1790850575; c=relaxed/simple;
+	bh=j0DTB35JN7w3qoE4dsr+0qEQkdEFJWnqgYt85R35l2k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=re4htDEitJJkSS/NxG3FRTZp8Jz+AJG6+QHr/rz4gDHD6xJ84mhjJgEWTDEMH9pBP+s1Yl3CIPWlsiHxSGgNL09K2a33XSSFzaUEcgd421F+yFgGYh3G5/0RbBASR0mohlUAzYOQKuFzEKLVkoCicgk2hAgUe6O9iUQ7zklL5n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ghkUP+Kk; arc=none smtp.client-ip=95.215.58.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ghkUP+Kk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=j0DTB35JN7w3qoE4dsr+0qEQkdEFJWnqgYt85R35l2k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790850570; v=1; x=1791455370;
+ b=ghkUP+KkcZtesnf+8otH9691zX7aZk2GJagEeuvcoXlbC0dLyKP8QDUdrJL6ADlbmtlv5ps5
+ 7z3ToPgXoY/pFdy+xs3dR64TL/LEcKFaTuTYSQtbFWdP+dZhJ5rFdVS1CcmCxUeFNxUDzeBQP2i
+ C0l58il6vnNJMVYpL/jXojsY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9a1e96d489a4a683;
+	Thu, 01 Oct 2026 10:29:30 +0000
+X-Mizu-Trace-ID: 9a1e96d489a4a683
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mark.rutland@arm.com,
+	mathieu.desnoyers@efficios.com,
+	andrii@kernel.org,
+	peterz@infradead.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	kernel-team@meta.com,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [PATCH v3] tracing: fgraph: fix the quadratic shadow stack walk
+Date: Thu,  1 Oct 2026 03:29:08 -0700
+Message-ID: <20261001102909.1152572-1-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] ARM: dts: imx6: phytec-mira: phyBOARD-Mira fixes
-To: Fabio Estevam <festevam@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, upstream@lists.phytec.de
-References: <20261001081005.2209755-1-primoz.fiser@norik.com>
- <CAOMZO5Aibmm3d=9Ucro0Tqvyh_s3EozLM25axV3XxeLuG67PCg@mail.gmail.com>
-Content-Language: en-US
-From: Primoz Fiser <primoz.fiser@norik.com>
-Autocrypt: addr=primoz.fiser@norik.com; keydata=
- xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
- JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
- ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
- gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
- jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
- 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
- TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
- AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
-Organization: Norik systems d.o.o.
-In-Reply-To: <CAOMZO5Aibmm3d=9Ucro0Tqvyh_s3EozLM25axV3XxeLuG67PCg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Hi Fabio,
+alloc_retstack_tasklist() assigns a shadow stack to every thread when
+fgraph is enabled. It did so FTRACE_RETSTACK_ALLOC_SIZE (32) tasks at a
+time, and since for_each_process_thread() has no cursor, every sweep
+restarted from init_task and re-walked the tasks already served, making
+the ftrace_graph_active 0 -> 1 transition quadratic in the thread count.
+On a 60-core Sapphire Rapids machine with 400000 idle threads it took
+227 s, inside a single bpf() syscall for the kprobe_multi case.
 
-On 10/1/26 12:14, Fabio Estevam wrote:
-> Hi Primoz,
-> 
-> On Thu, Oct 1, 2026 at 5:10 AM Primoz Fiser <primoz.fiser@norik.com> wrote:
->>
->> Two small fixes for the PHYTEC phyBOARD-Mira-i.MX6 boards:
-> 
-> Shouldn't they have a Fixes tag, then?
+Allocating inline with GFP_NOWAIT removes the batching: a single sweep
+serves every task, 227 s -> 0.092 s.
 
-For patch #1 it think it is pointless because those properties didn't
-exist until aforementioned commit 888e5fad9b78 ("Input: stmpe - add axis
-inversion and swapping capability"). So it is an addition not a fix as
-commit message suggests.
+v1: https://lore.kernel.org/all/20260922225526.1554758-1-vineet.gupta@linux.dev/
+v2: https://lore.kernel.org/all/20260929005411.4105448-1-vineet.gupta@linux.dev/
 
-For patch #2 I could add:
+Changes since v2:
+ - update the stale alloc_retstack_tasklist() comment, which still
+   described the old batch-of-32 behaviour (bot+bpf-ci)
 
-Fixes: 800d595151bb ("ARM: dts: imx6: Add initial support for
-phyBOARD-Mira")
+Sashiko flagged the mix of goto-based cleanup and scoped_guard() in
+this function. Peter and Andrii both considered it fine as is, so it
+is unchanged:
+https://lore.kernel.org/all/20260929080346.GR4120091@noisy.programming.kicks-ass.net/
 
-in v3 if you want?
+Changes since v1:
+ - replace both v1 patches with Peter's inline GFP_NOWAIT approach,
+   which removes the quadratic behaviour rather than dividing it by a
+   constant. With a single sweep there is no retry loop left, so the
+   v1 cond_resched() patch has nothing to attach to and is dropped.
+ - comment why returning from inside scoped_guard() skips the free
+   loop safely
 
-BR,
-Primoz
+Vineet Gupta (1):
+  tracing: fgraph: allocate shadow stacks inline with GFP_NOWAIT
 
-
+ kernel/trace/fgraph.c | 44 ++++++++++++++++++++++++++++---------------
+ 1 file changed, 29 insertions(+), 15 deletions(-)
 
 -- 
-Primoz Fiser
-phone: +386-41-390-545
-email: primoz.fiser@norik.com
---
-Norik systems d.o.o.
-Your embedded software partner
-Slovenia, EU
-phone: +386-41-540-545
-email: info@norik.com
+2.53.0-Meta
 
