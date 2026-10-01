@@ -1,57 +1,82 @@
-Received: from mta1.migadu.com (out-149.mta1.migadu.com [95.215.58.149])
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521E14483A9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCB837A831
 	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 13:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863053; cv=none; b=qXo364Vhmjxlf79jy3G3Xzvakg2Zgr34NQ/wTuebq39a/I5Rjz08vzfG1AgAIwCVjklBvmppBJpUcGoL0msIKkWhO7j2g4fz5YFdgfTc1dsMYSBczbF0pM6qm6cXxFepYqj9UM3Yyek32CkeZckkK8iqRVnSx7uZ/FmmEPn16jE=
+	t=1790863052; cv=none; b=M4uGuR5p4JieJgbfH+l1WKx6s6KwDYwFKROdlMxLy7CYQZchNydt/jCTzVxF+LSPtwdf29kTzq6sbCBu6wp3aPZw1sAXiPdqmU6yhjY2j0YiHqqEzCy5F5C1gpCzqyDluBZ2WozPWIT9PNVVkjbZanf9bxOiahihd31sZOXx3a0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863053; c=relaxed/simple;
-	bh=71f5lCkhAVX7Yo5UfGkSN8m4VsOvx7E8BuDIeYUCNOo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ICZHsno1tEGs9n2JRzQHoCM+DeaAq/ifs0VUR6HFh/vRHJi6kShr/+rpOcIX9dvTOK6NohGNmsNGedMiC5hYX3ar2BPtbfA+q1GEvaUDSk10DATbcCiaZX6/3ze1dnlq0kveYHZqmrNlKo3uA5A2pnOd2X6KCEkD2i+avCFOL7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uUe+RAIB; arc=none smtp.client-ip=95.215.58.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790863052; c=relaxed/simple;
+	bh=HN5XavKK1xCW43JBlhHw4vxvNHH446KT/Jla66/fgrE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LOBNB1D6RddZ3UyOqk6ub/fpV6BMZdAN622hu0v49/cGra1oiPzySGOjz71N3WWdDfaJMcYmteDQPTgGF8Q6MHwGUNXrTOYohhkYz7shmbJCi11cA7mJJEe0t7qwJHjCWEaQuj1BxQ82mgLUQbppvZyskz3/I5uc5wGC2s7j/nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oqN067Rv; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uUe+RAIB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=71f5lCkhAVX7Yo5UfGkSN8m4VsOvx7E8BuDIeYUCNOo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790863045; v=1; x=1791467845;
- b=uUe+RAIB0RFs62Z0WnySsctfMTp1qiboDYZnuIA1Q/eqtIDcvIv035R2sqiKUmMRZ30KEz3H
- JN8Sx92LBCfHJlGTev3F6qGNe/Hb+t5bRKAYOHCwNlyTohopUNhfL5gJCHJGROU7zTdVMxpd2Yu
- cGltzk/4r54IpXviVL1AfoG0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da51b1dfcaceb68d;
-	Thu, 01 Oct 2026 13:57:25 +0000
-X-Mizu-Trace-ID: da51b1dfcaceb68d
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: [PATCH v4 02/18] KVM: arm64: Validate the host vCPU's VM before reading it under pKVM
-Date: Thu,  1 Oct 2026 14:56:55 +0100
-Message-Id: <20261001135711.1640520-3-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261001135711.1640520-1-fuad.tabba@linux.dev>
-References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oqN067Rv"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93ca50c8ba6so246026485a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 06:57:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790863045; x=1791467845; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1DYhRgdXSzDJVurFDLv4PHup3HFD+RVOANjvlBQkYgM=;
+        b=oqN067Rvy0IQRkHvTd751o/GJQ1IGGMAb3Umwe2jntRwXoxGlyGOwSDrdJNFfATjag
+         zCGP60rcCH4xRhZUCo6/AWArdJ2m8MukLNyspqE0+t4xqxv4RbRpNhvRsuzCNfeTeeJO
+         tEHtiXnX50v+sB5t5TWMOgAjHKHnLCJuUsbeFxuEAwzLoUrBypX7SbOnSb5FDqzHtJQx
+         xJG5CBOUhb4N4rLIfZ22yoVJ1TxrEieXoEySemNv8uONvO/QAEUyd4+tza7MsuD/+Zka
+         8w6BfOm6WQVDPy7SliUAWSKWUkQfJqOuxz2ViNvTBmx7wZiojFsRcMTEeUalGv3uDUDo
+         3SIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790863045; x=1791467845;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1DYhRgdXSzDJVurFDLv4PHup3HFD+RVOANjvlBQkYgM=;
+        b=1X7OckMLl4m/KZurjElSlx1b6O4K8oWkvwK6KIzNt9rFJwgXq5SGxavM3HRoXzaCFH
+         i2rGNDGi2ozuIfbGB6/RVqpnrMVAWzlj3nnOz+Agdx3QDE7ZIi9nxMI5kL/jU9miGhEB
+         Zyxpjdhue3oPjL8shsbB2xGYAQvsQfLRcnrSdWqVrGD4dAl/kSoOgt9t8mFXvKvIlYdO
+         9wmvl4QNSCbFO4cke48OfU0UbNYX/PGAUqlVS2bSkzt0+JDpmbIMcXh211QtipQWNJA3
+         K2vdVpx4T5p6/R1ziyjbrvKMhwCbze+h137wqgmT5qBEDjbYyA59XIl9U9b48aNZSrz7
+         qXrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwPPLRVD7PL3v7M4HfaQBgywhwquHgIe1uXyDRRO2tpxfAQZsILDqvHACies6N1ew/eFtSkiwUXaBhqVOk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRj/xwHPqwxWrm49eaHRUE6j3mDIWPtfW6XKHqbo14dmlOOHWG
+	aICbiNvtc+z2sp4DxZB8tV9wiUsgAICpAmQKoABThT2HiX/66z9vzUtb
+X-Gm-Gg: AYBFou1+igUeRFxAuSGQ7G8IOfoj9Ge6JAaKk2eQHB70cU789LyzUa900K6gCvvje7m
+	o4GLrKEuxTumN4UhGG4Iwe4Gp3tpkdWGPn9m0muPg1rZDCvAJ3iWlgJEOuDGLfKf84zFslJ3zF5
+	Tu5QtuS0BPCrziWce1CIIAY8vcEacCQvPLeYsB0JFNxjmoEFscu4YHG6SLcC3kLJz+dwHgYBw5P
+	jo3JY1oVRvVTUps0SUUt6zTplu/2z7I4abX8+re4oa9fSH8ARw6svIws6zWYhJeiricLv9yGNZi
+	aas4bO83cVgwpsv1O+GQnU9bAlpFyxvzoCwPEOKETsrqk8w3G++xl6IGT9bXvGWE4NqY7qwp+fu
+	l6s03wn0eDqHyelYrR7Uv9mEpYV7Jo4khDNM+XYyWU/SQiIrC6Dpwd2kpcOHnRUH7d7/bY/dMSb
+	Z/uSwihdUoYcc4kz3SBtO7spGfToYnCmEGgCUHZzPJD7QeYWI8YEhA0L+nqV4ACGOQP18mRROzP
+	zjKbiOkP0feFBL+ZMdWB9XMYLrP78/OBeWnaSMYLlJt79qoqu2lccmGlvX+vMZwIYjRxoxa/KTC
+	rTfwGeF9
+X-Received: by 2002:a05:620a:2550:b0:93c:3d7e:6e90 with SMTP id af79cd13be357-93ca96e9ddemr839989885a.32.1790863043915;
+        Thu, 01 Oct 2026 06:57:23 -0700 (PDT)
+Received: from security.cs.northwestern.edu (security.cs.northwestern.edu. [165.124.184.136])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917a89a52d2sm26940176d6.14.2026.10.01.06.57.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 06:57:23 -0700 (PDT)
+From: Ziyi Guo <guoziyi114@gmail.com>
+To: palmer@dabbelt.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	samitolvanen@google.com
+Cc: wangruikang@iscas.ac.cn,
+	debug@rivosinc.com,
+	conor.dooley@microchip.com,
+	namcao@linutronix.de,
+	zong.li@sifive.com,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ziyi Guo <guoziyi114@gmail.com>
+Subject: [PATCH] riscv: entry: gate shadow call stack reload on sstatus.SPP, not tp
+Date: Thu,  1 Oct 2026 13:57:11 +0000
+Message-Id: <20261001135711.934152-1-guoziyi114@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,154 +85,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On an MTE-capable host under pKVM, enter_exception64() reads the VM's
-MTE flag through vcpu->kvm, which for a host vCPU is a host-writable
-pointer nothing validates. The host can point it at any address in the
-hyp linear map and read back bit 1 of that word through PSR_TCO in the
-vCPU's CPSR, or panic the hypervisor with an unmapped one.
+Under CONFIG_SHADOW_CALL_STACK, handle_exception() reloads the kernel
+shadow call stack pointer (gp) only when the trap came from userspace.
+It made that decision with scs_load_current_if_task_changed, which
+compares the trap-time tp (read back from sscratch into s5) against the
+current tp:
 
-Get the VM through a get/put pair around the read: a loaded vCPU's is
-the hyp VM, an unloaded host vCPU's is read once and pinned, and a
-pointer the host never shared leaves TCO clear.
+	beq	\prev, tp, _skip_scs
+	scs_load_current
+_skip_scs:
 
-Fixes: ea7fc1bb1cd1b ("KVM: arm64: Introduce MTE VM feature")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260914070536.877D91F000FF@smtp.kernel.org/
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+tp is a user-writable register.  A user task that sets tp to the
+linear-map address of its own task_struct (&current) before trapping
+makes the comparison succeed (can achieve by brute force with KASLR 
+enable under our test), so the kernel skips scs_load_current and
+keeps running with the gp that userspace left in place.  Under
+CONFIG_SHADOW_CALL_STACK gp is the shadow call stack pointer and
+load_global_pointer is a no-op, so the compiler-emitted
+"sd ra, -8(gp)" / "ld ra, -8(gp)" in every non-leaf function then write
+to, and return through, an attacker-controlled address -- an
+unprivileged kernel arbitrary-write and control-flow-hijack primitive.
+The poisoned gp is saved to task_struct.scs_sp on return, so the reload
+is skipped on every subsequent entry as well.
+
+Decide "came from userspace" from the hardware sstatus.SPP bit (already
+in s1 at this point) instead of from tp, mirroring the check that
+ret_from_exception already uses a few instructions later.  SPP is
+written by hardware on trap entry and cannot be forged from U-mode.
+Legitimate behaviour is unchanged: user entries (SPP=0) reload the task
+shadow call stack, nested kernel entries (SPP=1) skip it.
+
+Fixes: d1584d791a29 ("riscv: Implement Shadow Call Stack")
+Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
 ---
- arch/arm64/kvm/hyp/exception.c             |  5 ++-
- arch/arm64/kvm/hyp/include/hyp/adjust_pc.h | 28 ++++++++++++++++
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h     |  2 ++
- arch/arm64/kvm/hyp/nvhe/pkvm.c             | 37 ++++++++++++++++++++++
- 4 files changed, 71 insertions(+), 1 deletion(-)
+ arch/riscv/include/asm/scs.h | 17 +++++++++++++----
+ arch/riscv/kernel/entry.S    |  2 +-
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm64/kvm/hyp/exception.c b/arch/arm64/kvm/hyp/exception.c
-index 754e2dc1df54a..6e60d890afa4a 100644
---- a/arch/arm64/kvm/hyp/exception.c
-+++ b/arch/arm64/kvm/hyp/exception.c
-@@ -70,6 +70,7 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
- 			      enum exception_type type)
- {
- 	unsigned long sctlr, vbar, old, new, mode;
-+	struct kvm *kvm;
- 	u64 exc_offset;
+diff --git a/arch/riscv/include/asm/scs.h b/arch/riscv/include/asm/scs.h
+index 023a412fe38d..49e40eef4ed7 100644
+--- a/arch/riscv/include/asm/scs.h
++++ b/arch/riscv/include/asm/scs.h
+@@ -4,6 +4,7 @@
  
- 	mode = *vcpu_cpsr(vcpu) & (PSR_MODE_MASK | PSR_MODE32_BIT);
-@@ -109,8 +110,10 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
- 	new |= (old & PSR_C_BIT);
- 	new |= (old & PSR_V_BIT);
+ #ifdef __ASSEMBLER__
+ #include <asm/asm-offsets.h>
++#include <asm/csr.h>
  
--	if (kvm_has_mte(kern_hyp_va(vcpu->kvm)))
-+	kvm = vcpu_get_kvm(vcpu);
-+	if (kvm && kvm_has_mte(kvm))
- 		new |= PSR_TCO_BIT;
-+	vcpu_put_kvm(vcpu, kvm);
+ #ifdef CONFIG_SHADOW_CALL_STACK
  
- 	new |= (old & PSR_DIT_BIT);
+@@ -22,9 +23,17 @@
+ 	REG_L	gp, TASK_TI_SCS_SP(tp)
+ .endm
  
-diff --git a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-index 4fdfeabefeb43..f55950ee2a7e4 100644
---- a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-+++ b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-@@ -13,6 +13,34 @@
- #include <asm/kvm_emulate.h>
- #include <asm/kvm_host.h>
- 
-+#ifdef __KVM_NVHE_HYPERVISOR__
-+#include <nvhe/pkvm.h>
-+
-+/* Under pKVM a host vCPU's ->kvm is host-writable. */
-+static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	if (is_protected_kvm_enabled())
-+		return pkvm_vcpu_get_kvm(vcpu);
-+
-+	return kern_hyp_va(vcpu->kvm);
-+}
-+
-+static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+	if (is_protected_kvm_enabled())
-+		pkvm_vcpu_put_kvm(vcpu, kvm);
-+}
-+#else
-+static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	return vcpu->kvm;
-+}
-+
-+static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+}
-+#endif
-+
- static inline void kvm_skip_instr(struct kvm_vcpu *vcpu)
- {
- 	if (vcpu_mode_is_32bit(vcpu)) {
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-index c904647d2f760..5ddb407149667 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-@@ -83,6 +83,8 @@ struct pkvm_hyp_vcpu *pkvm_load_hyp_vcpu(pkvm_handle_t handle,
- 					 unsigned int vcpu_idx);
- void pkvm_put_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
- struct pkvm_hyp_vcpu *pkvm_get_loaded_hyp_vcpu(void);
-+struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu);
-+void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm);
- 
- struct pkvm_hyp_vm *get_pkvm_hyp_vm(pkvm_handle_t handle);
- struct pkvm_hyp_vm *get_np_pkvm_hyp_vm(pkvm_handle_t handle);
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index 459bd9eb7e4bc..0e90de74778cf 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -304,6 +304,43 @@ struct pkvm_hyp_vcpu *pkvm_get_loaded_hyp_vcpu(void)
- 
- }
- 
-+static struct pkvm_hyp_vm *pkvm_get_loaded_hyp_vm(struct kvm_vcpu *vcpu)
-+{
-+	struct pkvm_hyp_vcpu *hyp_vcpu = pkvm_get_loaded_hyp_vcpu();
-+
-+	if (hyp_vcpu &&
-+	    (vcpu == &hyp_vcpu->vcpu || vcpu == hyp_vcpu->host_vcpu))
-+		return pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
-+
-+	return NULL;
-+}
-+
+-/* Load task_scs_sp(current) to gp, but only if tp has changed. */
+-.macro scs_load_current_if_task_changed prev
+-	beq	\prev, tp, _skip_scs
 +/*
-+ * A loaded vCPU's VM is the hyp VM. An unloaded host vCPU's is mapped at
-+ * EL2 only while pinned, so it's read once and pinned; the pin fails for
-+ * memory the host isn't sharing.
++ * Load task_scs_sp(current) to gp, but only when the trap came from U-mode.
++ * The source privilege level is taken from the saved sstatus.SPP bit (written
++ * by hardware on trap entry), not by comparing tp.  tp is a user-writable
++ * register, so gating the shadow call stack reload on it let a user task that
++ * set tp == &current skip the reload and run the kernel with an attacker
++ * controlled gp (the shadow call stack pointer).
 + */
-+struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	struct pkvm_hyp_vm *hyp_vm = pkvm_get_loaded_hyp_vm(vcpu);
-+	struct kvm *kvm;
-+
-+	if (hyp_vm)
-+		return &hyp_vm->kvm;
-+
-+	kvm = kern_hyp_va(READ_ONCE(vcpu->kvm));
-+	if (hyp_pin_shared_mem(kvm, kvm + 1))
-+		return NULL;
-+
-+	return kvm;
-+}
-+
-+void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+	if (kvm && !pkvm_get_loaded_hyp_vm(vcpu))
-+		hyp_unpin_shared_mem(kvm, kvm + 1);
-+}
-+
- struct pkvm_hyp_vm *get_pkvm_hyp_vm(pkvm_handle_t handle)
- {
- 	struct pkvm_hyp_vm *hyp_vm;
++.macro scs_load_current_if_from_user status, tmp
++	andi	\tmp, \status, SR_SPP
++	bnez	\tmp, _skip_scs
+ 	scs_load_current
+ _skip_scs:
+ .endm
+@@ -42,7 +51,7 @@
+ .endm
+ .macro scs_load_current
+ .endm
+-.macro scs_load_current_if_task_changed prev
++.macro scs_load_current_if_from_user status, tmp
+ .endm
+ .macro scs_save_current
+ .endm
+diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
+index d799c4e56f80..61b7a7716697 100644
+--- a/arch/riscv/kernel/entry.S
++++ b/arch/riscv/kernel/entry.S
+@@ -208,7 +208,7 @@ SYM_CODE_START(handle_exception)
+ 	load_global_pointer
+ 
+ 	/* Load the kernel shadow call stack pointer if coming from userspace */
+-	scs_load_current_if_task_changed s5
++	scs_load_current_if_from_user s1, s5
+ 
+ #ifdef CONFIG_RISCV_ISA_V_PREEMPTIVE
+ 	move a0, sp
 -- 
-2.39.5
+2.34.1
 
