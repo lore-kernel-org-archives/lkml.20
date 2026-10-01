@@ -1,37 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380FC46A60A;
-	Thu,  1 Oct 2026 21:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64A403B5E15;
+	Thu,  1 Oct 2026 21:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889418; cv=none; b=IyUfz8RRA2wo1MnM2Tful4h2BfXwUpT2TnQViQ6nW5NghRBOmY3wT5E9cKfMr//4/eMbPkaR0aCTGY4OEDynOcxnZolMM73LuI4Xvco6CVoK7aP6/dYkSxHVd1+2PtPmtnmTFdk+hPmCHaMML5/5uFMsndpQwpIDlkKiz+u81sY=
+	t=1790889488; cv=none; b=XZY54x1DGzfXi+u2ySyRkMgE3YW0U3Ys7t4cRPScp5qTTixZO/KjlUlmXoehJpmGsxs6EzrwpxjETBj18n8PsJFBtuP3BwGvg3T+V52bidFCIc1D1eEtY2p2MAt6mgrQ+Q5rjVwsQl6VGBtdVjSG/TUIqTGJ4Aj0UPS63SxXtMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889418; c=relaxed/simple;
-	bh=JOlqp6Cy2f7dgy9WstV9kdwykzFIe+8amE5T46/T7XY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nKRNnljQJXp1/ItN9bHeknzqvy3SsO5MX6BqDf9x1SxwPCA8gu5yM1CN8tZY5ED65QQHBWLfAkZAc4aTS9pBfVFNZ3iqA0lSwpdKtPqI/W9TY2TQlp9AKLTD68zsJa8lrKPieVdxPoG9ecZHof/vdrUcq6weUTNcysTY6cp+M1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHdc2Zlr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790889488; c=relaxed/simple;
+	bh=elVZHf3wDmPU0tfGL4EH9o7DXhEwI7HvqsyNCh92HrY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=N5wHGccWiCj+rhRWjkQAmRiD6kFh1AIdPZTauyTz3Kz+EhWHIvDvvs2EolWORdvpmhQPhrQ+RAKPgnngjQNffw870Wy5bqEnQFbJ9Ga+4SBuZkgrCNiBQrVAmVbq0oFwH+uaFqRCSxxC8SUTy116/4g2tyRfpGd28npG4JTNXX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m3xOepUI; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHdc2Zlr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 11EDEC2BCC7;
-	Thu,  1 Oct 2026 21:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790889416;
-	bh=JOlqp6Cy2f7dgy9WstV9kdwykzFIe+8amE5T46/T7XY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=nHdc2ZlrY8JXDXc2vRiTOYJZewIyVGBt6xj0s/nwFavr0BELRpSO0/Dw63GKtfIQi
-	 HoMNLo20T94Ys0yK/gXRPmM5FyXoTh3BdedUDAoHFLsgCTIBX8wdm/AX48r2kfPB+n
-	 ancSaTmC4nGCH4+Lu5aGn7kj/U75RTgtqSxdmJuISAGE1GbrT+wTCTyIP9hn/MxPC7
-	 Vd378KuUPaJAFWbM57nx/IpXbfS+ZuR7KygnGNW9CQ9IOV21327ZgV9EBDxipVbkgc
-	 wX5QMq9CalJTRFsM2fvmtz8i+oBCvTXGCx5QhSyosytbpV9xitBSUtP195j4PJng/c
-	 m3jw7KlR2wOWw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC0DCCA5FD2;
-	Thu,  1 Oct 2026 21:16:55 +0000 (UTC)
-From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Date: Thu, 01 Oct 2026 23:16:31 +0200
-Subject: [PATCH net v2] vsock/bpf: release sock lock while waiting for data
- in recvmsg
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m3xOepUI"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 35AA1497;
+	Thu,  1 Oct 2026 14:18:03 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9EBB83F86F;
+	Thu,  1 Oct 2026 14:18:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790889486; bh=elVZHf3wDmPU0tfGL4EH9o7DXhEwI7HvqsyNCh92HrY=;
+	h=From:Subject:Date:To:Cc:From;
+	b=m3xOepUIC8hdRxYywAiIF5vtRDekYWf/7c295Zg1wqeeeoAppiDD6ypWp0sWJe+df
+	 QIMr1y0GfX5MbVVohQrIm7xQL2sle2zYASnzUEvqQKa8tNSMNqLvrpGMiPOO3nyzKn
+	 YX0sgY3UT15ctZ5mpfB8OkFrpxs+NO5yzCV5SVsE=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v9 0/4] kselftest: mm: fix some failure of
+ split_huge_page_test
+Date: Thu, 01 Oct 2026 22:17:50 +0100
+Message-Id: <20261001-fix_split-v9-0-0f4ba8bbdbdf@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,206 +37,143 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCQBAEv7L02YGZSQjoV8RDEidmFFbZTRYh5
- O+ueqxuqjZkS24Zp7AhWfHsz1hBDgHj3MebkV8rQ1k7YRZ6DHNDQqxKk7+pKFkzSatH7lrpUb1
- Xsvr8mmdEW0JRXP57Xoe7jcs3iH3/AI5QqDF9AAAA
-X-Change-ID: 20261001-kbh3-1-022-fix-v2-e3f14290641a
-To: Stefano Garzarella <sgarzare@redhat.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
- Bobby Eshleman <bobby.eshleman@bytedance.com>
-Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Michal Luczaj <mhal@rbox.co>, stable@vger.kernel.org, 
- Jerome Mohm <jrmmhm.kernel@eldare.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790889414; l=6591;
- i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=YvTTC+RU/Ym1bKqgzQ3IfPdzTa169kmvcqEE9p94f/U=;
- b=CbqSqTZQSQB1j9Ic2qSu4ImstdiiTZ8FbKwO5N3DKsTQCUwDC6vjzO2uQ735OWUzjXlEDyY5b
- iVFVupzJPnuBXzJPBSX1rf9M02xPxsgmwnGLx4izONlMWJ9pY2WAiZ3
-X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
- pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
-X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
- auth_id=1075
-X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Reply-To: jrmmhm.kernel@eldare.de
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAP7NvmoC/23QQW7DIBAF0KtErOtqGAYzZNV7VFEFGDdITRxBZ
+ KWKfPfibIKjLj/w/oy4ixJzikXsd3eR45xKms412LedCEd3/o5dGmoWCNgDI3Rjun2Vy0+6diO
+ RVTYGIs+ivr/kWC8fXZ+Hmo+pXKf8+6ie5Xr6X8ssO+icJwVBczBh/HD59B6mk1g7ZtU6bp2qT
+ hkCRM29I7919HQWsHVUHesRlAU9Gi+3TrfOtE6vDtGzBNLsw9b1jZPUur462cfBSFQM8LKnaRz
+ K1pnqBtQxWCulti//wq3bzOPqgndGaTswo3u6ZVn+AFmT7f3wAQAA
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+ Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4504; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=elVZHf3wDmPU0tfGL4EH9o7DXhEwI7HvqsyNCh92HrY=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqvs4J9kNPaSxDmOGK6cAuegoeJSlB/nC6jvHsp
+ 92wNFXht1OJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCar7OCQAKCRBt1cPRWsUx
+ M1JfC/sFJzOYGspJBLB/MTgJIVH2alzwBjlzkrTRTPo4Zh0NKFh/Nx66ovKfSxWpLsll9rhdbFL
+ i2e2ZA5IJbS57pbkyea0YnCXEwF4jQ1/K+CZf+jdzNZrZntfzLBdzx98s8m3+01437QXeyvYama
+ BsnN9PNwvB6e+hs+q3XaLkw5YUP9e7izGSGOBSxE+luNEXaz3bBLrYx9cuGInQ8ptiAaTJ4yHEr
+ FEE7vDFaQIJt5EJOXJ3uwmdzrM2F3Mzxx6R+rH+VOGLwu3VoJwhaViBAtbFV7KES6yvBzg7CsGb
+ 0U2hro+rZVBHL5CqEl6P059jEzIeV3kx4/0KDH6DKdpC8RvjlG59u5EjQgTZUmBeHIIU20G/kPr
+ JkrND+KuRU+OOne1rp7qs5Ns4lJ/uIvjxwwJgSwrmxLYVApNM7WG4f8Q4Uzrvsc8Vmo9Ob4RKRh
+ k/ruWgOh5dFPivdwV25w/qHVHEQXTrgGmKw+nXduP/S3VOA/JGy6Q471pC1YdiwBuuvO0=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+split_huge_page_test can fail for the following reasons:
 
-vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the receive
-loop, including vsock_msg_wait_data(), which slept in wait_woken() without
-dropping the lock. When data arrived the transport's delivery context (the
-vsock-loopback worker, or the virtio/vhost rx path) called
-virtio_transport_recv_pkt() -> lock_sock() on the same socket and blocked,
-so neither side made progress and a blocking recv() hung; the hung-task
-watchdog reported the delivery worker in D state.
+  1. During the test, khugepaged may collapse previously split pages again,
+     causing intermittent failures.
 
-Dropping the socket lock around the wait is necessary but not sufficient:
-vsock_msg_wait_data() also did not loop and checked too few conditions,
-which left three further problems in the same helper.
+  2. Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+     glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+     made by memalign(). The underlying VMA may start at a different address
+     from the aligned address returned by memalign(). Moreover, a subsequent
+     madvise(MADV_HUGEPAGE) call does not split the VMA because it already
+     has the same advice.
 
- - It did not loop. Once the lock is dropped, a wakeup that is not for new
-   data (for example a credit update via sk_write_space()) made the helper
-   return with nothing queued, so a blocking recv() returned -EAGAIN
-   prematurely instead of waiting for data.
+     This causes the test to fail because the check_huge_xxx() helpers
+     incorrectly require the address returned by memalign() to match the
+     VMA start address reported in /proc/self/smaps.
 
- - It checked only sk->sk_shutdown & RCV_SHUTDOWN, not sk->sk_err or
-   vsk->peer_shutdown & SEND_SHUTDOWN. Once the peer shut down for send or
-   the socket errored (for example a reset), recv() did not notice and kept
-   waiting instead of returning 0 or the error.
+Address these issues by applying MADV_NOHUGEPAGE after faulting in the
+huge page, preventing khugepaged from collapsing it again, and instead of
+relying on /proc/self/smaps, use /proc/self/pagemap and
+/proc/kpageflags to detect huge-page mappings and large folios:
 
- - vsock_bpf_recvmsg() had no "if (!len) return 0;" guard, so a
-   zero-length recv() with data queued never satisfied the loop's
-   copied == 0 exit and spun holding lock_sock(), which wedges the delivery
-   worker and stalls all rx on the transport.
+  1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+     using check_large_folios(), since only the mapping type matters.
+     This identifies PMD-mapped huge pages.
+  2. Otherwise, use check_large_folios() to detect large folios. This
+     covers mTHP cases.
+  3. Check the folio flags according to the type of huge page.
 
-Rewrite vsock_msg_wait_data() to loop: return the data when it is ready, 0
-on RCV_SHUTDOWN or peer SEND_SHUTDOWN, the negative socket error on sk_err,
--EAGAIN on timeout and the signal error on a pending signal, releasing the
-socket lock around the wait and re-acquiring it before re-checking. Add the
-len == 0 guard to vsock_bpf_recvmsg(), and route MSG_ERRQUEUE to the native
-path before that guard so a zero-length error-queue read is not swallowed,
-as tcp_bpf does. The exit conditions follow vsock_connectible_wait_data();
-dropping the lock across the wait matches unix_bpf (u->iolock) and tcp_bpf
-(sk_wait_event()).
+Since check_huge_shmem() was required to distinguish shmem huge pages
+because /proc/self/smaps reports them using a dedicated “ShmemPmdMapped”
+entry, as opposed to “FilePmdMapped” for file-backed huge pages.
 
-Testing: built a fuzz kernel (KASAN + lockdep) on the net tree
-(v7.3-rc4) and ran reproducers over the loopback transport on a private
-VM, each before and after the fix. Before: a blocking recv() on a
-sockmap socket deadlocks the vsock delivery worker (hung-task); and with
-only the lock dropped, a spurious credit-update wakeup returns -EAGAIN,
-a peer SEND_SHUTDOWN returns -EAGAIN instead of 0, a zero-length recv()
-with queued data never returns and wedges the delivery worker (hung-
-task), and a len == 0 MSG_ERRQUEUE read returns 0 instead of reaching
-the error queue. After: recv() returns the data, ignores the spurious
-wakeup and returns the real byte, returns 0 on peer shutdown, returns 0
-for len == 0, and routes MSG_ERRQUEUE to the error-queue handler; no
-KASAN or lockdep report.
+Now that /proc/self/smaps is no longer used to detect huge pages and
+/proc/kpageflags is used instead, it is sufficient to distinguish
+ between file-backed and anonymous pages since the ShmemPmdMapped is also
+kind of file-backed.
 
-Fixes: 634f1a7110b4 ("vsock: support sockmap")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
----
-Changes since v1 [1] (netdev review by the Sashiko bot):
-- v1 only released the socket lock around the wait. v2 additionally makes
-  vsock_msg_wait_data() loop (no premature -EAGAIN on a dataless wakeup),
-  checks sk_err and the peer SEND_SHUTDOWN as well as RCV_SHUTDOWN (correct
-  EOF/error on peer shutdown or reset), and adds the len == 0 guard to
-  vsock_bpf_recvmsg() plus an MSG_ERRQUEUE route ahead of it (no spin on a
-  zero-length recv; an error-queue read is not swallowed).
-- Garzarella's Acked-by on v1 is intentionally dropped: v2 is a materially
-  larger change and needs a fresh review.
+Therefore, remove check_huge_shmem() and use check_huge_file() instead.
 
-[1] https://lore.kernel.org/netdev/20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de/
----
- net/vmw_vsock/vsock_bpf.c | 59 ++++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 45 insertions(+), 14 deletions(-)
-
-diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-index 9049d2648646..127a20429aa6 100644
---- a/net/vmw_vsock/vsock_bpf.c
-+++ b/net/vmw_vsock/vsock_bpf.c
-@@ -34,24 +34,46 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
- 	return vsock_sk_has_data(sk, psock);
- }
- 
--static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
-+/* Returns 1 if data is ready, 0 on EOF/shutdown, or a negative error. */
-+static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
- {
--	bool ret;
-+	struct vsock_sock *vsk = vsock_sk(sk);
-+	int ret;
- 
- 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
- 
--	if (sk->sk_shutdown & RCV_SHUTDOWN)
--		return true;
--
--	if (!timeo)
--		return false;
--
- 	add_wait_queue(sk_sleep(sk), &wait);
- 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
--	ret = vsock_has_data(sk, psock);
--	if (!ret) {
--		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
--		ret = vsock_has_data(sk, psock);
-+	while (1) {
-+		if (vsock_has_data(sk, psock)) {
-+			ret = 1;
-+			break;
-+		}
-+
-+		if (sk->sk_err) {
-+			ret = -sk->sk_err;
-+			break;
-+		}
-+
-+		if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
-+		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
-+			ret = 0;
-+			break;
-+		}
-+
-+		if (!timeo) {
-+			ret = -EAGAIN;
-+			break;
-+		}
-+
-+		release_sock(sk);
-+		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
-+		lock_sock(sk);
-+
-+		if (signal_pending(current)) {
-+			ret = sock_intr_errno(timeo);
-+			break;
-+		}
- 	}
- 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
- 	remove_wait_queue(sk_sleep(sk), &wait);
-@@ -80,6 +102,12 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	struct vsock_sock *vsk;
- 	int copied;
- 
-+	if (unlikely(flags & MSG_ERRQUEUE))
-+		return __vsock_recvmsg(sk, msg, len, flags);
-+
-+	if (!len)
-+		return 0;
-+
- 	psock = sk_psock_get(sk);
- 	if (unlikely(!psock))
- 		return __vsock_recvmsg(sk, msg, len, flags);
-@@ -101,11 +129,14 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
- 	while (copied == 0) {
- 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
-+		int data = vsock_msg_wait_data(sk, psock, timeo);
- 
--		if (!vsock_msg_wait_data(sk, psock, timeo)) {
--			copied = -EAGAIN;
-+		if (data < 0) {
-+			copied = data;
- 			break;
- 		}
-+		if (!data)
-+			break;
- 
- 		if (sk_psock_queue_empty(psock)) {
- 			release_sock(sk);
+This patch based on mm-unstable
 
 ---
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20261001-kbh3-1-022-fix-v2-e3f14290641a
+Changes in v9:
+  - fix some typos in comment and Fixes tag.
+  - separating huge and type checking.
+  - add r-b tags.
+  - Link to v8: https://lore.kernel.org/r/20260924-fix_split-v8-0-cba7359d882a@arm.com
+
+Changes in v8:
+  - add intermediate patch for __check_pmd_huge().
+  - add r-b, a-b tags.
+  - Link to v7: https://lore.kernel.org/r/20260921-fix_split-v7-0-d25ec991159f@arm.com
+
+Changes in v7:
+  - change khugepaged's check_huge() callback.
+  - Link to v6: https://lore.kernel.org/r/20260914-fix_split-v6-0-16ed7123800b@arm.com
+
+Changes in v6:
+  - drop alloc_isolated_mem() patch.
+  - remove check_huge_shmem().
+  - Link to v5: https://lore.kernel.org/r/20260907-fix_split-v5-0-822b810458bc@arm.com
+
+Changes in v5:
+  - rename madv_nohuge() to disable_khugepaged().
+  - Link to v4: https://lore.kernel.org/r/20260902-fix_split-v4-0-85f03905f7b1@arm.com
+
+Changes in v4:
+  - reparse commit message.
+  - introduce alloc_isolated_mem().
+  - make madv_nohuge() helper according to suggestion.
+  - Link to v3: https://lore.kernel.org/r/20260828-fix_split-v3-0-374022586a4b@arm.com
+
+Changes in v3:
+  - change  message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix collapse_single_mthp (mthp_khugepaged:anon) test case failure.
+  - Link to v2: https://lore.kernel.org/all/20260826-fix_split-v2-0-71153c7f579a@arm.com/
+
+Changes in v2:
+  - rebase to mm-unstable.
+  - add message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix wrong setup expected_huge in check_huge_shmem().
+  - Link to v1: https://lore.kernel.org/r/20260820-fix_split-v1-0-ab430c58c7cf@arm.com
+
+---
+Yeoreum Yun (4):
+      kselftest: mm: prevent random failure of huge page split for khugepaged
+      kselftest: mm: replace usage of /proc/self/smaps for __check_pmd_huge()
+      kselftest: mm: integrate huge page checks
+      kselftest: mm: remove check_huge_shmem()
+
+ tools/testing/selftests/mm/folio_split_race_test.c |   2 +-
+ tools/testing/selftests/mm/khugepaged.c            |  38 ++-----
+ tools/testing/selftests/mm/split_huge_page_test.c  |  16 +++
+ tools/testing/selftests/mm/uffd-common.c           |   4 +-
+ tools/testing/selftests/mm/vm_util.c               | 113 ++++++++++++++-------
+ tools/testing/selftests/mm/vm_util.h               |   1 -
+ 6 files changed, 100 insertions(+), 74 deletions(-)
+---
+base-commit: e8d0f6a1b2a447d02845984fa6288787543cb03c
+change-id: 20260820-fix_split-f44939ec44b8
 
 Best regards,
---  
-Jerome Mohm <jrmmhm.kernel@eldare.de>
-
+-- 
+Sincerely,
+Yeoreum Yun
 
