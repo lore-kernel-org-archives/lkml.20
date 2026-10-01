@@ -1,102 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D013BC664
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D593E168C
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:32:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839867; cv=none; b=Gfq9tog5JMxImdr83jeSJP5hY3PNBP2HMmc5n02ujEGoCrWCFDflU76avwMcbKnrJ0GSEZhcRMrrsT2IJ94yF0QGg5Lg2BnpbJRPgTElS0/sIJCRYIWdGp27gZtlKJAhIOEPHY/CJR5tX4ivaIvSqnWf7OieNhn/JuPq7FzzFLw=
+	t=1790839933; cv=none; b=Er9IFYQ/fgAKd5j7K6jT2gE6BGIF0TcgFbLHUmk8aS55dORc9hl2no9st0QU4hBSmhTrpwHoZjl3rLP5AVWpl4sOFO/C9DXSWHUHad5RYNPC5rXEKiGpmGCFYh8sBbWT2Y0t0ww7f9oBVuoyz+Rp6MRMUYTZPmknBiZqGrqcGTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839867; c=relaxed/simple;
-	bh=7n4ZA/xYyMniwHGliLaK8FHlgywkD9r7KnUFP53t6Go=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SgZrFFN9fr8nm6obNu+C6GxR5Vm+M5559K4ZeXDbPXoZcQqKqv/fORUQbTkETTEI8jQU6iCBqw9WPQdALelFMfTR9JuGlf3aQ0d7A1YwgOQRanz2CXM+/lm9PR8w9gGV5bReLCpskySNF+RiFTcjP69+Xx99XSxmtwup0zNwBJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=olLM1V6Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790839933; c=relaxed/simple;
+	bh=ELdBCMU5f7/O4ZMIta9o4UVKjIIZnw/X5SSJeT3GM90=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h5SUp0WZcd3v4o0+U/VSTiyCCun2xyq/nSiqoik6rOgfAgporEU46k3d9pBB9WY5CGUJ2skupQmOIX+YO4IlT7EFGURDVqFGPPuxqNTkrlQuW9XDp7cRLeEEbcssutpmzqySObfWPAl0H5a8ElVibm2aHbJ2Vu3jTgFyNtkrIig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m9ED6Xoy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="olLM1V6Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D61491F0089A
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:31:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m9ED6Xoy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1B5A1F008A5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 07:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790839865;
-	bh=7n4ZA/xYyMniwHGliLaK8FHlgywkD9r7KnUFP53t6Go=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=olLM1V6ZaHOiESnj4TnYewEHncHyQ3RtXTJ3SYZvPtCqYgwszpWhwZWPbaaYxdjEP
-	 4VrwH2dQ0tcq7fjAUytnUhl2R8hrd0Uj0j3nnNvUTz/v9h2Lwfatx6jueZEHisEH2t
-	 ZeIX98maYWHhWtRkuXuEWrN8k7r9HN4+Q4qqx55m3md55wJkDfQlw3mtE652jTLg5P
-	 4fr6RaLKoecE5La1W+sNb+5VQVA+2fMOA0x6JyL45lIHQ5gpxoCyL3G3ejEZCACbNn
-	 iRYWsp0FJfDDwMoaBhVofzmhN4QiMcjumfv0MhZCV1OnTDsG3aSVGtZw6VkCqpATz1
-	 pvdre1ngRlPrQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a3156692c6so49789741fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:31:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy26nlppcEhuHnn1AcRC7A9yi5XUCucDdSTavt8rHm+EiSwgwxyKmyNw8+zgMwpdzNRuNxBoMon/bzPeUw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhgsMSy1XGvWDNiXg0yhW3Erc/RFgvR6bt+FMCBlJCctm/P83v
-	9yXxWe8TmsZX2XXG5/nJAKXXIdpC8kLx8S2tg5N1+Rj4EF8gh7o0KKjm7L7H+5Nmy08+xX8qJmG
-	/JHGYkt7RJZZKd0EdDkhLmKyQM2+b7m4=
-X-Received: by 2002:a2e:bc14:0:b0:3a7:82cf:1784 with SMTP id
- 38308e7fff4ca-3a782cf187fmr6070701fa.2.1790839864539; Thu, 01 Oct 2026
- 00:31:04 -0700 (PDT)
+	s=k20260515; t=1790839930;
+	bh=ELdBCMU5f7/O4ZMIta9o4UVKjIIZnw/X5SSJeT3GM90=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=m9ED6XoyFU6f6NSxPdVX7ZgGtbARjsD/CvfZD8tuhOkiZ6dKnPRKSRSktb3gLidmc
+	 VPbCeYi2IKHwWOv9a94mqT6hb1QyGGIuQBER4nXjiOTZRozsX037c2spwbLmYAMdft
+	 hSocy81uy0QFI/ZtDOvX28+07QuujnXHssLX3bpIUqE7ULrFoS3pV03E333y7RCNzK
+	 HsH5YwqLVDE8Ag8eULAvrQkln7YBVbnRdOZn5XnVa80W1ViRxENJZnXfTYVrjFagcy
+	 G3vUUO2AFJbwfAf2/N1XRAUG8lpRgJF09f4ryfCh5u+wg5DjSHuu95Tq7PJHOpKRZi
+	 qrKAsvE+hguKQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5bb5d3229d1so115356e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 00:32:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx3armYa2V0JUuMeH76jn5IR+JrqzJlloA8eqdJPsSLu2O83BBE53H6K1b6AtVMmPXiNQkkV4o7qmlVDA4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLK6W5XNpuqb44KAhW0u30ovwDfkyPAColteps3ugWEYkqyOGdl
+	mNdQOQM53mdyFkktcK9SOTTv9aIiAPb60F6tQhLe/4RrR0+E5Wwap86Wz5/t1HDOOa3fVnk68uY
+	8jEXqoNRHer7FsVUxVrF/73+mideIZi0h9fyrJiiwYw==
+X-Received: by 2002:ac2:42d0:0:b0:5b8:f97f:7a22 with SMTP id
+ 2adb3069b0e04-5ba405ec7a1mr1161789e87.54.1790839929167; Thu, 01 Oct 2026
+ 00:32:09 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 1 Oct 2026 10:32:07 +0300
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 1 Oct 2026 10:32:07 +0300
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260930163334.60b4a88c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916030435.4089460-1-chancel.liu@oss.nxp.com>
-In-Reply-To: <20260916030435.4089460-1-chancel.liu@oss.nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 09:30:52 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnTvNEtQRGEXRZjzHhgSZWgEFoiDaDxt3Jooa-SUrOsqA@mail.gmail.com>
-X-Gm-Features: AclHuK-4qYG4ASHCH0qYBns-SykiY0Tbcbii1qM199ro88Ougv95ZxDCOE5UYyQ
-Message-ID: <CAD++jLnTvNEtQRGEXRZjzHhgSZWgEFoiDaDxt3Jooa-SUrOsqA@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: pinctrl-generic-mux: Fix provider resource leak
- on re-parse
-To: Chancel Liu <chancel.liu@oss.nxp.com>
-Cc: Frank.Li@nxp.com, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
+ <20260923-qcom-sa8255p-emac-v15-1-e82f33720737@oss.qualcomm.com> <20260930163334.60b4a88c@kernel.org>
+Date: Thu, 1 Oct 2026 10:32:07 +0300
+X-Gmail-Original-Message-ID: <CAMRc=MeUx2iHf8-d9yjZZ=n7VaG_GROvO2dW-bxavAS+XbGMFg@mail.gmail.com>
+X-Gm-Features: AclHuK8P_ZwjJ__3SNp9LNTCdpGSDaQAP4RQWoM4JsBj1lq1vbQDeX8sSTrNEMU
+Message-ID: <CAMRc=MeUx2iHf8-d9yjZZ=n7VaG_GROvO2dW-bxavAS+XbGMFg@mail.gmail.com>
+Subject: Re: [PATCH net-next v15 1/9] net: phy: aquantia: fix system interface
+ type not updated in forced mode
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Vinod Koul <vkoul@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com, 
+	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Romain Gantois <romain.gantois@bootlin.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Maxime Ripard <mripard@kernel.org>, Christophe Roullier <christophe.roullier@foss.st.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Radu Rendec <radu@rendec.net>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>, 
+	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, 
+	linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, stable@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 5:04=E2=80=AFAM Chancel Liu <chancel.liu@oss.nxp.co=
-m> wrote:
+On Thu, 1 Oct 2026 01:33:34 +0200, Jakub Kicinski <kuba@kernel.org> said:
+> On Wed, 23 Sep 2026 17:14:35 +0200 Bartosz Golaszewski wrote:
+>> aqr_gen1_read_status() decodes the MDIO_PHYXS_VEND_IF_STATUS register
+>> to determine which SerDes interface the PHY is currently using on its
+>> system side and stores the result in phydev->interface. phylink relies
+>> on this value to configure the MAC.
+>>
+>> The autoneg == AUTONEG_DISABLE check is not correct:
+>> MDIO_PHYXS_VEND_IF_STATUS is set by the PHY firmware based on the
+>> negotiated link speed, not based on whether autoneg was used to reach
+>> it. When the link comes up at 1G in forced mode, the register correctly
+>> reads SGMII, but the early return prevents phydev->interface from being
+>> updated. It stays at whatever value it held before (typically 2500BASE-X
+>> from the initial autoneg run), so phylink configures the MAC for the
+>> wrong interface and the link cannot come up.
+>>
+>> Remove the autoneg guard so that the system interface type is always
+>> decoded when the link is up.
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: 110a2432c520 ("net: phy: aquantia: add downshift support")
+>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>
+> Sounds like a real regression, is it? Should we ship it to Linus
+> tomorrow so that it makes 7.3? stable + next does not compute for me
+>
 
-> From: Chancel Liu <chancel.liu@nxp.com>
->
-> The pinctrl core re-parses a consumer's pinctrl on every probe attempt
-> (pinctrl_bind_pins() runs before the driver's probe(), and again on each
-> deferred-probe retry or re-bind), so .dt_node_to_map() must be side-effec=
-t
-> free and safe to call repeatedly.
->
-> mux_pinmux_dt_node_to_map() instead allocated provider-side resources on
-> every call - the mux_pin_function, the group name table and a mux_state
-> reference, plus a group name and a pinctrl_generic_add_group()
-> registration via pinctrl_generic_to_map(). All of these are allocated
-> with devm_*() against the provider device, so they live for the provider'=
-s
-> lifetime and are only released when the provider itself is unbound. The
-> .dt_free_map() path never touches them; it frees the per-consumer
-> pinctrl_map only. Every re-parse therefore adds another set of
-> provider-side allocations that are never reclaimed, so a consumer that
-> repeatedly defers probe or is re-bound leaks memory and mux_state
-> references on the provider without bound.
->
-> The groups and functions of a board-level mux are static and fully
-> described by the device tree, so build them once at probe time in the new
-> mux_pinctrl_probe_dt(). mux_pinmux_dt_node_to_map() then only looks up th=
-e
-> already registered group and builds the per-consumer mux map, which the
-> core frees via .dt_free_map. As the mux has no pin electrical
-> configuration, no config map is emitted.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260824022020.2812810-1-chancel.l=
-iu%40oss.nxp.com
-> Fixes: 34acc5a8adfb ("pinctrl: add generic board-level pinctrl driver usi=
-ng mux framework")
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
-> Assisted-by: VeroCoder:claude-opus-4-8
+Yes, this is independent from the rest of the series and a small fix. It sounds
+good to send it upstream ASAP.
 
-Patch applied, we can think about other solutions, but that
-can be handled by new patches, this works.
-
-Yours,
-Linus Walleij
+Bart
