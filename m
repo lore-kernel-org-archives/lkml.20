@@ -1,164 +1,290 @@
-Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2D84718C9
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.233
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790898606; cv=pass; b=pu74af1CJuyh18TMMQDKiYE3fcl94tE8bup5qMgqCRlOazbpKIcgl78nvm47vHcA9UPvcUes3JJQaYWrqRkdsVH+6kw9Gh0lRXjDozwRCOkAKi/3aZMAq9tlnS2yL6x1ITbJrVv8wWIglzxRblRFHDhigYm/sLc1CWOS3hcUSsQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790898606; c=relaxed/simple;
-	bh=tTc9z7FYsgGlwJPZrMfkGMhg4VwSkixsGCk/z8dgvNU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RhSV7LNsVcLAac6w6zy9AM49OLggjD7Ien5BlVUqGN4GjdPISLiZi0eh9oneBdEi4MFQIMNGS4fDQuhWHLS01jFAL5Dz7yTIm7sI2HGk56Hu10gD/txIQ51xaGAktky9L+wmcdnBLFbKq729tfG2hD6zx1K4gZ1SVsbJIaaMqCY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc; spf=pass smtp.mailfrom=nextdimension.cc; dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b=g/MoVTUx; arc=pass smtp.client-ip=74.125.231.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nextdimension.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BEC4A8FDC
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 23:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790898628; cv=none; b=Kq06/S1LmYqljlN9MuI+ua/fTZ2zRiXSRVvx3oUo6Xw/k4Wl6Wo38bJh7w0ANTIR7QgfLcDu5vXEMFOwkWihuvdOAnqlM1Int5Qgy0/DbdiBOr0fOSeTWIEX3NPa0TAwJriOar3ueUcw5Z8zYufNdzeUCN83x6Gpg8a/CJJARfo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790898628; c=relaxed/simple;
+	bh=YRbhWrPvT5vwC7RVdqWrGq4zYuwCvAVvR/CEAsOnKZ8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=l24UHUFz0DWNH8/sakha38AIRh6Cs/mocQ/TNpm9nvOt3GXtTF2vLBqxqsoQbeyZgn9xjmvBY1+532jRDv9D8Lu0EsHlGJjlGMwUG/FfxgYu0SD+OwFa1yU5Aai4wJzMUHSHTYmnrHkVU6QndBYU3dq9dPxQdgCV/NbLFO/AK1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=xQb7Cbo+; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b="g/MoVTUx"
-Received: by mail-oi2-f41.google.com with SMTP id 5614622812f47-4f3fe94887bso666059b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 16:50:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790898601; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ADutAk+6zFn1slqPJVttkE+frnBkrjWkQHw/SBjz9+O4MgfATRg/jBVBsW07Z+yCDN
-         51s69EEJ71UVqg+1DxuatOEsOTN/+90GXUDVFLhtO9lwxd/T6haVZPAHwvhIkdxDtpkh
-         ureqlHGFadWFg43qt2F6sjxcpPKFtkYPBTaXt7c34IJ9RVmVgmn8lzLU4rQbvCBGepd/
-         CqhgxVB2Pja9aUZhsfqAcC+dIJItTacmPEVI44TLPZvgijh6Uw9waalfEGQ9kwpQzsEk
-         24b8dFyeOwtdJHChJcDNyui68JYO0BdRUismPeKC4qmqxsln1z+04iV3j8WxhPefh3f7
-         25dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MKY9cPJJozKGHFrfmhUD53rTouOcT3tjSvoX5iN+R5Y=;
-        fh=7T3+RFuD7vbFGhVCJUF05qoqReZGTsPu/9d0iAEzfUQ=;
-        b=C/pNTGCm4dApgEKrtX5p0eDsqMI0+HZEtqYRwGwH9P7ozZVDTtLjvQwtiQIZ0rwluh
-         lKXnHumNeSt6zs7fUolFE/o3++05iMOBBYzKJScnJHikFGl+FFUmX8Ifzo6v5LudRaiR
-         lzsgi7+SU6JwZjMN4Bb2V/JCWgfIVSjIaaCHbDF2+HJpT/1baOSjiEnAv03kRClnICpk
-         aDfocctYPVoOm6ERJrY/tGkp/jJfJSrMZbQXPA5keZlPWoG8BBLFcBrHfz1aqsU5xl9K
-         Ta6QRbXK5csLlwvFLLPNRvcRKImZc86zQLV8LBTekAd5oqT6oGM+PTsBB4N5WCpe4Dmb
-         7vKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nextdimension.cc; s=google; t=1790898601; x=1791503401; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MKY9cPJJozKGHFrfmhUD53rTouOcT3tjSvoX5iN+R5Y=;
-        b=g/MoVTUx8H/5A9Jwk/t2momBlaXQpJJpMPN+UMkr52+EaCMHlrmXNLEIJleMz+CUST
-         Hj+a/RV4spFrb149E+HBsJoyDeAMiY/uaU4P6/yXEuR4nF+XrioSvvPSafTCJNjf27oj
-         k68WkbThAPHEK6X+mKE7vRnOhokFE3yTFirqfW6uh6SHDp9MoWBJLoBMY3l5kbohkoJ4
-         1lsArFB7FzjIEclfk/REv8+tvKQU/TtMX+VD2addalWm6tuUFzpz2juyGuhECm3mxTvJ
-         UlauTj+RH94dmf4t3g0S9FgEkHgt95szXah6liCjRoDus9bAvHvEuFBQdLgcGSuSTp3G
-         /45w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790898601; x=1791503401;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MKY9cPJJozKGHFrfmhUD53rTouOcT3tjSvoX5iN+R5Y=;
-        b=lkzSJOzgW8XVyF0Iseu7b6AeJX62cbqJTXyx4UPJu0I91LR9X14HGUigpqRLsiiLzU
-         2YzFBVR/bTs/3v+Lk66XNVK+sh6Zd/dgPe7FDDFvG4QhQAV9HXcyJRmkAv3tOyDIfz/G
-         i4Pn50supcRn1sQgq9JhJo89uqU6K/Dk8kIwk5HXcM/9lm/ji5zsQKLtWBlSBPMo4QFo
-         2/YeoSFuxhTPhDGD1taFTT+mqJLAjG8N9FH/TbUE46pgAUGKvDEb4vU4PoEwLF3HaXrD
-         RIH7BAsRFnr4UkbGAjHMMlmeqYU/gRGvqFC3QgSqQXh5+MK+ey522j5L+LXf2piv4xEC
-         Ks8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwHkOwaSh+j6PWvri0zIrBRJlZquMb/Evm4sleiMGKwu41z9tlKfybyGxT4iySidjIL8bRgB4eMjD+rC4c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkyDCajNXUdxNuZemPoe0uyCfOHOcEQ37U5tGkBxBncGvkJmC3
-	ZRrizBF8gtANTc3gHdprxwpGKaXUf/1FdKcun/1Q9C+caKCQ8+yVlnGV4pDz3IgxfYWksVOt6db
-	9ugwoKR8ppDtOXjS+h1M7tzOo386UIDSWf8BFQi6vsA==
-X-Gm-Gg: AYBFou1Jhm18Uo8tLgsJnE4Y9pPu3gBpe45LIl3R5fRvBRdvWLrOMHeIS9XE7dDcrXn
-	A0XdOcB1tiiJUxhQ7jlovkWa9igRJzZ9aAhmq5UPwjj+FBUkNU8v9AqC+1Zr383od4gWlj2gy0U
-	bw5FSvk6wL+f+BWdKMpiKrY+raY52UaRKvkz0L8vLU9t7VP7Z5McdYbyKy4M3VuPaktwh4PwElP
-	b76uO8AGPT8h2JIZro+SXiXlaOuNzKhGHBW8szY4US0Bb4QaAezhsgCLN3r1NR9vacF0woMaCIF
-	VIbIfZPGY1o18sXjv3e68ljwZTGXLBbKEXteGRbpIgSTYRx4aHLDSm7Y3g==
-X-Received: by 2002:a05:6808:6f8b:b0:4f3:e98f:fa27 with SMTP id
- 5614622812f47-4f529c28115mr654041b6e.16.1790898600864; Thu, 01 Oct 2026
- 16:50:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="xQb7Cbo+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:date:subject:mime-version:content-type:content-transfer-encoding:
+	references:in-reply-to:to:cc:cc:content-type:date:from:subject:to;
+	s=s1; t=1790898621;
+	bh=Tg4ppXXVVjnMQ6UEGhpcHjjpr3r+46JLWKe/8p6U5W8=;
+	b=xQb7Cbo+Xc/9iB6UHK5LcV6ZNhzEfm2aj7BqB4bScq8R0FnEuOx9c5dmpKHu6R8NcswY
+	beJD9nLweoLksfoCl06obDppiQEaUZ5wHAG+ApfGnusrkbFYrzMha5Z9/lmAxQFOM1zhWc
+	ePyUBzDN/Dw36Gp2mxVsR66clNf/p/UgnmpKekSuq+sB27Quuh+yG0WGwhPwkshFo/CtKI
+	x5kUdoTkN7SPLQ9m66E5WK9gn+7n+ViumNQPQ93Dp8vN3xMlWXdLcOLyS+50pisJvssOoH
+	4ZrHCUsD3zhsMEVG9rB4kuL7xwo+qDYSx9KTG8kJ2A3vl/T2Jtm6+ItMFDZQyH5Q==
+Received: by recvd-5dd7ccd7b6-bvrdz with SMTP id recvd-5dd7ccd7b6-bvrdz-1-6ABEF1BC-AB
+	2026-10-01 23:50:20.883098402 +0000 UTC m=+197355.990267287
+Received: from [127.0.1.1] (unknown)
+	by geopod-ismtpd-1 (SG) with ESMTP
+	id 16rqit50Ql2Ye7l-pyoTLQ
+	Thu, 01 Oct 2026 23:50:20.859 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Date: Thu, 01 Oct 2026 23:50:21 +0000 (UTC)
+Subject: [PATCH v5 3/3] writeback: switch a replaced cgwb's inodes to its
+ successor
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930020010.85250-2-chris@kode54.net>
-In-Reply-To: <20260930020010.85250-2-chris@kode54.net>
-From: Bradford Love <brad@nextdimension.cc>
-Date: Thu, 1 Oct 2026 18:49:49 -0500
-X-Gm-Features: AclHuK8gO8mr_tN_8askeYsS8qGi_AKhcozyXpVKRtdSd-d60e84_diX5L1-c8s
-Message-ID: <CAA0YaJRW_q4HhSaMR0WzmHiRzLvNtNfUcruT7qZnHFHVb5VVLA@mail.gmail.com>
-Subject: Re: [PATCH] media: em28xx: fix inverted tuner capability check for
- VBI device
-To: Christopher Snowhill <chris@kode54.net>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-wb-dying-cgwb-flush-v5-3-8361eb8c65c6@honeycomb.io>
+References: <20261001-wb-dying-cgwb-flush-v5-0-8361eb8c65c6@honeycomb.io>
+In-Reply-To: <20261001-wb-dying-cgwb-flush-v5-0-8361eb8c65c6@honeycomb.io>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8030; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=YRbhWrPvT5vwC7RVdqWrGq4zYuwCvAVvR/CEAsOnKZ8=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqvvG7qknTCVvAZ6ZniFRS77iwT+EnsNN8/NjIZ
+ NvbNv1PZHKJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCar7xuwAKCRClztTjl62v
+ wr7HCACiXqmnKq6I/MiWA8gd2MeOwgnuXBbHasIlmE3+Vtybu1osyZeENISZc6kUY5OsG0KNT3b
+ t/ouxqq9JnJq2z2aUXra3mjSUdwtbzkz1SztMRFHLr+oiQB4F8VeiC55BDqNggHBloTPgjzIxzv
+ Yb/bTgCiY80RELiREN36duR2Fc7W4c7tlnKtOjHw4SKxKB3KQbD1Kp4n15SLyfMeI7aU8m/ivNy
+ hnnIuFY4j0yHXz0y6eXyq/JpD8ElLN8J/0CqCOgzNjvu8cIvq3/goQtJGL5CdILSGioc+QkbpYn
+ BGRXK7oL+z6x4dXmkIrC68j+lbPGvPO74/VfOn0IRLtrCTTk
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmefOlJgNFT2+h?=
+ =?us-ascii?Q?IUz2LtsBtTcgXfyA1sLVs9COF=2FimB1AyAg9YqCv?=
+ =?us-ascii?Q?X5DdUu1qG=2F5Yq3HIiQ4f9emqTXTfhT9Dxo0=2F5jj?=
+ =?us-ascii?Q?HZBn0VaQctYP6i1rbdRflrsR=2FEOtaendFFOD5gb?=
+ =?us-ascii?Q?3yJUr1qITuwg2mwuyAZsDuGW7wlpYvESDJos8cs?= =?us-ascii?Q?eAe3?=
+To: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Tejun Heo
+	<tj@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner
+	<hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+	<shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ian@honeycomb.io, Liz Fong-Jones
+	<lizf@honeycomb.io>
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
 
-Hi Christopher,
+When a live memcg's blkcg association changes, cgwb_create() replaces
+its killed wb in bdi->cgwb_tree. Foreign flushes for the memcg then
+find the new wb, but the inodes, dirty or not, are still attached to the
+old one, and they only move over as they are written back (see
+wbc_attach_and_unlock_inode()). Until then, other memcgs appending to
+those inodes stall in balance_dirty_pages().
 
-Just a couple days ago I plugged in one of our products with video/vbi
-and no tuner and saw this message. I had not gotten around to fixing
-it though. Thank you for catching this and submitting a patch.
+After the takeover, queue a work item that switches all of the old wb's
+inodes to the wb foreign flushes now find, like cleanup_offline_cgwb()
+does for b_attached and b_dirty_time, but including b_dirty, b_io and
+b_more_io. The switch carries the dirty and writeback page counts, so
+nothing needs to be written back first. cgwb_create() can run with
+interrupts disabled (folio_account_dirtied() -> inode_attach_wb()), so
+it only queues the work, after dropping cgwb_lock. Inodes already being
+switched when the work runs are left to the existing per-inode
+switching, so this is best effort. If the successor is already gone,
+fall back like cleanup_offline_cgwb() does, to the nearest live
+ancestor's wb or the root wb.
 
-Regards,
+Test: a live cgroup appends to 5000 files on XFS at 250MiB/s, io is
+disabled on its parent so its wb is killed, it creates a file (the
+takeover), and a sibling keeps appending to its files under a 4G parent
+limit. Worst lag of the sibling behind schedule over 30s, in three runs:
 
-Bradford
+  without this patch    9.1s   4.0s   1.0s
+  with this patch       1.2s   1.0s   1.0s
 
+Without this patch, moving the old wb's inodes over took up to 11s,
+first switch to last; with it, all 5001 were switched in a 30-60ms
+window, with up to 553MiB of the old cgroup's pages dirty.
 
-Reviewed-by: Bradford Love <brad@nextdimension.cc>
+Suggested-by: Tejun Heo <tj@kernel.org>
+Assisted-by: Claude:claude-opus-5-5 checkpatch sparse
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+---
+ fs/fs-writeback.c                | 59 ++++++++++++++++++++++++++++++++++++++++
+ include/linux/backing-dev-defs.h |  1 +
+ include/linux/writeback.h        |  1 +
+ mm/backing-dev.c                 | 28 ++++++++++++++++++-
+ 4 files changed, 88 insertions(+), 1 deletion(-)
 
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index 050d507aa554..9be641800934 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -809,6 +809,65 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 	return restart;
+ }
+ 
++/**
++ * switch_replaced_cgwb - switch a replaced wb's inodes to its successor
++ * @wb: target wb, replaced in bdi->cgwb_tree by another wb of its memcg
++ *
++ * Switch all inodes attached to @wb, dirty or not, to the wb that foreign
++ * flushes now find for @wb's memcg.  If that one is already gone, fall back
++ * like cleanup_offline_cgwb() does, to the nearest live ancestor's wb or the
++ * root wb.  The switch carries the dirty and writeback page counts, so
++ * nothing needs to be written back first.  Returns %true if not all inodes
++ * were switched and the function has to be restarted.
++ */
++bool switch_replaced_cgwb(struct bdi_writeback *wb)
++{
++	struct cgroup_subsys_state *memcg_css;
++	struct inode_switch_wbs_context *isw;
++	struct bdi_writeback *new_wb;
++	bool restart;
++	int nr = 0;
++
++	new_wb = wb_get_lookup(wb->bdi, wb->memcg_css);
++	for (memcg_css = wb->memcg_css->parent; !new_wb && memcg_css;
++	     memcg_css = memcg_css->parent)
++		new_wb = wb_get_create(wb->bdi, memcg_css, GFP_KERNEL);
++	if (!new_wb)
++		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
++	if (WARN_ON_ONCE(new_wb == wb)) {
++		wb_put(new_wb);
++		return false;
++	}
++
++	isw = kzalloc_flex(*isw, inodes, WB_MAX_INODES_PER_ISW);
++	if (!isw) {
++		wb_put(new_wb);
++		return false;
++	}
++
++	atomic_inc(&isw_nr_in_flight);
++
++	spin_lock(&wb->list_lock);
++	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_io, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_more_io, &nr) ||
++		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time, &nr);
++	spin_unlock(&wb->list_lock);
++
++	if (nr == 0) {
++		atomic_dec(&isw_nr_in_flight);
++		wb_put(new_wb);
++		kfree(isw);
++		return restart;
++	}
++
++	trace_inode_switch_wbs_queue(wb, new_wb, nr);
++	wb_queue_isw(new_wb, isw);
++
++	return restart;
++}
++
+ /**
+  * wbc_attach_and_unlock_inode - associate wbc with target inode and unlock it
+  * @wbc: writeback_control of interest
+diff --git a/include/linux/backing-dev-defs.h b/include/linux/backing-dev-defs.h
+index 035d25f5b81b..0d9a113f6fd6 100644
+--- a/include/linux/backing-dev-defs.h
++++ b/include/linux/backing-dev-defs.h
+@@ -160,6 +160,7 @@ struct bdi_writeback {
+ 					 * to this wb */
+ 	struct llist_head switch_wbs_ctxs;	/* queued contexts for
+ 						 * writeback switching */
++	struct work_struct replaced_work;	/* see switch_replaced_cgwb() */
+ 
+ 	union {
+ 		struct work_struct release_work;
+diff --git a/include/linux/writeback.h b/include/linux/writeback.h
+index b749a9a5a5ee..88e4b5049698 100644
+--- a/include/linux/writeback.h
++++ b/include/linux/writeback.h
+@@ -209,6 +209,7 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id,
+ 			   enum wb_reason reason, struct wb_completion *done);
+ void cgroup_writeback_umount(struct super_block *sb);
+ bool cleanup_offline_cgwb(struct bdi_writeback *wb);
++bool switch_replaced_cgwb(struct bdi_writeback *wb);
+ 
+ /**
+  * inode_attach_wb - associate an inode with its wb
+diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+index 839a3c476c5b..49b7b86a7221 100644
+--- a/mm/backing-dev.c
++++ b/mm/backing-dev.c
+@@ -637,9 +637,21 @@ static void cgwb_release_workfn(struct work_struct *work)
+ 	bdi_put(bdi);
+ 	WARN_ON_ONCE(!list_empty(&wb->b_attached));
+ 	WARN_ON_ONCE(work_pending(&wb->switch_work));
++	WARN_ON_ONCE(work_pending(&wb->replaced_work));
+ 	call_rcu(&wb->rcu, cgwb_free_rcu);
+ }
+ 
++static void cgwb_replaced_workfn(struct work_struct *work)
++{
++	struct bdi_writeback *wb = container_of(work, struct bdi_writeback,
++						replaced_work);
++
++	do {
++		cond_resched_tasks_rcu_qs();
++	} while (switch_replaced_cgwb(wb));
++	wb_put(wb);
++}
++
+ static void cgwb_release(struct percpu_ref *refcnt)
+ {
+ 	struct bdi_writeback *wb = container_of(refcnt, struct bdi_writeback,
+@@ -676,7 +688,7 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 	struct mem_cgroup *memcg;
+ 	struct cgroup_subsys_state *blkcg_css;
+ 	struct list_head *memcg_cgwb_list, *blkcg_cgwb_list;
+-	struct bdi_writeback *wb, *old_wb;
++	struct bdi_writeback *wb, *old_wb, *replaced_wb = NULL;
+ 	void __rcu **slot;
+ 	unsigned long flags;
+ 	int ret = 0;
+@@ -724,6 +736,7 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 	INIT_WORK(&wb->switch_work, inode_switch_wbs_work_fn);
+ 	init_llist_head(&wb->switch_wbs_ctxs);
+ 	INIT_WORK(&wb->release_work, cgwb_release_workfn);
++	INIT_WORK(&wb->replaced_work, cgwb_replaced_workfn);
+ 	set_bit(WB_registered, &wb->state);
+ 	bdi_get(bdi);
+ 
+@@ -748,6 +761,8 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 			old_wb = radix_tree_deref_slot_protected(slot, &cgwb_lock);
+ 			if (wb_dying(old_wb)) {
+ 				radix_tree_replace_slot(&bdi->cgwb_tree, slot, wb);
++				if (wb_tryget(old_wb))
++					replaced_wb = old_wb;
+ 				ret = 0;
+ 			} else {
+ 				ret = -EEXIST;
+@@ -763,6 +778,17 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 		}
+ 	}
+ 	spin_unlock_irqrestore(&cgwb_lock, flags);
++
++	/*
++	 * The replaced wb is out of foreign flushes' reach but may still have
++	 * inodes attached, dirty or not.  Switch them over to @wb.  We may be
++	 * running with interrupts disabled, so use a work item.  A replaced wb
++	 * never returns to the tree, so its work can't already be pending.
++	 */
++	if (replaced_wb &&
++	    !queue_work(system_dfl_wq, &replaced_wb->replaced_work))
++		wb_put(replaced_wb);
++
+ 	if (ret) {
+ 		if (ret == -EEXIST)
+ 			ret = 0;
 
-On Tue, Sep 29, 2026 at 9:01=E2=80=AFPM Christopher Snowhill <chris@kode54.=
-net> wrote:
->
-> Commit 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X
-> bridge") changed the condition for setting V4L2_CAP_TUNER on the VBI
-> device from "dev->tuner_type !=3D TUNER_ABSENT" to a check of the video
-> device's capabilities, but inverted it: the VBI node now advertises a
-> tuner only when the video node does not have one.
->
-> On boards without a tuner (e.g. the MyGica iGrabber, card=3D105) the VBI
-> device's device_caps therefore contain V4L2_CAP_TUNER, while the shared
-> vidioc_querycap() correctly omits it from cap->capabilities. This trips
-> the sanity check in v4l_querycap() whenever the VBI node is queried,
-> for example by udev's v4l_id on every hotplug:
->
->   WARNING: drivers/media/v4l2-core/v4l2-ioctl.c:1119 at v4l_querycap+0xff=
-/0x110 [videodev]
->   (cap->capabilities & (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)) !=3D (v=
-fd->device_caps | V4L2_CAP_DEVICE_CAPS)
->
-> It also leaves the tuner ioctls enabled on the VBI node of tuner-less
-> boards and disables them on boards that do have a tuner.
->
-> Restore the intended logic so the VBI device has V4L2_CAP_TUNER exactly
-> when the video device does.
->
-> Fixes: 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X bridge=
-")
-> Assisted-by: LLM
-> Signed-off-by: Christopher Snowhill <chris@kode54.net>
-> Cc: stable@vger.kernel.org
-> ---
->  drivers/media/usb/em28xx/em28xx-video.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/=
-em28xx/em28xx-video.c
-> index c418add65bb5..cdf1dc692b08 100644
-> --- a/drivers/media/usb/em28xx/em28xx-video.c
-> +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> @@ -3001,7 +3001,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->                 v4l2->vbi_dev.queue->lock =3D &v4l2->vb_vbi_queue_lock;
->                 v4l2->vbi_dev.device_caps =3D V4L2_CAP_STREAMING |
->                         V4L2_CAP_READWRITE | V4L2_CAP_VBI_CAPTURE;
-> -               if ((v4l2->vdev.device_caps & V4L2_CAP_TUNER) =3D=3D 0)
-> +               if (v4l2->vdev.device_caps & V4L2_CAP_TUNER)
->                         v4l2->vbi_dev.device_caps |=3D V4L2_CAP_TUNER;
->
->                 /* disable inapplicable ioctls */
-> --
-> 2.55.0
->
+-- 
+2.53.0
+
