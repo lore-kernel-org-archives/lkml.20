@@ -1,131 +1,110 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0BB41D114
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DD149AA24
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 22:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894750; cv=none; b=AR2ggFqQoYAFwk1TSWeCdiG39qywI5KwX8VRmhwn+PioGPv3E7mAQr3C8JjdQdezNzncFh4GHWZ96l12BNAl2hi6JFlL0wMQ/md+rrC/xzFEeF3pEMlehEc52Q8WraIYsZ6kGkC1HCk3mil+51TlRzgoYQezIQW7f+galJx2S1c=
+	t=1790894753; cv=none; b=vEV7IAO1BGNlEHsLWyiVdUW0KWrOs43WbI9/B4lm8k/noSNGnuloiI5NPxki5Q7YQs7RkwDmuSfRlQHa2H0mv/JbO0X7JZY81XSEEGP0GWShXsC7PhzBZaASU3y42/6EkAnGHcD0XjkQ8ZEe3xss94e0p/r+/OPTFcyf4DGFMfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894750; c=relaxed/simple;
-	bh=cNVcbuAwiuPvbW7gIOTu7dEHjAhHHDNmMOS8HQkVoFU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tPEIXlBeNGJSklcUDgsP9vGzETlLhMAFSEcuV3SttiZbAT3VyhTHbze3u7O7rD5Kju231QIfMLxjmgJZ0lZSuNC1V7mmnHx/QmilzGi419G/0/DaPRvtpfMnFXLUmydG8NUCgslVgENHt7N30FJUmqUNY5b1hA9pwwPoSh5B1Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rwLqrN+S; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
+	s=arc-20240116; t=1790894753; c=relaxed/simple;
+	bh=iyOloBZlQg/MDR1GswDFmzHuvue+1j2j/aHCDmB5nFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WGcrmS5Y/x7jWyLNykctKi3ODnAJUPo7Qn5cXSZ2aeUxijHRUQuk6E4ntNZrMnKP3aBf0KmviOmlp6SxQir+kZPAmCi3YS4FRz7r9JBSE+tvZ/GVJYiBq+Nyodiy4QdYIEV3ftOg2xt9JzYHFvbIhGs7QqE/05ONkY7aCvat1Po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aeF0yUdq; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rwLqrN+S"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so5001477a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:45:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aeF0yUdq"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4bbc51755so365297a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790894748; x=1791499548; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IisvBifMmb2UUMDo1HteD5AGTapgBqr+NugNWMv+c3A=;
-        b=rwLqrN+SPTOAHAJGJxAYUDIdo8ysq0rlTQgHnPbbMHsRDVHDW0WGWZX7YwB96zNafy
-         jAVkdw9tz92d6uNCRdzFA54w7sIEQ0YkoA4cMxk+n+PIf+7ZwOwGqKNBph18dz10JKgf
-         LC4cijSyN5IsVl83aCwEEuFkYWsHUCdj/oP3O8dFdp9G5w+xDav3gop/RT7mWER6jyVQ
-         RY6/MtzINs16NcIxS+bbwVOaHT5iKU02XmArnS4q/QtYTgE8M48tIRZJ17tLa9casUXA
-         1QX6QcVhBjaGu1taq4QVv8sJBCMbtWgSDbgTieUO+xh+4Bui1Hr5OcLT7INo1Rq3BXqZ
-         QBfg==
+        d=gmail.com; s=20251104; t=1790894750; x=1791499550; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
+        b=aeF0yUdq62zFUiqUopKLxv/6g24uwHkL0+dm+ZZBZVzofn1SlzwpNamXysaZse8o7g
+         y/rqograQMJs1xvHsHZFbf/dLQU5oljYHFQTAIvIb1vFiKmxh3cxjq9XeXLYdEUqrloZ
+         plBB8AJrVSzh0bgpQ6lYq4Atg/129Z4ujSBFLSUJvY+u7zStpzsn9VunpGZwfwjhzbIi
+         69E/WXqVExCbUfyUfO0s0tZL6EK4BEmIaI8npY4iXwMXMW4QWGKW6Bt9hx/q0lI/nU+3
+         CWFjfEIniKGeZZlvHxLDnYHZaUp6VeBZtFsWCDpi54fro7BwK8HnGKaXMzzvAM1/QTnS
+         zSSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790894748; x=1791499548;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IisvBifMmb2UUMDo1HteD5AGTapgBqr+NugNWMv+c3A=;
-        b=W8Gjo8u3SvqrZnGVszqqXpfTTIGDpPEc82brJ7te4GyFPudYWhe1gIFKbxQ8x+lfmX
-         yfvRP0P7af2VgBIZAge7yhgKMvGn69h+YoAUZgFNxO8n0RtevkKbWw2Xe6u0lQqexZga
-         3O/SqHFqzewgger3PFUXe/dq86C1NS/26GjANlZDjEtaB5GJri55WIU0nVGJex5pkyTi
-         JMz07VB3uoyPpRT3zoGhZmRfosrO+zJ/bpRw3GkwsRpQOZzMR11zaUdO27V1vllHJREb
-         2wExSsSSaMCHyo0dRiiAtQa4tfHtA7SQudcNLLVfe40gG6P9g9uapXhUa5z3jrQXmU/G
-         ef2w==
-X-Forwarded-Encrypted: i=1; AKwUvBw+gTIn+a2nG+jAx+ct6mRruLpD4IBzmMBwgUa0FWc34r9J4dEJRWrnlCuPUnzL+NQdzfN0GhbPfALMbsA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0wqiZUzgBZSLRqnTPDoFXTgPA0lmdvrlLroEISon1mNlfY9Jz
-	9gzd09wt3vlErzpK6s2Rj0WtCYgiIQXX/3t6TtPBw3q2yfWrbTOrKVbx5auXrYdkCLOplMDwR6w
-	9ZA==
-X-Received: from pgbcw4.prod.google.com ([2002:a05:6a02:4284:b0:cc7:91e8:1fab])
- (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:a122:b0:3de:6172:e33d
- with SMTP id adf61e73a8af0-3e0bcf2949cmr852824637.20.1790894747533; Thu, 01
- Oct 2026 15:45:47 -0700 (PDT)
-Date: Thu,  1 Oct 2026 22:45:25 +0000
-In-Reply-To: <20261001224531.765278-1-praan@google.com>
+        d=1e100.net; s=20260707; t=1790894750; x=1791499550;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
+        b=LCPfQKE6j0tkckW32z1wXP+n5pBdMgydMGIN7pdPQCU0r860WkeuK6+WfppMCrmHW1
+         o/ciweCrWuB8aUQXDPn95OLkIsexUcWzF8WGi2X3GxxqxQ0irK2o4xSLGGbaHx3AMOop
+         JJmtNktp8EbLXPnwobsJTRQjO7zL8UO5FwRsYi4tzWyV1fB00BYYVgoB0F2wkGVDaSW3
+         IbLK8MXKMB0UxljLscb0fBi7XM/xSubVt99iWV5DtEz4Pc47XyLQevy48HZDQZ4v8Geu
+         vZx9MIOlYdsEXLFer3Qq+inkj8ALkJDp5TnCn4kiXPvjcdSLJ4jXEPGQlT3pW20LVhjd
+         3JUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMkxtxWTbPlNy+Kv9BVg6VO664XINJAsU20g381neNEuFPco4E/enkVHerSidY2d1l8ehfGDps9UF81t8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImu6nyiES4v6IvfQ5vuLLNJUY8x3zeshhg95F2d0P2qbn+J5uX
+	jt/0xlZCoZd08ct7n+Sezbq8hkb6OM3BHrrYbvcnENf+Hu17qe6x5e0Y4VZyKrXZVNu55g==
+X-Gm-Gg: AYBFou0ssHojOFEDS82Hr/9krRlZVkq9CA+9gihllp1/Qev/g3yqZXGFQti9zp/R8oX
+	ApM7/jMBse1FfAm/DAlJS5fh7fkaAu9kCVlZ/yzKk2NhcwWAXcujFe3/YK4IF6DrZXkQ1EideOq
+	2e/kdqWXT5BHPdFvkX5WDHmBi+AptStpDxF1lOodsgCrWJn5EDZw7U67GCGXSCbnsAQ6jMu4/pE
+	l+N3RAsxNWWgxiMgbd5O0C3bpUPaidVMyzrglBu/XoZI0u55viZi9mebOqbIyBTEUl7gyxObChV
+	eUA2mp0Pgje3ZCyXkcbO3BOGhS3DJNOXFfdabUIZ4HfvRu2b+Ykslez6yB4x6H7ctFBEioBnDyC
+	ls11e8jGjJELHgLIZ1zihD1wYsitOjm7ljDtQQKF1Vqkvd+j/bhzZdiQb9xFmePswrQO+DgWs9U
+	2Wa8V46YSjD3WYkk7wfHFyaOsORWwRCm2ZewnZz6Cv/nQoYlCsyToL4P2yWcq58EFTR4BL8KoMV
+	m18vXU=
+X-Received: by 2002:a17:90b:4b0d:b0:3a4:9fcd:6189 with SMTP id 98e67ed59e1d1-3a6ce69ac99mr1528647a91.2.1790894750283;
+        Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
+Received: from marchy ([2405:3800:8e5:44e3:ee8e:77ff:fed4:d18b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ccc92646sm1146396a91.1.2026.10.01.15.45.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 15:45:49 -0700 (PDT)
+Date: Fri, 2 Oct 2026 06:45:47 +0800
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
+	airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <ar7im3iTb_UF8VxU@marchy>
+References: <20261001144128.2336301-1-azuddinadam@gmail.com>
+ <20261001144128.2336301-2-azuddinadam@gmail.com>
+ <20261001-relight-unexposed-1a3d7dd8bfed@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261001224531.765278-1-praan@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261001224531.765278-2-praan@google.com>
-Subject: [RFC PATCH 1/7] iommu: Add infrastructure for per-domain IOPT accounting
-From: Pranjal Shrivastava <praan@google.com>
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: Mostafa Saleh <smostafa@google.com>, Daniel Mentz <danielmentz@google.com>, 
-	Samiullah Khawaja <skhawaja@google.com>, iommu@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Logan Odell <loganodell@google.com>, Pranjal Shrivastava <praan@google.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-relight-unexposed-1a3d7dd8bfed@spud>
 
-Currently, the IOMMU subsystem tracks the total number of pages
-allocated for IO page tables globally via nr_iommu_pages, but lacks the
-ability to attribute these allocations to specific domains / users.
+On Thu, Oct 01, 2026 at 07:54:19PM +0100, Conor Dooley wrote:
+> On Thu, Oct 01, 2026 at 10:41:25PM +0800, Adam Azuddin wrote:
+> > +description:
+> > +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
+> > +  It can be connected to the controller via 8080/6800 parallel interface,
+> > +  SPI or I2C. This binding describes the SPI-connected device.
+> 
+> This binding describes all three, or at least it should describe both
+> i2c and spi in the current state. I have no idea what the parallel
+> interfaces look like in dt, but if what you've got covers spi it should
+> also cover i2c. Probably remove this last sentence.
+> pw-bot: changes-requested
 
-Add an atomic `nr_pages` counter to struct iommu_domain and introduce an
-anon union to store the iommu_domain (aliased with private) in ioptdesc
-for the accounting infra. The union ensures that the ioptdesc layout
-remains identical to struct page, maintaining the integrity of existing
-static_assert checks. Utilizing the `private` field is safe here as IOMMU
-page table memory is exclusively owned by the IOMMU subsystem and is not
-managed by other core MM subsystems that typically claim this slot.
+Understood, I'll drop that last sentence.
 
-Co-developed-by: Logan Odell <loganodell@google.com>
-Signed-off-by: Logan Odell <loganodell@google.com>
-Signed-off-by: Pranjal Shrivastava <praan@google.com>
----
- drivers/iommu/iommu-pages.h | 8 +++++++-
- include/linux/iommu.h       | 2 ++
- 2 files changed, 9 insertions(+), 1 deletion(-)
+> > +        panel: display@0 {
+> 
+> Drop the unused panel label if there's a respin.
 
-diff --git a/drivers/iommu/iommu-pages.h b/drivers/iommu/iommu-pages.h
-index e9e605b5fa3a..edf75c81054f 100644
---- a/drivers/iommu/iommu-pages.h
-+++ b/drivers/iommu/iommu-pages.h
-@@ -25,7 +25,13 @@ struct ioptdesc {
- 		u8 incoherent;
- 		pgoff_t __index;
- 	};
--	void *_private;
-+	/*
-+	 * Alias iommu_domain with page->private for IOPT memory accounting.
-+	 */
-+	union {
-+		void *_private;
-+		struct iommu_domain *domain;
-+	};
- 
- 	unsigned int __page_type;
- 	atomic_t __page_refcount;
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index ac43b8b93f14..478b64f4084f 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -231,6 +231,8 @@ struct iommu_domain {
- 	struct iommu_domain_geometry geometry;
- 	int (*iopf_handler)(struct iopf_group *group);
- 
-+	atomic_long_t nr_pages;
-+
- 	union { /* cookie */
- 		struct iommu_dma_cookie *iova_cookie;
- 		struct iommu_dma_msi_cookie *msi_cookie;
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Will do.
 
+Thanks for the review,
+Adam
