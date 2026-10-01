@@ -1,71 +1,71 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D019C3D47A0
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2094E489FA5
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 16:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873439; cv=none; b=Gb14NxPlYFvVejblN+j6ssQVMuyTDJSrbkvu8KjpoIIs21zmKAOJmftyUSOVc7nmsLfdHvsyM52PdR4hrUQPYvwbPvF/zfbdnhOLb8LvqglnfxaAOKoK3QCWmlMjNK9rfWvmC5Qf4oehMA5NL5C8uGnlJUUClrfNDAqaTmFUICI=
+	t=1790873439; cv=none; b=chSWJkRBvCO8olYnyBChm6jEUppuE7hOAkzj6v69DYzzt1jAl9dzaq4XXu0Mka46fpjZt/bPCjUNER6EFy/QrYObgdfeqvBIdPhtaMZ7EmKWZDlCaGev9R5hWJeSc5beEijoC/XVWklV2q8n/9ZVDNzmzqHZYwnvaxtD+FxWLCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790873439; c=relaxed/simple;
-	bh=lU3K9pGo/W1NbqAeyAsXzTP1FoAAi40pfJTDGwKVOl0=;
+	bh=bfDmBqDj0trYBMNSpDSBhSDsHUJ1O+BMBVzB461qpOk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SnKWbweJwC2dn0cCM1scnWpNC9tRPHqRrdaMyVjh+J3hywNTFTTk7IymypzZpbIv03gIUuppqvgCFxAzUt2GR5K6OiBH/P1GeiECbulgDjJfpLV39Qg2/ilZUrQq4u32yC/gAUNsI2E+L11tLeRKZ7MQq1o+R6kvq+9FL6GYEJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/B2Q0RP; arc=none smtp.client-ip=74.125.224.171
+	 MIME-Version; b=htORyPDd83Qpd9koXRzSS6Nc0obSwmuoM31nBOPdl6Vr7l+RIAoFyBdhPb38lUj0RQViQT+72uDN73TDrOVEL2H1Xa0DXKH++VIwOgC9fIXyFCnpI6I1JFR81KhnWabmcOOXri0OV0n7PowKfnr4ShGWlcjbe9LgBsOsHrNAfWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oAjMpB12; arc=none smtp.client-ip=74.125.224.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/B2Q0RP"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-671563fb8beso6883927d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oAjMpB12"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-8a7411012b1so66044597b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:50:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790873430; x=1791478230; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790873433; x=1791478233; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JEuY+mWfJ5DBo0XNbvjPXjn4WUTJAE+IIEAOZGPeij4=;
-        b=A/B2Q0RPBNhohvqflLwyIl0euJ63TbO5JNmunKNSGF+6LEjy12Eho71mJPe6m08EXP
-         YCK7hDCKWXlEV6EBLyQEAUi18n332tyk08O1V4716MFNSkJqj0UYEwLhRCMc9sR5YBXP
-         KTGUXJ7Q38lERunZZJj71T6qrO+p2ciGHqd/piXtZg0YqIwFBgRlJ5dmxf9KaSNif2AY
-         nipp18dXfi1e2UXNQ03ih54WVUgC/2vR8VO2ieYZuH/7p9JdG8BBgc2FDd6PbuWqLyAP
-         rN1MIENbwSBrVDqDGIeLZEcxMISKdHpIJRlheEALsW8TFY75hVbosuAfxKy0w/BELy/z
-         Ou4Q==
+        bh=szcjPGieXEfqhKINUtFT84K24oT0iMiw2DuJ+a0prBk=;
+        b=oAjMpB12L5xqS+xT5ewSNdk4W7LUo4T9/AeyMkXGNOKg0dcJhlrcA3QqmlrAU0/2P2
+         TT0Rbs44Htvnxwx9Ti4p+QSTdNqd5qQW2szXvJGWyucNnfijQwgBj13xZvdaV3DhA6y+
+         mRPPq+yabPRh2MZf9+h2249NKEtkOZAOe3B8kaHL0EXzo17PNLUdcEigWtnISO6YoxYn
+         UqvZh3lg65klszwe3xBdRIQFdIfUq6pevCL45cG+D/wQbvadM30xPbf1V2GkRAJnesqW
+         ggnMraoLGTNdq6AGUFbePytKJe7WW7r6fM8K1A6mOHzrJV73FVjGxkutIXbeWPFU8Gnz
+         eCVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873430; x=1791478230;
+        d=1e100.net; s=20260707; t=1790873433; x=1791478233;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JEuY+mWfJ5DBo0XNbvjPXjn4WUTJAE+IIEAOZGPeij4=;
-        b=Wrt955tfWCNOT1jYZjl8JkFH++fQf1jSoZSMlWocV4KlqOFIa4L3xxUU7OM8vQs+Rc
-         EnGW0zzo7TKFkPpLYLTyxm4Qmdm4a5IMbKaEWx7+4KmG9wiFMKcXLZYxrR8442h5r450
-         U45KvvHuBtihVqCni1OoIt8seScZocxEEeNgc49Tc+JYtedGVujLhGByCJP/P3N29+J3
-         BW9P2R+TpKgcgDZNQRq/04EEt43j4TJK23eCaCB0VC59ujFBNohcjXKi64MTx6YN6+wB
-         wb/M2zZOtP29aPqGp02bDmz25cwN2v+7OnqVOl00XIAbhZRqcl8z3uorFypEKfjxKLnF
-         oVrA==
-X-Forwarded-Encrypted: i=1; AKwUvBynWnmElLxIV/mvzgJGGUshY/qux5T+BYcV/ykwSIQoLwEly8l158X3UANGvNx8WViuzu+WtAZZIpECQhE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINUKVexYhAIlsXg0nA7tWeAj5WnXB8G4qYTrtEJBUZERCDlXG0
-	9fYSkWs9g9n8dk4giTFuNI31XxMo+e2nBvEQ4sRuF98WqHHgEP8v1iyR
-X-Gm-Gg: AYBFou2CJTEaeR06MzSqES9W7LY/HrG1Df2BqTndQXKQdad/lFN4zLiYcU0xPhTfR4g
-	pEFCbNKxs0tkHl0OIJy475+B2f+278Y5YMwMsq1HsJpAYS37NwcyS7G7OqFENS+FagwJg37VlZD
-	Rnrp+FNMDnvGbf3+c33xwZJ2pzCUGKUnxvsse6D7nhK6dzC+e384fB4ruxr5n1aQH/GD13x3WBD
-	DeRrmemF1ev7gVrX+fdYXH3ARkCuaRCUjgk+WCUrMaP6n8YJJIfMWdecChvmLUtBcmJ+ezLB7Kp
-	5sZNdAvf/7xQKaCEUX1rFi9L+QVsb2s683AGPkbVsozLv/Sdoi3tv+2G2SZS4rZRH++E17fjw5V
-	gnCezB/dG/39hebc4P2Yk5dkCdk9cR/At8H2FzBx7FcmB3Iw/5Y/D+c2oO3Bsz50gkn/ee5wWQp
-	VrfOXw2OY9sjA79U1PBd+DUqxgdb6LSoUHQj7+8QL76Ud/qiQP/2zZZeitgGFLTfh/LfPLDRc=
-X-Received: by 2002:a05:690e:1389:b0:672:9c30:bd0e with SMTP id 956f58d0204a3-676834f5edbmr3308432d50.84.1790873430134;
-        Thu, 01 Oct 2026 09:50:30 -0700 (PDT)
+        bh=szcjPGieXEfqhKINUtFT84K24oT0iMiw2DuJ+a0prBk=;
+        b=A6drlrc0spnOkaQpkG73ydSxsBbScl1GAJSwMNgqq2efkcQAoc+jNJjDD5/9qrW/Zp
+         1J6OVejCkcA0kU0ND95GjlgtAfHZ6JTDJxpK492xE+MUtVEfelBhc86tLKrCEch9hszO
+         k/JdjNcV8Cz2nwtvZO4x/ELRwTHwf5Usy/KemFTsmL9ieZqcT88u5rF69yK5NkTfUrrl
+         t6xin+kgIHJkYW4N1ePCg79UxmPQEf3zTiJyhsNky4vWSaQaAU3Qpoey4Rrz3Bcvdggv
+         7YqneuknpOqmoZPm2tQas8TIy7pL18Qqiru6RcIe7jv7iQ9qWLFnVJvNzvqKgOmn5/uU
+         EQvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfhvv86hXR8GS7dCgTXMTyzTQgFf1aT1DiA+VKSK240GltrYFX9bMKR688u62qO3vJ68tB+e+pxcaMiJI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLH0iTrWaIOxr52II54GTo2bxZ1gktVnFRiRmn423Q8tFCHeTov
+	OcrXYW87uj9NlTAjq4puys5tlWaMufkUhYSGZe9r/H8Zoy30fNgrth3P
+X-Gm-Gg: AYBFou32gYmb2rrjFdhVuXcgaN5MH82kh1qB971BCbD2roKh2a0WqL1ET3P6OGuXhAI
+	5KoarkqXwsa8gBsRfaRE55x0BmC876BnY25M3Go/i3G4OKqcK92h1gH3RI5UXbtY9tDl8zneOVx
+	EiLTpgexqx+sF/xbfYSBsboiiSeqdjTuGbOdGg5PjcCYK4NLAXjkCfAJxDkuGP2vBHyBg9rVOJd
+	/azZx3WKy/3YEfjCuQuZaFDaUruqhg8u8/tzHvXjG4/syhQ/EkoRAQVmDMYyLGomaMSoHyPvyC6
+	L9tozkHNMPDX+CTo6FY3MvY8ru/bCHtkjTgIdhG1bNbRiabI6/Xppx2r9SXnft0jikzhWTaX61b
+	ssDUQxKL92Wp/Tt4iQysnPhqQpHWDk9UoVF8/B+OL7enJjKXxgUILduvlbyDQREPdG9ytltWceV
+	9LKoc5lIdONjW3lOD4q/c6SfcQCXKwvcyNG6Jumwo1RgnQbQsuB42DJNfhadQD/RgD9BVJalE=
+X-Received: by 2002:a05:690c:6907:b0:8ab:4b1b:fb27 with SMTP id 00721157ae682-8ac9342129emr21793467b3.23.1790873433102;
+        Thu, 01 Oct 2026 09:50:33 -0700 (PDT)
 Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67691839a07sm1324641d50.11.2026.10.01.09.50.28
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdac9c648sm13789557b3.14.2026.10.01.09.50.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:50:28 -0700 (PDT)
+        Thu, 01 Oct 2026 09:50:32 -0700 (PDT)
 From: Matt Turner <mattst88@gmail.com>
 To: linux-alpha@vger.kernel.org
 Cc: Magnus Lindholm <linmag7@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Matt Turner <mattst88@gmail.com>
-Subject: [PATCH 2/4] alpha: correct system descriptions in Kconfig help text
-Date: Thu,  1 Oct 2026 12:50:16 -0400
-Message-ID: <20261001165018.415526-2-mattst88@gmail.com>
+Subject: [PATCH 4/4] alpha: default NR_CPUS to 32 for Wildfire
+Date: Thu,  1 Oct 2026 12:50:18 -0400
+Message-ID: <20261001165018.415526-4-mattst88@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261001165018.415526-1-mattst88@gmail.com>
 References: <20261001165018.415526-1-mattst88@gmail.com>
@@ -77,233 +77,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix the system lists in the "Alpha system type" choice and the platform
-help texts, cross-checked against the alphalinux.org wiki and the
-kernel sources:
-
- - There is no AlphaServer GS40 or DS10E. Wildfire also shipped with
-   EV68 (21264C) CPUs.
- - "AS" means AlphaServer elsewhere in the list, but the Alcor "AS 600,
-   AS 500" are AlphaStations, as is the Noritake "AlphaServer 600A".
- - Takara is 21164-based, not "11164".
- - Linux 6.10 dropped support for CPUs before EV56, which took the
-   AlphaStation 600 and Alpha XL 300 with it. Say once that EV56 or
-   later is required rather than qualifying every entry.
- - Add systems missing from their entries: the UP1500 (Nautilus), DS15
-   and TS202c (Titan), Digital Server 3300 (Noritake), Digital Server
-   5300 and 7300 (Rawhide), and the Ruffian boards in place of
-   "Samsung APC164UX".
- - Add Eiger, Nautilus and RX164 to the summary list and help text to
-   PC164, RX164, SX164 and Shark, which had none. Note that the Ruffian
-   and RX164 boards have no SRM console.
-
-Also drop the Jensen and EV4/EV5 references removed in 6.10, and the
-claim that SRM cannot boot from IDE, which is not true of SRM in
-general. NR_CPUS can be set to 32 on any platform, so say what the
-hardware supports instead of implying a per-platform kernel limit.
+The AlphaServer GS320 has up to 32 CPUs and the Wildfire code handles
+all eight QBBs, but a Wildfire-only kernel defaults to NR_CPUS=4 and
+ignores the rest unless the user raises it by hand.
 
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- arch/alpha/Kconfig | 85 ++++++++++++++++++++++++++++++----------------
- 1 file changed, 55 insertions(+), 30 deletions(-)
+ arch/alpha/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-index 7c1cc676ddfe..920dd10e7df0 100644
+index 0fc61d986a7d..b5b02bb42aca 100644
 --- ./arch/alpha/Kconfig
 +++ ./arch/alpha/Kconfig
-@@ -126,28 +126,35 @@ choice
- 	  This is the system type of your hardware.  A "generic" kernel will
- 	  run on any supported Alpha system. However, if you configure a
- 	  kernel for your specific system, it will be faster and smaller.
-+	  Only EV56 (21164A) and later CPUs are supported.
- 
- 	  To find out what type of Alpha system you have, see the system and
- 	  motherboard lists at
- 	  <https://alphalinux.org/wiki/hardware:systems> and
- 	  <https://alphalinux.org/wiki/hardware:motherboards>. In summary:
- 
--	  Alcor/Alpha-XLT     AS 600, AS 500, XL-300, XL-366
--	  DP264               DP264 / DS20 / ES40 / DS10 / DS10L
-+	  Alcor/Alpha-XLT     AlphaStation 500, Alpha XL 366, 433
-+	  DP264               DP264, UP2000(+), DS10, DS10L, DS20, DS20E,
-+	                      ES40, XP900, XP1000
-+	  Eiger               Eiger (OEM)
- 	  LX164               AlphaPC164-LX
-+	  Marvel              AlphaServer ES47, ES80, GS1280
- 	  Miata               Personal Workstation 433/500/600 a/au
--	  Marvel              AlphaServer ES47 / ES80 / GS1280
--	  Mikasa              AS 1000
--	  Noritake            AS 1000A, AS 600A, AS 800
-+	  Mikasa              AlphaServer 1000
-+	  Nautilus            UP1000, UP1100, UP1500
-+	  Noritake            AlphaServer 1000A, 800, AlphaStation 600A,
-+	                      Digital Server 3300
- 	  PC164               AlphaPC164
--	  Rawhide             AS 1200, AS 4000, AS 4100
-+	  Rawhide             AlphaServer 1200, 4000, 4100,
-+	                      Digital Server 5300, 7300
- 	  Ruffian             RPX164-2, AlphaPC164-UX, AlphaPC164-BX
-+	  RX164               AlphaPC164-RX
- 	  SX164               AlphaPC164-SX
--	  Sable               AS 2000, AS 2100
--	  Shark               DS 20L
-+	  Sable               AlphaServer 2000, 2100
-+	  Shark               AlphaServer DS20L, API NetWorks CS20
- 	  Takara              Takara (OEM)
--	  Titan               AlphaServer ES45 / DS25 / DS15
--	  Wildfire            AlphaServer GS 40/80/160/320
-+	  Titan               AlphaServer DS15, DS25, ES45, TS202c
-+	  Wildfire            AlphaServer GS80, GS160, GS320
- 
- 	  If you don't know what to do, choose "generic".
- 
-@@ -168,13 +175,14 @@ config ALPHA_ALCOR
- 	  controller (256-bit memory bus) and a PCI interface.  It also does
- 	  all the work required to support an external Bcache and to maintain
- 	  memory coherence when a PCI device DMAs into (or out of) memory.
-+	  It is used by the AlphaStation 500 and the Alpha XL 366 and 433.
- 
- config ALPHA_DP264
- 	bool "DP264"
+@@ -483,8 +483,8 @@ config NR_CPUS
+ 	int "Maximum number of CPUs (2-32)"
+ 	range 2 32
+ 	depends on SMP
+-	default "32" if ALPHA_GENERIC || ALPHA_MARVEL
+-	default "4" if !ALPHA_GENERIC && !ALPHA_MARVEL
++	default "32" if ALPHA_GENERIC || ALPHA_MARVEL || ALPHA_WILDFIRE
++	default "4"
  	help
- 	  Various 21264 systems with the tsunami core logic chipset.
--	  API Networks: 264DP, UP2000(+), CS20;
--	  Compaq: DS10(E,L), XP900, XP1000, DS20(E), ES40.
-+	  API NetWorks: 264DP, UP2000(+);
-+	  Compaq: DS10, DS10L, XP900, XP1000, DS20, DS20E, ES40.
- 
- config ALPHA_EIGER
- 	bool "Eiger"
-@@ -197,8 +205,8 @@ config ALPHA_MIATA
- 	bool "Miata"
- 	select HAVE_EISA
- 	help
--	  The Digital PersonalWorkStation (PWS 433a, 433au, 500a, 500au, 600a,
--	  or 600au).
-+	  The Digital Personal Workstation (PWS 433a, 433au, 500a, 500au,
-+	  600a, or 600au).
- 
- config ALPHA_MIKASA
- 	bool "Mikasa"
-@@ -208,34 +216,47 @@ config ALPHA_MIKASA
- config ALPHA_NAUTILUS
- 	bool "Nautilus"
- 	help
--	  Alpha systems based on the AMD 751 & ALI 1543C chipsets.
-+	  UP1000, UP1100 and UP1500 systems based on the AMD 751 or 761
-+	  chipset.
- 
- config ALPHA_NORITAKE
- 	bool "Noritake"
- 	select HAVE_EISA
- 	help
--	  AlphaServer 1000A, AlphaServer 600A, and AlphaServer 800-based
--	  systems.
-+	  AlphaServer 1000A, AlphaServer 800, AlphaStation 600A and
-+	  Digital Server 3300 systems.
- 
- config ALPHA_PC164
- 	bool "PC164"
-+	help
-+	  AlphaPC164, a 21164A-based single-board computer using the CIA
-+	  chipset.
- 
- config ALPHA_RAWHIDE
- 	bool "Rawhide"
- 	select HAVE_EISA
- 	help
--	  AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machines.
-+	  AlphaServer 1200, 4000 and 4100 and Digital Server 5300 and 7300
-+	  machines.
- 
- config ALPHA_RUFFIAN
- 	bool "Ruffian"
- 	help
--	  Samsung APC164UX.
-+	  DeskStation RPX164-2, AlphaPC164-UX and AlphaPC164-BX boards.
-+	  They have no SRM console and can only boot Linux through MILO.
- 
- config ALPHA_RX164
- 	bool "RX164"
-+	help
-+	  AlphaPC164-RX, a 21164PC-based single-board computer using the
-+	  Polaris chipset. It has no SRM console and can only boot Linux
-+	  through MILO.
- 
- config ALPHA_SX164
- 	bool "SX164"
-+	help
-+	  AlphaPC164-SX, a 21164PC-based single-board computer using the
-+	  Pyxis chipset.
- 
- config ALPHA_SABLE
- 	bool "Sable"
-@@ -245,21 +266,26 @@ config ALPHA_SABLE
- 
- config ALPHA_SHARK
- 	bool "Shark"
-+	help
-+	  AlphaServer DS20L and API NetWorks CS20 systems based on the
-+	  Tsunami chipset.
- 
- config ALPHA_TAKARA
- 	bool "Takara"
- 	help
--	  Alpha 11164-based OEM single-board computer.
-+	  Alpha 21164-based OEM single-board computer.
- 
- config ALPHA_TITAN
- 	bool "Titan"
- 	help
--	  AlphaServer ES45/DS25 SMP based on EV68 and Titan chipset.
-+	  AlphaServer DS15, DS25, ES45 and TS202c based on EV68 and the
-+	  Titan chipset.
- 
- config ALPHA_WILDFIRE
- 	bool "Wildfire"
- 	help
--	  AlphaServer GS 40/80/160/320 SMP based on the EV67 core.
-+	  AlphaServer GS80, GS160 and GS320 SMP based on the EV67 or EV68
-+	  core.
- 
- endchoice
- 
-@@ -378,10 +404,9 @@ config ALPHA_SRM
- 	  loaded either from ARC or can be installed directly as a permanent
- 	  firmware replacement from floppy (which requires changing a certain
- 	  jumper on the motherboard). If you want to do either of these, say N
--	  here. If MILO doesn't work on your system (true for Jensen
--	  motherboards), you can bypass it altogether and boot Linux directly
--	  from an SRM console; say Y here in order to do that. Note that you
--	  won't be able to boot from an IDE disk using SRM.
-+	  here. If MILO doesn't work on your system, you can bypass it
-+	  altogether and boot Linux directly from an SRM console; say Y here
-+	  in order to do that.
- 
- 	  If unsure, say N.
- 
-@@ -414,8 +439,8 @@ config NR_CPUS
- 	default "32" if ALPHA_GENERIC || ALPHA_MARVEL
- 	default "4" if !ALPHA_GENERIC && !ALPHA_MARVEL
- 	help
--	  MARVEL support can handle a maximum of 32 CPUs, all the others
--	  with working support have a maximum of 4 CPUs.
-+	  The kernel supports at most 32 CPUs. Only Marvel and Wildfire
-+	  systems have more than 4.
- 
- config ARCH_SPARSEMEM_ENABLE
- 	bool "Sparse Memory Support"
-@@ -439,8 +464,8 @@ config ALPHA_WTINT
- 	  For emulation under QEMU, definitely say Y here, as we have other
- 	  mechanisms for measuring time than the cycle counter.
- 
--	  For EV4 (but not LCA), EV5 and EV56 systems, or for systems running
--	  MILO, sleep mode is not supported so you might as well say N here.
-+	  For EV56 systems, or for systems running MILO, sleep mode is not
-+	  supported so you might as well say N here.
- 
- 	  For SMP systems we cannot use the cycle counter for timing anyway,
- 	  so you might as well say Y here.
+ 	  The kernel supports at most 32 CPUs. Only Marvel and Wildfire
+ 	  systems have more than 4.
 -- 
 2.54.0
 
