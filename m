@@ -1,163 +1,220 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013022.outbound.protection.outlook.com [52.101.72.22])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010043.outbound.protection.outlook.com [52.101.193.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D54C524B17;
-	Thu,  1 Oct 2026 15:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F1E52758D;
+	Thu,  1 Oct 2026 15:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866823; cv=fail; b=Bt6jQx0Fp6VSoUuPeut+qRlv94q8Zrb0ta1stKNTJwEw83iONS7uqVNzCffhlmKeoU/qr1XHw+VSUG/yEC76AtPPJ8VgZZT3iUukTas86XQEd1ujTPrzOw4zNKNOjqKI+xXgiPbxnP2zg/iPoCb8j56fcAbyQFFxcBlxSnaAmcc=
+	t=1790866825; cv=fail; b=sjL100uwsI0a/i24rAkrxnpfCvuZ9x/4hPtqdsw+nDsJ/qhUMYVO5+xVBeXJwTZbtFas8nBEZR65wvB9Ih9FJfVu8OQXklaOLckh11pei2pq9vAnsSWg4bWACc7eSGSlrpq4TGMYRqnETziwxARd+YmVkirnVnJxlzVDj8Lbq2g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866823; c=relaxed/simple;
-	bh=kJ9JbBcyAd18h1PIu0CBxe8MoQWn21JAH7fWtuKNmK8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GLEP/AcxK6D8vtzpqikf4XH2WO8yv55L+IJdFDJvLTewKsn7nt3ZtF+2Rn9jrLzMntRwHNS3Xhs0AksQ89SxcUcoe/0+TYolIzZkoP+VR1bSjFhjLZmcyUxRDK42M3ggoM1ljx/kCqPzaz+zyykAOfWj2Br4pVF3cWV3Q9rOIYI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Si1tdGBp; arc=fail smtp.client-ip=52.101.72.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1790866825; c=relaxed/simple;
+	bh=BclSz1iUZdfEQD7DEN1/NZ89aoosCCdMz7yeTSwNASg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qDrn6YAo8oaqy16xGSVSizq/I3HK+etvR38NAo1/CJr9vDcUzWCjQoEQGQLFMbOgtBhXHFEbu/kOTLN3kFgMwdwrFmQFD43kCUcjuvL+fyIm5tH+rlzcO6Wjco/4cT8HDv0ntp3MqgmsgUL1gN4q7WgIAng34JunZ7mOBLsUz0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DpI59uiJ; arc=fail smtp.client-ip=52.101.193.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Si1tdGBp"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DpI59uiJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BZx0+1lFSUiQgyZowcLgF91n3Cwusv67xwskVpgmSx0i6p1wfg1QOJ/qjz5fdP9KDBBTgdCRcnFCs16T/XNVH5B8ZBJbv9n/Ns1v6CeU6b1gcBSalZKoEJ4n6vQ0AdRY3m6gNIM4+QPoG4gDzcY2zhA6RbveN9N4KI3p+ozjR2H880IL6V3cP6tLjFbWwtEeFH9JjKCKNDmHGH7tAIO+F3RRjCy65dMCFNNHijmFw3Gsr+OI1v1wjfemlvBD3/+KteRZyahrytxBWyJpyFFGUz9ZKPVff6jO8GctpjIHXvuNMvTCRPDbla0MamHLNpPOksZ5VUK8sMa5hOJNDYdm5A==
+ b=ShaXsUr4WYmJrutD/G4zBkOlVc2J1Hbx5aJrdvm0MmScpr/e4PFKF1bZ3jt8/MNzNDcJFcsLBre+lol8pWhI2SwoLFBy2p/Sa656VlgNXt2S6Dl50WfW7pFFreqxyVcSK6ZVnYw1TgHN7VMQzGPF14wpZfB0hRRj/DTGCBtm4xvikFSusTRFjgk2dS+xZjYgiQ+FkhXiSA+nAJIq0Em0WTaHQNax0e/j0O0Inmw+NrQSFyaV3d776d7DwUNLVgYopa1YTKD6ehf+IYSM6qWfG1tifSgQaeBBJ2AkA02WgYfao5pTekJ0fN+bLIPPRswYpVOLJVZS8z6nMgnKqNFweQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YkXBv8Na4wsm/RCPLApeAPIfvqp2P4qELX2hBGYkmWM=;
- b=n9CAurAsMDLDoxop9UgizR6e8zEcJU5i7OYyj/tL57EgLN1hIqeCchtK1GLatU/mR1zFH3CtHorDCJorNYEMTXQwj0q1C4YtYMmDGPimQhwdTyp8ohpq9UX1Lohg1+uK5aI9vEDQFDuSVPsS8M546nBWlFEDckf4hV9pBrqsIX8ziAwr3BI/wRpVEnC0o0LZJOYwivgWtNksjEo5tsNrXUH9Osq44le1p8YaXGd0u0yqr39DE8BG29hXBVAuiNHiZgK5+Pl2d7EkEhFpmB05nVahKuC6/5Ac1DgRb5TMAeBlu77P4mzHMXqUY5xxsxF8WuEsQHPiYnnhp1CKB2oFTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=RIupPBeVoVYAYWU0mM1ELuvXHmWD+54b1jzPqaDKU0Q=;
+ b=MyBJQsRtPc7k6IvMlt010qcSnRSRl2e/ll8chxKH51bAmHJHNDc7Q9bL2KT6brNIvrHiQobSIZVwVlyISiN8PStL3a9TDToxGQX+u3HLp4Ob6yoYX2MVDNwGCTspddjCn8ibMATsHEdj6WxcVdNcDet0OoQ21erCOTZfZcSJO7E5UFumd1prxbhqS6IXas9ww2tma5ihYvzvXdX9IkW9AKcWqm3Q2/Mh7xr7lJd0pWczb4SKN6U3Vij6rdR+zufXQ9JEoy41QMu9wPih/CGSh5AoBSSEb68aZyzouZdl+PEt7o+cghrmW2Iz+wWjQalUDPRfod8HXflFD4gnMwU18w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YkXBv8Na4wsm/RCPLApeAPIfvqp2P4qELX2hBGYkmWM=;
- b=Si1tdGBp00cm7/YCOFgvrYaQ8QXAFlCJzyoD7TsINWy/TUWjsW1bgG1+aGmYU6YCBRW2X8X9CdncxdkZGidcTXZBPdgX4R7YD0YnqeDvggPnQfBTL9ud3j6u0sKzcOCru99PowHIvowWKFUHJnFcTvz8Hopx8jxviNtYD35zexNFTqLJ7HnHEO44Iah+YNyMm5eW53B5hM9Zq5xM1o8K5cAQFq+SIvBEObAb7dB+PAvX4nH06cVdbkXx2GHNVqLrGWlLDNfnsylLHsP9/KHryzT8aFkVAQxutUCY2jFha5BTGBSeM/vpfoZ7EQCztM88EgQ7tzuTpZFsM7+eofRsYw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU4PR04MB11412.eurprd04.prod.outlook.com (2603:10a6:10:5d8::14) with
+ bh=RIupPBeVoVYAYWU0mM1ELuvXHmWD+54b1jzPqaDKU0Q=;
+ b=DpI59uiJrV5l7xfvTW3LipZghhvDalurKX4qVLvxq9bQwJ1PAPMsVsdxUagY/xbV3bzR8Wx2jeRzfin2bNV5c5yWOyfLJxWeULLBExdE2GyJ8QejqSTwfwHNk85EVD+AFGK3qZjISaExZPS1W22gpydzQiobrbW2TG3Y6xqaz7gByID1Bea7kK4CmiYjcjk0Y6ntAhP0hkQz+e2Q6jOwZdcNCMVKQrex5MP5r6Ezpg0DmjqgFY+mk54q2ORR0fVI/Do6f5iU90JvFHP0NEbm8n3eGBXODws7CL8xEV726ChPqomtvf/hJnAwGtLMen7zf1XaLNV+eiyU8GHGRgrUtg==
+Received: from PH8PR07CA0022.namprd07.prod.outlook.com (2603:10b6:510:2cd::21)
+ by LV2PR12MB5798.namprd12.prod.outlook.com (2603:10b6:408:17a::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
- 2026 15:00:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 15:00:17 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Andrii Salivon <andrijsalivon@plajta.eu>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 0/2] Add support for Amazon Kindle 4 (Yoshi)
-Date: Thu,  1 Oct 2026 11:00:10 -0400
-Message-ID: <179086680651.2217519.5558580290302031419.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
-References: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CY5PR14CA0024.namprd14.prod.outlook.com
- (2603:10b6:930:2::30) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ 2026 15:00:16 +0000
+Received: from BY1PEPF000264B5.namprd02.prod.outlook.com
+ (2603:10b6:510:2cd:cafe::a5) by PH8PR07CA0022.outlook.office365.com
+ (2603:10b6:510:2cd::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Thu, 1
+ Oct 2026 15:00:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BY1PEPF000264B5.mail.protection.outlook.com (10.167.242.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 15:00:16 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
+ 2026 07:59:54 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 07:59:53 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 1 Oct 2026 07:59:48 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <andrewjballance@gmail.com>, <daniel.almeida@collabora.com>,
+	<dakr@kernel.org>, <aliceryhl@google.com>, <ojeda@kernel.org>,
+	<boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <ankita@nvidia.com>,
+	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+	<kjaju@nvidia.com>, <alkumar@nvidia.com>, <acourbot@nvidia.com>,
+	<jhubbard@nvidia.com>, <zhiwang@kernel.org>, Zhi Wang <zhiw@nvidia.com>
+Subject: [PATCH v3 1/5] gpu: nova-core: validate firmware versions before debug logging
+Date: Thu, 1 Oct 2026 17:59:36 +0300
+Message-ID: <20261001145940.1077801-2-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261001145940.1077801-1-zhiw@nvidia.com>
+References: <20261001145940.1077801-1-zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB11412:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbd34f4e-7e5a-41bb-3c71-08df1fccb489
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B5:EE_|LV2PR12MB5798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38badc6f-26a5-4a66-cc22-08df1fccb409
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|19092799006|18002099003|22082099003|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|7416014|6133799003|22082099003|18002099003|10067099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	uHJuKoIlWL7Yvq5+v/G9ZzeLA+BMNeTSo6h2mK5wZc/MS+M9N/Bt1Kkwq+qZpusvSbOIfq9exPbW4Z7Whfc1WEQdIQJ1QfzCZAidOmVFQhfLMEeWeOcnqdIMqU5wlLbQvGDJe4hon7aYpwI2zfw+XSAdbk2ZtF3TBA5RVJGriWIL+oWoFNCI5bb7HvQLKWERTett9fw0MqE8I/UtBIQhHx5JfGOeb8efq9ibHIxA7Au4AbLd1Ne+8RJ7Ab1q6mcclUtNWbQfYQtgF96H1oMhKUvKFAi5pPWET0xEpoCXwttLiJlZgPpEpIZAbsGeY/kcR02QuOWzj0dE66SuFJtYQz4+tb9GwMt7ZlMS7eh+y6Y/ojeurW8BpZyH8AFAitxTWf7Ik2xEga+2u15MRwr9MkuS5pPuxOPNcFYJmcoCaADEBnt8rOkYn60Giro//PLlT8cHcS3RMVA3iUHEud3JlMWmERxEXUHG0Msi5E5vSrQE2riZ9l8UZr71MEq5Y7WPgPPiqNL9Q565ksKqDYmrO/nYgAHrrUcN27L9PeGguhBEZ3pINT6nLxhEc4cU8wr+pWlD5TJTBN6FQb1RD46cfAhnqFR6KdJPq56KFB1aNvxGbCEC8pC1PSBzm//rnYXqrCuR3kttN4ZOdokjPMshmLDRa6TyMJEGE44FkQ6ac0U=
+	poTlNGa+0dx78qFlcreQ+0unNxDiaU/2PCt5ymiNx2T/pq6pHNSyLSnj0lCLA69ljawMJ+77k3PhLc+S0CQhPQMuse0zUFIMPwlTltUrFWYnXUvbipUODS1tks2FEMFLs5Hb8+PtQrJm6YHXMSDEMkJHf8sqNS55pD8a/89xiGndHgTERsGDV5tHJ6zSkqjk99OAf1MsCRrUBQOMgY/CsxECV5LArMX88mPgh8TvrcRdMWQlCARDi35FoGbEXXhN8T0a82u5Ldvx+lJZbo54vgQaAkn41OqWuKBY7KBjxE/kIUVgNIqlamFldnFgrh28x0tKtUwld8yo7UWwxUY8r3Enn5AEpqPFFnVpRri205Zu9NrcO/m25kVVmX+4GiWXo9j7r7FoNhXkeWPsw5CIAojO+y0QBLPLFiXFLN7bx73pHUaH3QR7Tm8PpTii3mUC0YbahyHhbWBKrITNpngDCXS/C1NtVBNSx6y5m3AceHJuN+n0NM/9OMJLpDPkuB+tWYYz6i72mCvNlBSvrz90iheeYe6kGoP9lZaYFNuNguEJ2OSruZWiDmjm1ozDfSbcKjxUmVkqM1of7KYCu18rPLAZtRJl7gm50q5TvWI7PvHYOi9cTsy3UQ0QqNUDL9Mbfeo3konun/qSf69g2hnLCP3uekMXlKQ41KJO2gsLr/koRWGsM7YynGWtn7+T6eWlGMZ5s+m/urvSdvYbgILGQg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(19092799006)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(7416014)(6133799003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZW1BQmtSeDhHN2VEaENFRlA5ZUJhV3lQQkc3TFZITWlRWmZjZVV4ODZyUS9R?=
- =?utf-8?B?bWVrOS84Q2VvclFQaXVRYisza00rOGtjdEhKZENEdUR5KzN1bDFSQlpkWDUw?=
- =?utf-8?B?TWR5b0hWd2U4VWd5Q3k3c1ZkT2tPM3ovdkRrN2ZXZEJBeDdDaTdaT0pSbkxU?=
- =?utf-8?B?citnSEJ5Qkp0eHIyaDhiYW5oSW1pRTdDd2JKaUUzbmM2Uko0bjJlaTE3cDM2?=
- =?utf-8?B?K2kwdVR2V0dycjZTRzhacllpNUpkcGlic3hZdGtjbDh4RFBuRUNIMzQvZkhs?=
- =?utf-8?B?YncyNkVVM0I3MiszbXhMY1dLRDJYM2RIczBZMDN2ZkNMQnUrY0N5UisvZE5u?=
- =?utf-8?B?bHhMNkRsSnZXN3N0amliWHUxV2NqY25vSEptZTFMbnNkOTJTclhjNjhvTlBl?=
- =?utf-8?B?QXBpYS9QVVNRU25hZ2RZbTFQUGExbTFqbWFOK3hsNWZLUDZxZGFwMEVrc3Nz?=
- =?utf-8?B?VC9HVzkxT0pIVkJsNkEveFZ6R0lQNXJCN1J4SFdWUzYvVGYydVdLck11cEM0?=
- =?utf-8?B?Mld6VnBUbmF6Wlp6dHVQQUM4TWhIcFFZWnFtemhyRktZZkZ4Z1NlSGZZQVc4?=
- =?utf-8?B?WE5uK0xIMDIzemlrU2FseVBiaUR5emxIcnhUWDE0dTFvZ0hkbzVmR3VSZytV?=
- =?utf-8?B?VEtmNXQ5QmJSTWVrR2VKNUszRGcxbGtuYnQ3R2h4VzErNzhNdU50OWYvSEsv?=
- =?utf-8?B?SHc1R3NhODZITmRxN3JHc1JLTmNyU2pkcEtsYVgwU0xvVjQwcSt3U2l3dHAv?=
- =?utf-8?B?OTZHa0FFMGlLK0tLMWxXRGdwZmhlKzQ3QnNaWDNaM0E5ZDEybDZKM2UwaXox?=
- =?utf-8?B?MUxpS3hPQzNTZHpZOVlCYU4wZUFGak9DdzdadnQ1cy80T1pwN2ppOXFsTVpv?=
- =?utf-8?B?OTZjVjdsSVdJd3ZKZm5EWnFMMVZaVWlOUU1DYlZkT3N5SWtKQkV1NFA4aDcw?=
- =?utf-8?B?THFjREF2dUdUSGlOREFHSE9PVXFNUU5vVzd4RWZyTE1qYytNS0w2ZElxR1ZZ?=
- =?utf-8?B?ay8rNS8xdEhDTS8ydGZUTkw3dHNvR1pDRzZGZjZnQUQ4dDhqSmQ4Wnh6K3NN?=
- =?utf-8?B?VVlMeVNQSVg0bkRoUGxPZ01DSmcvQkU3MWJtUjljZ1RkaFM5WmVwZGYxSzF0?=
- =?utf-8?B?bUtDcE9aNnhtczJpZjRoQnIzYnIrdXA1Y2lyRlM5L0NFUWRqOGhlZVFMQzZ5?=
- =?utf-8?B?eExGVnNjeEhMQURYdVBaRFhmZEZrdW94UjloLzBLdks2Q3BTODQwRWZSTUpT?=
- =?utf-8?B?dmhuVUx1YUp0bkFIV0hOUW44WkNUTFBmS3B3cUNEZ2gxeXFEdFg3Rlk1ZUZH?=
- =?utf-8?B?TjljSmJLUU00SUI2OE5LNCtiVEw3ZEx0Mk9GbTltdXovOWVsNXZKM2dqTUJV?=
- =?utf-8?B?NUR4K25PQzdRYWR4S3dKeGZjU0pnWW5McTI2cSt2ZEpqdWVBc1lGU3lBZjNS?=
- =?utf-8?B?Y2JnMHVSQ0xHT1JWditjRFJVUjhSM3hjTGtUZUliUzRvamZsVjdDRWxBYjFi?=
- =?utf-8?B?Wno3RWNnZzBKaGhFT0dDdXBkaGRiWmdHNDlPNXJQMFVlTzdKdm5tMlFxaGJx?=
- =?utf-8?B?eFFkNGpJeGtLb0xvREFLWDFhRjVEU1hPdzVqd3RGRzRMdUlUR0pBYVVzRnE2?=
- =?utf-8?B?QndCVmlvc3FSMlVmY1hXREdGYlUvVmpmb0FSb1lwa1E2K3hUV1Qydmw4Z2ZN?=
- =?utf-8?B?RVpEVDBZek9vQ1FuZmJNMHBhOXQ5ZVNYVUhFaUdvMzRXTlozVHVMclk2di91?=
- =?utf-8?B?VFlJTFBHS2xra1lpcG4yUm9zNkhrWnFuTmlSV0R0dlBuNDFrcVRsOTJuVlNs?=
- =?utf-8?B?eUpBR3M1M0J3RVorV2c3TmY2VzVTUnVSRWQrNHF0c0FVQ2lndjJsdHI3ZW0v?=
- =?utf-8?B?MERzazJzK05za2tGS0pRbkVFalo1NDdVa1Z2UDdTamNQdUp3Z0lCWVB1SnZP?=
- =?utf-8?B?T09MaCtidTU0ZVB6RWlJcDBFL3VOYXp1WFBIRDhRMGxQekQ5WGR6MURZVFQy?=
- =?utf-8?B?ZmVsUGJxaEZHUHErWjZzQmpmbmE0QmpmRnNCc3dhMWpzT0RGWUtrWjFmMzRO?=
- =?utf-8?B?TEo3VWdCampLWmE1K2ppakJWdEsyeVBKSE1WNTRlODJqemJsRjVhUVY2Tzl1?=
- =?utf-8?B?MGdsRWlQQU5DeTJkdGtBT0lZNkJteU5QMDZza0NuU0JMeTVnc3FuUUdtMEpq?=
- =?utf-8?B?RmdHUzRCRDYrNC9jbHUrc0xvVXFlMEcvYVl2Q3Y5cFRYcjgyWHBrWjNzU0N4?=
- =?utf-8?B?SzA1NlRpVGtpTGNIV2xjRHNtR1N4dC9QREJMczJYczUrT2paYnZuVGFHa0FJ?=
- =?utf-8?B?S1MxMnZvajRCNGl5emZGaGtxa3RSa1JhbDVqVWd6QzMxNTFVNjhMSzlJVGpU?=
- =?utf-8?Q?vRYJgzbSaMJaIzdBmJYPic4OOP1ofAnYHiWaT?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbd34f4e-7e5a-41bb-3c71-08df1fccb489
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:00:17.4564
+	DVkomVhQDpWqAxACVH4lfv2Fc83QxojDPRqhC9HabmmwpKbUQwKsgp6/L8x9sgebA/TFiaZUyg7CBYrEAJg6O2ZZS7cLnSU7hgY9C/pp7dxpH1DtizP8sztFTEqRaDzcSSUFXmDOf93NZQLndiAXEwmVk/FjkNpdlSNbRQVnWM3E05L+WI1oga8CoUtke30MZ+yjxBNTfdfPwM8pwisjmDNI63zCgURSSVF3+QWngAJU1H/SCp2o5uYKM9JP/+cgBZWnTrNFRJbNVzl4evjk4ZxcecUf2+p4dPEn7RPOV8KH57kH7YbsVs3AZP5TmcItZRdcj9lERW35zCme4Kf7VLYIlaJ8nLtP2aoU6qpVZlxKWRejTJGJXWLwS1Qkhy814K4Ne5e+ZtgnTqM77oRecqwgBR7sy/1sN7yjTH8j8lbsUyH/WeLUJwcq5KKxC/iU
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 15:00:16.4004
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HdOUgSwSSPD0Ql2DucuS6Q2DLj66EvVUnUlbNL/0hoLB5yBj9k7z9uO9C2ewBUg/+Jfi3jLc/vI/lv2hZiyz+Yxl5AG/MkTWtzOJoitG0thQvKwvpKSo1IVLKu9yNnsp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11412
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38badc6f-26a5-4a66-cc22-08df1fccb409
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF000264B5.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5798
 
-From: Frank Li <Frank.Li@nxp.com>
+Firmware loaders currently use tlv.get_string(b"VERS")? inside dev_dbg!
+arguments. The string conversion rejects non-printable ASCII, and its
+error currently propagates even with debug assertions disabled.
 
+Move those conversions before the logging calls so that making dev_dbg!
+arguments conditional does not change firmware validation. Keep the
+message text and the order of the remaining initialization unchanged.
 
-On Sun, 20 Sep 2026 21:21:36 +0200, Andrii Salivon wrote:
-> This series adds the device tree binding and initial board support
-> for the i.MX50 based Amazon Kindle 4.
-> 
-> Changes since v1:
-> - Fixed alphabetical ordering in fsl.yaml, Makefile, and the dts
->   iomuxc pin group entries
-> 
-> [...]
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ drivers/gpu/nova-core/firmware/booter.rs           | 8 ++------
+ drivers/gpu/nova-core/firmware/fsp.rs              | 3 ++-
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 7 ++-----
+ drivers/gpu/nova-core/firmware/gsp.rs              | 3 ++-
+ drivers/gpu/nova-core/firmware/riscv.rs            | 7 ++-----
+ 5 files changed, 10 insertions(+), 18 deletions(-)
 
-Applied, thanks!
-
-[1/2] dt-bindings: arm: fsl: add Amazon Kindle 4 (Yoshi)
-      commit: 60d031f9e361afcd1a33efcaacdcb19205fd6d5d
-[2/2] ARM: dts: imx50: add support for Amazon Kindle 4 (Yoshi)
-      commit: 1a4b790752a297a296cf48b8e3f88684060d745f
-
-Best regards,
+diff --git a/drivers/gpu/nova-core/firmware/booter.rs b/drivers/gpu/nova-core/firmware/booter.rs
+index aa4458bb3312..6b5384e75c5c 100644
+--- a/drivers/gpu/nova-core/firmware/booter.rs
++++ b/drivers/gpu/nova-core/firmware/booter.rs
+@@ -93,12 +93,8 @@ pub(crate) fn new(
+         };
+         let fw = request_tlv(dev, chipset, fw_name)?;
+         let tlv = Tlv::new(fw.data())?;
+-        dev_dbg!(
+-            dev,
+-            "loaded {} firmware v{}\n",
+-            fw_name,
+-            tlv.get_string(b"VERS")?
+-        );
++        let version = tlv.get_string(b"VERS")?;
++        dev_dbg!(dev, "loaded {} firmware v{}\n", fw_name, version);
+ 
+         let os_data_offset = tlv.get_u32(b"DAOF")?;
+         let os_data_size = tlv.get_u32(b"DASZ")?;
+diff --git a/drivers/gpu/nova-core/firmware/fsp.rs b/drivers/gpu/nova-core/firmware/fsp.rs
+index d47b1d2a1030..308ce7889ced 100644
+--- a/drivers/gpu/nova-core/firmware/fsp.rs
++++ b/drivers/gpu/nova-core/firmware/fsp.rs
+@@ -50,7 +50,8 @@ impl<'a> FspFirmware<'a> {
+     pub(crate) fn new(dev: &'a device::Device<device::Bound>, chipset: Chipset) -> Result<Self> {
+         let fw = request_tlv(dev, chipset, "fmc")?;
+         let tlv = Tlv::new(fw.data())?;
+-        dev_dbg!(dev, "loaded fsp firmware v{}\n", tlv.get_string(b"VERS")?);
++        let version = tlv.get_string(b"VERS")?;
++        dev_dbg!(dev, "loaded fsp firmware v{}\n", version);
+ 
+         let fmc_image_data = tlv.get_bytes(b"BLOB")?;
+         let fmc_image = Coherent::from_slice(dev, fmc_image_data, GFP_KERNEL)?;
+diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+index a87878fe2aec..406995a24e7b 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+@@ -125,11 +125,8 @@ pub(crate) fn new(
+     ) -> Result<Self> {
+         let fw = request_tlv(dev, chipset, "gen_bootloader")?;
+         let tlv = Tlv::new(fw.data())?;
+-        dev_dbg!(
+-            dev,
+-            "loaded generic bootloader firmware v{}\n",
+-            tlv.get_string(b"VERS")?
+-        );
++        let version = tlv.get_string(b"VERS")?;
++        dev_dbg!(dev, "loaded generic bootloader firmware v{}\n", version);
+ 
+         let ucode = {
+             let blob = tlv.get_bytes(b"BLOB")?;
+diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/firmware/gsp.rs
+index 22d1f9329c9f..ac741a97e759 100644
+--- a/drivers/gpu/nova-core/firmware/gsp.rs
++++ b/drivers/gpu/nova-core/firmware/gsp.rs
+@@ -74,7 +74,8 @@ pub(crate) fn new(
+         pin_init::pin_init_scope(move || {
+             let firmware = request_tlv(dev, chipset, "gsp")?;
+             let tlv = Tlv::new(firmware.data())?;
+-            dev_dbg!(dev, "loaded gsp firmware v{}\n", tlv.get_string(b"VERS")?);
++            let version = tlv.get_string(b"VERS")?;
++            dev_dbg!(dev, "loaded gsp firmware v{}\n", version);
+ 
+             let size = usize::from_safe_cast(tlv.get_u32(b"SIZE")?);
+             let mut fw_vvec = VVec::zeroed(size, GFP_KERNEL).map_err(|_| ENOMEM)?;
+diff --git a/drivers/gpu/nova-core/firmware/riscv.rs b/drivers/gpu/nova-core/firmware/riscv.rs
+index f05cfb1c65da..918908ebcac8 100644
+--- a/drivers/gpu/nova-core/firmware/riscv.rs
++++ b/drivers/gpu/nova-core/firmware/riscv.rs
+@@ -30,11 +30,8 @@ impl<'a> RiscvFirmware<'a> {
+     /// Parses the RISC-V firmware image contained in `fw`.
+     pub(crate) fn new(dev: &'a device::Device<device::Bound>, fw: &Firmware) -> Result<Self> {
+         let tlv = Tlv::new(fw.data())?;
+-        dev_dbg!(
+-            dev,
+-            "loaded gsp bootloader firmware v{}\n",
+-            tlv.get_string(b"VERS")?
+-        );
++        let version = tlv.get_string(b"VERS")?;
++        dev_dbg!(dev, "loaded gsp bootloader firmware v{}\n", version);
+ 
+         let code_offset = tlv.get_u32(b"CDOF")?;
+         let data_offset = tlv.get_u32(b"DAOF")?;
 -- 
-Frank Li <Frank.Li@nxp.com>
+2.53.0
+
