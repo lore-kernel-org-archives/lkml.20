@@ -1,137 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE04736B939;
-	Thu,  1 Oct 2026 04:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B5E3DDDC0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829693; cv=none; b=BrQpEAiCJ87BvpClWee0kBYLIdPFRCZ/fopmfg6DkrcQ8LhfMrJwyvNutOl9xxOix5sNjPE5QptMQbk7tKiKK2n1d5KXWw/IJvRnr30mO7RgZna9ZML3phFZiB5B3Nwxx+3SmY6xSjYyGrRBuss8BouRxpp5qFLHhp9G9E+IdtI=
+	t=1790829741; cv=none; b=ndhydilrGTUPW5EQMkNsHdCQg4KWFR+o+Cd6FNdmDknkAvLjxCh1gOMKCwtsN6oaPKTYlbR1G8wIM/bXH9ceqGwJTedTE1/H0nSglzlSjAws/PCind5SfNBEUMd2a220N8QhT3zsKBqIbN32uYdiF1RODkQDn9DITlod6WIkltE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829693; c=relaxed/simple;
-	bh=LJabXzDr8Pqmi2JYmBKjyWjaEcW0q9oUv6Q7p35WK6U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=elF3HaCwhLb7wVhlIMarygE+Ubslhmql/+6e36/eVwgfKMfgSOVL6mbO8WTXxdRDo3laYlrJqE0aUaPohFfEGFT/2WaB+Fo657Jbg8it0F43QPzKb52B8WdEHkj8yhsPLQFzZjaLf6RA62QSkWyx3g96emitl9GeDKx5csJVCIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bq0nZkKW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790829741; c=relaxed/simple;
+	bh=SS7j2Mi3g5GlPry3bUdyss69gJmE53mV446QuvJzBYM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XyXSFeP9ql1aqSuxZXuaryYJXfm8KMTrr3MXUxnpRZSsXK1BZL9J3ku33v4U+3m/GY+qntxsSGCPL/9HUSfSiD1o4PvQJ4tsSJtYKG2vqJEyQXp9Yz5GePSO7QzAJKAYRoT9F4ZZauz13VSguUdjHrAtlLz772Moqm1s+rRO4QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IWTeAvoA; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bq0nZkKW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96EF1F000FF;
-	Thu,  1 Oct 2026 04:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790829691;
-	bh=tVU5xB7+vpzEDdoS9i3GNs5XYI1dWTYZUYdxVIutOtM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Bq0nZkKWMqWIxU4tIv4zapeOdCpnHz5b/zR/btuwhOI6yqWhkNa16ZLAdV0XAonaE
-	 LT/7g8b0EEn8q6WkaYSXcge2H8Yc3IFapoddC+KtKRElzzzS2tCykxpi6k5aZA9kay
-	 7Bx2fP9pScRcEmAWGN5VHfJ7AF5BwdkPUQT7ytyICmEnBPU0xblgkviAuLC9gCD0Mc
-	 1wW64Qj4Bi6OFUgghHfnyrW6ZOr1ms95vNMMwVa/6E/AhGbiTu69p6opZ+oOc4sLrS
-	 iIWKzWRMviz1dpodiBtpGvwGIBrsrPpmtw65JP7qKlykYyEAPSVgsAOV08268AC+o8
-	 rWTxHJHwYW1TQ==
-Message-ID: <ede392d7-3104-4a0f-9fa1-99b22552dcd6@kernel.org>
-Date: Thu, 1 Oct 2026 06:41:20 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IWTeAvoA"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso15012175e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:42:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790829737; x=1791434537; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a1VMb1gdkAzPRn13HLN7Aa+0FwFU3dz+Af4Wv7wExRg=;
+        b=IWTeAvoAJxpZWo5gWWXPhTGXZGjKyzinPbCyh8WkIhAE1IZN2d3IM0DRRSUtd2M481
+         PNicrRfD3jw0xzN1lvq/twOaltIi9/c/4ovlN9JAaf81ssUUac9CgsjHy2/0D2Vg5xNr
+         DdSrIzpp3FBXy38p7UyM4Fyom/rxabUOxct1aQWC3dATXgwgLvecCCMtKql4L8FJQBet
+         b9FQqFutCMY8rDp+pfi1uM1lc++ODeWSPUP1WVCtQTMb8BzlEv6oAckQWUbOJmE4bFrW
+         wg8JOHb0+JiT+ibxscn9oKm1dThoOdaSuINrMzYMRhMdAqB0wEGp0BAGC3/Bh24ZJWMo
+         SvVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790829737; x=1791434537;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a1VMb1gdkAzPRn13HLN7Aa+0FwFU3dz+Af4Wv7wExRg=;
+        b=ch/6zspGNS2DqM7KGUVllQn9ztbK8hSegGMj8kTg8dfrV+QHcQL3ObXbH6sMxFxa5H
+         2SlSw5+d7YakMi+LMTlEwg5H52657y3LJHApx/lp7y0X4kcFiXfeDKS0ct7voy7nx0p8
+         R75w+oPyQQq02Hqa9E33M0RPPcTb34mMl5lH+VNUm7GaqpCxDR3afvQAmgnPnRU2JycT
+         gmt3rqpMJ4ZCdR60QZdBBmKPbjfdlj7gftQKsayAxceRmUgWDNvrJ/JPmC4Ifw2iasn0
+         d/CO+qIsqgt/cLe0RMskoAEb9aPGHW5O5Tk/sLPWOhLE/xOcpIajEYzbCrXxdvc+e7nF
+         Uj1w==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ9UtmuNDWyxUriOXQJJ50G9jeedWPZj8WhDjrj05U09h+EobfuIG0aQovoruLwFLDecNOVYRgNfclMrQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFohjJ+bo+7hOuc2VsD7LezffkKScLPJErYwpZINqKe6LXvPoR
+	jHxajrFxX92JFZmGt7wvKz4T4hHDZ3XCtcw6EzouWG1yteIygnt3I2CA
+X-Gm-Gg: AYBFou06YOK91X3PW3jA1YiF3R9Np+84hpBZdivxjLt7AR1fYuqIIuBo7u62AivhYcv
+	SijtrP0uf8QeWx5oSKYSF98TgngEvGM7PXx6bnvE33T/Mios6XcvQq5+op1Y5Sut0D2r/E1gxKB
+	zleEzDSvBUhd8UagKP6HCpUF0XblzieG+TSHk4LMWdkwauRl+PuSbchvadEAT03seXt5lMW0twp
+	VFPCU6kyzZ795WHwbYfh4fAmOP+lPyKZTonOC8U/zobbjy5n32rBrnXRoAZ2Z6S+PM0hA2UrN2o
+	hn+EijrXdf5y1wlxXauG+Qny50Ctx2//ULUvB4bu/2MmeFyGH/QjlSMWbb2O7DjxKVZt4IYgyN1
+	HfPLUlhlbL+z+pO3Kaa3Ki9gC++jvM0NIvtCalDVV/cE22TKOaYxHuN4eMQ8/ve9XGOkY/RQ93u
+	UOC/Ij++kkIhKsovrJ62/50GB99nhEIF9J/1lDw9jj+WepuaW2gJOEAmJeHAmoKQiVR+ZnEs3cp
+	PBsrl4u1CjIwmmXquqtgrPmZsPdMR8VPQFWSEbt675ntsPbPYviUTO+W1B4JjhTnRAbVnn2VQBk
+	8zseZHqiy1TOJHv1wjtawIXLdEaRxiLIdpgAMZ0J44InMoyEM1XNvzgCFOUDjrU=
+X-Received: by 2002:a7b:ca5a:0:b0:49f:fbad:29ae with SMTP id 5b1f17b1804b1-4a01eb19ffdmr17039525e9.17.1790829736713;
+        Wed, 30 Sep 2026 21:42:16 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-117-056-101.95.117.pool.telefonica.de. [95.117.56.101])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f6c5059sm32619515e9.0.2026.09.30.21.42.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 21:42:16 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [PATCH 0/2] mm: preserve nolock context through memcg cleanup
+Date: Thu,  1 Oct 2026 06:40:54 +0200
+Message-Id: <20261001044056.75079-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
- Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Theodore Ts'o <tytso@mit.edu>, Vincenzo Frascino
- <vincenzo.frascino@arm.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>,
- WANG Xuerui <kernel@xen0n.name>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- llvm@lists.linux.dev
-References: <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
- <CAKwvOdnxKVpn=nAFaqP+9PTx4PqgHsUVWv6e60Pcr29W_eZrpQ@mail.gmail.com>
- <CAKwvOdmNZL3eFvV3v77GXDzL+XLgz+BT9TA=my0yTnbsHqVeSg@mail.gmail.com>
- <areYMjNcaqe86ds4@zx2c4.com>
- <9d1c338b-368f-4ea2-a12e-c28d49adff5e@kernel.org>
- <are6s5e6On3hpD3M@zx2c4.com>
- <CAKwvOd=BrMfFT88jsvBPhh383qqk5G+J07CsofNu0MVkziyhCg@mail.gmail.com>
- <20260930133813.GA3142230@ax162> <ar0a4b9CjL2YHCkY@zx2c4.com>
- <ar0gTS71qxnx9AkW@zx2c4.com> <20260930151337.GD3142230@ax162>
- <CAHmME9pA+AntJ6hWoFYpTVjh-NUSd0ZGXp5XiUuhQcq3HjQT3g@mail.gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <CAHmME9pA+AntJ6hWoFYpTVjh-NUSd0ZGXp5XiUuhQcq3HjQT3g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The no-lock allocation and free APIs can still enter regular locking
+through two memcg cleanup paths.
 
-Le 30/09/2026 à 17:16, Jason A. Donenfeld a écrit :
-> On Wed, Sep 30, 2026 at 5:13 PM Nathan Chancellor <nathan@kernel.org> wrote:
->>
->> On Wed, Sep 30, 2026 at 04:44:29PM +0200, Jason A. Donenfeld wrote:
->>> Nathan, would this be okay with you?
->>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.zx2c4.com%2Flinux-rng%2Fcommit%2F%3Fid%3Dd216701724b7d8209ff42150658ad5c712bdb503&data=05%7C02%7Cchristophe.leroy2%40cs-soprasteria.com%7C8f69935bffb344bf0ddc08df1f05e358%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639263782324080837%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=BA7Fyr0%2FynggvBnR%2FpiCvNCQHtNBagqvSb0i11AvoLU%3D&reserved=0
->>
->> Can you stick
->>
->>    Cc: stable@vger.kernel.org # v6.12+
->>    Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FClangBuiltLinux%2Flinux%2Fissues%2F2183&data=05%7C02%7Cchristophe.leroy2%40cs-soprasteria.com%7C8f69935bffb344bf0ddc08df1f05e358%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639263782324110679%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=6C8%2FAEQoh%2B8pfgfYQkL7qf5Ue%2F5sAGtfqRptzsSG0CM%3D&reserved=0
->>
->> on that? Otherwise, looks good to me, that's basically what I had for my
->> v3 locally.
-> 
-> Sure, done. Also removed the now-unused array_size.h include.
+Patch 1 handles rollback after a post-allocation charge failure. If
+kmalloc_nolock() obtains an object but its memcg charge fails,
+memcg_slab_post_alloc_hook() frees the object through the regular SLUB
+path. Preserve the selected allocation mode by using kfree_nolock()
+when the allocation flags disallow spinning.
 
-I'm still very sceptic with this patch. You are degrading the behaviour 
-with GCC for a problem with CLANG. Why ?
+Patch 2 handles the final reference to a killed object cgroup.
+kfree_nolock() and free_pages_nolock() can drop that reference in the
+caller's context, after which obj_cgroup_release() takes regular locks.
+Queue the objcg on a lockless list and finish its teardown from normal
+irq_work. On PREEMPT_RT that work runs in irq_workd task context.
 
-Before the patch, with both GCC 13 and GCC 16 on powerpc32 I get a 
-pretty standard optimised loop that clears words 4 by 4 (with auto 
-increment of pointer) which is the most optimal on powerpc:
+These paths were found while discussing the following RFC and during
+the subsequent investigation of no-lock allocation and free paths:
 
-  3f0:	39 00 00 0c 	li      r8,12
-  3f4:	35 08 ff fc 	addic.  r8,r8,-4
-  3f8:	91 49 00 04 	stw     r10,4(r9)
-  3fc:	91 49 00 08 	stw     r10,8(r9)
-  400:	91 49 00 0c 	stw     r10,12(r9)
-  404:	95 49 00 10 	stwu    r10,16(r9)
-  408:	40 82 ff ec 	bne     3f4 <__c_kernel_getrandom+0x3f4>
+https://lore.kernel.org/r/20260919171443.90512-1-kmehltretter@gmail.com
 
-With the patch,
+Based on 40288c9206c17. Each patch's forced cleanup test passed on
+x86-64 release and lockdep PREEMPT_RT QEMU, arm64 and ARM32 SMP QEMU,
+and Pi 400 hardware. The objcg test accounted for all 256 queued and
+deferred releases. The series also passed non-RT builds and arena tests.
 
-With GCC 13 I get a very suboptimal loop copying bytes one by one
+Karl Mehltretter (2):
+  mm/slub: preserve no-lock freeing after memcg charge failure
+  mm/memcontrol: defer final objcg release from no-lock frees
 
-  3d8:	39 40 00 34 	li      r10,52
-...
-  3e4:	39 20 00 00 	li      r9,0
-  3e8:	7d 49 03 a6 	mtctr   r10
-  3ec:	9d 3e 00 01 	stbu    r9,1(r30)
-  3f0:	42 00 ff fc 	bdnz    3ec <__c_kernel_getrandom+0x3ec>
+ include/linux/memcontrol.h |  1 +
+ mm/memcontrol.c            | 29 ++++++++++++++++++++++++++---
+ mm/slub.c                  |  5 ++++-
+ 3 files changed, 31 insertions(+), 4 deletions(-)
 
-With GCC 16 I get something a bit better but not as good as before, it 
-is a loop clearing words only one by one and incrementing pointer with 
-an additional insn instead of using auto-increment instruction stwu.
 
-  3e0:	39 40 00 0d 	li      r10,13
-...
-  3f0:	7d 49 03 a6 	mtctr   r10
-  3f4:	91 3f 00 00 	stw     r9,0(r31)
-  3f8:	3b ff 00 04 	addi    r31,r31,4
-  3fc:	42 00 ff f8 	bdnz    3f4 <__c_kernel_getrandom+0x3f4>
-
-Please restrict the patch to clang builds.
-
-Christophe
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+-- 
+2.53.0
