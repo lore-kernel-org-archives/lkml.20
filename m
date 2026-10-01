@@ -1,183 +1,105 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9801F3F104D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A514ACC68;
+	Thu,  1 Oct 2026 09:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845300; cv=none; b=jVjIp+bw2iCZyTYquHfyfncq6f7uz9kXZ23wCHRlZ+mJxTCSmK/IvULbBiI8oXNFz6zo+YX61BzUkG9z2QyI/001MNZmOL1vjUi4TJ7SBDPy14M/JxmPZ8ilji6pm3NAtHl3tv+0tu2g335D0JIuyzJcb9ZHqQ5GxyPuuFI0QLk=
+	t=1790845309; cv=none; b=trMggDkeY6X9BqHkvQ2OyY6UtyGs6avRUKRJTjE2uGXMFv4gBx5RlVZU97wBEGyppQomW+Uc1G2kHsBkZyl6/O+q9JwSQsskE+dAdsMnHRWCra5B45XUxOVgmQoEd/vr0pmH8Eg66CQBV7ymhFktIxb/WHT/HmCku+XbwyfDX9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845300; c=relaxed/simple;
-	bh=ZT6ldM6Rero3wx3eaj6hdpLUx6fVOW1BsVRzAoran5k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uh6np2wLDGXPMKXzH6kQ36aLiVxsF2FF6oyUXUj7BDTCI8aPiAlR+fWVbgbgpPVOcp33k8K+A/GvZvXwEkeFf1qb+YmiGcNuIAERIFsGw7+syNyRiqRah4c4UxHIeJcpU33c/EB/9hYKSAD6FGsLhgh2nYN7cW1gkQmVrdN4Zf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NhT2GLcL; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gTn09Egc; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NhT2GLcL";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gTn09Egc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790845297;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3KLyDgLq+sWfesxSNS4ik2xszHhIAyJ1EGfG6IG1kIs=;
-	b=NhT2GLcLb3q13laHZKmUUFj3PFyuS+pchklnpxTpkaWQ3r4z2kYWvML59Oz/LSkKRxo2mK
-	Umng8mGKRs2f4urSV7HXQvfZXbewIrE2csKplHMYzob7zdmPk80TedEolh0iC+AxO/lXp0
-	zF+2yyRTNyMeUNGVcL1N/p9c3CBpmhg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-75-nDCDZQeTMzmzBpQpkwW0Lg-1; Thu, 01 Oct 2026 05:01:36 -0400
-X-MC-Unique: nDCDZQeTMzmzBpQpkwW0Lg-1
-X-Mimecast-MFC-AGG-ID: nDCDZQeTMzmzBpQpkwW0Lg_1790845295
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a021b1b561so2991205e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:01:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790845295; x=1791450095; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3KLyDgLq+sWfesxSNS4ik2xszHhIAyJ1EGfG6IG1kIs=;
-        b=gTn09EgcaPcic7Yk2kjCwv7/csOhuVmQtbaIBnZgLzLxvN//yxhv2IT+5Yl2LpFiCV
-         10huUsIIONtncO5qCExIwVwNL0MAQmcSLSxPQo/4tfk7y7n+hzotL/WygY7Nv4uAuHHR
-         C6+jz7e/ZaNBFQSJdK7xP+GMHh3+3VJcJD0CsBW6Za29p+vvSmOQkODCTewFhCRyDZM2
-         nlJxT6h5YQauDdy4n74YXxH9LT6o6w9/v2ZdPwjsBhvw4BY86IEidjGVIzForOBmfcNy
-         0ByDtPuoJ+D2CyzdvUESE6dnEYHPeqOhJTkHn0WYUbEnZKxjCZdRQTR936ICz80zUUMe
-         4cVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790845295; x=1791450095;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3KLyDgLq+sWfesxSNS4ik2xszHhIAyJ1EGfG6IG1kIs=;
-        b=mMp9F8B47ZFNJ35JsIkPrirETitRUGXmlxw+VDVKgef6USjlSOBnUmv6e5hB5aggaN
-         sZQbcs0OpxLDDeDbu2xT2FDqUuKusgF8Ko/YKYCmpC30SnTNoQqOOb1q4HfpyJWoJJiH
-         zu99sKw9Hb4bWJO2ig2WVAzb0LNRkzoKlUvapk3YBMpGwWiFLjDi/mWR3zT2riV4I5gI
-         AstdbOz7eJhYGJHF6wL/5AD1nmLf0HLQk+jxvh8dpMvNm4gnWthHA4yhfFlGRceWgz32
-         3cyXHytalFI0c0PZpweXLBkR4oj2hyHVu2Y3wNqiGswkRolyR/nOKJZuRXukiRmdxYXn
-         4TbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxa8ktsSN+0pdPSYMC7SwuOqcc2Z55Pznqm/J8ypTTpFg0Q3HPo8+lyH0ODavyeg2fa+FxD5xBeEAke+B0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuhmUL/zNHfpdCrmQ1NeN62yXFtPCRHm0ih84U1lDSEAzxMFgh
-	R23JkytTXXN3G7bd3DYXqYBrKtxDso7uSf9VAiR6dz6yqO2oqDc7EZR8m3QrHLTPLBg2G4tTwI9
-	jxtXxLYBzrF4Smo8lfZIMCbbEWr8m3e8mUSpwYQbUf+Qqc4tRzL18sXLshTbXS3W7Rw==
-X-Gm-Gg: AYBFou3dsA28vsRCHJ+QZJcHEJVw8p1DXhiW9YKxIxWJ+NKC456rrTwundmNgAVDcnc
-	BHF3IuQU5l8ZnsDY3u1F1P6IuHnvQ7N54MlMqtCw2BEwxQb/IXzPycHYoAx3+esiEQ1/jO1qCAO
-	ttSsw2BzJJ28G1QWbb2Cypq3FmJ1M1xryiyNpyz/LEG07VJ8+8mOtF3AFlJsnBUncLnesKJDzgZ
-	/Kv/FZMSxROh6HTw+ibcNrLkK88E/GXMAdtjv39mg2u89a2mTTy75XnZJ5tVP02FhmEB9YoUmN/
-	9oZTzWGRrEf/0Fdiq+v1RYI2V4iq2ji7wmxgae9VHg+5UFCyM7lLgcM8iiGP4e9JiJjljx0YgI5
-	G
-X-Received: by 2002:a05:600c:4e42:b0:4a0:1d:3ac4 with SMTP id 5b1f17b1804b1-4a01aff06d5mr64713565e9.6.1790845295065;
-        Thu, 01 Oct 2026 02:01:35 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e42:b0:4a0:1d:3ac4 with SMTP id 5b1f17b1804b1-4a01aff06d5mr64713135e9.6.1790845294456;
-        Thu, 01 Oct 2026 02:01:34 -0700 (PDT)
-Received: from sgarzare-redhat ([5.77.112.40])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01feb7198sm42199885e9.1.2026.10.01.02.01.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:01:33 -0700 (PDT)
-Date: Thu, 1 Oct 2026 11:01:24 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: jrmmhm.kernel@eldare.de, Michal Luczaj <mhal@rbox.co>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Bobby Eshleman <bobby.eshleman@bytedance.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] vsock/bpf: release sock lock while waiting for data
- in recvmsg
-Message-ID: <ar4gvlZL1JyPycg1@sgarzare-redhat>
-References: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+	s=arc-20240116; t=1790845309; c=relaxed/simple;
+	bh=4DtI74gs23eEuB+8WhdzZ5vE3jytl69617uOOJzJpfg=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=ioZ+eWrdffSKWf+uU5f80ciD3Pep3hSwaUuDyq9oVNZkzs4Hy7+YcBAsjPWG0NM5iTjY/zuXgDImvn3fjHQzkMqUISbz/KsDC9WZBrRNdifQEKBr/RtO+3KPitGY70+kkGlDLouq3LFeA1mB0JCqjHsxHvm6FX6eJnyMaI6ERPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tuxedo.de; spf=pass smtp.mailfrom=tuxedo.de; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tuxedo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedo.de
+Received: from mail.tuxedocomputers.com (localhost [IPv6:::1])
+	(Authenticated sender: cs@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPA id 05B092FC004D;
+	Thu,  1 Oct 2026 11:01:33 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+Date: Thu, 01 Oct 2026 11:01:33 +0200
+From: Christoffer Sandberg <cs@tuxedo.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Cc: Armin Wolf <W_Armin@gmx.de>, Mohamed Jouini <amad3v@gmail.com>, Hans de
+ Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] platform/x86: uniwill-laptop: Map the screen rotation
+ key
+In-Reply-To: <263ec1ec-181a-4f96-92f4-25674559e961@tuxedocomputers.com>
+References: <20260925211635.1422516-1-amad3v@gmail.com>
+ <20260925211635.1422516-4-amad3v@gmail.com>
+ <94e5619d-02eb-4b55-bfcb-67964ee1def3@gmx.de>
+ <263ec1ec-181a-4f96-92f4-25674559e961@tuxedocomputers.com>
+Message-ID: <66a47248ecfa1704186274f2c245d3f5@tuxedo.de>
+X-Sender: cs@tuxedo.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-+cc Bobby and Michal who touched this code recently
 
-On Tue, Sep 29, 2026 at 06:33:04PM +0200, Jerome Mohm via B4 Relay wrote:
->From: Jerome Mohm <jrmmhm.kernel@eldare.de>
->
->vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the whole
->receive loop, including vsock_msg_wait_data(), which sleeps in
->wait_woken() without dropping the lock. When data arrives, the
->transport's delivery context (the vsock-loopback worker, or the
->virtio/vhost rx path) calls virtio_transport_recv_pkt() -> lock_sock()
->on the same socket and blocks. That context is the only one that would
->queue the skb and call sk_data_ready() to wake the reader, so neither
->side makes progress. A blocking recv() hangs until a signal arrives (a
->finite SO_RCVTIMEO also breaks it); while it lasts the shared delivery
->worker is stalled, so all vsock rx on that transport stops, not only
->the affected socket. The hung-task watchdog reports the worker blocked
->in D state:
->
->  INFO: task kworker/1:3:107 blocked for more than 5 seconds.
->  task:kworker/1:3 state:D Workqueue: vsock-loopback vsock_loopback_work
->  Call Trace:
->   __schedule
->   schedule
->   __lock_sock
->   lock_sock_nested
->   virtio_transport_recv_pkt
->   vsock_loopback_work
->
->The reader holds the same sk_lock-AF_VSOCK it is waiting on, taken in
->vsock_bpf_recvmsg().
->
->This code is based on net/unix/unix_bpf.c, whose unix_msg_wait_data()
->drops u->iolock around wait_woken() and re-takes it afterwards. The
->vsock port substituted lock_sock() for that serialisation lock but
->omitted the unlock and relock. tcp_bpf and the native
->vsock_connectible_wait_data() both drop the lock across the wait;
->vsock_bpf is the only one that does not.
->
->Release the socket lock around the wait and re-acquire it before
->re-checking for data, so the caller's locking is unchanged.
->
->Fixes: 634f1a7110b4 ("vsock: support sockmap")
->Cc: stable@vger.kernel.org
->Assisted-by: LLM
->Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
->---
-> net/vmw_vsock/vsock_bpf.c | 2 ++
-> 1 file changed, 2 insertions(+)
->
->diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
->index 9049d2648646..bb7d81a95baa 100644
->--- a/net/vmw_vsock/vsock_bpf.c
->+++ b/net/vmw_vsock/vsock_bpf.c
->@@ -50,7 +50,9 @@ static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long ti
-> 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
-> 	ret = vsock_has_data(sk, psock);
-> 	if (!ret) {
->+		release_sock(sk);
-> 		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
->+		lock_sock(sk);
-> 		ret = vsock_has_data(sk, psock);
-> 	}
-> 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
->
->---
->base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
->change-id: 20260929-kbh3-1-022-fix-340aa3f7f071
->
->Best regards,
->--
->Jerome Mohm <jrmmhm.kernel@eldare.de>
->
 
-LGTM, but I'd like also Bobby and Michal opinion:
+On 30.9.2026 01:22, Werner Sembach wrote:
+> Am 26.09.26 um 01:52 schrieb Armin Wolf:
+>> Am 25.09.26 um 23:16 schrieb Mohamed Jouini:
+>> 
+>>> The PCSpecialist Recoil 16 AMD / TUXEDO Stellaris 16 Gen7 chassis has 
+>>> an
+>>> "Sc" key next to F12, meant to rotate the lay-flat screen by 180 
+>>> degrees.
+>>> It reports WMI event 0xD0, which is currently reported as 
+>>> KEY_UNKNOWN.
+>>> Map it to KEY_ROTATE_DISPLAY.
+>> 
+>> Unless Tuxedo know more about this event code:
+> don't have the device at hand so pulled christoffer in the loop
 
-Acked-by: Stefano Garzarella <sgarzare@redhat.com>
+As far as I know we do not have any device with this mapping. So, no 
+objection ;)
 
-Thanks,
-Stefano
-
+>> 
+>> Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+>> 
+>>> Signed-off-by: Mohamed Jouini <amad3v@gmail.com>
+>>> ---
+>>>   drivers/platform/x86/uniwill/uniwill-acpi.c | 3 +++
+>>>   drivers/platform/x86/uniwill/uniwill-wmi.h  | 3 +++
+>>>   2 files changed, 6 insertions(+)
+>>> 
+>>> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c 
+>>> b/drivers/platform/x86/uniwill/uniwill-acpi.c
+>>> index 0932e5937..f99c5e9ac 100644
+>>> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
+>>> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+>>> @@ -519,6 +519,9 @@ static const struct key_entry uniwill_keymap[] = 
+>>> {
+>>>       /* Reported when the user wants to toggle the webcam */
+>>>       { KE_IGNORE,    UNIWILL_OSD_WEBCAM_TOGGLE,              { 
+>>> KEY_UNKNOWN }},
+>>>   +    /* Reported when the user wants to rotate the (lay-flat) 
+>>> screen by 180 degrees */
+>>> +    { KE_KEY,       UNIWILL_OSD_ROTATE_SCREEN,              { 
+>>> KEY_ROTATE_DISPLAY }},
+>>> +
+>>>       { KE_END }
+>>>   };
+>>>   diff --git a/drivers/platform/x86/uniwill/uniwill-wmi.h 
+>>> b/drivers/platform/x86/uniwill/uniwill-wmi.h
+>>> index b25b2f312..1b6f650c4 100644
+>>> --- a/drivers/platform/x86/uniwill/uniwill-wmi.h
+>>> +++ b/drivers/platform/x86/uniwill/uniwill-wmi.h
+>>> @@ -117,6 +117,9 @@
+>>>     #define UNIWILL_OSD_WEBCAM_TOGGLE        0xCF
+>>>   +/* "Sc" key next to F12 on the PCSpecialist Recoil 16 / Stellaris 
+>>> 16 Gen7 */
+>>> +#define UNIWILL_OSD_ROTATE_SCREEN        0xD0
+>>> +
+>>>   #define UNIWILL_OSD_KBD_BACKLIGHT_CHANGED    0xF0
+>>>     struct device;
