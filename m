@@ -1,261 +1,165 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B425A50E59D
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790881039; cv=none; b=suZ9iEu4GW8PyI3YNeky+m6XsURsCQOxKrQieK7D7NybgvmZGeAr/GzCHjoMnjxGz/YJDaeqnKIaexk5mj4LZcyOn+pPuNKkJheh6IDgNqBUK9o4ZL3oqotsWK0Q19xgVmN6nuENH1ttE7rhOfYTkQ0M60o0U0AU6HPh3/eLl0Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790881039; c=relaxed/simple;
-	bh=kIkdLwE+cixyfml44tOXkdOXPut51QPtpwD9Gs28Vqw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X+uP1dFyIzt/5yb7hFUgon6HuFAEUE/XcD5NSo9TeVXroE9i5Gi3AExvJmquBX9v6YNrtdZRbKnrGRzjlJzTM+kEZw1opqkvBEzSeM1fqQbI0Vurquuyhtuc6akKEJYZG7wrqd186lNwB35ZHSz4p5hBNQcvPj4PxEz9Dq5keg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sLK2ZhuE; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516E84825B8
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790881100; cv=pass; b=A3/bKS3oF5vkUoLzaOjvvKUUQSPpjvnMXXPU5Pr5ok9VvG3xGobLKHHeHTV0zv7milYifbgt7QNvBzocVIBb5wy5ObL3m8niHXXMs0IFsX4SJqbUlo8fBWD10ibTGpgQfuhKyrh4xw0iKnGtG5N/RZQHlXer17f/auVsIBEIz6Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790881100; c=relaxed/simple;
+	bh=ZBhMOmtdPtm2ewznb0I6h4e/lc4ZNSuv3xrzaOINis4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HnAQgAHu+VPqlZ6v74nyQ0kvcjXU0iIIY9Rr6HLvSCKF1TqgVTD52dDGG6d1EhDuxPVgLPFVyEgr7bovf+EPZD9fcQy8uRzDP+1Pgi1lQUCD7I31KwBS4Gvd62+i+hlSqlEqzMNd/wjy5UPIYSE5M5czgf6grMDBAwBG4MhGUFU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XehcVlCD; arc=pass smtp.client-ip=74.125.228.96
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sLK2ZhuE"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea4bfd1so2991172a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:57:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XehcVlCD"
+Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb8b78d6cso5155620a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 11:58:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790881097; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N0Akq5W0mbpAhP5VqFIskMh3Oq/oXedqvBKQNQaSsUIO5Cwn9DODuyV7YUE5q4zKSq
+         oGYGVnPFhwp9eCicQyBl7wThXvIKjHdwiTz7P0fcKfiPslyzHOzivkHEcQgwT7+UlNzV
+         Wo/Z+i6qGjTxKTugOiFmpM4E4r6PDFSZ2IQCtAsuo+xOzBt27DCct/VgP/4So+VmpOsI
+         wmIqImAgqOLpgq2HgM+23E7y7JlhlRY3Q6VPhrWuvglqV3uUdvLQXsIdFNFSEO7UjSUc
+         b6Ix6dRYH3lioCSfxGY7va01W64l26hDB3JQ8UJg+8ap/3IgiyBxQH8Xu50a/imhXq/T
+         QCRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+gdBCcya7Jd9eS7uFOMyWkhA5NDxvi9ClIG0tBCXyRE=;
+        fh=SoQ+Lq8TuuepKNMUI0Q6wRk/iNtwrDocStNZ2EJ6ehg=;
+        b=ETS58WQe7BFwIfH+BZvJRs9yyQveDEBOMc2cgzNWNjzHpCoenlyuBqjVoQukECkMN4
+         P++WH5EwJeqwTT4gkgw/HoV3sshhB+Ay+z42UBCBCCaNiSxz2CL4wUDX6ETX15AEO3b2
+         omzf7GyhWiZ2k5qkOpXxDC6+8NvyxMbx59jfjsQwRKMfNm6Drzk3QINZI1F9IIJWwjoN
+         E4p5bHEdLzZj+rZKLDkVQt7iyh3+jOZHQxXU3zgo+EajmvX9UwCMdAZEMuFEaTUVgItZ
+         jsTxU9z2wx8CU1mu2viXak191DsgSFv6/O5+P+0JanG8T1gY0thEymPHV9rYaLrembmt
+         K55A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790881035; x=1791485835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/2w7rFmprRKcSbo8YeulB3DJob2j9P3/MHFc6fhFv/8=;
-        b=sLK2ZhuEaILRVDBN5NZyr1ZWfowqyYxsTZ+eZrjRWSvye5279aBNDAA3wQm6Nj467l
-         Cea0IxSs6XRBnAOJOoFvUINt2Cvn5Eju19pV441h8rb0qEYnklyLrVPkEs4h6dMOTgx0
-         +yslsQU+mc0/BHyd8wDYWimg05iBDdrVjIiDcaR3UpVtBBF5vzwn4ifqj06FmttyRGCl
-         t18yAgTR5wEOu/tH/QeNkNvlmPvAH4GW+UbHjAHATefJinXgBmHcX4/pocHoP88qtxqc
-         GEQehTCQrW9p1MRMp2OsKi+XFTDV/yeMl3yoEMj8CAnMgnCT6m6hRT/nDXbdoqk7E9wj
-         eyeg==
+        d=gmail.com; s=20251104; t=1790881097; x=1791485897; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+gdBCcya7Jd9eS7uFOMyWkhA5NDxvi9ClIG0tBCXyRE=;
+        b=XehcVlCDrWzmlinD4tVaUcORuE1PKauvKECaWQ1Xtr2Fo/3ypZ/ajABHfjEmKrndhO
+         1JpWtIscNLvjAeASkCgzUQIjpnrS0IJw8YOZHn55qXxae3qI1MQQCJ6Pg4yQKDJl88+i
+         m5PRW2L7Cfef3z3QWSqqL9xDFZLCKcyoZs+ZvQWAaROSNgT7j+CFthyMttlT0pYdlmVU
+         ApUQaX2gJwoCsC1iqf5rCAUJ7A0V3ysbc79HqdEe0oStr08zWcbTxmLAoTajnRvbdx+U
+         hNhrkGZ25XPs5cdTxRmW2RQ1H8cBbjsgpSmzxTc8qZGmJrrb0Rzx43O0EajuBYlvam8b
+         MwQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790881035; x=1791485835;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/2w7rFmprRKcSbo8YeulB3DJob2j9P3/MHFc6fhFv/8=;
-        b=VMDQhm9IX8F5CuADFltrtIytV0zg/xlGqObDMiI6+riFKjSXfsxfAmwjp2cAPJ+6+I
-         LFPHUhrs//BJkRKCqla6sLlH4mAyYaxFT+YbY8tfCJ07YKnjXddqLPJRAVZ893Emuh+q
-         Fo3oTlY/YmjJW8gOA/uovOziKCiBH/reBqxHFpO6NUMI9iDmh8KJGNVX+DwineZwyCy1
-         PZaL9YzzrFJwZt0gBZj6WtL+wh10+j7/wXje4vRAg3JsGSYVmh4RDt24XYXzoxlqB1pB
-         HWbgl3BFiQlRE2IiukoPUiZAf771IyE/jWy6jmBVGr2c7z+Ny0zogqxB4lIFwJZh+EaE
-         yEQw==
-X-Forwarded-Encrypted: i=1; AKwUvBw88hFbQWzrCeOKMhEU/vIa4NyKzgJnkvglo8fkePXeG5smDmloPq8lz8ZxgFkAl0uOzJqeJO63I8DmVn4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIw3uwuH+0plSFFTtQhGbSuGoaJtrFExgE+/WfiL7hDq8GSeY+
-	768578ql7JngGN73yuK5M0eA2GOEDg75sDnH1GZIzKbqZ2tD21y00GswJkGEdw==
-X-Gm-Gg: AYBFou2ly7jN0BBMAhMRHwhIrLSpW/k9Aav+CCseiTxgnqYcyv0terdM1V65WGByKGm
-	NnuTbVSrOEqVHyeop9aIdptpS1nSZWdBznTsi084qOj/kuX1E88lxmdJ+4imQHrO273Qrb4L1aa
-	Me1ifZ6hSYdKIJgiCisyDnMhSqVFQ0x7xiGmX5rC29mC5gyu6rzii522hv8HL/KsLjyoknaTIuM
-	E9mbY6fL73+EQ+aQoHzIueNre+38AEOBsg89spYPILgqCcLbwJ5+VVAOd6tsffLYVofMhaZUJS2
-	Auf+tzjSGUjun1HBqf41aicFPlrtueO6UGtp1hFweZm+VdWx9e5cuuBv+7l/IElag+nfyR30GiC
-	6wyIFZgSCnwspEynYAyxGGs9qxCnZiovwp1uyOgfFscgrWTUVi6+rNB0jWyInMBY73mzqczISya
-	dkWbbh9Y327Izx+SEMBK7KzLBLWxORLG3P3ciUY8CbVJ6viBwL4zo2beeKclOxx1yjzU9JSY3KD
-	ViskvFqeWZ6dy9igWk4h8mZX8DR2bd0hqzp/a6Js9SeJpg1PKmzAwxhtaR1Jh2zITwKIAlbw23U
-	ktaduJrTHOea
-X-Received: by 2002:a05:6a21:e082:b0:3c4:2b8b:e88f with SMTP id adf61e73a8af0-3e0bcab20e8mr275549637.5.1790881035139;
-        Thu, 01 Oct 2026 11:57:15 -0700 (PDT)
-Received: from ?IPV6:2001:df0:0:200c:e5ea:1a30:7c29:cd76? ([2001:df0:0:200c:e5ea:1a30:7c29:cd76])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f739cba5sm32631a12.28.2026.10.01.11.57.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 11:57:14 -0700 (PDT)
-Message-ID: <02c53c37-d2ee-4c03-a8f9-0a757c3af59e@gmail.com>
-Date: Fri, 2 Oct 2026 07:57:09 +1300
+        d=1e100.net; s=20260707; t=1790881097; x=1791485897;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+gdBCcya7Jd9eS7uFOMyWkhA5NDxvi9ClIG0tBCXyRE=;
+        b=FZvqoVwgOOQkmU9h9YsHBMz3leKVpKEQ5/HmL6DSFT2TVPr7WZ8F8N59hcHaHGCqOy
+         CPkXwX1WuxToth/Cp6wm+8EfftLWDq+akfW8+ZQlDiNWFeG+9KUttoCiMPNMhltWcmuc
+         b+IGfNYkMM9KAWwfVS5m2+y27WZ3/ioLuWWh39IMtxQfgeHiU1Hm+NUbDE7ukoCne7Zi
+         PV9sSeEb2IRwRM5o5OLaDU9IFslB5BM6/jcCDG6g0bALshRNNLOdtlND+Cvs7EZHBwaT
+         QUOggnWrXnbpHVHsMTMFOS/UPXZZt/2sBukT/3/BgO86uvnI9x2cBYIUe3XcuMAIQjiI
+         EBYA==
+X-Forwarded-Encrypted: i=1; AKwUvBykdJucovfxLKkjAtprqs8kBgXYDILmVNCGIV0/Dg0sZTWSiVfsYXInu5HDh2/WjI/BtdSfkwNinH2yLhc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfZy/f+h6u03liCezt/7UpIYWhNv9vQCJMkq1M5G8XhGfIXtoi
+	f7LvlM+7tsJZL/PQtgeQ/CJZB++2IN4UhjUzLKEmTSQ8G00idBPLxmAt8BG6PVPyfgaAJ3L4mf4
+	yyH0igXMFUYPvPv7jiIHmb9d2OovQBso=
+X-Gm-Gg: AYBFou08pjJV5HBJKMX85kXdDOxCD35yJZSIawnWxZe0KuAKsm3QsfwVhHhlMA/wy+o
+	tdCoy7AHM4LIvgTOmByXVq7L15eUqLRif8NIFaiZ3lGsH2G81Bkc44/AIa90bdWBIkcTjlKpEm7
+	u8a0ayGAFhBvBuR3HcB99waf2rWnIsU7H/MgQ1XM8pliOLO3sVss5rKkzurPWGhOiGCEmZRDXEc
+	phWlIeciz1uz5NLUQ2hVTMd2BefFEwr6IsQwaik7JGhbIzupoltkjOFB7cq+z76ueCLcSUi0jmQ
+	tJwh9G/dOYavAqQVfC174LwmlrF5HBbAzfW0nL+IxPxU8s94VqztbDQPWEJTTx2F+Y1Tkk9LNIL
+	ilNzrmoyqP6lnfI1Wz053NApOtgcqFxwWr08Ct1pjew3hfk4J8gbsgcMfTOOCE52NdjnXevP7pj
+	1LODVXxpfN2zDVmZUuhLS7wIBAlghMNSspR1yB6lFe24MXGlsBnHPYXeeAbkfBZfFhQA==
+X-Received: by 2002:a05:6402:320a:b0:6a9:ae86:bb1b with SMTP id
+ 4fb4d7f45d1cf-6af9e03ded3mr104018a12.5.1790881097207; Thu, 01 Oct 2026
+ 11:58:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] m68k: Handle put_user faults more carefully
-To: Finn Thain <fthain@linux-m68k.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-References: <88e752e0bca92c7b65533cc1b334052dd272f8ef.1790842086.git.fthain@linux-m68k.org>
-Content-Language: en-US
-From: Michael Schmitz <schmitzmic@gmail.com>
-In-Reply-To: <88e752e0bca92c7b65533cc1b334052dd272f8ef.1790842086.git.fthain@linux-m68k.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260925183050.56839-1-rosenp@gmail.com> <2026100129-unrest-cleaver-6528@gregkh>
+In-Reply-To: <2026100129-unrest-cleaver-6528@gregkh>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Thu, 1 Oct 2026 11:58:05 -0700
+X-Gm-Features: AclHuK96Et8-MkZL9LMhD_ijnC8Z5TWGJ6g5yJxUOPLdgKxS1Jb9-JO48yVLGLI
+Message-ID: <CAKxU2N8Z-CSxki5mWQvJCEiQDmy00WLJqPEMgujOA0LQzbHHjw@mail.gmail.com>
+Subject: Re: [PATCH] serial: arc_uart: Use platform IRQ helper
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-serial@vger.kernel.org, Vineet Gupta <vgupta@kernel.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, 
+	"open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Finn,
-
-On 1/10/26 22:08, Finn Thain wrote:
-> Running 'stress-ng --sysbadaddr -1' on my MC68040 system immediately
-> produces an oops:
+On Thu, Oct 1, 2026 at 1:42=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
 >
->      Unable to handle kernel access at virtual address f1c422fb
->      Oops: 00000000
->      Modules linked in:
->      PC: [<00005a1a>] do_040writeback1+0xae/0x160
->      SR: 2010  SP: 96087dc2  a2: 01500000
->      d0: 00000000    d1: 014e8000    d2: 00000081    d3: 00000000
->      d4: 00000481    d5: c043dfff    a0: 014e8000    a1: 00632fd5
->      Process stress-ng (pid: 221, task=1b729d30)
->      Frame format=7 eff addr=014e9eb8 ssw=0c81 faddr=c043dfff
->      wb 1 stat/addr/data: 0001 00000481 c043dfff
->      wb 2 stat/addr/data: 0081 c043dfff 2f746d70
->      wb 3 stat/addr/data: 0005 014e9ed4 2f746d70
->      push data: c043dfff 800daa70 00000000 014e9f1c
->      Stack from 014e9ed4:
->        2f740000 8017c000 014e9f10 00006830 00000081 c043dfff 2f746d70 2f746d70
->        0081a000 00000400 c043dfff 800daa70 c043dfff 80016a20 00000003 014e9f88
->        000026c8 014e9f1c 00000001 2f746d70 0081a000 00000400 c043dfff 0081afff
->        c043dfff 01500000 00000001 ffffffff 00000000 20000046 41d67008 014e9f58
->        04810005 00810045 c043dfff 014e9f84 2f746d70 c043dfff 2f746d70 c043dfff
->        80016a20 8017c000 00000000 0081affb 00000005 014e9fc4 00128bc6 c043dfff
->      Call Trace: [<00006830>] buserr_c+0x510/0x698
->        [<000026c8>] buserr+0x20/0x28
->        [<00128bc6>] sys_getcwd+0xc8/0x15a
->        [<000027a2>] syscall+0x8/0xc
->        [<0008800d>] sanity_check_segment_list+0x17/0x11e
+> On Fri, Sep 25, 2026 at 11:30:50AM -0700, Rosen Penev wrote:
+> > Avoid calling irq_dispose_mapping() by letting the platform_device
+> > machinery handle it. Also enable possibility of handling -EPROBE_DEFER
+> > and other errors. Handle as early as possible to avoid doing unnecessar=
+y
+> > work.
+> >
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > ---
+> >  drivers/tty/serial/arc_uart.c | 8 ++++++--
+> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/tty/serial/arc_uart.c b/drivers/tty/serial/arc_uar=
+t.c
+> > index 3988e5958896..b46b057a181b 100644
+> > --- a/drivers/tty/serial/arc_uart.c
+> > +++ b/drivers/tty/serial/arc_uart.c
+> > @@ -30,7 +30,6 @@
+> >  #include <linux/tty_flip.h>
+> >  #include <linux/serial_core.h>
+> >  #include <linux/io.h>
+> > -#include <linux/of_irq.h>
+> >  #include <linux/of_address.h>
+> >
+> >  /*************************************
+> > @@ -571,12 +570,17 @@ static int arc_serial_probe(struct platform_devic=
+e *pdev)
+> >       struct arc_uart_port *uart;
+> >       struct uart_port *port;
+> >       int dev_id;
+> > +     int irq;
+> >       u32 val;
+> >
+> >       /* no device tree device */
+> >       if (!np)
+> >               return -ENODEV;
+> >
+> > +     irq =3D platform_get_irq(pdev, 0);
+> > +     if (irq < 0)
+> > +             return irq;
+> > +
+> >       dev_id =3D of_alias_get_id(np, "serial");
+> >       if (dev_id < 0)
+> >               dev_id =3D 0;
+> > @@ -607,7 +611,7 @@ static int arc_serial_probe(struct platform_device =
+*pdev)
+> >               return PTR_ERR(port->membase);
+> >       }
+> >
+> > -     port->irq =3D irq_of_parse_and_map(np, 0);
+> > +     port->irq =3D irq;
+> >
+> >       port->dev =3D &pdev->dev;
+> >       port->iotype =3D UPIO_MEM;
+> > --
+> > 2.55.0
+> >
+> >
 >
->      Code: 000c 0e90 1800 220f 0281 ffff e000 2041 <2228> 0008 0281 00ff
->            ff00 67a4 6026 4280 122e 0013 206e 000c 0e10 1800 220f 0281
->
-> 0000596c <do_040writeback1>:
->      596c:       4e56 fffc       linkw %fp,#-4
->      5970:       2f02            movel %d2,%sp@-
->      5972:       202e 0008       movel %fp@(8),%d0
->      5976:       4282            clrl %d2
->      5978:       3400            movew %d0,%d2
->      597a:       220f            movel %sp,%d1
->      597c:       0281 ffff e000  andil #-8192,%d1
->      5982:       2041            moveal %d1,%a0
->      5984:       2228 0008       movel %a0@(8),%d1
->      5988:       0281 00ff ff00  andil #16776960,%d1
->      598e:       6600 0104       bnew 5a94 <do_040writeback1+0x128>
->      5992:       4e7b 2000       movec %d2,%sfc
->      5996:       4e7b 2001       movec %d2,%dfc
->      599a:       0240 0060       andiw #96,%d0
->      599e:       0c40 0020       cmpiw #32,%d0
->      59a2:       6700 0084       beqw 5a28 <do_040writeback1+0xbc>
->      59a6:       0c40 0040       cmpiw #64,%d0
->      59aa:       6730            beqs 59dc <do_040writeback1+0x70>
->      59ac:       4a40            tstw %d0
->      59ae:       6752            beqs 5a02 <do_040writeback1+0x96>
->      59b0:       4280            clrl %d0
->      59b2:       220f            movel %sp,%d1
->      59b4:       0281 ffff e000  andil #-8192,%d1
->      59ba:       2041            moveal %d1,%a0
->      59bc:       2228 0008       movel %a0@(8),%d1
->      59c0:       0281 00ff ff00  andil #16776960,%d1
->      59c6:       6600 0086       bnew 5a4e <do_040writeback1+0xe2>
->      59ca:       7201            moveq #1,%d1
->      59cc:       4e7b 1000       movec %d1,%sfc
->      59d0:       4e7b 1001       movec %d1,%dfc
->      59d4:       242e fff8       movel %fp@(-8),%d2
->      59d8:       4e5e            unlk %fp
->      59da:       4e75            rts
->      59dc:       4280            clrl %d0
->      59de:       322e 0012       movew %fp@(18),%d1
->      59e2:       206e 000c       moveal %fp@(12),%a0
->      59e6:       0e50 1800       movesw %d1,%a0@
->      59ea:       220f            movel %sp,%d1
->      59ec:       0281 ffff e000  andil #-8192,%d1
->      59f2:       2041            moveal %d1,%a0
->      59f4:       2228 0008       movel %a0@(8),%d1
->      59f8:       0281 00ff ff00  andil #16776960,%d1
->      59fe:       67ca            beqs 59ca <do_040writeback1+0x5e>
->      5a00:       604c            bras 5a4e <do_040writeback1+0xe2>
->      5a02:       4280            clrl %d0
->      5a04:       222e 0010       movel %fp@(16),%d1
->      5a08:       206e 000c       moveal %fp@(12),%a0
->      5a0c:       0e90 1800       movesl %d1,%a0@
->      5a10:       220f            movel %sp,%d1
->      5a12:       0281 ffff e000  andil #-8192,%d1
->      5a18:       2041            moveal %d1,%a0
->      5a1a:       2228 0008       movel %a0@(8),%d1
->      5a1e:       0281 00ff ff00  andil #16776960,%d1
->      5a24:       67a4            beqs 59ca <do_040writeback1+0x5e>
->      5a26:       6026            bras 5a4e <do_040writeback1+0xe2>
->      ...
->
-> The cause is a deliberately misaligned access in the 'bad_end_addr' test
-> case in the 'sysbadaddr' stressor. The location being accessed here,
-> 0xc043dfff, was contrived to span the boundary between a r/w anonymous page
-> and an unmapped page. The address was then passed to the getcwd syscall
-> which faulted in copy_to_user().
->
-> The fault for the mapped page appears to be handled okay -- up until
-> do_040writeback1() called put_user() which produced a second fault due to
-> the unmapped page.
->
-> Michael Schmitz helpfully deciphered the oops and explained the exception
-> processing leading up to it.
->
->      "regs->pc does point to the PC in the format 7 frame which is the PC
->      the fault was detected at, but not (in case of a writeback fault)
->      the PC of the faulting instruction [that is, MOVES.L].
->
->      "The writeback would still cross the page boundary, and fault if the
->      unmapped page still isn't present. We would not see the PC of the
->      movesl in that case, and fail to find the PC in the exception
->      table."
->
-> One solution is to add a NOP instruction after the MOVES.L to flush the
-> pipeline and take the fault. That way, the PC value in the exception frame
-> becomes dependable so the exception table works.
->
-> Theoretically, there seems to be another bug in the existing code. If
-> the instruction following the MOVES faulted, then after the fixup,
-> execution would resume at the instruction which caused the fault. This
-> appears to be a loop. After this patch, that cannot happen.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
-> ---
->   arch/m68k/include/asm/uaccess.h | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/m68k/include/asm/uaccess.h b/arch/m68k/include/asm/uaccess.h
-> index 31d133faa45e..728a6dfb7414 100644
-> --- a/arch/m68k/include/asm/uaccess.h
-> +++ b/arch/m68k/include/asm/uaccess.h
-> @@ -31,11 +31,12 @@
->   #define __put_user_asm(inst, res, x, ptr, bwl, reg, err) \
->   asm volatile ("\n"					\
->   	"1:	"inst"."#bwl"	%2,%1\n"		\
-> -	"2:\n"						\
-> +	"2:	nop\n"					\
-> +	"3:\n"						\
->   	"	.section .fixup,\"ax\"\n"		\
->   	"	.even\n"				\
->   	"10:	moveq.l	%3,%0\n"			\
-> -	"	jra 2b\n"				\
-> +	"	jra 3b\n"				\
->   	"	.previous\n"				\
->   	"\n"						\
->   	"	.section __ex_table,\"a\"\n"		\
-> @@ -53,11 +54,12 @@ do {								\
->   	asm volatile ("\n"					\
->   		"1:	"inst".l %2,(%1)+\n"			\
->   		"2:	"inst".l %R2,(%1)\n"			\
-> -		"3:\n"						\
-> +		"3:	nop\n"					\
-> +		"4:\n"						\
->   		"	.section .fixup,\"ax\"\n"		\
->   		"	.even\n"				\
->   		"10:	movel %3,%0\n"				\
-> -		"	jra 3b\n"				\
-> +		"	jra 4b\n"				\
->   		"	.previous\n"				\
->   		"\n"						\
->   		"	.section __ex_table,\"a\"\n"		\
->
-Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
-
-in case it helps.
-
-Anecdotally, I've seen similar uaccess faults causing kernel oops on 030 
-as well, so this may not merely be an artificial unaligned access issue.
-
-Cheers,
-
-     Michael
-
-
+> You forgot an Assisted-by: tag here :(
+No LLM used here.
