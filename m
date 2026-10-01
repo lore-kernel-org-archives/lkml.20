@@ -1,609 +1,274 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E544CCDC1;
-	Thu,  1 Oct 2026 08:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842976; cv=none; b=Z5wste5RetIxE3viPaWGpnEZ4/filXNodr8H3AEn9uhBPaM2NoY5EChxjAgBtA9eBIYr8pSJ2SLmOm6zoREiwtld1xRLY93ewX8M1AKeM158EPQaPxsO5ww4mVFMXgtrATrQPQKBDw2NEfy6hcUCgX8t1pilfskvWuZkTI/N4K8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842976; c=relaxed/simple;
-	bh=HM3388iY+SpNWgt5J+o1tam2PEu1g2CvhdsJ3jQYz34=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=skAwAqklNq8q+FzBt8LXVNujb0EZOFXB0pKtV/cXhLE1encmXvA7o8EJk3Nz2/3DWng7bcLnNQf6DVPfB/unAtg4rLCHRsXbjUm0kwjzRsMPeqUFFyzEnRCATeKnytQ11Jx1xh/RFZt/PzMiFy5/tCTTIoYf5pAL/+TGw3ifBjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ok7N0Ghj; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2B54248BB
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 08:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790843025; cv=pass; b=FCQfzW9dt7c/wasahzdXYTQty65ZHat9KGqAPBtWH5FWLGHx5mod0Y6NHBZcdmygHKG4upvJrDs/I+gnRDaWrcQZhrvzR/XJ4fjPK6+rZ/TxfmwmBw9U9Xq0uWBZcONNzmlzBeqsPzficqhfKIdEHYiKB762+nPhuke6T8D8VZ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790843025; c=relaxed/simple;
+	bh=lHQDiiV/WUvzs9De5jG805tKo/GgvxYUYTY/p0xl4tw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i7Xmhx+KQNKnSgG94Q2l+GT5e3rTluIvZ2Yva1HpISk1R9yrGsT3c6wTkXOCl38mAtC8TR6x4so6S2A4TismheZmVjicHAgqfFKi2iHByb37VaIrCdDbYQ3i3m4VBanjDVaBvpAyvUcAaHfKfqe6Cw60Bv+u8D8TfKEijC6GcUk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crCLqmv2; arc=pass smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ok7N0Ghj"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BD1911A10A0;
-	Thu,  1 Oct 2026 08:22:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 90D6D60341;
-	Thu,  1 Oct 2026 08:22:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F1818103290E8;
-	Thu,  1 Oct 2026 10:22:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790842957; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=rufoLanWh5pvVPVjQbYWZX2UPDxfzK+qSmP4yAqyvLw=;
-	b=Ok7N0GhjltfKiUFIkt/jXvzgwPicuBepIR2Z+zJiGp8GUAFjcebhpIQKPnc/p6mG0icAsB
-	9l1uhGQoPE05LXw/CZn+Q8BRdVV2xZrYWGlv6Oo6YXTcI7gBNu0m6Uc8V7gojs73risp8K
-	lojxN2SyRMphJO+g2KSSZBBhTPuR04Z7L9pu0wZ7PzoGZNQdvtadP70zsZjgnuTWhwXtyi
-	FOcHqlIMgkAEKzl7ZPjZTEh2AvUPNJQyd8a0/yndGcE+8tUtnZMm5g5wqnLmL0+rPPu2fH
-	wgJy3v/yD34PaRQZ2PDRxTd6KiDCVflg0CGMdoaPVhMvYZWPpKGSgtqZ9Xl46g==
-From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v7 2/4] clocksource/drivers: Add support for the Renesas RZ/N1 timers
-Date: Thu,  1 Oct 2026 10:22:22 +0200
-Message-ID: <20261001082225.125956-3-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001082225.125956-1-herve.codina@bootlin.com>
-References: <20261001082225.125956-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crCLqmv2"
+Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672f4b7091dso3309724d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 01:23:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790843020; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QEky+8PSSr2dBLYUzzH+/PHXynzvsLiqwuNxr4B93SJ6BkNE9Sibf6h3Q1zevnYOqH
+         Z0I6SknDzfGJI+0H/ZoJhk6OmlH4Vhurpkoz9q5mOrxucPOPgSEwMn13kimM2aN3nkbl
+         dLhZzB5+TVEVxckxQBxDOxLEwPW18rL4kqwOaA/LP/vyb8N+7xuc7U7hwFnao9oh335W
+         a8xEEBGU9U/gLlx0lK01hank8XmQpdMiH4ZaSWK/1pJ09zuxXo+a6TNhAVbuBYHnFyGG
+         n9s5GAXJwJ34KQFAZEc3LBQXaY84tHeMhq/bJM0K95DgV0DPHbwfDHZhpdulGXbSLo3A
+         BTQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bbedR3iTIAKAz4DArSRZRO28ONnwzU/LJzRUQ18/bQU=;
+        fh=nmptsHNHojdFCyhbzaDpVIxNnu3QghCsjbH8ORQMvwc=;
+        b=DjabGnK0EAuztMyonCJNAw9Ve3MZb6TTLFAzQfMBXXAyokm9qHH9kS44tG9lcZzK8K
+         FJUBs0OLuNVxcxaYw2CCbZ/JHiVCaOSoOTVGGDHA31GCE/Kk5q0w4KclmpGzoZBJ8Dfc
+         DCFJz/dVsJ/XLgu4N0BrewreI372mva41rbqh4RTuvkzJ+LQ4+JbZYvtdpJoR3OdkIs3
+         Yv/d2rC/MVdL/rLw1abKloHQdk46FQlCI/ZZSCBUmhxJcU7D6/jVqBR0c1skBz7oLjw0
+         ZHfA18sKcmGgCORl5tqQNYPwEQjjJWXkH0BiHwnhSUI0HLQE36D24aqD9as8rPeKiqxh
+         T2SQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790843020; x=1791447820; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bbedR3iTIAKAz4DArSRZRO28ONnwzU/LJzRUQ18/bQU=;
+        b=crCLqmv2+ZztbpivsZT/AWh+TbbOQVOTra5NQWno7FXadjfkGKoXVvkI2yzXBfspIm
+         5yjHkqWJONHBB2UEvz4L4T6+XfB1fp7Ymj43kuGqcntLMb17h3Wm5r6w1fXUkD6r9K/X
+         NCH+S6xko3Ubz90mJSi9EfrDMG3OCRzj+FvrzwP365+/7jPkEVN0zqoT/15+4tZpeMkU
+         D/RBTYuZElKyNAKz/dKgP5Leugs0/zqzypaLgcocPB2nU4DxtsWmLknXsQaaS47JnZid
+         8J4ukhFENwnRpkxZzMOtQCUncj5rGASqcgG9EO5AtObAY2LBqBCrFtJ8r+EUeJEvWXLh
+         m2aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790843020; x=1791447820;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bbedR3iTIAKAz4DArSRZRO28ONnwzU/LJzRUQ18/bQU=;
+        b=Qn1IBIVPLXUDQknOBAqoR9qRJEVzgISHH7g3Xc9SXwyGHeFKUJOj00RcyuWkLc7WHQ
+         WNMK0RzyhsmyeEcBSa9tW4qCAFNcZCXCeFcqqEp7tLf6jn/crX8D/qMeiVil9ZjEQxHO
+         EndLXROXkG/r6KMTKP3vNiz/X4ZmA5NYMqDEA8qNaE1gJxvnznqUA8IP+iOTUdQl0DtM
+         utreNoy84Tgzk9RzInVej1K6N6C/AiRIOfiR3141knxIDfGhR8ncGDH+Spc1ZB1qxC3v
+         y6GPi7PsM7vTxs3dp5jQPkglaM6Sq105qnacA5xM4bFr4hnlC9tMh7DGh2pPh1qJUdyv
+         IPXw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLa/LjDqYth56cfrDDPBDfSnIT19TpeZsRmxBEeyl0F1GpWL/1sqbfKkfC4pkWzaQ1Pue7n0KJKApIoq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUAmXUdK/y/13avJApkrbhwwsmL114LEo1TxDhEJmWT7opz9Ks
+	GLWC++t7yL2b2yZfDTGnYTVYoKzum5q5bz/fB0u2im5ctD2Ft41s6yBwpz5//Nkfj0Vyn1pOPmj
+	gvv+BjgzNmwzjyeyXSnnGHn68XhpElFGDeWVK
+X-Gm-Gg: AYBFou0nnxDMwAUiw57/cgaBiFkDBNAXe5hQZbyn4Q77gdsK/2xJVtCD98BpPDlmMUO
+	jxV+aIV5AM3qpAX+2xjbnZb9W6q67tN/qSDZ3uyfDGnD7gqh5ooRhIjwe+E/DON/IRLa7iEu9yX
+	aqOhfHw24wZ9Ek2xKBbgwLVS1Cp+Ndahh1/p8b2RuSYcxWOmAlTB94qlsXsobjIq/fht8U2l9Wp
+	jzf71CKqg0drcMSvQrUC3E3L8UOvVi+p2WBH9DohtCsyVEvKMlJHVxMZwlTvHAwIy4Mh/9T9SZd
+	hFVwtC4ksePBPKCXKyUF/8RGPIm4FO9p1GvJ9tm7zpBnPYBdq67wtc3kFF5hEnUsB3LDKx4PRwA
+	2+5Gex3ODpG1V2hbMuGiDVKPHghOMOn3pY3dYcpT0T4xJrbm0VjIWvQ==
+X-Received: by 2002:a05:690e:480a:b0:675:34b8:78a9 with SMTP id
+ 956f58d0204a3-676910a8875mr566395d50.37.1790843020410; Thu, 01 Oct 2026
+ 01:23:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260904235710.16317-1-kartikey406@gmail.com> <4f62bfee-857e-4343-a194-9afd6dceeca4@linux.alibaba.com>
+In-Reply-To: <4f62bfee-857e-4343-a194-9afd6dceeca4@linux.alibaba.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Thu, 1 Oct 2026 13:53:28 +0530
+X-Gm-Features: AclHuK98YRavuogSrofipE2fkk4-Usw-wEQF_cqkXn9it1rSmCFq2Bd0LASJrZI
+Message-ID: <CADhLXY49iDq=pZCXwn8Mp_jL0Ty3WyQ+D6KLk-AynBLcXO=jiw@mail.gmail.com>
+Subject: Re: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, akpm@linux-foundation.org, 
+	Heming Zhao <heming.zhao@suse.com>, brauner@kernel.org, jack@suse.cz, 
+	zzzccc427@gmail.com, ericterminal@gmail.com, ocfs2-devel@lists.linux.dev, 
+	christophe.jaillet@wanadoo.fr, linux-kernel@vger.kernel.org, 
+	syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Renesas RZ/N1 timer block controller is the controller in charge of
-timers available in the Renesas RZ/N1 SoCs family.
+On Thu, Sep 24, 2026 at 5:37=E2=80=AFPM Joseph Qi <joseph.qi@linux.alibaba.=
+com> wrote:
+>
+>
+>
+> On 9/5/26 7:57 AM, Deepanshu Kartikey wrote:
+> > Concurrent writes to a region's "dev" attribute can race, letting two
+> > tasks both allocate/free reg->hr_slot_data for the same region and
+> > causing a use-after-free. Add a per-region mutex to serialize
+> > o2hb_region_dev_store() against itself and against
+> > o2hb_region_release().
+> >
+>
+> The description is too simple.
+> Please describe the issue in detail, better with a race flow.
+>
 
-This controller handles 8 timers:
-  - 6 16-bit timers
-  - 2 32-bit timers
+Two tasks can concurrently write to the same region's "dev" configfs
+attribute, each through its own open fd.
 
-Each timer has its own interrupt, its own prescaler that can be used to
-divide the clock by 25 and all of them can work in either one-shot or
-periodic mode.
+The only guard against a second writer is an unlocked check near the
+top of o2hb_region_dev_store():
 
-Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
- drivers/clocksource/Kconfig      |  11 +
- drivers/clocksource/Makefile     |   1 +
- drivers/clocksource/timer-rzn1.c | 483 +++++++++++++++++++++++++++++++
- 3 files changed, 495 insertions(+)
- create mode 100644 drivers/clocksource/timer-rzn1.c
+    if (reg->hr_bdev_file)
+            return -EINVAL;
 
-diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
-index d9c76dd443f8..da83483296d5 100644
---- a/drivers/clocksource/Kconfig
-+++ b/drivers/clocksource/Kconfig
-@@ -152,6 +152,17 @@ config REALTEK_OTTO_TIMER
- 	  RT8391, RTL8392, RTL8393 and RTL8396 and chips of the RTL930x series
- 	  such as RTL9301, RTL9302 or RTL9303.
- 
-+config RZN1_TIMER
-+	bool "Renesas RZ/N1 Timer"
-+	depends on HAS_IOMEM && COMMON_CLK
-+	depends on ARCH_RZN1 || COMPILE_TEST
-+	help
-+	  Enables support for RZ/N1 SoC timers.
-+	  A timers block in RZ/N1 SoCs is composed of 8 timers
-+	    - 6 16-bit timers
-+	    - 2 32-bit timers
-+	  Two timers blocks are available in RZ/N1 SoCs.
-+
- config SUN4I_TIMER
- 	bool "Sun4i timer driver" if COMPILE_TEST
- 	depends on HAS_IOMEM
-diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
-index b46376af6b49..464ec6690ab6 100644
---- a/drivers/clocksource/Makefile
-+++ b/drivers/clocksource/Makefile
-@@ -96,3 +96,4 @@ obj-$(CONFIG_EP93XX_TIMER)		+= timer-ep93xx.o
- obj-$(CONFIG_RALINK_TIMER)		+= timer-ralink.o
- obj-$(CONFIG_NXP_STM_TIMER)		+= timer-nxp-stm.o
- obj-$(CONFIG_RTK_SYSTIMER)		+= timer-realtek.o
-+obj-$(CONFIG_RZN1_TIMER)		+= timer-rzn1.o
-diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer-rzn1.c
-new file mode 100644
-index 000000000000..25ebebff3c63
---- /dev/null
-+++ b/drivers/clocksource/timer-rzn1.c
-@@ -0,0 +1,483 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * RZ/N1 timers driver
-+ *
-+ * Copyright (C) 2026 Schneider-Electric
-+ *
-+ * Author: Herve Codina <herve.codina@bootlin.com>
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/clockchips.h>
-+#include <linux/clocksource.h>
-+#include <linux/cpuhotplug.h>
-+#include <linux/interrupt.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/sched_clock.h>
-+
-+/* Per-timer register offsets */
-+#define RZN1_TIMER_LOAD_COUNT_REG	0x00
-+#define RZN1_TIMER_CURRENT_COUNT_REG	0x04
-+#define RZN1_TIMER_CONTROL_REG		0x08
-+#define   RZN1_TIMER_CONTROL_INT_UNMASK		BIT(3)
-+#define   RZN1_TIMER_CONTROL_ENABLE		BIT(2)
-+#define   RZN1_TIMER_CONTROL_AUTORELOAD		BIT(1)
-+#define   RZN1_TIMER_CONTROL_PRESCALER_DIV25	BIT(0)
-+#define RZN1_TIMER_CLEAR_INT_REG	0x0c
-+#define RZN1_TIMER_STATUS_INT0_REG	0x10
-+#define RZN1_TIMER_STATUS_INT1_REG	0x14
-+
-+/*
-+ * 8 timers are available. Among those 8 timers, the first 6 timers are 16-bit
-+ * timers and the last two ones are 32-bit timers.
-+ */
-+#define RZN1_TIMER_BASE_INDEX_16BIT_TIMERS	0
-+#define RZN1_TIMER_NB_16BIT_TIMERS		6
-+#define RZN1_TIMER_LAST_INDEX_16BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_16BIT_TIMERS + \
-+						 RZN1_TIMER_NB_16BIT_TIMERS - 1)
-+
-+#define RZN1_TIMER_BASE_INDEX_32BIT_TIMERS	6
-+#define RZN1_TIMER_NB_32BIT_TIMERS		2
-+#define RZN1_TIMER_LAST_INDEX_32BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_32BIT_TIMERS + \
-+						 RZN1_TIMER_NB_32BIT_TIMERS - 1)
-+
-+#define RZN1_TIMER_IS_16BIT_TIMER(_i) ((_i) < RZN1_TIMER_BASE_INDEX_32BIT_TIMERS)
-+
-+/* Total numbers of timers */
-+#define RZN1_TIMER_NB_TIMERS	(RZN1_TIMER_NB_16BIT_TIMERS + \
-+				 RZN1_TIMER_NB_32BIT_TIMERS)
-+
-+/* Offset of registers related to the timer number _i in the timers regs area */
-+#define RZN1_TIMER_REGS_OFFSET(_i) (0x20 * (_i))
-+
-+struct rzn1_timer {
-+	void __iomem *base;
-+	unsigned int width;
-+	unsigned long rate;
-+	unsigned long hz_period;
-+	struct clock_event_device ced;
-+};
-+
-+static int rzn1_timer_config(struct rzn1_timer *timer, u32 period, bool is_periodic)
-+{
-+	u32 ctrl;
-+
-+	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	/* Disable the timer */
-+	writel(ctrl & ~RZN1_TIMER_CONTROL_ENABLE,
-+	       timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	/* Set the new period */
-+	writel(period, timer->base + RZN1_TIMER_LOAD_COUNT_REG);
-+
-+	/* Prepare the timer mode */
-+	if (is_periodic)
-+		ctrl |= RZN1_TIMER_CONTROL_AUTORELOAD;
-+	else
-+		ctrl &= ~RZN1_TIMER_CONTROL_AUTORELOAD;
-+
-+	/*
-+	 * Enable the timer.
-+	 *
-+	 * This automatically resets the CURRENT_COUNT register.
-+	 */
-+	ctrl |= RZN1_TIMER_CONTROL_ENABLE;
-+	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	return 0;
-+}
-+
-+static void rzn1_timer_disable(struct rzn1_timer *timer)
-+{
-+	u32 ctrl;
-+
-+	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
-+	ctrl &= ~RZN1_TIMER_CONTROL_ENABLE;
-+	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
-+}
-+
-+static void rzn1_timer_int_enable(struct rzn1_timer *timer)
-+{
-+	u32 ctrl;
-+
-+	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
-+	ctrl |= RZN1_TIMER_CONTROL_INT_UNMASK;
-+	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
-+}
-+
-+static irqreturn_t rzn1_timer_interrupt(int irq, void *dev_id)
-+{
-+	struct rzn1_timer *timer = dev_id;
-+
-+	/* Ack the interrupt */
-+	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
-+
-+	if (timer->ced.event_handler)
-+		timer->ced.event_handler(&timer->ced);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int rzn1_clkevt_set_next_event(unsigned long cycles,
-+				      struct clock_event_device *evt)
-+{
-+	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
-+
-+	return rzn1_timer_config(timer, cycles, false);
-+}
-+
-+static int rzn1_clkevt_shutdown(struct clock_event_device *evt)
-+{
-+	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
-+
-+	rzn1_timer_disable(timer);
-+	return 0;
-+}
-+
-+static int rzn1_clkevt_set_periodic(struct clock_event_device *evt)
-+{
-+	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
-+
-+	rzn1_timer_config(timer, timer->hz_period, true);
-+	return 0;
-+}
-+
-+/*
-+ * This global lock is used to prevent race conditions during global timers
-+ * test and set operation in case the driver is using the async probe option.
-+ */
-+static DEFINE_MUTEX(rzn1_global_timers_lock);
-+
-+static int rzn1_timer_instance;
-+
-+/* scheduler and clocksource */
-+static struct rzn1_timer *rzn1_sched_clock;
-+
-+static u64 notrace rzn1_sched_read(void)
-+{
-+	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
-+}
-+
-+static u64 rzn1_clksrc_read(struct clocksource *cs)
-+{
-+	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
-+}
-+
-+static struct clocksource rzn1_clocksource = {
-+	.name = "rzn1_timer_clocksource",
-+	.rating = 200,
-+	.flags = CLOCK_SOURCE_IS_CONTINUOUS,
-+	.read = rzn1_clksrc_read,
-+};
-+
-+/* Timers table where 16-bit timers will be assigned per-cpu */
-+static struct rzn1_timer *rzn1_tab_timers;
-+
-+static int rzn1_local_timer_starting_cpu(unsigned int cpu)
-+{
-+	struct rzn1_timer *timer;
-+
-+	/* We assign the first and second 16-bit timer as per-cpu timers. */
-+	if (cpu >= 2)
-+		return 0;
-+
-+	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
-+
-+	timer->ced.cpumask = cpumask_of(cpu);
-+	irq_force_affinity(timer->ced.irq, cpumask_of(cpu));
-+
-+	clockevents_config_and_register(&timer->ced, timer->rate, 1,
-+					GENMASK(timer->width - 1, 0));
-+	/*
-+	 * Time to enable the interrupt even if no interrupt can be fired yet.
-+	 * Indeed, the timer is still globally disabled.
-+	 * It will be enabled when rzn1_timer_config() is called
-+	 */
-+	enable_irq(timer->ced.irq);
-+	return 0;
-+}
-+
-+static int rzn1_local_timer_dying_cpu(unsigned int cpu)
-+{
-+	struct rzn1_timer *timer;
-+
-+	if (cpu >= 2)
-+		return 0;
-+
-+	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
-+
-+	rzn1_timer_disable(timer);
-+	disable_irq_nosync(timer->ced.irq);
-+	return 0;
-+}
-+
-+static void rzn1_timer_init(struct rzn1_timer *timer, unsigned int index,
-+			    void __iomem *timers_base, unsigned long clock_rate)
-+{
-+	timer->base = timers_base + RZN1_TIMER_REGS_OFFSET(index);
-+
-+	/* Disable the timer */
-+	writel(0, timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	/* Clear potential interrupts */
-+	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
-+
-+	if (RZN1_TIMER_IS_16BIT_TIMER(index)) {
-+		timer->width = 16;
-+		/*
-+		 * Enable pre-scaler for 16-bit timers.
-+		 *
-+		 * Timers are fed by a 25MHz clock. With this pre-scaler (1/25)
-+		 * enabled, the 16-bit timers resolution is 1 microsecond.
-+		 */
-+		writel(RZN1_TIMER_CONTROL_PRESCALER_DIV25,
-+		       timer->base + RZN1_TIMER_CONTROL_REG);
-+		timer->rate = clock_rate / 25;
-+	} else {
-+		timer->width = 32;
-+		timer->rate = clock_rate;
-+	}
-+	timer->hz_period = DIV_ROUND_UP(timer->rate, HZ);
-+}
-+
-+static void rzn1_timer_clkevt_init_ced(struct rzn1_timer *timer, const char *name,
-+				       int irq)
-+{
-+	timer->ced.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
-+	timer->ced.set_next_event = rzn1_clkevt_set_next_event;
-+	timer->ced.set_state_shutdown = rzn1_clkevt_shutdown;
-+	timer->ced.set_state_periodic = rzn1_clkevt_set_periodic;
-+	timer->ced.cpumask = cpu_possible_mask;
-+
-+	/*
-+	 * 32-bit timers are fed with a 25 MHz clock directly derived from the
-+	 * main PLL (1 GHz). The arch timer, ARMv7 CP15 in RZ/N1 SoCs, is fed
-+	 * with to a 6.25 MHz clock.
-+	 *
-+	 * The clock of the RZ/N1 timers block is a stable one and the RZ/N1
-+	 * timers have a higher resolution than the ARM CP15 one.
-+	 *
-+	 * Use a high rating for the 32-bit RZ/N1 timers.
-+	 */
-+	timer->ced.rating = timer->width == 16 ? 200 : 460;
-+	timer->ced.owner = THIS_MODULE;
-+	timer->ced.name = name;
-+	timer->ced.irq = irq;
-+}
-+
-+static int rzn1_timer_setup_timers(struct platform_device *pdev,
-+				   struct rzn1_timer *tab_timers,
-+				   unsigned int first_timer_index,
-+				   unsigned int last_timer_index,
-+				   void __iomem *base, unsigned long clock_rate)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct rzn1_timer *timer;
-+	unsigned int i;
-+	char *name;
-+	int irq;
-+	int ret;
-+
-+	for (i = first_timer_index; i <= last_timer_index; i++) {
-+		timer = &tab_timers[i];
-+
-+		rzn1_timer_init(timer, i, base, clock_rate);
-+
-+		irq = platform_get_irq(pdev, i);
-+		if (irq < 0)
-+			return irq;
-+
-+		name = devm_kasprintf(dev, GFP_KERNEL, "%s-%u", dev_name(dev), i);
-+		if (!name)
-+			return -ENOMEM;
-+
-+		rzn1_timer_clkevt_init_ced(timer, name, irq);
-+
-+		ret = devm_request_irq(dev, timer->ced.irq, rzn1_timer_interrupt,
-+				       IRQF_TIMER | IRQF_NO_AUTOEN,
-+				       timer->ced.name, timer);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret, "timer%u: Failed to request IRQ\n", i);
-+
-+		rzn1_timer_int_enable(timer);
-+	}
-+	return 0;
-+}
-+
-+static void rzn1_timer_register_clkevt(struct rzn1_timer *tab_timers,
-+				       unsigned int first_timer_index,
-+				       unsigned int last_timer_index)
-+{
-+	struct rzn1_timer *timer;
-+	unsigned int i;
-+
-+	for (i = first_timer_index; i <= last_timer_index; i++) {
-+		timer = &tab_timers[i];
-+		clockevents_config_and_register(&timer->ced, timer->rate,
-+						1, GENMASK(timer->width - 1, 0));
-+		/*
-+		 * Time to enable the interrupt even if no interrupt can be
-+		 * fired yet. Indeed, the timer is still globally disabled.
-+		 * It will be enabled when rzn1_timer_config() is called
-+		 */
-+		enable_irq(timer->ced.irq);
-+	}
-+}
-+
-+static int rzn1_timer_probe_first(struct platform_device *pdev,
-+				  struct rzn1_timer *tab_timers,
-+				  void __iomem *base, unsigned long clock_rate)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct rzn1_timer *timer;
-+	int ret;
-+
-+	/*
-+	 * Each timer instance has 6 x 16-bit timers and 2 x 32-bit timers.
-+	 *
-+	 * Probe the first instance. In that case, timers are assigned as
-+	 * follow:
-+	 *   - First and second 16-bit timers: clock events per CPU
-+	 *   - Last (second one) 32-bit timer: clocksource and sched_clock
-+	 *   - Other timers: clock events for all possible CPUs
-+	 *
-+	 * First step, perform all operation that could fail without calling
-+	 * clockevents_config_and_register(), sched_clock_register() nor
-+	 * cpuhp_setup_state(). Those operation don't have unregister nor
-+	 * teardown counterparts and so, once called, we cannot remove the
-+	 * related resource.
-+	 */
-+
-+	/* First step for 16-bit timers and the first 32-bit timers. */
-+	ret = rzn1_timer_setup_timers(pdev, tab_timers,
-+				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
-+				      RZN1_TIMER_BASE_INDEX_32BIT_TIMERS,
-+				      base, clock_rate);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Second step, almost all operations that can fail have been called.
-+	 * Timers are ready to work. Start with the last operation that can fail,
-+	 * installing and invoking hotplug callbacks
-+	 */
-+	rzn1_tab_timers = tab_timers;
-+	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-+				"clockevents/rzn1/global_timer:starting",
-+				rzn1_local_timer_starting_cpu,
-+				rzn1_local_timer_dying_cpu);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Setup CPU hotplug state failed\n");
-+
-+	/*
-+	 * At this point, no more operations can fail. Perform remaining
-+	 * operations. Starting by handling the last (second one) 32-bit timer
-+	 */
-+	timer = &tab_timers[RZN1_TIMER_LAST_INDEX_32BIT_TIMERS];
-+
-+	rzn1_timer_init(timer, RZN1_TIMER_LAST_INDEX_32BIT_TIMERS, base, clock_rate);
-+	rzn1_timer_config(timer, GENMASK(timer->width - 1, 0), true);
-+
-+	rzn1_sched_clock = timer;
-+
-+	sched_clock_register(rzn1_sched_read, rzn1_sched_clock->width, rzn1_sched_clock->rate);
-+
-+	rzn1_clocksource.mask = CLOCKSOURCE_MASK(rzn1_sched_clock->width);
-+	clocksource_register_hz(&rzn1_clocksource, rzn1_sched_clock->rate);
-+
-+	/*
-+	 * Register clockevents for 16-bit timers (except the first and second
-+	 * ones) and for the first 32-bit timer. The first and second 16-bit
-+	 * timers clockevents are registered by CPU hotplug startup function set
-+	 * previously by the cpuhp_setup_state() call.
-+	 */
-+	rzn1_timer_register_clkevt(tab_timers,
-+				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS + 2,
-+				   RZN1_TIMER_BASE_INDEX_32BIT_TIMERS);
-+
-+	return 0;
-+}
-+
-+static int rzn1_timer_probe_other(struct platform_device *pdev,
-+				  struct rzn1_timer *tab_timers,
-+				  void __iomem *base, unsigned long clock_rate)
-+{
-+	int ret;
-+
-+	/*
-+	 * Probe other instance(s), i.e. not the first one. In that case,
-+	 * all timers are used as clock events and available for all possible
-+	 * CPUs
-+	 *
-+	 * First step, perform all operation that could fail without calling
-+	 * clockevents_config_and_register(). Unregister counterpart does not
-+	 * exist and so, once called, we cannot remove the related resource.
-+	 */
-+	ret = rzn1_timer_setup_timers(pdev, tab_timers,
-+				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
-+				      RZN1_TIMER_LAST_INDEX_32BIT_TIMERS,
-+				      base, clock_rate);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Second step, all operation that can fail have been called. We can
-+	 * register our timers.
-+	 */
-+	rzn1_timer_register_clkevt(tab_timers,
-+				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
-+				   RZN1_TIMER_LAST_INDEX_32BIT_TIMERS);
-+	return 0;
-+}
-+
-+static int rzn1_timer_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct rzn1_timer *tab_timers;
-+	unsigned long clock_rate;
-+	void __iomem *base;
-+	struct clk *clk;
-+	int ret;
-+
-+	tab_timers = devm_kcalloc(dev, RZN1_TIMER_NB_TIMERS, sizeof(*tab_timers),
-+				  GFP_KERNEL);
-+	if (!tab_timers)
-+		return -ENOMEM;
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	clk = devm_clk_get_enabled(dev, "pclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get pclk\n");
-+
-+	clock_rate = clk_get_rate(clk);
-+
-+	scoped_guard(mutex, &rzn1_global_timers_lock) {
-+		ret = !rzn1_timer_instance ?
-+			rzn1_timer_probe_first(pdev, tab_timers, base, clock_rate) :
-+			rzn1_timer_probe_other(pdev, tab_timers, base, clock_rate);
-+		if (!ret)
-+			rzn1_timer_instance++;
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct of_device_id rzn1_timer_of_match[] = {
-+	{ .compatible = "renesas,rzn1-timer", },
-+	{ /* sentinel */ }
-+};
-+
-+static struct platform_driver rzn1_timer_driver = {
-+	.driver = {
-+		.name = "rzn1_timer",
-+		.of_match_table = rzn1_timer_of_match,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+builtin_platform_driver_probe(rzn1_timer_driver, rzn1_timer_probe);
--- 
-2.55.0
+This check happens well before hr_bdev_file is actually assigned --
+several validation steps and an fd lookup sit in between. If a second
+task runs this same check before the first task has gotten around to
+assigning hr_bdev_file, it also reads NULL and also proceeds, even
+though the first task has already committed to setting up this
+region.
 
+Both tasks then go on to call o2hb_map_slot_data(), which allocates
+reg->hr_slot_data, and later, on any failure, o2hb_unmap_slot_data(),
+which frees it. Since hr_slot_data is also unprotected, one task can
+free it via its own failure path while the other task is still
+populating or using the array it allocated, producing the
+use-after-free seen in the syzbot report.
+
+
+
+> > Fixes: 1d3aa0b97c55 ("ocfs2: port block device access to file")
+>
+> Why blames commit 1d3aa0b97c55? It seems it just renames hr_bdev_handle
+> to hr_bdev_file and swaps bdev_release() for fput().
+>
+
+You're right, that commit is just the hr_bdev_handle -> hr_bdev_file
+rename and the bdev_release() -> fput() swap, not the source of the
+race. I'll update Fixes: in v2.
+
+
+> > Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D3025e3e8fc0b928af8f5
+> > Tested-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > ---
+> >  fs/ocfs2/cluster/heartbeat.c | 23 +++++++++++++++++++----
+> >  1 file changed, 19 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.=
+c
+> > index 1c3def99bb07..6f03de1b6d4a 100644
+> > --- a/fs/ocfs2/cluster/heartbeat.c
+> > +++ b/fs/ocfs2/cluster/heartbeat.c
+> > @@ -273,6 +273,9 @@ struct o2hb_region {
+> >
+> >       /* last hb status, 0 for success, other value for error. */
+> >       int                     hr_last_hb_status;
+> > +     /* Serializes dev_store() against itself and region_release() */
+> > +     struct mutex            hr_dev_write_mutex;
+>
+> Please use tab instead space.
+>
+
+I will this in v2
+
+> > +
+> >  };
+> >
+> >  static inline struct block_device *reg_bdev(struct o2hb_region *reg)
+> > @@ -1616,7 +1619,10 @@ static void o2hb_region_release(struct config_it=
+em *item)
+> >
+> >       o2hb_quiesce_timeout(reg);
+> >       o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
+> > +
+> > +     mutex_lock(&reg->hr_dev_write_mutex);
+> >       o2hb_unmap_slot_data(reg);
+> > +     mutex_unlock(&reg->hr_dev_write_mutex);
+> >
+>
+> Seems frag_sem in configfs serializes store and rmdir. So don't
+> understand the race.
+>
+
+I'll drop the locking in
+o2hb_region_release() in v2,  the mutex is only needed in
+o2hb_region_dev_store() to guard against two concurrent stores.
+
+
+> >       if (reg->hr_bdev_file)
+> >               fput(reg->hr_bdev_file);
+> > @@ -1879,9 +1885,6 @@ static ssize_t o2hb_region_dev_store(struct confi=
+g_item *item,
+> >       ssize_t ret =3D -EINVAL;
+> >       int live_threshold;
+> >
+> > -     if (reg->hr_bdev_file)
+> > -             return -EINVAL;
+> > -
+> >       /* We can't heartbeat without having had our node number
+> >        * configured yet. */
+> >       reg->hr_node_num =3D o2nm_this_node();
+> > @@ -1906,12 +1909,20 @@ static ssize_t o2hb_region_dev_store(struct con=
+fig_item *item,
+> >       if (!S_ISBLK(fd_file(f)->f_mapping->host->i_mode))
+> >               return -EINVAL;
+> >
+> > +     if (mutex_lock_interruptible(&reg->hr_dev_write_mutex))
+> > +             return -ERESTARTSYS;
+> > +
+> > +     if (reg->hr_bdev_file) {
+> > +             ret =3D -EINVAL;
+> > +             goto out_unlock;
+> > +     }
+>
+> This seems buggy.
+> We have to do this before the hr_node_num assignment. Otherwise it will
+> conflict with the logic in o2hb_region_dev_store().
+
+
+You're right, I'll move the lock and hr_bdev_file check back to the
+top, before hr_node_num is assigned, in v2.
+
+>
+> > +
+> >       reg->hr_bdev_file =3D bdev_file_open_by_dev(fd_file(f)->f_mapping=
+->host->i_rdev,
+> >                       BLK_OPEN_WRITE | BLK_OPEN_READ, NULL, NULL);
+> >       if (IS_ERR(reg->hr_bdev_file)) {
+> >               ret =3D PTR_ERR(reg->hr_bdev_file);
+> >               reg->hr_bdev_file =3D NULL;
+> > -             return ret;
+> > +             goto out_unlock;
+> >       }
+> >
+> >       sectsize =3D bdev_logical_block_size(reg_bdev(reg));
+> > @@ -2029,6 +2040,8 @@ static ssize_t o2hb_region_dev_store(struct confi=
+g_item *item,
+> >               fput(reg->hr_bdev_file);
+> >               reg->hr_bdev_file =3D NULL;
+> >       }
+> > +out_unlock:
+> > +     mutex_unlock(&reg->hr_dev_write_mutex);
+> >       return ret;
+> >  }
+> >
+> > @@ -2149,6 +2162,8 @@ static struct config_item *o2hb_heartbeat_group_m=
+ake_item(struct config_group *g
+> >
+> >       config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type=
+);
+> >
+> > +     mutex_init(&reg->hr_dev_write_mutex);
+> > +
+> >       /* this is the same way to generate msg key as dlm, for local hea=
+rtbeat,
+> >        * name is also the same, so make initial crc value different to =
+avoid
+> >        * message key conflict.
+>
