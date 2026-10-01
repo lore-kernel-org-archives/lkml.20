@@ -1,166 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297FE383C84;
-	Thu,  1 Oct 2026 06:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AF8369206
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790836473; cv=none; b=iStoGIcIA2hf93lmMW6PqENCn+jgYuIS11sMBLMy6/B3jq3T3xeU+IiHOHjwJ92PsyB47dX3A68mU88yuOIhE4SZqOOOTj4yi7BxYF6wxhnqe8jzV/KrKU+vpN+u48Ps69VCSmHsA3EpCcvs7z764OfRB/FImRB81LlnG+Am0NE=
+	t=1790836501; cv=none; b=uKGnL8Pe5XY30kF1u1ke2TKq2ZuPgt+RK3eO/zRI54na4F/ZfMIqZe7HNRUCGtxfCacID/lURhN0NVnjOrsx5tU/S2cyXTPQZ6A8npe3bGWGOT6E6bmUt+wN00SwKXjkgGpKO0dZXbmH0+fBgGTza1muv9Nni5jaZI1uuN6ugfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790836473; c=relaxed/simple;
-	bh=Xqf0ef1yjlBQ20CpTSX0mlKLpdnuo1pJ/aoRQhHgL/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M864Uds7Fbtsb620zexT565XHsjx/nM/vAspUPCHy5XzAhcIDJbFIVDvJeouWTZ9RFob4LdYf3r6T7SLHrVvXZLVMjq0ms1L1j4sFnZ9Nrxix4VthJvD/NHpI1Oa2u0jO6PACgd5AeE3/TK+5KO6upgNX8Fv0ztFatd3kuxaMto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKuqaIrk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790836501; c=relaxed/simple;
+	bh=UzHdqiNq8jEC4E7lvvyncOiwmnK8IKzUOir0go+BhtI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AbWX6MKr6aQIrJUcgupb5pHROJBV4Ul5lyHDtk1K41cHnea48SMfIZPUg06IESd+urgwG1Pv2Ix4Fj4zbFLnzmub/NBJsQdYvpkZwmJtD8AltgYDC4OUf/1QY4gITuhYJM5xb499aRLky16qZNQQ7qxgsqe3PLqnRfGJt2xbMcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Xmw7i+fN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7G5PfiZC; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Lh3TKrC1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bSdW+A1k; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKuqaIrk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F5E1F000FF;
-	Thu,  1 Oct 2026 06:34:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790836472;
-	bh=ishbe5yVH7ESxyGdItWFKgeQ767zZHov4+5nBqQ23sU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VKuqaIrkEp7GtWwGsx3+vLWbX9Yr8kRZ6Q5PQHEOzVYPOveti3uAo+gnKdx7kvaT8
-	 ISR/b1ZvmjcoXG+jOiw+Vvvtg0LciZSDWN2SaehJuiafwbEiybKwiOikuchxYtALMG
-	 1lm9fA9OxlGE8bcCmWAdHZXdYjmWUzE4phFseEWfgeDraadU3BD1D0Fz7busTFH1na
-	 XocvBeEEet/NnCJxD7JOSwcKRTtw7xP26jsyLcZjLoudDha7SHiCFnBnXhtGAwbGMb
-	 Jee/vmhW/mVBoYakVg0QggEOAljjZ88DPOlrqs4ROjXilxclA+XWURM4oT3xsJALjb
-	 gPGdZ4TVqngKA==
-Date: Thu, 1 Oct 2026 08:34:28 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rillian Grant <rillian.grant@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Ruslan Koreev <koreev.r@gmail.com>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: leds: Document TI LM3643 dual LED
- flash driver
-Message-ID: <20261001-humble-gray-aardvark-ae01ce@quoll>
-References: <20260928094302.86966-1-rillian.grant@gmail.com>
- <20260928094302.86966-2-rillian.grant@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Xmw7i+fN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7G5PfiZC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Lh3TKrC1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bSdW+A1k"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B3ABE1FCE0;
+	Thu,  1 Oct 2026 06:34:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790836491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
+	b=Xmw7i+fNdkhXPieHqMW3SiMl/2GZyxhoXHY9k75gBULA7euGjBPMFspQjmDVzZR6zPmbij
+	yOup6mBJtOc/sKzb1ttXUcYhloinw1uBAJxPar5tWl1YxPZ018Y4DCXJQ3dyQwLFxQ2708
+	eHimu0oobSpymXCt6lel++SzdX7iBQY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790836491;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
+	b=7G5PfiZChxZB9Lcy+U48Xb31Q3PaicXw27oyl5HxB4TD67EWsf1KBo/8UXlJt+i5K+/hSO
+	fcB08A4gm27g7wDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790836487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
+	b=Lh3TKrC1z/6mi1+I9rWuCMDxGGfF3RPTRw9ARdODh3LFgW4BNFKZcktB7CfEz5ZJsKZ37b
+	wwL/kEu4x9ksOA/Lkw2+48bN3BvqL3ElC4G/Zrcrdd/RE4SCoHN2DkhiA/rTak5ZX9VG99
+	5tOEXK4sxvRriXSS8bIlEn2ii4SStNo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790836487;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
+	b=bSdW+A1kvm1x0HLqwpblX0QPwiPXmJS2+CV2etU1lK515XKj65kUKezMjnlkpkt33u6vld
+	LVnFnPaS1seskOAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42FF11368E;
+	Thu,  1 Oct 2026 06:34:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 4sAxBgf/vWoeawAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 06:34:47 +0000
+Message-ID: <82a6538d-a401-403b-b10d-0abae6ca5e8a@suse.de>
+Date: Thu, 1 Oct 2026 08:34:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928094302.86966-2-rillian.grant@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/qxl: return -ENODEV for unsupported revisions
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alon Levy <alevy@redhat.com>,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260930222214.69443-1-matheus.aalmeida@inf.ufrgs.br>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260930222214.69443-1-matheus.aalmeida@inf.ufrgs.br>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,lists.linux.dev,lists.freedesktop.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Mon, Sep 28, 2026 at 10:42:34AM +0100, Rillian Grant wrote:
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,lm3643
-> +
-> +  reg:
-> +    maxItems: 1
-> +
+Hi
 
-Missing supply, enable-gpios.
+Am 01.10.26 um 00:22 schrieb Matheus Alves de Almeida:
+> The qxl driver currently returns -EINVAL when the emulated qxl revision
+> is too old. This is not a driver initialization failure but rather a
+> match rejection, which should return -ENODEV.
+>
+> Change the value returned when the qxl revision is below 4 to -ENODEV.
+> Switch the xf86-video-qxl suggestion log to be info level, as this is
+> not an error.
+>
+> Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+> ---
+>   drivers/gpu/drm/qxl/qxl_drv.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+> index 97df9d3d6..35b83b1bb 100644
+> --- a/drivers/gpu/drm/qxl/qxl_drv.c
+> +++ b/drivers/gpu/drm/qxl/qxl_drv.c
+> @@ -82,9 +82,9 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>   	int ret;
+>   
+>   	if (pdev->revision < 4) {
+> -		DRM_ERROR("qxl too old, doesn't support client_monitors_config,"
+> -			  " use xf86-video-qxl in user mode");
+> -		return -EINVAL; /* TODO: ENODEV ? */
+> +		dev_info(&pdev->dev,
+> +			 "qxl too old, doesn't support client_monitors_config, use xf86-video-qxl in user mode\n");
 
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^led@[0-1]$":
-> +    type: object
-> +    $ref: common.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        description: Index of the LED.
-> +        minimum: 0
+This call should become dev_err() instead.
 
-Drop, that's alerady minimum.
+Best regards
+Thomas
 
-> +        maximum: 1
-> +
-> +      led-sources:
-> +        minItems: 1
-> +        maxItems: 2
-> +        items:
-> +          minimum: 0
+> +		return -ENODEV;
+>   	}
+>   
+>   	qdev = devm_drm_dev_alloc(&pdev->dev, &qxl_driver,
 
-As well
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-> +          maximum: 1
-> +
-> +      flash-max-microamp:
-> +        description: |
-> +          Maximum flash current through this LED. Each high-side current source
-> +          can provide up to 1.5A. The maximum current the boost can deliver is
-> +          1.5A across both sources.
-> +
-> +          Valid values for an LED connected to one source:
-> +            10900 - 1500000, step by 11725 (rounded down)
-> +          Valid values for an LED connected to both sources:
-> +            21800 - 1500000, step by 23450 (rounded down)
-> +
-> +        minimum: 10900
-> +        maximum: 1500000
-> +
-> +      led-max-microamp:
-> +        description: |
-> +          Maximum torch current through this LED. In torch mode each high-side
-> +          current source can provide up to 179mA.
-> +
-> +          Valid values for an LED connected to one source:
-> +            977 - 179000, step by 1400 (rounded down)
-> +          Valid values for an LED connected to both sources:
-> +            1954 - 358000, step by 2800 (rounded down)
-> +
-> +        minimum: 977
-> +        maximum: 358000
-> +
-> +      flash-max-timeout-us:
-> +        description: |
-
-Drop |
-
-> +          The chip supports timeouts from 10ms to 100ms in increments of 10ms
-> +          and from 100ms to 400ms in increments of 50ms. The provided value
-> +          will be rounded down to a supported value.
-> +
-
-Drop blank line
-
-> +        minimum: 10000
-> +        maximum: 400000
-> +
-> +    required:
-> +      - reg
-> +      - led-sources
-> +      - flash-max-microamp
-> +      - led-max-microamp
-> +      - flash-max-timeout-us
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/leds/common.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        flash-led-controller@63 {
-
-led-controller@63
-
-
-Best regards,
-Krzysztof
 
