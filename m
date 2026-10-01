@@ -1,246 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9777B48A8B2;
-	Thu,  1 Oct 2026 06:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FEA3769F0
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:49:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837309; cv=none; b=BVtqDK5OKT0NZM2LS/MfwfdzfyNbtXvEC5yc5mUEmKe3GqbU2V4RgOXph7cx656PZOnnqTYMGvmCBkkD4N4DwDslwjdrIwySZxvsSSBBpLZb4+x0BUG1IyegE4Pyc1qHPySXDO8xqMvZDlEcLL+hzKa52DhnprcX75eO92ZDZBU=
+	t=1790837363; cv=none; b=UTHtRDsPRM7RQAjTc2lbEhHOTlosgRm1FL1wel9hJMk+A9pHQlESqB6P+b9NF3a6Td9FZVfqKDOgXPwtSYFydHx8XC9lo8hhO4HBwgpJwNQdty55FQmBFmEZzndmUTUjQYhlfV2J4XK63o6wCU8J+vKvdeOarMs7ezrS+SNYAP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837309; c=relaxed/simple;
-	bh=9C9YwHz2LmenEFx6ac2crhMBgLDF9XFjHszoDkDbV/E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sw0FGEGVlstgawSAfbKZlD2toC+kOMBu3869LrjVpV0mCAN/R6rzTWL8rj8gEMEpnTTyAaSRWziQoKBuAe6WRTNiTKae7GchbTmkSf0jdh5KSklS3NVhoEWWoPHjnGx8EFmoKFHmu9/40uS1CaYkyoLmhvKuZ5mwxnaPcvGZWqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S2oAAim+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790837363; c=relaxed/simple;
+	bh=H3ndpuZOs5KbBxoDMRuDjzHiiZfaCII4tMYsCZULh4k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KIav3ZSFXlbUTNG2rwx2U1S5SvlbfMyFztIho1/XSzFLDpGSo+2F3BOhLsSfFtKeymT+UyVYlBoPoNTozuYdu4epFKlcvUtWPFvom8fLkWWulMse/15bcyLoIalFW8HjUe0MFdb596UEOo7bFsowusRyX4TKNft5m4J7hAEjVkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DDxQXyln; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S2oAAim+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FA01F000FF;
-	Thu,  1 Oct 2026 06:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790837301;
-	bh=oTPiNK1ijgqqieTLDnk5gsI3qKTkeHbyJgaO+3TPCaM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S2oAAim+ZNN1UcFWk7JwFJyWhJfmpAkwn9wIrUXnc9gDsyIOrLMMP59x1ylVtpqpG
-	 pTzdfwm1Uhh/acqjNDV1CVJMYuTJYmAjDf9E+SaTmVAb5hSpsIrSsnEH5/UHX3mkB2
-	 xFytObp+UzIjfucg0Wd4tDrA3T+ZnqzroP3taQyRabiYXpyzMfYmDpwFtpoSMEoWGb
-	 ixwuV70lKjFBRPQ+ayaT78Xkp/1CRw8RUvQUCWunq7zOc6OU9l/EEA+EdaVFg06I5p
-	 A/YT+UVWignazMIbm71xq98Jtz3/PTH/rV6rwOrMuEjSMz8mVSuk8M7xP56UdsDyez
-	 UDFp3UPZJuXEQ==
-Date: Thu, 1 Oct 2026 08:48:18 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <ar4ADESgOoIx4F5d@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <artgrTe6wvKxnUOG@houat>
- <c75feb5d-055d-403a-8dba-3c187cdb8e7d@linaro.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DDxQXyln"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 34FA91A1099;
+	Thu,  1 Oct 2026 06:49:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0378760341;
+	Thu,  1 Oct 2026 06:49:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 229EB1032A044;
+	Thu,  1 Oct 2026 08:49:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790837356; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=VTxE/6MZQnOHf7qilpg+lvqP0ZHWR04NsBK8UTne4+8=;
+	b=DDxQXylnjxwZj5zVQc52PWlEHrywz5Bsd2mPZnP67qUX87jSfIDEJ73c7ofISaxlzWxD0y
+	PwP/eqkRAtSJjPPCK7i4LEnUZJKL3DTnmbHQ49DvV6E2W8OJHnh8dF1i/4eImhSvL9kcpD
+	fIIIRZKi3ZafoLZT5g4u9jNV/1ePtvAIW3glG7yvhzlCdyi0VDBlrt+TEwSiOIcI8lIzVY
+	xMeF3QiMQe0XlmgwWpONwNwXbwPEXqHckQCRWNq8Dxjb/MCbITpQe2V0oqFWdek9UCIfXy
+	uDLxLzzy1zzeDMFfSp2jQd0Pq0onjLv3PWoHST/SH6dyz9bHkAbm174yaredPQ==
+Message-ID: <5e5fc716-3be9-40f5-a74b-9d2eae478194@bootlin.com>
+Date: Thu, 1 Oct 2026 08:49:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="xylhezw3t3zffshi"
-Content-Disposition: inline
-In-Reply-To: <c75feb5d-055d-403a-8dba-3c187cdb8e7d@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v18 09/10] net: ethtool: Introduce ethtool
+ command to list ports
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: davem@davemloft.net, Andrew Lunn <andrew@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Herve Codina <herve.codina@bootlin.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ =?UTF-8?Q?Nicol=C3=B2_Veronese?= <nicveronese@gmail.com>,
+ Simon Horman <horms@kernel.org>, mwojtas@chromium.org,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Daniel Golle <daniel@makrotopia.org>,
+ Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+ Frank Wunderlich <frank.wunderlich@linux.dev>,
+ Pietro Ameruoso <p.ameruoso@live.it>, Aleksei Sviridkin <f@lex.la>
+References: <20260927133619.955236-1-maxime.chevallier@bootlin.com>
+ <20260927133619.955236-10-maxime.chevallier@bootlin.com>
+ <20260930155310.775843d4@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260930155310.775843d4@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 
---xylhezw3t3zffshi
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-MIME-Version: 1.0
 
-On Wed, Sep 30, 2026 at 03:46:04PM +0200, Neil Armstrong wrote:
-> On 9/29/26 09:13, Maxime Ripard wrote:
-> > Hi Neil,
-> >=20
-> > On Mon, Sep 28, 2026 at 06:39:58PM +0200, Neil Armstrong wrote:
-> > > On 9/28/26 18:22, Maxime Ripard wrote:
-> > > > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > > > difficult to support and require pretty much a panel driver for each
-> > > > panel produced. Most of them are pretty simple, and require an opaq=
-ue
-> > > > initialization sequence that is usually poorly documented.
-> > > >=20
-> > > > This creates a tension between OEMs and distros because OEMs will
-> > > > typically get a new panel to react to a sourcing issue during
-> > > > production, and thus need some swift turnaround between getting the=
-ir
-> > > > new panel and it being operational in the OS. Distributions on the =
-other
-> > > > hand can take years to ship a kernel with that new panel driver.
-> > > >=20
-> > > > To solve this, I followed the example of HID-BPF and wrote a panel
-> > > > driver that will rely on BPF programs to perform the panel
-> > > > initialization. That way, we can ship the programs separately from =
-the
-> > > > kernel, and with a different lifecycle. If this driver is accepted,=
- the
-> > > > plan is to have a userspace component started by udev to identify a=
-nd
-> > > > load the right BPF program for the panels found on the device.
-> > >=20
-> > > This is kind of late for serious applications except if we manage to
-> > > solve the bootloader to Linux display engine transition.
-> >=20
-> > Virtually all "generic" distributions are shipping the panel as modules
-> > today anyway, because anything else is nothing but impractical. But
-> > maybe you don't consider them serious enough. Also, applications live in
-> > userspace already, so can be ran after this driver would be initialized
-> > anyway.
->=20
-> So what would this exactly solve ? keeping out-of-tree BPF driver + bindi=
-ngs
-> driver forever and never upstreaming then ? Is this what we really want ?
->=20
-> >=20
-> > > > This driver is fully functional and works with both 5" and 7" Touch
-> > > > Display 2 panels for the RaspberryPi. However, it breaks away from =
-the
-> > > > typical panel driver in multiple ways:
-> > > >=20
-> > > > - BPF programs can only be loaded by userspace. This leaves us with=
- two
-> > > >     choices:
-> > > >=20
-> > > >     * We prevent the driver from loading until the script itself is
-> > > >       loaded. This has the side effect of preventing any other outp=
-ut to
-> > > >       be used until the initramfs is ran at the earliest, and possi=
-bly
-> > > >       ever if the loader isn't installed for example.
-> > >=20
-> > > This adds a dependency on user-space behavior and if somehow the
-> > > initramfs doesn't load for a reason we won't have a way to display
-> > > an error.
-> >=20
-> > Yes, if an error happens before the DRM driver loads, it won't be shown
-> > on the screen. This is already the case for any panel driver today on
-> > any major !embedded distribution. And with built-in drivers, this can
-> > also happen before or while the DRM driver loads.
-> >=20
-> > The solution is always the same though: load simpledrm first, move to
-> > the proper DRM device once it's functional. It still works with this
-> > solution.
->=20
-> Module !=3D bpf programs, maybe one day it will change.
+On 10/1/26 00:53, Jakub Kicinski wrote:
+> On Sun, 27 Sep 2026 15:36:18 +0200 Maxime Chevallier wrote:
+>> Expose the phy_port information to userspace, so that we can know how
+>> many ports are available on a given interface, as well as their
+>> capabilities. For MDI ports, we report the list of supported linkmodes
+>> based on what the PHY that drives this port says.
+>> For MII ports, i.e. empty SFP cages, we report the MII linkmodes that we
+>> can output on this port.
+>>
+>> Tested-by: Aleksei Sviridkin <f@lex.la>
+>> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> 
+>> +static void __init ethnl_phy_names_populate(void)
+>> +{
+>> +	const char *name;
+>> +	int i;
+>> +
+>> +	for (i = 0; i < PHY_INTERFACE_MODE_MAX; i++) {
+>> +		name = phy_modes(i);
+>> +		strscpy(phy_interface_names[i], name, ETH_GSTRING_LEN);
+> 
+> Feels a bit backward, we run thru a switch statement to dump it down
+> to an array.. Why not convert to an array and then make phy_modes()
+> also use it?
 
-I have exactly zero idea what your point is here. You were saying that
-it's bad because panels get to probe later now and you wouldn't see an
-error. I'm saying it's already what happens today with a significant
-part of the install base and doesn't seem to bother you.
+From my memories on early tries to get it done another way, this was
+tricky as I was struggling to find the correct place to put the array
+in question.
 
-I'm not talking about BPF programs themselves, I'm talking about your
-double standard.
+phy_names() is required even when CONFIG_NET=n as it's used for devicetree
+parsing, so we can't put that in phylib nor in any networking code without
+doing some trickery to get some of it to build inconditionally. I'll try
+harder :)
 
-> > > >     * Or we probe the driver all the time, but only report it as co=
-nnected
-> > > >       once a program has been registered. This is somewhat unconven=
-tional,
-> > > >       but allows the other outputs to be functional, *and* allows t=
-he user
-> > > >       to force the output if their panel doesn't require any
-> > > >       initialization or during debugging. I chose this solution.
-> > >=20
-> > > Both options are not really great...
-> >=20
-> > Feel free to make any suggestions
-> >=20
-> > > >=20
-> > > > - It's not a panel driver, but a bridge one, which is also pretty
-> > > >     unconventional. This is required because panel drivers don't ha=
-ve
-> > > >     access to a detect callback that is required for the above, but=
- I also
-> > > >     think that the recent work from Luca blurs the line from panels=
- and
-> > > >     bridges and we'll end up going that road anyway.
-> > >=20
-> > > On this point, DDIC _are_ bridges,
-> >=20
-> > I have no idea what a DDIC mean.
->=20
-> The DDIC is the Display Driver Interface Controller, basically the
-> IC which received DSI packets and physically drives the display.
->=20
-> It's basically a bridge to the panel, and this is mainly what we program.
+> 
+>> +	}
+>> +}
+> 
+>> +static int port_fill_reply(struct sk_buff *skb,
+>> +			   const struct ethnl_req_info *req_info,
+>> +			   const struct ethnl_reply_data *reply_data)
+>> +{
+>> +	bool compact = req_info->flags & ETHTOOL_FLAG_COMPACT_BITSETS;
+>> +	struct port_reply_data *reply = PORT_REPDATA(reply_data);
+>> +	int ret, port_type = ETHTOOL_PORT_TYPE_MDI;
+>> +
+>> +	if (nla_put_u32(skb, ETHTOOL_A_PORT_ID, reply->port_id))
+>> +		return -EMSGSIZE;
+>> +
+>> +	if (!reply->mii) {
+>> +		ret = ethnl_put_bitset(skb, ETHTOOL_A_PORT_SUPPORTED_MODES,
+>> +				       reply->supported, NULL,
+>> +				       __ETHTOOL_LINK_MODE_MASK_NBITS,
+>> +				       link_mode_names, compact);
+>> +		if (ret < 0)
+>> +			return ret;
+>> +	} else {
+>> +		ret = ethnl_put_bitset(skb, ETHTOOL_A_PORT_SUPPORTED_INTERFACES,
+>> +				       reply->interfaces, NULL,
+>> +				       PHY_INTERFACE_MODE_MAX,
+>> +				       phy_interface_names, compact);
+>> +		if (ret < 0)
+>> +			return ret;
+>> +	}
+>> +
+> 
+> please move the port_type init from inline up to to here.
+> initializing things inline often lowers readability
 
-I've been writing panel drivers longer than you did, there's no need to
-be patronizing.
+Ack, will do
 
-> > > but in the current panel API we blur the line between the panel and
-> > > the DDIC. So being a bridge is fine, but in a general way we lack a
-> > > proper way to describe the display/panel/monitor independently of the
-> > > DDIC.
-> > >=20
-> > > At first glance it's a nice driver, but moving the timings into a blob
-> >=20
-> > Let's not kid ourselves, it's *already* a blob. We just sugar-coated it
-> > enough that we can be happy and call it GPL.
->=20
-> It's the case for most drivers, but since we don't get proper
-> documentation we're stuck using registers list and can't
-> implement advanced features. And moving this to a bpf won't solve
-> but enhance the problem by a large factor.
+> 
+>> +	if (reply->mii || reply->sfp)
+>> +		port_type = ETHTOOL_PORT_TYPE_SFP;
+>> +
+>> +	if (nla_put_u32(skb, ETHTOOL_A_PORT_TYPE, port_type))
+>> +		return -EMSGSIZE;
+>> +
+>> +	if (reply->upstream_port &&
+>> +	    nla_put_u32(skb, ETHTOOL_A_PORT_UPSTREAM_PORT,
+>> +			reply->upstream_port))
+>> +		return -EMSGSIZE;
+>> +
+>> +	return 0;
+>> +}
+> 
+>> +static int port_dump_all_dev(struct sk_buff *skb, struct netlink_callback *cb)
+>> +{
+>> +	struct port_dump_ctx *ctx = port_dump_ctx_get(cb);
+>> +	struct net *net = sock_net(skb->sk);
+>> +	netdevice_tracker dev_tracker;
+>> +	struct net_device *dev;
+>> +	int ret = 0;
+>> +
+>> +	rcu_read_lock();
+>> +	for_each_netdev_dump(net, dev, ctx->pos_ifindex) {
+>> +		netdev_hold(dev, &dev_tracker, GFP_ATOMIC);
+>> +		rcu_read_unlock();
+>> +
+>> +		ctx->req_info->base.dev = dev;
+>> +		ret = port_dump_one_dev(skb, cb);
+>> +
+>> +		rcu_read_lock();
+>> +		netdev_put(dev, &dev_tracker);
+>> +		ctx->req_info->base.dev = NULL;
+>> +
+>> +		if (ret < 0 && ret != -EOPNOTSUPP) {
+>> +			if (likely(skb->len))
+>> +				ret = skb->len;
+> 
+> smells of pre-commit b5a899154 netlink
+> Can we delete the skb->len check and override here?
+> There's one more such construct below
 
-How? You keep saying those broad, alarmist statements. Look at the BPF
-examples I provided. *How* is it "making the problem worse by a large
-factor" exactly?
+ah indeed yes :(
 
-Just like I said to Rob, I don't mind changing that driver to accomodate
-your fear or anxiety. But "this is shit" isn't a review, it's abusive
-behaviour. If you plan on continuing that trend, don't.
-
-> > > moves something into possible proprietary binaries with possible
-> > > closed licence and distribution restriction so it's a downgrade for
-> > > the same of bringing up a panel faster.
-> >=20
-> > We can already make a proprietary, out-of-tree, panel driver today. That
-> > being said, the only license we allow for BPF programs here is GPL, so
-> > if anything it would be less of a concern for this than it would be for
-> > regular panels.
->=20
-> So you're on to facilitate keeping panel driver out-of-tree and never
-> upstream them ? this is awkward TBH.
-
-Hahahaha, yeah, sure. I don't care about upstreaming anymore and just
-want to scorch-earth the entire kernel to have an excuse to retire and
-do goat farming. You got me.
-
-However, given the current state of this discussion and the intention
-you're giving me, it does sound appealing.
+Thanks for reviewing,
 
 Maxime
 
---xylhezw3t3zffshi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4CMQAKCRAnX84Zoj2+
-dsKJAYDegBJXjN+DAIL+zFTw7NMWESWe1rT4wG/kSYCXb2ykCFMpoNvFPAczuyY3
-BveNkdgBgIbDXFAFc4WfspVAtEoMIh5QoJ6lGdHtAgVkVxhB2ZTLGnqTj1aS6ZvV
-TMcKW9VWrA==
-=Rwjh
------END PGP SIGNATURE-----
-
---xylhezw3t3zffshi--
