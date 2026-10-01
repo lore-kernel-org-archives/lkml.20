@@ -1,109 +1,164 @@
-Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A2A446C1B
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.29
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790834565; cv=none; b=ppoo8I/P6fE1HjKUBjpabtqDdNoznMxwA97Y/IrSAjeFqzUR8rawMO2/76rQgiD3IqnTTcwjewGKl8DvBH0fqPeCFUzMFF15FihSYpS3vzjYTJCSgrilMdnv8+RzJ3si8hz/aRwiCQN84rNRQTKr11jMn93jWilusi0it+D/GaY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790834565; c=relaxed/simple;
-	bh=ONHwvlafLxqOwWtTKBLJQM46MsZG63waYc7Ovsluscs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h2GepJCDp/6RYndDOHpnu6UwhCC8gCbYYUdz55ZXL6UFPGA4Qq+bxjheyHvI6ve7DqpZFF7Bru71r3M2u/6cNF4YC3fo+SWBsK2J2mwtFFAzpUaH3VdrXd0LRCHLFVAv8oZb2uZP6vMwD3mQIKw2Q3kWuIM3XXg9jbCIpPkX9Vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ahrIkfdT; arc=none smtp.client-ip=95.215.58.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B265246D09D
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:03:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790834624; cv=pass; b=pk+eUh9ZVli0x16D7WTIwdrRDTWdMvvTmVdaDmvLx1A5/p22TBBbCbDHoDW3ICaph8epUa2574QC0CWaHn3ls5CrHxuJiOS0+cFaGq7XVnQE5D8ogIn8Q2AdwptL+FAGs1ibSAf+XeORCnAPW0un8yMWKYur1FP0BsBdaGm02EA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790834624; c=relaxed/simple;
+	bh=PIROSIJcUm8IhNkrYuoivcsIwzp3qi2TP3RwB/cUmfs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=XnE8aOlYclME88y/6fWNFnw0r6di+gUAMFJyuBCcodk1iISMz6Ien1EFoGws5CxN4wvNBJS+4x+lSk0h7EflnjYC1XcXa/qZJIvZXQ9bbZ+rg21drnIxzouXk0pxcn4GCNQabvMflKIDdNjDbfei/E2q46EeJMQoiSQt3vN1e9s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=canonical-com.20251104.gappssmtp.com header.i=@canonical-com.20251104.gappssmtp.com header.b=viIEHKu+; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ahrIkfdT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ONHwvlafLxqOwWtTKBLJQM46MsZG63waYc7Ovsluscs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790834556; v=1; x=1791439356;
- b=ahrIkfdTqyLz3d21ADnyivDKDAM1fD5EcQvOYnZ2BOHIVAkbAdkrwZuUJkHv39wgQ29cusJ+
- nmyEM4BQmXzYVteogEGAyfgdFBE5dIH1IWS4BAfliNNSXO3H40vXU5VIbYqmgMNQHHLkj2FzUNt
- h9xycMfDrayyzuyNzUeviDpI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dfba6b55da3cb7ed;
-	Thu, 01 Oct 2026 06:02:36 +0000
-X-Mizu-Trace-ID: dfba6b55da3cb7ed
-X-Migadu-Flow: FLOW_OUT
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Alastair D'Silva <alastair@d-silva.org>
-Cc: Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Luka Gejak <luka.gejak@linux.dev>
-Subject: Re: [PATCH v3 1/2] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-Date: Thu,  1 Oct 2026 06:02:12 +0000
-Message-ID: <20261001060213.24759-1-luka.gejak@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001000303.3505264-2-alastair@d-silva.org>
-References: <20261001000303.3505264-2-alastair@d-silva.org>
+	dkim=pass (2048-bit key) header.d=canonical-com.20251104.gappssmtp.com header.i=@canonical-com.20251104.gappssmtp.com header.b="viIEHKu+"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so58948261fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 23:03:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790834618; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UV5JfrUvSag4dg5wtyfKtAWs0gWzR1xkzTcdFEYDSZXalfXrLnhx9Zjc9wKCZnuSQL
+         Tg2FwlP3xvOCc9HMj3IQRYRAQQzYcl3EYWQgQhAOftB0gnVEHXM/8PxRKNuk34mT/p0z
+         XILYcmZuUJgFqw/UMS1clf2YiHUktue66yB8O7pgGsxq3ydmyfj93W40+A76mOBjNJTq
+         v7sc62HrL169IC/I56ZS7HHw/th1TnwgWzlX262bQyhoXa/NAAPnQKVgR+rn8cG54TOS
+         B+2onHfBvj9hzuGUcpstwN6vNs9Kjf6xmIPukn1PmSy2REMcTBTTDxNQP8eMCIguicfL
+         sHxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Hgp1C/l5toz2Y4Urz7dWHnR34B0fNj/IjonzU3eqplI=;
+        fh=ZwUj8QZGbP0IPy/k404craqHwg8rRakc4jx9J9e1hgA=;
+        b=fBbe2CEyjxMMtIA4tkOKSRB0OPLV7JDM89Q13TqmO6xDHgNm7iMhXEdJbICt95sbim
+         3Dkk0T7kaKwYnOn+qPEnwOZshXQRX1AFvrPAPy5NNAfXm7OlVFJgd1fpVHULxGgc6Hgz
+         AwU+ZIB1+7NkZE5+Q6PNkNU1FYua+T+UqUde3HmxX8XZC1IeyR7WYmufbtukbQx6tBUA
+         5Flqse56xyMiQeVGyaZwUbcXH9l9NadN+XbdUrpAQf7dT3Dz0uL241j1xWj+gQ25wfjK
+         rS4VhpXwLyPCDpF4f+SMJokK0KMqflRWA5WbBjACuRf/bN7LGJOEHMhna7rpa/ZDSoF6
+         5O2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=canonical-com.20251104.gappssmtp.com; s=20251104; t=1790834618; x=1791439418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hgp1C/l5toz2Y4Urz7dWHnR34B0fNj/IjonzU3eqplI=;
+        b=viIEHKu+FSG1KhfrpfaoKKTq6PFqiNt/yYweb4o7LRjKSQI/reGJVzBQdbbtyZr7jd
+         Z0A/Fch0XuRIOi2UP4tfHOH4FxvBVQVGVqhSHhKr+sy6h9Kyl2hpOlxJA2XapFj0LrlN
+         AeS10H1Sev9gzXCH8WaHb93Su49e6UQHTGWXMeCgZY8V90HaRaFSqCaJQhK4p6kUYulQ
+         QTKCPFiQFujjOSeroqFVa4sH4pc8um4RWETSxTgjqfPIDRgqyAo6Rw3aaUFNxGAhO4ah
+         5WrpAB5R5sq60Tfnc4HYEiCIUJaIRxxNt8dLlZwsubrZtPgRd1tSjX2ywfmQC/m7ShXT
+         fvOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790834618; x=1791439418;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hgp1C/l5toz2Y4Urz7dWHnR34B0fNj/IjonzU3eqplI=;
+        b=sSnTE/tYkWy5UaLmfrH8+e0MuwPWXbxqOe8dGCqHW2Obloihkgmuo3xEeb+anN4oIU
+         NWorD/x21pgbcMyQIVv1m2uZC9BdjqXZz+Sh/GS9m+JGE9QaIUevqL8jDraHke2EoOjm
+         eUMAawobzEYapdtRNyx1WnhfsOzAXbZ5ipV21DYJDOlpp+m15wogO7OITQHC8Uu1uK+Q
+         D+EHMMysDM6nSeYKYw/StwaPWKHwue7chMJQrP8cEB9NFA3eiC7BAY48AD6JEheTT3h8
+         No2O6yq2U8Qupx9E9/uzDFnex8TONYpfiCs1ws3JrosvmvgdC33CDmuSlVwtPg9rc4xn
+         6qMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiKA/T+h4np4S4e6pjirYBVEfGkY2mQ15oeyzBw0XyD3HCquzQFCcnN6d0X8vHLK0a6DHSuqIa1+VztLk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4IeGtjrqhsDoJGjkHlz9OacH28nIijUZY1AXWoVyqGaK9rUNS
+	rlwfIIPF43qTwvmiyL54MWaLJ+FHlmBHfnXp6uHGDk+TBH5yrozkv6VPrmPfLBgZMXMUYBEmNf5
+	VqQBJaggVF8LKZaHcJLfLCr/XkBLhsxA=
+X-Gm-Gg: AYBFou11zcIoQX3LnzeNtKcr58WSdmYFLuwQnJEIciBQdZjRuZ5uVB6JEAR9jfmkiod
+	MjYIpSt38TfLwuIGPHyUGuDtsIvSyiOHicrjsji0jjAqbF+lOJiIk6lfJnjT+hNs2EnIt/qxa/b
+	eXECZhxZb8NRg4bCKlylmXNM4WmyMt1fGlUQkP52lnz9ueEkeF0p8+Tt5Pna44nSKsQY/R5MWG3
+	kAs1YXElmBDFZNqMXnQKWyr4MRvrMyVDSJm9ihmmeyaeNalWcdhwVJ6SC4ShJrKUOjQ7mAL/k+L
+	DHRaodTL0BlIASdm0ZuPFphsNQrbCGVpUXedMdD33EO/N7QcnwyCFus=
+X-Received: by 2002:a2e:be07:0:b0:3a6:568f:40eb with SMTP id
+ 38308e7fff4ca-3a7792077a2mr11432771fa.27.1790834617800; Wed, 30 Sep 2026
+ 23:03:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260114011917.241196-1-acelan.kao@canonical.com> <CAMz9Wg_i5Sgewa2N7jfEoNJrp5jMp+O5m+kM=VN9rWKcGLzQXA@mail.gmail.com>
+In-Reply-To: <CAMz9Wg_i5Sgewa2N7jfEoNJrp5jMp+O5m+kM=VN9rWKcGLzQXA@mail.gmail.com>
+From: AceLan Kao <acelan.kao@canonical.com>
+Date: Thu, 1 Oct 2026 14:03:26 +0800
+X-Gm-Features: AclHuK8bG-XKFgjsQDqse9lVQ8q5WyIRi7oBeYeYkMJTSBRhJ-JWaOzReixkG5Y
+Message-ID: <CAMz9Wg_E686NQe5XigWX6s2mbWE4t2DoTvW+GmtMzN6bP0tQ4Q@mail.gmail.com>
+Subject: Re: [PATCH] dma-buf: set SB_I_NOEXEC and SB_I_NODEV on dmabuf filesystem
+To: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alastair,
+AceLan Kao <acelan.kao@canonical.com> =E6=96=BC 2026=E5=B9=B44=E6=9C=8813=
+=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=884:10=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+>
+> Chia-Lin Kao (AceLan) <acelan.kao@canonical.com> =E6=96=BC 2026=E5=B9=B41=
+=E6=9C=8814=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=889:19=E5=AF=AB=E9=
+=81=93=EF=BC=9A
+> >
+> > The VFS now warns if an inode flagged with S_ANON_INODE is located on a
+> > filesystem that does not have SB_I_NOEXEC set. dmabuf inodes are
+> > created using alloc_anon_inode(), which sets S_ANON_INODE.
+> >
+> > This triggers a warning in path_noexec() when a dmabuf is mmapped, for
+> > example by GStreamer's v4l2src element.
+> >
+> > [   60.061328] WARNING: CPU: 2 PID: 2803 at fs/exec.c:125 path_noexec+0=
+xa0/0xd0
+> > ...
+> > [   60.061637]  do_mmap+0x2b5/0x680
+> >
+> > The warning was introduced by commit 1e7ab6f67824 ("anon_inode: rework
+> > assertions") which added enforcement that anonymous inodes must be on
+> > filesystems with SB_I_NOEXEC set.
+> >
+> > Fix this by setting SB_I_NOEXEC and SB_I_NODEV on the dmabuf filesystem
+> > context, following the same pattern as commit ce7419b6cf23d ("anon_inod=
+e:
+> > raise SB_I_NODEV and SB_I_NOEXEC") and commit 98f99394a104c ("secretmem=
+:
+> > use SB_I_NOEXEC").
+> >
+> > Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
+> > ---
+> >  drivers/dma-buf/dma-buf.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index a4d8f2ff94e46..dea79aaab10ce 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -221,6 +221,8 @@ static int dma_buf_fs_init_context(struct fs_contex=
+t *fc)
+> >         if (!ctx)
+> >                 return -ENOMEM;
+> >         ctx->dops =3D &dma_buf_dentry_ops;
+> > +       fc->s_iflags |=3D SB_I_NOEXEC;
+> > +       fc->s_iflags |=3D SB_I_NODEV;
+> >         return 0;
+> >  }
+> >
+> > --
+> > 2.51.0
+> >
+> Hi all,
+>
+> Please help to review this patch.
+> It does the same thing as
+>    ce7419b6cf23d ("anon_inode: raise SB_I_NODEV and SB_I_NOEXEC")
+> and
+>    98f99394a104c ("secretmem: use SB_I_NOEXEC")
+> Thanks.
 
-The split looks good to me.
+A gentle ping
 
-One issue with acknowledging the request up front:
-
-> +	rtw_sdio_disable_interrupt(rtwdev);
-> +	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-
-When dev_alloc_skb() fails, rtw_sdio_rxfifo_recv() returns without
-reading the port:
-
-	skb = dev_alloc_skb(bufsz);
-	if (!skb)
-	  return;
-
-but the loop counts the bytes anyway:
-
-		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-
-		total_rx_bytes += rx_len;
-
-so a few failed reads burn the 64K budget and the loop exits with the
-FIFO still full. The request is already cleared by then, and only a new
-packet sets it again, which may never come if the FIFO is full and the
-sender is paused. 8051 does not have this problem because it leaves the
-bit to hardware. Can rtw_sdio_rxfifo_recv() report the failure, so the
-loop can stop and retry instead? The read error just below the allocation
-leaves the FIFO in the same state.
-
-Same function, the enable at the end:
-
-> +	/* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
-> +	rtw_sdio_enable_interrupt(rtwdev);
-
-It also runs when the device has been stopped. ksdioirqd can still run a
-handler that was signalled before rtw_sdio_stop() released the host, and
-stop only writes HIMR as zero:
-
-	static void rtw_sdio_stop(struct rtw_dev *rtwdev)
-	{
-		rtw_sdio_disable_interrupt(rtwdev);
-	}
-
-rtwsdio->irq_mask still has RX_REQUEST and CPWM1, so this puts the mask
-back and arms the stopped device again. PCI clears rtwpci->running in its
-stop path and only re-enables while it is still set:
-
-	if (rtwpci->running)
-		rtw_pci_enable_interrupt(rtwdev, rtwpci, rx);
-
-Can you add something like that here?
-
-Best regards,
-Luka Gejak
+--=20
+Chia-Lin Kao(AceLan)
+http://blog.acelan.idv.tw/
+E-Mail: acelan.kaoATcanonical.com (s/AT/@/)
