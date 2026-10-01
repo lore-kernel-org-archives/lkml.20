@@ -1,105 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5135F4AD4B5;
-	Thu,  1 Oct 2026 18:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DED52FE24
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 18:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878530; cv=none; b=t595WYTmiTsSd/ZTz+6FFDQMur6W+z9HiF90LVQOtBLlSFdcTvHjRJmqJHNwlnO+bN5oWijrXfZRVBb3nJ6Uop+Tg+s9n9tkFbIBdh6SoBcTF9xtjBaq5cfTGtxmxhy8W0V/cf8/z9Ejv3xCLLAv2Wn2C66A0/vm33kqtqZacFQ=
+	t=1790878536; cv=none; b=hL28HJQPSeBeTN/Yv9MXBGuFkw9/a7GMcz6FbrrrxNiHum1+yZYvxc5Mfu3x9pvtny94huf0OtSKsg9LT6bCdOD7WbC6GuA8MCRQ0GhfjUVICSIXXSBVjnvxmJRI+Q+Q0qI+NZYc7grnitecCiGkJO3lkFEyzXH6FHMmWUG2JWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878530; c=relaxed/simple;
-	bh=50s2Qv0GNgNGN/PAeJ//wTD0DLgmTftx13CRNmJZOX0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NUj6srAILCB9MPnZrr1fVrMpfJsauOr102QRYyUlbE2/w/jUBmG7CDqm7kFPITMjPZCcGpCpEg7yKy0tXyOyUjPEH7RKQJxgv3xPXN7jcfS5rZVgrPe4/coRHD0EeKOleahOzxp9QSLZidWzBdh7RpWwldf2/IWBqCoRHrfnx64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CrA51B+f; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790878536; c=relaxed/simple;
+	bh=UYIxpue9U7wLOldjTAEq2Y8YcpIjqgAN3TM8JYsRuCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pd+XsmE9gDYFOoxurLodke+Js+w8eTppaa96H1Ih5K85XZOzV/Kp/1rn3/i0A9CHqgv+8kHyzSJoUWBuNRQ8yJWGJIwPQVV1Do9tqz66/aiO+hDh6mKlRg8gwNKHppGLvY0X5094wkU3T6yXP36QJr50KeydBcUiC7R+7fEITEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iI4+Zd05; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CrA51B+f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790878528; x=1822414528;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=50s2Qv0GNgNGN/PAeJ//wTD0DLgmTftx13CRNmJZOX0=;
-  b=CrA51B+fMGkzk3k0V2363W0f9ksXSeMYwCuXDWk4LVS4LhDdPmelq+Jd
-   9Ah69ZOEkOCzXdKuUB7O2gbdOxEI8rJv0rF1QmIcW1lVIs+QKNeMHPEiw
-   vGEdQHAvy/iAMW53yJp66vHn4l/SByI5LjcFA6nx0dYL3HvOZXluGcTU4
-   0bSv9jgrMq/l1UzjC8jQU/OtvPJ0l39YYtbKcyG1J7krLd5bGPv48JhsK
-   I6U57eugNAXhH4UfTj5LEpaT2OaOVjmLNmcTqlnPemHEGjN5pTJoKUeH7
-   HRSOz8+PutSP0KaBE1m50lHeyeERE+DXdjbIRO26Op2GjmrtTLmcCH9pA
-   A==;
-X-CSE-ConnectionGUID: 8/3nI9daQGOV7xZDW3uMCg==
-X-CSE-MsgGUID: JGoqlRvcR6ibIT5yOIjiGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90506354"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="90506354"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:15:24 -0700
-X-CSE-ConnectionGUID: F2CkvQq/Sr+ntoWJunaitw==
-X-CSE-MsgGUID: zpbmy6ppT+uC9lG0ERv/KA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="279360229"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.27])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:15:22 -0700
-Date: Thu, 1 Oct 2026 21:15:18 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rahul Pon <theflyingrahul@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iI4+Zd05"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790878528;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=A0IEnKIIoe14yk04bwWgYY6XA9TxUuiuYvjrXGnIi6w=;
+	b=iI4+Zd05rqa21SgNKBTgQtCD6h2kZ/uA/saUBDopt7ukHJogAStLOtFyY9W4cZduxiYuVp
+	HEsOfQlF8eyfmQT4b4DQMX8XWNL9i7CnYI2ypbB53/nvHwwPbtWe4T6EN01zkkj2I0raom
+	FwqdEse1fABq/7nma2vNg9hvaIn4k8o=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-211-3j7Aynp0Me-5pNw8J8K6SQ-1; Thu,
+ 01 Oct 2026 14:15:26 -0400
+X-MC-Unique: 3j7Aynp0Me-5pNw8J8K6SQ-1
+X-Mimecast-MFC-AGG-ID: 3j7Aynp0Me-5pNw8J8K6SQ_1790878525
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B1EDD180049F;
+	Thu,  1 Oct 2026 18:15:24 +0000 (UTC)
+Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7CA3430000E4;
+	Thu,  1 Oct 2026 18:15:23 +0000 (UTC)
+From: Luiz Capitulino <luizcap@redhat.com>
+To: sashal@kernel.org,
+	stable@vger.kernel.org
+Cc: rppt@kernel.org,
+	sayalip@linux.ibm.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ACPI: GED: Support GpioInt event resources
-Message-ID: <ar6jNo7-Wgx2ZLty@ashevche-desk.local>
-References: <20260930111505.1108-1-theflyingrahul@gmail.com>
- <CAD++jL=45ZdTbHsLDTAmTt3f+=VBVK014TLJyd5Drdba3V=dSQ@mail.gmail.com>
- <20261001041856.1984-1-theflyingrahul@gmail.com>
+Subject: [PATCH v6.12.y v2] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
+Date: Thu,  1 Oct 2026 14:15:18 -0400
+Message-ID: <20261001181518.685129-1-luizcap@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001041856.1984-1-theflyingrahul@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Thu, Oct 01, 2026 at 09:48:56AM +0530, Rahul Pon wrote:
-> On Thu, Oct 1, 2026 at 1:52 AM Linus Walleij <linusw@kernel.org> wrote:
-> > I don't understand the patch at all, but I understand that Andy or Mika must
-> > review it otherwise it's not going anywhere, so looping them in.
-> 
-> Thanks, Linus.
-> 
-> Andy, Mika: some context that should have been in the commit message.
-> 
-> ACPI 6.6 section 5.6.9.2 says a GED _CRS contains only Interrupt
-> resource descriptors, so this firmware is outside the spec. It is still
-> the only source of lid events here: LIGE's _CRS is a single GpioInt on
-> the GPIO controller (pin 960), and the controller's _AEI lists one
-> other, unrelated pin. ECGE is the same, with pin 768. On Windows, the
-> in-box ACPI device driver (acpidev.inf) binds both GED devices, and the
-> lid works there.
-> 
-> For _EVT, section 5.6.9.3 passes the GSI number, which a GpioInt does
-> not have. The patch passes the pin number from the GpioInt descriptor,
-> as section 5.6.5.3 does for _EVT under _AEI. Both _EVT methods on this
-> laptop ignore Arg0.
-> 
-> If the approach is acceptable, v2 will state the spec deviation in the
-> commit message.
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-Is vendor of the firmware / platform being informed? Do they accept their
-mistake? Are they going to fix their crap?
+commit a914785f6349da754e1226420bf4e51961956769 upstream.
 
+hugetlb-mremap test fails if there are no free huge pages prepared by a
+wrapper script.
+
+Add setup of HugeTLB pages to the test and make sure that the original
+settings are restored on the test exit.
+
+Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Luiz Capitulino <luizcap@redhat.com>
+Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Donet Tom <donettom@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Li Wang <li.wang@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+[ Backport-notes: this is a partial backport containing only the aligning
+of 'length' to the hugepage size. The hugepage_settings.h include line and
+the hugetlb_setup_default() call are omitted. Without this fix, the
+uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
+default HugeTLB page size causing the test to fail with the error below as
+'length' is 10 MiB and not aligned to the HugeTLB page size.
+
+  # -------------------------
+  # running ./hugepage-mremap
+  # -------------------------
+  # TAP version 13
+  # 1..1
+  # # Map haddr: Returned address is 0x7eaa40000000
+  # # Map daddr: Returned address is 0x7daa40000000
+  # # Map vaddr: Returned address is 0x7faa40000000
+  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
+  # # Planned tests != run tests (1 != 0)
+  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+  # [FAIL]
+  not ok 1 hugepage-mremap # exit=1
+  # NOTE: These hugetlb tests provide minimal coverage.  Use
+  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
+  #       hugetlb regression testing.
+  # SKIP ./uffd-wp-mremap
+]
+Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+---
+ tools/testing/selftests/mm/hugepage-mremap.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+v2
+- Preserved original changelog & subject
+- Small code style difference from v1 due to git cherry-pick usage which
+  preserved the original commit style
+
+diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
+index 3070484f9ed0..164bbda8128f 100644
+--- a/tools/testing/selftests/mm/hugepage-mremap.c
++++ b/tools/testing/selftests/mm/hugepage-mremap.c
+@@ -87,6 +87,7 @@ static void register_region_with_uffd(char *addr, size_t len)
+ 
+ int main(int argc, char *argv[])
+ {
++	unsigned long hugepage_size;
+ 	size_t length = 0;
+ 	int ret = 0, fd;
+ 
+@@ -104,7 +105,11 @@ int main(int argc, char *argv[])
+ 	else
+ 		length = DEFAULT_LENGTH_MB;
+ 
++	hugepage_size = default_huge_page_size();
++	if (!hugepage_size)
++		ksft_exit_skip("Could not detect default hugetlb page size\n");
+ 	length = MB_TO_BYTES(length);
++	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
+ 	fd = memfd_create(argv[0], MFD_HUGETLB);
+ 	if (fd < 0)
+ 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
