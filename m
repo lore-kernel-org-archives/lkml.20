@@ -1,68 +1,88 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652284DEC07
-	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F2B4E0B79
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 09:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847349; cv=none; b=Goxl2Bwc8zGoGBjjAsB2OEnQdcGxAhqmaiYaMCQOZ7SHxWsjjcasB3XeQXWQUp+YVkjs65B+u6Ugh1UtVEk86GzE4KR626U0s2GUxVG00dZ6FzJS2CdlY6ipchv3W3MimeayS3PRLR0sci5SDlzIkypNAvfizCHoH8me/FQTkp0=
+	t=1790847353; cv=none; b=AZmXlqk2J6JESDE+61/AhrbtH7ov2wvmMCkQSXE+2CnhRHc8VjPwkr1UPpAVbB+SqwAV2i4/s90e5GroYejjiCd+MzcwYz6jCaNtsZWT0zNB/Dlp9mBSn3W8OdfibvfzHboWnFRAekhrVQ7wGAdEu3EqLjvTo4wfFu8SKCOwQRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847349; c=relaxed/simple;
-	bh=R9VpuZgq7vFSy5UYs4t82wH9U4uVkVrxbunMOVVX/JU=;
+	s=arc-20240116; t=1790847353; c=relaxed/simple;
+	bh=2x5l8hdDQlwJXCS/Eggz+xDDnpbTH4eIJ5E+6/vN3gM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hDExPmK68Jg29VbEK8TRSBtqkSCSwxzN8ORhHbNRNMABGwxqHrlQLj2ImpGogQ2OU27cB47+hSiumXmov87l98FO7tUihjUrbrckTUPFhBat76VZnmJzSvphXBA2F6QzYxmdMTiHVb2zTV560F222iZa6v8M4eme+h9RZ9bhN7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWaEiXUO; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:To:Cc; b=qK35rCEDfbpQ4KAnDQyD43JRP1StFSRzp8XX4S3jcyNqTgHVVGrWE5Thb4UaZXUlaPW0h8prJc45joXdGoMTRVLrzDNKBw4tIgh2TXXtcqRzjRI1BAKMfGKzBrVygYgUgfih4dRShZ9F6VeWhxrjTct1++wcHfhQzJ1KSILVSw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TXkhuXOi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e2J8kLRM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWaEiXUO"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33be7dfcfc1so7958475eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:35:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TXkhuXOi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e2J8kLRM"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xRwA1289124
+	for <linux-kernel@vger.kernel.org>; Thu, 1 Oct 2026 09:35:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ITC2AOyoiZTQDo8TbhKy42Jf/j6c3ShiqBjBF20yDLA=; b=TXkhuXOioTnrE2vU
+	zSkIhqYru766pZoTlf7D8UFEfXWrRwf3nN3q770LpArGpmfyeG6LiXGkR9g1nRq1
+	KEK1RYL7f2mpXnQbJSUt06kGLuktEf4BoBp5s2C0tkpljXgP6XlBytlAW917h7y6
+	E0Ysfv3rCRgwrwEC0fyFHfzK797Pb5VeS2T/F5FAodgZS2AzWmCtoDgyrYt4Tg+o
+	Tr7RKuyMsKxpFpQ7bGJO+A0w178O+/Uu4tij9Dal0Ya+yj6nHhRjHtOItPlqumxJ
+	DaiXLFzgHNcoTJLgxrhseTo8Ysz704pjhMpzvY1KGCnOJSqU0xbNY3rt8LP/12nB
+	XYqvMA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17pjb4ky-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 09:35:50 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so7535782a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 02:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790847345; x=1791452145; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790847350; x=1791452150; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W5AuqYzQ2ZzAZr/hbIpKCvkK3yyzAVxb0HnkMvxVjgc=;
-        b=BWaEiXUOQh9CtQWgHfJ/+TDi+l5knS063v/zlRZdGi7nd2EnwryP1xaLRaHQaUEUE6
-         LepCnjljle1reTUJnegWUEkww11/musRfeJ4tmxb/fgY8/5Fg+ApSfKjVOA63sAOjr/y
-         JcqG/k43RoTbwS63gZb6FRCDupZTyeScylOSe49hyr++/0jHICHzTbzPG5QJT6Cj+vFh
-         q5bw13ernSqI5E3gz+hB8fTYEAiJfPpH2oDwnmLGaCf2kowZMISQtX9pxVAP5YJ/KEnM
-         EH1HprRFYapNbIh5dJWh2MZtDB6O5b79l5izZhOI1fJ0GA2Rdec/WUW5PvXYjzLvwVFK
-         Q1iA==
+        bh=ITC2AOyoiZTQDo8TbhKy42Jf/j6c3ShiqBjBF20yDLA=;
+        b=e2J8kLRMNthGsjhLW/KPUDXXryrKC5rHUXTBR+bCkLuZjrsHrvwpt/nHA9JLGXWZ2X
+         ClzIw4A2Uip8lGauLHI+O5fYOllzB4F1P3bQO9pvr/IortmSnPl/ETh/u4rpAzUEpMzE
+         Vypp7gx0h+sOEwpdN7hDQl2WMLp+M0DJERhNN/Pr7+uzHYvnzJdtEiTZs4Pt38MnWGit
+         yfJEK1C5wyVFVVU6fx1mNjnHdFeYpgpnw2b8YteSZ3X1QEgspELC8KB+qjo75Tsov6pM
+         edMwYYQ08a1PLbup2uk18yTj0TT1vlrvNKyvlpa4/29QkKpne11XnBZjrILwsY6UEp2L
+         ckVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790847345; x=1791452145;
+        d=1e100.net; s=20260707; t=1790847350; x=1791452150;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=W5AuqYzQ2ZzAZr/hbIpKCvkK3yyzAVxb0HnkMvxVjgc=;
-        b=mStbahdYE7Cn/8J4m2CPyNRvJ34ma3ypCHNNs4LxTgvMxr2O+EhWZumMPQVeYbFcMx
-         Nn8lH7uBeBjD8adst/eNI4DCBIq057iwcx5WW/WE68iOCYKXGNb+VqhXj/VlxbkQNc+3
-         JALzoUVh89cPjn6BQdpbxrdOSVjVLSrisCdbdNrPv36qiNdjs1Vi+ESoFEFPnkiU3Tkx
-         u2RUXbnTGo2QAiSv5xSwuvOKNHb9lnRFuC17dWiTH1QW2uOEbZPGHhlmlcGCMZ8PUG3j
-         64AV5Al/XxS2uCu2w1a9Com6Mb0GIqfcEHWpOndGDoZUYjgk4RzYp+7jmUDM/JBcYuUf
-         rzDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxCBd+U7ihVxJKQVtKn+1iUyWWhWBMYleTH03WitNiUcXgQAu01LbVeGAOq2A/vFHa/Tsi8kwyp+wjM9VY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lslynJDqPhrnBXzMo5F4k89FGkkdKu2A6ZPCBGSJiWk06y4R7J
-	eOO27anqkBSdcqkyPYZvQ+t5Qf9PQ9bGyEkC1tFGOA/kC27GcIT45Ypf
-X-Gm-Gg: AYBFou0g44i6Klr7TAR0Zb90JxTY2EKwncgBueY4cZrMOY+VIKg0lQ8eqTBQhd5ER7A
-	MyWkiI5fv55IXNYHqiAR3nTUBDzgN9Irbgwvx0p2evQUdsmD4LSlL8oVSQXaIqD5J9Hor3E1Ow9
-	TAcwf5S+XDL4NGHrt+2ry4WjULbRxZk21+Q62oumuaEAb8AtS69FnZAJfoWjhBPqmf029IivAvF
-	qko6WO5bAVKsZq8CjYyoabVP0Tp5sKKSETAdGMnDB8yAC8yZnXZW0Pfl/4dFkm1OR5B8osspGn+
-	Aw97vAKq+xbwzlyBMFMz6qk7oIaPhpCgtbfKFBzgsnhqkqjM2MgdJoLZJUGP2j+z/XxQ5cA5AZ6
-	cS+OXjkTQ8XgGQQYuiZM1lQ1SlEI/mmB4JIyXexGpw3mC9NG9qmokY9iqx60RLtcpPt1E0UHz/M
-	cPqa31i7JQy18CZS4q1Bp76ybYb4Yf8GMsA0+bvsqVIUJ0IOwDXSdMbHjFuhrX8Wmzlg==
-X-Received: by 2002:a05:7301:df43:b0:34a:e7ba:863c with SMTP id 5a478bee46e88-34ce0156f0fmr4531959eec.18.1790847345224;
-        Thu, 01 Oct 2026 02:35:45 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db37507a7sm6003982eec.13.2026.10.01.02.35.40
+        bh=ITC2AOyoiZTQDo8TbhKy42Jf/j6c3ShiqBjBF20yDLA=;
+        b=sPus1nYQeTPUcTQfAUwzSVuIypNvvKAbT6JO5P6tqU/vhb/u2Hi2YNcfVraG2UxqpO
+         TKuE8ElLL9PbtNmBE4Fivooc2490eFE5VCKEfEMm+1ErUdik9WsFI1an6m/UrFsEd06o
+         sjC7/KpA2JNyQ0IwGh4CeVE/h4Hb3CvmjU2Q8celTtYMeFxGw+AwC8AIN3fBhWBdf5mn
+         sovONPxpK9EhoJMgenknBLAkLfTPRwPtO/CMO3Lo2fYQEDReI6CaLfCCLT/haTTmRX1r
+         WZFUUAqvanGluFLJlCiWu6jj//ojIr2a4lEQwj+nm5CMHbFBHsc5DF2eu3bP/OC76KZq
+         goaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkurOSr04qVk33kzYiK0Fencib0w8HveBmqiyQ298doM37wWiL/b+x8t2ng8MCzJhNoOwTJOlFB7AsZ0E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICWgNUYbYuX9SC0ubWyonvpD0WfNSSvN75eP8zGA9QnMaPB5er
+	KmH7l5d1BlNxpLMG4Ot/LzvM9GoMXleYWv5m4nie9HFQZOTpwRL0+4wa3/ssip4zeR6RnwuIST1
+	O+B+6nVi6QvMr/CEXZa8fT6zfSNQeG2x0pQFbGwhBftpuJMavTG0FgWcASAAlTlECDNU=
+X-Gm-Gg: AYBFou1C+Yjww2jIBDD3SQZk0L5mvbU4mhD45An9XvfXbfAcUvYf1BdKLQTXAyf8alt
+	Qm54St8UGzcyYD7CwFbjbua9q+aX8PyvcfmRqxUg60Bp03qhki53QSXkCT+Bk75YpZXCHdzxi+K
+	+J7r85EIDTPlOEso0cLpBI/9CE7YLeScZGJhyt/Wn/N4KqH75TeDHO5TZO1Q0YTaN5YRdVZzOtZ
+	vvsEELAtcOz9J2BbmoaRAv12SLDhlmkfakycc7CmQl1IRTnxcTwlZcsBofxRlah8cyPL0hiWnUX
+	dN9IHolO8QqmEAhL5OphFF07CePcR05GEeUJSHheerMjraWQ4Xcbh7MSfNVXkfw4P3tTdeWsfQK
+	+0bOiSmbYPYSdVE4bRRhsDcufMsU=
+X-Received: by 2002:a17:90b:37cb:b0:3a4:c18c:b893 with SMTP id 98e67ed59e1d1-3a4d1964c71mr3348486a91.61.1790847349912;
+        Thu, 01 Oct 2026 02:35:49 -0700 (PDT)
+X-Received: by 2002:a17:90b:37cb:b0:3a4:c18c:b893 with SMTP id 98e67ed59e1d1-3a4d1964c71mr3348457a91.61.1790847349382;
+        Thu, 01 Oct 2026 02:35:49 -0700 (PDT)
+Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e54bf4c4sm1152944a12.29.2026.10.01.02.35.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:35:44 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 01 Oct 2026 17:35:32 +0800
-Subject: [PATCH bpf-next 1/4] bpf: Add a list of deferred instruction
- patches
+        Thu, 01 Oct 2026 02:35:49 -0700 (PDT)
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Date: Thu, 01 Oct 2026 15:04:28 +0530
+Subject: [PATCH v5 11/11] phy: qualcomm: qmp-combo: Fix error propagation
+ in qmp_combo_dp_power_on()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,468 +91,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-bpf-verifier-patch-batch-v1-1-a12df8a09160@gmail.com>
-References: <20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com>
-In-Reply-To: <20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Message-Id: <20261001-glymur-phy-v3-v5-11-3848c2615d5a@oss.qualcomm.com>
+References: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
+In-Reply-To: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Bjorn Andersson <quic_bjorande@quicinc.com>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790847286; l=1638;
+ i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
+ bh=2x5l8hdDQlwJXCS/Eggz+xDDnpbTH4eIJ5E+6/vN3gM=;
+ b=UwWoXymJqRAn9a1nbY9YGmP7UrYi5z8V4UMyZzEqZghFGJ6xzMCIQho/tRyr25PK+jXxtu/ZU
+ PrNvsGqJsZbAamqXS9j2qzWuKPgmroIiUA1B6lk55/BglUgkWjT5VSe
+X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
+ pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
+X-Authority-Analysis: v=2.4 cv=eqpKXYpX c=1 sm=1 tr=0 ts=6abe2976 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=X8Wa9jmQWlBxTcu95m0A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: bt_pyQ3TXy6ZR5RrPhHjIz5Pl-bL3QwK
+X-Proofpoint-ORIG-GUID: bt_pyQ3TXy6ZR5RrPhHjIz5Pl-bL3QwK
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfXzceiLO1uGTHb
+ jhy/L6XBELNEqhx5WhO+aB8M25A5kiCBL7QMR/GueEm488ju2xVV4WOoA9PldpsBxeLUNLKfSgs
+ YUFI10KLaejPa5UbDkWEjBwwGcGfZhk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzOCBTYWx0ZWRfX60/TVvZkjxqC
+ l/pWrckSrRh57q9jp20BaWlv8FN4XwzfcHcrr2HqUj+HbXV++WCOxxDjJyVj7mUYwS3/2QCQaH1
+ lGxHHIY3KXzP285G4+Y/GxT0YjXKigz6V3ecSxEfrPfl9pmOM3oMoxh8KeYghDCYhiyKKUm9+fM
+ NweOIOKOJ8o1mp9g3uvbIwPQrfeesHDXwqA8ElwfyF1iAwIMC2SYH90vN3yV7G7jNnSDdFamZjN
+ hy3kgTSveWCZFjbOLFBF48qDDbSlLxPCT8tDyOfioRKXZ+AB6j+QRDSEAJBew4+RNm4lPvKnBX3
+ vF5hjUy0yRLqGaHT2G/16ioC4CubpSVnCgl+DPBaaWIFDHIOLCVrIwJecaO6FGAVG7ExCgCeYat
+ 9r/Sst3XHE4cdHFIum1wkTDp1FTykOVShlZ8Pz6rWsaz8vUsQIJrcp1tE6qJVvY24dYdBP/ysla
+ tXtY3wMKALTUDIVWtOg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010038
 
-bpf_patch_insn_data() applies a patch right away. It moves the tail of
-the instruction and aux data arrays, and it walks the whole program to
-fix up branches and every table that names instructions. A pass that
-patches M instructions of an N instruction program does O(N * M) work.
+The configure_dp_phy() callback can return an error (e.g. -ETIMEDOUT on
+PLL lock failure), but qmp_combo_dp_power_on() was ignoring the return
+value and always returning 0.
 
-pyperf180 from the selftests has 930 bpf_map_lookup_elem() calls on
-hash maps. bpf_do_misc_fixups() inlines each of them into 3 instructions
-of a 24k instruction program, which takes about a fifth of the time to
-load it.
+Capture the return value, skip setting dp_powered_on on failure, and
+propagate the error to the caller.
 
-Add a list of patches that a pass queues with bpf_patch_list_add() and
-applies with bpf_patch_list_commit() in O(N + inserted instructions).
-Until the commit nothing moves, the pass keeps addressing instructions
-and aux data by their index in the unpatched program, so patches are
-queued in increasing order.
-
-The commit maps each old index to a new one and names a patched
-instruction by the first instruction of its patch, as
-bpf_patch_insn_data() does. Branches, aux data, subprog starts, line
-info, instruction arrays, function pointers and poke descriptors all
-follow the map. The new image is built aside first, so a branch that
-gets out of range leaves the program untouched.
-
-A patch of a single instruction moves nothing and is applied right
-away.
-
-Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Fixes: dd1153651b038 ("phy: qcom-qmp-combo: merge driver data")
+Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 ---
- include/linux/bpf.h          |   1 +
- include/linux/bpf_verifier.h |  26 ++++
- kernel/bpf/bpf_insn_array.c  |  18 +++
- kernel/bpf/fixups.c          | 295 +++++++++++++++++++++++++++++++++++++++++++
- kernel/bpf/verifier.c        |   1 +
- 5 files changed, 341 insertions(+)
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 4bae3796c42f6..17932ff8b0ae9 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -4299,6 +4299,7 @@ int bpf_insn_array_ready(struct bpf_map *map);
- void bpf_insn_array_release(struct bpf_map *map);
- void bpf_insn_array_adjust(struct bpf_map *map, u32 first, u32 len);
- void bpf_insn_array_adjust_after_remove(struct bpf_map *map, u32 off, u32 len);
-+void bpf_insn_array_remap(struct bpf_map *map, const u32 *new_off, u32 cnt, u32 grow);
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index 5bbb2b5f8c74..13d5586b981c 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -4376,6 +4376,7 @@ static int qmp_combo_dp_power_on(struct phy *phy)
+ 	const struct qmp_phy_cfg *cfg = qmp->cfg;
+ 	void __iomem *tx = qmp->dp_tx;
+ 	void __iomem *tx2 = qmp->dp_tx2;
++	int ret;
  
- #ifdef CONFIG_BPF_SYSCALL
- void bpf_prog_update_insn_ptrs(struct bpf_prog *prog, u32 *offsets, void *image);
-diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-index 811342e3c0419..5a968539589f8 100644
---- a/include/linux/bpf_verifier.h
-+++ b/include/linux/bpf_verifier.h
-@@ -929,6 +929,27 @@ struct bpf_fd_array {
- 	};
- };
+ 	mutex_lock(&qmp->phy_mutex);
  
-+/* one deferred patch: insn 'off' is replaced by 'len' insns */
-+struct bpf_insn_patch {
-+	u32 off;
-+	u32 len;
-+	u32 start;		/* first insn of the patch in bpf_patch_list.insns */
-+	struct bpf_insn orig;	/* the replaced insn when the patch was queued */
-+};
-+
-+/*
-+ * Patches queued by a rewrite pass, applied together by
-+ * bpf_patch_list_commit() in O(prog->len + inserted insns).
-+ */
-+struct bpf_patch_list {
-+	struct bpf_insn_patch *patches;
-+	struct bpf_insn *insns;
-+	u32 cnt;
-+	u32 cap;
-+	u32 insn_cnt;
-+	u32 insn_cap;
-+};
-+
- /* single container for all structs
-  * one verifier_env per bpf_check() call
-  */
-@@ -973,6 +994,7 @@ struct bpf_verifier_env {
- 	bool signature;
- 	u32 insn_aux_data_len;
- 	struct bpf_insn_aux_data *insn_aux_data; /* array of per-insn state */
-+	struct bpf_patch_list patch_list;
- 	const struct bpf_line_info *prev_linfo;
- 	struct bpf_verifier_log log;
- 	struct bpf_diag *diag;
-@@ -1834,5 +1856,9 @@ int bpf_jit_subprogs(struct bpf_verifier_env *env);
- int bpf_fixup_call_args(struct bpf_verifier_env *env);
- int bpf_do_misc_fixups(struct bpf_verifier_env *env);
- int bpf_insn_def32(struct bpf_prog *prog, struct bpf_insn *insn);
-+struct bpf_insn *bpf_patch_list_add(struct bpf_verifier_env *env, u32 off,
-+				    const struct bpf_insn *patch, u32 len);
-+int bpf_patch_list_commit(struct bpf_verifier_env *env);
-+void bpf_patch_list_free(struct bpf_verifier_env *env);
+@@ -4388,13 +4389,17 @@ static int qmp_combo_dp_power_on(struct phy *phy)
+ 	cfg->configure_dp_tx(qmp);
  
- #endif /* _LINUX_BPF_VERIFIER_H */
-diff --git a/kernel/bpf/bpf_insn_array.c b/kernel/bpf/bpf_insn_array.c
-index 92bbb71576ae3..74f07ced85cb0 100644
---- a/kernel/bpf/bpf_insn_array.c
-+++ b/kernel/bpf/bpf_insn_array.c
-@@ -253,6 +253,24 @@ void bpf_insn_array_adjust(struct bpf_map *map, u32 first, u32 len)
- 	}
+ 	/* Configure link rate, swing, etc. */
+-	cfg->configure_dp_phy(qmp);
++	ret = cfg->configure_dp_phy(qmp);
++	if (ret) {
++		dev_err(qmp->dev, "DP PHY configuration failed: %d\n", ret);
++		goto out_unlock;
++	}
+ 
+ 	qmp->dp_powered_on = true;
+ 
++out_unlock:
+ 	mutex_unlock(&qmp->phy_mutex);
+-
+-	return 0;
++	return ret;
  }
  
-+/*
-+ * Move each offset to new_off[offset], new_off[] covers [0, cnt]. Offsets
-+ * past the end of the old program only move by 'grow'.
-+ */
-+void bpf_insn_array_remap(struct bpf_map *map, const u32 *new_off, u32 cnt, u32 grow)
-+{
-+	struct bpf_insn_array *insn_array = cast_insn_array(map);
-+	u32 off;
-+	int i;
-+
-+	for (i = 0; i < map->max_entries; i++) {
-+		off = insn_array->values[i].xlated_off;
-+		if (off == INSN_DELETED)
-+			continue;
-+		insn_array->values[i].xlated_off = off <= cnt ? new_off[off] : off + grow;
-+	}
-+}
-+
- void bpf_insn_array_adjust_after_remove(struct bpf_map *map, u32 off, u32 len)
- {
- 	struct bpf_insn_array *insn_array = cast_insn_array(map);
-diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
-index 37cf130ebb57b..39566f3825108 100644
---- a/kernel/bpf/fixups.c
-+++ b/kernel/bpf/fixups.c
-@@ -404,6 +404,301 @@ struct bpf_prog *bpf_patch_insn_data(struct bpf_verifier_env *env, u32 off,
- 	return __bpf_patch_insn_data(env, off, patch, len, BPF_PATCH_KEEP_TARGET);
- }
- 
-+/*
-+ * Queue the replacement of insn 'off' by 'patch[0..len)'. Nothing moves until
-+ * bpf_patch_list_commit(), so a pass keeps addressing insns and their aux data
-+ * by their index in env->prog. Patches must be queued in increasing order of
-+ * 'off'. Jumps in the patch that leave it are relative to the patch placed at
-+ * 'off', the same way as for bpf_patch_insn_data().
-+ *
-+ * Return the copy of the last insn of the patch, which stays valid until the
-+ * next call.
-+ */
-+struct bpf_insn *bpf_patch_list_add(struct bpf_verifier_env *env, u32 off,
-+				    const struct bpf_insn *patch, u32 len)
-+{
-+	struct bpf_patch_list *pl = &env->patch_list;
-+	struct bpf_insn_patch *p;
-+	struct bpf_insn *insns;
-+	u32 cap;
-+
-+	if (bpf_rewrite_must_abort())
-+		return ERR_PTR(-EINTR);
-+
-+	if (verifier_bug_if(!len || off >= env->prog->len ||
-+			    (pl->cnt && off <= pl->patches[pl->cnt - 1].off),
-+			    env, "insn %u patched out of order", off))
-+		return ERR_PTR(-EFAULT);
-+
-+	/* Replacing one insn by one moves nothing, do it right away. */
-+	if (len == 1) {
-+		env->prog->insnsi[off] = *patch;
-+		adjust_insn_aux_data(env, env->prog, off, 1, NULL,
-+				     BPF_PATCH_KEEP_TARGET);
-+		return &env->prog->insnsi[off];
-+	}
-+
-+	if (pl->cnt == pl->cap) {
-+		cap = max(pl->cap * 2, 16U);
-+		p = kvrealloc(pl->patches, array_size(cap, sizeof(*p)),
-+			      GFP_KERNEL_ACCOUNT);
-+		if (!p)
-+			return ERR_PTR(-ENOMEM);
-+		pl->patches = p;
-+		pl->cap = cap;
-+	}
-+
-+	if (pl->insn_cnt + len > pl->insn_cap) {
-+		cap = max3(pl->insn_cap * 2, pl->insn_cnt + len, 64U);
-+		insns = kvrealloc(pl->insns, array_size(cap, sizeof(*insns)),
-+				  GFP_KERNEL_ACCOUNT);
-+		if (!insns)
-+			return ERR_PTR(-ENOMEM);
-+		pl->insns = insns;
-+		pl->insn_cap = cap;
-+	}
-+
-+	p = &pl->patches[pl->cnt++];
-+	p->off = off;
-+	p->len = len;
-+	p->start = pl->insn_cnt;
-+	p->orig = env->prog->insnsi[off];
-+	memcpy(pl->insns + p->start, patch, len * sizeof(*patch));
-+	pl->insn_cnt += len;
-+
-+	return &pl->insns[p->start + len - 1];
-+}
-+
-+void bpf_patch_list_free(struct bpf_verifier_env *env)
-+{
-+	struct bpf_patch_list *pl = &env->patch_list;
-+
-+	kvfree(pl->patches);
-+	kvfree(pl->insns);
-+	memset(pl, 0, sizeof(*pl));
-+}
-+
-+/* Extract the pc-relative operand of a jump, a subprog call or a ld_imm64 of a subprog. */
-+static bool insn_get_rel(const struct bpf_insn *insn, s64 *rel, bool *is_imm)
-+{
-+	u8 code = insn->code;
-+
-+	if (bpf_pseudo_func(insn) || bpf_pseudo_call(insn)) {
-+		*rel = insn->imm;
-+		*is_imm = true;
-+		return true;
-+	}
-+	if ((BPF_CLASS(code) != BPF_JMP && BPF_CLASS(code) != BPF_JMP32) ||
-+	    BPF_OP(code) == BPF_CALL || BPF_OP(code) == BPF_EXIT)
-+		return false;
-+
-+	*is_imm = code == (BPF_JMP32 | BPF_JA);
-+	*rel = *is_imm ? insn->imm : insn->off;
-+	return true;
-+}
-+
-+/*
-+ * insn is number 'idx' of the 'len' insns that replace insn 'off' of the old
-+ * image (an insn that isn't patched is its own patch of length 1). It lands
-+ * at 'pos' of the new image. 'new_off' maps the old image to the new one.
-+ */
-+static int patch_list_adj_insn(struct bpf_insn *insn, const u32 *new_off,
-+			       u32 cnt, u32 off, u32 idx, u32 len, u32 pos)
-+{
-+	bool is_imm;
-+	s64 rel, tgt;
-+
-+	if (!insn_get_rel(insn, &rel, &is_imm))
-+		return 0;
-+
-+	/* relative to the first insn of the patch */
-+	tgt = (s64)idx + rel + 1;
-+	if (tgt >= 0 && tgt < len)
-+		return 0;
-+
-+	/* the patch pushed what follows 'off' down by len - 1 */
-+	tgt = tgt < 0 ? off + tgt : off + tgt - len + 1;
-+	if (tgt < 0 || tgt > cnt)
-+		return -EFAULT;
-+
-+	rel = (s64)new_off[tgt] - pos - 1;
-+	if (is_imm) {
-+		if (rel < S32_MIN || rel > S32_MAX)
-+			return -ERANGE;
-+		insn->imm = rel;
-+	} else {
-+		if (rel < S16_MIN || rel > S16_MAX)
-+			return -ERANGE;
-+		insn->off = rel;
-+	}
-+	return 0;
-+}
-+
-+/*
-+ * Fill the aux data of the 'p->len' insns at 'slot' from the aux data 'old'
-+ * of the insn they replace, the same way as adjust_insn_aux_data() does.
-+ */
-+static void patch_list_adj_aux(struct bpf_prog *prog, struct bpf_insn_patch *p,
-+			       struct bpf_insn *patch,
-+			       const struct bpf_insn_aux_data *old,
-+			       struct bpf_insn_aux_data *slot)
-+{
-+	struct bpf_insn_aux_data *last = slot + p->len - 1;
-+	struct bpf_insn *orig = &p->orig;
-+	u32 i;
-+
-+	*last = *old;
-+	last->zext_dst = bpf_insn_def32(prog, &patch[p->len - 1]) >= 0;
-+	memset(slot, 0, sizeof(*slot) * (p->len - 1));
-+
-+	for (i = 0; i < p->len - 1; i++) {
-+		slot[i].seen = last->seen;
-+		slot[i].zext_dst = bpf_insn_def32(prog, &patch[i]) >= 0;
-+		if (!memcmp(&patch[i], orig, sizeof(*orig))) {
-+			slot[i].non_stack_access = last->non_stack_access;
-+			last->non_stack_access = false;
-+		} else if (bpf_is_mem_insn(&patch[i])) {
-+			slot[i].non_stack_access = true;
-+		}
-+	}
-+
-+	if (bpf_is_mem_insn(&patch[p->len - 1]) &&
-+	    memcmp(&patch[p->len - 1], orig, sizeof(*orig)))
-+		last->non_stack_access = true;
-+
-+	/* indirect jumps to the replaced insn land on the first new one */
-+	if (last->indirect_target) {
-+		slot[0].indirect_target = 1;
-+		last->indirect_target = 0;
-+	}
-+}
-+
-+static u32 patch_list_remap(const u32 *new_off, u32 cnt, u32 grow, u32 off)
-+{
-+	return off <= cnt ? new_off[off] : off + grow;
-+}
-+
-+/*
-+ * Apply all queued patches in one go. Everything that names an insn of the
-+ * old image follows it to the new one, a patched insn is named by the first
-+ * insn of its patch, like with bpf_patch_insn_data().
-+ */
-+int bpf_patch_list_commit(struct bpf_verifier_env *env)
-+{
-+	struct bpf_patch_list *pl = &env->patch_list;
-+	struct bpf_prog *prog = env->prog;
-+	u32 cnt = prog->len, new_cnt, grow = 0, end, i, k, n;
-+	struct bpf_insn_aux_data *data;
-+	struct bpf_insn *insns = NULL;
-+	struct bpf_insn_patch *p;
-+	u32 *new_off = NULL;
-+	int err = 0;
-+
-+	if (!pl->cnt)
-+		goto out;
-+
-+	err = -ENOMEM;
-+	new_off = kvmalloc_array(cnt + 1, sizeof(*new_off), GFP_KERNEL_ACCOUNT);
-+	if (!new_off)
-+		goto out;
-+
-+	for (i = 0, k = 0; i <= cnt; i++) {
-+		new_off[i] = i + grow;
-+		if (k < pl->cnt && pl->patches[k].off == i)
-+			grow += pl->patches[k++].len - 1;
-+	}
-+	new_cnt = cnt + grow;
-+
-+	/*
-+	 * Build the new image aside first, so that a jump that goes out of
-+	 * range leaves the program untouched.
-+	 */
-+	insns = kvmalloc_array(new_cnt, sizeof(*insns), GFP_KERNEL_ACCOUNT);
-+	if (!insns)
-+		goto out;
-+
-+	for (i = 0, k = 0; i < cnt; i++) {
-+		const struct bpf_insn *src = &prog->insnsi[i];
-+		u32 len = 1;
-+
-+		if (k < pl->cnt && pl->patches[k].off == i) {
-+			src = &pl->insns[pl->patches[k].start];
-+			len = pl->patches[k++].len;
-+		}
-+
-+		for (n = 0; n < len; n++) {
-+			insns[new_off[i] + n] = src[n];
-+			err = patch_list_adj_insn(&insns[new_off[i] + n], new_off,
-+						  cnt, i, n, len, new_off[i] + n);
-+			if (err == -ERANGE) {
-+				verbose(env, "insn %d cannot be patched due to 16-bit range\n",
-+					env->insn_aux_data[i].orig_idx);
-+				goto out;
-+			}
-+			if (verifier_bug_if(err, env, "insn %u jumps out of the program", i))
-+				goto out;
-+		}
-+	}
-+
-+	err = -ENOMEM;
-+	data = vrealloc(env->insn_aux_data,
-+			array_size(new_cnt, sizeof(*data)),
-+			GFP_KERNEL_ACCOUNT | __GFP_ZERO);
-+	if (!data)
-+		goto out;
-+	env->insn_aux_data = data;
-+
-+	prog = bpf_prog_realloc(prog, bpf_prog_size(new_cnt), GFP_USER);
-+	if (!prog)
-+		goto out;
-+	env->prog = prog;
-+
-+	memcpy(prog->insnsi, insns, sizeof(*insns) * new_cnt);
-+	prog->len = new_cnt;
-+
-+	/* Move aux data from the end, an insn never moves to a lower index. */
-+	end = cnt;
-+	for (k = pl->cnt; k-- > 0;) {
-+		p = &pl->patches[k];
-+		memmove(data + new_off[p->off + 1], data + p->off + 1,
-+			sizeof(*data) * (end - p->off - 1));
-+		patch_list_adj_aux(prog, p, &pl->insns[p->start], &data[p->off],
-+				   &data[new_off[p->off]]);
-+		end = p->off;
-+	}
-+	env->insn_aux_data_len = new_cnt;
-+
-+	/* NOTE: fake 'exit' subprog should be updated as well. */
-+	for (i = 0; i <= env->subprog_cnt; i++)
-+		env->subprog_info[i].start =
-+			patch_list_remap(new_off, cnt, grow, env->subprog_info[i].start);
-+
-+	for (i = 0; i < prog->aux->nr_linfo; i++)
-+		prog->aux->linfo[i].insn_off =
-+			patch_list_remap(new_off, cnt, grow, prog->aux->linfo[i].insn_off);
-+
-+	for (i = 0; i < env->insn_array_map_cnt; i++)
-+		bpf_insn_array_remap(env->insn_array_maps[i], new_off, cnt, grow);
-+
-+	for (i = 0; i < env->func_ptr_cnt; i++) {
-+		if (env->func_ptrs[i].xlated_off == BPF_FUNC_PTR_DELETED)
-+			continue;
-+		env->func_ptrs[i].xlated_off =
-+			patch_list_remap(new_off, cnt, grow, env->func_ptrs[i].xlated_off);
-+	}
-+
-+	for (i = 0; i < prog->aux->size_poke_tab; i++)
-+		prog->aux->poke_tab[i].insn_idx =
-+			patch_list_remap(new_off, cnt, grow, prog->aux->poke_tab[i].insn_idx);
-+
-+	err = 0;
-+out:
-+	kvfree(insns);
-+	kvfree(new_off);
-+	bpf_patch_list_free(env);
-+	return err;
-+}
-+
- /*
-  * insn was moved down by delta insns inside its own patch. Operands relative
-  * to the pc that point in front of the old position did not move with it.
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index b840b3eb9b229..7c1bed0c66c64 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -22753,6 +22753,7 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
- err_free_env:
- 	bpf_free_subprog_jts(env);
- 	vfree(env->insn_aux_data);
-+	bpf_patch_list_free(env);
- 	kvfree(env->fd_array);
- 	bpf_stack_liveness_free(env);
- 	kvfree(env->cfg.insn_postorder);
+ static int qmp_combo_dp_power_off(struct phy *phy)
 
 -- 
-2.43.0
+2.34.1
 
