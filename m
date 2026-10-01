@@ -1,183 +1,93 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F77E455607;
-	Thu,  1 Oct 2026 06:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1973A44F560
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 06:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790834484; cv=none; b=SK98VS6RI1J5GQZozHl6WydzAhxPvhgjDo0VbXyTXXpJy0VaH8fTgCZ6S3ejRFla/lIIiQH7QEKW31gjk0QRnxp8ArxudpAfu3U0rdpTeMWd2p+qgC5FPNPNGQTCLK4IKoIIVdU0y0XjE3hPCPiQCMHbGp+zBpm0Gwpu76ADU4E=
+	t=1790834493; cv=none; b=i0UKLyW2b9pTltS9ENuEpbeivrVOsPiAtIxzHOHZmy1jrk9n+kA+ZyNVw217NRXAvTrtq8k+ttg32+1HRqIPtNQI67L2ZOQdth3AwxdKVlY3Jzd9Sv3Y5b5ZxpO44LNENIO1vlSWg3vYZ915EZlTBtS/G9H/EglJSov2xVaXeX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790834484; c=relaxed/simple;
-	bh=Nz6HpxVNT98YiE8R1ScwUfFUcyldIz6j+q0sb/NX6aM=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=WwADnY7U5famUrC0QPOnhwoUKv440dPfRWK/yn17/jYUBEsPRGtN7y1hfUZwONGWGBbSljNcdwHYumVcHBWwaE838PYQBymjy8qxAgJ4Gh/8EeyWAo4mVUexJzHDtB1B5CB/DN9Jh9hn9LkIrc0yNmLa/u25rKft9eya8rvWxSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=m4UMAvLg; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3mpcDnEs; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790834493; c=relaxed/simple;
+	bh=s8QHmFfdYbxj6LfMi5s9V6AqzJvC4+y4v4UsIH3ShyM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BerL25yUgHWFbjlP3w8V5LqNzaBSBTY43E65MKwzMKsrEE1w+cY+1nbA1X2nVsXc9luVKghGLIrOdGaTEWbwww5BY3+bp7C/pgbFsi80lA4xsjLaY++6gRA1roW8KARvCt1NM5OQr0q1IvJXA1xQmkCajlrnG9HspQuu22VxSKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=JqPrx0lY; arc=none smtp.client-ip=185.136.65.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="m4UMAvLg";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3mpcDnEs"
-Date: Thu, 01 Oct 2026 06:01:15 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790834478;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bnYvIBKFFjq1tRvfJcQDNM3L4QGtFYPDt5LMkqCKHdc=;
-	b=m4UMAvLgswWVIKAkrpCs7LMbnHBQv2n4P3LH23eJ/rmQ6lpoVcoAoVPXtRkEmQfUVNpMnr
-	23SxpJ4NVJM9H5VKBlCoQt2Tnz6m3CZY9PxlfM5oPWVE30s3fC/p9lCRc+DK66i3o5WRFN
-	nWA22MwDHMzq3SZO6+G5weaSDNpotXIhuYHhitr2WHetaPVC/X8YxdJbv7Ldp6bk4dAPHM
-	QmMUxYBI1tyaOrZ36TFNJExKyy4TuxN4fVkfBS5R4vlSO7VBhj/I7zco6eSe/RDgkp2jIc
-	3y5JGXN3BKG3a3MAgIphXODtq46ndHZgIQs7Lon6NjuHq4x9uFHTyYYBCznxeA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790834478;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bnYvIBKFFjq1tRvfJcQDNM3L4QGtFYPDt5LMkqCKHdc=;
-	b=3mpcDnEsowXYZZJF53o0vtB2+2dgFfdtQRZPypg+tesMVvsFtnMYUIeGjCdj11qoAmbRcr
-	Y58jJsVaBAIgypBA==
-From: "tip-bot2 for Tony Luck" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/cache] x86,fs/resctrl: Add event group descriptions for
- Intel Diamond Rapids
-Cc: Tony Luck <tony.luck@intel.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- Reinette Chatre <reinette.chatre@intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260930171554.12794-1-tony.luck@intel.com>
-References: <20260930171554.12794-1-tony.luck@intel.com>
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="JqPrx0lY"
+Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 20261001060116fb16c06f570002075b
+        for <linux-kernel@vger.kernel.org>;
+        Thu, 01 Oct 2026 08:01:17 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=QRo8GBuRiwb3EQHOfAciTtVSfngLutrv6EYFrkZSa5E=;
+ b=JqPrx0lY8R9IanCLnR1xelLAhlP4JRa8Y2bP784ejWYXKWALHvHbZXR68xaVU2dMtGHJYY
+ wCRu/UVwc6zhsyp6cklLWlNr/mIHJ4DSr9UJR7nVOhGLM9m8uBpGmI1AKW5h1JGVMjOpA5r2
+ kS3EmNJ1rxzUZk9bGUNrMxzcC37NzKA8dyQSSJpskBpemtjs6giVUSkA20o/e4HflM2PkXft
+ MkijoZHfo0cfWICoWGhhnaEfUWwl48rAfoSqhij2MiMNbGrQv7Zi0DgVUvqvenQrHg6bILlj
+ yZ73e130QkfEA7bf2CVbd/iVWzYNFhTtXEGGbUwrNzy2ZelVqoBEhXoA==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-integrity@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jay Freyensee <why2jjj.linux@gmail.com>,
+	Jerry Snitselaar <jsnitsel@redhat.com>,
+	Nayna Jain <nayna@linux.vnet.ibm.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] tpm: tpm2_probe: propagate transport errors
+Date: Thu,  1 Oct 2026 08:01:11 +0200
+Message-ID: <20261001060114.1582092-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179083447575.3910103.5605043048790091336.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-The following commit has been merged into the x86/cache branch of tip:
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Commit-ID:     50e5282df427830fcd810e553f0e355d9cccb3e2
-Gitweb:        https://git.kernel.org/tip/50e5282df427830fcd810e553f0e355d9cc=
-cb3e2
-Author:        Tony Luck <tony.luck@intel.com>
-AuthorDate:    Wed, 30 Sep 2026 10:15:54 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Wed, 30 Sep 2026 22:47:08 -07:00
+tpm2_probe() reads the protocol version from the response tag and is
+documented to return -errno on failure, but it always returns 0.  A
+transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
+the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
+unset. A transient bus failure on the first command then misdetects a
+TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
 
-x86,fs/resctrl: Add event group descriptions for Intel Diamond Rapids
+  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
+  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
 
-Intel Diamond Rapids exposes Application Energy Telemetry through two new PMT
-aggregator GUIDs: one covering the "energy" feature, and one covering the
-"perf" feature, both documented in the Intel-PMT XML repository at
-https://github.com/intel/Intel-PMT
+Return the transport error instead; rc >= 0 still means a valid header was
+received and the TPM's own response code is still ignored.
 
-The "perf" aggregator references two events not previously enumerated by
-resctrl: retired instructions (INST_RETIRED), and a count of unhalted core
-clock cycles perceived by hardware as contributing to instruction execution
-(PCNT).
-
-Add definitions for both aggregators, and add the two new events to the
-resctrl filesystem so they can be exposed to user space.
-
-Signed-off-by: Tony Luck <tony.luck@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Link: https://patch.msgid.link/20260930171554.12794-1-tony.luck@intel.com
+Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
- arch/x86/kernel/cpu/resctrl/intel_aet.c | 34 ++++++++++++++++++++++++-
- fs/resctrl/monitor.c                    |  2 +-
- include/linux/resctrl_types.h           |  2 +-
- 3 files changed, 38 insertions(+)
+ drivers/char/tpm/tpm2-cmd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/re=
-sctrl/intel_aet.c
-index c22c3cf..66cd8c2 100644
---- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-+++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-@@ -125,9 +125,43 @@ static struct event_group perf_0x26557651 =3D {
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index a94f4395c198a..4b2bb2ddc321a 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -483,8 +483,9 @@ int tpm2_probe(struct tpm_chip *chip)
+ 		out = (struct tpm_header *)buf->data;
+ 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
+ 			chip->flags |= TPM_CHIP_FLAG_TPM2;
++		return 0;
  	}
- };
-=20
-+/*
-+ * Link: https://github.com/intel/Intel-PMT/blob/main/xml/DMR/OOBMSM/RMID-EN=
-ERGY/dmr_aggregator.xml
-+ */
-+static struct event_group energy_0x47903099 =3D {
-+	.pfname		=3D "energy",
-+	.guid		=3D 0x47903099,
-+	.num_rmid	=3D 256,
-+	.mmio_size	=3D XML_MMIO_SIZE(256, 2, 3),
-+	.num_events	=3D 2,
-+	.evts		=3D {
-+		EVT(PMT_EVENT_ENERGY, 0, 18),
-+		EVT(PMT_EVENT_ACTIVITY, 1, 18),
-+	}
-+};
-+
-+/*
-+ * Link: https://github.com/intel/Intel-PMT/blob/main/xml/DMR/OOBMSM/RMID-PE=
-RF/dmr_aggregator.xml
-+ */
-+static struct event_group perf_0x1415910a =3D {
-+	.pfname		=3D "perf",
-+	.guid		=3D 0x1415910a,
-+	.num_rmid	=3D 256,
-+	.mmio_size	=3D XML_MMIO_SIZE(256, 4, 3),
-+	.num_events	=3D 4,
-+	.evts		=3D {
-+		EVT(PMT_EVENT_UNHALTED_REF_CYCLES, 0, 0),
-+		EVT(PMT_EVENT_UNHALTED_CORE_CYCLES, 1, 0),
-+		EVT(PMT_EVENT_INST_RETIRED, 2, 0),
-+		EVT(PMT_EVENT_PCNT, 3, 0),
-+	}
-+};
-+
- static struct event_group *known_event_groups[] =3D {
- 	&energy_0x26696143,
-+	&energy_0x47903099,
- 	&perf_0x26557651,
-+	&perf_0x1415910a,
- };
-=20
- #define for_each_event_group(_peg)						\
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 73413cb..04e4ea6 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -1041,6 +1041,8 @@ struct mon_evt mon_event_all[QOS_NUM_EVENTS] =3D {
- 	MON_EVENT(PMT_EVENT_AUTO_C6_RES,		"c6_res",		RDT_RESOURCE_PERF_PKG,	false),
- 	MON_EVENT(PMT_EVENT_UNHALTED_REF_CYCLES,	"unhalted_ref_cycles",	RDT_RESOURC=
-E_PERF_PKG,	false),
- 	MON_EVENT(PMT_EVENT_UOPS_RETIRED,		"uops_retired",		RDT_RESOURCE_PERF_PKG,	=
-false),
-+	MON_EVENT(PMT_EVENT_INST_RETIRED,		"inst_retired",		RDT_RESOURCE_PERF_PKG,	=
-false),
-+	MON_EVENT(PMT_EVENT_PCNT,			"pcnt",			RDT_RESOURCE_PERF_PKG,	false),
- };
-=20
- bool resctrl_enable_mon_event(enum resctrl_event_id eventid, bool any_cpu,
-diff --git a/include/linux/resctrl_types.h b/include/linux/resctrl_types.h
-index a5f56fa..e2e2cf3 100644
---- a/include/linux/resctrl_types.h
-+++ b/include/linux/resctrl_types.h
-@@ -60,6 +60,8 @@ enum resctrl_event_id {
- 	PMT_EVENT_AUTO_C6_RES,
- 	PMT_EVENT_UNHALTED_REF_CYCLES,
- 	PMT_EVENT_UOPS_RETIRED,
-+	PMT_EVENT_INST_RETIRED,
-+	PMT_EVENT_PCNT,
-=20
- 	/* Must be the last */
- 	QOS_NUM_EVENTS,
+-	return 0;
++	return rc;
+ }
+ EXPORT_SYMBOL_GPL(tpm2_probe);
+ 
+-- 
+2.55.0
+
