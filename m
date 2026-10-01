@@ -1,229 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD03A42FCCC;
-	Thu,  1 Oct 2026 04:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098B03BBFBF
+	for <linux-kernel@vger.kernel.org>; Thu,  1 Oct 2026 04:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829933; cv=none; b=fs8RN0EB6Yqk1OkB7HfH4c6QVNMSfyk0sPGTZirQSVu2H/f3WivA+3+lXnQCn5WSuiCkbKmL2l1nFx7aBp6hYtHdFUBD5zeVJSS8DIr5YVM4qsYMh1ygfehACWO4N99FVX5TaByMARg49SOgLoQLaj22rToe5elNEKLiAk6rrcM=
+	t=1790829943; cv=none; b=cfTwGG1I/ufgCMkNfe5tCr3QrRCjSY3l7I4i/xwseHTwvo3RgIdJxSEbpcVvVJf97Gj9dRo3mXWsvG3VHEwE//bBfy0OGtVUzERYkd/vROgF1HWrKZYSYp2UQHK5/8Gv7ybXLMc6kmpfi/OhkYzvfri4D/tXHS2Qto1x2sFR5co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829933; c=relaxed/simple;
-	bh=WlKDcOWp8dAN9z6EDD3/JIWAai0I6yPsrdMPUIs7rAg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uLNscPFOAoCy2W8atRszgq7sq5WH4yRuAXW4JqNOjmnLgZPOFEWQXPdYCWznVWOAT9UqpU1u+7ZcmmMJ/FRKrg72hhHEFflgpv7pwU21UWBoQXc9xyIE6ckqTYxPAHtbgaEuQ5ekekdykQDhAwVeeBzWEgHnavQWkVi4DRGsMOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YR0JiB/v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790829943; c=relaxed/simple;
+	bh=cSXL+FyasWHX9BJAX8tqgjRouttLDk5Tcanh9t3zTLE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=B57q+/1c+FCukI9lECwHBapqTB0bU6QoDjqhBxTp7S5RquF4QsYhPviumAx6srd0nN4ke+KkWBf1XkHYG9mYYz68rbs298nDdxBF9GGs3ht9Upctg9EZR91ras3vajaW/t1+FB9Wa3Twe7iGMRy9eG96CLYfjnmHbyaETZNpjkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBOjV/Zg; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YR0JiB/v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17CDF1F00899;
-	Thu,  1 Oct 2026 04:45:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790829931;
-	bh=9/qAmvQZn6deNNGgIxYTo0+iYporCHIz1pJ7rrVVEEU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YR0JiB/vFbUK5yycgjQPcBlp1oHAzZddtDmyqDCtqtZtMpgxQskLFGb3I2U3qy+0S
-	 j+g5mkQK8goWoKSZqE2zXoztK4SMlrFKidjrcaxZ45uwtx66U4OwM0HS8GgwgsawRu
-	 rpLC/ZvDqTIO5RobYTwqpnHP/Z7ekXkPpmmGZuZa7pNkOMXfG997Z0sYpLw43O3qhY
-	 58ZN1ZW3P/6c2AcqQMeWbEHu7eQ4LAmMR3iK/3Gh79a4UxEg5uyYGlY87HSUcGGtTY
-	 0Tjzqux+bfGajZMG2xvKhtA9Nyda5u+uG7xbLof3xDYcPdcBI7qLDgNoSEl53c0Gtx
-	 W6oW8vWtetdFQ==
-Subject: Re: [PATCH net-next v24 03/10] dt-bindings: mfd: Document support for
- Airoha AN8855 Switch SoC
-From: netdev-bot+sashiko@kernel.org
-To: ansuelsmth@gmail.com
-Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, olteanv@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- horms@kernel.org, joey@tinyisr.com, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
- mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew@lunn.ch
-Date: Thu, 01 Oct 2026 04:45:29 +0000
-Message-ID: <179082992963.434549.6481857479350337537@kernel.org>
-In-Reply-To: <20260928194511.41878-4-ansuelsmth@gmail.com>
-References: <20260928194511.41878-4-ansuelsmth@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBOjV/Zg"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-3468ec309afso2988082eec.3
+        for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 21:45:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790829941; x=1791434741; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qcb3FfIrBxLpO2EHSQg6zxkLxfR+fnWXXmdDoehAGw8=;
+        b=lBOjV/ZgmBEHvu+ZaWFAzABCXR7w4B2SyTLy3fJI6Hn7ZfZSSjp9efIkFWzIeC2Ip/
+         8z5tL+89wo8S75I+N6RxjtSHAPcx+pqAdhL3gxMyWYEG9sJCwunvWUb8AkwgBf7FXSC5
+         Oao8BGiAU2us2u00/HfyNqkG4YhBwH29W2VCCWAMUXIBxpPoAzrj6nMaly6UON2+e2G5
+         Ib/gS8CLFw1xrLNH008TR0+Mt2SQxYk0bE39P7n8NRoYOzWt0kS2hcCJlV43OwFb+/04
+         NVmnRzwM2HLQORaHAd2BAQ83O/4x9V9M+CAVIat25RWUVTNmR33s5nt8XnFUjUxUXbAm
+         Outg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790829941; x=1791434741;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qcb3FfIrBxLpO2EHSQg6zxkLxfR+fnWXXmdDoehAGw8=;
+        b=bRQx043HsQ899hR1vv2pHwoErUGCjYvNyBxFBdkyh2/xzYSa+NhoOQDOe/by5F89VL
+         SZt8WgVXFtc+h7NnFYssOeYPIgdYjD+fn4Dh9cfa3iB4G1s0jTMcfJQ89cp8NuaNMn/p
+         ckMZZGxLvzHSoN08015DGH7dcxoFX47WJUwsPGAeTY3AkKw0IlZaiHxlJMqd8Yktboyp
+         d5rDNIIR5nczbKRgNB6WTZPhHBW88nqeDD5YvGDmHzNzWgyUDfwZkGUh1Y6v/deNgKdl
+         yWo07hE4koUJ25w6CdPh9OcoEbElddWSLBygKWzIrAHY7CFj9dDIaSY4XF2xHhU3s7+u
+         M9hg==
+X-Forwarded-Encrypted: i=1; AKwUvByF/Pu1mmuownmkza/F1J9wD6yfqtw5QO69nvEeV60D7MIsLfKiyo3fbOTLUs/5kh6huYmb8E4Qp1ajid8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKCzlWK0JhOrN99sm8aU5DRS95kkQHxUdOrGQkP4OOMA068lX7
+	0oy/5ZjOTx8OtLZNAq2BU2JjYOZn60oMq1Alos+4mqB74CqGRC7M+kyw
+X-Gm-Gg: AYBFou3NCoQ9SovlskqRxvwxKlha+GcoqbXkYSzzoEiCjB5i1EpyNEoeyz4FjteVTks
+	MiIUmSL+5XhMc8UIvLmEpeJhsHqRDCQCg5/XUlWnCH8YpplpvK8cSJxe6i33UY71EPs6hL5bF8r
+	kUu2RYo0Q9Fw8eszbxkQIli8z3X/8wdW2nICuJKDKXV6NfWpPotCcMRXbY1LhK3d6EA+ZP/v8u/
+	Q07ilwwUqD34JcwCzHzAW+zS3kyyfT5w/Ij2Qy0vhoZLFkXBrVfLtc2Ro/ladHk/C7ZWFOvvi+X
+	H9FT9YXO/U5K4/AYdodiP0jm0MkkNkZgoeEnXmhUYBxikzO1bRYVo1SlAGBoql0T6ZkKU9f6vMP
+	DmY+7NEwgs6zCl7UYJ9J22VWVcoWPY4NMQOl9ELEK32hrKTNnq+gkvvYzhphYiA/aVPzqghRX7x
+	zUAXWuUjKOI50+afUwGaoIKOVszwPHSZ9aQcJ0BY9pe0Xg3iFF8o2/ysxyF7VEYG/hKrLihLzgT
+	lIfs5lKLKzeuHXzSh65w8IEqE+N9m9xpwj/rJblqt8Ih9yU2nMoWUcLOqrxZig=
+X-Received: by 2002:a05:7301:6192:10b0:34b:2362:90a8 with SMTP id 5a478bee46e88-34cdc4c0558mr3779399eec.19.1790829941087;
+        Wed, 30 Sep 2026 21:45:41 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:9835:e0ad:476f:74a9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e3414asm3891332eec.19.2026.09.30.21.45.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 21:45:40 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Wed, 30 Sep 2026 21:45:30 -0700
+Subject: [PATCH 1/2] wifi: carl9170: Revert "carl9170: devres-ing
+ input_allocate_device"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-carl9170-reverts-v1-1-7033b5716c14@gmail.com>
+References: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+In-Reply-To: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+To: Christian Lamparter <chunkeey@googlemail.com>, 
+ Kalle Valo <kvalo@kernel.org>
+Cc: Christian Lamparter <chunkeey@gmail.com>, 
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-6c14f
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+This reverts commit 87ddb2fc29f10cf689ff0dfb88a19b7d3687006b.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+carl9170_register() is invoked asynchronously from the
+request_firmware_nowait() callback after carl9170_usb_probe() has
+already returned, and carl9170_usb_disconnect() calls
+carl9170_unregister() followed immediately by carl9170_free(), which
+frees struct ar9170 (including ar->wps.name and ar->wps.phys).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Allocating the WPS button input device via
+devm_input_allocate_device(&ar->udev->dev) ties its unregistration to
+the parent struct usb_device rather than the driver lifecycle. Even if
+it were tied to &ar->intf->dev, devres_release_all() runs after
+carl9170_usb_disconnect() has already freed struct ar9170 and
+unregistered the parent wiphy device. Consequently, the input device
+remains registered on input_dev_list with input->name and input->phys
+pointing into freed memory, causing a use-after-free when reading
+/proc/bus/input/devices or when generating the KOBJ_REMOVE uevent on
+unregistration.
 
-- [Medium] The series documents two different MDIO clauses for the same
-  AN8855 internal PHY (ethernet-phy-idc0ff.0410).
-- [Medium] The binding defines reset-gpios with only 'maxItems: 1'
-  (airoha,an8855.yaml lines 26-27).
-- [Low] The two binding examples in the series map the per-port eFUSE TX
-  calibration cells to PHY addresses in incompatible ways.
+Fixes: 87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/net/wireless/ath/carl9170/main.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
---
-
-dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC
-
-This adds a new YAML binding for the Airoha AN8855 Switch SoC MFD node.
-The node has efuse, ethernet-switch and mdio children and an optional
-reset-gpios property.
-
-> diff --git a/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-> new file mode 100644
-> index 0000000000000..48127e956c965
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-> @@ -0,0 +1,176 @@
-
-[ ... ]
-
-> +  reg:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-
-[Severity: Medium]
-The reset-gpios property doesn't describe the pin or its active level. The
-only example uses:
-
-    reset-gpios = <&pio 39 GPIO_ACTIVE_HIGH>;
-
-Does anything in the series read this property?
-drivers/mfd/airoha-an8855.c includes linux/gpio/consumer.h but never calls
-gpiod_get*(). drivers/net/dsa/mediatek/an8855.c has no reset GPIO handling
-either.
-
-The MDIO core doesn't handle it for this node. The airoha,an8855 node is
-registered as a non-PHY mdio_device, and the reset GPIO is only requested
-for PHYs:
-
-drivers/net/phy/mdio_device.c:mdiobus_register_device() {
-    ...
-    if (mdiodev->flags & MDIO_DEVICE_FLAG_PHY) {
-        err = mdio_device_register_reset(mdiodev);
-    ...
-}
-
-If the board's GPIO default holds RESET_N asserted, would the chip stay in
-reset and cause an8855_read_switch_id() to fail?
-
-Could the binding also state the expected polarity? When a consumer is
-added, there are two options:
-
-- It follows gpiod semantics (1 = assert). Then an ACTIVE_HIGH flag on an
-  active-low RESET_N would hold the chip in reset.
-- It follows the inverted mt7530 convention. Then the DT ABI is tied to an
-  inverted flag.
-
-I couldn't confirm the AN8855 pin polarity from a datasheet or from in-tree
-code.
-
-[ ... ]
-
-> +            mdio {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +
-> +                internal_phy1: ethernet-phy@1 {
-> +                  compatible = "ethernet-phy-idc0ff.0410",
-> +                               "ethernet-phy-ieee802.3-c22";
-
-[Severity: Medium]
-This example declares the internal PHYs as Clause 22. The PHY binding
-added earlier in the series ("dt-bindings: net: Document support for AN8855
-Switch Internal PHY") uses Clause 45 for the same PHY ID in
-Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml:
-
-    compatible = "ethernet-phy-idc0ff.0410",
-                 "ethernet-phy-ieee802.3-c45";
-
-Which one is intended?
-
-With the MFD driver added later in the series, only c22 seems to work.
-The bus comes from devm_mdio_regmap_register(), which only sets C22
-accessors:
-
-drivers/net/mdio/mdio-regmap.c:devm_mdio_regmap_register() {
-    ...
-    mii->read = mdio_regmap_read_c22;
-    mii->write = mdio_regmap_write_c22;
-    ...
-}
-
-If a board DT copies the PHY binding example, fwnode_mdiobus_register_phy()
-sets is_c45 and the probe goes:
-
-an8855_core_probe()
-  fwnode_mdiobus_register_phy()
-    get_phy_device(bus, addr, true)
-      get_phy_c45_ids()
-        get_phy_c45_devs_in_pkg()
-          __mdiobus_c45_read()   <- -EOPNOTSUPP, no read_c45
-
-get_phy_c45_ids() turns this into -EIO. an8855_core_probe() then takes the
-err_put_fwnodes path, and none of the switch, efuse or PHY functions come
-up.
-
-dt_binding_check won't catch this, because ethernet-phy.yaml accepts both
-compatibles. Should the PHY binding example use
-ethernet-phy-ieee802.3-c22 to match this one?
-
-> +                  reg = <1>;
-> +
-> +                  nvmem-cells = <&shift_sel_port0_tx_a>,
-> +                      <&shift_sel_port0_tx_b>,
-> +                      <&shift_sel_port0_tx_c>,
-> +                      <&shift_sel_port0_tx_d>;
-> +                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
-> +                };
-> +
-> +                internal_phy2: ethernet-phy@2 {
-> +                  compatible = "ethernet-phy-idc0ff.0410",
-> +                               "ethernet-phy-ieee802.3-c22";
-> +                  reg = <2>;
-> +
-> +                  nvmem-cells = <&shift_sel_port1_tx_a>,
-> +                      <&shift_sel_port1_tx_b>,
-> +                      <&shift_sel_port1_tx_c>,
-> +                      <&shift_sel_port1_tx_d>;
-> +                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
-> +                };
-
-[Severity: Low]
-Here, ethernet-phy@1 (the phy-handle of port@0) gets the
-shift_sel_port0_tx_* cells and ethernet-phy@2 gets shift_sel_port1_tx_*.
-The example in net/airoha,an8855-phy.yaml is different: ethernet-phy@2
-references shift_sel_port0_tx_* and ethernet-phy@1 has no nvmem-cells.
-
-The MFD driver treats the switch address as port 0's PHY:
-
-drivers/mfd/airoha-an8855.c:an8855_phy_bus_register() {
-    ...
-    phy_offset = addr - priv->switch_addr;
-    if (phy_offset >= AN8855_MAX_PHY_PORT)
-        return -EINVAL;
-    ...
-}
-
-So when ethernet-phy@1 exists, ethernet-phy@2 can't be port 0. The PHY
-driver in drivers/net/phy/air_an8855.c applies whatever tx_a..tx_d cells
-the node references, with no cross-check.
-
-Would a DT that follows the PHY binding example program port 0's TX
-calibration into a different port? This example looks like the consistent
-one. Should the PHY binding example be changed to match it?
+diff --git a/drivers/net/wireless/ath/carl9170/main.c b/drivers/net/wireless/ath/carl9170/main.c
+index 61c7a1288743..702b6d113b18 100644
+--- a/drivers/net/wireless/ath/carl9170/main.c
++++ b/drivers/net/wireless/ath/carl9170/main.c
+@@ -1500,7 +1500,7 @@ static int carl9170_register_wps_button(struct ar9170 *ar)
+ 	if (!(ar->features & CARL9170_WPS_BUTTON))
+ 		return 0;
+ 
+-	input = devm_input_allocate_device(&ar->udev->dev);
++	input = input_allocate_device();
+ 	if (!input)
+ 		return -ENOMEM;
+ 
+@@ -1518,8 +1518,10 @@ static int carl9170_register_wps_button(struct ar9170 *ar)
+ 	input_set_capability(input, EV_KEY, KEY_WPS_BUTTON);
+ 
+ 	err = input_register_device(input);
+-	if (err)
++	if (err) {
++		input_free_device(input);
+ 		return err;
++	}
+ 
+ 	ar->wps.pbc = input;
+ 	return 0;
+@@ -2044,6 +2046,13 @@ void carl9170_unregister(struct ar9170 *ar)
+ 	carl9170_debugfs_unregister(ar);
+ #endif /* CONFIG_CARL9170_DEBUGFS */
+ 
++#ifdef CONFIG_CARL9170_WPC
++	if (ar->wps.pbc) {
++		input_unregister_device(ar->wps.pbc);
++		ar->wps.pbc = NULL;
++	}
++#endif /* CONFIG_CARL9170_WPC */
++
+ 	carl9170_cancel_worker(ar);
+ 	cancel_work_sync(&ar->restart_work);
+ 
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928194511.41878-1-ansuelsmth%40gmail.com
+2.56.0.rc1.315.gc6ed9934b7-goog
+
