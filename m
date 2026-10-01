@@ -1,65 +1,109 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC5827473;
-	Thu,  1 Oct 2026 12:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C20549D5B2;
+	Thu,  1 Oct 2026 12:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790858461; cv=none; b=i3HR5jDAFRQgtdhz5x04sDY6Edk+4UgFIABvr9wFMmq0zEivAoG/BL+LzDQbdgcLIVgpPXJ48Am3OUxhFCgSIAdgy5vPA/QM2ubR3/Iro1pltp6Ce5GZW2CtsA2JvF3TMzFsKjyrmf1xNYoUQ4xM59cIQYcWIq7mnRWBKBEXxfQ=
+	t=1790858461; cv=none; b=i0YM4vmMIEL1U3Y9nHnD6OkwGdSGHoCyzzyDewK5dF9HQRCeBjVasVgdmsQojPXA/5I73L8AQJcJZypwK2g6DHM14cwjMSY4XWojw7wCO+sMOVTNFEZLIfXeHhh7Uve/cFG9vV7nnaMUktfZGzVl7vAkeLT5XzJruaujpNxn2tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790858461; c=relaxed/simple;
-	bh=1JAJlQNmrKtkAfVL5Sfp8KnmJqonyTb57j9Oe+QTa98=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WwvbY3/YH4zaog47MVT9yv5qwg0lRhf7UKUv4bPR1ZnE1ZvUd/7DrXEZcF31fY1eSQpEEE1owFlr/V4VqtcMOBGe4+sYrtGXl2uncGJ0exNm2alDtRN4WKExwiN1G2ZDEUx3xYG8gPwXulCymBxjKvn7iIcftuu4N2LrgqT9xec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rgsndd40; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	bh=vqJg9MCrHhTQ3dSYeAuOSHwl+5KNi8MVa3c/QFLqYsE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ViIThDATovVL9BCaZs0QoqGgnmPXCWf3oT7szDZ1MVG4RDUCxG5Z0WCGojJUZWRMbvsxUxGrJV1nKcrUyx0hEKGo1Y894W+j16le+tQ1FmC2ZBfFU2MCgI/wC+MxSlQfLS1ogdZkjxUmqpYYitXWSNwegwbgLz7VsOjgSjA3tQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s5wE65ky; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rgsndd40"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=RpxymfVofoWeJsFlJ5P2vwYEqoxBbg4TTGHUHS+KpRU=; b=rgsndd40Q7LCqxSRIJxEbwkR6x
-	4Dtpt6Qp53kGiTA1b4woTlhPntj/DEUmsYBSwceFU8qojbKK/+Q3NPXVn6qZodt/OrKJK44tBqM+7
-	c1KkJ82a5zpjoJ14smol5cMngwBfDJOKDPn0Jwg+MKN6EQJGmI34v+dVuOQVL551qchM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xCG5e-008Nb2-Bp; Thu, 01 Oct 2026 14:40:46 +0200
-Date: Thu, 1 Oct 2026 14:40:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: iav@iav.lv
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: stmmac: mask the MAC interrupt while
- resume resets the MAC
-Message-ID: <47a5be82-c09f-486b-a7e3-35e6edb89ad6@lunn.ch>
-References: <20260930-stmmac-irq-shut-v1-1-104d1a1dcb28@iav.lv>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s5wE65ky"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D2B4C4DDE4;
+	Thu,  1 Oct 2026 12:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790858460;
+	bh=vqJg9MCrHhTQ3dSYeAuOSHwl+5KNi8MVa3c/QFLqYsE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=s5wE65kyk31TVBG0Do9N+KjySvKQUyeg84o3ZmEWqCZUblV3Q7TInuzPmvrhmSCeS
+	 8vSbi2BWtrnbl2XKBufgeEWvd1A+ofgbBlf2CfdSPfY79XX2qMz/A0Wi9KDrFudeox
+	 wXS4caWFyvEhpCb5r/DbFpuQsiXWnXaf39p3dx6hOzmzD+Q6Cer1U6bblR2zdt7vkl
+	 VXlhg3komckzGtC/Q4FYB7yN4o8JUkqcf4FEkThbgf5USBC2qrwuXdeEoHMtBAeCzV
+	 nf95fIxlgjJ/2cnM039gWHDgCtY3XFTQN3Bpa52PepLB6L7p4sc2ClvUR/4hES7oU6
+	 SiweN4mCE83Dg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76F3CCA5FD6;
+	Thu,  1 Oct 2026 12:41:00 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Thu, 01 Oct 2026 20:40:54 +0800
+Subject: [PATCH v9 05/15] dt-bindings: serial: snps-dw-apb-uart: add
+ ambarella,cv75-uart
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-stmmac-irq-shut-v1-1-104d1a1dcb28@iav.lv>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-cv75-v5-v9-5-486cc289a4b8@ambarella.com>
+References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+In-Reply-To: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Michael Walle <mwalle@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790858457; l=1072;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=aI42/QWFrT0q/wEmjSA5wdZvhIPXU9faQz3G+ySJ344=;
+ b=GJyR08f2m1KBM40itHZIVPxg3lvd9r9y6CUpV2Ai8ClGQ/FUWgpQIFuuO90FvVU3YnUMMEkj6
+ 4oYVmJRfounAKLKknYAZ1rifH3WZ48+AGulMe0TOCQR3pIqHkUpwlPD
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
-> stmmac_resume() resets the MAC in stmmac_hw_setup(). On dwmac1000 the
-> reset clears the interrupt mask
+From: Long Zhao <longzhao@ambarella.com>
 
-For my understanding, it is the hardware reset which clears the mask,
-not software?
+Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
+binding. The block is Ambarella IP with a DW-like register map, so it
+is described as a DW APB UART variant.
 
-If it is hardware, that is an odd hardware design.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-   Andrew
+diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+index 49f51b002879..cec5c679f1a9 100644
+--- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+@@ -51,6 +51,7 @@ properties:
+           - const: renesas,rzn1-uart
+       - items:
+           - enum:
++              - ambarella,cv75-uart
+               - anlogic,dr1v90-uart
+               - brcm,bcm11351-dw-apb-uart
+               - brcm,bcm21664-dw-apb-uart
+
+-- 
+2.34.1
+
+
