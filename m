@@ -1,129 +1,159 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FDB4E0B79
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45AE7317164
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953733; cv=none; b=PMyJVKp/bzIMea4V4Kecgecl1NmLfkeTWlpntDJvGAoXTSt2qNAs5mdC/uM/nMo2khrJUbAG4Iz/4rjflTgqTcyx0nstMoOJlEaWXFT0mwBE6j6lRS/8npxFaxoW9Dt/A6OSDAy/QPVAp8rDEaKzS/nyCLwdKfXOR97r3vt58nQ=
+	t=1790953852; cv=none; b=USvfouj+8JBIKtJh7FIaTqJ53rMo01pI+bsDBqK2fjBhgTd3SbSMvqasvcnJ/9qOK60A8ebaJYD6w3K7ZaBQoNMpdGdaPz/aRB90uuWSNWYXEtK+IksMBf08XMYK5eac6uxdeGfNNbkyx/DlepR1Fh9ThEBiWonuvEJuVDou9NY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953733; c=relaxed/simple;
-	bh=rN2GiY5/HkyS1I9EgmemypM94IRF9h269bCwt6E9FiE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NHrxtKcmuseCZq0tLQUeD3iFSmSaZY9rr3R/GCZZKUaDDvLNv3Mv4AMX7wwokrVIP/KoZ4ljz09y4S6nxIAMiv5W4CwsVDPSEwm3WejQjr+ch6ngXH5vBwS+om4OymxoZ8p0s5wmkrQ7z+r3BNZlzmUXOynTfKfXGMxKWViRIqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=WkE2HeLI; arc=none smtp.client-ip=74.125.229.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1790953852; c=relaxed/simple;
+	bh=1TOs3zrdvcZvl9aOJu5iWNnu5dQVQ/Bo9xc1UCJwysY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ALv3v5qeAUaK7NFCiplr3shvvrryV8bFLA3No5xgciFFcKM45V0H0Zo0s7C9qXpJfaEiqo/bjWtyaNHGc0t4yJT+Eogkn634nhInU6kH0fsgqhS8EYkaWAcMKJDLwBD5pcjPecvlcKZXAkWtt/zAwnD+Wc4qS+UHhZWuy6tW/J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qJruf9MI; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="WkE2HeLI"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144df39b6cfso6127075c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:08:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790953728; x=1791558528; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ENyCFbokdLWAmAh2KCAVPVZPtiPMjF2AJu3KZcFQdKM=;
-        b=WkE2HeLIincPLQDLN/WKqKSNj4vHpO8bELObDtB8fBD0/ofYFY1tdiFTSB34xcPPr3
-         YRRfq/q+1q11QAZu2m1mLZy6gs59mLdt1NgOUmGyFmCdpphBQ/3tjNNnEA1uVDiQWZn8
-         ktyZvoMhOBuWnDKpVh3B9n10WN/bXhwy24O3dY4hSHj60JV+NZQi4U6KOr5Yx2Glj4o2
-         qPtIn3djP1tHheOC2WzdcVa1U85QzxwNYh5AZt+xZnJa1+kydQDRnxe9+MXgnApRwUr1
-         EwautVWSyJRnETzTgGkDGSqLlDkOUa7oBKxOqurInDloM3pfWO7Rc1vrQ2LYJeH4vkYl
-         DABw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790953728; x=1791558528;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ENyCFbokdLWAmAh2KCAVPVZPtiPMjF2AJu3KZcFQdKM=;
-        b=IEX2uPbzyzQl7V+xQSVKAn+ni2+I64qurYv/KCA9+E73XXC5txL0FuYpJnoecCjWsH
-         JAiLVihFFdEwaCeoNRKZEtr+0wydBqGElGekogAZiYp4XrdF6FFyou5oaAXBNGTtkbE1
-         jHMHeHGn491rzuP3y4Rxd6U6n7J+2l6QOBICVUFOKE1cEQnPsCg8kaLqMhCysgfQRDAo
-         QNRNxN4BLb3RYKoNODwIuPUzrMEQWdNAwoeLarVGg5Ka1KahhVQxCyXvAFDq6c7OH6Aq
-         M5QNWQgez2q5h/n3rRLCnarmcFBI1Yi3jDnpB/EvGCHxCTVUuoTLCH/Bv0ZfoWhPd2x1
-         Emsg==
-X-Forwarded-Encrypted: i=1; AKwUvByFTM4ZKIs/b5mM8mR3eXqPQTuMItma6ewahZ0BzYdeJZwGWqxT7WsM4DyY6Ax9BLmoo2rQAn65JOE1EC4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX9kj7Sa0AE2xCmjCEEZXfBLMf5AFkGQS/XY4KXEn9eJ9GNsH9
-	+abqrp24GFwKI5lcGqWYlmi+ugo2DwtDBIr30ECW3/dIrpRDnBtx/VH6aeVt0Qy2WMY=
-X-Gm-Gg: AYBFou1+WJnZec5y6c07AysEP6RtsYwoqG4C/NoMErPqvCM0cPGWbAnQe09TWBj1CgU
-	m/tNaDOQssCPPKoQ5E0agNjvlPzc8SR3xyJq/YE6EfXvxOA8P1EqqGnFnQnVL0DoR/TpOIBqXWL
-	Yg9YpW/Jl0wWoestNr5JUDVSNMaOQofyfMReJ+Mt8V6pyXNx9LiuXd1S2K00PeUI26Gxq08Bwhp
-	McffS4miCuRBsccDwe79qj06LVPWQTnsfJ7HCUT3KS/cYBQGtd7eKry9CllUEGSeqHFL/uOtzzg
-	nTkkAi3KmaArFH08jwMaUoo3aUF1flOXUUoJgPxSnFMwFHKgQcpwuldVGJ3VdUTlZKlw/HC9cop
-	FuToDjsmTMWe2MshY4o1hdVnXhEvQIX0OXHlJJeBa8UzYyR4fORaEEtAEK9mZOK7zFWeTlkW0La
-	JkgJAssOvamSnj0c8JdepLzI4M8f2W+8a9/UA3PwSmeZLw
-X-Received: by 2002:a05:7022:ed04:b0:14c:d8d9:94fb with SMTP id a92af1059eb24-14f5c3f1c17mr2903275c88.23.1790953726759;
-        Fri, 02 Oct 2026 08:08:46 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f468c08absm6704330c88.8.2026.10.02.08.08.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:08:46 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xCesO-0000000Gmdt-3ju7;
-	Fri, 02 Oct 2026 12:08:44 -0300
-Date: Fri, 2 Oct 2026 12:08:44 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Pranjal Shrivastava <praan@google.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Daniel Mentz <danielmentz@google.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Logan Odell <loganodell@google.com>, iommu@lists.linux.dev,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/5] iommupt: Introduce IO page table shrinker
-Message-ID: <20261002150844.GC3481470@ziepe.ca>
-References: <20261001230219.818128-1-praan@google.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qJruf9MI"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 18D2C169C;
+	Fri,  2 Oct 2026 08:10:46 -0700 (PDT)
+Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E3BA73F85F;
+	Fri,  2 Oct 2026 08:10:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790953849; bh=1TOs3zrdvcZvl9aOJu5iWNnu5dQVQ/Bo9xc1UCJwysY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qJruf9MIlnQGbwTRokIQRZDe55e+opyfx3rUu9MlrDxEIF1ckVS2m7PG2OSm1qPU+
+	 /YcMyF+Wv1Q8s7LAaE30s7rkpUUziUcF2L0kYE74kukd6cSpwMPUnVDKK7nlwQO1RO
+	 xnfAHmnxhEVI28eO7/48GMPJL7hX3P8rDRI9llXc=
+Message-ID: <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
+Date: Fri, 2 Oct 2026 16:10:43 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001230219.818128-1-praan@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 10/15] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 11:02:14PM +0000, Pranjal Shrivastava wrote:
-> Introduce a lockless, deferred reclamation framework for IOMMU page tables
-> built on the generic_pt library. As VMMs and userspace drivers map and
-> unmap large, sparse IOVA regions through VFIO and iommufd, page table
-> directories are often left allocated but completely empty. generic_pt
-> frees a table when a single unmap covers it entirely, but tables that
-> empty through a series of partial unmaps stay allocated until the domain
-> is destroyed. Under memory pressure, this *stranded* memory cannot be
-> reclaimed and has resulted in OOMs.
+On 29/09/2026 04:44, Adrián Larumbe wrote:
+> This will be of great help when testing potential races between the GPU
+> reset sequence and other parts of the code accessing HW registers.
 > 
-> This series refcounts leaf directories natively in struct ioptdesc and
-> registers a domain-aware MM shrinker that prunes empty directories under
-> system memory pressure.
+> We must also disable the reset work item rather than simply cancelling
+> it, to prevent the knob from triggering another reset when the device
+> is being removed.
+> 
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 42 ++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
+>  2 files changed, 43 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> index 09a5752a3f40..94d2de341838 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -2,6 +2,7 @@
+>  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+>  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+>  
+> +#include <linux/debugfs.h>
+>  #include <linux/clk.h>
+>  #include <linux/reset.h>
+>  #include <linux/platform_device.h>
+> @@ -595,9 +596,50 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+>  };
+>  
+>  #ifdef CONFIG_DEBUG_FS
+> +static int reset_get(void *data, u64 *val)
+> +{
+> +	struct panfrost_device *pfdev =
+> +		container_of(data, struct panfrost_device, base);
+> +
+> +	*val = atomic_read(&pfdev->reset.pending);
+> +	return 0;
+> +}
+> +
+> +static int reset_set(void *data, u64 val)
+> +{
+> +	struct panfrost_device *pfdev =
+> +		container_of(data, struct panfrost_device, base);
+> +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
+> +
+> +	if (!ret)
+> +		return 0;
+> +
+> +	panfrost_device_schedule_reset(pfdev);
+> +	flush_work(&pfdev->reset.work);
+> +
+> +	/* ret < 0 means runtime PM for the device is disabled, so we
+> +	 * only need to return the PM reference in the opposite case
+> +	 */
+> +	if (ret > 0)
+> +		pm_runtime_put(pfdev->base.dev);
+> +
+> +	return 0;
+> +}
 
-We had talked about doing it this way
+NIT: If this wasn't debugfs I'd be complaining that you're ignoring
+'val' and so this isn't very extensible. But hey, it's debugfs... so:
 
-But I had proposed a different, and possibly simpler, solution that
-addresses *just* the iommufd use case.
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-After unmapping something have iommufd compute the gap in IOVA that
-contains what was unmapped and then issue a 'clean(gap)' operation to
-generic_pt.
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
+> +			 reset_get, reset_set,
+> +			 "0x%08llx\n");
+> +
+> +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
+> +{
+> +	debugfs_create_file("reset", 0600, minor->debugfs_root,
+> +			    minor->dev, &panfrost_reset_debugfs_fops);
+> +}
+> +
+>  void panfrost_device_debugfs_init(struct drm_minor *minor)
+>  {
+>  	panfrost_gem_debugfs_init(minor);
+>  	panfrost_sched_debugfs_init(minor);
+> +	panfrost_reset_debugfs_init(minor);
+>  }
+>  #endif // CONFIG_DEBUG_FS
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+> index 00fb36c577df..ab65786bf63b 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -932,7 +932,7 @@ void panfrost_jm_fini(struct panfrost_device *pfdev)
+>  		drm_sched_fini(&js->queue[j].sched);
+>  	}
+>  
+> -	cancel_work_sync(&pfdev->reset.work);
+> +	disable_work_sync(&pfdev->reset.work);
+>  	destroy_workqueue(pfdev->reset.wq);
+>  }
+>  
+> 
 
-This is the same operation as unmap, except we know now that the gap
-has no PTEs so all it does is clean up the table pointers.
-
-This requires no special refcounting or anything difficult beyond
-some locking in iommufd to hold the gap stable while we clean it.
-
-Would it work for you? It seems substantially simpler, but I never
-tried to implement it.
-
-An alternative version is closer to what you have here, somehow
-connect iommufd to the shrinker and have it lock and walk the gaps
-cleaning them on shrink requests?
-
-iommufd has no trouble walking the gaps in the interval tree, there is
-a helper that does that computation.
-
-Jason
