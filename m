@@ -1,156 +1,290 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DB0471CF8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B558347CA90
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934600; cv=none; b=CcZhaINegPp+l2dyggFUgsKroF0DVOEMlbKtTE5irL0kBQ7ebGoOqJuwi7AwnrcoaGxvuuCENVgFzn1t5LaICSZFVJtvAgZGQ6D3qynjWci8dgO0+66vGVj84BfnTcaEGsjofPtzIDOA1b/f40VqVsFJQpDXYpPWZRCS7O8KEBQ=
+	t=1790934601; cv=none; b=gd83lFa3SwfXIh6nv1cONNSI5FOH7/ccwF5f+hAZ9udXU76c8fgQQBz59FjeleuxbBX/TcfWIhiHSY2A8q6/8aoJsE+kxMN2JF7Dbs6NxnUGBfOhc39X3FCvv1S8wfee2xDSCyLnhhMpV3KKtdhUXWNQ8X5JohZQI1YrdFiQfg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934600; c=relaxed/simple;
-	bh=F0sLIblX1LwJTORAx8BzwbeGJ13SNRyBB9uu3B0ACqA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hnRggiJDYIgr+7ywg96uvD5Xahp3RpTlFXnhjS3rhtJ4OT+yN2mjeQb1dYNkn71QT2cafbDk4C1NqvtcpZ6bf2wEHgBLtJv6HOlRGTbgc9kEQO+1LZue23fN+CgXRmwwkrCBbHvAw6pfT6GwDP9tHoQDhJ/9W5SrF7S1VKmQ4jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KoiWOYmn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UOt9+GR2; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790934601; c=relaxed/simple;
+	bh=x1ZBqLFIaM0Z+IDRHbrg9+3Osva3FymaXC/7cGPEjTo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=E3pAdRpXsVh5Dks4AdCRj8tggs4z1Udud9EKCyKQWRZmfcN3ulz170tBsQwDxh/2BsS4aC8ed5j6cLe9HNwSnu1PFZAwZAqpgY2KyQFgnehmIkBo2xICDZuCGVNyImMdHD6x56FJXS7WgXHVpR2MIGxGSInjRzFcNYmtXNSqGwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=WefoJQQn; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KoiWOYmn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UOt9+GR2"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6929nYta1177630
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 09:49:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mR1Q5bi6LOaKz+4z5fzw6s7JS2c3RQ3jTLLJoeWChao=; b=KoiWOYmnTOOnyP8z
-	RrhIaArb0jrf6yayEb1n4SR8GBKjw6fraJDTuhHYU3+jg8dnvpV/eDinoeLlHg/j
-	TjLrhNdubY67/GIagsabNcnVmSeg0L4nM8ibHwqj85rYiAj/tWrq9/QzpAQ9FczD
-	6pa4Ql3ODOhSIgYhbgbdA8b/zXiFYNJtDJbUbIeWlW5HWhgpUUr3u6PngQF77HJR
-	ULilbTQo+SGSTovr3IumjAYe5c5O/cdUL0zrVYxqGeQWurUKBHAjB++P6IxSplWR
-	cnP2OD1UAqh/SeVAUXYPr2LTH4J6tFWWQ3puRMRW0mP2A8JaKUGA5Lyky/tF7Lta
-	8ETD2Q==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h20nfss7s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:49:53 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c26012cd0so149853671cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:49:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="WefoJQQn"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so42756425e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:49:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790934593; x=1791539393; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mR1Q5bi6LOaKz+4z5fzw6s7JS2c3RQ3jTLLJoeWChao=;
-        b=UOt9+GR2XeUTP6NwpstOTy+w8O1e9VayUk0KCcqM/Zy3eGBlfI5uxb8gCl9hYUuIht
-         +HvT1u6+3tTGp99OS/m1urynsEiQrBf33nkPGmOnf7gzNTU/0gm6yGmwyqnA6PbnIYEG
-         kOj4yyOr0jKkI1AImYNHRfkznOSr/lCEC5MTJeBDviirRxttnCR8vCrLLFmUE0xkpdkx
-         MnNKRJIP0u1okwnYoBzkZwe2fn87Cvr4FOrfw57MVScHEEyJvfG63vJrl2VTF6GYH2Xd
-         9dp5hx9GcHsV50k1Z5Mi6RJTQArWoZwz4lQnv9o3W2e4sOCXwFBQH0kI77WXsgxdbA/3
-         wx6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790934593; x=1791539393;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=amarulasolutions.com; s=google; t=1790934591; x=1791539391; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mR1Q5bi6LOaKz+4z5fzw6s7JS2c3RQ3jTLLJoeWChao=;
-        b=1hmehgtM2t5r7Ys4wWE9sKCHMaj16O11GB3oDwMp4J1N+U3V5ck68OLYz8Elzj/dZ/
-         bVRk9n+MqjJfxy1mxoTS780utRyO46QbDy5fKJAQanPLNmen591coPL2OB0Nl87j9Ar4
-         1iSjVCJB+K6Uv48GN/MKu+4fuwkAqKrah/LOtnLs/WJPbkKGmBkvfB4c2Bi1GxF+IPKZ
-         /QYj3LTKyQYLqLDCYoi/ideqpGyyk2F1ejPe9O9VnjV5xCszut9wTlLiTiUYbo+MQ4TS
-         khfzMnEPXF+B0RpEEYJlNLQSomg7T1NAH0FNNTGx724JSpT4NS8dv/mHvCzKB3GWPLd3
-         Nr2w==
-X-Forwarded-Encrypted: i=1; AKwUvBznUfy2xsIplKmhy/iXX7xP9UZMB3iDbubgwB6o+8h3+G+AnubPwMCcp7QUSvYrwrvDXN07h5uCmQFbx2Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2Ntq+wsPHfNKBEkGAwx5vY4C//LrDkOru1Vmr8t7bwHKUm+xt
-	ChKoWAsUfWkT4PINs6U49n5Y93VX/aY/J0YuU4CLmf4bNNQyjOEtX4qPbcn+dC+agFY+/dNE6YN
-	EyL4Ti1IMMVC90m9UUa5YjPDzzSfh4x4bochwIkwUJ7E1iBp1G4g5TBQ5/cnZTMkeQ80=
-X-Gm-Gg: AYBFou0qg6DYZr34HwId8We1kE1dtNuxiAmKQPRvc8SmIwmqwLNDGpF/10D/pBBVjz1
-	cfTkHWiFMejY8QVRGwIwzy4tTPTgOAf4JvVWSGajcTadSkggqM2b9g3YCKDSGcO2Bc2wR60i8uE
-	0FhS/QGlR671Dm1ZFfO5pMPeO+QcFhYjDWhSLHPnW2GnDWLw2FrxI/X5okt9OFHAtpEnDZtYdIX
-	BEFbzaNGK8RD/WcjICGQ0rnaakWnH3Bda6v4hU9EyeY8FHMdppzW3e7DZXiLtuXyJbmbGD9y3nt
-	aAU/J7cyKNzcuLD7US8Bb1Q8ers4pDuT2g+P2dHUDxeutYTT4ks6jftHTm4mYWx1XD+9lvyZhi8
-	djE0B+G4bnPdT73oxuVPcu991VKgyLmGYcL4jxJQlOWihoFEH5XJXKbhHWGXKGw==
-X-Received: by 2002:a05:620a:454c:b0:93c:6abf:c8ae with SMTP id af79cd13be357-93cf1791c20mr326873985a.50.1790934593207;
-        Fri, 02 Oct 2026 02:49:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:454c:b0:93c:6abf:c8ae with SMTP id af79cd13be357-93cf1791c20mr326868685a.50.1790934592654;
-        Fri, 02 Oct 2026 02:49:52 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:f14c:b716:c104:4712? ([2a05:6e02:1041:c10:f14c:b716:c104:4712])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253e5bsm3914595f8f.1.2026.10.02.02.49.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 02:49:51 -0700 (PDT)
-Message-ID: <8eb0b435-e5d4-4429-a807-24e15b0659fa@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 11:49:49 +0200
+        bh=+kxyHe5+dBmZDe1DRKIR8ryWuA79UzUnyxbJbLGqT9E=;
+        b=WefoJQQnyXKdmdYBpJ06mh8lGs6H//ooxf4cUg9PNKsKemqUi/RhY1HLHO/Ow9Dfy5
+         OcwZ9x9BnNyiFJqcRSeNldYinXcqAzN0tz+RwrhudsqXZp3yKBQ4+2CJHlchK4GG1sHk
+         1spE10dsGEMD4sOOx/QrATQrza+bt2w4EzvXs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790934591; x=1791539391;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+kxyHe5+dBmZDe1DRKIR8ryWuA79UzUnyxbJbLGqT9E=;
+        b=BpGc0iPVkeh2mH1PVsbYi8x1qI/wUXj9hZ0Pwnvu52q8zTW+LQNPzrUMPI7vfhmMth
+         d6XWMJyjXdPxQ+Qs1icBbt9iuZkQXoXAusTMM0aERjDLuO4YFS6GOcI43G+TQelfG8U7
+         WlSolvE8sdzbnvNGKCydEkGSFVQrluTac991M+dGGPDYtgvGMkMzXDz7lm9+cxt1Z3Y2
+         GdhQPYX6pN0ury9KckdwIfFH0TBvFxtGuKMrXxsW3d0UkpiYBV3s1/KLH3VIHiSPJJ3U
+         00kmrWlZhBrhbxrl6uU5mTF3WLqANL0vhE4SLzYhIZO/wcd2BRWvh2zQN24wZ5SoDBC/
+         5jpw==
+X-Forwarded-Encrypted: i=1; AKwUvBxnGgr1sQPuzJimYM4zRd/la5+fbnsfB0QplIW3OMhIlBNKgiRFeb86YB2yzFYSwDO5pMYcH0pQcoeANQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++luA/R0puV9FJpP73zN6ZDSBYtsJM8Kdb4xmNg+zPkpLXLQJOoJ
+	sUrlftCN2VeZLUlthfh+8Tz2BJ/wKOvFkyQVxPnB/VRNNwjP3tazM6Uh5WIoMTbeiq4=
+X-Gm-Gg: AYBFou29BSOOAesVtTDobeg4JYT/F9vYdRKQE1Pv8JvE1t3z0oYmlUguqutcKSYmy8I
+	vK7q5P6CRhqX9hAeikrMwAh5Q4qkEqvTnAvNRYr1Pmn748YMDoNv+Fmj0fpwffe78JqQYCfj2LJ
+	1OvQqW7Wf4VESP99e1gChSDfAv1myYenj9CcyfyznpbsOyQ1qdkaIBYjw4Mwq+7BgSnKGICAeNF
+	6JrheMS8iCMWHzW82QsE+yTfVWAVLi3wHR5VKqytb8BHbW7PkF8TIICuHZv+56hdVRZROTf7OZd
+	mbw68Iyyx5kzjd7XY0/GbH0BTmsCcP2p7G3I6Bml/j3qwl2HtxOMTUL2dYJLtANYlM3beszwr45
+	SVtUSPfYZSCg6XzWIzi4WL1x7L8ycHRJH7zCM0n5EBitnrHd5sxMp3hcWXmCMwcR8WFb63r7F47
+	bJI8yvhWKUJiCIptMXFroAwr7e0zv6N1BXobnaU+NCHrsnUfHk4tDZZZESZLM63M8htmga5fIzH
+	AM=
+X-Received: by 2002:a05:600c:8b88:b0:49c:cee0:f383 with SMTP id 5b1f17b1804b1-4a02757ebcdmr40187415e9.16.1790934590915;
+        Fri, 02 Oct 2026 02:49:50 -0700 (PDT)
+Received: from localhost ([93.90.163.238])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff0c2fbsm35194105e9.3.2026.10.02.02.49.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 02:49:50 -0700 (PDT)
+From: =?utf-8?q?Roman_Smr=C5=BE?= <roman@amarulasolutions.com>
+Date: Fri, 02 Oct 2026 11:49:34 +0200
+Subject: [PATCH 5/5] ASoC: pcm179x: Add support for pcm1975
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/4] timers: Add support for RZ/N1 SoCs timers
-To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>,
-        Wolfram Sang <wsa+renesas@sang-engineering.com>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Thomas Gleixner
- <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, Pascal Eberhard <pascal.eberhard@se.com>,
-        Miquel Raynal <miquel.raynal@bootlin.com>,
-        Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-References: <20261001082225.125956-1-herve.codina@bootlin.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20261001082225.125956-1-herve.codina@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: yCbLIbgJr-VPCC5H1NlajJOC0q085kEC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzOSBTYWx0ZWRfX7DF9K8uvULDV
- S2BCvLWk1z7hSQx/G38zxjrp+tO3uYhVnRkZ5uR0ok8h+PGC8MLxQQSTsLpmoKvM77E5BaGedsL
- /gqi73Jp6Qr4b8YYVhRLmyU9ZZNW72M=
-X-Proofpoint-ORIG-GUID: yCbLIbgJr-VPCC5H1NlajJOC0q085kEC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzOSBTYWx0ZWRfX6jCu+ZYfCfRV
- /7l1oOo9fqOnzQ6m3dNIPrnnC/WAjB6tWj92haIQxiz4P/8JeKAhVnoJB/LVKSYaedB8G04VoCV
- sLE3pA8nP3rln7k+AL3QNxQz0KweJ08n0+h0o/zAyWAAntGuFyJq62bC2hodsAupTLOnX0voebD
- zWuiXOOPVcDxLJp5Rxjw6HdhYbXBcSvEfR26cHPOSYtR8ptfQ33NMBmG7dTi8OyKs0qoHql2bvD
- KDZubxHlvz+ENQeCgs4leRoOOGF1hLtS9km/uHgdHXhj9JhFF4pg8Olr91j2F97fsgicfm/KaoN
- namYizlvEq1JV+xtwapwrP+3OxiFk8/IWnBiW4ntfCSLFZdHUAYJy7cVhZtLlaObl8/poUyLM4c
- FdoUxZhghGEEoLCrP1f/dezwobnkM5cEXMDE0r5wo6BP590cN8Ut4Dbh0nHkiPrNLCpjUhq5vwn
- GlMtmoC3YJHhkGY6TcA==
-X-Authority-Analysis: v=2.4 cv=f+jdl+yM c=1 sm=1 tr=0 ts=6abf7e41 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=v9AyLkvIsLCxcgOLbSsA:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_03,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020039
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261002-work-v1-5-f0e53bc7331f@amarulasolutions.com>
+References: <20261002-work-v1-0-f0e53bc7331f@amarulasolutions.com>
+In-Reply-To: <20261002-work-v1-0-f0e53bc7331f@amarulasolutions.com>
+To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Peter Rosin <peda@lysator.liu.se>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shenghao Ding <shenghao-ding@ti.com>, 
+ Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
+ Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
+ asahi@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Roman_Smr=C5=BE?= <roman@amarulasolutions.com>, 
+ linux-amarula@amarulasolutions.com, 
+ Michael Trimarchi <michael@amarulasolutions.com>
+X-Mailer: b4 0.15.2
 
-On 10/1/26 10:22, Herve Codina (Schneider Electric) wrote:
-> The Renesas RZ/N1 SoCs family has two timers block controller
-> available.
-> 
-> Each controller is charge of 8 timers (six 16-bit timers + two 32-bit
-> timers).
-> 
-> Each timer has its own interrupt, its own prescaler that can be used to
-> divide the clock by 25 (timers block are fed with a 25 MHz clock) and
-> all timers can work in either one-shot or periodic mode.
-> 
-> This series adds support for those timers blocks.
-> 
-> Best regards,
+From: Michael Trimarchi <michael@amarulasolutions.com>
 
-Applied, patch 1,2 and 4
+The PCM1795 is register compatible with the PCM1792A, but it encodes two
+of the register 18 FMT[2:0] values differently: code 001 selects 32-bit
+standard data instead of 20-bit, and code 100 selects 32-bit I2S instead
+of 16-bit I2S. It has no 20-bit format at all. The PCM1796 shares the
+PCM1792A encoding.
+
+The model is read with device_get_match_data(), so each bus driver
+carries the model in its own of_device_id table. The tables cannot move
+to the common file: MODULE_DEVICE_TABLE() aliases a table that has to be
+defined in the same translation unit.
+
+Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
+Signed-off-by: Roman Smrž <roman@amarulasolutions.com>
+---
+ sound/soc/codecs/pcm179x-i2c.c |  3 +-
+ sound/soc/codecs/pcm179x-spi.c |  3 +-
+ sound/soc/codecs/pcm179x.c     | 62 ++++++++++++++++++++++++++++++++++++++----
+ sound/soc/codecs/pcm179x.h     | 12 ++++++--
+ 4 files changed, 71 insertions(+), 9 deletions(-)
+
+diff --git a/sound/soc/codecs/pcm179x-i2c.c b/sound/soc/codecs/pcm179x-i2c.c
+index e81e20fadadf..751f4b74647a 100644
+--- a/sound/soc/codecs/pcm179x-i2c.c
++++ b/sound/soc/codecs/pcm179x-i2c.c
+@@ -32,7 +32,8 @@ static int pcm179x_i2c_probe(struct i2c_client *client)
+ #ifdef CONFIG_OF
+ static const struct of_device_id pcm179x_of_match[] = {
+ 	{ .compatible = "ti,pcm1792a", },
+-	{ .compatible = "ti,pcm1796", },
++	{ .compatible = "ti,pcm1795", .data = (void *)PCM1795, },
++	{ .compatible = "ti,pcm1796", .data = (void *)PCM1796, },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, pcm179x_of_match);
+diff --git a/sound/soc/codecs/pcm179x-spi.c b/sound/soc/codecs/pcm179x-spi.c
+index e5e4b942acfc..2b487a4d7c82 100644
+--- a/sound/soc/codecs/pcm179x-spi.c
++++ b/sound/soc/codecs/pcm179x-spi.c
+@@ -31,7 +31,8 @@ static int pcm179x_spi_probe(struct spi_device *spi)
+ 
+ static const struct of_device_id pcm179x_of_match[] __maybe_unused = {
+ 	{ .compatible = "ti,pcm1792a", },
+-	{ .compatible = "ti,pcm1796" },
++	{ .compatible = "ti,pcm1795", .data = (void *)PCM1795, },
++	{ .compatible = "ti,pcm1796", .data = (void *)PCM1796, },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, pcm179x_of_match);
+diff --git a/sound/soc/codecs/pcm179x.c b/sound/soc/codecs/pcm179x.c
+index c059e410cbbe..3ee781ff54f8 100644
+--- a/sound/soc/codecs/pcm179x.c
++++ b/sound/soc/codecs/pcm179x.c
+@@ -19,6 +19,7 @@
+ #include <sound/soc.h>
+ #include <sound/tlv.h>
+ #include <linux/of.h>
++#include <linux/property.h>
+ 
+ #include "pcm179x.h"
+ 
+@@ -63,6 +64,7 @@ struct pcm179x_private {
+ 	struct regmap *regmap;
+ 	unsigned int format;
+ 	unsigned int rate;
++	enum pcm179x_type codec_model;
+ };
+ 
+ struct pcm179x_fmt_table {
+@@ -71,7 +73,17 @@ struct pcm179x_fmt_table {
+ 	unsigned int value;	/* FMT[2:0] */
+ };
+ 
+-static const struct pcm179x_fmt_table pcm1792a_fmt[] = {
++/*
++ * Register 18 FMT[2:0] is not encoded the same way by every model: value 001
++ * and value 100 are 20-bit and 16-bit I2S on the PCM1792A/PCM1796 but 32-bit
++ * and 32-bit I2S on the PCM1795, and neither model has a 32-bit
++ * left-justified mode.
++ *
++ * The PCM1792A/PCM1796 have no 32-bit format at all, so a 32-bit container
++ * keeps the 24-bit value and is clocked out as 24-bit data, as this driver has
++ * always done. Only the PCM1795 has real 32-bit formats.
++ */
++static const struct pcm179x_fmt_table pcm179x_fmt[] = {
+ 	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
+ 	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
+ 	{ SND_SOC_DAIFMT_RIGHT_J, 32, 2 },
+@@ -82,16 +94,53 @@ static const struct pcm179x_fmt_table pcm1792a_fmt[] = {
+ 	{ SND_SOC_DAIFMT_I2S,     32, 5 },
+ };
+ 
++static const struct pcm179x_fmt_table pcm1795_fmt[] = {
++	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
++	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
++	{ SND_SOC_DAIFMT_RIGHT_J, 32, 1 },
++	{ SND_SOC_DAIFMT_LEFT_J,  24, 3 },
++	{ SND_SOC_DAIFMT_I2S,     24, 5 },
++	{ SND_SOC_DAIFMT_I2S,     32, 4 },
++};
++
++struct pcm179x_model {
++	u64 formats;
++	const struct pcm179x_fmt_table *fmt;
++	unsigned int num_fmt;
++};
++
++static const struct pcm179x_model pcm179x_models[] = {
++	[PCM1792A] = { PCM179X_FORMATS, pcm179x_fmt, ARRAY_SIZE(pcm179x_fmt) },
++	[PCM1795] = { PCM1795_FORMATS, pcm1795_fmt, ARRAY_SIZE(pcm1795_fmt) },
++	[PCM1796] = { PCM179X_FORMATS, pcm179x_fmt, ARRAY_SIZE(pcm179x_fmt) },
++};
++
+ static int pcm179x_fmt_value(struct pcm179x_private *priv, unsigned int fmt,
+ 			     unsigned int width)
+ {
+-	for (unsigned int i = 0; i < ARRAY_SIZE(pcm1792a_fmt); i++)
+-		if (pcm1792a_fmt[i].fmt == fmt && pcm1792a_fmt[i].width == width)
+-			return pcm1792a_fmt[i].value;
++	const struct pcm179x_model *model = &pcm179x_models[priv->codec_model];
++	const struct pcm179x_fmt_table *fmt_tbl = model->fmt;
++
++	for (unsigned int i = 0; i < model->num_fmt; i++)
++		if (fmt_tbl[i].fmt == fmt && fmt_tbl[i].width == width)
++			return fmt_tbl[i].value;
+ 
+ 	return -EINVAL;
+ }
+ 
++static int pcm179x_startup(struct snd_pcm_substream *substream,
++			   struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct pcm179x_private *priv = snd_soc_component_get_drvdata(component);
++	u64 formats = pcm179x_models[priv->codec_model].formats;
++
++	snd_pcm_hw_constraint_mask64(substream->runtime,
++				     SNDRV_PCM_HW_PARAM_FORMAT, formats);
++
++	return 0;
++}
++
+ static int pcm179x_set_dai_fmt(struct snd_soc_dai *codec_dai,
+                              unsigned int format)
+ {
+@@ -149,6 +198,7 @@ static const u64 pcm179x_selectable_formats =
+ 	SND_SOC_POSSIBLE_DAIFMT_RIGHT_J;
+ 
+ static const struct snd_soc_dai_ops pcm179x_dai_ops = {
++	.startup	= pcm179x_startup,
+ 	.set_fmt	= pcm179x_set_dai_fmt,
+ 	.hw_params	= pcm179x_hw_params,
+ 	.mute_stream	= pcm179x_mute,
+@@ -190,7 +240,7 @@ static struct snd_soc_dai_driver pcm179x_dai = {
+ 		.rates = SNDRV_PCM_RATE_CONTINUOUS,
+ 		.rate_min = 10000,
+ 		.rate_max = 200000,
+-		.formats = PCM1792A_FORMATS, },
++		.formats = PCM179X_FORMATS, },
+ 	.ops = &pcm179x_dai_ops,
+ };
+ 
+@@ -226,6 +276,8 @@ int pcm179x_common_init(struct device *dev, struct regmap *regmap)
+ 	if (!pcm179x)
+ 		return -ENOMEM;
+ 
++	pcm179x->codec_model =
++		(enum pcm179x_type)(uintptr_t)device_get_match_data(dev);
+ 	pcm179x->regmap = regmap;
+ 	dev_set_drvdata(dev, pcm179x);
+ 
+diff --git a/sound/soc/codecs/pcm179x.h b/sound/soc/codecs/pcm179x.h
+index 0039ca8ee742..33971fa93546 100644
+--- a/sound/soc/codecs/pcm179x.h
++++ b/sound/soc/codecs/pcm179x.h
+@@ -8,8 +8,16 @@
+ #ifndef __PCM179X_H__
+ #define __PCM179X_H__
+ 
+-#define PCM1792A_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_LE | \
+-			  SNDRV_PCM_FMTBIT_S16_LE)
++enum pcm179x_type {
++	PCM1792A,
++	PCM1795,
++	PCM1796,
++};
++
++#define PCM179X_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_LE | \
++			 SNDRV_PCM_FMTBIT_S16_LE)
++
++#define PCM1795_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_LE)
+ 
+ extern const struct regmap_config pcm179x_regmap_config;
+ 
+
+-- 
+2.55.0
 
