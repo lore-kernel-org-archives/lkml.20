@@ -1,89 +1,99 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF083B27F5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66303C81B9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:08:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975296; cv=none; b=XF2G3CeMP85zlUx8wbMFWi4l38C/PBNWL5JLyb5OJ+okeki9hvZT2d4WxKwbR7iNwXQx9CVGMqAFVom5/p3lqV2m9VKTMr7GG2vd70hc2fpJdJ6QiMlDgnZUdbXNTpKCr8iitq0CbePV9CUxRhWlYWWkVjLROXYwT53F/hgXLac=
+	t=1790975319; cv=none; b=QgQIYW14CWfw2/Jrz7Bbhl+ycvdhxTrGKc0SWGSWf1NZsX25Q//kpB3aUdP0fLzxf8NwJHGLgWJ5cleJSvLis0sL04tBYpEJvCo3GO2XSimMX/gBAhhnd+6lLK8z4bNswH6ztW1Zsh/k/OV/CkwMI88u8sd2jX7L0YM8PHwcKeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975296; c=relaxed/simple;
-	bh=kq9QBghL40dkfA1F5V17cYmnpGDV/utwNPq4lbzDp1E=;
+	s=arc-20240116; t=1790975319; c=relaxed/simple;
+	bh=qQHaUt9Qx5ui/jf3XA5Vx5WKrzuF2vNTVY9zHZ1+IO0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=XzSSeriAfy518J1u1tuYSWp0uL38juQ5jrxf8XIolRqQTooYOw/wCAbvMhkSUiIZsFtcetdbZOkOw0cDGMFAxVKgCwJFoL7OvZz7IuTXa5tbMcdifutJEgaN2mp8KRuow9kJvRItCp3ybWjUnFswLUlyp/qWIFwjld5gQeJ6Wqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IMvMKvTz; arc=none smtp.client-ip=209.85.216.69
+	 To:Cc:Content-Type; b=a5q7c117Gq/C+o/J7wrOrt/5e33+1yCN4g7fni/fXIrA/KyfJw372LTVYLQcWlWeu57jbbcBrokLv5G0XXzWR/PMKaYPbHF6hwUzR+R23+MSY8nF78vYYmD3q3+XSPBM5KKGxMOsjCO1nIijsZF/L8EyMqe1fjHBZfcRSAh9yDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vLuCw4aJ; arc=none smtp.client-ip=209.85.216.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IMvMKvTz"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so471446a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:08:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vLuCw4aJ"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39533bb224cso295738a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:08:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790975295; x=1791580095; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790975318; x=1791580118; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EIA33Q6ZV2okJc3I0sp5o6bypG+QRL/TeBpUQuge1fg=;
-        b=IMvMKvTzRa4M6lzXYZ99QKWyMvlepxxtHjg3ZeGMSlmuhRSWqOpB8QzQ8Clun8co8r
-         odjGJOvJgKsluF9ZPb7ynj1Pr8yoAFeuz1skGOK2HMivouw2B2qFsUttvm00la/ejAvJ
-         cAOe8S5k/Vtt4BK8l9B8COsFkDg43tOWgKt27F129NS4Yy9XEuX6ICLkWo+N5bVgSHgU
-         FGGbvvXz8AdciXKt/YnclZaXK7YwhipYYM1O9Dhaa60ETvLdTazB/LbTbgEwRE3OVNjc
-         BNVTw692mrq8yVxBxHWiHmkPfaJHKmYOiH6vq32DBuAH1aFb2CWLfgYIPkXDtYnehQ2w
-         MJ/w==
+        bh=sXEfwIOrmzhpBjI7xrdNHIpyWDkfRzHF/aF4EjJTCJM=;
+        b=vLuCw4aJn45Zeq+idU4XWU156q4HS8r78ZVKtJP+SE2XGZSuqUib7mj0Q03yj6Zfyf
+         aWrjQRYUAlLU93IYDTFgIH0sfUlEUkKdT8gwVmRgD+awIh3LB/+HFzdJOIL8rlNnLqga
+         w5XJd8xbr9hABTzCZnvBXg2wNVEG8WXh4u0uDLaKI94xZkiGhJNCo0DdY/052uFe4p0e
+         sm3N6mUQu98N7freBUKY1XoOoxfEIWyQQZB0//uSheyAzka1A6QuAhsQEuQLbkXhMzS0
+         ydbrk3SBjI27HDEObwlgVRWm4YWdaUZIddkPwkUjTYwZ2gtqqGS5mDeyF7SOr6ZFgZyr
+         xgwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790975295; x=1791580095;
+        d=1e100.net; s=20260707; t=1790975318; x=1791580118;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EIA33Q6ZV2okJc3I0sp5o6bypG+QRL/TeBpUQuge1fg=;
-        b=Nduo0yejM1N5H1nG2blVeVWKYjgpp0UnjUCzkr00jcjqZR17OP+GqefGDuVhn5WcSy
-         qno+JC2LU/cmg2uDscXpsH39kBBxu1NsLM0CvQriaQ095HiwuElN413quGn58LfNZOBY
-         TTYxB0eR0eb79da+syvdzDh2NnIk531VrknkEg7C5lcapMsaueszXExie0koyjFas0U7
-         LB5NErO9CkEeLmBfpG7S0SyDS0MNhDI/wRwIZNjExlmvStb59S1dKJ7UyDEnLYtwL4pM
-         8+2zHq/1vaAlKv5xPTu7NHUQ7qUBylm1JAFuV3LNCWfGtB+u0z8XjXU6elQHwOwZKVlQ
-         Z1VA==
-X-Forwarded-Encrypted: i=1; AKwUvByYAwryj30H0ra80teP9H1e2KGNy+kt/LWbJrxrkYUOh3tGCWxfbdiCJhzVvt2ei8Iim7qu7s7l7Tg01BI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKpEPMdTOpCTVigr/R7X2kOxfdGVQnnOhWwPR7s0J4ps9ZFz5i
-	gv62Gv76nAHUbh+oEu8xy0Tn20KyS7GTSD7TGSrdeK0SrUp/zAWAqwENGMsx7HuZAoxqtct/8mp
-	u8HKB2w==
-X-Received: from pjbmd9.prod.google.com ([2002:a17:90b:23c9:b0:3a6:df94:8170])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:548d:b0:3a0:f0a4:a2c7
- with SMTP id 98e67ed59e1d1-3a6cec13a8emr3789780a91.20.1790975294587; Fri, 02
- Oct 2026 14:08:14 -0700 (PDT)
-Date: Fri,  2 Oct 2026 14:06:52 -0700
-In-Reply-To: <20260918054420.338842-1-gokul02k@gmail.com>
+        bh=sXEfwIOrmzhpBjI7xrdNHIpyWDkfRzHF/aF4EjJTCJM=;
+        b=V8c+6F8CcX7jrgOIXqEV9DC7YK+GlVj89WLCBWZCcGDvAKbe60sG4UxuJrPnCtkZry
+         pxVpEc8Tp/mxZfDXnsdehUCJtDQvN6nq3A9bZPi/tdVepbg/9bud0jDIybncrzVy8JhF
+         3Tq3WOpB8rcVnGD1Z0bUSaaP51kCwS1VX0v5L0MTTCNcJ6ftmgsCf7KsHuVMfY1nPfKE
+         Tu8Vkf241hLbtWw4QGFEWg6B4D7pJ90+yXni9Lm2wKOSUZn6w7aDZEq7NYNac3vcCTTU
+         D8zqpPv9O8QCJ8TaE9o5Uh4lwbsPVwwK16B07XFWHcvI1RtxhCRKeR+dsUKjeJF/Q3xJ
+         yXFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxviUZ5Bs6q0GvwKQDnNcCKLqVjVYcHGRoCyU3Q5CBdEWcOcpV55r26jcW0Dr7wtxltlQxlM5Zz7JL4dPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9VxrGZqM07B0dcg6yYze1dIp2jsdvKKVqs/xxNZ8CXf0bhzCm
+	dkKSwt5fZACExzrU6UBW9xGfFKjks09vGrr7Wr0HYseCNtRoBiO3iT2e7YYL8f8H1gWaDuZkzSP
+	FDPAPHw==
+X-Received: from pjbrr6.prod.google.com ([2002:a17:90b:2b46:b0:3a6:c8c9:1392])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2b46:b0:3a7:250:333e
+ with SMTP id 98e67ed59e1d1-3a7025038dfmr1422619a91.11.1790975316920; Fri, 02
+ Oct 2026 14:08:36 -0700 (PDT)
+Date: Fri,  2 Oct 2026 14:07:00 -0700
+In-Reply-To: <20261002053723.3275202-1-loc@ryzome.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260918054420.338842-1-gokul02k@gmail.com>
+References: <20261002053723.3275202-1-loc@ryzome.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <179097475934.4071676.12331909604242085588.b4-ty@b4>
-Subject: Re: [PATCH v2] KVM: selftests: Move test_read() into elf.c and delete lib/io.c
+Message-ID: <179097455441.4065912.17506123016485694511.b4-ty@b4>
+Subject: Re: [PATCH 0/2] KVM: x86: Fix lost nested APF VM-Exits
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Gokul K <gokul02k@gmail.com>
-Cc: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Loc Nguyen <loc@ryzome.com>
+Cc: Shuah Khan <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, hpa@zytor.com, 
+	x86@kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Fri, 18 Sep 2026 11:14:20 +0530, Gokul K wrote:
-> lib/io.c has outlived its purpose.  test_read() has exactly one caller,
-> lib/elf.c; test_write() has none at all; and test_seq_read() is a
-> declaration in test_util.h with no definition anywhere in the tree.
+On Fri, 02 Oct 2026 05:41:43 +0000, Loc Nguyen wrote:
+> A nested asynchronous page fault delivered to L1 as a synthetic #PF
+> VM-Exit can be lost after KVM queues the exception.  Most callers of
+> kvm_queue_exception_vmexit() arrive through kvm_multiple_exception(),
+> which requests event processing, but the nested APF path calls the
+> helper directly.
 > 
-> Both surviving helpers open with
-> 
-> 	TEST_ASSERT(count >= 0, "Unexpected count, count: %li", count);
+> Without KVM_REQ_EVENT, vcpu_enter_guest() can skip
+> kvm_check_and_inject_events() and re-enter L2.  A later VM-Exit can then
+> clear the pending exception while reconstructing vectoring state.  The
+> APF reason remains PAGE_NOT_PRESENT, allowing a later regular #PF to
+> consume the stale reason.
 > 
 > [...]
 
-Applied to kvm-x86 misc, thanks!
+Applied the fix to kvm-x86 misc.  I'm going to hold off on the selftest for
+the moment, I'd like to go straight to having it support both AMD and Intel.
 
-[1/1] KVM: selftests: Move test_read() into elf.c and delete lib/io.c
-      https://github.com/kvm-x86/linux/commit/3069f4036dff
+Thanks!
+
+[1/2] KVM: x86: Request event processing for exception VM-Exits
+      https://github.com/kvm-x86/linux/commit/88b23a2e8286
+[2/2] KVM: selftests: Add a test for lost nested APF VM-Exits
+      [SKIP, for now]
 
 --
 https://github.com/kvm-x86/linux/tree/next
