@@ -1,99 +1,123 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A89331EBD;
-	Fri,  2 Oct 2026 14:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0FF4968FF
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949906; cv=none; b=siwuaUz9gt5mHJIlE1K3z7G+YJG3o+s+6E8f3YxNgA+P9S/ApbC1DUBQc6aMCmltCQPSudukwMk9Bag6dn5iZagvhztDb0HVAP6CJEgJWtvEcX2BARDlZGn3/ihJn5TMs+5Z9sB4kzWobsKAesqK48oU/tWX6pwcpL5IXm6bFgI=
+	t=1790949904; cv=none; b=i0TqR/VYHLHjWcSdljdDapUoOpy319pNm45xf1J/PLaY107HAZczQ+mJoUZzzpQzw9LXyvLi2xRKw2i+/pzOgzVOJ26wUKUmfVc5H+DNg/SHVpefyBtm2+PWuhSJtU2RTHXyfbT/YPwmxllHl2QZqWVnKmuG6xzvoiTGb7gcDI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949906; c=relaxed/simple;
-	bh=UldxzhOOWn+zI5xQbXHeUikgJJze4n+aXzYCUyjeO6w=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=Z2AcdhAalqkoEUI3j0wBi+xmVqTUa7rMu0ENTu2/WrqHDsXJ7tI2TJO2umEg6EEdIeYtWFycLYVYbcf7DZBuQmy4LLAZ06DDyW6zgrCGBJ617bHtRmxs9qPkqkx2PA8PKHBl7IHFpdKv8bOP3AHOGnBeMcmcFfd10ObWcKZ+33Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ZRn4taga; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=tmXg5zzI; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790949904; c=relaxed/simple;
+	bh=0aA08cUOcCkvWwT2S45HvZ1jn2zLufS3cFGbct+/1wc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IBSZI7rZ1F+NcSfBoCxYOsnMpVMUi06Cq2tpR/BI0MEmoo/6HVv9Dh3Ah1F5RVPWqpCcY4rP1guhYTZwTZdoinkl8AbWjUlRvfKiTggZYfL7wK7FIzAPdu/P7qUs7YXzJacKOOtio2kEhPcqpZvyS0Ju4xxltoYyc/VAum3634o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cJzdOkKB; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ZRn4taga";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="tmXg5zzI"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790949890; bh=NqakC2EdNOStp+MFCguvI+4
-	5LmlhJls++C1rbkxt+2E=; b=ZRn4tagaX/5foJfAFPqsvz1sDldX6OoFbBkeRMmQ4fdZ8SEw+Y
-	tlXOy1NVsIzhp19d9M/xrk9TAwdb3BZvon94PHGuifPnpaXaY4rn8V/hdI+oPEfFqXayMxfP1l0
-	p2ThB+93usHK2v32i9siEJ1HIOpLzDAq4LKDhk1a/OILHT5c2fzAeJzGkU9UNmM0rXy05tY+AXh
-	BnBBqAnaFXVMQ7cFaGi7rpd2U4tdfd89M1ywnCQ9WV8xJLlP9iPZRctb/m3AMAUCIF2D22x9xVK
-	orOTJqfjfRa8HN9FueASyJN1TAsK/NkYTx8KMqKn5IzHRWqAcdgLDqCfDcoLHYqLq5Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790949890; bh=NqakC2EdNOStp+MFCguvI+4
-	5LmlhJls++C1rbkxt+2E=; b=tmXg5zzIeYR/CTi+kG5mVr3hdVw3u9Cd7do+OA9bRnm1HypYCH
-	ERedvrHfzzeD1WVBuv5PbNHcZ5loINw7RKAw==;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJzdOkKB"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04be87so1765367c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:05:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790949899; x=1791554699; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yWoTdtEhaANGiWjxC7mDCG65IUsbfc9dm1bjsFUluhU=;
+        b=cJzdOkKByWca2JovxDM2Vynyr8KLVmM4JkmHnzvnNeRh6yxnefc/y4Pp0oGJAOhH2+
+         xrAT8lx8L0N/tGHlQjLZ3+YmAgR7Qq8Lr/Frrpbh0rnSJbH4qS5P09Bs6Z+WZD8REO0H
+         9JdzalxWQCY/xlONSHdZh7/bKZiUXsA5mXfKfHt6+utPuQGV3DJ+XO7kBriQT8t2sIAB
+         qHsiDq7op9U9e22eE8V8b5azz3OmdJQqjRQ7dbQR29LUQim/aDN17x4EqcLAlAVm1AXk
+         OclwTHxtEqbu6enEiNwwKO06KnaLJEUPCt2FIubddcFF9LotqkbNlA/rAtjqNjFR19P3
+         n0pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790949899; x=1791554699;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yWoTdtEhaANGiWjxC7mDCG65IUsbfc9dm1bjsFUluhU=;
+        b=gn66mLOu+K9MchgoHUl+gdo556rh5qPjSDMBUulTMIuar0vZLQHBsWZAYtkBWN7gMJ
+         whqn0UxskCvsCQSQCaa4rZz8lJXWcx21HEuRe4ma9HhUJkBBROUTXo/p70mhpQUQsO2O
+         CYsBrDoeGHG3eM0wcuK13mqIRAs0NgaqRmdxsiqvdPsuIhEFsdllGtdLkOtCO29yN3uF
+         OfHDLkPuV0kjY1AeIHy8IuQAoXds8etBfc3jrjRru/7CjnPJFWNbhQ5d8itGx/seDp2W
+         kogM31Rhz77ahmmwlH8mFudJ7sMhGKO4HBqnEwIbU5XtzRD/+4Kzu8xYBw6im1FYnLbk
+         dC3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzOQJuZjaWzpl65WpxV0tWekFbmmrw1bTlDd0VNmKCv8qKAT5zJtgTMWXMcB/PUljhtY1JvHSTOENV7mws=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxAdgRrdNy0i9QGmbvyRMLd7lmpUbBVj7BEcbBun3lOeLvKHEQ
+	oevR2zPbacnocopw6PwEEhmCIjSOuykk5Z84t//dT97d5lnHI6JIdYrM
+X-Gm-Gg: AYBFou3LV1cDnUD/AT4Kgx23pS71tEZ2CklccJmhS4h7/xRcy8UnK3dBoA92EZyWHGJ
+	qsCFtMLDx6UD070MDX2TdmasnsFI8ewBMFYxsP/gSnWfzBIDXxD1ciqHeKHdL/G4c6CISSw2Kxo
+	xF4VJsIDcSui+BrRtfGHX0VDilj/z6FV2u305DX3MNTl10WyJJ/qm1l/6Pm1IYXCCSILvu/oBrt
+	E0pv4MzCPt5GLylV7kUZH6w23bc7GmJOFosOxJs7EMMP5hG+ZJ82J8ynLPiqwPKWCiAm5Jca+b1
+	6kmt0QD9YA4x2iNNN76HYAI7YrNpltNP2K2T5L3SzsjkZvaRW1T7Cz2wXQW9an20h6K3KTV7w4V
+	GRDSoZfeTdw4teGOcLYoGCMOrtGfSrR18iZjyedFH7ePoF3Vvm16BGckvl1eb7McLsBm46VXsNv
+	0jl0qwdGY4nVuSJESjvVWNftuCR3ubG/A9wGXyeo66DM8/Xnt6NnZAc2ENwtUSNcSE/VGIXJ83
+X-Received: by 2002:a05:7023:a4b:10b0:144:fedf:5789 with SMTP id a92af1059eb24-14f5bbfad09mr2830789c88.15.1790949898789;
+        Fri, 02 Oct 2026 07:04:58 -0700 (PDT)
+Received: from adi.. ([122.171.22.57])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f4766f92fsm6656244c88.16.2026.10.02.07.04.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 07:04:58 -0700 (PDT)
+From: Adi Prasan <itsadi2409@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	error27@gmail.com,
+	Adi Prasan <itsadi2409@gmail.com>
+Subject: [PATCH v3] staging: rtl8723bs: fix ie_length bound check in rtw_cfg80211_inform_bss
+Date: Fri,  2 Oct 2026 14:04:50 +0000
+Message-ID: <20261002140450.3209-1-itsadi2409@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260920142849.294162-1-itsadi2409@gmail.com>
+References: <20260920142849.294162-1-itsadi2409@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 16:04:50 +0200
-From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
- <barnabas.czeman@mainlining.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Konrad Dybcio
- <konradybcio@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, Ulf Hansson
- <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v3 1/7] dt-bindings: power: qcom-rpmpd: define RPMPD_VDDMD
-In-Reply-To: <20261002-devious-mauve-wrasse-66bbeb@quoll>
-References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
- <20261002-sdm632-rpmpd-v3-1-95c47d0f26cf@mainlining.org>
- <20261002-devious-mauve-wrasse-66bbeb@quoll>
-Message-ID: <d5e9ecd991990098a4f1724750ed47f8@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 2026-10-02 11:57, Krzysztof Kozlowski wrote:
-> On Fri, Oct 02, 2026 at 12:38:29AM +0200, Barnabás Czémán wrote:
->> Define RPMPD_VDDMD can be used for SDM439 and SDM632 MSS.
-> 
-> There is no sdm439 RPMPD... The SDM632 is added later and bindings
-There will be.
-> header come with the compatible patch. Squash these.
-You have previously commented how that is connected to the indices.
-> 
->> 
->> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->> ---
->>  include/dt-bindings/power/qcom-rpmpd.h | 1 +
->>  1 file changed, 1 insertion(+)
->> 
->> diff --git a/include/dt-bindings/power/qcom-rpmpd.h 
->> b/include/dt-bindings/power/qcom-rpmpd.h
->> index 4371ac941f29..beb066b3aa8c 100644
->> --- a/include/dt-bindings/power/qcom-rpmpd.h
->> +++ b/include/dt-bindings/power/qcom-rpmpd.h
->> @@ -15,6 +15,7 @@
->>  #define RPMPD_VDDMX		3
->>  #define RPMPD_VDDMX_AO		4
->>  #define RPMPD_VDDMX_VFL		5
->> +#define RPMPD_VDDMD		5
-> 
-> Problem is that it is platform specific and comment in that file says
-> "don't do it" yet you do it.
-It is not completely platform specific and if you have check the 
-previous
-reviews Dmitry was asking me to define it. If i set it 10 what will be
-very safe for every platform i will get warning messages.
-By the way 5 is fine for SDM429, SDM439 and SDM632.
-> 
-> So the device has nbo MX? Why commit msg is silent on this? Explains
-> not much except repeating the diff and referencing users which are
-> almost obvious if this is properly squashed.
-> 
-> Best regards,
-> Krzysztof
+The buffer bound check in rtw_cfg80211_inform_bss() checked bssinf_len
+(ie_length + header size) against MAX_BSSINFO_LEN (1000 bytes), but
+network.ies[] is only MAX_IE_SZ (768) bytes. This allowed ie_length
+values up to ~976 bytes to pass the check while a subsequent memcpy()
+from network.ies still only has 768 valid bytes, and other paths that
+write to network.ies consistently cap ie_length to MAX_IE_SZ.
+
+Check ie_length against MAX_IE_SZ directly, which is the actual size
+of network.ies, and drop the now-unused bssinf_len/MAX_BSSINFO_LEN
+comparison.
+
+Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
+Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+---
+ drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index 27e7b8442d7b..7e964b15ae6d 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -210,7 +210,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+ 	u64 notify_timestamp;
+ 	s32 notify_signal;
+ 	u8 *buf = NULL, *pbuf;
+-	size_t len, bssinf_len = 0;
++	size_t len;
+ 	struct ieee80211_hdr *pwlanhdr;
+ 	__le16 *fctrl;
+ 
+@@ -218,8 +218,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+ 	struct wiphy *wiphy = wdev->wiphy;
+ 	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
+ 
+-	bssinf_len = pnetwork->network.ie_length + sizeof(struct ieee80211_hdr_3addr);
+-	if (bssinf_len > MAX_BSSINFO_LEN || pnetwork->network.ie_length > MAX_IE_SZ)
++	if (pnetwork->network.ie_length > MAX_IE_SZ)
+ 		goto exit;
+ 
+ 	{
+-- 
+2.43.0
+
