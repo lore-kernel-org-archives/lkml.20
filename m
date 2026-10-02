@@ -1,96 +1,190 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41365209F43;
-	Fri,  2 Oct 2026 06:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB6A3D954F;
+	Fri,  2 Oct 2026 06:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921635; cv=none; b=iDAF/8EkhmSP54mqjYAbCJTQGalCGntG7ND0WcMjjalSuaQbrV8yOYEmttJfxuYAexH7sZ3ITUYaSDuQvXbJUVDnYq+m8rZhkE4ZzPZt7K+mgo0+xhdCJIRX+bb696X0E30TtAY0YPuURHoq2ne1SsmE8aYxFIh3++KwemFC/jI=
+	t=1790921648; cv=none; b=ryZKPYN1yTv8UBUHr6+8BaZyvVC3rz55YXeXcH1WvVg1NmBrhsv65usE6PV11Wq+5u86evjPlSY8L/dXKQLIZxnDm3ntE0jdrfYFvkofe7Uzpz15HbNNamDur8CxDVvGOaJfMMvOusII7hdL0reBKQWE1aGWtSE7fA425bCw2jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790921635; c=relaxed/simple;
-	bh=toIV5pikIjy/aeaBVCIwei1YNS9X/1Zuz4slJobj66s=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=cmQwsg3etPJPHJRz5CJ1Y0fRemIpjZpIDEWn/QmQx1Q/ymOEo37HDmDJtu+Kio6CBeC8pFbkCtI5Yu57hv3lT+hesX24W5l/ghzFZyTLm3Xca5B6GqFTr/860qhXU6nzpU48yiM3KL4+7AsBD7vNN5D4Y8ejNlhQGSb88TbrboU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrSSVKNP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790921648; c=relaxed/simple;
+	bh=cq858TTpwbQ0a6M0Ph7oRdQebhWSEztcpX+aOvu+QWM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t56vyYIKjnV8AZz5ETIdBTm4ZV4VrnFb0YB6/Q9xjRKTVhoRQDDDidzgv5lNel8osbWK6ghqaGkA45skhIMUju1ANO7yx+PE4NNEga3eBszxBav6bBV0XaIPPggjvdKhcc0zPtT+ChAUGr2YlCjoUgEgzxgIKqqXCysTiXjWLGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E4is420E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrSSVKNP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978B71F000FF;
-	Fri,  2 Oct 2026 06:13:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E4is420E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B681F000FF;
+	Fri,  2 Oct 2026 06:14:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790921633;
-	bh=mdrSFZDaDDzyO0ZK19f3S/LIaZl1zCC9/6iWft1/JVY=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=nrSSVKNP/6SA228jiPe979ixC2f4fi0n5XZZJn+pqEaMvKXywK9sFZTecVyLGxUnt
-	 OTyR16FV+O6qzXdNXFeDfTPb/T4/IXlsAnIgXW3HpquWbHe/N6ju2ih27pJWhk5qCF
-	 ypv2mqSW2urD4mI2ly1YiucV3DJnzSHzZJBudWbAoiKq8nO/wP4lSZs28dgXwFqgHV
-	 ycY3pZnXz4hsq/lxteyjj2ENit9szkX7bNtbmxaqNzP3JkctXgzOzjkh3VVqu4zifu
-	 lW3vX+QOc2ZgMJyfL3nodyPYP5SbJX8rr3cpOkbSA7zQ5XWZVVq9ZHFMS5UIaOEUFY
-	 gVXqR/qs8Jkjw==
-Content-Type: multipart/mixed; boundary="===============6114460815882526170=="
+	s=k20260515; t=1790921647;
+	bh=mF7zPZZiyi1UeenhlWbnxlNgGDfxL0sUjRand4J9S74=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E4is420Ey8dJrq/CWtEZBCbozdYPW6MAF9HME2Oi5mlvh4uoSxUmI9bYPYsq8y8ZW
+	 lMaj4TBBJ2zI/+pvBZNzDLjxBkdgS/S+ui74xsoSohOW3YLlw7L0Wq3U/SgKJrFqkQ
+	 f+fxrSkWfduX2JsWz8rYszQyF8B+LmhlN6zCSPhTxCVGDxqGgo3SLFnYIWPK0Ba4LI
+	 AayGMqrcQmP/Bd+0FdMVqbicTQMVVzG5TJeAIrmHulVwb6Cc6Uhu8yMsJiyeNTARhX
+	 lv78X4k/ASMTleeuT/atNXOUbzRSjkx7cyivo2RHHnNpsGM3rrgSZNDR23FSGvHIH+
+	 TEl+uDcCvm4aA==
+Date: Fri, 2 Oct 2026 08:14:02 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: media: Add Allwinner D1 CSIC
+Message-ID: <20261002-angelic-wombat-of-chemistry-af8a67@quoll>
+References: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
+ <20260930154835.402684-2-tien.nguyenminh@embeddedlinux.blog>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <37328eed3277cd2e4ce990db3029d5e626f896011ee344943011726d70b1bcd8@mail.kernel.org>
-In-Reply-To: <20261002053837.3494918-1-anilkaushikwireless@gmail.com>
-References: <20261002053837.3494918-1-anilkaushikwireless@gmail.com>
-Subject: Re: [PATCH bpf-next v3] selftests/bpf: add XDP test for per-flow LRU_HASH window updates
-From: bot+bpf-ci@kernel.org
-To: anilkaushikwireless@gmail.com,ast@kernel.org,daniel@iogearbox.net,davem@davemloft.net,kuba@kernel.org,hawk@kernel.org,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,shuah@kernel.org
-Cc: sdf@fomichev.me,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,netdev@vger.kernel.org,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,anilkaushikwireless@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  2 Oct 2026 06:13:52 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930154835.402684-2-tien.nguyenminh@embeddedlinux.blog>
 
---===============6114460815882526170==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-> selftests/bpf: add XDP test for per-flow LRU_HASH window updates
-
-TL;DR: Nit only: the comment in the new xdp_lru_window.h is overlong, repeats
-the commit message, and calls the shared header an "ABI"; suggests trimming it
-to one line.
-
-> diff --git a/tools/testing/selftests/bpf/xdp_lru_window.h b/tools/testing/selftests/bpf/xdp_lru_window.h
-> new file mode 100644
-> index 000000000000..78434045cf11
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/xdp_lru_window.h
-> @@ -0,0 +1,28 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef __XDP_LRU_WINDOW_H
-> +#define __XDP_LRU_WINDOW_H
+On Wed, Sep 30, 2026 at 10:48:33PM +0700, Nguyen Minh Tien wrote:
+> +maintainers:
+> +  - Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
 > +
-> +/*
-> + * ABI for the XDP LRU rolling-window selftest. Existing test_lru_map
-> + * coverage never enters XDP; XDP parse tests do not store a modulo
-> + * index into an LRU map value.
-> + */
+> +description:
+> +  The CSIC found in the Allwinner D1, D1s and T113 receives video from a
+> +  parallel camera interface and writes it to memory. It contains a parser for
+> +  the camera bus and two DMA engines.
 > +
-> +#define AGGREGATION_WINDOW	50
-> +#define XDP_LRU_WINDOW_FLOWS	64
+> +properties:
+> +  compatible:
+> +    const: allwinner,sun20i-d1-csi
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    items:
+> +      - description: DMA engine 0
+> +      - description: DMA engine 1
+> +      - description: Parser 0
+> +      - description: Top-level block (CSI_TOP_PKT)
+> +
+> +  clocks:
+> +    items:
+> +      - description: Bus clock
+> +      - description: Module clock
+> +      - description: DRAM clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: bus
+> +      - const: mod
+> +      - const: ram
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    description: Parallel input port, connect to a parallel sensor
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          bus-width:
+> +            const: 8
 
-This isn't a bug, but could this header comment be trimmed down?
+If it is const, why do you exactly need it in the DT?
 
-Most of it restates the first paragraph of the commit message and describes
-what other selftests do and do not cover, rather than what this header
-defines.  A statement like "Existing test_lru_map coverage never enters XDP"
-can go stale when another test adds similar coverage.
+> +
+> +          pclk-sample: true
+> +          hsync-active: true
+> +          vsync-active: true
 
-It also calls a struct shared between one BPF object and one test_progs file
-an "ABI".  The neighbouring shared headers (test_tcpbpf.h, test_tcpnotify.h,
-xdp_metadata.h) do not carry a comment like this.
+Drop these three.
 
-Could the coverage reasoning stay in the commit message only, leaving at most
-a one-line note about what is shared between the BPF program and the test
-runner?
+> +
+> +        required:
+> +          - bus-width
 
+No second port to the ISP?
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/sun20i-d1-ccu.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/reset/sun20i-d1-ccu.h>
+> +
+> +    csi@5800000 {
+> +        compatible = "allwinner,sun20i-d1-csi";
+> +        reg = <0x05800000 0x400000>;
+> +        interrupts = <111 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <112 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <116 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <122 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&ccu CLK_BUS_CSI>,
+> +                 <&ccu CLK_CSI_TOP>,
+> +                 <&ccu CLK_MBUS_CSI>;
+> +        clock-names = "bus", "mod", "ram";
+> +        resets = <&ccu RST_BUS_CSI>;
+> +
+> +        port {
+> +            endpoint {
+> +                remote-endpoint = <&ov5640_ep>;
+> +                bus-width = <8>;
+> +                hsync-active = <1>; /* Active high */
+> +                vsync-active = <0>; /* Active low */
+> +                pclk-sample = <1>;  /* Rising */
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f5eff489a8..f4c45c4678 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -905,6 +905,13 @@ L:	linux-crypto@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/crypto/allwinner/
+>  
+> +ALLWINNER D1 CSIC DRIVER
+> +M:	Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +T:	git git://linuxtv.org/media.git
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36971050072
---===============6114460815882526170==--
+Drop, unless you actually have their commit rights and manage patches. I
+would say mailing list is also here redundant (duplicating), but I
+stopped pointing to it.
+
+Best regards,
+Krzysztof
+
