@@ -1,202 +1,89 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9FE32ED24
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF0338E135;
+	Fri,  2 Oct 2026 19:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968377; cv=none; b=O9EDt4GGq8AMA71ROCJWpO7v0xwCAObgqhg5IIikjd1dV31A/0kFUVyv1ng9pI3R2mBE6nT2kCr3+ykpuBvYtGV9fuvp0wYJvgXgt9BfDG5SqGHSk1KMGsKvqhq7ioAJ+18vN6x95EE8aFRuQNK5/U2vAP74TFiKRpz5353t9Xc=
+	t=1790968397; cv=none; b=YvFcbF834NYEwiQTbAmblJdu7fs5IjYwmkUy2sZdMu5lS0zJetQeYi76hW9zbMmNySEXgoUXiLNFVGLYAQnufBSqqc3t58QlwO7HpoFDB7seCYWqXmYNn4JtouPFMihLGNxWat0E8cHEbWTAPgRFbAQAhpXbORrH+K4fWvkL6FE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968377; c=relaxed/simple;
-	bh=VXYscRPCLO7/B51vHKehDNHl1fFhWkTSNPgHZbmLDBE=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Vrc+PHelWNdfHAvRkCofmk+BZUaj3XDz7TRPTpBboEQzKFnCfOvMn+g6mXcPIvdHfHOfQB3+gdTFdSD8dnBy8q3acsEe8aY82UqALp6F+/d2f1+gsg8gZhmQ9tl8yRMiFRI334tPo16W5XjubKxtZqNpfL5cGmA8Stc73vabXRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WCb0bZ60; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
+	s=arc-20240116; t=1790968397; c=relaxed/simple;
+	bh=7AnLrCmmGzfchlsQUVsMdpXNPd+PRgZIb806oL1ig9g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VFOOFCbxi4EDElOo+0vtez3m8Jz+q40zyGbQDCQd/sNLYgp/XSYOiS8qj7b5F46eSF/EAQJKF04Ckj9x2C+MGIoE8Hv4vA1d/OP36Z6y0XNfuuJy7WyTAnIZtbOWFCt9p+OIxrcijuxGESt5JLaL61qQLmymniOymkNx/4ON5co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=au1bSKUv; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WCb0bZ60"
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4dab94dc3e7so13173684b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:12:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790968375; x=1791573175; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ju7lYd5Yw64Z3Dvl1ezRi6rNcZFkDznJ7WatWUwaWnE=;
-        b=WCb0bZ608q75jsSV9HbRvoALBTMxDyUEzvwzVHoZwHmB1C8rXLagN6bBmNS8xt4nKJ
-         fJ317/s6YSoXWk5zCUxe5MdT4cAQyStuJgVclPyUXCaJFRpI5KXTEeX5Bx/T8T25kEFe
-         mLGXcNIUOv6FnqO6ig33l3pQvrlz/n89ZBOJlIrxEfhxrALdMUdflrO5q5WMF/eQ45Hb
-         Ot4rZYzFXCng3h29XN9wOgl32emRASZXEN1rrV+fdheYP0ad84+1iLy4p3FDmnGXluPm
-         aBcHVUnqBz+Sh4ctVrat8kAYZKmdLR0Hu5Hkah++5TUBS7PX1lrjPkd69f6blOX7hetk
-         WsYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790968375; x=1791573175;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ju7lYd5Yw64Z3Dvl1ezRi6rNcZFkDznJ7WatWUwaWnE=;
-        b=WcUlyHbpuYyMnYl/sYI0jyuXO+hfYKbWl5pYqtHo1km28hp6njU/iAAKZ8SInMnZ8C
-         ceA5sApb1d+b9+azdOb0Hn1aW3+h3c6rrkqq/q+9NYU/Fe8R+GI7aWVIs74GSiS4T1o/
-         BymxmbeagHk0RXaSmHpmDw13VNujcGMu1b+gi8OjLjiV0g60AffJ3Z2QJqCF1PJOiVqG
-         vtG04LSBgSPj0mYnCabbrG8AluxQCp1jUg3WXYpWtTLCF9v1jVjaT+4rstUDcboI04S0
-         zvOUg0LlvScsiZmQCdh6ylCPBNJ9nXz5TJD9lQxGMh7COi1yFTI15L4YNBuQlj9vEFC7
-         kkBg==
-X-Forwarded-Encrypted: i=1; AKwUvByrlgSOHdENxp/y2N4Y+XK2he4kAxcC6bLtEOCGo5TMW7S5MB6OHB7InDPdyLInBJ+srR1FquDOhmVPNaY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKcphIB8Z4qh1Xmqh6LxGXbihzKsnV73+Lfah2LliABpH1ep/E
-	oi2OBWnfKC7HpCh2g2dMT2CuKGr4+WpybXdI0Tc/00OM0kAYBZWhPd9opYv2Hi2P8jbbtzQ/Coa
-	bQ0QY9hKa8fal1wBlyJ1JGUE4lA==
-X-Received: from jaso12.prod.google.com ([2002:a05:6638:124c:b0:5f9:6f05:3fd8])
- (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:6409:b0:4d5:2b09:a6a8 with SMTP id 5614622812f47-4f67bb70fd6mr326114b6e.66.1790968374329;
- Fri, 02 Oct 2026 12:12:54 -0700 (PDT)
-Date: Fri, 2 Oct 2026 12:12:53 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="au1bSKUv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790968396; x=1822504396;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7AnLrCmmGzfchlsQUVsMdpXNPd+PRgZIb806oL1ig9g=;
+  b=au1bSKUvQfBb5qiY7b06Xs9DBZtk+IHpgJHYc5cH9IAaB0ecGNrnk0vW
+   6m5urAM5DG1hNjGyBu8FcJ0cBSpNIpmqLrIKVzcpE7GI28Kj+Kj0gBwn4
+   HsfnMbuBkWJGqkvpjSq168atQSzO7qTXjCPgZbi/qXMDlsNuf0OP8BgUT
+   haBLa1aroS1la/9wypE+6rdtXiE5kUVPRh0OXwZ55n/go6FqV/0/1oXzt
+   wnMLs84FIoms1niERouS5UbLlfI1g8nJm9vecpFuUrGdSD+hkp5MJu+BO
+   gJRRMBzhxUdaLELgFB3UVKTJZwl9SxB5tnOubSshVOBcyG1UEI62oI/ll
+   A==;
+X-CSE-ConnectionGUID: jsZShf0KQt28wLtOideGZw==
+X-CSE-MsgGUID: p65NSM6oRnKIpOy0G3DoJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="90798371"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90798371"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 12:13:15 -0700
+X-CSE-ConnectionGUID: Pl1yrAxIR8anZl9RQR/gRA==
+X-CSE-MsgGUID: 05IIsST2Sem5PW7hPGKocA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="284379841"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.45])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 12:13:12 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id D8C07121BB9;
+	Fri, 02 Oct 2026 22:13:09 +0300 (EEST)
+Date: Fri, 2 Oct 2026 22:13:09 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, mchehab@kernel.org,
+	linux-media@vger.kernel.org, bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 02/16] media: ov8858: support 19.2 MHz clock and CHT
+ gain setup
+Message-ID: <asACRblly0PJOiyF@kekkonen.localdomain>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+ <628adb1cabec866554ca26a2da5af860b04d6cb1.1788360629.git.mauriziocasciano7@gmail.com>
+ <ar674__4-cNOGMMy@kekkonen.localdomain>
+ <ar9Z1Zr-deCCQ1nx@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAQBCF4VfRXNvanQ3lVeTCMhiKbQcpeXeLy
- 6/+cy4QCkwCZXJBoIOF1yXCpAm0Y7MMpLiLBtSYG61RzeK9MpgpS7YhdE6bwkLMfaCez++qqn/ L7iZqt3cP9/0AJ59dH2wAAAA=
-X-Change-Id: 20261002-kspp-125-3e3ae2bb0173
-X-Developer-Key: i=justinstitt@google.com; a=openpgp; fpr=E8700888482CBCD3779E67F32D8CB922E382C412
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4319; i=justinstitt@google.com;
- h=from:subject:message-id; bh=CMxtKQblFVuOs9yO0cOd0qjokWPxJqtBuipzA4VLqOk=;
- b=owEBbQKS/ZANAwAKAS2MuSLjgsQSAcsmYgBqwAE2r0gF8ef+9zrb/Tnx5YDs+uDLCUy900v6U
- kKaVNpzhvWJAjMEAAEKAB0WIQTocAiISCy803eeZ/MtjLki44LEEgUCasABNgAKCRAtjLki44LE
- EruhEACo681vlkH22FDTfWSqCvpuIODD+WjYFnnSK5TVc/3YmBNBVYd34ULTGijvGhh39H7Z5bh
- D5zUjNlbu7NXvlXE5QqoacRc/RPi3BQdxkrC+YGjiaS53nyoWkkFBsW+No4r11gRw1Pbu0UATKs
- JgXyMbb4ev3Ep/c2eDhTgywCsvURzhy3rU/sCKgmZ+WuUtIwa0IGHuQKrwy/+iZxpLDnYlYzEl3
- cigkyHDf1igCYUdh/vk24sBixs/AI+jWoy1+bHoOJsZt7jUwdd0/gZ9WRmflqhcHFRk+Dn6UdVY
- uye+kEyRR45nNTnju6tfHs+dr2fJGjM/iJRrYpvbyJ83iwwjDSjiHLYZ+bYzndYwkhzTcYT/BZH
- UEz580uo3+nA57hgzSjpX5vPQ2HcGlfTt6MC05E9TXMm4DKF8+5OTjc48EHSf1WTANbFtOnVJG0
- iLvEv4eVD8lol8YXkv/dVdXM2rSpcM30sb3fUN6nFPiaLgJ0+ra7I9KF/3g+m5EMjfbV+UkFfVz
- PDRP/fj+L2t/z0OKL29LkKqEcO05ZfW39dHP+ADHcI9wz5jx+LluT16T465qcdeAaMzfSsz4iqo
- vervsLOV9SxujrHtS0bx/m2SyWMo4i45eCL3jyTtCj6JYM/j6ZCn2ytvyN/sxhTzUau88EK4uzr jmAdEgNtYEPzPBA==
-X-Mailer: b4 0.15.2
-Message-ID: <20261002-kspp-125-v1-1-91286a454fda@google.com>
-Subject: [PATCH] kunit/stackinit: Cover declarations bypassed by goto and switch
-From: Justin Stitt <justinstitt@google.com>
-To: Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>
-Cc: linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-kselftest@vger.kernel.org, 
-	Justin Stitt <justinstitt@google.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar9Z1Zr-deCCQ1nx@ashevche-desk.local>
 
-From: Justin Stitt <justinstitt@google.com>
+On Fri, Oct 02, 2026 at 10:14:29AM +0300, Andy Shevchenko wrote:
+> > > +#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
+> > > +#define OV8858_XVCLK_FREQ_24MHZ		24000000
+> > > +#define OV8858_XVCLK_FREQ_19_2MHZ	19200000
+> > 
+> > Why to use HZ_PER_MHZ for LINK_FREQ but not the rest?
+> 
+> Because we do not do floats in the kernel. And hence for the consistency's
+> sake.
 
-Under -ftrivial-auto-var-init= the initialization is emitted where a
-variable is declared. A switch dispatch that reaches a case label below
-the declaration, or a goto that jumps past it, never reaches that point,
-so the variable was left uninitialized.
+Floating point operations won't end up in generated code even if you have
+floating point numbers here -- it's an integer constant.
 
-Commit 9cf016e6b49b ("lib: test_stackinit.c: XFAIL switch variable init
-tests") marked test_switch_1_none and test_switch_2_none as expected
-failures, noting the test should be retained "so that we can evaluate
-compiler fixes". Clang 24 emits the initialization on the jumps that
-bypass the declaration, so make the expectation depend on the compiler
-version instead of failing unconditionally.
-
-Add test_goto_none as well. The existing cases only cover a declaration
-sitting between a switch and its first case label, while the compiler
-change covers plain goto too.
-
-GCC continues to initialize only at the declaration, and reports as much
-with -Wtrivial-auto-var-init, so it keeps the expected-failure path.
-
-Link: https://github.com/llvm/llvm-project/pull/181937
-Link: https://github.com/KSPP/linux/issues/125
-Link: https://llvm.org/pr44916
-Assisted-by: LLM
-Signed-off-by: Justin Stitt <justinstitt@google.com>
----
- lib/tests/stackinit_kunit.c | 53 ++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 47 insertions(+), 6 deletions(-)
-
-diff --git a/lib/tests/stackinit_kunit.c b/lib/tests/stackinit_kunit.c
-index ff2784769772..a0029f3b894d 100644
---- a/lib/tests/stackinit_kunit.c
-+++ b/lib/tests/stackinit_kunit.c
-@@ -493,6 +493,36 @@ static int noinline __leaf_switch_none(int path, bool fill)
- 	return 0;
- }
- 
-+static noinline int __leaf_goto_none(bool fill)
-+{
-+	goto bypass;
-+	/*
-+	 * This declaration is jumped over by the goto above, so it is
-+	 * never reached. Compilers that initialize only at the point of
-+	 * declaration leave this variable untouched.
-+	 */
-+	uint64_t var[10];
-+
-+bypass:
-+	target_start = &var;
-+	target_size = sizeof(var);
-+	if (fill) {
-+		fill_start = &var;
-+		fill_size = sizeof(var);
-+
-+		memset(fill_start, (forced_mask | 0x55) & FILL_BYTE, fill_size);
-+	}
-+	memcpy(check_buf, target_start, target_size);
-+
-+	return 0;
-+}
-+
-+static noinline int leaf_goto_none(unsigned long sp, bool fill,
-+					  uint64_t *arg)
-+{
-+	return __leaf_goto_none(fill);
-+}
-+
- static noinline int leaf_switch_1_none(unsigned long sp, bool fill,
- 					      uint64_t *arg)
- {
-@@ -506,13 +536,23 @@ static noinline int leaf_switch_2_none(unsigned long sp, bool fill,
- }
- 
- /*
-- * These are expected to fail for most configurations because neither
-- * GCC nor Clang have a way to perform initialization of variables in
-- * non-code areas (i.e. in a switch statement before the first "case").
-- * https://llvm.org/pr44916
-+ * A declaration whose definition point is jumped over, either by a switch
-+ * dispatch reaching a "case" label below it or by a goto, used to be left
-+ * uninitialized: the initialization is emitted where the variable is
-+ * declared, and that point is never reached.
-+ *
-+ * Clang 24 and later emit the initialization on the jumps that bypass the
-+ * declaration instead. GCC still initializes only at the declaration, and
-+ * says so with -Wtrivial-auto-var-init.
-  */
--DEFINE_TEST_DRIVER(switch_1_none, uint64_t, SCALAR, ALWAYS_FAIL);
--DEFINE_TEST_DRIVER(switch_2_none, uint64_t, SCALAR, ALWAYS_FAIL);
-+#if defined(CONFIG_CC_IS_CLANG) && CONFIG_CLANG_VERSION >= 240000
-+# define BYPASS_PASS	WANT_SUCCESS
-+#else
-+# define BYPASS_PASS	XFAIL
-+#endif
-+DEFINE_TEST_DRIVER(switch_1_none, uint64_t, SCALAR, BYPASS_PASS);
-+DEFINE_TEST_DRIVER(switch_2_none, uint64_t, SCALAR, BYPASS_PASS);
-+DEFINE_TEST_DRIVER(goto_none, uint64_t, SCALAR, BYPASS_PASS);
- 
- #define KUNIT_test_scalars(init)			\
- 		KUNIT_CASE(test_u8_ ## init),		\
-@@ -568,6 +608,7 @@ static struct kunit_case stackinit_test_cases[] = {
- 	KUNIT_test_scalars(none),
- 	KUNIT_CASE(test_switch_1_none),
- 	KUNIT_CASE(test_switch_2_none),
-+	KUNIT_CASE(test_goto_none),
- 	/* STRUCTLEAK_BYREF should cover from here down. */
- 	KUNIT_test_structs(none),
- 	/* STRUCTLEAK will only cover this. */
-
----
-base-commit: 5e0f8396d4805a3e7f753fa58c8c55f1f3cc2160
-change-id: 20261002-kspp-125-3e3ae2bb0173
-
-Best regards,
---  
-Justin Stitt <justinstitt@google.com>
-
+-- 
+Sakari Ailus
