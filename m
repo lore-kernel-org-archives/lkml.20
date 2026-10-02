@@ -1,119 +1,194 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72021DF98F;
-	Fri,  2 Oct 2026 09:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934791; cv=none; b=HyU4no6QW3oouUkRSQ1M7WkPD/koos+OUfK2vGXrL3mWYGsiNATj4n9MFCpPZJvHkBtfc7D/I9s0HsMp3oakMcIHRg90KGJW756zaV/Stjcd8PTk+Irr5zD4EV3nVK4oL4iIbi4jL19CxqJ33qYEFB7Kfv6i/xKk4a0x2+EnQhM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934791; c=relaxed/simple;
-	bh=j6ufI30XP0VX3ADFXEvx2M44Ybov1qKKga0vR8vUHbA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=Ygq1XuhaLyEydB5sMEuF1xHjgBzbL/O6FSKjqsBowt8/PoifIs9nlwrLMtDd9Io8r8mJs4VOZVtmo/8lwDCmDOoapv8aZdACmCj58SAYGvOUafi9GWWJQlV5uWzPYRDD7qk0zPZC7aXxx73KaE7T3DI5B8sIGxE9DUIW6Lw/fgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=SYsHTNE8; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C36353A67
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790934795; cv=pass; b=jvfzKasYp0cJ7gTy5Aa/prXS4Dnz1JGkrVFd98WJTZCArhqC8XqWtVk44q6d1ZFTHJkudMNLRazEEqpN+rmZjVd4ygq6tpIUOM9vE7/n6X/E6mT3vymrZi2Utb/rX/6CZNvyTxseNxd5pqEcby9wvEb/3gmeL8RXLgz/X2abVoI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790934795; c=relaxed/simple;
+	bh=I2iVAnQjuB2efbREqOoIFm3u1ZAEbnkLwA/mRmKPRhA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=g+WWoE+hi6mRG2FqyK5Td/bi22igWYBK/nZKIsiv1htOBZDm7xZBWTloplB7ELBrtJhWunZFJXYS6UuFK660yQWYkudmDMCG8RezrCfny5R1oyuJ060RF8jVNujrbdoD2pD7s2H1/Z4Qg5hLe7EN1eVbaYQuse0fpH7YQ0ohxW8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iUMCz4qm; arc=pass smtp.client-ip=74.125.228.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="SYsHTNE8"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4DD44A4A3E;
-	Fri,  2 Oct 2026 11:53:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790934783; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=d8dVxb/4SjaiiBhdK3qGSBfU3WzGwhFu3UnFjFCUSlY=;
-	b=SYsHTNE8bBR9uAbWt2qtMnw5Z9IYDzoODh6vRysAfaQO1hhdcwSHVWFtQWE+/Dy2bk4RLv
-	JKlPhSSNSLOagQbUGaNJF+VW5ns2xzPciezwItX6Gatw47/4LFLwQ09puS8VkKRc9U/coQ
-	4emwAIrLaQxWFcc0njJnZPN/sznlo5wPNpTp3OtzcQjo7mc6MLasuohP9gDy2lj5zSQxwQ
-	zamEUMbjlicF4MzDDTud8dHkf4NfhHhEktBrxlsxwjObXUXYh5Cu6uQgHgwH5/bZYxWwv8
-	wiRdPfboqztCwTGrnaspDg6eBFio5UI6OwWk/1+Obyeo9DZBAE6m8vj3BI7BGw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iUMCz4qm"
+Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae19959791so3762745a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:53:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790934790; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XFY80AhNppjwdEhq1JDDiKcgUo60Qg6HfuK1XRMZFW3H5CnjZVPRvOVWiShBtKa0jX
+         +WrSiEgO2Hef9HDjLtnEc//j+eEcR5boev+r+LdAkv8b6KBcoyg4SYDxO29ifYyKW3tw
+         0lPZMBG/QW3YJsRZA/G/DsO+ZY85lPHAwiqo12kTYZholtYyJnK7HlZUogSGoM4LO/g9
+         Z6KtzfcvgHKtmOux4U1z1S6yjMBF3k7iGH1HZU+dqMUEP8lRz3ZnF8FDk++EtD4t225Q
+         IjV0xj/SjkVMdAxzZgNQX6ip4ieckMk5ZGHldZJ5pxE0tvYXuh0r3tPE9XBpwDdXxFNL
+         SJMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4arSkmG1a9JYvWYFRd6H2E/qKnzAPGl35h03AYNFrrI=;
+        fh=o0Ow/npA+2bw2LelgakL05sSqj4ZDUWzYdZPmvBp3bM=;
+        b=OWfKJLpQGhpjQ7i7mxvLBYUdE5va0aL80mX9pBVhEgSVws7mhmDufwGU8x/TbHDQBB
+         nWJmfxtPnBkVRO5YBwLcXyfvYLGdV1WWRdVj/kSpLNOapniING+cLt/7fJF0K4ZUt3py
+         zOCnvtVC/WtKhFJ0RqYSUtjmNYrnfYig4pigLxbC87bpGUh7NIwqcohmDjlKMdGJ/hHI
+         HzZ4Ru0sOqh6dqB9Zmi+wty0dba4cVjdArUD++nqXaXfMNlB1EE7h7cfNxX7VIpr3BW7
+         kQ96vS9YY0zZhlcdUz4POttXgRZ64xkzKecKoEWN7OiJf+XtgFnQ6kVsSjCGFX645Lrf
+         FE3g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790934790; x=1791539590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4arSkmG1a9JYvWYFRd6H2E/qKnzAPGl35h03AYNFrrI=;
+        b=iUMCz4qmERGAlenNan6CUNOieacNgnSjS8mHjPiYzXWcLS1E32pe3W3AsKwPpGRlpL
+         lf9hvXbQkeBLQCRc/gvTsb1hIpXnEKTqW/W4Vyv0pI9ewAb4uGLFRTGaw+NK9zkBhnt1
+         1U2wUwC/IR4H812RxRukMhNzOPzsiBpcuC15NMPEsTR5LgpoMKdqgBc6WIkXbKkAysDF
+         jK+4+eQWAt+wCOxR3IsjIvsrC+sw+97G55N6mHHK6586adrnKWvrc6+aPLJVhyP1r1Qd
+         odISBgTUAjpmhJu1wmXSlfw+Uue0GUraOhPoS2tA2kJ6xiXKdSE9EgeVIs+Ly4GQFCaX
+         FS7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790934790; x=1791539590;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4arSkmG1a9JYvWYFRd6H2E/qKnzAPGl35h03AYNFrrI=;
+        b=pBEhkI93y5wdOCVZCUaZbdyebk8zwY4FpSNUEVc5GEmjUbnmYXhwVQwh376bYxNkHD
+         1tri80ek4ApjpePso2RUqGbtRfOBHHyBCme1dMNuWuCo100Pqd5YFK0fIVVQsYmzepHm
+         sJmzURepNp5iM9MhInudGiq47Y8sMFH5IzaRj9pp7/i/DIyJGAjGtBwyG/fBEEVh1Yzh
+         ch9WbCdnmpOipCuLmNWZZDw9K6TXV0E4fYRHRd7CYLxBIlt3zTn9fufrh7HTp2QGW39W
+         93SqPTdnUC9jvSsneGwJw4yEU/3MOougwVe9g0BkksM3E0oV6Z9TdqwkTgg42M7WqkiB
+         ga/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxHML9Fpqi5I8peSAUGdSriJpIAecPBudSYyYojwJ6zXrhBiOZssduRKhlDgegufjv9Xi1TPmNSk1GZys8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZI2Vdf8owDmpqnGwFpyfI7or6gU3D41LxPcV9KThr/khU+pKN
+	RabXzPJXHHKlQy39nkOVIuPqvT5jfkMdfmQPRGMVnDmXSI36oMkUKmJOHthvn3V0kFn6NIbjd/D
+	bZnIg/VtzUf1204ulnfi30GNNM8YooA041TkB
+X-Gm-Gg: AYBFou0YGy4phyv1Z4WrdjFo1+IHvBGveWvotelvOK73kn/SeT7JWUe3zhnwrmIKIfs
+	nod8n8uP1vsnVtG3PEcY5LnDVWCTKN0v43Iw+wtENFIQEJsmtcKeZ2prJnXc0xPuvXvPPFxotov
+	SXVeCpJmff6wqVbG2LRw9Y1/OadUnwfGECC4f+f64IdRI2pZqnrSpT5UhqSTImuQPFvC5kU6q77
+	LX8VmlnARaDGIkT7PXEHZv0fJIL6Dq9CX/gzgIMAPtZi7hGnIyUQt7nQjlMTcFyA/25GSrfeKjf
+	6331nbHBORi8ewGPK1csXoOa7LcVY8KX4F7jtwRo2mzB0ile9881QlVqtm4K9llNZp75x5qQRM3
+	q4NIuHwin9I3o/yb9kXXEUEE+ebM+KPfB80GTszs/gXU=
+X-Received: by 2002:a05:6402:401b:b0:6ab:eb3e:ef50 with SMTP id
+ 4fb4d7f45d1cf-6af9e31f56dmr1449604a12.36.1790934789894; Fri, 02 Oct 2026
+ 02:53:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 11:53:01 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, =?UTF-8?Q?Beno=C3=AEt_Monin?=
- <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH net-next] net: macb: move printk() calls out of bp->lock
- critical section
-In-Reply-To: <20260930-macb-irq-v1-1-8994a4c8f3bb@bootlin.com>
-References: <20260930-macb-irq-v1-1-8994a4c8f3bb@bootlin.com>
-Message-ID: <c5df780e33d1b642a138070f5ff0c300@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261001165018.415526-1-mattst88@gmail.com>
+In-Reply-To: <20261001165018.415526-1-mattst88@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Fri, 2 Oct 2026 11:52:58 +0200
+X-Gm-Features: AclHuK_05I1u_F6UhWNrqTl3drg919aiOwzfaMNOjFx2ztu5WOZ_5uYX6J9Ws-s
+Message-ID: <CA+=Fv5Rznjz2qYiM4rtFs8iB3PefHJ4CdJxS7O+DcStWbS4kQw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] alpha: replace dead links in Kconfig help text
+To: Matt Turner <mattst88@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Théo
+Hi Matt,
 
-On 30.9.2026 20:35, Théo Lebrun wrote:
-> printk() call while bp->lock is acquired might be a bad idea:
-> 
->  - It grows the spinlock atomic section.
-> 
->  - If netconsole is active on the same interface (and we run on the
->    queue's CPU), we risk a deadlock because macb_poll_controller()
->    calls macb_interrupt() which grab bp->lock if an IRQ is pending.
-> 
-> Three messages are changed:
-> 
->  - In macb_tx_error_task(), defer netdev_err("halt tx timed out") call
->    to after the critical section. Update the message to highlight it
->    occurred in the past. Inherit the buffer exhaustion boolean variable
->    name from the old code comment.
-> 
->  - In macb_tx_error_task(), defer the netdev_err("TX buffers exhausted
->    mid-frame") call out of the loop. This also means it goes from
->    1-per-error to 1-per-task-invocation.
-> 
->  - In IRQ handling, move HRESP error printing out of
->    macb_interrupt_misc() into macb_interrupt(). Again, it means we
->    dedup error reporting if status is read multiple times in a row with
->    HRESP bit set. This is fine as from past instances I've seen, this
->    message spams our log if it occurs.
-> 
-> Notice we *ignore* debug printks; if you are debugging MACB maybe don't
-> use netconsole...
-> 
-> The netconsole deadlock is theoretical & never reproduced.
-> 
-> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+On Thu, Oct 1, 2026 at 6:50=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> The Linux/Alpha FAQ, the unix-ag LX164 overview, the Rawhide install
+> HOWTO and the Ruffian FAQ are all gone. Point the "Alpha system type"
+> help at the system and motherboard lists on the alphalinux.org wiki
+> instead, give LX164 a one-line description in place of its link, and
+> drop the others.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
 > ---
-> This patch used to be part of context swapping V9.
-> It got moved out as there aren't any dependency or relationship.
-> 
-> Technically it is a fix, in practice I'm happy for it to go through
-> net-next/main for more testing and it is a theoretical bugfix (as usual
-> nowadays). Decided after seeing Jakub taking a similar patch into
-> net-next this morning:
-> 
->> Since Linus is pushing back on our number of Fixes let's go for
->> net-next with similar fixes until the merge window
-> https://lore.kernel.org/netdev/20260929184531.36ac3dc3@kernel.org/
-> 
-> Changes since context swapping v9:
-> - Rebase onto latest net-next/main (47a144672573).
-> - Send patch standalone.
-> - Simplify the commit message (it was a long and partially wrong
->   rambling before). Also mention that it is a theoretical bugfix.
-> - Link to v9: 
-> https://patch.msgid.link/20260812-macb-context-v9-0-7ddbf5f715e0@bootlin.com
-> ---
+>  arch/alpha/Kconfig | 20 ++++++++------------
+>  1 file changed, 8 insertions(+), 12 deletions(-)
+>
+> diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
+> index 92cc7bb8d29a..7c1cc676ddfe 100644
+> --- ./arch/alpha/Kconfig
+> +++ ./arch/alpha/Kconfig
+> @@ -127,9 +127,10 @@ choice
+>           run on any supported Alpha system. However, if you configure a
+>           kernel for your specific system, it will be faster and smaller.
+>
+> -         To find out what type of Alpha system you have, you may want to
+> -         check out the Linux/Alpha FAQ, accessible on the WWW from
+> -         <http://www.alphalinux.org/>. In summary:
+> +         To find out what type of Alpha system you have, see the system =
+and
+> +         motherboard lists at
+> +         <https://alphalinux.org/wiki/hardware:systems> and
+> +         <https://alphalinux.org/wiki/hardware:motherboards>. In summary=
+:
+>
+>           Alcor/Alpha-XLT     AS 600, AS 500, XL-300, XL-366
+>           DP264               DP264 / DS20 / ES40 / DS10 / DS10L
+> @@ -184,8 +185,8 @@ config ALPHA_EIGER
+>  config ALPHA_LX164
+>         bool "LX164"
+>         help
+> -         A technical overview of this board is available at
+> -         <http://www.unix-ag.org/Linux-Alpha/Architectures/LX164.html>.
+> +         AlphaPC164-LX, a 21164A-based single-board computer using the
+> +         Pyxis chipset.
+>
+>  config ALPHA_MARVEL
+>         bool "Marvel"
+> @@ -224,14 +225,11 @@ config ALPHA_RAWHIDE
+>         select HAVE_EISA
+>         help
+>           AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machine=
+s.
+> -         See HOWTO at
+> -         <http://www.alphalinux.org/docs/rawhide/4100_install.shtml>.
+>
+>  config ALPHA_RUFFIAN
+>         bool "Ruffian"
+>         help
+> -         Samsung APC164UX.  There is a page on known problems and workar=
+ounds
+> -         at <http://www.alphalinux.org/faq/FAQ-11.html>.
+> +         Samsung APC164UX.
+>
+>  config ALPHA_RX164
+>         bool "RX164"
+> @@ -372,9 +370,7 @@ config ALPHA_SRM
+>         help
+>           There are two different types of booting firmware on Alphas: SR=
+M,
+>           which is command line driven, and ARC, which uses menus and arr=
+ow
+> -         keys. Details about the Linux/Alpha booting process are contain=
+ed in
+> -         the Linux/Alpha FAQ, accessible on the WWW from
+> -         <http://www.alphalinux.org/>.
+> +         keys.
+>
+>           The usual way to load Linux on an Alpha machine is to use MILO
+>           (a bootloader that lets you pass command line parameters to the
+> --
+> 2.54.0
+>
+Nice cleanup work!
 
-> [...]
+I applied the series cleanly to my for-next branch and build-tested
+every commit with the Alpha defconfig. I also built the final tree
+with these configurations:
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+  Generic SMP, NR_CPUS=3D32
+  Wildfire SMP, NR_CPUS=3D32
+  Wildfire SMP, explicit NR_CPUS=3D4
+  Wildfire with SMP disabled
+  Marvel SMP, NR_CPUS=3D32
+  DP264 SMP, NR_CPUS=3D4
 
-Thanks,
-Nicolai
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
