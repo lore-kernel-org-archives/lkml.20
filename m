@@ -1,93 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF123242D4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7C249B5AE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951280; cv=none; b=Qn6NU5tPI3gNMa7xovVld22x78E4HVxQy2gFA3guCWTWhAeQ1lWfWQvBPNlHzUjWMnCC4Q/hGL0HTrxEdfnC0cWtW01zMMR2Pm4+4KeF8TM3JSTLS9Eba/GZOrllnzJMw79TPfic3r5if4d5JY0xS6DvUxo0Jc7cvSC/mYwxjnA=
+	t=1790951306; cv=none; b=UqW4HOQO4Gj9oA/nk0M5YguHxw+kt+Jd8EMz3BAwO56LSw/ovkWjcvYvjTkxwUqkVK8AECXStHYfkuV3c2PO/o2Zmg4HMzaVPrv6JcV3G/zAFxJSkOPu/AMnrFHtFUvVX2DAp00i9NVXuM+ZT/FeNzehXSCLDWo+k5AG+jSQ2Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951280; c=relaxed/simple;
-	bh=/rAU9ZJvo5gWg5FpkoZJQyBYYUXnDgfwIMLh4ety5vs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RBBctGur4lBSadlDyu/UhwksmeeLcDhoAbsHx/BBKpCKBadQnq7Vr3Bt90xNPWtaRaMIBzWpbonq42VzTIQSHrbShFQKn3VgbMExMVaZiaINA1LJwgEefBqgjU5niJrNSyNkf90hU/BNtf6XnoNokMqmMWCObKFMcF6BzdvswMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kbwQogeX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790951306; c=relaxed/simple;
+	bh=L7ol1ikwj5z7l/6pBy/4SyKPZTjf7kJTdt00bJ1idkg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OROX9sBdXuImxqZ+W9zfQCB6TCyNf7aYqmEmhlrlsxgrKQwXrry974BPIR1C5thb8pZEAGLc4gJ6vpzNyYMTU31GpsrnZddVTf5rUehV5ny9B7KZvl4YHtLqUfapR+WbDzTm8FAeYjCtfmXdlTKZwXzLokvXIxdbM6YkZnV6Ck4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Jlmd7t0K; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kbwQogeX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7621F00893;
-	Fri,  2 Oct 2026 14:27:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790951276;
-	bh=RhjstUff1FQx1MomJYmzcNhsK5VwvpkAkhhBXa9Kt+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kbwQogeXEUUc1/9rzsqwVfs1mx223su97wLf5TSzPTk6lHeXTtQbspfEYX7Rt61Gx
-	 K+yiitI0A2wtwc+anr5mnQHDTEdgLJchTd+s88bKBHdzK7W+nSuGaBHtpNvBWywizc
-	 HRGlzhzyDw6W3la4qP++/Fzi5v6iZhgYhkS8bcK3ck60ZFhc8KjZ1E7kfdOQQI8ZyN
-	 HFaXcChOZa9aN+OkQH6p1YmdoZq3SnN4Haq4KYAlZAHXkMrFcHe3fECvt/g/aa+nDO
-	 p9E3ltguhgJfzdfOTkKWz6D8+uUvqWr+ZHdftrtk/LBV7efbUpW3PFLwuHVozRV3FY
-	 w3wjKIV57cfbQ==
-Date: Fri, 2 Oct 2026 15:27:50 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
-	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Pan Deng <pan.deng@intel.com>
-Subject: Re: [PATCH v2] mm/vma: don't remove VMA from rmap if pgoff unchanged
-Message-ID: <ar-_D5gGYNKl6VVu@gremlin>
-References: <20260930-speed-up-inplace-rmap-v2-1-ac1aa19708aa@kernel.org>
- <ar-9z-Ls26elb5JI@pedro-suse.tail5790ac.ts.net>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Jlmd7t0K"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 97BA71A10B4;
+	Fri,  2 Oct 2026 14:28:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 690BC603DC;
+	Fri,  2 Oct 2026 14:28:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C157F103281DB;
+	Fri,  2 Oct 2026 16:28:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790951300; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=cMgf3Fui9Ix2ajtwXUt15vsAOgVEpm/AVvj+X+LKiz8=;
+	b=Jlmd7t0Ksr8v1Qb0dLbT7iFrN4AKKOWXIWqi32LAo4iTjEQOQkZY/3JVUTAJP/t2i/uUuk
+	EoVQ9ipfm85i0zt38mUyUnBwpdg9xN8xHzdgl5na8J8ciaLCpiyqHZuTASsaa+aXFEu0E9
+	K2mZlHYUhw6omq0RaX0kZMDjZxCGAd6O3gTLk5LtEyKUPWDeo5qBsuTYtI3eSmqF8QjrxC
+	/Q2nASK8YpoS/59jgV5Vtvbj/bZoPd9Ty0FUwkGgdn7J3WEO9jd8vfCW0Frthp8pjSU6pW
+	Qfe87rRqfmfP2JzQzLX5ieK5f1ZSs0SkifFY45Wi7itJiqiNKwmbSLCIxLssPA==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Joe Damato <joe@dama.to>
+Subject: [PATCH net-next v3 0/3] net: rss: Consider RSS not supported when key and indir sizes are 0
+Date: Fri,  2 Oct 2026 16:28:00 +0200
+Message-ID: <20261002142806.1299041-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar-9z-Ls26elb5JI@pedro-suse.tail5790ac.ts.net>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 02, 2026 at 03:24:07PM +0100, Pedro Falcato wrote:
-> On Wed, Sep 30, 2026 at 06:53:36PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Suggested-by: Pan Deng <pan.deng@intel.com>
-> > Reviewed-by: Rik van Riel <riel@surriel.com>
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Looks great, thanks!
->
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Hi,
 
-Thanks!
+This series follows what used to be an stmmac-only series to handle
+devices that don't support RSS but still provice the associated ethtool
+ops.
 
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -201,8 +201,15 @@ static void init_multi_vma_prep(struct vma_prepare *vp,
-> >  	if (vp->file)
-> >  		vp->mapping = vma->vm_file->f_mapping;
-> >
-> > -	if (vmg && vmg->skip_vma_uprobe)
-> > +	if (!vmg)
-> > +		return;
-> > +
-> > +	if (vmg->skip_vma_uprobe)
-> >  		vp->skip_vma_uprobe = true;
-> > +	if (vma_start_pgoff(vma) == vmg_start_pgoff(vmg))
-> > +		vp->file_pgoff_unchanged = true;
-> > +	if (vma_start_anon_pgoff(vma) == vmg_start_anon_pgoff(vmg))
-> > +		vp->anon_pgoff_unchanged = true;
->
-> FWIW I kinda would've liked to abstract this out to rmap code, but a quick look
-> shows that it is likely to become a header dependency hell if put in rmap.h. Could
-> perhaps have been separated out to a function call.
->
-> Anyway, your call :) This version already hides most of the ugly to
-> interval tree code.
+There are a few drivers out there that populate the RSS ethtool ops, but
+don't always support RSS. stmmac and mvpp2 are such examples.
 
-I'd rather keep it as-is. These case are explicitly setting the state because of
-things known at that point, and as you say it's not possible to do it sensibly
-due to headers etc.
+Following discussions with Jakub on V2, patch 1 makes so that returning
+a 0-length key and a 0-size indirection table means "we don't do RSS".
 
---
-Cheers, Lorenzo
+Patch 2 introduces a helper to check for RSS support in stmmac, and
+Patch 3 uses it. Patch 3 has been reworked so I haven't applied the
+review tags, sorry about that Joe, Lorenzo and Nicolai :( I've drop the
+-EOPNOTSUPP return from the rxfh ops as we return 0 on the sizes.
+
+V3:
+ - Add patch 1,
+ - No changes on patch 2
+ - Removed the -EOPNOTSUPP returns on patch 3
+
+V2:
+https://lore.kernel.org/r/20260928145043.1228968-1-maxime.chevallier@bootlin.com
+ - target net-next
+ - Add a dedicated helper, following Nicolai's review.
+
+V1: https://lore.kernel.org/netdev/20260926093343.292181-1-maxime.chevallier@bootlin.com/#t
+
+Maxime Chevallier (3):
+  net: rss: Require indir table size or hash key size to support RSS
+  net: stmmac: Introduce a helper to check RSS support
+  net: stmmac: Don't set or get RSS parameters when not supported
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h         | 5 +++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 6 ++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c    | 4 ++--
+ net/ethtool/ioctl.c                                  | 6 ++++++
+ net/ethtool/rss.c                                    | 7 +++++--
+ 5 files changed, 24 insertions(+), 4 deletions(-)
+
+-- 
+2.55.0
+
