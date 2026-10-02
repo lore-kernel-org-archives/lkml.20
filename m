@@ -1,123 +1,107 @@
-Received: from mta0.migadu.com (out-143.mta0.migadu.com [91.218.175.143])
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC5836729D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:50:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43D24B1295
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949021; cv=none; b=bDh/tDaY+ZFVS/3PxosW6VhMX/Mz1ONZ9OI6P20aqjVjD2UEWsS1Qcl41AlVocwLBTY/QmI9EJI/vl/cx7xscGajW6m52RvwrzDYflU0zG0JAHaq4EB5DZJEvX9OSUaGpbgbHxORxnvfpus80GjXeded5VG4GdgX+dqcx6YYJHY=
+	t=1790949038; cv=none; b=b24+EnbM8kyCF5DSYHnBSASO9JsArYkb5C3q93a7SrePlgHbjJHkwU/7o/t2EvU0kTBGhKuXBOT6TYyMXFEGqrmV6kGlPJkgbTvb7f0Z5y0sPQiTOP6aMOCRc6ajwov+dt+K5c5MS/LDzPCqxrUM17Q2zYBC4vw0DBT2eMz2BvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949021; c=relaxed/simple;
-	bh=C/wAt1LQIExSHw4S8KqSvpcjB37pdcwAu4E/VAWQEvg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ch/jhknnlD5EU65RGfH07YfL0RS0iwSNkD+O0AmmjCvQUM4oFRdWGatm17vrpCbkaF6GcGfFucVLWkQNVwun60f8U7TAaVGZYwNVVz0winI9FGldXf3QVquDoi2jVv6f6uSNg3hBHl3J7PF+dqUQotgjsEQR7YdoIMOPA2yICFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AMTmlkUp; arc=none smtp.client-ip=91.218.175.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790949038; c=relaxed/simple;
+	bh=YAbhCEsj1Xow+kprODecviF0SnZgAch7eBzBEf5i7yk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QYOUd1ARdINgKJPbYTN95y1laYzBc/q4HvOZ63ZyuFvPUGQ1sOy55Q9AYjbrq5YdrTVyMHJD3DBOytERetUJJuvb57X6CiIhshe8Ms/i3zwWvIH8tSZg5No2PAzAOXqvEruvS9gkBXwP6g8VI4k+UQWFThYP6DC7PAIwY0WrCp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=Uc7VvP9h; arc=none smtp.client-ip=74.125.230.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AMTmlkUp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=C/wAt1LQIExSHw4S8KqSvpcjB37pdcwAu4E/VAWQEvg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790949016; v=1; x=1791553816;
- b=AMTmlkUpx3s0dwype5xvcZPoVwgrSXQNunrb3UhBHwGSiy5fMKP6BPbx67gjywiqYvQq986i
- avIaycSSnipJIOw4mUYE5VnSfC1U0eEV67m2ab9drsJXHwkXhN4AKlD9kx/Nga0OLKSfHXbUI+a
- 7ggToBwaeWkzBk1d4zkjbL54=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6242a16857386e04;
-	Fri, 02 Oct 2026 13:50:12 +0000
-X-Mizu-Trace-ID: 6242a16857386e04
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <da2773b2-1ed2-40ef-aefa-0e754cdb2f9d@linux.dev>
-Date: Fri, 2 Oct 2026 21:50:02 +0800
+	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="Uc7VvP9h"
+Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-9178b9b7ecfso788156d6.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:50:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxtx.org; s=google; t=1790949036; x=1791553836; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lS1VVahwxyy3uHWOK8ukiwzRDiQgwlDYS5Uok3wV7Vc=;
+        b=Uc7VvP9hw+/KML86BNYTdH75zqNW0AAN7XHghFdwAfe0ffkY/4tC/3u4uFXbxXIiaB
+         vYKO3I3PuS5P4944i5X8zgjUgMryhmVPp1SStJ+b2aHK3rr2ucUk2mD0tZqDnQ/fiv+R
+         lgGfSN6vVBGYD6RQRdKSXefDk/beouC5XXWoM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790949036; x=1791553836;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lS1VVahwxyy3uHWOK8ukiwzRDiQgwlDYS5Uok3wV7Vc=;
+        b=Ab1N/zU1+3RqWVGiww0mbnn2sY/8alItarHXVCL2uE4Nw4fnB/fe7RTD1gep2qHfZj
+         f3ovsq79vaCkT1B7w24YoZitSI3ybBMXgzgmQmHG5XjaNia3LfCJHlB92qzcUElEJmF5
+         wbrNNFmtb6lmooubIEZlaIzfDx7SOXCPPhilNuGkpG6mf4WOetZJvbz+Cz4gfh9zuvRf
+         8P0mpo/5cszWWGXEhfFiJljU4o9Ja1o1lzA1MndMjPLrw0PJfYcHCcbiVHaWyX6sZFgd
+         A1GdG25wxgrSeEpoge4H1UQ1PEQMF/LCl2kxrSis7MJJvpt4cRELlf327BhkMKrIVc+v
+         izEw==
+X-Forwarded-Encrypted: i=1; AKwUvBypGj5gZYj9lGjGgv603MwFguMosiOgSFJFTxIM8sCzRw0Hd0wnTt41WItQnaYm3PlhqakxJ8LYlyawCpU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6nOf6vw3amL4C02wlps5LoC0Lu2+58/x0AJxWoa2w18vL6mWW
+	h2+g+EqIF+geh4Alzpfi8s3SsFxl4OF2P44+CSxf3IlSuHzODszioSSQLtE1RgTGtQ==
+X-Gm-Gg: AYBFou37JdnblwZjVuQ3xI0anCrku7cnM6CYUZiifD6fjs3Ku/+G/G2aeIhYaPtEC6T
+	6ZZpQpw8jFJyVCDUbaKfQ9mI3o4l38Rqh+w0uwRi6peT7e+89YYK9RxVpoQnoooNpM0FFrdApQB
+	QukWyHRieSvhJLzv6W8MX3QfNKmH5N2z7bk4plLsJXcOfoUqag8mn4unxBtO2n2vH/bmSxywqzQ
+	ee3LW/Abs86NU9MPWzEq3mC1oCBTsfzeyZZ3djR0y2MN5YF3evfIEKVFBQ8bYvXza2cLh6eTvU8
+	PPvivWPFwamRpRn4qPhahSg8VWFpBaUO0pGEmjjx1pzI7Vh4pJGFaGF2ojMg8tTsd3HkLX3qyQ1
+	HP0ApXDQhF4K8y4MbNiyicvQvXlf7n3X668h+IXher58m6WwbImEc6i8HLjhvRxT75//TwKX+wf
+	QL6FPts40LYIH43ocN2iJMMz2jM8/szrOXkJplcT1I6X46JMtansyMS+TkvE+xy8ZGhYU8tXWw2
+	zjScJHJC/5J6vtRPw==
+X-Received: by 2002:ad4:5dc8:0:b0:917:8ea8:cf48 with SMTP id 6a1803df08f44-917c0023954mr55938026d6.11.1790949035586;
+        Fri, 02 Oct 2026 06:50:35 -0700 (PDT)
+Received: from fedora64.linuxtx.org ([98.97.107.167])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c17b8esm19945606d6.43.2026.10.02.06.50.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:50:35 -0700 (PDT)
+Sender: Justin Forbes <jmforbes@linuxtx.org>
+Date: Fri, 2 Oct 2026 07:50:32 -0600
+From: Justin Forbes <jforbes@fedoraproject.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
+Message-ID: <ar-2qLGYAeke2TUl@fedora64.linuxtx.org>
+References: <20260930152346.024115587@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] selftests/bpf: Use the new NMI_BITS definition
-To: Boqun Feng <boqun@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Will Deacon <will@kernel.org>,
- Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>,
- Alice Ryhl <aliceryhl@google.com>, Lyude Paul <lyude@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Alexei Starovoitov <ast@kernel.org>
-References: <20261002102923.45846-1-boqun@kernel.org>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <20261002102923.45846-1-boqun@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
 
-On 2026/10/2 18:29, Boqun Feng wrote:
-> The definition of NMI_BITS was out of sync after the introduction of
-> HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
+On Wed, Sep 30, 2026 at 05:21:45PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.9 release.
+> There are 457 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Fixes: 3b0e2a22d408 ("preempt: Introduce HAS_SEPARATE_PREEMPT_RESCHED_BITS")
-> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Cc: Leon Hwang <leon.hwang@linux.dev>
-> Cc: Alexei Starovoitov <ast@kernel.org>
-> Signed-off-by: Boqun Feng <boqun@kernel.org>
-
-lgtm,
-
-Acked-by: Leon Hwang <leon.hwang@linux.dev>
-
-One nit below.
-
-> ---
-> v2: https://lore.kernel.org/lkml/20261001082519.16195-4-boqun@kernel.org/
-> v2 -> v3:
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
 > 
-> * Add Fixes tag.
-> * Add CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS weak symbol because
->   CONFIG_* is not available in bpf programs.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.9-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
 > 
+> thanks,
 > 
->  tools/testing/selftests/bpf/bpf_experimental.h | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
-> index 2893bf06ff25..a09448347966 100644
-> --- a/tools/testing/selftests/bpf/bpf_experimental.h
-> +++ b/tools/testing/selftests/bpf/bpf_experimental.h
-> @@ -367,11 +367,16 @@ extern int bpf_cgroup_read_xattr(struct cgroup *cgroup, const char *name__str,
->  extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
->  			       struct bpf_dynptr *value_p) __weak __ksym;
->  
-> +extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __kconfig __weak;
-> +
-> +/* A trivial macro to make NMI_BITS exactly the same as in <linux/preempt.h> */
-> +#define IS_ENABLED(cfg)	(cfg)
+> greg k-h
 
-NIT: change this to ((cfg) ? 1 : 0) to match IS_ENABLED() semantics.
+Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
+x86_64), and boot tested x86_64. No regressions noted.
 
-Thanks,
-Leon
-
-> +
->  #define PREEMPT_BITS	8
->  #define SOFTIRQ_BITS	8
->  #define HARDIRQ_DISABLE_BITS	8
->  #define HARDIRQ_BITS	4
-> -#define NMI_BITS	1
-> +#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
->  
->  #define PREEMPT_SHIFT	0
->  #define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
-
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
