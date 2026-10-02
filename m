@@ -1,133 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F46B35AC3B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:15:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6335218E92
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:16:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968528; cv=none; b=N2Q5nFrCHjNVgjmemmt5uPFw7EIlugEqj8ddL4zppIWbEjr2nqie63mh6KW/Y0t3gqJXnbewHt6H1H8C3ZXV+claHWc7ZO2Huw8xmFWomI/PDCMIXnavn1IVvR/L240tiFYfg/xtCUmu21ny83R9ibyqCCshic1yi8vaO2tE0rA=
+	t=1790968573; cv=none; b=BG2ItWgJPUQn2f5HMmbyoyf6dDAAaPwiWgE9pNv7kvH84CIEkk0GUvCgqnh3MSm8TRCoSJ47IOgwZlYZM29XFyMe/VxveDmyUzZo7qT4is+Jr7KAvk6piUWjlPurAuCszERMb0FBAhmb3v6Q1tFIROVDpkgGYIAIhmphZodaNkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968528; c=relaxed/simple;
-	bh=pgvIgCP6n6t+IplT8bFgRUQZKyyLvcUhswrqy4yC+jU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dZ2cRaypABwBuCvhMNMsaYmlojq2G2lQcJNWINKhnzIlxexvs/HNot1I6uEREfPHlWeF5pxBimHpBvHxeyB4qGR0ySzYgC1/uxL1IUqlUmu/0PPvlIO5JFbx/4g3Z6UX6XsBT+/g/Ykrn7WJ3HdYf6PGLE1r4mtOuSXqTE/Ukmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+zS7V+N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790968573; c=relaxed/simple;
+	bh=Y3aI6kyJxq95xYxyiMoXM81zXubrvDQKxJ8MiKezfR0=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=H4CuyOLl3+0bZLMjXYibMHwwbpyEzb/kYmZ7F+dcgBDwve+jke+kNacrfh78GtB2UeWihu/wNu6SRMEXBfQCoG6dIVZtdbUEekj67agS5zgAKKZdMxQ2EKRTr4mp0Gtf7X0KTXXyFyU0hUUNWNAUa2wByiBOMl/7x2AX/LyGjWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVVfzrfr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+zS7V+N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B101F00893;
-	Fri,  2 Oct 2026 19:15:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVVfzrfr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F021F000FF;
+	Fri,  2 Oct 2026 19:16:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790968526;
-	bh=RAXYnozfOjCNJd3fS51e4tA12PwRRvWlhRu6gPGg5pY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i+zS7V+NWrt9FcmmtNbilvGk8AMgrsDPvEmr8qyID+GbT+wn8dKLGm16QlZPm1pQD
-	 CKW8GGJzBm926RYbyIJNe8AoOjuVfbkfEPlD7A/NEc6FSqj7IU9vHV3ok3gxgU0c1u
-	 pIjm42i8CB4j1ze7Zo0RVVBKXLazV/rV9e5a3W1WUHWJYbHRGQkVyvW4vD0TEN7BjO
-	 Fn6wXKf4VNKhqvSv4lCS3zpywrOK3PZBrEAwSx8fuYfMnH06VEUVr0nWbdab+p8Z/0
-	 +gG5thxvIRcSkF432btKAabqBmB8URlAqma9xQ/lsXRq52b4ty9B4wJsNIkDg/V1cs
-	 yXCcpJ8YSxAFg==
-Message-ID: <388b396c-2dca-492d-8873-c9c672ac30f2@kernel.org>
-Date: Fri, 2 Oct 2026 21:15:15 +0200
+	s=k20260515; t=1790968571;
+	bh=TW/3Bgp+W6aVNC7AIynY6HBkchlAdDDuI95oxaq4ozg=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=JVVfzrfrCKD42iq/WhBRg8oJzshkAtYmyRXrM3oSS6R/qygwS40pabNn8N7WRCgCm
+	 40PeEvIIthYIJp+IkLrw9zIi9PvuKrt+MKZmy7febET6Jxsy1A0rJ5BollQkMeBOeS
+	 leIeA/E+7DDRbK1bYo9OarDSWIpWbb/yUJICqYBZKxm73avJGbFdgh08PZf8fzPWN6
+	 x2IVdmW4O2Jav1mpfb0E+2ogI/y+7CVRu2jNiwqNPtDBIdRuRhKFsVv/Nd3nscStM4
+	 zLEitkNfjgAndrgGK1+RaI4R7eTILP4+2fPE+/BOqyCzZ+YbKec1KR+lUY07Flb2Ct
+	 yyOiI95fTVF/w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 775413811A6B;
+	Fri,  2 Oct 2026 19:16:11 +0000 (UTC)
+Subject: Re: [GIT PULL] slab fixes for 7.3-rc5
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <2283e699-01e3-4575-8bba-93d0f5b2066d@kernel.org>
+References: <2283e699-01e3-4575-8bba-93d0f5b2066d@kernel.org>
+X-PR-Tracked-List-Id: <linux-mm.kvack.org>
+X-PR-Tracked-Message-Id: <2283e699-01e3-4575-8bba-93d0f5b2066d@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/mm/slab.git tags/slab-for-7.3-rc5
+X-PR-Tracked-Commit-Id: af2fb3ee6679b517e2fdbd3ba16ec276a8b74312
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 4e9a2de02fedd0137f058a6e69848072a20f8f34
+Message-Id: <179096857000.3549447.11222267736622715493.pr-tracker-bot@kernel.org>
+Date: Fri, 02 Oct 2026 19:16:10 +0000
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>, "David Hildenbrand (Arm)" <david@kernel.org>, David Rientjes <rientjes@google.com>, Christoph Lameter <cl@gentwo.org>, Roman Gushchin <roman.gushchin@linux.dev>, "linux-mm@kvack.org" <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/14] drivers: dax: use pgtable_has_pmd_leaves()
-To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
- lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <700b622814a2b294083f9066631f655cf61c3070.1789695931.git.luizcap@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <700b622814a2b294083f9066631f655cf61c3070.1789695931.git.luizcap@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/18/26 03:45, Luiz Capitulino wrote:
-> dax_align_valid() uses has_transparent_hugepage() to check if PMD-sized
-> pages are supported, use pgtable_has_pmd_leaves() instead.
-> 
-> Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
-> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-> ---
->  drivers/dax/dax-private.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dax/dax-private.h b/drivers/dax/dax-private.h
-> index 607a53a91f58..18a6295aa766 100644
-> --- a/drivers/dax/dax-private.h
-> +++ b/drivers/dax/dax-private.h
-> @@ -121,7 +121,7 @@ static inline bool dax_align_valid(unsigned long align)
->  {
->  	if (align == PUD_SIZE && IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
->  		return true;
-> -	if (align == PMD_SIZE && has_transparent_hugepage())
-> +	if (align == PMD_SIZE && pgtable_has_pmd_leaves())
->  		return true;
->  	if (align == PAGE_SIZE)
->  		return true;
+The pull request you sent on Fri, 2 Oct 2026 11:15:49 +0200:
 
-The main part why we don't see any change is that dax_align_valid() is wrapped
-in the #ifdef CONFIG_TRANSPARENT_HUGEPAGE today.
+> git://git.kernel.org/pub/scm/linux/kernel/git/mm/slab.git tags/slab-for-7.3-rc5
 
-Might we worth spelling that out in the patch description.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/4e9a2de02fedd0137f058a6e69848072a20f8f34
+
+Thank you!
 
 -- 
-Cheers,
-
-David
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
