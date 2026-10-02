@@ -1,99 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCE32367D3;
-	Fri,  2 Oct 2026 07:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1A55412276;
+	Fri,  2 Oct 2026 07:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927511; cv=none; b=oouJTFDxz5AXlJ8WY5FFfQ32459yEjoE0NcGht+4gXgSb0TMVneKmWtgtvmb+OfhKeVuW+hLGlMDpfjUPu2o5d/MSGlifjkMyxOjgUNN0c5Kz/EavTBXHqIISYTehg+n0qQXBgEhKddZ9voHjN/wCipSJORbgjgNiKkHsnYVqvU=
+	t=1790927539; cv=none; b=oudWw1BdaMNtJhi+z1fPlgXkHmFza/5nzAfIxJ45wMixXF2u8FOKTZ0ufvo+OO7a7YKKBR9PHGtl7e4GuNkdptSRv+1O3gebHXWDC9090ErqmDRQJmAZ8nwi92+6jMm3OGgYh4ZCrAG/c6BOq6kJMcDMEgZaeI8/KWw4bFnPk9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927511; c=relaxed/simple;
-	bh=5R+k9abLNvJGoBCDqU44FoixsMAIlze62c2YpyQ3nc4=;
+	s=arc-20240116; t=1790927539; c=relaxed/simple;
+	bh=+RDiVJOBHcLWyoFcL8fzBTJOSy0HVXaB5fVTASrdkJM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EbzB1xkPG/9FIPe9sADtqhZHAmoSBckTPOPu6SRMFo8Z/HzD7M858IpseSvmCKKdbOnXD2hkKdJZJ+h26LVxVJpqBg/tnhcaAfY7fWioNgpX8tD3oAiZhA4WkHa+LjZvNPMvvYDEg0BSG+3L89AQdCSFK32KOZSG6C0RDyx/J74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gkTQTGZR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=B7OxDAkGuJIcZJnGe3C1dicWwW7UlJ/fhYg54j2UJcx4suwfn8TKGt6AyK1k7umsp2DQV6WF8ITqNbAfeIwnpLsWZcXJ/SBKzszrqPtTdZZtkO/2lsL3/OPH3DLDRSfX6HKuwwhZBFMUR0762fQdPFK5UPF6ZWRFQVWopi15kFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=T8yCSVq+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gkTQTGZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0671E1F000FF;
-	Fri,  2 Oct 2026 07:51:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790927510;
-	bh=CAYg48TtPx7y4JcPN0KkBMKNKG+2zqMXTaLTFJCvI40=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gkTQTGZRUvFXakr0c+sN2hGtY3hszu6zQg7UaOniQ2xv2w2gpUxR1z/jYA1RZuL+6
-	 KG7lyS/+hTKuXFgHyk8WKHd/FJBmoGPzm1e5PHsBee6qhRTlBpEqGF4/7wnN4VhFEa
-	 O3GPNmVSmm6cpcy0izWys8U3tUctX6GUWlOI5NCQv/WKDt6TqOfGSmP5+k2ociN2+D
-	 yi0qfs6QQjoE5JeGZgMN5MO+eSyWeYvLlKVdNLrGJjxlnhl1sNz62G0+kVpkhP1Fvj
-	 efS2UwwUQQ7/SVllKLH7ixHZs09pcg1Fkf73gX1WQcu+s8dXlYfUYYf+3uT88UkB+c
-	 suU3GsEXMVBzA==
-Date: Fri, 2 Oct 2026 09:51:48 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Aniruddha Rao <anrao@nvidia.com>
-Cc: jonathanh@nvidia.com, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firmware: tegra: bpmp: Allow BPMP debugfs population to
- be skipped
-Message-ID: <ar9iizSuhHVj_tZk@orome>
-References: <20261001050716.2256810-1-anrao@nvidia.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="T8yCSVq+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D331497;
+	Fri,  2 Oct 2026 00:52:12 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3AC503F86F;
+	Fri,  2 Oct 2026 00:52:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790927535; bh=+RDiVJOBHcLWyoFcL8fzBTJOSy0HVXaB5fVTASrdkJM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=T8yCSVq+IkcMsgFlqIyulbFNDBdKc6tHrs4MCE42T9rnK9TkoEXF68HgZTEecqvUR
+	 QBHp1zQ9kS6AqXQRItdrbs/hVknn/zEqRtpNt6ZxxQGf1yNwNBtC7XzJbd+TUEZBbj
+	 CcLuMa6XRVfOBjYd1WuveK6A0XCRygQdowC6dwjg=
+Date: Fri, 2 Oct 2026 08:52:13 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Ian Rogers <irogers@google.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf test: Replace optparse with argparse in attr.py
+Message-ID: <20261002075213.GB1208404@e132581.arm.com>
+References: <20261001-perf_replace_optparse_with_argparse-v1-1-268b604f8e55@arm.com>
+ <CAP-5=fUKDL6yDs0-7h7zz43BJ1uwC6Y-CiS5TMh+=F=iNc=7Jw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="v2ogujaw4rr2uq5f"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261001050716.2256810-1-anrao@nvidia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fUKDL6yDs0-7h7zz43BJ1uwC6Y-CiS5TMh+=F=iNc=7Jw@mail.gmail.com>
 
+On Thu, Oct 01, 2026 at 09:20:20AM -0700, Ian Rogers wrote:
+> On Thu, Oct 1, 2026 at 8:52 AM Leo Yan <leo.yan@arm.com> wrote:
+> >
+> > Depending on the Python and pylint versions, pylint can report that
+> > optparse is deprecated and fail the lint check. Use argparse to avoid
+> > this potential warning.
+> >
+> > Preserve the existing options and defaults, and let argparse handle
+> > help and unexpected positional arguments.
+> >
+> > Tested with:
+> >
+> >   # ./perf test -v 'Perf attribute expectations test'
+> >   78: Perf attribute expectations test              : Ok
+> >
+> > Suggested-by: Ian Rogers <irogers@google.com>
+> > Signed-off-by: Leo Yan <leo.yan@arm.com>
+> 
+> Hi Leo, thanks for the fix! I see Arnaldo already took this equivalent change:
+> https://git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git/commit/?h=tmp.perf-tools-next&id=cd116fcbc0bec7340a659e62210b963c49f93c1e
+> 
+> Sorry for the extra work, but again thanks!
 
---v2ogujaw4rr2uq5f
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] firmware: tegra: bpmp: Allow BPMP debugfs population to
- be skipped
-MIME-Version: 1.0
-
-On Thu, Oct 01, 2026 at 05:07:16AM +0000, Aniruddha Rao wrote:
-> Populating the BPMP firmware debugfs requires a sequence of synchronous
-> firmware transactions during BPMP probe, which impacts the overall boot
-> time. Currently, the only way to avoid populating the BPMP debugfs is to
-> disable CONFIG_DEBUG_FS completely.
->=20
-> Add a tegra_bpmp.debugfs module parameter so systems can skip populating
-> the BPMP debugfs with tegra_bpmp.debugfs=3D0. Keep it enabled by default =
-to
-> preserve existing behavior. The parameter is defined in bpmp-debugfs.c,
-> so it is available only when CONFIG_DEBUG_FS is enabled.
->=20
-> Signed-off-by: Aniruddha Rao <anrao@nvidia.com>
-> ---
->  drivers/firmware/tegra/bpmp-debugfs.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-
-Applied, thanks.
-
-Thierry
-
---v2ogujaw4rr2uq5f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq/YpQACgkQ3SOs138+
-s6HPxQ/+N5z8WUszN0s5jUuK9emMAU3b6vVOGnlKAJb1+H6Fz7PIo+EtHw3KiXcd
-K71miKi9IPdhImuUIGr93EecXYWgp/fqT1zuKd4XkpfR1Z3LTVIUCS1k7KX73xaE
-YT3MKkE/gA5BcE0WaT/blkmeZqnblbW5px3G4k7pRwldfrbcYtYl5JR68u0EbNdS
-t/UhPN38U+Fz89jmZoFmB3BCiMRC/Njiin0XogU3fve/4F+LRpGyFJF4Q0dsBIBn
-xH0eYwdK3f3rhUo6bDvGoXDNIfeg+2yT6uNBjgh1gnzSK7Y7blkvYTiLJSHxNTFj
-ycSOhYUH3S45qsyzOkbZLRwnmkrGTNtZQvXGdCxZMENd10OjGC8bvvrgEuHcqAt9
-kWZGqA5SlC1Xu6oY8rnhUHGc5GMSr4Tz1SrYPvxwoe28DtZby5fo6HCxuUFiBOrw
-jHosYz3Ta2Bs7haRKRVlh19peK97WzKOPgZ32r9C5OrqsjR6kGmP1ce+RvlIICnH
-KqTVd++Bx71n0Z1BZKrvkqOvdQJFHiUdYUMXFLTKQAzyJZTCGN5+1B3s5KgE2AG0
-oAXOw0t3NjBEt2jOu3yz5PuGnuet7eE6VxY1LcKaNqqAomcv4dOpJn5H6nGviaAR
-KPiZ3L4zAhGft5BIyNK8xK5ngRpfZDsbguXCPJJGkCBOEg1qn6Y=
-=imZX
------END PGP SIGNATURE-----
-
---v2ogujaw4rr2uq5f--
+It is fine, thanks let me know.
