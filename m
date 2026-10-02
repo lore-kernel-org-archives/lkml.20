@@ -1,124 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300F13FFF94
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901EC3CB54E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969589; cv=none; b=K2fqohVcifsXeIsSNMIX+bn3A3oWP2H3L3XwoUdpVh+kKDBWmpRb2g/XAKvWXnlxpm63I61Qd+z0K+JaIYEHheOWAI39otUCnBMJlVuzSsKGY8nkOGW182Vh7N1hnOq59/LG8DlTWb15JeCz700LmEsTLHDuluvxKY/5fpDN3eY=
+	t=1790969886; cv=none; b=i9x4DYxsX6PGkcM8XzDHYHCOqtMMJayrBFheHR77BWKYzsMrrkJKZHUDk2TPO+60b7Etfk+8NJdL6XgAP37cq42497fLvyehhy9AC7YXsRhqIk5/mhotsg8nSXd77fNgBWg3itPUEe3S1T16JqylufG7QJ3PAfI/M59LR4cwuMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969589; c=relaxed/simple;
-	bh=w9zoEuoM5YZUcq3FoGTqiUbAFewrcl/Q7PqpbiPSXsA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aUcVEH3xgAAUxMgPLPTHNgXLL9GtjmoVyOg4Bvv9g3FmkJLGmgyv1kDBlM9DtWKbuQnSwTZVJZ2fwbq4vE9mqxJAvTOPO1dPBr23dH3v0khV77oYx1eTxrFU6J2pE16N+E/A/L50Y72FrynacCSbilu7MnmRo5nOIq8pvcF1CXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lZgSpxke; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790969886; c=relaxed/simple;
+	bh=QEO0aILy9z4JGdIIPQYRUNlkoPgqNfk0ePWg3gHPOAU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VZ3qYjeed3UAa1ezCIpu1MK7hJZTiGn2vMk0ncvZPeTkVBGN+PTKelA31uxtLIW8Wbom43vpvej/ke4LytMb+kQohssoneVAS/UMb9Ru5xuxExhS70trBDMEdDdKdknGdwrHtu02nxylR5p71cdx8IHbiP1rlhssY6D9uxUOOXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=HAgzcRXa; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lZgSpxke"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40D981F000FF;
-	Fri,  2 Oct 2026 19:32:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790969584;
-	bh=dVKx84NxUYGGJKXGVVdE5LF3HRwqIL74lqlE5opoXUw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lZgSpxke0mvUdvDGWrJuZQLWen71vjq/nK+jJUHf6APW+GhSGLI7pFx5NWfcTsjIg
-	 1FBL8w+e1gyB3dujAEbON2e0pPOscCKqRIEqJgpS1yq0S9H0XBKtxUTKjBZ6jM25qj
-	 cztLOnR1xjdyGPZL4urYtaniCO+PNgEyLyAStr0GnGuAocclhFAVmNIsI0TRSufjC3
-	 yeqjjfeXI1q43BgTcwyn9rW9FxKy2tX+PxebaFOnAZTAHL1STHXT6TG2O8gGiPcKVJ
-	 OzWy7TWHqVeUG1zoUKlqnQmO5Ww3P76sSrBmzISGCIei6CuexWBlDFkoNDzd7XjtZ1
-	 IAFPdbVDdP+PQ==
-Message-ID: <45eaf367-331d-420c-b333-58c65c185a6f@kernel.org>
-Date: Fri, 2 Oct 2026 21:32:54 +0200
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="HAgzcRXa"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-149241d04f5so301314c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:38:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790969878; x=1791574678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EGgEtdhM8SzSotKxZXA7cTlPWzHiA22Nw8COOnRZiR4=;
+        b=HAgzcRXaHs3tN0+Mvxi6cKTmEP2gYUEJ0oryLP/pXYzGWG0hfoEx3vtDcLTPknZGaj
+         iuNewsHsJ7wrx+925FD2b5IqFkmWyFFhkHK/fGm/kfeSUbNw0gOt6VexeOZyqSwM3h6r
+         azNcOm9Qy+ffaxi2xgL47rInf5njuwbikUkLS6vqfU5JIgkUszNhQhUKrf+VhtfB2kG9
+         vbeRIJO44bOJsB8fW8opL4pQsKrh1F3TiKOeQy7nr8GBGN3ic/ypFeWXz64F9E8eH9qC
+         YwgP8eVjZfDIK3aPZaKP4nYHN23xlsI3NuO4n4IjL47VVddyU8qfal75x9VbyDN81pCe
+         9LWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790969878; x=1791574678;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EGgEtdhM8SzSotKxZXA7cTlPWzHiA22Nw8COOnRZiR4=;
+        b=nNlls//kGamowyNbD/GjdVFjhN9njeJu7gnGtZmSwQQBBOV3dtrB6k9yLagtQoN2ss
+         /v1M7L9mbNvqSgfmry138hp9W46h80KjgS4RbQhK2eqi0vNrfZnwC+t4QgXW2hqNqJPw
+         Tm78+LyQLTOzwOppR9c+JphpKWUwFg20gSFJX1+BWg+mZ30SkGvEgUewgWV9c9J00E5Z
+         LnVUtJ4xBeqdrZaEVUxUHC95bZ9LXKZc/2guEbyLUjO7VI+IV4xJpTmOXnEchWOxQR+F
+         kioxzvcIQSSs+CpwQiHmfzwMkj3YmFefEpOsKAR5TkHoXBtVj40g4vtYbEAs7+ePsxXB
+         oT2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx8WJd/Jr94q1mlEyWgNqk4zbSE32mjE9HIQmrc0GZSadImr93Ag13h+udK01ynEtbs1fpcA2/PTRlfpps=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMattL9PBQ40SUjQmtHnCvZ4f8/jSz4eKk311cEZFrC7Ld+oXl
+	uts/GNLsv+oF6UGnsi9RHTWytB2G/CheQlwB1vp5DeTRl0QV+efxsbNLxh1SO0Sywrg=
+X-Gm-Gg: AYBFou2fk4emKMOcABpgBBulnW1GusN2JKS1nqfWzDRbtN+oU76H/hEHqLVZkSSappA
+	37d/6ay3PRFgMPQnxkSjm4zI1y6R92BNvFEo1aHXaUjvdDwAik/kEtO2Lnf8mgys415B2cT7pJH
+	L9Tvu7fhOqo9zOrgP+UeHm+BSX+87NLkE8pB3fmkPrOC/0QWtjX5nayi74GnUkZrOCna2RJFkWN
+	FDOK1sIc+mxJOlgZJnMPH+17hhB7+7DoVi//hwQ583lGXhgBEJoZOAb1Vh4kLCSeXTV523Q9RSM
+	28RWVfseUjMphAjoT+49XwOtyx/1vmUdEX//5+uY85vZpNG5RBGrDrFeBcv6zydCvAFSC6Gb61Q
+	OlyCHm87GZO4c/EN3N+O6MDr8pKekL2rquWKpJGxFlBKMNjfKQB7fkCG3oI87au4W3wL2s5HUKI
+	4H/MuqOp2Dm5clob1qVvjyHb0kaHxrOZrzXGAT88iwyvDmr6H7nD08C3r2W2xIdC9zkjzM9eWau
+	gd/xp+CrlunZrCv2pFty5JUnZb57p91Hlz6Ow3jWy9E5tJrV9FR02MZ6ZtPXUdFEqnS9GckQmfo
+	YT5j8Q==
+X-Received: by 2002:a05:701b:4518:20b0:149:49c:233 with SMTP id a92af1059eb24-151c38af23amr469208c88.27.1790969878266;
+        Fri, 02 Oct 2026 12:37:58 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14fae9b3dfesm6642483c88.11.2026.10.02.12.37.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 12:37:57 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Alex Hung <alex.hung@amd.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Daniel Wheeler <daniel.wheeler@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	"Pan, Xinhui" <xinhui.pan@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Simona Vetter <simona@ffwll.ch>,
+	Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH 6.1.y] drm/amd/display: Validate function returns
+Date: Fri,  2 Oct 2026 15:37:52 -0400
+Message-ID: <20261002193753.20239-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 13/14] mm: replace thp_disabled_by_hw() with
- pgtable_has_pmd_leaves()
-To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
- lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <59028991ef703526a8e3be4c1f3875b042f328ae.1789695931.git.luizcap@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <59028991ef703526a8e3be4c1f3875b042f328ae.1789695931.git.luizcap@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 03:45, Luiz Capitulino wrote:
-> Despite its name, thp_disabled_by_hw() just checks whether the
-> architecture supports PMD-sized pages. It returns true when
-> TRANSPARENT_HUGEPAGE_UNSUPPORTED is set in transparent_hugepage_flags,
-> this only occurs if the architecture implements arch_has_pmd_leaves()
-> and that function returns false.
-> 
-> Since pgtable_has_pmd_leaves() provides the same semantics, use it
-> instead.
-> 
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-> ---
+From: Alex Hung <alex.hung@amd.com>
 
-Yes, that's a nice cleanup.
+[ Upstream commit 673f816b9e1e92d1f70e1bf5f21b531e0ff9ad6c ]
 
+[WHAT & HOW]
+Function return values must be checked before data can be used
+in subsequent functions.
+
+This fixes 4 CHECKED_RETURN issues reported by Coverity.
+
+[ Backport to 6.1.y: adapted the visual-panel, watermark, and
+  link-detection checks to their older locations. The upstream DMUB
+  run-list/D3 path is absent; the older dc_dmub_srv_cmd_queue() already
+  checks and logs idle-wait failures but, unlike upstream, still retries
+  the queue once afterwards. No DMUB queue change is included. ]
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and drm amd maintainers,
+
+I am working through the small CVE backports still missing from 6.1.y.
+This one addresses CVE-2024-46775. It carries the three return-value
+checks that map to 6.1.y: visual-panel validation, p-state watermark
+propagation, and sink-detection validation during link-training retries.
+
+The upstream DMUB run-list/D3 path does not exist here. I left 6.1.y's
+older dc_dmub_srv_cmd_queue() unchanged. It already checks and logs the
+idle-wait result, but unlike upstream it still re-queues once after a
+failed wait, and checks that re-queue's status.
+
+The corresponding 6.6.y backport is already in the 6.6.y stable queue.
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
+in 6.1.y.
+The target-specific adjustment is recorded in the bracketed note above.
+
+Could you please queue it for 6.1.y?
+
+CVE: CVE-2024-46775
+Upstream: 673f816b9e1e92d1f70e1bf5f21b531e0ff9ad6c
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c    | 3 +--
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c        | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c | 3 ++-
+ 3 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 82b747c0ed693b..1d3d9a82c4637d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -2808,8 +2808,7 @@ bool perform_link_training_with_retries(
+ 		if (status == LINK_TRAINING_ABORT) {
+ 			enum dc_connection_type type = dc_connection_none;
+ 
+-			dc_link_detect_sink(link, &type);
+-			if (type == dc_connection_none) {
++			if (dc_link_detect_sink(link, &type) && type == dc_connection_none) {
+ 				DC_LOG_HW_LINK_TRAINING("%s: Aborting training because sink unplugged\n", __func__);
+ 				break;
+ 			}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 31bb7e782c6b1d..35e8f22d30204b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -396,7 +396,8 @@ void dc_dmub_srv_get_visual_confirm_color_cmd(struct dc *dc, struct pipe_ctx *pi
+ 	enum dmub_status status;
+ 	unsigned int panel_inst = 0;
+ 
+-	dc_get_edp_link_panel_inst(dc, pipe_ctx->stream->link, &panel_inst);
++	if (!dc_get_edp_link_panel_inst(dc, pipe_ctx->stream->link, &panel_inst))
++		return;
+ 
+ 	memset(&cmd, 0, sizeof(cmd));
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
+index aacb1fb5c73eb5..d2eebe39a55e33 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
+@@ -595,7 +595,8 @@ static bool hubbub2_program_watermarks(
+ 		hubbub1->base.ctx->dc->clk_mgr->clks.p_state_change_support == false)
+ 		safe_to_lower = true;
+ 
+-	hubbub1_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
++	if (hubbub1_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
++		wm_pending = true;
+ 
+ 	REG_SET(DCHUBBUB_ARB_SAT_LEVEL, 0,
+ 			DCHUBBUB_ARB_SAT_LEVEL, 60 * refclk_mhz);
 -- 
-Cheers,
-
-David
+2.39.5
