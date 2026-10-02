@@ -1,103 +1,185 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833023B5837;
-	Fri,  2 Oct 2026 23:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF3747D95C;
+	Fri,  2 Oct 2026 23:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790982148; cv=none; b=A+I8nESGaxxY5xwhxQDzTs3n4jLDOzOJX4zlt6FCDtAgKIkM7AppUdIQWCbPtvyjqeDyBrxZA3UnNJPmTGP8P34wdg8ImpNQsFwxh7LM4BdHJd0XnebVoL8CDi1EFAmf9Co+t07ei4NRVav8Wq5zBKSWVpn5GcFinM/aj/kp4N8=
+	t=1790982199; cv=none; b=Es3XjxYmt6uP09vckvz5loWIS8V9LBmwpdPwG/8Kn9HHygrZuM2aeyxYCSjycFd+msMjyeo1DFk22ca5659AsPkpppCAlc4QXAA8wt7ewJMxPq2FIo6UByPrgdE5QKRpWzqQZd9WDG9k3IoQL4/+LPaweQycekpD2+gpnYimSRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790982148; c=relaxed/simple;
-	bh=CDPAZWuIdj8ZaOf7KeaFjUL9Xy7OhSX+pUmQQ7bVSu0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Of4HUnnPoISA0XqGFxupiAZA9rdgWhAHwiglnEi2djsfsoRAxFtfAOoSXwBbcpF5t9kJgRkwB0+DqWTSYfyejqAvRCqtvjfd0zk1KOitxRlGbCMn4FiZpXSAmmIetJSDcw8eRjYuNfaVFrAprQWPsob9c2ySDYtvxvxK/KpY4x0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgnTgpM/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790982199; c=relaxed/simple;
+	bh=+zhJ5n2rQXVJZpnp51czddJ0mgFHdvH5jxSNiAxmzyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=X54fcqQjrCqPW3cwb0NBQc1VCAs77xId+oJSFMt+kCYU4QKKyAkNaHMLsNedb2wpUD7bk705tZSD4ICgTr6Gruh5yeHTDMgXilrt5YJyi+5Pa6s7rPagh7w6jHkC6dzPzvfxZWEpq8AEK9p+Gf0Pmrph2BQkSMPQV1wFSYvtUF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUKFWLFB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgnTgpM/"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9BB1E1F000FF;
-	Fri,  2 Oct 2026 23:02:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUKFWLFB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171891F000FF;
+	Fri,  2 Oct 2026 23:03:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790982147;
-	bh=2bPcJ1Vj8h7H8XnZ0ivuQvN1htMPEcW/dLYM4Htgp5s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cgnTgpM/kS7Nbx22UEUHqd5lcEz7b/smakh7FJslcgsz4RkBoIYkqfseT0SMSaR6s
-	 LPxggm7TrmRjkOkbB673kDEGKRsG6Ix0hTKnhrZt1lczoL2iHm9265DeU/BUW5Y0TE
-	 SzoUmMVo3rXC+ueQr2kbAx3ELeX/YhYPQ4Q3fUZA+5QZL+0vp8BrMZ+gvAP6ONyN6C
-	 zGN8+bLORDsMuELHiZA2EGDjhwLHkzZQVw79N+pFLUC4Ai2evz954INxoMJzHo42pe
-	 750tdYvXn+SNzt21Kgf4/qxTheoqaA7KGsRp1A70zsmzYj5mOZv+WoylT4cZfM1eRL
-	 FVPWU0gwFbAWg==
-Date: Sat, 3 Oct 2026 02:02:23 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] TPM DEVICE DRIVER: for-next-tpm-v7.3-rc6
-Message-ID: <asA3_3lVVcm-v9F_@kernel.org>
-References: <ar9D-mM-KA9P_pJC@kernel.org>
- <CAHk-=wjeUnds=_XoHpuPt2A0ZefYC4RUvOp0=LfPR2jzQFaeLQ@mail.gmail.com>
+	s=k20260515; t=1790982196;
+	bh=LMv/HjtW/85pT4bAEcJzZ6kcFDGpcguHiAZY9Y4BPUs=;
+	h=Date:From:To:Cc:Subject;
+	b=XUKFWLFB2Ohak/4ODzY1yrLiNj3lVV7mJ/dWr+j3pW5KQ7a3sI26rcVxcMP80Ysge
+	 2gSwdVVW6JHVFlvp+MmjwHy2XC8J0UsychY64QZXLSub0rMae00f4apd9bLu22+ibb
+	 TrxVIJIDO+H15eyVAVzyDCgwRrM+WdniqzyCibnSIX5OCY/ZiWccUn/QKki/OCRPLn
+	 KHmzBsEq2QxVKdX44I/P9hGpQENlHt6Sj7EwJ1xbwLSkyURvozIth6ooGT9SrzlvSX
+	 KnyGAToyXNOpjC3LrGcLxycChWUuiSqnuZvgWzqoFopb8oY4AiXknzrm/CRzr/blcT
+	 /xKAeVFJag/xQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id ECA491AC57CE; Sat, 03 Oct 2026 00:03:13 +0100 (BST)
+Date: Sat, 3 Oct 2026 01:03:13 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the kvm-arm tree with the origin tree
+Message-ID: <asA4MWPrTXX4Pd-i@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ALJyjvfBoNYxYLhw"
+Content-Disposition: inline
+
+
+--ALJyjvfBoNYxYLhw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wjeUnds=_XoHpuPt2A0ZefYC4RUvOp0=LfPR2jzQFaeLQ@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 02, 2026 at 09:10:45AM -0700, Linus Torvalds wrote:
-> On Thu, 1 Oct 2026 at 22:41, Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> >
-> > Please pull these bug fixes, which have landed after v7.3-rc1.
-> 
-> Jarkko, I've asked you before: please write an explanation for your
-> pull requests.
-> 
-> "Please pull" is not a reason to pull. The "which landed after
-> v7.3-rc1" is also not talking about what they do.
-> 
-> The tag contains three lines of text, and none of those lines are in
-> the least helpful or relevant to the contents of the pull.
+Hi all,
 
-I do remember that you've said about this a few times. 
+Today's linux-next merge of the kvm-arm tree got a conflict in:
 
-> 
-> It doesn't have to be much. For simple driver fixes it can sometimes
-> be as trivial as just "Misc trivial fixes". But in this case it
-> clearly could have been something like "Fix tpm error handling and
-> buffer size bugs". Merge messages and pull requests  don't need the
-> _details_ - those are in the individual commits - but they should have
-> a high-level "what happened" overview.
+  arch/arm64/kvm/hyp/nvhe/hyp-main.c
 
-I meditated for a while before answering.
+between commit:
 
-It's best to not do what I've done or try to fix it. Nothing works;
-neither me nor the process...
+  04447b95c62be ("KVM: arm64: Use the host's HCR_EL2 for non-protected VMs =
+in pKVM")
 
-I'll start faithfully writing cover letters progressively on side
-while reviewing. That resolves about 75% of "what words to use"
-and that type of stuff.
+=66rom the origin tree and commits:
 
-I mean I'm also right now zeroing my hard effort from code reviews
-by not writing down the facts when they are still are fresh.
+  872383bd12e11 ("KVM: arm64: Add per-EC entry/exit state marshalling for p=
+rotected guests")
+  06499de8f998e ("KVM: arm64: Skip fixed-feature state flush for protected =
+vCPUs")
 
-> 
-> And this pull request is actively hard to parse. The subject line says
-> "for-next". So I have to look at an email that is actively *trying* to
-> make it hard for me to decide whether I should pull and gives me *no*
-> information at all about what it contains.
+=66rom the kvm-arm tree.  I am very unconvinced about the merge below.
 
-I'll change it to:
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
-"[GIT PULL] TPM DEVICE DRIVER changes for vX.Y.Z-rcW"
+diff --cc arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index ac64a036b0a95,c709a6ff7448b..0000000000000
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@@ -216,7 -693,8 +693,9 @@@ static void sync_debug_state(struct pkv
+  static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+  {
+  	struct kvm_vcpu *host_vcpu =3D hyp_vcpu->host_vcpu;
+ +	u64 host_hcr_mask =3D PKVM_HCR_EL2_HOST_PVM;
++ 	hyp_entry_exit_handler_fn ec_handler;
++ 	u8 esr_ec;
+ =20
+  	fpsimd_sve_flush();
+  	flush_debug_state(hyp_vcpu);
+@@@ -229,35 -707,60 +708,64 @@@
+  	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+  		if (vcpu_get_flag(host_vcpu, PKVM_HOST_STATE_DIRTY))
+  			flush_hyp_vcpu_state(hyp_vcpu);
+ +		host_hcr_mask =3D PKVM_HCR_EL2_HOST_NPVM;
+ +	} else {
+ +		hyp_vcpu->vcpu.arch.ctxt =3D host_vcpu->arch.ctxt;
++=20
++ 		hyp_vcpu->vcpu.arch.hcr_el2 &=3D ~(HCR_TWI | HCR_TWE);
++ 		hyp_vcpu->vcpu.arch.hcr_el2 |=3D READ_ONCE(host_vcpu->arch.hcr_el2) &
++ 							 (HCR_TWI | HCR_TWE);
++=20
++ 		hyp_vcpu->vcpu.arch.mdcr_el2 =3D host_vcpu->arch.mdcr_el2;
++ 		hyp_vcpu->vcpu.arch.iflags =3D host_vcpu->arch.iflags;
+  	}
+ =20
+  	/* __hyp_running_vcpu must be NULL in a guest context. */
+  	hyp_vcpu->vcpu.arch.ctxt.__hyp_running_vcpu =3D NULL;
+ =20
+- 	hyp_vcpu->vcpu.arch.mdcr_el2	=3D host_vcpu->arch.mdcr_el2;
+  	/*
+- 	 * HCR_EL2.VSE is host-owned (a pending virtual SError to inject), not a
+- 	 * trap-control bit, so it must flow to the hyp vCPU alongside TWI/TWE
+- 	 * for the vSError to be delivered. sync_hyp_vcpu() reflects it back.
++ 	 * A host-injected vSError is masked by the guest's own PSTATE.A, so it
++ 	 * applies to protected guests too.
+  	 */
+ -	hyp_vcpu->vcpu.arch.hcr_el2 &=3D ~HCR_VSE;
+ -	hyp_vcpu->vcpu.arch.hcr_el2 |=3D READ_ONCE(host_vcpu->arch.hcr_el2) & HC=
+R_VSE;
+ -	hyp_vcpu->vcpu.arch.vsesr_el2 =3D host_vcpu->arch.vsesr_el2;
+ +	hyp_vcpu->vcpu.arch.hcr_el2 &=3D ~host_hcr_mask;
+ +	hyp_vcpu->vcpu.arch.hcr_el2 |=3D READ_ONCE(host_vcpu->arch.hcr_el2) & ho=
+st_hcr_mask;
+ +
+- 	hyp_vcpu->vcpu.arch.iflags	=3D host_vcpu->arch.iflags;
+-=20
+ +	hyp_vcpu->vcpu.arch.vsesr_el2	=3D host_vcpu->arch.vsesr_el2;
+ =20
+  	flush_hyp_vgic_state(hyp_vcpu);
++ 	flush_hyp_timer_state(hyp_vcpu);
+ =20
+  	hyp_vcpu->vcpu.arch.pid =3D host_vcpu->arch.pid;
++=20
++ 	switch (ARM_EXCEPTION_CODE(hyp_vcpu->exit_code)) {
++ 	case ARM_EXCEPTION_IRQ:
++ 	case ARM_EXCEPTION_EL1_SERROR:
++ 	case ARM_EXCEPTION_IL:
++ 		break;
++ 	case ARM_EXCEPTION_TRAP:
++ 		/* Nothing was marshalled for this trap, see sync_hyp_vcpu(). */
++ 		if (ARM_SERROR_PENDING(hyp_vcpu->exit_code))
++ 			break;
++=20
++ 		if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
++ 			esr_ec =3D ESR_ELx_EC(kvm_vcpu_get_esr(&hyp_vcpu->vcpu));
++ 			ec_handler =3D entry_hyp_pvm_handlers[esr_ec];
++ 			if (ec_handler)
++ 				ec_handler(hyp_vcpu);
++ 		}
++ 		break;
++ 	default:
++ 		BUG();
++ 	}
++=20
++ 	hyp_vcpu->exit_code =3D 0;
+  }
+ =20
+- static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
++ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu, u32 exit_reason)
+  {
+  	struct kvm_vcpu *host_vcpu =3D hyp_vcpu->host_vcpu;
++ 	hyp_entry_exit_handler_fn ec_handler;
++ 	u8 esr_ec;
+ =20
+  	fpsimd_sve_sync(&hyp_vcpu->vcpu);
+  	sync_debug_state(hyp_vcpu);
 
-> 
-> Be better. Please.
-> 
->                 LInus
+--ALJyjvfBoNYxYLhw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I'll do exactly what said above I will do, which I hope will equal to
-that :-)
+-----BEGIN PGP SIGNATURE-----
 
-Br, Jarkko
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasA4MQAKCRAv73Ows9A4
+iZZDAP9uRmnTjPYS/46Ix4X08Lw5JNi3fpKFrsk0zYbKq6sb2QD/aw6ps9HYqWBp
+iz8caPba1xbzkeXwVXzK1CA8vKvVtgs=
+=jcWk
+-----END PGP SIGNATURE-----
+
+--ALJyjvfBoNYxYLhw--
