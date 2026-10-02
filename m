@@ -1,532 +1,174 @@
-Received: from mail-lr2-f33.google.com (mail-lr2-f33.google.com [74.125.230.97])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4487E433041
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.97
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925939; cv=none; b=NZObNnJBhYizFnrk/r28iWP2S1EKSd35HrLHHXC6NdkQ0hrTa+kX/0fZa56gvFN27ZGu0OU7Wds1hbS1Xj50ZJ1Gl1fo6NCgcnEHUV0PNHurIroA+ixP03zfLRp1fB/5d690HUCXYsP4rAA8tUejHka9U5V/y7jgF0IzM2SBW24=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925939; c=relaxed/simple;
-	bh=Jit+4G9jaP4zg79/awkNZDVWjUxYFqoC+UAE7DEYe0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QJ00YzIKbQkefbXy4AFDYOjqtifp0/pgZelgrMIw9S/wDKt1i2t65MzAGnb2I4j3Vfhu0V37L9tH9+C8NcopGBx6HFuGtoPBRlNmmmeIh4m73r+ZG3kPhwxkCC1KHSBCbOztOF12MT/La3alHXk3ueG4kOguaaGKQOflGIVo6wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wg3c63sy; arc=none smtp.client-ip=74.125.230.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16E6418359
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790925941; cv=pass; b=VGIlzcpQ+1RiDCKTCNWDuLgOrct4l3pv9KIewB4513QqyIl+Dqwb+SDpemPipIBadTNLFl/oC0FBM2dGtL9Sdl0P0O/y/WdyeZFI4XaTkIoLmekckIoesy3PTkixiyYkUwsmSNxqHKorFkLX3NIC/vnYtpKhFaN0YPwLhWXRL+Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790925941; c=relaxed/simple;
+	bh=vkuQVJtffJ8fMkOsTmgLQ2DxIsx+cCdeSaJrYf8laNA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=duY0UUF7MUySis3KPNB7oJiUO3VzBZiUzoGs4Da0m+sGnNMzIL9FGyyzHSgPMrj9J3RybuuTRvNQp0HP+4p/t8ccEV8BsLc4Xx1fdNScDa6buYIppYIW6OZugmUrY4FF26kzY7/oVbJDzdGLnT+7QPVGgvPeKbcGj7i8vJgkg8Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=omgi8R3y; arc=pass smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wg3c63sy"
-Received: by mail-lr2-f33.google.com with SMTP id 38308e7fff4ca-3a9270162ccso3107611fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:25:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="omgi8R3y"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6aa8d04fcddso2427730a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:25:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790925935; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ipfO7ixtyaO1InxARk+kQD75ljARA4WKCYLrUKNz45f7aud2sE/QXsaaeafcFWeuPJ
+         oYlaCYi2YJKfq8ePfy/A/sUYuXYBSRzkvkQyTS8MX1M7ETT9BS+KZ1XNcDFL0w0reyRU
+         IuBeWoFrL238CVgIou6F9p5PsNthzo2OTGWgW1OwkH9qMudhzcLsirF/2kRMikOvtcxe
+         x7M88yVRluumNZQE+9PZMAu/Oy+TbfFybk+wT0R95iNf2yFegRdkOr4eOXvjYJB+065d
+         44pMxzFFWmenH6Yc8BAfclegLdDEE3T7mpKXbUvO2Z7mzzzHAbql3Y2+PCnoNxF07EEU
+         lXtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=x59KLtPfuG4aN7iW1gUsYPP/JvC2giQpEEdn897TLao=;
+        fh=Pe5TuPkHkYX83ao8/RA489Z6/DDSaRbCwdCAVXG1Eq0=;
+        b=FEyuvMxhzqx/tZWyBA47SsjV/RWjVNMjmiz/UTRP0FTSXgHjeAe/rKreIkOXYF9N1u
+         pqh0vz152nN6rGMGvHv3FTCmfnbW6hzoq7iZKcLm6xpvawQ/iVE0NMU2+O5qOxDvb3xY
+         zAQkrlnoHTVMAQWj5Xy66Nd4WzO8uxEnQvbD6iZPiZ08aNg1Q0kiqnksyB0QStDbR3b+
+         vJpVJLDssU4Jw3B1TG3WM352SZGTyXMLMPPD6oMYvwULWhwsGPSdz3eUaYOImQWaURuL
+         IbCAglyaOwVasuDqPYj4qa98UveRNwzmYaZjJ5NIltTnigQlBVR9Xj7yoaeoajB0g+C1
+         apmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790925930; x=1791530730; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790925935; x=1791530735; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=33NQC2J2Dht7vluzMANahzZqnUNcKOfzZkar+rn2MLY=;
-        b=Wg3c63sywtcOuhbC0ARL9CDQ4RfFUv1gbs/ROgFdjFRf031J8w202v3vApEGvEmXtZ
-         uxQp4U8v2+ggBaD9UymtEyXfZBzUrk9pODHHnffDiVBvmvnmfoZXwZAhHLvJ5edBBGHt
-         m7cr07APsvxsa+ZeSHhsnBx2Mo1ayxoa8JYTFZu9t+kIU84OazJ5bVf2QFQ+0F+uDHD+
-         l710QUDAk8Xp2xvEQ1o2XdJcPZx3+8av9GNKNTEnYJfnYIReQWfCwVz5qR/3dKK/L9iy
-         XKnIAm+pEK+IujHmj1N7Wc8NmvgWFYIjWopRzXLpegYSUEFRqUgpIdOdpHy9JhkEBw0z
-         W8YQ==
+        bh=x59KLtPfuG4aN7iW1gUsYPP/JvC2giQpEEdn897TLao=;
+        b=omgi8R3yfw60wW9HSxa7U3Nd3Nx3Shy49ga07pOfBmsqrEbG8IaZtNCYWsrPt7y+9e
+         UGEYEdx3cGP9Jw4mwh9AN3wWWIcjmISU5j7fK5qFBs+9Nz2yNHYMHCZIJUZXFvDT2AjS
+         xo6+xqllnqVKumR2zF53/G1LlubFimymku7zlBH/DVPf/CfZGZKYDaRPC3IR1fQAHj4U
+         b9jCXzMQ9y9t5aJ4wSKHF+fps1mzeMcF6VchH3hoT2DGy7NXT/Rmb/Jj1zhY3+N17WM2
+         drXc2cLfEMIFvEl8vEOyfTthw3S+OKuzfmPzPAvNOYj/E0DUlgzpj0KA4VL+w2hskYus
+         VaCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790925930; x=1791530730;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790925935; x=1791530735;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=33NQC2J2Dht7vluzMANahzZqnUNcKOfzZkar+rn2MLY=;
-        b=rLtXDVF1PPzPqZmVDWiVYtH9ZOhhJNIBR/K/dFy3HPWlEhFfhRP+syK9sxbjEeOxBX
-         iqMIxloZNYVLvhXAElnbSIz/aQOgEtiFf6/gomKj/4b4CS3KakKNDS7Arz94cJGWi/BP
-         y7kijMs/kEa0iHTrVcUF3CgK7xXnBZ+fOEpbLpPliBNxtzmrU/XkSKfSqJiwuGbbOf17
-         uidDTT5OnsBjMAGSTLOCvXkudmwal74BJxfV2tOdHy1lllpXUjiNLkL5blVldIp7uR1n
-         pPoOcHlwa/j8RvlxtGwNJX0pPNVeXYx0ivbofGJKNQAZQFWGM+PajZ4r5py+Bp/QtART
-         5owA==
-X-Forwarded-Encrypted: i=1; AKwUvBwBpLZy7zI/rSfGlkl/7eh4SSSqjv3lP4A0uf+VxPk7EeeYT9LrQpCA1kHdOdBtYRCH1FKO86f2XSlZcfY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwupbx6+UotFgGErx1uo3SCDNFLQL3ZYCyFJNwaxm/oC69RIR9
-	w/bqCkl4cXpE++W7jFdXtnJG65nNxMpYBjB5z4FdNRVAnlD6yK2qXaZp
-X-Gm-Gg: AYBFou1wdSsynt4VYh1vIAPmtCJIvkKICmIkK4E7duqiXgkXwTogaIn3XKB+gWfC6Ot
-	9aa3vFmi9BSdI/hqpV7k+MJ4BypvqnZ14rAClGWljx4+0Tc06QW9Djq3gDQoCi4S6vOXtHrCR8h
-	pO7U67QktgFwBwdsB6haf9TIUN+bfSgMY5G03h4JVn118y6/aFjUgfAHnToa2C9d6KzOH0Jsr/F
-	r0sD5Vf03Gaf6+dXxpSdyp6rtcvb+pI9DHj340ODJW4VDMjQUtrZtiOW/uTNP2OBuTzvoP2OOcZ
-	u70Tb45h/tMX8sklBgwCNBfoiRf2CnyYV9ycxAM3CQAUYxlhLe1lWazqTLsLVFiqTgWLyZjaHM5
-	5RDt973aU6AJlgawZrHgWEj9rBJjNy6wWoFhMeWbDoRw/nD5y1jaN28wehRr2501NI3vgJp1k1u
-	+Gtu2i7bdWgZL9SVoKPbSKLfV1PdxSv7nVq/k0oqTBUQ7IBXYkFCrA2K9ft2LP32QP+trCx35Xj
-	1s448i2C965MemQt/PXXLBxf+ZVLmRr0j/fToEGQpqb/cH5zc5QctrUi5k8V0lKQIhGsLZT9Rt1
-	SAm4
-X-Received: by 2002:a2e:a987:0:b0:3a6:6efb:a0e3 with SMTP id 38308e7fff4ca-3a8877e6a71mr4351721fa.5.1790925929961;
-        Fri, 02 Oct 2026 00:25:29 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e324350sm6724731fa.36.2026.10.02.00.25.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 00:25:28 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Rupesh Majhi <zoone.rupert@gmail.com>
-Subject: [PATCH v11 2/5] iio: pressure: dps310: read buffered samples from the hardware FIFO
-Date: Fri,  2 Oct 2026 10:25:23 +0300
-Message-ID: <20261002072526.250081-3-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002072526.250081-1-zoone.rupert@gmail.com>
-References: <20261002072526.250081-1-zoone.rupert@gmail.com>
+        bh=x59KLtPfuG4aN7iW1gUsYPP/JvC2giQpEEdn897TLao=;
+        b=VnbKlpB69tTATIroHNbUewHiHEvxptbTKCZfYgPtzCff4hs5y6cJAChA2wvijTnEGq
+         PNx4iVzHjnjt1IZIldH8FyMLaiG/c1gAycL1aE40BQuQwdPDm4HvH6jjA3oiSvE+nnIl
+         7m9aukRXI1sN64hBKP9N3BurCOp8DfJOwRpo1bRcGqPd7m3xaXrVAy2W0VlkgVVjNvMr
+         abZMBVTTGZXsP+2rbawbk6IsuTSBmEX3tzTi2dFNAfdCM6HMwFtQbW3D8TLgW9JB/bZW
+         DIj0+3W8C2oilkl4HC/0ZW0HjqB0ZFL0WEpadBbG5uLVzR+KaqxTcLb+lrCLbkBXVEkq
+         MaYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWs8bvxXGa8FBpHDCXyCOvf7tlrnxnOKet3i1vEMYojow+pB91zKGA5D0qdSNcSaK+DWGpfGs5HkOsRTI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQkVZjEw2yiwhkSD8QrcF98rIcxf5gO7lungaMZuZ7jbKZDpKM
+	jgIZeiedTJd4BvUrdJ361SWShbcuLNdUyzNQYf/Zir9TKBJhcFXvyFZHWgNMjpP1hkcLCOVIqCP
+	N+17LP/cz6pCyq7qh8Pq924O2T45XTKE=
+X-Gm-Gg: AYBFou2jg/70Xlxog66sPtpXbDeeTojfw902ZdJIYB9RGDbNI8OTIXUUAmGjNpBnDRe
+	jT0y5UagfrquWCJcMbMhDj8vQCPE7+XHKRtdEG+9b9ykAO7j872i4IC5crs6PVNr0+84gNInnJM
+	aq2Cgq82Hjw2Vff1P9bz6JaYspIFquZ75KOoq+O6ZcCHUUpOLPWCPBxraiI8EWirQU0BVUxNo0P
+	1vDSFwsEfENEn8Qwn2MRGtVZrPlkgLArOAuALp3Rn7Utlz65BpymmcvQo2WkSsd5Sy1pvgAxiIp
+	adUKiDntY/FitinhBfP2EcGRrPWCPFlbvROqpXv16pUvsEmGq1Mbx+6MN7vKfB5jtfmVcJ2DDKd
+	j38vQk4phNQwg+IllL/0RATq/M+B4A6x0JaWo8GDH2f8TZPg5UIzxxMLBIaL8s766KsmYBiU+ss
+	0TndfsUpqTl9A6zIcgalLw6TFa1+zP+LhDoG2UOlrz/QfL6j5RgQBwh3FWs3sjn87+0w==
+X-Received: by 2002:a05:6402:5165:b0:6a9:8863:ada4 with SMTP id
+ 4fb4d7f45d1cf-6ae307e5667mr2995775a12.3.1790925935285; Fri, 02 Oct 2026
+ 00:25:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260925183050.56839-1-rosenp@gmail.com> <2026100129-unrest-cleaver-6528@gregkh>
+ <CAKxU2N8Z-CSxki5mWQvJCEiQDmy00WLJqPEMgujOA0LQzbHHjw@mail.gmail.com> <2026100211-unturned-scam-fd80@gregkh>
+In-Reply-To: <2026100211-unturned-scam-fd80@gregkh>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 2 Oct 2026 00:25:23 -0700
+X-Gm-Features: AclHuK-DIP7WjK3JYUzQGXnqA3_qOSSMeSBRglKWf3j7RwahMAS-EdxikdQir5E
+Message-ID: <CAKxU2N_Nm3rRnXEg9+-iwRSHXrvV-0rgdDQdmhn2MojTneFU7g@mail.gmail.com>
+Subject: Re: [PATCH] serial: arc_uart: Use platform IRQ helper
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-serial@vger.kernel.org, Vineet Gupta <vgupta@kernel.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, 
+	"open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-DPS310 has a 32-entry FIFO shared by both measurements. Drain it from a
-work item and push what it held, so buffered capture needs no trigger.
-Nothing in tree wires the interrupt pin, so the work rearms itself at
-half the FIFO fill time.
-
-Each entry carries one measurement, so a pressure entry is compensated
-with the temperature ahead of it. Pressure read before a session's first
-temperature is held until one arrives rather than dropped, so the first
-push can wait a temperature period.
-
-FIFO entries are not timestamped, so postenable refuses the timestamp
-channel unless a trigger is attached.
-
-Tested on a DPS310 on a BeagleBone Black.
-
-Assisted-by: LLM
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
----
- drivers/iio/pressure/dps310.c | 343 +++++++++++++++++++++++++++++++++-
- 1 file changed, 333 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index f7265df2fcb5..e093cf7034e8 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -2,26 +2,25 @@
- // Copyright IBM Corp 2019
- /*
-  * The DPS310 is a barometric pressure and temperature sensor.
-- * Currently only reading a single temperature is supported by
-- * this driver.
-  *
-  * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
-  *
-  * Temperature calculation:
-  *   c0 * 0.5 + c1 * T_raw / kT °C
-- *
-- * TODO:
-- *  - Optionally support the FIFO
-  */
- 
- #include <linux/cleanup.h>
-+#include <linux/devm-helpers.h>
- #include <linux/i2c.h>
- #include <linux/limits.h>
- #include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/time.h>
- #include <linux/unaligned.h>
-+#include <linux/workqueue.h>
- 
- #include <linux/iio/buffer.h>
- #include <linux/iio/iio.h>
-@@ -60,9 +59,22 @@
- #define  DPS310_FIFO_EN		BIT(1)
- #define  DPS310_SPI_EN		BIT(0)
- #define DPS310_RESET		0x0c
-+#define  DPS310_FIFO_FLUSH	BIT(7)
- #define  DPS310_RESET_MAGIC	0x09
- #define DPS310_COEF_BASE	0x10
- 
-+/* Section 4.8: 32 shared entries. Stops when full, so late drains lose data */
-+#define DPS310_FIFO_DEPTH	32
-+
-+/* Read back once the FIFO is empty */
-+#define DPS310_FIFO_EMPTY_VAL	0x800000
-+
-+/* LSB tags which measurement produced the entry */
-+#define DPS310_FIFO_TAG_PRS	BIT(0)
-+
-+#define DPS310_DRAIN_MIN_MS	20
-+#define DPS310_DRAIN_MAX_MS	(2 * MSEC_PER_SEC)
-+
- /* Make sure sleep time is <= 30ms for usleep_range */
- #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
- /* Silently handle error in rate value here */
-@@ -96,6 +108,22 @@ struct dps310_data {
- 	s32 pressure_raw;
- 	s32 temp_raw;
- 	bool timeout_recovery_failed;
-+	bool fifo_temp_valid;
-+
-+	/* Used only while the FIFO is enabled */
-+	struct iio_dev *iio;
-+	struct delayed_work fifo_work;
-+	s32 *fifo_hold;
-+	unsigned int fifo_hold_max;
-+	unsigned int fifo_held;
-+	unsigned int drain_interval_ms;
-+	s32 fifo_temp_raw;
-+};
-+
-+enum dps310_fifo_entry {
-+	DPS310_FIFO_EMPTY,
-+	DPS310_FIFO_TEMP,
-+	DPS310_FIFO_PRESSURE,
- };
- 
- enum dps310_scan_index {
-@@ -938,6 +966,288 @@ static int dps310_fill_channels(struct dps310_data *data,
- 	return 0;
- }
- 
-+static int dps310_fifo_hw_flush(struct dps310_data *data)
-+	__must_hold(&data->lock)
-+{
-+	return regmap_write(data->regmap, DPS310_RESET, DPS310_FIFO_FLUSH);
-+}
-+
-+static int dps310_fifo_set_enable(struct dps310_data *data, bool enable)
-+	__must_hold(&data->lock)
-+{
-+	return regmap_assign_bits(data->regmap, DPS310_CFG_REG, DPS310_FIFO_EN,
-+				  enable);
-+}
-+
-+/*
-+ * No interrupt pin is wired in tree, so drain on a timer. Both measurements
-+ * share the entries, so they fill it together.
-+ */
-+static unsigned int dps310_fifo_interval(int prs_rate, int tmp_rate)
-+{
-+	unsigned int fill_ms;
-+
-+	fill_ms = MSEC_PER_SEC * DPS310_FIFO_DEPTH / (prs_rate + tmp_rate);
-+
-+	return clamp(fill_ms / 2, DPS310_DRAIN_MIN_MS, DPS310_DRAIN_MAX_MS);
-+}
-+
-+/* Returns which measurement the entry came from, or a negative error */
-+static int dps310_fifo_read_entry(struct dps310_data *data, s32 *value)
-+	__must_hold(&data->lock)
-+{
-+	u8 val[3];
-+	s32 raw;
-+	int rc;
-+
-+	/* Entries come out of the pressure registers whichever made them */
-+	rc = regmap_bulk_read(data->regmap, DPS310_PRS_BASE, val, sizeof(val));
-+	if (rc < 0)
-+		return rc;
-+
-+	raw = get_unaligned_be24(val);
-+	if (raw == DPS310_FIFO_EMPTY_VAL)
-+		return DPS310_FIFO_EMPTY;
-+
-+	*value = sign_extend32(raw, 23);
-+
-+	return raw & DPS310_FIFO_TAG_PRS ? DPS310_FIFO_PRESSURE :
-+					   DPS310_FIFO_TEMP;
-+}
-+
-+static int dps310_fifo_push_scan(struct dps310_data *data, s32 temp_raw,
-+				 s32 pressure_raw)
-+	__must_hold(&data->lock)
-+{
-+	struct iio_dev *iio = data->iio;
-+	s32 channels[2] = { };
-+	unsigned int i;
-+	int rc;
-+
-+	/* Direct-mode claim keeps sysfs reads off these */
-+	data->temp_raw = temp_raw;
-+	data->pressure_raw = pressure_raw;
-+
-+	i = 0;
-+	if (test_bit(DPS310_SCAN_TEMP, iio->active_scan_mask)) {
-+		rc = dps310_calculate_temp(data, &channels[i++]);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	if (test_bit(DPS310_SCAN_PRESSURE, iio->active_scan_mask)) {
-+		rc = dps310_calculate_pressure(data, &channels[i++]);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	iio_push_to_buffers(iio, channels);
-+
-+	return 0;
-+}
-+
-+/* Pressure seen before any temperature, kept until one turns up */
-+static void dps310_fifo_hold(struct dps310_data *data, s32 pressure_raw)
-+	__must_hold(&data->lock)
-+{
-+	if (data->fifo_held < data->fifo_hold_max)
-+		data->fifo_hold[data->fifo_held++] = pressure_raw;
-+}
-+
-+/* Returns scans pushed. One that fails to compensate is dropped. */
-+static unsigned int dps310_fifo_push_held(struct dps310_data *data)
-+	__must_hold(&data->lock)
-+{
-+	unsigned int pushed = 0;
-+	unsigned int i;
-+
-+	for (i = 0; i < data->fifo_held; i++) {
-+		if (!dps310_fifo_push_scan(data, data->fifo_temp_raw,
-+					   data->fifo_hold[i]))
-+			pushed++;
-+	}
-+
-+	data->fifo_held = 0;
-+
-+	return pushed;
-+}
-+
-+/*
-+ * Read the batch out before compensating it, so a pressure entry pairs with
-+ * the temperature preceding it rather than the last one in the batch.
-+ *
-+ * Returns scans pushed.
-+ */
-+static int dps310_fifo_drain(struct dps310_data *data)
-+	__must_hold(&data->lock)
-+{
-+	bool pressure_enabled = test_bit(DPS310_SCAN_PRESSURE,
-+					 data->iio->active_scan_mask);
-+	u8 kind[DPS310_FIFO_DEPTH];
-+	s32 raw[DPS310_FIFO_DEPTH];
-+	unsigned int pushed = 0;
-+	unsigned int cnt, i;
-+	int rc;
-+
-+	for (cnt = 0; cnt < DPS310_FIFO_DEPTH; cnt++) {
-+		rc = dps310_fifo_read_entry(data, &raw[cnt]);
-+		if (rc < 0)
-+			return rc;
-+
-+		if (rc == DPS310_FIFO_EMPTY)
-+			break;
-+
-+		kind[cnt] = rc;
-+	}
-+
-+	for (i = 0; i < cnt; i++) {
-+		if (kind[i] == DPS310_FIFO_TEMP) {
-+			data->fifo_temp_raw = raw[i];
-+			data->fifo_temp_valid = true;
-+
-+			if (pressure_enabled)
-+				pushed += dps310_fifo_push_held(data);
-+			else if (!dps310_fifo_push_scan(data, raw[i], 0))
-+				pushed++;
-+			continue;
-+		}
-+
-+		if (!pressure_enabled)
-+			continue;
-+
-+		if (!data->fifo_temp_valid) {
-+			dps310_fifo_hold(data, raw[i]);
-+			continue;
-+		}
-+
-+		if (!dps310_fifo_push_scan(data, data->fifo_temp_raw, raw[i]))
-+			pushed++;
-+	}
-+
-+	return pushed;
-+}
-+
-+static void dps310_fifo_work(struct work_struct *work)
-+{
-+	struct dps310_data *data = container_of(to_delayed_work(work),
-+						struct dps310_data, fifo_work);
-+	int rc;
-+
-+	mutex_lock(&data->lock);
-+	rc = dps310_fifo_drain(data);
-+	mutex_unlock(&data->lock);
-+
-+	if (rc < 0)
-+		dev_dbg(&data->client->dev, "FIFO drain failed: %d\n", rc);
-+
-+	schedule_delayed_work(&data->fifo_work,
-+			      msecs_to_jiffies(data->drain_interval_ms));
-+}
-+
-+/*
-+ * First temperature is one temperature period away at most, which bounds the
-+ * pressure before it. Rates cannot change while the buffer runs.
-+ */
-+static int dps310_fifo_hold_alloc(struct dps310_data *data, int prs_rate,
-+				  int tmp_rate)
-+	__must_hold(&data->lock)
-+{
-+	data->fifo_temp_valid = false;
-+	data->fifo_held = 0;
-+	data->fifo_hold = NULL;
-+	data->fifo_hold_max = 0;
-+
-+	if (!test_bit(DPS310_SCAN_PRESSURE, data->iio->active_scan_mask))
-+		return 0;
-+
-+	data->fifo_hold_max = prs_rate / tmp_rate + 2;
-+	data->fifo_hold = kcalloc(data->fifo_hold_max, sizeof(*data->fifo_hold),
-+				  GFP_KERNEL);
-+	if (!data->fifo_hold)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static int dps310_buffer_postenable(struct iio_dev *iio)
-+{
-+	struct dps310_data *data = iio_priv(iio);
-+	int rc, prs_rate, tmp_rate;
-+
-+	/* An attached trigger drives the capture instead, FIFO stays off */
-+	if (iio_device_get_current_mode(iio) == INDIO_BUFFER_TRIGGERED)
-+		return 0;
-+
-+	/* Entries are not timestamped and the drain timer is no substitute */
-+	if (iio_scan_timestamp_enabled(iio))
-+		return -EINVAL;
-+
-+	mutex_lock(&data->lock);
-+
-+	rc = dps310_get_pres_samp_freq(data, &prs_rate);
-+	if (rc)
-+		goto err_unlock;
-+
-+	rc = dps310_get_temp_samp_freq(data, &tmp_rate);
-+	if (rc)
-+		goto err_unlock;
-+
-+	data->drain_interval_ms = dps310_fifo_interval(prs_rate, tmp_rate);
-+
-+	rc = dps310_fifo_hold_alloc(data, prs_rate, tmp_rate);
-+	if (rc)
-+		goto err_unlock;
-+
-+	/* Drop whatever accumulated before enable */
-+	rc = dps310_fifo_hw_flush(data);
-+	if (rc)
-+		goto err_hold;
-+
-+	rc = dps310_fifo_set_enable(data, true);
-+	if (rc)
-+		goto err_hold;
-+
-+	schedule_delayed_work(&data->fifo_work,
-+			      msecs_to_jiffies(data->drain_interval_ms));
-+
-+	mutex_unlock(&data->lock);
-+
-+	return 0;
-+
-+err_hold:
-+	kfree(data->fifo_hold);
-+err_unlock:
-+	mutex_unlock(&data->lock);
-+
-+	return rc;
-+}
-+
-+static int dps310_buffer_predisable(struct iio_dev *iio)
-+{
-+	struct dps310_data *data = iio_priv(iio);
-+	int rc;
-+
-+	if (iio_device_get_current_mode(iio) == INDIO_BUFFER_TRIGGERED)
-+		return 0;
-+
-+	cancel_delayed_work_sync(&data->fifo_work);
-+
-+	guard(mutex)(&data->lock);
-+
-+	kfree(data->fifo_hold);
-+
-+	rc = dps310_fifo_set_enable(data, false);
-+	if (rc)
-+		return rc;
-+
-+	return dps310_fifo_hw_flush(data);
-+}
-+
-+static const struct iio_buffer_setup_ops dps310_buffer_setup_ops = {
-+	.postenable = dps310_buffer_postenable,
-+	.predisable = dps310_buffer_predisable,
-+};
-+
- static irqreturn_t dps310_trigger_handler(int irq, void *p)
- {
- 	struct iio_poll_func *pf = p;
-@@ -997,6 +1307,7 @@ static int dps310_probe(struct i2c_client *client)
- 
- 	data = iio_priv(iio);
- 	data->client = client;
-+	data->iio = iio;
- 	rc = devm_mutex_init(dev, &data->lock);
- 	if (rc)
- 		return rc;
-@@ -1005,7 +1316,12 @@ static int dps310_probe(struct i2c_client *client)
- 	iio->channels = dps310_channels;
- 	iio->num_channels = ARRAY_SIZE(dps310_channels);
- 	iio->info = &dps310_info;
--	iio->modes = INDIO_DIRECT_MODE;
-+	/*
-+	 * Both modes advertised: the core picks TRIGGERED with a trigger
-+	 * attached and falls back to SOFTWARE, which the FIFO path uses.
-+	 */
-+	iio->modes = INDIO_BUFFER_TRIGGERED | INDIO_BUFFER_SOFTWARE |
-+		     INDIO_DIRECT_MODE;
- 
- 	data->regmap = devm_regmap_init_i2c(client, &dps310_regmap_config);
- 	if (IS_ERR(data->regmap))
-@@ -1021,12 +1337,19 @@ static int dps310_probe(struct i2c_client *client)
- 		return rc;
- 
- 	/*
--	 * The device measures continuously in background mode, so a capture is
--	 * just a read of the latest results. The trigger is not aligned with
--	 * the measurements, so the timestamp is taken in the handler.
-+	 * The device measures continuously in background mode, so a triggered
-+	 * capture is just a read of the latest results. The setup ops run the
-+	 * FIFO drain when no trigger is attached. The trigger is not aligned
-+	 * with the measurements, so the timestamp is taken in the handler.
- 	 */
- 	rc = devm_iio_triggered_buffer_setup(dev, iio, NULL,
--					     dps310_trigger_handler, NULL);
-+					     dps310_trigger_handler,
-+					     &dps310_buffer_setup_ops);
-+	if (rc)
-+		return rc;
-+
-+	rc = devm_delayed_work_autocancel(dev, &data->fifo_work,
-+					  dps310_fifo_work);
- 	if (rc)
- 		return rc;
- 
--- 
-2.43.0
-
+On Thu, Oct 1, 2026 at 10:55=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Thu, Oct 01, 2026 at 11:58:05AM -0700, Rosen Penev wrote:
+> > On Thu, Oct 1, 2026 at 1:42=E2=80=AFAM Greg Kroah-Hartman
+> > <gregkh@linuxfoundation.org> wrote:
+> > >
+> > > On Fri, Sep 25, 2026 at 11:30:50AM -0700, Rosen Penev wrote:
+> > > > Avoid calling irq_dispose_mapping() by letting the platform_device
+> > > > machinery handle it. Also enable possibility of handling -EPROBE_DE=
+FER
+> > > > and other errors. Handle as early as possible to avoid doing unnece=
+ssary
+> > > > work.
+> > > >
+> > > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > > ---
+> > > >  drivers/tty/serial/arc_uart.c | 8 ++++++--
+> > > >  1 file changed, 6 insertions(+), 2 deletions(-)
+> > > >
+> > > > diff --git a/drivers/tty/serial/arc_uart.c b/drivers/tty/serial/arc=
+_uart.c
+> > > > index 3988e5958896..b46b057a181b 100644
+> > > > --- a/drivers/tty/serial/arc_uart.c
+> > > > +++ b/drivers/tty/serial/arc_uart.c
+> > > > @@ -30,7 +30,6 @@
+> > > >  #include <linux/tty_flip.h>
+> > > >  #include <linux/serial_core.h>
+> > > >  #include <linux/io.h>
+> > > > -#include <linux/of_irq.h>
+> > > >  #include <linux/of_address.h>
+> > > >
+> > > >  /*************************************
+> > > > @@ -571,12 +570,17 @@ static int arc_serial_probe(struct platform_d=
+evice *pdev)
+> > > >       struct arc_uart_port *uart;
+> > > >       struct uart_port *port;
+> > > >       int dev_id;
+> > > > +     int irq;
+> > > >       u32 val;
+> > > >
+> > > >       /* no device tree device */
+> > > >       if (!np)
+> > > >               return -ENODEV;
+> > > >
+> > > > +     irq =3D platform_get_irq(pdev, 0);
+> > > > +     if (irq < 0)
+> > > > +             return irq;
+> > > > +
+> > > >       dev_id =3D of_alias_get_id(np, "serial");
+> > > >       if (dev_id < 0)
+> > > >               dev_id =3D 0;
+> > > > @@ -607,7 +611,7 @@ static int arc_serial_probe(struct platform_dev=
+ice *pdev)
+> > > >               return PTR_ERR(port->membase);
+> > > >       }
+> > > >
+> > > > -     port->irq =3D irq_of_parse_and_map(np, 0);
+> > > > +     port->irq =3D irq;
+> > > >
+> > > >       port->dev =3D &pdev->dev;
+> > > >       port->iotype =3D UPIO_MEM;
+> > > > --
+> > > > 2.55.0
+> > > >
+> > > >
+> > >
+> > > You forgot an Assisted-by: tag here :(
+> > No LLM used here.
+>
+> Then what tool was used to find this issue?
+git grep irq_of_parse_and_map
