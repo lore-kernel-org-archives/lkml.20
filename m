@@ -1,158 +1,123 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FB6422531
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790978946; cv=pass; b=jv/bEz69ix7iE+NSLSKoxV2S7js8VvX4YyXhSlowWl18vdzLbCRW5+3rd/hFAuPeWIyj9VrZusvVsbofDYGkKV46HvU+xYKwLTIyTGyexH4TiGMqpZf+PnflAi323PXBg8Bc9gl4Qi6mnZYT5xXoR+FtWN+UpSeYR6l02oYr03s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790978946; c=relaxed/simple;
-	bh=JZk2UO6J5xgak7V5AnZT7qjdKDdxO4rP82PfDzyfPBM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CEapadpLFdqH2HEbe3J77Ldy10o2RsMn97U5wAp9ilcKHf2i+ZvwQ9jghiHzyP7VgHJPm4UYz09/axP7njLeV7fgfddKW+kg27xqFdvHacam/s+SG4r/D6VPxfF31DkXCka94JY5DvF+2SjGh8uW28q00isP/JLjPr0BIspCk4c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=t6NBe4vm; arc=pass smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751C13E2AD8
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790979151; cv=none; b=M2aM3qtl3AkcUAAESXJjwvan5ZaHit4qDL7ByJcCI7KAKwxzpnEV0Xf8xWBPaK2JQTNWgLGBiN1fhYXhKVxbKJPY4fpt/DehycdAF5WLDRYrnrxzcJ9YBDRhlObiuuAtzDFv5oPWhpPIJ+eAKbnUscIYjtm2TtAfgj1EHQo/5gg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790979151; c=relaxed/simple;
+	bh=kkiqdAS4BmeIKPvSPLaJlWr8VEOz3hct2LQ4xfgY4+4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=TrSXHMS9fyVK0PcgNsCK4obEMfqWmWgUZXvuTaaLDSlFVNLtFvvxHhn83QoRtTPvTzpSjYktwsuPYVLVXFOjo/guslSbMxnOEYKnrcKTSGo/57sFgMvBk0gF0A840w1FWM7BnsJQi09Byvl9eGuWfW1cACxjPNkHw5tktx2SxI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p8ci6vrr; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="t6NBe4vm"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53113d72966so33851cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:09:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790978944; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GbZtwDfpF38TvhP5fC/PIt13+IN3lKlaT/H2RhpLoUTaw+dCtEeS4ivICqxQqfeQEm
-         pxEgP/kVuBP2ER+iVMp5INq+slRLaUUEmek4yr7sq5qV8iC3lu5X01G26GIXBivl3xS6
-         z6BTzCieFxzuPZP2Ax/As4ekc7qDudh+EFxi5RRXviZiJp0xLQJMC7DGJQITvZlsMeui
-         KpmwHA+vYaI2LgaD/gd4X8Z9wn9Omj7k5AXwvtTC67vrAxLxe9CT3IqpM210aXpAMgt/
-         fZ4nccajeMJcy89VfGVPUij3H3V/whS5zrpmlDQ75Lzb0GlLguBLJ5FcWOwdUFnH3jn5
-         GVug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bZaKFiEEtQM47C9SdzRSWhAvUezyZKbHdFdy+4ktG94=;
-        fh=vgvM5P8xk44W4KT/gyUw4ph3MqGrCsPpWE4ZV1rrelA=;
-        b=EgET4tEyeBygYheGEWxBNGYJzc4WZINwlvEzoVQxkJAeKqaz25reENqqdj7RykP1Dp
-         gHo8IQVgnmPeyMXiB1ssAy6Qln6cUxqbpZadjYTlUeWrJjHUhyU+FABWTbnR4y/OjXDE
-         7B9NzjSyEt6oxjVgxAW6VSAhi60zUrRnbzBeppK59TBOz6WFPfJBijlsF4/MXU6wO47i
-         0ZvAaXSdpXCFzeb0GShusenftOQ/bPBgwwruQpHSsmcmqd2CPiuta5MFyNoZaaHt0kE6
-         WBuNhokWq5P8iZDdKEjpWUki0T5xBJJ6v3mKWLn+hThhONamjJBYjFMRcGrMlVreMTkm
-         kN7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p8ci6vrr"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-ccacc75a997so29396a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:12:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790978944; x=1791583744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bZaKFiEEtQM47C9SdzRSWhAvUezyZKbHdFdy+4ktG94=;
-        b=t6NBe4vmfSgFhv/18xa2mPKD8EiHmbbvpvL0YjHIU0qNgMxjw0OZYAvvqqT4Ndfk3w
-         CTYgoHSBWz9FpxssN03TJp7ZTIMhaRs6HGFdwwUTwAg7kw//P9svvma2mJJwPM6XU19r
-         nsa1FCr9p+yK2RgdTNEFJwe/Zlr8kocMh967nncIt28iM0DK0NbUT/T4XwjtseieA9ie
-         2RLUDZ6TjvOG2I32IvilVS/S5IoHrlDH7RqdL5IJo6TOD0FXVzBzDrPfCO9ZZmBQZ5oX
-         19r540xNs6MIW5cXQQOUf39tQxfqMXn2h9H1Mlq1i0vzR9qpj3lz0QojhFuQ8d8bd903
-         qW8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790978944; x=1791583744;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790979150; x=1791583950; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bZaKFiEEtQM47C9SdzRSWhAvUezyZKbHdFdy+4ktG94=;
-        b=ddxstxz5SUk4tzlS8eWTcr3ZjvOrQ2WrIc9H0Y1uXOHCTyJ0Skipqde+bXR+X4Q81x
-         j56F1LecwIA2IeiBamG2Gb4FGd1S/4+A+BnxGEGvLrh4TObVmDa50FZbkLPbzAlrTpZb
-         IPE9g6H0/jdcAR8b53WGwIz/3Gm0oJJ/DoUW71KWdwknGjy38/j1WQRfEQULc7mASSwW
-         N2ffHN8YIzcBuNZxglhxqBEpuZfypOvN1mXvFQ9scqwYpsY6phijORtf9LGCQOutMcnp
-         UOkGsfWmoTR0JlAIHLTw7elxrBivy8j/x9jOhqAzDnzXb/RQpijRiq9yMlJ8QAM2yoyN
-         oAVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxm2XDgXRg1ZnkvXkfhNE/9ooMEUPnITzsGJRU8PY4EUCdV/cI0FkbhAR8llEEXwnfdnguC+q1LxHqbQ5A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUT2oVr6S57Qu4C9ZsvJq/r+lmMuXnbuhcpZHkvlqDwQNIRtjV
-	ZK+IngmYyC2hecdpBSNURccBDEwFYSSTfFzbkkRMG6da/JaDLewNoEXBOlQzrzR049mu6BC0Pxo
-	v7c18dhkWk/d6+KF3WjSRlkozNYFda5tBL/7Xi4rH
-X-Gm-Gg: AYBFou1/Y3DPJKLPDJ9mp/q7KCzmUoZm8v8kOLmIwVbSttS96UPqtFl5HbPtqCrVQcy
-	5IzR54L5SZSI/1IUzry6dGH6kMKMsB1zcrojHefDneytvdEIxXT3sqICjUh2AWnlgtgJdYGh+/2
-	EIUsxquiuB7pzToufJWJXe7gs5HUgtj6E5eATBLt1WrMGOe+c1MM4lHU2yMe+JWxTTnbPRAIBVP
-	f0RSAl0bpm2BwcCUaOTGOj55+srIuwp/BIrKrfTQIb/EVRk142DG8/gruIyYlWLOAtMiyA/yYFH
-	hIgu+ed1XnzC6vusuD1rrbTD6b3sM3czMJTSmS1lvnJFZrMXKTDkTFA=
-X-Received: by 2002:ac8:7fd1:0:b0:530:e00f:7768 with SMTP id
- d75a77b69052e-535143a7ee5mr762901cf.0.1790978943386; Fri, 02 Oct 2026
- 15:09:03 -0700 (PDT)
+        bh=m+BE8hAAq8CojA7/qWTm+y4+V1+d1I0cqoqJfhKPjfM=;
+        b=p8ci6vrrR2Wq5Tjb4E4iRa6yZb8P8D0NwUhLezvcLAbUbKCw97wZ0vyoyUXuTNmYIP
+         GyBvAX3p5ooaFjoYb2D88R7jLA2svp2WfrqfxkBl2heIP+Pl9qJKD5De2RlU+iG+CeLR
+         UuMAxU0Fq97Uh7VLmi/s4fuOb3dxFrdL+vY5tZJm7LtxPrbHIpjBoMpJ1OuqQ7VwO/yQ
+         BaYtnf3jfKrqMMy4EOwtuwWih+is1PkiGT1IQ4ohlZaxvIbBiUEyaOBdOb7EX+/9KwoR
+         taRUOdLSLjQAQv3vmdcXhXWrQdvONshhjuMjziEH7A7yhQUxkkX7MA4HspKLx1KXChzh
+         fhzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790979150; x=1791583950;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m+BE8hAAq8CojA7/qWTm+y4+V1+d1I0cqoqJfhKPjfM=;
+        b=Fg6PP6/mnncF9odwlzNZKatgNAjIpLbl4nI0hcUl5GxDwOo8EGI58n1PxENXPcJ8Tq
+         1tpDNe5XHP/XGfVY96n/RYRmF7JZxJDHTOwHVFd1ozBlZ1MVjcXMz8+/A66kz26guMxt
+         uV5v6SKqXlUkigU3/MhGzOe55ngE2e52FTI/GAUfG1S2nZho+A/4fWN9aQ89pyfjq9dU
+         UTN/PogCvkXcPaOdUsxPXmKjn0ZyGvDPwTrAkuu+ECF1ggWEazptNttqANIHu5mhDXRf
+         ViC9bfRaN+siEKETTWoEZxi8isdZ34Y3o2FwyUeMBtfC7tdu1a3+AkYVa+yxtXBuVhNl
+         Zn+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwhpBr3amXu9SgoMjnFlWS/E0bp1GMWtY0Bpm3WEOlbyKu57LGQ35BaIfSFK1pV54nTqXr9zV9G6QpPv3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++msDJssJDw+A/66b4o9YQX4BcEqjLy8AqhDLsxGADlNeG38dTeF
+	U+3sH+tKOKn0xaCiHThgnbk1ZZrCI+1CZsU3/RcL2jZzjOAOBLRNyGn86rVRRGFR/Ypdh/A2aC4
+	sBII+Sw==
+X-Received: from pgaa6-n2.prod.google.com ([2002:a05:6a02:6486:20b0:cca:bb35:aa9c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:748a:b0:3e0:b937:8829
+ with SMTP id adf61e73a8af0-3e0d6ce0ea7mr619313637.51.1790979149504; Fri, 02
+ Oct 2026 15:12:29 -0700 (PDT)
+Date: Fri, 2 Oct 2026 15:12:28 -0700
+In-Reply-To: <de328dc973a135a956a148dd83d8353b7157d452.1790101179.git.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261002-perf-symbol-memory-send-v4-0-0a592bb2539e@uber.com> <20261002-perf-symbol-memory-send-v4-1-0a592bb2539e@uber.com>
-In-Reply-To: <20261002-perf-symbol-memory-send-v4-1-0a592bb2539e@uber.com>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 2 Oct 2026 15:08:51 -0700
-X-Gm-Features: AclHuK-nL6R11wMTAIMaK2Je6hNynjwS69wzUDTPehiav7g8rYtdEWMle8VAaj0
-Message-ID: <CAP-5=fX97E5w_NZu4WSBkMM=Zf6upS_UjuzOR4hwRPmh0RGB3g@mail.gmail.com>
-Subject: Re: [PATCH v4 1/5] perf symbols: Fix broken ELF_C_READ_MMAP fallback guard
-To: haghdoost@uber.com
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <cover.1790101179.git.ritesh.list@gmail.com> <de328dc973a135a956a148dd83d8353b7157d452.1790101179.git.ritesh.list@gmail.com>
+Message-ID: <asAsTMn8naXCxhno@google.com>
+Subject: Re: [PATCH v5 1/9] KVM: PPC: selftests: add support for powerpc
+From: Sean Christopherson <seanjc@google.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Oct 2, 2026 at 11:46=E2=80=AFAM Alireza Haghdoost via B4 Relay
-<devnull+haghdoost.uber.com@kernel.org> wrote:
->
-> From: Alireza Haghdoost <haghdoost@uber.com>
->
-> Commit 22dd1ac91a77 ("tools: Remove feature-libelf-mmap feature
-> detection") replaced perf's compile-time feature test with an #ifdef on
-> ELF_C_READ_MMAP. ELF_C_READ_MMAP is an Elf_Cmd enumerator rather than a
-> preprocessor macro, so the condition is always false and perf silently
-> uses ELF_C_READ.
->
-> Perf already requires a sufficiently recent elfutils version that
-> provides ELF_C_READ_MMAP. Use the enumerator directly instead of
-> restoring a feature probe or retaining an unreachable fallback.
->
-> Fixes: 22dd1ac91a77 ("tools: Remove feature-libelf-mmap feature detection=
-")
-> Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
-> Reviewed-by: Namhyung Kim <namhyung@kernel.org>
-
-Reviewed-by: Ian Rogers <irogers@google.com>
-
-Thanks,
-Ian
-
+On Tue, Sep 22, 2026, Ritesh Harjani (IBM) wrote:
 > ---
->  tools/perf/util/symbol.h | 10 +---------
->  1 file changed, 1 insertion(+), 9 deletions(-)
->
-> diff --git a/tools/perf/util/symbol.h b/tools/perf/util/symbol.h
-> index d0bac824c79c..46b1649c64fc 100644
-> --- a/tools/perf/util/symbol.h
-> +++ b/tools/perf/util/symbol.h
-> @@ -57,15 +57,7 @@ static inline bool is_livepatch_symbol(const char *str=
-)
->         return strstarts(str, KLP_SYM_PREFIX);
->  }
->
-> -/*
-> - * libelf 0.8.x and earlier do not support ELF_C_READ_MMAP;
-> - * for newer versions we can use mmap to reduce memory usage:
-> - */
-> -#ifdef ELF_C_READ_MMAP
-> -# define PERF_ELF_C_READ_MMAP ELF_C_READ_MMAP
-> -#else
-> -# define PERF_ELF_C_READ_MMAP ELF_C_READ
-> -#endif
-> +#define PERF_ELF_C_READ_MMAP ELF_C_READ_MMAP
->
->  #ifdef HAVE_LIBELF_SUPPORT
->  Elf_Scn *elf_section_by_name(Elf *elf, GElf_Ehdr *ep,
->
-> --
-> Git-157)
->
->
+>  MAINTAINERS                                   |   2 +
+>  tools/testing/selftests/kvm/Makefile          |   2 +-
+>  tools/testing/selftests/kvm/Makefile.kvm      |  10 +
+>  .../testing/selftests/kvm/include/kvm_util.h  |   9 +
+>  .../selftests/kvm/include/powerpc/hcall.h     |  17 +
+>  .../kvm/include/powerpc/kvm_util_arch.h       |  22 +
+>  .../selftests/kvm/include/powerpc/ppc_asm.h   |  32 ++
+>  .../selftests/kvm/include/powerpc/processor.h |  39 ++
+>  .../selftests/kvm/include/powerpc/ucall.h     |  21 +
+>  tools/testing/selftests/kvm/lib/guest_modes.c |  20 +-
+>  tools/testing/selftests/kvm/lib/kvm_util.c    |   8 +
+>  .../selftests/kvm/lib/powerpc/handlers.S      |  93 ++++
+>  .../testing/selftests/kvm/lib/powerpc/hcall.c |  45 ++
+>  .../selftests/kvm/lib/powerpc/processor.c     | 512 ++++++++++++++++++
+>  .../testing/selftests/kvm/lib/powerpc/ucall.c |  22 +
+>  15 files changed, 851 insertions(+), 3 deletions(-)
+>  create mode 100644 tools/testing/selftests/kvm/include/powerpc/hcall.h
+>  create mode 100644 tools/testing/selftests/kvm/include/powerpc/kvm_util_arch.h
+>  create mode 100644 tools/testing/selftests/kvm/include/powerpc/ppc_asm.h
+>  create mode 100644 tools/testing/selftests/kvm/include/powerpc/processor.h
+>  create mode 100644 tools/testing/selftests/kvm/include/powerpc/ucall.h
+>  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/handlers.S
+>  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/hcall.c
+>  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/processor.c
+>  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/ucall.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fc320b373656..35df0c39e991 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -14349,6 +14349,8 @@ F:	arch/powerpc/include/asm/kvm*
+>  F:	arch/powerpc/include/uapi/asm/kvm*
+>  F:	arch/powerpc/kernel/kvm*
+>  F:	arch/powerpc/kvm/
+> +F:	tools/testing/selftests/kvm/*/powerpc/
+> +F:	tools/testing/selftests/kvm/powerpc/
+
+I don't think sending KVM PPC selftests changes through the PPC tree will work.
+It's "fine" for KVM PPC changes because the volume of KVM PPC changes is low and
+rarely modifies anything outside of arch/powerpc.
+
+KVM selftests tend to have a lot more cross-arch and/or common code modifications,
+i.e. I think we'll be setting ourselves up for pain if we don't route all KVM
+selftests changes through Paolo's tree.
+
+Does it maybe make sense to have all of KVM PPC route through Paolo?  Punting to
+PPC made sense when KVM PPC was on life support, but it looks like resuscitation
+was successful for at least some flavors of KVM PPC?
