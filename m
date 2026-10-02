@@ -1,296 +1,211 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB6D47CA9D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:56:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934982; cv=pass; b=K8b6JC0yHv5qYAStRz6Ksk6Iy4xh1S/iO30XcG7TYoXKmfTLN9984Q2AVDI/CZIha+qdzKt+ymEC2fq+losoKzFxkA33RMOEUFxm931rfig3NkmXEsiixiasZv41C4CPYdyCkTNMhHq+ohwexQlhdHXdZiVC9OhRT1VyFCGqQzQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934982; c=relaxed/simple;
-	bh=PIV246cnJxiWld6fG73VJaAjdRohhc5UJi70mQZSenU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CrgBceRGHkxITm8ShflS5KgLnun21RLMPeFnWUJ1gZOpYdu65pSK8BPSRskgcGXU6LTcPy8BmzgdmtLWxHjL5LZ6pdE3aNslWlWyI8htam8EbgMCO6To2z6Vl8pIgsNBUvS75DfpSLDeBe9tF/NC7BRQOJKyk3ZGdcWwZrvm9uM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMf0RdAJ; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C8747ACD8
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790934985; cv=none; b=NX3nRGg/8WvXebpUecOp89IVkM7YoU0C1ikQBh+OaLIos+nDPpss1Gvwd6J4EsuuaueAL0FmmrOyFIbKjClKQNjknYFZDyQ0t2Ce9tFO4E9YkHHfX5rGIktmWZaTZSTq27ED9/V/wwbr2KWV54asph0Kpddzv9hq5x6a6yrK4Ko=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790934985; c=relaxed/simple;
+	bh=QdsRcAJ82gbKmhLcQmDxpB4bv16oNUQ+u/E+v54jmFk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tG5Aq9ptGdxzL2kHnM/BM24jrON3kSHJtLVOa4yQGAcaqUmTBtKWc1w6bwN6/I1/EWEoFoTgElfbGnGa6rDtRAZnYaQqx9YNUYiYBY7lqKuqZJ8ozO/G7zy12AIvWohH4uw7D5UnE12iGnrtj8HPi7eKjmN6W0qAw1flM6h+Hvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GEmP10lL; arc=none smtp.client-ip=95.215.58.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMf0RdAJ"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605c198fdso11778442a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:56:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790934977; cv=none;
-        d=google.com; s=arc-20260327;
-        b=swg4Ufbdj1w8keuX2cCTzbjwckFIl7c0GvnMVOvB51EoKSWpmqKDSzWlg3Dn63UijG
-         TCh5liRRhDRKnxSwNiJLFJ1ZLg2tRsHKWMrQOTKf5JohFknhg82TbrVDXxXxhD3fff/m
-         w1NUOTtjp2qkb92Mcl07z165t/BYvESTfB0dmDLldSKDVT3SDPI5HdGZE9HT0QtAUc6Z
-         qiPb73yatHSRZKcHKs9+vOUYODcm1oNb4EDQPljhg67HZUY4eAFL8Wts4pijVVvVXrLs
-         B6yzrU64kmdpvwOz0nwwu9LmMkuSOm6rTpO0LzupO1vJPIM8FDcxCrkeXDwLjA9H/tjG
-         CeAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7+JwjfY/TTo9tiK2/DA1dBsTMGVjOohtHrYWOad65DM=;
-        fh=voWKMsZ+Za0rBjOyMXNfQtNBqJeFlx9eyHmmxXn0Vxw=;
-        b=F6nXKTC7ac3bU98kvyrPJ8NyD9uq+KAQDBooo839z/otmqUO0GxrnvNCOw/HPHhAeZ
-         Ks+qnF7USueI1DoQqEIWLdzTlO7zwZnn5jy9jB33Ejso2DOH+gKVqK40hI5JtWf8hG1q
-         KFk2AQ8lQqCygA+3ctHlINZaTspX3RS5iw6Y7pPrBDx+FWD5sRy+Zk91qWzlJ0Sh9Ma1
-         zh5E6WQL0//vDJWARcdAdjPID6uNkWzF8Bic73Jv1bakhI8LIFI6ZdLMoBXIcoZIzhKV
-         duXiD9LNfHK4TYXFsWACYs1XjWj7MugwPdrz+/8uP0O7Ie0rJI8zyGpTLL7gwPlxqjJl
-         aGWA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790934977; x=1791539777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7+JwjfY/TTo9tiK2/DA1dBsTMGVjOohtHrYWOad65DM=;
-        b=SMf0RdAJizkAP5vY3PKiQ1oa2Gp1hKvfieE8nbmR6iONyGZZMDfOZn4PCJ+vsSMYH9
-         dZEIGvDV66W16pWAtdFE/O0/hAe8y6bslBa4r28yVIOZi9QbDUy2Ssji7Wz2jbZghjyw
-         Jb3mjNVTsCx8jUKonpyZ7BpN9GDK6t3H9dQ8IugbVxKwGXLcAtHgwa+LWUqzHVk/rbYp
-         QbQyl3yZ3Vw8Sbmc0+nDHiBYw9w0zBJjOevk1qpNmoabQsNEuQ5qx4W5WdSsd+I0p+kk
-         n8+njxVVY9f55oV69VrsTrl1ohdmE0UB0+2SVBc96/IQzj58cXP45LFGbtxbFkdu5l7S
-         lUTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790934977; x=1791539777;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7+JwjfY/TTo9tiK2/DA1dBsTMGVjOohtHrYWOad65DM=;
-        b=tygodiYhaJMad/2Hi1dRKRUOBgTa/SutHyRoQsG81Ll982ZnMaK/o8cEUcab/hm48G
-         vdbqqJoJi7LvHo7aftjQBjKI6ihbIQrKqeJGMWo7MvzSP51ehSrxZ0Cfcc/QDLzQEqj7
-         NuzctsWcC+U7n/Gfti+XhAgYe9rDfMlbLa3yPgAkvLb1CVnCx1W5B0xX1u/GyFAADfVU
-         +DIoyY56xNEPNW30fWDZrrMCJ8dgBn/6HywJ4lbdAv6mQuaJotrAGjiMMUDAy6JaiDgy
-         alCOU92coROcG31hpR6DK6yA5Thmk+8Hw5Wm9ZDgW0M9Fo1g8Fuh7BloMZyFDUc7n4c2
-         ppcg==
-X-Forwarded-Encrypted: i=1; AKwUvBymXVPkmAGTPElRXU1Er2C1CyfcODzt6Jixp1Wk7a51rLPG9GgX4JEcnkFsk+zwaSPTQpUgyCkmOIFkPTE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKT1L/D7UvL5/m5VX8V6ta4k07F40L8n1/kyjnuq36axsVrBSLi
-	kdj0zL0yIWn92yKsljWZiIyGonVIdGCSrpHidqcM3e4c6TN0qKwvdN02ap6TCNXiBGm+13ClSb9
-	xdCEZyzNUuzvyY6AmTYNbl97w8u3FxwV8eb/k
-X-Gm-Gg: AYBFou3XFCxVAqke9uXbR9RV7ECvS9hPcqYapDtNZUbUYqPKP13RgYaZbUN2Hv8bfsn
-	9P/4SyGIPUCoYmWDl4t4+r+Kel6ocFaPpKPx02eR1ZSR39LKCQ61zrfEIQavHM5soHuyMdUD+G1
-	VxP9xIWU9uMuYoPtso0NmkdwpXuvmcJVaoMKy4DGkvxza4TDzGxdbF7fis1Ng8JZeQEyNiSc6lg
-	hH45vq9afXMEPYJNDCVDmmpepXk7EcHnbe17LI1hYPgL+bDy73hDnPYqw1Dmh9Vgl/JxJ+9c6ev
-	PQEGbV3yds8TWZr1UZDjG7GmWCCO4+zKGX8Oad2XWiv48EHCRngd1Xl4gWj3nfsvp8olgk+DQ1y
-	c+zqwQ0DQi459qGqaBohh7KJUX0fzoG7QtxYThrBkogKE6u63bMyv
-X-Received: by 2002:a05:6402:388d:b0:6a9:dc6a:689c with SMTP id
- 4fb4d7f45d1cf-6af9e301663mr1468421a12.22.1790934977199; Fri, 02 Oct 2026
- 02:56:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GEmP10lL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QdsRcAJ82gbKmhLcQmDxpB4bv16oNUQ+u/E+v54jmFk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790934981; v=1; x=1791539781;
+ b=GEmP10lLSNwZXk97Cds4dWtK0aUXSk1qQJViJnRzPdOsTzR7G8CwMfCZ67Fa+X0s3tfRUwg/
+ jqMVYpcK88YW+haiixz6h8TqhW8hqroVMaJuOxGLfAZGZxZ+4k5BAOkavGV4XVkdaVMWi51FIYn
+ qASKfHYiRuwgxDMSlB4mB4oc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 2ac44650fa783d0c;
+	Fri, 02 Oct 2026 09:56:20 +0000
+X-Mizu-Trace-ID: 2ac44650fa783d0c
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	david@kernel.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com,
+	Baoquan He <baoquan.he@linux.dev>,
+	willy@infradead.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	kas@kernel.org,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,
+	Nico Pache <nico.pache@linux.dev>,
+	Liam R. Howlett <liam@infradead.org>,
+	ryan.roberts@arm.com,
+	Vlastimil Babka <vbabka@kernel.org>,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	nphamcs@gmail.com,
+	shikemeng@huaweicloud.com,
+	yosry@kernel.org,
+	qi.zheng@linux.dev,
+	luizcap@redhat.com,
+	kernel-team@meta.com,
+	Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH v8 08/30] mm: recognize PMD swap entries in the softleaf layer
+Date: Fri,  2 Oct 2026 02:52:22 -0700
+Message-ID: <20261002095503.3585565-9-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002095503.3585565-1-usama.arif@linux.dev>
+References: <20261002095503.3585565-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001165018.415526-1-mattst88@gmail.com> <20261001165018.415526-3-mattst88@gmail.com>
-In-Reply-To: <20261001165018.415526-3-mattst88@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Fri, 2 Oct 2026 11:56:05 +0200
-X-Gm-Features: AclHuK-C5xjbiWGgs7Kiq2X6uCfyO0MWm9WcEBM4-_0N5B70siILbPn5B04b88k
-Message-ID: <CA+=Fv5Qxd9m_6EL9fO+u7QHtO-mh5P+yR9icpsUBuPZ2Q2Cv8g@mail.gmail.com>
-Subject: Re: [PATCH 3/4] alpha: link platform help text to the alphalinux.org wiki
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Matt,
+Reclaim splits a PMD-mapped anonymous THP into PTE-level swap entries
+before unmapping it, so an ordinary swap entry has never had to appear in a
+PMD. Prepare for installing one there instead: the softleaf layer is where
+every consumer decodes non-present PMDs.
 
-On Thu, Oct 1, 2026 at 6:50=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> The alphalinux.org wiki has a page for each system and motherboard
-> covering its CPUs, firmware, Linux status and known issues. Link each
-> platform's help text to the pages for the systems it supports.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/Kconfig | 47 ++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 47 insertions(+)
->
-> diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-> index 920dd10e7df0..0fc61d986a7d 100644
-> --- ./arch/alpha/Kconfig
-> +++ ./arch/alpha/Kconfig
-> @@ -177,6 +177,8 @@ config ALPHA_ALCOR
->           memory coherence when a PCI device DMAs into (or out of) memory=
-.
->           It is used by the AlphaStation 500 and the Alpha XL 366 and 433=
-.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:alcor>.
-> +
->  config ALPHA_DP264
->         bool "DP264"
->         help
-> @@ -184,23 +186,37 @@ config ALPHA_DP264
->           API NetWorks: 264DP, UP2000(+);
->           Compaq: DS10, DS10L, XP900, XP1000, DS20, DS20E, ES40.
->
-> +         See:
-> +         <https://alphalinux.org/wiki/hardware:systems:webbrick>
-> +         <https://alphalinux.org/wiki/hardware:systems:goldrush>
-> +         <https://alphalinux.org/wiki/hardware:systems:clipper>
-> +         <https://alphalinux.org/wiki/hardware:systems:monet>
-> +         <https://alphalinux.org/wiki/hardware:motherboards:pc264dp>
-> +         <https://alphalinux.org/wiki/hardware:motherboards:up2000>
-> +
->  config ALPHA_EIGER
->         bool "Eiger"
->         help
->           Apparently an obscure OEM single-board computer based on the
->           Typhoon/Tsunami chipset family. Information on it is scanty.
->
-> +         See <https://alphalinux.org/wiki/hardware:motherboards:eiger>.
-> +
->  config ALPHA_LX164
->         bool "LX164"
->         help
->           AlphaPC164-LX, a 21164A-based single-board computer using the
->           Pyxis chipset.
->
-> +         See <https://alphalinux.org/wiki/hardware:motherboards:pc164lx>=
-.
-> +
->  config ALPHA_MARVEL
->         bool "Marvel"
->         help
->           AlphaServer ES47 / ES80 / GS1280 based on EV7.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:marvel>.
-> +
->  config ALPHA_MIATA
->         bool "Miata"
->         select HAVE_EISA
-> @@ -208,17 +224,26 @@ config ALPHA_MIATA
->           The Digital Personal Workstation (PWS 433a, 433au, 500a, 500au,
->           600a, or 600au).
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:miata>.
-> +
->  config ALPHA_MIKASA
->         bool "Mikasa"
->         help
->           AlphaServer 1000-based Alpha systems.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:mikasa>.
-> +
->  config ALPHA_NAUTILUS
->         bool "Nautilus"
->         help
->           UP1000, UP1100 and UP1500 systems based on the AMD 751 or 761
->           chipset.
->
-> +         See:
-> +         <https://alphalinux.org/wiki/hardware:motherboards:up1000>
-> +         <https://alphalinux.org/wiki/hardware:motherboards:up1100>
-> +         <https://alphalinux.org/wiki/hardware:motherboards:up1500>
-> +
->  config ALPHA_NORITAKE
->         bool "Noritake"
->         select HAVE_EISA
-> @@ -226,12 +251,16 @@ config ALPHA_NORITAKE
->           AlphaServer 1000A, AlphaServer 800, AlphaStation 600A and
->           Digital Server 3300 systems.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:noritake>.
-> +
->  config ALPHA_PC164
->         bool "PC164"
->         help
->           AlphaPC164, a 21164A-based single-board computer using the CIA
->           chipset.
->
-> +         See <https://alphalinux.org/wiki/hardware:motherboards:pc164>.
-> +
->  config ALPHA_RAWHIDE
->         bool "Rawhide"
->         select HAVE_EISA
-> @@ -239,12 +268,16 @@ config ALPHA_RAWHIDE
->           AlphaServer 1200, 4000 and 4100 and Digital Server 5300 and 730=
-0
->           machines.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:rawhide>.
-> +
->  config ALPHA_RUFFIAN
->         bool "Ruffian"
->         help
->           DeskStation RPX164-2, AlphaPC164-UX and AlphaPC164-BX boards.
->           They have no SRM console and can only boot Linux through MILO.
->
-> +         See <https://alphalinux.org/wiki/hardware:motherboards:pc164ux>=
-.
-> +
->  config ALPHA_RX164
->         bool "RX164"
->         help
-> @@ -252,41 +285,55 @@ config ALPHA_RX164
->           Polaris chipset. It has no SRM console and can only boot Linux
->           through MILO.
->
-> +         See <https://alphalinux.org/wiki/hardware:motherboards:pc164rx>=
-.
-> +
->  config ALPHA_SX164
->         bool "SX164"
->         help
->           AlphaPC164-SX, a 21164PC-based single-board computer using the
->           Pyxis chipset.
->
-> +         See <https://alphalinux.org/wiki/hardware:motherboards:pc164sx>=
-.
-> +
->  config ALPHA_SABLE
->         bool "Sable"
->         select HAVE_EISA
->         help
->           Digital AlphaServer 2000 and 2100-based systems.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:sable>.
-> +
->  config ALPHA_SHARK
->         bool "Shark"
->         help
->           AlphaServer DS20L and API NetWorks CS20 systems based on the
->           Tsunami chipset.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:shark>.
-> +
->  config ALPHA_TAKARA
->         bool "Takara"
->         help
->           Alpha 21164-based OEM single-board computer.
->
-> +         See <https://alphalinux.org/wiki/hardware:motherboards:takara>.
-> +
->  config ALPHA_TITAN
->         bool "Titan"
->         help
->           AlphaServer DS15, DS25, ES45 and TS202c based on EV68 and the
->           Titan chipset.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:titan>.
-> +
->  config ALPHA_WILDFIRE
->         bool "Wildfire"
->         help
->           AlphaServer GS80, GS160 and GS320 SMP based on the EV67 or EV68
->           core.
->
-> +         See <https://alphalinux.org/wiki/hardware:systems:wildfire>.
-> +
->  endchoice
->
->  # clear all implied options (don't want default values for those):
-> --
-> 2.54.0
->
+Accept swap entries as valid PMD softleaves and add pmd_is_swap_entry().
+A swap entry carries no PFN, so make pmd_softleaf_to_folio() warn and
+return NULL rather than interpret a swap offset as a page frame number.
 
-Thanks,
+Unlike migration and device-private entries, a PMD swap entry can also
+carry the swap-exclusive marker, which softleaf_from_pmd() has to strip
+before decoding. Strip all three overlays unconditionally while we are
+here: each clear is a plain bit clear, so testing first only buys a branch.
 
-See reply to patch 1/4 for details.
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+---
+ include/linux/leafops.h | 40 ++++++++++++++++++++++++++++------------
+ include/linux/pgtable.h | 17 +++++++++++++++++
+ 2 files changed, 45 insertions(+), 12 deletions(-)
 
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+diff --git a/include/linux/leafops.h b/include/linux/leafops.h
+index 7c13c58a5e218..ce176c78cefd4 100644
+--- a/include/linux/leafops.h
++++ b/include/linux/leafops.h
+@@ -98,10 +98,9 @@ static inline softleaf_t softleaf_from_pmd(pmd_t pmd)
+ 	if (pmd_present(pmd) || pmd_none(pmd))
+ 		return softleaf_mk_none();
+ 
+-	if (pmd_swp_soft_dirty(pmd))
+-		pmd = pmd_swp_clear_soft_dirty(pmd);
+-	if (pmd_swp_uffd(pmd))
+-		pmd = pmd_swp_clear_uffd(pmd);
++	pmd = pmd_swp_clear_soft_dirty(pmd);
++	pmd = pmd_swp_clear_uffd(pmd);
++	pmd = pmd_swp_clear_exclusive(pmd);
+ 	arch_entry = __pmd_to_swp_entry(pmd);
+ 
+ 	/* Temporary until swp_entry_t eliminated. */
+@@ -634,18 +633,29 @@ static inline bool pmd_is_migration_entry(pmd_t pmd)
+  */
+ static inline bool softleaf_is_valid_pmd_entry(softleaf_t entry)
+ {
+-	/* Only device private, migration entries valid for PMD. */
+ 	return softleaf_is_device_private(entry) ||
+-		softleaf_is_migration(entry);
++		softleaf_is_migration(entry) ||
++		softleaf_is_swap(entry);
++}
++
++/**
++ * pmd_is_swap_entry() - Does this PMD entry encode an actual swap entry?
++ * @pmd: PMD entry.
++ *
++ * Returns: true if the PMD encodes a swap entry, otherwise false.
++ */
++static inline bool pmd_is_swap_entry(pmd_t pmd)
++{
++	return softleaf_is_swap(softleaf_from_pmd(pmd));
+ }
+ 
+ /**
+  * pmd_is_valid_softleaf() - Is this PMD entry a valid softleaf entry?
+  * @pmd: PMD entry.
+  *
+- * PMD leaf entries are valid only if they are device private or migration
+- * entries. This function asserts that a PMD leaf entry is valid in this
+- * respect.
++ * PMD leaf entries are valid only if they are device private, migration,
++ * or swap entries. This function asserts that a PMD leaf entry is valid
++ * in this respect.
+  *
+  * Returns: true if the PMD entry is a valid leaf entry, otherwise false.
+  */
+@@ -660,10 +670,12 @@ static inline bool pmd_is_valid_softleaf(pmd_t pmd)
+  * pmd_softleaf_to_folio() - Convert the PMD softleaf entry to a folio.
+  * @pmd: PMD entry.
+  *
+- * The PMD entry is expected to be a valid PMD softleaf entry.
++ * The PMD entry is expected to be a valid PMD softleaf entry that references a
++ * PFN, that is a migration or device private entry. A PMD swap entry is a valid
++ * softleaf entry but encodes swap slots rather than a PFN, so it has no folio.
+  *
+- * Returns: the folio the softleaf entry references if this is a valid softleaf
+- * entry, otherwise NULL.
++ * Returns: the folio the softleaf entry references, or NULL if the entry is not
++ * a valid PMD softleaf entry or does not reference a PFN.
+  */
+ static inline struct folio *pmd_softleaf_to_folio(pmd_t pmd)
+ {
+@@ -673,6 +685,10 @@ static inline struct folio *pmd_softleaf_to_folio(pmd_t pmd)
+ 		VM_WARN_ON_ONCE(true);
+ 		return NULL;
+ 	}
++	if (!softleaf_has_pfn(entry)) {
++		VM_WARN_ON_ONCE(true);
++		return NULL;
++	}
+ 	return softleaf_to_folio(entry);
+ }
+ 
+diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+index e3c8ab96941c5..3f955f836abfe 100644
+--- a/include/linux/pgtable.h
++++ b/include/linux/pgtable.h
+@@ -1917,6 +1917,23 @@ static inline pmd_t pmd_swp_clear_soft_dirty(pmd_t pmd)
+ }
+ #endif
+ 
++#ifndef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
++static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
++{
++	return pmd;
++}
++
++static inline bool pmd_swp_exclusive(pmd_t pmd)
++{
++	return false;
++}
++
++static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
++{
++	return pmd;
++}
++#endif
++
+ #ifndef __HAVE_PFNMAP_TRACKING
+ /*
+  * Interfaces that can be used by architecture code to keep track of
+-- 
+2.53.0-Meta
+
