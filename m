@@ -1,97 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556D926AC5;
-	Fri,  2 Oct 2026 03:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790912680; cv=none; b=TpYGKwBpE+k5n7a6SqdOU8VzS2x1TNDoub3pOQ6A3PWH0G+hlgSWLsvZmn7S/cgdkOE8cNQ73KMhZc1bn+kKdQogq1eiuSF74XNKZ8tjvK6Cl6+jNNgMssKBM5hSMOFM4Dsrjs4wStT1ZhyLTcLECV3LQ7SPuBbLgU6ZHldLhxM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E882732B111
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790912680; cv=pass; b=Bphw3LAGnL7332OcZyVwLJHlJo2JK27Yez60FMA6XxM8hVuUEHkI5I0ySYs+eev/0jCzw+73GzvLlGpmGJIHsP7YJf0X8XQwPWnDqdA3BmfqK59QeZphJr5BrbSyPLwIikY6kWEVId6WhCb4WXimkmn5z2DY7eqIekEzjDr7mh4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790912680; c=relaxed/simple;
-	bh=ILPpPq8Vser1NH+/VD1JhEO+iKNEFYL2zNBTQTEwhS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jFFvamxapHhUnK+B0sMAq3r51SRybk9PyNRqgnpaocP0hhLjIaBXPEoESJdf78Oz6/5l/VD2CaXuap/iXX4YZPXgvAWFLPZOgLko/6Gfr98SLj1kdKchPTaafdkUudQraNz5pObEosuFE9NZ6uHsjmzwhAdKPq7dWdJ7iCeg+4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4AUjpod; arc=none smtp.client-ip=100.103.45.18
+	bh=HReWgbpmu+EyMkLkA/hcPWjBoAE+oDWXlQs3CH3gA4w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qiWYxz9ZIHa13cwFca487u9C7oNAbf6YGhf9wLROCoEa31XPL/sIuFpeZw00GTD/+tWoqBcH2H3knP8GR/ZyhcaS/8n4cNRwLfGSyCSX8XryVzLoFxKRHleO4398cxqBSdywiy6WMcQI4UVpsWh51rEKQx4SlgdEVxGarsrn7lo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nz2KgTlQ; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4AUjpod"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 821AC1F000FF;
-	Fri,  2 Oct 2026 03:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790912679;
-	bh=ya+ofgI7W4YYzdVJENAGjbAvZq2LEFB3huWIBYBKhXI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g4AUjpodLKOORKyWJrnaPsRWHMsJuCm9GsZlgKFAcwmZBcV8jTcW6rE0lRdFRqBwr
-	 CjOlB4jiCZhVvUebh5+D1PA3wxjFRGo89YpLMvQ/KpWztSgxKEerBCtL0+D7zxj/bp
-	 ffkCnGvw7nBLiVRjSX3lFp5pz0DG5VFAUYgPF9er9dp530nMQ4RGwYALLwbW+HJOa6
-	 ZRvtAoRZX31s1zSkjvS2XBXm1M/LTNvVxBgA3IuncnddEgnOelprfOAK1Agl8XQkNt
-	 WQv6FAceX4unesNo1tCQrCFUPVPv412hWhvb0SWtgYzvf8UoF1u5bGGWvzOD/AMYa4
-	 2tm1O9RbEbGJg==
-Date: Fri, 2 Oct 2026 06:44:34 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jay Freyensee <why2jjj.linux@gmail.com>,
-	Jerry Snitselaar <jsnitsel@redhat.com>,
-	Nayna Jain <nayna@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: tpm2_probe: propagate transport errors
-Message-ID: <ar8oot0ceRNTMF7p@kernel.org>
-References: <20261001060114.1582092-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nz2KgTlQ"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a49e560a98so5189871fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 20:44:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790912677; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OGaKU39N/FSNvNJQjNdQQBNNmlBfkVrSWIyDa137IcW1a7LecTF+JeA0tVBmf1GzS0
+         +NqYtmK0hpSSjnZibrtwybWmUET4wbQmAjXloOjlNUKZqHXHipyteLgeJ9u5kW+GTFN1
+         7392t2okDeEXjf3frFWMwVPlejK4Eq51z8+27qEZwEi30pkvYHdzS1qz2Skpm/n8jH0W
+         gJTBtgutEOWwuEQiQJT9rw/5/R03e0cZeKCfzlwyn8oJyO7FrbMx84A+Ne7vpv0sdMQO
+         Z9dWIFbLEE9DCCijih5RUJ3FqpHCTAmipphFR1cyJHtIe13nJG/Pr5O7qqfSuNtvkzyT
+         JpwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HReWgbpmu+EyMkLkA/hcPWjBoAE+oDWXlQs3CH3gA4w=;
+        fh=2wTPWsIxUR6iHHCxGBpV7iE1Ii/BziiG/evF817nXBY=;
+        b=jHg+2UV5WK/kJlJlNyRg/YXaco36CuI6FB5X4jbMXZNDxBEmGmiEpiZ68cLWBAcqSI
+         JLykWGGMfqRbEbkZHAu3eeE7bFzRvjTdPNWAdeCMXHE6Ooe72EeR+Oqar0bRlQGZnwWp
+         O5L56RVu8WcAMLcxB2LGadV4BHNo1SZJJ8BL4RQZgPetEn0MLYYGKM0Uamb5fYSHZ1RD
+         cxgePYVfX9wlN8gyy7516C1pWf3xiJoCGdsfei7WUtJtbo68wO8rG26/owOfhchN3AVn
+         2VI+61/gtULQm/5c537ObghRgs7jNPDwLVxCoeXodXhwH+iAh/uWjEhBYzGkr2iX83aT
+         /tMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790912677; x=1791517477; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HReWgbpmu+EyMkLkA/hcPWjBoAE+oDWXlQs3CH3gA4w=;
+        b=nz2KgTlQQwOk0jEhd1N/BO1GDGS+g9qJaynBe1mXXsqOX8hXonAtGNmYaHPl12cUtz
+         5yYU763JSB7MA/njhiKvAFC9J3ij3WDVvtmED4S/FVMi/DXoFxvJzoSYLeo8K/7+C5UB
+         uvg8kOKTNsvxCwf+pUuFoKP7plANgrA5FUEaXsnR1j1IRIL34M7u6Gr5BymKY5MaNhgr
+         qM+HV3DLhEDK7zweNdTABzcH7/SPyGemSzkRUCXCAhoKrek1yJE1C1CokT/VxFstr1vA
+         Sn38G+6uWODXjzuYnhVoiUDRW+6FjeJWw67G+bnR9HZaa1JervKOVWDpcsr529ZocQcp
+         q0Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790912677; x=1791517477;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HReWgbpmu+EyMkLkA/hcPWjBoAE+oDWXlQs3CH3gA4w=;
+        b=wDIBulvd00XBTbnsWvzF7hF0fAN51mupMZJ1VlSP2EGpW8z1aFAH17fEjlqCGxID9b
+         j6HArnzq20wWdoRoaK3nBRtiKApt/XbBRJL5zuRO6OFD27uJrYLEAChEUP0MqiUvzh4Z
+         aK9obR4Fa8SePA7/XKfeFUFVmlwcZcTPk96CSHNeOaK5Yh/bVHb0XYAHzzU1LV0WNnfI
+         qkloQdobdVQ2SB4TEaY8ZF6lIVYjjLCdm9z0/5hSYyTI9PYcm5j8RIbRCioKDA6RlooS
+         4TpBhCDnb3P2Nu/iSfyZjQ/a4dR8/30Gsbo3SUeEtzga5yWm5+w7cNSWKzSsuke3RtJM
+         1hMg==
+X-Forwarded-Encrypted: i=1; AKwUvBz1fPFda1x/kbFsV5YxeoTh2n+SErCmSgzy+TEFEz38sqXuYriDqmWLl9AZ3d3IoskedMQe/W8K4vV9kJY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJ7P/1rz0rtJB340UGHqnRTrL4QiG4d4j88+oyd1t13IVfXy2i
+	IB4dWHENK81jd7C+90ASAwCiBChCDp9A1Pd4oC7BCESyAb6lVIn40bSxgruTxnSIrruxh3EmOHQ
+	8yIOhgunSApc1J4BUWJugQKsJa3tz7LU=
+X-Gm-Gg: AYBFou1kMoYL6LdXlJwgOtAIdD3zSOKQoFMWPxwCCZHt3Pbz2EO+pH6z0g34o1R1nYU
+	Eom4vHWWK/TWpBHWngKv7b3OEvPusBed5YzzEjgzJV9m/DWtialBKwLg/5mOKWUigCTuUGkrSri
+	ov99efq7qYYWtg8a01EBI/Ps32vcTvAsTOps5A3oGwRaKJ5ywJc4I4jExvk4vFX0AM8Farr3Q9v
+	0rKvV06eudlK0sOVck9u/W4+it72wQPJFq3jIMwdNed5JGbZpWvVeznBGOPk5jHiWRhpY3Y7MIK
+	gIKFglNHqCih8ZbH/aINyc3BsiS2haFOgXU6bqv/+SgkhUO+ZoJF95hsdZud7fl9fUPd69uP0en
+	vxbe1YDTkA9VwUkGmXYh9GDb8ewQuDXtJt3wc
+X-Received: by 2002:a05:6512:4011:b0:5b8:ef9a:40ba with SMTP id
+ 2adb3069b0e04-5bb9bb1132dmr353216e87.4.1790912676690; Thu, 01 Oct 2026
+ 20:44:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001060114.1582092-1-alexander.sverdlin@siemens.com>
+References: <20260929131020.266120-1-chenyou910331@gmail.com>
+ <20260929131020.266120-5-chenyou910331@gmail.com> <c719c6756f345c6c39db483654578ef09de1948f@intel.com>
+ <CAKspUhKCpXGKb7zpz9MbtpixVMUWKXMJtK-z6CcrezGA6e+ETA@mail.gmail.com> <22fdd310dfb0946bbe58ed71308e58d936cbed53@intel.com>
+In-Reply-To: <22fdd310dfb0946bbe58ed71308e58d936cbed53@intel.com>
+From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
+Date: Fri, 2 Oct 2026 11:44:25 +0800
+X-Gm-Features: AclHuK_Dh5pXV_8N5Am6Vpr68aVyRU0--ZbOln1WgpOW5_eCBnb1L7DMrifY0iE
+Message-ID: <CAKspUhJRG1hh7OQQh3a9yx9pRbKFOOMmhghhvxpQ3UKRob6qgg@mail.gmail.com>
+Subject: Re: [PATCH 4/4] docs/zh_TW: add missing :Original: fields
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, wy@wyuan.org, 
+	si.yanteng@linux.dev, srcres258@furdevs.cn, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Vegard Nossum <vegard.nossum@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 01, 2026 at 08:01:11AM +0200, A. Sverdlin wrote:
-> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> 
-> tpm2_probe() reads the protocol version from the response tag and is
-> documented to return -errno on failure, but it always returns 0.  A
-> transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
-> the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
-> unset. A transient bus failure on the first command then misdetects a
-> TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
-> 
->   tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
->   tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
-> 
-> Return the transport error instead; rc >= 0 still means a valid header was
-> received and the TPM's own response code is still ignored.
-> 
-> Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> ---
->  drivers/char/tpm/tpm2-cmd.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-> index a94f4395c198a..4b2bb2ddc321a 100644
-> --- a/drivers/char/tpm/tpm2-cmd.c
-> +++ b/drivers/char/tpm/tpm2-cmd.c
-> @@ -483,8 +483,9 @@ int tpm2_probe(struct tpm_chip *chip)
->  		out = (struct tpm_header *)buf->data;
->  		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
->  			chip->flags |= TPM_CHIP_FLAG_TPM2;
-> +		return 0;
->  	}
-> -	return 0;
-> +	return rc;
->  }
->  EXPORT_SYMBOL_GPL(tpm2_probe);
->  
-> -- 
-> 2.55.0
-> 
+On Thu, Oct 01, 2026, Jani Nikula wrote:
+> Oh, by the way, I do think the series as a whole is worthwhile cleanup,
+> and having the :Original: fields is the current practice. Removing them
+> should be a separate change.
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+That makes sense -- 4/4 only brings these four in line with current
+practice, and whether the practice itself should change is a separate
+question. So I take back what I said about dropping it.
 
-Thanks.
-
-Br, Jarkko
+Thanks,
+Chen-Yu
