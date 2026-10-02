@@ -1,33 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099ED474245;
-	Fri,  2 Oct 2026 09:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F55368D76
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:39:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933961; cv=none; b=hKRieSfbFG9EvOp310pBCWXmP4yuittOnsk3kzW0tDuYXdatxvJnRginJuHtcAZNLvq8d86MOfbLqIwn1FgsONzc8mM/2npPELutxP2jBHrbV+SmOVy6V1sym0Zf7UmjK5emxZhsr861tucJnNt8aVNG3n3SllkAC4t2j6kSZ2Q=
+	t=1790933999; cv=none; b=MV6p4bW5ly3vw3Hyuw+HH7mjF70tsNbxSxymJjQ7KaDK7ZUzx8OyHbqAGyeQ/lZVlSKByS3TLcHlHouNEBsxLlaCqwTiMQU96dLJPnVhrtfHALm1G6AMlMsy6uaPaYcE3M4iCtgpUHwCg8rSCodGibts4PO/4JKkgpP7WjKZbos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933961; c=relaxed/simple;
-	bh=hA1zeAk4wxpxXGX4kPhV20Ts9tikCfkkYTnQNM8EwqM=;
+	s=arc-20240116; t=1790933999; c=relaxed/simple;
+	bh=N1UE1pSwO6WGlFmF2gin+UagQPTf00B9Hg5c11K5aoY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ozgvn3OL9UYL6orJPnPqpvVqT6rP32kEiP4Dppmb9U1B3gb1uI4bqA7R7KudO1PnNdtEIySkRYPMW48MiwfFzLVRP8rV6Nru9oupTLGWd2agGiPN0FJSQbuNK0eDLTz0KFn1DT8GVTw+p87XoxVVlue5OQYxy6EX2lDMghHse6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Trs8e8WE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=qXgeLLR/cuHYuXdFeXWkCEGl5e2qvNqLy4PuCJdYFbQVVoCyBnWfZpbM9SywvKeS1ZZlw27yel9eytigGDgYY4c8md63eP0g4VKqxtNpcwzEpgzb14AlQ3EoER9f8G0GZprCaDd9OlS8YWPAFwyRQdkZHZgvp6SAUQ0KHMNupWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vFiDZwyg; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FGNbjVkh; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oemxnBZM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ASr+/e7O; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Trs8e8WE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06C91F000FF;
-	Fri,  2 Oct 2026 09:39:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790933959;
-	bh=fjj+f5ijhUmhJthBkgxDWQqiZjrQVyrTMW5I1jLfkXY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Trs8e8WE4T7ghZ6J2kcvRzDd0DVCDTPX6L68v8d5dXlAwzAWeMXWbzzq8jBLz0R0u
-	 vw9YwyWOV1syIYezd4ixmTAeQQcPPj3Ub6H1lE0BT5jL/aktfvL9Jm0G3fol5pZa7R
-	 tONxMxHzUdbCoUGXmYvCZgD9IY6hQA07u3wk6+Qoq34z2Xl5jcGinVkblKveXL96BZ
-	 YdqZooGF1WY+jhnpfQehYlyhMxfZBydrAJv1a8FBkdtfIHiZu2g++MRKnWLqCYJcIg
-	 Ujtya90RKbBwlZmO8VXKhBAYvjbduRxIkFQRlVNOXXpYEkF+Evv8yb2+TPa7NOu+XV
-	 wFxHrH1SO5bPg==
-Message-ID: <7a66abc8-3b9a-4a9d-a094-e47e3588091a@kernel.org>
-Date: Fri, 2 Oct 2026 11:39:11 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vFiDZwyg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FGNbjVkh";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oemxnBZM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ASr+/e7O"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3313121E26;
+	Fri,  2 Oct 2026 09:39:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790933986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c+g55zivLAPi5Ym2/z1B2f2BHuoLUMbgfcwJXaLB5Tc=;
+	b=vFiDZwygbS92eNQhFX3Zbjj4kfjn0MQVOuAlq+hyPyPkLNlDmTSMdq/2/ewjaTMqfEO4CI
+	sND+bmIHRdz1to6koDszPz7WHdyjwwol5E8h9L6XlO/ptRFqtsdtZclseHf5YJ++F86ili
+	fRdjcWwnGaQUdxeDaC4DDppKpWs0xh0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790933986;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c+g55zivLAPi5Ym2/z1B2f2BHuoLUMbgfcwJXaLB5Tc=;
+	b=FGNbjVkhgO7HDaCuiBJS0Km1f6OcJvPjJnDI1YRx2ftGKeNP4huVJWQ5coOzFSKI7+NWew
+	CUI8x4yRD6R83xCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790933982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c+g55zivLAPi5Ym2/z1B2f2BHuoLUMbgfcwJXaLB5Tc=;
+	b=oemxnBZMmt67bCICoTWOw7JE8EPt08JjlcCXWEwhBuFMIYP2bPJZ7NQYeaxGyfI6WfuBq6
+	y7zgiX6mJEjFvmBlMuH6SGNZKjP07ahIoctDVJ3qLqH4IIc0axS90iZAqS8FRwnCNhxZM7
+	qZDYY22uqWRtI67UZ3+BTNZUWomrTKo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790933982;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c+g55zivLAPi5Ym2/z1B2f2BHuoLUMbgfcwJXaLB5Tc=;
+	b=ASr+/e7OtJzzJsWtYFL7zbD/yBE0zmxV1ctTE+1a98syU2/7BJhv4uqsSCz7mMQmn6ljzw
+	NAELqHslU1nXJRCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DD07813BEC;
+	Fri,  2 Oct 2026 09:39:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id KheGLN17v2r3BwAAD6G6ig
+	(envelope-from <hare@suse.de>); Fri, 02 Oct 2026 09:39:41 +0000
+Message-ID: <4a4e228f-7143-4d5a-b773-2c6238852503@suse.de>
+Date: Fri, 2 Oct 2026 11:39:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,115 +82,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] dt-bindings: arm: keystone: ti,sci: Add
- ti,tda54-sci-pdm compatible
-To: "Padhi, Beleswar" <b-padhi@ti.com>
-Cc: nm@ti.com, kristo@kernel.org, ssantosh@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- afd@ti.com, u-kumar1@ti.com, vigneshr@ti.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260930194131.117129-1-b-padhi@ti.com>
- <20260930194131.117129-3-b-padhi@ti.com>
- <20261002-observant-prudent-booby-eac28e@quoll>
- <ac1d3bae-81c5-47b6-99f1-50e5b06c1a86@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v4 2/2] nvme-multipath: add fail_if_no_path sysfs
+ attribute
+To: Krishna Iyer <kiyer@crusoe.ai>, kbusch@kernel.org, axboe@kernel.dk,
+ hch@lst.de, sagi@grimberg.me
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ nilay@linux.ibm.com, saravanand@crusoe.ai, sjpark@crusoe.ai
+References: <20261001094857.74567-1-kiyer@crusoe.ai>
+ <20261001094857.74567-3-kiyer@crusoe.ai>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ac1d3bae-81c5-47b6-99f1-50e5b06c1a86@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261001094857.74567-3-kiyer@crusoe.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,crusoe.ai:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 02/10/2026 11:30, Padhi, Beleswar wrote:
+On 10/1/26 11:48 AM, Krishna Iyer wrote:
+> When no usable path exists, I/O on a multipath namespace is queued
+> until a path returns. With ctrl_loss_tmo=-1 that can be forever:
+> during a long fabric outage any process waiting on the I/O is stuck in
+> D state. We hit this on virtualization hosts, where a SIGKILLed VM
+> process cannot exit while draining I/O to an unreachable NVMe/TCP
+> target.
 > 
-> On 10/2/2026 12:01 PM, Krzysztof Kozlowski wrote:
->> On Thu, Oct 01, 2026 at 01:11:27AM +0530, Beleswar Padhi wrote:
->>> The previous TI K2G and K3 architectures were tightly coupled systems in
->>> terms of Safety and Security. All the TI-SCI messages from HLOS (Linux)
->>> were sent to a single sec proxy thread terminating at the core running
->>> Safety service (DM). In K2G systems, DM handled both Safety & Security
->>> requests by itself. Whereas in K3 systems, DM serviced the Safety
->>> requests itself, and forwarded the Security requests to core running
->>> Security service (TIFS) on the HLOS's behalf. This posed various
->>> limitations:
->>>     a. Increased latency: An extra forwarding hop through DM adds latency
->>>        in requests and responses.
->>>     b. Freedom From Interference (FFI) concerns: Having Safety service
->>>        proxy Security's requests (& vice versa) undermines the isolation
->>>        and FFI of the system.
->>>     c. Potential Deadlock Scenario: Forwarding messages between Safety
->>>        and Security cores can result in a deadlock if there are circular
->>>        dependencies.
->>>
->>> To eliminate all the above limitations, the TI TDA54 class of SoCs
->>> introduce an architectural change: Isolation of Security and Safety
->>> services. To realize this enhanced isolation in hardware, two
->>> independent sec proxy threads are now provided for HLOS to communicate
->>> separately with the Security and Safety cores respectively. And the
->>> TI-SCI message forwarding has been eliminated in Software. The System
->>> Firmware ABI5.0 version necessitates this improved isolation and FFI
->>> change.
->> I don't get at all how above description helps to understand this patch
->> and this new compatible, except that this is not compatible with old
->> variants.
+> Nothing can fail this I/O without tearing something down: controller
+> deletion takes every namespace on the controller with it.
 > 
+> Add a fail_if_no_path attribute on the ns-head disk: a persistent
+> per-namespace policy to fail parked and newly arriving I/O instead of
+> queueing it when no usable path exists. It is the namespace-scoped
+> counterpart to the controller-scoped fast_io_fail_tmo: the trigger is
+> an event userspace observes (a consumer known to be gone, for us a
+> SIGKILLed VM the host must reap), not a duration picked up front, and
+> sibling namespaces behind the same controllers keep queueing and ride
+> out the outage.
 > 
-> You just answered your own question.
+> A CONNECTING controller stops counting as an available path, and with
+> no controllers left the policy overrides the delayed_removal_secs
+> queue-if-no-path window; the two are opposites, so fail_if_no_path takes
+> precedence when both are set. ANA change and controller resetting still
+> queue, since both are transient. Controller state is untouched and
+> reconnects continue. Like dm's fail_if_no_path, the policy is transport
+> agnostic.
 > 
->>   So 30 lines of text instead of 3?
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
+> ---
+>   Documentation/ABI/stable/sysfs-nvme | 16 +++++++++
+>   drivers/nvme/host/multipath.c       | 50 +++++++++++++++++++++++++++--
+>   drivers/nvme/host/nvme.h            |  2 ++
+>   drivers/nvme/host/sysfs.c           |  4 ++-
+>   4 files changed, 69 insertions(+), 3 deletions(-)
 > 
-> 
-> The existing system controllers have been compatible in all TI SoCs
-> for over 10+ years since Keystone generations. Using 30 lines of
-> text to explain "why" the new system controller is not compatible
-> with old variants is worth it.
+I do get the problem, but I think that 'fail_if_no_path' is a misnomer.
+Problem is that we already have a 'QUEUE_IF_NO_PATH' setting, so 
+'FAIL_IF_NO_PATH' really sounds like the inverstion of that.
+Only that it isn't.
+Maybe rename to 'FAIL_ON_CTRL_LOSS' to make it clear that the two 
+settings really describe different use-cases?
 
-If you decide to spam us with a lot of description, including marketing
-crap ("To realize this enhanced isolation in hardware", "this improved
-isolation") instead of writing concise and precise messages, accept the
-outcome of maintainers choosing to allocate their time in "improved way".
+Cheers,
 
-Best regards,
-Krzysztof
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
