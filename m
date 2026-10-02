@@ -1,64 +1,64 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A594EDCA2
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5C94EFFAC
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955931; cv=none; b=lsj9h76DfVAUoAdq/e0S3s6FrKnzMNq8gGyKOUt1jC4SnXajnbVvxxHdb1wnni6fa+3adsi6eedunwr/hYLgPpEUowLttQVHeq848CBZHggOZOHB+oVjUWNrh5IlUkapQY4WOhzjhUn6/dJHRD2bDmsadXmLUvAfmqqEDSNUcws=
+	t=1790955932; cv=none; b=fS5cNHZ1kWmywViKMtZVjmCa03ETzz+NZJs5dYyeonMvrnbPF0u/ULx5L8/NWPzbX6QLkGYcE0x+pcOdCg7f13rYfNNoanErYZBRfPbcBS8pwlcjDv8LV+1LHw6DTjPFn1S8bIIjUeIiIfQisKN1zMBQ+d91AoniJweLuVbWXKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955931; c=relaxed/simple;
-	bh=CeTHB4ypLnb5H3d23FrgyQcrpY2y8roNeeEMV+cxjyU=;
+	s=arc-20240116; t=1790955932; c=relaxed/simple;
+	bh=XJBmbAQssDpv3cWBcThWNbjc6nl3j+gt9Ko4eNiaO98=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hb33yWFqc/b5ypU+1q7+OvbVngPDoLnppxoBdn76r9pSFkSR9+2wTgOYFcAEwQ+ETVbW2JfQ0isk/q79P+jAk+rmnQ37kaxF616J++RcTxht3hhaPpsNuNK30OtzmUcOchbk6NZBsStDABYNiNPAEGb45iGLWc0qk650Zx5aZnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HB446zzV; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=lg9cL4gySxM9dXnp1L7vPR4h6zA4pusCmRfEQjOsFVTgvP/sZDzETMGnqs78X7KbezWbDyrooDi094jEG5maYdjg4Yd81HTSXCtVIBhw6+8BLO6ijDa0Ot/6iB8TYEgWGWm4h6v0kmDsl4lU01YtmXz8QNtl4tdwRXVnFFsH7lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nhzdFhK4; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HB446zzV"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso189945e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nhzdFhK4"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso190575e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790955922; x=1791560722; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790955925; x=1791560725; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EZjs7e//iaMUq0DbBBAkyBGkWfGjYDHq+81y/lPHXV0=;
-        b=HB446zzVAK31YlA23DKZGSW+unxN2agRncqN8pZ8aqyMcPLjQLhwDr4uxuEKyUh2V/
-         vLK8Sma5TkDvAd3JQfWR2dm5QYpfL9hUOwJa+QGEf9UmF5AMFWli87nljpDrlSIgCb0O
-         2ZZv6jpz21wxBPPgIgSjHkxlHkwEq6VkfB5rheVbz8/8tJHVfjg2WTxZlSopesI0DBhG
-         T0e2rMipBeyXcjplUKxlDGsmLqBM96Ds07z8TIqDDUhOe3YcFg0FRppYcMAYUStTSbPO
-         QaX0npVGIdf/Vtt3GPh5V5lTkjo5QR4qmV08V3v98UzZ8vD/hi6HPja1W5Rgwi+NEtaS
-         uoQg==
+        bh=WkE6gJnDRs+XLmAou5XPy/YO7fax7WUEGWY0OkDdt7Y=;
+        b=nhzdFhK4XJm4ywkcMx2iZMlbdA0TopX3qmiFqXqJugOxcLyeKb3VMWUs0kTjTnGuM8
+         2mNAe8T2O4hzGJQSPLdDh82R7EJs0X889b+En2tC6hrk17UoJZG1IZ8bXRoK56uxa2zx
+         AO+vWqV8B/fAAV8FQKM+MAHDUiEWDtazoFIeizUtFrCdVkjLsW0+qfVNTkOTlQBCuqSE
+         Vvd6wedQWqZPk6RJgoTNBb/SUo8uK55/IJa/tKgPE+Agf7NmfSihpJxqjgkTl/P5giYl
+         SQV52N9l+O719/iKvYM5j3/pDDgcnqX5MVQdEzeQrUKfYqm8CTc6LH8x3h35/b5MEyqu
+         egAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955922; x=1791560722;
+        d=1e100.net; s=20260707; t=1790955925; x=1791560725;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EZjs7e//iaMUq0DbBBAkyBGkWfGjYDHq+81y/lPHXV0=;
-        b=TWjcx0SIs7W5QKQb+o3eRhAeSzIV2EDwvsZk3+/YBUGG4z8t8UTLCt5dHW7kXbgGs3
-         lCHB16r4mw/C3lIF3KFBt2uhGVs3DyjMd0kOMzSS5gfZrR0z4Hko6c7LdrTLMZ/kCcih
-         tFBEEEtoZdPeLLU12MdNiTmdfZNhxbDGfCCBxAaMYf8iM6zYfIAY/oead4yWeiAlph86
-         3DJzphMO20KwroCCf16A9df1qoSzYWasVvLlEPaElUk63UTP8SnCHCc3dkvLfI4t47s6
-         l8QwBOmqvjNXJh1bqmUEIDfUpCF+gkrOXyCWSEp2CzY7JP8OrudaA1pEZYNtG0yW9BO+
-         x0xA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGm5+3z6r6+x9JMRfI/7cJGjw7DpnIKBILBFSFsPU7o84UlcTouv5tQw6xDfjRVBR0i78k6rlp/RbcI3c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDfSkUd9fB5Oj27kLIfdNKKw8362vT4phESsms8Me03B4U6KGe
-	06zzj6FRDr48vidaJfW8mm2gna47ZY5H+bcohOnnY0mYjyqRj0F0+1vh4I0q/IxZfh0=
-X-Gm-Gg: AYBFou1+4lBvCmbnBjkNnj286M6/PKDKdYHheOtokdtK0XCPAxt7Yhai4LPAoTxIvOc
-	xlf6b0SeWGjfTJB26Nj3+tFR5cYsmej3wf+UGH9bYZtP6t/SKOLviQAwlCdK9/tiHuUPU2puGLk
-	Ry/uu+Slavfq3cAI+NNcsp6ff2pxKHwdzLQMyA5WzF2pkY0r/qAuwYg0upcqRGQphKPy1KeFKpm
-	3bPvFWmQziAOD1/PFH9u6lk5DDa/F/1cwNU/ldd36HWoLJzSRmu8ETe9i08SAzcHieRPfWfivgv
-	Rkz4JRBNXl0Mdz23oigfCSnIwmTO51dIGra8+YCMi+l9qmK27d+SnJS9wNtIvuJPC+ztwa5Kuc/
-	bL33YCJr4KOdgJkqHbQviHM7qINDHtHKNVSFWHmAmKFHzKWi8IT1sy9+WEs38DHiS1r4Y5QtHHI
-	004LKxNqnYuBaFucJBmQ9BLHKR/+quqNQcDyrdaLPeXzNHktNNnvoCx32XijGooztYixJ8RVRL+
-	Yo3fOGzMIexAES9
-X-Received: by 2002:a05:600c:230b:b0:4a0:2533:c8b7 with SMTP id 5b1f17b1804b1-4a0276c6176mr42183355e9.35.1790955921951;
-        Fri, 02 Oct 2026 08:45:21 -0700 (PDT)
+        bh=WkE6gJnDRs+XLmAou5XPy/YO7fax7WUEGWY0OkDdt7Y=;
+        b=0OF3FwwyAHUInEIx3BD6ZGO0a9VN88HE2yw9AkJs8MgCJFuecGdAhe1hbHrCl5tyBy
+         g4/PSyjUIdqiLF/4dDFSNrTpUBePQ3Ai+l0RXWdW00uQGLcqQx9QlSu2323roeBERWRe
+         BeN6EJAKJscSPQxvu+uYQTL9Ca+WXHIcwVrUrMBaRf/5fasZEtAr23+64JM/mvYQyoMF
+         Cj++bmwBkwnHQgPt1o2n1fJmTf68nMnZaRyP2qw/lVCSBMCuy/iss5DUpRUIsY2Hww9Y
+         vRqdsO4R6Fg6hrUEg4vA/2vDiFNvT1sQ4xJ994FSpbD2/QrIGEyb5OIS+Odo4BiYR6im
+         BSRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYCF0Nv+Y9dSZlWdzgGdbqymAynh/vScgx18aAP5f8ngFx3FVQ9XC3aEHGctsleBZxTBbkblAVsyJS5z8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKr2pPWEUu1g9PpermXcjeqtDQc1S8kTyNY4oh2TxI4pffZrBQ
+	pnyShzfjw3Mj2jNJfiKVgbabEfSpe0m0bIAti6wW05FLPRf86s+cbotLKG6J9gx0Gxs=
+X-Gm-Gg: AYBFou3ywp3u9arfumAs0kHIMky1aUYhjWBz3AxvEY9E75of+6dgHzScP620OBmf0lX
+	9wjioHfZA6tHiuWCFPfLkxaGe1jYjv0tX3Ilf8jCNflTuN81InAUYWbT1mN1JAtF2sYrcoqtKsQ
+	4744FosML+6f5hWgHE9WOov9DPcmkzO61NZot7SdMy5yJjcTM2jv4bmK7Mric4dBLXKRzWUxnEx
+	hdHfaEFYeZbIrIWjIggG7BIHTBuZW8fvaVV0zMxRYj3zGS/o+f/OIKDjBluScEER8teUuh/z6cF
+	TwD1Fa65zaes7kO3NEl0mABU7EAXj6ZQIttcSEO4KQ+XuNhvGL4MzBih7/CahUF8ZPCx9ybn4sK
+	mVze2i5BtMhBsfOTtq+lhxnqFwYJDtNbhgZgbcJ0KWJFRFgArPPxHC8oj3EmpoJQGi6M9Lzwn8U
+	4kzVm62+3Gi1EmimN6fJpxvHR6vT5OsxsbZBtWfMy3ul0iIxpIsIxcjeA+y5shet+8373yI92m4
+	QG5K1Lq8UfUFomb
+X-Received: by 2002:a05:600c:310b:b0:49f:bd3c:bc25 with SMTP id 5b1f17b1804b1-4a0276a224amr56824375e9.32.1790955924579;
+        Fri, 02 Oct 2026 08:45:24 -0700 (PDT)
 Received: from vingu-cube.home ([2a01:e0a:11f4:3020:718b:4747:291c:e5d8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.20
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:45:20 -0700 (PDT)
+        Fri, 02 Oct 2026 08:45:23 -0700 (PDT)
 From: Vincent Guittot <vincent.guittot@linaro.org>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -83,9 +83,9 @@ Cc: qyousef@layalina.io,
 	pierre.gondois@arm.com,
 	sshegde@linux.ibm.com,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 13/18 v2] sched/eevdf: Push short slice task that are not picked
-Date: Fri,  2 Oct 2026 17:44:10 +0200
-Message-ID: <20261002154415.2270586-14-vincent.guittot@linaro.org>
+Subject: [PATCH 15/18 v2] energy model: Add a get previous state function
+Date: Fri,  2 Oct 2026 17:44:12 +0200
+Message-ID: <20261002154415.2270586-16-vincent.guittot@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002154415.2270586-1-vincent.guittot@linaro.org>
 References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
@@ -97,50 +97,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Even when set as next buddy, a number of event can prevent short slice
-task to not be picked. Add the task in the pushable list in case it is not
-picked so it get a chance to be pushed on a better CPU.
+Instead of parsing the entire EM table everytime, add a function to get the
+previous state.
 
-This can typically happen when several short slice tasks are pushed on the
-same CPU at wake up.
-
-If the task is picked, it will be removed from the pushable list before we
-queue the callback.
+Will be used in the scheduler feec() function.
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- kernel/sched/fair.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ include/linux/energy_model.h | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 186f10173eed..cccdc40b8a24 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9981,6 +9981,12 @@ static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev, stru
- 		__fair_add_pushable_task(rq, prev);
+diff --git a/include/linux/energy_model.h b/include/linux/energy_model.h
+index c909a8ba22e8..89cf109cbca6 100644
+--- a/include/linux/energy_model.h
++++ b/include/linux/energy_model.h
+@@ -224,6 +224,26 @@ em_pd_get_efficient_state(struct em_perf_state *table,
+ 	return max_ps;
  }
  
-+static void fair_add_pushable_short(struct rq *rq, struct task_struct *p)
++static inline int
++em_pd_get_previous_state(struct em_perf_state *table,
++			 struct em_perf_domain *pd, int idx)
 +{
-+	if (sched_push_task_enabled() && __check_pushable_fair_task(rq, p))
-+		__fair_add_pushable_task(rq, p);
++	unsigned long pd_flags = pd->flags;
++	int min_ps = pd->min_perf_state;
++	struct em_perf_state *ps;
++	int i;
++
++	for (i = idx - 1; i >= min_ps; i--) {
++		ps = &table[i];
++		if (pd_flags & EM_PERF_DOMAIN_SKIP_INEFFICIENCIES &&
++		    ps->flags & EM_PERF_STATE_INEFFICIENT)
++			continue;
++		return i;
++	}
++
++	return -1;
 +}
 +
- static int active_load_balance_cpu_stop(void *data);
- 
- /*
-@@ -10419,8 +10425,10 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
- preempt:
- 	cancel_protect_slice(se);
- 
--	if (preempt_action == PREEMPT_WAKEUP_SHORT)
-+	if (preempt_action == PREEMPT_WAKEUP_SHORT) {
- 		set_short_buddy(cfs_rq, pse);
-+		fair_add_pushable_short(rq, p);
-+	}
- 
- 	resched_curr_lazy(rq);
+ /**
+  * em_cpu_energy() - Estimates the energy consumed by the CPUs of a
+  *		performance domain
+@@ -375,6 +395,18 @@ static inline struct em_perf_domain *em_pd_get(struct device *dev)
+ {
+ 	return NULL;
  }
++static inline int
++em_pd_get_efficient_state(struct em_perf_state *table,
++			  struct em_perf_domain *pd, unsigned long max_util)
++{
++	return 0;
++}
++static inline int
++em_pd_get_previous_state(struct em_perf_state *table,
++			 struct em_perf_domain *pd, int idx)
++{
++	return -1;
++}
+ static inline unsigned long em_cpu_energy(struct em_perf_domain *pd,
+ 			unsigned long max_util, unsigned long sum_util,
+ 			unsigned long allowed_cpu_cap)
 -- 
 2.53.0
 
