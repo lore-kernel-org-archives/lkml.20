@@ -1,370 +1,184 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73BD435EFA;
-	Fri,  2 Oct 2026 19:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1CF4349B9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790971175; cv=none; b=iJNat6VFP0q6OuFexvm54+DnVjULuBfihCxt08FrS1BogGyO27GGhNmqms7IlrufJhgSm+WwF8OKegjaY8nfsu5wa9VLr0RdV+NAFMBoo9MHRFg45Dm41HT4oBaPUIP1O75LAjjY6VH9pm050iZSAeD8dBcZLDTXOOTWyhNptmc=
+	t=1790971268; cv=none; b=KLUqfEJFRpY4mVbfjqz52hptumzAvqbJHY4gbCCI29Tr+NwsfzmqE3iGYSP81Nz7AXT+YN1wl3jIN0k8hQi2mQMpH8lALQq6Eyb7RuahyP95RLIMQhMmhgg7SaLUS2lwuzodcWQQMYj2g9MHgXFjAV9WPEcgWY01Dnk8cy0tBa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790971175; c=relaxed/simple;
-	bh=OUkQSTb+08n9fzBs5hFCgs2B94+SFhWVWH9pwOprMQI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hh7XQvp9tgwliJ/8xDzfsPVHyp0FFkUDwHsYQK/M3GhqL33TPlz3bBUx6jaDK6mPMYLXDCG4lQlUhz35GX27MRgkgcXy5JkXaiSSVXMndHtvaTen4dt3+jqhkb+p8XWTSOovw7L+mGQqzLTSaPVPc4DpxlypEEFCSHnzGMfWTVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j/YhHzGY; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790971268; c=relaxed/simple;
+	bh=2Lur0doSNoPwg7OANYfGC/ZInsmNdVgxB+r3ZxA0ANo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K/kc2AJ6evIJlZtFv4/BH7SfFLoBSjGEJoTbuad+qwfCQ2Lt5Swst/5O3QSOtrvigZm4Nxygfzrdbqli/U8X7Q5tsrJN0bQxfgQPgTw8G/Z5BcAiCpSv0MVnxRs1aOxaEahk8N1X3i81zjqtsuqt3zHDCDjZ9PBtgpbIDFsvH08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Ep+g7Btc; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j/YhHzGY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790971173; x=1822507173;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=OUkQSTb+08n9fzBs5hFCgs2B94+SFhWVWH9pwOprMQI=;
-  b=j/YhHzGY1zhi8uTD0zfQKSgE2mE2FPTVSCnU3PpOiet9LAEs30CD5nNt
-   +6LeoiZrYD3tgrlKNZrADSOhii6JUgYjIv7886oUN8PjUUvKnqSMrsi5I
-   jXJPyDTdUJAZZapo2aikOi57FeXrODZMhi9/jMiBmJiJtbUiREJcjqp2h
-   Skv0eHdXuYBk15daedNTFBHSdxOIBZIlUDx4glb2p191m7n/EMtDVNlDW
-   XzBsN+eTBLCDlul9tlHaZjFKMr6unSZeCadM1qUDeYwE0PLGAUgd7pOHg
-   5KGTtc4Ll/d0NBbXOfeDw4E6kEUf22Vch3wo4ZIJ7xP7SZovh671mpsQv
-   g==;
-X-CSE-ConnectionGUID: qO0YvWfBT8OlveE4pAxpNQ==
-X-CSE-MsgGUID: 4KosUyIYRf2n/tF3AAMbyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="103115243"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="103115243"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 12:59:32 -0700
-X-CSE-ConnectionGUID: woU8eIs1TceZy+n0nVkwCw==
-X-CSE-MsgGUID: Gz4irXPuTaqqYj3g+PufrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="280060653"
-Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.108.45]) ([10.125.108.45])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 12:59:31 -0700
-Message-ID: <60dbd245-0b16-4c4b-8350-26570916ede0@intel.com>
-Date: Fri, 2 Oct 2026 12:59:29 -0700
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Ep+g7Btc"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d06so5715445c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:01:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790971264; x=1791576064; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K8GWFjQgkDhj7guIlcMM08SobteqMdy0BTH8OwhzKqQ=;
+        b=Ep+g7BtcrCBhhRhF38pA3FaUxvZlDWMe42rvGjqyFzOU4IZnFhlIiVq0cihwv9oweI
+         fy8/CMS21PO08+A8bVDVnJ0vINMBmoBL8Iuid6cx/4oRoyZtcRNvA59AQlrk9rj4XXHw
+         nXOrp5emwjEXC59g10X57uhHTlWO2zMeupIIXdGoRrtH8IXIufzJVf84Nb/O2g8jkwe7
+         S3w5lP3hVctkNOzGwzf9b2IRAuZU07vPGDKF/jSvTX7uB3BP1nGZfzM/sCpGQWrdA73V
+         cNH8QJ8dWqQTWrbcngfHIu8Ic9p+sWlgPmk5tBhimFFCq620N49kcfaZ0Vq/+ecmlXBO
+         YB5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790971264; x=1791576064;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K8GWFjQgkDhj7guIlcMM08SobteqMdy0BTH8OwhzKqQ=;
+        b=Uu/ec1bSf7QCeG0IcQrGlm1bsbdxJNbYtglkdnhsP0ygSUWEgOnGG/MSbcZw4jQSMm
+         eLgdRy7I8ByQBNmAse9GhdBJ64UJ04VcdDOeQFmjF1RtnBhm+e1XoTIv7dZqZ4JSYFJN
+         PvuxvtkiIlHuH/lYKFjc+qiDuQbgq3/GMJ00KOOu0qk5j8tHs+WyM6gHyFDjjVHU4abu
+         Gbohh0HKIilvpoDYgpVYfty+XFZ1f4TxoaMwfrVqM/AmFzAz/cMX2ffiOd/rWToCdFvz
+         0hXIKkVGqs4xhCCz7QU+M28TcMpYVISZGVGi/hk+uicX/+xzq1xDUYFJVkkW+3Jl1PZA
+         aJ4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxS12T3wtU/na+T4rnSrXRbUA5uFjAiL3ta/N81WBERIf23Wewvs9pbh3TLqIP2PsP9reI1wwvg3itv3WE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSpbSAx16MgB69sJemAm/2a2OzgxlJTjR09m3FOtkva7beug1E
+	4Zu4zZFl57n/6G+xvRAQbS7GM/nmEzelUtE1ig7qnSgc3Sn/2affEirNxJegdVumYL6ITxzWXqd
+	ncLPrCKs=
+X-Gm-Gg: AYBFou0yZT/1Yz3tihSAj/S5mM4+kpuAD0LEVQ3k+p0vYKYrY8fj0mAz1SV+glTSODx
+	2WHv2XHrU0A7WnPodZLgo+8Ph+YAV42WbQupxRl/rfipRLeg8PftjihyxiAhnzBsjaGps7MCZhk
+	BmvPNQonD5afuAkUCJbDcSu7swAn93egNVACmckv5N2k/L2nvvBN+Ss7wGPNhwmVoB03kF+XcFX
+	yiWweV5x8j5AZzUS/VZTxZFc69PjDm63FZolP8wI+R88yZzq30sMVWINfJbo9TtflCh4p61Su+S
+	xabhFqIlXggydopbr+L6SZsJpPL2jKLRMi+N4mnQmuHysz9pwLLJshmLi10tpPWkNqLHa/jf7wm
+	+em+NsGk6/0YXygrz6yRjWyXNTRjeeGbP+FgNyW5XsCQNFsOSM8f2h21aHnLa+Wn1dyBfQpAWPF
+	4bLQTnX8p3jPqMfirul+jZd3pz5gp0wEbkd8RtjZZCyqa4e9j0HBaVhdVSLuEFoeAq7fwmqBSDQ
+	H/KBbHx5ZR0FL/XRjydVsMqO1mfcUQUZ2iOp0pWqlEbiZtELQCSjHILgvJJu7TM81OEHjI=
+X-Received: by 2002:a05:7022:fa1:b0:138:148:6a28 with SMTP id a92af1059eb24-14f5b710271mr5561089c88.18.1790971264078;
+        Fri, 02 Oct 2026 13:01:04 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f4766f92fsm8116482c88.16.2026.10.02.13.01.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 13:01:03 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH 6.1.y] ethtool: fail closed if we can't get max channel used in indirection tables
+Date: Fri,  2 Oct 2026 16:00:58 -0400
+Message-ID: <20261002200059.22598-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 05/16] cxl: Introduce reusable HDM decoder settings
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261001092227.3004747-1-smadhavan@nvidia.com>
- <20261001092227.3004747-6-smadhavan@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261001092227.3004747-6-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Jakub Kicinski <kuba@kernel.org>
 
+[ Upstream commit 2899d58462ba868287d6ff3acad3675e7adf934f ]
 
-On 10/1/26 2:22 AM, Srirangan Madhavan wrote:
-> Represent HDM programming state with struct cxl_decoder_settings and pass
-> it to the commit helpers. Keep endpoint skip and switch targets with their
-> owning types and flatten them only into transient programming settings.
-> Place flags with the programming state and leave runtime region ownership
-> outside the snapshot.
-> 
-> Separate commit initiation from completion waiting so reset restoration
-> can reuse register programming without changing normal DPA-lock policy.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> ---
->  drivers/cxl/core/core.h |  3 ++
->  drivers/cxl/core/hdm.c  | 82 ++++++++++++++++++++++++++---------------
->  include/cxl/cxl.h       | 10 +++++
->  3 files changed, 66 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-> index 983d7690c3a5..a3fddb2bed63 100644
-> --- a/drivers/cxl/core/core.h
-> +++ b/drivers/cxl/core/core.h
-> @@ -139,6 +139,9 @@ struct cxl_rwsem {
->  
->  extern struct cxl_rwsem cxl_rwsem;
->  
-> +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings);
-> +int cxld_await_commit(void __iomem *hdm, int id);
-> +
->  int cxl_memdev_init(void);
->  void cxl_memdev_exit(void);
->  void cxl_mbox_init(void);
-> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
-> index 9e05032a5426..d3f21dfda146 100644
-> --- a/drivers/cxl/core/hdm.c
-> +++ b/drivers/cxl/core/hdm.c
-> @@ -707,7 +707,7 @@ int cxl_dpa_alloc(struct cxl_endpoint_decoder *cxled, u64 size)
->  	return devm_add_action_or_reset(&port->dev, cxl_dpa_release, cxled);
->  }
->  
-> -static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
-> +static void cxld_set_interleave(struct cxl_decoder_config *config, u32 *ctrl)
->  {
->  	u16 eig;
->  	u8 eiw;
-> @@ -716,12 +716,12 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->  	 * Input validation ensures these warns never fire, but otherwise
->  	 * suppress unititalized variable usage warnings.
->  	 */
-> -	if (WARN_ONCE(ways_to_eiw(cxld->config.interleave_ways, &eiw),
-> -		      "invalid interleave_ways: %d\n", cxld->config.interleave_ways))
-> +	if (WARN_ONCE(ways_to_eiw(config->interleave_ways, &eiw),
-> +		      "invalid interleave_ways: %d\n", config->interleave_ways))
->  		return;
-> -	if (WARN_ONCE(granularity_to_eig(cxld->config.interleave_granularity, &eig),
-> +	if (WARN_ONCE(granularity_to_eig(config->interleave_granularity, &eig),
->  		      "invalid interleave_granularity: %d\n",
-> -		      cxld->config.interleave_granularity))
-> +		      config->interleave_granularity))
->  		return;
->  
->  	u32p_replace_bits(ctrl, eig, CXL_HDM_DECODER0_CTRL_IG_MASK);
-> @@ -729,10 +729,10 @@ static void cxld_set_interleave(struct cxl_decoder *cxld, u32 *ctrl)
->  	*ctrl |= CXL_HDM_DECODER0_CTRL_COMMIT;
->  }
->  
-> -static void cxld_set_type(struct cxl_decoder *cxld, u32 *ctrl)
-> +static void cxld_set_type(struct cxl_decoder_config *config, u32 *ctrl)
->  {
->  	u32p_replace_bits(ctrl,
-> -			  !!(cxld->config.target_type == CXL_DECODER_HOSTONLYMEM),
-> +			  !!(config->target_type == CXL_DECODER_HOSTONLYMEM),
->  			  CXL_HDM_DECODER0_CTRL_HOSTONLY);
->  }
->  
-> @@ -764,7 +764,7 @@ static void cxlsd_set_targets(struct cxl_switch_decoder *cxlsd, u64 *tgt)
->   * clock skew and other marginal behavior
->   */
->  #define COMMIT_TIMEOUT_MS 20
-> -static int cxld_await_commit(void __iomem *hdm, int id)
-> +int cxld_await_commit(void __iomem *hdm, int id)
->  {
->  	u32 ctrl;
->  	int i;
-> @@ -784,45 +784,66 @@ static int cxld_await_commit(void __iomem *hdm, int id)
->  	return -ETIMEDOUT;
->  }
->  
-> -static void setup_hw_decoder(struct cxl_decoder *cxld, void __iomem *hdm)
-> +static void setup_hw_decoder(void __iomem *hdm,
-> +			     struct cxl_decoder_settings *settings)
+Commit 0d1b7d6c9274 ("bnxt: fix crashes when reducing ring count with
+active RSS contexts") proves that allowing indirection table to contain
+channels with out of bounds IDs may lead to crashes. Currently the
+max channel check in the core gets skipped if driver can't fetch
+the indirection table or when we can't allocate memory.
 
-settings is replacing cxld, I would prefer that as the first parameter
+Both of those conditions should be extremely rare but if they do
+happen we should try to be safe and fail the channel change.
 
->  {
-> -	int id = cxld->config.id;
-> +	struct cxl_decoder_config *config = &settings->config;
-> +	int id = config->id;
-> +	u64 target_or_skip_reg_val;
->  	u64 base, size;
->  	u32 ctrl;
->  
-> -	/* common decoder settings */
-> -	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(cxld->config.id));
-> -	cxld_set_interleave(cxld, &ctrl);
-> -	cxld_set_type(cxld, &ctrl);
-> -	base = cxld->config.hpa_range.start;
-> -	size = range_len(&cxld->config.hpa_range);
-> +	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +	cxld_set_interleave(config, &ctrl);
-> +	cxld_set_type(config, &ctrl);
-> +	base = config->hpa_range.start;
-> +	size = range_len(&config->hpa_range);
-> +	target_or_skip_reg_val = settings->target_or_skip_reg_val;
->  
->  	writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id));
->  	writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
->  	writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id));
->  	writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
-> +	/* Target-list and endpoint-skip registers alias the same slot. */
-> +	writel(upper_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
-> +	writel(lower_32_bits(target_or_skip_reg_val), hdm + CXL_HDM_DECODER0_TL_LOW(id));
-> +
-> +	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +}
-> +
-> +void cxl_commit_start(void __iomem *hdm, struct cxl_decoder_settings *settings)
-> +{
-> +	lockdep_assert_held(&cxl_rwsem.dpa);
-> +	setup_hw_decoder(hdm, settings);
-> +}
-> +
-> +/*
-> + * Endpoint skip and switch targets have different owners. Keep that state with
-> + * its owning type and flatten it only into a transient register-programming
-> + * snapshot.
-> + */
-> +static void cxl_decoder_snapshot(struct cxl_decoder *cxld,
-> +				 struct cxl_decoder_settings *settings)
-> +{
-> +	lockdep_assert_held(&cxl_rwsem.dpa);
-> +
-> +	*settings = (struct cxl_decoder_settings) {
-> +		.config = cxld->config,
-> +	};
->  
->  	if (is_switch_decoder(&cxld->dev)) {
->  		struct cxl_switch_decoder *cxlsd =
->  			to_cxl_switch_decoder(&cxld->dev);
-> -		void __iomem *tl_hi = hdm + CXL_HDM_DECODER0_TL_HIGH(id);
-> -		void __iomem *tl_lo = hdm + CXL_HDM_DECODER0_TL_LOW(id);
->  		u64 targets;
->  
->  		cxlsd_set_targets(cxlsd, &targets);
-> -		writel(upper_32_bits(targets), tl_hi);
-> -		writel(lower_32_bits(targets), tl_lo);
-> +		settings->target_or_skip_reg_val = targets;
->  	} else {
->  		struct cxl_endpoint_decoder *cxled =
->  			to_cxl_endpoint_decoder(&cxld->dev);
-> -		void __iomem *sk_hi = hdm + CXL_HDM_DECODER0_SKIP_HIGH(id);
-> -		void __iomem *sk_lo = hdm + CXL_HDM_DECODER0_SKIP_LOW(id);
->  
-> -		writel(upper_32_bits(cxled->skip), sk_hi);
-> -		writel(lower_32_bits(cxled->skip), sk_lo);
-> +		settings->target_or_skip_reg_val = cxled->skip;
->  	}
-> -
-> -	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->  }
->  
->  static int cxl_decoder_commit(struct cxl_decoder *cxld)
-> @@ -830,6 +851,7 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
->  	struct cxl_port *port = to_cxl_port(cxld->dev.parent);
->  	struct cxl_hdm *cxlhdm = dev_get_drvdata(&port->dev);
->  	void __iomem *hdm = cxlhdm->regs.hdm_decoder;
-> +	struct cxl_decoder_settings settings;
->  	int id = cxld->config.id, rc;
->  
->  	if (cxld->config.flags & CXL_DECODER_F_ENABLE)
-> @@ -862,10 +884,12 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
->  		}
->  	}
->  
-> -	scoped_guard(rwsem_read, &cxl_rwsem.dpa)
-> -		setup_hw_decoder(cxld, hdm);
-> +	scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
-> +		cxl_decoder_snapshot(cxld, &settings);
-> +		cxl_commit_start(hdm, &settings);
-> +	}
->  
-> -	rc = cxld_await_commit(hdm, cxld->config.id);
-> +	rc = cxld_await_commit(hdm, settings.config.id);
->  	if (rc) {
->  		dev_dbg(&port->dev, "%s: error %d committing decoder\n",
->  			dev_name(&cxld->dev), rc);
-> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
-> index 237b31d54249..67c81be47fbb 100644
-> --- a/include/cxl/cxl.h
-> +++ b/include/cxl/cxl.h
-> @@ -72,6 +72,16 @@ struct cxl_decoder {
->  	void (*reset)(struct cxl_decoder *cxld);
->  };
->  
-> +/**
-> + * struct cxl_decoder_settings - CXL HDM decoder programming snapshot
-> + * @config: common decoder configuration
-> + * @target_or_skip_reg_val: switch target list or endpoint skip register value
-> + */
-> +struct cxl_decoder_settings {
-> +	struct cxl_decoder_config config;
-> +	u64 target_or_skip_reg_val;
+[ Backport to 6.1.y: kept the older int-returning
+  ethtool_get_max_rxfh_channel() and propagated its errors at both
+  channel-change call sites instead of the upstream u32/U32_MAX
+  conversion. A failure now returns the helper's errno (-ENOMEM or the
+  driver's get_rxfh() error) rather than -EINVAL, and -EOPNOTSUPP also
+  fails closed; on 6.1 IFF_RXFH_CONFIGURED can only be set via set_rxfh
+  paths that require a non-zero indirection table size. ]
 
-Single variable contains multiple meanings gets confusing and messy when they are different values depending on context.
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Link: https://patch.msgid.link/20240710174043.754664-2-kuba@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and net maintainers,
 
-How about something like:
+I am working through the small CVE backports still missing from 6.1.y.
+This one addresses CVE-2024-46834. It aborts a channel reduction when the
+core cannot prove RSS table entries remain valid.
 
-struct cxl_endpoint_decoder_settings {
-	struct cxl_decoder_config config;
-	u64 skips;
-};
+The corresponding 6.6.y backport is already in the 6.6.y stable queue.
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
+in 6.1.y.
+The target-specific adjustment is recorded in the bracketed note above.
 
-/* resource.c: common to both decoder types */
-static u32 cxl_hdm_write_range(void __iomem *hdm,
-                             const struct cxl_decoder_config *config)
-{
-      int id = config->id;
-      u64 base = config->hpa_range.start;
-      u64 size = range_len(&config->hpa_range);
-      u32 ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+Could you please queue it for 6.1.y?
 
-      cxld_set_interleave(config, &ctrl);
-      cxld_set_type(config, &ctrl);
-      writel(upper_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id))
-      writel(lower_32_bits(base), hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
-      writel(upper_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id))
-      writel(lower_32_bits(size), hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
-      return ctrl;
-}
+CVE: CVE-2024-46834
+Upstream: 2899d58462ba868287d6ff3acad3675e7adf934f
 
-void cxl_commit_start_endpoint(void __iomem *hdm,
-                             const struct cxl_endpoint_decoder_settings *s)
-{
-      int id = s->config.id;
-      u32 ctrl;
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
 
-      lockdep_assert_held(&cxl_rwsem.dpa);
-      ctrl = cxl_hdm_write_range(hdm, &s->config);
-      writel(upper_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_HIGH(id));
-      writel(lower_32_bits(s->skip), hdm + CXL_HDM_DECODER0_SKIP_LOW(id));
-      writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-}
+Thanks,
+Artem Dinaburg
 
-void cxl_commit_start_switch(void __iomem *hdm,
-                           const struct cxl_decoder_config *config,
-                           u64 targets)
-{
-      int id = config->id;
-      u32 ctrl;
+ net/ethtool/channels.c |  9 ++++++---
+ net/ethtool/ioctl.c    | 11 +++++++----
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
-      lockdep_assert_held(&cxl_rwsem.dpa);
-      ctrl = cxl_hdm_write_range(hdm, config);
-      writel(upper_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_HIGH(id));
-      writel(lower_32_bits(targets), hdm + CXL_HDM_DECODER0_TL_LOW(id));
-      writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-}
-
-/* hdm.c: cxl_decoder_commit() */
-scoped_guard(rwsem_read, &cxl_rwsem.dpa) {
-      if (is_switch_decoder(&cxld->dev)) {
-              struct cxl_switch_decoder *cxlsd =
-                      to_cxl_switch_decoder(&cxld->dev);
-              u64 targets;
-
-              cxlsd_set_targets(cxlsd, &targets);
-              cxl_commit_start_switch(hdm, &cxld->config, targets);
-      } else {
-              struct cxl_endpoint_decoder *cxled =
-                      to_cxl_endpoint_decoder(&cxld->dev);
-              struct cxl_endpoint_decoder_settings s = {
-                      .config = cxld->config,
-                      .skip = cxled->skip,
-              };
-
-              cxl_commit_start_endpoint(hdm, &s);
-      }
-}
-
-> +};
-> +
->  /*
->   * Using struct_group() allows for per register-block-type helper routines,
->   * without requiring block-type agnostic code to include the prefix.
+diff --git a/net/ethtool/channels.c b/net/ethtool/channels.c
+index 40315886201158..05f3068ec0fe35 100644
+--- a/net/ethtool/channels.c
++++ b/net/ethtool/channels.c
+@@ -191,9 +191,12 @@ int ethnl_set_channels(struct sk_buff *skb, struct genl_info *info)
+ 	/* ensure the new Rx count fits within the configured Rx flow
+ 	 * indirection table settings
+ 	 */
+-	if (netif_is_rxfh_configured(dev) &&
+-	    !ethtool_get_max_rxfh_channel(dev, &max_rx_in_use) &&
+-	    (channels.combined_count + channels.rx_count) <= max_rx_in_use) {
++	if (netif_is_rxfh_configured(dev)) {
++		ret = ethtool_get_max_rxfh_channel(dev, &max_rx_in_use);
++		if (ret)
++			goto out_ops;
++	}
++	if (channels.combined_count + channels.rx_count <= max_rx_in_use) {
+ 		ret = -EINVAL;
+ 		GENL_SET_ERR_MSG(info, "requested channel counts are too low for existing indirection table settings");
+ 		goto out_ops;
+diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
+index 1f64ff5f3f21cb..439871dd1ca83b 100644
+--- a/net/ethtool/ioctl.c
++++ b/net/ethtool/ioctl.c
+@@ -1832,10 +1832,13 @@ static noinline_for_stack int ethtool_set_channels(struct net_device *dev,
+ 
+ 	/* ensure the new Rx count fits within the configured Rx flow
+ 	 * indirection table settings */
+-	if (netif_is_rxfh_configured(dev) &&
+-	    !ethtool_get_max_rxfh_channel(dev, &max_rx_in_use) &&
+-	    (channels.combined_count + channels.rx_count) <= max_rx_in_use)
+-	    return -EINVAL;
++	if (netif_is_rxfh_configured(dev)) {
++		ret = ethtool_get_max_rxfh_channel(dev, &max_rx_in_use);
++		if (ret)
++			return ret;
++	}
++	if (channels.combined_count + channels.rx_count <= max_rx_in_use)
++		return -EINVAL;
+ 
+ 	/* Disabling channels, query zero-copy AF_XDP sockets */
+ 	from_channel = channels.combined_count +
+-- 
+2.39.5
 
