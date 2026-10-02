@@ -1,132 +1,322 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5122A4E3259;
-	Fri,  2 Oct 2026 16:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3671F4EFFB5
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957842; cv=none; b=mFPAFBxt9Wkb+wz1CaSPrj/j6Jru47BMORPtXB62J48P5XBgs7sfm6xWunzsDptNvizzLUfwLPau1sa3sxxZhhaZ0bLGb81CAUz0NVb6Fv/mDJkE1U5umO6OLXGq+c9RgaYRnmn+QlnoxK9o2hpnqbun4vFjsY3lqqaepOUcNwo=
+	t=1790957847; cv=none; b=tAise7e3yuwYa9g0ForZRuayrM288VU2489t8T/ZICvSHs7PJtkUvqR24+OnPIztikg0VN25Tc+0GsgtbsJRE8D90yoW3i7SyYYRM58ZUaGFE61AF5wKds1uX+5DendGjilWdSSMoF5UnyrVj2b2SjAQvn+6oIPy4H3Gfg8RJfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957842; c=relaxed/simple;
-	bh=7KZCFvKm+b+K+u6GwHqW+UpEcbSm4wGhlvkIvWsYoQA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J4mtJpIjgh+T8Do14dgfrO59UIj1OYuq+UPcl+RwsAopqcS8qN8Y1zloE/KA1JKYgR9mP6tGw7cWkNFf4c37KMTUl1NZtIiJvzdAEhY3vLCa0Ka4BCGyWhpoqNNM9BzaQBlvVcLGM9rohccJwvp/luHt4cpdoM3pGTXlRlYvUmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sowa075W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790957847; c=relaxed/simple;
+	bh=Yrov+4xcxfQBnrSGVO2pHdXWIvXxICJUG0X7+N5k0E4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AwB7fzmmutZL+AcylT21Z4PZCRpr00ihL51QBv/f0n5nrG3UXzV6xdxoUUE9RLVrt13xcY2B/JMjiQmJloI7EtZgY1+CmhoqsXQav+svH6yLY3wsuzY180cZjbWZeCWybDU4DI9LaaTAGe1zlpNdPugF6OBrHEj78HZw6bhxzlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GRPm1zme; arc=none smtp.client-ip=74.125.228.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sowa075W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A3A1F00893;
-	Fri,  2 Oct 2026 16:17:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790957840;
-	bh=NpzoYDSIrYMJBSmUGDfAe3nxtL+kqV99j9xz34JxBI4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sowa075WaK/403zLdKGJIdu6BkJHte5GM84lUjV6vBSBG/6jtX26KXOhfIkfQYVgY
-	 Lyk0oi7AQ+e5u4GXQH4zzOfkeTd6BIEE5FtO9nWCHY6N/iTb+ahUELDtECWRmK5Ciw
-	 vsvDrt/bWKD0rH51e29h3PgdDQuT0UHXjKBEWE1T17irrKrSJe6dZPBsFSkHIM4Ll3
-	 XaPNWeyuLw+tCooxP/4NTiX5tcNGPLj7KkCPM8wh8nv4eSkF1C4LyYCGk6dyh5kTMD
-	 uZrmq6AxQI+dTmK+lAE8K5KllbhPb/Z31eaHhIEYlWS2aVIEBedQAg4wPBos/qPf2Q
-	 N67k8Lk6lp4dA==
-Date: Fri, 2 Oct 2026 18:17:16 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: adrian.hunter@intel.com, atomlin@atomlin.com, howardchu95@gmail.com,
-	james.clark@linaro.org, jbrnak@redhat.com, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, namhyung@kernel.org, peterz@infradead.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 2/2] perf trace: Increase TRACE_AUG_MAX_BUF to 128 and
- document beauty_map encoding
-Message-ID: <ar_ZDG16S_lyZ8Ol@x2>
-References: <ar6nzTSj17IxCy0j@x2>
- <20261002065440.2781176-1-irogers@google.com>
- <20261002065440.2781176-2-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GRPm1zme"
+Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae19959791so82271a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:17:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790957841; x=1791562641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=inUXALtHTvzEHgf8GUFS30DP/3xlzvolY7NUu3QFipU=;
+        b=GRPm1zmedtZDbofip+l8xt7GSuyU0kCwiuoZyuo6TX5IPzc6DEwBV0l+6Q/RflsdSw
+         fHoXDnucy2mthbuwAxRlKCDB6o6bj5KsxvmKsbx9GJOP7UtuMrnfeX3Qr8xh9FXBqB73
+         vg0RIj61EgfE4a1CjbrJxsIWmRdBLetWWwcp0yI7GfF4mHgm+1zpNAm3uYDqeiBeYNaS
+         1iH1DB2AvAVmsByB0Z7HyFpJjLYlBrgnvP4dzLxkZaQdwcPg+mK5uq31Ij/YRu+b4rSq
+         lsrRXdfl07hvJs6oXjy6S59yUYv1UHjItpwer/F7IfjHCdNkcocjsaxYs/3dVQxk8qEf
+         6D3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790957841; x=1791562641;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=inUXALtHTvzEHgf8GUFS30DP/3xlzvolY7NUu3QFipU=;
+        b=J505XIbyyg2R5BbUNAg680VuUknmkd61SkJ3ntzW+oJoIkn9R56BXht1KR4hx3kk4u
+         T9ImPd+Iwmn7pUki2KnuZwqXYtDMTwBmKXe5XOf/wp/JKEig32zY9egMV2LqhTbYA31b
+         0U/DW1/jTsfUkoHYWwrldhSBQ34FwxDgjt9jgKrHyBRSQXziPBkNf87oSud+H33YyJCm
+         bQyewckSn/RbHuIGENzGG0eYQGXbU6vZ04qwKT4DVJ6MrQM/R7RxhlAEIa8sruutBrkd
+         WgUq+R/bG2gRa8cQveSHsobGgJF2IiOjvPgxcW5vx4+lToLwmqg35rr7A3hnP1IkC7DA
+         9UMQ==
+X-Gm-Message-State: AFuF++lBq+yrOz16tDL1ssXjjiK79NOTKoGAAzbpOx4C6klirogMGtaJ
+	r/z04CnphKMcsbfonUtBY/Cl+t5NVjMXfudd/uEdvUWyAYzo464X9rAD
+X-Gm-Gg: AYBFou2w9Br/MV11pxfAfu71wEEYMJIj6OwCJAVKgEJIy5+cwVkTahCilDEZyERdtb+
+	Vi/Q6PEpgXhgR/jLCXR6SKTAgED0fm5f7EQkl5cSh1jvGofJUsUVXOyTqDoVH2qTzmzAvKheRKd
+	w2f5UKTiy1qMMzJctT0wrxd8QFzrxwYA/miVwcbLdpyQvGyjSymwO32Jol9q6i0X8YzTR6L8/y3
+	hhN4fMlKkhw370lsTn8m1/ui8Vwnjench8aBqq74Jyo22d/2by1C6t/8vuKOd/TJBGvkLvpy6Q1
+	rN2/LAFOHACDkhIBvafnhLZ4AcdDRpOCQHei871vX8Blyit6ez21ASk/IOOwHm9NxbUc0ZLK+7K
+	1gr20MhpW+37nu9PiLu7JXb4BcWqkdnOngibWvDoLA6xj2EG1u9U7FjQweReA5o06+Vt+a4ZVGE
+	SfCziqXwRUUXRBHPhOo6AuAMZnDOat/OuuzgU23/etXjK6TvjJqAV0y6J78D7WbttqmDpRNf60u
+	D+T1CigWCixKEYK96ezp7cq+v0o51z/qcGU9bjO2g==
+X-Received: by 2002:a17:906:4fc5:b0:c26:1649:47b4 with SMTP id a640c23a62f3a-c2e4afee0demr267257866b.42.1790957841298;
+        Fri, 02 Oct 2026 09:17:21 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf5f4e4sm106437166b.42.2026.10.02.09.17.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 09:17:19 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: sparclinux@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: linux-kernel@vger.kernel.org,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH 7/7] hvc: add an M3000 firmware console backend
+Date: Fri,  2 Oct 2026 18:14:29 +0200
+Message-ID: <20261002161515.932316-8-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002161515.932316-1-linmag7@gmail.com>
+References: <20261002161515.932316-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002065440.2781176-2-irogers@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 11:54:40PM -0700, Ian Rogers wrote:
-> With sockaddr arguments copied as buffers via beauty_map_enter, the
-> 32-byte TRACE_AUG_MAX_BUF limit only held 2 bytes of sa_family plus 30
-> bytes of AF_LOCAL sun_path, truncating longer socket paths such as
-> "/var/run/.heim_org.h5l.kcm-socket".
-> 
-> Since struct augmented_arg already reserves PATH_MAX (4096) bytes,
-> increase TRACE_AUG_MAX_BUF to 128 (SS_MAXSIZE, the size of struct
-> sockaddr_storage), which covers all 110 bytes of struct sockaddr_un
-> without changing map sizes. Also document the 1-based negative
-> -(arg_idx + 1) encoding used in beauty_array for paired length
-> arguments.
-> 
-> Suggested-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Provide hvc0 through the IKKAKU Open Firmware pseudo-console, validating
+model and console properties before matching. Serialize firmware calls,
+keep the bounce buffer in locked mappings and poll input each open tick.
 
-Thanks, tested and applied.
+Keep output buffers const and bound no-progress retries because HVC
+retries EAGAIN indefinitely. A stalled firmware call remains unbounded.
+Use the existing SPARC p1275 interface and HVC output contract.
 
-- Arnaldo
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
+ MAINTAINERS                 |   6 ++
+ drivers/tty/hvc/Kconfig     |  10 +++
+ drivers/tty/hvc/Makefile    |   2 +
+ drivers/tty/hvc/hvc_m3000.c | 167 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 185 insertions(+)
+ create mode 100644 drivers/tty/hvc/hvc_m3000.c
 
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/builtin-trace.c                            | 8 +++++++-
->  tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c | 8 ++++----
->  2 files changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-> index c34c9f129836..4094141461f9 100644
-> --- a/tools/perf/builtin-trace.c
-> +++ b/tools/perf/builtin-trace.c
-> @@ -4174,7 +4174,12 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  				continue;
->  
->  			bt = sc->arg_fmt[i].type;
-> -			/* Copy a sockaddr as a buffer sized by the next argument, e.g. addrlen. */
-> +			/*
-> +			 * Copy a sockaddr as a buffer sized by the next
-> +			 * argument (i + 1), e.g. addrlen. A negative entry
-> +			 * -(j + 1) encodes the 0-based length argument index j
-> +			 * as 1-based so arg 0 is -1 rather than 0.
-> +			 */
->  			if (strcmp(name, "sockaddr") == 0 && field->next &&
->  			    strstr(field->next->name, "len"))
->  				beauty_array[i] = -((i + 1) + 1);
-> @@ -4210,6 +4215,7 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  				     strstr(field_tmp->name, "siz") ||  /* size, bufsiz */
->  				     (strstr(field_tmp->name, "len") && strcmp(field_tmp->name, "filename")))) {
->  					 /* filename's got 'len' in it, we don't want that */
-> +					/* 1-based negative index of length arg j. */
->  					beauty_array[i] = -(j + 1);
->  					can_augment = true;
->  					break;
-> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> index 0b2ef9541f84..28ebb9a72776 100644
-> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> @@ -28,7 +28,7 @@
->  
->  #define MAX_CPUS  4096
->  
-> -#define TRACE_AUG_MAX_BUF 32 /* for buffer augmentation in perf trace */
-> +#define TRACE_AUG_MAX_BUF 128 /* for buffer augmentation in perf trace */
->  
->  /* bpf-output associated map */
->  struct __augmented_syscalls__ {
-> @@ -514,9 +514,9 @@ u64 ZERO = 0;
->   * value in the beauty_map. This is the relation of parameter type and its corresponding
->   * value in the beauty map, and how many bytes we read eventually:
->   *
-> - * string: 1			      -> size of string
-> - * struct: size of struct	      -> size of struct
-> - * buffer: -1 * (index of paired len) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
-> + * string: 1			          -> size of string
-> + * struct: size of struct	          -> size of struct
-> + * buffer: -(0-based index of paired len + 1) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
->   */
->  static inline int augment_arg(struct syscall_enter_args *args, int i,
->  			      unsigned int *beauty_map,
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..5bc9b1cabd0a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -10728,6 +10728,12 @@ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	drivers/platform/x86/fujitsu-laptop.c
+ 
++FUJITSU M3000 FIRMWARE CONSOLE
++M:	Magnus Lindholm <linmag7@gmail.com>
++L:	linux-serial@vger.kernel.org
++S:	Maintained
++F:	drivers/tty/hvc/hvc_m3000.c
++
+ FUJITSU TABLET EXTRAS
+ M:	Robert Gerlach <khnz@gmx.de>
+ L:	platform-driver-x86@vger.kernel.org
+diff --git a/drivers/tty/hvc/Kconfig b/drivers/tty/hvc/Kconfig
+index 5866195de26a..0feb7ec98f4f 100644
+--- a/drivers/tty/hvc/Kconfig
++++ b/drivers/tty/hvc/Kconfig
+@@ -134,3 +134,13 @@ config HVCS
+ 	  will depend on arch specific APIs exported from hvcserver.ko
+ 	  which will also be compiled when this driver is built as a
+ 	  module.
++
++config HVC_M3000
++	bool "M3000 firmware pseudo-console"
++	depends on SPARC64_VII
++	select HVC_DRIVER
++	help
++	  Provide hvc0 using Open Firmware stdin/stdout on IKKAKU only.
++	  Input is polled; no native UART registers are accessed.
++	  Firmware calls are serialized and use a locked-image bounce buffer.
++	  Say Y to use the M3000 firmware pseudo-console as hvc0.
+diff --git a/drivers/tty/hvc/Makefile b/drivers/tty/hvc/Makefile
+index 98880e357941..5b0277deb7c9 100644
+--- a/drivers/tty/hvc/Makefile
++++ b/drivers/tty/hvc/Makefile
+@@ -11,3 +11,5 @@ obj-$(CONFIG_HVC_IUCV)		+= hvc_iucv.o
+ obj-$(CONFIG_HVC_UDBG)		+= hvc_udbg.o
+ obj-$(CONFIG_HVC_RISCV_SBI)	+= hvc_riscv_sbi.o
+ obj-$(CONFIG_HVCS)		+= hvcs.o
++
++obj-$(CONFIG_HVC_M3000) += hvc_m3000.o
+diff --git a/drivers/tty/hvc/hvc_m3000.c b/drivers/tty/hvc/hvc_m3000.c
+new file mode 100644
+index 000000000000..0ef4c888a6a2
+--- /dev/null
++++ b/drivers/tty/hvc/hvc_m3000.c
+@@ -0,0 +1,167 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Experimental M3000 Open Firmware pseudo-console backend. */
++#include <linux/console.h>
++#include <linux/err.h>
++#include <linux/init.h>
++#include <linux/irqflags.h>
++#include <linux/string.h>
++#include <linux/spinlock.h>
++#include <linux/timer.h>
++#include <asm/oplib.h>
++#include <asm/spitfire.h>
++#include "hvc_console.h"
++
++#define M3000_WRITE_ATTEMPTS 8
++
++static int m3000_stdin;
++static bool m3000_ready;
++/* Keep firmware buffers within the locked kernel image mappings. */
++static u8 m3000_buffer[256];
++static DEFINE_RAW_SPINLOCK(m3000_buffer_lock);
++static struct timer_list m3000_poll_timer;
++static bool m3000_poll_active;
++
++/*
++ * HVC's idle backoff can exceed the firmware input FIFO's capacity.
++ * Wake its worker each tick while open; keep PROM calls out of the timer.
++ */
++static void m3000_poll_tick(struct timer_list *timer)
++{
++	if (!READ_ONCE(m3000_poll_active))
++		return;
++	hvc_kick();
++	mod_timer(&m3000_poll_timer, jiffies + 1);
++}
++
++static int m3000_open(struct hvc_struct *hp, int data)
++{
++	WRITE_ONCE(m3000_poll_active, true);
++	mod_timer(&m3000_poll_timer, jiffies + 1);
++	return 0;
++}
++
++static void m3000_close(struct hvc_struct *hp, int data)
++{
++	WRITE_ONCE(m3000_poll_active, false);
++	timer_delete_sync(&m3000_poll_timer);
++}
++
++static ssize_t m3000_io(u8 *in, const u8 *out, size_t count)
++{
++	unsigned long args[7], flags;
++	bool input = in != NULL;
++	int ret;
++
++	if (!count)
++		return 0;
++	count = min_t(size_t, count, input ? 1 : sizeof(m3000_buffer));
++	/* Serialize the bounce buffer; p1275 separately serializes firmware. */
++	raw_spin_lock_irqsave(&m3000_buffer_lock, flags);
++	if (!input)
++		memcpy(m3000_buffer, out, count);
++	args[0] = (unsigned long)(input ? "read" : "write");
++	args[1] = 3;
++	args[2] = 1;
++	args[3] = (unsigned int)(input ? m3000_stdin : prom_stdout);
++	args[4] = (unsigned long)m3000_buffer;
++	args[5] = count;
++	args[6] = (unsigned long)-1;
++	p1275_cmd_direct(args);
++	ret = (int)args[6];
++	if (ret > 0 && ret <= count && input)
++		memcpy(in, m3000_buffer, ret);
++	raw_spin_unlock_irqrestore(&m3000_buffer_lock, flags);
++	if (ret == -2 || ret == 0)
++		return input ? 0 : -EAGAIN;
++	if (ret < 0 || ret > count)
++		return -EIO;
++	return ret;
++}
++
++static ssize_t m3000_get(u32 termno, u8 *buf, size_t count)
++{
++	return m3000_io(buf, NULL, count);
++}
++
++static ssize_t m3000_put(u32 termno, const u8 *buf, size_t count)
++{
++	ssize_t ret;
++	int attempt;
++
++	/*
++	 * HVC retries -EAGAIN forever, so drop this chunk without logging when
++	 * the no-progress budget expires. This cannot bound a stalled firmware
++	 * call or lock acquisition.
++	 */
++	for (attempt = 0; attempt < M3000_WRITE_ATTEMPTS; attempt++) {
++		ret = m3000_io(NULL, buf, count);
++		if (ret != -EAGAIN)
++			return ret;
++		cpu_relax();
++	}
++	return -EIO;
++}
++
++static const struct hv_ops m3000_ops = {
++	.get_chars = m3000_get,
++	.put_chars = m3000_put,
++	.notifier_add = m3000_open,
++	.notifier_del = m3000_close,
++	.notifier_hangup = m3000_close,
++};
++
++static bool __init m3000_property_matches(phandle node, const char *prop,
++					 const char *expected)
++{
++	char value[64];
++	int len;
++
++	len = prom_getproperty(node, prop, value, sizeof(value) - 1);
++	if (len <= 0)
++		return false;
++	value[len] = '\0';
++	return !strcmp(value, expected);
++}
++
++static int __init m3000_console_init(void)
++{
++	phandle node;
++	int ret;
++
++	if (tlb_type != sparc64_vii)
++		return -ENODEV;
++	if (!m3000_property_matches(prom_finddevice("/"), "model", "IKKAKU"))
++		return -ENODEV;
++	m3000_stdin = prom_getint(prom_chosen_node, "stdin");
++	if (!m3000_stdin || m3000_stdin == -1 || !prom_stdout || prom_stdout == -1)
++		return -ENODEV;
++	node = prom_inst2pkg(prom_stdout);
++	if (!m3000_property_matches(node, "name", "pseudo-console"))
++		return -ENODEV;
++	node = prom_inst2pkg(m3000_stdin);
++	if (!m3000_property_matches(node, "name", "pseudo-console"))
++		return -ENODEV;
++	ret = hvc_instantiate(0, 0, &m3000_ops);
++	if (ret < 0)
++		return ret;
++	m3000_ready = true;
++	return 0;
++}
++console_initcall(m3000_console_init);
++
++static int __init m3000_tty_init(void)
++{
++	struct hvc_struct *hp;
++
++	if (!m3000_ready)
++		return -ENODEV;
++	timer_setup(&m3000_poll_timer, m3000_poll_tick, 0);
++	hp = hvc_alloc(0, 0, &m3000_ops, sizeof(m3000_buffer));
++	if (IS_ERR(hp))
++		return PTR_ERR(hp);
++	hp->ws.ws_row = 24;
++	hp->ws.ws_col = 80;
++	pr_info("M3000: firmware-backed hvc0 tty ready (serialized, polled input)\n");
++	return 0;
++}
++device_initcall(m3000_tty_init);
+-- 
+2.43.0
+
