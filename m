@@ -1,151 +1,61 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8FD497B6B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9499B496D36
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946395; cv=none; b=VFwafxGYJQxr3qRWa0WqGkSfSefViGNdq0/gb0VRDMZDu1Lg+/9JegsE6Xykcyr/Fu1LR3H3OP7q1HbHxt5DgqF4Y1aqDnWNnboUdVImlsG3XY8fS9KW55eB46bQPyLLmnXofHl1Agi0gZ2XFZEydXaD1M1abr8eVACo2WXSWFA=
+	t=1790946417; cv=none; b=NWhv9AvJwx1zldITwqFTUCWDyP/IkFve4muPCkm5PSXqXhiK1qMCyW6ltiuHwntN3imRK9CjkhCkJFwH+VRwrPnTOlRnlHE9QSGiJZNtsVFuQqoyOouqEqd2IQWOcNoFYA6MxiPe/K44OGQMwhDloCUcJaIZ00BG5w3vy6eE1KY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946395; c=relaxed/simple;
-	bh=OxoSJ4srJKDimtpmkHPLj3pXrTAzJqY42lZbitdgufg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OUwx5cS5aoh+KhzczS++Ug6JMgsH5k+r1ZMl7e0drZs5qXC1VTXqEPHF7BG8jb6nev7hg3UUck17sCaOH1sTgwrNtyBA1qDvPlzAy+T8EJlscXUFHeyxq0rGfwORBs4Ap4swgLtFYb4Od+DG0O01i0oyK/8lar32yR0vvQCwtmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=iiRmpk+h; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="iiRmpk+h"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b590a5b5eso4663832eec.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:06:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790946384; x=1791551184; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M1eeIXXEBO6PHS8yDF6wQU14zHl2iX5iGebTQR/5ZsM=;
-        b=iiRmpk+h+mOQdgRR1Qx3gxCq5NYPDrLHrtFOivjoAf8RykAQn6gnLZyAN5NrqYklyD
-         kBmZlPbIiNmSJc+cZC/u8Ik89bI5iKQ7lrmzAUlG/Szzi53t35jDWVfjjN8JXfWFyMg0
-         gPGr7CZmjgfFNck3mRFhKjFoNmP+OhFJam5god7v+NRvz3yb5FU/rLfhI3HhhyVPIwQ7
-         7X9LJr83MPILTdDxms7Zbyf/d/3R4zYUqlqEVFmuQikpL1RiDqalxxZm6Ibuo2RV7qTW
-         ih/vzI6uZgRRCYiwegb58fetO+4v8vbvOEVwYVFC3IA+d5yfCMfnIdHgWpZLQWGZ+bIw
-         Az+g==
+	s=arc-20240116; t=1790946417; c=relaxed/simple;
+	bh=DrRJCNnlBCc5Zdz3q/62BVO3EKb/tzRwU5u5YBaJs9Y=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=iI5CH2OtnbRpxgzdgnKn6IMfk7oiFHWP7I2I/mt/bhswJeGGez2cNnwIZ6AMmsFBOTLyaZEks5np6iNx0Zj9DntPwR1jsuCSLY7RkXfxc3+Jh2Au+SzjjJa/IzFdjoms/Z+uBD84pIV+ahKmQ1fK0ljAoESMQoq8tATtnkzkEK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8210034ccc0so4705198a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:06:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790946384; x=1791551184;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M1eeIXXEBO6PHS8yDF6wQU14zHl2iX5iGebTQR/5ZsM=;
-        b=sOPocio0bUZyGQCwltNEKQj73qUGCOgzc8+tKa95Lc+y49EvsYGwZptwAPkt6xF16Z
-         WXir5401LmUkZy2E1F9NwtwdMigQKrb9msVEbHhX+TtLuVYNaK6xzrDM+J/kR1oOutZB
-         uDzkjO5pws/W+d95gKsfUnjpbjL3fOfn1T490z1sF+yubH6lalwyFnq+9OyC5mO6J16T
-         qawfWsMyOFRQnum/aHwu4wwZZReJi1mru9XqWVUQ8Mp+k9IJpvs1bgBmsGTut/AeCR18
-         Q/XqQ6pMKifPEtUCFhjVK7WdxLR8JS6wxSuJVgQkfN5q91KUIh60LNS5ra6ziK2IC4r4
-         He7A==
-X-Forwarded-Encrypted: i=1; AKwUvByKoYcmJmW3gAT+AtB2fLCOhWqzR64l5JVEB+NNjf9Ua1q/cfaMz4cqAeBAW5ecjX9c+rBNdEFH6lGExac=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+0uzXiyvSKWQpDhRpWZNk3Y2euTAVofqgYcKSVI/wzo8RM4oC
-	OnpJCc/BDPXH1cxKSN6HW8/U5nob4Rhx0jeROjCnQEtbw98UMEBqir+aUHx9mCzSmqk=
-X-Gm-Gg: AYBFou06MkHE0DSk2M5POS+nhrF1yFdC2xuVoEYT8N/h+4GGiyG3MW90SpaA4g9ELnY
-	k4G/9zELXni6FSOVXdaeGvjmIwoYJlXWFaXAxM5AqvLQjTlMXomfmR8Hg324hMmJTGaCadUiiXd
-	1okZhHhs50fExUNkJML5ugo5E7HirVCZ8dR3JUC9rLpRqJIsXl2SO3YpMBgKGKx4rRZID+NnA25
-	TOGtj6xu6loUchl6RHGevPcmJUl+HToPR/xKiCzm/zG9AdngmScwOo9QktuZpxUQWFmAZvl8cVo
-	8QvZG3hr3SblYFmhIFB3X79CI7h3+92htEJ6G4MHxqSoopvBgND3fvpO5J1XZdVYzvcEEgTXLNW
-	GDGqS5koJf0pGjj5z9rPiUWB5qUChuoeiYZ688S8dS66Oe2Rhnj7QYCWK84mM5P99eRbrsBW04z
-	ueGrDudJFiM+VDqecZrJbiuVIZoQillYhezXaDgE69Rqe9
-X-Received: by 2002:a05:7022:1587:b0:148:c6ec:13b3 with SMTP id a92af1059eb24-14f5b71069amr3573874c88.17.1790946384348;
-        Fri, 02 Oct 2026 06:06:24 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f46da52aesm5332231c88.10.2026.10.02.06.06.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 06:06:23 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xCcxy-0000000GZnx-1o1m;
-	Fri, 02 Oct 2026 10:06:22 -0300
-Date: Fri, 2 Oct 2026 10:06:22 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Sonang Patel <sonangp@nvidia.com>, linux-coco@lists.linux.dev,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 11/11] PCI/TSM: Add reference-counted contexts for
- vdevice providers
-Message-ID: <20261002130622.GB3481470@ziepe.ca>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-12-aneesh.kumar@kernel.org>
- <arq2Ql3-q9EApe3X@sonangrm.nvidia.com>
- <20260928230834.GL163130@ziepe.ca>
- <yq5av77ktyrs.fsf@kernel.org>
+        d=1e100.net; s=20260707; t=1790946400; x=1791551200;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DrRJCNnlBCc5Zdz3q/62BVO3EKb/tzRwU5u5YBaJs9Y=;
+        b=heasFuOA/NXsw23cyWQ3Fw8dZ541253Jhf6/gWM4nNy1TGxri89DScyG+OkinCI5Hj
+         LQNcSCKFUAyrgkEkyGfpabxCrys2kXdL/vumSHnBOhy+DhijzVytBld3LwhzGMRCePo/
+         2K64tqmkVJZcaApPBpnrUD7exeZNBjGPCr+rIuIrYlZX9Y5U8abbDRx4Bft9W6qpaP1C
+         PiM5FbwSTOdBRuVIwIdDxAWClD3HQwoknFQmgwgUWzGC3zJqYyoNvHZ/6Pwg8Rzo4YaF
+         sIDh1OLqqAe3wYDNhSdgcJKmZ3p9wouIwQxmTfpy2tqHB+CMZmALmTWj4JnxW9uLco2D
+         Ufng==
+X-Gm-Message-State: AFuF++n9jXkIWycwpTDSvTnvUYUm1AEGkGH6+Hw1i1UuKPqUIVkXMSdJ
+	wqwm/jocO7igbK+QlHhh7f6SJ+qmZnQBfVQ/mPNMYQP8hSD24/iEtjMCK9P591JbL8yQXfex9/j
+	r4a5+4/SXxvToXtL7u4b+gCKZx9h0/3L22JBlG6wJhglW3bhgtqPfw0xcQGs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5av77ktyrs.fsf@kernel.org>
+X-Received: by 2002:a05:6808:1993:b0:4d6:9335:d533 with SMTP id
+ 5614622812f47-4f52ab91601mr2037440b6e.64.1790946400048; Fri, 02 Oct 2026
+ 06:06:40 -0700 (PDT)
+Date: Fri, 02 Oct 2026 06:06:40 -0700
+In-Reply-To: <67710fe1.050a0220.226966.00be.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abfac60.eb639fcc.2b981.000b.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [usb?] [usb-storage?] WARNING in usb_stor_msg_common/usb_submit_urb
+From: syzbot <syzbot+73c662df6e55838c6ac6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 02, 2026 at 11:44:15AM +0530, Aneesh Kumar K.V wrote:
-> Jason Gunthorpe <jgg@ziepe.ca> writes:
-> 
-> > On Tue, Sep 29, 2026 at 12:17:30AM +0530, Sonang Patel wrote:
-> >> On Thu, 17 Sep 2026 19:31:59 +0530, Aneesh Kumar K.V (Arm) wrote:
-> >> > +		if (is_pci_tsm_pf0(pdev)) {
-> >> > +			if (pci_tsm_disconnect(pdev))
-> >> > +				pci_warn(pdev, "TSM connection is still in use\n");
-> >> > +		} else {
-> >> > +			tsm_remove(pdev->tsm);
-> >> > +		}
-> >> 
-> >> What happens if the PCI device is removed (e.g. sysfs remove, surprise
-> >> hot-unplug) while the vDEVICE/TDI still exists?
-> >> Since removal cannot be refused, should the remove path still force
-> >> the unbind/unlock?
-> >
-> > vfio prevents that. It currently will block the sysfs remove until
-> > vfio is closed.
-> 
-> This came up during a Codex review of my patch set. The question is what
-> happens if function 1 is assigned to the guest and function 0 is then
-> removed through sysfs. Is that allowed? 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-It can happen and I don't know we can do anything to prevent it.
+***
 
-> If so, it could be a problem because function 1 is not unbound and
-> can continue to be used, while
-> removing function 0 tears down DOE and IDE via:
-> 
-> 	pci_doe_destroy(dev);
-> 	pci_ide_destroy(dev);
+Subject: Re: [syzbot] [usb?] [usb-storage?] WARNING in usb_stor_msg_common/usb_submit_urb
+Author: cloudflare.ddos21@gmail.com
 
-Ah, PCI sig keeps on giving..
-
-The actual measurements are per function but the SPDM channel is per
-device!
-
-At least for RMM is this a problem? It looks like the spec handles
-this case the function 0 destroys IDE and commands related to the
-other functions will just start failing.
-
-So I would expect the OS implementation here to have similar
-properties that even though function 0 is gone the other functions
-still 'work' in that they get the RMM defined failures for these
-conditions.
-
-Basically, this shouldn't result in a TSM hot unplug of function
-1.. Trying to do multi-device operations is always a locking mess it
-should be avoided.
-
-Jason
+#syz fix: usb-storage: ene_ub6250: fix race between scan work and probe
