@@ -1,90 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610971FDE31;
-	Fri,  2 Oct 2026 05:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD113451A7;
+	Fri,  2 Oct 2026 05:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790918179; cv=none; b=LuZ9cKfBrDF2uS4OXashBaM+enaTU00MSbM+8T0XCWLp3p0wqIsaEFkfwxMx0wpBw4RSzJyuZJMnUIXTkCmSCa6QIa4FdeacSS4Mf/S9MDBhp8v5rlPXTJrDKeaf22J6ahg1LjdwRs3FHP5xamt0L9zn8Zg2w0lDCGAnWgoNXu0=
+	t=1790918407; cv=none; b=Sw5olKgO/vxACCY3XuKZiA/EEUg4IxIl8MHj6C6O6Uvhha3q7owSPjgxUNGqBlydqly7XcmlUVmKzWdm4TYyIntp/Ys5HbIHe+GF7C1BFN8bdqxMpSYLJ3xk6XtwS7hmoLOEKwGrCgsr0mYgJwuUmartwjGLbE/E1RbQwveA1pI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790918179; c=relaxed/simple;
-	bh=szMLHEIsPYGPBcNsMQqu4KTbB4Un+ASFkINpnnypcI0=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=pGlp518fuIH7lJ3qt5oKKJ5obNN8H5QwuXjS1Tq52MTICS5P9LogGw+ic1YYFPNZS3jGc55vekAbl5VvdIl7lhtPWZMlmV2Nc2KG6/usbE0dsP7dJfAzqlA7wasozFi1G8gx8y5QypkOvJs7s3pMfcdIBVcmSiP15jzID1cwF1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WExEL4j/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790918407; c=relaxed/simple;
+	bh=lBUFIBmtNPnA/7B0n+Z4pRXRpk+MT2mNw7TJkBlZwu4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cDOYw+TKbXWe7UtC25GOEsVWYFRu91l6lTt5Ishjf1do3dQLKfuAHShUGI64nXCwwUM4lNKOGzMG0ap615CH62G2AuJTaDyzMSXEk9SEOl9pjW5BgVBvqScynx68Urbdy38xt2D2O6Uanq9K9mQyn9rPWMHZ3SH8eZRk4ew6cN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=FPw+0+ko; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WExEL4j/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD1A1F000FF;
-	Fri,  2 Oct 2026 05:16:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790918178;
-	bh=fdbq3HRFuyvrIU82ByKul8ljBnoTsSoeLo/ZpuxDclU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=WExEL4j/nmjgZX+MwmgUbXFbkCu9MQ29rlxsZOcMhJC7NQkxAvsnKPvOc2O2O4wwB
-	 o6Za7Pd3IChaZ/FIDw3Zua2aIwQgVtEMxOXRkuBn9VCB77tQae91seSmx9FcE9A31P
-	 R+GMT2yhUnTK/qx3UGuwvjT8E71+3SCRi1N/vCXRUWrMHKpPd6/b/KaibkdkgOMQCy
-	 AgN4H2YbNsTJLeyehhziFdHjtD2wRRCQPPBjDa+QpiZlaWAUTTutnxzZfqbW4LXV4F
-	 TUAeE7uENVZG4VH1IYukQ5bYclyWb8e6XPpfNMKoInDrdJD0aI0icHurQFToaKCuDU
-	 M4t2lRc+o04kw==
-Content-Type: multipart/mixed; boundary="===============1405899604603047031=="
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="FPw+0+ko"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8AF9F40E03BE;
+	Fri,  2 Oct 2026 05:20:02 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id PUIQFFFb73Mt; Fri,  2 Oct 2026 05:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790918391; bh=iZGCiopQZoK9nMJNa8qGe84TuqiqoIvvk4HizNQi6Bs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FPw+0+ko6fht8ylkAIVObgKWuCcMRtKuBJ9N++A8hnDlF9+756cs0kliKSfoWPfvy
+	 tKQWQfwvp8THdYbUInPpKgnjCJJ1mBza8GOim6Xv1dhNq3FvA4WCtwR4z1si+W9LcJ
+	 IsLN3KEJS0du8mR0w1d/HWr6GZ6vwUi6JPyErhEwuex3C2J0BtKqpZxOg/6+xQyvc6
+	 Swzr0uGfZwSWfLSzPKMkcWrgoehmtQNdcpcqUSuI6E9fHFYCSOqnFaK/w1iOXgIBFu
+	 5jJBjvtlO1Wz8Bj0tH2FsKFApax/HusbJ0UeBNXZ/UQvtlZ859gQ/9R9Z4RNOi0d8f
+	 JHTGJOlkSG3BSgTYgtEdPwRto06aTeosHeNy39aByLB05zJWMg4B3QzROaEaaZNMiV
+	 LbpOnYOs5RgFMII9zaVcCbKf8hf+yc6TN5uw10hCttKQ9yW04T/jvL2k4IZGZYDpLL
+	 oUSBcZnr4KQsqm9KntEGKvW01sB9fzBHeemY6N3zoBJ/vCWmUbhP3GEHiKVCKB/71H
+	 ZaghANCcEBwxW9ENrnU9l9lNc6IvfK2qAHOUi8h85RZk7RNfXJtMvaSvwNtwNCLTqq
+	 0hKM6QUgnfWDCZATKNAgSToGawXb7aBJ2MfUZeFe7q5iWMoTlYDmC78EGF3ALRgR43
+	 6/xpDwhikmXbhaWVoctMvor8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 230EB40E00B9;
+	Fri,  2 Oct 2026 05:19:45 +0000 (UTC)
+Date: Thu, 1 Oct 2026 22:19:42 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tony.luck@intel.com, x86@kernel.org
+Subject: Re: [PATCH 1/3] x86/mce/amd: Fix bank lookup in
+ amd_mce_usable_address()
+Message-ID: <20261002051942.GIar8-7qT6l3mUhofX@fat_crate.local>
+References: <20260903142049.4126599-1-yazen.ghannam@amd.com>
+ <20260903142049.4126599-2-yazen.ghannam@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <30d677b5656d9fe07e2dba86d2bb1f1d5f5114cfc3f36e9d96297b70c230097b@mail.kernel.org>
-In-Reply-To: <20261002044050.1277356-1-thepacketgeek@gmail.com>
-References: <20261002044050.1277356-1-thepacketgeek@gmail.com>
-Subject: Re: [PATCH] bpf, arm64: Fix text_mutex critical section in bpf_arch_text_poke()
-From: bot+bpf-ci@kernel.org
-To: thepacketgeek@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,puranjay@kernel.org,xukuohai@huaweicloud.com,catalin.marinas@arm.com,will@kernel.org
-Cc: leitao@debian.org,bpf@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  2 Oct 2026 05:16:16 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903142049.4126599-2-yazen.ghannam@amd.com>
 
---===============1405899604603047031==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-> bpf, arm64: Fix text_mutex critical section in bpf_arch_text_poke()
-
-TL;DR: Nit only: the new multi-line comment in bpf_arch_text_poke() (arm64
-JIT) should put '/*' on its own line, per BPF comment style. No functional
-problems found.
-
-> diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-> --- a/arch/arm64/net/bpf_jit_comp.c
-> +++ b/arch/arm64/net/bpf_jit_comp.c
-
-[ ... ]
-
-> @@ -3338,12 +3338,20 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
->  		 */
->  		plt_target = (u64)&dummy_tramp;
+On Thu, Sep 03, 2026 at 09:20:47AM -0500, Yazen Ghannam wrote:
+> amd_mce_usable_address() reads the per-CPU smca_banks array at index
+> m->bank on the running CPU. The index is not checked, and the bank
+> belongs to m->extcpu, not to whichever CPU is decoding.
+> 
+> m->bank is unbounded here. apei_mce_report_mem_error() sets it to -1,
+> which is 255 in the u8 field, and apei_smca_report_x86_error() takes it
+> from a firmware BERT record. Both reach this function through the
+> decoder chain, which runs from a workqueue on any CPU. Bank counts
+> differ per CPU on SMCA systems. So the read can land past the end of
+> the array, or on a CPU where that bank means something else.
+> 
+> Use m->extcpu for both the bound and the lookup.
 >
-> +	/* pages of the bpf prog pack are shared between progs, so the
-> +	 * set_memory_rw()/set_memory_ro() window below must be serialized
-> +	 * against other pokers too.
-> +	 */
-> +	mutex_lock(&text_mutex);
-> +
+> Fixes: 821f5fe4dbcb ("x86/mce: Add support for physical address valid bit")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
 
-This isn't a bug, but should the new multi-line comment put '/*' on a line
-by itself, as is the convention for BPF code?
+...: LLM
 
-	/*
-	 * Pages of the bpf prog pack are shared between progs, so the
-	 * set_memory_rw()/set_memory_ro() window below must be serialized
-	 * against other pokers too.
-	 */
+For all three pls.
 
-[ ... ]
+> Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> ---
+>  arch/x86/kernel/cpu/mce/amd.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
+> index f916fb4c5d13..e6542e00dc5a 100644
+> --- a/arch/x86/kernel/cpu/mce/amd.c
+> +++ b/arch/x86/kernel/cpu/mce/amd.c
+> @@ -837,7 +837,8 @@ bool amd_mce_usable_address(struct mce *m)
+>  			return false;
+>  	}
+>  
+> -	if (this_cpu_ptr(smca_banks)[m->bank].paddrv)
+> +	if (m->bank < per_cpu(mce_num_banks, m->extcpu) &&
+> +	    per_cpu(smca_banks, m->extcpu)[m->bank].paddrv)
 
+Except that this conditional turns into an unreadable mess now. IOW, split it:
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+        if (m->bank >= per_cpu(mce_num_banks, m->extcpu)) 
+                return false;
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36966917973
---===============1405899604603047031==--
+        if (per_cpu(smca_banks, m->extcpu)[m->bank].paddrv)
+                return m->status & MCI_STATUS_PADDRV;
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
