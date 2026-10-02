@@ -1,189 +1,145 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C864FE2D7
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79894502771
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961040; cv=none; b=aenwtlSBn4iiJJ0JLqREcxA21vxf1lR88MOc6mJGc1odULntQh12bQWbBd45j3tDUlH3sIKQ0vxa6EQsO7UAZ6rjdpCxHj5v/iONmEZi0EPGjJnLHwjegjrWHmQgnnMnq6/hFKFRwCHyUgOuWcXD2VJlnTTinoKW1EtOLY/tk4M=
+	t=1790961057; cv=none; b=H0Iz28EWHC+vL/XD42j8zFmBHw+GCxKg2kshDC0wveaMvJCylFahlls2YQWtfZPQEc36ia63DJOAWgHBPSXzsR5DO68NvnQTyxrm8eQjLGbAnnWXUGBZMs9SXFnmuAebHbyEilfpnEWXUl5uUSONi4k6GJ7NJXH2S53QtyNlrtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961040; c=relaxed/simple;
-	bh=efWEPmj0Vc93yD7ksoAs6CSfVahXXbn88QWzVR/N9r8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QzhLR2L4h/WVQnDX3vFpeVnhSNPAl6A0SgogIOxgRVyoUbdGWs2nlv7jatqN+oabnQBn1z+Ube52EOUQ2iAcrG1Fl1B41jrJMguiitqGVYIwekXE1bC7Q7ThVhL14npV8S8aValM0QPN4l4F+L3P6JejHLGImudZMmWA7ogayuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zc9hwhi/; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790961057; c=relaxed/simple;
+	bh=mrxPXIId1qTShZKGlHGgNQz6PnSRa6+MIliC3LYulx4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZNSqz0NHTQ1lgZt64XTj8AlGufE8Sh5wwdjqkb/joN2ifQsLkIo0a/VPBwhFw0DXddJ8rnX7HAtOG6GlpUfcTVtm5KtXG2NShgEYzDEAnYSlVdd1IFmxYcY0J0f+CrTYw8lvrskLgO7ELrG36/qQJGcC57BExVO3lifoPWGiHrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jIsrR6ZC; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zc9hwhi/"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso45843765ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:10:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jIsrR6ZC"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3510f6f130bso233232eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:10:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790961030; x=1791565830; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3aHGH1btHKyA9bPipQiTAK39EsUtmJmoqAt6kx41g10=;
-        b=Zc9hwhi/muWpKPb1YQkRv8j3Lrxz8qHYxUikCn/vBZfDAga5Wfy6Bs323IcaMvkAlS
-         uzFxtE0O/KKs3AHvUu4F+bxkBfoN230osEkRbt8rtVZbCXMzDwXY6Y9ikeKjfoXVxSZ/
-         QWM1d+bYreYbQhAbZQbuOjOw/k4iEskLszWcXcoZNDs4otuZI/GjJlvECtwUvcMol3QT
-         Tt6GBI/rYsNEChdK5Y0VTw9geNjQIr7E8W6I3XEP70hnIslyxCugqDb8LhsTS7vFwpDt
-         Ue2cj4aiYboVa8od+cbZrNIgPWXqLQJ7JB6qreoGgRgjSCg9YurBUpC1u1d1iEzr4jpA
-         gQWg==
+        d=ziepe.ca; s=google; t=1790961048; x=1791565848; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BgakvInNsjTIuwI/HruggHJb8c52XKSKFB4qu//ilyk=;
+        b=jIsrR6ZCYoXUg62SeoHiJ6U1qQmTUvfmHWogxM0qjQgpdxTBR38CREigK8nBVg837B
+         KemCEloefIFs0d6V2TsfLG+gXof4Lczn1A3R8NHqVJVEIGVHb/IebK+RpIye8M3zMs8i
+         YTJWrFKclhx7CxJS5QL7+5f//INbWiK4y09jMHkcmwqjDq7GovOeOKTKri8BnYz4SJ/F
+         Wb6KjoEp6g56AjVLR/e/dFRyT7rfM39Ade1CK3Dx+VZ1t0EdbRskxub4VkpZ+yFH9FCS
+         4N5joGr5LsAuBrkxXGtJbCwSMI+3e4PJkLhKF7HnXpwKcgm3GyDvhTJqShefFqKWZr60
+         C7mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961030; x=1791565830;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3aHGH1btHKyA9bPipQiTAK39EsUtmJmoqAt6kx41g10=;
-        b=Xr6a654ykQXbmATbpE8eryFU2TY5lo8Ongamh0Ms0kFk2GGc3XAHO3FN1kSklPZQ5f
-         FtkcA3ASGLz4tbUbzrcDNxXDZlvyp6AHJbaXXjWC5RorVbQ6XPNOZEDk5bjHrSfWH0JX
-         /3Y7e5nOJfzBE2Rr4VguEQmk575KUt+3+4vak1cnTnAl/3gkg0lMUUU87zsvUGfIiP/B
-         I4PIKphxze+IXW9LBsGUfPhy+DVsp3gP22niXR8VvLlkN7mXkFuWiI6tN2sS8l+l7BPb
-         tw+QffUf6ayQUHAiyolyKyhu/ph4ULkfDw7Rf1ilwCAtwe0ivJDKp9tKgv7dTM7/bJpi
-         xdIw==
-X-Forwarded-Encrypted: i=1; AKwUvByuZG9wP9giLM3EvAg/F/Iyoi2ikMQjKNyBV7toi6cjjb4D5ip7hsIxfFEg+bCYr5BScNmSDx96CMh+Dow=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNh+XpOno+tC11mTyE2RUD4x9ba8JDBia0GekWgJqN6aX4KWPU
-	M6aD7KykSmFzKqhG9uJx0yDGcP0LjNwCwWPXBycR8CrAFks5DKEFkCbK
-X-Gm-Gg: AYBFou0uwm7YefnW5q54ohxwuMLZihv39x8yqYyZqwTB4flGd4tGUslzlYG6eu+7DSx
-	jQXcIn6DXHNq54FwlYBD7hfqQjtYypPLGz3w6PXLLNV5us2pWgVPSoum+mba+2eX3bnlK5XptZ0
-	+owa/8BAa1rxmJlX3Q96DiFuOo01txc+/8+BBhQWcLnjJrhEkYsjyBupXREGol6DEliX35GFe10
-	0cMOz3Am0fwooVp/4sIqBdnh75rYJdCjoQih5Ca6a9wGJyg44TAnWPg9FepNlAuFdd/KW9Ai3yV
-	ibJvM89vDmY/SkgudjTU+Xjk721NdLpxo5jc91ETlbYrc0TdXnHMje9ib2d5YgA+4u6oR3MARjZ
-	Q23/BvO0SGAv1GWG1+i9JvhjQpKkQLFozAMAweDhzY7zrvxzfgeCDK2PuPpFDz6kPHIMIsr87jn
-	fMtlZw6drkmUXsxfM6ComY6/xnXHW0Gzfo8J7TxKgEg5zq4PTVQOTDtGXQrNFXb5n9lXa6xgMl0
-	0O0slqfzbbVlckcSA==
-X-Received: by 2002:a17:90a:d2c8:b0:3a2:b70b:9cc3 with SMTP id 98e67ed59e1d1-3a6ce5a1ad5mr3213022a91.8.1790961029453;
-        Fri, 02 Oct 2026 10:10:29 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.43])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a7024d0f5fsm1597719a91.0.2026.10.02.10.10.18
+        d=1e100.net; s=20260707; t=1790961048; x=1791565848;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BgakvInNsjTIuwI/HruggHJb8c52XKSKFB4qu//ilyk=;
+        b=vaKhy1rfXfNKwHUspALJdYb7SUBr+UPIWrdRmyBN2xWRTYQJ6uaNp5Qzx4MmTd7qoq
+         jM9nN2IT5EDco5z0rg57O+scZv3nyjoB9n8wvOGCbBmGQUg0R9hk5UPWOlg1UYM6kx6e
+         AEEmGra4Yp7D2gVoh+1itxEuszbtbjMv7/oVRxtUp9ROpFQSR3okPy7WIo5N2AWZceG9
+         yaRbehogTynZ4obXgbOQlaQNG6Vjt7gtHJcloqi6yyFtY978IcO3ye5vPWWCMhmSj447
+         1i7ZJ+cNy6YjPmwPftsW5yzyhJytAK/37DSIzcPcmYQl4MS00DnSX3NBb/ABzqR9RBKE
+         b1xg==
+X-Forwarded-Encrypted: i=1; AKwUvBzy/2+K3xE6GNjbfc1w2XHqs97RmugnlK194CpattPsnaX5MaLiU8TOEnPwf8P1LpXjefN9ruvvx4JL/Z8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcy6ufmzUjv9MIXpWWlj2zwxxufOFs+Ejynp++50TfgJoa8/58
+	wELqVvm8AiMz8xTR10F0m7/xe4njP3jyxpXIFWNErm/65bcuHikh8f5rQQ7GLt1WYek=
+X-Gm-Gg: AYBFou2DSx+lmvGlu6QkEdDsQUaZkvenpPPg7hhROIpR+02J/5HA0CuXO9KWrSYQxMW
+	a59i4DsozcO2t86cRuS7E7i084lyQgncYHctjWxRtBTixiUgxY0l5EBce2Ur/qLV98mMx3hmZ76
+	jc0byiw1vKioDk1NoMZck+R98E01C6BEtgJeN6lg/fb/UGFPCnJvxQrVfTfNWhZVQkhG4qYZI9u
+	pt7sN+bV/MuIX9eeRgWXsP2wET2xXfg9PsTbL1lFaExVgmjcSQXnRO1TmJJkJ/8Sb8oCUBFGRO4
+	KYEZVY2XnCpkgSWFZjYfqeR5FWlERWHoLZeJ3DgZ/1qZtOpIXDWDw4u7lS9LB/ekFE7hlgxSQJa
+	jZg/TfqNlSabAyNzeWdTZZtM0yOjgZgPMenilyc5t3CsbFjWosagci/mR0B9KZUBw9JKxW3lTGJ
+	mmXfmwj+BCXVg/PSZ9QTs6vfZKsHKNemLCNzm+Z/sYAmsD
+X-Received: by 2002:a05:7300:e5c2:b0:34b:b410:9352 with SMTP id 5a478bee46e88-34f14f18c8cmr3725477eec.1.1790961048034;
+        Fri, 02 Oct 2026 10:10:48 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3510850f86bsm4509703eec.11.2026.10.02.10.10.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 10:10:29 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v2 08/15] locking/lockdep: use hazptr to wait for dynamic key lookups
-Date: Sat,  3 Oct 2026 01:08:40 +0800
-Message-ID: <20261002170847.3653663-9-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002170847.3653663-1-kunwu.chan@gmail.com>
-References: <20261002170847.3653663-1-kunwu.chan@gmail.com>
+        Fri, 02 Oct 2026 10:10:47 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xCgmU-00000000BiY-09Yw;
+	Fri, 02 Oct 2026 14:10:46 -0300
+Date: Fri, 2 Oct 2026 14:10:46 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Cc: alex@shazbot.org, ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org, bhelgaas@google.com,
+	jjohnson@kernel.org, johannes@sipsolutions.net,
+	kevin.tian@intel.com, kvm@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-wireless@vger.kernel.org,
+	mani@kernel.org, skolothumtho@nvidia.com, yishaih@nvidia.com
+Subject: Re: [PATCH 3/7] vfio/pci: Add qcom-vfio-pci variant driver
+Message-ID: <20261002171046.GA32083@ziepe.ca>
+References: <20260930151229.GR163130@ziepe.ca>
+ <20261001071945.83116-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001071945.83116-1-jtornosm@redhat.com>
 
-lockdep_unregister_key() waits for is_dynamic_key() callers with
-synchronize_rcu_expedited(), which requires system-wide coordination.
-Make is_dynamic_key() protect the hash bucket with a hazard pointer
-and use hazptr_synchronize() to wait for traversals of that bucket.
+On Thu, Oct 01, 2026 at 09:19:45AM +0200, Jose Ignacio Tornos Martinez wrote:
 
-The hash bucket returned by keyhashentry() has a stable address, so
-it can be used as the hazptr synchronization target.  Keep the key
-hashlist lifetime RCU-based with hlist_del_rcu() and call_rcu().
+> Regarding platform_device_msi_init_and_alloc_irqs(), I agree that
+> moving the driver to device MSI domains would be cleaner on the
+> driver side. However, even with that change, I think the VM problem
+> remains exactly the same: the device MSI domain in the VM would
+> allocate virtual addr/data pairs, and the firmware's private interrupt
+> controller still needs the physical host values.
 
-Protect the traversal with the hazptr scoped_guard() added earlier
-in this series.
+Yes, I'm not saying it fixes the problem..
 
-This adapts the lockdep use case from Boqun Feng's shazptr series
-to the current hazptr API.
+> Also, the VFIO variant driver scheme would not fully break if the
+> driver moved to device MSI domains. The variant driver caches host
+> MSI values from the MSI descriptor, regardless of the allocation
+> method. The hook point may need adaptation, but the fundamental
+> approach (host caches physical values, VM reads them) remains valid.
 
-Link: https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- kernel/locking/lockdep.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+It breaks because VFIO will only cache *actual* MSI-X table entries,
+it does not have visibility into anything that
+platform_device_msi_init_and_alloc_irqs()
 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index c56a7f91d72e..d1ce5ace7fbf 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -58,6 +58,7 @@
- #include <linux/context_tracking.h>
- #include <linux/console.h>
- #include <linux/kasan.h>
-+#include <linux/hazptr.h>
- 
- #include <asm/sections.h>
- 
-@@ -1280,14 +1281,19 @@ static bool is_dynamic_key(const struct lock_class_key *key)
- 
- 	hash_head = keyhashentry(key);
- 
--	rcu_read_lock();
--	hlist_for_each_entry_rcu(k, hash_head, hash_entry) {
--		if (k == key) {
--			found = true;
--			break;
-+	{
-+		struct hazptr_ctx ctx;
-+		void *bucket = hash_head;
-+
-+		scoped_guard(hazptr, &ctx, &bucket) {
-+			hlist_for_each_entry_rcu(k, hash_head, hash_entry, 1) {
-+				if (k == key) {
-+					found = true;
-+					break;
-+				}
-+			}
- 		}
- 	}
--	rcu_read_unlock();
- 
- 	return found;
- }
-@@ -6683,11 +6689,10 @@ void lockdep_unregister_key(struct lock_class_key *key)
- 	 *
- 	 * Some operations like __qdisc_destroy() will call this in a debug
- 	 * kernel, and the network traffic is disabled while waiting, hence
--	 * the delay of the wait matters in debugging cases. Currently use a
--	 * synchronize_rcu_expedited() to speed up the wait at the cost of
--	 * system IPIs. TODO: Replace RCU with hazptr for this.
-+	 * the delay of the wait matters in debugging cases. Replace the
-+	 * expedited RCU wait with hazptr_synchronize().
- 	 */
--	synchronize_rcu_expedited();
-+	hazptr_synchronize(keyhashentry(key));
- }
- EXPORT_SYMBOL_GPL(lockdep_unregister_key);
- 
--- 
-2.43.0
+The only reason this works for you at all is because the driver
+hackily copies the vectors from the real MSI-X table so it can look in
+the "cache" to find their true physical versions.
 
+Which is my general objection, I would like to see the driver to use
+platform_device_msi_init_and_alloc_irqs() and don't want to get stuck
+unable to do that because it would break this.
+
+> Regarding the hypercall idea for device MSI domains, I think that
+> would be an interesting direction worth exploring as a generic
+> solution, but that's a multi-subsystem effort that will take time to
+> design and land.
+
+Yes, but it does actually solve the problem in all its forms..
+
+> I completely agree that this could theoretically affect any device
+> with private MSI registers. However, in practice, I'm only aware of
+> this specific behavior in Qualcomm ath11k/ath12k firmware, where the
+> device's interrupt controller requires the host physical MSI
+> addresses to be programmed directly. 
+
+Everyone else seems to know this stuff doesn't work for
+virtualization and doesn't try to do something like that.
+
+> It's also worth noting that the PCI reset support for these devices
+> has already landed in linux-next (commit 290153d46d1a "PCI: Add
+> device-specific reset for Qualcomm devices") [1], solving the
+> device reset path for VFIO passthrough. This MSI series is the
+> remaining piece, with both in place, these Qualcomm WiFi devices
+> would be fully operational in VMs for the first time.
+
+Why do people care so much about this? I always thought it was a bit
+odd?
+
+Jason
