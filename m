@@ -1,46 +1,76 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B388F3EDAA0;
-	Fri,  2 Oct 2026 08:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74CA3D954F;
+	Fri,  2 Oct 2026 08:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928625; cv=none; b=jd42V7XGA4bbd3pW0mCnKLXQ5egHeYsE5HLUsvazGi/Wh+Smj8oJzpeyekw1UKta2iUHYD4L/1sShnjuFg27FAKwshQB95juop72p3K6nOAmDQ3dbKEjYWl0n0Emj/M+FZhcWMzcLOzA7/VjIhSuk9xNLWyjITMPecVSAXY3PFI=
+	t=1790928666; cv=none; b=SypEvn+EUZ507xw28REhCuJfXNxCtboNyVLEofe7TMyHnv1RdUFwLCzqmbwnSojgnRxlVzG9rLNuZp38ngYBUng6LB7oyimwj50+pOHYDzDa1UFkkAo6Gq/RgbWc0G6BL06ZDTStx94WS4sL0qnPuk/KJuQU4DO1ftZtYUTh98k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928625; c=relaxed/simple;
-	bh=P5qDOBB+maHprqRSEG339lxLmlV9DddAz8WOH1gvDok=;
+	s=arc-20240116; t=1790928666; c=relaxed/simple;
+	bh=jbrobNgLFvEYW+K5702m//jZXUekQEX6EeXtEarN3MI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DaPTflFWujPZC1QZS/+SZJ0GL7Vq9GekB1jOncX3QMn27TK+Bo2sim1xiLD95dVcfM5/Gy4ei2WM1jb32T5GcaUk31OWJ9wFILasWWci5rBEW5YtbECu+L2FbkfWhfNQzjzf1msoY3JumR+gjdHB26EfsdUEzdDNgFt86C3hLp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=gO8ybHJ4; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=GG7CFw/buHXF4E+KIcf4X/ZOrHk+Fs6LXxbz9KDgk/iJQqKch+vhYK+xW1c5cRgxo6IFy/35ZQvsjjY6hJM9gDmsARFF7X8MiI3ApA6eBuseE0qrgrqD76oJ9nPahLDxSS/HfdwcrhFMRgE2uwojZxxDJLRQ8H3O2fuEp9ofR0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ia0kYKAi; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="gO8ybHJ4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=zohR+31d4S/MlhZOaky7vMucJvC+3R4Cb2NEvA3Oaik=; 
-	b=gO8ybHJ4gzoqwES9fnJ4kniFTDWAf8X2+O/MNR41AVVY2eTrr3HOtU7UBUQ3aCV1yv6TfvV0OGL
-	S55B4lPC/gOae5HXw9kXTEpuBwtuUU5GBCxQv4N+Uz9YtRQ/2yUQARPlsbgNR0ERuS+j78hIqi+JO
-	gb/+JFxKahtMDQQ/wtQ4DSBDn0RCMpjrNyhc1NksQBrY3ra3UJoXzidOjQIjN9SGzIQ69cnJTu+Rn
-	LWizFgdg1TxEqqk1/SvQmz1IYCY7VIkL6sAP5jKCAUTYoE6K1nEqrNX3Dj+JlsGr7I6ruiraeh8U0
-	mCmGK0uSWgNP73nK32NW4od6ToaJqJ/xDwjg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xCYLM-00000002mIm-3uZM;
-	Fri, 02 Oct 2026 16:10:14 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 18:10:12 +1000
-Date: Fri, 2 Oct 2026 18:10:12 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org, Srujana Challa <schalla@marvell.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] crypto: cesa: complete pending requests on device
- remove
-Message-ID: <ar9m5Bn_QFzjL6MW@gondor.apana.org.au>
-References: <20260927212315.113966-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ia0kYKAi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790928663; x=1822464663;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jbrobNgLFvEYW+K5702m//jZXUekQEX6EeXtEarN3MI=;
+  b=ia0kYKAiSWnVp3MxPr/qS1CY66rm1SkwHNDl+yUybqKvbzb5kyHAJMoG
+   BP2vJ178VD2gnOvJhMntaT9LrZiIjNDYCJIXh5w3S0HbJbeKnO1XUYYFs
+   oTDUytjCS8HvqEkI8tgNPJNM6IhFlFl0KhimHFSo8XhlsUbtJ1QCkACRf
+   mtie2nW22/ipJiznn3OBcWB/cejmPhUVuZDBzdJTdF7LragquZTY5JHfL
+   4l7mnS8V9DwzkriZX+57rkeOikdswybiZWDDT+8qpQ5U9pB9Z+YoOQfel
+   D5tP8npLinhSC20xp+hviwgEVbPsKUoFXEUy2giQuAaF8Smu1XHwiqRqx
+   Q==;
+X-CSE-ConnectionGUID: l+io++RYQbqUdxWzNxF9Nw==
+X-CSE-MsgGUID: wZeGrd1hS+6ji4HgbDBkzQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94406446"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="94406446"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:10:53 -0700
+X-CSE-ConnectionGUID: OWKdrr/1QZ+1XoZZBrzcjw==
+X-CSE-MsgGUID: wfmyyLdUR1uQ8ZwS3auB0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="275740714"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:10:47 -0700
+Date: Fri, 2 Oct 2026 11:10:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 06/15] clk: ambarella: add CV75 RCT clock controller
+Message-ID: <ar9nBBGJ361IFXn8@ashevche-desk.local>
+References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+ <20261001-cv75-v5-v9-6-486cc289a4b8@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,44 +79,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260927212315.113966-1-rosenp@gmail.com>
+In-Reply-To: <20261001-cv75-v5-v9-6-486cc289a4b8@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Sep 27, 2026 at 02:23:15PM -0700, Rosen Penev wrote:
-> mv_cesa_remove() unregisters the algorithms but never drains the engine
-> queues, so waiters of requests that were in flight, queued or already
-> processed block forever once the device is unbound.
-> 
-> Quiesce the IRQ with disable_irq(), mark the engine aborted so no rearm
-> or new submission can restart it, stop it and wait for it to go idle.
-> Drain engine->req and engine->queue with -ENODEV, the error
-> mv_cesa_queue_req() now returns to new submissions, and report
-> engine->complete_queue as successful because ctx->ops->complete() has
-> already copied their result out. All of them go through
-> mv_cesa_complete_req(), so ctx->ops->cleanup() still releases their DMA
-> mappings and descriptors. cesa_dev is cleared last, as those callbacks
-> unmap through it.
-> 
-> mv_cesa_dma_cleanup() now stops at dreq->chain.last. mv_cesa_tdma_chain()
-> links requests queued back to back and only mv_cesa_tdma_process() severs
-> the link, so a request that never ran still points at its successor and
-> would otherwise free its tdma_desc_pool and op_pool objects twice.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v3: fix more errors
->  v2: fix a bunch of sashiko errors
->  drivers/crypto/marvell/cesa/cesa.c | 120 ++++++++++++++++++++++++++++-
->  drivers/crypto/marvell/cesa/cesa.h |   4 +
->  drivers/crypto/marvell/cesa/tdma.c |   9 ++-
->  3 files changed, 131 insertions(+), 2 deletions(-)
+On Thu, Oct 01, 2026 at 08:40:55PM +0800, Long Zhao via B4 Relay wrote:
 
-Please review
+> Add a table-driven CCF driver for the CV75 root clock tree. Register
+> the core PLL, AHB/APB fixed factors and UART0 composite clock, with
+> osc supplied via clk_parent_data.
 
-https://sashiko.dev/#/patchset/20260927212315.113966-1-rosenp%40gmail.com
+...
 
-Thanks,
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/container_of.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/io.h>
+
+> +#include <linux/math.h>
+> +#include <linux/math64.h>
+
+The latter one covers the former one.
+
+> +#include <linux/module.h>
+> +#include <linux/overflow.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/types.h>
+
+...
+
+> +struct cv75_pll_hw {
+> +	struct clk_hw hw;
+
+> +	u32 ctrl;
+> +	u32 frac;
+> +	u32 ctrl2;
+
+This repeats twice in different data structures. Is the semantic the same in
+both cases? If so, it might make sense to have a separate data structure for
+these three and embed it as required.
+
+> +};
+
+...
+
+> +struct cv75_pll {
+> +	const char *name;
+> +	struct cv75_pll_hw *hw;
+> +	unsigned long flags;
+
+> +	u32 ctrl;
+> +	u32 frac;
+> +	u32 ctrl2;
+
+^^^ See above.
+
+> +	int id;
+> +};
+
+...
+
+> +{
+> +	struct clk_parent_data parent_data = { .fw_name = "osc" };
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(cv75_plls); i++) {
+
+	for (unsigned int i = 0; i < ARRAY_SIZE(cv75_plls); i++) {
+
+Same approach in the below code where similar cases appear.
+
+> +		const struct cv75_pll *desc = &cv75_plls[i];
+> +		struct cv75_pll_hw *pll = desc->hw;
+> +		struct clk_init_data init = {};
+> +		int ret;
+> +
+> +		pll->ctrl = desc->ctrl;
+> +		pll->frac = desc->frac;
+> +		pll->ctrl2 = desc->ctrl2;
+> +
+> +		init.name = desc->name;
+> +		init.ops = &cv75_pll_ops;
+> +		init.parent_data = &parent_data;
+> +		init.num_parents = 1;
+> +		init.flags = desc->flags;
+> +		pll->hw.init = &init;
+> +
+> +		ret = devm_clk_hw_register(dev, &pll->hw);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (desc->id >= 0)
+> +			data->hws[desc->id] = &pll->hw;
+> +	}
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int cv75_rct_probe(struct platform_device *pdev)
+> +{
+> +	struct clk_hw_onecell_data *data;
+> +	struct device *dev = &pdev->dev;
+> +	int ret;
+
+> +	spin_lock_init(&cv75_ccu.lock);
+
+Can it be done later, after memory allocation?
+
+> +	cv75_ccu.base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(cv75_ccu.base))
+> +		return PTR_ERR(cv75_ccu.base);
+> +
+> +	data = devm_kzalloc(dev, struct_size(data, hws, CV75_NUM_CLKS), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +	data->num = CV75_NUM_CLKS;
+> +
+> +	ret = cv75_register_plls(dev, data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register plls\n");
+> +
+> +	ret = cv75_register_fixed_factors(dev, data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register fixed factors\n");
+> +
+> +	ret = cv75_register_composites(dev, data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register composites\n");
+> +
+> +	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to add clock provider\n");
+> +
+> +	return 0;
+> +}
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+With Best Regards,
+Andy Shevchenko
+
+
