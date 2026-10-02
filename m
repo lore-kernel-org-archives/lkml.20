@@ -1,152 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF2131E84B;
-	Fri,  2 Oct 2026 15:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5685C4D0CD4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956090; cv=none; b=TyQz3/X+oohhrnVXPkQkTVcf/Iw1BpaKeoR4QGOdM2RTHN/DY0l5mWH/s1xUxYB1QOI380KLPTpztuSBFDXhcDKW0K28qEuJuUCP47DEBHKPQa3WN6bfsA2DL7YnAlpRThBlkD4YxZqFVk3J6CMMWjPewXx2Epx+aFMeEqLs9TM=
+	t=1790956149; cv=none; b=py8Vc2LTCiuFbvqkv1Dvx5HRVCJsGx6NPrp/Txe++PGABmLisLOF2LrjMt5cDMtu4ZvmFxfQsoeJHSF7xfiZJUG3vvMvpPpY2wVoS13Ms4Ej/Yx/le/HMnkTssZ5AGjUD0gY2p4SEJTtyPee49rcb2r4SgzgGA6hU6lSg8RKfWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956090; c=relaxed/simple;
-	bh=dwjHhdEKctdoDHuGMx5cnYjVxfRNxVKO6+JjXJcp1c8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C4zl/e+CZdpLHGV/KL5uclgBEQU37KKvyOi0Khsb7YUo9/mc/0oPirSijvnhu1WdLt1Xu3LmrzSL5z+4pD/QeBAQBIGHuAJwiLqePAON6Rm7e+8KoL/+Ge6awLor9o7eQZuEmZPLS83f+LaUU/QxQuHrYgkwL/wZ9a2KVYn8QU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcTyAC0z; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcTyAC0z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C607A1F000FF;
-	Fri,  2 Oct 2026 15:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790956088;
-	bh=jAmZLxuL9ir3PEtj3rA1r4owUMOfT1l0y0uNhmkuhl8=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=gcTyAC0zm7Nk9fjh4H0sR70amlpKYko/ntM0BGwcFp5wNEmRnA6WDu2U0cb7ttyzD
-	 UjuGN5tGCC3Q1uFYBKT+FVVU3oOYzXf1qsKhbdx7MnL/5l6OPct9mZ5Kd+PnsA/M9G
-	 a7tfAnx8YV6sBf0YXA+mD9H9OI4MoorQoMQQn9v91HXjydU00zZflw5JHhFtVZ2wun
-	 6QwucuCAQjkp8Z2aPMmLkobi78rON68sv9Zh9L2SWZJLN3N1UddwXmp/XUxWBSLsE6
-	 OI8LGARAw6wvbBH3VIb8r1q06EF9UloxrwpMvyeIPK0sMuasMAgcoODagohL74gR7n
-	 MhjkTmV05EYOg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 8AC91CE09FC; Fri,  2 Oct 2026 08:48:08 -0700 (PDT)
-Date: Fri, 2 Oct 2026 08:48:08 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: Arnd Bergmann <arnd@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>, Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
-	Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>,
-	Cheng-Yang Chou <yphbchou0911@gmail.com>,
-	Gustavo Luiz Duarte <gustavold@gmail.com>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
-Message-ID: <3cd5f02f-e799-4681-8d2c-1f4f12d9740a@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260925133922.1356404-1-arnd@kernel.org>
- <CAN_Opa8F+vKAAckVi0+qi_yXrav7Dop5brpS=zr7Hw-XaAUL2w@mail.gmail.com>
- <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
- <CAN_Opa9XhfVcvjCOa_Ay+zw+HpQMKEqsnBcTpNS6p5MVa5u5Jw@mail.gmail.com>
+	s=arc-20240116; t=1790956149; c=relaxed/simple;
+	bh=VRQw48igQle4oLzfV6Xg3alQ604/xdpB1mxuoODHPYg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=OaEXeDc6/1Qb+luqJQD9GW6gCkY/NuQANL5gZkZqYtuG8KxtbL7E39FVG+JdHCX0++ftc78UM7pJodD+GUPX44EJfgCrIL7+/hmvypDmwNaeC4dzU5gvtsQrSENioED5PVjxhRBBqnyeF60ezutXP0pYLdBPIWgjgwbJQKz3JqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a7de733fa9so31935b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:49:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790956142; x=1791560942;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uhw897TPPtm1bbcaYJ7kO0kX6D8xGhpsPvrBMKfAbUA=;
+        b=cDjYX2aD0aBmjYHSMzYYo3iRyak23tNfo286MUSnH89G6DK2LvE7LIap9bRwZAr0LR
+         uimP6/NTezboAWyZ229xjG8byEwup4CypEYPprl45i2guY6IIUI+8bW/vpdpiyVTD4Ao
+         mrnnx4y5xsz2A6FQvXd++lTUjnfODAOkPPKmO6Vdqy4fUbd8FnFkaz8+CzQI8vDgC3FP
+         vX/ezCDZiQsjTAZ4kz9LXg9LOjqw8NamSQC/6m9p1svZ5ThUVi5nvq1v+YNB0CAV1pG9
+         Vlh27sUzNr6QRYcrPqBBdmcrdnp8AoIEmMYe/DbG7WQLZ3J+JvKdekI1p+yBXi42sd2y
+         /B8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzgfPDchnm3rJC1j0X8L6e+7Kk8U5PDKIubav6jHh0EJ0hJ0TSvTqgt9wiyASRJURQewCKwVp7LZ5Fg/RQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRtHRi2fXgHsBes7zPcwVSDKFlfQJGmMNzvk6kAEechFZpV4Za
+	e7hMMUlxuhZ4kkZGpF6SI5mKX6J9b0/jiBXBrzdWTtA3H6BCR+zcn1ipjK7IqeI7QJJHpwfXcws
+	JPtYfP9pDM7e3lKQox455R43F0rgazQC3XQVyGTfD76+670O3ytHVDv9zebQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa9XhfVcvjCOa_Ay+zw+HpQMKEqsnBcTpNS6p5MVa5u5Jw@mail.gmail.com>
+X-Received: by 2002:a05:6808:1314:b0:4f6:6041:f0a2 with SMTP id
+ 5614622812f47-4f66041f3b6mr153207b6e.27.1790956142132; Fri, 02 Oct 2026
+ 08:49:02 -0700 (PDT)
+Date: Fri, 02 Oct 2026 08:49:02 -0700
+In-Reply-To: <20261002152415.27339-1-adarshdas950@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abfd26e.7503fbd6.2d3f6.0021.GAE@google.com>
+Subject: Re: [syzbot] [btrfs?] WARNING in can_finish_ordered_extent
+From: syzbot <syzbot+085adc3f91549d11066a@syzkaller.appspotmail.com>
+To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 02, 2026 at 02:36:18PM +0800, KunWu Chan wrote:
-> On Wed, Sep 30, 2026 at 5:08 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Mon, Sep 28, 2026 at 10:54:13AM +0800, KunWu Chan wrote:
-> > > Thanks, Arnd.
-> > >
-> > > Tested on top of 1eccf02fb8d5 with CONFIG_PREEMPT_RCU=y:
-> > >
-> > > CONFIG_RT_MUTEXES=y: build passes
-> > > CONFIG_RT_MUTEXES=n: fails without this patch, passes with it
-> > >
-> > > The failure is in tree_stall.h, where rt_mutex_owner() is used
-> > > before tree_plugin.h includes rtmutex_common.h. This matches the
-> > > reported failure, and the added include fixes it.
-> > >
-> > > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > > Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
-> >
-> > Bradley and Kunwu, are you OK with my applying your tags to the commit
-> > that I am merging this into?
-> >
-> > 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall dump")
-> 
-> Sure. Thanks, Paul.
+Hello,
 
-Thank you, and I will apply them on my next rebase.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-							Thanx, Paul
+Reported-by: syzbot+085adc3f91549d11066a@syzkaller.appspotmail.com
+Tested-by: syzbot+085adc3f91549d11066a@syzkaller.appspotmail.com
 
-> Kunwu
-> 
-> > > Thanks,
-> > > Kunwu
-> > >
-> > > On Fri, Sep 25, 2026 at 9:39 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> > > >
-> > > > From: Arnd Bergmann <arnd@arndb.de>
-> > > >
-> > > > The added call to rt_mutex_owner() makes this fail to build in
-> > > > some configurations:
-> > > >
-> > > > In file included from kernel/rcu/tree.c:5121:
-> > > > kernel/rcu/tree_stall.h:333:8: error: call to undeclared function 'rt_mutex_owner'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-> > > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
-> > > >       |                             ^
-> > > > kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and integer ('int' and 'struct task_struct *') [-Werror,-Wpointer-integer-compare]
-> > > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
-> > > >       |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~
-> > > > In file included from kernel/rcu/tree.c:5124:
-> > > > In file included from kernel/rcu/tree_plugin.h:14:
-> > > > kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting types for 'rt_mutex_owner'
-> > > >   231 | static inline struct task_struct *rt_mutex_owner(struct rt_mutex_base *lock)
-> > > >       |                                   ^
-> > > > kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is here
-> > > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
-> > > >       |                             ^
-> > > >
-> > > > There are already a couple of inclusions of "../locking/rtmutex_common.h",
-> > > > so assume this is safe to do here.
-> > > >
-> > > > Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall dump")
-> > > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > > > ---
-> > > > I wonder if it would be better to either move the rt_mutex_owner()
-> > > > definition into a global header like include/linux/rtmutex.h, or to
-> > > > move the code out of tree_stall.h into a .c file, as this feels like a
-> > > > layering violation.
-> > > > ---
-> > > >  kernel/rcu/tree_stall.h | 1 +
-> > > >  1 file changed, 1 insertion(+)
-> > > >
-> > > > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> > > > index 5dded1e89197..803a56af3259 100644
-> > > > --- a/kernel/rcu/tree_stall.h
-> > > > +++ b/kernel/rcu/tree_stall.h
-> > > > @@ -12,6 +12,7 @@
-> > > >  #include <linux/rcu_notifier.h>
-> > > >  #include <linux/smp.h>
-> > > >  #include <linux/rtmutex.h>
-> > > > +#include "../locking/rtmutex_common.h"
-> > > >
-> > > >  //////////////////////////////////////////////////////////////////////////////
-> > > >  //
-> > > > --
-> > > > 2.53.0
-> > > >
-> > >
+Tested on:
+
+commit:         ce1e0223 Merge tag 'devicetree-fixes-for-7.3-2' of git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=179b6bf5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=24503f5016ed9122
+dashboard link: https://syzkaller.appspot.com/bug?extid=085adc3f91549d11066a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Note: no patches were applied.
+Note: testing is done by a robot and is best-effort only.
