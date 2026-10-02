@@ -1,33 +1,67 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54F404E322A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-qk2-f37.google.com (mail-qk2-f37.google.com [74.125.230.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3E947668A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790958087; cv=none; b=HZmetEe0FQUI4UuBdNIj5m02dnRP7CZ2ltEHwS5/DULRpmx45KRzQvMG3Oz4ajOX4aOPt4DRDb5BqPTN9XCnKyHwVdAM1xZ6dh3iNPGuhT3dpXJPtloc4ZNg0Q1TYyHQIMw4ah2/66E0GFfp/BKtv/LtXf4EFfbTVBZ7Xyk6/DE=
+	t=1790958257; cv=none; b=SFhd5kDWjTUHfMYNcBnGerYryCsjZw1BwXQYlheqN1GGVtHIapnu+1WspS4S2M22hoUrVFtS6ok4jQBUTxhj2Rvx14WmuDOD/VuC5kPD+bMhnxQfahaQdilnaSQ88qHv4EHei560qCHj96EQsj9RynjfMIiUjXOJJ5IHlVIvMZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790958087; c=relaxed/simple;
-	bh=j1DFrVvkAJ4S9bitcuONPXMtVWgkwbXYGjzS42/w7KM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o64fiReW+FKa0cC+Zg5+NAeANNs4g2jr6x9siBUpwXm0lLaf5iLDVTPLo3hV1cS8aJt/rmgrvfpCBnBSyQNx79gjdAm2XaJ96aS+uGaDBGflF4P6W9JkdAWvFBw+uHgaMviJWoAlvB50hhy3SB2XyEPPv0UwbArsvB8zJoRFlGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=n9floJgm; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790958257; c=relaxed/simple;
+	bh=Em9YSoXBwFPJOOXkkk+kejVq9hjQu0Hx9vnOhF72eXw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=EVKIIB0LhV3wybs73uxs7aChOluubpm28CtuIdhqpsU9VcO8yS+c0dXgOaOcUfgv7goFf+3daojeWhSChVOXg7WEsb1wW4nw8efcb2a9wszMn0tcbX0OoT6VN1uuOLJ9Xhxxw21WDX8Emh0tiTMWgt28WruG+Rl/oPeox0ScJus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=M8qR7Aur; arc=none smtp.client-ip=74.125.230.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="n9floJgm"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3F72E1476;
-	Fri,  2 Oct 2026 09:21:21 -0700 (PDT)
-Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 88BDF3F86F;
-	Fri,  2 Oct 2026 09:21:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790958084; bh=j1DFrVvkAJ4S9bitcuONPXMtVWgkwbXYGjzS42/w7KM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=n9floJgmfPUb5Bme9WMaDoAKs81Jr8Mw9/iuNlcX8oODjn9uETbcVSUUVrWykXrkx
-	 l5tVmrXnYlYB3DsCpB4aqtIXmz/zTplFulaO7Fid7jhK4kpz0hmFLdchxDE3PhhGr/
-	 +I+4d1l8fxq1VDpgV+eCTTO3e2vYPlLXDtGL2EeU=
-Message-ID: <922325b0-97ee-46b3-af6d-5ce0fb4076e4@arm.com>
-Date: Fri, 2 Oct 2026 17:21:21 +0100
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="M8qR7Aur"
+Received: by mail-qk2-f37.google.com with SMTP id d75a77b69052e-534842054b4so7170521cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:24:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790958255; x=1791563055; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kvLqfhY0ukuw4SdFaafcEp7mq0hCjeNOKgF1sxMSOZI=;
+        b=M8qR7AurJc3hUmhB2ze/+wKn6T1tRXpma/jwWDhaUaWd8XvMOTiQO01CBWSU7LnKFx
+         30DbMdNcHbPo+az7zdmq+OhTWJUT/jRsdnlWDVXwUBaXg2D09KoCw2ltvld3Q3MJS4Nb
+         /ZIPWzUMDB+GumdG3OiDkHvm7jrOk+KGEUBZ1JYFLatPve/X7x0ZLfEGldDSn4qcCPpt
+         ooYoLg+OadNeXF4YCWXZiNqdVONxmaXezbOaadxXQfGPlRbjJ1Z+QyMDtfPfYpofBRnC
+         KUX6D7m1OwTw/XLdQcJpOqI3b6Ldls6mT4PmTZ6OSZvjf9/f4ZTexaNhwrFPmcaYfU6D
+         f5Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790958255; x=1791563055;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kvLqfhY0ukuw4SdFaafcEp7mq0hCjeNOKgF1sxMSOZI=;
+        b=P0GmILOAL3lVVsVtUrVLkF06dAzMJpX1HMkWng8RLyikChvJPwHv3rrGjM5Si5e0Zl
+         lc7QIEfeGP40DgTB2f+P/icw25Ae1m149ND71oqoLReABuxvyum8qx+8CjmxukRlWdSO
+         SQiA6NvTIH2MNZ6kQqV+28JU3P9b+NQTgQiZQvD04lpRSIGlm0XMQlO1VHLp0X9l3Oo7
+         gvrmJOeCIyMmuxoNwOZxWtNKP5OV+5/7CV7F4Do5SV+P0zg/7Ulqq5HVCv1CWxhhOuxF
+         tYk0vVfVeO5jDGWpuypVy1/ip0t5h4wZEVxK3QxGAPY9Rxn+7cqaSBHL7yK/jjYorx7A
+         nNhg==
+X-Forwarded-Encrypted: i=1; AKwUvBywerpJUm3DlZaVDTx6Iw9hJW+XtHE9AnS4YSIPm0kSZ5VISx6CX/zFpPD+72Mc2pHMqHQGYMVBmYPYCGQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIKbjTtgd238PwIaZ97AbkfH8I+aa9Dmu7lcUCrKTUxak88k7E
+	h5t6S1C0yjl6afWNlW282ROaQzq1eyyrpVXFXyXrwm1oXn9Y7p6ZEtwctCnEqt7Zd+xpEGHPLmN
+	zsCCpYcU=
+X-Gm-Gg: AYBFou2z5GFiLBJQt/hKCf6jDK289EPtFhU3JirT5d1LKbvKHeFDRvOlWBK80KHL9V0
+	YMJ1QAMgAYYmmLMfgeSy+tusiY9vGCD3f2+1tiD365/O+qUA5AOR2F+pcKCGf5dx6uZiQl/5gI1
+	mu08MqQGb1pKUyhkVpj8M+NwofWv1mCBZE7PBu+9ibz09iT4B1OI88Ri487gIaURHqXFDxkhE65
+	gA9kAAInTnDXZZsGHKjOs5inzHPTMvjaRGP7FR3lcY60IrN0Fi8kcpanM8hbKHCLd6VOJMpVoZF
+	Ea61WC5Y9g0jdbz9HeE0uWUzsVVw27+F4EC0vlUwRRpAur+ReNH08L9u8q8eNP7go+507IO/uXt
+	XxXMery2HNg1N8JLC01kGpT9hI55TNEJp2h0TXJn8x56n7zbeY8gFOY4iPmVD0GUHl1FJdNFJJ4
+	6CcWKXRbiHqfnAtFCdYaC2YOA/XBtJzwok1hi8yvf85wftcOZZzPJrakkEQp6BiNgPvZoKSs0=
+X-Received: by 2002:a05:622a:1244:b0:533:9686:a051 with SMTP id d75a77b69052e-533cba41c4fmr52681091cf.21.1790958255002;
+        Fri, 02 Oct 2026 09:24:15 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398bdd010sm30887341cf.19.2026.10.02.09.24.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 09:24:14 -0700 (PDT)
+Message-ID: <a8141ee4-00a8-4059-8784-6b3fde26243b@riscstar.com>
+Date: Fri, 2 Oct 2026 11:24:12 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,107 +69,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/12] arm_mpam: Use __ris_msmon_read() for saving MBWU
- state
-To: Ben Horgan <ben.horgan@arm.com>
-Cc: reinette.chatre@intel.com, fenghuay@nvidia.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dave.martin@arm.com, andre.przywara@arm.com, Gavin Shan <gshan@redhat.com>
-References: <20260917145617.2202986-1-ben.horgan@arm.com>
- <20260917145617.2202986-7-ben.horgan@arm.com>
- <32c85a0b-48f3-407f-bc60-a58255806683@arm.com>
- <e1bb7833-c6f5-4582-9769-19a6437d07fd@arm.com>
-Content-Language: en-GB
-From: James Morse <james.morse@arm.com>
-In-Reply-To: <e1bb7833-c6f5-4582-9769-19a6437d07fd@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v3 0/3] PCI: of: update endpoint ranges dynamically
+From: Alex Elder <elder@riscstar.com>
+To: bhelgaas@google.com
+Cc: lizhi.hou@amd.com, herve.codina@bootlin.com, andrea.porta@suse.com,
+ daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+ mani@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924222444.1351466-1-elder@riscstar.com>
+Content-Language: en-US
+In-Reply-To: <20260924222444.1351466-1-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/10/2026 16:22, Ben Horgan wrote:
-> Hi James,
+On 9/24/26 5:24 PM, Alex Elder wrote:
+> A PCI endpoint bus is a devicetree construct that allows a PCI
+> endpoint (function) to have sub-devices defined that are accessible
+> in an SoC via the PCI endpoint's BARs.  Such a bus is represented as
+> a devicetree sub-node for a PCI function having the name "pci-ep-bus".
+> There can be one or more pci-ep-bus nodes.
 > 
-> On 02/10/2026 16:15, James Morse wrote:
->> Hi Ben,
->>
->> On 17/09/2026 15:56, Ben Horgan wrote:
->>> mbwu_save_mbwu_state() reads the MBWU counters and adds that to a saved
->>> correction value. However, the type of counter to read is determined by the
->>> RIS rather than the class and overflow is not taken into account. Fix this
->>> and mitigate against further divergence by using a locked variant of the
->>> same helper used for user monitor reads, __ris_msmon_read(). Using the
->>> locked variant avoids having to drop and retake the mon_sel lock. If the
->>> lock was dropped, an interleaved monitor read which detects overflow would
->>> cause the overflow not to be accounted for in the saved value of
->>> mbwu_state->correction. The correction is no longer updated for disabled
->>> counters but this has no effect as the saved values are not expected to be
->>> useful for disabled counters.
->>
->>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
->>> index 6cba3ef21cc8..62562ce2f9aa 100644
->>> --- a/drivers/resctrl/mpam_devices.c
->>> +++ b/drivers/resctrl/mpam_devices.c
->>
->>
->>> @@ -1688,10 +1693,12 @@ static int mpam_save_mbwu_state(void *arg)
->>>  	int i;
->>>  	u64 val;
->>>  	struct mon_cfg *cfg;
->>> +	struct mon_read mbwu_arg;
->>>  	u32 cur_flt, cur_ctl, mon_sel;
->>>  	struct mpam_msc_ris *ris = arg;
->>>  	struct msmon_mbwu_state *mbwu_state;
->>>  	struct mpam_msc *msc = ris->vmsc->msc;
->>> +	struct mpam_class *class = ris->vmsc->comp->class;
->>>  
->>>  	for (i = 0; i < ris->props.num_mbwu_mon; i++) {
->>>  		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
->>> @@ -1707,17 +1714,31 @@ static int mpam_save_mbwu_state(void *arg)
->>>  		cur_flt = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
->>>  		cur_ctl = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
->>
->>>  		cfg->mon = i;
->>>  		cfg->pmg = FIELD_GET(MSMON_CFG_x_FLT_PMG, cur_flt);
->>>  		cfg->match_pmg = FIELD_GET(MSMON_CFG_x_CTL_MATCH_PMG, cur_ctl);
->>>  		cfg->partid = FIELD_GET(MSMON_CFG_x_FLT_PARTID, cur_flt);
->>>  		mbwu_state->enabled = FIELD_GET(MSMON_CFG_x_CTL_EN, cur_ctl);
->>> +
->>> +		if (!mbwu_state->enabled) {
->>> +			mpam_mon_sel_unlock(msc);
->>> +			continue;
->>> +		}
->>> +
->>> +		val = 0;
->>> +		mbwu_arg = (struct mon_read) {
->>> +			.ris = ris,
->>> +			.ctx = cfg,
->>> +			.type = mpam_msmon_choose_counter(class),
->>> +			.val = &val,
->>> +		};
->>> +
->>> +		__ris_msmon_read_locked(&mbwu_arg);
->>> +
->>> +		mbwu_state->reset_on_next_read = true;
->>> +		if (!mbwu_arg.err)
->>> +			mbwu_state->correction = val;
->>
->> += val?
->>
->> If the same CPU is offlined twice, the correction should hold the sum of both values.
->> The idea is the 'correction' is anything that has been consumed, and isn't in the hardware
->> register. (e.g. due to overflow or reset)
+> A PCI function with a pci-ep-bus devicetree node must also define
+> "#address-cells", "#size-cells", and "ranges" properties, to specify
+> how endpoint bus addresses are translated to the PCI parent bus.
 > 
-> I agree with your definition of correction but isn't that taken into
-> account in __ris_msmon_read_locked().
+> An endpoint bus address has three cells; the first indicates which of
+> the function's BARs the address is associated with, and the other two
+> specify a 64-bit (2 cell) offset within the BAR's region.
 > 
-> Surely +=val here would lead to double counting.
+> BAR base addresses are determined dynamically by the PCI enumeration
+> process, so generally it's not possible to include them in a static
+> devicetree file.  When this addressing scheme was introduced, this
+> was not a problem because the devicetree content was generated
+> dynamically--after booting--based on the information (including BAR
+> addresses) available following PCI enumeration.
 
-Yes - I missed that.
+The PCI endpoint bus model implements an addressing scheme that
+allows sub-devices to specify addresses relative to the base of
+an endpoint BAR.  This avoids needing to know the address assigned
+to the BAR, which cannot be known until runtime.
 
-I'll add a comment to that effect as (to me at least) this looks like a reset of that
-correction value, which shouldn't happen while the counter is allocated.
+For users (such as the LAN966x) that rely on dynamically-created
+devicetree nodes for PCI endpoints, the generated ranges property
+already incorporates the assigned addresses.
 
+However if a PCI endpoint is defined in devicetree statically (as
+in the case for the Toshiba TC9564), its ranges property must get 
+updated at runtime to reflect the addresses assigned by the PCI 
+enumeration process.
 
+The TC9564 requires the functionality provided by this series
+for it to be able to use the PCI endpoint bus model.
 
-Thanks!
+   ==> Would someone please consider and comment on this change?
 
-James
+It reuses the code that generates the ranges property for
+dynamically-created devicetree nodes, to ensure that the
+static and dynamic cases are consistent.
+
+Thank you.
+
+					-Alex
+
+> It is possible (and in some cases, necessary) to define the devicetree
+> nodes that represent PCI devices ahead of time, in a statically-defined
+> devicetree file.  In order to support the PCI endpoint bus model in this
+> case it is necessary to dynamically update the static devicetree so that
+> the BAR base addresses assigned during enumeration are reflected in the
+> endpoint's "ranges" property.
+> 
+> This series implements that dynamic update, leveraging the same code
+> used to create the "ranges" property when PCI_DYNAMIC_OF_NODES is
+> enabled.  The first patch makes an argument to of_pci_get_addr_flags()
+> optional.  The second patch separates the code that dynamically builds
+> the property value into a helper function, and the last arranges for a
+> statically-defined devicetree node for a PCI endpoint to have its
+> "ranges" property updated (if it includes a "pci-ep-bus" sub-node)..
+> 
+> 					-Alex
+> 
+> Note: this series is built upon these patches:
+>    https://lore.kernel.org/lkml/20260924150222.1179235-5-elder@riscstar.com/
+> 
+> The entire series (based on v7.3-rc4 and including those prerequisites)
+> is available here:
+>    https://github.com/riscstar/linux/tree/outgoing/dynamic_ranges-v3
+> 
+> Between version 2 and version 3:
+> - The ranges property for a PCI endpoint with an existing devicetree node
+>    is only updated if its ranges property has an empty value (i.e., it is
+>    "ranges;", or is not defined)
+> 
+> Version 2 is available here:
+>    https://lore.kernel.org/lkml/20260910021919.3421449-1-elder@riscstar.com/
+> 
+> Between version 1 and version 2:
+> - Included the first patch (which was previously posted in a different
+>    series)
+> - Modified the last patch so the ranges property is updated only for
+>    PCI endpoints having at least one "pci-ep-bus" node
+> - Rebased on v7.3-rc2 (and the prerequisite series)
+> 
+> Version 1 is available here:
+>    https://lore.kernel.org/lkml/20260813220717.1394644-1-elder@riscstar.com/
+> 
+> 
+> Alex Elder (3):
+>    PCI: of: make a flags argument optional
+>    PCI: of: introduce of_pci_build_prop_ranges()
+>    PCI: of: introduce of_pci_update_endpoint_node_ranges()
+> 
+>   drivers/pci/of.c          |  94 +++++++++++++++++++++++---
+>   drivers/pci/of_property.c | 137 +++++++++++++++++++++++++-------------
+>   drivers/pci/pci.h         |   1 +
+>   3 files changed, 178 insertions(+), 54 deletions(-)
+> 
+> 
+> base-commit: 6ba8359b84d69a07d508693551ed3f661d838e9f
+
