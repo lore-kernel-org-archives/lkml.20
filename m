@@ -1,77 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF21247291;
-	Fri,  2 Oct 2026 05:41:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC053A3E8C;
+	Fri,  2 Oct 2026 05:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790919680; cv=none; b=P2sjV1XpkKsyCSTm62tFWSwVXWUPelA6ogWbvBkaO0M4KbC+Eas4aWvL7fKq6P13nsISI5BkKhGEriCJqQBkP5uwdgSIVep4cvNLqdtZyGokdGY4zluYfo4T4YwHmtI/R0vdYCVmNuL5DzCTsiwhL4THBRrfC1x+n5VrfBY6zv4=
+	t=1790919723; cv=none; b=P8Y0r8s2kR2Dq8gSsyWQmbXBKvRrcN97bT9OIrgr3R+PjbMCRiiWTbwQO7jo1BCRTAXBKcc5WjTFC8wKwwscUqOYnZ0h5Yav04f4D3/LKb+/hnj1MPhlxKatKAH5Nw1rhv6AOq2wu3RQwbUi9nkdKYUJExUsQ1D/F6ccRj/yhy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790919680; c=relaxed/simple;
-	bh=jFrquyh0KzBfk62Vk19NncU4x/89uYpsShFOT9gFLi0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=NBvgDlxHiDYY2h1ZQ9jRScKYxQlDlXhhkjZVYdkKDzKnzJxSwvd9WLbJlRNSpPUPWaE/zSQaWek8XxSMd/M5RmFV1ree3RbPW6R44YPH9spkE+YHeo5GIaYHPTr/CUYoyNI1HkMjHbxaBLnfcclvmbhzfjsV72W7xLlRT7sfH6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvBvGCEN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790919723; c=relaxed/simple;
+	bh=sHUORkIfR48Scor0nLZFqnVzOjJkiUQE6y18t4IgjPc=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=hFPBna4DxZNDuFa7Q0WtMqky62RARmSO8Z/xm3NqCfKMPFxfg6KxRh1RrcCLdudOV9VA9hWutRhmerDMEZkgrB+W91B69RMbzChMs3nPmgqk0j6JO0UPQLbAUQaoBD2vyaH07LIjhE3ek4LlR6VPYWguyptmtT9UGUJolwiCT3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ryzome.com; spf=pass smtp.mailfrom=ryzome.com; dkim=pass (2048-bit key) header.d=ryzome.com header.i=@ryzome.com header.b=uUPjtvG6; arc=none smtp.client-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ryzome.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ryzome.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvBvGCEN"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 770A41F000FF;
-	Fri,  2 Oct 2026 05:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790919679;
-	bh=8tg2oYmq3RO1SCq8rpxRbKnkrPEolpP2Yk8HAvjhLx0=;
-	h=Date:From:To:Cc:Subject;
-	b=bvBvGCENFurEjEWysC/ltI6DmIo3fuFg0Ga0U0Gt4E1OL5ho+zPTaW3DF4Vy7aTPr
-	 RvwE256Gmq1U1XtPMThoqX9DnQdn8WcFt9m+/CYBx31fDuYhBsSR0Owhb4rxJ047Uk
-	 iWrtUnq5guHJE2wWHWdCsVOD6saPIySB+eWSbZhJ2/jIDj0wauHiBGm8GfHjl1Fvm7
-	 irhQYXj1vpOGhnlqQ/PKUniAwJHB88Y+YC8tlt7LC7HoQ68CoY5UCgWQD/qppkhayQ
-	 QyJSAPZ692Incd7CmqPS2SsPamNOTjywyxMib9YBpTTn/Wx9HwM3nHmOzxFeIaPu2u
-	 1wkWBFir/pNuQ==
-Date: Fri, 2 Oct 2026 08:41:14 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] TPM DEVICE DRIVER: for-next-tpm-v7.3-rc6
-Message-ID: <ar9D-mM-KA9P_pJC@kernel.org>
+	dkim=pass (2048-bit key) header.d=ryzome.com header.i=@ryzome.com header.b="uUPjtvG6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ryzome.com;
+	s=protonmail; t=1790919709; x=1791178909;
+	bh=uMx3gQlE0SJ31VYEnFQJwKbaHwDcbSeINK3U5I+P3HI=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=uUPjtvG6IYLbQdUXA1z1gMHdBTRd7aF4d58R/OC07/5GgSs8BryEEHCX1vxmY17/k
+	 y8N2sHZYUJB91+aZ1EyUGQnzjJrD4G19rAB1SDb2MU4nM6HcKLKnK/lKZKKcq54CFK
+	 pCx+I5W7sjvnSSm5UqKoqgsk0P2pOY7XFy6fgFcpdzdXpEU+aL06YrLi0H5pbjSy84
+	 +TiPlzV9ssONpYrnSZDIrRNMF7VUy2ilI1H6R5uzG5k68bzu6gawrLTntfRJT7un6B
+	 nmrfGAfEoZ1klr0PDjBcANXJUFjlcuKswGTLLCjOCRKNYUMVpfQ6f+We/rAW6WN+VO
+	 1SCB30XfMMRUQ==
+Date: Fri, 02 Oct 2026 05:41:43 +0000
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+From: Loc Nguyen <loc@ryzome.com>
+Cc: Shuah Khan <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, hpa@zytor.com, x86@kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: [PATCH 0/2] KVM: x86: Fix lost nested APF VM-Exits
+Message-ID: <20261002053723.3275202-1-loc@ryzome.com>
+Feedback-ID: 78153448:user:proton
+X-Pm-Message-ID: ff29ea530413ec5dd2dd0459befe1ab0607544d7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The following changes since commit 6f8319e3e9a44dd537d17f41565a8453c560a581:
+A nested asynchronous page fault delivered to L1 as a synthetic #PF=20
+VM-Exit can be lost after KVM queues the exception.  Most callers of
+kvm_queue_exception_vmexit() arrive through kvm_multiple_exception(),
+which requests event processing, but the nested APF path calls the=20
+helper directly.
 
-  Merge tag 'mm-hotfixes-stable-2026-09-27-19-12' of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm (2026-09-28 20:11:31 -0700)
+Without KVM_REQ_EVENT, vcpu_enter_guest() can skip
+kvm_check_and_inject_events() and re-enter L2.  A later VM-Exit can then
+clear the pending exception while reconstructing vectoring state.  The=20
+APF reason remains PAGE_NOT_PRESENT, allowing a later regular #PF to
+consume the stale reason.
 
-are available in the Git repository at:
+Patch 1 requests event processing in kvm_queue_exception_vmexit() so
+that all queued exception VM-Exits are processed before re-entering the=20
+guest.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git tags/for-next-tpm-v7.3-rc6
+Patch 2 adds a regression test that holds an L2 backing page missing
+with userfaultfd.  The test verifies that L1 receives the synthetic #PF=20
+VM-Exit with the expected APF token and PAGE_NOT_PRESENT reason.
 
-for you to fetch changes up to 015fb29a748342a186f37b602ac70017098c8251:
+Testing was performed in a nested VMX environment:
 
-  tpm: Disable TPM on null key name mismatch (2026-09-29 22:15:21 +0300)
+  - x86_64 kernel build with KVM_WERROR=3Dy
+  - nested_apf_event_test fails on the base kernel with a lost nested
+    APF event and passes with the fix=20
+  - full KVM selftest suite passes
+  - kvm-unit-tests VMX suite passes with TIMEOUT=3D900
 
-----------------------------------------------------------------
-Hi,
+Loc Nguyen (2):
+  KVM: x86: Request event processing for exception VM-Exits
+  KVM: selftests: Add a test for lost nested APF VM-Exits
 
-Please pull these bug fixes, which have landed after v7.3-rc1.
+ arch/x86/kvm/x86.c                            |   2 +
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/x86/nested_apf_event_test.c | 306 ++++++++++++++++++
+ 3 files changed, 309 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/nested_apf_event_test.c
 
-Br, Jarkko
 
-----------------------------------------------------------------
-Jiangshan Yi (3):
-      tpm: Fix heap buffer overflow in tpm_transmit_cmd()
-      tpm: Fix auth session leak in tpm2_get_random() error path
-      tpm: fix off-by-four bounds check in tpm2_get_random()
+base-commit: b378201ccd5280d0fff89bbe55e1eb00620ec0d5
+--=20
+2.43.0
 
-Surendran Kanagaraj (1):
-      tpm: Disable TPM on null key name mismatch
 
- drivers/char/tpm/tpm-interface.c | 2 +-
- drivers/char/tpm/tpm2-cmd.c      | 6 ++++--
- drivers/char/tpm/tpm2-sessions.c | 1 +
- 3 files changed, 6 insertions(+), 3 deletions(-)
