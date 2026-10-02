@@ -1,66 +1,43 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81A443FD05;
-	Fri,  2 Oct 2026 07:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD2934F24E;
+	Fri,  2 Oct 2026 07:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927704; cv=none; b=Wiu8Q/uFdM6n3CxsRUqCrqz9rPyeb2k+dZ2QU8BAxpIp93hVv1bkeE1bnvkPLTN9XX5Jhwh1DzeEilmszQ/fSMIRUyelxZlN5pjIPtWbwWfSn0KrFfBzEtxZoDr+RjeH5wjb+27ZrnErSptx00wuIAH3c9lXclVohsP1pEy31kw=
+	t=1790927749; cv=none; b=FU+e/GJ3nIOH/gCDXtc9DTJAKUpY9NQm9A0HBTX5xV8pLIQ1GSd7Skav3mmlM8dmE33tpKURIiozNCIjV/HDcKCUYCoStiJkSAeaI9eaqNT3geh0k53yZm9Q7DYuWJGvFrLkmw6lt74NU47N+F7HaHHRYg+8+7F6d7GBFssTuhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927704; c=relaxed/simple;
-	bh=5+qAtAiadMGzrxIPZBuJx9dkbkJ5sMwuUAACipveA6A=;
+	s=arc-20240116; t=1790927749; c=relaxed/simple;
+	bh=FMPbCZkDohbMH1ilSpGh1oB+EV4WDprAkdAnFaaMO0g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bsZwyBlXFSQ4rd1YTSoWp55GVtvL2imAh9NU8eb+kBW+9IeZHVQ3BYKfkxfUXhhrqJ543PoqIqT5PuWih1ebn+hAwRD4GqPKdwsFE5ygwiukF0usncOgDhN9Y2ZOKgsvkfaSNqtbNiOTXGj++21dX+Syz0qhKWmDrTQdOcAWgSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hNK/tyMs; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=st9VXVPnoREmWVMuOBfCn2C4mAOQlBOZ5pO4l9J1pfXv0c2FUg/JX3PRwwqE0INyHex7mSJirrHyyVJ/Nfq1N+h6Xw/AOWXGAevDdWnBsB7hpWaORx/75M8kElgqbX/dedZuLon5+/ws+cbpScnZhb3sr05oTm9kIkOob4uKz3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=iHLlfZY4; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hNK/tyMs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790927703; x=1822463703;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5+qAtAiadMGzrxIPZBuJx9dkbkJ5sMwuUAACipveA6A=;
-  b=hNK/tyMs5zmx0nLSDg1v4gdB1JRnIkKJFkaQ9p3I3vWVHNr3HeY5/Cj2
-   60i19+yd3T7nikWUv3rpkc4SBI2tZ9vB/OOX9pIXnTF/Poskz82Zrr7hs
-   s63PnD750Cz1DZYp3pzW+YVtiDSVU4lvfvepctU7bXyuHsmsVzmJt+FkO
-   4up2rD/t5JIdfHkgl1gCeiBDfPLG8LbTBPxGWBbemgKklZKZhHkQXa/R2
-   K1Kt+N8lI6j7eeiHNW33BMCt5UqtTdwqG2G0AdEued832pN9QZJr8i/98
-   uMlsS+3fWAE6pFCOnKypQbmOXh/ZtKX2CTO/bkw+eboKjxlKVf+yZs7T1
-   Q==;
-X-CSE-ConnectionGUID: 5Jqil+ySR+OTwNDILsEtDQ==
-X-CSE-MsgGUID: 2JoboF86Qme5VAvwjHbeaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90552044"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90552044"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:55:02 -0700
-X-CSE-ConnectionGUID: xHy97j+zREKaAjawrfJM2g==
-X-CSE-MsgGUID: y9lh1ngVRBm3+gatVEr4xQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="279482741"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:54:59 -0700
-Date: Fri, 2 Oct 2026 10:54:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v11 3/5] iio: pressure: dps310: derive the drain interval
- from the watermark
-Message-ID: <ar9jURXU7sW_46RW@ashevche-desk.local>
-References: <20261002072526.250081-1-zoone.rupert@gmail.com>
- <20261002072526.250081-4-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="iHLlfZY4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=Sa2n4mUQDXdRZHzBFPcaMMv0stwwLkzEYvfnu1Cc3/E=; 
+	b=iHLlfZY40xMfnZ18XIw5ZrH+PFjT0mUtuWpTULcGYq1QKXnu67+ZBWcUo1paJFGjEy3u9wHfT3O
+	xdREruzCOVY5eCHiu9R8MvRH303/uVQGLVb0nBpatDIw9hKk63vXrd9y/l94LN19U3I/IUZpHZJUk
+	oR2YSeBZlbGkitlKOEoNpmcU8yseEo5QLd7UYcPeQ0vzvi9SAJ1xRf9faLn3OaKJttLO/N3pqLnBQ
+	pb7qeRJjk//Gqvb5EL4xwsN7mWelbPMCyuBnhKWi0kV+cWSRnmeWibl6FWKRUw0f+AEYyY3iyi3En
+	5IjVr842hPLaR72+L73I88Je1h/OZNR4wuLg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xCY7K-00000002m7Q-0pC6;
+	Fri, 02 Oct 2026 15:55:43 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 17:55:42 +1000
+Date: Fri, 2 Oct 2026 17:55:42 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCHv2] crypto: talitos: fix probe IRQ ordering
+Message-ID: <ar9jfjxGNrFr0e49@gondor.apana.org.au>
+References: <20260924235119.141323-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,29 +46,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261002072526.250081-4-zoone.rupert@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260924235119.141323-1-rosenp@gmail.com>
 
-On Fri, Oct 02, 2026 at 10:25:24AM +0300, Rupesh Majhi wrote:
-> The drain interval only tracked how fast the FIFO fills, so a small
-> watermark still waited half a FIFO for its samples. Take the watermark
-> as the number of scans to wait for, but never drain slower than half a
-> fill.
+On Thu, Sep 24, 2026 at 04:51:19PM -0700, Rosen Penev wrote:
+> The talitos interrupt handlers schedule priv->done_task[] via
+> tasklet_schedule().  In probe(), talitos_probe_irq() ran before
+> tasklet_init(), so an interrupt arriving during that window (a shared
+> IRQ, or a completion pending from an earlier transmission) would
+> schedule an uninitialized tasklet.
+> 
+> Resolve the IRQ numbers before the tasklet_init() calls so the
+> done_task[] selection can see the secondary IRQ, and only request the
+> IRQs after the channel fifos are allocated and the device is
+> initialized.  Every structure the handlers touch is then fully set up
+> before interrupts are enabled.  This matches remove(), which frees the
+> IRQs before killing the tasklets.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v2: reshuffle code to avoid NULL derefs
+>  drivers/crypto/talitos.c | 33 +++++++++++++++++++++++----------
+>  1 file changed, 23 insertions(+), 10 deletions(-)
 
-...
+Please check
 
-> -static unsigned int dps310_fifo_interval(int prs_rate, int tmp_rate)
-> +static unsigned int dps310_fifo_interval(struct dps310_data *data, int prs_rate,
-> +					 int tmp_rate)
+https://sashiko.dev/#/patchset/20260924235119.141323-1-rosenp%40gmail.com
 
-Better to split on a logical boundary:
-
-static unsigned int dps310_fifo_interval(struct dps310_data *data,
-					 int prs_rate, int tmp_rate)
-
+Thanks,
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
