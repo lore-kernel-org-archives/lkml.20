@@ -1,179 +1,101 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BECE339390;
-	Fri,  2 Oct 2026 15:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 069C047B432
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790954252; cv=none; b=bQjdes1DurVUKZJcX/m7v2fyUcX0rTd4CD+qJigpMh3synpzfHWl+w1H/BgOWsx8ARFl3UssQNIMlviaoW7GclszC+JJZip1ImgU9bEe/PiklmxNkIdgKvkoxtvbJIarN8VNG5fyXuotIuh3Zb/by8zbxCdyx52gmy3D5/e70Jo=
+	t=1790954277; cv=none; b=fhvurv9pD71x0Lu7u3cPRYljLHVZ28+mjSMqjxkjbaPPqLb9Bwl+D9ETIN4AV/1YT+UUgygfSTs+fK/SV+hdxfINMGei/RWAuORwFWk4Hv2GQoE3KWDbIsye76C/y853Zvpg/wLUrjcFkD5nK5AB4tREuQqbf+qtIbkXCnLNRMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790954252; c=relaxed/simple;
-	bh=OWrRY1L0lr5L241yI1W1zoC7MC22LmDGJClsebq1+OM=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=kvzKGuwcYpx0qT0Tm2zTiCdLqvsKUVIVDUjcc2BF6o1DU3oGjXJ61kF8Pc4fAoemQGbH7ZZfIbGYJ/RCMI0Af9pmA2Kd+vBJe87rXbhXLVWwInn0JFRjHvEtUpivyWriuAVVCX8QGjERVZ9i1RHV5KEqkmAB+px4Ai/6LkcZwd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=SMCF/6DT; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1790954277; c=relaxed/simple;
+	bh=4/fl//FzQwWFZWipdtig+n4zBqLbuWVE2d0wceY0kSQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aLzIYMWmJB4Do0d8j1lwzK/jjUrdlMN+MDC/I0fvVVCF05oH6GHcZfUCc4YcQAZtYn5GT+SxUbHR7c9DOObQXrpqNuq72YVgzYJm/BAFZMyYa9GKisMPU9EotDvxC5UXNDS8eMtAw4vcVY9zIDrqzh0LFDHeJJATKc9dmDqHxT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vZKgAgXc; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="SMCF/6DT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=wE3U7Byhrw/Kpcm8Ly1rmNIVci2f+5xG9aFcXfipmYw=; b=SMCF/6DTq0glMoooo/iQqxm/tX
-	sg7VCwD1qirlhknp4EwkW5M42uM+MoJd9oS3digNacbkJgC2yN030yIeoNl4o+GpPv8SlgXJTQNjy
-	SSOBuFI8nphakfUvWg5xBYzJ91sQ3iG4V8b6DAbC1wAgZKQWCiOPCUQl9CT4+qptf0LA=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xCf0k-000000007gc-07t4;
-	Fri, 02 Oct 2026 11:17:23 -0400
-Date: Fri, 2 Oct 2026 11:17:22 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com, Stefano
- Radaelli <stefano.r@variscite.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>, Joseph Guo
- <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>, Ernest Van Hoecke
- <ernest.vanhoecke@toradex.com>, Mehmet Fide
- <mehmet.fide@screeningeagle.com>, Francesco Dolcini
- <francesco.dolcini@toradex.com>, Markus Niebel
- <Markus.Niebel@ew.tq-group.com>, Hugo Villeneuve
- <hvilleneuve@dimonoff.com>, Stefan Eichenberger <eichest@gmail.com>,
- netdev@vger.kernel.org
-Subject: Re: [PATCH v4 00/13] ARM: dts: imx6ul: Add Variscite VAR-SOM-6UL
- and DART-6UL
-Message-Id: <20261002111722.a09e76b8e19fdfe3dc857b4e@hugovil.com>
-In-Reply-To: <ar-cgeR8U0dmOTvI@Lord-Beerus.station>
-References: <cover.1790693249.git.stefano.r@variscite.com>
-	<20260929121455.437291ea4b53130e3e19778c@hugovil.com>
-	<arv4MwHV4LntROkN@Lord-Beerus.station>
-	<20261001144344.2100854b8f5e2d81cf87b424@hugovil.com>
-	<ar-cgeR8U0dmOTvI@Lord-Beerus.station>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vZKgAgXc"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E90A5143D;
+	Fri,  2 Oct 2026 08:17:46 -0700 (PDT)
+Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3BF153F85F;
+	Fri,  2 Oct 2026 08:17:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790954270; bh=4/fl//FzQwWFZWipdtig+n4zBqLbuWVE2d0wceY0kSQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vZKgAgXcUAeGhpzelqjlTDkjiRiHifpYKdaWEwV89WXwe6Q/u95WZTSGjtY6J2NaN
+	 fERGN4oIlA6Hdju+yxDSisAuLRFSAkMTux+wayOVOasnFwpIKwQBc2yIYr2P7MTRa3
+	 0mcgVeDwHTpVWJm9mdbqaDDnvLsXNMyH4xWzZweM=
+Message-ID: <71c0021a-1438-416d-9d72-988b8ea3eef7@arm.com>
+Date: Fri, 2 Oct 2026 16:17:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/12] arm_mpam: resctrl: Make read_mon_cdp_safe() self
+ consistent
+To: Ben Horgan <ben.horgan@arm.com>
+Cc: reinette.chatre@intel.com, fenghuay@nvidia.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dave.martin@arm.com, andre.przywara@arm.com, Gavin Shan <gshan@redhat.com>
+References: <20260917145617.2202986-1-ben.horgan@arm.com>
+ <20260917145617.2202986-10-ben.horgan@arm.com>
+Content-Language: en-GB
+From: James Morse <james.morse@arm.com>
+In-Reply-To: <20260917145617.2202986-10-ben.horgan@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+Hi Ben,
 
-On Fri, 2 Oct 2026 13:58:57 +0200
-Stefano Radaelli <stefano.radaelli21@gmail.com> wrote:
-
-> On Thu, Oct 01, 2026 at 02:43:44PM -0400, Hugo Villeneuve wrote:
+On 17/09/2026 15:56, Ben Horgan wrote:
+> When read_mon_cdp_safe() is called with cdp_enabled equal to false then the
+> reading returned in val is the sum of the monitor values for the given
+> component. However, when cdp_enabled equal to true it is again the sum of
+> the monitor values but with the initial value of val also added. Both
+> resctrl_arch_cntr_read() and resctrl_arch_rmid_read() call
+> read_mon_cdp_safe() and are documented to return the val directly without
+> consideration of the older value.
 > 
-> Hi Hugo,
-> 
-> > 
-> > Great to know Variscite is adding support for the DART-6UL.
-> > 
-> 
-> Thank you Hugo :)
-> Over the past year, we have been prioritizing security and consistency
-> by adopting a mainline-first approach.
-> We have added support for almost all of our SOMs and configurations,
-> as well as several driver changes and additions:
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?h=master&qt=author&q=Stefano+Radaelli
-> And now it's time for the immortal i.MX6UL!
-> 
-> > 
-> > Please work with the existing modular DTSI files, do not simply remove
-> > them and reimplement them into your own files.
-> > 
-> 
-> Agreed. Where possible, I’ll reuse the modular files you added and
-> propose fix commits wherever changes are needed.
-> 
-> > 
-> > I tested it and it works. But like I said, if adjustments need to be
-> > made, they are welcome and can be done in a separate patch to fix it.
-> > This sequencing is something not very well documented in Variscite
-> > datasheets. I asked Variscite support to improve the documentation for
-> > that aspect but it was not accepted.
-> > 
-> > 
-> > > For the LWB5 option, the procedure enables WIFI_PWR, waits 10 ms,
-> > > enables WLAN_EN and BT_EN, waits 200 ms, then lowers BT_EN before
-> > > re-enumerating the SDIO device.
-> > > The other Broadcom option does not use the separate WIFI_PWR step.
-> > > The existing regulator and MMC power-sequence nodes do not express that
-> > > complete, module-dependent procedure, particularly the BT_EN step during
-> > > Wi-Fi initialization.
-> > > The scripts also select the Bluetooth firmware according to the detected
-> > > SDIO device.
-> > 
-> > Firmware loading is handled properly by the kernel without external
-> > scripts (tested with Concerto EVK).
-> > 
-> > 
-> > > We use that procedure to avoid sequencing-related failures for our
-> > > customers.
-> > > This approach is not new to Variscite’s mainline DTS files.
-> > 
-> > Yes, this is an old way of doing things, which may have been
-> > appropriate in the past when proper support in the kernel was missing
-> > to achieve the proper sequencing, but no longer true these days, unless
-> > I am mistaken.
-> > 
-> 
-> We are glad the kernel-managed sequence works on your Concerto EVK.
-> However, it is wrong for the LWB5 module configuration we support:
-> it does not follow the required power-up order and timing validated
-> by Variscite.
-
-Please detail exactly what is wrong so that it can be fixed. Better,
-create a patch to fix/improve it.
+>  The val is always zeroed before read_mon_cdp_safe() is called except in
+>  __check_limbo() and __l3_mon_event_count_sum() but the latter is not
+>  relevant on MPAM systems.  The extra accumulation in __check_limbo() means
+>  when there are multiple RMIDs in limbo some of them may be marked dirty
+>  when they are already clean.
+Weird indenting - I'll fix that.
 
 
-> The sequence is based on the module requirements and has been tested
-> in our labs and across customer configurations over many years.
-> A successful test on your EVK does not show that it is correct for all
-> the modules and configurations we ship.
+> Change the cdp_enabled equals true case to match the false case and the
+> documentation of the resctrl arch hooks.
 
-Again, like I said before, if things are not optimal they can be
-fixed/improved, not completely wiped out.
-
-I can help you with this (test/implementation) if you explain the
-problems properly.
+Nothing about the documentation of the resctrl arch hooks here...
+I'll drop this part of the commit message.
 
 
-> The GPL-2.0-only userspace scripts implement this required sequence.
-> This is not a matter of preference or an old approach we kept by habit;
-> replacing it with the sequence in the current DTS would risk breaking
-> supported Variscite configurations.
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index b825bd90d4bd..321741a702fe 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -497,7 +497,7 @@ static int read_mon_cdp_safe(struct mpam_resctrl_mon *mon, struct mpam_component
+>  		if (err)
+>  			return err;
+>  
+> -		*val += code_val + data_val;
+> +		*val = code_val + data_val;
+>  		return 0;
+>  	}
 
-Please be more specific.
+I mistakenly thought mpam_msmon_read() was summing, so did the same here. But its not.
 
-
-> If a future kernel implementation can reproduce the complete,
-> module-specific sequence, Variscite will be happy to update all affected
-> DTS files to use it, after completing the necessary lab testing across
-> the supported module variants and configurations.
-
-You need to work with the existing kernel implementation, not delete it.
-
-> If you need any additional material, datasheets, or other information
-> from Variscite, please let me know at stefano.r@variscite.com.
-> I’ll be happy to provide whatever is needed!
-
-As mentioned before, please add the required timing
-sequencing info to your datasheets, it will help everyone.
+Reviewed-by: James Morse <james.morse@arm.com>
 
 
--- 
-Hugo Villeneuve
+Thanks,
+
+James
+
+
+
