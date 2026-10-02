@@ -1,163 +1,148 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6362D0C92;
-	Fri,  2 Oct 2026 15:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B88964C33EF
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953292; cv=none; b=mro8h0WsNEwZ1O34r8ezQevp8w+SAeZDSTzfv0UmgqcTecrg9trrcWidDDgTwGhoLWikks5bokJVXvjTE2uLdLceWOkoBoSVVmmbodnYH5tuP5NCUzBVG9oEmiPCXpEgxIsdXZGEtIrOjs6JKjBRgrJbptfpcvHumxlStgQpddI=
+	t=1790953296; cv=none; b=OHE5Whb25KkOUfzT6gxe1y0mSmW3MUOYutH5FpUTI7NgCYAkDwfbmzFaPzOTLCzm6o5HtAJrk3BJ4fT0du7ett6NRgPnSfQw+VAoT06sqzrkgMZ/8osKBegIf8EZR9He2HkqB510EgLdGgiVyFyORMDvO252zV2/XPZEXhdf7qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953292; c=relaxed/simple;
-	bh=/Wtjhe4uwyrblLurTTWWRRXZVozjZeQrVRrNjPCH3J4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oEdfZbSlPFxVRKsJVYW7TJrjbLeVAn+GY4nrP38VKcp0buCd/lBzwkXPTR19VcK8bCEctjg8dFVTqCjEWTET86kcNOx6yH/uCN3HvxotM8bii07GzXn72C5OolyLuCDGQ7bCTboH0w2v34QKINPh9VhPkyzO+1TfvBYZjsJqqfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=d6IPFMo5; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790953296; c=relaxed/simple;
+	bh=CSPMny85UEPu5DAMEUzTlLa9GbYv296ddDiSXLN8qbE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iaZK/ZI84KOkKag26J+EqdCV/N+Zq0Tw7rigMS0PXtG6gMwCKZ26KtDSiRYdytnfWWrC1K8qFnaokbnJM2rDt8rGlOdiGTEL7KKNS98mnnYJCeZ2NkJVvtlF/ITtA547K5G/pvhKc9tNSgshSUXtUczGwY5hMRWm0HhrGmSlI+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EZdMJh0a; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="d6IPFMo5"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9FEDD1A10EA;
-	Fri,  2 Oct 2026 15:01:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6FD2D603DC;
-	Fri,  2 Oct 2026 15:01:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 31B98103281F4;
-	Fri,  2 Oct 2026 17:01:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790953279; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=t9aBlN3dQdjhZj/Rg/p1QzqBO0eCn4FFiX6tAiOVuJc=;
-	b=d6IPFMo5IR7moUJPvHQ6n79+ZOMUDmwEeNcWP7mM9oybwLI6ObRQZDWz4vpm6Q4XNxfpQA
-	VF38AdcBTkf+muokbDAlrfP/zLy5ZtZT81s0sXS5tZZEmew5rYgGUd/8SApes4nfSAe5EE
-	st+Wgd+cfAIzAAb0Yy4oGl3CVKOnqEe5JLFXcfz0zKcL3Ep5QU/srNkhOLfEVqDGkHmyOO
-	ek0qBDLt+f2zpVQi9ReNunm8vablr1ASUXo4NfccDnKlP3bJY5n24VhooCwg18i2aTY9Ou
-	0VXAXQg2F4vI/bB90YTmYfcMaRwK0yAf0c+VT6qHSYigezAPIrzuy1kXhNiWkw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: [PATCH v7 0/7] clk: nuvoton: ma35d1: Fix mux parenting and
- peripheral clock rates
-Date: Fri, 02 Oct 2026 17:01:04 +0200
-Message-Id: <20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EZdMJh0a"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 85FF9497;
+	Fri,  2 Oct 2026 08:01:30 -0700 (PDT)
+Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE7043F86F;
+	Fri,  2 Oct 2026 08:01:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790953293; bh=CSPMny85UEPu5DAMEUzTlLa9GbYv296ddDiSXLN8qbE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EZdMJh0aGT+xBbnYX3SZk2cZxFhlLx/bKWaq0iYVGvmVongZITAnp28emds7GNERB
+	 fir79ce2ZqPLQGo6kV30/fqvYva/1TUFIxFreC1u3oPpyb//K09zqkMnukUnaiM/oD
+	 oZWX6lPgxtSkWARWFxd69vl6mGqBmPH9fsb20tkE=
+Message-ID: <4efe1c1e-5fef-410f-90c7-6638486706d0@arm.com>
+Date: Fri, 2 Oct 2026 16:01:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/12] arm_mpam: Add missing mon_sel locking in MBWU
+ save and restore
+To: Ben Horgan <ben.horgan@arm.com>
+Cc: reinette.chatre@intel.com, fenghuay@nvidia.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dave.martin@arm.com, andre.przywara@arm.com, Gavin Shan <gshan@redhat.com>
+References: <20260917145617.2202986-1-ben.horgan@arm.com>
+ <20260917145617.2202986-5-ben.horgan@arm.com>
+Content-Language: en-GB
+From: James Morse <james.morse@arm.com>
+In-Reply-To: <20260917145617.2202986-5-ben.horgan@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Qz07EIBAG8FfZcBYDTPnnyfcwHoAOLnG3NFAbz
- abvLl0P1jRpPH6TzG++zI1ULAkreTrdSME51ZSHFvTDiYSzG96Qpr5lIphQzHCgI5aa6dWB7Dn
- 9GOtU0F1puLxTJYMLMXBnlCdtfywY0+fdfnlt+ZzqlMvX/dQs1+mPaoU9UGdJGVVGAqAFidg9+
- 5ynSxoeQ76S1Z35r3XccOaUU9QGJSquBbq9Jba9+JElWi/BbOxBOOMZ21uwteSRBc2K0TvUyAR
- zZm91/7a61QJltWw/szzuLbWxgB1ZqlmdsaARVbDe/7WWZfkGKMgNFEACAAA=
-X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-I am in possession of an MA35D1 NuMaker board. The SPI controller has
-been contributed, but at this stage it does not work with the current
-clock driver.
+Hi Ben,
 
-The clock controller registers its muxes with .fw_name parent data,
-which requires every internal clock name to be declared in the DT. As
-the DT does not declare them, all parent lookups fail: muxes end up
-registered as root clocks and most peripherals read a zero rate.
+On 17/09/2026 15:56, Ben Horgan wrote:
+> The mon_sel_lock is used to protect the mbwu_state, as well as h/w accesses
+> that use MPAMCFG_MON_SEL. However, in mpam_restore/save_mbwu_state(),
+> mbwu_state is accessed without holding the mon_sel_lock.
 
-This conversion exposed a first issue with the WDT/WWDT parents which
-were actually missing in the clock driver. I am not using these clocks
-myself but it is worth fixing.
+This is me being sloppy - I was only worried about concurrent writers, not
+use of the array itself. But this is clearly better!
 
-The second round of reviews raised another problem with the
-crystals. HXT and LXT are external crystal oscillators wired on the
-board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
-whereas LXT was not. The series now also takes the two crystal inputs
-from the DT: they get documented in the bindings, described in the
-boards and looked up by the driver (with a fallback for backward
-compatibility).
 
-Finally, I was still unsatisfied by the clock tree because there were
-too many root clocks. Many "gates" were wrongly set aside from the
-downstream clocks they would gate, and SYSPLL was simply not parented at
-all (?).
+> Add the missing locking.
 
-The clock tree now looks much more accurate.
 
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
-Changes in v7:
-- Avoid opencoding core helpers, replace them with existing helpers
-  (mentioned by Jerome)
-- Rebased on top of clk-next since the first patches have been applied
-- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index e349db525882..d39d210574a6 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -1652,17 +1652,26 @@ static int mpam_restore_mbwu_state(void *_ris)
+>  	u64 val;
+>  	struct mon_read mwbu_arg;
+>  	struct mpam_msc_ris *ris = _ris;
+> +	struct mpam_msc *msc = ris->vmsc->msc;
+>  	struct mpam_class *class = ris->vmsc->comp->class;
+>  
+>  	for (i = 0; i < ris->props.num_mbwu_mon; i++) {
+> -		if (ris->mbwu_state[i].enabled) {
+> -			mwbu_arg.ris = ris;
+> -			mwbu_arg.ctx = &ris->mbwu_state[i].cfg;
+> -			mwbu_arg.type = mpam_msmon_choose_counter(class);
+> -			mwbu_arg.val = &val;
+> +		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
+> +			return -EIO;
+>  
+> -			__ris_msmon_read(&mwbu_arg);
+> +		if (!ris->mbwu_state[i].enabled) {
+> +			mpam_mon_sel_unlock(msc);
+> +			continue;
+>  		}
+> +
+> +		mwbu_arg.ris = ris;
+> +		mwbu_arg.ctx = &ris->mbwu_state[i].cfg;
+> +		mwbu_arg.type = mpam_msmon_choose_counter(class);
+> +		mwbu_arg.val = &val;
 
-Changes in v6:
-- Drop the clock output names entirely, they are not relevant.
-- Error out when the crystal providers defer probing.
-- Make sure gates are correctly parented.
-- Make sure SYSPLL is parented.
-- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
+> +		mpam_mon_sel_unlock(msc);
+> +
+> +		__ris_msmon_read(&mwbu_arg);
 
-Changes in v5:
-- Fix the bindings wrt HXT and LXT.
-- Fix the DT descriptions of HXT and LXT.
-- Collect tags.
-- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
+Dropping and re-taking the lock in __ris_msmon_read() means everything we cached
+in mbwu_arg could in principle change. I don't think it does - but if we're trying
+to be robust/unsurprising: we probably need a __ris_msmon_read_locked(), or because of
+that cfg pointer - always get the caller to take the lock.
 
-Changes in v4:
-- I forgot to bump the clock counter in the driver after adding the two
-  new clocks in the bindings. Sashiko will keep complaining about the
-  incoherency though. Since binding and driver changes should be kept
-  separated, I cannot do both at the same time.
-- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
+This is better - so we shouldn't let perfect be the enemy of good.
 
-Changes in v3:
-- Drop the number of clocks from the binding, set it in the driver only
-- Split the binding/driver patches completely
-- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
+~
 
-Changes in v2:
-- New patch 1/3: register the missing WDT/WWDT parent clocks
-- New patch 3/3: harden the code
-- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
+Turns out you clean this up in a few patches time. It's theoretical, so the order
+doesn't matter.
 
----
-Miquel Raynal (7):
-      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
-      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
-      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
-      clk: nuvoton: ma35d1: Reparent the gates correctly
-      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
-      arm64: dts: nuvoton: ma35d1: Drop HXT clock output name
-      arm64: dts: nuvoton: ma35d1: Add LXT crystal and clock-names
 
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts |   7 +-
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts |   7 +-
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         |   3 +-
- drivers/clk/nuvoton/clk-ma35d1-divider.c        |   3 +
- drivers/clk/nuvoton/clk-ma35d1-pll.c            |   3 +
- drivers/clk/nuvoton/clk-ma35d1.c                | 707 ++++++++----------------
- 6 files changed, 264 insertions(+), 466 deletions(-)
----
-base-commit: 6b78cda327cc2dbcd0e60f411ae014997a684b55
-change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+>  	}
+>  
+>  	return 0;
+> @@ -1680,12 +1689,12 @@ static int mpam_save_mbwu_state(void *arg)
+>  	struct mpam_msc *msc = ris->vmsc->msc;
+>  
+>  	for (i = 0; i < ris->props.num_mbwu_mon; i++) {
+> -		mbwu_state = &ris->mbwu_state[i];
+> -		cfg = &mbwu_state->cfg;
 
-Best regards,
--- 
-Miquel Raynal <miquel.raynal@bootlin.com>
+Yeah, I was only worried about concurrent writes. But this is clearly better.
 
+
+>  		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
+>  			return -EIO;
+>  
+> +		mbwu_state = &ris->mbwu_state[i];
+> +		cfg = &mbwu_state->cfg;
+To check - do you agree we don't need to worry about the array being free()d?
+Because the first thing teardown does is disable the static-key and unregister
+the cpuhp callbacks, it shouldn't be possible to reach this code before the
+array gets freed...
+
+
+>  		mon_sel = FIELD_PREP(MSMON_CFG_MON_SEL_MON_SEL, i) |
+>  			  FIELD_PREP(MSMON_CFG_MON_SEL_RIS, ris->ris_idx);
+>  		mpam_write_monsel_reg(msc, CFG_MON_SEL, mon_sel);
+
+
+Reviewed-by: James Morse <james.morse@arm.com>
+
+
+Thanks,
+
+James
