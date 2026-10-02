@@ -1,128 +1,84 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1787E22423A;
-	Fri,  2 Oct 2026 01:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295FB2D9EFB;
+	Fri,  2 Oct 2026 01:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790903920; cv=none; b=dVjBTEVHCZKLQ5Tv3CFm3nqEaAlr6SSsGYI2B9f18zO2kUUp+6lHaklQC/YH6YrGudntFhN4F/jNRbVvAO6L0P/m+KoILSFJzv0W2ZXoAyNMhjpucm5w6DtWtV37NgNeW6Wz+aRB/WxrICAJgvgUoE6zpIDOgP6uSXS8JNKGyeU=
+	t=1790904009; cv=none; b=WTVvDBfiD8nB1aPCsX0dDDRA2BZE0Wfdw9VcHjhT+ZD3n9s7PgVwnNSjOoKfBHlahSG9//jvcAX3LMytQ5eG1dqzIDigATBuzgbYEDFgFTft0usP5+lGe7NK4U4ckDXJteM/cskhKirVlA2T/529xQHFoRV55BX9RcsFZQWwHSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790903920; c=relaxed/simple;
-	bh=DimN0iZw0iBl0ePgNYyHdsW2Ta+q9KYFkw6gX5WiHQQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tD13hQz0nDWDSZWCfFv7pg5+4Owjj7K+wdp8Dqwn/0PRgZbtv2v5aB0e21r4rJWl3O0DW1AfEDBJz/tvg1xRrTVaWd9BMKUcpMBpmBQNuIYAlyu+Qfj+NnVD3INaKiHPIHnG3u6/X6DC2ObmhR2uAENfxF1aez2ehCbxkl055aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Q/lPxyRs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790904009; c=relaxed/simple;
+	bh=pA6Lj/PnlNf1kqnfb10VlKbsQncX4piLaeFr8vXL78Q=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=EpKutmsGB26v+8WV9q/W/hxyv3ZKHhq/jkOu91k6wJXumWKkz22YThSvSnWn43iOPFWO59Ci2sAr1z+U/cdbjwShPYYAhcgu3BecaRuR6X9bdPG7AtGuIcGOfis9Am4sYaFrE/fIhHh1ycDw8id79eFjsHiWju/T08/6/03FBfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I44WG0pN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Q/lPxyRs"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 856E5227;
-	Fri,  2 Oct 2026 03:16:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790903804;
-	bh=DimN0iZw0iBl0ePgNYyHdsW2Ta+q9KYFkw6gX5WiHQQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q/lPxyRsVP918+X5+y+4p3sOId+LimE6+DD1AYbicfge5XpEqkAuaORARDmksFNha
-	 r92eby6wdoGRtgBnVIJpXyHhZThDsloigUUJIv1fiK/6o31QH/q36t52Hhwkzw4dSY
-	 j1P3fJFHLLMb6HvhpB6NIn640lnkubvcGzWur+2Q=
-Date: Fri, 2 Oct 2026 04:18:35 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
-Message-ID: <20261002011835.GA93319@killaraus.ideasonboard.com>
-References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
- <20261001231856.GB9061@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I44WG0pN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE27A1F00893;
+	Fri,  2 Oct 2026 01:20:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790904007;
+	bh=UPqKbSIAC9atYzCZEnw24JepnGDdsd7RY2VNRLHZUj0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=I44WG0pNCMKq2EqpZrhq41A7QTGcTAegA54qCD1/063z3Oi+6qVbXpBMeL6eXLSHD
+	 ZNTf1lF9BMcUwQ3FIsN62PkWMRS5MRPz+PR2LJlrCZy5YHEk4Zzj5KdFe17brlXFSu
+	 Tk6OQTdrQg1QoPsvvrc+vXESwx7tK/T2dsFLymZwgfAryeHAaUyEcAbWl5Ou1SLPiB
+	 Ev6r13u7LUxPH7alF7adJ7Stw5644GSq3tnedBehy+imJLDiDiR+TXYiUWxrG7fd+r
+	 BWCL++1z3o7d1ZibhbAM/h8MUPEL4kZFM1yI0taXZYhhzOG/EEX3YtjzZLYfYHC3u+
+	 yGHu9+vvShhrw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B45C2381197C;
+	Fri,  2 Oct 2026 01:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001231856.GB9061@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4 0/2] amt: send the relay's General Query directly
+ from
+ the receive path
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179090400653.3168550.15976743708132455802.git-patchwork-notify@kernel.org>
+Date: Fri, 02 Oct 2026 01:20:06 +0000
+References: <20260928202312.74574-1-omar@blockcast.net>
+In-Reply-To: <20260928202312.74574-1-omar@blockcast.net>
+To: Omar Ramadan <omar@blockcast.net>
+Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ shuah@kernel.org, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, AutonomousCodeSecurity@microsoft.com,
+ xmei5@asu.edu, tgopinath@linux.microsoft.com, kys@microsoft.com,
+ cenzhang@linux.microsoft.com
 
-On Fri, Oct 02, 2026 at 02:18:56AM +0300, Laurent Pinchart wrote:
-> On Thu, Aug 13, 2026 at 03:46:32PM +0800, raoxu wrote:
-> > From: Xu Rao <raoxu@uniontech.com>
-> > 
-> > usb_fill_int_urb() takes an endpoint interval value and stores the
-> > period expected by usb_submit_urb() in urb->interval. For high-speed
-> > and SuperSpeed interrupt endpoints, it converts the logarithmic
-> > descriptor encoding to the corresponding microframe period.
-> > 
-> > The UVC status URB is initialized once in uvc_status_init(), including
-> > the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
-> > that report bInterval using the old full-speed convention. The first
-> > submission therefore carries the intended interval.
-> > 
-> > Both status resubmit paths, however, overwrite urb->interval with the
-> > raw endpoint bInterval before submitting the same URB again. On
-> > high-speed and SuperSpeed devices this mixes the descriptor encoding
-> > with the already converted URB interval representation. For devices
-> > using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
-> > quirk adjustment after the first status completion, making the
-> > workaround effective only for the initial submission.
-> > 
-> > This has been easy to miss because the initial status submission is
-> > correct, full-speed interrupt endpoints do not have the same
-> > logarithmic encoding mismatch, and the status endpoint carries
-> > relatively infrequent control and streaming notifications rather than
-> > the video payload itself. The problem only appears after the status URB
-> > has completed and is resubmitted, and the externally visible effect
-> > also depends on how the host controller handles the resulting period.
-> > 
-> > Do not restore bInterval when resubmitting the status URB. Reuse the
-> > interval established by usb_fill_int_urb() and usb_submit_urb(), which
-> > also preserves the quirk-adjusted value. No additional state or
-> > interval conversion is needed because the same URB is being reused.
-> > 
+Hello:
+
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 28 Sep 2026 23:23:10 +0300 you wrote:
+> The relay queues its General Query on the amt device with a raw tunnel
+> pointer in skb->cb, and a query that waits in a qdisc can outlive its
+> tunnel: a use-after-free in amt_dev_xmit(), reported by Microsoft with
+> a KASAN reproducer. Patch 1 sends the query directly from
+> amt_request_handler(), inside the RCU section that found or created
+> the tunnel, so it never waits in a qdisc and nothing is stored in
+> skb->cb.
 > 
-> This commit message is also very long and has a large amount of
-> irrelevant, when not borderline incorrect, information. Is this missing
-> an Assisted-by tag ?
-> 
-> > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> > Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+> [...]
 
-Also, how is stable supposed to make sense of this ?
+Here is the summary with links:
+  - [net,v4,1/2] amt: send the relay's General Query directly from the receive path
+    https://git.kernel.org/netdev/net/c/afae89de73dd
+  - [net,v4,2/2] selftests: net: amt: check that the relay's queries bypass the amt device
+    https://git.kernel.org/netdev/net/c/c41817fcaf39
 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> > ---
-> >  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
-> >  drivers/media/usb/uvc/uvc_status.c | 1 -
-> >  2 files changed, 2 deletions(-)
-> > 
-> > diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> > index 3ca108b83f1d..6552f541aa0d 100644
-> > --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> > +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> > @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
-> >  		return;
-> > 
-> >  	/* Resubmit the URB. */
-> > -	w->urb->interval = dev->int_ep->desc.bInterval;
-> >  	ret = usb_submit_urb(w->urb, GFP_KERNEL);
-> >  	if (ret < 0)
-> >  		dev_err(&dev->intf->dev,
-> > diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
-> > index b632cf5e3fe9..680c6c7f4ad7 100644
-> > --- a/drivers/media/usb/uvc/uvc_status.c
-> > +++ b/drivers/media/usb/uvc/uvc_status.c
-> > @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
-> >  	}
-> > 
-> >  	/* Resubmit the URB. */
-> > -	urb->interval = dev->int_ep->desc.bInterval;
-> >  	ret = usb_submit_urb(urb, GFP_ATOMIC);
-> >  	if (ret < 0)
-> >  		dev_err(&dev->intf->dev,
-
+You are awesome, thank you!
 -- 
-Regards,
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Laurent Pinchart
+
