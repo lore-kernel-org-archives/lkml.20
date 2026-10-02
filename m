@@ -1,81 +1,115 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.vivaldi.net (smtp.vivaldi.net [31.209.137.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B303C9EE6
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9109475336;
+	Fri,  2 Oct 2026 22:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.209.137.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979543; cv=none; b=tl7OoG0FRBWvyxVsr7xkLbnAQRM7TluTgHY/Y86aOOug4afgG7qFUx1d3/ZX6CzuVS476/SwffL+PSwrMnwhdiqfHk67zvW0JrZL4LlJhfmkEhNSzXBvpekH2i4kN+Xpm78VO2oqsYIdQDFoU0a1spej4hirWs3UkDv5JpF+ZnU=
+	t=1790979547; cv=none; b=YkgDJLZuHg07LSg2GT6em7XgXXsGqr6n7xK0iqN1WS8Bj6B1e8I036RHHg5xbWhXEMdoYKuET2M/cyFbC86cKFIF+lo1gutfBSbmor9Km05li3OVETAHpEK/grggE8T+c5llCuyTCkfs2Gnshdg1J8K6wQV60Xj1Q0bY9nf6PzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979543; c=relaxed/simple;
-	bh=40qd9siKCBRYB3f3NGKHhJbH3BpIYlDe6X8yX7Hpuwo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZDI6nfCGFjUG+8i72TIiP1EUeQjsD5N+IeAXLJvDZI8bOcC9CzYp71s6KZruxun4LG0AJ+U4IX1VAIvlYzWaW/wk5CXE2IryP2XcKGcB15oirWdkzTA3X04qsWMlgelXW2FuRO9zbkfZSIiQN+gR5LQ8auB4AotKuXJhVTIiuis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SMLZH8s+; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790979547; c=relaxed/simple;
+	bh=00ImJOWWu9lRfEyQbYNou2C48dp7gXgRCU6Wmbm5heg=;
+	h=From:To:Cc:Subject:Date:Message-ID; b=qDwM8YC2YRIcf03VvMwnk3jljQ9UZf9YONDKL6ntsxy3/Dg1QNoTbS1aM3uCc8cZjW8CBT+dGQ3+6bdmg1rqpvyb+vpC2P4XoOJ5yqokJUSB59aCNbcIICfv2HkopRIp6D9wL/heU7fmwV/uo7IKQgdXNWbTIsHiKPNEciGSjfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vivaldi.net; spf=pass smtp.mailfrom=vivaldi.net; dkim=pass (2048-bit key) header.d=vivaldi.net header.i=@vivaldi.net header.b=hk1+F5Ab; arc=none smtp.client-ip=31.209.137.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vivaldi.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivaldi.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SMLZH8s+"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so34830a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:19:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790979542; x=1791584342; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=40qd9siKCBRYB3f3NGKHhJbH3BpIYlDe6X8yX7Hpuwo=;
-        b=SMLZH8s+LCQgFO7oNe4vcV8iJuWUxaQfX4dgY3ghhp+dTzLGGmVw5v/eeIs85vHGip
-         Sa15lgiibSVx5HU/lqpieb+98WbsTIpWBlJC2PyKWxPuN9TJ3mqqdizSuARl1ZwY6Lo3
-         AF0gZcVT9kkBPpvh7N3F7+YJrgrQMp6ClYQaQ6A6GBmTsNxUWD+vr8NpQR47XPLe7/gz
-         P0CwwqXnBzgFni0Zc9dbZ0x4Jt/xviv4JkAe+s4smszurz4casTwUCHFziMd3dpsyFJU
-         uV1gGOL+ob+D4KQXRhnJsyvxrkMbvX2qrFB2WLcjqNOiaw5i9daf6f8Sd9DZ552QG3ba
-         sLLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790979542; x=1791584342;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=40qd9siKCBRYB3f3NGKHhJbH3BpIYlDe6X8yX7Hpuwo=;
-        b=K3HisyDl0Qi9VaJwPr4aqkG+gdt3b5h7wRsTGi6OedlO78TG5X/8lhIPUyWPIUEHG5
-         13pnWGyoWLF//wR/ilGNm2+egeAh0rFvYHc0sNDOEHohNrPN9n0S8hELsBUoEbMn4rd8
-         snAMgbK8noBnWnmvMVHOpB1Wy5OUVUeKtgsaRuPbkcl/Cxbsfsv6vITA6buQfXOIP9JA
-         MZOhU9+1btDupz0J8djhaJ6a/xUsx2Vf/ChLXIridFeuuob//jMG4lBD1eB4kya3/GJe
-         cS3barsW8Bh3F9/6vrkM0m8nzGsHsnUHZRmmnutvkDvNyzLHysk0PtpKKhR9foYo6ct4
-         h6gA==
-X-Forwarded-Encrypted: i=1; AKwUvByAtsm5dXfkSvbg0TbPbLV0ip6kL1rBqv+c91X1TpgYyvwShko1EuERKEXOL1CMvHQOYDTVFhHzj30cq30=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMUBFt2qiX925dVMyUHl3ScI+fKSOL6eM37FRD9h5vr25Xpe8T
-	hLISA9QahVwVDB5TLG03tHCy1aFD7DUFparVXAKb2v9166duyXvYc/aK9S/pR2q8Aekiwsx/6xZ
-	lOdPrug==
-X-Received: from pjtn8.prod.google.com ([2002:a17:90a:c688:b0:3a0:dee2:7813])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2b48:b0:3a4:71b7:eb63
- with SMTP id 98e67ed59e1d1-3a6ceab25dbmr1825054a91.10.1790979541549; Fri, 02
- Oct 2026 15:19:01 -0700 (PDT)
-Date: Fri, 2 Oct 2026 15:19:00 -0700
-In-Reply-To: <db32438dee67a69609e75d8c43cb070f021137b1.1790101179.git.ritesh.list@gmail.com>
+	dkim=pass (2048-bit key) header.d=vivaldi.net header.i=@vivaldi.net header.b="hk1+F5Ab"
+Received: from localhost (localhost [127.0.0.1])
+	by smtp.vivaldi.net (Postfix) with ESMTP id 14439FC5AB;
+	Fri,  2 Oct 2026 22:18:58 +0000 (UTC)
+X-Virus-Scanned: Debian amavis at smtp.vivaldi.net
+Received: from smtp.vivaldi.net ([127.0.0.1])
+ by localhost (mxo-1.viv.dc01 [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id qEQVsi1rZcrE; Fri,  2 Oct 2026 22:18:56 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.vivaldi.net 56632FC392
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivaldi.net;
+	s=default; t=1790979535;
+	bh=nP/+18zknw95i9l3i/sUf5wslrs2pLZPAh5Dqd/WG5Q=;
+	h=From:To:Cc:Subject:Date:From;
+	b=hk1+F5Ab/zZ7GFhIY8fb1j3VrYDxFQFQoYXLCiuYl76xj/pt/VZ3kEHX/r8RDKA5h
+	 GAis874uVfP1vv/oTcSkCGFbiKyvLCiOK8tVprQ3jLC7N+OjEodOm5u0IbzllP/zvO
+	 jy2Df1RU4V7H0hyRDaGh2T55XuqpN7qbu3KzH+X7fXoYA+Aen3pPaIXmN1D4QSJ0yv
+	 gMNRzaOReVTPuBo8v4fsRYktIt9qDl8nnDM/aWJZyb5x8YhspyEVR2+fvLeOu83Sm4
+	 Hjt6QsbQkcmf4lhIc5YAkQm79NtUSEflNpPCqJp1lACZEh5NoqmsLNyKb5nY4V8SPC
+	 TQMWNstL0k+Sw==
+From: Denis Yakovlev <mfthesun@vivaldi.net>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Denis Yakovlev <mfthesun@vivaldi.net>
+Subject: [PATCH] ALSA: hda/realtek: Enable headset mic on HONOR MagicBook Pro 16 2024
+Date: Sat,  3 Oct 2026 01:18:50 +0300
+Message-ID: <20261002221850.12443-1-mfthesun@vivaldi.net>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790101179.git.ritesh.list@gmail.com> <db32438dee67a69609e75d8c43cb070f021137b1.1790101179.git.ritesh.list@gmail.com>
-Message-ID: <asAt1NhGFs5HNbvl@google.com>
-Subject: Re: [PATCH v5 6/9] KVM: selftests: Limit the number of VM creates in hardware_disable_test
-From: Sean Christopherson <seanjc@google.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
-	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
-	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 22, 2026, Ritesh Harjani (IBM) wrote:
-> hardware_disable_test forks several VMs (NR_IERATIONS=512). This patch
-> limits that number to 4 when we know that we are running in constraint
-> host environment. The number 4 is just a safe minimum when
-> kvm_arch_vm_create_may_enomem() can be true.
+The HONOR MagicBook Pro 16 2024 (DRA-XX, board M1020, ALC256, SSID
+1ee7:204e) has a combined 3.5 mm headphone/microphone jack. The BIOS
+leaves the headset mic pin 0x19 at 0x411111f0, so the codec parser
+builds no capture path for it, and it leaves the jack switch
+(coefficient 0x45) in the TRS state, which cuts the microphone contact
+off from the codec. A wired headset microphone therefore records
+nothing.
 
-Please actually explain *why* this is necessary, and where the magic '4' comes.
-I assume there's some system-wide resource at play?
+Configure 0x19 as a headset microphone (0x03a1113c, "headset mic
+without its own jack detect"), the same value already used for the
+sibling M1020 board (HONOR MRB-XXX) and by the VAIO quirks, and chain
+to the generic headset mode handler, which detects the CTIA/OMTP
+headset type on every jack event and programs the jack switch
+accordingly. Pin 0x1a is left untouched: there is no evidence that it
+is wired on this board.
+
+Assisted-by: LLM
+Signed-off-by: Denis Yakovlev <mfthesun@vivaldi.net>
+---
+Tested on a HONOR MagicBook Pro 16 2024 (DRA-XX), Ubuntu 7.0.0-34, using
+an out-of-tree build of this change, with wired Apple EarPods (CTIA): the
+microphone records after several cold boots with the headset inserted and
+after hot-plugging; without the change the analog capture is digital
+silence. The headset type is detected as CTIA (coef 0x45 ends up at
+0xd489). The speakers (including the "Bass Speaker" control from the
+speaker fix) and wired headphone playback still work. OMTP headsets were
+not tested (no hardware).
+
+ sound/hda/codecs/realtek/alc269.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 67b9f41..4e22d63 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4477,6 +4477,7 @@ enum {
+ 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
+ 	ALC256_FIXUP_HONOR_DRA_XX_SPEAKERS,
+ 	ALC256_FIXUP_HONOR_DRA_XX_SHARE_DAC,
++	ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE,
+ 	ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
+ 	ALC287_FIXUP_ACER_MICMUTE_LED,
+ 	ALC236_FIXUP_DELL_HP_POP_NOISE,
+@@ -7215,6 +7216,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+ 			{ 0x14, 0x90170111 }, /* bass speakers */
++			{ 0x19, 0x03a1113c }, /* headset mic, without its own jack detect */
+ 			{ }
+ 		},
+ 		.chained = true,
+@@ -7223,6 +7225,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 	[ALC256_FIXUP_HONOR_DRA_XX_SHARE_DAC] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc256_fixup_honor_dra_xx_share_dac,
++		.chained = true,
++		.chain_id = ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE
++	},
++	[ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc_fixup_headset_mode,
+ 	},
+ 	[ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX] = {
+ 		.type = HDA_FIXUP_FUNC,
