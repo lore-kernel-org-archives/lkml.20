@@ -1,403 +1,244 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from outbound.st.icloud.com (st-2006e-snip4-11.eps.apple.com [57.103.76.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747CC46A61A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10103420898
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945181; cv=none; b=pK+GEQY82n+CcNqomYtDELhJOxB/64OSWMyZtl1wNeM50mKSvXuOneAYyPchfKFz66z8sT/ExmYt/d5PIhNSpBL3W9YYg4OJdWhXcJbxFKpglecVvPTHf3sXlRh0qgBrxrZOS07foFujbgkMUMuPXlRB2SX8IrTwbQCs0jlMkgc=
+	t=1790945190; cv=none; b=jrgvuuzv6v7RUKsglxtsmvV54/KWWLmb35RxRsOsqZgnAzjazzCMKWr60QSkBgScMcRgViiYe9YhESxSewzw3DczE2/EoXVzFvTZtGppfPUNQowTx+Zp+xkbkpsaPLLE55WR2xPXf3IuGwbc482NmgAOWULV23M6x5M6rSKRgYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945181; c=relaxed/simple;
-	bh=vpmbNHCj8AiW61gBA9TK7A4FEVWBhJ5jgjhYMuO2mjo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uDXuyWp3Gkxmzg1CxagFSu+/T1KI8V2cp893MJ5MSoZftQq+ICjhrKDwPSmub+wvAAWRTUXEfkCxqgQMKVXSV1ExV0+J+8j8V8iSuZ7pNAzw34vc4Iit8t0D64bu2WBJVyVUz1/bqtE9Nz1SLCnBcLaY6roHxyr6EaVXpcJvEpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qqm0qUao; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AxMIOaMm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790945190; c=relaxed/simple;
+	bh=uTZ2Msm1bFQOaWXuw0goE4NYE/PiReH47ExlMX4JleY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IWWnizYj4vkGhzGoiom3bTNHD2NzBrZv7f4iGpt7715QsZfVrzgwPUshbeiCHXPXIzSFGDTw3Uuo82IS+Yz8zhFMTqu0HvyRyI9amVaEyzhmXtvxKYwRsgqKayGEMrNrkrsXxKtcA6uTGuZapZOnFSyNfkb2JTCtQBsZJ5bcdIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg; spf=pass smtp.mailfrom=verdict.gg; dkim=pass (2048-bit key) header.d=verdict.gg header.i=@verdict.gg header.b=S9Bgp8WC; arc=none smtp.client-ip=57.103.76.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qqm0qUao";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AxMIOaMm"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6929nYL3557425
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 12:46:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TJRKfKcudVdIXp7kbw1mzYEB8ftrNn95nsWIQz3ozyU=; b=Qqm0qUao8AqMrszC
-	lwhBZ5MZPsdrBMukQGX0AE6n1C3g+JdMT+L69ecCi+z8vgxzN+PucBN9X9H1eckZ
-	5Ni+Di7soU3uUbWEZsP1z/+2XCwUbYTiDeif1g2bkDsN7CH4Jsm6GxJSQilhCWGB
-	t3z7UDFi1ipJ2HAUKYap10UHYbXIVfZaYN8bn7VjWf28zynKDlYybBUz5d4Ye6S3
-	x+gGLMkrwNwGsejIOvm2Cd5X3+3E1iqbNwOTpkWZIObyuYq6/b5t1bf5oqSADRC8
-	Mz9+1s4G6TwRYCcZRORaW8HGil3tVOjqFbEc2txC+D07Hhf+SMoHhrhgm44fIXdv
-	D1tVow==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1tbgby6w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:46:18 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfa4e4684bso126200355ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:46:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790945177; x=1791549977; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TJRKfKcudVdIXp7kbw1mzYEB8ftrNn95nsWIQz3ozyU=;
-        b=AxMIOaMmmPFZdYMYO5YhpLAu7ybh8Dv3EdqqCprS1SQ2dBw35gk2w9WyaCguOn3Cpv
-         /uNuEWJak1QKwrPHK42tgLUTTewBt5QN7c6LSx0l8yeGAC5dJRMS2RRTegtOFc5jhl9i
-         sqWw3I73bnhR+tFuhPAKKx+/0aqntE0WF10dA2vOgI+3qisFExK+3pqceo+mdcf0DjKW
-         kZWq5qK881fKUXY/bbxsxWOSuY8l4WEtuaKOL34k9YzrNc8u2k9mwjsUUMnUYxM56uMQ
-         hQHjbpPPDijqNC5Zz2vatq9bpX9rGBdQ3cjrTE/Q85YDhuwnnwgwXsvreVRRYoj0RpMQ
-         uUfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790945177; x=1791549977;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TJRKfKcudVdIXp7kbw1mzYEB8ftrNn95nsWIQz3ozyU=;
-        b=zG49C6lMOxr0uVpiBxCBeuzbg+h3RIUlMmrjLpca/T5rtZBTA3UwL6WyUwR0cSRhTm
-         kxmPpSeByhFg5mlPVtkh+XmZV7JH+5nn1N29tkAym+/hW/min+fC6DpGbvvWdFOP7KGA
-         F71T5YTOkrA5mo3vStyt6kq4DxN4NdH2uAbe3KvCG+c2AFL6VJRvQ//TmPHX5wNfWkYI
-         9d1ZLwIR0fyTVwfU/K7XXkO8/ADAXKU5+QdPW3m3wmTIRRKwqBtrpYizui5rNDQ9I/M/
-         trIC4dTaCB4j4qgrmeJ8Ptu5/TeoSLVLHlxHSIRZJ/RPTaEHqUpRu9JdhGhjB+AhObNg
-         YUQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoa5XljOuG02i6jbUScmIiK1UgluZMee6j0vTjZaCrOC7nPdHEmnyj4wVl1TUD1DTgiHiTsZXlXVNYdpo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKr9fSxKvK65ADufVarAEppdyPwQqUveEe59wbbsf8KtlZdniTK
-	KT3yr6QZxrw+RHPj3RdLJWtQLRZ4sWJexG0xK+5lG46wuziumQCM5AesPuNLb4CHx68fQ8STu3D
-	QGeuZxqpi/1tG126c3+2T6E5CyNqIyhqYlbTzglvykbV5ArdzaGfj3W98IwXCPo/nfNo=
-X-Gm-Gg: AYBFou2j9F8na7R2IHqHyNwq9YLqcEhZYmZMStRGMLXBowLznyaFNGPIDa6XAq7KdDM
-	88FkgC4Odyvl1xOh1leBSFTPI4SDt5F3mM/Krxj0HJTUnkn9ZagTtCkeGcMCBDkBtWDEybPelr7
-	ouv2ATsfuLp1JoOJR2bwNb2hrNrUDnB6+gbwyIyZg0o6klRXbp8r7y9TK3W27v0KQrRcz1X+1JN
-	e43JwQzHG2FuOf9HvyTPVStlDcqzswq2by4ZKZVx3z08MgviCErslJdzLv+mMWJKaZukdRAi5a5
-	fimT5xykZRhvP5/Ytv7xgFvaG+zqCxto15kRujy2O41M98U5waIIZr8l2mQ6H1Jb2hdQ+0uiXZA
-	xUjF7htvLuPOSxQUvC3LHbHJSfBh4KR879UM4RAZIvc31yXdwWCXLh+ee2n8SbaQXg79XVQ==
-X-Received: by 2002:a17:902:ccd2:b0:2df:59f1:f304 with SMTP id d9443c01a7336-2e49b65e87bmr23206395ad.33.1790945177344;
-        Fri, 02 Oct 2026 05:46:17 -0700 (PDT)
-X-Received: by 2002:a17:902:ccd2:b0:2df:59f1:f304 with SMTP id d9443c01a7336-2e49b65e87bmr23205955ad.33.1790945176740;
-        Fri, 02 Oct 2026 05:46:16 -0700 (PDT)
-Received: from [10.133.33.14] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f71c1d8sm7308885ad.70.2026.10.02.05.46.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 05:46:15 -0700 (PDT)
-Message-ID: <4e218e26-19ac-4c05-94a8-c156952f4da0@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 20:46:05 +0800
+	dkim=pass (2048-bit key) header.d=verdict.gg header.i=@verdict.gg header.b="S9Bgp8WC"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-2 (Postfix) with ESMTPS id 769971800278;
+	Fri, 02 Oct 2026 12:46:21 +0000 (UTC)
+X-ICL-RepId: 01a0fca6-bea1-7963-9304-6c68dca42052
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQ1OHVwORQFEF0oBTVIPDxRcFFofVgVyBlwKVwRUHxwXXlhVCQodVwJdEVAZGQxVUEsbDlwPS1oVVRcOAkIfUB9MFldDRB8cGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKHVcCXRFQGRkMVVBUEVdQC1kCQg9JA10FWgBEDE0KQwZbAUYOVQJAUw5eGUsZXS1BDkAUUBtHQ1AMDFBNAUMICghHA00XXjJTBF8RUBY=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1790945185; x=1793537185; bh=JMWannhlf3vc6cpm3QLXkPwrg+Zi3B9XTT50gbnd6pM=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=S9Bgp8WCHzLgZamVP5Sc6ML4uj+5nHISNjQKx/VI6GQ2sAw6rEVw2VXHEmgIBS55zB+tz5QGt1rkDg2vJL3/NcBczoRwA8C+DhJ3FY1+2E6vWGJyD1d0umgHev0rhB//XJSQU4upUxfi0310aLxLQX0tDCXVSwzZ8vciK8Q4Zm0jl9al/KlAU4DvTHvR8jZXi4K2Xq4VN8SRjJ47CDNyS9H97I/+I5c5BYQNx/T6reeeXm60YO4+Jp0j71s/UZcPo/qYbUXwXKAx7lCQxE9YwByIwf5UxDkDjYsL1SE5LnbMozVir8wjAT7SKARu8OhNaUr+cXVTmk1KgxYnF8HeCQ==
+mail-alias-created-date: 1621344842221
+Received: from DelNac.mail.msk (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-2 (Postfix) with ESMTPSA id 72CDD180026B;
+	Fri, 02 Oct 2026 12:46:17 +0000 (UTC)
+From: Vladimir Vdovin <deliran@verdict.gg>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Vladimir Vdovin <deliran@verdict.gg>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Hui Su <sh_def@163.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] sched_ext: Drive the NUMA balancing scan for SCX tasks
+Date: Fri,  2 Oct 2026 15:45:31 +0300
+Message-ID: <20261002124559.10367-1-deliran@verdict.gg>
+X-Mailer: git-send-email 2.47.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] cpufreq: Skip updates for unchanged resolved limits
-To: Christian Loehle <christian.loehle@arm.com>, rafael@kernel.org
-Cc: zhenglifeng1@huawei.com, viresh.kumar@linaro.org,
-        linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-        Mario Limonciello <mario.limonciello@amd.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Huang Rui <ray.huang@amd.com>, Perry Yuan <perry.yuan@amd.com>,
-        "Gautham R . Shenoy"
- <gautham.shenoy@amd.com>,
-        Vanshidhar Konda <vanshikonda@os.amperecomputing.com>,
-        Shubhang Kaushik <sh@gentwo.org>,
-        Pierre Gondois <pierre.gondois@arm.com>,
-        Beata Michalska <beata.michalska@arm.com>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Ionela Voinescu <ionela.voinescu@arm.com>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Lukasz Luba <lukasz.luba@arm.com>,
-        Jeremy Linton <jeremy.linton@arm.com>,
-        Peter Zijlstra
- <peterz@infradead.org>, jonathanh@nvidia.com,
-        zhanjie9@hisilicon.com, Vincent Guittot <vincent.guittot@linaro.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, zhongqiu.han@oss.qualcomm.com
-References: <20260929102957.2591657-1-christian.loehle@arm.com>
- <20260929102957.2591657-4-christian.loehle@arm.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20260929102957.2591657-4-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA1MCBTYWx0ZWRfX9jrJuGUTSh7F
- xlPEsWBgi1zoGyUaVvjNPSFH57E9ec+XBDZG6Px9C9Lu2FRZQG1SoREVK/5x1Mh0J3PkSUUfALi
- 8M4UR+d67f5/xNyNQoaH438qrt++L6c=
-X-Authority-Analysis: v=2.4 cv=QY7zLcbv c=1 sm=1 tr=0 ts=6abfa79a cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=7CQSdrXTAAAA:8 a=wYuGpgGkS1f18Qd9x5MA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA1MCBTYWx0ZWRfX3RHEnxVaikqj
- GHO1zgLsiaya/lGPI0Atnl7wdWCiXNxYvEwyAAAHFRhkrqpTRQ+UIZSFsQGWz14Htj5xgwCTBC5
- +Bza5ct2qrbtZoT3Z06n9N5/IuILuIXW0sAeMmDPz0nHGm89MyTK6zYCHcxBdvN14DCcFXhq90t
- Tl9X/I1xxRee938leIOi2JufGHgWvm8yV1TpUYkH4MIObcjGAJTNdkh/T0tRxizbbSnqhW2Dc2u
- UlXvalpydTxswg7v2vH2/zzuv/BD2kAN0k2Muzt9VlTAuxkjJI7zSW1cWORUD9XMmy0qy1Eirun
- aS/7El1/PpUWM3Y3Emp+dVtq4FJTpMY4MX5PVCKnqo0cGEzVKrcH1JG5TX8G8bGQ7UjS3urKz3i
- 1abEthZ7yu1Qi4DaVbXAoJ8oZLhQu/goAuYv0epyACjJsbr0HX9iePmnjuoGKbJaxUEZcL8w1Vg
- 1dq+lMjxSR/nif8jpKw==
-X-Proofpoint-ORIG-GUID: GiXD777tsF5xazxnGpfGAig0rI8jjr5S
-X-Proofpoint-GUID: GiXD777tsF5xazxnGpfGAig0rI8jjr5S
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_03,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
- bulkscore=0 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020050
+Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=JLU2csKb c=1 sm=1 tr=0 ts=6abfa79f
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=AzMV9amX_PX6-bkl-foA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA1MCBTYWx0ZWRfX6fWROFrH2JnT
+ uMHsXyYz+dcAh1l0Vop6hYu0gZlVpUwTl4y0gzJmO13mNc1e9g4trOzj+Mg+0Pgz3m4aH7RFGrv
+ i+qsDBJkJJwC2yg2FIIZYrzAxND7DqE8NHQkYsdift3p+ia1iw0BYRBGcLgF48qVWV1jBVmlTvN
+ 05TXJJHgdff9Vc80RgOCsTjPN+KpTUgSzNIkq/n3OsLpzTGHUyWk7INNsSTiJuqIWzlQ6BEirmn
+ 8NeVS62Lz5odldpZ8fGQ3stisYeBgU2BfwZbDxAg7EAf4P8lNQZZHzsBl5M9q3yG+U/GzOHqxPA
+ piQ3Z1aRn85YlbfdoM/RSHAq3U4pNNyBJ509L8Hs5VBpdXJNmEvcKFLgtulcwo=
+X-Proofpoint-ORIG-GUID: 7vOcNMKqGXT4V5jTTl24QbSkRdnqdHBc
+X-Proofpoint-GUID: 7vOcNMKqGXT4V5jTTl24QbSkRdnqdHBc
+X-JNJ: AAAAAAABfcpVKPyVCy5mQijTXK/Uerx28Jc6gaE8Ayp3zE2OnZWt3W4QHFphv7lghfhyxx
+ czrBsiNdWU6OqcYZ76Qusv3OsRSBPS/J+tveFY+2dFpkG3s85vVhXnWRMiLg3noZlTdX4P
+ i71Yq+dW0Ju5+XWGmslXQ+B7yBra0HJGwVnOeP/dR7/KNWOpKyfzgfOZE0CFf8qLTTB73q
+ Yuc7ML4NCnnwWXVQ2MkBHT0P3J8/IIfLee21Vf1DhkhftcerKRknjmPnAhXhmqsnI36euO
+ YiEsZcyA6/oXGs9FB8WHph/Lg/5lSeepPITms+/vpYyRJ2U8P/BK8wVtBqWXP8QvkLDU6Q
+ 6689oYwwil5hqfc/p8hoA7ajhZRR10oFy3W1fmT7KMY1QDZih3+fd987N+3PPf2fA4b2kH
+ bMrX9mLsy6oYKHac+MLwjHfOMY+/uz9dxaiR/yVgD1Jf5HdCyssDCIsb+zz4IjDV/GtiKI
+ w7uZmcEaaUgomoHc7luRqVb4dcifHxXkTRxF0HKC/HICgxDTMWk8rZD4MizSJQFnYzAFaz
+ k8WqD92jVpSxfDv69xsQ9dp5T60YGctbcPpMbA4c0pgxslEhieoHyD5zwHWfs1UKWQfns4
+ OEFrXGn6JljyfDhztvBSoCNi0xA9glEQHnBe9p5No7aPCOzChRg5+v4X+Z+QQhhtpknNuo
+ hr5R3AtyG4B+E0GCh4YRAYosSnE6j+45V7AQKURg1baNMaFc6MgV5BAEF7XeH70j09YbGW
+ JGXOIGi2zRfdOQoH7KKmVmoq0kdM9IU5kX0Xm8742RN/1MWOuYS7fXBs5ZW+1G2lzb0f7c
+ H1SM4DpEeqlz88AT2hZae/f7BO9nmyDrmvb2Y6HlCxWCyO5y0zNcBl+VopGox2mGYUiOUa
+ Jhj3cirYsATYRfyrDPrfJyetFU7GUB/Uccj9zkwG45tEUW9ARhaU9KWZAyQJSvzaL+ICmU
+ R8oFzFDGMJ2rfYpDLHNKwG2V5dDdwz4pFc4THSazzozqY1Pwx0C14V5Z3Pz2bVpZu/AMdJ
+ u8cfCV2mucLUaNmFtqZBbseW/kGQe7txqVAcxucoGvRK+mTWgeSQhovzgyYCqghTQqcx57
+ V8qvjtlwYPkEOQNAmyvGubco7CpnO8gZ6AmS+9Yk+l0wY6v14IcIvwY9Yv+v9LQ2G/Qnmw
+ x9sMV4+YXJc9rqvCC9RKLSOsIigeSD7SHCSUJXHHMS2WIbzOiYY+4krHw7kKff0x5q2N6j
+ I2YdaG5h7v2KmKgSxQDK33veXnZqgFec3sbIF6pgMKhcP/kOYS6SFt9ICbWO/1BehxK2EE
+ di/4YldNKUslKFEFN/S3eqAB4Kt/BRpQvJakGzwO1DdJvWfrZ4Gb20ImlOjiZ1PgM7cNYj
+ Py6SgpaIlFSPnDQBjpgGxbFiVPCoW+LL6sxkMhDxYLU=
 
-On 9/29/2026 6:29 PM, Christian Loehle wrote:
-> Commit 9801be8bef65 ("cpufreq: Avoid redundant target() calls for unchanged
-> limits") introduced policy->update_limits to skip ->target() when both the
-> frequency and effective limits are unchanged. schedutil still bypasses its
-> frequency cache on every limit notification for CPUFREQ_NEED_UPDATE_LIMITS
-> drivers, and fast switching never consumes the pending state.
-> 
-> Keep raw QoS/limit notifications triggering schedutil recomputation, but
-> only let CPUFREQ_NEED_UPDATE_LIMITS force a same-frequency callback when
-> resolved policy->{min,max} changes remain pending. Expose that test through
-> a cpufreq-core helper.
-> 
-> Consume pending state before both slow and fast callbacks, including
-> frequency changes, instead of clearing it only in the target == cur case.
-> Use release/acquire ordering for the limits and restore pending state on
-> failure, preserving concurrent updates and retries. Favor the maximum
-> if lockless limit reads observe an inverted pair.
-> 
-> This applies to cppc-cpufreq and amd-pstate's frequency-based paths; the
-> ->adjust_perf() path is unchanged.
-> 
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->   drivers/cpufreq/cpufreq.c        | 82 ++++++++++++++++++++++++++------
->   include/linux/cpufreq.h          |  1 +
->   kernel/sched/cpufreq_schedutil.c | 19 ++------
->   3 files changed, 72 insertions(+), 30 deletions(-)
-> 
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 44bda2f32fcf..9e932c2a986d 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -2058,6 +2058,21 @@ bool cpufreq_driver_test_flags(u16 flags)
->   	return !!(cpufreq_driver->flags & flags);
->   }
->   
-> +/**
-> + * cpufreq_driver_needs_limits_update - Check for a pending driver limit update.
-> + * @policy: CPU frequency policy to check.
-> + *
-> + * Return: Whether changed resolved limits require a driver callback.
-> + */
-> +bool cpufreq_driver_needs_limits_update(struct cpufreq_policy *policy)
-> +{
-> +	if (!cpufreq_driver_test_flags(CPUFREQ_NEED_UPDATE_LIMITS))
-> +		return false;
-> +
-> +	/* Pairs with cpufreq_set_update_limits(). */
-> +	return smp_load_acquire(&policy->update_limits);
-> +}
-> +
->   /**
->    * cpufreq_get_current_driver - Return the current driver's name.
->    *
-> @@ -2183,6 +2198,30 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
->    *                              GOVERNORS                            *
->    *********************************************************************/
->   
-> +static bool cpufreq_test_and_clear_update_limits(struct cpufreq_policy *policy)
-> +{
-> +	if (!cpufreq_driver_needs_limits_update(policy))
-> +		return false;
-> +
-> +	return xchg(&policy->update_limits, false);
+Automatic NUMA balancing is effectively off for every task in the ext
+class, even when kernel.numa_balancing is enabled.
 
-Since policy->update_limits is a bool, this would require a 1-byte
-xchg(), which, as far as I know, is not supported on all architectures.
-such as on sparc:
+The periodic scan is queued from the fair tick only:
 
-static __always_inline unsigned long
-__arch_xchg(unsigned long x, __volatile__ void * ptr, int size)
-{
-	switch (size) {
-	case 2:
-		return xchg16(ptr, x);
-	case 4:
-		return xchg32(ptr, x);
-	case 8:
-		return xchg64(ptr, x);
-	}
-	__xchg_called_with_bad_pointer();
-	return x;
-}
+  task_tick_fair()
+    if (static_branch_unlikely(&sched_numa_balancing))
+            task_tick_numa(rq, curr);
 
+task_tick_scx() has no counterpart, so task_numa_work() never runs for
+an SCX task and no PTEs are made PROT_NONE. The fault side does not
+depend on the scheduling class: task_numa_fault() still accounts faults,
+runs task_numa_placement() and migrates misplaced folios. It just never
+gets anything to work on.
 
-> +}
-> +
-> +static void cpufreq_set_update_limits(struct cpufreq_policy *policy)
-> +{
-> +	/* Publish the new limits before making their update pending. */
-> +	smp_store_release(&policy->update_limits, true);
-> +}
-> +
-> +static void cpufreq_read_policy_limits(struct cpufreq_policy *policy,
-> +				       unsigned int *min, unsigned int *max)
-> +{
-> +	/* Lockless reads can mix limit updates; favor max if inverted. */
-> +	*min = READ_ONCE(policy->min);
-> +	*max = READ_ONCE(policy->max);
-> +	if (unlikely(*min > *max))
-> +		*min = *max;
-> +}
-> +
->   /**
->    * cpufreq_driver_fast_switch - Carry out a fast CPU frequency switch.
->    * @policy: cpufreq policy to switch the frequency for.
-> @@ -2209,14 +2248,20 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
->   unsigned int cpufreq_driver_fast_switch(struct cpufreq_policy *policy,
->   					unsigned int target_freq)
->   {
-> -	unsigned int freq;
-> +	bool update_limits;
-> +	unsigned int min, max, freq;
->   	int cpu;
->   
-> -	target_freq = clamp_val(target_freq, policy->min, policy->max);
-> +	update_limits = cpufreq_test_and_clear_update_limits(policy);
-> +	cpufreq_read_policy_limits(policy, &min, &max);
-> +	target_freq = clamp_val(target_freq, min, max);
->   	freq = cpufreq_driver->fast_switch(policy, target_freq);
->   
-> -	if (!freq)
-> +	if (!freq) {
-> +		if (update_limits)
-> +			cpufreq_set_update_limits(policy);
->   		return 0;
-> +	}
->   
->   	policy->cur = freq;
->   	arch_set_freq_scale(policy->related_cpus, freq,
-> @@ -2367,12 +2412,16 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
->   			    unsigned int relation)
->   {
->   	unsigned int old_target_freq = target_freq;
-> +	unsigned int min, max;
-> +	bool update_limits;
-> +	int ret;
->   
->   	if (cpufreq_disabled())
->   		return -ENODEV;
->   
-> -	target_freq = __resolve_freq(policy, target_freq, policy->min,
-> -				     policy->max, relation);
-> +	update_limits = cpufreq_test_and_clear_update_limits(policy);
-> +	cpufreq_read_policy_limits(policy, &min, &max);
-> +	target_freq = __resolve_freq(policy, target_freq, min, max, relation);
->   
->   	pr_debug("CPU %u: cur %u kHz -> target %u kHz (req %u kHz, rel %u)\n",
->   		policy->cpu, policy->cur, target_freq, old_target_freq, relation);
-> @@ -2384,11 +2433,8 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
->   	 * calls.
->   	 */
->   	if (target_freq == policy->cur) {
-> -		if (!(cpufreq_driver->flags & CPUFREQ_NEED_UPDATE_LIMITS) ||
-> -		    !policy->update_limits)
-> +		if (!update_limits)
->   			return 0;
-> -
-> -		policy->update_limits = false;
->   	}
->   
->   	if (cpufreq_driver->target) {
-> @@ -2399,13 +2445,19 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
->   		if (!policy->efficiencies_available)
->   			relation &= ~CPUFREQ_RELATION_E;
->   
-> -		return cpufreq_driver->target(policy, target_freq, relation);
-> +		ret = cpufreq_driver->target(policy, target_freq, relation);
-> +	} else if (cpufreq_driver->target_index) {
-> +		ret = __target_index(policy, policy->cached_resolved_idx);
-> +	} else {
-> +		if (update_limits)
-> +			cpufreq_set_update_limits(policy);
-> +		return -EINVAL;
->   	}
->   
-> -	if (!cpufreq_driver->target_index)
-> -		return -EINVAL;
-> +	if (ret && update_limits)
-> +		cpufreq_set_update_limits(policy);
->   
-> -	return __target_index(policy, policy->cached_resolved_idx);
-> +	return ret;
->   }
->   EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
->   
-> @@ -2681,7 +2733,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
->   			      CPUFREQ_RELATION_H);
->   	if (freq != policy->max) {
->   		WRITE_ONCE(policy->max, freq);
-> -		policy->update_limits = true;
-> +		cpufreq_set_update_limits(policy);
->   	}
->   
->   	freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
-> @@ -2689,7 +2741,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
->   	freq = min(freq, policy->max);
->   	if (freq != policy->min) {
->   		WRITE_ONCE(policy->min, freq);
-> -		policy->update_limits = true;
-> +		cpufreq_set_update_limits(policy);
->   	}
->   
->   	trace_cpu_frequency_limits(policy);
-> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> index a0a7619d11fd..acd60c2b30f1 100644
-> --- a/include/linux/cpufreq.h
-> +++ b/include/linux/cpufreq.h
-> @@ -499,6 +499,7 @@ int cpufreq_register_driver(struct cpufreq_driver *driver_data);
->   void cpufreq_unregister_driver(struct cpufreq_driver *driver_data);
->   
->   bool cpufreq_driver_test_flags(u16 flags);
-> +bool cpufreq_driver_needs_limits_update(struct cpufreq_policy *policy);
->   const char *cpufreq_get_current_driver(void);
->   void *cpufreq_get_driver_data(void);
->   
-> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-> index 49ccd6f1c185..43e448ee3c4c 100644
-> --- a/kernel/sched/cpufreq_schedutil.c
-> +++ b/kernel/sched/cpufreq_schedutil.c
-> @@ -123,22 +123,11 @@ static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
->   static bool sugov_update_next_freq(struct sugov_policy *sg_policy, u64 time,
->   				   unsigned int next_freq)
->   {
-> -	if (sg_policy->need_freq_update) {
-> -		sg_policy->need_freq_update = false;
-> -		/*
-> -		 * The policy limits have changed, but if the return value of
-> -		 * cpufreq_driver_resolve_freq() after applying the new limits
-> -		 * is still equal to the previously selected frequency, the
-> -		 * driver callback need not be invoked unless the driver
-> -		 * specifically wants that to happen on every update of the
-> -		 * policy limits.
-> -		 */
-> -		if (sg_policy->next_freq == next_freq &&
-> -		    !cpufreq_driver_test_flags(CPUFREQ_NEED_UPDATE_LIMITS))
-> -			return false;
-> -	} else if (sg_policy->next_freq == next_freq) {
-> +	sg_policy->need_freq_update = false;
-> +
-> +	if (sg_policy->next_freq == next_freq &&
-> +	    !cpufreq_driver_needs_limits_update(sg_policy->policy))
->   		return false;
-> -	}
->   
->   	sg_policy->next_freq = next_freq;
->   	sg_policy->last_freq_update_time = time;
+Numbers from a 2-node, 160-CPU KVM hypervisor on 6.18.5 with a BPF
+scheduler attached, detached for five minutes, then attached again:
 
+                         SCX      fair (5 min)   SCX again
+  numa_pte_updates/s     0        2.4M - 3.9M    0
+  numa_hint_faults/s     ~0       10K - 34K      200 - 300, decaying
 
+Those five minutes under fair changed the placement data considerably.
+Measured from the BPF scheduler, as a share of task runtime:
+
+                                         before    after
+  task has no numa_preferred_nid         58%       10%
+  task runs on its numa_preferred_nid    37%       83%
+
+So under SCX p->numa_preferred_nid stays at whatever the last fair
+period left behind, tasks created while a BPF scheduler is loaded never
+get one, and memory is never migrated towards its users. A BPF scheduler
+that wants to keep tasks close to their memory has nothing to read and
+no way to start the scan itself.
+
+Call task_tick_numa() from task_tick_scx(). It only needs
+p->se.sum_exec_runtime, which SCX maintains through update_curr_common().
+
+Keep task placement out of it: after a fault numa_migrate_preferred()
+calls task_numa_migrate(), which picks a CPU from fair load statistics
+and moves the task. Those statistics say nothing about SCX tasks and
+CPU selection belongs to the BPF scheduler, so skip that step for them.
+Scanning, fault accounting, numa_preferred_nid and folio migration keep
+working.
+
+Signed-off-by: Vladimir Vdovin <deliran@verdict.gg>
+---
+This is an RFC: the patch applies to v7.3-rc5 but has not been built or
+run yet. The numbers above are from an unpatched 6.18.5 and only show
+the problem. I would like to agree on the direction before testing it
+properly.
+
+Questions:
+
+1. Is the missing scan intentional, or has nobody needed it so far?
+
+2. Is calling a fair.c function from the ext tick acceptable? It keeps
+   the logic in the class tick, in line with the per-class approach from
+   the "sched: Fix execution-context tick handling under proxy
+   execution" discussion, but it does make task_tick_numa() non-static.
+   I can rebase on top of that series once it settles.
+
+3. Is skipping task_numa_migrate() for SCX tasks the right split, or
+   should the BPF scheduler get a say there through an ops callback?
+
+4. Should this be opt-in through an ops flag, so that BPF schedulers
+   that do not want the scan overhead are unaffected?
+
+ kernel/sched/ext/ext.c | 3 +++
+ kernel/sched/fair.c    | 14 +++++++++-----
+ kernel/sched/sched.h   | 5 +++++
+ 3 files changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index e56c3c9..82c7d6a 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3840,6 +3840,9 @@ static void task_tick_scx(struct rq *rq, struct task_struct *curr, int queued)
+ 
+ 	if (!curr->scx.slice)
+ 		resched_curr(rq);
++
++	if (!queued && static_branch_unlikely(&sched_numa_balancing))
++		task_tick_numa(rq, curr);
+ }
+ 
+ #ifdef CONFIG_EXT_GROUP_SCHED
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5..669c8ab 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -3642,6 +3642,14 @@ static void numa_migrate_preferred(struct task_struct *p)
+ 	if (task_node(p) == p->numa_preferred_nid)
+ 		return;
+ 
++	/*
++	 * CPU selection for SCX tasks belongs to the BPF scheduler, which can
++	 * act on p->numa_preferred_nid itself. The statistics used below only
++	 * describe fair tasks anyway.
++	 */
++	if (task_on_scx(p))
++		return;
++
+ 	/* Otherwise, try migrate to a CPU on the preferred node */
+ 	task_numa_migrate(p);
+ }
+@@ -4630,7 +4638,7 @@ void init_numa_balancing(u64 clone_flags, struct task_struct *p)
+ /*
+  * Drive the periodic memory faults..
+  */
+-static void task_tick_numa(struct rq *rq, struct task_struct *curr)
++void task_tick_numa(struct rq *rq, struct task_struct *curr)
+ {
+ 	struct callback_head *work = &curr->numa_work;
+ 	u64 period, now;
+@@ -4696,10 +4704,6 @@ static void update_scan_period(struct task_struct *p, int new_cpu)
+ 
+ #else /* !CONFIG_NUMA_BALANCING: */
+ 
+-static void task_tick_numa(struct rq *rq, struct task_struct *curr)
+-{
+-}
+-
+ static inline void account_numa_enqueue(struct rq *rq, struct task_struct *p)
+ {
+ }
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e656c70..f6774bc 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2133,6 +2133,7 @@ extern int migrate_task_to(struct task_struct *p, int cpu);
+ extern int migrate_swap(struct task_struct *p, struct task_struct *t,
+ 			int cpu, int scpu);
+ extern void init_numa_balancing(u64 clone_flags, struct task_struct *p);
++extern void task_tick_numa(struct rq *rq, struct task_struct *curr);
+ 
+ #else /* !CONFIG_NUMA_BALANCING: */
+ 
+@@ -2141,6 +2142,10 @@ init_numa_balancing(u64 clone_flags, struct task_struct *p)
+ {
+ }
+ 
++static inline void task_tick_numa(struct rq *rq, struct task_struct *curr)
++{
++}
++
+ #endif /* !CONFIG_NUMA_BALANCING */
+ 
+ int task_llc(const struct task_struct *p);
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-Thx and BRs,
-Zhongqiu Han
+2.47.0
