@@ -1,92 +1,72 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BBF346782
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0333D4DAF8C;
+	Fri,  2 Oct 2026 15:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955225; cv=none; b=ZqFy4hxcKe/OfCpcE4f8hnnvWmu5fKhpqj6jsjJCXHKaR1zjoOc0SVD8BVB15bMTAtxmtplxAAkKsOEi31EQfHXObHQo5uF4lQtQUuzdNK1Gk6GvmqkRQMIbKhQ1nuN/m3eRm1nvnDJ9TFWsP2mkTZASIZ05rH9vpcmFrWfZV1Q=
+	t=1790955233; cv=none; b=mvXXNDTMT1pU5+6OF7tfIehgymTavgh2H49AmMq5GmdWtwUCyyEAjQhqH8DssON0gACuKnAS/rRUOK8kLBDiyU4HDcuNZgDqkzNqD/14YaAPgRuYEHY31SDVXKvTwiEQHPUTLPhJ6SZ6fwmPV/r4Wy36Go0iz2oN9B8KQTUKqAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955225; c=relaxed/simple;
-	bh=vt9JeteG2oFQV+GnicXgGkbehrJnCtEhGL/4LutvWww=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=s+1PJDE/lDTiFISLREFO96rmwS4BvrEuPCAVGORrnYXD0Ie2rJPISIqdMJLGtLdBpUDqmzG/rXd+G2B3Ki1UWMmImqUbbCFjFq8shETp5SS5MdLr5sZijdQcDm3ryUxPIa7RJKgASHZZn8GIvwyF67g2ZavAbxZV02OjQNwngXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=nX8Id05w; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=6N2z7SVo; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790955233; c=relaxed/simple;
+	bh=n2LN/j089HOizN1MoojMoOcOlZAfWpfpx4ZfjpRHkag=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IjH6j5xhiqwmtkvveZiw79lSKyfhT+oWxx1qqpK6HHVubmB8VTJuvpqJDUKQD8nJltb32q/pBw9H0YydVD5Y1uDOiB13Etp8PQ+psPoKaUKYUAnYjl3/Ot8UakblaKR1KP/SzgRBgBFbZPQsJTHLrvVrJ9xWQQRuyIXBia3b98k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=RLHWwYCd; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZPcV2yqH; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="nX8Id05w";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="6N2z7SVo"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790955215; bh=+20aOKF3zq1y4vWlQvjoUmE
-	LZyVU1h4VHnXyu2Bm7Xc=; b=nX8Id05wqjZjqfR5jGWZR0cD9m2euAMMfctiXMmp5o/xbmZ5B2
-	q0cNt23cjPEJ26A5hsLoThYviz7MF0IpRwBTdJ7yKetiqSztVI9DGrm+hjXsPrBJQdwgkWFCR7k
-	qZbHhVAhWS0aXHpBBvfCDJm3HyYWhs5Gu2qiUhexMzQVCRr1D1nvxYwXdTNK8jRGHN3MQ7WrpUK
-	c585STpqrjcH7vTJ38Hv7NW206d7CCrLqrEX0tA4e5Knm9Uqg9Y1bawQT9RZjTQqck9RFU0tyM7
-	2pFzd2pJrfjekniXmcvzq33cYTgIMnfB/+IQAyGu1BcZ9ilcYnXHHbPmCh4nmxddyDw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790955215; bh=+20aOKF3zq1y4vWlQvjoUmE
-	LZyVU1h4VHnXyu2Bm7Xc=; b=6N2z7SVo6O4QV2KE8PftAgNrpUDzXMTRgFKFOfqcaFvHi0PnEk
-	iKjCJn5MouWmIzpQnLQ/Q545VDrYbApiaUAg==;
-Date: Fri, 02 Oct 2026 16:33:35 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: fuad.tabba@linux.dev
-CC: anshuman.khandual@arm.com, catalin.marinas@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- mark.rutland@arm.com, maz@kernel.org, oupton@kernel.org, robh@kernel.org,
- tabba@google.com, will@kernel.org
-Subject: Re: [PATCH] arm64/boot: Don't set PMUv3p9 FGT2 bits without PMUv3
-In-Reply-To: <20260930121212.3101361-1-fuad.tabba@linux.dev>
-Message-ID: <7300EBD4-5D21-4EA3-84D7-BE0DD83870D8@mainlining.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RLHWwYCd";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZPcV2yqH"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790955229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n2LN/j089HOizN1MoojMoOcOlZAfWpfpx4ZfjpRHkag=;
+	b=RLHWwYCd1ch/QbmMtJXvir2OlrLSP6muF8LGca3vEhcBYYU2BTxuWjaEidhBMs9IaWckgi
+	1vV0kvMLTR+BUwahc6h/ViE8Eo9QcRyA92ZgtE65NzpnxW+W5as6Q9z7eVgTw1NEX9XsU7
+	TzEpjtdji0VHdWVog3I9Dc87y/1DlYjRVi4sSGwoetnnuSsKjrMSSBbHwZ/jmK/ZWYofGM
+	9Cwb+H3HsoSeFQigPG3dV+AoSKN+qcykrvf4W/mhHmt0syegG2/8j9BnW19k7ZaBczwnOj
+	3mpcE9Hb0HTJJDD6Cemk1SW2wGxTrAMoB7aE5X1Pc/ztMT6bypTYCv6bsmNQyQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790955229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n2LN/j089HOizN1MoojMoOcOlZAfWpfpx4ZfjpRHkag=;
+	b=ZPcV2yqHfz9hmZkQpxkfNhq1OpMWRzsaegF4RUQlPqUbxKDu+ZLL+MDcxeR2f+mDgBTbi1
+	gfiMxtainsChDNAw==
+To: Gabriele Monaco <gmonaco@redhat.com>, Steven Rostedt
+ <rostedt@goodmis.org>, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, John
+ Ogness <john.ogness@linutronix.de>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH] rv/rtapp/wakeup: Use "rv_this" the rv_monitor variable
+In-Reply-To: <e91ee6fcd36a6ae4616fbd61121b2354594099f9.camel@redhat.com>
+References: <20261001044218.3508990-1-namcao@linutronix.de>
+ <e6f78faca93f92981130621d712ac05374d83b05.camel@redhat.com>
+ <e91ee6fcd36a6ae4616fbd61121b2354594099f9.camel@redhat.com>
+Date: Fri, 02 Oct 2026 17:33:48 +0200
+Message-ID: <874if415ib.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 30 September 2026 13:12:12 BST, Fuad Tabba <fuad.tabba@linux.dev> wrote:
->On a CPU with FGT2 and an IMPLEMENTATION DEFINED PMU (PMUVer 0b1111),
->__init_el2_fgt2 sets the PMUv3p9 bits in HDFGRTR2_EL2 and HDFGWTR2_EL2,
->which are RES0 there. The macro only checks that PMUVer is at least
->PMUv3p9, and 0b1111 passes.
+Gabriele Monaco <gmonaco@redhat.com> writes:
+> d9e4c61a12dd was introduced in the same pull request but after introducing the
+> wakeup monitor.
+> So for me that's the commit that is "broken" (should have accounted for wakeup):
 >
->Exclude 0b1111 before the compare, as __init_el2_debug does.
->
->Fixes: 858c7bfcb35e1 ("arm64/boot: Enable EL2 requirements for FEAT_PMUv3p9")
+> Fixes: d9e4c61a12dd ("rv: Use generic rv_this for the rv_monitor variable in
+> LTL")
 
-I see, I see.
+Sorry, I was lost in the sick land, and now see you already opened the PR.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+But yes, I agree that the commit applied later should be in Fixes:.
 
-
->Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
->---
-> arch/arm64/include/asm/el2_setup.h | 5 +++--
-> 1 file changed, 3 insertions(+), 2 deletions(-)
->
->diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
->index 87560d8b254e6..1da277baacf78 100644
->--- a/arch/arm64/include/asm/el2_setup.h
->+++ b/arch/arm64/include/asm/el2_setup.h
->@@ -421,8 +421,9 @@
-> 	mov	x2, xzr
-> 	mrs	x1, id_aa64dfr0_el1
-> 	ubfx	x1, x1, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
->-	cmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9
->-	b.lt	.Lskip_pmuv3p9_\@
->+	cmp	x1, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF
->+	ccmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9, #8, ne
->+	b.lt	.Lskip_pmuv3p9_\@		// Skip if < PMUv3p9 or IMP_DEF
-> 
-> 	orr	x0, x0, #HDFGRTR2_EL2_nPMICNTR_EL0
-> 	orr	x0, x0, #HDFGRTR2_EL2_nPMICFILTR_EL0
->
->base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Nam
