@@ -1,115 +1,230 @@
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BAD3B42F8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EE6223328;
+	Fri,  2 Oct 2026 19:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790967620; cv=none; b=flsyO2K9tGlHA7bgELtikDiOzzXzboeD+XtnDeRgpSQoWNRx2weRBZEfj3a4lFvTlgvFpXy1zdnkE17EFgldwPpiYwbILyTx0DjPkvlo+0u/hYUJ5jDRii9meNNb9oa2z2bESGmJwR24KFmDjC9eDN2hchxhvaJ/caSNcM8v6LI=
+	t=1790967634; cv=none; b=j8wrQ2B2Qr8rDztEHn+RPxt01QwHSTDB4JCkRBnCutA2rsadIt7px0iwOJs0F39M9Fa13cmRKOLKguFHfJOEZXdEIztqSQDASDg87TTBmJ5GfcM9+rkScUb7QTWNdB5kR1D0I/nUB+Z6+c/cL59G4RlTI5oliyiF3F/Kj9vUxAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790967620; c=relaxed/simple;
-	bh=sle9x/1Q0G9d8U+UdOgzu83ljE1Tckn7BBqryy8VLIE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t75tbKBQgttpNC0wrCTGC9XeHUZg3rLeZSQf7+HQslcIi/UhL9dZTeVcmYysmiqoFX2TwyHcFu9jMqTz9HwwbKa1QDIIPqyz8+vJcDg/n2PTaRhE5b50mnfXSfAbtlBXdiB2VqcK5G4rdcQuyDE2BgnT1Hs7N+sh4fIAIhFYdEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=om3xXNhH; arc=none smtp.client-ip=209.85.210.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790967634; c=relaxed/simple;
+	bh=PEbJLvy7CrYN1hf9iYQ+ysoXfJ8bNcfDcQxuv4rB2lg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Yz3XI57f7p8zsGrD+Xu4G9CxjXyrvCkOeyrZL3yffQBSQqQD2zsOStEepnsC/KE8m2fM4Ivneilp5vs1+n3PvnfaQeBrKogXLc/3wng2f9ygHHTkXlQyolhGuazbENL29u44eD9Krwnge99krZb+autawRW+aTil1dqJw6ppxkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxZ782g1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="om3xXNhH"
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-81b0fe50b37so103363a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:00:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790967618; x=1791572418; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2aTQWcUPu+eNeNnP4XiNkIY5GhxDkyW+dK8aZP4tnLM=;
-        b=om3xXNhHd5ElewzSQUn0ZdzXjRVDFFC1cdL8c5r8N7fLkO4MBRvxQGmiCjh4FlBM8U
-         cD8WvCiFbfGSWALpShf+a4RLWOlAwe458AzJDBgObcqu6R6nDKkqj+iVkLBggSYZRA/n
-         u2lt3ZeailSfdWbsg0CvTZT4DSVj3HciftQslZlhmJZEglit03AAtSZM7C1Y7EYv+ZtF
-         xP8Wj+gAHbsxriQ7UC9WeC4AdnWPh19spAyWRtAQCZzgiE6FOKRR62Z58Z3lZAqUswHc
-         AnfBLxhW7F7+GjPf6McVu61Fpcj4LOeUDaRRp1NYoTon7UJv21Jjjl+UeZu6dSoRVAud
-         GULQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790967618; x=1791572418;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2aTQWcUPu+eNeNnP4XiNkIY5GhxDkyW+dK8aZP4tnLM=;
-        b=Q+ESgM/IhchDJw6ZUqTTZUMvbz/16GWEJ7oSrOhIbCNnJMkRmJxDJq6wwPyW6DBWKZ
-         kXbgdtN/TdeZY0M/tPKrjBQQ5qeHnEPdu8G0jQ3DzdnUo0+LeLtQLbDFNE52zGuseXm+
-         vGlnGtTwy3NcFzrNHKWhtQgGq2nwkDQTQaBXA9uAIvE/O6GdmkEbr7qG6UX0E6QAArVq
-         qDXeozq3k9C+lwvcQiN7ADamZq07XW6MxdEeASAPyPhv5o5WrrRLxRt7RUyR+c8Q8ITL
-         wxApnUFmGoiJ3f5QLeAoj7bJPyU62/REyIQQ2QJQ8J5klNZoeyN0wkkHKppfG8FfsB+y
-         hwjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwzIRWK44fMALq/jgdBXgHZxlY1agzH0EtcLo85yyXL5W8QHn4orpJsanrClcFzP4ucpm2r/gu+FoTYI0E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWrkn41ggExWZVUP+wtrxi3ma+8G/hmyjXXrEwyN1rpIHaNx3E
-	IO0S5LUUH2Pep/L4/T6TKu0422MI/FzbGX0lsxgzNAx9OvI9KFViUGUkWnG3mDhFpV0=
-X-Gm-Gg: AYBFou0Z84QqQLNLu8DVSGLN48GXTolWIaEVRlAbdGfRDldAgStEvUntSHTsSrgvHG2
-	BdT8oUD8o/VVtFXJQSFhO52gGX9F3SRTnIZm8NOlJbgkQwpFFHntHsfN16/3mh99DhYnSXGs2AW
-	m4cnzscHpOENonadRSR1WwTNt/XjjDJccKeYxlfBRdCByRmLAh0d8gvad1TNPixHgSxrNdRTOJu
-	bE7VxhZrUypHSAomKNE81K6kpVF0XvoGjxU9qRUwz2CDJWh3Tpfm9Ge9WdPxb2aINjMGVF6BILQ
-	nSJMUu/gysIRAE3xAwP9wIPTfzbCM+JePrzCyarHbRwIs8WnDrWBU9VL+dTKfofyxdlq0z4ZtGs
-	tcoT9MTulMO0Fn2mGhZDdsT3b2lEg96R8Nnw5L7pmTMiFxB28xF6YyF9UuvL5UwkZNHNMoUs+DR
-	BDZOAPPSEFjL3mkSCzQ6J7DJ2jcWk9Ts5tUkZUJ/bH6EXi5wxG7782UnslkY10iWScmXqcQX4u0
-	8VxpXr9NbPFOIiVoumAyzJDWVwebLAiX47saENiJsgbd7iX9atuJJAEi0bBeoWjDNqCXsodS9SD
-	fKlxNCfOBgJvfdCrNgUKEw==
-X-Received: by 2002:a05:6830:83b7:b0:81d:c548:292f with SMTP id 46e09a7af769-823fce1dfb4mr350069a34.12.1790967618248;
-        Fri, 02 Oct 2026 12:00:18 -0700 (PDT)
-Received: from jaidheer-eg3036tu ([97.98.171.66])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82279e73822sm3796957a34.16.2026.10.02.12.00.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:00:17 -0700 (PDT)
-From: Jaidheer Sirigineedi <jaidheer7@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxZ782g1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01321F000FF;
+	Fri,  2 Oct 2026 19:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790967633;
+	bh=Gcl/f7moFApWo3jqJXdkRteP30YDcjxwYvzQVuzmbj4=;
+	h=From:To:Cc:Subject:Date;
+	b=YxZ782g1CNQTsuUl9y3aigokBAb+oTzvb60oKfr9yAjE4mX7SFOmKq4MYxZOh4e9W
+	 XVf9EzYxllCIsiSKqGctvl7kBgkFuey+xsOpzy8vcO2ibO5m32HmdT1M7R35jJR37e
+	 w/Oba24+G+rSeVoESdLh8XsIgozwQGiTYb7a3E7XHNcrgDK5cylrWnpTOecgeJwP/P
+	 DwgeQ/q6eTHXaXu5LJ+NHeeDtRtY8ub0BgB9Y099dw80D7KyPUdlslLBl8D+wsedPa
+	 g1Kl5Y0wZrVCd9VkUdwRQibtxtJty4wK/t+s1I2SthgksK+ehtF+s2OquVE/eaOM9k
+	 Zt4/aq5PlJlIw==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Magnus Karlsson <magnus.karlsson@intel.com>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	io-uring@vger.kernel.org
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	David Wei <dw@davidwei.uk>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jaidheer Sirigineedi <jaidheer7@gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Add mute LED quirk for HP Pavilion 15-eg3xxx (103c:8bfd)
-Date: Fri,  2 Oct 2026 13:59:51 -0500
-Message-ID: <20261002185951.33855-1-jaidheer7@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Mina Almasry <almasrymina@google.com>
+Subject: [RFC net-next 00/15] xsk: Zero copy through page-pool memory providers
+Date: Fri,  2 Oct 2026 21:00:01 +0200
+Message-ID: <20261002190018.696925-1-bjorn@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The mute LED on the HP Pavilion Laptop 15-eg3xxx (PCI SSID 103c:8bfd,
-Realtek ALC287) does not work because the machine has no entry in the
-quirk table. No fixup is applied, so the mute LED is never driven, even
-though the mute function itself works.
+Hi!
 
-The LED is controlled via GPIO pin 4 (mask 0x10), which is exactly what
-ALC287_FIXUP_HP_GPIO_LED configures. This was verified on the hardware
-with hda-verb: setting the GPIO data bit lights the mute LED, and
-clearing it turns the LED off.
+Here's an RFC for you all to enjoy with your favorite Friday
+$BEVERAGE.
 
-  hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x10
-  hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIRECTION 0x10
-  hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x10   # LED on
-  hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x00   # LED off
+AF_XDP zero copy needs a second receive allocator in every driver.
+The driver takes xdp_buff_xsk objects from the XSK buffer pool beside
+its page_pool path and owns their lifetime. Drivers built around
+page_pool and the queue management API, which already support devmem
+and io_uring zero-copy receive, have to duplicate their receive path.
 
-Add a quirk entry for 103c:8bfd using ALC287_FIXUP_HP_GPIO_LED.
+This series makes UMEM a page-pool memory provider instead. Each
+aligned 4 KiB chunk is a NET_IOV_XSK net_iov. Binding a zero-copy
+socket installs the provider on the queue through the queue
+management API. The driver keeps its page_pool allocation, DMA sync,
+recycling and refill code. The provider consumes FILL, drops invalid
+and repeated addresses, and owns RX need-wakeup.
 
-Signed-off-by: Jaidheer Sirigineedi <jaidheer7@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+An XSKMAP redirect publishes the UMEM address when every buffer of the
+frame belongs to the socket's provider. XDP_PASS and other redirect
+targets copy into page-backed memory first. TX is unchanged; drivers
+read socket TX descriptors directly.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 5127a111c..f4bea59dd 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7598,6 +7598,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8be8, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8be9, "HP Envy x360 2-in-1 Laptop 15-fh0xxx", ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX),
- 	SND_PCI_QUIRK(0x103c, 0x8bf0, "HP", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8bfd, "HP Pavilion 15-eg3xxx", ALC287_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8c15, "HP Spectre x360 2-in-1 Laptop 14-eu0xxx", ALC245_FIXUP_HP_SPECTRE_X360_EU0XXX),
- 	SND_PCI_QUIRK(0x103c, 0x8c16, "HP Spectre x360 2-in-1 Laptop 16-aa0xxx", ALC245_FIXUP_HP_SPECTRE_X360_16_AA0XXX),
- 	SND_PCI_QUIRK(0x103c, 0x8c17, "HP Spectre x360 2-in-1 Laptop 16-aa0xxx", ALC245_FIXUP_HP_SPECTRE_X360_16_AA0XXX),
+Core changes:
+
+ - MP_CAP_READABLE and MP_CAP_FRAG. A readable provider may back
+   header and regular pools, and XDP may run on its buffers. devmem
+   and io_uring set MP_CAP_FRAG and keep their behavior.
+ - Providers request RX headroom through the queue configuration.
+ - Readable net_iov areas. netmem_address() resolves provider memory
+   with a load and a shift, without an indirect call.
+ - A refill-completion callback. The XSK provider keeps NAPI scheduled
+   while FILL has entries, and sets NEED_WAKEUP when FILL is empty.
+ - Batched page-pool release for objects handed to userspace.
+ - xdp_buff carries the netmem and a pointer to kernel-owned shared
+   info, so fragment metadata never lives in user-writable UMEM. It
+   grows from 56 to 64 bytes on 64-bit.
+
+Differences from classic zero copy:
+
+ - 4 KiB pages and aligned 4 KiB chunks only. Other layouts fail to
+   bind with -EOPNOTSUPP, but can be supported in the future.
+ - Generic XDP and CPUMAP cannot deliver to a provider-backed socket.
+
+Classic zero copy is unchanged. This does not propose converting
+existing drivers; it is for page_pool drivers without zero copy.
+
+fbnic is the only driver user, +640/-122 for RX and TX. I have bnxt
+working with AF_XDP, plus some performance patches/fixes for the
+AF_XDP core on top of this -- but let's start with these patches.
+
+Patches 1-2 fix bugs in net-next that the series hits. They are
+carried here so the series can be tested on its own.
+
+ 1. "xdp: Size zero-copy skb heads by their contents". XDP_PASS of a
+    zero-copy buffer copies it into an skb whose head is sized by the
+    XSK frame size, which leaves no room for skb_shared_info. A frame
+    that fills its buffer overwrites skb_shared_info. Provider
+    buffers take this path on XDP_PASS, which the usual AF_XDP
+    program returns when no socket is bound to the queue. Reproduced
+    on fbnic in QEMU.
+
+ 2. "eth: fbnic: Report the logical XDP RX queue". fbnic reports
+    queue 0 in rx_queue_index for every queue. AF_XDP drops frames
+    whose queue differs from the socket's, and the usual program
+    looks up its socket by that index, so zero copy works on queue 0
+    only.
+
+Feedback wanted on:
+
+ 0. General thoughts on extending the page pool provider.
+ 1. Does refill_done belong in page_pool, or should finite providers
+    keep NAPI scheduled some other way?
+ 2. PP_FLAG_ALLOW_UNREADABLE_NETMEM is how a pool picks up any
+    provider, readable or not. A driver that only wants AF_XDP must
+    set it, and then passes the core checks for devmem and io_uring
+    too if it supports header split. Drivers that set the flag today
+    may also split buffers, for example mlx5 through
+    page_pool_fragment_netmem(). Only QCFG_RX_HEADROOM keeps the
+    unsplittable XSK provider away from them. Split the flag, or let
+    drivers declare support for unsplittable providers?
+ 3. Is growing xdp_buff by 8 bytes acceptable?
+ 4. How should userspace learn the chunk constraints before bind?
+
+This is a way to move code from the drivers to the core, reducing the
+work for driver developers.
+
+I hope to see you at LPC next week! Particular the netdev and bpf MC,
+and the AF_XDP BoF on Monday.
+
+
+Björn
+
+Björn Töpel (15):
+  xdp: Size zero-copy skb heads by their contents
+  eth: fbnic: Report the logical XDP RX queue
+  net: Add memory provider capabilities
+  net: Let memory providers set RX buffer headroom
+  page_pool: Extend memory provider operations
+  xdp: Track non-page netmem in receive buffers
+  xsk: Keep the DMA mapping in the buffer pool
+  xsk: Handle a detached FILL ring in RX wakeup
+  xsk: Add a page-pool memory provider for UMEM
+  xsk: Add RX helpers for page-pool drivers
+  xdp: Copy provider buffers on pass and redirect
+  xsk: Receive provider UMEM without copying
+  eth: fbnic: Support AF_XDP zero-copy receive
+  eth: fbnic: Support AF_XDP zero-copy transmit
+  Documentation: xsk: Document page-pool zero copy
+
+ Documentation/networking/af_xdp.rst           |  65 ++
+ Documentation/networking/netmem.rst           |   7 +-
+ .../net/ethernet/meta/fbnic/fbnic_ethtool.c   |   5 +
+ .../net/ethernet/meta/fbnic/fbnic_netdev.c    | 164 ++++-
+ .../net/ethernet/meta/fbnic/fbnic_netdev.h    |   4 +
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c  | 561 ++++++++++++---
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.h  |  24 +
+ include/net/netdev_queues.h                   |   6 +
+ include/net/netmem.h                          |  32 +-
+ include/net/page_pool/helpers.h               |  62 +-
+ include/net/page_pool/memory_provider.h       |  39 +-
+ include/net/page_pool/types.h                 |   8 +-
+ include/net/xdp.h                             |  64 +-
+ include/net/xdp_sock.h                        |  10 +
+ include/net/xdp_sock_drv.h                    |  58 +-
+ include/net/xsk_buff_pool.h                   |   7 +-
+ io_uring/zcrx.c                               |   4 +-
+ net/core/dev.c                                |   4 +-
+ net/core/dev.h                                |   5 +
+ net/core/devmem.c                             |   7 +-
+ net/core/filter.c                             |  28 +-
+ net/core/netdev_config.c                      |   2 +
+ net/core/netdev_rx_queue.c                    |  61 +-
+ net/core/page_pool.c                          |  72 +-
+ net/core/xdp.c                                | 112 ++-
+ net/ethtool/rings.c                           |  18 +-
+ net/xdp/Kconfig                               |   1 +
+ net/xdp/xsk.c                                 | 253 ++++++-
+ net/xdp/xsk.h                                 |  58 ++
+ net/xdp/xsk_buff_pool.c                       | 667 +++++++++++++++++-
+ 30 files changed, 2164 insertions(+), 244 deletions(-)
+
+
+base-commit: 071876fd50482a68603a9460d80dd6dd58827ee1
 -- 
-2.53.0
+2.55.0
 
