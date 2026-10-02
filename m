@@ -1,89 +1,96 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913F83C76BE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B99030569F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975329; cv=none; b=cmLaNzpEs1Tk1LVxLxhAWuZ4tYkuQwmiC0X/0VcqiE2+SeCpVEtXdzacwwGPG9z9Qqq17ej8NC3DcUUkAbDyBzZyxlGhbBYI/v36mDT8lCTCDEO/Q7PRf1wGIdzUT85c8X7wOBs3oDnZaHacTnX6k67hb2HFUrZUfAIFHopRqsc=
+	t=1790975337; cv=none; b=tBHNjtunax7aFwLz4y5L++rmNQ5xojrb+QsqEV2q0O3We9gTh+7a8xMA6hUPO4qfDzKxrm9RVCz+rcgXyzTvMwop015hprxPTrzldTCErOVIVYL1MYDpTzerxDdECPmByqnsCi0W5olHzlgVZwqEdaTeegEMqnaAZpTTgI3tujI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975329; c=relaxed/simple;
-	bh=900R6liU3Q7GEOvg5B8yWZxQI9b85wkBfgI1IrpZ7jE=;
+	s=arc-20240116; t=1790975337; c=relaxed/simple;
+	bh=J1R30jkg0z5mEtu/3/sjhv3hwYdqiiO+ATSB6z3JnPE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=kcTaOVpoTKHtvpNyJgH0NAhxtM98MOyJAdNpnGEhyvqu1BbHMxKl8WBfaXUMZJC3rYi+ugxLZeSo4dEXm7Bb6dihZfpRPF7UQSEAcOOhJ6DfJF8TuBEYpyxX7+mQSIs0vcMWaICoqI16D0bcZcrpkZGagCbkFxXRi1ZVWgUScMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SnpNNCfU; arc=none smtp.client-ip=209.85.214.198
+	 To:Cc:Content-Type; b=N1fUyTTQvduVqugOzv5IQRnbFYtIqO9I/RBfpPYSbU8zja9v2x7egY9E556gbwgLkOmvBfIT4exfLUEIIDtOmMGyhSvSPpO4UBizYZysEfNK4k8KqNfJZGoo9kOVdqd3P9PRb742GTxVjRvrwJmlCqMwOpbzDowLgHAs71Ij3uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hk1Nrrgu; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SnpNNCfU"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dfb24dfedfso181115ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:08:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hk1Nrrgu"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e2dc7312e5so267695ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:08:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790975328; x=1791580128; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:references:mime-version
+        d=google.com; s=20251104; t=1790975336; x=1791580136; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YucoW3vEYBy9i8pzw6TjqgEMgLGWO+HSYPIgDedMYFo=;
-        b=SnpNNCfUkpbZPuAMtrQmqYgLIULJZIaTA0ZcR4dvFXVoTSGrBknumRQ+J8iPStRWFG
-         4BMxBenEi2P+trAicN4EkliOpvCTNYzn85qKCZ1PjgMWCAzBh7vZ/ruU3JuvGjw3ZYdo
-         LaFlAX5yZgi0Bwn9wvJ38IWxfKIWF4v6+dWaagizHeukhRPbbEZyTItLWNKOoN2NokGe
-         KBzFgpk149YoxSnIwb1ExR6Z/OsjDN5GLfZB9nUnAocQXU+xsLzCH0DOrMj3G4v0QXeM
-         7+QOW3jh7p1hakHWHNicP9zVaCAf189OFzWwmWw+a3beT12okRXs9GlevXZum45kLmvR
-         aJ0w==
+        bh=gRJ1bV1gQpquD4wKcD7z9DV/tvZaeEUb6Cg+brGjowY=;
+        b=hk1NrrguEbkDiGJHrwlwhq2EVh5W2srRvZ0dTqZVjy6CZCIYUdXHxrQzCApD43a9Fj
+         0tbhGsDz/Axzd7rv0E+HWmWbDz3LQN3QHs4lZeu5IEWn4pWtofV0hGmlv3BXjJFTzoi9
+         +cNaeKLotWkO54CEYSgbKnuuogT65FRWI5cEK6JLcwQAujjf29OQvUvEUKTlMDkJfhaG
+         wrM3KhdarOhn7BhblzxQ1ln+y4SLjQVb83CzLOqpLm5WQfwQ9GJ/ZtZsmIdfORC7AeEt
+         UKtfd2smXJC0lhgTWe8XaBcpaRPeft1foabsaO9o7NDRrisgnJJZnJV0iFDtOC+m+Ydc
+         QN4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790975328; x=1791580128;
-        h=content-type:to:from:subject:message-id:references:mime-version
+        d=1e100.net; s=20260707; t=1790975336; x=1791580136;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YucoW3vEYBy9i8pzw6TjqgEMgLGWO+HSYPIgDedMYFo=;
-        b=l1+saEYyks7MGwHbu9BJ/9dTDKfxk/wxnjio10piMnuCbTYGiW4nXw/0mfJIb1Xn9Z
-         o0+oQpglmeeqdFccywkXektCxlRj0iUZp8WrpoicTjURntaVUKfd0F4OhXV2J681Egbc
-         GbOULt5yukB625D18BLaysORu/6WTtss0WoQb5Asaj5PaJltc2Dbjn4MBI8ro01ikGrG
-         wrVPG+mPWCzrIP7PHu44JT/OTJzZXgb9hm4NdPKtMKkMQdZU0s2Lzg8aMYtV2MucryDR
-         Gz3xGX3aWelMBIeZxG/E19vjD+Z/ryMsoLX6FAsK53Z6AnYUUjqRz0scDkx5E6yWRbLA
-         smvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwc7FtR2nMsazL98kK5P3ZT7Mqbxct5clx63X9HV+qN85NgDprlzbExlTk/Z3vweC+Ok7+/h7vZrUsct84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqiqa2DU7jjdbKnsXYpAVRrUktI4HHE8HF3V+0xHL6j77Enjjo
-	/hsM/tpvMUQG5r04MnaZUFJaEc4LsttA4IA2Te1NcP+gloRlxkv2b/3W5B0bqMp6hEi4Ywa4wtT
-	8lo+hlA==
-X-Received: from pjbml20.prod.google.com ([2002:a17:90b:3614:b0:3a4:d124:4dcf])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:388d:b0:3a0:bdcc:51a1
- with SMTP id 98e67ed59e1d1-3a6ce7c5925mr3000785a91.33.1790975327515; Fri, 02
- Oct 2026 14:08:47 -0700 (PDT)
-Date: Fri,  2 Oct 2026 14:07:04 -0700
-In-Reply-To: <20260917100320.21899-1-pbonzini@redhat.com>
+        bh=gRJ1bV1gQpquD4wKcD7z9DV/tvZaeEUb6Cg+brGjowY=;
+        b=nSk3qKabYeeVyHq94O/JCCx91jJa6JhGyO5if5w3jmzDBhWeBMMZNPwrIuEfJe+HWb
+         Ar9A+NjOg4lNQsztScxkRMMWD8SC8426jMsnR5FlokUWncof+21fPSovXGfnfaS0X9B6
+         vtj2D5QaXoEb3qd9nXLUKpHvcO91NA4YoHFZ2T6og3FDy/k9p3FiYPS16hgPVgffgtZt
+         0UPPrcq12gEUqfVBfWOnHwPv7GCSOJrXl0N61SJFP0pTcCD8hsDReDSy3lNbrm32H1m5
+         cqMPyLcXDJggdQitRkrhkrvOgzhTwgIxU6iSBqlsgL0HInxUPzswKp9EWuNliSsRMRVO
+         x2Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhVSlZs9bPmO87KiThdTg+rDeANbwNInbKK4bgaPJ07TL3+hWewt22XHgCzSxEbHpHDPTuQB/TTobtBug=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2j9JcX+SgG6iopoCFEaC7zFEygXrYEDii9XWsMlcPdjaZkkVr
+	u/g4jxoRAde+FRqCGSeBG4L22daG1dADFdlP4df88BXJYnABU4NKPP9QJUYpUIY2z0oPX0kbzFU
+	2eiYzhQ==
+X-Received: from plzw8.prod.google.com ([2002:a17:902:9048:b0:2e5:3340:8b27])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ebc3:b0:2e3:1d6e:4cc6
+ with SMTP id d9443c01a7336-2e4ea1c08bfmr6314055ad.15.1790975335508; Fri, 02
+ Oct 2026 14:08:55 -0700 (PDT)
+Date: Fri,  2 Oct 2026 14:07:06 -0700
+In-Reply-To: <20260930212114.3500045-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260917100320.21899-1-pbonzini@redhat.com>
+References: <20260930212114.3500045-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <179097476669.4071828.3235436306643128791.b4-ty@b4>
-Subject: Re: [PATCH] KVM: x86: remove "full" out-argument from flush_tlb_gva
+Message-ID: <179097462201.4066402.1467939489474042717.b4-ty@b4>
+Subject: Re: [PATCH v4 0/5] KVM: x86: Honor EFER_LMSLE_MBZ
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-On Thu, 17 Sep 2026 06:03:20 -0400, Paolo Bonzini wrote:
-> The "full" out-argument in flush_tlb_gva is only ever set on AMD
-> processors, where the TLB flush is little more than a memory write and
-> thus extremely cheap anyway.
+On Wed, 30 Sep 2026 14:21:09 -0700, Sean Christopherson wrote:
+> Jim's series to try to clean up the EFER.LMSLE_MBZ mess (and what a mess it is).
+> I (still) didn't touch the KVM patches, and barely touched the selftests, i.e.
+> Jim's testing from v2 should still hold.
 > 
-> Simplify the code by letting the implementation of Hyper-V TLB flush
-> hypercalls always go through all the addresses queued in tlb_flush_fifo;
-> there are no performance concerns since that is already the case on
-> VMX, and also was on SVM prior to commit 26505e1b5b54 ("KVM: SVM: make
-> svm_flush_tlb_gva do a full asid flush if NPT enabled", 2026-08-06).
+> v4:
+>  - Go with a less fancy kvm_is_nested_virtualization_enabled(), because KVM
+>    sucks (and not in an ironic Primus Sucks! way). [Sashiko]
 > 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/1] KVM: x86: remove "full" out-argument from flush_tlb_gva
-      https://github.com/kvm-x86/linux/commit/ba70065fec49
+[1/5] KVM: x86: Advertise EFER_LMSLE_MBZ when KVM disallows EFER.LMSLE
+      https://github.com/kvm-x86/linux/commit/192dbad1bc0f
+[2/5] KVM: x86: Honor the guest's EFER_LMSLE_MBZ
+      https://github.com/kvm-x86/linux/commit/7358d13e1f19
+[3/5] KVM: selftests: Rename svm_nested_clear_efer_svme to svm_nested_efer_test
+      https://github.com/kvm-x86/linux/commit/cc2b9cc15ab7
+[4/5] KVM: selftests: Add module param API to check if nested virtualization is enabled
+      https://github.com/kvm-x86/linux/commit/58f4dc83da6e
+[5/5] KVM: selftests: Add coverage for the EFER_LMSLE_MBZ defeature
+      https://github.com/kvm-x86/linux/commit/34f749161dab
 
 --
 https://github.com/kvm-x86/linux/tree/next
