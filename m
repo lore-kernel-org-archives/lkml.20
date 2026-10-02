@@ -1,208 +1,203 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D22D343897
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922993; cv=pass; b=QsoE3GJ4m7U7H9hDIMT2PlE3pAacnW6ZD2ctuJK/wrNMoNlLQnkOxDtP4lEgGLI7PHc8KvR+GU23bv4DMXUUYNk2T7ArObMvdIpEQK07Wi1rfeOU52dMwjvwtmElB0ORULM2d4YoZkXjXVvYiCB5JfK6JakJkuw+Sox5tE1WBtY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922993; c=relaxed/simple;
-	bh=9YZmPBYy1SKXzdHu1slkhLm9qPYGjqzmlrCIOJQSO1I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gXZQph8PCWyZCveP3x4OdVsOUnqud3+A76Pk7yNmXg6QmrREPZP9aDt+PWYA9jQpwd84mV9A6FxoYkXNmmHcrLWHETHxLRjF/HCFOnUdP+92U3YPtXI6oDT6h+otTzHODPLKPFLBV0IQaFcXEXjuIQTQ4nkzK0TNf0BNcgNuJ2A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pNeWEMmn; arc=pass smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52026374745;
+	Fri,  2 Oct 2026 06:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790923271; cv=none; b=W8RGvKZy1zlNUdGjLYqQfgAVmhKYZp+j22Dc4+Qu2jZ3bNqXQwbBvzXfuy9eaAmlurEiTR1WnXMuY4sqxXpLSKwCNgUbcS1r85tuu+W5UsFCV7WB3rai9UGt0jR4/EX/UeMokKaKcXtcDjsTw/TnffSCXCLwqTOq+BHsKt+cdLo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790923271; c=relaxed/simple;
+	bh=3ukon9UjGZhYhSen+wuwN6tobsgj6SsTdR1zHEwrRj4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hI3tTq+cG+Iyt1IHdAQV4pLB8bpKZ5eBSREbJKXjOo/rFZ6NJkzsV1yzQFLcqmStLXaEr3K7XEDGgBht5/r1VOxvMhpSwY5d5/Tgl2xsk2X4z2Jv9m9drqVzYfo8Ckw8bzxOI9TZPXzcLfHXVmHsiMYQMwsFI0KI3IAkA/u0nZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X313/39I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pNeWEMmn"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b00a0ac65so1552488f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:36:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790922990; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HmpLokpFbasmt74rH344QQ94SJ2SRowm1LTNcLQtD6bqYYcwNgVNYFnWoKaAReqaSw
-         Tqh0g+AwcViDazJn8FXG5gVQS0Bqw+BcxpcyL6ceCeNKxSqkqBZJW9ZUQm/OKYoY331h
-         UKSVkSLS5LzNG+Rofe3tEXVGc3OfvPvRYzs71IcRDq34N8MouCrwoR6urjtyARubsESA
-         0IWFWnfI12brx9+Znb851fE4yi3pApCh8MO50iEJRAUfaFZFcorWsNfaoqytKt0TZx41
-         T+it+c8/GuzR4cG1NylTY7XYNNSta1qB/6/fTmR1+biBn51BJp/ZloV1O9RrGg14z6zW
-         7dKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=soPsbDvUWN0SPXlaYNOhQMJeReVB4dKwMaExJU9cL80=;
-        fh=iAGO8pPQdO+BwYxNHUSv6BEDRqKCbKvMaqSyIoJXz+g=;
-        b=loz46HssdB0HrnbQ+c705XWTJi7yBtnB/IJNuPuFKqHayZtzxgdCLUpcnTHTJ0G9yS
-         vad/y4+zxYJFVGHEKWx27VqVlJVGGM0Uzm27PfwD5gftFNNz9UlP5t1zdhrBqD1qOgfq
-         B6Hm/LTnoWR+EBhIlhBdHKdreGjzcZnUpKSuAYuNMjCLKvF0H+3o7GPWR+JkcwBCNSPG
-         3a3/xfauyY/fEyHt09AB2n//M9OSMBvkzG1s8R/XAEb/7pynO8ljVRH6DMds0RJ2zDm8
-         V8cwWCL1XKLTZ1TOxS960W0+k/4NBLJ++lIDlQWzK0Gr61XdopAj4uojXmdG5QgD2wvw
-         e8cw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790922990; x=1791527790; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=soPsbDvUWN0SPXlaYNOhQMJeReVB4dKwMaExJU9cL80=;
-        b=pNeWEMmnSARCxWseuUsu39yTxf0wEHNDyV/bTRXr9vR7cpjkQIw9bQ3xrtuMW3Ons0
-         4HB89SdYiEsHHVzIaNLiTo1YPdQtQJKFGZcadzaOCxTdHIoHZ02fbL/16Ro9Kw8mhMM3
-         6+GWJY7kHDNRjXvt/pbSSY5WAzNX+wEfTgmPxN0/aLRonbQk7sCLEziEfqGS6EnBIcHs
-         K8DDHtitDS8xSUfoPSpRurxHFaJF8BPj4udohyaKY33SaJvIIUrt53mZkxeiovhXMwbF
-         oKzACeEngk345xR9+MAiQaKXQFI879r4Km9K0Fv3vjQryM/4ocxbxAi8b/vo0Q72x6fn
-         8yyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790922990; x=1791527790;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=soPsbDvUWN0SPXlaYNOhQMJeReVB4dKwMaExJU9cL80=;
-        b=uDv50UwguAl/wDbrvVR2pQVZjfwNKJTn/kldRPsRxy6hmyFyUPD+ZzD/2OQUrTIbes
-         ZMKOlqqAvBdj0JvR6DoN/C06C/YH/KEQsw3dwRn0y3dfpuyQiKC7CkNWEKdFVrcAcDzZ
-         9pWFFtNqrCpLIIOXbMgvG4uP7nWkx1GuOeetEKBNStMuXUpydJKHhQvwHT6d2f0mMtIn
-         WfSCDLAWg1uZZok23YoFCAYaKpnQqg9c9Ws6efo/kafknUhxJsJbGbK4XXPLLFt3FApu
-         4izctpktTfddWQRVpTUY8zUzb3BQSOI/wUjTz37G6Kg6DhvUo+aGhgNt3MT2Ni/C6yOo
-         +F4A==
-X-Forwarded-Encrypted: i=1; AKwUvBz4feqUTte2QFT8L5XMsJ/jbYYEImUc41vWVzcCYikYKKhdf/cIlw+yd66yTXRQ0k2BR1ZSgGHVQZfhdOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPPCesMQWTrA7GWA7OsjR2HLJmgPjOLWIA43O61D8vKesBa3nV
-	PFWfE0puVB5UvOk/3K+u9eoF0z2lJbztqfI4E3vD+q8296Arpist9D02sfRRu73SumwT9V6d9V6
-	qhEts2yJ9KgJF6ZJ8/WV69xYbuVa0vvM=
-X-Gm-Gg: AYBFou2PcuRJkRR6Op4VUgZU2qNJqDNagQY6lsj/z+3tHLOdb2TfF2bocJ+FsZV9JqQ
-	vkExNQh+SINkgZaG/Ymys3AJ0GqnBTPxvgqMAnKdI2mBVkb1jJ/TNYNLHnnsizcKooli9i1FFyc
-	uXQ+Lgsg0EFobZiLu1M4vrXGKhDnsE/AN0RnbTGYcHSzWLEbQ1BWsqsApTSxyXVQ5UpZPx9VF+x
-	oT/iXpuFhQrk5RFyPMuAgnepX55DDnFThAgvdA5HrF2DonYeKf8W93a+dSNUMC3Q6mAhyk7pUcO
-	vLtvvVyFHaS/zEqp/sHtkEB0SozDkxBm7tVeerMQNwnW0wAawkzUtvtsyrN1D4Ia6U9LR+925Dt
-	TxKMyZwORHI+HBKyL0JAwXNKG
-X-Received: by 2002:a05:600c:138b:b0:49f:ce78:3562 with SMTP id
- 5b1f17b1804b1-4a02759b46fmr32317815e9.19.1790922989794; Thu, 01 Oct 2026
- 23:36:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X313/39I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED351F00898;
+	Fri,  2 Oct 2026 06:41:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790923270;
+	bh=IhUgpix7xqUPicOrrlGZirp6Yh2QlMxihSKlR8JCZck=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X313/39I+CHHLC+DEn36PqxdIscKTcoxR5dss6fYXg+3LXIooaM7DCuaK00C5Xf7I
+	 zvQ9zVPQxcNWGLcNYKr4pQO5eZeDa6HMYrX/08/GdaB8nKWC5cOkQLQ1HsSgZaQtal
+	 D5m4dI3UqLqn+mwFKp8Z1CD4awpH4PwJwUtODFEOQdQw0anExaSpuXArnuifoeHHf+
+	 qDDIkmbNhYK5w7JJIvbd4OIBq5wDGqO985m/djuwj788ALluPq2DbNdzdCFeicOk2j
+	 iJnV2A3OzJHgzqPHvTnW8YLLmuQJ0WRAG/5TYpMeLjcJLGtY1ZQbKyWHyJ5sIAhOWs
+	 1G7mWDiCEq9UQ==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 95DCBF40066;
+	Fri,  2 Oct 2026 02:41:08 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Fri, 02 Oct 2026 02:41:08 -0400
+X-ME-Sender: <xms:BFK_ak4rmKBhA8M-Em75zaLCPm1zOAa5hFsgYvKsFmeQ4Pi8LkjeLw>
+    <xme:BFK_agldQMo5s2N27Y0tZOtnnuDAKNaosE-YST9obBjNManQD0LF93KDIUY0mdZil
+    yWNNsPxgmJsvZ5OIabYc9ZGz5KQ7s4n7ADhpPDzOTCSaFozYd3sZYo>
+X-ME-Received: <xmr:BFK_aqFlCZA06jt2nydF3QM_wv9mRRCyVHzHXu1Z29zAKH2GyLg-Mx9Drhbp>
+X-ME-Proxy-Cause: dmFkZTEHFJhaZmLEauJMdy0kYirbHtJH7W/2A+pNR083/LKuCOf2RN/fB+JVqOoJcqmanD
+    ejo5l9o4R2pYo+Ixzdf33xBKfGxMLENJ0sEAOdAfjiXBuaF8wJrJ7kcBGKSZPQ3KDQcy3N
+    b0ocSwV/gvC9erre9ortZCjBRjRLlE3NUw3fOAlcY7UfB19G6Wo1HEWi7d6G3aUng4PODe
+    Uzt4WD7XPd9y6k3zdcZ1SjbYnmu8wInrfg32D0xtQm/EQx6sTy1n+ZNharshwqcPZflWOQ
+    ShhjHSzqEKhR+U6ood6e9SthlIp8+QaIo3JAXUJDV1gucPBkcWW0c5voMIBq4qwJjo/AYM
+    j5b+xKJ6S9P+2B2OVfw8OTlW5UjN77ojfRkfExkkUApWzK18AOey3QzuE2XVlLLYBtHV3l
+    uQcEP63FOJstxfKZeNTo6J5Z9ZiaQbgjeNktY4TkROQ2cPINapm8k1J2HZeXWTUBkgepBz
+    aXL1WRkkrvsHvoooFuVqfbAjFeqwql1y6ZLJ3wAPzTASnm6mTX4KiHdwrSuEbThacA/aa6
+    +H+v+2iwEWwZwedkyA6x7UC2Wh88xhYtIfIpp6JvyvhCsd+t1tV1NWi0x/pfAada+I+VVP
+    tgLHaCh0ep2t2YBVvbw+x7yCLl4ksK6VROzk8wTofv1XRcSc5hxmIzUCcB4A
+X-ME-Proxy: <xmx:BFK_akGH47ArCuTVVdpZuBedgrlUGVp6we97sJs62RwOBwEBWQqduw>
+    <xmx:BFK_ai0c8BTw1LaJw2BaIqjqsszdAty2Nbea0SoTA3js_Dp_sO09lg>
+    <xmx:BFK_amcEIwXIr4NQ_ruaL1Jj0sK4u0g_QNLQgjrXBrfdIW_E37FNlQ>
+    <xmx:BFK_akIpiKIEVg_8UPGRYuedqmBBGDxJ0IaCjWpa8ySHBWTGeDqrfw>
+    <xmx:BFK_asGT2dFppR6J05orqB8-gwvFgkChOAie8P3KT7yFEsZpUp4pK7eU>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 02:41:08 -0400 (EDT)
+Date: Fri, 2 Oct 2026 08:41:06 +0200
+From: Boqun Feng <boqun@kernel.org>
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+	Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>,
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexei Starovoitov <ast@kernel.org>
+Subject: Re: [PATCH v2 3/5] selftests/bpf: Use the new NMI_BITS definition
+Message-ID: <ar9SAuIQ8RAp4GsG@MacBook-0RXW5>
+References: <20261001082519.16195-1-boqun@kernel.org>
+ <20261001082519.16195-4-boqun@kernel.org>
+ <ar5cbL_ywJVP9m_s@MacBook-0RXW5>
+ <ffd241f1-3f75-44c6-93b1-1482b7a17a5b@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925133922.1356404-1-arnd@kernel.org> <CAN_Opa8F+vKAAckVi0+qi_yXrav7Dop5brpS=zr7Hw-XaAUL2w@mail.gmail.com>
- <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
-In-Reply-To: <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Fri, 2 Oct 2026 14:36:18 +0800
-X-Gm-Features: AclHuK9Dz0MHNSTovGlbFnDS08y0Lg6jFdNOchKzstmaAxNqyn8Ihv_sSnlWWsQ
-Message-ID: <CAN_Opa9XhfVcvjCOa_Ay+zw+HpQMKEqsnBcTpNS6p5MVa5u5Jw@mail.gmail.com>
-Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
-To: paulmck@kernel.org
-Cc: Arnd Bergmann <arnd@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Arnd Bergmann <arnd@arndb.de>, Steven Rostedt <rostedt@goodmis.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Zqiang <qiang.zhang@linux.dev>, Thomas Gleixner <tglx@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Andrea Righi <arighi@nvidia.com>, Cheng-Yang Chou <yphbchou0911@gmail.com>, 
-	Gustavo Luiz Duarte <gustavold@gmail.com>, rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ffd241f1-3f75-44c6-93b1-1482b7a17a5b@linux.dev>
 
-On Wed, Sep 30, 2026 at 5:08=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
-g> wrote:
->
-> On Mon, Sep 28, 2026 at 10:54:13AM +0800, KunWu Chan wrote:
-> > Thanks, Arnd.
-> >
-> > Tested on top of 1eccf02fb8d5 with CONFIG_PREEMPT_RCU=3Dy:
-> >
-> > CONFIG_RT_MUTEXES=3Dy: build passes
-> > CONFIG_RT_MUTEXES=3Dn: fails without this patch, passes with it
-> >
-> > The failure is in tree_stall.h, where rt_mutex_owner() is used
-> > before tree_plugin.h includes rtmutex_common.h. This matches the
-> > reported failure, and the added include fixes it.
-> >
-> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
->
-> Bradley and Kunwu, are you OK with my applying your tags to the commit
-> that I am merging this into?
->
-> 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall=
- dump")
->
->                                                         Thanx, Paul
->
+On Fri, Oct 02, 2026 at 02:24:11PM +0800, Leon Hwang wrote:
+> On 1/10/26 21:13, Boqun Feng wrote:
+> > On Thu, Oct 01, 2026 at 10:25:17AM +0200, Boqun Feng wrote:
+> >> The definition of NMI_BITS was out of sync after the introduction of
+> >> HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
+> >>
+> >> Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> >> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> >> Signed-off-by: Boqun Feng <boqun@kernel.org>
+> >> ---
+> >>  tools/testing/selftests/bpf/bpf_experimental.h | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
+> >> index 2893bf06ff25..4bf7390994bf 100644
+> >> --- a/tools/testing/selftests/bpf/bpf_experimental.h
+> >> +++ b/tools/testing/selftests/bpf/bpf_experimental.h
+> > 
+> > Per sashiko's report, seems I need the following to make it work:
+> 
+> Sashiko is correct.
+> 
+> BPF compilation context is different from kernel compilation context. It
+> cannot directly use
+> IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS)) when compiling BPF
+> objects.
+> 
+> > 
+> > diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
+> > index 4bf7390994bf..94143cf0ab0d 100644
+> > --- a/tools/testing/selftests/bpf/bpf_experimental.h
+> > +++ b/tools/testing/selftests/bpf/bpf_experimental.h
+> > @@ -367,6 +367,9 @@ extern int bpf_cgroup_read_xattr(struct cgroup *cgroup, const char *name__str,
+> >  extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
+> >                                struct bpf_dynptr *value_p) __weak __ksym;
+> > 
+> > +extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __kconfig __weak;
+> > +#define IS_ENABLED(cfg) (cfg)
+> 
+> Correct.
+> 
+> IS_ENABLED is unnecessary here.
+> 
+> The below patch passed the BPF ci [1].
+> 
+> [1] https://github.com/kernel-patches/bpf/pull/14197
+> 
 
-Sure. Thanks, Paul.
+Thanks for the testing. I know that IS_ENABLED is not unnecessary, but I
+put it there to make NMI_BITS definition stay the same as
+include/linux/preempt.h.
 
-Kunwu
+> > +
+> >  #define PREEMPT_BITS   8
+> >  #define SOFTIRQ_BITS   8
+> >  #define HARDIRQ_DISABLE_BITS   8
+> > 
+> > ?
+> > 
+> > [Cc Leon and Alexi]
+> 
+> Please cc BPF list, BPF maintainers, and me when respinning.
+> 
 
-> > Thanks,
-> > Kunwu
-> >
-> > On Fri, Sep 25, 2026 at 9:39=E2=80=AFPM Arnd Bergmann <arnd@kernel.org>=
- wrote:
-> > >
-> > > From: Arnd Bergmann <arnd@arndb.de>
-> > >
-> > > The added call to rt_mutex_owner() makes this fail to build in
-> > > some configurations:
-> > >
-> > > In file included from kernel/rcu/tree.c:5121:
-> > > kernel/rcu/tree_stall.h:333:8: error: call to undeclared function 'rt=
-_mutex_owner'; ISO C99 and later do not support implicit function declarati=
-ons [-Wimplicit-function-declaration]
-> > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rt=
-mutex) =3D=3D t)
-> > >       |                             ^
-> > > kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and=
- integer ('int' and 'struct task_struct *') [-Werror,-Wpointer-integer-comp=
-are]
-> > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rt=
-mutex) =3D=3D t)
-> > >       |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~~~~~ ^  ~
-> > > In file included from kernel/rcu/tree.c:5124:
-> > > In file included from kernel/rcu/tree_plugin.h:14:
-> > > kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting typ=
-es for 'rt_mutex_owner'
-> > >   231 | static inline struct task_struct *rt_mutex_owner(struct rt_mu=
-tex_base *lock)
-> > >       |                                   ^
-> > > kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is=
- here
-> > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rt=
-mutex) =3D=3D t)
-> > >       |                             ^
-> > >
-> > > There are already a couple of inclusions of "../locking/rtmutex_commo=
-n.h",
-> > > so assume this is safe to do here.
-> > >
-> > > Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU=
- task stall dump")
-> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > > ---
-> > > I wonder if it would be better to either move the rt_mutex_owner()
-> > > definition into a global header like include/linux/rtmutex.h, or to
-> > > move the code out of tree_stall.h into a .c file, as this feels like =
-a
-> > > layering violation.
-> > > ---
-> > >  kernel/rcu/tree_stall.h | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> > > index 5dded1e89197..803a56af3259 100644
-> > > --- a/kernel/rcu/tree_stall.h
-> > > +++ b/kernel/rcu/tree_stall.h
-> > > @@ -12,6 +12,7 @@
-> > >  #include <linux/rcu_notifier.h>
-> > >  #include <linux/smp.h>
-> > >  #include <linux/rtmutex.h>
-> > > +#include "../locking/rtmutex_common.h"
-> > >
-> > >  ////////////////////////////////////////////////////////////////////=
-//////////
-> > >  //
-> > > --
-> > > 2.53.0
-> > >
-> >
+Sure, will do.
+
+Regards,
+Boqun
+
+> Thanks,
+> Leon
+> 
+> > 
+> > Regards,
+> > Boqun
+> > 
+> ---
+> 
+> From 4c1b9a6f6404aa25d1d300465dba4bee9a139668 Mon Sep 17 00:00:00 2001
+> From: Boqun Feng <boqun@kernel.org>
+> Date: Thu, 1 Oct 2026 10:25:17 +0200
+> Subject: [PATCH 1/3] selftests/bpf: Use the new NMI_BITS definition
+> 
+> The definition of NMI_BITS was out of sync after the introduction of
+> HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
+> 
+> Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> Signed-off-by: Boqun Feng <boqun@kernel.org>
+> ---
+>  tools/testing/selftests/bpf/bpf_experimental.h | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/bpf/bpf_experimental.h
+> b/tools/testing/selftests/bpf/bpf_experimental.h
+> index 2893bf06ff25..b567a48f1dce 100644
+> --- a/tools/testing/selftests/bpf/bpf_experimental.h
+> +++ b/tools/testing/selftests/bpf/bpf_experimental.h
+> @@ -367,11 +367,13 @@ extern int bpf_cgroup_read_xattr(struct cgroup
+> *cgroup, const char *name__str,
+>  extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
+>  			       struct bpf_dynptr *value_p) __weak __ksym;
+> 
+> +extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __weak __kconfig;
+> +
+>  #define PREEMPT_BITS	8
+>  #define SOFTIRQ_BITS	8
+>  #define HARDIRQ_DISABLE_BITS	8
+>  #define HARDIRQ_BITS	4
+> -#define NMI_BITS	1
+> +#define NMI_BITS	(1 + 3*CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS)
+> 
+>  #define PREEMPT_SHIFT	0
+>  #define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
+> -- 
+> 2.55.0
+> 
+> 
