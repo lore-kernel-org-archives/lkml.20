@@ -1,170 +1,167 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7C536F8E6
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF5F51121D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790965131; cv=none; b=fZiotYp3PmIq28xW9qXZ+tFR42df1ycSFbx+KTAbNMCrgqOT4uh9feTpoWCTDFHGLdN9uxjwx9d5h9XTREhm4ypijzYHuyP8Q1hfuV3sH9cFyojU5n3Spvg47nF+0AmgVGUDfIZO+7i5PgX+PM8D36NjFjHcJw4mfAl/CzyPd1I=
+	t=1790965138; cv=none; b=kGNtmuT0syfgSTUoby1AdqMUIM5xmKoaPCkyaeMWOt5hNjCoXecUMVmjQg8dCU30MO2Xm4+OXEFzzVnzoN9AWQMNyv4rbv+Jm3OVITeZo3zMpuUjpXVD7Xm7Ca96mR48tbFN+8kjeSk+5qfucPQ44sy6LhNblVB3xSvKly6lIcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790965131; c=relaxed/simple;
-	bh=q1iSZPpA793Q+w4WY8YfDeHvEFRic5k335ibdfXa7qw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DURm25xD0NWnGWknYJrCvck+v7bqVEAUkSSafZrD819BHkNecH41SWhefQeJrqvsWSaa0LOe6mt+dxhEtowTHAhQGaBVJDObqtrRkVkrlPApWhykNficfcM5yaGZ8tDPrZb6cqvAgXPaOKQ0VZdWQ8cj7IIiYMG7ijRqALF2L3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=ipOQ2oYT; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790965138; c=relaxed/simple;
+	bh=xxjspIqmx+CpULEpM4hqjXrOZ9/SSoODxlcNQ+6Tp2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ov9+9KWBGvHn+ukNV8CPEVdXYXJlWqmSdspOkRRlYqKdBYi2zYOzUVHs0UC3zGaSgowdSkEZF2Bd2OgRGyd0U2ccJsyg/aHobLnHBuUwidCCDavHvqKFuXAVl1Pb5cFIfKbBzK4b+0+lk9pYqMqRHzUi3o5OF6KN9wfsyNrJlRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Xc4eG+pT; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="ipOQ2oYT"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6768a9fc0e8so336857d50.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:18:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Xc4eG+pT"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-939fc329d35so83724085a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:18:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790965127; x=1791569927; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q1iSZPpA793Q+w4WY8YfDeHvEFRic5k335ibdfXa7qw=;
-        b=ipOQ2oYT10gRk+wfaf5+PCoSCdiO8SBdZp8epf0/IL2QyWJ96EAIOWi/rGGD2ZV2Xv
-         +KktXFBQ9be8t5GEArI/G7Q75fq/b+iaMPjFM/6vJPlrToN/hXpNx8JMh7/VaB9AYEUF
-         e1auCzwb4uQv0NjxNARoUZHPD3bMqcOAQLGibVwapmdjDgOWZQYXjdsBosvIcy8MG7f5
-         InWUY3up1p649k9PX54XVzdcD0g8ZezKpqt7pexo+79JCoAljirRymzogyfWFOh+cdGp
-         8Dcoc0/mCXf6YQX8remHFyxdECFX+d26mtN8G+VA/H7BLpW4Tqan+faMdPo4ANKlmwg6
-         bEdg==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790965133; x=1791569933; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SdYgs3CqbUtHm8RpvjRA9eQJchSjfk11RvrZH/hrmmc=;
+        b=Xc4eG+pTRyNj0/77dvvO7G1GRgOtknJxhKpk0H1k7A6hIkji8ss6fvCbiv1/aujwK6
+         ae6oAt5XgNfu5zugRJB8vLqzZ046/LDjGCGWWuwaHAAqtlowvs2qk8YUvUTMmtQ/RbuA
+         GVy/WIKn7ykh35Wv/7zj77BtWKbLgOonbDkd/JmfzQkpgjK04tPZjLqimYNtUg/Jqq0S
+         MjTMV0eJLPBFTXCtKdKVFR9l4xmzBHqM7b2v3MCULgIi5P0TEPrmo+/dThdFKmPGDVOM
+         dVceqPkeFRMsP+6sRACTM+6Q8y/tEt5T1boUJcown3P2ixhPrTBi6FaUAASBZofcTpsE
+         QUzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790965127; x=1791569927;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=q1iSZPpA793Q+w4WY8YfDeHvEFRic5k335ibdfXa7qw=;
-        b=gJhec0Iw7ofht5MENNVuHD8ijUCDCUs/WdAjqnRjwxkwbYd7iENVzKjQal0QsjjW95
-         O/72g73Y0tkcQ9uo6jUw1AvTJPvX4XtK9llHBwmC4x9gS7+Tg+kW4JIjGsUgmDV8uZeG
-         5y42OZ9L1gMX71+VPgGMgz0LdbrtMiMPiOH/5PwwEuvoM7GN8+AHMfC3C7qBRj1sBc/g
-         Tff3mrXtkEP+YSKUMJ+9VNX+NkO2vM/DanboniNV8MJcZP5MjEq3R8S4vimns1WJYuDl
-         ynazSi5s+BLF6sPsXoouoEyAnGip8HYil7ZVRrltkUeKcGdde40mg5kW66uCMoMfZuBd
-         HnaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwvuzXnrBzdMhkCUo/GbpDliJj2RUYh4jLPSYq7jApz3+WzdT+P9ZRVtIS4yhO+QaPTDe8LmY8T5ZKtK/8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9I/39Ezik4+wO5vE+tgiFprIsWcfOqCpjiBuTNgtJnTIIGn0v
-	BCkDDKR0BF/PDvV/GrhVSpDvyD5Xm8+m6N6WeOqMflcMMMiT8Zvis9UY/ZIoy/XtMuw=
-X-Gm-Gg: AYBFou28StqHMuUdf9CztuAHISXKfY3Qw8AI0wIePdl2qMjNhIUutg0hvPQ6ctjpDF7
-	KFnC5TJjIjqwEYufwmlxXVMDoKu3IYcxWE9OAM5yrCxmTXu705X4ipp8CtmHPiuq+A1gqoaNPEe
-	mWaVqU2A+O4eodTEwK3KwApmojgRFuQ/FTzWVp3h0pi+mLt/ZbUyz9f8/mmaI8HkJAUxt7mZcfG
-	dLOyyPFNbSlK/9QFjeV72fht8MeH8Hy+0E5YzzRGJEOTumxe/hceSMk8Ly4Et3PCEnBTX3l8YkA
-	jPAutUTiLDumr7XZN5cuf3fJ5Dq3Yf/72hQLvDrauojfbo9S0q6x3P1i9CWUtgePezzd+xdZd33
-	FhcySqq5HOprhaauec6kbIob9wns/0H+mXqZNk6NBwoO5Pd3qgn3cindq/LWlYL1SLlcMzD3ava
-	D20/5vg8BYBWx/K/u1gBk/9+tep/TSQiyKdAV1BqpGZ1R8rPlgbiC2SnIgp1lXPBNog0ek7i0FA
-	Hx2hf8JWct0kvScp88MMXmuiBKJ9BQ8RYgbftOpavp0LT72fBwcb33LIi/0ES8p62eJ0CDKPJTI
-	mgztLmmn2LtulF8uQ+4tl1PNCT2/GYo6xffggbbTCKHY5okdtoteDvprcy4=
-X-Received: by 2002:a05:690e:400c:b0:676:938c:5634 with SMTP id 956f58d0204a3-677bd328dbdmr179940d50.38.1790965127243;
-        Fri, 02 Oct 2026 11:18:47 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:ec77:47c8:250:c58? ([2600:1700:6476:1430:ec77:47c8:250:c58])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677ac50d04asm1467036d50.6.2026.10.02.11.18.44
+        d=1e100.net; s=20260707; t=1790965133; x=1791569933;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SdYgs3CqbUtHm8RpvjRA9eQJchSjfk11RvrZH/hrmmc=;
+        b=VUCxmFcG+KfHR0Fn3DNN8/HT58kYIOdG/xe++JDJft//lmVFFkZ9vLkIcFgZP7pYRg
+         7R8QJ5+mQ+k9oh/ZurbRR1Jmx3I00II58iNzEtZFgdW4ZcvWjKoX3xwxTMcpahcNnnkK
+         kQJ0JXfxhe8jQXxc/L/hbUZZhaoPfs1+jMX9iVIWW+K2eZDPNOl5pjabW/SDWeX2wyiW
+         QvK5uW1yFI2ocLLalShe/m8r56TEDOXJerBEKZDLE5g73PDfJ/sGQAi119/OXBw4VdDv
+         lX67huIvXvJMlJL0wpBlYWU967nW3w0j0YtN/rjtGNP8B61+zaOp+mN7Ep5IWN7Dv+Qw
+         GocA==
+X-Forwarded-Encrypted: i=1; AKwUvBy+/S8SMQdIC9hhmH4PkA7MIvBxJqmLAAYozqKuf2Rpd5kREsFzHLZ9Uu4Gg/cSGPIBNyhLTBaMl30NfUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nu8XN2VG5BlVKTv6lHY9C5fb86fiOU/ckyJ7xOPT5vBPCYFwz6
+	YlHTsDPu4XO4Ixf3wSHKEZdsbkw6DUk2igsPKMukACDF86DhfktFw/1O02WglZ60OjU=
+X-Gm-Gg: AYBFou248UB4y2sebLtfDkrQGkS1/5jfrNUOfp7Jb9GI+P/3mk+WFXQNxA3Umug5GH0
+	GVlN0DXDqdP4otyN5CyoXajwBOybRc9F0n3urbgk6l2VV7MU1mYwGIcztCTTYGKMhZ2LwWHqdmq
+	nF5pLYHuzq2rMgjy3+wgkAHx/+f7w5hOLX1ul67ei0BNr5TLHDvQvPc1VEfzB16i1DD55TkIPKa
+	Vr6FSwCkjJ6V/5dvudU8kKZVzNBZFg0iB1mm2bPMUMEt51R4r56TpR4tToFV7cDO6vw1LwyyKGx
+	fKkMp8hQL5G/b1/gO5q4FNtMm7B0jkNpkE9Pl8DmAvi+5Psx3B2I7Gu2NUcy9jrPe5MGOM1BRik
+	FzZR0qNimWdKMdcabi0J3/NZoLidaIgEfEMzsuY+4Hg8OpG6bNeu+Yhs+l1w1uxt8EoCdc5aCW1
+	2WwvExLijkyz/AssTmc7c/jIHu8j1tEAh2Et+Z527rHUKNDq8CzCpabbqWcBPwHJQMnOd6PFVSn
+	iB0
+X-Received: by 2002:a05:620a:290a:b0:93a:2e8:5aff with SMTP id af79cd13be357-93e50f8199dmr34926885a.21.1790965133295;
+        Fri, 02 Oct 2026 11:18:53 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca280e59sm286107585a.35.2026.10.02.11.18.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 11:18:46 -0700 (PDT)
-Message-ID: <e03cec7e17be27fde6b51957c61fb6958b9832ad.camel@dubeyko.com>
-Subject: Re: [PATCH v3 0/2] hfsplus, hfs: fix B-tree node leak on
- hfs_btree_open() error path
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Mahmut Emin Kurhan <guvenlik@noroxi.com>, linux-fsdevel@vger.kernel.org
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 11:18:43 -0700
-In-Reply-To: <20261001213807.1519745-1-guvenlik@noroxi.com>
-References: <0de056179e3e0a7c4ef525cdb143647b7493dc71.camel@dubeyko.com>
-	 <20261001213807.1519745-1-guvenlik@noroxi.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        Fri, 02 Oct 2026 11:18:52 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	abelvesa@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Thompson <daniel@riscstar.com>
+Subject: [PATCH] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
+Date: Fri,  2 Oct 2026 13:18:48 -0500
+Message-ID: <20261002181849.790275-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-10-01 at 23:38 +0200, Mahmut Emin Kurhan wrote:
-> This is v3 of the hfsplus/hfs B-tree node leak fix, rebased onto the
-> for-next branch of the HFS/HFS+ tree as requested.
->=20
-> The leak is unchanged: hfs_btree_open() can fail after the head node
-> has
-> been inserted into tree->node_hash, and the error path does a bare
-> kfree(tree) without freeing the hashed nodes. The fix factors the
-> node-hash freeing out of hfs_btree_close() into hfs_bnode_hash_free()
-> and
-> calls it from both hfs_btree_close() and the hfs_btree_open() error
-> path.
->=20
-> Changes since v2:
-> =C2=A0- rebased on for-next; the extracted helper now wraps the hash_lock
-> =C2=A0=C2=A0 serialized close loop introduced by commit dce0e0248205
-> ("hfs/hfsplus:
-> =C2=A0=C2=A0 serialize B-tree close against folio release") (Slava Dubeyk=
-o)
-> =C2=A0- on the open error path the tree is not published yet, so the lock
-> is
-> =C2=A0=C2=A0 uncontended but kept for consistency
-> =C2=A0- no functional change to the leak fix itself
->=20
-> v2:
-> https://lore.kernel.org/linux-fsdevel/20260930232312.1405042-1-guvenlik@n=
-oroxi.com
->=20
-> Mahmut Emin Kurhan (2):
-> =C2=A0 hfsplus: free cached B-tree nodes on hfs_btree_open() error path
-> =C2=A0 hfs: free cached B-tree nodes on hfs_btree_open() error path
->=20
-> =C2=A0fs/hfs/btree.c=C2=A0=C2=A0=C2=A0=C2=A0 | 40 +++++++++++++++++++++++=
------------------
-> =C2=A0fs/hfsplus/btree.c | 41 +++++++++++++++++++++++------------------
-> =C2=A02 files changed, 46 insertions(+), 35 deletions(-)
+The TC9564 SoC incorporates a PCIe switch, which is connected via
+the second PCI segment (0001) on the RB3gen2 platform.  The third
+downstream port of that switch (pcie@3,0) has an embedded PCIe
+endpoint that implements two PCIe functions.  The SoC implements
+other peripherals, and they will be accessed via PCI endpoint bus.
 
-The patchset looks reasonable to me. Let me run xfstests for the
-patchset. I'll share the results ASAP.
+Record the PCI VID/PID compatible string for the embedded PCI functions
+attached to the third downstream switch port.  Define the pci-ep-bus
+sub-nodes for each, along with the #address-cells, #size-cells, and
+ranges properties for both the endpoint and its pci-ep-bus node.
 
-Thanks,
-Slava.
+For PCI endpoint bus, a PCI function's ranges property will be updated
+dynamically to incorporate the address ranges assigned to each BAR
+during PCI enumeration.
+
+Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+
+			===== PLEASE NOTE =====
+
+A version of this patch was previously included in this series:
+  https://lore.kernel.org/lkml/20260918152659.413268-1-elder@riscstar.com/
+The first two patches in that series are now in char-misc-next
+
+This patch must go through the Qualcomm tree.  However for this to
+function correctly, it depends on this code getting merged:
+  https://lore.kernel.org/lkml/20260924222444.1351466-1-elder@riscstar.com/
+
+I sent this message today to clear up any ambiguity about whether/when
+this patch should be merged (probably not yet).
+
+					-Alex
+
+			=======================
+
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 24 ++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+index 909039816a216..0e3bbdaf4661f 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+@@ -955,11 +955,35 @@ pcie@3,0 {
+ 			bus-range = <0x5 0xff>;
+ 
+ 			dev@0,0 {
++				compatible = "pci1179,0220";
+ 				reg = <0x50000 0x0 0x0 0x0 0x0>;
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges;	/* This will be updated dynamically */
++
++				pci-ep-bus@4 {
++					compatible = "simple-bus";
++					#address-cells = <1>;
++					#size-cells = <1>;
++					/* Map 0x0-0x1fffff to BAR 4 */
++					ranges = <0x0  0x4 0x0 0x0  0x200000>;
++				};
+ 			};
+ 
+ 			dev@0,1 {
++				compatible = "pci1179,0220";
+ 				reg = <0x50100 0x0 0x0 0x0 0x0>;
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges;	/* This will be updated dynamically */
++
++				pci-ep-bus@4 {
++					compatible = "simple-bus";
++					#address-cells = <1>;
++					#size-cells = <1>;
++					/* Map 0x0-0x1fffff to BAR 4 */
++					ranges = <0x0  0x4 0x0 0x0  0x200000>;
++				};
+ 			};
+ 		};
+ 	};
+
+base-commit: 705529dab1fa872d8b53b09c95e1b03a95573376
+-- 
+2.53.0
+
