@@ -1,113 +1,253 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538AE364045
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790943902; cv=pass; b=FAa24pj2nViLMgzKWcsSLz1PknXl2sGU7+66CkTXqLLRwRdppptIoTBuEuq41157RYbW1ALBfXZjSgeaBiEAYQhMXtha/lQ33E5/bCF+qPXIgvrvtd7ltbHP3wPSmiiBxOijg3ztRc5NsUvG/2rYdrsGmdS9KZWeOTMeghp7S4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790943902; c=relaxed/simple;
-	bh=2nnVUg/SZaHyHuKCzH7+n/VkIA0eqs6cP2ty2QfdMaU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J1vRc2OCpsoo+5+/WxZH4RePeN7lCeoZypIKHRnaGkU33CCuIZ4SsWjfWrIj2cUe5o86CMXpttM9RWMfEDaHZK8342R7fg0tQDkt/z9JevM/Z+nO8QJHJ0xAzET8uS8RTRb9eGPiGqtA7PkMcbT9MuE9W8pumtvVsVrP5P91D8E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=daS/ylG3; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACACD2C21DF;
+	Fri,  2 Oct 2026 12:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790944001; cv=none; b=e4gC30egtaEi2g3MYdzbzPhhH2+p/Lyu/9WsIGygpr2aE9O1CNqBlFkSZF/tbNpQIYyedJlIihmuVfeD5B8hovWwk42mR9s2OugjsiOjRNH27nkUOYL5W13AA7iJTjCoD160SNFrE/bjywfQCxXI6K5F+o6G1uwQ7c4T8RaedNU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790944001; c=relaxed/simple;
+	bh=zCerN7gWVzPgDqXrohsaZl5dB9fo6RbehtnbPNz3A/g=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UfhTFJy2rOrHryJdCDeC+AsL/tXlKPGbIdEqF3l1aSJALwVF7nZHdweJlgU7hXKJB8cOxs8NCPrrhHgqryqX3kcaRzTJf/D5qaTXVPuic2q54AAMAm4075tjFvsP3+74q8rO7rIBUW91IL0RqYVXXDbv70DF3OCtHu+HbC6k31s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7eGrxGo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="daS/ylG3"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c99260bd9so339490eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:25:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790943900; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BtitkxNJJrP2tzAyFbCn7tV/No5vvsx8NcYL96+jfGfEU9iy+cMT0RjzB72TPOLkoI
-         sCb81IZ8xgI2XLeBHn/vSIyow1qXAxwKwt+c6ccKEcK43sYhga++juXJj8lNHhze70uN
-         q3jw9p8t2o2ZLXPHR1hxj/cN+BkmEN4ideaQQkCXnerUq/KOoNckqS7Uc2/UwKNOZplX
-         YBDEXpnuqLgocHpXCqNYoaWxyzSTIN+BVbR6ZRn3nJBbHd+jaNkLA8OVXGw1Q9iUSRUA
-         SDBeYvn48HM6YfHdioMW8WqUun+AaxOi/p3hS91G12rAZqkbOcVsoLiBAShxncqq7+dr
-         Xssw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2nnVUg/SZaHyHuKCzH7+n/VkIA0eqs6cP2ty2QfdMaU=;
-        fh=ZtCrGYkvTfF8bRiw9qpJYEWUVCMIFrtG/Un/3QeKX8Y=;
-        b=TkMTLPnrzcahwDKmu2LbaIB6roj85SAxOQu88BGc4M+a4IbTeodRzVKQLAIu5mi8Nn
-         gEQ8fJe10aVVejjOEEKo0hird4EDAg+WUtD0oCRuM8jLMKeNWd1NJWhJoBqkvs7FP/F0
-         JzqqAY0iEopgSH6fntcXJtYjre0GN84dudQM8uGPGevaBvek9/3ZQeEOev7RTvSmE2Of
-         DaF4YjdNzD0THyJRp/oBkZzOWsp9o+ywfzlbe9bjurG9nTUr14wld85taHqAxt2m9jEZ
-         Jn/sk14xud/KVGjxiv6R9dy80lwhaW7VKGh2YvDm8uxmeQ0GeoIZQlSzjavs5B9vf3Ik
-         f2qw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790943900; x=1791548700; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2nnVUg/SZaHyHuKCzH7+n/VkIA0eqs6cP2ty2QfdMaU=;
-        b=daS/ylG37sk8HHR9l5NeHusHDzOGMmwmjIXDVUKJVREKsrKeT9cW8Yxacuu7+F6/lP
-         8Whln29XStGkEXtc1I++48UCV8E8/fm3MCimrPOa6sxb685xfOYAQva/XzQ3EFQTHID2
-         O5XT40ewxTZSEdSLrIjduCPlGrmbiUqKDGXMqgZjl63uy+bxQMRx/cZB3zvxZVOdNFW+
-         h9EZHiBIi/2c3R9PAYtTpeezvVC67A81wZB77BO39BW3GEtoOuTdpRn3KKZ7EXPZ8y/V
-         d4NtdyQtUOBN6po3/m2egGJ2h9Mk3CNSERK+2rw5JMv2AakUXGQO7bUm0DciePD5O1zt
-         VnRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790943900; x=1791548700;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2nnVUg/SZaHyHuKCzH7+n/VkIA0eqs6cP2ty2QfdMaU=;
-        b=mVxqGhrh8w+ib5uV5nyVVkCQ2dKSuAd5MMh9INQCBIz4YI4G6HnB1xKVaVd/lYx3cd
-         8ymutcS/difT4c8iXvK76AOhDWEUmstO7XMYbtT05jygSRHvK3YyzzRuGDJPMK3rnwEr
-         HBfEqvHZ1/KKOdg2AZnv5V4j2oxGJ3IYXeWqFard5shB+TbmgJFwao7lYIY+FLG+c79e
-         zJWuDcM3Ybx0YecjAUum5MxpqTFhRwhYc7TVZHaU5yKx3T6xLpRa9hJed1SXQ7yIcKFN
-         cW/jZyYOhGD8or0ZpeP+iQv9q6SKJ8aYWzYgF8S6DmmT+L/phz5jf1HcYa8XtULl2wef
-         NGdg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHUEvWHQ2LyiKh30jcklVGjmPo0UbfCtNIL6Wu5So2XKWhgBlMBMcvSYr7cj+o8v04rxOmTp7X6ZDWSvs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIe4h4dWyTksXwAeI+ZUfb2rEeHfUr6bGnBSE3t7sKFW70w9egp
-	swkWUTEIaseq72T+zIBs6tOXoHKoQ2bFG0RrCcOz6zjvOOMmAOQOd4oV4445rdZaqq6bG/rmY39
-	UipMm9zFeyARRkx1UrbPxmUpgiFAx3cU=
-X-Gm-Gg: AYBFou1oC8SmUzLVZ0jJ0fZVRVh/fXrM5VBxjvHGg+9iaeqLd/qz0kybQP41jPSdSe1
-	rl/xWbuBmdXM+P5CUi+wPQuQ0OSyzIBzTLWCNJdinrS8jDVVDOMNme0/TD3Thjz5Itqly1cItIL
-	f0olYkDsbr6QfxZysDAr97OI/k563HFCY/pR2CyE88858LQzIX/OMN588jlD4aeTPxih/5OqmeF
-	McYFVhAhQII289ZbE4UqI078b20C3bxekOK1FoRsUR9QVLhP/6rQTD9U1xZh14Oai5yyUmK3AZD
-	6qsQrP26dPy773IzjgWvBGiE3uvJKkxk2DAxSv4b6yCAezuAM5wta+xLsbcpRSd6Nwh9Ai8TRon
-	fbBeTrkQf84ExnYvtAMPZO2bHppjHpVs9qfXIvvqzADX3515p3Gk4vQNkLAQ8MrAnrjzpZTyS9F
-	kW8fraDzrTLN0F/zUXfmGLiXBbcAfd0+G0pY3HA2J8bIGFnK+WU/ub
-X-Received: by 2002:a05:7301:18ac:b0:34b:7c9c:9a69 with SMTP id
- 5a478bee46e88-34f06678c69mr4048949eec.0.1790943900278; Fri, 02 Oct 2026
- 05:25:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7eGrxGo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147F61F00893;
+	Fri,  2 Oct 2026 12:26:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790943999;
+	bh=CLh+ENzud1W7jlMwtzalp6l/ROxXZyI85Y4rCwOcmlM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=j7eGrxGoMElYV4W9Lz4fI2ZW4MqRmu+5mNpqqKCzc/Dby0H12nTiNsAm0tuZic02q
+	 jpLGsjnOS0AQPYWo1JSS4pR6QnP7JKldDGLWQyG278rGB7vghxFUIUdxJ62oYuVAjo
+	 1Fc5ozTZQg91N6QyeQtboasYsYG7gPi+oRhH8eYE7dXmmf5T3vd+qMGU01fe+//6y6
+	 aIzpCSzgXlaFJWsLankN9iqkW9sRcRYLWcJNizGYfQVaP/hp2R01LuP0ZrqN4sDQfi
+	 +8UbBAP+Q/XamlwFJ2fnhXthNVpCcwgsnqZoVN2dwaBXtrqwlrkZZRYPlvKIQ2x5GB
+	 8u8p8cTo/Q0ug==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xCcLU-0000000GDNO-42kB;
+	Fri, 02 Oct 2026 12:26:37 +0000
+Date: Fri, 02 Oct 2026 13:26:36 +0100
+Message-ID: <86tsn42sqr.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Tomohiro Misono <misono.tomohiro@fujitsu.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Kohei Enju <enju.kohei@fujitsu.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA erratum E#030003
+In-Reply-To: <20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
+References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
+	<20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <ar-cWpOhcuo85ttt@sirena.org.uk>
-In-Reply-To: <ar-cWpOhcuo85ttt@sirena.org.uk>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 2 Oct 2026 14:24:46 +0200
-X-Gm-Features: AclHuK_k-8l4icGOso7OUMh7asj3al2NOhpwyN0qJl7VrEX4X9rbgt3xGUxAe08
-Message-ID: <CANiq72kOB=NuaeUz2i7m=uTmezf5Z_+9D_njCfCK-GsFN+S63Q@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the rust-timekeeping tree with the
- rust tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: misono.tomohiro@fujitsu.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, tglx@kernel.org, radu@rendec.net, enju.kohei@fujitsu.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Fri, Oct 2, 2026 at 1:58=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
-e:
+On Fri, 02 Oct 2026 11:26:52 +0100,
+Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
+> 
+> From: Kohei Enju <enju.kohei@fujitsu.com>
+> 
+> On affected FUJITSU-MONAKA CPUs, an SGI generated by writing to
+> ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1 may be lost if the
+> operation races with CPU interface processing triggered by the arrival
+> of a higher-priority interrupt, an update to a pending interrupt, or a
+> transition of the PE to the Sleep state. When this occurs, the system
+> register write does not complete, causing the issuing core to hang.
 >
-> I fixed it up (see below) and can carry the fix as necessary. This
 
-Looks good, of course -- thanks Mark!
+Is the SGI lost? Or is the sender core hanging?
 
-I think there will be another similarly easy one today (i.e. picking
-both sides), if I am correct.
+I expect that virtualised accesses to these registers are not
+affected, since they trap, but it'd be good to document this.
 
-Cheers,
-Miguel
+> Work around the erratum by writing 1 to the bit corresponding to the
+> target SGI INTID in GICR_ISPENDR0 of each target PE's GIC Redistributor,
+> instead of writing to the affected system registers.
+> 
+> The affinity topology of affected systems has Aff0 == 0 for every PE,
+> with PEs distinguished by higher affinity levels. Consequently, an
+> ICC_SGI1R_EL1 write can target only one PE, so the workaround does not
+> increase the number of writes required to send an SGI to multiple PEs.
+>
+> Accessing a target PE's GICR_ISPENDR0 requires its Redistributor base to
+> have been discovered. Affected platforms conform to SBBR, which requires
+> PSCI for secondary CPU boot. They therefore do not use the ACPI Parking
+> protocol, which sends an IPI before the secondary CPU has initialized
+> its Redistributor. With PSCI, a secondary CPU discovers its
+> Redistributor before becoming an IPI target.
+> 
+> Signed-off-by: Kohei Enju <enju.kohei@fujitsu.com>
+> ---
+>  Documentation/arch/arm64/silicon-errata.rst |  2 ++
+>  drivers/irqchip/irq-gic-v3.c                | 48 +++++++++++++++++++++++++++++
+>  2 files changed, 50 insertions(+)
+> 
+> diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+> index 429bdf9a3d9d..13328a30df59 100644
+> --- a/Documentation/arch/arm64/silicon-errata.rst
+> +++ b/Documentation/arch/arm64/silicon-errata.rst
+> @@ -377,6 +377,8 @@ stable kernels.
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | Fujitsu        | MONAKA          | E#030002        | FUJITSU_ERRATUM_030002      |
+>  +----------------+-----------------+-----------------+-----------------------------+
+> +| Fujitsu        | MONAKA GICv3/v4 | E#030003        | N/A                         |
+> ++----------------+-----------------+-----------------+-----------------------------+
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | ASR            | ASR8601         | #8601001        | N/A                         |
+>  +----------------+-----------------+-----------------+-----------------------------+
+> diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+> index 6e1fa5b247fc..e73fea8a0e27 100644
+> --- a/drivers/irqchip/irq-gic-v3.c
+> +++ b/drivers/irqchip/irq-gic-v3.c
+> @@ -80,6 +80,8 @@ static DEFINE_STATIC_KEY_FALSE(gic_nvidia_t241_erratum);
+>  
+>  static DEFINE_STATIC_KEY_FALSE(gic_arm64_2941627_erratum);
+>  
+> +static DEFINE_STATIC_KEY_FALSE(gic_fujitsu_030003_erratum);
+> +
+>  static struct gic_chip_data gic_data __read_mostly;
+>  static DEFINE_STATIC_KEY_TRUE(supports_deactivate_key);
+>  
+> @@ -238,6 +240,9 @@ static DEFINE_PER_CPU(bool, has_rss);
+>  #define gic_data_rdist()		(this_cpu_ptr(gic_data.rdists.rdist))
+>  #define gic_data_rdist_rd_base()	(gic_data_rdist()->rd_base)
+>  #define gic_data_rdist_sgi_base()	(gic_data_rdist_rd_base() + SZ_64K)
+> +#define gic_data_rdist_cpu(cpu)		(per_cpu_ptr(gic_data.rdists.rdist, cpu))
+> +#define gic_data_rdist_rd_base_cpu(cpu)	(gic_data_rdist_cpu(cpu)->rd_base)
+> +#define gic_data_rdist_sgi_base_cpu(cpu)	(gic_data_rdist_rd_base_cpu(cpu) + SZ_64K)
+>  
+>  /* Our default, arbitrary priority value. Linux only uses one anyway. */
+>  #define DEFAULT_PMR_VALUE	0xf0
+> @@ -1373,6 +1378,13 @@ static void gic_send_sgi(u64 cluster_id, u16 tlist, unsigned int irq)
+>  	gic_write_sgi1r(val);
+>  }
+>  
+> +static void gic_send_sgi_via_rdist(int cpu, unsigned int irq)
+> +{
+> +	void __iomem *base = gic_data_rdist_sgi_base_cpu(cpu);
+> +
+> +	writel_relaxed(BIT(irq), base + GICR_ISPENDR0);
+> +}
+> +
+
+I don't think there is any need for a helper, given that there is a
+single caller.
+
+>  static void gic_ipi_send_mask(struct irq_data *d, const struct cpumask *mask)
+>  {
+>  	int cpu;
+> @@ -1386,6 +1398,22 @@ static void gic_ipi_send_mask(struct irq_data *d, const struct cpumask *mask)
+>  	 */
+>  	dsb(ishst);
+>  
+> +	if (static_branch_unlikely(&gic_fujitsu_030003_erratum)) {
+> +		/*
+> +		 * The affinity topology of affected systems has Aff0 == 0 for
+> +		 * every PE; PEs are distinguished by higher affinity levels.
+> +		 * ICC_SGI1R_EL1 therefore targets only one PE per write, so
+> +		 * using GICR_ISPENDR0 does not increase the number of writes
+> +		 * required to send an SGI to multiple PEs.
+
+This is not about the number of writes, but the cost of individual
+writes. A sysreg access is almost free (at least it is on decent
+implementations), while an MMIO access is probably one of the worst
+offenders. Therefore implying that there is no extra overhead is
+likely to be misleading. The commit message has the same problem.
+
+In any case, I don't think you need to justify anything here, as the
+choice between costly SGIs and a dead CPU is pretty moot.
+
+> +		 */
+> +		for_each_cpu(cpu, mask)
+> +			gic_send_sgi_via_rdist(cpu, d->hwirq);
+> +
+> +		/* Force the above writes to GICR_ISPENDR0 to be executed */
+> +		dsb(st);
+
+This doesn't force things to be executed. This is about completion of
+the access, and with an nGnRE mapping, it doesn't enforce that the
+stores actually reach the RDs, only an arbitrary point in the memory
+subsystem.  The only way to guarantee this is to perform a read-back.
+
+If this is relying on some additional properties that are
+implementation specific, then this requires to be documented (for
+example, if the implementation treats nGnRE as nGnRnE).
+
+> +		return;
+> +	}
+> +
+>  	for_each_cpu(cpu, mask) {
+>  		u64 cluster_id = MPIDR_TO_SGI_CLUSTER_ID(gic_cpu_to_affinity(cpu));
+>  		u16 tlist;
+> @@ -1871,6 +1899,20 @@ static bool gic_enable_quirk_rk3399(void *data)
+>  	return false;
+>  }
+>  
+> +#define SMCCC_SOC_ID_FUJITSU_MONAKA	0x00040003
+> +
+> +static bool gic_enable_quirk_fujitsu_030003(void *data)
+> +{
+> +	s32 soc_id = arm_smccc_get_soc_id_version();
+> +
+> +	/* Check JEP106 code for FUJITSU-MONAKA chip (0004:0003) */
+> +	if (soc_id != SMCCC_SOC_ID_FUJITSU_MONAKA)
+> +		return false;
+
+Why is this keyed on some firmware interface, while it is the CPU
+interface that is at fault? I'd expect that looking at the MIDR would
+be more reliable.
+
+> +
+> +	static_branch_enable(&gic_fujitsu_030003_erratum);
+> +	return true;
+> +}
+> +
+>  static bool rd_set_non_coherent(void *data)
+>  {
+>  	struct gic_chip_data *d = data;
+> @@ -1951,6 +1993,12 @@ static const struct gic_quirk gic_quirks[] = {
+>  		.mask	= 0xff000fff,
+>  		.init	= gic_enable_quirk_rk3399,
+>  	},
+> +	{
+> +		.desc	= "GICv3: Fujitsu erratum 030003",
+> +		.iidr	= 0x0403043b,
+> +		.mask	= 0xffffffff,
+> +		.init	= gic_enable_quirk_fujitsu_030003,
+
+Same problem. This is looking that the distributor instead of the CPU.
+It's OK to use it as a proxy for further filtering, but the final
+decision should probably rest on the MIDR.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
