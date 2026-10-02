@@ -1,56 +1,56 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABEA51596D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EBDB3C5540
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:27:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790965630; cv=none; b=OpiKnOUfjiRF7nTWxrhkCadvMsa920uiQWXsYXpIucXu8mKOZ1/MlOcsJ67HRxg7nzUk5g2GKskAparN6ygbd/FqkEgGMSBTtDOFVtAmPOX3vnIRab+1ImhkXNYu67Q5XWR7VyFHJZ3zWWTy6Y9m1HUedAoTFhTwU7odoEqDQuU=
+	t=1790965627; cv=none; b=AQKHA4xm9JHiTo/ZlbR4tIIss2qYQA7NTtU1uFmOgUUIFw/TPuMbgRela/m6Bt6K67tKCbMuLf1+aNzdZI6yE8aAK3m4zq0fc1wNLDfLwODByB14WU0OZv/3NGevP82zl16D2pPqaGtLaPQnxqUVicCEM99Rz4Sp2pD490dXu0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790965630; c=relaxed/simple;
-	bh=VjbeaIMkDGkkC/gGn3LkmJGz5W0OV7OTXY8pLZMTifw=;
+	s=arc-20240116; t=1790965627; c=relaxed/simple;
+	bh=iuDDYpDBSEPVIb4dFeh5uhOuxRwHsGwdsT/ifU9bILQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=J4RYu/0SHlMGsEH40tvnH1HcVIj9xt92xeZ89I0TIErVOX0HcGIiI+wzl8xJBkaCQgQQVaLct16lS2dBnoqwhZ+rtPqs/OdQTxqUqU6EiKkc/A3VCNNshFaITyRToSODLtIDo+I1T5BVvAyTlMfzYppQnkuie7IJF5p0okO0sto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eJriWhDh; arc=none smtp.client-ip=74.125.82.198
+	 To:Content-Type; b=WE4iXs1C2zYftvSYpVNpNDsibU1EQecr819MQYtAzbYCpKkFX2CuAZFIwWW3cASFdGYar5qndGtvoVstBDdZmtGR20OeM7UTIGVW8bHfNa62sNvzNj0q/IIOkaqaHAsvpHJLcPyfcZz1lwGn2dSslagutLEZDoJIm1m1WBuewJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YUVU1muj; arc=none smtp.client-ip=74.125.82.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eJriWhDh"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-313d1015161so2623640eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:27:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YUVU1muj"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so15277072eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790965627; x=1791570427; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790965619; x=1791570419; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UmwR1WzFCYPEGeSyAT5ZyeChuVuCW43YZnOiA3h4KMw=;
-        b=eJriWhDh9xXBzRVzPZxJiSDTTq/l4dCA0upxAYTp01dHzQu4HXRhTxQwaPlI43lrGR
-         m4hGp0wg1INQCr6E4zi6B7lou9cRCTdxpXFNtABk6jmdO9TGv4TjmdivXO4/UpHHlhys
-         29WVJlF/dzSuNC78X1LQoRvDD5cg6R+VFYKFl36saMTCM8rGrUHXb0XhPg/7XPcNOmh9
-         r0iquYQ9Zi1ipsHUkAfFvAxDe3hEQg/4LnewR2RE/vzZd52cDwNb2Bz0n6QU9gRfMY+f
-         +EIPYYod9Sday4GWrWqWzjM5mDri2w3175HUfVy7OgOXFXEKA1jwrzL9T4TC5fR9Ctq6
-         N6QQ==
+        bh=I782X3YfSO2xDpm8QNEd+eDsT+SR5pieWlBzHGlk3Ho=;
+        b=YUVU1mujkq9+xRdX0om51sPzTWmfMemCZ23s6JPSiyQ5kgzPObomEafSaLvviR1Wz6
+         VrQ/bqWuCyXEfDlajvDNhfWcw5LuF9ZOkC5cPqPXSuG0hCTVUMCpShZB7vxAOc3ak96M
+         xfGzWofanJIjteeNNbnSUTvLQiHBfxW9WK4o1f0choHTGSwM3NNbT4ZrGM/tClpcJCau
+         6ehfrX6wAXhkjArjBqJwa+37xHnftwqyDJOQxnE4g/d/coHTIgTVz2YMD/S+I0i14oI9
+         NYIss/W0TQgjFGTPWiVXZhVevpJ0kCjOlwrLbTvKtGCupq6p/EUsymH7Ax5hVNtACxRY
+         P9Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790965627; x=1791570427;
+        d=1e100.net; s=20260707; t=1790965619; x=1791570419;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UmwR1WzFCYPEGeSyAT5ZyeChuVuCW43YZnOiA3h4KMw=;
-        b=g5MoLQzb3CnG7E5frvJ6kdPLTVbPxYY5telAudid4Zi17hw2R5E+cLgxvHRKPL6DCk
-         C6fpIpe5fE+ky2gVnpC7uHatDgajpu1TJeIdd71ltju9CTtXbjNKz/SGeBvxkITKjTgW
-         yox8UAcIVNEMMwdYv9PjlUkxvO/dATKf8rGbjMb/lzMLhtPrGnsvj3RErXEnjDQp+2dz
-         GGkysXWv+XrM8wWuasO22PwONlNw7yvyEuDG728uWNMEVfnSwWdhNHCqYv6S77orIO5r
-         MYm2AP9Cj4Fwsm1QTxEYy2rSouXToLpEtp9HnpEhBx9eodfsZs0qwPOpw+/OUdZD0g67
-         iR3w==
-X-Forwarded-Encrypted: i=1; AKwUvByD9haXifC58J7AdPjtFhN/DsWf7NUm/37fH8IvYJkYkQlc0l89ttnEOa1cGG4ZHAkF0t9OpY1lrVAd038=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxAwjaMeMiR1oF2kKemC3p12blRphQ8cLtxAGKwLQb9I6PmzOs
-	+edo+ftwEdyp3b92Is1YV/qhZCwRKtjQu7ayo9gZMEJX+ypYwtcgnNbDLM4d5UN+ir9lJ5wAT2p
-	WrdaZmfWQJQ==
-X-Received: from dlbdt14.prod.google.com ([2002:a05:7022:258e:b0:144:bcd9:aa06])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:5e07:b0:149:f2b3:ef78
- with SMTP id a92af1059eb24-14f5c9d88bdmr3468787c88.32.1790965626860; Fri, 02
- Oct 2026 11:27:06 -0700 (PDT)
-Date: Fri,  2 Oct 2026 11:26:20 -0700
+        bh=I782X3YfSO2xDpm8QNEd+eDsT+SR5pieWlBzHGlk3Ho=;
+        b=gvjYw4scR1wL29Gt1QTJGD8XqWmiyggi1Mk//IV5zfTRtED9Ojr8wlug5ROIFxGNDa
+         0MAzXNKUb+ArvYM+GJ5mw/KC4J6jm5dVsJmSDqD8VQR8r+J69hEhGbwK0RV/eHMKsmoN
+         5gJtwIZHzmmyxah6V/Ibk10/djCiQC0Whfe2TfRQfDAmRBW/2yyf0Bx4KJ8sXdR+Y7A8
+         Sgat1YD9kz912miSPmZJsdhbNCzMAWq9ZeCdkCXbpuliXBnG9MVHoYo6jyrEnp0+rCi8
+         ++tWk+VotcsKQ0e6Zfyzj/afSE5cSKvZCcWHGmeJE0oSg8Rv/zN74S4+FXAoVCxcncam
+         oRNw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+JZgkiMkJllWAP1gOfYfW4e1c/YeiSh78eP1Y07H6Po5Na7malyFZwRvkbTWsfkTgmaT/ppW9DIMYgs8=@vger.kernel.org
+X-Gm-Message-State: AFuF++khK8ksGSOZzEB7Zq2F+FZ1eAcwN7BqZbnAvYLXWIcjc4IWDLGW
+	wDmH62NvcycOYzwzw/ivArDPhobYH9AjdZEKBG3h3yIc/zGp1C+12RWQjrMKqWltR7d1fQmFZyt
+	NoTZW39ZESw==
+X-Received: from dlbox14.prod.google.com ([2002:a05:7022:120e:b0:14e:d2ac:d8e4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3717:b0:144:c128:4c4d
+ with SMTP id a92af1059eb24-14f5cbd42e7mr3759146c88.38.1790965618551; Fri, 02
+ Oct 2026 11:26:58 -0700 (PDT)
+Date: Fri,  2 Oct 2026 11:26:17 -0700
 In-Reply-To: <20261002182624.3259797-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261002182624.3259797-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261002182624.3259797-12-irogers@google.com>
-Subject: [PATCH v1 11/13] perf test: Add a test for perf timechart --tui
+Message-ID: <20261002182624.3259797-9-irogers@google.com>
+Subject: [PATCH v1 08/13] perf treport: Show the profile while it loads
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -75,263 +75,641 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Alice Rogers <alice.mei.rogers@gmail.com>
 
-Test launching ttimechart through perf timechart --tui, the error when
-there are no scheduler events, the --dump output with the -P, -T and -p
-options, and drive the textual app headless exercising the views and
-key bindings.
+Reading a large perf.data file caused a long stall before the treport
+app started. Start the app immediately and build the profile in a
+background thread, showing the report tree and flame graph as they are
+built with the progress in the header. The time between updates grows
+with the load time as updating the views costs more as the profile
+grows. A lock guards the profile shared between the threads. Quitting
+while loading cancels the load.
+
+Tree nodes are now created lazily as they are expanded, expanded nodes
+and the cursor are kept across updates, and events are kept in the order
+they are first seen as their values aren't comparable. Node names are
+escaped so they aren't interpreted as markup.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Alice Rogers <alice.mei.rogers@gmail.com>
 Co-developed-by: Ian Rogers <irogers@google.com>
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- .../tests/shell/test_ttimechart_python.sh     | 237 ++++++++++++++++++
- 1 file changed, 237 insertions(+)
- create mode 100755 tools/perf/tests/shell/test_ttimechart_python.sh
+ tools/perf/python/treport.py | 458 ++++++++++++++++++++++++++---------
+ 1 file changed, 350 insertions(+), 108 deletions(-)
 
-diff --git a/tools/perf/tests/shell/test_ttimechart_python.sh b/tools/perf/tests/shell/test_ttimechart_python.sh
-new file mode 100755
-index 000000000000..87b91ed8fc16
---- /dev/null
-+++ b/tools/perf/tests/shell/test_ttimechart_python.sh
-@@ -0,0 +1,237 @@
-+#!/bin/bash
-+# perf timechart --tui (ttimechart.py) test
-+# SPDX-License-Identifier: GPL-2.0
+diff --git a/tools/perf/python/treport.py b/tools/perf/python/treport.py
+index 0921b428b1aa..e02121475370 100755
+--- a/tools/perf/python/treport.py
++++ b/tools/perf/python/treport.py
+@@ -2,14 +2,17 @@
+ # SPDX-License-Identifier: MIT
+ """treport.py - perf report like tool written using textual."""
+ from abc import ABC, abstractmethod
+-from typing import Dict, Optional
++from typing import Callable, Dict, List, Optional, Set
+ import argparse
+ import os
+ import sys
++import threading
++import time
+ import perf
++from rich.markup import escape
+ from rich.segment import Segment
+ from rich.style import Style
+-from textual import events
++from textual import events, work
+ from textual.app import App, ComposeResult
+ from textual.binding import Binding
+ from textual.color import Color
+@@ -18,9 +21,6 @@ from textual.strip import Strip
+ from textual.widgets import Footer, Header, TabbedContent, TabPane, Tree
+ from textual.widgets.tree import TreeNode
+ 
+-# Global session.
+-session :Optional[perf.session] = None
+-
+ def make_fixed_length_string(s: str, length: int, pad_char=' '):
+     """Make the string s a fixed length.
+ 
+@@ -61,7 +61,7 @@ class ProfileNode:
+         children (Dict[str, ProfileNode]): A dictionary of child nodes, keyed by
+                                            their names.
+     """
+-    def __init__(self, name: str, parent: "ProfileNode"):
++    def __init__(self, name: str, parent: Optional["ProfileNode"]):
+         """Initializes a ProfileNode."""
+         self.name = name
+         self.value: int = 0
+@@ -82,20 +82,13 @@ class ProfileNode:
+             return 1
+         return max(child.depth() for child in self.children.values()) + 1
+ 
+-    def process_event(self, sample) -> None:
++    def process_event(self, sample, comm: str) -> None:
+         """Processes a single profiling event to update the call stack tree.
+ 
+         Args:
+             sample: a single profiling sample.
++            comm: the command name of the sampled thread.
+         """
+-        pid = sample.sample_pid
+-        try:
+-            assert session
+-            thread = session.find_thread(pid, sample.sample_tid)
+-            comm = (thread.comm() if thread else None) or f"unknown ({pid})"
+-        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError):
+-            comm = f"unknown ({pid})"
+-
+         period = sample.sample_period
+         self.value += period
+ 
+@@ -120,47 +113,36 @@ class ProfileNode:
+             node = node.find_or_create_node(name)
+             node.value += period
+ 
+-    def add_to_tree(self, node: TreeNode, root_value: int) -> None:
+-        """Recursively adds this node and its children to a textual TreeNode.
++    def sorted_children(self) -> List["ProfileNode"]:
++        """The children, largest value first.
+ 
+-        Args:
+-            node (TreeNode): The textual `TreeNode` object to which this
+-                             ProfileNode should be added.
+-            root_value (int): Value at the root of the tree.
++        The root's children are events whose values aren't comparable, each is
++        100% of itself, so they are kept in the order they were first seen
++        rather than reordering as they load.
+         """
+-        if root_value == 0:
+-            root_value = self.value
++        if self.parent is self:
++            return list(self.children.values())
++        return sorted(self.children.values(), key=lambda pnode: pnode.value, reverse=True)
+ 
+-        # Calculate the percentage for the node, highlighting the
+-        # percentage with reversed colors.
+-        if root_value != 0:
+-            percent = self.value / root_value * 100
+-            label = f"{self.name} [r]{percent:.3g}%[/]"
+-        else:
+-            label = self.name
+-
+-        # Add a standalone leaf.
+-        if not self.children:
+-            node.add_leaf(label)
+-            return
++    def tree_label(self, root_value: int) -> str:
++        """Label for the node in a Tree, with a percentage of root_value.
+ 
+-        # Recursively add children.
+-        new_node = node.add(label)
+-        for pnode in sorted(self.children.values(),
+-                            key=lambda pnode: pnode.value, reverse=True):
+-            pnode.add_to_tree(new_node, root_value)
++        The percentage is highlighted with reversed colors.
++        """
++        if root_value == 0:
++            return escape(self.name)
++        return f"{escape(self.name)} [r]{self.value / root_value * 100:.3g}%[/]"
+ 
+     def largest_child(self) -> "ProfileNode":
+         """Finds the child with the highest value (sample count)."""
+         if self.children:
+-            return max(self.children.values(), key=lambda node: node.value)
++            return self.sorted_children()[0]
+         return self
+ 
+     def child_after(self, sought: "ProfileNode") -> "ProfileNode":
+         """Finds the next sibling after the given node, sorted by value."""
+         found = False
+-        for child in sorted(self.children.values(), key=lambda node: node.value,
+-                            reverse=True):
++        for child in self.sorted_children():
+             if child == sought:
+                 found = True
+             elif found:
+@@ -170,8 +152,7 @@ class ProfileNode:
+     def child_before(self, sought: "ProfileNode") -> "ProfileNode":
+         """Finds the previous sibling before the given node, sorted by value."""
+         last = None
+-        for child in sorted(self.children.values(), key=lambda node: node.value,
+-                            reverse=True):
++        for child in self.sorted_children():
+             if child == sought:
+                 return last if last else sought
+             last = child
+@@ -226,8 +207,7 @@ class ProfileNode:
+         # left_over is used to check for a gap after the children due
+         # to samples being in the parent.
+         left_over = parent_width
+-        for child in sorted(self.children.values(), key=lambda node: node.value,
+-                            reverse=True):
++        for child in self.sorted_children():
+             if parent_selected:
+                 if self.value:
+                     desired_width = int((parent_width * child.value) / self.value)
+@@ -412,16 +392,22 @@ class FlameGraph(ScrollView):
+     }
+     """
+ 
+-    def __init__(self, root: ProfileNode, *pos_args, **kwargs):
+-        """Initialize the FlameGraph widget."""
++    def __init__(self, root: ProfileNode, lock: threading.Lock, *pos_args, **kwargs):
++        """Initialize the FlameGraph widget.
 +
-+set -e
++        The lock must be held when reading the profile as it may be being built
++        in another thread.
++        """
+         super().__init__(*pos_args, **kwargs)
+         self.root = root
++        self.profile_lock = lock
+         self.cursor = root
+         self.selected = root
+ 
+     def action_move_down(self) -> None:
+         """Handle key press down."""
+-        self.cursor = self.cursor.largest_child()
++        with self.profile_lock:
++            self.cursor = self.cursor.largest_child()
+         self.refresh()
+ 
+     def action_move_up(self) -> None:
+@@ -432,12 +418,14 @@ class FlameGraph(ScrollView):
+ 
+     def action_move_right(self) -> None:
+         """Handle key press right."""
+-        self.cursor = self.cursor.parent.child_after(self.cursor)
++        with self.profile_lock:
++            self.cursor = self.cursor.parent.child_after(self.cursor)
+         self.refresh()
+ 
+     def action_move_left(self) -> None:
+         """Handle key press left."""
+-        self.cursor = self.cursor.parent.child_before(self.cursor)
++        with self.profile_lock:
++            self.cursor = self.cursor.parent.child_before(self.cursor)
+         self.refresh()
+ 
+     def action_zoom_in(self) -> None:
+@@ -454,24 +442,148 @@ class FlameGraph(ScrollView):
+         """Render a single line (row) of the flame graph."""
+         _, scroll_y = self.scroll_offset
+         y += scroll_y
+-        return self.root.make_flame_strip(y, self.size.width, self.cursor,
+-                                          self.selected, self.app.theme_variables)
++        with self.profile_lock:
++            return self.root.make_flame_strip(y, self.size.width, self.cursor,
++                                              self.selected, self.app.theme_variables)
 +
-+shelldir=$(dirname "$0")
-+# shellcheck source=lib/setup_python.sh
-+. "${shelldir}"/lib/setup_python.sh
++    def profile_changed(self) -> None:
++        """Resize and redraw after the profile changed."""
++        with self.profile_lock:
++            self.styles.height = self.root.depth()
++        self.refresh()
+ 
+     def on_mount(self) -> None:
+         """Set the height of the widget when it is displayed."""
+-        self.styles.height = self.root.depth()
++        self.profile_changed()
+ 
+     def on_click(self, click: events.Click) -> None:
+         """Handles a mouse click and update the cursor position."""
+         _, scroll_y = self.scroll_offset
+         y = scroll_y + click.y
+-        clicked_node = self.root.find_node(click.x, y, self.size.width,
+-                                           self.selected)
++        with self.profile_lock:
++            clicked_node = self.root.find_node(click.x, y, self.size.width,
++                                               self.selected)
+         if clicked_node:
+             self.cursor = clicked_node
+             self.refresh()
+ 
+ 
++class ProfileTree(Tree):
++    """A tree view of the profile that can be updated while it is built.
 +
-+if ! perf check feature -q libtraceevent; then
-+	echo "Skipping test, libtraceevent is disabled"
-+	exit 2
-+fi
++    Tree nodes are created lazily when expanded, the data of each tree node is
++    its ProfileNode. The lock must be held when reading the profile.
++    """
 +
-+if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
-+	echo "Skipping test, perf python module not found"
-+	exit 2
-+fi
++    def __init__(self, root: ProfileNode, lock: threading.Lock, *pos_args, **kwargs):
++        super().__init__("Profile", *pos_args, **kwargs)
++        self.profile = root
++        self.profile_lock = lock
++        # Events whose initial expansion has been done.
++        self.seen_events: Set[str] = set()
 +
-+if ! "$PYTHON" -c 'import textual' > /dev/null 2>&1; then
-+	echo "Skipping test, python textual library not found"
-+	exit 2
-+fi
++    def pnode_of(self, tnode: TreeNode) -> ProfileNode:
++        """The ProfileNode shown by tnode, the tree's root shows the profile's root."""
++        return tnode.data if tnode.data is not None else self.profile
 +
-+err=0
-+perfdata=
-+output=
-+clockdata=
++    def event_value(self, pnode: ProfileNode) -> int:
++        """Value of the event containing pnode, percentages are relative to it."""
++        while pnode.parent is not self.profile and pnode.parent is not pnode:
++            pnode = pnode.parent
++        return pnode.value
 +
-+cleanup() {
-+	[ -n "${perfdata}" ] && rm -f "${perfdata}"*
-+	[ -n "${clockdata}" ] && rm -f "${clockdata}"*
-+	rm -f "${output}"
-+	trap - EXIT TERM INT
-+}
++    @staticmethod
++    def expanded_descendants(tnode: TreeNode, expanded: Set[ProfileNode]) -> None:
++        """Add the profile nodes of the expanded descendants of tnode to expanded."""
++        for tchild in tnode.children:
++            if tchild.is_expanded and tchild.data is not None:
++                expanded.add(tchild.data)
++            if tchild.children:
++                ProfileTree.expanded_descendants(tchild, expanded)
 +
-+trap_cleanup() {
-+	echo "Unexpected signal in ${FUNCNAME[1]}"
-+	cleanup
-+	exit 1
-+}
-+trap trap_cleanup EXIT TERM INT
++    def sync_node(self, tnode: TreeNode, expanded: Optional[Set[ProfileNode]] = None) -> None:
++        """Update the children of tnode, and expanded descendants, from the profile.
 +
-+perfdata=$(mktemp /tmp/__perf_ttimechart_test.perf.data.XXXXX)
-+output=$(mktemp /tmp/__perf_ttimechart_test.output.XXXXX)
-+clockdata=$(mktemp /tmp/__perf_ttimechart_test.clock.data.XXXXX)
++        expanded holds the profile nodes of descendants that were expanded
++        before an ancestor's children were recreated. The lock must be held.
++        """
++        children = self.pnode_of(tnode).sorted_children()
++        if expanded is not None or [tchild.data for tchild in tnode.children] != children:
++            # Recreate the children in the new order keeping the expanded
++            # ones, and their expanded descendants.
++            if expanded is None:
++                expanded = set()
++            self.expanded_descendants(tnode, expanded)
++            tnode.remove_children()
++            ancestors: Set[ProfileNode] = set()
++            for pnode in expanded:
++                parent = pnode.parent
++                while parent is not None and parent not in ancestors:
++                    ancestors.add(parent)
++                    parent = parent.parent
++            for child in children:
++                label = child.tree_label(self.event_value(child))
++                new = tnode.add(label, child, allow_expand=bool(child.children))
++                if child in expanded:
++                    new.expand()
++                if child in expanded or child in ancestors:
++                    self.sync_node(new, expanded)
++            return
++        for tchild in tnode.children:
++            child = self.pnode_of(tchild)
++            tchild.set_label(child.tree_label(self.event_value(child)))
++            tchild.allow_expand = bool(child.children)
++            if tchild.is_expanded or tchild.children:
++                self.sync_node(tchild)
 +
-+workload() {
-+	for _ in 1 2 3 4 5; do
-+		sleep 0.01
-+	done
-+}
++    def expand_largest(self, tnode: TreeNode) -> None:
++        """Expand the chain of largest children below tnode.
 +
-+record() {
-+	# perf timechart record is system wide and so may need privileges,
-+	# fall back to recording just the workload's scheduler events.
-+	if perf timechart record -o "${perfdata}" -- \
-+		bash -c "$(declare -f workload); workload" > /dev/null 2>&1; then
-+		return 0
-+	fi
-+	if perf record -R -c 1 -e sched:sched_switch -e sched:sched_wakeup \
-+		-o "${perfdata}" -- bash -c "$(declare -f workload); workload" \
-+		> /dev/null 2>&1; then
-+		return 0
-+	fi
-+	return 1
-+}
++        The lock must be held.
++        """
++        while self.pnode_of(tnode).children:
++            self.sync_node(tnode)
++            tnode = tnode.children[0]
++            tnode.expand()
 +
-+test_plumbing() {
-+	echo "perf timechart --tui plumbing test"
-+	# A missing input file should be reported by the script launched
-+	# through perf script, this doesn't need a terminal.
-+	if perf timechart --tui -i "${perfdata}.missing" > "${output}" 2>&1; then
-+		echo "perf timechart --tui plumbing test [Failed: missing file not an error]"
-+		err=1
-+		return
-+	fi
-+	if ! grep -q "not found" "${output}"; then
-+		echo "perf timechart --tui plumbing test [Failed: script not launched]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	echo "perf timechart --tui plumbing test [Success]"
-+}
++    def find(self, tnode: TreeNode, pnode: ProfileNode) -> Optional[TreeNode]:
++        """Find the visible tree node for pnode."""
++        for tchild in tnode.children:
++            if tchild.data is pnode:
++                return tchild
++            if tchild.is_expanded:
++                found = self.find(tchild, pnode)
++                if found:
++                    return found
++        return None
 +
-+test_no_events() {
-+	echo "ttimechart no events test"
-+	if ! perf record -e task-clock -o "${clockdata}" -- true > /dev/null 2>&1; then
-+		echo "ttimechart no events test [Skipped: perf record failed]"
-+		return
-+	fi
-+	if perf script ttimechart -i "${clockdata}" --dump > "${output}" 2>&1; then
-+		echo "ttimechart no events test [Failed: expected an error]"
-+		err=1
-+		return
-+	fi
-+	if ! grep -q "no scheduler, power or I/O events" "${output}"; then
-+		echo "ttimechart no events test [Failed: unexpected error message]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	# The same should be reported when reading the data from a pipe.
-+	if perf record -e task-clock -o - -- true 2> /dev/null | \
-+		perf script ttimechart -i - --dump > "${output}" 2>&1; then
-+		echo "ttimechart no events test [Failed: expected an error from a pipe]"
-+		err=1
-+		return
-+	fi
-+	if ! grep -q "no scheduler, power or I/O events" "${output}"; then
-+		echo "ttimechart no events test [Failed: unexpected error message from a pipe]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	echo "ttimechart no events test [Success]"
-+}
++    def sync(self) -> None:
++        """Update the tree from the profile keeping the expanded nodes and cursor."""
++        cursor = self.cursor_node.data if self.cursor_node else None
++        with self.profile_lock:
++            self.root.expand()
++            self.sync_node(self.root)
++            for tnode in self.root.children:
++                name = self.pnode_of(tnode).name
++                if name in self.seen_events:
++                    continue
++                self.seen_events.add(name)
++                self.expand_largest(tnode)
++                # If there is only one event, expand it also.
++                if len(self.root.children) == 1:
++                    tnode.expand()
++        if cursor is not None:
++            found = self.find(self.root, cursor)
++            if found:
++                self.move_cursor(found)
 +
-+test_dump() {
-+	echo "ttimechart dump test"
-+	if ! perf script ttimechart -i "${perfdata}" --dump > "${output}" 2>&1; then
-+		echo "ttimechart dump test [Failed: script failed]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	if ! grep -q "^Duration: .*sched events: [1-9]" "${output}" ||
-+	   ! grep -q "^CPU [0-9]*: busy" "${output}" ||
-+	   ! grep -q "^Task .*Running .*Waiting .*Blocked" "${output}" ||
-+	   ! grep -q "sleep" "${output}"; then
-+		echo "ttimechart dump test [Failed: unexpected output]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
++    def on_tree_node_expanded(self, event: Tree.NodeExpanded) -> None:
++        """Create the children of a node when it is expanded."""
++        if event.node is not self.root:
++            with self.profile_lock:
++                self.sync_node(event.node)
 +
-+	# Tasks only shouldn't show CPUs, power only shouldn't show tasks.
-+	perf script ttimechart -i "${perfdata}" --dump -T > "${output}" 2>&1 || true
-+	if grep -q "^CPU [0-9]*: " "${output}" ||
-+	   ! grep -q "^Task .*Running .*Waiting .*Blocked" "${output}"; then
-+		echo "ttimechart dump test [Failed: -T output]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	perf script ttimechart -i "${perfdata}" --dump -P > "${output}" 2>&1 || true
-+	if grep -q "^Task .*Running .*Waiting .*Blocked" "${output}" ||
-+	   ! grep -q "^CPU [0-9]*: " "${output}"; then
-+		echo "ttimechart dump test [Failed: -P output]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
 +
-+	# Filtering on the workload shouldn't show other tasks.
-+	perf script ttimechart -i "${perfdata}" --dump -p sleep > "${output}" 2>&1 || true
-+	if ! grep -q "^sleep " "${output}" || grep -q "^bash " "${output}"; then
-+		echo "ttimechart dump test [Failed: -p output]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	echo "ttimechart dump test [Success]"
-+}
+ class ReportApp(App):
+     """A Textual application to display profiling data."""
+ 
+@@ -481,84 +593,214 @@ class ReportApp(App):
+                 tooltip="Quit the app"),
+     ]
+ 
+-    def __init__(self, root: ProfileNode):
+-        """Initialize the application."""
+-        super().__init__()
+-        self.root = root
++    def __init__(self, input_file: str, root: Optional[ProfileNode] = None):
++        """Initialize the application.
+ 
+-    def make_report_tree(self) -> Tree:
+-        """Make a Tree widget from the profile data."""
+-        tree: Tree[None] = Tree("Profile")
+-        # Add events to tree skipping the root.
+-        for pnode in sorted(self.root.children.values(),
+-                            key=lambda node: node.value, reverse=True):
+-            pnode.add_to_tree(tree.root, root_value=0)
+-
+-        # Expand the root tree (shows all events) and the largest of the children
+-        # for each event.
+-        def expand_first_child(tnode: TreeNode) -> None:
+-            """Recursively expand the first child node"""
+-            if not tnode.children:
+-                return
+-            first = tnode.children[0]
+-            first.expand()
+-            expand_first_child(first)
+-        tree.root.expand()
+-        for tnode in tree.root.children:
+-            expand_first_child(tnode)
+-
+-        # If there is only one event, expand it also.
+-        if len(tree.root.children) == 1:
+-            tree.root.children[0].expand()
+-
+-        return tree
++        If root isn't given the profile is loaded from input_file in the
++        background after the application starts, the views show the profile
++        as it is built.
++        """
++        super().__init__()
++        self.input_file = input_file
++        self.root = root if root else ProfileNode("root", parent=None)
++        self.loaded = root is not None
++        # Held when reading or changing the profile, which is built in a
++        # background thread.
++        self.profile_lock = threading.Lock()
++        # The profile being built in a background thread.
++        self.loading: Optional[ProfileBuilder] = None
+ 
+     def compose(self) -> ComposeResult:
+         """Composes the user interface of the application."""
+         yield Header()
+         with TabbedContent(initial="report"):
+             with TabPane("Report", id="report"):
+-                yield self.make_report_tree()
++                yield ProfileTree(self.root, self.profile_lock)
+             with TabPane("Flame Graph", id="flame"):
+-                yield FlameGraph(self.root)
++                yield FlameGraph(self.root, self.profile_lock)
+         yield Footer()
+ 
++    def on_mount(self) -> None:
++        """Start loading the profile unless it was given."""
++        self.sub_title = self.input_file
++        if self.loaded:
++            self.update_views()
++        else:
++            self.sub_title = f"Loading {self.input_file}"
++            self.loading = ProfileBuilder(self.root, self.profile_lock)
++            self.load_profile()
 +
-+test_headless_ui() {
-+	echo "ttimechart headless UI test"
-+	# Drive the textual app without a terminal, exercising the views and
-+	# key bindings.
-+	if ! "$PYTHON" - "${perfdata}" > "${output}" 2>&1 <<'EOF'
-+import asyncio
-+import sys
-+import ttimechart as tc
++    def update_views(self) -> None:
++        """Show the latest state of the profile."""
++        self.query_one(ProfileTree).sync()
++        self.query_one(FlameGraph).profile_changed()
 +
-+async def run() -> None:
-+    # The app starts before the data is loaded in a background thread.
-+    app = tc.TimechartApp(sys.argv[1], False, False, [])
-+    async with app.run_test(size=(120, 40)) as pilot:
-+        for _ in range(600):
-+            if app.loaded:
-+                break
-+            await pilot.pause(0.1)
-+        if not app.loaded:
-+            raise RuntimeError("Timed out loading data")
-+        await pilot.pause()
-+        tabs = app.query_one(tc.TabbedContent)
-+        for tab in ["cpus", "tasks", "summary"]:
-+            tabs.active = tab
-+            await pilot.pause()
-+            await pilot.press("down", "plus", "plus", "right", "n", "p", "minus",
-+                              "shift+right", "shift+left", "s", "w", "0")
-+            await pilot.pause()
-+        tabs.active = "summary"
-+        await pilot.pause()
-+        await pilot.press("enter")
-+        await pilot.pause()
-+        details = str(app.query_one("#details", tc.Static).render())
-+        if "Cursor" not in details:
-+            raise RuntimeError(f"Unexpected details: {details}")
-+        print("headless UI ok")
++    @work(thread=True, exclusive=True)
++    def load_profile(self) -> None:
++        """Build the profile in a thread so the UI stays responsive."""
++        profile = self.loading
++        assert profile is not None
 +
-+asyncio.run(run())
-+EOF
-+	then
-+		echo "ttimechart headless UI test [Failed: exception]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	if ! grep -q "headless UI ok" "${output}"; then
-+		echo "ttimechart headless UI test [Failed: unexpected output]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	echo "ttimechart headless UI test [Success]"
-+}
++        def progress() -> None:
++            try:
++                self.call_from_thread(self.update_progress, profile)
++            except RuntimeError:
++                # The app is no longer running.
++                profile.cancelled = True
 +
-+test_plumbing
-+test_no_events
++        profile.progress = progress
++        try:
++            profile.read(self.input_file)
++        except LoadCancelled:
++            return
++        except (OSError, ValueError, RuntimeError) as e:
++            self.call_from_thread(self.exit, None, 1,
++                                  f"Error processing {self.input_file}: {e}")
++            return
++        finally:
++            profile.progress = None
++            self.loading = None
++        if not profile.cancelled:
++            self.call_from_thread(self.profile_loaded, profile)
 +
-+if ! record; then
-+	echo "Skipping remaining tests, failed to record scheduler events (permissions?)"
-+	if [ $err -eq 0 ]; then
-+		err=2
-+	fi
-+	cleanup
-+	exit $err
-+fi
++    def update_progress(self, profile: "ProfileBuilder") -> None:
++        """Show how much of the file has been processed and the profile so far."""
++        self.sub_title = (f"Loading {self.input_file}: {profile.nr_samples:,} samples"
++                          f"{profile.duration_str()}")
++        self.update_views()
 +
-+test_dump
-+test_headless_ui
++    def profile_loaded(self, profile: "ProfileBuilder") -> None:
++        """Called on the UI thread when loading completes."""
++        self.loaded = True
++        self.sub_title = (f"{self.input_file}: {profile.nr_samples:,} samples"
++                          f"{profile.duration_str()}")
++        self.update_views()
 +
-+cleanup
-+exit $err
++    def cancel_loading(self) -> None:
++        """Stop a background load, noticed at the next progress interval."""
++        loading = self.loading
++        if loading is not None:
++            loading.cancelled = True
++
++    async def action_quit(self) -> None:
++        """Quit, stopping any background load."""
++        self.cancel_loading()
++        await super().action_quit()
++
++    def on_unmount(self) -> None:
++        """Stop any background load when the app exits."""
++        self.cancel_loading()
++
++
++class LoadCancelled(Exception):
++    """Raised from the sample callback to stop processing events early."""
++
+ 
+ class ProfileBuilder:
+     """Constructs a profile tree from a stream of events."""
+-    def __init__(self):
+-        self.root = ProfileNode("root", parent=None)
++    # Number of samples between checks for cancellation and progress.
++    PROGRESS_INTERVAL = 1000
++    # Minimum and maximum time between calls to the progress callback.
++    PROGRESS_SECONDS = 1.0
++    PROGRESS_MAX_SECONDS = 10.0
++    # Updating the views costs more as the profile grows, so the time between
++    # progress calls grows as this fraction of the time spent loading. This
++    # bounds the fraction of the load time spent updating the views.
++    PROGRESS_FRACTION = 0.25
++
++    def __init__(self, root: Optional[ProfileNode] = None,
++                 lock: Optional[threading.Lock] = None) -> None:
++        """Build into root, holding lock when changing it."""
++        self.root = root if root else ProfileNode("root", parent=None)
++        self.profile_lock = lock if lock else threading.Lock()
++        self.session: Optional[perf.session] = None
++        self.nr_samples = 0
++        self.first_time = 0
++        self.last_time = 0
++        # Set, possibly from another thread, to stop processing events.
++        self.cancelled = False
++        # Called periodically, see PROGRESS_FRACTION, while processing events.
++        self.progress: Optional[Callable[[], None]] = None
++        self.start_progress = time.monotonic()
++        self.last_progress = self.start_progress
++
++    def duration_str(self) -> str:
++        """Description of the time covered by the processed samples."""
++        if not self.last_time:
++            return ""
++        return f", {(self.last_time - self.first_time) / 1e9:.3f}s of trace"
++
++    def comm(self, sample) -> str:
++        """The command name of the thread of the sample."""
++        pid = sample.sample_pid
++        try:
++            assert self.session
++            thread = self.session.find_thread(pid, sample.sample_tid)
++            return (thread.comm() if thread else None) or f"unknown ({pid})"
++        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError,
++                AssertionError):
++            return f"unknown ({pid})"
+ 
+     def process_event(self, sample) -> None:
+         """Called by session.process_events to update the profile tree."""
++        self.nr_samples += 1
++        if self.nr_samples % self.PROGRESS_INTERVAL == 0:
++            if self.cancelled:
++                raise LoadCancelled()
++            now = time.monotonic()
++            interval = min(max(self.PROGRESS_SECONDS,
++                               (now - self.start_progress) * self.PROGRESS_FRACTION),
++                           self.PROGRESS_MAX_SECONDS)
++            if self.progress and now - self.last_progress >= interval:
++                # Must not hold the lock as the callback may read the profile.
++                self.progress()
++                # Time from when the callback, that may block, returns.
++                self.last_progress = time.monotonic()
++        sample_time = sample.sample_time
++        if sample_time:
++            if not self.first_time or sample_time < self.first_time:
++                self.first_time = sample_time
++            self.last_time = max(self.last_time, sample_time)
+         ev_name = str(sample.evsel)[6:-1]
+-        ev_root = self.root.find_or_create_node(ev_name)
+-        ev_root.process_event(sample)
++        comm = self.comm(sample)
++        with self.profile_lock:
++            ev_root = self.root.find_or_create_node(ev_name)
++            ev_root.process_event(sample, comm)
++
++    def read(self, input_file: str) -> None:
++        """Process the events in input_file, raising on errors."""
++        if self.cancelled:
++            raise LoadCancelled()
++        self.start_progress = self.last_progress = time.monotonic()
++        try:
++            self.session = perf.session(perf.data(input_file), sample=self.process_event)
++            self.session.process_events()
++        finally:
++            # Break the reference cycle between the session and the callback.
++            self.session = None
+ 
+-if __name__ == "__main__":
++
++def main() -> None:
++    """Parse arguments and run the app."""
+     parser = argparse.ArgumentParser(
+         description="TUI report and flame graph using perf python module.")
+     parser.add_argument("-i", "--input", help="input perf.data file")
+     args = parser.parse_args()
+ 
+     input_file = args.input or "perf.data"
++    if input_file == "-":
++        # The interactive UI reads the keyboard from stdin.
++        print("Error: reading perf.data from stdin isn't supported.", file=sys.stderr)
++        sys.exit(1)
+     if not os.path.exists(input_file):
+         print(f"Error: {input_file} not found. (try 'perf record' first)", file=sys.stderr)
+         sys.exit(1)
+ 
+-    profile = ProfileBuilder()
+-    try:
+-        session = perf.session(perf.data(input_file), sample=profile.process_event)
+-    except (OSError, ValueError, RuntimeError) as e:
+-        print(f"Error opening session: {e}", file=sys.stderr)
+-        sys.exit(1)
++    # The app starts immediately and builds the profile in the background.
++    app = ReportApp(input_file)
++    app.run()
++    sys.exit(app.return_code or 0)
+ 
+-    # profile.process_event is called for each perf event to build the profile.
+-    try:
+-        session.process_events()
+-    finally:
+-        session = None
+ 
+-    # Visualize data.
+-    app = ReportApp(profile.root)
+-    app.run()
++if __name__ == "__main__":
++    main()
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
