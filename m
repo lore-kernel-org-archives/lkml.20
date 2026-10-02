@@ -1,312 +1,124 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-10696.protonmail.ch (mail-10696.protonmail.ch [79.135.106.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1164C44163B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E032344239B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927214; cv=none; b=UXWVmfnC8XoUKhwdOJ8gX2CCNoxp9gP7NOGSsN1yK+DEHo1HVe8WnekpWl1ytlOlgBKl5vNC3OdddLhLOUqtseBo4S4SfAHNmVvUNhSAF2zjbZ2a5dYQ1rEnDuJ6qjuCq0bPm7Ie1kdh1ewd0eujCY7aErcQtJP8thIAVHzeICo=
+	t=1790927224; cv=none; b=R76jLnKa8gphTIorpZvmBbaqKK6lpKhtPhwX943XqR3R54kIdq4v4nYx6KcBanLCq9nWslE1EB3taclLrPbB7BIhK+o7u9NhQxp0WS1IuQu9XatSMtteFZbr3IF3QaFTLsEcJoHQkR67DGAwttO3vWn1+A8CnvfKqHjUVRg2e0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927214; c=relaxed/simple;
-	bh=Iph8cQPjQlzJvVdwLAMxAEBkHSEKgnnbrMaq0iNc5dc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=beGGLG2qkYiwy064Ea8RhAGl3cv8pCEytv/HzL3/pne9iZuAW8nbo2qj1+Rj1wDzZeJAuQFmgkbm/WTV7TaXXKIU471I6WxTxq0fgz7fFm004Aqfdez25uKFMaqt2RRO/XrHFXl0xTcsxyhzYU/YcO1ODejHwK5OVMTfAtu63cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hm6Z0LbE; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790927224; c=relaxed/simple;
+	bh=qTDa3VZgufpxHWeAIL3ps4sfzg+LvOXD0IBSbeBButA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gsPqGXKBr7xTkgCpZHSCJWTBERpt26L7nZf/gCBcSAWwEzz3kHSaB7njgk6p67C5yoBSyDB+ROMd/FVOzPpuoPL2GANRme2JkaHPzDVUcpeQ3qCIlPRd2yqt4uYZBBtNX0w5xC/CaGN8frxHRZwpCIWvhJHN8zsZ/+QusfTCRjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=SZ/8ti/J; arc=none smtp.client-ip=79.135.106.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hm6Z0LbE"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3428f70d7e7so4202407eec.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790927212; x=1791532012; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pjJGZHeSlYSt0da6L8tYDnIpMtDpUH2iAs8gzn1WvfI=;
-        b=Hm6Z0LbEMQSgcamMhN/vBIDwiCReIU5C9eVZJDOPMkXvYq5u5otrVCKRvFLbgVKSYJ
-         nX63hikum8ie5Q4eHUweRKZAsOzwkgYm4AQvlHM4/CWp3Q7meLD2nYVFbuIeaiCYr7Tf
-         CT9ig8NZH0cFqGxGDH7/w+IvpRT+h5cHb6aSekBTFpVYHLgenQc3PRiwnJh9YWJMdlcx
-         ik3kTbTCj9zusS1x8Mx/xz8kBlR3IwTo1+fOhnltenzJnJV4HzecVxkGFqfLyu/hwKPx
-         AbG5Br0ycitVJi5j9IRz0D4GUBTGb2RJyHViTfFwo5Q1urATiHRoQufxLtHwNXHmQAe9
-         txlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790927212; x=1791532012;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pjJGZHeSlYSt0da6L8tYDnIpMtDpUH2iAs8gzn1WvfI=;
-        b=oUR9buqgKSdhl9OH5l8MgTGhW9qSrQ6pVXhey1kT63QL6A2xjHAhljk8W8VUzduZ+8
-         PocY6HukGyuw+s0TxZRVGLXXdNF/Nsckl4FbI0CDZZMrqaOZQafhUdMOPfUqs/PHUIqF
-         S6aCkTeJkDnA5SxA3n3HX7hir5FMidX4FredcijuiwLyvDlfkZ850cSTItlNCUNi4DxA
-         PfpSQ4An01N/IhxhZkWEceCQ9qwzjIXFd/3WDBFvBoAZIARB1qZ7jsVgV7yzUpHHZLvr
-         pmwBMfo7SjboRHzxYvwcNMTvgZqRv8Nf9s2I3E2ffaoZkIxtD36wd4mJNVSOLKaRt/OY
-         ciFw==
-X-Forwarded-Encrypted: i=1; AKwUvByHtW4GWXgICw6N3CZnqTXo8AcV6PJJU8P12/GwZqiqQ11UDSQiqh/vzye3lMdrzJnwsHDSkfWnm/ubhBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU8f1N0Yr06s6SgSDh0b56cL0IFko3oixDrYBYM13jTOKCh0Hs
-	IN683KEV0A7JI+EYQgpag+TxMmqWUb7EIziDh0N7ogGGFsRAo5qdW/Bz
-X-Gm-Gg: AYBFou3wl0mNf173YkUqRg2EG+lV5Owf1wihsVAb45mOB6/khpmOPy1dme8amla6kVK
-	zVON3YhDq8crNuzMnlDco1ZFJrSoLov3mMpx8mNLkYfZu/oYj1iGhQqRaCKJ1wqqEQ7BWDeJER9
-	1pjBzxXsRceGPM8v9B3DRbin2iPj0l8mo71UJAxUiQ/1tyPpELy6mvIs0nNjoCH7a/JBBCOXv3p
-	iy/ckx5+h2S2eLW+odVKJDptZGfuJBswvGUopz20Ol2A7PggfSJYcBLKwLOigqKyBq8tFNdw//V
-	qLvEhGY6svNpmRKf0iqKyl0iT402F8UCSCFWu4JwBN7mC/Eztcpo+zvThb1T/WdlZxGmzGGhXXr
-	8oCE6/MknNcc7ZnJc9gLvg6RZyig+WuycR6fR39XT5qupXTMXaEc0emhq/XyTZ6OAkHTkoYLtHi
-	GKTg/kBRwe/l2D8sgY+Nkj1fTR622L8mRCTiNVwLM9kF1aPBTYg72Xg1HteW81ou7Sy/er
-X-Received: by 2002:a05:7301:df43:b0:340:7202:d7fc with SMTP id 5a478bee46e88-34f150d9568mr2038092eec.17.1790927211285;
-        Fri, 02 Oct 2026 00:46:51 -0700 (PDT)
-Received: from dbg-srv ([123.118.75.63])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f0672c2d1sm5871618eec.4.2026.10.02.00.46.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 00:46:50 -0700 (PDT)
-From: physicalmtea@gmail.com
-To: stefanha@redhat.com,
-	sgarzare@redhat.com,
-	mst@redhat.com
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] vsock: defer RX readable notifications until batch unlock
-Date: Fri,  2 Oct 2026 07:45:51 +0000
-Message-ID: <20261002074551.318789-6-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="SZ/8ti/J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1790927213; x=1791186413;
+	bh=qTDa3VZgufpxHWeAIL3ps4sfzg+LvOXD0IBSbeBButA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=SZ/8ti/Jf4b/70LHUAQdetm4h1O1euGXY9EVUpheoGFFuQ6An6JJv2QhRjbogbg1y
+	 Po06uyXtE+dsIoFMPD3boe/BRmsSQsdWA4OHbR83wLPUUxJzskedhkuEO5hiD+PizT
+	 8Mq7VMfOgKqkXJNgaUtyQILHpBBGav9B9NpXdYXIIhTu3q7ST+wIllcwk2NMjEBuc8
+	 Gudwft2hRdV9fobAlkrLaddkhmj+EoEjUriC7cx3ZuAlxVJacS7abF4ZvYqgB8c7Jv
+	 /Ol4sALJny40SHR3xoB1nf3BUUC8OmtQ+DEv1xo953IK4oQW7xJQ4MSFKL1itOAu0b
+	 qR8jq772Ek7LA==
+Date: Fri, 02 Oct 2026 07:46:48 +0000
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: linux-mediatek@lists.infradead.org, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stanley Chu <stanley.chu@mediatek.com>, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/3] Convert MediaTek GPT timers to OF probing
+Message-ID: <HCFYDcAPoXmpcQH8fPYz0vXbaTszyO9pT8KAPrqWLyez8RYykEaWAYaB5twS38J-Dn7rMc2BEB-zVHaDn7I4aLyekOzQLCRVIUdaCQiTaxg=@protonmail.com>
+In-Reply-To: <20261002072115.169250-1-l.scorcia@gmail.com>
+References: <20261002072115.169250-1-l.scorcia@gmail.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: c44013cceecdc63de2df44b47e44f3ce4e5109c9
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Jia Jia <physicalmtea@gmail.com>
+Hi,
 
-An RX batch can make a socket readable while the worker still owns its
-socket lock. Waking a reader at that point can make it immediately wait
-for the same lock.
+On Friday, October 2nd, 2026 at 10:21 AM, Luca Leonardo Scorcia <l.scorcia@=
+gmail.com> wrote:
 
-For the callback installed by sock_init_data(), record when the existing
-low-watermark condition is met and issue one notification after the batch
-releases the lock. Save the initial sock_def_readable() callback when the
-AF_VSOCK socket is created. virtio_transport_common can be built as a
-module and cannot refer to that unexported symbol directly.
+> While chasing a kernel freeze on the Lenovo Tab E7 TB-7104F (mt8167), I
+> stumbled on the MediaTek GPT timer driver. This driver is currently early
+> loaded via TIMER_OF_DECLARE. I noticed that on mt8167 (and I guess mt8516
+> too), this driver actually fails to probe because its device tree
+> declaration depends on two HW clocks, CLK_TOP_CLK26M_D2 (13 MHz) and
+> CLK_TOP_APXGPT (bus clock). However the driver providing those clocks is
+> loaded later in the boot process, leading TIMER_OF_DECLARE to fail with
+> -EDEFER.
+>=20
+> Patch #2 converts this driver to OF probe, fixing this initial issue.
+>=20
+> I noticed that other devices avoid this by connecting the timer to
+> fixed clocks instead of referring to an actual clock. This approach
+> may work on mt8167 too, but I think referring to the actual clock is
+> cleaner.
+>=20
+> Once the driver probed successfully I noticed that even if it was enabled
+> by the boot loader, the kernel would quickly turn off its bus clock as
+> the driver wasn't actually requesting it.
+>=20
+> Patch #3 enables it and attaches it to the timer device. I wondered how
+> other platforms made it actually work, and noticed that mt6735 declares i=
+t
+> as a critical clock. This approach might work for mt8167 too, but same
+> reasoning as before applies.
 
-Custom data-ready callbacks retain per-packet notification behavior. If
-the callback changes while a default notification is pending, finish the
-batch before returning to the per-packet path.
+Most mt67xx and their 81xx siblings are feeding arch timer from cpuxgpt tim=
+ers.
+These are usually turned on by the firmware at EL3, so in general you can
+disable both apxgpt and syst in the devicetree (unless 8167 feeds arch time=
+r
+from the gpt6 like 65xx...)
 
-Keep the socket reference until the deferred callback completes. A sockmap
-attachment takes the socket lock, so data queued before the attachment is
-reported through the saved default callback.
+>=20
+> After those fixes the driver probes and works correctly, but I would
+> occasionally notice a crash at boot inside the timer interrupt handler.
+> It turned out to be a side effect of the bootloader enabling the GPT
+> timer at boot: an interrupt may arrive and be handled while the driver is
+> not completely initialized.
+>=20
+> Patch #1 fixes it by requesting the IRQ but keeping it disabled and
+> enabling it after the clock source initialization completes. I sorted thi=
+s
+> patch before the others because it's actually independent of the latter
+> two and may fix (rare) random crashes on other devices.
+>=20
+> Please note that all the changes apply both to GPT timers and the SYST
+> timers, but I have no device to test the SYST ones.
+>=20
+> The series was tested on the Sony PlayStation Classic Mini (mt8167).
+>=20
+> Re: patch #1, credits for issue discovery and suggested fix go to
+> matemiller992 on postmarketOS forums. I am submitting it upstream with
+> permission. Not adding Reported-by or Suggested-by tags because it was
+> requested not to share real name.
+>=20
+> Unfortunately, this series did not fix the tablet randomly freezing durin=
+g
+> boot. Any idea on how to better troubleshoot this is more than welcome!
 
-Control packets, state transitions, transport changes and non-batched
-sockets retain their existing behavior.
+Have you tried to add {clk,regulator,pd}_ignore_unused? If that doesn't hel=
+p,
+try turning off cpufreq. On mt6595 I had to mark CPU regulator as always-on
+(although it should be safe to disable) to avoid system freeze at the boot.
+Otherwise start adding status =3D "disabled" to the devicetree nodes until =
+it
+properly boots.
 
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
- include/linux/virtio_vsock.h            |  1 +
- include/net/af_vsock.h                  |  3 +-
- net/vmw_vsock/af_vsock.c                |  1 +
- net/vmw_vsock/virtio_transport_common.c | 53 ++++++++++++++++++++++++++-----
- 4 files changed, 49 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-index f67fa99ec..d69c09d5c 100644
---- a/include/linux/virtio_vsock.h
-+++ b/include/linux/virtio_vsock.h
-@@ -289,6 +289,7 @@ struct virtio_transport_rx_batch {
- 	struct sockaddr_vm src;
- 	struct sockaddr_vm dst;
- 	bool write_space_pending;
-+	bool data_ready_pending;
- };
- 
- void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
-diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-index 9d8ae6220..a799f0855 100644
---- a/include/net/af_vsock.h
-+++ b/include/net/af_vsock.h
-@@ -63,7 +63,8 @@ struct vsock_sock {
- 	u32 peer_shutdown;
- 	bool sent_request;
- 	bool ignore_connecting_rst;
--	/* Initial callback, used to identify replacements. */
-+	/* Initial callbacks, used to identify replacements. */
-+	void (*default_data_ready)(struct sock *sk);
- 	void (*default_write_space)(struct sock *sk);
- 
- 	/* Protected by lock_sock(sk) */
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index e5290a3bb..1a25b5393 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -958,6 +958,7 @@ static struct sock *__vsock_create(struct net *net,
- 		sk->sk_type = type;
- 
- 	vsk = vsock_sk(sk);
-+	vsk->default_data_ready = sk->sk_data_ready;
- 	vsk->default_write_space = sk->sk_write_space;
- 	vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
- 	vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 78c4e2f9e..e337a7aaf 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1583,7 +1583,8 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
- 
- static int
- virtio_transport_recv_connected(struct sock *sk,
--				struct sk_buff *skb)
-+				struct sk_buff *skb,
-+				bool *data_ready_pending)
- {
- 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
- 	struct vsock_sock *vsk = vsock_sk(sk);
-@@ -1602,7 +1603,14 @@ virtio_transport_recv_connected(struct sock *sk,
- 			vsock_remove_sock(vsk);
- 			break;
- 		}
--		vsock_data_ready(sk);
-+		if (!data_ready_pending ||
-+		    READ_ONCE(sk->sk_data_ready) != vsk->default_data_ready) {
-+			vsock_data_ready(sk);
-+		} else if (!*data_ready_pending &&
-+			   (vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
-+			    sock_flag(sk, SOCK_DONE))) {
-+			*data_ready_pending = true;
-+		}
- 		return err;
- 	case VIRTIO_VSOCK_OP_CREDIT_REQUEST:
- 		virtio_transport_send_credit_update(vsk);
-@@ -1836,6 +1844,7 @@ struct virtio_transport_rx_pkt_ctx {
- 	const struct sockaddr_vm *dst;
- 	bool *batchable;
- 	struct virtio_transport_rx_batch *batch;
-+	bool defer_data_ready;
- };
- 
- static bool
-@@ -1852,9 +1861,11 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
- }
- 
- /*
-- * The caller holds sk's socket lock.  Set @batchable if the socket can remain
-- * locked for another ordinary STREAM/RW packet.  Return true if the caller
-- * must free @skb.
-+ * The caller holds sk's socket lock. The packet context optionally records
-+ * callbacks to deliver when the batch finishes. If defer_data_ready is true,
-+ * defer the default data-ready callback in the batch. Set batchable if the
-+ * socket can remain locked for another ordinary STREAM/RW packet. Return
-+ * true if the caller must free skb.
-  */
- static bool
- virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-@@ -1902,7 +1913,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
- 		kfree_skb(skb);
- 		break;
- 	case TCP_ESTABLISHED:
--		virtio_transport_recv_connected(sk, skb);
-+		virtio_transport_recv_connected(sk, skb,
-+						ctx->defer_data_ready && ctx->batch ?
-+						&ctx->batch->data_ready_pending : NULL);
- 		break;
- 	case TCP_CLOSING:
- 		virtio_transport_recv_disconnecting(sk, skb);
-@@ -1971,10 +1984,12 @@ void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
- {
- 	struct sock *sk = batch->sk;
- 	bool write_space_pending = batch->write_space_pending;
-+	bool data_ready_pending = batch->data_ready_pending;
- 
- 	batch->sk = NULL;
- 	batch->net = NULL;
- 	batch->write_space_pending = false;
-+	batch->data_ready_pending = false;
- 
- 	if (!sk)
- 		return;
-@@ -1983,6 +1998,16 @@ void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
- 	if (write_space_pending)
- 		vsock_sk(sk)->default_write_space(sk);
-+
- 	release_sock(sk);
-+
-+	/*
-+	 * This event covers data queued while the default callback was installed.
-+	 * A sockmap attachment takes the socket lock, so it is ordered after that
-+	 * enqueue even if it replaces the callback before this call.
-+	 */
-+	if (data_ready_pending)
-+		vsock_sk(sk)->default_data_ready(sk);
-+
- 	sock_put(sk);
- }
- EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
-@@ -1995,7 +2017,7 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 	struct sockaddr_vm src, dst;
- 	struct sock *sk;
- 	struct virtio_transport_rx_pkt_ctx ctx;
--	bool batchable, start_batch;
-+	bool batchable, defer_data_ready, start_batch;
- 	bool free_pkt;
- 
- 	/* Only STREAM/RW packets can share a socket lock. */
-@@ -2015,6 +2037,13 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 		    vsock_addr_equals_addr(&batch->dst, &dst) &&
- 		    virtio_transport_recv_pkt_batchable(t, batch->sk)) {
- 			sk = batch->sk;
-+			defer_data_ready = READ_ONCE(sk->sk_data_ready) ==
-+					   vsock_sk(sk)->default_data_ready;
-+			if (batch->data_ready_pending && !defer_data_ready) {
-+				virtio_transport_rx_batch_finish(batch);
-+				goto lookup;
-+			}
-+
- 			if (!skb_set_owner_sk_safe(skb, sk)) {
- 				WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
- 				virtio_transport_rx_batch_finish(batch);
-@@ -2028,6 +2057,7 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 				.dst = &dst,
- 				.batchable = &batchable,
- 				.batch = batch,
-+				.defer_data_ready = defer_data_ready,
- 			};
- 			free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
- 			if (!batchable)
-@@ -2040,6 +2070,7 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 		virtio_transport_rx_batch_finish(batch);
- 	}
- 
-+lookup:
- 	sk = virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net);
- 	if (!sk) {
- 		(void)virtio_transport_reset_no_sock(t, skb, net);
-@@ -2060,6 +2091,8 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 	 */
- 	read_lock_bh(&sk->sk_callback_lock);
- 	start_batch = virtio_transport_recv_pkt_batchable(t, sk);
-+	defer_data_ready = start_batch &&
-+		READ_ONCE(sk->sk_data_ready) == vsock_sk(sk)->default_data_ready;
- 	read_unlock_bh(&sk->sk_callback_lock);
- 
- 	if (start_batch)
-@@ -2070,10 +2103,11 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 		.dst = &dst,
- 		.batchable = start_batch ? &batchable : NULL,
- 		.batch = start_batch ? batch : NULL,
-+		.defer_data_ready = defer_data_ready,
- 	};
- 	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
- 	if (start_batch && batchable) {
--		/* Keep the lookup reference until the batch is released. */
-+		/* Keep the lookup reference until the batch finishes. */
- 		batch->net = net;
- 		batch->src = src;
- 		batch->dst = dst;
--- 
-2.53.0
+Best regards,
+Roman
