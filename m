@@ -1,230 +1,161 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAC42AEEB;
-	Fri,  2 Oct 2026 00:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B9A2AEEB;
+	Fri,  2 Oct 2026 00:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790901748; cv=none; b=PNJrXA4PmiNTPIzkKzoIxClVG0I3WvvQ3WZxNnwsoSehtu86yvyuVZ930l403QemM9g+v72sUWYvQVEaNa7ZDkBVtye0RwtG8VJGlgCf5LFaqne8ZhGEuNReYQMEd1SIlQtvHGrkMi79wmvL11jOzVOPo0Rji1EF+Q8AuLUU/MA=
+	t=1790901775; cv=none; b=UXuoHp+5TNDoAka4VpGMXx96G427jZWStUGGsLkolhBSRo6ZBBhS5ejydjX71DSKP5rzBFuQpmH/IV5/RGVUaLc9YVTolyPxvvLEWiRKEMITVUjQNGhvGIA4vHpsCD1/EdnnbnY9yoFF7tN7UqBA9FXzkpcHjY8r/sZVDOpd1Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790901748; c=relaxed/simple;
-	bh=gBw7E2BgY1FfiPSs4mMueqTdgnv2lStU8g3f6KJkzfA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mcb+2fiz7sjasinmujoFluerCWptqpoDHJKQRMBBtDxPjjCHINmvxPwpMo0B73dzrfx3J/Z6vy3G1W6ogcvRKdJ+6T+qL0c4yEYRAoDpl9TK+qU+PpiCOBltLCDV+BdryPMtWiM161XQcXAQz00ouTca8cvuHlxCOMItzxXXSGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SL55T05a; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790901775; c=relaxed/simple;
+	bh=YbMsRWXldzYM02I8oqDcFQLZD9fdt2zozI94YuxxZaM=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=twSFWcjvCuSEaQxF0aYCmNWLc10OMu/tuFvE7dl2P9szRVonzBv2TbCuuROxrqxB9rnq/gdGckWbOGlz+giakxemQbledAAwczStFdsGszjsXdNk2Kz8jmA6g2S7GHE4HJ9jqTXN4D84RlH1s9ja/4w5wa3Mwpyqra8wxuCCdns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGFgb3H5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SL55T05a"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2EC9A929;
-	Fri,  2 Oct 2026 02:40:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790901631;
-	bh=gBw7E2BgY1FfiPSs4mMueqTdgnv2lStU8g3f6KJkzfA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SL55T05aIHoBeS8oeyWousjnIRN2XTY2XMjaLjL2mxCmQj3L0rPTPnXBxffTa6Nsy
-	 z1DjtTLwIBhNPZPCzX/OUF3XZCoM7+K4qTjQZFjWAjX0ry1AIv/+yXxh+PMXvuzWBq
-	 AiKbciLpqhlYOjn7Fl4USsDAlf2HPAr+XuP1W09g=
-Date: Fri, 2 Oct 2026 03:42:22 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
-Message-ID: <20261002004222.GA33700@killaraus.ideasonboard.com>
-References: <20260928122450.GA166131@killaraus.ideasonboard.com>
- <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
- <20260928124109.GF157191@killaraus.ideasonboard.com>
- <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
- <20260928184429.GE210522@killaraus.ideasonboard.com>
- <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
- <20260928194459.GH210522@killaraus.ideasonboard.com>
- <CANiDSCs4WOB7jpyXHEAjGOGYf4_69OmUW3LdpB_cxQDmfHr-_Q@mail.gmail.com>
- <20260928195500.GI210522@killaraus.ideasonboard.com>
- <CANiDSCvfuz0Kr-Ud4N13pSrdkdjUGtWuHkpYC+o7G39qvnkfHQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGFgb3H5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A421F000FF;
+	Fri,  2 Oct 2026 00:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790901773;
+	bh=QOzCHuJrRGWSsLn75AFrdWKS3cZSukBLofvP0LWEsAY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=TGFgb3H5wYmgmq41GuV01uqNSUMtaynGOOn+///d+VidJWAJF8sGnebLdTAnVRNAw
+	 /ROvXN+E089U5W+rXa6rGyKJ5K0vNaJkbtU6Qdu/cTCUHZLTprF91lQGeJcyG2OIn7
+	 KbYSpRLt3j44BXXMjqKk7h7sMklILHhtQgDZkGToVfgyuVAV9sJWE3n+bQriTpDXHz
+	 oFNpWjnj0R4hXuKOmegzdwfT0Vxl6RQNGw75L2FkvuWiRxfmTPs4bVUxfBWX0gF4FC
+	 EkRoo5q32qvu1JM53ouFmfHO1OkLz8eq9zamULip60DHLEoqOxZlWPkTfHuMZX7LBT
+	 sDHRD0znSswJg==
+Content-Type: multipart/mixed; boundary="===============4958834672342477088=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CANiDSCvfuz0Kr-Ud4N13pSrdkdjUGtWuHkpYC+o7G39qvnkfHQ@mail.gmail.com>
+Message-Id: <462c21076d261e56293cab2b423d4ed56cb36dda5c1a47c76182df07c290af70@mail.kernel.org>
+In-Reply-To: <20261001152042.124445-8-gmonaco@redhat.com>
+References: <20261001152042.124445-8-gmonaco@redhat.com>
+Subject: Re: [PATCH v2 07/15] tools/rv: Implement BPF monitor discovery and listing
+From: bot+bpf-ci@kernel.org
+To: gmonaco@redhat.com,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,rostedt@goodmis.org,gmonaco@redhat.com
+Cc: alexei.starovoitov@gmail.com,namcao@linutronix.de,wen.yang@linux.dev,tobias.schaffner@siemens.com,vmalik@redhat.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  2 Oct 2026 00:42:53 +0000 (UTC)
 
-Hi Ricardo,
+--===============4958834672342477088==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 10:48:05PM +0200, Ricardo Ribalda wrote:
-> On Mon, 28 Sept 2026 at 21:55, Laurent Pinchart wrote:
-> > On Mon, Sep 28, 2026 at 09:49:05PM +0200, Ricardo Ribalda wrote:
-> > > On Mon, 28 Sept 2026 at 21:45, Laurent Pinchart wrote:
-> > > > On Mon, Sep 28, 2026 at 09:03:41PM +0200, Ricardo Ribalda wrote:
-> > > > > On Mon, 28 Sept 2026 at 20:44, Laurent Pinchart wrote:
-> > > > > > On Mon, Sep 28, 2026 at 04:03:15PM +0200, Ricardo Ribalda wrote:
-> > > > > > > On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart wrote:
-> > > > > > > > On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
-> > > > > > > > > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart wrote:
-> > > > > > > > > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
-> > > > > > > > > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
-> > > > > > > > > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
-> > > > > > > > > > > > > uvc_parse_control() passes descriptor by descriptor to
-> > > > > > > > > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
-> > > > > > > > > > > > > buffer, not the number of bytes of that descriptor.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Because of this, malformed descriptors could leak over the next
-> > > > > > > > > > > > > descriptor, leaving malformed data in our structures.
-> > > > > > > > > > > >
-> > > > > > > > > > > > What issue does this fix in practice ?
-> > > > > > > > > > >
-> > > > > > > > > > > Look into uvc_parse_standard_control().
-> > > > > > > > > > > Let's take the UVC_VC_HEADER
-> > > > > > > > > > >
-> > > > > > > > > > > Imagine we have a malformed control at the beginning of the descriptor that has:
-> > > > > > > > > > >
-> > > > > > > > > > > buffer[0] = 3
-> > > > > > > > > > > buffer[2] = UVC_VC_HEADER
-> > > > > > > > > > > buffer[3] => Beggining of next control
-> > > > > > > > > > >
-> > > > > > > > > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
-> > > > > > > > > > >
-> > > > > > > > > > > What does it fix in practice? It avoids that data outside the controls
-> > > > > > > > > > > is parsed as part of the control.
-> > > > > > > > > >
-> > > > > > > > > > I understand that, but what does it fix in practice ? And have you
-> > > > > > > > > > encountered a device that exhibits such a problem ?
-> > > > > > > > >
-> > > > > > > > > I have not encountered such devices, but even if they do not exist
-> > > > > > > > > they are easy to emulate and use for escalation.
-> > > > > > > >
-> > > > > > > > That's what I'd like to understand, can this be used for any kind of
-> > > > > > > > escalation ?
-> > > > > > >
-> > > > > > > It is very difficult (impossible?) to prove that something is not
-> > > > > > > exploitable, especially as the code evolves.
-> > > > > >
-> > > > > > Regardless of whether or not all the bytes parsed by the
-> > > > > > uvc_parse_vendor_control() and uvc_parse_vendor_control() functions are
-> > > > > > part of the control descriptor or are split across multiple descriptors,
-> > > > > > they all come from the USB descriptors buffer and are all ultimately
-> > > > > > under device control.
-> > > > > >
-> > > > > > As far as I can tell, all this patch does it add a check on buffer[0]
-> > > > > > but has no impact on anything else. If a device can supply USB
-> > > > > > descriptors data with an invalid buffer[0] that currently causes any
-> > > > > > type of issue in the driver, the same device could supply the exact same
-> > > > > > USB descriptors with buffer[0] set to a value that will be accepted and
-> > > > > > still cause the same issue. Am I missing something ?
-> > > > > >
-> > > > > > > We could spend hours trying to craft a payload, plus extra time in
-> > > > > > > future reviews whenever uvc_parse_vendor_control() changes. It is much
-> > > > > > > safer to just enforce the correct bounds now.
-> > > > > >
-> > > > > > So is your concern only about introducing issues in the future without
-> > > > > > noticing ?
-> > > > >
-> > > > > My main concerns are that the function's API looks wrong and yes, it
-> > > > > could introduce bugs in the future.
-> > > >
-> > > > I agree there's a quite small risk of introducing future bugs. This is
-> > > > what I wanted to know, if there was an actual issue today (as in
-> > > > exploitable bugs), or if it was only a forward-looking change.
-> > > >
-> > > > > we basically have:
-> > > > > parse_field(void *data, size_t total_length)
-> > > > >
-> > > > > instead of:
-> > > > > parse_field(void *data, size_t field_length)
-> > > > >
-> > > > > btw: in parse_field we are ignoring the field_legth in most of the cases.
-> > > > >
-> > > > > I am happy to drop the cc and fixes tags if you want to consider this
-> > > > > just a boring cleanup
-> > > >
-> > > > As it stands, I think the risk of introducing regressions is likely
-> > > > smaller. bLength can't be completely off or the USB core would fail
-> > > > parsing descriptors. It could be smaller than needed while still
-> > > > pointing to the next descriptors, with the control parsing then using
-> > > > the first few bytes of the next descriptor, but the chance that would
-> > > > result in values that don't cause observable weird effects are slim.
-> > > >
-> > > > So I think we can merge this change. I'd drop the backport as we're not
-> > > > fixing any existing issue. And maybe avoid "Fix" in the subject, to
-> > > > avoid autosel being triggered ?
-> > >
-> > > sgtm. Do you need a v2 or can you modify it locally when merging?
-> >
-> > Can you tell me what you'd like as an updated subject line (and include
-> > commit message updates if you think that's relevant) ? I'll then use
-> > that and apply the patch.
-> 
-> How does
-> 
-> media: uvcvideo: Bound uvc_parse_*_control to the control size
-> 
-> sound to you?
-> 
-> In any case you are usually better than me at writing commit messages,
-> so feel free to change it to anything that makes you happy :P
+> tools/rv: Implement BPF monitor discovery and listing
 
-I'll go with your subject line :-)
+TL;DR:
+- "make static" may now fail to link libbpf (missing -lelf/-lz) now that BPF
+  is on by default
+- Changelog lists fewer search paths than the code scans, including a cwd
+  fallback
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>     tools/rv: Implement BPF monitor discovery and listing
+>
+>     Implement the BPF monitor listing functionality that scans for compiled
+>     BPF monitor object files and displays them in the monitor list.
+>
+>     If enabled, running rv list shows in-kernel and BPF monitors found in
+>     /usr/share/rv/bpf_monitors/ or in ./bpf_monitors/ relative to the RV
+>     binary's location (used during development).
+>
+>     Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 
-> > > > > > > As you said, the risk to break current hardware is low. If it happens
-> > > > > > > tis change is small enough to make it easy to revert.
-> > > > > > >
-> > > > > > > > > We add minimal code and solve a family of bugs. Do you think that it
-> > > > > > > > > is a better pattern that uvc_parse_vendor_control() and
-> > > > > > > > > uvc_parse_vendor_control() have visibility beyond the control that
-> > > > > > > > > they are parsing?
-> > > > > > > >
-> > > > > > > > I'm concerned that some devices may stop working. The risk is likely
-> > > > > > > > small though, but I'd like to understand what we get from this patch to
-> > > > > > > > see if it's worth the risk.
-> > > > > > > >
-> > > > > > > > > > > > > Change the code so we pass the actual length of the descriptor to the
-> > > > > > > > > > > > > parser.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Note that this makes the existing check more strict and some devices
-> > > > > > > > > > > > > that are wrongly parsed today will not be probed now.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Cc: stable@vger.kernel.org
-> > > > > > > > > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> > > > > > > > > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > > > > > > > > > > > > ---
-> > > > > > > > > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
-> > > > > > > > > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > > > > > index e289cc71ba98..429f1ab19a2a 100644
-> > > > > > > > > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
-> > > > > > > > > > > > >        */
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >       while (buflen > 2) {
-> > > > > > > > > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
-> > > > > > > > > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
-> > > > > > > > > > > > > +                     return -EINVAL;
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
-> > > > > > > > > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
-> > > > > > > > > > > > >                       goto next_descriptor;
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
-> > > > > > > > > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
-> > > > > > > > > > > > >               if (ret < 0)
-> > > > > > > > > > > > >                       return ret;
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > ---
-> > > > > > > > > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> > > > > > > > > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+The commit message names /usr/share/rv/bpf_monitors/ and ./bpf_monitors/
+relative to the rv binary.  Is that the complete search list?
 
--- 
-Regards,
+bpf_list_monitors() scans every entry of bpf_base_paths[] with /bpf_monitors
+appended:
 
-Laurent Pinchart
+static char bpf_base_paths[][MAX_PATH] = {
+	".",
+	"/etc/rv",
+	"/usr/local/share/rv",
+	"/usr/share/rv",
+	"", /* Marker */
+};
+
+so /etc/rv/bpf_monitors and /usr/local/share/rv/bpf_monitors are searched
+as well.
+
+Entry 0 is replaced with the binary's directory only when
+readlink("/proc/self/exe") succeeds in bpf_fill_base_paths().  Otherwise it
+stays ".", and the current working directory's bpf_monitors is scanned
+instead.
+
+All of the directories are scanned, not one or the other, so a monitor
+present in more than one of them is listed more than once.
+
+Should the changelog describe the actual search list and the working
+directory fallback, or should the list be trimmed to what is documented?
+Is /etc/rv an appropriate place to look for BPF object files?
+
+> diff --git a/tools/verification/rv/Makefile.config b/tools/verification/rv/Makefile.config
+> index 066302230eb2..0600170ac217 100644
+> --- a/tools/verification/rv/Makefile.config
+> +++ b/tools/verification/rv/Makefile.config
+
+[ ... ]
+
+> @@ -43,6 +43,29 @@ else
+>    $(info libtracefs is missing. Please install libtracefs-dev/libtracefs-devel)
+>  endif
+>  
+> +ifndef BUILD_BPF
+> +  # BPF monitors are optional but enabled by default
+> +  BUILD_BPF := 1
+> +endif
+> +
+> +ifeq ($(BUILD_BPF),0)
+> +  $(info BPF monitor support disabled, building without BPF monitor support.)
+> +endif
+> +
+> +$(call feature_check,libbpf)
+> +ifeq ($(feature-libbpf), 1)
+> +  $(call detected,CONFIG_LIBBPF)
+> +else
+> +  $(info libbpf is missing, building without BPF monitor support.)
+> +  $(info Please install libbpf-dev/libbpf-devel)
+> +  BUILD_BPF := 0
+> +endif
+> +
+> +ifeq ($(BUILD_BPF),1)
+> +  CFLAGS += -DHAVE_LIBBPF
+> +  $(call lib_setup,bpf)
+> +endif
+> +
+
+Can this break "make static" on systems where it worked before this patch?
+
+BPF support is now on by default whenever the libbpf feature test passes,
+and lib_setup only adds the output of pkg-config --libs-only-l libbpf, which
+is just -lbpf.  libbpf.pc declares:
+
+Requires.private: libelf zlib
+
+and pkg-config only reports those with --static.  The existing static target
+in tools/verification/rv/Makefile links with -static and $(EXTLIBS):
+
+static: $(RV_IN)
+	$(eval LDFLAGS += -static)
+	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $(RV)-static $(RV_IN) $(EXTLIBS)
+
+Would that link libbpf.a without -lelf and -lz and fail with unresolved
+libelf and zlib symbols, so that users now need BUILD_BPF=0 to get a static
+build?
+
+Could pkg-config be called with --static for the static target, the private
+dependencies be added, or BPF support be disabled for static builds?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36944413541
+--===============4958834672342477088==--
