@@ -1,147 +1,117 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBE3418A2D;
-	Fri,  2 Oct 2026 08:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD4346A61E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931380; cv=none; b=nCXqztj5XSOgE5UDGDfBWqA5rsdP9aLSnW53HiIn7lSEQpNGipJmX9KA0d4Z1XKw0nS6r2vsLllw9+OLjN7n6zj6G9NJ5MzwGQRSysq881can67iozRgL9OIGD89sNHDKX8lr5G1t8CQYRtQyruJ6Dpds2tSu+rlzEMIdiVJvRY=
+	t=1790931421; cv=none; b=EMLJzYdeNcN2pnBUlLwmgZHInjjBlZS0F11IZVUYPRv93u+OTnmQsc3IuA1vzmgtrSy3ACPTGyPFpMDUaTwX/5SOKC7nb5+pQzmdWjItcyNambrmek5kal5F76BvfkZqCOQ9jrJMLuTenEhiNQV8MYdiK9zNcj7qOWpyEBaLxNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931380; c=relaxed/simple;
-	bh=5fH3iwFmjKTR4dD+k5aX/cl1wka55yWtQa+NwctyYkU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=as6it+ZfGcv5nzL1C1LekQIEinYAQIOpWnYjbTP1AWx9CN41clAJG23pJ9+0V4kEKKE77wW4rPm3jJQF2hHABrGG3kF9Wld0zNjLc4Ex2RCYm6pX0RC5iHx5wTXfMpi9J2xGuxYf02pIPYrKQ8l4UULZW4g/4bY3NkQzEZGB5ME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Fdog09s/; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1790931421; c=relaxed/simple;
+	bh=AKpAwGrAWkWPODtfuK12U4uxiMLieKQlbgES8jMWlzY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=otFD852aMfeezS3zvZ4+EUgmHeQ4MBM6WveKy8ltAWYPPxQHOh4JW+3m/qzQyTe1H/SYe01HTGibfKMUOualRxsq20diFlew9TyJd8FlfwPbE2AHUmwbCg3LgHz7BVDa6KpaWzjYi2KDYu9LxsdP5hEVdXZTAZCjCR/qbyh2mz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cpSTW15w; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Fdog09s/"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925m4B91818453;
-	Fri, 2 Oct 2026 04:56:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=vGEAg+FMsTMOiHSqsHGFpGXF1Fy
-	W801R5QJ876ogRPc=; b=Fdog09s/Zb7iwrdw2QXM6p2YsScR8paUpvmA55Ztx0B
-	ObuKsfTeWvfCNYhhKu1SsTZYFbYHqs8Ltwhj9smAPmyfcbIU16NmMydGVePcofcX
-	zCnb4qdsm1b+BoPu0u4aQ4t7CPTXWNka8QTA0a2e91qyLMQLJv7ySOAck8/TonVr
-	SkUwoqhMD2omxYv9Z48wurNYzP4dudHAh1TbCyLwOjNHVoZZmIR69M2g+WgP5RUl
-	xBtfzOdA2efas3UxWkEgLunk8u8p6WAr2ER1gljUx1nLF00CVcXQeC1y3tBhwama
-	17uzh76R4BUFN99G6EVSW41PT/MqXfOOe+EiT85K9gg==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4h1hy989xv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 04:56:02 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6928u1S9033085
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 2 Oct 2026 04:56:01 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 2 Oct
- 2026 04:56:01 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 2 Oct 2026 04:56:00 -0400
-Received: from CJONES7-T01.ad.analog.com ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6928tmvN002158;
-	Fri, 2 Oct 2026 04:55:51 -0400
-From: Carlos Jones <carlosjr.jones@analog.com>
-To: Mark Brown <broonie@kernel.org>
-CC: Laxman Dewangan <ldewangan@nvidia.com>,
-        Thierry Reding
-	<thierry.reding@kernel.org>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Sowjanya
- Komatineni <skomatineni@nvidia.com>,
-        <linux-spi@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Carlos Jones
- Jr <carlosjr.jones@analog.com>
-Subject: [PATCH] spi: tegra114: assert CS GPIO for every transfer in a message
-Date: Fri, 2 Oct 2026 16:55:40 +0800
-Message-ID: <20261002085540.1625-1-carlosjr.jones@analog.com>
-X-Mailer: git-send-email 2.51.0.windows.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cpSTW15w"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-883a16b758dso1187618b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:57:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790931420; x=1791536220; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpvwnxAk9svVbGHuD977nmsMKCoPbElte6mylNvKXkA=;
+        b=cpSTW15wkqe1gxhkUDXYsc/8sDgK5EL2/zSlxKAx+691YPeYF6/YhH+9ZggmKWPKaV
+         92WUYKm1IWIQeFk+j2d8p42/HRgJJ1Imv/qi0X1gnyZ6EEgSDjLI/LxG6GFNlucTmzJk
+         z80myiv7fLn6nhsDJ4pDSxu2P0bHOOwNGUHZHqbf9PMPU6fOevM3LGeMfnB60/64x1EU
+         MIdVGQ7qlZGuLQtvuGnqWeQz3iav7ChrguC0YG2euIqnuBaoX6vQMOMoVz6Ebnl0PDhh
+         ELTQeVidueHUoJkNbuJjxvoEoCrcO05D744vNGCG22DR7Py47YeoFBLEj3959UQ0FZLk
+         N91Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790931420; x=1791536220;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cpvwnxAk9svVbGHuD977nmsMKCoPbElte6mylNvKXkA=;
+        b=P8vO92IY7QS1lJIZEglWji5Bnc57KEPwpULtZv+wIL75Te04J9zzwa4Gv0n0Ay/3Wt
+         sT5mC3OFpyb5Us60ykiltnNsb//qkt7HPuAT8YL6jVA2QePo9lf7b8VkyI8VCsF5UV/1
+         mRPDnPW3AJmm6j+t2mt9SzCuxAvraAtI8wVXjXVhy5Y4XRrRD6li6rLdSo7OIEqRBKPx
+         ccmLRzJdLtmjMsTCFTprvKNMqBEFyLUpcx7SfC3csXiGNIoesvyvuKdpJAfEvoYZ72pO
+         r43I96Gx0egW2bZfaGJELYm52c8As0GHDIsMNdqcb7ggiIbaWvFWABfSqj3C5Xbg0HTR
+         7pEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvNNLr98uVFGUCTZRXtOyD2L9NWsDYYyjAMo+8x9CCbWfUM74ELq4/9CFSnFti6aZLL82s736/XvLIvyU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWXcXwwyja3AH88A3LMymc8k6m+Rugtkosywb6aghj6Jm5XV5F
+	efPTZPsuMXXE4q6JL5UJ0GWjdGKjjhh0rxlXNSKUONMrpzrX3GdVYVjm
+X-Gm-Gg: AYBFou1siTMbdKhCmLB3+C38ElG1j2TTW99IQqPWjmz6K4MpM0HoWG3GpB1jNqhTGe1
+	hS3oa5zUo6YdXedqNQAeOnhgwLkVBLJbkgNtJNjij93Cssuo7Qq04qT0D56EpbY+gO9+hmFGsyw
+	gpmrRd6K04sB4PovnHSRqsnF9akOOFSuZA8WrFjPFOt3ByEdJAHn6BatJQ2/wH6Kvr90UehlA2/
+	uGsR05BYbGxeEB6L5ZkErAmPnikJq6SN1paTQyXOA351KKR+zwoVYuJ0rDCHL2roEpSVBhVP9ZD
+	AVgqAXrBkfowz5jJU3wXWK18P+ZqpeLadRpvTtxFbbDsF6VY4fGyoav5wpgWvC0uIxCuN8108Qq
+	7yuev6/517dDqKUSfrLc/45CVuluNImwRK3hftTlpubCH2yU0dIED2ZFThQIH2KYWhR0TktizYq
+	O46Ltb9pdX0qPIjTBsFUtrDbPkfM5vv1xYCBECuzw1x4raw/POaOVhn4f+9VLufaP1KfE+awJmh
+	k7a3G0EfojD84ykH3P3+WDnvLiSJs7xVc8JT6muOybAde04xnhysfQ939USm3vR6XkH+awna4oP
+	8H8NCGtEWh65aCuO4WT3kyaKmSwPxXnVv24n7fLJlaDSe5ovhKakEYs=
+X-Received: by 2002:a17:90a:c88d:b0:3a4:ee64:f492 with SMTP id 98e67ed59e1d1-3a6cec30c01mr1156984a91.33.1790931419389;
+        Fri, 02 Oct 2026 01:56:59 -0700 (PDT)
+Received: from B11403806-N.ieinet.org (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f4747100sm7956667a91.11.2026.10.02.01.56.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 01:56:58 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: devarsht@ti.com
+Cc: airlied@gmail.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	kristo@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	nm@ti.com,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	vigneshr@ti.com,
+	LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v2 00/14] Add DRM driver for Solomon SSD16xx e-paper display controllers
+Date: Fri,  2 Oct 2026 16:56:39 +0800
+Message-ID: <20261002085639.109873-1-zaq14760@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927182329.4193961-1-devarsht@ti.com>
+References: <20260927182329.4193961-1-devarsht@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNSBTYWx0ZWRfX5JmZ2O4dRVHA
- cgaJYrJOqb3ciJRDhauD0onbyh2jHGT8HIuJwcN0J8lVbasevvzeMwZyDFBoIv8nuZQEjvFFWz+
- 0P62jjmjMMxFey2RtM3hIcweKopq81/4Cx5cJmxaIrLrM/mnYz6O
-X-Proofpoint-GUID: JWO_s6sWlJz9TgsYBvaJYOgiZAilNxZ2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNSBTYWx0ZWRfX3yUhWxAVe1fP
- prihB7rQ94r4EdUsLXh7o5RPZ8j4lZ0uAcrkzawWPVBs5pb2e5yhrhhwoSPSRBYuJufwFnl0JRI
- ZSyzMuTGaNZdD3/fU/WbW8SQg5wg9iQgG9rgwDDi8lC+51jbs82bXLmgglgetfzYsYMFhn+eKmc
- 4IDc4bDCwV4dGIAV94ZZcD6iJ2/Hie4WIVqqHZlGkGi2KOA1Gz+ME4Vz8nW3Z0QBWX4jTy6IiP/
- w5DdsVBN6B+tmE++Jkza2Jp0AG1fC7JeotvZbTH0jjvMJnZTaMLFSF/y0vbiUkrP2+fdZ7wjRve
- PEXeNZ/45XzfZFKU6yqccWwFtoL2qLLqWQtVSgR3k/wUbeLF/DD0L/Y70ZzroZFB4/Zc/MtaFug
- gvdYBOqPmspRzzTtC/WrP3p9V3D63I5ns3Ni7qj7z/uAySU2cu3ilFOm7jwMUje0UJVH4DE//3x
- bjuuW1YKZfBXVhxvMyQ==
-X-Proofpoint-ORIG-GUID: JWO_s6sWlJz9TgsYBvaJYOgiZAilNxZ2
-X-Authority-Analysis: v=2.4 cv=Vftir1p9 c=1 sm=1 tr=0 ts=6abf71a2 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=H6mhVM5xjDqGWgEDBD4A:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0
- priorityscore=1501 clxscore=1011 bulkscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020035
 
-From: Carlos Jones Jr <carlosjr.jones@analog.com>
+Hi Devarsh,
 
-The driver provides its own transfer_one_message() and therefore drives
-the chip-select GPIO itself rather than through the SPI core. The GPIO is
-asserted only in the is_first_of_msg path of
-tegra_spi_setup_transfer_one(), but tegra_spi_transfer_end() deasserts it
-whenever a transfer has cs_change set. For a multi-transfer message whose
-earlier transfers request cs_change -- for example a register read that
-sends the address in one transfer and clocks the data back in the next --
-the CS GPIO is released after the first transfer and never re-asserted,
-so the remaining transfers are clocked with chip-select inactive and the
-peripheral never drives the bus.
+Setup: Raspberry Pi 5, rpi-7.2.y with your patches 01-12/14 cherry-picked
+and the panel entry added locally, SPI0 CE0 at 5 and 20 MHz, DC/RST/BUSY
+on GPIO5/6/26, CONFIG_DRM_SSD16XX=y, drm.debug=0x02, no compositor.
 
-This was observed with an ADIS16470 IMU (adis16475 driver), whose
-register read is a two-transfer, cs_change-framed exchange: a logic
-analyzer showed the data frame clocked with CS high, and the driver read
-0 while the device drove 0x4056 on the wire.
+Bring-up is clean: it probes, the connector comes up at 800x480, and
+reset/BUSY and runtime PM all work.  The three issues I reported on
+31 July [1] are all gone - the mirroring is fixed by 11/14 [2], rotation
+180 draws, and refresh_mode takes effect.
 
-Re-assert the CS GPIO for every transfer so that multi-transfer messages
-keep chip-select active across the whole message. gpiod_set_value() is
-idempotent and polarity-aware, so this is a no-op for the first transfer
-and for messages that keep CS asserted throughout.
+All four DT rotation values work, and so do the plane properties -
+refresh_mode, color_mode, clear_on_init/close/disable and
+refresh_mode_init.  SPI is fine at both 5 and 20 MHz.
 
-Fixes: 63c1440596ff ("spi: tegra114: add support for gpio based CS")
-Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
----
- drivers/spi/spi-tegra114.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Tested-by: LiangCheng Wang <zaq14760@gmail.com>
 
-diff --git a/drivers/spi/spi-tegra114.c b/drivers/spi/spi-tegra114.c
-index 1234567..89abcde 100644
---- a/drivers/spi/spi-tegra114.c
-+++ b/drivers/spi/spi-tegra114.c
-@@ -859,6 +859,13 @@ static u32 tegra_spi_setup_transfer_one(struct spi_device *spi,
- 		command1 |= SPI_BIT_LENGTH(bits_per_word - 1);
- 	}
+[1] https://lore.kernel.org/all/20260731035705.3198816-1-zaq14760@gmail.com/
+[2] https://lore.kernel.org/all/20260927182329.4193961-12-devarsht@ti.com/
 
-+	/*
-+	 * Re-assert the CS GPIO for every transfer: transfer_end() drops it
-+	 * on cs_change, and the assert above only covers is_first_of_msg.
-+	 */
-+	if (spi_get_csgpiod(spi, 0))
-+		gpiod_set_value(spi_get_csgpiod(spi, 0), 1);
-+
- 	return command1;
- }
-
---
-2.43.0
+Regards,
+LiangCheng
