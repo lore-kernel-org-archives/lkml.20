@@ -1,64 +1,64 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0883F327C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626444E323C
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955908; cv=none; b=BT0c8SajM8JWX8WiKHsdBCVc/USF7ZuxfG4oJUK3qYOG++6Lz0PLtwuCrCSRk9C6PTBKsVy5dfhn+GVn820S8u34QtZcl0JoYvxs+PTe1zRPawY2euY1xd00s7oBotv/IE5rqllBPqsPWfP+2j+NrteRG3d2B6OZiQPqbEdmcYA=
+	t=1790955909; cv=none; b=gnI7qnGGUnp2vpeZem/W1PvXywaNEeXx/qQ6ozHFee/mXaH/J+9XplQUcbXF09R6FP1xFcBn7SUUBoKujerN2tjcuACibmqRF5aEDk3BrSVi2qWToVynXXd6Qed4OELZSK0N1zWFGCnYyKcudX4YrCGTMYM/X+1NnU/iOCfl/Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955908; c=relaxed/simple;
-	bh=mqcr69n+Cki+W9shlrgvILn8znvb3ow0aMd43jWczjU=;
+	s=arc-20240116; t=1790955909; c=relaxed/simple;
+	bh=CTaQke7SU+dNOxVuINpaFMcJR69qg82aQwGX0Pu+f+c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KAA2o0aWbLSVYPUXzUnCi6BdjQJH5NAHQx10U3EiJIbiL8PLXXlcYvjettOGjTLBbxbUWI6TPqqfTahEdDjgcRbalEoF4N0LGkG3BsoDXHn1t77lumvlmjbYVB1CXs9sXr+EtUgQIjjntDFqDo6SzSf4y9Mqq0d2rUZy5IvjE9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Jea4L/F9; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=myZzyHS3EMRlCc+Dvy2v+d3juPW+k2Ij0AGdsG+Rn/wbKfbD7XtPQw7zxdTPQNqOcaSj+4Bkqe0QYphghC4zjuWqQzwz7v6Nsi9syiH6kbMTFk/lcDBKMSQWRh2+aM8CGPQCItEO3aV1acrutpFlWS+QHkzVREi+CyUm18Gwoxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=G73CE+vK; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Jea4L/F9"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso188195e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="G73CE+vK"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01d89b23so14282f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790955904; x=1791560704; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790955905; x=1791560705; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a8shURt70eLGsxqpmwK6tNDdH4TKn99x5ZtIeJ/6eoc=;
-        b=Jea4L/F9KkLMqP8MfoclZPMkoNv6wS5GriQB0bxaFLR79R/Q6qQoQS5DwTQz/YhIyH
-         VGvqHb+iKhaFYjg1mngmRW1lzUfbpA3clITHZbemzdBbtbiEQPZ/TJwT9gQVdGnVnI4q
-         hKUjZTC0BrJr/rr6x/ai/4eU9tsNtgm4O06L9IeR6UO1HmcWj9EotCOO54QffOE4LGcU
-         uQbi4QuiW6PjNQbIx1MW4HBw7Bq4GGvFz3NZX0mAHTkbfo9yAeVz60hCZdfIHjpxAFzg
-         0NPS64Tv23igOggS9bRxWgfece/rPq20rhwsabl8e87f+JjzGM9XIpPk+7HnnMF8DK7f
-         pHaA==
+        bh=GCbQwEE09RLLlmPAHT5m8hX24lXl899bphgbqp3z/Hk=;
+        b=G73CE+vK7/FWCvJKTVTV0SrkcykV75yEWeqz48eElly+lKOibBpI1VQvUG88daAr1z
+         WDVGYgP+rSBcjm8dNFlk9Xn4ZnZHRfUP5IeiDXj+uZZTR84iWp50K8KqYp5LaOezOf+E
+         pxTDZ+XiKvZeyJsQ9tx3hrBEN+o5Mrrgw5eL6JdUHPFiLwAcNtMa/XVLT9PdMRzYQYVb
+         NI1LB0RO8y89/IpEaJTsJ2tb9fnFjIQYYskADge4K/cL/nnxwXvNVqdoWRGvKMS6QaKj
+         Sq3S8Blj8v6i66Y0RS6zoZ5g6vQ5ZoepHcOyJeXmJABSdbd5MObezeYArdt9jH3DYEuB
+         Jjmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955904; x=1791560704;
+        d=1e100.net; s=20260707; t=1790955905; x=1791560705;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a8shURt70eLGsxqpmwK6tNDdH4TKn99x5ZtIeJ/6eoc=;
-        b=R6+s/ypPjDOQ1vvGtxJ/u2WY7lB4u/8y5k9f0ukMqg7ZhbZw8ZI23JepCQdE0H5IFM
-         yLkxeIajw7v1553yK7IOItApSeKChpdh4EyKx3LNq0gHpfxX9v1EYP+79rqrr5sfeeJw
-         z/+rn62Wxqtq+9LFEE3Ef5mPUF/n2orpqwmpnDn2F4qPtEf5V6C1jq2NU12i+US8qeyD
-         af935VAombkD6HQ8LtSiK1d0KwsmabHN7GPx5A8CZdltFxAWNGFIe3n1KgKCtppdFj63
-         nh0WuAorlB5OoO62R8t/AROyHzpeN3Ze2q6ntRRAGIJ57dg6aOtjWQw9S8UcfWQcLLSn
-         4L/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxS3VSvJife6WGZVv7FmZW5kqBdsvF58z3j9eDtF0OaRNaZwjHTBjT+7NiuDc15J2V8dsX0hp3JQpx9WZw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k860hQnP0G0A+1S6sqvZmDGoWH40aAu/C5Le9t3h6kttxlTo2F
-	PUvpCAeDLNafnyF/NX3Gd1Kc4BpNE+yi/d+mkx25I5jvYUq2+K7K8QMehVEeW18ajrs=
-X-Gm-Gg: AYBFou2DLfCd2mMdhcZMFw4umlXfRxMRybVub4IjL+uGpXAw06auchj17uYNj5x1Uw0
-	1BWBl3pssgJnlJF50giXR90BOpq1ViP23V4FDFeU2AqTS5yiLmhmN/SdvqDQ2nWXMMuz1Xh16tF
-	8lYxnvL8Fnvfz6yL0ZJPcMaaPLIyD4uuQWbA8s8/8kihejerC1HMlxKJ1jIFdRB5nvkG3GA8fXV
-	6he8+2Eo1im1pzm/QIQtpxn0Ywi8e25gvgSTW5oRrv3FMPCrfaB5q+LHh7z6KhnlptWe8u6f/vr
-	a4ivbun5lKunDc31uduFyUZza6bYQrxt69WqV3Kd9r5D87ZTa7u5nLTTUXlWyVi7grI50K+0UUr
-	mC4u3lujh0dXD6zLWipZKoCExl2t76q3FiVUlCdWRgB8VpwYJ5hVeWj8eMMRNm2HERsAKZ0MpAq
-	r9SKO7AEwuaIpJKjrd7LCUr8tlAYwNfiAfNWyxXVfOaBI4d3fpxomhi4YU/aBLjeaBSPHYedJ1M
-	XycJ0hl3Ym2uIY4
-X-Received: by 2002:a05:600c:6092:b0:4a0:20c7:6d4c with SMTP id 5b1f17b1804b1-4a027452eb0mr57787735e9.0.1790955904125;
-        Fri, 02 Oct 2026 08:45:04 -0700 (PDT)
+        bh=GCbQwEE09RLLlmPAHT5m8hX24lXl899bphgbqp3z/Hk=;
+        b=P3vtJX8scX0hzKmCto04Ujv0OLtbBh3QiTTGYwNZpOmzQlwf+Au63V0Khxm7QWi0ak
+         Mo/DH9Nxvk4OYQ9T3qD9muPAnmBFv5ZfhHbLbL0c1Q9N3I9ncckDw3/hMb7yJM5e3idq
+         Teop4w21iUelX2lMHWrRgGVmtYS68krHGt1dLK5AdCSFNza5tQZeScXq4YJXjUvEKMBs
+         DgsOAmt2dGNO4I52e2P/He4f/EuBhFM+W2TqURUqzrWAN4GLfi2zaIFsIXSxZMEZwGQr
+         CoU8M4P+rYlYAvgCqB5dPU+/0PfiRdP+00JP+9HHXghQs4rxsbDofb6TZH5gIRPOcXMY
+         3rOg==
+X-Forwarded-Encrypted: i=1; AKwUvByULCAlLp1ah0pzdgqmLastQ5JC8hPhp1GHDm1caWMuHZKyF3mt20eqoS7CGDF2ZG4ORpUBr2I1xwFKQnE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5ZUkderPLLy6nLonW9bZ54AuTYvPC4dih1XKaduzF+UlWvXrw
+	CchebvA1lx9No639K+gXKg+A4SzRJBCrrgm4T2L02xnVBQkYtryu4M8y7BWez/iuWO4=
+X-Gm-Gg: AYBFou3hG75bkJDgt/tGHXZgUDWFvxAznXF0ugo7K7j1mqUuB2U8NNXC0YgQdU+iHV8
+	n+N+HOHHWnabwQUNq19LUVRIgNwK1vNNscJR3LmjWhvCREywJZfY0XwglMlS2eQeso+Kgp2USmR
+	NQxhPjD71Sp7ee05vMcK7JyUKpNqVXlczxCjfGDFwm/5QJCrEnaNjdKhaywq80bgZIFM7g6JYIG
+	eSA2obgaJ2DeijfBZnZSgzWx2mh1jWnvvqtzpR3TIwHrg6tZlWgqmdOaBynkNN6VvG819LjfJv+
+	qS/kPcD7m+ve20XzUOn+w+w1ASa8tnGuCtznrlQWdkxjuiak0B6ibxsxxM/8QPHvJSXxmmfVOnv
+	x0mCnACffpLrSzui71uY2klBGUtEYYgMA8kHDaGDIcSLsf2YyaTZfmNfoxCMqjFqAF+XZ9SDGcd
+	YQGxf3rUAXDguOY0GDkV7Yn8nUx5Do7ptXTw+k3GAnMYHmUvIlVw5dqoRZx5EJoPkJlTzG0q97A
+	8c7nUHtZ8auAAwa
+X-Received: by 2002:a05:600c:3b01:b0:49f:dd9f:6038 with SMTP id 5b1f17b1804b1-4a027573634mr47267725e9.25.1790955905339;
+        Fri, 02 Oct 2026 08:45:05 -0700 (PDT)
 Received: from vingu-cube.home ([2a01:e0a:11f4:3020:718b:4747:291c:e5d8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.02
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:45:03 -0700 (PDT)
+        Fri, 02 Oct 2026 08:45:04 -0700 (PDT)
 From: Vincent Guittot <vincent.guittot@linaro.org>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -83,9 +83,9 @@ Cc: qyousef@layalina.io,
 	pierre.gondois@arm.com,
 	sshegde@linux.ibm.com,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 01/18 v2] sched/eevdf: Decay positive lag of sleeping entities
-Date: Fri,  2 Oct 2026 17:43:58 +0200
-Message-ID: <20261002154415.2270586-2-vincent.guittot@linaro.org>
+Subject: [PATCH 02/18] sched/eevdf: Reset lag when waking up on idle cpu
+Date: Fri,  2 Oct 2026 17:43:59 +0200
+Message-ID: <20261002154415.2270586-3-vincent.guittot@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002154415.2270586-1-vincent.guittot@linaro.org>
 References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
@@ -97,100 +97,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Similarly to delayed dequeue that enables an entity to decay its negative
-lag while sleeping, a task should not keep a positive lag forever.
+When several tasks wake up simultaneously on an idle CPU, their final vlag
+will depend of the ordering as the first one will lose its lag but not
+the next ones.
+Reset the lag when the enqueue happens while no fair task has already been
+picked et set as the running task.
 
-The sleep duration and the weight of the entity is used to decay the
-positive lag at wakeup.
+As a typical example:
+CPU0 is idle
+TA with vlag 0ms and TB with vlag 5ms wake up on CPU0 simultaneously.
+Depending which grab the lock 1st the behavior will be different:
+If TA is enqueued 1st, TB will be enqueued with a positive lag and will
+be picked 1st.
+But if TB is enqueued 1st, it will loose its positive vlag and both TA and
+TB will have 0 vlag when fair will pick a task.
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- kernel/sched/fair.c | 51 +++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 49 insertions(+), 2 deletions(-)
+ include/linux/sched.h |  1 +
+ kernel/sched/fair.c   | 17 +++++++++++++++++
+ kernel/sched/sched.h  |  1 +
+ 3 files changed, 19 insertions(+)
 
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index d7cc77181ef9..32d7077ef148 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -592,6 +592,7 @@ struct sched_entity {
+ 	u64				vruntime;
+ 	/* Approximated virtual lag: */
+ 	s64				vlag;
++	u32				vlag_seq;
+ 	/* 'Protected' deadline, to give out minimum quantums: */
+ 	u64				vprot;
+ 	u64				slice;
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 03206e15e6fe..8cda1d39b037 100644
+index 8cda1d39b037..4c8f12fc8869 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -897,6 +897,51 @@ bool update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
+@@ -893,6 +893,7 @@ bool update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
+ 			vlag = min(vlag, 0);
+ 	}
+ 	se->vlag = vlag;
++	se->vlag_seq = cfs_rq->idle_seq;
+ 
  	return avruntime - vlag != se->vruntime;
  }
+@@ -914,9 +915,22 @@ void decay_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
  
-+static inline unsigned long cfs_rq_load_avg(struct cfs_rq *cfs_rq);
-+
-+static __always_inline
-+void decay_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
-+{
-+	s64 delta_exec, vlag = se->vlag;
-+	unsigned long cfs_load;
-+	struct rq *rq;
-+
-+	WARN_ON_ONCE(se->on_rq);
-+
-+	/* Negative lag implies delayed dequeue */
-+	if (vlag <= 0)
-+		return;
-+
-+	rq = rq_of(cfs_rq);
-+
-+	if (flags & ENQUEUE_MIGRATED)
-+		return;
-+
-+	/* Compute sleep time */
-+	delta_exec = rq_clock_task(rq) - se->exec_start;
-+	if (unlikely(delta_exec <= 0))
-+		return;
-+
-+	/* For anything above ~4 seconds, save computation and clear the lag */
-+	if (unlikely(delta_exec >> 32)) {
+ 	rq = rq_of(cfs_rq);
+ 
++	/* You can't claim any lag when waking on idle CPU */
++	if (rq->curr == rq->idle) {
 +		se->vlag = 0;
 +		return;
 +	}
 +
-+	cfs_load = cfs_rq_load_avg(cfs_rq);
-+	if (cfs_load) {
-+		unsigned long weight = scale_load_down(se->h_load.weight);
-+
-+		delta_exec *= weight;
-+		delta_exec = div64_long(delta_exec, cfs_load + weight);
++	/* Accessing remote rq task clock is a cost */
+ 	if (flags & ENQUEUE_MIGRATED)
+ 		return;
+ 
++	/* CPU has been idle in between so the lag has been removed */
++	if (se->vlag_seq != cfs_rq->idle_seq) {
++		se->vlag = 0;
++		return;
 +	}
 +
-+	vlag -= calc_delta_fair(delta_exec, se);
+ 	/* Compute sleep time */
+ 	delta_exec = rq_clock_task(rq) - se->exec_start;
+ 	if (unlikely(delta_exec <= 0))
+@@ -8190,6 +8204,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+ 
+ 	dequeue_hierarchy(p, flags);
+ 
++	if (!cfs_rq->h_nr_queued)
++		cfs_rq->idle_seq++;
 +
-+	/* vlag can't become neg while sleeping */
-+	se->vlag = max(0, vlag);
-+}
-+
- /*
-  * Entity is eligible once it received less service than it ought to have,
-  * eg. lag >= 0.
-@@ -7987,7 +8032,7 @@ static void
- enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
- {
- 	int rq_h_nr_queued = rq->cfs.h_nr_queued;
--	int task_new = !(flags & ENQUEUE_WAKEUP);
-+	int task_wake = flags & ENQUEUE_WAKEUP;
- 	struct sched_entity *se = &p->se;
- 	struct cfs_rq *cfs_rq = &rq->cfs;
- 	unsigned long weight;
-@@ -8019,6 +8064,8 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
- 	if (p->in_iowait)
- 		cpufreq_update_util(rq, SCHED_CPUFREQ_IOWAIT);
+ 	if (sched_feat(PLACE_REL_DEADLINE) && !task_sleep) {
+ 		se->deadline -= se->vruntime;
+ 		se->rel_deadline = 1;
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index b98084e1f5b0..69a2a749e188 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -689,6 +689,7 @@ struct cfs_rq {
+ 	u64			sum_weight;
+ 	u64			zero_vruntime;
+ 	unsigned int		sum_shift;
++	u32			idle_seq;
  
-+	if (task_wake)
-+		decay_entity_lag(cfs_rq, se, flags);
- 
- 	if (se->on_rq && se->sched_delayed)
- 		requeue_delayed_entity(cfs_rq, se);
-@@ -8048,7 +8095,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
- 	 * into account, but that is not straightforward to implement,
- 	 * and the following generally works well enough in practice.
- 	 */
--	if (!task_new)
-+	if (task_wake)
- 		check_update_overutilized_status(rq);
- 
- 	assert_list_leaf_cfs_rq(rq);
+ #ifdef CONFIG_SCHED_CORE
+ 	unsigned int		forceidle_seq;
 -- 
 2.53.0
 
