@@ -1,147 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D563E95A8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A323D88F0
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968425; cv=none; b=uH0+iScZMzI+fnUpozcCy/H+srFbLVrBmT/pjvz7an4n2wvxidIGQfdieq7OdEbrFKL3lw0UNwFSzM4tYke4feh62zOQxjIQrcRuk4PiBSYQppYiBUXt+F3mGqzNX6g5jdYPC2pT1UThuty5s7+BYr4XDeuQO90fE7naF1iIC8c=
+	t=1790968498; cv=none; b=IB0xfjyYwb7IGvAXHf4PPhVeu7DCEFdj0CBJNncTbFDNdQGh6De7XfW54AdagA2prD0VcavmlyA03iTqyYopn+MmT7Wkm1wTWSxRD/SNJyrxmwxvBYCDNObxXXvgRPJ3cXNoFMn+PJWCERtXdzC6Vj+mDmXmqC2P/OlIkwkDJI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968425; c=relaxed/simple;
-	bh=f0FVcabn2xBOPItNkVnvMaerPMKGYx822nHLBoO6YOM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g/HdggR0YKafZgsQfKJNbKxZUqymVnAv8uxaOt9T+XI0D9+evuPCG2eGM7EoLevkgm3P4ojlnwQrxZLwx+EOCPEyGzokMAGm/IBGR+lBEhCTfpHVDu5+YaFatLJotgKcfobMFfMnlP53Rk1QqPq2bYJDsE7439RzyVI7shMMOiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9RGZLcR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790968498; c=relaxed/simple;
+	bh=eHsLpEW3L5my6AzeGFTT3RBfCv34bN1BS8YV5Ip/vaU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fAMJG+W7Xfm+lGmgETCy53zlXbuXniRgCE5VDp4n1LDk6Fvu4MvCagn7wsSQFKvWv06z0/yWtDLfckKgznPuKqgh6cxfC3GPQ2vpHT+qVGdQ8Yg5E/dBAtJSodFgUy4OVSW231UL85kJM3w6YkL6ZwHgaHf2hxcf2CYkt9RpQrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B1uzrkb4; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9RGZLcR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB291F000FF;
-	Fri,  2 Oct 2026 19:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790968423;
-	bh=N56IVrkHgW95DKN/ml8uLc48V5Z4iV1gTSdArvZ350Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=K9RGZLcRaXo+mqMqoQm19xpxnkGstJ/aZ5hXngDTeNDvN6RovymJE4t2itC8nPsQJ
-	 a3bfVEBCUE4emwvTPlhMe3KP5iRBVZxu0QlL9XC0JUQDen/72NX5+I3YXPvrNbx5xs
-	 haBASBqJWmjtu13BwaK0vLrug7ai0w5HFxa+bYKVx4S6CufGr3xJwjPyxrJTG8prml
-	 YQe4mT0M6EY+4vPh4iNe2kCmHkOWf1xKA7cl4IfonUaIv1VrFS6Whm5RLUFruxN5fr
-	 o/ELjG5GpCRkvalZpf+/n695zoMolhY/CEblsAjRzxXiNaNHHuVgfe2WRq/rHK9tyX
-	 nHhDQHSVeQCaQ==
-Message-ID: <62d8b799-7e06-4060-ada8-62fb4633b124@kernel.org>
-Date: Fri, 2 Oct 2026 21:13:33 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B1uzrkb4"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0280d4f56so1388575e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:14:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790968494; x=1791573294; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yXT1p1XHemTBGXdiXf7n1rJKfg3H1kTVdAIHj2f2cLA=;
+        b=B1uzrkb4Mj7fp+f+ubsIitDaGp1YTrxCxh502YfO/1vrNySD3e5NvYrD2t/5YNQDHV
+         aa0o9td/rNSeCOHsXpcZpdGHOq9TEyeWWli29RwILGDUgED8H7p9mDAqqLVvEYORb+TV
+         Hu03exdVpL8SVgOFpnQ2r6EdbCivu4NmjtLbtN7brt/p8SCLTL5TJyZ5ygqtbYITZvXT
+         tmZdzlgiYvBvlyFkNlIdybSNEVTN77AQduJz3Elia7LC+TLKCpoxAxjvX08Kime3YgsU
+         HCODmIr2hy1sbs8cOuK847zXmd7pUxRunftuEXzu037r60jhF4YmR3UGqip8lDF7BkN3
+         zYJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790968494; x=1791573294;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yXT1p1XHemTBGXdiXf7n1rJKfg3H1kTVdAIHj2f2cLA=;
+        b=u/Ip0wqFe0WNfO2oSYJRl04TJO4yIz5hNOJHCOVg/fe5Qm7P9qSZMOSUFdTeWOzKp0
+         j4EWLgaEFZ+PnRj4owrtAQSdQwK4NG2r/TL9HWHYF3o3+HHwaw4jkW04uCLI8uQkxLNN
+         4CBqp8TEeHEaed1etRGFPWp8lpW8dGBYSvDPxDcPvmfC4X869942MjgX+7qeX0KZ3FOs
+         khOTSF1PuHF06zZrJcvl5qr/Vh/7wCYY+q5+FpKHcuNHhW8UUYUA02VvKXTdFQ6ciP9m
+         2IBskqUoPlYS8Y2kZ0b5LkvK8dRnFsaRDYjB7YDyxqwulCc/MO/XzAc+YmVjSmXdBKyR
+         rm1A==
+X-Forwarded-Encrypted: i=1; AKwUvByHkftuOmDKBcCbf31CuISt/37pVLEIkxewtQd71KxvvyVVrGdXvzt+mmxiMPzLb5fkbJKiQfuoNbXrMPE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nW2doYOd13zU5fft2TONa80qaVQcWW3BkW6qYBQzm+W1A8n+GI
+	5TjpfpRPUgF9mb1HWLodPw9pteShiY0PegXIdBoQZ29RKN+MUM5feMUT
+X-Gm-Gg: AYBFou2GQU0/CDGKsOkgZn3ER8QvvLfCe+JBH9flCcfewHt81qzow2DcjPJo/Ui2/8I
+	m9FLBs2mX3tdQt7c3y55Qqc2aysTjjK43b/kwvHqOTzekL2w2ykDquLYrqI/gjTEZPV50wWHAMk
+	wvKfg+sVUOh/ZHrnSFHCX4tgfF2V0r4IBg5QKj8fXCUduj2zy9cKssAnzPjy13aEuuMBIVGuHoj
+	2U9Va/jIBELLuXFTQS0CM6QfeYpgzi8HMvkS7HytOz1OxGemv+2LZfbJaYekshNjat8U5IyI+rL
+	bVgjipHtzo8HK7VxTNDX7eUmq3M7BfxVEQlgl3u4nl/R52zkFqoAucWyjXgLYr3IOWVPT2cslp2
+	8Z9SqYcdNGOdaJdwQv/RQyanU4lBX6pKwZBBWaFLfnSfTzSSzBopU3lBLqogdxsbYy/ZrBAxm+J
+	anJX4emDSQNNFTaIXvphwYYTQzutJmE97Kt9mv8dgUODWiYrRYhLVx6WN0gWFT1s+wtG5u5ZC9O
+	CLaIF3hyrHrf5KrOU19iSqfM3b8OvbhOE73sQ3UX7U1ZNG22rRC
+X-Received: by 2002:a05:600c:4ecf:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-4a02769ceefmr68921655e9.24.1790968493618;
+        Fri, 02 Oct 2026 12:14:53 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm81151145e9.4.2026.10.02.12.14.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 12:14:53 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: Jorge Lopez <jorge.lopez2@hp.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH v4 0/9] platform/x86: hp-bioscfg: buffer handling fixes
+Date: Sat,  3 Oct 2026 00:14:25 +0500
+Message-ID: <20261002191434.58529-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/14] mm: introduce pgtable_has_pmd_leaves()
-To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
- lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <f0b6d8a8036ee6c2aef2a63e9a03d94292a2c599.1789695931.git.luizcap@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <f0b6d8a8036ee6c2aef2a63e9a03d94292a2c599.1789695931.git.luizcap@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 03:45, Luiz Capitulino wrote:
-> Currently, we have two helpers that check for PMD-sized pages but have
-> different names and slightly different semantics:
-> 
-> - has_transparent_hugepage(): the name suggests it checks if THP is
->   enabled, but when CONFIG_TRANSPARENT_HUGEPAGE=y and the architecture
->   implements this helper, it actually checks if the CPU supports
->   PMD-sized pages
-> 
-> - thp_disabled_by_hw(): the name suggests it checks if THP is disabled
->   by the hardware, but it just returns a cached value acquired with
->   has_transparent_hugepage() during boot. This helper is used in fast
->   paths
-> 
-> A better design would be to separate CONFIG_TRANSPARENT_HUGEPAGE
-> checking, which can be done with the IS_ENABLED() macro, from checking
-> if a CPU supports PMD-sized pages.
-> 
-> To this end, this commit introduces a new helper called
-> pgtable_has_pmd_leaves() which offers the following advantages:
-> 
->  1. Well defined and clear semantics: it returns true if the CPU
->     supports PMD-sized pages and false otherwise
->  2. It always returns a cached value, so it can be used in fast paths
->  3. It's implemented with a static key: it's a no-op for archs not
->     implemeting it and for archs implementing it the static key is
->     changed only during boot
-> 
-> The new helper requires an initialization step which is performed by
-> pgtable_leaf_support_init(). We call pgtable_leaf_support_init() early
-> during boot from mm_core_init().
-> 
-> The next commits will convert users of both has_transparent_hugepage()
-> and thp_disabled_by_hw() to pgtable_has_pmd_leaves() and/or
-> IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE).
-> 
-> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-> ---
+Buffer handling fixes for hp-bioscfg.
 
-Clean, thanks
+Patches 1-2 fix hp_get_string_from_buffer(), 3-5 the password
+handling, 6 the sysfs store paths, 7-9 SPM and integer parsing.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Changes in v4:
+ - Add patches 4-9
+
+Changes in v3:
+ - Drop Suggested-by: Andy Shevchenko from patch 2, tidy its includes
+   and declarations (Andy)
+ - Return -E2BIG instead of -ERANGE in patch 3 (Andy)
+ - Drop a blank line in the declarations in patch 1 (Andy)
+
+Changes in v2:
+ - Split the hp_get_string_from_buffer() fix in two (Ilpo)
+ - Drop the lib/string_helpers patch, use @only of string_escape_mem()
+   instead (Andy)
+ - Add patch 3
+
+Muhammad Bilal (9):
+  platform/x86: hp-bioscfg: fix OOB reads in hp_get_string_from_buffer()
+  platform/x86: hp-bioscfg: fix non-ASCII truncation in
+    hp_get_string_from_buffer()
+  platform/x86: hp-bioscfg: return -E2BIG from validate_password_input()
+  platform/x86: hp-bioscfg: allow clearing current_password
+  platform/x86: hp-bioscfg: fix off-by-one in password length check
+  platform/x86: hp-bioscfg: fix heap OOB with embedded NUL in store
+    paths
+  platform/x86: hp-bioscfg: validate SPM state returned by firmware
+  platform/x86: hp-bioscfg: NUL-terminate the SPM auth token
+  platform/x86: hp-bioscfg: fix oops on short integer attribute buffer
+
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c  | 79 ++++++-------------
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.h  |  2 +-
+ .../x86/hp/hp-bioscfg/int-attributes.c        |  7 +-
+ .../x86/hp/hp-bioscfg/passwdobj-attributes.c  | 20 +++--
+ .../x86/hp/hp-bioscfg/spmobj-attributes.c     |  8 +-
+ 5 files changed, 51 insertions(+), 65 deletions(-)
 
 -- 
-Cheers,
+2.43.0
 
-David
