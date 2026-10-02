@@ -1,204 +1,142 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpcmd01-sp1.aruba.it (smtpcmd01-sp1.aruba.it [62.149.158.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D1D47F3AC
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479E73B83F9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:26:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936699; cv=none; b=pf/1MrDShhp1P0N463MiI3aZYvHRDIvvE1ermMTe0rUWr+KKygDtTtYBARdE1yGWMvmZhxlhEJRxUVcxyjQteOXZFbJYoK7pGhxA//Kt+NdbNyvLTvONz+/1GVCGAI4eIDW1DGmacN9jqsEXoU+6x8o4jjQfm4cuqlx+LZ88i0M=
+	t=1790936822; cv=none; b=lBSnfYC21eYWu8NhtXwjPh3t9aEjrUeB9RYl0teuDhnGNtS63JhHqRdFyHrVhaUi8whG+R2Y57r4L1cJV+XcvcF0QbD5R+xfgB+v5I6y4Ae49eWO2LOkcD7og7ODYcGWHIIm2rUSPeCU79xy1r+zevGHziZDxabBMdJ3VGoL0Ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936699; c=relaxed/simple;
-	bh=4YJzicPTBuoA7igIVyVUJWSJqbvRmUaVYRLTcvOh8LE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MSU9PwvEBqMgt2/nNRsRavHIy8sq4Cxr+haQ9dy32XftTt2jAGxK2i7uoDe8//HS9douASN/I0tUUxO6WjADrGHlKfwW6rHmpiIQerpLt3LeKxvULu5fLiobrrgTgCKucs0j5tin1NNpTZbHKiu4vh2wY0QfgsmsrwnelkSzdw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Gh7GVUSo; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790936822; c=relaxed/simple;
+	bh=M4tzdgxQsluQHaWsj90gAHf9v+JptyBQYA8/vk70GCs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ckGg8KjeOwQkdB81ZaXxhAaE9dbNWbBBcKGySTYrHYIF5w9bD0D0gr3uikw/nG8wP8U6JhHuSmibu2KyQSxXaQHn06H1qFLE9m8sKZA8P3CWa16Q8caKOk/OYUTqZfeEoVeCFSMyzpHQGczKE04esWUvcli+aqAXsaNDTpPmNsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=UBn50bFV; arc=none smtp.client-ip=62.149.158.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Gh7GVUSo"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afe3b2383so2265237f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 03:24:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790936694; x=1791541494; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2jhGHzuBi9orZg4iibCNwyA/QKReX4TldXys9igHWcI=;
-        b=Gh7GVUSo+ZZw/wX5kXj88RY8wUPW2Lv6SMezZWFnPJSLlZf1sAzzwjqZtUTNgqYfuZ
-         BqONU/vKgpzgAK6gXO3lJvm6BgtcFKCR3pi5Z6JF+1rjdHmPF/l//3UhgGlsxFnJiEtU
-         W41d4Yq2w4FlZRew1jutG7WMjBAISPZ9gqqB/WSIDPsLofITo/ZBcAAI/GOedrzu8U18
-         MMKnygO/pzdCYe7ctJtAE14Di0VQe7hWliSBgSPfe5uwA5kXmd6+s83GRYUrj3qcEMvU
-         lhRxwKRdu+Z9VZoXJTkjThKVmvGNIYTjNNVmRZOy45Nx8mJwLcxYsmBXgEwmIyn35tEX
-         Sy6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790936694; x=1791541494;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2jhGHzuBi9orZg4iibCNwyA/QKReX4TldXys9igHWcI=;
-        b=zMYnmrNPVv0vI968eU0QVF783m9g48LMAv8BBHMXPaeImA9OxJr6Nl+cOIpLFSI3Fb
-         En24T/UD2o/WbySJFrejHoETstZcpg3KR+AnA34iJ4nVbox9yJsBKpHWWGdV1GPJ41mP
-         4pU9YoI13UGcTtR6uHtI7FWCeBUbQThTlK29gk6QdUTidM9Lqf5WYawqN9Io9b11Lv3X
-         lSok18bGH63zC5VjpULb63VAOep0JLSeBVcRMj6V+ncqh3sJc8yiq1dGQAuBilaAM5nM
-         tuQpvJuAI+Yrcrs8iC5GNzzg9ohIZVe5YhW5pulDTY8QWZkvN16f1Fan7KSlLp/NPFAA
-         1G+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwbaqKfZelHI3H/WqB8P8cbLofvqKpMsK12FWnCgpIDRsu6G9eVh4fkWeP+LDhjkH8FekLPOAg91lmyHVY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFaRumh6LC/gZwMC65/RoJew2Gso/euLESRLymu547kSfDye2C
-	t9bCBFxMc9CoxDDajgm9crpKANCrvB2cTprgIGx3nsAdSXek5L1odf4CtlJCjdYY6bY=
-X-Gm-Gg: AYBFou1LzsP9zc+qTN+hkCSrJqePlfALQwXi5C+Zqyqy9k/4QL/T3mtvPKiUTrs/LFG
-	K/SImjgetk/Bk1OUc8vibDVCzXwHdKtb9DmJyGCae4SzUFnhgQ76ofFfXI9zi8lfnbZ7c//OwPs
-	Mn2RPKQCMPQjjEFKOvWs5zSyDSNatudKvtNadifdBrSf7K5yZ2PW2jT0B7ehDahn8sQu/wBr+YZ
-	thjVG/ivKdUZamHhsEzv949KLGYMzsaacVsgfXPnI0+oSJY9QyjgOf5IvDdDXV6llbwwFgCHSnq
-	HZibkF3zZMCtTJfkw1tdsvHxI/5OLXniCcD29sziQxZpZjTK9OybUeRPhAc87ZLQRbZJ6fqCNJR
-	sFjemEaTQbeJg4y+9yuZUQ4QheeOBqeUHrFhil/3unEnl8O3JRUtfMBjizPvgm5VYXh2JFRySCa
-	xOdwYGf3ZNLxlcPR4rLPZ/RjnihBAY8BHsCkxOWgksNZbppH8kYhiEycvj07xtlTAdtUshAuFmi
-	Yjf37OL
-X-Received: by 2002:a05:6000:299c:10b0:485:8cc8:1f5f with SMTP id ffacd0b85a97d-48b12752b10mr3058775f8f.42.1790936694153;
-        Fri, 02 Oct 2026 03:24:54 -0700 (PDT)
-Received: from localhost ([2a02:168:9d56:1:9c5b:8aff:fed1:19b4])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48b380faaf9sm4599449f8f.22.2026.10.02.03.24.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 03:24:53 -0700 (PDT)
-From: Bruno Produit <bruno.produit@trailofbits.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: netdev@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
-	linux-kernel@vger.kernel.org,
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Bruno Produit <bruno.produit@trailofbits.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] xfrm: espintcp: reserve partial message during allocation
-Date: Fri,  2 Oct 2026 12:24:47 +0200
-Message-ID: <20261002102447.148835-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="UBn50bFV"
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id CaTexjQPkXmotCaTfx5U5J; Fri, 02 Oct 2026 12:26:55 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790936815; bh=M4tzdgxQsluQHaWsj90gAHf9v+JptyBQYA8/vk70GCs=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=UBn50bFVpOK1NSFW4pfe9au6wLver9CE/rI+p9F/6kxXMrbQZ6ob0zoMWgYS2Anky
+	 56bxH/9dh5U6a83++kmzCPf7Iku4rNvyHcIjkoIHfyqcbExVGzLIvyT70coC8GdZ6l
+	 az1zChYqJhdGf0tWAwuqy60JEHunNl07F0qd1s7/au0fbE82JeXHgy1nuEEO9u6Edj
+	 +lsyzAsFW06idqK+ucFfMFgPqOFchAkaBCjQCYdhtR295LQL/VY+SX/qjmEVEQ9i7C
+	 rHG/rNd9zDhTozR6l4gpyxNWk/avLQyr3p5QXn/ejJLmUpcS90AenogQKSLqZlX2pR
+	 /drqy8oZ5SYag==
+Message-ID: <7274f4ef-edec-4282-9c92-b6f7918b8320@enneenne.com>
+Date: Fri, 2 Oct 2026 12:26:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] [DO NOT MERGE] timekeeping: Apply extrapolated
+ ntp_error to clock snapshots
+Content-Language: en-US
+To: David Woodhouse <dwmw2@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ John Stultz <jstultz@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ Ryan Luu <rluu@amazon.com>, Julien Ridoux <ridouxj@amazon.com>,
+ linux-kernel@vger.kernel.org
+References: <20261001202134.33929-1-dwmw2@infradead.org>
+ <20261001202134.33929-6-dwmw2@infradead.org>
+ <0d5d56ca-89fa-4f09-bd24-9c730dd27656@enneenne.com>
+ <4751c410a0cb17270e6c2b43e70d01bfd7d6f0d0.camel@infradead.org>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <4751c410a0cb17270e6c2b43e70d01bfd7d6f0d0.camel@infradead.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfNc3BKdKAjMlkRKrUTZAyozwF7tMzQzkMTR/I3+wSqi8GKOKJt8FbzntvtNWk5nOjftrJThEqNEA1ugMvDvfXdK7nPU+jQY4c7ccx+P/T4rTMfkdC0Hf
+ ZgT9Q7L6wMoNZjDTSaI24Jt4YoIfrwDP+xpUAVOp5agOhn+y6sXfTO47hEri/tXG1WAvUtG/Lw+ZV50k4uISVdBvKBb/aV+9RvFFkBoO7YzSI4qYvpMvurPN
+ uBXG7Dd12w0w98LnE9jccbp2LiJ8zoGJlQB0yx7IY9SWKxyiwi8PRy1b2h5gq3afZ9U4l1Xy8UDUc0OqhUJj8dcWQlAlrBv/BqXgMV/4g/UZncBFF9ReSqgE
+ RGX4ogwOEY0pOPk11s3xMNvHyZ6PnRRvkmmf7XukMQZbSO+FycA=
 
-espintcp_sendmsg() builds a new message directly in ctx->partial. If
-allocation fails, sk_stream_wait_memory() drops the socket lock while
-the shared sk_msg remains unpublished with emsg->len equal to zero. A
-concurrent sender can then reuse the same slot. If the first sender is
-interrupted, its failure path frees state now owned by the second sender
-while TCP may still be consuming it, causing a use-after-free.
+On 02/10/2026 11:14, David Woodhouse wrote:
+> On Fri, 2026-10-02 at 10:30 +0200, Rodolfo Giometti wrote:
+>> On 01/10/2026 22:21, David Woodhouse wrote:
+>>> From: David Woodhouse <dwmw@amazon.co.uk>
+>>>
+>>> The time reported in ::systime of a system_time_snapshot is known to be
+>>> slightly inaccurate because of the way that the reported realtime clock
+>>> sawtooths around the *intended* time series, limited by the integer mult
+>>> value used to calculate the inter-tick times, and designed to ensure
+>>> smoothness and monotonicity for its consumers.
+>>>
+>>> It is particularly inaccurate in a tickless kernel, where ntp_err_mult
+>>> is not adjusted on each tick, allowing the reported clock to diverge
+>>> from the intended time for a large number of ticks before re-converging.
+>>>
+>>> This appears to be the reason why CONFIG_NTP_PPS is not enabled on
+>>> tickless kernels — because at that scale of precision, the realtime
+>>> snapshot at the time of the pulse bears little relation to the time the
+>>> kernel *actually* believes it to be, thus introducing random errors into
+>>> the PPS phase correction.
+>>
+>> Since enabling NTP_PPS on tickless kernels no longer depends on this
+>> patch, I think this paragraph should go.
+> 
+> Yep. Assuming the NTP_PPS tickless enablement lands under separate
+> cover, after the main part of this series but before *this* "DO NOT
+> MERGE" patch, I should just lump PPS in with the other users listed
+> later for consideration, as you said.
+> 
+> For that assumption to be true, we have to be happy that the ntp_error
+> reductions in patches 1-4 are sufficient, and that we don't need to
+> *also* switch pps_get_ts() to ktime_get_snapshot_id() and have this
+> patch which applies the correction to the snapshot.
+> 
+> Which leads us to your next question...
+> 
+>>> It would be better for callers of get_device_system_crosststamp() and
+>>> ktime_get_snapshot_id() to receive the *accurate* time, not the
+>>> sanitized version provided to gettimeofday().
+>>
+>> With 1-4 applied the correction at a PPS edge should be in the tens of
+>> ns you measured: is it worth having ts_real differ from clock_gettime()
+>> for that?
+> 
+> Good question; I've been wondering about that. In a sense, I'm fixing
+> the same problem *three* times. First I eliminate the cases which
+> *introduce* significant ntp_error (patches 1-2), then I let the system
+> *eliminate* it when it does happen (patches 3-4) and now this patch
+> even *deducts* what remains from the snapshots.
+> 
+> I think all three *do* make sense, even together. Especially now my
+> last-minute Sashiko review pointed out that the 'eliminate' part is
+> only for the core timekeeper and not the aux clocks (we *could* change
+> that, at a cost of extra work on the timekeeping_max_deferment() path).
+> 
+> But also, even for the core timekeeper in a tickless kernel, that
+> ntp_error can still accumulate at *any* time. If it has exceeded the
+> elimination threshold while the system sleeps, it could still pollute a
+> snapshot which is taken at wake time, before the correction has a
+> chance to happen.
+> 
+> So I think we do need it, and my inclination is to hold off on enabling
+> CONFIG_NTP_PPS for tickless kernels until we do. But I'll defer to your
+> preference. If you want to merge it sooner on the basis that with a
+> 1PPS signal the system doesn't get to sleep for long *anyway*, I can do
+> another test run with just patches 1-4.
+>
 
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Assisted-by: Codex:gpt-5.6-cyber
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
----
-Changes in v2:
-- Add an ->owned flag to espintcp_msg
-- Use ->owned instead of a local sk_msg
+Yes, please do that run. This patch changes what PPS_FETCH returns to
+userspace, so it has to wait for the chrony and ntpd people anyway; if
+1-4 alone are good enough at 1PPS I'd rather not tie the tickless
+enablement to it.
 
-v1: https://lore.kernel.org/netdev/20260922145335.2016559-1-bruno.produit@trailofbits.com/
+Ciao,
 
- include/net/espintcp.h |  1 +
- net/xfrm/espintcp.c    | 25 ++++++++++++++++++++-----
- 2 files changed, 21 insertions(+), 5 deletions(-)
+Rodolfo
 
-diff --git a/include/net/espintcp.h b/include/net/espintcp.h
-index c70efd704b6d..083c11373c16 100644
---- a/include/net/espintcp.h
-+++ b/include/net/espintcp.h
-@@ -15,6 +15,7 @@ struct espintcp_msg {
- 	struct sk_buff *skb;
- 	struct sk_msg skmsg;
-+	bool owned;
- 	int offset;
- 	int len;
- };
- 
- struct espintcp_ctx {
-diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
-index 3e72b9f067b9..68b9201c98d3 100644
---- a/net/xfrm/espintcp.c
-+++ b/net/xfrm/espintcp.c
-@@ -251,6 +251,8 @@ static int espintcp_push_msgs(struct sock *sk, int flags)
- 	struct espintcp_msg *emsg = &ctx->partial;
- 	int err;
- 
-+	if (emsg->owned)
-+		return -EAGAIN;
- 	if (!emsg->len)
- 		return 0;
- 
-@@ -274,6 +276,12 @@ static int espintcp_push_msgs(struct sock *sk, int flags)
- 	return err;
- }
- 
-+static void espintcp_unreserve_msg(struct sock *sk, struct espintcp_msg *emsg)
-+{
-+	WRITE_ONCE(emsg->owned, false);
-+	sk->sk_write_space(sk);
-+}
-+
- int espintcp_push_skb(struct sock *sk, struct sk_buff *skb)
- {
- 	struct espintcp_ctx *ctx = espintcp_getctx(sk);
-@@ -291,7 +299,7 @@ int espintcp_push_skb(struct sock *sk, struct sk_buff *skb)
- 
- 	espintcp_push_msgs(sk, 0);
- 
--	if (emsg->len) {
-+	if (emsg->owned || emsg->len) {
- 		kfree_skb(skb);
- 		return -ENOBUFS;
- 	}
-@@ -336,10 +344,11 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 			err = -ENOBUFS;
- 		goto unlock;
- 	}
--	if (emsg->len) {
-+	if (emsg->owned || emsg->len) {
- 		err = -ENOBUFS;
- 		goto unlock;
- 	}
-+	WRITE_ONCE(emsg->owned, true);
- 
- 	sk_msg_init(&emsg->skmsg);
- 	while (1) {
-@@ -368,9 +377,10 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 		goto fail;
- 
- 	end = emsg->skmsg.sg.end;
--	emsg->len = size;
- 	sk_msg_iter_var_prev(end);
- 	sg_mark_end(sk_msg_elem(&emsg->skmsg, end));
-+	emsg->len = size;
-+	espintcp_unreserve_msg(sk, emsg);
- 
- 	tcp_rate_check_app_limited(sk);
- 
-@@ -383,7 +393,7 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 
- fail:
- 	sk_msg_free(sk, &emsg->skmsg);
--	memset(emsg, 0, sizeof(*emsg));
-+	espintcp_unreserve_msg(sk, emsg);
- unlock:
- 	release_sock(sk);
- 	return err;
-@@ -549,8 +559,13 @@ static __poll_t espintcp_poll(struct file *file, struct socket *sock,
- {
- 	struct sock *sk = sock->sk;
- 	struct espintcp_ctx *ctx = espintcp_getctx(sk);
-+	__poll_t mask;
-+
-+	mask = datagram_poll_queue(file, sock, wait, &ctx->ike_queue);
-+	if (READ_ONCE(ctx->partial.owned))
-+		mask &= ~(EPOLLOUT | EPOLLWRNORM | EPOLLWRBAND);
- 
--	return datagram_poll_queue(file, sock, wait, &ctx->ike_queue);
-+	return mask;
- }
- 
- static void build_protos(struct proto *espintcp_prot,
 -- 
-2.53.0
+GNU/Linux Solutions                  e-mail: giometti@enneenne.com
+Linux Device Driver                          giometti@linux.it
+Embedded Systems                     phone:  +39 349 2432127
+UNIX programming
