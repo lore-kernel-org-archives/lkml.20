@@ -1,134 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162DB3E451B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929225; cv=none; b=r9Ju7369VyHrbszZh4PIz8vFEzdJIkiug/Lm+NRQo7SaDnNTyF54S5qcZ0oYCYHQCQ7AoRqU0d5/phsAoGZBog9DDbYJ2zzaKmfGDx19aP2lOtbHv6WjEWfI4mNixrc3Sz8crwSnLprUDRYmWJ6zLJuCPElqzCt943sCDTKtN74=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929225; c=relaxed/simple;
-	bh=gWnu78lsDu7M9l275KxounQcaaczKCQS6knv8WFYAA8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2EE3D9020
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790929290; cv=pass; b=tqiOWSWu7XFrXy4qvLGsgdIS3bHHlunq3pGCLjLF6XpRJRe/55uYs8KnnydtuAGhhzePeQLIxHfOEt3X7MDhb6fUrXD7zrioc28OVEBKFvEljzC0WzPK/bpOU6WGif/S8SpxXYz+G+6NX7SmsHTudE4TE5NzoyW9lUlm9Q/1Ybg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790929290; c=relaxed/simple;
+	bh=diH2idfj6C5xEcUw7EHKyOanYSmbt56Z/ovgECGMrg8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y8vZw2Tpu35IvbuKr8JnVEA3JSHMfMbzB0TFVtcHpQZp1P6bqhGF+cBO364FE/tvjzfZNaHJNHlPBoBAAp616WlMqMK0+8QTk3dkJ4/0nTpOwKW5lX8CNU2XWO56Cd/v0Or7VeYNc/RmFhZaovFkjhFcPRF6nfSysxsdjRYiv0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCk0j/Bo; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=erASVa1Ikd5/lKH4GP+6ubbzodFfIzX7c+MvYO7z0khsjdzyoCkXz3YffbGBgldRclFzc/5o8SVqqEUz4A3jt+jGBwJeQ93WcPTk28FbSRMB+fig+3d4KxB5V6/KhdHV9IRwFiMbSntiSK2QID8OonDTbhvWF9qOFGkF+FzjWSc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kk+/XRv+; arc=pass smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCk0j/Bo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6FDB1F00898
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790929223;
-	bh=DiolHbL656M0rMTOtyq984nHU4fBgKa0w8p0YS9RAcU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YCk0j/BoUGwGZ85uD6036Vl+y9uydYOx1Y2QVDOV01rVxfUI9sDlJc8+9u4Bw37CG
-	 CH81HQ+fCEthIu6UvKSY5q52cvrRxYg2OPURZ749HYJopKF6BgQ6x5JmDO0rSOz9n2
-	 okB+/hh/2zldjaNm1o6Lgwu0ROH94BVWZoI03WdAqJ1crOx9JUvZYr3mgDn/2s/Qy9
-	 KkN44CoGo5HS14wgOLX54L7BOn42sEODD9PWarSsxyUEe9cZsOXAAIaXR00Pg8E+Fv
-	 UqGWTHDo2lJZD3EerK2JFMt5uZOqOsr5l48J9kon3yYESSkJUG66cy/uYBKIivyGSK
-	 ABWAdP9UeihHg==
-Received: by mail-oo2-f35.google.com with SMTP id 006d021491bc7-6de4a048d12so107205eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:20:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByG4LFGXyGr4aEaTKzhxHsRUbsxfr4X7BEOj8W2JQkC9/9pp/BV5o4X0XCbEtvcemUs+7zH6UENNtOodc4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEQ32vdOXe4ZRUfZQ1boStf9+r6H843+ra0bBXx37XSlGQ/Oqo
-	Hz5colPdIik5f3eRxffGVbYMB5fsYnXdpBwlMfKEuAw+qXyP7mvCMMhgi7zptdG5k/HsZl5C53N
-	PLCTdb96MaUk89LQXG60BUxSI274xx4Q=
-X-Received: by 2002:a05:6820:55d6:10b0:6d7:5343:b5fd with SMTP id
- 006d021491bc7-6df34091446mr1013040eaf.44.1790929223082; Fri, 02 Oct 2026
- 01:20:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kk+/XRv+"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so1815573f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:21:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790929287; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DdIDEGtgViMtmEqkWg+SgxsAAflHS4YoVa82KgMgj+mJyPR1ffq0RPaP7XQ9gszJ3K
+         hMaR6VtfOs8BSr4X9Nr5vAt8FOE85ixs+agpu0wG1e1ndLvT257Nybb4KiOfvpAdwNTo
+         NOnnOWTjikXiusrmNitE4Cp2GaYv5b0z0fiSWm5o/vri26F5ZZtSQAgD1URwpnaTuuh6
+         7F+xeH/Vb5xhaaMXL1eSoF6KbCfGHYAU3e724XW1D9E52JpOe1fgzfATV1X3DN0tzxbf
+         +sKVmISTkkwNxhhDqSRqqJ1GnR7iKPu7x5kWOxr80jV7vXXOE69HSspgS0Acak5pCh7v
+         qVzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=diH2idfj6C5xEcUw7EHKyOanYSmbt56Z/ovgECGMrg8=;
+        fh=+bh5738leOoVOx6Ppi1Xg6RZA6WbtuNgF8xfXqCma9E=;
+        b=HMViowJ7bzY26+kA9NmPCGFj5hFSUNNJg/uTximDnTHwZaVKPomR6LDJt3OjP+Xjwq
+         q8m3Be2jEeWsOvKXyyrEzEF3SAnLY1qEM7qIyMbKfhlD9atWTO7IjH738PYkmwWumUOD
+         YGmkPR73aXTO9GvPw5f+L8OC7g/aa3deEyAg/PPIXZS9BRAk9928xM2CD2OakX1I5ntG
+         OA2wumF5vfnP4qBQ29kGLmPbvGB2pgUcJQ0z7HNdykE/yZ5kzSgVFj8cvidR45AKZbNU
+         glHDzoaTzgKMifBN9EwAptuLA8RW9QMKpPYIiPad/EzV9i+BPVXuxvjN5eC6WcJvI+BA
+         ml6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790929287; x=1791534087; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=diH2idfj6C5xEcUw7EHKyOanYSmbt56Z/ovgECGMrg8=;
+        b=kk+/XRv+8UJHkj9ILHT2y7qwA8zf1MFqah62QRer6R9ulmJOdjT0iow9atimFNCYmM
+         cFBfCMkBIbE3ycSzE7CFA6tqtRhIAFG4Wf5cPZB6H5KcFQ1ZzvLhUkjqK3wvwt1vfUkg
+         UPrcy8o6HPmnpKR2NH7xgkmLAJWGKXB81+VtYqgUuSESwQm+W4YVAobcmg8aGLM4RQXF
+         LG6/mwdK+0iGXf98QRSYT04inlvUG+/30bxXn0dIU5TowifsKCVhZMaUvLMEYWBQuZrk
+         rL7v5HTCuOObJukM8qrZtfjVVgs3ALlWySg05mLnxe+yGItzyGNY36+kAmzntTZHwvCh
+         29NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790929287; x=1791534087;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=diH2idfj6C5xEcUw7EHKyOanYSmbt56Z/ovgECGMrg8=;
+        b=K+w8japBMOZDbyEQYjg3jaFlwn3v6YrWH05+29CpgjTCrBHdmaVdgHdtdf6z2gJNjS
+         bZyyurRsZaTw7E7PeW11RpFL21NUBnxZ7MOP7CABpVVmNUGR+TlaGGbSlTbopsTMz/9y
+         eSWKVURgFdlw5CLXU3vNMRNye9HS91iwazKV6q+e0UWEZLvsKq2u0yQAWxgWGBoLcAKW
+         +f6DxTFn641hiK8kQsaNgvx7RBITHCre5/rc1nPRVuLInEak6k85Kt9Ki1yeNg7zq56o
+         Z6EEMj0blNUFQYuLNnuOAGFrkZxEUH8eVXLZTiB243g4BRRkbS3f45qQ+BJ2U7wv5vic
+         ZEsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRCh6iM1gn+z20fIb3Rgk2AzAIJIekFPQW2PmCeuPyviaFfeX4+eJaBfFveGlXs+Mcuuz8LcSWEhJ838U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1XSpnUbJduxtAy16cVtoDHQeP11OEARWyYzNN/JHbHr2EU/2d
+	6jc6yZ7qtiZCIEgwH4GMybHxEYZhkzKYbCkAvm5M0QzGdJdNuDZ69rrT3R1W1UNTgYjFJGJSUe8
+	fxUnzVHcsXFpQDeiTwTXuzcFD1yVTtzOSfMocISvH
+X-Gm-Gg: AYBFou2Syzw42YXxccogo8pLNjx4pCMU3FHmT3TCyVZc9j5Hu18+TVlYYjphNVrOL3q
+	D+8T6QWYIODaLqXdSV/phRanYIJgvwSC62aa5O7nQTNpvV3Dk1wK9bHBdLNbX9JiJtXi6f6F2a3
+	+tVXOl1TqF9NTaFdWLUNf0b3Q3onaagpfdWToHJ/hMLqRklLVMooXzom4mrsXXdaauuGTOMrWoz
+	cfZePkz9Hy0LDYciMx2jz4xhcS2374s6/+unpxWeaxF8Oe1Ce+vH/JzEUjnxbEUqlWGbt4M9+yv
+	DjnKIhrJuR33AIIPfGA5LnidNeGic2O54NBwrT9PAL+i2tf0/erV1uvQ9+1wqhEFvoSW3Mze9Hv
+	tp7P+Tl6qnb4WCn47gd8o/HFBmtuVhPjvi7nuEDDwDCe+2WZihIZSS/HY4Brk2FA1
+X-Received: by 2002:a05:6000:4208:b0:48b:efb:4a66 with SMTP id
+ ffacd0b85a97d-48b126f1580mr3353090f8f.6.1790929286234; Fri, 02 Oct 2026
+ 01:21:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790917676.git.zcliangcn@gmail.com> <62774f8c6cbad549d1a95f88df99ab7745d7f6b8.1790917676.git.zcliangcn@gmail.com>
-In-Reply-To: <62774f8c6cbad549d1a95f88df99ab7745d7f6b8.1790917676.git.zcliangcn@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 2 Oct 2026 10:20:10 +0200
-X-Gmail-Original-Message-ID: <CAL4WiiqWwV+8JaYjsHrWDvoSt8Ng01xs9Orv4xhRpFAvhMnD6w@mail.gmail.com>
-X-Gm-Features: AclHuK_GE1sAsvNuKlOLRAERpbySEcCE-snYtHgM_PZqpiuw-6uNdwPQVickwR0
-Message-ID: <CAL4WiiqWwV+8JaYjsHrWDvoSt8Ng01xs9Orv4xhRpFAvhMnD6w@mail.gmail.com>
-Subject: Re: [PATCH net 1/1] net: use random salt for netdev name hash to
- prevent text base leak
-To: Zhengchuan Liang <zcliangcn@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>
+References: <20260930034148.590687-1-jhubbard@nvidia.com> <20260930034148.590687-3-jhubbard@nvidia.com>
+In-Reply-To: <20260930034148.590687-3-jhubbard@nvidia.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Fri, 2 Oct 2026 10:21:14 +0200
+X-Gm-Features: AclHuK_MiHOR3Pc29XEsDqdfYPSNeVPeNz_wnZqSqYI3XkcpdkMabRyn2b6yt4E
+Message-ID: <CAH5fLgiQ=aiF-WWvpPZkB-LcXxfeXAD1Q8zOF3cLQkU072XDKQ@mail.gmail.com>
+Subject: Re: [PATCH v5 02/15] rust: sync: completion: add wait_for_completion_timeout()
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
+	Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, nova-gpu@lists.linux.dev, 
+	LKML <linux-kernel@vger.kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 2, 2026 at 8:52=E2=80=AFAM Zhengchuan Liang <zcliangcn@gmail.co=
-m> wrote:
+On Wed, Sep 30, 2026 at 5:43=E2=80=AFAM John Hubbard <jhubbard@nvidia.com> =
+wrote:
 >
-> dev_name_hash() uses the network namespace pointer as the salt for the
-> network device name hash table. Unprivileged users can use SIOCGIFINDEX
-> to look up attacker-chosen nonexistent names. Timing these lookups
-> reveals which names share a bucket with an existing name, allowing the
-> salt to be recovered. For init_net, recovering the salt reveals the
-> kernel text base and defeats KASLR.
+> From: Joel Fernandes <joelagnelf@nvidia.com>
 >
-> Use the per-network namespace random value from net_hash_mix() as the
-> salt instead. The value remains stable for the lifetime of the namespace.
-> Since all name insertions and lookups use dev_name_hash(), this only
-> changes bucket placement.
+> A driver that runs an interrupt self-test during probe waits for the
+> handler to fire. wait_for_completion() has no timeout, so a broken
+> interrupt path stalls probe indefinitely. Add a timeout variant of
+> wait_for_completion().
 >
-> Fixes: 8387ff2577eb ("vfs: make the string hashes salt the hash")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
-> ---
->  net/core/dev.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 18dc88990510..f3eca7fa2481 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -98,6 +98,7 @@
->  #include <linux/bpf.h>
->  #include <linux/bpf_trace.h>
->  #include <net/net_namespace.h>
-> +#include <net/netns/hash.h>
->  #include <net/sock.h>
->  #include <net/busy_poll.h>
->  #include <linux/rtnetlink.h>
-> @@ -193,7 +194,10 @@ static inline void dev_base_seq_inc(struct net *net)
->
->  static inline struct hlist_head *dev_name_hash(struct net *net, const ch=
-ar *name)
->  {
-> -       unsigned int hash =3D full_name_hash(net, name, strnlen(name, IFN=
-AMSIZ));
-> +       unsigned long salt =3D net_hash_mix(net);
-> +       unsigned int hash;
-> +
-> +       hash =3D full_name_hash((void *)salt, name, strnlen(name, IFNAMSI=
-Z));
->
->         return &net->dev_name_head[hash_32(hash, NETDEV_HASHBITS)];
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> [jhubbard: return the remaining jiffies]
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 
-Thanks for your patch.
+With the timeout clamped to LONG_MAX as sashiko says:
 
-CC Linus.
+Acked-by: Alice Ryhl <aliceryhl@google.com>
 
-It seems this patch should target net-next, local KASLR attacks are
-not a serious concern.
-
-Your patch would allow an attacker to disclose net_hash_mix.
-Leaking net->hash_mix compromises other per-netns hash tables.
-
-u32 hash_mix is too weak for full_name_hash()
-
-1) What about passing NULL salt instead?
-
-net->dev_name_head is already a per-netns hash table,
-and only CAP_NET_ADMIN inside that netns can add/rename devices in it.
-
-2) I thought about widening net->hash_mix to unsigned long (get_random_long=
-())
-(but not change net_hash_mix() u32 return type to avoid side effects)
-
-But full_name_hash() skips HASH_MIX for len < 8, any 64-bit salt passed to
-full_name_hash() can be recovered quite easily.
-
-pw-bot: cr
+Feel free to take through drm-rust-next.
