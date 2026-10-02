@@ -1,64 +1,63 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEA34D9550
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756CD4E01E2
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:36:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951769; cv=none; b=didVjQJ73ZXxuHIJqjW0mHZ73zwp3f4+qzTXicTD0OI3xnG69llmru37lRlmo2uLhaJCBX1zxOdGCtRW7sP6CHfuiWNFOZGrhe9lrXhu2Dgy+psCM7S9mNSbvdCCwVrwPWIf/gfGL50y05iIhFr1nUvn2+NaSrGFSotEvVdNwi8=
+	t=1790951774; cv=none; b=u6xSUDRudtABgcLMt2vlxeOAMpHBKEer4/wvAgbVCWT8juB3tTp1eUtXEQc4fUnAaixyslZqpwMaJIH3IPT6A+pshDfESZ98nQc0W5dObMTmb/JcpfEIUpbR+sw9DOLjCJRCK5MWAkuPIxjgPtcNWvs0Vjn+GjPrt3f1Cnk+l5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951769; c=relaxed/simple;
-	bh=eQRCEWeuQenLohMAayQ/7Eqy93mhz2DxGt9MaVpnEkQ=;
+	s=arc-20240116; t=1790951774; c=relaxed/simple;
+	bh=zQ91ICwZjqU5P6aGDiyYlfRLUyuW9YOMBnxwHcCrIWw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uv02dsrxrf1w63yJK2ynho/dSoN7uQ7a/aCV9KBVPGfCL2nlJjTW0x3GHXbhWj7nIzv4JtKTZPUNeXxsjmmenFlJzmpA0AskLCtB2EamlJKmrOQkC+M5qgSoE3vaMhOxPzYcFaSUKC6m6ol7xQIsskRe3UtB+ZwsResS3V3N24Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citymesh.com; spf=pass smtp.mailfrom=citymesh.com; dkim=pass (2048-bit key) header.d=citymesh.com header.i=@citymesh.com header.b=Vp3GObUu; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=IHfMJEMQB8ZQvjJ6f4+v3IYYoZnkTHyK91fbuZxpNp6aHOFVlhoZSeU40nJufJSoQKHCLxP879RGHoeMKmSvz+2RYC99wYJdROCQZvdc3jlYulo3rm2LIqxNAMaatJzVhOnKhdisZv4w7akyA23rIMcY2nu6vulvGcsir/JfgLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citymesh.com; spf=pass smtp.mailfrom=citymesh.com; dkim=pass (2048-bit key) header.d=citymesh.com header.i=@citymesh.com header.b=iD/oop3Z; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citymesh.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citymesh.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=citymesh.com header.i=@citymesh.com header.b="Vp3GObUu"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so42917555e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:36:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=citymesh.com header.i=@citymesh.com header.b="iD/oop3Z"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso44322135e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:36:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citymesh.com; s=google; t=1790951766; x=1791556566; darn=vger.kernel.org;
+        d=citymesh.com; s=google; t=1790951771; x=1791556571; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WBwjMAy6b17UOR1h36UJ07paZoIuGQbP8cI4le6OJ04=;
-        b=Vp3GObUuUkcQiFIYDMR6c1eDDnAuMAPf2LysZ/6xKgG3GLj0+gLXKD/R6dsWIZWt+k
-         KO+iraLCYIXyEoo/x/I3UMuw7r3DooFLNfJ+JKIwzOshYlRSRsmxucURDz8lK6fzBH6Z
-         5W5WMSyedWZu2raUquEdDI+G4a7nf0K9geLxqzkyBvLZw8gdNEOndOT53ZHTTzqFr7GH
-         xarBO0/iUWXBFM3KS8/TSpv1RuWNPjLwEHaWx2v+7y+wSG0Q627eYj6OE0jBy+orVwpH
-         YE64rV5jdAuM8Lwq4KeKVFwiqXlPUwvaiwjOAqarCCsPqCnvT6v9VhcrFILDyLZuLVbU
-         DHCA==
+        bh=vRr2guhba+ML772UP06zlXanMDzKKDE9ikuGJMi6gS4=;
+        b=iD/oop3ZuBKpB98GRhE90n+pVvh56UsE0s6OD2PrCCH3uCl1EQ8CIjgdi8PzmpkyXc
+         vj3KVtY4Azdk4cCbZu7DAitU6RTcIQd5OVZg6zwE4DeyJC7IH0IpsE74I7BCDfHR88Ku
+         G7YrsT+C8w4bfISHlliWbIsm5LV3Wns/bSLZx7gGThMM+S5A9ELupHSQjJFoYOiHnati
+         kjg962GMHL0MN501vy/jBqx29dmglC6dYKEwb4UdlzUtv03VuI0B71hr2JQjOJZmpWJz
+         4IfklI6MGuMNc/evV/DquKxGofhNhAtBQJB2yI0jNKTcgURggHLFcInEPrdVyUD2j66v
+         2eFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790951766; x=1791556566;
+        d=1e100.net; s=20260707; t=1790951771; x=1791556571;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WBwjMAy6b17UOR1h36UJ07paZoIuGQbP8cI4le6OJ04=;
-        b=g4HRkfEf4oUct+MNtDg/snenx6ZQ4kTU/hujLJKo8Ed2aY5dvklxEDirqkuBSkHBRJ
-         JVQTuUefUaj+dbBZf5ymXUjJ8eZ7cBD+X5+QFKU0rmZ6MI08wimVKKTXojPbjd4PWLhQ
-         XYAGSjPF64hCOntdh1l73lkE/aRAcJ/amuEKpBteDJQPCmCWG/WmLWKkYKAQyUyu3rrd
-         8clY1aayBJabh3DlrGNihU3i+FeCvaWDlPJMFcOqwMeLpZg8gJqNY4YhXqbKZQT/DbZ+
-         chOlbXw5eypdz9mUemifockTcyg6mrd0gncXT2euuv0KolOthuQ4XTQ99E9vzUGqElOh
-         /8dA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/g6QYY4MT6Fxlx5GrbYFG8ssLZoeQViziSiGa1y/tC2naLd1tPiirvbSOGYFLVyrxCqPV3CzLCt5kK8w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQJxGfxP67u5DqpWzUQLmHLXYcC3KflW2G8P4/3bTCGkykPWLx
-	FPKF2/YyOt5yZqEHEXpBmKzr804y4Y8AiI4WH92asBQA/VoGoUmdNraVQ6SbK+KkMlI=
-X-Gm-Gg: AYBFou2LqF+XfLRaUWMxF69QlEugVKQmzngQpl6vvvcL1zE2cGUvxMjazjSG0UjHbk2
-	kO0Eeb+I/6X+bFo4n7h63tHwJz69SZ8SUeE6TOPXQI3Jd9BqY3SzyYL9UsceAYzx67ldOq62kqs
-	Kf/4Jmda/kpAiKowvcPCOCbSNPGBoPwDHeY4Sj9wjB1M+fAcwhGFuVkcTtU2ci33OzEd21acLTh
-	EMx/ehopeLtRY5pm2zt1+Px23X0YDyfbVcYW/tKHw1p+uz3e1ka/h++GDwcujGpo0IU12htftdI
-	/IeboynTbfhPrPgC8fIGXnJceMaAHSIk7TgO84NVCWouetku0kaCXpwvf0BntDm8DaLNxfS6Ey1
-	cM9+Qxz/dAj9oaUf2c0typuUnmUGGDRGsy7w4QNx1DfkB5PGCU+jpqNVR+0asnQ+bnOepeT4bGw
-	NGoCNBc7SQwDL4qmIE+RISK0xZweROktduT8Bo4+5cUKAwtqd3mCALbH4Z0xGsu1N9up03aTDfs
-	7fawQ==
-X-Received: by 2002:a05:600c:4f88:b0:49f:fed0:fc47 with SMTP id 5b1f17b1804b1-4a027523050mr51473955e9.1.1790951766149;
-        Fri, 02 Oct 2026 07:36:06 -0700 (PDT)
+        bh=vRr2guhba+ML772UP06zlXanMDzKKDE9ikuGJMi6gS4=;
+        b=AClTiffJ+Wc0MPG4m9azQ8deR7RyhjXTy9xphh1ws4+J7tCJW4nYZ9zDa11OZqXLky
+         BEcDJBF3d8O1BfWyIB8ZlYXrVIzswC8Gvhd9yZ7uZfD7H8q+koqZxAZMxAaIAVK7ID2O
+         awKdpCWxZ506LlqaHvsJ/yBvZOdA7onsT4zMLEmItbTTBUvmRJGGhtbzsmZA8LAGKxVS
+         89icoUPsB+Vre5vMOT8vQCdj9N8Tii4cYCQGdlTupASAutNrfL6R5l1brobwTUYCU3dz
+         w9GKyjmGi7iRHwy3VgfxMCBywv2fmocDhczGT0NbPDYUgKapLmYeqhgXpk71iYGp/dmP
+         8dpw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDqMZyS3cwinkGuCOaWd3k7jqhR5RKZicDWbWiEZvOI34rqFjI1k2EEzhOwsEv/TZWgSt6o2xIKTRkbVM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFODoKJiD4MkQWGER0IhUIPQ0ydOycq0DP/5Sl9G4lXWKgIpp0
+	03UHypZBIpj8lyzF/fONKJ/mUdAUtUP9AzKTD0k1UxF8e4yD+G9ufcKcY4WbuoSCyOE=
+X-Gm-Gg: AYBFou2ayvKef+jx8PEiInntis9+hAoT2U2L+kq4kig3FavlVJzKCqGteWk88PC5rpE
+	QGJG8/u540Sbm+GqI99NOBedz0QDnzBfKrC0ObvB4Zlwr5gfuXAk4XrcaMujFqfErTDPXxZtqKU
+	Zl8eJpb9M6opvCBQ6t/KLU/sDroU9yKiSGjyLOjLA4f88rVVKbbXY4psiWEYpwu206gAPfkNW/v
+	/n0fPARGjRLAPqW3E2D3T3thUdZ1ffUTjkhWiRkfUjlAU4aSUJfTy4ieQSDJC2Sqp5Q+GYO9+GF
+	Ufo4/NRK0YZJDWk0QQroKR4QKWwVBnE3XPuSqfdtBDT4QmEdUJB40O4yq+ZDUVK5OPzz+1DHv7c
+	MYHzWC4KmXEfejmkCkwfVew42Sf+lGs1/Z1gN3syvWfAsyaNQJLDvTd77iXGKGIJm4LAnjH75oj
+	gFrAt3eUC+ey1PHQZ0PpFEbd92Ekm1EYVE/VINq1aOXj3ZUUSt19rKHt5z7UHCWThdcT8=
+X-Received: by 2002:a05:600c:1911:b0:49c:ffab:551f with SMTP id 5b1f17b1804b1-4a0275657a1mr50439615e9.22.1790951770536;
+        Fri, 02 Oct 2026 07:36:10 -0700 (PDT)
 Received: from koen-nuc11.. ([2a09:bac0:1000:2ef::4e:6c])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f67cbfesm8715315ad.28.2026.10.02.07.36.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f67cbfesm8715315ad.28.2026.10.02.07.36.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 07:36:05 -0700 (PDT)
+        Fri, 02 Oct 2026 07:36:09 -0700 (PDT)
 From: Koen Vandeputte <koen.vandeputte@citymesh.com>
 To: netdev@vger.kernel.org
 Cc: quic_subashab@quicinc.com,
@@ -71,9 +70,9 @@ Cc: quic_subashab@quicinc.com,
 	dnlplm@gmail.com,
 	linux-kernel@vger.kernel.org,
 	Koen Vandeputte <koen.vandeputte@citymesh.com>
-Subject: [PATCH net-next 3/4] net: rmnet: conditionally expand skb headroom in ingress handler
-Date: Fri,  2 Oct 2026 16:35:28 +0200
-Message-ID: <20261002143529.3217189-4-koen.vandeputte@citymesh.com>
+Subject: [PATCH net-next 4/4] net: rmnet: optimize rx handler by replacing skb_linearize with pskb_may_pull
+Date: Fri,  2 Oct 2026 16:35:29 +0200
+Message-ID: <20261002143529.3217189-5-koen.vandeputte@citymesh.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261002143529.3217189-1-koen.vandeputte@citymesh.com>
 References: <20261002143529.3217189-1-koen.vandeputte@citymesh.com>
@@ -85,50 +84,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, when the rmnet driver processes ingress packets for an Ethernet
-device (ARPHRD_ETHER), it unconditionally calls pskb_expand_head() to
-ensure there is enough room to push the MAC header. This forces a costly
-memory reallocation and payload copy for every single packet on the RX
-hotpath, severely degrading throughput and increasing CPU overhead.
+The rmnet RX handler currently calls skb_linearize() unconditionally
+on every incoming packet.
 
-In many modern architectures, the underlying physical driver (e.g., USB)
-can be configured to pre-allocate this extra ETH_HLEN headroom when
-minting the initial SKB.
+When receiving large, hardware-aggregated frames
+(e.g., 16KB or 32KB from USB modems via qmi_wwan),
+this forces the network stack to allocate a massive
+contiguous buffer and memcpy the entire scattered payload
+out of paged memory.
 
-Optimize the ingress path by checking if skb_headroom(skb) < ETH_HLEN
-before triggering the expansion. If the packet arrives with sufficient
-headroom, the driver now skips the reallocation entirely and safely pushes
-the header. The expensive pskb_expand_head() operation is now strictly a
-fallback, allowing properly configured hardware to achieve zero-copy MAC
-header insertion.
+This severe performance bottleneck is completely unnecessary
+because the RX handler only needs to inspect the initial
+4-byte MAP header to determine the logical endpoint
+and route the packet.
 
-Testing this using a temporary print in the new condition showed that
-the expansion is not triggered as enough space is already available.
+Replace skb_linearize() with pskb_may_pull().
+This targeted check ensures the MAP header is safely accessible
+in the linear data area while allowing the bulky payload to
+remain untouched in paged memory fragments.
+This preserves the zero-copy architecture for aggregated frames,
+drastically reducing CPU overhead, cache thrashing,
+and memory allocations on the RX hotpath.
+
+On a slower embedded board, this improves throughput by ~10%.
 
 Signed-off-by: Koen Vandeputte <koen.vandeputte@citymesh.com>
 ---
- drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-index aa5523f4618e..95c3e3934fd3 100644
+index 95c3e3934fd3..a2379df69a6d 100644
 --- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
 +++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-@@ -114,9 +114,11 @@ rmnet_map_ingress_handler(struct sk_buff *skb,
- 	u32 data_format;
+@@ -217,7 +217,7 @@ rx_handler_result_t rmnet_rx_handler(struct sk_buff **pskb)
+ 	if (!skb)
+ 		goto done;
  
- 	if (skb->dev->type == ARPHRD_ETHER) {
--		if (pskb_expand_head(skb, ETH_HLEN, 0, GFP_ATOMIC)) {
--			kfree_skb(skb);
--			return;
-+		if (skb_headroom(skb) < ETH_HLEN) {
-+			if (pskb_expand_head(skb, ETH_HLEN, 0, GFP_ATOMIC)) {
-+				kfree_skb(skb);
-+				return;
-+			}
- 		}
- 
- 		skb_push(skb, ETH_HLEN);
+-	if (skb_linearize(skb)) {
++	if (!pskb_may_pull(skb, sizeof(struct rmnet_map_header))) {
+ 		kfree_skb(skb);
+ 		goto done;
+ 	}
 -- 
 2.43.0
 
