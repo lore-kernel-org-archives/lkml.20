@@ -1,697 +1,178 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360724F391F
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104D14D6C2D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955936; cv=none; b=hm9SmvjkMqUmwjO2TuXsExzyLT9QOMExOSssqFCahINEMM+gojH4bPSZ6JRvVC9MPWylToxM7ZAdqxvBNul/CArI7/FZUyKaPfJIFIBaa5CtO63y4FlfeSPFB9uCe+K/lW4+4L5TpRK5f2tin1H9SGo23kpN7aOLcI1flN+oeew=
+	t=1790955941; cv=none; b=B/mWoNnhIYF/nYfdf/3JAOPwZHxkWpPxdoAxLEWCDOua8zYf7voVqP/w2+rAMTxNcvPOemkaVHxOgDJdO+XITZIOFkEIQjqR1RaNG6k/fddvVWXeoEZqmO4o1ALI0j8Bo/xI9NfVVlpTgPzGwZaLacl0uEvgXbKwbtqrl78Fzj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955936; c=relaxed/simple;
-	bh=skoo6avmmjeL8kyQJnLryydDfREcVXRar8ezCpoeIm0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nrO2h9tbIBctic6cHJ+t0nm1kOqHVqoZ7U8uYUmCM1IAphV/m2FPID49104HWF5CYUlXsHfkHIoAfs6pvH4PcOCvFAP3YI6XFfsXHtbhYKZvs+/Y/13J0WbNSBLKsGVW2w4gfExJwrU495HPvdgPGBHgBAE0F3EbcUP2M/Hyt8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZqDWBDAe; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790955941; c=relaxed/simple;
+	bh=OOvwZParqGAsBd0+Bjsmro0tSxp3TRLEWaSyLRmhjHI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ExRPKC5M5Mh2mlVsilsmBgPcluJU1dCDmTIpRcVYH+eu4nKAKpbsm20zmM4Zmz3pXkRF0+79neYthDQc1yH4fsXYrlMOR0C3xs+KejJMMN+hyC1vunT3NvxO1eSYqRoFdVSRdJZcpIMpg1FVb8sevQISl6b4aNLS4IKLmDXbcXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FOHZYra7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aFCPn6Ew; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZqDWBDAe"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso373995e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FOHZYra7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aFCPn6Ew"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692FGp621246241
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 15:45:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=5lvh9wMD5tjLVC95TXkUAYAr
+	tmVzd4nSgEQHrshpnPM=; b=FOHZYra7URt1IC2prh26XZ6+dNjopQCM6sBwUgFj
+	wmcYLmmmfb7ERZLbHNS6dhaETtGJ45Kufcnph3ng2Oke8D1swMRVpnNsRVYLekce
+	iyRqrcPMOBEhNKPcsAlKtxc46bjiRbmcgAnKXX7jTv8XzoglTxzeT08/MyNqnBXf
+	w3JsF0QjL7RTdAsoMnnLrp4lGKZb8VyzVnd39KfKcr+rutLEOqywo5JtPYP100ax
+	Z2CO9whPnDr3g8ITjmNukS2MeN4w89xW7JmEBEZKfvQAb7K7NY56tjf3v0pDNvpG
+	astu92g+/gJA0QZxlmP0P/IUK7Kre8XZ5CvzTvCCTeGlYg==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2f3d846r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:45:37 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-98331b577e4so5726060241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790955928; x=1791560728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LAEqNRmyCj1e8UCm33pgLLYf9nlKjrU146EP4cKLBNg=;
-        b=ZqDWBDAeBM4IJwSVZJS2gXhT3kmqQIm2JMnckTH2CZqrKUh+nSXgNf8v+8dTPKDMht
-         chiRVBuM9XpS3nyMl9lwwMLYhaOyHUKg98CDc71tbF4MH6PVMkbFMK/zwtxYFZwZudF8
-         1Md6fnfOqsy4vSYunq+P5d5qX5ameD+h/FH2YqFwXk3RmRgreTafo/4mtnjTB6AZ2Mdc
-         9YrDFZbXfknMaaoaOL2VHNXtczIgd99Def8gS8PKbhQxn4CbTs1lyEuu5fauTWxmCDl+
-         uEhs3lRansilP6E+fNIXwirKD9U6UZxiGQtJejBCc99SZ+OQuQXPCH5a6Db9m3+Co7lB
-         JB1Q==
+        d=oss.qualcomm.com; s=google; t=1790955936; x=1791560736; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5lvh9wMD5tjLVC95TXkUAYArtmVzd4nSgEQHrshpnPM=;
+        b=aFCPn6Ew9rnrymhFO9pYvMlS9Hmk+K1XXm1vcfY55yfpIBdVKlowxLlwftic70J+jL
+         +c4FXAUxPwegKM8lGxtDeIDzA9NY/OvOPdHQFcP0q9WRs3clTtpMIRvxnbxER6PoUYUb
+         jhB6gdn6C2QENMkBEorSxg3GHfXrIGIW0VKz61lGif/3c18gBJZH1lRAa8cqOFkMWdHE
+         yv/IQva6UKYdoRn2GtUIqhGio3zMn8QpM6cDdcPmDfvG8b5VsYQZe4PRq0IgPe+LQU+v
+         vKF2747W+2eAPRhj/rMsr22Fq2Ku+ApyTcKCYNwIMEWNwpzs4cLLYFTsJI8OnzYeDQBy
+         DgAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955928; x=1791560728;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LAEqNRmyCj1e8UCm33pgLLYf9nlKjrU146EP4cKLBNg=;
-        b=uaEiE64iRQyFr07rzuCQXpjJvfFL5XrOIS9i2HAtPIK4NtX0Uk6L96TMeb4zvrFasu
-         aAvLm3xexpcChCaiPqLr318lEIAHMblCMZmbiJ/seCME605nCycHV8WwhYz2DnRF9Dhs
-         WUHZOdar5a56THhDawji++a2u32553ZVHhn+QtAQyZdmr0DwrHbUDqsAj9wL2O9U0tHr
-         4NxFbKNuqjAQZuBXh0JwKvf990/XWxWNr+jFUJn4HGicojDLe04pNVHDesr1QfndEdla
-         ITvVI8toWQZxNfbTLl0vsfxj1GAwbPizz3ade0x4bigXluoGpiLWZHsIvrppFeAaxrzZ
-         rtpg==
-X-Forwarded-Encrypted: i=1; AKwUvBweS86JnASMj293rSvbeHBSebeGlN0lcEHoRyJ12e3blBj1iH6PIR7qAvASBCYgi2U8X/SPmocq7GnhKjs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDOsv+guM2E5fGF9sttVeZWqSxbCfFiTknEDIbkMTb52mkTeJg
-	7++VLgRzisvcVU31HoYUB/d0ZooOVvClSiTc0ISOSu6ZN/7dR2BSCZOEPsEjOk8LVaM=
-X-Gm-Gg: AYBFou2b17PObvq9u2WAK4lvCuI+QzI59zsYD3YV2WWMjGmAlbo9UcmUyTL8wgTCSwk
-	5iD3pMpLEeVsWS6V48IjFtsmlIPZlsDUhCabSv7D78bTvARLvM6oEsuzfFyG+Q9nAComexydzTo
-	IZVP3FcnB37Isya0URo/6GkulRX72B0fqRdBNa3EIKT3q1bQurBv8dgEotlO8SuKR0nf3RjP88i
-	fJIO52S7Rl3pf+edQ5rMq6KA21NEis8Sr3c9v4bJQwyuTmPZCEaS4mWRgI3xNAIboKzkwG97MQP
-	PN6Ft2wIDm4vzUYJLDxLqqF+17Ejh3uRxr8QTn1Lx1g32XQVV3wyVJ+y8tBbPhEz4L6BSRsHMIa
-	BoWV9rNMRucwc+adqnAymuzciRJvXlUFXiMP5n3EEYlNvkA0xoBD4gJqx1Uz9ax9Yf2DwoaTEbo
-	w4EllAHe5umOwKYKWePDJFMilz0NU75AasTEBB2KwOJYdC7oLuBXiF5rgBdxed9Ks9UYKOWKd7W
-	OamuhJayTB+gwCBNQ==
-X-Received: by 2002:a05:600c:840d:b0:4a0:1c10:12b9 with SMTP id 5b1f17b1804b1-4a02758ec2bmr63305295e9.32.1790955927945;
-        Fri, 02 Oct 2026 08:45:27 -0700 (PDT)
-Received: from vingu-cube.home ([2a01:e0a:11f4:3020:718b:4747:291c:e5d8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.24
+        d=1e100.net; s=20260707; t=1790955936; x=1791560736;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5lvh9wMD5tjLVC95TXkUAYArtmVzd4nSgEQHrshpnPM=;
+        b=WDCAQ7Bk07jEh8OYgGh/qfq7xb7bpIanpdaVAA1lTFifBTvji1EWU/NoZhTY9xft0e
+         cc4U9UGAWhBKlTHNE0Ctl+DDk6WajtiJyoHC+1+bP/FOiIxT49lkVQM5sbtX0vs7pdun
+         jufclaeHQ010eRY2vuRC3SM1uBLr0H42/rUhC3YHqKB1XckSTPefxjw4EIRO57ALZD11
+         GskTc8CezUZ92r6hLECO/YyDIkU37Na67vfvVZ1J4+3rJPrViEwMPx4MgxX5TRL4kR+E
+         lzEAAOebB4XA2CRagLbZivwk1/ucDniwSzp7aeTSiJbXDHEdEDal5DgbDPjKfHY4F3dS
+         cajg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpUhv4TKjA+bsKcLffDB/u+3IoDKUBFYyIkNtwO6suAuC8PaEsrat573dS5jZLxnkzDhBJ3/jSxhFM2jU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPLacqH9BcKua7JoBXerPUPP+j/Eg4TBMtaHz0CWtJ+AwrEgK5
+	fEYZp52upWI/TKQ0cV7SYqxpX85bqeoT1jqi082CZJ6bqlnkhTGLnkhIL8juOhY4vXufR+H2d7U
+	m1PtZ0uzl/bgPLZN3/PCqzGWm16rcf49W5HLccMFGOeF0FCGGyod+twvC6wOM3eVGh2A=
+X-Gm-Gg: AYBFou15Qs5rqHwJZW1EGvOyeAtjfrCtzESlj8jk35QQgIBpMozudV2IqWmWtqxCiNE
+	/Ya54nhjXKCQwF+gaUgWz+++BGxyS18af5gqx7Y0SLUGji58lcE8D4xFGHMEHr3gskrVAtD/Yf3
+	DTQ54axjOpZ8J/XsrdThOeJScdXUcB0OBYFm14OqFjyMveUgqWOQ6YUmyA6VvblmS28ltuEng55
+	7gXSLaAUMSAOyfJvk0n/ywaQ7RD/3Aw1g3hrkD7hucwt0wbyCBYk+lFulSn1jWYypbRP1nthhUJ
+	DKHInN9dTeVFslmOzDF2ySHhG/tge0sT20FdSh/YvsMLJm1zlNj6lgJcR8z25AbGYGU1I5Ibw7D
+	USVwSVMWZijECfmxj6wg2poxO7L+yrhLBck1J4MVn9hEHjCBiu6mI2tCJdOO/0g+gyRhGPf/xqI
+	DsZLuJEWv10VgD
+X-Received: by 2002:a05:6102:688f:b0:7af:fef2:8ecf with SMTP id ada2fe7eead31-7c0f3d4e99bmr935137137.8.1790955936562;
+        Fri, 02 Oct 2026 08:45:36 -0700 (PDT)
+X-Received: by 2002:a05:6102:688f:b0:7af:fef2:8ecf with SMTP id ada2fe7eead31-7c0f3d4e99bmr935117137.8.1790955935994;
+        Fri, 02 Oct 2026 08:45:35 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e303896sm10673821fa.19.2026.10.02.08.45.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:45:25 -0700 (PDT)
-From: Vincent Guittot <vincent.guittot@linaro.org>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	lukasz.luba@arm.com,
-	rafael@kernel.org,
-	linux-pm@vger.kernel.org,
-	tj@kernel.org,
-	void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	sched-ext@lists.linux.dev
-Cc: qyousef@layalina.io,
-	christian.loehle@arm.com,
-	pierre.gondois@arm.com,
-	sshegde@linux.ibm.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 16/18 v2] sched/fair: Rework feec() to use cost instead of spare capacity
-Date: Fri,  2 Oct 2026 17:44:13 +0200
-Message-ID: <20261002154415.2270586-17-vincent.guittot@linaro.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002154415.2270586-1-vincent.guittot@linaro.org>
-References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+        Fri, 02 Oct 2026 08:45:34 -0700 (PDT)
+Date: Fri, 2 Oct 2026 18:45:32 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/7] media: iris: move shared APV PM helpers to
+ iris_vpu_common
+Message-ID: <ozfbnjyxg3aeeyrgegw5ljzl5w5fzxo6al5yiovmsbv67t3exh@varn7bs3kqdr>
+References: <20260923-add_iris_for_hawi-v2-0-016ec3d24b79@oss.qualcomm.com>
+ <20260923-add_iris_for_hawi-v2-2-016ec3d24b79@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-add_iris_for_hawi-v2-2-016ec3d24b79@oss.qualcomm.com>
+X-Proofpoint-GUID: Wp1Qzl80VQKlo_XAmM45TSvgJdYHjtiD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2MiBTYWx0ZWRfX0vQUuYCvOBD7
+ Hzb29fvuKkvZ127tnHGMGt8ZXDj4mYon5yJaPTX3Kr7VCbqu/uxl9XcH6Q6f0SnQaHmtxYPigoV
+ g/tlb/qijqJpncaaUeI17wO7bYer1R0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2MiBTYWx0ZWRfX04a1CQEx6W4P
+ KtaRS7AO+4xc5oaqKfsOF284JH6Wv8Gciv2snhIFOSrrTCS66wba6paxRxZAgHvz3aKq6ZYDDts
+ 0JNdm4XA+aA1QR5TA5lhZh6AAluJKwAqiKDo+ZLkRD59d3NMX2L9EomWDpaJwCIhLaixIDZy2c2
+ qnw7pUWAol+dDYNlvvfn73PlUmo/p+DBV/Py41vLfAcpJPF1Ce0VM9hE50/qF6Bn3f67Jhcqj+a
+ 0Kpt7sMt7Tsr3TIPQ0yEQHGTxEDRORvZBM1ToUEPWGD0p0Z42u2Knqsro2/40YQ8WMaHIWVI12X
+ OtSGdNtn/DCM4MC9l8xXnsG70nnsUC9tMJf16QA9XUoEai/QyqTnsg009m8eMb4gpE0xDyG5LO3
+ NgoAM59VaSe9eaIRlK2W54RoOfIp2C1K7l1DrV4zSWy9IFAETQ0J3iyNnB/1Ifvgegwy16ePTgF
+ sFqEw/DxIOYTs22SRBQ==
+X-Authority-Analysis: v=2.4 cv=L9SI0OT8 c=1 sm=1 tr=0 ts=6abfd1a1 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=cacEoe5upwBGUwrNK8IA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-ORIG-GUID: Wp1Qzl80VQKlo_XAmM45TSvgJdYHjtiD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_04,2026-10-02_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0 spamscore=0
+ adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020062
 
-feec() looks for the CPU with highest spare capacity in a PD assuming that
-it will be the best CPU from a energy efficiency PoV because it will
-require the smallest increase of OPP. Although this is true generally
-speaking, this policy also filters some others CPUs which will be as
-efficients because of using the same OPP.
-In fact, we really care about the cost of the new OPP that will be
-selected to handle the waking task. In many cases, several CPUs will end
-up selecting the same OPP and as a result using the same energy cost. In
-these cases, we can use other metrics to select the best CPU for the same
-energy cost.
+On Wed, Sep 23, 2026 at 11:27:52AM +0800, Wangao Wang wrote:
+> The APV power on/off sequences and AHB bridge sync reset helpers are
+> currently local to iris_vpu4x.c. VPU5x uses the same sequences, so keeping
+> them in the VPU4x implementation would either prevent reuse or require
+> duplicating the code.
+> 
+> Move the helpers to iris_vpu_common.c and rename them with a vpu4x_vpu5x
+> prefix to reflect their shared usage.
+> 
+> Move the associated register constants, including APV_CLK_HALT, the efuse
+> control bits, CPU_CS_APV_BRIDGE_SYNC_RESET, WRAPPER_EFUSE_MONITOR, and
+> AON_WRAPPER_MVP_NOC_RESET_SYNCRST, to iris_vpu_register_defines.h so both
+> implementations can use them.
+> 
+> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 105 +--------------------
+>  drivers/media/platform/qcom/iris/iris_vpu_common.c |  91 ++++++++++++++++++
+>  drivers/media/platform/qcom/iris/iris_vpu_common.h |   4 +
+>  .../platform/qcom/iris/iris_vpu_register_defines.h |  10 ++
+>  4 files changed, 109 insertions(+), 101 deletions(-)
+> 
+> @@ -249,7 +152,7 @@ static int iris_vpu4x_power_on_hardware(struct iris_core *core)
+>  		goto disable_vpp1_power_domain;
+>  
+>  	if (!(efuse_value & DISABLE_VIDEO_APV_BIT)) {
+> -		ret = iris_vpu4x_power_on_apv(core);
+> +		ret = iris_vpu4x_vpu5x_power_on_apv(core);
 
-Rework feec() to look 1st for the lowest cost in a PD and then the most
-performant CPU between CPUs. The cost of the OPP remains the only
-comparison criteria between Performance Domains.
+I think it's fine to keep the vpu4x in the names, even if they apply to
+the later generations. If (just an imagination) they also apply to vpu6x
+(or worse, only to some of vpu6x), we definitely don't need another
+rename to (again, imagination), iris_vpu4x_vpu5x_vpu62_vpu64_power_on_apv()
 
-Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
----
- kernel/sched/fair.c | 469 +++++++++++++++++++++++---------------------
- 1 file changed, 250 insertions(+), 219 deletions(-)
+>  		if (ret)
+>  			goto disable_hw_clocks;
+>  	}
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cccdc40b8a24..94554f165f42 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9444,29 +9444,37 @@ unsigned long sched_cpu_util(int cpu)
- }
- 
- /*
-- * energy_env - Utilization landscape for energy estimation.
-- * @task_busy_time: Utilization contribution by the task for which we test the
-- *                  placement. Given by eenv_task_busy_time().
-- * @pd_busy_time:   Utilization of the whole perf domain without the task
-- *                  contribution. Given by eenv_pd_busy_time().
-- * @cpu_cap:        Maximum CPU capacity for the perf domain.
-- * @pd_cap:         Entire perf domain capacity. (pd->nr_cpus * cpu_cap).
-- */
--struct energy_env {
--	unsigned long task_busy_time;
--	unsigned long pd_busy_time;
--	unsigned long cpu_cap;
--	unsigned long pd_cap;
-+ * energy_cpu_stat - Utilization landscape for energy estimation.
-+ * @idx :        Index of the OPP in the performance domain
-+ * @cost :       Cost of the OPP
-+ * @max_perf :   Compute capacity of OPP
-+ * @min_perf :   Compute capacity of the previous OPP
-+ * @capa :       Capacity of the CPU
-+ * @runnable :   runnable_avg of the CPU
-+ * @nr_running : Number of cfs running task
-+ * @fits :       Fits level of the CPU
-+ * @cpu :        Current best CPU
-+ */
-+struct energy_cpu_stat {
-+	unsigned long idx;
-+	unsigned long cost;
-+	unsigned long max_perf;
-+	unsigned long min_perf;
-+	unsigned long capa;
-+	unsigned long util;
-+	unsigned long runnable;
-+	unsigned int nr_running;
-+	int fits;
-+	int cpu;
- };
- 
- /*
-- * Compute the task busy time for compute_energy(). This time cannot be
-- * injected directly into effective_cpu_util() because of the IRQ scaling.
-+ * Compute the task busy time for computing its energy impact. This time cannot
-+ * be injected directly into effective_cpu_util() because of the IRQ scaling.
-  * The latter only makes sense with the most recent CPUs where the task has
-  * run.
-  */
--static inline void eenv_task_busy_time(struct energy_env *eenv,
--				       struct task_struct *p, int prev_cpu)
-+static inline unsigned long task_busy_time(struct task_struct *p, int prev_cpu)
- {
- 	unsigned long busy_time, max_cap = arch_scale_cpu_capacity(prev_cpu);
- 	unsigned long irq = cpu_util_irq(cpu_rq(prev_cpu));
-@@ -9476,124 +9484,152 @@ static inline void eenv_task_busy_time(struct energy_env *eenv,
- 	else
- 		busy_time = scale_irq_capacity(task_util_est(p), irq, max_cap);
- 
--	eenv->task_busy_time = busy_time;
-+	return busy_time;
- }
- 
--/*
-- * Compute the perf_domain (PD) busy time for compute_energy(). Based on the
-- * utilization for each @pd_cpus, it however doesn't take into account
-- * clamping since the ratio (utilization / cpu_capacity) is already enough to
-- * scale the EM reported power consumption at the (eventually clamped)
-- * cpu_capacity.
-- *
-- * The contribution of the task @p for which we want to estimate the
-- * energy cost is removed (by cpu_util()) and must be calculated
-- * separately (see eenv_task_busy_time). This ensures:
-- *
-- *   - A stable PD utilization, no matter which CPU of that PD we want to place
-- *     the task on.
-- *
-- *   - A fair comparison between CPUs as the task contribution (task_util())
-- *     will always be the same no matter which CPU utilization we rely on
-- *     (util_avg or util_est).
-- *
-- * Set @eenv busy time for the PD that spans @pd_cpus. This busy time can't
-- * exceed @eenv->pd_cap.
-- */
--static inline void eenv_pd_busy_time(struct energy_env *eenv,
--				     struct cpumask *pd_cpus,
--				     struct task_struct *p)
-+/* Estimate the utilization of the CPU that is then used to select the OPP */
-+static unsigned long find_cpu_max_util(int cpu, struct task_struct *p, int dst_cpu)
- {
--	unsigned long busy_time = 0;
--	int cpu;
-+	unsigned long util = cpu_util(cpu, p, dst_cpu, 1);
-+	unsigned long eff_util, min, max;
-+
-+	/*
-+	 * Performance domain frequency: utilization clamping
-+	 * must be considered since it affects the selection
-+	 * of the performance domain frequency.
-+	 */
-+	eff_util = effective_cpu_util(cpu, util, &min, &max);
- 
--	for_each_cpu(cpu, pd_cpus) {
--		unsigned long util = cpu_util(cpu, p, -1, 0);
-+	/* Task's uclamp can modify min and max value */
-+	if (uclamp_is_used() && cpu == dst_cpu) {
-+		min = max(min, uclamp_eff_value(p, UCLAMP_MIN));
- 
--		busy_time += effective_cpu_util(cpu, util, NULL, NULL);
-+		/*
-+		 * If there is no active max uclamp constraint,
-+		 * directly use task's one, otherwise keep max.
-+		 */
-+		if (uclamp_rq_is_idle(cpu_rq(cpu)))
-+			max = uclamp_eff_value(p, UCLAMP_MAX);
-+		else
-+			max = max(max, uclamp_eff_value(p, UCLAMP_MAX));
- 	}
- 
--	eenv->pd_busy_time = min(eenv->pd_cap, busy_time);
-+	eff_util = sugov_effective_cpu_perf(cpu, eff_util, min, max);
-+	return eff_util;
- }
- 
--/*
-- * Compute the maximum utilization for compute_energy() when the task @p
-- * is placed on the cpu @dst_cpu.
-- *
-- * Returns the maximum utilization among @eenv->cpus. This utilization can't
-- * exceed @eenv->cpu_cap.
-- */
--static inline unsigned long
--eenv_pd_max_util(struct energy_env *eenv, struct cpumask *pd_cpus,
--		 struct task_struct *p, int dst_cpu)
-+/* Estimate the utilization of the CPU without the task */
-+static unsigned long find_cpu_actual_util(int cpu, struct task_struct *p)
- {
--	unsigned long max_util = 0;
--	int cpu;
-+	unsigned long util = cpu_util(cpu, p, -1, 0);
-+	unsigned long eff_util;
- 
--	for_each_cpu(cpu, pd_cpus) {
--		struct task_struct *tsk = (cpu == dst_cpu) ? p : NULL;
--		unsigned long util = cpu_util(cpu, p, dst_cpu, 1);
--		unsigned long eff_util, min, max;
-+	eff_util = effective_cpu_util(cpu, util, NULL, NULL);
- 
--		/*
--		 * Performance domain frequency: utilization clamping
--		 * must be considered since it affects the selection
--		 * of the performance domain frequency.
--		 * NOTE: in case RT tasks are running, by default the min
--		 * utilization can be max OPP.
--		 */
--		eff_util = effective_cpu_util(cpu, util, &min, &max);
-+	return eff_util;
-+}
- 
--		/* Task's uclamp can modify min and max value */
--		if (tsk && uclamp_is_used()) {
--			min = max(min, uclamp_eff_value(p, UCLAMP_MIN));
-+/* Find the cost of a performance domain for the estimated utilization */
-+static inline void find_pd_cost(struct em_perf_domain *pd,
-+				unsigned long max_util,
-+				struct energy_cpu_stat *stat)
-+{
-+	struct em_perf_table *em_table;
-+	struct em_perf_state *ps;
-+	int i;
- 
--			/*
--			 * If there is no active max uclamp constraint,
--			 * directly use task's one, otherwise keep max.
--			 */
--			if (uclamp_rq_is_idle(cpu_rq(cpu)))
--				max = uclamp_eff_value(p, UCLAMP_MAX);
--			else
--				max = max(max, uclamp_eff_value(p, UCLAMP_MAX));
--		}
-+	/*
-+	 * Find the lowest performance state of the Energy Model above the
-+	 * requested performance.
-+	 */
-+	em_table = rcu_dereference(pd->em_table);
-+	i = em_pd_get_efficient_state(em_table->state, pd, max_util);
-+	ps = &em_table->state[i];
- 
--		eff_util = sugov_effective_cpu_perf(cpu, eff_util, min, max);
--		max_util = max(max_util, eff_util);
-+	/* Save the cost and performance range of the OPP */
-+	stat->max_perf = ps->performance;
-+	stat->cost = ps->cost;
-+	i = em_pd_get_previous_state(em_table->state, pd, i);
-+	if (i < 0) {
-+		stat->min_perf = 0;
-+	} else {
-+		ps = &em_table->state[i];
-+		stat->min_perf = ps->performance;
- 	}
-+}
- 
--	return min(max_util, eenv->cpu_cap);
-+/*Check if the CPU can handle the waking task */
-+static int check_cpu_with_task(struct task_struct *p, int cpu)
-+{
-+	unsigned long p_util_min = uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_MIN) : 0;
-+	unsigned long p_util_max = uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_MAX) : 1024;
-+	unsigned long util_min = p_util_min;
-+	unsigned long util_max = p_util_max;
-+	unsigned long util = cpu_util(cpu, p, cpu, 0);
-+	struct rq *rq = cpu_rq(cpu);
-+
-+	/*
-+	 * Skip CPUs that cannot satisfy the capacity request.
-+	 * IOW, placing the task there would make the CPU
-+	 * overutilized. Take uclamp into account to see how
-+	 * much capacity we can get out of the CPU; this is
-+	 * aligned with sched_cpu_util().
-+	 */
-+	if (uclamp_is_used() && !uclamp_rq_is_idle(rq)) {
-+		unsigned long rq_util_min, rq_util_max;
-+		/*
-+		 * Open code uclamp_rq_util_with() except for
-+		 * the clamp() part. I.e.: apply max aggregation
-+		 * only. util_fits_cpu() logic requires to
-+		 * operate on non clamped util but must use the
-+		 * max-aggregated uclamp_{min, max}.
-+		 */
-+		rq_util_min = uclamp_rq_get(rq, UCLAMP_MIN);
-+		rq_util_max = uclamp_rq_get(rq, UCLAMP_MAX);
-+		util_min = max(rq_util_min, p_util_min);
-+		util_max = max(rq_util_max, p_util_max);
-+	}
-+	return util_fits_cpu(util, util_min, util_max, cpu);
- }
- 
- /*
-- * compute_energy(): Use the Energy Model to estimate the energy that @pd would
-- * consume for a given utilization landscape @eenv. When @dst_cpu < 0, the task
-- * contribution is ignored.
-+ * For the same cost, select the CPU that will povide best performance for the
-+ * task.
-  */
--static inline unsigned long
--compute_energy(struct energy_env *eenv, struct perf_domain *pd,
--	       struct cpumask *pd_cpus, struct task_struct *p, int dst_cpu)
-+static bool update_best_cpu(struct energy_cpu_stat *target,
-+			    struct energy_cpu_stat *min,
-+			    int prev, struct sched_domain *sd)
- {
--	unsigned long max_util = eenv_pd_max_util(eenv, pd_cpus, p, dst_cpu);
--	unsigned long busy_time = eenv->pd_busy_time;
--	unsigned long energy;
--
--	if (dst_cpu >= 0)
--		busy_time = min(eenv->pd_cap, busy_time + eenv->task_busy_time);
-+	if (target->cpu == prev)
-+		return true;
-+	if (min->cpu == prev)
-+		return false;
- 
--	energy = em_cpu_energy(pd->em_pd, max_util, busy_time, eenv->cpu_cap);
-+	/*  Select the one with the least number of running tasks otherwise */
-+	if (target->nr_running < min->nr_running)
-+		return true;
-+	if (target->nr_running > min->nr_running)
-+		return false;
- 
--	trace_sched_compute_energy_tp(p, dst_cpu, energy, max_util, busy_time);
-+	/*
-+	 * Choose CPU with lowest contention. One might want to consider load
-+	 * instead of runnable but we are supposed to not be overutilized so
-+	 * there is enough compute capacity for everybody.
-+	 */
-+	if ((target->runnable * min->capa * sd->imbalance_pct) >=
-+			(min->runnable * target->capa * 100))
-+		return false;
- 
--	return energy;
-+	return true;
- }
- 
- /*
-  * find_energy_efficient_cpu(): Find most energy-efficient target CPU for the
-- * waking task. find_energy_efficient_cpu() looks for the CPU with maximum
-- * spare capacity in each performance domain and uses it as a potential
-- * candidate to execute the task. Then, it uses the Energy Model to figure
-- * out which of the CPU candidates is the most energy-efficient.
-+ * waking task. find_energy_efficient_cpu() looks for the CPU with the lowest
-+ * power cost (usually with maximum spare capacity but not always) in each
-+ * performance domain and uses it as a potential candidate to execute the task.
-+ * Then, it uses the Energy Model to figure out which of the CPU candidates is
-+ * the most energy-efficient.
-  *
-  * The rationale for this heuristic is as follows. In a performance domain,
-  * all the most energy efficient CPU candidates (according to the Energy
-@@ -9630,17 +9666,14 @@ compute_energy(struct energy_env *eenv, struct perf_domain *pd,
- static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
- {
- 	struct cpumask *cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
--	unsigned long prev_delta = ULONG_MAX, best_delta = ULONG_MAX;
--	unsigned long p_util_min = uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_MIN) : 0;
--	unsigned long p_util_max = uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_MAX) : 1024;
- 	struct root_domain *rd = this_rq()->rd;
--	int cpu, best_energy_cpu, target = -1;
--	int prev_fits = -1, best_fits = -1;
--	unsigned long best_actual_cap = 0;
--	unsigned long prev_actual_cap = 0;
-+	unsigned long best_nrg = ULONG_MAX;
-+	unsigned long task_util;
- 	struct sched_domain *sd;
- 	struct perf_domain *pd;
--	struct energy_env eenv;
-+	int cpu, target = -1;
-+	int best_fits = -1;
-+	int best_cpu = -1;
- 
- 	pd = rcu_dereference_all(rd->pd);
- 	if (!pd)
-@@ -9659,19 +9692,19 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
- 	target = prev_cpu;
- 
- 	sync_entity_load_avg(&p->se);
--	if (!task_util_est(p) && p_util_min == 0)
--		return target;
--
--	eenv_task_busy_time(&eenv, p, prev_cpu);
-+	task_util = task_busy_time(p, prev_cpu);
- 
- 	for (; pd; pd = pd->next) {
--		unsigned long util_min = p_util_min, util_max = p_util_max;
--		unsigned long cpu_cap, cpu_actual_cap, util;
--		long prev_spare_cap = -1, max_spare_cap = -1;
--		unsigned long rq_util_min, rq_util_max;
--		unsigned long cur_delta, base_energy;
--		int max_spare_cap_cpu = -1;
--		int fits, max_fits = -1;
-+		unsigned long pd_actual_util = 0, delta_nrg = 0;
-+		unsigned long cpu_actual_cap, max_cost = 0;
-+		struct energy_cpu_stat target_stat;
-+		struct energy_cpu_stat min_stat = {
-+			.cost = ULONG_MAX,
-+			.max_perf = ULONG_MAX,
-+			.min_perf = ULONG_MAX,
-+			.fits = -2,
-+			.cpu = -1,
-+		};
- 
- 		if (!cpumask_and(cpus, perf_domain_span(pd), cpu_online_mask))
- 			continue;
-@@ -9680,13 +9713,9 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
- 		cpu = cpumask_first(cpus);
- 		cpu_actual_cap = get_actual_cpu_capacity(cpu);
- 
--		eenv.cpu_cap = cpu_actual_cap;
--		eenv.pd_cap = 0;
--
-+		/* In a PD, the CPU with the lowest cost will be the most efficient */
- 		for_each_cpu(cpu, cpus) {
--			struct rq *rq = cpu_rq(cpu);
--
--			eenv.pd_cap += cpu_actual_cap;
-+			unsigned long target_perf;
- 
- 			if (!cpumask_test_cpu(cpu, sched_domain_span(sd)))
- 				continue;
-@@ -9694,113 +9723,115 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
- 			if (!cpumask_test_cpu(cpu, p->cpus_ptr))
- 				continue;
- 
--			util = cpu_util(cpu, p, cpu, 0);
--			cpu_cap = capacity_of(cpu);
-+			target_stat.fits = check_cpu_with_task(p, cpu);
- 
--			/*
--			 * Skip CPUs that cannot satisfy the capacity request.
--			 * IOW, placing the task there would make the CPU
--			 * overutilized. Take uclamp into account to see how
--			 * much capacity we can get out of the CPU; this is
--			 * aligned with sched_cpu_util().
--			 */
--			if (uclamp_is_used() && !uclamp_rq_is_idle(rq)) {
--				/*
--				 * Open code uclamp_rq_util_with() except for
--				 * the clamp() part. I.e.: apply max aggregation
--				 * only. util_fits_cpu() logic requires to
--				 * operate on non clamped util but must use the
--				 * max-aggregated uclamp_{min, max}.
--				 */
--				rq_util_min = uclamp_rq_get(rq, UCLAMP_MIN);
--				rq_util_max = uclamp_rq_get(rq, UCLAMP_MAX);
-+			if (!target_stat.fits)
-+				continue;
- 
--				util_min = max(rq_util_min, p_util_min);
--				util_max = max(rq_util_max, p_util_max);
--			}
-+			/* 1st select the CPU that fits best */
-+			if (target_stat.fits < min_stat.fits)
-+				continue;
-+
-+			/* Then select the CPU with lowest cost */
-+
-+			/* Get the performance of the CPU w/ the waking task */
-+			target_perf = find_cpu_max_util(cpu, p, cpu);
-+			target_perf = min(target_perf, cpu_actual_cap);
- 
--			fits = util_fits_cpu(util, util_min, util_max, cpu);
--			if (!fits)
-+			/* Needing a higher OPP means a higher cost */
-+			if (target_perf > min_stat.max_perf)
- 				continue;
- 
--			lsub_positive(&cpu_cap, util);
-+			/*
-+			 * At this point, target's cost can be either equal or
-+			 * lower than the current minimum cost.
-+			 */
- 
--			if (cpu == prev_cpu) {
--				/* Always use prev_cpu as a candidate. */
--				prev_spare_cap = cpu_cap;
--				prev_fits = fits;
--			} else if ((fits > max_fits) ||
--				   ((fits == max_fits) && ((long)cpu_cap > max_spare_cap))) {
--				/*
--				 * Find the CPU with the maximum spare capacity
--				 * among the remaining CPUs in the performance
--				 * domain.
--				 */
--				max_spare_cap = cpu_cap;
--				max_spare_cap_cpu = cpu;
--				max_fits = fits;
--			}
-+			/* Gather more statistics */
-+			target_stat.cpu = cpu;
-+			target_stat.runnable = cpu_runnable(cpu_rq(cpu));
-+			target_stat.capa = capacity_of(cpu);
-+			target_stat.nr_running = cpu_rq(cpu)->cfs.h_nr_runnable;
-+			if (p->on_rq && !p->se.sched_delayed && cpu == prev_cpu)
-+				target_stat.nr_running--;
-+
-+			/* If the target needs a lower OPP, then look up for
-+			 * the corresponding OPP and its associated cost.
-+			 * Otherwise at same cost level, select the CPU which
-+			 * provides best performance.
-+			 */
-+			if (target_perf < min_stat.min_perf)
-+				find_pd_cost(pd->em_pd, target_perf, &target_stat);
-+			else if (!update_best_cpu(&target_stat, &min_stat, prev_cpu, sd))
-+				continue;
-+
-+			/* Save the new most efficient CPU of the PD */
-+			min_stat = target_stat;
- 		}
- 
--		if (max_spare_cap_cpu < 0 && prev_spare_cap < 0)
-+		if (min_stat.cpu == -1)
- 			continue;
- 
--		eenv_pd_busy_time(&eenv, cpus, p);
--		/* Compute the 'base' energy of the pd, without @p */
--		base_energy = compute_energy(&eenv, pd, cpus, p, -1);
--
--		/* Evaluate the energy impact of using prev_cpu. */
--		if (prev_spare_cap > -1) {
--			prev_delta = compute_energy(&eenv, pd, cpus, p,
--						    prev_cpu);
--			/* CPU utilization has changed */
--			if (prev_delta < base_energy)
--				return target;
--			prev_delta -= base_energy;
--			prev_actual_cap = cpu_actual_cap;
--			best_delta = min(best_delta, prev_delta);
--		}
-+		if (min_stat.fits < best_fits)
-+			continue;
- 
--		/* Evaluate the energy impact of using max_spare_cap_cpu. */
--		if (max_spare_cap_cpu >= 0 && max_spare_cap > prev_spare_cap) {
--			/* Current best energy cpu fits better */
--			if (max_fits < best_fits)
--				continue;
-+		/* Idle system costs nothing */
-+		target_stat.max_perf = 0;
-+		target_stat.cost = 0;
- 
--			/*
--			 * Both don't fit performance hint (i.e. uclamp_min)
--			 * but best energy cpu has better capacity.
--			 */
--			if ((max_fits < 0) &&
--			    (cpu_actual_cap <= best_actual_cap))
--				continue;
-+		/* Estimate utilization and cost without p */
-+		for_each_cpu(cpu, cpus) {
-+			unsigned long target_util;
- 
--			cur_delta = compute_energy(&eenv, pd, cpus, p,
--						   max_spare_cap_cpu);
--			/* CPU utilization has changed */
--			if (cur_delta < base_energy)
--				return target;
--			cur_delta -= base_energy;
-+			/* Accumulate actual utilization w/o task p */
-+			pd_actual_util += find_cpu_actual_util(cpu, p);
- 
--			/*
--			 * Both fit for the task but best energy cpu has lower
--			 * energy impact.
--			 */
--			if ((max_fits > 0) && (best_fits > 0) &&
--			    (cur_delta >= best_delta))
-+			/* Get the max utilization of the CPU w/o task p */
-+			target_util = find_cpu_max_util(cpu, p, -1);
-+			target_util = min(target_util, cpu_actual_cap);
-+
-+			/* Current OPP is enough */
-+			if (target_util <= target_stat.max_perf)
- 				continue;
- 
--			best_delta = cur_delta;
--			best_energy_cpu = max_spare_cap_cpu;
--			best_fits = max_fits;
--			best_actual_cap = cpu_actual_cap;
-+			/* Compute and save the cost of the OPP */
-+			find_pd_cost(pd->em_pd, target_util, &target_stat);
-+			max_cost = target_stat.cost;
- 		}
-+
-+		/* Add the energy cost of p */
-+		delta_nrg = task_util * min_stat.cost;
-+
-+		/*
-+		 * Compute the energy cost of others running at higher OPP
-+		 * because of p.
-+		 */
-+		if (min_stat.cost > max_cost)
-+			delta_nrg += pd_actual_util * (min_stat.cost - max_cost);
-+
-+		/* Delta energy with p */
-+		trace_sched_compute_energy_tp(p, min_stat.cpu, delta_nrg,
-+					      min_stat.max_perf,
-+					      pd_actual_util + task_util);
-+
-+		/*
-+		 * The probability that delta energies are equals is almost
-+		 * null. PDs being sorted by max capacity, keep the one with
-+		 * highest max capacity if this happens.
-+		 * TODO: add a margin in energy cost and take into account
-+		 * other stats.
-+		 */
-+		if (min_stat.fits == best_fits &&
-+		    delta_nrg >= best_nrg)
-+			continue;
-+
-+		best_fits = min_stat.fits;
-+		best_nrg = delta_nrg;
-+		best_cpu = min_stat.cpu;
- 	}
- 
--	if ((best_fits > prev_fits) ||
--	    ((best_fits > 0) && (best_delta < prev_delta)) ||
--	    ((best_fits < 0) && (best_actual_cap > prev_actual_cap)))
--		target = best_energy_cpu;
-+	if (best_cpu >= 0)
-+		target = best_cpu;
- 
- 	return target;
- }
 -- 
-2.53.0
-
+With best wishes
+Dmitry
