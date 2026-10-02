@@ -1,189 +1,75 @@
-Received: from mail-qk2-f37.google.com (mail-qk2-f37.google.com [74.125.230.229])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3E947668A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6AC82110E;
+	Fri,  2 Oct 2026 16:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790958257; cv=none; b=SFhd5kDWjTUHfMYNcBnGerYryCsjZw1BwXQYlheqN1GGVtHIapnu+1WspS4S2M22hoUrVFtS6ok4jQBUTxhj2Rvx14WmuDOD/VuC5kPD+bMhnxQfahaQdilnaSQ88qHv4EHei560qCHj96EQsj9RynjfMIiUjXOJJ5IHlVIvMZE=
+	t=1790958267; cv=none; b=YHaAozYIj5vT8Ttp7W846SiZlLhO2Ho3TpLwbbyLCzX0lYslZf+scqtc1KrkWG9n0lZvxwPqqBkcCIXiP8HxwCxqNxMIRl3iSB9L4whrYqPiriWwD4SRdUGNlh1NIMIoN51AnYtsJ8GJHSmZyiA+7l1XJWSzWquVeDhnds/D2Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790958257; c=relaxed/simple;
-	bh=Em9YSoXBwFPJOOXkkk+kejVq9hjQu0Hx9vnOhF72eXw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=EVKIIB0LhV3wybs73uxs7aChOluubpm28CtuIdhqpsU9VcO8yS+c0dXgOaOcUfgv7goFf+3daojeWhSChVOXg7WEsb1wW4nw8efcb2a9wszMn0tcbX0OoT6VN1uuOLJ9Xhxxw21WDX8Emh0tiTMWgt28WruG+Rl/oPeox0ScJus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=M8qR7Aur; arc=none smtp.client-ip=74.125.230.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790958267; c=relaxed/simple;
+	bh=lxgjUUAnZAZo9Yq50ba0+9DERmTUNAPkrTbxhyNdhU8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WLN2Xohw9If+nNkU7jOndxXSsYtGhQY6+WSxD5/k9BKrbSbdMvCMtglHm7vkY6tHGClllk22LOcSw/7mBes+IsVJWzi+Dvbg9BHuO0HzItA6Yw+nXSXfjUtSOojckShRuoMZLlnppG4fgzWlPYPYPNaTn2P40utAkx8+sAGQ5Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVmP6mLW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="M8qR7Aur"
-Received: by mail-qk2-f37.google.com with SMTP id d75a77b69052e-534842054b4so7170521cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:24:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790958255; x=1791563055; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kvLqfhY0ukuw4SdFaafcEp7mq0hCjeNOKgF1sxMSOZI=;
-        b=M8qR7AurJc3hUmhB2ze/+wKn6T1tRXpma/jwWDhaUaWd8XvMOTiQO01CBWSU7LnKFx
-         30DbMdNcHbPo+az7zdmq+OhTWJUT/jRsdnlWDVXwUBaXg2D09KoCw2ltvld3Q3MJS4Nb
-         /ZIPWzUMDB+GumdG3OiDkHvm7jrOk+KGEUBZ1JYFLatPve/X7x0ZLfEGldDSn4qcCPpt
-         ooYoLg+OadNeXF4YCWXZiNqdVONxmaXezbOaadxXQfGPlRbjJ1Z+QyMDtfPfYpofBRnC
-         KUX6D7m1OwTw/XLdQcJpOqI3b6Ldls6mT4PmTZ6OSZvjf9/f4ZTexaNhwrFPmcaYfU6D
-         f5Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790958255; x=1791563055;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kvLqfhY0ukuw4SdFaafcEp7mq0hCjeNOKgF1sxMSOZI=;
-        b=P0GmILOAL3lVVsVtUrVLkF06dAzMJpX1HMkWng8RLyikChvJPwHv3rrGjM5Si5e0Zl
-         lc7QIEfeGP40DgTB2f+P/icw25Ae1m149ND71oqoLReABuxvyum8qx+8CjmxukRlWdSO
-         SQiA6NvTIH2MNZ6kQqV+28JU3P9b+NQTgQiZQvD04lpRSIGlm0XMQlO1VHLp0X9l3Oo7
-         gvrmJOeCIyMmuxoNwOZxWtNKP5OV+5/7CV7F4Do5SV+P0zg/7Ulqq5HVCv1CWxhhOuxF
-         tYk0vVfVeO5jDGWpuypVy1/ip0t5h4wZEVxK3QxGAPY9Rxn+7cqaSBHL7yK/jjYorx7A
-         nNhg==
-X-Forwarded-Encrypted: i=1; AKwUvBywerpJUm3DlZaVDTx6Iw9hJW+XtHE9AnS4YSIPm0kSZ5VISx6CX/zFpPD+72Mc2pHMqHQGYMVBmYPYCGQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIKbjTtgd238PwIaZ97AbkfH8I+aa9Dmu7lcUCrKTUxak88k7E
-	h5t6S1C0yjl6afWNlW282ROaQzq1eyyrpVXFXyXrwm1oXn9Y7p6ZEtwctCnEqt7Zd+xpEGHPLmN
-	zsCCpYcU=
-X-Gm-Gg: AYBFou2z5GFiLBJQt/hKCf6jDK289EPtFhU3JirT5d1LKbvKHeFDRvOlWBK80KHL9V0
-	YMJ1QAMgAYYmmLMfgeSy+tusiY9vGCD3f2+1tiD365/O+qUA5AOR2F+pcKCGf5dx6uZiQl/5gI1
-	mu08MqQGb1pKUyhkVpj8M+NwofWv1mCBZE7PBu+9ibz09iT4B1OI88Ri487gIaURHqXFDxkhE65
-	gA9kAAInTnDXZZsGHKjOs5inzHPTMvjaRGP7FR3lcY60IrN0Fi8kcpanM8hbKHCLd6VOJMpVoZF
-	Ea61WC5Y9g0jdbz9HeE0uWUzsVVw27+F4EC0vlUwRRpAur+ReNH08L9u8q8eNP7go+507IO/uXt
-	XxXMery2HNg1N8JLC01kGpT9hI55TNEJp2h0TXJn8x56n7zbeY8gFOY4iPmVD0GUHl1FJdNFJJ4
-	6CcWKXRbiHqfnAtFCdYaC2YOA/XBtJzwok1hi8yvf85wftcOZZzPJrakkEQp6BiNgPvZoKSs0=
-X-Received: by 2002:a05:622a:1244:b0:533:9686:a051 with SMTP id d75a77b69052e-533cba41c4fmr52681091cf.21.1790958255002;
-        Fri, 02 Oct 2026 09:24:15 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398bdd010sm30887341cf.19.2026.10.02.09.24.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 09:24:14 -0700 (PDT)
-Message-ID: <a8141ee4-00a8-4059-8784-6b3fde26243b@riscstar.com>
-Date: Fri, 2 Oct 2026 11:24:12 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVmP6mLW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F291F000FF;
+	Fri,  2 Oct 2026 16:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790958266;
+	bh=XvK+bPpafeOlO7y2OLbae7RD+paZS2cGqHv1W10YMhU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BVmP6mLW1tqbuluEuUoEMqw93t8Tb0IMXGPJOXyDU4fZx5GPTy2CWt3FbheBEPupZ
+	 HP6tFQZR7tCq+y8GzQDOsUC8TVuHCZTEJqiUpZGdDnEFXZVIRBMii5BTHStrllWN0t
+	 6uzQcXK+bRXMud9cMGqeseGP1gYfrcOS05PkAfOML/5fD5AhzBY/7t1rNyX+prP4QD
+	 3upKOLf68i1eZtWbiSWRySwYOknegk1dxDF19v47unjApzzPVuDYwPjRLJSXk6btHt
+	 VPC19CiIz1dGeFzE+AiGqlcFGxkyVDq7iaN0hq0qW2k8aqkbPd2EQ3jfk+BOmj+ir7
+	 Vj9Xuf6VWXY7g==
+Date: Fri, 2 Oct 2026 18:24:22 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+	KBuild Mailing List <linux-kbuild@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Subject: Re: linux-next: manual merge of the random tree with the kbuild tree
+Message-ID: <20261002162422.GA288990@ax162>
+References: <ar5-4Yq3wtmXTWnD@sirena.org.uk>
+ <20261001192731.GA713751@ax162>
+ <e7b1d231-f862-4f58-8cf2-3670066f8451@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] PCI: of: update endpoint ranges dynamically
-From: Alex Elder <elder@riscstar.com>
-To: bhelgaas@google.com
-Cc: lizhi.hou@amd.com, herve.codina@bootlin.com, andrea.porta@suse.com,
- daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
- mani@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260924222444.1351466-1-elder@riscstar.com>
-Content-Language: en-US
-In-Reply-To: <20260924222444.1351466-1-elder@riscstar.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e7b1d231-f862-4f58-8cf2-3670066f8451@sirena.org.uk>
 
-On 9/24/26 5:24 PM, Alex Elder wrote:
-> A PCI endpoint bus is a devicetree construct that allows a PCI
-> endpoint (function) to have sub-devices defined that are accessible
-> in an SoC via the PCI endpoint's BARs.  Such a bus is represented as
-> a devicetree sub-node for a PCI function having the name "pci-ep-bus".
-> There can be one or more pci-ep-bus nodes.
+On Thu, Oct 01, 2026 at 10:13:03PM +0100, Mark Brown wrote:
+> On Thu, Oct 01, 2026 at 09:27:31PM +0200, Nathan Chancellor wrote:
+> > On Thu, Oct 01, 2026 at 04:40:17PM +0100, Mark Brown wrote:
 > 
-> A PCI function with a pci-ep-bus devicetree node must also define
-> "#address-cells", "#size-cells", and "ranges" properties, to specify
-> how endpoint bus addresses are translated to the PCI parent bus.
+> > >  -config PAHOLE_VERSION
+> > >  -	int
+> > >  -	default "$(PAHOLE_VERSION)"
+> > >   
+> > > - source "scripts/Kconfig.toolchain"
+> > > - 
 > 
-> An endpoint bus address has three cells; the first indicates which of
-> the function's BARs the address is associated with, and the other two
-> specify a 64-bit (2 cell) offset within the BAR's region.
+> > You appear to have dropped this source line, which I believe is the root
+> > cause of https://lore.kernel.org/ar5-8C-j_JT5OYQm@sirena.org.uk/.
+> > Restore it and the resolution should be correct with no build errors.
 > 
-> BAR base addresses are determined dynamically by the PCI enumeration
-> process, so generally it's not possible to include them in a static
-> devicetree file.  When this addressing scheme was introduced, this
-> was not a problem because the devicetree content was generated
-> dynamically--after booting--based on the information (including BAR
-> addresses) available following PCI enumeration.
+> You're quite right, sorry - I got distracted by the complictated bit
+> with having to update a non-conflicting file.
 
-The PCI endpoint bus model implements an addressing scheme that
-allows sub-devices to specify addresses relative to the base of
-an endpoint BAR.  This avoids needing to know the address assigned
-to the BAR, which cannot be known until runtime.
+No worries at all, glad it was something simple in the end! Hopefully
+there should be no more conflicts from that shuffle.
 
-For users (such as the LAN966x) that rely on dynamically-created
-devicetree nodes for PCI endpoints, the generated ranges property
-already incorporates the assigned addresses.
-
-However if a PCI endpoint is defined in devicetree statically (as
-in the case for the Toshiba TC9564), its ranges property must get 
-updated at runtime to reflect the addresses assigned by the PCI 
-enumeration process.
-
-The TC9564 requires the functionality provided by this series
-for it to be able to use the PCI endpoint bus model.
-
-   ==> Would someone please consider and comment on this change?
-
-It reuses the code that generates the ranges property for
-dynamically-created devicetree nodes, to ensure that the
-static and dynamic cases are consistent.
-
-Thank you.
-
-					-Alex
-
-> It is possible (and in some cases, necessary) to define the devicetree
-> nodes that represent PCI devices ahead of time, in a statically-defined
-> devicetree file.  In order to support the PCI endpoint bus model in this
-> case it is necessary to dynamically update the static devicetree so that
-> the BAR base addresses assigned during enumeration are reflected in the
-> endpoint's "ranges" property.
-> 
-> This series implements that dynamic update, leveraging the same code
-> used to create the "ranges" property when PCI_DYNAMIC_OF_NODES is
-> enabled.  The first patch makes an argument to of_pci_get_addr_flags()
-> optional.  The second patch separates the code that dynamically builds
-> the property value into a helper function, and the last arranges for a
-> statically-defined devicetree node for a PCI endpoint to have its
-> "ranges" property updated (if it includes a "pci-ep-bus" sub-node)..
-> 
-> 					-Alex
-> 
-> Note: this series is built upon these patches:
->    https://lore.kernel.org/lkml/20260924150222.1179235-5-elder@riscstar.com/
-> 
-> The entire series (based on v7.3-rc4 and including those prerequisites)
-> is available here:
->    https://github.com/riscstar/linux/tree/outgoing/dynamic_ranges-v3
-> 
-> Between version 2 and version 3:
-> - The ranges property for a PCI endpoint with an existing devicetree node
->    is only updated if its ranges property has an empty value (i.e., it is
->    "ranges;", or is not defined)
-> 
-> Version 2 is available here:
->    https://lore.kernel.org/lkml/20260910021919.3421449-1-elder@riscstar.com/
-> 
-> Between version 1 and version 2:
-> - Included the first patch (which was previously posted in a different
->    series)
-> - Modified the last patch so the ranges property is updated only for
->    PCI endpoints having at least one "pci-ep-bus" node
-> - Rebased on v7.3-rc2 (and the prerequisite series)
-> 
-> Version 1 is available here:
->    https://lore.kernel.org/lkml/20260813220717.1394644-1-elder@riscstar.com/
-> 
-> 
-> Alex Elder (3):
->    PCI: of: make a flags argument optional
->    PCI: of: introduce of_pci_build_prop_ranges()
->    PCI: of: introduce of_pci_update_endpoint_node_ranges()
-> 
->   drivers/pci/of.c          |  94 +++++++++++++++++++++++---
->   drivers/pci/of_property.c | 137 +++++++++++++++++++++++++-------------
->   drivers/pci/pci.h         |   1 +
->   3 files changed, 178 insertions(+), 54 deletions(-)
-> 
-> 
-> base-commit: 6ba8359b84d69a07d508693551ed3f661d838e9f
-
+-- 
+Cheers,
+Nathan
