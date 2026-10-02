@@ -1,63 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD69F3E9F9D;
-	Fri,  2 Oct 2026 21:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5002D44C66B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:11:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975494; cv=none; b=bF8MLDbxFLwmLy464U3tko+13fTuvllArXZU0u5N71dbAyUdEqAn08Iw89fX3HZ4A5b9T8mI3j6IcQy8yxW1iMka9/pPChDv4avZ6UQ5915t2fu6h5ouDkJFEINrm7HPM37zEWwLfI+P4QhQ/PZYm7HH4PErRjAesr1izjaYTqs=
+	t=1790975505; cv=none; b=SHpRigg6/Gs2LZuq9I3TUiWzcrEsx8F8tyCaEgkVofbi1IcwkX/fISado/szoMPyOLRxankQWImG528kOb+XyS0eniwD4lu/9MQGlKsX02i58YK06nHburEPoyzI/WweIvvqDHq/6pGcj80U5o3arvQNOWliqCCI8OcB/z8EsHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975494; c=relaxed/simple;
-	bh=olzEn0A2cJnlZZNIYJdjITSahAiZ1hgOfweHqmYIWJE=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=O7z0YPw0YqZlj7HBP6H72AEOpTKUvuWElCANzFiouIakjicZvpOh2rKWEC2vCWD+VDHF3455YL/6UZN6qeSv6ScZg8JzffMeci+b66DKN4X5RcmJLHFse97kGyrVHvt8ONGwhFABps0GeP2rlJvUG3vZ5JFA4VtmRwSIzwSIrx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYN0Qzc9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790975505; c=relaxed/simple;
+	bh=m1kgZk/QnnIGSQq94ScRWI4VTjnRh3pMl09wcBzDj1s=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=L3AWT80+NvHVaEI6LEl7dvskkytURo1J9uITJeTxZs8Vl/CmlDrDzG0CdJAOsAYypk59vnzPlfwhA1NXjZ9JEGfUXeU5fcWbtOXRQWSqlXFSrtoG5tpcFnZRrDi9E+OOLuTPmcvFqfXp0HxFWsyptb65RTgld6VLPpProG8zYQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TK6X8O3w; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYN0Qzc9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DF151F000FF;
-	Fri,  2 Oct 2026 21:11:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790975490;
-	bh=nNk+2hm423xFAmSTiwSTTBnkhkgUVazLlu2BS3u14Yg=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=mYN0Qzc99XDU+vWHjGymevljtQoGuqR3Ysyl7C64qQADmOgW9a3TDmNZ2L4Cx4lml
-	 XP/g4qreswKq5yiXHSL/+1yFi1v/jHkLf4Km+yc044AQCLrG2zozEZXoizWa9UrSZL
-	 /FF06prfj9up9bX4KUN2MeAzqG7jE9XMhirM/7OwEgGW1ZGDDiZftpjeOjTIfx333Y
-	 YjaTDDOelpLRfWQErERzg5ngu5ZOoK2FlnI5PV5iIrctjvba374jqrrmpA9HSID0YV
-	 e6gI3XXURRq4k/TRuBy34eQCMzmG3RFr7W/XT1ntmM84YX9FWwDFZHlmVN2AgHWP6s
-	 trU7X8CxB2EHw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F152A3811A72;
-	Fri,  2 Oct 2026 21:11:29 +0000 (UTC)
-Subject: Re: [GIT PULL] PCI fixes for v7.3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261002163433.GA117980@bhelgaas>
-References: <20261002163433.GA117980@bhelgaas>
-X-PR-Tracked-List-Id: <linux-pci.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261002163433.GA117980@bhelgaas>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git tags/pci-v7.3-fixes-3
-X-PR-Tracked-Commit-Id: 40cce45b921f7930886bcba43069edc579725457
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: d2dbe503fd806082acb0ca79a9d6641822988c2c
-Message-Id: <179097548852.3587474.17592955744086014053.pr-tracker-bot@kernel.org>
-Date: Fri, 02 Oct 2026 21:11:28 +0000
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Nikola Prica <nikola.prica@amd.com>, Gerd Bayer <gbayer@linux.ibm.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Alexander Schmidt <alexs@linux.ibm.com>, Jay Cornwall <Jay.Cornwall@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TK6X8O3w"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so475408a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:11:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790975497; x=1791580297; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j1MttPZc2WbaNxCbcw+ABVFsYx0hSjd1yRWWbDI1AxA=;
+        b=TK6X8O3w7PHvfTxBzEn1xNRHM3zaQA0YonJesndJSXm5l3EYOZYVb36I3wag0aCtTR
+         yiV8MdiP5y954sybPn488evw3nTJX/tQXObdmqInx6TMfB/Y1hgF08r3/i+7RmLFmWWh
+         dxy88du+76jKfsWBJX+4TavxwtCIvS17ACWCEoBBYNR61cHmrpgLhb7i6MVhj/4RRLD8
+         AZUo1rR8W7KMQkvLGtiExv4djDf32tUlI1k3e83t6gAyKbiOh81MIL3vpd3ssVqndRNr
+         3XPSgTNELMc67v09FkhiMQEkFJgevkuOjrzPYte3/OPYPmiZiK7ghsGN+i86vDL60CZj
+         hNVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790975497; x=1791580297;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j1MttPZc2WbaNxCbcw+ABVFsYx0hSjd1yRWWbDI1AxA=;
+        b=GdaCFWZwXazRiBbewDjGYZdw75vjtd81dIXJuMSjNEcpPmwqj6LZHYqGF9Ksq7Hob8
+         uIhpWNNupVBDsR2wrvLHtQcX7xjPtYgFFYHjPfPME9Qi0/+SBG+wP17i7YrNF5O41NM6
+         V2IsCPlJlxJI/w1+MKQxOCZa1iw5jHK0JC5y/MYy1s1b2a/hTF2BOIoIJkhZfVcJhNz3
+         OaxSyFQBIYXHA7MvQXe2IjqSzLTelpkacU4aoArH0oBlzeh9ifzqQunVSVR4In0SwGSS
+         Aj5O+QYxmN3NJepaUi1xKmKITuWM2SYWJHTv+P96fgMzGUdQUzPQlihTUAiFJtOd4GEe
+         N4vg==
+X-Forwarded-Encrypted: i=1; AKwUvByJLse4R70HWXcbqWuPbtG21wAOC2Q/B0SYDG2Rty13EhjzYHCZwT5WXwY7VOuqE8H3WlNYPrDwy9D9DGI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEb9vES1HkF/vnfmja4AgaulDVTrakrfx7bmMIzCxGgUot6xJW
+	a5dL+SyoqmG7wjHVHQCMJK3zCHwaLW7CDYVTsJWXe5L+WLvlky6H1lC92XgmdlCoYChheUDHAHr
+	P+YWD9g==
+X-Received: from pjot24.prod.google.com ([2002:a17:90a:9518:b0:3a4:b4f0:b161])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1f86:b0:3a4:adea:50c1
+ with SMTP id 98e67ed59e1d1-3a6ced92fe9mr3693415a91.62.1790975496840; Fri, 02
+ Oct 2026 14:11:36 -0700 (PDT)
+Date: Fri,  2 Oct 2026 14:07:36 -0700
+In-Reply-To: <20260820123512.87236-1-duankeqiangcym@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+References: <20260820123512.87236-1-duankeqiangcym@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <179097516928.4085781.4004685515336917376.b4-ty@b4>
+Subject: Re: [PATCH v2] KVM: x86: Clear hardware HLT state when userspace
+ makes a vCPU not-halted
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Keqiang Duan <duankeqiangcym@gmail.com>
+Cc: pbonzini@redhat.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Qinguang Chen <chenqinguang@kuaishou.com>, 
+	Zhiping Du <duzhiping@kuaishou.com>
+Content-Type: text/plain; charset="utf-8"
 
-The pull request you sent on Fri, 2 Oct 2026 11:34:33 -0500:
+On Thu, 20 Aug 2026 20:35:12 +0800, Keqiang Duan wrote:
+> Force a vCPU out of its hardware-tracked halted state when userspace puts
+> the vCPU into any state other than HALTED via KVM_SET_MP_STATE, i.e. clear
+> VMCS.GUEST_ACTIVITY_STATE if it says the vCPU is halted.  Add an optional
+> kvm_x86_ops hook to do the clearing, as SVM has no equivalent VMCB field.
+> 
+> When HLT-exiting is disabled for a VM (KVM_CAP_X86_DISABLE_EXITS with
+> KVM_X86_DISABLE_EXITS_HLT, e.g. QEMU's "-overcommit cpu-pm=on"), a guest
+> HLT halts the physical CPU instead of exiting to KVM, and hardware saves
+> GUEST_ACTIVITY_STATE=HLT into the VMCS on the next VM-Exit.  That field is
+> sticky: it survives VM-Exit/VM-Enter and is only cleared by vmx_clear_hlt()
+> on event injection, or by vmx_vcpu_reset() on INIT / vCPU creation.
+> 
+> [...]
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git tags/pci-v7.3-fixes-3
+Applied to kvm-x86 vmx, thanks!
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/d2dbe503fd806082acb0ca79a9d6641822988c2c
+[1/1] KVM: x86: Clear hardware HLT state when userspace makes a vCPU not-halted
+      https://github.com/kvm-x86/linux/commit/883719f57f5d
 
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+--
+https://github.com/kvm-x86/linux/tree/next
