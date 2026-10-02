@@ -1,191 +1,166 @@
-Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA7E46E00C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:20:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBB11FE451
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961651; cv=none; b=avWoRZpEG4IEAHS8m+f2vZh37BV1VzuC6dPLf5eOVWWv6IXl/tzr12I9xYmA3fVSmUaiON8g629CN9q9rqPubAB2ibZjXgvnUglqcPU827iEDTt+XnApCVHGnu52YpGTQFcNisqvH9UWLYepx+Lq2seMipgTMIRGeWp7x9aI650=
+	t=1790961746; cv=none; b=T8hr6L0QZeHqVUHvE6mIzKYkMsbxAGJHufMf7T60uCCbKI/eCk05CwAKhhW53g9cOlfj3DltCAROv9LI/tVzRxUNk27MWcfmfmqc/ZXpwAOPYDtmkJoJIzRyymIxsgMBIwIzLBWpk3aGDeCpMTuhS9Wclv+ySB+hawOUZwBhuFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961651; c=relaxed/simple;
-	bh=OcY+7/0P/gvQi8VSadBXXsgqQ9SByM7tSMYjbn8eB/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RjMdbgdTbc7Vfn1sLxhVWkN8qNKcePWDCc7COKIvELbWLvZw/egxBDQ6bdpDG0qF5Lcll2UDBAPnboyiUtSdGRJ78HUQcWDoNZBQcYZyE8GStMSoHck/qWV7ZwKVzbX9mVs8U6l8IED1UWPOc1ny72sEbbmzfnqxgyUrJ7I3Cfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cvsU/IRT; arc=none smtp.client-ip=74.125.229.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790961746; c=relaxed/simple;
+	bh=wfkQTCtihLuQmkMLSwbhTu0nmBiQEOBAVacLI6it58U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tPmG5S4qYlk5vdv+/GYvv1z5hBUC6SGpwaD742u1P1cTdXbh8Rf8t8If/mOnqhRTJ7U6xUDPKWEeUX8ZdYjfJZ6wKz03pqgxYmYgksMejX6p35D3SI17dWDV7qoURYddcYNbXk10M0mnBLzubOCCGcAAUEIoiTPyPSaHAOCkW3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f4b6DvWM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JxquiZya; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cvsU/IRT"
-Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-14c96a4b7c7so616440c88.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:20:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f4b6DvWM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JxquiZya"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692H68Om671106
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 17:22:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tR5tyXwtqll8A7xHJC6SBeUbgFbK2QmhJ4Eo1XroUTY=; b=f4b6DvWMKkZ4SuUv
+	SMc4ECK+16+u/XjEnUJDUXU+RI6+O5P66DCqWtdKyizQolxNe3p2Mwck6Wa8oaD4
+	wjPrFHKxekDCVFLvUR+cPZQ4MuUVYVxQdmhivEcKAdEFbdoVkQfk8IP54PHrbrfb
+	kLZ2gCEFqeVdyyyVanpwKo0k1SSsDj3FD4robtkr1ahtQiimE+nwOxNU0zHmHMWo
+	vS6wb3pslb0tUU0UTYd1XCgMd/U7jXFFNT/N0DGbrOsU+XZ1lEp9zxQbB/3HI8Rj
+	ji7jgi9eJcxAemgb5C5ur3eIUgt1EAAoG9ASxaZ64nITp7dCN+J23IYuleYZwOEA
+	iNxwIQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1vxec9q4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:22:16 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a4a0017549so180254a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:22:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790961639; x=1791566439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=izTe3vFuNEXuKkViQhMtb+ZI5BaXwvWzbJ/LmOaSmrg=;
-        b=cvsU/IRTvs9XYNhpctzW/G1BDBplbwu4gk/DBuMbyRWB5ND2YW4F5lmYT2DnchvroS
-         YnbdtNGXYCnsqioCqAZaXY1nUZGvGH5rlXOGIpg/J9DPjqUCuiDhAlVAPj8SamXiMRPp
-         5KfeglHOTgAKfTeIfhyw9lJdgKJ1mvG24UvU12RAszxxYrJuebY+PjR0LA653Hz9wmZn
-         hQsb00UpUV/i29cftwDYb7OsDyttFjtpJb5dnLV3MayItMDjw7hoIntBtBRoYDegJhtO
-         Q5lbPRxU+9jqZfPpijdfnaycCJezx2wU5zEsN2JRngHfv6lAQ1/FyJPFyiwoSlDsW1tH
-         svzw==
+        d=oss.qualcomm.com; s=google; t=1790961736; x=1791566536; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tR5tyXwtqll8A7xHJC6SBeUbgFbK2QmhJ4Eo1XroUTY=;
+        b=JxquiZyaLYW9rEi2BLzsb9xykanhQc9wqF1DtFB1YKeNcdh85W999oi0wS43RhXPZ2
+         IwBcdZRvuFWA7oTyRcNQ5GCaRVNAVDE0gOl+XeXyuqx/CclivNis3HyQwAuvvAKM7guE
+         uTFZPkDEfqPGn+hIgVJX1vEp5SoYHVCVKd35CjxUwj9SPS9ayMZtXA2h/0GSr0AYGFpL
+         rUsTdrvX6Qz6JxaeQQNJnZJchmnJPzh4SX4GAj5qYQXBAKdXue3uPmL7e2R4krp2Cfl6
+         0n4wgTqcMuzSfqsjj+omFsiqp+PSmz8ba1O3NxKkO8tbJLcbSGhJgbbfQ5fsm7lOIK5a
+         Wlqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961639; x=1791566439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790961736; x=1791566536;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=izTe3vFuNEXuKkViQhMtb+ZI5BaXwvWzbJ/LmOaSmrg=;
-        b=ybZExk3tZtAJe88l87+z1XxU+mgpJt+81bE+8/C4WJH40Gjca0risOB9PBRdMShvp9
-         7kiREK29woThOiQLj3QahiPCpmBzUzcweozVEYQ20Qk3+hiMmouAI1Ncx3hfkcrBNCC2
-         P2lYaJ2Q7CjVGNWFt8dhiKBBa9vbOVWUsb2AhqPuyius6759TFQxnzyHtRmYPdL3QI4X
-         wrcmf7N8/NxFqX/RcVsuw/0Glu5V2tjTwomsqN0poN0fRO1sG7Z4EWQdY5tYWWZXXFOz
-         wc1CXuTToJvvAjrVfZq2OwMfbPZBv/EGEarautv+925YSjwEWC/R9Q2U6KLzmGc1QEXf
-         26ww==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ4qrW5qUtijGdqWLIvjwii0eQpj68S9gru00nXABdOf8cHSC4tpi5mYZlG7aieSbf2rUz0Jl/N+OVhY0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhenGJ5CsyeqrPuhEe9ouRE/3GUywnln9gJWEzO9SKIxOB4Czo
-	earxqI/Di70hBq/kGNEKqGAQz8KR9Nc6P+GIZsXbOQ1ly16mH/657e1T
-X-Gm-Gg: AYBFou1mtN2On8pVLjeqisTatiCGsxYiU2L7pWF6mw4tmExieqMBzPqytcYkGSH8erU
-	yXl+mXQJ/Ds4Xzm8+jyK9qd/Fz6N+QWCJpwdlYfODyoyftEV16IP0ovsQxlaWcTVLgiELBg2by+
-	lZFPfDJ7NgJSpgwWE466ZXYB0kgXC9wfdMp4U25VB0yRlZAiuSxkRjDDjgIAHEvWxstfKczPZja
-	trBykXEz5nIqFTHkauu6cc2K+jf5I1Bm5Q+iQ1VreMubbA39glpyq3t1nl309e65nrqka9ep4js
-	Lbpwm+GF7qEqRWEoLG3Abd8RH95yb/bt34eqhUnV9vKXaCjSANJ63OBfLvxJin7nKbIZCS9NXnB
-	vXjCSZTMvK8t68C0j698OtSGgf6cc3ypPwylYhJoPVr7y/vMkDRL4I8/TBxlDhCzG69rMhTeN5t
-	gfxloV+HJf9qvR5zKXpqTvxaW7Xbmzs06a0+ePNBMKLzdoZkj6jiw4RQ9yVOMOtag3CoO/skUvg
-	NOjLy5H23klNlF/zZ4dKODjpgpNcsU6gjUpiRTCZI/9lk/LwRZbAzUlYOnIbY24fG1oLug=
-X-Received: by 2002:a05:7301:e101:b0:33e:6714:3945 with SMTP id 5a478bee46e88-34f150658f9mr5329374eec.2.1790961638951;
-        Fri, 02 Oct 2026 10:20:38 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f2dfbbsm7816854eec.10.2026.10.02.10.20.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 10:20:37 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com
-Cc: tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	kai.huang@intel.com,
-	marsy12010123@gmail.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: x86: Protect virtualization-enable VM walks with RCU
-Date: Sat,  3 Oct 2026 01:20:25 +0800
-Message-ID: <20261002172025.3402416-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=tR5tyXwtqll8A7xHJC6SBeUbgFbK2QmhJ4Eo1XroUTY=;
+        b=wUVhjV4H+zBKJ3mdJCNGD+DQDmEHJ3eArJnjymt0C4wPlLWEKEcbv/cVLepFnwtGJH
+         DDWTc7P5RA2sn3W+t1uZPA8vRYQi7hqKIFk3UPNbtetKsgMkI1tq+gKIMR3k93yO1wIF
+         4iZi7WnJYXlKJOU8ONtY/UvH+uImm2x3aBTw5nx8Nhn1pMs5s0KjK3xJjB/bE9gGicKv
+         uQakgX1Cks92iNB1im6Zqsf2god/6D2HVqbCc953OLC1S+ITluYYE0igNP4gGqpfvvvg
+         SCQtP/Hpd2ZqP0ipYodMZ1lxwymGuN8K/SybGgsb1upUzP2HZSG2SNb++ql1K0AiCWCT
+         ykFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxbTJm8+BRZaIHJHX26kDb0/XdJjLcc8CQXEXPx9Fu70QtEeAxlna71Q7Zu1nHshhDjQV78pWJrqRP0pQo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuDpBMJ/HhxYFJw3NwEVDM7F0KhWJqrG99ykLX9O8YfYqBjUf4
+	NhN1KCrcvTFIahMETPXCjI5bMpvuRbdPE4kuxHFI4UCzZqVmvZXCyP5Kg2GyFNesDYNpzZ7ZMGk
+	u1DYjJpPpDBZ7ME+O/x1XrXPvbYfZ6a6mRvk+O2EytKWyFiHlZFK3r8t/7NriZ3mg+E0=
+X-Gm-Gg: AYBFou1Sx9WlX0akXqIeXiYuJHj3h+hLhW4WU8higNyNuDPut4iSPUouUs5koP54fCI
+	GwcvqolXmwog7NGL0iSiKuB7/p2zh+WmWv+HNDjKnNbQoKKutTUyG8ICC9vFkWuz1y9odXpjbAC
+	ul8bh6OH9/TidqFYlSRaTvGF6biBvc1GysAf2vutCXzkQW9DVtWoGuFKJGh1PhAfhdDgdYzd8h5
+	4+yVWD8SoDYJ5+1zQ9NLnrSHEHeiUPEE62E46cV9bQOTqmSWKxlWdF4YIOT6EaFmLUwLb0Bqqz+
+	gHg8yiYlbE3fwvN35cQa5ZU3ucetaIuDHcR+SQq733XOcnuHor3yX+HhlXnXxILqr5J2xJ9hyoQ
+	Y6wzDtpkqNkjQoNCDl8yO4q3DHbcD
+X-Received: by 2002:a17:90b:4a4a:b0:3a6:f90b:20cd with SMTP id 98e67ed59e1d1-3a6f90b2630mr1609533a91.6.1790961736206;
+        Fri, 02 Oct 2026 10:22:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a4a:b0:3a6:f90b:20cd with SMTP id 98e67ed59e1d1-3a6f90b2630mr1609499a91.6.1790961735611;
+        Fri, 02 Oct 2026 10:22:15 -0700 (PDT)
+Received: from [192.168.0.195] ([124.123.196.90])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f43a12c9sm10811502a91.2.2026.10.02.10.22.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 10:22:15 -0700 (PDT)
+Message-ID: <3acac1a0-a64d-4549-946d-874df45c3dac@oss.qualcomm.com>
+Date: Fri, 2 Oct 2026 22:52:08 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] clk: qcom: Add lpass audio clock controller driver
+ for Glymur
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260925084635.112399-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260925084635.112399-4-srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20260925084635.112399-4-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=fdc4WEQF c=1 sm=1 tr=0 ts=6abfe848 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=3s5aCXBOHJDmPDD1+4kJVA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=6XYEiC8ceDmu1LDSX3kA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: 8OnqRJIPthK_NWlYLWPozjRVxC3YINNR
+X-Proofpoint-ORIG-GUID: 8OnqRJIPthK_NWlYLWPozjRVxC3YINNR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2OSBTYWx0ZWRfX2FfBXWG0dKZT
+ mH/kiuqLvgBBI1Xv/Md9APLUmjVxbHyftzBFqI4aw3iuL9Wpdx8U4w33vXjJ9TQ9oSkSHlSc3kh
+ UxxHjuAOBBM+cRRY/2a5XDleSw8LA5WI/kBbkLZFC/VIoJWzW7Q1nFPm4nCwGk4Y+xTjDOC8yw9
+ 9J0x+7Dlk90qUqHnCV+WE7aKpcvxys432wc0s8qjij/m5QbK7jLVMGwRBZoEKNhHKJ9kxWFY0ap
+ QK6xLIITYMY7xTCEbPBjfMKrHxRCTBrtW0EUAsPKFKhXGld/XMiuv2eZRU2BCKNpCGEMk+LKq4R
+ yMACFO30gED0L5weD66b3/HW1DugEWNiJUcPkoLDU2odxxNNMAQ0HW4PlKMe+KxgcB79937bpOG
+ etFn56G/ApfJQdvBs9yIf8FdoAEifvfdpMtCW/BoM37lFdJAfiVoZFm9uS+jre0wKVZn16pc7uT
+ Tx8yUPGoByZF6L23YnA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2OSBTYWx0ZWRfXyRMABRHz4Rvn
+ AfandQ9yXjxWn+jyWwOOXtDI1HBUC0njE+0f5URVnlsWd2o3IRuDLGaYtrjz51Byeleoa1utzQX
+ LEPX8Yw29MLA+Y6MeAqxiY2enZuYx9A=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_05,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020069
 
-Protect the vm_list walks in kvm_arch_enable_virtualization_cpu() with
-RCU, publish and remove VMs with RCU list operations, and wait for
-pre-existing readers before tearing down a VM.
 
-The change that introduced kvm_usage_lock replaced kvm_lock with a
-dedicated usage-count mutex when enabling virtualization.  Because
-vm_list mutators do not take the usage-count mutex, this left the x86
-walks without lifetime protection.
 
-During CPU online, the hotplug thread can load a VM from vm_list.  A
-concurrent close of the last VM file can then remove that VM and destroy
-its vCPUs before the hotplug thread dereferences the stale VM or vCPU.
-Reacquiring kvm_lock from the CPU-hotplug path would restore the lock cycle
-that the same change fixed.
+On 9/25/2026 2:16 PM, Srinivas Kandagatla wrote:
+> Add support for the lpass audio clock controller found on Glymur based
+> devices. This would allow lpass peripheral loader drivers to control the
+> clocks and bring the subsystems out of reset.
+> 
+> Currently this patch only supports resets as the Q6DSP is in control of
+> LPASS IP which manages most of the clocks via Q6PRM service on GPR rpmsg
+> channel.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/Kconfig          | 11 +++++
+>  drivers/clk/qcom/Makefile         |  1 +
+>  drivers/clk/qcom/lpasscc-glymur.c | 68 +++++++++++++++++++++++++++++++
+>  3 files changed, 80 insertions(+)
+>  create mode 100644 drivers/clk/qcom/lpasscc-glymur.c
 
-KASAN reported:
+Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
-  BUG: KASAN: wild-memory-access in kvm_arch_enable_virtualization_cpu+0x25f/0x870
-  Read of size 4 at addr dead0000000000f0 by task cpuhp/3/31
-  Call Trace:
-   kvm_arch_enable_virtualization_cpu+0x25f/0x870
-   kvm_online_cpu+0x1a/0x50
-   cpuhp_invoke_callback+0x291/0xfd0
-   cpuhp_thread_fun+0x256/0x4a0
-   smpboot_thread_fn+0x287/0x6c0
 
-Fixes: 44d174596260 ("KVM: Use dedicated mutex to protect kvm_usage_count to avoid deadlock")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6-Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
----
-Changes in v2:
-- Rebase onto current kvm-x86/next; keep the same RCU lifetime fix.
-- Clarify the scope of the Sashiko finding: the hotplug update of
-  tsc_offset_adjustment and the vCPU-load read/reset are unchanged by
-  this patch. RCU protects VM/vCPU lifetime; it does not synchronize
-  those field accesses. A separate synchronization change would need
-  its own analysis and review.
-
-Link: https://lore.kernel.org/r/20260804123243.2213854-1-marsy12010123@gmail.com/ [v1]
-Link: https://lore.kernel.org/r/20260804125109.B20491F000E9@smtp.kernel.org/ [review]
-
- arch/x86/kvm/x86.c  | 6 ++++--
- virt/kvm/kvm_main.c | 5 +++--
- 2 files changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 1705e7be46ec..6f57374dbb16 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -9664,7 +9664,8 @@ int kvm_arch_enable_virtualization_cpu(void)
- 
- 	local_tsc = rdtsc();
- 	stable = !kvm_check_tsc_unstable();
--	list_for_each_entry(kvm, &vm_list, vm_list) {
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(kvm, &vm_list, vm_list) {
- 		kvm_for_each_vcpu(i, vcpu, kvm) {
- 			if (!stable && vcpu->cpu == smp_processor_id())
- 				kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
-@@ -9716,7 +9717,7 @@ int kvm_arch_enable_virtualization_cpu(void)
- 	 */
- 	if (backwards_tsc) {
- 		u64 delta_cyc = max_tsc - local_tsc;
--		list_for_each_entry(kvm, &vm_list, vm_list) {
-+		list_for_each_entry_rcu(kvm, &vm_list, vm_list) {
- 			kvm->arch.backwards_tsc_observed = true;
- 			kvm_for_each_vcpu(i, vcpu, kvm) {
- 				vcpu->arch.tsc_offset_adjustment += delta_cyc;
-@@ -9735,6 +9736,7 @@ int kvm_arch_enable_virtualization_cpu(void)
- 		}
- 
- 	}
-+	rcu_read_unlock();
- 	return 0;
- }
- 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 9fff2f4bf2f1..750ee2f8c720 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1217,7 +1217,7 @@ static struct kvm *kvm_create_vm(unsigned long type, const char *fdname)
- 		goto out_err_no_debugfs;
- 
- 	mutex_lock(&kvm_lock);
--	list_add(&kvm->vm_list, &vm_list);
-+	list_add_rcu(&kvm->vm_list, &vm_list);
- 	mutex_unlock(&kvm_lock);
- 
- 	preempt_notifier_inc();
-@@ -1279,8 +1279,9 @@ static void kvm_destroy_vm(struct kvm *kvm)
- 	kvm_uevent_notify_change(KVM_EVENT_DESTROY_VM, kvm);
- 	kvm_destroy_vm_debugfs(kvm);
- 	mutex_lock(&kvm_lock);
--	list_del(&kvm->vm_list);
-+	list_del_rcu(&kvm->vm_list);
- 	mutex_unlock(&kvm_lock);
-+	synchronize_rcu();
- 	kvm_arch_pre_destroy_vm(kvm);
- 
- 	kvm_free_irq_routing(kvm);
 -- 
-2.43.0
+Thanks,
+Taniya Das
 
