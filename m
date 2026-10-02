@@ -1,168 +1,413 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3922609FD
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 05:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0BD377A81;
+	Fri,  2 Oct 2026 05:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790919150; cv=none; b=a5+wu5JGEQG/KKZ6ox6dXawiCyVP6S46qrmdbHQQ6BL1245w6qSFavgjubQfwvYcJlEhr6IxYVwMqR9uK9fEM+o4DpF+2+k33/4Hscy9WxE55x7S/N3GLhlgBOLGIXb96Gcjd08/C4TMQmmfOtdDt4nWo1+OqsWo7U+MHWURg+0=
+	t=1790919181; cv=none; b=M5WeCaamHnG7x3TMiwf+5oRzcQdwH3pPOTRSTiIsxeVsjoqtlzVCAR3NLeX3i/AU0ByTkcjClrvNW2XEKN93znAvIJFPHyaqZxSun9YpWrbYukCJaoE98xQEpnclvaRLoerhwYAU4883FHyNHgkotZI4p1xx8fQEp76NWvQ2hck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790919150; c=relaxed/simple;
-	bh=2pSnaHR0dLqqhKvGwe1MH9NgzMKRsufCm8qL9qOs+Ew=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=p+Fwi2gairuq+UcnB6k2dI/1OGhDtzj7mBULDNV9ueDUr12gFSkKbmeIbTj7u+v077ZfiKGU/1f4rDranBZddGsD8n4ey0xI92gaHLZfIvzF3ZsxXwbs7dFHwwkLNJndnyy9Ft4/UE5wF6f2vIdwbUBjrKxVs/TmkVRxMYiJO8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-81447a16061so4254557a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 22:32:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790919148; x=1791523948;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8fhLhuAHVPy61Xa+qU8I+dMZ+S9hoNa+YZFJU+sQNQE=;
-        b=q+baiRVvJNAfi7Oar2Rr4cy4DhVlYSsjc+skBAh/M4sVb4VaXNAemBZF9YdDQOQo2p
-         AWa8sMyPYQ7ETSEm1SXnBrz77YNcjZMaC9G0ScsGjGSYjP0bV6/WG9wEgU+S/igtWZD2
-         +3cBcoWSjQR/x3fQW5KdxSRiEd/lUMbm6EkTH+H6wmIirIeUpcHs8Opl46GC8rMRD052
-         i/rjvXaBHMOVPempjHZxQG9ixcoR3JIJuuEU6NOGoLqjSyhbsOABZGF3Rb2petu7R/T5
-         cLwmyDBVHOD/9AJ1IkznSzinX3pvRBdrhs1hbGeeoAe1YUxy9QzfKS50GoCVBBdcLZEj
-         bkvA==
-X-Forwarded-Encrypted: i=1; AKwUvBy2LouJ3sPFFJAidql9rzhVm7xxuBFoX3H9CqqEvYnEo0ZpEVTsDv8zT/2vGuRF6pvRWqmlJtzDqHzizFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpPIm2XBBZf5l0bPFpVe4YwJYgDj6mDERcQFVhVcGOEld1/h0p
-	DZb77Mh2FwGGExEoNoLLHi05TIJxLJnP7jjd6ArlhVH15jwn2SPKp5Sonw00KuF1/S8n1M3Q4Gr
-	XbAN54Rxbhwbhn+zoRy8RzPN5tHKrX0EHW4PZIqb8IdtWkuOlBR01BmXH1F0=
+	s=arc-20240116; t=1790919181; c=relaxed/simple;
+	bh=5fR8XI1ZEmNG6weXpXbU4sW5t5o3ly+HoLt8cA2Q8yk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UyqG5bc9E6cZPMhaZb9uuFt6MJjiUZyMfA9IiQX504lff05Zb6xIezWE9eypEvwpolCeaUoDjy1bRILRkIbTXIqVr7Or/Y5cgljU/9/gtDUh1eABK1K0NMkXpbHqzndg3Gt35vVhPUJMr1XvwKN3VNM/isy8Q2tlgh5JZMG7gV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gSNYpFOw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gSNYpFOw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B2B1F000FF;
+	Fri,  2 Oct 2026 05:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790919170;
+	bh=CoVWSZX+Xvv1m88OSTsqz9MZ+Eh+7jD5+KQpJAhjTUM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gSNYpFOw/GnO06tibC2WpN6YUhPr/PETOG0bqZw5j1bDlqvc3OPAEILZTC7ANcHp3
+	 S0IUUEWt7Dglt+q5LJq2MgfcuV1D0ij+H5LPdB+jEZerEoOgclFOcqmZrki0Z96ZzD
+	 FdTlyH2Jxq+2eTcf9hPQTED7HTAQBxtN8WzEx+NjkdDvQ4jtI0wTLepPs5JtMVvHzh
+	 itBhSnz3G9CfRWte7G7uqCUmnM6DQPQ9zzdIALmNlvU2p+PmZezHg2QrHtEoTKERI2
+	 h5vZffAFrQQJES99DYrCZ2KYMSJhDWMcK8lhdw8uIxcdeE68TAO04APmdXUTvB6eth
+	 RPMuI68wQ4knw==
+Subject: Re: [PATCH net v5] net: mana: fix reset work race with device removal
+From: netdev-bot+sashiko@kernel.org
+To: fanwu01@zju.edu.cn
+Cc: netdev@vger.kernel.org, kys@microsoft.com, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, songl@zju.edu.cn
+Date: Fri, 02 Oct 2026 05:32:49 +0000
+Message-ID: <179091916908.434549.1012399591583356885@kernel.org>
+In-Reply-To: <20260927105243.592348-1-fanwu01@zju.edu.cn>
+References: <20260927105243.592348-1-fanwu01@zju.edu.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c169:b0:4f4:724e:34d7 with SMTP id
- 5614622812f47-4f529c2b58cmr1178960b6e.28.1790919147837; Thu, 01 Oct 2026
- 22:32:27 -0700 (PDT)
-Date: Thu, 01 Oct 2026 22:32:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abf41eb.b50370da.302ea9.000a.GAE@google.com>
-Subject: [syzbot] [bluetooth?] general protection fault in rfcomm_dev_shutdown
-From: syzbot <syzbot+4a807caf7680652d53b6@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-syzbot found the following issue on:
+Critical: 0 · High: 1 (1) · Medium: 2 · Low: 1
 
-HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=155ee3f5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=4a807caf7680652d53b6
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Unfortunately, I don't have any reproducer for this issue yet.
+- [High] The rescan exits signal 'idle' to remove/shutdown before the PCI
+  manipulation they still have to do.
+- [Medium] Probe rollback leaves admission open.
+- [Medium] Embedding serv_work in gc allows a workqueue self-deadlock
+  through a recycled work address.
+- [Low] Comments in mana_gf_stats_work_handler() (mana_en.c) contradict
+  the code.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/3e4fb9949c4f/disk-551c722f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/fc47c1d4ab50/vmlinux-551c722f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/d29008ae09f9/bzImage-551c722f.xz
+Pre-existing issues:
+- [High] This bug predates the patch, but the patch leaves it in place.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+4a807caf7680652d53b6@syzkaller.appspotmail.com
+--
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000008: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
-CPU: 1 UID: 0 PID: 9467 Comm: syz.4.1031 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:rfcomm_dev_shutdown+0x48/0xb0 net/bluetooth/rfcomm/tty.c:131
-Code: 8d b3 e0 03 00 00 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 26 32 48 f7 4d 8b 36 4d 8d 7e 40 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 09 32 48 f7 49 83 3f 00 74 16 e8
-RSP: 0018:ffffc90006937bf0 EFLAGS: 00010212
-RAX: 0000000000000008 RBX: ffff8880538c2000 RCX: 0000000000080000
-RDX: ffffc9000f182000 RSI: 0000000000000325 RDI: 0000000000000326
-RBP: 0000000000000400 R08: ffff8880538c2237 R09: 1ffff1100a718446
-R10: dffffc0000000000 R11: ffffffff8aefbc10 R12: dffffc0000000000
-R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000040
-FS:  00007f1514ff66c0(0000) GS:ffff888124dc8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c2cbda1 CR3: 0000000038298000 CR4: 0000000000350ef0
-Call Trace:
- <TASK>
- tty_port_shutdown+0x1bf/0x220 drivers/tty/tty_port.c:372
- tty_port_close+0x4e/0x150 drivers/tty/tty_port.c:705
- tty_release+0x359/0x1670 drivers/tty/tty_io.c:1718
- __fput+0x418/0xa50 fs/file_table.c:512
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f1516d9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f1514ff6028 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007f1517026090 RCX: 00007f1516d9e159
-RDX: 0000000000000000 RSI: ffffffffffffffff RDI: 0000000000000000
-RBP: 00007f1516e3506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f1517026128 R14: 00007f1517026090 R15: 00007fff99ef4628
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:rfcomm_dev_shutdown+0x48/0xb0 net/bluetooth/rfcomm/tty.c:131
-Code: 8d b3 e0 03 00 00 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 26 32 48 f7 4d 8b 36 4d 8d 7e 40 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 09 32 48 f7 49 83 3f 00 74 16 e8
-RSP: 0018:ffffc90006937bf0 EFLAGS: 00010212
-RAX: 0000000000000008 RBX: ffff8880538c2000 RCX: 0000000000080000
-RDX: ffffc9000f182000 RSI: 0000000000000325 RDI: 0000000000000326
-RBP: 0000000000000400 R08: ffff8880538c2237 R09: 1ffff1100a718446
-R10: dffffc0000000000 R11: ffffffff8aefbc10 R12: dffffc0000000000
-R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000040
-FS:  00007f1514ff66c0(0000) GS:ffff888124dc8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f508245e000 CR3: 0000000038298000 CR4: 0000000000350ef0
-----------------
-Code disassembly (best guess):
-   0:	8d b3 e0 03 00 00    	lea    0x3e0(%rbx),%esi
-   6:	4c 89 f0             	mov    %r14,%rax
-   9:	48 c1 e8 03          	shr    $0x3,%rax
-   d:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
-  12:	74 08                	je     0x1c
-  14:	4c 89 f7             	mov    %r14,%rdi
-  17:	e8 26 32 48 f7       	call   0xf7483242
-  1c:	4d 8b 36             	mov    (%r14),%r14
-  1f:	4d 8d 7e 40          	lea    0x40(%r14),%r15
-  23:	4c 89 f8             	mov    %r15,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	4c 89 ff             	mov    %r15,%rdi
-  34:	e8 09 32 48 f7       	call   0xf7483242
-  39:	49 83 3f 00          	cmpq   $0x0,(%r15)
-  3d:	74 16                	je     0x55
-  3f:	e8                   	.byte 0xe8
+net: mana: fix reset work race with device removal
 
+This patch embeds the MANA service work in gdma_context and adds a
+serv_lock and waitqueue to control when a service cycle may be admitted
+and when it retires. Removal, shutdown and the probe unwind close
+admission and wait for any in-flight cycle before freeing gc. Reset
+events seen during probe are latched and left to the probe rollback path.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> index 8e9bfc1d6a2ae..4ebe595971a4f 100644
+> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> @@ -659,63 +659,149 @@ EXPORT_SYMBOL_NS(mana_gd_ring_dim, "NET_MANA");
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+[ ... ]
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+> +static void mana_serv_rescan(struct pci_dev *pdev, struct gdma_context *gc)
+> +{
+> +	struct pci_bus *parent;
+>
+>  	parent = pdev->bus;
+>  	if (!parent) {
+>  		dev_err(&pdev->dev, "MANA service: no parent bus\n");
+> -		goto out;
+> +		/* Still bound: keep admission open for later events. */
+> +		if (gc)
+> +			mana_service_retire(gc);
+> +		return;
+>  	}
+>
+> +	if (gc)
+> +		mana_service_retire_removing(gc);
+> +
+> +	pci_lock_rescan_remove();
+> +
+>  	pci_stop_and_remove_bus_device(pdev);
+>  	pci_rescan_bus(parent);
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+[Severity: High]
+Can mana_gd_remove() or mana_gd_shutdown() finish while this cycle still
+has PCI work left to do?
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+mana_service_retire_removing() clears serv_in_flight and wakes
+serv_waitq. That lets mana_service_quiesce() return, and the teardown
+owner carries on.
 
-If you want to undo deduplication, reply with:
-#syz undup
+The cycle then takes pci_lock_rescan_remove() and still runs
+pci_stop_and_remove_bus_device(pdev) and pci_rescan_bus(parent). Both act
+on a topology captured before the lock was taken, and nothing checks
+again whether teardown already happened. mana_serv_fpga() has the same
+ordering.
+
+Shutdown: mana_gd_shutdown() gets past quiesce and runs mana_rdma_remove(),
+mana_remove(&gc->mana, true), mana_gd_cleanup_device() and
+pci_disable_device(), but the driver stays bound. The cycle then removes
+the device, so device_release_driver() runs mana_gd_remove() a second
+time through the leftover ac. The second pci_disable_device() then hits:
+
+    dev_WARN_ONCE(&dev->dev, atomic_read(&dev->enable_cnt) <= 0,
+                  "disabling already-disabled device");
+
+After that, pci_rescan_bus() re-enumerates the function during
+reboot/kexec.
+
+Unbind or sysfs remove: after gc is freed, the cycle still removes and
+rescans. Could an unbound or removed device come back and rebind?
+
+Hyper-V VF hot-remove: a removed VF makes mana_gd_resume() return
+-ETIMEDOUT, so this rescan exit is the expected branch.
+hv_pci_remove() calls mana_gd_remove() under pci_rescan_remove_lock and
+quiesce returns. hv_pci_remove() then continues:
+
+    pci_remove_root_bus(hbus->bridge->bus);
+    pci_unlock_rescan_remove();
+    ...
+    hv_pci_bus_exit(hdev, false);
+    ...
+    kfree(hbus);
+
+The waiting cycle then runs pci_rescan_bus() on the removed root bus.
+pci_bus_get() in pci_alloc_dev() keeps the pci_bus struct alive, so
+config reads still reach hv_pcifront_read_config():
+
+    struct hv_pcibus_device *hbus =
+        container_of(bus->sysdata, struct hv_pcibus_device, sysdata);
+
+Does that use hbus after it has been freed?
+
+Could the cycle recheck under the rescan/remove lock whether teardown has
+already taken over? Or could it hold off signalling idle until the
+remove/rescan is done?
+
+[ ... ]
+
+> @@ -738,7 +824,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
+>  	if (ret == -ETIMEDOUT || ret == -EPROTO) {
+>  		/* Perform PCI rescan on device if we failed on HWC */
+>  		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
+> -		mana_serv_rescan(pdev);
+> +		mana_serv_rescan(pdev, gc);
+>  		return;
+>  	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the PCI PM callbacks are
+still outside the new serv_lock admission/drain protocol. mana_driver
+registers:
+
+    .suspend	= mana_gd_suspend,
+    .resume		= mana_gd_resume,
+
+mana_serv_reset() calls the same functions directly from the system
+workqueue:
+
+    mana_gd_suspend(pdev, PMSG_SUSPEND);
+    msleep(MANA_SERVICE_PERIOD * 1000);
+    ret = mana_gd_resume(pdev);
+
+system_percpu_wq is not freezable, and the worker does not take
+device_lock. So can a system suspend or hibernate run
+pci_legacy_suspend()->mana_gd_suspend() while an admitted cycle is in its
+suspend/sleep/resume window?
+
+If so, both threads run mana_rdma_remove(), mana_remove(&gc->mana, true)
+and mana_gd_cleanup_device() on the same gc. For example,
+mana_hwc_destroy_channel() does:
+
+    struct hw_channel_context *hwc = gc->hwc.driver_data;
+
+    if (!hwc)
+        return;
+
+Both callers can see hwc as non-NULL and free it. The
+destroy_workqueue(gc->service_wq) call behind the NULL check in
+mana_gd_cleanup_device() can also run twice.
+
+The changelog below the fold says the PM path was left out. Could the
+commit message itself say that this sibling teardown path is still
+unprotected?
+
+[ ... ]
+
+> @@ -796,51 +899,94 @@ static void mana_recovery_delayed_func(struct work_struct *w)
+>
+>  static void mana_serv_func(struct work_struct *w)
+>  {
+> -	struct mana_serv_work *mns_wk;
+> -	struct pci_dev *pdev;
+> -
+> -	mns_wk = container_of(w, struct mana_serv_work, serv_work);
+> -	pdev = mns_wk->pdev;
+> +	struct gdma_context *gc = container_of(w, struct gdma_context, serv_work);
+> +	struct pci_dev *pdev = to_pci_dev(gc->dev);
+>
+> -	if (pdev)
+> -		mana_do_service(mns_wk->type, pdev);
+> +	mana_do_service(gc->serv_type, pdev, gc);
+>
+> +	/* The rescan exits of mana_do_service() remove the device, which
+> +	 * frees gc before returning.  Only touch the pdev and the module
+> +	 * reference from here on; both are held until this point drops them.
+> +	 */
+>  	pci_dev_put(pdev);
+> -	kfree(mns_wk);
+>  	module_put(THIS_MODULE);
+>  }
+
+[Severity: Medium]
+Can embedding serv_work in gc cause a workqueue self-deadlock through a
+recycled work address?
+
+On the rescan exit, mana_serv_func() is still running when the gc that
+holds its work_struct is freed and a new gc is allocated:
+
+mana_serv_func()
+  mana_do_service()
+    mana_serv_reset()
+      mana_serv_rescan()
+        pci_stop_and_remove_bus_device()
+          mana_gd_remove()
+            vfree(gc)
+        pci_rescan_bus()
+          mana_gd_probe()
+            gc = vzalloc(sizeof(*gc))
+
+vzalloc() might return the same address. In that case the new
+gc->serv_work has the same address and the same func as the work this
+worker is executing.
+
+Suppose the new probe then latches a reset event, and a second event or
+a gf_stats timeout is admitted in the rollback window. That window is
+covered in the comment on the mana_gd_probe() rollback below. The new
+work is queued with schedule_work(). If it lands on the same pool,
+find_worker_executing_work() matches:
+
+    if (worker->current_work == work &&
+        worker->current_func == work->func)
+        return worker;
+
+and assign_work() moves it onto this worker's scheduled list.
+
+This worker, however, is the one blocked in mana_service_quiesce() in the
+probe rollback, waiting for serv_in_flight to clear. So the queued work
+never runs, and the worker would hang forever holding the new pdev's
+device_lock and pci_rescan_remove_lock.
+
+Before this patch, mns_wk was only freed after the rescan returned, so
+its address could not be reused while it was still running. Closing
+admission in the same serv_lock section on rollback in
+mana_service_probe_complete() would also avoid this.
+
+[ ... ]
+
+> +static bool mana_service_probe_complete(struct gdma_context *gc)
+> +{
+> +	unsigned long flags;
+> +	bool rollback;
+> +
+> +	spin_lock_irqsave(&gc->serv_lock, flags);
+> +	gc->serv_probe_done = true;
+> +	rollback = gc->serv_during_probe;
+> +	spin_unlock_irqrestore(&gc->serv_lock, flags);
+> +	return rollback;
+> +}
+
+[ ... ]
+
+> @@ -2558,22 +2697,26 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+
+[ ... ]
+
+> -	if (test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
+> +	rollback = mana_service_probe_complete(gc);
+> +	if (rollback) {
+>  		err = -EPROTO;
+> -		goto cleanup_mana_rdma;
+> +		goto service_quiesce;
+>  	}
+>
+>  	return 0;
+>
+> -cleanup_mana_rdma:
+> +service_quiesce:
+> +	/* Only a rollback can have admitted a cycle: it ran
+> +	 * mana_service_probe_complete() before jumping here.
+> +	 */
+> +	mana_service_quiesce(gc);
+
+[Severity: Medium]
+Is admission left open between mana_service_probe_complete() and this
+mana_service_quiesce()?
+
+When mana_service_probe_complete() returns rollback == true, it has
+already set serv_probe_done = true. serv_removing is not set until
+mana_service_quiesce() runs here.
+
+In that window, a hard IRQ reset or FPGA EQE goes through
+mana_service_event():
+
+    admit = gc->serv_probe_done;
+    ...
+    if (admit)
+        mana_schedule_serv_work(gc, type);
+
+This patch keeps mana_gf_stats_work_handler() re-arming during probe. In
+the same window it sees mana_service_probe_done(gc) return true and calls
+mana_schedule_serv_work() too.
+
+If a cycle is admitted here, the probe sleeps in mana_service_quiesce()
+under device_lock through the whole reset cycle. When the probe runs from
+a service rescan, it may also hold pci_rescan_remove_lock. The cycle runs
+mana_gd_suspend(), msleep(MANA_SERVICE_PERIOD * 1000) and
+mana_gd_resume().
+
+The probe then unwinds with mana_rdma_remove(), mana_remove() and
+mana_gd_cleanup_device() on state the cycle just rebuilt, and queues the
+-EPROTO recovery rescan. If the cycle's resume fails, the cycle also takes
+its own rescan exit, so the device is serviced twice.
+
+The commit message says:
+
+    Do not admit service work while probe is still constructing or
+    unwinding the device.
+
+The label comment above also admits that a rollback can have let a cycle
+in.
+
+Could mana_service_probe_complete() set serv_removing in the same
+serv_lock section when rollback is true? Or could it leave
+serv_probe_done unset on rollback?
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 591fb4191d90d..c9ac982925224 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+
+[ ... ]
+
+> @@ -4060,10 +4060,20 @@ static void mana_gf_stats_work_handler(struct work_struct *work)
+>  		memset(&ac->hc_stats, 0, sizeof(ac->hc_stats));
+>  		dev_warn(gc->dev,
+>  			 "Gf stats wk handler: gf stats query timed out.\n");
+> -		/* As HWC timed out, indicating a faulty HW state and needs a
+> -		 * reset.
+> +		/* As HWC timed out, indicating a faulty HW state and
+> +		 * needs a reset.  Never admit service work before the probe
+> +		 * has completed: a probe that is failing unwinds netdevs and
+> +		 * the HWC channel itself and cannot drain a cycle.
+>  		 */
+> -		mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
+> +		if (mana_service_probe_done(gc)) {
+> +			mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
+> +		} else {
+> +			/* Retry once the probe completes: dropping the
+> +			 * request would leave the stats work disarmed.
+> +			 */
+> +			schedule_delayed_work(&ac->gf_stats_work,
+> +					      MANA_GF_STATS_PERIOD);
+> +		}
+
+[Severity: Low]
+This isn't a bug, but the comments here don't match the code.
+
+The new comment says a failing probe "cannot drain a cycle". However,
+mana_gd_probe() now drains one with mana_service_quiesce(), both at the
+service_quiesce label and again before vfree() at free_gc.
+
+The existing comment just above this block also still says:
+
+    /* HWC timeout detected - reset stats and stop rescheduling */
+
+But the new else branch reschedules gf_stats_work.
+
+Should both comments be updated?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927105243.592348-1-fanwu01%40zju.edu.cn
