@@ -1,183 +1,262 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C915013C4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA144E36E6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790962671; cv=none; b=dq7I2KtyfHbRzHVnX0k/21SH8Rilmuk/nvJ4bi+uHcsUCt0cmESBSkOJ0JQ1pjTakF4G6xAyTB8WKvh0Y4YgtKW66xW4d+/EMI7N5lpHl8Kxgk+hOP0CmKZcMtZ789eDSSrfRWc/4o9nU3o9JZ23lpqzF7UzUrT3S7pF+DYUwQ0=
+	t=1790962740; cv=none; b=ofqmgCRnbSq/ERAKo3WGRdmJHcRXRMpORQDfVV8bL75O3x5AZZ3dN67u+lKiS63p/UrpLyXC0oJEEOqeEalipyRsOmCB3YfH2M+t2RZRNdcd0PoxkcW7uL8ULAkbjcLRqTz/TP8+6YYBSbKPTR/KdtnUnhKcNS695ylT/5YSUO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790962671; c=relaxed/simple;
-	bh=siha9X/s8ulN2VF7hdc6xW1tHVD0UV8OJ/j+Qs7oepU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MvQHZ71GCvZYeVrLgaEWebLCNQk0uPgz89GizPVgQlV6gmMT0HDy5/rOAkzJyrFAz09ExGe/5YRKkP5rP4qr6+G5JJpnclvWp0PZjxHNPQf8Z1IeLVVVOIK/J5oOXckR6FLl2LcD+pVAHrwJHKNoXg0zecUmXZfpegg9qpuuV1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com; spf=pass smtp.mailfrom=perches.com; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id ED5661607E5;
-	Fri,  2 Oct 2026 17:37:28 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf09.hostedemail.com (Postfix) with ESMTPA id CDA0720028;
-	Fri,  2 Oct 2026 17:37:26 +0000 (UTC)
-Message-ID: <bfefed1916a675a32ddcbebcf5a23b91fc750bcd.camel@perches.com>
-Subject: Re: [PATCH 1/2] MAINTAINERS: add include/linux/hugetlb_cgroup.h to
- HUGETLB SUBSYSTEM
-From: Joe Perches <joe@perches.com>
-To: Enze Li <lienze@kylinos.cn>, muchun.song@linux.dev, osalvador@suse.de, 
-	david@kernel.org
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 10:37:25 -0700
-In-Reply-To: <20261001123747.634845-1-lienze@kylinos.cn>
-References: <20261001123747.634845-1-lienze@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	s=arc-20240116; t=1790962740; c=relaxed/simple;
+	bh=lxYzkpriaDekB2b+vETaWpNqnj81kUfQDNd2Cv8ukZw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EBpufxsAmPNfZwkAEDl5YSP+hPKRk8LyZTbxb7oj+dqwK/vuShCJFZq2VQvoHRuvrbk4zA7guRyLj7o/euiCjc8ZZBnq2gVfxCBxCMcPtguVCoLPJ4LOt5Ma8EM/ebrX2s/l7COeN0Yf3U3bT8ebD7TQpV+XUhdzBnfHvfx3pAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K7eLYoE8; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K7eLYoE8"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e79c06622so889705eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:38:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790962732; x=1791567532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LrYrWMHbMhPiTpFi2/y0IXJsNMi1j3IUwWpiDmuGlWY=;
+        b=K7eLYoE8vvpA2vqp2PmPHc05B7+DZxhovayfmdKbEy+ClmdktNEZ3ysg5bOPepPBGE
+         X+VG8r8TKJexvPpjPoN7JewKeem1SXIV5ffZ1YCQRK8Lcppvdju1MwEw+OWZDcyDhkBU
+         rKisABe/VUVAvHkXtlK7wCvPq4P8UgOrhkNIsX6cNKKGbcTWBozhwuEapG9isvfmVvrg
+         Cv+nEYOH1LlDx63ifQUtoJ+zWQ9IhS92eXTSmvoGEr6wWHYHybRLSsoobDvBrZb+0l6o
+         9jmjub8tVQUoYUBkv/e56l9cLhxDzeBwhVZdrZF+26rasVLs+MYx1uEwsJ959WatUT4s
+         Q2AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790962732; x=1791567532;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LrYrWMHbMhPiTpFi2/y0IXJsNMi1j3IUwWpiDmuGlWY=;
+        b=ghot/yODLVBojbxNO5X8OWJU4mPsase2YeqYLqRDLKtXY+mCPvTpLiDjdZwyXK1Y67
+         v92s9qGS3rpF4BLs0tEXaJMOmmlfmC3sumdZZYn9s0acdhujK9LOUi8KKGsAxQoArh4T
+         UrbbFi1I8zrUzYlL2PW87qIniKEfjkmPHwS0QytF4UfkJ4ZvgT8LMT52FIzkQJZ8P0gO
+         mNBfEq4yw/zUunLI8m79RenjUqBejKI88q5Uenua29ScnJI2Uc5cbp6PdbGQNeEpCXnC
+         I12U345YEEK++TaDB2LkRrTC+f1H7JzaY8MPr1P1XZBULT05ys1l/PAzgp5NgscLVz/v
+         iPjg==
+X-Forwarded-Encrypted: i=1; AKwUvBzD1KGilxDxyQ9999949ewk2MQ6k9ZO74eqJbL5Aqau6ebmB2cnkcKvHli3OyXCYNPs1e+aM4R0xaLwGWY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKu+Ij69o+2afnZutOGNhTZvpU6TWrd3uLTtJms9yVkDkYBzvkj
+	YnUDS0P3t3v3Yc8i/kuXpv+bXf+TjfREMNjE3uxuzK4O58Nd2sjJZ1rJ
+X-Gm-Gg: AYBFou2sw9cFqnWzutEwRCoLoaus3IBYseyH2+/CkTgcLXvVmO0x3eiAFZ/KYlqkAl8
+	jGp7ucEA4V9UbFv+MY37Kuw6jqVjlKU7YNS3QiEZZkGQ5c4uyFUVJfDpcaSFUFweIeZ4ZZ6UEeh
+	QX95FPcDKbGjAkhnnoN0eV+Ssa5UQOURJi5i0xv+MaHX5A4f50lhLPMh+e+Avk/GZNwaOkS/Egp
+	PxIRLiupHCgWuhBIkBE9qM1TP4UebmN0yKfRDGgQm80PRRv0EGTn37/KhEdnLvq6bM66OlFCPgT
+	paqvqmaEBHUFPBTICp9Rt5KNNfH3z21BU/NmQnHoZax2OTRrfX58Lc26OfciWKVRLVotA26HM9p
+	Mwp0woTeVv3yGvgfacLXYqcNCNqf7f1FX0AKqbzdoFHpvXN5Svyk5ULGE2RsKiLtWguM2buxU/g
+	nBTvbYPeobcS8ibA69bD67468g8i3ljIDIj10k42ENIphlC5LYZ1eZ8HUV3796UmKG8/A+6XulA
+	QZR8vg/MtHSGtdjF5OCQCYlC8u3oFjCywMYJjG5NWOM3RcN6flvGq+kVtTxWsKmLCwmIw==
+X-Received: by 2002:a05:693c:864b:10b0:33e:4e49:d08d with SMTP id 5a478bee46e88-3510d2815f3mr1841393eec.1.1790962732069;
+        Fri, 02 Oct 2026 10:38:52 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f2dfbbsm7844370eec.10.2026.10.02.10.38.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 10:38:51 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] net: pin protocol module before inet socket allocation
+Date: Sat,  3 Oct 2026 01:38:44 +0800
+Message-ID: <20261002173844.3537111-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: CDA0720028
-X-Stat-Signature: 348q88fdbt9su9a7hq9j7fak9p8t77yn
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18O5sdPDYTx+BSdgMTkhO/Vk7CiFlfhBWY=
-X-HE-Tag: 1790962646-23624
-X-HE-Meta: U2FsdGVkX19H9ajhoVGn9d8exUtin1T3k2oSe/ypqD9OqZeSa6xn1DrwZLvcIcS/pjPOFLrE2bWV1/Mug/qlshnsyFnD2bJ20tp+R+QbxrXzBqxFBOydqiDNmHuTbmHEhc763XCcvx3B/pyjTwdt7at9PNacD5UcGUKTPzETAzreDJ2L3qUnukXwKexkh7Hm7sETwZtGtL5G6FR1qYbBZm/W98L8lR0AR4hYAUCciqhDUuHT86SounqawUZNQ2kP3ENEyDwrbeGDW+UjeIsbuTHPKAP+JvqXqrrjmkSj8WQJeXUE3tY0XxnlS/xCn76SX7Z+DokXHE3FDpKcgQKmuUuMViX/kajAS2igwTj6dZS9Oqg6vo7rV5gV91fZaAGJMFGnVLqxIlrLS0JZ9HAyTg==
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-10-01 at 20:37 +0800, Enze Li wrote:
-> include/linux/hugetlb_cgroup.h is the header file paired with
-> mm/hugetlb_cgroup.c, but it is not listed among the HUGETLB SUBSYSTEM
-> F: entries.  As a result get_maintainer.pl does not attribute the header
-> to the hugetlb maintainers explicitly.  Add the F: entry so the file is
-> covered.
+inet_create() and inet6_create() look up the protocol under RCU, then drop
+RCU before using the resulting proto. A concurrent module unload can
+unregister the protosw, wait for the RCU readers, and destroy the proto's
+slab before sk_alloc() uses it. sk_alloc() may sleep, so the RCU read-side
+critical section cannot simply be extended across the allocation.
 
-This misses another file: include/linux/hugetlb_inline.h
+The reported failure occurred during concurrent L2TP socket creation and
+module unload:
 
-The current HUGETLB block is:
+  Oops: general protection fault, probably for non-canonical address
+        0xffff1108974182a0
+  KASAN: maybe wild-memory-access in range
+         [0xfff8a844ba0c1500-0xfff8a844ba0c1507]
+  RIP: kmem_cache_alloc_noprof+0x63/0x370
+  Call Trace:
+   sk_prot_alloc+0x74/0x2c0
+   sk_alloc+0x2b/0x6c0
+   inet_create+0x2cd/0xd40
+   __sock_create+0x1c3/0x430
+   __sys_socket+0x116/0x1d0
 
-HUGETLB SUBSYSTEM
-M:	Muchun Song <muchun.song@linux.dev>
-M:	Oscar Salvador <osalvador@suse.de>
-R:	David Hildenbrand <david@kernel.org>
-L:	linux-mm@kvack.org
-S:	Maintained
-F:	Documentation/ABI/testing/sysfs-kernel-mm-hugepages
-F:	Documentation/admin-guide/mm/hugetlbpage.rst
-F:	Documentation/mm/hugetlbfs_reserv.rst
-F:	Documentation/mm/vmemmap_dedup.rst
-F:	fs/hugetlbfs/
-F:	include/linux/hugetlb.h
-F:	include/trace/events/hugetlbfs.h
-F:	mm/hugetlb.c
-F:	mm/hugetlb_cgroup.c
-F:	mm/hugetlb_cma.c
-F:	mm/hugetlb_cma.h
-F:	mm/hugetlb_sysctl.c
-F:	mm/hugetlb_sysfs.c
-F:	mm/hugetlb_vmemmap.c
-F:	mm/hugetlb_vmemmap.h
-F:	tools/testing/selftests/cgroup/test_hugetlb_memcg.c
+Cache the proto and its owner under RCU and acquire a temporary module
+reference before dropping RCU. This prevents normal module unload while
+the proto is in use. sk_prot_alloc() takes the socket's own reference;
+drop the temporary reference on every exit after allocation. Use the
+cached proto for the IPv6 backlog callback as well.
 
-And your suggestion is:
+Use try_module_get() with its existing initialization semantics. SCTP
+creates its kernel control socket during module initialization, so
+rejecting MODULE_STATE_COMING would prevent modular SCTP from loading.
+Failed module initialization can still unwind published protocols despite
+module references; that separate publication/unwind lifetime issue is not
+fixed here.
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-[]
-> @@ -12097,6 +12097,7 @@ F:	Documentation/mm/hugetlbfs_reserv.rst
->  F:	Documentation/mm/vmemmap_dedup.rst
->  F:	fs/hugetlbfs/
->  F:	include/linux/hugetlb.h
-> +F:	include/linux/hugetlb_cgroup.h
+Fixes: a79af59efd20 ("[NET]: Fix module reference counts for loadable protocol modules")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6-Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v4:
+- Remove the MODULE_STATE_COMING rejection. SCTP creates its kernel control
+  socket from module init and must be allowed to use the published protosw.
+- Keep the owner cached under RCU and use the cached proto for IPv6 backlog
+  setup, retaining those v3 changes.
+- Scope the module-reference guarantee to normal module unload. The earlier
+  review's initialization-failure unwind concern remains a separate issue;
+  rejecting all initializing modules is not a compatible solution.
+- Rebase onto net/main at a7bfaba4823e.
 
-but:
+v3: https://lore.kernel.org/r/20260904111514.584264-1-nicoyip.dev@gmail.com/
+Review: https://lore.kernel.org/r/178887699602.219967.13594894510710999619@kernel.org/
+v2: https://lore.kernel.org/r/20260825172349.232794-1-nicoyip.dev@gmail.com/
+v1: https://lore.kernel.org/r/20260823171311.3857087-1-nicoyip.dev@gmail.com/
 
-$ git ls-files include/linux/hugetlb*
-include/linux/hugetlb.h
-include/linux/hugetlb_cgroup.h
-include/linux/hugetlb_inline.h
+ net/ipv4/af_inet.c  | 14 +++++++++++---
+ net/ipv6/af_inet6.c | 16 ++++++++++++----
+ 2 files changed, 23 insertions(+), 7 deletions(-)
 
-so maybe:
+diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+index 32d006c1a8ee..c956afa65ec4 100644
+--- a/net/ipv4/af_inet.c
++++ b/net/ipv4/af_inet.c
+@@ -263,6 +263,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
+ 	struct inet_protosw *answer;
+ 	struct inet_sock *inet;
+ 	struct proto *answer_prot;
++	struct module *answer_owner;
+ 	unsigned char answer_flags;
+ 	int try_loading_module = 0;
+ 	int err;
+@@ -322,9 +323,14 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
+ 	    !ns_capable(net->user_ns, CAP_NET_RAW))
+ 		goto out_rcu_unlock;
+ 
+-	sock->ops = answer->ops;
+ 	answer_prot = answer->prot;
++	answer_owner = answer_prot->owner;
+ 	answer_flags = answer->flags;
++	if (!try_module_get(answer_owner)) {
++		err = -EPROTONOSUPPORT;
++		goto out_rcu_unlock;
++	}
++	sock->ops = answer->ops;
+ 	rcu_read_unlock();
+ 
+ 	WARN_ON(!answer_prot->slab);
+@@ -332,7 +338,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
+ 	err = -ENOMEM;
+ 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot, kern);
+ 	if (!sk)
+-		goto out;
++		goto out_module_put;
+ 
+ 	err = 0;
+ 	if (INET_PROTOSW_REUSE & answer_flags)
+@@ -398,6 +404,8 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
+ 		if (err)
+ 			goto out_sk_release;
+ 	}
++out_module_put:
++	module_put(answer_owner);
+ out:
+ 	return err;
+ out_rcu_unlock:
+@@ -406,7 +414,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
+ out_sk_release:
+ 	sk_common_release(sk);
+ 	sock->sk = NULL;
+-	goto out;
++	goto out_module_put;
+ }
+ 
+ 
+diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
+index 282912a11999..9db60af6f38d 100644
+--- a/net/ipv6/af_inet6.c
++++ b/net/ipv6/af_inet6.c
+@@ -110,6 +110,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
+ 	struct sock *sk;
+ 	struct inet_protosw *answer;
+ 	struct proto *answer_prot;
++	struct module *answer_owner;
+ 	unsigned char answer_flags;
+ 	int try_loading_module = 0;
+ 	int err;
+@@ -167,9 +168,14 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
+ 	    !ns_capable(net->user_ns, CAP_NET_RAW))
+ 		goto out_rcu_unlock;
+ 
+-	sock->ops = answer->ops;
+ 	answer_prot = answer->prot;
++	answer_owner = answer_prot->owner;
+ 	answer_flags = answer->flags;
++	if (!try_module_get(answer_owner)) {
++		err = -EPROTONOSUPPORT;
++		goto out_rcu_unlock;
++	}
++	sock->ops = answer->ops;
+ 	rcu_read_unlock();
+ 
+ 	WARN_ON(!answer_prot->slab);
+@@ -177,7 +183,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
+ 	err = -ENOBUFS;
+ 	sk = sk_alloc(net, PF_INET6, GFP_KERNEL, answer_prot, kern);
+ 	if (!sk)
+-		goto out;
++		goto out_module_put;
+ 
+ 	sock_init_data(sock, sk);
+ 
+@@ -201,7 +207,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
+ 	sk->sk_family		= PF_INET6;
+ 	sk->sk_protocol		= protocol;
+ 
+-	sk->sk_backlog_rcv	= answer->prot->backlog_rcv;
++	sk->sk_backlog_rcv	= answer_prot->backlog_rcv;
+ 
+ 	inet_sk(sk)->pinet6 = np = inet6_sk_generic(sk);
+ 	np->hop_limit	= -1;
+@@ -251,6 +257,8 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
+ 		if (err)
+ 			goto out_sk_release;
+ 	}
++out_module_put:
++	module_put(answer_owner);
+ out:
+ 	return err;
+ out_rcu_unlock:
+@@ -259,7 +267,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
+ out_sk_release:
+ 	sk_common_release(sk);
+ 	sock->sk = NULL;
+-	goto out;
++	goto out_module_put;
+ }
+ 
+ int __inet6_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
 
-F:	include/linux/hugetlb*
-
-or maybe:
-
-X:	arch/**/*hugetlb*
-F:	**/*hugetlb*
-
-and remove a lot of other entries
-
-$ git ls-files -- '**/*hugetlb*'
-Documentation/admin-guide/cgroup-v1/hugetlb.rst
-Documentation/admin-guide/mm/hugetlbpage.rst
-Documentation/arch/arm64/hugetlbpage.rst
-Documentation/mm/hugetlbfs_reserv.rst
-Documentation/translations/zh_CN/arch/arm64/hugetlbpage.rst
-Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-Documentation/translations/zh_TW/arch/arm64/hugetlbpage.rst
-arch/arm/include/asm/hugetlb-3level.h
-arch/arm/include/asm/hugetlb.h
-arch/arm64/include/asm/hugetlb.h
-arch/arm64/mm/hugetlbpage.c
-arch/loongarch/include/asm/hugetlb.h
-arch/loongarch/mm/hugetlbpage.c
-arch/mips/include/asm/hugetlb.h
-arch/mips/mm/hugetlbpage.c
-arch/parisc/include/asm/hugetlb.h
-arch/parisc/mm/hugetlbpage.c
-arch/powerpc/include/asm/book3s/64/hugetlb.h
-arch/powerpc/include/asm/hugetlb.h
-arch/powerpc/include/asm/nohash/32/hugetlb-8xx.h
-arch/powerpc/include/asm/nohash/hugetlb-e500.h
-arch/powerpc/mm/book3s64/hugetlbpage.c
-arch/powerpc/mm/book3s64/radix_hugetlbpage.c
-arch/powerpc/mm/hugetlbpage.c
-arch/powerpc/mm/nohash/e500_hugetlbpage.c
-arch/riscv/include/asm/hugetlb.h
-arch/riscv/mm/hugetlbpage.c
-arch/s390/include/asm/hugetlb.h
-arch/s390/mm/hugetlbpage.c
-arch/sh/include/asm/hugetlb.h
-arch/sh/mm/hugetlbpage.c
-arch/sparc/include/asm/hugetlb.h
-arch/sparc/mm/hugetlbpage.c
-arch/x86/include/asm/hugetlb.h
-arch/x86/mm/hugetlbpage.c
-fs/hugetlbfs/Makefile
-fs/hugetlbfs/inode.c
-include/asm-generic/hugetlb.h
-include/linux/hugetlb.h
-include/linux/hugetlb_cgroup.h
-include/linux/hugetlb_inline.h
-include/trace/events/hugetlbfs.h
-include/uapi/asm-generic/hugetlb_encode.h
-mm/hugetlb.c
-mm/hugetlb_cgroup.c
-mm/hugetlb_cma.c
-mm/hugetlb_cma.h
-mm/hugetlb_internal.h
-mm/hugetlb_sysctl.c
-mm/hugetlb_sysfs.c
-mm/hugetlb_vmemmap.c
-mm/hugetlb_vmemmap.h
-tools/include/asm-generic/hugetlb_encode.h
-tools/testing/selftests/arm64/mte/check_hugetlb_options.c
-tools/testing/selftests/cgroup/test_hugetlb_memcg.c
-tools/testing/selftests/memfd/run_hugetlbfs_test.sh
-tools/testing/selftests/mm/charge_reserved_hugetlb.sh
-tools/testing/selftests/mm/hugetlb-madvise.c
-tools/testing/selftests/mm/hugetlb-mmap.c
-tools/testing/selftests/mm/hugetlb-mremap.c
-tools/testing/selftests/mm/hugetlb-read-hwpoison.c
-tools/testing/selftests/mm/hugetlb-shm.c
-tools/testing/selftests/mm/hugetlb-soft-offline.c
-tools/testing/selftests/mm/hugetlb_dio.c
-tools/testing/selftests/mm/hugetlb_fault_after_madv.c
-tools/testing/selftests/mm/hugetlb_madv_vs_map.c
-tools/testing/selftests/mm/hugetlb_reparenting_test.sh
-tools/testing/selftests/mm/ksft_hugetlb.sh
-tools/testing/selftests/mm/write_hugetlb_memory.sh
-tools/testing/selftests/mm/write_to_hugetlbfs.c
-tools/testing/selftests/powerpc/mm/hugetlb_vs_thp_test.c
-
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+-- 
+2.43.0
