@@ -1,115 +1,110 @@
-Received: from smtp.vivaldi.net (smtp.vivaldi.net [31.209.137.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9109475336;
-	Fri,  2 Oct 2026 22:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.209.137.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989C645198A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:19:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979547; cv=none; b=YkgDJLZuHg07LSg2GT6em7XgXXsGqr6n7xK0iqN1WS8Bj6B1e8I036RHHg5xbWhXEMdoYKuET2M/cyFbC86cKFIF+lo1gutfBSbmor9Km05li3OVETAHpEK/grggE8T+c5llCuyTCkfs2Gnshdg1J8K6wQV60Xj1Q0bY9nf6PzY=
+	t=1790979590; cv=none; b=OnroTCO/tpNGDckd8+0WsPEuAEi1sHhhBLkvXZIcggwyDN4U+C8sBGuqV0Ik+fYTB9oivoiqP7+sDsOViJQs6QrnqjcnCQewo8yo6Yg5GPuSZss4HxPSGmAUAy9JVpdxAAhRAuNKYblX8N95/dfhj1WCuA/oZlzvh3iAvZJ1MV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979547; c=relaxed/simple;
-	bh=00ImJOWWu9lRfEyQbYNou2C48dp7gXgRCU6Wmbm5heg=;
-	h=From:To:Cc:Subject:Date:Message-ID; b=qDwM8YC2YRIcf03VvMwnk3jljQ9UZf9YONDKL6ntsxy3/Dg1QNoTbS1aM3uCc8cZjW8CBT+dGQ3+6bdmg1rqpvyb+vpC2P4XoOJ5yqokJUSB59aCNbcIICfv2HkopRIp6D9wL/heU7fmwV/uo7IKQgdXNWbTIsHiKPNEciGSjfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vivaldi.net; spf=pass smtp.mailfrom=vivaldi.net; dkim=pass (2048-bit key) header.d=vivaldi.net header.i=@vivaldi.net header.b=hk1+F5Ab; arc=none smtp.client-ip=31.209.137.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vivaldi.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivaldi.net
+	s=arc-20240116; t=1790979590; c=relaxed/simple;
+	bh=LIeypzTLxZFUaXt5ugGV2tt9HvkLhl45i2GZQQOzRtA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nevp9DLgn18It4ID3aKr3YPmUOJjZQ/6IY9R+l58Afelfc322Qx8DSnIggTCPH2AOQXltkf8OC/sFC/0tq9jG8CNG5iCWcy+RZeQltRa8XLHO31FPRSJ2OoldDo2ephgkx6xaqLD454l2ZyVjKuqS9ZUP6PpiArkVzlRcWJUZEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BhepoCzX; arc=none smtp.client-ip=91.218.175.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vivaldi.net header.i=@vivaldi.net header.b="hk1+F5Ab"
-Received: from localhost (localhost [127.0.0.1])
-	by smtp.vivaldi.net (Postfix) with ESMTP id 14439FC5AB;
-	Fri,  2 Oct 2026 22:18:58 +0000 (UTC)
-X-Virus-Scanned: Debian amavis at smtp.vivaldi.net
-Received: from smtp.vivaldi.net ([127.0.0.1])
- by localhost (mxo-1.viv.dc01 [127.0.0.1]) (amavis, port 10024) with ESMTP
- id qEQVsi1rZcrE; Fri,  2 Oct 2026 22:18:56 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.vivaldi.net 56632FC392
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivaldi.net;
-	s=default; t=1790979535;
-	bh=nP/+18zknw95i9l3i/sUf5wslrs2pLZPAh5Dqd/WG5Q=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hk1+F5Ab/zZ7GFhIY8fb1j3VrYDxFQFQoYXLCiuYl76xj/pt/VZ3kEHX/r8RDKA5h
-	 GAis874uVfP1vv/oTcSkCGFbiKyvLCiOK8tVprQ3jLC7N+OjEodOm5u0IbzllP/zvO
-	 jy2Df1RU4V7H0hyRDaGh2T55XuqpN7qbu3KzH+X7fXoYA+Aen3pPaIXmN1D4QSJ0yv
-	 gMNRzaOReVTPuBo8v4fsRYktIt9qDl8nnDM/aWJZyb5x8YhspyEVR2+fvLeOu83Sm4
-	 Hjt6QsbQkcmf4lhIc5YAkQm79NtUSEflNpPCqJp1lACZEh5NoqmsLNyKb5nY4V8SPC
-	 TQMWNstL0k+Sw==
-From: Denis Yakovlev <mfthesun@vivaldi.net>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Denis Yakovlev <mfthesun@vivaldi.net>
-Subject: [PATCH] ALSA: hda/realtek: Enable headset mic on HONOR MagicBook Pro 16 2024
-Date: Sat,  3 Oct 2026 01:18:50 +0300
-Message-ID: <20261002221850.12443-1-mfthesun@vivaldi.net>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BhepoCzX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LIeypzTLxZFUaXt5ugGV2tt9HvkLhl45i2GZQQOzRtA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790979584; v=1; x=1791584384;
+ b=BhepoCzXqCV6+2aFXT/5CmOqdAoSYoHbqDxEnkF4m0Xvdqb6AWvH8+ChwpvQPvS343Ccuu3o
+ J42qH3XqO24w3NmnS8ix4Pe+F7ROpe3BO3JCMsVAwMHUneXcpT9E/0xfeCr/FHmKGgh1yIX2Baa
+ kARXwtyunWysy7L0cbgpXQKM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2a1b46a32a9d1e0a;
+	Fri, 02 Oct 2026 22:19:43 +0000
+X-Mizu-Trace-ID: 2a1b46a32a9d1e0a
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 2 Oct 2026 15:19:38 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Tejun Heo <tj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	JP Kobryn <jp.kobryn@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Michal Koutny <mkoutny@suse.com>, Amery Hung <ameryhung@gmail.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	John Fastabend <john.fastabend@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev, 
+	Donet Tom <donettom@linux.ibm.com>, Greg Thelen <gthelen@google.com>, 
+	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, bpf@vger.kernel.org, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/4] memcg_ext: memcg policy through cgroup-attached
+ struct_ops
+Message-ID: <ar_fuYs_-qS46dVk@linux.dev>
+References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
+ <bda525506b3fb3e61da28a112f28abba@kernel.org>
+ <arw4rjVkm2ob9ioL@linux.dev>
+ <bc6815954b8d08e75deadd43e1a2192c@kernel.org>
+ <ar2kvmCPR9q31V8M@linux.dev>
+ <31a871a07fccc99e953a2d633fc51edc@kernel.org>
+ <ar7H__jzvWVtqSn5@linux.dev>
+ <c1fdbe4f99352a102b38c7d131215d5a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c1fdbe4f99352a102b38c7d131215d5a@kernel.org>
 
-The HONOR MagicBook Pro 16 2024 (DRA-XX, board M1020, ALC256, SSID
-1ee7:204e) has a combined 3.5 mm headphone/microphone jack. The BIOS
-leaves the headset mic pin 0x19 at 0x411111f0, so the codec parser
-builds no capture path for it, and it leaves the jack switch
-(coefficient 0x45) in the TRS state, which cuts the microphone contact
-off from the codec. A wired headset microphone therefore records
-nothing.
+On Fri, Oct 02, 2026 at 06:25:08AM -1000, Tejun Heo wrote:
+> Hello, Shakeel.
+> 
+> On Thu, Oct 01, 2026 at 03:56:47PM -0700, Shakeel Butt wrote:
+> > We are in agreement on (1) and (2) completely. For (3), I am fine with removing
+> > the sync enforcement, but for throttling points for bulk operation sites,
+> > I think we should only add them when there is an actual use case for that
+> > or someone complains about overrun from those sites.
+> 
+> On (3), if removing synchronous enforcement wouldn't regress anything,
+> that's fine, but why was it added in the first place?
+> 
 
-Configure 0x19 as a headset microphone (0x03a1113c, "headset mic
-without its own jack detect"), the same value already used for the
-sibling M1020 board (HONOR MRB-XXX) and by the VAIO quirks, and chain
-to the generic headset mode handler, which detects the CTIA/OMTP
-headset type on every jack event and programs the jack switch
-accordingly. Pin 0x1a is left untouched: there is no evidence that it
-is wired on this board.
+I added the sync enforcement to replace a Google internal feature which, on
+memcg OOM, allows node controller couple of seconds to either increase the max
+limit or let the memcg die. With sync enforcement, memory.high helped in simple
+benchmarks. However later testing on some realistic Google workloads, I found
+out that several thousand threads are very normal of typical Google workload and
+memory.high sync enforcement is not effective on applications with large amount
+of threads. In addition, there were workloads which on noticing blocked threads,
+keep forking more threads. At the end implementing that feature using
+memory.high didn't pan out.
 
-Assisted-by: LLM
-Signed-off-by: Denis Yakovlev <mfthesun@vivaldi.net>
----
-Tested on a HONOR MagicBook Pro 16 2024 (DRA-XX), Ubuntu 7.0.0-34, using
-an out-of-tree build of this change, with wired Apple EarPods (CTIA): the
-microphone records after several cold boots with the headset inserted and
-after hot-plugging; without the change the analog capture is digital
-silence. The headset type is detected as CTIA (coef 0x45 ends up at
-0xd489). The speakers (including the "Bass Speaker" control from the
-speaker fix) and wired headphone playback still work. OMTP headsets were
-not tested (no hardware).
+> > Now, setting aside the default behavior of memory.high, I want to provide
+> > additional flexibility to users for (3) specifically. One specific case is
+> > letting users opt in to async reclaim instead of the other forms of memory.high
+> > enforcement. Basically, users can specify that instead of having their
+> > application threads throttled, they would prefer async reclaim to bring their
+> > usage back below memory.high.
+> 
+> As for flexibility, we already have a gradient of enforcement around
+> memory.high. Is the need here to make the shape of that gradient
+> configurable? Can you give specific examples where this is needed?
+> 
 
- sound/hda/codecs/realtek/alc269.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+The concrete example I have is the kswapd like async reclaimers (plural) per
+memcg. Kswapd is woken up on free pages falling below low watermark and then
+when free pages fall below min watermark, allocators get throttled (enter direct
+reclaim). I want to apply similar concept to memcg (but with right cpu
+accounting and more concurrency). 
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 67b9f41..4e22d63 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4477,6 +4477,7 @@ enum {
- 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
- 	ALC256_FIXUP_HONOR_DRA_XX_SPEAKERS,
- 	ALC256_FIXUP_HONOR_DRA_XX_SHARE_DAC,
-+	ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE,
- 	ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
- 	ALC287_FIXUP_ACER_MICMUTE_LED,
- 	ALC236_FIXUP_DELL_HP_POP_NOISE,
-@@ -7215,6 +7216,7 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
- 			{ 0x14, 0x90170111 }, /* bass speakers */
-+			{ 0x19, 0x03a1113c }, /* headset mic, without its own jack detect */
- 			{ }
- 		},
- 		.chained = true,
-@@ -7223,6 +7225,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 	[ALC256_FIXUP_HONOR_DRA_XX_SHARE_DAC] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc256_fixup_honor_dra_xx_share_dac,
-+		.chained = true,
-+		.chain_id = ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE
-+	},
-+	[ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc_fixup_headset_mode,
- 	},
- 	[ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX] = {
- 		.type = HDA_FIXUP_FUNC,
