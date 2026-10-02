@@ -1,216 +1,121 @@
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3383E3DA2;
-	Fri,  2 Oct 2026 18:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.88.110.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790966541; cv=none; b=GK/ivuXi2g0cL/z9+qI0ieKx+i0zNxEjXceSZjB2BqQL4ArA/0UqyrzG1om6qadxK0n/ur8aOmcOSuws4VB0YbzQ3D6kg/8vybuAjGdy9j8TyjwobGrusUGwaHNegvTSdHX/kPMxqx5ajrGXM2ejabPvW7Uy+QujulkT+6WgrVI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790966541; c=relaxed/simple;
-	bh=7/kXI8VlQDHkKS73wGQBF3BpJ7zfo3zjS50SxDukqBk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eTmPC5EtZh/hqVhSZXh48Cxbz9ZMjzo7KLqMApmIHACQ7QLl5XfRjiV+x9i5V+tvZkOQT1O3iPLbrFncxN9bICnzpG/of89Vi6TUH4AYqQ6U1MdpISc6lVn2szZCSn3MxPxi2IX/wdu3fKYGz2t0Tm5Kw3lANuZ6/BBPWsBFKc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=none smtp.mailfrom=mail.savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=u9mmo2SY; arc=none smtp.client-ip=208.88.110.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mail.savoirfairelinux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF3240F731
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790966611; cv=pass; b=CQhge4k6aqB63bEpGqr+Db/Z5straY5GDajw8SltyFi3lulpAfhVqvhL/0a3NFXg9zVNrOsSwbtKjCi2ytc+90TZfKm52Bg7McJYxgKrXqsR9J7ddgGIMVHQWQvH4c35l1JjqDdRxN2Xa0V1ipPlzDONUIYcFFRJYPmYH1vDNqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790966611; c=relaxed/simple;
+	bh=+8giRIva8Xtt/QGhLW8m0S2kVNxw8aKS2XZv/pRromw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=H70gppVUMhY/UprkmjGr9mwyPRVROFjbeEZjSc70Nencsmg9aYTS1Kv2a6I9lfuQdaz8NfdO186jJ2Fnrh+ghFR79hHtjMJFlCx2Hz4UUvdJmf1jTfwWn20/iSHKRPWDrKwNYahka4uiBl5RikdzpMYZbSnq7777+xKKxa1qE8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lf5Ggxx8; arc=pass smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="u9mmo2SY"
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id CF6133D81846;
-	Fri,  2 Oct 2026 14:35:42 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id XNw1DY720XGY; Fri,  2 Oct 2026 14:35:41 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 57ACB3D815B9;
-	Fri,  2 Oct 2026 14:35:41 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 57ACB3D815B9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lf5Ggxx8"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-350e6de7dfeso97957eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:43:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790966609; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SikGPUac6k82a4uVpA93WEKczZ4PzDPSYlAsvQFmXD32HkDw0yzl9fIiElKlPBWIEM
+         ipmZjTPtSacek8Y7cZtBja8ZMiPxAKJF54q0610hytDoEkb4UliElDiTLixgyLqjt51c
+         nd4xsOEZQ+ZCUrhdaBQqW20e6Rni/ujbcN6ZhYZ4DwK0GZl8SEAaY+M72cusUss9Xtkg
+         UEisKYWIqBEX8pOishnJs/XRDjQfzUDbxAXqWfXAVPyY9lO13biPnPwypvWlqASiWQJU
+         XYO5XdIxqWX3OrVh40q8kcRRe5qsqW/QD3VLAC8CaFds8eDGaMw2P/0N+FFp0xay42Mn
+         wxcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FAlTpdA3JGK4S+vpVZN9wxh+KybxUcOpKKtqidXNLgA=;
+        fh=r3Do8R9yWjB2eVJrDia1Kxp0xvsLnUMjunSgHsMmpyY=;
+        b=OepngQIw/uPMW+b1KKhtp5kF7LZuQ71M67NTO15z7UtC/VK9K1zejefaHK+Ue3t+ek
+         0Zsn0FbBrWQ4J/khMMxDrImHPiljp1++tnQqCJL/4pleQ7HQpJtPPTa28iJMSMAic9+s
+         SFMIWERSPuCieKwDFg132NW5SM66l9iPjlKdZeA0kDik1yJ5rqwvmMSw+h9xsuSZHRsg
+         z4iTrV/WLA7LKdE7IseS0Yp1x6msoJDiimqHl+aSWHScaeV72ls0lbuVR4ACrtzjmiQe
+         DfoZ4lItnCP/Bs7UWvR8MbnhuxySoNx+6bqtO3GVglgmQRMFYVolCTBcO80LwJu5hTCQ
+         i72w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1790966141; bh=YcBRT6xaEeEq6i9lGilNBTAU0Ym77d0r5Ya/8t7GTfA=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=u9mmo2SYRr9TQRFF45quoLPfLOyh2cokGdvW/7L4EOQoAK+w2SIVFv91UjPRQKpc0
-	 OyXJA9NNGilRn3XfqYwa4FcAOEjy7kpn7NDvjL1FHn19NsNrUJ3i/BE+6p3ctr3xQP
-	 3vqZfv6l+rJgRDSWQKEPX1lQ992182/FVsIWfLOUQmSz9VC6I97teC/BtRfKV3twr2
-	 XG7BfpYFfsvBIGP9a3aPfd+ik1LIbRqTxoNqG8jh5uZWcz84mCaxGy0P8BPTyHioFp
-	 7G2fvwGkAsHgZ7b+9Hn+t9xpju1qWPNqgpLRpEVv8Mt0Xhvav9i4/joLHaK8Qbvep8
-	 PI6/1+oYh7B5A==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id Xpfks-2BVLL2; Fri,  2 Oct 2026 14:35:41 -0400 (EDT)
-Received: from localhost (unknown [192.168.51.254])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 1E5403D8174B;
-	Fri,  2 Oct 2026 14:35:41 -0400 (EDT)
-From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	=?UTF-8?q?Myl=C3=A8ne=20Josserand?= <mylene.josserand@bootlin.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
-	Felix Boucher <felix.boucher@savoirfairelinux.com>,
-	Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-Subject: [PATCH 3/3] Input: cyttsp5 - only launch the application when in bootloader mode
-Date: Fri,  2 Oct 2026 14:35:29 -0400
-Message-Id: <20261002183529.166248-4-marc-olivier.champagne@savoirfairelinux.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261002183529.166248-1-marc-olivier.champagne@savoirfairelinux.com>
-References: <20261002183529.166248-1-marc-olivier.champagne@savoirfairelinux.com>
+        d=gmail.com; s=20251104; t=1790966609; x=1791571409; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FAlTpdA3JGK4S+vpVZN9wxh+KybxUcOpKKtqidXNLgA=;
+        b=Lf5Ggxx8GWy4aPvdZa66ytK8Ld409DCpR7scK1g9D+QFLkWC126tIaiIPiBt+3KToH
+         CImLw6/J/UE0L1+zr/iIfArlBpMw/WSgL72fW9Md77f92Q2FVqWDZvYfFOiXHrEqMZds
+         6BrBn4fe2pNWjIie5l06ix6r9pn7Al4q0yxHkjBTJ8dor2wQwmH1u0qcjwfuOrp/va1Y
+         NFoFq6Kbz5xJwIoclwlxaTCqWGJwam74Q+jxjn4HLdkU/PXJbz0WNNebjvilvS0WX3Lp
+         d5XTzCdmu7nfQZi6/+6sp1cLVa02KC63d5vEVAwbU8jhePyAHIX76y+uTNCHqnRWJfe8
+         mObw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790966609; x=1791571409;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FAlTpdA3JGK4S+vpVZN9wxh+KybxUcOpKKtqidXNLgA=;
+        b=j8URNDXKwTNHa7aaqZ4rarlLWhfQt1yqeTv9NZKq+p0yoVsqsRKT6/Zyltay8KGkiu
+         k2tkNOcx7TV/AVJ0YIBnlb928XEgTKC7KYpIxa5ZPaK3CL6YyvmqAU6c/FgrXvOCS1dS
+         RQ/3OtOdhgqdY9eW+E++dzYkecP8cZpQ+recN8fvO8JVa14sLPaRieAnCXeFKULbYFpc
+         We1lUaQWJFnWcQGBQLk0HOcF7UQv28nw8ZAsWL2bfQla58ywUTHze7rmQKeVNQHehc3s
+         DoTQ24AkK/zj07TTGy2EZkXDGuHzgkXihkGWSQyhVkItmg2uUzv52hzWm/K5WHqMWhPb
+         sPqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjEAVcZlNLb8z8CDU46txBJo0oCtpQElQK/G6vYDefD0n9F4+ZjhCAHOHjnU2OOiGmO+454jQo9RxcOdM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nseVL6bRIgf9yaxd+CYLIJ0DLoDqJfoG83S8tFTH7cgv7W1MWy
+	f6eoi8GeQW3xC8TDGXWV3Vg/zk7T9FIG6fegC7nf01UNSx7eZjULlmr6cQRj66Bgjwnf5FYi/BP
+	y9/aR0oUgoUbJHUfQe/9F2Me4kjhlGyyrbTvQAAI=
+X-Gm-Gg: AYBFou2Sr09gRwQkGSxVaE99/O0+ad2ZbJgL+EFV1ssWw6oPsjWPMucWnsPVhawKFHT
+	4XyQHuA4z9q346QhEQLS5mGHwIRRmgf1OQgW8epdVPEoedZjMEABrh/oK8WAP+E/IL84TEP4hEi
+	rMHLg2GQ3zIsMM0QcmO1p10h0EL14CCRbDOphuq3ZOSM98KKeK/MaGhhmipXAMgh18LXy+U/ZUa
+	kZpGgDoJn7mnqTRWCaTY3wlsPlCSFAwGOKbBIVpDZdORs5TgKyOz82pL2XW+q4f95cTwpl354iZ
+	dMDuizw82KGf7DDV/S41/z0fq4+AIwwWqfyadq+cX458DiNmNWneuOG2aLCiIAHnump09odt9DK
+	zLp2Ahr+Ti8VB2kYLusjeMh4iJ6fZybKiB/mrVV9OBRwnMpKyhs5ItSICQYTVcYJ5WF+XFxN7cZ
+	gSWR4McLX8P4Gf+Tu3XNkTDoRkM0s5GoA5BfYA2VtJU9xilkq/in0=
+X-Received: by 2002:a05:701b:424d:20b0:146:ffa9:2117 with SMTP id
+ a92af1059eb24-14f5aa4188fmr6124238c88.1.1790966609380; Fri, 02 Oct 2026
+ 11:43:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <ar_0MTEPHARiUqc0@sirena.co.uk>
+In-Reply-To: <ar_0MTEPHARiUqc0@sirena.co.uk>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 20:43:14 +0200
+X-Gm-Features: AclHuK_alLvtcNxx6cLAevu_sz8QC9V6lp9CNOOyfxNDgqInLbQjnJK23t8fUyc
+Message-ID: <CANiq72nR4sz5xvTVqqnwvoVJ0s-sDETQyPc9MUKo2698Ocp-Kg@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the drm-rust tree with the rust tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The driver unconditionally sends the bootloader LAUNCH_APP command at
-startup, assuming the device always comes out of a reset in bootloader
-mode. This is not true in general: reset-gpios is optional, so the
-device may already be running the application when the driver probes
-(for instance after a driver reload or a warm reboot without a
-power cycle). The running application does not answer the bootloader
-command, so the command times out and probe fails:
+On Fri, Oct 2, 2026 at 8:13=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
+e:
+>
+>  +// TODO: `Alignment` should be moved here as well, Rust moved it upstre=
+am in 1.96.
+>  +pub use crate::ptr::Alignment;
+> + use crate::prelude::*;
 
-  cyttsp5 1-0024: HID output cmd execution timed out
-  cyttsp5 1-0024: Error on launch app r=3D-110
-  cyttsp5 1-0024: Fail initial startup r=3D-110
+Ideally we would do:
 
-The mode the device is running in can be told from the report ID
-carried by its HID descriptor: 0xFF for the bootloader and 0xF7 for
-the application. Add cyttsp5_get_mode() to read the descriptor and
-decode that ID, and only send LAUNCH_APP when the bootloader is
-running. The HID descriptor is then read again only after the
-application has been launched, as it describes the running mode, and
-startup now fails if the application is not running at that point
-instead of going on with the bootloader descriptor.
+    use crate::prelude::*;
 
-The same problem was previously addressed as part of a larger
-series that did not get merged:
-https://lore.kernel.org/all/20250110-nekocwd-upstreaming-cyttsp5-v3-0-b33=
-659c8effc@gmail.com/
+    // TODO: `Alignment` should be moved here as well, Rust moved it
+upstream in 1.96.
+    pub use crate::ptr::Alignment;
 
-Fixes: 5b0c03e24a06 ("Input: Add driver for Cypress Generation 5 touchscr=
-een")
-Cc: stable@vger.kernel.org
-Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Assisted-by: Copilot:claude-fable-5.1
-Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
-linux.com>
----
- drivers/input/touchscreen/cyttsp5.c | 76 ++++++++++++++++++++++++-----
- 1 file changed, 65 insertions(+), 11 deletions(-)
+since one is a re-export and has the `TODO` message, but apart from
+that, it looks good, thanks!
 
-diff --git a/drivers/input/touchscreen/cyttsp5.c b/drivers/input/touchscr=
-een/cyttsp5.c
-index beeb7d5bcd2c..e88fcc11716e 100644
---- a/drivers/input/touchscreen/cyttsp5.c
-+++ b/drivers/input/touchscreen/cyttsp5.c
-@@ -70,6 +70,10 @@
- #define HID_BL_OUTPUT_REPORT_ID			0x40
- #define HID_RESPONSE_REPORT_ID			0xF0
-=20
-+/* Report ID found in the HID descriptor, identifies the running mode */
-+#define HID_DESCRIPTOR_BOOTLOADER_REPORT_ID	0xFF
-+#define HID_DESCRIPTOR_APPLICATION_REPORT_ID	0xF7
-+
- #define HID_OUTPUT_RESPONSE_REPORT_OFFSET	2
- #define HID_OUTPUT_RESPONSE_CMD_OFFSET		4
- #define HID_OUTPUT_RESPONSE_CMD_MASK		GENMASK(6, 0)
-@@ -807,24 +811,74 @@ static int cyttsp5_fill_all_touch(struct cyttsp5 *t=
-s)
- 	return 0;
- }
-=20
-+/*
-+ * Returns the report ID advertised by the HID descriptor, which tells
-+ * whether the bootloader or the application is running, or a negative
-+ * error code.
-+ */
-+static int cyttsp5_get_mode(struct cyttsp5 *ts)
-+{
-+	const char *mode_str;
-+	int mode;
-+	int error;
-+
-+	error =3D cyttsp5_get_hid_descriptor(ts, &ts->hid_desc);
-+	if (error < 0)
-+		return error;
-+
-+	mode =3D ts->hid_desc.packet_id;
-+
-+	switch (mode) {
-+	case HID_DESCRIPTOR_BOOTLOADER_REPORT_ID:
-+		mode_str =3D "bootloader";
-+		break;
-+	case HID_DESCRIPTOR_APPLICATION_REPORT_ID:
-+		mode_str =3D "application";
-+		break;
-+	default:
-+		dev_err(ts->dev, "Unknown mode, report ID 0x%02x\n", mode);
-+		return -ENODEV;
-+	}
-+
-+	dev_dbg(ts->dev, "Device is in %s mode\n", mode_str);
-+
-+	return mode;
-+}
-+
- static int cyttsp5_startup(struct cyttsp5 *ts)
- {
-+	int mode;
- 	int error;
-=20
-+	mode =3D cyttsp5_get_mode(ts);
-+	if (mode < 0) {
-+		dev_err(ts->dev, "Error on getting mode r=3D%d\n", mode);
-+		return mode;
-+	}
-+
- 	/*
--	 * Launch the application as the device starts in bootloader mode
--	 * because of a power-on-reset
-+	 * The device starts in bootloader mode after a reset; the
-+	 * application then has to be launched explicitly and the HID
-+	 * descriptor read again, as it describes the running mode. Skip
-+	 * this step when the application is already running.
- 	 */
--	error =3D cyttsp5_hid_output_bl_launch_app(ts);
--	if (error < 0) {
--		dev_err(ts->dev, "Error on launch app r=3D%d\n", error);
--		return error;
--	}
-+	if (mode =3D=3D HID_DESCRIPTOR_BOOTLOADER_REPORT_ID) {
-+		error =3D cyttsp5_hid_output_bl_launch_app(ts);
-+		if (error < 0) {
-+			dev_err(ts->dev, "Error on launch app r=3D%d\n", error);
-+			return error;
-+		}
-=20
--	error =3D cyttsp5_get_hid_descriptor(ts, &ts->hid_desc);
--	if (error < 0) {
--		dev_err(ts->dev, "Error on getting HID descriptor r=3D%d\n", error);
--		return error;
-+		mode =3D cyttsp5_get_mode(ts);
-+		if (mode < 0) {
-+			dev_err(ts->dev, "Error on getting mode r=3D%d\n", mode);
-+			return mode;
-+		}
-+
-+		if (mode !=3D HID_DESCRIPTOR_APPLICATION_REPORT_ID) {
-+			dev_err(ts->dev, "Application not running after launch\n");
-+			return -ENODEV;
-+		}
- 	}
-=20
- 	error =3D cyttsp5_fill_all_touch(ts);
---=20
-2.34.1
-
+Cheers,
+Miguel
