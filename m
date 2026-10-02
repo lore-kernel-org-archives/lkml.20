@@ -1,433 +1,240 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA41C3AEB2D;
-	Fri,  2 Oct 2026 18:13:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8543AC0C6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790964791; cv=none; b=f1bjZA1WkTxQSgRb7/oZfADKTIVE5BQXZmFN1Y28GKQNHLx1V0Q6rh7QSr1QP3A5JukP0+RhQy9k6K4LaSNDJLSEgkenqg5XHs2uHCBEeEGPakfUCZx6O9+Y1jzD50ikLWKp8/SFV+8d76smtC55lY/X/ouRjweLQcS/qe0eAtc=
+	t=1790964862; cv=none; b=V9BsfMOBBVu74tWX5QDzn/o/oi1tEZq9uQYsuZ9LDJipymyqt2KSoG0EMXJ54Cae8svG9kaYEhTzXPUEfdvaU39yFSe1vIGgr19ZNyzmVcmbG7VJZFmUBrnb3ee6XUb8Dm3UEwpDEvqEpbYlRYHvSUEQYRuatKSqe/rTL7AGO0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790964791; c=relaxed/simple;
-	bh=CietY0w3YZpW+WJoQA9liqhqaCQ1y8QvASrw/fG0ONU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ahiGeeWrS1RD4cM57gEu0BTE/q9mc9wBlAb6yi8GEDZxtM3s5G3mSFiLuGfP0ZqlzdRvIWapZ6KxrpW0VSo62GgmjW07Erd8dqLtSWA+wYxtl51TClrK7cPt+Daf8c0zJwpwNhcGGwqLpzfxNztEICyHsD1imsPFFgnMXAuHEwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ejR8fM9Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790964862; c=relaxed/simple;
+	bh=sjd4nfxT473wyNgPHp5qINd0UHNuk5OzKbbGqhwDgFw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MbHEeVF+4RBV1qBVqwUMngSZmC9IWXVRZ+kTj6sA+53E6UstVHgRwR3xKQUE7YB1UvKTas+6Tt+Xw8rWg1vE08qR5Jrq9dnculriVBSqIK3NBx8VATtKuP0TbwAARn5EjA3SOwhQl3LscX2Pe0zMh870QsxOr+nDIzncchEZ+ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YBipxItr; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ejR8fM9Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038E01F000FF;
-	Fri,  2 Oct 2026 18:13:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790964789;
-	bh=XAjesu/Rm2Wh9qY+YyOAaCB07ChPPmcaTyAaSs8MDQg=;
-	h=Date:From:To:Cc:Subject;
-	b=ejR8fM9YK1DZCSGi4uUho/KxWp66evxB7lUil95z5LPvU6Txq3qtlEwZcVYhTGzco
-	 ZA19LiJKae5vjWvk8LPshOQaQZcoGeucDIMxSprvZRrHALJ/YvQyL9F/IMOlTMSlNO
-	 leTl9EzWZh/GuuZmfcVA0SKTcQtMEgCedIW7L/eS5UfVH+bwkmGuQJZ6OXIBcPekOg
-	 lfGcZ60qFgSIyf+cM30HjbHgZ35R2oit26QP2Iyf8s2E6zyNVEYstJZU7Lwc0ZUWcq
-	 EaY8oW1nJ1pWln5FRF7qOS7HFmgMNTvcGixmn0yXF8IZsYM/vHbEu+1nfJVnBeL7Bt
-	 z28xg4iBVDebg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 25E091AC57CE; Fri, 02 Oct 2026 19:13:05 +0100 (BST)
-Date: Fri, 2 Oct 2026 19:13:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: Gary Guo <gary@garyguo.net>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: linux-next: manual merge of the drm-rust tree with the rust tree
-Message-ID: <ar_0MTEPHARiUqc0@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YBipxItr"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so1967165e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:14:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790964859; x=1791569659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dn3R2YEnoimRZOXDlB+byNPCiaeHQ1ct/TXjep3PgUE=;
+        b=YBipxItrlBYpSYI7mjX+n6S7lzJcLPqNgmbUEsVDTJSc0dH5CH/QWPKozkhTG7rW6A
+         oJc/x69GUzcBsWWh0wgAajN+pq90F0fBMJD0EBoEb9pty4vlGHHnfwTPqCb4Hm/19T5h
+         l9TqFV/hnqkpzDqfE0bOsOH4i0EZO7jYj6jy48Jfk5w74bbktPzoX9KckAehChCuA9BP
+         jy5VBx6j8Goshyv4QQ2GE7lyYvjc4Pqb1Sb7XT3fHUDV8eROAmYEEegqBcrau6hzA8dL
+         llVza98t8QvuG4m/b2NCRBNUH/SNd9p7Aoz8jArMaMJqiP1DQSOhebDE2Klz0Fobkkdb
+         Mdqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790964859; x=1791569659;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dn3R2YEnoimRZOXDlB+byNPCiaeHQ1ct/TXjep3PgUE=;
+        b=V/Hh4y2/iSlScnDCqh0EqpbKGxpjw114OEKlroDIlKUbZp4BxVh8nEQD5mNUSEylAi
+         iRl+74gVcKpxDVvl8DNFyXa0xOUb07R0LS8Gfs/gKYySwIb4gRJityHCK1/uJzWxAedp
+         HMKmUFMSfL9GMhZPlWVmCQ9v9RGgNmxNfqbbV+G0NKcq87PrLAG5hEQjosHEcO0hYG1I
+         4vnTRPgY1y9xmdLvm3d6+8G1M4BvilZrwS6X4K6QSwzNGrlll82lNTdCZC2bVND01rLX
+         h0D7JspPZM+5l8vDiYfAtlocj8mhfg/GImhf24kAP8WVIDOV5aUWqlna8uqOVFJnhkY3
+         uo5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwoCypvAK1eABWRprm0M3oVqDP5VQlJHRJiYiVOJiG5wHufvwF0OH0SAAH3ZtTET1pftxTFyBCRLONmJ9c=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3VUUx3J2HQB5Kiojvy5PpfCDdHh7QzVGm2Sat34yLsR62py/O
+	RBVK7AvYmh0pKhGeWXv3yf8UXooc8s7m3MiZ8c663PRD8ytAM5xtT7Am
+X-Gm-Gg: AYBFou0Hr9fghzRIBjaU+Y+GJJuPmsc8/MsUZOCUd2/4v8PJc7BqRMIFESLLgFU/IVw
+	Lao2+gvBdsNuG7cabtDg9yDmxLBBpKQwKl0D1FlRv3YgyR8leeY2ZqZFD6Zwgjo8ottloGu6iBI
+	2Xb+g8KjQsoSU9MXKyqIApnh27/mFKltwwbq7W414AV2OeI5ysBizpBJ9MwUWZXs9Ys+GV3UaNt
+	rOep3oN4oFoPkzGtMfl99v1aspbLdPFooM6mNrVZZeMkmb7QLK3ctMNKvFgYDTSn4GwZ5i2vB8r
+	hEs01ZAI3EOjAnliza5AvgydDmSvJ0u+AYfGYDGXI6mw3mkQ3iNvC9umJs8Vt5oF5RXj0TfEx0Y
+	WgOKeIpZCtycvluAqelBjEMfCOnSYn24Cih2DzK1ZwRySyLjWkb6aq9zFOF7B3cVbP4D47V9SmW
+	oauOZY3KPGwraCbYy+REFQF3F5F/7ogEUaYDogGZ17nwGInIBIOpsZOZQDvjUwGokKXUUFsB4n9
+	X92ITT2jkBXP3ZA32l0lSnzqf488C4EIeB4mxiEWmGOtfxkgYrYTWG8h3ypkPlFK1EpbIS39Y+6
+	ZxjFG42dAQaAwXlE1owZrQdkyogpPN97tSCgbHVI+5AVYcexXfzp4GBDmL3yKB1bNHZoA0OSu5+
+	yV8edOm5ceC+S
+X-Received: by 2002:a05:600c:608d:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4a02750fa51mr62957775e9.4.1790964858549;
+        Fri, 02 Oct 2026 11:14:18 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-af35-1901-81da-eee8-c2d0-ee3b.310.pool.telefonica.de. [2a02:3100:af35:1901:81da:eee8:c2d0:ee3b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a030326132sm82376175e9.0.2026.10.02.11.14.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 11:14:17 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Marco Elver <elver@google.com>,
+	Bradley Morgan <include@grrlz.net>,
+	Thomas Gleixner <tglx@kernel.org>,
+	kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] kcov: report spurious PCs in the interrupt selftest
+Date: Fri,  2 Oct 2026 20:13:57 +0200
+Message-Id: <20261002181357.14293-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eKnPMsofAaWlv7EM"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+The KCOV interrupt selftest enables KCOV_MODE_TRACE_PC without a
+coverage area so that spurious coverage causes a fault. If the fault
+path is instrumented, the coverage callback faults recursively.
+Observed failure modes include a stack overflow on x86_64 and arm32
+getting stuck in abort handling, neither of which identifies the
+original coverage event.
 
---eKnPMsofAaWlv7EM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The recursive failure is not new, but commit 9a79524d1420 ("kcov: use
+WRITE_ONCE() for selftest mode stores") made the selftest effective on
+configurations where the compiler had previously removed the mode
+store, exposing it more broadly.
 
-Hi all,
+Replace the open-coded kcov_mode stores with kcov_start() and
+kcov_stop(), passing a 16-word buffer that records up to 15 spurious
+PCs, with the first word holding the count. Keep KCOV enabled for the
+original 300 ms window, then disable it, print all recorded PCs and
+panic if any were recorded. Once the buffer fills, further PCs are
+discarded by the existing coverage callback. This preserves the
+selftest's hard failure while avoiding the recursive fault path.
 
-Today's linux-next merge of the drm-rust tree got a conflict in:
+Add decanonicalize_ip() as the inverse of canonicalize_ip(), which
+subtracts kaslr_offset() from recorded PCs. Restore that offset before
+printing the PCs with %pB, since KCOV records return addresses.
 
-  rust/kernel/mem.rs
+Fixes: 6cd0dd934b03 ("kcov: Add interrupt handling self test")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Tested-by: Alexander Potapenko <glider@google.com>
+Reviewed-by: Alexander Potapenko <glider@google.com>
+---
+Changes in v4:
+- Explain in the commit message that kcov_start() and kcov_stop()
+  replace the open-coded kcov_mode stores.
+- Mark decanonicalize_ip() as __init.
+- Describe the coverage area in terms of the current selftest behavior.
+- Read the recorded PC count once with READ_ONCE() before reporting it.
+- Add Alexander's Tested-by and Reviewed-by tags.
 
-between commit:
+v3: https://lore.kernel.org/all/20260919080220.37633-1-kmehltretter@gmail.com/
 
-  948440b3f429f ("rust: mem: add `Align` type")
+Changes in v3:
+- Increase the coverage area to 16 words: one count and up to 15 PCs.
+- Keep KCOV enabled for the original 300 ms window, then print all
+  recorded PCs, including repeats, after disabling KCOV.
+- Use %pB for the recorded return addresses.
+- Change the attribution to Assisted-by: LLM.
+- Drop the Reviewed-by tags from Alexander and Bradley because the
+  recording and reporting logic changed.
+- Rebase onto mainline commit 40288c9206c17.
 
-=66rom the rust tree and commits:
+v2: https://lore.kernel.org/all/20260724192122.73080-1-kmehltretter@gmail.com/
 
-  1fc1f82756b1f ("rust: mem: add `transmute` with deferred size check")
-  ef605a433d809 ("rust: mem: add `AsRepr` and `AsReprMut`")
+Changes in v2:
+- Use kcov_start() and kcov_stop() instead of open-coding their logic.
+- Add decanonicalize_ip() next to canonicalize_ip() and use it when
+  reporting the recorded PC.
+- Retest under QEMU on arm64, mips64le, and x86_64.
 
-=66rom the drm-rust tree.
+Alexander also pointed out that adjust_ip()/decode_ip() in
+fs/pstore/ftrace.c perform similar KASLR conversion. Sharing the common
+logic could be a follow-up cleanup, accounting for pstore's additional
+handling of non-core addresses.
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+Testing v4:
+- GCC 15.2.0: x86-64 bzImage builds for a tinyconfig-based runtime
+  configuration with KCOV_INSTRUMENT_ALL enabled and disabled; W=1
+  kernel/kcov.o builds without warnings for x86-64, arm64, and arm, with
+  KCOV_SELFTEST enabled.
+- QEMU 10.2.1 with TCG, q35, two virtual CPUs, and 512 MiB RAM: the
+  KASLR and nokaslr boots with KCOV_INSTRUMENT_ALL enabled each run for
+  the full 300 ms, print two symbolic PCs, and reach the intended selftest
+  panic. The control with KCOV_INSTRUMENT_ALL disabled completes the
+  selftest without recording coverage; it later stops because the test
+  image has no userspace init.
 
-diff --cc rust/kernel/mem.rs
-index 33676760bee2a,f2d4cdf87d00b..0000000000000
---- a/rust/kernel/mem.rs
-+++ b/rust/kernel/mem.rs
-@@@ -2,69 -2,233 +2,299 @@@
- =20
-  //! Basic utilities for dealing with memory, values, and types.
- =20
- +// TODO: `Alignment` should be moved here as well, Rust moved it upstream=
- in 1.96.
- +pub use crate::ptr::Alignment;
-+ use crate::prelude::*;
- =20
- +/// Trait indicating that [`Align<N>`] is a valid alignment.
- +pub trait ValidAlign {
- +    #[doc(hidden)]
- +    type Repr: Copy;
- +}
- +
- +/// Zero-sized type that provides the alignment specified via the generic=
- parameter.
- +///
- +/// # Examples
- +///
- +/// ```
- +/// # use kernel::mem::Align;
- +/// const ALIGN: usize =3D 128;
- +/// struct MyStruct {
- +///     _align: Align<ALIGN>,
- +/// }
- +/// assert_eq!(align_of::<MyStruct>(), ALIGN);
- +/// ```
- +#[repr(transparent)]
- +#[derive(Default, Clone, Copy)]
- +pub struct Align<const N: usize>([<Self as ValidAlign>::Repr; 0])
- +where
- +    Self: ValidAlign;
- +
- +impl<const N: usize> Align<N>
- +where
- +    Self: ValidAlign,
- +{
- +    /// Create a new [`Align<N>`].
- +    #[inline]
- +    pub const fn new() -> Self {
- +        Align([])
- +    }
- +}
- +
- +macro_rules! impl_align {
- +    () =3D> {};
- +    ($a:literal $($rest:literal)*) =3D> {
- +        const _: () =3D {
- +            #[repr(align($a))]
- +            #[derive(Clone, Copy)]
- +            pub struct Repr;
- +
- +            impl ValidAlign for Align<$a> {
- +                type Repr =3D Repr;
- +            }
- +        };
- +
- +        impl_align!($($rest)*);
- +    }
- +}
- +
- +impl_align!(1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 =
-65536);
- +
- +impl<const N: usize> core::fmt::Debug for Align<N>
- +where
- +    Self: ValidAlign,
- +{
- +    #[inline]
- +    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
- +        write!(f, "Align<{N}>")
- +    }
- +}
-++
-+ /// Transmute between two types.
-+ ///
-+ /// Use this instead of [`core::mem::transmute`] when it is known that si=
-zes are identical but this
-+ /// cannot be proven by the compiler.
-+ ///
-+ /// This is equivalent to Rust's `transmute_unchecked` intrinsics.
-+ ///
-+ /// # Safety
-+ ///
-+ /// All safety requirements of [`core::mem::transmute`] apply, plus that =
-the size `Src` and `Dst`
-+ /// must match.
-+ ///
-+ /// # Examples
-+ ///
-+ /// This can be used when types are known to have the same size, but only=
- at runtime.
-+ ///
-+ /// ```no_run
-+ /// # use core::any::TypeId;
-+ /// fn to_u32<T: 'static>(v: T) -> Option<u32> {
-+ ///     if TypeId::of::<T>() !=3D TypeId::of::<u32>() {
-+ ///         return None;
-+ ///     }
-+ ///
-+ ///     // `core::mem::transmute` won't work here.
-+ ///     // SAFETY: We've checked that `T` is `u32`!
-+ ///     Some(unsafe { kernel::mem::transmute_unchecked(v) })
-+ /// }
-+ ///
-+ /// to_u32(1u32);
-+ /// ```
-+ #[inline(always)]
-+ pub const unsafe fn transmute_unchecked<Src, Dst>(val: Src) -> Dst {
-+     // SAFETY: This is identical to `transmute` except that we bypassed t=
-he size check; which is
-+     // true per safety requirement.
-+     unsafe { core::mem::transmute_copy(&core::mem::ManuallyDrop::new(val)=
-) }
-+ }
-+=20
-+ /// Version of `transmute` that performs size check at monomorphization-t=
-ime.
-+ ///
-+ /// Use this instead of [`core::mem::transmute`] when it is known that si=
-zes are identical but this
-+ /// cannot be proven by the compiler during type checking and can be prov=
-en during monomorphization.
-+ ///
-+ /// The signature is equivalent to Rust standard library's unstable `tran=
-smute_neo` and that of
-+ /// [RFC 3844](https://github.com/rust-lang/rfcs/pull/3844).
-+ ///
-+ /// # Safety
-+ ///
-+ /// Same as [`core::mem::transmute`].
-+ ///
-+ /// # Examples
-+ ///
-+ /// This is typically used in generic code where it's known that type wil=
-l have the same size, but
-+ /// the compiler cannot prove it generically.
-+ ///
-+ /// ```no_run
-+ /// trait IsU32 {}
-+ /// impl IsU32 for u32 {}
-+ ///
-+ /// fn to_u32<T: IsU32>(v: T) -> u32 {
-+ ///     // `core::mem::transmute` won't work here.
-+ ///     // SAFETY: We know that `v` is u32!
-+ ///     unsafe { kernel::mem::transmute(v) }
-+ /// }
-+ ///
-+ /// to_u32(1u32);
-+ /// ```
-+ #[inline(always)]
-+ pub const unsafe fn transmute<Src, Dst>(val: Src) -> Dst {
-+     const_assert!(size_of::<Src>() =3D=3D size_of::<Dst>());
-+=20
-+     // SAFETY: Size is checked above. Other safety requirements follow th=
-ose of the function.
-+     unsafe { transmute_unchecked(val) }
-+ }
-+=20
-+ /// Safely transmutes a value of one type to a value of another type of t=
-he same size.
-+ ///
-+ /// The sizes are checked during monomorphization.
-+ ///
-+ /// This can be considered as generic version of [`zerocopy::transmute!`]=
- macro that defers the size
-+ /// check and thus can be used in more cases.
-+ ///
-+ /// # Examples
-+ ///
-+ /// ```no_run
-+ /// fn to_u32<T: FromBytes + IntoBytes>(v: T) -> u32 {
-+ ///     // `zerocopy::transmute!` won't work here.
-+ ///     kernel::mem::safe_transmute(v)
-+ /// }
-+ ///
-+ /// to_u32(1i32);
-+ /// ```
-+ #[inline(always)]
-+ pub const fn safe_transmute<Src: IntoBytes, Dst: FromBytes>(val: Src) -> =
-Dst {
-+     // SAFETY: `transmute` is safe with `IntoBytes` and `FromBytes` bound=
-s.
-+     unsafe { transmute(val) }
-+ }
-+=20
-+ /// Type that is layout-compatible with a primitive representation.
-+ ///
-+ /// # Safety
-+ ///
-+ /// - [`Self`] must have the same size and alignment as [`Self::Repr`].
-+ /// - [`Self`] must be [transmutable] to [`Self::Repr`].
-+ /// - Neither [`Self`] nor [`Self::Repr`] contains interior mutability.
-+ ///
-+ /// The above basically says that `&Self` can be transmuted to `&Self::Re=
-pr`.
-+ ///
-+ /// [transmutable]: core::mem::transmute
-+ pub unsafe trait AsRepr: Sized {
-+     /// Primitive representation of this type.
-+     type Repr;
-+=20
-+     /// Convert from [`&Self`](Self) to [`&Self::Repr`](AsRepr::Repr).
-+     #[inline(always)]
-+     fn as_repr(this: &Self) -> &Self::Repr {
-+         // SAFETY: Per safety requirement of the trait.
-+         unsafe { core::mem::transmute(this) }
-+     }
-+=20
-+     /// Convert from [`Self`] to [`Self::Repr`].
-+     #[inline(always)]
-+     fn into_repr(this: Self) -> Self::Repr {
-+         // SAFETY: Per safety requirement of the trait.
-+         unsafe { transmute(this) }
-+     }
-+=20
-+     /// Convert from [`Self::Repr`] to [`Self`].
-+     ///
-+     /// # Safety
-+     ///
-+     /// `repr` must be a valid bit pattern of [`Self`] and satisfy type-s=
-pecific invariants of it.
-+     ///
-+     /// Alternatively, if `repr` is previously obtained using [`Self::int=
-o_repr`], and each
-+     /// `from_repr_unchecked` should correspond to a unique `into_repr` c=
-all, then it is safe to
-+     /// call as well (this means that we're undoing a `into_repr` call ge=
-tting the exact bytes
-+     /// back).
-+     ///
-+     /// No guarantee is made if the result of a `into_repr` is passed to =
-multiple
-+     /// `from_repr_unchecked` (i.e. copies are made), to allow for cases =
-where `Repr` is a pointer
-+     /// and the user of the API wants ownership transfer. Users that want=
- the ability to call
-+     /// `from_repr_unchecked` after copying can require `Copy` bound expl=
-icitly.
-+     #[inline(always)]
-+     unsafe fn from_repr_unchecked(repr: Self::Repr) -> Self {
-+         // SAFETY: Per safety requirement, `repr` is valid repr of `Self`=
-, or it is previously from
-+         // `into_repr`, in which case we're undoing the transmute so it i=
-s also safe.
-+         unsafe { transmute(repr) }
-+     }
-+ }
-+=20
-+ /// Type that is bi-directionally transmutable with a primitive represent=
-ation.
-+ ///
-+ /// # Safety
-+ ///
-+ /// - [`Self`] must be [transmutable] from [`Self::Repr`].
-+ ///
-+ /// [transmutable]: core::mem::transmute
-+ /// [`Self::Repr`]: AsRepr::Repr
-+ pub unsafe trait AsReprMut: AsRepr {
-+     /// Convert from `&mut Self` to [`&mut Self::Repr`](AsRepr::Repr).
-+     #[inline(always)]
-+     fn as_repr_mut(this: &mut Self) -> &mut Self::Repr {
-+         // SAFETY: Per safety requirement of the trait.
-+         unsafe { core::mem::transmute(this) }
-+     }
-+=20
-+     /// Convert from [`Self::Repr`](AsRepr::Repr) to `Self`.
-+     #[inline(always)]
-+     fn from_repr(repr: Self::Repr) -> Self {
-+         // SAFETY: Per safety requirement of the trait.
-+         unsafe { transmute(repr) }
-+     }
-+ }
-+=20
-+ // SAFETY: `bool` has the same size and alignment as `u8`, and Rust guara=
-ntees that `bool` has
-+ // only two valid bit patterns: 0 (`false`) and 1 (`true`). Thus `bool` c=
-an be transmuted to `u8`.
-+ // Neither types contain interior mutability.
-+ unsafe impl AsRepr for bool {
-+     type Repr =3D u8;
-+ }
-+=20
-+ // SAFETY: `*mut T` has the same size and alignment with `*const c_void`,=
- and thus `*mut T` is
-+ // transmutable to `*const c_void`. Neither types contain interior mutabi=
-lity.
-+ unsafe impl<T> AsRepr for *mut T {
-+     type Repr =3D *const c_void;
-+ }
-+=20
-+ // SAFETY: `*mut T` is transmutable from `*const c_void`.
-+ unsafe impl<T> AsReprMut for *mut T {}
-+=20
-+ // SAFETY: `*const T` has the same size and alignment with `*const c_void=
-`, and is transmutable to
-+ // `*const c_void`. Neither types contain interior mutability.
-+ unsafe impl<T> AsRepr for *const T {
-+     type Repr =3D *const c_void;
-+ }
-+=20
-+ // SAFETY: `*const T` is transmutable from `*const c_void`.
-+ unsafe impl<T> AsReprMut for *const T {}
-+=20
-+ macro_rules! int_impl {
-+     ($($unsigned:ident $signed:ident ,)*) =3D> {$(
-+         // SAFETY: `$unsigned` has the same size and alignment with itsel=
-f, and is transmutable to
-+         // itself. It does not contain interior mutability.
-+         unsafe impl AsRepr for $unsigned {
-+             type Repr =3D $unsigned;
-+         }
-+=20
-+         // SAFETY: `$unsigned` is transmutable from itself.
-+         unsafe impl AsReprMut for $unsigned {}
-+=20
-+         // SAFETY: `$signed` has the same size and alignment with `$unsig=
-ned`, and is transmutable
-+         // to it Neither types contain interior mutability.
-+         unsafe impl AsRepr for $signed {
-+             type Repr =3D $unsigned;
-+         }
-+=20
-+         // SAFETY: `$signed` is transmutable from `$unsigned`.
-+         unsafe impl AsReprMut for $signed {}
-+     )*};
-+ }
-+=20
-+ int_impl! {
-+     u8 i8,
-+     u16 i16,
-+     u32 i32,
-+     u64 i64,
-+     // `usize` is not normalized to particular integer for portability.
-+     usize isize,
-+ }
+Testing v3:
+- GCC 15.2.0: x86-64 bzImage builds and W=1 kernel/kcov.o builds for
+  arm64 defconfig and arm multi_v7_defconfig, with KCOV_SELFTEST enabled.
+- x86-64 QEMU: defconfig plus KCOV_SELFTEST prints 15 symbolic PCs and
+  reaches the intended panic after the full test window, both with
+  KASLR enabled and with nokaslr. A control with KCOV_INSTRUMENT_ALL
+  disabled completes the selftest without recording coverage.
 
---eKnPMsofAaWlv7EM
-Content-Type: application/pgp-signature; name="signature.asc"
+ kernel/kcov.c | 35 +++++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/kernel/kcov.c b/kernel/kcov.c
+index 35420f0ac524..30e55b7fafb0 100644
+--- a/kernel/kcov.c
++++ b/kernel/kcov.c
+@@ -198,6 +198,16 @@ static notrace unsigned long canonicalize_ip(unsigned long ip)
+ 	return ip;
+ }
+ 
++#ifdef CONFIG_KCOV_SELFTEST
++static unsigned long __init decanonicalize_ip(unsigned long ip)
++{
++#ifdef CONFIG_RANDOMIZE_BASE
++	ip += kaslr_offset();
++#endif
++	return ip;
++}
++#endif
++
+ /*
+  * Entry point from instrumented code.
+  * This is called once per basic-block/edge.
+@@ -1099,9 +1109,11 @@ struct kcov_common_handle_id kcov_common_handle(void)
+ EXPORT_SYMBOL(kcov_common_handle);
+ 
+ #ifdef CONFIG_KCOV_SELFTEST
++static unsigned long selftest_area[16] __initdata;
++
+ static void __init selftest(void)
+ {
+-	unsigned long start;
++	unsigned long start, i, ip, count;
+ 
+ 	pr_err("running self test\n");
+ 	/*
+@@ -1111,15 +1123,26 @@ static void __init selftest(void)
+ 	 * leaks out of that section and leads to spurious coverage.
+ 	 * It's hard to call the actual interrupt handler directly,
+ 	 * so we just loop here for a bit waiting for a timer interrupt.
+-	 * We set kcov_mode to enable tracing, but don't setup the area,
+-	 * so any attempt to trace will crash. Note: we must not call any
++	 * A small coverage area records the PCs of any leaks. The first word
++	 * holds the count, leaving room for 15 PCs. Note: we must not call any
+ 	 * potentially traced functions in this region.
+ 	 */
++	kcov_start(current, NULL, ARRAY_SIZE(selftest_area),
++		   selftest_area, KCOV_MODE_TRACE_PC, 0);
+ 	start = jiffies;
+-	WRITE_ONCE(current->kcov_mode, KCOV_MODE_TRACE_PC);
+ 	while ((jiffies - start) * MSEC_PER_SEC / HZ < 300)
+-		;
+-	WRITE_ONCE(current->kcov_mode, 0);
++		cpu_relax();
++	kcov_stop(current);
++
++	count = READ_ONCE(selftest_area[0]);
++	if (count) {
++		pr_err("spurious coverage detected during interrupt selftest:\n");
++		for (i = 1; i <= count; i++) {
++			ip = decanonicalize_ip(selftest_area[i]);
++			pr_err("  %pB\n", (void *)ip);
++		}
++		panic("kcov: interrupt selftest detected spurious coverage");
++	}
+ 	pr_err("done running self test\n");
+ }
+ #endif
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCar/0MQAKCRAv73Ows9A4
-iWXTAP0VPyeMF82bkbFqdlcdPwhRhPK2kOQR5cFZLJ3M5qydzAEAp3ySGIVSIItm
-reSeEalkCtYhk7FnsWT4Vssc7HSJkQQ=
-=ejpE
------END PGP SIGNATURE-----
-
---eKnPMsofAaWlv7EM--
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+-- 
+2.53.0
