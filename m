@@ -1,184 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44B93033E6;
-	Fri,  2 Oct 2026 12:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD87F30ACF1;
+	Fri,  2 Oct 2026 12:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790943843; cv=none; b=Ds5CDlxHJl0CaUr8lzc5be0Et+zFMl6hqUNgTXDCcmZmVCTCiy/BllpYlKu1sAviOLQVwmDStTJn+E2eDBmY2ASQIVfPBCs99RVe0NLyoUQe/L04yFTeEacLIUGXzoaQp9xi+jSDTV1KXW+izcd0pvGNNPRn4QZvWIiTQjC1Ik8=
+	t=1790943881; cv=none; b=MHZdfALtBLZlcoo3gIYP9+Kau+wMFH9WYKsgISfY/IN5w9lPRTu9vNnYnsvMY475ULKIkWThZ+dKvIRvpNwX3fmD0J1xGK1aHwqY9b03pw5sVOgiJ82zV95PmB40FXr9vM7wkmJB95Nq2IumnWGs5EWhaJDreADP6WMExkUVs6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790943843; c=relaxed/simple;
-	bh=BG5YkYtdu7qsFroJfjc2nkDu4aCw3+TctiEYfajLp3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=nFvPPEA9VeXtOdJQvYvyETz7WWbMwGOt7ks7vsybyJlTNYTGsbfd2/GIMjTOxSQO9mKrpjtAaBnEUV/eSw2pIKMZcrCNXQJvgNqZOLoksMqnYxwAfeLR+EpINE99rOcIDnYFFP0C5HZov/39TYF0SXDtV+lCM3IMWcfIdPYnjV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2Fg9YNQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790943881; c=relaxed/simple;
+	bh=TQsEqImeLNsT75CXhMoCaI/FNIS2D6FhJMJeW0RHP7c=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y5fihEBqlmE//A5/izQO/eNA1W1F49Xv74IBDnlUxYKQRm6a5815jeL4z63VENr+8UaKFa8BWMiFhrqb6bDniDX1Ww69MsZu/Eg/v8Wdo8l8FZAMkJytNN/RNFCbbRn5dZak/NJ9vcWTGTveT7KZFtqIAdl0vo8tHkqkPAIaDOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=Hy/CPedR; arc=none smtp.client-ip=82.76.27.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2Fg9YNQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3D61F000FF;
-	Fri,  2 Oct 2026 12:23:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790943841;
-	bh=2kXAhOPCMzlMdqEWd4IYXZO9v9pd7TkUmLCbLdb/Zi0=;
-	h=Date:From:To:Cc:Subject;
-	b=l2Fg9YNQEbcY7gh2Y6zVJbcmDHZ9u+Y8HYklbWuaRkJem2YsJM7k9p57P1RpW8+IV
-	 61mnWYCjBzjKehRt6zMQa2n4f9q9zp2zeufeQnmQmEH+EWm8vL3AEBYw9v5IRufA+T
-	 PTlAuUcdDN7bnkJ/KiTREik37+DDQ6Mzub93fdDxWzaO8+w3RXnP1ZU6IyALXHSB3A
-	 Irxz5S6gQWjT5PKZph4GW7UvVsFmaxHFjbHowqfO6JIrJ31yKGZ1AF+rKaOc8dbVyW
-	 jAuxTinZcgfQsvPeadOftLaGp8bd76UTPIf8sc8HZgjbNL2bo71pYHA/HZW5Ysul47
-	 Ya+o54ZYJpL0g==
-Date: Fri, 2 Oct 2026 13:23:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Networking <netdev@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Subject: linux-next: manual merge of the net-next tree with the net tree
-Message-ID: <ar-iXZa3AIidNzsZ@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="Hy/CPedR"
+Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
+	by vtj.irix.systems (Proxmox) with ESMTP id EC0792DA65;
+	Fri, 02 Oct 2026 15:19:15 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:from:from:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=sig1; bh=JC7rARt4feEVlvX1sGDg6LQ9cf+K6e0ZYnbt8TcaAx0=; b=
+	Hy/CPedRShEol128p9GzBSLQrGqDV0FUuQtCJLZuXVKDvKXi4u8+BbfqJPI7ryzo
+	J/3haq9/k+Y2JYNVx3UU92aGot8jI8dmnjBcfmaDjzZzEyvK3JozjsXHOPCO9yaK
+	smp7ZmqMrRalX6oCmm2/q2mZb7GXT4GiO0NFp22hHnNTj7GdLaHvcwKyevDdvwLE
+	mjJpzcM7zKUwkFqh+rNE9ra8ImcPyGTzuvJqjVcgbztsfXV43s+5SIMr4du5DJb5
+	wPi572/+NCm+yrA8m01nOlacrhluroY5otPDhphFtewTiJbNJSxlHJJMhCc2Sjox
+	9OMrc9lWCs7LG+yLoB3Myw==
+Received: from VTJ-MX.corp.irix.systems (unknown [10.57.36.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by vtj.irix.systems (Proxmox) with ESMTPS id 5FE382DA64;
+	Fri, 02 Oct 2026 15:19:14 +0300 (EEST)
+Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 15:19:14 +0300
+From: Andrei-Alexandru Bleortu <me@andrei-z.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+CC: <ath11k@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-wireless@vger.kernel.org>
+Subject: [PATCH] wifi: ath11k: fix NULL dereference in pci remove when QMI init incomplete
+Date: Fri, 2 Oct 2026 15:19:08 +0300
+Message-ID: <20261002121909.994262-1-me@andrei-z.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="liBhtlqOQypdjWj6"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
+
+If QMI messages never arrive (for example when qrtr_mhi is not
+loaded), WLAN initialization stops before the device is registered.
+In this case ATH11K_FLAG_QMI_FAIL is not set because no QMI event
+handler is executed, and ATH11K_FLAG_REGISTERED is not set either.
+
+When the driver is removed, ath11k_pci_remove() still calls
+ath11k_core_deinit(), which eventually triggers
+ath11k_ce_cleanup_pipes() on uninitialized CE pipes and results in a
+NULL pointer dereference in ath11k_hal_srng_access_begin():
+
+  ath11k_hal_srng_access_begin+0xc/0x60 [ath11k]
+  ath11k_ce_cleanup_pipes+0x16c/0x170 [ath11k]
+  ath11k_pcic_stop+0x20/0x3c [ath11k]
+  ath11k_core_stop+0x30/0x58 [ath11k]
+  ath11k_core_deinit+0xf8/0x1b8 [ath11k]
+  ath11k_pci_remove+0x74/0x140 [ath11k_pci]
+
+Fix this by also taking the QMI failure path in ath11k_pci_remove()
+when ATH11K_FLAG_REGISTERED is not set: core initialization did not
+complete, so ath11k_core_deinit() is unsafe. This is the PCI
+counterpart of commit 1a7bcf5324c8 ("wifi: ath11k: fix NULL
+dereference in ahb remove when QMI init incomplete").
+
+Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
+
+Fixes: 6fbd8898b301 ("ath11k: pci: fix rmmod crash")
+Assisted-by: LLM
+Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
+---
+Found and fixed with an AI coding assistant (Claude Code), which also
+drafted this changelog. The crash was reproduced on a Ubiquiti UniFi U6
+Enterprise (IPQ5018 + 2x QCN9074) running 7.2.8 with the OpenWrt
+backports ath11k: with qrtr_mhi withheld, rmmod ath11k_pci oopses as
+above without this change and is clean with it. On ath-next the patch
+is compile-tested (W=1) only.
+
+ drivers/net/wireless/ath/ath11k/pci.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
+index a163168f3617..1de8ccb02487 100644
+--- a/drivers/net/wireless/ath/ath11k/pci.c
++++ b/drivers/net/wireless/ath/ath11k/pci.c
+@@ -1181,7 +1181,8 @@ static void ath11k_pci_remove(struct pci_dev *pdev)
+ 
+ 	ath11k_pci_set_irq_affinity_hint(ab_pci, NULL);
+ 
+-	if (test_bit(ATH11K_FLAG_QMI_FAIL, &ab->dev_flags)) {
++	if (test_bit(ATH11K_FLAG_QMI_FAIL, &ab->dev_flags) ||
++	    !test_bit(ATH11K_FLAG_REGISTERED, &ab->dev_flags)) {
+ 		ath11k_pci_power_down(ab, false);
+ 		ath11k_debugfs_soc_destroy(ab);
+ 		ath11k_qmi_deinit_service(ab);
+-- 
+2.47.3
 
 
---liBhtlqOQypdjWj6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-Today's linux-next merge of the net-next tree got a conflict in:
-
-  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-
-between commit:
-
-  232d49dd4b40a ("net: stmmac: propagate PTP addend and system time program=
-ming errors")
-
-=66rom the net tree and commit:
-
-  8181678a92f01 ("net: stmmac: propagate PTP init failures in __stmmac_open=
-() and stmmac_resume()")
-
-=66rom the net-next tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 9741f97fa37a2,0c381ae0d0ffa..0000000000000
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@@ -893,38 -862,38 +894,46 @@@ static int stmmac_hwtstamp_get(struct n
-   * Will be rerun after resuming from suspend, case in which the timestamp=
-ing
-   * flags updated by stmmac_hwtstamp_set() also need to be restored.
-   */
- -static int stmmac_init_tstamp_counter(struct stmmac_priv *priv,
- -				      u32 systime_flags)
- +static int stmmac_init_tstamp_counter(struct stmmac_priv *priv)
-  {
- +	u32 default_addend =3D priv->default_addend;
-  	struct timespec64 now;
- +	int ret;
- =20
-- 	if (!priv->plat->clk_ptp_rate) {
-- 		netdev_err(priv->dev, "Invalid PTP clock rate");
-- 		return -EINVAL;
-- 	}
- -	stmmac_config_hw_tstamping(priv, priv->ptpaddr, systime_flags);
- -	priv->systime_flags =3D systime_flags;
---
- -	stmmac_update_subsecond_increment(priv);
- +	ret =3D stmmac_update_subsecond_increment(priv, priv->systime_flags);
- +	if (ret)
- +		return ret;
- =20
-  	/* initialize system time */
-  	ktime_get_real_ts64(&now);
- =20
-  	/* lower 32 bits of tv_sec are safe until y2106 */
- -	stmmac_init_systime(priv, priv->ptpaddr, (u32)now.tv_sec, now.tv_nsec);
- +	ret =3D stmmac_init_systime(priv, priv->ptpaddr, (u32)now.tv_sec,
- +				  now.tv_nsec);
- +	if (ret)
- +		goto error;
- =20
-  	return 0;
- +error:
- +	/* Restore previous configuration */
- +	stmmac_restore_subsecond_increment(priv, default_addend);
- +
- +	return ret;
-  }
- =20
-+ static int stmmac_init_ptp_clk_freq(struct stmmac_priv *priv)
-+ {
-+ 	if (priv->plat->ptp_clk_freq_config)
-+ 		priv->plat->ptp_clk_freq_config(priv);
-+=20
-+ 	if (!priv->plat->clk_ptp_rate) {
-+ 		netdev_info(priv->dev, "PTP clock rate not configured\n");
-+ 		return -EINVAL;
-+ 	}
-+=20
-+ 	return 0;
-+ }
-+=20
-  /**
-   * stmmac_init_timestamping - initialise timestamping
-   * @priv: driver private structure
-@@@ -937,22 -912,8 +952,14 @@@ static int stmmac_init_timestamping(str
-  	bool xmac =3D dwmac_is_xmac(priv->plat->core_type);
-  	int ret;
- =20
-- 	if (priv->plat->ptp_clk_freq_config)
-- 		priv->plat->ptp_clk_freq_config(priv);
--=20
-- 	if (!(priv->dma_cap.time_stamp || priv->dma_cap.atime_stamp)) {
-- 		netdev_info(priv->dev, "PTP not supported by HW\n");
-- 		return -EOPNOTSUPP;
-- 	}
--=20
- -	ret =3D stmmac_init_tstamp_counter(priv, STMMAC_HWTS_ACTIVE |
- -					       PTP_TCR_TSCFUPDT);
- +	/* Reset hw ts configuration */
- +	memset(&priv->tstamp_config, 0, sizeof(priv->tstamp_config));
- +	priv->systime_flags =3D STMMAC_HWTS_ACTIVE | PTP_TCR_TSCFUPDT;
- +	priv->tsfupdt_coarse =3D false;
- +	priv->hwts_tx_en =3D 0;
- +	priv->hwts_rx_en =3D 0;
- +
- +	ret =3D stmmac_init_tstamp_counter(priv);
-  	if (ret) {
-  		netdev_warn(priv->dev, "PTP init failed\n");
-  		return ret;
-
---liBhtlqOQypdjWj6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq/olwACgkQJNaLcl1U
-h9AMiwf9ETLvZZ/faIW1KY8KMjoGgZ7F01lGKApC2bkj+H7MblLDpPTJhDQ3KKRu
-vKAYp81JAE3ZBwgKBmQ1urrxj6TBpsW0poLBzd7kjd/FttjLIHqW5fiStAxQRLNF
-Dd07Ghn1FtQ4K/Sc1cW2DBYJfXte8TKPqTurK22QNYeLDtlhQJsJpwL5TYiB5Ewv
-hqDcNOUytZHGYkf52NjTj7VI2vhV8dCo/eMunc1dTq6vHqiioOWPf5BnY35SEoh1
-Emv/1dTdJt0oYZxpoal48AEj0VOdwpot0gT38D8Nniy90xwGmGWHUkREQ89hCGsb
-IqyXS9uMtV9C0igUZHjUKOyz4iSJHA==
-=idST
------END PGP SIGNATURE-----
-
---liBhtlqOQypdjWj6--
