@@ -1,185 +1,78 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3ED44A41F;
-	Fri,  2 Oct 2026 08:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2448644AB6A;
+	Fri,  2 Oct 2026 08:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929563; cv=none; b=O35OfTgkTifCZgSD5he2GdA3yIjCnvO616srkhtaBj0jjgmZa6hrn6ueF0KlPkiqMklZWkmbHA5D3WiDbVQqL2QdX6iaaDoVA1SHqbXWf6oo5eiZXseJcF6fIK525R65KXAEXld9Z3+G+9p6iHtXUFyfFrHu229cZCJtyR+21+A=
+	t=1790929572; cv=none; b=WnCr+GXf3aAgNfbxLE8MwzrOGwhi/Taq4VMoOwyYRrKO+jKXFo5mpEN3dqQgfLqcndoXk5UA58PEuZAa2z1DsBHQnK+C3g9l/oiF2DvpXGMNt9iYdeuuDr1xI9yx0OS/XEBVnrijTSEDd4c8ESQkQbHfRGWdlgzwiMhSDOVpP0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929563; c=relaxed/simple;
-	bh=vHAQS5d/rWeXvk9HKIVIz5shZ2I4Qsj1a90sciN0PIM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=agOPlXP2LpdAhnKqVZvLJMcUoRhaCvluP1kuOZBxYRY0ufLsu4J7+szONS2atOUfrlK8bqWHEA+k5PqQxc/SpVJXjUJtAcTIkHa9smmWcUBMXwprF1yCpERKJA/XBBYtJ3m4G7LYIvCYEmwq68oe7A20joj6uoo+BXeTLe35B8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DUPsCmIE; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790929572; c=relaxed/simple;
+	bh=rEJFtJF0xQTEFm2TPz8e/ruPrgiSyVR1vkAqotVstVA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NMwr85wG84q09YouvYkP/v1mqM2bmQFitB1FTorcbOJ85mdmUu/T/fTt07Z3h5nOPEUX3HCPz/vTSGiuir0nt7SAgrNh2DrT71ymKt623AKg5UZ1C1k7lzTGnxpHh6ABqtvvPv1OQLwonPUeHvfb8j1hsPKidHnPQoHKzfGbGm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=liYZfYgW; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DUPsCmIE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790929558; x=1791188758;
-	bh=RJ3+LFDHVGDjse2PzEvjdPoUfEejVuaxTyINUfz0x0c=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=DUPsCmIEUndDMcMOl6eIY9QbyTTeo5NyDddgsaQ65sNiaNhXQSeKi/1snqQuhvusD
-	 LqctrmNSuwxRbIm7nHockY//TL253x7SLpRFvsA9zoaRzDNw5KT2swgKpY6G5JfQrD
-	 1a1RzejJVkLZoI/mxwuJ1IlctkJd6PYIWD2OBIcFogy/0HSApSuAB+2K08CLc/4C/l
-	 fK6shpm9Lmf7mMBWqiksskd0N5XNqm2lPnTV7jZJZmoLDXpdulr+QMBvEV9KIKX9GS
-	 Rgnfw/qtGgUekJQWF56fNcNgRaAyLWHJnCT1A03gYAom7C1/zK83BLyUqcqPBtbJCo
-	 l0+RaCZdCZ97Q==
-Date: Fri, 02 Oct 2026 08:25:53 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v8 1/3] dt-bindings: media: Add Sony IMX681
-Message-ID: <20261002082537.74084-2-lsa.uz@pm.me>
-In-Reply-To: <20261002082537.74084-1-lsa.uz@pm.me>
-References: <20261002082537.74084-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 7504e5154ab65ad6cbc234ac66ef9dc56d21a989
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="liYZfYgW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=+ga4PUxJ7DyZl/TIAxs1kY2f082Q38jxhP/17oj7jWM=; 
+	b=liYZfYgWM30itCMfxlPH8awNR2tV2hKht+9P1D2ghJjjxzjsgupgSHE3eBhP99lthcIx1rfG4t5
+	aXPdFQnLoMb2/NN03Nb7vTk4BcNe7K7oCq1tFBx8IQUqwMSjedO1DNs8CMuhvo/T8LD13OLKkIWke
+	Sql1v/mIC66wRwcPYnmxh01OlsaocLOVsnArOjyCz8SL8yqeCe1nWxKRct380bhRge1K/3+zZ4xym
+	snDmAueyFnH/nMnuIG+fP/IPQOk4Ih18MzLRbRePGPJ8+hDjxIiihJI6qonIimyvz7rxk3vytCi9r
+	kuJtwwS79i+JbvaG/6clQ4ow79sCDYmlRmHw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xCYaf-00000002mk9-3eZu;
+	Fri, 02 Oct 2026 16:26:02 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 18:26:01 +1000
+Date: Fri, 2 Oct 2026 18:26:01 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Tero Kristo <t-kristo@ti.com>, Keerthy <j-keerthy@ti.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: sa2ul - Fix HMAC key preparation
+Message-ID: <ar9qma1xm5q-eb6X@gondor.apana.org.au>
+References: <20260923051116.92741-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923051116.92741-1-ebiggers@kernel.org>
 
-The Sony IMX681 is a CMOS image sensor used as the user-facing camera on
-several Microsoft Surface devices. It operates from analog 2.8 V, digital
-1.05 V and interface 1.8 V supplies, is programmable over I2C, and outputs
-10-bit Bayer data over a two-lane MIPI CSI-2 D-PHY interface.
+On Tue, Sep 22, 2026 at 10:11:16PM -0700, Eric Biggers wrote:
+> sa_prepare_iopads() has multiple bugs, as discussed at
+> https://lore.kernel.org/linux-crypto/20260831055141.1632832-1-s-vadapalli@ti.com/T/#u
+> 
+> - Commit 3bf533787910 ("crypto: sha256 - Use the partial block API")
+>   introduced a 1-byte buffer overflow in the SHA-256 case by making the
+>   crypto_shash_export() write 1 more than sizeof(struct sha256_state).
+> 
+> - It never worked for HMAC keys longer than 64 bytes in the first place.
+> 
+> Fix both of these bugs by just using the crypto library to prepare the
+> key, like what the chelsio and qat drivers do.  Also remove the
+> pointless use of an indirect call.
+> 
+> Fixes: 3bf533787910 ("crypto: sha256 - Use the partial block API")
+> Fixes: d2c8ac187fc9 ("crypto: sa2ul - Add AEAD algorithm support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+>  drivers/crypto/sa2ul.c | 121 +++++++++--------------------------------
+>  1 file changed, 27 insertions(+), 94 deletions(-)
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Acked-by: Andre Gilerson <andre.gilerson@gmail.com>
----
- .../bindings/media/i2c/sony,imx681.yaml       | 108 ++++++++++++++++++
- 1 file changed, 108 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
-.yaml
-
-diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b=
-/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
-new file mode 100644
-index 00000000000..24c55760547
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
-@@ -0,0 +1,108 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/sony,imx681.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Sony IMX681 CMOS Image Sensor
-+
-+maintainers:
-+  - Andre Gilerson <andre.gilerson@gmail.com>
-+  - Sergey Lebedev <lsa.uz@pm.me>
-+
-+description:
-+  The Sony IMX681 is a CMOS active pixel image sensor with a square pixel
-+  array, used as the user-facing camera on several Microsoft Surface devic=
-es.
-+  It operates from analog 2.8 V, digital 1.05 V and interface 1.8 V suppli=
-es,
-+  is programmable over I2C, and outputs 10-bit Bayer data over a two-lane
-+  MIPI CSI-2 D-PHY interface.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: sony,imx681
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    description: Input clock (19.2 MHz)
-+    maxItems: 1
-+
-+  avdd-supply:
-+    description: Analog power supply (2.8 V)
-+
-+  dvdd-supply:
-+    description: Digital power supply (1.05 V)
-+
-+  dovdd-supply:
-+    description: Interface power supply (1.8 V)
-+
-+  reset-gpios:
-+    description: Sensor reset (XCLR) GPIO, active low
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+              - const: 2
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+    required:
-+      - endpoint
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - avdd-supply
-+  - dvdd-supply
-+  - dovdd-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells =3D <1>;
-+        #size-cells =3D <0>;
-+
-+        camera-sensor@10 {
-+            compatible =3D "sony,imx681";
-+            reg =3D <0x10>;
-+            clocks =3D <&clock_cam>;
-+            avdd-supply =3D <&vcc2v8_cam>;
-+            dvdd-supply =3D <&vcc1v05_cam>;
-+            dovdd-supply =3D <&vcc1v8_cam>;
-+            reset-gpios =3D <&gpio 4 GPIO_ACTIVE_LOW>;
-+            orientation =3D <0>;
-+            rotation =3D <0>;
-+
-+            port {
-+                imx681_ep: endpoint {
-+                    data-lanes =3D <1 2>;
-+                    link-frequencies =3D /bits/ 64 <969600000>;
-+                    remote-endpoint =3D <&csi_in>;
-+                };
-+            };
-+        };
-+    };
-+...
---=20
-2.54.0 (Apple Git-157)
-
-
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
