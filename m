@@ -1,81 +1,79 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1CF4349B9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63A243B3E3
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790971268; cv=none; b=KLUqfEJFRpY4mVbfjqz52hptumzAvqbJHY4gbCCI29Tr+NwsfzmqE3iGYSP81Nz7AXT+YN1wl3jIN0k8hQi2mQMpH8lALQq6Eyb7RuahyP95RLIMQhMmhgg7SaLUS2lwuzodcWQQMYj2g9MHgXFjAV9WPEcgWY01Dnk8cy0tBa8=
+	t=1790971276; cv=none; b=E3yfR6dNKg3QK/Lz4GFoT4i8qXWUN+Gjg8p+7q7Q6QvIYA+Mg+e4HUJCLJFVC8fqLLR/YXSlPAhehFh1EdKG6M8pKFPTLtDeSakU/mSC2sQIEX9050F5b5X5L2WTknJnH7OEaPFIwIk4eaMwMi9CyVWOCe2pCkAaEPbFKxun49Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790971268; c=relaxed/simple;
-	bh=2Lur0doSNoPwg7OANYfGC/ZInsmNdVgxB+r3ZxA0ANo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K/kc2AJ6evIJlZtFv4/BH7SfFLoBSjGEJoTbuad+qwfCQ2Lt5Swst/5O3QSOtrvigZm4Nxygfzrdbqli/U8X7Q5tsrJN0bQxfgQPgTw8G/Z5BcAiCpSv0MVnxRs1aOxaEahk8N1X3i81zjqtsuqt3zHDCDjZ9PBtgpbIDFsvH08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Ep+g7Btc; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790971276; c=relaxed/simple;
+	bh=xYd3Pn7xwPntUxM1xr+2z/L7TOcW6nT3FOYomMjm6fw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aT+dW38Zo5mPXkdHJ1G5/QowQMRP7qVjmrl3DcX9+4g7WFIW72bmzEsMyq8Tz0iwUc7xLBQUjApBn1ytRkgLFmiHBqdoE9AwUbuBonJWe2HkBdgE1yGgaKV2q/HXoe+UmpJwAUj7APeaXisuJNs6lxGse2pd7xmG2fM66MaTK10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d6FO3Zm5; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Ep+g7Btc"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d06so5715445c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:01:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d6FO3Zm5"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfc58ed04so338975085a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:01:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790971264; x=1791576064; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790971274; x=1791576074; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K8GWFjQgkDhj7guIlcMM08SobteqMdy0BTH8OwhzKqQ=;
-        b=Ep+g7BtcrCBhhRhF38pA3FaUxvZlDWMe42rvGjqyFzOU4IZnFhlIiVq0cihwv9oweI
-         fy8/CMS21PO08+A8bVDVnJ0vINMBmoBL8Iuid6cx/4oRoyZtcRNvA59AQlrk9rj4XXHw
-         nXOrp5emwjEXC59g10X57uhHTlWO2zMeupIIXdGoRrtH8IXIufzJVf84Nb/O2g8jkwe7
-         S3w5lP3hVctkNOzGwzf9b2IRAuZU07vPGDKF/jSvTX7uB3BP1nGZfzM/sCpGQWrdA73V
-         cNH8QJ8dWqQTWrbcngfHIu8Ic9p+sWlgPmk5tBhimFFCq620N49kcfaZ0Vq/+ecmlXBO
-         YB5A==
+        bh=RWKhQl8VCZeFEKO2nQY2AimaMpesWlwedfHQWqbVEAg=;
+        b=d6FO3Zm54hmkaE24RErO3yyMa2UvmMn4zW7nQufxu1h0zqK6X1ByFkb90T0k5RnGnL
+         u5RCZIhYhcLdueW2rfAMplku2Lxc7rSsoNLGHFfXGhjOjKSsBnlFo21bkY3Q0Ad/N3N2
+         59j/A9YYsQ+Mg2XqQPGYuA4eqjvx+ha9aqKLN0FlTt8s2QmxdA3Da8vyFQIYjtMmliQv
+         WtCm+NG0xGGAsK3CXP81A6lRMR+qIp63uuHmGFUcnrAv94+LekO9HR4ldZaeA03+zmKA
+         z8woCCcKKteiLeOswJmf1CgnNq6BIWx/SNsxyC6NLg1hXLzI41xwFWRM7oXDqOzL3ZZ2
+         HWhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790971264; x=1791576064;
+        d=1e100.net; s=20260707; t=1790971274; x=1791576074;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K8GWFjQgkDhj7guIlcMM08SobteqMdy0BTH8OwhzKqQ=;
-        b=Uu/ec1bSf7QCeG0IcQrGlm1bsbdxJNbYtglkdnhsP0ygSUWEgOnGG/MSbcZw4jQSMm
-         eLgdRy7I8ByQBNmAse9GhdBJ64UJ04VcdDOeQFmjF1RtnBhm+e1XoTIv7dZqZ4JSYFJN
-         PvuxvtkiIlHuH/lYKFjc+qiDuQbgq3/GMJ00KOOu0qk5j8tHs+WyM6gHyFDjjVHU4abu
-         Gbohh0HKIilvpoDYgpVYfty+XFZ1f4TxoaMwfrVqM/AmFzAz/cMX2ffiOd/rWToCdFvz
-         0hXIKkVGqs4xhCCz7QU+M28TcMpYVISZGVGi/hk+uicX/+xzq1xDUYFJVkkW+3Jl1PZA
-         aJ4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxS12T3wtU/na+T4rnSrXRbUA5uFjAiL3ta/N81WBERIf23Wewvs9pbh3TLqIP2PsP9reI1wwvg3itv3WE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSpbSAx16MgB69sJemAm/2a2OzgxlJTjR09m3FOtkva7beug1E
-	4Zu4zZFl57n/6G+xvRAQbS7GM/nmEzelUtE1ig7qnSgc3Sn/2affEirNxJegdVumYL6ITxzWXqd
-	ncLPrCKs=
-X-Gm-Gg: AYBFou0yZT/1Yz3tihSAj/S5mM4+kpuAD0LEVQ3k+p0vYKYrY8fj0mAz1SV+glTSODx
-	2WHv2XHrU0A7WnPodZLgo+8Ph+YAV42WbQupxRl/rfipRLeg8PftjihyxiAhnzBsjaGps7MCZhk
-	BmvPNQonD5afuAkUCJbDcSu7swAn93egNVACmckv5N2k/L2nvvBN+Ss7wGPNhwmVoB03kF+XcFX
-	yiWweV5x8j5AZzUS/VZTxZFc69PjDm63FZolP8wI+R88yZzq30sMVWINfJbo9TtflCh4p61Su+S
-	xabhFqIlXggydopbr+L6SZsJpPL2jKLRMi+N4mnQmuHysz9pwLLJshmLi10tpPWkNqLHa/jf7wm
-	+em+NsGk6/0YXygrz6yRjWyXNTRjeeGbP+FgNyW5XsCQNFsOSM8f2h21aHnLa+Wn1dyBfQpAWPF
-	4bLQTnX8p3jPqMfirul+jZd3pz5gp0wEbkd8RtjZZCyqa4e9j0HBaVhdVSLuEFoeAq7fwmqBSDQ
-	H/KBbHx5ZR0FL/XRjydVsMqO1mfcUQUZ2iOp0pWqlEbiZtELQCSjHILgvJJu7TM81OEHjI=
-X-Received: by 2002:a05:7022:fa1:b0:138:148:6a28 with SMTP id a92af1059eb24-14f5b710271mr5561089c88.18.1790971264078;
-        Fri, 02 Oct 2026 13:01:04 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f4766f92fsm8116482c88.16.2026.10.02.13.01.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 13:01:03 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
+        bh=RWKhQl8VCZeFEKO2nQY2AimaMpesWlwedfHQWqbVEAg=;
+        b=xBKoTlsEXc6Ni4BTbrXlAS6lh5GV7lKZG/Y1EJeMU/uPFJqupADV2471v8DXtpkagU
+         U7UoHollr5NT/Zqmq2usIGEpYvZd74gK9x7B0bVd3yciEOqKYoG69VaCb8w23EeZMN9S
+         C2CmXsREIIDFfJV4A1mPGxszDJP5Yw06rXyIgJSBmNQbCLDeRGECLMlGz4MNuRtWxEA5
+         7r786u3qP47yL+uLX5ucA6dySPXOThzRNbV1pDhJxrVjMe6YFgH0xIZWfdsB4IxCZjNn
+         4IT3YsEKupVn8+wFibCHNMapTcU8bfEyxmSOrOyhD3e6OS6GCLOGs5CDS2tlhl4rZWif
+         4+yg==
+X-Forwarded-Encrypted: i=1; AKwUvBywfx65my67cQtp8H6pZ6fa/JTtR4+Ir54jmDoHpFmtf2G7XDbuBBE27RKnqnY7Cih/kFpVQN/xpMefj8g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLgbLFV0MoMQ6wmjarchJqScFg3mA+Zq24syGL1to5pTsgY1OJ
+	TnWxiS54tCMmSbjNzGJcfG1WWD54+ULpmbylrjAYPmTU6x0FI1xeihg=
+X-Gm-Gg: AYBFou3jvE1e12GlTuTu1QAfdv116CDd8nVZxeAdnkI26TSRAtalr0ApYX52CJpzIuS
+	DYhxtZnq7l60KbR/MABq5Ke8bwupD/RsOA07IK/7K6awWzn+FsvIxfa/INOTTJyr+Vvm7hNZr8L
+	2r3hTjMr93QPhO0SP3E5PcPOTokjObHbgA3V6CH3AMMuM2d0IlqZVhfe5W/Xep3hvvLsmoeLzC/
+	+Gb+0Vvx6BcFskfW/DPoEzyih4I4qqmWuICAt7Fskoboxqn0f3xE8ub/ADpzcZV/+DNNHqF/HBT
+	m+gTaLcMwcOPHcUYun3nk8jJLYveliGECG3+X3Oy73K9c7+bWTGT7DsTeebPI+ZNZSA94YhidKc
+	ADy8I1WR65XWDItIA1Xm1PQADBPDjYdnwZDE2kHOR/L1/KS6pD7l34T8MrjaXzhHAhDvqRig1dT
+	qBMH8K60qJ4k9G4MHWjmh1CJNnbPLe2lIWtW4d8EWAYJUzA8YQr/akFRjezFqhsde1CYjzqpypS
+	2fVELSnoebHbaJWNoZ/zMTudxdAdlU/90BVAjJw8hqTkqaTssaVyzDkKfSgZVxwlMJcOcTbgbXM
+	yG1fWMcbBOebl5xgpThGwnDZJxzP
+X-Received: by 2002:a05:620a:688e:b0:93c:58bb:7214 with SMTP id af79cd13be357-93cf19db19fmr657960985a.31.1790971272471;
+        Fri, 02 Oct 2026 13:01:12 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca21d8fcsm309147885a.26.2026.10.02.13.01.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 13:01:11 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Benson Leung <bleung@chromium.org>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew@lunn.ch>,
-	Simon Horman <horms@kernel.org>
-Subject: [PATCH 6.1.y] ethtool: fail closed if we can't get max channel used in indirection tables
-Date: Fri,  2 Oct 2026 16:00:58 -0400
-Message-ID: <20261002200059.22598-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	mhun512@gmail.com,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v2] platform/chrome: cros_ec_typec: Stop altmode work during partner removal
+Date: Fri,  2 Oct 2026 16:01:08 -0400
+Message-ID: <20261002200108.399258-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,101 +82,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jakub Kicinski <kuba@kernel.org>
+DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
+responses. Partner removal and port teardown do not drain this work,
+allowing it to race with partner driver removal or access freed port
+altmode data.
 
-[ Upstream commit 2899d58462ba868287d6ff3acad3675e7adf934f ]
+Disable and drain port altmode work in the common partner cleanup path.
+Partner drivers can still queue responses during removal, so keep the
+work disabled until they are gone. Clear pending response and DP status
+state, then re-enable it for the next connection. Cancel the work before
+unregistering port altmodes during final teardown.
 
-Commit 0d1b7d6c9274 ("bnxt: fix crashes when reducing ring count with
-active RSS contexts") proves that allowing indirection table to contain
-channels with out of bounds IDs may lead to crashes. Currently the
-max channel check in the core gets skipped if driver can't fetch
-the indirection table or when we can't allocate memory.
+Allocate list nodes before registering altmodes so allocation failures
+also use the common cleanup path.
 
-Both of those conditions should be extremely rare but if they do
-happen we should try to be safe and fail the channel change.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-[ Backport to 6.1.y: kept the older int-returning
-  ethtool_get_max_rxfh_channel() and propagated its errors at both
-  channel-change call sites instead of the upstream u32/U32_MAX
-  conversion. A failure now returns the helper's errno (-ENOMEM or the
-  driver's get_rxfh() error) rather than -EINVAL, and -EOPNOTSUPP also
-  fails closed; on 6.1 IFF_RXFH_CONFIGURED can only be set via set_rxfh
-  paths that require a non-zero indirection table size. ]
-
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Link: https://patch.msgid.link/20240710174043.754664-2-kuba@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-Hi Greg, Sasha, and net maintainers,
+Changes in v2:
+- Quiesce port work in cros_typec_unregister_altmodes() before removing
+  partner altmodes, covering disconnects and discovery cleanup.
+- Re-enable work after resetting pending response and DP status state so
+  port altmodes remain usable after reconnecting a partner.
+- Cancel work in cros_typec_unregister_port_altmodes() during final port
+  teardown, following the review suggestion to use cancel_work_sync().
+- Allocate list bookkeeping before registering an altmode so allocation
+  failures use the common guarded cleanup path.
+- Drop the v1 Reviewed-by tag due to the reworked cleanup paths.
 
-I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-46834. It aborts a channel reduction when the
-core cannot prove RSS table entries remain valid.
+Previous version:
+https://lore.kernel.org/all/20260917204209.97699-1-mhun512@gmail.com/
 
-The corresponding 6.6.y backport is already in the 6.6.y stable queue.
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
-in 6.1.y.
-The target-specific adjustment is recorded in the bracketed note above.
+Validation: apply checks, whitespace checks and static source review.
+No build or runtime testing was performed for this revision.
 
-Could you please queue it for 6.1.y?
+Remaining review point: an in-flight port active sysfs callback may still
+queue work after the final cancel_work_sync(), before the port altmode
+is unregistered. Please confirm whether that ordering needs additional
+synchronization.
 
-CVE: CVE-2024-46834
-Upstream: 2899d58462ba868287d6ff3acad3675e7adf934f
+ drivers/platform/chrome/cros_ec_typec.c      | 27 ++++++++----
+ drivers/platform/chrome/cros_typec_altmode.c | 46 ++++++++++++++++++++
+ drivers/platform/chrome/cros_typec_altmode.h |  9 ++++
+ 3 files changed, 73 insertions(+), 9 deletions(-)
 
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- net/ethtool/channels.c |  9 ++++++---
- net/ethtool/ioctl.c    | 11 +++++++----
- 2 files changed, 13 insertions(+), 7 deletions(-)
-
-diff --git a/net/ethtool/channels.c b/net/ethtool/channels.c
-index 40315886201158..05f3068ec0fe35 100644
---- a/net/ethtool/channels.c
-+++ b/net/ethtool/channels.c
-@@ -191,9 +191,12 @@ int ethnl_set_channels(struct sk_buff *skb, struct genl_info *info)
- 	/* ensure the new Rx count fits within the configured Rx flow
- 	 * indirection table settings
- 	 */
--	if (netif_is_rxfh_configured(dev) &&
--	    !ethtool_get_max_rxfh_channel(dev, &max_rx_in_use) &&
--	    (channels.combined_count + channels.rx_count) <= max_rx_in_use) {
-+	if (netif_is_rxfh_configured(dev)) {
-+		ret = ethtool_get_max_rxfh_channel(dev, &max_rx_in_use);
-+		if (ret)
-+			goto out_ops;
-+	}
-+	if (channels.combined_count + channels.rx_count <= max_rx_in_use) {
- 		ret = -EINVAL;
- 		GENL_SET_ERR_MSG(info, "requested channel counts are too low for existing indirection table settings");
- 		goto out_ops;
-diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
-index 1f64ff5f3f21cb..439871dd1ca83b 100644
---- a/net/ethtool/ioctl.c
-+++ b/net/ethtool/ioctl.c
-@@ -1832,10 +1832,13 @@ static noinline_for_stack int ethtool_set_channels(struct net_device *dev,
+diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
+index 50a68819ceb7bbfbd888ca919d678d4c75237c26..2d6cbb7f51445fde4b4e8339081e921a9a143a92 100644
+--- a/drivers/platform/chrome/cros_ec_typec.c
++++ b/drivers/platform/chrome/cros_ec_typec.c
+@@ -282,11 +282,19 @@ static void cros_typec_unregister_altmodes(struct cros_typec_data *typec, int po
+ 	struct list_head *head;
  
- 	/* ensure the new Rx count fits within the configured Rx flow
- 	 * indirection table settings */
--	if (netif_is_rxfh_configured(dev) &&
--	    !ethtool_get_max_rxfh_channel(dev, &max_rx_in_use) &&
--	    (channels.combined_count + channels.rx_count) <= max_rx_in_use)
--	    return -EINVAL;
-+	if (netif_is_rxfh_configured(dev)) {
-+		ret = ethtool_get_max_rxfh_channel(dev, &max_rx_in_use);
-+		if (ret)
-+			return ret;
-+	}
-+	if (channels.combined_count + channels.rx_count <= max_rx_in_use)
-+		return -EINVAL;
+ 	head = is_partner ? &port->partner_mode_list : &port->plug_mode_list;
++	/* Partner drivers can queue port work until their removal completes. */
++	if (is_partner)
++		cros_typec_altmodes_set_enabled(port, false);
++
+ 	list_for_each_entry_safe(node, tmp, head, list) {
+ 		list_del(&node->list);
+ 		typec_unregister_altmode(node->amode);
+ 		devm_kfree(typec->dev, node);
+ 	}
++
++	/* Port altmodes are reused when a partner reconnects. */
++	if (is_partner)
++		cros_typec_altmodes_set_enabled(port, true);
+ }
  
- 	/* Disabling channels, query zero-copy AF_XDP sockets */
- 	from_channel = channels.combined_count +
+ /*
+@@ -366,8 +374,10 @@ static void cros_typec_unregister_port_altmodes(struct cros_typec_port *port)
+ {
+ 	int i;
+ 
+-	for (i = 0; i < CROS_EC_ALTMODE_MAX; i++)
++	for (i = 0; i < CROS_EC_ALTMODE_MAX; i++) {
++		cros_typec_altmode_cancel(port->port_altmode[i]);
+ 		typec_unregister_altmode(port->port_altmode[i]);
++	}
+ }
+ 
+ static void cros_unregister_ports(struct cros_typec_data *typec)
+@@ -901,24 +911,23 @@ static int cros_typec_register_altmodes(struct cros_typec_data *typec, int port_
+ 			desc.mode = j + 1;
+ 			desc.vdo = sop_disc->svids[i].mode_vdo[j];
+ 
++			node = devm_kzalloc(typec->dev, sizeof(*node), GFP_KERNEL);
++			if (!node) {
++				ret = -ENOMEM;
++				goto err_cleanup;
++			}
++
+ 			if (is_partner)
+ 				amode = typec_partner_register_altmode(port->partner, &desc);
+ 			else
+ 				amode = typec_plug_register_altmode(port->plug, &desc);
+ 
+ 			if (IS_ERR(amode)) {
++				devm_kfree(typec->dev, node);
+ 				ret = PTR_ERR(amode);
+ 				goto err_cleanup;
+ 			}
+ 
+-			/* If no memory is available we should unregister and exit. */
+-			node = devm_kzalloc(typec->dev, sizeof(*node), GFP_KERNEL);
+-			if (!node) {
+-				ret = -ENOMEM;
+-				typec_unregister_altmode(amode);
+-				goto err_cleanup;
+-			}
+-
+ 			node->amode = amode;
+ 
+ 			if (is_partner)
+diff --git a/drivers/platform/chrome/cros_typec_altmode.c b/drivers/platform/chrome/cros_typec_altmode.c
+index 66c546bf89b532d3bae1de322a1cfb1205e0190f..4b255cabac60a406ea359788604a6bf21d87e08d 100644
+--- a/drivers/platform/chrome/cros_typec_altmode.c
++++ b/drivers/platform/chrome/cros_typec_altmode.c
+@@ -37,6 +37,52 @@ struct cros_typec_dp_data {
+ 	bool pending_status_update;
+ };
+ 
++void cros_typec_altmode_cancel(struct typec_altmode *alt)
++{
++	struct cros_typec_altmode_data *adata;
++
++	if (!alt)
++		return;
++
++	adata = typec_altmode_get_drvdata(alt);
++	if (adata)
++		cancel_work_sync(&adata->work);
++}
++
++void cros_typec_altmodes_set_enabled(struct cros_typec_port *port, bool enabled)
++{
++	struct cros_typec_altmode_data *adata;
++	struct cros_typec_dp_data *dp_data;
++	int i;
++
++	for (i = 0; i < CROS_EC_ALTMODE_MAX; i++) {
++		if (!port->port_altmode[i])
++			continue;
++
++		adata = typec_altmode_get_drvdata(port->port_altmode[i]);
++		if (!adata)
++			continue;
++
++		if (!enabled) {
++			disable_work_sync(&adata->work);
++			continue;
++		}
++
++		mutex_lock(&adata->lock);
++		adata->header = 0;
++		adata->vdo_data = NULL;
++		adata->vdo_size = 0;
++		if (adata->sid == USB_TYPEC_DP_SID) {
++			dp_data = container_of(adata, struct cros_typec_dp_data, adata);
++			dp_data->configured = false;
++			dp_data->pending_status_update = false;
++		}
++		mutex_unlock(&adata->lock);
++
++		enable_work(&adata->work);
++	}
++}
++
+ static void cros_typec_altmode_work(struct work_struct *work)
+ {
+ 	struct cros_typec_altmode_data *data =
+diff --git a/drivers/platform/chrome/cros_typec_altmode.h b/drivers/platform/chrome/cros_typec_altmode.h
+index 3f2aa95d065af709643ad653df487a9987780da4..bcfd8fed2073dad1e95bfba807e1af7a4dbe91e2 100644
+--- a/drivers/platform/chrome/cros_typec_altmode.h
++++ b/drivers/platform/chrome/cros_typec_altmode.h
+@@ -11,6 +11,15 @@ struct typec_altmode;
+ struct typec_altmode_desc;
+ struct typec_displayport_data;
+ 
++#if IS_ENABLED(CONFIG_CROS_EC_TYPEC_ALTMODES)
++void cros_typec_altmode_cancel(struct typec_altmode *alt);
++void cros_typec_altmodes_set_enabled(struct cros_typec_port *port, bool enabled);
++#else
++static inline void cros_typec_altmode_cancel(struct typec_altmode *alt) {}
++static inline void
++cros_typec_altmodes_set_enabled(struct cros_typec_port *port, bool enabled) {}
++#endif
++
+ #if IS_ENABLED(CONFIG_TYPEC_DP_ALTMODE)
+ struct typec_altmode *
+ cros_typec_register_displayport(struct cros_typec_port *port,
 -- 
-2.39.5
-
+2.53.0
