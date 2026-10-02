@@ -1,244 +1,110 @@
-Received: from sender-op-o11.zoho.eu (sender-op-o11.zoho.eu [136.143.169.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFCB495040
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790971946; cv=pass; b=hFeEKDkfg8McDmtvvp+T/kmrlWAF6+l8cSF9Z4GhgPMalxa8weI1BJHh4GPCGmpn2jnQ3PslikpKPJXC7Ym+ulCHvRKY4KDAasj0ki9II0cKOg9ZtGOGhksTD5yVM+6Xz3vHi9djQBWZOK+j1UtGGbqpeesmWuM9mcE8NQ6MlrY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790971946; c=relaxed/simple;
-	bh=JXrnqN5b7b5VPl2cUpvt51GalgUDyhSMgLaVePYKUoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V1jIG/FyD/oexW+Tx8B5Slgkqt2viXHMON8AzGN3+Hc4reGU4+wzsyCQH0/2vwhqcxqusKT5Oo5dyrAhPv75Ol60JhFEFuvzPE3BaHWWy+RaOBsW9oVoJJ1ZNmlVzcd9RRGVqBE2eGwYE66unYdtdMAk1aRe8u5QV9J9VNI/zEA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=carlosgrillet.me; spf=pass smtp.mailfrom=carlosgrillet.me; dkim=pass (1024-bit key) header.d=carlosgrillet.me header.i=carlos@carlosgrillet.me header.b=Lkv/BI5U; arc=pass smtp.client-ip=136.143.169.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=carlosgrillet.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=carlosgrillet.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDCB515992;
+	Fri,  2 Oct 2026 20:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790972064; cv=none; b=WistIRp0jTHIuyqw9vZTehOa0VAM5V1y7Xb59cXO9IZdSEoCOhx18yOzaoiCFZ+aRiiBeslawIzPBERv3RJB8YNDHSfEwUM50G0TYyEkmR2TNCI77gv3qumhH6qQJ5RgQEW2J78XxnqMlQzk66HMK+B0N0tBjcbZNpnWVXodMZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790972064; c=relaxed/simple;
+	bh=fs0Ov8lINBSc7JW89f5BCfxU0RjzTuPZ34hBQGckZ94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P5JalWOvKu6ynCiVajGQIDobYZQLLkz4DwjKSz2EjTkV41uRcJhe4RrGzfZPEn6IXOO+rjJ3l0QLlnem8R1P+WE67rsaqtA0utU9RVUiAGEP6zGa/jqMT4ZgHaAmZFRiWrATH8ekC/7ugnroQMGZEDmXZm84Djl37cu5hxEkXeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FPd9qSev; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=carlosgrillet.me header.i=carlos@carlosgrillet.me header.b="Lkv/BI5U"
-ARC-Seal: i=1; a=rsa-sha256; t=1790971864; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=Btv9wJug5hY0neMPmKB+asRaXkXSxcZ4KKYUjHsyncRpozQLqgyKAb4wI5Rt73kSt4HJu92pLQzzDheV9UGWhTADvpmsr9XThdTyBPgIQDIbuhf4RcD1JlCp6M6LzCqwdXko/v1I5/4i4KD9PZLmh1brhNNuADdO+LAf/Qkoyf4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1790971864; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/4GO7aD7n+aCVqq1i3jpJpGmN5SXdv/c+vAs199Kl2E=; 
-	b=eHuSGmTK5TmSdxa5/7NVVHCilSgSjbnwpSsMALqPLPlxVJjLul6/zVniF4Tdg7cMoA0AFB0C+tV1AEL1zC6dKTUPWuYYj3o41yW+IzfsIv/9PQfIEAcIvzB+JI4Pe7P9P/WBhtKMXU2mCQxohtx7Tf62Sbxr51DISTl9cmAv5O8=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=carlosgrillet.me;
-	spf=pass  smtp.mailfrom=carlos@carlosgrillet.me;
-	dmarc=pass header.from=<carlos@carlosgrillet.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790971864;
-	s=zmail; d=carlosgrillet.me; i=carlos@carlosgrillet.me;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=/4GO7aD7n+aCVqq1i3jpJpGmN5SXdv/c+vAs199Kl2E=;
-	b=Lkv/BI5Ugjc+j+59Ll+5Yyl4YGLIOCJepwNUngff+W0/5TCVAdlz8ctaQBd+ZfLP
-	PVRrztkKdg7XFJy17i7iDyfB1Auq7Z1EmeFLhaKiDIZ20n184MTUTsHOtaF5iOMg5dD
-	czb99BbnP1Yr4KH5ngclBEDfy1Wle/+Kz2WWM+7I=
-Received: by smtp.zoho.eu with SMTPS id 1790971862347592.8629566628938;
-	Fri, 2 Oct 2026 22:11:02 +0200 (CEST)
-From: Carlos Grillet <carlos@carlosgrillet.me>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH nf-next] netfilter: nf_nat: replace u_int16_t with u16
-Date: Fri,  2 Oct 2026 22:10:55 +0200
-Message-ID: <20261002201057.132466-1-carlos@carlosgrillet.me>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FPd9qSev"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E20E1F000FF;
+	Fri,  2 Oct 2026 20:14:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790972061;
+	bh=SJH94DwMdZBmJc1mvMyVDHBOWduaT+xUqWE/HnxR5XA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FPd9qSevmow5oKrgOxcLgYf59uqBqxCQ8G+9L1aqDqkLAfGfF3x8euLd+mJ12cX+w
+	 6LOa28zWtvx/bdkEtzOyMht5DfxwAQN3kh37phji2YsDu3mU5j2YCsrGiJNtdGCHcq
+	 fb3sTop0OTAg06bBseLyjxI+B/8oq5qNGke9z8i9HWGmN3ElPQH+aqhy4Oc2zypkqW
+	 Y4/TLraHMZCaWCic0wSdbVBta2fSHt0V+DxtQohNNjcAtpsmFw/6MI7AwcLXdstRf5
+	 t3I5WpOQvd1ZmISLyawcTbr1dUZCqq4LLC/zgBvRWDnQIpTGCuJSQo6wVB3ZDQhucz
+	 6O4QzRSHyAqtA==
+Date: Fri, 2 Oct 2026 20:14:19 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: Lorenz Kofler <lorenz@sigma-star.at>, Mike Snitzer <snitzer@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>, dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org, upstream+dm@sigma-star.at,
+	David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org
+Subject: Re: [RFC PATCH 1/1] dm-integrity: support keys in the kernel keyring
+Message-ID: <20261002201419.GA205250@google.com>
+References: <20260928062734.3805458-1-lorenz@sigma-star.at>
+ <20260928062734.3805458-2-lorenz@sigma-star.at>
+ <6e7bd72b-6f1a-211d-16a8-a35a530af408@redhat.com>
+ <b0f8f47a-beb0-426e-bdee-5d0d80ade8ad@sigma-star.at>
+ <1e53661e-42f4-72b2-3331-33af21e9fe0f@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1e53661e-42f4-72b2-3331-33af21e9fe0f@redhat.com>
 
-Use the preferred kernel type u16 instead of the POSIX u_int16_t
-variant across the NAT helpers.
+On Fri, Oct 02, 2026 at 01:48:23PM +0200, Mikulas Patocka wrote:
+> > > These four functions are copied from dm-crypt.c and dm-inlinecrypt.c.
+> > > Copying code is generally malpattern, they should be unified and moved to
+> > > an include file (that would be included in all three targets) or to the
+> > > key management code (that would be called from all three targets).
+> > > 
+> > 
+> > Yes that is the issue I described in the cover letters. But I don't
+> > actually know which way is the preferred one. Afaik there are now
+> > three options:
+> > 
+> > 1. static inline helpers in a drivers/md header, so dm-crypt and
+> >    dm-integrity each compile their own copy
+> > 2. a small library module, similar to dm-bufio, so there is one copy
+> >    that follows the value (y/m) of dm-crypt and dm-integrity
+> > 3. integration into key management code
+> > 
+> > Please tell me which option you prefer.
+> 
+> Try 3, if not possible then 1. I think that introducing a module with this 
+> would be overkill.
+> 
+> The "if (!strncmp(key_string, "logon:", key_desc - key_string + 1)) {" 
+> lines are duplicated as well, so I would refactor them and move them to 
+> the helper too.
+> 
+> I don't know why dm-inlinecrypt only uses the "logon:" key while dm-crypt 
+> uses "user:", "encrypted:", "trusted:" as well (Eric - could you 
+> explain?). So, perhaps, dm-inlinecrypt could be extended to use all four 
+> key types as well.
 
-No functional change.
+The keyring support didn't exist in my version of the dm-inlinecrypt
+patch.  It seems to have been requested by Milan here:
+https://lore.kernel.org/dm-devel/682506ea-c9c2-458b-8123-8d78fc53cc7f@gmail.com/
+then added by Linlin.
 
-Signed-off-by: Carlos Grillet <carlos@carlosgrillet.me>
----
-This supersedes the nf_nat_amanda one-liner from batch 3, which was
-dropped in favour of a larger changeset:
+From what I understand, the point of the keyring support in
+dm-{crypt,inlinecrypt,integrity} is:
 
-  https://lore.kernel.org/netfilter-devel/ak5lH1UnFth6oreP@strlen.de/
+- To support "trusted" keys.  But that is not what was actually
+  implemented in dm-inlinecrypt.
 
-nf_nat is now converted in one patch, as suggested. The remaining
-families (nfnetlink, nf_log, x_tables, ...) will follow the same way.
+- To avoid having the key be readable with STATUSTYPE_TABLE.  But that
+  is not what was actually implemented in dm-inlinecrypt.  Keyrings are
+  also unnecesary to solve that problem.
 
- include/linux/netfilter/nf_conntrack_sip.h |  2 +-
- net/ipv4/netfilter/nf_nat_h323.c           | 10 +++++-----
- net/ipv4/netfilter/nf_nat_pptp.c           |  4 ++--
- net/netfilter/nf_nat_amanda.c              |  2 +-
- net/netfilter/nf_nat_ftp.c                 |  2 +-
- net/netfilter/nf_nat_irc.c                 |  2 +-
- net/netfilter/nf_nat_sip.c                 |  6 +++---
- 7 files changed, 14 insertions(+), 14 deletions(-)
+- To cause security bugs such as https://lwn.net/Articles/1090568/ .
+  Since otherwise things aren't exciting enough, I guess.
 
-diff --git a/include/linux/netfilter/nf_conntrack_sip.h b/include/linux/netfilter/nf_conntrack_sip.h
-index aafa0c04f917..3b66ec4b20c8 100644
---- a/include/linux/netfilter/nf_conntrack_sip.h
-+++ b/include/linux/netfilter/nf_conntrack_sip.h
-@@ -143,7 +143,7 @@ struct nf_nat_sip_hooks {
- 				 unsigned int *datalen,
- 				 unsigned int matchoff,
- 				 unsigned int matchlen,
--				 u_int16_t port);
-+				 u16 port);
- 
- 	unsigned int (*sdp_session)(struct sk_buff *skb,
- 				    unsigned int protoff,
-diff --git a/net/ipv4/netfilter/nf_nat_h323.c b/net/ipv4/netfilter/nf_nat_h323.c
-index 6bcd6734769b..265c1ba5b348 100644
---- a/net/ipv4/netfilter/nf_nat_h323.c
-+++ b/net/ipv4/netfilter/nf_nat_h323.c
-@@ -186,7 +186,7 @@ static int nat_rtp_rtcp(struct sk_buff *skb, struct nf_conn *ct,
- 	struct nf_ct_h323_master *info = nfct_help_data(ct);
- 	int dir = CTINFO2DIR(ctinfo);
- 	int i;
--	u_int16_t nated_port;
-+	u16 nated_port;
- 
- 	if (!info)
- 		return -1;
-@@ -282,7 +282,7 @@ static int nat_t120(struct sk_buff *skb, struct nf_conn *ct,
- 		    struct nf_conntrack_expect *exp)
- {
- 	int dir = CTINFO2DIR(ctinfo);
--	u_int16_t nated_port = ntohs(port);
-+	u16 nated_port = ntohs(port);
- 
- 	/* Set expectations for NAT */
- 	exp->saved_proto.tcp.port = exp->tuple.dst.u.tcp.port;
-@@ -321,7 +321,7 @@ static int nat_h245(struct sk_buff *skb, struct nf_conn *ct,
- {
- 	struct nf_ct_h323_master *info = nfct_help_data(ct);
- 	int dir = CTINFO2DIR(ctinfo);
--	u_int16_t nated_port = ntohs(port);
-+	u16 nated_port = ntohs(port);
- 
- 	if (!info)
- 		return -1;
-@@ -402,7 +402,7 @@ static int nat_q931(struct sk_buff *skb, struct nf_conn *ct,
- {
- 	struct nf_ct_h323_master *info = nfct_help_data(ct);
- 	int dir = CTINFO2DIR(ctinfo);
--	u_int16_t nated_port = ntohs(port);
-+	u16 nated_port = ntohs(port);
- 	union nf_inet_addr addr;
- 
- 	if (!info)
-@@ -488,7 +488,7 @@ static int nat_callforwarding(struct sk_buff *skb, struct nf_conn *ct,
- 			      struct nf_conntrack_expect *exp)
- {
- 	int dir = CTINFO2DIR(ctinfo);
--	u_int16_t nated_port;
-+	u16 nated_port;
- 
- 	/* Set expectations for NAT */
- 	exp->saved_addr = exp->tuple.dst.u3;
-diff --git a/net/ipv4/netfilter/nf_nat_pptp.c b/net/ipv4/netfilter/nf_nat_pptp.c
-index fed5249001a4..5387c288c348 100644
---- a/net/ipv4/netfilter/nf_nat_pptp.c
-+++ b/net/ipv4/netfilter/nf_nat_pptp.c
-@@ -130,7 +130,7 @@ pptp_outbound_pkt(struct sk_buff *skb,
- 	struct nf_ct_pptp_master *ct_pptp_info;
- 	struct nf_conn_nat *nat = nfct_nat(ct);
- 	struct nf_nat_pptp *nat_pptp_info;
--	u_int16_t msg;
-+	u16 msg;
- 	__be16 new_callid;
- 	unsigned int cid_off;
- 
-@@ -243,7 +243,7 @@ pptp_inbound_pkt(struct sk_buff *skb,
- {
- 	const struct nf_nat_pptp *nat_pptp_info;
- 	struct nf_conn_nat *nat = nfct_nat(ct);
--	u_int16_t msg;
-+	u16 msg;
- 	__be16 new_pcid;
- 	unsigned int pcid_off;
- 
-diff --git a/net/netfilter/nf_nat_amanda.c b/net/netfilter/nf_nat_amanda.c
-index 330415809425..17b0c1c8d4e1 100644
---- a/net/netfilter/nf_nat_amanda.c
-+++ b/net/netfilter/nf_nat_amanda.c
-@@ -34,7 +34,7 @@ static unsigned int help(struct sk_buff *skb,
- 			 struct nf_conntrack_expect *exp)
- {
- 	char buffer[sizeof("65535")];
--	u_int16_t port;
-+	u16 port;
- 
- 	/* Connection comes from client. */
- 	exp->saved_proto.tcp.port = exp->tuple.dst.u.tcp.port;
-diff --git a/net/netfilter/nf_nat_ftp.c b/net/netfilter/nf_nat_ftp.c
-index 25d20e2970ae..0c90165040e0 100644
---- a/net/netfilter/nf_nat_ftp.c
-+++ b/net/netfilter/nf_nat_ftp.c
-@@ -70,7 +70,7 @@ static unsigned int nf_nat_ftp(struct sk_buff *skb,
- 			       struct nf_conntrack_expect *exp)
- {
- 	union nf_inet_addr newaddr;
--	u_int16_t port;
-+	u16 port;
- 	int dir = CTINFO2DIR(ctinfo);
- 	char buffer[sizeof("|1||65535|") + INET6_ADDRSTRLEN];
- 	unsigned int buflen;
-diff --git a/net/netfilter/nf_nat_irc.c b/net/netfilter/nf_nat_irc.c
-index 89b31fe932ba..140b7d99a887 100644
---- a/net/netfilter/nf_nat_irc.c
-+++ b/net/netfilter/nf_nat_irc.c
-@@ -39,7 +39,7 @@ static unsigned int help(struct sk_buff *skb,
- {
- 	char buffer[sizeof("4294967296 65635")];
- 	union nf_inet_addr newaddr;
--	u_int16_t port;
-+	u16 port;
- 
- 	/* Reply comes from server. */
- 	newaddr = ct->tuplehash[IP_CT_DIR_REPLY].tuple.dst.u3;
-diff --git a/net/netfilter/nf_nat_sip.c b/net/netfilter/nf_nat_sip.c
-index 8c412bcf6cff..e27c9744054e 100644
---- a/net/netfilter/nf_nat_sip.c
-+++ b/net/netfilter/nf_nat_sip.c
-@@ -410,7 +410,7 @@ static unsigned int nf_nat_sip_expect(struct sk_buff *skb, unsigned int protoff,
- 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
- 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
- 	union nf_inet_addr newaddr;
--	u_int16_t port;
-+	u16 port;
- 	__be16 srcport;
- 	char buffer[INET6_ADDRSTRLEN + sizeof("[]:nnnnn")];
- 	unsigned int buflen;
-@@ -536,7 +536,7 @@ static unsigned int nf_nat_sdp_port(struct sk_buff *skb, unsigned int protoff,
- 				    const char **dptr, unsigned int *datalen,
- 				    unsigned int matchoff,
- 				    unsigned int matchlen,
--				    u_int16_t port)
-+				    u16 port)
- {
- 	char buffer[sizeof("nnnnn")];
- 	unsigned int buflen;
-@@ -601,7 +601,7 @@ static unsigned int nf_nat_sdp_media(struct sk_buff *skb, unsigned int protoff,
- 	enum ip_conntrack_info ctinfo;
- 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
- 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
--	u_int16_t port;
-+	u16 port;
- 
- 	/* Connection will come from reply */
- 	if (nf_inet_addr_cmp(&ct->tuplehash[dir].tuple.src.u3,
--- 
-2.55.0
+Not sure what I'm missing.
 
+But if you really do want to support all four key types in all three of
+these targets anyway though, then sure, the code might as well be
+shared since it would otherwise be the same code in each.
+
+- Eric
