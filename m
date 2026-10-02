@@ -1,155 +1,142 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEADA2C21E8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804B730C160;
+	Fri,  2 Oct 2026 03:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790911874; cv=none; b=BwciZgsejoly9+/ufxY5PQiwtPt2tkt9dC6CsLc0p4M0ZWQA65RfxEYJbhgEvSNlC3sWuy6DxlUnfJ576/im+MUYW8pe+LyD0pltVXg7QEIOKJqYvbLTYgtxb2Dug4UVP6n2c/ITKwe2ETAaQ4l+chxy2MEqE1MdQiZeFYuVVyk=
+	t=1790911908; cv=none; b=mklFma6lwwS1mlu0yqQWK1XbdjbnghlVusEeCo8pjuTAhlaUq6DDHIDZ9U+dL/Z89SYtFABIIenYaLrN9ys0iRykcVFx13n05g1wnN0Pi36TzBCxTLh8X0ZHOOlaTLnyLK+6nOYaTiGeYpoH9L4n8nSlp+x+s/ZmAEZJqbb4sxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790911874; c=relaxed/simple;
-	bh=Z5XICVQkK8PkEDSYSOVPpWHExm730Y+JfBRpcMT+97o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kfqKmYlATGnXjDtK1GtyYec3AKu/rzk7owy606V4ElyLYTxEYxy9lzBeI6iaZzm3iC40j5/rs6nO17+uppXFZZ28JlnBzi+3NeiVlpihqftzALQcQ6YKTed++SmPCRYrp2WxGFD5RAtM2+UH0En7+av7aYosity/DGXGyIzq6N4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jABcM3xe; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790911908; c=relaxed/simple;
+	bh=HRmbrYZUTwvE4rq+nQo7v5Hp/1ia7qHIZrpDdEYISGA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fw5ii1eev+gs8ErPQbR+jSB6WSWFLZh20TG4hhs84HfG+Ig6T23QqBLVpgtMvKRjXcDloxwG/AaMpAbyMnApI9CaXefMto6j3mmvQdkZRh19qISYfk3gvzo3R13I3udua4HKUQfdNk6C51IP3kjLRMRaElOg2Wzj+PG6WIOEMn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HlyL9pBr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jABcM3xe"
-Received: by mail-pz2-f39.google.com with SMTP id d2e1a72fcca58-8807e5b8fa9so4603738b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 20:31:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790911872; x=1791516672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zTDVtCpSCQztoPn6GzuaugDMD22vGbC4OeaYo8JZgPg=;
-        b=jABcM3xeIr05QnT+dC2nVrCkvtWXT7rhVqSDWryW2nZ/rbucSDamUQmbly1Ic7XDD4
-         j9SU0tnDiTwMWqisAszd0NPxDHZR6zUoRB4MLQSoxuGltofLhubR5e9vlVcdflzN1+72
-         9850qTI7HOF36joAQRgLGbiIgj9uY05UMAQeStwHuwYqb/HHBIIXD3vh9Tom2sunNVEB
-         oHS77DoWB6RVQISUJzjNrQ1TjgC6M+C3andRLzzHXllJ8gRyq2lTH+vDjM58uU3KDQkZ
-         BKMKGylhqEYPFMRSJhSdZm9VlKZXwK7n6AIg1IJwZImhE+zDGNrXVyhlY6RQYDFbqTxj
-         9NXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790911872; x=1791516672;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zTDVtCpSCQztoPn6GzuaugDMD22vGbC4OeaYo8JZgPg=;
-        b=vhm5s2PcpEhkY9BsrXPyZ8rcovL6PtPGZmiTD14+gC3pxtJEIjGSIhIntyqWgoqBzd
-         L2z2BmbIB4WpeyO+bYj+6AhMk1vjTk5SHAz8iA93RF9nT1iX2b/t0EaHvW9e6GYUbj9m
-         wMV/YEkEk4MP4lT1CAy0cqqhSs+9Vc8tVw7fUXCqJxtAuHguZWLgscGl17Ew99pmPzgE
-         G22Aw4Ko/gNE4JMW7hkEmz2oWx9deXjZzWx3yKNvgMc80tIiChHZehpD4LdUvUvm4sT/
-         45DstA02V73T3n8wQGC3igOYaofeQI1XKxXCfqSyscgEZAWzvvDHn0agSc0YMM7awgOC
-         5Rvw==
-X-Forwarded-Encrypted: i=1; AKwUvByTHBwZtX1J242sbRgvx0NgqhW9NmvBGc36aPGl+DuyUAXzGjVge+CAuOKcecPLRzk94LyynfmyDCUw2b4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktMcP+jOFSGbHl1t6y02Li2HUQDUbNiLh+NoQ7daNC6wq6hI/V
-	bNQDlRnKXDbwPHHkm8vycW6ZmI6GsA5NK67WRNoDBJNhnB/fpQ2oK+MRu5Np+evDvbA=
-X-Gm-Gg: AYBFou1D9GcAu3e6j5zCx/JWJTxKWjFNLu3IB/DUbKkQKa4/IfzkLm9Kk4F5/YkG5Mg
-	r6WUbRuUGfYyp/YS7rF7sjgx7KOOJm+i2qNhpVPDNJd6lMjPXAMRixyLkwTIMQAu6qxHah6I3+5
-	EHVYMM9iDOXpxThsSm5gS4RtTlk8rtgqpEN17F538JtSVVqNSir/cH72c/JtVdQsRGGAzYu4rQt
-	IkAD7ksP6sUMubhr3n+1kVkn8ij2nZxI2a0n2I+TVh2ZQUkvk2xXX7yq17q5EeUR1cVmTUeaImF
-	X0KaN8hfMw25O+XrNl/zzJ9qxOyrCaGfgoS+bIUMiXHnX61Bqnh4/YPPkcdprS9TgjjivJNrKXJ
-	NtjqqsoIJUcr87+/KmLly1fIN1dkIAmTVxKkM3JZuwH72lS/2zjdfZMt0rPLEyAMzslrwjQxJZJ
-	B4/B+oGmLfJFLebqgOhtDTzcaDe1G4w26DLkNYlXXib80/T5nHE0C1ttAizHPtAZAcPeeAOaRcm
-	aBXd6zvU2c=
-X-Received: by 2002:a05:6a00:418d:b0:886:7d7d:cfb0 with SMTP id d2e1a72fcca58-88af54f74b8mr1302693b3a.9.1790911871974;
-        Thu, 01 Oct 2026 20:31:11 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0d247dbcsm369865b3a.55.2026.10.01.20.31.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 20:31:11 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	William Tu <u9012063@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net v2] ip6_gre: remove obsolete ERSPAN PMTU update
-Date: Fri,  2 Oct 2026 12:30:58 +0900
-Message-ID: <20261002033058.358137-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HlyL9pBr"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7503A1F000FF;
+	Fri,  2 Oct 2026 03:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790911907;
+	bh=TiibAs8PiBtqNA1LnqVckyg+8Z8VA15spk4Kr6gNLxs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HlyL9pBrWglWZBdnstHIi10nyz1EH4nsgbxNQIflzcAZYS2AgjQcYdzhphWogMXXt
+	 uWCiXbC5iywpm3CwEgvcmniCoR8JGmd5nb6BHpquIFbUZ0RZw0jRCTiAQ48Hmo9nWn
+	 bwBtbg81KxUSoq+SNrnfUelsj0UoCXhcAhmvuDKk50eDairID4/MBvSIcUY3oWGzbL
+	 79OOlqvbY48sugUaMyKgty+hOen1C6m0arFO+jsOF9vWgQIBLVE4C5rtSd0mHX32tZ
+	 bBBf4TsbZUrsTnI3K1++SRTHVDoQxB4u3P4OCpX9T4W60b45i7f92E3sFpf7TFBQql
+	 woLAFJHHXWFsA==
+Date: Fri, 2 Oct 2026 06:31:43 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Srish Srinivasan <ssrish@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+	rnsastry@linux.ibm.com
+Subject: Re: [PATCH] keys/trusted_keys: reuse TPM version in option handling
+Message-ID: <ar8ln4Au8rDe_Ssm@kernel.org>
+References: <20260930060217.112471-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930060217.112471-1-ssrish@linux.ibm.com>
 
-A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
-and mirred can redirect it to a native ip6erspan device. The legacy PMTU
-update in ip6erspan_tunnel_xmit() treats that metadata dst as a route.
-Since it has no output device, dst_dev(dst)->mtu dereferences NULL.
+On Wed, Sep 30, 2026 at 11:32:17AM +0530, Srish Srinivasan wrote:
+> Determine the TPM version once in the seal and unseal paths and reuse it
+> when allocating and parsing trusted key options. This avoids redundant TPM
+> version checks.
+> 
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+> Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
+> ---
+>  security/keys/trusted-keys/trusted_tpm1.c | 22 ++++++----------------
+>  1 file changed, 6 insertions(+), 16 deletions(-)
+> 
+> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+> index 3ec078ca3f97..70de4101923f 100644
+> --- a/security/keys/trusted-keys/trusted_tpm1.c
+> +++ b/security/keys/trusted-keys/trusted_tpm1.c
+> @@ -700,7 +700,7 @@ static const match_table_t key_tokens = {
+>  
+>  /* can have zero or more token= options */
+>  static int getoptions(char *c, struct trusted_key_payload *pay,
+> -		      struct trusted_key_options *opt)
+> +		      struct trusted_key_options *opt, int tpm2)
+>  {
+>  	struct trusted_key_tpm *private = opt->private;
+>  	substring_t args[MAX_OPT_ARGS];
+> @@ -712,11 +712,6 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  	unsigned long token_mask = 0;
+>  	unsigned int digest_len;
+>  	int i;
+> -	int tpm2;
+> -
+> -	tpm2 = tpm_is_tpm2(chip);
+> -	if (tpm2 < 0)
+> -		return tpm2;
+>  
+>  	private->hash = tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
+>  
+> @@ -838,15 +833,10 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  	return 0;
+>  }
+>  
+> -static struct trusted_key_options *trusted_options_alloc(void)
+> +static struct trusted_key_options *trusted_options_alloc(int tpm2)
 
-On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0 used
-self-created user and network namespaces to trigger:
+Probably "bool is_tpm2" would be better here. It does not need to be
+tightly coupled with the tristate acquired from tpm_is_tpm2.
 
-  KASAN: null-ptr-deref
-  RIP: ip6erspan_tunnel_xmit+0x10fc/0x2cc0
-  Kernel panic - not syncing: Fatal exception in interrupt
+>  {
+>  	struct trusted_key_tpm *private;
+>  	struct trusted_key_options *options;
+> -	int tpm2;
+> -
+> -	tpm2 = tpm_is_tpm2(chip);
+> -	if (tpm2 < 0)
+> -		return NULL;
+>  
+>  	options = kzalloc_obj(*options);
+>  	if (options) {
+> @@ -877,13 +867,13 @@ static int trusted_tpm_seal(struct trusted_key_payload *p, char *datablob)
+>  	if (tpm2 < 0)
+>  		return tpm2;
+>  
+> -	options = trusted_options_alloc();
+> +	options = trusted_options_alloc(tpm2);
+>  	if (!options)
+>  		return -ENOMEM;
+>  
+>  	private = options->private;
+>  
+> -	ret = getoptions(datablob, p, options);
+> +	ret = getoptions(datablob, p, options, tpm2);
+>  	if (ret < 0)
+>  		return ret;
+>  	dump_options(options);
+> @@ -922,12 +912,12 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+>  	if (tpm2 < 0)
+>  		return tpm2;
+>  
+> -	options = trusted_options_alloc();
+> +	options = trusted_options_alloc(tpm2);
+>  	if (!options)
+>  		return -ENOMEM;
+>  	private = options->private;
+>  
+> -	ret = getoptions(datablob, p, options);
+> +	ret = getoptions(datablob, p, options, tpm2);
+>  	if (ret < 0)
+>  		return ret;
+>  	dump_options(options);
+> -- 
+> 2.53.0
+> 
 
-The update is obsolete. Commit fe1a4ca0a2b7 ("ip6_gre: process toobig
-in a better way") changed IPv6 GRE Too Big handling to update the
-underlay route and removed the equivalent block from __gre6_xmit().
-ip6_tnl_xmit() then propagates the underlay PMTU to the overlay route.
-
-Remove the stale ERSPAN copy and its now-unused dst variable. This
-eliminates the metadata-dst dereference and keeps ERSPAN aligned with
-IPv6 GRE PMTU handling.
-
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
-v2:
-  - Remove the complete obsolete PMTU block and unused dst variable, per
-    Ido Schimmel.
-  - Drop Eric Dumazet's Reviewed-by because the hunk changed.
-  - Use the generic Assisted-by label.
-v1: https://lore.kernel.org/netdev/20260930075320.760328-1-4ncienth@gmail.com/
-
-No new build or VM run was performed for v2. The retained v1 runtime
-tested the same metadata-dst trigger while skipping this block; v2 deletes
-the block as requested in review.
-
-The reproducer is available privately on request and is omitted from this
-public AI-assisted report.
----
- net/ipv6/ip6_gre.c | 7 -------
- 1 file changed, 7 deletions(-)
-
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index e61cb10b50dc9..04f7c70b7320e 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -923,7 +923,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- {
- 	struct ip_tunnel_info *tun_info = NULL;
- 	struct ip6_tnl *t = netdev_priv(dev);
--	struct dst_entry *dst = skb_dst(skb);
- 	IP_TUNNEL_DECLARE_FLAGS(flags) = { };
- 	bool truncate = false;
- 	int encap_limit = -1;
-@@ -1058,12 +1057,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 	gre_build_header(skb, 8, flags, proto, 0,
- 			 htonl(atomic_fetch_inc(&t->o_seqno)));
- 
--	/* TooBig packet may have updated dst->dev's mtu */
--	if (!t->parms.collect_md && dst) {
--		mtu = READ_ONCE(dst_dev(dst)->mtu);
--		if (dst_mtu(dst) > mtu)
--			dst->ops->update_pmtu(dst, NULL, skb, mtu, false);
--	}
- 	err = ip6_tnl_xmit(skb, dev, dsfield, &fl6, encap_limit, &mtu,
- 			   NEXTHDR_GRE);
- 	if (err != 0) {
--- 
-2.55.0
-
+Br, Jarkko
