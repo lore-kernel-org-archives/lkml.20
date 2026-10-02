@@ -1,211 +1,157 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAB32D9797
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F363298CAF
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951062; cv=none; b=iEFeVFn1qLC8xO4NcdgmHqp8G1CJluFzikOvqSt19kvjqzbTzQv6D5cFQJX6dubQCFrdXk8gLL2FmzdiFne8VEDJ0ZLrrQsvVxE4X+lpJ71+bkpat0fxzACG39YiT++avF488wej5Av0HFtijE2JvBlsNVfAG5hEH+itaNMfQFY=
+	t=1790951091; cv=none; b=rb3ZLyoQRv42+cKi8LqDZGWiPPUD1fz1miIvvUg9tAHn4rsOgoa4K4c6GVYjA+grP+KXpZ7+o5rJOEa428t9N30AoEsMR/Ylh+rVUOsVCxU3uBXmHi+iIqzWwSMk2w7VU5vyTp5xCiviPkk0ET5qYsZTcz1VDd/op184GUZJOJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951062; c=relaxed/simple;
-	bh=0bk7kqOQ3ufcT+Mc6z2yj6bXAr9WWnYHEVALJJx1CS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P40sQILWo2hm6TxQ3HO1+P1JeZ2PDUOAWzKtHSXvK5R+iDybtqaYf/JJEwDkjiUSS98SCourhVDskjO3qI2dWciW0zDd5DBnaPm0fVFych8AFsKCB06RAVSUPtqAyrMY+mQtoB3mR1IermNT4wDXq2Eh0YkbmWG/5rOE4FI5KHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0+VEU8jS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t9txnZW9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZncI0ZHD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+fQGFDT3; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790951091; c=relaxed/simple;
+	bh=g7FcE7gRQ5DvcafTEcDaKR+a2nLAMCLq+x2SfKEYHTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=EWJ9b1eA1UlkH9ewv3ivT8ykzlMpobeNUowpqAbyV6SXdli1YvCHOpMjP852t8XtA69CRWOZLWCCxr+z9l1BmoTrABdDWFlg+z+ywhxgz4/jur6HIMnjC4sSsdBypmgw1gxovTt/p3GlJulsC92jkEEwKi25Z+fUnIKgu8nTNf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=e6XSXM45; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XFCz8efZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0+VEU8jS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t9txnZW9";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZncI0ZHD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+fQGFDT3"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A391721E30;
-	Fri,  2 Oct 2026 14:24:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790951054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
-	b=0+VEU8jSmyjNeYNEiuQzuUWs+Xor+pWJ7/9lIa11Y/3iA3Yeb68ijV3BrbJqJwBIVHXL/e
-	5fATdWHS3VLJh6Z82EVwuaqerNpXQtCHq9Zt6lytxulPY2F/PMzZZBfnNlnr5i5ox3vWWD
-	usy1Egflh4+3QKzSu1z8e6sqRBM0a6A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790951054;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
-	b=t9txnZW97H1P+0WE3mw++Fn5Md9J3eG8aDo9pMF1UbgGD6vU9fDmPe1Wuf4tQugYXI9h3A
-	wFwmVJo4I3vsi0CQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790951050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
-	b=ZncI0ZHDiUMhRI+MvCpHAZutzKEYk4L4tWV1IrBnq2tzvGYTtxgYQ9JnKWq8no8WwSavCZ
-	+HWc5kIsj6MTY0/SxuYIP/cl9crT9hqf9fbL3HbAmS7US/F2LPx7T8f7XLK0YUrgDhcwKx
-	v1eza+sO1TN8IL3QmZ5AVDyHv6JRhWM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790951050;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
-	b=+fQGFDT3l6yI58R8SW1Uh0jqxyqqrk/+0fThT58vWcwrmquhurU8wX/hRBTmYrHvPukCjK
-	FWGt/RJ6JVNu4zCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 80A52139A3;
-	Fri,  2 Oct 2026 14:24:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GKeuE4m+v2oeOwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 02 Oct 2026 14:24:09 +0000
-Date: Fri, 2 Oct 2026 15:24:07 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
-	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Pan Deng <pan.deng@intel.com>
-Subject: Re: [PATCH v2] mm/vma: don't remove VMA from rmap if pgoff unchanged
-Message-ID: <ar-9z-Ls26elb5JI@pedro-suse.tail5790ac.ts.net>
-References: <20260930-speed-up-inplace-rmap-v2-1-ac1aa19708aa@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="e6XSXM45";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XFCz8efZ"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692D9ZiC2478299
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 14:24:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:message-id:mime-version:subject:to; s=
+	qcppdkim1; bh=j92JAvCjEE7IzGby2lySO9Ys3n40MTdxIMDeI4JZkMo=; b=e6
+	XSXM45GKfzstKyQHZvb4ezVUfM6Jp8RUFRQoj5e3FFZro6bZl2vrN5OWY0mp2cze
+	CBRQqWf9wWRm2IjguKrZHtOsmPocE0LxMmZUTLMeQ4XB2PK7F7mqHlXyieifDfFt
+	PxrwmyTLmBwNe76YioL5ClLSU603mbOhMMeu2qPV6oRPfOnRxA/9ALnNkInNkywg
+	F3enl/54ZYpEiOAd/OqM7mlu/6YmV1seqgzGwRBEcIGfes97VIC30h6SGUd2sKPB
+	ZLLJt01XvR8fu1Kr5ttjJTSQe0tzvaNO4/R9oE0ZaaOA71FGf7vEe3iQ3ttZ5bgV
+	tZcmufXBSKR2XVNQs3sw==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h256msw7e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:24:49 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-980b637ed69so688573241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790951088; x=1791555888; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j92JAvCjEE7IzGby2lySO9Ys3n40MTdxIMDeI4JZkMo=;
+        b=XFCz8efZpiK7vhfRc/thBxeFYBe3UZZvxuK0wjvAlDOLwYwJzjp4AE/2LvKAPSrhTV
+         DZoFcNtnr6UO/yKdoch4zxzQs3ezXK9taRDJml2sjTo58vQZBcnrU+ufIWey9K4+oN40
+         EOn511INmrHo7JPYeEacVmYTMWYltirRS0WYPm5+l2MYNLZa/wXuTKRZsH0hL7yNDep5
+         iOWP92Wtbg6t/c50Wrl+WZlZG4urrFl1rmt3zYcYSKU7H30LJhqsUy0IEdaRxqpL9dFq
+         xlmb+oytzo+wncvBrRfYdtYiEjUnyvaWRVpl40OtVdZ0zPJ0AdpExUExdb4FsyR4V8ru
+         zyzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790951088; x=1791555888;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j92JAvCjEE7IzGby2lySO9Ys3n40MTdxIMDeI4JZkMo=;
+        b=aq696NzGZKcXpjqLRMd1qJVqIi55nbtTK1KNW0rW3P6BxoQ+TxeesRdo9+UO+xK4x3
+         QTj6/eo/zxBUF+E2YS9vnQ61NDpTUvnOMmouTbeRLsKgpQnR/TsyFPhLLQ4A9LXTEBFY
+         1p/ryClZYGAEuRwAHeLlUmt55mW9/kMmQuWfGvXo4Udav1EUtBR0aCHplpFOLbrpcbC4
+         zbo6tEDlCTFGnG6c5Dm+BsvZHZCZfn/xY77R4pu8iP/OtV/+iUi7utxuvRHTz6ajHyYq
+         pqPLo7taiPChIR3eev8v4auecbyTsWhl4uvfqpBa5JxEIzYoyiK8Gg+Cm/9K6E9UwSKW
+         kpOQ==
+X-Gm-Message-State: AFq9FYLqhtmCeUUFTSraty8WD0Nu2qpOhlMHptTXxWMf2rC4HAwhMOae
+	HDcAE7u7N8XC7f4MJnMeAovHZPbyNLsDz/2+3ieUs6Yz4MyzcZ/WpSijauvT3L4q8odOzrdHmoy
+	RXyZcFhRlqjPzE7TdUhKYDbEqJgcRzxIzCgrjT8w5lZ4grrbzd11DmsK75P4uDci4QHyLBgzr6U
+	+LZg==
+X-Gm-Gg: AYBFou2PU08lsAO6+1L+8rCMmwg0EELfb0QIouU/AAP2xmJx/+sQlokrKWjqZf4011J
+	6E73fJ6F751nyDUrqBk2W+TcGKRlAgIW2qHhSD0TC6feyqdBWDU2tHCUaGkOInsGqb1WbFwxuXF
+	Rzy9Wm2hVd3No7rmtbpaQnoYnCwwN+y/MqPScbLN6+9wh26KUAPTbD9fjS3IYcYTNxnta06w54q
+	u++S0TkW8K7uBiPtSdV1NgpoRh16K4HxO4ykIz2XaLExB+vR5MnFgU3Tq/3mF4EH242L6W0R6LQ
+	nhH4O+x50MObTyjyyC8QXoFTuQJJu223uw3lybYkS2DTr+a9oHIFfWh3BLJWT0u2fxtJceCs7bf
+	Jy4C3pddfi9U3wnbYWSB/y5Y2xVZHaNeIOdzY9BPfOans0A==
+X-Received: by 2002:a05:6102:508a:b0:7a6:d11b:16ea with SMTP id ada2fe7eead31-7c0f4061990mr582686137.6.1790951088444;
+        Fri, 02 Oct 2026 07:24:48 -0700 (PDT)
+X-Received: by 2002:a05:6102:508a:b0:7a6:d11b:16ea with SMTP id ada2fe7eead31-7c0f4061990mr582673137.6.1790951087574;
+        Fri, 02 Oct 2026 07:24:47 -0700 (PDT)
+Received: from rayden (h-79-136-84-34.A175.priv.bahnhof.se. [79.136.84.34])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d873682sm919852a12.10.2026.10.02.07.24.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 07:24:46 -0700 (PDT)
+Date: Fri, 2 Oct 2026 16:24:43 +0200
+From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+To: arm@kernel.org, soc@kernel.org
+Cc: linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org
+Subject: [GIT PULL] OP-TEE fixes for v7.3
+Message-ID: <20261002142443.GA778834@rayden>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260930-speed-up-inplace-rmap-v2-1-ac1aa19708aa@kernel.org>
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,intel.com:email,imap1.dmz-prg2.suse.org:helo,surriel.com:email]
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA1NyBTYWx0ZWRfX4HzoEZfLT2E2
+ Py9CHpz1OTPwsZzg2/En+Cox3RttAWhs9GNg9FSr7w+er1BPKeL6pD11GEHMTjMVPmcV8RQinVs
+ B4FTKonDIwSawB6sy5Iru1hcdfLXLP0=
+X-Proofpoint-ORIG-GUID: B1PUydyiBuvj9o8jZg9mSKzn8MQs3-0m
+X-Authority-Analysis: v=2.4 cv=b80ncdGx c=1 sm=1 tr=0 ts=6abfbeb1 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=dMv3lA6PLLkT9/uWe4YCGw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=pat6Al7auJUlNe7RvHoA:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-GUID: B1PUydyiBuvj9o8jZg9mSKzn8MQs3-0m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA1NyBTYWx0ZWRfX041+7TRHY+mW
+ ZWU/IsTiukc1eJqoT9VtpFuLNO2cZe/aeisZLItSryPI23wUGEYCorqK2zqyzTaUYvhFK049E1a
+ Yj6c/Ja771Uuj3AAhW2Ssyz3ACtbnuxKhWAt8nDuRLv6c8cqgX+4Gfsd7AiTp8rOB8cmjosjW5o
+ QKwZJJQ/MlrjjYTjRGvv/pQAwPFh0M1Nw/jTld9PYE+ret9S8WL6luL7n3akeJ3wzqBuHclLCXm
+ f6fVPJsJ19Z9Gom8Wc3dYhPa+Lqxl8Rlf7RenWa35KArGY4D0HzYPbRtdYp7pOyhskp9Y9KI04A
+ pBa9N4qa1Cj0qNbartusbwFCGypyavhvgNIFoBLJvlMNENHQBDSf2ggKi1mYkS2kvlPweXrpQdJ
+ dS5hwWVGy2fOqEbMJi9sjEaSBK0Z0sfinDsumTXMW3fhYnAY5UHMxFqf3dkJmX36fnuaGKg/1vd
+ u7S3smGCZt3HM/pdXdw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_04,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020057
 
-On Wed, Sep 30, 2026 at 06:53:36PM +0100, Lorenzo Stoakes (ARM) wrote:
-> When updating a VMA, vma_prepare() unconditionally removes it from its rmap
-> interval trees under the rmap lock, and vma_complete() reinserts it before
-> releasing the lock.
-> 
-> This is wholly unnecessary if its page offset (file rmap) or anonymous page
-> offset (anon rmap) is unchanged.
-> 
-> So, track whether they will change in the newly introduced
-> vp->file_pgoff_unchanged and vp->anon_pgoff_unchanged fields, and use them
-> to determine whether to remove the VMA or not.
-> 
-> The rmap lock keeps things safe as no rmap walks can concurrently occur
-> during the operation.
-> 
-> Additionally, some architectures (arm, parisc, nios2, csky) have dcache
-> flush rmap walkers which take only flush_dcache_mmap_lock(), which is
-> likewise held across the operation.
-> 
-> If the VMA remains in the tree, it's necessary to keep the augmented
-> rb_subtree_last field updated to reflect its changed range.
-> 
-> Provide mapping_rmap_tree_[pre, post]_update() and
-> anon_rmap_tree_[pre, post]_update_vma() (replacing the existing logic in
-> the anonymous case) to handle both the changed and unchanged cases.
-> 
-> For the anon rmap case, with CONFIG_DEBUG_VM_RB set, avc->cached_vma_last
-> is also updated when propagating in place.
-> 
-> When performing a VMA shrink or a split where the VMA is the lower one, the
-> page offset cannot change, so set the flags unconditionally in these cases.
-> 
-> When merging VMAs the page offset is unchanged only in some cases, so
-> update init_multi_vma_prep() to set the flags only if the page offsets
-> remain the same.
-> 
-> Finally, while we're here, also update expand_upwards() similarly.
-> 
-> These changes ultimately result in less rmap lock contention.
-> 
-> Pan Deng reported results using the UnixBench/excel benchmark on a 2-socket
-> 192 core, 384 thread x86-64 system for v7.3-rc4 with/without the patch
-> applied:
-> 
-> Execl Throughput, index score:
-> 
->                     avg    %stdev      min        max
->   v7.3-rc4        3511.5     0.44%    3494.5    3543.4
->   + patch         4069.0     0.48%    4047.4    4109.5 (+15.9%)
-> 
-> Average wait on file rmap lock in ms, 5 runs per kernel:
-> 
->                avg      %stdev     min       max
->   v7.3-rc4    9.470     2.91%     9.070     9.820
->   + patch     8.420     3.34%     8.100     8.770 (-11.1%)
-> 
-> Profiling data obtained during the operation highlighted the file rmap lock
-> as the primary source of contention.
-> 
-> Suggested-by: Pan Deng <pan.deng@intel.com>
-> Reviewed-by: Rik van Riel <riel@surriel.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Hello soc maintainers,
 
-Looks great, thanks!
+Please pull these fixes for the OP-TEE driver in the TEE subsystem.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Thanks,
+Jens
 
-<snip>
+The following changes since commit 8d3ae59288f1e7d58d76558a6ee96d533bc5019f:
 
-> index 077e23694143..ad6be42cc65a 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -201,8 +201,15 @@ static void init_multi_vma_prep(struct vma_prepare *vp,
->  	if (vp->file)
->  		vp->mapping = vma->vm_file->f_mapping;
->  
-> -	if (vmg && vmg->skip_vma_uprobe)
-> +	if (!vmg)
-> +		return;
-> +
-> +	if (vmg->skip_vma_uprobe)
->  		vp->skip_vma_uprobe = true;
-> +	if (vma_start_pgoff(vma) == vmg_start_pgoff(vmg))
-> +		vp->file_pgoff_unchanged = true;
-> +	if (vma_start_anon_pgoff(vma) == vmg_start_anon_pgoff(vmg))
-> +		vp->anon_pgoff_unchanged = true;
+  Linux 7.2 (2026-08-16 14:32:26 -0700)
 
-FWIW I kinda would've liked to abstract this out to rmap code, but a quick look
-shows that it is likely to become a header dependency hell if put in rmap.h. Could
-perhaps have been separated out to a function call.
+are available in the Git repository at:
 
-Anyway, your call :) This version already hides most of the ugly to
-interval tree code.
- 
+  git://git.kernel.org/pub/scm/linux/kernel/git/jenswi/linux-tee.git tags/optee-fixes-for-v7.3
 
--- 
-Pedro
+for you to fetch changes up to 3c0d2f1f431c51a11253f28763be723ac782fd7a:
+
+  tee: optee: ffa: support shared memory offsets on large-page kernels (2026-10-02 16:08:05 +0200)
+
+----------------------------------------------------------------
+OP-TEE fixes for v7.3
+
+- Register the TEE devices only once fully initialized
+- Support FF-A shared memory offsets on large-page kernels
+
+----------------------------------------------------------------
+Mahantesh Salimath (1):
+      tee: optee: ffa: support shared memory offsets on large-page kernels
+
+Shao-Fu Chen (1):
+      optee: register TEE devices only once fully initialized
+
+ drivers/tee/optee/ffa_abi.c   | 38 ++++++++++++++++++++++++++------------
+ drivers/tee/optee/optee_msg.h |  4 ++--
+ drivers/tee/optee/smc_abi.c   | 17 ++++++++---------
+ 3 files changed, 36 insertions(+), 23 deletions(-)
