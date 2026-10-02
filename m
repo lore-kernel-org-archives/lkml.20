@@ -1,106 +1,76 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF902343897
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48CC4078DA;
+	Fri,  2 Oct 2026 06:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922840; cv=none; b=IhwG/qjUkggNYTc3t2lQTxGhOVrEr7mvJUWivwAFCuehg3582+N6+Md1uY7Fowk2cMxpkDc5EESWqTtiRUJot0fO53nNt//0asPc9nF0wsKzFwGLkjHMAbq5JFOxZc9DLbMn+xBaWHXAvQ98wyYK3qqc8ceQFQvJEpkqw7HivQ4=
+	t=1790922858; cv=none; b=T8oIosBfQ3e1Yhsa6dQY/bLjA+Qh1VGIpF8PJnaFp1gz2bB3ybxwiFzOw3cpWpJrVIOXBQc1Tw9YgXop1hHLe/GY5dTlw97tzDuzoSfs8pLHkNWdJIDDI3uHly5PTG82FbIyQojjLB6Nr9WKNw/6j0Ln9YgNKzjEG51mT87Q77o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922840; c=relaxed/simple;
-	bh=n+vhcNYcK3pLzBPDgSN4V5syjS7qp3HfP8LbMIW21pc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=CO6FF0pOGR6GlerRdxHjmiBbGiGNznk+6lSTfnfrbUSSZ5lvbyO72CvPUWrRkMSYE2/L01dcn63AM62yp6iKUkCRWs8JKroIvR2xs2s2+jPZmdoXAFRrdPzHqukKtzlfkR7SV5gQhHyBOiQQ6LQu+3m7GEc4ZHKGZWXOTS7GIOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ak7xiozJ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kFzI4Zv0; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790922858; c=relaxed/simple;
+	bh=7UL10Eop3LfZ3K3zEdx7tP6vRDneIf4EHM222sv8oro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EoBS9/26dM1pKB4oQhplH+oYyKUoX41e9HwK1Efs0q+44ItLsNG4KMH/ChgVs5j+n5A9l1bcEjrs1xlsMtPiq5nkIZpEZDJSqfxveauFQhiHyeu90EFp3f+OHQAi3+pxsA73rLaiDxDIPJn0P5I3hgJFdtGTVcmtSd+gR1QCifw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ct4X7ayi; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TQjnkHcs; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ak7xiozJ";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kFzI4Zv0"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790922832; bh=KCJ/X8tI4qft4dfUuItHZf0
-	breCYWmSsRIEsfTBtN6o=; b=ak7xiozJ7R12xydXe2sW2podQvGl+ox4HVXOIjlS2TqcaIB/4j
-	GXSuPKUwWjxgnnIEpVdMmIY37a2Gg4rxnc96a2T6Vqfwr/yuIRHLG4y70AlGdVjW/NuZjuQsoW/
-	I7/RA8GDYzYD8N2QSDdCg0mVGPwzsb9VBqAGCw9PxnO/dsXJm57QOLZadLL2dyFOBWAiN7usOL4
-	R+oqIyY3oyjiEQJBpMBiOkkvPG8RzkbeoEDnX3+MGHRM+p2W/ZevhjZJK2VzVlwo3bAoe/dX6I7
-	hL0L0hDDrZXCbGUmn3vLwveIo9SVQzhQq4jOjy+LrwpNCmWYl+YYNUNJyJWEUy21GPw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790922832; bh=KCJ/X8tI4qft4dfUuItHZf0
-	breCYWmSsRIEsfTBtN6o=; b=kFzI4Zv08sN8/SgD4VejJtNr3JiTwJ/0k+EYhTiN2FoYFK7xcN
-	PbJKjSJ3KZQQp93NAGGdPfZIvKzYobVnpcDQ==;
-Date: Fri, 02 Oct 2026 07:33:52 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: bbnpreetsingh@gmail.com
-CC: akpm@linux-foundation.org, brauner@kernel.org, linux-kernel@vger.kernel.org,
- oleg@redhat.com, ptikhomirov@virtuozzo.com,
- syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
-Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
-In-Reply-To: <20261002012141.7-1-bbnpreetsingh@gmail.com>
-Message-ID: <9FE0894A-D550-435A-954C-9D5CF7061499@mainlining.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ct4X7ayi";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TQjnkHcs"
+Date: Fri, 2 Oct 2026 08:34:07 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790922849;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=e6mAAEYjoRuHHTwbuDb1OVAom9j7pGpLsqxuj8rcemI=;
+	b=ct4X7ayiOC1BZjaUHcGUPueGc22Z8pTMSU5aOZLk+s+0Rhxe89oNT6nBNdn6Bv6f+1Iejd
+	6IjANZi43sYO0gcX4gQfzhNYhgsA52IlcP8/HUO7ZRb4f+HDg6v7Zh6ifBIZUP85+E4H5C
+	E868Je9G1T3JEl2NC6stdi9DwuNU+6bkUzM55yYrxkoPkv3lN6x8aLAb+xZK9lFqj4yjb2
+	j3WNvm57tV6PI3LzKGu3T4VkRta4MOgWOvZzxdM3WTayBNu6XpIoAQXXvGX80CnVHKBc6E
+	mLpvdq4WEyvQigJMjrcfG3iF6mMPGoIyNGKlUVZAtZ1JNryRDSQNSwoeUKRaAg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790922849;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=e6mAAEYjoRuHHTwbuDb1OVAom9j7pGpLsqxuj8rcemI=;
+	b=TQjnkHcsj/Gsw9wKWB+CFEXUuazhSU+ErW4s5cMDN6Gu3IqskJIeTclDuFm7red2M7l1kz
+	clPXJBIZiBDjLFCg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, linux-rt-devel@lists.linux.dev,
+	LKML <linux-kernel@vger.kernel.org>, linux-rt-users@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: Re: [ANNOUNCE] v7.3-rc4-rt1
+Message-ID: <20261002063407.7BkSj6Yk@linutronix.de>
+References: <20260922144152.x2J3_tNz@linutronix.de>
+ <37b02446-1e54-4ea1-9532-11056053de6c@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <37b02446-1e54-4ea1-9532-11056053de6c@linux.ibm.com>
 
-On 2 October 2026 02:21:41 BST, Babanpreet Singh <bbnpreetsingh@gmail.com>
-wrote:
->KCSAN reports pid_alive() reading task->thread_pid while it gets cleared
->under tasklist_lock. The check only cares about NULL, so READ_ONCE() and
->WRITE_ONCE() are enough.
->
->Reported-by: syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=c382ee653fd70f5cf1bb
->Assisted-by: Claude:claude-opus-5-5
-
-Coolio
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
->Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
->---
->Compile tested only (gcc W=1 and the KCSAN instrumentation diff); I
->could not reproduce the race in QEMU.
->
-> include/linux/pid.h | 2 +-
-> kernel/pid.c        | 2 +-
-> 2 files changed, 2 insertions(+), 2 deletions(-)
->
->diff --git a/include/linux/pid.h b/include/linux/pid.h
->index ddaef0bbc8ba3..05a0084dc9537 100644
->--- a/include/linux/pid.h
->+++ b/include/linux/pid.h
->@@ -264,7 +264,7 @@ static inline pid_t task_tgid_nr(struct task_struct *tsk)
->  */
-> static inline int pid_alive(const struct task_struct *p)
-> {
->-	return p->thread_pid != NULL;
->+	return READ_ONCE(p->thread_pid) != NULL;
-> }
+On 2026-10-02 10:14:51 [+0530], Shrikanth Hegde wrote:
+> It is nice to see a little progress has been made atleast.
+> But it was mostly my mistake that I couldn't get time to work on it.
 > 
-> static inline pid_t task_pgrp_nr_ns(struct task_struct *tsk, struct
-> pid_namespace *ns)
->diff --git a/kernel/pid.c b/kernel/pid.c
->index 95b8ccfa82690..adf7216067684 100644
->--- a/kernel/pid.c
->+++ b/kernel/pid.c
->@@ -411,7 +411,7 @@ static void __change_pid(struct pid **pids, struct task_struct *task,
-> 	pid = *pid_ptr;
+> Let me see if we can atleast get these ppc patches upstream.
+> Most seems sensible to me.
 > 
-> 	hlist_del_rcu(&task->pid_links[type]);
->-	*pid_ptr = new;
->+	WRITE_ONCE(*pid_ptr, new);
-> 
-> 	for (tmp = PIDTYPE_MAX; --tmp >= 0; )
-> 		if (pid_has_task(pid, tmp))
->
->base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
->
+> But then would come heavy lifting on function and performance verification.
+> That's a different beast altogether.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Right. I remember the 32bit ports (e300, e500) were okay and from 64bit
+I remember just e6500. I know John has a G4 and he didn't complain :)
+So sadly it is almost just Book-E that I had.
+The recent testing I did was on qemu (and there I hit the one bug I
+reported) so it is just works or !works.
+
+Sebastian
