@@ -1,105 +1,78 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4981E7C02;
-	Fri,  2 Oct 2026 00:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F5A62809;
+	Fri,  2 Oct 2026 00:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790901977; cv=none; b=ulhLs7vJmmWW3f6c3QRwlQ5/NsLJt04aYBKrj7ZXWUYnLJI+qT1t5GOPh3aeZRQiVXkAvVsjS4hm4K5w474MHGSegvv3LlgegwWWhOjHlCGqaqp0S0ZjzwiU8n/8FZiKLNqETw2xikEaPWhcFu2/yzAipp26EFrooFCG6Wnneuw=
+	t=1790902207; cv=none; b=h3Dr9IdsmgvFogM3b803+tzJJQYEjZCzImtrJTwawHZlXRr+qU+hNVNp+g5AM2uSUvzL4O4qCAbfKec+aWaAaHJPA0C9hy+WRxgSv8Ndxu8ENhlX5R3Z8tj4Kcs6Xx5Oy2E0atRL886x3RzE8p0Pv3NSfJr3LFV0aWRRdvtJgr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790901977; c=relaxed/simple;
-	bh=PcC4+i1BIA7mLgzrrNBlxDVyVOgE349YKMBe02sPNW8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PKLVQUZ7fkQp+CI/oN7/3nDk7SbmmaaMNqkHJ8bblz/im0W0x1+HKx/L/b1uBNGgxGEhg2vgoNRHOIebmKzEX3siAotETIT19aLOYhnqIWK0a4N+CCLRu5wQW19YVuEJQclL56GSAP4xw3TXLwBKrg5gAYn9lfgI5UH5EyWOu2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YefgREo1; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790902207; c=relaxed/simple;
+	bh=0el18PbQy0dWcfUZZZWoiwo0LtFtA8CD26TEIKwFuMM=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=T2eqi8NzIiwwICJZpkZ4QZ6TjC+wouGA883wR+IvH9wc63pqPoBS5WNLzqIyZ1vhmPPY2+l44T9W73/SM46CjPR4ZAfDCkjy4clKzZ7cZsJPHEWC6hLT5HUfylLINtsa7I1HkiscCMNJ/8NN24wAVmXMNQ/JlHPCKx+aoO12FUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvzxnuKy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YefgREo1"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7DBB3929;
-	Fri,  2 Oct 2026 02:44:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790901861;
-	bh=PcC4+i1BIA7mLgzrrNBlxDVyVOgE349YKMBe02sPNW8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YefgREo1PTGia+9aO8smHAmVvpXJfyGJ0VXvSMDndPKP7wHMAu8u0RiTPuAbVIyeh
-	 qEuHoM/cNAygh5mt9DlA/B6CIjd7qSb1IxBA5c3u3fKKlsKZHwKR1ttq0gqxrBUpjc
-	 xxvg8S1lbnFr23xFzjc8Br35hx3dPNgxw9kvhuOI=
-Date: Fri, 2 Oct 2026 03:46:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Remove unused active field
-Message-ID: <20261002004613.GB33700@killaraus.ideasonboard.com>
-References: <20260630-uvc-remove-active-v1-1-ed1421b99429@chromium.org>
- <20260630104039.GB3199975@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvzxnuKy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295241F000FF;
+	Fri,  2 Oct 2026 00:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790902206;
+	bh=vhBEnvQsyfC0h+1h1yPjT+rFPAZoF7o3I3ZKMbE2YS4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=jvzxnuKykuPPj6wM+3ifU28bUu0urm3B38iPsHz8QXXxIVteElcCS+v0h93CfTbVp
+	 qKE9PyiHMpXHIusTDAUsx6At1J7R480m+Os9q+aK+MH/FieSGnLorlZ5SSy4vYVCyv
+	 Hs9tC2vY6vh8D+X88kt1S1mJyy0XSAqcroiPD5uxpFVP6bHKajRp2UQkkbrcmWHQ49
+	 KdBxIQGAtLMOY2IFSnqRwW5S47jrKQ/7RnN5/PF2Slg24L6dL7BcgGxT8Q7him2xu0
+	 NagSzxSpwAUcX0PeyqGPK6myTOuAPBcLY3yTAK1lxocPJk9W0zap2mx6+5oDAAINnA
+	 bQ1yOHbTCIv6A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 20E06381197C;
+	Fri,  2 Oct 2026 00:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260630104039.GB3199975@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: octeon_mgmt: kill TX tasklet before freeing
+ rings
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179090220503.3161824.2688708785190122158.git-patchwork-notify@kernel.org>
+Date: Fri, 02 Oct 2026 00:50:05 +0000
+References: <20260928134125.2003-1-getshell@seu.edu.cn>
+In-Reply-To: <20260928134125.2003-1-getshell@seu.edu.cn>
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, vadim.fedorenko@linux.dev,
+ kory.maincent@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn
 
-On Tue, Jun 30, 2026 at 01:40:39PM +0300, Laurent Pinchart wrote:
-> On Tue, Jun 30, 2026 at 10:28:50AM +0000, Ricardo Ribalda wrote:
-> > The active field in struct uvc_streaming is not used anymore, drop it.
-> 
-> Easy one, I like that :-)
-> 
-> > Reported-by: Hans de Goede <hansg@kernel.org>
-> > Closes: https://lore.kernel.org/linux-media/20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org/T/#m3078f0d5fd71435b5cfacaa5c99f23a446db581f
-> > Fixes: c93d73c9c2cf ("media: uvcvideo: Use vb2 ioctl and fop helpers")
+Hello:
 
-CI has flagged that this requires a Cc: stable. As I don't think there's
-a need to backport this, I'll drop the Fixes tag.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+On Mon, 28 Sep 2026 21:41:25 +0800 you wrote:
+> The interrupt handler schedules tx_clean_tasklet, which dereferences the
+> private state and TX ring. free_irq() prevents new scheduling but does
+> not wait for a tasklet that was already queued.
 > 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Kill the tasklet after freeing the interrupt and before purging and
+> freeing the DMA rings.
 > 
-> > ---
-> >  drivers/media/usb/uvc/uvc_video.c | 2 --
-> >  drivers/media/usb/uvc/uvcvideo.h  | 1 -
-> >  2 files changed, 3 deletions(-)
-> > 
-> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> > index fc3536a4399f..0167f0f8e846 100644
-> > --- a/drivers/media/usb/uvc/uvc_video.c
-> > +++ b/drivers/media/usb/uvc/uvc_video.c
-> > @@ -2229,8 +2229,6 @@ int uvc_video_init(struct uvc_streaming *stream)
-> >  		return -EINVAL;
-> >  	}
-> >  
-> > -	atomic_set(&stream->active, 0);
-> > -
-> >  	/*
-> >  	 * Alternate setting 0 should be the default, yet the XBox Live Vision
-> >  	 * Cam (and possibly other devices) crash or otherwise misbehave if
-> > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> > index b6bcee4a222f..021fd9af78b5 100644
-> > --- a/drivers/media/usb/uvc/uvcvideo.h
-> > +++ b/drivers/media/usb/uvc/uvcvideo.h
-> > @@ -456,7 +456,6 @@ struct uvc_streaming {
-> >  	struct list_head list;
-> >  	struct uvc_device *dev;
-> >  	struct uvc_video_chain *chain;
-> > -	atomic_t active;
-> >  
-> >  	struct usb_interface *intf;
-> >  	int intfnum;
-> > 
-> > ---
-> > base-commit: 253355887a1ab0ac8f33b356c7c1140eee554d18
-> > change-id: 20260630-uvc-remove-active-8843181bcbb4
+> [...]
 
+Here is the summary with links:
+  - [net] net: octeon_mgmt: kill TX tasklet before freeing rings
+    https://git.kernel.org/netdev/net-next/c/c47befeabc33
+
+You are awesome, thank you!
 -- 
-Regards,
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Laurent Pinchart
+
