@@ -1,137 +1,128 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E3222423A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1787E22423A;
+	Fri,  2 Oct 2026 01:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790903837; cv=none; b=YSl6TGe96J/BZXNbh8XGj0KrtRX3Yrxb0mSu6MUKLXDSZuIJq04KXaLG8apYXsVuaPzn8JSFLE8PtFpUy9iY93+nUfZC5eyWKmwnwlgsoyqb1rXsF/rHC8QNSga0lf7+Ny7zq7c3BPgPGghyM5wbHgqEmHiciWZjuXBvT8lxnws=
+	t=1790903920; cv=none; b=dVjBTEVHCZKLQ5Tv3CFm3nqEaAlr6SSsGYI2B9f18zO2kUUp+6lHaklQC/YH6YrGudntFhN4F/jNRbVvAO6L0P/m+KoILSFJzv0W2ZXoAyNMhjpucm5w6DtWtV37NgNeW6Wz+aRB/WxrICAJgvgUoE6zpIDOgP6uSXS8JNKGyeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790903837; c=relaxed/simple;
-	bh=EUQpMp+HuBObEek7Ult8oxgw73nO1dLMx1OkhJCL4sk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jTXgWr2j8UAMZxIO6l6Nhj69DAIrTCi+ZfM8TZ9+Y1kQsjHTdj/xt2qxXS+/gOrR8clI3yBTkIowjj+2VfSJmJzSx220xLFFbhQZwmiz4IeKrad8vJo4uuEKaruLfo9GrTuzMJX8JLeAAmDu0eu3SjUhy1f9WamfhkFJSm/Q4tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p8vPwnXj; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790903920; c=relaxed/simple;
+	bh=DimN0iZw0iBl0ePgNYyHdsW2Ta+q9KYFkw6gX5WiHQQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tD13hQz0nDWDSZWCfFv7pg5+4Owjj7K+wdp8Dqwn/0PRgZbtv2v5aB0e21r4rJWl3O0DW1AfEDBJz/tvg1xRrTVaWd9BMKUcpMBpmBQNuIYAlyu+Qfj+NnVD3INaKiHPIHnG3u6/X6DC2ObmhR2uAENfxF1aez2ehCbxkl055aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Q/lPxyRs; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p8vPwnXj"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso4212608a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 18:17:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790903836; x=1791508636; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Oq9HxvdSXBzAJf/nprhhibhJaAVoDfA7xrnhjl8vR10=;
-        b=p8vPwnXjPrkSFLPbf/KpCraKLe+44qdSEOEaBDSmP/P5a2i3b65lJNs+W7vMzw0fB5
-         wA/OQyUY3rvmlRUx0AQg8cek7rC1VrVD96WU6KV+3aOMbvUMvhXqptKNuKhkCg3KZab2
-         LWCcFWRFUiwYslVQ+RbfIopeAhAgkXAhyNaru73RGC5+QD02rlMLYbg9Jn9Bxnqgt8ZU
-         IKMybKWVkfjiY+lgTI9PESiiKA47uVGhyaJh5t7beyZLL8UCyVuX8bsw4qUiUgCYXNmK
-         a/Ut4vV012L1nTOIf/X7iFtomZ6NyuxpXKXZL+BfeqMpuqvDersRohoJeUcAWJ2T7yRi
-         33bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790903836; x=1791508636;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oq9HxvdSXBzAJf/nprhhibhJaAVoDfA7xrnhjl8vR10=;
-        b=g8Y3dTkdXR8a2/HCuMkNqqQT75yFLi/jTMl8RotG+x9lnp/AZarKRIPMJnA6Nwd3c6
-         /Kikpn8E2G0/9koUji7vdk6txlSNNhlBHyQcNUOXiG4XPpfV8PAfjyLLr18kmqsD3ySH
-         aPjmSF2Z9fIQeU5+Nj7IgGGD18gto21PB9A/JaksI0WI0VHgBUe40eSSrH2ZJZxKOX3Z
-         pVTlk09TxCljHi/hQdMYfFJgNo5X6Uz3dpJmmESIIM1LopsS8GCDB20381yUL6SKJstq
-         MyB67x+vkk/0Y75yArctRTUvkK3e5pdsT/3y2iYS/0CRVlT4DSn+7BJQfXC9tMFxGnEf
-         +kjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0z77Za5hgkmhw2BWo2snVZXiDLIX7UJiz4R5EeCEqv5kTy8oYEDsQhjaVImpbVexXsufNaGmGKt+TOt4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBUypkvWoLh88xxOHb08dBwkIo7cE/e6Qytidg5880uumU73RD
-	3lHjVFpHZIVhyXoq+5/9dQ/9ItybuZHQa27RZhzICphjZWGdvN6vkNgY
-X-Gm-Gg: AYBFou31cHqL3+5HAotqGwfIoPIPwI1b+acS0o+sXW2lZl5YPGl+s6ymuYoCyKKeCpM
-	HmOvldWkdu314Qy1xg2j4pytfBy67PXtPXYqp9CJUBijDMESLhSprI6dk5x4VPFr2yLf6fa4og0
-	XWXaqoSLz+ogn0HBNYPBLTzzkjW6mCHJHOQOtI/bIPsiTC3JZY2FgB8iSiM5o6EO3BRLVi51oK6
-	ktOx0mLfUL+OuVyrXRK2SHMQhzXuYkDKWxIHz4VAjmFra+H8qy4XDl+KO1KrKqtIqgD2zlWgFRX
-	gE8pr/zJ4YCXRcXiwHq+oUsguZxGvwENGd+Mb2KX5CHv5H4hIMMfS8C0NocI5y2Cy5ejDC4j8K4
-	kGQJ3yD//9OnXgBIkX4Ik+AhRtIHgsZTldqe5M9ZpE7TqXOOmhnNcywJZie+3Nw44qpAieuKB+7
-	VH/lOGR46B30U98vA97e27ReAEm3SsgLywA4DR7HuwreIqEV1m4a9bRjJEj6/AauscneVKTQ==
-X-Received: by 2002:a17:90b:52:b0:3a4:97ea:f0da with SMTP id 98e67ed59e1d1-3a6cec1421emr1084529a91.17.1790903835882;
-        Thu, 01 Oct 2026 18:17:15 -0700 (PDT)
-Received: from kdev.. ([108.180.130.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ccc92646sm1564066a91.1.2026.10.01.18.17.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 18:17:15 -0700 (PDT)
-From: Babanpreet Singh <bbnpreetsingh@gmail.com>
-To: Paul Moore <paul@paul-moore.com>,
-	Eric Paris <eparis@redhat.com>
-Cc: audit@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Babanpreet Singh <bbnpreetsingh@gmail.com>,
-	syzbot+39b8fea0641107a1ccee@syzkaller.appspotmail.com
-Subject: [PATCH] audit: annotate the lockless read of the audit control lock owner
-Date: Fri,  2 Oct 2026 01:17:12 +0000
-Message-ID: <20261002011712.7-1-bbnpreetsingh@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Q/lPxyRs"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 856E5227;
+	Fri,  2 Oct 2026 03:16:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790903804;
+	bh=DimN0iZw0iBl0ePgNYyHdsW2Ta+q9KYFkw6gX5WiHQQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Q/lPxyRsVP918+X5+y+4p3sOId+LimE6+DD1AYbicfge5XpEqkAuaORARDmksFNha
+	 r92eby6wdoGRtgBnVIJpXyHhZThDsloigUUJIv1fiK/6o31QH/q36t52Hhwkzw4dSY
+	 j1P3fJFHLLMb6HvhpB6NIn640lnkubvcGzWur+2Q=
+Date: Fri, 2 Oct 2026 04:18:35 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: raoxu <raoxu@uniontech.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
+Message-ID: <20261002011835.GA93319@killaraus.ideasonboard.com>
+References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
+ <20261001231856.GB9061@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261001231856.GB9061@killaraus.ideasonboard.com>
 
-audit_ctl_owner_current() reads the lock owner without taking the lock
-and KCSAN complains about it. Only the current task can store itself as
-owner, so the check can't give a wrong answer. Mark the accesses with
-READ_ONCE() and WRITE_ONCE().
+On Fri, Oct 02, 2026 at 02:18:56AM +0300, Laurent Pinchart wrote:
+> On Thu, Aug 13, 2026 at 03:46:32PM +0800, raoxu wrote:
+> > From: Xu Rao <raoxu@uniontech.com>
+> > 
+> > usb_fill_int_urb() takes an endpoint interval value and stores the
+> > period expected by usb_submit_urb() in urb->interval. For high-speed
+> > and SuperSpeed interrupt endpoints, it converts the logarithmic
+> > descriptor encoding to the corresponding microframe period.
+> > 
+> > The UVC status URB is initialized once in uvc_status_init(), including
+> > the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
+> > that report bInterval using the old full-speed convention. The first
+> > submission therefore carries the intended interval.
+> > 
+> > Both status resubmit paths, however, overwrite urb->interval with the
+> > raw endpoint bInterval before submitting the same URB again. On
+> > high-speed and SuperSpeed devices this mixes the descriptor encoding
+> > with the already converted URB interval representation. For devices
+> > using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
+> > quirk adjustment after the first status completion, making the
+> > workaround effective only for the initial submission.
+> > 
+> > This has been easy to miss because the initial status submission is
+> > correct, full-speed interrupt endpoints do not have the same
+> > logarithmic encoding mismatch, and the status endpoint carries
+> > relatively infrequent control and streaming notifications rather than
+> > the video payload itself. The problem only appears after the status URB
+> > has completed and is resubmitted, and the externally visible effect
+> > also depends on how the host controller handles the resulting period.
+> > 
+> > Do not restore bInterval when resubmitting the status URB. Reuse the
+> > interval established by usb_fill_int_urb() and usb_submit_urb(), which
+> > also preserves the quirk-adjusted value. No additional state or
+> > interval conversion is needed because the same URB is being reused.
+> > 
+> 
+> This commit message is also very long and has a large amount of
+> irrelevant, when not borderline incorrect, information. Is this missing
+> an Assisted-by tag ?
+> 
+> > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
 
-Reported-by: syzbot+39b8fea0641107a1ccee@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=39b8fea0641107a1ccee
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
----
-Paul, you looked at this race in 2022 and asked whether READ_ONCE()
-was worth it and what it would cost:
-https://lore.kernel.org/all/CAHC9VhTXNPWBDRoPcz-Jw=f+NNAEhxbh-ySc56CUd-ZbuboW5w@mail.gmail.com/
-Compile tested only (gcc and the KCSAN instrumentation diff); I could
-not reproduce the race in QEMU.
+Also, how is stable supposed to make sense of this ?
 
- kernel/audit.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> > ---
+> >  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
+> >  drivers/media/usb/uvc/uvc_status.c | 1 -
+> >  2 files changed, 2 deletions(-)
+> > 
+> > diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> > index 3ca108b83f1d..6552f541aa0d 100644
+> > --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> > +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> > @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
+> >  		return;
+> > 
+> >  	/* Resubmit the URB. */
+> > -	w->urb->interval = dev->int_ep->desc.bInterval;
+> >  	ret = usb_submit_urb(w->urb, GFP_KERNEL);
+> >  	if (ret < 0)
+> >  		dev_err(&dev->intf->dev,
+> > diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
+> > index b632cf5e3fe9..680c6c7f4ad7 100644
+> > --- a/drivers/media/usb/uvc/uvc_status.c
+> > +++ b/drivers/media/usb/uvc/uvc_status.c
+> > @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
+> >  	}
+> > 
+> >  	/* Resubmit the URB. */
+> > -	urb->interval = dev->int_ep->desc.bInterval;
+> >  	ret = usb_submit_urb(urb, GFP_ATOMIC);
+> >  	if (ret < 0)
+> >  		dev_err(&dev->intf->dev,
 
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 631d6d4a23cfd..f8c43ac6d5b82 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -247,7 +247,7 @@ int auditd_test_task(struct task_struct *task)
- void audit_ctl_lock(void)
- {
- 	mutex_lock(&audit_cmd_mutex.lock);
--	audit_cmd_mutex.owner = current;
-+	WRITE_ONCE(audit_cmd_mutex.owner, current);
- }
- 
- /**
-@@ -255,7 +255,7 @@ void audit_ctl_lock(void)
-  */
- void audit_ctl_unlock(void)
- {
--	audit_cmd_mutex.owner = NULL;
-+	WRITE_ONCE(audit_cmd_mutex.owner, NULL);
- 	mutex_unlock(&audit_cmd_mutex.lock);
- }
- 
-@@ -268,7 +268,12 @@ void audit_ctl_unlock(void)
-  */
- static bool audit_ctl_owner_current(void)
- {
--	return (current == audit_cmd_mutex.owner);
-+	/*
-+	 * Lockless read: the owner can only equal current if current set
-+	 * it, so another task changing the owner concurrently can never
-+	 * make this return the wrong answer.
-+	 */
-+	return (current == READ_ONCE(audit_cmd_mutex.owner));
- }
- 
- /**
-
-base-commit: a8bdcf944504980635c2069b4a4cfcf677b09bbb
 -- 
-2.43.0
+Regards,
 
+Laurent Pinchart
