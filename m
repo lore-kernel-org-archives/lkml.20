@@ -1,55 +1,35 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9F231E106
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F202C21DF;
+	Fri,  2 Oct 2026 16:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790959132; cv=none; b=Lr8YNNWjpUMHFF2HthHo6wrLAjWq9RTCbsoPVWPAbvQV/qvg96VfmQrF+E0+g0PRAZRcK19ptZzbmAroI8ViwelAxO3vRuzIhgs/3eFYLX16TYcxh+kyITHwmB1uR2ybYN5/Kzf+7wE7mOzaQvS50giq1VOPamw9/Y/gPs/WI4o=
+	t=1790959209; cv=none; b=XAvDRvab0RSpOwHN4rjb9Ovl6r8Ja3Q9lQUHRff5A56kLQguTAsLMvv8pGvi+9Yos7A6Ns1Jtwap9Mc3eIADmLN2sTGdOtImRKHEDGNEywkkAz5dc2pRion1TXQ4j3i/sHDix4+wgcmwxElGZrQ/zhkhreZYvtcWJjminF5mVi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790959132; c=relaxed/simple;
-	bh=9No86Q/EoD6DqTlvKzNVCMnr5bckUCGKftXvO+mgS3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JQxWGFCB5ER7yCZK7SJANsqBtHT48umiGfStbv6DvKAEdVckXVu6A2NX3ag74y6YSvcwfGq6u0eivHpngZgOxMoyp4OOYpqMdXuG6xF101przoi7tBoPKmjV9CH7zEsKj8dPgJgeHs51wzXl27EisCMajvr8pnfostoOAG/7paQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AW3NKN7T; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790959209; c=relaxed/simple;
+	bh=GWRXLuApdOXNBbZoTAAUxFcvXzBXm9BOLVab+OzuOrk=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=jSYlMIByD4BZlD6ngubxIYVzbMLmAWMlfeDlKS1zgX+V7wSY5YYN4ih+gF5jdT4BQ4YhQE4wVPaH1h3gJr9DWAYbOyQJ4gu43ckYMS4/E5ja2kuG3n93wcZugQGI36PWWF6vPqU2uQUt1HsRVxOxNxa72HbXVs2ZailAtFyuODc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z62xCQqp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AW3NKN7T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790959130;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VoBn/EcwwjiTLNGiwDYqt+D4uMPJqPchOJxh3hBQgk0=;
-	b=AW3NKN7TJ9smM8zd8jeEY7bedfyY9rs9MOUnm1fgaQMXjM2aT5tkZeB1kvSeuQuYUZ2ZNz
-	jFQoDBpa0uLZvNRwk7r4euRiTnt77HEABeAvdc+jR/Z91nsSfX4TcwpYT0cl6U38Pt9ElL
-	W7EtkCGKbhKPcy+b2HR5q9Yu+9yHpwU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-574-8E69i-PfO3KSfTx5CYfZkg-1; Fri,
- 02 Oct 2026 12:38:48 -0400
-X-MC-Unique: 8E69i-PfO3KSfTx5CYfZkg-1
-X-Mimecast-MFC-AGG-ID: 8E69i-PfO3KSfTx5CYfZkg_1790959127
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EFFF91800BE2;
-	Fri,  2 Oct 2026 16:38:46 +0000 (UTC)
-Received: from tglozar-thinkpadt14gen5.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2035C433;
-	Fri,  2 Oct 2026 16:38:44 +0000 (UTC)
-From: Tomas Glozar <tglozar@redhat.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Crystal Wood <crwood@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-trace-kernel <linux-trace-kernel@vger.kernel.org>,
-	Tomas Glozar <tglozar@redhat.com>
-Subject: [GIT PULL] RTLA changes for 7.4
-Date: Fri,  2 Oct 2026 18:37:57 +0200
-Message-ID: <20261002163757.3078413-1-tglozar@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z62xCQqp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1A91F000FF;
+	Fri,  2 Oct 2026 16:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790959207;
+	bh=MODovUH2EPungsOx04HErzxq0+Lkt9i34L4BQl/yKd4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Z62xCQqpgbeG6UWiAfvR02PjcmAbbXiBOIweUSpjSbLyJKuS3/aP5L0umC8vm9npG
+	 vfaSVo8DVBN10W7fh9xyJUEcOn32zzSpEwNU7GFMr4FubGHbHhSyf+DA53vpuDuiKs
+	 XPqnHwuAUi0Az50jLkXLw3iP3OisR2Y80GR2SZQEQclZA3Wa7yPZj01PN8LtqP9B2y
+	 uX5iX8HDLYaVvevNroiY2nczsHMTw27O26eI8QdE+8VSVqSf9HNZadw2gO8jXEYse8
+	 8ZxO/hV4/EjKjGRfV3Xu+q6clpfK+jlWEIzdTD+T0h3U5EngpGMTVnsjHHTPeaaHcV
+	 quyhH//mQ253w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7734A3811A65;
+	Fri,  2 Oct 2026 16:40:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,97 +37,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Subject: Re: [PATCH] Bluetooth: btintel_pcie: use managed IRQ teardown
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179095920628.3497173.5666642957609869868.git-patchwork-notify@kernel.org>
+Date: Fri, 02 Oct 2026 16:40:06 +0000
+References: <20260930074453.2944525-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260930074453.2944525-1-runyu.xiao@seu.edu.cn>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, tedd.an@intel.com,
+ kiran.k@intel.com, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
 
-Steven,
+Hello:
 
-The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+On Wed, 30 Sep 2026 15:44:53 +0800 you wrote:
+> The PCIe driver registers its MSI-X handlers with
+> devm_request_threaded_irq(), but remove() uses free_irq() directly. The
+> devres actions then retain registrations and attempt to release them again
+> during device cleanup.
+> 
+> Use devm_free_irq() for the remove path and for already registered vectors
+> when a later setup request fails. This removes the managed resource at the
+> same time as the IRQ is released and keeps MSI-X vector teardown ordered
+> after IRQ ownership is gone.
+> 
+> [...]
 
-are available in the Git repository at:
+Here is the summary with links:
+  - Bluetooth: btintel_pcie: use managed IRQ teardown
+    https://git.kernel.org/bluetooth/bluetooth-next/c/25016fe8c1ed
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/tglozar/linux.git tags/rtla-v7.4
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-for you to fetch changes up to 5ddc4497508a628b6c18653a0d5208edc6228aaf:
-
-  rtla: Simplify osnoise tracer option setting code (2026-09-30 13:26:57 +0200)
-
-----------------------------------------------------------------
-RTLA patches for 7.4
-
-- Test actions in absence of threshold
-
-Cover the case which regressed in the past in tests.
-
-- More robust CPU count detection
-
-Parse /sys/devices/system/cpu/possible directly instead of going through
-libc for CPU count and sanity check against any mismatch with the number
-reported by tracefs / osnoise.
-
-- Add option to record IPI count in osnoise top
-
-In addition to counting IRQs, add an option to enable counting IPIs
-targetting the measurement CPU to the rtla-osnoise-top tool.
-
-- Improve runtime test usability
-
-Catch up with increased complexity of runtime tests with better defaults
-and more options available to the developer running the tests.
-
-- Simplify osnoise tracer option setting code
-
-Deduplicate osnoise tracer option setting code with macros to make it
-less error-prone and to make it easier to add new tracer options in
-the future.
-
-Signed-off-by: Tomas Glozar <tglozar@redhat.com>
-
-----------------------------------------------------------------
-Crystal Wood (3):
-      rtla/tests: Use absolute path for $RTLA
-      rtla/tests: Show the command line for failing tests
-      rtla/tests: Add $SUBTESTS and $STOPONFAIL
-
-Tomas Glozar (7):
-      rtla/tests: Test actions in absence of threshold
-      rtla: Replace get_nprocs_conf() with sysfs possible cpus
-      rtla: Discard trace entries with cpu >= nr_cpus
-      rtla: Abort on nr_cpus mismatch with tracer
-      rtla/tests: Add unit test for cpu_list_iterate()
-      rtla/tests: Add unit test for get_max_cpu_from_list()
-      rtla: Simplify osnoise tracer option setting code
-
-Valentin Schneider (8):
-      rtla/osnoise: Add IPI tracking cmdline option
-      rtla/osnoise: Record IPI count in osnoise top
-      rtla/osnoise: Leverage IPI event filters when tracing a subset of CPUs
-      rtla/osnoise: Allow IPI filters to gracefully fail
-      rtla: Make struct trace_events double linked
-      rtla: Enable and disable events in the user-defined order
-      rtla: Unconditionally clean any pre-existing filters for user-provided events
-      rtla/osnoise: Trace IPI events when recording a trace file
-
- Documentation/tools/rtla/common_options.txt   |    9 +-
- Documentation/tools/rtla/rtla-osnoise-top.rst |    4 +
- tools/tracing/rtla/src/cli.c                  |    1 +
- tools/tracing/rtla/src/cli_p.h                |    7 +-
- tools/tracing/rtla/src/common.c               |   31 +-
- tools/tracing/rtla/src/common.h               |  102 +-
- tools/tracing/rtla/src/osnoise.c              | 1291 ++++++++++---------------
- tools/tracing/rtla/src/osnoise.h              |   38 +-
- tools/tracing/rtla/src/osnoise_hist.c         |    1 +
- tools/tracing/rtla/src/osnoise_top.c          |  156 ++-
- tools/tracing/rtla/src/timerlat_hist.c        |    1 +
- tools/tracing/rtla/src/timerlat_top.c         |    1 +
- tools/tracing/rtla/src/trace.c                |   35 +-
- tools/tracing/rtla/src/trace.h                |    2 +
- tools/tracing/rtla/src/utils.c                |  181 +++-
- tools/tracing/rtla/src/utils.h                |    6 +
- tools/tracing/rtla/tests/engine.sh            |   23 +-
- tools/tracing/rtla/tests/osnoise.t            |    2 +
- tools/tracing/rtla/tests/timerlat.t           |    2 +
- tools/tracing/rtla/tests/unit/utils.c         |   71 ++
- 20 files changed, 1049 insertions(+), 915 deletions(-)
 
