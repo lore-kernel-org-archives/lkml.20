@@ -1,167 +1,97 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED9830D401
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C4D424655;
+	Fri,  2 Oct 2026 20:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973028; cv=none; b=VuIhUE6DwpfXu2nlSUnSz0OQSB+IxmIfA2k7t8QbLfugUyUw0G4H6qE78cmgvBYKL6yZSL9GJb0XJAGeQe55uCmg/lxPMue0Zf4j4suUb5rGvai6766offTupDHJuTlhwPk5J1+blkms30kIWKGjRBz1W7phXqkpSipyMwvmyBw=
+	t=1790973058; cv=none; b=cIDl4QDDjBNm5sgHWmSFU03F5wFNajZQ1hUjWjca11EQ+zQcI3wCioETCeGQUFqV7dMsbILiGlJqMbF/IO7pGfp2NaEQRKyDTF7Pr2HYRUk4RpqHzZOnNQR4Ph/Np7hlR7EfzROjytYG0uXZ9yJ3RxA3omiMgF2zqQaUDLSQLSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973028; c=relaxed/simple;
-	bh=Skg4vR4Y5bBodaqf5L8n2jNcUdE2TBSMs439IgFKqPM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=BgqJW11p5h31kwnOTJ1wlyNzjvMgPjz3/3Dyn0+zUV6QkyjGtuUTlEWdSPjCEem35eq7CghY/lMqR1YuAomBifXTmNY0LfVAbfbmXsA2ussHun82idOo1YjP8CRjBrhzA/CyHDJPlnKQJcBlfm4CaWqB1uG0OZ0qh3akl57bM4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4eb0b989f0eso469656b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:30:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790973023; x=1791577823;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6wUuB592+kJPng/iRiJB4kmOBdQLCgtSi2/SJcT8bYA=;
-        b=x6Sur5674Z14sWWoPEmppv4LhpBi8zRfjL69K4tu1zS/PPyVBAPKG50H8DpIYKtrJw
-         j0Rw8uG8WYZG0a3tlziGsugNxam5QU+Wl06WkM9AiBZwTyL5XAxYXgQ1mUqUor18DMQO
-         wKGLWxM8zCaYLo0JRjEufQEqItsnM0SnJCVpa6HyxB0ZbS3zhf2YMD1oh2pnIJ6VB3F+
-         UbsMvTZQe/BmvgPCi70DRwTOYuHzi4mC7JlG7RKFMcixnCZYDVRhamDKkEtcTQthyEu7
-         4QsVWR9MvC3qe0x0je5/MxVkVvoAtP2zlZvmnfiiOyAMmseDa8f94TaoQ5GXwZ1VOTJY
-         6Qhg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2bN/bmaA4DPSxQQ6pCX2oYBwILFO2T+ycYxY0980pIp4gEiAgJnWpjNhmG9ExepHQrePz1fcXiL+eGDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiGlF6SHuMp3y8AGqJS7E+LJcLTUnp8a3au0PiUs2o8fuMKM0B
-	nSEjvYl2Q1g6CrIZlQ5J4m1tdFMz2Wm9mcx0DvHNuvQ9HEtrKG0mCBXC48aOdkHujDw+cF8Nx54
-	aV+YaaK4PWl4yknVEQYwIjDQBJpNqjwYKGskYeEzrmxBJDAyW2sB4ozL7+Ks=
+	s=arc-20240116; t=1790973058; c=relaxed/simple;
+	bh=Uyo2TrSeXDlUHQS1CGR0Bgo59RRrDPOcyOuuDynewT8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OwIr8G1Pr/YyImOiBpsldySV/W7HzUfwv85IrIctW0xcNNRCV6LAj7KNgjlmPPD7hNPXvsTXOfVXyJtqNz7IcEDAnn6j+6NkFKj1j/295lTjljGjcVhNyrjGrICQMVP62Le5a4Hho0sLAj2BN2fmWU/RBW3RIukiCyjy7acX6lU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=fSaQ5SB2; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="fSaQ5SB2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=Uyo2TrSeXDlUHQS1CGR0Bgo59RRrDPOcyOuuDynewT8=;
+	t=1790973048; x=1792182648; b=fSaQ5SB2xIMCrMGGJ6Sg5T60qWP1d5UgRJdUCvcxWY+M/4B
+	TzDz/1HWXGlhZDRUA0UjFV6uKH/BoD1/42aE6aLB7KckBCAt3Z7ca9zzjGoaLhHK65AJ9sMQgaZ27
+	2jEG1M4bsntJMYnlJAZrwzXV1Fm5K4EFRoTRF4RHbJxDaWm9oR0y0X9XJk18lqzjFzRV3gaWOZYTW
+	hWwdtdMwh28d3authh3tT/BYQC/+Z21t8RI2bcYgz2owOioQ3wn29tYZI2mp2udMTDygxH99ZLFp6
+	+Xy/Ie1ofOaBXjydlfsd7OhjOUnvZWixCKVcByh5JsiYiHmjTIGsHMg17NMJdJBg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xCjtt-00000001nXW-1sZC;
+	Fri, 02 Oct 2026 22:30:37 +0200
+Message-ID: <649cc93941ed71c60d08151d8d13570f5e5319ef.camel@sipsolutions.net>
+Subject: Re: [PATCH net v3] wifi: nl80211: document sta-info nested attribute
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Hilal Rahmatullah <hilalrahmatullah11@gmail.com>, "David S. Miller"
+	 <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+	 <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Donald Hunter
+	 <donald.hunter@gmail.com>, "open list:NETWORKING [GENERAL]"
+	 <netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Date: Fri, 02 Oct 2026 22:30:36 +0200
+In-Reply-To: <20261002132500.0b71889b@kernel.org>
+References: <20260816101216.20947-1-hilalrahmatullah11@gmail.com>
+		<20260817084713.7a7694d6@kernel.org>
+		<6ae7fd5e4d24bdeb0f0df057f767107e08567640.camel@sipsolutions.net>
+		<7fc3e2730ebea674abf750a39c53d6ee307a907e.camel@sipsolutions.net>
+	 <20261002132500.0b71889b@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bd4:b0:4d6:9133:cfee with SMTP id
- 5614622812f47-4f30caa6c35mr5991865b6e.51.1790973023528; Fri, 02 Oct 2026
- 13:30:23 -0700 (PDT)
-Date: Fri, 02 Oct 2026 13:30:23 -0700
-In-Reply-To: <20261001202234.3794060-1-seanjc@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0145f.34119e79.2f92f3.0003.GAE@google.com>
-Subject: [syzbot ci] Re: KVM: Fix+harden against bad uaccess using dying VM
-From: syzbot ci <syzbot+ci69d67bf25886d3bd@syzkaller.appspotmail.com>
-To: jmattson@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, npiggin@gmail.com, 
-	pbonzini@redhat.com, seanjc@google.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-malware-bazaar: not-scanned
 
-syzbot ci has tested the following series
+On Fri, 2026-10-02 at 13:25 -0700, Jakub Kicinski wrote:
+> >=20
+> > There's a license issue - we have ISC license on nl80211.h now, but
+> > Donald and Hilal picked GPL/syscall/BSD-3 for the yaml and of course
+>=20
+> That license is required for all netlink specs, FWIW
+> It's totally my fault if it's wrong, I just didn't want it to be
+> _just_ GPL since that would propagate to use space code which
+> we want to be permissive about. The spec is effectively a uAPI
+> description it should be public domain in my non-layer mind.
 
-[v2] KVM: Fix+harden against bad uaccess using dying VM
-https://lore.kernel.org/all/20261001202234.3794060-1-seanjc@google.com
-* [PATCH v2 01/10] KVM: Reject user accesses to guest memory if current->mm != kvm->mm
-* [PATCH v2 02/10] KVM: PPC: Flush/zap all memslots on kvm_arch_flush_shadow_all()
-* [PATCH v2 03/10] KVM: x86: Unmap VMAs for KVM-internal memslots when the memslot is freed
-* [PATCH v2 04/10] KVM: Disallow setting memslots when the VM is being destroyed
-* [PATCH v2 05/10] KVM: Destroy memslots immediately after mmu_notifiers are unregistered
-* [PATCH v2 06/10] KVM: WARN if KVM attempts to do guest-related uaccess with "wrong" process
-* [PATCH v2 07/10] KVM: WARN and reject guest-based uaccess if VM is dying
-* [PATCH v2 08/10] KVM: nVMX: Don't flush shadow VMCS12 to guest memory during vCPU teardown
-* [PATCH v2 09/10] KVM: nVMX: Don't try to load eVMCS12 page when the VM is dying
-* [PATCH v2 10/10] KVM: Pre-check uaccesses in KVM's APIs to read/write guest memory
+Oh, sure. But BSD-3 isn't (advertising clause), and people copy at least
+the nl80211.h file around to other projects. And the syscall exception
+doesn't really talk about distributing that code. So presumably going
+from ISC to this would require people to update even their binary
+distribution's docs (where it's built in) ...
 
-and found the following issue:
-WARNING in __kvm_read_guest_page
+> > that carries over to the generated .h file, not sure if that's an issue
+> > for downstream projects but might be with advertising clause? Could we
+> > change it if I'm adding >10k new lines from nl80211.h? :)
+> >=20
+> > I can post it but ... is it worth it? Not even sure it would
+> > significantly simplify our lives, although the generated header file
+> > with documentation is much more regular in that it always has the type,
+> > etc. (which is what Jouni was asking about)
+>=20
+> Well, I certainly don't care so my choice would be not to have to review
+> the code gen changes (:
 
-Full report is available here:
-https://ci.syzbot.org/series/5f8da53a-c584-4176-abcb-7a29eb02e4c4
+Fair :)
 
-***
+I'm not really sure it gives _that_ much benefit ... I guess I'll mull
+it over and maybe run it by some wifi people.
 
-WARNING in __kvm_read_guest_page
+Thanks :)
 
-tree:      kvm-next
-URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
-base:      d4b7fb647204f0c81dfeae2d1a708e4d858e0c94
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/4d4c10d0-f56c-448f-8782-ad4dab8f46d0/config
-syz repro: https://ci.syzbot.org/findings/dc5f6c42-c3ab-41b0-9384-1a15798e4820/syz_repro
-
-------------[ cut here ]------------
-!__kvm_can_do_uaccess(kvm)
-WARNING: ./include/linux/kvm_host.h:1360 at kvm_can_do_uaccess include/linux/kvm_host.h:1360 [inline], CPU#1: syz.1.18/5858
-WARNING: ./include/linux/kvm_host.h:1360 at kvm_is_guest_access_ok virt/kvm/kvm_main.c:3216 [inline], CPU#1: syz.1.18/5858
-WARNING: ./include/linux/kvm_host.h:1360 at __kvm_read_guest_page+0x38e/0x440 virt/kvm/kvm_main.c:3226, CPU#1: syz.1.18/5858
-Modules linked in:
-CPU: 1 UID: 0 PID: 5858 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:kvm_can_do_uaccess include/linux/kvm_host.h:1360 [inline]
-RIP: 0010:kvm_is_guest_access_ok virt/kvm/kvm_main.c:3216 [inline]
-RIP: 0010:__kvm_read_guest_page+0x38e/0x440 virt/kvm/kvm_main.c:3226
-Code: f2 ff ff ff 0f 44 d8 31 ff e8 5e a4 89 00 89 d8 48 83 c4 30 5b 41 5c 41 5d 41 5e 41 5f 5d e9 09 ac a8 0a cc e8 83 9e 89 00 90 <0f> 0b 90 bb f2 ff ff ff eb da e8 73 9e 89 00 90 0f 0b 90 bb f2 ff
-RSP: 0018:ffffc90003157778 EFLAGS: 00010293
-RAX: ffffffff813e2d22 RBX: 0000000000000000 RCX: ffff888174382580
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 1ffff1102217d82a R08: ffff888110bee183 R09: 1ffff1102217dc30
-R10: dffffc0000000000 R11: ffffed102217dc31 R12: ffff888110bee180
-R13: ffff888174382b40 R14: 1ffff1102217dc30 R15: 0000000000000000
-FS:  000055557c0db500(0000) GS:ffff8882a8cda000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f458dfeb840 CR3: 000000016c9d0000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- kvm_vcpu_read_guest+0x64/0x140 virt/kvm/kvm_main.c:3284
- nested_vmx_load_msr+0x133/0x4d0 arch/x86/kvm/vmx/nested.c:1107
- load_vmcs12_host_state+0x10ca/0x1e20 arch/x86/kvm/vmx/nested.c:4930
- __nested_vmx_vmexit+0x1800/0x2d10 arch/x86/kvm/vmx/nested.c:5206
- nested_vmx_vmexit arch/x86/kvm/vmx/nested.h:46 [inline]
- vmx_leave_nested arch/x86/kvm/vmx/nested.c:6891 [inline]
- nested_vmx_free_vcpu+0x8e/0xd0 arch/x86/kvm/vmx/nested.c:389
- vmx_vcpu_free+0x109/0x3e0 arch/x86/kvm/vmx/vmx.c:7653
- kvm_arch_vcpu_destroy+0x154/0x380 arch/x86/kvm/x86.c:9463
- kvm_vcpu_destroy virt/kvm/kvm_main.c:469 [inline]
- kvm_destroy_vcpus+0x123/0x380 virt/kvm/kvm_main.c:489
- kvm_arch_destroy_vm+0x55/0x120 arch/x86/kvm/x86.c:10014
- kvm_destroy_vm virt/kvm/kvm_main.c:1326 [inline]
- kvm_put_kvm+0x93a/0xc80 virt/kvm/kvm_main.c:1359
- kvm_vm_release+0x43/0x50 virt/kvm/kvm_main.c:1382
- __fput+0x418/0xa50 fs/file_table.c:512
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f7fec79e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff0d2850c8 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007f7feca27da0 RCX: 00007f7fec79e159
-RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
-RBP: 00007f7feca27da0 R08: 00007f7feca26038 R09: 0000000000000000
-R10: 000000000003fdb8 R11: 0000000000000246 R12: 000000000000ec04
-R13: 00007f7feca25fac R14: 000000000000e938 R15: 00007fff0d2851d0
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+johannes
