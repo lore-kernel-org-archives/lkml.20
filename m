@@ -1,63 +1,65 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A323D88F0
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:14:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4B13DDDB1
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968498; cv=none; b=IB0xfjyYwb7IGvAXHf4PPhVeu7DCEFdj0CBJNncTbFDNdQGh6De7XfW54AdagA2prD0VcavmlyA03iTqyYopn+MmT7Wkm1wTWSxRD/SNJyrxmwxvBYCDNObxXXvgRPJ3cXNoFMn+PJWCERtXdzC6Vj+mDmXmqC2P/OlIkwkDJI0=
+	t=1790968500; cv=none; b=rWH0fUk35+tOLr5qmeKQ1UljPMO98nAqpqJJTNFP9gyNMjJnLKCEPOJec3BrjEgndHW9gZxsaJSfrulVb+Y5VMv6ECpc/8XoTobRQz8hwHTx+T6mEEsI/7v0+1FqLbrQ5RqC5l+plKlqrGO7F6KGvLAoY2IwiYD3WYwZjgnMbpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968498; c=relaxed/simple;
-	bh=eHsLpEW3L5my6AzeGFTT3RBfCv34bN1BS8YV5Ip/vaU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fAMJG+W7Xfm+lGmgETCy53zlXbuXniRgCE5VDp4n1LDk6Fvu4MvCagn7wsSQFKvWv06z0/yWtDLfckKgznPuKqgh6cxfC3GPQ2vpHT+qVGdQ8Yg5E/dBAtJSodFgUy4OVSW231UL85kJM3w6YkL6ZwHgaHf2hxcf2CYkt9RpQrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B1uzrkb4; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790968500; c=relaxed/simple;
+	bh=yqu0W8E+JLUmWU2sPfqM/fFt2I9mJI5YYcnPHwwb1xg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=P+1WaWxMHjOs8FZchrBqrEEml3KCC1helkU7IAp3lK3HvA9ZC6HlVZcr2uOPPG7EdrfoNnz5S7pj7aPqBd4GTaDntlCKJtiNwJF7q8qvJBV31WdAgDaGmeppPDG01CDPHfb17NCm55SQrctj2bDAe4Ad+Wi4Bjs1cmmGPTrDjSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRYI+L8a; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B1uzrkb4"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0280d4f56so1388575e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:14:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRYI+L8a"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso1075965e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:14:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790968494; x=1791573294; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yXT1p1XHemTBGXdiXf7n1rJKfg3H1kTVdAIHj2f2cLA=;
-        b=B1uzrkb4Mj7fp+f+ubsIitDaGp1YTrxCxh502YfO/1vrNySD3e5NvYrD2t/5YNQDHV
-         aa0o9td/rNSeCOHsXpcZpdGHOq9TEyeWWli29RwILGDUgED8H7p9mDAqqLVvEYORb+TV
-         Hu03exdVpL8SVgOFpnQ2r6EdbCivu4NmjtLbtN7brt/p8SCLTL5TJyZ5ygqtbYITZvXT
-         tmZdzlgiYvBvlyFkNlIdybSNEVTN77AQduJz3Elia7LC+TLKCpoxAxjvX08Kime3YgsU
-         HCODmIr2hy1sbs8cOuK847zXmd7pUxRunftuEXzu037r60jhF4YmR3UGqip8lDF7BkN3
-         zYJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790968494; x=1791573294;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790968497; x=1791573297; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yXT1p1XHemTBGXdiXf7n1rJKfg3H1kTVdAIHj2f2cLA=;
-        b=u/Ip0wqFe0WNfO2oSYJRl04TJO4yIz5hNOJHCOVg/fe5Qm7P9qSZMOSUFdTeWOzKp0
-         j4EWLgaEFZ+PnRj4owrtAQSdQwK4NG2r/TL9HWHYF3o3+HHwaw4jkW04uCLI8uQkxLNN
-         4CBqp8TEeHEaed1etRGFPWp8lpW8dGBYSvDPxDcPvmfC4X869942MjgX+7qeX0KZ3FOs
-         khOTSF1PuHF06zZrJcvl5qr/Vh/7wCYY+q5+FpKHcuNHhW8UUYUA02VvKXTdFQ6ciP9m
-         2IBskqUoPlYS8Y2kZ0b5LkvK8dRnFsaRDYjB7YDyxqwulCc/MO/XzAc+YmVjSmXdBKyR
-         rm1A==
-X-Forwarded-Encrypted: i=1; AKwUvByHkftuOmDKBcCbf31CuISt/37pVLEIkxewtQd71KxvvyVVrGdXvzt+mmxiMPzLb5fkbJKiQfuoNbXrMPE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nW2doYOd13zU5fft2TONa80qaVQcWW3BkW6qYBQzm+W1A8n+GI
-	5TjpfpRPUgF9mb1HWLodPw9pteShiY0PegXIdBoQZ29RKN+MUM5feMUT
-X-Gm-Gg: AYBFou2GQU0/CDGKsOkgZn3ER8QvvLfCe+JBH9flCcfewHt81qzow2DcjPJo/Ui2/8I
-	m9FLBs2mX3tdQt7c3y55Qqc2aysTjjK43b/kwvHqOTzekL2w2ykDquLYrqI/gjTEZPV50wWHAMk
-	wvKfg+sVUOh/ZHrnSFHCX4tgfF2V0r4IBg5QKj8fXCUduj2zy9cKssAnzPjy13aEuuMBIVGuHoj
-	2U9Va/jIBELLuXFTQS0CM6QfeYpgzi8HMvkS7HytOz1OxGemv+2LZfbJaYekshNjat8U5IyI+rL
-	bVgjipHtzo8HK7VxTNDX7eUmq3M7BfxVEQlgl3u4nl/R52zkFqoAucWyjXgLYr3IOWVPT2cslp2
-	8Z9SqYcdNGOdaJdwQv/RQyanU4lBX6pKwZBBWaFLfnSfTzSSzBopU3lBLqogdxsbYy/ZrBAxm+J
-	anJX4emDSQNNFTaIXvphwYYTQzutJmE97Kt9mv8dgUODWiYrRYhLVx6WN0gWFT1s+wtG5u5ZC9O
-	CLaIF3hyrHrf5KrOU19iSqfM3b8OvbhOE73sQ3UX7U1ZNG22rRC
-X-Received: by 2002:a05:600c:4ecf:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-4a02769ceefmr68921655e9.24.1790968493618;
-        Fri, 02 Oct 2026 12:14:53 -0700 (PDT)
+        bh=EHDfIhR43H/l4HG+cxZyORYRgcmwUz+JxG5IW7upW5U=;
+        b=hRYI+L8aVfHuUitr5OiG3/3JiB2Z79D9yo00CKBYp6yLuZFdIlDPPF8Jo+dCV0VoeP
+         cylDel2b8esaOe48zs6nO6yVQBpAScK42OTCUOlZIDCEbTv0ZUyI1MN3jNPNI9uni6TE
+         87EzKIikOhtntDagOsLjGcLBWasyA5auEb7l9FcxzPp6tIglHEf3zwJGFy0lh2ywzn/n
+         rkaU8wHguN644nq7qrTKA5dgRxEiV1LNY//zqVGbuZ5jtAV9WG0fmebZM5pRnUHwUPlp
+         uTv+PfYXHV0EUoipDm45g+NLsIJbtNNBYUNSC6MUxfAYreNmU0HSZLkW6NH51UTiobSU
+         1iag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790968497; x=1791573297;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EHDfIhR43H/l4HG+cxZyORYRgcmwUz+JxG5IW7upW5U=;
+        b=l2NxZ/CDLq7CpYT0MLxlYedFyJALBTWGee2pjz6cA2O56b8BUNSVfi8vfBLrWSkDeq
+         5ukP7gUN+hxmhXKVXXmVAE17TESqiWAaCL8W5c/I9paflP0KtLEiPHplNwThbFP9NI3H
+         GEsSM73pgO7ZMaoNyNkFDnCcljtMP7jyQMwHaxN/DQQ70g08Zm7uuEyN1eGq6WZWRzaF
+         QulZVMnALXqA4M6kuG3fJ1hmiUhg0C9NtIm5Bt7bDeCyARRQHbmPCdA7BYuGoA6r9UUR
+         vCMPzTkjIfiX+Tl6gU5pQcrJolSGMhvrnKFSU15GkCG7ceKw3iAlb9kR1cq8wuBejUDY
+         /KRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxnW9PUnLAnEQ0Himwx0wPo1bGFze4EhS8UhOSNNBZlo0xzdG8pZkTzxA9bUJ8u7QzaCnoCM3r0K20rEK0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrJWbdNLyB30VLX+HEYNzGR3mjwSyRG3+wh0xEizn1PpnFo9g8
+	uITLGoiiAoxgjmMvVsLeUXofdeY0qglivOT9HJ4TzNKC6wrKAhXE8iVo
+X-Gm-Gg: AYBFou17UQMW377x6sXJQqheuwHomGibsNdiNtG8INu1+NH2rBfd8lFyyNKbeczm5z7
+	5hVMCEidnzEjd/vra6kJVYkJNrUB5wmJwTgKelYFoRDnGx3+KhaH2mZLJETE6P5SpTVFFLI7SE3
+	Bv6Irr2htRUDluvnOM2QtAzfiiJikBQX3mVPtGyXWaEzamlUsF8SUXY1FsomNpZNKLZ5jNa/BUi
+	62wm6rahQ2GBSzF3t3kMXcK/CEUxQzamYkxKjBLgmV8yv6NiZy0jDh/6J1qP4sFYPuXbg9e1zTY
+	fAfGPyJ7nhouRhjJVeLthnS3hcHSveRHJRnPaCAOnpBh4RVVoacLVcJArc20jTj0rO8y//LeTTv
+	OFHOTcHlh+BCyIEmH7SO7IOevSi1zrru2saWwymvAPNN2jDdyMpo38RShEQNT/vDGGozJBqJhA6
+	nzPZtq39kyFOUSz+gFNAbsQ2k1uy7g5iSy3V5epBHPZlEnckwx8qbAwnGMKdM03jtQt3QjkGlOs
+	ZAcTQuZt9uefM4xMopA0Thqj9jJbtMDQ8ZTB0CXJb3SuV0i09YO
+X-Received: by 2002:a05:600c:870f:b0:49f:fc4f:9efb with SMTP id 5b1f17b1804b1-4a02753fd01mr65221875e9.7.1790968496795;
+        Fri, 02 Oct 2026 12:14:56 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm81151145e9.4.2026.10.02.12.14.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm81151145e9.4.2026.10.02.12.14.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:14:53 -0700 (PDT)
+        Fri, 02 Oct 2026 12:14:56 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: Jorge Lopez <jorge.lopez2@hp.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -66,11 +68,14 @@ Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
 	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v4 0/9] platform/x86: hp-bioscfg: buffer handling fixes
-Date: Sat,  3 Oct 2026 00:14:25 +0500
-Message-ID: <20261002191434.58529-1-meatuni001@gmail.com>
+	Muhammad Bilal <meatuni001@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/9] platform/x86: hp-bioscfg: fix OOB reads in hp_get_string_from_buffer()
+Date: Sat,  3 Oct 2026 00:14:26 +0500
+Message-ID: <20261002191434.58529-2-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002191434.58529-1-meatuni001@gmail.com>
+References: <20261002191434.58529-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,46 +85,94 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Buffer handling fixes for hp-bioscfg.
+The escape prescan loop uses 'size' as both its bound and its
+accumulator, so each escape character found extends the loop and
+reads past the end of src[].
 
-Patches 1-2 fix hp_get_string_from_buffer(), 3-5 the password
-handling, 6 the sysfs store paths, 7-9 SPM and integer parsing.
+Use the original u16 count as the loop bound. Also include the 2-byte
+length prefix in the bounds check, pass the u16 count instead of the
+byte count to utf16s_to_utf8s(), and advance the buffer by the bytes
+actually consumed instead of the escape-inflated count.
 
-Changes in v4:
- - Add patches 4-9
+Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7).
 
+Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+Cc: stable@vger.kernel.org
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
 Changes in v3:
- - Drop Suggested-by: Andy Shevchenko from patch 2, tidy its includes
-   and declarations (Andy)
- - Return -E2BIG instead of -ERANGE in patch 3 (Andy)
- - Drop a blank line in the declarations in patch 1 (Andy)
+ - Drop a blank line in the declarations (Andy)
+ - Mention the buffer advance in the changelog
 
 Changes in v2:
- - Split the hp_get_string_from_buffer() fix in two (Ilpo)
- - Drop the lib/string_helpers patch, use @only of string_escape_mem()
-   instead (Andy)
- - Add patch 3
+ - Split the bounds and prescan fix out of the conversion rewrite (Ilpo)
 
-Muhammad Bilal (9):
-  platform/x86: hp-bioscfg: fix OOB reads in hp_get_string_from_buffer()
-  platform/x86: hp-bioscfg: fix non-ASCII truncation in
-    hp_get_string_from_buffer()
-  platform/x86: hp-bioscfg: return -E2BIG from validate_password_input()
-  platform/x86: hp-bioscfg: allow clearing current_password
-  platform/x86: hp-bioscfg: fix off-by-one in password length check
-  platform/x86: hp-bioscfg: fix heap OOB with embedded NUL in store
-    paths
-  platform/x86: hp-bioscfg: validate SPM state returned by firmware
-  platform/x86: hp-bioscfg: NUL-terminate the SPM auth token
-  platform/x86: hp-bioscfg: fix oops on short integer attribute buffer
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 25 +++++++++++---------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
 
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c  | 79 ++++++-------------
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.h  |  2 +-
- .../x86/hp/hp-bioscfg/int-attributes.c        |  7 +-
- .../x86/hp/hp-bioscfg/passwdobj-attributes.c  | 20 +++--
- .../x86/hp/hp-bioscfg/spmobj-attributes.c     |  8 +-
- 5 files changed, 51 insertions(+), 65 deletions(-)
-
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 309634c1c..74a90867e 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -54,8 +54,8 @@ int hp_get_integer_from_buffer(u8 **buffer, u32 *buffer_size, u32 *integer)
+ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_size)
+ {
+ 	u16 *src = (u16 *)*buffer;
++	u16 orig_size;
+ 	u16 src_size;
+-
+ 	u16 size;
+ 	int i;
+ 	int conv_dst_size;
+@@ -63,17 +63,20 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 	if (*buffer_size < sizeof(u16))
+ 		return -EINVAL;
+ 
+-	src_size = *(src++);
+-	/* size value in u16 chars */
+-	size = src_size / sizeof(u16);
++	src_size = *src;
+ 
+-	/* Ensure there is enough space remaining to read and convert
+-	 * the string
++	/* Ensure there is enough space remaining for the length prefix
++	 * just read plus the string data it describes.
+ 	 */
+-	if (*buffer_size < src_size)
++	if (*buffer_size < sizeof(u16) + src_size)
+ 		return -EINVAL;
+ 
+-	for (i = 0; i < size; i++)
++	src++;
++	/* size value in u16 chars */
++	orig_size = src_size / sizeof(u16);
++	size = orig_size;
++
++	for (i = 0; i < orig_size; i++)
+ 		if (src[i] == '\\' ||
+ 		    src[i] == '\r' ||
+ 		    src[i] == '\n' ||
+@@ -91,7 +94,7 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 	/*
+ 	 * convert from UTF-16 unicode to ASCII
+ 	 */
+-	utf16s_to_utf8s(src, src_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
++	utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
+ 	dst[conv_dst_size] = 0;
+ 
+ 	for (i = 0; i < conv_dst_size; i++) {
+@@ -117,8 +120,8 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 		src++;
+ 	}
+ 
+-	*buffer = (u8 *)src;
+-	*buffer_size -= size * sizeof(u16);
++	*buffer += sizeof(u16) + src_size;
++	*buffer_size -= sizeof(u16) + src_size;
+ 
+ 	return size;
+ }
 -- 
 2.43.0
 
