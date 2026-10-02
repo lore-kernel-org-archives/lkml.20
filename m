@@ -1,198 +1,228 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCB14F646E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7749A4F68AB
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956014; cv=none; b=lv6QjJnTrCYh/Frldx+EVYMhP40E3GP0Lvt9h71G6anqyH6RAA61Nfpa2WA5qNmxdd+uUw5tMHq6VcouM21Q7EgsN+sbLvJBqWC9oA5auRHcp4Fn0TWv3eEd3VpfnO5Xk7sfdJyczZp6N05RZZgT+JPTiQhF/U2R53hGOjPafxM=
+	t=1790956016; cv=none; b=YuaqiuKWNLznKDBqaQvcPrkNOGvAaU8mrjpUPbyiLDWPyHDymaXC0tlQ7FksveWU7pSh3K13a6wHQjySfJRQEDH+Z8F6AnT/TjAtee3zVFWU9c3IrvpP9STce3rHSKWMeaoaJAzs84NH9FN+cFj50w4uK+f7hQcFb4l1dtRRVZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956014; c=relaxed/simple;
-	bh=LOP2gJ3M0Jz8R6JJtWos6vyUnc93B/qBgdAo8VjRyU4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ac6r5t+5YhCLsMC8j7ltAmwrUNsYhDt+6OBzKeSEnHSwwqh4glu9FVvjGt2dLpF25k1ui/UAIY7RyfsuHHMS/25IY1oCbpLM7TjdbAxSbOGyat0leuObwValCBpijw6Wzcclk2TadVe9Jc2zkMpNZiU2U1vv9apLFKylkYa4bnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WpbOv4DO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fxgIytHt; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790956016; c=relaxed/simple;
+	bh=8LDacuZaZ8swaQleVc5TrMEGU/bkjmMF4l7WP1XooQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lEqk5tnlo/UnPObSGeui//v1CMF81cHSz/Tem1HliFdZ8x6d8n+41GqanHRVBbXyR/BedkiT6Uv1r47oSrqHUz8n71BhmLYdA6bdw7wLfmnNDOhS543Pz3h1JL0fUEYtnYq4Xx4goGGbBxrSN0KIHUGcl8IZ3I1zpuLQyAD+VeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3Qe+LA/; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WpbOv4DO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fxgIytHt"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692FHXZG897143
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 15:46:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AlHl3/yI0hICwJfrflSFifdNgfZhAObnwqH9eosbbk8=; b=WpbOv4DOBUOmRU2a
-	TWBfVGMWS/qdVjtKLJBCVKt0kGROReNk1YZHDjtbvTKP7/Hhg2nZPY5u4wwkFhwG
-	puuzATICBjdungJlpuo0kunz1eifTAEr/RQK6Goq0MX3YjtfvKK65QO7K3MvTu0N
-	M2iU2AdnL4EPtcUD7RyeV0pOTbmmOnMJsPtYsUPYLjZcaBp4UHtNJIh+Ak9aeUsw
-	Bv7tTm4jT+y4GnR1tI0URxkNDHV9NrQ0w3Z9HCz+RNXAuLuqINHU18mnf5Jb62yc
-	3VI7NTmYFXYgEOUNhZYaXZ3TTNYkfCelKF9nYUstpvAn0RxPPNJWPi0X3wMJaSLY
-	gTlZpQ==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1v03466d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:46:52 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-9806756ea40so5573671241.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:46:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3Qe+LA/"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2e2bfc2540cso21326175ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:46:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790956011; x=1791560811; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AlHl3/yI0hICwJfrflSFifdNgfZhAObnwqH9eosbbk8=;
-        b=fxgIytHtQnijK9jQsIhGbdxbtjDtskz9i7bRUpfKXwWRUR57vvuYL0I66A/bqB/eRn
-         X4BnFXTUSKrcpSfmBYzTBztMWVgTe7C2CM4TCqwgowoS8pcNE+1k6yPt4pV3HRQJTVgu
-         jaFJxL+bLuWBhpzopdqgbUEFpj9HLL8sYHFPwWz2gkJy+s/vQf9oFl8NytUL8ENX5lGx
-         eFB8jHkOdyKcvZRtnYicrRo/2DWxgD+1EnAr8aTeeq2+wBqtQJ/0pzclEMeTAgVBk6iq
-         b9Ko/AouWDrDBNtcNMBLr9lUTpRQsZt41eQ69YiKBCEb/SIQhpeZKLMcXoYvLCEda/qs
-         h71g==
+        d=gmail.com; s=20251104; t=1790956014; x=1791560814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pka2rlWSvPrqgR6Hzv68haUoZpXlk1pZ3oLkuapj80Q=;
+        b=m3Qe+LA/Hn5wZMrIlRjPTaTU05S6PplJPmpkD8QguNapBjC7JSy2H9Wz1NoqONvOeF
+         yJ8imfW1zqTgX/NdiKNqhjcdTE/mTnjEhMcFBp0fHV+SQJUAMxXFIxpnUT11JCgPojrl
+         tFqsjsPI0menzWSVvRc0goLp1We0zp8qnzVxTtjiE9SlP/cYC+VoXx4F2glOu1P0ahua
+         oh3tftASlclGnn/4NJKY/LAKhX7Ou8HE4xJqrQwu1cb4Hg6d16KmWy6zRNrHofG6p9hT
+         zLs5vxGnSFWWlSYe7s2hVdpCl5eXaET2W5xqqtgE3bosklIjdZhblWpLyxuJdVg3Uhb6
+         Vdmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790956011; x=1791560811;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AlHl3/yI0hICwJfrflSFifdNgfZhAObnwqH9eosbbk8=;
-        b=KARmnoe7zDeabWfV09Ewli+TWYVcrqP9GYZdwcItE5EXcdSo3knTlTwrzxjodon8sU
-         +bszLtLdaBWCRaOpYDZ8a3TWOtvCVHhnlkqOpH15mla94dHVUkmAO+i5K5D3IC2LBFO1
-         sxp3+cZdbkw50X/XQFZ7EEGkDDKzqlQfTf9pipYuSHFARuQcB1Z03EqjYi27AJLoIzlx
-         8vDuvtFVtvOjeeudX94c8na6EsU/CXdLVkP2Z0pzSzjV+W14u3S0u+x6v35D4zwP2f+R
-         AYuLw9W4iFyXKGw67S8+Srg5GR5UBLgq3NDbjLH6wkOTQbFmiXX0UX0N9N/mBsjjAShD
-         8Yvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMR0DE3cOO9W6Z5skpZHq4Mrw5mPSB6fSC96P2mpEiMRHRgoPQvqnwcz1/oiBhpI95ppLKbdpAboMMUX0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYPNPesGkE3P2CDm8E6ZHzbXyDo5nGYJ6slY8/JUOqyOgRtXco
-	bE+Y4/Z4+FqI86g6nZn6FHmgWDiiERbk6vwchbtFrTJiQd4FQrkh6RTEEpE6OizvNJcsXAPnrXD
-	/oiyNa/dI5nldslNCVJaDydtFPD3yrFQ5WvICi9tBBWOXfYA///Kj6vtW6AEgReR+h1g=
-X-Gm-Gg: AYBFou3r6IQMkPiIjFbqUGIGGutT12AUqO7awLG0dFR2Y8e6L7yIC8ZO69SVTGnulPf
-	jRb99+TgV+4brxUDXmc9mMDxYQv2BTwu+RYWup+ZbBZ1P1K5kObWkp7h0AeBgjfOX6JuITWPzmJ
-	zTND/TDdBF+7tXHAq0uIwSsE2xx/Aic1krGPxTV1Wny9GbOsbSUqyRA+rs4FJCEDu8SPj2TgMQB
-	d8Z1o0xmTezFGw236rrdc/Y3oqf+RpAHfBXExF+8sGxEeqj36vDgD7/YCXIAkUmqa1mD0S8NrqU
-	VA/5tenfVCBGarrRyzbjixkuXN+nwEy/FnPnvvB1Nw8npOmS8MLyEUBwntro5ljWh9DWLtA80Ax
-	T/fDnTN3zeQzVXyfOPJ9rEzKqqkBJPBn+b8jNOMeZmJlcDe0lRDqI/B3nDvoDZ4GAGpcmZ7LpBH
-	IZHMSE23p9UnQv
-X-Received: by 2002:a05:6102:3714:b0:7a8:15b9:dd34 with SMTP id ada2fe7eead31-7c0f220aac5mr1002252137.2.1790956011444;
-        Fri, 02 Oct 2026 08:46:51 -0700 (PDT)
-X-Received: by 2002:a05:6102:3714:b0:7a8:15b9:dd34 with SMTP id ada2fe7eead31-7c0f220aac5mr1002232137.2.1790956010942;
-        Fri, 02 Oct 2026 08:46:50 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e333e4csm11331071fa.40.2026.10.02.08.46.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:46:49 -0700 (PDT)
-Date: Fri, 2 Oct 2026 18:46:47 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] media: iris: add VPU5x hardware ops
-Message-ID: <bwyfzkqaqcn47zd2g3pdajczk7gq6rmll5sqb2d75qgesy3kwy@mu4xukntrfin>
-References: <20260923-add_iris_for_hawi-v2-0-016ec3d24b79@oss.qualcomm.com>
- <20260923-add_iris_for_hawi-v2-3-016ec3d24b79@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1790956014; x=1791560814;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pka2rlWSvPrqgR6Hzv68haUoZpXlk1pZ3oLkuapj80Q=;
+        b=l3x0khGfGtl76nhoJTp3ZpQ/SEFfxFRNV07FthLxWZXBTGVzsIuzEOBYylGfAwPwaI
+         M+H/QdfzIm6z4nCuTHelTGjtRqJ+Xm3UwqelbbZawOt8KZtjGCX0vF5tnMmKtw2uMEjh
+         9l5Vm5/6O67sUB+lxJb1G/RBs99xSbrrXJ8VWs+tOQgL7NNVZ72QU4lGoveryQkfs5+v
+         mQ2tTDr7u2jjhfFB6kTJcbRSaa78iorVUNUcXRQ8Qfm89U5L7gwTELOXC04DT/8bj33o
+         c5RjbuZ9HkL11y8O1JEN0Bvxwpccjfum0+yAor8OqXFuXY6p30CgQvmX4WeGHi3EmHL6
+         aPcg==
+X-Forwarded-Encrypted: i=1; AKwUvBwrAGCSAJZgwUrDdGKvRLn4Rhdc6gR+W6fkafjvcuZdVN4xt4dMvMgWCzahf34wY/VnL7xbQ/aMcxYLgNc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAFPfh2/ClO/1GaxUOshIJafYK51dXbRMwGZw5iqk6ov+YcFmB
+	6CU2Cfp8TPuPnTz0NMDuAxsFyicvRo5v6Nx3FybZW0mtZgOaZY0zR7ad
+X-Gm-Gg: AYBFou3sn8rN2FaDTBy2URdlfTkL0fh8Si6jV6YtCVRW+xLHXqKjkXWNNAyVTWIdMbN
+	mwq/1fYchcvBS1btu7N7XAEtXE0hBHRTOpV0iqYcdrsXJRmu8XEfHT/riq6RXfrnredlK/aTZgv
+	AcJZi7yBL3Ws50wd80F/ML/xEWSs1qx/kBBP1o/pnWzWye7Tw1HA7ZFc7GEAcqcH0DZj/msuiVj
+	3CfcoHHED/+72FdLdwkLQtQ7Scii6WXtLPSmnhZ/PjyZ4C+ZtqCFNDkqJeJHqkp4A456nkUy9A1
+	A9riwb7OcRvA9lUBhDRkg2RbA9DUK93lciuVFyrSf+WnkHToyup1K2qurJ7s25gbU3nTGoNahEO
+	lkXWNaZC3fTXLwGfF2cEfwvwhAnpbUmV6P22/FI2+OSHadPfWKZJyFyjmErHwzCls5GUhrtbqbV
+	f4cKC5r0bauetorlD+HpGro4lo6S1TEtKz9y2eeRSxEm6pLN2hG7r91lXVXpCHJts/ZiLwi79NO
+	1e7WJPpShpE
+X-Received: by 2002:a17:902:e5c8:b0:2df:3872:f289 with SMTP id d9443c01a7336-2e49b64bdddmr35973405ad.28.1790956013699;
+        Fri, 02 Oct 2026 08:46:53 -0700 (PDT)
+Received: from localhost.localdomain ([202.8.105.115])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6d9a88sm9785075ad.53.2026.10.02.08.46.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 08:46:53 -0700 (PDT)
+From: Jemmy Wong <jemmywong512@gmail.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/3] sched/fair: Rename group_imbalanced to group_pinned_imb
+Date: Fri,  2 Oct 2026 23:46:33 +0800
+Message-ID: <20261002154634.71878-3-jemmywong512@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261002154634.71878-1-jemmywong512@gmail.com>
+References: <20261002154634.71878-1-jemmywong512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260923-add_iris_for_hawi-v2-3-016ec3d24b79@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2MiBTYWx0ZWRfXxNBTw6elSjqB
- AYE4ZKm48MxZ08jaSYAHgt06aIlA8AUhYIlSNsuxCpDpu8q4RNkPYJFDGs97JT8ipsEDoa48xYv
- ukt5O/LL9k18hZiy2g55FGHnPEvH43M=
-X-Authority-Analysis: v=2.4 cv=GqfXaU1C c=1 sm=1 tr=0 ts=6abfd1ec cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=EFuZvd8PjtwPdXvx3egA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: HL3_MkpvseBbGXd40CPeMjnKcVND-E4u
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2MiBTYWx0ZWRfXzj8v9RpOSzk6
- TPfy59tlceo0pgwkvX619VdzyzMCSB9xkUAF2MM6ZIxOexzRKW7IerGeVnpBjfh6WSnEKey58AC
- 7Xum5ny7M1ZqC9a46WhyZ5WF86mAJ2bQQqLroqlkLJSTeFcoYMpx+d/2Od+74ABnFB0UCIMq/nK
- n/GeX2JyKH/xiKO75jfD+mPIkZ28QX1y46V0lyLgriZHkH7Zc4bImY0GBDhN/CNH1/L2+FwPJ3X
- wnx+FxXMeLzWalXLikY6QCPSCE9EzPJP9pw7BPa3fGP+yIt2sU1GsB5pzi3wzXMawB5KdiCd1G9
- mUAOZojl2fbCaid0p2DXV3bxRbjENh7NmYGT3w59bY4vS+SXP6IBoSgjNJgS/UodYC0xiXX4cGX
- mR7sY+G81WENc06oSIxLewgnUbVbcOzzJ1bQLswOm5cRcl++Kl2meCvqfKn6EcMnxJJ20ZeZTqK
- +MFK1z3AGqzaDJgsB3g==
-X-Proofpoint-ORIG-GUID: HL3_MkpvseBbGXd40CPeMjnKcVND-E4u
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_04,2026-10-02_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- phishscore=0 impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610020062
 
-On Wed, Sep 23, 2026 at 11:27:53AM +0800, Wangao Wang wrote:
-> The Hawi SoC uses the VPU5x generation of the Iris video hardware, which
-> requires handling for two new power domains — mm-int for the internal
-> memory interconnect and cx-int for the CX domain AXI interface — as well
-> as additional generation-specific clocks. Without a VPU5x vpu_ops
-> implementation the Iris driver cannot power on or off the hardware on
-> Hawi.
-> 
-> Move the shared idle and core power status definitions to the common
-> register header so they can be used by both VPU4x and VPU5x code.
-> 
-> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/Makefile          |   1 +
->  .../platform/qcom/iris/iris_platform_common.h      |   6 +
->  drivers/media/platform/qcom/iris/iris_vpu4x.c      |   4 -
->  drivers/media/platform/qcom/iris/iris_vpu5x.c      | 588 +++++++++++++++++++++
->  drivers/media/platform/qcom/iris/iris_vpu_common.h |   1 +
->  .../platform/qcom/iris/iris_vpu_register_defines.h |   4 +
->  6 files changed, 600 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
-> index f8a017d878d620fe1d82708624595583aa2ffd99..adaf2f4ab08984bcf10b8ca7ed424a21635eafbe 100644
-> --- a/drivers/media/platform/qcom/iris/Makefile
-> +++ b/drivers/media/platform/qcom/iris/Makefile
-> @@ -27,6 +27,7 @@ qcom-iris-objs += iris_buffer.o \
->               iris_vpu2.o \
->               iris_vpu3x.o \
->               iris_vpu4x.o \
-> +             iris_vpu5x.o \
->               iris_vpu_buffer.o \
->               iris_vpu_common.o \
->  
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index 61639d72bdcc9917983096e5b8f5905936784623..4529f52a30d7f2ef82ec846bced6f9b5aef16558 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -80,6 +80,10 @@ enum platform_clk_type {
->  	IRIS_VPP0_HW_CLK,
->  	IRIS_VPP1_HW_CLK,
->  	IRIS_APV_HW_CLK,
-> +	IRIS_AXIC_CLK,
-> +	IRIS_CTRL_DEBUG_CLK,
-> +	IRIS_VPP_GATING_CLK,
-> +	IRIS_CX_AXI_CLK,
+The name dates back to the original group_imb heuristic, which flagged
+a group when the load difference between its busiest and idlest CPU
+exceeded the average task load. Commit 6263322c5e8f ("sched/fair:
+Rewrite group_imb trigger") replaced that heuristic: the flag is now
+set only when a lower domain fails to balance because tasks are pinned
+by cpus_ptr (LBF_SOME_PINNED), and kept while all tasks are pinned
+(LBF_ALL_PINNED). The name was carried over unchanged and later became
+group_imbalanced in commit 0b0695f2b34a ("sched/fair: Rework
+load_balance()").
 
-I thought that we were supposed to get rid of these enumerations. Each
-platform brings in its own sets of clocks, so having a single enum with
-all of them breaks the platform abstraction. Isn't Glymur patchset
-getting rid of this enum?
+Today the name no longer matches the condition:
 
->  };
->  
->  struct platform_clk_data {
+ - group_classify() checks group_overloaded first, so a group whose
+   load really is skewed is usually not classified as imbalanced,
+   while a flagged group may carry a single extra task.
 
+ - calculate_imbalance() does not measure any imbalance for this type;
+   it moves one task (migrate_task, imbalance = 1).
+
+ - Elsewhere in fair.c "imbalance" consistently means the amount of
+   load to move (env->imbalance, imbalance_pct, calculate_imbalance(),
+   the lb_imbalance_* schedstats), and imbalanced_active_balance() uses
+   "imbalanced" for repeated balance failures, unrelated to this flag.
+
+Rename it to group_pinned_imb. The "pinned" prefix names the cause that
+raises it, an imbalance the balancer could not fix because tasks are
+pinned by cpus_ptr, and distinguishes it from the unqualified
+"imbalanced" uses above. The enum is local to fair.c, so no tracepoint,
+schedstat or other user-visible interface is affected.
+
+No functional change.
+
+Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+---
+ kernel/sched/fair.c | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index bcb9987952b9..49de871ee7ab 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -10579,7 +10579,7 @@ enum group_type {
+ 	 * The tasks' affinity constraints previously prevented the scheduler
+ 	 * from balancing the load across the system.
+ 	 */
+-	group_imbalanced,
++	group_pinned_imb,
+ 	/*
+ 	 * There are tasks running on non-preferred LLC, possible to move
+ 	 * them to their preferred LLC without creating too much imbalance.
+@@ -11938,7 +11938,7 @@ group_type group_classify(unsigned int imbalance_pct,
+ 		return group_llc_balance;
+ 
+ 	if (sg_imbalanced(group))
+-		return group_imbalanced;
++		return group_pinned_imb;
+ 
+ 	if (sgs->group_asym_packing)
+ 		return group_asym_packing;
+@@ -12401,10 +12401,10 @@ static bool update_sd_pick_busiest(struct lb_env *env,
+ 		/* Select the group with most tasks preferring dst LLC */
+ 		return update_llc_busiest(env, busiest, sgs);
+ 
+-	case group_imbalanced:
++	case group_pinned_imb:
+ 		/*
+-		 * Select the 1st imbalanced group as we don't have any way to
+-		 * choose one more than another.
++		 * Select the 1st group with pinned tasks as we don't
++		 * have any way to choose one more than another.
+ 		 */
+ 		return false;
+ 
+@@ -12653,7 +12653,7 @@ static bool update_pick_idlest(struct sched_group *idlest,
+ 		break;
+ 
+ 	case group_llc_balance:
+-	case group_imbalanced:
++	case group_pinned_imb:
+ 	case group_asym_packing:
+ 	case group_smt_balance:
+ 		/* Those types are not used in the slow wakeup path */
+@@ -12786,7 +12786,7 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
+ 		break;
+ 
+ 	case group_llc_balance:
+-	case group_imbalanced:
++	case group_pinned_imb:
+ 	case group_asym_packing:
+ 	case group_smt_balance:
+ 		/* Those type are not used in the slow wakeup path */
+@@ -13049,11 +13049,11 @@ static inline void calculate_imbalance(struct lb_env *env, struct sd_lb_stats *s
+ 	}
+ #endif
+ 
+-	if (busiest->group_type == group_imbalanced) {
++	if (busiest->group_type == group_pinned_imb) {
+ 		/*
+-		 * In the group_imb case we cannot rely on group-wide averages
+-		 * to ensure CPU-load equilibrium, try to move any task to fix
+-		 * the imbalance. The next load balance will take care of
++		 * In the group_pinned_imb case we cannot rely on group-wide
++		 * averages to ensure CPU-load equilibrium, try to move any task
++		 * to fix the imbalance. The next load balance will take care of
+ 		 * balancing back the system.
+ 		 */
+ 		env->migration_type = migrate_task;
+@@ -13184,13 +13184,13 @@ static inline void calculate_imbalance(struct lb_env *env, struct sd_lb_stats *s
+ /*
+  * Decision matrix according to the local and busiest group type:
+  *
+- * busiest \ local has_spare fully_busy misfit smt asym imbalanced llc overloaded
++ * busiest \ local has_spare fully_busy misfit smt asym   pinned   llc overloaded
+  * has_spare        nr_idle   balanced   N/A   N/A  N/A  balanced  N/A  balanced
+  * fully_busy       nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  balanced
+  * misfit_task      force     N/A        N/A   N/A  N/A  N/A       N/A  N/A
+  * smt_balance      nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  balanced
+  * asym_packing     force     force      N/A   N/A  N/A  force     N/A  force
+- * imbalanced       force     force      N/A   N/A  N/A  force     N/A  force
++ * pinned_imb       force     force      N/A   N/A  N/A  force     N/A  force
+  * llc_balance      force     nr_idle    N/A   N/A  N/A  nr_idle   N/A  balanced
+  * overloaded       force     force      N/A   N/A  N/A  force     N/A  avg_load
+  *
+@@ -13245,11 +13245,11 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 		goto force_balance;
+ 
+ 	/*
+-	 * If the busiest group is imbalanced the below checks don't
++	 * If the busiest group has pinned tasks the below checks don't
+ 	 * work because they assume all things are equal, which typically
+ 	 * isn't true due to cpus_ptr constraints and the like.
+ 	 */
+-	if (busiest->group_type == group_imbalanced)
++	if (busiest->group_type == group_pinned_imb)
+ 		goto force_balance;
+ 
+ 	local = &sds.local_stat;
 -- 
-With best wishes
-Dmitry
+2.54.0 (Apple Git-157)
+
